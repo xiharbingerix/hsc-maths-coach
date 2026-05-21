@@ -1007,6 +1007,971 @@ export const stationaryPointsLesson: ExplicitLesson = {
   masteryPassMark: 0.8,
 };
 
+export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
+  id: "increasing-decreasing-functions",
+  slug: "increasing-decreasing-functions",
+  moduleSlug: "differential-calculus",
+  moduleTitle: "Differential Calculus",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Increasing and Decreasing Functions",
+  description:
+    "Use the sign of the derivative to determine where a function is increasing or decreasing.",
+  syllabusArea: "Calculus",
+  focus: "Differential calculus",
+  status: "active",
+
+  video: {
+    title: "Increasing and Decreasing Functions",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to use the sign of $f'(x)$ to determine intervals where a function is increasing or decreasing.",
+
+  successCriteria: [
+    "Explain that the derivative gives the gradient of the tangent.",
+    "Use $f'(x)>0$ to identify intervals where a function is increasing.",
+    "Use $f'(x)<0$ to identify intervals where a function is decreasing.",
+    "Find critical values by solving $f'(x)=0$.",
+    "Use test points or a sign table to state intervals clearly.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "The derivative tells us the gradient of the tangent to a curve.",
+      "If $f'(x)>0$ on an interval, the tangent gradients are positive and the function is increasing on that interval.",
+      "If $f'(x)<0$ on an interval, the tangent gradients are negative and the function is decreasing on that interval.",
+      "To determine intervals of increase and decrease, differentiate the function, solve $f'(x)=0$, then test the sign of the derivative in each interval.",
+      "This lesson focuses on intervals of increase and decrease. Classifying stationary points belongs in the next lesson.",
+    ],
+    latexBlocks: [
+      "f'(x)>0 \\quad \\Rightarrow \\quad \\text{increasing}",
+      "f'(x)<0 \\quad \\Rightarrow \\quad \\text{decreasing}",
+      "f'(x)=0 \\quad \\Rightarrow \\quad \\text{critical value}",
+      "\\text{test points} \\quad \\Rightarrow \\quad \\text{sign table} \\quad \\Rightarrow \\quad \\text{intervals}",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: A quadratic",
+      questionLatex:
+        "f(x)=x^2-4x+1 \\quad \\text{determine where the function is increasing and decreasing.}",
+      steps: [
+        {
+          explanation: "Differentiate the function.",
+          latex: "f'(x)=2x-4",
+        },
+        {
+          explanation: "Find where $f'(x)=0$.",
+          latex: "2x-4=0 \\quad \\Rightarrow \\quad x=2",
+        },
+        {
+          explanation: "Test one value on each side of $x=2$.",
+          latex:
+            "f'(0)=-4<0, \\quad f'(3)=2>0",
+        },
+        {
+          explanation: "Use the signs to state the intervals.",
+          latex:
+            "\\text{decreasing on }(-\\infty,2), \\quad \\text{increasing on }(2,\\infty)",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{Decreasing on }(-\\infty,2), \\quad \\text{increasing on }(2,\\infty)",
+    },
+    {
+      title: "Worked example 2: A cubic",
+      questionLatex:
+        "f(x)=x^3-3x^2 \\quad \\text{determine intervals of increase and decrease.}",
+      steps: [
+        {
+          explanation: "Differentiate the function.",
+          latex: "f'(x)=3x^2-6x",
+        },
+        {
+          explanation: "Factorise and solve $f'(x)=0$.",
+          latex:
+            "3x^2-6x=0 \\quad \\Rightarrow \\quad 3x(x-2)=0 \\quad \\Rightarrow \\quad x=0,2",
+        },
+        {
+          explanation: "Test intervals around the critical values.",
+          latex:
+            "f'(-1)=9>0, \\quad f'(1)=-3<0, \\quad f'(3)=9>0",
+        },
+        {
+          explanation: "State the increasing and decreasing intervals.",
+          latex:
+            "\\text{increasing on }(-\\infty,0)\\cup(2,\\infty), \\quad \\text{decreasing on }(0,2)",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{Increasing on }(-\\infty,0)\\cup(2,\\infty), \\quad \\text{decreasing on }(0,2)",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "inc-dec-guided-1",
+      prompt: "Find the derivative:",
+      latex: "f(x)=x^2-6x+2",
+      answer: "2x-6",
+      hint: "Differentiate term-by-term.",
+      explanation: "$f'(x)=2x-6$.",
+    },
+    {
+      id: "inc-dec-guided-2",
+      prompt: "Solve for the critical value:",
+      latex: "2x-6=0",
+      answer: "3",
+      hint: "Critical values occur where $f'(x)=0$.",
+      explanation: "$2x-6=0$, so $x=3$.",
+    },
+    {
+      id: "inc-dec-guided-3",
+      prompt: "State the intervals:",
+      latex:
+        "f'(x)=2x-6, \\quad f'(0)<0, \\quad f'(4)>0",
+      answer: "decreasing:(-infinity,3),increasing:(3,infinity)",
+      hint: "Negative derivative means decreasing, positive derivative means increasing.",
+      explanation:
+        "The function is decreasing on $(-\\infty,3)$ and increasing on $(3,\\infty)$.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "inc-dec-ind-1",
+      prompt: "Determine where the function is increasing and decreasing:",
+      latex: "y=x^2-6x+2",
+      answer: "decreasing:(-infinity,3),increasing:(3,infinity)",
+      hint: "Solve $2x-6=0$, then test each side.",
+      explanation:
+        "$\\frac{dy}{dx}=2x-6$, so $x=3$. The derivative is negative before $3$ and positive after $3$, so the function is decreasing on $(-\\infty,3)$ and increasing on $(3,\\infty)$.",
+    },
+    {
+      id: "inc-dec-ind-2",
+      prompt: "Determine where the function is increasing and decreasing:",
+      latex: "y=x^3-6x^2+9x",
+      answer: "increasing:(-infinity,1),(3,infinity),decreasing:(1,3)",
+      hint: "The derivative factorises as $3(x-1)(x-3)$.",
+      explanation:
+        "$\\frac{dy}{dx}=3x^2-12x+9=3(x-1)(x-3)$. Testing intervals gives increasing on $(-\\infty,1)$ and $(3,\\infty)$, and decreasing on $(1,3)$.",
+    },
+    {
+      id: "inc-dec-ind-3",
+      prompt: "Determine where the function is increasing and decreasing:",
+      latex: "y=-x^2+4x-1",
+      answer: "increasing:(-infinity,2),decreasing:(2,infinity)",
+      hint: "Be careful with the negative leading coefficient.",
+      explanation:
+        "$\\frac{dy}{dx}=-2x+4$, so $x=2$. The derivative is positive before $2$ and negative after $2$, so the function is increasing on $(-\\infty,2)$ and decreasing on $(2,\\infty)$.",
+    },
+    {
+      id: "inc-dec-ind-4",
+      prompt: "Determine where the function is increasing and decreasing:",
+      latex: "f(x)=-x^3+3x^2+9x",
+      answer: "decreasing:(-infinity,-1),(3,infinity),increasing:(-1,3)",
+      hint: "Use $f'(x)=-3(x-3)(x+1)$.",
+      explanation:
+        "$f'(x)=-3x^2+6x+9=-3(x-3)(x+1)$. Testing intervals gives decreasing on $(-\\infty,-1)$ and $(3,\\infty)$, and increasing on $(-1,3)$.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Using the original function to test signs.",
+      fix: "Test signs using the derivative $f'(x)$, not $f(x)$.",
+    },
+    {
+      mistake: "Forgetting to split the number line at every critical value.",
+      fix: "Each solution to $f'(x)=0$ creates a boundary for the sign table.",
+    },
+    {
+      mistake: "Reversing the meaning of positive and negative derivative signs.",
+      fix: "$f'(x)>0$ means increasing and $f'(x)<0$ means decreasing.",
+    },
+    {
+      mistake: "Classifying stationary points in this lesson.",
+      fix: "Only state intervals of increase and decrease here. Classification comes next.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "inc-dec-mastery-1",
+      prompt: "Find the derivative:",
+      latex: "f(x)=x^3-12x+1",
+      answer: "3x^2-12",
+      hint: "Differentiate term-by-term.",
+      explanation: "$f'(x)=3x^2-12$.",
+    },
+    {
+      id: "inc-dec-mastery-2",
+      prompt: "Find the critical values:",
+      latex: "3x^2-12=0",
+      answer: "x=-2,2",
+      hint: "Solve $x^2=4$.",
+      explanation: "$3x^2-12=0$, so $x=-2$ or $x=2$.",
+    },
+    {
+      id: "inc-dec-mastery-3",
+      prompt: "Complete the sign pattern for $f'(x)$:",
+      latex: "(-\\infty,-2), \\quad (-2,2), \\quad (2,\\infty)",
+      answer: "+,-,+",
+      hint: "Test $x=-3$, $x=0$, and $x=3$.",
+      explanation: "$f'(-3)>0$, $f'(0)<0$, and $f'(3)>0$.",
+    },
+    {
+      id: "inc-dec-mastery-4",
+      prompt: "State where the function is increasing:",
+      latex: "f'(x)>0 \\text{ on } (-\\infty,-2) \\text{ and } (2,\\infty)",
+      answer: "(-infinity,-2),(2,infinity)",
+      hint: "Increasing means $f'(x)>0$.",
+      explanation: "The function is increasing on $(-\\infty,-2)$ and $(2,\\infty)$.",
+    },
+    {
+      id: "inc-dec-mastery-5",
+      prompt: "State where the function is decreasing:",
+      latex: "f'(x)<0 \\text{ on } (-2,2)",
+      answer: "(-2,2)",
+      hint: "Decreasing means $f'(x)<0$.",
+      explanation: "The function is decreasing on $(-2,2)$.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
+export const firstDerivativeTestLesson: ExplicitLesson = {
+  id: "first-derivative-test",
+  slug: "first-derivative-test",
+  moduleSlug: "differential-calculus",
+  moduleTitle: "Differential Calculus",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "First Derivative Test",
+  description:
+    "Classify stationary points by testing the sign of the first derivative on either side.",
+  syllabusArea: "Calculus",
+  focus: "Differential calculus",
+  status: "active",
+
+  video: {
+    title: "First Derivative Test",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to use the first derivative test to classify stationary points as local maxima or local minima.",
+
+  successCriteria: [
+    "Find stationary $x$-values by solving $f'(x)=0$.",
+    "Use test points to determine the sign of $f'(x)$ around each stationary point.",
+    "Identify a local maximum when $f'(x)$ changes from positive to negative.",
+    "Identify a local minimum when $f'(x)$ changes from negative to positive.",
+    "Find the coordinates of each stationary point and state its classification.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "The first derivative test uses the sign of $f'(x)$ around a stationary point.",
+      "If $f'(x)$ changes from positive to negative, the function changes from increasing to decreasing, so there is a local maximum.",
+      "If $f'(x)$ changes from negative to positive, the function changes from decreasing to increasing, so there is a local minimum.",
+      "If $f'(x)$ does not change sign, the stationary point is not a local maximum or local minimum.",
+      "This test builds directly on increasing and decreasing intervals.",
+      "Always give the coordinates of the stationary point as well as the classification.",
+    ],
+    latexBlocks: [
+      "+ \\; \\to \\; - \\quad \\Rightarrow \\quad \\text{local maximum}",
+      "- \\; \\to \\; + \\quad \\Rightarrow \\quad \\text{local minimum}",
+      "+ \\; \\to \\; + \\text{ or } - \\; \\to \\; - \\quad \\Rightarrow \\quad \\text{not a local maximum or minimum}",
+      "f'(x)=0 \\quad \\Rightarrow \\quad \\text{test signs around the stationary point}",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Classify one stationary point",
+      questionLatex:
+        "f(x)=x^2-6x+5 \\quad \\text{use the first derivative test to classify the stationary point.}",
+      steps: [
+        {
+          explanation: "Differentiate the function.",
+          latex: "f'(x)=2x-6",
+        },
+        {
+          explanation: "Solve $f'(x)=0$.",
+          latex: "2x-6=0 \\quad \\Rightarrow \\quad x=3",
+        },
+        {
+          explanation: "Test signs around $x=3$.",
+          latex: "f'(0)=-6<0, \\quad f'(4)=2>0",
+        },
+        {
+          explanation: "Classify using the sign change.",
+          latex: "- \\; \\to \\; + \\quad \\Rightarrow \\quad \\text{local minimum}",
+        },
+        {
+          explanation: "Find the coordinate.",
+          latex: "f(3)=3^2-6(3)+5=-4",
+        },
+      ],
+      finalAnswerLatex: "\\text{Local minimum at }(3,-4)",
+    },
+    {
+      title: "Worked example 2: Classify two stationary points",
+      questionLatex:
+        "f(x)=x^3-3x^2-9x+2 \\quad \\text{use the first derivative test to classify the stationary points.}",
+      steps: [
+        {
+          explanation: "Differentiate the function.",
+          latex: "f'(x)=3x^2-6x-9",
+        },
+        {
+          explanation: "Solve $f'(x)=0$.",
+          latex:
+            "3x^2-6x-9=0 \\quad \\Rightarrow \\quad 3(x-3)(x+1)=0 \\quad \\Rightarrow \\quad x=-1,3",
+        },
+        {
+          explanation: "Test signs across the intervals.",
+          latex: "f'(-2)>0, \\quad f'(0)<0, \\quad f'(4)>0",
+        },
+        {
+          explanation: "Classify each stationary point.",
+          latex:
+            "x=-1: + \\to - \\Rightarrow \\text{local maximum}, \\quad x=3: - \\to + \\Rightarrow \\text{local minimum}",
+        },
+        {
+          explanation: "Find the coordinates.",
+          latex: "f(-1)=7, \\quad f(3)=-25",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{Local maximum at }(-1,7), \\quad \\text{local minimum at }(3,-25)",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "fdt-guided-1",
+      prompt: "Find the derivative:",
+      latex: "f(x)=x^2-4x+1",
+      answer: "2x-4",
+      hint: "Differentiate term-by-term.",
+      explanation: "$f'(x)=2x-4$.",
+    },
+    {
+      id: "fdt-guided-2",
+      prompt: "Find the stationary x-value:",
+      latex: "2x-4=0",
+      answer: "2",
+      hint: "Solve $f'(x)=0$.",
+      explanation: "$x=2$.",
+    },
+    {
+      id: "fdt-guided-3",
+      prompt: "Classify the stationary point:",
+      latex: "f'(1)<0, \\quad f'(3)>0",
+      answer: "local minimum",
+      hint: "A change from negative to positive gives a local minimum.",
+      explanation: "$- \\to +$ means the stationary point is a local minimum.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "fdt-ind-1",
+      prompt: "Find and classify the stationary point:",
+      latex: "y=x^2-8x+6",
+      answer: "local minimum at (4,-10)",
+      hint: "This quadratic opens upwards.",
+      explanation:
+        "$\\frac{dy}{dx}=2x-8$, so $x=4$. The sign changes from negative to positive, and $y(4)=-10$, so there is a local minimum at $(4,-10)$.",
+    },
+    {
+      id: "fdt-ind-2",
+      prompt: "Find and classify the stationary point:",
+      latex: "y=-x^2+4x-1",
+      answer: "local maximum at (2,3)",
+      hint: "This quadratic opens downwards.",
+      explanation:
+        "$\\frac{dy}{dx}=-2x+4$, so $x=2$. The sign changes from positive to negative, and $y(2)=3$, so there is a local maximum at $(2,3)$.",
+    },
+    {
+      id: "fdt-ind-3",
+      prompt: "Find and classify the stationary points:",
+      latex: "y=x^3-6x^2+9x+1",
+      answer: "local maximum at (1,5),local minimum at (3,1)",
+      hint: "The derivative is $3(x-1)(x-3)$.",
+      explanation:
+        "$\\frac{dy}{dx}=3(x-1)(x-3)$, so $x=1,3$. The signs are $+,-,+$, so there is a local maximum at $(1,5)$ and a local minimum at $(3,1)$.",
+    },
+    {
+      id: "fdt-ind-4",
+      prompt: "Find and classify the stationary points:",
+      latex: "f(x)=x^3-12x+5",
+      answer: "local maximum at (-2,21),local minimum at (2,-11)",
+      hint: "Use $f'(x)=3(x-2)(x+2)$.",
+      explanation:
+        "$f'(x)=3(x-2)(x+2)$, so $x=-2,2$. The signs are $+,-,+$, so there is a local maximum at $(-2,21)$ and a local minimum at $(2,-11)$.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Classifying from the y-value instead of the derivative sign.",
+      fix: "Use the sign change in $f'(x)$, not the size of the $y$-value.",
+    },
+    {
+      mistake: "Forgetting to find the coordinates.",
+      fix: "After classifying, substitute each stationary $x$-value into the original function.",
+    },
+    {
+      mistake: "Reversing maximum and minimum sign changes.",
+      fix: "$+ \\to -$ gives a local maximum, while $- \\to +$ gives a local minimum.",
+    },
+    {
+      mistake: "Assuming every stationary point is a maximum or minimum.",
+      fix: "If $f'(x)$ does not change sign, it is not a local maximum or local minimum.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "fdt-mastery-1",
+      prompt: "Differentiate:",
+      latex: "f(x)=x^3-3x^2-24x+4",
+      answer: "3x^2-6x-24",
+      hint: "Differentiate term-by-term.",
+      explanation: "$f'(x)=3x^2-6x-24$.",
+    },
+    {
+      id: "fdt-mastery-2",
+      prompt: "Find the stationary x-values:",
+      latex: "3x^2-6x-24=0",
+      answer: "x=-2,4",
+      hint: "Factorise by taking out $3$ first.",
+      explanation:
+        "$3x^2-6x-24=3(x-4)(x+2)$, so $x=-2$ or $x=4$.",
+    },
+    {
+      id: "fdt-mastery-3",
+      prompt: "Complete the sign pattern for $f'(x)$:",
+      latex: "(-\\infty,-2), \\quad (-2,4), \\quad (4,\\infty)",
+      answer: "+,-,+",
+      hint: "Test one value in each interval.",
+      explanation: "The sign pattern is $+,-,+$.",
+    },
+    {
+      id: "fdt-mastery-4",
+      prompt: "Find the stationary point coordinates:",
+      latex: "f(x)=x^3-3x^2-24x+4, \\quad x=-2,4",
+      answer: "(-2,32),(4,-76)",
+      hint: "Substitute both $x$-values into the original function.",
+      explanation: "$f(-2)=32$ and $f(4)=-76$, so the points are $(-2,32)$ and $(4,-76)$.",
+    },
+    {
+      id: "fdt-mastery-5",
+      prompt: "Classify the stationary points:",
+      latex: "\\text{sign pattern } +,-,+ \\quad \\text{at } x=-2,4",
+      answer: "local maximum at (-2,32),local minimum at (4,-76)",
+      hint: "$+ \\to -$ gives a local maximum, and $- \\to +$ gives a local minimum.",
+      explanation:
+        "There is a local maximum at $(-2,32)$ and a local minimum at $(4,-76)$.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
+export const secondDerivativeTestLesson: ExplicitLesson = {
+  id: "second-derivative-test",
+  slug: "second-derivative-test",
+  moduleSlug: "differential-calculus",
+  moduleTitle: "Differential Calculus",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Second Derivative Test",
+  description:
+    "Use the second derivative to classify stationary points as local maxima or local minima.",
+  syllabusArea: "Calculus",
+  focus: "Differential calculus",
+  status: "active",
+
+  video: {
+    title: "Second Derivative Test",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to use the second derivative test to classify stationary points and write their coordinates.",
+
+  successCriteria: [
+    "Find stationary $x$-values by solving $f'(x)=0$.",
+    "Find the second derivative $f''(x)$.",
+    "Use $f''(x)>0$ to identify a local minimum at a stationary point.",
+    "Use $f''(x)<0$ to identify a local maximum at a stationary point.",
+    "Recognise that $f''(x)=0$ makes the second derivative test inconclusive.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "The second derivative is the derivative of the first derivative.",
+      "The second derivative can be used to test concavity at a stationary point.",
+      "Students must still find the stationary point first by solving $f'(x)=0$.",
+      "If $f''(x)>0$ at a stationary point, the graph is concave up there and the point is a local minimum.",
+      "If $f''(x)<0$ at a stationary point, the graph is concave down there and the point is a local maximum.",
+      "If $f''(x)=0$, the second derivative test is inconclusive, so another method is needed.",
+    ],
+    latexBlocks: [
+      "f''(x)=\\frac{d}{dx}\\left(f'(x)\\right)",
+      "f''(a)>0 \\quad \\Rightarrow \\quad \\text{local minimum at }x=a",
+      "f''(a)<0 \\quad \\Rightarrow \\quad \\text{local maximum at }x=a",
+      "f''(a)=0 \\quad \\Rightarrow \\quad \\text{inconclusive}",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: One stationary point",
+      questionLatex:
+        "f(x)=x^2-6x+5 \\quad \\text{use the second derivative test to classify the stationary point.}",
+      steps: [
+        {
+          explanation: "Find the first derivative.",
+          latex: "f'(x)=2x-6",
+        },
+        {
+          explanation: "Solve $f'(x)=0$.",
+          latex: "2x-6=0 \\quad \\Rightarrow \\quad x=3",
+        },
+        {
+          explanation: "Find the second derivative.",
+          latex: "f''(x)=2",
+        },
+        {
+          explanation: "Evaluate $f''(x)$ at the stationary $x$-value.",
+          latex: "f''(3)=2>0",
+        },
+        {
+          explanation: "Find the coordinate and classify.",
+          latex: "f(3)=-4 \\quad \\Rightarrow \\quad \\text{local minimum at }(3,-4)",
+        },
+      ],
+      finalAnswerLatex: "\\text{Local minimum at }(3,-4)",
+    },
+    {
+      title: "Worked example 2: Two stationary points",
+      questionLatex:
+        "f(x)=x^3-3x^2-9x+2 \\quad \\text{use the second derivative test to classify the stationary points.}",
+      steps: [
+        {
+          explanation: "Find the first derivative.",
+          latex: "f'(x)=3x^2-6x-9",
+        },
+        {
+          explanation: "Solve $f'(x)=0$.",
+          latex:
+            "3x^2-6x-9=0 \\quad \\Rightarrow \\quad 3(x-3)(x+1)=0 \\quad \\Rightarrow \\quad x=-1,3",
+        },
+        {
+          explanation: "Find the second derivative.",
+          latex: "f''(x)=6x-6",
+        },
+        {
+          explanation: "Evaluate $f''(x)$ at each stationary $x$-value.",
+          latex: "f''(-1)=-12<0, \\quad f''(3)=12>0",
+        },
+        {
+          explanation: "Find the coordinates and classify.",
+          latex:
+            "f(-1)=7, \\quad f(3)=-25 \\quad \\Rightarrow \\quad \\text{local maximum at }(-1,7), \\quad \\text{local minimum at }(3,-25)",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{Local maximum at }(-1,7), \\quad \\text{local minimum at }(3,-25)",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "sdt-guided-1",
+      prompt: "Find the first derivative:",
+      latex: "f(x)=x^2-4x+1",
+      answer: "2x-4",
+      hint: "Differentiate $f(x)$.",
+      explanation: "$f'(x)=2x-4$.",
+    },
+    {
+      id: "sdt-guided-2",
+      prompt: "Find the stationary x-value:",
+      latex: "2x-4=0",
+      answer: "2",
+      hint: "Solve $f'(x)=0$.",
+      explanation: "$x=2$.",
+    },
+    {
+      id: "sdt-guided-3",
+      prompt: "Use the second derivative to classify:",
+      latex: "f''(x)=2, \\quad x=2",
+      answer: "local minimum",
+      hint: "$f''(2)>0$ means concave up.",
+      explanation: "$f''(2)=2>0$, so the stationary point is a local minimum.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "sdt-ind-1",
+      prompt: "Find and classify the stationary point:",
+      latex: "y=x^2-8x+6",
+      answer: "local minimum at (4,-10)",
+      hint: "Find $y'$ and $y''$.",
+      explanation:
+        "$y'=2x-8$, so $x=4$. Since $y''=2>0$ and $y(4)=-10$, there is a local minimum at $(4,-10)$.",
+    },
+    {
+      id: "sdt-ind-2",
+      prompt: "Find and classify the stationary point:",
+      latex: "y=-x^2+4x-1",
+      answer: "local maximum at (2,3)",
+      hint: "The second derivative is negative.",
+      explanation:
+        "$y'=-2x+4$, so $x=2$. Since $y''=-2<0$ and $y(2)=3$, there is a local maximum at $(2,3)$.",
+    },
+    {
+      id: "sdt-ind-3",
+      prompt: "Find and classify the stationary points:",
+      latex: "y=x^3-6x^2+9x+1",
+      answer: "local maximum at (1,5),local minimum at (3,1)",
+      hint: "Use $y''=6x-12$ after finding the stationary values.",
+      explanation:
+        "$y'=3x^2-12x+9=3(x-1)(x-3)$, so $x=1,3$. Since $y''=6x-12$, $y''(1)<0$ and $y''(3)>0$. The points are a local maximum at $(1,5)$ and a local minimum at $(3,1)$.",
+    },
+    {
+      id: "sdt-ind-4",
+      prompt: "Use the second derivative test:",
+      latex: "f(x)=x^3",
+      answer: "inconclusive at (0,0)",
+      hint: "Find $f'(x)$ and $f''(x)$, then evaluate at $x=0$.",
+      explanation:
+        "$f'(x)=3x^2$, so $x=0$. Since $f''(x)=6x$ and $f''(0)=0$, the second derivative test is inconclusive at $(0,0)$.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Using $f''(x)$ before finding stationary points.",
+      fix: "First solve $f'(x)=0$, then evaluate $f''(x)$ at those $x$-values.",
+    },
+    {
+      mistake: "Reversing the second derivative classifications.",
+      fix: "$f''(x)>0$ gives a local minimum, while $f''(x)<0$ gives a local maximum.",
+    },
+    {
+      mistake: "Treating $f''(x)=0$ as a maximum or minimum.",
+      fix: "When $f''(x)=0$, the second derivative test is inconclusive.",
+    },
+    {
+      mistake: "Forgetting coordinates.",
+      fix: "After classifying, substitute into the original function to find the $y$-value.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "sdt-mastery-1",
+      prompt: "Differentiate:",
+      latex: "f(x)=x^3-3x^2-24x+4",
+      answer: "3x^2-6x-24",
+      hint: "Find $f'(x)$.",
+      explanation: "$f'(x)=3x^2-6x-24$.",
+    },
+    {
+      id: "sdt-mastery-2",
+      prompt: "Find the stationary x-values:",
+      latex: "3x^2-6x-24=0",
+      answer: "x=-2,4",
+      hint: "Factorise the quadratic.",
+      explanation: "$3x^2-6x-24=3(x-4)(x+2)$, so $x=-2$ or $x=4$.",
+    },
+    {
+      id: "sdt-mastery-3",
+      prompt: "Find the second derivative:",
+      latex: "f'(x)=3x^2-6x-24",
+      answer: "6x-6",
+      hint: "Differentiate $f'(x)$.",
+      explanation: "$f''(x)=6x-6$.",
+    },
+    {
+      id: "sdt-mastery-4",
+      prompt: "Evaluate the second derivative at the stationary x-values:",
+      latex: "f''(x)=6x-6, \\quad x=-2,4",
+      answer: "f''(-2)=-18,f''(4)=18",
+      hint: "Substitute each $x$-value into $f''(x)$.",
+      explanation: "$f''(-2)=-18<0$ and $f''(4)=18>0$.",
+    },
+    {
+      id: "sdt-mastery-5",
+      prompt: "Classify the stationary points:",
+      latex: "f(-2)=32, \\quad f(4)=-76, \\quad f''(-2)<0, \\quad f''(4)>0",
+      answer: "local maximum at (-2,32),local minimum at (4,-76)",
+      hint: "Negative second derivative gives a local maximum; positive gives a local minimum.",
+      explanation:
+        "There is a local maximum at $(-2,32)$ and a local minimum at $(4,-76)$.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
+export const curveSketchingLesson: ExplicitLesson = {
+  id: "curve-sketching",
+  slug: "curve-sketching",
+  moduleSlug: "differential-calculus",
+  moduleTitle: "Differential Calculus",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Curve Sketching with Derivatives",
+  description:
+    "Combine intercepts, stationary points, derivative signs, and concavity to sketch polynomial curves.",
+  syllabusArea: "Calculus",
+  focus: "Differential calculus",
+  status: "active",
+
+  video: {
+    title: "Curve Sketching with Derivatives",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to combine intercepts, stationary points, derivative signs, and concavity to sketch key features of polynomial graphs.",
+
+  successCriteria: [
+    "Find intercepts where appropriate.",
+    "Find $f'(x)$ and solve $f'(x)=0$ to locate stationary points.",
+    "Find stationary point coordinates.",
+    "Use first derivative signs or the second derivative to describe the graph shape.",
+    "List key features clearly before sketching the curve.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "Curve sketching combines information about intercepts, stationary points, increasing and decreasing intervals, and concavity.",
+      "Derivatives help identify the key features and shape of the graph.",
+      "To sketch a curve using derivatives, find intercepts where appropriate, then find $f'(x)$.",
+      "Solve $f'(x)=0$ to find stationary $x$-values, then substitute into the original function to find stationary point coordinates.",
+      "Use first derivative signs or the second derivative to understand whether the graph turns up or down at key points.",
+      "This lesson focuses on polynomial functions suitable for Year 12 Mathematics Advanced, without requiring highly complex graphing.",
+    ],
+    latexBlocks: [
+      "x\\text{-intercepts: } f(x)=0",
+      "y\\text{-intercept: } f(0)",
+      "f'(x)=0 \\quad \\Rightarrow \\quad \\text{stationary points}",
+      "\\text{key features} \\quad \\Rightarrow \\quad \\text{sketch the general shape}",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Sketch key features of a quadratic",
+      questionLatex:
+        "f(x)=x^2-4x+3 \\quad \\text{sketch the key features using derivatives.}",
+      steps: [
+        {
+          explanation: "Find the intercepts.",
+          latex:
+            "x^2-4x+3=0 \\Rightarrow (x-1)(x-3)=0 \\Rightarrow x=1,3; \\quad f(0)=3",
+        },
+        {
+          explanation: "Find the derivative and stationary point.",
+          latex: "f'(x)=2x-4, \\quad 2x-4=0 \\Rightarrow x=2",
+        },
+        {
+          explanation: "Find the stationary point coordinate.",
+          latex: "f(2)=2^2-4(2)+3=-1 \\quad \\Rightarrow \\quad (2,-1)",
+        },
+        {
+          explanation: "Use the second derivative to describe shape.",
+          latex: "f''(x)=2>0 \\quad \\Rightarrow \\quad \\text{concave up, local minimum}",
+        },
+        {
+          explanation: "List the key features for the sketch.",
+          latex:
+            "x\\text{-intercepts }(1,0),(3,0), \\quad y\\text{-intercept }(0,3), \\quad \\text{minimum }(2,-1)",
+        },
+      ],
+      finalAnswerLatex:
+        "(1,0),(3,0), \\quad (0,3), \\quad \\text{minimum at }(2,-1), \\quad \\text{opens upward}",
+    },
+    {
+      title: "Worked example 2: Sketch key features of a cubic",
+      questionLatex:
+        "f(x)=x^3-3x^2 \\quad \\text{sketch the key features using derivatives.}",
+      steps: [
+        {
+          explanation: "Find the intercepts.",
+          latex:
+            "x^3-3x^2=x^2(x-3) \\Rightarrow x=0,3; \\quad f(0)=0",
+        },
+        {
+          explanation: "Find the derivative and stationary values.",
+          latex:
+            "f'(x)=3x^2-6x=3x(x-2) \\Rightarrow x=0,2",
+        },
+        {
+          explanation: "Find stationary point coordinates.",
+          latex: "f(0)=0, \\quad f(2)=8-12=-4",
+        },
+        {
+          explanation: "Classify or describe shape.",
+          latex:
+            "f''(x)=6x-6, \\quad f''(0)<0, \\quad f''(2)>0",
+        },
+        {
+          explanation: "List the key features for the sketch.",
+          latex:
+            "\\text{local maximum }(0,0), \\quad \\text{local minimum }(2,-4), \\quad x\\text{-intercepts }(0,0),(3,0)",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{local maximum }(0,0), \\quad \\text{local minimum }(2,-4), \\quad x\\text{-intercepts }(0,0),(3,0)",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "curve-guided-1",
+      prompt: "Find the intercepts:",
+      latex: "f(x)=x^2-5x+6",
+      answer: "x=2,3;y=6",
+      hint: "Solve $f(x)=0$ and find $f(0)$.",
+      explanation: "$f(x)=(x-2)(x-3)$, so the $x$-intercepts are $2$ and $3$, and $f(0)=6$.",
+    },
+    {
+      id: "curve-guided-2",
+      prompt: "Find the stationary point:",
+      latex: "f(x)=x^2-5x+6",
+      answer: "(5/2,-1/4)",
+      hint: "Solve $f'(x)=0$, then substitute into $f(x)$.",
+      explanation:
+        "$f'(x)=2x-5$, so $x=\\frac{5}{2}$. Then $f\\left(\\frac{5}{2}\\right)=-\\frac{1}{4}$.",
+    },
+    {
+      id: "curve-guided-3",
+      prompt: "List the key features for sketching:",
+      latex: "f(x)=x^2-5x+6",
+      answer: "x-intercepts (2,0),(3,0);y-intercept (0,6);minimum (5/2,-1/4)",
+      hint: "Include intercepts and the stationary point.",
+      explanation:
+        "Key features are $x$-intercepts $(2,0)$ and $(3,0)$, $y$-intercept $(0,6)$, and minimum $\\left(\\frac{5}{2},-\\frac{1}{4}\\right)$.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "curve-ind-1",
+      prompt: "List the key features for sketching:",
+      latex: "y=x^2-2x-3",
+      answer: "x-intercepts (-1,0),(3,0);y-intercept (0,-3);minimum (1,-4)",
+      hint: "Find intercepts, then solve $y'=0$.",
+      explanation:
+        "$x$-intercepts are $(-1,0)$ and $(3,0)$, the $y$-intercept is $(0,-3)$, and $y'=2x-2$ gives a minimum at $(1,-4)$.",
+    },
+    {
+      id: "curve-ind-2",
+      prompt: "List the key features for sketching:",
+      latex: "y=x^3-3x",
+      answer: "x-intercepts (-sqrt3,0),(0,0),(sqrt3,0);local maximum (-1,2);local minimum (1,-2)",
+      hint: "Use $y'=3x^2-3$ for stationary points.",
+      explanation:
+        "$x$-intercepts are $(-\\sqrt{3},0)$, $(0,0)$, and $(\\sqrt{3},0)$. Since $y'=3x^2-3$, the stationary points are a local maximum at $(-1,2)$ and a local minimum at $(1,-2)$.",
+    },
+    {
+      id: "curve-ind-3",
+      prompt: "List the key features for sketching:",
+      latex: "y=-x^2+4x+5",
+      answer: "x-intercepts (-1,0),(5,0);y-intercept (0,5);maximum (2,9)",
+      hint: "The graph opens downward.",
+      explanation:
+        "$x$-intercepts are $(-1,0)$ and $(5,0)$, the $y$-intercept is $(0,5)$, and $y'=-2x+4$ gives a maximum at $(2,9)$.",
+    },
+    {
+      id: "curve-ind-4",
+      prompt: "State the key features needed to sketch the graph:",
+      latex: "f(x)=x^3-6x^2+9x",
+      answer: "x-intercepts (0,0),(3,0);local maximum (1,4);local minimum (3,0)",
+      hint: "Factorise for intercepts and use $f'(x)$ for stationary points.",
+      explanation:
+        "$f(x)=x(x-3)^2$, so the $x$-intercepts are $(0,0)$ and $(3,0)$. Since $f'(x)=3(x-1)(x-3)$, there is a local maximum at $(1,4)$ and a local minimum at $(3,0)$.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Sketching before finding key features.",
+      fix: "Find intercepts and stationary points first, then sketch the general shape.",
+    },
+    {
+      mistake: "Using $f'(x)=0$ to find intercepts.",
+      fix: "Use $f(x)=0$ for $x$-intercepts and $f'(x)=0$ for stationary points.",
+    },
+    {
+      mistake: "Forgetting the y-intercept.",
+      fix: "Find the $y$-intercept by substituting $x=0$ into the original function.",
+    },
+    {
+      mistake: "Drawing a graph that does not match the derivative information.",
+      fix: "The sketch should match increasing and decreasing intervals, stationary points, and concavity.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "curve-mastery-1",
+      prompt: "Identify the intercepts:",
+      latex: "f(x)=x^2-4x+3",
+      answer: "x-intercepts (1,0),(3,0);y-intercept (0,3)",
+      hint: "Solve $f(x)=0$ and find $f(0)$.",
+      explanation: "The intercepts are $(1,0)$, $(3,0)$, and $(0,3)$.",
+    },
+    {
+      id: "curve-mastery-2",
+      prompt: "Find the stationary point:",
+      latex: "f(x)=x^2-4x+3",
+      answer: "(2,-1)",
+      hint: "Solve $f'(x)=0$.",
+      explanation: "$f'(x)=2x-4$, so $x=2$ and $f(2)=-1$.",
+    },
+    {
+      id: "curve-mastery-3",
+      prompt: "Classify the stationary point:",
+      latex: "f''(x)=2, \\quad \\text{stationary point }(2,-1)",
+      answer: "local minimum",
+      hint: "$f''(x)>0$ means concave up.",
+      explanation: "Since $f''(2)>0$, the point $(2,-1)$ is a local minimum.",
+    },
+    {
+      id: "curve-mastery-4",
+      prompt: "State the increasing and decreasing intervals:",
+      latex: "f'(x)=2x-4",
+      answer: "decreasing:(-infinity,2),increasing:(2,infinity)",
+      hint: "Test either side of $x=2$.",
+      explanation:
+        "The graph is decreasing on $(-\\infty,2)$ and increasing on $(2,\\infty)$.",
+    },
+    {
+      id: "curve-mastery-5",
+      prompt: "State the key features needed to sketch the graph:",
+      latex: "f(x)=x^2-4x+3",
+      answer: "x-intercepts (1,0),(3,0);y-intercept (0,3);minimum (2,-1)",
+      hint: "Combine intercepts, stationary point, and shape.",
+      explanation:
+        "Use $x$-intercepts $(1,0)$ and $(3,0)$, $y$-intercept $(0,3)$, minimum $(2,-1)$, and the upward-opening shape.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
 export const differentialCalculusOutline: LessonOutlineItem[] = [
   {
     id: "rate-of-change",
@@ -1054,7 +2019,7 @@ export const differentialCalculusOutline: LessonOutlineItem[] = [
     title: "Increasing and decreasing functions",
     description:
       "Use the sign of the derivative to determine where a function is increasing or decreasing.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "first-derivative-test",
@@ -1062,7 +2027,7 @@ export const differentialCalculusOutline: LessonOutlineItem[] = [
     title: "First derivative test",
     description:
       "Classify stationary points using sign changes in the first derivative.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "second-derivative-test",
@@ -1070,7 +2035,7 @@ export const differentialCalculusOutline: LessonOutlineItem[] = [
     title: "Second derivative test",
     description:
       "Use the second derivative to classify local maxima and minima.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "curve-sketching",
@@ -1078,7 +2043,7 @@ export const differentialCalculusOutline: LessonOutlineItem[] = [
     title: "Curve sketching with derivatives",
     description:
       "Combine intercepts, stationary points, derivative signs, and concavity to sketch curves.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "optimisation",
@@ -1111,4 +2076,8 @@ export const differentialCalculusLessons = [
   differentiatingPolynomialFunctionsLesson,
   tangentsAndNormalsLesson,
   stationaryPointsLesson,
+  increasingDecreasingFunctionsLesson,
+  firstDerivativeTestLesson,
+  secondDerivativeTestLesson,
+  curveSketchingLesson,
 ];
