@@ -1972,6 +1972,769 @@ export const curveSketchingLesson: ExplicitLesson = {
   masteryPassMark: 0.8,
 };
 
+export const optimisationLesson: ExplicitLesson = {
+  id: "optimisation",
+  slug: "optimisation",
+  moduleSlug: "differential-calculus",
+  moduleTitle: "Differential Calculus",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Optimisation Problems",
+  description:
+    "Form objective functions and use derivatives to solve maximum and minimum problems.",
+  syllabusArea: "Calculus",
+  focus: "Differential calculus",
+  status: "active",
+
+  video: {
+    title: "Optimisation Problems",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to model and solve optimisation problems using derivatives, then interpret the answer in context.",
+
+  successCriteria: [
+    "Define variables clearly for an optimisation problem.",
+    "Write the quantity to maximise or minimise as a function of one variable.",
+    "Use constraints to simplify the objective function.",
+    "Differentiate and solve $f'(x)=0$.",
+    "Check whether the value gives a maximum or minimum and answer in context with units where relevant.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "Optimisation means finding a maximum or minimum value.",
+      "Many optimisation problems require building a function before differentiating.",
+      "Start by defining variables and writing the quantity to maximise or minimise.",
+      "Use any constraint to write the quantity as a function of one variable, and state the domain if it matters.",
+      "Differentiate, solve $f'(x)=0$, then check whether the value gives a maximum or minimum.",
+      "Finish by answering the question in context, including units where relevant.",
+    ],
+    latexBlocks: [
+      "\\text{define variables} \\quad \\Rightarrow \\quad \\text{write objective function}",
+      "\\text{constraint} \\quad \\Rightarrow \\quad Q=Q(x)",
+      "Q'(x)=0",
+      "\\text{check maximum or minimum} \\quad \\Rightarrow \\quad \\text{answer in context}",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Rectangle area",
+      questionLatex:
+        "\\text{A rectangle has perimeter }40\\text{ cm. Find the dimensions that maximise its area.}",
+      steps: [
+        {
+          explanation: "Define variables and write the constraint.",
+          latex: "2x+2y=40 \\quad \\Rightarrow \\quad x+y=20",
+        },
+        {
+          explanation: "Write one variable in terms of the other.",
+          latex: "y=20-x",
+        },
+        {
+          explanation: "Write the area as a function of one variable.",
+          latex: "A=x y=x(20-x)=20x-x^2",
+        },
+        {
+          explanation: "Differentiate and solve $A'(x)=0$.",
+          latex: "A'(x)=20-2x, \\quad 20-2x=0 \\Rightarrow x=10",
+        },
+        {
+          explanation: "Find the other dimension and check the maximum.",
+          latex: "y=20-10=10, \\quad A''(x)=-2<0",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{The maximum area occurs when the rectangle is }10\\text{ cm by }10\\text{ cm.}",
+    },
+    {
+      title: "Worked example 2: Maximum profit",
+      questionLatex:
+        "P(x)=-2x^2+80x-300 \\quad \\text{find the value of }x\\text{ that maximises profit and the maximum profit.}",
+      steps: [
+        {
+          explanation: "Differentiate the profit function.",
+          latex: "P'(x)=-4x+80",
+        },
+        {
+          explanation: "Solve $P'(x)=0$.",
+          latex: "-4x+80=0 \\quad \\Rightarrow \\quad x=20",
+        },
+        {
+          explanation: "Check that this gives a maximum.",
+          latex: "P''(x)=-4<0",
+        },
+        {
+          explanation: "Find the maximum profit.",
+          latex: "P(20)=-2(20)^2+80(20)-300=500",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{Profit is maximised when }x=20, \\quad \\text{with maximum profit }500.",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "optimisation-guided-1",
+      prompt: "Write the constraint in terms of y:",
+      latex: "2x+2y=40",
+      answer: "y=20-x",
+      hint: "Divide by $2$, then rearrange.",
+      explanation: "$2x+2y=40$ gives $x+y=20$, so $y=20-x$.",
+    },
+    {
+      id: "optimisation-guided-2",
+      prompt: "Form the area function:",
+      latex: "A=xy, \\quad y=20-x",
+      answer: "A=20x-x^2",
+      hint: "Substitute $y=20-x$ into $A=xy$.",
+      explanation: "$A=x(20-x)=20x-x^2$.",
+    },
+    {
+      id: "optimisation-guided-3",
+      prompt: "Find the x-value that maximises the function:",
+      latex: "A(x)=20x-x^2",
+      answer: "10",
+      hint: "Differentiate and solve $A'(x)=0$.",
+      explanation: "$A'(x)=20-2x$, so $x=10$.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "optimisation-ind-1",
+      prompt: "A rectangle has perimeter 60 cm. Find the dimensions that maximise area.",
+      latex: "2x+2y=60, \\quad A=xy",
+      answer: "15 cm by 15 cm",
+      hint: "Use $y=30-x$ and maximise $A=x(30-x)$.",
+      explanation:
+        "$A=x(30-x)=30x-x^2$, so $A'(x)=30-2x=0$ gives $x=15$ and $y=15$. The dimensions are $15$ cm by $15$ cm.",
+    },
+    {
+      id: "optimisation-ind-2",
+      prompt: "Find the value of x that maximises revenue and the maximum revenue:",
+      latex: "R(x)=-x^2+50x",
+      answer: "x=25, maximum revenue=625",
+      hint: "Solve $R'(x)=0$.",
+      explanation:
+        "$R'(x)=-2x+50$, so $x=25$. Since $R''(x)=-2<0$, this is a maximum and $R(25)=625$.",
+    },
+    {
+      id: "optimisation-ind-3",
+      prompt: "Find the minimum value of the function:",
+      latex: "C(x)=x^2-12x+50",
+      answer: "14",
+      hint: "Find the stationary point and use $C''(x)>0$.",
+      explanation:
+        "$C'(x)=2x-12$, so $x=6$. Since $C''(x)=2>0$, this is a minimum and $C(6)=14$.",
+    },
+    {
+      id: "optimisation-ind-4",
+      prompt: "A profit model is given. Find and interpret the maximum profit.",
+      latex: "P(x)=-3x^2+90x-200",
+      answer: "maximum profit 475 when x=15",
+      hint: "Differentiate, solve $P'(x)=0$, then substitute into $P(x)$.",
+      explanation:
+        "$P'(x)=-6x+90$, so $x=15$. Since $P''(x)=-6<0$, profit is maximised. $P(15)=475$, so the maximum profit is $475$ when $x=15$.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Differentiating before forming a function of one variable.",
+      fix: "Use constraints first so the objective is written as $Q(x)$.",
+    },
+    {
+      mistake: "Forgetting to answer in context.",
+      fix: "State what the number means and include units where relevant.",
+    },
+    {
+      mistake: "Assuming every stationary value is a maximum.",
+      fix: "Check with the second derivative, first derivative signs, or the context.",
+    },
+    {
+      mistake: "Dropping restrictions from the problem.",
+      fix: "Consider the domain, such as lengths being positive.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "optimisation-mastery-1",
+      prompt: "Use the constraint to write y in terms of x:",
+      latex: "2x+2y=48",
+      answer: "y=24-x",
+      hint: "Divide by $2$ first.",
+      explanation: "$x+y=24$, so $y=24-x$.",
+    },
+    {
+      id: "optimisation-mastery-2",
+      prompt: "Build the area function:",
+      latex: "A=xy, \\quad y=24-x",
+      answer: "A=24x-x^2",
+      hint: "Substitute into $A=xy$.",
+      explanation: "$A=x(24-x)=24x-x^2$.",
+    },
+    {
+      id: "optimisation-mastery-3",
+      prompt: "Differentiate and solve $A'(x)=0$:",
+      latex: "A(x)=24x-x^2",
+      answer: "x=12",
+      hint: "$A'(x)=24-2x$.",
+      explanation: "$A'(x)=24-2x$, so $x=12$.",
+    },
+    {
+      id: "optimisation-mastery-4",
+      prompt: "Justify whether this is a maximum or minimum:",
+      latex: "A''(x)=-2",
+      answer: "maximum",
+      hint: "A negative second derivative means concave down.",
+      explanation: "Since $A''(x)=-2<0$, the stationary value is a maximum.",
+    },
+    {
+      id: "optimisation-mastery-5",
+      prompt: "Answer in context:",
+      latex: "x=12, \\quad y=24-x",
+      answer: "12 cm by 12 cm",
+      hint: "Find $y$ and include units.",
+      explanation: "$y=12$, so the rectangle with maximum area is $12$ cm by $12$ cm.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
+export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
+  id: "rates-of-change-applications",
+  slug: "rates-of-change-applications",
+  moduleSlug: "differential-calculus",
+  moduleTitle: "Differential Calculus",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Rates of Change Applications",
+  description:
+    "Interpret derivatives as instantaneous rates of change in applied contexts.",
+  syllabusArea: "Calculus",
+  focus: "Differential calculus",
+  status: "active",
+
+  video: {
+    title: "Rates of Change Applications",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to differentiate contextual functions and interpret instantaneous rates of change with units.",
+
+  successCriteria: [
+    "Explain that the derivative represents an instantaneous rate of change.",
+    "Differentiate a quantity written as a function of time or another variable.",
+    "Substitute the given value into the derivative.",
+    "Interpret positive, negative, and zero rates of change.",
+    "Include appropriate units in contextual answers.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "The derivative represents an instantaneous rate of change.",
+      "If a quantity is written as a function of time, its derivative gives the rate at which it is changing.",
+      "A positive rate means the quantity is increasing, while a negative rate means it is decreasing.",
+      "A zero rate means the quantity is momentarily not changing.",
+      "To solve a rate of change problem, identify the function, differentiate, substitute the given value, and interpret the result with units.",
+    ],
+    latexBlocks: [
+      "\\text{rate of change}=\\frac{d}{dt}\\left(\\text{quantity}\\right)",
+      "Q'(t)>0 \\quad \\Rightarrow \\quad \\text{increasing}",
+      "Q'(t)<0 \\quad \\Rightarrow \\quad \\text{decreasing}",
+      "Q'(t)=0 \\quad \\Rightarrow \\quad \\text{momentarily not changing}",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Velocity from height",
+      questionLatex:
+        "h(t)=-5t^2+20t+1 \\quad \\text{find the velocity at }t=2.",
+      steps: [
+        {
+          explanation: "Recognise that velocity is the rate of change of height.",
+          latex: "v(t)=h'(t)",
+        },
+        {
+          explanation: "Differentiate the height function.",
+          latex: "h'(t)=-10t+20",
+        },
+        {
+          explanation: "Substitute $t=2$.",
+          latex: "h'(2)=-10(2)+20=0",
+        },
+        {
+          explanation: "Interpret the result with units.",
+          latex: "v=0\\text{ m/s}",
+        },
+      ],
+      finalAnswerLatex: "\\text{The velocity at }t=2\\text{ is }0\\text{ m/s.}",
+    },
+    {
+      title: "Worked example 2: Interpreting a population rate",
+      questionLatex:
+        "P(t)=t^3-6t^2+20t+100 \\quad \\text{find and interpret }P'(3).",
+      steps: [
+        {
+          explanation: "Differentiate the population model.",
+          latex: "P'(t)=3t^2-12t+20",
+        },
+        {
+          explanation: "Substitute $t=3$.",
+          latex: "P'(3)=3(3)^2-12(3)+20=11",
+        },
+        {
+          explanation: "Interpret the positive rate.",
+          latex: "P'(3)=11>0",
+        },
+        {
+          explanation: "Write the answer in context.",
+          latex: "\\text{The population is increasing at }11\\text{ units per time unit when }t=3.",
+        },
+      ],
+      finalAnswerLatex:
+        "P'(3)=11, \\quad \\text{so the population is increasing at }11\\text{ units per time unit.}",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "rates-guided-1",
+      prompt: "Identify the rate function:",
+      latex: "s(t)=3t^2+2t",
+      answer: "s'(t)",
+      hint: "The derivative gives the instantaneous rate of change.",
+      explanation: "The rate function is $s'(t)$.",
+    },
+    {
+      id: "rates-guided-2",
+      prompt: "Differentiate:",
+      latex: "s(t)=3t^2+2t",
+      answer: "6t+2",
+      hint: "Differentiate term-by-term.",
+      explanation: "$s'(t)=6t+2$.",
+    },
+    {
+      id: "rates-guided-3",
+      prompt: "Find and interpret the rate at $t=2$:",
+      latex: "s'(t)=6t+2",
+      answer: "14, increasing",
+      hint: "Substitute $t=2$ and interpret the positive sign.",
+      explanation: "$s'(2)=14$, so the quantity is increasing at $14$ units per time unit.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "rates-ind-1",
+      prompt: "The height of an object is given. Find the velocity at $t=1$.",
+      latex: "h(t)=-5t^2+15t+2",
+      answer: "5 m/s",
+      hint: "Velocity is $h'(t)$.",
+      explanation: "$h'(t)=-10t+15$, so $h'(1)=5$. The velocity is $5$ m/s.",
+    },
+    {
+      id: "rates-ind-2",
+      prompt: "Find and interpret the population rate at $t=4$.",
+      latex: "P(t)=2t^2+5t+100",
+      answer: "21 people per year, increasing",
+      hint: "Differentiate, then substitute $t=4$.",
+      explanation: "$P'(t)=4t+5$, so $P'(4)=21$. The population is increasing at $21$ people per year.",
+    },
+    {
+      id: "rates-ind-3",
+      prompt: "Find the rate of change of revenue when $x=10$.",
+      latex: "R(x)=-x^2+40x",
+      answer: "20 dollars per item",
+      hint: "Use $R'(x)$.",
+      explanation: "$R'(x)=-2x+40$, so $R'(10)=20$. Revenue is increasing at $20$ dollars per item.",
+    },
+    {
+      id: "rates-ind-4",
+      prompt: "Find and interpret the rate at $t=3$.",
+      latex: "Q(t)=-2t^2+8t+5",
+      answer: "-4 units per second, decreasing",
+      hint: "A negative rate means the quantity is decreasing.",
+      explanation: "$Q'(t)=-4t+8$, so $Q'(3)=-4$. The quantity is decreasing at $4$ units per second.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Giving only the derivative without substituting the given value.",
+      fix: "After differentiating, substitute the specified value into the derivative.",
+    },
+    {
+      mistake: "Forgetting units.",
+      fix: "Rates need units such as metres per second, dollars per item, or people per year.",
+    },
+    {
+      mistake: "Interpreting a negative rate as a negative quantity.",
+      fix: "A negative rate means the quantity is decreasing at that instant.",
+    },
+    {
+      mistake: "Using the original function value as the rate.",
+      fix: "Use the derivative value, not the original function value, for the instantaneous rate.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "rates-mastery-1",
+      prompt: "Differentiate the contextual function:",
+      latex: "h(t)=-4t^2+24t+3",
+      answer: "-8t+24",
+      hint: "Find $h'(t)$.",
+      explanation: "$h'(t)=-8t+24$.",
+    },
+    {
+      id: "rates-mastery-2",
+      prompt: "Find the rate at $t=2$:",
+      latex: "h'(t)=-8t+24",
+      answer: "8",
+      hint: "Substitute $t=2$.",
+      explanation: "$h'(2)=8$.",
+    },
+    {
+      id: "rates-mastery-3",
+      prompt: "Interpret the rate with units:",
+      latex: "h'(2)=8",
+      answer: "increasing at 8 m/s",
+      hint: "Positive rate means increasing.",
+      explanation: "The height is increasing at $8$ m/s when $t=2$.",
+    },
+    {
+      id: "rates-mastery-4",
+      prompt: "Interpret a negative rate:",
+      latex: "P'(5)=-12",
+      answer: "decreasing at 12 units per time unit",
+      hint: "Negative means decreasing.",
+      explanation: "The quantity is decreasing at $12$ units per time unit.",
+    },
+    {
+      id: "rates-mastery-5",
+      prompt: "Interpret a zero rate:",
+      latex: "Q'(3)=0",
+      answer: "momentarily not changing",
+      hint: "Zero rate means no instantaneous change at that moment.",
+      explanation: "The quantity is momentarily not changing when $t=3$.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
+export const mixedExamPracticeLesson: ExplicitLesson = {
+  id: "mixed-exam-practice",
+  slug: "mixed-exam-practice",
+  moduleSlug: "differential-calculus",
+  moduleTitle: "Differential Calculus",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Mixed Differential Calculus Exam Practice",
+  description:
+    "Practise mixed HSC-style differential calculus questions that combine skills, reasoning, and interpretation.",
+  syllabusArea: "Calculus",
+  focus: "Differential calculus",
+  status: "active",
+
+  video: {
+    title: "Mixed Differential Calculus Exam Practice",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to choose and combine differential calculus skills in mixed exam-style questions.",
+
+  successCriteria: [
+    "Identify whether a question is asking for a derivative, gradient, tangent, normal, stationary point, maximum or minimum, interval behaviour, or rate of change.",
+    "Show clear working and define variables in worded problems.",
+    "Use derivatives to support exam reasoning rather than only performing calculations.",
+    "Include units where relevant and answer worded questions in context.",
+    "Transfer known differential calculus skills to unfamiliar situations.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "Exam questions often combine multiple differential calculus skills.",
+      "The first step is not always obvious from the wording, so begin by identifying what the question is really asking.",
+      "A question may require a derivative, gradient, tangent, normal, stationary point, maximum or minimum, interval behaviour, or rate of change.",
+      "In worded problems, define variables clearly and connect each calculation back to the context.",
+      "Good exam responses show working, include units where relevant, and finish with a sentence that answers the question.",
+      "Transfer means applying known skills in unfamiliar situations rather than waiting for a familiar template.",
+    ],
+    latexBlocks: [
+      "\\text{read} \\quad \\Rightarrow \\quad \\text{identify the skill} \\quad \\Rightarrow \\quad \\text{choose a method}",
+      "\\text{tangent gradient}=f'(a)",
+      "f'(x)=0 \\quad \\Rightarrow \\quad \\text{stationary points or optimisation}",
+      "\\frac{d}{dt}\\left(\\text{quantity}\\right) \\quad \\Rightarrow \\quad \\text{rate of change}",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Tangent and interpretation",
+      questionLatex:
+        "s(t)=t^3-6t^2+9t+2, \\quad t\\ge 0. \\quad \\text{a) Find }v(t). \\quad \\text{b) Find }v(2). \\quad \\text{c) Interpret the sign.}",
+      steps: [
+        {
+          explanation: "Velocity is the derivative of displacement.",
+          latex: "v(t)=s'(t)",
+        },
+        {
+          explanation: "Differentiate the displacement function.",
+          latex: "v(t)=3t^2-12t+9",
+        },
+        {
+          explanation: "Substitute $t=2$.",
+          latex: "v(2)=3(2)^2-12(2)+9=-3",
+        },
+        {
+          explanation: "Interpret the negative sign in context.",
+          latex:
+            "v(2)<0 \\quad \\Rightarrow \\quad \\text{the particle is moving in the negative direction at }t=2",
+        },
+      ],
+      finalAnswerLatex:
+        "v(t)=3t^2-12t+9, \\quad v(2)=-3. \\quad \\text{The particle is moving in the negative direction at }t=2.",
+    },
+    {
+      title: "Worked example 2: Stationary points and classification",
+      questionLatex:
+        "P(x)=-x^3+9x^2-15x+20, \\quad 0\\le x\\le 6. \\quad \\text{Find and classify stationary points in the domain.}",
+      steps: [
+        {
+          explanation: "Differentiate the profit function.",
+          latex: "P'(x)=-3x^2+18x-15",
+        },
+        {
+          explanation: "Solve $P'(x)=0$.",
+          latex:
+            "-3x^2+18x-15=0 \\Rightarrow x^2-6x+5=0 \\Rightarrow x=1,5",
+        },
+        {
+          explanation: "Both values are in the domain.",
+          latex: "0\\le 1\\le 6, \\quad 0\\le 5\\le 6",
+        },
+        {
+          explanation: "Use the second derivative to classify.",
+          latex: "P''(x)=-6x+18, \\quad P''(1)=12>0, \\quad P''(5)=-12<0",
+        },
+        {
+          explanation: "Find the coordinates.",
+          latex: "P(1)=13, \\quad P(5)=45",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{Local minimum at }(1,13), \\quad \\text{local maximum at }(5,45).",
+    },
+    {
+      title: "Worked example 3: Optimisation transfer",
+      questionLatex:
+        "\\text{A farmer has }60\\text{ m of fencing for a rectangular pen against a wall. Fencing is needed for three sides. Find the dimensions that maximise area.}",
+      steps: [
+        {
+          explanation: "Define variables and write the fencing constraint.",
+          latex: "2x+y=60",
+        },
+        {
+          explanation: "Write the area in terms of one variable.",
+          latex: "A=xy, \\quad y=60-2x \\Rightarrow A=x(60-2x)=60x-2x^2",
+        },
+        {
+          explanation: "Differentiate and solve $A'(x)=0$.",
+          latex: "A'(x)=60-4x, \\quad 60-4x=0 \\Rightarrow x=15",
+        },
+        {
+          explanation: "Find the remaining dimension and check maximum.",
+          latex: "y=60-2(15)=30, \\quad A''(x)=-4<0",
+        },
+        {
+          explanation: "Answer in context.",
+          latex: "\\text{two widths of }15\\text{ m and one length of }30\\text{ m}",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{The maximum area occurs when the pen is }15\\text{ m by }30\\text{ m.}",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "mixed-guided-1",
+      prompt: "Identify the calculus skill needed:",
+      latex:
+        "\\text{A question asks for the gradient of the curve }y=x^2+3x\\text{ at }x=2.",
+      answer: "derivative",
+      hint: "Gradient of a curve at a point comes from the derivative.",
+      explanation:
+        "The skill needed is differentiation, because the derivative gives the tangent gradient at a point.",
+    },
+    {
+      id: "mixed-guided-2",
+      prompt: "Work through a tangent question in context:",
+      latex:
+        "h(t)=-t^2+6t+1. \\quad \\text{Find the gradient of the tangent when }t=2.",
+      answer: "2",
+      hint: "Find $h'(t)$, then substitute $t=2$.",
+      explanation:
+        "$h'(t)=-2t+6$, so $h'(2)=2$. The tangent gradient at $t=2$ is $2$.",
+    },
+    {
+      id: "mixed-guided-3",
+      prompt: "Classify the stationary point:",
+      latex: "f'(x)=2x-8, \\quad f(4)=3",
+      answer: "local minimum at (4,3)",
+      hint: "Use $f'(x)=0$ and the sign of the derivative around $x=4$.",
+      explanation:
+        "$2x-8=0$ gives $x=4$. Since $f'(x)$ changes from negative to positive at $x=4$, there is a local minimum at $(4,3)$.",
+    },
+    {
+      id: "mixed-guided-4",
+      prompt: "Optimise using a constraint:",
+      latex: "2x+y=30, \\quad A=xy",
+      answer: "x=15/2,y=15",
+      hint: "Use $y=30-2x$, then maximise $A=x(30-2x)$.",
+      explanation:
+        "$A=30x-2x^2$, so $A'(x)=30-4x=0$ gives $x=\\frac{15}{2}$. Then $y=15$.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "mixed-ind-1",
+      prompt: "Tangent and normal transfer: find the normal equation.",
+      latex: "y=x^2+2x, \\quad x=1",
+      answer: "y=-1/4x+13/4",
+      hint: "Find the tangent gradient, then use the negative reciprocal.",
+      explanation:
+        "$y'=2x+2$, so $m_t=4$ at $x=1$. The point is $(1,3)$ and $m_n=-\\frac{1}{4}$. Hence $y-3=-\\frac{1}{4}(x-1)$, so $y=-\\frac{1}{4}x+\\frac{13}{4}$.",
+    },
+    {
+      id: "mixed-ind-2",
+      prompt: "Rate of change interpretation with units:",
+      latex: "C(t)=2t^2+5t+100 \\quad \\text{dollars, find and interpret }C'(3).",
+      answer: "17 dollars per hour, increasing",
+      hint: "Differentiate and substitute $t=3$.",
+      explanation:
+        "$C'(t)=4t+5$, so $C'(3)=17$. The cost is increasing at $17$ dollars per hour when $t=3$.",
+    },
+    {
+      id: "mixed-ind-3",
+      prompt: "Stationary point with classification:",
+      latex: "f(x)=x^2-10x+8",
+      answer: "local minimum at (5,-17)",
+      hint: "Find $f'(x)=0$, then classify.",
+      explanation:
+        "$f'(x)=2x-10$, so $x=5$. Since $f''(x)=2>0$ and $f(5)=-17$, there is a local minimum at $(5,-17)$.",
+    },
+    {
+      id: "mixed-ind-4",
+      prompt: "Optimisation word problem:",
+      latex:
+        "\\text{A rectangle has perimeter }32\\text{ cm. Find dimensions for maximum area.}",
+      answer: "8 cm by 8 cm",
+      hint: "Let the sides be $x$ and $y$, then use $x+y=16$.",
+      explanation:
+        "$y=16-x$ and $A=x(16-x)=16x-x^2$. $A'(x)=16-2x=0$ gives $x=8$, so $y=8$. The maximum area occurs for an $8$ cm by $8$ cm rectangle.",
+    },
+    {
+      id: "mixed-ind-5",
+      prompt: "Curve-sketching key features:",
+      latex: "f(x)=x^2-6x+8",
+      answer: "x-intercepts (2,0),(4,0);y-intercept (0,8);minimum (3,-1)",
+      hint: "Find intercepts and the stationary point.",
+      explanation:
+        "$f(x)=(x-2)(x-4)$, so the $x$-intercepts are $(2,0)$ and $(4,0)$, and the $y$-intercept is $(0,8)$. Since $f'(x)=2x-6$, the minimum is at $(3,-1)$.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Starting with differentiation without reading the question carefully.",
+      fix: "First identify whether the question asks for a tangent, normal, stationary point, optimisation, interval behaviour, or rate.",
+    },
+    {
+      mistake: "Leaving answers as raw calculations.",
+      fix: "Write a final sentence that answers the question in context.",
+    },
+    {
+      mistake: "Forgetting units in worded problems.",
+      fix: "Include units for rates, lengths, areas, costs, and other contextual quantities.",
+    },
+    {
+      mistake: "Mixing up function values and derivative values.",
+      fix: "Use $f(x)$ for coordinates or quantities, and $f'(x)$ for gradients and rates.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "mixed-mastery-1",
+      prompt: "Find the tangent equation in context:",
+      latex:
+        "s(t)=t^2+3t+1. \\quad \\text{Find the tangent to the displacement curve at }t=2.",
+      answer: "s=7t-3",
+      hint: "Find the gradient and point at $t=2$.",
+      explanation:
+        "$s'(t)=2t+3$, so $s'(2)=7$. Also $s(2)=11$. The tangent is $s-11=7(t-2)$, so $s=7t-3$.",
+    },
+    {
+      id: "mixed-mastery-2",
+      prompt: "Find the normal equation at a point:",
+      latex: "y=x^2-4x+1, \\quad x=3",
+      answer: "y=-1/2x-1/2",
+      hint: "Find the tangent gradient, then use the negative reciprocal.",
+      explanation:
+        "$y'=2x-4$, so at $x=3$, $m_t=2$ and $m_n=-\\frac{1}{2}$. The point is $(3,-2)$, so $y+2=-\\frac{1}{2}(x-3)$ and $y=-\\frac{1}{2}x-\\frac{1}{2}$.",
+    },
+    {
+      id: "mixed-mastery-3",
+      prompt: "Find stationary point coordinates:",
+      latex: "f(x)=x^2-8x+5",
+      answer: "(4,-11)",
+      hint: "Solve $f'(x)=0$, then substitute into $f(x)$.",
+      explanation:
+        "$f'(x)=2x-8$, so $x=4$. Then $f(4)=16-32+5=-11$, giving stationary point $(4,-11)$.",
+    },
+    {
+      id: "mixed-mastery-4",
+      prompt: "State increasing and decreasing intervals:",
+      latex: "f'(x)=3(x-1)(x-3)",
+      answer: "increasing:(-infinity,1),(3,infinity),decreasing:(1,3)",
+      hint: "Test intervals around $x=1$ and $x=3$.",
+      explanation:
+        "The sign pattern is $+,-,+$, so the function is increasing on $(-\\infty,1)$ and $(3,\\infty)$, and decreasing on $(1,3)$.",
+    },
+    {
+      id: "mixed-mastery-5",
+      prompt: "Optimisation with a worded constraint:",
+      latex:
+        "\\text{A pen against a wall uses }40\\text{ m of fencing for three sides. Find dimensions for maximum area.}",
+      answer: "10 m by 20 m",
+      hint: "Use $2x+y=40$ and maximise $A=xy$.",
+      explanation:
+        "$y=40-2x$, so $A=x(40-2x)=40x-2x^2$. $A'(x)=40-4x=0$ gives $x=10$ and $y=20$. The maximum area occurs for dimensions $10$ m by $20$ m.",
+    },
+    {
+      id: "mixed-mastery-6",
+      prompt: "Rate of change interpretation with units:",
+      latex: "h(t)=-5t^2+30t+2 \\quad \\text{metres. Interpret }h'(4).",
+      answer: "decreasing at 10 m/s",
+      hint: "Differentiate, substitute $t=4$, and interpret the sign.",
+      explanation:
+        "$h'(t)=-10t+30$, so $h'(4)=-10$. The height is decreasing at $10$ m/s when $t=4$.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
 export const differentialCalculusOutline: LessonOutlineItem[] = [
   {
     id: "rate-of-change",
@@ -2051,7 +2814,7 @@ export const differentialCalculusOutline: LessonOutlineItem[] = [
     title: "Optimisation problems",
     description:
       "Form objective functions and use derivatives to solve maximum and minimum problems.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "rates-of-change-applications",
@@ -2059,7 +2822,7 @@ export const differentialCalculusOutline: LessonOutlineItem[] = [
     title: "Rates of change applications",
     description:
       "Interpret derivatives as rates of change in applied contexts.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "mixed-exam-practice",
@@ -2067,7 +2830,7 @@ export const differentialCalculusOutline: LessonOutlineItem[] = [
     title: "Mixed differential calculus exam practice",
     description:
       "Practise mixed HSC-style questions across the differential calculus unit.",
-    status: "coming-soon",
+    status: "active",
   },
 ];
 
@@ -2080,4 +2843,7 @@ export const differentialCalculusLessons = [
   firstDerivativeTestLesson,
   secondDerivativeTestLesson,
   curveSketchingLesson,
+  optimisationLesson,
+  ratesOfChangeApplicationsLesson,
+  mixedExamPracticeLesson,
 ];
