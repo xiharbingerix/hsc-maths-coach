@@ -168,7 +168,7 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
       answer: "4",
       hint: "The missing value is the original power.",
       explanation:
-        "The original power is 4, so the coefficient becomes 6 × 4 = 24.",
+        "The original power is $4$, so the coefficient becomes $6 \\times 4 = 24$.",
     },
     {
       id: "guided-2",
@@ -184,7 +184,8 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
       latex: "-2x^5",
       answer: "-10x^4",
       hint: "Keep the negative sign, multiply 2 by 5, then reduce the power.",
-      explanation: "Using the power rule, d/dx(-2x^5)=-10x^4.",
+      explanation:
+        "Using the power rule, $\\frac{d}{dx}\\left(-2x^5\\right)=-10x^4$.",
     },
   ],
 
@@ -195,7 +196,7 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
       latex: "3x^2",
       answer: "6x",
       hint: "Multiply by the power 2.",
-      explanation: "d/dx(3x^2)=6x.",
+      explanation: "$\\frac{d}{dx}\\left(3x^2\\right)=6x$.",
     },
     {
       id: "ind-2",
@@ -203,7 +204,7 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
       latex: "8x^5",
       answer: "40x^4",
       hint: "Multiply 8 by 5, then reduce the power.",
-      explanation: "d/dx(8x^5)=40x^4.",
+      explanation: "$\\frac{d}{dx}\\left(8x^5\\right)=40x^4$.",
     },
     {
       id: "ind-3",
@@ -211,7 +212,7 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
       latex: "-6x^3",
       answer: "-18x^2",
       hint: "Keep the negative sign attached to the term.",
-      explanation: "d/dx(-6x^3)=-18x^2.",
+      explanation: "$\\frac{d}{dx}\\left(-6x^3\\right)=-18x^2$.",
     },
     {
       id: "ind-4",
@@ -219,14 +220,14 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
       latex: "11",
       answer: "0",
       hint: "A constant differentiates to zero.",
-      explanation: "d/dx(11)=0.",
+      explanation: "$\\frac{d}{dx}\\left(11\\right)=0$.",
     },
   ],
 
   commonMistakes: [
     {
       mistake: "Forgetting to multiply by the power.",
-      fix: "For 4x^5, the coefficient becomes 4 × 5 = 20.",
+      fix: "For $4x^5$, the coefficient becomes $4 \\times 5 = 20$.",
     },
     {
       mistake: "Reducing the coefficient instead of the power.",
@@ -249,7 +250,7 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
       latex: "7x^3",
       answer: "21x^2",
       hint: "Multiply 7 by 3.",
-      explanation: "d/dx(7x^3)=21x^2.",
+      explanation: "$\\frac{d}{dx}\\left(7x^3\\right)=21x^2$.",
     },
     {
       id: "mastery-2",
@@ -257,15 +258,15 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
       latex: "-4x^5",
       answer: "-20x^4",
       hint: "Keep the negative sign.",
-      explanation: "d/dx(-4x^5)=-20x^4.",
+      explanation: "$\\frac{d}{dx}\\left(-4x^5\\right)=-20x^4$.",
     },
     {
       id: "mastery-3",
       prompt: "Differentiate:",
       latex: "x^6",
       answer: "6x^5",
-      hint: "The coefficient of x^6 is 1.",
-      explanation: "d/dx(x^6)=6x^5.",
+      hint: "The coefficient of $x^6$ is $1$.",
+      explanation: "$\\frac{d}{dx}\\left(x^6\\right)=6x^5$.",
     },
     {
       id: "mastery-4",
@@ -281,7 +282,7 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
       latex: "-2x^4",
       answer: "-8x^3",
       hint: "Keep the negative sign and reduce the power.",
-      explanation: "d/dx(-2x^4)=-8x^3.",
+      explanation: "$\\frac{d}{dx}\\left(-2x^4\\right)=-8x^3$.",
     },
   ],
 
@@ -310,7 +311,7 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
     "Learn how to differentiate polynomial functions by applying the power rule to each term.",
 
   successCriteria: [
-    "Use derivative notation correctly, including f'(x) and dy/dx.",
+    "Use derivative notation correctly, including $f'(x)$ and $\\frac{dy}{dx}$.",
     "Differentiate each term in a polynomial function.",
     "Simplify the derivative after differentiating.",
     "Correctly differentiate constant and linear terms.",
@@ -342,46 +343,47 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
           latex: "f'(x)=\\frac{d}{dx}\\left(4x^5-3x^2+7x-9\\right)",
         },
         {
-          explanation: "Differentiate 4x^5.",
+          explanation: "Differentiate $4x^5$.",
           latex: "\\frac{d}{dx}\\left(4x^5\\right)=20x^4",
         },
         {
-          explanation: "Differentiate -3x^2.",
+          explanation: "Differentiate $-3x^2$.",
           latex: "\\frac{d}{dx}\\left(-3x^2\\right)=-6x",
         },
         {
-          explanation: "Differentiate 7x.",
+          explanation: "Differentiate $7x$.",
           latex: "\\frac{d}{dx}\\left(7x\\right)=7",
         },
         {
-          explanation: "Differentiate -9.",
+          explanation: "Differentiate $-9$.",
           latex: "\\frac{d}{dx}\\left(-9\\right)=0",
         },
       ],
       finalAnswerLatex: "f'(x)=20x^4-6x+7",
     },
     {
-      title: "Worked example 2: Use dy/dx notation",
+      title: "Worked example 2: Use $\\frac{dy}{dx}$ notation",
       questionLatex: "y=2x^4-5x^3+x-11",
       steps: [
         {
-          explanation: "Use dy/dx because the function is written as y.",
+          explanation:
+            "Use $\\frac{dy}{dx}$ because the function is written as $y$.",
           latex: "\\frac{dy}{dx}=\\frac{d}{dx}\\left(2x^4-5x^3+x-11\\right)",
         },
         {
-          explanation: "Differentiate 2x^4.",
+          explanation: "Differentiate $2x^4$.",
           latex: "\\frac{d}{dx}\\left(2x^4\\right)=8x^3",
         },
         {
-          explanation: "Differentiate -5x^3.",
+          explanation: "Differentiate $-5x^3$.",
           latex: "\\frac{d}{dx}\\left(-5x^3\\right)=-15x^2",
         },
         {
-          explanation: "Differentiate x.",
+          explanation: "Differentiate $x$.",
           latex: "\\frac{d}{dx}\\left(x\\right)=1",
         },
         {
-          explanation: "Differentiate -11.",
+          explanation: "Differentiate $-11$.",
           latex: "\\frac{d}{dx}\\left(-11\\right)=0",
         },
       ],
@@ -395,24 +397,26 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
       prompt: "Complete the derivative:",
       latex: "f(x)=3x^4-2x^2+5 \\quad \\Rightarrow \\quad f'(x)=\\Box x^3-4x",
       answer: "12",
-      hint: "Differentiate 3x^4.",
-      explanation: "d/dx(3x^4)=12x^3, so f'(x)=12x^3-4x.",
+      hint: "Differentiate $3x^4$.",
+      explanation:
+        "$\\frac{d}{dx}\\left(3x^4\\right)=12x^3$, so $f'(x)=12x^3-4x$.",
     },
     {
       id: "poly-fn-guided-2",
       prompt: "Complete the derivative:",
       latex: "y=6x^5+x^2-8x+4 \\quad \\Rightarrow \\quad \\frac{dy}{dx}=30x^4+2x+\\Box",
       answer: "-8",
-      hint: "The derivative of -8x is -8.",
-      explanation: "dy/dx=30x^4+2x-8.",
+      hint: "The derivative of $-8x$ is $-8$.",
+      explanation: "$\\frac{dy}{dx}=30x^4+2x-8$.",
     },
     {
       id: "poly-fn-guided-3",
       prompt: "Complete the missing term:",
       latex: "f(x)=x^4+3x^2-7 \\quad \\Rightarrow \\quad f'(x)=4x^3+\\Box",
       answer: "6x",
-      hint: "Differentiate 3x^2.",
-      explanation: "d/dx(3x^2)=6x, so f'(x)=4x^3+6x.",
+      hint: "Differentiate $3x^2$.",
+      explanation:
+        "$\\frac{d}{dx}\\left(3x^2\\right)=6x$, so $f'(x)=4x^3+6x$.",
     },
   ],
 
@@ -423,31 +427,31 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
       latex: "f(x)=x^4+3x^2-7",
       answer: "4x^3+6x",
       hint: "Differentiate each term separately.",
-      explanation: "f'(x)=4x^3+6x.",
+      explanation: "$f'(x)=4x^3+6x$.",
     },
     {
       id: "poly-fn-ind-2",
       prompt: "Differentiate:",
       latex: "y=-2x^5+4x^3-9x",
       answer: "-10x^4+12x^2-9",
-      hint: "Keep the negative sign on -2x^5.",
-      explanation: "dy/dx=-10x^4+12x^2-9.",
+      hint: "Keep the negative sign on $-2x^5$.",
+      explanation: "$\\frac{dy}{dx}=-10x^4+12x^2-9$.",
     },
     {
       id: "poly-fn-ind-3",
       prompt: "Differentiate:",
       latex: "f(x)=5x^6-3x^4+x^2-12",
       answer: "30x^5-12x^3+2x",
-      hint: "The derivative of -12 is 0.",
-      explanation: "f'(x)=30x^5-12x^3+2x.",
+      hint: "The derivative of $-12$ is $0$.",
+      explanation: "$f'(x)=30x^5-12x^3+2x$.",
     },
     {
       id: "poly-fn-ind-4",
       prompt: "Differentiate:",
       latex: "y=9x^3-4x^2+6",
       answer: "27x^2-8x",
-      hint: "The derivative of 6 is 0.",
-      explanation: "dy/dx=27x^2-8x.",
+      hint: "The derivative of $6$ is $0$.",
+      explanation: "$\\frac{dy}{dx}=27x^2-8x$.",
     },
   ],
 
@@ -458,7 +462,7 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
     },
     {
       mistake: "Forgetting that constants differentiate to zero.",
-      fix: "Terms without x, such as 5 or -12, disappear in the derivative.",
+      fix: "Terms without $x$, such as $5$ or $-12$, disappear in the derivative.",
     },
     {
       mistake: "Losing negative signs.",
@@ -466,7 +470,7 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
     },
     {
       mistake: "Using the wrong notation.",
-      fix: "Use f'(x) when the function is written as f(x), and dy/dx when it is written as y.",
+      fix: "Use $f'(x)$ when the function is written as $f(x)$, and $\\frac{dy}{dx}$ when it is written as $y$.",
     },
   ],
 
@@ -477,23 +481,23 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
       latex: "f(x)=2x^5-4x^2+3x-1",
       answer: "10x^4-8x+3",
       hint: "Differentiate each term and remember the constant becomes 0.",
-      explanation: "f'(x)=10x^4-8x+3.",
+      explanation: "$f'(x)=10x^4-8x+3$.",
     },
     {
       id: "poly-fn-mastery-2",
       prompt: "Differentiate:",
       latex: "y=-x^4+6x^3-2x",
       answer: "-4x^3+18x^2-2",
-      hint: "The derivative of -x^4 is -4x^3.",
-      explanation: "dy/dx=-4x^3+18x^2-2.",
+      hint: "The derivative of $-x^4$ is $-4x^3$.",
+      explanation: "$\\frac{dy}{dx}=-4x^3+18x^2-2$.",
     },
     {
       id: "poly-fn-mastery-3",
       prompt: "Differentiate:",
       latex: "f(x)=7x^3-x^2+9",
       answer: "21x^2-2x",
-      hint: "The derivative of 9 is 0.",
-      explanation: "f'(x)=21x^2-2x.",
+      hint: "The derivative of $9$ is $0$.",
+      explanation: "$f'(x)=21x^2-2x$.",
     },
     {
       id: "poly-fn-mastery-4",
@@ -501,15 +505,15 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
       latex: "y=3x^6-5x^2+8x",
       answer: "18x^5-10x+8",
       hint: "Differentiate each term separately.",
-      explanation: "dy/dx=18x^5-10x+8.",
+      explanation: "$\\frac{dy}{dx}=18x^5-10x+8$.",
     },
     {
       id: "poly-fn-mastery-5",
       prompt: "Differentiate:",
       latex: "f(x)=-2x^4+x^3-11",
       answer: "-8x^3+3x^2",
-      hint: "The derivative of -11 is 0.",
-      explanation: "f'(x)=-8x^3+3x^2.",
+      hint: "The derivative of $-11$ is $0$.",
+      explanation: "$f'(x)=-8x^3+3x^2$.",
     },
   ],
 
