@@ -30,13 +30,20 @@ export type ExplicitLesson = {
   syllabusArea: string;
   focus: string;
   status: "active" | "coming-soon";
+
+  video: {
+    title: string;
+    url: string;
+  };
+
   learningIntention: string;
   successCriteria: string[];
-  prerequisiteChecks: PracticeQuestion[];
-  directTeaching: {
-    explanation: string[];
-    keyFormulaLatex?: string;
+
+  teaching: {
+    paragraphs: string[];
+    latexBlocks: string[];
   };
+
   workedExamples: WorkedExample[];
   guidedPractice: PracticeQuestion[];
   independentPractice: PracticeQuestion[];
@@ -44,7 +51,9 @@ export type ExplicitLesson = {
     mistake: string;
     fix: string;
   }[];
-  masteryCheck: PracticeQuestion[];
+
+  masteryQuiz: PracticeQuestion[];
+  masteryPassMark: number;
 };
 
 export type LessonOutlineItem = {
@@ -68,52 +77,34 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
   focus: "Differential calculus",
   status: "active",
 
+  video: {
+    title: "Differentiating Polynomial Terms",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
   learningIntention:
     "Learn how to differentiate polynomial terms using the power rule.",
 
   successCriteria: [
     "Identify the coefficient and power in a polynomial term.",
     "Apply the power rule correctly.",
-    "Differentiate expressions with multiple polynomial terms.",
+    "Differentiate polynomial terms with positive and negative coefficients.",
     "Recognise that constants differentiate to zero.",
     "Avoid common coefficient, power, and sign errors.",
   ],
 
-  prerequisiteChecks: [
-    {
-      id: "pre-1",
-      prompt: "Simplify:",
-      latex: "4 \\times 5",
-      answer: "20",
-      explanation:
-        "The coefficient is often multiplied by the power when using the power rule.",
-    },
-    {
-      id: "pre-2",
-      prompt: "Simplify:",
-      latex: "5-1",
-      answer: "4",
-      explanation:
-        "When differentiating with the power rule, the power is reduced by 1.",
-    },
-    {
-      id: "pre-3",
-      prompt: "Identify the coefficient and power:",
-      latex: "7x^3",
-      answer: "coefficient 7, power 3",
-      hint: "The coefficient is the number multiplying the x term.",
-      explanation: "The coefficient is 7 and the power of x is 3.",
-    },
-  ],
-
-  directTeaching: {
-    explanation: [
-      "When differentiating a polynomial term, the power rule is the main tool.",
-      "For a term like ax^n, multiply the coefficient by the power, then reduce the power by 1.",
-      "The coefficient is the number in front of the x term. The power is the exponent on x.",
-      "Constants, such as 5 or -9, differentiate to 0 because they do not change as x changes.",
+  teaching: {
+    paragraphs: [
+      "A polynomial term is a single algebraic term involving a coefficient, a variable, and a power.",
+      "The coefficient is the number multiplying the variable term. The power is the exponent on the variable.",
+      "To differentiate a polynomial term, multiply the coefficient by the power, then reduce the power by one.",
+      "A constant differentiates to zero because its value does not change as the variable changes.",
     ],
-    keyFormulaLatex: "\\frac{d}{dx}\\left(ax^n\\right)=anx^{n-1}",
+    latexBlocks: [
+      "ax^n",
+      "\\frac{d}{dx}\\left(ax^n\\right)=anx^{n-1}",
+      "\\frac{d}{dx}\\left(c\\right)=0",
+    ],
   },
 
   workedExamples: [
@@ -130,37 +121,42 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
           latex: "4 \\times 5 = 20",
         },
         {
-          explanation: "Reduce the power by 1.",
+          explanation: "Reduce the power by one.",
           latex: "x^{5-1}=x^4",
         },
       ],
       finalAnswerLatex: "20x^4",
     },
     {
-      title: "Worked example 2: Multiple polynomial terms",
-      questionLatex: "\\frac{d}{dx}\\left(3x^4-2x^2+7x-9\\right)",
+      title: "Worked example 2: A negative coefficient",
+      questionLatex: "\\frac{d}{dx}\\left(-3x^2\\right)",
       steps: [
         {
-          explanation: "Differentiate each term separately.",
+          explanation: "Identify the coefficient and power.",
+          latex: "a=-3, \\quad n=2",
         },
         {
-          explanation: "Differentiate 3x^4.",
-          latex: "\\frac{d}{dx}\\left(3x^4\\right)=12x^3",
+          explanation: "Multiply the coefficient by the power.",
+          latex: "-3 \\times 2 = -6",
         },
         {
-          explanation: "Differentiate -2x^2.",
-          latex: "\\frac{d}{dx}\\left(-2x^2\\right)=-4x",
-        },
-        {
-          explanation: "Differentiate 7x.",
-          latex: "\\frac{d}{dx}\\left(7x\\right)=7",
-        },
-        {
-          explanation: "Differentiate the constant -9.",
-          latex: "\\frac{d}{dx}\\left(-9\\right)=0",
+          explanation: "Reduce the power by one.",
+          latex: "x^{2-1}=x",
         },
       ],
-      finalAnswerLatex: "12x^3-4x+7",
+      finalAnswerLatex: "-6x",
+    },
+    {
+      title: "Worked example 3: Constant term",
+      questionLatex: "\\frac{d}{dx}\\left(7\\right)",
+      steps: [
+        {
+          explanation:
+            "A constant does not change as x changes, so its derivative is zero.",
+          latex: "\\frac{d}{dx}\\left(7\\right)=0",
+        },
+      ],
+      finalAnswerLatex: "0",
     },
   ],
 
@@ -176,11 +172,19 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
     },
     {
       id: "guided-2",
+      prompt: "Complete the missing exponent:",
+      latex: "\\frac{d}{dx}\\left(5x^3\\right)=15x^{\\Box}",
+      answer: "2",
+      hint: "Reduce the original power by one.",
+      explanation: "The original power is 3, so the new power is 2.",
+    },
+    {
+      id: "guided-3",
       prompt: "Differentiate:",
-      latex: "5x^3",
-      answer: "15x^2",
-      hint: "Multiply 5 by 3, then reduce the power from 3 to 2.",
-      explanation: "Using the power rule, d/dx(5x^3)=15x^2.",
+      latex: "-2x^5",
+      answer: "-10x^4",
+      hint: "Keep the negative sign, multiply 2 by 5, then reduce the power.",
+      explanation: "Using the power rule, d/dx(-2x^5)=-10x^4.",
     },
   ],
 
@@ -204,11 +208,18 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
     {
       id: "ind-3",
       prompt: "Differentiate:",
-      latex: "2x^4-6x+1",
-      answer: "8x^3-6",
-      hint: "Differentiate each term separately. The constant becomes 0.",
-      explanation:
-        "d/dx(2x^4)=8x^3, d/dx(-6x)=-6, and d/dx(1)=0.",
+      latex: "-6x^3",
+      answer: "-18x^2",
+      hint: "Keep the negative sign attached to the term.",
+      explanation: "d/dx(-6x^3)=-18x^2.",
+    },
+    {
+      id: "ind-4",
+      prompt: "Differentiate:",
+      latex: "11",
+      answer: "0",
+      hint: "A constant differentiates to zero.",
+      explanation: "d/dx(11)=0.",
     },
   ],
 
@@ -231,7 +242,7 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
     },
   ],
 
-  masteryCheck: [
+  masteryQuiz: [
     {
       id: "mastery-1",
       prompt: "Differentiate:",
@@ -251,14 +262,32 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
     {
       id: "mastery-3",
       prompt: "Differentiate:",
-      latex: "x^6+3x^2-5",
-      answer: "6x^5+6x",
-      hint: "The derivative of -5 is 0.",
-      explanation:
-        "d/dx(x^6)=6x^5, d/dx(3x^2)=6x, and d/dx(-5)=0.",
+      latex: "x^6",
+      answer: "6x^5",
+      hint: "The coefficient of x^6 is 1.",
+      explanation: "d/dx(x^6)=6x^5.",
+    },
+    {
+      id: "mastery-4",
+      prompt: "Differentiate:",
+      latex: "9",
+      answer: "0",
+      hint: "This is a constant.",
+      explanation: "The derivative of a constant is 0.",
+    },
+    {
+      id: "mastery-5",
+      prompt: "Differentiate:",
+      latex: "-2x^4",
+      answer: "-8x^3",
+      hint: "Keep the negative sign and reduce the power.",
+      explanation: "d/dx(-2x^4)=-8x^3.",
     },
   ],
+
+  masteryPassMark: 0.8,
 };
+
 export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
   id: "differentiating-polynomial-functions",
   slug: "differentiating-polynomial-functions",
@@ -272,6 +301,11 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
   focus: "Differential calculus",
   status: "active",
 
+  video: {
+    title: "Differentiating Polynomial Functions",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
   learningIntention:
     "Learn how to differentiate polynomial functions by applying the power rule to each term.",
 
@@ -283,43 +317,19 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
     "Avoid sign errors when differentiating negative terms.",
   ],
 
-  prerequisiteChecks: [
-    {
-      id: "poly-fn-pre-1",
-      prompt: "Differentiate:",
-      latex: "4x^5",
-      answer: "20x^4",
-      hint: "Multiply 4 by 5, then reduce the power.",
-      explanation: "Using the power rule, d/dx(4x^5)=20x^4.",
-    },
-    {
-      id: "poly-fn-pre-2",
-      prompt: "Differentiate:",
-      latex: "-3x^2",
-      answer: "-6x",
-      hint: "Keep the negative sign attached to the term.",
-      explanation: "Using the power rule, d/dx(-3x^2)=-6x.",
-    },
-    {
-      id: "poly-fn-pre-3",
-      prompt: "Differentiate:",
-      latex: "7",
-      answer: "0",
-      hint: "A constant has derivative 0.",
-      explanation: "The derivative of a constant is 0.",
-    },
-  ],
-
-  directTeaching: {
-    explanation: [
+  teaching: {
+    paragraphs: [
       "A polynomial function is made up of polynomial terms added or subtracted together.",
       "To differentiate a polynomial function, differentiate each term separately.",
-      "Keep the signs attached to their terms. A negative term stays negative after applying the power rule unless the calculation changes it.",
-      "Linear terms such as 7x differentiate to their coefficient. Constants such as -9 differentiate to 0.",
-      "After differentiating, simplify the expression and use correct derivative notation.",
+      "Keep the sign attached to each term before applying the power rule.",
+      "A linear term differentiates to its coefficient. A constant differentiates to zero.",
+      "After differentiating, simplify the derivative and use the correct notation.",
     ],
-    keyFormulaLatex:
-      "f(x)=ax^n+bx^m+c \\quad \\Rightarrow \\quad f'(x)=anx^{n-1}+bmx^{m-1}",
+    latexBlocks: [
+      "f(x)=4x^5-3x^2+7x-9",
+      "f'(x)=\\frac{d}{dx}\\left(4x^5\\right)-\\frac{d}{dx}\\left(3x^2\\right)+\\frac{d}{dx}\\left(7x\\right)-\\frac{d}{dx}\\left(9\\right)",
+      "f'(x)=20x^4-6x+7",
+    ],
   },
 
   workedExamples: [
@@ -382,19 +392,27 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
   guidedPractice: [
     {
       id: "poly-fn-guided-1",
-      prompt: "Differentiate the function:",
-      latex: "f(x)=3x^4-2x^2+5",
-      answer: "12x^3-4x",
-      hint: "Differentiate each term. The constant 5 becomes 0.",
-      explanation: "f'(x)=12x^3-4x.",
+      prompt: "Complete the derivative:",
+      latex: "f(x)=3x^4-2x^2+5 \\quad \\Rightarrow \\quad f'(x)=\\Box x^3-4x",
+      answer: "12",
+      hint: "Differentiate 3x^4.",
+      explanation: "d/dx(3x^4)=12x^3, so f'(x)=12x^3-4x.",
     },
     {
       id: "poly-fn-guided-2",
-      prompt: "Differentiate:",
-      latex: "y=6x^5+x^2-8x+4",
-      answer: "30x^4+2x-8",
-      hint: "The derivative of -8x is -8, and the derivative of 4 is 0.",
+      prompt: "Complete the derivative:",
+      latex: "y=6x^5+x^2-8x+4 \\quad \\Rightarrow \\quad \\frac{dy}{dx}=30x^4+2x+\\Box",
+      answer: "-8",
+      hint: "The derivative of -8x is -8.",
       explanation: "dy/dx=30x^4+2x-8.",
+    },
+    {
+      id: "poly-fn-guided-3",
+      prompt: "Complete the missing term:",
+      latex: "f(x)=x^4+3x^2-7 \\quad \\Rightarrow \\quad f'(x)=4x^3+\\Box",
+      answer: "6x",
+      hint: "Differentiate 3x^2.",
+      explanation: "d/dx(3x^2)=6x, so f'(x)=4x^3+6x.",
     },
   ],
 
@@ -423,6 +441,14 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
       hint: "The derivative of -12 is 0.",
       explanation: "f'(x)=30x^5-12x^3+2x.",
     },
+    {
+      id: "poly-fn-ind-4",
+      prompt: "Differentiate:",
+      latex: "y=9x^3-4x^2+6",
+      answer: "27x^2-8x",
+      hint: "The derivative of 6 is 0.",
+      explanation: "dy/dx=27x^2-8x.",
+    },
   ],
 
   commonMistakes: [
@@ -444,7 +470,7 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
     },
   ],
 
-  masteryCheck: [
+  masteryQuiz: [
     {
       id: "poly-fn-mastery-1",
       prompt: "Differentiate:",
@@ -469,8 +495,27 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
       hint: "The derivative of 9 is 0.",
       explanation: "f'(x)=21x^2-2x.",
     },
+    {
+      id: "poly-fn-mastery-4",
+      prompt: "Differentiate:",
+      latex: "y=3x^6-5x^2+8x",
+      answer: "18x^5-10x+8",
+      hint: "Differentiate each term separately.",
+      explanation: "dy/dx=18x^5-10x+8.",
+    },
+    {
+      id: "poly-fn-mastery-5",
+      prompt: "Differentiate:",
+      latex: "f(x)=-2x^4+x^3-11",
+      answer: "-8x^3+3x^2",
+      hint: "The derivative of -11 is 0.",
+      explanation: "f'(x)=-8x^3+3x^2.",
+    },
   ],
+
+  masteryPassMark: 0.8,
 };
+
 export const differentialCalculusOutline: LessonOutlineItem[] = [
   {
     id: "rate-of-change",

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { use, useMemo, useState } from "react";
 import { BlockMath } from "react-katex";
 import {
   differentialCalculusLessons,
@@ -121,14 +121,13 @@ function PracticeCard({
 export default function LessonPage({
   params,
 }: {
-  params: { lessonSlug: string };
+  params: Promise<{ lessonSlug: string }>;
 }) {
+  const { lessonSlug } = use(params);
+
   const lesson = useMemo(
-    () =>
-      differentialCalculusLessons.find(
-        (item) => item.slug === params.lessonSlug
-      ),
-    [params.lessonSlug]
+    () => differentialCalculusLessons.find((item) => item.slug === lessonSlug),
+    [lessonSlug]
   );
 
   if (!lesson) {
@@ -139,6 +138,19 @@ export default function LessonPage({
           <p className="mt-3 text-slate-600">
             This lesson is not available yet.
           </p>
+
+          <div className="mt-4 rounded-xl bg-slate-100 p-4 text-sm text-slate-700">
+            <p>
+              Requested lesson: <strong>{lessonSlug}</strong>
+            </p>
+            <p className="mt-2">
+              Available lessons:{" "}
+              <strong>
+                {differentialCalculusLessons.map((item) => item.slug).join(", ")}
+              </strong>
+            </p>
+          </div>
+
           <Link
             href="/course/differential-calculus"
             className="mt-6 inline-flex rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white"
