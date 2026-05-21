@@ -17,7 +17,7 @@ type LessonStage =
 
 type MasteryState = {
   passed: boolean;
-  sequenceLocked: boolean;
+  mustCompleteLesson: boolean;
   completedStages: LessonStage[];
   lastScore?: number;
 };
@@ -201,11 +201,12 @@ export default function LessonPage({
   const { lessonSlug } = use(params);
   const [activeStage, setActiveStage] = useState<LessonStage>("watch");
   const [videoEnded, setVideoEnded] = useState(false);
+  const [videoLoadFailed, setVideoLoadFailed] = useState(false);
   const [quizAnswers, setQuizAnswers] = useState<Record<string, string>>({});
   const [quizSubmitted, setQuizSubmitted] = useState(false);
   const [masteryState, setMasteryState] = useState<MasteryState>({
     passed: false,
-    sequenceLocked: false,
+    mustCompleteLesson: false,
     completedStages: [],
   });
 
@@ -217,14 +218,26 @@ export default function LessonPage({
   useEffect(() => {
     setMasteryState({
       passed: false,
-      sequenceLocked: false,
+      mustCompleteLesson: false,
       completedStages: [],
     });
 
     try {
       const storedValue = localStorage.getItem(masteryStorageKey(lessonSlug));
       if (storedValue) {
-        setMasteryState(JSON.parse(storedValue) as MasteryState);
+        const storedState = JSON.parse(storedValue) as Partial<
+          MasteryState & { sequenceLocked: boolean }
+        >;
+
+        setMasteryState({
+          passed: storedState.passed ?? false,
+          mustCompleteLesson:
+            storedState.mustCompleteLesson ??
+            storedState.sequenceLocked ??
+            false,
+          completedStages: storedState.completedStages ?? [],
+          lastScore: storedState.lastScore,
+        });
       }
     } catch {
       localStorage.removeItem(masteryStorageKey(lessonSlug));
@@ -234,6 +247,7 @@ export default function LessonPage({
   useEffect(() => {
     setActiveStage("watch");
     setVideoEnded(false);
+    setVideoLoadFailed(false);
     setQuizAnswers({});
     setQuizSubmitted(false);
   }, [lessonSlug]);
@@ -276,11 +290,6 @@ export default function LessonPage({
   const activeStageIndex = lessonStages.findIndex(
     (stage) => stage.id === activeStage
   );
-  const completedStageIndexes = masteryState.completedStages.map((stage) =>
-    lessonStages.findIndex((item) => item.id === stage)
-  );
-  const highestCompletedIndex =
-    completedStageIndexes.length > 0 ? Math.max(...completedStageIndexes) : -1;
   const quizCorrectCount = currentLesson.masteryQuiz.filter(
     (question) =>
       normaliseAnswer(quizAnswers[question.id] ?? "") ===
@@ -297,12 +306,28 @@ export default function LessonPage({
   }
 
   function canOpenStage(stage: LessonStage) {
-    if (!masteryState.sequenceLocked) {
+    const hasCompleted = (completedStage: LessonStage) =>
+      masteryState.completedStages.includes(completedStage);
+
+    if (stage === "watch") {
       return true;
     }
 
-    const stageIndex = lessonStages.findIndex((item) => item.id === stage);
-    return stageIndex <= highestCompletedIndex + 1;
+    if (stage === "learn") {
+      return hasCompleted("watch");
+    }
+
+    if (stage === "guided-practice") {
+      return hasCompleted("learn");
+    }
+
+    if (stage === "independent-practice") {
+      return hasCompleted("guided-practice");
+    }
+
+    return (
+      !masteryState.mustCompleteLesson || hasCompleted("independent-practice")
+    );
   }
 
   function openStage(stage: LessonStage) {
@@ -312,10 +337,6 @@ export default function LessonPage({
   }
 
   function completeCurrentStage() {
-    if (activeStage === "watch" && !videoEnded) {
-      return;
-    }
-
     const completedStages = masteryState.completedStages.includes(activeStage)
       ? masteryState.completedStages
       : [...masteryState.completedStages, activeStage];
@@ -337,7 +358,7 @@ export default function LessonPage({
     if (quizScore >= currentLesson.masteryPassMark) {
       saveMasteryState({
         passed: true,
-        sequenceLocked: false,
+        mustCompleteLesson: false,
         completedStages: lessonStages.map((stage) => stage.id),
         lastScore: quizScore,
       });
@@ -346,12 +367,14 @@ export default function LessonPage({
 
     saveMasteryState({
       passed: false,
-      sequenceLocked: true,
+      mustCompleteLesson: true,
       completedStages: [],
       lastScore: quizScore,
     });
     setActiveStage("watch");
     setVideoEnded(false);
+    setVideoLoadFailed(false);
+    setQuizAnswers({});
   }
 
   function renderStage() {
@@ -371,8 +394,13 @@ export default function LessonPage({
               controls
               className="aspect-video w-full"
               onEnded={() => setVideoEnded(true)}
+              onError={() => setVideoLoadFailed(true)}
             >
-              <source src={currentLesson.video.url} type="video/mp4" />
+              <source
+                src={currentLesson.video.url}
+                type="video/mp4"
+                onError={() => setVideoLoadFailed(true)}
+              />
             </video>
           </div>
 
@@ -380,17 +408,32 @@ export default function LessonPage({
             <p className="text-sm font-medium text-slate-600">
               {videoEnded
                 ? "Video complete. You can continue."
-                : "Continue unlocks when the video ends."}
+                : "Video gate temporarily unlocked for MVP testing."}
             </p>
             <button
               type="button"
               onClick={completeCurrentStage}
-              disabled={!videoEnded}
-              className="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+              className="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
             >
               Continue to Learn
             </button>
           </div>
+
+          {videoLoadFailed && !videoEnded && (
+            <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+              <p className="text-sm font-medium text-amber-900">
+                Video failed to load. This temporary MVP control is available
+                for local testing.
+              </p>
+              <button
+                type="button"
+                onClick={() => setVideoEnded(true)}
+                className="mt-3 rounded-xl bg-amber-900 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-800"
+              >
+                Mark video watched for testing
+              </button>
+            </div>
+          )}
         </section>
       );
     }
@@ -550,7 +593,7 @@ export default function LessonPage({
           </p>
         </div>
 
-        {masteryState.sequenceLocked && (
+        {masteryState.mustCompleteLesson && (
           <div className="rounded-xl bg-amber-50 p-4 text-sm font-medium text-amber-900">
             Complete each stage in order before reattempting the quiz.
           </div>
@@ -666,13 +709,13 @@ export default function LessonPage({
             })}
           </div>
 
-          {masteryState.sequenceLocked && (
+          {masteryState.mustCompleteLesson && (
             <p className="mt-3 px-2 text-sm font-medium text-amber-700">
               Mastery reattempt locked: move through the stages in order.
             </p>
           )}
 
-          {!masteryState.sequenceLocked && !masteryState.passed && (
+          {!masteryState.mustCompleteLesson && !masteryState.passed && (
             <p className="mt-3 px-2 text-sm text-slate-600">
               You can jump straight to the Mastery Quiz whenever you are ready.
             </p>
