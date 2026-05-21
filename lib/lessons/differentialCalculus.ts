@@ -763,6 +763,250 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
   masteryPassMark: 0.8,
 };
 
+export const stationaryPointsLesson: ExplicitLesson = {
+  id: "stationary-points",
+  slug: "stationary-points",
+  moduleSlug: "differential-calculus",
+  moduleTitle: "Differential Calculus",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Stationary Points",
+  description:
+    "Find stationary points by solving where the derivative is equal to zero.",
+  syllabusArea: "Calculus",
+  focus: "Differential calculus",
+  status: "active",
+
+  video: {
+    title: "Stationary Points",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to find stationary points by solving $f'(x)=0$ and writing the results as coordinates.",
+
+  successCriteria: [
+    "Explain that a stationary point occurs where the tangent is horizontal.",
+    "Recognise that a horizontal tangent has gradient $0$.",
+    "Differentiate a polynomial function to find $f'(x)$ or $\\frac{dy}{dx}$.",
+    "Solve $f'(x)=0$ to find possible $x$-values for stationary points.",
+    "Substitute each $x$-value into the original function and write each stationary point as a coordinate.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "A stationary point occurs where the tangent to the curve is horizontal.",
+      "A horizontal tangent has gradient $0$, so stationary points occur where the derivative is equal to $0$.",
+      "To find stationary points, first differentiate the function.",
+      "Next, set the derivative equal to $0$ and solve for $x$.",
+      "Then substitute each $x$-value into the original function, not the derivative, to find the matching $y$-value.",
+      "This lesson focuses only on finding stationary points. Classifying them as maximum or minimum points comes later.",
+    ],
+    latexBlocks: [
+      "\\text{Stationary point} \\quad \\Rightarrow \\quad \\text{horizontal tangent}",
+      "m=0",
+      "f'(x)=0",
+      "P=(x, f(x))",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: One stationary point",
+      questionLatex:
+        "f(x)=x^2-6x+5 \\quad \\text{find the stationary point.}",
+      steps: [
+        {
+          explanation: "Differentiate the function.",
+          latex: "f'(x)=2x-6",
+        },
+        {
+          explanation: "Set the derivative equal to $0$.",
+          latex: "2x-6=0",
+        },
+        {
+          explanation: "Solve for $x$.",
+          latex: "2x=6 \\quad \\Rightarrow \\quad x=3",
+        },
+        {
+          explanation: "Substitute $x=3$ into the original function.",
+          latex: "f(3)=3^2-6(3)+5=-4",
+        },
+        {
+          explanation: "Write the stationary point as a coordinate.",
+          latex: "(3,-4)",
+        },
+      ],
+      finalAnswerLatex: "(3,-4)",
+    },
+    {
+      title: "Worked example 2: Two stationary points",
+      questionLatex:
+        "y=x^3-3x^2-9x+2 \\quad \\text{find the stationary points.}",
+      steps: [
+        {
+          explanation: "Differentiate the function.",
+          latex: "\\frac{dy}{dx}=3x^2-6x-9",
+        },
+        {
+          explanation: "Set the derivative equal to $0$.",
+          latex: "3x^2-6x-9=0",
+        },
+        {
+          explanation: "Factorise and solve for $x$.",
+          latex:
+            "3(x^2-2x-3)=0 \\quad \\Rightarrow \\quad 3(x-3)(x+1)=0",
+        },
+        {
+          explanation: "List the $x$-values.",
+          latex: "x=3 \\quad \\text{or} \\quad x=-1",
+        },
+        {
+          explanation: "Substitute each value into the original function.",
+          latex:
+            "y(3)=3^3-3(3)^2-9(3)+2=-25, \\quad y(-1)=(-1)^3-3(-1)^2-9(-1)+2=7",
+        },
+        {
+          explanation: "Write the stationary points as coordinates.",
+          latex: "(-1,7) \\quad \\text{and} \\quad (3,-25)",
+        },
+      ],
+      finalAnswerLatex: "(-1,7), \\quad (3,-25)",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "stationary-guided-1",
+      prompt: "Find the derivative:",
+      latex: "y=x^2-4x+1",
+      answer: "2x-4",
+      hint: "Differentiate term-by-term.",
+      explanation: "$\\frac{dy}{dx}=2x-4$.",
+    },
+    {
+      id: "stationary-guided-2",
+      prompt: "Solve for the x-value of the stationary point:",
+      latex: "2x-4=0",
+      answer: "2",
+      hint: "Set the derivative equal to $0$ and solve.",
+      explanation: "$2x-4=0$, so $x=2$.",
+    },
+    {
+      id: "stationary-guided-3",
+      prompt: "Write the stationary point as a coordinate:",
+      latex: "y=x^2-4x+1, \\quad x=2",
+      answer: "(2,-3)",
+      hint: "Substitute $x=2$ into the original function.",
+      explanation: "$y=2^2-4(2)+1=-3$, so the stationary point is $(2,-3)$.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "stationary-ind-1",
+      prompt: "Find the stationary point:",
+      latex: "y=x^2-8x+6",
+      answer: "(4,-10)",
+      hint: "Differentiate, set the derivative equal to $0$, then substitute back into the original function.",
+      explanation:
+        "$\\frac{dy}{dx}=2x-8$, so $2x-8=0$ gives $x=4$. Then $y=4^2-8(4)+6=-10$, so the stationary point is $(4,-10)$.",
+    },
+    {
+      id: "stationary-ind-2",
+      prompt: "Find the stationary points:",
+      latex: "y=x^3-6x^2+9x+1",
+      answer: "(1,5),(3,1)",
+      hint: "This cubic has two solutions to $\\frac{dy}{dx}=0$.",
+      explanation:
+        "$\\frac{dy}{dx}=3x^2-12x+9=3(x-1)(x-3)$, so $x=1$ or $x=3$. Substituting into the original function gives $(1,5)$ and $(3,1)$.",
+    },
+    {
+      id: "stationary-ind-3",
+      prompt: "Find the stationary point:",
+      latex: "y=-x^2+4x+1",
+      answer: "(2,5)",
+      hint: "Be careful with the negative sign when differentiating $-x^2$.",
+      explanation:
+        "$\\frac{dy}{dx}=-2x+4$, so $-2x+4=0$ gives $x=2$. Then $y=-(2)^2+4(2)+1=5$, so the stationary point is $(2,5)$.",
+    },
+    {
+      id: "stationary-ind-4",
+      prompt: "Find the stationary points:",
+      latex: "f(x)=x^3-12x+5",
+      answer: "(-2,21),(2,-11)",
+      hint: "Use $f'(x)=0$, then substitute into $f(x)$.",
+      explanation:
+        "$f'(x)=3x^2-12=3(x-2)(x+2)$, so $x=-2$ or $x=2$. Then $f(-2)=21$ and $f(2)=-11$, so the stationary points are $(-2,21)$ and $(2,-11)$.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Substituting into the derivative to find the y-value.",
+      fix: "Use the derivative to find $x$, then use the original function to find $y$.",
+    },
+    {
+      mistake: "Forgetting to set the derivative equal to zero.",
+      fix: "Stationary points occur where $f'(x)=0$.",
+    },
+    {
+      mistake: "Writing only the x-value as the final answer.",
+      fix: "A stationary point is a coordinate, so write it as $(x,y)$.",
+    },
+    {
+      mistake: "Classifying the point too early.",
+      fix: "For this lesson, only find the stationary point coordinates. Classification comes later.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "stationary-mastery-1",
+      prompt: "Differentiate:",
+      latex: "y=x^3-3x^2-24x+4",
+      answer: "3x^2-6x-24",
+      hint: "Differentiate term-by-term.",
+      explanation: "$\\frac{dy}{dx}=3x^2-6x-24$.",
+    },
+    {
+      id: "stationary-mastery-2",
+      prompt: "Solve for the x-values where the derivative is zero:",
+      latex: "3x^2-6x-24=0",
+      answer: "x=-2,4",
+      hint: "Factorise by taking out $3$ first.",
+      explanation:
+        "$3x^2-6x-24=3(x^2-2x-8)=3(x-4)(x+2)$, so $x=-2$ or $x=4$.",
+    },
+    {
+      id: "stationary-mastery-3",
+      prompt: "Substitute the first x-value into the original function:",
+      latex: "y=x^3-3x^2-24x+4, \\quad x=-2",
+      answer: "32",
+      hint: "Use the original function, not the derivative.",
+      explanation: "$y=(-2)^3-3(-2)^2-24(-2)+4=32$.",
+    },
+    {
+      id: "stationary-mastery-4",
+      prompt: "Substitute the second x-value into the original function:",
+      latex: "y=x^3-3x^2-24x+4, \\quad x=4",
+      answer: "-76",
+      hint: "Use the original function again.",
+      explanation: "$y=4^3-3(4)^2-24(4)+4=-76$.",
+    },
+    {
+      id: "stationary-mastery-5",
+      prompt: "Write the stationary points as coordinates:",
+      latex: "x=-2, \\quad y=32 \\qquad x=4, \\quad y=-76",
+      answer: "(-2,32),(4,-76)",
+      hint: "Pair each $x$-value with its matching $y$-value.",
+      explanation:
+        "The stationary points are $(-2,32)$ and $(4,-76)$.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
 export const differentialCalculusOutline: LessonOutlineItem[] = [
   {
     id: "rate-of-change",
@@ -801,8 +1045,8 @@ export const differentialCalculusOutline: LessonOutlineItem[] = [
     slug: "stationary-points",
     title: "Stationary points",
     description:
-      "Solve f'(x)=0 and find the coordinates of stationary points.",
-    status: "coming-soon",
+      "Solve derivative equations and find the coordinates of stationary points.",
+    status: "active",
   },
   {
     id: "increasing-decreasing-functions",
@@ -866,4 +1110,5 @@ export const differentialCalculusLessons = [
   differentiatingPolynomialTermsLesson,
   differentiatingPolynomialFunctionsLesson,
   tangentsAndNormalsLesson,
+  stationaryPointsLesson,
 ];
