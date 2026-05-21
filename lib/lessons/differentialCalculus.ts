@@ -520,6 +520,249 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
   masteryPassMark: 0.8,
 };
 
+export const tangentsAndNormalsLesson: ExplicitLesson = {
+  id: "tangents-and-normals",
+  slug: "tangents-and-normals",
+  moduleSlug: "differential-calculus",
+  moduleTitle: "Differential Calculus",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Tangents and Normals",
+  description:
+    "Use derivatives to find gradients and equations of tangents and normals to curves.",
+  syllabusArea: "Calculus",
+  focus: "Differential calculus",
+  status: "active",
+
+  video: {
+    title: "Tangents and Normals",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to use derivatives to find equations of tangents and normals to curves.",
+
+  successCriteria: [
+    "Find the gradient of a tangent by differentiating and substituting the given $x$-coordinate.",
+    "Find the point on the curve by substituting the $x$-coordinate into the original function.",
+    "Use point-gradient form to write the tangent equation.",
+    "Find the normal gradient using $m_n=-\\frac{1}{m_t}$ when $m_t \\ne 0$.",
+    "Use point-gradient form to write the normal equation.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "The derivative gives the gradient of the tangent to a curve at a point.",
+      "To find a tangent gradient, differentiate the function and substitute the given $x$-coordinate into the derivative.",
+      "The tangent and the normal both pass through the point on the curve, so find the $y$-coordinate using the original function.",
+      "Use point-gradient form with the point and gradient to write the tangent equation.",
+      "The normal is perpendicular to the tangent. If the tangent gradient is $m_t$, then the normal gradient is $m_n=-\\frac{1}{m_t}$, as long as $m_t \\ne 0$.",
+      "Use point-gradient form again with the same point and the normal gradient to write the normal equation.",
+    ],
+    latexBlocks: [
+      "m_t=\\left.\\frac{dy}{dx}\\right|_{x=a}",
+      "P=(a, f(a))",
+      "y-y_1=m(x-x_1)",
+      "m_n=-\\frac{1}{m_t}, \\quad m_t \\ne 0",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Tangent only",
+      questionLatex:
+        "y=x^2+3x \\quad \\text{at} \\quad x=2, \\quad \\text{find the equation of the tangent.}",
+      steps: [
+        {
+          explanation: "Differentiate to find the gradient function.",
+          latex: "\\frac{dy}{dx}=2x+3",
+        },
+        {
+          explanation: "Substitute $x=2$ to find the tangent gradient.",
+          latex: "m_t=2(2)+3=7",
+        },
+        {
+          explanation: "Find the point on the curve.",
+          latex: "y=2^2+3(2)=10 \\quad \\Rightarrow \\quad P=(2,10)",
+        },
+        {
+          explanation: "Use point-gradient form.",
+          latex: "y-10=7(x-2)",
+        },
+        {
+          explanation: "Expand and simplify.",
+          latex: "y=7x-4",
+        },
+      ],
+      finalAnswerLatex: "y=7x-4",
+    },
+    {
+      title: "Worked example 2: Tangent and normal",
+      questionLatex:
+        "y=x^2-4x+1 \\quad \\text{at} \\quad x=3, \\quad \\text{find the equations of the tangent and normal.}",
+      steps: [
+        {
+          explanation: "Differentiate to find the gradient function.",
+          latex: "\\frac{dy}{dx}=2x-4",
+        },
+        {
+          explanation: "Substitute $x=3$ to find the tangent gradient.",
+          latex: "m_t=2(3)-4=2",
+        },
+        {
+          explanation: "Find the point on the curve.",
+          latex: "y=3^2-4(3)+1=-2 \\quad \\Rightarrow \\quad P=(3,-2)",
+        },
+        {
+          explanation: "Use point-gradient form for the tangent.",
+          latex: "y+2=2(x-3) \\quad \\Rightarrow \\quad y=2x-8",
+        },
+        {
+          explanation: "Find the normal gradient.",
+          latex: "m_n=-\\frac{1}{2}",
+        },
+        {
+          explanation: "Use point-gradient form for the normal.",
+          latex:
+            "y+2=-\\frac{1}{2}(x-3) \\quad \\Rightarrow \\quad y=-\\frac{1}{2}x-\\frac{1}{2}",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{Tangent: } y=2x-8, \\quad \\text{Normal: } y=-\\frac{1}{2}x-\\frac{1}{2}",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "tan-norm-guided-1",
+      prompt: "Find the derivative:",
+      latex: "y=x^2+5x-1",
+      answer: "2x+5",
+      hint: "Differentiate each term.",
+      explanation: "$\\frac{dy}{dx}=2x+5$.",
+    },
+    {
+      id: "tan-norm-guided-2",
+      prompt: "Find the tangent gradient at the given x-value:",
+      latex: "y=x^2+5x-1, \\quad x=2",
+      answer: "9",
+      hint: "Use $\\frac{dy}{dx}=2x+5$, then substitute $x=2$.",
+      explanation: "$m_t=2(2)+5=9$.",
+    },
+    {
+      id: "tan-norm-guided-3",
+      prompt: "Complete the normal gradient:",
+      latex: "m_t=4 \\quad \\Rightarrow \\quad m_n=\\Box",
+      answer: "-1/4",
+      hint: "Use $m_n=-\\frac{1}{m_t}$.",
+      explanation: "$m_n=-\\frac{1}{4}$.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "tan-norm-ind-1",
+      prompt: "Find the equation of the tangent:",
+      latex: "y=x^2+2x, \\quad x=1",
+      answer: "y=4x-1",
+      hint: "Find $\\frac{dy}{dx}$, then the point on the curve.",
+      explanation:
+        "$\\frac{dy}{dx}=2x+2$, so $m_t=4$ and $P=(1,3)$. Therefore $y-3=4(x-1)$, so $y=4x-1$.",
+    },
+    {
+      id: "tan-norm-ind-2",
+      prompt: "Find the equation of the normal:",
+      latex: "y=x^2+2x, \\quad x=1",
+      answer: "y=-1/4x+13/4",
+      hint: "The normal gradient is the negative reciprocal of the tangent gradient.",
+      explanation:
+        "$m_t=4$, so $m_n=-\\frac{1}{4}$ and $P=(1,3)$. Therefore $y-3=-\\frac{1}{4}(x-1)$, so $y=-\\frac{1}{4}x+\\frac{13}{4}$.",
+    },
+    {
+      id: "tan-norm-ind-3",
+      prompt: "Find the equation of the tangent:",
+      latex: "y=x^2-6x+5, \\quad x=2",
+      answer: "y=-2x+1",
+      hint: "This tangent has a negative gradient.",
+      explanation:
+        "$\\frac{dy}{dx}=2x-6$, so $m_t=-2$ and $P=(2,-3)$. Therefore $y+3=-2(x-2)$, so $y=-2x+1$.",
+    },
+    {
+      id: "tan-norm-ind-4",
+      prompt: "Find the equation of the normal:",
+      latex: "f(x)=x^2-3x+2, \\quad x=4",
+      answer: "y=-1/5x+34/5",
+      hint: "Use $f'(x)$ for the tangent gradient.",
+      explanation:
+        "$f'(x)=2x-3$, so $m_t=5$, $m_n=-\\frac{1}{5}$, and $P=(4,6)$. Therefore $y-6=-\\frac{1}{5}(x-4)$, so $y=-\\frac{1}{5}x+\\frac{34}{5}$.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Substituting into the original function to find the gradient.",
+      fix: "Use the original function to find the point, but use the derivative to find the tangent gradient.",
+    },
+    {
+      mistake: "Using the tangent gradient for the normal.",
+      fix: "The normal gradient is the negative reciprocal: $m_n=-\\frac{1}{m_t}$.",
+    },
+    {
+      mistake: "Forgetting that the tangent and normal pass through the same point.",
+      fix: "Find $P=(a,f(a))$ first, then use that point for both equations.",
+    },
+    {
+      mistake: "Making sign errors with negative reciprocals.",
+      fix: "If $m_t=-2$, then $m_n=\\frac{1}{2}$.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "tan-norm-mastery-1",
+      prompt: "Find the derivative:",
+      latex: "y=x^2-2x+4",
+      answer: "2x-2",
+      hint: "Differentiate term-by-term.",
+      explanation: "$\\frac{dy}{dx}=2x-2$.",
+    },
+    {
+      id: "tan-norm-mastery-2",
+      prompt: "Find the tangent gradient:",
+      latex: "y=x^2-2x+4, \\quad x=3",
+      answer: "4",
+      hint: "Substitute $x=3$ into the derivative.",
+      explanation: "$m_t=2(3)-2=4$.",
+    },
+    {
+      id: "tan-norm-mastery-3",
+      prompt: "Find the point on the curve:",
+      latex: "y=x^2-2x+4, \\quad x=3",
+      answer: "(3,7)",
+      hint: "Substitute $x=3$ into the original function.",
+      explanation: "$y=3^2-2(3)+4=7$, so $P=(3,7)$.",
+    },
+    {
+      id: "tan-norm-mastery-4",
+      prompt: "Find the tangent equation:",
+      latex: "y=x^2-2x+4, \\quad x=3",
+      answer: "y=4x-5",
+      hint: "Use $P=(3,7)$ and $m_t=4$.",
+      explanation: "$y-7=4(x-3)$, so $y=4x-5$.",
+    },
+    {
+      id: "tan-norm-mastery-5",
+      prompt: "Find the normal equation:",
+      latex: "y=x^2-2x+4, \\quad x=3",
+      answer: "y=-1/4x+31/4",
+      hint: "Use $m_n=-\\frac{1}{4}$ and $P=(3,7)$.",
+      explanation:
+        "$y-7=-\\frac{1}{4}(x-3)$, so $y=-\\frac{1}{4}x+\\frac{31}{4}$.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
 export const differentialCalculusOutline: LessonOutlineItem[] = [
   {
     id: "rate-of-change",
@@ -551,7 +794,7 @@ export const differentialCalculusOutline: LessonOutlineItem[] = [
     title: "Tangents and normals",
     description:
       "Use derivatives to find gradients and equations of tangents and normals.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "stationary-points",
@@ -622,4 +865,5 @@ export const differentialCalculusOutline: LessonOutlineItem[] = [
 export const differentialCalculusLessons = [
   differentiatingPolynomialTermsLesson,
   differentiatingPolynomialFunctionsLesson,
+  tangentsAndNormalsLesson,
 ];
