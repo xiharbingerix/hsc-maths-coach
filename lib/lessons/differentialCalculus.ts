@@ -284,6 +284,51 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
       hint: "Keep the negative sign and reduce the power.",
       explanation: "$\\frac{d}{dx}\\left(-2x^4\\right)=-8x^3$.",
     },
+    {
+      id: "mastery-6",
+      prompt: "Differentiate:",
+      latex: "12x^2",
+      answer: "24x",
+      hint: "Multiply the coefficient by the power.",
+      explanation: "$\\frac{d}{dx}\\left(12x^2\\right)=24x$.",
+    },
+    {
+      id: "mastery-7",
+      prompt:
+        "A height model contains the term below. Find the derivative of this term with respect to time.",
+      latex: "5t^3",
+      answer: "15t^2",
+      hint: "Use the power rule with variable $t$.",
+      explanation: "$\\frac{d}{dt}\\left(5t^3\\right)=15t^2$.",
+    },
+    {
+      id: "mastery-8",
+      prompt: "Fill in the missing coefficient:",
+      latex: "\\frac{d}{dx}\\left(-7x^4\\right)=\\Box x^3",
+      answer: "-28",
+      hint: "Multiply $-7$ by $4$.",
+      explanation:
+        "$\\frac{d}{dx}\\left(-7x^4\\right)=-28x^3$, so the missing coefficient is $-28$.",
+    },
+    {
+      id: "mastery-9",
+      prompt: "Choose the correct derivative: A: $5x^4$, B: $-5x^4$, C: $-x^4$.",
+      latex: "\\frac{d}{dx}\\left(-x^5\\right)",
+      answer: "B",
+      hint: "The coefficient is $-1$.",
+      explanation:
+        "$\\frac{d}{dx}\\left(-x^5\\right)=-5x^4$, so option B is correct.",
+    },
+    {
+      id: "mastery-10",
+      prompt:
+        "A model includes the term below. What is its instantaneous rate contribution?",
+      latex: "-3t^6",
+      answer: "-18t^5",
+      hint: "Differentiate the term with respect to $t$.",
+      explanation:
+        "$\\frac{d}{dt}\\left(-3t^6\\right)=-18t^5$. The negative sign stays attached to the derivative.",
+    },
   ],
 
   masteryPassMark: 0.8,
@@ -514,6 +559,51 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
       answer: "-8x^3+3x^2",
       hint: "The derivative of $-11$ is $0$.",
       explanation: "$f'(x)=-8x^3+3x^2$.",
+    },
+    {
+      id: "poly-fn-mastery-6",
+      prompt: "Differentiate:",
+      latex: "y=4x^4-2x^2+9",
+      answer: "16x^3-4x",
+      hint: "Differentiate each term, and remember the constant disappears.",
+      explanation: "$\\frac{dy}{dx}=16x^3-4x$.",
+    },
+    {
+      id: "poly-fn-mastery-7",
+      prompt: "Find the gradient of the curve at $x=2$:",
+      latex: "f(x)=x^3+2x^2",
+      answer: "20",
+      hint: "Find $f'(x)$, then substitute $x=2$.",
+      explanation:
+        "$f'(x)=3x^2+4x$, so $f'(2)=3(2)^2+4(2)=20$.",
+    },
+    {
+      id: "poly-fn-mastery-8",
+      prompt: "Fill in the missing derivative of the constant term:",
+      latex: "P(x)=6x^3-4x+18, \\quad \\frac{d}{dx}(18)=\\Box",
+      answer: "0",
+      hint: "Constants do not change as $x$ changes.",
+      explanation:
+        "The derivative of any constant is $0$, so the constant term contributes nothing to $P'(x)$.",
+    },
+    {
+      id: "poly-fn-mastery-9",
+      prompt: "A displacement function is given. Find the velocity function.",
+      latex: "s(t)=2t^3-5t^2+t",
+      answer: "6t^2-10t+1",
+      hint: "Velocity is the derivative of displacement.",
+      explanation:
+        "$v(t)=s'(t)=6t^2-10t+1$. This is a standard rate-of-change use of differentiation.",
+    },
+    {
+      id: "poly-fn-mastery-10",
+      prompt:
+        "Choose the correct derivative. A: $-4x^3+6x-8$, B: $-4x^3+3x-8$, C: $4x^3+6x-8$.",
+      latex: "f(x)=-x^4+3x^2-8x+5",
+      answer: "A",
+      hint: "Differentiate each term and keep the negative sign on $-x^4$.",
+      explanation:
+        "$f'(x)=-4x^3+6x-8$. The constant $5$ differentiates to $0$, so option A is correct.",
     },
   ],
 
@@ -757,6 +847,50 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
       hint: "Use $m_n=-\\frac{1}{4}$ and $P=(3,7)$.",
       explanation:
         "$y-7=-\\frac{1}{4}(x-3)$, so $y=-\\frac{1}{4}x+\\frac{31}{4}$.",
+    },
+    {
+      id: "tan-norm-mastery-6",
+      prompt: "Find the tangent gradient:",
+      latex: "y=3x^2-x, \\quad x=1",
+      answer: "5",
+      hint: "Differentiate, then substitute $x=1$.",
+      explanation: "$\\frac{dy}{dx}=6x-1$, so the tangent gradient is $6(1)-1=5$.",
+    },
+    {
+      id: "tan-norm-mastery-7",
+      prompt: "Find the point on the curve:",
+      latex: "y=x^2+2x, \\quad x=3",
+      answer: "(3,15)",
+      hint: "Substitute $x=3$ into the original function.",
+      explanation: "$y=3^2+2(3)=15$, so the point is $(3,15)$.",
+    },
+    {
+      id: "tan-norm-mastery-8",
+      prompt: "Find the tangent equation:",
+      latex: "y=x^2+2x, \\quad x=3",
+      answer: "y=8x-9",
+      hint: "Use the point $(3,15)$ and tangent gradient $8$.",
+      explanation:
+        "$\\frac{dy}{dx}=2x+2$, so $m_t=8$ at $x=3$. Then $y-15=8(x-3)$, so $y=8x-9$.",
+    },
+    {
+      id: "tan-norm-mastery-9",
+      prompt: "Find the normal equation:",
+      latex: "y=x^2+2x, \\quad x=3",
+      answer: "y=-1/8x+123/8",
+      hint: "Use the negative reciprocal of the tangent gradient.",
+      explanation:
+        "$m_t=8$, so $m_n=-\\frac{1}{8}$. With point $(3,15)$, $y-15=-\\frac{1}{8}(x-3)$, so $y=-\\frac{1}{8}x+\\frac{123}{8}$.",
+    },
+    {
+      id: "tan-norm-mastery-10",
+      prompt:
+        "A temperature model is given. Find the tangent gradient at $t=3$.",
+      latex: "T(t)=t^2-4t+10",
+      answer: "2",
+      hint: "The tangent gradient is $T'(3)$.",
+      explanation:
+        "$T'(t)=2t-4$, so $T'(3)=2$. At $t=3$, the temperature curve has gradient $2$.",
     },
   ],
 
@@ -1002,6 +1136,53 @@ export const stationaryPointsLesson: ExplicitLesson = {
       explanation:
         "The stationary points are $(-2,32)$ and $(4,-76)$.",
     },
+    {
+      id: "stationary-mastery-6",
+      prompt: "Find the stationary point:",
+      latex: "f(x)=x^2-10x+3",
+      answer: "(5,-22)",
+      hint: "Solve $f'(x)=0$, then substitute into $f(x)$.",
+      explanation:
+        "$f'(x)=2x-10$, so $x=5$. Then $f(5)=25-50+3=-22$, giving stationary point $(5,-22)$.",
+    },
+    {
+      id: "stationary-mastery-7",
+      prompt: "Find the stationary x-values:",
+      latex: "y=x^3-12x+1",
+      answer: "x=-2,2",
+      hint: "Differentiate and solve $y'=0$.",
+      explanation:
+        "$y'=3x^2-12=3(x-2)(x+2)$, so the stationary x-values are $x=-2$ and $x=2$.",
+    },
+    {
+      id: "stationary-mastery-8",
+      prompt: "Write the stationary points as coordinates:",
+      latex: "y=x^3-12x+1, \\quad x=-2,2",
+      answer: "(-2,17),(2,-15)",
+      hint: "Substitute each x-value into the original function.",
+      explanation:
+        "$y(-2)=17$ and $y(2)=-15$, so the stationary points are $(-2,17)$ and $(2,-15)$.",
+    },
+    {
+      id: "stationary-mastery-9",
+      prompt:
+        "A profit model is given. Find the value of $x$ where the stationary profit occurs.",
+      latex: "P(x)=-x^2+12x-5",
+      answer: "6",
+      hint: "Find $P'(x)$ and solve $P'(x)=0$.",
+      explanation:
+        "$P'(x)=-2x+12$. Solving $-2x+12=0$ gives $x=6$, so the stationary profit occurs when $x=6$.",
+    },
+    {
+      id: "stationary-mastery-10",
+      prompt:
+        "Choose the correct statement. A: stationary points occur where $f(x)=0$. B: stationary points occur where $f'(x)=0$. C: stationary points occur where $f''(x)=0$.",
+      latex: "f'(x)=0",
+      answer: "B",
+      hint: "A stationary point has a horizontal tangent.",
+      explanation:
+        "A horizontal tangent has gradient $0$, so stationary points occur where $f'(x)=0$. Option B is correct.",
+    },
   ],
 
   masteryPassMark: 0.8,
@@ -1237,6 +1418,53 @@ export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
       answer: "(-2,2)",
       hint: "Decreasing means $f'(x)<0$.",
       explanation: "The function is decreasing on $(-2,2)$.",
+    },
+    {
+      id: "inc-dec-mastery-6",
+      prompt: "Complete the sign pattern for $f'(x)$:",
+      latex: "f'(x)=(x-1)(x-4)",
+      answer: "+,-,+",
+      hint: "A positive quadratic factorisation is positive outside its roots.",
+      explanation:
+        "Testing intervals around $x=1$ and $x=4$ gives the sign pattern $+,-,+$.",
+    },
+    {
+      id: "inc-dec-mastery-7",
+      prompt: "State where the function is increasing:",
+      latex: "f'(x)=(x-1)(x-4)",
+      answer: "(-infinity,1),(4,infinity)",
+      hint: "Increasing means $f'(x)>0$.",
+      explanation:
+        "$f'(x)>0$ on $(-\\infty,1)$ and $(4,\\infty)$, so the function is increasing on those intervals.",
+    },
+    {
+      id: "inc-dec-mastery-8",
+      prompt: "State where the function is decreasing:",
+      latex: "f'(x)=(x-1)(x-4)",
+      answer: "(1,4)",
+      hint: "Decreasing means $f'(x)<0$.",
+      explanation:
+        "$f'(x)<0$ on $(1,4)$, so the function is decreasing on that interval.",
+    },
+    {
+      id: "inc-dec-mastery-9",
+      prompt:
+        "A height function has $h'(2)=-3$. Complete the sentence: at $t=2$, the height is ____.",
+      latex: "h'(2)=-3",
+      answer: "decreasing",
+      hint: "A negative derivative means the quantity is decreasing.",
+      explanation:
+        "Since $h'(2)<0$, the height is decreasing at $t=2$.",
+    },
+    {
+      id: "inc-dec-mastery-10",
+      prompt:
+        "Choose the correct statement. A: $f$ is increasing on $(2,5)$. B: $f$ is decreasing on $(2,5)$. C: $f$ is stationary for every $x$ in $(2,5)$.",
+      latex: "f'(x)<0 \\quad \\text{for }2<x<5",
+      answer: "B",
+      hint: "Negative derivative means decreasing.",
+      explanation:
+        "Since $f'(x)<0$ throughout $(2,5)$, the function is decreasing on that interval. Option B is correct.",
     },
   ],
 
@@ -1479,6 +1707,53 @@ export const firstDerivativeTestLesson: ExplicitLesson = {
       explanation:
         "There is a local maximum at $(-2,32)$ and a local minimum at $(4,-76)$.",
     },
+    {
+      id: "fdt-mastery-6",
+      prompt: "Classify the stationary point from the sign change:",
+      latex: "f'(x): \\quad + \\to -",
+      answer: "local maximum",
+      hint: "The graph rises before the point and falls after it.",
+      explanation:
+        "A change in $f'(x)$ from positive to negative means the stationary point is a local maximum.",
+    },
+    {
+      id: "fdt-mastery-7",
+      prompt: "Classify the stationary points from the sign pattern:",
+      latex: "x=1,3 \\qquad f'(x): \\quad +,-,+",
+      answer: "local maximum at x=1,local minimum at x=3",
+      hint: "Look at the sign change at each stationary x-value.",
+      explanation:
+        "At $x=1$, $f'(x)$ changes from positive to negative, giving a local maximum. At $x=3$, it changes from negative to positive, giving a local minimum.",
+    },
+    {
+      id: "fdt-mastery-8",
+      prompt: "Find and classify the stationary points:",
+      latex: "f(x)=x^3-6x^2+9x+1",
+      answer: "local maximum at (1,5),local minimum at (3,1)",
+      hint: "The derivative factorises as $3(x-1)(x-3)$.",
+      explanation:
+        "$f'(x)=3x^2-12x+9=3(x-1)(x-3)$. The sign pattern is $+,-,+$, so the points are a local maximum at $(1,5)$ and a local minimum at $(3,1)$.",
+    },
+    {
+      id: "fdt-mastery-9",
+      prompt:
+        "The derivative is positive on both sides of a stationary point at $x=0$. Choose the best classification.",
+      latex: "f'(x): \\quad +,+",
+      answer: "not a local maximum or minimum",
+      hint: "A maximum or minimum needs a sign change.",
+      explanation:
+        "If $f'(x)$ does not change sign, the stationary point is not a local maximum or local minimum.",
+    },
+    {
+      id: "fdt-mastery-10",
+      prompt:
+        "A profit function has a stationary point where $x=5$ and $P(5)=40$. The derivative changes from positive to negative. Complete the classification.",
+      latex: "P'(x): \\quad + \\to -",
+      answer: "local maximum profit 40 at x=5",
+      hint: "Positive to negative means a local maximum.",
+      explanation:
+        "The profit increases before $x=5$ and decreases after $x=5$, so there is a local maximum profit of $40$ at $x=5$.",
+    },
   ],
 
   masteryPassMark: 0.8,
@@ -1718,6 +1993,51 @@ export const secondDerivativeTestLesson: ExplicitLesson = {
       hint: "Negative second derivative gives a local maximum; positive gives a local minimum.",
       explanation:
         "There is a local maximum at $(-2,32)$ and a local minimum at $(4,-76)$.",
+    },
+    {
+      id: "sdt-mastery-6",
+      prompt: "Evaluate the second derivative:",
+      latex: "f''(x)=6x-6, \\quad x=2",
+      answer: "6",
+      hint: "Substitute $x=2$ into $6x-6$.",
+      explanation: "$f''(2)=6(2)-6=6$.",
+    },
+    {
+      id: "sdt-mastery-7",
+      prompt: "Classify the stationary point:",
+      latex: "f''(2)=6",
+      answer: "local minimum",
+      hint: "A positive second derivative means concave up.",
+      explanation:
+        "Since $f''(2)=6>0$, the graph is concave up at the stationary point, so it is a local minimum.",
+    },
+    {
+      id: "sdt-mastery-8",
+      prompt: "Classify the stationary point:",
+      latex: "f''(-1)=-12",
+      answer: "local maximum",
+      hint: "A negative second derivative means concave down.",
+      explanation:
+        "Since $f''(-1)=-12<0$, the graph is concave down at the stationary point, so it is a local maximum.",
+    },
+    {
+      id: "sdt-mastery-9",
+      prompt: "Complete the classification from the second derivative test:",
+      latex: "f''(0)=0",
+      answer: "inconclusive",
+      hint: "The second derivative test does not decide when $f''(x)=0$.",
+      explanation:
+        "When $f''(0)=0$, the second derivative test is inconclusive. Another method, such as the first derivative test, is needed.",
+    },
+    {
+      id: "sdt-mastery-10",
+      prompt:
+        "A profit function has a stationary point where $x=4$, $P(4)=120$, and $P''(4)<0$. Complete the classification.",
+      latex: "P''(4)<0",
+      answer: "local maximum profit 120",
+      hint: "A negative second derivative gives a local maximum.",
+      explanation:
+        "Since $P''(4)<0$, the stationary point is a local maximum. The maximum profit value is $120$.",
     },
   ],
 
@@ -1967,6 +2287,52 @@ export const curveSketchingLesson: ExplicitLesson = {
       explanation:
         "Use $x$-intercepts $(1,0)$ and $(3,0)$, $y$-intercept $(0,3)$, minimum $(2,-1)$, and the upward-opening shape.",
     },
+    {
+      id: "curve-mastery-6",
+      prompt: "State the key features needed to sketch the graph:",
+      latex: "y=-x^2+4x+5",
+      answer: "x-intercepts (-1,0),(5,0);y-intercept (0,5);maximum (2,9)",
+      hint: "Find intercepts and use $y'=0$ for the stationary point.",
+      explanation:
+        "$x$-intercepts are $(-1,0)$ and $(5,0)$, the $y$-intercept is $(0,5)$, and $y'=-2x+4$ gives a maximum at $(2,9)$.",
+    },
+    {
+      id: "curve-mastery-7",
+      prompt: "State the stationary points and classifications:",
+      latex: "y=x^3-3x",
+      answer: "local maximum (-1,2),local minimum (1,-2)",
+      hint: "Use $y'=3x^2-3$.",
+      explanation:
+        "$y'=3x^2-3=3(x-1)(x+1)$, so $x=-1,1$. The derivative changes $+,-,+$, giving a local maximum at $(-1,2)$ and a local minimum at $(1,-2)$.",
+    },
+    {
+      id: "curve-mastery-8",
+      prompt: "State the increasing and decreasing intervals:",
+      latex: "f'(x)=3(x-1)(x-3)",
+      answer: "increasing:(-infinity,1),(3,infinity),decreasing:(1,3)",
+      hint: "Test the intervals around $x=1$ and $x=3$.",
+      explanation:
+        "The sign pattern is $+,-,+$, so the function is increasing on $(-\\infty,1)$ and $(3,\\infty)$, and decreasing on $(1,3)$.",
+    },
+    {
+      id: "curve-mastery-9",
+      prompt:
+        "Choose the best sketch description. A: downward parabola with a maximum. B: upward parabola with two x-intercepts and a minimum below the x-axis. C: cubic with two stationary points.",
+      latex: "f(x)=x^2-2x-3",
+      answer: "B",
+      hint: "Check the leading coefficient and the stationary point.",
+      explanation:
+        "The leading coefficient is positive, so the parabola opens upward. It has x-intercepts at $x=-1$ and $x=3$, and a minimum at $(1,-4)$, so option B is correct.",
+    },
+    {
+      id: "curve-mastery-10",
+      prompt: "State the key features needed to sketch the graph:",
+      latex: "f(x)=x^3-6x^2+9x",
+      answer: "x-intercepts (0,0),(3,0);local maximum (1,4);local minimum (3,0)",
+      hint: "Factorise for intercepts and use $f'(x)=0$ for stationary points.",
+      explanation:
+        "$f(x)=x(x-3)^2$, so the x-intercepts are $(0,0)$ and $(3,0)$. Since $f'(x)=3(x-1)(x-3)$, the stationary points are a local maximum at $(1,4)$ and a local minimum at $(3,0)$.",
+    },
   ],
 
   masteryPassMark: 0.8,
@@ -2201,6 +2567,53 @@ export const optimisationLesson: ExplicitLesson = {
       hint: "Find $y$ and include units.",
       explanation: "$y=12$, so the rectangle with maximum area is $12$ cm by $12$ cm.",
     },
+    {
+      id: "optimisation-mastery-6",
+      prompt: "Find the value of $x$ that maximises revenue:",
+      latex: "R(x)=-2x^2+80x",
+      answer: "20",
+      hint: "Solve $R'(x)=0$.",
+      explanation:
+        "$R'(x)=-4x+80$. Solving $-4x+80=0$ gives $x=20$, and $R''(x)=-4<0$ confirms a maximum.",
+    },
+    {
+      id: "optimisation-mastery-7",
+      prompt: "Find the maximum revenue:",
+      latex: "R(x)=-2x^2+80x, \\quad x=20",
+      answer: "800",
+      hint: "Substitute $x=20$ into $R(x)$.",
+      explanation:
+        "$R(20)=-2(20)^2+80(20)=800$, so the maximum revenue is $800$.",
+    },
+    {
+      id: "optimisation-mastery-8",
+      prompt: "Find the minimum value of the cost function:",
+      latex: "C(x)=x^2-8x+30",
+      answer: "14",
+      hint: "Solve $C'(x)=0$, then substitute.",
+      explanation:
+        "$C'(x)=2x-8$, so $x=4$. Since $C''(x)=2>0$, this is a minimum, and $C(4)=14$.",
+    },
+    {
+      id: "optimisation-mastery-9",
+      prompt:
+        "A rectangular pen is built against a wall with $50$ m of fencing for three sides. Find the dimensions for maximum area.",
+      latex: "2x+y=50, \\quad A=xy",
+      answer: "12.5 m by 25 m",
+      hint: "Use $y=50-2x$ and maximise $A=x(50-2x)$.",
+      explanation:
+        "$A=50x-2x^2$, so $A'(x)=50-4x=0$ gives $x=12.5$. Then $y=25$, so the maximum area occurs for dimensions $12.5$ m by $25$ m.",
+    },
+    {
+      id: "optimisation-mastery-10",
+      prompt:
+        "Choose the best first step in a worded optimisation problem. A: Differentiate immediately. B: Define variables and form a function. C: Guess the maximum.",
+      latex: "\\text{Optimisation process}",
+      answer: "B",
+      hint: "Most worded problems need a model before differentiation.",
+      explanation:
+        "Before differentiating, define variables, use constraints, and form the quantity to optimise as a function. Option B is correct.",
+    },
   ],
 
   masteryPassMark: 0.8,
@@ -2424,6 +2837,54 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
       answer: "momentarily not changing",
       hint: "Zero rate means no instantaneous change at that moment.",
       explanation: "The quantity is momentarily not changing when $t=3$.",
+    },
+    {
+      id: "rates-mastery-6",
+      prompt: "Find the rate of change at $t=3$:",
+      latex: "P(t)=t^3-6t^2+20t+100",
+      answer: "11",
+      hint: "Differentiate, then substitute $t=3$.",
+      explanation:
+        "$P'(t)=3t^2-12t+20$, so $P'(3)=27-36+20=11$.",
+    },
+    {
+      id: "rates-mastery-7",
+      prompt:
+        "Choose the correct interpretation. A: decreasing. B: increasing. C: momentarily not changing.",
+      latex: "P'(3)=11",
+      answer: "B",
+      hint: "A positive derivative means increasing.",
+      explanation:
+        "Since $P'(3)=11>0$, the quantity is increasing at $t=3$. Option B is correct.",
+    },
+    {
+      id: "rates-mastery-8",
+      prompt: "Complete the sentence: when $Q'(5)=0$, the quantity is ____.",
+      latex: "Q'(5)=0",
+      answer: "momentarily not changing",
+      hint: "Zero derivative means zero instantaneous rate.",
+      explanation:
+        "A derivative value of $0$ means the quantity is momentarily not changing at that instant.",
+    },
+    {
+      id: "rates-mastery-9",
+      prompt:
+        "A tank has $V'(4)=-7$. Complete the sentence: the volume is ____.",
+      latex: "V'(4)=-7 \\text{ litres per minute}",
+      answer: "decreasing at 7 litres per minute",
+      hint: "A negative rate means decreasing.",
+      explanation:
+        "Since $V'(4)=-7$, the volume is decreasing at $7$ litres per minute.",
+    },
+    {
+      id: "rates-mastery-10",
+      prompt:
+        "A cost function is given. Complete the interpretation of $C'(8)$.",
+      latex: "C(x)=x^2-10x+60",
+      answer: "increasing at 6 dollars per item",
+      hint: "Find $C'(8)$ and include units.",
+      explanation:
+        "$C'(x)=2x-10$, so $C'(8)=6$. The cost is increasing at $6$ dollars per item when $x=8$.",
     },
   ],
 
@@ -2729,6 +3190,44 @@ export const mixedExamPracticeLesson: ExplicitLesson = {
       hint: "Differentiate, substitute $t=4$, and interpret the sign.",
       explanation:
         "$h'(t)=-10t+30$, so $h'(4)=-10$. The height is decreasing at $10$ m/s when $t=4$.",
+    },
+    {
+      id: "mixed-mastery-7",
+      prompt: "Find and classify the stationary points:",
+      latex: "f(x)=x^3-6x^2+9x+1",
+      answer: "local maximum at (1,5),local minimum at (3,1)",
+      hint: "Find $f'(x)$, solve $f'(x)=0$, then classify.",
+      explanation:
+        "$f'(x)=3x^2-12x+9=3(x-1)(x-3)$, so $x=1,3$. The sign pattern is $+,-,+$, giving a local maximum at $(1,5)$ and a local minimum at $(3,1)$.",
+    },
+    {
+      id: "mixed-mastery-8",
+      prompt: "State the key features needed to sketch the graph:",
+      latex: "f(x)=x^2-2x-3",
+      answer: "x-intercepts (-1,0),(3,0);y-intercept (0,-3);minimum (1,-4)",
+      hint: "Find intercepts and the stationary point.",
+      explanation:
+        "$f(x)=(x-3)(x+1)$, so the x-intercepts are $(-1,0)$ and $(3,0)$, and the y-intercept is $(0,-3)$. Since $f'(x)=2x-2$, the minimum is at $(1,-4)$.",
+    },
+    {
+      id: "mixed-mastery-9",
+      prompt:
+        "A profit model is given. Find the maximum profit and the value of $x$ when it occurs.",
+      latex: "P(x)=-2x^2+80x-300",
+      answer: "maximum profit 500 when x=20",
+      hint: "Solve $P'(x)=0$, then substitute into $P(x)$.",
+      explanation:
+        "$P'(x)=-4x+80$, so $x=20$. Since $P''(x)=-4<0$, this gives a maximum. $P(20)=500$, so the maximum profit is $500$ when $x=20$.",
+    },
+    {
+      id: "mixed-mastery-10",
+      prompt:
+        "A question asks for the normal equation to a curve at a point. Choose the best plan. A: Set $f(x)=0$. B: Find the tangent gradient, use the negative reciprocal, then use point-gradient form. C: Find only the y-intercept.",
+      latex: "\\text{Normal equation strategy}",
+      answer: "B",
+      hint: "Normals are perpendicular to tangents.",
+      explanation:
+        "To find a normal, first find the tangent gradient using the derivative. Then use the negative reciprocal for the normal gradient and substitute the point into point-gradient form. Option B is correct.",
     },
   ],
 
