@@ -47,26 +47,46 @@ const coverage = [
 
 const offers = [
   {
-    title: "Diagnostic + personalised 30-day plan",
-    price: "$99",
+    title: "Online Learning Package",
+    price: "Low-cost beta access",
     description:
-      "A clear starting point for students who need to know what to fix before trials.",
+      "Structured HSC Maths Advanced lessons for students who want targeted revision without committing to weekly tutoring.",
     features: [
-      "Diagnostic attempt",
-      "Weak area summary",
-      "Prioritised 30-day study plan",
+      "Differential Calculus unit",
+      "Integral Calculus unit",
+      "Functions and Graphing unit",
+      "Worked examples, guided practice, and mastery quizzes",
     ],
+    buttonLabel: "Register interest",
+    href: "/enquire?offer=online-learning",
   },
   {
-    title: "Review call option",
-    price: "$149",
+    title: "Diagnostic PDF Report",
+    price: "Beta report option",
     description:
-      "For families who want the plan explained and the next steps prioritised.",
+      "A parent-friendly diagnostic summary showing strengths, priority weak areas, and recommended next lessons.",
     features: [
-      "Diagnostic and plan",
-      "Review call",
-      "Next-step study recommendations",
+      "Diagnostic attempt",
+      "Skill breakdown",
+      "Priority weak areas",
+      "Recommended next lessons",
     ],
+    buttonLabel: "Request report",
+    href: "/enquire?offer=diagnostic-report",
+  },
+  {
+    title: "Diagnostic + 30-Day Plan",
+    price: "Study plan option",
+    description:
+      "A clearer month of study priorities for students preparing for trials or their next major assessment.",
+    features: [
+      "Diagnostic PDF report",
+      "30-day revision priorities",
+      "Targeted lesson pathway",
+      "Next-step recommendations",
+    ],
+    buttonLabel: "Request study plan",
+    href: "/enquire?offer=study-plan",
   },
 ];
 
@@ -249,26 +269,27 @@ export default function Home() {
 
         <section className="rounded-3xl border border-slate-200 bg-slate-100/80 p-8 shadow-sm md:p-10">
           <div className="max-w-2xl">
-            <SectionLabel>Launch offer</SectionLabel>
+            <SectionLabel>Beta access options</SectionLabel>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-              Simple trial-prep support.
+              Beta access options
             </h2>
             <p className="mt-3 leading-7 text-slate-600">
-              Launch pricing shown for beta enquiries.
+              Start with a free diagnostic, then choose the level of support
+              that fits.
             </p>
           </div>
 
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <div className="mt-8 grid gap-5 lg:grid-cols-3">
             {offers.map((offer) => (
               <article
                 key={offer.title}
                 className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8"
               >
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div>
                   <h3 className="max-w-sm text-lg font-semibold text-slate-900">
                     {offer.title}
                   </h3>
-                  <p className="text-4xl font-bold tracking-tight text-slate-900">
+                  <p className="mt-3 text-sm font-semibold uppercase tracking-wide text-slate-500">
                     {offer.price}
                   </p>
                 </div>
@@ -287,13 +308,18 @@ export default function Home() {
                 </ul>
 
                 <div className="mt-7">
-                  <PrimaryLink href="/diagnostic">
-                    Enquire / Start diagnostic
+                  <PrimaryLink href={offer.href} className="w-full">
+                    {offer.buttonLabel}
                   </PrimaryLink>
                 </div>
               </article>
             ))}
           </div>
+
+          <p className="mt-6 text-sm leading-6 text-slate-600">
+            During beta, access and reports are being handled manually so we can
+            keep improving the product.
+          </p>
         </section>
 
         <section className="flex flex-col items-start gap-6 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:flex-row md:items-center md:justify-between md:p-10">
