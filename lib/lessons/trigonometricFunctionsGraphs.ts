@@ -1293,6 +1293,903 @@ export const trigonometricEquationsLesson: ExplicitLesson = {
   masteryPassMark: 0.8,
 };
 
+export const trigonometricIdentitiesSimplificationLesson: ExplicitLesson = {
+  id: "trigonometric-identities-simplification",
+  slug: "trigonometric-identities-simplification",
+  moduleSlug: "trigonometric-functions-graphs",
+  moduleTitle: "Trigonometric Functions and Graphs",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Trigonometric Identities and Simplification",
+  description:
+    "Use core trigonometric identities to simplify expressions and choose useful rewriting strategies.",
+  syllabusArea: "Trigonometric Functions",
+  focus: "Trigonometric functions and graphs",
+  status: "active",
+
+  video: {
+    title: "Trigonometric Identities and Simplification",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to use core trigonometric identities to simplify expressions.",
+
+  successCriteria: [
+    "Recognise that identities are true for all allowed values.",
+    "Use $\\sin^2x+\\cos^2x=1$.",
+    "Use $\\tan x=\\frac{\\sin x}{\\cos x}$ where defined.",
+    "Simplify expressions such as $1-\\sin^2x$ and $\\tan x\\cos x$.",
+    "Notice restrictions when denominators are involved.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "A trigonometric identity is an equation that is true for all allowed values of the variable.",
+      "The most important identity in this lesson is $\\sin^2x+\\cos^2x=1$.",
+      "Another core identity is $\\tan x=\\frac{\\sin x}{\\cos x}$, where $\\cos x\\ne0$.",
+      "Simplification usually means reducing the number of trig functions or rewriting everything in terms of sine and cosine.",
+      "Choose an identity based on what appears in the expression. If you see $1-\\sin^2x$, think about rearranging the Pythagorean identity.",
+    ],
+    latexBlocks: [
+      "\\sin^2x+\\cos^2x=1",
+      "\\tan x=\\frac{\\sin x}{\\cos x},\\quad \\cos x\\ne0",
+      "1-\\sin^2x=\\cos^2x",
+      "1-\\cos^2x=\\sin^2x",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Use the Pythagorean identity",
+      questionLatex: "\\sin^2x+\\cos^2x",
+      steps: [
+        {
+          explanation: "Recognise the core identity.",
+          latex: "\\sin^2x+\\cos^2x=1",
+        },
+      ],
+      finalAnswerLatex: "1",
+    },
+    {
+      title: "Worked example 2: Rewrite tangent",
+      questionLatex: "\\tan x\\cos x",
+      steps: [
+        {
+          explanation: "Replace tangent with sine over cosine.",
+          latex: "\\tan x\\cos x=\\frac{\\sin x}{\\cos x}\\cos x",
+        },
+        {
+          explanation: "Cancel the cosine factor where $\\cos x\\ne0$.",
+          latex: "\\frac{\\sin x}{\\cos x}\\cos x=\\sin x",
+        },
+      ],
+      finalAnswerLatex: "\\sin x",
+    },
+    {
+      title: "Worked example 3: Rearrange the identity",
+      questionLatex: "1-\\sin^2x",
+      steps: [
+        {
+          explanation: "Start with the Pythagorean identity.",
+          latex: "\\sin^2x+\\cos^2x=1",
+        },
+        {
+          explanation: "Rearrange it.",
+          latex: "\\cos^2x=1-\\sin^2x",
+        },
+      ],
+      finalAnswerLatex: "\\cos^2x",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "identity-guided-1",
+      prompt: "Complete the identity:",
+      latex: "\\sin^2x+\\cos^2x=\\Box",
+      answer: "1",
+      hint: "This is the core Pythagorean identity.",
+      explanation: "$\\sin^2x+\\cos^2x=1$.",
+    },
+    {
+      id: "identity-guided-2",
+      prompt: "Rewrite tangent in terms of sine and cosine:",
+      latex: "\\tan x=\\Box",
+      answer: "sinx/cosx",
+      acceptedAnswers: ["sin(x)/cos(x)", "\\sin x/\\cos x", "\\frac{\\sin x}{\\cos x}"],
+      hint: "Tangent is sine divided by cosine.",
+      explanation: "$\\tan x=\\frac{\\sin x}{\\cos x}$.",
+    },
+    {
+      id: "identity-guided-3",
+      prompt: "Simplify:",
+      latex: "1-\\sin^2x",
+      answer: "cos^2x",
+      acceptedAnswers: ["cos^2(x)", "\\cos^2x", "\\cos^2(x)"],
+      hint: "Rearrange $\\sin^2x+\\cos^2x=1$.",
+      explanation: "$1-\\sin^2x=\\cos^2x$.",
+    },
+    {
+      id: "identity-guided-4",
+      prompt: "Choose the useful identity.",
+      latex: "\\tan x\\cos x",
+      answer: "B",
+      choices: [
+        { label: "A", text: "$\\sin^2x+\\cos^2x=1$" },
+        { label: "B", text: "$\\tan x=\\frac{\\sin x}{\\cos x}$" },
+      ],
+      hint: "The expression contains tangent.",
+      explanation: "Use $\\tan x=\\frac{\\sin x}{\\cos x}$.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "identity-ind-1",
+      prompt: "Simplify:",
+      latex: "\\sin^2x+\\cos^2x",
+      answer: "1",
+      hint: "Use the Pythagorean identity.",
+      explanation: "$\\sin^2x+\\cos^2x=1$.",
+    },
+    {
+      id: "identity-ind-2",
+      prompt: "Simplify:",
+      latex: "\\tan x\\cos x",
+      answer: "sinx",
+      acceptedAnswers: ["sin(x)", "\\sin x"],
+      hint: "Rewrite tangent first.",
+      explanation: "$\\tan x\\cos x=\\frac{\\sin x}{\\cos x}\\cos x=\\sin x$.",
+    },
+    {
+      id: "identity-ind-3",
+      prompt: "Simplify:",
+      latex: "1-\\cos^2x",
+      answer: "sin^2x",
+      acceptedAnswers: ["sin^2(x)", "\\sin^2x", "\\sin^2(x)"],
+      hint: "Rearrange the Pythagorean identity.",
+      explanation: "$1-\\cos^2x=\\sin^2x$.",
+    },
+    {
+      id: "identity-ind-4",
+      prompt: "Simplify:",
+      latex: "\\frac{\\sin x}{\\cos x}",
+      answer: "tanx",
+      acceptedAnswers: ["tan(x)", "\\tan x"],
+      hint: "Use the tangent identity.",
+      explanation: "$\\frac{\\sin x}{\\cos x}=\\tan x$ where $\\cos x\\ne0$.",
+    },
+    {
+      id: "identity-ind-5",
+      prompt: "Choose the correct simplification.",
+      latex: "1-\\sin^2x",
+      answer: "C",
+      choices: [
+        { label: "A", text: "$\\sin^2x$" },
+        { label: "B", text: "$1$" },
+        { label: "C", text: "$\\cos^2x$" },
+      ],
+      hint: "Use $\\sin^2x+\\cos^2x=1$.",
+      explanation: "$1-\\sin^2x=\\cos^2x$.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Treating $\\sin^2x+\\cos^2x$ as $2$.",
+      fix: "The identity says $\\sin^2x+\\cos^2x=1$.",
+    },
+    {
+      mistake: "Confusing $1-\\sin^2x$ with $\\sin^2x$.",
+      fix: "$1-\\sin^2x=\\cos^2x$.",
+    },
+    {
+      mistake: "Cancelling trig functions incorrectly.",
+      fix: "Rewrite carefully first, then cancel common factors only.",
+    },
+    {
+      mistake: "Forgetting that $\\tan x=\\frac{\\sin x}{\\cos x}$.",
+      fix: "Use the tangent identity when tangent appears with sine or cosine.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "identity-mastery-1",
+      prompt: "Complete the identity:",
+      latex: "\\sin^2x+\\cos^2x=\\Box",
+      answer: "1",
+      hint: "This identity is true for all $x$.",
+      explanation: "$\\sin^2x+\\cos^2x=1$.",
+    },
+    {
+      id: "identity-mastery-2",
+      prompt: "Choose the tangent identity.",
+      latex: "\\tan x",
+      answer: "B",
+      choices: [
+        { label: "A", text: "$\\frac{\\cos x}{\\sin x}$" },
+        { label: "B", text: "$\\frac{\\sin x}{\\cos x}$" },
+        { label: "C", text: "$\\sin x\\cos x$" },
+      ],
+      hint: "Tangent is sine over cosine.",
+      explanation: "$\\tan x=\\frac{\\sin x}{\\cos x}$.",
+    },
+    {
+      id: "identity-mastery-3",
+      prompt: "Choose the equivalent expression.",
+      latex: "\\cos^2x",
+      answer: "A",
+      choices: [
+        { label: "A", text: "$1-\\sin^2x$" },
+        { label: "B", text: "$1+\\sin^2x$" },
+        { label: "C", text: "$\\sin^2x-1$" },
+      ],
+      hint: "Rearrange $\\sin^2x+\\cos^2x=1$.",
+      explanation: "$\\cos^2x=1-\\sin^2x$.",
+    },
+    {
+      id: "identity-mastery-4",
+      prompt: "Simplify:",
+      latex: "1-\\sin^2x",
+      answer: "cos^2x",
+      acceptedAnswers: ["cos^2(x)", "\\cos^2x"],
+      hint: "Use the Pythagorean identity.",
+      explanation: "$1-\\sin^2x=\\cos^2x$.",
+    },
+    {
+      id: "identity-mastery-5",
+      prompt: "Simplify:",
+      latex: "1-\\cos^2x",
+      answer: "sin^2x",
+      acceptedAnswers: ["sin^2(x)", "\\sin^2x"],
+      hint: "Rearrange the Pythagorean identity.",
+      explanation: "$1-\\cos^2x=\\sin^2x$.",
+    },
+    {
+      id: "identity-mastery-6",
+      prompt: "Simplify:",
+      latex: "\\tan x\\cos x",
+      answer: "sinx",
+      acceptedAnswers: ["sin(x)", "\\sin x"],
+      hint: "Rewrite tangent first.",
+      explanation: "$\\tan x\\cos x=\\sin x$.",
+    },
+    {
+      id: "identity-mastery-7",
+      prompt: "Choose the best next step.",
+      latex: "\\tan x\\sin x",
+      answer: "A",
+      choices: [
+        { label: "A", text: "Rewrite $\\tan x$ as $\\frac{\\sin x}{\\cos x}$." },
+        { label: "B", text: "Replace $\\tan x$ with $1$." },
+        { label: "C", text: "Replace $\\sin x$ with $\\cos x$." },
+      ],
+      hint: "Use the tangent identity.",
+      explanation: "The useful first step is rewriting tangent.",
+    },
+    {
+      id: "identity-mastery-8",
+      prompt: "Choose the correct statement.",
+      latex: "\\sin^2x+\\cos^2x",
+      answer: "C",
+      choices: [
+        { label: "A", text: "It equals $2$." },
+        { label: "B", text: "It equals $\\tan x$." },
+        { label: "C", text: "It equals $1$." },
+      ],
+      hint: "This is the core identity.",
+      explanation: "$\\sin^2x+\\cos^2x=1$.",
+    },
+    {
+      id: "identity-mastery-9",
+      prompt: "Simplify:",
+      latex: "\\frac{\\sin x}{\\cos x}\\cos x",
+      answer: "sinx",
+      acceptedAnswers: ["sin(x)", "\\sin x"],
+      hint: "Cancel the common cosine factor.",
+      explanation: "$\\frac{\\sin x}{\\cos x}\\cos x=\\sin x$ where $\\cos x\\ne0$.",
+    },
+    {
+      id: "identity-mastery-10",
+      prompt: "Choose the correct simplification.",
+      latex: "\\sin^2x+1-\\sin^2x",
+      answer: "B",
+      choices: [
+        { label: "A", text: "$\\sin^2x$" },
+        { label: "B", text: "$1$" },
+        { label: "C", text: "$\\cos^2x$" },
+      ],
+      hint: "The $\\sin^2x$ terms cancel.",
+      explanation: "$\\sin^2x+1-\\sin^2x=1$.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
+export const modellingPeriodicPhenomenaLesson: ExplicitLesson = {
+  id: "modelling-periodic-phenomena",
+  slug: "modelling-periodic-phenomena",
+  moduleSlug: "trigonometric-functions-graphs",
+  moduleTitle: "Trigonometric Functions and Graphs",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Modelling Periodic Phenomena",
+  description:
+    "Interpret amplitude, midline, period, maximum, minimum, and units in trigonometric models of periodic contexts.",
+  syllabusArea: "Trigonometric Functions",
+  focus: "Trigonometric functions and graphs",
+  status: "active",
+
+  video: {
+    title: "Modelling Periodic Phenomena",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to interpret trigonometric models in periodic real-world contexts.",
+
+  successCriteria: [
+    "Identify amplitude and midline from a model.",
+    "Calculate period from $b$.",
+    "Find maximum and minimum values using midline and amplitude.",
+    "Interpret model parameters in context.",
+    "Include appropriate units in contextual answers.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "Trigonometric functions can model repeating behaviour such as tides, daylight, Ferris wheel height, temperature, and motion.",
+      "The midline represents the average value. In $y=a\\sin(b(t-c))+d$, the midline is $y=d$.",
+      "The amplitude is half the distance between the maximum and minimum values.",
+      "For sine and cosine models, the period is $\\frac{2\\pi}{|b|}$.",
+      "Maximum and minimum values come from midline plus or minus amplitude, and units matter in context.",
+    ],
+    latexBlocks: [
+      "y=a\\sin(b(t-c))+d",
+      "\\text{amplitude}=|a|",
+      "\\text{period}=\\frac{2\\pi}{|b|}",
+      "\\text{maximum}=d+|a|,\\quad \\text{minimum}=d-|a|",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Tide model",
+      questionLatex: "h(t)=2\\sin\\left(\\frac{\\pi}{6}t\\right)+3",
+      steps: [
+        { explanation: "Identify amplitude.", latex: "|a|=2" },
+        { explanation: "Identify midline.", latex: "h=3" },
+        { explanation: "Find the period.", latex: "\\frac{2\\pi}{\\pi/6}=12" },
+      ],
+      finalAnswerLatex:
+        "\\text{amplitude }2\\text{ m},\\quad \\text{midline }3\\text{ m},\\quad \\text{period }12\\text{ h}",
+    },
+    {
+      title: "Worked example 2: Ferris wheel model",
+      questionLatex: "h(t)=10\\cos\\left(\\frac{\\pi}{15}t\\right)+12",
+      steps: [
+        { explanation: "Amplitude is 10 and midline is 12.", latex: "|a|=10,\\quad d=12" },
+        { explanation: "Find maximum and minimum height.", latex: "\\max=12+10=22,\\quad \\min=12-10=2" },
+        { explanation: "Find the period.", latex: "\\frac{2\\pi}{\\pi/15}=30" },
+      ],
+      finalAnswerLatex:
+        "\\text{maximum }22\\text{ m},\\quad \\text{minimum }2\\text{ m},\\quad \\text{period }30\\text{ s}",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "model-guided-1",
+      prompt: "Find the amplitude:",
+      latex: "h(t)=4\\sin\\left(\\frac{\\pi}{8}t\\right)+10",
+      answer: "4",
+      hint: "Amplitude is $|a|$.",
+      explanation: "The amplitude is $4$.",
+    },
+    {
+      id: "model-guided-2",
+      prompt: "Find the midline:",
+      latex: "h(t)=4\\sin\\left(\\frac{\\pi}{8}t\\right)+10",
+      answer: "10",
+      acceptedAnswers: ["h=10", "y=10"],
+      hint: "The midline is the vertical shift.",
+      explanation: "The midline is $h=10$.",
+    },
+    {
+      id: "model-guided-3",
+      prompt: "Find the period:",
+      latex: "h(t)=4\\sin\\left(\\frac{\\pi}{8}t\\right)+10",
+      answer: "16",
+      hint: "Use $\\frac{2\\pi}{\\pi/8}$.",
+      explanation: "The period is $16$.",
+    },
+    {
+      id: "model-guided-4",
+      prompt: "Find the maximum value:",
+      latex: "\\text{amplitude}=4,\\quad \\text{midline}=10",
+      answer: "14",
+      hint: "Maximum is midline plus amplitude.",
+      explanation: "The maximum is $10+4=14$.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "model-ind-1",
+      prompt: "Find the amplitude:",
+      latex: "T(t)=6\\cos\\left(\\frac{\\pi}{12}t\\right)+18",
+      answer: "6",
+      hint: "Amplitude is $|a|$.",
+      explanation: "The amplitude is $6$ degrees.",
+    },
+    {
+      id: "model-ind-2",
+      prompt: "Find the period:",
+      latex: "T(t)=6\\cos\\left(\\frac{\\pi}{12}t\\right)+18",
+      answer: "24",
+      hint: "Use $\\frac{2\\pi}{\\pi/12}$.",
+      explanation: "The period is $24$ hours.",
+    },
+    {
+      id: "model-ind-3",
+      prompt: "Find the minimum value:",
+      latex: "h(t)=10\\cos\\left(\\frac{\\pi}{15}t\\right)+12",
+      answer: "2",
+      hint: "Minimum is midline minus amplitude.",
+      explanation: "The minimum is $12-10=2$.",
+    },
+    {
+      id: "model-ind-4",
+      prompt: "Choose what the midline usually represents in a model.",
+      latex: "y=a\\sin(bt)+d",
+      answer: "B",
+      choices: [
+        { label: "A", text: "the maximum value" },
+        { label: "B", text: "the average value" },
+        { label: "C", text: "the period" },
+      ],
+      hint: "The model oscillates around the midline.",
+      explanation: "The midline represents the average value.",
+    },
+    {
+      id: "model-ind-5",
+      prompt: "Find the maximum height:",
+      latex: "h(t)=1.5\\sin\\left(\\frac{\\pi}{6}t\\right)+2.4",
+      answer: "3.9",
+      acceptedAnswers: ["3.9 m", "3.9 metres", "3.9 meters"],
+      hint: "Add amplitude to midline.",
+      explanation: "The maximum is $2.4+1.5=3.9$.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Confusing amplitude with maximum value.",
+      fix: "Maximum is midline plus amplitude.",
+    },
+    {
+      mistake: "Forgetting the midline when finding maximum or minimum.",
+      fix: "Use $d+|a|$ and $d-|a|$.",
+    },
+    {
+      mistake: "Using $b$ as the period.",
+      fix: "For sine and cosine models, period is $\\frac{2\\pi}{|b|}$.",
+    },
+    {
+      mistake: "Ignoring units in context.",
+      fix: "Include units such as metres, hours, degrees, or seconds.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "model-mastery-1",
+      prompt: "Find the amplitude:",
+      latex: "h(t)=2\\sin\\left(\\frac{\\pi}{6}t\\right)+3",
+      answer: "2",
+      hint: "Amplitude is $|a|$.",
+      explanation: "The amplitude is $2$.",
+    },
+    {
+      id: "model-mastery-2",
+      prompt: "Find the midline:",
+      latex: "h(t)=2\\sin\\left(\\frac{\\pi}{6}t\\right)+3",
+      answer: "3",
+      acceptedAnswers: ["h=3", "y=3"],
+      hint: "The midline is $d$.",
+      explanation: "The midline is $h=3$.",
+    },
+    {
+      id: "model-mastery-3",
+      prompt: "Find the maximum value:",
+      latex: "h(t)=2\\sin\\left(\\frac{\\pi}{6}t\\right)+3",
+      answer: "5",
+      hint: "Add amplitude to midline.",
+      explanation: "The maximum is $3+2=5$.",
+    },
+    {
+      id: "model-mastery-4",
+      prompt: "Find the period:",
+      latex: "h(t)=2\\sin\\left(\\frac{\\pi}{6}t\\right)+3",
+      answer: "12",
+      hint: "Use $\\frac{2\\pi}{\\pi/6}$.",
+      explanation: "The period is $12$.",
+    },
+    {
+      id: "model-mastery-5",
+      prompt: "Find the period:",
+      latex: "D(t)=3\\cos\\left(\\frac{\\pi}{10}t\\right)+8",
+      answer: "20",
+      hint: "Use $\\frac{2\\pi}{\\pi/10}$.",
+      explanation: "The period is $20$.",
+    },
+    {
+      id: "model-mastery-6",
+      prompt: "Find the minimum value:",
+      latex: "D(t)=3\\cos\\left(\\frac{\\pi}{10}t\\right)+8",
+      answer: "5",
+      hint: "Midline minus amplitude.",
+      explanation: "The minimum is $8-3=5$.",
+    },
+    {
+      id: "model-mastery-7",
+      prompt: "Choose what amplitude means in a tide model.",
+      latex: "h(t)=a\\sin(bt)+d",
+      answer: "A",
+      choices: [
+        { label: "A", text: "half the distance between high and low tide" },
+        { label: "B", text: "the time for one cycle" },
+        { label: "C", text: "the average height" },
+      ],
+      hint: "Amplitude is a vertical distance.",
+      explanation: "Amplitude is half the distance between maximum and minimum.",
+    },
+    {
+      id: "model-mastery-8",
+      prompt: "Choose the correct unit for the period if $t$ is in hours.",
+      latex: "t\\text{ in hours}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "metres" },
+        { label: "B", text: "hours" },
+        { label: "C", text: "square units" },
+      ],
+      hint: "Period is measured in the input unit.",
+      explanation: "If $t$ is in hours, the period is in hours.",
+    },
+    {
+      id: "model-mastery-9",
+      prompt: "A Ferris wheel model has midline $12$ m and amplitude $10$ m. Find the maximum height.",
+      latex: "\\text{midline}=12,\\quad \\text{amplitude}=10",
+      answer: "22",
+      acceptedAnswers: ["22 m", "22 metres", "22 meters"],
+      hint: "Add the amplitude.",
+      explanation: "Maximum height is $12+10=22$ m.",
+    },
+    {
+      id: "model-mastery-10",
+      prompt: "Choose the best interpretation of $d$.",
+      latex: "y=a\\cos(bt)+d",
+      answer: "C",
+      choices: [
+        { label: "A", text: "amplitude" },
+        { label: "B", text: "period" },
+        { label: "C", text: "midline or average value" },
+      ],
+      hint: "$d$ is the vertical shift.",
+      explanation: "$d$ gives the midline or average value.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
+export const mixedTrigonometricFunctionsExamPracticeLesson: ExplicitLesson = {
+  id: "mixed-trigonometric-functions-exam-practice",
+  slug: "mixed-trigonometric-functions-exam-practice",
+  moduleSlug: "trigonometric-functions-graphs",
+  moduleTitle: "Trigonometric Functions and Graphs",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Mixed Trigonometric Functions Exam Practice",
+  description:
+    "Practise mixed exam-style trigonometric questions involving exact values, graphs, equations, identities, and modelling.",
+  syllabusArea: "Trigonometric Functions",
+  focus: "Trigonometric functions and graphs",
+  status: "active",
+
+  video: {
+    title: "Mixed Trigonometric Functions Exam Practice",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to choose and combine trigonometric skills in mixed exam-style questions.",
+
+  successCriteria: [
+    "Identify which trigonometric skill a question is testing.",
+    "Use exact values and unit-circle signs accurately.",
+    "Interpret graph features such as amplitude, period, and midline.",
+    "Solve trigonometric equations within a domain.",
+    "Interpret trigonometric models with units and context.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "Mixed exam questions often combine exact values, unit-circle signs, graph features, transformations, equations, identities, and modelling.",
+      "The first step is to identify the skill being tested before calculating.",
+      "For equation questions, always check the domain and give all solutions.",
+      "For graph questions, connect amplitude, period, midline, asymptotes, and intercepts to the equation.",
+      "For modelling questions, answer in context and include units where appropriate.",
+    ],
+    latexBlocks: [
+      "\\text{identify skill}\\quad \\Rightarrow\\quad \\text{choose method}\\quad \\Rightarrow\\quad \\text{answer in context}",
+      "\\sin^2x+\\cos^2x=1",
+      "\\text{period}=\\frac{2\\pi}{|b|}",
+      "2\\sin x-1=0\\quad \\Rightarrow\\quad \\sin x=\\frac12",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Equation with two solutions",
+      questionLatex: "2\\sin x-1=0,\\quad 0\\le x\\le2\\pi",
+      steps: [
+        { explanation: "Isolate sine.", latex: "\\sin x=\\frac12" },
+        { explanation: "Use the reference angle.", latex: "\\frac{\\pi}{6}" },
+        { explanation: "Sine is positive in quadrants I and II.", latex: "x=\\frac{\\pi}{6},\\frac{5\\pi}{6}" },
+      ],
+      finalAnswerLatex: "x=\\frac{\\pi}{6},\\frac{5\\pi}{6}",
+    },
+    {
+      title: "Worked example 2: Graph features",
+      questionLatex: "y=3\\cos(2x)-1",
+      steps: [
+        { explanation: "Identify amplitude and period.", latex: "\\text{amplitude}=3,\\quad \\text{period}=\\frac{2\\pi}{2}=\\pi" },
+        { explanation: "Identify midline.", latex: "y=-1" },
+        { explanation: "Find maximum and minimum.", latex: "\\max=-1+3=2,\\quad \\min=-1-3=-4" },
+      ],
+      finalAnswerLatex:
+        "\\text{amplitude }3,\\quad \\text{period }\\pi,\\quad \\text{midline }y=-1,\\quad \\max 2,\\quad \\min -4",
+    },
+    {
+      title: "Worked example 3: Tide model",
+      questionLatex: "h(t)=1.5\\sin\\left(\\frac{\\pi}{6}t\\right)+2.4",
+      steps: [
+        { explanation: "Amplitude is the tide variation from the average.", latex: "1.5\\text{ m}" },
+        { explanation: "Midline is the average height.", latex: "2.4\\text{ m}" },
+        { explanation: "Find the period.", latex: "\\frac{2\\pi}{\\pi/6}=12\\text{ h}" },
+      ],
+      finalAnswerLatex:
+        "\\text{amplitude }1.5\\text{ m},\\quad \\text{midline }2.4\\text{ m},\\quad \\text{period }12\\text{ h}",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "mixed-trig-guided-1",
+      prompt: "Choose the skill needed:",
+      latex: "\\sin\\left(\\frac{\\pi}{3}\\right)",
+      answer: "A",
+      choices: [
+        { label: "A", text: "exact values" },
+        { label: "B", text: "modelling" },
+        { label: "C", text: "identity proof" },
+      ],
+      hint: "This asks for a known value.",
+      explanation: "This is an exact values question.",
+    },
+    {
+      id: "mixed-trig-guided-2",
+      prompt: "Evaluate exactly:",
+      latex: "\\cos(\\pi)",
+      answer: "-1",
+      hint: "Use the unit circle.",
+      explanation: "$\\cos(\\pi)=-1$.",
+    },
+    {
+      id: "mixed-trig-guided-3",
+      prompt: "Find the amplitude:",
+      latex: "y=-4\\sin(2x)+1",
+      answer: "4",
+      hint: "Amplitude is $|a|$.",
+      explanation: "The amplitude is $4$.",
+    },
+    {
+      id: "mixed-trig-guided-4",
+      prompt: "Choose the first step:",
+      latex: "2\\sin x-1=0",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Find the period" },
+        { label: "B", text: "Isolate $\\sin x$" },
+        { label: "C", text: "Use $\\tan x=\\frac{\\sin x}{\\cos x}$" },
+      ],
+      hint: "This is an equation-solving question.",
+      explanation: "First isolate $\\sin x$.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "mixed-trig-ind-1",
+      prompt: "Evaluate exactly:",
+      latex: "\\sin\\left(\\frac{\\pi}{6}\\right)",
+      answer: "1/2",
+      acceptedAnswers: ["0.5"],
+      hint: "Use exact values.",
+      explanation: "$\\sin\\left(\\frac{\\pi}{6}\\right)=\\frac12$.",
+    },
+    {
+      id: "mixed-trig-ind-2",
+      prompt: "Find the period:",
+      latex: "y=2\\cos(3x)",
+      answer: "2pi/3",
+      acceptedAnswers: ["2\\pi/3", "2π/3"],
+      hint: "Use $\\frac{2\\pi}{|b|}$.",
+      explanation: "The period is $\\frac{2\\pi}{3}$.",
+    },
+    {
+      id: "mixed-trig-ind-3",
+      prompt: "Choose the solutions.",
+      latex: "\\tan x=1,\\quad 0\\le x\\le2\\pi",
+      answer: "C",
+      choices: [
+        { label: "A", text: "$x=\\frac{\\pi}{4}$ only" },
+        { label: "B", text: "$x=\\frac{3\\pi}{4},\\frac{7\\pi}{4}$" },
+        { label: "C", text: "$x=\\frac{\\pi}{4},\\frac{5\\pi}{4}$" },
+      ],
+      hint: "Tangent is positive in quadrants I and III.",
+      explanation: "The solutions are $\\frac{\\pi}{4}$ and $\\frac{5\\pi}{4}$.",
+    },
+    {
+      id: "mixed-trig-ind-4",
+      prompt: "Simplify:",
+      latex: "1-\\sin^2x",
+      answer: "cos^2x",
+      acceptedAnswers: ["cos^2(x)", "\\cos^2x"],
+      hint: "Use the Pythagorean identity.",
+      explanation: "$1-\\sin^2x=\\cos^2x$.",
+    },
+    {
+      id: "mixed-trig-ind-5",
+      prompt: "A model has amplitude $5$ and midline $12$. Find the maximum value.",
+      latex: "\\text{amplitude}=5,\\quad \\text{midline}=12",
+      answer: "17",
+      hint: "Maximum is midline plus amplitude.",
+      explanation: "The maximum is $12+5=17$.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Giving degrees when radians are required.",
+      fix: "Use radians unless the question asks for degrees.",
+    },
+    {
+      mistake: "Giving only one solution in a trig equation.",
+      fix: "Use the domain and quadrant signs to find all solutions.",
+    },
+    {
+      mistake: "Confusing amplitude and period.",
+      fix: "Amplitude is vertical size; period is horizontal cycle length.",
+    },
+    {
+      mistake: "Forgetting context or units in modelling questions.",
+      fix: "Finish with units such as metres, hours, or degrees where relevant.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "mixed-trig-mastery-1",
+      prompt: "Choose the method needed.",
+      latex: "h(t)=2\\sin\\left(\\frac{\\pi}{6}t\\right)+3",
+      answer: "C",
+      choices: [
+        { label: "A", text: "exact value only" },
+        { label: "B", text: "identity simplification" },
+        { label: "C", text: "modelling interpretation" },
+      ],
+      hint: "This is a contextual model.",
+      explanation: "This question needs modelling interpretation.",
+    },
+    {
+      id: "mixed-trig-mastery-2",
+      prompt: "Evaluate exactly:",
+      latex: "\\tan\\left(\\frac{\\pi}{4}\\right)",
+      answer: "1",
+      hint: "Use exact values.",
+      explanation: "$\\tan\\left(\\frac{\\pi}{4}\\right)=1$.",
+    },
+    {
+      id: "mixed-trig-mastery-3",
+      prompt: "Choose where cosine is negative.",
+      latex: "\\cos x<0",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Quadrants I and IV" },
+        { label: "B", text: "Quadrants II and III" },
+        { label: "C", text: "Quadrants I and III" },
+      ],
+      hint: "Cosine is the x-coordinate.",
+      explanation: "Cosine is negative in quadrants II and III.",
+    },
+    {
+      id: "mixed-trig-mastery-4",
+      prompt: "Find the amplitude:",
+      latex: "y=-3\\cos(2x)-1",
+      answer: "3",
+      hint: "Amplitude is $|a|$.",
+      explanation: "The amplitude is $3$.",
+    },
+    {
+      id: "mixed-trig-mastery-5",
+      prompt: "Find the period:",
+      latex: "y=-3\\cos(2x)-1",
+      answer: "pi",
+      acceptedAnswers: ["\\pi", "π"],
+      hint: "Use $\\frac{2\\pi}{2}$.",
+      explanation: "The period is $\\pi$.",
+    },
+    {
+      id: "mixed-trig-mastery-6",
+      prompt: "Choose the solutions.",
+      latex: "2\\sin x-1=0,\\quad 0\\le x\\le2\\pi",
+      answer: "A",
+      choices: [
+        { label: "A", text: "$x=\\frac{\\pi}{6},\\frac{5\\pi}{6}$" },
+        { label: "B", text: "$x=\\frac{7\\pi}{6},\\frac{11\\pi}{6}$" },
+        { label: "C", text: "$x=\\frac{\\pi}{3},\\frac{5\\pi}{3}$" },
+      ],
+      hint: "First solve $\\sin x=\\frac12$.",
+      explanation: "The solutions are $\\frac{\\pi}{6}$ and $\\frac{5\\pi}{6}$.",
+    },
+    {
+      id: "mixed-trig-mastery-7",
+      prompt: "Simplify:",
+      latex: "\\tan x\\cos x",
+      answer: "sinx",
+      acceptedAnswers: ["sin(x)", "\\sin x"],
+      hint: "Rewrite tangent first.",
+      explanation: "$\\tan x\\cos x=\\sin x$.",
+    },
+    {
+      id: "mixed-trig-mastery-8",
+      prompt: "A tide model has midline $2.4$ m and amplitude $1.5$ m. Find the minimum height.",
+      latex: "\\text{midline}=2.4,\\quad \\text{amplitude}=1.5",
+      answer: "0.9",
+      acceptedAnswers: ["0.9 m", "0.9 metres", "0.9 meters"],
+      hint: "Minimum is midline minus amplitude.",
+      explanation: "The minimum is $2.4-1.5=0.9$ m.",
+    },
+    {
+      id: "mixed-trig-mastery-9",
+      prompt: "Find the smaller solution:",
+      latex: "\\cos x=\\frac12,\\quad 0\\le x\\le2\\pi",
+      answer: "pi/3",
+      acceptedAnswers: ["\\pi/3", "π/3"],
+      hint: "Cosine is positive in quadrant I first.",
+      explanation: "The smaller solution is $\\frac{\\pi}{3}$.",
+    },
+    {
+      id: "mixed-trig-mastery-10",
+      prompt: "Choose the correct interpretation of period.",
+      latex: "h(t)=1.5\\sin\\left(\\frac{\\pi}{6}t\\right)+2.4",
+      answer: "B",
+      choices: [
+        { label: "A", text: "maximum height" },
+        { label: "B", text: "time for one full cycle" },
+        { label: "C", text: "average height" },
+      ],
+      hint: "Period is horizontal cycle length.",
+      explanation: "The period is the time for one full cycle.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
 export const trigonometricFunctionsGraphsOutline: LessonOutlineItem[] = [
   {
     id: "radians-exact-values-unit-circle",
@@ -1332,7 +2229,7 @@ export const trigonometricFunctionsGraphsOutline: LessonOutlineItem[] = [
     title: "Trigonometric Identities and Simplification",
     description:
       "Use fundamental trigonometric identities to simplify expressions and support equation solving.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "modelling-periodic-phenomena",
@@ -1340,7 +2237,7 @@ export const trigonometricFunctionsGraphsOutline: LessonOutlineItem[] = [
     title: "Modelling Periodic Phenomena",
     description:
       "Use trigonometric functions to model periodic contexts such as tides, daylight, height, and motion.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "mixed-trigonometric-functions-exam-practice",
@@ -1348,7 +2245,7 @@ export const trigonometricFunctionsGraphsOutline: LessonOutlineItem[] = [
     title: "Mixed Trigonometric Functions Exam Practice",
     description:
       "Practise mixed exam-style questions involving radians, exact values, graphs, transformations, equations, identities, and modelling.",
-    status: "coming-soon",
+    status: "active",
   },
 ];
 
@@ -1357,4 +2254,7 @@ export const trigonometricFunctionsGraphsLessons = [
   graphsSineCosineTangentLesson,
   amplitudePeriodPhaseVerticalShiftLesson,
   trigonometricEquationsLesson,
+  trigonometricIdentitiesSimplificationLesson,
+  modellingPeriodicPhenomenaLesson,
+  mixedTrigonometricFunctionsExamPracticeLesson,
 ];
