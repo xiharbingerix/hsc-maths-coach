@@ -31,7 +31,50 @@ const lessonStages: { id: LessonStage; label: string }[] = [
 ];
 
 function normaliseAnswer(value: string) {
-  return value.toLowerCase().replace(/\s+/g, "");
+  return value
+    .normalize("NFKC")
+    .replace(/[\u2212\u2013\u2014]/g, "-")
+    .toLowerCase()
+    .trim()
+    .replace(/\blocal\s+max\b/g, "local maximum")
+    .replace(/\blocal\s+min\b/g, "local minimum")
+    .replace(/\bmax\b/g, "maximum")
+    .replace(/\bmin\b/g, "minimum")
+    .replace(/\s*([+\-])\s*/g, "$1")
+    .replace(/\s*,\s*/g, ",")
+    .replace(/\s*\/\s*/g, "/")
+    .replace(/\s+/g, "");
+}
+
+function answerOptions(question: PracticeQuestion) {
+  const options = [question.answer, ...(question.acceptedAnswers ?? [])];
+  const normalisedAnswer = normaliseAnswer(question.answer);
+
+  if (normalisedAnswer === "localmaximum") {
+    options.push("local max", "maximum", "max");
+  }
+
+  if (normalisedAnswer === "localminimum") {
+    options.push("local min", "minimum", "min");
+  }
+
+  if (normalisedAnswer === "maximum") {
+    options.push("max");
+  }
+
+  if (normalisedAnswer === "minimum") {
+    options.push("min");
+  }
+
+  return options;
+}
+
+function isCorrectAnswer(question: PracticeQuestion, value: string) {
+  const userAnswer = normaliseAnswer(value);
+
+  return answerOptions(question).some(
+    (acceptedAnswer) => userAnswer === normaliseAnswer(acceptedAnswer)
+  );
 }
 
 function masteryStorageKey(lessonSlug: string) {
@@ -56,6 +99,48 @@ function MathText({ text }: { text: string }) {
   );
 }
 
+function ChoiceButtons({
+  question,
+  value,
+  onChange,
+}: {
+  question: PracticeQuestion;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  if (!question.choices) {
+    return null;
+  }
+
+  return (
+    <div className="space-y-2">
+      <p className="text-sm font-medium">Choose an answer</p>
+      <div className="grid gap-2 sm:grid-cols-2">
+        {question.choices.map((choice) => {
+          const isSelected =
+            normaliseAnswer(value) === normaliseAnswer(choice.label);
+
+          return (
+            <button
+              key={choice.label}
+              type="button"
+              onClick={() => onChange(choice.label)}
+              className={`rounded-xl border px-4 py-3 text-left text-sm transition ${
+                isSelected
+                  ? "border-slate-900 bg-slate-900 text-white"
+                  : "border-slate-200 bg-white text-slate-800 hover:border-slate-400 hover:bg-slate-50"
+              }`}
+            >
+              <span className="font-semibold">{choice.label}.</span>{" "}
+              <MathText text={choice.text} />
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function PracticeCard({
   question,
   index,
@@ -69,10 +154,7 @@ function PracticeCard({
   const [showExplanation, setShowExplanation] = useState(false);
 
   function checkAnswer() {
-    const userAnswer = normaliseAnswer(answer);
-    const correctAnswer = normaliseAnswer(question.answer);
-
-    setResult(userAnswer === correctAnswer ? "correct" : "incorrect");
+    setResult(isCorrectAnswer(question, answer) ? "correct" : "incorrect");
   }
 
   return (
@@ -82,24 +164,37 @@ function PracticeCard({
           Question {index + 1}
         </p>
 
-        <p className="mt-2 font-medium">{question.prompt}</p>
+        <p className="mt-2 font-medium">
+          <MathText text={question.prompt} />
+        </p>
 
         <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
           <BlockMath math={question.latex} />
         </div>
       </div>
 
-      <label className="block space-y-1">
-        <span className="text-sm font-medium">Your answer</span>
-        <input
+      {question.choices ? (
+        <ChoiceButtons
+          question={question}
           value={answer}
-          onChange={(event) => {
-            setAnswer(event.target.value);
+          onChange={(value) => {
+            setAnswer(value);
             setResult(null);
           }}
-          className="w-full rounded-xl border border-slate-300 px-3 py-2"
         />
-      </label>
+      ) : (
+        <label className="block space-y-1">
+          <span className="text-sm font-medium">Your answer</span>
+          <input
+            value={answer}
+            onChange={(event) => {
+              setAnswer(event.target.value);
+              setResult(null);
+            }}
+            className="w-full rounded-xl border border-slate-300 px-3 py-2"
+          />
+        </label>
+      )}
 
       <div className="flex flex-wrap gap-2">
         <button
@@ -175,20 +270,26 @@ function QuizQuestion({
         <p className="text-sm font-medium text-slate-500">
           Question {index + 1}
         </p>
-        <p className="mt-2 font-medium">{question.prompt}</p>
+        <p className="mt-2 font-medium">
+          <MathText text={question.prompt} />
+        </p>
         <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
           <BlockMath math={question.latex} />
         </div>
       </div>
 
-      <label className="block space-y-1">
-        <span className="text-sm font-medium">Your answer</span>
-        <input
-          value={value}
-          onChange={(event) => onChange(event.target.value)}
-          className="w-full rounded-xl border border-slate-300 px-3 py-2"
-        />
-      </label>
+      {question.choices ? (
+        <ChoiceButtons question={question} value={value} onChange={onChange} />
+      ) : (
+        <label className="block space-y-1">
+          <span className="text-sm font-medium">Your answer</span>
+          <input
+            value={value}
+            onChange={(event) => onChange(event.target.value)}
+            className="w-full rounded-xl border border-slate-300 px-3 py-2"
+          />
+        </label>
+      )}
     </div>
   );
 }
@@ -291,9 +392,7 @@ export default function LessonPage({
     (stage) => stage.id === activeStage
   );
   const quizCorrectCount = currentLesson.masteryQuiz.filter(
-    (question) =>
-      normaliseAnswer(quizAnswers[question.id] ?? "") ===
-      normaliseAnswer(question.answer)
+    (question) => isCorrectAnswer(question, quizAnswers[question.id] ?? "")
   ).length;
   const quizScore = quizCorrectCount / currentLesson.masteryQuiz.length;
 
