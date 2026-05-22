@@ -30,6 +30,13 @@ export default function CoursePage() {
         "A staged pathway for radians, exact values, the unit circle, sine, cosine, tangent graphs, and later trigonometric equations and modelling.",
       status: "Available in beta",
     },
+    {
+      href: "/course/financial-mathematics",
+      title: "Financial Mathematics",
+      description:
+        "A staged pathway for growth factors, compound interest, depreciation, recurrence relations, annuities, loans, and financial decision-making.",
+      status: "Available in beta",
+    },
   ];
 
   return (
