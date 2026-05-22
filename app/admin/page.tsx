@@ -46,7 +46,28 @@ type StudentUserRow = {
   access?: BetaAccessRow;
 };
 
+type EnquiryStatus = "new" | "contacted" | "converted" | "closed";
+
+type EnquiryRow = {
+  id: string;
+  created_at: string | null;
+  offer_selected: string | null;
+  student_first_name: string | null;
+  parent_first_name: string | null;
+  parent_email: string | null;
+  year_level: string | null;
+  course: string | null;
+  message: string | null;
+  status: string | null;
+};
+
 const betaAccessStatuses: BetaAccessStatus[] = ["pending", "active", "revoked"];
+const enquiryStatuses: EnquiryStatus[] = [
+  "new",
+  "contacted",
+  "converted",
+  "closed",
+];
 
 async function ensureProfileAndAccess(
   userId: string,
@@ -196,6 +217,30 @@ async function updateBetaAccessStatus(formData: FormData) {
   revalidatePath("/admin");
 }
 
+async function updateEnquiryStatus(formData: FormData) {
+  "use server";
+
+  await requireAdmin();
+
+  const id = String(formData.get("id") ?? "");
+  const status = String(formData.get("status") ?? "") as EnquiryStatus;
+
+  if (!id || !enquiryStatuses.includes(status)) {
+    throw new Error("Invalid enquiry status update.");
+  }
+
+  const { error } = await supabaseAdmin
+    .from("enquiries")
+    .update({ status })
+    .eq("id", id);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/admin");
+}
+
 function formatDateTime(value: string) {
   return new Intl.DateTimeFormat("en-AU", {
     dateStyle: "medium",
@@ -233,6 +278,22 @@ function accessStatusClass(status: string | null | undefined) {
   return "bg-amber-100 text-amber-900";
 }
 
+function enquiryStatusClass(status: string | null | undefined) {
+  if (status === "converted") {
+    return "bg-emerald-100 text-emerald-900";
+  }
+
+  if (status === "closed") {
+    return "bg-slate-200 text-slate-700";
+  }
+
+  if (status === "contacted") {
+    return "bg-blue-100 text-blue-900";
+  }
+
+  return "bg-amber-100 text-amber-900";
+}
+
 function groupSubmissionsByDate(submissions: DiagnosticSubmission[]) {
   return submissions.reduce<Record<string, DiagnosticSubmission[]>>(
     (groups, submission) => {
@@ -263,6 +324,16 @@ export default async function AdminPage() {
 
   const submissions = (data ?? []) as DiagnosticSubmission[];
   const groupedSubmissions = groupSubmissionsByDate(submissions);
+
+  const { data: enquiriesData, error: enquiriesError } = await supabaseAdmin
+    .from("enquiries")
+    .select(
+      "id,created_at,offer_selected,student_first_name,parent_first_name,parent_email,year_level,course,message,status"
+    )
+    .order("created_at", { ascending: false })
+    .limit(100);
+
+  const enquiries = (enquiriesData ?? []) as EnquiryRow[];
 
   const {
     data: betaAccessData,
@@ -374,6 +445,121 @@ export default async function AdminPage() {
             </button>
           </form>
         </header>
+
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Funnel
+              </p>
+              <h2 className="mt-2 text-2xl font-bold tracking-tight">
+                Enquiries
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Interest captured from /enquire before a diagnostic is
+                completed.
+              </p>
+            </div>
+            <p className="text-sm font-semibold text-slate-500">
+              {enquiries.length} enquir{enquiries.length === 1 ? "y" : "ies"}
+            </p>
+          </div>
+
+          {enquiriesError ? (
+            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
+              Could not load enquiries: {enquiriesError.message}. Create the
+              public.enquiries table if it does not exist yet.
+            </div>
+          ) : enquiries.length === 0 ? (
+            <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+              No enquiries yet.
+            </p>
+          ) : (
+            <div className="mt-5 space-y-3">
+              {enquiries.map((enquiry) => {
+                const status = enquiry.status ?? "new";
+
+                return (
+                  <article
+                    key={enquiry.id}
+                    className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
+                  >
+                    <div className="grid gap-5 xl:grid-cols-[1.2fr_1.1fr_1.3fr] xl:items-start">
+                      <div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="font-semibold text-slate-950">
+                            {enquiry.student_first_name ?? "Unnamed student"}
+                          </h3>
+                          <span
+                            className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ${enquiryStatusClass(
+                              status
+                            )}`}
+                          >
+                            {status}
+                          </span>
+                        </div>
+                        <p className="mt-1 text-sm text-slate-600">
+                          Parent: {enquiry.parent_first_name ?? "Not saved"}
+                        </p>
+                        <p className="mt-1 text-sm text-slate-600">
+                          {enquiry.parent_email ?? "No parent email"}
+                        </p>
+                        <p className="mt-1 text-xs text-slate-500">
+                          Created {formatOptionalDateTime(enquiry.created_at)}
+                        </p>
+                      </div>
+
+                      <div className="text-sm text-slate-600">
+                        <p>
+                          <span className="font-medium text-slate-900">
+                            Offer:
+                          </span>{" "}
+                          {enquiry.offer_selected ?? "Not selected"}
+                        </p>
+                        <p className="mt-1">
+                          <span className="font-medium text-slate-900">
+                            Year:
+                          </span>{" "}
+                          {enquiry.year_level ?? "Not saved"}
+                        </p>
+                        <p className="mt-1">
+                          <span className="font-medium text-slate-900">
+                            Course:
+                          </span>{" "}
+                          {enquiry.course ?? "Not saved"}
+                        </p>
+                        {enquiry.message ? (
+                          <p className="mt-3 rounded-xl bg-white p-3 leading-6 text-slate-700">
+                            {enquiry.message}
+                          </p>
+                        ) : null}
+                      </div>
+
+                      <form
+                        action={updateEnquiryStatus}
+                        className="flex flex-wrap gap-2 xl:justify-end"
+                      >
+                        <input type="hidden" name="id" value={enquiry.id} />
+                        {enquiryStatuses.map((nextStatus) => (
+                          <button
+                            key={nextStatus}
+                            type="submit"
+                            name="status"
+                            value={nextStatus}
+                            disabled={status === nextStatus}
+                            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-semibold capitalize text-slate-800 transition hover:bg-slate-50 disabled:cursor-default disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400"
+                          >
+                            {nextStatus}
+                          </button>
+                        ))}
+                      </form>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          )}
+        </section>
 
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
