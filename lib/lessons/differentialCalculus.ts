@@ -69,6 +69,374 @@ export type LessonOutlineItem = {
   status: "active" | "coming-soon";
 };
 
+export const derivativeAsRateOfChangeLesson: ExplicitLesson = {
+  id: "rate-of-change",
+  slug: "rate-of-change",
+  moduleSlug: "differential-calculus",
+  moduleTitle: "Differential Calculus",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "The Derivative as Rate of Change",
+  description:
+    "Understand average rate of change, instantaneous rate of change, tangent gradients, derivative notation, signs, and units.",
+  syllabusArea: "Calculus",
+  focus: "Differential calculus",
+  status: "active",
+
+  video: {
+    title: "The Derivative as Rate of Change",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to interpret the derivative as an instantaneous rate of change.",
+
+  successCriteria: [
+    "Explain that a rate of change compares how one quantity changes compared to another.",
+    "Calculate average rate of change from two function values.",
+    "Recognise average rate of change as the gradient of a secant line.",
+    "Recognise instantaneous rate of change as the gradient of a tangent line.",
+    "Interpret derivative notation such as $f'(x)$, $\\frac{dy}{dx}$, and $\\frac{ds}{dt}$.",
+    "Use the sign and units of a derivative to interpret a contextual rate.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "A rate of change compares how one quantity changes compared to another quantity.",
+      "Average rate of change looks across an interval. It is the change in output divided by the change in input.",
+      "On a graph, average rate of change is the gradient of the secant line joining two points.",
+      "Instantaneous rate of change looks at one instant or one point. On a graph, it is the gradient of the tangent line.",
+      "The derivative gives the instantaneous rate of change. The notation used depends on the context, such as $f'(x)$, $\\frac{dy}{dx}$, or $\\frac{ds}{dt}$.",
+      "A positive derivative means the quantity is increasing, a negative derivative means it is decreasing, and a zero derivative means it is momentarily not changing.",
+      "Units matter. If displacement is measured in metres and time in seconds, then $\\frac{ds}{dt}$ is measured in metres per second.",
+    ],
+    latexBlocks: [
+      "\\text{average rate of change}=\\frac{\\text{change in output}}{\\text{change in input}}",
+      "\\frac{f(b)-f(a)}{b-a}",
+      "\\text{instantaneous rate of change}=f'(a)",
+      "f'(x)>0 \\Rightarrow \\text{increasing}, \\quad f'(x)<0 \\Rightarrow \\text{decreasing}, \\quad f'(x)=0 \\Rightarrow \\text{momentarily not changing}",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Average rate of change",
+      questionLatex:
+        "f(1)=3, \\quad f(5)=15. \\quad \\text{Find the average rate of change from }x=1\\text{ to }x=5.",
+      steps: [
+        {
+          explanation: "Use change in output divided by change in input.",
+          latex: "\\frac{f(5)-f(1)}{5-1}",
+        },
+        {
+          explanation: "Substitute the function values.",
+          latex: "\\frac{15-3}{5-1}=\\frac{12}{4}",
+        },
+        {
+          explanation: "Simplify the rate.",
+          latex: "3",
+        },
+      ],
+      finalAnswerLatex: "3",
+    },
+    {
+      title: "Worked example 2: Instantaneous rate from a derivative",
+      questionLatex:
+        "s(t)=t^2+3t, \\quad s'(t)=2t+3. \\quad \\text{Find and interpret }s'(4).",
+      steps: [
+        {
+          explanation: "$s'(4)$ means the instantaneous rate at $t=4$.",
+          latex: "s'(4)=2(4)+3",
+        },
+        {
+          explanation: "Evaluate the derivative value.",
+          latex: "s'(4)=11",
+        },
+        {
+          explanation: "Interpret the positive sign.",
+          latex:
+            "s'(4)>0 \\Rightarrow \\text{the displacement is increasing at }11\\text{ units per time unit}",
+        },
+      ],
+      finalAnswerLatex:
+        "s'(4)=11, \\quad \\text{so }s\\text{ is increasing at }11\\text{ units per time unit when }t=4.",
+    },
+    {
+      title: "Worked example 3: Sign of a derivative",
+      questionLatex:
+        "h'(2)=-6\\text{ metres per second}. \\quad \\text{Interpret this rate.}",
+      steps: [
+        {
+          explanation: "The negative sign means the quantity is decreasing.",
+          latex: "h'(2)<0",
+        },
+        {
+          explanation: "Use the magnitude and units in the interpretation.",
+          latex: "6\\text{ metres per second}",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{At }t=2,\\text{ the height is decreasing at }6\\text{ metres per second.}",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "roc-guided-1",
+      prompt: "Identify the numerator for average rate of change:",
+      latex: "f(2)=7, \\quad f(6)=19, \\quad \\frac{f(6)-f(2)}{6-2}",
+      answer: "12",
+      hint: "Find the change in output.",
+      explanation: "$f(6)-f(2)=19-7=12$.",
+    },
+    {
+      id: "roc-guided-2",
+      prompt: "Find the average rate of change.",
+      latex: "f(1)=4, \\quad f(5)=16",
+      answer: "3",
+      hint: "Use $\\frac{16-4}{5-1}$.",
+      explanation: "$\\frac{16-4}{5-1}=\\frac{12}{4}=3$.",
+    },
+    {
+      id: "roc-guided-3",
+      prompt:
+        "Choose the correct description. A: secant gradient. B: tangent gradient. C: y-intercept.",
+      latex: "\\text{Instantaneous rate of change at one point}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "secant gradient" },
+        { label: "B", text: "tangent gradient" },
+        { label: "C", text: "y-intercept" },
+      ],
+      hint: "Instantaneous rate uses a tangent.",
+      explanation:
+        "Instantaneous rate of change is the gradient of the tangent at a point.",
+    },
+    {
+      id: "roc-guided-4",
+      prompt: "Complete the interpretation: $P'(3)>0$ means the quantity is ____.",
+      latex: "P'(3)>0",
+      answer: "A",
+      acceptedAnswers: ["increasing"],
+      choices: [
+        { label: "A", text: "increasing" },
+        { label: "B", text: "decreasing" },
+        { label: "C", text: "momentarily not changing" },
+      ],
+      hint: "Positive derivative means increasing.",
+      explanation: "Since $P'(3)>0$, the quantity is increasing at that instant.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "roc-ind-1",
+      prompt: "Find the average rate of change.",
+      latex: "f(0)=2, \\quad f(4)=18",
+      answer: "4",
+      hint: "Use change in output over change in input.",
+      explanation: "$\\frac{18-2}{4-0}=4$.",
+    },
+    {
+      id: "roc-ind-2",
+      prompt: "Find the instantaneous rate at $t=3$.",
+      latex: "v(t)=s'(t)=5t-2",
+      answer: "13",
+      hint: "Substitute $t=3$.",
+      explanation: "$s'(3)=5(3)-2=13$.",
+    },
+    {
+      id: "roc-ind-3",
+      prompt: "Complete the interpretation: $h'(5)=-4$ means height is ____.",
+      latex: "h'(5)=-4\\text{ metres per second}",
+      answer: "B",
+      acceptedAnswers: ["decreasing"],
+      choices: [
+        { label: "A", text: "increasing" },
+        { label: "B", text: "decreasing" },
+        { label: "C", text: "momentarily not changing" },
+      ],
+      hint: "Use the sign of the derivative.",
+      explanation:
+        "The height is decreasing at $4$ metres per second when $t=5$.",
+    },
+    {
+      id: "roc-ind-4",
+      prompt:
+        "A displacement $s$ depends on time $t$. Choose the best notation for velocity.",
+      latex: "s=s(t)",
+      answer: "C",
+      choices: [
+        { label: "A", text: "$\\frac{dt}{ds}$" },
+        { label: "B", text: "$s(t)$" },
+        { label: "C", text: "$\\frac{ds}{dt}$" },
+      ],
+      hint: "Velocity is change in displacement over change in time.",
+      explanation: "Velocity is $\\frac{ds}{dt}$.",
+    },
+    {
+      id: "roc-ind-5",
+      prompt: "Choose the correct units for $\\frac{ds}{dt}$.",
+      latex: "s\\text{ is metres}, \\quad t\\text{ is seconds}",
+      answer: "A",
+      acceptedAnswers: ["metres per second", "m/s"],
+      choices: [
+        { label: "A", text: "metres per second" },
+        { label: "B", text: "seconds per metre" },
+        { label: "C", text: "metres" },
+      ],
+      hint: "Rate units are output units per input unit.",
+      explanation:
+        "$\\frac{ds}{dt}$ is measured in metres per second.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Mixing up average and instantaneous rate of change.",
+      fix: "Average rate uses two points. Instantaneous rate uses a tangent at one point.",
+    },
+    {
+      mistake: "Using change in input over change in output.",
+      fix: "Average rate is change in output divided by change in input.",
+    },
+    {
+      mistake: "Ignoring the sign of the derivative.",
+      fix: "A negative derivative means the quantity is decreasing at that instant.",
+    },
+    {
+      mistake: "Leaving off units in a context question.",
+      fix: "Write rates as output units per input unit, such as metres per second.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "roc-mastery-1",
+      prompt: "Choose the best meaning of rate of change.",
+      latex: "\\text{rate of change}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "the value of a quantity" },
+        { label: "B", text: "how one quantity changes compared to another" },
+        { label: "C", text: "only the highest point of a graph" },
+      ],
+      hint: "Rate compares two changes.",
+      explanation:
+        "A rate of change compares how one quantity changes compared to another.",
+    },
+    {
+      id: "roc-mastery-2",
+      prompt: "Find the average rate of change.",
+      latex: "f(2)=5, \\quad f(6)=17",
+      answer: "3",
+      hint: "Use $\\frac{17-5}{6-2}$.",
+      explanation: "$\\frac{17-5}{6-2}=3$.",
+    },
+    {
+      id: "roc-mastery-3",
+      prompt: "Average rate of change is the gradient of which line?",
+      latex: "\\text{average rate of change}",
+      answer: "A",
+      choices: [
+        { label: "A", text: "secant line" },
+        { label: "B", text: "tangent line" },
+        { label: "C", text: "vertical line" },
+      ],
+      hint: "Average rate joins two points.",
+      explanation: "Average rate of change is the gradient of a secant line.",
+    },
+    {
+      id: "roc-mastery-4",
+      prompt: "Instantaneous rate of change is the gradient of which line?",
+      latex: "\\text{instantaneous rate of change}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "secant line" },
+        { label: "B", text: "tangent line" },
+        { label: "C", text: "axis of symmetry" },
+      ],
+      hint: "Instantaneous rate is at one point.",
+      explanation:
+        "Instantaneous rate of change is the gradient of the tangent line.",
+    },
+    {
+      id: "roc-mastery-5",
+      prompt: "Evaluate the instantaneous rate.",
+      latex: "s'(t)=4t+1, \\quad t=2",
+      answer: "9",
+      hint: "Substitute $t=2$.",
+      explanation: "$s'(2)=4(2)+1=9$.",
+    },
+    {
+      id: "roc-mastery-6",
+      prompt: "Choose the derivative notation for rate of change of $y$ with respect to $x$.",
+      latex: "y=y(x)",
+      answer: "A",
+      choices: [
+        { label: "A", text: "$\\frac{dy}{dx}$" },
+        { label: "B", text: "$\\frac{dx}{dy}$" },
+        { label: "C", text: "$xy$" },
+      ],
+      hint: "Read $\\frac{dy}{dx}$ as change in y with respect to x.",
+      explanation: "$\\frac{dy}{dx}$ is the rate of change of $y$ with respect to $x$.",
+    },
+    {
+      id: "roc-mastery-7",
+      prompt: "Complete the interpretation: $C'(8)>0$ means cost is ____.",
+      latex: "C'(8)>0",
+      answer: "A",
+      acceptedAnswers: ["increasing"],
+      choices: [
+        { label: "A", text: "increasing" },
+        { label: "B", text: "decreasing" },
+        { label: "C", text: "momentarily not changing" },
+      ],
+      hint: "Positive derivative means increasing.",
+      explanation: "The cost is increasing at that instant.",
+    },
+    {
+      id: "roc-mastery-8",
+      prompt: "Choose the correct interpretation.",
+      latex: "h'(2)=-6\\text{ metres per second}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "height is increasing at 6 metres per second" },
+        { label: "B", text: "height is decreasing at 6 metres per second" },
+        { label: "C", text: "height is equal to -6 metres" },
+      ],
+      hint: "A negative derivative means decreasing.",
+      explanation:
+        "$h'(2)=-6$ means height is decreasing at $6$ metres per second.",
+    },
+    {
+      id: "roc-mastery-9",
+      prompt: "A population model has $P'(4)=0$. Choose the best interpretation.",
+      latex: "P'(4)=0",
+      answer: "C",
+      acceptedAnswers: ["momentarily not changing", "not changing"],
+      choices: [
+        { label: "A", text: "population is increasing quickly" },
+        { label: "B", text: "population is decreasing quickly" },
+        { label: "C", text: "population is momentarily not changing" },
+      ],
+      hint: "Zero derivative means zero instantaneous rate.",
+      explanation: "The population is momentarily not changing when $t=4$.",
+    },
+    {
+      id: "roc-mastery-10",
+      prompt: "Find the average speed from the displacement values.",
+      latex: "s(1)=10\\text{ m}, \\quad s(5)=30\\text{ m}",
+      answer: "5",
+      acceptedAnswers: ["5 m/s", "5 metres per second"],
+      hint: "Use $\\frac{30-10}{5-1}$.",
+      explanation:
+        "$\\frac{30-10}{5-1}=5$, so the average speed is $5$ metres per second.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
 export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
   id: "differentiating-polynomial-terms",
   slug: "differentiating-polynomial-terms",
@@ -3816,7 +4184,7 @@ export const differentialCalculusOutline: LessonOutlineItem[] = [
     title: "The derivative as rate of change",
     description:
       "Understand average rate of change, instantaneous rate of change, tangent gradients, and derivative notation.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "differentiating-polynomial-terms",
@@ -3909,6 +4277,7 @@ export const differentialCalculusOutline: LessonOutlineItem[] = [
 ];
 
 export const differentialCalculusLessons = [
+  derivativeAsRateOfChangeLesson,
   differentiatingPolynomialTermsLesson,
   differentiatingPolynomialFunctionsLesson,
   tangentsAndNormalsLesson,
