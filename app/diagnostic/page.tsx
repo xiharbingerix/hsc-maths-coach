@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { BlockMath, InlineMath } from "react-katex";
 import { questions } from "../../lib/questions";
@@ -14,6 +14,12 @@ type Working = Record<string, string>;
 
 const IDK_ANSWER = "__IDK__";
 const confidenceLevels = ["Low", "Medium", "High"];
+
+const offerLabels: Record<string, string> = {
+  "online-learning": "Online Learning Package",
+  "diagnostic-report": "Diagnostic PDF Report",
+  "study-plan": "Diagnostic + 30-Day Plan",
+};
 
 const topics = [
   "Functions and graphing",
@@ -67,8 +73,11 @@ function FieldLabel({ children }: Readonly<{ children: ReactNode }>) {
   return <span className="text-sm font-medium text-slate-800">{children}</span>;
 }
 
-export default function DiagnosticPage() {
+function DiagnosticForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const offerSelected = searchParams.get("offer") ?? "";
+  const selectedOfferLabel = offerLabels[offerSelected];
 
   const [studentFirstName, setStudentFirstName] = useState("");
   const [parentFirstName, setParentFirstName] = useState("");
@@ -159,6 +168,7 @@ export default function DiagnosticPage() {
       working,
 
       consent_confirmed: consent,
+      offer_selected: offerSelected || null,
     };
 
     const { error } = await supabase
@@ -211,6 +221,13 @@ Hint: ${error.hint ?? "No hint"}`
             high-impact study priorities. This usually takes about 20-30
             minutes.
           </p>
+
+          {selectedOfferLabel ? (
+            <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-950">
+              <span className="font-semibold">Selected interest:</span>{" "}
+              {selectedOfferLabel}
+            </div>
+          ) : null}
         </section>
 
         <section className="grid gap-4 md:grid-cols-[1fr_1.2fr]">
@@ -637,5 +654,26 @@ Hint: ${error.hint ?? "No hint"}`
         </button>
       </form>
     </main>
+  );
+}
+
+export default function DiagnosticPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
+          <section className="mx-auto max-w-5xl rounded-3xl bg-white p-6 shadow-sm md:p-8">
+            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+              HSC Maths Coach
+            </p>
+            <h1 className="mt-2 text-3xl font-bold tracking-tight">
+              Loading diagnostic
+            </h1>
+          </section>
+        </main>
+      }
+    >
+      <DiagnosticForm />
+    </Suspense>
   );
 }
