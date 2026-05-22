@@ -43,6 +43,18 @@ export default function CoursePage() {
             guided practice, independent practice, common mistakes, and mastery
             checks.
           </p>
+
+          <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p className="text-sm leading-6 text-slate-700">
+              Looking for the full online learning package?{" "}
+              <Link
+                href="/online-learning"
+                className="font-semibold text-slate-950 underline"
+              >
+                Learn more
+              </Link>
+            </p>
+          </div>
         </header>
 
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">

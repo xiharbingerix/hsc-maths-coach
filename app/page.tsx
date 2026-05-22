@@ -35,14 +35,14 @@ const lessonSequence = [
 ];
 
 const coverage = [
-  "Differentiation",
-  "Tangents and normals",
-  "Stationary points",
-  "Derivative tests",
-  "Curve sketching",
-  "Optimisation",
-  "Rates of change",
-  "Mixed exam practice",
+  "Differential Calculus",
+  "Integral Calculus",
+  "Functions and Graphing Techniques",
+  "Worked examples",
+  "Guided practice",
+  "Independent practice",
+  "Mastery quizzes",
+  "Mixed revision",
 ];
 
 const offers = [
@@ -59,6 +59,8 @@ const offers = [
     ],
     buttonLabel: "Register interest",
     href: "/enquire?offer=online-learning",
+    secondaryButtonLabel: "Explore online learning",
+    secondaryHref: "/online-learning",
   },
   {
     title: "Diagnostic PDF Report",
@@ -186,8 +188,8 @@ export default function Home() {
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/diagnostic">Start diagnostic</PrimaryLink>
-              <SecondaryLink href="/course/differential-calculus">
-                View Differential Calculus course
+              <SecondaryLink href="/course">
+                View HSC course
               </SecondaryLink>
             </div>
 
@@ -232,13 +234,15 @@ export default function Home() {
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <div className="grid gap-8 md:grid-cols-[1fr_0.9fr]">
             <div>
-              <SectionLabel>Differential Calculus Beta</SectionLabel>
+              <SectionLabel>Online Learning Beta</SectionLabel>
               <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-                Staged lessons for the current calculus unit.
+                Staged lessons across the current HSC course.
               </h2>
               <p className="mt-4 max-w-2xl leading-7 text-slate-600">
                 Each lesson follows Watch &rarr; Learn &rarr; Guided Practice
-                &rarr; Independent Practice &rarr; Mastery Quiz.
+                &rarr; Independent Practice &rarr; Mastery Quiz. The current
+                beta includes Differential Calculus, Integral Calculus, and
+                Functions and Graphing Techniques.
               </p>
 
               <div className="mt-4 flex flex-wrap gap-2">
@@ -248,8 +252,8 @@ export default function Home() {
               </div>
 
               <div className="mt-8">
-                <SecondaryLink href="/course/differential-calculus">
-                  Open beta course
+                <SecondaryLink href="/online-learning">
+                  Explore online learning
                 </SecondaryLink>
               </div>
             </div>
@@ -311,6 +315,14 @@ export default function Home() {
                   <PrimaryLink href={offer.href} className="w-full">
                     {offer.buttonLabel}
                   </PrimaryLink>
+                  {offer.secondaryHref ? (
+                    <SecondaryLink
+                      href={offer.secondaryHref}
+                      className="mt-3 w-full"
+                    >
+                      {offer.secondaryButtonLabel}
+                    </SecondaryLink>
+                  ) : null}
                 </div>
               </article>
             ))}
