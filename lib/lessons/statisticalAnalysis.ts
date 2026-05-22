@@ -668,6 +668,672 @@ export const standardDeviationZScoresStandardisedValuesLesson: ExplicitLesson = 
   masteryPassMark: 0.8,
 };
 
+export const correlationLeastSquaresRegressionLesson: ExplicitLesson = {
+  id: "correlation-least-squares-regression",
+  slug: "correlation-least-squares-regression",
+  moduleSlug: "statistical-analysis",
+  moduleTitle: "Statistical Analysis",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Correlation and Least-Squares Regression",
+  description:
+    "Describe linear association and use least-squares regression equations for prediction and interpretation.",
+  syllabusArea: "Statistical Analysis",
+  focus: "Statistical analysis",
+  status: "active",
+
+  video: {
+    title: "Correlation and Least-Squares Regression",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to interpret correlation and use regression lines for prediction within a data context.",
+
+  successCriteria: [
+    "Describe the direction and strength of a linear association from $r$.",
+    "Recognise that $r$ is between $-1$ and $1$.",
+    "Use a least-squares regression equation to predict a value.",
+    "Interpret the slope of a regression line in context.",
+    "Avoid claiming that correlation proves causation.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "Correlation describes the strength and direction of a linear relationship between two variables.",
+      "The correlation coefficient $r$ is always between $-1$ and $1$.",
+      "A value of $r$ close to $1$ means strong positive linear association. A value close to $-1$ means strong negative linear association.",
+      "A value of $r$ close to $0$ means weak or no linear association, but it does not rule out every possible non-linear pattern.",
+      "Correlation does not prove causation. Two variables may move together without one causing the other.",
+      "A least-squares regression line models the relationship between two variables and can be used for prediction within the data range.",
+      "The slope gives the predicted change in $y$ for a one-unit increase in $x$.",
+      "The intercept should only be interpreted when $x=0$ makes sense in the context.",
+    ],
+    latexBlocks: [
+      "-1\\le r\\le 1",
+      "\\hat{y}=mx+b",
+      "m=\\frac{\\text{predicted change in }y}{\\text{one-unit increase in }x}",
+      "\\text{correlation}\\ne\\text{causation}",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Interpret correlation",
+      questionLatex: "r=-0.82",
+      steps: [
+        {
+          explanation: "The sign is negative, so the association is negative.",
+          latex: "r<0",
+        },
+        {
+          explanation: "The value is close to $-1$, so the association is strong.",
+          latex: "|-0.82|=0.82",
+        },
+        {
+          explanation: "Combine direction and strength.",
+          latex: "\\text{strong negative linear association}",
+        },
+      ],
+      finalAnswerLatex: "\\text{strong negative linear association}",
+    },
+    {
+      title: "Worked example 2: Prediction and slope",
+      questionLatex:
+        "\\hat{y}=2.5x+12.\\quad \\text{Find }\\hat{y}\\text{ when }x=8\\text{ and interpret the slope.}",
+      steps: [
+        {
+          explanation: "Substitute $x=8$ into the regression equation.",
+          latex: "\\hat{y}=2.5(8)+12",
+        },
+        {
+          explanation: "Calculate the predicted value.",
+          latex: "\\hat{y}=32",
+        },
+        {
+          explanation: "The slope is $2.5$, so $y$ is predicted to increase by 2.5 for each one-unit increase in $x$.",
+          latex: "m=2.5",
+        },
+      ],
+      finalAnswerLatex:
+        "\\hat{y}=32,\\quad \\text{slope }2.5\\text{ means }y\\text{ increases by }2.5\\text{ per }1\\text{ unit of }x",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "correlation-guided-1",
+      prompt: "Identify the direction of the association.",
+      latex: "r=0.74",
+      answer: "positive",
+      acceptedAnswers: ["Positive", "positive association"],
+      hint: "Look at the sign of $r$.",
+      explanation: "$r$ is positive, so the association is positive.",
+    },
+    {
+      id: "correlation-guided-2",
+      prompt: "Choose the best description.",
+      latex: "r=-0.91",
+      answer: "B",
+      choices: [
+        { label: "A", text: "weak positive association" },
+        { label: "B", text: "strong negative association" },
+        { label: "C", text: "no linear association" },
+      ],
+      hint: "Negative sign gives direction; $|r|$ close to 1 gives strength.",
+      explanation: "$r=-0.91$ shows strong negative association.",
+    },
+    {
+      id: "correlation-guided-3",
+      prompt: "Use the regression line to predict $y$ when $x=4$.",
+      latex: "\\hat{y}=3x+5",
+      answer: "17",
+      hint: "Substitute $x=4$.",
+      explanation: "$\\hat{y}=3(4)+5=17$.",
+    },
+    {
+      id: "correlation-guided-4",
+      prompt: "What does the slope mean?",
+      latex: "\\hat{y}=4x+10",
+      answer: "A",
+      choices: [
+        { label: "A", text: "$y$ is predicted to increase by 4 for each one-unit increase in $x$" },
+        { label: "B", text: "$x$ is predicted to increase by 10 for each one-unit increase in $y$" },
+        { label: "C", text: "The correlation is exactly 4" },
+      ],
+      hint: "The coefficient of $x$ is the slope.",
+      explanation: "The slope is 4, so predicted $y$ increases by 4 for each one-unit increase in $x$.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "correlation-ind-1",
+      prompt: "Choose the best description.",
+      latex: "r=0.88",
+      answer: "A",
+      choices: [
+        { label: "A", text: "strong positive association" },
+        { label: "B", text: "strong negative association" },
+        { label: "C", text: "weak association" },
+      ],
+      hint: "$r$ is positive and close to 1.",
+      explanation: "$r=0.88$ is strong positive association.",
+    },
+    {
+      id: "correlation-ind-2",
+      prompt: "Choose the best description.",
+      latex: "r=-0.18",
+      answer: "C",
+      choices: [
+        { label: "A", text: "strong positive association" },
+        { label: "B", text: "strong negative association" },
+        { label: "C", text: "weak negative association" },
+      ],
+      hint: "The sign is negative and the size is close to 0.",
+      explanation: "$r=-0.18$ is weak negative linear association.",
+    },
+    {
+      id: "correlation-ind-3",
+      prompt: "Predict $y$ when $x=6$.",
+      latex: "\\hat{y}=1.5x+9",
+      answer: "18",
+      hint: "Substitute $x=6$.",
+      explanation: "$\\hat{y}=1.5(6)+9=18$.",
+    },
+    {
+      id: "correlation-ind-4",
+      prompt: "Choose the correct caution.",
+      latex: "\\text{A strong correlation is found between two variables.}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "This proves one variable causes the other" },
+        { label: "B", text: "This does not prove causation" },
+        { label: "C", text: "The variables cannot be related" },
+      ],
+      hint: "Correlation and causation are different ideas.",
+      explanation: "Correlation does not prove causation.",
+    },
+    {
+      id: "correlation-ind-5",
+      prompt: "What is the intercept?",
+      latex: "\\hat{y}=2x+7",
+      answer: "7",
+      hint: "The intercept is the constant term.",
+      explanation: "The intercept is $7$.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Saying correlation proves causation.",
+      fix: "Correlation describes association only; it does not prove cause and effect.",
+    },
+    {
+      mistake: "Ignoring the sign of $r$.",
+      fix: "The sign tells the direction: positive or negative.",
+    },
+    {
+      mistake: "Treating $r=-0.9$ as weak because it is negative.",
+      fix: "Strength depends on $|r|$. Since $|-0.9|=0.9$, the association is strong.",
+    },
+    {
+      mistake: "Extrapolating far outside the data range without caution.",
+      fix: "Regression predictions are most reliable within the range of the data used to fit the model.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "correlation-mastery-1",
+      prompt: "Choose the best description.",
+      latex: "r=0.93",
+      answer: "A",
+      choices: [
+        { label: "A", text: "strong positive linear association" },
+        { label: "B", text: "strong negative linear association" },
+        { label: "C", text: "weak linear association" },
+      ],
+      hint: "$r$ is positive and close to 1.",
+      explanation: "$r=0.93$ shows strong positive linear association.",
+    },
+    {
+      id: "correlation-mastery-2",
+      prompt: "Choose the best description.",
+      latex: "r=-0.82",
+      answer: "B",
+      choices: [
+        { label: "A", text: "strong positive linear association" },
+        { label: "B", text: "strong negative linear association" },
+        { label: "C", text: "weak positive linear association" },
+      ],
+      hint: "Use both sign and size.",
+      explanation: "$r=-0.82$ shows strong negative linear association.",
+    },
+    {
+      id: "correlation-mastery-3",
+      prompt: "Choose the best description.",
+      latex: "r=0.04",
+      answer: "C",
+      choices: [
+        { label: "A", text: "strong positive linear association" },
+        { label: "B", text: "strong negative linear association" },
+        { label: "C", text: "very weak or no linear association" },
+      ],
+      hint: "$r$ is close to 0.",
+      explanation: "$r=0.04$ is very weak or no linear association.",
+    },
+    {
+      id: "correlation-mastery-4",
+      prompt: "Predict $y$ when $x=8$.",
+      latex: "\\hat{y}=2.5x+12",
+      answer: "32",
+      hint: "Substitute $x=8$.",
+      explanation: "$\\hat{y}=2.5(8)+12=32$.",
+    },
+    {
+      id: "correlation-mastery-5",
+      prompt: "Predict $y$ when $x=10$.",
+      latex: "\\hat{y}=4x-3",
+      answer: "37",
+      hint: "Substitute $x=10$.",
+      explanation: "$\\hat{y}=4(10)-3=37$.",
+    },
+    {
+      id: "correlation-mastery-6",
+      prompt: "Predict $y$ when $x=5$.",
+      latex: "\\hat{y}=-2x+30",
+      answer: "20",
+      hint: "Substitute $x=5$.",
+      explanation: "$\\hat{y}=-2(5)+30=20$.",
+    },
+    {
+      id: "correlation-mastery-7",
+      prompt: "Interpret the slope.",
+      latex: "\\hat{y}=6x+14",
+      answer: "A",
+      choices: [
+        { label: "A", text: "$y$ is predicted to increase by 6 for each one-unit increase in $x$" },
+        { label: "B", text: "$y$ is predicted to be 6 when $x=0$" },
+        { label: "C", text: "The correlation coefficient is 6" },
+      ],
+      hint: "Slope is the coefficient of $x$.",
+      explanation: "The slope is 6, so predicted $y$ increases by 6 per one-unit increase in $x$.",
+    },
+    {
+      id: "correlation-mastery-8",
+      prompt: "When should the intercept be interpreted?",
+      latex: "\\hat{y}=mx+b",
+      answer: "C",
+      choices: [
+        { label: "A", text: "Always, regardless of context" },
+        { label: "B", text: "Never" },
+        { label: "C", text: "Only when $x=0$ makes contextual sense" },
+      ],
+      hint: "The intercept is the prediction when $x=0$.",
+      explanation: "The intercept should only be interpreted if $x=0$ is meaningful.",
+    },
+    {
+      id: "correlation-mastery-9",
+      prompt: "A data set has $r=0.78$. Which statement is safest?",
+      latex: "r=0.78",
+      answer: "B",
+      choices: [
+        { label: "A", text: "One variable definitely causes the other" },
+        { label: "B", text: "There is a positive linear association, but causation is not proven" },
+        { label: "C", text: "There is no association" },
+      ],
+      hint: "Correlation does not prove causation.",
+      explanation: "There is positive association, but causation is not proven.",
+    },
+    {
+      id: "correlation-mastery-10",
+      prompt: "Which prediction is most appropriate?",
+      latex: "\\text{The data has }2\\le x\\le 12.",
+      answer: "A",
+      choices: [
+        { label: "A", text: "Predicting at $x=8$" },
+        { label: "B", text: "Predicting at $x=100$" },
+        { label: "C", text: "Predicting at $x=-50$" },
+      ],
+      hint: "Predictions are safer within the data range.",
+      explanation: "$x=8$ is within the data range.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
+export const interpretingAssociationResidualsLesson: ExplicitLesson = {
+  id: "interpreting-association-residuals",
+  slug: "interpreting-association-residuals",
+  moduleSlug: "statistical-analysis",
+  moduleTitle: "Statistical Analysis",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Interpreting Association and Residuals",
+  description:
+    "Interpret association, residuals, residual plots, and the limitations of linear models.",
+  syllabusArea: "Statistical Analysis",
+  focus: "Statistical analysis",
+  status: "active",
+
+  video: {
+    title: "Interpreting Association and Residuals",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to describe association and use residuals to judge regression predictions.",
+
+  successCriteria: [
+    "Describe association using direction, form, strength, and outliers.",
+    "Calculate a residual using actual minus predicted.",
+    "Interpret positive and negative residuals.",
+    "Use residual plots to judge whether a linear model is appropriate.",
+    "Recognise that outliers can affect correlation and regression.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "Association should be described using direction, form, strength, and any unusual features such as outliers.",
+      "A residual is the difference between the actual value and the predicted value.",
+      "The formula is residual equals actual $y$ minus predicted $y$.",
+      "A positive residual means the actual value is above the regression prediction.",
+      "A negative residual means the actual value is below the regression prediction.",
+      "Residuals help judge whether a linear model is appropriate.",
+      "A random scatter of residuals supports a linear model. A curved pattern suggests a non-linear model may be better.",
+      "Outliers can strongly affect correlation and regression lines.",
+    ],
+    latexBlocks: [
+      "\\text{residual}=y-\\hat{y}",
+      "\\text{positive residual}\\Rightarrow y>\\hat{y}",
+      "\\text{negative residual}\\Rightarrow y<\\hat{y}",
+      "\\text{association: direction, form, strength, outliers}",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Calculate and interpret a residual",
+      questionLatex:
+        "\\text{A model predicts }\\hat{y}=20,\\text{ but the actual value is }y=26.",
+      steps: [
+        {
+          explanation: "Use actual minus predicted.",
+          latex: "\\text{residual}=y-\\hat{y}",
+        },
+        {
+          explanation: "Substitute the actual and predicted values.",
+          latex: "\\text{residual}=26-20=6",
+        },
+        {
+          explanation: "A positive residual means the actual value is above the prediction.",
+          latex: "6>0",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{residual}=6,\\quad \\text{actual value is }6\\text{ above the prediction}",
+    },
+    {
+      title: "Worked example 2: Interpret a residual plot",
+      questionLatex:
+        "\\text{A residual plot shows a clear curved pattern. What does this suggest?}",
+      steps: [
+        {
+          explanation: "A good linear model usually leaves residuals randomly scattered.",
+          latex: "\\text{random residuals}\\Rightarrow \\text{linear model reasonable}",
+        },
+        {
+          explanation: "A curved pattern means the linear model is missing a pattern in the data.",
+          latex: "\\text{curved residuals}\\Rightarrow \\text{non-linear model may be better}",
+        },
+      ],
+      finalAnswerLatex: "\\text{A linear model may not be appropriate.}",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "residual-guided-1",
+      prompt: "Find the residual.",
+      latex: "y=18,\\quad \\hat{y}=15",
+      answer: "3",
+      hint: "Use actual minus predicted.",
+      explanation: "$18-15=3$.",
+    },
+    {
+      id: "residual-guided-2",
+      prompt: "Find the residual.",
+      latex: "y=22,\\quad \\hat{y}=28",
+      answer: "-6",
+      hint: "Use $y-\\hat{y}$.",
+      explanation: "$22-28=-6$.",
+    },
+    {
+      id: "residual-guided-3",
+      prompt: "A residual is positive. What does this mean?",
+      latex: "\\text{residual}>0",
+      answer: "A",
+      choices: [
+        { label: "A", text: "The actual value is above the prediction" },
+        { label: "B", text: "The actual value is below the prediction" },
+        { label: "C", text: "The correlation is positive" },
+      ],
+      hint: "Positive means actual minus predicted is above 0.",
+      explanation: "A positive residual means the actual value is above the predicted value.",
+    },
+    {
+      id: "residual-guided-4",
+      prompt: "Which residual plot supports a linear model?",
+      latex: "\\text{Choose one}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "A clear curved pattern" },
+        { label: "B", text: "Random scatter around zero" },
+        { label: "C", text: "All residuals increasing in a curve" },
+      ],
+      hint: "A good linear model should leave no obvious pattern.",
+      explanation: "Random scatter around zero supports a linear model.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "residual-ind-1",
+      prompt: "Find the residual.",
+      latex: "y=40,\\quad \\hat{y}=35",
+      answer: "5",
+      hint: "Use actual minus predicted.",
+      explanation: "$40-35=5$.",
+    },
+    {
+      id: "residual-ind-2",
+      prompt: "Find the residual.",
+      latex: "y=31,\\quad \\hat{y}=36",
+      answer: "-5",
+      hint: "Use $y-\\hat{y}$.",
+      explanation: "$31-36=-5$.",
+    },
+    {
+      id: "residual-ind-3",
+      prompt: "A residual is negative. What does this mean?",
+      latex: "\\text{residual}<0",
+      answer: "B",
+      choices: [
+        { label: "A", text: "The actual value is above the prediction" },
+        { label: "B", text: "The actual value is below the prediction" },
+        { label: "C", text: "The association must be negative" },
+      ],
+      hint: "Negative means actual minus predicted is less than 0.",
+      explanation: "A negative residual means the actual value is below the prediction.",
+    },
+    {
+      id: "residual-ind-4",
+      prompt: "A residual plot has a curved pattern. Choose the best conclusion.",
+      latex: "\\text{Choose one}",
+      answer: "C",
+      choices: [
+        { label: "A", text: "The linear model is definitely perfect" },
+        { label: "B", text: "Correlation proves causation" },
+        { label: "C", text: "A non-linear model may be more appropriate" },
+      ],
+      hint: "Patterns in residuals show the model is missing structure.",
+      explanation: "A curved residual pattern suggests a non-linear model may be better.",
+    },
+    {
+      id: "residual-ind-5",
+      prompt: "Which description includes the right features of association?",
+      latex: "\\text{Choose one}",
+      answer: "A",
+      choices: [
+        { label: "A", text: "Direction, form, strength, and outliers" },
+        { label: "B", text: "Only the mean and median" },
+        { label: "C", text: "Only the largest y-value" },
+      ],
+      hint: "Association descriptions should be broad and specific.",
+      explanation: "Association is described using direction, form, strength, and outliers.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Calculating predicted minus actual instead of actual minus predicted.",
+      fix: "Use $\\text{residual}=y-\\hat{y}$.",
+    },
+    {
+      mistake: "Thinking positive residual means positive correlation.",
+      fix: "A positive residual only means the actual value is above the prediction.",
+    },
+    {
+      mistake: "Ignoring residual plots when judging a model.",
+      fix: "Use residual plots to check whether a linear model leaves random errors.",
+    },
+    {
+      mistake: "Describing correlation without mentioning strength or direction.",
+      fix: "Include direction, form, strength, and outliers where relevant.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "residual-mastery-1",
+      prompt: "Find the residual.",
+      latex: "y=26,\\quad \\hat{y}=20",
+      answer: "6",
+      hint: "Use actual minus predicted.",
+      explanation: "$26-20=6$.",
+    },
+    {
+      id: "residual-mastery-2",
+      prompt: "Find the residual.",
+      latex: "y=14,\\quad \\hat{y}=19",
+      answer: "-5",
+      hint: "Use $y-\\hat{y}$.",
+      explanation: "$14-19=-5$.",
+    },
+    {
+      id: "residual-mastery-3",
+      prompt: "Find the residual.",
+      latex: "y=50,\\quad \\hat{y}=50",
+      answer: "0",
+      hint: "Actual and predicted are equal.",
+      explanation: "$50-50=0$.",
+    },
+    {
+      id: "residual-mastery-4",
+      prompt: "A residual is $8$. Which statement is correct?",
+      latex: "\\text{residual}=8",
+      answer: "A",
+      choices: [
+        { label: "A", text: "The actual value is 8 above the prediction" },
+        { label: "B", text: "The actual value is 8 below the prediction" },
+        { label: "C", text: "The correlation coefficient is 8" },
+      ],
+      hint: "Positive residual means actual is above prediction.",
+      explanation: "A residual of 8 means actual is 8 above predicted.",
+    },
+    {
+      id: "residual-mastery-5",
+      prompt: "A residual is $-3$. Which statement is correct?",
+      latex: "\\text{residual}=-3",
+      answer: "B",
+      choices: [
+        { label: "A", text: "The actual value is 3 above the prediction" },
+        { label: "B", text: "The actual value is 3 below the prediction" },
+        { label: "C", text: "The model has no error" },
+      ],
+      hint: "Negative residual means actual is below prediction.",
+      explanation: "A residual of $-3$ means actual is 3 below predicted.",
+    },
+    {
+      id: "residual-mastery-6",
+      prompt: "Which formula is correct?",
+      latex: "\\text{residual}",
+      answer: "A",
+      choices: [
+        { label: "A", text: "$y-\\hat{y}$" },
+        { label: "B", text: "$\\hat{y}-y$" },
+        { label: "C", text: "$y+\\hat{y}$" },
+      ],
+      hint: "Residual is actual minus predicted.",
+      explanation: "The residual is $y-\\hat{y}$.",
+    },
+    {
+      id: "residual-mastery-7",
+      prompt: "Which residual plot supports a linear model?",
+      latex: "\\text{Choose one}",
+      answer: "C",
+      choices: [
+        { label: "A", text: "A strong U-shaped curve" },
+        { label: "B", text: "A clear increasing curve" },
+        { label: "C", text: "Random scatter around zero" },
+      ],
+      hint: "No pattern is good for a linear model.",
+      explanation: "Random scatter around zero supports a linear model.",
+    },
+    {
+      id: "residual-mastery-8",
+      prompt: "A residual plot has a U-shaped pattern. What is the best conclusion?",
+      latex: "\\text{Choose one}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "The linear model is clearly appropriate" },
+        { label: "B", text: "A non-linear model may be better" },
+        { label: "C", text: "The residuals prove causation" },
+      ],
+      hint: "A curved residual pattern suggests missed non-linear structure.",
+      explanation: "A non-linear model may be better.",
+    },
+    {
+      id: "residual-mastery-9",
+      prompt: "Which features should be included when describing association?",
+      latex: "\\text{Choose one}",
+      answer: "A",
+      choices: [
+        { label: "A", text: "Direction, form, strength, and outliers" },
+        { label: "B", text: "Only the residual formula" },
+        { label: "C", text: "Only the intercept" },
+      ],
+      hint: "Association is described from the scatterplot pattern.",
+      explanation: "A good association description includes direction, form, strength, and outliers.",
+    },
+    {
+      id: "residual-mastery-10",
+      prompt: "An outlier is present in a scatterplot. What can it affect?",
+      latex: "\\text{Choose one}",
+      answer: "C",
+      choices: [
+        { label: "A", text: "Only the title of the graph" },
+        { label: "B", text: "Nothing in the analysis" },
+        { label: "C", text: "Correlation and the regression line" },
+      ],
+      hint: "Outliers can pull a regression line.",
+      explanation: "Outliers can strongly affect correlation and regression.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
 export const statisticalAnalysisOutline: LessonOutlineItem[] = [
   {
     id: "data-displays-summary-statistics-outliers",
@@ -691,7 +1357,7 @@ export const statisticalAnalysisOutline: LessonOutlineItem[] = [
     title: "Correlation and Least-Squares Regression",
     description:
       "Describe association, interpret correlation, and use least-squares regression lines for prediction.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "interpreting-association-residuals",
@@ -699,7 +1365,7 @@ export const statisticalAnalysisOutline: LessonOutlineItem[] = [
     title: "Interpreting Association and Residuals",
     description:
       "Interpret association, residuals, and the limitations of linear models.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "normal-distribution-empirical-rule",
@@ -722,4 +1388,6 @@ export const statisticalAnalysisOutline: LessonOutlineItem[] = [
 export const statisticalAnalysisLessons = [
   dataDisplaysSummaryStatisticsOutliersLesson,
   standardDeviationZScoresStandardisedValuesLesson,
+  correlationLeastSquaresRegressionLesson,
+  interpretingAssociationResidualsLesson,
 ];
