@@ -23,6 +23,13 @@ export default function CoursePage() {
         "A staged pathway for function notation, domain and range, transformations, graph features, asymptotes, graphical solving, and modelling.",
       status: "Available in beta",
     },
+    {
+      href: "/course/trigonometric-functions-graphs",
+      title: "Trigonometric Functions and Graphs",
+      description:
+        "A staged pathway for radians, exact values, the unit circle, sine, cosine, tangent graphs, and later trigonometric equations and modelling.",
+      status: "Available in beta",
+    },
   ];
 
   return (
@@ -86,7 +93,7 @@ export default function CoursePage() {
           </div>
         </header>
 
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-2">
           {units.map((unit) => (
             <Link
               key={unit.href}
