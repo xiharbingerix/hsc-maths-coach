@@ -688,6 +688,611 @@ export const graphsSineCosineTangentLesson: ExplicitLesson = {
   masteryPassMark: 0.8,
 };
 
+export const amplitudePeriodPhaseVerticalShiftLesson: ExplicitLesson = {
+  id: "amplitude-period-phase-vertical-shift",
+  slug: "amplitude-period-phase-vertical-shift",
+  moduleSlug: "trigonometric-functions-graphs",
+  moduleTitle: "Trigonometric Functions and Graphs",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Amplitude, Period, Phase Shift, and Vertical Shift",
+  description:
+    "Identify amplitude, period, phase shift, vertical shift, and midline from transformed sine, cosine, and tangent functions.",
+  syllabusArea: "Trigonometric Functions",
+  focus: "Trigonometric functions and graphs",
+  status: "active",
+
+  video: {
+    title: "Amplitude, Period, Phase Shift, and Vertical Shift",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how the constants in transformed trigonometric functions affect graph features.",
+
+  successCriteria: [
+    "Identify $a$, $b$, $c$, and $d$ in transformed sine and cosine functions.",
+    "Find amplitude using $|a|$.",
+    "Find period using $\\frac{2\\pi}{|b|}$ for sine and cosine.",
+    "Identify phase shift, vertical shift, and midline.",
+    "Recognise that tangent has no amplitude and period $\\frac{\\pi}{|b|}$.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "For $y=a\\sin(b(x-c))+d$ and $y=a\\cos(b(x-c))+d$, each constant changes a graph feature.",
+      "The amplitude is $|a|$. It measures the distance from the midline to a maximum or minimum.",
+      "The period is the length of one full cycle. For sine and cosine, the period is $\\frac{2\\pi}{|b|}$.",
+      "The phase shift is $c$, which moves the graph left or right. The vertical shift is $d$.",
+      "The midline is $y=d$. Tangent has no amplitude, and its period is $\\frac{\\pi}{|b|}$.",
+    ],
+    latexBlocks: [
+      "y=a\\sin(b(x-c))+d",
+      "\\text{amplitude}=|a|",
+      "\\text{period for sine/cosine}=\\frac{2\\pi}{|b|}",
+      "\\text{period for tangent}=\\frac{\\pi}{|b|}",
+      "\\text{midline: }y=d",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Sine transformation",
+      questionLatex: "y=3\\sin(2x)+1",
+      steps: [
+        { explanation: "Identify $a$ and $b$.", latex: "a=3,\\quad b=2" },
+        { explanation: "Find the amplitude.", latex: "|a|=|3|=3" },
+        { explanation: "Find the period.", latex: "\\frac{2\\pi}{|2|}=\\pi" },
+        { explanation: "The vertical shift is $d=1$.", latex: "y=1" },
+      ],
+      finalAnswerLatex:
+        "\\text{amplitude }3,\\quad \\text{period }\\pi,\\quad \\text{vertical shift }1",
+    },
+    {
+      title: "Worked example 2: Cosine transformation",
+      questionLatex: "y=-2\\cos\\left(x-\\frac{\\pi}{3}\\right)+4",
+      steps: [
+        { explanation: "Identify the constants.", latex: "a=-2,\\quad b=1,\\quad c=\\frac{\\pi}{3},\\quad d=4" },
+        { explanation: "Amplitude uses the absolute value of $a$.", latex: "|a|=|-2|=2" },
+        { explanation: "Find the period.", latex: "\\frac{2\\pi}{|1|}=2\\pi" },
+        { explanation: "The phase shift is right $\\frac{\\pi}{3}$ and the midline is $y=4$.", latex: "x\\mapsto x-\\frac{\\pi}{3},\\quad y=4" },
+      ],
+      finalAnswerLatex:
+        "\\text{amplitude }2,\\quad \\text{period }2\\pi,\\quad \\text{phase shift }\\frac{\\pi}{3}\\text{ right},\\quad \\text{midline }y=4",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "amp-guided-1",
+      prompt: "Find the amplitude:",
+      latex: "y=5\\sin x",
+      answer: "5",
+      hint: "Amplitude is $|a|$.",
+      explanation: "Here $a=5$, so the amplitude is $5$.",
+    },
+    {
+      id: "amp-guided-2",
+      prompt: "Find the period:",
+      latex: "y=\\sin(2x)",
+      answer: "pi",
+      acceptedAnswers: ["\\pi", "π"],
+      hint: "Use $\\frac{2\\pi}{|b|}$.",
+      explanation: "The period is $\\frac{2\\pi}{2}=\\pi$.",
+    },
+    {
+      id: "amp-guided-3",
+      prompt: "Find the midline:",
+      latex: "y=2\\cos x-3",
+      answer: "y=-3",
+      acceptedAnswers: ["-3"],
+      hint: "The midline is $y=d$.",
+      explanation: "Here $d=-3$, so the midline is $y=-3$.",
+    },
+    {
+      id: "amp-guided-4",
+      prompt: "Choose the phase shift.",
+      latex: "y=\\sin\\left(x-\\frac{\\pi}{4}\\right)",
+      answer: "B",
+      choices: [
+        { label: "A", text: "left $\\frac{\\pi}{4}$" },
+        { label: "B", text: "right $\\frac{\\pi}{4}$" },
+        { label: "C", text: "up $\\frac{\\pi}{4}$" },
+      ],
+      hint: "$x-c$ shifts right by $c$.",
+      explanation: "The graph is shifted right $\\frac{\\pi}{4}$.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "amp-ind-1",
+      prompt: "Find the amplitude:",
+      latex: "y=-4\\sin x",
+      answer: "4",
+      hint: "Use $|-4|$.",
+      explanation: "Amplitude is $|-4|=4$.",
+    },
+    {
+      id: "amp-ind-2",
+      prompt: "Find the period:",
+      latex: "y=\\cos(3x)",
+      answer: "2pi/3",
+      acceptedAnswers: ["2\\pi/3", "2π/3"],
+      hint: "Use $\\frac{2\\pi}{|3|}$.",
+      explanation: "The period is $\\frac{2\\pi}{3}$.",
+    },
+    {
+      id: "amp-ind-3",
+      prompt: "Find the vertical shift:",
+      latex: "y=2\\sin x+7",
+      answer: "7",
+      acceptedAnswers: ["up 7"],
+      hint: "The vertical shift is $d$.",
+      explanation: "Here $d=7$, so the graph shifts up $7$.",
+    },
+    {
+      id: "amp-ind-4",
+      prompt: "Find the period:",
+      latex: "y=\\tan(2x)",
+      answer: "pi/2",
+      acceptedAnswers: ["\\pi/2", "π/2"],
+      hint: "For tangent, use $\\frac{\\pi}{|b|}$.",
+      explanation: "The period is $\\frac{\\pi}{2}$.",
+    },
+    {
+      id: "amp-ind-5",
+      prompt: "Choose the correct description.",
+      latex: "y=-3\\cos(2x)+1",
+      answer: "A",
+      choices: [
+        { label: "A", text: "amplitude $3$, period $\\pi$, midline $y=1$" },
+        { label: "B", text: "amplitude $-3$, period $\\pi$, midline $y=1$" },
+        { label: "C", text: "amplitude $3$, period $2\\pi$, midline $y=1$" },
+      ],
+      hint: "Amplitude is positive and period uses $b=2$.",
+      explanation: "Amplitude is $3$, period is $\\pi$, and midline is $y=1$.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Using $a$ instead of $|a|$ for amplitude.",
+      fix: "Amplitude is always non-negative, so $a=-2$ gives amplitude $2$.",
+    },
+    {
+      mistake: "Thinking vertical shift changes amplitude.",
+      fix: "Vertical shift moves the midline; amplitude is the distance from the midline.",
+    },
+    {
+      mistake: "Using $\\frac{2\\pi}{b}$ without absolute value.",
+      fix: "Use $\\frac{2\\pi}{|b|}$ so the period is positive.",
+    },
+    {
+      mistake: "Saying tangent has amplitude.",
+      fix: "Tangent has no maximum or minimum, so it has no amplitude.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "amp-mastery-1",
+      prompt: "Find the amplitude:",
+      latex: "y=6\\sin x",
+      answer: "6",
+      hint: "Amplitude is $|a|$.",
+      explanation: "Amplitude is $6$.",
+    },
+    {
+      id: "amp-mastery-2",
+      prompt: "Find the amplitude:",
+      latex: "y=-5\\cos x",
+      answer: "5",
+      hint: "Amplitude is never negative.",
+      explanation: "Amplitude is $|-5|=5$.",
+    },
+    {
+      id: "amp-mastery-3",
+      prompt: "Find the period:",
+      latex: "y=\\sin(4x)",
+      answer: "pi/2",
+      acceptedAnswers: ["\\pi/2", "π/2"],
+      hint: "Use $\\frac{2\\pi}{4}$.",
+      explanation: "The period is $\\frac{\\pi}{2}$.",
+    },
+    {
+      id: "amp-mastery-4",
+      prompt: "Find the vertical shift:",
+      latex: "y=\\cos x-2",
+      answer: "-2",
+      acceptedAnswers: ["down 2"],
+      hint: "The vertical shift is $d$.",
+      explanation: "The graph shifts down $2$.",
+    },
+    {
+      id: "amp-mastery-5",
+      prompt: "Find the midline:",
+      latex: "y=4\\sin x+3",
+      answer: "y=3",
+      acceptedAnswers: ["3"],
+      hint: "The midline is $y=d$.",
+      explanation: "The midline is $y=3$.",
+    },
+    {
+      id: "amp-mastery-6",
+      prompt: "Choose the phase shift.",
+      latex: "y=\\cos\\left(x+\\frac{\\pi}{6}\\right)",
+      answer: "A",
+      choices: [
+        { label: "A", text: "left $\\frac{\\pi}{6}$" },
+        { label: "B", text: "right $\\frac{\\pi}{6}$" },
+        { label: "C", text: "up $\\frac{\\pi}{6}$" },
+      ],
+      hint: "$x+\\frac{\\pi}{6}=x-\\left(-\\frac{\\pi}{6}\\right)$.",
+      explanation: "The graph shifts left $\\frac{\\pi}{6}$.",
+    },
+    {
+      id: "amp-mastery-7",
+      prompt: "Find the period:",
+      latex: "y=\\tan(3x)",
+      answer: "pi/3",
+      acceptedAnswers: ["\\pi/3", "π/3"],
+      hint: "For tangent, use $\\frac{\\pi}{|b|}$.",
+      explanation: "The period is $\\frac{\\pi}{3}$.",
+    },
+    {
+      id: "amp-mastery-8",
+      prompt: "Choose the correct statement.",
+      latex: "y=2\\tan x",
+      answer: "B",
+      choices: [
+        { label: "A", text: "It has amplitude $2$." },
+        { label: "B", text: "It has no amplitude." },
+      ],
+      hint: "Tangent has no maximum or minimum.",
+      explanation: "Tangent has no amplitude.",
+    },
+    {
+      id: "amp-mastery-9",
+      prompt: "Choose the correct description.",
+      latex: "y=2\\sin\\left(2\\left(x-\\frac{\\pi}{3}\\right)\\right)-1",
+      answer: "C",
+      choices: [
+        { label: "A", text: "amplitude $2$, period $2\\pi$, midline $y=-1$" },
+        { label: "B", text: "amplitude $1$, period $\\pi$, phase shift right $\\frac{\\pi}{3}$" },
+        { label: "C", text: "amplitude $2$, period $\\pi$, phase shift right $\\frac{\\pi}{3}$" },
+      ],
+      hint: "Use $a=2$, $b=2$, $c=\\frac{\\pi}{3}$.",
+      explanation: "Amplitude is $2$, period is $\\pi$, and phase shift is right $\\frac{\\pi}{3}$.",
+    },
+    {
+      id: "amp-mastery-10",
+      prompt: "Choose the correct midline and amplitude.",
+      latex: "y=-3\\cos x+4",
+      answer: "A",
+      choices: [
+        { label: "A", text: "midline $y=4$, amplitude $3$" },
+        { label: "B", text: "midline $y=-3$, amplitude $4$" },
+        { label: "C", text: "midline $y=4$, amplitude $-3$" },
+      ],
+      hint: "Amplitude is $|a|$ and midline is $y=d$.",
+      explanation: "The midline is $y=4$ and the amplitude is $3$.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
+export const trigonometricEquationsLesson: ExplicitLesson = {
+  id: "trigonometric-equations",
+  slug: "trigonometric-equations",
+  moduleSlug: "trigonometric-functions-graphs",
+  moduleTitle: "Trigonometric Functions and Graphs",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Trigonometric Equations",
+  description:
+    "Solve trigonometric equations over specified domains using exact values, unit-circle signs, symmetry, and periods.",
+  syllabusArea: "Trigonometric Functions",
+  focus: "Trigonometric functions and graphs",
+  status: "active",
+
+  video: {
+    title: "Trigonometric Equations",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to solve basic trigonometric equations in a given domain.",
+
+  successCriteria: [
+    "Isolate the trigonometric function before solving.",
+    "Find a reference angle using exact values.",
+    "Use unit-circle signs to choose the correct quadrants.",
+    "List all solutions in the given interval.",
+    "Use tangent's period $\\pi$ and sine/cosine period $2\\pi$ correctly.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "Trigonometric equations often have more than one solution in a given domain.",
+      "First isolate the trigonometric function. For example, $2\\sin x-1=0$ becomes $\\sin x=\\frac12$.",
+      "Use exact values to find the reference angle, then use quadrant signs to find all solutions in the interval.",
+      "Always check the domain. Unless degrees are specified, answers should be written in radians.",
+      "Sine and cosine repeat every $2\\pi$, while tangent repeats every $\\pi$.",
+    ],
+    latexBlocks: [
+      "2\\sin x-1=0\\quad \\Rightarrow\\quad \\sin x=\\frac12",
+      "\\sin x>0\\quad \\text{in quadrants I and II}",
+      "\\cos x<0\\quad \\text{in quadrants II and III}",
+      "\\tan(x+\\pi)=\\tan x",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Solve a sine equation",
+      questionLatex: "2\\sin x-1=0,\\quad 0\\le x\\le2\\pi",
+      steps: [
+        { explanation: "Isolate sine.", latex: "2\\sin x=1\\quad \\Rightarrow\\quad \\sin x=\\frac12" },
+        { explanation: "Find the reference angle.", latex: "\\sin\\left(\\frac{\\pi}{6}\\right)=\\frac12" },
+        { explanation: "Sine is positive in quadrants I and II.", latex: "x=\\frac{\\pi}{6},\\quad x=\\frac{5\\pi}{6}" },
+      ],
+      finalAnswerLatex: "x=\\frac{\\pi}{6},\\frac{5\\pi}{6}",
+    },
+    {
+      title: "Worked example 2: Solve a cosine equation",
+      questionLatex: "\\cos x=-\\frac12,\\quad 0\\le x\\le2\\pi",
+      steps: [
+        { explanation: "The reference angle is $\\frac{\\pi}{3}$.", latex: "\\cos\\left(\\frac{\\pi}{3}\\right)=\\frac12" },
+        { explanation: "Cosine is negative in quadrants II and III.", latex: "x=\\pi-\\frac{\\pi}{3},\\quad x=\\pi+\\frac{\\pi}{3}" },
+        { explanation: "Simplify the solutions.", latex: "x=\\frac{2\\pi}{3},\\quad x=\\frac{4\\pi}{3}" },
+      ],
+      finalAnswerLatex: "x=\\frac{2\\pi}{3},\\frac{4\\pi}{3}",
+    },
+    {
+      title: "Worked example 3: Solve a tangent equation",
+      questionLatex: "\\tan x=1,\\quad 0\\le x\\le2\\pi",
+      steps: [
+        { explanation: "The reference angle is $\\frac{\\pi}{4}$.", latex: "\\tan\\left(\\frac{\\pi}{4}\\right)=1" },
+        { explanation: "Tangent is positive in quadrants I and III.", latex: "x=\\frac{\\pi}{4},\\quad x=\\frac{5\\pi}{4}" },
+        { explanation: "These are both in the domain.", latex: "0\\le x\\le2\\pi" },
+      ],
+      finalAnswerLatex: "x=\\frac{\\pi}{4},\\frac{5\\pi}{4}",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "trig-eq-guided-1",
+      prompt: "Isolate the trig function:",
+      latex: "2\\sin x-1=0\\quad \\Rightarrow\\quad \\sin x=\\Box",
+      answer: "1/2",
+      acceptedAnswers: ["0.5"],
+      hint: "Add 1, then divide by 2.",
+      explanation: "$2\\sin x=1$, so $\\sin x=\\frac12$.",
+    },
+    {
+      id: "trig-eq-guided-2",
+      prompt: "Find the reference angle:",
+      latex: "\\sin x=\\frac12",
+      answer: "pi/6",
+      acceptedAnswers: ["\\pi/6", "π/6"],
+      hint: "Use exact values.",
+      explanation: "The reference angle is $\\frac{\\pi}{6}$.",
+    },
+    {
+      id: "trig-eq-guided-3",
+      prompt: "Choose where cosine is negative.",
+      latex: "\\cos x<0",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Quadrants I and IV" },
+        { label: "B", text: "Quadrants II and III" },
+        { label: "C", text: "Quadrants I and III" },
+      ],
+      hint: "Cosine is the x-coordinate.",
+      explanation: "Cosine is negative on the left side of the unit circle.",
+    },
+    {
+      id: "trig-eq-guided-4",
+      prompt: "Choose the solutions.",
+      latex: "\\tan x=1,\\quad 0\\le x\\le2\\pi",
+      answer: "C",
+      choices: [
+        { label: "A", text: "$x=\\frac{\\pi}{4}$ only" },
+        { label: "B", text: "$x=\\frac{3\\pi}{4},\\frac{7\\pi}{4}$" },
+        { label: "C", text: "$x=\\frac{\\pi}{4},\\frac{5\\pi}{4}$" },
+      ],
+      hint: "Tangent is positive in quadrants I and III.",
+      explanation: "The solutions are $\\frac{\\pi}{4}$ and $\\frac{5\\pi}{4}$.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "trig-eq-ind-1",
+      prompt: "Find the smaller solution:",
+      latex: "\\sin x=\\frac12,\\quad 0\\le x\\le2\\pi",
+      answer: "pi/6",
+      acceptedAnswers: ["\\pi/6", "π/6"],
+      hint: "Sine is positive in quadrant I first.",
+      explanation: "The smaller solution is $\\frac{\\pi}{6}$.",
+    },
+    {
+      id: "trig-eq-ind-2",
+      prompt: "Find the larger solution:",
+      latex: "\\sin x=\\frac12,\\quad 0\\le x\\le2\\pi",
+      answer: "5pi/6",
+      acceptedAnswers: ["5\\pi/6", "5π/6"],
+      hint: "The second solution is in quadrant II.",
+      explanation: "The larger solution is $\\frac{5\\pi}{6}$.",
+    },
+    {
+      id: "trig-eq-ind-3",
+      prompt: "Choose the solutions.",
+      latex: "\\cos x=-\\frac12,\\quad 0\\le x\\le2\\pi",
+      answer: "B",
+      choices: [
+        { label: "A", text: "$x=\\frac{\\pi}{3},\\frac{5\\pi}{3}$" },
+        { label: "B", text: "$x=\\frac{2\\pi}{3},\\frac{4\\pi}{3}$" },
+        { label: "C", text: "$x=\\frac{\\pi}{6},\\frac{5\\pi}{6}$" },
+      ],
+      hint: "Cosine is negative in quadrants II and III.",
+      explanation: "The solutions are $\\frac{2\\pi}{3}$ and $\\frac{4\\pi}{3}$.",
+    },
+    {
+      id: "trig-eq-ind-4",
+      prompt: "Isolate the trig function:",
+      latex: "3\\cos x+1=0\\quad \\Rightarrow\\quad \\cos x=\\Box",
+      answer: "-1/3",
+      hint: "Subtract 1, then divide by 3.",
+      explanation: "$3\\cos x=-1$, so $\\cos x=-\\frac13$.",
+    },
+    {
+      id: "trig-eq-ind-5",
+      prompt: "Choose the correct period to use for tangent equations.",
+      latex: "\\tan x=k",
+      answer: "A",
+      choices: [
+        { label: "A", text: "$\\pi$" },
+        { label: "B", text: "$2\\pi$" },
+        { label: "C", text: "$\\frac{\\pi}{2}$" },
+      ],
+      hint: "The tangent pattern repeats every $\\pi$.",
+      explanation: "Tangent has period $\\pi$.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Giving only one solution.",
+      fix: "Check all quadrants in the given domain.",
+    },
+    {
+      mistake: "Ignoring the given domain.",
+      fix: "Only list solutions that lie inside the interval in the question.",
+    },
+    {
+      mistake: "Using degrees when radians are required.",
+      fix: "Use radians unless the question specifically says degrees.",
+    },
+    {
+      mistake: "Forgetting tangent's period is $\\pi$.",
+      fix: "Tangent repeats every $\\pi$, not every $2\\pi$.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "trig-eq-mastery-1",
+      prompt: "Isolate the trig function:",
+      latex: "2\\sin x+1=0\\quad \\Rightarrow\\quad \\sin x=\\Box",
+      answer: "-1/2",
+      acceptedAnswers: ["-0.5"],
+      hint: "Subtract 1, then divide by 2.",
+      explanation: "$\\sin x=-\\frac12$.",
+    },
+    {
+      id: "trig-eq-mastery-2",
+      prompt: "Find the reference angle:",
+      latex: "\\cos x=\\frac12",
+      answer: "pi/3",
+      acceptedAnswers: ["\\pi/3", "π/3"],
+      hint: "Use exact values.",
+      explanation: "The reference angle is $\\frac{\\pi}{3}$.",
+    },
+    {
+      id: "trig-eq-mastery-3",
+      prompt: "Choose where sine is negative.",
+      latex: "\\sin x<0",
+      answer: "C",
+      choices: [
+        { label: "A", text: "Quadrants I and II" },
+        { label: "B", text: "Quadrants II and III" },
+        { label: "C", text: "Quadrants III and IV" },
+      ],
+      hint: "Sine is the y-coordinate.",
+      explanation: "Sine is negative below the x-axis.",
+    },
+    {
+      id: "trig-eq-mastery-4",
+      prompt: "Find the smaller solution:",
+      latex: "\\cos x=\\frac12,\\quad 0\\le x\\le2\\pi",
+      answer: "pi/3",
+      acceptedAnswers: ["\\pi/3", "π/3"],
+      hint: "Cosine is positive in quadrant I first.",
+      explanation: "The smaller solution is $\\frac{\\pi}{3}$.",
+    },
+    {
+      id: "trig-eq-mastery-5",
+      prompt: "Find the larger solution:",
+      latex: "\\cos x=\\frac12,\\quad 0\\le x\\le2\\pi",
+      answer: "5pi/3",
+      acceptedAnswers: ["5\\pi/3", "5π/3"],
+      hint: "The second solution is in quadrant IV.",
+      explanation: "The larger solution is $\\frac{5\\pi}{3}$.",
+    },
+    {
+      id: "trig-eq-mastery-6",
+      prompt: "Choose the solutions.",
+      latex: "\\sin x=-\\frac12,\\quad 0\\le x\\le2\\pi",
+      answer: "A",
+      choices: [
+        { label: "A", text: "$x=\\frac{7\\pi}{6},\\frac{11\\pi}{6}$" },
+        { label: "B", text: "$x=\\frac{\\pi}{6},\\frac{5\\pi}{6}$" },
+        { label: "C", text: "$x=\\frac{2\\pi}{3},\\frac{4\\pi}{3}$" },
+      ],
+      hint: "Sine is negative in quadrants III and IV.",
+      explanation: "The solutions are $\\frac{7\\pi}{6}$ and $\\frac{11\\pi}{6}$.",
+    },
+    {
+      id: "trig-eq-mastery-7",
+      prompt: "Find the smaller solution:",
+      latex: "\\tan x=-1,\\quad 0\\le x\\le2\\pi",
+      answer: "3pi/4",
+      acceptedAnswers: ["3\\pi/4", "3π/4"],
+      hint: "Tangent is negative in quadrant II first.",
+      explanation: "The smaller solution is $\\frac{3\\pi}{4}$.",
+    },
+    {
+      id: "trig-eq-mastery-8",
+      prompt: "Find the larger solution:",
+      latex: "\\tan x=-1,\\quad 0\\le x\\le2\\pi",
+      answer: "7pi/4",
+      acceptedAnswers: ["7\\pi/4", "7π/4"],
+      hint: "The second solution is one period later.",
+      explanation: "The larger solution is $\\frac{7\\pi}{4}$.",
+    },
+    {
+      id: "trig-eq-mastery-9",
+      prompt: "Choose the solutions.",
+      latex: "2\\cos x-1=0,\\quad 0\\le x\\le2\\pi",
+      answer: "B",
+      choices: [
+        { label: "A", text: "$x=\\frac{\\pi}{6},\\frac{5\\pi}{6}$" },
+        { label: "B", text: "$x=\\frac{\\pi}{3},\\frac{5\\pi}{3}$" },
+        { label: "C", text: "$x=\\frac{2\\pi}{3},\\frac{4\\pi}{3}$" },
+      ],
+      hint: "First solve $\\cos x=\\frac12$.",
+      explanation: "The solutions are $\\frac{\\pi}{3}$ and $\\frac{5\\pi}{3}$.",
+    },
+    {
+      id: "trig-eq-mastery-10",
+      prompt: "Choose the best first step.",
+      latex: "3\\sin x-2=0",
+      answer: "A",
+      choices: [
+        { label: "A", text: "Isolate $\\sin x$." },
+        { label: "B", text: "Add $2\\pi$ immediately." },
+        { label: "C", text: "Change radians to degrees." },
+      ],
+      hint: "Solve algebraically before using the unit circle.",
+      explanation: "The first step is to isolate the trigonometric function.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
 export const trigonometricFunctionsGraphsOutline: LessonOutlineItem[] = [
   {
     id: "radians-exact-values-unit-circle",
@@ -711,7 +1316,7 @@ export const trigonometricFunctionsGraphsOutline: LessonOutlineItem[] = [
     title: "Amplitude, Period, Phase Shift, and Vertical Shift",
     description:
       "Describe and sketch transformed trigonometric graphs using amplitude, period, phase shift, and vertical shift.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "trigonometric-equations",
@@ -719,7 +1324,7 @@ export const trigonometricFunctionsGraphsOutline: LessonOutlineItem[] = [
     title: "Trigonometric Equations",
     description:
       "Solve trigonometric equations over specified domains using exact values, graphs, and symmetry.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "trigonometric-identities-simplification",
@@ -750,4 +1355,6 @@ export const trigonometricFunctionsGraphsOutline: LessonOutlineItem[] = [
 export const trigonometricFunctionsGraphsLessons = [
   radiansExactValuesUnitCircleLesson,
   graphsSineCosineTangentLesson,
+  amplitudePeriodPhaseVerticalShiftLesson,
+  trigonometricEquationsLesson,
 ];
