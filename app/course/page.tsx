@@ -37,6 +37,13 @@ export default function CoursePage() {
         "A staged pathway for growth factors, compound interest, depreciation, recurrence relations, annuities, loans, and financial decision-making.",
       status: "Available in beta",
     },
+    {
+      href: "/course/statistical-analysis",
+      title: "Statistical Analysis",
+      description:
+        "A staged pathway for data displays, summary statistics, outliers, standard deviation, z-scores, correlation, regression, and normal distribution ideas.",
+      status: "Available in beta",
+    },
   ];
 
   return (
