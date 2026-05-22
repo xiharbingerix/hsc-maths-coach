@@ -5,7 +5,6 @@ import {
 } from "../../../lib/lessons/trigonometricFunctionsGraphs";
 
 const lessonSequence = [
-  "Watch",
   "Learn",
   "Guided Practice",
   "Independent Practice",

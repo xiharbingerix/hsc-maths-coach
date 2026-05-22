@@ -5,7 +5,6 @@ import {
 } from "../../../lib/lessons/integralCalculus";
 
 const lessonSequence = [
-  "Watch",
   "Learn",
   "Guided Practice",
   "Independent Practice",

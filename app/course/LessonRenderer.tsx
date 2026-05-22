@@ -22,13 +22,22 @@ type MasteryState = {
   lastScore?: number;
 };
 
-const lessonStages: { id: LessonStage; label: string }[] = [
+export const WATCH_STAGE_ENABLED = false;
+
+const allLessonStages: { id: LessonStage; label: string }[] = [
   { id: "watch", label: "Watch" },
   { id: "learn", label: "Learn" },
   { id: "guided-practice", label: "Guided Practice" },
   { id: "independent-practice", label: "Independent Practice" },
   { id: "mastery-quiz", label: "Mastery Quiz" },
 ];
+
+const lessonStages = WATCH_STAGE_ENABLED
+  ? allLessonStages
+  : allLessonStages.filter((stage) => stage.id !== "watch");
+
+const firstLessonStage = lessonStages[0].id;
+const firstContentStage: LessonStage = "learn";
 
 function normaliseAnswer(value: string) {
   return value
@@ -309,7 +318,7 @@ export function LessonRenderer({
   backHref: string;
   backLabel: string;
 }) {
-  const [activeStage, setActiveStage] = useState<LessonStage>("watch");
+  const [activeStage, setActiveStage] = useState<LessonStage>(firstLessonStage);
   const [videoEnded, setVideoEnded] = useState(false);
   const [videoLoadFailed, setVideoLoadFailed] = useState(false);
   const [quizAnswers, setQuizAnswers] = useState<Record<string, string>>({});
@@ -361,7 +370,7 @@ export function LessonRenderer({
   }, [lesson, lessonSlug]);
 
   useEffect(() => {
-    setActiveStage("watch");
+    setActiveStage(firstLessonStage);
     setVideoEnded(false);
     setVideoLoadFailed(false);
     setQuizAnswers({});
@@ -410,11 +419,11 @@ export function LessonRenderer({
       masteryState.completedStages.includes(completedStage);
 
     if (stage === "watch") {
-      return true;
+      return WATCH_STAGE_ENABLED;
     }
 
     if (stage === "learn") {
-      return hasCompleted("watch");
+      return !WATCH_STAGE_ENABLED || hasCompleted("watch");
     }
 
     if (stage === "guided-practice") {
@@ -471,7 +480,7 @@ export function LessonRenderer({
       completedStages: [],
       lastScore: quizScore,
     });
-    setActiveStage("watch");
+    setActiveStage(firstContentStage);
     setVideoEnded(false);
     setVideoLoadFailed(false);
     setQuizAnswers({});
@@ -782,7 +791,11 @@ export function LessonRenderer({
         </header>
 
         <section className="rounded-2xl bg-white p-3 shadow-sm">
-          <div className="grid gap-2 md:grid-cols-5">
+          <div
+            className={`grid gap-2 ${
+              WATCH_STAGE_ENABLED ? "md:grid-cols-5" : "md:grid-cols-4"
+            }`}
+          >
             {lessonStages.map((stage, index) => {
               const isActive = stage.id === activeStage;
               const isComplete = masteryState.completedStages.includes(

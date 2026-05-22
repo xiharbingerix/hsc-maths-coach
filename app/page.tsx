@@ -27,7 +27,6 @@ const steps = [
 ];
 
 const lessonSequence = [
-  "Watch",
   "Learn",
   "Guided Practice",
   "Independent Practice",
@@ -239,10 +238,10 @@ export default function Home() {
                 Staged lessons across the current HSC course.
               </h2>
               <p className="mt-4 max-w-2xl leading-7 text-slate-600">
-                Each lesson follows Watch &rarr; Learn &rarr; Guided Practice
-                &rarr; Independent Practice &rarr; Mastery Quiz. The current
-                beta includes Differential Calculus, Integral Calculus, and
-                Functions and Graphing Techniques.
+                Video lessons are coming soon. The current beta flow is Learn
+                &rarr; Guided Practice &rarr; Independent Practice &rarr;
+                Mastery Quiz. The current beta includes Differential Calculus,
+                Integral Calculus, and Functions and Graphing Techniques.
               </p>
 
               <div className="mt-4 flex flex-wrap gap-2">

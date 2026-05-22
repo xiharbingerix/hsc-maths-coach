@@ -5,7 +5,7 @@ const included = [
   {
     title: "Staged lessons",
     description:
-      "Watch -> Learn -> Guided Practice -> Independent Practice -> Mastery Quiz.",
+      "Video lessons coming soon. Current beta flow: Learn -> Guided Practice -> Independent Practice -> Mastery Quiz.",
   },
   {
     title: "Targeted course units",
