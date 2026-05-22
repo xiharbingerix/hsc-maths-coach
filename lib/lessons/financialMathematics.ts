@@ -647,6 +647,1210 @@ export const recurrenceRelationsFinancialContextsLesson: ExplicitLesson = {
   masteryPassMark: 0.8,
 };
 
+export const futureValueAnnuitiesLesson: ExplicitLesson = {
+  id: "future-value-annuities",
+  slug: "future-value-annuities",
+  moduleSlug: "financial-mathematics",
+  moduleTitle: "Financial Mathematics",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Future Value of Annuities",
+  description:
+    "Calculate the future value of regular deposits with compound interest.",
+  syllabusArea: "Financial Mathematics",
+  focus: "Financial mathematics",
+  status: "active",
+
+  video: {
+    title: "Future Value of Annuities",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how regular deposits grow over time when compound interest is applied.",
+
+  successCriteria: [
+    "Recognise an annuity as a sequence of regular payments or deposits.",
+    "Use the future value annuity formula for equal deposits.",
+    "Match the interest rate with the payment period.",
+    "Interpret each variable in a financial context.",
+    "Round final financial values to the nearest cent.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "An annuity involves regular equal payments or deposits made over time.",
+      "The future value of an annuity is the total value of those regular deposits after compound interest has been applied.",
+      "For deposits made at the end of each period, the standard formula uses the payment amount $M$, interest rate per period $r$, and number of payments $n$.",
+      "The rate must match the deposit period. A monthly deposit needs a monthly interest rate.",
+      "A common mark leak is using the annual rate directly when deposits are monthly.",
+    ],
+    latexBlocks: [
+      "FV=M\\left(\\frac{(1+r)^n-1}{r}\\right)",
+      "M=\\text{regular deposit}",
+      "r=\\text{interest rate per period}",
+      "n=\\text{number of deposits}",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Future value of regular deposits",
+      questionLatex:
+        "\\text{Find the future value of }\\$200\\text{ deposited each year for 4 years at }5\\%\\text{ p.a.}",
+      steps: [
+        { explanation: "Identify the variables.", latex: "M=200,\\quad r=0.05,\\quad n=4" },
+        { explanation: "Substitute into the formula.", latex: "FV=200\\left(\\frac{(1.05)^4-1}{0.05}\\right)" },
+        { explanation: "Evaluate and round to cents.", latex: "FV=862.025" },
+      ],
+      finalAnswerLatex: "\\$862.03",
+    },
+    {
+      title: "Worked example 2: Monthly deposits",
+      questionLatex:
+        "\\text{A student deposits }\\$100\\text{ each month for 6 months at }0.5\\%\\text{ per month. Find the future value.}",
+      steps: [
+        { explanation: "The rate is already monthly.", latex: "M=100,\\quad r=0.005,\\quad n=6" },
+        { explanation: "Use the future value formula.", latex: "FV=100\\left(\\frac{(1.005)^6-1}{0.005}\\right)" },
+        { explanation: "Evaluate.", latex: "FV=607.5376\\ldots" },
+      ],
+      finalAnswerLatex: "\\$607.54",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "annuity-guided-1",
+      prompt: "Identify the regular deposit.",
+      latex: "\\$150\\text{ is deposited each month for 12 months.}",
+      answer: "150",
+      acceptedAnswers: ["$150", "$150.00", "150.00"],
+      hint: "The regular deposit is the repeated payment amount.",
+      explanation: "The regular deposit is $\\$150$.",
+    },
+    {
+      id: "annuity-guided-2",
+      prompt: "Identify the number of deposits.",
+      latex: "\\$80\\text{ is deposited each month for 2 years.}",
+      answer: "24",
+      hint: "There are 12 months in a year.",
+      explanation: "$2\\times12=24$ monthly deposits.",
+    },
+    {
+      id: "annuity-guided-3",
+      prompt: "Choose the correct rate per month.",
+      latex: "6\\%\\text{ p.a. compounded monthly}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "0.06" },
+        { label: "B", text: "0.005" },
+        { label: "C", text: "0.5" },
+      ],
+      hint: "Divide the annual decimal rate by 12.",
+      explanation: "$0.06\\div12=0.005$.",
+    },
+    {
+      id: "annuity-guided-4",
+      prompt: "Find the future value to the nearest cent.",
+      latex: "FV=100\\left(\\frac{(1.01)^3-1}{0.01}\\right)",
+      answer: "303.01",
+      acceptedAnswers: ["$303.01"],
+      hint: "Evaluate the bracket first.",
+      explanation: "$FV=303.01$.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "annuity-ind-1",
+      prompt: "Find the future value to the nearest cent.",
+      latex: "FV=50\\left(\\frac{(1.02)^5-1}{0.02}\\right)",
+      answer: "260.20",
+      acceptedAnswers: ["$260.20", "260.2"],
+      hint: "Use the formula directly.",
+      explanation: "$FV=260.202008$, so the value is $\\$260.20$.",
+    },
+    {
+      id: "annuity-ind-2",
+      prompt: "How many monthly deposits are made over 3 years?",
+      latex: "n=\\ ?",
+      answer: "36",
+      hint: "Multiply years by 12.",
+      explanation: "$3\\times12=36$.",
+    },
+    {
+      id: "annuity-ind-3",
+      prompt: "Choose the correct future value formula.",
+      latex: "M=200,\\quad r=0.01,\\quad n=10",
+      answer: "C",
+      choices: [
+        { label: "A", text: "$FV=200(1.01)^{10}$" },
+        { label: "B", text: "$FV=200\\left(\\frac{1.01-1}{10}\\right)$" },
+        { label: "C", text: "$FV=200\\left(\\frac{(1.01)^{10}-1}{0.01}\\right)$" },
+      ],
+      hint: "Use the annuity formula for repeated deposits.",
+      explanation: "Option C is the future value annuity formula.",
+    },
+    {
+      id: "annuity-ind-4",
+      prompt: "A monthly rate is 0.25%. Write it as a decimal.",
+      latex: "0.25\\%",
+      answer: "0.0025",
+      hint: "Divide by 100.",
+      explanation: "$0.25\\%=0.0025$.",
+    },
+    {
+      id: "annuity-ind-5",
+      prompt: "Find the future value to the nearest cent.",
+      latex: "FV=120\\left(\\frac{(1.005)^8-1}{0.005}\\right)",
+      answer: "976.91",
+      acceptedAnswers: ["$976.91"],
+      hint: "Evaluate and round at the end.",
+      explanation: "$FV=976.9108\\ldots$, so the value is $\\$976.91$.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Using the annual rate when deposits are monthly.",
+      fix: "Convert the rate so it matches the payment period.",
+    },
+    {
+      mistake: "Using the compound interest formula for one principal instead of an annuity formula.",
+      fix: "Use the annuity formula when equal deposits are made repeatedly.",
+    },
+    {
+      mistake: "Counting years instead of payment periods.",
+      fix: "For monthly deposits, multiply the number of years by 12.",
+    },
+    {
+      mistake: "Rounding intermediate values too early.",
+      fix: "Keep full calculator values and round the final answer to cents.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "annuity-mastery-1",
+      prompt: "What does $M$ represent in the future value annuity formula?",
+      latex: "FV=M\\left(\\frac{(1+r)^n-1}{r}\\right)",
+      answer: "B",
+      choices: [
+        { label: "A", text: "The interest rate" },
+        { label: "B", text: "The regular deposit" },
+        { label: "C", text: "The number of deposits" },
+      ],
+      hint: "$M$ is the repeated payment amount.",
+      explanation: "$M$ is the regular deposit.",
+    },
+    {
+      id: "annuity-mastery-2",
+      prompt: "How many monthly deposits are made in 18 months?",
+      latex: "n=\\ ?",
+      answer: "18",
+      hint: "The time is already in months.",
+      explanation: "There are 18 monthly deposits.",
+    },
+    {
+      id: "annuity-mastery-3",
+      prompt: "Convert 12% p.a. compounded monthly to a monthly decimal rate.",
+      latex: "r=\\ ?",
+      answer: "0.01",
+      hint: "Divide 0.12 by 12.",
+      explanation: "$0.12\\div12=0.01$.",
+    },
+    {
+      id: "annuity-mastery-4",
+      prompt: "Find the future value to the nearest cent.",
+      latex: "FV=100\\left(\\frac{(1.01)^4-1}{0.01}\\right)",
+      answer: "406.04",
+      acceptedAnswers: ["$406.04"],
+      hint: "Substitute directly.",
+      explanation: "$FV=406.0401$, so the value is $\\$406.04$.",
+    },
+    {
+      id: "annuity-mastery-5",
+      prompt: "Find the future value to the nearest cent.",
+      latex: "FV=250\\left(\\frac{(1.02)^3-1}{0.02}\\right)",
+      answer: "765.10",
+      acceptedAnswers: ["$765.10", "765.1"],
+      hint: "Evaluate the bracket first.",
+      explanation: "$FV=765.10$.",
+    },
+    {
+      id: "annuity-mastery-6",
+      prompt: "Which model is for repeated equal deposits?",
+      latex: "\\text{Choose one}",
+      answer: "C",
+      choices: [
+        { label: "A", text: "$A=P(1+r)^n$" },
+        { label: "B", text: "$A=P(1-r)^n$" },
+        { label: "C", text: "$FV=M\\left(\\frac{(1+r)^n-1}{r}\\right)$" },
+      ],
+      hint: "Look for the annuity formula.",
+      explanation: "Option C models regular deposits.",
+    },
+    {
+      id: "annuity-mastery-7",
+      prompt: "Find the total deposited before interest.",
+      latex: "\\$75\\text{ deposited monthly for 10 months}",
+      answer: "750",
+      acceptedAnswers: ["$750", "$750.00", "750.00"],
+      hint: "Multiply deposit by number of deposits.",
+      explanation: "$75\\times10=750$.",
+    },
+    {
+      id: "annuity-mastery-8",
+      prompt: "Which value should be used for $n$?",
+      latex: "\\$200\\text{ deposited quarterly for 3 years}",
+      answer: "12",
+      hint: "There are 4 quarters in a year.",
+      explanation: "$3\\times4=12$ deposits.",
+    },
+    {
+      id: "annuity-mastery-9",
+      prompt: "Find the future value to the nearest cent.",
+      latex: "FV=80\\left(\\frac{(1.005)^6-1}{0.005}\\right)",
+      answer: "486.03",
+      acceptedAnswers: ["$486.03"],
+      hint: "Round the final answer to cents.",
+      explanation: "$FV=486.0301\\ldots$, so the value is $\\$486.03$.",
+    },
+    {
+      id: "annuity-mastery-10",
+      prompt: "A student deposits $100 each month at a monthly interest rate. What must the rate match?",
+      latex: "\\text{rate period}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "The school term" },
+        { label: "B", text: "The monthly deposit period" },
+        { label: "C", text: "The student's age" },
+      ],
+      hint: "The rate and deposit period should match.",
+      explanation: "Monthly deposits require a monthly rate.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
+export const presentValueLoanRepaymentsLesson: ExplicitLesson = {
+  id: "present-value-loan-repayments",
+  slug: "present-value-loan-repayments",
+  moduleSlug: "financial-mathematics",
+  moduleTitle: "Financial Mathematics",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Present Value and Loan Repayments",
+  description:
+    "Use financial models to analyse loan balances, repayments, and present value.",
+  syllabusArea: "Financial Mathematics",
+  focus: "Financial mathematics",
+  status: "active",
+
+  video: {
+    title: "Present Value and Loan Repayments",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how present value and repayment models describe loans and future payments.",
+
+  successCriteria: [
+    "Recognise present value as the value now of future payments.",
+    "Use loan recurrence relations to update balances.",
+    "Interpret repayments as amounts subtracted from a loan balance.",
+    "Use matching interest and repayment periods.",
+    "Decide whether a loan balance is increasing or decreasing.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "Present value asks what a future amount or payment stream is worth now.",
+      "Loan balances can be modelled using recurrence relations where interest is added and repayments are subtracted.",
+      "A recurrence such as $L_{n+1}=1.01L_n-500$ means the balance grows by 1%, then a repayment of $500 is made.",
+      "If repayments are too small, the loan may not reduce quickly enough.",
+      "In exam questions, check whether the question asks for a remaining balance, total repayment, or present value.",
+    ],
+    latexBlocks: [
+      "PV=\\frac{FV}{(1+r)^n}",
+      "L_{n+1}=(1+r)L_n-R",
+      "R=\\text{regular repayment}",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Present value of a future amount",
+      questionLatex:
+        "\\text{Find the present value of }\\$5000\\text{ due in 2 years at }5\\%\\text{ p.a.}",
+      steps: [
+        { explanation: "Use the present value formula.", latex: "PV=\\frac{FV}{(1+r)^n}" },
+        { explanation: "Substitute the values.", latex: "PV=\\frac{5000}{(1.05)^2}" },
+        { explanation: "Evaluate and round.", latex: "PV=4535.147\\ldots" },
+      ],
+      finalAnswerLatex: "\\$4535.15",
+    },
+    {
+      title: "Worked example 2: Loan repayment recurrence",
+      questionLatex:
+        "L_0=10000,\\quad L_{n+1}=1.01L_n-600.\\quad \\text{Find }L_1\\text{ and }L_2.",
+      steps: [
+        { explanation: "Find the first balance.", latex: "L_1=1.01(10000)-600=9500" },
+        { explanation: "Use $L_1$ to find $L_2$.", latex: "L_2=1.01(9500)-600=8995" },
+      ],
+      finalAnswerLatex: "L_1=9500,\\quad L_2=8995",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "loan-guided-1",
+      prompt: "Choose the meaning of $-400$.",
+      latex: "L_{n+1}=1.02L_n-400",
+      answer: "B",
+      choices: [
+        { label: "A", text: "A fee is added" },
+        { label: "B", text: "A repayment is made" },
+        { label: "C", text: "The interest rate is 400%" },
+      ],
+      hint: "The amount is subtracted from the balance.",
+      explanation: "$-400$ represents a repayment.",
+    },
+    {
+      id: "loan-guided-2",
+      prompt: "Find $L_1$.",
+      latex: "L_0=2000,\\quad L_{n+1}=1.01L_n-150",
+      answer: "1870",
+      acceptedAnswers: ["$1870", "$1,870", "$1870.00", "$1,870.00"],
+      hint: "Apply interest, then subtract repayment.",
+      explanation: "$L_1=1.01(2000)-150=1870$.",
+    },
+    {
+      id: "loan-guided-3",
+      prompt: "Find the present value to the nearest cent.",
+      latex: "PV=\\frac{1000}{1.05}",
+      answer: "952.38",
+      acceptedAnswers: ["$952.38"],
+      hint: "Divide by 1.05.",
+      explanation: "$PV=952.3809\\ldots$, so $PV=\\$952.38$.",
+    },
+    {
+      id: "loan-guided-4",
+      prompt: "Is the loan balance lower after one month?",
+      latex: "L_0=5000,\\quad L_1=4800",
+      answer: "yes",
+      acceptedAnswers: ["Yes", "lower", "decreased"],
+      hint: "Compare $L_1$ with $L_0$.",
+      explanation: "$4800<5000$, so the loan balance is lower.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "loan-ind-1",
+      prompt: "Find $L_1$.",
+      latex: "L_0=6000,\\quad L_{n+1}=1.005L_n-350",
+      answer: "5680",
+      acceptedAnswers: ["$5680", "$5,680", "$5680.00", "$5,680.00"],
+      hint: "Apply interest, then subtract 350.",
+      explanation: "$L_1=1.005(6000)-350=5680$.",
+    },
+    {
+      id: "loan-ind-2",
+      prompt: "Find $L_2$.",
+      latex: "L_0=3000,\\quad L_{n+1}=1.02L_n-200,\\quad L_1=2860",
+      answer: "2717.20",
+      acceptedAnswers: ["$2717.20", "$2,717.20", "2717.2"],
+      hint: "Use $L_1=2860$.",
+      explanation: "$L_2=1.02(2860)-200=2717.20$.",
+    },
+    {
+      id: "loan-ind-3",
+      prompt: "Find the present value to the nearest cent.",
+      latex: "PV=\\frac{2000}{(1.04)^2}",
+      answer: "1849.11",
+      acceptedAnswers: ["$1849.11", "$1,849.11"],
+      hint: "Evaluate the denominator first.",
+      explanation: "$PV=1849.1124\\ldots$, so $PV=\\$1849.11$.",
+    },
+    {
+      id: "loan-ind-4",
+      prompt: "Choose the loan recurrence with 1% interest and a $500 repayment.",
+      latex: "L_{n+1}=\\ ?",
+      answer: "A",
+      choices: [
+        { label: "A", text: "$L_{n+1}=1.01L_n-500$" },
+        { label: "B", text: "$L_{n+1}=0.99L_n-500$" },
+        { label: "C", text: "$L_{n+1}=1.01L_n+500$" },
+      ],
+      hint: "Interest increases the loan and repayment decreases it.",
+      explanation: "The correct recurrence is $L_{n+1}=1.01L_n-500$.",
+    },
+    {
+      id: "loan-ind-5",
+      prompt: "A balance changes from $8000 to $7600. Did the loan reduce?",
+      latex: "8000\\to7600",
+      answer: "yes",
+      acceptedAnswers: ["Yes", "reduced", "decreased"],
+      hint: "Compare the second value with the first.",
+      explanation: "$7600<8000$, so the loan reduced.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Treating repayments as deposits.",
+      fix: "Repayments reduce loan balances, so they are subtracted.",
+    },
+    {
+      mistake: "Using a future value formula when the question asks for present value.",
+      fix: "Present value discounts a future amount back to today.",
+    },
+    {
+      mistake: "Using the wrong period for the interest rate.",
+      fix: "Monthly repayments require a monthly interest rate.",
+    },
+    {
+      mistake: "Forgetting to interpret the remaining balance.",
+      fix: "State whether the balance has reduced and what the amount represents.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "loan-mastery-1",
+      prompt: "What does present value mean?",
+      latex: "\\text{Choose one}",
+      answer: "A",
+      choices: [
+        { label: "A", text: "The value now of a future amount" },
+        { label: "B", text: "The total after all future interest" },
+        { label: "C", text: "The number of repayments" },
+      ],
+      hint: "Present value is a current value.",
+      explanation: "Present value is the value now of a future amount.",
+    },
+    {
+      id: "loan-mastery-2",
+      prompt: "Find $L_1$.",
+      latex: "L_0=4000,\\quad L_{n+1}=1.01L_n-300",
+      answer: "3740",
+      acceptedAnswers: ["$3740", "$3,740", "$3740.00", "$3,740.00"],
+      hint: "Apply interest, then subtract repayment.",
+      explanation: "$L_1=1.01(4000)-300=3740$.",
+    },
+    {
+      id: "loan-mastery-3",
+      prompt: "Find $L_2$.",
+      latex: "L_0=4000,\\quad L_{n+1}=1.01L_n-300,\\quad L_1=3740",
+      answer: "3477.40",
+      acceptedAnswers: ["$3477.40", "$3,477.40", "3477.4"],
+      hint: "Use $L_1=3740$.",
+      explanation: "$L_2=1.01(3740)-300=3477.40$.",
+    },
+    {
+      id: "loan-mastery-4",
+      prompt: "Find the present value to the nearest cent.",
+      latex: "PV=\\frac{1500}{1.03}",
+      answer: "1456.31",
+      acceptedAnswers: ["$1456.31", "$1,456.31"],
+      hint: "Divide by 1.03.",
+      explanation: "$PV=1456.3106\\ldots$, so $PV=\\$1456.31$.",
+    },
+    {
+      id: "loan-mastery-5",
+      prompt: "Which recurrence models a loan growing by 2% then a $250 repayment?",
+      latex: "L_{n+1}=\\ ?",
+      answer: "B",
+      choices: [
+        { label: "A", text: "$L_{n+1}=0.98L_n-250$" },
+        { label: "B", text: "$L_{n+1}=1.02L_n-250$" },
+        { label: "C", text: "$L_{n+1}=1.02L_n+250$" },
+      ],
+      hint: "Interest increases; repayment subtracts.",
+      explanation: "The correct recurrence is $L_{n+1}=1.02L_n-250$.",
+    },
+    {
+      id: "loan-mastery-6",
+      prompt: "Choose the meaning of $1.005$ in a loan recurrence.",
+      latex: "L_{n+1}=1.005L_n-600",
+      answer: "C",
+      choices: [
+        { label: "A", text: "5% interest" },
+        { label: "B", text: "0.5% decrease" },
+        { label: "C", text: "0.5% interest" },
+      ],
+      hint: "$1.005=1+0.005$.",
+      explanation: "$1.005$ means 0.5% interest.",
+    },
+    {
+      id: "loan-mastery-7",
+      prompt: "Find the present value to the nearest cent.",
+      latex: "PV=\\frac{5000}{(1.05)^2}",
+      answer: "4535.15",
+      acceptedAnswers: ["$4535.15", "$4,535.15"],
+      hint: "Use the present value formula.",
+      explanation: "$PV=4535.147\\ldots$, so $PV=\\$4535.15$.",
+    },
+    {
+      id: "loan-mastery-8",
+      prompt: "If $L_0=5000$ and $L_1=5050$, did the loan reduce?",
+      latex: "5000\\to5050",
+      answer: "no",
+      acceptedAnswers: ["No", "increased", "not reduced"],
+      hint: "Compare the second balance with the first.",
+      explanation: "$5050>5000$, so the loan did not reduce.",
+    },
+    {
+      id: "loan-mastery-9",
+      prompt: "A repayment recurrence is $L_{n+1}=1.01L_n-R$. If $R=400$, what is subtracted each period?",
+      latex: "R=400",
+      answer: "400",
+      acceptedAnswers: ["$400", "$400.00", "400.00"],
+      hint: "$R$ is the repayment.",
+      explanation: "$400$ is subtracted each period.",
+    },
+    {
+      id: "loan-mastery-10",
+      prompt: "A loan has monthly repayments. Which interest rate should be used in the recurrence?",
+      latex: "\\text{Choose one}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "The annual rate without adjustment" },
+        { label: "B", text: "The monthly rate" },
+        { label: "C", text: "The number of years" },
+      ],
+      hint: "Match the rate period to the repayment period.",
+      explanation: "Monthly repayments require a monthly rate.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
+export const comparingFinancialOptionsLesson: ExplicitLesson = {
+  id: "comparing-financial-options",
+  slug: "comparing-financial-options",
+  moduleSlug: "financial-mathematics",
+  moduleTitle: "Financial Mathematics",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Comparing Financial Options",
+  description:
+    "Compare savings, investment, depreciation, and loan options using equivalent financial calculations.",
+  syllabusArea: "Financial Mathematics",
+  focus: "Financial mathematics",
+  status: "active",
+
+  video: {
+    title: "Comparing Financial Options",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to compare financial options using calculations that match the question being asked.",
+
+  successCriteria: [
+    "Identify what the question is asking you to compare.",
+    "Use equivalent time periods when comparing options.",
+    "Calculate the final value, cost, or balance for each option.",
+    "Account for fees, bonuses, deposits, or repayments.",
+    "Make a clear conclusion supported by calculations.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "Financial mathematics can be used to compare savings, investment, depreciation, and loan options.",
+      "The best option depends on the question: largest future value, lowest total cost, lowest remaining balance, or fastest payoff.",
+      "A fair comparison uses equivalent time periods and matching compounding periods.",
+      "Fees, repayments, deposits, and bonuses can change which option is better.",
+      "A final financial conclusion should be supported by calculated values, not just by comparing interest rates.",
+    ],
+    latexBlocks: [
+      "A=P(1+r)^n",
+      "L_{n+1}=(1+r)L_n-R",
+      "\\text{better option}=\\text{the option that matches the question goal}",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Compare two investments",
+      questionLatex:
+        "\\text{Option A: }\\$3000\\text{ at }5\\%\\text{ p.a. for 4 years. Option B: }\\$3000\\text{ at }4.8\\%\\text{ p.a. for 4 years plus }\\$50\\text{ bonus.}",
+      steps: [
+        { explanation: "Calculate Option A.", latex: "A=3000(1.05)^4=3646.52" },
+        { explanation: "Calculate Option B including the bonus.", latex: "B=3000(1.048)^4+50=3669.08" },
+        { explanation: "Compare the final values.", latex: "3669.08>3646.52" },
+      ],
+      finalAnswerLatex: "\\text{Option B gives the larger final value.}",
+    },
+    {
+      title: "Worked example 2: Compare loan balances",
+      questionLatex:
+        "L_0=5000.\\quad \\text{A: }L_{n+1}=1.01L_n-300.\\quad \\text{B: }L_{n+1}=1.008L_n-260.",
+      steps: [
+        { explanation: "Find the balance after two months for Option A.", latex: "A_1=4750,\\quad A_2=4497.50" },
+        { explanation: "Find the balance after two months for Option B.", latex: "B_1=4780,\\quad B_2=4558.24" },
+        { explanation: "Lower remaining balance is better for the borrower.", latex: "4497.50<4558.24" },
+      ],
+      finalAnswerLatex: "\\text{Option A gives the lower balance after two months.}",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "compare-guided-1",
+      prompt: "What should be compared when the question asks for the best investment?",
+      latex: "\\text{Choose one}",
+      answer: "A",
+      choices: [
+        { label: "A", text: "The largest final value" },
+        { label: "B", text: "The lowest final value" },
+        { label: "C", text: "The largest remaining loan balance" },
+      ],
+      hint: "An investment is usually better when it grows to more.",
+      explanation: "For an investment, the larger final value is better.",
+    },
+    {
+      id: "compare-guided-2",
+      prompt: "Calculate Option A.",
+      latex: "A=1000(1.05)^2",
+      answer: "1102.50",
+      acceptedAnswers: ["$1102.50", "$1,102.50", "1102.5"],
+      hint: "Evaluate the compound interest expression.",
+      explanation: "$1000(1.05)^2=1102.50$.",
+    },
+    {
+      id: "compare-guided-3",
+      prompt: "Calculate Option B including a $20 bonus.",
+      latex: "B=1000(1.04)^2+20",
+      answer: "1101.60",
+      acceptedAnswers: ["$1101.60", "$1,101.60", "1101.6"],
+      hint: "Add the bonus after calculating the investment value.",
+      explanation: "$1000(1.04)^2+20=1101.60$.",
+    },
+    {
+      id: "compare-guided-4",
+      prompt: "Which option is better for the investment?",
+      latex: "A=1102.50,\\quad B=1101.60",
+      answer: "A",
+      choices: [
+        { label: "A", text: "Option A" },
+        { label: "B", text: "Option B" },
+      ],
+      hint: "Choose the larger final value.",
+      explanation: "Option A is larger by $0.90$.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "compare-ind-1",
+      prompt: "Which final value is larger?",
+      latex: "A=2000(1.03)^3,\\quad B=2000(1.025)^3+40",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Option A" },
+        { label: "B", text: "Option B" },
+      ],
+      hint: "Calculate both final values.",
+      explanation: "$A=2185.45$ and $B=2193.77$, so B is larger.",
+    },
+    {
+      id: "compare-ind-2",
+      prompt: "Find the lower depreciated value.",
+      latex: "A=15000(0.9)^2,\\quad B=15000(0.85)^2",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Option A" },
+        { label: "B", text: "Option B" },
+      ],
+      hint: "Calculate both values.",
+      explanation: "$A=12150$ and $B=10837.50$, so B is lower.",
+    },
+    {
+      id: "compare-ind-3",
+      prompt: "Find the balance after one month.",
+      latex: "L_0=4000,\\quad L_{n+1}=1.01L_n-250",
+      answer: "3790",
+      acceptedAnswers: ["$3790", "$3,790", "$3790.00", "$3,790.00"],
+      hint: "Apply interest, then subtract repayment.",
+      explanation: "$L_1=1.01(4000)-250=3790$.",
+    },
+    {
+      id: "compare-ind-4",
+      prompt: "A $30 fee is charged at the end. Find the final cost.",
+      latex: "C=500(1.04)^2+30",
+      answer: "570.80",
+      acceptedAnswers: ["$570.80", "570.8"],
+      hint: "Add the fee after the growth calculation.",
+      explanation: "$500(1.04)^2+30=570.80$.",
+    },
+    {
+      id: "compare-ind-5",
+      prompt: "For a loan, which result is better for the borrower?",
+      latex: "A=3250,\\quad B=3180",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Option A" },
+        { label: "B", text: "Option B" },
+      ],
+      hint: "A lower remaining loan balance is better.",
+      explanation: "Option B has the lower remaining balance.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Comparing different time periods.",
+      fix: "Convert both options to the same time period before deciding.",
+    },
+    {
+      mistake: "Choosing the larger payment when the question asks for lower cost.",
+      fix: "Identify whether the goal is largest value, lowest cost, or lowest balance.",
+    },
+    {
+      mistake: "Ignoring fees or bonuses.",
+      fix: "Include all stated bonuses, fees, deposits, and repayments in the calculation.",
+    },
+    {
+      mistake: "Making a conclusion without supporting calculations.",
+      fix: "Show the calculated values for each option before choosing.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "compare-mastery-1",
+      prompt: "For an investment comparison, the better option usually has:",
+      latex: "\\text{Choose one}",
+      answer: "A",
+      choices: [
+        { label: "A", text: "the larger final value" },
+        { label: "B", text: "the larger loan balance" },
+        { label: "C", text: "the shorter question wording" },
+      ],
+      hint: "Investment growth aims for a larger future value.",
+      explanation: "The better investment usually has the larger final value.",
+    },
+    {
+      id: "compare-mastery-2",
+      prompt: "For a loan comparison, the better borrower option usually has:",
+      latex: "\\text{Choose one}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "the higher remaining balance" },
+        { label: "B", text: "the lower remaining balance" },
+        { label: "C", text: "the higher interest charge" },
+      ],
+      hint: "A borrower wants to owe less.",
+      explanation: "The lower remaining balance is better for the borrower.",
+    },
+    {
+      id: "compare-mastery-3",
+      prompt: "What must be true before comparing two options?",
+      latex: "\\text{Choose one}",
+      answer: "C",
+      choices: [
+        { label: "A", text: "They must have the same wording" },
+        { label: "B", text: "They must use different units" },
+        { label: "C", text: "They must be compared over equivalent time periods" },
+      ],
+      hint: "Fair comparisons use like with like.",
+      explanation: "Equivalent time periods are needed for a fair comparison.",
+    },
+    {
+      id: "compare-mastery-4",
+      prompt: "Calculate the final value.",
+      latex: "A=3000(1.05)^4",
+      answer: "3646.52",
+      acceptedAnswers: ["$3646.52", "$3,646.52"],
+      hint: "Evaluate and round to cents.",
+      explanation: "$A=3646.52$.",
+    },
+    {
+      id: "compare-mastery-5",
+      prompt: "Calculate the final value including the bonus.",
+      latex: "B=3000(1.048)^4+50",
+      answer: "3669.08",
+      acceptedAnswers: ["$3669.08", "$3,669.08"],
+      hint: "Add the bonus after the compound value.",
+      explanation: "$B=3669.08$.",
+    },
+    {
+      id: "compare-mastery-6",
+      prompt: "Which investment is better?",
+      latex: "A=3646.52,\\quad B=3669.08",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Option A" },
+        { label: "B", text: "Option B" },
+      ],
+      hint: "Choose the larger final value.",
+      explanation: "Option B gives the larger final value.",
+    },
+    {
+      id: "compare-mastery-7",
+      prompt: "Choose the better conclusion.",
+      latex: "\\text{A loan option leaves }\\$4497.50\\text{ owing instead of }\\$4558.24.",
+      answer: "A",
+      choices: [
+        { label: "A", text: "The $4497.50 option is better for the borrower" },
+        { label: "B", text: "The $4558.24 option is better for the borrower" },
+        { label: "C", text: "No comparison can be made" },
+      ],
+      hint: "A borrower wants the lower remaining balance.",
+      explanation: "$4497.50$ is the lower balance.",
+    },
+    {
+      id: "compare-mastery-8",
+      prompt: "A fee is added at the end. What should you do?",
+      latex: "\\text{Choose one}",
+      answer: "C",
+      choices: [
+        { label: "A", text: "Ignore it" },
+        { label: "B", text: "Subtract it from both options" },
+        { label: "C", text: "Include it in that option's final cost" },
+      ],
+      hint: "Fees affect the final comparison.",
+      explanation: "The fee must be included in the final cost.",
+    },
+    {
+      id: "compare-mastery-9",
+      prompt: "Option A costs $520 and Option B costs $498. Which has the lower cost?",
+      latex: "520\\text{ vs }498",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Option A" },
+        { label: "B", text: "Option B" },
+      ],
+      hint: "Lower cost means the smaller amount.",
+      explanation: "$498$ is lower than $520$.",
+    },
+    {
+      id: "compare-mastery-10",
+      prompt: "Calculate the difference.",
+      latex: "3669.08-3646.52",
+      answer: "22.56",
+      acceptedAnswers: ["$22.56"],
+      hint: "Subtract the smaller final value from the larger.",
+      explanation: "$3669.08-3646.52=22.56$.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
+export const mixedFinancialMathematicsExamPracticeLesson: ExplicitLesson = {
+  id: "mixed-financial-mathematics-exam-practice",
+  slug: "mixed-financial-mathematics-exam-practice",
+  moduleSlug: "financial-mathematics",
+  moduleTitle: "Financial Mathematics",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Mixed Financial Mathematics Exam Practice",
+  description:
+    "Practise mixed exam-style questions involving compound interest, recurrence, annuities, loans, and financial decision-making.",
+  syllabusArea: "Financial Mathematics",
+  focus: "Financial mathematics",
+  status: "active",
+
+  video: {
+    title: "Mixed Financial Mathematics Exam Practice",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to identify and solve mixed financial mathematics exam questions.",
+
+  successCriteria: [
+    "Identify whether a question involves growth, decay, recurrence, annuity, loan, or comparison.",
+    "Choose an appropriate formula or recurrence.",
+    "Calculate carefully and round to cents where appropriate.",
+    "Interpret the answer in context.",
+    "Avoid common model-selection errors in exam-style questions.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "Exam questions often combine compound interest, depreciation, recurrence relations, annuities, loans, and comparison.",
+      "The first step is identifying the financial model being used.",
+      "Growth uses a factor greater than 1. Depreciation uses a factor less than 1.",
+      "Recurrence relations update a balance step by step, while annuity formulae handle repeated equal deposits.",
+      "Financial answers usually need rounding to cents and a short conclusion in context.",
+    ],
+    latexBlocks: [
+      "A=P(1+r)^n",
+      "A=P(1-r)^n",
+      "B_{n+1}=(1+r)B_n+D",
+      "L_{n+1}=(1+r)L_n-R",
+      "FV=M\\left(\\frac{(1+r)^n-1}{r}\\right)",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Depreciation",
+      questionLatex:
+        "\\text{A laptop costs }\\$1800\\text{ and depreciates by }15\\%\\text{ per year. Find its value after 3 years.}",
+      steps: [
+        { explanation: "Use a decay factor of $0.85$.", latex: "A=1800(0.85)^3" },
+        { explanation: "Evaluate and round.", latex: "A=1105.5375" },
+      ],
+      finalAnswerLatex: "\\$1105.54",
+    },
+    {
+      title: "Worked example 2: Recurrence",
+      questionLatex:
+        "B_0=500,\\quad B_{n+1}=1.02B_n+100.\\quad \\text{Find }B_2.",
+      steps: [
+        { explanation: "Find $B_1$.", latex: "B_1=1.02(500)+100=610" },
+        { explanation: "Find $B_2$.", latex: "B_2=1.02(610)+100=722.20" },
+      ],
+      finalAnswerLatex: "B_2=722.20",
+    },
+    {
+      title: "Worked example 3: Compare savings options",
+      questionLatex:
+        "\\text{Option A: }\\$1000(1.04)^2.\\quad \\text{Option B: }\\$1000(1.03)^2+30.",
+      steps: [
+        { explanation: "Calculate Option A.", latex: "A=1081.60" },
+        { explanation: "Calculate Option B.", latex: "B=1090.90" },
+        { explanation: "Choose the larger final value.", latex: "1090.90>1081.60" },
+      ],
+      finalAnswerLatex: "\\text{Option B is better.}",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "mixed-fin-guided-1",
+      prompt: "Choose the model type.",
+      latex: "\\text{A car loses }12\\%\\text{ of its value each year.}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Compound growth" },
+        { label: "B", text: "Depreciation" },
+        { label: "C", text: "Future value of an annuity" },
+      ],
+      hint: "The value is decreasing.",
+      explanation: "This is depreciation.",
+    },
+    {
+      id: "mixed-fin-guided-2",
+      prompt: "Choose the model type.",
+      latex: "\\$100\\text{ is deposited each month.}",
+      answer: "C",
+      choices: [
+        { label: "A", text: "One-off compound interest" },
+        { label: "B", text: "Depreciation" },
+        { label: "C", text: "Annuity" },
+      ],
+      hint: "Repeated equal deposits suggest an annuity.",
+      explanation: "Regular equal deposits form an annuity.",
+    },
+    {
+      id: "mixed-fin-guided-3",
+      prompt: "Find the value to the nearest cent.",
+      latex: "A=1800(0.85)^3",
+      answer: "1105.54",
+      acceptedAnswers: ["$1105.54", "$1,105.54"],
+      hint: "Use the decay factor.",
+      explanation: "$1800(0.85)^3=1105.5375$, so $A=\\$1105.54$.",
+    },
+    {
+      id: "mixed-fin-guided-4",
+      prompt: "Find $B_1$.",
+      latex: "B_0=500,\\quad B_{n+1}=1.02B_n+100",
+      answer: "610",
+      acceptedAnswers: ["$610", "$610.00", "610.00"],
+      hint: "Substitute $B_0=500$.",
+      explanation: "$B_1=1.02(500)+100=610$.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "mixed-fin-ind-1",
+      prompt: "Find the compound amount to the nearest cent.",
+      latex: "A=2500(1.04)^2",
+      answer: "2704.00",
+      acceptedAnswers: ["2704", "$2704", "$2,704", "$2704.00", "$2,704.00"],
+      hint: "Use compound growth.",
+      explanation: "$2500(1.04)^2=2704$.",
+    },
+    {
+      id: "mixed-fin-ind-2",
+      prompt: "Find the depreciated value.",
+      latex: "A=12000(0.8)^2",
+      answer: "7680",
+      acceptedAnswers: ["$7680", "$7,680", "$7680.00", "$7,680.00"],
+      hint: "Use the decay factor twice.",
+      explanation: "$12000(0.8)^2=7680$.",
+    },
+    {
+      id: "mixed-fin-ind-3",
+      prompt: "Find $B_2$.",
+      latex: "B_0=500,\\quad B_{n+1}=1.02B_n+100,\\quad B_1=610",
+      answer: "722.20",
+      acceptedAnswers: ["$722.20", "722.2"],
+      hint: "Use $B_1=610$.",
+      explanation: "$B_2=1.02(610)+100=722.20$.",
+    },
+    {
+      id: "mixed-fin-ind-4",
+      prompt: "Find the loan balance after one period.",
+      latex: "L_0=3000,\\quad L_{n+1}=1.01L_n-200",
+      answer: "2830",
+      acceptedAnswers: ["$2830", "$2,830", "$2830.00", "$2,830.00"],
+      hint: "Apply interest, then subtract the repayment.",
+      explanation: "$L_1=1.01(3000)-200=2830$.",
+    },
+    {
+      id: "mixed-fin-ind-5",
+      prompt: "Which option is better for savings?",
+      latex: "A=1081.60,\\quad B=1090.90",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Option A" },
+        { label: "B", text: "Option B" },
+      ],
+      hint: "Choose the larger final value.",
+      explanation: "Option B gives the larger final savings value.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Using simple interest when compound interest is needed.",
+      fix: "Repeated percentage growth uses a power, such as $(1+r)^n$.",
+    },
+    {
+      mistake: "Using a growth factor for depreciation.",
+      fix: "Depreciation uses $1-r$, which is less than 1.",
+    },
+    {
+      mistake: "Misreading the recurrence.",
+      fix: "Follow the recurrence exactly, including whether the amount is added or subtracted.",
+    },
+    {
+      mistake: "Rounding too early.",
+      fix: "Round final money answers to cents after completing the calculation.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "mixed-fin-mastery-1",
+      prompt: "Choose the model type.",
+      latex: "\\text{A phone decreases in value by }20\\%\\text{ each year.}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Compound growth" },
+        { label: "B", text: "Depreciation" },
+        { label: "C", text: "Loan comparison" },
+      ],
+      hint: "The value decreases.",
+      explanation: "This is depreciation.",
+    },
+    {
+      id: "mixed-fin-mastery-2",
+      prompt: "Choose the model type.",
+      latex: "\\$50\\text{ is deposited every month with interest.}",
+      answer: "C",
+      choices: [
+        { label: "A", text: "One-off depreciation" },
+        { label: "B", text: "One-off investment only" },
+        { label: "C", text: "Future value of an annuity" },
+      ],
+      hint: "Repeated equal deposits indicate an annuity.",
+      explanation: "This is a future value annuity context.",
+    },
+    {
+      id: "mixed-fin-mastery-3",
+      prompt: "Choose the key input that must match monthly repayments.",
+      latex: "\\text{monthly loan recurrence}",
+      answer: "A",
+      choices: [
+        { label: "A", text: "Monthly interest rate" },
+        { label: "B", text: "Annual rate without adjustment" },
+        { label: "C", text: "Number of school terms" },
+      ],
+      hint: "Match the period.",
+      explanation: "Monthly repayments require a monthly rate.",
+    },
+    {
+      id: "mixed-fin-mastery-4",
+      prompt: "Find the final value.",
+      latex: "A=1000(1.05)^2",
+      answer: "1102.50",
+      acceptedAnswers: ["$1102.50", "$1,102.50", "1102.5"],
+      hint: "Use compound growth.",
+      explanation: "$A=1102.50$.",
+    },
+    {
+      id: "mixed-fin-mastery-5",
+      prompt: "Find the depreciated value.",
+      latex: "A=2000(0.9)^3",
+      answer: "1458",
+      acceptedAnswers: ["$1458", "$1,458", "$1458.00", "$1,458.00"],
+      hint: "Use the decay factor three times.",
+      explanation: "$2000(0.9)^3=1458$.",
+    },
+    {
+      id: "mixed-fin-mastery-6",
+      prompt: "Find the future value.",
+      latex: "FV=100\\left(\\frac{(1.01)^3-1}{0.01}\\right)",
+      answer: "303.01",
+      acceptedAnswers: ["$303.01"],
+      hint: "Use the annuity formula.",
+      explanation: "$FV=303.01$.",
+    },
+    {
+      id: "mixed-fin-mastery-7",
+      prompt: "Find $B_1$.",
+      latex: "B_0=800,\\quad B_{n+1}=1.03B_n+50",
+      answer: "874",
+      acceptedAnswers: ["$874", "$874.00", "874.00"],
+      hint: "Apply interest, then add the deposit.",
+      explanation: "$B_1=1.03(800)+50=874$.",
+    },
+    {
+      id: "mixed-fin-mastery-8",
+      prompt: "Find $L_1$.",
+      latex: "L_0=6000,\\quad L_{n+1}=1.01L_n-400",
+      answer: "5660",
+      acceptedAnswers: ["$5660", "$5,660", "$5660.00", "$5,660.00"],
+      hint: "Apply interest, then subtract repayment.",
+      explanation: "$L_1=1.01(6000)-400=5660$.",
+    },
+    {
+      id: "mixed-fin-mastery-9",
+      prompt: "Which option is better for an investment?",
+      latex: "A=2240,\\quad B=2265",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Option A" },
+        { label: "B", text: "Option B" },
+      ],
+      hint: "Choose the larger final value.",
+      explanation: "Option B is better because it has the larger final value.",
+    },
+    {
+      id: "mixed-fin-mastery-10",
+      prompt: "Which option is better for a loan borrower?",
+      latex: "A=4200\\text{ owing},\\quad B=4050\\text{ owing}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Option A" },
+        { label: "B", text: "Option B" },
+      ],
+      hint: "A borrower wants to owe less.",
+      explanation: "Option B is better because $4050$ is the lower remaining balance.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
 export const financialMathematicsOutline: LessonOutlineItem[] = [
   {
     id: "growth-factors-compound-interest-depreciation",
@@ -670,7 +1874,7 @@ export const financialMathematicsOutline: LessonOutlineItem[] = [
     title: "Future Value of Annuities",
     description:
       "Calculate the future value of regular deposits with compound interest.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "present-value-loan-repayments",
@@ -678,7 +1882,7 @@ export const financialMathematicsOutline: LessonOutlineItem[] = [
     title: "Present Value and Loan Repayments",
     description:
       "Use financial models to analyse loan balances, repayments, and present value.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "comparing-financial-options",
@@ -686,7 +1890,7 @@ export const financialMathematicsOutline: LessonOutlineItem[] = [
     title: "Comparing Financial Options",
     description:
       "Compare savings, investment, and loan options using financial mathematics.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "mixed-financial-mathematics-exam-practice",
@@ -694,11 +1898,15 @@ export const financialMathematicsOutline: LessonOutlineItem[] = [
     title: "Mixed Financial Mathematics Exam Practice",
     description:
       "Practise mixed exam-style questions involving compound interest, recurrence, annuities, loans, and financial decision-making.",
-    status: "coming-soon",
+    status: "active",
   },
 ];
 
 export const financialMathematicsLessons = [
   growthFactorsCompoundInterestDepreciationLesson,
   recurrenceRelationsFinancialContextsLesson,
+  futureValueAnnuitiesLesson,
+  presentValueLoanRepaymentsLesson,
+  comparingFinancialOptionsLesson,
+  mixedFinancialMathematicsExamPracticeLesson,
 ];
