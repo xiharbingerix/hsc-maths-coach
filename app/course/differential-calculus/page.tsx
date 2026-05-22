@@ -185,6 +185,35 @@ export default function DifferentialCalculusModulePage() {
             </div>
           </section>
         </div>
+
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 className="text-2xl font-bold">
+                Part of the Online Learning Beta
+              </h2>
+              <p className="mt-3 max-w-3xl leading-7 text-slate-600">
+                This unit is part of the HSC Maths Advanced online learning
+                beta. Register interest if you want access updates, report
+                options, or low-cost beta access.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link
+                href="/online-learning"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+              >
+                Learn about online learning
+              </Link>
+              <Link
+                href="/enquire?offer=online-learning"
+                className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+              >
+                Register interest
+              </Link>
+            </div>
+          </div>
+        </section>
       </section>
     </main>
   );

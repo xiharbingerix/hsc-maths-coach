@@ -44,16 +44,40 @@ export default function CoursePage() {
             checks.
           </p>
 
-          <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-            <p className="text-sm leading-6 text-slate-700">
-              Looking for the full online learning package?{" "}
-              <Link
-                href="/online-learning"
-                className="font-semibold text-slate-950 underline"
-              >
-                Learn more
-              </Link>
-            </p>
+          <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <h2 className="text-xl font-bold">
+                  HSC Maths Advanced Online Learning Beta
+                </h2>
+                <p className="mt-2 max-w-2xl leading-7 text-slate-600">
+                  Structured Year 12 Maths Advanced units with explicit
+                  teaching, worked examples, guided practice, independent
+                  practice, and mastery quizzes.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3 sm:flex-row lg:flex-shrink-0">
+                <Link
+                  href="/online-learning"
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+                >
+                  Explore online learning
+                </Link>
+                <Link
+                  href="/enquire?offer=online-learning"
+                  className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+                >
+                  Register interest
+                </Link>
+                <Link
+                  href="/diagnostic?offer=online-learning"
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+                >
+                  Start diagnostic
+                </Link>
+              </div>
+            </div>
           </div>
         </header>
 

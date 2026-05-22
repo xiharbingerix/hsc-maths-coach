@@ -60,6 +60,7 @@ const audience = [
 const betaSteps = [
   "Complete the free diagnostic.",
   "Register interest in online learning access.",
+  "Create an account to access the student dashboard.",
   "Access is being handled manually during beta.",
   "Feedback helps improve the product for future students.",
 ];
@@ -130,6 +131,11 @@ export default function OnlineLearningPage() {
               <SecondaryLink href="/diagnostic?offer=online-learning">
                 Start free diagnostic
               </SecondaryLink>
+            </div>
+
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+              <SecondaryLink href="/login">Log in</SecondaryLink>
+              <SecondaryLink href="/signup">Create account</SecondaryLink>
             </div>
           </div>
         </section>
@@ -225,9 +231,12 @@ export default function OnlineLearningPage() {
           <h2 className="max-w-xl text-2xl font-bold tracking-tight md:text-3xl">
             Want access to the online learning beta?
           </h2>
-          <PrimaryLink href="/enquire?offer=online-learning">
-            Register interest
-          </PrimaryLink>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <PrimaryLink href="/enquire?offer=online-learning">
+              Register interest
+            </PrimaryLink>
+            <SecondaryLink href="/signup">Create account</SecondaryLink>
+          </div>
         </section>
       </div>
     </main>
