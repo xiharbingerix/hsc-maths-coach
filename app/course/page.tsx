@@ -13,7 +13,7 @@ export default function CoursePage() {
       href: "/course/integral-calculus",
       title: "Integral Calculus",
       description:
-        "A staged pathway for antidifferentiation, indefinite integrals, constants of integration, definite integrals, area, and applications.",
+        "A staged pathway for antidifferentiation, indefinite and definite integrals, initial conditions, area, the Trapezoidal rule, total change, and motion applications.",
       status: "New unit",
     },
   ];

@@ -14,13 +14,16 @@ const lessonSequence = [
 
 const unitCoverage = [
   "Antidifferentiation",
-  "Reverse power rule",
-  "Indefinite integrals",
-  "Constant of integration",
+  "Indefinite integrals and + C",
+  "Initial conditions",
   "Definite integrals",
-  "Area under curves",
+  "Fundamental Theorem of Calculus",
+  "Signed area and total area",
+  "Area under a curve",
+  "Trapezoidal rule",
   "Area between curves",
-  "Applications of integration",
+  "Total change and motion applications",
+  "Mixed exam practice",
 ];
 
 export default function IntegralCalculusModulePage() {
