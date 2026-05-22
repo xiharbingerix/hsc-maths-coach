@@ -35,6 +35,30 @@ function statusText(status: AccessStatus) {
   return "pending";
 }
 
+function accessStatusMessage(status: AccessStatus) {
+  if (status === "active") {
+    return "Online learning beta access is active.";
+  }
+
+  if (status === "revoked") {
+    return "Beta access is not currently active.";
+  }
+
+  return "Beta access is pending.";
+}
+
+function accessMessageClass(status: AccessStatus) {
+  if (status === "active") {
+    return "border-emerald-200 bg-emerald-50 text-emerald-900";
+  }
+
+  if (status === "revoked") {
+    return "border-red-200 bg-red-50 text-red-800";
+  }
+
+  return "border-amber-200 bg-amber-50 text-amber-900";
+}
+
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
@@ -154,12 +178,19 @@ export default function DashboardPage() {
             </span>
           </div>
 
-          {accessStatus !== "active" ? (
-            <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
-              {notice ||
-                "Beta access is currently pending. Register interest or contact Joshua for access updates."}
-            </div>
-          ) : null}
+          <div
+            className={`mt-6 rounded-2xl border p-4 text-sm leading-6 ${accessMessageClass(
+              accessStatus
+            )}`}
+          >
+            <p className="font-semibold">{accessStatusMessage(accessStatus)}</p>
+            {accessStatus === "pending" || accessStatus === "unknown" ? (
+              <p className="mt-1">
+                {notice ||
+                  "Register interest or contact Joshua for access updates."}
+              </p>
+            ) : null}
+          </div>
         </section>
 
         <section className="grid gap-5 md:grid-cols-3">
