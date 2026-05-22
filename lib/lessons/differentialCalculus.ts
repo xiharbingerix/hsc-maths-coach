@@ -1460,7 +1460,7 @@ export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
         { label: "A", text: "increasing" },
         { label: "B", text: "decreasing" },
       ],
-      hint: "Solve $2x-6=0$, then test each side.",
+      hint: "Find the derivative sign on each side of the critical value $x=3$.",
       explanation:
         "$\\frac{dy}{dx}=2x-6$, so $x=3$. The derivative is negative before $3$ and positive after $3$, so the function is decreasing on $(-\\infty,3)$ and increasing on $(3,\\infty)$.",
     },
@@ -1565,7 +1565,7 @@ export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
         { label: "B", text: "negative" },
         { label: "C", text: "zero" },
       ],
-      hint: "Test $x=-3$, $x=0$, and $x=3$.",
+      hint: "Substitute a test value into $f'(x)$ and check whether the derivative is positive or negative.",
       explanation: "$f'(-3)>0$, $f'(0)<0$, and $f'(3)>0$.",
     },
     {
@@ -1816,7 +1816,7 @@ export const firstDerivativeTestLesson: ExplicitLesson = {
         { label: "B", text: "local minimum" },
         { label: "C", text: "neither" },
       ],
-      hint: "The function increases before the point and decreases after it.",
+      hint: "A first-derivative sign change from positive to negative gives a local maximum.",
       explanation:
         "A change from positive to negative means the stationary point is a local maximum.",
     },
@@ -1879,7 +1879,7 @@ export const firstDerivativeTestLesson: ExplicitLesson = {
         { label: "B", text: "local minimum" },
         { label: "C", text: "neither" },
       ],
-      hint: "Use $f'(x)=3(x-2)(x+2)$.",
+      hint: "Use the sign of $f'(x)=3(x-2)(x+2)$ on each side of $x=2$.",
       explanation:
         "$f'(x)=3(x-2)(x+2)$, so $x=-2,2$. The signs are $+,-,+$, so there is a local maximum at $(-2,21)$ and a local minimum at $(2,-11)$.",
     },
@@ -1948,7 +1948,7 @@ export const firstDerivativeTestLesson: ExplicitLesson = {
         { label: "B", text: "negative" },
         { label: "C", text: "zero" },
       ],
-      hint: "Test one value in each interval.",
+      hint: "Substitute a test value into $f'(x)$ on the interval and check its sign.",
       explanation: "The sign pattern is $+,-,+$.",
     },
     {
@@ -1986,7 +1986,7 @@ export const firstDerivativeTestLesson: ExplicitLesson = {
         { label: "B", text: "local minimum" },
         { label: "C", text: "neither" },
       ],
-      hint: "The graph rises before the point and falls after it.",
+      hint: "In the first derivative test, increasing then decreasing means a local maximum.",
       explanation:
         "A change in $f'(x)$ from positive to negative means the stationary point is a local maximum.",
     },
@@ -2223,7 +2223,7 @@ export const secondDerivativeTestLesson: ExplicitLesson = {
         { label: "B", text: "local minimum" },
         { label: "C", text: "inconclusive" },
       ],
-      hint: "Find $y'$ and $y''$.",
+      hint: "Use $y''$: a positive second derivative gives a local minimum.",
       explanation:
         "$y'=2x-8$, so $x=4$. Since $y''=2>0$ and $y(4)=-10$, there is a local minimum at $(4,-10)$.",
     },
@@ -2253,7 +2253,7 @@ export const secondDerivativeTestLesson: ExplicitLesson = {
         { label: "B", text: "local minimum" },
         { label: "C", text: "inconclusive" },
       ],
-      hint: "Use $y''=6x-12$ after finding the stationary values.",
+      hint: "Evaluate $y''=6x-12$ at $x=3$; positive means local minimum.",
       explanation:
         "$y'=3x^2-12x+9=3(x-1)(x-3)$, so $x=1,3$. Since $y''=6x-12$, $y''(1)<0$ and $y''(3)>0$. The points are a local maximum at $(1,5)$ and a local minimum at $(3,1)$.",
     },
@@ -2614,7 +2614,7 @@ export const curveSketchingLesson: ExplicitLesson = {
         { label: "B", text: "local minimum" },
         { label: "C", text: "neither" },
       ],
-      hint: "Use $y'=3x^2-3$ for stationary points.",
+      hint: "Use the derivative sign change around $x=-1$ to classify the point.",
       explanation:
         "$x$-intercepts are $(-\\sqrt{3},0)$, $(0,0)$, and $(\\sqrt{3},0)$. Since $y'=3x^2-3$, the stationary points are a local maximum at $(-1,2)$ and a local minimum at $(1,-2)$.",
     },
@@ -2643,7 +2643,7 @@ export const curveSketchingLesson: ExplicitLesson = {
         "A curve sketching question asks for key features only. Find the maximum value.",
       latex: "f(x)=-x^2+6x-5",
       answer: "4",
-      hint: "This is a downward-opening quadratic.",
+      hint: "A downward-opening quadratic has a maximum at its stationary point.",
       explanation:
         "$f(x)=-(x-1)(x-5)$, so the x-intercepts are $(1,0)$ and $(5,0)$, and the y-intercept is $(0,-5)$. Since $f'(x)=-2x+6$, the stationary point is a maximum at $(3,4)$.",
     },
@@ -2709,7 +2709,7 @@ export const curveSketchingLesson: ExplicitLesson = {
         { label: "A", text: "increasing" },
         { label: "B", text: "decreasing" },
       ],
-      hint: "Test either side of $x=2$.",
+      hint: "Check the sign of $f'(x)$ on the interval $x<2$.",
       explanation:
         "The graph is decreasing on $(-\\infty,2)$ and increasing on $(2,\\infty)$.",
     },
@@ -2742,7 +2742,7 @@ export const curveSketchingLesson: ExplicitLesson = {
         { label: "B", text: "local minimum" },
         { label: "C", text: "neither" },
       ],
-      hint: "Use $y'=3x^2-3$.",
+      hint: "Use the derivative sign change around $x=-1$ to classify the point.",
       explanation:
         "$y'=3x^2-3=3(x-1)(x+1)$, so $x=-1,1$. The derivative changes $+,-,+$, giving a local maximum at $(-1,2)$ and a local minimum at $(1,-2)$.",
     },
@@ -2755,7 +2755,7 @@ export const curveSketchingLesson: ExplicitLesson = {
         { label: "A", text: "increasing" },
         { label: "B", text: "decreasing" },
       ],
-      hint: "Test the intervals around $x=1$ and $x=3$.",
+      hint: "Check the sign of $f'(x)$ on the interval $1<x<3$.",
       explanation:
         "The sign pattern is $+,-,+$, so the function is increasing on $(-\\infty,1)$ and $(3,\\infty)$, and decreasing on $(1,3)$.",
     },
@@ -3345,15 +3345,20 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
         { label: "A", text: "increasing" },
         { label: "B", text: "decreasing" },
       ],
-      hint: "Negative means decreasing.",
+      hint: "A negative derivative means the quantity is decreasing.",
       explanation: "The quantity is decreasing at $12$ units per time unit.",
     },
     {
       id: "rates-mastery-5",
       prompt: "Interpret a zero rate:",
       latex: "Q'(3)=0",
-      answer: "momentarily not changing",
+      answer: "C",
       acceptedAnswers: ["not changing", "zero rate"],
+      choices: [
+        { label: "A", text: "increasing" },
+        { label: "B", text: "decreasing" },
+        { label: "C", text: "momentarily not changing" },
+      ],
       hint: "Zero rate means no instantaneous change at that moment.",
       explanation: "The quantity is momentarily not changing when $t=3$.",
     },
@@ -3385,8 +3390,13 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
       id: "rates-mastery-8",
       prompt: "Complete the sentence: when $Q'(5)=0$, the quantity is ____.",
       latex: "Q'(5)=0",
-      answer: "momentarily not changing",
+      answer: "C",
       acceptedAnswers: ["not changing", "zero rate"],
+      choices: [
+        { label: "A", text: "increasing" },
+        { label: "B", text: "decreasing" },
+        { label: "C", text: "momentarily not changing" },
+      ],
       hint: "Zero derivative means zero instantaneous rate.",
       explanation:
         "A derivative value of $0$ means the quantity is momentarily not changing at that instant.",
@@ -3633,7 +3643,7 @@ export const mixedExamPracticeLesson: ExplicitLesson = {
         { label: "B", text: "local minimum" },
         { label: "C", text: "neither" },
       ],
-      hint: "Find $f'(x)=0$, then classify.",
+      hint: "Find the stationary point, then use $f''$ or a derivative sign test to classify it.",
       explanation:
         "$f'(x)=2x-10$, so $x=5$. Since $f''(x)=2>0$ and $f(5)=-17$, there is a local minimum at $(5,-17)$.",
     },
@@ -3717,7 +3727,7 @@ export const mixedExamPracticeLesson: ExplicitLesson = {
         { label: "A", text: "increasing" },
         { label: "B", text: "decreasing" },
       ],
-      hint: "Test intervals around $x=1$ and $x=3$.",
+      hint: "Check the sign of $f'(x)$ on the interval $1<x<3$.",
       explanation:
         "The sign pattern is $+,-,+$, so the function is increasing on $(-\\infty,1)$ and $(3,\\infty)$, and decreasing on $(1,3)$.",
     },
@@ -3756,7 +3766,7 @@ export const mixedExamPracticeLesson: ExplicitLesson = {
         { label: "B", text: "local minimum" },
         { label: "C", text: "neither" },
       ],
-      hint: "Find $f'(x)$, solve $f'(x)=0$, then classify.",
+      hint: "Find $f'(x)$ and use the derivative sign change around $x=1$.",
       explanation:
         "$f'(x)=3x^2-12x+9=3(x-1)(x-3)$, so $x=1,3$. The sign pattern is $+,-,+$, giving a local maximum at $(1,5)$ and a local minimum at $(3,1)$.",
     },
