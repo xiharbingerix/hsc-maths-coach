@@ -200,22 +200,34 @@ export default function IntegralCalculusModulePage() {
               </h2>
               <p className="mt-3 max-w-3xl leading-7 text-slate-600">
                 This unit is part of the HSC Maths Advanced online learning
-                beta. Register interest if you want access updates, report
-                options, or low-cost beta access.
+                beta. The lesson pathway remains visible during testing, and
+                full access is approved manually during beta.
               </p>
             </div>
-            <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap md:justify-end">
               <Link
-                href="/online-learning"
+                href="/signup"
                 className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
               >
-                Learn about online learning
+                Create account
+              </Link>
+              <Link
+                href="/login"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+              >
+                Log in
               </Link>
               <Link
                 href="/enquire?offer=online-learning"
                 className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
               >
                 Register interest
+              </Link>
+              <Link
+                href="/dashboard"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+              >
+                Dashboard
               </Link>
             </div>
           </div>

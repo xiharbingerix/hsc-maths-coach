@@ -7,21 +7,21 @@ export default function CoursePage() {
       title: "Differential Calculus",
       description:
         "Explicit teaching for derivatives, tangent gradients, stationary points, increasing and decreasing functions, curve sketching, optimisation, and rates of change.",
-      status: "Active pathway",
+      status: "Available in beta",
     },
     {
       href: "/course/integral-calculus",
       title: "Integral Calculus",
       description:
         "A staged pathway for antidifferentiation, indefinite and definite integrals, initial conditions, area, the Trapezoidal rule, total change, and motion applications.",
-      status: "New unit",
+      status: "Available in beta",
     },
     {
       href: "/course/functions-graphing-techniques",
       title: "Functions and Graphing Techniques",
       description:
         "A staged pathway for function notation, domain and range, transformations, graph features, asymptotes, graphical solving, and modelling.",
-      status: "New unit",
+      status: "Available in beta",
     },
   ];
 
@@ -48,21 +48,26 @@ export default function CoursePage() {
             <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <h2 className="text-xl font-bold">
-                  HSC Maths Advanced Online Learning Beta
+                  Create an account for beta access
                 </h2>
                 <p className="mt-2 max-w-2xl leading-7 text-slate-600">
-                  Structured Year 12 Maths Advanced units with explicit
-                  teaching, worked examples, guided practice, independent
-                  practice, and mastery quizzes.
+                  Course previews are available during beta. Create an account
+                  or register interest for online learning access.
                 </p>
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-shrink-0">
                 <Link
-                  href="/online-learning"
+                  href="/signup"
                   className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
                 >
-                  Explore online learning
+                  Create account
+                </Link>
+                <Link
+                  href="/login"
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+                >
+                  Log in
                 </Link>
                 <Link
                   href="/enquire?offer=online-learning"
@@ -71,10 +76,10 @@ export default function CoursePage() {
                   Register interest
                 </Link>
                 <Link
-                  href="/diagnostic?offer=online-learning"
+                  href="/online-learning"
                   className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
                 >
-                  Start diagnostic
+                  Online learning page
                 </Link>
               </div>
             </div>

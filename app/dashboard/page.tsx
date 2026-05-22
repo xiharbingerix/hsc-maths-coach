@@ -5,8 +5,12 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { supabase } from "../../lib/supabaseClient";
-
-type AccessStatus = "pending" | "active" | "revoked" | "unknown";
+import {
+  getUserAccessDashboardCopy,
+  getUserAccessTone,
+  normaliseUserAccessStatus,
+  type UserAccessStatus,
+} from "../../lib/userAccess";
 
 const units = [
   {
@@ -23,49 +27,12 @@ const units = [
   },
 ];
 
-function statusText(status: AccessStatus) {
-  if (status === "active") {
-    return "active";
-  }
-
-  if (status === "revoked") {
-    return "revoked";
-  }
-
-  return "pending";
-}
-
-function accessStatusMessage(status: AccessStatus) {
-  if (status === "active") {
-    return "Online learning beta access is active.";
-  }
-
-  if (status === "revoked") {
-    return "Beta access is not currently active.";
-  }
-
-  return "Beta access is pending.";
-}
-
-function accessMessageClass(status: AccessStatus) {
-  if (status === "active") {
-    return "border-emerald-200 bg-emerald-50 text-emerald-900";
-  }
-
-  if (status === "revoked") {
-    return "border-red-200 bg-red-50 text-red-800";
-  }
-
-  return "border-amber-200 bg-amber-50 text-amber-900";
-}
-
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [studentFirstName, setStudentFirstName] = useState("");
-  const [accessStatus, setAccessStatus] = useState<AccessStatus>("unknown");
+  const [accessStatus, setAccessStatus] = useState<UserAccessStatus>("none");
   const [isLoading, setIsLoading] = useState(true);
-  const [notice, setNotice] = useState("");
 
   useEffect(() => {
     async function loadDashboard() {
@@ -101,12 +68,9 @@ export default function DashboardPage() {
         .maybeSingle();
 
       if (accessError) {
-        setAccessStatus("pending");
-        setNotice(
-          "Beta access is pending. Register interest or contact Joshua for access updates."
-        );
+        setAccessStatus("none");
       } else {
-        setAccessStatus((accessData?.status as AccessStatus) ?? "pending");
+        setAccessStatus(normaliseUserAccessStatus(accessData?.status));
       }
 
       setIsLoading(false);
@@ -134,6 +98,8 @@ export default function DashboardPage() {
       </main>
     );
   }
+
+  const accessCopy = getUserAccessDashboardCopy(accessStatus);
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -164,76 +130,116 @@ export default function DashboardPage() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <h2 className="text-2xl font-bold tracking-tight">
-                Online learning beta access
+                {accessCopy.title}
               </h2>
-              <p className="mt-3 leading-7 text-slate-600">
-                Status:{" "}
-                <span className="font-semibold capitalize text-slate-950">
-                  {statusText(accessStatus)}
-                </span>
+              <p className="mt-3 max-w-3xl leading-7 text-slate-600">
+                {accessCopy.message}
               </p>
             </div>
             <span className="w-fit rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold capitalize text-slate-700">
-              {statusText(accessStatus)}
+              {accessCopy.badge}
             </span>
           </div>
 
           <div
-            className={`mt-6 rounded-2xl border p-4 text-sm leading-6 ${accessMessageClass(
+            className={`mt-6 rounded-2xl border p-4 text-sm leading-6 ${getUserAccessTone(
               accessStatus
             )}`}
           >
-            <p className="font-semibold">{accessStatusMessage(accessStatus)}</p>
-            {accessStatus === "pending" || accessStatus === "unknown" ? (
+            <p className="font-semibold">{accessCopy.title}</p>
+            {accessStatus === "pending" ? (
               <p className="mt-1">
-                {notice ||
-                  "Register interest or contact Joshua for access updates."}
+                Lessons may remain visible during beta testing, but access is
+                not fully approved yet.
               </p>
+            ) : null}
+            {accessStatus === "none" ? (
+              <p className="mt-1">
+                Use Register interest or contact Joshua/admin if your beta
+                access should already be set up.
+              </p>
+            ) : null}
+          </div>
+
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            {accessStatus === "active" ? (
+              <>
+                <Link
+                  href="/course"
+                  className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+                >
+                  Continue learning
+                </Link>
+                <Link
+                  href="/diagnostic?offer=online-learning"
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+                >
+                  Start diagnostic
+                </Link>
+              </>
+            ) : null}
+
+            {accessStatus === "pending" || accessStatus === "none" ? (
+              <>
+                <Link
+                  href="/enquire?offer=online-learning"
+                  className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+                >
+                  Register interest
+                </Link>
+                <Link
+                  href="/diagnostic?offer=online-learning"
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+                >
+                  Start diagnostic
+                </Link>
+                <Link
+                  href="/course"
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+                >
+                  Preview course units
+                </Link>
+              </>
+            ) : null}
+
+            {accessStatus === "revoked" ? (
+              <>
+                <Link
+                  href="/enquire?offer=online-learning"
+                  className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+                >
+                  Register interest
+                </Link>
+                <Link
+                  href="/diagnostic?offer=online-learning"
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+                >
+                  Start diagnostic
+                </Link>
+              </>
             ) : null}
           </div>
         </section>
 
-        <section className="grid gap-5 md:grid-cols-3">
-          {units.map((unit) => (
-            <Link
-              key={unit.href}
-              href={unit.href}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-md"
-            >
-              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Active course unit
-              </p>
-              <h2 className="mt-3 text-xl font-bold">{unit.title}</h2>
-              <p className="mt-5 text-sm font-semibold text-slate-950">
-                Open unit
-              </p>
-            </Link>
-          ))}
-        </section>
-
-        <section className="rounded-3xl border border-slate-200 bg-slate-100/80 p-8 shadow-sm">
-          <h2 className="text-2xl font-bold tracking-tight">Next steps</h2>
-          <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <Link
-              href="/diagnostic?offer=online-learning"
-              className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
-            >
-              Start diagnostic
-            </Link>
-            <Link
-              href="/online-learning"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
-            >
-              Online learning page
-            </Link>
-            <Link
-              href="/enquire?offer=online-learning"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
-            >
-              Register interest
-            </Link>
-          </div>
-        </section>
+        {accessStatus === "active" ? (
+          <section className="grid gap-5 md:grid-cols-3">
+            {units.map((unit) => (
+              <Link
+                key={unit.href}
+                href={unit.href}
+                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-md"
+              >
+                <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  Active beta unit
+                </p>
+                <h2 className="mt-3 text-xl font-bold">{unit.title}</h2>
+                <p className="mt-5 text-sm font-semibold text-slate-950">
+                  Continue unit
+                </p>
+              </Link>
+            ))}
+          </section>
+        ) : null}
       </section>
     </main>
   );
