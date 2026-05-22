@@ -1334,6 +1334,667 @@ export const interpretingAssociationResidualsLesson: ExplicitLesson = {
   masteryPassMark: 0.8,
 };
 
+export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
+  id: "normal-distribution-empirical-rule",
+  slug: "normal-distribution-empirical-rule",
+  moduleSlug: "statistical-analysis",
+  moduleTitle: "Statistical Analysis",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Normal Distribution and Empirical Rule",
+  description:
+    "Use normal distribution features, z-scores, and the empirical rule to estimate proportions and intervals.",
+  syllabusArea: "Statistical Analysis",
+  focus: "Statistical analysis",
+  status: "active",
+
+  video: {
+    title: "Normal Distribution and Empirical Rule",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to interpret normal distributions using standard deviation intervals, z-scores, and the empirical rule.",
+
+  successCriteria: [
+    "Recognise the shape and key features of a normal distribution.",
+    "Recall the 68-95-99.7 empirical rule.",
+    "Calculate intervals within one, two, and three standard deviations of the mean.",
+    "Calculate and interpret z-scores in normal distribution contexts.",
+    "Use approximate language when applying the empirical rule.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "A normal distribution is symmetric and bell-shaped.",
+      "In a normal distribution, the mean, median, and mode are equal.",
+      "The empirical rule gives approximate proportions of values within standard deviation intervals.",
+      "About 68% of values lie within 1 standard deviation of the mean, about 95% lie within 2 standard deviations, and about 99.7% lie within 3 standard deviations.",
+      "Z-scores locate values relative to the mean and standard deviation.",
+      "Standardising allows values from different normal distributions to be compared.",
+      "Empirical-rule answers are approximate, so context and wording matter.",
+    ],
+    latexBlocks: [
+      "z=\\frac{x-\\bar{x}}{s}",
+      "\\bar{x}-s\\le x\\le \\bar{x}+s\\quad \\text{about }68\\%",
+      "\\bar{x}-2s\\le x\\le \\bar{x}+2s\\quad \\text{about }95\\%",
+      "\\bar{x}-3s\\le x\\le \\bar{x}+3s\\quad \\text{about }99.7\\%",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: One-standard-deviation interval",
+      questionLatex:
+        "\\text{A normal distribution has mean }70\\text{ and standard deviation }5.\\text{ Find the interval containing about }68\\%\\text{ of values.}",
+      steps: [
+        {
+          explanation: "About 68% lies within 1 standard deviation of the mean.",
+          latex: "\\bar{x}-s\\le x\\le \\bar{x}+s",
+        },
+        {
+          explanation: "Substitute the mean and standard deviation.",
+          latex: "70-5\\le x\\le70+5",
+        },
+        {
+          explanation: "Calculate the interval.",
+          latex: "65\\le x\\le75",
+        },
+      ],
+      finalAnswerLatex: "65\\le x\\le75",
+    },
+    {
+      title: "Worked example 2: Find a z-score",
+      questionLatex:
+        "\\text{A score of }82\\text{ comes from a distribution with mean }70\\text{ and standard deviation }6.\\text{ Find }z.",
+      steps: [
+        {
+          explanation: "Use the z-score formula.",
+          latex: "z=\\frac{x-\\bar{x}}{s}",
+        },
+        {
+          explanation: "Substitute the values.",
+          latex: "z=\\frac{82-70}{6}",
+        },
+        {
+          explanation: "Calculate.",
+          latex: "z=2",
+        },
+      ],
+      finalAnswerLatex: "z=2",
+    },
+    {
+      title: "Worked example 3: Two-standard-deviation interval",
+      questionLatex:
+        "\\text{Use the empirical rule to estimate the percentage of values between }60\\text{ and }80\\text{ if }\\bar{x}=70\\text{ and }s=5.",
+      steps: [
+        {
+          explanation: "Find how far the endpoints are from the mean.",
+          latex: "70-60=10,\\quad 80-70=10",
+        },
+        {
+          explanation: "Since $10=2\\times5$, the interval is within 2 standard deviations.",
+          latex: "60=70-2(5),\\quad 80=70+2(5)",
+        },
+        {
+          explanation: "The empirical rule says about 95% lies within 2 standard deviations.",
+          latex: "\\text{about }95\\%",
+        },
+      ],
+      finalAnswerLatex: "\\text{about }95\\%",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "normal-guided-1",
+      prompt: "Identify the mean.",
+      latex: "\\bar{x}=60,\\quad s=4",
+      answer: "60",
+      hint: "The mean is labelled $\\bar{x}$.",
+      explanation: "The mean is $60$.",
+    },
+    {
+      id: "normal-guided-2",
+      prompt: "Find the one-standard-deviation interval.",
+      latex: "\\bar{x}=50,\\quad s=3",
+      answer: "47 to 53",
+      acceptedAnswers: ["47-53", "47,53", "[47,53]", "47 <= x <= 53", "47≤x≤53"],
+      hint: "Subtract and add 3 to the mean.",
+      explanation: "$50-3=47$ and $50+3=53$.",
+    },
+    {
+      id: "normal-guided-3",
+      prompt: "Find the two-standard-deviation interval.",
+      latex: "\\bar{x}=100,\\quad s=8",
+      answer: "84 to 116",
+      acceptedAnswers: ["84-116", "84,116", "[84,116]", "84 <= x <= 116", "84≤x≤116"],
+      hint: "Use $\\bar{x}\\pm2s$.",
+      explanation: "$100-16=84$ and $100+16=116$.",
+    },
+    {
+      id: "normal-guided-4",
+      prompt: "Choose the empirical-rule percentage within 1 standard deviation.",
+      latex: "\\bar{x}\\pm s",
+      answer: "A",
+      choices: [
+        { label: "A", text: "about 68%" },
+        { label: "B", text: "about 95%" },
+        { label: "C", text: "about 99.7%" },
+      ],
+      hint: "The first empirical-rule percentage is 68%.",
+      explanation: "About 68% of values lie within 1 standard deviation.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "normal-ind-1",
+      prompt: "Find the interval containing about 68% of values.",
+      latex: "\\bar{x}=40,\\quad s=6",
+      answer: "34 to 46",
+      acceptedAnswers: ["34-46", "34,46", "[34,46]", "34 <= x <= 46", "34≤x≤46"],
+      hint: "Use $\\bar{x}\\pm s$.",
+      explanation: "$40-6=34$ and $40+6=46$.",
+    },
+    {
+      id: "normal-ind-2",
+      prompt: "Find the interval containing about 95% of values.",
+      latex: "\\bar{x}=70,\\quad s=5",
+      answer: "60 to 80",
+      acceptedAnswers: ["60-80", "60,80", "[60,80]", "60 <= x <= 80", "60≤x≤80"],
+      hint: "Use $\\bar{x}\\pm2s$.",
+      explanation: "$70-10=60$ and $70+10=80$.",
+    },
+    {
+      id: "normal-ind-3",
+      prompt: "Find the z-score.",
+      latex: "x=82,\\quad \\bar{x}=70,\\quad s=6",
+      answer: "2",
+      hint: "Use $z=\\frac{x-\\bar{x}}{s}$.",
+      explanation: "$z=(82-70)\\div6=2$.",
+    },
+    {
+      id: "normal-ind-4",
+      prompt: "Find the raw value.",
+      latex: "\\bar{x}=50,\\quad s=4,\\quad z=1.5",
+      answer: "56",
+      hint: "Use $x=\\bar{x}+zs$.",
+      explanation: "$x=50+1.5(4)=56$.",
+    },
+    {
+      id: "normal-ind-5",
+      prompt: "A normal distribution has mean 70 and standard deviation 5. What does a score of 80 represent?",
+      latex: "x=80,\\quad \\bar{x}=70,\\quad s=5",
+      answer: "B",
+      choices: [
+        { label: "A", text: "1 standard deviation above the mean" },
+        { label: "B", text: "2 standard deviations above the mean" },
+        { label: "C", text: "2 standard deviations below the mean" },
+      ],
+      hint: "$80-70=10$ and $10=2\\times5$.",
+      explanation: "A score of 80 is 2 standard deviations above the mean.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Using 95% for one standard deviation instead of 68%.",
+      fix: "Remember the order: 68%, 95%, 99.7%.",
+    },
+    {
+      mistake: "Adding standard deviation only once for a two-standard-deviation interval.",
+      fix: "For 95%, use $\\bar{x}\\pm2s$.",
+    },
+    {
+      mistake: "Confusing z-score with raw score.",
+      fix: "A z-score is measured in standard deviations from the mean, not original units.",
+    },
+    {
+      mistake: "Treating empirical-rule answers as exact.",
+      fix: "Use approximate language such as about or approximately.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "normal-mastery-1",
+      prompt: "Which shape describes a normal distribution?",
+      latex: "\\text{Choose one}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Strongly skewed only" },
+        { label: "B", text: "Symmetric and bell-shaped" },
+        { label: "C", text: "Always flat" },
+      ],
+      hint: "A normal curve is symmetric.",
+      explanation: "A normal distribution is symmetric and bell-shaped.",
+    },
+    {
+      id: "normal-mastery-2",
+      prompt: "In a normal distribution, the mean, median, and mode are:",
+      latex: "\\text{Choose one}",
+      answer: "A",
+      choices: [
+        { label: "A", text: "equal" },
+        { label: "B", text: "always different" },
+        { label: "C", text: "impossible to compare" },
+      ],
+      hint: "The curve is symmetric.",
+      explanation: "The mean, median, and mode are equal in a normal distribution.",
+    },
+    {
+      id: "normal-mastery-3",
+      prompt: "About what percentage lies within 2 standard deviations?",
+      latex: "\\bar{x}\\pm2s",
+      answer: "95%",
+      acceptedAnswers: ["95", "95%", "about 95%", "approximately 95%"],
+      hint: "Use the empirical rule.",
+      explanation: "About 95% lies within 2 standard deviations.",
+    },
+    {
+      id: "normal-mastery-4",
+      prompt: "Find the 68% interval.",
+      latex: "\\bar{x}=70,\\quad s=5",
+      answer: "65 to 75",
+      acceptedAnswers: ["65-75", "65,75", "[65,75]", "65 <= x <= 75", "65≤x≤75"],
+      hint: "Use $\\bar{x}\\pm s$.",
+      explanation: "$70-5=65$ and $70+5=75$.",
+    },
+    {
+      id: "normal-mastery-5",
+      prompt: "Find the 95% interval.",
+      latex: "\\bar{x}=50,\\quad s=4",
+      answer: "42 to 58",
+      acceptedAnswers: ["42-58", "42,58", "[42,58]", "42 <= x <= 58", "42≤x≤58"],
+      hint: "Use $\\bar{x}\\pm2s$.",
+      explanation: "$50-8=42$ and $50+8=58$.",
+    },
+    {
+      id: "normal-mastery-6",
+      prompt: "Find the 99.7% interval.",
+      latex: "\\bar{x}=100,\\quad s=10",
+      answer: "70 to 130",
+      acceptedAnswers: ["70-130", "70,130", "[70,130]", "70 <= x <= 130", "70≤x≤130"],
+      hint: "Use $\\bar{x}\\pm3s$.",
+      explanation: "$100-30=70$ and $100+30=130$.",
+    },
+    {
+      id: "normal-mastery-7",
+      prompt: "Find the z-score.",
+      latex: "x=82,\\quad \\bar{x}=70,\\quad s=6",
+      answer: "2",
+      hint: "Subtract the mean, then divide by standard deviation.",
+      explanation: "$z=(82-70)\\div6=2$.",
+    },
+    {
+      id: "normal-mastery-8",
+      prompt: "Interpret $z=-2$.",
+      latex: "z=-2",
+      answer: "B",
+      choices: [
+        { label: "A", text: "2 standard deviations above the mean" },
+        { label: "B", text: "2 standard deviations below the mean" },
+        { label: "C", text: "exactly at the mean" },
+      ],
+      hint: "Negative means below the mean.",
+      explanation: "$z=-2$ means 2 standard deviations below the mean.",
+    },
+    {
+      id: "normal-mastery-9",
+      prompt: "Estimate the percentage between 60 and 80.",
+      latex: "\\bar{x}=70,\\quad s=5",
+      answer: "95%",
+      acceptedAnswers: ["95", "95%", "about 95%", "approximately 95%"],
+      hint: "60 and 80 are 2 standard deviations from the mean.",
+      explanation: "The interval is $70\\pm2(5)$, so it contains about 95%.",
+    },
+    {
+      id: "normal-mastery-10",
+      prompt: "Which wording is best for an empirical-rule answer?",
+      latex: "\\text{Choose one}",
+      answer: "A",
+      choices: [
+        { label: "A", text: "about 68%" },
+        { label: "B", text: "exactly 68.000%" },
+        { label: "C", text: "definitely every value" },
+      ],
+      hint: "The empirical rule is approximate.",
+      explanation: "Empirical-rule proportions are approximate.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
+export const mixedStatisticalAnalysisExamPracticeLesson: ExplicitLesson = {
+  id: "mixed-statistical-analysis-exam-practice",
+  slug: "mixed-statistical-analysis-exam-practice",
+  moduleSlug: "statistical-analysis",
+  moduleTitle: "Statistical Analysis",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Mixed Statistical Analysis Exam Practice",
+  description:
+    "Practise mixed exam-style questions involving summary statistics, z-scores, correlation, regression, residuals, and normal distributions.",
+  syllabusArea: "Statistical Analysis",
+  focus: "Statistical analysis",
+  status: "active",
+
+  video: {
+    title: "Mixed Statistical Analysis Exam Practice",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+
+  learningIntention:
+    "Learn how to identify and solve mixed statistical analysis exam questions.",
+
+  successCriteria: [
+    "Identify the statistical concept being tested.",
+    "Choose appropriate methods based on context and data shape.",
+    "Calculate summary statistics, z-scores, residuals, and normal intervals.",
+    "Interpret correlation and regression carefully.",
+    "Write clear, cautious conclusions in context.",
+  ],
+
+  teaching: {
+    paragraphs: [
+      "Exam questions often combine summary statistics, z-scores, correlation, regression, residuals, and normal distributions.",
+      "The first step is identifying the statistical idea being tested.",
+      "Choose measures and methods based on the data shape, the context, and whether outliers are present.",
+      "Correlation and regression questions require careful interpretation: association is not the same as causation.",
+      "Residuals help judge how well a linear model fits the data.",
+      "Normal distribution questions often require standardising or using the empirical rule.",
+      "Statistical conclusions should be clear, cautious, and contextual.",
+    ],
+    latexBlocks: [
+      "IQR=Q_3-Q_1",
+      "z=\\frac{x-\\bar{x}}{s}",
+      "\\hat{y}=mx+b",
+      "\\text{residual}=y-\\hat{y}",
+      "\\bar{x}\\pm2s\\quad \\text{about }95\\%",
+    ],
+  },
+
+  workedExamples: [
+    {
+      title: "Worked example 1: Outlier and centre",
+      questionLatex:
+        "\\text{A data set has a clear high outlier. Which centre measure is more appropriate: mean or median?}",
+      steps: [
+        {
+          explanation: "Outliers can pull the mean strongly.",
+          latex: "\\text{mean is affected by extreme values}",
+        },
+        {
+          explanation: "The median is more resistant to an outlier.",
+          latex: "\\text{median is position-based}",
+        },
+      ],
+      finalAnswerLatex: "\\text{median}",
+    },
+    {
+      title: "Worked example 2: Regression prediction and extrapolation",
+      questionLatex:
+        "\\hat{y}=1.8x+12.\\quad \\text{Predict }y\\text{ when }x=10\\text{ and decide whether extrapolation is a concern if the data range is }0\\le x\\le12.",
+      steps: [
+        {
+          explanation: "Substitute $x=10$.",
+          latex: "\\hat{y}=1.8(10)+12=30",
+        },
+        {
+          explanation: "$x=10$ is inside the data range.",
+          latex: "0\\le10\\le12",
+        },
+      ],
+      finalAnswerLatex: "\\hat{y}=30,\\quad \\text{no extrapolation concern}",
+    },
+    {
+      title: "Worked example 3: Empirical-rule interval",
+      questionLatex:
+        "\\text{A normal distribution has mean }50\\text{ and standard deviation }4.\\text{ Estimate the interval containing about }95\\%\\text{ of values.}",
+      steps: [
+        {
+          explanation: "About 95% lies within 2 standard deviations.",
+          latex: "\\bar{x}\\pm2s",
+        },
+        {
+          explanation: "Calculate the endpoints.",
+          latex: "50\\pm2(4)=50\\pm8",
+        },
+      ],
+      finalAnswerLatex: "42\\le x\\le58",
+    },
+  ],
+
+  guidedPractice: [
+    {
+      id: "mixed-stats-guided-1",
+      prompt: "Choose the best method.",
+      latex: "\\text{A data set has a strong outlier. Choose a centre measure.}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Mean" },
+        { label: "B", text: "Median" },
+        { label: "C", text: "Maximum" },
+      ],
+      hint: "Use resistant measures when outliers are present.",
+      explanation: "The median is more appropriate because it is resistant to outliers.",
+    },
+    {
+      id: "mixed-stats-guided-2",
+      prompt: "Predict $y$.",
+      latex: "\\hat{y}=1.8x+12,\\quad x=10",
+      answer: "30",
+      hint: "Substitute $x=10$.",
+      explanation: "$\\hat{y}=1.8(10)+12=30$.",
+    },
+    {
+      id: "mixed-stats-guided-3",
+      prompt: "Find the residual.",
+      latex: "y=34,\\quad \\hat{y}=30",
+      answer: "4",
+      hint: "Use actual minus predicted.",
+      explanation: "$34-30=4$.",
+    },
+    {
+      id: "mixed-stats-guided-4",
+      prompt: "Choose the safest conclusion.",
+      latex: "r=0.86",
+      answer: "C",
+      choices: [
+        { label: "A", text: "One variable definitely causes the other" },
+        { label: "B", text: "There is no association" },
+        { label: "C", text: "There is strong positive association, but causation is not proven" },
+      ],
+      hint: "Correlation does not prove causation.",
+      explanation: "The conclusion should mention association without overclaiming causation.",
+    },
+  ],
+
+  independentPractice: [
+    {
+      id: "mixed-stats-ind-1",
+      prompt: "Find the IQR.",
+      latex: "Q_1=12,\\quad Q_3=21",
+      answer: "9",
+      hint: "Use $Q_3-Q_1$.",
+      explanation: "$IQR=21-12=9$.",
+    },
+    {
+      id: "mixed-stats-ind-2",
+      prompt: "Find the z-score.",
+      latex: "x=72,\\quad \\bar{x}=60,\\quad s=6",
+      answer: "2",
+      hint: "Use $z=\\frac{x-\\bar{x}}{s}$.",
+      explanation: "$z=(72-60)\\div6=2$.",
+    },
+    {
+      id: "mixed-stats-ind-3",
+      prompt: "Predict $y$.",
+      latex: "\\hat{y}=3x-5,\\quad x=7",
+      answer: "16",
+      hint: "Substitute $x=7$.",
+      explanation: "$\\hat{y}=3(7)-5=16$.",
+    },
+    {
+      id: "mixed-stats-ind-4",
+      prompt: "A residual plot shows random scatter around zero. What does this suggest?",
+      latex: "\\text{Choose one}",
+      answer: "A",
+      choices: [
+        { label: "A", text: "A linear model is reasonable" },
+        { label: "B", text: "A curved model is definitely required" },
+        { label: "C", text: "Correlation proves causation" },
+      ],
+      hint: "Random residuals support a linear model.",
+      explanation: "Random scatter around zero suggests a linear model is reasonable.",
+    },
+    {
+      id: "mixed-stats-ind-5",
+      prompt: "Find the interval containing about 95% of values.",
+      latex: "\\bar{x}=50,\\quad s=4",
+      answer: "42 to 58",
+      acceptedAnswers: ["42-58", "42,58", "[42,58]", "42 <= x <= 58", "42≤x≤58"],
+      hint: "Use $\\bar{x}\\pm2s$.",
+      explanation: "$50-8=42$ and $50+8=58$.",
+    },
+  ],
+
+  commonMistakes: [
+    {
+      mistake: "Using mean when median is more appropriate with outliers.",
+      fix: "Use median and IQR when outliers make resistant measures more appropriate.",
+    },
+    {
+      mistake: "Comparing raw scores instead of z-scores.",
+      fix: "Use z-scores to compare values from different distributions.",
+    },
+    {
+      mistake: "Saying correlation proves causation.",
+      fix: "Correlation describes association only.",
+    },
+    {
+      mistake: "Ignoring residuals when judging a regression model.",
+      fix: "Check residual plots for random scatter or patterns.",
+    },
+  ],
+
+  masteryQuiz: [
+    {
+      id: "mixed-stats-mastery-1",
+      prompt: "Which method is best when a data set has a clear outlier?",
+      latex: "\\text{Choose one}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Mean and range only" },
+        { label: "B", text: "Median and IQR" },
+        { label: "C", text: "Maximum only" },
+      ],
+      hint: "Use resistant measures.",
+      explanation: "Median and IQR are more resistant to outliers.",
+    },
+    {
+      id: "mixed-stats-mastery-2",
+      prompt: "Which concept is being tested?",
+      latex: "\\text{How many standard deviations above the mean is this score?}",
+      answer: "A",
+      choices: [
+        { label: "A", text: "z-score" },
+        { label: "B", text: "residual" },
+        { label: "C", text: "IQR" },
+      ],
+      hint: "Standard deviations from the mean describe a z-score.",
+      explanation: "This asks for a z-score.",
+    },
+    {
+      id: "mixed-stats-mastery-3",
+      prompt: "Which concept is being tested?",
+      latex: "\\text{actual value} - \\text{predicted value}",
+      answer: "C",
+      choices: [
+        { label: "A", text: "correlation" },
+        { label: "B", text: "median" },
+        { label: "C", text: "residual" },
+      ],
+      hint: "Residual is actual minus predicted.",
+      explanation: "This is a residual.",
+    },
+    {
+      id: "mixed-stats-mastery-4",
+      prompt: "Find the IQR.",
+      latex: "Q_1=7,\\quad Q_3=19",
+      answer: "12",
+      hint: "Use $Q_3-Q_1$.",
+      explanation: "$IQR=19-7=12$.",
+    },
+    {
+      id: "mixed-stats-mastery-5",
+      prompt: "Find the z-score.",
+      latex: "x=90,\\quad \\bar{x}=75,\\quad s=5",
+      answer: "3",
+      hint: "Subtract the mean, then divide by standard deviation.",
+      explanation: "$z=(90-75)\\div5=3$.",
+    },
+    {
+      id: "mixed-stats-mastery-6",
+      prompt: "Predict $y$.",
+      latex: "\\hat{y}=2x+11,\\quad x=9",
+      answer: "29",
+      hint: "Substitute $x=9$.",
+      explanation: "$\\hat{y}=2(9)+11=29$.",
+    },
+    {
+      id: "mixed-stats-mastery-7",
+      prompt: "A residual plot has a curved pattern. Choose the best judgement.",
+      latex: "\\text{Choose one}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "The linear model is definitely perfect" },
+        { label: "B", text: "A non-linear model may be better" },
+        { label: "C", text: "The mean must equal the median" },
+      ],
+      hint: "Curved residuals suggest missed structure.",
+      explanation: "A non-linear model may be more appropriate.",
+    },
+    {
+      id: "mixed-stats-mastery-8",
+      prompt: "Choose the safest conclusion.",
+      latex: "r=-0.88",
+      answer: "A",
+      choices: [
+        { label: "A", text: "Strong negative association, not proof of causation" },
+        { label: "B", text: "Weak association because it is negative" },
+        { label: "C", text: "No association" },
+      ],
+      hint: "$|-0.88|$ is close to 1.",
+      explanation: "$r=-0.88$ shows strong negative association, but not causation.",
+    },
+    {
+      id: "mixed-stats-mastery-9",
+      prompt: "Find the 95% interval.",
+      latex: "\\bar{x}=80,\\quad s=6",
+      answer: "68 to 92",
+      acceptedAnswers: ["68-92", "68,92", "[68,92]", "68 <= x <= 92", "68≤x≤92"],
+      hint: "Use $\\bar{x}\\pm2s$.",
+      explanation: "$80-12=68$ and $80+12=92$.",
+    },
+    {
+      id: "mixed-stats-mastery-10",
+      prompt: "A regression model was built from data with $1\\le x\\le20$. Which prediction is least concerning?",
+      latex: "\\text{Choose one}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "$x=100$" },
+        { label: "B", text: "$x=12$" },
+        { label: "C", text: "$x=-30$" },
+      ],
+      hint: "Predictions inside the data range are safer.",
+      explanation: "$x=12$ is inside the data range.",
+    },
+  ],
+
+  masteryPassMark: 0.8,
+};
+
 export const statisticalAnalysisOutline: LessonOutlineItem[] = [
   {
     id: "data-displays-summary-statistics-outliers",
@@ -1373,7 +2034,7 @@ export const statisticalAnalysisOutline: LessonOutlineItem[] = [
     title: "Normal Distribution and Empirical Rule",
     description:
       "Use normal distribution ideas, z-scores, and the empirical rule to interpret data.",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "mixed-statistical-analysis-exam-practice",
@@ -1381,7 +2042,7 @@ export const statisticalAnalysisOutline: LessonOutlineItem[] = [
     title: "Mixed Statistical Analysis Exam Practice",
     description:
       "Practise mixed exam-style questions involving summary statistics, z-scores, correlation, regression, residuals, and normal distributions.",
-    status: "coming-soon",
+    status: "active",
   },
 ];
 
@@ -1390,4 +2051,6 @@ export const statisticalAnalysisLessons = [
   standardDeviationZScoresStandardisedValuesLesson,
   correlationLeastSquaresRegressionLesson,
   interpretingAssociationResidualsLesson,
+  normalDistributionEmpiricalRuleLesson,
+  mixedStatisticalAnalysisExamPracticeLesson,
 ];
