@@ -16,6 +16,13 @@ export default function CoursePage() {
         "A staged pathway for antidifferentiation, indefinite and definite integrals, initial conditions, area, the Trapezoidal rule, total change, and motion applications.",
       status: "New unit",
     },
+    {
+      href: "/course/functions-graphing-techniques",
+      title: "Functions and Graphing Techniques",
+      description:
+        "A staged pathway for function notation, domain and range, transformations, graph features, asymptotes, graphical solving, and modelling.",
+      status: "New unit",
+    },
   ];
 
   return (
@@ -38,7 +45,7 @@ export default function CoursePage() {
           </p>
         </header>
 
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {units.map((unit) => (
             <Link
               key={unit.href}
