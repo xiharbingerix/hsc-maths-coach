@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Parabola with x-intercepts at -1 and 3</title>
+  <desc id="desc">A clean coordinate graph showing a parabola crossing the x-axis at -1 and 3 and the y-axis at -3.</desc>
+  <rect width="640" height="360" fill="#ffffff"/>
+  <g stroke="#e2e8f0" stroke-width="1">
+    <path d="M80 40V300"/>
+    <path d="M140 40V300"/>
+    <path d="M200 40V300"/>
+    <path d="M260 40V300"/>
+    <path d="M320 40V300"/>
+    <path d="M380 40V300"/>
+    <path d="M440 40V300"/>
+    <path d="M500 40V300"/>
+    <path d="M560 40V300"/>
+    <path d="M80 280H560"/>
+    <path d="M80 220H560"/>
+    <path d="M80 160H560"/>
+    <path d="M80 100H560"/>
+    <path d="M80 40H560"/>
+  </g>
+  <g stroke="#0f172a" stroke-width="2">
+    <path d="M80 220H570"/>
+    <path d="M260 310V30"/>
+  </g>
+  <g fill="#334155" font-family="Arial, sans-serif" font-size="16">
+    <text x="568" y="214">x</text>
+    <text x="269" y="38">y</text>
+    <text x="194" y="242">-1</text>
+    <text x="436" y="242">3</text>
+    <text x="241" y="238">0</text>
+    <text x="232" y="285">-3</text>
+  </g>
+  <polyline points="140,120 155,145 170,167.5 185,195 200,220 215,238.75 230,255 245,268.75 260,280 275,288.75 290,295 305,298.75 320,300 335,298.75 350,295 365,288.75 380,280 395,268.75 410,255 425,238.75 440,220 455,195 470,167.5 485,145 500,120" fill="none" stroke="#2563eb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#0f172a">
+    <circle cx="200" cy="220" r="6"/>
+    <circle cx="440" cy="220" r="6"/>
+    <circle cx="260" cy="280" r="6"/>
+  </g>
+</svg>

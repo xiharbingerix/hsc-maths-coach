@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Cubic-shaped curve with turning points at -2 and 1</title>
+  <desc id="desc">The graph increases until x equals -2, decreases until x equals 1, then increases again.</desc>
+  <rect width="640" height="360" fill="#ffffff"/>
+  <g stroke="#e2e8f0" stroke-width="1">
+    <path d="M80 40V300"/>
+    <path d="M140 40V300"/>
+    <path d="M200 40V300"/>
+    <path d="M260 40V300"/>
+    <path d="M320 40V300"/>
+    <path d="M380 40V300"/>
+    <path d="M440 40V300"/>
+    <path d="M500 40V300"/>
+    <path d="M560 40V300"/>
+    <path d="M80 280H560"/>
+    <path d="M80 220H560"/>
+    <path d="M80 160H560"/>
+    <path d="M80 100H560"/>
+    <path d="M80 40H560"/>
+  </g>
+  <g stroke="#0f172a" stroke-width="2">
+    <path d="M80 220H570"/>
+    <path d="M320 310V30"/>
+  </g>
+  <g fill="#334155" font-family="Arial, sans-serif" font-size="16">
+    <text x="568" y="214">x</text>
+    <text x="329" y="38">y</text>
+    <text x="191" y="244">-2</text>
+    <text x="374" y="244">1</text>
+    <text x="308" y="244">0</text>
+  </g>
+  <path d="M82 284 C146 202 174 105 200 100 C254 89 320 260 380 260 C430 260 480 150 556 44" fill="none" stroke="#7c3aed" stroke-width="5" stroke-linecap="round"/>
+  <g fill="#0f172a">
+    <circle cx="200" cy="100" r="6"/>
+    <circle cx="380" cy="260" r="6"/>
+  </g>
+</svg>

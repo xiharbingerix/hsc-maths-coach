@@ -1,15 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import type { FormEvent, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { BlockMath } from "react-katex";
+import { BlockMath, InlineMath } from "react-katex";
 import { questions } from "../../lib/questions";
 import { supabase } from "../../lib/supabaseClient";
 
 type Answers = Record<string, string>;
 type Confidence = Record<string, string>;
 type Working = Record<string, string>;
+
+const IDK_ANSWER = "__IDK__";
+const confidenceLevels = ["Low", "Medium", "High"];
 
 const topics = [
   "Functions and graphing",
@@ -23,6 +27,45 @@ const topics = [
   "Revision / mixed exam practice",
   "Not sure",
 ];
+
+const sectionDescriptions: Record<string, string> = {
+  "Algebra foundations":
+    "Core manipulation skills that affect almost every later topic.",
+  "Functions and graphs":
+    "Function notation, restrictions, and visual interpretation of graphs.",
+  Trigonometry:
+    "Exact values, radians, and simple trigonometric equations.",
+  "Differential calculus":
+    "Differentiation, tangent gradients, stationary points, and derivative signs.",
+  "Integral calculus":
+    "Antidifferentiation and definite integral evaluation.",
+  "Exponential and logarithmic functions":
+    "Log laws and exponential equation solving.",
+  "Statistics and probability":
+    "Standardised scores, probability, and correlation interpretation.",
+  "Financial mathematics":
+    "Compound interest calculations with careful rounding.",
+};
+
+const sectionOrder = Array.from(
+  new Set(questions.map((question) => question.section))
+);
+
+function renderMathText(text: string) {
+  const parts = text.split("$");
+
+  return parts.map((part, index) => {
+    if (index % 2 === 1) {
+      return <InlineMath key={`${part}-${index}`} math={part} />;
+    }
+
+    return <span key={`${part}-${index}`}>{part}</span>;
+  });
+}
+
+function FieldLabel({ children }: Readonly<{ children: ReactNode }>) {
+  return <span className="text-sm font-medium text-slate-800">{children}</span>;
+}
 
 export default function DiagnosticPage() {
   const router = useRouter();
@@ -43,6 +86,15 @@ export default function DiagnosticPage() {
   const [working, setWorking] = useState<Working>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const answeredCount = questions.filter((question) => {
+    const answer = answers[question.id];
+    return typeof answer === "string" && answer.trim().length > 0;
+  }).length;
+  const idkCount = questions.filter(
+    (question) => answers[question.id] === IDK_ANSWER
+  ).length;
+  const blankCount = questions.length - answeredCount;
+
   function toggleTopic(topic: string) {
     if (topicsStudied.includes(topic)) {
       setTopicsStudied(topicsStudied.filter((item) => item !== topic));
@@ -51,10 +103,40 @@ export default function DiagnosticPage() {
     }
   }
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function setAnswer(questionId: string, value: string) {
+    setAnswers((current) => ({
+      ...current,
+      [questionId]: value,
+    }));
+  }
+
+  function setQuestionConfidence(questionId: string, value: string) {
+    setConfidence((current) => ({
+      ...current,
+      [questionId]: value,
+    }));
+  }
+
+  function setQuestionWorking(questionId: string, value: string) {
+    setWorking((current) => ({
+      ...current,
+      [questionId]: value,
+    }));
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (isSubmitting) {
+      return;
+    }
+
+    if (
+      blankCount >= 5 &&
+      !window.confirm(
+        `You have left ${blankCount} questions blank. Submit anyway?`
+      )
+    ) {
       return;
     }
 
@@ -113,7 +195,7 @@ Hint: ${error.hint ?? "No hint"}`
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
       <form
         onSubmit={handleSubmit}
-        className="mx-auto max-w-3xl space-y-8 rounded-2xl bg-white p-6 shadow-sm"
+        className="mx-auto max-w-5xl space-y-8 rounded-3xl bg-white p-6 shadow-sm md:p-8"
       >
         <section className="space-y-3">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
@@ -124,10 +206,45 @@ Hint: ${error.hint ?? "No hint"}`
             HSC Maths Advanced Diagnostic
           </h1>
 
-          <p className="text-slate-600">
+          <p className="max-w-3xl leading-7 text-slate-600">
             This diagnostic helps identify strengths, weak areas, and
-            high-impact study priorities.
+            high-impact study priorities. This usually takes about 20-30
+            minutes.
           </p>
+        </section>
+
+        <section className="grid gap-4 md:grid-cols-[1fr_1.2fr]">
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <h2 className="text-base font-semibold text-slate-950">
+              Progress
+            </h2>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 md:grid-cols-1">
+              <div className="rounded-xl bg-white p-4">
+                <p className="text-2xl font-bold">
+                  {answeredCount}/{questions.length}
+                </p>
+                <p className="text-sm text-slate-600">answered</p>
+              </div>
+              <div className="rounded-xl bg-white p-4">
+                <p className="text-2xl font-bold">{idkCount}</p>
+                <p className="text-sm text-slate-600">
+                  marked I don&apos;t know yet
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
+            <h2 className="text-base font-semibold text-amber-950">
+              Work independently
+            </h2>
+
+            <p className="mt-2 text-sm leading-relaxed text-amber-900">
+              Do not use notes, calculators, AI tools, or worked examples. The
+              goal is to find the right starting point, not to get a perfect
+              score.
+            </p>
+          </div>
         </section>
 
         <section className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
@@ -145,7 +262,7 @@ Hint: ${error.hint ?? "No hint"}`
 
         <section className="grid gap-4 md:grid-cols-2">
           <label className="space-y-1">
-            <span className="text-sm font-medium">Student first name</span>
+            <FieldLabel>Student first name</FieldLabel>
             <input
               value={studentFirstName}
               onChange={(event) => setStudentFirstName(event.target.value)}
@@ -156,9 +273,7 @@ Hint: ${error.hint ?? "No hint"}`
           </label>
 
           <label className="space-y-1">
-            <span className="text-sm font-medium">
-              Parent/guardian first name
-            </span>
+            <FieldLabel>Parent/guardian first name</FieldLabel>
             <input
               value={parentFirstName}
               onChange={(event) => setParentFirstName(event.target.value)}
@@ -169,7 +284,7 @@ Hint: ${error.hint ?? "No hint"}`
           </label>
 
           <label className="space-y-1 md:col-span-2">
-            <span className="text-sm font-medium">Parent/guardian email</span>
+            <FieldLabel>Parent/guardian email</FieldLabel>
             <input
               type="email"
               value={parentEmail}
@@ -185,7 +300,7 @@ Hint: ${error.hint ?? "No hint"}`
           </label>
 
           <label className="space-y-1">
-            <span className="text-sm font-medium">Year level</span>
+            <FieldLabel>Year level</FieldLabel>
             <select
               value={yearLevel}
               onChange={(event) => setYearLevel(event.target.value)}
@@ -199,7 +314,7 @@ Hint: ${error.hint ?? "No hint"}`
           </label>
 
           <label className="space-y-1">
-            <span className="text-sm font-medium">Course</span>
+            <FieldLabel>Course</FieldLabel>
             <select
               value={course}
               onChange={(event) => setCourse(event.target.value)}
@@ -215,7 +330,7 @@ Hint: ${error.hint ?? "No hint"}`
           </label>
 
           <label className="space-y-1">
-            <span className="text-sm font-medium">Current topic</span>
+            <FieldLabel>Current topic</FieldLabel>
             <select
               value={currentTopic}
               onChange={(event) => setCurrentTopic(event.target.value)}
@@ -230,7 +345,7 @@ Hint: ${error.hint ?? "No hint"}`
           </label>
 
           <label className="space-y-1">
-            <span className="text-sm font-medium">Target result</span>
+            <FieldLabel>Target result</FieldLabel>
             <select
               value={targetResult}
               onChange={(event) => setTargetResult(event.target.value)}
@@ -247,7 +362,7 @@ Hint: ${error.hint ?? "No hint"}`
           </label>
 
           <label className="space-y-1 md:col-span-2">
-            <span className="text-sm font-medium">Next major assessment</span>
+            <FieldLabel>Next major assessment</FieldLabel>
             <select
               value={assessmentTiming}
               onChange={(event) => setAssessmentTiming(event.target.value)}
@@ -256,7 +371,7 @@ Hint: ${error.hint ?? "No hint"}`
             >
               <option value="">Select timing</option>
               <option>Within 2 weeks</option>
-              <option>2–4 weeks</option>
+              <option>2-4 weeks</option>
               <option>More than 4 weeks away</option>
               <option>Not sure</option>
             </select>
@@ -318,85 +433,189 @@ Hint: ${error.hint ?? "No hint"}`
           </p>
         </section>
 
-        <section className="space-y-6">
+        <section className="space-y-8">
           <div>
-            <h2 className="text-xl font-semibold">Diagnostic questions</h2>
-            <p className="mt-1 text-sm text-slate-600">
-              Try each question without outside help. The goal is not to get
-              everything perfect — it is to identify the highest-impact study
-              priorities.
+            <h2 className="text-2xl font-semibold">Diagnostic questions</h2>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+              Answer what you can without outside help. Use “I don&apos;t know
+              yet” when you are stuck so the report can separate gaps from
+              unanswered questions.
             </p>
           </div>
 
-          {questions.map((question, index) => (
-            <div
-              key={question.id}
-              className="space-y-4 rounded-2xl border border-slate-200 p-5"
-            >
-              <div>
-                <p className="text-sm font-medium text-slate-500">
-                  Question {index + 1} · {question.section}
-                </p>
+          {sectionOrder.map((section) => {
+            const sectionQuestions = questions.filter(
+              (question) => question.section === section
+            );
 
-                <p className="mt-2 font-medium">{question.prompt}</p>
-
-                <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
-                  <BlockMath math={question.latex} />
+            return (
+              <section
+                key={section}
+                className="space-y-5 rounded-3xl border border-slate-200 bg-slate-50 p-5 md:p-6"
+              >
+                <div>
+                  <h3 className="text-xl font-bold tracking-tight">
+                    {section}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    {sectionDescriptions[section]}
+                  </p>
                 </div>
-              </div>
 
-              <label className="block space-y-1">
-                <span className="text-sm font-medium">Answer</span>
-                <input
-                  value={answers[question.id] ?? ""}
-                  onChange={(event) =>
-                    setAnswers({
-                      ...answers,
-                      [question.id]: event.target.value,
-                    })
-                  }
-                  disabled={isSubmitting}
-                  className="w-full rounded-xl border border-slate-300 px-3 py-2"
-                />
-              </label>
+                <div className="space-y-5">
+                  {sectionQuestions.map((question) => {
+                    const questionNumber =
+                      questions.findIndex((item) => item.id === question.id) +
+                      1;
+                    const currentAnswer = answers[question.id] ?? "";
+                    const isIdk = currentAnswer === IDK_ANSWER;
 
-              <label className="block space-y-1">
-                <span className="text-sm font-medium">Confidence</span>
-                <select
-                  value={confidence[question.id] ?? ""}
-                  onChange={(event) =>
-                    setConfidence({
-                      ...confidence,
-                      [question.id]: event.target.value,
-                    })
-                  }
-                  disabled={isSubmitting}
-                  className="w-full rounded-xl border border-slate-300 px-3 py-2"
-                >
-                  <option value="">Select confidence</option>
-                  <option>Low</option>
-                  <option>Medium</option>
-                  <option>High</option>
-                </select>
-              </label>
+                    return (
+                      <div
+                        key={question.id}
+                        className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+                      >
+                        <div>
+                          <div className="flex flex-wrap items-center gap-2 text-sm text-slate-500">
+                            <span className="font-medium">
+                              Question {questionNumber}
+                            </span>
+                            <span aria-hidden="true">·</span>
+                            <span>{question.skill}</span>
+                            <span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-medium capitalize text-slate-600">
+                              {question.difficulty}
+                            </span>
+                          </div>
 
-              <label className="block space-y-1">
-                <span className="text-sm font-medium">Optional working</span>
-                <textarea
-                  value={working[question.id] ?? ""}
-                  onChange={(event) =>
-                    setWorking({
-                      ...working,
-                      [question.id]: event.target.value,
-                    })
-                  }
-                  rows={3}
-                  disabled={isSubmitting}
-                  className="w-full rounded-xl border border-slate-300 px-3 py-2"
-                />
-              </label>
-            </div>
-          ))}
+                          <p className="mt-3 font-medium">
+                            {renderMathText(question.prompt)}
+                          </p>
+
+                          {question.latex ? (
+                            <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+                              <BlockMath math={question.latex} />
+                            </div>
+                          ) : null}
+
+                          {question.image ? (
+                            <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                              <img
+                                src={question.image}
+                                alt={`${question.skill} graph`}
+                                className="h-auto w-full"
+                              />
+                            </div>
+                          ) : null}
+                        </div>
+
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between gap-3">
+                            <FieldLabel>Answer</FieldLabel>
+                            <button
+                              type="button"
+                              onClick={() => setAnswer(question.id, IDK_ANSWER)}
+                              disabled={isSubmitting}
+                              className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
+                                isIdk
+                                  ? "border-slate-950 bg-slate-950 text-white"
+                                  : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+                              }`}
+                            >
+                              I don&apos;t know yet
+                            </button>
+                          </div>
+
+                          {question.choices ? (
+                            <div className="grid gap-2 md:grid-cols-2">
+                              {question.choices.map((choice) => {
+                                const selected =
+                                  answers[question.id] === choice.label;
+
+                                return (
+                                  <button
+                                    key={choice.label}
+                                    type="button"
+                                    onClick={() =>
+                                      setAnswer(question.id, choice.label)
+                                    }
+                                    disabled={isSubmitting}
+                                    className={`rounded-xl border p-3 text-left text-sm transition ${
+                                      selected
+                                        ? "border-slate-950 bg-slate-950 text-white"
+                                        : "border-slate-200 bg-white text-slate-800 hover:border-slate-400"
+                                    }`}
+                                  >
+                                    <span className="font-semibold">
+                                      {choice.label}.
+                                    </span>{" "}
+                                    {renderMathText(choice.text)}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          ) : (
+                            <input
+                              value={isIdk ? "" : currentAnswer}
+                              onChange={(event) =>
+                                setAnswer(question.id, event.target.value)
+                              }
+                              disabled={isSubmitting}
+                              className="w-full rounded-xl border border-slate-300 px-3 py-2"
+                            />
+                          )}
+                        </div>
+
+                        <div className="space-y-2">
+                          <FieldLabel>Confidence</FieldLabel>
+                          <div className="flex flex-wrap gap-2">
+                            {confidenceLevels.map((level) => {
+                              const selected =
+                                confidence[question.id] === level;
+
+                              return (
+                                <button
+                                  key={level}
+                                  type="button"
+                                  onClick={() =>
+                                    setQuestionConfidence(question.id, level)
+                                  }
+                                  disabled={isSubmitting}
+                                  className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
+                                    selected
+                                      ? "border-slate-950 bg-slate-950 text-white"
+                                      : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+                                  }`}
+                                >
+                                  {level}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        <label className="block space-y-1">
+                          <FieldLabel>Working / reasoning</FieldLabel>
+                          <p className="text-xs text-slate-500">
+                            Optional, but helpful if you want a more accurate
+                            report.
+                          </p>
+                          <textarea
+                            value={working[question.id] ?? ""}
+                            onChange={(event) =>
+                              setQuestionWorking(question.id, event.target.value)
+                            }
+                            rows={3}
+                            disabled={isSubmitting}
+                            className="w-full rounded-xl border border-slate-300 px-3 py-2"
+                          />
+                        </label>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+            );
+          })}
         </section>
 
         <section className="rounded-2xl border border-slate-200 bg-slate-50 p-5">

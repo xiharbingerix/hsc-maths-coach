@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Curve with domain from -1 to 5 and range from 0 to 4</title>
+  <desc id="desc">A curve begins at -1,0, rises to 2,4, then ends at 5,1.</desc>
+  <rect width="640" height="360" fill="#ffffff"/>
+  <g stroke="#e2e8f0" stroke-width="1">
+    <path d="M80 40V300"/>
+    <path d="M140 40V300"/>
+    <path d="M200 40V300"/>
+    <path d="M260 40V300"/>
+    <path d="M320 40V300"/>
+    <path d="M380 40V300"/>
+    <path d="M440 40V300"/>
+    <path d="M500 40V300"/>
+    <path d="M560 40V300"/>
+    <path d="M80 280H560"/>
+    <path d="M80 220H560"/>
+    <path d="M80 160H560"/>
+    <path d="M80 100H560"/>
+    <path d="M80 40H560"/>
+  </g>
+  <g stroke="#0f172a" stroke-width="2">
+    <path d="M80 280H570"/>
+    <path d="M140 310V30"/>
+  </g>
+  <g fill="#334155" font-family="Arial, sans-serif" font-size="16">
+    <text x="568" y="274">x</text>
+    <text x="149" y="38">y</text>
+    <text x="79" y="302">-1</text>
+    <text x="493" y="302">5</text>
+    <text x="129" y="302">0</text>
+    <text x="119" y="105">4</text>
+  </g>
+  <path d="M80 280 C145 202 205 112 320 40 C402 95 456 193 500 220" fill="none" stroke="#16a34a" stroke-width="5" stroke-linecap="round"/>
+  <g fill="#0f172a">
+    <circle cx="80" cy="280" r="6"/>
+    <circle cx="320" cy="40" r="6"/>
+    <circle cx="500" cy="220" r="6"/>
+  </g>
+</svg>
