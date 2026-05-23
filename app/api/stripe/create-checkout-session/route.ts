@@ -1,6 +1,7 @@
+import { NextResponse } from "next/server";
 import { getOfferConfig } from "../../../../lib/offers";
 import { supabaseAdmin } from "../../../../lib/supabaseAdmin";
-import { getSiteUrl, getStripe } from "../../../../lib/stripe";
+import { getStripe } from "../../../../lib/stripe";
 
 type CheckoutRequestBody = {
   offer?: string;
@@ -9,6 +10,12 @@ type CheckoutRequestBody = {
 };
 
 export const runtime = "nodejs";
+
+const checkoutConfigErrors: Record<string, string> = {
+  "diagnostic-report": "Diagnostic report checkout is not configured.",
+  "study-plan": "Study plan checkout is not configured.",
+  "online-learning": "Online learning checkout is not configured.",
+};
 
 async function getUserIdFromRequest(request: Request) {
   const authorization = request.headers.get("authorization");
@@ -30,74 +37,120 @@ async function getUserIdFromRequest(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const body = (await request.json()) as CheckoutRequestBody;
-  const offer = getOfferConfig(body.offer);
+  try {
+    const body = (await request.json()) as CheckoutRequestBody;
+    const offer = getOfferConfig(body.offer);
 
-  if (!offer) {
-    return Response.json({ error: "Invalid offer." }, { status: 400 });
-  }
+    if (!offer) {
+      return NextResponse.json(
+        { error: "Invalid checkout offer." },
+        { status: 400 }
+      );
+    }
 
-  if (!offer.checkoutEnabled || offer.slug === "weekly-tutoring") {
-    return Response.json(
-      { error: "This offer is enquiry-only." },
-      { status: 400 }
-    );
-  }
+    if (offer.slug === "weekly-tutoring") {
+      return NextResponse.json(
+        {
+          error: "Weekly tutoring is enquiry-only. Please use the enquiry form.",
+        },
+        { status: 400 }
+      );
+    }
 
-  if (!offer.stripePriceEnvKey || !offer.mode) {
-    return Response.json(
-      { error: "Checkout is not configured for this offer." },
-      { status: 400 }
-    );
-  }
+    if (!offer.checkoutEnabled || !offer.stripePriceEnvKey || !offer.mode) {
+      return NextResponse.json(
+        { error: "Invalid checkout offer." },
+        { status: 400 }
+      );
+    }
 
-  const priceId = process.env[offer.stripePriceEnvKey];
+    const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    const priceId = process.env[offer.stripePriceEnvKey];
 
-  if (!priceId) {
-    return Response.json(
-      { error: `Missing ${offer.stripePriceEnvKey}.` },
+    console.log("[stripe checkout config]", {
+      offer_selected: offer.slug,
+      price_id_present: Boolean(priceId),
+      site_url_present: Boolean(siteUrl),
+    });
+
+    if (!stripeSecretKey) {
+      return NextResponse.json(
+        { error: "Stripe is not configured." },
+        { status: 500 }
+      );
+    }
+
+    if (!siteUrl) {
+      return NextResponse.json(
+        { error: "Site URL is not configured." },
+        { status: 500 }
+      );
+    }
+
+    if (!priceId) {
+      return NextResponse.json(
+        {
+          error:
+            checkoutConfigErrors[offer.slug] ??
+            "Checkout is not configured for this offer.",
+        },
+        { status: 500 }
+      );
+    }
+
+    if (!priceId.startsWith("price_")) {
+      return NextResponse.json(
+        { error: "Stripe price is not configured correctly for this offer." },
+        { status: 500 }
+      );
+    }
+
+    const parentEmail = body.parentEmail?.trim();
+    const studentFirstName = body.studentFirstName?.trim();
+
+    if (!parentEmail || !studentFirstName) {
+      return NextResponse.json(
+        { error: "Parent email and student first name are required." },
+        { status: 400 }
+      );
+    }
+
+    const userId = await getUserIdFromRequest(request);
+    const stripe = getStripe();
+
+    const session = await stripe.checkout.sessions.create({
+      mode: offer.mode,
+      line_items: [{ price: priceId, quantity: 1 }],
+      customer_email: parentEmail,
+      success_url: `${siteUrl}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${siteUrl}/payment-cancelled?offer=${offer.slug}`,
+      metadata: {
+        offer_selected: offer.slug,
+        parent_email: parentEmail,
+        student_first_name: studentFirstName,
+        ...(userId ? { user_id: userId } : {}),
+      },
+      subscription_data:
+        offer.mode === "subscription"
+          ? {
+              metadata: {
+                offer_selected: offer.slug,
+                parent_email: parentEmail,
+                student_first_name: studentFirstName,
+                ...(userId ? { user_id: userId } : {}),
+              },
+            }
+          : undefined,
+    });
+
+    return NextResponse.json({ url: session.url });
+  } catch (error) {
+    console.error("Could not create Stripe checkout session", error);
+
+    return NextResponse.json(
+      { error: "Could not create checkout session. Please try again shortly." },
       { status: 500 }
     );
   }
-
-  const parentEmail = body.parentEmail?.trim();
-  const studentFirstName = body.studentFirstName?.trim();
-
-  if (!parentEmail || !studentFirstName) {
-    return Response.json(
-      { error: "Parent email and student first name are required." },
-      { status: 400 }
-    );
-  }
-
-  const userId = await getUserIdFromRequest(request);
-  const stripe = getStripe();
-  const siteUrl = getSiteUrl();
-
-  const session = await stripe.checkout.sessions.create({
-    mode: offer.mode,
-    line_items: [{ price: priceId, quantity: 1 }],
-    customer_email: parentEmail,
-    success_url: `${siteUrl}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${siteUrl}/payment-cancelled?offer=${offer.slug}`,
-    metadata: {
-      offer_selected: offer.slug,
-      parent_email: parentEmail,
-      student_first_name: studentFirstName,
-      ...(userId ? { user_id: userId } : {}),
-    },
-    subscription_data:
-      offer.mode === "subscription"
-        ? {
-            metadata: {
-              offer_selected: offer.slug,
-              parent_email: parentEmail,
-              student_first_name: studentFirstName,
-              ...(userId ? { user_id: userId } : {}),
-            },
-          }
-        : undefined,
-  });
-
-  return Response.json({ url: session.url });
 }

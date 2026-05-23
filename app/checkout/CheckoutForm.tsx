@@ -41,34 +41,78 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
     setErrorMessage("");
     setIsSubmitting(true);
 
-    const { data } = await supabase.auth.getSession();
-    const accessToken = data.session?.access_token;
+    try {
+      const { data } = await supabase.auth.getSession();
+      const accessToken = data.session?.access_token;
 
-    const response = await fetch("/api/stripe/create-checkout-session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
-      },
-      body: JSON.stringify({
-        offer: offer.slug,
-        parentEmail,
-        studentFirstName,
-      }),
-    });
+      const response = await fetch("/api/stripe/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+        },
+        body: JSON.stringify({
+          offer: offer.slug,
+          parentEmail,
+          studentFirstName,
+        }),
+      });
 
-    const payload = (await response.json()) as {
-      url?: string;
-      error?: string;
-    };
+      const rawResponse = await response.text();
+      let payload: { url?: string; error?: string } = {};
 
-    if (!response.ok || !payload.url) {
-      setErrorMessage(payload.error ?? "Could not start checkout.");
+      if (rawResponse) {
+        try {
+          payload = JSON.parse(rawResponse) as {
+            url?: string;
+            error?: string;
+          };
+        } catch (parseError) {
+          console.error("Stripe checkout response was not valid JSON", {
+            status: response.status,
+            rawResponse,
+            parseError,
+          });
+        }
+      }
+
+      if (!response.ok) {
+        console.error("Stripe checkout request failed", {
+          status: response.status,
+          payload,
+          rawResponse,
+        });
+        setErrorMessage(
+          payload.error ?? "Checkout could not be started. Please try again."
+        );
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (payload.error) {
+        console.error("Stripe checkout returned an error", payload);
+        setErrorMessage(payload.error);
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (payload.url) {
+        window.location.href = payload.url;
+        return;
+      }
+
+      console.error("Stripe checkout response did not include a URL", {
+        status: response.status,
+        payload,
+        rawResponse,
+      });
+      setErrorMessage("Checkout could not be started. Please try again.");
       setIsSubmitting(false);
-      return;
+    } catch (error) {
+      console.error("Stripe checkout request crashed", error);
+      setErrorMessage("Checkout could not be started. Please try again.");
+      setIsSubmitting(false);
     }
-
-    window.location.href = payload.url;
   }
 
   return (
@@ -172,7 +216,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
             className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400 sm:w-auto"
           >
             {isSubmitting
-              ? "Starting checkout..."
+              ? "Redirecting to secure checkout..."
               : "Continue to secure checkout"}
           </button>
         </form>
