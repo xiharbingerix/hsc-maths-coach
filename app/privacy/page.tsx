@@ -24,15 +24,14 @@ export default function PrivacyPage() {
           <h2 className="text-xl font-semibold">1. Overview</h2>
 
           <p className="text-slate-700">
-            HSC Maths Coach is currently a pilot diagnostic tool for maths
+            HSC Maths Coach is a diagnostic-led revision tool for maths
             learning. The diagnostic is designed to help identify a student&apos;s
             maths strengths, weak areas, and possible study priorities.
           </p>
 
           <p className="text-slate-700">
-            The pilot is parent-led. We ask for a parent or guardian email
-            address, and diagnostic reports are sent to the parent or guardian
-            rather than directly to the student.
+            The diagnostic is parent-led. We ask for a parent or guardian email
+            address, and diagnostic reports are sent to the parent or guardian.
           </p>
         </section>
 
@@ -63,11 +62,11 @@ export default function PrivacyPage() {
 
         <section className="space-y-3">
           <h2 className="text-xl font-semibold">
-            3. What we do not collect in the pilot
+            3. What we do not collect
           </h2>
 
           <p className="text-slate-700">
-            To minimise the amount of personal information collected, the pilot
+            To minimise the amount of personal information collected, the
             diagnostic does not ask for:
           </p>
 
@@ -97,7 +96,7 @@ export default function PrivacyPage() {
             <li>identify maths strengths and weak areas</li>
             <li>prepare a personalised diagnostic report</li>
             <li>send the report to the parent or guardian</li>
-            <li>improve the quality of the diagnostic during the pilot</li>
+            <li>improve the quality of the diagnostic and reports</li>
             <li>respond to privacy, correction, or deletion requests</li>
           </ul>
 
@@ -137,25 +136,22 @@ export default function PrivacyPage() {
           </p>
 
           <p className="text-slate-700">
-            During the pilot, reports are manually reviewed before being sent.
+            Reports are manually reviewed before being sent.
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-xl font-semibold">
-            7. Use of learning technology and AI assistance
+            7. Use of scoring and report tools
           </h2>
 
           <p className="text-slate-700">
-            HSC Maths Coach may use learning technology, including AI-assisted
-            tools, to help analyse diagnostic responses, identify patterns, and
-            draft report notes.
+            HSC Maths Coach uses rule-based scoring and report-drafting tools
+            to help organise diagnostic results and recommended next steps.
           </p>
 
           <p className="text-slate-700">
-            Where practical, we minimise the personal information sent to those
-            tools. Reports in the pilot are manually reviewed before being sent
-            to families.
+            Reports are manually reviewed before being sent to families.
           </p>
         </section>
 
@@ -163,22 +159,15 @@ export default function PrivacyPage() {
           <h2 className="text-xl font-semibold">8. Third-party services</h2>
 
           <p className="text-slate-700">
-            The pilot may use trusted third-party services to operate the
-            diagnostic, including:
+            The service may use trusted third-party services to operate the
+            diagnostic and online learning pages, including:
           </p>
 
           <ul className="list-disc space-y-2 pl-6 text-slate-700">
             <li>Supabase for database storage</li>
             <li>Vercel for website hosting</li>
             <li>Email tools to send reports or follow-up messages</li>
-            <li>AI or learning-technology providers to assist with analysis or drafting</li>
-            <li>Stripe or another payment processor if paid products are added later</li>
           </ul>
-
-          <p className="text-slate-700">
-            If payment is added, payment card details will be handled by the
-            payment provider. We do not intend to store card details ourselves.
-          </p>
         </section>
 
         <section className="space-y-3">
@@ -193,7 +182,7 @@ export default function PrivacyPage() {
           <p className="text-slate-700">
             Access to submissions is limited to authorised administrators who
             need access to review submissions, prepare reports, operate the
-            pilot, or respond to privacy requests.
+            service, or respond to privacy requests.
           </p>
 
           <p className="text-slate-700">
@@ -206,16 +195,16 @@ export default function PrivacyPage() {
           <h2 className="text-xl font-semibold">10. Data retention</h2>
 
           <p className="text-slate-700">
-            During the pilot, we keep diagnostic submissions only as long as
-            needed to prepare reports, support participating families, improve
-            the diagnostic, and maintain basic business records.
+            We keep diagnostic submissions only as long as needed to prepare
+            reports, support participating families, improve the diagnostic,
+            and maintain basic business records.
           </p>
 
           <p className="text-slate-700">
-            We aim to delete or de-identify raw pilot diagnostic data within 12
-            months unless a parent or guardian asks us to keep it for continued
-            support or we are required to keep it for legal, security, or
-            administrative reasons.
+            We aim to delete or de-identify raw diagnostic data within 12 months
+            unless a parent or guardian asks us to keep it for continued support
+            or we are required to keep it for legal, security, or administrative
+            reasons.
           </p>
         </section>
 
@@ -251,8 +240,8 @@ export default function PrivacyPage() {
           </h2>
 
           <p className="text-slate-700">
-            We may update this Privacy Notice as the pilot develops, especially
-            if we add accounts, payments, tutoring, written-work uploads, or new
+            We may update this Privacy Notice as the service develops,
+            especially if we add new account, tutoring, written-work upload, or
             reporting features.
           </p>
         </section>
@@ -269,10 +258,6 @@ export default function PrivacyPage() {
             joshua.a.taylor7@gmail.com
           </p>
 
-          <p className="text-sm text-slate-500">
-            Replace this placeholder with your real contact email before sharing
-            the diagnostic publicly.
-          </p>
         </section>
 
         <Link

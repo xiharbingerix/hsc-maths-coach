@@ -25,11 +25,12 @@ export default function CoursePage() {
             <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <h2 className="text-xl font-bold">
-                  Create an account for beta access
+                  Create an account for online learning access
                 </h2>
                 <p className="mt-2 max-w-2xl leading-7 text-slate-600">
-                  Course previews are available during beta. Create an account
-                  or register interest for online learning access.
+                  Course previews are available while access is reviewed
+                  manually. Create an account or register interest for online
+                  learning access.
                 </p>
               </div>
 
@@ -75,7 +76,7 @@ export default function CoursePage() {
                   Unit
                 </p>
                 <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
-                  Active beta unit
+                  Available now
                 </span>
               </div>
 

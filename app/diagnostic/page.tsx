@@ -251,23 +251,22 @@ Hint: ${error.hint ?? "No hint"}`
             </h2>
 
             <p className="mt-2 text-sm leading-relaxed text-amber-900">
-              Do not use notes, calculators, AI tools, or worked examples. The
-              goal is to find the right starting point, not to get a perfect
-              score.
+              Do not use notes, calculators, or worked examples. The goal is
+              to find the right starting point, not to get a perfect score.
             </p>
           </div>
         </section>
 
         <section className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
           <h2 className="text-base font-semibold text-blue-950">
-            Pilot version
+            Report review
           </h2>
 
           <p className="mt-2 text-sm leading-relaxed text-blue-900">
-            For the pilot, diagnostic reports are manually reviewed before being
-            sent to the parent or guardian email provided. Reports are intended
-            for learning support only and are not official school results, exam
-            predictions, or guarantees of future performance.
+            Diagnostic reports are manually reviewed before being sent to the
+            parent or guardian email provided. Reports are intended for learning
+            support only and are not official school results, exam predictions,
+            or guarantees of future performance.
           </p>
         </section>
 
@@ -490,7 +489,7 @@ Hint: ${error.hint ?? "No hint"}`
                             <span className="font-medium">
                               Question {questionNumber}
                             </span>
-                            <span aria-hidden="true">·</span>
+                            <span aria-hidden="true">&middot;</span>
                             <span>{question.skill}</span>
                             <span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-medium capitalize text-slate-600">
                               {question.difficulty}
@@ -632,9 +631,9 @@ Hint: ${error.hint ?? "No hint"}`
           <h2 className="text-base font-semibold">Before you submit</h2>
 
           <p className="mt-2 text-sm leading-relaxed text-slate-600">
-            Please check the parent/guardian email address is correct. For the
-            pilot, the diagnostic report will be reviewed manually and sent to
-            that email address.
+            Please check the parent/guardian email address is correct. The
+            diagnostic report will be reviewed manually and sent to that email
+            address.
           </p>
         </section>
 

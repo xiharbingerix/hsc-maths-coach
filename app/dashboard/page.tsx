@@ -135,14 +135,14 @@ export default function DashboardPage() {
             <p className="font-semibold">{accessCopy.title}</p>
             {accessStatus === "pending" ? (
               <p className="mt-1">
-                Lessons may remain visible during beta testing, but access is
-                not fully approved yet.
+                Course previews may remain visible while access is being
+                reviewed, but full online learning access is not approved yet.
               </p>
             ) : null}
             {accessStatus === "none" ? (
               <p className="mt-1">
-                Use Register interest or contact Joshua/admin if your beta
-                access should already be set up.
+                Use Register interest if online learning access should already
+                be set up for this account.
               </p>
             ) : null}
           </div>
@@ -216,7 +216,7 @@ export default function DashboardPage() {
                 className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-md"
               >
                 <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                  Active beta unit
+                  Available now
                 </p>
                 <h2 className="mt-3 text-xl font-bold">{unit.title}</h2>
                 <p className="mt-2 text-sm font-medium text-slate-500">

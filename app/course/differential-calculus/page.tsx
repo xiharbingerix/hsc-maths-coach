@@ -189,12 +189,12 @@ export default function DifferentialCalculusModulePage() {
           <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
             <div>
               <h2 className="text-2xl font-bold">
-                Part of the Online Learning Beta
+                Part of the Online Learning Package
               </h2>
               <p className="mt-3 max-w-3xl leading-7 text-slate-600">
                 This unit is part of the HSC Maths Advanced online learning
-                beta. The lesson pathway remains visible during testing, and
-                full access is approved manually during beta.
+                package. The lesson pathway is available for preview, and full
+                access is approved manually during early access.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap md:justify-end">

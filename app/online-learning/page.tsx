@@ -6,7 +6,7 @@ const included = [
   {
     title: "Staged lessons",
     description:
-      "Video lessons coming soon. Current beta flow: Learn -> Guided Practice -> Independent Practice -> Mastery Quiz.",
+      "Current lesson flow: Learn -> Guided Practice -> Independent Practice -> Mastery Quiz. Video lessons can be added later without changing the written pathway.",
   },
   {
     title: "Targeted course units",
@@ -37,11 +37,11 @@ const audience = [
   "Families looking for a lower-cost support option",
 ];
 
-const betaSteps = [
+const accessSteps = [
   "Complete the free diagnostic.",
   "Register interest in online learning access.",
   "Create an account to access the student dashboard.",
-  "Access is being handled manually during beta.",
+  "Access is handled manually during early access.",
   "Feedback helps improve the product for future students.",
 ];
 
@@ -94,15 +94,15 @@ export default function OnlineLearningPage() {
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-12">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold text-slate-500">
-              HSC Maths Advanced &middot; Online learning beta
+              HSC Maths Advanced &middot; Online learning
             </p>
             <h1 className="mt-4 text-4xl font-bold tracking-tight md:text-5xl">
               Online HSC Maths Advanced lessons for targeted trial revision.
             </h1>
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              A structured beta learning package with explicit teaching, worked
-              examples, guided practice, independent practice, and mastery
-              quizzes.
+              A structured early-access learning package with explicit
+              teaching, worked examples, guided practice, independent practice,
+              and mastery quizzes.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/enquire?offer=online-learning">
@@ -146,12 +146,12 @@ export default function OnlineLearningPage() {
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <SectionLabel>Current beta units</SectionLabel>
+              <SectionLabel>Current units</SectionLabel>
               <h2 className="mt-3 text-3xl font-bold tracking-tight">
                 Broad Year 12 trial-revision coverage.
               </h2>
               <p className="mt-3 max-w-2xl leading-7 text-slate-600">
-                The current beta includes six Year 12 Mathematics Advanced
+                The current package includes six Year 12 Mathematics Advanced
                 units across calculus, functions, trigonometry, financial
                 mathematics, and statistics.
               </p>
@@ -166,7 +166,7 @@ export default function OnlineLearningPage() {
                 className="flex flex-col rounded-2xl border border-slate-200 bg-slate-50 p-6"
               >
                 <span className="w-fit rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
-                  Active beta unit
+                  Available now
                 </span>
                 <h3 className="mt-4 text-xl font-bold">{unit.title}</h3>
                 <p className="mt-2 text-sm font-semibold text-slate-500">
@@ -198,12 +198,12 @@ export default function OnlineLearningPage() {
           </div>
 
           <div className="rounded-3xl border border-slate-200 bg-slate-100/80 p-8 shadow-sm md:p-10">
-            <SectionLabel>How beta access works</SectionLabel>
+            <SectionLabel>How access works</SectionLabel>
             <h2 className="mt-3 text-3xl font-bold tracking-tight">
               Simple, manual, and improving with feedback.
             </h2>
             <ol className="mt-6 space-y-3 text-slate-700">
-              {betaSteps.map((step, index) => (
+              {accessSteps.map((step, index) => (
                 <li key={step} className="flex gap-3">
                   <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-950 text-xs font-bold text-white">
                     {index + 1}
@@ -217,7 +217,7 @@ export default function OnlineLearningPage() {
 
         <section className="flex flex-col items-start gap-6 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:flex-row md:items-center md:justify-between md:p-10">
           <h2 className="max-w-xl text-2xl font-bold tracking-tight md:text-3xl">
-            Want access to the online learning beta?
+            Want access to the online learning package?
           </h2>
           <div className="flex flex-col gap-3 sm:flex-row">
             <PrimaryLink href="/enquire?offer=online-learning">

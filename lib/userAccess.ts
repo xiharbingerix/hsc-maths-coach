@@ -15,7 +15,7 @@ export function getUserAccessDashboardCopy(status: UserAccessStatus) {
     return {
       title: "Your online learning access is active",
       message:
-        "You can continue with the active HSC Maths Advanced beta units below.",
+        "You can continue with the available HSC Maths Advanced units below.",
       badge: "Active",
     };
   }
@@ -24,24 +24,24 @@ export function getUserAccessDashboardCopy(status: UserAccessStatus) {
     return {
       title: "Online learning access is not currently active",
       message:
-        "This account does not currently have active beta access. If this looks wrong, contact Joshua or register interest again.",
+        "This account does not currently have active online learning access. If this looks wrong, register interest again or reply to your HSC Maths Coach follow-up email.",
       badge: "Revoked",
     };
   }
 
   if (status === "pending") {
     return {
-      title: "Beta access is pending",
+      title: "Online learning access is pending",
       message:
-        "Your account has been created. Beta access is currently approved manually while the product is being tested.",
+        "Your account has been created. Access is approved manually during early access.",
       badge: "Pending",
     };
   }
 
   return {
-    title: "Beta access is not set up yet",
+    title: "Online learning access is not set up yet",
     message:
-      "This account does not have an online learning beta access row yet. Register interest, start the diagnostic, or contact Joshua if this looks wrong.",
+      "Register interest or start the diagnostic so we can review the right next step for online learning access.",
     badge: "Not set up",
   };
 }

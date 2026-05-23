@@ -59,7 +59,7 @@ export default function SignupPage() {
 
       if (profileError || accessError) {
         setNotice(
-          "Account created, but the beta access profile could not be fully saved yet. Check the Supabase SQL/RLS setup."
+          "Account created. Online learning access still needs to be reviewed manually, so you can continue to the dashboard while it is being set up."
         );
       }
     }
@@ -77,8 +77,8 @@ export default function SignupPage() {
           Create student account
         </h1>
         <p className="mt-3 text-sm leading-6 text-slate-600">
-          Create an account for the online learning beta dashboard. Access is
-          reviewed manually during beta.
+          Create an account for the online learning dashboard. Access is
+          reviewed manually during early access.
         </p>
 
         {errorMessage ? (

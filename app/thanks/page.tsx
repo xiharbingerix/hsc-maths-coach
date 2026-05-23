@@ -60,7 +60,7 @@ export default function ThanksPage() {
           <div className="mt-5 max-w-3xl space-y-3 text-lg leading-8 text-slate-600">
             <p>The diagnostic has been submitted successfully.</p>
             <p>
-              Reports are reviewed during the beta before being sent. The
+              Reports are manually reviewed before being sent. The
               parent/guardian email provided will be used for follow-up.
             </p>
           </div>
@@ -87,7 +87,7 @@ export default function ThanksPage() {
                   View online learning package
                 </PrimaryLink>
                 <SecondaryLink href="/online-learning">
-                  Explore six-unit beta
+                  Explore online learning
                 </SecondaryLink>
               </div>
             </div>
@@ -110,11 +110,11 @@ export default function ThanksPage() {
           <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
             <div>
               <h2 className="text-2xl font-bold tracking-tight">
-                Beta access
+                Online learning access
               </h2>
               <p className="mt-3 max-w-2xl leading-7 text-slate-600">
-                We are currently testing low-cost beta access for students who
-                want structured revision without weekly tutoring.
+                We are currently offering low-cost early access for students
+                who want structured revision without weekly tutoring.
               </p>
             </div>
 

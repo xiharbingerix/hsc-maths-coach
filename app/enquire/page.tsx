@@ -5,7 +5,7 @@ const offers = [
   {
     id: "online-learning",
     title: "Online Learning Package",
-    subtitle: "Low-cost beta access",
+    subtitle: "Low-cost early access",
     description:
       "Structured HSC Maths Advanced lessons across six Year 12 units, including calculus, functions, trigonometry, financial mathematics, and statistics.",
   },
@@ -45,8 +45,8 @@ export default async function EnquirePage({
           </h1>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
             Choose the option you are interested in and leave a few details.
-            Payments are not processed here yet. Your enquiry is saved even if
-            you do not complete the diagnostic today.
+            No payment is taken on this page. Your enquiry is saved even if you
+            do not complete the diagnostic today.
           </p>
         </header>
 

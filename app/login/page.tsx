@@ -41,7 +41,7 @@ export default function LoginPage() {
           Log in
         </h1>
         <p className="mt-3 text-sm leading-6 text-slate-600">
-          Access the online learning beta dashboard.
+          Access the online learning dashboard.
         </p>
 
         {errorMessage ? (
@@ -85,7 +85,7 @@ export default function LoginPage() {
         </form>
 
         <p className="mt-5 text-sm text-slate-600">
-          New to the beta?{" "}
+          New here?{" "}
           <Link href="/signup" className="font-semibold text-slate-950 underline">
             Create account
           </Link>

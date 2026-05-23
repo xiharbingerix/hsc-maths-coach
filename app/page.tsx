@@ -50,7 +50,7 @@ const coverage = [
 const offers = [
   {
     title: "Online Learning Package",
-    price: "Low-cost beta access",
+    price: "Low-cost early access",
     description:
       "Structured HSC Maths Advanced lessons for students who want targeted revision without committing to weekly tutoring.",
     features: [
@@ -65,7 +65,7 @@ const offers = [
   },
   {
     title: "Diagnostic PDF Report",
-    price: "Beta report option",
+    price: "Reviewed report option",
     description:
       "A parent-friendly diagnostic summary showing strengths, priority weak areas, and recommended next lessons.",
     features: [
@@ -175,7 +175,7 @@ export default function Home() {
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-12">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold text-slate-500">
-              HSC Maths Advanced &middot; Trial prep beta
+              HSC Maths Advanced &middot; Trial revision
             </p>
 
             <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
@@ -235,15 +235,15 @@ export default function Home() {
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <div className="grid gap-8 md:grid-cols-[1fr_0.9fr]">
             <div>
-              <SectionLabel>Online Learning Beta</SectionLabel>
+              <SectionLabel>Online Learning</SectionLabel>
               <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
                 Staged lessons across the current HSC course.
               </h2>
               <p className="mt-4 max-w-2xl leading-7 text-slate-600">
-                Video lessons are coming soon. The current beta flow is Learn
-                &rarr; Guided Practice &rarr; Independent Practice &rarr;
-                Mastery Quiz. The current beta includes six Year 12 Maths
-                Advanced units for broad trial-revision coverage.
+                Current lesson flow: Learn &rarr; Guided Practice &rarr;
+                Independent Practice &rarr; Mastery Quiz. The online learning
+                package includes six Year 12 Maths Advanced units for broad
+                trial-revision coverage.
               </p>
 
               <div className="mt-4 flex flex-wrap gap-2">
@@ -274,9 +274,9 @@ export default function Home() {
 
         <section className="rounded-3xl border border-slate-200 bg-slate-100/80 p-8 shadow-sm md:p-10">
           <div className="max-w-2xl">
-            <SectionLabel>Beta access options</SectionLabel>
+            <SectionLabel>Access options</SectionLabel>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-              Beta access options
+              Access options
             </h2>
             <p className="mt-3 leading-7 text-slate-600">
               Start with a free diagnostic, then choose the level of support
@@ -330,8 +330,8 @@ export default function Home() {
           </div>
 
           <p className="mt-6 text-sm leading-6 text-slate-600">
-            During beta, access and reports are being handled manually so we can
-            keep improving the product.
+            During early access, accounts and reports are handled manually so
+            we can keep improving the product.
           </p>
         </section>
 
