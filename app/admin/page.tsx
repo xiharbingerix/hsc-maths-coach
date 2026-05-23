@@ -69,6 +69,62 @@ const enquiryStatuses: EnquiryStatus[] = [
   "closed",
 ];
 
+const launchChecklist = [
+  {
+    area: "Public funnel",
+    items: [
+      { label: "Homepage loads", href: "/" },
+      { label: "Online learning page loads", href: "/online-learning" },
+      { label: "Course page lists six units", href: "/course" },
+      { label: "Enquiry form submits", href: "/enquire?offer=online-learning" },
+      { label: "Diagnostic form submits", href: "/diagnostic" },
+      { label: "Thanks page shows next steps", href: "/thanks" },
+    ],
+  },
+  {
+    area: "Student access",
+    items: [
+      { label: "Signup creates account", href: "/signup" },
+      { label: "Dashboard shows pending access", href: "/dashboard" },
+      { label: "Admin can approve access", href: "/admin" },
+      { label: "Active user can open lessons", href: "/course" },
+      { label: "Pending user sees access gate", href: "/course" },
+      { label: "Revoked user sees access gate", href: "/course" },
+    ],
+  },
+  {
+    area: "Diagnostic/report workflow",
+    items: [
+      { label: "Diagnostic submission appears in admin", href: "/admin" },
+      { label: "Report draft can be generated" },
+      { label: "Report notes can be edited" },
+      { label: "PDF report opens" },
+      { label: "PDF can be saved manually" },
+      { label: "Parent email template can be copied" },
+      { label: "Report can be marked sent" },
+      { label: "Follow-up required can be marked" },
+    ],
+  },
+  {
+    area: "Course quality",
+    items: [
+      { label: "All six unit pages load", href: "/course" },
+      { label: "One lesson from each unit loads for active user" },
+      { label: "Watch stage remains hidden" },
+      { label: "Mastery quiz works" },
+    ],
+  },
+  {
+    area: "Environment",
+    items: [
+      { label: "Supabase public submissions working" },
+      { label: "Admin login working", href: "/admin/login" },
+      { label: "Service role/admin actions working" },
+      { label: "Vercel deployment current" },
+    ],
+  },
+];
+
 async function ensureProfileAndAccess(
   userId: string,
   email: string | null | undefined
@@ -294,6 +350,66 @@ function enquiryStatusClass(status: string | null | undefined) {
   return "bg-amber-100 text-amber-900";
 }
 
+function LaunchChecklistSection() {
+  return (
+    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Launch readiness
+          </p>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight">
+            Beta launch checklist
+          </h2>
+          <p className="mt-2 text-sm leading-6 text-slate-600">
+            Static admin checklist for a final smoke test before inviting
+            students or parents.
+          </p>
+        </div>
+        <p className="text-sm font-semibold text-slate-500">
+          Visual only for now
+        </p>
+      </div>
+
+      <div className="mt-6 grid gap-4 lg:grid-cols-2">
+        {launchChecklist.map((group) => (
+          <article
+            key={group.area}
+            className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
+          >
+            <h3 className="font-semibold text-slate-950">{group.area}</h3>
+            <ul className="mt-3 space-y-2">
+              {group.items.map((item) => (
+                <li
+                  key={item.label}
+                  className="flex items-start justify-between gap-3 rounded-xl bg-white px-3 py-2 text-sm text-slate-700"
+                >
+                  <label className="flex min-w-0 items-start gap-2">
+                    <input
+                      type="checkbox"
+                      className="mt-0.5"
+                      aria-label={item.label}
+                    />
+                    <span>{item.label}</span>
+                  </label>
+                  {item.href ? (
+                    <Link
+                      href={item.href}
+                      className="shrink-0 font-semibold text-slate-950 underline"
+                    >
+                      Open
+                    </Link>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function groupSubmissionsByDate(submissions: DiagnosticSubmission[]) {
   return submissions.reduce<Record<string, DiagnosticSubmission[]>>(
     (groups, submission) => {
@@ -445,6 +561,8 @@ export default async function AdminPage() {
             </button>
           </form>
         </header>
+
+        <LaunchChecklistSection />
 
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
