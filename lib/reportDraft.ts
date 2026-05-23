@@ -6,8 +6,14 @@ export type UnitBreakdownItem = {
   unit: string;
   correct: number | null;
   total: number | null;
+  attempted: number;
   percentage: number | null;
-  interpretation: "strong area" | "needs consolidation" | "priority area" | "not enough evidence";
+  interpretation:
+    | "Strength"
+    | "Developing"
+    | "Priority area"
+    | "High-priority gap"
+    | "Not enough evidence";
 };
 
 export type GroupedLessonRecommendations = {
@@ -44,36 +50,67 @@ export function diagnosticInterpretation(score: DiagnosticScore) {
 }
 
 function unitInterpretation(
+  correct: number | null,
   percentage: number | null,
-  total: number | null
+  total: number | null,
+  attempted: number
 ): UnitBreakdownItem["interpretation"] {
-  if (!total) {
-    return "not enough evidence";
+  if (!total || attempted === 0 || correct === null) {
+    return "Not enough evidence";
   }
 
-  if (percentage !== null && percentage >= 75) {
-    return "strong area";
+  if (total === 6) {
+    if (correct >= 5) {
+      return "Strength";
+    }
+
+    if (correct === 4) {
+      return "Developing";
+    }
+
+    if (correct >= 2) {
+      return "Priority area";
+    }
+
+    return "High-priority gap";
   }
 
-  if (percentage !== null && percentage >= 50) {
-    return "needs consolidation";
+  if (percentage !== null && percentage >= 83) {
+    return "Strength";
   }
 
-  return "priority area";
+  if (percentage !== null && percentage >= 67) {
+    return "Developing";
+  }
+
+  if (percentage !== null && percentage >= 33) {
+    return "Priority area";
+  }
+
+  return "High-priority gap";
 }
 
 export function getUnitBreakdown(score: DiagnosticScore): UnitBreakdownItem[] {
   return courseUnits.map((unit) => {
     const section = score.bySection.find((item) => item.section === unit.title);
+    const attempted = score.questionResults.filter(
+      (result) =>
+        result.section === unit.title &&
+        result.studentAnswer !== "Blank" &&
+        result.studentAnswer !== "I don't know yet"
+    ).length;
 
     return {
       unit: unit.title,
       correct: section?.correct ?? null,
       total: section?.total ?? null,
+      attempted,
       percentage: section?.percentage ?? null,
       interpretation: unitInterpretation(
+        section?.correct ?? null,
         section?.percentage ?? null,
-        section?.total ?? null
+        section?.total ?? null,
+        attempted
       ),
     };
   });
@@ -116,14 +153,139 @@ export function getRepeatedWeakAreas(score: DiagnosticScore) {
     .map(([label, count]) => `${label} (${count} questions)`);
 }
 
-function topPriorityUnit(score: DiagnosticScore) {
-  return (
-    getUnitBreakdown(score).find(
-      (unit) => unit.interpretation === "priority area"
-    )?.unit ??
-    score.priorities[0] ??
-    "the highest-priority area from the diagnostic"
-  );
+function priorityRank(unit: UnitBreakdownItem) {
+  if (unit.interpretation === "High-priority gap") {
+    return 0;
+  }
+
+  if (unit.interpretation === "Priority area") {
+    return 1;
+  }
+
+  if (unit.interpretation === "Developing") {
+    return 2;
+  }
+
+  return 3;
+}
+
+export function getPriorityUnitGroups(score: DiagnosticScore) {
+  const ordered = getUnitBreakdown(score)
+    .filter((unit) => unit.interpretation !== "Not enough evidence")
+    .sort((a, b) => {
+      const rankDifference = priorityRank(a) - priorityRank(b);
+
+      if (rankDifference !== 0) {
+        return rankDifference;
+      }
+
+      return (a.percentage ?? 100) - (b.percentage ?? 100);
+    });
+
+  return {
+    topPriorityUnits: ordered
+      .filter(
+        (unit) =>
+          unit.interpretation === "High-priority gap" ||
+          unit.interpretation === "Priority area"
+      )
+      .slice(0, 3),
+    secondaryConsolidation: ordered
+      .filter((unit) => unit.interpretation === "Developing")
+      .slice(0, 3),
+  };
+}
+
+function lessonsForUnit(
+  groupedLessons: GroupedLessonRecommendations[],
+  unit: string | undefined
+) {
+  if (!unit) {
+    return [];
+  }
+
+  return groupedLessons.find((group) => group.unit === unit)?.lessons ?? [];
+}
+
+function lessonTitlesForPlan(
+  groupedLessons: GroupedLessonRecommendations[],
+  unit: string | undefined
+) {
+  const lessons = lessonsForUnit(groupedLessons, unit)
+    .slice(0, 3)
+    .map((lesson) => lesson.title);
+
+  if (lessons.length === 0) {
+    return ["Use the recommended course pathway and reattempt similar diagnostic-style questions."];
+  }
+
+  return lessons;
+}
+
+export function getPersonalisedThirtyDayPlan(score: DiagnosticScore) {
+  const groupedLessons = groupRecommendedLessons(score);
+  const { topPriorityUnits, secondaryConsolidation } = getPriorityUnitGroups(score);
+  const first = topPriorityUnits[0];
+  const second = topPriorityUnits[1] ?? secondaryConsolidation[0];
+  const third = topPriorityUnits[2] ?? secondaryConsolidation[1];
+
+  const week3Focus =
+    third?.unit ??
+    (score.highConfidenceErrors.length > 0
+      ? "high-confidence errors"
+      : "mixed consolidation");
+
+  return [
+    {
+      week: "Week 1",
+      title: first?.unit ?? "Highest-priority consolidation",
+      actions: [
+        `Focus on ${first?.unit ?? "the clearest priority area from the diagnostic"}.`,
+        ...lessonTitlesForPlan(groupedLessons, first?.unit).map(
+          (title) => `Complete: ${title}.`
+        ),
+        "Reattempt similar diagnostic-style questions at the end of the week.",
+      ],
+    },
+    {
+      week: "Week 2",
+      title: second?.unit ?? "Second priority or consolidation",
+      actions: [
+        `Focus on ${second?.unit ?? "the next developing area or mixed consolidation"}.`,
+        ...lessonTitlesForPlan(groupedLessons, second?.unit).map(
+          (title) => `Complete: ${title}.`
+        ),
+        "Complete guided practice and independent practice before the mastery quiz.",
+      ],
+    },
+    {
+      week: "Week 3",
+      title: week3Focus,
+      actions:
+        third !== undefined
+          ? [
+              `Focus on ${third.unit}.`,
+              ...lessonTitlesForPlan(groupedLessons, third.unit).map(
+                (title) => `Complete: ${title}.`
+              ),
+              "Review any high-confidence errors after practice.",
+            ]
+          : [
+              "Review high-confidence errors and the skills attached to those questions.",
+              "Complete mastery quizzes for the priority lessons from Weeks 1 and 2.",
+              "If there were few clear weak units, use mixed revision across the course.",
+            ],
+    },
+    {
+      week: "Week 4",
+      title: "Mixed practice and confidence check",
+      actions: [
+        "Complete mixed practice across the priority and developing units.",
+        "Reattempt diagnostic-style questions from the missed skills.",
+        "Review low-confidence correct answers so secure marks become more reliable.",
+      ],
+    },
+  ];
 }
 
 function formatUnitScore(unit: UnitBreakdownItem) {
@@ -141,7 +303,6 @@ export function generateDiagnosticReportDraft(
   const groupedLessons = groupRecommendedLessons(score);
   const unitBreakdown = getUnitBreakdown(score);
   const repeatedWeakAreas = getRepeatedWeakAreas(score);
-  const priorityUnit = topPriorityUnit(score);
   const recommendedLessonLines =
     groupedLessons.length > 0
       ? groupedLessons.flatMap((group) => [
@@ -190,10 +351,19 @@ export function generateDiagnosticReportDraft(
       "No clear strength area was identified from this diagnostic alone."
     ),
     "",
-    "Priority areas",
+    "Top priority areas",
     ...listLines(
-      score.priorities,
+      getPriorityUnitGroups(score).topPriorityUnits.map(
+        (unit) => `${unit.unit} (${formatUnitScore(unit)})`
+      ),
       "No single priority area stood out strongly from this diagnostic."
+    ),
+    "Secondary consolidation",
+    ...listLines(
+      getPriorityUnitGroups(score).secondaryConsolidation.map(
+        (unit) => `${unit.unit} (${formatUnitScore(unit)})`
+      ),
+      "No additional developing unit was identified from this diagnostic."
     ),
     "- These areas should be addressed first because they are likely to produce the highest improvement.",
     "",
@@ -219,18 +389,10 @@ export function generateDiagnosticReportDraft(
     ...recommendedLessonLines,
     "",
     "Suggested 30-day revision plan",
-    "Week 1:",
-    `- Address the top priority unit: ${priorityUnit}.`,
-    "- Reattempt similar diagnostic-style questions.",
-    "Week 2:",
-    "- Work through the recommended lessons for the second priority area.",
-    "- Complete guided and independent practice.",
-    "Week 3:",
-    "- Complete mastery quizzes for priority lessons.",
-    "- Review high-confidence errors.",
-    "Week 4:",
-    "- Complete mixed practice.",
-    "- Recheck weak areas before the next assessment.",
+    ...getPersonalisedThirtyDayPlan(score).flatMap((week) => [
+      `${week.week}: ${week.title}`,
+      ...week.actions.map((action) => `- ${action}`),
+    ]),
     "",
     "Notes for parent/student",
     "- This diagnostic is for learning support only.",

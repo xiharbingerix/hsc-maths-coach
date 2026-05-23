@@ -4,6 +4,9 @@ import { requireAdmin } from "../../../../../lib/adminSession";
 import { scoreDiagnostic } from "../../../../../lib/diagnosticScoring";
 import {
   diagnosticInterpretation,
+  generateDiagnosticReportDraft,
+  getPersonalisedThirtyDayPlan,
+  getPriorityUnitGroups,
   getRepeatedWeakAreas,
   getUnitBreakdown,
   groupRecommendedLessons,
@@ -86,13 +89,63 @@ function ReportNotes({ text }: { text: string }) {
 
 function DetailCard({ label, value }: { label: string; value: string | null }) {
   return (
-    <div className="rounded-2xl bg-slate-50 p-4 print:p-3">
+    <div className="rounded-xl bg-slate-50 p-3">
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
         {label}
       </p>
       <p className="mt-1 font-semibold">{value || "Not provided"}</p>
     </div>
   );
+}
+
+function normaliseReportText(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/\([^)]*\/course\/[^)]*\)/g, "")
+    .replace(/\/course\/[^\s)]+/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function shouldShowAdditionalNotes(notes: string | null | undefined, draft: string) {
+  if (!notes?.trim()) {
+    return false;
+  }
+
+  const normalisedNotes = normaliseReportText(notes);
+  const normalisedDraft = normaliseReportText(draft);
+
+  if (normalisedNotes === normalisedDraft) {
+    return false;
+  }
+
+  const generatedHeadings = [
+    "HSC Maths Advanced Diagnostic Report",
+    "Student snapshot",
+    "Overall result",
+    "Unit breakdown",
+    "Recommended next lessons",
+    "Suggested 30-day revision plan",
+  ];
+  const generatedHeadingCount = generatedHeadings.filter((heading) =>
+    notes.includes(heading)
+  ).length;
+
+  if (generatedHeadingCount >= 4 && normalisedNotes.length > normalisedDraft.length * 0.75) {
+    return false;
+  }
+
+  return true;
+}
+
+function formatUnitScore(
+  unit: ReturnType<typeof getUnitBreakdown>[number]
+) {
+  if (unit.total === null || unit.correct === null || unit.percentage === null) {
+    return "Not enough evidence";
+  }
+
+  return `${unit.correct}/${unit.total} (${unit.percentage}%)`;
 }
 
 async function fetchSubmission(submissionId: string) {
@@ -124,6 +177,13 @@ export default async function ReportPdfPage({ params }: ReportPdfPageProps) {
   const unitBreakdown = getUnitBreakdown(score);
   const groupedLessons = groupRecommendedLessons(score);
   const repeatedWeakAreas = getRepeatedWeakAreas(score);
+  const priorityGroups = getPriorityUnitGroups(score);
+  const thirtyDayPlan = getPersonalisedThirtyDayPlan(score);
+  const generatedDraft = generateDiagnosticReportDraft(submission, score);
+  const showAdditionalNotes = shouldShowAdditionalNotes(
+    submission.report_notes,
+    generatedDraft
+  );
 
   return (
     <main className="min-h-screen bg-slate-100 px-4 py-8 text-slate-900 print:bg-white print:px-0 print:py-0">
@@ -150,12 +210,12 @@ export default async function ReportPdfPage({ params }: ReportPdfPageProps) {
         <PrintButton />
       </div>
 
-      <article className="mx-auto max-w-4xl space-y-8 rounded-3xl bg-white p-8 shadow-sm print:max-w-none print:rounded-none print:p-0 print:shadow-none">
-        <header className="border-b border-slate-200 pb-6">
+      <article className="mx-auto max-w-4xl space-y-6 rounded-3xl bg-white p-6 shadow-sm print:max-w-none print:space-y-5 print:rounded-none print:p-0 print:shadow-none">
+        <header className="border-b border-slate-200 pb-5">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
             HSC Maths Coach
           </p>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight">
+          <h1 className="mt-2 text-3xl font-bold tracking-tight print:text-2xl">
             HSC Maths Advanced Diagnostic Report
           </h1>
           <p className="mt-3 text-sm text-slate-600">
@@ -166,7 +226,7 @@ export default async function ReportPdfPage({ params }: ReportPdfPageProps) {
 
         <section className="avoid-break">
           <h2 className="text-xl font-semibold">Student snapshot</h2>
-          <div className="mt-4 grid gap-3 md:grid-cols-2">
+          <div className="mt-3 grid gap-2 sm:grid-cols-2 print:grid-cols-2">
             <DetailCard label="Student" value={submission.student_first_name} />
             <DetailCard label="Parent email" value={submission.parent_email} />
             <DetailCard label="Year level" value={submission.year_level} />
@@ -183,9 +243,9 @@ export default async function ReportPdfPage({ params }: ReportPdfPageProps) {
           </div>
         </section>
 
-        <section className="avoid-break rounded-2xl border border-slate-200 p-5">
+        <section className="avoid-break rounded-2xl border border-slate-200 p-4">
           <h2 className="text-xl font-semibold">Overall result</h2>
-          <div className="mt-4 grid gap-3 sm:grid-cols-4">
+          <div className="mt-3 grid gap-3 sm:grid-cols-4">
             <div>
               <p className="text-2xl font-bold">{score.percentage}%</p>
               <p className="text-sm text-slate-600">overall score</p>
@@ -237,7 +297,7 @@ export default async function ReportPdfPage({ params }: ReportPdfPageProps) {
                         ? "Not enough evidence"
                         : `${unit.correct}/${unit.total} (${unit.percentage}%)`}
                     </td>
-                    <td className="px-4 py-3 capitalize">
+                    <td className="px-4 py-3">
                       {unit.interpretation}
                     </td>
                   </tr>
@@ -258,13 +318,28 @@ export default async function ReportPdfPage({ params }: ReportPdfPageProps) {
             </div>
           </div>
           <div className="avoid-break rounded-2xl border border-slate-200 p-5">
-            <h2 className="text-xl font-semibold">Priority areas</h2>
+            <h2 className="text-xl font-semibold">Top priority areas</h2>
             <div className="mt-3">
               <SummaryList
-                items={score.priorities}
+                items={priorityGroups.topPriorityUnits.map(
+                  (unit) => `${unit.unit}: ${formatUnitScore(unit)}`
+                )}
                 fallback="No single priority area stood out strongly from this diagnostic."
               />
             </div>
+            {priorityGroups.secondaryConsolidation.length > 0 ? (
+              <div className="mt-4">
+                <h3 className="text-sm font-semibold text-slate-950">
+                  Secondary consolidation
+                </h3>
+                <SummaryList
+                  items={priorityGroups.secondaryConsolidation.map(
+                    (unit) => `${unit.unit}: ${formatUnitScore(unit)}`
+                  )}
+                  fallback=""
+                />
+              </div>
+            ) : null}
             <p className="mt-3 text-sm leading-6 text-slate-600">
               These areas should be addressed first because they are likely to
               produce the highest improvement.
@@ -335,43 +410,30 @@ export default async function ReportPdfPage({ params }: ReportPdfPageProps) {
         <section className="avoid-break">
           <h2 className="text-xl font-semibold">30-day plan</h2>
           <div className="mt-4 grid gap-3 md:grid-cols-2">
-            {[
-              [
-                "Week 1",
-                "Address the top priority weakness and reattempt similar diagnostic-style questions.",
-              ],
-              [
-                "Week 2",
-                "Work through targeted lessons, then complete guided and independent practice.",
-              ],
-              [
-                "Week 3",
-                "Complete mastery quizzes for priority lessons and review high-confidence errors.",
-              ],
-              [
-                "Week 4",
-                "Complete mixed practice and recheck weak areas before the next assessment.",
-              ],
-            ].map(([week, text]) => (
-              <div key={week} className="rounded-2xl bg-slate-50 p-4">
-                <h3 className="font-semibold">{week}</h3>
-                <p className="mt-1 text-sm leading-6 text-slate-700">{text}</p>
+            {thirtyDayPlan.map((week) => (
+              <div key={week.week} className="rounded-2xl bg-slate-50 p-4">
+                <h3 className="font-semibold">{week.week}</h3>
+                <p className="mt-1 text-sm font-medium text-slate-800">
+                  {week.title}
+                </p>
+                <ul className="mt-2 space-y-1 text-sm leading-6 text-slate-700">
+                  {week.actions.map((action) => (
+                    <li key={action}>- {action}</li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="rounded-2xl border border-slate-200 p-5">
-          <h2 className="text-xl font-semibold">Report notes</h2>
-          <div className="mt-4">
-            <ReportNotes
-              text={
-                submission.report_notes?.trim() ||
-                "No report notes have been saved yet. Open the editor to generate or write a report draft."
-              }
-            />
-          </div>
-        </section>
+        {showAdditionalNotes ? (
+          <section className="rounded-2xl border border-slate-200 p-5">
+            <h2 className="text-xl font-semibold">Personalised comments</h2>
+            <div className="mt-4">
+              <ReportNotes text={submission.report_notes?.trim() ?? ""} />
+            </div>
+          </section>
+        ) : null}
 
         <footer className="avoid-break border-t border-slate-200 pt-5 text-sm leading-6 text-slate-600">
           <p>This diagnostic is for learning support only.</p>
