@@ -7,7 +7,7 @@ const packageFeatures = [
   "Guided practice",
   "Independent practice",
   "Mastery quizzes",
-  "Targeted units including Differential Calculus, Integral Calculus, and Functions/Graphing",
+  "Targeted units including calculus, functions, trigonometry, financial mathematics, and statistics",
 ];
 
 function PrimaryLink({
@@ -86,11 +86,8 @@ export default function ThanksPage() {
                 <PrimaryLink href="/course">
                   View online learning package
                 </PrimaryLink>
-                <SecondaryLink href="/course/differential-calculus">
-                  Start Differential Calculus
-                </SecondaryLink>
-                <SecondaryLink href="/course/integral-calculus">
-                  Start Integral Calculus
+                <SecondaryLink href="/online-learning">
+                  Explore six-unit beta
                 </SecondaryLink>
               </div>
             </div>

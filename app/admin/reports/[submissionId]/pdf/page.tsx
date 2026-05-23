@@ -225,8 +225,8 @@ export default async function ReportPdfPage({ params }: ReportPdfPageProps) {
             </ul>
           ) : (
             <p className="mt-3 text-sm text-slate-600">
-              Start with the Differential Calculus pathway or revise the weakest
-              listed sections first.
+              Start with the course unit that best matches the weakest listed
+              section, or revise the weakest sections directly.
             </p>
           )}
         </section>

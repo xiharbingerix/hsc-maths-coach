@@ -37,6 +37,9 @@ const coverage = [
   "Differential Calculus",
   "Integral Calculus",
   "Functions and Graphing Techniques",
+  "Trigonometric Functions and Graphs",
+  "Financial Mathematics",
+  "Statistical Analysis",
   "Worked examples",
   "Guided practice",
   "Independent practice",
@@ -51,9 +54,8 @@ const offers = [
     description:
       "Structured HSC Maths Advanced lessons for students who want targeted revision without committing to weekly tutoring.",
     features: [
-      "Differential Calculus unit",
-      "Integral Calculus unit",
-      "Functions and Graphing unit",
+      "Six Year 12 Maths Advanced units",
+      "Calculus, functions, trigonometry, finance, and statistics",
       "Worked examples, guided practice, and mastery quizzes",
     ],
     buttonLabel: "Register interest",
@@ -240,8 +242,8 @@ export default function Home() {
               <p className="mt-4 max-w-2xl leading-7 text-slate-600">
                 Video lessons are coming soon. The current beta flow is Learn
                 &rarr; Guided Practice &rarr; Independent Practice &rarr;
-                Mastery Quiz. The current beta includes Differential Calculus,
-                Integral Calculus, and Functions and Graphing Techniques.
+                Mastery Quiz. The current beta includes six Year 12 Maths
+                Advanced units for broad trial-revision coverage.
               </p>
 
               <div className="mt-4 flex flex-wrap gap-2">

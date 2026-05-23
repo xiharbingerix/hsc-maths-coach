@@ -7,7 +7,7 @@ const offers = [
     title: "Online Learning Package",
     subtitle: "Low-cost beta access",
     description:
-      "Structured HSC Maths Advanced lessons with explicit teaching, worked examples, guided practice, independent practice, and mastery quizzes.",
+      "Structured HSC Maths Advanced lessons across six Year 12 units, including calculus, functions, trigonometry, financial mathematics, and statistics.",
   },
   {
     id: "diagnostic-report",

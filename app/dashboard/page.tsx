@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
+import { courseUnits } from "../../lib/courseUnits";
 import { supabase } from "../../lib/supabaseClient";
 import {
   getUserAccessDashboardCopy,
@@ -11,21 +12,6 @@ import {
   normaliseUserAccessStatus,
   type UserAccessStatus,
 } from "../../lib/userAccess";
-
-const units = [
-  {
-    title: "Differential Calculus",
-    href: "/course/differential-calculus",
-  },
-  {
-    title: "Integral Calculus",
-    href: "/course/integral-calculus",
-  },
-  {
-    title: "Functions and Graphing Techniques",
-    href: "/course/functions-graphing-techniques",
-  },
-];
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -222,8 +208,8 @@ export default function DashboardPage() {
         </section>
 
         {accessStatus === "active" ? (
-          <section className="grid gap-5 md:grid-cols-3">
-            {units.map((unit) => (
+          <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {courseUnits.map((unit) => (
               <Link
                 key={unit.href}
                 href={unit.href}
@@ -233,8 +219,40 @@ export default function DashboardPage() {
                   Active beta unit
                 </p>
                 <h2 className="mt-3 text-xl font-bold">{unit.title}</h2>
+                <p className="mt-2 text-sm font-medium text-slate-500">
+                  {unit.activeLessonCount} active lessons
+                </p>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  {unit.description}
+                </p>
                 <p className="mt-5 text-sm font-semibold text-slate-950">
                   Continue unit
+                </p>
+              </Link>
+            ))}
+          </section>
+        ) : null}
+
+        {accessStatus === "pending" ? (
+          <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {courseUnits.map((unit) => (
+              <Link
+                key={unit.href}
+                href={unit.href}
+                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-md"
+              >
+                <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  Preview available
+                </p>
+                <h2 className="mt-3 text-xl font-bold">{unit.title}</h2>
+                <p className="mt-2 text-sm font-medium text-slate-500">
+                  {unit.activeLessonCount} active lessons
+                </p>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  {unit.description}
+                </p>
+                <p className="mt-5 text-sm font-semibold text-slate-950">
+                  Preview unit
                 </p>
               </Link>
             ))}

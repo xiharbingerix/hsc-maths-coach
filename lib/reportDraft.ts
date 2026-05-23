@@ -37,8 +37,8 @@ export function generateDiagnosticReportDraft(
           (lesson) => `- ${lesson.title}: ${lesson.reason} (${lesson.href})`
         )
       : [
-          "- Start with the Differential Calculus pathway if calculus is part of the current school focus.",
-          "- Otherwise, revise the weakest listed sections first and reattempt similar diagnostic-style questions.",
+          "- Start with the course unit that best matches the weakest listed section.",
+          "- If no exact unit match is available yet, revise the weakest listed sections first and reattempt similar diagnostic-style questions.",
         ];
 
   return [

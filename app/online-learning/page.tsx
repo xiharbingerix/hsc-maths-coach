@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { courseUnits } from "../../lib/courseUnits";
 
 const included = [
   {
@@ -26,27 +27,6 @@ const included = [
     title: "NSW Year 12 Mathematics Advanced",
     description:
       "Built around the skills students need for HSC Maths Advanced revision.",
-  },
-];
-
-const units = [
-  {
-    title: "Differential Calculus",
-    description:
-      "Derivatives, tangents and normals, stationary points, curve sketching, optimisation, and rates of change.",
-    href: "/course/differential-calculus",
-  },
-  {
-    title: "Integral Calculus",
-    description:
-      "Antidifferentiation, definite integrals, area, the Trapezoidal rule, total change, and applications.",
-    href: "/course/integral-calculus",
-  },
-  {
-    title: "Functions and Graphing Techniques",
-    description:
-      "Function notation, domain and range, transformations, graph features, asymptotes, graphical solving, and modelling.",
-    href: "/course/functions-graphing-techniques",
   },
 ];
 
@@ -168,14 +148,19 @@ export default function OnlineLearningPage() {
             <div>
               <SectionLabel>Current beta units</SectionLabel>
               <h2 className="mt-3 text-3xl font-bold tracking-tight">
-                Available now in the online package.
+                Broad Year 12 trial-revision coverage.
               </h2>
+              <p className="mt-3 max-w-2xl leading-7 text-slate-600">
+                The current beta includes six Year 12 Mathematics Advanced
+                units across calculus, functions, trigonometry, financial
+                mathematics, and statistics.
+              </p>
             </div>
             <SecondaryLink href="/course">View HSC course</SecondaryLink>
           </div>
 
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
-            {units.map((unit) => (
+          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {courseUnits.map((unit) => (
               <article
                 key={unit.href}
                 className="flex flex-col rounded-2xl border border-slate-200 bg-slate-50 p-6"
@@ -184,6 +169,9 @@ export default function OnlineLearningPage() {
                   Active beta unit
                 </span>
                 <h3 className="mt-4 text-xl font-bold">{unit.title}</h3>
+                <p className="mt-2 text-sm font-semibold text-slate-500">
+                  {unit.activeLessonCount} active lessons
+                </p>
                 <p className="mt-3 flex-1 leading-7 text-slate-600">
                   {unit.description}
                 </p>

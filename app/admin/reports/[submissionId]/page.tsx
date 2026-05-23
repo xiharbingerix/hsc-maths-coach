@@ -321,8 +321,8 @@ export default async function ReportEditorPage({ params }: ReportPageProps) {
                 </div>
               ) : (
                 <p className="mt-3 text-sm text-slate-500">
-                  Start with the Differential Calculus pathway or revise the
-                  weakest listed sections.
+                  Start with the course unit that best matches the weakest
+                  listed section, or revise the weakest sections directly.
                 </p>
               )}
             </div>

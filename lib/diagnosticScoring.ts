@@ -66,6 +66,42 @@ const lessonRecommendations: Record<
   string,
   { title: string; href: string }
 > = {
+  "functions-substitution-composite-input": {
+    title: "Domain, Range, and Function Notation",
+    href: "/course/functions-graphing-techniques/domain-range-function-notation",
+  },
+  "functions-domain-square-root": {
+    title: "Domain, Range, and Function Notation",
+    href: "/course/functions-graphing-techniques/domain-range-function-notation",
+  },
+  "graph-x-intercepts": {
+    title: "Intercepts and Key Features",
+    href: "/course/functions-graphing-techniques/intercepts-key-features",
+  },
+  "graph-domain-range": {
+    title: "Domain, Range, and Function Notation",
+    href: "/course/functions-graphing-techniques/domain-range-function-notation",
+  },
+  "graph-increasing-decreasing": {
+    title: "Solving Equations and Inequalities Graphically",
+    href: "/course/functions-graphing-techniques/solving-equations-inequalities-graphically",
+  },
+  "graph-tangent-gradient-sign": {
+    title: "The Derivative as Rate of Change",
+    href: "/course/differential-calculus/rate-of-change",
+  },
+  "trig-degrees-to-radians": {
+    title: "Radians, Exact Values, and the Unit Circle",
+    href: "/course/trigonometric-functions-graphs/radians-exact-values-unit-circle",
+  },
+  "trig-exact-values": {
+    title: "Radians, Exact Values, and the Unit Circle",
+    href: "/course/trigonometric-functions-graphs/radians-exact-values-unit-circle",
+  },
+  "trig-equation-domain": {
+    title: "Trigonometric Equations",
+    href: "/course/trigonometric-functions-graphs/trigonometric-equations",
+  },
   "calculus-differentiate-polynomial": {
     title: "Differentiating polynomial functions",
     href: "/course/differential-calculus/differentiating-polynomial-functions",
@@ -90,23 +126,30 @@ const lessonRecommendations: Record<
     title: "Increasing and decreasing functions",
     href: "/course/differential-calculus/increasing-decreasing-functions",
   },
-  "graph-increasing-decreasing": {
-    title: "Increasing and decreasing functions",
-    href: "/course/differential-calculus/increasing-decreasing-functions",
+  "integration-indefinite-polynomial": {
+    title: "Indefinite Integrals and the Constant of Integration",
+    href: "/course/integral-calculus/indefinite-integrals-constant-of-integration",
   },
-  "graph-tangent-gradient-sign": {
-    title: "Tangents and normals",
-    href: "/course/differential-calculus/tangents-and-normals",
+  "integration-definite-polynomial": {
+    title: "Definite Integrals and the Fundamental Theorem of Calculus",
+    href: "/course/integral-calculus/definite-integrals-fundamental-theorem",
   },
-  "graph-x-intercepts": {
-    title: "Curve sketching with derivatives",
-    href: "/course/differential-calculus/curve-sketching",
+  "statistics-standardised-score": {
+    title: "Standard Deviation, Z-Scores, and Standardised Values",
+    href: "/course/statistical-analysis/standard-deviation-z-scores-standardised-values",
   },
-  "graph-domain-range": {
-    title: "Curve sketching with derivatives",
-    href: "/course/differential-calculus/curve-sketching",
+  "statistics-correlation-interpretation": {
+    title: "Correlation and Least-Squares Regression",
+    href: "/course/statistical-analysis/correlation-least-squares-regression",
+  },
+  "financial-compound-interest": {
+    title: "Growth Factors, Compound Interest, and Depreciation",
+    href: "/course/financial-mathematics/growth-factors-compound-interest-depreciation",
   },
 };
+
+// TODO: Add recommendation mappings when Year 12 units exist for algebra,
+// exponentials/logarithms, and probability-specific diagnostic gaps.
 
 function percentage(correct: number, total: number) {
   if (total === 0) {

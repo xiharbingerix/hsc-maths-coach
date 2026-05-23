@@ -1,51 +1,7 @@
 import Link from "next/link";
+import { courseUnits } from "../../lib/courseUnits";
 
 export default function CoursePage() {
-  const units = [
-    {
-      href: "/course/differential-calculus",
-      title: "Differential Calculus",
-      description:
-        "Explicit teaching for derivatives, tangent gradients, stationary points, increasing and decreasing functions, curve sketching, optimisation, and rates of change.",
-      status: "Available in beta",
-    },
-    {
-      href: "/course/integral-calculus",
-      title: "Integral Calculus",
-      description:
-        "A staged pathway for antidifferentiation, indefinite and definite integrals, initial conditions, area, the Trapezoidal rule, total change, and motion applications.",
-      status: "Available in beta",
-    },
-    {
-      href: "/course/functions-graphing-techniques",
-      title: "Functions and Graphing Techniques",
-      description:
-        "A staged pathway for function notation, domain and range, transformations, graph features, asymptotes, graphical solving, and modelling.",
-      status: "Available in beta",
-    },
-    {
-      href: "/course/trigonometric-functions-graphs",
-      title: "Trigonometric Functions and Graphs",
-      description:
-        "A staged pathway for radians, exact values, the unit circle, sine, cosine, tangent graphs, and later trigonometric equations and modelling.",
-      status: "Available in beta",
-    },
-    {
-      href: "/course/financial-mathematics",
-      title: "Financial Mathematics",
-      description:
-        "A staged pathway for growth factors, compound interest, depreciation, recurrence relations, annuities, loans, and financial decision-making.",
-      status: "Available in beta",
-    },
-    {
-      href: "/course/statistical-analysis",
-      title: "Statistical Analysis",
-      description:
-        "A staged pathway for data displays, summary statistics, outliers, standard deviation, z-scores, correlation, regression, and normal distribution ideas.",
-      status: "Available in beta",
-    },
-  ];
-
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
       <section className="mx-auto max-w-5xl space-y-8">
@@ -108,7 +64,7 @@ export default function CoursePage() {
         </header>
 
         <div className="grid gap-5 md:grid-cols-2">
-          {units.map((unit) => (
+          {courseUnits.map((unit) => (
             <Link
               key={unit.href}
               href={unit.href}
@@ -119,18 +75,22 @@ export default function CoursePage() {
                   Unit
                 </p>
                 <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
-                  {unit.status}
+                  Active beta unit
                 </span>
               </div>
 
               <h2 className="mt-3 text-2xl font-bold">{unit.title}</h2>
+
+              <p className="mt-2 text-sm font-semibold text-slate-500">
+                {unit.activeLessonCount} active lessons
+              </p>
 
               <p className="mt-3 leading-7 text-slate-600">
                 {unit.description}
               </p>
 
               <p className="mt-5 text-sm font-semibold text-slate-950">
-                Open unit
+                View unit
               </p>
             </Link>
           ))}
