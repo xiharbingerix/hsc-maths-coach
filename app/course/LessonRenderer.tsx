@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { BlockMath, InlineMath } from "react-katex";
+import { AccessGate } from "./AccessGate";
 import type {
   ExplicitLesson,
   PracticeQuestion,
@@ -751,7 +752,8 @@ export function LessonRenderer({
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
+    <AccessGate>
+      <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
       <article className="mx-auto max-w-4xl space-y-8">
         <header className="rounded-2xl bg-white p-6 shadow-sm">
           <Link
@@ -847,6 +849,7 @@ export function LessonRenderer({
 
         {renderStage()}
       </article>
-    </main>
+      </main>
+    </AccessGate>
   );
 }
