@@ -17,7 +17,7 @@ type EnquireFormProps = {
 };
 
 const offerLabels: Record<string, string> = {
-  "online-learning": "Online Learning Package",
+  "online-learning": "Online Learning Access",
   "diagnostic-report": "Diagnostic PDF Report",
   "study-plan": "Diagnostic + 30-Day Plan",
 };
@@ -77,16 +77,26 @@ export function EnquireForm({ offers, initialOffer }: EnquireFormProps) {
           Enquiry received
         </p>
         <h2 className="mt-3 text-3xl font-bold tracking-tight">
-          Thanks, we have saved your interest.
+          Thanks - your enquiry has been received.
         </h2>
         <p className="mt-4 max-w-3xl leading-7 text-slate-600">
           Selected interest:{" "}
           <span className="font-semibold text-slate-950">
             {offerLabels[offerSelected] ?? offerSelected}
           </span>
-          . You can complete the diagnostic, create an account, or explore the
-          online learning package next.
+          .
         </p>
+
+        <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <h3 className="font-semibold text-slate-950">Next steps</h3>
+          <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700">
+            <li>Complete the diagnostic if you have not already.</li>
+            <li>Create an account if you want online learning access.</li>
+            <li>
+              Joshua will follow up about early access/report options.
+            </li>
+          </ul>
+        </div>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <Link

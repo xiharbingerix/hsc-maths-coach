@@ -6,23 +6,17 @@ const featureChips = ["Diagnostic-led", "Explicit teaching", "Mastery checks"];
 const steps = [
   {
     title: "Complete the diagnostic",
-    description:
-      "Start with a focused skills check across common pre-trial weak spots.",
+    description: "Students complete a targeted 36-question Year 12 skills check.",
   },
   {
-    title: "Get weak areas identified",
+    title: "Receive a clear report or summary",
     description:
-      "See the topics and question types that need attention before more revision.",
+      "Priority areas, likely mark leaks, and recommended next steps are explained in plain language.",
   },
   {
-    title: "Follow targeted lessons",
+    title: "Work through targeted lessons and mastery checks",
     description:
-      "Move through explicit teaching, worked examples, and practice in order.",
-  },
-  {
-    title: "Check readiness",
-    description:
-      "Use mastery quizzes to decide whether to move on or revisit a skill.",
+      "Students revise the highest-impact units with guided practice, independent practice, and quizzes.",
   },
 ];
 
@@ -33,18 +27,29 @@ const lessonSequence = [
   "Mastery Quiz",
 ];
 
-const coverage = [
-  "Differential Calculus",
-  "Integral Calculus",
+const whatIncluded = [
+  "36-question Year 12 diagnostic",
+  "Six Year 12 Maths Advanced units",
+  "Guided practice and independent practice",
+  "Mastery quizzes",
+  "Parent-friendly report option",
+  "Online learning access approved manually during early access",
+];
+
+const courseCoverage = [
   "Functions and Graphing Techniques",
   "Trigonometric Functions and Graphs",
+  "Differential Calculus",
+  "Integral Calculus",
   "Financial Mathematics",
   "Statistical Analysis",
-  "Worked examples",
-  "Guided practice",
-  "Independent practice",
-  "Mastery quizzes",
-  "Mixed revision",
+];
+
+const parentNotes = [
+  "The diagnostic is not a school mark or exam prediction.",
+  "It is designed to identify priority areas and likely mark leaks.",
+  "Reports are manually reviewed during early access.",
+  "Online learning access is handled manually for now.",
 ];
 
 const offers = [
@@ -179,20 +184,26 @@ export default function Home() {
             </p>
 
             <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-              Know exactly what to fix before trials.
+              HSC Maths Advanced support that starts with a diagnostic.
             </h1>
 
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Diagnostic-led study planning, explicit teaching, targeted
-              practice, and mastery checks for NSW Year 12 Maths Advanced.
+              Students complete a targeted diagnostic, receive clear feedback
+              on priority areas, and can access structured online lessons for
+              Year 12 Maths Advanced revision.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/diagnostic">Start diagnostic</PrimaryLink>
-              <SecondaryLink href="/course">
-                View HSC course
+              <SecondaryLink href="/online-learning">
+                Explore online learning
               </SecondaryLink>
             </div>
+
+            <p className="mt-4 text-sm leading-6 text-slate-600">
+              Designed for NSW Year 12 Mathematics Advanced students preparing
+              for assessments, trials, or the HSC.
+            </p>
 
             <div className="mt-5 flex flex-wrap gap-2">
               {featureChips.map((chip) => (
@@ -235,9 +246,9 @@ export default function Home() {
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <div className="grid gap-8 md:grid-cols-[1fr_0.9fr]">
             <div>
-              <SectionLabel>Online Learning</SectionLabel>
+              <SectionLabel>What&apos;s included</SectionLabel>
               <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-                Staged lessons across the current HSC course.
+                Diagnostic-led revision with a clear next step.
               </h2>
               <p className="mt-4 max-w-2xl leading-7 text-slate-600">
                 Current lesson flow: Learn &rarr; Guided Practice &rarr;
@@ -261,14 +272,69 @@ export default function Home() {
 
             <div className="rounded-2xl bg-slate-50 p-6">
               <h3 className="text-base font-semibold text-slate-900">
-                Coverage
+                Included
               </h3>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {coverage.map((topic) => (
-                  <Pill key={topic}>{topic}</Pill>
+              <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-700">
+                {whatIncluded.map((item) => (
+                  <li key={item} className="flex gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-500" />
+                    <span>{item}</span>
+                  </li>
                 ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+            <div className="max-w-2xl">
+              <SectionLabel>Current course coverage</SectionLabel>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+                Six Year 12 Maths Advanced units.
+              </h2>
+              <p className="mt-3 leading-7 text-slate-600">
+                The course covers the main Year 12 areas students need for
+                assessment and trial revision.
+              </p>
+            </div>
+            <SecondaryLink href="/course">View course overview</SecondaryLink>
+          </div>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {courseCoverage.map((unit) => (
+              <Pill key={unit}>{unit}</Pill>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr]">
+            <div>
+              <SectionLabel>For parents</SectionLabel>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+                Clear feedback without treating the diagnostic like a school
+                mark.
+              </h2>
+              <p className="mt-4 leading-7 text-slate-600">
+                The diagnostic is designed to show what should be revised first,
+                so families can choose the right level of support.
+              </p>
+              <div className="mt-7">
+                <PrimaryLink href="/enquire?offer=diagnostic-report">
+                  Request diagnostic report
+                </PrimaryLink>
               </div>
             </div>
+            <ul className="space-y-3 text-sm leading-6 text-slate-700">
+              {parentNotes.map((note) => (
+                <li
+                  key={note}
+                  className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
+                >
+                  {note}
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 

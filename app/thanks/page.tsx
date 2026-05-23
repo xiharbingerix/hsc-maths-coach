@@ -58,9 +58,9 @@ export default function ThanksPage() {
           </h1>
 
           <div className="mt-5 max-w-3xl space-y-3 text-lg leading-8 text-slate-600">
-            <p>The diagnostic has been submitted successfully.</p>
+            <p>Your diagnostic has been submitted.</p>
             <p>
-              Reports are manually reviewed before being sent. The
+              During early access, reports are reviewed before being sent. The
               parent/guardian email provided will be used for follow-up.
             </p>
           </div>
@@ -76,18 +76,21 @@ export default function ThanksPage() {
                 Want targeted online lessons while you wait?
               </h2>
               <p className="mt-4 max-w-2xl leading-7 text-slate-600">
-                The online learning package gives students a structured way to
-                revise while the diagnostic report is being reviewed. Lessons
-                are built around explicit teaching, worked examples, guided
-                practice, independent practice, and mastery quizzes.
+                If you selected online learning access, you can create an
+                account or register interest. You can also start exploring the
+                course overview while the diagnostic report is being reviewed.
               </p>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <PrimaryLink href="/course">
-                  View online learning package
+                <PrimaryLink href="/online-learning">
+                  View online learning
                 </PrimaryLink>
-                <SecondaryLink href="/online-learning">
-                  Explore online learning
+                <SecondaryLink href="/signup">Create account</SecondaryLink>
+                <SecondaryLink href="/enquire?offer=online-learning">
+                  Register interest
+                </SecondaryLink>
+                <SecondaryLink href="/course">
+                  View course overview
                 </SecondaryLink>
               </div>
             </div>

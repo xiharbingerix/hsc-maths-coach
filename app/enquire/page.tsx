@@ -4,24 +4,24 @@ import { EnquireForm } from "./EnquireForm";
 const offers = [
   {
     id: "online-learning",
-    title: "Online Learning Package",
+    title: "Online Learning Access",
     subtitle: "Low-cost early access",
     description:
-      "Structured HSC Maths Advanced lessons across six Year 12 units, including calculus, functions, trigonometry, financial mathematics, and statistics.",
+      "Structured Year 12 Maths Advanced lessons, practice, and mastery checks. Access is approved manually during early access.",
   },
   {
     id: "diagnostic-report",
     title: "Diagnostic PDF Report",
     subtitle: "Reviewed diagnostic summary",
     description:
-      "A parent-friendly diagnostic report showing strengths, priority weak areas, confidence patterns, and recommended next steps.",
+      "A parent-friendly report showing strengths, priority areas, likely mark leaks, and recommended next lessons.",
   },
   {
     id: "study-plan",
     title: "Diagnostic + 30-Day Plan",
     subtitle: "Prioritised revision plan",
     description:
-      "A diagnostic report plus a practical 30-day study plan for the highest-impact revision areas before the next assessment.",
+      "A diagnostic report plus a focused month of revision priorities based on the student's results.",
   },
 ];
 

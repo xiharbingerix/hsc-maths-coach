@@ -96,6 +96,7 @@ export default function PrivacyPage() {
             <li>identify maths strengths and weak areas</li>
             <li>prepare a personalised diagnostic report</li>
             <li>send the report to the parent or guardian</li>
+            <li>provide follow-up and learning support where requested</li>
             <li>improve the quality of the diagnostic and reports</li>
             <li>respond to privacy, correction, or deletion requests</li>
           </ul>
@@ -136,7 +137,7 @@ export default function PrivacyPage() {
           </p>
 
           <p className="text-slate-700">
-            Reports are manually reviewed before being sent.
+            Reports are manually reviewed during early access before being sent.
           </p>
         </section>
 
@@ -251,7 +252,7 @@ export default function PrivacyPage() {
 
           <p className="text-slate-700">
             For privacy questions, correction requests, or deletion requests,
-            contact:
+            contact Joshua:
           </p>
 
           <p className="rounded-xl bg-slate-100 p-4 font-medium text-slate-800">

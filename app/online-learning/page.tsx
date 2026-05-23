@@ -31,10 +31,18 @@ const included = [
 ];
 
 const audience = [
-  "Students who need structure before trials",
-  "Students who cannot commit to weekly tutoring",
-  "Students who know they have gaps but are unsure where to start",
+  "Students unsure where to start",
+  "Students preparing for trials or the HSC",
+  "Students who need structure between tutoring or school lessons",
   "Families looking for a lower-cost support option",
+];
+
+const lessonActions = [
+  "Learn the key idea",
+  "Work through examples",
+  "Complete guided practice",
+  "Complete independent practice",
+  "Attempt a mastery quiz",
 ];
 
 const accessSteps = [
@@ -100,22 +108,22 @@ export default function OnlineLearningPage() {
               Online HSC Maths Advanced lessons for targeted trial revision.
             </h1>
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              A structured early-access learning package with explicit
-              teaching, worked examples, guided practice, independent practice,
-              and mastery quizzes.
+              Structured Year 12 Maths Advanced online learning for students
+              who want targeted revision without committing to weekly tutoring.
+              Access is approved manually during early access.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/enquire?offer=online-learning">
                 Register interest
               </PrimaryLink>
-              <SecondaryLink href="/diagnostic?offer=online-learning">
-                Start free diagnostic
-              </SecondaryLink>
+              <SecondaryLink href="/signup">Create account</SecondaryLink>
             </div>
 
             <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+              <SecondaryLink href="/diagnostic?offer=online-learning">
+                Start free diagnostic
+              </SecondaryLink>
               <SecondaryLink href="/login">Log in</SecondaryLink>
-              <SecondaryLink href="/signup">Create account</SecondaryLink>
             </div>
           </div>
         </section>
@@ -183,7 +191,7 @@ export default function OnlineLearningPage() {
 
         <section className="grid gap-6 lg:grid-cols-2">
           <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
-            <SectionLabel>Who this is for</SectionLabel>
+            <SectionLabel>Who this helps</SectionLabel>
             <h2 className="mt-3 text-3xl font-bold tracking-tight">
               Built for students who need focused structure.
             </h2>
@@ -197,22 +205,37 @@ export default function OnlineLearningPage() {
             </ul>
           </div>
 
-          <div className="rounded-3xl border border-slate-200 bg-slate-100/80 p-8 shadow-sm md:p-10">
-            <SectionLabel>How access works</SectionLabel>
+          <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+            <SectionLabel>Inside each lesson</SectionLabel>
             <h2 className="mt-3 text-3xl font-bold tracking-tight">
-              Simple, manual, and improving with feedback.
+              What students do inside each lesson.
             </h2>
-            <ol className="mt-6 space-y-3 text-slate-700">
-              {accessSteps.map((step, index) => (
-                <li key={step} className="flex gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-950 text-xs font-bold text-white">
-                    {index + 1}
-                  </span>
-                  <span>{step}</span>
+            <ul className="mt-6 space-y-3 text-slate-700">
+              {lessonActions.map((item) => (
+                <li key={item} className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-950" />
+                  <span>{item}</span>
                 </li>
               ))}
-            </ol>
+            </ul>
           </div>
+        </section>
+
+        <section className="rounded-3xl border border-slate-200 bg-slate-100/80 p-8 shadow-sm md:p-10">
+          <SectionLabel>How access works</SectionLabel>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight">
+            Simple, manual, and improving with feedback.
+          </h2>
+          <ol className="mt-6 space-y-3 text-slate-700">
+            {accessSteps.map((step, index) => (
+              <li key={step} className="flex gap-3">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-950 text-xs font-bold text-white">
+                  {index + 1}
+                </span>
+                <span>{step}</span>
+              </li>
+            ))}
+          </ol>
         </section>
 
         <section className="flex flex-col items-start gap-6 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:flex-row md:items-center md:justify-between md:p-10">

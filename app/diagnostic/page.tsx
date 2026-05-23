@@ -16,7 +16,7 @@ const IDK_ANSWER = "__IDK__";
 const confidenceLevels = ["Low", "Medium", "High"];
 
 const offerLabels: Record<string, string> = {
-  "online-learning": "Online Learning Package",
+  "online-learning": "Online Learning Access",
   "diagnostic-report": "Diagnostic PDF Report",
   "study-plan": "Diagnostic + 30-Day Plan",
 };
@@ -211,9 +211,9 @@ Hint: ${error.hint ?? "No hint"}`
           </h1>
 
           <p className="max-w-3xl leading-7 text-slate-600">
-            This diagnostic helps identify strengths, weak areas, and
-            high-impact study priorities. This usually takes about 20-30
-            minutes.
+            This diagnostic checks key Year 12 Maths Advanced areas. It is
+            designed to identify priority areas for revision, not to replace a
+            school assessment mark. It usually takes about 20-30 minutes.
           </p>
 
           {selectedOfferLabel ? (
@@ -253,6 +253,10 @@ Hint: ${error.hint ?? "No hint"}`
             <p className="mt-2 text-sm leading-relaxed text-amber-900">
               Do not use notes, calculators, or worked examples. The goal is
               to find the right starting point, not to get a perfect score.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-amber-900">
+              Choosing &quot;I don&apos;t know yet&quot; is useful - it helps
+              identify what should be taught first.
             </p>
           </div>
         </section>
