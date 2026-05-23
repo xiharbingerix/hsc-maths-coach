@@ -25,6 +25,20 @@ export type GroupedLessonRecommendations = {
   }[];
 };
 
+export type StrengthSummary = {
+  title: "Strengths" | "Emerging strengths";
+  items: string[];
+  note: string;
+};
+
+export type ThirtyDayPlanWeek = {
+  week: string;
+  focus: string;
+  lessons: string[];
+  checkLabel: "End-of-week check" | "Practice target" | "Review" | "Tasks";
+  checks: string[];
+};
+
 function listLines(items: string[], fallback: string) {
   if (items.length === 0) {
     return [`- ${fallback}`];
@@ -139,6 +153,27 @@ export function groupRecommendedLessons(
   }));
 }
 
+export function getOrderedRecommendedLessons(score: DiagnosticScore) {
+  const groupedLessons = groupRecommendedLessons(score);
+  const { topPriorityUnits, secondaryConsolidation } =
+    getPriorityUnitGroups(score);
+  const priorityOrder = [
+    ...topPriorityUnits.map((unit) => unit.unit),
+    ...secondaryConsolidation.map((unit) => unit.unit),
+  ];
+
+  return [...groupedLessons].sort((a, b) => {
+    const aIndex = priorityOrder.indexOf(a.unit);
+    const bIndex = priorityOrder.indexOf(b.unit);
+
+    if (aIndex !== -1 || bIndex !== -1) {
+      return (aIndex === -1 ? 999 : aIndex) - (bIndex === -1 ? 999 : bIndex);
+    }
+
+    return a.unit.localeCompare(b.unit);
+  });
+}
+
 export function getRepeatedWeakAreas(score: DiagnosticScore) {
   const counts = score.weakTags.reduce<Record<string, number>>((result, tag) => {
     const key = `${tag.section}: ${tag.skill}`;
@@ -196,6 +231,118 @@ export function getPriorityUnitGroups(score: DiagnosticScore) {
   };
 }
 
+export function getStrengthSummary(score: DiagnosticScore): StrengthSummary {
+  const units = getUnitBreakdown(score).filter(
+    (unit) => unit.interpretation !== "Not enough evidence"
+  );
+
+  if (units.length === 0) {
+    return {
+      title: "Emerging strengths",
+      items: [],
+      note: "No clear strength area was identified from this diagnostic alone.",
+    };
+  }
+
+  const formalStrengths = units
+    .filter((unit) => unit.interpretation === "Strength")
+    .map((unit) => `${unit.unit} (${formatUnitScore(unit)})`);
+
+  if (formalStrengths.length > 0) {
+    return {
+      title: "Strengths",
+      items: formalStrengths,
+      note: "These were the strongest areas in this diagnostic. They should still be revisited through mixed practice before the next assessment.",
+    };
+  }
+
+  const highestPercentage = Math.max(
+    ...units.map((unit) => unit.percentage ?? -1)
+  );
+  const emergingStrengths = units
+    .filter((unit) => unit.percentage === highestPercentage)
+    .slice(0, 3)
+    .map((unit) => `${unit.unit} (${formatUnitScore(unit)})`);
+
+  return {
+    title: "Emerging strengths",
+    items: emergingStrengths,
+    note:
+      emergingStrengths.length > 0
+        ? "These were the strongest areas in this diagnostic, but they should still be consolidated before being treated as secure strengths."
+        : "No clear strength area was identified from this diagnostic alone.",
+  };
+}
+
+function joinUnitNames(units: UnitBreakdownItem[]) {
+  if (units.length === 0) {
+    return "";
+  }
+
+  if (units.length === 1) {
+    return units[0].unit;
+  }
+
+  if (units.length === 2) {
+    return `${units[0].unit} and ${units[1].unit}`;
+  }
+
+  return `${units
+    .slice(0, -1)
+    .map((unit) => unit.unit)
+    .join(", ")}, and ${units[units.length - 1].unit}`;
+}
+
+export function getWhatThisMeansSummary(score: DiagnosticScore) {
+  const { topPriorityUnits, secondaryConsolidation } =
+    getPriorityUnitGroups(score);
+  const sentences: string[] = [];
+  const priorityNames = joinUnitNames(topPriorityUnits);
+  const consolidationNames = joinUnitNames(secondaryConsolidation);
+
+  if (score.percentage >= 80) {
+    sentences.push(
+      "This diagnostic suggests the student has a solid overall base, with the next improvement likely to come from targeted consolidation rather than starting again."
+    );
+  } else if (score.percentage >= 60) {
+    sentences.push(
+      "This diagnostic suggests the student has some usable foundations, but there are still mark leaks that should be addressed before broad mixed practice."
+    );
+  } else {
+    sentences.push(
+      "This diagnostic suggests the most useful next step is focused revision on a small number of priority areas, rather than trying to revise everything at once."
+    );
+  }
+
+  if (priorityNames && consolidationNames) {
+    sentences.push(
+      `The clearest priority area${topPriorityUnits.length === 1 ? " is" : "s are"} ${priorityNames}, with ${consolidationNames} needing secondary consolidation.`
+    );
+  } else if (priorityNames) {
+    sentences.push(
+      `The clearest priority area${topPriorityUnits.length === 1 ? " is" : "s are"} ${priorityNames}.`
+    );
+  } else if (consolidationNames) {
+    sentences.push(
+      `The developing area${secondaryConsolidation.length === 1 ? "" : "s"} to consolidate next ${secondaryConsolidation.length === 1 ? "is" : "are"} ${consolidationNames}.`
+    );
+  }
+
+  if (score.highConfidenceErrors.length > 0) {
+    sentences.push(
+      "The high-confidence errors are worth reviewing carefully because they may point to misconceptions rather than simple uncertainty."
+    );
+  }
+
+  if (sentences.length < 3) {
+    sentences.push(
+      "The next step should be targeted revision in these areas before broad mixed practice."
+    );
+  }
+
+  return sentences.slice(0, 3);
+}
+
 function lessonsForUnit(
   groupedLessons: GroupedLessonRecommendations[],
   unit: string | undefined
@@ -223,8 +370,9 @@ function lessonTitlesForPlan(
 }
 
 export function getPersonalisedThirtyDayPlan(score: DiagnosticScore) {
-  const groupedLessons = groupRecommendedLessons(score);
-  const { topPriorityUnits, secondaryConsolidation } = getPriorityUnitGroups(score);
+  const groupedLessons = getOrderedRecommendedLessons(score);
+  const { topPriorityUnits, secondaryConsolidation } =
+    getPriorityUnitGroups(score);
   const first = topPriorityUnits[0];
   const second = topPriorityUnits[1] ?? secondaryConsolidation[0];
   const third = topPriorityUnits[2] ?? secondaryConsolidation[1];
@@ -238,48 +386,42 @@ export function getPersonalisedThirtyDayPlan(score: DiagnosticScore) {
   return [
     {
       week: "Week 1",
-      title: first?.unit ?? "Highest-priority consolidation",
-      actions: [
-        `Focus on ${first?.unit ?? "the clearest priority area from the diagnostic"}.`,
-        ...lessonTitlesForPlan(groupedLessons, first?.unit).map(
-          (title) => `Complete: ${title}.`
-        ),
+      focus: first?.unit ?? "Highest-priority consolidation",
+      lessons: lessonTitlesForPlan(groupedLessons, first?.unit),
+      checkLabel: "End-of-week check" as const,
+      checks: [
         "Reattempt similar diagnostic-style questions at the end of the week.",
       ],
     },
     {
       week: "Week 2",
-      title: second?.unit ?? "Second priority or consolidation",
-      actions: [
-        `Focus on ${second?.unit ?? "the next developing area or mixed consolidation"}.`,
-        ...lessonTitlesForPlan(groupedLessons, second?.unit).map(
-          (title) => `Complete: ${title}.`
-        ),
+      focus: second?.unit ?? "Second priority or consolidation",
+      lessons: lessonTitlesForPlan(groupedLessons, second?.unit),
+      checkLabel: "Practice target" as const,
+      checks: [
         "Complete guided practice and independent practice before the mastery quiz.",
       ],
     },
     {
       week: "Week 3",
-      title: week3Focus,
-      actions:
+      focus: week3Focus,
+      lessons:
         third !== undefined
-          ? [
-              `Focus on ${third.unit}.`,
-              ...lessonTitlesForPlan(groupedLessons, third.unit).map(
-                (title) => `Complete: ${title}.`
-              ),
-              "Review any high-confidence errors after practice.",
-            ]
-          : [
-              "Review high-confidence errors and the skills attached to those questions.",
-              "Complete mastery quizzes for the priority lessons from Weeks 1 and 2.",
-              "If there were few clear weak units, use mixed revision across the course.",
-            ],
+          ? lessonTitlesForPlan(groupedLessons, third.unit)
+          : ["Mastery quizzes for the priority lessons from Weeks 1 and 2"],
+      checkLabel: "Review" as const,
+      checks: [
+        score.highConfidenceErrors.length > 0
+          ? "Recheck high-confidence errors after practice."
+          : "Use mixed revision across the course if there were few clear weak units.",
+      ],
     },
     {
       week: "Week 4",
-      title: "Mixed practice and confidence check",
-      actions: [
+      focus: "Mixed practice and confidence check",
+      lessons: [],
+      checkLabel: "Tasks" as const,
+      checks: [
         "Complete mixed practice across the priority and developing units.",
         "Reattempt diagnostic-style questions from the missed skills.",
         "Review low-confidence correct answers so secure marks become more reliable.",
@@ -300,9 +442,10 @@ export function generateDiagnosticReportDraft(
   submission: DiagnosticSubmission,
   score: DiagnosticScore
 ) {
-  const groupedLessons = groupRecommendedLessons(score);
+  const groupedLessons = getOrderedRecommendedLessons(score);
   const unitBreakdown = getUnitBreakdown(score);
   const repeatedWeakAreas = getRepeatedWeakAreas(score);
+  const strengthSummary = getStrengthSummary(score);
   const recommendedLessonLines =
     groupedLessons.length > 0
       ? groupedLessons.flatMap((group) => [
@@ -339,17 +482,18 @@ export function generateDiagnosticReportDraft(
     "- This diagnostic is designed to identify priority areas, not to act as a school result.",
     "- The most useful next step is to target the areas where marks are most likely being lost.",
     "",
+    "What this means",
+    ...getWhatThisMeansSummary(score).map((sentence) => `- ${sentence}`),
+    "",
     "Unit breakdown",
     ...unitBreakdown.map(
       (unit) =>
         `- ${unit.unit}: ${formatUnitScore(unit)} - ${unit.interpretation}`
     ),
     "",
-    "Strengths",
-    ...listLines(
-      score.strengths,
-      "No clear strength area was identified from this diagnostic alone."
-    ),
+    strengthSummary.title,
+    ...listLines(strengthSummary.items, strengthSummary.note),
+    ...(strengthSummary.items.length > 0 ? [`- ${strengthSummary.note}`] : []),
     "",
     "Top priority areas",
     ...listLines(
@@ -390,8 +534,13 @@ export function generateDiagnosticReportDraft(
     "",
     "Suggested 30-day revision plan",
     ...getPersonalisedThirtyDayPlan(score).flatMap((week) => [
-      `${week.week}: ${week.title}`,
-      ...week.actions.map((action) => `- ${action}`),
+      week.week,
+      `- Focus: ${week.focus}`,
+      ...(week.lessons.length > 0
+        ? ["- Lessons:", ...week.lessons.map((lesson) => `  - ${lesson}`)]
+        : []),
+      `- ${week.checkLabel}:`,
+      ...week.checks.map((check) => `  - ${check}`),
     ]),
     "",
     "Notes for parent/student",

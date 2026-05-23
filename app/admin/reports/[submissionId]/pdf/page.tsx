@@ -5,11 +5,13 @@ import { scoreDiagnostic } from "../../../../../lib/diagnosticScoring";
 import {
   diagnosticInterpretation,
   generateDiagnosticReportDraft,
+  getOrderedRecommendedLessons,
   getPersonalisedThirtyDayPlan,
   getPriorityUnitGroups,
   getRepeatedWeakAreas,
+  getStrengthSummary,
   getUnitBreakdown,
-  groupRecommendedLessons,
+  getWhatThisMeansSummary,
 } from "../../../../../lib/reportDraft";
 import type { DiagnosticSubmission } from "../../../../../lib/reportTypes";
 import { supabaseAdmin } from "../../../../../lib/supabaseAdmin";
@@ -89,7 +91,7 @@ function ReportNotes({ text }: { text: string }) {
 
 function DetailCard({ label, value }: { label: string; value: string | null }) {
   return (
-    <div className="rounded-xl bg-slate-50 p-3">
+    <div className="rounded-xl bg-slate-50 px-3 py-2.5">
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
         {label}
       </p>
@@ -175,9 +177,11 @@ export default async function ReportPdfPage({ params }: ReportPdfPageProps) {
   const submission = await fetchSubmission(submissionId);
   const score = scoreDiagnostic(submission.answers, submission.confidence);
   const unitBreakdown = getUnitBreakdown(score);
-  const groupedLessons = groupRecommendedLessons(score);
+  const groupedLessons = getOrderedRecommendedLessons(score);
   const repeatedWeakAreas = getRepeatedWeakAreas(score);
   const priorityGroups = getPriorityUnitGroups(score);
+  const strengthSummary = getStrengthSummary(score);
+  const whatThisMeans = getWhatThisMeansSummary(score);
   const thirtyDayPlan = getPersonalisedThirtyDayPlan(score);
   const generatedDraft = generateDiagnosticReportDraft(submission, score);
   const showAdditionalNotes = shouldShowAdditionalNotes(
@@ -210,15 +214,15 @@ export default async function ReportPdfPage({ params }: ReportPdfPageProps) {
         <PrintButton />
       </div>
 
-      <article className="mx-auto max-w-4xl space-y-6 rounded-3xl bg-white p-6 shadow-sm print:max-w-none print:space-y-5 print:rounded-none print:p-0 print:shadow-none">
-        <header className="border-b border-slate-200 pb-5">
+      <article className="mx-auto max-w-4xl space-y-5 rounded-3xl bg-white p-6 shadow-sm print:max-w-none print:space-y-4 print:rounded-none print:p-0 print:shadow-none">
+        <header className="border-b border-slate-200 pb-4">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
             HSC Maths Coach
           </p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight print:text-2xl">
             HSC Maths Advanced Diagnostic Report
           </h1>
-          <p className="mt-3 text-sm text-slate-600">
+          <p className="mt-2 text-sm text-slate-600">
             Prepared for {submission.student_first_name} from the diagnostic
             submitted on {formatDate(submission.created_at)}.
           </p>
@@ -277,6 +281,15 @@ export default async function ReportPdfPage({ params }: ReportPdfPageProps) {
           </p>
         </section>
 
+        <section className="avoid-break rounded-2xl bg-slate-50 p-4">
+          <h2 className="text-xl font-semibold">What this means</h2>
+          <div className="mt-2 space-y-2 text-sm leading-6 text-slate-700">
+            {whatThisMeans.map((sentence) => (
+              <p key={sentence}>{sentence}</p>
+            ))}
+          </div>
+        </section>
+
         <section className="avoid-break">
           <h2 className="text-xl font-semibold">Unit breakdown</h2>
           <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200">
@@ -309,13 +322,18 @@ export default async function ReportPdfPage({ params }: ReportPdfPageProps) {
 
         <section className="grid gap-5 md:grid-cols-2">
           <div className="avoid-break rounded-2xl border border-slate-200 p-5">
-            <h2 className="text-xl font-semibold">Strengths</h2>
+            <h2 className="text-xl font-semibold">{strengthSummary.title}</h2>
             <div className="mt-3">
               <SummaryList
-                items={score.strengths}
-                fallback="No clear strength area was identified from this diagnostic alone."
+                items={strengthSummary.items}
+                fallback={strengthSummary.note}
               />
             </div>
+            {strengthSummary.items.length > 0 ? (
+              <p className="mt-3 text-sm leading-6 text-slate-600">
+                {strengthSummary.note}
+              </p>
+            ) : null}
           </div>
           <div className="avoid-break rounded-2xl border border-slate-200 p-5">
             <h2 className="text-xl font-semibold">Top priority areas</h2>
@@ -413,12 +431,28 @@ export default async function ReportPdfPage({ params }: ReportPdfPageProps) {
             {thirtyDayPlan.map((week) => (
               <div key={week.week} className="rounded-2xl bg-slate-50 p-4">
                 <h3 className="font-semibold">{week.week}</h3>
-                <p className="mt-1 text-sm font-medium text-slate-800">
-                  {week.title}
+                <p className="mt-2 text-sm leading-6 text-slate-700">
+                  <span className="font-semibold text-slate-900">Focus:</span>{" "}
+                  {week.focus}
                 </p>
-                <ul className="mt-2 space-y-1 text-sm leading-6 text-slate-700">
-                  {week.actions.map((action) => (
-                    <li key={action}>- {action}</li>
+                {week.lessons.length > 0 ? (
+                  <>
+                    <p className="mt-2 text-sm font-semibold text-slate-900">
+                      Lessons:
+                    </p>
+                    <ul className="mt-1 space-y-1 text-sm leading-6 text-slate-700">
+                      {week.lessons.map((lesson) => (
+                        <li key={lesson}>- {lesson}</li>
+                      ))}
+                    </ul>
+                  </>
+                ) : null}
+                <p className="mt-2 text-sm font-semibold text-slate-900">
+                  {week.checkLabel}:
+                </p>
+                <ul className="mt-1 space-y-1 text-sm leading-6 text-slate-700">
+                  {week.checks.map((check) => (
+                    <li key={check}>- {check}</li>
                   ))}
                 </ul>
               </div>
