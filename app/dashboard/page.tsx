@@ -168,8 +168,14 @@ export default function DashboardPage() {
             {accessStatus === "pending" || accessStatus === "none" ? (
               <>
                 <Link
-                  href="/enquire?offer=online-learning"
+                  href="/checkout?offer=online-learning"
                   className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+                >
+                  Subscribe to online learning
+                </Link>
+                <Link
+                  href="/enquire?offer=online-learning"
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
                 >
                   Register interest
                 </Link>
@@ -191,8 +197,14 @@ export default function DashboardPage() {
             {accessStatus === "revoked" ? (
               <>
                 <Link
-                  href="/enquire?offer=online-learning"
+                  href="/checkout?offer=online-learning"
                   className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+                >
+                  Subscribe to online learning
+                </Link>
+                <Link
+                  href="/enquire?offer=online-learning"
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
                 >
                   Register interest
                 </Link>

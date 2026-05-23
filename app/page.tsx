@@ -69,7 +69,7 @@ const offers = [
   },
   {
     title: "Diagnostic PDF Report",
-    price: "Early-access report option",
+    price: "$49 one-off",
     description:
       "A parent-friendly report showing strengths, priority areas, likely mark leaks, and recommended next lessons.",
     features: [
@@ -79,11 +79,25 @@ const offers = [
       "Manually reviewed before sending",
     ],
     buttonLabel: "Request report",
-    href: "/enquire?offer=diagnostic-report",
+    href: "/checkout?offer=diagnostic-report",
+  },
+  {
+    title: "Diagnostic + 30-Day Plan",
+    price: "$79 one-off",
+    description:
+      "A diagnostic report plus a focused month of revision priorities based on the student's results.",
+    features: [
+      "Diagnostic PDF report",
+      "30-day revision plan",
+      "Recommended lessons",
+      "Manually reviewed before sending",
+    ],
+    buttonLabel: "Request study plan",
+    href: "/checkout?offer=study-plan",
   },
   {
     title: "Online Learning Access",
-    price: "Low-cost early access",
+    price: "$19/month",
     description:
       "Structured Year 12 Maths Advanced lessons, guided practice, independent practice, and mastery quizzes.",
     features: [
@@ -92,8 +106,8 @@ const offers = [
       "Mastery checks",
       "Access approved manually during early access",
     ],
-    buttonLabel: "Register interest",
-    href: "/enquire?offer=online-learning",
+    buttonLabel: "Subscribe",
+    href: "/checkout?offer=online-learning",
   },
   {
     title: "Weekly Tutoring + Online Learning",
@@ -334,7 +348,7 @@ export default function Home() {
                 so families can choose the right level of support.
               </p>
               <div className="mt-7">
-                <PrimaryLink href="/enquire?offer=diagnostic-report">
+                <PrimaryLink href="/checkout?offer=diagnostic-report">
                   Request diagnostic report
                 </PrimaryLink>
               </div>
@@ -364,7 +378,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {offers.map((offer) => (
               <article
                 key={offer.title}

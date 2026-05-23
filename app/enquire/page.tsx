@@ -5,21 +5,21 @@ const offers = [
   {
     id: "online-learning",
     title: "Online Learning Access",
-    subtitle: "Low-cost early access",
+    subtitle: "$19/month",
     description:
       "Structured Year 12 Maths Advanced lessons, practice, and mastery checks. Access is approved manually during early access.",
   },
   {
     id: "diagnostic-report",
     title: "Diagnostic PDF Report",
-    subtitle: "Reviewed diagnostic summary",
+    subtitle: "$49 one-off",
     description:
       "A parent-friendly report showing strengths, priority areas, likely mark leaks, and recommended next lessons.",
   },
   {
     id: "study-plan",
     title: "Diagnostic + 30-Day Plan",
-    subtitle: "Prioritised revision plan",
+    subtitle: "$79 one-off",
     description:
       "A diagnostic report plus a focused month of revision priorities based on the student's results.",
   },

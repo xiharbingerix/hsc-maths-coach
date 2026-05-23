@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { getOfferConfig } from "../../lib/offers";
 import { supabase } from "../../lib/supabaseClient";
 
 type Offer = {
@@ -55,6 +56,11 @@ export function EnquireForm({ offers, initialOffer }: EnquireFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const selectedOfferConfig = getOfferConfig(offerSelected);
+  const checkoutHref =
+    selectedOfferConfig?.checkoutEnabled && selectedOfferConfig.checkoutHref
+      ? selectedOfferConfig.checkoutHref
+      : "";
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -135,6 +141,14 @@ export function EnquireForm({ offers, initialOffer }: EnquireFormProps) {
           >
             View online learning
           </Link>
+          {checkoutHref ? (
+            <Link
+              href={checkoutHref}
+              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+            >
+              Continue to checkout
+            </Link>
+          ) : null}
         </div>
       </section>
     );
@@ -142,7 +156,7 @@ export function EnquireForm({ offers, initialOffer }: EnquireFormProps) {
 
   return (
     <>
-      <section className="grid gap-5 md:grid-cols-3">
+      <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {offers.map((offer) => {
           const isSelected = offerSelected === offer.id;
 
@@ -293,13 +307,23 @@ export function EnquireForm({ offers, initialOffer }: EnquireFormProps) {
           </label>
         </div>
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400 sm:w-auto"
-        >
-          {isSubmitting ? "Submitting..." : "Submit enquiry"}
-        </button>
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="inline-flex w-full items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400 sm:w-auto"
+          >
+            {isSubmitting ? "Submitting..." : "Submit enquiry"}
+          </button>
+          {checkoutHref ? (
+            <Link
+              href={checkoutHref}
+              className="inline-flex w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 sm:w-auto"
+            >
+              Continue to checkout
+            </Link>
+          ) : null}
+        </div>
       </form>
     </>
   );

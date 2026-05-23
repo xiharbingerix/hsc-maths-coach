@@ -112,8 +112,8 @@ export default function OnlineLearningPage() {
               Access is approved manually during early access.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PrimaryLink href="/enquire?offer=online-learning">
-                Register interest
+              <PrimaryLink href="/checkout?offer=online-learning">
+                Subscribe to online learning
               </PrimaryLink>
               <SecondaryLink href="/signup">Create account</SecondaryLink>
             </div>
@@ -235,6 +235,18 @@ export default function OnlineLearningPage() {
               </li>
             ))}
           </ol>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <PrimaryLink href="/checkout?offer=online-learning">
+              Subscribe to online learning
+            </PrimaryLink>
+            <SecondaryLink href="/enquire?offer=online-learning">
+              Register interest
+            </SecondaryLink>
+            <SecondaryLink href="/signup">Create account</SecondaryLink>
+            <SecondaryLink href="/diagnostic?offer=online-learning">
+              Start diagnostic
+            </SecondaryLink>
+          </div>
         </section>
 
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
@@ -261,8 +273,8 @@ export default function OnlineLearningPage() {
             Want access to the online learning package?
           </h2>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <PrimaryLink href="/enquire?offer=online-learning">
-              Register interest
+            <PrimaryLink href="/checkout?offer=online-learning">
+              Subscribe to online learning
             </PrimaryLink>
             <SecondaryLink href="/signup">Create account</SecondaryLink>
             <SecondaryLink href="/diagnostic?offer=online-learning">

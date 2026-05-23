@@ -61,6 +61,22 @@ type EnquiryRow = {
   status: string | null;
 };
 
+type PaymentRow = {
+  id: string;
+  created_at: string | null;
+  user_id: string | null;
+  parent_email: string | null;
+  student_first_name: string | null;
+  offer_selected: string | null;
+  stripe_checkout_session_id: string | null;
+  stripe_subscription_id: string | null;
+  amount_total: number | null;
+  currency: string | null;
+  payment_status: string | null;
+  subscription_status: string | null;
+  access_status: string | null;
+};
+
 const betaAccessStatuses: BetaAccessStatus[] = ["pending", "active", "revoked"];
 const enquiryStatuses: EnquiryStatus[] = [
   "new",
@@ -322,6 +338,25 @@ function formatStatus(value: string | null | undefined) {
   return (value ?? "not_started").replace(/_/g, " ");
 }
 
+function formatMoney(cents: number | null, currency: string | null) {
+  if (typeof cents !== "number") {
+    return "Not recorded";
+  }
+
+  return new Intl.NumberFormat("en-AU", {
+    style: "currency",
+    currency: (currency ?? "aud").toUpperCase(),
+  }).format(cents / 100);
+}
+
+function shortId(value: string | null | undefined) {
+  if (!value) {
+    return "Not recorded";
+  }
+
+  return value.length > 14 ? `${value.slice(0, 14)}...` : value;
+}
+
 function accessStatusClass(status: string | null | undefined) {
   if (status === "active") {
     return "bg-emerald-100 text-emerald-900";
@@ -450,6 +485,16 @@ export default async function AdminPage() {
     .limit(100);
 
   const enquiries = (enquiriesData ?? []) as EnquiryRow[];
+
+  const { data: paymentsData, error: paymentsError } = await supabaseAdmin
+    .from("payments")
+    .select(
+      "id,created_at,user_id,parent_email,student_first_name,offer_selected,stripe_checkout_session_id,stripe_subscription_id,amount_total,currency,payment_status,subscription_status,access_status"
+    )
+    .order("created_at", { ascending: false })
+    .limit(50);
+
+  const payments = (paymentsData ?? []) as PaymentRow[];
 
   const {
     data: betaAccessData,
@@ -675,6 +720,97 @@ export default async function AdminPage() {
                   </article>
                 );
               })}
+            </div>
+          )}
+        </section>
+
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Stripe
+              </p>
+              <h2 className="mt-2 text-2xl font-bold tracking-tight">
+                Recent payments
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Checkout records for report options and online learning
+                subscriptions. Manual report and enquiry workflows stay
+                available.
+              </p>
+            </div>
+            <p className="text-sm font-semibold text-slate-500">
+              {payments.length} payment{payments.length === 1 ? "" : "s"}
+            </p>
+          </div>
+
+          {paymentsError ? (
+            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
+              Could not load payments: {paymentsError.message}. Create the
+              public.payments table if it does not exist yet.
+            </div>
+          ) : payments.length === 0 ? (
+            <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+              No Stripe payments recorded yet.
+            </p>
+          ) : (
+            <div className="mt-5 overflow-x-auto">
+              <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
+                <thead>
+                  <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <th className="px-3 py-2">Created</th>
+                    <th className="px-3 py-2">Offer</th>
+                    <th className="px-3 py-2">Parent/student</th>
+                    <th className="px-3 py-2">Amount</th>
+                    <th className="px-3 py-2">Payment</th>
+                    <th className="px-3 py-2">Subscription</th>
+                    <th className="px-3 py-2">Access</th>
+                    <th className="px-3 py-2">User/session</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {payments.map((payment) => (
+                    <tr key={payment.id} className="align-top">
+                      <td className="px-3 py-3 text-slate-600">
+                        {formatOptionalDateTime(payment.created_at)}
+                      </td>
+                      <td className="px-3 py-3 font-medium text-slate-950">
+                        {payment.offer_selected ?? "Not recorded"}
+                      </td>
+                      <td className="px-3 py-3 text-slate-600">
+                        <p>{payment.parent_email ?? "No parent email"}</p>
+                        <p className="mt-1 text-xs">
+                          {payment.student_first_name ?? "No student name"}
+                        </p>
+                      </td>
+                      <td className="px-3 py-3 text-slate-600">
+                        {formatMoney(payment.amount_total, payment.currency)}
+                      </td>
+                      <td className="px-3 py-3 text-slate-600">
+                        {payment.payment_status ?? "Not recorded"}
+                      </td>
+                      <td className="px-3 py-3 text-slate-600">
+                        {payment.subscription_status ?? "Not applicable"}
+                      </td>
+                      <td className="px-3 py-3">
+                        <span
+                          className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ${accessStatusClass(
+                            payment.access_status
+                          )}`}
+                        >
+                          {payment.access_status ?? "pending"}
+                        </span>
+                      </td>
+                      <td className="px-3 py-3 text-xs text-slate-600">
+                        <p>User: {shortId(payment.user_id)}</p>
+                        <p className="mt-1">
+                          Session: {shortId(payment.stripe_checkout_session_id)}
+                        </p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
         </section>

@@ -82,11 +82,14 @@ export default function ThanksPage() {
               </ul>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <PrimaryLink href="/enquire?offer=diagnostic-report">
+                <PrimaryLink href="/checkout?offer=diagnostic-report">
                   Request report
                 </PrimaryLink>
-                <SecondaryLink href="/enquire?offer=online-learning">
-                  Register for online learning
+                <SecondaryLink href="/checkout?offer=study-plan">
+                  Request study plan
+                </SecondaryLink>
+                <SecondaryLink href="/checkout?offer=online-learning">
+                  Subscribe to online learning
                 </SecondaryLink>
                 <SecondaryLink href="/enquire?offer=weekly-tutoring">
                   Enquire about tutoring
@@ -125,8 +128,8 @@ export default function ThanksPage() {
               </p>
             </div>
 
-            <PrimaryLink href="/enquire?offer=online-learning">
-              Register interest
+            <PrimaryLink href="/checkout?offer=online-learning">
+              Subscribe
             </PrimaryLink>
           </div>
         </section>
