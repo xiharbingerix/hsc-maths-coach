@@ -66,6 +66,10 @@ const lessonRecommendations: Record<
   string,
   { title: string; href: string }
 > = {
+  "functions-function-notation-substitution": {
+    title: "Domain, Range, and Function Notation",
+    href: "/course/functions-graphing-techniques/domain-range-function-notation",
+  },
   "functions-substitution-composite-input": {
     title: "Domain, Range, and Function Notation",
     href: "/course/functions-graphing-techniques/domain-range-function-notation",
@@ -78,17 +82,13 @@ const lessonRecommendations: Record<
     title: "Intercepts and Key Features",
     href: "/course/functions-graphing-techniques/intercepts-key-features",
   },
-  "graph-domain-range": {
-    title: "Domain, Range, and Function Notation",
-    href: "/course/functions-graphing-techniques/domain-range-function-notation",
+  "functions-graph-transformations": {
+    title: "Graph Transformations",
+    href: "/course/functions-graphing-techniques/graph-transformations",
   },
-  "graph-increasing-decreasing": {
-    title: "Solving Equations and Inequalities Graphically",
-    href: "/course/functions-graphing-techniques/solving-equations-inequalities-graphically",
-  },
-  "graph-tangent-gradient-sign": {
-    title: "The Derivative as Rate of Change",
-    href: "/course/differential-calculus/rate-of-change",
+  "functions-reciprocal-asymptote": {
+    title: "Asymptotes and Reciprocal-Style Graphs",
+    href: "/course/functions-graphing-techniques/asymptotes-reciprocal-graphs",
   },
   "trig-degrees-to-radians": {
     title: "Radians, Exact Values, and the Unit Circle",
@@ -98,9 +98,25 @@ const lessonRecommendations: Record<
     title: "Radians, Exact Values, and the Unit Circle",
     href: "/course/trigonometric-functions-graphs/radians-exact-values-unit-circle",
   },
+  "trig-unit-circle-signs": {
+    title: "Radians, Exact Values, and the Unit Circle",
+    href: "/course/trigonometric-functions-graphs/radians-exact-values-unit-circle",
+  },
+  "trig-amplitude-period": {
+    title: "Amplitude, Period, Phase Shift, and Vertical Shift",
+    href: "/course/trigonometric-functions-graphs/amplitude-period-phase-vertical-shift",
+  },
   "trig-equation-domain": {
     title: "Trigonometric Equations",
     href: "/course/trigonometric-functions-graphs/trigonometric-equations",
+  },
+  "trig-identities-simplification": {
+    title: "Trigonometric Identities and Simplification",
+    href: "/course/trigonometric-functions-graphs/trigonometric-identities-simplification",
+  },
+  "calculus-average-rate-of-change": {
+    title: "The Derivative as Rate of Change",
+    href: "/course/differential-calculus/rate-of-change",
   },
   "calculus-differentiate-polynomial": {
     title: "Differentiating polynomial functions",
@@ -130,9 +146,53 @@ const lessonRecommendations: Record<
     title: "Indefinite Integrals and the Constant of Integration",
     href: "/course/integral-calculus/indefinite-integrals-constant-of-integration",
   },
+  "integration-initial-condition-c": {
+    title: "Initial Conditions and Finding the Particular Primitive",
+    href: "/course/integral-calculus/initial-conditions-particular-primitive",
+  },
   "integration-definite-polynomial": {
     title: "Definite Integrals and the Fundamental Theorem of Calculus",
     href: "/course/integral-calculus/definite-integrals-fundamental-theorem",
+  },
+  "integration-signed-total-area": {
+    title: "Signed Area and Total Area",
+    href: "/course/integral-calculus/signed-area-total-area",
+  },
+  "integration-trapezoidal-rule": {
+    title: "The Trapezoidal Rule and Area Approximation",
+    href: "/course/integral-calculus/trapezoidal-rule-area-approximation",
+  },
+  "integration-area-between-curves": {
+    title: "Area Between Two Curves",
+    href: "/course/integral-calculus/area-between-two-curves",
+  },
+  "financial-growth-decay-factor": {
+    title: "Growth Factors, Compound Interest, and Depreciation",
+    href: "/course/financial-mathematics/growth-factors-compound-interest-depreciation",
+  },
+  "financial-compound-interest": {
+    title: "Growth Factors, Compound Interest, and Depreciation",
+    href: "/course/financial-mathematics/growth-factors-compound-interest-depreciation",
+  },
+  "financial-depreciation": {
+    title: "Growth Factors, Compound Interest, and Depreciation",
+    href: "/course/financial-mathematics/growth-factors-compound-interest-depreciation",
+  },
+  "financial-recurrence-next-term": {
+    title: "Recurrence Relations in Financial Contexts",
+    href: "/course/financial-mathematics/recurrence-relations-financial-contexts",
+  },
+  "financial-future-value-annuities": {
+    title: "Future Value of Annuities",
+    href: "/course/financial-mathematics/future-value-annuities",
+  },
+  "financial-comparing-options": {
+    title: "Comparing Financial Options",
+    href: "/course/financial-mathematics/comparing-financial-options",
+  },
+  "statistics-summary-median": {
+    title: "Data Displays, Summary Statistics, and Outliers",
+    href: "/course/statistical-analysis/data-displays-summary-statistics-outliers",
   },
   "statistics-standardised-score": {
     title: "Standard Deviation, Z-Scores, and Standardised Values",
@@ -142,14 +202,22 @@ const lessonRecommendations: Record<
     title: "Correlation and Least-Squares Regression",
     href: "/course/statistical-analysis/correlation-least-squares-regression",
   },
-  "financial-compound-interest": {
-    title: "Growth Factors, Compound Interest, and Depreciation",
-    href: "/course/financial-mathematics/growth-factors-compound-interest-depreciation",
+  "statistics-regression-prediction": {
+    title: "Correlation and Least-Squares Regression",
+    href: "/course/statistical-analysis/correlation-least-squares-regression",
+  },
+  "statistics-residuals": {
+    title: "Interpreting Association and Residuals",
+    href: "/course/statistical-analysis/interpreting-association-residuals",
+  },
+  "statistics-normal-empirical-rule": {
+    title: "Normal Distribution and Empirical Rule",
+    href: "/course/statistical-analysis/normal-distribution-empirical-rule",
   },
 };
 
-// TODO: Add recommendation mappings when Year 12 units exist for algebra,
-// exponentials/logarithms, and probability-specific diagnostic gaps.
+// TODO: Revisit recommendation coverage if future diagnostics add prerequisite
+// algebra, exponential/logarithmic, or probability-only readiness questions.
 
 function percentage(correct: number, total: number) {
   if (total === 0) {
@@ -210,10 +278,10 @@ export function normaliseAnswer(value: string): string {
   return value
     .trim()
     .toLowerCase()
-    .replace(/[−–—]/g, "-")
-    .replace(/[π]/g, "pi")
+    .replace(/[\u2212\u2013\u2014]/g, "-")
+    .replace(/[\u03c0]/g, "pi")
     .replace(/\\pi/g, "pi")
-    .replace(/[√]/g, "sqrt")
+    .replace(/[\u221a]/g, "sqrt")
     .replace(/\\sqrt/g, "sqrt")
     .replace(/\\left|\\right/g, "")
     .replace(/\\,/g, "")

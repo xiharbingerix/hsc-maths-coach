@@ -22,35 +22,29 @@ const offerLabels: Record<string, string> = {
 };
 
 const topics = [
-  "Functions and graphing",
-  "Trigonometric functions",
-  "Calculus: differentiation",
-  "Calculus: applications of differentiation",
-  "Calculus: integration",
-  "Exponential and logarithmic functions",
-  "Financial mathematics",
-  "Statistical analysis",
+  "Functions and Graphing Techniques",
+  "Trigonometric Functions and Graphs",
+  "Differential Calculus",
+  "Integral Calculus",
+  "Financial Mathematics",
+  "Statistical Analysis",
   "Revision / mixed exam practice",
   "Not sure",
 ];
 
 const sectionDescriptions: Record<string, string> = {
-  "Algebra foundations":
-    "Core manipulation skills that affect almost every later topic.",
-  "Functions and graphs":
-    "Function notation, restrictions, and visual interpretation of graphs.",
-  Trigonometry:
-    "Exact values, radians, and simple trigonometric equations.",
-  "Differential calculus":
+  "Functions and Graphing Techniques":
+    "Function notation, domain restrictions, graph features, transformations, and asymptotes.",
+  "Trigonometric Functions and Graphs":
+    "Radians, exact values, unit circle signs, graph features, equations, and identities.",
+  "Differential Calculus":
     "Differentiation, tangent gradients, stationary points, and derivative signs.",
-  "Integral calculus":
-    "Antidifferentiation and definite integral evaluation.",
-  "Exponential and logarithmic functions":
-    "Log laws and exponential equation solving.",
-  "Statistics and probability":
-    "Standardised scores, probability, and correlation interpretation.",
-  "Financial mathematics":
-    "Compound interest calculations with careful rounding.",
+  "Integral Calculus":
+    "Antidifferentiation, initial conditions, definite integrals, area, and approximation.",
+  "Financial Mathematics":
+    "Growth factors, compound interest, depreciation, recurrence, annuities, and comparison.",
+  "Statistical Analysis":
+    "Summary statistics, z-scores, correlation, regression, residuals, and normal distributions.",
 };
 
 const sectionOrder = Array.from(
@@ -454,8 +448,7 @@ Hint: ${error.hint ?? "No hint"}`
           <div>
             <h2 className="text-2xl font-semibold">Diagnostic questions</h2>
             <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
-              Answer what you can without outside help. Use “I don&apos;t know
-              yet” when you are stuck so the report can separate gaps from
+              Answer what you can without outside help. Use &quot;I don&apos;t know yet&quot; when you are stuck so the report can separate gaps from
               unanswered questions.
             </p>
           </div>
