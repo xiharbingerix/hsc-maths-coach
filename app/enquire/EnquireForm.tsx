@@ -20,6 +20,23 @@ const offerLabels: Record<string, string> = {
   "online-learning": "Online Learning Access",
   "diagnostic-report": "Diagnostic PDF Report",
   "study-plan": "Diagnostic + 30-Day Plan",
+  "weekly-tutoring": "Weekly Tutoring + Online Learning",
+};
+
+const offerHelperText: Record<string, string> = {
+  "online-learning":
+    "Register interest in low-cost early access to the Year 12 Maths Advanced online learning package. Access is approved manually during early access.",
+  "diagnostic-report":
+    "Request a parent-friendly PDF report after completing the diagnostic. Reports are manually reviewed before being sent.",
+  "study-plan":
+    "Request a diagnostic report plus a focused month of revision priorities based on the student's results.",
+  "weekly-tutoring":
+    "Enquire about weekly individual tutoring support that includes access to the online learning package.",
+};
+
+const successFollowUpText: Record<string, string> = {
+  "weekly-tutoring":
+    "Joshua will follow up about availability, timing, and online learning access.",
 };
 
 export function EnquireForm({ offers, initialOffer }: EnquireFormProps) {
@@ -93,7 +110,8 @@ export function EnquireForm({ offers, initialOffer }: EnquireFormProps) {
             <li>Complete the diagnostic if you have not already.</li>
             <li>Create an account if you want online learning access.</li>
             <li>
-              Joshua will follow up about early access/report options.
+              {successFollowUpText[offerSelected] ??
+                "Joshua will follow up about early access/report options."}
             </li>
           </ul>
         </div>
@@ -173,8 +191,11 @@ export function EnquireForm({ offers, initialOffer }: EnquireFormProps) {
             Tell us where to follow up
           </h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
-            This saves your interest even if you do not complete the diagnostic
-            today.
+            {offerHelperText[offerSelected] ?? "This saves your interest even if you do not complete the diagnostic today."}
+          </p>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            No payment is taken through this form. Joshua will follow up with
+            next steps.
           </p>
         </div>
 

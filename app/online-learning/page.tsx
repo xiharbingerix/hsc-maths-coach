@@ -46,11 +46,10 @@ const lessonActions = [
 ];
 
 const accessSteps = [
-  "Complete the free diagnostic.",
-  "Register interest in online learning access.",
-  "Create an account to access the student dashboard.",
-  "Access is handled manually during early access.",
-  "Feedback helps improve the product for future students.",
+  "Create an account or register interest.",
+  "Joshua reviews access requests manually during early access.",
+  "Approved students can work through the Year 12 course lessons and mastery checks.",
+  "Reports and study plans can be requested separately.",
 ];
 
 function PrimaryLink({
@@ -222,9 +221,9 @@ export default function OnlineLearningPage() {
         </section>
 
         <section className="rounded-3xl border border-slate-200 bg-slate-100/80 p-8 shadow-sm md:p-10">
-          <SectionLabel>How access works</SectionLabel>
+          <SectionLabel>Early access</SectionLabel>
           <h2 className="mt-3 text-3xl font-bold tracking-tight">
-            Simple, manual, and improving with feedback.
+            How early access works.
           </h2>
           <ol className="mt-6 space-y-3 text-slate-700">
             {accessSteps.map((step, index) => (
@@ -238,15 +237,37 @@ export default function OnlineLearningPage() {
           </ol>
         </section>
 
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+            <div>
+              <SectionLabel>Live support option</SectionLabel>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight">
+                Weekly Tutoring + Online Learning
+              </h2>
+              <p className="mt-3 max-w-2xl leading-7 text-slate-600">
+                Students wanting live support can enquire about Weekly Tutoring
+                + Online Learning for $75/week. This combines weekly individual
+                support with access to the online learning package.
+              </p>
+            </div>
+            <SecondaryLink href="/enquire?offer=weekly-tutoring">
+              Enquire about tutoring
+            </SecondaryLink>
+          </div>
+        </section>
+
         <section className="flex flex-col items-start gap-6 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:flex-row md:items-center md:justify-between md:p-10">
           <h2 className="max-w-xl text-2xl font-bold tracking-tight md:text-3xl">
             Want access to the online learning package?
           </h2>
-          <div className="flex flex-col gap-3 sm:flex-row">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <PrimaryLink href="/enquire?offer=online-learning">
               Register interest
             </PrimaryLink>
             <SecondaryLink href="/signup">Create account</SecondaryLink>
+            <SecondaryLink href="/diagnostic?offer=online-learning">
+              Start diagnostic
+            </SecondaryLink>
           </div>
         </section>
       </div>

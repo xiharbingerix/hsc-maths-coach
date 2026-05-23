@@ -23,6 +23,13 @@ const offers = [
     description:
       "A diagnostic report plus a focused month of revision priorities based on the student's results.",
   },
+  {
+    id: "weekly-tutoring",
+    title: "Weekly Tutoring + Online Learning",
+    subtitle: "$75/week",
+    description:
+      "Weekly tutoring support plus online Year 12 Maths Advanced lesson access.",
+  },
 ];
 
 export default async function EnquirePage({
@@ -46,7 +53,8 @@ export default async function EnquirePage({
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
             Choose the option you are interested in and leave a few details.
             No payment is taken on this page. Your enquiry is saved even if you
-            do not complete the diagnostic today.
+            do not complete the diagnostic today. Joshua will follow up with
+            next steps during early access.
           </p>
         </header>
 

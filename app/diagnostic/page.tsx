@@ -19,6 +19,7 @@ const offerLabels: Record<string, string> = {
   "online-learning": "Online Learning Access",
   "diagnostic-report": "Diagnostic PDF Report",
   "study-plan": "Diagnostic + 30-Day Plan",
+  "weekly-tutoring": "Weekly Tutoring + Online Learning",
 };
 
 const topics = [

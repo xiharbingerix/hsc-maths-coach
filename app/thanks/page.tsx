@@ -1,13 +1,10 @@
 import Link from "next/link";
 
-const packageFeatures = [
-  "HSC Maths Advanced lessons",
-  "Explicit teaching",
-  "Worked examples",
-  "Guided practice",
-  "Independent practice",
-  "Mastery quizzes",
-  "Targeted units including calculus, functions, trigonometry, financial mathematics, and statistics",
+const nextSteps = [
+  "Your diagnostic submission has been received.",
+  "During early access, reports are reviewed before being sent.",
+  "If you requested a report or study plan, Joshua will follow up.",
+  "You can also register interest in online learning access, weekly tutoring, or create an account.",
 ];
 
 function PrimaryLink({
@@ -73,22 +70,28 @@ export default function ThanksPage() {
                 Next step
               </p>
               <h2 className="mt-3 text-3xl font-bold tracking-tight">
-                Want targeted online lessons while you wait?
+                What happens next?
               </h2>
-              <p className="mt-4 max-w-2xl leading-7 text-slate-600">
-                If you selected online learning access, you can create an
-                account or register interest. You can also start exploring the
-                course overview while the diagnostic report is being reviewed.
-              </p>
+              <ul className="mt-4 max-w-2xl space-y-3 text-sm leading-6 text-slate-700">
+                {nextSteps.map((step) => (
+                  <li key={step} className="flex gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-950" />
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ul>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <PrimaryLink href="/online-learning">
-                  View online learning
+                <PrimaryLink href="/enquire?offer=diagnostic-report">
+                  Request report
                 </PrimaryLink>
-                <SecondaryLink href="/signup">Create account</SecondaryLink>
                 <SecondaryLink href="/enquire?offer=online-learning">
-                  Register interest
+                  Register for online learning
                 </SecondaryLink>
+                <SecondaryLink href="/enquire?offer=weekly-tutoring">
+                  Enquire about tutoring
+                </SecondaryLink>
+                <SecondaryLink href="/signup">Create account</SecondaryLink>
                 <SecondaryLink href="/course">
                   View course overview
                 </SecondaryLink>
@@ -96,15 +99,16 @@ export default function ThanksPage() {
             </div>
 
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-              <h3 className="text-lg font-semibold">Included lesson tools</h3>
-              <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-700">
-                {packageFeatures.map((feature) => (
-                  <li key={feature} className="flex gap-2">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-950" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
+              <h3 className="text-lg font-semibold">While you wait</h3>
+              <p className="mt-3 text-sm leading-6 text-slate-700">
+                You can explore the course overview and decide whether you want
+                a reviewed PDF report, a 30-day plan, or online learning access.
+              </p>
+              <div className="mt-5">
+                <SecondaryLink href="/online-learning">
+                  View online learning
+                </SecondaryLink>
+              </div>
             </div>
           </div>
         </section>

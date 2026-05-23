@@ -54,47 +54,61 @@ const parentNotes = [
 
 const offers = [
   {
-    title: "Online Learning Package",
-    price: "Low-cost early access",
+    title: "Free Diagnostic",
+    price: "Free during early access",
     description:
-      "Structured HSC Maths Advanced lessons for students who want targeted revision without committing to weekly tutoring.",
+      "A 36-question Year 12 Maths Advanced diagnostic that identifies priority areas across the current course.",
     features: [
-      "Six Year 12 Maths Advanced units",
-      "Calculus, functions, trigonometry, finance, and statistics",
-      "Worked examples, guided practice, and mastery quizzes",
+      "Six-unit coverage",
+      "Confidence check",
+      "Immediate submission",
+      "Reviewed report option available",
     ],
-    buttonLabel: "Register interest",
-    href: "/enquire?offer=online-learning",
-    secondaryButtonLabel: "Explore online learning",
-    secondaryHref: "/online-learning",
+    buttonLabel: "Start diagnostic",
+    href: "/diagnostic",
   },
   {
     title: "Diagnostic PDF Report",
-    price: "Reviewed report option",
+    price: "Early-access report option",
     description:
-      "A parent-friendly diagnostic summary showing strengths, priority weak areas, and recommended next lessons.",
+      "A parent-friendly report showing strengths, priority areas, likely mark leaks, and recommended next lessons.",
     features: [
-      "Diagnostic attempt",
-      "Skill breakdown",
-      "Priority weak areas",
-      "Recommended next lessons",
+      "Unit-by-unit summary",
+      "Recommended lessons",
+      "30-day revision plan",
+      "Manually reviewed before sending",
     ],
     buttonLabel: "Request report",
     href: "/enquire?offer=diagnostic-report",
   },
   {
-    title: "Diagnostic + 30-Day Plan",
-    price: "Study plan option",
+    title: "Online Learning Access",
+    price: "Low-cost early access",
     description:
-      "A clearer month of study priorities for students preparing for trials or their next major assessment.",
+      "Structured Year 12 Maths Advanced lessons, guided practice, independent practice, and mastery quizzes.",
     features: [
-      "Diagnostic PDF report",
-      "30-day revision priorities",
-      "Targeted lesson pathway",
-      "Next-step recommendations",
+      "Six Year 12 Maths Advanced units",
+      "Lesson access by account",
+      "Mastery checks",
+      "Access approved manually during early access",
     ],
-    buttonLabel: "Request study plan",
-    href: "/enquire?offer=study-plan",
+    buttonLabel: "Register interest",
+    href: "/enquire?offer=online-learning",
+  },
+  {
+    title: "Weekly Tutoring + Online Learning",
+    price: "$75/week",
+    description:
+      "Weekly individual support with access to the Year 12 Maths Advanced online learning package.",
+    features: [
+      "Weekly tutoring support",
+      "Online lesson access",
+      "Guided practice and mastery quizzes",
+      "Diagnostic-informed priorities",
+      "Support before assessments and trials",
+    ],
+    buttonLabel: "Enquire about tutoring",
+    href: "/enquire?offer=weekly-tutoring",
   },
 ];
 
@@ -340,17 +354,17 @@ export default function Home() {
 
         <section className="rounded-3xl border border-slate-200 bg-slate-100/80 p-8 shadow-sm md:p-10">
           <div className="max-w-2xl">
-            <SectionLabel>Access options</SectionLabel>
+            <SectionLabel>Early access options</SectionLabel>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-              Access options
+              Early access options
             </h2>
             <p className="mt-3 leading-7 text-slate-600">
-              Start with a free diagnostic, then choose the level of support
-              that fits.
+              Start with the free diagnostic, then choose the support that
+              fits.
             </p>
           </div>
 
-          <div className="mt-8 grid gap-5 lg:grid-cols-3">
+          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {offers.map((offer) => (
               <article
                 key={offer.title}
@@ -382,22 +396,16 @@ export default function Home() {
                   <PrimaryLink href={offer.href} className="w-full">
                     {offer.buttonLabel}
                   </PrimaryLink>
-                  {offer.secondaryHref ? (
-                    <SecondaryLink
-                      href={offer.secondaryHref}
-                      className="mt-3 w-full"
-                    >
-                      {offer.secondaryButtonLabel}
-                    </SecondaryLink>
-                  ) : null}
                 </div>
               </article>
             ))}
           </div>
 
           <p className="mt-6 text-sm leading-6 text-slate-600">
-            During early access, accounts and reports are handled manually so
-            we can keep improving the product.
+            During early access, reports and online learning access are handled
+            manually so the product can be reviewed and improved carefully.
+            Questions? Use the enquiry form and Joshua will follow up manually
+            during early access.
           </p>
         </section>
 
