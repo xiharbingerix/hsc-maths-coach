@@ -199,6 +199,12 @@ export default function DifferentialCalculusModulePage() {
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap md:justify-end">
               <Link
+                href="/online-learning"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+              >
+                Learn about online learning
+              </Link>
+              <Link
                 href="/signup"
                 className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
               >
