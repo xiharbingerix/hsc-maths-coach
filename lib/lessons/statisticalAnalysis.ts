@@ -1995,6 +1995,318 @@ export const mixedStatisticalAnalysisExamPracticeLesson: ExplicitLesson = {
   masteryPassMark: 0.8,
 };
 
+export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
+  id: "random-variables-probability-distributions",
+  slug: "random-variables-probability-distributions",
+  moduleSlug: "statistical-analysis",
+  moduleTitle: "Statistical Analysis",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Random Variables and Probability Distributions",
+  description:
+    "Use discrete random variables, probability distributions, and expected value in statistical contexts.",
+  syllabusArea: "Statistical Analysis",
+  focus: "Random variables",
+  status: "active",
+  video: {
+    title: "Random Variables and Probability Distributions",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+  learningIntention:
+    "Learn how to identify random variables, check probability distributions, and calculate expected value.",
+  successCriteria: [
+    "Recognise a discrete random variable in context.",
+    "Check whether probabilities in a distribution add to 1.",
+    "Calculate expected value using $E(X)=\\sum xP(X=x)$.",
+    "Find a missing probability in a simple distribution.",
+    "Interpret expected value as a long-run average, not a guaranteed outcome.",
+  ],
+  teaching: {
+    paragraphs: [
+      "A random variable assigns numerical values to outcomes of a random process.",
+      "A discrete random variable has countable possible values, such as 0, 1, 2, or 3 successes.",
+      "A probability distribution lists each possible value and its probability. The probabilities must add to 1.",
+      "Expected value is the long-run mean of a random variable. It weights each value by its probability.",
+      "Expected value does not have to be a possible outcome. It describes what would happen on average over many repetitions.",
+    ],
+    latexBlocks: [
+      "\\sum P(X=x)=1",
+      "E(X)=\\sum xP(X=x)",
+      "E(X)=x_1p_1+x_2p_2+\\cdots+x_np_n",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Worked example 1: Check a distribution and find expected value",
+      questionLatex:
+        "X:0,1,2\\quad P(X=x):0.2,0.5,0.3",
+      steps: [
+        {
+          explanation: "Check the probabilities add to 1.",
+          latex: "0.2+0.5+0.3=1",
+        },
+        {
+          explanation: "Multiply each value by its probability and add.",
+          latex: "E(X)=0(0.2)+1(0.5)+2(0.3)=1.1",
+        },
+      ],
+      finalAnswerLatex: "E(X)=1.1",
+    },
+    {
+      title: "Worked example 2: Expected payout",
+      questionLatex:
+        "\\text{A game pays }\\$0,\\$5,\\$10\\text{ with probabilities }0.5,0.3,0.2.",
+      steps: [
+        {
+          explanation: "Calculate the weighted average payout.",
+          latex: "E(X)=0(0.5)+5(0.3)+10(0.2)",
+        },
+        {
+          explanation: "Evaluate and interpret the value.",
+          latex: "E(X)=3.5",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{The expected payout is }\\$3.50\\text{ per game in the long run.}",
+    },
+  ],
+  guidedPractice: [
+    {
+      id: "rv-guided-1",
+      prompt: "Choose the random variable.",
+      latex: "\\text{Number of heads in 3 coin tosses}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "The coin" },
+        { label: "B", text: "The number of heads" },
+        { label: "C", text: "The person tossing" },
+        { label: "D", text: "The word heads" },
+      ],
+      hint: "A random variable is numerical.",
+      explanation: "The number of heads is the random variable.",
+    },
+    {
+      id: "rv-guided-2",
+      prompt: "Do the probabilities form a distribution?",
+      latex: "0.1,\\ 0.4,\\ 0.5",
+      answer: "A",
+      choices: [
+        { label: "A", text: "Yes, they add to 1" },
+        { label: "B", text: "No, they add to 0.9" },
+        { label: "C", text: "No, they add to 1.5" },
+        { label: "D", text: "No, probabilities cannot be decimals" },
+      ],
+      hint: "Add them.",
+      explanation: "The probabilities add to 1.",
+    },
+    {
+      id: "rv-guided-3",
+      prompt: "Find the missing probability.",
+      latex: "P(X=0)=0.25,\\ P(X=1)=0.35,\\ P(X=2)=p",
+      answer: "0.4",
+      acceptedAnswers: ["0.40", "2/5"],
+      hint: "The probabilities add to 1.",
+      explanation: "$p=1-0.25-0.35=0.4$.",
+    },
+    {
+      id: "rv-guided-4",
+      prompt: "Find $E(X)$.",
+      latex: "X:0,1\\quad P(X=x):0.7,0.3",
+      answer: "0.3",
+      acceptedAnswers: ["0.30", "3/10"],
+      hint: "Use $0(0.7)+1(0.3)$.",
+      explanation: "$E(X)=0.3$.",
+    },
+  ],
+  independentPractice: [
+    {
+      id: "rv-ind-1",
+      prompt: "Find $E(X)$.",
+      latex: "X:1,2,3\\quad P(X=x):0.2,0.5,0.3",
+      answer: "2.1",
+      acceptedAnswers: ["2.10"],
+      hint: "Multiply each value by its probability.",
+      explanation: "$E(X)=1(0.2)+2(0.5)+3(0.3)=2.1$.",
+    },
+    {
+      id: "rv-ind-2",
+      prompt: "Find the missing probability.",
+      latex: "0.15+0.25+p+0.30=1",
+      answer: "0.3",
+      acceptedAnswers: ["0.30", "3/10"],
+      hint: "Subtract the known probabilities from 1.",
+      explanation: "$p=1-0.15-0.25-0.30=0.30$.",
+    },
+    {
+      id: "rv-ind-3",
+      prompt: "Find the expected payout.",
+      latex: "\\$0(0.6)+\\$4(0.25)+\\$8(0.15)",
+      answer: "2.2",
+      acceptedAnswers: ["2.20", "$2.20", "\\$2.20", "$2.2"],
+      hint: "Calculate the weighted average.",
+      explanation: "$E(X)=0+1+1.2=2.2$.",
+    },
+    {
+      id: "rv-ind-4",
+      prompt: "Choose the correct interpretation of $E(X)=3.5$.",
+      latex: "\\text{Game payout in dollars}",
+      answer: "C",
+      choices: [
+        { label: "A", text: "Every game pays exactly $3.50" },
+        { label: "B", text: "The game cannot pay whole dollars" },
+        { label: "C", text: "The long-run average payout is $3.50" },
+        { label: "D", text: "The probability of winning is 3.5" },
+      ],
+      hint: "Expected value is a long-run mean.",
+      explanation: "Expected value describes the long-run average.",
+    },
+    {
+      id: "rv-ind-5",
+      prompt: "Choose the valid probability distribution.",
+      latex: "\\text{Choose one}",
+      answer: "A",
+      choices: [
+        { label: "A", text: "$0.2,0.3,0.5$" },
+        { label: "B", text: "$0.2,0.3,0.6$" },
+        { label: "C", text: "$-0.1,0.6,0.5$" },
+        { label: "D", text: "$1.2,-0.1,-0.1$" },
+      ],
+      hint: "Probabilities must be non-negative and add to 1.",
+      explanation: "Only option A has non-negative probabilities that add to 1.",
+    },
+  ],
+  commonMistakes: [
+    {
+      mistake: "Not checking probabilities add to 1.",
+      fix: "A probability distribution must have total probability 1.",
+    },
+    {
+      mistake: "Adding values without weighting by probabilities.",
+      fix: "Use $xP(X=x)$ for each value before adding.",
+    },
+    {
+      mistake: "Treating expected value as a guaranteed outcome.",
+      fix: "Expected value is a long-run average.",
+    },
+    {
+      mistake: "Confusing an outcome with its probability.",
+      fix: "$x$ is the value; $P(X=x)$ is the probability of that value.",
+    },
+  ],
+  masteryQuiz: [
+    {
+      id: "rv-mastery-1",
+      prompt: "Choose the discrete random variable.",
+      latex: "\\text{Rolling a die}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "The die colour" },
+        { label: "B", text: "The number rolled" },
+        { label: "C", text: "The table" },
+        { label: "D", text: "The word roll" },
+      ],
+      hint: "Look for a numerical outcome.",
+      explanation: "The number rolled is numerical.",
+    },
+    {
+      id: "rv-mastery-2",
+      prompt: "Do these probabilities form a distribution?",
+      latex: "0.2,0.2,0.2,0.2",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Yes, they add to 1" },
+        { label: "B", text: "No, they add to 0.8" },
+        { label: "C", text: "No, one is negative" },
+        { label: "D", text: "No, one is greater than 1" },
+      ],
+      hint: "Add them.",
+      explanation: "The total is 0.8, not 1.",
+    },
+    {
+      id: "rv-mastery-3",
+      prompt: "Find the missing probability.",
+      latex: "0.45+0.25+p=1",
+      answer: "0.3",
+      acceptedAnswers: ["0.30", "3/10"],
+      hint: "Subtract from 1.",
+      explanation: "$p=0.3$.",
+    },
+    {
+      id: "rv-mastery-4",
+      prompt: "Find $E(X)$.",
+      latex: "X:0,2\\quad P(X=x):0.5,0.5",
+      answer: "1",
+      acceptedAnswers: ["1.0", "1.00"],
+      hint: "Use $0(0.5)+2(0.5)$.",
+      explanation: "$E(X)=1$.",
+    },
+    {
+      id: "rv-mastery-5",
+      prompt: "Find $E(X)$.",
+      latex: "X:1,4\\quad P(X=x):0.75,0.25",
+      answer: "1.75",
+      acceptedAnswers: ["7/4"],
+      hint: "Use $1(0.75)+4(0.25)$.",
+      explanation: "$E(X)=1.75$.",
+    },
+    {
+      id: "rv-mastery-6",
+      prompt: "Find the expected payout.",
+      latex: "\\$2(0.4)+\\$6(0.6)",
+      answer: "4.4",
+      acceptedAnswers: ["4.40", "$4.40", "\\$4.40", "$4.4"],
+      hint: "Calculate the weighted average.",
+      explanation: "$E(X)=0.8+3.6=4.4$.",
+    },
+    {
+      id: "rv-mastery-7",
+      prompt: "Find the missing probability.",
+      latex: "P(X=1)=0.1,\\ P(X=2)=p,\\ P(X=3)=0.65",
+      answer: "0.25",
+      acceptedAnswers: ["1/4"],
+      hint: "The total must be 1.",
+      explanation: "$p=1-0.1-0.65=0.25$.",
+    },
+    {
+      id: "rv-mastery-8",
+      prompt: "Choose the best interpretation of expected value.",
+      latex: "E(X)=2.4",
+      answer: "A",
+      choices: [
+        { label: "A", text: "The long-run average value is 2.4" },
+        { label: "B", text: "Every outcome must be 2.4" },
+        { label: "C", text: "The probability is 2.4" },
+        { label: "D", text: "The distribution is invalid" },
+      ],
+      hint: "Expected value is an average over many trials.",
+      explanation: "Expected value is the long-run average.",
+    },
+    {
+      id: "rv-mastery-9",
+      prompt: "Choose the formula for expected value.",
+      latex: "\\text{Discrete random variable}",
+      answer: "C",
+      choices: [
+        { label: "A", text: "$\\sum P(X=x)=0$" },
+        { label: "B", text: "$E(X)=\\sum x$" },
+        { label: "C", text: "$E(X)=\\sum xP(X=x)$" },
+        { label: "D", text: "$E(X)=\\frac{x}{P(X=x)}$" },
+      ],
+      hint: "Expected value is a weighted mean.",
+      explanation: "$E(X)=\\sum xP(X=x)$.",
+    },
+    {
+      id: "rv-mastery-10",
+      prompt: "Find $E(X)$.",
+      latex: "X:0,5,10\\quad P(X=x):0.3,0.4,0.3",
+      answer: "5",
+      acceptedAnswers: ["5.0", "5.00", "$5", "\\$5"],
+      hint: "Use $0(0.3)+5(0.4)+10(0.3)$.",
+      explanation: "$E(X)=5$.",
+    },
+  ],
+  masteryPassMark: 0.8,
+};
+
 export const statisticalAnalysisOutline: LessonOutlineItem[] = [
   {
     id: "data-displays-summary-statistics-outliers",
@@ -2044,6 +2356,14 @@ export const statisticalAnalysisOutline: LessonOutlineItem[] = [
       "Practise mixed exam-style questions involving summary statistics, z-scores, correlation, regression, residuals, and normal distributions.",
     status: "active",
   },
+  {
+    id: "random-variables-probability-distributions",
+    slug: "random-variables-probability-distributions",
+    title: "Random Variables and Probability Distributions",
+    description:
+      "Use discrete random variables, probability distributions, and expected value in statistical contexts.",
+    status: "active",
+  },
 ];
 
 export const statisticalAnalysisLessons = [
@@ -2053,4 +2373,5 @@ export const statisticalAnalysisLessons = [
   interpretingAssociationResidualsLesson,
   normalDistributionEmpiricalRuleLesson,
   mixedStatisticalAnalysisExamPracticeLesson,
+  randomVariablesProbabilityDistributionsLesson,
 ];

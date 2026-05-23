@@ -2808,6 +2808,341 @@ export const mixedFunctionsGraphingExamPracticeLesson: ExplicitLesson = {
   masteryPassMark: 0.8,
 };
 
+export const exponentialLogarithmicGraphsLesson: ExplicitLesson = {
+  id: "exponential-logarithmic-graphs",
+  slug: "exponential-logarithmic-graphs",
+  moduleSlug: "functions-graphing-techniques",
+  moduleTitle: "Functions and Graphing Techniques",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Exponential and Logarithmic Graphs in Graphing Techniques",
+  description:
+    "Identify key features and transformations of exponential and logarithmic graphs as part of Year 12 graphing techniques.",
+  syllabusArea: "Functions",
+  focus: "Graphing techniques",
+  status: "active",
+  video: {
+    title: "Exponential and Logarithmic Graphs in Graphing Techniques",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+  learningIntention:
+    "Learn how to identify asymptotes, intercepts, domains, ranges, and transformations for exponential and logarithmic graphs.",
+  successCriteria: [
+    "Identify the horizontal asymptote of transformed exponential graphs.",
+    "Identify the vertical asymptote of transformed logarithmic graphs.",
+    "State domain and range restrictions from asymptotes.",
+    "Describe horizontal and vertical shifts of exponential and logarithmic graphs.",
+    "Distinguish exponential graph features from logarithmic graph features.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Year 12 graphing techniques include recognising transformed exponential and logarithmic graphs without needing to rebuild a separate prerequisite unit.",
+      "The basic exponential graph $y=a^x$ has horizontal asymptote $y=0$. Adding $k$ shifts the graph up or down, so the horizontal asymptote becomes $y=k$.",
+      "The basic logarithmic graph $y=\\log_a(x)$ has vertical asymptote $x=0$ and domain $x>0$.",
+      "For $y=\\log_a(x-h)+k$, the input must be positive, so $x-h>0$. The vertical asymptote is $x=h$.",
+      "Transformations affect asymptotes, intercepts, domain, and range. The most important first step is identifying whether the graph is exponential or logarithmic.",
+    ],
+    latexBlocks: [
+      "y=a^x\\quad \\text{has horizontal asymptote }y=0",
+      "y=a^{x-h}+k\\quad \\text{has horizontal asymptote }y=k",
+      "y=\\log_a(x)\\quad \\text{has vertical asymptote }x=0",
+      "y=\\log_a(x-h)+k\\quad \\text{has vertical asymptote }x=h",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Worked example 1: Exponential graph features",
+      questionLatex: "y=2^x+3",
+      steps: [
+        {
+          explanation: "The $+3$ shifts the basic graph up by 3.",
+          latex: "\\text{horizontal asymptote: }y=3",
+        },
+        {
+          explanation: "Find the y-intercept by substituting $x=0$.",
+          latex: "y=2^0+3=4",
+        },
+      ],
+      finalAnswerLatex: "\\text{asymptote }y=3,\\quad \\text{y-intercept }(0,4)",
+    },
+    {
+      title: "Worked example 2: Logarithmic graph features",
+      questionLatex: "y=\\log_2(x-1)",
+      steps: [
+        {
+          explanation: "The input must be positive.",
+          latex: "x-1>0",
+        },
+        {
+          explanation: "Solve for the domain and identify the vertical asymptote.",
+          latex: "x>1,\\quad \\text{vertical asymptote: }x=1",
+        },
+      ],
+      finalAnswerLatex: "\\text{domain }x>1,\\quad \\text{vertical asymptote }x=1",
+    },
+    {
+      title: "Worked example 3: Describe a transformation",
+      questionLatex: "y=\\log_2(x-3)+4",
+      steps: [
+        {
+          explanation: "The $x-3$ shifts the logarithmic graph right by 3.",
+          latex: "x=3\\text{ is the new vertical asymptote}",
+        },
+        {
+          explanation: "The $+4$ shifts the graph up by 4.",
+          latex: "\\text{vertical shift }=4",
+        },
+      ],
+      finalAnswerLatex: "\\text{right }3\\text{ and up }4",
+    },
+  ],
+  guidedPractice: [
+    {
+      id: "exp-log-guided-1",
+      prompt: "Find the horizontal asymptote.",
+      latex: "y=3^x-2",
+      answer: "y=-2",
+      acceptedAnswers: ["-2"],
+      hint: "For $y=a^x+k$, the asymptote is $y=k$.",
+      explanation: "The horizontal asymptote is $y=-2$.",
+    },
+    {
+      id: "exp-log-guided-2",
+      prompt: "Find the vertical asymptote.",
+      latex: "y=\\log_2(x-5)",
+      answer: "x=5",
+      acceptedAnswers: ["5"],
+      hint: "Set $x-5=0$.",
+      explanation: "The vertical asymptote is $x=5$.",
+    },
+    {
+      id: "exp-log-guided-3",
+      prompt: "Choose the domain.",
+      latex: "y=\\log_3(x+2)",
+      answer: "B",
+      choices: [
+        { label: "A", text: "$x>2$" },
+        { label: "B", text: "$x>-2$" },
+        { label: "C", text: "$x<2$" },
+        { label: "D", text: "all real $x$" },
+      ],
+      hint: "Require $x+2>0$.",
+      explanation: "The domain is $x>-2$.",
+    },
+    {
+      id: "exp-log-guided-4",
+      prompt: "Choose the transformation description.",
+      latex: "y=2^{x-4}+1",
+      answer: "C",
+      choices: [
+        { label: "A", text: "left 4, down 1" },
+        { label: "B", text: "right 1, up 4" },
+        { label: "C", text: "right 4, up 1" },
+        { label: "D", text: "left 1, down 4" },
+      ],
+      hint: "$x-4$ shifts right 4 and $+1$ shifts up 1.",
+      explanation: "The graph shifts right 4 and up 1.",
+    },
+  ],
+  independentPractice: [
+    {
+      id: "exp-log-ind-1",
+      prompt: "Find the horizontal asymptote.",
+      latex: "y=5^x+7",
+      answer: "y=7",
+      acceptedAnswers: ["7"],
+      hint: "Use $y=k$.",
+      explanation: "The horizontal asymptote is $y=7$.",
+    },
+    {
+      id: "exp-log-ind-2",
+      prompt: "Find the vertical asymptote.",
+      latex: "y=\\log_4(x+6)-1",
+      answer: "x=-6",
+      acceptedAnswers: ["-6"],
+      hint: "Set $x+6=0$.",
+      explanation: "The vertical asymptote is $x=-6$.",
+    },
+    {
+      id: "exp-log-ind-3",
+      prompt: "Choose the range.",
+      latex: "y=2^x-5",
+      answer: "A",
+      choices: [
+        { label: "A", text: "$y>-5$" },
+        { label: "B", text: "$y<-5$" },
+        { label: "C", text: "$y>0$" },
+        { label: "D", text: "all real $y$" },
+      ],
+      hint: "The exponential graph sits above its horizontal asymptote.",
+      explanation: "The range is $y>-5$.",
+    },
+    {
+      id: "exp-log-ind-4",
+      prompt: "Choose the domain.",
+      latex: "y=\\log_2(x-3)+4",
+      answer: "C",
+      choices: [
+        { label: "A", text: "$x<3$" },
+        { label: "B", text: "$x>-4$" },
+        { label: "C", text: "$x>3$" },
+        { label: "D", text: "all real $x$" },
+      ],
+      hint: "Require $x-3>0$.",
+      explanation: "The domain is $x>3$.",
+    },
+    {
+      id: "exp-log-ind-5",
+      prompt: "Choose the graph type and asymptote.",
+      latex: "y=\\log_5(x+1)",
+      answer: "D",
+      choices: [
+        { label: "A", text: "exponential, horizontal asymptote $y=1$" },
+        { label: "B", text: "exponential, vertical asymptote $x=-1$" },
+        { label: "C", text: "logarithmic, horizontal asymptote $y=-1$" },
+        { label: "D", text: "logarithmic, vertical asymptote $x=-1$" },
+      ],
+      hint: "Logarithmic graphs have vertical asymptotes.",
+      explanation: "It is logarithmic with vertical asymptote $x=-1$.",
+    },
+  ],
+  commonMistakes: [
+    {
+      mistake: "Confusing exponential and logarithmic asymptotes.",
+      fix: "Exponential graphs usually have horizontal asymptotes; logarithmic graphs usually have vertical asymptotes.",
+    },
+    {
+      mistake: "Forgetting logarithms require positive input.",
+      fix: "Solve the inside expression greater than zero to find the domain.",
+    },
+    {
+      mistake: "Shifting asymptotes in the wrong direction.",
+      fix: "$x-h$ shifts right to asymptote $x=h$; $x+h$ shifts left to $x=-h$.",
+    },
+    {
+      mistake: "Treating $\\log_a(x-h)$ as a vertical shift.",
+      fix: "Changes inside the input are horizontal transformations.",
+    },
+  ],
+  masteryQuiz: [
+    {
+      id: "exp-log-mastery-1",
+      prompt: "Find the horizontal asymptote.",
+      latex: "y=4^x+2",
+      answer: "y=2",
+      acceptedAnswers: ["2"],
+      hint: "Use $y=k$.",
+      explanation: "The horizontal asymptote is $y=2$.",
+    },
+    {
+      id: "exp-log-mastery-2",
+      prompt: "Find the y-intercept.",
+      latex: "y=3^x+1",
+      answer: "2",
+      acceptedAnswers: ["(0,2)", "(0, 2)", "y=2"],
+      hint: "Substitute $x=0$.",
+      explanation: "$3^0+1=2$.",
+    },
+    {
+      id: "exp-log-mastery-3",
+      prompt: "Choose the range.",
+      latex: "y=2^x+6",
+      answer: "B",
+      choices: [
+        { label: "A", text: "$y<6$" },
+        { label: "B", text: "$y>6$" },
+        { label: "C", text: "$x>6$" },
+        { label: "D", text: "all real $y$" },
+      ],
+      hint: "The graph is above its horizontal asymptote.",
+      explanation: "The range is $y>6$.",
+    },
+    {
+      id: "exp-log-mastery-4",
+      prompt: "Find the vertical asymptote.",
+      latex: "y=\\log_2(x-8)",
+      answer: "x=8",
+      acceptedAnswers: ["8"],
+      hint: "Set $x-8=0$.",
+      explanation: "The vertical asymptote is $x=8$.",
+    },
+    {
+      id: "exp-log-mastery-5",
+      prompt: "Choose the domain.",
+      latex: "y=\\log_3(x+4)",
+      answer: "A",
+      choices: [
+        { label: "A", text: "$x>-4$" },
+        { label: "B", text: "$x>4$" },
+        { label: "C", text: "$x<-4$" },
+        { label: "D", text: "all real $x$" },
+      ],
+      hint: "Solve $x+4>0$.",
+      explanation: "The domain is $x>-4$.",
+    },
+    {
+      id: "exp-log-mastery-6",
+      prompt: "Find the vertical shift.",
+      latex: "y=\\log_2(x-1)+5",
+      answer: "5",
+      acceptedAnswers: ["up 5", "+5"],
+      hint: "Look outside the logarithm.",
+      explanation: "The graph shifts up 5.",
+    },
+    {
+      id: "exp-log-mastery-7",
+      prompt: "Choose the correct asymptote.",
+      latex: "y=7^{x+2}-3",
+      answer: "C",
+      choices: [
+        { label: "A", text: "$x=-2$" },
+        { label: "B", text: "$x=2$" },
+        { label: "C", text: "$y=-3$" },
+        { label: "D", text: "$y=3$" },
+      ],
+      hint: "Exponential graphs have horizontal asymptotes.",
+      explanation: "The horizontal asymptote is $y=-3$.",
+    },
+    {
+      id: "exp-log-mastery-8",
+      prompt: "Choose the transformation.",
+      latex: "y=\\log_2(x-6)-2",
+      answer: "D",
+      choices: [
+        { label: "A", text: "left 6, up 2" },
+        { label: "B", text: "left 2, down 6" },
+        { label: "C", text: "right 2, up 6" },
+        { label: "D", text: "right 6, down 2" },
+      ],
+      hint: "$x-6$ shifts right 6 and $-2$ shifts down 2.",
+      explanation: "The transformation is right 6 and down 2.",
+    },
+    {
+      id: "exp-log-mastery-9",
+      prompt: "Find the horizontal asymptote.",
+      latex: "y=\\left(\\frac12\\right)^x-4",
+      answer: "y=-4",
+      acceptedAnswers: ["-4"],
+      hint: "Use $y=k$.",
+      explanation: "The horizontal asymptote is $y=-4$.",
+    },
+    {
+      id: "exp-log-mastery-10",
+      prompt: "Choose the true statement.",
+      latex: "y=\\log_2(x-3)+1",
+      answer: "B",
+      choices: [
+        { label: "A", text: "The domain is $x<3$" },
+        { label: "B", text: "The vertical asymptote is $x=3$" },
+        { label: "C", text: "The horizontal asymptote is $y=1$" },
+        { label: "D", text: "The graph is exponential" },
+      ],
+      hint: "This is a logarithmic graph.",
+      explanation: "The vertical asymptote is $x=3$.",
+    },
+  ],
+  masteryPassMark: 0.8,
+};
+
 export const functionsGraphingTechniquesOutline: LessonOutlineItem[] = [
   {
     id: "domain-range-function-notation",
@@ -2873,6 +3208,14 @@ export const functionsGraphingTechniquesOutline: LessonOutlineItem[] = [
       "Practise mixed exam-style questions involving function notation, transformations, features, asymptotes, and graphical solving.",
     status: "active",
   },
+  {
+    id: "exponential-logarithmic-graphs",
+    slug: "exponential-logarithmic-graphs",
+    title: "Exponential and Logarithmic Graphs in Graphing Techniques",
+    description:
+      "Identify transformations, asymptotes, intercepts, domain, and range for exponential and logarithmic graphs.",
+    status: "active",
+  },
 ];
 
 export const functionsGraphingTechniquesLessons = [
@@ -2884,4 +3227,5 @@ export const functionsGraphingTechniquesLessons = [
   solvingEquationsInequalitiesGraphicallyLesson,
   modellingWithFunctionsLesson,
   mixedFunctionsGraphingExamPracticeLesson,
+  exponentialLogarithmicGraphsLesson,
 ];

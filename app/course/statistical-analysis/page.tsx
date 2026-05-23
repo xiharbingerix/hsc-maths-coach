@@ -22,6 +22,7 @@ const unitCoverage = [
   "Least-squares regression",
   "Residuals",
   "Normal distribution and empirical rule",
+  "Random variables and probability distributions",
 ];
 
 export default function StatisticalAnalysisModulePage() {
@@ -43,7 +44,7 @@ export default function StatisticalAnalysisModulePage() {
           <p className="mt-4 max-w-3xl text-slate-600">
             A staged pathway through data displays, summary statistics,
             standard deviation, z-scores, correlation, regression, residuals,
-            and normal distribution ideas.
+            normal distribution ideas, and random variables.
           </p>
 
           <div className="mt-6 grid gap-3 md:grid-cols-3">

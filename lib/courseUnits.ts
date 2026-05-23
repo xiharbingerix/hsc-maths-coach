@@ -24,8 +24,8 @@ export const courseUnits: CourseUnitSummary[] = [
     title: "Functions and Graphing Techniques",
     href: "/course/functions-graphing-techniques",
     description:
-      "Function notation, domain and range, transformations, graph features, asymptotes, graphical solving, and modelling.",
-    activeLessonCount: 8,
+      "Function notation, domain and range, transformations, graph features, asymptotes, exponential/logarithmic graphs, graphical solving, and modelling.",
+    activeLessonCount: 9,
   },
   {
     title: "Trigonometric Functions and Graphs",
@@ -38,14 +38,14 @@ export const courseUnits: CourseUnitSummary[] = [
     title: "Financial Mathematics",
     href: "/course/financial-mathematics",
     description:
-      "Growth factors, compound interest, depreciation, recurrence relations, annuities, loans, and financial decision-making.",
-    activeLessonCount: 6,
+      "Growth factors, sequences, series, compound interest, depreciation, recurrence relations, annuities, loans, and financial decision-making.",
+    activeLessonCount: 10,
   },
   {
     title: "Statistical Analysis",
     href: "/course/statistical-analysis",
     description:
-      "Data displays, summary statistics, outliers, standard deviation, z-scores, correlation, regression, and normal distributions.",
-    activeLessonCount: 6,
+      "Data displays, summary statistics, outliers, standard deviation, z-scores, correlation, regression, normal distributions, and random variables.",
+    activeLessonCount: 7,
   },
 ];

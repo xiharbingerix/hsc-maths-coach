@@ -18,6 +18,10 @@ const unitCoverage = [
   "Percentage rates as decimals",
   "Recurrence relations",
   "Savings and loan balances",
+  "Arithmetic sequences",
+  "Geometric sequences",
+  "Arithmetic series",
+  "Geometric series",
   "Future value of annuities",
   "Present value and loan repayments",
   "Comparing financial options",
@@ -42,8 +46,8 @@ export default function FinancialMathematicsModulePage() {
 
           <p className="mt-4 max-w-3xl text-slate-600">
             A staged pathway through growth factors, compound interest,
-            depreciation, financial recurrences, annuities, loans, and
-            decision-making in money contexts.
+            depreciation, financial recurrences, sequences, series, annuities,
+            loans, and decision-making in money contexts.
           </p>
 
           <div className="mt-6 grid gap-3 md:grid-cols-3">
@@ -79,7 +83,7 @@ export default function FinancialMathematicsModulePage() {
               <ul className="mt-4 space-y-3 text-slate-700">
                 <li>Start with growth and decay factors before recurrence work.</li>
                 <li>Use the guided practice to catch percentage and rounding errors.</li>
-                <li>Complete the mastery quiz before moving to annuities or loans.</li>
+                <li>Build sequence and series skills before moving to annuities or loans.</li>
                 <li>In worded questions, check what each time period represents.</li>
               </ul>
             </section>

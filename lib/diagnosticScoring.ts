@@ -216,8 +216,9 @@ const lessonRecommendations: Record<
   },
 };
 
-// TODO: Revisit recommendation coverage if future diagnostics add prerequisite
-// algebra, exponential/logarithmic, or probability-only readiness questions.
+// TODO: Add diagnostic items and recommendation mappings for arithmetic/geometric
+// sequences and series, exponential/logarithmic graph transformations, and random
+// variables when the diagnostic expands beyond the current 36-question set.
 
 function percentage(correct: number, total: number) {
   if (total === 0) {
