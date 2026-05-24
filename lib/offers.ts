@@ -60,7 +60,7 @@ export const offerConfigs: Record<OfferSlug, OfferConfig> = {
     label: "Weekly Tutoring + Online Learning",
     priceLabel: "$75/week",
     description:
-      "Weekly individual support with access to the Year 12 Maths Advanced online learning package.",
+      "Weekly individual support with access to the available online learning course pathways.",
     checkoutEnabled: false,
     enquiryHref: "/enquire?offer=weekly-tutoring",
   },

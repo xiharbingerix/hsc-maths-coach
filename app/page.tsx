@@ -28,7 +28,7 @@ const lessonSequence = [
 ];
 
 const whatIncluded = [
-  "36-question Year 12 diagnostic",
+  "36-question Year 12 Mathematics Advanced diagnostic",
   "Six Year 12 Maths Advanced units",
   "Expanding Year 11 and Standard course pathways",
   "Guided practice and independent practice",

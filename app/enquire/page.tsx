@@ -28,7 +28,7 @@ const offers = [
     title: "Weekly Tutoring + Online Learning",
     subtitle: "$75/week",
     description:
-      "Weekly tutoring support plus online Year 12 Maths Advanced lesson access.",
+      "Weekly tutoring support plus access to the available online learning course pathways.",
   },
 ];
 

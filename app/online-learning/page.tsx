@@ -11,7 +11,7 @@ const included = [
   {
     title: "Targeted course units",
     description:
-      "Work through the units that match the highest-impact gaps from the diagnostic.",
+      "Work through available units that match the student's current study priorities.",
   },
   {
     title: "Worked examples and scaffolded practice",
@@ -24,9 +24,9 @@ const included = [
       "Typed and multiple-choice checks help students decide whether to move on or review.",
   },
   {
-    title: "NSW Year 12 Mathematics Advanced",
+    title: "NSW senior mathematics pathways",
     description:
-      "Built around the skills students need for HSC Maths Advanced revision.",
+      "Built around skills students need across the available Year 11 and Year 12 early-access pathways.",
   },
 ];
 
@@ -107,9 +107,9 @@ export default function OnlineLearningPage() {
               Online HSC Maths Advanced lessons for targeted trial revision.
             </h1>
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Structured Year 12 Maths Advanced online learning for students
-              who want targeted revision without committing to weekly tutoring.
-              Access is approved manually during early access.
+              Structured online learning for students who want targeted senior
+              maths revision without committing to weekly tutoring. Access is
+              approved manually during early access.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/checkout?offer=online-learning">
