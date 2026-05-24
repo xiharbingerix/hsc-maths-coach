@@ -1,24 +1,24 @@
 import Link from "next/link";
-import { courseUnits } from "../../lib/courseUnits";
+import { courseCatalogue } from "../../lib/courseUnits";
 
 export default function CoursePage() {
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
-      <section className="mx-auto max-w-5xl space-y-8">
-        <header className="rounded-2xl bg-white p-6 shadow-sm">
+      <section className="mx-auto max-w-6xl space-y-8">
+        <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
             HSC Maths Coach
           </p>
 
-          <h1 className="mt-2 text-4xl font-bold tracking-tight">
-            Year 12 Mathematics Advanced
+          <h1 className="mt-3 text-4xl font-bold tracking-tight">
+            Course catalogue
           </h1>
 
-          <p className="mt-3 max-w-2xl text-slate-600">
-            Syllabus-aligned explicit teaching modules for HSC Mathematics
-            Advanced. Each lesson uses clear instruction, worked examples,
-            guided practice, independent practice, common mistakes, and mastery
-            checks.
+          <p className="mt-4 max-w-3xl leading-7 text-slate-600">
+            Online learning now includes Year 11 and Year 12 course pathways.
+            The Year 12 Mathematics Advanced diagnostic and report workflow
+            remain specific to that course, while lesson access covers the
+            available early-access pathways.
           </p>
 
           <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5">
@@ -28,9 +28,8 @@ export default function CoursePage() {
                   Create an account for online learning access
                 </h2>
                 <p className="mt-2 max-w-2xl leading-7 text-slate-600">
-                  Course previews are available while access is reviewed
-                  manually. Create an account or register interest for online
-                  learning access.
+                  Course previews are public. Individual lessons require active
+                  online learning access.
                 </p>
               </div>
 
@@ -48,52 +47,73 @@ export default function CoursePage() {
                   Log in
                 </Link>
                 <Link
-                  href="/enquire?offer=online-learning"
+                  href="/checkout?offer=online-learning"
                   className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
                 >
-                  Register interest
-                </Link>
-                <Link
-                  href="/online-learning"
-                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
-                >
-                  Online learning page
+                  Subscribe
                 </Link>
               </div>
             </div>
           </div>
         </header>
 
-        <div className="grid gap-5 md:grid-cols-2">
-          {courseUnits.map((unit) => (
-            <Link
-              key={unit.href}
-              href={unit.href}
-              className="block rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-md"
+        <div className="grid gap-6">
+          {courseCatalogue.map((course) => (
+            <section
+              key={course.courseSlug}
+              className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8"
             >
-              <div className="flex items-center justify-between gap-3">
-                <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                  Unit
-                </p>
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
-                  Available now
-                </span>
+              <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+                <div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                      {course.yearLevel}
+                    </p>
+                    <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
+                      Early access
+                    </span>
+                  </div>
+                  <h2 className="mt-3 text-3xl font-bold tracking-tight">
+                    {course.courseTitle}
+                  </h2>
+                  <p className="mt-3 max-w-3xl leading-7 text-slate-600">
+                    {course.description}
+                  </p>
+                  <p className="mt-3 text-sm font-semibold text-slate-500">
+                    {course.unitCount} units &middot;{" "}
+                    {course.activeLessonCount} active lessons
+                  </p>
+                </div>
+
+                <Link
+                  href={course.href}
+                  className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+                >
+                  View {course.courseType.replace("Mathematics ", "")}
+                </Link>
               </div>
 
-              <h2 className="mt-3 text-2xl font-bold">{unit.title}</h2>
-
-              <p className="mt-2 text-sm font-semibold text-slate-500">
-                {unit.activeLessonCount} active lessons
-              </p>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                {unit.description}
-              </p>
-
-              <p className="mt-5 text-sm font-semibold text-slate-950">
-                View unit
-              </p>
-            </Link>
+              <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {course.units.map((unit) => (
+                  <Link
+                    key={unit.href}
+                    href={unit.href}
+                    className="block rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:bg-white hover:shadow-sm"
+                  >
+                    <h3 className="text-lg font-bold">{unit.title}</h3>
+                    <p className="mt-2 text-sm font-semibold text-slate-500">
+                      {unit.activeLessonCount} active lessons
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">
+                      {unit.description}
+                    </p>
+                    <p className="mt-4 text-sm font-semibold text-slate-950">
+                      View unit
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </section>
           ))}
         </div>
       </section>

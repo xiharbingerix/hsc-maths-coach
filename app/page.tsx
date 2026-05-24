@@ -30,6 +30,7 @@ const lessonSequence = [
 const whatIncluded = [
   "36-question Year 12 diagnostic",
   "Six Year 12 Maths Advanced units",
+  "Expanding Year 11 and Standard course pathways",
   "Guided practice and independent practice",
   "Mastery quizzes",
   "Parent-friendly report option",
@@ -99,9 +100,9 @@ const offers = [
     title: "Online Learning Access",
     price: "$19/month",
     description:
-      "Structured Year 12 Maths Advanced lessons, guided practice, independent practice, and mastery quizzes.",
+      "Structured online lessons, guided practice, independent practice, and mastery quizzes across available early-access pathways.",
     features: [
-      "Six Year 12 Maths Advanced units",
+      "Year 12 Advanced, Standard, and Year 11 pathways",
       "Lesson access by account",
       "Mastery checks",
       "Access approved manually during early access",
@@ -113,7 +114,7 @@ const offers = [
     title: "Weekly Tutoring + Online Learning",
     price: "$75/week",
     description:
-      "Weekly individual support with access to the Year 12 Maths Advanced online learning package.",
+      "Weekly individual support with access to the online learning package.",
     features: [
       "Weekly tutoring support",
       "Online lesson access",
@@ -281,8 +282,8 @@ export default function Home() {
               <p className="mt-4 max-w-2xl leading-7 text-slate-600">
                 Current lesson flow: Learn &rarr; Guided Practice &rarr;
                 Independent Practice &rarr; Mastery Quiz. The online learning
-                package includes six Year 12 Maths Advanced units for broad
-                trial-revision coverage.
+                package includes Year 12 Advanced plus expanding Standard and
+                Year 11 pathways during early access.
               </p>
 
               <div className="mt-4 flex flex-wrap gap-2">
@@ -319,11 +320,12 @@ export default function Home() {
             <div className="max-w-2xl">
               <SectionLabel>Current course coverage</SectionLabel>
               <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-                Six Year 12 Maths Advanced units.
+                Year 12 Advanced plus expanding Year 11 and Standard pathways.
               </h2>
               <p className="mt-3 leading-7 text-slate-600">
-                The course covers the main Year 12 areas students need for
-                assessment and trial revision.
+                The diagnostic/report pathway is currently Year 12 Mathematics
+                Advanced. Online lessons now include additional early-access
+                course pathways.
               </p>
             </div>
             <SecondaryLink href="/course">View course overview</SecondaryLink>

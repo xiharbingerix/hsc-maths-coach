@@ -1,8 +1,27 @@
+import {
+  newCourseLessonCount,
+  newCoursePathways,
+  type NewCourseSlug,
+} from "./newCourseCatalog";
+
 export type CourseUnitSummary = {
   title: string;
   href: string;
   description: string;
   activeLessonCount: number;
+};
+
+export type CourseCatalogueItem = {
+  courseSlug: string;
+  courseTitle: string;
+  yearLevel: string;
+  courseType: string;
+  href: string;
+  description: string;
+  unitCount: number;
+  activeLessonCount: number;
+  status: "early-access";
+  units: CourseUnitSummary[];
 };
 
 export const courseUnits: CourseUnitSummary[] = [
@@ -49,3 +68,48 @@ export const courseUnits: CourseUnitSummary[] = [
     activeLessonCount: 7,
   },
 ];
+
+export const year12AdvancedCourse: CourseCatalogueItem = {
+  courseSlug: "year-12-advanced",
+  courseTitle: "Year 12 Mathematics Advanced",
+  yearLevel: "Year 12",
+  courseType: "Mathematics Advanced",
+  href: "/course",
+  description:
+    "HSC Mathematics Advanced revision across calculus, functions, trigonometry, financial mathematics, and statistics.",
+  unitCount: courseUnits.length,
+  activeLessonCount: courseUnits.reduce(
+    (total, unit) => total + unit.activeLessonCount,
+    0
+  ),
+  status: "early-access",
+  units: courseUnits,
+};
+
+export const newCourseCatalogueItems: CourseCatalogueItem[] =
+  newCoursePathways.map((course) => ({
+    courseSlug: course.slug,
+    courseTitle: course.title,
+    yearLevel: course.yearLevel,
+    courseType: course.courseType,
+    href: `/course/${course.slug}`,
+    description: course.description,
+    unitCount: course.units.length,
+    activeLessonCount: newCourseLessonCount(course),
+    status: "early-access",
+    units: course.units.map((unit) => ({
+      title: unit.title,
+      href: `/course/${course.slug}/${unit.slug}`,
+      description: unit.description,
+      activeLessonCount: unit.lessons.length,
+    })),
+  }));
+
+export const courseCatalogue: CourseCatalogueItem[] = [
+  year12AdvancedCourse,
+  ...newCourseCatalogueItems,
+];
+
+export function getCourseCatalogueItem(slug: NewCourseSlug) {
+  return newCourseCatalogueItems.find((course) => course.courseSlug === slug);
+}

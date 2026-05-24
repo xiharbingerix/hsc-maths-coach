@@ -27,7 +27,7 @@ const gateContent: Record<
 > = {
   "logged-out": {
     title: "Create an account to access this lesson",
-    text: "This lesson is part of the HSC Maths Advanced online learning access.",
+    text: "This lesson is part of the HSC Maths Coach online learning access.",
     primaryHref: "/signup",
     primaryLabel: "Create account",
     secondaryHref: "/login",

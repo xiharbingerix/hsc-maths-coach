@@ -1,0 +1,291 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { LessonRenderer } from "./LessonRenderer";
+import {
+  getNewCourse,
+  getNewCourseLesson,
+  getNewCourseUnit,
+  getNewCourseUnitLessons,
+  getNewCourseUnitOutline,
+  newCourseLessonCount,
+} from "../../lib/newCourseCatalog";
+
+const lessonSequence = [
+  "Learn",
+  "Guided Practice",
+  "Independent Practice",
+  "Mastery Quiz",
+];
+
+function ButtonLink({
+  href,
+  children,
+  variant = "secondary",
+}: Readonly<{
+  href: string;
+  children: React.ReactNode;
+  variant?: "primary" | "secondary";
+}>) {
+  const classes =
+    variant === "primary"
+      ? "bg-slate-950 text-white hover:bg-slate-800"
+      : "border border-slate-300 bg-white text-slate-900 hover:bg-slate-50";
+
+  return (
+    <Link
+      href={href}
+      className={`inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold shadow-sm transition ${classes}`}
+    >
+      {children}
+    </Link>
+  );
+}
+
+export function NewCourseOverviewPage({
+  courseSlug,
+}: Readonly<{ courseSlug: string }>) {
+  const course = getNewCourse(courseSlug);
+
+  if (!course) {
+    notFound();
+  }
+
+  const lessonCount = newCourseLessonCount(course);
+
+  return (
+    <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
+      <section className="mx-auto max-w-6xl space-y-8">
+        <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Course pathway
+          </p>
+          <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">
+            {course.title}
+          </h1>
+          <p className="mt-4 max-w-3xl leading-7 text-slate-600">
+            {course.positioning}
+          </p>
+
+          <div className="mt-6 grid gap-3 md:grid-cols-3">
+            <div className="rounded-2xl bg-slate-50 p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Units
+              </p>
+              <p className="mt-1 text-3xl font-bold">{course.units.length}</p>
+            </div>
+            <div className="rounded-2xl bg-slate-50 p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Active lessons
+              </p>
+              <p className="mt-1 text-3xl font-bold">{lessonCount}</p>
+            </div>
+            <div className="rounded-2xl bg-slate-50 p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Lesson flow
+              </p>
+              <p className="mt-2 text-sm font-medium text-slate-700">
+                {lessonSequence.join(" -> ")}
+              </p>
+            </div>
+          </div>
+        </header>
+
+        <section className="grid gap-5 md:grid-cols-2">
+          {course.units.map((unit) => (
+            <Link
+              key={unit.slug}
+              href={`/course/${course.slug}/${unit.slug}`}
+              className="block rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-md"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  Unit
+                </p>
+                <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
+                  Early access
+                </span>
+              </div>
+              <h2 className="mt-3 text-2xl font-bold">{unit.title}</h2>
+              <p className="mt-2 text-sm font-semibold text-slate-500">
+                {unit.lessons.length} active lessons
+              </p>
+              <p className="mt-3 leading-7 text-slate-600">
+                {unit.description}
+              </p>
+              <p className="mt-5 text-sm font-semibold text-slate-950">
+                View unit
+              </p>
+            </Link>
+          ))}
+        </section>
+
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 className="text-2xl font-bold">
+                Part of online learning access
+              </h2>
+              <p className="mt-3 max-w-3xl leading-7 text-slate-600">
+                Unit overviews are public previews. Individual lessons use the
+                same online learning access gate as the existing Year 12
+                Advanced course.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <ButtonLink href="/checkout?offer=online-learning" variant="primary">
+                Subscribe
+              </ButtonLink>
+              <ButtonLink href="/signup">Create account</ButtonLink>
+              <ButtonLink href="/course">Course catalogue</ButtonLink>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  );
+}
+
+export function NewCourseUnitPage({
+  courseSlug,
+  unitSlug,
+}: Readonly<{ courseSlug: string; unitSlug: string }>) {
+  const course = getNewCourse(courseSlug);
+  const unit = getNewCourseUnit(courseSlug, unitSlug);
+  const outline = getNewCourseUnitOutline(courseSlug, unitSlug);
+
+  if (!course || !unit) {
+    notFound();
+  }
+
+  return (
+    <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
+      <section className="mx-auto max-w-5xl space-y-8">
+        <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Course: {course.title}
+          </p>
+          <h1 className="mt-3 text-4xl font-bold tracking-tight">
+            {unit.title}
+          </h1>
+          <p className="mt-4 max-w-3xl leading-7 text-slate-600">
+            {unit.description}
+          </p>
+          <div className="mt-6 grid gap-3 md:grid-cols-3">
+            <div className="rounded-2xl bg-slate-50 p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Active lessons
+              </p>
+              <p className="mt-1 text-3xl font-bold">{unit.lessons.length}</p>
+            </div>
+            <div className="rounded-2xl bg-slate-50 p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Status
+              </p>
+              <p className="mt-2 text-sm font-semibold text-green-800">
+                Early access
+              </p>
+            </div>
+            <div className="rounded-2xl bg-slate-50 p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Lesson flow
+              </p>
+              <p className="mt-2 text-sm font-medium text-slate-700">
+                {lessonSequence.join(" -> ")}
+              </p>
+            </div>
+          </div>
+        </header>
+
+        <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+          <section className="rounded-2xl bg-white p-6 shadow-sm">
+            <h2 className="text-2xl font-bold">How to use this unit</h2>
+            <ul className="mt-4 space-y-3 text-slate-700">
+              <li>Start from lesson 1 and move through the pathway in order.</li>
+              <li>Use guided practice before attempting independent practice.</li>
+              <li>Mastery quizzes check whether the skill is ready for review or extension.</li>
+            </ul>
+          </section>
+
+          <section className="rounded-2xl bg-white p-6 shadow-sm">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  Unit pathway
+                </p>
+                <h2 className="mt-1 text-2xl font-bold">Lesson pathway</h2>
+              </div>
+              <p className="text-sm text-slate-500">
+                {outline.length} of {outline.length} active
+              </p>
+            </div>
+
+            <div className="mt-6 space-y-3">
+              {outline.map((lesson, index) => (
+                <Link
+                  key={lesson.id}
+                  href={`/course/${course.slug}/${unit.slug}/${lesson.slug}`}
+                  className="block rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:bg-slate-50"
+                >
+                  <p className="text-sm font-semibold text-slate-500">
+                    Lesson {index + 1}
+                  </p>
+                  <h3 className="mt-1 text-xl font-bold">{lesson.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    {lesson.description}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 className="text-2xl font-bold">
+                Part of the Online Learning Package
+              </h2>
+              <p className="mt-3 max-w-3xl leading-7 text-slate-600">
+                This unit is available during early access. Unit previews stay
+                public, while individual lessons require active online learning
+                access.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap md:justify-end">
+              <ButtonLink href="/online-learning">
+                Learn about online learning
+              </ButtonLink>
+              <ButtonLink href="/enquire?offer=online-learning" variant="primary">
+                Register interest
+              </ButtonLink>
+              <ButtonLink href="/signup">Create account</ButtonLink>
+              <ButtonLink href="/login">Log in</ButtonLink>
+              <ButtonLink href="/dashboard">Dashboard</ButtonLink>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  );
+}
+
+export function NewCourseLessonPage({
+  courseSlug,
+  unitSlug,
+  lessonSlug,
+}: Readonly<{ courseSlug: string; unitSlug: string; lessonSlug: string }>) {
+  const lesson = getNewCourseLesson(courseSlug, unitSlug, lessonSlug);
+
+  if (!lesson) {
+    notFound();
+  }
+
+  return (
+    <LessonRenderer
+      lessonSlug={lesson.slug}
+      lessons={getNewCourseUnitLessons(courseSlug, unitSlug)}
+      backHref={`/course/${courseSlug}/${unitSlug}`}
+      backLabel={`Back to ${lesson.moduleTitle}`}
+    />
+  );
+}

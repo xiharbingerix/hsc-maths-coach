@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
-import { courseUnits } from "../../lib/courseUnits";
+import { courseCatalogue } from "../../lib/courseUnits";
 import { supabase } from "../../lib/supabaseClient";
 import {
   getUserAccessDashboardCopy,
@@ -221,24 +221,24 @@ export default function DashboardPage() {
 
         {accessStatus === "active" ? (
           <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {courseUnits.map((unit) => (
+            {courseCatalogue.map((course) => (
               <Link
-                key={unit.href}
-                href={unit.href}
+                key={course.courseSlug}
+                href={course.href}
                 className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-md"
               >
                 <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                  Available now
+                  Available pathway
                 </p>
-                <h2 className="mt-3 text-xl font-bold">{unit.title}</h2>
+                <h2 className="mt-3 text-xl font-bold">{course.courseTitle}</h2>
                 <p className="mt-2 text-sm font-medium text-slate-500">
-                  {unit.activeLessonCount} active lessons
+                  {course.unitCount} units &middot; {course.activeLessonCount} active lessons
                 </p>
                 <p className="mt-3 text-sm leading-6 text-slate-600">
-                  {unit.description}
+                  {course.description}
                 </p>
                 <p className="mt-5 text-sm font-semibold text-slate-950">
-                  Continue unit
+                  Continue pathway
                 </p>
               </Link>
             ))}
@@ -247,24 +247,24 @@ export default function DashboardPage() {
 
         {accessStatus === "pending" ? (
           <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {courseUnits.map((unit) => (
+            {courseCatalogue.map((course) => (
               <Link
-                key={unit.href}
-                href={unit.href}
+                key={course.courseSlug}
+                href={course.href}
                 className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-md"
               >
                 <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
                   Preview available
                 </p>
-                <h2 className="mt-3 text-xl font-bold">{unit.title}</h2>
+                <h2 className="mt-3 text-xl font-bold">{course.courseTitle}</h2>
                 <p className="mt-2 text-sm font-medium text-slate-500">
-                  {unit.activeLessonCount} active lessons
+                  {course.unitCount} units &middot; {course.activeLessonCount} active lessons
                 </p>
                 <p className="mt-3 text-sm leading-6 text-slate-600">
-                  {unit.description}
+                  {course.description}
                 </p>
                 <p className="mt-5 text-sm font-semibold text-slate-950">
-                  Preview unit
+                  Preview pathway
                 </p>
               </Link>
             ))}

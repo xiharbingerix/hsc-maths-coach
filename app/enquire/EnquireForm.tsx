@@ -26,7 +26,7 @@ const offerLabels: Record<string, string> = {
 
 const offerHelperText: Record<string, string> = {
   "online-learning":
-    "Register interest in low-cost early access to the Year 12 Maths Advanced online learning package. Access is approved manually during early access.",
+    "Register interest in low-cost early access to the available online learning course pathways. Access is approved manually during early access.",
   "diagnostic-report":
     "Request a parent-friendly PDF report after completing the diagnostic. Reports are manually reviewed before being sent.",
   "study-plan":

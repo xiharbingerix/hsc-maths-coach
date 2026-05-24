@@ -7,7 +7,7 @@ const offers = [
     title: "Online Learning Access",
     subtitle: "$19/month",
     description:
-      "Structured Year 12 Maths Advanced lessons, practice, and mastery checks. Access is approved manually during early access.",
+      "Structured online lessons, practice, and mastery checks across available early-access course pathways.",
   },
   {
     id: "diagnostic-report",

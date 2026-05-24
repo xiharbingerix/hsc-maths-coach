@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { courseUnits } from "../../lib/courseUnits";
+import { courseCatalogue } from "../../lib/courseUnits";
 
 const included = [
   {
@@ -48,7 +48,7 @@ const lessonActions = [
 const accessSteps = [
   "Create an account or register interest.",
   "Joshua reviews access requests manually during early access.",
-  "Approved students can work through the Year 12 course lessons and mastery checks.",
+  "Approved students can work through the available Year 11 and Year 12 course lessons and mastery checks.",
   "Reports and study plans can be requested separately.",
 ];
 
@@ -153,36 +153,37 @@ export default function OnlineLearningPage() {
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <SectionLabel>Current units</SectionLabel>
+              <SectionLabel>Current pathways</SectionLabel>
               <h2 className="mt-3 text-3xl font-bold tracking-tight">
-                Broad Year 12 trial-revision coverage.
+                Expanding Year 11 and Year 12 coverage.
               </h2>
               <p className="mt-3 max-w-2xl leading-7 text-slate-600">
-                The current package includes six Year 12 Mathematics Advanced
-                units across calculus, functions, trigonometry, financial
-                mathematics, and statistics.
+                The Year 12 Mathematics Advanced pathway remains the main
+                launched diagnostic pathway. Online learning access now also
+                includes expanding early-access pathways for Standard and Year
+                11 students.
               </p>
             </div>
             <SecondaryLink href="/course">View HSC course</SecondaryLink>
           </div>
 
           <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {courseUnits.map((unit) => (
+            {courseCatalogue.map((course) => (
               <article
-                key={unit.href}
+                key={course.courseSlug}
                 className="flex flex-col rounded-2xl border border-slate-200 bg-slate-50 p-6"
               >
                 <span className="w-fit rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
                   Available now
                 </span>
-                <h3 className="mt-4 text-xl font-bold">{unit.title}</h3>
+                <h3 className="mt-4 text-xl font-bold">{course.courseTitle}</h3>
                 <p className="mt-2 text-sm font-semibold text-slate-500">
-                  {unit.activeLessonCount} active lessons
+                  {course.unitCount} units &middot; {course.activeLessonCount} active lessons
                 </p>
                 <p className="mt-3 flex-1 leading-7 text-slate-600">
-                  {unit.description}
+                  {course.description}
                 </p>
-                <SecondaryLink href={unit.href}>Open unit</SecondaryLink>
+                <SecondaryLink href={course.href}>Open pathway</SecondaryLink>
               </article>
             ))}
           </div>
