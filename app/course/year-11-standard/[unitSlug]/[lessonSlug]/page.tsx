@@ -12,7 +12,7 @@ const oldLessonRedirects: Record<string, Record<string, string>> = {
       "linear-relationships/linear-relationships-exam-practice",
   },
   "money-financial-mathematics": {
-    "earning-money-payslips": "earning-money/earning-money-payslips",
+    "earning-money-payslips": "earning-money/wages-salaries-payslips",
     "tax-deductions-net-pay": "earning-money/tax-deductions-net-pay",
     "budgeting-managing-money": "managing-money/budgeting-managing-money",
     "simple-interest-financial-decisions":
@@ -41,6 +41,9 @@ const oldLessonRedirects: Record<string, Record<string, string>> = {
       "networks-paths-trees/network-diagrams-terminology",
     "trees-and-minimum-spanning-trees":
       "networks-paths-trees/trees-minimum-spanning-trees",
+  },
+  "earning-money": {
+    "earning-money-payslips": "earning-money/wages-salaries-payslips",
   },
 };
 

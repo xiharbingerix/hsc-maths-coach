@@ -185,6 +185,45 @@ function shortAnswer(
   };
 }
 
+function financeChoice(
+  id: string,
+  prompt: string,
+  answer: "A" | "B" | "C" | "D",
+  choices: [string, string, string, string],
+  explanation: string
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex: "\\text{Select A, B, C, or D.}",
+    choices: ["A", "B", "C", "D"].map((label, index) => ({
+      label,
+      text: choices[index],
+    })),
+    answer,
+    hint: "Match the calculation to the earning-money context.",
+    explanation,
+  };
+}
+
+function moneyAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers,
+    hint: "Keep the money calculation short and round to cents when needed.",
+    explanation: `The answer is ${answer}.`,
+  };
+}
+
 function networkWorkedExamples(slug: string, title: string): WorkedExample[] {
   if (slug === "network-diagrams-terminology") {
     return [
@@ -660,6 +699,469 @@ function networkLessonOverride(
   };
 }
 
+function earningMoneyWorkedExamples(slug: string, title: string): WorkedExample[] {
+  if (slug === "wages-salaries-payslips") {
+    return [
+      {
+        title: "Calculating hourly wages",
+        questionLatex: "\\text{Mia works 18 ordinary hours at }\\$24\\text{/hour.}",
+        steps: [
+          { explanation: "Ordinary hourly pay is hours multiplied by the hourly rate." },
+          { explanation: "Multiply 18 by 24.", latex: "18\\times 24=432" },
+        ],
+        finalAnswerLatex: "\\$432",
+      },
+      {
+        title: "Converting salary to weekly pay",
+        questionLatex: "\\text{A salary is }\\$62\\,400\\text{ per year. Find weekly pay.}",
+        steps: [
+          { explanation: "A salary is usually stated as a yearly amount." },
+          { explanation: "Divide by 52 weeks.", latex: "62400\\div 52=1200" },
+        ],
+        finalAnswerLatex: "\\$1200\\text{ per week}",
+      },
+      {
+        title: "Reading basic payslip fields",
+        questionLatex:
+          "\\begin{array}{c|c}\\text{Ordinary pay}&\\$560\\\\\\text{Allowance}&\\$40\\\\\\text{Tax withheld}&\\$110\\end{array}",
+        steps: [
+          { explanation: "Gross pay is the total before deductions." },
+          { explanation: "Add ordinary pay and allowances.", latex: "560+40=600" },
+        ],
+        finalAnswerLatex: "\\text{Gross pay }=\\$600",
+      },
+    ];
+  }
+
+  if (slug === "overtime-penalty-rates-allowances") {
+    return [
+      {
+        title: "Time-and-a-half overtime",
+        questionLatex: "\\text{4 overtime hours at time-and-a-half on }\\$30\\text{/hour}",
+        steps: [
+          { explanation: "Time-and-a-half means multiply the ordinary rate by 1.5.", latex: "30\\times 1.5=45" },
+          { explanation: "Multiply by the overtime hours.", latex: "4\\times 45=180" },
+        ],
+        finalAnswerLatex: "\\$180",
+      },
+      {
+        title: "Double time and ordinary pay",
+        questionLatex: "\\text{8 ordinary hours and 2 double-time hours at }\\$28\\text{/hour}",
+        steps: [
+          { explanation: "Ordinary pay is 8 hours at 28 dollars per hour.", latex: "8\\times 28=224" },
+          { explanation: "Double time is 2 hours at 56 dollars per hour.", latex: "2\\times (2\\times 28)=112" },
+        ],
+        finalAnswerLatex: "\\$224+\\$112=\\$336",
+      },
+      {
+        title: "Adding an allowance",
+        questionLatex: "\\text{Base shift pay }\\$210\\text{ plus meal allowance }\\$18.50",
+        steps: [
+          { explanation: "Allowances are added to earnings when the question includes them." },
+          { explanation: "Add the allowance to the base shift pay.", latex: "210+18.50=228.50" },
+        ],
+        finalAnswerLatex: "\\$228.50",
+      },
+    ];
+  }
+
+  if (slug === "commission-piecework") {
+    return [
+      {
+        title: "Commission as a percentage of sales",
+        questionLatex: "\\text{Commission is }6\\%\\text{ of }\\$3500\\text{ in sales.}",
+        steps: [
+          { explanation: "Convert 6 percent to 0.06." },
+          { explanation: "Multiply by the sales amount.", latex: "0.06\\times 3500=210" },
+        ],
+        finalAnswerLatex: "\\$210",
+      },
+      {
+        title: "Base pay plus commission",
+        questionLatex: "\\text{Base pay }\\$480\\text{ plus }4\\%\\text{ of }\\$2500\\text{ sales}",
+        steps: [
+          { explanation: "Calculate the commission first.", latex: "0.04\\times 2500=100" },
+          { explanation: "Add it to the base pay.", latex: "480+100=580" },
+        ],
+        finalAnswerLatex: "\\$580",
+      },
+      {
+        title: "Piecework earnings",
+        questionLatex: "\\text{48 items paid at }\\$3.75\\text{ per item}",
+        steps: [
+          { explanation: "Piecework pays for each item completed." },
+          { explanation: "Multiply the number of items by the piece rate.", latex: "48\\times 3.75=180" },
+        ],
+        finalAnswerLatex: "\\$180",
+      },
+    ];
+  }
+
+  if (slug === "tax-deductions-net-pay") {
+    return [
+      {
+        title: "Net pay from gross pay and deductions",
+        questionLatex: "\\text{Gross pay }\\$920,\\ \\text{tax }\\$165,\\ \\text{other deduction }\\$25",
+        steps: [
+          { explanation: "Net pay is gross pay minus all deductions." },
+          { explanation: "Subtract the tax and the other deduction.", latex: "920-165-25=730" },
+        ],
+        finalAnswerLatex: "\\$730",
+      },
+      {
+        title: "Percentage deduction",
+        questionLatex: "\\text{A }5\\%\\text{ deduction is taken from }\\$840.",
+        steps: [
+          { explanation: "Convert 5 percent to 0.05." },
+          { explanation: "Multiply by gross pay.", latex: "0.05\\times 840=42" },
+        ],
+        finalAnswerLatex: "\\$42",
+      },
+      {
+        title: "Interpreting a payslip",
+        questionLatex:
+          "\\begin{array}{c|c}\\text{Gross pay}&\\$760\\\\\\text{Tax withheld}&\\$118\\\\\\text{Union fee}&\\$12\\end{array}",
+        steps: [
+          { explanation: "Tax withheld and union fees are deductions." },
+          { explanation: "Subtract both from gross pay.", latex: "760-118-12=630" },
+        ],
+        finalAnswerLatex: "\\text{Net pay }=\\$630",
+      },
+    ];
+  }
+
+  return [
+    {
+      title: `${title}: mixed gross pay question`,
+      questionLatex:
+        "\\text{Ordinary pay }\\$540,\\ \\text{overtime }\\$90,\\ \\text{allowance }\\$25",
+      steps: [
+        { explanation: "Gross pay includes all earnings before deductions." },
+        { explanation: "Add ordinary pay, overtime and allowance.", latex: "540+90+25=655" },
+      ],
+      finalAnswerLatex: "\\$655",
+    },
+    {
+      title: `${title}: commission and net pay`,
+      questionLatex:
+        "\\text{Base }\\$500,\\ 3\\%\\text{ of }\\$4000\\text{ sales, deductions }\\$130",
+      steps: [
+        { explanation: "Calculate commission first.", latex: "0.03\\times 4000=120" },
+        { explanation: "Find gross pay, then subtract deductions.", latex: "500+120-130=490" },
+      ],
+      finalAnswerLatex: "\\$490",
+    },
+  ];
+}
+
+function earningMoneyLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed
+): Partial<ExplicitLesson> | null {
+  if (course.slug !== "year-11-standard" || unit.slug !== "earning-money") {
+    return null;
+  }
+
+  const base = {
+    workedExamples: earningMoneyWorkedExamples(lesson.slug, lesson.title),
+    masteryPassMark: 0.8,
+  };
+
+  if (lesson.slug === "wages-salaries-payslips") {
+    return {
+      ...base,
+      description:
+        "Calculate hourly wages and salary pay, then interpret ordinary hours, gross pay, and basic payslip fields.",
+      learningIntention:
+        "Calculate wages and salary amounts and read basic information from payslips.",
+      successCriteria: [
+        "Calculate hourly pay from ordinary hours and an hourly rate.",
+        "Convert a yearly salary to weekly pay.",
+        "Identify gross pay on a simple payslip.",
+        "Compare wage and salary earning contexts.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Hourly wages are paid using an hourly rate. Ordinary hours are the standard hours paid at the normal rate.",
+          "A salary is usually a fixed yearly amount. To estimate weekly salary pay, divide the yearly salary by 52.",
+          "Gross pay is the amount earned before tax and other deductions. A payslip may show ordinary pay, allowances, tax withheld, deductions, and net pay.",
+          "Wages can change with hours worked, while salaries are more stable across pay periods.",
+        ],
+        latexBlocks: [
+          "\\text{hourly pay}=\\text{ordinary hours}\\times\\text{hourly rate}",
+          "\\text{weekly salary}=\\text{annual salary}\\div 52",
+        ],
+      },
+      guidedPractice: [
+        moneyAnswer("earn-wage-g1", "Lina works 12 ordinary hours at 25 dollars per hour. Find her gross pay.", "12\\times 25", "300", ["$300", "300.00", "$300.00"]),
+        moneyAnswer("earn-wage-g2", "A salary is 52,000 dollars per year. Find the weekly salary.", "52000\\div 52", "1000", ["$1000", "1,000", "$1,000", "1000.00", "$1000.00"]),
+        financeChoice("earn-wage-g3", "Which payslip field shows pay before deductions?", "B", ["Net pay", "Gross pay", "Tax withheld", "Superannuation"], "Gross pay is before deductions."),
+        financeChoice("earn-wage-g4", "Which worker is most clearly paid a wage?", "A", ["Paid 28 dollars for each hour worked", "Paid 70,000 dollars per year", "Paid a fixed monthly salary", "Paid once per year only"], "Hourly pay is a wage structure."),
+      ],
+      independentPractice: [
+        moneyAnswer("earn-wage-i1", "Kai works 20 ordinary hours at 22 dollars per hour. Find gross pay.", "20\\times 22", "440", ["$440", "440.00", "$440.00"]),
+        moneyAnswer("earn-wage-i2", "A salary is 62,400 dollars per year. Find weekly pay.", "62400\\div 52", "1200", ["$1200", "1,200", "$1,200", "1200.00", "$1200.00"]),
+        moneyAnswer("earn-wage-i3", "A payslip shows ordinary pay 510 dollars and allowance 35 dollars. Find gross pay.", "510+35", "545", ["$545", "545.00", "$545.00"]),
+        financeChoice("earn-wage-i4", "Which statement is true about salary?", "C", ["It is always paid by the hour", "It cannot be converted to weekly pay", "It is often stated as a yearly amount", "It is the same as tax withheld"], "Salary is usually stated annually."),
+        financeChoice("earn-wage-i5", "A student comparing two jobs should compare what over the same time period?", "D", ["Only job titles", "Only workplace distance", "Only tax labels", "Expected earnings"], "Earnings should be compared over equivalent time periods."),
+      ],
+      commonMistakes: [
+        { mistake: "Using net pay when the question asks for gross pay.", fix: "Gross pay is before deductions; net pay is after deductions." },
+        { mistake: "Forgetting to multiply hours by the hourly rate.", fix: "Hourly wage questions need hours times rate." },
+        { mistake: "Dividing salary by 12 when weekly pay is requested.", fix: "Use 52 for weekly pay from an annual salary." },
+        { mistake: "Comparing a weekly wage with a yearly salary directly.", fix: "Convert to the same time period before comparing." },
+      ],
+      masteryQuiz: [
+        moneyAnswer("earn-wage-m1", "Find gross pay for 10 hours at 30 dollars per hour.", "10\\times 30", "300", ["$300", "300.00", "$300.00"]),
+        moneyAnswer("earn-wage-m2", "Find weekly pay for a 41,600 dollar yearly salary.", "41600\\div 52", "800", ["$800", "800.00", "$800.00"]),
+        financeChoice("earn-wage-m3", "Ordinary hours are:", "A", ["Standard hours paid at the normal rate", "Hours paid at double time", "Tax withheld", "A deduction"], "Ordinary hours are paid at the ordinary rate."),
+        financeChoice("earn-wage-m4", "Gross pay means:", "B", ["Pay after deductions", "Pay before deductions", "Tax only", "Superannuation only"], "Gross pay is before deductions."),
+        moneyAnswer("earn-wage-m5", "Ordinary pay is 480 dollars and allowance is 20 dollars. Find gross pay.", "480+20", "500", ["$500", "500.00", "$500.00"]),
+        moneyAnswer("earn-wage-m6", "Find pay for 15 hours at 26 dollars per hour.", "15\\times 26", "390", ["$390", "390.00", "$390.00"]),
+        financeChoice("earn-wage-m7", "Which is a salary context?", "C", ["Paid per item", "Paid per hour only", "Paid 78,000 dollars per year", "Paid only commission"], "A yearly amount is a salary context."),
+        moneyAnswer("earn-wage-m8", "A 57,200 dollar salary is how much per week?", "57200\\div 52", "1100", ["$1100", "1,100", "$1,100", "1100.00", "$1100.00"]),
+        financeChoice("earn-wage-m9", "Which payslip field is a deduction?", "D", ["Ordinary pay", "Allowance", "Gross pay", "Tax withheld"], "Tax withheld is deducted from gross pay."),
+        moneyAnswer("earn-wage-m10", "A worker earns 18 hours at 20 dollars per hour. Find gross pay.", "18\\times 20", "360", ["$360", "360.00", "$360.00"]),
+      ],
+    };
+  }
+
+  if (lesson.slug === "overtime-penalty-rates-allowances") {
+    return {
+      ...base,
+      description:
+        "Calculate overtime, time-and-a-half, double time, penalty rates, allowances, and total earnings with mixed rates.",
+      learningIntention:
+        "Calculate total earnings when ordinary pay is combined with overtime, penalty rates, and allowances.",
+      successCriteria: [
+        "Calculate time-and-a-half and double-time rates.",
+        "Calculate pay for hours worked at mixed rates.",
+        "Add allowances to earnings when appropriate.",
+        "Interpret penalty-rate contexts on simple payslips.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Overtime is extra work beyond ordinary hours. It may be paid at a higher rate.",
+          "Time-and-a-half means 1.5 times the ordinary hourly rate. Double time means 2 times the ordinary hourly rate.",
+          "Penalty rates are higher rates for certain times, such as weekends or public holidays. Allowances are extra amounts paid for specific costs or duties.",
+          "For mixed-rate questions, calculate each part separately, then add them for total gross earnings.",
+        ],
+        latexBlocks: [
+          "\\text{time-and-a-half rate}=1.5\\times\\text{ordinary rate}",
+          "\\text{total earnings}=\\text{ordinary pay}+\\text{overtime pay}+\\text{allowances}",
+        ],
+      },
+      guidedPractice: [
+        moneyAnswer("earn-ot-g1", "Find the time-and-a-half rate for 30 dollars per hour.", "1.5\\times 30", "45", ["$45", "45.00", "$45.00"]),
+        moneyAnswer("earn-ot-g2", "Find double time for 3 hours at an ordinary rate of 24 dollars per hour.", "3\\times 2\\times 24", "144", ["$144", "144.00", "$144.00"]),
+        moneyAnswer("earn-ot-g3", "Add ordinary pay 220 dollars, overtime 90 dollars, and allowance 15 dollars.", "220+90+15", "325", ["$325", "325.00", "$325.00"]),
+        financeChoice("earn-ot-g4", "Which rate is highest?", "C", ["Ordinary rate", "Time-and-a-half", "Double time", "A zero allowance"], "Double time is 2 times the ordinary rate."),
+      ],
+      independentPractice: [
+        moneyAnswer("earn-ot-i1", "A worker does 4 overtime hours at time-and-a-half on 28 dollars per hour. Find overtime pay.", "4\\times 1.5\\times 28", "168", ["$168", "168.00", "$168.00"]),
+        moneyAnswer("earn-ot-i2", "A worker earns 8 ordinary hours at 25 dollars and 2 double-time hours. Find total pay.", "8\\times 25+2\\times 2\\times 25", "300", ["$300", "300.00", "$300.00"]),
+        moneyAnswer("earn-ot-i3", "Base shift pay is 190 dollars and a meal allowance is 18.50 dollars. Find total.", "190+18.50", "208.50", ["$208.50", "208.5", "$208.5"]),
+        financeChoice("earn-ot-i4", "A Sunday shift paid at a higher rate is most likely an example of:", "B", ["Salary conversion", "Penalty rate", "Piecework", "Net pay"], "Penalty rates are higher rates for certain times."),
+        moneyAnswer("earn-ot-i5", "Find the time-and-a-half rate for 32 dollars per hour.", "1.5\\times 32", "48", ["$48", "48.00", "$48.00"]),
+      ],
+      commonMistakes: [
+        { mistake: "Applying overtime rates to all hours.", fix: "Apply higher rates only to the hours described as overtime or penalty hours." },
+        { mistake: "Using 1.5 dollars instead of multiplying by 1.5.", fix: "Time-and-a-half means 1.5 times the ordinary hourly rate." },
+        { mistake: "Forgetting to add allowances.", fix: "If the question says an allowance is paid, add it to earnings." },
+        { mistake: "Mixing net pay with gross earnings.", fix: "Overtime and allowances are part of gross earnings before deductions." },
+      ],
+      masteryQuiz: [
+        moneyAnswer("earn-ot-m1", "Find time-and-a-half for 20 dollars per hour.", "1.5\\times 20", "30", ["$30", "30.00", "$30.00"]),
+        moneyAnswer("earn-ot-m2", "Find double time for 5 hours at 18 dollars per hour.", "5\\times 2\\times 18", "180", ["$180", "180.00", "$180.00"]),
+        moneyAnswer("earn-ot-m3", "Ordinary pay is 240 dollars and overtime is 60 dollars. Find total gross earnings.", "240+60", "300", ["$300", "300.00", "$300.00"]),
+        financeChoice("earn-ot-m4", "A travel allowance should usually be:", "A", ["Added to earnings", "Subtracted as tax", "Ignored", "Divided by 52"], "Allowances are extra paid amounts in these contexts."),
+        moneyAnswer("earn-ot-m5", "Find 2 hours at time-and-a-half when the ordinary rate is 40 dollars per hour.", "2\\times 1.5\\times 40", "120", ["$120", "120.00", "$120.00"]),
+        moneyAnswer("earn-ot-m6", "Add 320 dollars ordinary pay, 80 dollars penalty pay and 25 dollars allowance.", "320+80+25", "425", ["$425", "425.00", "$425.00"]),
+        financeChoice("earn-ot-m7", "Double time means:", "B", ["1.5 times the ordinary rate", "2 times the ordinary rate", "Half the ordinary rate", "No pay"], "Double time doubles the ordinary rate."),
+        moneyAnswer("earn-ot-m8", "Find the double-time hourly rate if ordinary pay is 27 dollars per hour.", "2\\times 27", "54", ["$54", "54.00", "$54.00"]),
+        financeChoice("earn-ot-m9", "The best first step in a mixed-rate question is:", "D", ["Guess the total", "Subtract tax first", "Ignore ordinary hours", "Separate the hours by pay rate"], "Separate ordinary, overtime and penalty hours first."),
+        moneyAnswer("earn-ot-m10", "A worker earns 150 dollars plus a 12 dollar allowance. Find total earnings.", "150+12", "162", ["$162", "162.00", "$162.00"]),
+      ],
+    };
+  }
+
+  if (lesson.slug === "commission-piecework") {
+    return {
+      ...base,
+      description:
+        "Calculate commission, base pay plus commission, piecework earnings, and compare earning structures for reasonableness.",
+      learningIntention:
+        "Calculate commission and piecework earnings and compare different earning structures.",
+      successCriteria: [
+        "Calculate commission as a percentage of sales.",
+        "Add base pay and commission.",
+        "Calculate piecework earnings from an item rate.",
+        "Choose reasonable earning structures for practical contexts.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Commission is pay based on sales. It is often calculated as a percentage of the sales amount.",
+          "Some jobs pay a base amount plus commission. Calculate the commission first, then add the base pay.",
+          "Piecework pays a fixed amount for each item made, delivered, or completed.",
+          "When comparing earning structures, use the same sales amount, item count, or time period so the comparison is fair.",
+        ],
+        latexBlocks: [
+          "\\text{commission}=\\text{commission rate}\\times\\text{sales}",
+          "\\text{piecework pay}=\\text{number of items}\\times\\text{rate per item}",
+        ],
+      },
+      guidedPractice: [
+        moneyAnswer("earn-com-g1", "Find 5 percent commission on 2000 dollars of sales.", "0.05\\times 2000", "100", ["$100", "100.00", "$100.00"]),
+        moneyAnswer("earn-com-g2", "Base pay is 450 dollars and commission is 80 dollars. Find total earnings.", "450+80", "530", ["$530", "530.00", "$530.00"]),
+        moneyAnswer("earn-com-g3", "A worker is paid 4 dollars per item for 35 items. Find piecework pay.", "4\\times 35", "140", ["$140", "140.00", "$140.00"]),
+        financeChoice("earn-com-g4", "Which job uses commission?", "A", ["Paid 6 percent of sales", "Paid a fixed yearly salary", "Paid only for hours worked", "Paid tax withheld"], "Commission is based on sales."),
+      ],
+      independentPractice: [
+        moneyAnswer("earn-com-i1", "Find 8 percent commission on 1500 dollars sales.", "0.08\\times 1500", "120", ["$120", "120.00", "$120.00"]),
+        moneyAnswer("earn-com-i2", "Base pay is 500 dollars plus 4 percent of 3000 dollars sales. Find total earnings.", "500+0.04\\times 3000", "620", ["$620", "620.00", "$620.00"]),
+        moneyAnswer("earn-com-i3", "Piecework pays 2.50 dollars per item for 60 items. Find earnings.", "2.50\\times 60", "150", ["$150", "150.00", "$150.00"]),
+        financeChoice("earn-com-i4", "Which comparison is fairest?", "C", ["One day vs one year", "Before tax vs after tax", "Both options over the same sales amount", "Ignoring the number of items"], "Compare over the same basis."),
+        financeChoice("earn-com-i5", "If sales are zero, which earning structure still gives pay?", "B", ["Commission only", "Base pay plus commission", "Piecework with zero items", "Percentage of sales only"], "Base pay still applies even if commission is zero."),
+      ],
+      commonMistakes: [
+        { mistake: "Using 5 instead of 0.05 for 5 percent.", fix: "Convert percentages to decimals before multiplying." },
+        { mistake: "Forgetting to add base pay.", fix: "For base plus commission, add both parts." },
+        { mistake: "Treating piecework as hourly pay.", fix: "Piecework uses number of items times rate per item." },
+        { mistake: "Comparing earning structures over different amounts.", fix: "Use the same sales, items, or time period." },
+      ],
+      masteryQuiz: [
+        moneyAnswer("earn-com-m1", "Find 10 percent commission on 900 dollars sales.", "0.10\\times 900", "90", ["$90", "90.00", "$90.00"]),
+        moneyAnswer("earn-com-m2", "Find 3 percent commission on 4000 dollars sales.", "0.03\\times 4000", "120", ["$120", "120.00", "$120.00"]),
+        moneyAnswer("earn-com-m3", "Base pay 350 dollars plus commission 95 dollars. Find total.", "350+95", "445", ["$445", "445.00", "$445.00"]),
+        moneyAnswer("earn-com-m4", "Piecework is 1.80 dollars for each of 50 items. Find pay.", "1.80\\times 50", "90", ["$90", "90.00", "$90.00"]),
+        financeChoice("earn-com-m5", "Commission is usually based on:", "A", ["Sales", "Tax withheld", "Net pay only", "The number of weeks in a year"], "Commission is commonly a percentage of sales."),
+        moneyAnswer("earn-com-m6", "Base pay is 600 dollars plus 5 percent of 2000 dollars sales. Find total.", "600+0.05\\times 2000", "700", ["$700", "700.00", "$700.00"]),
+        financeChoice("earn-com-m7", "Piecework pays according to:", "C", ["Yearly salary", "Tax rate", "Number of items completed", "Travel distance only"], "Piecework pays per item."),
+        moneyAnswer("earn-com-m8", "Find 7 percent of 1000 dollars.", "0.07\\times 1000", "70", ["$70", "70.00", "$70.00"]),
+        financeChoice("earn-com-m9", "Which earning structure has the most variable pay?", "D", ["Fixed salary", "Fixed allowance", "Fixed hourly shift", "Commission only"], "Commission-only pay changes with sales."),
+        moneyAnswer("earn-com-m10", "A worker completes 24 items at 5 dollars each. Find pay.", "24\\times 5", "120", ["$120", "120.00", "$120.00"]),
+      ],
+    };
+  }
+
+  if (lesson.slug === "tax-deductions-net-pay") {
+    return {
+      ...base,
+      description:
+        "Use gross pay, tax withheld, deductions and percentage deductions to calculate net pay and interpret payslips.",
+      learningIntention:
+        "Calculate net pay from gross pay and deductions, and interpret simplified payslip information.",
+      successCriteria: [
+        "Identify deductions on a payslip.",
+        "Calculate net pay using gross pay minus deductions.",
+        "Calculate percentage deductions.",
+        "Interpret tax withheld and other deductions in simple contexts.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Deductions are amounts taken out of gross pay. In simplified questions these may include tax withheld, union fees, insurance, or other listed deductions.",
+          "Net pay is the amount received after deductions are subtracted from gross pay.",
+          "Percentage deductions are found by converting the percentage to a decimal and multiplying by the relevant amount.",
+          "Payslip questions often ask you to identify which values are earnings, which are deductions, and what the final net pay should be.",
+        ],
+        latexBlocks: [
+          "\\text{net pay}=\\text{gross pay}-\\text{total deductions}",
+          "\\text{percentage deduction}=\\frac{p}{100}\\times\\text{gross pay}",
+        ],
+      },
+      guidedPractice: [
+        moneyAnswer("earn-tax-g1", "Gross pay is 800 dollars and tax withheld is 150 dollars. Find net pay.", "800-150", "650", ["$650", "650.00", "$650.00"]),
+        moneyAnswer("earn-tax-g2", "Gross pay is 920 dollars, tax is 165 dollars, and another deduction is 25 dollars. Find net pay.", "920-165-25", "730", ["$730", "730.00", "$730.00"]),
+        moneyAnswer("earn-tax-g3", "Find a 5 percent deduction from 600 dollars.", "0.05\\times 600", "30", ["$30", "30.00", "$30.00"]),
+        financeChoice("earn-tax-g4", "Which payslip item is a deduction?", "C", ["Ordinary pay", "Allowance", "Tax withheld", "Gross pay"], "Tax withheld is taken out of gross pay."),
+      ],
+      independentPractice: [
+        moneyAnswer("earn-tax-i1", "Gross pay is 760 dollars, tax is 118 dollars and union fee is 12 dollars. Find net pay.", "760-118-12", "630", ["$630", "630.00", "$630.00"]),
+        moneyAnswer("earn-tax-i2", "Find 8 percent of 500 dollars.", "0.08\\times 500", "40", ["$40", "40.00", "$40.00"]),
+        moneyAnswer("earn-tax-i3", "Gross pay is 1000 dollars and total deductions are 220 dollars. Find net pay.", "1000-220", "780", ["$780", "780.00", "$780.00"]),
+        financeChoice("earn-tax-i4", "Net pay is best described as:", "B", ["Pay before deductions", "Pay after deductions", "Tax before gross pay", "Allowance only"], "Net pay is the amount left after deductions."),
+        moneyAnswer("earn-tax-i5", "A 3 percent deduction is taken from 900 dollars. Find the deduction.", "0.03\\times 900", "27", ["$27", "27.00", "$27.00"]),
+      ],
+      commonMistakes: [
+        { mistake: "Adding deductions instead of subtracting them.", fix: "Deductions are taken away from gross pay." },
+        { mistake: "Confusing gross pay and net pay.", fix: "Gross is before deductions; net is after deductions." },
+        { mistake: "Using the percentage number directly.", fix: "Convert percentages to decimals before multiplying." },
+        { mistake: "Ignoring small listed deductions.", fix: "Subtract every deduction named in the question." },
+      ],
+      masteryQuiz: [
+        moneyAnswer("earn-tax-m1", "Gross pay is 700 dollars and tax is 120 dollars. Find net pay.", "700-120", "580", ["$580", "580.00", "$580.00"]),
+        moneyAnswer("earn-tax-m2", "Gross pay is 850 dollars and deductions are 200 dollars. Find net pay.", "850-200", "650", ["$650", "650.00", "$650.00"]),
+        moneyAnswer("earn-tax-m3", "Find 10 percent of 460 dollars.", "0.10\\times 460", "46", ["$46", "46.00", "$46.00"]),
+        financeChoice("earn-tax-m4", "Tax withheld is:", "A", ["A deduction", "Gross pay", "An allowance", "A salary"], "Tax withheld is deducted."),
+        moneyAnswer("earn-tax-m5", "Gross pay is 960 dollars, tax is 180 dollars and fee is 15 dollars. Find net pay.", "960-180-15", "765", ["$765", "765.00", "$765.00"]),
+        financeChoice("earn-tax-m6", "To find net pay, calculate:", "C", ["Gross plus deductions", "Tax times salary", "Gross minus deductions", "Allowance minus gross"], "Net pay is gross pay less deductions."),
+        moneyAnswer("earn-tax-m7", "Find 4 percent of 750 dollars.", "0.04\\times 750", "30", ["$30", "30.00", "$30.00"]),
+        moneyAnswer("earn-tax-m8", "Net pay is 540 dollars after 60 dollars deductions. What was gross pay?", "540+60", "600", ["$600", "600.00", "$600.00"]),
+        financeChoice("earn-tax-m9", "Which item increases gross earnings rather than reducing pay?", "D", ["Tax withheld", "Union fee", "Insurance deduction", "Allowance"], "An allowance is added to earnings."),
+        moneyAnswer("earn-tax-m10", "Gross pay is 1200 dollars and total deductions are 275 dollars. Find net pay.", "1200-275", "925", ["$925", "925.00", "$925.00"]),
+      ],
+    };
+  }
+
+  return {
+    ...base,
+    description:
+      "Practise mixed earning-money questions involving payslips, overtime, commission, allowances, gross pay, and net pay.",
+    learningIntention:
+      "Apply earning-money skills to mixed practical exam-style questions.",
+    successCriteria: [
+      "Choose the correct method for wages, salary, overtime, commission, or net pay.",
+      "Calculate gross pay and net pay in short practical contexts.",
+      "Interpret payslip information accurately.",
+      "Check whether an earning calculation is reasonable.",
+    ],
+    teaching: {
+      paragraphs: [
+        "Mixed earning-money questions often combine several ideas, such as ordinary pay, overtime, allowances, commission, tax and net pay.",
+        "Start by identifying what is being asked: gross pay, net pay, a deduction, commission, piecework, or a comparison.",
+        "Calculate each earning component separately before adding them. Subtract deductions only when the question asks for net pay.",
+        "A reasonable answer should match the context. For example, double time should be higher than ordinary pay, and net pay should be less than gross pay when deductions apply.",
+      ],
+      latexBlocks: [
+        "\\text{gross pay}=\\text{all earnings before deductions}",
+        "\\text{net pay}=\\text{gross pay}-\\text{deductions}",
+      ],
+    },
+    guidedPractice: [
+      financeChoice("earn-exam-g1", "A question asks for pay before tax. Which value is needed?", "A", ["Gross pay", "Net pay", "Tax withheld", "Total deductions only"], "Pay before tax is gross pay."),
+      moneyAnswer("earn-exam-g2", "Ordinary pay is 500 dollars, overtime is 120 dollars, allowance is 30 dollars. Find gross pay.", "500+120+30", "650", ["$650", "650.00", "$650.00"]),
+      moneyAnswer("earn-exam-g3", "Find 6 percent commission on 2500 dollars sales.", "0.06\\times 2500", "150", ["$150", "150.00", "$150.00"]),
+      moneyAnswer("earn-exam-g4", "Gross pay is 650 dollars and deductions are 140 dollars. Find net pay.", "650-140", "510", ["$510", "510.00", "$510.00"]),
+    ],
+    independentPractice: [
+      moneyAnswer("earn-exam-i1", "A worker earns 16 hours at 24 dollars per hour. Find ordinary pay.", "16\\times 24", "384", ["$384", "384.00", "$384.00"]),
+      moneyAnswer("earn-exam-i2", "A worker earns 3 double-time hours at 30 dollars per hour. Find overtime pay.", "3\\times 2\\times 30", "180", ["$180", "180.00", "$180.00"]),
+      moneyAnswer("earn-exam-i3", "Base pay is 420 dollars plus 5 percent of 1600 dollars sales. Find total earnings.", "420+0.05\\times 1600", "500", ["$500", "500.00", "$500.00"]),
+      financeChoice("earn-exam-i4", "Which conclusion is reasonable?", "B", ["Net pay is always higher than gross pay", "Net pay is lower than gross pay when deductions apply", "Tax withheld is added to net pay", "Allowances are always deductions"], "Deductions reduce gross pay to net pay."),
+      moneyAnswer("earn-exam-i5", "Gross pay is 880 dollars, tax is 150 dollars, and other deductions are 20 dollars. Find net pay.", "880-150-20", "710", ["$710", "710.00", "$710.00"]),
+    ],
+    commonMistakes: [
+      { mistake: "Starting calculations before identifying what the question asks for.", fix: "Decide whether the answer is gross pay, net pay, commission, overtime, or a deduction." },
+      { mistake: "Subtracting deductions when asked for gross pay.", fix: "Gross pay is before deductions." },
+      { mistake: "Forgetting commission or allowances in total earnings.", fix: "Add all earnings components before deductions." },
+      { mistake: "Giving an unreasonable result without checking.", fix: "Net pay should be less than gross pay when deductions are included." },
+    ],
+    masteryQuiz: [
+      financeChoice("earn-exam-m1", "Which method finds ordinary hourly pay?", "A", ["Hours times hourly rate", "Gross minus tax", "Sales times tax", "Salary divided by 12 always"], "Hourly pay uses hours times rate."),
+      moneyAnswer("earn-exam-m2", "Find pay for 14 hours at 26 dollars per hour.", "14\\times 26", "364", ["$364", "364.00", "$364.00"]),
+      moneyAnswer("earn-exam-m3", "Find time-and-a-half rate for 34 dollars per hour.", "1.5\\times 34", "51", ["$51", "51.00", "$51.00"]),
+      moneyAnswer("earn-exam-m4", "Find 4 percent commission on 5000 dollars sales.", "0.04\\times 5000", "200", ["$200", "200.00", "$200.00"]),
+      financeChoice("earn-exam-m5", "A payslip asks for pay after deductions. Find:", "B", ["Gross pay", "Net pay", "Allowance only", "Hourly rate"], "Pay after deductions is net pay."),
+      moneyAnswer("earn-exam-m6", "Gross pay 720 dollars minus deductions 155 dollars. Find net pay.", "720-155", "565", ["$565", "565.00", "$565.00"]),
+      moneyAnswer("earn-exam-m7", "Piecework pays 3 dollars per item for 75 items. Find pay.", "3\\times 75", "225", ["$225", "225.00", "$225.00"]),
+      financeChoice("earn-exam-m8", "Which item is added to earnings?", "C", ["Tax withheld", "Union fee", "Meal allowance", "Insurance deduction"], "A meal allowance is added."),
+      moneyAnswer("earn-exam-m9", "Ordinary pay 400 dollars plus overtime 90 dollars minus tax 80 dollars. Find net pay.", "400+90-80", "410", ["$410", "410.00", "$410.00"]),
+      financeChoice("earn-exam-m10", "Which answer is most reasonable if gross pay is 600 dollars and deductions apply?", "D", ["700 dollars net pay", "6000 dollars net pay", "No net pay can exist", "520 dollars net pay"], "Net pay should be less than gross pay when deductions apply."),
+    ],
+  };
+}
+
 export function buildLesson(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -668,7 +1170,9 @@ export function buildLesson(
 ): ExplicitLesson {
   const topic = lesson.title;
   const prefix = slugPrefix(lesson.slug);
-  const override = networkLessonOverride(course, unit, lesson);
+  const override =
+    networkLessonOverride(course, unit, lesson) ??
+    earningMoneyLessonOverride(course, unit, lesson);
 
   return {
     id: lesson.slug,
@@ -989,13 +1493,40 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "earning-money",
         title: "Earning Money",
         description:
-          "Payslips, tax, deductions, net pay, and practical earning-money questions.",
+          "Wages, salaries, payslips, overtime, penalty rates, allowances, commission, piecework, tax, deductions, and net pay.",
         syllabusArea: "Financial mathematics",
         focus: "Earning money",
         lessons: [
-          { slug: "earning-money-payslips", title: "Earning Money and Payslips" },
-          { slug: "tax-deductions-net-pay", title: "Tax, Deductions and Net Pay" },
-          { slug: "earning-money-exam-practice", title: "Earning Money Exam Practice" },
+          {
+            slug: "wages-salaries-payslips",
+            title: "Wages, Salaries and Payslips",
+            description:
+              "Calculate hourly wages and salary pay, then interpret ordinary hours, gross pay and basic payslip fields.",
+          },
+          {
+            slug: "overtime-penalty-rates-allowances",
+            title: "Overtime, Penalty Rates and Allowances",
+            description:
+              "Calculate overtime, time-and-a-half, double time, penalty rates, allowances and total earnings with mixed rates.",
+          },
+          {
+            slug: "commission-piecework",
+            title: "Commission and Piecework",
+            description:
+              "Calculate commission, base pay plus commission, piecework earnings and compare earning structures.",
+          },
+          {
+            slug: "tax-deductions-net-pay",
+            title: "Tax, Deductions and Net Pay",
+            description:
+              "Use gross pay, tax withheld, deductions and percentage deductions to calculate net pay and interpret payslips.",
+          },
+          {
+            slug: "earning-money-exam-practice",
+            title: "Earning Money Exam Practice",
+            description:
+              "Practise mixed earning-money questions involving payslips, overtime, commission, allowances, gross pay and net pay.",
+          },
         ],
       },
       {
