@@ -36,6 +36,12 @@ const oldLessonRedirects: Record<string, Record<string, string>> = {
     "multistage-events-probability-tables": "data-analysis/data-analysis-exam-practice",
     "data-probability-exam-practice": "data-analysis/data-analysis-exam-practice",
   },
+  "networks-paths-trees": {
+    "network-diagrams-and-terminology":
+      "networks-paths-trees/network-diagrams-terminology",
+    "trees-and-minimum-spanning-trees":
+      "networks-paths-trees/trees-minimum-spanning-trees",
+  },
 };
 
 export default async function Year11StandardLessonPage({
