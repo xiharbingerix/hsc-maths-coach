@@ -6,7 +6,8 @@ const featureChips = ["Diagnostic-led", "Explicit teaching", "Mastery checks"];
 const steps = [
   {
     title: "Complete the diagnostic",
-    description: "Students complete a targeted 36-question Year 12 skills check.",
+    description:
+      "Year 12 Mathematics Advanced students complete a targeted 36-question skills check.",
   },
   {
     title: "Receive a clear report or summary",
@@ -86,7 +87,7 @@ const offers = [
     title: "Diagnostic + 30-Day Plan",
     price: "$79 one-off",
     description:
-      "A diagnostic report plus a focused month of revision priorities based on the student's results.",
+      "A Year 12 Mathematics Advanced diagnostic report plus a focused month of revision priorities based on the student's results.",
     features: [
       "Diagnostic PDF report",
       "30-day revision plan",
@@ -119,7 +120,7 @@ const offers = [
       "Weekly tutoring support",
       "Online lesson access",
       "Guided practice and mastery quizzes",
-      "Diagnostic-informed priorities",
+      "Student-specific study priorities",
       "Support before assessments and trials",
     ],
     buttonLabel: "Enquire about tutoring",
@@ -209,17 +210,17 @@ export default function Home() {
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-12">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold text-slate-500">
-              HSC Maths Advanced &middot; Trial revision
+              Stage 6 maths &middot; Year 11 and Year 12 pathways
             </p>
 
             <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-              HSC Maths Advanced support that starts with a diagnostic.
+              Senior maths support for Year 11 and Year 12 pathways.
             </h1>
 
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Students complete a targeted diagnostic, receive clear feedback
-              on priority areas, and can access structured online lessons for
-              Year 12 Maths Advanced revision.
+              Year 12 Mathematics Advanced students can start with a targeted
+              diagnostic and report option. Online learning access covers the
+              available Year 11 and Year 12 maths pathways during early access.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -230,8 +231,8 @@ export default function Home() {
             </div>
 
             <p className="mt-4 text-sm leading-6 text-slate-600">
-              Designed for NSW Year 12 Mathematics Advanced students preparing
-              for assessments, trials, or the HSC.
+              Designed for NSW Stage 6 maths students preparing for
+              assessments, trials, or the HSC.
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2">
@@ -427,13 +428,13 @@ export default function Home() {
 
         <section className="flex flex-col items-start gap-6 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:flex-row md:items-center md:justify-between md:p-10">
           <h2 className="max-w-xl text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
-            Ready to find the highest-impact study priorities?
+            Ready to find Year 12 Advanced study priorities?
           </h2>
           <PrimaryLink href="/diagnostic">Start diagnostic</PrimaryLink>
         </section>
 
         <footer className="flex flex-col gap-4 border-t border-slate-200 pb-8 pt-6 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
-          <p>HSC Maths Coach for NSW Maths Advanced students.</p>
+          <p>HSC Maths Coach for NSW senior maths students.</p>
           <nav className="flex flex-wrap gap-4" aria-label="Footer">
             <Link href="/diagnostic" className="hover:text-slate-900">
               Diagnostic

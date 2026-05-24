@@ -14,7 +14,7 @@ export default function PrivacyPage() {
           <p className="text-slate-600">
             This Privacy Notice explains how HSC Maths Coach collects, uses,
             stores, and protects information submitted through the HSC Maths
-            diagnostic.
+            diagnostic, enquiries, accounts, and online learning access.
           </p>
 
           <p className="text-sm text-slate-500">Last updated: May 2026</p>
@@ -25,8 +25,10 @@ export default function PrivacyPage() {
 
           <p className="text-slate-700">
             HSC Maths Coach is a diagnostic-led revision tool for maths
-            learning. The diagnostic is designed to help identify a student&apos;s
-            maths strengths, weak areas, and possible study priorities.
+            learning. The current diagnostic is for Year 12 Mathematics
+            Advanced and is designed to help identify a student&apos;s maths
+            strengths, weak areas, and possible study priorities. Online
+            learning may include additional Year 11 and Year 12 course pathways.
           </p>
 
           <p className="text-slate-700">

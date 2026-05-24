@@ -101,10 +101,10 @@ export default function OnlineLearningPage() {
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-12">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold text-slate-500">
-              HSC Maths Advanced &middot; Online learning
+              Stage 6 maths &middot; Online learning
             </p>
             <h1 className="mt-4 text-4xl font-bold tracking-tight md:text-5xl">
-              Online HSC Maths Advanced lessons for targeted trial revision.
+              Online lessons for available Year 11 and Year 12 maths pathways.
             </h1>
             <p className="mt-5 text-lg leading-8 text-slate-600">
               Structured online learning for students who want targeted senior
@@ -260,7 +260,9 @@ export default function OnlineLearningPage() {
               <p className="mt-3 max-w-2xl leading-7 text-slate-600">
                 Students wanting live support can enquire about Weekly Tutoring
                 + Online Learning for $75/week. This combines weekly individual
-                support with access to the online learning package.
+                support with access to the online learning package. Support
+                across available senior maths pathways is subject to
+                availability.
               </p>
             </div>
             <SecondaryLink href="/enquire?offer=weekly-tutoring">

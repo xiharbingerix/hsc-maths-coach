@@ -8,11 +8,11 @@ export const metadata: Metadata = {
     template: "%s | HSC Maths Coach",
   },
   description:
-    "Diagnostic-led HSC Maths Advanced revision with targeted lessons, guided practice, and mastery quizzes.",
+    "Stage 6 maths support with a Year 12 Advanced diagnostic and online learning pathways for available Year 11 and Year 12 courses.",
   openGraph: {
     title: "HSC Maths Coach",
     description:
-      "Diagnostic-led HSC Maths Advanced revision with targeted lessons, guided practice, and mastery quizzes.",
+      "Stage 6 maths support with a Year 12 Advanced diagnostic and online learning pathways for available Year 11 and Year 12 courses.",
     type: "website",
   },
 };

@@ -31,7 +31,9 @@ export default async function CheckoutPage({
           </h1>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
             Confirm the selected early-access option, then continue to Stripe
-            Checkout. Weekly tutoring remains enquiry-only.
+            Checkout. Report and study-plan checkout options currently relate
+            to the Year 12 Mathematics Advanced diagnostic. Weekly tutoring
+            remains enquiry-only.
           </p>
         </header>
 

@@ -24,7 +24,7 @@ export const offerConfigs: Record<OfferSlug, OfferConfig> = {
     label: "Diagnostic PDF Report",
     priceLabel: "$49 one-off",
     description:
-      "A parent-friendly report showing strengths, priority areas, likely mark leaks, and recommended next lessons.",
+      "A parent-friendly Year 12 Mathematics Advanced diagnostic report showing strengths, priority areas, likely mark leaks, and recommended next lessons.",
     checkoutEnabled: true,
     stripePriceEnvKey: "STRIPE_PRICE_DIAGNOSTIC_REPORT",
     mode: "payment",
@@ -36,7 +36,7 @@ export const offerConfigs: Record<OfferSlug, OfferConfig> = {
     label: "Diagnostic + 30-Day Plan",
     priceLabel: "$79 one-off",
     description:
-      "A diagnostic report plus a focused month of revision priorities based on the student's results.",
+      "A Year 12 Mathematics Advanced diagnostic report plus a focused month of revision priorities based on the student's results.",
     checkoutEnabled: true,
     stripePriceEnvKey: "STRIPE_PRICE_STUDY_PLAN",
     mode: "payment",
