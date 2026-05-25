@@ -1,6 +1,7 @@
 import type {
   ExplicitLesson,
   LessonOutlineItem,
+  PracticeQuestion,
 } from "./differentialCalculus";
 
 export const antidifferentiationReversePowerRuleLesson: ExplicitLesson = {
@@ -3188,6 +3189,178 @@ export const mixedIntegralCalculusExamPracticeLesson: ExplicitLesson = {
 
   masteryPassMark: 0.8,
 };
+
+function masteryChoice(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: "A" | "B" | "C" | "D",
+  choices: [string, string, string, string],
+  explanation: string,
+  hint = "Choose the option that matches the integration meaning."
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    choices: ["A", "B", "C", "D"].map((label, index) => ({
+      label,
+      text: choices[index],
+    })),
+    hint,
+    explanation,
+  };
+}
+
+function masteryTyped(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = [],
+  hint = "Set up the integral carefully, then calculate."
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers,
+    hint,
+    explanation: `The answer is ${answer}.`,
+  };
+}
+
+antidifferentiationReversePowerRuleLesson.masteryQuiz = [
+  masteryTyped("anti-mastery-1", "Find an antiderivative using the reverse power rule.", "\\int 12x^3\\,dx", "3x^4", ["3x^4+C"]),
+  masteryTyped("anti-mastery-2", "Find an antiderivative of the polynomial term.", "\\int -15x^4\\,dx", "-3x^5", ["-3x^5+C"]),
+  masteryChoice("anti-mastery-3", "Which integral is excluded from the reverse power rule in this lesson?", "\\int x^n\\,dx=\\frac{x^{n+1}}{n+1},\\ n\\ne -1", "C", ["$\\int x^3\\,dx$", "$\\int x^{-2}\\,dx$", "$\\int x^{-1}\\,dx$", "$\\int 7\\,dx$"], "The rule excludes $n=-1$ because it would require division by zero."),
+  masteryTyped("anti-mastery-4", "Use the given derivative to find a possible original function.", "f'(x)=8x^3-6x", "2x^4-3x^2", ["2x^4-3x^2+C", "f(x)=2x^4-3x^2+C"]),
+  masteryChoice("anti-mastery-5", "Which antiderivative differentiates back to the displayed expression?", "9x^2-4", "B", ["$18x-4$", "$3x^3-4x$", "$9x^3-4x$", "$3x^3-4$"], "Differentiate $3x^3-4x$ to get $9x^2-4$."),
+  masteryTyped("anti-mastery-6", "Find the missing coefficient in the antiderivative.", "\\int ax^5\\,dx=4x^6", "24", ["a=24"], "Differentiate 4x^6 to recover ax^5."),
+  masteryChoice("anti-mastery-7", "A student writes the displayed integral with the shown incorrect result. What is the mistake?", "\\int 10x^4\\,dx=50x^5", "A", ["They multiplied by the new power instead of dividing", "They forgot the old power was 4", "They used a definite integral", "They excluded $x^{-1}$"], "The coefficient should be 10 divided by 5."),
+  masteryChoice("anti-mastery-8", "Which derivative check confirms the proposed antiderivative?", "F(x)=-2x^4", "D", ["$F'(x)=-2x^3$", "$F'(x)=-8x^4$", "$F'(x)=8x^3$", "$F'(x)=-8x^3$"], "Differentiate the proposed antiderivative."),
+  masteryTyped("anti-mastery-9", "A displacement function has the displayed derivative. Find a possible displacement function.", "s'(t)=6t^2-4t", "2t^3-2t^2", ["2t^3-2t^2+C", "s(t)=2t^3-2t^2+C"]),
+  masteryChoice("anti-mastery-10", "Which expression is the best first antiderivative step before using any condition?", "f'(x)=4x^3-2x+7", "B", ["$f(x)=12x^2-2$", "$f(x)=x^4-x^2+7x+C$", "$f(x)=4x^4-2x^2+7+C$", "$f(x)=x^4-x+C$"], "Integrate each term and include a constant before using conditions."),
+];
+
+indefiniteIntegralsConstantOfIntegrationLesson.masteryQuiz = [
+  masteryChoice("indef-mastery-1", "Why must an indefinite integral include +C?", "\\int f(x)\\,dx=F(x)+C", "B", ["Powers of x disappear", "Constants differentiate to zero", "Definite integrals need units", "The upper bound is missing"], "+C represents the family of primitives."),
+  masteryTyped("indef-mastery-2", "Find the indefinite integral.", "\\int (6x^2-4x+5)\\,dx", "2x^3-2x^2+5x+C", ["2x^3 - 2x^2 + 5x + C", "C+2x^3-2x^2+5x"]),
+  masteryTyped("indef-mastery-3", "Integrate the constant term correctly.", "\\int -7\\,dx", "-7x+C", ["C-7x", "-7x + C"]),
+  masteryTyped("indef-mastery-4", "Find the family of primitives.", "\\int (8x^3+3x^2-2)\\,dx", "2x^4+x^3-2x+C", ["2x^4 + x^3 - 2x + C"]),
+  masteryChoice("indef-mastery-5", "Which answer correctly integrates every term?", "\\int (4x^3-6x+9)\\,dx", "C", ["x^4-3x^2+C", "16x^2-6+C", "x^4-3x^2+9x+C", "4x^4-6x^2+9+C"], "The constant 9 integrates to 9x and +C is needed."),
+  masteryTyped("indef-mastery-6", "Find the general primitive for the displayed derivative.", "F'(x)=10x^4-12x", "2x^5-6x^2+C", ["F(x)=2x^5-6x^2+C", "2x^5 - 6x^2 + C"]),
+  masteryChoice("indef-mastery-7", "A student writes the displayed integral with the shown incorrect result. What is wrong?", "\\int (3x^2+5)\\,dx=x^3+5+C", "A", ["The constant 5 should integrate to $5x$", "The $x^2$ term should stay $x^2$", "The $+C$ should be removed", "The answer should be definite"], "A constant term becomes a linear term when integrated."),
+  masteryChoice("indef-mastery-8", "Which derivative check is correct for the displayed primitive?", "F(x)=x^4-2x^2+5x+C", "D", ["$F'(x)=4x^3-4x+5+C$", "$F'(x)=x^3-2x+5$", "$F'(x)=4x^3-2x+5$", "$F'(x)=4x^3-4x+5$"], "The derivative of $C$ is zero."),
+  masteryTyped("indef-mastery-9", "A rate of change is given. Write the general accumulated quantity.", "Q'(t)=3t^2-4t+6", "t^3-2t^2+6t+C", ["Q(t)=t^3-2t^2+6t+C", "t^3 - 2t^2 + 6t + C"]),
+  masteryChoice("indef-mastery-10", "Which response best separates indefinite and definite integrals?", "\\int f(x)\\,dx\\quad \\text{vs}\\quad \\int_a^b f(x)\\,dx", "B", ["Both final answers must include +C", "Only the indefinite integral has +C", "Only the definite integral has +C", "Neither can be checked by differentiating"], "The definite integral evaluates to a number; the indefinite integral gives a family."),
+];
+
+initialConditionsParticularPrimitiveLesson.masteryQuiz = [
+  masteryTyped("initial-mastery-1", "Find the general primitive before using the condition.", "f'(x)=6x-4", "3x^2-4x+C", ["f(x)=3x^2-4x+C", "3x^2 - 4x + C"]),
+  masteryTyped("initial-mastery-2", "Solve for C after substituting the condition.", "f(x)=3x^2-4x+C,\\quad f(2)=9", "5", ["C=5"]),
+  masteryChoice("initial-mastery-3", "Which is the correct first substitution step?", "f'(x)=4x+1,\\quad f(3)=20", "C", ["$20=4(3)+1$", "$C=3$", "$20=2(3)^2+3+C$", "$20=4x+1+C$"], "Integrate first, then substitute into $f(x)$."),
+  masteryTyped("initial-mastery-4", "Find the particular primitive.", "f'(x)=4x-3,\\quad f(2)=7", "2x^2-3x+5", ["f(x)=2x^2-3x+5", "2x^2 - 3x + 5"]),
+  masteryTyped("initial-mastery-5", "Find the particular primitive using the derivative and condition.", "\\frac{dy}{dx}=3x^2-2x,\\quad y(1)=4", "x^3-x^2+4", ["y=x^3-x^2+4", "x^3 - x^2 + 4"]),
+  masteryTyped("initial-mastery-6", "A velocity function and initial displacement are given. Find the displacement function.", "s'(t)=6t+2,\\quad s(0)=5", "3t^2+2t+5", ["s(t)=3t^2+2t+5", "3t^2 + 2t + 5"]),
+  masteryChoice("initial-mastery-7", "A student substitutes the condition into the derivative before integrating. What is the issue?", "f'(x)=4x-3,\\quad f(2)=7", "A", ["The condition belongs in the primitive, not the derivative", "The derivative must include $+C$ first", "The x-value should be ignored", "The upper bound is missing"], "Initial conditions are applied after integrating."),
+  masteryChoice("initial-mastery-8", "Which result is impossible as a final answer when asked for a particular primitive?", "\\text{particular primitive}", "D", ["$f(x)=x^2+3$", "$y=2x^3-x+1$", "$s(t)=3t^2+2t+5$", "$C=4$ only"], "A particular primitive must be the full function, not just $C$."),
+  masteryTyped("initial-mastery-9", "Use the rate of change and condition to find the quantity function.", "Q'(t)=2t+8,\\quad Q(3)=30", "t^2+8t-3", ["Q(t)=t^2+8t-3", "t^2 + 8t - 3"]),
+  masteryChoice("initial-mastery-10", "A derivative and condition are given with an unknown input value. What extra information is still needed?", "f'(x)=6x,\\quad f(a)=20", "B", ["The derivative rule", "The value of $a$", "The coefficient of $x$", "The pass mark"], "A numerical x-value is needed to solve for $C$."),
+];
+
+definiteIntegralsFundamentalTheoremLesson.masteryQuiz = [
+  masteryTyped("definite-mastery-1", "Identify the upper bound.", "\\int_{-1}^{4} f(x)\\,dx", "4", ["x=4", "upper bound 4"]),
+  masteryChoice("definite-mastery-2", "Choose the Fundamental Theorem setup.", "F'(x)=f(x)", "B", ["$\\int_a^b f(x)\\,dx=F(a)-F(b)$", "$\\int_a^b f(x)\\,dx=F(b)-F(a)$", "$\\int_a^b f(x)\\,dx=F(a)+F(b)$", "$\\int_a^b f(x)\\,dx=F'(b)-F'(a)$"], "Use upper minus lower: $F(b)-F(a)$."),
+  masteryTyped("definite-mastery-3", "Evaluate the definite integral.", "\\int_0^2 (3x^2+2)\\,dx", "12", ["12 units"]),
+  masteryTyped("definite-mastery-4", "Evaluate using upper minus lower.", "\\int_1^3 2x\\,dx", "8", ["8 units"]),
+  masteryTyped("definite-mastery-5", "Evaluate the definite integral.", "\\int_{-1}^{2} (4x-1)\\,dx", "0", ["zero"]),
+  masteryTyped("definite-mastery-6", "Evaluate exactly.", "\\int_0^2 (x^2+2x)\\,dx", "20/3", ["6.6666666667", "6.67"]),
+  masteryChoice("definite-mastery-7", "A student gets F(a)-F(b). What mistake has occurred?", "\\int_a^b f(x)\\,dx", "A", ["They reversed the bound order", "They forgot +C", "They found total area", "They used a table"], "Definite integrals use F(b)-F(a)."),
+  masteryChoice("definite-mastery-8", "Should the final evaluated definite integral include +C?", "\\int_0^3 f(x)\\,dx", "D", ["Yes, always", "Only if the answer is negative", "Only for area", "No"], "The final definite integral is a number, so no +C is included."),
+  masteryTyped("definite-mastery-9", "Use the given antiderivative values to evaluate the definite integral.", "F(5)=18,\\quad F(2)=7,\\quad \\int_2^5 f(x)\\,dx", "11", ["11 units"]),
+  masteryChoice("definite-mastery-10", "A graph-based question gives signed areas 6 above and 9 below the x-axis. What is the definite integral?", "\\int_a^b f(x)\\,dx", "C", ["15", "3", "-3", "-15"], "Signed area is 6 - 9 = -3."),
+];
+
+signedAreaTotalAreaLesson.masteryQuiz = [
+  masteryChoice("signed-mastery-1", "What does a definite integral calculate by default?", "\\int_a^b f(x)\\,dx", "B", ["Total area", "Signed area", "Always positive area", "The x-intercept"], "A definite integral gives signed area."),
+  masteryTyped("signed-mastery-2", "Find the x-intercept where total area should be split.", "y=x-3", "3", ["x=3"]),
+  masteryChoice("signed-mastery-3", "Does total area require splitting?", "y=x-3,\\quad 0\\le x\\le5", "A", ["Yes", "No", "Only if +C appears", "Only if the area is above the axis"], "The graph crosses the x-axis at x = 3 inside the interval."),
+  masteryTyped("signed-mastery-4", "Find the signed area on the first piece.", "\\int_0^3 (x-3)\\,dx", "-9/2", ["-4.5"]),
+  masteryTyped("signed-mastery-5", "Find the total area from the displayed signed pieces.", "-\\frac{9}{2},\\quad 2", "13/2", ["6.5"]),
+  masteryTyped("signed-mastery-6", "Find the total area when the graph is below the x-axis.", "y=x-4,\\quad 0\\le x\\le2", "6", ["6 square units", "6 units^2"]),
+  masteryChoice("signed-mastery-7", "A student reports -6 square units for total area. What is the issue?", "\\text{total area}", "C", ["They used +C", "They reversed x and y", "Total area cannot be negative", "They used too many bounds"], "Total geometric area is non-negative."),
+  masteryChoice("signed-mastery-8", "Which plan is best when the curve crosses the x-axis?", "\\text{total area}", "D", ["Use one integral and keep the sign", "Differentiate the function", "Ignore the intercept", "Split and add absolute values"], "Total area needs positive contributions from each piece."),
+  masteryTyped("signed-mastery-9", "A graph has the following signed area pieces. Find the total geometric area.", "\\int_0^2 f(x)\\,dx=-4,\\quad \\int_2^5 f(x)\\,dx=7", "11", ["11 square units", "11 units^2"]),
+  masteryChoice("signed-mastery-10", "A graph has equal positive and negative signed areas. Which statement is correct?", "\\int_a^b f(x)\\,dx=0", "B", ["Total area is zero", "Signed area is zero but total area may be positive", "There is no graph", "The function must be constant"], "Signed pieces can cancel while total area remains positive."),
+];
+
+areaUnderCurveLesson.masteryQuiz = [
+  masteryChoice("area-mastery-1", "Choose the correct setup for area under a positive curve.", "y=x^2+1,\\quad 0\\le x\\le2", "B", ["$\\int_2^0(x^2+1)\\,dx$", "$\\int_0^2(x^2+1)\\,dx$", "$\\int_0^2(x^2-1)\\,dx$", "$\\int(x^2+1)\\,dx+C$"], "Use the given bounds and function."),
+  masteryTyped("area-mastery-2", "Calculate the area under the positive curve.", "\\int_0^2 (x^2+1)\\,dx", "14/3", ["4.6666666667", "4.67"]),
+  masteryTyped("area-mastery-3", "Find the area when the curve is below the x-axis.", "y=-2x,\\quad 0\\le x\\le3", "9", ["9 square units", "9 units^2"]),
+  masteryTyped("area-mastery-4", "Find the area under the curve.", "y=4-x,\\quad 0\\le x\\le4", "8", ["8 square units", "8 units^2"]),
+  masteryTyped("area-mastery-5", "Find the area bounded by the curve and the x-axis on the given interval.", "y=9-x^2,\\quad 0\\le x\\le3", "18", ["18 square units", "18 units^2"]),
+  masteryTyped("area-mastery-6", "Find the area below the x-axis.", "y=x-5,\\quad 0\\le x\\le2", "8", ["8 square units", "8 units^2"]),
+  masteryChoice("area-mastery-7", "Which units are appropriate for an area answer if x and y are measured in metres?", "\\text{area}", "C", ["metres", "metres per second", "square metres", "seconds"], "Area uses square units."),
+  masteryChoice("area-mastery-8", "A definite integral for a below-axis curve gives -8. What is the geometric area?", "\\int_a^b f(x)\\,dx=-8", "A", ["8", "-8", "0", "cannot be found"], "Area is the absolute value when the graph stays below the axis."),
+  masteryTyped("area-mastery-9", "Find the total area between the curve and the x-axis on the given interval.", "y=x-1,\\quad 0\\le x\\le3", "5/2", ["2.5"]),
+  masteryChoice("area-mastery-10", "A curve crosses the x-axis inside the interval. What is the best plan for total area?", "\\text{area under a curve}", "D", ["Use the definite integral once", "Add +C", "Reverse the bounds", "Split at the crossing and add positive areas"], "Crossing the axis changes the sign of signed area."),
+];
+
+trapezoidalRuleAreaApproximationLesson.masteryQuiz = [
+  masteryTyped("trap-mastery-1", "Find the subinterval width.", "a=1,\\quad b=9,\\quad n=4", "2", ["h=2"]),
+  masteryChoice("trap-mastery-2", "Which y-values are doubled?", "y_0,y_1,y_2,y_3,y_4", "B", ["y_0 and y_4", "y_1,y_2,y_3", "all five values", "no values"], "Only middle y-values are doubled."),
+  masteryTyped("trap-mastery-3", "Use the Trapezoidal rule.", "h=1,\\quad y\\text{-values }2,5,10", "11", ["11 square units", "11 units^2"]),
+  masteryTyped("trap-mastery-4", "Approximate the area.", "h=2,\\quad y\\text{-values }3,4,8,9", "36", ["36 square units", "36 units^2"]),
+  masteryTyped("trap-mastery-5", "Use the listed equally spaced y-values to approximate the area.", "y=x^2+1,\\quad 0\\le x\\le3,\\quad h=1,\\quad y:1,2,5,10", "14", ["14 square units", "14 units^2"]),
+  masteryTyped("trap-mastery-6", "A flow-rate table is recorded at equal time intervals. Approximate the total amount.", "h=5,\\quad y\\text{-values: }2,6,8\\text{ L/min}", "55", ["55 L", "55 litres", "55 liters"]),
+  masteryChoice("trap-mastery-7", "What does the Trapezoidal rule usually give for a curved graph?", "\\text{Trapezoidal rule}", "C", ["An exact derivative", "A family of primitives", "An approximation", "A signed x-intercept"], "It approximates area using trapezia."),
+  masteryChoice("trap-mastery-8", "A student doubles the first and last y-values. What is the mistake?", "T=\\frac h2[y_0+2(y_1+...)+y_n]", "A", ["Only middle values should be doubled", "All values should be squared", "The width should be ignored", "+C is needed"], "End values are counted once."),
+  masteryTyped("trap-mastery-9", "A table has equally spaced x-values over the given interval. Find the subinterval width.", "0\\le x\\le12,\\quad x_0,\\ldots,x_6", "2", ["h=2"]),
+  masteryChoice("trap-mastery-10", "A table gives velocity in m/s every second. What unit should the trapezoidal estimate for displacement use?", "v(t)\\text{ m/s},\\quad t\\text{ seconds}", "D", ["m/s", "seconds", "square metres", "metres"], "Velocity multiplied by time gives metres."),
+];
+
+areaBetweenTwoCurvesLesson.masteryQuiz = [
+  masteryChoice("between-mastery-1", "Choose the correct setup for area between curves.", "\\text{top}=f(x),\\quad \\text{bottom}=g(x)", "A", ["$\\int_a^b(f(x)-g(x))\\,dx$", "$\\int_a^b(g(x)-f(x))\\,dx$", "$\\int_a^b(f(x)+g(x))\\,dx$", "$\\int f'(x)\\,dx$"], "Area is top minus bottom."),
+  masteryChoice("between-mastery-2", "Which curve is on top on the given interval?", "y=5,\\quad y=x^2,\\quad 0\\le x\\le2", "B", ["$y=x^2$", "$y=5$", "neither", "both switch"], "$x^2\\le4$ on this interval, so $y=5$ is above."),
+  masteryTyped("between-mastery-3", "Find the area.", "\\int_0^2(5-x^2)\\,dx", "22/3", ["7.3333333333", "7.33"]),
+  masteryTyped("between-mastery-4", "Find the area between the two curves on the given interval.", "y=2x+1,\\quad y=x,\\quad 0\\le x\\le3", "15/2", ["7.5"]),
+  masteryTyped("between-mastery-5", "Find the intersection x-values.", "x^2=4", "-2,2", ["2,-2", "x=-2,2", "x=-2,x=2"]),
+  masteryTyped("between-mastery-6", "Find the enclosed area between the two curves on the given interval.", "y=4,\\quad y=x^2,\\quad -2\\le x\\le2", "32/3", ["10.6666666667", "10.67"]),
+  masteryChoice("between-mastery-7", "A student calculates bottom minus top and gets a negative answer. What is the likely issue?", "\\text{area between curves}", "C", ["They forgot +C", "They used too many intersections", "They reversed top and bottom", "They used the Trapezoidal rule"], "Area should be set up as top minus bottom."),
+  masteryChoice("between-mastery-8", "If two curves cross inside the interval and swap order, what may be needed?", "\\text{area between curves}", "B", ["Add +C", "Split the interval", "Use one top curve anyway", "Differentiate both curves"], "Top and bottom can change at an intersection."),
+  masteryTyped("between-mastery-9", "Revenue is above cost on the given interval. Find the area between the two models.", "R(x)=8x,\\quad C(x)=3x+10,\\quad 2\\le x\\le5", "45/2", ["22.5"]),
+  masteryChoice("between-mastery-10", "Which setup matches the area between the two curves on the given interval?", "y=x^2,\\quad y=x,\\quad 0\\le x\\le1", "D", ["$\\int_0^1(x^2-x)\\,dx$", "$\\int_1^0(x-x^2)\\,dx$", "$\\int_0^1(x+x^2)\\,dx$", "$\\int_0^1(x-x^2)\\,dx$"], "On $0\\le x\\le1$, $x$ is above $x^2$."),
+];
+
+applicationsTotalChangeMotionLesson.masteryQuiz = [
+  masteryChoice("apps-mastery-1", "What does integrating a rate over an interval give?", "\\int_a^b R(t)\\,dt", "A", ["Net change in the quantity", "The instantaneous rate", "The derivative of R", "Always total distance"], "Accumulating a rate gives net change."),
+  masteryTyped("apps-mastery-2", "Find displacement.", "v(t)=3t^2-4t,\\quad 0\\le t\\le2", "0", ["0 m", "0 metres", "0 meters"]),
+  masteryTyped("apps-mastery-3", "Find total water added.", "R(t)=2t+5\\text{ L/min},\\quad 0\\le t\\le4", "36", ["36 L", "36 litres", "36 liters"]),
+  masteryTyped("apps-mastery-4", "Find the net change.", "Q'(t)=6t-4,\\quad 1\\le t\\le3", "20", ["20 units"]),
+  masteryTyped("apps-mastery-5", "Velocity changes sign at the time shown. Use the signed displacements to find total distance.", "t=2,\\quad -4,\\quad 9", "13", ["13 m", "13 metres"]),
+  masteryTyped("apps-mastery-6", "A cost rate is given. Find the total cost change on the interval.", "C'(x)=4x+10,\\quad 0\\le x\\le5", "100", ["$100", "100 dollars"]),
+  masteryChoice("apps-mastery-7", "Which statement is correct when velocity changes sign?", "\\text{motion}", "B", ["Displacement and distance are always equal", "Distance requires splitting or absolute values", "Displacement cannot be negative", "The integral is impossible"], "Total distance counts all motion positively."),
+  masteryChoice("apps-mastery-8", "Choose the correct units for water added from a rate over time.", "R(t)\\text{ L/min},\\quad t\\text{ in minutes}", "C", ["litres per minute", "minutes", "litres", "square litres"], "Rate times time gives litres."),
+  masteryTyped("apps-mastery-9", "A population rate is given. Find the increase on the interval.", "P'(t)=6t+10,\\quad 0\\le t\\le5", "125", ["125 people"]),
+  masteryChoice("apps-mastery-10", "A displacement integral equals 0 but the object moved. What is likely true?", "\\int_a^b v(t)\\,dt=0", "D", ["The object did not move", "The total distance is zero", "Velocity was never negative", "Positive and negative displacements cancelled"], "Zero displacement can happen after movement in opposite directions."),
+];
+
+mixedIntegralCalculusExamPracticeLesson.masteryQuiz = [
+  masteryChoice("mixed-int-mastery-1", "A derivative and one function value are given. Which method is needed?", "f'(x),\\quad f(1)", "B", ["Definite integral only", "Particular primitive", "Trapezoidal rule", "Area between curves"], "Use the condition to find $C$ after integrating."),
+  masteryChoice("mixed-int-mastery-2", "Choose the setup for total change.", "Q'(t)=5t,\\quad 0\\le t\\le2", "A", ["$\\int_0^2 5t\\,dt$", "$\\int 5t\\,dt+C$", "$\\int_2^0 5t\\,dt$", "$5(2)$"], "Use the rate over the interval."),
+  masteryTyped("mixed-int-mastery-3", "Evaluate the definite integral.", "\\int_0^2(3x^2+1)\\,dx", "10", ["10 units"]),
+  masteryTyped("mixed-int-mastery-4", "Find the particular primitive.", "f'(x)=4x-3,\\quad f(2)=7", "2x^2-3x+5", ["f(x)=2x^2-3x+5", "2x^2 - 3x + 5"]),
+  masteryTyped("mixed-int-mastery-5", "Find total area.", "y=x-2,\\quad 0\\le x\\le4", "4", ["4 square units", "4 units^2"]),
+  masteryTyped("mixed-int-mastery-6", "Use the Trapezoidal rule.", "h=2,\\quad y\\text{-values }1,3,5", "12", ["12 square units", "12 units^2"]),
+  masteryChoice("mixed-int-mastery-7", "Which answer should include a constant of integration?", "\\text{choose the expression}", "C", ["$\\int_0^2 x^2\\,dx$", "area under a curve from 0 to 2", "$\\int x^2\\,dx$", "$\\int_a^b f(x)\\,dx$"], "Only an indefinite integral needs $+C$."),
+  masteryChoice("mixed-int-mastery-8", "Which setup is correct for the displayed area-between-curves situation?", "\\text{top}=x+3,\\quad \\text{bottom}=x,\\quad 0\\le x\\le2", "D", ["$\\int_0^2(x-(x+3))\\,dx$", "$\\int_2^0((x+3)-x)\\,dx$", "$\\int_0^2(2x+3)\\,dx$", "$\\int_0^2((x+3)-x)\\,dx$"], "Area between curves is top minus bottom."),
+  masteryTyped("mixed-int-mastery-9", "A graph has the following signed area pieces. Find the definite integral.", "\\int_a^b f(x)\\,dx=3,\\quad \\int_b^c f(x)\\,dx=-5,\\quad \\int_c^d f(x)\\,dx=4", "2", ["2 units"]),
+  masteryChoice("mixed-int-mastery-10", "In a mixed exam question, what is the best first move?", "\\text{mixed integration}", "B", ["Start differentiating", "Identify whether it asks for primitive, area, approximation, or total change", "Always add +C", "Always use the Trapezoidal rule"], "The wording determines the integration method."),
+];
 
 export const integralCalculusOutline: LessonOutlineItem[] = [
   {
