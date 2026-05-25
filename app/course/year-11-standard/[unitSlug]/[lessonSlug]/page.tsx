@@ -14,9 +14,9 @@ const oldLessonRedirects: Record<string, Record<string, string>> = {
   "money-financial-mathematics": {
     "earning-money-payslips": "earning-money/wages-salaries-payslips",
     "tax-deductions-net-pay": "earning-money/tax-deductions-net-pay",
-    "budgeting-managing-money": "managing-money/budgeting-managing-money",
+    "budgeting-managing-money": "managing-money/budgets-cash-flow",
     "simple-interest-financial-decisions":
-      "managing-money/simple-interest-financial-decisions",
+      "managing-money/simple-interest",
     "money-matters-exam-practice": "managing-money/managing-money-exam-practice",
   },
   "measurement-time-location": {
@@ -44,6 +44,11 @@ const oldLessonRedirects: Record<string, Record<string, string>> = {
   },
   "earning-money": {
     "earning-money-payslips": "earning-money/wages-salaries-payslips",
+  },
+  "managing-money": {
+    "budgeting-managing-money": "managing-money/budgets-cash-flow",
+    "simple-interest-financial-decisions": "managing-money/simple-interest",
+    "money-matters-exam-practice": "managing-money/managing-money-exam-practice",
   },
 };
 

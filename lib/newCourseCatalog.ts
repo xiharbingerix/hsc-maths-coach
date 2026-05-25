@@ -201,8 +201,26 @@ function financeChoice(
       text: choices[index],
     })),
     answer,
-    hint: "Match the calculation to the earning-money context.",
+    hint: "Match the calculation to the financial context.",
     explanation,
+  };
+}
+
+function financeShortAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    hint: "Use the context and keep the answer short.",
+    explanation: `The answer is ${answer}.`,
   };
 }
 
@@ -1181,6 +1199,479 @@ function earningMoneyLessonOverride(
   };
 }
 
+function managingMoneyWorkedExamples(slug: string, title: string): WorkedExample[] {
+  if (slug === "budgets-cash-flow") {
+    return [
+      {
+        title: "Finding a weekly surplus",
+        questionLatex:
+          "\\begin{array}{c|c}\\text{Income}&\\$420\\\\\\text{Transport}&\\$60\\\\\\text{Food}&\\$95\\\\\\text{Subscriptions}&\\$18\\\\\\text{Savings}&\\$80\\end{array}",
+        steps: [
+          { explanation: "Add the expenses and planned savings.", latex: "60+95+18+80=253" },
+          { explanation: "Subtract this from income to find the surplus.", latex: "420-253=167" },
+        ],
+        finalAnswerLatex: "\\$167\\text{ surplus}",
+      },
+      {
+        title: "Recognising a deficit",
+        questionLatex:
+          "\\text{Income }\\$310,\\ \\text{total expenses }\\$345",
+        steps: [
+          { explanation: "A deficit occurs when expenses are greater than income." },
+          { explanation: "Find the difference.", latex: "345-310=35" },
+        ],
+        finalAnswerLatex: "\\$35\\text{ deficit}",
+      },
+      {
+        title: "Estimating a monthly amount",
+        questionLatex: "\\text{A student saves }\\$45\\text{ each week. Estimate 4-week monthly savings.}",
+        steps: [
+          { explanation: "Use 4 weeks as a simple monthly estimate." },
+          { explanation: "Multiply the weekly amount by 4.", latex: "45\\times 4=180" },
+        ],
+        finalAnswerLatex: "\\$180",
+      },
+    ];
+  }
+
+  if (slug === "saving-spending-financial-goals") {
+    return [
+      {
+        title: "Weeks to reach a savings goal",
+        questionLatex:
+          "\\begin{array}{c|c}\\text{Goal}&\\$900\\\\\\text{Current savings}&\\$240\\\\\\text{Weekly deposit}&\\$55\\end{array}",
+        steps: [
+          { explanation: "Find the remaining amount.", latex: "900-240=660" },
+          { explanation: "Divide by the weekly deposit.", latex: "660\\div 55=12" },
+        ],
+        finalAnswerLatex: "12\\text{ weeks}",
+      },
+      {
+        title: "Comparing saving plans",
+        questionLatex:
+          "\\text{Plan A: }\\$40\\text{/week for 10 weeks. Plan B: }\\$55\\text{/week for 8 weeks.}",
+        steps: [
+          { explanation: "Calculate each total.", latex: "40\\times 10=400,\\quad 55\\times 8=440" },
+          { explanation: "Compare the totals over the stated time." },
+        ],
+        finalAnswerLatex: "\\text{Plan B saves }\\$40\\text{ more.}",
+      },
+      {
+        title: "Affordability after planned expenses",
+        questionLatex:
+          "\\text{Income }\\$360,\\ \\text{planned expenses }\\$250,\\ \\text{purchase }\\$95",
+        steps: [
+          { explanation: "Find money left after planned expenses.", latex: "360-250=110" },
+          { explanation: "Compare the purchase cost with the money left." },
+        ],
+        finalAnswerLatex: "\\text{Affordable, with }\\$15\\text{ left.}",
+      },
+    ];
+  }
+
+  if (slug === "simple-interest") {
+    return [
+      {
+        title: "Calculating simple interest",
+        questionLatex:
+          "\\text{Principal }\\$1500,\\ \\text{rate }4\\%\\text{ p.a., time }2\\text{ years}",
+        steps: [
+          { explanation: "Use simple interest with the rate as a decimal.", latex: "I=Prt" },
+          { explanation: "Substitute the values.", latex: "I=1500\\times 0.04\\times 2=120" },
+        ],
+        finalAnswerLatex: "\\$120",
+      },
+      {
+        title: "Finding the total amount",
+        questionLatex: "\\text{Deposit }\\$800\\text{ earns }\\$72\\text{ simple interest.}",
+        steps: [
+          { explanation: "The total amount is principal plus interest." },
+          { explanation: "Add the two amounts.", latex: "800+72=872" },
+        ],
+        finalAnswerLatex: "\\$872",
+      },
+      {
+        title: "Comparing two simple-interest options",
+        questionLatex:
+          "\\text{Option A: }\\$1000\\text{ at }5\\%\\text{ for 1 year. Option B: }\\$1000\\text{ at }4\\%\\text{ for 2 years.}",
+        steps: [
+          { explanation: "Calculate the interest for each option.", latex: "A=1000(0.05)(1)=50,\\quad B=1000(0.04)(2)=80" },
+          { explanation: "The higher interest is better for the saver in this context." },
+        ],
+        finalAnswerLatex: "\\text{Option B earns more interest.}",
+      },
+    ];
+  }
+
+  if (slug === "comparing-financial-decisions") {
+    return [
+      {
+        title: "Comparing total cost with fees",
+        questionLatex:
+          "\\text{Option A: }\\$280\\text{ plus }\\$25\\text{ delivery. Option B: }\\$315\\text{ with free delivery.}",
+        steps: [
+          { explanation: "Find each total cost.", latex: "A=280+25=305,\\quad B=315" },
+          { explanation: "Choose the lower total cost if the items are equivalent." },
+        ],
+        finalAnswerLatex: "\\text{Option A is cheaper by }\\$10.",
+      },
+      {
+        title: "Discount then fee",
+        questionLatex:
+          "\\text{A }\\$240\\text{ item has }20\\%\\text{ off, then a }\\$12\\text{ service fee.}",
+        steps: [
+          { explanation: "Calculate the discount.", latex: "0.20\\times 240=48" },
+          { explanation: "Subtract the discount and add the fee.", latex: "240-48+12=204" },
+        ],
+        finalAnswerLatex: "\\$204",
+      },
+      {
+        title: "Best value is not always lowest upfront price",
+        questionLatex:
+          "\\text{Plan A costs }\\$18\\text{/month plus }\\$40\\text{ setup. Plan B costs }\\$25\\text{/month with no setup for 4 months.}",
+        steps: [
+          { explanation: "Compare over the same 4-month period.", latex: "A=18\\times 4+40=112,\\quad B=25\\times 4=100" },
+          { explanation: "Use total cost, not just the monthly price." },
+        ],
+        finalAnswerLatex: "\\text{Plan B is cheaper for 4 months.}",
+      },
+    ];
+  }
+
+  return [
+    {
+      title: `${title}: budget table`,
+      questionLatex:
+        "\\begin{array}{c|c}\\text{Income}&\\$520\\\\\\text{Food}&\\$110\\\\\\text{Transport}&\\$70\\\\\\text{Savings}&\\$90\\\\\\text{Subscriptions}&\\$25\\end{array}",
+      steps: [
+        { explanation: "Add expenses and planned savings.", latex: "110+70+90+25=295" },
+        { explanation: "Subtract from income.", latex: "520-295=225" },
+      ],
+      finalAnswerLatex: "\\$225\\text{ surplus}",
+    },
+    {
+      title: `${title}: mixed saving and interest`,
+      questionLatex:
+        "\\text{A student saves }\\$60\\text{/week for 8 weeks, then earns }\\$24\\text{ simple interest.}",
+      steps: [
+        { explanation: "Find the saved amount first.", latex: "60\\times 8=480" },
+        { explanation: "Add the interest.", latex: "480+24=504" },
+      ],
+      finalAnswerLatex: "\\$504",
+    },
+  ];
+}
+
+function managingMoneyLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed
+): Partial<ExplicitLesson> | null {
+  if (course.slug !== "year-11-standard" || unit.slug !== "managing-money") {
+    return null;
+  }
+
+  const base = {
+    workedExamples: managingMoneyWorkedExamples(lesson.slug, lesson.title),
+    syllabusArea: "Financial Mathematics",
+    masteryPassMark: 0.8,
+  };
+
+  if (lesson.slug === "budgets-cash-flow") {
+    return {
+      ...base,
+      description:
+        "Use income, fixed expenses, variable expenses and savings to calculate surplus, deficit and cash flow.",
+      learningIntention:
+        "Create and interpret simple budgets and calculate surplus or deficit from income and expenses.",
+      successCriteria: [
+        "Identify income, fixed expenses, variable expenses, and savings.",
+        "Calculate total expenses from a budget table.",
+        "Calculate surplus or deficit.",
+        "Convert weekly amounts to a simple monthly estimate when appropriate.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A budget is a plan for income and expenses over a set time period. It helps a person see whether money is available after regular costs.",
+          "Income is money coming in. Expenses are money going out. Fixed expenses stay about the same, such as a phone plan, while variable expenses can change, such as food or entertainment.",
+          "Cash flow describes money moving in and out over time. A surplus means income is greater than expenses. A deficit means expenses are greater than income.",
+          "Always compare amounts over the same time period. A weekly amount can be estimated monthly by multiplying by 4 if the question asks for a simple 4-week estimate.",
+        ],
+        latexBlocks: [
+          "\\text{surplus}=\\text{income}-\\text{expenses}",
+          "\\text{deficit}=\\text{expenses}-\\text{income}",
+        ],
+      },
+      guidedPractice: [
+        moneyAnswer("manage-budget-g1", "Mia earns 320 dollars per week and spends 85 dollars on transport, 45 dollars on food, and 30 dollars on subscriptions. What is her weekly surplus?", "320-85-45-30", "160"),
+        financeChoice("manage-budget-g2", "A 22 dollar weekly phone plan is best classified as:", "A", ["Fixed expense", "Income", "Surplus", "Deficit"], "A regular phone plan is a fixed expense."),
+        moneyAnswer("manage-budget-g3", "A student has income of 280 dollars and weekly expenses of 315 dollars. What is the deficit?", "315-280", "35"),
+        moneyAnswer("manage-budget-g4", "Noah saves 70 dollars each week. Using a 4-week monthly estimate, how much is this per month?", "70\\times 4", "280"),
+      ],
+      independentPractice: [
+        moneyAnswer("manage-budget-i1", "A weekly budget shows income 450 dollars, rent contribution 120 dollars, food 90 dollars, transport 55 dollars, and savings 80 dollars. What is the surplus?", "450-120-90-55-80", "105"),
+        financeChoice("manage-budget-i2", "Which change would most improve weekly cash flow?", "C", ["Increase subscriptions by 15 dollars", "Add a new 20 dollar fee", "Reduce variable spending by 25 dollars", "Ignore transport costs"], "Reducing spending improves cash flow."),
+        moneyAnswer("manage-budget-i3", "A budget has income of 390 dollars and total expenses of 410 dollars. What is the deficit?", "410-390", "20"),
+        moneyAnswer("manage-budget-i4", "A gym membership costs 18 dollars each week. Estimate the 4-week monthly cost.", "18\\times 4", "72"),
+        financeChoice("manage-budget-i5", "A budget should compare amounts over:", "B", ["Different time periods", "The same time period", "Only one expense", "Only wants, not needs"], "Weekly amounts should be compared with weekly amounts, and monthly with monthly."),
+      ],
+      commonMistakes: [
+        { mistake: "Adding income and expenses together.", fix: "Subtract expenses from income to find surplus." },
+        { mistake: "Calling a deficit a surplus.", fix: "If expenses are greater than income, it is a deficit." },
+        { mistake: "Mixing weekly and monthly amounts.", fix: "Convert amounts to the same time period first." },
+        { mistake: "Ignoring planned savings.", fix: "If savings are listed in the budget, include them in cash-flow planning." },
+      ],
+      masteryQuiz: [
+        moneyAnswer("manage-budget-m1", "A student earns 400 dollars per week and spends 60 dollars on transport, 110 dollars on food and 25 dollars on subscriptions. What is the weekly surplus?", "400-60-110-25", "205"),
+        financeChoice("manage-budget-m2", "A streaming subscription paid every week is a:", "A", ["Fixed expense", "Variable income", "Surplus", "Saving goal"], "A regular subscription is a fixed expense."),
+        moneyAnswer("manage-budget-m3", "Income is 360 dollars and weekly expenses are 385 dollars. What is the deficit?", "385-360", "25"),
+        moneyAnswer("manage-budget-m4", "A student budgets 95 dollars each week for food. Estimate the 4-week monthly food cost.", "95\\times 4", "380"),
+        financeChoice("manage-budget-m5", "Cash flow is about:", "B", ["Only yearly tax", "Money coming in and going out", "Only discounts", "Only interest rates"], "Cash flow tracks income and expenses."),
+        moneyAnswer("manage-budget-m6", "A budget table lists income 520 dollars, transport 75 dollars, food 130 dollars, savings 100 dollars and subscriptions 20 dollars. What is the surplus?", "520-75-130-100-20", "195"),
+        financeChoice("manage-budget-m7", "Which item is most likely a variable expense?", "D", ["Fixed rent contribution", "Weekly phone plan", "Set insurance fee", "Entertainment spending"], "Entertainment spending can vary."),
+        moneyAnswer("manage-budget-m8", "A learner driver pays 40 dollars per week for petrol. Estimate the 4-week monthly amount.", "40\\times 4", "160"),
+        financeChoice("manage-budget-m9", "If a budget has a deficit, the student should first look for:", "C", ["A larger deficit", "A way to increase expenses", "Income increases or expense reductions", "Only the smallest number"], "Deficits can be addressed by increasing income or reducing expenses."),
+        moneyAnswer("manage-budget-m10", "A monthly estimate uses 4 weeks. If weekly savings are 55 dollars, what is the monthly estimate?", "55\\times 4", "220"),
+      ],
+    };
+  }
+
+  if (lesson.slug === "saving-spending-financial-goals") {
+    return {
+      ...base,
+      description:
+        "Plan savings goals, regular deposits, affordability checks and spending decisions.",
+      learningIntention:
+        "Use current savings, regular deposits and planned expenses to make simple financial decisions.",
+      successCriteria: [
+        "Calculate the amount still needed for a savings goal.",
+        "Find the number of weeks or months needed for regular deposits.",
+        "Compare two saving plans over the same time period.",
+        "Decide whether a purchase is affordable after planned expenses.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A savings goal states the amount a person wants to reach. To plan for it, subtract current savings from the goal.",
+          "Regular deposits help track progress. If the remaining amount divides exactly by the deposit, the quotient gives the number of deposits needed.",
+          "Affordability means checking whether money is available after necessary expenses and planned savings.",
+          "When comparing saving plans, compare totals over the same number of weeks or months.",
+        ],
+        latexBlocks: [
+          "\\text{amount still needed}=\\text{goal}-\\text{current savings}",
+          "\\text{number of deposits}=\\frac{\\text{amount still needed}}{\\text{regular deposit}}",
+        ],
+      },
+      guidedPractice: [
+        financeShortAnswer("manage-save-g1", "A savings goal is 900 dollars. Noah already has 240 dollars and saves 55 dollars each week. How many more weeks are needed?", "(900-240)\\div 55", "12", ["12 weeks", "12weeks"]),
+        moneyAnswer("manage-save-g2", "A student wants 1200 dollars for a laptop and currently has 350 dollars. How much more is needed?", "1200-350", "850"),
+        financeChoice("manage-save-g3", "Which saving plan reaches 300 dollars fastest?", "B", ["30 dollars per week for 10 weeks", "75 dollars per week for 4 weeks", "40 dollars per week for 7 weeks", "20 dollars per week for 12 weeks"], "75 dollars for 4 weeks reaches 300 dollars in the shortest time."),
+        financeChoice("manage-save-g4", "A student has 110 dollars left after planned expenses. A 95 dollar purchase is:", "A", ["Affordable with 15 dollars left", "Not affordable", "A deficit of 95 dollars", "Affordable only by ignoring expenses"], "110 minus 95 leaves 15 dollars."),
+      ],
+      independentPractice: [
+        financeShortAnswer("manage-save-i1", "A goal is 600 dollars. Ava has 180 dollars and saves 70 dollars each week. How many more weeks are needed?", "(600-180)\\div 70", "6", ["6 weeks", "6weeks"]),
+        moneyAnswer("manage-save-i2", "A student deposits 45 dollars each week for 8 weeks into a trip fund. How much is deposited in total?", "45\\times 8", "360"),
+        financeChoice("manage-save-i3", "Plan A saves 50 dollars per week for 6 weeks. Plan B saves 35 dollars per week for 10 weeks. Which saves more?", "B", ["Plan A by 50 dollars", "Plan B by 50 dollars", "They save the same", "Plan A by 300 dollars"], "Plan A saves 300 dollars and Plan B saves 350 dollars."),
+        financeChoice("manage-save-i4", "A student has 70 dollars spare after bills and wants to buy an 85 dollar jacket. The best judgement is:", "C", ["Buy it and ignore the shortfall", "It is affordable with 15 dollars spare", "It is not affordable this week", "It creates a 70 dollar surplus"], "The purchase is 15 dollars more than the spare money."),
+        moneyAnswer("manage-save-i5", "A student saves 35 dollars per week for 12 weeks. What will be added to savings?", "35\\times 12", "420"),
+      ],
+      commonMistakes: [
+        { mistake: "Using the goal amount instead of the amount still needed.", fix: "Subtract current savings first." },
+        { mistake: "Rounding down the number of weeks when a goal is not reached.", fix: "A partial week usually means another full deposit is needed." },
+        { mistake: "Comparing saving plans over different time periods without checking totals.", fix: "Calculate each total first." },
+        { mistake: "Ignoring planned expenses before deciding affordability.", fix: "Check money left after necessary expenses." },
+      ],
+      masteryQuiz: [
+        financeShortAnswer("manage-save-m1", "A student wants 750 dollars, has 150 dollars, and saves 50 dollars per week. How many weeks are needed?", "(750-150)\\div 50", "12", ["12 weeks", "12weeks"]),
+        moneyAnswer("manage-save-m2", "A phone costs 980 dollars and current savings are 420 dollars. How much more is needed?", "980-420", "560"),
+        moneyAnswer("manage-save-m3", "A student saves 65 dollars each week for 6 weeks. How much is saved?", "65\\times 6", "390"),
+        financeChoice("manage-save-m4", "Which plan saves the greatest amount?", "D", ["40 dollars for 5 weeks", "55 dollars for 3 weeks", "30 dollars for 6 weeks", "70 dollars for 4 weeks"], "The totals are 200, 165, 180 and 280 dollars."),
+        financeChoice("manage-save-m5", "A student has 125 dollars spare and a planned purchase costs 140 dollars. The purchase is:", "B", ["Affordable with 15 dollars left", "Not affordable by 15 dollars", "A 140 dollar surplus", "Free after expenses"], "The student is 15 dollars short."),
+        financeShortAnswer("manage-save-m6", "A goal is 1000 dollars. Current savings are 250 dollars and deposits are 75 dollars each week. How many weeks are needed?", "(1000-250)\\div 75", "10", ["10 weeks", "10weeks"]),
+        moneyAnswer("manage-save-m7", "A student cancels a 16 dollar weekly subscription for 10 weeks. How much can be redirected to savings?", "16\\times 10", "160"),
+        financeChoice("manage-save-m8", "When comparing spending choices, the fairest comparison uses:", "A", ["The same time period and total cost", "Only the largest discount sign", "Only the first payment", "Only the cheapest-looking option"], "Fair comparisons use equivalent time periods and totals."),
+        moneyAnswer("manage-save-m9", "A student has 480 dollars and adds 40 dollars per week for 5 weeks. What will the savings balance be?", "480+40\\times 5", "680"),
+        financeChoice("manage-save-m10", "Tracking savings progress helps because it shows:", "C", ["Only tax owed", "Only weekly expenses", "How close the student is to the goal", "The highest possible fee"], "Progress tracking compares current savings with the goal."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "simple-interest") {
+    return {
+      ...base,
+      description:
+        "Calculate simple interest, total amounts and compare simple-interest options using principal, rate and time.",
+      learningIntention:
+        "Use the simple interest formula to calculate interest earned and total amount.",
+      successCriteria: [
+        "Identify principal, interest rate and time.",
+        "Convert a percentage rate to a decimal.",
+        "Calculate simple interest.",
+        "Calculate the total amount after interest.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Simple interest is calculated only on the original amount, called the principal.",
+          "The interest rate must be written as a decimal before using the formula. For example, 4 percent becomes 0.04.",
+          "Time must match the rate period. If the rate is per annum, time is measured in years.",
+          "The total amount is the principal plus the interest earned.",
+        ],
+        latexBlocks: [
+          "I=Prt",
+          "\\text{total amount}=P+I",
+        ],
+      },
+      guidedPractice: [
+        moneyAnswer("manage-interest-g1", "A bank account earns simple interest on 1500 dollars at 4 percent p.a. for 2 years. How much interest is earned?", "1500\\times 0.04\\times 2", "120"),
+        moneyAnswer("manage-interest-g2", "A 900 dollar deposit earns 54 dollars simple interest. What is the total amount?", "900+54", "954"),
+        financeChoice("manage-interest-g3", "In a simple interest question, the principal is:", "B", ["The interest earned", "The original amount invested or borrowed", "The yearly fee", "The final answer only"], "Principal is the starting amount."),
+        financeShortAnswer("manage-interest-g4", "Write 6 percent as a decimal for a simple interest calculation.", "6\\%=0.06", "0.06", [".06"]),
+      ],
+      independentPractice: [
+        moneyAnswer("manage-interest-i1", "A student savings account has 2000 dollars at 3 percent p.a. simple interest for 1 year. How much interest is earned?", "2000\\times 0.03\\times 1", "60"),
+        moneyAnswer("manage-interest-i2", "A 1200 dollar deposit earns simple interest at 5 percent p.a. for 3 years. Find the interest.", "1200\\times 0.05\\times 3", "180"),
+        moneyAnswer("manage-interest-i3", "A 750 dollar investment earns 45 dollars simple interest. What is the total amount?", "750+45", "795"),
+        financeChoice("manage-interest-i4", "Which setup correctly uses 4 percent p.a. for 2 years on 800 dollars?", "A", ["800 x 0.04 x 2", "800 x 4 x 2", "800 + 0.04 + 2", "800 x 0.4 x 2"], "4 percent must be converted to 0.04."),
+        financeChoice("manage-interest-i5", "For the same principal and rate, doubling the time will:", "C", ["Halve simple interest", "Make no difference", "Double simple interest", "Remove the principal"], "Simple interest is proportional to time."),
+      ],
+      commonMistakes: [
+        { mistake: "Using 4 instead of 0.04 for 4 percent.", fix: "Convert percentages to decimals." },
+        { mistake: "Forgetting to multiply by time.", fix: "Use I = Prt and include all three values." },
+        { mistake: "Giving interest when the question asks for total amount.", fix: "Add interest to principal for total amount." },
+        { mistake: "Using months with an annual rate without converting.", fix: "Make sure time matches the rate period." },
+      ],
+      masteryQuiz: [
+        moneyAnswer("manage-interest-m1", "A 1000 dollar deposit earns 5 percent p.a. simple interest for 2 years. Find the interest.", "1000\\times 0.05\\times 2", "100"),
+        financeShortAnswer("manage-interest-m2", "Write 3.5 percent as a decimal for a simple interest calculation.", "3.5\\%=0.035", "0.035", [".035"]),
+        moneyAnswer("manage-interest-m3", "A 600 dollar account earns 48 dollars interest. What is the total amount?", "600+48", "648"),
+        financeChoice("manage-interest-m4", "In I = Prt, r represents:", "C", ["Principal", "Time", "Interest rate as a decimal", "Total amount"], "r is the rate written as a decimal."),
+        moneyAnswer("manage-interest-m5", "A 2500 dollar deposit earns simple interest at 2 percent p.a. for 4 years. Find the interest.", "2500\\times 0.02\\times 4", "200"),
+        financeChoice("manage-interest-m6", "Which option earns more interest on 1000 dollars?", "B", ["3 percent for 1 year", "2 percent for 2 years", "1 percent for 2 years", "0.5 percent for 3 years"], "The interest amounts are 30, 40, 20 and 15 dollars."),
+        moneyAnswer("manage-interest-m7", "A 1500 dollar account earns 90 dollars simple interest. Find the total amount.", "1500+90", "1590"),
+        financeChoice("manage-interest-m8", "A rate of 7 percent should be entered as:", "D", ["7", "70", "0.7", "0.07"], "7 percent is 0.07."),
+        moneyAnswer("manage-interest-m9", "A 400 dollar savings account earns 6 percent p.a. simple interest for 3 years. Find the interest.", "400\\times 0.06\\times 3", "72"),
+        moneyAnswer("manage-interest-m10", "A 1800 dollar deposit earns 144 dollars simple interest. What is the total amount?", "1800+144", "1944"),
+      ],
+    };
+  }
+
+  if (lesson.slug === "comparing-financial-decisions") {
+    return {
+      ...base,
+      description:
+        "Compare financial choices using total cost, discounts, fees, charges and reasonableness.",
+      learningIntention:
+        "Compare financial options fairly using total cost and practical judgement.",
+      successCriteria: [
+        "Calculate total cost when fees or charges apply.",
+        "Calculate a discount in context.",
+        "Compare options over the same time period.",
+        "Choose the better option using total cost, not just headline price.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Financial decisions often involve more than the advertised price. Fees, delivery charges, discounts and ongoing payments can change the total cost.",
+          "A discount reduces the price. A fee or charge increases the cost.",
+          "The cheapest upfront price may not be the best value if later fees are higher.",
+          "To compare options fairly, calculate the total cost for each option over the same time period.",
+        ],
+        latexBlocks: [
+          "\\text{total cost}=\\text{price}-\\text{discount}+\\text{fees}",
+          "\\text{discount}=\\text{discount rate}\\times\\text{original price}",
+        ],
+      },
+      guidedPractice: [
+        moneyAnswer("manage-compare-g1", "A concert ticket costs 48 dollars plus a 6 dollar booking fee. What is the total cost?", "48+6", "54"),
+        moneyAnswer("manage-compare-g2", "A 200 dollar jacket has a 15 percent discount. How much is the discount?", "0.15\\times 200", "30"),
+        financeChoice("manage-compare-g3", "Two phone plans should be compared using:", "C", ["Only the setup fee", "Only the cheapest first month", "Total cost over the same time period", "Only the biggest advertisement"], "Fair comparisons use the same time period and total cost."),
+        financeChoice("manage-compare-g4", "A lower upfront price may not be best if:", "D", ["It has no fee", "It is paid today", "It has the same total cost", "Later fees make the total higher"], "Fees can make the total higher."),
+      ],
+      independentPractice: [
+        moneyAnswer("manage-compare-i1", "Option A costs 260 dollars plus a 35 dollar delivery fee. What is the total cost?", "260+35", "295"),
+        moneyAnswer("manage-compare-i2", "A student buys headphones priced at 180 dollars with 20 percent off. What is the sale price?", "180-0.20\\times 180", "144"),
+        financeChoice("manage-compare-i3", "Option A costs 120 dollars plus a 15 dollar fee. Option B costs 140 dollars with no fee. Which is cheaper?", "A", ["Option A by 5 dollars", "Option B by 5 dollars", "They are equal", "Option A by 20 dollars"], "Option A totals 135 dollars and Option B totals 140 dollars."),
+        moneyAnswer("manage-compare-i4", "A 75 dollar online order has a 10 dollar delivery fee and a 5 dollar coupon. What is the total cost?", "75+10-5", "80"),
+        financeChoice("manage-compare-i5", "Which mistake is most likely when comparing costs?", "B", ["Using total costs", "Ignoring fees and charges", "Comparing the same time period", "Subtracting a discount"], "Ignoring fees can lead to the wrong decision."),
+      ],
+      commonMistakes: [
+        { mistake: "Choosing the lowest headline price without adding fees.", fix: "Compare total costs." },
+        { mistake: "Adding discounts instead of subtracting them.", fix: "A discount reduces the price." },
+        { mistake: "Comparing different time periods.", fix: "Convert options to the same time period first." },
+        { mistake: "Ignoring small charges.", fix: "Include fees, delivery and service charges when stated." },
+      ],
+      masteryQuiz: [
+        moneyAnswer("manage-compare-m1", "A sports bag costs 85 dollars plus 12 dollars delivery. What is the total cost?", "85+12", "97"),
+        moneyAnswer("manage-compare-m2", "A 300 dollar bike has a 10 percent discount. How much is the discount?", "0.10\\times 300", "30"),
+        moneyAnswer("manage-compare-m3", "A 240 dollar item has 20 percent off and a 12 dollar service fee. What is the final cost?", "240-0.20\\times 240+12", "204"),
+        financeChoice("manage-compare-m4", "Plan A costs 18 dollars per month plus a 40 dollar setup fee. Plan B costs 25 dollars per month with no setup fee. Which is cheaper over 4 months?", "B", ["Plan A by 12 dollars", "Plan B by 12 dollars", "They are equal", "Plan A by 40 dollars"], "Plan A costs 112 dollars and Plan B costs 100 dollars."),
+        financeChoice("manage-compare-m5", "Best value means:", "C", ["Always the lowest upfront price", "Always the biggest discount sign", "The option that best fits total cost and context", "Ignoring fees"], "Best value considers total cost and context."),
+        moneyAnswer("manage-compare-m6", "A laptop sleeve costs 42 dollars after an 8 dollar discount, then a 5 dollar delivery fee is added. What is the total cost?", "42+5", "47"),
+        financeChoice("manage-compare-m7", "A 15 percent discount on 200 dollars is commonly mistaken as:", "A", ["15 dollars", "30 dollars", "185 dollars", "215 dollars"], "The discount is 30 dollars; 15 dollars confuses percent with dollars."),
+        moneyAnswer("manage-compare-m8", "Option A totals 410 dollars. Option B totals 395 dollars. How much cheaper is Option B?", "410-395", "15"),
+        financeChoice("manage-compare-m9", "A plan with a cheap first month and high later fees should be judged by:", "D", ["First month only", "The colour of the advertisement", "Setup fee only", "Total cost over the relevant period"], "Total cost over the relevant period is fairer."),
+        moneyAnswer("manage-compare-m10", "A 120 dollar purchase has 25 percent off and a 9 dollar fee. What is the final cost?", "120-0.25\\times 120+9", "99"),
+      ],
+    };
+  }
+
+  return {
+    ...base,
+    description:
+      "Practise mixed managing-money exam questions using budgets, savings goals, simple interest, fees and financial comparisons.",
+    learningIntention:
+      "Apply managing-money skills to mixed practical exam-style questions.",
+    successCriteria: [
+      "Interpret budget and savings information from tables.",
+      "Calculate surplus, savings progress and simple interest.",
+      "Include fees, discounts and charges in total cost.",
+      "Choose reasonable financial decisions from short contexts.",
+    ],
+    teaching: {
+      paragraphs: [
+        "Managing-money exam questions often combine budgets, savings goals, interest and comparisons of financial choices.",
+        "Read the question carefully and identify whether it asks for surplus, deficit, savings progress, interest, total cost or a decision.",
+        "Use tables to separate income, expenses, savings and fees. This reduces the chance of adding or subtracting the wrong amount.",
+        "A reasonable financial decision should be based on total cost and the time period in the question.",
+      ],
+      latexBlocks: [
+        "\\text{surplus}=\\text{income}-\\text{expenses}",
+        "I=Prt",
+        "\\text{total cost}=\\text{price}-\\text{discount}+\\text{fees}",
+      ],
+    },
+    guidedPractice: [
+      moneyAnswer("manage-exam-g1", "A budget table shows income 520 dollars, food 110 dollars, transport 70 dollars, savings 90 dollars and subscriptions 25 dollars. What is the surplus?", "520-110-70-90-25", "225"),
+      financeShortAnswer("manage-exam-g2", "A goal is 840 dollars. Current savings are 240 dollars and weekly deposits are 60 dollars. How many weeks are needed?", "(840-240)\\div 60", "10", ["10 weeks", "10weeks"]),
+      moneyAnswer("manage-exam-g3", "A 1500 dollar account earns simple interest at 4 percent p.a. for 2 years. How much interest is earned?", "1500\\times 0.04\\times 2", "120"),
+      financeChoice("manage-exam-g4", "A purchase has a delivery fee. Which value should be used for comparison?", "C", ["Headline price only", "Discount sign only", "Total cost including the fee", "The largest number in the question"], "Fees affect the total cost."),
+    ],
+    independentPractice: [
+      moneyAnswer("manage-exam-i1", "A monthly budget has income 1600 dollars and expenses 1425 dollars. What is the surplus?", "1600-1425", "175"),
+      moneyAnswer("manage-exam-i2", "A student saves 45 dollars per week for 9 weeks. How much is added to savings?", "45\\times 9", "405"),
+      moneyAnswer("manage-exam-i3", "A 900 dollar deposit earns 5 percent p.a. simple interest for 3 years. Find the interest.", "900\\times 0.05\\times 3", "135"),
+      moneyAnswer("manage-exam-i4", "A 250 dollar item has 10 percent off and a 15 dollar delivery fee. What is the final cost?", "250-0.10\\times 250+15", "240"),
+      financeChoice("manage-exam-i5", "Which decision is most reasonable?", "B", ["Choose a plan without checking fees", "Compare total costs over the same time period", "Use monthly and weekly costs directly", "Ignore savings goals"], "Total costs over the same time period give a fair comparison."),
+    ],
+    commonMistakes: [
+      { mistake: "Using the wrong financial model.", fix: "Identify whether the question is about budget, savings, interest, or comparison." },
+      { mistake: "Ignoring fees or discounts.", fix: "Include every stated cost change." },
+      { mistake: "Comparing weekly and monthly amounts directly.", fix: "Convert to the same time period first." },
+      { mistake: "Forgetting to check if the answer is reasonable.", fix: "Surplus should fall when expenses increase; discounts should reduce price." },
+    ],
+    masteryQuiz: [
+      moneyAnswer("manage-exam-m1", "A student earns 480 dollars and budgets 95 dollars for food, 60 dollars for transport, 80 dollars for savings and 20 dollars for subscriptions. What is the surplus?", "480-95-60-80-20", "225"),
+      financeShortAnswer("manage-exam-m2", "A student needs 500 dollars, already has 140 dollars, and saves 45 dollars each week. How many weeks are needed?", "(500-140)\\div 45", "8", ["8 weeks", "8weeks"]),
+      moneyAnswer("manage-exam-m3", "A 1200 dollar account earns 3 percent p.a. simple interest for 2 years. Find the interest.", "1200\\times 0.03\\times 2", "72"),
+      moneyAnswer("manage-exam-m4", "A 90 dollar jacket has 20 percent off. What is the sale price?", "90-0.20\\times 90", "72"),
+      financeChoice("manage-exam-m5", "A budget with expenses greater than income shows:", "D", ["A surplus", "Simple interest", "A discount", "A deficit"], "Expenses greater than income create a deficit."),
+      moneyAnswer("manage-exam-m6", "A 600 dollar deposit earns 48 dollars simple interest. What is the total amount?", "600+48", "648"),
+      financeChoice("manage-exam-m7", "A fair comparison between two subscriptions should use:", "A", ["Total cost over the same number of months", "Only setup fee", "Only the first payment", "Only the largest discount"], "Use the same time period."),
+      moneyAnswer("manage-exam-m8", "A 150 dollar item has a 30 dollar discount and a 12 dollar delivery fee. What is the final cost?", "150-30+12", "132"),
+      financeChoice("manage-exam-m9", "Which answer is reasonable if income is 300 dollars and expenses are 340 dollars?", "B", ["40 dollars surplus", "40 dollars deficit", "640 dollars surplus", "No cash flow"], "Expenses exceed income by 40 dollars."),
+      moneyAnswer("manage-exam-m10", "A student deposits 35 dollars each week for 6 weeks, then pays a 15 dollar account fee. What amount remains from those deposits?", "35\\times 6-15", "195"),
+    ],
+  };
+}
+
 export function buildLesson(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -1191,7 +1682,8 @@ export function buildLesson(
   const prefix = slugPrefix(lesson.slug);
   const override =
     networkLessonOverride(course, unit, lesson) ??
-    earningMoneyLessonOverride(course, unit, lesson);
+    earningMoneyLessonOverride(course, unit, lesson) ??
+    managingMoneyLessonOverride(course, unit, lesson);
 
   return {
     id: lesson.slug,
@@ -1552,13 +2044,40 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "managing-money",
         title: "Managing Money",
         description:
-          "Budgeting, simple interest, financial decisions, and exam-style money management.",
-        syllabusArea: "Financial mathematics",
+          "Budgets, cash flow, savings goals, simple interest, fees, discounts, and practical financial decisions.",
+        syllabusArea: "Financial Mathematics",
         focus: "Managing money",
         lessons: [
-          { slug: "budgeting-managing-money", title: "Budgeting and Managing Money" },
-          { slug: "simple-interest-financial-decisions", title: "Simple Interest and Financial Decisions" },
-          { slug: "managing-money-exam-practice", title: "Managing Money Exam Practice" },
+          {
+            slug: "budgets-cash-flow",
+            title: "Budgets and Cash Flow",
+            description:
+              "Use income, fixed expenses, variable expenses and savings to calculate surplus, deficit and cash flow.",
+          },
+          {
+            slug: "saving-spending-financial-goals",
+            title: "Saving, Spending and Financial Goals",
+            description:
+              "Plan savings goals, regular deposits, affordability checks and spending decisions.",
+          },
+          {
+            slug: "simple-interest",
+            title: "Simple Interest",
+            description:
+              "Calculate simple interest, total amounts and compare simple-interest options using principal, rate and time.",
+          },
+          {
+            slug: "comparing-financial-decisions",
+            title: "Comparing Financial Decisions",
+            description:
+              "Compare financial choices using total cost, discounts, fees, charges and reasonableness.",
+          },
+          {
+            slug: "managing-money-exam-practice",
+            title: "Managing Money Exam Practice",
+            description:
+              "Practise mixed managing-money exam questions using budgets, savings goals, simple interest, fees and financial comparisons.",
+          },
         ],
       },
       {
