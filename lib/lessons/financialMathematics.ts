@@ -636,7 +636,7 @@ export const recurrenceRelationsFinancialContextsLesson: ExplicitLesson = {
     {
       id: "recurrence-mastery-10",
       prompt: "A car value follows $V_{n+1}=0.85V_n$. What percentage depreciation is applied each period?",
-      latex: "0.85=1-r",
+      latex: "V_{n+1}=0.85V_n",
       answer: "15%",
       acceptedAnswers: ["15", "15%", "15 percent"],
       hint: "Find $1-0.85$.",

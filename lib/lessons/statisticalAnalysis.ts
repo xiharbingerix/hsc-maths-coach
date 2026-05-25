@@ -2251,7 +2251,7 @@ export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
     {
       id: "rv-mastery-6",
       prompt: "Find the expected payout.",
-      latex: "\\$2(0.4)+\\$6(0.6)",
+      latex: "X:\\ 2,\\ 6 \\quad P(X=x):\\ 0.4,\\ 0.6",
       answer: "4.4",
       acceptedAnswers: ["4.40", "$4.40", "\\$4.40", "$4.4"],
       hint: "Calculate the weighted average.",
