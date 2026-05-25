@@ -25,7 +25,7 @@ const oldLessonRedirects: Record<string, Record<string, string>> = {
     "area-surface-area-volume": "applications-measurement/area-surface-area-volume",
     "energy-mass-practical-measurement":
       "applications-measurement/energy-mass-practical-measurement",
-    "time-zones-timetables": "time-location/time-zones-timetables",
+    "time-zones-timetables": "time-location/time-calculations-timetables",
     "measurement-time-location-exam-practice":
       "applications-measurement/applications-measurement-exam-practice",
   },
@@ -49,6 +49,9 @@ const oldLessonRedirects: Record<string, Record<string, string>> = {
     "budgeting-managing-money": "managing-money/budgets-cash-flow",
     "simple-interest-financial-decisions": "managing-money/simple-interest",
     "money-matters-exam-practice": "managing-money/managing-money-exam-practice",
+  },
+  "time-location": {
+    "time-zones-timetables": "time-location/time-calculations-timetables",
   },
 };
 
