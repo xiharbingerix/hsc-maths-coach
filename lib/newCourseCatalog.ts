@@ -8,7 +8,6 @@ import type {
   CourseLessonSeed,
   CoursePathwaySeed,
   CourseUnitSeed,
-  NewCourseSlug,
 } from "./courseTypes";
 import {
   year11StandardApplicationsMeasurementLessonOverride,
