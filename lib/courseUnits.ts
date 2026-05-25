@@ -1,8 +1,8 @@
 import {
   newCourseLessonCount,
   newCoursePathways,
-  type NewCourseSlug,
 } from "./newCourseCatalog";
+import type { NewCourseSlug } from "./courseTypes";
 
 export type CourseUnitSummary = {
   title: string;

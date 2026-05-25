@@ -4,6 +4,12 @@ import type {
   PracticeQuestion,
   WorkedExample,
 } from "./lessons/differentialCalculus";
+import type {
+  CourseLessonSeed,
+  CoursePathwaySeed,
+  CourseUnitSeed,
+  NewCourseSlug,
+} from "./courseTypes";
 import {
   dataAnswer,
   financeChoice,
@@ -27,35 +33,12 @@ import {
   year11AdvancedWorkingFunctionsLessonOverride,
 } from "./lessons/year11Advanced";
 
-export type NewCourseSlug =
-  | "year-12-standard-2"
-  | "year-11-advanced"
-  | "year-11-standard";
-
-export type CourseLessonSeed = {
-  slug: string;
-  title: string;
-  description?: string;
-};
-
-export type CourseUnitSeed = {
-  slug: string;
-  title: string;
-  description: string;
-  syllabusArea: string;
-  focus: string;
-  lessons: CourseLessonSeed[];
-};
-
-export type CoursePathwaySeed = {
-  slug: NewCourseSlug;
-  title: string;
-  yearLevel: string;
-  courseType: string;
-  description: string;
-  positioning: string;
-  units: CourseUnitSeed[];
-};
+export type {
+  CourseLessonSeed,
+  CoursePathwaySeed,
+  CourseUnitSeed,
+  NewCourseSlug,
+} from "./courseTypes";
 
 function slugPrefix(slug: string) {
   return slug.split("-").slice(0, 2).join("-");

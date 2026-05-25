@@ -1,5 +1,5 @@
 import type { ExplicitLesson } from "../differentialCalculus";
-import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../newCourseCatalog";
+import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import { practicalChoice, dataAnswer } from "../questionHelpers";
 export function year11AdvancedProbabilityDataLessonOverride(
   course: CoursePathwaySeed,

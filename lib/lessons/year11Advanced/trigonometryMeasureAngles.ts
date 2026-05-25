@@ -1,5 +1,5 @@
 import type { ExplicitLesson } from "../differentialCalculus";
-import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../newCourseCatalog";
+import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import { practicalChoice, formulaAnswer } from "../questionHelpers";
 export function year11AdvancedTrigonometryMeasureLessonOverride(
   course: CoursePathwaySeed,
