@@ -1924,7 +1924,7 @@ export const solvingEquationsInequalitiesGraphicallyLesson: ExplicitLesson = {
     },
     {
       id: "graphsolve-ind-2",
-      prompt: "Solve $f(x)=g(x)$:",
+      prompt: "Solve the displayed equation.",
       latex: "f(x)=x^2, \\quad g(x)=4",
       answer: "-2,2",
       acceptedAnswers: ["2,-2", "x=-2,2", "x=2,-2", "-2 and 2", "2 and -2"],
@@ -1994,7 +1994,8 @@ export const solvingEquationsInequalitiesGraphicallyLesson: ExplicitLesson = {
   masteryQuiz: [
     {
       id: "graphsolve-mastery-1",
-      prompt: "The graphs intersect at $(-1,3)$ and $(5,2)$. Choose the solutions to $f(x)=g(x)$.",
+      prompt:
+        "The graphs intersect at the displayed points. Choose the solutions to the equation.",
       latex: "f(x)=g(x)",
       answer: "B",
       choices: [
@@ -2016,7 +2017,7 @@ export const solvingEquationsInequalitiesGraphicallyLesson: ExplicitLesson = {
     },
     {
       id: "graphsolve-mastery-3",
-      prompt: "Solve $f(x)=g(x)$:",
+      prompt: "Solve the displayed equation.",
       latex: "f(x)=x^2, \\quad g(x)=3x+4",
       answer: "-1,4",
       acceptedAnswers: ["4,-1", "x=-1,4", "x=4,-1", "-1 and 4", "4 and -1"],

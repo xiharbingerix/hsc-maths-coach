@@ -3250,7 +3250,7 @@ indefiniteIntegralsConstantOfIntegrationLesson.masteryQuiz = [
   masteryTyped("indef-mastery-2", "Find the indefinite integral.", "\\int (6x^2-4x+5)\\,dx", "2x^3-2x^2+5x+C", ["2x^3 - 2x^2 + 5x + C", "C+2x^3-2x^2+5x"]),
   masteryTyped("indef-mastery-3", "Integrate the constant term correctly.", "\\int -7\\,dx", "-7x+C", ["C-7x", "-7x + C"]),
   masteryTyped("indef-mastery-4", "Find the family of primitives.", "\\int (8x^3+3x^2-2)\\,dx", "2x^4+x^3-2x+C", ["2x^4 + x^3 - 2x + C"]),
-  masteryChoice("indef-mastery-5", "Which answer correctly integrates every term?", "\\int (4x^3-6x+9)\\,dx", "C", ["x^4-3x^2+C", "16x^2-6+C", "x^4-3x^2+9x+C", "4x^4-6x^2+9+C"], "The constant 9 integrates to 9x and +C is needed."),
+  masteryChoice("indef-mastery-5", "Which answer correctly integrates every term?", "\\int (4x^3-6x+9)\\,dx", "C", ["$x^4-3x^2+C$", "$16x^2-6+C$", "$x^4-3x^2+9x+C$", "$4x^4-6x^2+9+C$"], "The constant 9 integrates to 9x and +C is needed."),
   masteryTyped("indef-mastery-6", "Find the general primitive for the displayed derivative.", "F'(x)=10x^4-12x", "2x^5-6x^2+C", ["F(x)=2x^5-6x^2+C", "2x^5 - 6x^2 + C"]),
   masteryChoice("indef-mastery-7", "A student writes the displayed integral with the shown incorrect result. What is wrong?", "\\int (3x^2+5)\\,dx=x^3+5+C", "A", ["The constant 5 should integrate to $5x$", "The $x^2$ term should stay $x^2$", "The $+C$ should be removed", "The answer should be definite"], "A constant term becomes a linear term when integrated."),
   masteryChoice("indef-mastery-8", "Which derivative check is correct for the displayed primitive?", "F(x)=x^4-2x^2+5x+C", "D", ["$F'(x)=4x^3-4x+5+C$", "$F'(x)=x^3-2x+5$", "$F'(x)=4x^3-2x+5$", "$F'(x)=4x^3-4x+5$"], "The derivative of $C$ is zero."),

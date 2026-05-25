@@ -1656,7 +1656,7 @@ export const stationaryPointsLesson: ExplicitLesson = {
     {
       id: "stationary-mastery-10",
       prompt:
-        "Choose the correct statement. A: stationary points occur where $f(x)=0$. B: stationary points occur where $f'(x)=0$. C: stationary points occur where $f''(x)=0$.",
+        "Choose the correct statement about where stationary points occur.",
       latex: "f'(x)=0",
       answer: "B",
       choices: [
@@ -3756,7 +3756,8 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
     },
     {
       id: "rates-mastery-8",
-      prompt: "Complete the sentence: when $Q'(5)=0$, the quantity is ____.",
+      prompt:
+        "Complete the sentence for the displayed rate of change: the quantity is ____.",
       latex: "Q'(5)=0",
       answer: "C",
       acceptedAnswers: ["not changing", "zero rate"],
@@ -4160,7 +4161,7 @@ export const mixedExamPracticeLesson: ExplicitLesson = {
     {
       id: "mixed-mastery-10",
       prompt:
-        "A question asks for the normal equation to a curve at a point. Choose the best plan. A: Set $f(x)=0$. B: Find the tangent gradient, use the negative reciprocal, then use point-gradient form. C: Find only the y-intercept.",
+        "A question asks for the normal equation to a curve at a point. Choose the best plan.",
       latex: "\\text{Normal equation strategy}",
       answer: "B",
       choices: [
