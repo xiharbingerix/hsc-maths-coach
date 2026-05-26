@@ -19,6 +19,82 @@ const schoolMapDiagram: NetworkDiagram = {
   ],
 };
 
+const degreeStarDiagram: NetworkDiagram = {
+  description:
+    "Undirected network with vertices A, B, C, and D. Edges: A-B, A-C, and A-D.",
+  vertices: [
+    { id: "A", label: "A", x: 200, y: 150 },
+    { id: "B", label: "B", x: 90, y: 80 },
+    { id: "C", label: "C", x: 90, y: 220 },
+    { id: "D", label: "D", x: 320, y: 150 },
+  ],
+  edges: [
+    { from: "A", to: "B" },
+    { from: "A", to: "C" },
+    { from: "A", to: "D" },
+  ],
+};
+
+const directedDeliveryDiagram: NetworkDiagram = {
+  description:
+    "Directed delivery network with vertices Depot, Shop, Office, and Home. Arrows go from Depot to Shop, Depot to Office, and Shop to Home.",
+  vertices: [
+    { id: "D", label: "D", x: 80, y: 150 },
+    { id: "S", label: "S", x: 200, y: 80 },
+    { id: "O", label: "O", x: 200, y: 220 },
+    { id: "H", label: "H", x: 330, y: 80 },
+  ],
+  edges: [
+    { from: "D", to: "S", directed: true },
+    { from: "D", to: "O", directed: true },
+    { from: "S", to: "H", directed: true },
+  ],
+};
+
+const weightedTriangleDiagram: NetworkDiagram = {
+  description:
+    "Undirected weighted network with vertices A, B, and C. Edges: A-B weight 5, A-C weight 7, and B-C weight 6.",
+  vertices: [
+    { id: "A", label: "A", x: 100, y: 190 },
+    { id: "B", label: "B", x: 210, y: 80 },
+    { id: "C", label: "C", x: 320, y: 190 },
+  ],
+  edges: [
+    { from: "A", to: "B", weight: 5 },
+    { from: "A", to: "C", weight: 7 },
+    { from: "B", to: "C", weight: 6 },
+  ],
+};
+
+const circuitDiagram: NetworkDiagram = {
+  description:
+    "Undirected triangle network with vertices A, B, and C. Edges: A-B, B-C, and C-A.",
+  vertices: [
+    { id: "A", label: "A", x: 200, y: 70 },
+    { id: "B", label: "B", x: 90, y: 220 },
+    { id: "C", label: "C", x: 310, y: 220 },
+  ],
+  edges: [
+    { from: "A", to: "B" },
+    { from: "B", to: "C" },
+    { from: "C", to: "A" },
+  ],
+};
+
+const pathLineDiagram: NetworkDiagram = {
+  description:
+    "Undirected path network with vertices A, B, and C. Edges: A-B and B-C.",
+  vertices: [
+    { id: "A", label: "A", x: 90, y: 150 },
+    { id: "B", label: "B", x: 200, y: 150 },
+    { id: "C", label: "C", x: 310, y: 150 },
+  ],
+  edges: [
+    { from: "A", to: "B" },
+    { from: "B", to: "C" },
+  ],
+};
+
 const shortestPathDiagram: NetworkDiagram = {
   description:
     "Undirected weighted graph with vertices A, B, C, D. Edges: A-B weight 4, A-C weight 2, C-B weight 1, B-D weight 5, C-D weight 7.",
@@ -46,6 +122,22 @@ const solvedShortestPathDiagram: NetworkDiagram = {
   ],
 };
 
+const treeLineDiagram: NetworkDiagram = {
+  description:
+    "Undirected tree with vertices A, B, C, and D. Edges: A-B, B-C, and C-D.",
+  vertices: [
+    { id: "A", label: "A", x: 70, y: 150 },
+    { id: "B", label: "B", x: 170, y: 150 },
+    { id: "C", label: "C", x: 270, y: 150 },
+    { id: "D", label: "D", x: 370, y: 150 },
+  ],
+  edges: [
+    { from: "A", to: "B" },
+    { from: "B", to: "C" },
+    { from: "C", to: "D" },
+  ],
+};
+
 const mstDiagram: NetworkDiagram = {
   description:
     "Undirected weighted graph with vertices A, B, C, D. Edges: A-B weight 2, A-C weight 5, B-C weight 3, B-D weight 4, C-D weight 6.",
@@ -61,6 +153,41 @@ const mstDiagram: NetworkDiagram = {
     { from: "B", to: "C", weight: 3 },
     { from: "B", to: "D", weight: 4 },
     { from: "C", to: "D", weight: 6 },
+  ],
+};
+
+const appShortestDiagram: NetworkDiagram = {
+  description:
+    "Undirected weighted route network with vertices Depot, A, B, and Shop. Edges: Depot-A weight 4, A-Shop weight 3, Depot-B weight 6, B-Shop weight 5.",
+  vertices: [
+    { id: "D", label: "D", x: 70, y: 150 },
+    { id: "A", label: "A", x: 190, y: 80 },
+    { id: "B", label: "B", x: 190, y: 220 },
+    { id: "S", label: "S", x: 330, y: 150 },
+  ],
+  edges: [
+    { from: "D", to: "A", weight: 4 },
+    { from: "A", to: "S", weight: 3 },
+    { from: "D", to: "B", weight: 6 },
+    { from: "B", to: "S", weight: 5 },
+  ],
+};
+
+const appMstDiagram: NetworkDiagram = {
+  description:
+    "Undirected weighted connector network with vertices P, Q, R, and S. Edges: P-Q weight 2, Q-R weight 4, R-S weight 9, P-R weight 7, Q-S weight 6.",
+  vertices: [
+    { id: "P", label: "P", x: 90, y: 100 },
+    { id: "Q", label: "Q", x: 220, y: 80 },
+    { id: "R", label: "R", x: 150, y: 220 },
+    { id: "S", label: "S", x: 320, y: 200 },
+  ],
+  edges: [
+    { from: "P", to: "Q", weight: 2 },
+    { from: "Q", to: "R", weight: 4 },
+    { from: "R", to: "S", weight: 9 },
+    { from: "P", to: "R", weight: 7 },
+    { from: "Q", to: "S", weight: 6 },
   ],
 };
 
@@ -120,6 +247,21 @@ function networkWorkedExamples(slug: string, title: string): WorkedExample[] {
         title: "Constructing a weighted network from a table",
         questionLatex:
           "\\begin{array}{c|c} \\text{Connection} & \\text{Time} \\\\ A-B&4 \\\\ A-C&6 \\\\ B-D&5 \\end{array}",
+        diagram: {
+          description:
+            "Undirected weighted network with vertices A, B, C, and D. Edges: A-B weight 4, A-C weight 6, and B-D weight 5.",
+          vertices: [
+            { id: "A", label: "A", x: 90, y: 150 },
+            { id: "B", label: "B", x: 210, y: 80 },
+            { id: "C", label: "C", x: 210, y: 220 },
+            { id: "D", label: "D", x: 330, y: 80 },
+          ],
+          edges: [
+            { from: "A", to: "B", weight: 4 },
+            { from: "A", to: "C", weight: 6 },
+            { from: "B", to: "D", weight: 5 },
+          ],
+        },
         steps: [
           {
             explanation:
@@ -163,6 +305,7 @@ function networkWorkedExamples(slug: string, title: string): WorkedExample[] {
         title: "Classifying a route",
         questionLatex:
           "\\text{Route around school: A-B-C-A}",
+        diagram: circuitDiagram,
         steps: [
           {
             explanation:
@@ -221,6 +364,7 @@ function networkWorkedExamples(slug: string, title: string): WorkedExample[] {
         title: "Recognising a tree",
         questionLatex:
           "\\text{Network edges: AB, BC, CD. Vertices: A, B, C, D.}",
+        diagram: treeLineDiagram,
         steps: [
           {
             explanation:
@@ -278,6 +422,22 @@ function networkWorkedExamples(slug: string, title: string): WorkedExample[] {
       title: `${title}: choosing the right network method`,
       questionLatex:
         "\\text{A town map has roads with distances and one-way restrictions.}",
+      diagram: {
+        description:
+          "Directed weighted town road network with vertices P, Q, R, and S. Arrows: P to Q weight 5, P to R weight 7, Q to S weight 4, R to S weight 3.",
+        vertices: [
+          { id: "P", label: "P", x: 80, y: 150 },
+          { id: "Q", label: "Q", x: 200, y: 80 },
+          { id: "R", label: "R", x: 200, y: 220 },
+          { id: "S", label: "S", x: 320, y: 150 },
+        ],
+        edges: [
+          { from: "P", to: "Q", weight: 5, directed: true },
+          { from: "P", to: "R", weight: 7, directed: true },
+          { from: "Q", to: "S", weight: 4, directed: true },
+          { from: "R", to: "S", weight: 3, directed: true },
+        ],
+      },
       steps: [
         {
           explanation:
@@ -358,7 +518,10 @@ export function year11StandardNetworksLessonOverride(
         ],
       },
       guidedPractice: [
-        shortAnswer("net-term-g1", "School paths are AB, AC, and AD. What is the degree of A?", "\\deg(A)=?", "3"),
+        {
+          ...shortAnswer("net-term-g1", "Use the displayed network to find the degree of A.", "AB,\\ AC,\\ AD", "3"),
+          diagram: degreeStarDiagram,
+        },
         labelledChoice("net-term-g2", "Which statement best describes a weighted edge?", "A", ["An edge with a number such as distance, time, or cost", "A vertex with exactly two edges", "A network with no vertices", "A route that returns to the start"], "A weighted edge carries a numerical value."),
         labelledChoice("net-term-g3", "A map of one-way delivery streets should be represented by which network?", "B", ["Undirected network", "Directed network", "Unweighted tree only", "Box plot"], "One-way streets need arrows, so the network is directed."),
         labelledChoice("net-term-g4", "A table lists AB=5, AC=7, and CD=4. Which description matches it?", "C", ["Edges AB and CD only", "Vertices A and B only", "Weighted edges AB, AC, and CD", "A directed circuit A-B-C-D-A"], "The table gives three weighted edges."),
@@ -367,7 +530,10 @@ export function year11StandardNetworksLessonOverride(
         shortAnswer("net-term-i1", "A vertex is joined to five edges. What is its degree?", "\\deg(v)=?", "5"),
         shortAnswer("net-term-i2", "Connections AB, BC, CD, and DA are listed. How many edges are listed?", "AB,BC,CD,DA", "4"),
         shortAnswer("net-term-i3", "Connections AB, BC, CD, and DA use vertices A, B, C, D. How many vertices are named?", "A,B,C,D", "4"),
-        labelledChoice("net-term-i4", "A bus route table gives travel times between stops. What should the times become?", "C", ["Vertex labels", "Directions only", "Edge weights", "Degrees"], "Travel time is a weight on an edge."),
+        {
+          ...labelledChoice("net-term-i4", "In the weighted route diagram, what do the numbers on the connections represent?", "C", ["Vertex labels", "Directions only", "Edge weights", "Degrees"], "Travel time is a weight on an edge."),
+          diagram: weightedTriangleDiagram,
+        },
         labelledChoice("net-term-i5", "Which context is a realistic use of a network?", "D", ["Spelling a word", "Naming a colour", "Writing a paragraph", "Planning roads between towns"], "Roads between towns can be modelled using vertices and edges."),
       ],
       commonMistakes: [
@@ -377,11 +543,32 @@ export function year11StandardNetworksLessonOverride(
         { mistake: "Drawing extra edges not listed in the table or map.", fix: "Only connect vertices when the information says there is a direct connection." },
       ],
       masteryQuiz: [
-        shortAnswer("net-term-m1", "A is connected to B and C. What is the degree of A?", "\\deg(A)=?", "2"),
+        {
+          ...shortAnswer("net-term-m1", "Use the displayed network to find the degree of A.", "AB,\\ AC", "2"),
+          diagram: {
+            description:
+              "Undirected network with vertices A, B, and C. Edges: A-B and A-C.",
+            vertices: [
+              { id: "A", label: "A", x: 200, y: 150 },
+              { id: "B", label: "B", x: 90, y: 90 },
+              { id: "C", label: "C", x: 90, y: 210 },
+            ],
+            edges: [
+              { from: "A", to: "B" },
+              { from: "A", to: "C" },
+            ],
+          },
+        },
         labelledChoice("net-term-m2", "In a network, a vertex is:", "A", ["A point such as a town or building", "A number on a connection", "A route returning to the start", "A repeated edge"], "A vertex is a point in the network."),
-        labelledChoice("net-term-m3", "Which network type uses arrows?", "B", ["Weighted", "Directed", "Undirected only", "Disconnected"], "Directed networks use arrows."),
+        {
+          ...labelledChoice("net-term-m3", "Which network type is shown by the arrows in the delivery diagram?", "B", ["Weighted", "Directed", "Undirected only", "Disconnected"], "Directed networks use arrows."),
+          diagram: directedDeliveryDiagram,
+        },
         shortAnswer("net-term-m4", "A network has edges AB, BC, CA. How many edges are there?", "AB,BC,CA", "3"),
-        labelledChoice("net-term-m5", "A number 12 on an edge most likely represents:", "C", ["A vertex", "A circuit", "A weight", "A degree"], "A number on an edge is a weight."),
+        {
+          ...labelledChoice("net-term-m5", "In the displayed network, the numbers on the edges are best described as:", "C", ["Vertices", "Circuits", "Weights", "Degrees"], "A number on an edge is a weight."),
+          diagram: weightedTriangleDiagram,
+        },
         shortAnswer("net-term-m6", "A vertex touches 5 edges. What is its degree?", "\\deg(v)=?", "5"),
         labelledChoice("net-term-m7", "A map table gives towns and direct roads. What should the towns become?", "A", ["Vertices", "Weights", "Degrees", "Circuits"], "Locations become vertices."),
         shortAnswer("net-term-m8", "Connections AB and CD are listed. How many edges are drawn?", "AB,CD", "2"),
@@ -418,13 +605,19 @@ export function year11StandardNetworksLessonOverride(
         ],
       },
       guidedPractice: [
-        labelledChoice("net-path-g1", "A route A-B-C-A starts and ends at A. What is it?", "C", ["Vertex", "Edge", "Circuit", "Weight"], "A circuit returns to its starting vertex."),
+        {
+          ...labelledChoice("net-path-g1", "In the displayed network, a route A-B-C-A starts and ends at A. What is it?", "C", ["Vertex", "Edge", "Circuit", "Weight"], "A circuit returns to its starting vertex."),
+          diagram: circuitDiagram,
+        },
         shortAnswer("net-path-g2", "A walking route uses edge weights 3, 4, and 5. What is the total weight?", "3+4+5", "12"),
         labelledChoice("net-path-g3", "What does connected mean?", "A", ["Every vertex can be reached from every other vertex", "Every edge has weight 1", "The network has arrows", "The network has no paths"], "Connected means all vertices are reachable."),
         labelledChoice("net-path-g4", "Why might the shortest route not be the best route?", "D", ["It always is best", "It has no vertices", "It must be a tree", "It may be slower, unsafe, or more costly in context"], "Practical constraints can matter more than distance."),
       ],
       independentPractice: [
-        labelledChoice("net-path-i1", "A route that does not repeat an edge is called:", "B", ["Degree", "Trail", "Weight", "Vertex"], "A trail does not repeat edges."),
+        {
+          ...labelledChoice("net-path-i1", "In the displayed network, route A-B-C does not repeat an edge. What is this route called?", "B", ["Degree", "Trail", "Weight", "Vertex"], "A trail does not repeat edges."),
+          diagram: pathLineDiagram,
+        },
         shortAnswer("net-path-i2", "Route A-B-C has weights AB=6 and BC=7. Find the total weight.", "6+7", "13"),
         shortAnswer("net-path-i3", "Compare paths A-B-D=9 and A-C-D=8. What is the shortest-path weight?", "\\min(9,8)", "8"),
         labelledChoice("net-path-i4", "A network has an isolated vertex. Is it connected?", "B", ["Yes", "No", "Only if weighted", "Only if directed"], "An isolated vertex cannot be reached."),
@@ -449,7 +642,10 @@ export function year11StandardNetworksLessonOverride(
         },
         labelledChoice("net-path-m6", "The shortest path may not be best because:", "D", ["It has the smallest distance", "It uses vertices", "It is drawn on paper", "Other practical factors may matter"], "Context can make a longer route better."),
         shortAnswer("net-path-m7", "A network has 10 vertices. Is this within a no-more-than-10-vertices shortest path question? Answer yes or no.", "\\text{vertices}=10", "yes", ["Yes", "YES"]),
-        labelledChoice("net-path-m8", "A route A-B-C is best described as:", "A", ["Path", "Degree", "Weight only", "Disconnected network"], "It is a route through connected vertices."),
+        {
+          ...labelledChoice("net-path-m8", "Use the displayed network to classify route A-B-C.", "A", ["Path", "Degree", "Weight only", "Disconnected network"], "It is a route through connected vertices."),
+          diagram: pathLineDiagram,
+        },
         shortAnswer("net-path-m9", "Route weights are 5 and 9. Add them.", "5+9", "14"),
         labelledChoice("net-path-m10", "A safer 12-minute route may be chosen over a 10-minute route because:", "B", ["It is mathematically shorter", "Practical safety can matter", "It has no vertices", "It must be an MST"], "A route decision can include safety, not just time."),
       ],
@@ -484,14 +680,20 @@ export function year11StandardNetworksLessonOverride(
         ],
       },
       guidedPractice: [
-        labelledChoice("net-tree-g1", "Which describes a tree?", "A", ["Connected with no cycles", "Disconnected with arrows", "Only one vertex", "A route with repeated edges"], "A tree is connected and has no cycles."),
+        {
+          ...labelledChoice("net-tree-g1", "Which description matches the displayed network?", "A", ["Connected with no cycles", "Disconnected with arrows", "Only one vertex", "A route with repeated edges"], "A tree is connected and has no cycles."),
+          diagram: treeLineDiagram,
+        },
         shortAnswer("net-tree-g2", "A tree has 7 vertices. How many edges does it have?", "7-1", "6"),
         labelledChoice("net-tree-g3", "Using Kruskal's method on a sorted edge list, what should you choose first?", "B", ["The largest edge", "The smallest edge that is allowed", "Any edge that creates a cycle", "Only directed edges"], "Kruskal's method starts with the smallest available edge and avoids cycles."),
         shortAnswer("net-tree-g4", "Selected MST edges have weights 2, 5, and 6. Find the total.", "2+5+6", "13"),
       ],
       independentPractice: [
         shortAnswer("net-tree-i1", "A tree has 5 vertices. How many edges?", "5-1", "4"),
-        labelledChoice("net-tree-i2", "A spanning tree must include:", "A", ["All vertices", "All edges", "Only directed edges", "No weights"], "A spanning tree spans all vertices."),
+        {
+          ...labelledChoice("net-tree-i2", "The displayed network is a spanning tree for vertices A, B, C and D because it includes:", "A", ["All vertices", "All edges", "Only directed edges", "No weights"], "A spanning tree spans all vertices."),
+          diagram: treeLineDiagram,
+        },
         shortAnswer("net-tree-i3", "Add MST connector weights 4, 4, 7, and 8.", "4+4+7+8", "23"),
         labelledChoice("net-tree-i4", "Which edge should be avoided when building an MST?", "D", ["A low weight edge", "An edge connecting a new vertex", "The first edge chosen", "An edge that creates a cycle"], "MST methods avoid cycles."),
         labelledChoice("net-tree-i5", "A school wants to connect all buildings with least total cable. Use:", "B", ["Shortest path", "Minimum spanning tree", "Circuit", "Degree only"], "This is a minimal connector problem."),
@@ -503,7 +705,10 @@ export function year11StandardNetworksLessonOverride(
         { mistake: "Choosing the fewest edges without checking weight.", fix: "For an MST, minimise total weight." },
       ],
       masteryQuiz: [
-        labelledChoice("net-tree-m1", "A connected network with no cycles is a:", "A", ["Tree", "Circuit", "Directed edge", "Weight"], "That is the definition of a tree."),
+        {
+          ...labelledChoice("net-tree-m1", "The displayed network is connected and has no cycles. What is it?", "A", ["Tree", "Circuit", "Directed edge", "Weight"], "That is the definition of a tree."),
+          diagram: treeLineDiagram,
+        },
         shortAnswer("net-tree-m2", "A tree has 9 vertices. How many edges?", "\\text{vertices}=9", "8"),
         labelledChoice("net-tree-m3", "A spanning tree uses:", "C", ["No vertices", "Only one edge", "All vertices", "All possible edges"], "It spans all vertices."),
         shortAnswer("net-tree-m4", "MST weights are 1, 3, 6. Find total.", "\\text{weights: }1,\\ 3,\\ 6", "10"),
@@ -550,14 +755,36 @@ export function year11StandardNetworksLessonOverride(
       labelledChoice("net-app-g1", "A table gives one-way task dependencies. What kind of network is needed?", "B", ["Undirected", "Directed", "Box plot", "Tree only"], "One-way dependencies need directed edges."),
       shortAnswer("net-app-g2", "A shortest route uses weights 4, 3, and 6. Find total.", "4+3+6", "13"),
       labelledChoice("net-app-g3", "A school wants minimum cable to connect all buildings. Best method?", "C", ["Circuit", "Degree", "Minimum spanning tree", "Mean"], "This is a minimal connector problem."),
-      labelledChoice("net-app-g4", "Table: AB=4, BC=6, AC=5. Which network description is correct?", "A", ["Three weighted edges connect A, B, and C", "Only one vertex is shown", "The edges must be directed", "There are no weights"], "The table shows three weighted edges."),
+      {
+        ...labelledChoice("net-app-g4", "Use the displayed network to choose the correct description.", "A", ["Three weighted edges connect A, B, and C", "Only one vertex is shown", "The edges must be directed", "There are no weights"], "The table shows three weighted edges."),
+        diagram: {
+          description:
+            "Undirected weighted network with vertices A, B, and C. Edges: A-B weight 4, B-C weight 6, and A-C weight 5.",
+          vertices: [
+            { id: "A", label: "A", x: 100, y: 190 },
+            { id: "B", label: "B", x: 210, y: 80 },
+            { id: "C", label: "C", x: 320, y: 190 },
+          ],
+          edges: [
+            { from: "A", to: "B", weight: 4 },
+            { from: "B", to: "C", weight: 6 },
+            { from: "A", to: "C", weight: 5 },
+          ],
+        },
+      },
     ],
     independentPractice: [
-      labelledChoice("net-app-i1", "A map with distances between suburbs should use:", "A", ["Weighted edges", "Only isolated vertices", "A box plot", "A frequency table"], "Distances are weights."),
+      {
+        ...labelledChoice("net-app-i1", "A map with distances between suburbs should use:", "A", ["Weighted edges", "Only isolated vertices", "A box plot", "A frequency table"], "Distances are weights."),
+        diagram: appShortestDiagram,
+      },
       shortAnswer("net-app-i2", "Add route weights 7 and 8.", "7+8", "15"),
       labelledChoice("net-app-i3", "Shortest path is not always best because:", "D", ["It uses vertices", "It is always free", "It must connect all vertices", "Traffic, safety, or cost may matter"], "Practical constraints can override distance."),
       shortAnswer("net-app-i4", "MST selected weights are 3, 5, and 5. Find total.", "3+5+5", "13"),
-      labelledChoice("net-app-i5", "A delivery route asks for the quickest path from Depot to Shop. Which method is most relevant?", "B", ["Minimum spanning tree", "Shortest path", "Counting degree only", "Finding a circuit only"], "A route between two vertices is a shortest-path problem."),
+      {
+        ...labelledChoice("net-app-i5", "The displayed delivery network is being used to find the quickest path from Depot to Shop. Which method is most relevant?", "B", ["Minimum spanning tree", "Shortest path", "Counting degree only", "Finding a circuit only"], "A route between two vertices is a shortest-path problem."),
+        diagram: appShortestDiagram,
+      },
     ],
     commonMistakes: [
       { mistake: "Using MST for a single route question.", fix: "Use shortest path when travelling from one vertex to another." },
@@ -566,15 +793,24 @@ export function year11StandardNetworksLessonOverride(
       { mistake: "Ignoring practical judgement.", fix: "Shortest distance may not be best if time, cost, or safety differs." },
     ],
     masteryQuiz: [
-      labelledChoice("net-app-m1", "A weighted road map has numbers showing:", "A", ["Distances or costs", "Vertex names", "Circuits only", "Degrees only"], "Weights show quantities such as distance or cost."),
+      {
+        ...labelledChoice("net-app-m1", "In the displayed road network, the numbers on the edges show:", "A", ["Distances or costs", "Vertex names", "Circuits only", "Degrees only"], "Weights show quantities such as distance or cost."),
+        diagram: appShortestDiagram,
+      },
       shortAnswer("net-app-m2", "Route weights are 6, 6, and 2. Find total.", "6+6+2", "14"),
-      labelledChoice("net-app-m3", "To connect all parks with minimum path length, use:", "C", ["Shortest path only", "Circuit", "Minimum spanning tree", "Degree"], "Connecting all with minimum total length is MST."),
+      {
+        ...labelledChoice("net-app-m3", "To connect all displayed parks with minimum path length, use:", "C", ["Shortest path only", "Circuit", "Minimum spanning tree", "Degree"], "Connecting all with minimum total length is MST."),
+        diagram: appMstDiagram,
+      },
       labelledChoice("net-app-m4", "A one-way delivery route should be modelled with:", "B", ["Undirected edges", "Directed edges", "No edges", "Only weights"], "One-way movement requires direction."),
       shortAnswer("net-app-m5", "A table lists five direct connections. How many edges are drawn?", "5", "5"),
       labelledChoice("net-app-m6", "A shortest path question with 8 vertices is:", "A", ["Within a no-more-than-10-vertices limit", "Too large", "Not a network", "Always an MST"], "8 is no more than 10."),
       shortAnswer("net-app-m7", "MST weights 2, 4, and 9 total to what?", "\\text{MST weights: }2,\\ 4,\\ 9", "15"),
       labelledChoice("net-app-m8", "Why might a longer route be chosen?", "D", ["It has no edges", "It has fewer vertices always", "It is disconnected", "It may be safer or faster"], "Practical features can matter."),
-      shortAnswer("net-app-m9", "If vertex A has 3 incident edges, what is degree of A?", "\\deg(A)=?", "3"),
+      {
+        ...shortAnswer("net-app-m9", "Use the displayed network to find the degree of A.", "\\deg(A)=?", "3"),
+        diagram: degreeStarDiagram,
+      },
       labelledChoice("net-app-m10", "Before solving a network application, first:", "A", ["Identify the goal of the problem", "Choose the largest edge", "Ignore weights", "Delete vertices"], "The method depends on the goal."),
     ],
   };
