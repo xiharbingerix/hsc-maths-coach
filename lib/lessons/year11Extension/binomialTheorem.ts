@@ -1,0 +1,607 @@
+import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
+import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import { formulaAnswer, practicalChoice } from "../questionHelpers";
+
+function intAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string
+): PracticeQuestion {
+  return formulaAnswer(id, prompt, latex, answer);
+}
+
+function choice(
+  id: string,
+  prompt: string,
+  answer: "A" | "B" | "C" | "D",
+  choices: [string, string, string, string],
+  explanation: string,
+  latex = "\\text{Select A, B, C, or D.}"
+): PracticeQuestion {
+  return practicalChoice(id, prompt, answer, choices, explanation, latex);
+}
+
+const base = {
+  syllabusArea: "Combinatorics",
+  masteryPassMark: 0.8,
+};
+
+function lessonBase(
+  lesson: CourseLessonSeed,
+  description: string,
+  focus: string
+): Partial<ExplicitLesson> {
+  return {
+    ...base,
+    description,
+    focus,
+    status: "active",
+  };
+}
+
+const pascalExamples: WorkedExample[] = [
+  {
+    title: "Write a row of Pascal's triangle",
+    questionLatex: "\\text{Write row }5\\text{ of Pascal's triangle, starting with row }0.",
+    steps: [
+      { explanation: "Rows start with row 0 as 1.", latex: "\\text{row }0:1" },
+      { explanation: "Row 5 is the coefficient row for a fifth power.", latex: "1,\\ 5,\\ 10,\\ 10,\\ 5,\\ 1" },
+    ],
+    finalAnswerLatex: "1,\\ 5,\\ 10,\\ 10,\\ 5,\\ 1",
+  },
+  {
+    title: "Use a row to expand a small power",
+    questionLatex: "(x+1)^4",
+    steps: [
+      { explanation: "Use row 4 of Pascal's triangle.", latex: "1,\\ 4,\\ 6,\\ 4,\\ 1" },
+      { explanation: "Attach descending powers of x.", latex: "x^4+4x^3+6x^2+4x+1" },
+    ],
+    finalAnswerLatex: "x^4+4x^3+6x^2+4x+1",
+  },
+  {
+    title: "Use symmetry",
+    questionLatex: "\\text{Row }6:\\quad 1,\\ 6,\\ 15,\\ 20,\\ \\square,\\ 6,\\ 1",
+    steps: [
+      { explanation: "Pascal rows are symmetric.", latex: "1,6,15,20,15,6,1" },
+      { explanation: "The missing value mirrors the earlier 15.", latex: "\\square=15" },
+    ],
+    finalAnswerLatex: "15",
+  },
+  {
+    title: "Use the row sum",
+    questionLatex: "\\text{Find the sum of the entries in row }7.",
+    steps: [
+      { explanation: "The sum of row n is two to the power n.", latex: "2^n" },
+      { explanation: "For row 7, calculate the row sum.", latex: "2^7=128" },
+    ],
+    finalAnswerLatex: "128",
+  },
+];
+
+const theoremExamples: WorkedExample[] = [
+  {
+    title: "Expand with binomial coefficients",
+    questionLatex: "(x+2)^4",
+    steps: [
+      { explanation: "Use row 4 coefficients.", latex: "1,\\ 4,\\ 6,\\ 4,\\ 1" },
+      { explanation: "Apply descending powers of x and ascending powers of 2.", latex: "x^4+4x^3(2)+6x^2(2^2)+4x(2^3)+2^4" },
+      { explanation: "Simplify the coefficients.", latex: "x^4+8x^3+24x^2+32x+16" },
+    ],
+    finalAnswerLatex: "x^4+8x^3+24x^2+32x+16",
+  },
+  {
+    title: "Handle alternating signs",
+    questionLatex: "(1-x)^5",
+    steps: [
+      { explanation: "Use row 5 coefficients.", latex: "1,\\ 5,\\ 10,\\ 10,\\ 5,\\ 1" },
+      { explanation: "Powers of negative x alternate signs.", latex: "1-5x+10x^2-10x^3+5x^4-x^5" },
+    ],
+    finalAnswerLatex: "1-5x+10x^2-10x^3+5x^4-x^5",
+  },
+  {
+    title: "Find one coefficient",
+    questionLatex: "\\text{Find the coefficient of }x^3\\text{ in }(x+2)^5.",
+    steps: [
+      { explanation: "The x cubed term occurs when the power of 2 is 2.", latex: "\\binom{5}{2}x^3(2^2)" },
+      { explanation: "Evaluate the coefficient.", latex: "\\binom{5}{2}2^2=10\\times4=40" },
+    ],
+    finalAnswerLatex: "40",
+  },
+  {
+    title: "Choose a binomial coefficient",
+    questionLatex: "\\text{In }(a+b)^8,\\text{ which coefficient belongs with }a^5b^3?",
+    steps: [
+      { explanation: "The exponent of b is 3, so choose r equals 3.", latex: "\\binom{8}{3}" },
+      { explanation: "By symmetry, this is also equal to the coefficient for a cubed b to the fifth.", latex: "\\binom{8}{3}=\\binom{8}{5}" },
+    ],
+    finalAnswerLatex: "\\binom{8}{3}",
+  },
+];
+
+const generalExamples: WorkedExample[] = [
+  {
+    title: "Write a general term",
+    questionLatex: "(x+3)^5",
+    steps: [
+      { explanation: "Use the general term convention.", latex: "T_{r+1}=\\binom{n}{r}a^{n-r}b^r" },
+      { explanation: "Here, a is x, b is 3, and n is 5.", latex: "T_{r+1}=\\binom{5}{r}x^{5-r}3^r" },
+    ],
+    finalAnswerLatex: "T_{r+1}=\\binom{5}{r}x^{5-r}3^r",
+  },
+  {
+    title: "Coefficient of a power",
+    questionLatex: "\\text{Find the coefficient of }x^3\\text{ in }(x+2)^5.",
+    steps: [
+      { explanation: "The power of x is five minus r.", latex: "5-r=3" },
+      { explanation: "So r equals 2.", latex: "r=2" },
+      { explanation: "Use the term with r equals 2.", latex: "\\binom{5}{2}x^3(2^2)=40x^3" },
+    ],
+    finalAnswerLatex: "40",
+  },
+  {
+    title: "Find a constant term",
+    questionLatex: "\\text{Find the constant term in }\\left(x+\\frac{2}{x}\\right)^4.",
+    steps: [
+      { explanation: "The general term has x to the power four minus r, and x to the power negative r.", latex: "x^{4-r}x^{-r}=x^{4-2r}" },
+      { explanation: "A constant term has power zero.", latex: "4-2r=0" },
+      { explanation: "So r equals 2, then calculate the coefficient.", latex: "\\binom{4}{2}2^2=24" },
+    ],
+    finalAnswerLatex: "24",
+  },
+  {
+    title: "Choose r for a target power",
+    questionLatex: "\\text{In }(x+4)^7,\\text{ which r-value gives the }x^2\\text{ term?}",
+    steps: [
+      { explanation: "The power of x is seven minus r.", latex: "7-r=2" },
+      { explanation: "Solve for r.", latex: "r=5" },
+    ],
+    finalAnswerLatex: "5",
+  },
+];
+
+const identityExamples: WorkedExample[] = [
+  {
+    title: "Sum of coefficients",
+    questionLatex: "\\text{Find the sum of coefficients in }(2x+1)^5.",
+    steps: [
+      { explanation: "Set x equal to 1.", latex: "(2(1)+1)^5" },
+      { explanation: "Evaluate.", latex: "3^5=243" },
+    ],
+    finalAnswerLatex: "243",
+  },
+  {
+    title: "Alternating sum of coefficients",
+    questionLatex: "\\text{Find the alternating sum of coefficients in }(x+3)^4.",
+    steps: [
+      { explanation: "Set x equal to negative 1.", latex: "(-1+3)^4" },
+      { explanation: "Evaluate.", latex: "2^4=16" },
+    ],
+    finalAnswerLatex: "16",
+  },
+  {
+    title: "Use coefficient symmetry",
+    questionLatex: "\\binom{9}{2}",
+    steps: [
+      { explanation: "Use symmetry of binomial coefficients.", latex: "\\binom{n}{r}=\\binom{n}{n-r}" },
+      { explanation: "Replace r with n minus r.", latex: "\\binom{9}{2}=\\binom{9}{7}" },
+    ],
+    finalAnswerLatex: "\\binom{9}{7}",
+  },
+  {
+    title: "Use Pascal's identity",
+    questionLatex: "\\binom{6}{2}+\\binom{6}{3}",
+    steps: [
+      { explanation: "Pascal's identity combines adjacent entries.", latex: "\\binom{n}{r}+\\binom{n}{r+1}=\\binom{n+1}{r+1}" },
+      { explanation: "Apply the identity.", latex: "\\binom{6}{2}+\\binom{6}{3}=\\binom{7}{3}" },
+      { explanation: "Evaluate if needed.", latex: "\\binom{7}{3}=35" },
+    ],
+    finalAnswerLatex: "35",
+  },
+];
+
+const examExamples: WorkedExample[] = [
+  {
+    title: "Coefficient from an expansion",
+    questionLatex: "\\text{Find the coefficient of }x^2\\text{ in }(x+3)^5.",
+    steps: [
+      { explanation: "The x squared term occurs when r equals 3.", latex: "5-r=2" },
+      { explanation: "Use the matching term.", latex: "\\binom{5}{3}x^2(3^3)" },
+      { explanation: "Evaluate the coefficient.", latex: "10\\times27=270" },
+    ],
+    finalAnswerLatex: "270",
+  },
+  {
+    title: "Signed term",
+    questionLatex: "\\text{Find the }x^3\\text{ term in }(2-x)^5.",
+    steps: [
+      { explanation: "The x cubed term uses r equals 3.", latex: "\\binom{5}{3}2^2(-x)^3" },
+      { explanation: "The odd power of negative x gives a negative sign.", latex: "-40x^3" },
+    ],
+    finalAnswerLatex: "-40x^3",
+  },
+  {
+    title: "Identity from substitution",
+    questionLatex: "\\text{Find the sum of coefficients in }(3x-2)^4.",
+    steps: [
+      { explanation: "Set x equal to 1.", latex: "(3(1)-2)^4" },
+      { explanation: "Evaluate.", latex: "1^4=1" },
+    ],
+    finalAnswerLatex: "1",
+  },
+  {
+    title: "Constant term",
+    questionLatex: "\\text{Find the constant term in }\\left(x^2+\\frac{1}{x}\\right)^6.",
+    steps: [
+      { explanation: "The power of x in the general term is from x squared and x inverse.", latex: "x^{2(6-r)}x^{-r}=x^{12-3r}" },
+      { explanation: "Set the exponent to zero.", latex: "12-3r=0" },
+      { explanation: "So r equals 4, then calculate the coefficient.", latex: "\\binom{6}{4}=15" },
+    ],
+    finalAnswerLatex: "15",
+  },
+];
+
+function pascalLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
+  return {
+    ...lessonBase(
+      lesson,
+      "Use Pascal's triangle to identify binomial coefficient patterns, row sums, and small expansions.",
+      "Pascal's triangle and binomial patterns"
+    ),
+    learningIntention:
+      "Use Pascal's triangle to connect row number, symmetry, row sums, and coefficients in small binomial expansions.",
+    successCriteria: [
+      "Write rows of Pascal's triangle using row 0 as the starting row.",
+      "Match a Pascal row to the coefficients of a binomial power.",
+      "Use symmetry to find missing coefficients.",
+      "Use row sums to calculate powers of two.",
+      "Expand small powers using Pascal's triangle.",
+      "Identify coefficient positions without expanding unnecessarily.",
+    ],
+    teaching: {
+      paragraphs: [
+        "Pascal's triangle begins with row 0. Row n gives the coefficients in the expansion of a binomial to the power n.",
+        "Each new entry is formed by adding the two entries above it. The outside entries in every row are 1.",
+        "Rows are symmetric. This means coefficients the same distance from each end are equal.",
+        "The sum of the entries in row n is two to the power n. This follows from substituting 1 and 1 into a binomial expansion.",
+        "For small powers such as $(x+1)^4$, Pascal's triangle gives the coefficients quickly.",
+      ],
+      latexBlocks: [
+        "\\text{row }0:\\ 1",
+        "\\text{row }n\\text{ gives coefficients of }(a+b)^n",
+        "\\binom{n}{r}=\\binom{n}{n-r}",
+        "\\text{sum of row }n=2^n",
+      ],
+    },
+    workedExamples: pascalExamples,
+    guidedPractice: [
+      intAnswer("y11ext-bt-pascal-g1", "Find the middle coefficient in row 4 of Pascal's triangle.", "\\text{row }4:\\ 1,\\ 4,\\ \\square,\\ 4,\\ 1", "6"),
+      intAnswer("y11ext-bt-pascal-g2", "Find the sum of the entries in row 5.", "\\text{row }5\\text{ of Pascal's triangle}", "32"),
+      choice("y11ext-bt-pascal-g3", "Which row gives the coefficients of a sixth power?", "C", ["Row 4", "Row 5", "Row 6", "Row 7"], "Row n gives the coefficients of a binomial to the power n."),
+      choice("y11ext-bt-pascal-g4", "Choose the coefficient row for the displayed expansion.", "B", ["$1,3,3,1$", "$1,4,6,4,1$", "$1,5,10,10,5,1$", "$1,6,15,20,15,6,1$"], "A fourth power uses row 4.", "(x+1)^4"),
+    ],
+    independentPractice: [
+      intAnswer("y11ext-bt-pascal-i1", "Find the missing coefficient using symmetry.", "\\text{row }6:\\ 1,\\ 6,\\ 15,\\ 20,\\ \\square,\\ 6,\\ 1", "15"),
+      intAnswer("y11ext-bt-pascal-i2", "Find the sum of the entries in row 8.", "\\text{row }8\\text{ of Pascal's triangle}", "256"),
+      choice("y11ext-bt-pascal-i3", "Which expansion has coefficient row 1, 5, 10, 10, 5, 1?", "D", ["$(x+1)^3$", "$(x+1)^4$", "$(x+1)^6$", "$(x+1)^5$"], "The row shown is row 5."),
+      intAnswer("y11ext-bt-pascal-i4", "Find the coefficient of the squared term in the displayed expansion.", "(x+1)^4", "6"),
+      choice("y11ext-bt-pascal-i5", "Why are the second and second-last entries in a Pascal row equal?", "A", ["The row is symmetric", "The entries are all one", "The row sum is zero", "The powers decrease"], "Pascal rows are symmetric."),
+    ],
+    commonMistakes: [
+      { mistake: "Calling the first row row 1 instead of row 0.", fix: "Use row 0 as the row containing only 1." },
+      { mistake: "Using row n plus 1 for a power n expansion.", fix: "The coefficients of $(a+b)^n$ come from row n." },
+      { mistake: "Ignoring symmetry when finding a missing coefficient.", fix: "Match entries the same distance from the ends of the row." },
+      { mistake: "Adding only part of a row for the row sum.", fix: "The whole row sum is $2^n$." },
+    ],
+    masteryQuiz: [
+      intAnswer("y11ext-bt-pascal-m1", "Find the missing entry in the displayed Pascal row.", "\\text{row }4:\\ 1,\\ 4,\\ \\square,\\ 4,\\ 1", "6"),
+      intAnswer("y11ext-bt-pascal-m2", "Find the sum of the entries in row 6.", "\\text{row }6\\text{ of Pascal's triangle}", "64"),
+      choice("y11ext-bt-pascal-m3", "Which row gives the coefficients of the displayed power?", "C", ["Row 3", "Row 4", "Row 5", "Row 6"], "A fifth power uses row 5.", "(x+1)^5"),
+      intAnswer("y11ext-bt-pascal-m4", "Find the coefficient of the cubed term in the displayed expansion.", "(x+1)^5", "10"),
+      choice("y11ext-bt-pascal-m5", "Choose the coefficient row for the displayed expansion.", "A", ["$1,6,15,20,15,6,1$", "$1,5,10,10,5,1$", "$1,7,21,35,35,21,7,1$", "$1,4,6,4,1$"], "A sixth power uses row 6.", "(x+1)^6"),
+      choice("y11ext-bt-pascal-m6", "Which statement correctly describes the row sum?", "D", ["It is always n", "It is always n squared", "It is always zero", "It is $2^n$ for row n"], "The sum of row n is $2^n$."),
+      choice("y11ext-bt-pascal-m7", "A student uses row 6 for a fifth power. What is the issue?", "B", ["The row is too short", "The row number is one too high", "The coefficients must all be negative", "The row sum must be one"], "A fifth power uses row 5 when rows start at row 0."),
+      choice("y11ext-bt-pascal-m8", "Which property explains why the missing value mirrors the earlier value?", "C", ["Alternating signs", "Constant term", "Symmetry", "Differentiation"], "Pascal rows are symmetric.", "\\text{row }7:\\ 1,\\ 7,\\ 21,\\ 35,\\ \\square,\\ 21,\\ 7,\\ 1"),
+      intAnswer("y11ext-bt-pascal-m9", "Find the missing value in row 7 using symmetry.", "\\text{row }7:\\ 1,\\ 7,\\ 21,\\ 35,\\ \\square,\\ 21,\\ 7,\\ 1", "35"),
+      intAnswer("y11ext-bt-pascal-m10", "The entries in a Pascal row sum to 512. Find the row number.", "\\text{row sum}=512", "9"),
+    ],
+  };
+}
+
+function theoremLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
+  return {
+    ...lessonBase(
+      lesson,
+      "Use binomial coefficients to expand powers, track signs, and find selected coefficients.",
+      "The binomial theorem"
+    ),
+    learningIntention:
+      "Apply the binomial theorem to expand binomials and find coefficients without expanding every term.",
+    successCriteria: [
+      "Use binomial coefficient notation in expansions.",
+      "Expand simple powers of $(a+b)^n$ using coefficient patterns.",
+      "Track alternating signs in powers of $(a-b)^n$.",
+      "Find a selected coefficient without writing every term.",
+      "Choose the correct binomial coefficient for a target term.",
+      "Connect binomial coefficients with combinations.",
+    ],
+    teaching: {
+      paragraphs: [
+        "The binomial theorem expands powers of a two-term expression using binomial coefficients.",
+        "In $(a+b)^n$, powers of a decrease while powers of b increase. The coefficients are combinations.",
+        "The coefficient of $a^{n-r}b^r$ is $\\binom{n}{r}$.",
+        "For $(a-b)^n$, the signs alternate because powers of the negative term alternate.",
+        "Often a question only asks for one coefficient. In that case, choose the term that matches the required power instead of expanding everything.",
+      ],
+      latexBlocks: [
+        "(a+b)^n=\\sum_{r=0}^{n}\\binom{n}{r}a^{n-r}b^r",
+        "\\binom{n}{r}=\\frac{n!}{r!(n-r)!}",
+        "(a-b)^n\\text{ has alternating signs}",
+      ],
+    },
+    workedExamples: theoremExamples,
+    guidedPractice: [
+      intAnswer("y11ext-bt-thm-g1", "Find the coefficient of the squared term in the displayed expansion.", "(x+3)^4", "54"),
+      choice("y11ext-bt-thm-g2", "Choose the correct expansion.", "A", ["$x^3+6x^2+12x+8$", "$x^3+2x^2+4x+8$", "$x^3+6x+8$", "$x^3+8$"], "Use row 3 coefficients with powers of 2.", "(x+2)^3"),
+      choice("y11ext-bt-thm-g3", "Which sign belongs to the cubic term in the displayed expansion?", "B", ["Positive", "Negative", "Zero", "Cannot be determined"], "Odd powers of the negative term are negative.", "(1-x)^5"),
+      choice("y11ext-bt-thm-g4", "Which binomial coefficient belongs with the displayed term form?", "D", ["$\\binom{8}{2}$", "$\\binom{8}{4}$", "$\\binom{5}{3}$", "$\\binom{8}{3}$"], "The exponent of b is 3, so use $\\binom{8}{3}$.", "a^5b^3\\text{ in }(a+b)^8"),
+    ],
+    independentPractice: [
+      intAnswer("y11ext-bt-thm-i1", "Find the coefficient of the cubed term in the displayed expansion.", "(x+2)^5", "40"),
+      intAnswer("y11ext-bt-thm-i2", "Find the coefficient of the squared term in the displayed expansion.", "(2x+1)^4", "24"),
+      choice("y11ext-bt-thm-i3", "Choose the correct expansion.", "C", ["$1-4x+4x^2$", "$1+4x+6x^2+4x^3+x^4$", "$1-4x+6x^2-4x^3+x^4$", "$1-6x+4x^2-x^4$"], "The signs alternate in $(1-x)^4$.", "(1-x)^4"),
+      choice("y11ext-bt-thm-i4", "Which coefficient expression matches the displayed term?", "A", ["$\\binom{7}{2}3^2$", "$\\binom{7}{5}3^5$", "$\\binom{5}{2}3^7$", "$\\binom{7}{3}$"], "The power of 3 is 2 in the $x^5$ term.", "x^5\\text{ in }(x+3)^7"),
+      intAnswer("y11ext-bt-thm-i5", "Find the coefficient of the displayed power.", "(1+2x)^5,\\quad x^2", "40"),
+    ],
+    commonMistakes: [
+      { mistake: "Using ordinary powers but forgetting binomial coefficients.", fix: "Include the coefficient $\\binom{n}{r}$ for each term." },
+      { mistake: "Making every term positive in an expansion with subtraction.", fix: "Track powers of the negative term carefully." },
+      { mistake: "Using the wrong r-value for the target power.", fix: "Match the target power with the power pattern in the general term." },
+      { mistake: "Expanding the whole expression when only one coefficient is needed.", fix: "Select the single term that contains the requested power." },
+    ],
+    masteryQuiz: [
+      intAnswer("y11ext-bt-thm-m1", "Find the coefficient of the squared term in the displayed expansion.", "(x+2)^4", "24"),
+      choice("y11ext-bt-thm-m2", "Choose the correct expansion.", "A", ["$x^3+9x^2+27x+27$", "$x^3+3x^2+9x+27$", "$x^3+27$", "$x^3+6x^2+12x+8$"], "Use row 3 coefficients with powers of 3.", "(x+3)^3"),
+      choice("y11ext-bt-thm-m3", "Which sign belongs to the squared term?", "A", ["Positive", "Negative", "Zero", "Cannot be determined"], "An even power of the negative term is positive.", "(1-x)^5"),
+      intAnswer("y11ext-bt-thm-m4", "Find the coefficient of the cubed term in the displayed expansion.", "(x+2)^5", "40"),
+      intAnswer("y11ext-bt-thm-m5", "Find the coefficient of the displayed power.", "(2x+1)^5,\\quad x^3", "80"),
+      choice("y11ext-bt-thm-m6", "Which binomial coefficient belongs with the displayed term form?", "C", ["$\\binom{9}{2}$", "$\\binom{9}{4}$", "$\\binom{9}{5}$", "$\\binom{5}{9}$"], "The exponent of b is 5, so use $\\binom{9}{5}$.", "a^4b^5\\text{ in }(a+b)^9"),
+      choice("y11ext-bt-thm-m7", "A student expands $(1-x)^4$ with all positive signs. What is the issue?", "B", ["The coefficients are too small", "Powers of the negative term change signs", "The row number is zero", "The expression has no middle terms"], "Odd powers of negative x produce negative terms." ),
+      choice("y11ext-bt-thm-m8", "Why can a coefficient be found without expanding every term?", "D", ["The answer is always 1", "The powers are irrelevant", "Only row sums matter", "The target power identifies one term"], "The required power determines the relevant term." ),
+      intAnswer("y11ext-bt-thm-m9", "Find the coefficient of the displayed power.", "(x+3)^6,\\quad x^4", "135"),
+      intAnswer("y11ext-bt-thm-m10", "Find the coefficient of the displayed power.", "(2x+1)^6,\\quad x^4", "240"),
+    ],
+  };
+}
+
+function generalTermLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
+  return {
+    ...lessonBase(
+      lesson,
+      "Use the general term to identify r-values, particular coefficients, and constant terms.",
+      "Finding a general term"
+    ),
+    learningIntention:
+      "Use the $T_{r+1}$ convention to locate target powers and extract coefficients from binomial expansions.",
+    successCriteria: [
+      "State the role of r in the general term.",
+      "Use $T_{r+1}$ to identify a particular term position.",
+      "Find the r-value that produces a target power of x.",
+      "Extract integer coefficients from selected terms.",
+      "Find simple constant terms in binomial expansions.",
+      "Recognise common indexing errors in the $T_{r+1}$ convention.",
+    ],
+    teaching: {
+      paragraphs: [
+        "The general term gives a way to describe any term in a binomial expansion without writing the whole expansion.",
+        "The convention $T_{r+1}$ is used because r starts at 0 for the first term.",
+        "In $T_{r+1}=\\binom{n}{r}a^{n-r}b^r$, the power of the first part decreases and the power of the second part increases.",
+        "To find a coefficient of a target power, match the exponent of x to the target and solve for r.",
+        "For a constant term, set the total exponent of x equal to zero.",
+      ],
+      latexBlocks: [
+        "T_{r+1}=\\binom{n}{r}a^{n-r}b^r",
+        "r=0\\text{ gives the first term}",
+        "\\text{constant term: total power of }x=0",
+      ],
+    },
+    workedExamples: generalExamples,
+    guidedPractice: [
+      intAnswer("y11ext-bt-gen-g1", "Find the r-value that gives the cubed power in the displayed expansion.", "(x+2)^6,\\quad x^3", "3"),
+      intAnswer("y11ext-bt-gen-g2", "Find the coefficient of the displayed power.", "(x+3)^5,\\quad x^2", "270"),
+      choice("y11ext-bt-gen-g3", "Which general term matches the displayed expansion?", "B", ["$T_r=\\binom{5}{r}x^r3^{5-r}$", "$T_{r+1}=\\binom{5}{r}x^{5-r}3^r$", "$T_{r+1}=5x^r3^r$", "$T_1=\\binom{r}{5}x^53^r$"], "Use $T_{r+1}=\\binom{n}{r}a^{n-r}b^r$.", "(x+3)^5"),
+      intAnswer("y11ext-bt-gen-g4", "Find the constant term in the displayed expansion.", "\\left(x+\\frac{1}{x}\\right)^4", "6"),
+    ],
+    independentPractice: [
+      intAnswer("y11ext-bt-gen-i1", "Find the r-value that gives the squared power in the displayed expansion.", "(x+4)^7,\\quad x^2", "5"),
+      intAnswer("y11ext-bt-gen-i2", "Find the coefficient of the displayed power.", "(x+2)^6,\\quad x^4", "60"),
+      intAnswer("y11ext-bt-gen-i3", "Find the constant term in the displayed expansion.", "\\left(x+\\frac{2}{x}\\right)^4", "24"),
+      choice("y11ext-bt-gen-i4", "In the $T_{r+1}$ convention, what term number is produced by r equals 3?", "C", ["Second term", "Third term", "Fourth term", "Fifth term"], "The term number is r plus 1." ),
+      choice("y11ext-bt-gen-i5", "A student sets r equal to the target term number. What is the indexing issue?", "A", ["The term number is r plus 1", "The row sum should be used", "The coefficient must be negative", "The expansion has no terms"], "In this convention, r is one less than the term number." ),
+    ],
+    commonMistakes: [
+      { mistake: "Using r as the term number instead of one less than the term number.", fix: "Remember that $T_{r+1}$ is the term number." },
+      { mistake: "Matching the wrong part of the term to the target power.", fix: "Track the total power of x across both factors." },
+      { mistake: "Trying to type a full symbolic general term as an answer.", fix: "Use multiple choice for formula recognition and integer answers for coefficients." },
+      { mistake: "Forgetting signs or constants in the second term.", fix: "Include the full second part of the binomial when forming the general term." },
+    ],
+    masteryQuiz: [
+      intAnswer("y11ext-bt-gen-m1", "Find the r-value that gives the displayed power.", "(x+2)^5,\\quad x^3", "2"),
+      choice("y11ext-bt-gen-m2", "Which term number corresponds to r equals 4?", "D", ["Third term", "Fourth term", "Sixth term", "Fifth term"], "The term number is r plus 1." ),
+      intAnswer("y11ext-bt-gen-m3", "Find the coefficient of the displayed power.", "(x+2)^5,\\quad x^3", "40"),
+      intAnswer("y11ext-bt-gen-m4", "Find the coefficient of the displayed power.", "(x+3)^6,\\quad x^4", "135"),
+      intAnswer("y11ext-bt-gen-m5", "Find the constant term in the displayed expansion.", "\\left(x+\\frac{1}{x}\\right)^6", "20"),
+      choice("y11ext-bt-gen-m6", "Which equation identifies the r-value for the displayed target power?", "B", ["$r=2$", "$7-r=2$", "$7+r=2$", "$2r=7$"], "The power of x from the first term is $7-r$.", "(x+4)^7,\\quad x^2"),
+      choice("y11ext-bt-gen-m7", "A student uses $T_r$ as the term number in the $T_{r+1}$ convention. What is the issue?", "A", ["The index is shifted by one", "The coefficients disappear", "The signs must all be negative", "The expansion is circular"], "The $T_{r+1}$ convention means r starts at 0." ),
+      choice("y11ext-bt-gen-m8", "A question asks for the coefficient of a target power. What should the final answer usually be?", "C", ["The full expansion", "The whole general term", "A single integer coefficient", "The row number only"], "A coefficient question asks for the number multiplying the target power." ),
+      intAnswer("y11ext-bt-gen-m9", "Find the constant term in the displayed expansion.", "\\left(x^2+\\frac{1}{x}\\right)^6", "15"),
+      intAnswer("y11ext-bt-gen-m10", "Find the coefficient of the displayed power.", "(2x+1)^7,\\quad x^5", "672"),
+    ],
+  };
+}
+
+function identitiesLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
+  return {
+    ...lessonBase(
+      lesson,
+      "Use substitution and coefficient identities to evaluate sums, alternating sums, and coefficient relationships.",
+      "Binomial identities and coefficients"
+    ),
+    learningIntention:
+      "Use binomial substitutions and coefficient identities to evaluate coefficient sums and recognise equivalent binomial coefficients.",
+    successCriteria: [
+      "Find the sum of coefficients by substituting x equals 1.",
+      "Find alternating sums of coefficients by substituting x equals negative 1.",
+      "Use coefficient symmetry to match equivalent binomial coefficients.",
+      "Apply Pascal's identity to adjacent coefficients.",
+      "Choose the correct substitution for a coefficient identity.",
+      "Evaluate simple coefficient relationships exactly.",
+    ],
+    teaching: {
+      paragraphs: [
+        "Binomial expansions can produce useful identities when a value is substituted for x.",
+        "The sum of coefficients in a polynomial is found by setting x equal to 1.",
+        "The alternating sum of coefficients is found by setting x equal to negative 1.",
+        "Binomial coefficients are symmetric because choosing r objects is equivalent to leaving out n minus r objects.",
+        "Pascal's identity combines adjacent entries from one row to form an entry in the next row.",
+      ],
+      latexBlocks: [
+        "\\text{sum of coefficients}=P(1)",
+        "\\text{alternating sum of coefficients}=P(-1)",
+        "\\binom{n}{r}=\\binom{n}{n-r}",
+        "\\binom{n}{r}+\\binom{n}{r+1}=\\binom{n+1}{r+1}",
+      ],
+    },
+    workedExamples: identityExamples,
+    guidedPractice: [
+      intAnswer("y11ext-bt-id-g1", "Find the sum of coefficients in the displayed expansion.", "(2x+1)^4", "81"),
+      intAnswer("y11ext-bt-id-g2", "Find the alternating sum of coefficients in the displayed expansion.", "(x+3)^5", "32"),
+      choice("y11ext-bt-id-g3", "Choose the equivalent binomial coefficient.", "C", ["$\\binom{10}{2}$", "$\\binom{7}{3}$", "$\\binom{10}{7}$", "$\\binom{3}{10}$"], "Use $\\binom{n}{r}=\\binom{n}{n-r}$.", "\\binom{10}{3}"),
+      intAnswer("y11ext-bt-id-g4", "Evaluate the displayed coefficient relationship.", "\\binom{5}{2}+\\binom{5}{3}", "20"),
+    ],
+    independentPractice: [
+      intAnswer("y11ext-bt-id-i1", "Find the sum of coefficients in the displayed expansion.", "(3x+1)^3", "64"),
+      intAnswer("y11ext-bt-id-i2", "Find the alternating sum of coefficients in the displayed expansion.", "(2x+5)^4", "81"),
+      choice("y11ext-bt-id-i3", "Choose the equivalent binomial coefficient.", "A", ["$\\binom{9}{7}$", "$\\binom{7}{9}$", "$\\binom{9}{3}$", "$\\binom{2}{9}$"], "Use symmetry across the row.", "\\binom{9}{2}"),
+      intAnswer("y11ext-bt-id-i4", "Evaluate the displayed coefficient relationship.", "\\binom{7}{3}+\\binom{7}{4}", "70"),
+      choice("y11ext-bt-id-i5", "Which substitution finds the sum of coefficients?", "B", ["$x=0$", "$x=1$", "$x=-1$", "$x=2$"], "Set x equal to 1 to add all coefficients.", "P(x)=(2x-3)^6"),
+    ],
+    commonMistakes: [
+      { mistake: "Using x equals 0 for the sum of all coefficients.", fix: "Use x equals 1; x equals 0 only selects the constant term." },
+      { mistake: "Using x equals 1 for an alternating sum.", fix: "Use x equals negative 1 for alternating signs." },
+      { mistake: "Reversing symmetry incorrectly.", fix: "Keep the top number the same and replace r with n minus r." },
+      { mistake: "Applying Pascal's identity to non-adjacent entries.", fix: "Pascal's identity combines adjacent entries from the same row." },
+    ],
+    masteryQuiz: [
+      intAnswer("y11ext-bt-id-m1", "Find the sum of coefficients in the displayed expansion.", "(2x+1)^5", "243"),
+      intAnswer("y11ext-bt-id-m2", "Find the alternating sum of coefficients in the displayed expansion.", "(x+4)^3", "27"),
+      choice("y11ext-bt-id-m3", "Which binomial coefficient is equivalent to the displayed one?", "D", ["$\\binom{12}{5}$", "$\\binom{7}{12}$", "$\\binom{12}{6}$", "$\\binom{12}{7}$"], "Use coefficient symmetry.", "\\binom{12}{5}"),
+      intAnswer("y11ext-bt-id-m4", "Evaluate the displayed coefficient relationship.", "\\binom{6}{2}+\\binom{6}{3}", "35"),
+      intAnswer("y11ext-bt-id-m5", "Find the sum of coefficients in the displayed expansion.", "(3x-2)^4", "1"),
+      intAnswer("y11ext-bt-id-m6", "Find the alternating sum of coefficients in the displayed expansion.", "(3x+2)^4", "1"),
+      choice("y11ext-bt-id-m7", "Which identity matches adjacent entries in Pascal's triangle?", "A", ["$\\binom{n}{r}+\\binom{n}{r+1}=\\binom{n+1}{r+1}$", "$\\binom{n}{r}+\\binom{n}{r}=\\binom{n}{2r}$", "$\\binom{n}{r}=\\binom{r}{n}$", "$\\binom{n}{r}=n^r$"], "Pascal's identity combines adjacent entries into the next row."),
+      choice("y11ext-bt-id-m8", "A student uses x equals 0 to find a sum of coefficients. What does that actually find?", "B", ["The leading coefficient", "The constant term", "The row sum", "The alternating sum"], "Substituting x equals 0 selects the constant term."),
+      intAnswer("y11ext-bt-id-m9", "Find the sum of coefficients in the displayed expansion.", "(2x-3)^6", "1"),
+      intAnswer("y11ext-bt-id-m10", "Find the alternating sum of coefficients in the displayed expansion.", "(4x+1)^4", "81"),
+    ],
+  };
+}
+
+function examPracticeLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
+  return {
+    ...lessonBase(
+      lesson,
+      "Practise mixed binomial theorem questions involving Pascal rows, coefficients, general terms, signs, and identities.",
+      "Binomial theorem exam practice"
+    ),
+    learningIntention:
+      "Select and apply binomial theorem strategies in mixed exam-style questions involving coefficients, terms, and identities.",
+    successCriteria: [
+      "Use Pascal's triangle and row sums in mixed contexts.",
+      "Find coefficients using binomial theorem structure.",
+      "Track signs in expansions involving subtraction.",
+      "Use the general term to locate target powers.",
+      "Evaluate constant terms in simple rational binomial expansions.",
+      "Use substitutions to evaluate coefficient sums.",
+    ],
+    teaching: {
+      paragraphs: [
+        "This lesson brings together the main techniques from the unit. The first decision is usually whether the question is asking for a row fact, a coefficient, a particular term, or an identity.",
+        "For coefficient questions, avoid expanding the whole expression unless the power is very small.",
+        "For target powers, use the general term and solve for the value of r that creates the required power.",
+        "For sums of coefficients, substitution is usually faster than expansion.",
+        "For expressions involving subtraction, signs come from powers of the negative part of the binomial.",
+      ],
+      latexBlocks: [
+        "(a+b)^n=\\sum_{r=0}^{n}\\binom{n}{r}a^{n-r}b^r",
+        "T_{r+1}=\\binom{n}{r}a^{n-r}b^r",
+        "P(1)=\\text{sum of coefficients}",
+        "P(-1)=\\text{alternating sum of coefficients}",
+      ],
+    },
+    workedExamples: examExamples,
+    guidedPractice: [
+      intAnswer("y11ext-bt-exam-g1", "Find the coefficient of the displayed power.", "(x+3)^5,\\quad x^2", "270"),
+      intAnswer("y11ext-bt-exam-g2", "Find the row sum for the displayed Pascal row.", "\\text{row }7", "128"),
+      choice("y11ext-bt-exam-g3", "Which term has the negative sign in the displayed expansion?", "B", ["The squared term", "The cubed term", "The fourth-power term", "The constant term"], "Odd powers of the negative part are negative.", "(2-x)^5"),
+      intAnswer("y11ext-bt-exam-g4", "Find the sum of coefficients in the displayed expansion.", "(3x-2)^4", "1"),
+    ],
+    independentPractice: [
+      intAnswer("y11ext-bt-exam-i1", "Find the coefficient of the displayed power.", "(1+2x)^5,\\quad x^2", "40"),
+      intAnswer("y11ext-bt-exam-i2", "Find the constant term in the displayed expansion.", "\\left(x^2+\\frac{1}{x}\\right)^6", "15"),
+      choice("y11ext-bt-exam-i3", "Which coefficient expression matches the displayed target?", "D", ["$\\binom{6}{2}2^2$", "$\\binom{6}{4}2^2$", "$\\binom{6}{3}2^4$", "$\\binom{6}{4}2^4$"], "The x fourth term uses four powers of $2x$.", "(2x+1)^6,\\quad x^4"),
+      intAnswer("y11ext-bt-exam-i4", "Find the alternating sum of coefficients in the displayed expansion.", "(4x+1)^4", "81"),
+      choice("y11ext-bt-exam-i5", "A student chooses row 8 for a seventh power. What is the issue?", "C", ["The signs must alternate", "The coefficient row is too small", "The row number is one too high", "The constant term is missing"], "A seventh power uses row 7."),
+    ],
+    commonMistakes: [
+      { mistake: "Expanding a high power when only one coefficient is needed.", fix: "Use the general term to target the requested power." },
+      { mistake: "Ignoring a negative sign inside the binomial.", fix: "Let the sign travel with the powered term." },
+      { mistake: "Confusing a row sum with a coefficient.", fix: "A row sum uses all entries; a coefficient is one entry or one selected term." },
+      { mistake: "Using coefficient identities without checking the question type.", fix: "Decide whether the question asks for a coefficient, a term, a row fact, or a substitution identity." },
+    ],
+    masteryQuiz: [
+      intAnswer("y11ext-bt-exam-m1", "Find the row sum for the displayed Pascal row.", "\\text{row }5", "32"),
+      intAnswer("y11ext-bt-exam-m2", "Find the coefficient of the displayed power.", "(x+1)^4,\\quad x^2", "6"),
+      intAnswer("y11ext-bt-exam-m3", "Find the coefficient of the displayed power.", "(x+2)^4,\\quad x^3", "8"),
+      intAnswer("y11ext-bt-exam-m4", "Find the coefficient of the displayed power.", "(1+2x)^5,\\quad x^2", "40"),
+      intAnswer("y11ext-bt-exam-m5", "Find the r-value that gives the displayed power.", "(x+3)^7,\\quad x^2", "5"),
+      intAnswer("y11ext-bt-exam-m6", "Find the constant term in the displayed expansion.", "\\left(x+\\frac{1}{x}\\right)^6", "20"),
+      choice("y11ext-bt-exam-m7", "A student writes every term in $(1-x)^5$ as positive. What is the issue?", "A", ["Odd powers of the negative term should be negative", "The row number is too small", "The constant term should be zero", "The row sum should be used"], "Odd powers of negative x produce negative terms."),
+      choice("y11ext-bt-exam-m8", "Which substitution finds the sum of coefficients in a polynomial?", "B", ["$x=-1$", "$x=1$", "$x=0$", "$x=2$"], "Set x equal to 1 to add the coefficients."),
+      intAnswer("y11ext-bt-exam-m9", "Find the coefficient of the displayed power.", "(2x+1)^7,\\quad x^4", "560"),
+      intAnswer("y11ext-bt-exam-m10", "Find the sum of coefficients in the displayed expansion.", "(3x-2)^5", "1"),
+    ],
+  };
+}
+
+export function year11ExtensionBinomialTheoremLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed
+): Partial<ExplicitLesson> | null {
+  if (course.slug !== "year-11-extension" || unit.slug !== "binomial-theorem") {
+    return null;
+  }
+
+  if (lesson.slug === "pascals-triangle") {
+    return pascalLesson(lesson);
+  }
+
+  if (lesson.slug === "binomial-theorem") {
+    return theoremLesson(lesson);
+  }
+
+  if (lesson.slug === "general-term") {
+    return generalTermLesson(lesson);
+  }
+
+  if (lesson.slug === "binomial-identities") {
+    return identitiesLesson(lesson);
+  }
+
+  if (lesson.slug === "binomial-theorem-exam-practice") {
+    return examPracticeLesson(lesson);
+  }
+
+  return null;
+}

@@ -35,7 +35,10 @@ import {
   year11AdvancedTrigonometryMeasureLessonOverride,
   year11AdvancedWorkingFunctionsLessonOverride,
 } from "./lessons/year11Advanced";
-import { year11ExtensionPermutationsCombinationsLessonOverride } from "./lessons/year11Extension";
+import {
+  year11ExtensionBinomialTheoremLessonOverride,
+  year11ExtensionPermutationsCombinationsLessonOverride,
+} from "./lessons/year11Extension";
 
 export type {
   CourseLessonSeed,
@@ -184,7 +187,8 @@ export function buildLesson(
     year11AdvancedExponentialLogarithmicLessonOverride(course, unit, lesson) ??
     year11AdvancedIntroductionDifferentiationLessonOverride(course, unit, lesson) ??
     year11AdvancedGraphTransformationsLessonOverride(course, unit, lesson) ??
-    year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson);
+    year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
+    year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson);
 
   return {
     id: lesson.slug,
@@ -942,10 +946,41 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "binomial-theorem",
         title: "The Binomial Theorem",
         description:
-          "Planned binomial expansion skills and coefficient reasoning for Extension study.",
-        syllabusArea: "Binomial theorem",
+          "Use Pascal's triangle, binomial coefficients, general terms, and identities to reason about expansions.",
+        syllabusArea: "Combinatorics",
         focus: "The binomial theorem",
-        lessons: [],
+        lessons: [
+          {
+            slug: "pascals-triangle",
+            title: "Pascal's Triangle and Binomial Patterns",
+            description:
+              "Use Pascal's triangle to identify coefficient patterns, symmetry, row sums, and small expansions.",
+          },
+          {
+            slug: "binomial-theorem",
+            title: "The Binomial Theorem",
+            description:
+              "Use binomial coefficients to expand powers, track signs, and find selected coefficients.",
+          },
+          {
+            slug: "general-term",
+            title: "Finding a General Term",
+            description:
+              "Use the general term to locate target powers, extract coefficients, and find constant terms.",
+          },
+          {
+            slug: "binomial-identities",
+            title: "Binomial Identities and Coefficients",
+            description:
+              "Use coefficient identities and substitutions to evaluate sums, alternating sums, and relationships.",
+          },
+          {
+            slug: "binomial-theorem-exam-practice",
+            title: "The Binomial Theorem Exam Practice",
+            description:
+              "Practise mixed Extension binomial theorem questions involving coefficients, terms, signs, and identities.",
+          },
+        ],
       },
     ],
   },
