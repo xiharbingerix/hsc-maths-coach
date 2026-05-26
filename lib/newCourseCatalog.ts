@@ -276,6 +276,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 12 Mathematics Standard 2",
     yearLevel: "Year 12",
     courseType: "Mathematics Standard 2",
+    status: "available",
     description:
       "Practical HSC Mathematics Standard 2 revision with lessons, guided practice, and mastery checks.",
     positioning:
@@ -458,6 +459,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 11 Mathematics Advanced",
     yearLevel: "Year 11",
     courseType: "Mathematics Advanced",
+    status: "available",
     description:
       "Year 11 Mathematics Advanced foundations for senior assessment and future HSC Advanced study.",
     positioning:
@@ -588,6 +590,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 11 Mathematics Standard",
     yearLevel: "Year 11",
     courseType: "Mathematics Standard",
+    status: "available",
     description:
       "Practical Year 11 Mathematics Standard support for students building skills for Standard 1 or Standard 2.",
     positioning:
@@ -854,6 +857,30 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
     ],
+  },
+  {
+    slug: "year-11-extension",
+    title: "Year 11 Mathematics Extension",
+    yearLevel: "Year 11",
+    courseType: "Mathematics Extension",
+    status: "coming_soon",
+    description:
+      "A planned Year 11 Mathematics Extension pathway for students preparing for higher-level algebra, functions, trigonometry, calculus, and proof.",
+    positioning:
+      "Year 11 Mathematics Extension lessons are being prepared. The course outline will be added once the pathway is ready for students.",
+    units: [],
+  },
+  {
+    slug: "year-12-extension-1",
+    title: "Year 12 Mathematics Extension 1",
+    yearLevel: "Year 12",
+    courseType: "Mathematics Extension 1",
+    status: "coming_soon",
+    description:
+      "A planned Year 12 Mathematics Extension 1 pathway for HSC students building fluency in advanced functions, calculus, trigonometry, and combinatorics.",
+    positioning:
+      "Year 12 Mathematics Extension 1 lessons are being prepared. The course outline will be added once the pathway is ready for students.",
+    units: [],
   },
 ];
 

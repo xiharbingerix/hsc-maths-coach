@@ -9,6 +9,7 @@ import {
   getNewCourseUnitOutline,
   newCourseLessonCount,
 } from "../../lib/newCourseCatalog";
+import type { CoursePathwayStatus } from "../../lib/courseTypes";
 
 const lessonSequence = [
   "Learn",
@@ -16,6 +17,24 @@ const lessonSequence = [
   "Independent Practice",
   "Mastery Quiz",
 ];
+
+const statusCopy: Record<
+  CoursePathwayStatus,
+  { label: string; classes: string }
+> = {
+  available: {
+    label: "Available",
+    classes: "bg-green-100 text-green-800",
+  },
+  in_progress: {
+    label: "In progress",
+    classes: "bg-amber-100 text-amber-800",
+  },
+  coming_soon: {
+    label: "Coming soon",
+    classes: "bg-slate-200 text-slate-700",
+  },
+};
 
 function ButtonLink({
   href,
@@ -51,6 +70,8 @@ export function NewCourseOverviewPage({
   }
 
   const lessonCount = newCourseLessonCount(course);
+  const status = statusCopy[course.status];
+  const isAvailable = course.status === "available";
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -69,55 +90,79 @@ export function NewCourseOverviewPage({
           <div className="mt-6 grid gap-3 md:grid-cols-3">
             <div className="rounded-2xl bg-slate-50 p-4">
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Units
+                {isAvailable ? "Units" : "Status"}
               </p>
-              <p className="mt-1 text-3xl font-bold">{course.units.length}</p>
+              <p className="mt-1 text-3xl font-bold">
+                {isAvailable ? course.units.length : status.label}
+              </p>
             </div>
             <div className="rounded-2xl bg-slate-50 p-4">
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Active lessons
+                {isAvailable ? "Active lessons" : "Lessons"}
               </p>
-              <p className="mt-1 text-3xl font-bold">{lessonCount}</p>
+              <p className="mt-1 text-3xl font-bold">
+                {isAvailable ? lessonCount : "Being prepared"}
+              </p>
             </div>
             <div className="rounded-2xl bg-slate-50 p-4">
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Lesson flow
+                Course type
               </p>
               <p className="mt-2 text-sm font-medium text-slate-700">
-                {lessonSequence.join(" -> ")}
+                {course.courseType}
               </p>
             </div>
           </div>
         </header>
 
-        <section className="grid gap-5 md:grid-cols-2">
-          {course.units.map((unit) => (
-            <Link
-              key={unit.slug}
-              href={`/course/${course.slug}/${unit.slug}`}
-              className="block rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-md"
-            >
-              <div className="flex items-center justify-between gap-3">
-                <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                  Unit
+        {isAvailable ? (
+          <section className="grid gap-5 md:grid-cols-2">
+            {course.units.map((unit) => (
+              <Link
+                key={unit.slug}
+                href={`/course/${course.slug}/${unit.slug}`}
+                className="block rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-md"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                    Unit
+                  </p>
+                  <span
+                    className={`rounded-full px-3 py-1 text-xs font-semibold ${status.classes}`}
+                  >
+                    {status.label}
+                  </span>
+                </div>
+                <h2 className="mt-3 text-2xl font-bold">{unit.title}</h2>
+                <p className="mt-2 text-sm font-semibold text-slate-500">
+                  {unit.lessons.length} active lessons
                 </p>
-                <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
-                  Early access
-                </span>
-              </div>
-              <h2 className="mt-3 text-2xl font-bold">{unit.title}</h2>
-              <p className="mt-2 text-sm font-semibold text-slate-500">
-                {unit.lessons.length} active lessons
-              </p>
-              <p className="mt-3 leading-7 text-slate-600">
-                {unit.description}
-              </p>
-              <p className="mt-5 text-sm font-semibold text-slate-950">
-                View unit
-              </p>
-            </Link>
-          ))}
-        </section>
+                <p className="mt-3 leading-7 text-slate-600">
+                  {unit.description}
+                </p>
+                <p className="mt-5 text-sm font-semibold text-slate-950">
+                  View unit
+                </p>
+              </Link>
+            ))}
+          </section>
+        ) : (
+          <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+            <span
+              className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${status.classes}`}
+            >
+              {status.label}
+            </span>
+            <h2 className="mt-4 text-2xl font-bold">
+              Course outline coming soon
+            </h2>
+            <p className="mt-3 max-w-3xl leading-7 text-slate-600">
+              Lessons are being prepared for this pathway. No active lesson
+              routes have been created yet, and no placeholder lessons are
+              shown.
+            </p>
+          </section>
+        )}
 
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
           <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">

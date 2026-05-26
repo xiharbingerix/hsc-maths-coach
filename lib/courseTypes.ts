@@ -1,7 +1,11 @@
 export type NewCourseSlug =
   | "year-12-standard-2"
   | "year-11-advanced"
-  | "year-11-standard";
+  | "year-11-standard"
+  | "year-11-extension"
+  | "year-12-extension-1";
+
+export type CoursePathwayStatus = "available" | "in_progress" | "coming_soon";
 
 export type CourseLessonSeed = {
   slug: string;
@@ -23,6 +27,7 @@ export type CoursePathwaySeed = {
   title: string;
   yearLevel: string;
   courseType: string;
+  status: CoursePathwayStatus;
   description: string;
   positioning: string;
   units: CourseUnitSeed[];

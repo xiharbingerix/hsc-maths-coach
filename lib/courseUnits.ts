@@ -2,7 +2,7 @@ import {
   newCourseLessonCount,
   newCoursePathways,
 } from "./newCourseCatalog";
-import type { NewCourseSlug } from "./courseTypes";
+import type { CoursePathwayStatus, NewCourseSlug } from "./courseTypes";
 
 export type CourseUnitSummary = {
   title: string;
@@ -20,7 +20,7 @@ export type CourseCatalogueItem = {
   description: string;
   unitCount: number;
   activeLessonCount: number;
-  status: "early-access";
+  status: CoursePathwayStatus;
   units: CourseUnitSummary[];
 };
 
@@ -74,7 +74,7 @@ export const year12AdvancedCourse: CourseCatalogueItem = {
   courseTitle: "Year 12 Mathematics Advanced",
   yearLevel: "Year 12",
   courseType: "Mathematics Advanced",
-  href: "/course",
+  href: "/course/year-12-advanced",
   description:
     "HSC Mathematics Advanced revision across calculus, functions, trigonometry, financial mathematics, and statistics.",
   unitCount: courseUnits.length,
@@ -82,7 +82,7 @@ export const year12AdvancedCourse: CourseCatalogueItem = {
     (total, unit) => total + unit.activeLessonCount,
     0
   ),
-  status: "early-access",
+  status: "available",
   units: courseUnits,
 };
 
@@ -96,7 +96,7 @@ export const newCourseCatalogueItems: CourseCatalogueItem[] =
     description: course.description,
     unitCount: course.units.length,
     activeLessonCount: newCourseLessonCount(course),
-    status: "early-access",
+    status: course.status,
     units: course.units.map((unit) => ({
       title: unit.title,
       href: `/course/${course.slug}/${unit.slug}`,
