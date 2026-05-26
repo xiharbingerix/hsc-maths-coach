@@ -1,4 +1,5 @@
 export * from "./workingWithFunctions";
+export * from "./sequencesSeries";
 export * from "./trigIdentitiesEquations";
 export * from "./trigonometryMeasureAngles";
 export * from "./exponentialLogarithmicFunctions";

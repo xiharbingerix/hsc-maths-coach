@@ -32,6 +32,7 @@ import {
   year11AdvancedGraphTransformationsLessonOverride,
   year11AdvancedIntroductionDifferentiationLessonOverride,
   year11AdvancedProbabilityDataLessonOverride,
+  year11AdvancedSequencesSeriesLessonOverride,
   year11AdvancedTrigIdentitiesEquationsLessonOverride,
   year11AdvancedTrigonometryMeasureLessonOverride,
   year11AdvancedWorkingFunctionsLessonOverride,
@@ -183,6 +184,7 @@ export function buildLesson(
     year12Standard2TrigRatesLessonOverride(course, unit, lesson) ??
     year12Standard2AlgebraicRelationshipsLessonOverride(course, unit, lesson) ??
     year11AdvancedWorkingFunctionsLessonOverride(course, unit, lesson) ??
+    year11AdvancedSequencesSeriesLessonOverride(course, unit, lesson) ??
     year11AdvancedProbabilityDataLessonOverride(course, unit, lesson) ??
     year11AdvancedTrigIdentitiesEquationsLessonOverride(course, unit, lesson) ??
     year11AdvancedTrigonometryMeasureLessonOverride(course, unit, lesson) ??
@@ -258,25 +260,6 @@ export function buildLesson(
     ...override,
   };
 }
-
-export const year11AdvancedSequencesSeriesArchive: CourseUnitSeed = {
-  slug: "sequences-series",
-  title: "Sequences and Series",
-  description:
-    "Arithmetic and geometric sequences, series, and exam-style pattern questions.",
-  syllabusArea: "Sequences and series",
-  focus: "Sequences and series",
-  lessons: [
-    { slug: "arithmetic-sequences", title: "Arithmetic Sequences" },
-    { slug: "geometric-sequences", title: "Geometric Sequences" },
-    { slug: "arithmetic-series", title: "Arithmetic Series" },
-    { slug: "geometric-series", title: "Geometric Series" },
-    { slug: "sequences-series-exam-practice", title: "Sequences and Series Exam Practice" },
-  ],
-};
-
-// TODO: Recheck whether Sequences and Series should return to the public
-// Year 11 Advanced pathway if future syllabus mapping or school demand requires it.
 
 export const newCoursePathways: CoursePathwaySeed[] = [
   {
@@ -518,6 +501,46 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "transformations-composite-functions", title: "Transformations and Composite Functions" },
           { slug: "transformations-polynomial-reciprocal-graphs", title: "Transformations of Polynomial and Reciprocal Graphs" },
           { slug: "graph-transformations-exam-practice", title: "Graph Transformations Exam Practice" },
+        ],
+      },
+      {
+        slug: "sequences-series",
+        title: "Sequences and Series",
+        description:
+          "Arithmetic and geometric sequences, arithmetic and geometric series, sigma notation, limiting sums and exam-style pattern questions.",
+        syllabusArea: "Algebra",
+        focus: "Sequences and series",
+        lessons: [
+          {
+            slug: "arithmetic-sequences",
+            title: "Arithmetic Sequences",
+            description:
+              "Use sequence notation, common differences and nth-term rules to analyse arithmetic sequences.",
+          },
+          {
+            slug: "geometric-sequences",
+            title: "Geometric Sequences",
+            description:
+              "Use common ratios and nth-term rules to recognise and solve geometric sequence problems.",
+          },
+          {
+            slug: "arithmetic-series-sigma-notation",
+            title: "Arithmetic Series and Sigma Notation",
+            description:
+              "Sum arithmetic series and interpret simple sigma notation in algebraic and contextual settings.",
+          },
+          {
+            slug: "geometric-series-limiting-sums",
+            title: "Geometric Series and Limiting Sums",
+            description:
+              "Evaluate finite geometric series and determine whether a limiting sum exists for infinite geometric series.",
+          },
+          {
+            slug: "sequences-series-exam-practice",
+            title: "Sequences and Series Exam Practice",
+            description:
+              "Practise mixed Advanced-style sequence and series questions involving arithmetic, geometric, sigma and limiting-sum ideas.",
+          },
         ],
       },
       {
