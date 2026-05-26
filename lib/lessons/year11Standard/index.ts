@@ -5,4 +5,5 @@ export * from "./managingMoney";
 export * from "./applicationsMeasurement";
 export * from "./timeLocation";
 export * from "./networksPathsTrees";
+export * from "./probabilityRelativeFrequency";
 export * from "./dataAnalysis";
