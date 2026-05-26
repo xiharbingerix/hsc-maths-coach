@@ -366,8 +366,8 @@ export const derivativeAsRateOfChangeLesson: ExplicitLesson = {
     },
     {
       id: "roc-mastery-5",
-      prompt: "Evaluate the instantaneous rate.",
-      latex: "s'(t)=4t+1, \\quad t=2",
+      prompt: "Evaluate the instantaneous rate at $t=2$.",
+      latex: "s'(t)=4t+1",
       answer: "9",
       hint: "Substitute $t=2$.",
       explanation: "$s'(2)=4(2)+1=9$.",
@@ -736,8 +736,8 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
     },
     {
       id: "mastery-8",
-      prompt: "Fill in the missing coefficient:",
-      latex: "\\frac{d}{dx}\\left(-7x^4\\right)=\\Box x^3",
+      prompt: "Find the coefficient of $x^3$ in the derivative:",
+      latex: "\\frac{d}{dx}\\left(-7x^4\\right)",
       answer: "-28",
       hint: "Multiply $-7$ by $4$.",
       explanation:
@@ -1084,8 +1084,8 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
     },
     {
       id: "poly-fn-mastery-8",
-      prompt: "Fill in the missing derivative of the constant term:",
-      latex: "P(x)=6x^3-4x+18, \\quad \\frac{d}{dx}(18)=\\Box",
+      prompt: "Find the derivative of the constant term:",
+      latex: "P(x)=6x^3-4x+18",
       answer: "0",
       hint: "Constants do not change as $x$ changes.",
       explanation:
@@ -1362,16 +1362,16 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
     },
     {
       id: "tan-norm-mastery-2",
-      prompt: "Find the tangent gradient:",
-      latex: "y=x^2-2x+4, \\quad x=3",
+      prompt: "Find the tangent gradient at $x=3$:",
+      latex: "y=x^2-2x+4",
       answer: "4",
       hint: "Substitute $x=3$ into the derivative.",
       explanation: "$m_t=2(3)-2=4$.",
     },
     {
       id: "tan-norm-mastery-3",
-      prompt: "Find the point on the curve:",
-      latex: "y=x^2-2x+4, \\quad x=3",
+      prompt: "Find the point on the curve when $x=3$:",
+      latex: "y=x^2-2x+4",
       answer: "(3,7)",
       acceptedAnswers: ["3,7", "3, 7", "(3, 7)"],
       hint: "Substitute $x=3$ into the original function.",
@@ -1379,16 +1379,16 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
     },
     {
       id: "tan-norm-mastery-4",
-      prompt: "Complete the tangent equation constant:",
-      latex: "y=x^2-2x+4, \\quad x=3, \\quad y=4x+\\Box",
+      prompt: "Find $c$ in the tangent equation $y=4x+c$ at $x=3$.",
+      latex: "y=x^2-2x+4",
       answer: "-5",
       hint: "Use $P=(3,7)$ and $m_t=4$.",
       explanation: "$y-7=4(x-3)$, so $y=4x-5$.",
     },
     {
       id: "tan-norm-mastery-5",
-      prompt: "Complete the normal equation constant:",
-      latex: "y=x^2-2x+4, \\quad x=3, \\quad y=-\\frac{1}{4}x+\\Box",
+      prompt: "Find $c$ in the normal equation $y=-\\frac{1}{4}x+c$ at $x=3$.",
+      latex: "y=x^2-2x+4",
       answer: "31/4",
       acceptedAnswers: ["7.75"],
       hint: "Use $m_n=-\\frac{1}{4}$ and $P=(3,7)$.",
@@ -1397,16 +1397,16 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
     },
     {
       id: "tan-norm-mastery-6",
-      prompt: "Find the tangent gradient:",
-      latex: "y=3x^2-x, \\quad x=1",
+      prompt: "Find the tangent gradient at $x=1$:",
+      latex: "y=3x^2-x",
       answer: "5",
       hint: "Differentiate, then substitute $x=1$.",
       explanation: "$\\frac{dy}{dx}=6x-1$, so the tangent gradient is $6(1)-1=5$.",
     },
     {
       id: "tan-norm-mastery-7",
-      prompt: "Find the point on the curve:",
-      latex: "y=x^2+2x, \\quad x=3",
+      prompt: "Find the point on the curve when $x=3$:",
+      latex: "y=x^2+2x",
       answer: "(3,15)",
       acceptedAnswers: ["3,15", "3, 15", "(3, 15)"],
       hint: "Substitute $x=3$ into the original function.",
@@ -1414,8 +1414,8 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
     },
     {
       id: "tan-norm-mastery-8",
-      prompt: "Complete the tangent equation constant:",
-      latex: "y=x^2+2x, \\quad x=3, \\quad y=8x+\\Box",
+      prompt: "Find $c$ in the tangent equation $y=8x+c$ at $x=3$.",
+      latex: "y=x^2+2x",
       answer: "-9",
       hint: "Use the point $(3,15)$ and tangent gradient $8$.",
       explanation:
@@ -1423,8 +1423,8 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
     },
     {
       id: "tan-norm-mastery-9",
-      prompt: "Complete the normal equation constant:",
-      latex: "y=x^2+2x, \\quad x=3, \\quad y=-\\frac{1}{8}x+\\Box",
+      prompt: "Find $c$ in the normal equation $y=-\\frac{1}{8}x+c$ at $x=3$.",
+      latex: "y=x^2+2x",
       answer: "123/8",
       acceptedAnswers: ["15.375"],
       hint: "Use the negative reciprocal of the tangent gradient.",
@@ -1691,16 +1691,16 @@ export const stationaryPointsLesson: ExplicitLesson = {
     },
     {
       id: "stationary-mastery-3",
-      prompt: "Substitute the first x-value into the original function:",
-      latex: "y=x^3-3x^2-24x+4, \\quad x=-2",
+      prompt: "Find the y-value of the stationary point where $x=-2$.",
+      latex: "y=x^3-3x^2-24x+4",
       answer: "32",
       hint: "Use the original function, not the derivative.",
       explanation: "$y=(-2)^3-3(-2)^2-24(-2)+4=32$.",
     },
     {
       id: "stationary-mastery-4",
-      prompt: "Substitute the second x-value into the original function:",
-      latex: "y=x^3-3x^2-24x+4, \\quad x=4",
+      prompt: "Find the y-value of the stationary point where $x=4$.",
+      latex: "y=x^3-3x^2-24x+4",
       answer: "-76",
       hint: "Use the original function again.",
       explanation: "$y=4^3-3(4)^2-24(4)+4=-76$.",
@@ -1708,7 +1708,7 @@ export const stationaryPointsLesson: ExplicitLesson = {
     {
       id: "stationary-mastery-5",
       prompt: "Write the stationary point with the smaller x-value as a coordinate:",
-      latex: "x=-2, \\quad y=32 \\qquad x=4, \\quad y=-76",
+      latex: "y=x^3-3x^2-24x+4",
       answer: "(-2,32)",
       acceptedAnswers: ["-2,32", "-2, 32", "(-2, 32)"],
       hint: "Pair each $x$-value with its matching $y$-value.",
@@ -1737,7 +1737,7 @@ export const stationaryPointsLesson: ExplicitLesson = {
     {
       id: "stationary-mastery-8",
       prompt: "Write the stationary point with positive x-value as a coordinate:",
-      latex: "y=x^3-12x+1, \\quad x=-2,2",
+      latex: "y=x^3-12x+1",
       answer: "(2,-15)",
       acceptedAnswers: ["2,-15", "2, -15", "(2, -15)"],
       hint: "Substitute each x-value into the original function.",
@@ -2435,7 +2435,7 @@ export const firstDerivativeTestLesson: ExplicitLesson = {
     {
       id: "fdt-mastery-4",
       prompt: "Find the stationary point coordinate for $x=4$:",
-      latex: "f(x)=x^3-3x^2-24x+4, \\quad x=-2,4",
+      latex: "f(x)=x^3-3x^2-24x+4",
       answer: "(4,-76)",
       acceptedAnswers: ["4,-76", "4, -76", "(4, -76)"],
       hint: "Substitute both $x$-values into the original function.",
@@ -2829,7 +2829,7 @@ export const secondDerivativeTestLesson: ExplicitLesson = {
     {
       id: "sdt-mastery-4",
       prompt: "Evaluate the second derivative at $x=4$:",
-      latex: "f''(x)=6x-6, \\quad x=-2,4",
+      latex: "f''(x)=6x-6",
       answer: "18",
       hint: "Substitute each $x$-value into $f''(x)$.",
       explanation: "$f''(-2)=-18<0$ and $f''(4)=18>0$.",
@@ -2851,8 +2851,8 @@ export const secondDerivativeTestLesson: ExplicitLesson = {
     },
     {
       id: "sdt-mastery-6",
-      prompt: "Evaluate the second derivative:",
-      latex: "f''(x)=6x-6, \\quad x=2",
+      prompt: "Evaluate the second derivative at $x=2$:",
+      latex: "f''(x)=6x-6",
       answer: "6",
       hint: "Substitute $x=2$ into $6x-6$.",
       explanation: "$f''(2)=6(2)-6=6$.",
@@ -3500,8 +3500,8 @@ export const optimisationLesson: ExplicitLesson = {
     },
     {
       id: "optimisation-mastery-2",
-      prompt: "Complete the area function coefficient:",
-      latex: "A=x(24-x)=\\Box x-x^2",
+      prompt: "Find the coefficient of $x$ after writing the area as a function of $x$.",
+      latex: "2x+2y=48, \\quad A=xy",
       answer: "24",
       hint: "Substitute into $A=xy$.",
       explanation: "$A=x(24-x)=24x-x^2$.",
@@ -3530,8 +3530,8 @@ export const optimisationLesson: ExplicitLesson = {
     },
     {
       id: "optimisation-mastery-5",
-      prompt: "Find the other dimension:",
-      latex: "x=12, \\quad y=24-x",
+      prompt: "Find the other dimension when $x=12$.",
+      latex: "y=24-x",
       answer: "12",
       hint: "Find $y$ and include units.",
       explanation: "$y=12$, so the rectangle with maximum area is $12$ cm by $12$ cm.",
@@ -3548,7 +3548,7 @@ export const optimisationLesson: ExplicitLesson = {
     {
       id: "optimisation-mastery-7",
       prompt: "Find the maximum revenue:",
-      latex: "R(x)=-2x^2+80x, \\quad x=20",
+      latex: "R(x)=-2x^2+80x",
       answer: "800",
       hint: "Substitute $x=20$ into $R(x)$.",
       explanation:
@@ -4190,9 +4190,8 @@ export const mixedExamPracticeLesson: ExplicitLesson = {
   masteryQuiz: [
     {
       id: "mixed-mastery-1",
-      prompt: "Find the tangent gradient in context:",
-      latex:
-        "s(t)=t^2+3t+1. \\quad \\text{Find the tangent to the displacement curve at }t=2.",
+      prompt: "Find the tangent gradient in context at $t=2$:",
+      latex: "s(t)=t^2+3t+1",
       answer: "7",
       hint: "Find the gradient and point at $t=2$.",
       explanation:
@@ -4200,8 +4199,8 @@ export const mixedExamPracticeLesson: ExplicitLesson = {
     },
     {
       id: "mixed-mastery-2",
-      prompt: "Find the normal gradient at the point:",
-      latex: "y=x^2-4x+1, \\quad x=3",
+      prompt: "Find the normal gradient at the point where $x=3$.",
+      latex: "y=x^2-4x+1",
       answer: "-1/2",
       acceptedAnswers: ["-0.5"],
       hint: "Find the tangent gradient, then use the negative reciprocal.",

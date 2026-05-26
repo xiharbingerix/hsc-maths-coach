@@ -268,8 +268,8 @@ export const antidifferentiationReversePowerRuleLesson: ExplicitLesson = {
     },
     {
       id: "anti-mastery-4",
-      prompt: "Complete the new power:",
-      latex: "\\int 7x^6\\,dx=x^{\\Box}\\text{ times a coefficient}",
+      prompt: "Find the new power in the antiderivative:",
+      latex: "\\int 7x^6\\,dx",
       answer: "7",
       hint: "Increase the original power by one.",
       explanation: "The new power is $6+1=7$.",
@@ -689,8 +689,8 @@ export const indefiniteIntegralsConstantOfIntegrationLesson: ExplicitLesson = {
     },
     {
       id: "indef-mastery-9",
-      prompt: "Find the missing term:",
-      latex: "\\int \\left(12x^5-4x\\right)\\,dx=2x^6+\\Box+C",
+      prompt: "Choose the term produced by integrating $-4x$ in the displayed integral.",
+      latex: "\\int \\left(12x^5-4x\\right)\\,dx",
       answer: "A",
       choices: [
         { label: "A", text: "$-2x^2$" },
@@ -964,32 +964,32 @@ export const initialConditionsParticularPrimitiveLesson: ExplicitLesson = {
     },
     {
       id: "initial-mastery-4",
-      prompt: "Substitute the condition and solve for C:",
-      latex: "f(x)=x^2+C, \\quad f(3)=11",
+      prompt: "Use $f(3)=11$ to solve for C.",
+      latex: "f(x)=x^2+C",
       answer: "2",
       hint: "Use $11=9+C$.",
       explanation: "$11=3^2+C$, so $C=2$.",
     },
     {
       id: "initial-mastery-5",
-      prompt: "Find C:",
-      latex: "y=2x^2-x+C, \\quad y(1)=6",
+      prompt: "Find C when $y(1)=6$.",
+      latex: "y=2x^2-x+C",
       answer: "5",
       hint: "Substitute $x=1$ and $y=6$.",
       explanation: "$6=2-1+C$, so $C=5$.",
     },
     {
       id: "initial-mastery-6",
-      prompt: "Find C:",
-      latex: "F(x)=x^3+4x+C, \\quad F(0)=-2",
+      prompt: "Find C when $F(0)=-2$.",
+      latex: "F(x)=x^3+4x+C",
       answer: "-2",
       hint: "Substitute $x=0$.",
       explanation: "$-2=0+0+C$, so $C=-2$.",
     },
     {
       id: "initial-mastery-7",
-      prompt: "Find the particular primitive:",
-      latex: "f'(x)=2x, \\quad f(4)=20",
+      prompt: "Find the particular primitive with $f(4)=20$.",
+      latex: "f'(x)=2x",
       answer: "C",
       choices: [
         { label: "A", text: "$f(x)=2$" },
@@ -1001,8 +1001,8 @@ export const initialConditionsParticularPrimitiveLesson: ExplicitLesson = {
     },
     {
       id: "initial-mastery-8",
-      prompt: "Find the particular primitive:",
-      latex: "y'=6x-2, \\quad y(1)=3",
+      prompt: "Find the particular primitive with $y(1)=3$.",
+      latex: "y'=6x-2",
       answer: "A",
       choices: [
         { label: "A", text: "$y=3x^2-2x+2$" },
@@ -1015,8 +1015,8 @@ export const initialConditionsParticularPrimitiveLesson: ExplicitLesson = {
     },
     {
       id: "initial-mastery-9",
-      prompt: "A rate of change is given. Find the quantity model:",
-      latex: "Q'(t)=4t+1, \\quad Q(0)=6",
+      prompt: "A rate of change is given. Find the quantity model with $Q(0)=6$.",
+      latex: "Q'(t)=4t+1",
       answer: "B",
       choices: [
         { label: "A", text: "$Q(t)=4t+1$" },
@@ -1029,8 +1029,8 @@ export const initialConditionsParticularPrimitiveLesson: ExplicitLesson = {
     },
     {
       id: "initial-mastery-10",
-      prompt: "Choose the correct first substitution step.",
-      latex: "f'(x)=3x^2, \\quad f(2)=10",
+      prompt: "Choose the correct first substitution step when $f(2)=10$.",
+      latex: "f'(x)=3x^2",
       answer: "C",
       choices: [
         { label: "A", text: "$10=3(2)^2$" },
@@ -3152,8 +3152,8 @@ export const mixedIntegralCalculusExamPracticeLesson: ExplicitLesson = {
   masteryQuiz: [
     {
       id: "mixed-int-mastery-1",
-      prompt: "Choose the method:",
-      latex: "f'(x)=2x, \\quad f(3)=12",
+      prompt: "Choose the method when a derivative and a condition such as $f(3)=12$ are given.",
+      latex: "f'(x)=2x",
       answer: "B",
       choices: [
         { label: "A", text: "definite integral only" },
@@ -3212,8 +3212,8 @@ export const mixedIntegralCalculusExamPracticeLesson: ExplicitLesson = {
     },
     {
       id: "mixed-int-mastery-6",
-      prompt: "Find the particular primitive:",
-      latex: "f'(x)=4x-3, \\quad f(2)=7",
+      prompt: "Find the particular primitive with $f(2)=7$.",
+      latex: "f'(x)=4x-3",
       answer: "C",
       choices: [
         { label: "A", text: "$f(x)=4x-3$" },
