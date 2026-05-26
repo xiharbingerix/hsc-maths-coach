@@ -98,10 +98,10 @@ export function NewCourseOverviewPage({
             </div>
             <div className="rounded-2xl bg-slate-50 p-4">
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                {isAvailable ? "Active lessons" : "Lessons"}
+                {isAvailable ? "Active lessons" : "Planned units"}
               </p>
               <p className="mt-1 text-3xl font-bold">
-                {isAvailable ? lessonCount : "Being prepared"}
+                {isAvailable ? lessonCount : course.units.length}
               </p>
             </div>
             <div className="rounded-2xl bg-slate-50 p-4">
@@ -147,20 +147,44 @@ export function NewCourseOverviewPage({
             ))}
           </section>
         ) : (
-          <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-            <span
-              className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${status.classes}`}
-            >
-              {status.label}
-            </span>
-            <h2 className="mt-4 text-2xl font-bold">
-              Course outline coming soon
-            </h2>
-            <p className="mt-3 max-w-3xl leading-7 text-slate-600">
-              Lessons are being prepared for this pathway. No active lesson
-              routes have been created yet, and no placeholder lessons are
-              shown.
-            </p>
+          <section className="space-y-5 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+            <div>
+              <span
+                className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${status.classes}`}
+              >
+                {status.label}
+              </span>
+              <h2 className="mt-4 text-2xl font-bold">
+                Course outline coming soon
+              </h2>
+              <p className="mt-3 max-w-3xl leading-7 text-slate-600">
+                Lessons are being prepared for this pathway. Planned units are
+                shown below, but no active lesson routes have been created and
+                no placeholder lessons are shown.
+              </p>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              {course.units.map((unit) => (
+                <article
+                  key={unit.slug}
+                  className="rounded-2xl border border-slate-200 bg-slate-50 p-5"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                      Planned unit
+                    </p>
+                    <span className="rounded-full bg-slate-200 px-3 py-1 text-xs font-semibold text-slate-700">
+                      Coming soon
+                    </span>
+                  </div>
+                  <h3 className="mt-3 text-xl font-bold">{unit.title}</h3>
+                  <p className="mt-3 leading-7 text-slate-600">
+                    {unit.description}
+                  </p>
+                </article>
+              ))}
+            </div>
           </section>
         )}
 

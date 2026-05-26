@@ -116,7 +116,9 @@ export default function CoursePage() {
                       Units
                     </p>
                     <p className="mt-1 text-2xl font-bold">
-                      {isAvailable ? course.unitCount : "Soon"}
+                      {isAvailable
+                        ? course.unitCount
+                        : `${course.unitCount} planned`}
                     </p>
                   </div>
                   <div className="rounded-2xl bg-slate-50 p-4">
@@ -124,7 +126,7 @@ export default function CoursePage() {
                       Lessons
                     </p>
                     <p className="mt-1 text-2xl font-bold">
-                      {isAvailable ? course.activeLessonCount : "Soon"}
+                      {isAvailable ? course.activeLessonCount : "Not active"}
                     </p>
                   </div>
                 </div>

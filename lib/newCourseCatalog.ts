@@ -867,8 +867,54 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     description:
       "A planned Year 11 Mathematics Extension pathway for future support in higher-level algebra, functions, trigonometry, calculus, and proof.",
     positioning:
-      "Year 11 Mathematics Extension lessons are being planned against the NSW Mathematics Extension 11-12 syllabus. The course outline will be added once the pathway is ready for students.",
-    units: [],
+      "Year 11 Mathematics Extension lessons are being planned against the NSW Mathematics Extension 1 11-12 syllabus. Planned units are listed below while lesson content is being prepared.",
+    units: [
+      {
+        slug: "further-functions",
+        title: "Further Work with Functions",
+        description:
+          "Planned Extension functions work, including deeper function notation, transformations, and graph interpretation.",
+        syllabusArea: "Functions",
+        focus: "Further work with functions",
+        lessons: [],
+      },
+      {
+        slug: "polynomials",
+        title: "Polynomials",
+        description:
+          "Planned polynomial skills for Extension study, including algebraic structure, factors, roots, and graph features.",
+        syllabusArea: "Polynomials",
+        focus: "Polynomials",
+        lessons: [],
+      },
+      {
+        slug: "further-trigonometry",
+        title: "Further Trigonometry",
+        description:
+          "Planned Extension trigonometry support, including identities, equations, and exact-value fluency.",
+        syllabusArea: "Trigonometry",
+        focus: "Further trigonometry",
+        lessons: [],
+      },
+      {
+        slug: "permutations-combinations",
+        title: "Permutations and Combinations",
+        description:
+          "Planned counting techniques, arrangements, selections, and combinatorial reasoning.",
+        syllabusArea: "Combinatorics",
+        focus: "Permutations and combinations",
+        lessons: [],
+      },
+      {
+        slug: "binomial-theorem",
+        title: "The Binomial Theorem",
+        description:
+          "Planned binomial expansion skills and coefficient reasoning for Extension study.",
+        syllabusArea: "Binomial theorem",
+        focus: "The binomial theorem",
+        lessons: [],
+      },
+    ],
   },
   {
     slug: "year-12-extension-1",
@@ -879,8 +925,63 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     description:
       "A planned Year 12 Mathematics Extension 1 pathway for future Extension 1 support in advanced functions, calculus, trigonometry, and combinatorics.",
     positioning:
-      "Year 12 Mathematics Extension 1 lessons are being planned against the NSW Mathematics Extension 1 11-12 syllabus. The course outline will be added once the pathway is ready for students.",
-    units: [],
+      "Future Extension 1 support is being planned against the NSW Mathematics Extension 1 11-12 syllabus. Planned units are listed below while lesson content is being prepared.",
+    units: [
+      {
+        slug: "proof-induction",
+        title: "Proof by Mathematical Induction",
+        description:
+          "Planned proof work using mathematical induction and structured algebraic reasoning.",
+        syllabusArea: "Proof",
+        focus: "Proof by mathematical induction",
+        lessons: [],
+      },
+      {
+        slug: "vectors",
+        title: "Introduction to Vectors",
+        description:
+          "Planned vector concepts, notation, operations, and geometric interpretation.",
+        syllabusArea: "Vectors",
+        focus: "Introduction to vectors",
+        lessons: [],
+      },
+      {
+        slug: "inverse-trig",
+        title: "Inverse Trigonometric Functions",
+        description:
+          "Planned support for inverse trigonometric functions, restrictions, graphs, and equations.",
+        syllabusArea: "Trigonometric functions",
+        focus: "Inverse trigonometric functions",
+        lessons: [],
+      },
+      {
+        slug: "further-calculus",
+        title: "Further Calculus Skills",
+        description:
+          "Planned differentiation and integration skills for Extension 1 study.",
+        syllabusArea: "Calculus",
+        focus: "Further calculus skills",
+        lessons: [],
+      },
+      {
+        slug: "calculus-applications",
+        title: "Further Applications of Calculus",
+        description:
+          "Planned calculus applications, modelling, rates, and optimisation-style problems.",
+        syllabusArea: "Calculus",
+        focus: "Further applications of calculus",
+        lessons: [],
+      },
+      {
+        slug: "binomial-distribution",
+        title: "The Binomial Distribution",
+        description:
+          "Planned probability support for binomial random variables and distribution calculations.",
+        syllabusArea: "Probability",
+        focus: "The binomial distribution",
+        lessons: [],
+      },
+    ],
   },
 ];
 
