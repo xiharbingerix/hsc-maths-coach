@@ -1,6 +1,98 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson } from "../differentialCalculus";
+import type { NetworkDiagram } from "../types";
 import { labelledChoice, shortAnswer } from "../questionHelpers";
+
+const y12CampusDiagram: NetworkDiagram = {
+  description:
+    "Undirected school path network with vertices A, B, C, D, E. Edges: A-B, A-C, B-D, C-D, C-E.",
+  vertices: [
+    { id: "A", label: "A", x: 90, y: 150 },
+    { id: "B", label: "B", x: 200, y: 80 },
+    { id: "C", label: "C", x: 200, y: 220 },
+    { id: "D", label: "D", x: 320, y: 110 },
+    { id: "E", label: "E", x: 320, y: 240 },
+  ],
+  edges: [
+    { from: "A", to: "B" },
+    { from: "A", to: "C" },
+    { from: "B", to: "D" },
+    { from: "C", to: "D" },
+    { from: "C", to: "E" },
+  ],
+};
+
+const y12ShortestPathDiagram: NetworkDiagram = {
+  description:
+    "Undirected weighted road network with vertices A, B, C, D. Edges: A-B weight 4, A-C weight 7, B-C weight 2, B-D weight 6, C-D weight 3.",
+  vertices: [
+    { id: "A", label: "A", x: 80, y: 150 },
+    { id: "B", label: "B", x: 190, y: 80 },
+    { id: "C", label: "C", x: 200, y: 220 },
+    { id: "D", label: "D", x: 320, y: 150 },
+  ],
+  edges: [
+    { from: "A", to: "B", weight: 4 },
+    { from: "A", to: "C", weight: 7 },
+    { from: "B", to: "C", weight: 2 },
+    { from: "B", to: "D", weight: 6 },
+    { from: "C", to: "D", weight: 3 },
+  ],
+};
+
+const y12SolvedShortestPathDiagram: NetworkDiagram = {
+  ...y12ShortestPathDiagram,
+  highlightedEdges: [
+    ["A", "B"],
+    ["B", "C"],
+    ["C", "D"],
+  ],
+};
+
+const y12MstDiagram: NetworkDiagram = {
+  ...y12ShortestPathDiagram,
+  description:
+    "Undirected weighted cable network with vertices A, B, C, D. Edges: A-B weight 4, A-C weight 7, B-C weight 2, B-D weight 6, C-D weight 3.",
+};
+
+const y12SolvedMstDiagram: NetworkDiagram = {
+  ...y12MstDiagram,
+  highlightedEdges: [
+    ["B", "C"],
+    ["C", "D"],
+    ["A", "B"],
+  ],
+};
+
+const y12CriticalPathDiagram: NetworkDiagram = {
+  description:
+    "Directed activity network. A leads to B and C. B and C lead to D. D leads to F. Durations: A 3 days, B 4 days, C 2 days, D 5 days, F 2 days.",
+  vertices: [
+    { id: "A", label: "A", x: 70, y: 150 },
+    { id: "B", label: "B", x: 185, y: 80 },
+    { id: "C", label: "C", x: 185, y: 220 },
+    { id: "D", label: "D", x: 300, y: 150 },
+    { id: "F", label: "F", x: 390, y: 150 },
+  ],
+  edges: [
+    { from: "A", to: "B", directed: true },
+    { from: "A", to: "C", directed: true },
+    { from: "B", to: "D", directed: true },
+    { from: "C", to: "D", directed: true },
+    { from: "D", to: "F", directed: true },
+  ],
+  viewBox: "0 0 460 300",
+};
+
+const y12SolvedCriticalPathDiagram: NetworkDiagram = {
+  ...y12CriticalPathDiagram,
+  highlightedEdges: [
+    ["A", "B"],
+    ["B", "D"],
+    ["D", "F"],
+  ],
+};
+
 export function year12Standard2NetworksLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -49,6 +141,7 @@ export function year12Standard2NetworksLessonOverride(
           title: "Identify vertices, edges and degree from an edge list",
           questionLatex:
             "\\begin{array}{c|c} \\text{School paths} & AB, AC, BD, CD, CE \\end{array}",
+          diagram: y12CampusDiagram,
           steps: [
             {
               explanation:
@@ -125,7 +218,10 @@ export function year12Standard2NetworksLessonOverride(
       ],
       masteryQuiz: [
         shortAnswer("y12s2-net-term-m1", "A school path network has edges AB, AC, CD, DE. How many edges are listed?", "AB,AC,CD,DE", "4", ["4 edges"]),
-        shortAnswer("y12s2-net-term-m2", "For edges AB, AC, AD and DE, find the degree of A.", "\\deg(A)=?", "3"),
+        {
+          ...shortAnswer("y12s2-net-term-m2", "Use the school path network to find the degree of C.", "AB,\\ AC,\\ BD,\\ CD,\\ CE", "3"),
+          diagram: y12CampusDiagram,
+        },
         labelledChoice("y12s2-net-term-m3", "In a road network, a number on an edge usually represents:", "C", ["A vertex", "A circuit", "A weight such as distance or time", "A repeated path"], "Numbers on edges are weights."),
         labelledChoice("y12s2-net-term-m4", "A route A-B-C-D with no repeated vertices is a:", "A", ["Path", "Degree", "Weight", "Disconnected network"], "A path has no repeated vertices."),
         labelledChoice("y12s2-net-term-m5", "A route A-B-C-A is a:", "D", ["Vertex", "Edge list", "Degree", "Circuit"], "It starts and ends at A."),
@@ -170,6 +266,7 @@ export function year12Standard2NetworksLessonOverride(
           questionLatex:
             "\\begin{array}{c|c} \\text{Road} & \\text{Distance}\\\\" +
             "A-B&4\\\\ A-C&7\\\\ B-C&2\\\\ B-D&6\\\\ C-D&3 \\end{array}",
+          diagram: y12SolvedShortestPathDiagram,
           steps: [
             {
               explanation:
@@ -193,6 +290,7 @@ export function year12Standard2NetworksLessonOverride(
           questionLatex:
             "\\begin{array}{c|c} \\text{Cable} & \\text{Length}\\\\" +
             "A-B&4\\\\ A-C&7\\\\ B-C&2\\\\ B-D&6\\\\ C-D&3 \\end{array}",
+          diagram: y12SolvedMstDiagram,
           steps: [
             {
               explanation:
@@ -251,7 +349,27 @@ export function year12Standard2NetworksLessonOverride(
       masteryQuiz: [
         shortAnswer("y12s2-spmst-m1", "A route from A to D uses weights 4, 2 and 3. What is its total weight?", "\\text{weights: }4,\\ 2,\\ 3", "9", ["9 units"]),
         shortAnswer("y12s2-spmst-m2", "Routes A-B-D and A-C-D have weights 13 and 10. What is the shortest-path weight?", "\\text{A-B-D}=13,\\quad \\text{A-C-D}=10", "10", ["10 units"]),
-        shortAnswer("y12s2-spmst-m3", "If A-C-D is the shortest route, enter the path label.", "\\text{path}", "A-C-D", ["A,C,D", "ACD", "A C D"]),
+        {
+          ...shortAnswer("y12s2-spmst-m3", "Use the weighted road network to enter the shortest path from A to D.", "AB=6,\\ AC=4,\\ BD=7,\\ CD=5", "A-C-D", ["A,C,D", "ACD", "A C D"]),
+          explanation:
+            "A-C-D has total weight 4 + 5 = 9, while A-B-D has total weight 6 + 7 = 13.",
+          diagram: {
+            description:
+              "Undirected weighted road network with vertices A, B, C, D. Edges: A-B weight 6, A-C weight 4, B-D weight 7, C-D weight 5.",
+            vertices: [
+              { id: "A", label: "A", x: 80, y: 150 },
+              { id: "B", label: "B", x: 200, y: 80 },
+              { id: "C", label: "C", x: 200, y: 220 },
+              { id: "D", label: "D", x: 320, y: 150 },
+            ],
+            edges: [
+              { from: "A", to: "B", weight: 6 },
+              { from: "A", to: "C", weight: 4 },
+              { from: "B", to: "D", weight: 7 },
+              { from: "C", to: "D", weight: 5 },
+            ],
+          },
+        },
         labelledChoice("y12s2-spmst-m4", "A council wants minimum total pipe length connecting all parks. Use:", "B", ["Shortest path", "Minimum spanning tree", "A circuit only", "A directed graph only"], "This is a minimal connector problem."),
         shortAnswer("y12s2-spmst-m5", "Selected MST edges have weights 1, 3, 4 and 6. Find the total weight.", "\\text{MST weights: }1,\\ 3,\\ 4,\\ 6", "14"),
         labelledChoice("y12s2-spmst-m6", "Kruskal's method chooses edges in which order?", "A", ["Smallest allowed edge first", "Largest edge first", "Random edges only", "Edges that make cycles first"], "Kruskal's method works from smallest to largest while avoiding cycles."),
@@ -295,6 +413,7 @@ export function year12Standard2NetworksLessonOverride(
           questionLatex:
             "\\begin{array}{c|c|c} \\text{Activity} & \\text{Duration} & \\text{Prerequisite}\\\\" +
             "A&3&-\\\\ B&4&A\\\\ C&2&A\\\\ D&5&B,C\\\\ F&2&D \\end{array}",
+          diagram: y12SolvedCriticalPathDiagram,
           steps: [
             {
               explanation:
@@ -373,7 +492,12 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer("y12s2-cpa-m3", "Activity D depends on B and C, which finish at days 9 and 12. What is D's earliest start?", "\\text{B finishes day }9,\\quad \\text{C finishes day }12", "12 days", ["12", "12d"]),
         shortAnswer("y12s2-cpa-m4", "Path A-B-D-F has durations 3, 4, 5 and 2. Find the path total.", "\\text{durations: }3,\\ 4,\\ 5,\\ 2\\text{ days}", "14 days", ["14", "14d"]),
         shortAnswer("y12s2-cpa-m5", "Path totals are 14, 12 and 10 days. Find the project completion time.", "\\text{path totals: }14,\\ 12,\\ 10\\text{ days}", "14 days", ["14", "14d"]),
-        shortAnswer("y12s2-cpa-m6", "The longest path is A-B-D-F. Enter the critical path.", "\\text{critical path}", "A-B-D-F", ["A,B,D,F", "ABDF", "A B D F"]),
+        {
+          ...shortAnswer("y12s2-cpa-m6", "Use the activity network to enter the critical path.", "\\begin{array}{c|ccccc}\\text{Activity}&A&B&C&D&F\\\\ \\text{Duration}&3&4&2&5&2\\end{array}", "A-B-D-F", ["A,B,D,F", "ABDF", "A B D F"]),
+          explanation:
+            "The path A-B-D-F has total duration 3 + 4 + 5 + 2 = 14 days, while A-C-D-F has total duration 12 days.",
+          diagram: y12CriticalPathDiagram,
+        },
         labelledChoice("y12s2-cpa-m7", "Activity C has 2 days float and is delayed by 3 days. What is the likely project delay?", "B", ["No delay", "1 day", "3 days", "5 days"], "A delay 1 day beyond float delays the project by 1 day."),
         labelledChoice("y12s2-cpa-m8", "Which activity can delay the whole project if it is delayed?", "A", ["A critical activity", "Any activity with float remaining", "Only a directed edge", "Only an MST edge"], "Critical activities control completion time."),
         shortAnswer("y12s2-cpa-m9", "Latest start is day 11 and earliest start is day 8. Find the float.", "\\text{latest start}=\\text{day }11,\\quad \\text{earliest start}=\\text{day }8", "3 days", ["3", "3d"]),

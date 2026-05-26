@@ -1,6 +1,93 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, WorkedExample } from "../differentialCalculus";
+import type { NetworkDiagram } from "../types";
 import { labelledChoice, shortAnswer } from "../questionHelpers";
+
+const schoolMapDiagram: NetworkDiagram = {
+  description:
+    "Undirected school network with vertices Library, Canteen, Gym, and Office. Edges: Library-Canteen, Library-Gym, Canteen-Office.",
+  vertices: [
+    { id: "L", label: "L", x: 90, y: 150 },
+    { id: "C", label: "C", x: 230, y: 80 },
+    { id: "G", label: "G", x: 230, y: 220 },
+    { id: "O", label: "O", x: 340, y: 80 },
+  ],
+  edges: [
+    { from: "L", to: "C" },
+    { from: "L", to: "G" },
+    { from: "C", to: "O" },
+  ],
+};
+
+const shortestPathDiagram: NetworkDiagram = {
+  description:
+    "Undirected weighted graph with vertices A, B, C, D. Edges: A-B weight 4, A-C weight 2, C-B weight 1, B-D weight 5, C-D weight 7.",
+  vertices: [
+    { id: "A", label: "A", x: 80, y: 150 },
+    { id: "B", label: "B", x: 200, y: 70 },
+    { id: "C", label: "C", x: 200, y: 230 },
+    { id: "D", label: "D", x: 320, y: 150 },
+  ],
+  edges: [
+    { from: "A", to: "B", weight: 4 },
+    { from: "A", to: "C", weight: 2 },
+    { from: "C", to: "B", weight: 1 },
+    { from: "B", to: "D", weight: 5 },
+    { from: "C", to: "D", weight: 7 },
+  ],
+};
+
+const solvedShortestPathDiagram: NetworkDiagram = {
+  ...shortestPathDiagram,
+  highlightedEdges: [
+    ["A", "C"],
+    ["C", "B"],
+    ["B", "D"],
+  ],
+};
+
+const mstDiagram: NetworkDiagram = {
+  description:
+    "Undirected weighted graph with vertices A, B, C, D. Edges: A-B weight 2, A-C weight 5, B-C weight 3, B-D weight 4, C-D weight 6.",
+  vertices: [
+    { id: "A", label: "A", x: 80, y: 90 },
+    { id: "B", label: "B", x: 200, y: 90 },
+    { id: "C", label: "C", x: 140, y: 220 },
+    { id: "D", label: "D", x: 320, y: 160 },
+  ],
+  edges: [
+    { from: "A", to: "B", weight: 2 },
+    { from: "A", to: "C", weight: 5 },
+    { from: "B", to: "C", weight: 3 },
+    { from: "B", to: "D", weight: 4 },
+    { from: "C", to: "D", weight: 6 },
+  ],
+};
+
+const solvedMstDiagram: NetworkDiagram = {
+  ...mstDiagram,
+  highlightedEdges: [
+    ["A", "B"],
+    ["B", "C"],
+    ["B", "D"],
+  ],
+};
+
+const kruskalCycleDiagram: NetworkDiagram = {
+  description:
+    "Undirected graph with vertices A, B, C. Edges A-B and B-C are already selected. The next lowest edge under consideration is A-C.",
+  vertices: [
+    { id: "A", label: "A", x: 120, y: 80 },
+    { id: "B", label: "B", x: 260, y: 80 },
+    { id: "C", label: "C", x: 190, y: 220 },
+  ],
+  edges: [
+    { from: "A", to: "B", weight: 2 },
+    { from: "B", to: "C", weight: 3 },
+    { from: "A", to: "C", weight: 4, dashed: true },
+  ],
+};
+
 function networkWorkedExamples(slug: string, title: string): WorkedExample[] {
   if (slug === "network-diagrams-terminology") {
     return [
@@ -8,6 +95,7 @@ function networkWorkedExamples(slug: string, title: string): WorkedExample[] {
         title: "Identifying vertices, edges, and degrees",
         questionLatex:
           "\\text{School map edges: Library-Canteen, Library-Gym, Canteen-Office.}",
+        diagram: schoolMapDiagram,
         steps: [
           {
             explanation:
@@ -92,6 +180,7 @@ function networkWorkedExamples(slug: string, title: string): WorkedExample[] {
         title: "Finding a shortest path",
         questionLatex:
           "\\text{Roads: } AB=4,\\ AC=2,\\ CB=1,\\ BD=5,\\ CD=7",
+        diagram: solvedShortestPathDiagram,
         steps: [
           {
             explanation:
@@ -149,6 +238,7 @@ function networkWorkedExamples(slug: string, title: string): WorkedExample[] {
         title: "Building an MST using Kruskal's method",
         questionLatex:
           "\\text{Edges: } AB=2,\\ AC=5,\\ BC=3,\\ BD=4,\\ CD=6",
+        diagram: solvedMstDiagram,
         steps: [
           {
             explanation:
@@ -355,23 +445,7 @@ export function year11StandardNetworksLessonOverride(
           ...shortAnswer("net-path-m5", "Use the weighted network to find the shortest-path weight from A to D.", "AB=4,\\ AC=2,\\ CB=1,\\ BD=5,\\ CD=7", "8", ["8 units"]),
           explanation:
             "The shortest route is A-C-B-D, with total weight 2 + 1 + 5 = 8. The alternatives A-B-D and A-C-D both have total weight 9.",
-          diagram: {
-            description:
-              "Undirected weighted graph with vertices A, B, C, D. Edges: A-B weight 4, A-C weight 2, C-B weight 1, B-D weight 5, C-D weight 7.",
-            vertices: [
-              { id: "A", label: "A", x: 80, y: 150 },
-              { id: "B", label: "B", x: 200, y: 70 },
-              { id: "C", label: "C", x: 200, y: 230 },
-              { id: "D", label: "D", x: 320, y: 150 },
-            ],
-            edges: [
-              { from: "A", to: "B", weight: 4 },
-              { from: "A", to: "C", weight: 2 },
-              { from: "C", to: "B", weight: 1 },
-              { from: "B", to: "D", weight: 5 },
-              { from: "C", to: "D", weight: 7 },
-            ],
-          },
+          diagram: shortestPathDiagram,
         },
         labelledChoice("net-path-m6", "The shortest path may not be best because:", "D", ["It has the smallest distance", "It uses vertices", "It is drawn on paper", "Other practical factors may matter"], "Context can make a longer route better."),
         shortAnswer("net-path-m7", "A network has 10 vertices. Is this within a no-more-than-10-vertices shortest path question? Answer yes or no.", "\\text{vertices}=10", "yes", ["Yes", "YES"]),
@@ -436,7 +510,10 @@ export function year11StandardNetworksLessonOverride(
         labelledChoice("net-tree-m5", "A minimum spanning tree minimises:", "B", ["Number of vertices", "Total edge weight", "Degree of A", "Number of arrows"], "MST minimises total selected weight."),
         labelledChoice("net-tree-m6", "Which situation suits an MST?", "A", ["Connecting towns with least cable", "Finding one fastest route", "Counting survey responses", "Calculating tax"], "MSTs solve minimal connector problems."),
         shortAnswer("net-tree-m7", "A tree has 4 edges. How many vertices?", "\\text{edges}=4", "5"),
-        labelledChoice("net-tree-m8", "In a sorted edge list for Kruskal's method, the next lowest edge would create a cycle. What should you do?", "D", ["Choose it because it is low", "Restart the method", "Delete all previous edges", "Skip it and keep checking later edges"], "Kruskal's method skips edges that create cycles."),
+        {
+          ...labelledChoice("net-tree-m8", "In the Kruskal diagram, the dashed edge is the next lowest edge under consideration. What should you do?", "D", ["Choose it because it is low", "Restart the method", "Delete all previous edges", "Skip it and keep checking later edges"], "Kruskal's method skips edges that create cycles."),
+          diagram: kruskalCycleDiagram,
+        },
         shortAnswer("net-tree-m9", "Using Kruskal's method, choose AB=2, BC=3, and CD=4. What is the total?", "AB=2,\\ BC=3,\\ CD=4", "9"),
         labelledChoice("net-tree-m10", "A minimal connector problem asks you to:", "C", ["Return to the start", "Choose the longest path", "Connect required vertices cheaply", "Ignore weights"], "Minimal connectors connect required points at least total cost."),
       ],
