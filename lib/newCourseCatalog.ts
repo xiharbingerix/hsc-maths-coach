@@ -17,6 +17,7 @@ import {
   year11StandardLinearRelationshipsLessonOverride,
   year11StandardManagingMoneyLessonOverride,
   year11StandardNetworksLessonOverride,
+  year11StandardProbabilityRelativeFrequencyLessonOverride,
   year11StandardTimeLocationLessonOverride,
 } from "./lessons/year11Standard";
 import {
@@ -172,6 +173,7 @@ export function buildLesson(
     year11StandardManagingMoneyLessonOverride(course, unit, lesson) ??
     year11StandardApplicationsMeasurementLessonOverride(course, unit, lesson) ??
     year11StandardTimeLocationLessonOverride(course, unit, lesson) ??
+    year11StandardProbabilityRelativeFrequencyLessonOverride(course, unit, lesson) ??
     year11StandardDataAnalysisLessonOverride(course, unit, lesson) ??
     year11StandardLinearRelationshipsLessonOverride(course, unit, lesson) ??
     year11StandardFormulasEquationsLessonOverride(course, unit, lesson) ??
@@ -841,6 +843,40 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
+        slug: "probability-relative-frequency",
+        title: "Probability and Relative Frequency",
+        description:
+          "Sample spaces, probability scales, complements, relative frequency, experimental probability and two-way table probabilities.",
+        syllabusArea: "Statistical Analysis",
+        focus: "Probability and relative frequency",
+        lessons: [
+          {
+            slug: "outcomes-sample-space-probability",
+            title: "Outcomes, Sample Space and Probability",
+            description:
+              "Use sample spaces, events, favourable outcomes, probability scales and complements in practical probability contexts.",
+          },
+          {
+            slug: "relative-frequency-experimental-probability",
+            title: "Relative Frequency and Experimental Probability",
+            description:
+              "Calculate relative frequency from trial data and compare experimental results with theoretical probability.",
+          },
+          {
+            slug: "two-way-tables-probability",
+            title: "Two-Way Tables and Probability",
+            description:
+              "Read two-way tables, row and column totals, and simple table probabilities from practical data.",
+          },
+          {
+            slug: "probability-exam-practice",
+            title: "Probability Exam Practice",
+            description:
+              "Practise mixed probability questions involving sample spaces, complements, relative frequency and two-way tables.",
+          },
+        ],
+      },
+      {
         slug: "data-analysis",
         title: "Data Analysis",
         description:
@@ -877,9 +913,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     courseType: "Mathematics Extension",
     status: "in_progress",
     description:
-      "A planned Year 11 Mathematics Extension pathway for future support in higher-level algebra, functions, trigonometry, calculus, and proof.",
+      "Year 11 Mathematics Extension is partly available, with 2 of 5 planned topics currently available.",
     positioning:
-      "Year 11 Mathematics Extension lessons are being planned against the NSW Mathematics Extension 1 11-12 syllabus. Planned units are listed below while lesson content is being prepared.",
+      "2 of 5 planned topics currently available. Permutations and Combinations and The Binomial Theorem are active. Further Work with Functions, Polynomials and Further Trigonometry are coming soon.",
     units: [
       {
         slug: "further-functions",
@@ -997,9 +1033,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     courseType: "Mathematics Extension 1",
     status: "coming_soon",
     description:
-      "A planned Year 12 Mathematics Extension 1 pathway for future Extension 1 support in advanced functions, calculus, trigonometry, and combinatorics.",
+      "Coming soon — no active lessons yet. Future Extension 1 support is being planned against the NSW Mathematics Extension 1 11-12 syllabus.",
     positioning:
-      "Future Extension 1 support is being planned against the NSW Mathematics Extension 1 11-12 syllabus. Planned units are listed below while lesson content is being prepared.",
+      "Coming soon — no active lessons yet. Future Extension 1 support is being planned against the NSW Mathematics Extension 1 11-12 syllabus. Planned units are listed below while lesson content is being prepared.",
     units: [
       {
         slug: "proof-induction",

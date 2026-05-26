@@ -12,7 +12,7 @@ const statusCopy: Record<
     cta: "View course",
   },
   in_progress: {
-    label: "In progress",
+    label: "In development",
     classes: "bg-amber-100 text-amber-800",
     cta: "View course",
   },
@@ -22,6 +22,14 @@ const statusCopy: Record<
     cta: "View outline",
   },
 };
+
+function courseStatusLabel(courseSlug: string, status: CoursePathwayStatus) {
+  if (courseSlug === "year-11-extension") {
+    return "Partly available";
+  }
+
+  return statusCopy[status].label;
+}
 
 export default function CoursePage() {
   return (
@@ -96,7 +104,7 @@ export default function CoursePage() {
                   <span
                     className={`rounded-full px-3 py-1 text-xs font-semibold ${status.classes}`}
                   >
-                    {status.label}
+                    {courseStatusLabel(course.courseSlug, course.status)}
                   </span>
                 </div>
 

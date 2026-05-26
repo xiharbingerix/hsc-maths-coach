@@ -25,6 +25,14 @@ export default function Year12AdvancedPage() {
             {year12AdvancedCourse.description}
           </p>
 
+          <p className="mt-4 max-w-3xl rounded-2xl border border-amber-200 bg-amber-50 p-4 leading-7 text-amber-900">
+            Year 12 Advanced is in active development. Current lessons cover
+            functions, trigonometry, introductory calculus, integral calculus,
+            statistics and financial mathematics. Further HSC topics including
+            advanced differentiation techniques, further trigonometry, and
+            extended calculus applications are being added.
+          </p>
+
           <div className="mt-6 grid gap-3 md:grid-cols-3">
             <div className="rounded-2xl bg-slate-50 p-4">
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
@@ -65,7 +73,7 @@ export default function Year12AdvancedPage() {
                   Unit
                 </p>
                 <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
-                  Available
+                  In development
                 </span>
               </div>
               <h2 className="mt-3 text-2xl font-bold">{unit.title}</h2>

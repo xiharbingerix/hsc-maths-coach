@@ -1,6 +1,36 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { courseCatalogue } from "../../lib/courseUnits";
+import type { CoursePathwayStatus } from "../../lib/courseTypes";
+
+const statusCopy: Record<
+  CoursePathwayStatus,
+  { label: string; classes: string }
+> = {
+  available: {
+    label: "Available",
+    classes: "bg-green-100 text-green-800",
+  },
+  in_progress: {
+    label: "In development",
+    classes: "bg-amber-100 text-amber-800",
+  },
+  coming_soon: {
+    label: "Coming soon",
+    classes: "bg-slate-200 text-slate-700",
+  },
+};
+
+function courseStatus(courseSlug: string, status: CoursePathwayStatus) {
+  if (courseSlug === "year-11-extension") {
+    return {
+      label: "Partly available",
+      classes: "bg-amber-100 text-amber-800",
+    };
+  }
+
+  return statusCopy[status];
+}
 
 const included = [
   {
@@ -168,24 +198,32 @@ export default function OnlineLearningPage() {
           </div>
 
           <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {courseCatalogue.map((course) => (
-              <article
-                key={course.courseSlug}
-                className="flex flex-col rounded-2xl border border-slate-200 bg-slate-50 p-6"
-              >
-                <span className="w-fit rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
-                  Available now
-                </span>
-                <h3 className="mt-4 text-xl font-bold">{course.courseTitle}</h3>
-                <p className="mt-2 text-sm font-semibold text-slate-500">
-                  {course.unitCount} units &middot; {course.activeLessonCount} active lessons
-                </p>
-                <p className="mt-3 flex-1 leading-7 text-slate-600">
-                  {course.description}
-                </p>
-                <SecondaryLink href={course.href}>Open pathway</SecondaryLink>
-              </article>
-            ))}
+            {courseCatalogue.map((course) => {
+              const status = courseStatus(course.courseSlug, course.status);
+
+              return (
+                <article
+                  key={course.courseSlug}
+                  className="flex flex-col rounded-2xl border border-slate-200 bg-slate-50 p-6"
+                >
+                  <span
+                    className={`w-fit rounded-full px-3 py-1 text-xs font-semibold ${status.classes}`}
+                  >
+                    {status.label}
+                  </span>
+                  <h3 className="mt-4 text-xl font-bold">{course.courseTitle}</h3>
+                  <p className="mt-2 text-sm font-semibold text-slate-500">
+                    {course.status === "coming_soon"
+                      ? `${course.unitCount} planned units`
+                      : `${course.unitCount} units - ${course.activeLessonCount} active lessons`}
+                  </p>
+                  <p className="mt-3 flex-1 leading-7 text-slate-600">
+                    {course.description}
+                  </p>
+                  <SecondaryLink href={course.href}>Open pathway</SecondaryLink>
+                </article>
+              );
+            })}
           </div>
         </section>
 

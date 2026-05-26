@@ -76,13 +76,13 @@ export const year12AdvancedCourse: CourseCatalogueItem = {
   courseType: "Mathematics Advanced",
   href: "/course/year-12-advanced",
   description:
-    "HSC Mathematics Advanced revision across calculus, functions, trigonometry, financial mathematics, and statistics.",
+    "Year 12 Advanced is in active development. Current lessons cover functions, trigonometry, introductory calculus, integral calculus, statistics and financial mathematics. Further HSC topics including advanced differentiation techniques, further trigonometry, and extended calculus applications are being added.",
   unitCount: courseUnits.length,
   activeLessonCount: courseUnits.reduce(
     (total, unit) => total + unit.activeLessonCount,
     0
   ),
-  status: "available",
+  status: "in_progress",
   units: courseUnits,
 };
 

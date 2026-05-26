@@ -27,7 +27,7 @@ const statusCopy: Record<
     classes: "bg-green-100 text-green-800",
   },
   in_progress: {
-    label: "In progress",
+    label: "Partly available",
     classes: "bg-amber-100 text-amber-800",
   },
   coming_soon: {
@@ -35,6 +35,18 @@ const statusCopy: Record<
     classes: "bg-slate-200 text-slate-700",
   },
 };
+
+function courseStatusNote(courseSlug: string) {
+  if (courseSlug === "year-11-extension") {
+    return "2 of 5 planned topics currently available. Active topics: Permutations and Combinations; The Binomial Theorem. Coming soon: Further Work with Functions, Polynomials, Further Trigonometry.";
+  }
+
+  if (courseSlug === "year-12-extension-1") {
+    return "Coming soon — no active lessons yet.";
+  }
+
+  return null;
+}
 
 function ButtonLink({
   href,
@@ -74,6 +86,7 @@ export function NewCourseOverviewPage({
   const activeUnits = course.units.filter((unit) => unit.lessons.length > 0);
   const plannedUnits = course.units.filter((unit) => unit.lessons.length === 0);
   const hasActiveLessons = activeUnits.length > 0;
+  const note = courseStatusNote(course.slug);
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -88,6 +101,12 @@ export function NewCourseOverviewPage({
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
             {course.positioning}
           </p>
+
+          {note && (
+            <p className="mt-4 max-w-3xl rounded-2xl border border-amber-200 bg-amber-50 p-4 leading-7 text-amber-900">
+              {note}
+            </p>
+          )}
 
           <div className="mt-6 grid gap-3 md:grid-cols-3">
             <div className="rounded-2xl bg-slate-50 p-4">
@@ -207,9 +226,15 @@ export function NewCourseOverviewPage({
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <ButtonLink href="/checkout?offer=online-learning" variant="primary">
-                Subscribe
-              </ButtonLink>
+              {hasActiveLessons ? (
+                <ButtonLink href="/checkout?offer=online-learning" variant="primary">
+                  Subscribe
+                </ButtonLink>
+              ) : (
+                <ButtonLink href="/enquire?offer=online-learning" variant="primary">
+                  Register interest
+                </ButtonLink>
+              )}
               <ButtonLink href="/signup">Create account</ButtonLink>
               <ButtonLink href="/course">Course catalogue</ButtonLink>
             </div>
