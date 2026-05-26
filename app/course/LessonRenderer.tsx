@@ -87,6 +87,26 @@ function isCorrectAnswer(question: PracticeQuestion, value: string) {
   );
 }
 
+function formatPercent(score: number) {
+  return `${Math.round(score * 100)}%`;
+}
+
+function choiceAnswerText(question: PracticeQuestion, answer: string) {
+  if (!question.choices) {
+    return answer.trim() || "No answer submitted";
+  }
+
+  const selectedChoice = question.choices.find(
+    (choice) => normaliseAnswer(choice.label) === normaliseAnswer(answer)
+  );
+
+  if (!selectedChoice) {
+    return answer.trim() || "No answer submitted";
+  }
+
+  return `${selectedChoice.label}. ${selectedChoice.text}`;
+}
+
 function masteryStorageKey(moduleSlug: string, lessonSlug: string) {
   if (moduleSlug === "differential-calculus") {
     return `hsc-maths-coach:mastery:${lessonSlug}`;
@@ -308,6 +328,144 @@ function QuizQuestion({
   );
 }
 
+function MasteryResultPanel({
+  correctCount,
+  totalQuestions,
+  passMark,
+  questions,
+  answers,
+  onTryAgain,
+  onReviewLesson,
+}: {
+  correctCount: number;
+  totalQuestions: number;
+  passMark: number;
+  questions: PracticeQuestion[];
+  answers: Record<string, string>;
+  onTryAgain: () => void;
+  onReviewLesson: () => void;
+}) {
+  const score = correctCount / totalQuestions;
+  const passed = score >= passMark;
+  const requiredCorrect = Math.ceil(passMark * totalQuestions);
+  const incorrectQuestions = questions
+    .map((question, index) => ({ question, quizIndex: index }))
+    .filter(
+      ({ question }) => !isCorrectAnswer(question, answers[question.id] ?? "")
+    );
+
+  if (passed) {
+    return (
+      <div className="rounded-xl bg-green-50 p-4 text-sm text-green-900">
+        <p className="font-semibold">
+          Passed: {correctCount} out of {totalQuestions} (
+          {formatPercent(score)}).
+        </p>
+        <p className="mt-1">
+          Nice work. You have met the mastery mark for this lesson.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
+      <div>
+        <p className="font-semibold">
+          Score: {correctCount} out of {totalQuestions} (
+          {formatPercent(score)}).
+        </p>
+        <p className="mt-1">
+          You need {requiredCorrect} out of {totalQuestions} to pass.
+        </p>
+        <p className="mt-2">
+          Not quite yet. Review the questions below, then try again when you
+          are ready.
+        </p>
+      </div>
+
+      <div className="space-y-3">
+        <h3 className="font-semibold">Questions to review</h3>
+        {incorrectQuestions.map(({ question, quizIndex }) => {
+          const submittedAnswer = answers[question.id] ?? "";
+
+          return (
+            <div
+              key={question.id}
+              className="space-y-3 rounded-xl border border-amber-200 bg-white p-4 text-slate-800"
+            >
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  Question {quizIndex + 1}
+                </p>
+                <p className="mt-1 font-medium">
+                  <MathText text={question.prompt} />
+                </p>
+                {question.latex && (
+                  <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-3">
+                    <BlockMath math={question.latex} />
+                  </div>
+                )}
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="rounded-xl bg-slate-50 p-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Your answer
+                  </p>
+                  <p className="mt-1 font-medium">
+                    <MathText
+                      text={choiceAnswerText(question, submittedAnswer)}
+                    />
+                  </p>
+                </div>
+                <div className="rounded-xl bg-green-50 p-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-green-700">
+                    Correct answer
+                  </p>
+                  <p className="mt-1 font-medium text-green-900">
+                    <MathText
+                      text={choiceAnswerText(question, question.answer)}
+                    />
+                  </p>
+                </div>
+              </div>
+
+              {question.explanation && (
+                <div className="rounded-xl bg-slate-50 p-3 text-slate-700">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Explanation
+                  </p>
+                  <p className="mt-1">
+                    <MathText text={question.explanation} />
+                  </p>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+        <button
+          type="button"
+          onClick={onTryAgain}
+          className="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
+        >
+          Try again
+        </button>
+        <button
+          type="button"
+          onClick={onReviewLesson}
+          className="rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50"
+        >
+          Back to Learn
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export function LessonRenderer({
   lessonSlug,
   lessons,
@@ -477,14 +635,23 @@ export function LessonRenderer({
 
     saveMasteryState({
       passed: false,
-      mustCompleteLesson: true,
-      completedStages: [],
+      mustCompleteLesson: false,
+      completedStages: masteryState.completedStages,
       lastScore: quizScore,
     });
+  }
+
+  function retryQuiz() {
+    setQuizAnswers({});
+    setQuizSubmitted(false);
+    setActiveStage("mastery-quiz");
+  }
+
+  function reviewLesson() {
+    setQuizSubmitted(false);
     setActiveStage(firstContentStage);
     setVideoEnded(false);
     setVideoLoadFailed(false);
-    setQuizAnswers({});
   }
 
   function renderStage() {
@@ -733,19 +900,16 @@ export function LessonRenderer({
           Submit quiz
         </button>
 
-        {quizSubmitted && quizScore >= currentLesson.masteryPassMark && (
-          <div className="rounded-xl bg-green-50 p-4 text-sm font-medium text-green-900">
-            Passed: {quizCorrectCount} out of{" "}
-            {currentLesson.masteryQuiz.length}.
-          </div>
-        )}
-
-        {quizSubmitted && quizScore < currentLesson.masteryPassMark && (
-          <div className="rounded-xl bg-red-50 p-4 text-sm font-medium text-red-900">
-            Score: {quizCorrectCount} out of{" "}
-            {currentLesson.masteryQuiz.length}. The lesson sequence is now
-            locked in order.
-          </div>
+        {quizSubmitted && (
+          <MasteryResultPanel
+            correctCount={quizCorrectCount}
+            totalQuestions={currentLesson.masteryQuiz.length}
+            passMark={currentLesson.masteryPassMark}
+            questions={currentLesson.masteryQuiz}
+            answers={quizAnswers}
+            onTryAgain={retryQuiz}
+            onReviewLesson={reviewLesson}
+          />
         )}
       </section>
     );
