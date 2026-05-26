@@ -352,7 +352,9 @@ export function year11StandardNetworksLessonOverride(
         labelledChoice("net-path-m3", "A trail cannot repeat:", "B", ["Vertices", "Edges", "Weights", "Labels"], "A trail does not repeat edges."),
         labelledChoice("net-path-m4", "A connected network means:", "A", ["All vertices are reachable", "All weights are equal", "There are no edges", "It must be directed"], "Connected means every vertex can be reached."),
         {
-          ...shortAnswer("net-path-m5", "From the weighted edge list AB=4, AC=2, CB=1, BD=5, CD=7, the shortest A to D route has weight 8. What is the shortest-path weight?", "AB=4,\\ AC=2,\\ CB=1,\\ BD=5,\\ CD=7", "8"),
+          ...shortAnswer("net-path-m5", "Use the weighted network to find the shortest-path weight from A to D.", "AB=4,\\ AC=2,\\ CB=1,\\ BD=5,\\ CD=7", "8", ["8 units"]),
+          explanation:
+            "The shortest route is A-C-B-D, with total weight 2 + 1 + 5 = 8. The alternatives A-B-D and A-C-D both have total weight 9.",
           diagram: {
             description:
               "Undirected weighted graph with vertices A, B, C, D. Edges: A-B weight 4, A-C weight 2, C-B weight 1, B-D weight 5, C-D weight 7.",
