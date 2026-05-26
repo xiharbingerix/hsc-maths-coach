@@ -257,6 +257,7 @@ export function year11StandardNetworksLessonOverride(
       teaching: {
         paragraphs: [
           "A network is a set of vertices connected by edges. In a practical problem, vertices might be buildings, towns, delivery stops, or tasks.",
+          "Digital questions use edge lists, tables and text-described networks. For drawn network diagrams, students should also practise with worksheet or paper diagrams.",
           "An edge shows a direct connection between two vertices. The degree of a vertex is the number of edges joined to that vertex.",
           "A directed network uses arrows to show direction, such as one-way roads or task order. A weighted edge has a number attached, such as distance, time, cost, or cable length.",
           "To construct a network from a table or map, list every location as a vertex, draw exactly the listed connections as edges, add arrows for one-way connections, and add weights when values are given.",
@@ -316,6 +317,7 @@ export function year11StandardNetworksLessonOverride(
       teaching: {
         paragraphs: [
           "A path is a route through connected vertices. A trail is a route that does not repeat an edge. A circuit starts and ends at the same vertex.",
+          "Digital questions use edge lists, tables and text-described networks. For drawn network diagrams, students should also practise with worksheet or paper diagrams.",
           "A connected network has a route between every pair of vertices. If one vertex cannot be reached, the network is not connected.",
           "In a weighted network, the shortest path is the route between two vertices with the smallest total weight. For small networks, list sensible routes and add their edge weights.",
           "The mathematically shortest path is not always the best practical path. A longer route may avoid traffic, tolls, unsafe roads, steep hills, or closed areas.",
@@ -349,7 +351,7 @@ export function year11StandardNetworksLessonOverride(
         shortAnswer("net-path-m2", "Add path weights 4, 6, and 1.", "4+6+1", "11"),
         labelledChoice("net-path-m3", "A trail cannot repeat:", "B", ["Vertices", "Edges", "Weights", "Labels"], "A trail does not repeat edges."),
         labelledChoice("net-path-m4", "A connected network means:", "A", ["All vertices are reachable", "All weights are equal", "There are no edges", "It must be directed"], "Connected means every vertex can be reached."),
-        shortAnswer("net-path-m5", "Paths from A to D have totals 8 and 10. What is the shortest-path weight?", "\\text{path}_1=8,\\quad \\text{path}_2=10", "8"),
+        shortAnswer("net-path-m5", "From the weighted edge list AB=4, AC=2, CB=1, BD=5, CD=7, the shortest A to D route has weight 8. What is the shortest-path weight?", "AB=4,\\ AC=2,\\ CB=1,\\ BD=5,\\ CD=7", "8"),
         labelledChoice("net-path-m6", "The shortest path may not be best because:", "D", ["It has the smallest distance", "It uses vertices", "It is drawn on paper", "Other practical factors may matter"], "Context can make a longer route better."),
         shortAnswer("net-path-m7", "A network has 10 vertices. Is this within a no-more-than-10-vertices shortest path question? Answer yes or no.", "\\text{vertices}=10", "yes", ["Yes", "YES"]),
         labelledChoice("net-path-m8", "A route A-B-C is best described as:", "A", ["Path", "Degree", "Weight only", "Disconnected network"], "It is a route through connected vertices."),
@@ -375,6 +377,7 @@ export function year11StandardNetworksLessonOverride(
       teaching: {
         paragraphs: [
           "A tree is a connected network with no cycles. A tree with n vertices has n - 1 edges.",
+          "Digital questions use edge lists, tables and text-described networks. For drawn network diagrams, students should also practise with worksheet or paper diagrams.",
           "A spanning tree uses all vertices from the original network and connects them without making a cycle.",
           "A minimum spanning tree, or MST, is the spanning tree with the smallest total weight.",
           "Kruskal's method finds an MST by sorting edges from smallest to largest, then choosing the next smallest edge that does not create a cycle until all vertices are connected.",
@@ -388,7 +391,7 @@ export function year11StandardNetworksLessonOverride(
       guidedPractice: [
         labelledChoice("net-tree-g1", "Which describes a tree?", "A", ["Connected with no cycles", "Disconnected with arrows", "Only one vertex", "A route with repeated edges"], "A tree is connected and has no cycles."),
         shortAnswer("net-tree-g2", "A tree has 7 vertices. How many edges does it have?", "7-1", "6"),
-        labelledChoice("net-tree-g3", "Using Kruskal's method, what should you choose first?", "B", ["The largest edge", "The smallest edge that is allowed", "Any edge that creates a cycle", "Only directed edges"], "Kruskal's method starts with the smallest available edge and avoids cycles."),
+        labelledChoice("net-tree-g3", "Using Kruskal's method on a sorted edge list, what should you choose first?", "B", ["The largest edge", "The smallest edge that is allowed", "Any edge that creates a cycle", "Only directed edges"], "Kruskal's method starts with the smallest available edge and avoids cycles."),
         shortAnswer("net-tree-g4", "Selected MST edges have weights 2, 5, and 6. Find the total.", "2+5+6", "13"),
       ],
       independentPractice: [
@@ -412,7 +415,7 @@ export function year11StandardNetworksLessonOverride(
         labelledChoice("net-tree-m5", "A minimum spanning tree minimises:", "B", ["Number of vertices", "Total edge weight", "Degree of A", "Number of arrows"], "MST minimises total selected weight."),
         labelledChoice("net-tree-m6", "Which situation suits an MST?", "A", ["Connecting towns with least cable", "Finding one fastest route", "Counting survey responses", "Calculating tax"], "MSTs solve minimal connector problems."),
         shortAnswer("net-tree-m7", "A tree has 4 edges. How many vertices?", "\\text{edges}=4", "5"),
-        labelledChoice("net-tree-m8", "When choosing MST edges, avoid:", "D", ["Small weights", "New vertices", "All vertices", "Cycles"], "Cycles are not allowed in a tree."),
+        labelledChoice("net-tree-m8", "In a sorted edge list for Kruskal's method, the next lowest edge would create a cycle. What should you do?", "D", ["Choose it because it is low", "Restart the method", "Delete all previous edges", "Skip it and keep checking later edges"], "Kruskal's method skips edges that create cycles."),
         shortAnswer("net-tree-m9", "Using Kruskal's method, choose AB=2, BC=3, and CD=4. What is the total?", "AB=2,\\ BC=3,\\ CD=4", "9"),
         labelledChoice("net-tree-m10", "A minimal connector problem asks you to:", "C", ["Return to the start", "Choose the longest path", "Connect required vertices cheaply", "Ignore weights"], "Minimal connectors connect required points at least total cost."),
       ],
@@ -434,6 +437,7 @@ export function year11StandardNetworksLessonOverride(
     teaching: {
       paragraphs: [
         "Network exam questions often combine terminology, construction, routes, and minimal connector decisions.",
+        "Digital questions use edge lists, tables and text-described networks. For drawn network diagrams, students should also practise with worksheet or paper diagrams.",
         "Start by identifying the goal: construct a diagram, count features, classify a route, find a shortest path, or connect all vertices with minimum total weight.",
         "Directed edges show one-way relationships, such as one-way streets or task dependencies. Weighted edges show values such as time, cost, distance, or cable length.",
         "Use shortest path for a route between two vertices. Use a minimum spanning tree when the goal is to connect all required locations with the least total weight.",

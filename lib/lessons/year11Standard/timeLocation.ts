@@ -1,6 +1,6 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, WorkedExample } from "../differentialCalculus";
-import { financeChoice, timeAnswer } from "../questionHelpers";
+import { financeChoice, measurementAnswer, timeAnswer } from "../questionHelpers";
 function timeLocationWorkedExamples(slug: string, title: string): WorkedExample[] {
   if (slug === "time-calculations-timetables") {
     return [
@@ -64,6 +64,41 @@ function timeLocationWorkedExamples(slug: string, title: string): WorkedExample[
           { explanation: "Check both the time difference and the date change before writing the arrival date." },
         ],
         finalAnswerLatex: "\\text{The date may become Monday or earlier Tuesday depending on flight time.}",
+      },
+    ];
+  }
+
+  if (slug === "map-scales-grid-references-location") {
+    return [
+      {
+        title: "Using a grid reference",
+        questionLatex:
+          "\\begin{array}{c|ccc} &1&2&3\\\\ A&\\text{Park}&\\text{Pool}&\\text{Oval}\\\\ B&\\text{Shop}&\\text{Library}&\\text{School}\\\\ C&\\text{Station}&\\text{Clinic}&\\text{Cafe}\\end{array}",
+        steps: [
+          { explanation: "Read the row letter first, then the column number.", latex: "B2" },
+          { explanation: "The entry at row B and column 2 is the Library." },
+        ],
+        finalAnswerLatex: "\\text{Library is at }B2",
+      },
+      {
+        title: "Map scale distance",
+        questionLatex:
+          "\\text{Scale }1\\text{ cm}:2\\text{ km. The map distance is }4.5\\text{ cm.}",
+        steps: [
+          { explanation: "Each centimetre represents 2 kilometres.", latex: "1\\text{ cm}=2\\text{ km}" },
+          { explanation: "Multiply the map distance by the scale distance.", latex: "4.5\\times2=9" },
+        ],
+        finalAnswerLatex: "9\\text{ km}",
+      },
+      {
+        title: "Compass direction from coordinates",
+        questionLatex:
+          "\\text{Town A is at }(2,3)\\text{ and Town B is at }(2,7).",
+        steps: [
+          { explanation: "The x-coordinate stays the same, so the movement is vertical." },
+          { explanation: "The y-coordinate increases from 3 to 7, so B is north of A." },
+        ],
+        finalAnswerLatex: "\\text{B is north of A.}",
       },
     ];
   }
@@ -133,16 +168,16 @@ export function year11StandardTimeLocationLessonOverride(
         ],
       },
       guidedPractice: [
-        timeAnswer("time-table-g1", "A train leaves at 08:42 and arrives at 10:17. How long is the trip?", "10{:}17-08{:}42", "1 h 35 min", ["1 hour 35 minutes", "95 min", "95 minutes", "1h35min"]),
+        timeAnswer("time-table-g1", "A train leaves at 08:42 and arrives at 10:17. How long is the trip?", "10{:}17-08{:}42", "1 h 35 min", ["1 hour 35 minutes", "1 hour and 35 minutes", "1h 35min", "1h35", "1h35min", "1 hr 35 min", "1:35", "95 min", "95 minutes"]),
         timeAnswer("time-table-g2", "A bus timetable shows departures at 7:15, 7:45 and 8:20. If Maya arrives at 7:32, how long does she wait for the next bus?", "07{:}45-07{:}32", "13 min", ["13 minutes", "13min"]),
-        timeAnswer("time-table-g3", "A school rehearsal starts at 6:30 pm. Write the start time in 24-hour time.", "6{:}30\\text{ pm}", "18:30", ["1830", "6:30 pm", "6.30 pm"]),
+        timeAnswer("time-table-g3", "A school rehearsal starts at 6:30 pm. Write your answer in 24-hour time, for example 18:30.", "6{:}30\\text{ pm}", "18:30", ["1830", "18.30"]),
         financeChoice("time-table-g4", "A ferry leaves at 23:40 and arrives at 00:25. What must be remembered?", "C", ["The trip is impossible", "The arrival is earlier on the same day", "The trip crosses midnight", "The time zone must always change"], "The arrival time is after midnight on the next day."),
       ],
       independentPractice: [
         timeAnswer("time-table-i1", "A bus leaves at 07:55 and arrives at 08:38. What is the travel time?", "08{:}38-07{:}55", "43 min", ["43 minutes", "43min"]),
         timeAnswer("time-table-i2", "A student arrives at the station at 15:18. The next trains leave at 15:05, 15:32 and 15:50. What is the waiting time?", "15{:}32-15{:}18", "14 min", ["14 minutes", "14min"]),
-        timeAnswer("time-table-i3", "A part-time shift starts at 9:15 am. Write this in 24-hour time.", "9{:}15\\text{ am}", "09:15", ["9:15", "0915", "9.15 am"]),
-        timeAnswer("time-table-i4", "A flight departs at 22:50 and lands at 01:20 the next day. How long is the flight?", "1\\text{ h }10\\text{ min}+1\\text{ h }20\\text{ min}", "2 h 30 min", ["2 hours 30 minutes", "150 min", "150 minutes", "2h30min"]),
+        timeAnswer("time-table-i3", "A part-time shift starts at 9:15 am. Write your answer in 24-hour time, for example 18:30.", "9{:}15\\text{ am}", "09:15", ["0915", "09.15"]),
+        timeAnswer("time-table-i4", "A flight departs at 22:50 and lands at 01:20 the next day. How long is the flight?", "1\\text{ h }10\\text{ min}+1\\text{ h }20\\text{ min}", "2 h 30 min", ["2 hours 30 minutes", "2 hours and 30 minutes", "2h 30min", "2h30", "2h30min", "2 hr 30 min", "2:30", "150 min", "150 minutes"]),
         financeChoice("time-table-i5", "When using a timetable, the safest first step is to:", "A", ["Use times from the same service row", "Use the latest arrival only", "Ignore am and pm", "Subtract the smaller number from the larger number"], "Timetable calculations must use the correct row."),
       ],
       commonMistakes: [
@@ -153,14 +188,14 @@ export function year11StandardTimeLocationLessonOverride(
       ],
       masteryQuiz: [
         timeAnswer("time-table-m1", "A train leaves Central at 09:28 and reaches Parramatta at 10:06. What is the travel time?", "\\text{depart}=09{:}28,\\quad \\text{arrive}=10{:}06", "38 min", ["38 minutes", "38min"]),
-        timeAnswer("time-table-m2", "A ferry leaves at 11:45 am. Write this in 24-hour time.", "11{:}45\\text{ am}", "11:45", ["1145", "11.45 am"]),
-        timeAnswer("time-table-m3", "A cinema session starts at 7:05 pm. Write this in 24-hour time.", "7{:}05\\text{ pm}", "19:05", ["1905", "7:05 pm", "7.05 pm"]),
+        timeAnswer("time-table-m2", "A ferry leaves at 11:45 am. Write your answer in 24-hour time, for example 18:30.", "11{:}45\\text{ am}", "11:45", ["1145", "11.45"]),
+        timeAnswer("time-table-m3", "A cinema session starts at 7:05 pm. Write your answer in 24-hour time, for example 18:30.", "7{:}05\\text{ pm}", "19:05", ["1905", "19.05"]),
         timeAnswer("time-table-m4", "A bus leaves at 16:40 and arrives at 17:25. How long is the trip?", "\\text{depart}=16{:}40,\\quad \\text{arrive}=17{:}25", "45 min", ["45 minutes", "45min"]),
         financeChoice("time-table-m5", "A school bell time of 14:50 is:", "B", ["2:50 am", "2:50 pm", "4:50 pm", "12:50 pm"], "14:50 is 2:50 pm."),
         timeAnswer("time-table-m6", "A student arrives at 08:03. Buses depart at 07:58, 08:12 and 08:27. How long is the wait for the next bus?", "\\text{arrive}=08{:}03,\\quad \\text{next bus}=08{:}12", "9 min", ["9 minutes", "9min"]),
         timeAnswer("time-table-m7", "A coach leaves at 23:15 and arrives at 00:05 the next day. What is the travel time?", "\\text{depart}=23{:}15,\\quad \\text{arrive}=00{:}05", "50 min", ["50 minutes", "50min"]),
         financeChoice("time-table-m8", "A trip from 10:20 to 12:05 is best counted as:", "D", ["205 minutes", "1 hour only", "20 minutes", "1 hour 45 minutes"], "10:20 to 11:20 is 1 hour, then 45 minutes."),
-        timeAnswer("time-table-m9", "A work shift runs from 13:30 to 17:00. How long is the shift?", "\\text{start}=13{:}30,\\quad \\text{end}=17{:}00", "3 h 30 min", ["3 hours 30 minutes", "210 min", "210 minutes", "3h30min"]),
+        timeAnswer("time-table-m9", "A work shift runs from 13:30 to 17:00. How long is the shift?", "\\text{start}=13{:}30,\\quad \\text{end}=17{:}00", "3 h 30 min", ["3 hours 30 minutes", "3 hours and 30 minutes", "3h 30min", "3h30", "3h30min", "3 hr 30 min", "3:30", "210 min", "210 minutes"]),
         financeChoice("time-table-m10", "If a timetable has departures at 06:30, 07:00 and 07:20, and a student arrives at 06:45, the next service is:", "C", ["06:30", "06:45", "07:00", "07:20"], "The next departure after 06:45 is 07:00."),
       ],
     };
@@ -225,42 +260,108 @@ export function year11StandardTimeLocationLessonOverride(
     };
   }
 
+  if (lesson.slug === "map-scales-grid-references-location") {
+    return {
+      ...base,
+      description:
+        "Use text grids, coordinates, map scales and simple compass directions to describe location without drawing maps.",
+      learningIntention:
+        "Interpret location information using grid references, coordinate descriptions, map scales and simple compass directions.",
+      successCriteria: [
+        "Read a text grid using row and column references.",
+        "Identify a place from a grid reference or coordinate pair.",
+        "Use a map scale to calculate a real distance.",
+        "Convert a real distance back to a map distance using a scale.",
+        "Choose a simple compass direction from coordinate movement.",
+        "Recognise when a location question should be answered with a place, coordinate, distance or direction.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Location questions can be answered without a drawn map when the information is given as a text grid, coordinate pair, edge list, table or written description.",
+          "For grid references in this lesson, read the row letter first and then the column number, such as B3.",
+          "A map scale links a distance on a map to a real distance. If 1 cm represents 2 km, then 4 cm represents 8 km.",
+          "Coordinates describe position using ordered pairs. A change in the first coordinate is east or west, and a change in the second coordinate is north or south when the axes are described that way.",
+          "Compass directions and bearings can be ambiguous if the diagram is missing, so digital questions use text descriptions or multiple choice for direction interpretation.",
+        ],
+        latexBlocks: [
+          "\\text{grid reference: row letter then column number}",
+          "\\text{real distance}=\\text{map distance}\\times\\text{scale value}",
+          "(x,y)\\rightarrow x\\text{ changes east/west},\\quad y\\text{ changes north/south}",
+        ],
+      },
+      workedExamples: timeLocationWorkedExamples(lesson.slug, lesson.title),
+      guidedPractice: [
+        measurementAnswer("location-grid-g1", "In the text grid, what is at B2?", "\\begin{array}{c|ccc} &1&2&3\\\\ A&\\text{Park}&\\text{Pool}&\\text{Oval}\\\\ B&\\text{Shop}&\\text{Library}&\\text{School}\\end{array}", "Library", ["library"]),
+        measurementAnswer("location-grid-g2", "A map scale is 1 cm : 3 km. A road measures 5 cm on the map. Find the real distance.", "1\\text{ cm}:3\\text{ km},\\quad 5\\text{ cm}", "15 km", ["15", "15km"]),
+        financeChoice("location-grid-g3", "Point B is directly above point A on a north-up coordinate grid. Which direction is B from A?", "A", ["North", "South", "East", "West"], "On a north-up grid, directly above means north."),
+        measurementAnswer("location-grid-g4", "A town is at row C, column 4. Write the grid reference.", "\\text{row }C,\\quad \\text{column }4", "C4", ["c4", "C 4", "c 4"]),
+      ],
+      independentPractice: [
+        measurementAnswer("location-grid-i1", "In the text grid, what is at A3?", "\\begin{array}{c|ccc} &1&2&3\\\\ A&\\text{Museum}&\\text{Oval}&\\text{Station}\\\\ B&\\text{Cafe}&\\text{Library}&\\text{Clinic}\\end{array}", "Station", ["station"]),
+        measurementAnswer("location-grid-i2", "A map scale is 1 cm : 500 m. A path measures 6 cm on the map. Find the real distance in metres.", "1\\text{ cm}:500\\text{ m},\\quad 6\\text{ cm}", "3000 m", ["3000", "3,000", "3000m", "3 km", "3km"]),
+        measurementAnswer("location-grid-i3", "A real distance is 12 km. The map scale is 1 cm : 4 km. Find the map distance.", "12\\div4", "3 cm", ["3", "3cm"]),
+        financeChoice("location-grid-i4", "Point P is at (2, 5) and point Q is at (6, 5). On an east-right grid, Q is in which direction from P?", "C", ["North", "South", "East", "West"], "The x-coordinate increases while y stays the same, so Q is east of P."),
+        financeChoice("location-grid-i5", "Why are bearings usually best as multiple choice in this digital lesson?", "B", ["They always have no answer", "A text-only diagram can be ambiguous", "They are not part of location", "They require dollars"], "Without a drawn map, direction questions need clear text or answer choices."),
+      ],
+      commonMistakes: [
+        { mistake: "Reading the grid column before the row when the lesson asks for row then column.", fix: "Use the stated convention: row letter, then column number." },
+        { mistake: "Forgetting to multiply by the scale value.", fix: "Real distance equals map distance times the real distance represented by 1 cm." },
+        { mistake: "Confusing map distance and real distance.", fix: "Check whether the answer should be in centimetres on the map or real-world units." },
+        { mistake: "Guessing direction without checking the coordinate change.", fix: "Compare x-values and y-values using the stated grid orientation." },
+      ],
+      masteryQuiz: [
+        measurementAnswer("location-grid-m1", "In the text grid, what is at B3?", "\\begin{array}{c|ccc} &1&2&3\\\\ A&\\text{Park}&\\text{Pool}&\\text{Oval}\\\\ B&\\text{Shop}&\\text{Library}&\\text{School}\\\\ C&\\text{Station}&\\text{Clinic}&\\text{Cafe}\\end{array}", "School", ["school"]),
+        measurementAnswer("location-grid-m2", "Write the grid reference for the Clinic in the displayed grid.", "\\begin{array}{c|ccc} &1&2&3\\\\ A&\\text{Park}&\\text{Pool}&\\text{Oval}\\\\ B&\\text{Shop}&\\text{Library}&\\text{School}\\\\ C&\\text{Station}&\\text{Clinic}&\\text{Cafe}\\end{array}", "C2", ["c2", "C 2", "c 2"]),
+        measurementAnswer("location-grid-m3", "A map scale is 1 cm : 2 km. A walking track measures 7 cm on the map. Find the real distance.", "1\\text{ cm}:2\\text{ km},\\quad 7\\text{ cm}", "14 km", ["14", "14km"]),
+        measurementAnswer("location-grid-m4", "A real distance is 20 km. The map scale is 1 cm : 5 km. Find the map distance.", "\\text{real distance}=20\\text{ km},\\quad 1\\text{ cm}:5\\text{ km}", "4 cm", ["4", "4cm"]),
+        financeChoice("location-grid-m5", "Point A is at (3, 2) and point B is at (3, 6). On a north-up coordinate grid, B is:", "A", ["North of A", "South of A", "East of A", "West of A"], "The y-coordinate increases while x stays the same."),
+        financeChoice("location-grid-m6", "Point A is at (7, 4) and point B is at (2, 4). On an east-right coordinate grid, B is:", "D", ["North of A", "South of A", "East of A", "West of A"], "The x-coordinate decreases while y stays the same."),
+        measurementAnswer("location-grid-m7", "A map distance is 3.5 cm and the scale is 1 cm : 4 km. Find the real distance.", "\\text{map distance}=3.5\\text{ cm},\\quad 1\\text{ cm}:4\\text{ km}", "14 km", ["14", "14km"]),
+        financeChoice("location-grid-m8", "A grid reference B4 means:", "B", ["Column B then row 4", "Row B then column 4", "Bearing 4 degrees", "4 km from B"], "This lesson uses row letter then column number."),
+        measurementAnswer("location-grid-m9", "A place is at row D, column 1. Write the grid reference.", "\\text{row }D,\\quad \\text{column }1", "D1", ["d1", "D 1", "d 1"]),
+        financeChoice("location-grid-m10", "A text-only location question should avoid:", "C", ["Clear coordinates", "A stated scale", "Asking students to draw a map", "Multiple-choice directions"], "The renderer cannot collect drawn map answers."),
+      ],
+    };
+  }
+
   return {
     ...base,
     description:
-      "Practise mixed time questions using timetables, elapsed time, UTC offsets, time zones and date changes.",
+      "Practise mixed time and location questions using timetables, UTC offsets, date changes, grid references, map scales and coordinate descriptions.",
     learningIntention:
-      "Apply timetable and time-zone skills to mixed practical exam-style contexts.",
+      "Apply timetable, time-zone, map scale and grid-reference skills to mixed practical exam-style contexts.",
     successCriteria: [
       "Interpret timetable information accurately.",
       "Calculate elapsed and waiting times.",
       "Convert between time zones using UTC offsets.",
       "Recognise date changes in travel scenarios.",
+      "Use map scales, grid references and coordinates to interpret location.",
     ],
     teaching: {
       paragraphs: [
-        "Time and location exam questions often combine timetable reading, elapsed time, time zones and date changes.",
+        "Time and location exam questions often combine timetable reading, elapsed time, time zones, date changes, scales and grid references.",
         "Start by identifying whether the question is asking for a duration, a departure or arrival time, a waiting time, or a local time in another place.",
         "Use the timetable row or UTC offsets carefully. A small direction error can change the answer by several hours.",
-        "Check reasonableness: a bus wait should match the next departure, and a converted time may need a new date if it crosses midnight.",
+        "Check reasonableness: a bus wait should match the next departure, a converted time may need a new date if it crosses midnight, and a map distance should match the stated scale.",
       ],
       latexBlocks: [
         "\\text{elapsed time}=\\text{arrival time}-\\text{departure time}",
         "\\text{time difference}=\\text{destination offset}-\\text{starting offset}",
+        "\\text{real distance}=\\text{map distance}\\times\\text{scale value}",
       ],
     },
     guidedPractice: [
       timeAnswer("time-exam-g1", "A service leaves at 07:45 and arrives at 08:32. What is the travel time?", "08{:}32-07{:}45", "47 min", ["47 minutes", "47min"]),
       timeAnswer("time-exam-g2", "A passenger arrives at 07:32. Departures are 07:15, 07:45 and 08:20. How long is the wait for the next service?", "07{:}45-07{:}32", "13 min", ["13 minutes", "13min"]),
       timeAnswer("time-exam-g3", "Sydney is UTC+10 and Perth is UTC+8. If it is 18:30 in Sydney, what time is it in Perth?", "18{:}30-2\\text{ h}", "16:30", ["4:30 pm", "1630", "4.30 pm"]),
-      financeChoice("time-exam-g4", "A flight arrives at 00:20 after leaving at 22:50. What must be included?", "C", ["A daylight saving rule always", "No duration", "The next-day date change", "A ferry timetable"], "00:20 is after midnight."),
+      measurementAnswer("time-exam-g4", "A map scale is 1 cm : 2 km. A route measures 6 cm on the map. Find the real distance.", "6\\times2", "12 km", ["12", "12km"]),
     ],
     independentPractice: [
-      timeAnswer("time-exam-i1", "A train leaves at 06:55 and arrives at 08:10. What is the travel time?", "08{:}10-06{:}55", "1 h 15 min", ["1 hour 15 minutes", "75 min", "75 minutes", "1h15min"]),
+      timeAnswer("time-exam-i1", "A train leaves at 06:55 and arrives at 08:10. What is the travel time?", "08{:}10-06{:}55", "1 h 15 min", ["1 hour 15 minutes", "1 hour and 15 minutes", "1h 15min", "1h15", "1h15min", "1 hr 15 min", "1:15", "75 min", "75 minutes"]),
       timeAnswer("time-exam-i2", "A bus passenger arrives at 15:22. Buses depart at 15:18, 15:36 and 15:55. How long is the wait?", "15{:}36-15{:}22", "14 min", ["14 minutes", "14min"]),
       timeAnswer("time-exam-i3", "A city at UTC+9 is compared with a city at UTC+5. If it is 20:00 at UTC+9, what time is it at UTC+5?", "20{:}00-4\\text{ h}", "16:00", ["4:00 pm", "1600", "4.00 pm"]),
       timeAnswer("time-exam-i4", "A flight departs at 23:30 Monday and lasts 2 hours. Ignoring time zones, what is the arrival time and day?", "23{:}30+2\\text{ h}", "01:30 Tuesday", ["1:30 am Tuesday", "01:30 Tue", "1.30 am Tuesday"]),
-      financeChoice("time-exam-i5", "Which answer is reasonable for a train trip from 09:50 to 10:20?", "A", ["30 minutes", "70 minutes", "3 hours", "30 hours"], "09:50 to 10:20 is 30 minutes."),
+      financeChoice("time-exam-i5", "Point P is at (4, 1) and point Q is at (4, 5). On a north-up coordinate grid, Q is:", "A", ["North of P", "South of P", "East of P", "West of P"], "The y-coordinate increases while x stays the same."),
     ],
     commonMistakes: [
       { mistake: "Using the wrong timetable row.", fix: "Use departure and arrival from the same service." },
@@ -271,12 +372,12 @@ export function year11StandardTimeLocationLessonOverride(
     masteryQuiz: [
       timeAnswer("time-exam-m1", "Service B departs at 07:45 and arrives at 08:32. What is the trip duration?", "\\text{depart}=07{:}45,\\quad \\text{arrive}=08{:}32", "47 min", ["47 minutes", "47min"]),
       timeAnswer("time-exam-m2", "A commuter arrives at 08:06. Services leave at 08:01, 08:18 and 08:40. How long is the wait?", "\\text{arrive}=08{:}06,\\quad \\text{next service}=08{:}18", "12 min", ["12 minutes", "12min"]),
-      timeAnswer("time-exam-m3", "A school event starts at 5:45 pm. Write this in 24-hour time.", "5{:}45\\text{ pm}", "17:45", ["1745", "5:45 pm", "5.45 pm"]),
+      timeAnswer("time-exam-m3", "A school event starts at 5:45 pm. Write your answer in 24-hour time, for example 18:30.", "5{:}45\\text{ pm}", "17:45", ["1745", "17.45"]),
       timeAnswer("time-exam-m4", "A ferry leaves at 22:35 and arrives at 23:20. What is the travel time?", "\\text{depart}=22{:}35,\\quad \\text{arrive}=23{:}20", "45 min", ["45 minutes", "45min"]),
       timeAnswer("time-exam-m5", "Melbourne is UTC+10 and Perth is UTC+8. If it is 09:30 in Perth, what time is it in Melbourne?", "\\text{Perth (UTC+8)}=09{:}30,\\quad \\text{Melbourne}=\\text{UTC+10}", "11:30", ["11:30 am", "1130", "11.30 am"]),
       financeChoice("time-exam-m6", "A trip crosses the International Date Line. Which detail is most important?", "D", ["The seat number", "The ticket colour", "The meal choice", "The direction of crossing"], "Direction affects whether the date moves forward or back."),
       timeAnswer("time-exam-m7", "A city at UTC-3 is compared with UTC+2. If it is 10:00 at UTC-3, what time is it at UTC+2?", "\\text{UTC-3}=10{:}00", "15:00", ["3:00 pm", "1500", "3.00 pm"]),
-      financeChoice("time-exam-m8", "Which mistake gives a bad timetable answer?", "B", ["Checking am/pm", "Subtracting minutes as decimals", "Using the same service row", "Checking midnight"], "Time uses 60 minutes per hour, not decimal place value."),
+      measurementAnswer("time-exam-m8", "In the grid, what is at A2?", "\\begin{array}{c|cc} &1&2\\\\ A&\\text{Park}&\\text{Station}\\\\ B&\\text{Shop}&\\text{Clinic}\\end{array}", "Station", ["station"]),
       timeAnswer("time-exam-m9", "A flight leaves at 21:20 and lasts 4 h 10 min. Ignoring time zones, what is the arrival time?", "\\text{depart}=21{:}20,\\quad \\text{duration}=4\\text{ h }10\\text{ min}", "01:30", ["1:30 am", "0130", "1.30 am"]),
       financeChoice("time-exam-m10", "If Sydney is observing daylight saving as UTC+11 and Perth is UTC+8, Sydney is:", "A", ["3 hours ahead", "2 hours ahead", "3 hours behind", "The same time"], "UTC+11 is 3 hours ahead of UTC+8."),
     ],

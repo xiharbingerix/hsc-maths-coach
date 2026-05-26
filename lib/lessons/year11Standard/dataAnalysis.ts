@@ -281,7 +281,7 @@ export function year11StandardDataAnalysisLessonOverride(
       financeChoice("data-exam-m4", "A frequency table shows 12 students chose bus, 7 chose train and 5 chose walk. Which category is most common?", "A", ["Bus", "Train", "Walk", "No category"], "Bus has the greatest frequency."),
       dataAnswer("data-exam-m5", "Delivery times are 18, 20, 21, 22, 23, 24 and 47 minutes. Identify the outlier.", "18,\\ 20,\\ 21,\\ 22,\\ 23,\\ 24,\\ 47", "47", ["47 min", "47 minutes"]),
       financeChoice("data-exam-m6", "With the delivery-time outlier present, the better typical measure is:", "C", ["Range", "Maximum", "Median", "Total"], "Median is less affected by the outlier."),
-      dataAnswer("data-exam-m7", "A survey has 18 yes responses out of 30 students. What percentage said yes?", "\\text{yes}=18,\\quad \\text{total}=30", "60%", ["60", "60 percent", "60percent"]),
+      dataAnswer("data-exam-m7", "A survey has 18 yes responses out of 30 students. What percentage said yes?", "\\text{yes}=18,\\quad \\text{total}=30", "60%", ["60", "60 percent", "60percent", "60 %"]),
       financeChoice("data-exam-m8", "A column graph is read by:", "B", ["Choosing the smallest label only", "Matching each category to its column height", "Ignoring frequencies", "Using time zones"], "Column height gives the value or frequency."),
       dataAnswer("data-exam-m9", "Sport scores are 9, 12, 12, 15 and 17. Find the mode.", "9,\\ 12,\\ 12,\\ 15,\\ 17", "12", ["12 points"]),
       financeChoice("data-exam-m10", "A practical conclusion should be based on:", "D", ["A guess", "Only the largest number", "No context", "The data and its limitations"], "Conclusions should reflect the data carefully."),

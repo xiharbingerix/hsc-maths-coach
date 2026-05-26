@@ -776,7 +776,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "time-location",
         title: "Time and Location",
         description:
-          "Timetables, elapsed time, UTC offsets, Australian and international time zones, and date changes in travel contexts.",
+          "Timetables, elapsed time, UTC offsets, Australian and international time zones, date changes, grid references and map scales.",
         syllabusArea: "Measurement",
         focus: "Time and location",
         lessons: [
@@ -793,10 +793,16 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Use UTC offsets, Australian and international time zones, daylight saving and date changes.",
           },
           {
+            slug: "map-scales-grid-references-location",
+            title: "Map Scales, Grid References and Location",
+            description:
+              "Use text grids, coordinates, map scales and simple compass directions to describe location without drawing maps.",
+          },
+          {
             slug: "time-location-exam-practice",
             title: "Time and Location Exam Practice",
             description:
-              "Practise mixed time questions using timetables, elapsed time, UTC offsets, time zones and date changes.",
+              "Practise mixed time and location questions using timetables, UTC offsets, date changes, grid references and map scales.",
           },
         ],
       },
@@ -804,7 +810,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "networks-paths-trees",
         title: "Networks, Paths and Trees",
         description:
-          "Network diagrams, paths, trails, circuits, connectivity, trees, and minimum spanning trees.",
+          "Network diagrams, edge lists, paths, trails, circuits, connectivity, trees, and minimum spanning trees.",
         syllabusArea: "Networks",
         focus: "Networks, paths and trees",
         lessons: [
