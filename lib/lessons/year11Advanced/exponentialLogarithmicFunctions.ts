@@ -409,13 +409,13 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
         },
       ],
       guidedPractice: [
-        formulaAnswer("y11adv-exp-model-g1", "A savings account follows the displayed model. Find the balance after the given number of years.", "A=5000(1.1)^t,\\quad t=2", "6050", ["$6050", "6050.00", "$6050.00"]),
+        formulaAnswer("y11adv-exp-model-g1", "A savings account follows the displayed model. Find the balance after the given number of years.", "A=5000(1.1)^t,\\quad t=2", "6050", ["6050.00", "$6050", "$6050.00", "$6,050", "$6,050.00", "6,050", "6,050.00"]),
         practicalChoice("y11adv-exp-model-g2", "Which statement describes the model?", "B", ["Population growth", "Radioactive decay", "Linear decrease", "No change"], "The base is between 0 and 1, so it is decay.", "N=200(0.5)^t"),
         formulaAnswer("y11adv-exp-model-g3", "A bacteria culture doubles each hour. Find the time needed to reach the target amount.", "A=250(2)^t,\\quad A=2000", "3", ["3 hours"]),
         practicalChoice("y11adv-exp-model-g4", "Which statement describes the continuous model?", "A", ["Growth", "Decay", "No change", "A linear model"], "A positive k-value in a continuous model gives growth.", "A=1200e^{0.04t}"),
       ],
       independentPractice: [
-        formulaAnswer("y11adv-exp-model-i1", "A car value follows the displayed depreciation model. Find the value after the given number of years.", "V=20000(0.8)^t,\\quad t=2", "12800", ["$12800", "12,800", "$12,800"]),
+        formulaAnswer("y11adv-exp-model-i1", "A car value follows the displayed depreciation model. Find the value after the given number of years.", "V=20000(0.8)^t,\\quad t=2", "12800", ["12800.00", "$12800", "$12800.00", "12,800", "12,800.00", "$12,800", "$12,800.00"]),
         formulaAnswer("y11adv-exp-model-i2", "A medicine amount halves every four hours. Find the amount remaining after two half-lives.", "A_0=96\\text{ mg}", "24", ["24 mg"]),
         practicalChoice("y11adv-exp-model-i3", "Which model represents a population increasing by five percent each year?", "C", ["$P=3000(0.95)^t$", "$P=3000+1.05t$", "$P=3000(1.05)^t$", "$P=1.05(3000)^t$"], "A 5% yearly increase has growth factor 1.05.", "\\text{Initial population }3000"),
         practicalChoice("y11adv-exp-model-i4", "Which approximate time best matches the target amount?", "D", ["About 1.2 years", "About 3.0 years", "About 5.0 years", "About 7.3 years"], "Solving needs logarithms; the target is reached a little after 7 years.", "10000=6000(1.07)^t"),
@@ -431,7 +431,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
         formulaAnswer("y11adv-exp-model-m1", "A population model is shown. Find the population after the given time.", "P=1000(2)^t,\\quad t=3", "8000", ["8000 people", "8,000"]),
         practicalChoice("y11adv-exp-model-m2", "Which statement describes the model?", "C", ["Growth", "No change", "Decay", "Linear increase"], "The base is between 0 and 1.", "A=600(0.75)^t"),
         formulaAnswer("y11adv-exp-model-m3", "A sample halves every day. Find the amount remaining after three days.", "A_0=64\\text{ g}", "8", ["8 g", "8 grams"]),
-        formulaAnswer("y11adv-exp-model-m4", "A compound-interest model is shown. Find the balance after the given number of years.", "A=2000(1.05)^2", "2205", ["$2205", "2205.00", "$2205.00"]),
+        formulaAnswer("y11adv-exp-model-m4", "A compound-interest model is shown. Find the balance after the given number of years.", "A=2000(1.05)^2", "2205", ["2205.00", "$2205", "$2205.00", "$2,205", "$2,205.00", "2,205", "2,205.00"]),
         practicalChoice("y11adv-exp-model-m5", "Which continuous model represents decay?", "B", ["$A=500e^{0.03t}$", "$A=500e^{-0.03t}$", "$A=500(1.03)^t$", "$A=500+0.03t$"], "A negative k-value gives continuous decay.", "\\text{Continuous exponential models}"),
         formulaAnswer("y11adv-exp-model-m6", "A bacteria culture triples each hour. Find the time needed to reach the target amount.", "A=100(3)^t,\\quad A=2700", "3", ["3 hours"]),
         practicalChoice("y11adv-exp-model-m7", "Which option identifies the modelling error?", "A", ["A five percent increase should use a factor of 1.05", "The model should be logarithmic only", "The starting amount must be zero", "The base should be negative"], "Increasing by 5% means multiplying by 1.05 each period.", "\\text{Model used: }P=4000(0.05)^t"),
@@ -508,7 +508,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
         formulaAnswer("y11adv-exp-exam-g4", "A decay model is shown. Find the amount after the given time.", "A=120(0.5)^t,\\quad t=2", "30"),
       ],
       independentPractice: [
-        formulaAnswer("y11adv-exp-exam-i1", "Evaluate the negative-index expression.", "3^{-2}", "1/9", ["0.1111111111", "0.11"]),
+        formulaAnswer("y11adv-exp-exam-i1", "Evaluate the negative-index expression. Give the exact fraction.", "3^{-2}", "1/9"),
         practicalChoice("y11adv-exp-exam-i2", "Which logarithmic statement matches the displayed exponential statement?", "D", ["$\\log_6 2=36$", "$\\log_2 36=6$", "$\\log_{36}6=2$", "$\\log_6 36=2$"], "The base is 6, the result is 36, and the exponent is 2.", "6^2=36"),
         practicalChoice("y11adv-exp-exam-i3", "Which expression uses the quotient law correctly?", "B", ["$\\log_4 12+\\log_4 3$", "$\\log_4 12-\\log_4 3$", "$\\log_4(12-3)$", "$\\log_4 12\\log_4 3$"], "A quotient becomes subtraction.", "\\log_4\\left(\\frac{12}{3}\\right)"),
         formulaAnswer("y11adv-exp-exam-i4", "Solve the logarithmic equation.", "\\log_2(x+3)=5", "29", ["x=29"]),

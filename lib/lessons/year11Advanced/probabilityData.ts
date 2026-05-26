@@ -134,7 +134,7 @@ export function year11AdvancedProbabilityDataLessonOverride(
       ],
       independentPractice: [
         dataAnswer("y11adv-pd-data-i1", "Find the range of the data set.", "14,\\ 18,\\ 19,\\ 21,\\ 30", "16"),
-        dataAnswer("y11adv-pd-data-i2", "Find the mean from the frequency table.", "\\begin{array}{c|ccc}x&2&4&6\\\\ \\hline f&3&2&1\\end{array}", "10/3", ["3.3333333333", "3.33"]),
+        dataAnswer("y11adv-pd-data-i2", "Find the mean from the frequency table. Give the exact fraction.", "\\begin{array}{c|ccc}x&2&4&6\\\\ \\hline f&3&2&1\\end{array}", "10/3"),
         dataAnswer("y11adv-pd-data-i3", "Find the mode from the frequency table.", "\\begin{array}{c|cccc}x&1&2&3&4\\\\ \\hline f&2&5&3&1\\end{array}", "2"),
         practicalChoice("y11adv-pd-data-i4", "Using the displayed fences, decide whether the test value is an outlier.", "A", ["It is an outlier", "It is not an outlier", "It is the median", "It is the IQR"], "A value greater than the upper fence is an outlier.", "\\text{lower fence}=4,\\quad \\text{upper fence}=28,\\quad \\text{test value}=31"),
         practicalChoice("y11adv-pd-data-i5", "Which measure of centre is more appropriate for a strongly skewed data set with one extreme value?", "C", ["Mean", "Range", "Median", "Maximum"], "The median is resistant to extreme values."),
@@ -149,7 +149,7 @@ export function year11AdvancedProbabilityDataLessonOverride(
         dataAnswer("y11adv-pd-data-m1", "Find the median of the sorted data set.", "7,\\ 9,\\ 10,\\ 14,\\ 18", "10"),
         dataAnswer("y11adv-pd-data-m2", "Find the range of the data set.", "3,\\ 8,\\ 12,\\ 17", "14"),
         dataAnswer("y11adv-pd-data-m3", "Find the interquartile range from the displayed quartiles.", "Q_1=6,\\quad Q_3=15", "9"),
-        dataAnswer("y11adv-pd-data-m4", "Find the mean from the frequency table.", "\\begin{array}{c|ccc}x&1&2&5\\\\ \\hline f&2&3&1\\end{array}", "13/6", ["2.1666666667", "2.17"]),
+        dataAnswer("y11adv-pd-data-m4", "Find the mean from the frequency table. Give the exact fraction.", "\\begin{array}{c|ccc}x&1&2&5\\\\ \\hline f&2&3&1\\end{array}", "13/6"),
         dataAnswer("y11adv-pd-data-m5", "Find the mode from the frequency table.", "\\begin{array}{c|cccc}x&4&5&6&7\\\\ \\hline f&1&4&2&3\\end{array}", "5"),
         practicalChoice("y11adv-pd-data-m6", "Using the displayed outlier fences, classify the test value.", "B", ["Not an outlier", "High outlier", "Low outlier", "The upper quartile"], "The test value is greater than the upper fence.", "\\text{lower fence}=2,\\quad \\text{upper fence}=26,\\quad \\text{test value}=29"),
         practicalChoice("y11adv-pd-data-m7", "Which statistic is affected most by replacing the largest value with a much larger value?", "A", ["Mean", "Median", "Lower quartile", "Sample size"], "The mean uses every value, so an extreme maximum can pull it strongly."),
@@ -613,7 +613,7 @@ export function year11AdvancedProbabilityDataLessonOverride(
       ],
       guidedPractice: [
         dataAnswer("y11adv-pd-exam-g1", "Find the median of the sorted data set.", "11,\\ 13,\\ 14,\\ 18,\\ 20", "14"),
-        dataAnswer("y11adv-pd-exam-g2", "Find the missing probability.", "\\begin{array}{c|ccc}x&0&1&2\\\\ \\hline P(X=x)&0.25&p&0.50\\end{array}", "0.25", ["1/4"]),
+        dataAnswer("y11adv-pd-exam-g2", "Find the missing probability.", "\\begin{array}{c|ccc}x&0&1&2\\\\ \\hline P(X=x)&0.25&p&0.50\\end{array}", "0.25", ["1/4", "0.250"]),
         practicalChoice("y11adv-pd-exam-g3", "From the two-way table, find the conditional probability of a pass, given Group B.", "D", ["$21/60$", "$30/60$", "$45/60$", "$21/30$"], "Use the Group B total as the denominator.", "\\begin{array}{c|cc|c}&\\text{Pass}&\\text{Not pass}&\\text{Total}\\\\ \\hline \\text{Group A}&24&6&30\\\\ \\text{Group B}&21&9&30\\\\ \\hline \\text{Total}&45&15&60\\end{array}"),
         dataAnswer("y11adv-pd-exam-g4", "Find the expected value.", "\\begin{array}{c|cc}x&0&6\\\\ \\hline P(X=x)&0.5&0.5\\end{array}", "3"),
       ],
