@@ -71,7 +71,9 @@ export function NewCourseOverviewPage({
 
   const lessonCount = newCourseLessonCount(course);
   const status = statusCopy[course.status];
-  const isAvailable = course.status === "available";
+  const activeUnits = course.units.filter((unit) => unit.lessons.length > 0);
+  const plannedUnits = course.units.filter((unit) => unit.lessons.length === 0);
+  const hasActiveLessons = activeUnits.length > 0;
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -90,18 +92,18 @@ export function NewCourseOverviewPage({
           <div className="mt-6 grid gap-3 md:grid-cols-3">
             <div className="rounded-2xl bg-slate-50 p-4">
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                {isAvailable ? "Units" : "Status"}
+                {hasActiveLessons ? "Units" : "Status"}
               </p>
               <p className="mt-1 text-3xl font-bold">
-                {isAvailable ? course.units.length : status.label}
+                {hasActiveLessons ? course.units.length : status.label}
               </p>
             </div>
             <div className="rounded-2xl bg-slate-50 p-4">
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                {isAvailable ? "Active lessons" : "Planned units"}
+                {hasActiveLessons ? "Active lessons" : "Planned units"}
               </p>
               <p className="mt-1 text-3xl font-bold">
-                {isAvailable ? lessonCount : course.units.length}
+                {hasActiveLessons ? lessonCount : course.units.length}
               </p>
             </div>
             <div className="rounded-2xl bg-slate-50 p-4">
@@ -115,9 +117,9 @@ export function NewCourseOverviewPage({
           </div>
         </header>
 
-        {isAvailable ? (
+        {hasActiveLessons && (
           <section className="grid gap-5 md:grid-cols-2">
-            {course.units.map((unit) => (
+            {activeUnits.map((unit) => (
               <Link
                 key={unit.slug}
                 href={`/course/${course.slug}/${unit.slug}`}
@@ -125,7 +127,7 @@ export function NewCourseOverviewPage({
               >
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                    Unit
+                    Active unit
                   </p>
                   <span
                     className={`rounded-full px-3 py-1 text-xs font-semibold ${status.classes}`}
@@ -146,7 +148,9 @@ export function NewCourseOverviewPage({
               </Link>
             ))}
           </section>
-        ) : (
+        )}
+
+        {plannedUnits.length > 0 && (
           <section className="space-y-5 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
             <div>
               <span
@@ -155,17 +159,19 @@ export function NewCourseOverviewPage({
                 {status.label}
               </span>
               <h2 className="mt-4 text-2xl font-bold">
-                Course outline coming soon
+                {hasActiveLessons
+                  ? "Additional units coming soon"
+                  : "Course outline coming soon"}
               </h2>
               <p className="mt-3 max-w-3xl leading-7 text-slate-600">
-                Lessons are being prepared for this pathway. Planned units are
-                shown below, but no active lesson routes have been created and
-                no placeholder lessons are shown.
+                Planned units are shown below, but no active lesson routes have
+                been created for these units and no placeholder lessons are
+                shown.
               </p>
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-              {course.units.map((unit) => (
+              {plannedUnits.map((unit) => (
                 <article
                   key={unit.slug}
                   className="rounded-2xl border border-slate-200 bg-slate-50 p-5"
@@ -195,7 +201,7 @@ export function NewCourseOverviewPage({
                 Part of online learning access
               </h2>
               <p className="mt-3 max-w-3xl leading-7 text-slate-600">
-                {isAvailable
+                {hasActiveLessons
                   ? "Unit overviews are public previews. Individual lessons use the same online learning access gate as the existing Year 12 Advanced course."
                   : "This pathway is not open for lessons yet. The course outline will appear here once planning is complete."}
               </p>

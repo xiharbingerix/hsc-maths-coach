@@ -35,6 +35,7 @@ import {
   year11AdvancedTrigonometryMeasureLessonOverride,
   year11AdvancedWorkingFunctionsLessonOverride,
 } from "./lessons/year11Advanced";
+import { year11ExtensionPermutationsCombinationsLessonOverride } from "./lessons/year11Extension";
 
 export type {
   CourseLessonSeed,
@@ -182,7 +183,8 @@ export function buildLesson(
     year11AdvancedTrigonometryMeasureLessonOverride(course, unit, lesson) ??
     year11AdvancedExponentialLogarithmicLessonOverride(course, unit, lesson) ??
     year11AdvancedIntroductionDifferentiationLessonOverride(course, unit, lesson) ??
-    year11AdvancedGraphTransformationsLessonOverride(course, unit, lesson);
+    year11AdvancedGraphTransformationsLessonOverride(course, unit, lesson) ??
+    year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson);
 
   return {
     id: lesson.slug,
@@ -863,7 +865,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 11 Mathematics Extension",
     yearLevel: "Year 11",
     courseType: "Mathematics Extension",
-    status: "coming_soon",
+    status: "in_progress",
     description:
       "A planned Year 11 Mathematics Extension pathway for future support in higher-level algebra, functions, trigonometry, calculus, and proof.",
     positioning:
@@ -903,7 +905,38 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Planned counting techniques, arrangements, selections, and combinatorial reasoning.",
         syllabusArea: "Combinatorics",
         focus: "Permutations and combinations",
-        lessons: [],
+        lessons: [
+          {
+            slug: "counting-principles",
+            title: "Counting Principles and Factorials",
+            description:
+              "Use multiplication, addition, and factorial notation to count staged choices and simple arrangements.",
+          },
+          {
+            slug: "permutations",
+            title: "Permutations",
+            description:
+              "Count ordered arrangements using factorials and permutation notation.",
+          },
+          {
+            slug: "combinations",
+            title: "Combinations",
+            description:
+              "Count unordered selections and compare combinations with permutations.",
+          },
+          {
+            slug: "arrangements-with-restrictions",
+            title: "Arrangements with Restrictions",
+            description:
+              "Handle together, not-together, repeated-object, and circular arrangement restrictions.",
+          },
+          {
+            slug: "perms-combs-exam-practice",
+            title: "Permutations and Combinations Exam Practice",
+            description:
+              "Practise mixed Extension counting questions involving principles, permutations, combinations, and restrictions.",
+          },
+        ],
       },
       {
         slug: "binomial-theorem",

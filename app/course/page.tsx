@@ -14,7 +14,7 @@ const statusCopy: Record<
   in_progress: {
     label: "In progress",
     classes: "bg-amber-100 text-amber-800",
-    cta: "View outline",
+    cta: "View course",
   },
   coming_soon: {
     label: "Coming soon",
@@ -82,7 +82,7 @@ export default function CoursePage() {
         <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {courseCatalogue.map((course) => {
             const status = statusCopy[course.status];
-            const isAvailable = course.status === "available";
+            const hasActiveLessons = course.activeLessonCount > 0;
 
             return (
               <article
@@ -116,7 +116,7 @@ export default function CoursePage() {
                       Units
                     </p>
                     <p className="mt-1 text-2xl font-bold">
-                      {isAvailable
+                      {hasActiveLessons
                         ? course.unitCount
                         : `${course.unitCount} planned`}
                     </p>
@@ -126,7 +126,9 @@ export default function CoursePage() {
                       Lessons
                     </p>
                     <p className="mt-1 text-2xl font-bold">
-                      {isAvailable ? course.activeLessonCount : "Not active"}
+                      {hasActiveLessons
+                        ? `${course.activeLessonCount} active`
+                        : "Not active"}
                     </p>
                   </div>
                 </div>
@@ -134,7 +136,7 @@ export default function CoursePage() {
                 <Link
                   href={course.href}
                   className={`mt-5 inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold shadow-sm transition ${
-                    isAvailable
+                    hasActiveLessons
                       ? "bg-slate-950 text-white hover:bg-slate-800"
                       : "border border-slate-300 bg-white text-slate-900 hover:bg-slate-50"
                   }`}
