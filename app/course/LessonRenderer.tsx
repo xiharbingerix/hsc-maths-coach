@@ -8,6 +8,7 @@ import type {
   ExplicitLesson,
   PracticeQuestion,
 } from "../../lib/lessons/differentialCalculus";
+import { NetworkDiagramView } from "./components/NetworkDiagramView";
 
 type LessonStage =
   | "watch"
@@ -205,6 +206,8 @@ function PracticeCard({
         <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
           <BlockMath math={question.latex} />
         </div>
+
+        {question.diagram && <NetworkDiagramView diagram={question.diagram} />}
       </div>
 
       {question.choices ? (
@@ -310,6 +313,8 @@ function QuizQuestion({
         <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
           <BlockMath math={question.latex} />
         </div>
+
+        {question.diagram && <NetworkDiagramView diagram={question.diagram} />}
       </div>
 
       {question.choices ? (
@@ -767,6 +772,8 @@ export function LessonRenderer({
                 <div className="overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
                   <BlockMath math={example.questionLatex} />
                 </div>
+
+                {example.diagram && <NetworkDiagramView diagram={example.diagram} />}
 
                 <div className="space-y-3">
                   {example.steps.map((step, index) => (

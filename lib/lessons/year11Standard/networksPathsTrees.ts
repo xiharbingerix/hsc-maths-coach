@@ -351,7 +351,26 @@ export function year11StandardNetworksLessonOverride(
         shortAnswer("net-path-m2", "Add path weights 4, 6, and 1.", "4+6+1", "11"),
         labelledChoice("net-path-m3", "A trail cannot repeat:", "B", ["Vertices", "Edges", "Weights", "Labels"], "A trail does not repeat edges."),
         labelledChoice("net-path-m4", "A connected network means:", "A", ["All vertices are reachable", "All weights are equal", "There are no edges", "It must be directed"], "Connected means every vertex can be reached."),
-        shortAnswer("net-path-m5", "From the weighted edge list AB=4, AC=2, CB=1, BD=5, CD=7, the shortest A to D route has weight 8. What is the shortest-path weight?", "AB=4,\\ AC=2,\\ CB=1,\\ BD=5,\\ CD=7", "8"),
+        {
+          ...shortAnswer("net-path-m5", "From the weighted edge list AB=4, AC=2, CB=1, BD=5, CD=7, the shortest A to D route has weight 8. What is the shortest-path weight?", "AB=4,\\ AC=2,\\ CB=1,\\ BD=5,\\ CD=7", "8"),
+          diagram: {
+            description:
+              "Undirected weighted graph with vertices A, B, C, D. Edges: A-B weight 4, A-C weight 2, C-B weight 1, B-D weight 5, C-D weight 7.",
+            vertices: [
+              { id: "A", label: "A", x: 80, y: 150 },
+              { id: "B", label: "B", x: 200, y: 70 },
+              { id: "C", label: "C", x: 200, y: 230 },
+              { id: "D", label: "D", x: 320, y: 150 },
+            ],
+            edges: [
+              { from: "A", to: "B", weight: 4 },
+              { from: "A", to: "C", weight: 2 },
+              { from: "C", to: "B", weight: 1 },
+              { from: "B", to: "D", weight: 5 },
+              { from: "C", to: "D", weight: 7 },
+            ],
+          },
+        },
         labelledChoice("net-path-m6", "The shortest path may not be best because:", "D", ["It has the smallest distance", "It uses vertices", "It is drawn on paper", "Other practical factors may matter"], "Context can make a longer route better."),
         shortAnswer("net-path-m7", "A network has 10 vertices. Is this within a no-more-than-10-vertices shortest path question? Answer yes or no.", "\\text{vertices}=10", "yes", ["Yes", "YES"]),
         labelledChoice("net-path-m8", "A route A-B-C is best described as:", "A", ["Path", "Degree", "Weight only", "Disconnected network"], "It is a route through connected vertices."),

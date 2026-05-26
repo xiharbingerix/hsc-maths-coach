@@ -1,7 +1,11 @@
+import type { NetworkDiagram } from "./types";
+
 export type PracticeQuestion = {
   id: string;
   prompt: string;
   latex: string;
+  diagram?: NetworkDiagram;
+  solutionDiagram?: NetworkDiagram;
   answer: string;
   acceptedAnswers?: string[];
   choices?: {
@@ -20,6 +24,7 @@ export type WorkedExampleStep = {
 export type WorkedExample = {
   title: string;
   questionLatex: string;
+  diagram?: NetworkDiagram;
   steps: WorkedExampleStep[];
   finalAnswerLatex: string;
 };
