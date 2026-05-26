@@ -865,9 +865,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     courseType: "Mathematics Extension",
     status: "coming_soon",
     description:
-      "A planned Year 11 Mathematics Extension pathway for students preparing for higher-level algebra, functions, trigonometry, calculus, and proof.",
+      "A planned Year 11 Mathematics Extension pathway for future support in higher-level algebra, functions, trigonometry, calculus, and proof.",
     positioning:
-      "Year 11 Mathematics Extension lessons are being prepared. The course outline will be added once the pathway is ready for students.",
+      "Year 11 Mathematics Extension lessons are being planned against the NSW Mathematics Extension 11-12 syllabus. The course outline will be added once the pathway is ready for students.",
     units: [],
   },
   {
@@ -877,9 +877,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     courseType: "Mathematics Extension 1",
     status: "coming_soon",
     description:
-      "A planned Year 12 Mathematics Extension 1 pathway for HSC students building fluency in advanced functions, calculus, trigonometry, and combinatorics.",
+      "A planned Year 12 Mathematics Extension 1 pathway for future Extension 1 support in advanced functions, calculus, trigonometry, and combinatorics.",
     positioning:
-      "Year 12 Mathematics Extension 1 lessons are being prepared. The course outline will be added once the pathway is ready for students.",
+      "Year 12 Mathematics Extension 1 lessons are being planned against the NSW Mathematics Extension 1 11-12 syllabus. The course outline will be added once the pathway is ready for students.",
     units: [],
   },
 ];

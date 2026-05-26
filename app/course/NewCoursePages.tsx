@@ -171,9 +171,9 @@ export function NewCourseOverviewPage({
                 Part of online learning access
               </h2>
               <p className="mt-3 max-w-3xl leading-7 text-slate-600">
-                Unit overviews are public previews. Individual lessons use the
-                same online learning access gate as the existing Year 12
-                Advanced course.
+                {isAvailable
+                  ? "Unit overviews are public previews. Individual lessons use the same online learning access gate as the existing Year 12 Advanced course."
+                  : "This pathway is not open for lessons yet. The course outline will appear here once planning is complete."}
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
