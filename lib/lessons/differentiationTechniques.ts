@@ -448,7 +448,7 @@ export const applicationsExtendedDifferentiationLesson = lesson(
     choice("diff-tech-app-m7", "Choose the tangent equation at x = 0.", "y=e^x", "C", ["$y=x$", "$y=2x+1$", "$y=x+1$", "$y=-x+1$"], "At x = 0, the point is (0, 1) and the gradient is 1."),
     numeric("diff-tech-app-m8", "Find f'(1).", "f(x)=x\\ln x", "1"),
     choice("diff-tech-app-m9", "A curve has y = ln(3x + 1). Which tangent gradient at x = 1 is correct?", "\\text{Select A, B, C, or D.}", "D", ["3", "1", "1/3", "3/4"], "The derivative is 3/(3x + 1), so at x = 1 it is 3/4."),
-    choice("diff-tech-app-m10", "For f'(x)=e^x(x-2), which statement identifies the stationary x-value?", "\\text{Select A, B, C, or D.}", "A", ["$x=2$, because $e^x$ is never zero", "$x=0$, because exponential graphs cross the axis", "$x=e^2$", "$x=-2$, because the sign changes"], "The zero comes from x - 2 = 0 because e^x is never zero."),
+    choice("diff-tech-app-m10", "For the function shown, which statement identifies the stationary x-value?", "f(x)=e^x(x-3)", "A", ["$x=2$, because $f'(x)=e^x(x-2)$ and $e^x$ is never zero", "$x=0$, because exponential graphs cross the axis", "$x=3$, because the bracket in the original function is zero", "$x=-2$, because the sign changes"], "Using the product rule gives f'(x)=e^x(x-2). Since e^x is never zero, the stationary x-value is x = 2."),
   ]
 );
 
@@ -538,7 +538,7 @@ export const differentiationTechniquesExamPracticeLesson = lesson(
     numeric("diff-tech-exam-m6", "Find the tangent gradient at x = 1.", "y=(x+1)^3", "12"),
     choice("diff-tech-exam-m7", "Which statement best identifies the error in differentiating x cos x as -x sin x?", "\\text{Select A, B, C, or D.}", "B", ["The quotient-rule denominator is missing", "The derivative of the first factor is missing", "The inner derivative is missing", "The derivative of cos x should be sec squared x"], "Product rule also includes 1 times cos x."),
     choice("diff-tech-exam-m8", "Which function has derivative value 2 at x = 0?", "\\text{Select A, B, C, or D.}", "A", ["$e^{2x}$", "$\\ln(x+1)$", "$\\cos(2x)$", "$x\\sin x$"], "The derivative of e^(2x) is 2e^(2x), which is 2 at x = 0."),
-    choice("diff-tech-exam-m9", "For f'(x)=e^x(x-4), which stationary x-value is correct?", "\\text{Select A, B, C, or D.}", "C", ["0", "-4", "4", "e^4"], "Since e^x is never zero, solve x - 4 = 0."),
+    choice("diff-tech-exam-m9", "For the function shown, which stationary x-value is correct?", "f(x)=e^x(x-5)", "C", ["0", "-4", "4", "5"], "Using the product rule gives f'(x)=e^x(x-4). Since e^x is never zero, solve x - 4 = 0."),
     choice("diff-tech-exam-m10", "A curve is y = x ln x. Which tangent gradient at x = 1 is correct?", "\\text{Select A, B, C, or D.}", "B", ["0", "1", "e", "2"], "The product-rule derivative is ln x + 1, so at x = 1 it is 1."),
   ]
 );
