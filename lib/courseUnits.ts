@@ -40,6 +40,13 @@ export const courseUnits: CourseUnitSummary[] = [
     activeLessonCount: 5,
   },
   {
+    title: "Applications of Differentiation",
+    href: "/course/applications-differentiation",
+    description:
+      "Second derivative, concavity, inflection points, curve sketching, optimisation, kinematics and motion applications.",
+    activeLessonCount: 6,
+  },
+  {
     title: "Integral Calculus",
     href: "/course/integral-calculus",
     description:
@@ -83,7 +90,7 @@ export const year12AdvancedCourse: CourseCatalogueItem = {
   courseType: "Mathematics Advanced",
   href: "/course/year-12-advanced",
   description:
-    "Year 12 Advanced is in active development. Current lessons cover functions, trigonometry, introductory calculus, differentiation techniques, integral calculus, statistics and financial mathematics. Further HSC topics including further trigonometry and extended calculus applications are being added.",
+    "Year 12 Advanced is in active development. Current lessons cover functions, trigonometry, introductory calculus, differentiation techniques, applications of differentiation, integral calculus, statistics and financial mathematics. Further HSC topics including further trigonometry are being added.",
   unitCount: courseUnits.length,
   activeLessonCount: courseUnits.reduce(
     (total, unit) => total + unit.activeLessonCount,
