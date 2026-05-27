@@ -68,6 +68,13 @@ export const courseUnits: CourseUnitSummary[] = [
     activeLessonCount: 7,
   },
   {
+    title: "Further Trigonometry",
+    href: "/course/further-trigonometry",
+    description:
+      "Compound angle formulas, double angle formulas, exact values, identity simplification and further trigonometric equations.",
+    activeLessonCount: 5,
+  },
+  {
     title: "Financial Mathematics",
     href: "/course/financial-mathematics",
     description:
@@ -90,7 +97,7 @@ export const year12AdvancedCourse: CourseCatalogueItem = {
   courseType: "Mathematics Advanced",
   href: "/course/year-12-advanced",
   description:
-    "Year 12 Advanced is in active development. Current lessons cover functions, trigonometry, introductory calculus, differentiation techniques, applications of differentiation, integral calculus, statistics and financial mathematics. Further HSC topics including further trigonometry are being added.",
+    "Year 12 Advanced is in active development. Current lessons cover functions, trigonometry, further trigonometry, introductory calculus, differentiation techniques, applications of differentiation, integral calculus, statistics and financial mathematics. Further HSC topics are being added.",
   unitCount: courseUnits.length,
   activeLessonCount: courseUnits.reduce(
     (total, unit) => total + unit.activeLessonCount,
