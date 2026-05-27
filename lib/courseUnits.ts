@@ -33,6 +33,13 @@ export const courseUnits: CourseUnitSummary[] = [
     activeLessonCount: 12,
   },
   {
+    title: "Differentiation Techniques",
+    href: "/course/differentiation-techniques",
+    description:
+      "Standard derivatives, chain rule, product rule, quotient rule, tangents, normals, rates and stationary point applications.",
+    activeLessonCount: 5,
+  },
+  {
     title: "Integral Calculus",
     href: "/course/integral-calculus",
     description:
@@ -76,7 +83,7 @@ export const year12AdvancedCourse: CourseCatalogueItem = {
   courseType: "Mathematics Advanced",
   href: "/course/year-12-advanced",
   description:
-    "Year 12 Advanced is in active development. Current lessons cover functions, trigonometry, introductory calculus, integral calculus, statistics and financial mathematics. Further HSC topics including advanced differentiation techniques, further trigonometry, and extended calculus applications are being added.",
+    "Year 12 Advanced is in active development. Current lessons cover functions, trigonometry, introductory calculus, differentiation techniques, integral calculus, statistics and financial mathematics. Further HSC topics including further trigonometry and extended calculus applications are being added.",
   unitCount: courseUnits.length,
   activeLessonCount: courseUnits.reduce(
     (total, unit) => total + unit.activeLessonCount,
