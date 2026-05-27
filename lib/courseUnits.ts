@@ -57,8 +57,8 @@ export const courseUnits: CourseUnitSummary[] = [
     title: "Further Integral Calculus",
     href: "/course/further-integral-calculus",
     description:
-      "Standard trigonometric, exponential and logarithmic integrals, reverse chain rule, definite integrals and area between curves.",
-    activeLessonCount: 5,
+      "Standard trigonometric, exponential and logarithmic integrals, reverse chain rule, definite integrals, trapezoidal rule and area between curves.",
+    activeLessonCount: 6,
   },
   {
     title: "Functions and Graphing Techniques",

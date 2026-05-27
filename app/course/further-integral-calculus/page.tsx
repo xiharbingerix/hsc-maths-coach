@@ -16,6 +16,7 @@ const unitCoverage = [
   "Exponential and logarithmic forms",
   "Reverse chain rule",
   "Definite integrals with standard forms",
+  "Trapezoidal rule",
   "Area between curves",
   "Mixed HSC-style practice",
 ];
@@ -39,7 +40,8 @@ export default function FurtherIntegralCalculusModulePage() {
           <p className="mt-4 max-w-3xl text-slate-600">
             A HSC-focused unit for standard trigonometric, exponential and
             logarithmic integrals, reverse chain rule, definite integrals and
-            area between curves.
+            numerical integration, including the trapezoidal rule and area
+            between curves.
           </p>
 
           <div className="mt-6 grid gap-3 md:grid-cols-3">
@@ -76,6 +78,7 @@ export default function FurtherIntegralCalculusModulePage() {
                 <li>Review standard derivatives before choosing antiderivatives.</li>
                 <li>Use multiple-choice options to compare symbolic forms safely.</li>
                 <li>Check inner derivative factors in reverse-chain questions.</li>
+                <li>Use table values carefully when applying the trapezoidal rule.</li>
                 <li>Use top minus bottom for area between curves.</li>
               </ul>
             </section>

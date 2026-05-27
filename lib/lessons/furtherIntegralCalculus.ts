@@ -48,6 +48,25 @@ function intNumber(
   };
 }
 
+function trapNumber(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = [],
+  explanation?: string
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    hint: "Identify h and combine the endpoint and interior y-values carefully.",
+    explanation: explanation ?? `The trapezoidal approximation is ${answer}.`,
+  };
+}
+
 function furtherIntegralLesson(
   id: string,
   title: string,
@@ -453,6 +472,112 @@ export const areaBetweenCurvesExtendedLesson = furtherIntegralLesson(
   ]
 );
 
+export const trapezoidalRuleLesson = furtherIntegralLesson(
+  "trapezoidal-rule",
+  "The Trapezoidal Rule",
+  "Approximate definite integrals from functions or tables using one or more trapezoids, and interpret the effect of concavity.",
+  "Use the trapezoidal rule to approximate definite integrals and judge when the approximation is likely to overestimate or underestimate.",
+  [
+    "Identify the subinterval width h from limits and number of subintervals.",
+    "Apply the trapezoidal rule using endpoint and interior y-values.",
+    "Use one trapezoid and two trapezoids in simple function examples.",
+    "Approximate an integral from a table of values.",
+    "Recognise common coefficient errors in the trapezoidal formula.",
+    "Use concavity to decide whether the approximation overestimates or underestimates.",
+  ],
+  {
+    paragraphs: [
+      "The trapezoidal rule approximates a definite integral by replacing a curve with straight line segments and adding the areas of trapezoids.",
+      "The interval from a to b is split into n equal subintervals. The width of each subinterval is h.",
+      "Endpoint y-values are used once. Interior y-values are used twice because each interior height belongs to two neighbouring trapezoids.",
+      "With one subinterval, the rule is just the area of one trapezoid. With more subintervals, the straight segments usually follow the curve more closely.",
+      "Concavity helps interpret the error. For a concave-up graph, the trapezoids sit above the curve and tend to overestimate. For a concave-down graph, they tend to underestimate.",
+    ],
+    latexBlocks: [
+      "h=\\frac{b-a}{n}",
+      "\\int_a^b f(x)\\,dx\\approx\\frac h2\\left[y_0+2y_1+2y_2+\\cdots+2y_{n-1}+y_n\\right]",
+      "\\text{one subinterval: }\\frac h2(y_0+y_1)",
+      "\\text{more subintervals usually improve the approximation}",
+    ],
+  },
+  [
+    {
+      title: "One trapezoid for a simple integral",
+      questionLatex:
+        "\\text{Use one trapezoid to approximate }\\int_0^2 x^2\\,dx.",
+      steps: [
+        { explanation: "With one subinterval, the width is 2.", latex: "h=2" },
+        { explanation: "Find the endpoint y-values.", latex: "y_0=f(0)=0,\\quad y_1=f(2)=4" },
+        { explanation: "Use the one-trapezoid rule.", latex: "\\frac{2}{2}(0+4)=4" },
+      ],
+      finalAnswerLatex: "4",
+    },
+    {
+      title: "Two trapezoids for a simple integral",
+      questionLatex:
+        "\\text{Use two subintervals to approximate }\\int_0^2 x^2\\,dx.",
+      steps: [
+        { explanation: "The width is one.", latex: "h=\\frac{2-0}{2}=1" },
+        { explanation: "Use x-values 0, 1 and 2.", latex: "y_0=0,\\quad y_1=1,\\quad y_2=4" },
+        { explanation: "Double the interior value.", latex: "\\frac12(0+2(1)+4)=3" },
+      ],
+      finalAnswerLatex: "3",
+    },
+    {
+      title: "Use a table of values",
+      questionLatex:
+        "\\begin{array}{c|cccc}x&0&1&2&3\\\\ y&2&5&6&8\\end{array}",
+      steps: [
+        { explanation: "The x-values are one unit apart.", latex: "h=1" },
+        { explanation: "Use endpoints once and interior values twice.", latex: "\\frac12(2+2(5)+2(6)+8)" },
+        { explanation: "Evaluate the approximation.", latex: "16" },
+      ],
+      finalAnswerLatex: "16",
+    },
+    {
+      title: "Interpret concavity",
+      questionLatex: "f(x)=x^2\\quad \\text{on }0\\le x\\le2",
+      steps: [
+        { explanation: "The graph is concave up.", latex: "f''(x)=2>0" },
+        { explanation: "Straight chords lie above a concave-up curve." },
+        { explanation: "So the trapezoidal approximation overestimates the integral." },
+      ],
+      finalAnswerLatex: "\\text{overestimate}",
+    },
+  ],
+  [
+    trapNumber("fint-trap-g1", "Use one trapezoid to approximate the integral.", "\\int_0^2 x^2\\,dx", "4", [], "The endpoint y-values are 0 and 4, and the width is 2."),
+    trapNumber("fint-trap-g2", "Use two subintervals to approximate the integral.", "\\int_0^2 x^2\\,dx", "3", [], "Use y-values 0, 1 and 4 with the interior value doubled."),
+    intChoice("fint-trap-g3", "What is the subinterval width?", "a=1,\\quad b=5,\\quad n=4", "B", ["4", "1", "5", "16"], "The width is (5-1)/4=1."),
+    intChoice("fint-trap-g4", "Which value is doubled in the two-subinterval trapezoidal rule?", "y_0,\\ y_1,\\ y_2", "C", ["$y_0$ only", "$y_2$ only", "$y_1$ only", "all three values"], "Interior y-values are doubled; here only y1 is interior."),
+  ],
+  [
+    trapNumber("fint-trap-i1", "Use the trapezoidal rule to approximate the integral from the table.", "\\begin{array}{c|cccc}x&0&1&2&3\\\\ y&2&5&6&8\\end{array}", "16", [], "The width is 1, so the approximation is half of endpoint values plus twice the interior values."),
+    trapNumber("fint-trap-i2", "Use one trapezoid to approximate the integral.", "\\int_1^3 (x+1)\\,dx", "6", [], "The endpoint y-values are 2 and 4, and the width is 2."),
+    intChoice("fint-trap-i3", "For a concave-up graph, what does the trapezoidal rule usually do?", "\\text{concave up on the interval}", "A", ["overestimates", "underestimates", "is always exact", "cannot be used"], "For concave-up graphs, chords lie above the curve."),
+    intChoice("fint-trap-i4", "Which setup correctly uses the trapezoidal rule for four y-values with equal spacing h?", "y_0,\\ y_1,\\ y_2,\\ y_3", "D", ["$h(y_0+y_1+y_2+y_3)$", "$\\frac h2(y_0+y_1+y_2+y_3)$", "$\\frac h2(2y_0+y_1+y_2+2y_3)$", "$\\frac h2(y_0+2y_1+2y_2+y_3)$"], "Endpoints are used once and interior values are doubled."),
+    trapNumber("fint-trap-i5", "Use the trapezoidal rule with two subintervals.", "\\begin{array}{c|ccc}x&0&2&4\\\\ y&3&7&11\\end{array}", "28", [], "The width is 2, so the approximation is 1 times 3+2(7)+11."),
+  ],
+  [
+    { mistake: "Using n as the width.", fix: "The width is h=(b-a)/n, not the number of subintervals." },
+    { mistake: "Forgetting to double interior values.", fix: "Every interior y-value has coefficient 2 in the composite trapezoidal rule." },
+    { mistake: "Forgetting the factor h/2.", fix: "The final bracket must be multiplied by h/2." },
+    { mistake: "Assuming the rule is exact for all curves.", fix: "It is exact for straight-line data, but curved graphs are usually only approximated." },
+  ],
+  [
+    trapNumber("fint-trap-m1", "Use one trapezoid to approximate the integral.", "\\int_0^2 x^2\\,dx", "4", [], "With one trapezoid, the endpoint heights are 0 and 4."),
+    trapNumber("fint-trap-m2", "Use two subintervals to approximate the integral.", "\\int_0^2 x^2\\,dx", "3", [], "Use y-values 0, 1 and 4, with the interior value doubled."),
+    intChoice("fint-trap-m3", "Which expression gives the correct subinterval width?", "\\text{limits }a\\text{ to }b,\\quad n\\text{ subintervals}", "A", ["$\\frac{b-a}{n}$", "$\\frac{n}{b-a}$", "$b-a+n$", "$\\frac{b+a}{n}$"], "The total interval width is divided by the number of subintervals."),
+    trapNumber("fint-trap-m4", "Use the trapezoidal rule to approximate the integral from the table.", "\\begin{array}{c|cccc}x&0&1&2&3\\\\ y&4&7&9&10\\end{array}", "22", [], "The width is 1, and the interior values are 7 and 9."),
+    intChoice("fint-trap-m5", "A student uses h=4 for four subintervals from x=0 to x=8. What is the error?", "\\text{four subintervals on }0\\le x\\le8", "B", ["They doubled the endpoints", "They used n instead of h", "They forgot the final y-value", "They used exact integration"], "The width is 8 divided by 4, so h=2."),
+    intChoice("fint-trap-m6", "Which y-values should be doubled for five equally spaced table values?", "y_0,\\ y_1,\\ y_2,\\ y_3,\\ y_4", "C", ["$y_0,y_4$", "$y_0,y_1,y_2,y_3,y_4$", "$y_1,y_2,y_3$", "$y_2$ only"], "All interior values are doubled."),
+    intChoice("fint-trap-m7", "For a concave-down graph, what does the trapezoidal rule usually do?", "\\text{concave down on the interval}", "B", ["overestimates", "underestimates", "is always exact", "gives the derivative"], "For concave-down graphs, chords lie below the curve."),
+    intChoice("fint-trap-m8", "A student says the trapezoidal rule gives the exact area under every curve. Which option identifies the issue?", "\\text{numerical integration}", "D", ["It cannot use tables", "It only works with negative functions", "It must use radians", "It is usually an approximation for curved graphs"], "Straight trapezoids approximate curved regions unless the function is linear over each subinterval."),
+    trapNumber("fint-trap-m9", "Use the trapezoidal rule to approximate the area from the table.", "\\begin{array}{c|ccccc}x&0&1&2&3&4\\\\ y&1&2&5&10&17\\end{array}", "22", [], "The width is 1, with endpoints 1 and 17 and interior values 2, 5 and 10."),
+    intChoice("fint-trap-m10", "A concave-up curve is approximated using two trapezoids and then four trapezoids. Which statement is most reasonable?", "\\text{same interval, more subintervals}", "C", ["The four-trapezoid result must be exact", "The estimate must become negative", "The four-trapezoid estimate usually improves", "The width h becomes larger"], "More subintervals usually make the straight segments follow the curve more closely, and h becomes smaller."),
+  ]
+);
+
 export const furtherIntegralCalculusExamPracticeLesson = furtherIntegralLesson(
   "further-integral-calculus-exam-practice",
   "Further Integral Calculus Exam Practice",
@@ -550,6 +675,7 @@ export const furtherIntegralCalculusLessons = [
   reverseChainRuleLesson,
   definiteIntegralsStandardFormsLesson,
   areaBetweenCurvesExtendedLesson,
+  trapezoidalRuleLesson,
   furtherIntegralCalculusExamPracticeLesson,
 ];
 
