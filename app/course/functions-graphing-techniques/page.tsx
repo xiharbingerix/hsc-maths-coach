@@ -19,6 +19,8 @@ const unitCoverage = [
   "Intercepts and key features",
   "Asymptotes and reciprocal-style graphs",
   "Exponential and logarithmic graphs",
+  "Absolute value functions",
+  "Inverse functions",
   "Graphical equations and inequalities",
   "Modelling with functions",
   "Mixed exam practice",
@@ -43,8 +45,8 @@ export default function FunctionsGraphingTechniquesModulePage() {
           <p className="mt-4 max-w-3xl text-slate-600">
             A structured pathway through function notation, domain and range,
             transformations, graph features, exponential and logarithmic graphing,
-            graphical solving, and modelling skills for Year 12 Mathematics
-            Advanced.
+            absolute value functions, inverse functions, graphical solving, and
+            modelling skills for Year 12 Mathematics Advanced.
           </p>
 
           <div className="mt-6 grid gap-3 md:grid-cols-3">

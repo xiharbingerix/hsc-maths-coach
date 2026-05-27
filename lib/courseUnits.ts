@@ -64,8 +64,8 @@ export const courseUnits: CourseUnitSummary[] = [
     title: "Functions and Graphing Techniques",
     href: "/course/functions-graphing-techniques",
     description:
-      "Function notation, domain and range, transformations, graph features, asymptotes, exponential/logarithmic graphs, graphical solving, and modelling.",
-    activeLessonCount: 9,
+      "Function notation, domain and range, transformations, graph features, asymptotes, exponential/logarithmic graphs, absolute value functions, inverse functions, graphical solving, and modelling.",
+    activeLessonCount: 11,
   },
   {
     title: "Trigonometric Functions and Graphs",
