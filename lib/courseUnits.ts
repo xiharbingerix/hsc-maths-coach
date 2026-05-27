@@ -82,6 +82,13 @@ export const courseUnits: CourseUnitSummary[] = [
     activeLessonCount: 5,
   },
   {
+    title: "Sequences, Series and Financial Mathematics",
+    href: "/course/sequences-series-financial-maths",
+    description:
+      "Arithmetic and geometric sequences and series, sigma notation, limiting sums, and financial applications involving compound interest, depreciation and annuities.",
+    activeLessonCount: 5,
+  },
+  {
     title: "Financial Mathematics",
     href: "/course/financial-mathematics",
     description:
@@ -104,7 +111,7 @@ export const year12AdvancedCourse: CourseCatalogueItem = {
   courseType: "Mathematics Advanced",
   href: "/course/year-12-advanced",
   description:
-    "Year 12 Advanced is in active development. Current lessons cover functions, trigonometry, further trigonometry, introductory calculus, differentiation techniques, applications of differentiation, integral calculus, further integral calculus, statistics and financial mathematics. Further HSC topics are being added.",
+    "Year 12 Advanced is in active development. Current lessons cover functions, trigonometry, further trigonometry, introductory calculus, differentiation techniques, applications of differentiation, integral calculus, further integral calculus, sequences, series, financial mathematics and statistics. Further HSC topics are being added.",
   unitCount: courseUnits.length,
   activeLessonCount: courseUnits.reduce(
     (total, unit) => total + unit.activeLessonCount,
