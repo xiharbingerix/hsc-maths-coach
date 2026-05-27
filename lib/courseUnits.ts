@@ -54,6 +54,13 @@ export const courseUnits: CourseUnitSummary[] = [
     activeLessonCount: 10,
   },
   {
+    title: "Further Integral Calculus",
+    href: "/course/further-integral-calculus",
+    description:
+      "Standard trigonometric, exponential and logarithmic integrals, reverse chain rule, definite integrals and area between curves.",
+    activeLessonCount: 5,
+  },
+  {
     title: "Functions and Graphing Techniques",
     href: "/course/functions-graphing-techniques",
     description:
@@ -97,7 +104,7 @@ export const year12AdvancedCourse: CourseCatalogueItem = {
   courseType: "Mathematics Advanced",
   href: "/course/year-12-advanced",
   description:
-    "Year 12 Advanced is in active development. Current lessons cover functions, trigonometry, further trigonometry, introductory calculus, differentiation techniques, applications of differentiation, integral calculus, statistics and financial mathematics. Further HSC topics are being added.",
+    "Year 12 Advanced is in active development. Current lessons cover functions, trigonometry, further trigonometry, introductory calculus, differentiation techniques, applications of differentiation, integral calculus, further integral calculus, statistics and financial mathematics. Further HSC topics are being added.",
   unitCount: courseUnits.length,
   activeLessonCount: courseUnits.reduce(
     (total, unit) => total + unit.activeLessonCount,
