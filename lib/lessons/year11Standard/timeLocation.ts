@@ -318,8 +318,40 @@ export function year11StandardTimeLocationLessonOverride(
         financeChoice("location-grid-m6", "Point A is at (7, 4) and point B is at (2, 4). On an east-right coordinate grid, B is:", "D", ["North of A", "South of A", "East of A", "West of A"], "The x-coordinate decreases while y stays the same."),
         measurementAnswer("location-grid-m7", "A map distance is 3.5 cm and the scale is 1 cm : 4 km. Find the real distance.", "\\text{map distance}=3.5\\text{ cm},\\quad 1\\text{ cm}:4\\text{ km}", "14 km", ["14", "14km"]),
         financeChoice("location-grid-m8", "A grid reference B4 means:", "B", ["Column B then row 4", "Row B then column 4", "Bearing 4 degrees", "4 km from B"], "This lesson uses row letter then column number."),
-        measurementAnswer("location-grid-m9", "A place is at row D, column 1. Write the grid reference.", "\\text{row }D,\\quad \\text{column }1", "D1", ["d1", "D 1", "d 1"]),
-        financeChoice("location-grid-m10", "A text-only location question should avoid:", "C", ["Clear coordinates", "A stated scale", "Asking students to draw a map", "Multiple-choice directions"], "The renderer cannot collect drawn map answers."),
+        {
+          id: "location-grid-m9",
+          prompt:
+            "Two towns are 4.6 cm apart on a map with scale 1:100000. Find the actual distance in kilometres.",
+          latex: "\\text{map distance}=4.6\\text{ cm},\\quad \\text{scale }1:100000",
+          answer: "4.6 km",
+          acceptedAnswers: [
+            "4.6",
+            "4.6 km",
+            "4.6km",
+            "4.6 kilometres",
+            "4.6 kilometers",
+          ],
+          hint: "Convert the scale distance represented by 1 cm into kilometres.",
+          explanation:
+            "At scale 1:100000, 1 cm represents 100000 cm, which is 1 km. So 4.6 cm represents 4.6 km.",
+        },
+        {
+          id: "location-grid-m10",
+          prompt:
+            "A park is 2.5 km wide. On a map with scale 1:25000, how wide is it in centimetres?",
+          latex: "\\text{actual width}=2.5\\text{ km},\\quad \\text{scale }1:25000",
+          answer: "10 cm",
+          acceptedAnswers: [
+            "10",
+            "10 cm",
+            "10cm",
+            "10 centimetres",
+            "10 centimeters",
+          ],
+          hint: "Convert the real distance to centimetres, then divide by the scale factor.",
+          explanation:
+            "2.5 km is 250000 cm. On a 1:25000 map, map distance is $250000\\div25000=10$ cm.",
+        },
       ],
     };
   }

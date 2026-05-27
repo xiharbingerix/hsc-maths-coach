@@ -203,8 +203,35 @@ export function year11StandardApplicationsMeasurementLessonOverride(
         measurementAnswer("measure-unit-m6", "A small tank contains 1.8 m^3 of water. Convert this to litres.", "\\text{volume}=1.8\\text{ m}^3", "1800 L", ["1800", "1,800", "1800L", "1800 l", "1800 litres"]),
         financeChoice("measure-unit-m7", "A percentage error question should compare error with:", "A", ["The actual value", "The rounded unit only", "The largest unit", "The label colour"], "Percentage error uses actual value in the denominator when available."),
         measurementAnswer("measure-unit-m8", "A recipe uses 0.65 kg of rice. Convert this to grams.", "\\text{mass}=0.65\\text{ kg}", "650 g", ["650", "650g"]),
-        financeChoice("measure-unit-m9", "A length rounded to the nearest metre has a maximum rounding error of:", "D", ["2 m", "1 m", "0.1 m", "0.5 m"], "Half of 1 metre is 0.5 m."),
-        measurementAnswer("measure-unit-m10", "A measured length is 2.8 m and the actual length is 2.75 m. What is the absolute error?", "\\text{measured}=2.8\\text{ m},\\quad \\text{actual}=2.75\\text{ m}", "0.05 m", ["0.05", "0.05m", "5 cm", "5cm"]),
+        {
+          id: "measure-unit-m9",
+          prompt:
+            "A fence post is measured as 2.4 m with an absolute error of 0.05 m. Eight equal posts are placed end to end. Find the largest possible total length.",
+          latex:
+            "\\text{measured length}=2.4\\text{ m},\\quad \\text{absolute error}=0.05\\text{ m},\\quad \\text{posts}=8",
+          answer: "19.6 m",
+          acceptedAnswers: [
+            "19.6",
+            "19.6 m",
+            "19.6m",
+            "19.6 metres",
+            "19.6 meters",
+          ],
+          hint: "Use the largest possible length for each post, then multiply by the number of posts.",
+          explanation:
+            "The largest possible length of one post is $2.4+0.05=2.45$ m. For 8 posts, the total length is $8\\times2.45=19.6$ m.",
+        },
+        {
+          id: "measure-unit-m10",
+          prompt:
+            "A digital scale reads to the nearest 10 g. What is the maximum absolute error for a reading on this scale?",
+          latex: "\\text{scale reads to the nearest }10\\text{ g}",
+          answer: "5 g",
+          acceptedAnswers: ["5", "5 g", "5g", "5 grams"],
+          hint: "The maximum rounding error is half of the measuring interval.",
+          explanation:
+            "A measurement to the nearest 10 g can be up to half of 10 g away from the true value, so the maximum absolute error is 5 g.",
+        },
       ],
     };
   }

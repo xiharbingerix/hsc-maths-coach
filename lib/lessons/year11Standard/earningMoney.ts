@@ -225,8 +225,41 @@ export function year11StandardEarningMoneyLessonOverride(
         moneyAnswer("earn-wage-m6", "Jay works 15 ordinary hours at a sports centre for 26 dollars per hour. Find his gross pay.", "\\text{hours}=15,\\quad \\text{rate}=\\$26/\\text{h}", "390", ["$390", "390.00", "$390.00"]),
         financeChoice("earn-wage-m7", "Which is a salary context?", "C", ["Paid per item", "Paid per hour only", "Paid 78,000 dollars per year", "Paid only commission"], "A yearly amount is a salary context."),
         moneyAnswer("earn-wage-m8", "A trainee manager's salary is 57,200 dollars per year. What is the weekly salary amount?", "\\text{annual salary}=\\$57{,}200,\\quad \\text{weeks}=52", "1100", ["$1100", "1,100", "$1,100", "1100.00", "$1100.00"]),
-        financeChoice("earn-wage-m9", "Which payslip field is a deduction?", "D", ["Ordinary pay", "Allowance", "Gross pay", "Tax withheld"], "Tax withheld is deducted from gross pay."),
-        moneyAnswer("earn-wage-m10", "A student works 18 ordinary hours at a cinema for 20 dollars per hour. What is the gross pay?", "\\text{hours}=18,\\quad \\text{rate}=\\$20/\\text{h}", "360", ["$360", "360.00", "$360.00"]),
+        {
+          id: "earn-wage-m9",
+          prompt:
+            "A worker earns 812 dollars in one week for 32 hours of work. Find the hourly rate, rounded to the nearest cent.",
+          latex:
+            "\\text{weekly pay}=\\$812,\\quad \\text{hours}=32",
+          answer: "25.38",
+          acceptedAnswers: [
+            "$25.38",
+            "25.38",
+            "25.38 dollars",
+            "$25.38 per hour",
+            "25.38 per hour",
+          ],
+          hint: "Divide the weekly pay by the number of hours worked.",
+          explanation:
+            "Hourly rate = weekly pay divided by hours. $812\\div32=25.375$, which rounds to $\\$25.38$ per hour.",
+        },
+        {
+          id: "earn-wage-m10",
+          prompt:
+            "An annual salary is 71500 dollars. Find the fortnightly gross pay, rounded to the nearest dollar.",
+          latex: "\\text{annual salary}=\\$71500",
+          answer: "2750",
+          acceptedAnswers: [
+            "$2750",
+            "$2,750",
+            "2750",
+            "2,750",
+            "2750 dollars",
+          ],
+          hint: "There are 26 fortnights in a year.",
+          explanation:
+            "There are 26 fortnights in a year, so fortnightly pay is $71500\\div26=2750$.",
+        },
       ],
     };
   }

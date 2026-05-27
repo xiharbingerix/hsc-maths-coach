@@ -352,8 +352,19 @@ export function year11StandardManagingMoneyLessonOverride(
         financeChoice("manage-interest-m6", "Which option earns more interest on 1000 dollars?", "B", ["3 percent for 1 year", "2 percent for 2 years", "1 percent for 2 years", "0.5 percent for 3 years"], "The interest amounts are 30, 40, 20 and 15 dollars."),
         moneyAnswer("manage-interest-m7", "A 1500 dollar account earns 90 dollars simple interest. Find the total amount.", "\\text{principal}=\\$1500,\\quad \\text{interest}=\\$90", "1590"),
         financeChoice("manage-interest-m8", "A rate of 7 percent should be entered as:", "D", ["7", "70", "0.7", "0.07"], "7 percent is 0.07."),
-        moneyAnswer("manage-interest-m9", "A 400 dollar savings account earns 6 percent p.a. simple interest for 3 years. Find the interest.", "P=\\$400,\\quad r=6\\%,\\quad t=3\\text{ yr}", "72"),
-        moneyAnswer("manage-interest-m10", "A 1800 dollar deposit earns 144 dollars simple interest. What is the total amount?", "\\text{principal}=\\$1800,\\quad \\text{interest}=\\$144", "1944"),
+        {
+          id: "manage-interest-m9",
+          prompt:
+            "A loan earns simple interest of 180 dollars after 2 years on a principal of 1500 dollars. Find the annual interest rate.",
+          latex:
+            "\\text{simple interest}=\\$180,\\quad \\text{principal}=\\$1500,\\quad \\text{time}=2\\text{ years}",
+          answer: "6%",
+          acceptedAnswers: ["6", "6%", "6 percent"],
+          hint: "Use the simple interest formula and solve for the rate.",
+          explanation:
+            "Use $I=Prt$. Here $180=1500\\times r\\times2$, so $r=180\\div3000=0.06=6\\%$.",
+        },
+        financeChoice("manage-interest-m10", "Which rearrangement correctly finds the principal P from simple interest I, rate r and time t?", "A", ["$P=\\frac{I}{rt}$", "$P=Irt$", "$P=\\frac{r}{It}$", "$P=\\frac{t}{Ir}$"], "Starting from $I=Prt$, divide both sides by $rt$ to get $P=\\frac{I}{rt}$.", "I=Prt"),
       ],
     };
   }
