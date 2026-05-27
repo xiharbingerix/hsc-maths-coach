@@ -251,7 +251,7 @@ export const stationaryPointClassificationLesson = applicationLesson(
   [
     appNumber("appdiff-stat-i1", "Find the stationary x-value.", "f'(x)=2x-8", "4"),
     appChoice("appdiff-stat-i2", "Classify the stationary point.", "f'(2)=0,\\quad f''(2)=-7", "A", ["Local maximum", "Local minimum", "Neither because f'' is non-zero", "Cannot be classified"], "A negative second derivative gives a local maximum."),
-    appChoice("appdiff-stat-i3", "Use the first derivative signs to classify x = -1.", "\\begin{array}{c|ccc}x&x<-1&-1&x>-1\\\\\\hline f'(x)&+&0&+\\end{array}", "C", ["Local maximum", "Local minimum", "Stationary point of inflection", "Vertical asymptote"], "The derivative is zero but does not change sign, so this indicates a stationary point of inflection in this context."),
+    appChoice("appdiff-stat-i3", "Which classification best fits this first-derivative sign information?", "\\begin{array}{c|ccc}x&x<-1&-1&x>-1\\\\\\hline f'(x)&+&0&+\\end{array}", "C", ["Local maximum", "Local minimum", "Stationary point of inflection", "Vertical asymptote"], "The derivative is zero but does not change sign, so this best fits a stationary point of inflection in this context."),
     appChoice("appdiff-stat-i4", "Which statement is correct?", "f'(a)=0,\\quad f''(a)=0", "C", ["There is definitely a maximum", "There is definitely a minimum", "More testing is needed", "There is no stationary point"], "The second derivative test is inconclusive."),
     appNumber("appdiff-stat-i5", "Find f''(2).", "f''(x)=6x-18", "-6"),
   ],
