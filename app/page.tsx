@@ -35,7 +35,7 @@ const whatIncluded = [
   "Guided practice and independent practice",
   "Mastery quizzes",
   "Parent-friendly report option",
-  "Online learning access approved manually during early access",
+  "Online learning subscription with automatic access after payment",
 ];
 
 const courseCoverage = [
@@ -50,14 +50,14 @@ const courseCoverage = [
 const parentNotes = [
   "The diagnostic is not a school mark or exam prediction.",
   "It is designed to identify priority areas and likely mark leaks.",
-  "Reports are manually reviewed during early access.",
-  "Online learning access is handled manually for now.",
+  "Reports are reviewed before being sent.",
+  "Online learning access activates after subscription payment.",
 ];
 
 const offers = [
   {
     title: "Free Diagnostic",
-    price: "Free during early access",
+    price: "Free",
     description:
       "A 36-question Year 12 Maths Advanced diagnostic that identifies priority areas across the current course.",
     features: [
@@ -101,12 +101,12 @@ const offers = [
     title: "Online Learning Access",
     price: "$19/month",
     description:
-      "Structured online lessons, guided practice, independent practice, and mastery quizzes across available early-access pathways.",
+      "Structured online lessons, guided practice, independent practice, and mastery quizzes across available course pathways.",
     features: [
       "Year 12 Advanced, Standard, and Year 11 pathways",
       "Lesson access by account",
       "Mastery checks",
-      "Access approved manually during early access",
+      "Access activates automatically after payment",
     ],
     buttonLabel: "Subscribe",
     href: "/checkout?offer=online-learning",
@@ -220,7 +220,7 @@ export default function Home() {
             <p className="mt-5 text-lg leading-8 text-slate-600">
               Year 12 Mathematics Advanced students can start with a targeted
               diagnostic and report option. Online learning access covers the
-              available Year 11 and Year 12 maths pathways during early access.
+              available Year 11 and Year 12 maths pathways.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -284,7 +284,7 @@ export default function Home() {
                 Current lesson flow: Learn &rarr; Guided Practice &rarr;
                 Independent Practice &rarr; Mastery Quiz. The online learning
                 package includes Year 12 Advanced plus expanding Standard and
-                Year 11 pathways during early access.
+                Year 11 pathways.
               </p>
 
               <div className="mt-4 flex flex-wrap gap-2">
@@ -325,8 +325,8 @@ export default function Home() {
               </h2>
               <p className="mt-3 leading-7 text-slate-600">
                 The diagnostic/report pathway is currently Year 12 Mathematics
-                Advanced. Online lessons now include additional early-access
-                course pathways.
+                Advanced. Online lessons now include additional course
+                pathways.
               </p>
             </div>
             <SecondaryLink href="/course">View course overview</SecondaryLink>
@@ -371,9 +371,9 @@ export default function Home() {
 
         <section className="rounded-3xl border border-slate-200 bg-slate-100/80 p-8 shadow-sm md:p-10">
           <div className="max-w-2xl">
-            <SectionLabel>Early access options</SectionLabel>
+            <SectionLabel>Options</SectionLabel>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-              Early access options
+              Choose the support that fits
             </h2>
             <p className="mt-3 leading-7 text-slate-600">
               Start with the free diagnostic, then choose the support that
@@ -419,10 +419,9 @@ export default function Home() {
           </div>
 
           <p className="mt-6 text-sm leading-6 text-slate-600">
-            During early access, reports and online learning access are handled
-            manually so the product can be reviewed and improved carefully.
-            Questions? Use the enquiry form and Joshua will follow up manually
-            during early access.
+            Reports are reviewed before being sent. Online learning access
+            activates after subscription payment. Questions? Use the enquiry
+            form and Joshua will follow up.
           </p>
         </section>
 
@@ -434,7 +433,7 @@ export default function Home() {
         </section>
 
         <footer className="flex flex-col gap-4 border-t border-slate-200 pb-8 pt-6 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
-          <p>HSC Maths Coach for NSW senior maths students.</p>
+          <p>Nova Maths by Joshua Taylor for NSW senior maths students.</p>
           <nav className="flex flex-wrap gap-4" aria-label="Footer">
             <Link href="/diagnostic" className="hover:text-slate-900">
               Diagnostic

@@ -461,7 +461,7 @@ export function generateDiagnosticReportDraft(
         ];
 
   return [
-    "HSC Maths Advanced Diagnostic Report",
+    "Year 12 Mathematics Advanced Diagnostic Report",
     "",
     "Student snapshot",
     `- Student first name: ${submission.student_first_name || "Not provided"}`,

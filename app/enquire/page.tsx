@@ -7,7 +7,7 @@ const offers = [
     title: "Online Learning Access",
     subtitle: "$19/month",
     description:
-      "Structured online lessons, practice, and mastery checks across available early-access course pathways.",
+      "Structured online lessons, practice, and mastery checks across available course pathways.",
   },
   {
     id: "diagnostic-report",
@@ -45,7 +45,7 @@ export default async function EnquirePage({
       <section className="mx-auto max-w-5xl space-y-8">
         <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            HSC Maths Coach
+            Nova Maths
           </p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight">
             Register interest
@@ -54,7 +54,7 @@ export default async function EnquirePage({
             Choose the option you are interested in and leave a few details.
             No payment is taken on this page. Your enquiry is saved even if you
             do not complete the Year 12 Mathematics Advanced diagnostic today.
-            Joshua will follow up with next steps during early access.
+            Joshua will follow up with next steps.
           </p>
         </header>
 

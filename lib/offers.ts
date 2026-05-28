@@ -48,7 +48,7 @@ export const offerConfigs: Record<OfferSlug, OfferConfig> = {
     label: "Online Learning Access",
     priceLabel: "$19/month",
     description:
-      "Structured online lessons, guided practice, independent practice, and mastery quizzes across available early-access course pathways.",
+      "Structured online lessons, guided practice, independent practice, and mastery quizzes across available course pathways.",
     checkoutEnabled: true,
     stripePriceEnvKey: "STRIPE_PRICE_ONLINE_LEARNING_MONTHLY",
     mode: "subscription",

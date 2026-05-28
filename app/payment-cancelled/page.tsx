@@ -20,8 +20,8 @@ export default async function PaymentCancelledPage({
         </h1>
         <p className="mt-4 max-w-3xl leading-7 text-slate-600">
           {offer
-            ? `You can return to ${offer.label}, choose another early-access option, or send an enquiry instead.`
-            : "You can return to the early-access options or send an enquiry instead."}
+            ? `You can return to ${offer.label}, choose another option, or send an enquiry instead.`
+            : "You can return to the options or send an enquiry instead."}
         </p>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">

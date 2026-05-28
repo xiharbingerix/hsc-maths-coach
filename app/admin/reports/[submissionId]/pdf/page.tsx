@@ -122,7 +122,7 @@ function shouldShowAdditionalNotes(notes: string | null | undefined, draft: stri
   }
 
   const generatedHeadings = [
-    "HSC Maths Advanced Diagnostic Report",
+    "Year 12 Mathematics Advanced Diagnostic Report",
     "Student snapshot",
     "Overall result",
     "Unit breakdown",
@@ -217,10 +217,10 @@ export default async function ReportPdfPage({ params }: ReportPdfPageProps) {
       <article className="mx-auto max-w-4xl space-y-5 rounded-3xl bg-white p-6 shadow-sm print:max-w-none print:space-y-4 print:rounded-none print:p-0 print:shadow-none">
         <header className="border-b border-slate-200 pb-4">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            HSC Maths Coach
+            Nova Maths
           </p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight print:text-2xl">
-            HSC Maths Advanced Diagnostic Report
+            Year 12 Mathematics Advanced Diagnostic Report
           </h1>
           <p className="mt-2 text-sm text-slate-600">
             Prepared for {submission.student_first_name} from the diagnostic

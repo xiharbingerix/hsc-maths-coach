@@ -24,13 +24,13 @@ export default async function CheckoutPage({
       <section className="mx-auto max-w-5xl space-y-8">
         <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            HSC Maths Coach
+            Nova Maths
           </p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight">
             Checkout
           </h1>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
-            Confirm the selected early-access option, then continue to Stripe
+            Confirm the selected option, then continue to Stripe
             Checkout. Report and study-plan checkout options currently relate
             to the Year 12 Mathematics Advanced diagnostic. Weekly tutoring
             remains enquiry-only.

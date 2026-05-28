@@ -1,15 +1,18 @@
 /**
  * Generates a PowerPoint slide deck for the Trapezoidal Rule lesson.
+ * Production-quality recording deck.
  *
- * Run with:
- *   npm run generate-slides
+ * Run with:  npm run generate-slides
+ * Output:    generated-slides/year-12-advanced/further-integral-calculus/trapezoidal-rule.pptx
  *
- * Output:
- *   generated-slides/year-12-advanced/further-integral-calculus/trapezoidal-rule.pptx
- *
- * Formula display: LaTeX strings are converted to Unicode math text via
- * latexToReadable(). Raw LaTeX is preserved in speaker notes.
- * Full image-rendered math is a future enhancement.
+ * LaTeX conversion tests (expected outputs):
+ *   latexToReadable('\\int_0^2 x^2\\,dx')                    → '∫₀² x² dx'
+ *   latexToReadable('0\\le x\\le2')                          → '0≤ x≤2'
+ *   latexToReadable('f\'\'(x)=2>0')                          → "f''(x)=2>0"
+ *   latexToReadable('\\frac{b-a}{n}')                        → '(b-a)/(n)'
+ *   latexToReadable('\\frac h2[y_0+2y_1+y_2]')              → 'h/2[y₀+2y₁+y₂]'
+ *   latexToReadable('y_{n-1}')                               → 'yₙ₋₁'
+ *   latexToReadable('\\int_a^b f(x)\\,dx')                   → '∫ₐᵇ f(x) dx'
  */
 
 import PptxGenJS from 'pptxgenjs';
@@ -29,19 +32,19 @@ const SUP: Record<string, string> = {
   '0':'⁰','1':'¹','2':'²','3':'³','4':'⁴',
   '5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹',
   '+':'⁺','-':'⁻','n':'ⁿ','i':'ⁱ',
+  'a':'ᵃ','b':'ᵇ','c':'ᶜ','d':'ᵈ','e':'ᵉ','f':'ᶠ',
+  'g':'ᵍ','h':'ʰ','j':'ʲ','k':'ᵏ','l':'ˡ','m':'ᵐ',
+  'o':'ᵒ','p':'ᵖ','r':'ʳ','s':'ˢ','t':'ᵗ','u':'ᵘ',
+  'v':'ᵛ','w':'ʷ','x':'ˣ','y':'ʸ','z':'ᶻ',
 };
 
 function toSub(s: string): string { return s.split('').map(c => SUB[c] ?? c).join(''); }
 function toSup(s: string): string { return s.split('').map(c => SUP[c] ?? c).join(''); }
 
-/**
- * Converts a LaTeX math string to human-readable Unicode text.
- * Handles the patterns found in this lesson. Raw LaTeX is kept in speaker notes.
- */
 function latexToReadable(s: string): string {
   let o = s;
 
-  // \begin{array}…\end{array} → compact table rows
+  // Array table → compact rows
   o = o.replace(
     /\\begin\{array\}\{[^}]*\}([\s\S]*?)\\end\{array\}/g,
     (_, inner: string) => {
@@ -52,66 +55,96 @@ function latexToReadable(s: string): string {
     },
   );
 
-  // ── Symbol substitutions first — must happen before frac/int so that
-  //    e.g. \approx\frac h2 doesn't collapse to \approxh/2 (word-boundary bug)
+  // 1. Consume \left/\right (must come before \le/\ge checks)
+  o = o.replace(/\\left\s*\[/g, '[').replace(/\\right\s*\]/g, ']');
+  o = o.replace(/\\left\s*\(/g, '(').replace(/\\right\s*\)/g, ')');
+  o = o.replace(/\\left\s*\\{/g, '{').replace(/\\right\s*\\}/g, '}');
+  o = o.replace(/\\left\s*\|/g, '|').replace(/\\right\s*\|/g, '|');
+  o = o.replace(/\\left\b/g, '').replace(/\\right\b/g, '');
 
-  // Relations and operators
+  // 2. Pi and other letter-based symbols (before \leq/\le checks)
+  o = o.replace(/\\pi\b/g, 'π');
+  o = o.replace(/\\infty\b/g, '∞');
+
+  // 3. Relation symbols
+  // Process longer forms first (\leq before \le, \geq before \ge)
   o = o.replace(/\\approx\b/g, ' ≈ ');
-  o = o.replace(/\\geq\b|\\ge\b/g, '≥');
-  o = o.replace(/\\leq\b|\\le\b/g, '≤');
+  o = o.replace(/\\leq\b/g, '≤');
+  // \le NOT followed by a letter (handles \le2, \le x, etc. but not \left, \leq)
+  o = o.replace(/\\le(?![a-zA-Z])/g, '≤');
+  o = o.replace(/\\geq\b/g, '≥');
+  o = o.replace(/\\ge(?![a-zA-Z])/g, '≥');
   o = o.replace(/\\neq\b|\\ne\b/g, '≠');
   o = o.replace(/\\times\b/g, '×');
   o = o.replace(/\\div\b/g, '÷');
   o = o.replace(/\\pm\b/g, '±');
+  o = o.replace(/\\cdot\b/g, '·');
+  o = o.replace(/\\Rightarrow\b/g, ' ⇒ ');
+  o = o.replace(/\\rightarrow\b/g, ' → ');
+  o = o.replace(/\\implies\b/g, ' ⇒ ');
 
-  // Delimiters
-  o = o.replace(/\\left\s*\[/g, '[').replace(/\\right\s*\]/g, ']');
-  o = o.replace(/\\left\s*\(/g, '(').replace(/\\right\s*\)/g, ')');
-  o = o.replace(/\\left\s*\\{/g, '{').replace(/\\right\s*\\}/g, '}');
-
-  // \frac{a}{b} → (a/b)
-  // Repeat twice to handle one level of nesting
-  for (let pass = 0; pass < 2; pass++) {
-    o = o.replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, '($1)/($2)');
-  }
-  // \frac h2 or \frac12 (single-token arguments, no braces)
-  o = o.replace(/\\frac\s*([A-Za-z0-9])\s*([A-Za-z0-9])/g, '$1/$2');
-
-  // \int_a^b → ∫  (limits are implied by context)
-  o = o.replace(/\\int_[A-Za-z0-9]+\^[A-Za-z0-9]+/g, '∫');
+  // 4. Integrals with limits (most specific patterns first)
+  // \int_{a}^{b}
+  o = o.replace(/\\int_\{([^}]+)\}\^\{([^}]+)\}/g,
+    (_, lo: string, hi: string) => `∫${toSub(lo.trim())}${toSup(hi.trim())}`);
+  // \int_a^{b}
+  o = o.replace(/\\int_([0-9A-Za-z])\^\{([^}]+)\}/g,
+    (_, lo: string, hi: string) => `∫${toSub(lo)}${toSup(hi.trim())}`);
+  // \int_{a}^b
+  o = o.replace(/\\int_\{([^}]+)\}\^([0-9A-Za-z])/g,
+    (_, lo: string, hi: string) => `∫${toSub(lo.trim())}${toSup(hi)}`);
+  // \int_a^b
+  o = o.replace(/\\int_([0-9A-Za-z])\^([0-9A-Za-z])/g,
+    (_, lo: string, hi: string) => `∫${toSub(lo)}${toSup(hi)}`);
+  // \int_{a} (lower limit only)
+  o = o.replace(/\\int_\{([^}]+)\}/g,
+    (_, lo: string) => `∫${toSub(lo.trim())}`);
+  // \int_a (lower limit only)
+  o = o.replace(/\\int_([0-9A-Za-z])/g,
+    (_, lo: string) => `∫${toSub(lo)}`);
+  // Bare \int
   o = o.replace(/\\int\b/g, '∫');
 
-  // Ellipsis
+  // 5. Fractions: \frac{a}{b} → (a)/(b), two passes for nested
+  for (let pass = 0; pass < 3; pass++) {
+    o = o.replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, '($1)/($2)');
+  }
+  // Single-token \frac h2
+  o = o.replace(/\\frac\s*([A-Za-z0-9])\s*([A-Za-z0-9])/g, '$1/$2');
+
+  // 6. Ellipsis
   o = o.replace(/\\cdots\b/g, '⋯');
   o = o.replace(/\\ldots\b/g, '…');
+  o = o.replace(/\\dots\b/g, '…');
 
-  // Text environments
+  // 7. Text environments and named functions
   o = o.replace(/\\text\{([^}]+)\}/g, '$1');
   o = o.replace(/\\mathrm\{([^}]+)\}/g, '$1');
+  o = o.replace(/\\mathbf\{([^}]+)\}/g, '$1');
+  for (const fn of ['sin','cos','tan','ln','log','exp','lim','max','min']) {
+    o = o.replace(new RegExp(`\\\\${fn}\\b`, 'g'), fn);
+  }
 
-  // Spacing commands
+  // 8. Spacing
   o = o.replace(/\\quad\b/g, '   ');
   o = o.replace(/\\qquad\b/g, '      ');
-  o = o.replace(/\\,/g, ' '); // thin space
+  o = o.replace(/\\,/g, ' ');
   o = o.replace(/\\;/g, ' ');
   o = o.replace(/\\!/g, '');
-  o = o.replace(/\\\s/g, ' ');    // backslash-space
+  o = o.replace(/\\\s/g, ' ');
 
-  // Subscripts: _{…} before _x so braced form wins
+  // 9. Subscripts and superscripts
   o = o.replace(/\_\{([^}]+)\}/g, (_, n: string) => toSub(n));
   o = o.replace(/\_([0-9A-Za-z])/g, (_, c: string) => toSub(c));
-
-  // Superscripts: ^{…} before ^x
   o = o.replace(/\^\{([^}]+)\}/g, (_, n: string) => toSup(n));
-  o = o.replace(/\^([0-9])/g, (_, c: string) => toSup(c));
+  o = o.replace(/\^([0-9A-Za-z])/g, (_, c: string) => toSup(c));
 
-  // Strip remaining unknown commands (e.g. \displaystyle)
+  // 10. Strip remaining unknown commands then lone backslashes
   o = o.replace(/\\[a-zA-Z]+\b/g, '');
-  // Strip lone backslashes
   o = o.replace(/\\/g, '');
 
-  // Tidy whitespace (but preserve intentional newlines from the array handler)
-  o = o.split('\n').map(line => line.replace(/[ \t]+/g, ' ').trim()).join('\n');
+  // 11. Tidy whitespace (preserve intentional newlines from array handler)
+  o = o.split('\n').map(line => line.replace(/[ \t]{2,}/g, ' ').trim()).join('\n');
 
   return o.trim();
 }
@@ -128,286 +161,612 @@ const C = {
   lGreen: 'F0FDF4',
   redTxt: '991B1B',
   grTxt:  '166534',
+  subTxt: 'BDD9F2',
+  footer: 'A8C8E8',
+  // Diagram
+  dAxis:  '9E9E9E',
+  dCurve: '1B3A6B',
+  dChord: 'C00000',
+  dFillA: 'CCE5FF',
+  dFillB: 'A8D4F5',
+  dVert:  '4472C4',
 } as const;
 
-// ── Geometry (inches) – LAYOUT_WIDE = 10" × 5.625" ────────────────────────────
-const SW  = 10;
-const SH  = 5.625;
-const HDR = 0.72;           // header bar height
-const M   = 0.42;           // horizontal margin
-const CT  = HDR + 0.20;     // content area top
-const CW  = SW - 2 * M;     // content area width
-const CH  = SH - CT - 0.22; // content area height
+// ── Geometry (LAYOUT_WIDE = 13.333" × 7.5") ───────────────────────────────────
+const SW  = 12192000 / 914400;   // 13.333"
+const SH  = 6858000  / 914400;   // 7.5"
+const HDR = 0.88;
+const M   = 0.55;
+const CT  = HDR + 0.22;           // 1.10"
+const CW  = SW - 2 * M;
+const CH  = SH - CT - 0.28;
+
+// Two-column layout constants (text left / diagram right)
+const LC_W  = CW * 0.52;         // left text column width
+const DIAG_X = M + CW * 0.55;    // diagram bounding box x
+const DIAG_W = CW * 0.43;        // diagram width
+const DIAG_H = 3.6;               // diagram height
+const DIAG_Y = CT + 0.06;         // diagram top
 
 async function main(): Promise<void> {
   const lesson = trapezoidalRuleLesson;
 
-  const pptx = new PptxGenJS();
+  const pptx   = new PptxGenJS();
   pptx.layout  = 'LAYOUT_WIDE';
-  pptx.author  = 'HSC Maths Coach';
+  pptx.author  = 'Nova Maths';
   pptx.title   = `${lesson.courseTitle} – ${lesson.title}`;
   pptx.subject = lesson.title;
 
-  type S = ReturnType<typeof pptx.addSlide>;
-  const R = pptx.ShapeType.rect;
+  type S  = ReturnType<typeof pptx.addSlide>;
+  const R  = pptx.ShapeType.rect;
+  const RR = pptx.ShapeType.roundRect;
+  const L  = pptx.ShapeType.line;
 
-  /** Navy header bar with white title text. */
+  // ── Shape helpers ────────────────────────────────────────────────────────────
+
   function hdr(s: S, title: string): void {
     s.addShape(R, { x: 0, y: 0, w: SW, h: HDR, fill: { color: C.navy }, line: { type: 'none' } });
-    s.addText(title, { x: M, y: 0, w: CW, h: HDR, fontSize: 18, bold: true, color: C.white, valign: 'middle' });
+    s.addText(title, { x: M, y: 0, w: CW, h: HDR, fontSize: 22, bold: true, color: C.white, valign: 'middle' });
   }
 
-  /** Filled rectangle — coloured background behind a text block. */
   function box(s: S, x: number, y: number, w: number, h: number, bg: string): void {
     s.addShape(R, { x, y, w, h, fill: { color: bg }, line: { type: 'none' } });
   }
 
+  function rbox(s: S, x: number, y: number, w: number, h: number, bg: string): void {
+    s.addShape(RR, { x, y, w, h, fill: { color: bg }, line: { type: 'none' }, rectRadius: 0.1 });
+  }
+
+  function fmlaBox(s: S, latex: string, x: number, y: number, w: number, h: number, fs = 14): void {
+    const txt = latexToReadable(latex);
+    rbox(s, x, y, w, h, C.lAmber);
+    s.addText(txt, { x: x+0.16, y: y+0.08, w: w-0.32, h: h-0.16,
+      fontFace: 'Cambria Math', fontSize: fs, color: C.body, valign: 'middle', wrap: true });
+  }
+
+  function ansBar(s: S, latex: string): void {
+    const txt = latexToReadable(latex);
+    box(s, M, SH - 0.76, CW, 0.52, C.navy);
+    s.addText(`Answer:  ${txt}`, { x: M+0.20, y: SH-0.76+0.02, w: CW-0.40, h: 0.48,
+      fontFace: 'Cambria Math', fontSize: 14, bold: true, color: C.white, valign: 'middle' });
+  }
+
+  // ── Diagram helpers ──────────────────────────────────────────────────────────
+
+  // Draw a line segment from slide-coord (ax,ay) to (bx,by).
+  function dline(s: S, ax: number, ay: number, bx: number, by: number,
+      clr: string, wd: number = 1.5): void {
+    if (Math.abs(ax-bx) < 0.001 && Math.abs(ay-by) < 0.001) return;
+    const goRight = bx >= ax;
+    const goDown  = by >= ay;
+    const x = Math.min(ax, bx);
+    const y = Math.min(ay, by);
+    const w = Math.max(Math.abs(bx-ax), 0.01);
+    const h = Math.max(Math.abs(by-ay), 0.01);
+    s.addShape(L, {
+      x, y, w, h,
+      line: { color: clr, width: wd },
+      fill: { type: 'none' },
+      flipH: !goRight || undefined,
+      flipV: !goDown  || undefined,
+    });
+  }
+
   /**
-   * Formula box: amber background + readable Unicode math.
-   * fontSize defaults to 13 (larger now that text is readable Unicode, not raw LaTeX).
+   * Draw a parabola-and-trapezoids diagram for y = x² on [0, 2].
+   * bx,by,bw,bh: bounding box in slide inches.
+   * nTraps: number of trapezoids (1 or 2).
+   * opts.labels: show y₀=… labels
+   * opts.gap: highlight chord-vs-curve gap and add "overestimate" label
    */
-  function fmlaBox(
+  function drawDiagram(
     s: S,
-    latex: string,
-    x: number, y: number, w: number, h: number,
-    opts: { fontSize?: number } = {},
+    bx: number, by: number, bw: number, bh: number,
+    nTraps: number,
+    opts: { labels?: boolean; gap?: boolean } = {}
   ): void {
-    const readable = latexToReadable(latex);
-    const fs = opts.fontSize ?? 13;
-    box(s, x, y, w, h, C.lAmber);
-    s.addText(readable, {
-      x: x + 0.12, y: y + 0.06, w: w - 0.24, h: h - 0.12,
-      fontFace: 'Cambria Math', fontSize: fs, color: C.body, valign: 'middle', wrap: true,
-    });
-  }
+    const XM = 2.0, YM = 4.5, pad = 0.18;
+    const sc = (x: number) => bx + pad + (x / XM) * (bw - 2 * pad);
+    const ss = (y: number) => by + bh - pad - (y / YM) * (bh - 2 * pad);
 
-  // ── Slide 1: Title ────────────────────────────────────────────────────────────
-  {
-    const s = pptx.addSlide();
-    s.addShape(R, { x: 0, y: 0, w: SW, h: SH * 0.58, fill: { color: C.navy }, line: { type: 'none' } });
-    s.addText(lesson.title, {
-      x: M, y: 0.5, w: CW, h: 1.7,
-      align: 'center', fontSize: 34, bold: true, color: C.white,
-    });
-    s.addText(`${lesson.courseTitle}  ·  ${lesson.moduleTitle}`, {
-      x: M, y: 2.2, w: CW, h: 0.45,
-      align: 'center', fontSize: 13, color: 'BDD9F2',
-    });
-    s.addText(lesson.description, {
-      x: 1.5, y: 3.45, w: SW - 3, h: 0.95,
-      align: 'center', fontSize: 11, color: C.muted, italic: true, wrap: true,
-    });
-    s.addNotes(
-      `Welcome. Today we're looking at ${lesson.title}.\n\n` +
-      `Course: ${lesson.courseTitle} – ${lesson.moduleTitle}\n\n` +
-      `Overview: ${lesson.description}`
-    );
-  }
+    // ── Trapezoid fills (staircase of thin columns to approximate trapezoid shape)
+    const COLS = 10;
+    for (let ti = 0; ti < nTraps; ti++) {
+      const x0 = ti * XM / nTraps;
+      const x1 = (ti + 1) * XM / nTraps;
+      const y0 = x0 * x0;
+      const y1 = x1 * x1;
+      const fillClr = ti === 0 ? C.dFillA : C.dFillB;
+      for (let c = 0; c < COLS; c++) {
+        const t0 = c / COLS, t1 = (c + 1) / COLS, tm = (t0 + t1) / 2;
+        const cx0 = x0 + t0 * (x1 - x0);
+        const cx1 = x0 + t1 * (x1 - x0);
+        const colH = y0 + tm * (y1 - y0);   // chord height at column midpoint
+        const sliceX = sc(cx0);
+        const sliceW = Math.max(sc(cx1) - sc(cx0) + 0.003, 0.002);
+        const sliceY = ss(colH);
+        const sliceH = Math.max(ss(0) - sliceY, 0.002);
+        s.addShape(R, { x: sliceX, y: sliceY, w: sliceW, h: sliceH,
+          fill: { color: fillClr }, line: { type: 'none' } });
+      }
+    }
 
-  // ── Slide 2: Learning Intention & Success Criteria ────────────────────────────
-  {
-    const s = pptx.addSlide();
-    hdr(s, 'Learning Intention & Success Criteria');
+    // ── X-axis
+    s.addShape(R, { x: sc(-0.08), y: ss(0) - 0.004,
+      w: sc(XM * 1.08) - sc(-0.08), h: 0.008,
+      fill: { color: C.dAxis }, line: { type: 'none' } });
+    // ── Y-axis
+    s.addShape(R, { x: sc(0) - 0.004, y: ss(YM * 0.98),
+      w: 0.008, h: ss(-0.15) - ss(YM * 0.98),
+      fill: { color: C.dAxis }, line: { type: 'none' } });
 
-    box(s, M, CT, CW, 0.7, C.lBlue);
-    s.addText(lesson.learningIntention, {
-      x: M + 0.14, y: CT + 0.04, w: CW - 0.28, h: 0.62,
-      fontSize: 12, color: C.body, valign: 'middle', italic: true, wrap: true,
-    });
+    // ── Axis labels
+    s.addText('x', { x: sc(XM * 1.08), y: ss(0) - 0.16, w: 0.25, h: 0.22,
+      fontSize: 9, color: C.dAxis, fontFace: 'Cambria Math' });
+    s.addText('y', { x: sc(0) + 0.05, y: ss(YM * 0.98), w: 0.22, h: 0.22,
+      fontSize: 9, color: C.dAxis, fontFace: 'Cambria Math' });
 
-    s.addText('By the end of this lesson you will be able to:', {
-      x: M, y: CT + 0.82, w: CW, h: 0.3,
-      fontSize: 10.5, bold: true, color: C.navy,
-    });
+    // ── True parabola y = x² (20 short line segments → smooth curve)
+    const N = 20;
+    for (let i = 0; i < N; i++) {
+      const xi0 = i * XM / N;
+      const xi1 = (i + 1) * XM / N;
+      dline(s, sc(xi0), ss(xi0 * xi0), sc(xi1), ss(xi1 * xi1), C.dCurve, 2.0);
+    }
+    // Curve label
+    s.addText('y = x²', { x: sc(XM * 0.78), y: ss(XM * XM * 0.78 * 0.78) - 0.28,
+      w: 0.80, h: 0.24, fontSize: 9, color: C.dCurve, fontFace: 'Cambria Math' });
 
-    const bullets = lesson.successCriteria.map(c => ({
-      text: c,
-      options: { bullet: true, paraSpaceAfter: 2 },
-    }));
-    s.addText(bullets, {
-      x: M + 0.1, y: CT + 1.16, w: CW - 0.2, h: CH - 1.16,
-      fontSize: 10.5, color: C.body, wrap: true,
-    });
+    // ── Chord lines (trapezoid tops — red)
+    for (let ti = 0; ti < nTraps; ti++) {
+      const x0 = ti * XM / nTraps;
+      const x1 = (ti + 1) * XM / nTraps;
+      dline(s, sc(x0), ss(x0 * x0), sc(x1), ss(x1 * x1), C.dChord, 2.5);
+    }
 
-    s.addNotes(
-      `Read the learning intention aloud, then walk through each success criterion briefly.\n\n` +
-      `Learning Intention:\n"${lesson.learningIntention}"\n\n` +
-      `Success Criteria:\n${lesson.successCriteria.map((c, i) => `${i + 1}. ${c}`).join('\n')}`
-    );
-  }
+    // ── Vertical division lines at each node
+    for (let ti = 0; ti <= nTraps; ti++) {
+      const xi = ti * XM / nTraps;
+      const yi = xi * xi;
+      s.addShape(R, { x: sc(xi) - 0.003, y: ss(yi), w: 0.006, h: ss(0) - ss(yi),
+        fill: { color: C.dVert }, line: { type: 'none' } });
+    }
 
-  // ── Slide 3: Key Formula ──────────────────────────────────────────────────────
-  {
-    const s = pptx.addSlide();
-    hdr(s, 'The Trapezoidal Rule – Key Formula');
-
-    // Two most important teaching paragraphs (p0 and p2 are the clearest)
-    const [p0, , p2] = lesson.teaching.paragraphs;
-    const [hFx, mainFx, subFx] = lesson.teaching.latexBlocks;
-
-    s.addText(p0, { x: M, y: CT,        w: CW, h: 0.38, fontSize: 11, color: C.body, wrap: true });
-    s.addText(p2, { x: M, y: CT + 0.40, w: CW, h: 0.38, fontSize: 11, color: C.muted, italic: true, wrap: true });
-
-    // Main composite formula — larger box, 13pt readable Unicode
-    fmlaBox(s, mainFx, M, CT + 0.90, CW, 0.72, { fontSize: 13 });
-
-    // h= and one-subinterval shorthand side by side
-    const r2y = CT + 1.74;
-    fmlaBox(s, hFx,   M,              r2y, CW * 0.47, 0.52);
-    fmlaBox(s, subFx, M + CW * 0.50,  r2y, CW * 0.47, 0.52);
-
-    s.addNotes(
-      `Walk through the formula step by step.\n\n` +
-      `Key points:\n` +
-      lesson.teaching.paragraphs.map((p, i) => `${i + 1}. ${p}`).join('\n') +
-      `\n\nFormula blocks (raw LaTeX for reference):\n` +
-      lesson.teaching.latexBlocks.join('\n')
-    );
-  }
-
-  // ── Slides 4–7: All Four Worked Examples ─────────────────────────────────────
-  const exampleLabels = [
-    'One Trapezoid',
-    'Two Trapezoids',
-    'Table of Values',
-    'Concavity Interpretation',
-  ];
-
-  lesson.workedExamples.forEach((ex, ei) => {
-    const s = pptx.addSlide();
-    hdr(s, `Worked Example ${ei + 1}: ${exampleLabels[ei]}`);
-
-    // Question box — use latexToReadable so table data shows as readable rows
-    const qReadable = latexToReadable(ex.questionLatex);
-    const qLines    = qReadable.split('\n').length;
-    const qBoxH     = qLines > 1 ? 0.72 : 0.54;
-
-    box(s, M, CT, CW, qBoxH, C.lBlue);
-    s.addText(qReadable, {
-      x: M + 0.14, y: CT + 0.04, w: CW - 0.28, h: qBoxH - 0.08,
-      fontFace: 'Cambria Math', fontSize: 12, color: C.body, valign: 'middle', wrap: true,
-    });
-
-    // Steps — explanation on left, readable math on right
-    let sy = CT + qBoxH + 0.12;
-    ex.steps.forEach((step, i) => {
-      s.addText(`${i + 1}.  ${step.explanation}`, {
-        x: M, y: sy, w: CW * 0.54, h: 0.38,
-        fontSize: 11, color: C.body, wrap: true,
-      });
-      if (step.latex) {
-        const stepReadable = latexToReadable(step.latex);
-        box(s, M + CW * 0.57, sy, CW * 0.41, 0.36, C.lAmber);
-        s.addText(stepReadable, {
-          x: M + CW * 0.57 + 0.10, y: sy + 0.03, w: CW * 0.41 - 0.20, h: 0.30,
-          fontFace: 'Cambria Math', fontSize: 12, color: C.body, valign: 'middle',
+    // ── Y-value labels at nodes
+    if (opts.labels) {
+      for (let ti = 0; ti <= nTraps; ti++) {
+        const xi = ti * XM / nTraps;
+        const yi = xi * xi;
+        const label = `y${toSub(String(ti))} = ${yi}`;
+        s.addText(label, {
+          x: sc(xi) - 0.45, y: ss(yi) - 0.30,
+          w: 0.90, h: 0.24,
+          fontFace: 'Cambria Math', fontSize: 8.5, color: C.body, align: 'center',
         });
       }
-      sy += 0.44;
+    }
+
+    // ── h = width label (first subinterval)
+    {
+      const x1val = XM / nTraps;
+      const midSX = (sc(0) + sc(x1val)) / 2;
+      s.addText(`h = ${x1val}`, {
+        x: midSX - 0.4, y: ss(0) + 0.06, w: 0.80, h: 0.22,
+        fontFace: 'Cambria Math', fontSize: 8.5, color: C.muted, align: 'center',
+      });
+    }
+
+    // ── Gap annotation for concavity slide
+    if (opts.gap) {
+      // Show gap at midpoint of first trapezoid
+      const x0 = 0, x1 = XM / nTraps;
+      const midX = (x0 + x1) / 2;
+      const curveY = midX * midX;
+      const chordY = x0 * x0 + (midX - x0) / (x1 - x0) * (x1 * x1 - x0 * x0);
+      // Vertical orange gap marker
+      s.addShape(R, {
+        x: sc(midX) + 0.04, y: ss(chordY),
+        w: 0.06, h: Math.max(ss(curveY) - ss(chordY), 0.02),
+        fill: { color: 'FF6B35' }, line: { type: 'none' },
+      });
+      s.addText('chord above\ncurve = over-\nestimate', {
+        x: sc(midX) + 0.14, y: ss(chordY) - 0.06,
+        w: 1.10, h: 0.50,
+        fontSize: 8, color: C.dChord,
+      });
+    }
+  }
+
+  // ── Slide 1: Title (full navy) ───────────────────────────────────────────────
+  {
+    const s = pptx.addSlide();
+    s.addShape(R, { x: 0, y: 0, w: SW, h: SH, fill: { color: C.navy }, line: { type: 'none' } });
+
+    s.addText(lesson.title, {
+      x: M, y: 1.0, w: CW, h: 2.0,
+      align: 'center', valign: 'middle', fontSize: 42, bold: true, color: C.white,
+    });
+    s.addText(`${lesson.courseTitle}  ·  ${lesson.moduleTitle}`, {
+      x: M, y: 2.95, w: CW, h: 0.48,
+      align: 'center', fontSize: 16, color: C.subTxt,
     });
 
-    // Answer bar
-    const ansReadable = latexToReadable(ex.finalAnswerLatex);
-    box(s, M, SH - 0.64, CW, 0.44, C.navy);
-    s.addText(`Answer:  ${ansReadable}`, {
-      x: M + 0.16, y: SH - 0.64 + 0.02, w: CW - 0.32, h: 0.40,
-      fontFace: 'Cambria Math', fontSize: 13, bold: true, color: C.white, valign: 'middle',
+    // Learning intention card
+    const cX = 2.2, cY = 3.75, cW = SW - 4.4, cH = 2.1;
+    s.addShape(RR, { x: cX, y: cY, w: cW, h: cH,
+      fill: { color: C.lBlue }, line: { type: 'none' }, rectRadius: 0.1 });
+    s.addText('Learning Intention', {
+      x: cX + 0.3, y: cY + 0.18, w: cW - 0.6, h: 0.34,
+      fontSize: 12, bold: true, color: C.navy,
+    });
+    s.addText(lesson.learningIntention, {
+      x: cX + 0.3, y: cY + 0.52, w: cW - 0.6, h: cH - 0.68,
+      fontSize: 13, color: C.body, valign: 'top', wrap: true,
+    });
+
+    s.addText('Nova Maths', {
+      x: M, y: SH - 0.50, w: CW, h: 0.36,
+      align: 'center', fontSize: 12, color: C.footer,
     });
 
     s.addNotes(
-      `Example ${ei + 1}: ${ex.title}\n\n` +
-      `Say the question aloud before revealing each step.\n\n` +
-      `Question (LaTeX): ${ex.questionLatex}\n\n` +
-      `Steps:\n${ex.steps.map((st, i) =>
-        `${i + 1}. ${st.explanation}${st.latex ? '  →  ' + st.latex : ''}`
-      ).join('\n')}\n\n` +
-      `Answer: ${ex.finalAnswerLatex}`
+      `Welcome. Today: ${lesson.title}\n\n` +
+      `Course: ${lesson.courseTitle} – ${lesson.moduleTitle}\n\n` +
+      `Learning Intention: ${lesson.learningIntention}\n\n` +
+      `Success Criteria:\n${lesson.successCriteria.map((c, i) => `${i+1}. ${c}`).join('\n')}`
     );
-  });
+  }
 
-  // ── Slides 8–9: Common Mistakes (all 4, split across 2 slides) ───────────────
-  const mistakeSlides = [
-    { title: 'Common Mistakes (1 of 2)', items: lesson.commonMistakes.slice(0, 2) },
-    { title: 'Common Mistakes (2 of 2)', items: lesson.commonMistakes.slice(2) },
-  ];
+  // ── Slide 2: Why This Method? ────────────────────────────────────────────────
+  {
+    const s = pptx.addSlide();
+    hdr(s, 'Why the Trapezoidal Rule?');
 
-  mistakeSlides.forEach(({ title, items }) => {
-    const s    = pptx.addSlide();
+    const pts = [
+      'Some functions have no simple antiderivative — exact integration is impossible.',
+      'Sometimes we only have a table of measured values, not a formula.',
+      'Idea: approximate the curve with straight chord segments over short strips.',
+      'Each strip is a trapezoid — its area is easy to calculate.',
+    ];
+
+    pts.forEach((txt, i) => {
+      const ry = CT + i * (CH / 4) + 0.04;
+      const rh = (CH / 4) - 0.10;
+      rbox(s, M, ry, LC_W, rh, i < 2 ? C.lBlue : C.lAmber);
+      s.addText(`${i + 1}.  ${txt}`, {
+        x: M + 0.18, y: ry + 0.05, w: LC_W - 0.36, h: rh - 0.10,
+        fontSize: 12, color: C.body, valign: 'middle', wrap: true,
+      });
+    });
+
+    // Diagram: 1 trapezoid — the intuition visual
+    drawDiagram(s, DIAG_X, DIAG_Y, DIAG_W, DIAG_H, 1, { labels: true });
+
+    s.addNotes(
+      `This slide sets up the problem. Key talking points:\n` +
+      `- The integral ∫₀¹ e^(-x²) dx has no antiderivative in closed form.\n` +
+      `- Physics experiments give y-values at measured x-values — no formula.\n` +
+      `- Trapezoid rule: divide interval, take y-values at division points, connect with straight lines.\n\n` +
+      `Lesson Success Criteria:\n${lesson.successCriteria.map((c, i) => `${i+1}. ${c}`).join('\n')}\n\n` +
+      `Reference: ${lesson.teaching.paragraphs[0]}`
+    );
+  }
+
+  // ── Slide 3: The Formula ─────────────────────────────────────────────────────
+  {
+    const s = pptx.addSlide();
+    hdr(s, 'The Formula');
+
+    const [hFx, mainFx] = lesson.teaching.latexBlocks;
+
+    // h = (b-a)/n
+    rbox(s, M, CT, CW, 0.58, C.lBlue);
+    s.addText('Step 1  ·  Find the subinterval width', {
+      x: M + 0.18, y: CT + 0.05, w: CW * 0.40, h: 0.48,
+      fontSize: 11, bold: true, color: C.navy, valign: 'middle',
+    });
+    s.addText(latexToReadable(hFx), {
+      x: M + CW * 0.42, y: CT + 0.06, w: CW * 0.55, h: 0.46,
+      fontFace: 'Cambria Math', fontSize: 16, color: C.body, valign: 'middle',
+    });
+
+    // Main composite formula
+    fmlaBox(s, mainFx, M, CT + 0.72, CW, 0.90, 15);
+
+    // Annotated labels below the formula
+    const annoY = CT + 1.74;
+    rbox(s, M, annoY, CW * 0.47, 0.82, 'FFF3CD');
+    s.addText('Endpoints  y₀ and yₙ', {
+      x: M + 0.14, y: annoY + 0.06, w: CW * 0.47 - 0.28, h: 0.30,
+      fontSize: 11, bold: true, color: '7D4E00',
+    });
+    s.addText('Appear once  ·  coefficient 1', {
+      x: M + 0.14, y: annoY + 0.36, w: CW * 0.47 - 0.28, h: 0.36,
+      fontSize: 11, color: '7D4E00', wrap: true,
+    });
+
+    rbox(s, M + CW * 0.50, annoY, CW * 0.47, 0.82, 'E8F5E9');
+    s.addText('Interior values  y₁ … yₙ₋₁', {
+      x: M + CW * 0.50 + 0.14, y: annoY + 0.06, w: CW * 0.47 - 0.28, h: 0.30,
+      fontSize: 11, bold: true, color: '2E7D32',
+    });
+    s.addText('Appear twice  ·  coefficient 2', {
+      x: M + CW * 0.50 + 0.14, y: annoY + 0.36, w: CW * 0.47 - 0.28, h: 0.36,
+      fontSize: 11, color: '2E7D32', wrap: true,
+    });
+
+    // Practical reminder
+    s.addText('The h/2 factor is outside the bracket — multiply last.', {
+      x: M, y: annoY + 0.92, w: CW, h: 0.34,
+      fontSize: 11, color: C.muted, wrap: true,
+    });
+
+    s.addNotes(
+      `Walk through each part of the formula.\n\n` +
+      `Teaching paragraphs:\n${lesson.teaching.paragraphs.map((p, i) => `${i+1}. ${p}`).join('\n')}\n\n` +
+      `Formula blocks (raw LaTeX):\n${lesson.teaching.latexBlocks.join('\n')}`
+    );
+  }
+
+  // ── Slide 4: Worked Example 1 – One Trapezoid ─────────────────────────────
+  {
+    const s = pptx.addSlide();
+    const ex = lesson.workedExamples[0];
+    hdr(s, 'Worked Example 1 – One Trapezoid');
+
+    // Question
+    rbox(s, M, CT, LC_W, 0.64, C.lBlue);
+    s.addText(latexToReadable(ex.questionLatex), {
+      x: M + 0.16, y: CT + 0.05, w: LC_W - 0.32, h: 0.54,
+      fontFace: 'Cambria Math', fontSize: 13, color: C.body, valign: 'middle', wrap: true,
+    });
+
+    // Steps
+    let sy = CT + 0.78;
+    ex.steps.forEach((step, i) => {
+      s.addText(`${i + 1}.  ${step.explanation}`, {
+        x: M, y: sy, w: LC_W * 0.52, h: 0.42,
+        fontSize: 12, color: C.body, wrap: true,
+      });
+      if (step.latex) {
+        box(s, M + LC_W * 0.54, sy, LC_W * 0.44, 0.40, C.lAmber);
+        s.addText(latexToReadable(step.latex), {
+          x: M + LC_W * 0.54 + 0.12, y: sy + 0.03, w: LC_W * 0.44 - 0.24, h: 0.34,
+          fontFace: 'Cambria Math', fontSize: 13, color: C.body, valign: 'middle',
+        });
+      }
+      sy += 0.50;
+    });
+
+    // Diagram: 1 trapezoid with y-labels
+    drawDiagram(s, DIAG_X, DIAG_Y, DIAG_W, DIAG_H, 1, { labels: true });
+
+    ansBar(s, ex.finalAnswerLatex);
+
+    s.addNotes(
+      `Example 1: ${ex.title}\n\n` +
+      `Question (LaTeX): ${ex.questionLatex}\n\n` +
+      `Steps:\n${ex.steps.map((st, i) => `${i+1}. ${st.explanation}${st.latex ? '  →  ' + st.latex : ''}`).join('\n')}\n\n` +
+      `Answer: ${ex.finalAnswerLatex}\n\n` +
+      `Key point: exact integral = 8/3 ≈ 2.67. One trapezoid gives 4 — an overestimate because y = x² is concave up.`
+    );
+  }
+
+  // ── Slide 5: Worked Example 2 – Two Trapezoids ────────────────────────────
+  {
+    const s = pptx.addSlide();
+    const ex = lesson.workedExamples[1];
+    hdr(s, 'Worked Example 2 – Two Trapezoids');
+
+    rbox(s, M, CT, LC_W, 0.64, C.lBlue);
+    s.addText(latexToReadable(ex.questionLatex), {
+      x: M + 0.16, y: CT + 0.05, w: LC_W - 0.32, h: 0.54,
+      fontFace: 'Cambria Math', fontSize: 13, color: C.body, valign: 'middle', wrap: true,
+    });
+
+    let sy = CT + 0.78;
+    ex.steps.forEach((step, i) => {
+      s.addText(`${i + 1}.  ${step.explanation}`, {
+        x: M, y: sy, w: LC_W * 0.52, h: 0.42,
+        fontSize: 12, color: C.body, wrap: true,
+      });
+      if (step.latex) {
+        box(s, M + LC_W * 0.54, sy, LC_W * 0.44, 0.40, C.lAmber);
+        s.addText(latexToReadable(step.latex), {
+          x: M + LC_W * 0.54 + 0.12, y: sy + 0.03, w: LC_W * 0.44 - 0.24, h: 0.34,
+          fontFace: 'Cambria Math', fontSize: 13, color: C.body, valign: 'middle',
+        });
+      }
+      sy += 0.50;
+    });
+
+    // Comparison callout
+    rbox(s, M, sy + 0.06, LC_W, 0.50, 'FFF3CD');
+    s.addText('Two trapezoids → 3.0   vs   one trapezoid → 4.0   vs   exact → 2.67', {
+      x: M + 0.16, y: sy + 0.12, w: LC_W - 0.32, h: 0.36,
+      fontFace: 'Cambria Math', fontSize: 11, color: '7D4E00', valign: 'middle', wrap: true,
+    });
+
+    drawDiagram(s, DIAG_X, DIAG_Y, DIAG_W, DIAG_H, 2, { labels: true });
+
+    ansBar(s, ex.finalAnswerLatex);
+
+    s.addNotes(
+      `Example 2: ${ex.title}\n\n` +
+      `Question (LaTeX): ${ex.questionLatex}\n\n` +
+      `Steps:\n${ex.steps.map((st, i) => `${i+1}. ${st.explanation}${st.latex ? '  →  ' + st.latex : ''}`).join('\n')}\n\n` +
+      `Answer: ${ex.finalAnswerLatex}\n\n` +
+      `Key point: more subintervals → closer to true value 8/3 ≈ 2.67.`
+    );
+  }
+
+  // ── Slide 6: Worked Example 3 – Table of Values ───────────────────────────
+  {
+    const s = pptx.addSlide();
+    const ex = lesson.workedExamples[2];
+    hdr(s, 'Worked Example 3 – Table of Values');
+
+    // Table rendered as column of cells
+    const tableRows = latexToReadable(ex.questionLatex).split('\n');
+    const tableW = CW * 0.60;
+    const tableX = M + (CW - tableW) / 2;
+    tableRows.forEach((row, i) => {
+      const rowH = 0.48;
+      box(s, tableX, CT + i * rowH, tableW, rowH, i === 0 ? C.navy : (i % 2 === 1 ? C.lBlue : 'F5F9FF'));
+      s.addText(row, {
+        x: tableX + 0.14, y: CT + i * rowH + 0.03, w: tableW - 0.28, h: rowH - 0.06,
+        fontFace: 'Cambria Math', fontSize: 13,
+        color: i === 0 ? C.white : C.body,
+        valign: 'middle', align: 'center',
+      });
+    });
+
+    const tableBottom = CT + tableRows.length * 0.48 + 0.16;
+
+    // Steps across full width below table
+    ex.steps.forEach((step, i) => {
+      const stepY = tableBottom + i * 0.52;
+      s.addText(`${i + 1}.  ${step.explanation}`, {
+        x: M, y: stepY, w: CW * 0.52, h: 0.44,
+        fontSize: 12, color: C.body, wrap: true,
+      });
+      if (step.latex) {
+        box(s, M + CW * 0.54, stepY, CW * 0.43, 0.42, C.lAmber);
+        s.addText(latexToReadable(step.latex), {
+          x: M + CW * 0.54 + 0.12, y: stepY + 0.03, w: CW * 0.43 - 0.24, h: 0.36,
+          fontFace: 'Cambria Math', fontSize: 13, color: C.body, valign: 'middle',
+        });
+      }
+    });
+
+    ansBar(s, ex.finalAnswerLatex);
+
+    s.addNotes(
+      `Example 3: ${ex.title}\n\n` +
+      `Question (LaTeX): ${ex.questionLatex}\n\n` +
+      `Table data: x = 0,1,2,3 | y = 2,5,6,8\n\n` +
+      `Steps:\n${ex.steps.map((st, i) => `${i+1}. ${st.explanation}${st.latex ? '  →  ' + st.latex : ''}`).join('\n')}\n\n` +
+      `Answer: ${ex.finalAnswerLatex}\n\n` +
+      `Key: read h from the x-spacing (here h = 1). Apply formula: (1/2)(2 + 2×5 + 2×6 + 8) = 16.`
+    );
+  }
+
+  // ── Slide 7: Concavity & Error Direction ─────────────────────────────────
+  {
+    const s = pptx.addSlide();
+    const ex = lesson.workedExamples[3];
+    hdr(s, 'Concavity & Error Direction');
+
+    // Left column: rule cards
+    const rules = [
+      { icon: '▲', label: 'Concave up', sub: "f ″(x) > 0", verdict: 'Trapezoids sit ABOVE the curve → overestimate', bg: C.lRed, tc: C.redTxt },
+      { icon: '▼', label: 'Concave down', sub: "f ″(x) < 0", verdict: 'Trapezoids sit BELOW the curve → underestimate', bg: C.lGreen, tc: C.grTxt },
+    ];
+
+    rules.forEach((r, i) => {
+      const ry = CT + i * 2.20;
+      rbox(s, M, ry, LC_W, 2.00, r.bg);
+      s.addText(`${r.icon}  ${r.label}`, {
+        x: M + 0.18, y: ry + 0.14, w: LC_W - 0.36, h: 0.40,
+        fontSize: 16, bold: true, color: r.tc,
+      });
+      s.addText(r.sub, {
+        x: M + 0.18, y: ry + 0.56, w: LC_W - 0.36, h: 0.32,
+        fontFace: 'Cambria Math', fontSize: 13, color: r.tc,
+      });
+      s.addText(r.verdict, {
+        x: M + 0.18, y: ry + 0.92, w: LC_W - 0.36, h: 0.72,
+        fontSize: 12, color: C.body, wrap: true,
+      });
+    });
+
+    // Diagram: 2 trapezoids + gap annotation (concave-up overestimate)
+    drawDiagram(s, DIAG_X, DIAG_Y, DIAG_W, DIAG_H, 2, { gap: true });
+
+    ansBar(s, ex.finalAnswerLatex);
+
+    s.addNotes(
+      `Example 4: ${ex.title}\n\n` +
+      `Question (LaTeX): ${ex.questionLatex}\n\n` +
+      `Steps:\n${ex.steps.map((st, i) => `${i+1}. ${st.explanation}${st.latex ? '  →  ' + st.latex : ''}`).join('\n')}\n\n` +
+      `Answer: ${ex.finalAnswerLatex}\n\n` +
+      `Memory trick: "Concave up = frowns up = trap over". Think of the chord being above a bowl shape.\n` +
+      `For concave-down (like y = -x²), the chord dips below the curve, so the trapezoid area is less than the true area.`
+    );
+  }
+
+  // ── Slides 8–9: Common Mistakes ──────────────────────────────────────────────
+  [
+    { title: 'Common Mistakes  (1 of 2)', items: lesson.commonMistakes.slice(0, 2) },
+    { title: 'Common Mistakes  (2 of 2)', items: lesson.commonMistakes.slice(2) },
+  ].forEach(({ title, items }) => {
+    const s = pptx.addSlide();
     hdr(s, title);
 
     const rowH = (CH - 0.20) / items.length;
 
     items.forEach((m, i) => {
-      const ry = CT + i * (rowH + 0.07);
-      box(s, M,             ry, CW * 0.47, rowH, C.lRed);
-      box(s, M + CW * 0.50, ry, CW * 0.47, rowH, C.lGreen);
+      const ry = CT + i * (rowH + 0.08);
+      rbox(s, M, ry, CW * 0.47, rowH, C.lRed);
+      rbox(s, M + CW * 0.50, ry, CW * 0.47, rowH, C.lGreen);
+
       s.addText(`✗  ${m.mistake}`, {
-        x: M + 0.10, y: ry + 0.07, w: CW * 0.47 - 0.20, h: rowH - 0.14,
-        fontSize: 11, color: C.redTxt, valign: 'middle', wrap: true,
+        x: M + 0.16, y: ry + 0.12, w: CW * 0.47 - 0.32, h: rowH - 0.24,
+        fontSize: 13, color: C.redTxt, valign: 'middle', wrap: true,
       });
       s.addText(`✓  ${m.fix}`, {
-        x: M + CW * 0.50 + 0.10, y: ry + 0.07, w: CW * 0.47 - 0.20, h: rowH - 0.14,
-        fontSize: 11, color: C.grTxt, valign: 'middle', wrap: true,
+        x: M + CW * 0.50 + 0.16, y: ry + 0.12, w: CW * 0.47 - 0.32, h: rowH - 0.24,
+        fontSize: 13, color: C.grTxt, valign: 'middle', wrap: true,
       });
     });
 
     s.addNotes(
-      `Pause here and ask students which mistakes they've made before.\n\n` +
-      `This slide:\n` +
-      items.map((m, i) => `MISTAKE: ${m.mistake}\nFIX: ${m.fix}`).join('\n\n') +
-      `\n\nAll mistakes for reference:\n` +
-      lesson.commonMistakes.map((m, i) => `${i + 1}. ${m.mistake} → ${m.fix}`).join('\n')
+      `Pause here. Ask: "Which of these have you done before?"\n\n` +
+      items.map(m => `MISTAKE: ${m.mistake}\nFIX: ${m.fix}`).join('\n\n') +
+      `\n\nAll mistakes:\n${lesson.commonMistakes.map((m, i) => `${i+1}. ${m.mistake} → ${m.fix}`).join('\n')}`
     );
   });
 
-  // ── Slide 10: Guided Practice ─────────────────────────────────────────────────
+  // ── Slide 10: Your Turn ───────────────────────────────────────────────────────
   {
     const s = pptx.addSlide();
     const q = lesson.guidedPractice[0];
     hdr(s, 'Your Turn – Guided Practice');
 
-    s.addText('Pause the video and try this question. Write your working below.', {
-      x: M, y: CT, w: CW, h: 0.30,
-      fontSize: 10.5, color: C.muted, italic: true,
+    s.addText('Pause the video now and try this question. Resume when you have an answer.', {
+      x: M, y: CT, w: CW, h: 0.36, fontSize: 12, color: C.muted,
     });
 
-    box(s, M, CT + 0.36, CW, 0.62, C.lBlue);
+    rbox(s, M, CT + 0.44, CW, 0.76, C.lBlue);
     s.addText(q.prompt, {
-      x: M + 0.14, y: CT + 0.36, w: CW * 0.50, h: 0.62,
-      fontSize: 12, bold: true, color: C.body, valign: 'middle', wrap: true,
+      x: M + 0.18, y: CT + 0.44, w: CW * 0.52, h: 0.76,
+      fontSize: 13, bold: true, color: C.body, valign: 'middle', wrap: true,
     });
     s.addText(latexToReadable(q.latex), {
-      x: M + CW * 0.52, y: CT + 0.40, w: CW * 0.44, h: 0.54,
-      fontFace: 'Cambria Math', fontSize: 12, color: C.body, valign: 'middle', wrap: true,
+      x: M + CW * 0.54, y: CT + 0.48, w: CW * 0.43, h: 0.68,
+      fontFace: 'Cambria Math', fontSize: 13, color: C.body, valign: 'middle', wrap: true,
     });
 
     if (q.hint) {
-      s.addText(`Hint: ${q.hint}`, {
-        x: M, y: CT + 1.08, w: CW, h: 0.34,
-        fontSize: 10, color: C.muted, italic: true, wrap: true,
+      s.addText(`Hint:  ${q.hint}`, {
+        x: M, y: CT + 1.30, w: CW, h: 0.38,
+        fontSize: 11, color: C.muted, wrap: true,
       });
     }
 
-    s.addText('My working:', {
-      x: M, y: CT + 1.52, w: 2, h: 0.28,
-      fontSize: 10, bold: true, color: C.muted,
+    s.addText('Work it out here:', {
+      x: M, y: CT + 1.80, w: 2.5, h: 0.30,
+      fontSize: 11, bold: true, color: C.muted,
     });
     s.addShape(R, {
-      x: M, y: CT + 1.82, w: CW, h: SH - (CT + 1.82) - 0.22,
-      fill: { color: 'F9FAFB' }, line: { color: 'D1D5DB', pt: 1 },
+      x: M, y: CT + 2.14, w: CW, h: SH - (CT + 2.14) - 0.32,
+      fill: { color: 'F9FAFB' }, line: { color: 'D1D5DB', width: 1 },
     });
 
     s.addNotes(
-      `Tell students: "Pause the video now and try this yourself."\n` +
-      `Resume after giving them time.\n\n` +
-      `Question: ${q.prompt}\n` +
-      `LaTeX: ${q.latex}\n` +
-      `Answer: ${q.answer}\n` +
-      `Hint: ${q.hint ?? '–'}\n\n` +
-      `All guided practice (for reference):\n` +
-      lesson.guidedPractice
-        .map((gq, i) => `${i + 1}. ${gq.prompt} (${gq.latex}) → ${gq.answer}`)
-        .join('\n')
+      `ANSWER: ${q.answer}\n\n` +
+      `Question: ${q.prompt}\nLaTeX: ${q.latex}\nHint: ${q.hint ?? '–'}\n\n` +
+      `All guided practice:\n${lesson.guidedPractice.map((gq, i) => `${i+1}. ${gq.prompt} (${gq.latex}) → ${gq.answer}`).join('\n')}`
     );
   }
 
@@ -416,38 +775,29 @@ async function main(): Promise<void> {
     const s = pptx.addSlide();
     hdr(s, 'Summary');
 
-    s.addText('Key ideas from this lesson:', {
-      x: M, y: CT, w: CW, h: 0.30,
-      fontSize: 11.5, bold: true, color: C.navy,
-    });
-
     const pts = [
-      'Divide [a, b] into n equal subintervals of width  h = (b−a)/n.',
+      'h = (b−a)/n  — the subinterval width',
       'Formula:  (h/2)[y₀ + 2y₁ + 2y₂ + ⋯ + 2yₙ₋₁ + yₙ]',
-      'Endpoints y₀ and yₙ — coefficient 1.  Interior values — coefficient 2.',
-      'From a table of values: read h from the x-spacing, then apply the formula.',
-      'Concave-up curve → trapezoids lie above → overestimate.',
-      'Concave-down curve → trapezoids lie below → underestimate.',
-      'More subintervals (smaller h) → closer approximation.',
+      'Endpoints y₀ and yₙ appear once.  Interior values appear twice.',
+      'From a table: read h from the x-spacing, then apply the formula directly.',
+      'Concave-up  →  chord above curve  →  overestimate.',
+      'Concave-down  →  chord below curve  →  underestimate.',
+      'More subintervals (smaller h) usually improves the approximation.',
     ];
 
-    const bullets = pts.map(t => ({
-      text: t,
-      options: { bullet: true, paraSpaceAfter: 4 },
-    }));
+    const bullets = pts.map(t => ({ text: t, options: { bullet: true, paraSpaceAfter: 5 } }));
     s.addText(bullets, {
-      x: M + 0.10, y: CT + 0.38, w: CW - 0.20, h: CH - 0.38,
-      fontSize: 11, color: C.body, wrap: true,
+      x: M + 0.14, y: CT + 0.10, w: CW - 0.28, h: CH,
+      fontSize: 13, color: C.body, wrap: true,
     });
 
     s.addNotes(
-      `Read through the summary with students.\n` +
-      `Revisit the learning intention: "${lesson.learningIntention}"\n\n` +
+      `Close by revisiting the learning intention:\n"${lesson.learningIntention}"\n\n` +
       `Key points:\n${pts.join('\n')}`
     );
   }
 
-  // ── Write output ───────────────────────────────────────────────────────────────
+  // ── Write output ──────────────────────────────────────────────────────────────
   const outDir  = join(process.cwd(), 'generated-slides', 'year-12-advanced', 'further-integral-calculus');
   mkdirSync(outDir, { recursive: true });
   const outPath = join(outDir, 'trapezoidal-rule.pptx');
@@ -457,15 +807,15 @@ async function main(): Promise<void> {
   console.log(`\n✓  Slides written to:\n   ${outPath}\n`);
   console.log('Deck: 11 slides');
   console.log('   1  Title');
-  console.log('   2  Learning Intention & Success Criteria');
-  console.log('   3  Key Formula');
-  console.log('   4  Worked Example 1 – One Trapezoid');
-  console.log('   5  Worked Example 2 – Two Trapezoids');
-  console.log('   6  Worked Example 3 – Table of Values');
-  console.log('   7  Worked Example 4 – Concavity Interpretation');
+  console.log('   2  Why the Trapezoidal Rule?  [visual: 1-trap diagram]');
+  console.log('   3  The Formula');
+  console.log('   4  Example 1 – One Trapezoid  [visual: 1-trap diagram]');
+  console.log('   5  Example 2 – Two Trapezoids  [visual: 2-trap diagram]');
+  console.log('   6  Example 3 – Table of Values');
+  console.log('   7  Concavity & Error Direction  [visual: 2-trap + gap annotation]');
   console.log('   8  Common Mistakes (1 of 2)');
   console.log('   9  Common Mistakes (2 of 2)');
-  console.log('  10  Your Turn – Guided Practice');
+  console.log('  10  Your Turn');
   console.log('  11  Summary\n');
 }
 

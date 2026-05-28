@@ -15,7 +15,7 @@ export default async function AdminLoginPage({
       <section className="mx-auto max-w-md space-y-6 rounded-2xl bg-white p-6 text-slate-900 shadow-sm">
         <div>
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            HSC Maths Coach
+            Nova Maths
           </p>
 
           <h1 className="mt-2 text-3xl font-bold tracking-tight">

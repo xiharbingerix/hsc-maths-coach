@@ -59,7 +59,7 @@ export default function SignupPage() {
 
       if (profileError || accessError) {
         setNotice(
-          "Account created. Online learning access still needs to be reviewed manually, so you can continue to the dashboard while it is being set up."
+          "Account created. Subscribe to online learning to unlock lesson access from the dashboard."
         );
       }
     }
@@ -71,13 +71,13 @@ export default function SignupPage() {
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
       <section className="mx-auto max-w-md rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
         <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-          HSC Maths Coach
+          Nova Maths
         </p>
         <h1 className="mt-3 text-3xl font-bold tracking-tight">
           Create student account
         </h1>
         <p className="mt-3 text-sm leading-6 text-slate-600">
-          Create an account to access the HSC Maths Coach dashboard. Subscribe
+          Create an account to access the Nova Maths dashboard. Subscribe
           to unlock lessons after signing up.
         </p>
 

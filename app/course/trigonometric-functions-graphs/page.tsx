@@ -198,9 +198,9 @@ export default function TrigonometricFunctionsGraphsModulePage() {
                 Part of the Online Learning Package
               </h2>
               <p className="mt-3 max-w-3xl leading-7 text-slate-600">
-                This unit is part of the HSC Maths Advanced online learning
-                package. The lesson pathway is available for preview, and full
-                access is approved manually during early access.
+                This unit is part of the Nova Maths online learning package.
+                The lesson pathway is available for preview, and full access
+                requires an active online learning subscription.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap md:justify-end">

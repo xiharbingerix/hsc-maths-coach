@@ -37,7 +37,7 @@ export default function CoursePage() {
       <section className="mx-auto max-w-6xl space-y-8">
         <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            HSC Maths Coach
+            Nova Maths
           </p>
 
           <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">

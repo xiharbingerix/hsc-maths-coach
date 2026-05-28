@@ -586,7 +586,7 @@ export default async function AdminPage() {
         <header className="flex flex-col gap-4 rounded-3xl bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-              HSC Maths Coach
+              Nova Maths
             </p>
             <h1 className="mt-2 text-3xl font-bold tracking-tight">
               Report dashboard

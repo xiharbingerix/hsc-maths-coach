@@ -6,14 +6,15 @@ export default function PrivacyPage() {
       <article className="mx-auto max-w-3xl space-y-8 rounded-2xl bg-white p-6 shadow-sm">
         <section className="space-y-3">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            HSC Maths Coach
+            Nova Maths
           </p>
 
           <h1 className="text-3xl font-bold tracking-tight">Privacy Notice</h1>
 
           <p className="text-slate-600">
-            This Privacy Notice explains how HSC Maths Coach collects, uses,
-            stores, and protects information submitted through the HSC Maths
+            This Privacy Notice explains how Nova Maths by Joshua Taylor
+            collects, uses, stores, and protects information submitted through
+            the Year 12 Mathematics Advanced
             diagnostic, enquiries, accounts, and online learning access.
           </p>
 
@@ -24,7 +25,7 @@ export default function PrivacyPage() {
           <h2 className="text-xl font-semibold">1. Overview</h2>
 
           <p className="text-slate-700">
-            HSC Maths Coach is a diagnostic-led revision tool for maths
+            Nova Maths is a diagnostic-led revision tool for maths
             learning. The current diagnostic is for Year 12 Mathematics
             Advanced and is designed to help identify a student&apos;s maths
             strengths, weak areas, and possible study priorities. Online
@@ -139,7 +140,7 @@ export default function PrivacyPage() {
           </p>
 
           <p className="text-slate-700">
-            Reports are manually reviewed during early access before being sent.
+            Reports are reviewed before being sent.
           </p>
         </section>
 
@@ -149,7 +150,7 @@ export default function PrivacyPage() {
           </h2>
 
           <p className="text-slate-700">
-            HSC Maths Coach uses rule-based scoring and report-drafting tools
+            Nova Maths uses rule-based scoring and report-drafting tools
             to help organise diagnostic results and recommended next steps.
           </p>
 

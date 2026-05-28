@@ -107,7 +107,7 @@ function buildParentEmailTemplate({
   return [
     parentGreeting(submission),
     "",
-    `Thanks for completing the HSC Maths Coach diagnostic for ${submission.student_first_name}. I have reviewed the result and prepared the diagnostic report.`,
+    `Thanks for completing the Nova Maths diagnostic for ${submission.student_first_name}. I have reviewed the result and prepared the diagnostic report.`,
     "",
     `Short summary: ${submission.student_first_name} scored ${score.correct}/${score.totalQuestions} (${score.percentage}%). ${prioritySentence} ${secondarySentence}`.trim(),
     "",
@@ -116,7 +116,7 @@ function buildParentEmailTemplate({
     "Suggested next step: start with the recommended lessons in the top priority area, then reattempt similar diagnostic-style questions before moving into broad mixed practice.",
     "",
     "Kind regards,",
-    "HSC Maths Coach",
+    "Nova Maths by Joshua Taylor",
   ].join("\n");
 }
 

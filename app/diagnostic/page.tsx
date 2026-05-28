@@ -204,11 +204,11 @@ Hint: ${error.hint ?? "No hint"}`
       >
         <section className="space-y-3">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            HSC Maths Coach
+            Nova Maths
           </p>
 
           <h1 className="text-3xl font-bold tracking-tight">
-            HSC Maths Advanced Diagnostic
+            Year 12 Mathematics Advanced Diagnostic
           </h1>
 
           <p className="max-w-3xl leading-7 text-slate-600">
@@ -661,7 +661,7 @@ export default function DiagnosticPage() {
         <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
           <section className="mx-auto max-w-5xl rounded-3xl bg-white p-6 shadow-sm md:p-8">
             <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-              HSC Maths Coach
+              Nova Maths
             </p>
             <h1 className="mt-2 text-3xl font-bold tracking-tight">
               Loading diagnostic

@@ -26,7 +26,7 @@ const offerLabels: Record<string, string> = {
 
 const offerHelperText: Record<string, string> = {
   "online-learning":
-    "Register interest in low-cost early access to the available online learning course pathways. Access is approved manually during early access.",
+    "Register interest in the available online learning course pathways.",
   "diagnostic-report":
     "Request a parent-friendly PDF report after completing the diagnostic. Reports are manually reviewed before being sent.",
   "study-plan":
@@ -117,7 +117,7 @@ export function EnquireForm({ offers, initialOffer }: EnquireFormProps) {
             <li>Create an account if you want online learning access.</li>
             <li>
               {successFollowUpText[offerSelected] ??
-                "Joshua will follow up about early access/report options."}
+                "Joshua will follow up about report or support options."}
             </li>
           </ul>
         </div>

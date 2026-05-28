@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const nextSteps = [
   "Your diagnostic submission has been received.",
-  "During early access, reports are reviewed before being sent.",
+  "Reports are reviewed before being sent.",
   "If you requested a report or study plan, Joshua will follow up.",
   "You can also register interest in online learning access, weekly tutoring, or create an account.",
 ];
@@ -47,7 +47,7 @@ export default function ThanksPage() {
       <section className="mx-auto max-w-5xl space-y-8">
         <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            HSC Maths Coach
+            Nova Maths
           </p>
 
           <h1 className="mt-3 text-4xl font-bold tracking-tight">
@@ -57,8 +57,8 @@ export default function ThanksPage() {
           <div className="mt-5 max-w-3xl space-y-3 text-lg leading-8 text-slate-600">
             <p>Your diagnostic has been submitted.</p>
             <p>
-              During early access, reports are reviewed before being sent. The
-              parent/guardian email provided will be used for follow-up.
+              Reports are reviewed before being sent. The parent/guardian
+              email provided will be used for follow-up.
             </p>
           </div>
         </header>
@@ -123,8 +123,8 @@ export default function ThanksPage() {
                 Online learning access
               </h2>
               <p className="mt-3 max-w-2xl leading-7 text-slate-600">
-                We are currently offering low-cost early access for students
-                who want structured revision without weekly tutoring.
+                Nova Maths offers low-cost online learning for students who
+                want structured revision without weekly tutoring.
               </p>
             </div>
 

@@ -282,7 +282,7 @@ export function NewCourseUnitPage({
                 Status
               </p>
               <p className="mt-2 text-sm font-semibold text-green-800">
-                Early access
+                Active
               </p>
             </div>
             <div className="rounded-2xl bg-slate-50 p-4">
@@ -346,9 +346,8 @@ export function NewCourseUnitPage({
                 Part of the Online Learning Package
               </h2>
               <p className="mt-3 max-w-3xl leading-7 text-slate-600">
-                This unit is available during early access. Unit previews stay
-                public, while individual lessons require active online learning
-                access.
+                Unit previews stay public, while individual lessons require
+                active online learning access.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap md:justify-end">

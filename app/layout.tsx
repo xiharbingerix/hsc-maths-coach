@@ -4,13 +4,13 @@ import "katex/dist/katex.min.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "HSC Maths Coach",
-    template: "%s | HSC Maths Coach",
+    default: "Nova Maths",
+    template: "%s | Nova Maths",
   },
   description:
     "Stage 6 maths support with a Year 12 Advanced diagnostic and online learning pathways for available Year 11 and Year 12 courses.",
   openGraph: {
-    title: "HSC Maths Coach",
+    title: "Nova Maths",
     description:
       "Stage 6 maths support with a Year 12 Advanced diagnostic and online learning pathways for available Year 11 and Year 12 courses.",
     type: "website",

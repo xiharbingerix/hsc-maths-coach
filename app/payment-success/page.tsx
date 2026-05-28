@@ -38,7 +38,7 @@ export default async function PaymentSuccessPage({
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
             {isOnlineLearning
               ? "Online learning access is linked automatically when checkout was completed while logged in. If you checked out with an email only, Joshua may need to match the payment to your account manually."
-              : "Year 12 Mathematics Advanced report and study plan options are manually reviewed before follow-up during early access."}
+              : "Year 12 Mathematics Advanced report and study plan options are reviewed before follow-up."}
           </p>
         </header>
 
@@ -47,7 +47,7 @@ export default async function PaymentSuccessPage({
             {offer ? offer.label : "Next steps"}
           </h2>
           <p className="mt-3 text-sm font-semibold text-slate-500">
-            {offer?.priceLabel ?? "Early access"}
+            {offer?.priceLabel ?? "Next steps"}
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             {isOnlineLearning ? (
