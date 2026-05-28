@@ -82,6 +82,13 @@ export const courseUnits: CourseUnitSummary[] = [
     activeLessonCount: 5,
   },
   {
+    title: "Exponential and Logarithmic Functions",
+    href: "/course/exponential-logarithmic-functions",
+    description:
+      "Logarithm laws, change of base, Euler's number, natural logarithms, equations with e and ln, and continuous growth and decay modelling.",
+    activeLessonCount: 5,
+  },
+  {
     title: "Sequences, Series and Financial Mathematics",
     href: "/course/sequences-series-financial-maths",
     description:
@@ -111,13 +118,13 @@ export const year12AdvancedCourse: CourseCatalogueItem = {
   courseType: "Mathematics Advanced",
   href: "/course/year-12-advanced",
   description:
-    "Year 12 Advanced is in active development. Current lessons cover functions, trigonometry, further trigonometry, introductory calculus, differentiation techniques, applications of differentiation, integral calculus, further integral calculus, sequences, series, financial mathematics and statistics. Further HSC topics are being added.",
+    "Year 12 Mathematics Advanced now includes 89 active lessons across functions, trigonometry, exponential and logarithmic functions, calculus, statistics, sequences, series and financial mathematics. Ongoing refinements and visual supports are being added.",
   unitCount: courseUnits.length,
   activeLessonCount: courseUnits.reduce(
     (total, unit) => total + unit.activeLessonCount,
     0
   ),
-  status: "in_progress",
+  status: "available",
   units: courseUnits,
 };
 
