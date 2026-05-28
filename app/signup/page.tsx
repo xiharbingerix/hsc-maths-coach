@@ -77,8 +77,8 @@ export default function SignupPage() {
           Create student account
         </h1>
         <p className="mt-3 text-sm leading-6 text-slate-600">
-          Create an account for the online learning dashboard. Access is
-          reviewed manually during early access.
+          Create an account to access the HSC Maths Coach dashboard. Subscribe
+          to unlock lessons after signing up.
         </p>
 
         {errorMessage ? (

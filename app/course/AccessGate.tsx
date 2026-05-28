@@ -44,18 +44,18 @@ const gateContent: Record<
   revoked: {
     title: "Online learning access is not currently active",
     text: "This account does not currently have active online learning access.",
-    primaryHref: "/dashboard",
-    primaryLabel: "Go to dashboard",
-    secondaryHref: "/enquire?offer=online-learning",
-    secondaryLabel: "Register interest",
+    primaryHref: "/checkout?offer=online-learning",
+    primaryLabel: "Resubscribe — $19/month",
+    secondaryHref: "/dashboard",
+    secondaryLabel: "Go to dashboard",
   },
   none: {
     title: "Online learning access is not set up yet",
     text: "Your account exists, but online learning access still needs to be reviewed or set up.",
-    primaryHref: "/dashboard",
-    primaryLabel: "Go to dashboard",
-    secondaryHref: "/enquire?offer=online-learning",
-    secondaryLabel: "Register interest",
+    primaryHref: "/checkout?offer=online-learning",
+    primaryLabel: "Subscribe — $19/month",
+    secondaryHref: "/signup",
+    secondaryLabel: "Create account first",
   },
 };
 

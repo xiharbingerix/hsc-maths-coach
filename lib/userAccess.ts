@@ -15,7 +15,7 @@ export function getUserAccessDashboardCopy(status: UserAccessStatus) {
     return {
       title: "Your online learning access is active",
       message:
-        "You can continue with the available HSC Maths Advanced units below.",
+        "You can continue with the available HSC Maths course units below.",
       badge: "Active",
     };
   }

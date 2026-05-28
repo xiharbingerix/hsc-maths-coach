@@ -56,7 +56,7 @@ const included = [
   {
     title: "NSW senior mathematics pathways",
     description:
-      "Built around skills students need across the available Year 11 and Year 12 early-access pathways.",
+      "Built around skills students need across the available Year 11 and Year 12 maths course pathways.",
   },
 ];
 
@@ -76,10 +76,10 @@ const lessonActions = [
 ];
 
 const accessSteps = [
-  "Create an account or register interest.",
-  "Joshua reviews access requests manually during early access.",
-  "Approved students can work through the available Year 11 and Year 12 course lessons and mastery checks.",
-  "Reports and study plans can be requested separately.",
+  "Create an account at hscmathscoach.com/signup.",
+  "Subscribe to online learning for $19/month.",
+  "Access activates automatically after payment.",
+  "Cancel any time from your Stripe billing portal.",
 ];
 
 function PrimaryLink({
@@ -147,6 +147,9 @@ export default function OnlineLearningPage() {
               </PrimaryLink>
               <SecondaryLink href="/signup">Create account</SecondaryLink>
             </div>
+            <p className="mt-2 text-sm text-slate-500">
+              $19/month &middot; Cancel any time.
+            </p>
 
             <div className="mt-4 flex flex-col gap-3 sm:flex-row">
               <SecondaryLink href="/diagnostic?offer=online-learning">
@@ -260,9 +263,9 @@ export default function OnlineLearningPage() {
         </section>
 
         <section className="rounded-3xl border border-slate-200 bg-slate-100/80 p-8 shadow-sm md:p-10">
-          <SectionLabel>Early access</SectionLabel>
+          <SectionLabel>Getting started</SectionLabel>
           <h2 className="mt-3 text-3xl font-bold tracking-tight">
-            How early access works.
+            How to get started.
           </h2>
           <ol className="mt-6 space-y-3 text-slate-700">
             {accessSteps.map((step, index) => (
