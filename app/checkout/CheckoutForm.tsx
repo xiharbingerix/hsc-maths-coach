@@ -131,17 +131,24 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
           <p className="mt-4 leading-7 text-slate-600">{offer.description}</p>
           <div className="mt-5 rounded-xl bg-white p-4 text-sm leading-6 text-slate-700">
             <p className="font-semibold text-slate-950">What happens next</p>
-            <p className="mt-2">
-              You will continue to Stripe Checkout. After payment, Joshua will
-              follow up manually during early access.
-            </p>
+            {offer.slug === "online-learning" ? (
+              <>
+                <p className="mt-2">
+                  Access activates automatically after payment when you are
+                  logged in.
+                </p>
+                <p className="mt-2">
+                  If you pay without an account, contact us so we can match
+                  your payment to your login.
+                </p>
+              </>
+            ) : (
+              <p className="mt-2">
+                You will continue to Stripe Checkout. After payment, access or
+                follow-up will use the details attached to this order.
+              </p>
+            )}
           </div>
-          {offer.slug === "online-learning" ? (
-            <p className="mt-4 text-sm leading-6 text-slate-600">
-              For online learning, creating or logging into an account first
-              helps match payment to dashboard access.
-            </p>
-          ) : null}
         </div>
 
         <form onSubmit={handleSubmit}>

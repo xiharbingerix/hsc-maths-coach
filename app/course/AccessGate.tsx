@@ -27,19 +27,19 @@ const gateContent: Record<
 > = {
   "logged-out": {
     title: "Create an account to access this lesson",
-    text: "This lesson is part of the HSC Maths Coach online learning access.",
+    text: "This lesson is part of Nova Maths online learning access.",
     primaryHref: "/signup",
     primaryLabel: "Create account",
     secondaryHref: "/login",
     secondaryLabel: "Log in",
   },
   pending: {
-    title: "Online learning access is pending",
-    text: "Your account has been created. Access is approved manually during early access.",
-    primaryHref: "/dashboard",
-    primaryLabel: "Go to dashboard",
-    secondaryHref: "/enquire?offer=online-learning",
-    secondaryLabel: "Register interest",
+    title: "Subscribe to unlock this lesson",
+    text: "Your account is ready. Subscribe to activate online learning access.",
+    primaryHref: "/checkout?offer=online-learning",
+    primaryLabel: "Subscribe — $19/month",
+    secondaryHref: "/dashboard",
+    secondaryLabel: "Go to dashboard",
   },
   revoked: {
     title: "Online learning access is not currently active",
@@ -51,7 +51,7 @@ const gateContent: Record<
   },
   none: {
     title: "Online learning access is not set up yet",
-    text: "Your account exists, but online learning access still needs to be reviewed or set up.",
+    text: "Your account exists. Subscribe to activate online learning access.",
     primaryHref: "/checkout?offer=online-learning",
     primaryLabel: "Subscribe — $19/month",
     secondaryHref: "/signup",
@@ -142,7 +142,7 @@ export function AccessGate({ children }: AccessGateProps) {
       <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
         <section className="mx-auto max-w-3xl rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            HSC Maths Coach
+            Nova Maths
           </p>
           <h1 className="mt-3 text-3xl font-bold tracking-tight">
             Checking lesson access...
@@ -162,7 +162,7 @@ export function AccessGate({ children }: AccessGateProps) {
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
       <section className="mx-auto max-w-3xl rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
         <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-          HSC Maths Coach
+          Nova Maths
         </p>
         <h1 className="mt-3 text-3xl font-bold tracking-tight">
           {content.title}

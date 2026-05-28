@@ -15,7 +15,7 @@ export function getUserAccessDashboardCopy(status: UserAccessStatus) {
     return {
       title: "Your online learning access is active",
       message:
-        "You can continue with the available HSC Maths course units below.",
+        "You can continue with the available Nova Maths course units below.",
       badge: "Active",
     };
   }
@@ -24,7 +24,7 @@ export function getUserAccessDashboardCopy(status: UserAccessStatus) {
     return {
       title: "Online learning access is not currently active",
       message:
-        "This account does not currently have active online learning access. If this looks wrong, register interest again or reply to your HSC Maths Coach follow-up email.",
+        "This account does not currently have active online learning access. If this looks wrong, register interest again or reply to your Nova Maths follow-up email.",
       badge: "Revoked",
     };
   }
@@ -33,7 +33,7 @@ export function getUserAccessDashboardCopy(status: UserAccessStatus) {
     return {
       title: "Online learning access is pending",
       message:
-        "Your account has been created. Access is approved manually during early access.",
+        "Your account is ready. Subscribe to online learning to unlock lessons — access activates automatically after payment.",
       badge: "Pending",
     };
   }

@@ -76,10 +76,10 @@ const lessonActions = [
 ];
 
 const accessSteps = [
-  "Create an account at hscmathscoach.com/signup.",
+  "Create an account from the signup page.",
   "Subscribe to online learning for $19/month.",
   "Access activates automatically after payment.",
-  "Cancel any time from your Stripe billing portal.",
+  "Cancel any time by contacting us.",
 ];
 
 function PrimaryLink({
@@ -138,8 +138,7 @@ export default function OnlineLearningPage() {
             </h1>
             <p className="mt-5 text-lg leading-8 text-slate-600">
               Structured online learning for students who want targeted senior
-              maths revision without committing to weekly tutoring. Access is
-              approved manually during early access.
+              maths revision without committing to weekly tutoring.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/checkout?offer=online-learning">
@@ -193,8 +192,7 @@ export default function OnlineLearningPage() {
               <p className="mt-3 max-w-2xl leading-7 text-slate-600">
                 The Year 12 Mathematics Advanced pathway remains the main
                 launched diagnostic pathway. Online learning access now also
-                includes expanding early-access pathways for Standard and Year
-                11 students.
+                includes expanding pathways for Standard and Year 11 students.
               </p>
             </div>
             <SecondaryLink href="/course">View HSC course</SecondaryLink>
