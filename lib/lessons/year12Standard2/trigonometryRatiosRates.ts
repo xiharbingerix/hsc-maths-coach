@@ -291,11 +291,68 @@ export function year12Standard2TrigRatesLessonOverride(
       masteryQuiz: [
         practicalChoice("y12s2-trig-m1", "A triangle has sides 48 m and 62 m with included angle 37 degrees. Which rule finds the third side?", "B", ["Sine rule", "Cosine rule", "Right-angle tangent", "Average speed"], "Two sides and included angle use cosine rule."),
         practicalChoice("y12s2-trig-m2", "A known side is paired with its opposite angle, and another side is required. Use:", "A", ["Sine rule", "Cosine rule", "Area formula", "Scale factor"], "This is a sine rule setup."),
-        measurementAnswer("y12s2-trig-m3", "A triangular park has sides 20 m and 25 m with included angle 60 degrees. Find the third side to 1 decimal place.", "a=20\\text{ m},\\quad b=25\\text{ m},\\quad C=60°", "22.9 m", ["22.9", "22.9m"]),
-        measurementAnswer("y12s2-trig-m4", "A survey triangle has side 70 m opposite 40 degrees. Find the side opposite 55 degrees to 1 decimal place.", "a=70\\text{ m},\\quad A=40°,\\quad B=55°", "89.2 m", ["89.2", "89.2m"]),
+        {
+          ...measurementAnswer("y12s2-trig-m3", "A triangular park has sides 20 m and 25 m with included angle 60 degrees. Find the third side to 1 decimal place.", "a=20\\text{ m},\\quad b=25\\text{ m},\\quad C=60°", "22.9 m", ["22.9", "22.9m"]),
+          triangleDiagram: {
+            description:
+              "Triangle with sides AC 20 metres and BC 25 metres, included angle C 60 degrees, and third side AB labelled x.",
+            vertices: {
+              A: { x: 80, y: 220 },
+              B: { x: 320, y: 220 },
+              C: { x: 135, y: 70 },
+            },
+            sideLabels: {
+              AB: "x",
+              AC: "20 m",
+              BC: "25 m",
+            },
+            angleLabels: {
+              C: "60°",
+            },
+          },
+        },
+        {
+          ...measurementAnswer("y12s2-trig-m4", "A survey triangle has side 70 m opposite 40 degrees. Find the side opposite 55 degrees to 1 decimal place.", "a=70\\text{ m},\\quad A=40°,\\quad B=55°", "89.2 m", ["89.2", "89.2m"]),
+          triangleDiagram: {
+            description:
+              "Triangle with side BC 70 metres opposite angle A 40 degrees, and side AC labelled x opposite angle B 55 degrees.",
+            vertices: {
+              A: { x: 190, y: 70 },
+              B: { x: 70, y: 220 },
+              C: { x: 330, y: 220 },
+            },
+            sideLabels: {
+              BC: "70 m",
+              AC: "x",
+            },
+            angleLabels: {
+              A: "40°",
+              B: "55°",
+            },
+          },
+        },
         practicalChoice("y12s2-trig-m5", "A triangle has angles 50, 60 and 70 degrees. Right-angled trigonometry is:", "C", ["Appropriate because there are angles", "Always exact", "Not appropriate because there is no 90-degree angle", "The same as ratio sharing"], "There is no right angle."),
         practicalChoice("y12s2-trig-m6", "A cosine-rule side question needs:", "D", ["A frequency table", "A matching side-angle pair only", "A speed and time", "Two sides and the included angle"], "Cosine rule fits two sides and included angle."),
-        measurementAnswer("y12s2-trig-m7", "A drone triangle has 100 m opposite 30 degrees. Find the side opposite 45 degrees to 1 decimal place.", "a=100\\text{ m},\\quad A=30°,\\quad B=45°", "141.4 m", ["141.4", "141.4m"]),
+        {
+          ...measurementAnswer("y12s2-trig-m7", "A drone triangle has 100 m opposite 30 degrees. Find the side opposite 45 degrees to 1 decimal place.", "a=100\\text{ m},\\quad A=30°,\\quad B=45°", "141.4 m", ["141.4", "141.4m"]),
+          triangleDiagram: {
+            description:
+              "Triangle with side BC 100 metres opposite angle A 30 degrees, and side AC labelled x opposite angle B 45 degrees.",
+            vertices: {
+              A: { x: 190, y: 70 },
+              B: { x: 70, y: 220 },
+              C: { x: 330, y: 220 },
+            },
+            sideLabels: {
+              BC: "100 m",
+              AC: "x",
+            },
+            angleLabels: {
+              A: "30°",
+              B: "45°",
+            },
+          },
+        },
         practicalChoice("y12s2-trig-m8", "A side answer of -12 m in a triangle distance problem is:", "A", ["Unreasonable", "Always correct", "A bearing", "A ratio"], "Distances cannot be negative."),
         practicalChoice("y12s2-trig-m9", "A triangle has all three sides known and an angle is required. Use:", "B", ["Sine rule only", "Cosine rule", "Flow rate", "Map scale"], "Cosine rule can find an angle from three sides."),
         practicalChoice("y12s2-trig-m10", "Before choosing a trig rule, first identify:", "C", ["The student's name", "The calculator brand", "Known sides and angles", "The currency"], "Rule choice depends on the given sides and angles."),
@@ -585,12 +642,68 @@ export function year12Standard2TrigRatesLessonOverride(
       ],
       masteryQuiz: [
         measurementAnswer("y12s2-sca-m1", "A triangle has side 40 m opposite 30 degrees. Find the side opposite 45 degrees to 1 decimal place.", "a=40\\text{ m},\\quad A=30°,\\quad B=45°", "56.6 m", ["56.6", "56.6m"]),
-        measurementAnswer("y12s2-sca-m2", "A triangular field has sides 25 m and 40 m with included angle 50 degrees. Find the third side to 1 decimal place.", "a=25\\text{ m},\\quad b=40\\text{ m},\\quad C=50°", "31.2 m", ["31.2", "31.2m"]),
-        measurementAnswer("y12s2-sca-m3", "A triangular garden has sides 20 m and 30 m with included angle 60 degrees. Find the area to the nearest square metre.", "a=20\\text{ m},\\quad b=30\\text{ m},\\quad C=60°", "260 m^2", ["260", "260m^2", "260 m2"]),
+        {
+          ...measurementAnswer("y12s2-sca-m2", "A triangular field has sides 25 m and 40 m with included angle 50 degrees. Find the third side to 1 decimal place.", "a=25\\text{ m},\\quad b=40\\text{ m},\\quad C=50°", "31.2 m", ["31.2", "31.2m"]),
+          triangleDiagram: {
+            description:
+              "Triangle with sides AC 25 metres and BC 40 metres, included angle C 50 degrees, and third side AB labelled x.",
+            vertices: {
+              A: { x: 80, y: 220 },
+              B: { x: 320, y: 220 },
+              C: { x: 135, y: 70 },
+            },
+            sideLabels: {
+              AB: "x",
+              AC: "25 m",
+              BC: "40 m",
+            },
+            angleLabels: {
+              C: "50°",
+            },
+          },
+        },
+        {
+          ...measurementAnswer("y12s2-sca-m3", "A triangular garden has sides 20 m and 30 m with included angle 60 degrees. Find the area to the nearest square metre.", "a=20\\text{ m},\\quad b=30\\text{ m},\\quad C=60°", "260 m^2", ["260", "260m^2", "260 m2"]),
+          triangleDiagram: {
+            description:
+              "Triangle with sides AB 20 metres and AC 30 metres and included angle A 60 degrees for an area calculation.",
+            vertices: {
+              A: { x: 80, y: 220 },
+              B: { x: 320, y: 220 },
+              C: { x: 135, y: 70 },
+            },
+            sideLabels: {
+              AB: "20 m",
+              AC: "30 m",
+            },
+            angleLabels: {
+              A: "60°",
+            },
+          },
+        },
         practicalChoice("y12s2-sca-m4", "The sine rule is most useful when:", "A", ["A matching side-angle pair is known", "Only a speed is known", "Only area is required", "No angles are known"], "Sine rule relies on opposite side-angle pairs."),
         practicalChoice("y12s2-sca-m5", "The cosine rule is most useful for a side when:", "C", ["There is a frequency table", "Only ratios are known", "Two sides and the included angle are known", "The triangle is a box plot"], "Cosine rule fits SAS information."),
         measurementAnswer("y12s2-sca-m6", "A park triangle has sides 50 m and 70 m with included angle 40 degrees. Find its area to the nearest square metre.", "a=50\\text{ m},\\quad b=70\\text{ m},\\quad C=40°", "1125 m^2", ["1125", "1,125", "1125m^2", "1125 m2"]),
-        measurementAnswer("y12s2-sca-m7", "A rescue boat triangle has side 90 m opposite 35 degrees. Find the side opposite 55 degrees to 1 decimal place.", "a=90\\text{ m},\\quad A=35°,\\quad B=55°", "128.5 m", ["128.5", "128.5m"]),
+        {
+          ...measurementAnswer("y12s2-sca-m7", "A rescue boat triangle has side 90 m opposite 35 degrees. Find the side opposite 55 degrees to 1 decimal place.", "a=90\\text{ m},\\quad A=35°,\\quad B=55°", "128.5 m", ["128.5", "128.5m"]),
+          triangleDiagram: {
+            description:
+              "Triangle with side BC 90 metres opposite angle A 35 degrees, and side AC labelled x opposite angle B 55 degrees.",
+            vertices: {
+              A: { x: 190, y: 70 },
+              B: { x: 70, y: 220 },
+              C: { x: 330, y: 220 },
+            },
+            sideLabels: {
+              BC: "90 m",
+              AC: "x",
+            },
+            angleLabels: {
+              A: "35°",
+              B: "55°",
+            },
+          },
+        },
         measurementAnswer("y12s2-sca-m8", "A triangular sign has sides 1.2 m and 1.5 m with included angle 45 degrees. Find its area to 2 decimal places.", "a=1.2\\text{ m},\\quad b=1.5\\text{ m},\\quad C=45°", "0.64 m^2", ["0.64", "0.64m^2", "0.64 m2"]),
         practicalChoice("y12s2-sca-m9", "If a side is found using c^2 = 144, the side length is:", "B", ["144", "12", "72", "-144"], "Take the square root of c squared."),
         practicalChoice("y12s2-sca-m10", "An area answer for a triangular field should use:", "D", ["metres only", "kilometres per hour", "degrees", "square metres"], "Area is measured in square units."),
