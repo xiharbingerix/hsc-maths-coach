@@ -142,13 +142,13 @@ export function year11StandardLinearRelationshipsLessonOverride(
       },
       guidedPractice: [
         financeChoice("linear-graph-g1", "A taxi fare is modelled by C = 4 + 2.20d. What does the 4 represent?", "B", ["Cost per kilometre", "Fixed starting fare", "Total distance", "Maximum fare"], "The constant term is the cost when d = 0."),
-        moneyAnswer("linear-graph-g2", "A hire company charges C = 35 + 12h. What is the cost for 3 hours?", "35+12\\times 3", "71"),
+        moneyAnswer("linear-graph-g2", "A hire company charges C = 35 + 12h. What is the cost for 3 hours?", "C=35+12h,\\quad h=3", "71"),
         linearAnswer("linear-graph-g3", "A table shows hire costs: 0 h costs 35 dollars, 1 h costs 47 dollars, 2 h costs 59 dollars. What is the hourly rate?", "47-35", "12", ["$12", "12 dollars", "12 dollars per hour", "$12/h"]),
         financeChoice("linear-graph-g4", "A water tank model V = 120 - 8t has a graph that:", "C", ["Starts at 8 and increases", "Starts at 0 and increases", "Starts at 120 and decreases", "Has no starting value"], "The intercept is 120 and the gradient is negative."),
       ],
       independentPractice: [
         financeChoice("linear-graph-i1", "A phone plan is C = 20 + 5g, where g is gigabytes used. What does 5 represent?", "A", ["Cost per gigabyte", "Fixed monthly fee", "Total cost", "Number of months"], "The coefficient of g is the rate per gigabyte."),
-        moneyAnswer("linear-graph-i2", "A bike hire costs 18 dollars plus 9 dollars per hour. What is the total cost for 4 hours?", "18+9\\times 4", "54"),
+        moneyAnswer("linear-graph-i2", "A bike hire costs 18 dollars plus 9 dollars per hour. What is the total cost for 4 hours?", "C=18+9h,\\quad h=4", "54"),
         linearAnswer("linear-graph-i3", "A savings balance is S = 60 + 25w. What is the starting balance?", "S=60\\text{ when }w=0", "60", ["$60", "60 dollars"]),
         linearAnswer("linear-graph-i4", "A tank starts at 200 L and drains at 10 L/min. Write a rule for volume V after t minutes.", "V=200-10t", "V = 200 - 10t", ["V=200-10t", "v=200-10t", "V=-10t+200", "v=-10t+200"]),
         financeChoice("linear-graph-i5", "A graph of cost against hours crosses the vertical axis at 35. In context, this is the:", "D", ["Hourly rate", "Travel time", "Gradient only", "Fixed starting cost"], "The vertical intercept is the starting cost."),

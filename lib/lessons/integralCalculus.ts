@@ -193,7 +193,7 @@ export const antidifferentiationReversePowerRuleLesson: ExplicitLesson = {
     {
       id: "anti-ind-5",
       prompt: "Which derivative check confirms the antiderivative?",
-      latex: "\\int 12x^2\\,dx=4x^3",
+      latex: "\\int 12x^2\\,dx",
       answer: "B",
       choices: [
         { label: "A", text: "$\\frac{d}{dx}(4x^3)=4x^2$" },

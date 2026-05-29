@@ -326,13 +326,13 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
       ],
       guidedPractice: [
         linearAnswer("y12s2-sim-g1", "Two hire companies are A = 30 + 15h and B = 60 + 10h. After how many hours are the costs equal?", "30+15h=60+10h", "6", ["6 h", "6 hours"]),
-        moneyAnswer("y12s2-sim-g2", "For A = 30 + 15h, find the equal cost when h = 6.", "30+15(6)", "120"),
+        moneyAnswer("y12s2-sim-g2", "For A = 30 + 15h, find the equal cost when h = 6.", "A=30+15h,\\quad h=6", "120"),
         practicalChoice("y12s2-sim-g3", "On a graph of two hire cost models, the intersection represents:", "B", ["The highest cost always", "The input where both costs are equal", "The fixed fee only", "The gradient of the first line"], "The intersection is where both models have the same value."),
         practicalChoice("y12s2-sim-g4", "Two hire company models are shown. Which company is cheaper at the given time?", "D", ["A, because 15 is bigger", "They are equal", "Neither can be calculated", "B, because $B=140$ and $A=150$"], "Substitution shows B has the smaller cost.", "A=30+15h,\\quad B=60+10h,\\quad h=8"),
       ],
       independentPractice: [
         linearAnswer("y12s2-sim-i1", "Taxi A costs A = 6 + 2d and Taxi B costs B = 12 + 1.5d. Find d when costs are equal.", "6+2d=12+1.5d", "12", ["12 km", "12km"]),
-        moneyAnswer("y12s2-sim-i2", "Using Taxi A: A = 6 + 2d, find the equal cost when d = 12.", "6+2(12)", "30"),
+        moneyAnswer("y12s2-sim-i2", "Using Taxi A: A = 6 + 2d, find the equal cost when d = 12.", "A=6+2d,\\quad d=12", "30"),
         linearAnswer("y12s2-sim-i3", "Plans P = 25 + 3g and Q = 40 + g are equal at what value of g?", "25+3g=40+g", "7.5", ["7.5 GB", "7.5GB"]),
         practicalChoice("y12s2-sim-i4", "If the solution is (6, 120) for hire time and cost, what does 120 mean?", "A", ["The common cost in dollars", "The number of hours", "The gradient", "The fixed fee"], "The output coordinate is the common cost."),
         practicalChoice("y12s2-sim-i5", "A student solves only A = 30 + 15h and never uses B = 60 + 10h. What is missing?", "C", ["A table", "A quadratic term", "The comparison with the second model", "A unit conversion"], "A simultaneous-equations question needs both models."),
@@ -431,8 +431,8 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
     ],
     guidedPractice: [
       linearAnswer("y12s2-alg-exam-g1", "A gym charges 40 dollars plus 18 dollars per week. Write the cost model C after w weeks.", "C=40+18w", "C = 40 + 18w", ["C=40+18w", "c=40+18w", "C=18w+40"]),
-      moneyAnswer("y12s2-alg-exam-g2", "Using C = 40 + 18w, find the cost after 5 weeks.", "40+18(5)", "130"),
-      measurementAnswer("y12s2-alg-exam-g3", "A ball height is h = -5t^2 + 20t + 1.5. Find h when t = 2.", "-5(2)^2+20(2)+1.5", "21.5 m", ["21.5", "21.50", "21.5m"]),
+      moneyAnswer("y12s2-alg-exam-g2", "Using C = 40 + 18w, find the cost after 5 weeks.", "C=40+18w,\\quad w=5", "130"),
+      measurementAnswer("y12s2-alg-exam-g3", "A ball height is h = -5t^2 + 20t + 1.5. Find h when t = 2.", "h=-5t^2+20t+1.5,\\quad t=2", "21.5 m", ["21.5", "21.50", "21.5m"]),
       linearAnswer("y12s2-alg-exam-g4", "Costs A = 30 + 15h and B = 60 + 10h are equal after how many hours?", "30+15h=60+10h", "6", ["6 h", "6 hours"]),
     ],
     independentPractice: [

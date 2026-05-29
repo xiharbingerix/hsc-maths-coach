@@ -227,16 +227,16 @@ export function year11StandardTimeLocationLessonOverride(
         ],
       },
       guidedPractice: [
-        timeAnswer("time-zone-g1", "Sydney is UTC+10 and Perth is UTC+8. If it is 6:30 pm in Sydney, what time is it in Perth?", "18{:}30-2\\text{ h}", "4:30 pm", ["16:30", "1630", "4.30 pm"]),
-        timeAnswer("time-zone-g2", "London is UTC+0 and Singapore is UTC+8. If it is 09:15 in London, what time is it in Singapore?", "09{:}15+8\\text{ h}", "17:15", ["5:15 pm", "1715", "5.15 pm"]),
+        timeAnswer("time-zone-g1", "Sydney is UTC+10 and Perth is UTC+8. If it is 6:30 pm in Sydney, what time is it in Perth?", "\\text{Sydney (UTC+10)}=18{:}30,\\quad \\text{Perth (UTC+8)}", "4:30 pm", ["16:30", "1630", "4.30 pm"]),
+        timeAnswer("time-zone-g2", "London is UTC+0 and Singapore is UTC+8. If it is 09:15 in London, what time is it in Singapore?", "\\text{London (UTC+0)}=09{:}15,\\quad \\text{Singapore (UTC+8)}", "17:15", ["5:15 pm", "1715", "5.15 pm"]),
         financeChoice("time-zone-g3", "A city at UTC+11 compared with a city at UTC+10 is:", "A", ["1 hour ahead", "1 hour behind", "11 hours behind", "21 hours ahead"], "UTC+11 is one hour ahead of UTC+10."),
         financeChoice("time-zone-g4", "A flight crosses the International Date Line travelling east. The date will usually:", "B", ["Move forward one day", "Move back one day", "Never change", "Always become Sunday"], "Travelling east across the Date Line usually moves the date back."),
       ],
       independentPractice: [
-        timeAnswer("time-zone-i1", "Brisbane is UTC+10 and Adelaide is UTC+9:30. If it is 14:00 in Brisbane, what time is it in Adelaide?", "14{:}00-0{:}30", "13:30", ["1:30 pm", "1330", "1.30 pm"]),
-        timeAnswer("time-zone-i2", "Tokyo is UTC+9 and Perth is UTC+8. If it is 20:45 in Tokyo, what time is it in Perth?", "20{:}45-1\\text{ h}", "19:45", ["7:45 pm", "1945", "7.45 pm"]),
+        timeAnswer("time-zone-i1", "Brisbane is UTC+10 and Adelaide is UTC+9:30. If it is 14:00 in Brisbane, what time is it in Adelaide?", "\\text{Brisbane (UTC+10)}=14{:}00,\\quad \\text{Adelaide (UTC+9:30)}", "13:30", ["1:30 pm", "1330", "1.30 pm"]),
+        timeAnswer("time-zone-i2", "Tokyo is UTC+9 and Perth is UTC+8. If it is 20:45 in Tokyo, what time is it in Perth?", "\\text{Tokyo (UTC+9)}=20{:}45,\\quad \\text{Perth (UTC+8)}", "19:45", ["7:45 pm", "1945", "7.45 pm"]),
         financeChoice("time-zone-i3", "If daylight saving changes Sydney from UTC+10 to UTC+11, Sydney becomes:", "C", ["1 hour earlier", "unchanged", "1 hour later compared with UTC", "10 hours behind UTC"], "UTC+11 is one hour further ahead than UTC+10."),
-        timeAnswer("time-zone-i4", "A city at UTC-5 calls a city at UTC+1. If it is 08:00 at UTC-5, what time is it at UTC+1?", "08{:}00+6\\text{ h}", "14:00", ["2:00 pm", "1400", "2.00 pm"]),
+        timeAnswer("time-zone-i4", "A city at UTC-5 calls a city at UTC+1. If it is 08:00 at UTC-5, what time is it at UTC+1?", "\\text{UTC-5}=08{:}00,\\quad \\text{dest UTC+1}", "14:00", ["2:00 pm", "1400", "2.00 pm"]),
         financeChoice("time-zone-i5", "A flight leaves late at night and arrives after crossing several time zones. The most important extra check is:", "D", ["Only the plane colour", "Only the ticket price", "Only the airline name", "Whether the date changes"], "Long trips and time zones may change the date."),
       ],
       commonMistakes: [
