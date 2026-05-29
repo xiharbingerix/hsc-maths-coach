@@ -156,15 +156,129 @@ export function year12Standard2TrigRatesLessonOverride(
         },
       ],
       guidedPractice: [
-        practicalChoice("y12s2-trig-g1", "A triangular park has two known sides and the included angle. Which rule is most appropriate for the third side?", "B", ["Sine rule", "Cosine rule", "Right-angle tangent only", "Ratio sharing"], "Two sides and the included angle match the cosine rule."),
-        practicalChoice("y12s2-trig-g2", "A drone problem gives one side with its opposite angle and asks for another side. Which rule is most appropriate?", "A", ["Sine rule", "Cosine rule", "Speed formula", "Unit conversion"], "A matching side-angle pair points to the sine rule."),
-        measurementAnswer("y12s2-trig-g3", "A triangular field has sides 30 m and 40 m with included angle 60 degrees. Use the cosine rule to find the third side to 1 decimal place.", "\\sqrt{30^2+40^2-2(30)(40)\\cos60^\\circ}", "36.1 m", ["36.1", "36.1m"]),
+        {
+          ...practicalChoice("y12s2-trig-g1", "A triangular park has two known sides and the included angle. Which rule is most appropriate for the third side?", "B", ["Sine rule", "Cosine rule", "Right-angle tangent only", "Ratio sharing"], "Two sides and the included angle match the cosine rule."),
+          triangleDiagram: {
+            description:
+              "Triangle with two known sides meeting at the included angle and the third side labelled x.",
+            vertices: {
+              A: { x: 80, y: 220 },
+              B: { x: 320, y: 220 },
+              C: { x: 135, y: 70 },
+            },
+            sideLabels: {
+              AB: "x",
+              AC: "known side",
+              BC: "known side",
+            },
+            angleLabels: {
+              C: "included angle",
+            },
+          },
+        },
+        {
+          ...practicalChoice("y12s2-trig-g2", "A drone problem gives one side with its opposite angle and asks for another side. Which rule is most appropriate?", "A", ["Sine rule", "Cosine rule", "Speed formula", "Unit conversion"], "A matching side-angle pair points to the sine rule."),
+          triangleDiagram: {
+            description:
+              "Triangle showing a known side opposite a known angle and another side labelled x opposite another angle.",
+            vertices: {
+              A: { x: 190, y: 70 },
+              B: { x: 70, y: 220 },
+              C: { x: 330, y: 220 },
+            },
+            sideLabels: {
+              BC: "known side",
+              AC: "x",
+            },
+            angleLabels: {
+              A: "known angle",
+              B: "given angle",
+            },
+          },
+        },
+        {
+          ...measurementAnswer("y12s2-trig-g3", "A triangular field has sides 30 m and 40 m with included angle 60 degrees. Use the cosine rule to find the third side to 1 decimal place.", "\\sqrt{30^2+40^2-2(30)(40)\\cos60^\\circ}", "36.1 m", ["36.1", "36.1m"]),
+          triangleDiagram: {
+            description:
+              "Triangle with sides AC 30 metres and BC 40 metres, included angle C 60 degrees, and third side AB labelled x.",
+            vertices: {
+              A: { x: 80, y: 220 },
+              B: { x: 320, y: 220 },
+              C: { x: 135, y: 70 },
+            },
+            sideLabels: {
+              AB: "x",
+              AC: "30 m",
+              BC: "40 m",
+            },
+            angleLabels: {
+              C: "60°",
+            },
+          },
+        },
         practicalChoice("y12s2-trig-g4", "A student uses right-angle trigonometry in a triangle with angles 42, 58 and 80 degrees. What is the issue?", "C", ["The answer must be in kilometres", "The triangle is impossible", "There is no right angle", "The ratio must be simplified"], "Right-angle trigonometry needs a 90-degree angle."),
       ],
       independentPractice: [
-        practicalChoice("y12s2-trig-i1", "A boat survey gives side 120 m opposite 42 degrees and asks for a side opposite 58 degrees. Which rule should be used?", "A", ["Sine rule", "Cosine rule", "Pythagoras only", "Fuel consumption"], "A known opposite side-angle pair is available."),
-        measurementAnswer("y12s2-trig-i2", "A triangular paddock has sides 55 m and 70 m with included angle 40 degrees. Find the third side to 1 decimal place.", "\\sqrt{55^2+70^2-2(55)(70)\\cos40^\\circ}", "45.0 m", ["45", "45.0", "45 m", "45.0m"]),
-        measurementAnswer("y12s2-trig-i3", "A tower guide rope forms a triangle where 90 m is opposite 35 degrees. Find the side opposite 48 degrees to 1 decimal place.", "\\frac{90\\sin48^\\circ}{\\sin35^\\circ}", "116.6 m", ["116.6", "116.6m"]),
+        {
+          ...practicalChoice("y12s2-trig-i1", "A boat survey gives side 120 m opposite 42 degrees and asks for a side opposite 58 degrees. Which rule should be used?", "A", ["Sine rule", "Cosine rule", "Pythagoras only", "Fuel consumption"], "A known opposite side-angle pair is available."),
+          triangleDiagram: {
+            description:
+              "Triangle with side BC 120 metres opposite angle A 42 degrees, and side AC labelled x opposite angle B 58 degrees.",
+            vertices: {
+              A: { x: 190, y: 70 },
+              B: { x: 70, y: 220 },
+              C: { x: 330, y: 220 },
+            },
+            sideLabels: {
+              BC: "120 m",
+              AC: "x",
+            },
+            angleLabels: {
+              A: "42°",
+              B: "58°",
+            },
+          },
+        },
+        {
+          ...measurementAnswer("y12s2-trig-i2", "A triangular paddock has sides 55 m and 70 m with included angle 40 degrees. Find the third side to 1 decimal place.", "\\sqrt{55^2+70^2-2(55)(70)\\cos40^\\circ}", "45.0 m", ["45", "45.0", "45 m", "45.0m"]),
+          triangleDiagram: {
+            description:
+              "Triangle with sides AC 55 metres and BC 70 metres, included angle C 40 degrees, and third side AB labelled x.",
+            vertices: {
+              A: { x: 80, y: 220 },
+              B: { x: 320, y: 220 },
+              C: { x: 135, y: 70 },
+            },
+            sideLabels: {
+              AB: "x",
+              AC: "55 m",
+              BC: "70 m",
+            },
+            angleLabels: {
+              C: "40°",
+            },
+          },
+        },
+        {
+          ...measurementAnswer("y12s2-trig-i3", "A tower guide rope forms a triangle where 90 m is opposite 35 degrees. Find the side opposite 48 degrees to 1 decimal place.", "\\frac{90\\sin48^\\circ}{\\sin35^\\circ}", "116.6 m", ["116.6", "116.6m"]),
+          triangleDiagram: {
+            description:
+              "Triangle with side BC 90 metres opposite angle A 35 degrees, and side AC labelled x opposite angle B 48 degrees.",
+            vertices: {
+              A: { x: 190, y: 70 },
+              B: { x: 70, y: 220 },
+              C: { x: 330, y: 220 },
+            },
+            sideLabels: {
+              BC: "90 m",
+              AC: "x",
+            },
+            angleLabels: {
+              A: "35°",
+              B: "48°",
+            },
+          },
+        },
         practicalChoice("y12s2-trig-i4", "In a triangle, the largest angle should be opposite:", "D", ["The shortest side", "The first side listed", "The included angle only", "The longest side"], "The largest side is opposite the largest angle."),
         practicalChoice("y12s2-trig-i5", "A non-right-angled triangle has all three sides known and an angle is required. Which rule is most appropriate?", "B", ["Sine rule first", "Cosine rule", "Speed formula", "Area formula only"], "Cosine rule can find an angle from three sides."),
       ],
@@ -320,15 +434,146 @@ export function year12Standard2TrigRatesLessonOverride(
         },
       ],
       guidedPractice: [
-        measurementAnswer("y12s2-sca-g1", "A navigation triangle has side 60 m opposite 32 degrees. Find the side opposite 48 degrees to 1 decimal place.", "\\frac{60\\sin48^\\circ}{\\sin32^\\circ}", "84.1 m", ["84.1", "84.1m"]),
-        measurementAnswer("y12s2-sca-g2", "A triangular park has sides 48 m and 62 m with included angle 37 degrees. Find its area to the nearest square metre.", "\\frac12(48)(62)\\sin37^\\circ", "895 m^2", ["895", "895m^2", "895 m2"]),
-        practicalChoice("y12s2-sca-g3", "A triangle has three side lengths and an angle is required. Which formula is most appropriate?", "B", ["Sine rule", "Cosine rule", "Area formula only", "Speed formula"], "Cosine rule can find angles from three sides."),
-        measurementAnswer("y12s2-sca-g4", "A field has sides 35 m and 50 m with included angle 60 degrees. Find the third side to 1 decimal place.", "\\sqrt{35^2+50^2-2(35)(50)\\cos60^\\circ}", "43.6 m", ["43.6", "43.6m"]),
+        {
+          ...measurementAnswer("y12s2-sca-g1", "A navigation triangle has side 60 m opposite 32 degrees. Find the side opposite 48 degrees to 1 decimal place.", "\\frac{60\\sin48^\\circ}{\\sin32^\\circ}", "84.1 m", ["84.1", "84.1m"]),
+          triangleDiagram: {
+            description:
+              "Triangle with side BC 60 metres opposite angle A 32 degrees, and side AC labelled x opposite angle B 48 degrees.",
+            vertices: {
+              A: { x: 190, y: 70 },
+              B: { x: 70, y: 220 },
+              C: { x: 330, y: 220 },
+            },
+            sideLabels: {
+              BC: "60 m",
+              AC: "x",
+            },
+            angleLabels: {
+              A: "32°",
+              B: "48°",
+            },
+          },
+        },
+        {
+          ...measurementAnswer("y12s2-sca-g2", "A triangular park has sides 48 m and 62 m with included angle 37 degrees. Find its area to the nearest square metre.", "\\frac12(48)(62)\\sin37^\\circ", "895 m^2", ["895", "895m^2", "895 m2"]),
+          triangleDiagram: {
+            description:
+              "Triangle with sides AB 48 metres and AC 62 metres and included angle A 37 degrees for an area calculation.",
+            vertices: {
+              A: { x: 80, y: 220 },
+              B: { x: 320, y: 220 },
+              C: { x: 135, y: 70 },
+            },
+            sideLabels: {
+              AB: "48 m",
+              AC: "62 m",
+            },
+            angleLabels: {
+              A: "37°",
+            },
+          },
+        },
+        {
+          ...practicalChoice("y12s2-sca-g3", "A triangle has three side lengths and an angle is required. Which formula is most appropriate?", "B", ["Sine rule", "Cosine rule", "Area formula only", "Speed formula"], "Cosine rule can find angles from three sides."),
+          triangleDiagram: {
+            description:
+              "Triangle with all three sides labelled as known and one angle marked as x.",
+            vertices: {
+              A: { x: 80, y: 220 },
+              B: { x: 320, y: 220 },
+              C: { x: 135, y: 70 },
+            },
+            sideLabels: {
+              AB: "known side",
+              AC: "known side",
+              BC: "known side",
+            },
+            angleLabels: {
+              C: "x",
+            },
+          },
+        },
+        {
+          ...measurementAnswer("y12s2-sca-g4", "A field has sides 35 m and 50 m with included angle 60 degrees. Find the third side to 1 decimal place.", "\\sqrt{35^2+50^2-2(35)(50)\\cos60^\\circ}", "43.6 m", ["43.6", "43.6m"]),
+          triangleDiagram: {
+            description:
+              "Triangle with sides AC 35 metres and BC 50 metres, included angle C 60 degrees, and third side AB labelled x.",
+            vertices: {
+              A: { x: 80, y: 220 },
+              B: { x: 320, y: 220 },
+              C: { x: 135, y: 70 },
+            },
+            sideLabels: {
+              AB: "x",
+              AC: "35 m",
+              BC: "50 m",
+            },
+            angleLabels: {
+              C: "60°",
+            },
+          },
+        },
       ],
       independentPractice: [
-        measurementAnswer("y12s2-sca-i1", "A drone triangle has side 120 m opposite 42 degrees. Find the side opposite 58 degrees to 1 decimal place.", "\\frac{120\\sin58^\\circ}{\\sin42^\\circ}", "152.1 m", ["152.1", "152.1m"]),
-        measurementAnswer("y12s2-sca-i2", "A triangular lot has sides 80 m and 95 m with included angle 52 degrees. Find the third side to 1 decimal place.", "\\sqrt{80^2+95^2-2(80)(95)\\cos52^\\circ}", "75.8 m", ["75.8", "75.8m"]),
-        measurementAnswer("y12s2-sca-i3", "A triangular park has sides 30 m and 45 m with included angle 70 degrees. Find the area to the nearest square metre.", "\\frac12(30)(45)\\sin70^\\circ", "634 m^2", ["634", "634m^2", "634 m2"]),
+        {
+          ...measurementAnswer("y12s2-sca-i1", "A drone triangle has side 120 m opposite 42 degrees. Find the side opposite 58 degrees to 1 decimal place.", "\\frac{120\\sin58^\\circ}{\\sin42^\\circ}", "152.1 m", ["152.1", "152.1m"]),
+          triangleDiagram: {
+            description:
+              "Triangle with side BC 120 metres opposite angle A 42 degrees, and side AC labelled x opposite angle B 58 degrees.",
+            vertices: {
+              A: { x: 190, y: 70 },
+              B: { x: 70, y: 220 },
+              C: { x: 330, y: 220 },
+            },
+            sideLabels: {
+              BC: "120 m",
+              AC: "x",
+            },
+            angleLabels: {
+              A: "42°",
+              B: "58°",
+            },
+          },
+        },
+        {
+          ...measurementAnswer("y12s2-sca-i2", "A triangular lot has sides 80 m and 95 m with included angle 52 degrees. Find the third side to 1 decimal place.", "\\sqrt{80^2+95^2-2(80)(95)\\cos52^\\circ}", "75.8 m", ["75.8", "75.8m"]),
+          triangleDiagram: {
+            description:
+              "Triangle with sides AC 80 metres and BC 95 metres, included angle C 52 degrees, and third side AB labelled x.",
+            vertices: {
+              A: { x: 80, y: 220 },
+              B: { x: 320, y: 220 },
+              C: { x: 135, y: 70 },
+            },
+            sideLabels: {
+              AB: "x",
+              AC: "80 m",
+              BC: "95 m",
+            },
+            angleLabels: {
+              C: "52°",
+            },
+          },
+        },
+        {
+          ...measurementAnswer("y12s2-sca-i3", "A triangular park has sides 30 m and 45 m with included angle 70 degrees. Find the area to the nearest square metre.", "\\frac12(30)(45)\\sin70^\\circ", "634 m^2", ["634", "634m^2", "634 m2"]),
+          triangleDiagram: {
+            description:
+              "Triangle with sides AB 30 metres and AC 45 metres and included angle A 70 degrees for an area calculation.",
+            vertices: {
+              A: { x: 80, y: 220 },
+              B: { x: 320, y: 220 },
+              C: { x: 135, y: 70 },
+            },
+            sideLabels: {
+              AB: "30 m",
+              AC: "45 m",
+            },
+            angleLabels: {
+              A: "70°",
+            },
+          },
+        },
         practicalChoice("y12s2-sca-i4", "Which information is needed for A = 1/2 ab sin C?", "A", ["Two sides and the included angle", "Only one side", "Speed and time", "A ratio and total only"], "The area formula uses two sides and their included angle."),
         practicalChoice("y12s2-sca-i5", "A student rounds every trig value to 1 decimal place before finishing. What is the risk?", "D", ["No risk", "The triangle disappears", "It proves causation", "The final answer may be less accurate"], "Rounding too early can affect the final answer."),
       ],
@@ -549,14 +794,89 @@ export function year12Standard2TrigRatesLessonOverride(
       },
     ],
     guidedPractice: [
-      practicalChoice("y12s2-rate-exam-g1", "A drone is observed from two points and a matching side-angle pair is known. Which rule is most likely?", "A", ["Sine rule", "Cosine rule only", "Speed formula", "Fuel rate"], "A matching side-angle pair suggests sine rule."),
-      measurementAnswer("y12s2-rate-exam-g2", "A field has sides 30 m and 45 m with included angle 70 degrees. Find the area to the nearest square metre.", "\\frac12(30)(45)\\sin70^\\circ", "634 m^2", ["634", "634m^2", "634 m2"]),
+      {
+        ...practicalChoice("y12s2-rate-exam-g1", "A drone is observed from two points and a matching side-angle pair is known. Which rule is most likely?", "A", ["Sine rule", "Cosine rule only", "Speed formula", "Fuel rate"], "A matching side-angle pair suggests sine rule."),
+        triangleDiagram: {
+          description:
+            "Triangle showing one known side opposite a known angle and another side labelled x opposite another angle.",
+          vertices: {
+            A: { x: 190, y: 70 },
+            B: { x: 70, y: 220 },
+            C: { x: 330, y: 220 },
+          },
+          sideLabels: {
+            BC: "known side",
+            AC: "x",
+          },
+          angleLabels: {
+            A: "known angle",
+            B: "given angle",
+          },
+        },
+      },
+      {
+        ...measurementAnswer("y12s2-rate-exam-g2", "A field has sides 30 m and 45 m with included angle 70 degrees. Find the area to the nearest square metre.", "\\frac12(30)(45)\\sin70^\\circ", "634 m^2", ["634", "634m^2", "634 m2"]),
+        triangleDiagram: {
+          description:
+            "Triangle with sides AB 30 metres and AC 45 metres and included angle A 70 degrees for an area calculation.",
+          vertices: {
+            A: { x: 80, y: 220 },
+            B: { x: 320, y: 220 },
+            C: { x: 135, y: 70 },
+          },
+          sideLabels: {
+            AB: "30 m",
+            AC: "45 m",
+          },
+          angleLabels: {
+            A: "70°",
+          },
+        },
+      },
       measurementAnswer("y12s2-rate-exam-g3", "A car travels 120 km in 1 h 30 min. Find average speed.", "120\\div1.5", "80 km/h", ["80", "80km/h", "80 kmh"]),
       measurementAnswer("y12s2-rate-exam-g4", "A 300 dollar cost is shared in the ratio 2:3. Find the smaller share.", "300\\div5\\times2", "$120", ["120", "120.00", "$120.00"]),
     ],
     independentPractice: [
-      measurementAnswer("y12s2-rate-exam-i1", "A triangular park has sides 35 m and 50 m with included angle 60 degrees. Find the third side to 1 decimal place.", "\\sqrt{35^2+50^2-2(35)(50)\\cos60^\\circ}", "43.6 m", ["43.6", "43.6m"]),
-      measurementAnswer("y12s2-rate-exam-i2", "A boat triangle has side 80 m opposite 35 degrees. Find the side opposite 50 degrees to 1 decimal place.", "\\frac{80\\sin50^\\circ}{\\sin35^\\circ}", "106.8 m", ["106.8", "106.8m"]),
+      {
+        ...measurementAnswer("y12s2-rate-exam-i1", "A triangular park has sides 35 m and 50 m with included angle 60 degrees. Find the third side to 1 decimal place.", "\\sqrt{35^2+50^2-2(35)(50)\\cos60^\\circ}", "43.6 m", ["43.6", "43.6m"]),
+        triangleDiagram: {
+          description:
+            "Triangle with sides AC 35 metres and BC 50 metres, included angle C 60 degrees, and third side AB labelled x.",
+          vertices: {
+            A: { x: 80, y: 220 },
+            B: { x: 320, y: 220 },
+            C: { x: 135, y: 70 },
+          },
+          sideLabels: {
+            AB: "x",
+            AC: "35 m",
+            BC: "50 m",
+          },
+          angleLabels: {
+            C: "60°",
+          },
+        },
+      },
+      {
+        ...measurementAnswer("y12s2-rate-exam-i2", "A boat triangle has side 80 m opposite 35 degrees. Find the side opposite 50 degrees to 1 decimal place.", "\\frac{80\\sin50^\\circ}{\\sin35^\\circ}", "106.8 m", ["106.8", "106.8m"]),
+        triangleDiagram: {
+          description:
+            "Triangle with side BC 80 metres opposite angle A 35 degrees, and side AC labelled x opposite angle B 50 degrees.",
+          vertices: {
+            A: { x: 190, y: 70 },
+            B: { x: 70, y: 220 },
+            C: { x: 330, y: 220 },
+          },
+          sideLabels: {
+            BC: "80 m",
+            AC: "x",
+          },
+          angleLabels: {
+            A: "35°",
+            B: "50°",
+          },
+        },
+      },
       measurementAnswer("y12s2-rate-exam-i3", "A ute uses 32 L of fuel for 400 km. Find fuel consumption in L/100 km.", "32\\div400\\times100", "8 L/100 km", ["8", "8.0", "8L/100km"]),
       practicalChoice("y12s2-rate-exam-i4", "A map scale is 1:25000 and the map distance is 4 cm. Which real distance is correct?", "B", ["100 m", "1 km", "10 km", "25 km"], "4 cm at 1:25000 is 100000 cm, or 1 km."),
       practicalChoice("y12s2-rate-exam-i5", "A speed answer of 168 km/h for 168 km in 2 h 20 min is unreasonable because:", "C", ["The distance is too small", "No units are used", "The time was treated as 1 hour", "The car travelled backwards"], "The time is more than 2 hours, so speed must be less than 84 km/h."),
