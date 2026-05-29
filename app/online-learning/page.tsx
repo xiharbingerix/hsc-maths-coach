@@ -79,7 +79,7 @@ const accessSteps = [
   "Create an account from the signup page.",
   "Subscribe to online learning for $19/month.",
   "Access activates automatically after payment.",
-  "Cancel any time by contacting us.",
+  "Cancel any time from your account.",
 ];
 
 function PrimaryLink({

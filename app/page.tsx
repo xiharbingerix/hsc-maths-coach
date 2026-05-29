@@ -39,7 +39,7 @@ const pricingFeatures = [
   "Available Year 11 and Year 12 maths pathways",
   "Structured lessons — learn, practise, check mastery",
   "Instant access after payment when logged in",
-  "Cancel any time by contacting us",
+  "Cancel any time from your account",
 ];
 
 const diagnosticOptions = [
@@ -71,7 +71,7 @@ const commonQuestions = [
   {
     question: "How do I cancel?",
     answer:
-      "Contact us and we will cancel your subscription. We do not have a self-serve portal yet.",
+      "You can cancel from your dashboard using the Manage subscription button. This opens the Stripe billing portal where you can cancel or update your payment method.",
   },
   {
     question: "What year levels are covered?",
@@ -205,7 +205,7 @@ export default function Home() {
             </div>
 
             <p className="mt-3 text-sm leading-6 text-slate-500">
-              $19/month &middot; cancel any time by contacting us &middot;
+              $19/month &middot; cancel any time from your account &middot;
               access activates automatically after payment when logged in
             </p>
 

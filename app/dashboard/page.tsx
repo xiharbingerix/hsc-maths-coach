@@ -19,6 +19,9 @@ export default function DashboardPage() {
   const [studentFirstName, setStudentFirstName] = useState("");
   const [accessStatus, setAccessStatus] = useState<UserAccessStatus>("none");
   const [isLoading, setIsLoading] = useState(true);
+  const [stripeCustomerId, setStripeCustomerId] = useState<string | null>(null);
+  const [isPortalLoading, setIsPortalLoading] = useState(false);
+  const [billingPortalError, setBillingPortalError] = useState("");
 
   useEffect(() => {
     async function loadDashboard() {
@@ -59,6 +62,19 @@ export default function DashboardPage() {
         setAccessStatus(normaliseUserAccessStatus(accessData?.status));
       }
 
+      const { data: paymentData } = await supabase
+        .from("payments")
+        .select("stripe_customer_id")
+        .eq("user_id", sessionUser.id)
+        .eq("offer_selected", "online-learning")
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      const cid = (paymentData as { stripe_customer_id?: string | null } | null)
+        ?.stripe_customer_id ?? null;
+      setStripeCustomerId(typeof cid === "string" && cid.length > 0 ? cid : null);
+
       setIsLoading(false);
     }
 
@@ -68,6 +84,56 @@ export default function DashboardPage() {
   async function handleSignOut() {
     await supabase.auth.signOut();
     router.push("/login");
+  }
+
+  async function handleManageSubscription() {
+    setIsPortalLoading(true);
+    setBillingPortalError("");
+
+    try {
+      const { data } = await supabase.auth.getSession();
+      const accessToken = data.session?.access_token;
+
+      if (!accessToken) {
+        setBillingPortalError("Session expired. Please log in again.");
+        setIsPortalLoading(false);
+        return;
+      }
+
+      const response = await fetch("/api/stripe/billing-portal", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+
+      let payload: { url?: string; error?: string } = {};
+      const rawText = await response.text();
+      if (rawText) {
+        try {
+          payload = JSON.parse(rawText) as { url?: string; error?: string };
+        } catch {
+          // ignore parse error
+        }
+      }
+
+      if (!response.ok || payload.error) {
+        setBillingPortalError(
+          payload.error ?? "Could not open billing portal. Please try again."
+        );
+        setIsPortalLoading(false);
+        return;
+      }
+
+      if (payload.url) {
+        window.location.href = payload.url;
+        return;
+      }
+
+      setBillingPortalError("Could not open billing portal. Please try again.");
+      setIsPortalLoading(false);
+    } catch {
+      setBillingPortalError("Could not open billing portal. Please try again.");
+      setIsPortalLoading(false);
+    }
   }
 
   if (isLoading) {
@@ -218,6 +284,34 @@ export default function DashboardPage() {
             ) : null}
           </div>
         </section>
+
+        {accessStatus === "active" || accessStatus === "revoked" ? (
+          <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+            <h2 className="text-xl font-bold tracking-tight">Billing</h2>
+            {stripeCustomerId ? (
+              <div className="mt-4">
+                <button
+                  type="button"
+                  onClick={handleManageSubscription}
+                  disabled={isPortalLoading}
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {isPortalLoading ? "Opening portal..." : "Manage subscription"}
+                </button>
+                <p className="mt-2 text-sm text-slate-500">
+                  Update payment method, view invoices, or cancel through Stripe.
+                </p>
+                {billingPortalError ? (
+                  <p className="mt-2 text-sm text-red-600">{billingPortalError}</p>
+                ) : null}
+              </div>
+            ) : (
+              <p className="mt-4 text-sm text-slate-600">
+                Need to cancel or update billing? Contact us and we&apos;ll help.
+              </p>
+            )}
+          </section>
+        ) : null}
 
         {accessStatus === "active" ? (
           <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
