@@ -60,7 +60,7 @@ export function year12Standard2TrigRatesLessonOverride(
             sideLabels: {
               AB: "48 m",
               AC: "62 m",
-              BC: "c",
+              BC: "BC = c",
             },
             angleLabels: {
               A: "37°",
@@ -75,6 +75,10 @@ export function year12Standard2TrigRatesLessonOverride(
               explanation:
                 "This matches the cosine rule.",
               latex: "c^2=a^2+b^2-2ab\\cos C",
+            },
+            {
+              explanation:
+                "Here, the unknown side is opposite the included angle, so the cosine rule matches the diagram.",
             },
           ],
           finalAnswerLatex: "\\text{Use the cosine rule.}",

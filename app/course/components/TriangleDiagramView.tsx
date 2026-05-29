@@ -14,18 +14,31 @@ const sides: { key: SideKey; from: VertexKey; to: VertexKey }[] = [
 
 function sideLabelPosition(
   from: { x: number; y: number },
-  to: { x: number; y: number }
+  to: { x: number; y: number },
+  centre: { x: number; y: number }
 ) {
   const dx = to.x - from.x;
   const dy = to.y - from.y;
   const length = Math.hypot(dx, dy) || 1;
   const unitX = dx / length;
   const unitY = dy / length;
-
-  return {
-    x: (from.x + to.x) / 2 - unitY * 18,
-    y: (from.y + to.y) / 2 + unitX * 18,
+  const midpoint = {
+    x: (from.x + to.x) / 2,
+    y: (from.y + to.y) / 2,
   };
+  const offset = 22;
+  const first = {
+    x: midpoint.x - unitY * offset,
+    y: midpoint.y + unitX * offset,
+  };
+  const second = {
+    x: midpoint.x + unitY * offset,
+    y: midpoint.y - unitX * offset,
+  };
+  const firstDistance = Math.hypot(first.x - centre.x, first.y - centre.y);
+  const secondDistance = Math.hypot(second.x - centre.x, second.y - centre.y);
+
+  return firstDistance > secondDistance ? first : second;
 }
 
 function labelPosition(
@@ -86,6 +99,83 @@ function rightAnglePath(
   };
 
   return `M ${p1.x} ${p1.y} L ${corner.x} ${corner.y} L ${p2.x} ${p2.y}`;
+}
+
+function adjacentVertices(vertexKey: VertexKey): [VertexKey, VertexKey] {
+  return (["A", "B", "C"] as VertexKey[]).filter(
+    (key) => key !== vertexKey
+  ) as [VertexKey, VertexKey];
+}
+
+function unitVector(
+  from: { x: number; y: number },
+  to: { x: number; y: number }
+) {
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const length = Math.hypot(dx, dy) || 1;
+
+  return {
+    x: dx / length,
+    y: dy / length,
+  };
+}
+
+function angleLabelPosition(
+  diagram: TriangleDiagram,
+  vertexKey: VertexKey,
+  centre: { x: number; y: number }
+) {
+  const vertices = diagram.vertices;
+  const point = vertices[vertexKey];
+  const [firstKey, secondKey] = adjacentVertices(vertexKey);
+  const firstUnit = unitVector(point, vertices[firstKey]);
+  const secondUnit = unitVector(point, vertices[secondKey]);
+  const bisector = {
+    x: firstUnit.x + secondUnit.x,
+    y: firstUnit.y + secondUnit.y,
+  };
+  const length = Math.hypot(bisector.x, bisector.y);
+
+  if (length < 0.01) {
+    return {
+      x: point.x + (centre.x - point.x) * 0.25,
+      y: point.y + (centre.y - point.y) * 0.25,
+    };
+  }
+
+  return {
+    x: point.x + (bisector.x / length) * 34,
+    y: point.y + (bisector.y / length) * 34,
+  };
+}
+
+function angleArcPath(
+  diagram: TriangleDiagram,
+  vertexKey: VertexKey
+): string | null {
+  const vertices = diagram.vertices;
+  const point = vertices[vertexKey];
+  const [firstKey, secondKey] = adjacentVertices(vertexKey);
+  const firstUnit = unitVector(point, vertices[firstKey]);
+  const secondUnit = unitVector(point, vertices[secondKey]);
+  const radius = 24;
+  const start = {
+    x: point.x + firstUnit.x * radius,
+    y: point.y + firstUnit.y * radius,
+  };
+  const end = {
+    x: point.x + secondUnit.x * radius,
+    y: point.y + secondUnit.y * radius,
+  };
+  const cross = firstUnit.x * secondUnit.y - firstUnit.y * secondUnit.x;
+  const sweepFlag = cross > 0 ? 1 : 0;
+
+  if (Math.hypot(start.x - end.x, start.y - end.y) < 1) {
+    return null;
+  }
+
+  return `M ${start.x} ${start.y} A ${radius} ${radius} 0 0 ${sweepFlag} ${end.x} ${end.y}`;
 }
 
 export function TriangleDiagramView({
@@ -157,7 +247,11 @@ export function TriangleDiagramView({
             return null;
           }
 
-          const position = sideLabelPosition(vertices[side.from], vertices[side.to]);
+          const position = sideLabelPosition(
+            vertices[side.from],
+            vertices[side.to],
+            centre
+          );
 
           return (
             <text
@@ -174,6 +268,25 @@ export function TriangleDiagramView({
               {label}
             </text>
           );
+        })}
+
+        {(Object.keys(vertices) as VertexKey[]).map((key) => {
+          if (!diagram.angleLabels?.[key]) {
+            return null;
+          }
+
+          const path = angleArcPath(diagram, key);
+
+          return path ? (
+            <path
+              key={`${key}-angle-arc`}
+              d={path}
+              fill="none"
+              stroke="#d97706"
+              strokeWidth={2.5}
+              strokeLinecap="round"
+            />
+          ) : null;
         })}
 
         {(Object.keys(vertices) as VertexKey[]).map((key) => {
@@ -204,11 +317,7 @@ export function TriangleDiagramView({
             return null;
           }
 
-          const point = vertices[key];
-          const position = {
-            x: point.x + (centre.x - point.x) * 0.22,
-            y: point.y + (centre.y - point.y) * 0.22,
-          };
+          const position = angleLabelPosition(diagram, key, centre);
 
           return (
             <text
