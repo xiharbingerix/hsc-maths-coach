@@ -321,9 +321,9 @@ export function year11AdvancedSequencesSeriesLessonOverride(
         sequenceAnswer("y11adv-seq-arith-m5", "An arithmetic sequence has T_5 = 21 and T_11 = 51. Find the common difference.", "T_5=21,\\quad T_{11}=51", "5"),
         sequenceAnswer("y11adv-seq-arith-m6", "An arithmetic sequence has first term 12 and T_8 = -9. Find the common difference.", "a=12,\\quad T_8=-9", "-3"),
         sequenceChoice("y11adv-seq-arith-m7", "Which sequence is not arithmetic?", "D", ["$5,9,13,17,\\ldots$", "$20,15,10,5,\\ldots$", "$-3,0,3,6,\\ldots$", "$2,6,12,20,\\ldots$"], "The last sequence has changing differences."),
-        sequenceAnswer("y11adv-seq-arith-m8", "An arithmetic sequence has T_4 = 13 and d = 6. Find T_10.", "T_4=13,\\quad d=6", "49"),
-        sequenceChoice("y11adv-seq-arith-m9", "A theatre has 22 seats in the first row and each next row has 3 more seats. Which model describes the seats in row n?", "C", ["Geometric with ratio 3", "Arithmetic with difference 22", "Arithmetic with difference 3", "Neither arithmetic nor geometric"], "A constant increase of 3 seats per row is arithmetic."),
-        sequenceAnswer("y11adv-seq-arith-m10", "An arithmetic sequence has T_3 = 18 and T_9 = 54. Find T_1.", "T_3=18,\\quad T_9=54", "6"),
+        sequenceChoice("y11adv-seq-arith-m8", "A payment starts at $120 and increases by $15 each week. Which reasoning applies to the weekly payment amounts?", "A", ["Arithmetic sequence", "Geometric sequence", "Limiting geometric sum", "Neither arithmetic nor geometric"], "The same amount is added each week, so the payments form an arithmetic sequence."),
+        sequenceAnswer("y11adv-seq-arith-m9", "An arithmetic sequence has T_5 = 32 and T_12 = 74. Find the common difference.", "T_5=32,\\quad T_{12}=74", "6"),
+        sequenceAnswer("y11adv-seq-arith-m10", "An arithmetic sequence has T_4 = 19 and T_10 = 55. Find T_1.", "T_4=19,\\quad T_{10}=55", "1"),
       ],
     };
   }
@@ -383,9 +383,9 @@ export function year11AdvancedSequencesSeriesLessonOverride(
         sequenceAnswer("y11adv-seq-geo-m5", "A geometric sequence has T_2 = 18 and T_5 = 486. Find the positive common ratio.", "T_2=18,\\quad T_5=486", "3"),
         sequenceChoice("y11adv-seq-geo-m6", "Classify the sequence.", "A", ["Arithmetic", "Geometric", "Neither", "Cannot be determined"], "The sequence has a constant difference of -4.", "20,\\ 16,\\ 12,\\ 8,\\ldots"),
         sequenceAnswer("y11adv-seq-geo-m7", "A geometric sequence has T_4 = 40 and r = 2. Find T_1.", "T_4=40,\\quad r=2", "5"),
-        sequenceChoice("y11adv-seq-geo-m8", "A quantity is multiplied by 0.8 each year. Which sequence type models the values?", "B", ["Arithmetic", "Geometric", "Neither", "A finite arithmetic series"], "Repeated multiplication by the same factor is geometric."),
-        sequenceAnswer("y11adv-seq-geo-m9", "Which term of the sequence is 640?", "10,\\ 20,\\ 40,\\ldots", "7", ["7th", "7th term"]),
-        sequenceChoice("y11adv-seq-geo-m10", "A student says 4, 8, 12, 16, ... is geometric because it grows. Which option identifies the error?", "C", ["It has no terms", "It has ratio 2 throughout", "It has a common difference, not a common ratio", "It is a limiting series"], "The sequence increases by adding 4 each time, so it is arithmetic."),
+        sequenceChoice("y11adv-seq-geo-m8", "A balance follows 500, 550, 605, ... . Which reasoning is most appropriate?", "B", ["Arithmetic, because the first increase is 50", "Geometric, because each term is multiplied by 1.1", "Neither, because the terms increase", "Limiting sum, because the terms are finite"], "The multiplier is constant: 550/500 = 1.1 and 605/550 = 1.1."),
+        sequenceAnswer("y11adv-seq-geo-m9", "A geometric sequence has T_2 = 12 and T_5 = 96. Find the positive common ratio.", "T_2=12,\\quad T_5=96", "2"),
+        sequenceChoice("y11adv-seq-geo-m10", "For the sequence with rule T_n = 5(2)^{n-1}, which term is 320?", "D", ["5th term", "6th term", "8th term", "7th term"], "Solving 5(2)^{n-1}=320 gives 2^{n-1}=64=2^6, so n = 7."),
       ],
     };
   }
@@ -446,9 +446,9 @@ export function year11AdvancedSequencesSeriesLessonOverride(
         sequenceAnswer("y11adv-seq-aseries-m5", "Evaluate the finite sum.", "\\sum_{k=1}^{4}(3k-1)", "26"),
         sequenceAnswer("y11adv-seq-aseries-m6", "A hall has 20 seats in the first row and 3 extra seats in each next row for 10 rows. Find the total number of seats.", "\\text{10 rows with a constant increase}", "335"),
         sequenceChoice("y11adv-seq-aseries-m7", "Which statement correctly distinguishes a series from a sequence?", "B", ["A series lists terms only", "A series adds terms", "A sequence always has a limiting sum", "A sequence must be geometric"], "A series is the sum of terms."),
-        sequenceAnswer("y11adv-seq-aseries-m8", "Find the number of terms in the arithmetic series.", "3+7+11+\\cdots+59", "15"),
-        sequenceChoice("y11adv-seq-aseries-m9", "A student evaluates a sigma expression by substituting only the upper limit. Which option identifies the error?", "D", ["The sum must be infinite", "The common ratio is missing", "Sigma notation cannot be evaluated", "Every integer index from the lower limit to the upper limit is used"], "A finite sigma sum includes every index value in the specified range."),
-        sequenceAnswer("y11adv-seq-aseries-m10", "A savings plan deposits $50 in week 1 and increases the deposit by $5 each week. Find the total deposited over 12 weeks.", "\\text{weekly deposits form an arithmetic series}", "930", ["$930", "930 dollars"]),
+        sequenceAnswer("y11adv-seq-aseries-m8", "An arithmetic series has first term 6, last term 54 and sum 300. Find the number of terms.", "a=6,\\quad l=54,\\quad S_n=300", "10"),
+        sequenceChoice("y11adv-seq-aseries-m9", "Which situation should be modelled with an arithmetic series?", "C", ["A value is multiplied by 1.04 each year", "An infinite geometric series has |r|<1", "Rows have 18 seats, then 21, then 24, and the total seats are needed", "A single term of a geometric sequence is needed"], "The row sizes increase by a constant amount and the total is required."),
+        sequenceAnswer("y11adv-seq-aseries-m10", "A savings plan deposits $50 in week 1 and has a total of $930 after 12 weekly deposits. If the deposits increase by the same amount each week, find the weekly increase.", "a=50,\\quad n=12,\\quad S_{12}=930", "5", ["$5", "5 dollars"]),
       ],
     };
   }
@@ -509,9 +509,9 @@ export function year11AdvancedSequencesSeriesLessonOverride(
         sequenceChoice("y11adv-seq-gseries-m5", "Does the series have a limiting sum?", "B", ["Yes", "No", "Only if n = 10", "Only if a = 1"], "The common ratio is 3, so |r| is greater than 1.", "2+6+18+\\cdots"),
         sequenceAnswer("y11adv-seq-gseries-m6", "Find the limiting sum.", "9+3+1+\\cdots", "27/2", ["13.5"]),
         sequenceChoice("y11adv-seq-gseries-m7", "Which series is geometric?", "A", ["$5+10+20+40+\\cdots$", "$5+10+15+20+\\cdots$", "$1+4+9+16+\\cdots$", "$2+5+10+17+\\cdots$"], "Only the first series has a constant ratio."),
-        sequenceAnswer("y11adv-seq-gseries-m8", "Write the recurring decimal as a fraction.", "0.777\\ldots", "7/9"),
+        sequenceAnswer("y11adv-seq-gseries-m8", "An infinite geometric series has first term 12 and common ratio -1/2. Find its limiting sum.", "a=12,\\quad r=-\\frac{1}{2}", "8"),
         sequenceChoice("y11adv-seq-gseries-m9", "A student uses S_infinity for 6 + 12 + 24 + ... . Which option identifies the error?", "D", ["The first term should be zero", "The series is arithmetic", "There is no common ratio", "The common ratio has absolute value greater than 1"], "The common ratio is 2, so a limiting sum does not exist."),
-        sequenceAnswer("y11adv-seq-gseries-m10", "An infinite geometric series has first term 15 and common ratio 2/5. Find its limiting sum.", "a=15,\\quad r=\\frac{2}{5}", "25"),
+        sequenceAnswer("y11adv-seq-gseries-m10", "An infinite geometric series has first term 15 and limiting sum 25. Find the common ratio.", "a=15,\\quad S_\\infty=25", "2/5", ["0.4"]),
       ],
     };
   }
@@ -574,9 +574,9 @@ export function year11AdvancedSequencesSeriesLessonOverride(
         sequenceChoice("y11adv-seq-exam-m5", "Which expression is a finite sigma sum?", "D", ["$S_\\infty$", "$T_n$", "$ar^{n-1}$", "$\\sum_{k=1}^{6}(k+2)$"], "The sigma symbol represents a sum over index values."),
         sequenceAnswer("y11adv-seq-exam-m6", "Find the limiting sum.", "30+15+7.5+\\cdots", "60"),
         sequenceChoice("y11adv-seq-exam-m7", "A student models 100, 80, 64, ... with an arithmetic sequence. Which option identifies the issue?", "C", ["It has no pattern", "The terms are increasing", "The pattern uses a constant ratio, not a constant difference", "It is a two-way table"], "Each term is multiplied by 0.8."),
-        sequenceAnswer("y11adv-seq-exam-m8", "Evaluate the finite sum.", "\\sum_{k=2}^{6}(k+1)", "25"),
-        sequenceChoice("y11adv-seq-exam-m9", "A scholarship pays $500 in year 1, then $550, $600 and so on. Which calculation type finds the total paid over 8 years?", "A", ["Arithmetic series", "Geometric series", "Limiting sum", "Single geometric term"], "The payments increase by a constant amount and must be summed."),
-        sequenceChoice("y11adv-seq-exam-m10", "An infinite geometric series has first term 12 and common ratio -3/4. Which statement is correct?", "B", ["No limiting sum exists", "A limiting sum exists because $|r|<1$", "The limiting sum is negative because r is negative", "It is arithmetic because the sign changes"], "A limiting sum exists because the absolute value of the ratio is less than 1."),
+        sequenceChoice("y11adv-seq-exam-m8", "A balance follows 400, 420, 441, ... . Which method should be used to find the value in year 8?", "B", ["Arithmetic sequence", "Geometric sequence", "Arithmetic series", "Limiting sum"], "Each term is multiplied by 1.05, so geometric sequence reasoning applies."),
+        sequenceAnswer("y11adv-seq-exam-m9", "An arithmetic sequence has T_4 = 19 and T_10 = 55. Find the common difference.", "T_4=19,\\quad T_{10}=55", "6"),
+        sequenceChoice("y11adv-seq-exam-m10", "For the infinite series 12 - 9 + 6.75 - ... , which statement is correct?", "B", ["No limiting sum exists because signs alternate", "A limiting sum exists because $|r|<1$", "It is arithmetic because the signs alternate", "The common ratio is greater than 1"], "The common ratio is -3/4, and its absolute value is less than 1."),
       ],
     };
   }

@@ -125,9 +125,9 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         linearAnswer("y12s2-lin-m5", "A savings account starts at 200 dollars and increases by 35 dollars per week. Write S after w weeks.", "", "S = 200 + 35w", ["S=200+35w", "s=200+35w", "S=35w+200"]),
         moneyAnswer("y12s2-lin-m6", "Using the savings rule shown, find S after 6 weeks.", "S=200+35w", "410"),
         practicalChoice("y12s2-lin-m7", "A table increases by the same amount each step. The relationship is likely:", "C", ["Quadratic", "Reciprocal", "Linear", "Random"], "Constant first difference suggests linear."),
-        linearAnswer("y12s2-lin-m8", "A phone plan costs 25 dollars plus 0.12 dollars per extra GB. Write C for g extra GB.", "", "C = 25 + 0.12g", ["C=25+0.12g", "c=25+0.12g", "C=0.12g+25"]),
-        practicalChoice("y12s2-lin-m9", "In F = 6 + 2.40d, the gradient is measured in:", "D", ["Dollars only", "Kilometres only", "Hours", "Dollars per kilometre"], "The fare changes by dollars for each kilometre."),
-        moneyAnswer("y12s2-lin-m10", "A weekly cost follows the model shown. Find C when w = 5.", "C=80+22w", "190"),
+        practicalChoice("y12s2-lin-m8", "A phone plan costs 25 dollars plus 0.12 dollars per extra GB. Which model matches the situation?", "B", ["C = 0.12 + 25g", "C = 25 + 0.12g", "C = 25g + 0.12", "C = 25 - 0.12g"], "The fixed cost is 25 and the extra cost is 0.12 per GB."),
+        practicalChoice("y12s2-lin-m9", "For C = 40 + 18w, a total cost of 130 dollars means:", "B", ["4 weeks", "5 weeks", "6 weeks", "130 weeks"], "The 40 dollar starting cost is removed before comparing the weekly cost."),
+        practicalChoice("y12s2-lin-m10", "Plan A is A = 25 + 10h and Plan B is B = 45 + 6h. Which plan is cheaper at h = 3?", "A", ["Plan A", "Plan B", "They are equal", "Neither can be compared"], "At 3 hours, Plan A costs less than Plan B."),
       ],
     };
   }
@@ -237,9 +237,9 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         practicalChoice("y12s2-nonlin-m5", "A table has equal x-steps and y-values 3, 8, 15, 24. The first differences are:", "C", ["Constant", "3, 3, 3", "5, 7, 9", "Negative only"], "The differences increase."),
         measurementAnswer("y12s2-nonlin-m6", "A profit follows the model shown. Find P when x = 4.", "P=-x^2+12x", "$32", ["32", "32.00", "$32.00"]),
         practicalChoice("y12s2-nonlin-m7", "A solution x = -5 metres in a length context is:", "D", ["Always correct", "A maximum", "The y-intercept", "Not meaningful"], "Lengths cannot be negative."),
-        measurementAnswer("y12s2-nonlin-m8", "A square garden has area given by the rule shown. Find A when s = 6 m.", "A=s^2", "36 m^2", ["36", "36m^2", "36 m2"]),
-        practicalChoice("y12s2-nonlin-m9", "In h = -5t^2 + 20t + 1.5, the constant 1.5 represents:", "A", ["Initial height", "Maximum time", "Gradient", "Final height always"], "At t = 0, h = 1.5."),
-        practicalChoice("y12s2-nonlin-m10", "A quadratic model can be useful for:", "C", ["Only fixed fees", "Only straight-line costs", "Projectile height or area contexts", "Only ratio sharing"], "Quadratics commonly model curved height or area relationships."),
+        practicalChoice("y12s2-nonlin-m8", "A height equation gives possible times t = -1 and t = 5. Which value should be used for the landing time?", "B", ["-1 second", "5 seconds", "Both values", "Neither, because all quadratics are impossible"], "Negative time is not meaningful in this context, so the positive time is used."),
+        measurementAnswer("y12s2-nonlin-m9", "A square garden has area A = s^2. If the area is 49 m^2, find the side length.", "A=s^2,\\quad A=49", "7 m", ["7", "7m"]),
+        practicalChoice("y12s2-nonlin-m10", "A table has equal input steps and first differences 3, 5, 7. What is the best conclusion?", "C", ["The relationship is linear", "The gradient is constant", "The relationship is non-linear", "The initial value must be 7"], "Changing first differences indicate a non-linear relationship."),
       ],
     };
   }
@@ -352,8 +352,8 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         practicalChoice("y12s2-sim-m6", "For A = 30 + 15h and B = 60 + 10h, which is cheaper at h = 4?", "A", ["A", "B", "They are equal", "Neither has a cost"], "A = 90 and B = 100."),
         practicalChoice("y12s2-sim-m7", "For A = 30 + 15h and B = 60 + 10h, which is cheaper at h = 8?", "C", ["A", "They are equal", "B", "Both are free"], "A = 150 and B = 140."),
         linearAnswer("y12s2-sim-m8", "Savings S = 200 + 30w and T = 80 + 50w are equal at what w?", "S=200+30w,\\quad T=80+50w", "6", ["6 weeks", "6weeks"]),
-        practicalChoice("y12s2-sim-m9", "If a simultaneous solution gives negative time in a hire context, it should usually be:", "D", ["Chosen as the answer", "Converted to dollars", "Called a maximum", "Rejected as not meaningful"], "Negative time is not practical."),
-        practicalChoice("y12s2-sim-m10", "Which method is suitable for comparing two linear cost models?", "A", ["Set the two expressions equal", "Use only the first expression", "Find the area under a curve", "Use a z-score"], "Equal costs occur when the expressions are equal."),
+        practicalChoice("y12s2-sim-m9", "Which setup finds when A = 30 + 15h and B = 60 + 10h have equal cost?", "B", ["30 + 15h = h", "30 + 15h = 60 + 10h", "30 + 60 = 15h + 10h", "15h = 10h"], "Equal cost means setting the two full cost expressions equal."),
+        practicalChoice("y12s2-sim-m10", "For A = 30 + 15h and B = 60 + 10h, the costs are equal at h = 6. Which option is cheaper for h greater than 6?", "C", ["A, because it has the smaller fixed fee", "They stay equal forever", "B, because it has the smaller hourly rate", "Neither, because h cannot exceed 6"], "After the intersection, the model with the smaller hourly rate grows more slowly."),
       ],
     };
   }
@@ -456,9 +456,9 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
       measurementAnswer("y12s2-alg-exam-m5", "Using the height model shown, find h when t = 1.", "h=-4t^2+16t+2", "14 m", ["14", "14m"]),
       practicalChoice("y12s2-alg-exam-m6", "A curved graph with changing rate is:", "B", ["Linear", "Non-linear", "Always impossible", "A fixed fee"], "Curved graphs are non-linear."),
       linearAnswer("y12s2-alg-exam-m7", "Models A = 30 + 15h and B = 60 + 10h are equal at what h?", "A=30+15h,\\quad B=60+10h", "6", ["6 h", "6 hours"]),
-      moneyAnswer("y12s2-alg-exam-m8", "Using the cost model shown, find the equal cost when h = 6.", "A=30+15h", "120"),
-      practicalChoice("y12s2-alg-exam-m9", "For A = 30 + 15h and B = 60 + 10h, which is cheaper at h = 8?", "C", ["A", "They are equal", "B", "Neither"], "A = 150 and B = 140."),
-      practicalChoice("y12s2-alg-exam-m10", "A negative time solution in a practical model should usually be:", "D", ["Used first", "Called the gradient", "Converted to dollars", "Rejected as not meaningful"], "Negative time is not practical."),
+      practicalChoice("y12s2-alg-exam-m8", "A hire cost follows C = 35 + 12h. If the total cost is 107 dollars, what is h?", "C", ["4 hours", "5 hours", "6 hours", "7 hours"], "Reverse the model by removing the fixed cost, then dividing by the hourly rate."),
+      practicalChoice("y12s2-alg-exam-m9", "Which setup finds when A = 30 + 15h and B = 60 + 10h are equal?", "A", ["30 + 15h = 60 + 10h", "30 + 15h = 8", "60 + 10h = 120h", "30 + 60 = h"], "Equal outputs are found by setting the two expressions equal."),
+      practicalChoice("y12s2-alg-exam-m10", "A height model gives t = -1 and t = 5 when the object is on the ground. Which conclusion is best?", "B", ["Use -1 second as the landing time", "Use 5 seconds as the practical landing time", "Use both because time can be negative", "Reject both because the graph is curved"], "The negative time is not practical, so the positive time is the meaningful landing time."),
     ],
   };
 }
