@@ -349,7 +349,7 @@ export function year12Standard2FinanceLessonOverride(
         financeChoice("y12s2-ann-m6", "A repayment table shows balances 12000, 11850, 11702. The loan is:", "C", ["Increasing quickly", "Unchanged", "Decreasing", "Compounding as an investment"], "The listed balance decreases each period."),
         moneyAnswer("y12s2-ann-m7", "A savings account has 900 dollars. It earns 1% interest then receives a 100 dollar deposit. Find the new balance.", "S_{n+1}=(1+r)S_n+d", "1009"),
         financeChoice("y12s2-ann-m8", "Which recurrence matches a savings account that earns 0.5% interest each month and then receives a 200 dollar deposit?", "B", ["S_{n+1}=0.995S_n+200", "S_{n+1}=1.005S_n+200", "S_{n+1}=1.005S_n-200", "S_{n+1}=200S_n+1.005"], "Interest increases the balance first, and the deposit is added."),
-        moneyAnswer("y12s2-ann-m9", "A savings recurrence is shown. If the next balance is 1411.03 dollars, find the previous balance to the nearest cent.", "S_{n+1}=1.005S_n+200", "1205.00", ["1205", "$1205", "$1205.00", "1,205.00", "$1,205.00"]),
+        moneyAnswer("y12s2-ann-m9", "A savings recurrence is shown. If the next balance is 1411.03 dollars, find the previous balance to the nearest cent.", "S_{n+1}=1.005S_n+200", "1205.00", ["1205", "$1205", "$1205.00", "1,205.00", "$1,205.00", "1205.01", "$1205.01"]),
         financeChoice("y12s2-ann-m10", "Plan A deposits 100 dollars monthly. Plan B deposits 120 dollars monthly but charges a 15 dollar monthly fee. What should be compared?", "D", ["Only the larger deposit", "Only the first month", "Only the interest symbol", "Final balances after deposits, interest, and fees"], "A fair comparison includes the regular deposits, interest, fees, and term."),
       ],
     };
