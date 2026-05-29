@@ -152,10 +152,10 @@ export function year11StandardDataAnalysisLessonOverride(
         financeChoice("data-display-i5", "A column graph is useful because it shows:", "B", ["Only the mean", "Comparisons between categories", "Only time zones", "Only limits of accuracy"], "Column graphs compare category heights."),
       ],
       commonMistakes: [
-        { mistake: "Using the total instead of the mean.", fix: "Divide the total by the number of values." },
-        { mistake: "Finding the median before ordering data.", fix: "Order the values first." },
-        { mistake: "Using the highest value as the range.", fix: "Range is highest minus lowest." },
-        { mistake: "Confusing frequency with the data value.", fix: "Frequency is how often a value or category occurs." },
+        { mistake: "Writing the total as the mean, such as giving 307 for seven cafe sales instead of 307 ÷ 7.", fix: "Divide the total by the number of values to find the mean." },
+        { mistake: "Finding the median of an unordered list such as 6, 4, 9, 7, 5 by picking the middle position without sorting.", fix: "Always order the data first: 4, 5, 6, 7, 9. The middle value is 6." },
+        { mistake: "Writing the highest value as the range, such as giving 25 for delivery times 12, 15, 17, 20, 25.", fix: "Range = highest - lowest: 25 - 12 = 13." },
+        { mistake: "Confusing frequency with the data value.", fix: "Frequency is how often a value or category occurs, not the value itself." },
       ],
       masteryQuiz: [
         dataAnswer("data-display-m1", "A cafe sells 42, 38, 45, 51, 39, 44 and 48 coffees over 7 mornings. Find the mean to 1 decimal place.", "42,\\ 38,\\ 45,\\ 51,\\ 39,\\ 44,\\ 48", "43.9", ["43.86", "43.857", "43.9 coffees"]),
@@ -211,10 +211,10 @@ export function year11StandardDataAnalysisLessonOverride(
         dataAnswer("data-outlier-i5", "Daily sales are 38, 40, 41, 42, 43 and 79. What value is likely an outlier?", "\\text{far value}=79", "79", ["79 sales"]),
       ],
       commonMistakes: [
-        { mistake: "Assuming every highest value is an outlier.", fix: "Check whether it is far from the rest of the data." },
-        { mistake: "Using mean without considering outliers.", fix: "Check whether the median is more suitable." },
-        { mistake: "Making a conclusion that is too strong.", fix: "Use cautious wording based on the data available." },
-        { mistake: "Confusing range with a typical value.", fix: "Range measures spread, not centre." },
+        { mistake: "Calling the highest value in a data set an outlier without checking how far it sits from the rest.", fix: "An outlier is noticeably separated from the main group, not just the largest value." },
+        { mistake: "Using the mean as the typical delivery time for 18, 20, 21, 22, 23, 24, 47 without noticing the outlier.", fix: "The outlier 47 pulls the mean upward. The median 22 better represents a typical delivery time here." },
+        { mistake: "Concluding that all deliveries are late from data showing most took 18–24 minutes.", fix: "Match the conclusion to the data: most recorded deliveries were around 18–24 minutes." },
+        { mistake: "Giving the range as a typical delivery time.", fix: "Range measures the spread from lowest to highest; it does not describe a typical value." },
       ],
       masteryQuiz: [
         dataAnswer("data-outlier-m1", "A delivery time data set is 18, 20, 21, 22, 23, 24, 47. Which value is the outlier?", "18,\\ 20,\\ 21,\\ 22,\\ 23,\\ 24,\\ 47", "47", ["47 min", "47 minutes"]),
@@ -269,10 +269,10 @@ export function year11StandardDataAnalysisLessonOverride(
       financeChoice("data-exam-i5", "A careful conclusion from a survey should:", "D", ["Ignore the data", "Claim it proves all people agree", "Use only the highest value", "Match the data and avoid overclaiming"], "Data conclusions should be cautious."),
     ],
     commonMistakes: [
-      { mistake: "Calculating a statistic from the wrong data values.", fix: "Copy the relevant values from the table or graph first." },
-      { mistake: "Using total when mean is requested.", fix: "Divide the total by the number of values." },
-      { mistake: "Ignoring an outlier when choosing mean or median.", fix: "Check whether the median is more appropriate." },
-      { mistake: "Overstating a conclusion.", fix: "Use cautious language that matches the data." },
+      { mistake: "Including a row total shown in the table when calculating mean or range.", fix: "Use only the listed data values, not any totals that the table already shows." },
+      { mistake: "Writing 220 as the mean for Monday–Friday sales that add up to 220.", fix: "Divide the total by the number of values: 220 ÷ 5 = 44." },
+      { mistake: "Reporting the mean of 18, 20, 21, 22, 23, 24, 47 without noticing that 47 is an outlier.", fix: "When an unusual value skews the mean, use the median as the typical value instead." },
+      { mistake: "Writing 'all customers prefer rating 5' from a frequency table where rating 5 has the highest count.", fix: "High frequency shows the most common response, not universal preference — use cautious wording." },
     ],
     masteryQuiz: [
       dataAnswer("data-exam-m1", "A cafe sells 42, 38, 45, 51 and 44 coffees from Monday to Friday. Find the mean.", "42,\\ 38,\\ 45,\\ 51,\\ 44", "44", ["44.0", "44 coffees"]),

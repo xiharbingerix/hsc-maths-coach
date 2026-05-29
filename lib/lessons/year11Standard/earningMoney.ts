@@ -211,10 +211,10 @@ export function year11StandardEarningMoneyLessonOverride(
         financeChoice("earn-wage-i5", "A student comparing two jobs should compare what over the same time period?", "D", ["Only job titles", "Only workplace distance", "Only tax labels", "Expected earnings"], "Earnings should be compared over equivalent time periods."),
       ],
       commonMistakes: [
-        { mistake: "Using net pay when the question asks for gross pay.", fix: "Gross pay is before deductions; net pay is after deductions." },
-        { mistake: "Forgetting to multiply hours by the hourly rate.", fix: "Hourly wage questions need hours times rate." },
-        { mistake: "Dividing salary by 12 when weekly pay is requested.", fix: "Use 52 for weekly pay from an annual salary." },
-        { mistake: "Comparing a weekly wage with a yearly salary directly.", fix: "Convert to the same time period before comparing." },
+        { mistake: "Giving 150 as net pay when a payslip shows gross pay of 150 dollars and tax withheld of 20 dollars.", fix: "Gross pay is before deductions. Net pay = 150 - 20 = 130." },
+        { mistake: "Adding hours and hourly rate instead of multiplying: 18 + 24 = 42 instead of 18 × 24 = 432.", fix: "Hourly pay multiplies hours by rate. Check by thinking: 18 hours at 24 dollars each is 18 × 24." },
+        { mistake: "Dividing a 52,000 dollar annual salary by 12 to get weekly pay.", fix: "There are 52 weeks in a year, not 12. Weekly pay = 52,000 ÷ 52 = 1,000." },
+        { mistake: "Comparing 28 dollars per hour directly with a 70,000 dollar annual salary to decide which pays more.", fix: "Convert to the same period first: 70,000 ÷ 52 ≈ 1,346 per week, then compare with weekly wages." },
       ],
       masteryQuiz: [
         moneyAnswer("earn-wage-m1", "Amelia works a short cafe shift of 10 ordinary hours at 30 dollars per hour. Find her gross pay.", "\\text{hours}=10,\\quad \\text{rate}=\\$30/\\text{h}", "300", ["$300", "300.00", "$300.00"]),
@@ -305,10 +305,10 @@ export function year11StandardEarningMoneyLessonOverride(
         moneyAnswer("earn-ot-i5", "A tutoring centre pays time-and-a-half for late shifts. If the ordinary rate is 32 dollars per hour, find the late-shift hourly rate.", "1.5\\times 32", "48", ["$48", "48.00", "$48.00"]),
       ],
       commonMistakes: [
-        { mistake: "Applying overtime rates to all hours.", fix: "Apply higher rates only to the hours described as overtime or penalty hours." },
-        { mistake: "Using 1.5 dollars instead of multiplying by 1.5.", fix: "Time-and-a-half means 1.5 times the ordinary hourly rate." },
-        { mistake: "Forgetting to add allowances.", fix: "If the question says an allowance is paid, add it to earnings." },
-        { mistake: "Mixing net pay with gross earnings.", fix: "Overtime and allowances are part of gross earnings before deductions." },
+        { mistake: "Paying time-and-a-half for all 10 hours when only 2 of them are overtime hours.", fix: "Calculate ordinary pay for 8 hours at the normal rate, then overtime pay for the 2 overtime hours at 1.5×." },
+        { mistake: "Finding the time-and-a-half rate as 30 + 1.5 = 31.50 instead of 30 × 1.5 = 45.", fix: "Time-and-a-half multiplies the whole hourly rate: 30 × 1.5 = 45, not 30 + 1.5." },
+        { mistake: "Reporting total earnings as 228 dollars when the shift pays 210 dollars and an 18.50 dollar meal allowance is listed.", fix: "Add the allowance: 210 + 18.50 = 228.50. Include every stated allowance in gross earnings." },
+        { mistake: "Subtracting tax from the total when the question asks for gross earnings only.", fix: "Gross earnings include ordinary pay, overtime, and allowances. Only subtract deductions when the question asks for net pay." },
       ],
       masteryQuiz: [
         moneyAnswer("earn-ot-m1", "A retail award pays time-and-a-half on weeknights. If the ordinary rate is 20 dollars per hour, find the weeknight hourly rate.", "\\text{ordinary rate}=\\$20/\\text{h},\\quad \\text{penalty}=\\text{time-and-a-half}", "30", ["$30", "30.00", "$30.00"]),
@@ -366,10 +366,10 @@ export function year11StandardEarningMoneyLessonOverride(
         financeChoice("earn-com-i5", "If sales are zero, which earning structure still gives pay?", "B", ["Commission only", "Base pay plus commission", "Piecework with zero items", "Percentage of sales only"], "Base pay still applies even if commission is zero."),
       ],
       commonMistakes: [
-        { mistake: "Using 5 instead of 0.05 for 5 percent.", fix: "Convert percentages to decimals before multiplying." },
-        { mistake: "Forgetting to add base pay.", fix: "For base plus commission, add both parts." },
-        { mistake: "Treating piecework as hourly pay.", fix: "Piecework uses number of items times rate per item." },
-        { mistake: "Comparing earning structures over different amounts.", fix: "Use the same sales, items, or time period." },
+        { mistake: "Computing 6% commission on 3,500 dollars as 6 × 3,500 = 21,000 instead of 0.06 × 3,500 = 210.", fix: "Convert the percentage to a decimal first: 6% = 0.06, so commission = 0.06 × 3,500 = 210." },
+        { mistake: "Giving 100 dollars as the total when base pay is 480 dollars and commission is 100 dollars.", fix: "Base plus commission means add both: total earnings = 480 + 100 = 580." },
+        { mistake: "Dividing piecework items by hours as if piecework were an hourly rate.", fix: "Multiply items by rate per item: 48 × 3.75 = 180. Hours are not part of the piecework formula." },
+        { mistake: "Comparing two paying structures using different sales amounts to decide which is better.", fix: "Use the same sales figure for both options before comparing totals." },
       ],
       masteryQuiz: [
         moneyAnswer("earn-com-m1", "A weekend market stall pays 10 percent commission on 900 dollars sales. Find the commission.", "\\text{commission rate}=10\\%,\\quad \\text{sales}=\\$900", "90", ["$90", "90.00", "$90.00"]),
@@ -425,10 +425,10 @@ export function year11StandardEarningMoneyLessonOverride(
         moneyAnswer("earn-tax-i5", "A staff discount repayment is a 3 percent deduction from 900 dollars gross pay. What is the deduction?", "0.03\\times 900", "27", ["$27", "27.00", "$27.00"]),
       ],
       commonMistakes: [
-        { mistake: "Adding deductions instead of subtracting them.", fix: "Deductions are taken away from gross pay." },
-        { mistake: "Confusing gross pay and net pay.", fix: "Gross is before deductions; net is after deductions." },
-        { mistake: "Using the percentage number directly.", fix: "Convert percentages to decimals before multiplying." },
-        { mistake: "Ignoring small listed deductions.", fix: "Subtract every deduction named in the question." },
+        { mistake: "Adding tax withheld to gross pay: 760 + 118 = 878 instead of subtracting it.", fix: "Tax withheld is a deduction. Net pay = 760 - 118 = 642." },
+        { mistake: "Answering 920 dollars when asked for net pay on a payslip showing gross pay 920, tax 165, and uniform deduction 25.", fix: "Net pay subtracts every listed deduction: 920 - 165 - 25 = 730." },
+        { mistake: "Calculating a 5% deduction as 5 × 600 = 3,000 instead of 0.05 × 600 = 30.", fix: "Convert 5% to 0.05 before multiplying. The deduction is 0.05 × 600 = 30." },
+        { mistake: "Subtracting only the tax of 118 dollars and ignoring the 12 dollar union fee also shown on the payslip.", fix: "Subtract every deduction listed: 760 - 118 - 12 = 630." },
       ],
       masteryQuiz: [
         moneyAnswer("earn-tax-m1", "A student worker's payslip shows gross pay of 700 dollars and tax withheld of 120 dollars. What is the net pay?", "\\text{gross pay}=\\$700,\\quad \\text{tax withheld}=\\$120", "580", ["$580", "580.00", "$580.00"]),
@@ -483,10 +483,10 @@ export function year11StandardEarningMoneyLessonOverride(
       moneyAnswer("earn-exam-i5", "A payslip lists gross pay of 880 dollars, tax withheld of 150 dollars, and other deductions of 20 dollars. What is the net pay?", "880-150-20", "710", ["$710", "710.00", "$710.00"]),
     ],
     commonMistakes: [
-      { mistake: "Starting calculations before identifying what the question asks for.", fix: "Decide whether the answer is gross pay, net pay, commission, overtime, or a deduction." },
-      { mistake: "Subtracting deductions when asked for gross pay.", fix: "Gross pay is before deductions." },
-      { mistake: "Forgetting commission or allowances in total earnings.", fix: "Add all earnings components before deductions." },
-      { mistake: "Giving an unreasonable result without checking.", fix: "Net pay should be less than gross pay when deductions are included." },
+      { mistake: "Subtracting tax withheld from the total when the question asks for gross pay.", fix: "Gross pay is the total before deductions: add ordinary pay, overtime, and allowances only." },
+      { mistake: "Giving 650 as net pay when gross is 500 + 120 + 30 = 650 and there are 140 dollars in deductions.", fix: "Net pay = gross minus deductions: 650 - 140 = 510." },
+      { mistake: "Reporting only the commission amount and forgetting to add the 420 dollar base pay.", fix: "Base plus commission: total = base pay + commission. Add both before writing the answer." },
+      { mistake: "Getting a net pay of 760 dollars when gross pay is only 600 dollars.", fix: "Net pay must be less than gross pay when deductions apply. A net pay higher than gross is a sign that deductions were added instead of subtracted." },
     ],
     masteryQuiz: [
       financeChoice("earn-exam-m1", "Which method finds ordinary hourly pay?", "A", ["Hours times hourly rate", "Gross minus tax", "Sales times tax", "Salary divided by 12 always"], "Hourly pay uses hours times rate."),

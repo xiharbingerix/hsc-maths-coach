@@ -181,10 +181,10 @@ export function year11StandardTimeLocationLessonOverride(
         financeChoice("time-table-i5", "When using a timetable, the safest first step is to:", "A", ["Use times from the same service row", "Use the latest arrival only", "Ignore am and pm", "Subtract the smaller number from the larger number"], "Timetable calculations must use the correct row."),
       ],
       commonMistakes: [
-        { mistake: "Subtracting times as ordinary decimals.", fix: "Use hours and minutes, not base-10 decimal subtraction." },
-        { mistake: "Ignoring am and pm.", fix: "Convert to 24-hour time when it helps." },
-        { mistake: "Using the wrong timetable row.", fix: "Read departure and arrival from the same service." },
-        { mistake: "Forgetting midnight crossings.", fix: "When arrival is after 00:00, check whether the date has changed." },
+        { mistake: "Subtracting 08:42 from 10:17 as a decimal, getting 1.75 and reading it as 1 hour 75 minutes.", fix: "Work in hours and minutes: count 1 hour from 08:42 to 09:42, then 35 more minutes to 10:17." },
+        { mistake: "Writing 6:30 pm as 6:30 in 24-hour time.", fix: "For pm times after noon, add 12 to the hour: 6:30 pm is 18:30." },
+        { mistake: "Reading one service's departure and a different service's arrival to calculate travel time.", fix: "Always use the departure and arrival times from the same timetable row." },
+        { mistake: "Calculating a trip from 23:15 to 00:05 and getting a negative or nonsense result.", fix: "Count from 23:15 to midnight (45 min), then add the remaining 5 minutes: total 50 min." },
       ],
       masteryQuiz: [
         timeAnswer("time-table-m1", "A train leaves Central at 09:28 and reaches Parramatta at 10:06. What is the travel time?", "\\text{depart}=09{:}28,\\quad \\text{arrive}=10{:}06", "38 min", ["38 minutes", "38min"]),
@@ -240,10 +240,10 @@ export function year11StandardTimeLocationLessonOverride(
         financeChoice("time-zone-i5", "A flight leaves late at night and arrives after crossing several time zones. The most important extra check is:", "D", ["Only the plane colour", "Only the ticket price", "Only the airline name", "Whether the date changes"], "Long trips and time zones may change the date."),
       ],
       commonMistakes: [
-        { mistake: "Adding when the destination is behind.", fix: "Compare the UTC offsets before choosing add or subtract." },
-        { mistake: "Ignoring half-hour time zones.", fix: "Some Australian time zones differ by 30 minutes." },
-        { mistake: "Forgetting daylight saving when stated.", fix: "Use the UTC offset given in the question." },
-        { mistake: "Missing the date change at midnight or the International Date Line.", fix: "Check whether the converted time crosses a day boundary." },
+        { mistake: "Converting from Sydney (UTC+10) to Perth (UTC+8) by adding 2 hours instead of subtracting.", fix: "Perth has a lower UTC offset, so it is behind Sydney. Subtract the difference." },
+        { mistake: "Using a 1-hour difference between Darwin (UTC+9:30) and Brisbane (UTC+10).", fix: "The difference is only 30 minutes. Always check for half-hour offsets in Australian time zones." },
+        { mistake: "Ignoring daylight saving when the question changes Sydney's offset to UTC+11.", fix: "Use the UTC offset given in the question, not the standard offset from memory." },
+        { mistake: "Getting 25:15 when converting 23:15 UTC+10 to UTC+12 and not recognising the date change.", fix: "Any result past 24:00 means the next calendar day: 25:15 becomes 01:15 Tuesday." },
       ],
       masteryQuiz: [
         timeAnswer("time-zone-m1", "Sydney is UTC+10 and Perth is UTC+8. If it is 21:10 in Sydney, what time is it in Perth?", "\\text{Sydney (UTC+10)}=21{:}10,\\quad \\text{Perth}=\\text{UTC+8}", "19:10", ["7:10 pm", "1910", "7.10 pm"]),
@@ -304,10 +304,10 @@ export function year11StandardTimeLocationLessonOverride(
         financeChoice("location-grid-i5", "Why are bearings usually best as multiple choice in this digital lesson?", "B", ["They always have no answer", "A text-only diagram can be ambiguous", "They are not part of location", "They require dollars"], "Without a drawn map, direction questions need clear text or answer choices."),
       ],
       commonMistakes: [
-        { mistake: "Reading the grid column before the row when the lesson asks for row then column.", fix: "Use the stated convention: row letter, then column number." },
-        { mistake: "Forgetting to multiply by the scale value.", fix: "Real distance equals map distance times the real distance represented by 1 cm." },
-        { mistake: "Confusing map distance and real distance.", fix: "Check whether the answer should be in centimetres on the map or real-world units." },
-        { mistake: "Guessing direction without checking the coordinate change.", fix: "Compare x-values and y-values using the stated grid orientation." },
+        { mistake: "Writing the grid reference as column then row, such as 2B instead of B2.", fix: "This lesson reads row letter first, then column number: row B, column 2 is B2." },
+        { mistake: "Giving the map distance as the real distance without multiplying by the scale.", fix: "Real distance = map distance × scale value: 4.5 cm on a 1 cm : 2 km map represents 9 km." },
+        { mistake: "Giving the real distance in centimetres instead of kilometres when asked for the actual length.", fix: "Check whether the answer should be in map units (cm) or real-world units (km or m)." },
+        { mistake: "Saying B is east of A when A is at (2, 3) and B is at (2, 7).", fix: "The x-coordinates are the same; only y increases. On a north-up grid, increasing y means north." },
       ],
       masteryQuiz: [
         measurementAnswer("location-grid-m1", "In the text grid, what is at B3?", "\\begin{array}{c|ccc} &1&2&3\\\\ A&\\text{Park}&\\text{Pool}&\\text{Oval}\\\\ B&\\text{Shop}&\\text{Library}&\\text{School}\\\\ C&\\text{Station}&\\text{Clinic}&\\text{Cafe}\\end{array}", "School", ["school"]),
@@ -396,10 +396,10 @@ export function year11StandardTimeLocationLessonOverride(
       financeChoice("time-exam-i5", "Point P is at (4, 1) and point Q is at (4, 5). On a north-up coordinate grid, Q is:", "A", ["North of P", "South of P", "East of P", "West of P"], "The y-coordinate increases while x stays the same."),
     ],
     commonMistakes: [
-      { mistake: "Using the wrong timetable row.", fix: "Use departure and arrival from the same service." },
-      { mistake: "Confusing duration with arrival time.", fix: "Check whether the answer should be a length of time or a clock time." },
-      { mistake: "Reversing time zone offsets.", fix: "Find whether the destination is ahead or behind." },
-      { mistake: "Forgetting date changes.", fix: "Check midnight and the International Date Line." },
+      { mistake: "Using one service's departure with a different service's arrival to calculate travel time.", fix: "Read departure and arrival from the same service row every time." },
+      { mistake: "Answering a 'how long is the trip?' question with a clock time such as 08:32.", fix: "A duration is a length of time (47 min); an arrival is a clock reading (08:32). Check what the question asks." },
+      { mistake: "Subtracting when converting from Perth (UTC+8) to Melbourne (UTC+10).", fix: "Melbourne has a higher offset, so it is ahead of Perth. Add the difference." },
+      { mistake: "Reporting an arrival time of 25:15 without recognising it as a date change.", fix: "Any converted time past 24:00 rolls to the next calendar day: 25:15 becomes 01:15 the next day." },
     ],
     masteryQuiz: [
       timeAnswer("time-exam-m1", "Service B departs at 07:45 and arrives at 08:32. What is the trip duration?", "\\text{depart}=07{:}45,\\quad \\text{arrive}=08{:}32", "47 min", ["47 minutes", "47min"]),

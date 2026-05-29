@@ -149,10 +149,10 @@ export function year11StandardFormulasEquationsLessonOverride(
         formulaAnswer("formula-sub-i5", "A phone repair quote is C = 45 + 30p. If C = 135, find p.", "135=45+30p", "3", ["3 parts", "3parts"]),
       ],
       commonMistakes: [
-        { mistake: "Substituting a value into the wrong variable.", fix: "Match each value with its defined variable." },
-        { mistake: "Ignoring order of operations.", fix: "Calculate powers before multiplication and addition." },
-        { mistake: "Dropping units from practical answers.", fix: "Include units such as km, L, dollars or minutes where needed." },
-        { mistake: "Solving equations by undoing operations in the wrong order.", fix: "Undo addition/subtraction before multiplication/division when needed." },
+        { mistake: "Substituting a value into the wrong variable.", fix: "Match each value with its defined variable before substituting." },
+        { mistake: "In d = 0.01v² + 0.4v, multiplying 0.01 by v before squaring v.", fix: "Square v first, then multiply: 0.01 × v² is not the same as (0.01 × v)²." },
+        { mistake: "Dropping units from practical answers.", fix: "Include units such as km, L, dollars or minutes in the final answer." },
+        { mistake: "When solving C = 12 + 3n for n, dividing by 3 before subtracting 12.", fix: "Undo addition before division: subtract 12 first, then divide by 3." },
       ],
       masteryQuiz: [
         formulaAnswer("formula-sub-m1", "A cycling distance is modelled by d = st. If s = 18 km/h and t = 3 h, find d.", "s=18\\text{ km/h},\\quad t=3\\text{ h}", "54 km", ["54", "54km"]),
@@ -208,10 +208,10 @@ export function year11StandardFormulasEquationsLessonOverride(
         financeChoice("formula-subject-i5", "When rearranging A = bh/2 to make h the subject, why multiply by 2 first?", "B", ["To remove b", "To undo division by 2", "To square h", "To remove A"], "Multiplying by 2 undoes the division by 2."),
       ],
       commonMistakes: [
-        { mistake: "Changing only one side of the formula.", fix: "Apply the same inverse operation to both sides." },
-        { mistake: "Dividing before subtracting in a two-step formula.", fix: "Undo addition or subtraction first when the variable term is grouped." },
-        { mistake: "Dropping constants such as 2 or pi.", fix: "Keep every factor attached to the variable until it is divided away." },
-        { mistake: "Forgetting square roots in formulas involving squares.", fix: "Undo squaring with a square root when required." },
+        { mistake: "Applying an operation to only one side of the formula.", fix: "Whatever is done to one side must be done to the other." },
+        { mistake: "In F = 1.8C + 32, dividing by 1.8 before subtracting 32.", fix: "Undo addition or subtraction first: subtract 32 to get F - 32 = 1.8C, then divide by 1.8." },
+        { mistake: "In C = 2πr, giving r = C/2 and dropping π.", fix: "Divide by the whole coefficient 2π, not just 2." },
+        { mistake: "When a variable is squared, giving the result without taking the square root.", fix: "If x² = 100 and x is a positive length, then x = 10, not 100." },
       ],
       masteryQuiz: [
         formulaAnswer("formula-subject-m1", "The circumference formula is C = 2\\pi r. Make r the subject.", "C=2\\pi r", "r = C/(2pi)", ["r=C/(2pi)", "r=C/(2\\pi)", "r = C/(2\\pi)", "r=C/2pi"]),
@@ -266,10 +266,10 @@ export function year11StandardFormulasEquationsLessonOverride(
       financeChoice("formula-exam-i5", "A formula answer in a cost context should usually include:", "A", ["Dollars", "Kilograms", "Degrees Celsius only", "No units"], "Cost is measured in dollars."),
     ],
     commonMistakes: [
-      { mistake: "Choosing the wrong formula for the context.", fix: "Identify the quantity being found first." },
-      { mistake: "Substituting before rearranging when rearranging would be clearer.", fix: "Use the method that isolates the required variable cleanly." },
-      { mistake: "Dropping units in practical questions.", fix: "Attach the unit from the context." },
-      { mistake: "Accepting an unreasonable answer.", fix: "Check whether the size and unit make sense." },
+      { mistake: "Picking a formula before identifying what the question is asking for.", fix: "Read the question and name the unknown first, then choose the matching formula." },
+      { mistake: "In d = st, substituting numbers without rearranging when the question asks for t.", fix: "Rearrange to t = d/s first, then substitute — this avoids solving a messy equation." },
+      { mistake: "Dropping units in practical answers.", fix: "Attach the unit from the context: km for distance, dollars for cost, litres for fuel." },
+      { mistake: "Getting a negative distance or a cost in the thousands from a simple context.", fix: "Check that the size and sign of the answer make sense before writing it down." },
     ],
     masteryQuiz: [
       formulaAnswer("formula-exam-m1", "The stopping distance model is d = 0.01v^2 + 0.4v. Find d when v = 30.", "d=0.01v^2+0.4v,\\quad v=30", "21 m", ["21", "21m"]),

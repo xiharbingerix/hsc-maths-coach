@@ -254,10 +254,10 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
         probabilityChoice("prob-outcomes-i5", "A bag contains 5 green and 5 yellow counters. Which statement is true for one random selection?", "C", ["Green is impossible", "Yellow is certain", "Green and yellow are equally likely", "The probability of green is 5"], "There are equal numbers of green and yellow counters."),
       ],
       commonMistakes: [
-        { mistake: "Using the favourable count as the probability without dividing by the total.", fix: "Write favourable outcomes over total outcomes." },
-        { mistake: "Using a probability greater than 1.", fix: "A probability must be between 0 and 1." },
-        { mistake: "Forgetting that the complement means the event does not happen.", fix: "Use 1 minus the event probability." },
-        { mistake: "Assuming outcomes are equally likely when the context does not say so.", fix: "Check whether the outcomes have the same chance before using simple counting." },
+        { mistake: "Writing P(red) = 3 when a bag has 3 red and 2 blue counters, without dividing by the total.", fix: "Probability = favourable ÷ total: P(red) = 3/5, not 3." },
+        { mistake: "Getting a probability greater than 1, such as 5 for 5 bus students out of 10.", fix: "A probability must be between 0 and 1. Divide the count by the total number of outcomes." },
+        { mistake: "Forgetting that the complement means the event does not happen.", fix: "P(not late) = 1 - P(late). Subtract from 1, do not add the two probabilities together." },
+        { mistake: "Assuming outcomes are equally likely when the context does not say so.", fix: "Check whether the outcomes have the same chance before using the simple counting formula." },
       ],
       masteryQuiz: [
         probabilityAnswer("prob-outcomes-m1", "A fair coin is tossed once. Find the probability of heads.", "\\text{fair coin}", "1/2", halves),
@@ -315,10 +315,10 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
         probabilityAnswer("prob-rf-i5", "A website survey has 70 positive responses from 100 responses. Find the relative frequency of positive responses.", "\\text{70 positive responses from 100 responses}", "0.7", tenths7),
       ],
       commonMistakes: [
-        { mistake: "Giving the frequency instead of the relative frequency.", fix: "Divide the frequency by the total number of trials." },
-        { mistake: "Expecting experimental probability to exactly match theoretical probability.", fix: "Experimental data can vary, especially with few trials." },
-        { mistake: "Comparing only frequencies when totals are different.", fix: "Compare relative frequencies, not just raw counts." },
-        { mistake: "Thinking one small experiment proves a spinner or coin is unfair.", fix: "Use larger trials before making a strong conclusion." },
+        { mistake: "Writing 24 as the probability of red after a spinner lands on red 24 times in 60 spins.", fix: "Divide by the number of trials: 24 ÷ 60 = 2/5 = 0.4, not 24." },
+        { mistake: "Saying a spinner is broken because it lands on red 28 times in 100 spins instead of the expected 25.", fix: "Experimental results vary, especially in small samples. A small difference from theoretical probability is normal." },
+        { mistake: "Saying Group A (6 reds in 20) beats Group B (32 reds in 100) because 32 is bigger than 6.", fix: "Convert to relative frequencies first: Group A is 6/20 = 0.30 and Group B is 32/100 = 0.32." },
+        { mistake: "Drawing a strong conclusion about fairness from 10 or 20 spins.", fix: "Small trials vary a lot. More trials are needed before concluding a spinner is unfair." },
       ],
       masteryQuiz: [
         probabilityAnswer("prob-rf-m1", "A coin lands heads 30 times in 60 tosses. Find the relative frequency of heads.", "\\text{30 heads from 60 tosses}", "1/2", halves),
@@ -377,10 +377,10 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
         probabilityAnswer("prob-table-i5", "A table of 100 students shows 35 use public transport. Find the probability that a randomly selected student does not use public transport.", "\\text{35 public transport users from 100 students}", "0.65", ["65%", "65 percent", "13/20"]),
       ],
       commonMistakes: [
-        { mistake: "Using the wrong row or column total.", fix: "Check whether the question asks for a row category, column category or cell." },
-        { mistake: "Confusing an 'and' event with a row total.", fix: "An 'and' event often uses one table cell." },
-        { mistake: "Forgetting to include every cell when finding the table total.", fix: "Add all cells, or add all row totals." },
-        { mistake: "Adding overlapping counts without checking the table structure.", fix: "Use simple row, column and cell counts unless the question clearly asks for combined categories." },
+        { mistake: "For P(Year 12 and walk), using the Year 12 row total instead of the Year 12 walk cell.", fix: "The word 'and' means both categories at once — find the cell where Year 12 and Walk intersect." },
+        { mistake: "For P(Year 11 and bus), using the Year 11 row total of 25 instead of the Year 11 bus cell of 12.", fix: "An 'and' event is a single table cell, not a whole row or column." },
+        { mistake: "Finding the total of a 2×3 table by adding only two of the three cells in each row.", fix: "Add every cell in the table, or check that the row totals themselves include every column." },
+        { mistake: "Adding row total and column total to find the count for an 'and' event.", fix: "Row and column totals overlap. Use the cell value directly for an 'and' probability." },
       ],
       masteryQuiz: [
         probabilityAnswer("prob-table-m1", "A two-way table has 8 Year 11 bus students, 12 Year 11 train students, 10 Year 12 bus students and 20 Year 12 train students. Find the table total.", "\\begin{array}{c|cc}\\text{Year}&\\text{Bus}&\\text{Train}\\\\\\hline\\text{Year 11}&8&12\\\\\\text{Year 12}&10&20\\end{array}", "50", ["50 students"]),
@@ -440,10 +440,10 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
         probabilityChoice("prob-exam-i5", "A two-way table question asks for 'Year 11 and train'. Which count should be used?", "D", ["The Year 11 row total", "The train column total", "The table total", "The Year 11 train cell"], "The word 'and' points to the cell where the row and column meet."),
       ],
       commonMistakes: [
-        { mistake: "Using a frequency count as if it were already a probability.", fix: "Divide the count by the total number of outcomes, trials or people." },
-        { mistake: "Adding probabilities when the question asks for a complement.", fix: "Use 1 minus the probability of the event." },
-        { mistake: "Using theoretical probability when the question asks about trial data.", fix: "Use relative frequency for experimental results." },
-        { mistake: "Reading the wrong cell in a two-way table.", fix: "Track the row and column named in the question." },
+        { mistake: "Writing P(blue) = 32 after a spinner lands on blue 32 times in 80 spins.", fix: "Divide the frequency by the number of trials: 32 ÷ 80 = 2/5, not 32." },
+        { mistake: "Adding 0.3 and 0.7 to find P(no rain) when P(rain) = 0.3.", fix: "Use subtraction for the complement: P(no rain) = 1 - 0.3 = 0.7." },
+        { mistake: "Using the theoretical probability of 1/6 for a die question that asks about trial data.", fix: "When the question gives trial results, use relative frequency, not the theoretical value." },
+        { mistake: "Using the Year 12 row total when the question asks for P(Year 12 and train).", fix: "Track both the row and column named in the question to find the one matching cell." },
       ],
       masteryQuiz: [
         probabilityAnswer("prob-exam-m1", "A fair coin is tossed twice. Find the probability of getting two heads.", "\\text{two fair coin tosses}", "1/4", quarters),

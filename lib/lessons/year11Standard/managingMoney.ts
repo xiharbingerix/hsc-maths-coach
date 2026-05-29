@@ -220,10 +220,10 @@ export function year11StandardManagingMoneyLessonOverride(
         financeChoice("manage-budget-i5", "A budget should compare amounts over:", "B", ["Different time periods", "The same time period", "Only one expense", "Only wants, not needs"], "Weekly amounts should be compared with weekly amounts, and monthly with monthly."),
       ],
       commonMistakes: [
-        { mistake: "Adding income and expenses together.", fix: "Subtract expenses from income to find surplus." },
-        { mistake: "Calling a deficit a surplus.", fix: "If expenses are greater than income, it is a deficit." },
-        { mistake: "Mixing weekly and monthly amounts.", fix: "Convert amounts to the same time period first." },
-        { mistake: "Ignoring planned savings.", fix: "If savings are listed in the budget, include them in cash-flow planning." },
+        { mistake: "Adding income and total expenses together instead of subtracting.", fix: "Surplus = income - expenses. If income is 420 and expenses are 253, the surplus is 167, not 673." },
+        { mistake: "Calling a deficit a surplus.", fix: "If expenses exceed income, the difference is a deficit, not a surplus." },
+        { mistake: "Using a weekly expense amount in a monthly calculation without converting.", fix: "Multiply a weekly amount by 4 to estimate the monthly figure before comparing." },
+        { mistake: "Ignoring planned savings listed in the budget table.", fix: "Savings planned in the budget count as an outgoing when calculating the remaining surplus." },
       ],
       masteryQuiz: [
         moneyAnswer("manage-budget-m1", "A student earns 400 dollars per week and spends 60 dollars on transport, 110 dollars on food and 25 dollars on subscriptions. What is the weekly surplus?", "\\text{income}=\\$400,\\quad \\text{expenses: transport }\\$60,\\ \\text{food }\\$110,\\ \\text{subs }\\$25", "205"),
@@ -279,10 +279,10 @@ export function year11StandardManagingMoneyLessonOverride(
         moneyAnswer("manage-save-i5", "A student saves 35 dollars per week for 12 weeks. What will be added to savings?", "35\\times 12", "420"),
       ],
       commonMistakes: [
-        { mistake: "Using the goal amount instead of the amount still needed.", fix: "Subtract current savings first." },
-        { mistake: "Rounding down the number of weeks when a goal is not reached.", fix: "A partial week usually means another full deposit is needed." },
-        { mistake: "Comparing saving plans over different time periods without checking totals.", fix: "Calculate each total first." },
-        { mistake: "Ignoring planned expenses before deciding affordability.", fix: "Check money left after necessary expenses." },
+        { mistake: "Dividing the full goal by the weekly deposit instead of the remaining amount needed.", fix: "Subtract current savings first: for a 900-dollar goal with 240 saved, divide 660 by the weekly deposit." },
+        { mistake: "Rounding down the number of weeks when the amount does not divide evenly.", fix: "If the division leaves a remainder, one extra full week is needed to reach the goal." },
+        { mistake: "Comparing Plan A over 10 weeks with Plan B over 8 weeks using only the weekly amounts.", fix: "Calculate each total first: Plan A total = 40 × 10; Plan B total = 55 × 8." },
+        { mistake: "Deciding a purchase is affordable without first subtracting planned expenses.", fix: "Check how much money is left after essential expenses before comparing with the purchase price." },
       ],
       masteryQuiz: [
         financeShortAnswer("manage-save-m1", "A student wants 750 dollars, has 150 dollars, and saves 50 dollars per week. How many weeks are needed?", "\\text{goal}=\\$750,\\quad \\text{savings}=\\$150,\\quad \\text{weekly deposit}=\\$50", "12", ["12 weeks", "12weeks"]),
@@ -338,10 +338,10 @@ export function year11StandardManagingMoneyLessonOverride(
         financeChoice("manage-interest-i5", "For the same principal and rate, doubling the time will:", "C", ["Halve simple interest", "Make no difference", "Double simple interest", "Remove the principal"], "Simple interest is proportional to time."),
       ],
       commonMistakes: [
-        { mistake: "Using 4 instead of 0.04 for 4 percent.", fix: "Convert percentages to decimals." },
-        { mistake: "Forgetting to multiply by time.", fix: "Use I = Prt and include all three values." },
-        { mistake: "Giving interest when the question asks for total amount.", fix: "Add interest to principal for total amount." },
-        { mistake: "Using months with an annual rate without converting.", fix: "Make sure time matches the rate period." },
+        { mistake: "Using the interest rate as a whole number, such as calculating I = 1500 × 4 × 2.", fix: "Convert the percentage to a decimal first: 4% = 0.04, giving I = 1500 × 0.04 × 2 = 120." },
+        { mistake: "Multiplying principal by rate but forgetting to multiply by time.", fix: "The formula is I = Prt and all three values must be included." },
+        { mistake: "Giving the interest amount when the question asks for the total amount.", fix: "Total amount = principal + interest: if I = 120 and P = 1500, the total is 1620." },
+        { mistake: "Using months as the time value when the rate is per annum.", fix: "Convert months to years, or confirm that time and rate use the same period." },
       ],
       masteryQuiz: [
         moneyAnswer("manage-interest-m1", "A 1000 dollar deposit earns 5 percent p.a. simple interest for 2 years. Find the interest.", "P=\\$1000,\\quad r=5\\%,\\quad t=2\\text{ yr}", "100"),
@@ -408,10 +408,10 @@ export function year11StandardManagingMoneyLessonOverride(
         financeChoice("manage-compare-i5", "Which mistake is most likely when comparing costs?", "B", ["Using total costs", "Ignoring fees and charges", "Comparing the same time period", "Subtracting a discount"], "Ignoring fees can lead to the wrong decision."),
       ],
       commonMistakes: [
-        { mistake: "Choosing the lowest headline price without adding fees.", fix: "Compare total costs." },
-        { mistake: "Adding discounts instead of subtracting them.", fix: "A discount reduces the price." },
-        { mistake: "Comparing different time periods.", fix: "Convert options to the same time period first." },
-        { mistake: "Ignoring small charges.", fix: "Include fees, delivery and service charges when stated." },
+        { mistake: "Choosing the lower listed price without adding the delivery or booking fee.", fix: "Find the total for each option: add all stated fees before comparing." },
+        { mistake: "Adding a discount to the price instead of subtracting it.", fix: "A 20% discount on 200 dollars is 200 - 40 = 160, not 200 + 40 = 240." },
+        { mistake: "Comparing Plan A at 18 dollars per month with Plan B's total over 4 months directly.", fix: "Compare over the same number of months: calculate each option's total for 4 months, then compare." },
+        { mistake: "Ignoring a small booking or service fee when choosing between options.", fix: "Include every stated charge: a 6 or 12 dollar fee can change which option is cheapest." },
       ],
       masteryQuiz: [
         moneyAnswer("manage-compare-m1", "A sports bag costs 85 dollars plus 12 dollars delivery. What is the total cost?", "\\text{price}=\\$85,\\quad \\text{delivery}=\\$12", "97"),
@@ -467,10 +467,10 @@ export function year11StandardManagingMoneyLessonOverride(
       financeChoice("manage-exam-i5", "Which decision is most reasonable?", "B", ["Choose a plan without checking fees", "Compare total costs over the same time period", "Use monthly and weekly costs directly", "Ignore savings goals"], "Total costs over the same time period give a fair comparison."),
     ],
     commonMistakes: [
-      { mistake: "Using the wrong financial model.", fix: "Identify whether the question is about budget, savings, interest, or comparison." },
-      { mistake: "Ignoring fees or discounts.", fix: "Include every stated cost change." },
-      { mistake: "Comparing weekly and monthly amounts directly.", fix: "Convert to the same time period first." },
-      { mistake: "Forgetting to check if the answer is reasonable.", fix: "Surplus should fall when expenses increase; discounts should reduce price." },
+      { mistake: "Applying I = Prt to find surplus, or subtracting expenses to find interest.", fix: "Identify whether the question asks for surplus, savings progress, interest, or total cost before calculating." },
+      { mistake: "Ignoring a fee or discount mentioned in the question.", fix: "Include every stated cost change: fees increase the total and discounts reduce it." },
+      { mistake: "Comparing a weekly budget amount directly with a monthly saving amount.", fix: "Convert to the same time period first before comparing." },
+      { mistake: "Getting a net pay that is larger than gross pay, or a discounted price higher than the original.", fix: "Net pay is always less than gross pay when deductions apply; a discount must reduce the price." },
     ],
     masteryQuiz: [
       moneyAnswer("manage-exam-m1", "A student earns 480 dollars and budgets 95 dollars for food, 60 dollars for transport, 80 dollars for savings and 20 dollars for subscriptions. What is the surplus?", "\\text{income}=\\$480,\\quad \\text{expenses}=\\$95+\\$60+\\$80+\\$20", "225"),

@@ -189,10 +189,10 @@ export function year11StandardApplicationsMeasurementLessonOverride(
         measurementAnswer("measure-unit-i5", "A container holds 0.35 m^3 of water. Convert this capacity to litres.", "0.35\\times 1000", "350 L", ["350", "350L", "350 l", "350 litres"]),
       ],
       commonMistakes: [
-        { mistake: "Using length conversions for area or volume without adjusting powers.", fix: "Area and volume conversions involve squared or cubed units." },
-        { mistake: "Ignoring the unit in the answer.", fix: "Include the correct unit or choose the unit that matches the context." },
-        { mistake: "Using the full rounding unit instead of half for limits of accuracy.", fix: "Use half the rounding unit on each side." },
-        { mistake: "Dividing by the measured value for percentage error.", fix: "Use the actual value in the denominator when it is given." },
+        { mistake: "Converting 2 m² to cm² by multiplying by 100 instead of 10000.", fix: "Area conversions square the length factor: 1 m = 100 cm, so 1 m² = 100² = 10000 cm²." },
+        { mistake: "Giving a measurement answer without a unit, such as 420 instead of 420 cm.", fix: "Include the unit every time: the context says whether the answer should be in cm, kg, litres, or another unit." },
+        { mistake: "Using the full rounding unit instead of half for limits of accuracy.", fix: "Half the rounding unit is used on each side: for nearest 0.1 cm, limits are ± 0.05 cm." },
+        { mistake: "Dividing the absolute error by the measured value instead of the actual value.", fix: "When the actual value is given, use it in the denominator for percentage error." },
       ],
       masteryQuiz: [
         measurementAnswer("measure-unit-m1", "A desk is 1.25 m long. Convert this length to centimetres for a cutting list.", "\\text{length}=1.25\\text{ m}", "125 cm", ["125", "125cm"]),
@@ -276,10 +276,10 @@ export function year11StandardApplicationsMeasurementLessonOverride(
         financeChoice("measure-area-i5", "Which mistake is most likely when converting square metres to square centimetres?", "D", ["Using square units", "Checking the context", "Multiplying by the area", "Multiplying by 100 instead of 10000"], "Area conversions square the length conversion factor."),
       ],
       commonMistakes: [
-        { mistake: "Using perimeter when area is needed for flooring.", fix: "Flooring and painting flat surfaces usually need area." },
-        { mistake: "Using diameter as radius in circular problems.", fix: "Halve the diameter to get radius before using circle formulas." },
-        { mistake: "Forgetting to convert cubic metres to litres.", fix: "Multiply cubic metres by 1000 to get litres." },
-        { mistake: "Confusing surface area and volume.", fix: "Surface area covers outside faces; volume fills space inside." },
+        { mistake: "Using perimeter when area is needed for flooring.", fix: "Flooring and painting flat surfaces use area (l × w), not the sum of sides." },
+        { mistake: "Multiplying length, width, and height to find the floor area of a room.", fix: "Floor area uses only two dimensions: area = l × w. Volume uses all three." },
+        { mistake: "Forgetting to convert cubic metres to litres.", fix: "Multiply volume in cubic metres by 1000 to get litres: 0.24 m³ = 240 L." },
+        { mistake: "Confusing surface area and volume.", fix: "Surface area covers the outside faces (for wrapping or painting); volume fills the inside space." },
       ],
       masteryQuiz: [
         measurementAnswer("measure-area-m1", "A rug is 2.4 m by 1.5 m. What floor area does it cover?", "l=2.4\\text{ m},\\quad w=1.5\\text{ m}", "3.6 m^2", ["3.6", "3.60", "3.6m^2", "3.6 m2"]),
@@ -335,10 +335,10 @@ export function year11StandardApplicationsMeasurementLessonOverride(
         financeChoice("measure-energy-i5", "Which answer is most reasonable for the mass of a packet of rice?", "B", ["5 tonnes", "1 kg", "900 kWh", "20 square metres"], "Rice packets are commonly measured in kilograms."),
       ],
       commonMistakes: [
-        { mistake: "Treating kilojoules as grams.", fix: "Kilojoules measure energy, not mass." },
-        { mistake: "Forgetting to multiply by the number of serves.", fix: "Use energy per serve times number of serves." },
-        { mistake: "Using kW when the question asks for kWh cost.", fix: "Electricity bills usually use kilowatt-hours." },
-        { mistake: "Choosing an unreasonable unit.", fix: "Match small items to grams/kg and large loads to tonnes." },
+        { mistake: "Treating kilojoules as a measure of mass.", fix: "Kilojoules measure energy. Mass is measured in grams, kilograms, or tonnes." },
+        { mistake: "Giving 620 kJ as the total when a student eats 3 serves of a 620 kJ snack.", fix: "Multiply energy per serve by the number of serves: 620 × 3 = 1860 kJ." },
+        { mistake: "Giving the power rating in kW as the cost instead of calculating kWh × cost per kWh.", fix: "Multiply the energy used in kWh by the cost per kWh to get the cent or dollar amount." },
+        { mistake: "Choosing tonnes for a packet of pasta or grams for a truckload of gravel.", fix: "Small food items use grams or kilograms; large loads such as gravel or sand use tonnes." },
       ],
       masteryQuiz: [
         measurementAnswer("measure-energy-m1", "A packet contains 2.25 kg of potatoes. Convert this to grams.", "\\text{mass}=2.25\\text{ kg}", "2250 g", ["2250", "2,250", "2250g"]),
@@ -394,10 +394,10 @@ export function year11StandardApplicationsMeasurementLessonOverride(
       financeChoice("measure-exam-i5", "Which result is most reasonable for the capacity of a household bucket?", "B", ["12 square metres", "12 litres", "12 tonnes", "12 kilojoules"], "Buckets are commonly measured in litres."),
     ],
     commonMistakes: [
-      { mistake: "Choosing the wrong measurement type.", fix: "Identify whether the context is length, area, volume, mass, energy or cost." },
-      { mistake: "Ignoring limits of accuracy.", fix: "Use half the rounding unit on each side." },
-      { mistake: "Confusing area and volume.", fix: "Area is flat; volume fills space." },
-      { mistake: "Leaving off important units.", fix: "Include units or select the unit that matches the question." },
+      { mistake: "Calculating perimeter of a floor for a carpet question, or volume instead of area for a painting question.", fix: "Identify the measurement type first: carpets need area, tanks need volume, paint covers surface area." },
+      { mistake: "For a measurement of 25 cm rounded to the nearest centimetre, writing limits of 24 and 26.", fix: "Use half the rounding unit on each side: 25 ± 0.5 cm gives limits of 24.5 and 25.5." },
+      { mistake: "Confusing area and volume.", fix: "Area is a flat measure in m² or cm²; volume fills three-dimensional space in m³ or cm³." },
+      { mistake: "Writing the number without a unit in a practical measurement answer.", fix: "Include the unit every time: 280 cm, 8.4 m², 960 kJ, or 21 cents as appropriate." },
     ],
     masteryQuiz: [
       measurementAnswer("measure-exam-m1", "A garden edge is 6.4 m long. Convert this to centimetres for an order form.", "\\text{length}=6.4\\text{ m}", "640 cm", ["640", "640cm"]),

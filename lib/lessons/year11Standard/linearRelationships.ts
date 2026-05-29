@@ -154,10 +154,10 @@ export function year11StandardLinearRelationshipsLessonOverride(
         financeChoice("linear-graph-i5", "A graph of cost against hours crosses the vertical axis at 35. In context, this is the:", "D", ["Hourly rate", "Travel time", "Gradient only", "Fixed starting cost"], "The vertical intercept is the starting cost."),
       ],
       commonMistakes: [
-        { mistake: "Confusing gradient and intercept.", fix: "Gradient is the rate; intercept is the starting value." },
-        { mistake: "Treating the fixed fee as the hourly rate.", fix: "The fixed fee is the value when the input is zero." },
-        { mistake: "Forgetting units.", fix: "Attach units such as dollars per hour or litres per minute where needed." },
-        { mistake: "Assuming every line increases.", fix: "Negative gradients represent decreasing quantities." },
+        { mistake: "In C = 35 + 12h, saying the gradient is 35 and the fixed fee is 12.", fix: "The coefficient of h is the gradient (rate of 12 dollars per hour); the constant 35 is the y-intercept (starting cost)." },
+        { mistake: "Treating the fixed fee as the hourly rate.", fix: "The fixed fee is the cost when the input is zero; the gradient is what changes per additional unit." },
+        { mistake: "Writing the gradient as 12 without a unit in a hire-cost model.", fix: "Include the unit: a gradient of 12 in this context means 12 dollars per hour." },
+        { mistake: "Writing a rule for a draining tank with a positive gradient, such as V = 120 + 8t.", fix: "A decreasing quantity has a negative gradient: V = 120 - 8t." },
       ],
       masteryQuiz: [
         financeChoice("linear-graph-m1", "A taxi model C = 5 + 2d has gradient 2. In context, this is:", "A", ["2 dollars per km", "5 dollars per km", "2 km fixed fee", "Total fare always"], "The gradient is the cost per kilometre."),
@@ -213,10 +213,10 @@ export function year11StandardLinearRelationshipsLessonOverride(
         financeChoice("linear-direct-i5", "For the displayed direct variation rule, the value shown as k is the:", "A", ["Constant of variation", "Fixed fee", "x-intercept always", "Maximum value"], "k is the constant multiplier.", "y=kx"),
       ],
       commonMistakes: [
-        { mistake: "Assuming every linear model is direct variation.", fix: "Direct variation must pass through the origin." },
-        { mistake: "Confusing the fixed fee with the constant of variation.", fix: "A fixed fee means the model is not y = kx." },
-        { mistake: "Forgetting units for k.", fix: "k often has units such as dollars per litre." },
-        { mistake: "Using a direct variation model outside its context.", fix: "Check whether the practical rule is sensible for the input." },
+        { mistake: "Calling C = 10 + 4h direct variation because it contains multiplication.", fix: "Direct variation must pass through the origin; a fixed fee means the graph starts above zero." },
+        { mistake: "In C = 10 + 4h, treating k as 10 and ignoring the fixed fee.", fix: "The constant of variation k is 4 (the rate per hour); the 10 is a fixed unlock fee that prevents direct variation." },
+        { mistake: "Giving k without units in a practical model.", fix: "In C = 1.80L, k = 1.80 means 1.80 dollars per litre — the unit belongs with k." },
+        { mistake: "Using a fuel cost model to predict cost for a negative number of litres.", fix: "Only use a direct variation rule for input values that make practical sense in the context." },
       ],
       masteryQuiz: [
         financeChoice("linear-direct-m1", "A graph of direct variation must pass through:", "A", ["The origin", "The point (0, 5)", "The highest point", "The x-axis at 10 only"], "Direct variation has y = 0 when x = 0."),
@@ -271,10 +271,10 @@ export function year11StandardLinearRelationshipsLessonOverride(
       financeChoice("linear-exam-i5", "A practical model should not be extrapolated too far because:", "A", ["The context may stop being realistic", "The rule is always wrong", "Units do not matter", "Graphs cannot be interpreted"], "Models have sensible domains in context."),
     ],
     commonMistakes: [
-      { mistake: "Using the wrong table change as the gradient.", fix: "Check the output change for one input step." },
-      { mistake: "Writing a fixed-cost model as direct variation.", fix: "Include the y-intercept when there is a starting fee." },
-      { mistake: "Ignoring a negative gradient.", fix: "Decreasing contexts need a negative rate." },
-      { mistake: "Making conclusions outside the model context.", fix: "Use the rule only over sensible input values." },
+      { mistake: "In a hire table with costs 35, 47, 59, 71 for hours 0, 1, 2, 3, using 35 as the gradient instead of 12.", fix: "The gradient is the output change per one input step: 47 - 35 = 12, not the starting value 35." },
+      { mistake: "Writing C = 12h for a hire that costs 35 dollars at zero hours.", fix: "The starting cost is the y-intercept: the correct rule is C = 35 + 12h." },
+      { mistake: "Writing V = 120 + 8t for a tank that drains at 8 L/min.", fix: "A draining quantity decreases, so the gradient is negative: V = 120 - 8t." },
+      { mistake: "Applying a fuel cost model for a negative or impossible number of litres.", fix: "Use a practical model only for input values that make sense in the context it describes." },
     ],
     masteryQuiz: [
       linearAnswer("linear-exam-m1", "A hire table has costs 35, 47, 59, 71 dollars for 0, 1, 2, 3 hours. Find the gradient.", "\\text{costs: }35,47,59,71\\text{ for }h=0,1,2,3", "12", ["$12", "12 dollars", "$12/h", "12 dollars per hour"]),

@@ -537,10 +537,10 @@ export function year11StandardNetworksLessonOverride(
         labelledChoice("net-term-i5", "Which context is a realistic use of a network?", "D", ["Spelling a word", "Naming a colour", "Writing a paragraph", "Planning roads between towns"], "Roads between towns can be modelled using vertices and edges."),
       ],
       commonMistakes: [
-        { mistake: "Counting vertices instead of edges when finding degree.", fix: "Degree counts only the edges joined to that one vertex." },
-        { mistake: "Leaving arrows off one-way connections.", fix: "Use a directed edge whenever movement or order is one-way." },
-        { mistake: "Ignoring weights from a table.", fix: "Write distances, costs, times, or lengths on the matching edges." },
-        { mistake: "Drawing extra edges not listed in the table or map.", fix: "Only connect vertices when the information says there is a direct connection." },
+        { mistake: "In a star diagram where A joins B, C, and D, counting 4 (the number of vertices) as the degree of A.", fix: "Degree counts only the edges attached to that one vertex: three edges means degree 3." },
+        { mistake: "Drawing a delivery route from Depot to Shop as an undirected line when the route is one-way.", fix: "Add an arrowhead in the correct direction of travel for every one-way connection." },
+        { mistake: "Drawing edges A-B=4, A-C=6, B-D=5 but leaving the weight numbers off.", fix: "Write the weight beside each edge as soon as it is drawn." },
+        { mistake: "Adding a connection between two nearby vertices that is not listed in the table or map.", fix: "Only draw edges that are explicitly listed — proximity does not mean a direct connection." },
       ],
       masteryQuiz: [
         {
@@ -624,10 +624,10 @@ export function year11StandardNetworksLessonOverride(
         shortAnswer("net-path-i5", "In a 9-vertex network, is a shortest path question within the no-more-than-10-vertices limit? Answer yes or no.", "9\\le 10", "yes", ["Yes", "YES"]),
       ],
       commonMistakes: [
-        { mistake: "Calling every route a circuit.", fix: "A circuit must start and end at the same vertex." },
-        { mistake: "Finding the route with the fewest edges instead of the lowest total weight.", fix: "For weighted networks, add edge weights and compare totals." },
-        { mistake: "Assuming shortest always means best.", fix: "Check time, cost, safety, traffic, and restrictions." },
-        { mistake: "Saying a network is connected when a vertex is isolated.", fix: "Every vertex must be reachable from every other vertex." },
+        { mistake: "Calling route A-B-C a circuit because it visits three vertices.", fix: "A circuit must return to its starting vertex: A-B-C is a path, but A-B-C-A is a circuit." },
+        { mistake: "Choosing A-B-D (2 edges) as the shorter path over A-C-B-D (3 edges) without adding weights.", fix: "Add the edge weights: A-B-D = 4+5 = 9 and A-C-B-D = 2+1+5 = 8, so A-C-B-D is shorter." },
+        { mistake: "Assuming the route with the smallest distance is always the best choice.", fix: "Tolls, safety, traffic, and access restrictions can make a longer route the better practical decision." },
+        { mistake: "Saying a network is connected when one vertex has no edges joining it.", fix: "Every vertex must be reachable from every other vertex for the network to be connected." },
       ],
       masteryQuiz: [
         labelledChoice("net-path-m1", "A route that starts and ends at A is a:", "C", ["Path only", "Weight", "Circuit", "Degree"], "A circuit starts and ends at the same vertex."),
@@ -699,10 +699,10 @@ export function year11StandardNetworksLessonOverride(
         labelledChoice("net-tree-i5", "A school wants to connect all buildings with least total cable. Use:", "B", ["Shortest path", "Minimum spanning tree", "Circuit", "Degree only"], "This is a minimal connector problem."),
       ],
       commonMistakes: [
-        { mistake: "Confusing shortest path with minimum spanning tree.", fix: "Shortest path is between two vertices; MST connects all required vertices." },
-        { mistake: "Including an edge that creates a cycle.", fix: "Skip edges that would make a cycle when building an MST." },
-        { mistake: "Forgetting to include all vertices.", fix: "A spanning tree must connect every vertex." },
-        { mistake: "Choosing the fewest edges without checking weight.", fix: "For an MST, minimise total weight." },
+        { mistake: "Using Kruskal's method to answer a 'shortest path from A to D' question.", fix: "Shortest path finds one route between two vertices; MST connects all vertices with least total weight." },
+        { mistake: "Including edge AC=4 when AB=2 and BC=3 are already selected, creating a cycle A-B-C-A.", fix: "Skip any edge that would close a cycle. Selecting AC here would create a triangle." },
+        { mistake: "Stopping after selecting two edges in a four-vertex network, leaving one vertex unconnected.", fix: "A spanning tree must include every vertex: four vertices need exactly three edges." },
+        { mistake: "Choosing the fewest edges without comparing their weights.", fix: "An MST minimises total weight, not the number of edges." },
       ],
       masteryQuiz: [
         {
@@ -787,10 +787,10 @@ export function year11StandardNetworksLessonOverride(
       },
     ],
     commonMistakes: [
-      { mistake: "Using MST for a single route question.", fix: "Use shortest path when travelling from one vertex to another." },
-      { mistake: "Using shortest path for a connect-everything question.", fix: "Use MST for minimal connector problems." },
-      { mistake: "Ignoring arrow direction.", fix: "Follow arrows in directed networks." },
-      { mistake: "Ignoring practical judgement.", fix: "Shortest distance may not be best if time, cost, or safety differs." },
+      { mistake: "Using Kruskal's method when the question asks for the quickest route from Depot to Shop.", fix: "A single point-to-point route is a shortest-path problem, not an MST problem." },
+      { mistake: "Finding one shortest path when the question asks to connect all buildings with minimum cable.", fix: "Connecting all locations with minimum total length is a minimum spanning tree problem." },
+      { mistake: "Travelling along an edge in the opposite direction to its arrow in a directed network.", fix: "In a directed network, arrows define which direction each edge can be used." },
+      { mistake: "Choosing the 11-minute route without reading that it has a dangerous crossing.", fix: "Practical factors such as safety, tolls, and access restrictions can override the shortest distance." },
     ],
     masteryQuiz: [
       {
