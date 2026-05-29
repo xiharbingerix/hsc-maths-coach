@@ -158,6 +158,18 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
       <div className="mx-auto max-w-6xl space-y-12 px-4 py-10 sm:px-6 lg:px-8">
+        <header className="flex items-center justify-between gap-4">
+          <Link href="/" className="text-sm font-bold tracking-tight text-slate-950">
+            Nova Maths
+          </Link>
+          <Link
+            href="/login"
+            className="inline-flex shrink-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50"
+          >
+            Log in
+          </Link>
+        </header>
+
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-12">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold text-slate-500">

@@ -51,19 +51,19 @@ export function year12Standard2TrigRatesLessonOverride(
             "\\text{A triangular field has sides }48\\text{ m and }62\\text{ m with included angle }37^\\circ.",
           triangleDiagram: {
             description:
-              "Triangle with sides AB 48 metres, AC 62 metres, included angle A 37 degrees, and unknown side BC labelled c.",
+              "Triangle with sides AC 48 metres, BC 62 metres, included angle C 37 degrees, and unknown side AB labelled c.",
             vertices: {
               A: { x: 80, y: 220 },
               B: { x: 320, y: 220 },
               C: { x: 135, y: 70 },
             },
             sideLabels: {
-              AB: "48 m",
-              AC: "62 m",
-              BC: "BC = c",
+              AB: "AB = c",
+              AC: "48 m",
+              BC: "62 m",
             },
             angleLabels: {
-              A: "37°",
+              C: "37°",
             },
           },
           steps: [
@@ -89,21 +89,21 @@ export function year12Standard2TrigRatesLessonOverride(
             "a=48,\\quad b=62,\\quad C=37^\\circ",
           triangleDiagram: {
             description:
-              "Triangle with sides AB 48 metres, AC 62 metres, included angle A 37 degrees, and unknown side BC labelled c.",
+              "Triangle with sides AC 48 metres, BC 62 metres, included angle C 37 degrees, and unknown side AB labelled c.",
             vertices: {
               A: { x: 80, y: 220 },
               B: { x: 320, y: 220 },
               C: { x: 135, y: 70 },
             },
             sideLabels: {
-              AB: "48 m",
-              AC: "62 m",
-              BC: "BC = c",
+              AB: "AB = c",
+              AC: "48 m",
+              BC: "62 m",
             },
             angleLabels: {
-              A: "37°",
+              C: "37°",
             },
-            highlightedSides: ["BC"],
+            highlightedSides: ["AB"],
           },
           steps: [
             {
@@ -222,7 +222,7 @@ export function year12Standard2TrigRatesLessonOverride(
             "\\text{A boat is }80\\text{ m from point A, opposite }35^\\circ.\\text{ Find the side opposite }50^\\circ.",
           triangleDiagram: {
             description:
-              "Triangle with base BC 80 metres, angle B 35 degrees, angle C 50 degrees, and unknown side AC labelled x.",
+              "Triangle with base BC 80 metres, angle A 35 degrees, angle B 50 degrees, and unknown side AC labelled x.",
             vertices: {
               A: { x: 190, y: 70 },
               B: { x: 70, y: 220 },
@@ -233,8 +233,8 @@ export function year12Standard2TrigRatesLessonOverride(
               AC: "x",
             },
             angleLabels: {
-              B: "35°",
-              C: "50°",
+              A: "35°",
+              B: "50°",
             },
           },
           steps: [
@@ -255,21 +255,21 @@ export function year12Standard2TrigRatesLessonOverride(
             "\\text{Two tracks of }48\\text{ m and }62\\text{ m meet at }37^\\circ.",
           triangleDiagram: {
             description:
-              "Triangle with two track sides AB 48 metres and AC 62 metres meeting at angle A 37 degrees, with unknown distance BC labelled c.",
+              "Triangle with two track sides AC 48 metres and BC 62 metres meeting at angle C 37 degrees, with unknown distance AB labelled c.",
             vertices: {
               A: { x: 80, y: 220 },
               B: { x: 320, y: 220 },
               C: { x: 135, y: 70 },
             },
             sideLabels: {
-              AB: "48 m",
-              AC: "62 m",
-              BC: "BC = c",
+              AB: "AB = c",
+              AC: "48 m",
+              BC: "62 m",
             },
             angleLabels: {
-              A: "37°",
+              C: "37°",
             },
-            highlightedSides: ["BC"],
+            highlightedSides: ["AB"],
           },
           steps: [
             {
