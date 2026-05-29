@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { courseCatalogue } from "../../lib/courseUnits";
 import type { CoursePathwayStatus } from "../../lib/courseTypes";
+import { SubscribeCTA } from "../components/SubscribeCTA";
 
 const statusCopy: Record<
   CoursePathwayStatus,
@@ -82,23 +83,6 @@ const accessSteps = [
   "Cancel any time from your account.",
 ];
 
-function PrimaryLink({
-  href,
-  children,
-}: Readonly<{
-  href: string;
-  children: ReactNode;
-}>) {
-  return (
-    <Link
-      href={href}
-      className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
-    >
-      {children}
-    </Link>
-  );
-}
-
 function SecondaryLink({
   href,
   children,
@@ -141,9 +125,9 @@ export default function OnlineLearningPage() {
               maths revision without committing to weekly tutoring.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PrimaryLink href="/checkout?offer=online-learning">
+              <SubscribeCTA href="/checkout?offer=online-learning">
                 Subscribe to online learning
-              </PrimaryLink>
+              </SubscribeCTA>
               <SecondaryLink href="/signup">Create account</SecondaryLink>
             </div>
             <p className="mt-2 text-sm text-slate-500">
@@ -276,9 +260,9 @@ export default function OnlineLearningPage() {
             ))}
           </ol>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <PrimaryLink href="/checkout?offer=online-learning">
+            <SubscribeCTA href="/checkout?offer=online-learning">
               Subscribe to online learning
-            </PrimaryLink>
+            </SubscribeCTA>
             <SecondaryLink href="/enquire?offer=online-learning">
               Register interest
             </SecondaryLink>
@@ -315,9 +299,9 @@ export default function OnlineLearningPage() {
             Want access to the online learning package?
           </h2>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <PrimaryLink href="/checkout?offer=online-learning">
+            <SubscribeCTA href="/checkout?offer=online-learning">
               Subscribe to online learning
-            </PrimaryLink>
+            </SubscribeCTA>
             <SecondaryLink href="/signup">Create account</SecondaryLink>
             <SecondaryLink href="/diagnostic?offer=online-learning">
               Start diagnostic

@@ -1,9 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { BlockMath, InlineMath } from "react-katex";
 import { AccessGate } from "./AccessGate";
+import {
+  trackLessonViewed,
+  trackMasteryStarted,
+  trackMasteryCompleted,
+} from "../../lib/analytics";
 import type {
   ExplicitLesson,
   PracticeQuestion,
@@ -511,6 +516,8 @@ export function LessonRenderer({
     [lessons, lessonSlug]
   );
 
+  const masteryStartedRef = useRef<string | null>(null);
+
   useEffect(() => {
     setMasteryState({
       passed: false,
@@ -521,6 +528,8 @@ export function LessonRenderer({
     if (!lesson) {
       return;
     }
+
+    trackLessonViewed(lesson.courseTitle, lesson.moduleTitle, lesson.title);
 
     const storageKey = masteryStorageKey(lesson.moduleSlug, lessonSlug);
 
@@ -552,7 +561,15 @@ export function LessonRenderer({
     setVideoLoadFailed(false);
     setQuizAnswers({});
     setQuizSubmitted(false);
+    masteryStartedRef.current = null;
   }, [lessonSlug]);
+
+  useEffect(() => {
+    if (activeStage !== "mastery-quiz" || !lesson) return;
+    if (masteryStartedRef.current === lessonSlug) return;
+    masteryStartedRef.current = lessonSlug;
+    trackMasteryStarted(lesson.courseTitle, lesson.moduleTitle, lesson.title);
+  }, [activeStage, lesson, lessonSlug]);
 
   if (!lesson) {
     return (
@@ -640,6 +657,13 @@ export function LessonRenderer({
 
   function submitQuiz() {
     setQuizSubmitted(true);
+    trackMasteryCompleted(
+      currentLesson.courseTitle,
+      currentLesson.moduleTitle,
+      currentLesson.title,
+      quizScore >= currentLesson.masteryPassMark,
+      quizScore
+    );
 
     if (quizScore >= currentLesson.masteryPassMark) {
       saveMasteryState({

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
+import { trackSignupCompleted } from "../../lib/analytics";
 
 function safeInternalNext(value: string | null) {
   if (!value || !value.startsWith("/") || value.startsWith("//")) {
@@ -78,6 +79,7 @@ export default function SignupPage() {
       }
     }
 
+    trackSignupCompleted();
     router.push(nextPath);
   }
 

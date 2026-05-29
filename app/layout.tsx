@@ -50,15 +50,16 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {children}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-18195883998"
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "AW-18195883998"}`}
           strategy="afterInteractive"
         />
-        <Script id="google-ads-tag" strategy="afterInteractive">
+        <Script id="google-analytics-init" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){window.dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'AW-18195883998');
+            ${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ? `gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');` : ""}
           `}
         </Script>
       </body>

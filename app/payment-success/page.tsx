@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getOfferConfig } from "../../lib/offers";
 import { getStripe } from "../../lib/stripe";
+import { TrackPaymentSuccess } from "./TrackPaymentSuccess";
 
 async function getSessionOffer(sessionId: string | undefined) {
   if (!sessionId || !process.env.STRIPE_SECRET_KEY) {
@@ -27,6 +28,7 @@ export default async function PaymentSuccessPage({
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
+      <TrackPaymentSuccess />
       <section className="mx-auto max-w-4xl space-y-8">
         <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">

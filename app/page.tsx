@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { SubscribeCTA } from "./components/SubscribeCTA";
 
 const featureChips = ["NSW curriculum", "Structured lessons", "Mastery quizzes"];
 
@@ -79,25 +80,6 @@ const commonQuestions = [
       "Year 12 Advanced is the most complete pathway, with 89 lessons across 12 units. Year 11 Advanced, Year 11 Extension, Year 11 Standard, and Year 12 Standard 2 are also available. Coverage is expanding.",
   },
 ];
-
-function PrimaryLink({
-  href,
-  children,
-  className = "",
-}: Readonly<{
-  href: string;
-  children: ReactNode;
-  className?: string;
-}>) {
-  return (
-    <Link
-      href={href}
-      className={`inline-flex max-w-full shrink-0 items-center justify-center whitespace-nowrap rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold leading-none text-white shadow-sm transition hover:bg-slate-800 ${className}`}
-    >
-      {children}
-    </Link>
-  );
-}
 
 function SecondaryLink({
   href,
@@ -196,9 +178,9 @@ export default function Home() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PrimaryLink href="/checkout?offer=online-learning">
+              <SubscribeCTA href="/checkout?offer=online-learning">
                 Subscribe &mdash; $19/month
-              </PrimaryLink>
+              </SubscribeCTA>
               <SecondaryLink href="/diagnostic">
                 Start free diagnostic
               </SecondaryLink>
@@ -294,9 +276,9 @@ export default function Home() {
               </ul>
 
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <PrimaryLink href="/checkout?offer=online-learning">
+                <SubscribeCTA href="/checkout?offer=online-learning">
                   Subscribe &mdash; $19/month
-                </PrimaryLink>
+                </SubscribeCTA>
                 <SecondaryLink href="/signup">Create account first</SecondaryLink>
               </div>
             </div>
@@ -385,9 +367,9 @@ export default function Home() {
             Start learning NSW senior maths for $19/month.
           </h2>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <PrimaryLink href="/checkout?offer=online-learning">
+            <SubscribeCTA href="/checkout?offer=online-learning">
               Subscribe &mdash; $19/month
-            </PrimaryLink>
+            </SubscribeCTA>
             <SecondaryLink href="/signup">Create account</SecondaryLink>
             <SecondaryLink href="/diagnostic">Start free diagnostic</SecondaryLink>
           </div>

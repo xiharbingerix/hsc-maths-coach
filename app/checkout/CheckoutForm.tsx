@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { offerConfigs, type OfferSlug } from "../../lib/offers";
 import { supabase } from "../../lib/supabaseClient";
+import { trackCheckoutStarted, trackEvent } from "../../lib/analytics";
 
 type CheckoutFormProps = {
   offerSlug: OfferSlug;
@@ -43,6 +44,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
       }
 
       setIsCheckingSession(false);
+      trackCheckoutStarted();
     }
 
     loadSession();
@@ -52,6 +54,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
     event.preventDefault();
     setErrorMessage("");
     setIsSubmitting(true);
+    trackEvent("checkout_form_submitted", { offer: offer.slug });
 
     try {
       const { data } = await supabase.auth.getSession();
