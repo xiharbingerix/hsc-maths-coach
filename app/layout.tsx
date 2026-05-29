@@ -9,12 +9,29 @@ export const metadata: Metadata = {
     template: "%s | Nova Maths",
   },
   description:
-    "Stage 6 maths support with a Year 12 Advanced diagnostic and online learning pathways for available Year 11 and Year 12 courses.",
+    "Structured online maths lessons for NSW Year 11 and Year 12 students.",
   openGraph: {
     title: "Nova Maths",
     description:
-      "Stage 6 maths support with a Year 12 Advanced diagnostic and online learning pathways for available Year 11 and Year 12 courses.",
+      "Structured online maths lessons for NSW Year 11 and Year 12 students.",
+    url: "https://www.novamaths.com.au",
+    siteName: "Nova Maths",
     type: "website",
+    images: [
+      {
+        url: "https://www.novamaths.com.au/brand/nova-maths-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Nova Maths",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nova Maths",
+    description:
+      "Structured online maths lessons for NSW Year 11 and Year 12 students.",
+    images: ["https://www.novamaths.com.au/brand/nova-maths-logo.png"],
   },
   icons: {
     icon: "/brand/nova-maths-icon.png",
