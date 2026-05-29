@@ -1571,7 +1571,7 @@ export const stationaryPointsLesson: ExplicitLesson = {
     {
       id: "stationary-guided-2",
       prompt: "Solve for the x-value of the stationary point:",
-      latex: "2x-4=0",
+      latex: "y=x^2-4x+1",
       answer: "2",
       hint: "Set the derivative equal to $0$ and solve.",
       explanation: "$2x-4=0$, so $x=2$.",
@@ -1891,7 +1891,7 @@ export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
     {
       id: "inc-dec-guided-2",
       prompt: "Solve for the critical value:",
-      latex: "2x-6=0",
+      latex: "f(x)=x^2-6x+2",
       answer: "3",
       hint: "Critical values occur where $f'(x)=0$.",
       explanation: "$2x-6=0$, so $x=3$.",
@@ -1899,8 +1899,7 @@ export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
     {
       id: "inc-dec-guided-3",
       prompt: "On $x<3$, is the function increasing or decreasing?",
-      latex:
-        "f'(x)=2x-6, \\quad f'(0)<0, \\quad f'(4)>0",
+      latex: "f'(x)=2x-6",
       answer: "B",
       choices: [
         { label: "A", text: "increasing" },
@@ -2263,7 +2262,7 @@ export const firstDerivativeTestLesson: ExplicitLesson = {
     {
       id: "fdt-guided-2",
       prompt: "Find the stationary x-value:",
-      latex: "2x-4=0",
+      latex: "f(x)=x^2-4x+1",
       answer: "2",
       hint: "Solve $f'(x)=0$.",
       explanation: "$x=2$.",
@@ -2271,7 +2270,7 @@ export const firstDerivativeTestLesson: ExplicitLesson = {
     {
       id: "fdt-guided-3",
       prompt: "Classify the stationary point:",
-      latex: "f'(1)<0, \\quad f'(3)>0",
+      latex: "f'(x)=2x-4, \\quad x=2",
       answer: "B",
       acceptedAnswers: ["local min", "minimum", "min"],
       choices: [
@@ -2664,7 +2663,7 @@ export const secondDerivativeTestLesson: ExplicitLesson = {
     {
       id: "sdt-guided-2",
       prompt: "Find the stationary x-value:",
-      latex: "2x-4=0",
+      latex: "f(x)=x^2-4x+1",
       answer: "2",
       hint: "Solve $f'(x)=0$.",
       explanation: "$x=2$.",
@@ -2672,7 +2671,7 @@ export const secondDerivativeTestLesson: ExplicitLesson = {
     {
       id: "sdt-guided-3",
       prompt: "Use the second derivative to classify:",
-      latex: "f''(x)=2, \\quad x=2",
+      latex: "f'(x)=2x-4, \\quad x=2",
       answer: "B",
       acceptedAnswers: ["local min", "minimum", "min"],
       choices: [
@@ -3074,7 +3073,7 @@ export const curveSketchingLesson: ExplicitLesson = {
     {
       id: "curve-guided-4",
       prompt: "Choose the correct classification. A: minimum, B: maximum, C: neither.",
-      latex: "f''\\left(\\frac{5}{2}\\right)=2",
+      latex: "f'(x)=2x-5",
       answer: "A",
       choices: [
         { label: "A", text: "minimum" },
