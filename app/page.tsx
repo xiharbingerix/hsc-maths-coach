@@ -164,9 +164,9 @@ export default function Home() {
             <Image
               src="/brand/nova-maths-logo.png"
               alt="Nova Maths"
-              width={180}
-              height={50}
-              className="h-8 w-auto sm:h-10"
+              width={1378}
+              height={514}
+              className="h-10 w-auto sm:h-14"
               priority
             />
           </Link>

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.novamaths.com.au/brand/nova-maths-logo.png",
+        url: "https://www.novamaths.com.au/brand/nova-maths-og.png",
         width: 1200,
         height: 630,
         alt: "Nova Maths",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     title: "Nova Maths",
     description:
       "Structured online maths lessons for NSW Year 11 and Year 12 students.",
-    images: ["https://www.novamaths.com.au/brand/nova-maths-logo.png"],
+    images: ["https://www.novamaths.com.au/brand/nova-maths-og.png"],
   },
   icons: {
     icon: "/brand/nova-maths-icon.png",
