@@ -241,7 +241,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
         ],
       },
       guidedPractice: [
-        probabilityChoice("prob-outcomes-g1", "A fair die is rolled. Which list is the sample space?", "B", ["$\\{1,2,3\\}$", "$\\{1,2,3,4,5,6\\}$", "$\\{2,4,6\\}$", "$\\{6\\}$"], "A die has six possible outcomes: 1 to 6."),
+        probabilityChoice("prob-outcomes-g1", "A fair die is rolled. Which list is the sample space?", "B", ["{1, 2, 3}", "{1, 2, 3, 4, 5, 6}", "{2, 4, 6}", "{6}"], "A die has six possible outcomes: 1 to 6."),
         probabilityAnswer("prob-outcomes-g2", "A bag has 3 red counters and 2 blue counters. Find the probability of selecting a red counter.", "\\text{3 red counters, 2 blue counters}", "3/5", fifths3),
         probabilityChoice("prob-outcomes-g3", "Which probability describes an impossible event?", "A", ["0", "0.5", "1", "1.5"], "An impossible event has probability 0."),
         probabilityAnswer("prob-outcomes-g4", "The probability a train is late is 0.2. Find the probability it is not late.", "P(\\text{late})=0.2", "0.8", ["80%", "80 percent", "4/5"]),
@@ -265,7 +265,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
         probabilityAnswer("prob-outcomes-m3", "A spinner has 8 equal sectors, with 2 sectors shaded blue. Find the probability of blue.", "\\text{8 equal sectors, 2 blue}", "1/4", quarters),
         probabilityChoice("prob-outcomes-m4", "Which value could not be a probability?", "D", ["0", "0.25", "1", "1.2"], "A probability cannot be greater than 1."),
         probabilityAnswer("prob-outcomes-m5", "The probability a randomly selected student catches the bus is 3/5. Find the probability the student does not catch the bus.", "P(\\text{bus})=\\frac{3}{5}", "2/5", fifths2),
-        probabilityChoice("prob-outcomes-m6", "A sample space for tossing two coins is:", "C", ["$\\{H,T\\}$", "$\\{HH,TT\\}$", "$\\{HH,HT,TH,TT\\}$", "$\\{2H,2T\\}$"], "The two tosses have four ordered outcomes."),
+        probabilityChoice("prob-outcomes-m6", "A sample space for tossing two coins is:", "C", ["{H, T}", "{HH, TT}", "{HH, HT, TH, TT}", "{2H, 2T}"], "The two tosses have four ordered outcomes."),
         probabilityAnswer("prob-outcomes-m7", "A bag contains 1 red, 3 blue and 4 green counters. Find the probability of selecting a red counter.", "\\text{1 red, 3 blue, 4 green}", "1/8", eighths1),
         probabilityChoice("prob-outcomes-m8", "A student says that if there are 4 favourable outcomes, the probability must be 4. Which option identifies the error?", "B", ["The event is certain", "The total number of outcomes is also needed", "The sample space is empty", "The complement must be negative"], "Probability needs favourable outcomes divided by total outcomes."),
         probabilityAnswer("prob-outcomes-m9", "The probability that a kiosk sells out of sandwiches is 0.35. Find the probability it does not sell out.", "P(\\text{sells out})=0.35", "0.65", ["65%", "65 percent", "13/20"]),
@@ -310,7 +310,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
       independentPractice: [
         probabilityAnswer("prob-rf-i1", "A quality check finds 13 faulty items in a sample of 50. Find the relative frequency of faulty items.", "\\text{13 faulty items from 50 checked}", "0.26", ["26%", "26 percent", "13/50"]),
         probabilityAnswer("prob-rf-i2", "A game player wins 18 games out of 30. Find the relative frequency of wins.", "\\text{18 wins from 30 games}", "3/5", fifths3),
-        probabilityChoice("prob-rf-i3", "A student records that a bus was late 8 times in 40 school days. Which value is the experimental probability of a late bus?", "C", ["8", "40", "$\\frac{8}{40}$", "48"], "Experimental probability is the late frequency divided by the total days."),
+        probabilityChoice("prob-rf-i3", "A student records that a bus was late 8 times in 40 school days. Which value is the experimental probability of a late bus?", "C", ["8", "40", "8/40", "48"], "Experimental probability is the late frequency divided by the total days."),
         probabilityChoice("prob-rf-i4", "Two groups test the same spinner. Group A gets red 6 times in 20 spins. Group B gets red 32 times in 100 spins. Which relative frequency is higher?", "B", ["Group A", "Group B", "They are equal", "It cannot be compared"], "Group A has 0.30 and Group B has 0.32."),
         probabilityAnswer("prob-rf-i5", "A website survey has 70 positive responses from 100 responses. Find the relative frequency of positive responses.", "\\text{70 positive responses from 100 responses}", "0.7", tenths7),
       ],
@@ -429,7 +429,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
       guidedPractice: [
         probabilityAnswer("prob-exam-g1", "A fair die is rolled once. Find the probability of rolling a number greater than 4.", "\\text{fair six-sided die}", "1/3", []),
         probabilityAnswer("prob-exam-g2", "A bus is late 15 times in 50 school mornings. Find the relative frequency of late buses.", "\\text{15 late mornings from 50 mornings}", "3/10", tenths3),
-        probabilityChoice("prob-exam-g3", "A bag has 4 red and 6 blue counters. Which option gives the probability of not selecting red?", "C", ["$\\frac{4}{10}$", "$\\frac{4}{6}$", "$\\frac{6}{10}$", "$\\frac{10}{6}$"], "Not red means selecting blue, which is 6 out of 10."),
+        probabilityChoice("prob-exam-g3", "A bag has 4 red and 6 blue counters. Which option gives the probability of not selecting red?", "C", ["4/10", "4/6", "6/10", "10/6"], "Not red means selecting blue, which is 6 out of 10."),
         probabilityAnswer("prob-exam-g4", "A table of 80 students shows 20 students are Year 11 and walk to school. Find the probability of Year 11 and walking.", "\\text{20 students from 80}", "1/4", quarters),
       ],
       independentPractice: [
@@ -455,7 +455,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
         probabilityAnswer("prob-exam-m7", "A game is won 16 times and lost 24 times. Find the relative frequency of wins.", "\\text{16 wins, 24 losses}", "2/5", fifths2),
         probabilityChoice("prob-exam-m8", "A two-way table question asks for all students who catch the bus, regardless of year group. Which count should be used?", "A", ["The bus column total", "One bus cell only", "The Year 11 row total", "The table title"], "All bus students are counted by the bus column total."),
         probabilityAnswer("prob-exam-m9", "A weather app gives a 30% chance of rain. Find the probability of no rain.", "P(\\text{rain})=30\\%", "0.7", ["0.70", "70%", "70 percent", "7/10"]),
-        probabilityChoice("prob-exam-m10", "A canteen survey has 12 Year 11 wrap orders, 18 Year 11 salad orders, 8 Year 12 wrap orders and 22 Year 12 salad orders. Which probability matches choosing a wrap order from the survey?", "B", ["$\\frac{12}{60}$", "$\\frac{20}{60}$", "$\\frac{30}{60}$", "$\\frac{8}{60}$"], "Wrap orders are 12 plus 8 out of the 60 total orders."),
+        probabilityChoice("prob-exam-m10", "A canteen survey has 12 Year 11 wrap orders, 18 Year 11 salad orders, 8 Year 12 wrap orders and 22 Year 12 salad orders. Which probability matches choosing a wrap order from the survey?", "B", ["12/60", "20/60", "30/60", "8/60"], "Wrap orders are 12 plus 8 out of the 60 total orders."),
       ],
     };
   }

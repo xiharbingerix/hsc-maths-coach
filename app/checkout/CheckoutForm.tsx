@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { offerConfigs, type OfferSlug } from "../../lib/offers";
@@ -11,8 +11,10 @@ type CheckoutFormProps = {
 };
 
 export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
+  const router = useRouter();
   const offer = offerConfigs[offerSlug];
   const [user, setUser] = useState<User | null>(null);
+  const [isCheckingSession, setIsCheckingSession] = useState(true);
   const [parentEmail, setParentEmail] = useState("");
   const [studentFirstName, setStudentFirstName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -22,6 +24,14 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
     async function loadSession() {
       const { data } = await supabase.auth.getSession();
       const sessionUser = data.session?.user ?? null;
+
+      if (!sessionUser && offer.slug === "online-learning") {
+        router.replace(
+          "/signup?next=%2Fcheckout%3Foffer%3Donline-learning"
+        );
+        return;
+      }
+
       setUser(sessionUser);
 
       if (sessionUser?.email) {
@@ -31,10 +41,12 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
       if (sessionUser?.user_metadata?.student_first_name) {
         setStudentFirstName(String(sessionUser.user_metadata.student_first_name));
       }
+
+      setIsCheckingSession(false);
     }
 
     loadSession();
-  }, []);
+  }, [offer.slug, router]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -115,6 +127,19 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
     }
   }
 
+  if (isCheckingSession) {
+    return (
+      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+        <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+          Checkout
+        </p>
+        <h2 className="mt-3 text-2xl font-bold tracking-tight">
+          Checking account status...
+        </h2>
+      </section>
+    );
+  }
+
   return (
     <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
       <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
@@ -132,16 +157,9 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
           <div className="mt-5 rounded-xl bg-white p-4 text-sm leading-6 text-slate-700">
             <p className="font-semibold text-slate-950">What happens next</p>
             {offer.slug === "online-learning" ? (
-              <>
-                <p className="mt-2">
-                  Access activates automatically after payment when you are
-                  logged in.
-                </p>
-                <p className="mt-2">
-                  If you pay without an account, contact us so we can match
-                  your payment to your login.
-                </p>
-              </>
+              <p className="mt-2">
+                Access activates automatically after payment.
+              </p>
             ) : (
               <p className="mt-2">
                 You will continue to Stripe Checkout. After payment, access or
@@ -166,19 +184,6 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
             <div className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-950">
               Logged in as {user.email}. Payment metadata will include this
               account for access matching.
-            </div>
-          ) : offer.slug === "online-learning" ? (
-            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-950">
-              You can still continue with an email, but online learning access
-              may need manual account matching.{" "}
-              <Link href="/login" className="font-semibold underline">
-                Log in
-              </Link>{" "}
-              or{" "}
-              <Link href="/signup" className="font-semibold underline">
-                create an account
-              </Link>{" "}
-              first for the smoothest setup.
             </div>
           ) : null}
 

@@ -2,11 +2,20 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
+
+function safeInternalNext(value: string | null) {
+  if (!value || !value.startsWith("/") || value.startsWith("//")) {
+    return "/dashboard";
+  }
+
+  return value;
+}
 
 export default function SignupPage() {
   const router = useRouter();
+  const [nextPath, setNextPath] = useState("/dashboard");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [studentFirstName, setStudentFirstName] = useState("");
@@ -14,6 +23,11 @@ export default function SignupPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [notice, setNotice] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setNextPath(safeInternalNext(params.get("next")));
+  }, []);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -64,8 +78,13 @@ export default function SignupPage() {
       }
     }
 
-    router.push("/dashboard");
+    router.push(nextPath);
   }
+
+  const loginHref =
+    nextPath === "/dashboard"
+      ? "/login"
+      : `/login?next=${encodeURIComponent(nextPath)}`;
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -154,7 +173,7 @@ export default function SignupPage() {
 
         <p className="mt-5 text-sm text-slate-600">
           Already have an account?{" "}
-          <Link href="/login" className="font-semibold text-slate-950 underline">
+          <Link href={loginHref} className="font-semibold text-slate-950 underline">
             Log in
           </Link>
         </p>

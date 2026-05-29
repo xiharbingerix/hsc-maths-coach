@@ -33,12 +33,13 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
       teaching: {
         paragraphs: [
           "A linear model has a constant rate of change. In practical problems, this might be a fixed joining fee plus a weekly cost, a taxi flagfall plus a cost per kilometre, or a savings account growing by the same amount each week.",
-          "The gradient is the rate of change. In C = 40 + 18w, the gradient 18 means the cost increases by 18 dollars each week.",
+          "The gradient is the rate of change. In the cost model below, the gradient 18 means the cost increases by 18 dollars each week.",
           "The intercept is the value when the input is 0. In a cost model, it often represents a fixed fee or starting amount.",
           "Tables can reveal linear patterns. If the output increases by the same amount whenever the input increases by 1, the relationship is linear.",
         ],
         latexBlocks: [
           "y=mx+b",
+          "C=40+18w",
           "\\text{gradient}=\\frac{\\text{change in output}}{\\text{change in input}}",
           "\\text{linear model}=\\text{starting value}+\\text{rate}\\times\\text{input}",
         ],
@@ -148,7 +149,7 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         paragraphs: [
           "A non-linear relationship does not have a constant rate of change. Its graph is not a straight line.",
           "Quadratic models often appear in height, area, revenue, and projectile contexts. A parabola can have a maximum or minimum turning point.",
-          "The initial value is the output when the input is 0. In h = -5t^2 + 20t + 1.5, the initial height is 1.5 m.",
+          "The initial value is the output when the input is 0. For the height model below, setting t = 0 gives the initial height directly.",
           "Context restrictions matter. Time, length, and distance usually cannot be negative, even if an algebraic equation has a negative solution.",
         ],
         latexBlocks: [
@@ -261,11 +262,12 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
           "Simultaneous equations often compare two options, such as hire companies, phone plans, taxi fares, or savings plans.",
           "The solution is the point where both models are true at the same time. On a graph, this is the intersection point.",
           "For two cost models, the intersection tells when the costs are equal. Before or after that point, one option may be cheaper.",
-          "Always interpret both values in context. If h = 6 and C = 120, that means the options cost the same after 6 hours at 120 dollars.",
+          "Always interpret both values in context. For the solution shown below, the options cost the same after 6 hours at 120 dollars.",
         ],
         latexBlocks: [
           "A=30+15h,\\quad B=60+10h",
           "\\text{equal cost: }30+15h=60+10h",
+          "h=6,\\quad C=120",
           "\\text{intersection}=(\\text{input},\\text{common output})",
         ],
       },

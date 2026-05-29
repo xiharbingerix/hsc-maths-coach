@@ -287,6 +287,8 @@ export function year11StandardEarningMoneyLessonOverride(
         latexBlocks: [
           "\\text{time-and-a-half rate}=1.5\\times\\text{ordinary rate}",
           "\\text{total earnings}=\\text{ordinary pay}+\\text{overtime pay}+\\text{allowances}",
+          "\\text{overtime pay} = \\text{overtime rate} \\times \\text{hours}",
+          "\\text{double time} = 2 \\times \\text{ordinary hourly rate}",
         ],
       },
       guidedPractice: [
@@ -346,6 +348,8 @@ export function year11StandardEarningMoneyLessonOverride(
         latexBlocks: [
           "\\text{commission}=\\text{commission rate}\\times\\text{sales}",
           "\\text{piecework pay}=\\text{number of items}\\times\\text{rate per item}",
+          "\\text{commission} = \\text{rate} \\times \\text{sales}",
+          "\\text{piecework pay} = \\text{rate per item} \\times \\text{number of items}",
         ],
       },
       guidedPractice: [

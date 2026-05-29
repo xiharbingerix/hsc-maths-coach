@@ -64,6 +64,18 @@ export async function POST(request: Request) {
       );
     }
 
+    const userId = await getUserIdFromRequest(request);
+
+    if (offer.slug === "online-learning" && !userId) {
+      return NextResponse.json(
+        {
+          error:
+            "Please create an account or log in before subscribing to online learning.",
+        },
+        { status: 401 }
+      );
+    }
+
     const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
     const priceId = process.env[offer.stripePriceEnvKey];
@@ -116,7 +128,6 @@ export async function POST(request: Request) {
       );
     }
 
-    const userId = await getUserIdFromRequest(request);
     const stripe = getStripe();
 
     const session = await stripe.checkout.sessions.create({

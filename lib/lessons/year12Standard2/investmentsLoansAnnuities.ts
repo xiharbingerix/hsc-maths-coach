@@ -146,7 +146,7 @@ export function year12Standard2FinanceLessonOverride(
         paragraphs: [
           "Depreciation is a repeated percentage decrease in the value of an asset, such as a car, laptop, or piece of equipment. A depreciation rate of 12% uses the decay factor 0.88.",
           "Loans often use recurrence relations because each period follows the same process: interest is applied to the current balance, then a repayment is subtracted if the recurrence says so.",
-          "The order in a recurrence matters. For example, B_{n+1}=1.006B_n-450 means interest is applied first, then the 450 dollar repayment is subtracted.",
+          "The order in a recurrence matters. In the loan recurrence below, interest is applied first, then the 450 dollar repayment is subtracted.",
           "A repayment reduces the loan only if it is larger than the interest added for that period. Otherwise, the balance may stay similar or increase.",
         ],
         latexBlocks: [

@@ -142,7 +142,7 @@ export function year12Standard2TrigRatesLessonOverride(
       successCriteria: [
         "Use sine rule for side and angle calculations when a matching pair is known.",
         "Use cosine rule for side and angle calculations in appropriate triangles.",
-        "Use A = 1/2 ab sin C for area when two sides and the included angle are known.",
+        "Use the triangular area formula when two sides and the included angle are known.",
         "Round and report answers with sensible units.",
       ],
       teaching: {
@@ -150,7 +150,7 @@ export function year12Standard2TrigRatesLessonOverride(
           "The sine rule, cosine rule, and area formula are the main tools for non-right-angled triangle problems. The correct formula depends on what information is given.",
           "The sine rule is useful when a side and its opposite angle are known. It can find another side or another angle.",
           "The cosine rule is useful for finding a side from two sides and the included angle, or finding an angle from three sides.",
-          "The area formula A = 1/2 ab sin C finds the area when two sides and the included angle are known. This is common in land, park, field, and survey contexts.",
+          "The triangular area formula finds the area when two sides and the included angle are known. This is common in land, park, field, and survey contexts.",
         ],
         latexBlocks: [
           "\\frac{a}{\\sin A}=\\frac{b}{\\sin B}=\\frac{c}{\\sin C}",
@@ -318,7 +318,7 @@ export function year12Standard2TrigRatesLessonOverride(
       ],
       guidedPractice: [
         measurementAnswer("y12s2-rate-g1", "A prize of 240 dollars is shared in the ratio 3:5. What is the larger share?", "240\\div8\\times5", "$150", ["150", "150.00", "$150.00"]),
-        measurementAnswer("y12s2-rate-g2", "A car travels 168 km in 2 h 20 min. Find the average speed in km/h.", "168\\div(2+20/60)", "72 km/h", ["72", "72km/h", "72 kmh"]),
+        measurementAnswer("y12s2-rate-g2", "A car travels 168 km in 2 h 20 min. Find the average speed in km/h.", "168\\div\\left(2+\\dfrac{20}{60}\\right)", "72 km/h", ["72", "72km/h", "72 kmh"]),
         measurementAnswer("y12s2-rate-g3", "A pump fills 450 L in 15 min. Find the flow rate in L/min.", "450\\div15", "30 L/min", ["30", "30L/min", "30 L per min"]),
         practicalChoice("y12s2-rate-g4", "A map scale is 1:25000. A map distance of 4 cm represents:", "B", ["100 m", "1 km", "10 km", "25 km"], "4 cm times 25000 is 100000 cm, which is 1 km."),
       ],
@@ -365,7 +365,7 @@ export function year12Standard2TrigRatesLessonOverride(
     teaching: {
       paragraphs: [
         "Mixed Standard 2 measurement questions often combine choosing a method with a short calculation. Begin by identifying whether the question is about a triangle, a ratio, a rate, a scale, or a conversion.",
-        "For non-right-angled triangles, use sine rule when there is a matching side-angle pair, cosine rule for two sides and included angle, and A = 1/2 ab sin C for area.",
+        "For non-right-angled triangles, use sine rule when there is a matching side-angle pair, cosine rule for two sides and included angle, and the triangular area formula for area.",
         "For rates, make the units consistent before dividing. For example, convert minutes to hours before finding speed in km/h.",
         "For ratio sharing, add the ratio parts, find one part, and multiply by the part requested. Keep track of order and units.",
       ],
@@ -395,7 +395,7 @@ export function year12Standard2TrigRatesLessonOverride(
         steps: [
           {
             explanation: "Convert the time to hours.",
-            latex: "2\\text{ h }20\\text{ min}=2+20/60=2.333\\ldots\\text{ h}",
+            latex: "2\\text{ h }20\\text{ min}=2+\\dfrac{20}{60}=2.333\\ldots\\text{ h}",
           },
           {
             explanation: "Divide distance by time.",

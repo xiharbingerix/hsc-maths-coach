@@ -27,10 +27,10 @@ const gateContent: Record<
 > = {
   "logged-out": {
     title: "Create an account to access this lesson",
-    text: "This lesson is part of Nova Maths online learning access.",
-    primaryHref: "/signup",
+    text: "Create an account to subscribe and unlock this lesson.",
+    primaryHref: "/signup?next=%2Fcheckout%3Foffer%3Donline-learning",
     primaryLabel: "Create account",
-    secondaryHref: "/login",
+    secondaryHref: "/login?next=%2Fcheckout%3Foffer%3Donline-learning",
     secondaryLabel: "Log in",
   },
   pending: {
