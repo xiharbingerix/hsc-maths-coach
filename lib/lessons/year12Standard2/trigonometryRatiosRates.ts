@@ -197,7 +197,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-trig-g3", "A triangular field has sides 30 m and 40 m with included angle 60 degrees. Use the cosine rule to find the third side to 1 decimal place.", "\\sqrt{30^2+40^2-2(30)(40)\\cos60^\\circ}", "36.1 m", ["36.1", "36.1m"]),
+          ...measurementAnswer("y12s2-trig-g3", "A triangular field has sides 30 m and 40 m with included angle 60 degrees. Use the cosine rule to find the third side to 1 decimal place.", "c^2=a^2+b^2-2ab\\cos C", "36.1 m", ["36.1", "36.1m"]),
           triangleDiagram: {
             description:
               "Triangle with sides AC 30 metres and BC 40 metres, included angle C 60 degrees, and third side AB labelled x.",
@@ -240,7 +240,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-trig-i2", "A triangular paddock has sides 55 m and 70 m with included angle 40 degrees. Find the third side to 1 decimal place.", "\\sqrt{55^2+70^2-2(55)(70)\\cos40^\\circ}", "45.0 m", ["45", "45.0", "45 m", "45.0m"]),
+          ...measurementAnswer("y12s2-trig-i2", "A triangular paddock has sides 55 m and 70 m with included angle 40 degrees. Find the third side to 1 decimal place.", "\\text{Given: }a=55,\\quad b=70,\\quad C=40^\\circ", "45.0 m", ["45", "45.0", "45 m", "45.0m"]),
           triangleDiagram: {
             description:
               "Triangle with sides AC 55 metres and BC 70 metres, included angle C 40 degrees, and third side AB labelled x.",
@@ -260,7 +260,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-trig-i3", "A tower guide rope forms a triangle where 90 m is opposite 35 degrees. Find the side opposite 48 degrees to 1 decimal place.", "\\frac{90\\sin48^\\circ}{\\sin35^\\circ}", "116.6 m", ["116.6", "116.6m"]),
+          ...measurementAnswer("y12s2-trig-i3", "A tower guide rope forms a triangle where 90 m is opposite 35 degrees. Find the side opposite 48 degrees to 1 decimal place.", "\\text{Given: }A=35^\\circ,\\quad B=48^\\circ,\\quad a=90", "116.6 m", ["116.6", "116.6m"]),
           triangleDiagram: {
             description:
               "Triangle with side BC 90 metres opposite angle A 35 degrees, and side AC labelled x opposite angle B 48 degrees.",
@@ -435,7 +435,7 @@ export function year12Standard2TrigRatesLessonOverride(
       ],
       guidedPractice: [
         {
-          ...measurementAnswer("y12s2-sca-g1", "A navigation triangle has side 60 m opposite 32 degrees. Find the side opposite 48 degrees to 1 decimal place.", "\\frac{60\\sin48^\\circ}{\\sin32^\\circ}", "84.1 m", ["84.1", "84.1m"]),
+          ...measurementAnswer("y12s2-sca-g1", "A navigation triangle has side 60 m opposite 32 degrees. Find the side opposite 48 degrees to 1 decimal place.", "\\frac{a}{\\sin A}=\\frac{b}{\\sin B}", "84.1 m", ["84.1", "84.1m"]),
           triangleDiagram: {
             description:
               "Triangle with side BC 60 metres opposite angle A 32 degrees, and side AC labelled x opposite angle B 48 degrees.",
@@ -455,7 +455,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-sca-g2", "A triangular park has sides 48 m and 62 m with included angle 37 degrees. Find its area to the nearest square metre.", "\\frac12(48)(62)\\sin37^\\circ", "895 m^2", ["895", "895m^2", "895 m2"]),
+          ...measurementAnswer("y12s2-sca-g2", "A triangular park has sides 48 m and 62 m with included angle 37 degrees. Find its area to the nearest square metre.", "A=\\frac{1}{2}ab\\sin C", "895 m^2", ["895", "895m^2", "895 m2"]),
           triangleDiagram: {
             description:
               "Triangle with sides AB 48 metres and AC 62 metres and included angle A 37 degrees for an area calculation.",
@@ -494,7 +494,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-sca-g4", "A field has sides 35 m and 50 m with included angle 60 degrees. Find the third side to 1 decimal place.", "\\sqrt{35^2+50^2-2(35)(50)\\cos60^\\circ}", "43.6 m", ["43.6", "43.6m"]),
+          ...measurementAnswer("y12s2-sca-g4", "A field has sides 35 m and 50 m with included angle 60 degrees. Find the third side to 1 decimal place.", "c^2=a^2+b^2-2ab\\cos C", "43.6 m", ["43.6", "43.6m"]),
           triangleDiagram: {
             description:
               "Triangle with sides AC 35 metres and BC 50 metres, included angle C 60 degrees, and third side AB labelled x.",
@@ -516,7 +516,7 @@ export function year12Standard2TrigRatesLessonOverride(
       ],
       independentPractice: [
         {
-          ...measurementAnswer("y12s2-sca-i1", "A drone triangle has side 120 m opposite 42 degrees. Find the side opposite 58 degrees to 1 decimal place.", "\\frac{120\\sin58^\\circ}{\\sin42^\\circ}", "152.1 m", ["152.1", "152.1m"]),
+          ...measurementAnswer("y12s2-sca-i1", "A drone triangle has side 120 m opposite 42 degrees. Find the side opposite 58 degrees to 1 decimal place.", "\\text{Given: }A=42^\\circ,\\quad B=58^\\circ,\\quad a=120", "152.1 m", ["152.1", "152.1m"]),
           triangleDiagram: {
             description:
               "Triangle with side BC 120 metres opposite angle A 42 degrees, and side AC labelled x opposite angle B 58 degrees.",
@@ -536,7 +536,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-sca-i2", "A triangular lot has sides 80 m and 95 m with included angle 52 degrees. Find the third side to 1 decimal place.", "\\sqrt{80^2+95^2-2(80)(95)\\cos52^\\circ}", "75.8 m", ["75.8", "75.8m"]),
+          ...measurementAnswer("y12s2-sca-i2", "A triangular lot has sides 80 m and 95 m with included angle 52 degrees. Find the third side to 1 decimal place.", "\\text{Given: }a=80,\\quad b=95,\\quad C=52^\\circ", "75.8 m", ["75.8", "75.8m"]),
           triangleDiagram: {
             description:
               "Triangle with sides AC 80 metres and BC 95 metres, included angle C 52 degrees, and third side AB labelled x.",
@@ -556,7 +556,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-sca-i3", "A triangular park has sides 30 m and 45 m with included angle 70 degrees. Find the area to the nearest square metre.", "\\frac12(30)(45)\\sin70^\\circ", "634 m^2", ["634", "634m^2", "634 m2"]),
+          ...measurementAnswer("y12s2-sca-i3", "A triangular park has sides 30 m and 45 m with included angle 70 degrees. Find the area to the nearest square metre.", "\\text{Given: two sides and the included angle}", "634 m^2", ["634", "634m^2", "634 m2"]),
           triangleDiagram: {
             description:
               "Triangle with sides AB 30 metres and AC 45 metres and included angle A 70 degrees for an area calculation.",
@@ -671,16 +671,16 @@ export function year12Standard2TrigRatesLessonOverride(
         },
       ],
       guidedPractice: [
-        measurementAnswer("y12s2-rate-g1", "A prize of 240 dollars is shared in the ratio 3:5. What is the larger share?", "240\\div8\\times5", "$150", ["150", "150.00", "$150.00"]),
-        measurementAnswer("y12s2-rate-g2", "A car travels 168 km in 2 h 20 min. Find the average speed in km/h.", "168\\div\\left(2+\\dfrac{20}{60}\\right)", "72 km/h", ["72", "72km/h", "72 kmh"]),
-        measurementAnswer("y12s2-rate-g3", "A pump fills 450 L in 15 min. Find the flow rate in L/min.", "450\\div15", "30 L/min", ["30", "30L/min", "30 L per min"]),
+        measurementAnswer("y12s2-rate-g1", "A prize of 240 dollars is shared in the ratio 3:5. What is the larger share?", "\\text{Given: total }=240,\\quad \\text{ratio}=3{:}5", "$150", ["150", "150.00", "$150.00"]),
+        measurementAnswer("y12s2-rate-g2", "A car travels 168 km in 2 h 20 min. Find the average speed in km/h.", "\\text{Given: }d=168\\text{ km},\\quad t=2\\text{ h }20\\text{ min}", "72 km/h", ["72", "72km/h", "72 kmh"]),
+        measurementAnswer("y12s2-rate-g3", "A pump fills 450 L in 15 min. Find the flow rate in L/min.", "\\text{flow rate}=\\frac{\\text{volume}}{\\text{time}}", "30 L/min", ["30", "30L/min", "30 L per min"]),
         practicalChoice("y12s2-rate-g4", "A map scale is 1:25000. A map distance of 4 cm represents:", "B", ["100 m", "1 km", "10 km", "25 km"], "4 cm times 25000 is 100000 cm, which is 1 km."),
       ],
       independentPractice: [
-        measurementAnswer("y12s2-rate-i1", "A drink mix uses cordial and water in the ratio 1:4. If 750 mL is made, how much water is used?", "750\\div5\\times4", "600 mL", ["600", "600mL", "600 ml"]),
-        measurementAnswer("y12s2-rate-i2", "A bus travels 90 km in 1 h 30 min. Find its average speed in km/h.", "90\\div1.5", "60 km/h", ["60", "60km/h", "60 kmh"]),
-        measurementAnswer("y12s2-rate-i3", "A car uses 36 L of fuel for 480 km. Find the fuel consumption in L/100 km.", "36\\div480\\times100", "7.5 L/100 km", ["7.5", "7.50", "7.5L/100km"]),
-        measurementAnswer("y12s2-rate-i4", "A tap fills 2.4 kL in 40 min. Convert 2.4 kL to litres.", "2.4\\times1000", "2400 L", ["2400", "2,400", "2400L", "2400 litres"]),
+        measurementAnswer("y12s2-rate-i1", "A drink mix uses cordial and water in the ratio 1:4. If 750 mL is made, how much water is used?", "\\text{Given: total }=750\\text{ mL},\\quad \\text{ratio}=1{:}4", "600 mL", ["600", "600mL", "600 ml"]),
+        measurementAnswer("y12s2-rate-i2", "A bus travels 90 km in 1 h 30 min. Find its average speed in km/h.", "\\text{Given: }d=90\\text{ km},\\quad t=1\\text{ h }30\\text{ min}", "60 km/h", ["60", "60km/h", "60 kmh"]),
+        measurementAnswer("y12s2-rate-i3", "A car uses 36 L of fuel for 480 km. Find the fuel consumption in L/100 km.", "\\text{Given: }36\\text{ L over }480\\text{ km}", "7.5 L/100 km", ["7.5", "7.50", "7.5L/100km"]),
+        measurementAnswer("y12s2-rate-i4", "A tap fills 2.4 kL in 40 min. Convert 2.4 kL to litres.", "1\\text{ kL}=1000\\text{ L}", "2400 L", ["2400", "2,400", "2400L", "2400 litres"]),
         practicalChoice("y12s2-rate-i5", "Which is a rate rather than a ratio?", "C", ["3:5 cordial to water", "2 red tiles to 7 blue tiles", "72 km/h", "4 parts paint to 1 part thinner"], "km/h compares distance with time."),
       ],
       commonMistakes: [
@@ -815,7 +815,7 @@ export function year12Standard2TrigRatesLessonOverride(
         },
       },
       {
-        ...measurementAnswer("y12s2-rate-exam-g2", "A field has sides 30 m and 45 m with included angle 70 degrees. Find the area to the nearest square metre.", "\\frac12(30)(45)\\sin70^\\circ", "634 m^2", ["634", "634m^2", "634 m2"]),
+        ...measurementAnswer("y12s2-rate-exam-g2", "A field has sides 30 m and 45 m with included angle 70 degrees. Find the area to the nearest square metre.", "A=\\frac{1}{2}ab\\sin C", "634 m^2", ["634", "634m^2", "634 m2"]),
         triangleDiagram: {
           description:
             "Triangle with sides AB 30 metres and AC 45 metres and included angle A 70 degrees for an area calculation.",
@@ -833,12 +833,12 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
       },
-      measurementAnswer("y12s2-rate-exam-g3", "A car travels 120 km in 1 h 30 min. Find average speed.", "120\\div1.5", "80 km/h", ["80", "80km/h", "80 kmh"]),
-      measurementAnswer("y12s2-rate-exam-g4", "A 300 dollar cost is shared in the ratio 2:3. Find the smaller share.", "300\\div5\\times2", "$120", ["120", "120.00", "$120.00"]),
+      measurementAnswer("y12s2-rate-exam-g3", "A car travels 120 km in 1 h 30 min. Find average speed.", "\\text{speed}=\\frac{\\text{distance}}{\\text{time}}", "80 km/h", ["80", "80km/h", "80 kmh"]),
+      measurementAnswer("y12s2-rate-exam-g4", "A 300 dollar cost is shared in the ratio 2:3. Find the smaller share.", "\\text{Given: total }=300,\\quad \\text{ratio}=2{:}3", "$120", ["120", "120.00", "$120.00"]),
     ],
     independentPractice: [
       {
-        ...measurementAnswer("y12s2-rate-exam-i1", "A triangular park has sides 35 m and 50 m with included angle 60 degrees. Find the third side to 1 decimal place.", "\\sqrt{35^2+50^2-2(35)(50)\\cos60^\\circ}", "43.6 m", ["43.6", "43.6m"]),
+        ...measurementAnswer("y12s2-rate-exam-i1", "A triangular park has sides 35 m and 50 m with included angle 60 degrees. Find the third side to 1 decimal place.", "\\text{Given: }a=35,\\quad b=50,\\quad C=60^\\circ", "43.6 m", ["43.6", "43.6m"]),
         triangleDiagram: {
           description:
             "Triangle with sides AC 35 metres and BC 50 metres, included angle C 60 degrees, and third side AB labelled x.",
@@ -858,7 +858,7 @@ export function year12Standard2TrigRatesLessonOverride(
         },
       },
       {
-        ...measurementAnswer("y12s2-rate-exam-i2", "A boat triangle has side 80 m opposite 35 degrees. Find the side opposite 50 degrees to 1 decimal place.", "\\frac{80\\sin50^\\circ}{\\sin35^\\circ}", "106.8 m", ["106.8", "106.8m"]),
+        ...measurementAnswer("y12s2-rate-exam-i2", "A boat triangle has side 80 m opposite 35 degrees. Find the side opposite 50 degrees to 1 decimal place.", "\\text{Given: }A=35^\\circ,\\quad B=50^\\circ,\\quad a=80", "106.8 m", ["106.8", "106.8m"]),
         triangleDiagram: {
           description:
             "Triangle with side BC 80 metres opposite angle A 35 degrees, and side AC labelled x opposite angle B 50 degrees.",
@@ -877,7 +877,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
       },
-      measurementAnswer("y12s2-rate-exam-i3", "A ute uses 32 L of fuel for 400 km. Find fuel consumption in L/100 km.", "32\\div400\\times100", "8 L/100 km", ["8", "8.0", "8L/100km"]),
+      measurementAnswer("y12s2-rate-exam-i3", "A ute uses 32 L of fuel for 400 km. Find fuel consumption in L/100 km.", "\\text{Given: }32\\text{ L over }400\\text{ km}", "8 L/100 km", ["8", "8.0", "8L/100km"]),
       practicalChoice("y12s2-rate-exam-i4", "A map scale is 1:25000 and the map distance is 4 cm. Which real distance is correct?", "B", ["100 m", "1 km", "10 km", "25 km"], "4 cm at 1:25000 is 100000 cm, or 1 km."),
       practicalChoice("y12s2-rate-exam-i5", "A speed answer of 168 km/h for 168 km in 2 h 20 min is unreasonable because:", "C", ["The distance is too small", "No units are used", "The time was treated as 1 hour", "The car travelled backwards"], "The time is more than 2 hours, so speed must be less than 84 km/h."),
     ],
