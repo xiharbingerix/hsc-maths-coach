@@ -23,3 +23,25 @@ export type NetworkDiagram = {
   highlightedEdges?: [string, string][];
   highlightedVertices?: string[];
 };
+
+type TrianglePoint = {
+  x: number;
+  y: number;
+};
+
+type TriangleSideKey = "AB" | "BC" | "AC";
+
+export type TriangleDiagram = {
+  description: string;
+  vertices: {
+    A: TrianglePoint;
+    B: TrianglePoint;
+    C: TrianglePoint;
+  };
+  vertexLabels?: Partial<Record<"A" | "B" | "C", string>>;
+  sideLabels?: Partial<Record<TriangleSideKey, string>>;
+  angleLabels?: Partial<Record<"A" | "B" | "C", string>>;
+  rightAngleAt?: "A" | "B" | "C";
+  highlightedSides?: TriangleSideKey[];
+  viewBox?: string;
+};

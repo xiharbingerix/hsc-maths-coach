@@ -9,6 +9,7 @@ import type {
   PracticeQuestion,
 } from "../../lib/lessons/differentialCalculus";
 import { NetworkDiagramView } from "./components/NetworkDiagramView";
+import { TriangleDiagramView } from "./components/TriangleDiagramView";
 
 type LessonStage =
   | "watch"
@@ -208,6 +209,9 @@ function PracticeCard({
         </div>
 
         {question.diagram && <NetworkDiagramView diagram={question.diagram} />}
+        {question.triangleDiagram && (
+          <TriangleDiagramView diagram={question.triangleDiagram} />
+        )}
       </div>
 
       {question.choices ? (
@@ -315,6 +319,9 @@ function QuizQuestion({
         </div>
 
         {question.diagram && <NetworkDiagramView diagram={question.diagram} />}
+        {question.triangleDiagram && (
+          <TriangleDiagramView diagram={question.triangleDiagram} />
+        )}
       </div>
 
       {question.choices ? (
@@ -410,6 +417,12 @@ function MasteryResultPanel({
                   <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-3">
                     <BlockMath math={question.latex} />
                   </div>
+                )}
+                {question.diagram && (
+                  <NetworkDiagramView diagram={question.diagram} />
+                )}
+                {question.triangleDiagram && (
+                  <TriangleDiagramView diagram={question.triangleDiagram} />
                 )}
               </div>
 
@@ -774,6 +787,9 @@ export function LessonRenderer({
                 </div>
 
                 {example.diagram && <NetworkDiagramView diagram={example.diagram} />}
+                {example.triangleDiagram && (
+                  <TriangleDiagramView diagram={example.triangleDiagram} />
+                )}
 
                 <div className="space-y-3">
                   {example.steps.map((step, index) => (

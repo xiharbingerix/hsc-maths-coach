@@ -49,6 +49,23 @@ export function year12Standard2TrigRatesLessonOverride(
           title: "Select the correct rule for a surveying triangle",
           questionLatex:
             "\\text{A triangular field has sides }48\\text{ m and }62\\text{ m with included angle }37^\\circ.",
+          triangleDiagram: {
+            description:
+              "Triangle with sides AB 48 metres, AC 62 metres, included angle A 37 degrees, and unknown side BC labelled c.",
+            vertices: {
+              A: { x: 80, y: 220 },
+              B: { x: 320, y: 220 },
+              C: { x: 135, y: 70 },
+            },
+            sideLabels: {
+              AB: "48 m",
+              AC: "62 m",
+              BC: "c",
+            },
+            angleLabels: {
+              A: "37°",
+            },
+          },
           steps: [
             {
               explanation:
@@ -163,6 +180,23 @@ export function year12Standard2TrigRatesLessonOverride(
           title: "Use sine rule in a distance context",
           questionLatex:
             "\\text{A boat is }80\\text{ m from point A, opposite }35^\\circ.\\text{ Find the side opposite }50^\\circ.",
+          triangleDiagram: {
+            description:
+              "Triangle with base BC 80 metres, angle B 35 degrees, angle C 50 degrees, and unknown side AC labelled x.",
+            vertices: {
+              A: { x: 190, y: 70 },
+              B: { x: 70, y: 220 },
+              C: { x: 330, y: 220 },
+            },
+            sideLabels: {
+              BC: "80 m",
+              AC: "x",
+            },
+            angleLabels: {
+              B: "35°",
+              C: "50°",
+            },
+          },
           steps: [
             {
               explanation: "Set up the sine rule using the known matching pair.",
