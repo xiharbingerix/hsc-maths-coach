@@ -87,6 +87,24 @@ export function year12Standard2TrigRatesLessonOverride(
           title: "Use cosine rule for a distance",
           questionLatex:
             "a=48,\\quad b=62,\\quad C=37^\\circ",
+          triangleDiagram: {
+            description:
+              "Triangle with sides AB 48 metres, AC 62 metres, included angle A 37 degrees, and unknown side BC labelled c.",
+            vertices: {
+              A: { x: 80, y: 220 },
+              B: { x: 320, y: 220 },
+              C: { x: 135, y: 70 },
+            },
+            sideLabels: {
+              AB: "48 m",
+              AC: "62 m",
+              BC: "BC = c",
+            },
+            angleLabels: {
+              A: "37°",
+            },
+            highlightedSides: ["BC"],
+          },
           steps: [
             {
               explanation:
@@ -104,6 +122,24 @@ export function year12Standard2TrigRatesLessonOverride(
           title: "Use sine rule when a matching pair is known",
           questionLatex:
             "\\text{In a navigation triangle, }a=80\\text{ m is opposite }35^\\circ.\\text{ Find }b\\text{ opposite }50^\\circ.",
+          triangleDiagram: {
+            description:
+              "Triangle with side BC 80 metres opposite angle A 35 degrees, and unknown side AC labelled b opposite angle B 50 degrees.",
+            vertices: {
+              A: { x: 190, y: 70 },
+              B: { x: 70, y: 220 },
+              C: { x: 330, y: 220 },
+            },
+            sideLabels: {
+              BC: "80 m",
+              AC: "b",
+            },
+            angleLabels: {
+              A: "35°",
+              B: "50°",
+            },
+            highlightedSides: ["BC", "AC"],
+          },
           steps: [
             {
               explanation:
@@ -217,6 +253,24 @@ export function year12Standard2TrigRatesLessonOverride(
           title: "Use cosine rule in a distance context",
           questionLatex:
             "\\text{Two tracks of }48\\text{ m and }62\\text{ m meet at }37^\\circ.",
+          triangleDiagram: {
+            description:
+              "Triangle with two track sides AB 48 metres and AC 62 metres meeting at angle A 37 degrees, with unknown distance BC labelled c.",
+            vertices: {
+              A: { x: 80, y: 220 },
+              B: { x: 320, y: 220 },
+              C: { x: 135, y: 70 },
+            },
+            sideLabels: {
+              AB: "48 m",
+              AC: "62 m",
+              BC: "BC = c",
+            },
+            angleLabels: {
+              A: "37°",
+            },
+            highlightedSides: ["BC"],
+          },
           steps: [
             {
               explanation:
@@ -234,6 +288,23 @@ export function year12Standard2TrigRatesLessonOverride(
           title: "Find the area of a triangular park",
           questionLatex:
             "\\text{A park has sides }48\\text{ m and }62\\text{ m with included angle }37^\\circ.",
+          triangleDiagram: {
+            description:
+              "Triangle with known sides AB 48 metres and AC 62 metres and included angle A 37 degrees for an area calculation.",
+            vertices: {
+              A: { x: 80, y: 220 },
+              B: { x: 320, y: 220 },
+              C: { x: 135, y: 70 },
+            },
+            sideLabels: {
+              AB: "48 m",
+              AC: "62 m",
+            },
+            angleLabels: {
+              A: "37°",
+            },
+            highlightedSides: ["AB", "AC"],
+          },
           steps: [
             {
               explanation:
@@ -418,6 +489,24 @@ export function year12Standard2TrigRatesLessonOverride(
         title: "Choose the correct triangle formula",
         questionLatex:
           "\\text{A triangular park has two known sides and the included angle.}",
+        triangleDiagram: {
+          description:
+            "Triangle with two known sides meeting at an included angle, and the opposite side labelled x.",
+          vertices: {
+            A: { x: 80, y: 220 },
+            B: { x: 320, y: 220 },
+            C: { x: 135, y: 70 },
+          },
+          sideLabels: {
+            AB: "known side",
+            AC: "known side",
+            BC: "x",
+          },
+          angleLabels: {
+            A: "included angle",
+          },
+          highlightedSides: ["AB", "AC", "BC"],
+        },
         steps: [
           {
             explanation:
