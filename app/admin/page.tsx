@@ -20,12 +20,15 @@ type BetaAccessRow = {
 type ProfileRow = {
   id: string;
   email: string | null;
+  full_name?: string | null;
+  student_name?: string | null;
   student_first_name: string | null;
   parent_email: string | null;
 };
 
 type BetaAccessRequest = BetaAccessRow & {
   profile?: ProfileRow;
+  authUser?: AdminAuthUser;
 };
 
 type AdminAuthUser = {
@@ -35,6 +38,9 @@ type AdminAuthUser = {
   last_sign_in_at?: string | null;
   email_confirmed_at?: string | null;
   user_metadata?: {
+    full_name?: string;
+    name?: string;
+    student_name?: string;
     student_first_name?: string;
     parent_email?: string;
   };
@@ -357,6 +363,40 @@ function shortId(value: string | null | undefined) {
   return value.length > 14 ? `${value.slice(0, 14)}...` : value;
 }
 
+function firstPresent(...values: Array<string | null | undefined>) {
+  return values
+    .map((value) => value?.trim())
+    .find((value): value is string => Boolean(value));
+}
+
+function studentDisplayName({
+  profile,
+  authUser,
+  submissionName,
+  email,
+}: {
+  profile?: ProfileRow;
+  authUser?: AdminAuthUser;
+  submissionName?: string | null;
+  email?: string | null;
+}) {
+  return (
+    firstPresent(
+      profile?.student_name,
+      profile?.full_name,
+      profile?.student_first_name,
+      submissionName,
+      authUser?.user_metadata?.student_name,
+      authUser?.user_metadata?.full_name,
+      authUser?.user_metadata?.name,
+      authUser?.user_metadata?.student_first_name,
+      profile?.email,
+      authUser?.email,
+      email
+    ) ?? "Unnamed student"
+  );
+}
+
 function accessStatusClass(status: string | null | undefined) {
   if (status === "active") {
     return "bg-emerald-100 text-emerald-900";
@@ -510,11 +550,22 @@ export default async function AdminPage() {
     new Set(betaAccessRows.map((request) => request.user_id).filter(Boolean))
   );
 
+  const { data: usersData, error: usersError } =
+    await supabaseAdmin.auth.admin.listUsers({
+      page: 1,
+      perPage: 100,
+    });
+
+  const adminUsers = ((usersData?.users ?? []) as AdminAuthUser[]).filter(
+    (user) => user.email
+  );
+  const authUsersById = new Map(adminUsers.map((user) => [user.id, user]));
+
   const { data: profilesData } =
     userIds.length > 0
       ? await supabaseAdmin
           .from("profiles")
-          .select("id,email,student_first_name,parent_email")
+          .select("*")
           .in("id", userIds)
       : { data: [] };
 
@@ -529,17 +580,8 @@ export default async function AdminPage() {
     (request) => ({
       ...request,
       profile: profilesById.get(request.user_id),
+      authUser: authUsersById.get(request.user_id),
     })
-  );
-
-  const { data: usersData, error: usersError } =
-    await supabaseAdmin.auth.admin.listUsers({
-      page: 1,
-      perPage: 100,
-    });
-
-  const adminUsers = ((usersData?.users ?? []) as AdminAuthUser[]).filter(
-    (user) => user.email
   );
 
   const authUserIds = adminUsers.map((user) => user.id);
@@ -547,7 +589,7 @@ export default async function AdminPage() {
     authUserIds.length > 0
       ? await supabaseAdmin
           .from("profiles")
-          .select("id,email,student_first_name,parent_email")
+          .select("*")
           .in("id", authUserIds)
       : { data: [] };
 
@@ -641,6 +683,10 @@ export default async function AdminPage() {
             <div className="mt-5 space-y-3">
               {enquiries.map((enquiry) => {
                 const status = enquiry.status ?? "new";
+                const displayName = studentDisplayName({
+                  submissionName: enquiry.student_first_name,
+                  email: enquiry.parent_email,
+                });
 
                 return (
                   <article
@@ -651,7 +697,7 @@ export default async function AdminPage() {
                       <div>
                         <div className="flex flex-wrap items-center gap-2">
                           <h3 className="font-semibold text-slate-950">
-                            {enquiry.student_first_name ?? "Unnamed student"}
+                            {displayName}
                           </h3>
                           <span
                             className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ${enquiryStatusClass(
@@ -849,13 +895,16 @@ export default async function AdminPage() {
               {studentUsers.map(({ user, profile, access }) => {
                 const status = access?.status ?? "missing";
                 const accessType = access?.access_type ?? "missing";
-                const studentName =
-                  profile?.student_first_name ??
-                  user.user_metadata?.student_first_name ??
-                  "Not saved";
+                const studentName = studentDisplayName({
+                  profile,
+                  authUser: user,
+                  email: user.email,
+                });
                 const parentEmail =
-                  profile?.parent_email ??
-                  user.user_metadata?.parent_email ??
+                  firstPresent(
+                    profile?.parent_email,
+                    user.user_metadata?.parent_email
+                  ) ??
                   "Not saved";
 
                 return (
@@ -866,8 +915,11 @@ export default async function AdminPage() {
                     <div className="grid gap-5 xl:grid-cols-[1.4fr_1fr_1.4fr] xl:items-start">
                       <div>
                         <h3 className="font-semibold text-slate-950">
-                          {user.email}
+                          {studentName}
                         </h3>
+                        <p className="mt-1 break-all text-sm text-slate-600">
+                          {user.email}
+                        </p>
                         <p className="mt-1 break-all text-xs text-slate-500">
                           {user.id}
                         </p>
@@ -1025,6 +1077,18 @@ export default async function AdminPage() {
                 {betaAccessRequests.map((request) => {
                   const profile = request.profile;
                   const status = request.status ?? "pending";
+                  const displayName = studentDisplayName({
+                    profile,
+                    authUser: request.authUser,
+                    email: profile?.email ?? request.authUser?.email,
+                  });
+                  const email =
+                    firstPresent(profile?.email, request.authUser?.email) ??
+                    "No student email saved";
+                  const parentEmail = firstPresent(
+                    profile?.parent_email,
+                    request.authUser?.user_metadata?.parent_email
+                  );
 
                   return (
                     <article
@@ -1033,14 +1097,14 @@ export default async function AdminPage() {
                     >
                       <div>
                         <h3 className="font-semibold text-slate-950">
-                          {profile?.student_first_name ?? "Unnamed student"}
+                          {displayName}
                         </h3>
                         <p className="mt-1 text-sm text-slate-600">
-                          {profile?.email ?? "No student email saved"}
+                          {email}
                         </p>
-                        {profile?.parent_email ? (
+                        {parentEmail ? (
                           <p className="mt-1 text-xs text-slate-500">
-                            Parent: {profile.parent_email}
+                            Parent: {parentEmail}
                           </p>
                         ) : null}
                       </div>
