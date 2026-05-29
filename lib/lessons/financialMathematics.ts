@@ -112,7 +112,7 @@ export const growthFactorsCompoundInterestDepreciationLesson: ExplicitLesson = {
     {
       id: "growth-guided-1",
       prompt: "Write the growth factor for a 7% increase.",
-      latex: "1+0.07=\\Box",
+      latex: "\\text{increase}=7\\%",
       answer: "1.07",
       hint: "Convert 7% to 0.07, then add to 1.",
       explanation: "A 7% increase uses the growth factor $1.07$.",
@@ -120,7 +120,7 @@ export const growthFactorsCompoundInterestDepreciationLesson: ExplicitLesson = {
     {
       id: "growth-guided-2",
       prompt: "Write the decay factor for a 15% decrease.",
-      latex: "1-0.15=\\Box",
+      latex: "\\text{decrease}=15\\%",
       answer: "0.85",
       hint: "Convert 15% to 0.15, then subtract from 1.",
       explanation: "A 15% decrease uses the decay factor $0.85$.",
@@ -141,7 +141,7 @@ export const growthFactorsCompoundInterestDepreciationLesson: ExplicitLesson = {
     {
       id: "growth-guided-4",
       prompt: "A value is multiplied by $0.92$ each year. What percentage decrease is this?",
-      latex: "0.92=1-r",
+      latex: "\\text{decay factor}=0.92",
       answer: "8%",
       acceptedAnswers: ["8", "8 percent", "8%"],
       hint: "Find $1-0.92$.",
@@ -153,7 +153,7 @@ export const growthFactorsCompoundInterestDepreciationLesson: ExplicitLesson = {
     {
       id: "growth-ind-1",
       prompt: "Find the amount after 2 years.",
-      latex: "A=1000(1.06)^2",
+      latex: "A=P(1+r)^n,\\quad P=\\$1000,\\quad r=6\\%,\\quad n=2",
       answer: "1123.60",
       acceptedAnswers: ["$1123.60", "$1,123.60", "1,123.60", "1123.6"],
       hint: "Evaluate the power first, then multiply by 1000.",
@@ -162,7 +162,7 @@ export const growthFactorsCompoundInterestDepreciationLesson: ExplicitLesson = {
     {
       id: "growth-ind-2",
       prompt: "Find the value after 3 years.",
-      latex: "A=5000(0.9)^3",
+      latex: "V=P(1-r)^n,\\quad P=\\$5000,\\quad r=10\\%,\\quad n=3",
       answer: "3645",
       acceptedAnswers: ["3645.00", "$3645", "$3645.00", "$3,645.00", "3,645"],
       hint: "This is a repeated 10% decrease.",
@@ -197,7 +197,7 @@ export const growthFactorsCompoundInterestDepreciationLesson: ExplicitLesson = {
     {
       id: "growth-ind-5",
       prompt: "Find the final amount to the nearest cent.",
-      latex: "A=3000(1.025)^4",
+      latex: "A=P(1+r)^n,\\quad P=\\$3000,\\quad r=2.5\\%,\\quad n=4",
       answer: "3311.44",
       acceptedAnswers: ["$3311.44", "$3,311.44", "3,311.44"],
       hint: "Evaluate the expression and round at the end.",
@@ -751,7 +751,7 @@ export const futureValueAnnuitiesLesson: ExplicitLesson = {
     {
       id: "annuity-guided-4",
       prompt: "Find the future value to the nearest cent.",
-      latex: "FV=100\\left(\\frac{(1.01)^3-1}{0.01}\\right)",
+      latex: "FV=M\\left(\\frac{(1+r)^n-1}{r}\\right),\\quad M=\\$100,\\quad r=0.01,\\quad n=3",
       answer: "303.01",
       acceptedAnswers: ["$303.01"],
       hint: "Evaluate the bracket first.",
@@ -763,7 +763,7 @@ export const futureValueAnnuitiesLesson: ExplicitLesson = {
     {
       id: "annuity-ind-1",
       prompt: "Find the future value to the nearest cent.",
-      latex: "FV=50\\left(\\frac{(1.02)^5-1}{0.02}\\right)",
+      latex: "FV=M\\left(\\frac{(1+r)^n-1}{r}\\right),\\quad M=\\$50,\\quad r=0.02,\\quad n=5",
       answer: "260.20",
       acceptedAnswers: ["$260.20", "260.2"],
       hint: "Use the formula directly.",
@@ -801,7 +801,7 @@ export const futureValueAnnuitiesLesson: ExplicitLesson = {
     {
       id: "annuity-ind-5",
       prompt: "Find the future value to the nearest cent.",
-      latex: "FV=120\\left(\\frac{(1.005)^8-1}{0.005}\\right)",
+      latex: "FV=M\\left(\\frac{(1+r)^n-1}{r}\\right),\\quad M=\\$120,\\quad r=0.005,\\quad n=8",
       answer: "976.91",
       acceptedAnswers: ["$976.91"],
       hint: "Evaluate and round at the end.",
@@ -1027,7 +1027,7 @@ export const presentValueLoanRepaymentsLesson: ExplicitLesson = {
     {
       id: "loan-guided-3",
       prompt: "Find the present value to the nearest cent.",
-      latex: "PV=\\frac{1000}{1.05}",
+      latex: "PV=\\frac{FV}{(1+r)^n},\\quad FV=\\$1000,\\quad r=5\\%,\\quad n=1",
       answer: "952.38",
       acceptedAnswers: ["$952.38"],
       hint: "Divide by 1.05.",
@@ -1066,7 +1066,7 @@ export const presentValueLoanRepaymentsLesson: ExplicitLesson = {
     {
       id: "loan-ind-3",
       prompt: "Find the present value to the nearest cent.",
-      latex: "PV=\\frac{2000}{(1.04)^2}",
+      latex: "PV=\\frac{FV}{(1+r)^n},\\quad FV=\\$2000,\\quad r=4\\%,\\quad n=2",
       answer: "1849.11",
       acceptedAnswers: ["$1849.11", "$1,849.11"],
       hint: "Evaluate the denominator first.",
@@ -1313,7 +1313,7 @@ export const comparingFinancialOptionsLesson: ExplicitLesson = {
     {
       id: "compare-guided-2",
       prompt: "Calculate Option A.",
-      latex: "A=1000(1.05)^2",
+      latex: "A=P(1+r)^n,\\quad P=\\$1000,\\quad r=5\\%,\\quad n=2",
       answer: "1102.50",
       acceptedAnswers: ["$1102.50", "$1,102.50", "1102.5"],
       hint: "Evaluate the compound interest expression.",
@@ -1322,7 +1322,7 @@ export const comparingFinancialOptionsLesson: ExplicitLesson = {
     {
       id: "compare-guided-3",
       prompt: "Calculate Option B including a $20 bonus.",
-      latex: "B=1000(1.04)^2+20",
+      latex: "\\text{principal}=\\$1000,\\quad r=4\\%,\\quad n=2,\\quad \\text{bonus}=\\$20",
       answer: "1101.60",
       acceptedAnswers: ["$1101.60", "$1,101.60", "1101.6"],
       hint: "Add the bonus after calculating the investment value.",
@@ -1346,7 +1346,7 @@ export const comparingFinancialOptionsLesson: ExplicitLesson = {
     {
       id: "compare-ind-1",
       prompt: "Which final value is larger?",
-      latex: "A=2000(1.03)^3,\\quad B=2000(1.025)^3+40",
+      latex: "\\text{Option A: }P=\\$2000,r=3\\%,n=3\\quad \\text{Option B: }P=\\$2000,r=2.5\\%,n=3,\\text{ bonus }\\$40",
       answer: "B",
       choices: [
         { label: "A", text: "Option A" },
@@ -1358,7 +1358,7 @@ export const comparingFinancialOptionsLesson: ExplicitLesson = {
     {
       id: "compare-ind-2",
       prompt: "Find the lower depreciated value.",
-      latex: "A=15000(0.9)^2,\\quad B=15000(0.85)^2",
+      latex: "\\text{Option A: }P=\\$15000,r=10\\%,n=2\\quad \\text{Option B: }P=\\$15000,r=15\\%,n=2",
       answer: "B",
       choices: [
         { label: "A", text: "Option A" },
@@ -1379,7 +1379,7 @@ export const comparingFinancialOptionsLesson: ExplicitLesson = {
     {
       id: "compare-ind-4",
       prompt: "A $30 fee is charged at the end. Find the final cost.",
-      latex: "C=500(1.04)^2+30",
+      latex: "\\text{price}=\\$500,\\quad r=4\\%,\\quad n=2,\\quad \\text{fee}=\\$30",
       answer: "570.80",
       acceptedAnswers: ["$570.80", "570.8"],
       hint: "Add the fee after the growth calculation.",
@@ -1650,7 +1650,7 @@ export const mixedFinancialMathematicsExamPracticeLesson: ExplicitLesson = {
     {
       id: "mixed-fin-guided-3",
       prompt: "Find the value to the nearest cent.",
-      latex: "A=1800(0.85)^3",
+      latex: "V=P(1-r)^n,\\quad P=\\$1800,\\quad r=15\\%,\\quad n=3",
       answer: "1105.54",
       acceptedAnswers: ["$1105.54", "$1,105.54"],
       hint: "Use the decay factor.",
@@ -1671,7 +1671,7 @@ export const mixedFinancialMathematicsExamPracticeLesson: ExplicitLesson = {
     {
       id: "mixed-fin-ind-1",
       prompt: "Find the compound amount to the nearest cent.",
-      latex: "A=2500(1.04)^2",
+      latex: "A=P(1+r)^n,\\quad P=\\$2500,\\quad r=4\\%,\\quad n=2",
       answer: "2704.00",
       acceptedAnswers: ["2704", "$2704", "$2,704", "$2704.00", "$2,704.00"],
       hint: "Use compound growth.",
@@ -1680,7 +1680,7 @@ export const mixedFinancialMathematicsExamPracticeLesson: ExplicitLesson = {
     {
       id: "mixed-fin-ind-2",
       prompt: "Find the depreciated value.",
-      latex: "A=12000(0.8)^2",
+      latex: "V=P(1-r)^n,\\quad P=\\$12000,\\quad r=20\\%,\\quad n=2",
       answer: "7680",
       acceptedAnswers: ["$7680", "$7,680", "$7680.00", "$7,680.00"],
       hint: "Use the decay factor twice.",
@@ -2090,8 +2090,8 @@ export const geometricSequencesLesson: ExplicitLesson = {
   independentPractice: [
     { id: "geom-seq-ind-1", prompt: "Find $T_6$.", latex: "5,\\ 10,\\ 20,\\ldots", answer: "160", hint: "Use $a=5$, $r=2$.", explanation: "$T_6=5(2)^5=160$." },
     { id: "geom-seq-ind-2", prompt: "Find $T_5$.", latex: "81,\\ 27,\\ 9,\\ldots", answer: "1", hint: "Use $r=1/3$.", explanation: "$T_5=81(1/3)^4=1$." },
-    { id: "geom-seq-ind-3", prompt: "Find the value after 2 years.", latex: "\\$500(1.05)^2", answer: "551.25", acceptedAnswers: ["$551.25", "\\$551.25"], hint: "Evaluate the expression.", explanation: "$500(1.05)^2=551.25$." },
-    { id: "geom-seq-ind-4", prompt: "Find the value after 3 years.", latex: "\\$2000(0.9)^3", answer: "1458", acceptedAnswers: ["$1458", "\\$1458"], hint: "Use the decay factor three times.", explanation: "$2000(0.9)^3=1458$." },
+    { id: "geom-seq-ind-3", prompt: "Find the value after 2 years.", latex: "A=P(1+r)^n,\\quad P=\\$500,\\quad r=5\\%,\\quad n=2", answer: "551.25", acceptedAnswers: ["$551.25", "\\$551.25"], hint: "Evaluate the expression.", explanation: "$500(1.05)^2=551.25$." },
+    { id: "geom-seq-ind-4", prompt: "Find the value after 3 years.", latex: "V=P(1-r)^n,\\quad P=\\$2000,\\quad r=10\\%,\\quad n=3", answer: "1458", acceptedAnswers: ["$1458", "\\$1458"], hint: "Use the decay factor three times.", explanation: "$2000(0.9)^3=1458$." },
     { id: "geom-seq-ind-5", prompt: "Choose the geometric sequence.", latex: "\\text{Choose one}", answer: "B", choices: [{ label: "A", text: "$4,7,10,13$" }, { label: "B", text: "$3,6,12,24$" }, { label: "C", text: "$1,4,9,16$" }, { label: "D", text: "$10,8,6,4$" }], hint: "Look for a constant ratio.", explanation: "Option B has common ratio $2$." },
   ],
   commonMistakes: [
@@ -2274,8 +2274,8 @@ export const geometricSeriesLesson: ExplicitLesson = {
   independentPractice: [
     { id: "geom-series-ind-1", prompt: "Find $S_5$.", latex: "2+4+8+16+32", answer: "62", hint: "Add the terms.", explanation: "$S_5=62$." },
     { id: "geom-series-ind-2", prompt: "Find $S_4$.", latex: "80+40+20+10", answer: "150", hint: "Add the terms.", explanation: "$S_4=150$." },
-    { id: "geom-series-ind-3", prompt: "Find the accumulated value.", latex: "100(1.05)^2+100(1.05)+100", answer: "315.25", acceptedAnswers: ["$315.25", "\\$315.25"], hint: "Evaluate each term and add.", explanation: "$110.25+105+100=315.25$." },
-    { id: "geom-series-ind-4", prompt: "Identify $r$ from the growth factor.", latex: "\\$200+\\$200(1.04)+\\$200(1.04)^2", answer: "1.04", hint: "The multiplier is the common ratio.", explanation: "$r=1.04$." },
+    { id: "geom-series-ind-3", prompt: "Find the accumulated value.", latex: "\\text{three }\\$100\\text{ deposits with }5\\%\\text{ growth per period}", answer: "315.25", acceptedAnswers: ["$315.25", "\\$315.25"], hint: "Evaluate each term and add.", explanation: "$110.25+105+100=315.25$." },
+    { id: "geom-series-ind-4", prompt: "Identify $r$ from the growth factor.", latex: "\\text{regular }\\$200\\text{ deposits with }4\\%\\text{ growth per period}", answer: "1.04", hint: "The multiplier is the common ratio.", explanation: "$r=1.04$." },
     { id: "geom-series-ind-5", prompt: "Choose the correct formula type.", latex: "5+15+45+135", answer: "C", choices: [{ label: "A", text: "Arithmetic nth term" }, { label: "B", text: "Arithmetic series" }, { label: "C", text: "Geometric series" }, { label: "D", text: "Linear recurrence only" }], hint: "The ratio is constant.", explanation: "This is a geometric series." },
   ],
   commonMistakes: [
