@@ -122,9 +122,9 @@ export function year12Standard2FinanceLessonOverride(
         financeChoice("y12s2-invest-m5", "Which expression models 3500 dollars at 2.5% p.a. compounded annually for 4 years?", "C", ["3500(2.5)^4", "3500(0.025)^4", "3500(1.025)^4", "3500+1.025+4"], "The growth factor is 1.025."),
         moneyAnswer("y12s2-invest-m6", "A 6000 dollar investment at 3% p.a. compounded annually is worth what after 1 year?", "A=P(1+r)^n", "6180"),
         financeShortAnswer("y12s2-invest-m7", "A growth factor of 1.09 represents what percentage growth?", "\\text{growth factor}=1.09", "9%", ["9", "0.09"]),
-        moneyAnswer("y12s2-invest-m8", "Option B has a final balance of 4260 dollars and a 35 dollar fee. Find the net balance.", "\\text{balance}=\\$4260,\\quad \\text{fee}=\\$35", "4225"),
-        financeChoice("y12s2-invest-m9", "A student uses 2500(0.042)^3 for 4.2% compound interest. What is the error?", "A", ["They used 0.042 instead of 1.042 as the growth factor", "They included the principal", "They used an annual rate", "They rounded to cents"], "Compound growth uses 1 + r."),
-        financeChoice("y12s2-invest-m10", "Which statement is safest when comparing investments?", "D", ["The highest rate is always best", "Fees never matter", "Shorter terms always earn more", "Compare net balances over the same term"], "Net balance over the same term is the fair comparison."),
+        financeChoice("y12s2-invest-m8", "Option A returns 4320 dollars. Option B returns 4390 dollars but has a 90 dollar fee. Which option gives the higher net balance?", "A", ["Option A", "Option B", "They are equal", "The fee should be ignored"], "Option B's fee reduces its net balance, so Option A is higher."),
+        financeChoice("y12s2-invest-m9", "Which setup is valid for 2500 dollars invested at 4.2% p.a. compounded annually for 3 years?", "B", ["A=2500(0.042)^3", "A=2500(1.042)^3", "A=2500+4.2+3", "A=2500(4.2)^3"], "Compound growth uses 1 plus the decimal rate as the growth factor."),
+        financeChoice("y12s2-invest-m10", "An investment grows from 5000 dollars to 5360 dollars. What information is still needed to judge whether it is better than another investment?", "C", ["Only the starting balance", "Only the final balance", "The other option's net balance over the same term", "The account name"], "A fair comparison needs the net balances over the same time period."),
       ],
     };
   }
@@ -235,9 +235,9 @@ export function year12Standard2FinanceLessonOverride(
         financeChoice("y12s2-loan-m5", "In the displayed loan recurrence, what does the subtracted amount represent?", "B", ["Interest", "A repayment", "Depreciation", "A fee added"], "The subtraction represents a repayment.", "B_{n+1}=1.01B_n-500"),
         moneyAnswer("y12s2-loan-m6", "A camera worth 1500 dollars depreciates by 25% in one year. Find its value.", "V=P(1-r)^n", "1125"),
         financeChoice("y12s2-loan-m7", "A repayment is 300 dollars and monthly interest added is 260 dollars. The balance:", "A", ["Decreases by 40 dollars", "Increases by 40 dollars", "Does not change", "Depreciates by 300%"], "Repayment exceeds interest by 40 dollars."),
-        moneyAnswer("y12s2-loan-m8", "A loan follows the recurrence shown. Use the starting balance to find the next balance.", "B_{n+1}=1.004B_n-250,\\quad B_0=12000", "11798"),
-        financeChoice("y12s2-loan-m9", "Which expression correctly models 16000 dollars depreciating by 7% for 3 years?", "D", ["16000(1.07)^3", "16000(7)^3", "16000(0.07)^3", "16000(0.93)^3"], "Depreciation uses 1 - 0.07 = 0.93."),
-        financeChoice("y12s2-loan-m10", "If a loan balance is increasing despite repayments, the most likely reason is:", "C", ["The repayment is too large", "The interest rate is zero", "Interest added is greater than the repayment", "The balance is depreciating"], "The balance rises when interest added exceeds repayment."),
+        moneyAnswer("y12s2-loan-m8", "A loan follows the recurrence shown and the next balance is 11798 dollars. Find the starting balance.", "B_{n+1}=1.004B_n-250", "12000", ["$12000", "12,000", "$12,000"]),
+        financeChoice("y12s2-loan-m9", "Which recurrence models a 16000 dollar asset depreciating by 7% each year?", "D", ["V_{n+1}=1.07V_n,\\ V_0=16000", "V_{n+1}=7V_n,\\ V_0=16000", "V_{n+1}=0.07V_n,\\ V_0=16000", "V_{n+1}=0.93V_n,\\ V_0=16000"], "Depreciation by 7% leaves 93% of the value each year."),
+        financeChoice("y12s2-loan-m10", "A loan balance goes from 12000 dollars to 12080 dollars after a repayment. Which conclusion is most reasonable?", "C", ["The repayment was too large", "The loan is fully paid off", "Interest and fees outweighed the repayment", "The asset is depreciating"], "If the balance rises after a repayment, the added interest or fees were larger than the repayment."),
       ],
     };
   }
@@ -348,9 +348,9 @@ export function year12Standard2FinanceLessonOverride(
         financeChoice("y12s2-ann-m5", "In the displayed loan recurrence, what does the subtracted amount represent?", "B", ["A regular deposit", "A regular repayment", "A growth factor", "A fee charged twice"], "It is subtracted, so it represents a repayment.", "B_{n+1}=1.006B_n-450"),
         financeChoice("y12s2-ann-m6", "A repayment table shows balances 12000, 11850, 11702. The loan is:", "C", ["Increasing quickly", "Unchanged", "Decreasing", "Compounding as an investment"], "The listed balance decreases each period."),
         moneyAnswer("y12s2-ann-m7", "A savings account has 900 dollars. It earns 1% interest then receives a 100 dollar deposit. Find the new balance.", "S_{n+1}=(1+r)S_n+d", "1009"),
-        moneyAnswer("y12s2-ann-m8", "A regular deposit plan adds 75 dollars each month for 6 months with no interest. What is contributed in total?", "\\text{total contribution}=\\text{deposit}\\times\\text{number of deposits}", "450"),
-        financeChoice("y12s2-ann-m9", "Which is the best reason to use a recurrence table for annuities?", "D", ["It avoids all percentages", "It makes every answer zero", "It removes the need for context", "It tracks each regular payment period"], "A recurrence table updates the balance period by period."),
-        financeChoice("y12s2-ann-m10", "A product says 'low repayments' but the balance falls very slowly. What should be checked?", "A", ["Interest, fees, repayment size, and loan term", "Only the advertisement wording", "Only the first repayment", "Only the account name"], "Repayments must be judged against interest, fees, and term."),
+        financeChoice("y12s2-ann-m8", "Which recurrence matches a savings account that earns 0.5% interest each month and then receives a 200 dollar deposit?", "B", ["S_{n+1}=0.995S_n+200", "S_{n+1}=1.005S_n+200", "S_{n+1}=1.005S_n-200", "S_{n+1}=200S_n+1.005"], "Interest increases the balance first, and the deposit is added."),
+        moneyAnswer("y12s2-ann-m9", "A savings recurrence is shown. If the next balance is 1411.03 dollars, find the previous balance to the nearest cent.", "S_{n+1}=1.005S_n+200", "1205.00", ["1205", "$1205", "$1205.00", "1,205.00", "$1,205.00"]),
+        financeChoice("y12s2-ann-m10", "Plan A deposits 100 dollars monthly. Plan B deposits 120 dollars monthly but charges a 15 dollar monthly fee. What should be compared?", "D", ["Only the larger deposit", "Only the first month", "Only the interest symbol", "Final balances after deposits, interest, and fees"], "A fair comparison includes the regular deposits, interest, fees, and term."),
       ],
     };
   }
@@ -458,9 +458,9 @@ export function year12Standard2FinanceLessonOverride(
       moneyAnswer("y12s2-fin-exam-m5", "A loan follows the recurrence shown. Use the starting balance to find the next balance.", "B_{n+1}=1.006B_n-450,\\quad B_0=28000", "27718"),
       moneyAnswer("y12s2-fin-exam-m6", "A savings plan follows the recurrence shown. Use the starting balance to find the next balance.", "S_{n+1}=1.005S_n+200,\\quad S_0=1000", "1205"),
       moneyAnswer("y12s2-fin-exam-m7", "A 5000 dollar investment grows to 5360 dollars. Find the interest earned.", "\\text{initial}=\\$5000,\\quad \\text{final}=\\$5360", "360"),
-      moneyAnswer("y12s2-fin-exam-m8", "Option A has a net balance of 4320 dollars. Option B has 4390 dollars but a 90 dollar fee. Find Option B's net balance.", "\\text{Option A}=\\$4320,\\quad \\text{Option B}=\\$4390,\\quad \\text{fee}=\\$90", "4300"),
-      financeChoice("y12s2-fin-exam-m9", "A loan repayment is smaller than the monthly interest added. What happens?", "C", ["The balance must decrease", "The loan is fully repaid", "The balance increases", "It becomes an investment"], "If interest added is larger than repayment, debt increases."),
-      financeChoice("y12s2-fin-exam-m10", "Which is the best financial decision-making habit?", "A", ["Compare final balances after rates, fees, and time", "Choose the biggest advertised rate every time", "Ignore fees", "Use simple interest for every product"], "Good comparisons use all relevant costs and the same time period."),
+      financeChoice("y12s2-fin-exam-m8", "Option A has a final balance of 4320 dollars. Option B has 4390 dollars but a 90 dollar fee. Which option has the higher net balance?", "A", ["Option A", "Option B", "They are equal", "The fee should be ignored"], "Option B's net balance is lower after the fee, so Option A is higher."),
+      financeChoice("y12s2-fin-exam-m9", "Which recurrence best models a loan with 0.6% interest each month followed by a 450 dollar repayment?", "C", ["B_{n+1}=0.994B_n-450", "B_{n+1}=1.006B_n+450", "B_{n+1}=1.006B_n-450", "B_{n+1}=450B_n-1.006"], "The loan balance is multiplied by the interest factor, then the repayment is subtracted."),
+      financeChoice("y12s2-fin-exam-m10", "A loan balance table shows 25000, 24920, 24835 after repayments. Which conclusion is best?", "B", ["The loan is increasing", "The loan is decreasing slowly", "The loan is fully paid off", "The interest rate is definitely zero"], "The balances are decreasing, but there is still a large amount owing."),
     ],
   };
 }
