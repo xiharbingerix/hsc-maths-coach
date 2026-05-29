@@ -15,6 +15,11 @@ export const metadata: Metadata = {
       "Stage 6 maths support with a Year 12 Advanced diagnostic and online learning pathways for available Year 11 and Year 12 courses.",
     type: "website",
   },
+  icons: {
+    icon: "/brand/nova-maths-icon.png",
+    shortcut: "/brand/nova-maths-icon.png",
+    apple: "/brand/nova-maths-icon.png",
+  },
 };
 
 export default function RootLayout({

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -159,8 +160,15 @@ export default function Home() {
     <main className="min-h-screen bg-slate-50 text-slate-900">
       <div className="mx-auto max-w-6xl space-y-12 px-4 py-10 sm:px-6 lg:px-8">
         <header className="flex items-center justify-between gap-4">
-          <Link href="/" className="text-sm font-bold tracking-tight text-slate-950">
-            Nova Maths
+          <Link href="/" className="flex shrink-0 items-center">
+            <Image
+              src="/brand/nova-maths-logo.png"
+              alt="Nova Maths"
+              width={180}
+              height={50}
+              className="h-8 w-auto sm:h-10"
+              priority
+            />
           </Link>
           <Link
             href="/login"
