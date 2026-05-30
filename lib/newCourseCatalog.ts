@@ -41,7 +41,7 @@ import {
   year11ExtensionBinomialTheoremLessonOverride,
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
-import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10TrigonometryLessonOverride } from "./lessons/year10";
+import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 
 export type {
   CourseLessonSeed,
@@ -196,7 +196,8 @@ export function buildLesson(
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
-    year10TrigonometryLessonOverride(course, unit, lesson);
+    year10TrigonometryLessonOverride(course, unit, lesson) ??
+    year10MeasurementLessonOverride(course, unit, lesson);
 
   return {
     id: lesson.slug,
@@ -1294,7 +1295,26 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Calculate surface area and volume of prisms, cylinders, pyramids, cones, and spheres.",
         syllabusArea: "Measurement and Space",
         focus: "Measurement is a core Standard pathway topic and provides context for real-world problem solving.",
-        lessons: [],
+        lessons: [
+          {
+            slug: "surface-area-prisms",
+            title: "Surface Area of Prisms",
+            description:
+              "Calculate the surface area of rectangular and triangular prisms by finding the area of every face and adding them together.",
+          },
+          {
+            slug: "surface-area-cylinders",
+            title: "Surface Area of Cylinders",
+            description:
+              "Apply SA = 2πr² + 2πrh to find the surface area of closed and open cylinders.",
+          },
+          {
+            slug: "volume-prisms-cylinders",
+            title: "Volume of Prisms and Cylinders",
+            description:
+              "Calculate the volume of rectangular prisms, triangular prisms, and cylinders, and rearrange the formula to find an unknown dimension.",
+          },
+        ],
       },
       {
         slug: "geometry-proofs",
