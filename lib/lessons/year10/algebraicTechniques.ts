@@ -184,7 +184,7 @@ const factorisingExpressionsWorkedExamples: WorkedExample[] = [
 
 const factorisingExpressionsGuided: PracticeQuestion[] = [
   algAnswer("fac-ex-g1", "What is the highest common factor of 8x and 12?", "\\text{HCF of }8x\\text{ and }12", "4", ["4"]),
-  algChoice("fac-ex-g2", "Which is the correct factorisation of 6x + 18?", "A",
+  algChoice("fac-ex-g2", "Which is the fully factorised form of 6x + 18?", "A",
     ["$6(x+3)$", "$3(x+6)$", "$6(x+12)$", "$2(3x+9)$"],
     "The HCF of 6x and 18 is 6. Dividing: 6x ÷ 6 = x, 18 ÷ 6 = 3. Result: 6(x + 3).",
     "6x+18"),
@@ -201,7 +201,7 @@ const factorisingExpressionsIndependent: PracticeQuestion[] = [
     ["$3(x^2-2x+3)$", "$3x(x-2)+9$", "$3(x^2-6x+9)$", "$x(3x-6)+9$"],
     "The HCF is 3. Dividing all three terms by 3: x² − 2x + 3. Result: 3(x² − 2x + 3).",
     "3x^2-6x+9"),
-  algChoice("fac-ex-i3", "Which is the correct factorisation of 6x³ + 9x²?", "A",
+  algChoice("fac-ex-i3", "Which is the fully factorised form of 6x³ + 9x²?", "A",
     ["$3x^2(2x+3)$", "$3x(2x^2+3x)$", "$6x^2(x+1.5)$", "$x^2(6x+9)$"],
     "The HCF is 3x². Dividing: 6x³ ÷ 3x² = 2x, 9x² ÷ 3x² = 3. Result: 3x²(2x + 3).",
     "6x^3+9x^2"),
@@ -317,7 +317,7 @@ const factorisingQuadraticsIndependent: PracticeQuestion[] = [
 
 const factorisingQuadraticsMistakes = [
   { mistake: "Choosing numbers that multiply to c but do not add to b.", fix: "Always check both conditions: the pair must satisfy p × q = c AND p + q = b." },
-  { mistake: "Getting the signs wrong, e.g. writing (x + 3)(x − 4) for x² − x − 12 instead of (x + 3)(x − 4)… wait — always substitute back to check.", fix: "Expand your answer by FOIL and check it matches the original expression before writing the final answer." },
+  { mistake: "Choosing numbers that multiply to the constant but add to the wrong middle coefficient, e.g. choosing 4 and −3 for x² − x − 12 because they multiply to −12 but add to +1 instead of −1.", fix: "For x² − x − 12, the numbers must multiply to −12 and add to −1. The pair −4 and 3 satisfies both conditions, giving the factors (x − 4)(x + 3)." },
   { mistake: "When c is positive and b is negative, using one positive and one negative number.", fix: "If the product c is positive, both numbers share the same sign. If b is also negative, both numbers must be negative." },
   { mistake: "Writing the larger or smaller number in the wrong bracket, e.g. (x + 12)(x + 1) instead of (x + 3)(x + 4) for x² + 7x + 12.", fix: "Any pair that satisfies both conditions is correct. Check that p × q = c and p + q = b, regardless of which bracket each number goes in." },
 ];
@@ -422,7 +422,7 @@ const dotsMistakes = [
   { mistake: "Applying DOTS to a sum, writing x² + 25 = (x − 5)(x + 5).", fix: "The rule only works for DIFFERENCES. x² + 25 cannot be factorised using this identity." },
   { mistake: "Confusing difference of two squares with a perfect square, writing x² − 16 = (x − 4)².", fix: "(x − 4)² = x² − 8x + 16, which is not the same as x² − 16. DOTS gives two different factors: (x − 4)(x + 4)." },
   { mistake: "Treating a non-perfect square coefficient as if DOTS applies, e.g. writing 3x² − 12 = (√3 x − 2)(√3 x + 2) directly.", fix: "First remove the common factor: 3x² − 12 = 3(x² − 4), then apply DOTS to x² − 4 = (x − 2)(x + 2)." },
-  { mistake: "Finding the square root of only the coefficient but not the variable, e.g. thinking 4x² = (4x)² rather than (2x)².", fix: "√(4x²) = √4 × √(x²) = 2x. Both the coefficient and the variable must be square-rooted." },
+  { mistake: "Taking the square root of 4x² as 4x rather than 2x, e.g. incorrectly writing 4x² − 9 = (4x − 3)(4x + 3).", fix: "Since 4x² = (2x)², the square root term is 2x, not 4x. The correct factorisation is 4x² − 9 = (2x − 3)(2x + 3)." },
 ];
 
 const dotsMastery: PracticeQuestion[] = [
