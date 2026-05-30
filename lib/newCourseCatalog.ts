@@ -1261,6 +1261,30 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Model real-world situations using angles of elevation and depression, and solve for unknown heights and distances.",
           },
+          {
+            slug: "sine-rule",
+            title: "The Sine Rule",
+            description:
+              "Use the sine rule to find unknown sides and angles in non-right-angled triangles when an opposite side–angle pair is known.",
+          },
+          {
+            slug: "cosine-rule",
+            title: "The Cosine Rule",
+            description:
+              "Apply the cosine rule to find an unknown side or angle in a non-right-angled triangle from two sides and the included angle, or from three sides.",
+          },
+          {
+            slug: "area-trig-formula",
+            title: "Area of a Triangle",
+            description:
+              "Calculate the area of any triangle using A = ½ab sin C when two sides and their included angle are known.",
+          },
+          {
+            slug: "bearings",
+            title: "Bearings",
+            description:
+              "Read and write three-digit compass bearings, find reverse bearings, and solve simple navigation problems using bearings and trigonometry.",
+          },
         ],
       },
       {

@@ -1363,6 +1363,1229 @@ const elevationDepressionMastery: PracticeQuestion[] = [
   ),
 ];
 
+// ─── Lesson 5: The Sine Rule ──────────────────────────────────────────────────
+
+function nonRightAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = [],
+  hint = "Set up the formula, substitute the known values, and solve."
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    hint,
+    explanation: `The answer is ${answer}.`,
+  };
+}
+
+function nonRightChoice(
+  id: string,
+  prompt: string,
+  answer: "A" | "B" | "C" | "D",
+  choices: [string, string, string, string],
+  explanation: string,
+  latex = "\\text{Select A, B, C, or D.}"
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    choices: ["A", "B", "C", "D"].map((label, i) => ({ label, text: choices[i] })),
+    answer,
+    hint: "Consider which pieces of information are given and what you are asked to find.",
+    explanation,
+  };
+}
+
+const sineRuleWorkedExamples: WorkedExample[] = [
+  {
+    title: "Labelling opposite side–angle pairs",
+    questionLatex:
+      "\\text{In triangle }ABC\\text{, angle }A=50^\\circ\\text{, angle }B=70^\\circ\\text{, angle }C=60^\\circ.\\text{ Label side }a\\text{ (opposite }A\\text{), side }b\\text{ (opposite }B\\text{), side }c\\text{ (opposite }C\\text{).}",
+    triangleDiagram: {
+      description:
+        "General triangle with vertices A at bottom-left, B at bottom-right, and C at top-centre. Angle A = 50° is at bottom-left, angle B = 70° is at bottom-right, angle C = 60° is at top. Side a (opposite A) is BC, side b (opposite B) is AC, side c (opposite C) is AB.",
+      vertices: {
+        A: { x: 80, y: 220 },
+        B: { x: 340, y: 220 },
+        C: { x: 210, y: 50 },
+      },
+      angleLabels: { A: "50°", B: "70°", C: "60°" },
+      sideLabels: { BC: "a", AC: "b", AB: "c" },
+    },
+    steps: [
+      {
+        explanation:
+          "Each side is named by the lowercase letter matching the opposite angle. Side a sits across from angle A.",
+        latex: "a=BC\\text{ (opposite }A)",
+      },
+      {
+        explanation: "Side b sits across from angle B.",
+        latex: "b=AC\\text{ (opposite }B)",
+      },
+      {
+        explanation:
+          "Side c sits across from angle C. This labelling is the foundation of the sine rule.",
+        latex:
+          "c=AB\\text{ (opposite }C)\\quad\\Rightarrow\\quad\\frac{a}{\\sin A}=\\frac{b}{\\sin B}=\\frac{c}{\\sin C}",
+      },
+    ],
+    finalAnswerLatex:
+      "\\frac{a}{\\sin 50^\\circ}=\\frac{b}{\\sin 70^\\circ}=\\frac{c}{\\sin 60^\\circ}",
+  },
+  {
+    title: "Finding a side using the sine rule",
+    questionLatex:
+      "\\text{In triangle }ABC\\text{, angle }A=40^\\circ\\text{, angle }B=70^\\circ\\text{, and side }a=8\\text{ cm. Find side }b\\text{ to 1 decimal place.}",
+    triangleDiagram: {
+      description:
+        "General triangle with A at bottom-left, B at bottom-right, C at top-centre. Angle A = 40°, angle B = 70°. Side a (BC) = 8 cm. Side b (AC) is unknown.",
+      vertices: {
+        A: { x: 80, y: 220 },
+        B: { x: 340, y: 220 },
+        C: { x: 210, y: 50 },
+      },
+      angleLabels: { A: "40°", B: "70°" },
+      sideLabels: { BC: "8 cm", AC: "b" },
+    },
+    steps: [
+      {
+        explanation:
+          "Write the sine rule using the two opposite pairs: A with a, and B with b.",
+        latex: "\\frac{b}{\\sin B}=\\frac{a}{\\sin A}",
+      },
+      {
+        explanation: "Substitute the known values.",
+        latex: "\\frac{b}{\\sin 70^\\circ}=\\frac{8}{\\sin 40^\\circ}",
+      },
+      {
+        explanation: "Multiply both sides by sin 70°.",
+        latex: "b=\\frac{8\\times\\sin 70^\\circ}{\\sin 40^\\circ}",
+      },
+      {
+        explanation: "Evaluate using a calculator in degree mode.",
+        latex:
+          "b=\\frac{8\\times 0.9397}{0.6428}\\approx 11.7\\text{ cm}",
+      },
+    ],
+    finalAnswerLatex: "b\\approx 11.7\\text{ cm}",
+  },
+  {
+    title: "Finding an angle using the sine rule",
+    questionLatex:
+      "\\text{In triangle }ABC\\text{, }a=12\\text{ m, }b=9\\text{ m, and angle }B=35^\\circ.\\text{ Find angle }A\\text{ to the nearest degree (take the acute solution).}",
+    triangleDiagram: {
+      description:
+        "General triangle with A at bottom-left, B at bottom-right, C at top-centre. Side a (BC) = 12 m, side b (AC) = 9 m, angle B = 35°. Angle A is unknown.",
+      vertices: {
+        A: { x: 80, y: 220 },
+        B: { x: 340, y: 220 },
+        C: { x: 210, y: 50 },
+      },
+      angleLabels: { B: "35°" },
+      sideLabels: { BC: "12 m", AC: "9 m" },
+    },
+    steps: [
+      {
+        explanation:
+          "Write the sine rule with the angle-to-find (A) on the left.",
+        latex: "\\frac{\\sin A}{a}=\\frac{\\sin B}{b}",
+      },
+      {
+        explanation: "Substitute known values.",
+        latex:
+          "\\frac{\\sin A}{12}=\\frac{\\sin 35^\\circ}{9}",
+      },
+      {
+        explanation: "Solve for sin A.",
+        latex:
+          "\\sin A=\\frac{12\\times\\sin 35^\\circ}{9}=\\frac{12\\times 0.5736}{9}\\approx 0.7648",
+      },
+      {
+        explanation: "Apply inverse sine to find A.",
+        latex: "A=\\sin^{-1}(0.7648)\\approx 50^\\circ",
+      },
+    ],
+    finalAnswerLatex: "A\\approx 50^\\circ",
+  },
+];
+
+const sineRuleGuided: PracticeQuestion[] = [
+  nonRightChoice(
+    "sine-rule-g1",
+    "In triangle PQR, angle Q = 50°. Which side is opposite angle Q?",
+    "C",
+    ["PQ", "QR", "PR", "All three sides"],
+    "Side PR is opposite vertex Q because it does not touch Q. In any triangle, the side opposite an angle is the one that does not include that vertex.",
+    "\\text{Triangle }PQR,\\;\\angle Q=50^\\circ"
+  ),
+  nonRightChoice(
+    "sine-rule-g2",
+    "In triangle ABC, angle A = 45°, angle B = 65°, side a = 10. Which expression correctly finds side b?",
+    "A",
+    [
+      "$b=\\dfrac{10\\times\\sin 65^\\circ}{\\sin 45^\\circ}$",
+      "$b=\\dfrac{10\\times\\sin 45^\\circ}{\\sin 65^\\circ}$",
+      "$b=\\dfrac{\\sin 65^\\circ}{10\\times\\sin 45^\\circ}$",
+      "$b=10\\times\\cos 65^\\circ$",
+    ],
+    "From b/sin B = a/sin A: b = a × sin B / sin A = 10 × sin 65° / sin 45°. Option B has the sines inverted.",
+    "a=10,\\;\\angle A=45^\\circ,\\;\\angle B=65^\\circ"
+  ),
+  nonRightAnswer(
+    "sine-rule-g3",
+    "In triangle ABC, angle A = 55°, angle C = 70°, a = 10 cm. Find side c to 1 decimal place.",
+    "\\angle A=55^\\circ,\\;\\angle C=70^\\circ,\\;a=10\\text{ cm}",
+    "11.5",
+    ["11.5 cm"],
+    "Use c/sin C = a/sin A, so c = 10 × sin 70° / sin 55°."
+  ),
+  nonRightAnswer(
+    "sine-rule-g4",
+    "In triangle ABC, a = 7 m, b = 10 m, angle A = 32°. Find angle B to the nearest degree (take the acute value).",
+    "a=7\\text{ m},\\;b=10\\text{ m},\\;\\angle A=32^\\circ",
+    "49",
+    ["49°", "49 degrees"],
+    "Use sin B / b = sin A / a, so sin B = 10 × sin 32° / 7 ≈ 0.757, then B = sin⁻¹(0.757) ≈ 49°."
+  ),
+];
+
+const sineRuleIndependent: PracticeQuestion[] = [
+  nonRightAnswer(
+    "sine-rule-i1",
+    "In triangle ABC, angle B = 48°, angle C = 63°, b = 15 m. Find side c to 1 decimal place.",
+    "\\angle B=48^\\circ,\\;\\angle C=63^\\circ,\\;b=15\\text{ m}",
+    "18.0",
+    ["18.0 m", "18 m", "18"],
+    "Use c/sin C = b/sin B: c = 15 × sin 63° / sin 48°."
+  ),
+  nonRightAnswer(
+    "sine-rule-i2",
+    "In triangle ABC, a = 6 m, b = 9 m, angle B = 55°. Find angle A to the nearest degree.",
+    "a=6\\text{ m},\\;b=9\\text{ m},\\;\\angle B=55^\\circ",
+    "33",
+    ["33°", "33 degrees"],
+    "Use sin A / a = sin B / b: sin A = 6 × sin 55° / 9 ≈ 0.546, so A = sin⁻¹(0.546) ≈ 33°."
+  ),
+  nonRightChoice(
+    "sine-rule-i3",
+    "Triangle DEF has angle D = 72°, side d = 20 m, side e = 15 m. Which equation correctly finds angle E?",
+    "A",
+    [
+      "$\\sin E=\\dfrac{15\\times\\sin 72^\\circ}{20}$",
+      "$\\sin E=\\dfrac{20\\times\\sin 72^\\circ}{15}$",
+      "$\\sin E=\\dfrac{\\sin 72^\\circ}{15\\times 20}$",
+      "$E=\\cos^{-1}\\!\\left(\\dfrac{15}{20}\\right)$",
+    ],
+    "From sin E / e = sin D / d: sin E = e × sin D / d = 15 × sin 72° / 20.",
+    "\\angle D=72^\\circ,\\;d=20\\text{ m},\\;e=15\\text{ m}"
+  ),
+  nonRightAnswer(
+    "sine-rule-i4",
+    "Two observers at points A and B, 200 m apart, sight a tower at C. Angle A = 72°, angle B = 65°. Find the distance BC to 1 decimal place.",
+    "AB=200\\text{ m},\\;\\angle A=72^\\circ,\\;\\angle B=65^\\circ",
+    "278.9",
+    ["278.9 m"],
+    "Angle C = 180° − 72° − 65° = 43°. Then BC/sin A = AB/sin C, so BC = 200 × sin 72° / sin 43°."
+  ),
+  nonRightAnswer(
+    "sine-rule-i5",
+    "In triangle ABC, c = 8 m, a = 5 m, angle C = 60°. Find angle A to the nearest degree.",
+    "c=8\\text{ m},\\;a=5\\text{ m},\\;\\angle C=60^\\circ",
+    "33",
+    ["33°", "33 degrees"],
+    "Use sin A / a = sin C / c: sin A = 5 × sin 60° / 8 ≈ 0.541, so A = sin⁻¹(0.541) ≈ 33°."
+  ),
+];
+
+const sineRuleMistakes = [
+  {
+    mistake: "Pairing a side with the wrong opposite angle in the sine rule.",
+    fix: "Always match lowercase side a with angle A, side b with angle B, side c with angle C. Draw the triangle and label pairs before substituting.",
+  },
+  {
+    mistake:
+      "Using the sine rule when the cosine rule is required — for example, when two sides and the included angle are given.",
+    fix: "The sine rule needs an opposite pair (a side and its opposite angle). If only sides and their included angle are known, use the cosine rule instead.",
+  },
+  {
+    mistake:
+      "Forgetting the ambiguous case: assuming sin⁻¹ always gives the only valid angle.",
+    fix: "When finding an angle, check whether 180° minus your answer also gives a valid triangle. If so, both are possible solutions.",
+  },
+  {
+    mistake:
+      "Setting up the ratio as sin A / a on one side and b / sin B on the other, mixing which way the fractions go.",
+    fix: "Keep a consistent form: either a/sin A = b/sin B throughout, or sin A/a = sin B/b throughout. Never mix the two arrangements.",
+  },
+];
+
+const sineRuleMastery: PracticeQuestion[] = [
+  nonRightChoice(
+    "sine-rule-m1",
+    "In triangle XYZ, which side is opposite angle X?",
+    "C",
+    ["XY", "XZ", "YZ", "The hypotenuse"],
+    "Side YZ is opposite vertex X because it does not touch X. The hypotenuse only applies to right triangles.",
+    "\\text{Triangle }XYZ"
+  ),
+  nonRightAnswer(
+    "sine-rule-m2",
+    "In triangle ABC, angle A = 52°, angle B = 67°, a = 9 cm. Find side b to 1 decimal place.",
+    "\\angle A=52^\\circ,\\;\\angle B=67^\\circ,\\;a=9\\text{ cm}",
+    "10.5",
+    ["10.5 cm"],
+    "b = 9 × sin 67° / sin 52°."
+  ),
+  nonRightAnswer(
+    "sine-rule-m3",
+    "In triangle PQR, p = 7, q = 5, angle P = 58°. Find angle Q to the nearest degree.",
+    "p=7,\\;q=5,\\;\\angle P=58^\\circ",
+    "37",
+    ["37°", "37 degrees"],
+    "sin Q = 5 × sin 58° / 7 ≈ 0.606, so Q = sin⁻¹(0.606) ≈ 37°."
+  ),
+  nonRightChoice(
+    "sine-rule-m4",
+    "Triangle has a = 8, b = 6, angle A = 50°. Which equation finds angle B?",
+    "A",
+    [
+      "$\\sin B=\\dfrac{6\\times\\sin 50^\\circ}{8}$",
+      "$\\sin B=\\dfrac{8\\times\\sin 50^\\circ}{6}$",
+      "$B=\\cos^{-1}\\!\\left(\\dfrac{6}{8}\\right)$",
+      "$\\sin B=\\dfrac{\\sin 50^\\circ}{6\\times 8}$",
+    ],
+    "From sin B / b = sin A / a: sin B = 6 × sin 50° / 8.",
+    "a=8,\\;b=6,\\;\\angle A=50^\\circ"
+  ),
+  nonRightAnswer(
+    "sine-rule-m5",
+    "In triangle XYZ, angle X = 44°, angle Y = 82°, x = 13 m. Find side y to 1 decimal place.",
+    "\\angle X=44^\\circ,\\;\\angle Y=82^\\circ,\\;x=13\\text{ m}",
+    "18.5",
+    ["18.5 m"],
+    "y = 13 × sin 82° / sin 44°."
+  ),
+  nonRightAnswer(
+    "sine-rule-m6",
+    "In triangle ABC, a = 15, b = 9, angle A = 70°. Find angle B to the nearest degree.",
+    "a=15,\\;b=9,\\;\\angle A=70^\\circ",
+    "34",
+    ["34°", "34 degrees"],
+    "sin B = 9 × sin 70° / 15 ≈ 0.564, so B = sin⁻¹(0.564) ≈ 34°."
+  ),
+  nonRightChoice(
+    "sine-rule-m7",
+    "In triangle ABC, angle A = 30°, a = 5, b = 9. After calculating sin B = 0.9, how many valid triangles are possible?",
+    "C",
+    [
+      "None — sin B cannot exceed 1",
+      "Exactly one, taking the acute angle",
+      "Two — both B ≈ 64° and B ≈ 116° give positive remaining angles",
+      "It is impossible to determine without knowing side c",
+    ],
+    "sin B = 0.9 < 1, so a triangle exists. B ≈ 64° gives C ≈ 86° (valid). B ≈ 116° gives C ≈ 34° (also valid). Both work — this is the ambiguous case.",
+    "\\angle A=30^\\circ,\\;a=5,\\;b=9"
+  ),
+  nonRightAnswer(
+    "sine-rule-m8",
+    "In triangle ABC, angle A = 48°, angle B = 73°, b = 22 m. Find side c to 1 decimal place.",
+    "\\angle A=48^\\circ,\\;\\angle B=73^\\circ,\\;b=22\\text{ m}",
+    "19.7",
+    ["19.7 m"],
+    "Angle C = 180° − 48° − 73° = 59°. Then c = 22 × sin 59° / sin 73°."
+  ),
+  nonRightAnswer(
+    "sine-rule-m9",
+    "A triangular plot has angles 43° and 78°, with the side between them 65 m long. Find the longest side to the nearest metre.",
+    "\\text{angles }43^\\circ,\\;78^\\circ,\\;\\text{side between them }=65\\text{ m}",
+    "74",
+    ["74 m"],
+    "The third angle is 59°. The side between 43° and 78° is opposite the 59° angle. The longest side is opposite 78°: b = 65 × sin 78° / sin 59°."
+  ),
+  nonRightAnswer(
+    "sine-rule-m10",
+    "Two angles of a triangle are 51° and 46°. The side opposite the 51° angle is 18 m. Find the side opposite the 46° angle to 1 decimal place.",
+    "\\text{angles }51^\\circ,\\;46^\\circ;\\text{ side opposite }51^\\circ\\text{ is }18\\text{ m}",
+    "16.7",
+    ["16.7 m"],
+    "b = 18 × sin 46° / sin 51°."
+  ),
+];
+
+// ─── Lesson 6: The Cosine Rule ────────────────────────────────────────────────
+
+const cosineRuleWorkedExamples: WorkedExample[] = [
+  {
+    title: "Finding a side using the cosine rule",
+    questionLatex:
+      "\\text{In triangle }ABC\\text{, }a=8\\text{ cm, }b=11\\text{ cm, and angle }C=60^\\circ.\\text{ Find side }c\\text{ to 1 decimal place.}",
+    triangleDiagram: {
+      description:
+        "General triangle with A at bottom-left, B at bottom-right, C at top-centre. Side a (BC) = 8 cm, side b (AC) = 11 cm, included angle C = 60°. Side c (AB) is unknown.",
+      vertices: {
+        A: { x: 80, y: 220 },
+        B: { x: 340, y: 220 },
+        C: { x: 210, y: 50 },
+      },
+      angleLabels: { C: "60°" },
+      sideLabels: { BC: "8 cm", AC: "11 cm", AB: "c" },
+    },
+    steps: [
+      {
+        explanation:
+          "Write the cosine rule. Side c is opposite the known angle C, and a and b are the two sides that form angle C.",
+        latex: "c^2=a^2+b^2-2ab\\cos C",
+      },
+      {
+        explanation: "Substitute a = 8, b = 11, C = 60°.",
+        latex:
+          "c^2=8^2+11^2-2\\times 8\\times 11\\times\\cos 60^\\circ",
+      },
+      {
+        explanation: "cos 60° = 0.5 exactly.",
+        latex: "c^2=64+121-176\\times 0.5=185-88=97",
+      },
+      {
+        explanation: "Take the positive square root.",
+        latex: "c=\\sqrt{97}\\approx 9.8\\text{ cm}",
+      },
+    ],
+    finalAnswerLatex: "c\\approx 9.8\\text{ cm}",
+  },
+  {
+    title: "Finding an angle using the cosine rule",
+    questionLatex:
+      "\\text{In triangle }ABC\\text{, }a=5\\text{ cm, }b=7\\text{ cm, }c=9\\text{ cm. Find angle }C\\text{ to the nearest degree.}",
+    triangleDiagram: {
+      description:
+        "General triangle with A at bottom-left, B at bottom-right, C at top-centre. Side a (BC) = 5 cm, side b (AC) = 7 cm, side c (AB) = 9 cm. All sides known, finding angle C.",
+      vertices: {
+        A: { x: 80, y: 220 },
+        B: { x: 340, y: 220 },
+        C: { x: 210, y: 50 },
+      },
+      sideLabels: { BC: "5 cm", AC: "7 cm", AB: "9 cm" },
+    },
+    steps: [
+      {
+        explanation:
+          "Rearrange the cosine rule to make cos C the subject.",
+        latex:
+          "\\cos C=\\frac{a^2+b^2-c^2}{2ab}",
+      },
+      {
+        explanation: "Substitute a = 5, b = 7, c = 9.",
+        latex:
+          "\\cos C=\\frac{25+49-81}{2\\times 5\\times 7}=\\frac{-7}{70}=-0.1",
+      },
+      {
+        explanation: "Apply inverse cosine.",
+        latex: "C=\\cos^{-1}(-0.1)\\approx 96^\\circ",
+      },
+    ],
+    finalAnswerLatex: "C\\approx 96^\\circ",
+  },
+  {
+    title: "Choosing between the sine rule and cosine rule",
+    questionLatex:
+      "\\text{For each triangle, decide which rule to use: (i) two sides and the included angle; (ii) two angles and one side; (iii) three sides.}",
+    steps: [
+      {
+        explanation:
+          "Two sides and the included angle (SAS) → cosine rule. You cannot use the sine rule because you do not have an opposite pair.",
+        latex:
+          "\\text{SAS: }c^2=a^2+b^2-2ab\\cos C",
+      },
+      {
+        explanation:
+          "Two angles and one side (AAS or ASA) → sine rule. You know an opposite pair (the given side and its opposite angle), so the sine rule applies directly.",
+        latex:
+          "\\text{AAS/ASA: }\\frac{a}{\\sin A}=\\frac{b}{\\sin B}",
+      },
+      {
+        explanation:
+          "Three sides (SSS) → cosine rule rearranged. No angle is given, so the sine rule cannot start the solution.",
+        latex:
+          "\\text{SSS: }\\cos C=\\frac{a^2+b^2-c^2}{2ab}",
+      },
+    ],
+    finalAnswerLatex:
+      "\\text{SAS or SSS}\\Rightarrow\\text{cosine rule};\\quad\\text{AAS or ASA}\\Rightarrow\\text{sine rule}",
+  },
+];
+
+const cosineRuleGuided: PracticeQuestion[] = [
+  nonRightChoice(
+    "cosine-rule-g1",
+    "Triangle PQR has sides PQ = 8 cm, PR = 6 cm, and angle P = 50°. Which rule should you use to find QR?",
+    "A",
+    [
+      "Cosine rule — two sides and the included angle are known",
+      "Sine rule — an angle–opposite-side pair is known",
+      "Pythagoras — this is a right triangle",
+      "Cannot be solved with the given information",
+    ],
+    "PQ and PR are the two sides forming angle P (the included angle), and QR is the unknown. This is SAS — use the cosine rule.",
+    "PQ=8,\\;PR=6,\\;\\angle P=50^\\circ"
+  ),
+  nonRightAnswer(
+    "cosine-rule-g2",
+    "In triangle ABC, a = 6 cm, b = 10 cm, C = 45°. Find side c to 1 decimal place.",
+    "a=6\\text{ cm},\\;b=10\\text{ cm},\\;C=45^\\circ",
+    "7.2",
+    ["7.2 cm"],
+    "c² = 6² + 10² − 2(6)(10) cos 45° = 136 − 84.9 = 51.1, so c = √51.1 ≈ 7.2."
+  ),
+  nonRightChoice(
+    "cosine-rule-g3",
+    "In triangle ABC with sides a, b, c and angles A, B, C, the formula c² = a² + b² − 2ab cos C uses C as the included angle. Which angle is the included angle between sides a and b?",
+    "C",
+    ["Angle A", "Angle B", "Angle C", "Any of the three angles"],
+    "Sides a and b meet at vertex C, so angle C is the included angle between them. This is always true by the labelling convention.",
+    "\\text{Triangle }ABC\\text{ with standard labelling}"
+  ),
+  nonRightAnswer(
+    "cosine-rule-g4",
+    "A triangle has sides 5 cm, 8 cm, 10 cm. Find the largest angle to the nearest degree.",
+    "\\text{sides }5,\\;8,\\;10\\text{ cm}",
+    "98",
+    ["98°", "98 degrees"],
+    "The largest angle is opposite the longest side (10). cos C = (25 + 64 − 100)/(2×5×8) = −11/80 ≈ −0.1375, so C ≈ 98°."
+  ),
+];
+
+const cosineRuleIndependent: PracticeQuestion[] = [
+  nonRightAnswer(
+    "cosine-rule-i1",
+    "In triangle ABC, a = 12 cm, b = 15 cm, C = 38°. Find side c to 1 decimal place.",
+    "a=12\\text{ cm},\\;b=15\\text{ cm},\\;C=38^\\circ",
+    "9.2",
+    ["9.2 cm"],
+    "c² = 144 + 225 − 2(12)(15) cos 38° = 369 − 283.7 = 85.3, so c = √85.3 ≈ 9.2."
+  ),
+  nonRightChoice(
+    "cosine-rule-i2",
+    "A triangle has sides a = 7, b = 9, c = 11, and no angle is given. Which method finds angle C directly?",
+    "A",
+    [
+      "Cosine rule: $\\cos C=\\dfrac{a^2+b^2-c^2}{2ab}$",
+      "Sine rule (requires a known angle to start)",
+      "Pythagoras (only for right triangles)",
+      "Cannot be solved without an angle",
+    ],
+    "With all three sides known (SSS), rearrange the cosine rule: cos C = (a² + b² − c²)/(2ab). The sine rule requires at least one known angle.",
+    "a=7,\\;b=9,\\;c=11"
+  ),
+  nonRightAnswer(
+    "cosine-rule-i3",
+    "A triangle has sides 8 cm, 10 cm, 13 cm. Find the largest angle to the nearest degree.",
+    "\\text{sides }8,\\;10,\\;13\\text{ cm}",
+    "92",
+    ["92°", "92 degrees"],
+    "Largest angle opposite longest side (13). cos C = (64 + 100 − 169)/160 = −5/160 ≈ −0.031, so C ≈ 92°."
+  ),
+  nonRightAnswer(
+    "cosine-rule-i4",
+    "In triangle ABC, a = 5 cm, b = 7 cm, C = 110°. Find side c to 1 decimal place.",
+    "a=5\\text{ cm},\\;b=7\\text{ cm},\\;C=110^\\circ",
+    "9.9",
+    ["9.9 cm"],
+    "c² = 25 + 49 − 2(5)(7) cos 110° = 74 + 23.9 = 97.9 (cos 110° is negative), so c = √97.9 ≈ 9.9."
+  ),
+  nonRightAnswer(
+    "cosine-rule-i5",
+    "Two ships A and B leave port P. Ship A travels 50 km and ship B travels 70 km. The angle between their paths is 50°. Find the distance AB to 1 decimal place.",
+    "PA=50\\text{ km},\\;PB=70\\text{ km},\\;\\text{angle between paths}=50^\\circ",
+    "53.9",
+    ["53.9 km"],
+    "AB² = 50² + 70² − 2(50)(70) cos 50° = 7400 − 4499.5 = 2900.5, so AB = √2900.5 ≈ 53.9 km."
+  ),
+];
+
+const cosineRuleMistakes = [
+  {
+    mistake:
+      "Writing c² = a² + b² + 2ab cos C (adding instead of subtracting).",
+    fix: "The cosine rule always subtracts the 2ab cos C term. Remember: c² = a² + b² − 2ab cos C. The subtraction accounts for the triangle not being right-angled.",
+  },
+  {
+    mistake:
+      "Rearranging the angle form incorrectly: writing cos C = (c² − a² − b²)/(2ab).",
+    fix: "Rearrange carefully: subtract c² from both sides of c² = a² + b² − 2ab cos C to get cos C = (a² + b² − c²)/(2ab). The numerator is a² + b² − c², not c² − a² − b².",
+  },
+  {
+    mistake: "Forgetting to take the square root after finding c².",
+    fix: "The formula gives c², not c. Always take the positive square root as the final step: c = √(c²).",
+  },
+  {
+    mistake:
+      "Using the cosine rule when the sine rule is more efficient — for example, with two angles and one side.",
+    fix: "If you have an angle–opposite-side pair and one more angle or side, the sine rule is simpler. The cosine rule is for SAS (two sides, included angle) or SSS (three sides).",
+  },
+];
+
+const cosineRuleMastery: PracticeQuestion[] = [
+  nonRightChoice(
+    "cosine-rule-m1",
+    "In the cosine rule c² = a² + b² − 2ab cos C, angle C is the included angle between which two sides?",
+    "A",
+    [
+      "Sides a and b",
+      "Sides b and c",
+      "Sides a and c",
+      "Any two of the three sides",
+    ],
+    "Angle C is at vertex C. The two sides meeting at C are a (opposite A, from C to A) and b (opposite B, from C to B). Side c (AB) is opposite C and does not touch vertex C.",
+    "c^2=a^2+b^2-2ab\\cos C"
+  ),
+  nonRightAnswer(
+    "cosine-rule-m2",
+    "In triangle ABC, a = 9 cm, b = 12 cm, C = 55°. Find side c to 1 decimal place.",
+    "a=9\\text{ cm},\\;b=12\\text{ cm},\\;C=55^\\circ",
+    "10.1",
+    ["10.1 cm"],
+    "c² = 81 + 144 − 2(9)(12) cos 55° = 225 − 123.9 = 101.1, so c ≈ 10.1."
+  ),
+  nonRightAnswer(
+    "cosine-rule-m3",
+    "A triangle has sides 6 cm, 8 cm, 11 cm. Find the largest angle to the nearest degree.",
+    "\\text{sides }6,\\;8,\\;11\\text{ cm}",
+    "103",
+    ["103°", "103 degrees"],
+    "cos C = (36 + 64 − 121)/(2×6×8) = −21/96 ≈ −0.219, so C = cos⁻¹(−0.219) ≈ 103°."
+  ),
+  nonRightChoice(
+    "cosine-rule-m4",
+    "Which situation requires the cosine rule?",
+    "C",
+    [
+      "Two angles and one side given (AAS)",
+      "Two sides and a non-included angle given (SSA)",
+      "Two sides and the included angle given (SAS)",
+      "Three angles given",
+    ],
+    "SAS (two sides and the included angle) requires the cosine rule because there is no opposite-angle pair to use the sine rule. Three angles give no side lengths. SSA may use the sine rule (or creates the ambiguous case).",
+    "\\text{Choose the correct rule for each situation}"
+  ),
+  nonRightAnswer(
+    "cosine-rule-m5",
+    "In triangle ABC, a = 4 cm, b = 7 cm, C = 120°. Find side c to 1 decimal place.",
+    "a=4\\text{ cm},\\;b=7\\text{ cm},\\;C=120^\\circ",
+    "9.6",
+    ["9.6 cm"],
+    "cos 120° = −0.5, so c² = 16 + 49 − 2(4)(7)(−0.5) = 65 + 28 = 93, c = √93 ≈ 9.6."
+  ),
+  nonRightAnswer(
+    "cosine-rule-m6",
+    "A triangle has sides 6 cm, 9 cm, 12 cm. Find the largest angle to the nearest degree.",
+    "\\text{sides }6,\\;9,\\;12\\text{ cm}",
+    "104",
+    ["104°", "104 degrees"],
+    "cos C = (36 + 81 − 144)/(2×6×9) = −27/108 = −0.25, so C = cos⁻¹(−0.25) ≈ 104°."
+  ),
+  nonRightChoice(
+    "cosine-rule-m7",
+    "From c² = a² + b² − 2ab cos C, which equation correctly isolates cos C?",
+    "A",
+    [
+      "$\\cos C=\\dfrac{a^2+b^2-c^2}{2ab}$",
+      "$\\cos C=\\dfrac{c^2-a^2-b^2}{2ab}$",
+      "$\\cos C=\\dfrac{a^2+b^2+c^2}{2ab}$",
+      "$\\cos C=\\dfrac{2ab}{a^2+b^2-c^2}$",
+    ],
+    "Add 2ab cos C to both sides, then subtract c²: 2ab cos C = a² + b² − c², so cos C = (a² + b² − c²)/(2ab).",
+    "c^2=a^2+b^2-2ab\\cos C"
+  ),
+  nonRightAnswer(
+    "cosine-rule-m8",
+    "In triangle ABC, a = 13 cm, b = 17 cm, C = 52°. Find side c to 1 decimal place.",
+    "a=13\\text{ cm},\\;b=17\\text{ cm},\\;C=52^\\circ",
+    "13.6",
+    ["13.6 cm"],
+    "c² = 169 + 289 − 2(13)(17) cos 52° = 458 − 272.1 = 185.9, so c = √185.9 ≈ 13.6."
+  ),
+  nonRightAnswer(
+    "cosine-rule-m9",
+    "A triangular park has sides 20 m, 25 m, and 30 m. Find the largest angle to the nearest degree.",
+    "\\text{sides }20,\\;25,\\;30\\text{ m}",
+    "83",
+    ["83°", "83 degrees"],
+    "Largest angle opposite 30 m: cos C = (400 + 625 − 900)/1000 = 0.125, so C = cos⁻¹(0.125) ≈ 83°."
+  ),
+  nonRightAnswer(
+    "cosine-rule-m10",
+    "Two paths from a camp meet at an angle of 78°. One path is 3.5 km and the other is 5.2 km. Find the direct distance between the far ends of the paths to 1 decimal place.",
+    "\\text{sides }3.5\\text{ km and }5.2\\text{ km},\\;\\text{included angle }78^\\circ",
+    "5.6",
+    ["5.6 km"],
+    "d² = 3.5² + 5.2² − 2(3.5)(5.2) cos 78° = 12.25 + 27.04 − 7.57 = 31.72, so d = √31.72 ≈ 5.6 km."
+  ),
+];
+
+// ─── Lesson 7: Area of a Triangle ────────────────────────────────────────────
+
+const areaTrigWorkedExamples: WorkedExample[] = [
+  {
+    title: "Finding area from two sides and the included angle",
+    questionLatex:
+      "\\text{Triangle }ABC\\text{ has }a=8\\text{ cm, }b=11\\text{ cm, and included angle }C=40^\\circ.\\text{ Find the area to 1 decimal place.}",
+    triangleDiagram: {
+      description:
+        "General triangle with A at bottom-left, B at bottom-right, C at top-centre. Sides a (BC) = 8 cm and b (AC) = 11 cm form the included angle C = 40° at vertex C.",
+      vertices: {
+        A: { x: 80, y: 220 },
+        B: { x: 340, y: 220 },
+        C: { x: 210, y: 50 },
+      },
+      angleLabels: { C: "40°" },
+      sideLabels: { BC: "8 cm", AC: "11 cm" },
+    },
+    steps: [
+      {
+        explanation:
+          "The area formula uses two sides and the angle between them (the included angle).",
+        latex: "A=\\tfrac{1}{2}ab\\sin C",
+      },
+      {
+        explanation: "Substitute a = 8, b = 11, C = 40°.",
+        latex:
+          "A=\\tfrac{1}{2}\\times 8\\times 11\\times\\sin 40^\\circ",
+      },
+      {
+        explanation: "Evaluate.",
+        latex:
+          "A=44\\times 0.6428\\approx 28.3\\text{ cm}^2",
+      },
+    ],
+    finalAnswerLatex: "A\\approx 28.3\\text{ cm}^2",
+  },
+  {
+    title: "Identifying the included angle",
+    questionLatex:
+      "\\text{A triangle has two sides of }7\\text{ m and }10\\text{ m meeting at an angle of }65^\\circ.\\text{ Find the area to 1 decimal place.}",
+    triangleDiagram: {
+      description:
+        "General triangle. The two known sides are 7 m and 10 m, and the included angle between them is 65°.",
+      vertices: {
+        A: { x: 80, y: 220 },
+        B: { x: 340, y: 220 },
+        C: { x: 210, y: 50 },
+      },
+      angleLabels: { C: "65°" },
+      sideLabels: { BC: "7 m", AC: "10 m" },
+    },
+    steps: [
+      {
+        explanation:
+          "The angle between the two known sides is the included angle — here 65°.",
+        latex: "\\text{Included angle }C=65^\\circ",
+      },
+      {
+        explanation: "Apply the area formula.",
+        latex:
+          "A=\\tfrac{1}{2}\\times 7\\times 10\\times\\sin 65^\\circ",
+      },
+      {
+        explanation: "Evaluate.",
+        latex:
+          "A=35\\times 0.9063\\approx 31.7\\text{ m}^2",
+      },
+    ],
+    finalAnswerLatex: "A\\approx 31.7\\text{ m}^2",
+  },
+  {
+    title: "Applying the area formula to a real context",
+    questionLatex:
+      "\\text{A triangular garden has two fences of }12\\text{ m and }15\\text{ m meeting at an angle of }72^\\circ.\\text{ Find the area to 1 decimal place.}",
+    steps: [
+      {
+        explanation:
+          "Identify the two sides (12 m and 15 m) and the included angle (72°).",
+        latex: "A=\\tfrac{1}{2}\\times 12\\times 15\\times\\sin 72^\\circ",
+      },
+      {
+        explanation: "Evaluate.",
+        latex: "A=90\\times 0.9511\\approx 85.6\\text{ m}^2",
+      },
+    ],
+    finalAnswerLatex: "A\\approx 85.6\\text{ m}^2",
+  },
+];
+
+const areaTrigGuided: PracticeQuestion[] = [
+  nonRightChoice(
+    "area-trig-g1",
+    "Triangle ABC has AB = 9 m, BC = 7 m, and angle B = 58°. Which angle is the included angle for the area formula using sides AB and BC?",
+    "B",
+    ["Angle A", "Angle B", "Angle C", "Any angle will work"],
+    "Sides AB and BC both touch vertex B, so angle B is the included angle between them.",
+    "AB=9\\text{ m},\\;BC=7\\text{ m},\\;\\angle B=58^\\circ"
+  ),
+  nonRightAnswer(
+    "area-trig-g2",
+    "A triangle has sides a = 6 cm and b = 9 cm with included angle C = 55°. Find the area to 1 decimal place.",
+    "a=6\\text{ cm},\\;b=9\\text{ cm},\\;C=55^\\circ",
+    "22.1",
+    ["22.1 cm²", "22.1 cm2"],
+    "A = ½ × 6 × 9 × sin 55° = 27 × 0.8192 ≈ 22.1 cm²."
+  ),
+  nonRightChoice(
+    "area-trig-g3",
+    "Two sides of a triangle are 5 m and 8 m. The angle between them is 40°. Which expression gives the area?",
+    "A",
+    [
+      "$\\tfrac{1}{2}\\times 5\\times 8\\times\\sin 40^\\circ$",
+      "$5\\times 8\\times\\sin 40^\\circ$",
+      "$\\tfrac{1}{2}\\times 5\\times 8\\times\\cos 40^\\circ$",
+      "$\\tfrac{1}{2}\\times(5+8)\\times\\sin 40^\\circ$",
+    ],
+    "Area = ½ × side₁ × side₂ × sin(included angle) = ½ × 5 × 8 × sin 40°. Option B forgets the ½; option C uses cosine instead of sine.",
+    "\\text{sides }5\\text{ m and }8\\text{ m},\\;\\text{included angle }40^\\circ"
+  ),
+  nonRightAnswer(
+    "area-trig-g4",
+    "A triangle has sides 14 m and 18 m with included angle 80°. Find the area to the nearest square metre.",
+    "\\text{sides }14\\text{ m and }18\\text{ m},\\;\\text{included angle }80^\\circ",
+    "124",
+    ["124 m²", "124 m2", "124 square metres"],
+    "A = ½ × 14 × 18 × sin 80° = 126 × 0.9848 ≈ 124 m²."
+  ),
+];
+
+const areaTrigIndependent: PracticeQuestion[] = [
+  nonRightAnswer(
+    "area-trig-i1",
+    "A triangle has sides 5 cm and 8 cm with included angle 30°. Find the area to 1 decimal place.",
+    "\\text{sides }5\\text{ cm and }8\\text{ cm},\\;\\text{included angle }30^\\circ",
+    "10.0",
+    ["10", "10 cm²", "10.0 cm²"],
+    "A = ½ × 5 × 8 × sin 30° = 20 × 0.5 = 10 cm²."
+  ),
+  nonRightAnswer(
+    "area-trig-i2",
+    "Triangle ABC has a = 11 cm, b = 13 cm, included angle C = 48°. Find the area to 1 decimal place.",
+    "a=11\\text{ cm},\\;b=13\\text{ cm},\\;C=48^\\circ",
+    "53.1",
+    ["53.1 cm²", "53.1 cm2"],
+    "A = ½ × 11 × 13 × sin 48° = 71.5 × 0.7431 ≈ 53.1 cm²."
+  ),
+  nonRightChoice(
+    "area-trig-i3",
+    "Two sides are 6 m and 9 m. The angle between them is 105°. Which expression gives the area?",
+    "A",
+    [
+      "$\\tfrac{1}{2}\\times 6\\times 9\\times\\sin 105^\\circ$",
+      "$6\\times 9\\times\\sin 105^\\circ$",
+      "$\\tfrac{1}{2}\\times 6\\times 9\\times\\cos 105^\\circ$",
+      "$\\tfrac{1}{2}\\times 6\\times 9\\times\\tan 105^\\circ$",
+    ],
+    "Area = ½ × 6 × 9 × sin 105°. The ½ is essential and sin (not cos or tan) is used regardless of whether the angle is acute or obtuse.",
+    "\\text{sides }6\\text{ m and }9\\text{ m},\\;\\text{included angle }105^\\circ"
+  ),
+  nonRightAnswer(
+    "area-trig-i4",
+    "A triangular sail has two sides of 6 m and 9 m meeting at an angle of 105°. Find the area to the nearest square metre.",
+    "\\text{sides }6\\text{ m and }9\\text{ m},\\;\\text{included angle }105^\\circ",
+    "26",
+    ["26 m²", "26 m2", "26 square metres"],
+    "A = ½ × 6 × 9 × sin 105° = 27 × 0.9659 ≈ 26 m²."
+  ),
+  nonRightAnswer(
+    "area-trig-i5",
+    "A triangular field has two sides of 20 m and 25 m with included angle 63°. Find the area to the nearest square metre.",
+    "\\text{sides }20\\text{ m and }25\\text{ m},\\;\\text{included angle }63^\\circ",
+    "223",
+    ["223 m²", "223 m2", "223 square metres"],
+    "A = ½ × 20 × 25 × sin 63° = 250 × 0.8910 ≈ 223 m²."
+  ),
+];
+
+const areaTrigMistakes = [
+  {
+    mistake: "Forgetting the ½ and writing Area = ab sin C instead of ½ab sin C.",
+    fix: "The formula is A = ½ab sin C. The ½ comes from the fact that a triangle is half a parallelogram. Always include it.",
+  },
+  {
+    mistake:
+      "Using an angle that is not between the two chosen sides (not the included angle).",
+    fix: "The angle in the formula must be the one sandwiched between the two sides you are using. If you pick sides AB and BC, the angle must be at vertex B.",
+  },
+  {
+    mistake: "Using cos C instead of sin C in the formula.",
+    fix: "The formula is A = ½ab sin C — sine, not cosine. The area formula uses the sine of the included angle.",
+  },
+  {
+    mistake:
+      "Thinking the formula only works for acute triangles and refusing to apply it when C is obtuse.",
+    fix: "A = ½ab sin C works for any triangle, including those with obtuse angles. sin C is positive for any angle between 0° and 180°, so the formula always gives a positive area.",
+  },
+];
+
+const areaTrigMastery: PracticeQuestion[] = [
+  nonRightChoice(
+    "area-trig-m1",
+    "The formula A = ½ab sin C is most directly useful when:",
+    "B",
+    [
+      "All three sides are known",
+      "Two sides and the included angle are known",
+      "One side and two angles are known",
+      "The triangle is right-angled",
+    ],
+    "The formula needs two sides (a and b) and the angle between them (C). If all three sides are known, you would need the cosine rule to find an angle first.",
+    "A=\\tfrac{1}{2}ab\\sin C"
+  ),
+  nonRightAnswer(
+    "area-trig-m2",
+    "A triangle has sides 4 cm and 7 cm with included angle 90°. Find the area.",
+    "\\text{sides }4\\text{ cm and }7\\text{ cm},\\;\\text{included angle }90^\\circ",
+    "14",
+    ["14 cm²", "14 cm2", "14.0"],
+    "A = ½ × 4 × 7 × sin 90° = ½ × 28 × 1 = 14 cm². This confirms the formula: a right triangle's area is ½ × base × height."
+  ),
+  nonRightAnswer(
+    "area-trig-m3",
+    "Triangle ABC has sides 8 cm and 10 cm with included angle 43°. Find the area to 1 decimal place.",
+    "\\text{sides }8\\text{ cm and }10\\text{ cm},\\;\\text{included angle }43^\\circ",
+    "27.3",
+    ["27.3 cm²", "27.3 cm2"],
+    "A = ½ × 8 × 10 × sin 43° = 40 × 0.682 ≈ 27.3 cm²."
+  ),
+  nonRightChoice(
+    "area-trig-m4",
+    "Triangle PQR has PQ = 12 m, QR = 9 m, angle Q = 67°. Which expression gives the area?",
+    "A",
+    [
+      "$\\tfrac{1}{2}\\times 12\\times 9\\times\\sin 67^\\circ$",
+      "$\\tfrac{1}{2}\\times 12\\times 9\\times\\cos 67^\\circ$",
+      "$12\\times 9\\times\\sin 67^\\circ$",
+      "$\\tfrac{1}{2}\\times(12+9)\\times\\sin 67^\\circ$",
+    ],
+    "Sides PQ and QR form angle Q. Area = ½ × PQ × QR × sin Q = ½ × 12 × 9 × sin 67°.",
+    "PQ=12\\text{ m},\\;QR=9\\text{ m},\\;\\angle Q=67^\\circ"
+  ),
+  nonRightAnswer(
+    "area-trig-m5",
+    "A triangular roof panel has sides 15 m and 22 m with included angle 58°. Find the area to the nearest square metre.",
+    "\\text{sides }15\\text{ m and }22\\text{ m},\\;\\text{included angle }58^\\circ",
+    "140",
+    ["140 m²", "140 m2", "140 square metres"],
+    "A = ½ × 15 × 22 × sin 58° = 165 × 0.848 ≈ 140 m²."
+  ),
+  nonRightAnswer(
+    "area-trig-m6",
+    "A triangle has sides 9 cm and 12 cm with included angle 135°. Find the area to 1 decimal place.",
+    "\\text{sides }9\\text{ cm and }12\\text{ cm},\\;\\text{included angle }135^\\circ",
+    "38.2",
+    ["38.2 cm²", "38.2 cm2"],
+    "A = ½ × 9 × 12 × sin 135° = 54 × 0.7071 ≈ 38.2 cm². sin 135° = sin 45° ≈ 0.707."
+  ),
+  nonRightChoice(
+    "area-trig-m7",
+    "A student writes: Area = ½ × 10 × 14 × sin 85°. What does 85° represent in this triangle?",
+    "A",
+    [
+      "The angle between the two known sides (the included angle)",
+      "The angle opposite the longest side",
+      "The angle opposite the shortest side",
+      "The sum of the other two angles",
+    ],
+    "In A = ½ab sin C, the angle C is always the included angle between the two sides used. Here, 10 and 14 are the two sides, and 85° is the angle between them.",
+    "A=\\tfrac{1}{2}\\times 10\\times 14\\times\\sin 85^\\circ"
+  ),
+  nonRightAnswer(
+    "area-trig-m8",
+    "A triangular block of land has two sides of 40 m and 55 m, with the angle between them 71°. Find the area to the nearest square metre.",
+    "\\text{sides }40\\text{ m and }55\\text{ m},\\;\\text{included angle }71^\\circ",
+    "1040",
+    ["1040 m²", "1040 m2", "1040 square metres"],
+    "A = ½ × 40 × 55 × sin 71° = 1100 × 0.9455 ≈ 1040 m²."
+  ),
+  nonRightAnswer(
+    "area-trig-m9",
+    "A triangle has area 30 cm² and two sides of 10 cm and 8 cm. Find the included angle to the nearest degree.",
+    "\\text{Area}=30\\text{ cm}^2,\\;\\text{sides }10\\text{ cm and }8\\text{ cm}",
+    "49",
+    ["49°", "49 degrees"],
+    "30 = ½ × 10 × 8 × sin C = 40 sin C, so sin C = 0.75, C = sin⁻¹(0.75) ≈ 49°."
+  ),
+  nonRightAnswer(
+    "area-trig-m10",
+    "A triangular plot has sides 18 m and 24 m. Its area is 180 m². Find the included angle to the nearest degree.",
+    "\\text{sides }18\\text{ m and }24\\text{ m},\\;\\text{Area}=180\\text{ m}^2",
+    "56",
+    ["56°", "56 degrees"],
+    "180 = ½ × 18 × 24 × sin C = 216 sin C, so sin C = 180/216 ≈ 0.833, C = sin⁻¹(0.833) ≈ 56°."
+  ),
+];
+
+// ─── Lesson 8: Bearings ───────────────────────────────────────────────────────
+
+const bearingsWorkedExamples: WorkedExample[] = [
+  {
+    title: "Converting compass directions to three-digit bearings",
+    questionLatex:
+      "\\text{Write each compass direction as a three-digit bearing: (a) North, (b) South-East, (c) West, (d) a direction }25^\\circ\\text{ east of north.}",
+    steps: [
+      {
+        explanation:
+          "Bearings are measured clockwise from north. North is 0°, written as 000° using three digits.",
+        latex: "\\text{(a) North}=000^\\circ",
+      },
+      {
+        explanation:
+          "South-East is halfway between south (180°) and east (90°), so 135° clockwise from north.",
+        latex: "\\text{(b) South-East}=135^\\circ",
+      },
+      {
+        explanation: "West is 270° clockwise from north.",
+        latex: "\\text{(c) West}=270^\\circ",
+      },
+      {
+        explanation:
+          "25° east of north means 25° clockwise from north, written as a three-digit bearing.",
+        latex: "\\text{(d) }25^\\circ\\text{ east of north}=025^\\circ",
+      },
+    ],
+    finalAnswerLatex:
+      "000^\\circ,\\;135^\\circ,\\;270^\\circ,\\;025^\\circ",
+  },
+  {
+    title: "Finding a reverse bearing",
+    questionLatex:
+      "\\text{Point B is on a bearing of }110^\\circ\\text{ from point A. Find the bearing of A from B.}",
+    steps: [
+      {
+        explanation:
+          "The reverse (back) bearing differs by 180° because you are looking in the opposite direction.",
+        latex: "\\text{Reverse bearing}=\\text{bearing}\\pm 180^\\circ",
+      },
+      {
+        explanation:
+          "Since 110° < 180°, add 180° to stay within the 0°–360° range.",
+        latex: "110^\\circ+180^\\circ=290^\\circ",
+      },
+      {
+        explanation:
+          "The bearing of A from B is 290°. Rule: add 180° if the original bearing is less than 180°; subtract 180° if it is 180° or more.",
+        latex: "\\text{Bearing of A from B}=290^\\circ",
+      },
+    ],
+    finalAnswerLatex: "290^\\circ",
+  },
+  {
+    title: "Finding north and east components from a bearing",
+    questionLatex:
+      "\\text{A ship travels }100\\text{ km on a bearing of }060^\\circ.\\text{ Find how far north and how far east it has traveled, to 1 decimal place.}",
+    steps: [
+      {
+        explanation:
+          "Draw a right triangle. The bearing 060° is 60° measured clockwise from north. The north component uses cosine, the east component uses sine.",
+        latex:
+          "\\text{North component}=100\\cos 60^\\circ,\\quad\\text{East component}=100\\sin 60^\\circ",
+      },
+      {
+        explanation: "cos 60° = 0.5 exactly.",
+        latex: "\\text{North}=100\\times 0.5=50\\text{ km}",
+      },
+      {
+        explanation: "sin 60° ≈ 0.8660.",
+        latex: "\\text{East}=100\\times 0.8660\\approx 86.6\\text{ km}",
+      },
+    ],
+    finalAnswerLatex:
+      "\\text{North}=50\\text{ km},\\quad\\text{East}\\approx 86.6\\text{ km}",
+  },
+];
+
+const bearingsGuided: PracticeQuestion[] = [
+  nonRightChoice(
+    "bearings-g1",
+    "Which three-digit bearing represents north-east (NE)?",
+    "A",
+    ["045°", "090°", "135°", "315°"],
+    "NE is exactly halfway between north (000°) and east (090°), so it is 045°. East is 090°, south-east is 135°, north-west is 315°.",
+    "\\text{Convert NE to a three-digit bearing}"
+  ),
+  nonRightAnswer(
+    "bearings-g2",
+    "State the reverse bearing of 130°.",
+    "\\text{bearing }130^\\circ",
+    "310",
+    ["310°"],
+    "Since 130° < 180°, add 180°: 130° + 180° = 310°."
+  ),
+  nonRightChoice(
+    "bearings-g3",
+    "A bearing of 250° points in which general direction?",
+    "C",
+    ["North-west", "South-east", "South-west", "North-east"],
+    "250° is between 180° (south) and 270° (west), so it points south-west. NW is 270°–360°, SE is 090°–180°, NE is 000°–090°.",
+    "\\text{bearing }250^\\circ"
+  ),
+  nonRightAnswer(
+    "bearings-g4",
+    "A ship travels 80 km on bearing 030°. How far east has it traveled? Give your answer to 1 decimal place.",
+    "\\text{distance }80\\text{ km},\\;\\text{bearing }030^\\circ",
+    "40.0",
+    ["40", "40 km", "40.0 km"],
+    "East = 80 × sin 30° = 80 × 0.5 = 40 km."
+  ),
+];
+
+const bearingsIndependent: PracticeQuestion[] = [
+  nonRightAnswer(
+    "bearings-i1",
+    "Write the bearing for due south as a three-digit number.",
+    "\\text{due south}",
+    "180",
+    ["180°"],
+    "South is directly opposite north. Measured clockwise from north, south is 180°."
+  ),
+  nonRightAnswer(
+    "bearings-i2",
+    "Find the reverse bearing of 225°.",
+    "\\text{bearing }225^\\circ",
+    "045",
+    ["45", "45°", "045°"],
+    "Since 225° ≥ 180°, subtract 180°: 225° − 180° = 045°."
+  ),
+  nonRightChoice(
+    "bearings-i3",
+    "A bearing of 315° points in which direction?",
+    "B",
+    ["South-west", "North-west", "South-east", "North-east"],
+    "315° is between 270° (west) and 360°/000° (north), so it points north-west. SW is 180°–270°, SE is 090°–180°, NE is 000°–090°.",
+    "\\text{bearing }315^\\circ"
+  ),
+  nonRightAnswer(
+    "bearings-i4",
+    "A hiker walks 50 km on bearing 060°. How far east has the hiker traveled? Give your answer to 1 decimal place.",
+    "\\text{distance }50\\text{ km},\\;\\text{bearing }060^\\circ",
+    "43.3",
+    ["43.3 km"],
+    "East = 50 × sin 60° = 50 × 0.8660 ≈ 43.3 km."
+  ),
+  nonRightAnswer(
+    "bearings-i5",
+    "A boat travels 90 km on bearing 120°. How far south has it traveled? Give your answer to the nearest kilometre.",
+    "\\text{distance }90\\text{ km},\\;\\text{bearing }120^\\circ",
+    "45",
+    ["45 km"],
+    "Bearing 120° is 120° clockwise from north. South component = 90 × |cos 120°| = 90 × 0.5 = 45 km (cos 120° = −0.5)."
+  ),
+];
+
+const bearingsMistakes = [
+  {
+    mistake: "Measuring bearings from south or from the nearest axis rather than from north.",
+    fix: "Bearings are always measured from north, clockwise. Start by drawing a north line at the point, then rotate clockwise to the direction of travel.",
+  },
+  {
+    mistake: "Measuring anti-clockwise instead of clockwise.",
+    fix: "Bearings increase clockwise. East is 090°, south is 180°, west is 270°. Going anti-clockwise from north gives compass directions, not bearings.",
+  },
+  {
+    mistake: "Writing 45 instead of 045° — not using three digits.",
+    fix: "Bearings always use three digits. Write 045°, not 45°. This convention avoids confusion between a bearing and an ordinary angle.",
+  },
+  {
+    mistake:
+      "Finding the reverse bearing by subtracting 90° rather than 180°.",
+    fix: "The reverse bearing (looking back along a path) differs by 180°, not 90°. Add 180° if the original bearing is less than 180°; subtract 180° if it is 180° or greater.",
+  },
+];
+
+const bearingsMastery: PracticeQuestion[] = [
+  nonRightChoice(
+    "bearings-m1",
+    "Which three-digit bearing represents south-west (SW)?",
+    "B",
+    ["180°", "225°", "270°", "315°"],
+    "SW is halfway between south (180°) and west (270°), so it is 225°. South is 180°, west is 270°, NW is 315°.",
+    "\\text{Convert SW to a three-digit bearing}"
+  ),
+  nonRightAnswer(
+    "bearings-m2",
+    "Find the reverse bearing of 065°.",
+    "\\text{bearing }065^\\circ",
+    "245",
+    ["245°"],
+    "65° < 180°, so add 180°: 65° + 180° = 245°."
+  ),
+  nonRightAnswer(
+    "bearings-m3",
+    "Find the reverse bearing of 280°.",
+    "\\text{bearing }280^\\circ",
+    "100",
+    ["100°"],
+    "280° ≥ 180°, so subtract 180°: 280° − 180° = 100°."
+  ),
+  nonRightChoice(
+    "bearings-m4",
+    "A ship sails in the direction 'S 40° W' (40° west of south). What is its three-digit bearing?",
+    "B",
+    ["140°", "220°", "040°", "320°"],
+    "S 40° W means starting at south (180°) and rotating 40° further clockwise towards west: 180° + 40° = 220°.",
+    "\\text{S }40^\\circ\\text{ W}"
+  ),
+  nonRightAnswer(
+    "bearings-m5",
+    "From point A, point B has a bearing of 042°. What is the bearing of A from B?",
+    "\\text{bearing of B from A}=042^\\circ",
+    "222",
+    ["222°"],
+    "42° < 180°, so add 180°: 42° + 180° = 222°."
+  ),
+  nonRightAnswer(
+    "bearings-m6",
+    "A ship travels 120 km on bearing 035°. How far north has it traveled? Give your answer to the nearest kilometre.",
+    "\\text{distance }120\\text{ km},\\;\\text{bearing }035^\\circ",
+    "98",
+    ["98 km"],
+    "North = 120 × cos 35° = 120 × 0.8192 ≈ 98 km."
+  ),
+  nonRightAnswer(
+    "bearings-m7",
+    "A ship travels 120 km on bearing 035°. How far east has it traveled? Give your answer to the nearest kilometre.",
+    "\\text{distance }120\\text{ km},\\;\\text{bearing }035^\\circ",
+    "69",
+    ["69 km"],
+    "East = 120 × sin 35° = 120 × 0.5736 ≈ 69 km."
+  ),
+  nonRightChoice(
+    "bearings-m8",
+    "Which of the following bearings is in the north-west quadrant (between 270° and 360°)?",
+    "B",
+    ["230°", "310°", "180°", "095°"],
+    "310° is between 270° and 360°, so it is in the north-west quadrant. 230° is SW, 180° is south, 095° is just east of east.",
+    "\\text{Identify the NW quadrant bearing}"
+  ),
+  nonRightAnswer(
+    "bearings-m9",
+    "Town B is on a bearing of 145° from Town A. What is the bearing of Town A from Town B?",
+    "\\text{bearing of B from A}=145^\\circ",
+    "325",
+    ["325°"],
+    "145° < 180°, so add 180°: 145° + 180° = 325°."
+  ),
+  nonRightAnswer(
+    "bearings-m10",
+    "A ship sails 80 km on bearing 200°. How far south has it traveled? Give your answer to 1 decimal place.",
+    "\\text{distance }80\\text{ km},\\;\\text{bearing }200^\\circ",
+    "75.2",
+    ["75.2 km"],
+    "Bearing 200° is 20° past south. South component = 80 × |cos 200°| = 80 × cos 20° ≈ 80 × 0.9397 ≈ 75.2 km."
+  ),
+];
+
 // ─── Main override function ───────────────────────────────────────────────────
 
 export function year10TrigonometryLessonOverride(
@@ -1503,6 +2726,141 @@ export function year10TrigonometryLessonOverride(
       independentPractice: elevationDepressionIndependent,
       commonMistakes: elevationDepressionMistakes,
       masteryQuiz: elevationDepressionMastery,
+      masteryPassMark: 0.8,
+    };
+  }
+
+  if (lesson.slug === "sine-rule") {
+    return {
+      description:
+        "Use the sine rule to find unknown sides and angles in non-right-angled triangles when an opposite side–angle pair is known.",
+      learningIntention:
+        "Apply the sine rule to find an unknown side or angle in a non-right-angled triangle.",
+      successCriteria: [
+        "Identify opposite side–angle pairs and label the triangle using the a, b, c and A, B, C convention.",
+        "Set up the sine rule correctly for finding a side or an angle.",
+        "Use the inverse sine function to find an unknown angle and round to the nearest degree.",
+        "Recognise when the sine rule applies and be aware that two solutions may exist when finding an angle.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The sine rule connects the sides and angles of any triangle — not just right triangles. In triangle ABC, side a is opposite angle A, side b is opposite angle B, and side c is opposite angle C.",
+          "The rule states: a/sin A = b/sin B = c/sin C. Any two of these equal fractions can be used to find an unknown side or angle, as long as you have one complete opposite pair.",
+          "To find a side: isolate the unknown side on the left. For example, b = a × sin B / sin A.",
+          "To find an angle: isolate sin of the unknown angle, then apply sin⁻¹. Note that sin⁻¹ always returns an acute angle. If the problem allows an obtuse solution (the ambiguous case), you must check whether 180° minus your answer also forms a valid triangle.",
+        ],
+        latexBlocks: [
+          "\\frac{a}{\\sin A}=\\frac{b}{\\sin B}=\\frac{c}{\\sin C}",
+          "\\text{Finding a side: }b=\\frac{a\\times\\sin B}{\\sin A}",
+          "\\text{Finding an angle: }\\sin A=\\frac{a\\times\\sin B}{b}\\implies A=\\sin^{-1}\\!\\left(\\frac{a\\times\\sin B}{b}\\right)",
+        ],
+      },
+      workedExamples: sineRuleWorkedExamples,
+      guidedPractice: sineRuleGuided,
+      independentPractice: sineRuleIndependent,
+      commonMistakes: sineRuleMistakes,
+      masteryQuiz: sineRuleMastery,
+      masteryPassMark: 0.8,
+    };
+  }
+
+  if (lesson.slug === "cosine-rule") {
+    return {
+      description:
+        "Use the cosine rule to find unknown sides and angles in non-right-angled triangles when two sides and the included angle, or all three sides, are known.",
+      learningIntention:
+        "Apply the cosine rule to find an unknown side or angle in a non-right-angled triangle.",
+      successCriteria: [
+        "Identify the included angle between two known sides and apply c² = a² + b² − 2ab cos C.",
+        "Rearrange the cosine rule to find an angle: cos C = (a² + b² − c²)/(2ab).",
+        "Recognise which rule — sine or cosine — is appropriate for a given set of known information.",
+        "Round correctly and interpret answers in context.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The cosine rule is used for non-right triangles when either two sides and the included angle are given (SAS), or all three sides are given (SSS).",
+          "To find a side: c² = a² + b² − 2ab cos C, where C is the angle between sides a and b. Take the square root at the end.",
+          "To find an angle from three known sides: rearrange to cos C = (a² + b² − c²)/(2ab), then apply cos⁻¹. If the result is negative, the angle is obtuse — cos⁻¹ handles this correctly.",
+          "Decision guide: if you have AAS or ASA (an angle–side pair), use the sine rule. If you have SAS or SSS, use the cosine rule.",
+        ],
+        latexBlocks: [
+          "c^2=a^2+b^2-2ab\\cos C",
+          "\\cos C=\\frac{a^2+b^2-c^2}{2ab}",
+          "\\text{SAS or SSS}\\Rightarrow\\text{cosine rule};\\quad\\text{AAS or ASA}\\Rightarrow\\text{sine rule}",
+        ],
+      },
+      workedExamples: cosineRuleWorkedExamples,
+      guidedPractice: cosineRuleGuided,
+      independentPractice: cosineRuleIndependent,
+      commonMistakes: cosineRuleMistakes,
+      masteryQuiz: cosineRuleMastery,
+      masteryPassMark: 0.8,
+    };
+  }
+
+  if (lesson.slug === "area-trig-formula") {
+    return {
+      description:
+        "Use the trigonometric area formula A = ½ab sin C to find the area of any triangle when two sides and their included angle are known.",
+      learningIntention:
+        "Apply A = ½ab sin C to calculate the area of a triangle from two sides and their included angle.",
+      successCriteria: [
+        "Identify the included angle — the angle between the two known sides.",
+        "Substitute correctly into A = ½ab sin C and evaluate.",
+        "Express area in square units and round to the required precision.",
+        "Rearrange the formula to find an included angle from a known area and two sides.",
+      ],
+      teaching: {
+        paragraphs: [
+          "For a right triangle, area = ½ × base × height. When the triangle is not right-angled and the perpendicular height is not given, the formula A = ½ab sin C connects the area to two sides and their included angle.",
+          "The included angle C is the angle formed between sides a and b at their common vertex. If sides AB and BC are the two chosen sides, the included angle is at vertex B.",
+          "The formula works for any triangle — acute, obtuse, or right-angled. For a right triangle (C = 90°), sin 90° = 1, so the formula reduces to ½ab, which matches the standard formula.",
+          "Square units must always be stated in the answer. Common contexts include triangular land areas, sail areas, and roof panels.",
+        ],
+        latexBlocks: [
+          "A=\\tfrac{1}{2}ab\\sin C",
+          "\\text{Rearranged: }\\sin C=\\frac{2A}{ab}\\implies C=\\sin^{-1}\\!\\left(\\frac{2A}{ab}\\right)",
+        ],
+      },
+      workedExamples: areaTrigWorkedExamples,
+      guidedPractice: areaTrigGuided,
+      independentPractice: areaTrigIndependent,
+      commonMistakes: areaTrigMistakes,
+      masteryQuiz: areaTrigMastery,
+      masteryPassMark: 0.8,
+    };
+  }
+
+  if (lesson.slug === "bearings") {
+    return {
+      description:
+        "Read, write, and work with three-digit compass bearings, find reverse bearings, and calculate north/east components from a bearing and distance.",
+      learningIntention:
+        "Use three-digit bearings to describe directions and solve simple navigation problems.",
+      successCriteria: [
+        "Write any compass direction as a three-digit bearing measured clockwise from north.",
+        "Find the reverse bearing of a given bearing by adding or subtracting 180°.",
+        "Use sin and cos to find the north and east components of a journey given a bearing and distance.",
+        "Interpret bearing diagrams and descriptions correctly.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A bearing is an angle measured clockwise from north, always written as a three-digit number. North is 000°, east is 090°, south is 180°, west is 270°.",
+          "Three digits are always used: write 045°, not 45°. This convention distinguishes bearings from ordinary angles and avoids ambiguity.",
+          "The reverse bearing (bearing back along the same path) differs by 180°. If the original bearing is less than 180°, add 180°. If it is 180° or more, subtract 180°.",
+          "To find north and east components of a journey: north = distance × cos(bearing), east = distance × sin(bearing). These follow from resolving the displacement vector along the north and east axes.",
+        ],
+        latexBlocks: [
+          "\\text{Reverse bearing: bearing}\\pm 180^\\circ",
+          "\\text{North component}=d\\cos\\theta,\\quad\\text{East component}=d\\sin\\theta",
+          "\\text{e.g. bearing }060^\\circ,\\;d=100\\text{ km}:\\;\\text{North}=50\\text{ km},\\;\\text{East}\\approx 86.6\\text{ km}",
+        ],
+      },
+      workedExamples: bearingsWorkedExamples,
+      guidedPractice: bearingsGuided,
+      independentPractice: bearingsIndependent,
+      commonMistakes: bearingsMistakes,
+      masteryQuiz: bearingsMastery,
       masteryPassMark: 0.8,
     };
   }
