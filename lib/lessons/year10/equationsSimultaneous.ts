@@ -377,12 +377,12 @@ const simultaneousSubstitutionWorkedExamples: WorkedExample[] = [
 
 const simultaneousSubstitutionGuided: PracticeQuestion[] = [
   eqAnswer("sub-g1", "For y = x + 3 and 2x + y = 12: after substituting y, what value of x solves the equation?",
-    "2x+(x+3)=12", "3", ["3"]),
+    "y=x+3,\\quad 2x+y=12", "3", ["3"]),
   eqChoice("sub-g2", "Which equation correctly substitutes y = 2x into x + y = 9?", "A",
     ["$x+2x=9$", "$2x+y=9$", "$x+2=9$", "$2x+2=9$"],
     "Replace y with 2x in x + y = 9 to get x + 2x = 9, which simplifies to 3x = 9.",
     "x+y=9,\\;y=2x"),
-  eqAnswer("sub-g3", "Solve y = 3x − 1 and y = x + 5. What is x?", "3x-1=x+5", "3", ["3"]),
+  eqAnswer("sub-g3", "Solve y = 3x − 1 and y = x + 5. What is x?", "y=3x-1,\\quad y=x+5", "3", ["3"]),
   eqChoice("sub-g4", "Which equation results from substituting y = x + 4 into x + y = 10?", "A",
     ["$2x+4=10$", "$x+4=10$", "$x+x=10$", "$x-4=10$"],
     "Replace y with (x + 4): x + (x + 4) = x + x + 4 = 2x + 4 = 10.",
@@ -390,16 +390,16 @@ const simultaneousSubstitutionGuided: PracticeQuestion[] = [
 ];
 
 const simultaneousSubstitutionIndependent: PracticeQuestion[] = [
-  eqAnswer("sub-i1", "Solve y = x + 1 and x + y = 7. Write solution as (x, y).", "x+(x+1)=7",
+  eqAnswer("sub-i1", "Solve y = x + 1 and x + y = 7. Write solution as (x, y).", "y=x+1,\\quad x+y=7",
     "(3, 4)", ["(3,4)", "x=3, y=4", "x = 3, y = 4", "3, 4"]),
   eqChoice("sub-i2", "Which correctly substitutes y = 3x into 2x + y = 15?", "A",
     ["$2x+3x=15$", "$2x+3=15$", "$3(2x)=15$", "$x+3x=15$"],
     "Replace y with 3x: 2x + 3x = 5x = 15, so x = 3.",
     "2x+y=15,\\;y=3x"),
-  eqAnswer("sub-i3", "Solve y = 2x + 1 and y = x + 6. What is the value of y?", "2x+1=x+6", "11", ["11"]),
-  eqAnswer("sub-i4", "Solve y = x − 3 and 2x + y = 9. Write solution as (x, y).", "2x+(x-3)=9",
+  eqAnswer("sub-i3", "Solve y = 2x + 1 and y = x + 6. What is the value of y?", "y=2x+1,\\quad y=x+6", "11", ["11"]),
+  eqAnswer("sub-i4", "Solve y = x − 3 and 2x + y = 9. Write solution as (x, y).", "y=x-3,\\quad 2x+y=9",
     "(4, 1)", ["(4,1)", "x=4, y=1", "x = 4, y = 1", "4, 1"]),
-  eqAnswer("sub-i5", "What is x in the solution of y = 4x and x + y = 10?", "x+4x=10", "2", ["2"]),
+  eqAnswer("sub-i5", "What is x in the solution of y = 4x and x + y = 10?", "y=4x,\\quad x+y=10", "2", ["2"]),
 ];
 
 const simultaneousSubstitutionMistakes = [
@@ -410,25 +410,25 @@ const simultaneousSubstitutionMistakes = [
 ];
 
 const simultaneousSubstitutionMastery: PracticeQuestion[] = [
-  eqAnswer("sub-m1", "For y = x + 5 and x + y = 11, what is y?", "x+(x+5)=11", "8", ["8"]),
+  eqAnswer("sub-m1", "For y = x + 5 and x + y = 11, what is y?", "y=x+5,\\quad x+y=11", "8", ["8"]),
   eqChoice("sub-m2", "Which correctly substitutes y = 2x − 3 into x + y = 9?", "A",
     ["$x+2x-3=9$", "$x+2x+3=9$", "$2x-3=9$", "$x-(2x-3)=9$"],
     "Replace y with (2x − 3): x + (2x − 3) = x + 2x − 3 = 3x − 3 = 9.",
     "x+y=9,\\;y=2x-3"),
-  eqAnswer("sub-m3", "Solve y = 3x and 2x + y = 25. What is x?", "2x+3x=25", "5", ["5"]),
-  eqAnswer("sub-m4", "Solve y = x − 2 and y = 2x − 7. Write solution as (x, y).", "x-2=2x-7",
+  eqAnswer("sub-m3", "Solve y = 3x and 2x + y = 25. What is x?", "y=3x,\\quad 2x+y=25", "5", ["5"]),
+  eqAnswer("sub-m4", "Solve y = x − 2 and y = 2x − 7. Write solution as (x, y).", "y=x-2,\\quad y=2x-7",
     "(5, 3)", ["(5,3)", "x=5, y=3", "x = 5, y = 3", "5, 3"]),
   eqChoice("sub-m5", "After substituting y = x + 1 into x + y = 9 and solving, what is x?", "A",
     ["$x=4$", "$x=5$", "$x=3$", "$x=8$"],
     "x + (x + 1) = 9 → 2x + 1 = 9 → 2x = 8 → x = 4.",
-    "x+(x+1)=9"),
-  eqAnswer("sub-m6", "Solve y = 2x + 3 and y = x + 8. What is y?", "2x+3=x+8", "13", ["13"]),
+    "y=x+1,\\quad x+y=9"),
+  eqAnswer("sub-m6", "Solve y = 2x + 3 and y = x + 8. What is y?", "y=2x+3,\\quad y=x+8", "13", ["13"]),
   eqChoice("sub-m7", "The solution to y = x + 6 and 3x + y = 18 is (x, y). Which is correct?", "A",
     ["$(3,\\,9)$", "$(4,\\,10)$", "$(2,\\,8)$", "$(6,\\,12)$"],
     "3x + (x + 6) = 18 → 4x = 12 → x = 3. Then y = 3 + 6 = 9.",
     "3x+y=18,\\;y=x+6"),
-  eqAnswer("sub-m8", "Solve 3x + y = 17 and y = x + 1. What is x?", "3x+(x+1)=17", "4", ["4"]),
-  eqAnswer("sub-m9", "Solve y = 2x − 1 and 3x − y = 7. Write solution as (x, y).", "3x-(2x-1)=7",
+  eqAnswer("sub-m8", "Solve 3x + y = 17 and y = x + 1. What is x?", "y=x+1,\\quad 3x+y=17", "4", ["4"]),
+  eqAnswer("sub-m9", "Solve y = 2x − 1 and 3x − y = 7. Write solution as (x, y).", "y=2x-1,\\quad 3x-y=7",
     "(6, 11)", ["(6,11)", "x=6, y=11", "x = 6, y = 11", "6, 11"]),
   eqChoice("sub-m10", "Two simultaneous equations have solution (4, −1). Which pair is consistent with this?", "A",
     ["$y=x-5$ and $x+y=3$", "$y=x+5$ and $x+y=3$", "$y=x-5$ and $x+y=5$", "$y=x+5$ and $x+y=5$"],
@@ -470,12 +470,12 @@ const simultaneousEliminationWorkedExamples: WorkedExample[] = [
 ];
 
 const simultaneousEliminationGuided: PracticeQuestion[] = [
-  eqAnswer("elim-g1", "For x + y = 8 and x − y = 2: add the two equations. What is x?", "(x+y)+(x-y)=8+2", "5", ["5"]),
+  eqAnswer("elim-g1", "For x + y = 8 and x − y = 2: add the two equations. What is x?", "x+y=8,\\quad x-y=2", "5", ["5"]),
   eqChoice("elim-g2", "Which operation eliminates y from 3x + y = 10 and x + y = 4?", "A",
     ["Subtract the second equation from the first", "Add the two equations", "Multiply the first by 2 then subtract", "Multiply the second by 3 then add"],
     "(3x+y) − (x+y) = 2x. The y-terms cancel when we subtract.",
     "3x+y=10\\text{ and }x+y=4"),
-  eqAnswer("elim-g3", "Solve 2x + y = 9 and x + y = 6. Subtract to eliminate y. What is x?", "(2x+y)-(x+y)=9-6", "3", ["3"]),
+  eqAnswer("elim-g3", "Solve 2x + y = 9 and x + y = 6. Subtract to eliminate y. What is x?", "2x+y=9,\\quad x+y=6", "3", ["3"]),
   eqChoice("elim-g4", "Which operation correctly eliminates x from x + 2y = 7 and x + y = 5?", "A",
     ["Subtract the second equation from the first", "Add the two equations", "Multiply the first by 2 then subtract", "Divide both equations by x"],
     "(x+2y) − (x+y) = y. The x-terms cancel when we subtract, giving y = 2.",
@@ -483,7 +483,7 @@ const simultaneousEliminationGuided: PracticeQuestion[] = [
 ];
 
 const simultaneousEliminationIndependent: PracticeQuestion[] = [
-  eqAnswer("elim-i1", "Solve x + y = 10 and x − y = 4. Write solution as (x, y).", "(x+y)+(x-y)=10+4",
+  eqAnswer("elim-i1", "Solve x + y = 10 and x − y = 4. Write solution as (x, y).", "x+y=10,\\quad x-y=4",
     "(7, 3)", ["(7,3)", "x=7, y=3", "x = 7, y = 3", "7, 3"]),
   eqAnswer("elim-i2", "Solve 2x + y = 13 and x + y = 8. Subtract to eliminate y. What is y?", "2x+y=13\\text{ and }x+y=8",
     "3", ["3"]),
@@ -491,8 +491,8 @@ const simultaneousEliminationIndependent: PracticeQuestion[] = [
     ["Subtract the second from the first to eliminate x", "Add the two equations to eliminate x", "Multiply the first by 2 then subtract", "Divide both equations by 2"],
     "The x-coefficients are both 2. Subtract: (2x+3y)−(2x+y) = 2y = 8, giving y = 4.",
     "2x+3y=14\\text{ and }2x+y=6"),
-  eqAnswer("elim-i4", "Solve 4x + y = 19 and 2x + y = 11. Subtract. What is x?", "(4x+y)-(2x+y)=19-11", "4", ["4"]),
-  eqAnswer("elim-i5", "Solve 3x + 2y = 20 and x + 2y = 12. Write solution as (x, y).", "(3x+2y)-(x+2y)=20-12",
+  eqAnswer("elim-i4", "Solve 4x + y = 19 and 2x + y = 11. Subtract. What is x?", "4x+y=19,\\quad 2x+y=11", "4", ["4"]),
+  eqAnswer("elim-i5", "Solve 3x + 2y = 20 and x + 2y = 12. Write solution as (x, y).", "3x+2y=20,\\quad x+2y=12",
     "(4, 4)", ["(4,4)", "x=4, y=4", "x = 4, y = 4", "4, 4"]),
 ];
 
@@ -504,25 +504,25 @@ const simultaneousEliminationMistakes = [
 ];
 
 const simultaneousEliminationMastery: PracticeQuestion[] = [
-  eqAnswer("elim-m1", "For x + y = 12 and x − y = 4, add the equations. What is x?", "(x+y)+(x-y)=12+4", "8", ["8"]),
+  eqAnswer("elim-m1", "For x + y = 12 and x − y = 4, add the equations. What is x?", "x+y=12,\\quad x-y=4", "8", ["8"]),
   eqChoice("elim-m2", "To eliminate y from 3x + 2y = 10 and x + 2y = 6, which step works?", "A",
     ["Subtract the second equation from the first", "Add the two equations", "Multiply the first by 3 then subtract", "Multiply the second by 2 then add"],
     "(3x+2y)−(x+2y) = 2x = 4 → x = 2. Subtracting removes the equal y-terms.",
     "3x+2y=10\\text{ and }x+2y=6"),
-  eqAnswer("elim-m3", "Solve 3x + y = 13 and x + y = 7. Subtract. What is x?", "(3x+y)-(x+y)=13-7", "3", ["3"]),
-  eqAnswer("elim-m4", "Solve x + y = 9 and x − y = 1. Write solution as (x, y).", "(x+y)+(x-y)=9+1",
+  eqAnswer("elim-m3", "Solve 3x + y = 13 and x + y = 7. Subtract. What is x?", "3x+y=13,\\quad x+y=7", "3", ["3"]),
+  eqAnswer("elim-m4", "Solve x + y = 9 and x − y = 1. Write solution as (x, y).", "x+y=9,\\quad x-y=1",
     "(5, 4)", ["(5,4)", "x=5, y=4", "x = 5, y = 4", "5, 4"]),
   eqChoice("elim-m5", "Which is the correct solution to 2x + y = 10 and 2x − y = 6?", "A",
     ["$(4,\\,2)$", "$(4,\\,-2)$", "$(3,\\,4)$", "$(2,\\,4)$"],
     "Add: 4x = 16 → x = 4. Substitute: 8 + y = 10 → y = 2.",
     "2x+y=10\\text{ and }2x-y=6"),
-  eqAnswer("elim-m6", "Solve 5x + 2y = 21 and x + 2y = 9. Subtract. What is x?", "(5x+2y)-(x+2y)=21-9", "3", ["3"]),
+  eqAnswer("elim-m6", "Solve 5x + 2y = 21 and x + 2y = 9. Subtract. What is x?", "5x+2y=21,\\quad x+2y=9", "3", ["3"]),
   eqChoice("elim-m7", "To solve 2x + 3y = 12 and 4x + 3y = 18, which step correctly eliminates y?", "A",
     ["Subtract the first equation from the second", "Add the two equations", "Multiply the first by 2 then subtract", "Divide both equations by 3"],
     "(4x+3y)−(2x+3y) = 2x = 6 → x = 3. Then 6 + 3y = 12 → y = 2.",
     "2x+3y=12\\text{ and }4x+3y=18"),
-  eqAnswer("elim-m8", "Solve 2x + y = 14 and 2x − 3y = 6. Subtract the second from the first. What is y?", "(2x+y)-(2x-3y)=14-6", "2", ["2"]),
-  eqAnswer("elim-m9", "Solve 2x + 3y = 16 and 2x + y = 8. Write solution as (x, y).", "(2x+3y)-(2x+y)=16-8",
+  eqAnswer("elim-m8", "Solve 2x + y = 14 and 2x − 3y = 6. Subtract the second from the first. What is y?", "2x+y=14,\\quad 2x-3y=6", "2", ["2"]),
+  eqAnswer("elim-m9", "Solve 2x + 3y = 16 and 2x + y = 8. Write solution as (x, y).", "2x+3y=16,\\quad 2x+y=8",
     "(2, 4)", ["(2,4)", "x=2, y=4", "x = 2, y = 4", "2, 4"]),
   eqChoice("elim-m10", "A student correctly uses elimination and gets x = 3. Which pair of equations could they have used?", "D",
     ["$x+y=8$ and $x-y=2$", "$2x+y=10$ and $x+y=5$", "$x+2y=7$ and $x+y=4$", "$3x+y=12$ and $x+y=6$"],
