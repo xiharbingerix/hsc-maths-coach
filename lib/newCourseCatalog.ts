@@ -41,6 +41,7 @@ import {
   year11ExtensionBinomialTheoremLessonOverride,
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
+import { year10AlgebraicTechniquesLessonOverride } from "./lessons/year10";
 
 export type {
   CourseLessonSeed,
@@ -192,7 +193,8 @@ export function buildLesson(
     year11AdvancedIntroductionDifferentiationLessonOverride(course, unit, lesson) ??
     year11AdvancedGraphTransformationsLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
-    year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson);
+    year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
+    year10AlgebraicTechniquesLessonOverride(course, unit, lesson);
 
   return {
     id: lesson.slug,
@@ -1134,7 +1136,38 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Expand and factorise expressions including quadratics, difference of two squares, and algebraic fractions.",
         syllabusArea: "Number and Algebra",
         focus: "Fluency with algebraic manipulation — the foundation for all senior mathematics.",
-        lessons: [],
+        lessons: [
+          {
+            slug: "expanding-binomial-products",
+            title: "Expanding Binomial Products",
+            description:
+              "Expand single and double brackets using the distributive law and FOIL, and collect like terms.",
+          },
+          {
+            slug: "factorising-expressions",
+            title: "Factorising Algebraic Expressions",
+            description:
+              "Identify the highest common factor and use it to factorise two- and three-term algebraic expressions.",
+          },
+          {
+            slug: "factorising-quadratics",
+            title: "Factorising Quadratic Trinomials",
+            description:
+              "Factorise monic quadratic trinomials of the form x² + bx + c using the product-sum method.",
+          },
+          {
+            slug: "difference-of-two-squares",
+            title: "Difference of Two Squares",
+            description:
+              "Recognise expressions of the form a² − b² and apply the difference of two squares identity to factorise them.",
+          },
+          {
+            slug: "algebraic-fractions",
+            title: "Algebraic Fractions",
+            description:
+              "Simplify algebraic fractions by cancelling common factors, state restrictions, and multiply or divide simple algebraic fractions.",
+          },
+        ],
       },
       {
         slug: "equations-simultaneous",
