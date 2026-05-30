@@ -41,7 +41,7 @@ import {
   year11ExtensionBinomialTheoremLessonOverride,
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
-import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride } from "./lessons/year10";
+import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10TrigonometryLessonOverride } from "./lessons/year10";
 
 export type {
   CourseLessonSeed,
@@ -195,7 +195,8 @@ export function buildLesson(
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
-    year10EquationsSimultaneousLessonOverride(course, unit, lesson);
+    year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
+    year10TrigonometryLessonOverride(course, unit, lesson);
 
   return {
     id: lesson.slug,
@@ -1235,7 +1236,32 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Apply trigonometric ratios, the sine rule, cosine rule, and area formula to solve triangles.",
         syllabusArea: "Measurement and Space",
         focus: "Trigonometry is tested in every senior pathway — build accuracy and speed here.",
-        lessons: [],
+        lessons: [
+          {
+            slug: "trigonometric-ratios",
+            title: "Trigonometric Ratios",
+            description:
+              "Identify the hypotenuse, opposite and adjacent sides relative to a marked angle, and write sin, cos and tan using SOH-CAH-TOA.",
+          },
+          {
+            slug: "finding-sides-trig",
+            title: "Finding Unknown Sides",
+            description:
+              "Use trigonometric ratios to find an unknown side length in a right triangle when one side and one acute angle are known.",
+          },
+          {
+            slug: "finding-angles-trig",
+            title: "Finding Unknown Angles",
+            description:
+              "Apply sin⁻¹, cos⁻¹ or tan⁻¹ to find an unknown angle in a right triangle from two known sides.",
+          },
+          {
+            slug: "elevation-depression",
+            title: "Angles of Elevation and Depression",
+            description:
+              "Model real-world situations using angles of elevation and depression, and solve for unknown heights and distances.",
+          },
+        ],
       },
       {
         slug: "measurement",
