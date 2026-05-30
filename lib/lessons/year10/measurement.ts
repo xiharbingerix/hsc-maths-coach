@@ -259,14 +259,14 @@ const surfaceAreaPrismsMastery: PracticeQuestion[] = [
   measChoice(
     "sa-prisms-m5",
     "A student computes the surface area of a 4 cm × 6 cm × 2 cm prism as 48 cm². What error did they make?",
-    "A",
+    "B",
     [
       "They calculated only half the surface area — they found 3 faces instead of all 6 (3 pairs).",
       "They used the wrong formula and computed volume instead.",
       "They forgot to include the top and bottom faces.",
       "They added the dimensions instead of multiplying.",
     ],
-    "SA = 2(4×6 + 4×2 + 6×2) = 2(24 + 8 + 12) = 2 × 44 = 88 cm². A result of 48 = 44 + 4 suggests only three of the six faces (one from each pair) were counted.",
+    "l × w × h = 4 × 6 × 2 = 48 is the volume, not the surface area. SA = 2(4×6 + 4×2 + 6×2) = 2 × 44 = 88 cm². Computing only 3 faces (without doubling) gives 44, not 48 — so option A is ruled out.",
     "l=4,\\;w=6,\\;h=2\\text{ cm}"
   ),
   measAnswer(
