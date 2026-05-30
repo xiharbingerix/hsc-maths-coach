@@ -87,10 +87,10 @@ const trigRatiosWorkedExamples: WorkedExample[] = [
   {
     title: "Writing the three trigonometric ratios",
     questionLatex:
-      "\\text{A right triangle has hypotenuse 5, opposite side 3 and adjacent side 4 relative to angle }\\theta.\\text{ Write }\\sin\\theta,\\cos\\theta\\text{ and }\\tan\\theta.",
+      "\\text{A right triangle has hypotenuse 5, opposite side 4 and adjacent side 3 relative to angle }\\theta.\\text{ Write }\\sin\\theta,\\cos\\theta\\text{ and }\\tan\\theta.",
     triangleDiagram: {
       description:
-        "Right triangle with angle theta, hypotenuse 5, opposite side 3, and adjacent side 4.",
+        "Right triangle with angle theta, hypotenuse 5, opposite side 4, and adjacent side 3.",
       vertices: {
         A: { x: 80, y: 40 },
         C: { x: 80, y: 230 },
@@ -100,26 +100,26 @@ const trigRatiosWorkedExamples: WorkedExample[] = [
       angleLabels: { A: "θ" },
       sideLabels: {
         AB: "5 (hyp)",
-        AC: "4 (adj)",
-        BC: "3 (opp)",
+        AC: "3 (adj)",
+        BC: "4 (opp)",
       },
     },
     steps: [
       {
         explanation: "SOH: sine equals opposite over hypotenuse.",
-        latex: "\\sin\\theta=\\frac{\\text{opp}}{\\text{hyp}}=\\frac{3}{5}",
+        latex: "\\sin\\theta=\\frac{\\text{opp}}{\\text{hyp}}=\\frac{4}{5}",
       },
       {
         explanation: "CAH: cosine equals adjacent over hypotenuse.",
-        latex: "\\cos\\theta=\\frac{\\text{adj}}{\\text{hyp}}=\\frac{4}{5}",
+        latex: "\\cos\\theta=\\frac{\\text{adj}}{\\text{hyp}}=\\frac{3}{5}",
       },
       {
         explanation: "TOA: tangent equals opposite over adjacent.",
-        latex: "\\tan\\theta=\\frac{\\text{opp}}{\\text{adj}}=\\frac{3}{4}",
+        latex: "\\tan\\theta=\\frac{\\text{opp}}{\\text{adj}}=\\frac{4}{3}",
       },
     ],
     finalAnswerLatex:
-      "\\sin\\theta=\\tfrac{3}{5},\\quad\\cos\\theta=\\tfrac{4}{5},\\quad\\tan\\theta=\\tfrac{3}{4}",
+      "\\sin\\theta=\\tfrac{4}{5},\\quad\\cos\\theta=\\tfrac{3}{5},\\quad\\tan\\theta=\\tfrac{4}{3}",
   },
   {
     title: "Choosing which ratio to use",
