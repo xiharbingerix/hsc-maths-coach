@@ -2289,7 +2289,7 @@ const areaTrigMastery: PracticeQuestion[] = [
   ),
   nonRightChoice(
     "area-trig-m7",
-    "A student writes: Area = ½ × 10 × 14 × sin 85°. What does 85° represent in this triangle?",
+    "A student writes: Area = ½ × 10 × 14 × sin 50°. What does 50° represent in this triangle?",
     "A",
     [
       "The angle between the two known sides (the included angle)",
@@ -2297,8 +2297,8 @@ const areaTrigMastery: PracticeQuestion[] = [
       "The angle opposite the shortest side",
       "The sum of the other two angles",
     ],
-    "In A = ½ab sin C, the angle C is always the included angle between the two sides used. Here, 10 and 14 are the two sides, and 85° is the angle between them.",
-    "A=\\tfrac{1}{2}\\times 10\\times 14\\times\\sin 85^\\circ"
+    "In A = ½ab sin C, the angle C is always the included angle between the two sides used. Here, 10 and 14 are the two sides, and 50° is the angle between them. The angle opposite the longest side in this triangle is approximately 85°, not 50°.",
+    "A=\\tfrac{1}{2}\\times 10\\times 14\\times\\sin 50^\\circ"
   ),
   nonRightAnswer(
     "area-trig-m8",
