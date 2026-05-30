@@ -41,7 +41,7 @@ import {
   year11ExtensionBinomialTheoremLessonOverride,
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
-import { year10AlgebraicTechniquesLessonOverride } from "./lessons/year10";
+import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride } from "./lessons/year10";
 
 export type {
   CourseLessonSeed,
@@ -194,7 +194,8 @@ export function buildLesson(
     year11AdvancedGraphTransformationsLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
-    year10AlgebraicTechniquesLessonOverride(course, unit, lesson);
+    year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
+    year10EquationsSimultaneousLessonOverride(course, unit, lesson);
 
   return {
     id: lesson.slug,
@@ -1176,7 +1177,38 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Solve linear equations, quadratic equations, and pairs of simultaneous equations.",
         syllabusArea: "Number and Algebra",
         focus: "Solving equations is the core skill of senior algebra — master every method here.",
-        lessons: [],
+        lessons: [
+          {
+            slug: "solving-linear-equations",
+            title: "Solving Linear Equations",
+            description:
+              "Solve linear equations using inverse operations, including equations with brackets and variables on both sides.",
+          },
+          {
+            slug: "quadratics-by-factorising",
+            title: "Solving Quadratics by Factorising",
+            description:
+              "Solve quadratic equations by factorising and applying the null factor law.",
+          },
+          {
+            slug: "quadratic-formula",
+            title: "The Quadratic Formula",
+            description:
+              "Use the quadratic formula to solve quadratic equations and interpret the discriminant.",
+          },
+          {
+            slug: "simultaneous-substitution",
+            title: "Simultaneous Equations: Substitution",
+            description:
+              "Solve pairs of simultaneous equations by substituting one expression into the other equation.",
+          },
+          {
+            slug: "simultaneous-elimination",
+            title: "Simultaneous Equations: Elimination",
+            description:
+              "Solve pairs of simultaneous equations by adding or subtracting equations to eliminate one variable.",
+          },
+        ],
       },
       {
         slug: "linear-relationships",
