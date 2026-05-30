@@ -1116,6 +1116,109 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       },
     ],
   },
+  {
+    slug: "year-10-mathematics",
+    title: "Year 10 Mathematics",
+    yearLevel: "Year 10",
+    courseType: "Mathematics",
+    status: "coming_soon",
+    description:
+      "Build the algebraic, graphical, measurement and trigonometric foundations needed for senior mathematics.",
+    positioning:
+      "A planned Stage 5 pathway designed to prepare students for Year 11 Mathematics Standard, Advanced and Extension.",
+    units: [
+      {
+        slug: "algebraic-techniques",
+        title: "Algebraic Techniques",
+        description:
+          "Expand and factorise expressions including quadratics, difference of two squares, and algebraic fractions.",
+        syllabusArea: "Number and Algebra",
+        focus: "Fluency with algebraic manipulation — the foundation for all senior mathematics.",
+        lessons: [],
+      },
+      {
+        slug: "equations-simultaneous",
+        title: "Equations and Simultaneous Equations",
+        description:
+          "Solve linear equations, quadratic equations, and pairs of simultaneous equations.",
+        syllabusArea: "Number and Algebra",
+        focus: "Solving equations is the core skill of senior algebra — master every method here.",
+        lessons: [],
+      },
+      {
+        slug: "linear-relationships",
+        title: "Linear Relationships",
+        description:
+          "Gradient, y-intercept, parallel and perpendicular lines, and coordinate geometry formulas.",
+        syllabusArea: "Number and Algebra",
+        focus: "Coordinate geometry and linear functions — essential preparation for senior functions.",
+        lessons: [],
+      },
+      {
+        slug: "non-linear-relationships",
+        title: "Non-Linear Relationships",
+        description:
+          "Sketch and interpret parabolas, circles, exponential graphs, and hyperbolas.",
+        syllabusArea: "Number and Algebra",
+        focus: "Non-linear graphs preview the function families taught deeply in senior maths.",
+        lessons: [],
+      },
+      {
+        slug: "trigonometry",
+        title: "Trigonometry",
+        description:
+          "Apply trigonometric ratios, the sine rule, cosine rule, and area formula to solve triangles.",
+        syllabusArea: "Measurement and Space",
+        focus: "Trigonometry is tested in every senior pathway — build accuracy and speed here.",
+        lessons: [],
+      },
+      {
+        slug: "measurement",
+        title: "Measurement",
+        description:
+          "Calculate surface area and volume of prisms, cylinders, pyramids, cones, and spheres.",
+        syllabusArea: "Measurement and Space",
+        focus: "Measurement is a core Standard pathway topic and provides context for real-world problem solving.",
+        lessons: [],
+      },
+      {
+        slug: "geometry-proofs",
+        title: "Geometry and Proofs",
+        description:
+          "Prove congruence and similarity, and apply circle geometry theorems.",
+        syllabusArea: "Measurement and Space",
+        focus: "Geometric reasoning is useful for senior pathways and essential for Extension preparation.",
+        lessons: [],
+      },
+      {
+        slug: "probability",
+        title: "Probability",
+        description:
+          "Calculate probabilities using tree diagrams, Venn diagrams, two-way tables, and conditional probability.",
+        syllabusArea: "Statistics and Probability",
+        focus: "Probability underpins senior data topics and Extension combinatorics.",
+        lessons: [],
+      },
+      {
+        slug: "statistics-data",
+        title: "Statistics and Data",
+        description:
+          "Summarise and display data using quartiles, box plots, standard deviation, and scatter plots.",
+        syllabusArea: "Statistics and Probability",
+        focus: "Data analysis skills are central to senior Standard and useful across all pathways.",
+        lessons: [],
+      },
+      {
+        slug: "financial-mathematics",
+        title: "Financial Mathematics",
+        description:
+          "Apply simple and compound interest, depreciation, and investment comparisons.",
+        syllabusArea: "Number and Algebra",
+        focus: "Financial maths is a major senior Standard topic — this unit builds prerequisite fluency.",
+        lessons: [],
+      },
+    ],
+  },
 ];
 
 export function getNewCourse(courseSlug: string) {
