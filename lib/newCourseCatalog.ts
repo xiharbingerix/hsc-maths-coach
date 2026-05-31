@@ -41,7 +41,7 @@ import {
   year11ExtensionBinomialTheoremLessonOverride,
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
-import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10ProbabilityLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
+import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 
 export type {
   CourseLessonSeed,
@@ -199,7 +199,8 @@ export function buildLesson(
     year10TrigonometryLessonOverride(course, unit, lesson) ??
     year10MeasurementLessonOverride(course, unit, lesson) ??
     year10FinancialMathematicsLessonOverride(course, unit, lesson) ??
-    year10ProbabilityLessonOverride(course, unit, lesson);
+    year10ProbabilityLessonOverride(course, unit, lesson) ??
+    year10StatisticsDataLessonOverride(course, unit, lesson);
 
   return {
     id: lesson.slug,
@@ -1398,7 +1399,38 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Summarise and display data using quartiles, box plots, standard deviation, and scatter plots.",
         syllabusArea: "Statistics and Probability",
         focus: "Data analysis skills are central to senior Standard and useful across all pathways.",
-        lessons: [],
+        lessons: [
+          {
+            slug: "quartiles-iqr",
+            title: "Quartiles and Interquartile Range",
+            description:
+              "Find medians, quartiles and interquartile ranges, and compare the spread of datasets.",
+          },
+          {
+            slug: "box-whisker-plots",
+            title: "Box-and-whisker Plots",
+            description:
+              "Interpret box-and-whisker plots using five-number summaries, medians and interquartile ranges.",
+          },
+          {
+            slug: "standard-deviation",
+            title: "Standard Deviation",
+            description:
+              "Interpret standard deviation as a measure of numerical spread around the mean.",
+          },
+          {
+            slug: "scatter-plots-correlation",
+            title: "Scatter Plots and Correlation",
+            description:
+              "Describe scatter-plot relationships using direction, strength, outliers and careful interpretation.",
+          },
+          {
+            slug: "lines-of-best-fit",
+            title: "Lines of Best Fit",
+            description:
+              "Use lines of best fit for estimates, interpolation, extrapolation and simple residual calculations.",
+          },
+        ],
       },
       {
         slug: "financial-mathematics",
