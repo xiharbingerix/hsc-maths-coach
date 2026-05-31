@@ -41,7 +41,7 @@ import {
   year11ExtensionBinomialTheoremLessonOverride,
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
-import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
+import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10LinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 
 export type {
   CourseLessonSeed,
@@ -200,7 +200,8 @@ export function buildLesson(
     year10MeasurementLessonOverride(course, unit, lesson) ??
     year10FinancialMathematicsLessonOverride(course, unit, lesson) ??
     year10ProbabilityLessonOverride(course, unit, lesson) ??
-    year10StatisticsDataLessonOverride(course, unit, lesson);
+    year10StatisticsDataLessonOverride(course, unit, lesson) ??
+    year10LinearRelationshipsLessonOverride(course, unit, lesson);
 
   return {
     id: lesson.slug,
@@ -1222,7 +1223,32 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Gradient, y-intercept, parallel and perpendicular lines, and coordinate geometry formulas.",
         syllabusArea: "Number and Algebra",
         focus: "Coordinate geometry and linear functions — essential preparation for senior functions.",
-        lessons: [],
+        lessons: [
+          {
+            slug: "gradient-y-intercept",
+            title: "Gradient and y-intercept",
+            description:
+              "Interpret gradient and y-intercept from equations, coordinates and straight-line graphs.",
+          },
+          {
+            slug: "parallel-perpendicular-lines",
+            title: "Parallel and Perpendicular Lines",
+            description:
+              "Identify parallel and perpendicular lines using gradients and simple graph relationships.",
+          },
+          {
+            slug: "midpoint-distance",
+            title: "Midpoint and Distance Formulas",
+            description:
+              "Calculate midpoints and distances between coordinate pairs using averages and Pythagoras.",
+          },
+          {
+            slug: "linear-modelling",
+            title: "Linear Modelling and Applications",
+            description:
+              "Use linear models to interpret starting values, rates, predictions and comparisons.",
+          },
+        ],
       },
       {
         slug: "non-linear-relationships",
