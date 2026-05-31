@@ -7,3 +7,4 @@ export { year10ProbabilityLessonOverride } from "./probability";
 export { year10StatisticsDataLessonOverride } from "./statisticsData";
 export { year10LinearRelationshipsLessonOverride } from "./linearRelationships";
 export { year10NonLinearRelationshipsLessonOverride } from "./nonLinearRelationships";
+export { year10GeometryProofsLessonOverride } from "./geometryProofs";

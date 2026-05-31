@@ -41,7 +41,7 @@ import {
   year11ExtensionBinomialTheoremLessonOverride,
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
-import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
+import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 
 export type {
   CourseLessonSeed,
@@ -202,7 +202,8 @@ export function buildLesson(
     year10ProbabilityLessonOverride(course, unit, lesson) ??
     year10StatisticsDataLessonOverride(course, unit, lesson) ??
     year10LinearRelationshipsLessonOverride(course, unit, lesson) ??
-    year10NonLinearRelationshipsLessonOverride(course, unit, lesson);
+    year10NonLinearRelationshipsLessonOverride(course, unit, lesson) ??
+    year10GeometryProofsLessonOverride(course, unit, lesson);
 
   return {
     id: lesson.slug,
@@ -1408,7 +1409,20 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Prove congruence and similarity, and apply circle geometry theorems.",
         syllabusArea: "Measurement and Space",
         focus: "Geometric reasoning is useful for senior pathways and essential for Extension preparation.",
-        lessons: [],
+        lessons: [
+          {
+            slug: "congruent-triangles",
+            title: "Congruent Triangles",
+            description:
+              "Use SSS, SAS, ASA and RHS to identify congruent triangles and match corresponding parts.",
+          },
+          {
+            slug: "similar-triangles",
+            title: "Similar Triangles",
+            description:
+              "Use angle and side relationships to identify similar triangles and calculate scale factors.",
+          },
+        ],
       },
       {
         slug: "probability",
