@@ -1,4 +1,4 @@
-import type { NetworkDiagram, TriangleDiagram } from "./types";
+import type { CartesianGraph, NetworkDiagram, TriangleDiagram } from "./types";
 
 export type PracticeQuestion = {
   id: string;
@@ -6,6 +6,7 @@ export type PracticeQuestion = {
   latex: string;
   diagram?: NetworkDiagram;
   triangleDiagram?: TriangleDiagram;
+  cartesianGraph?: CartesianGraph;
   solutionDiagram?: NetworkDiagram;
   answer: string;
   acceptedAnswers?: string[];
@@ -27,6 +28,7 @@ export type WorkedExample = {
   questionLatex: string;
   diagram?: NetworkDiagram;
   triangleDiagram?: TriangleDiagram;
+  cartesianGraph?: CartesianGraph;
   steps: WorkedExampleStep[];
   finalAnswerLatex: string;
 };

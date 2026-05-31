@@ -15,6 +15,7 @@ import type {
 } from "../../lib/lessons/differentialCalculus";
 import { NetworkDiagramView } from "./components/NetworkDiagramView";
 import { TriangleDiagramView } from "./components/TriangleDiagramView";
+import { CartesianGraphView } from "./components/CartesianGraphView";
 
 type LessonStage =
   | "watch"
@@ -217,6 +218,9 @@ function PracticeCard({
         {question.triangleDiagram && (
           <TriangleDiagramView diagram={question.triangleDiagram} />
         )}
+        {question.cartesianGraph && (
+          <CartesianGraphView graph={question.cartesianGraph} />
+        )}
       </div>
 
       {question.choices ? (
@@ -327,6 +331,9 @@ function QuizQuestion({
         {question.triangleDiagram && (
           <TriangleDiagramView diagram={question.triangleDiagram} />
         )}
+        {question.cartesianGraph && (
+          <CartesianGraphView graph={question.cartesianGraph} />
+        )}
       </div>
 
       {question.choices ? (
@@ -428,6 +435,9 @@ function MasteryResultPanel({
                 )}
                 {question.triangleDiagram && (
                   <TriangleDiagramView diagram={question.triangleDiagram} />
+                )}
+                {question.cartesianGraph && (
+                  <CartesianGraphView graph={question.cartesianGraph} />
                 )}
               </div>
 
@@ -813,6 +823,9 @@ export function LessonRenderer({
                 {example.diagram && <NetworkDiagramView diagram={example.diagram} />}
                 {example.triangleDiagram && (
                   <TriangleDiagramView diagram={example.triangleDiagram} />
+                )}
+                {example.cartesianGraph && (
+                  <CartesianGraphView graph={example.cartesianGraph} />
                 )}
 
                 <div className="space-y-3">

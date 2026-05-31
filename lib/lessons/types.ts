@@ -45,3 +45,52 @@ export type TriangleDiagram = {
   highlightedSides?: TriangleSideKey[];
   viewBox?: string;
 };
+
+export type CartesianPoint = {
+  x: number;
+  y: number;
+  label?: string;
+};
+
+export type CartesianGraph = {
+  description: string;
+  xMin?: number;
+  xMax?: number;
+  yMin?: number;
+  yMax?: number;
+  xStep?: number;
+  yStep?: number;
+  showGrid?: boolean;
+  showAxisLabels?: boolean;
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+  points?: CartesianPoint[];
+  lineSegments?: {
+    from: CartesianPoint;
+    to: CartesianPoint;
+    label?: string;
+  }[];
+  lines?: {
+    kind: "linear";
+    m: number;
+    b: number;
+    label?: string;
+    xMin?: number;
+    xMax?: number;
+  }[];
+  parabolas?: {
+    kind: "quadratic";
+    a: number;
+    b: number;
+    c: number;
+    label?: string;
+    xMin?: number;
+    xMax?: number;
+  }[];
+  circles?: {
+    h: number;
+    k: number;
+    r: number;
+    label?: string;
+  }[];
+};
