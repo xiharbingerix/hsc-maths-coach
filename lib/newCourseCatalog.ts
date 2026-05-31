@@ -41,7 +41,7 @@ import {
   year11ExtensionBinomialTheoremLessonOverride,
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
-import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
+import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10ProbabilityLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 
 export type {
   CourseLessonSeed,
@@ -197,7 +197,9 @@ export function buildLesson(
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
     year10TrigonometryLessonOverride(course, unit, lesson) ??
-    year10MeasurementLessonOverride(course, unit, lesson);
+    year10MeasurementLessonOverride(course, unit, lesson) ??
+    year10FinancialMathematicsLessonOverride(course, unit, lesson) ??
+    year10ProbabilityLessonOverride(course, unit, lesson);
 
   return {
     id: lesson.slug,
@@ -1356,7 +1358,38 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Calculate probabilities using tree diagrams, Venn diagrams, two-way tables, and conditional probability.",
         syllabusArea: "Statistics and Probability",
         focus: "Probability underpins senior data topics and Extension combinatorics.",
-        lessons: [],
+        lessons: [
+          {
+            slug: "multi-stage-events",
+            title: "Multi-stage Events and Counting",
+            description:
+              "Count outcomes and calculate probabilities for simple multi-stage events with and without replacement.",
+          },
+          {
+            slug: "tree-diagrams",
+            title: "Tree Diagrams",
+            description:
+              "Use tree diagrams to organise stages, multiply along paths and add alternative successful paths.",
+          },
+          {
+            slug: "venn-diagrams",
+            title: "Venn Diagrams",
+            description:
+              "Interpret Venn regions, overlaps, unions and students outside both sets.",
+          },
+          {
+            slug: "two-way-tables",
+            title: "Two-way Tables",
+            description:
+              "Read two-way tables, identify joint and marginal frequencies, and compare proportions.",
+          },
+          {
+            slug: "conditional-probability",
+            title: "Conditional Probability",
+            description:
+              "Calculate simple conditional probabilities by restricting the group represented by the denominator.",
+          },
+        ],
       },
       {
         slug: "statistics-data",
@@ -1374,7 +1407,32 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Apply simple and compound interest, depreciation, and investment comparisons.",
         syllabusArea: "Number and Algebra",
         focus: "Financial maths is a major senior Standard topic — this unit builds prerequisite fluency.",
-        lessons: [],
+        lessons: [
+          {
+            slug: "simple-interest",
+            title: "Simple Interest",
+            description:
+              "Calculate simple interest, total amounts, rates and time, and compare simple-interest options.",
+          },
+          {
+            slug: "compound-interest",
+            title: "Compound Interest",
+            description:
+              "Use yearly compound growth factors to calculate balances, interest earned and investment comparisons.",
+          },
+          {
+            slug: "depreciation",
+            title: "Depreciation",
+            description:
+              "Use depreciation factors to calculate asset values, losses in value and percentage decreases.",
+          },
+          {
+            slug: "comparing-investments",
+            title: "Comparing Investments",
+            description:
+              "Compare financial options using final amounts, interest methods, fixed fees and net gains.",
+          },
+        ],
       },
     ],
   },
