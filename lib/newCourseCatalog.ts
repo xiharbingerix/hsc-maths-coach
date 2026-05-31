@@ -42,6 +42,7 @@ import {
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
+import { year9IndexLawsLessonOverride } from "./lessons/year9";
 
 export type {
   CourseLessonSeed,
@@ -194,6 +195,7 @@ export function buildLesson(
     year11AdvancedGraphTransformationsLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
+    year9IndexLawsLessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
     year10TrigonometryLessonOverride(course, unit, lesson) ??
@@ -1176,7 +1178,15 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus:
           "Strengthen algebraic fluency before Year 10 algebra and non-linear relationships.",
-        lessons: [],
+        lessons: [
+          { slug: "index-notation", title: "Index Notation" },
+          { slug: "multiplying-dividing-powers", title: "Multiplying and Dividing Powers" },
+          { slug: "power-of-a-power", title: "Power of a Power" },
+          { slug: "zero-index", title: "Zero Index" },
+          { slug: "numerical-negative-indices", title: "Numerical Negative Indices" },
+          { slug: "scientific-notation", title: "Scientific Notation" },
+          { slug: "magnitude-and-rounding", title: "Magnitude and Rounding" },
+        ],
       },
       {
         slug: "financial-mathematics",
@@ -1229,7 +1239,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     description:
       "Build the algebraic, graphical, measurement and trigonometric foundations needed for senior mathematics.",
     positioning:
-      "Stage 5.3 Mathematics — the highest level of Year 10 content. This is a single course covering all 10 units across algebra, geometry, trigonometry, measurement, statistics and financial mathematics. There is no separate Core or Advanced version: one course prepares students for Year 11 Standard, Advanced and Extension 1.",
+      "Year 10 Mathematics covers Stage 5 Core content with selected Path topics to prepare students for Year 11 Standard, Advanced and Extension pathways. One course covers both essential foundations and key extension content — from algebra, trigonometry and measurement through to non-linear graphs, circle geometry and geometric proof.",
     units: [
       {
         slug: "algebraic-techniques",
