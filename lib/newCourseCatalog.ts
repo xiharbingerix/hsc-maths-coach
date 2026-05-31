@@ -1132,11 +1132,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 10 Mathematics",
     yearLevel: "Year 10",
     courseType: "Mathematics",
-    status: "coming_soon",
+    status: "available",
     description:
       "Build the algebraic, graphical, measurement and trigonometric foundations needed for senior mathematics.",
     positioning:
-      "A planned Stage 5 pathway designed to prepare students for Year 11 Mathematics Standard, Advanced and Extension.",
+      "Stage 5.3 Mathematics — the highest level of Year 10 content. This is a single course covering all 10 units across algebra, geometry, trigonometry, measurement, statistics and financial mathematics. There is no separate Core or Advanced version: one course prepares students for Year 11 Standard, Advanced and Extension 1.",
     units: [
       {
         slug: "algebraic-techniques",
