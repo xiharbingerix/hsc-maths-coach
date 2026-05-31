@@ -41,7 +41,7 @@ import {
   year11ExtensionBinomialTheoremLessonOverride,
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
-import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10LinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
+import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 
 export type {
   CourseLessonSeed,
@@ -201,7 +201,8 @@ export function buildLesson(
     year10FinancialMathematicsLessonOverride(course, unit, lesson) ??
     year10ProbabilityLessonOverride(course, unit, lesson) ??
     year10StatisticsDataLessonOverride(course, unit, lesson) ??
-    year10LinearRelationshipsLessonOverride(course, unit, lesson);
+    year10LinearRelationshipsLessonOverride(course, unit, lesson) ??
+    year10NonLinearRelationshipsLessonOverride(course, unit, lesson);
 
   return {
     id: lesson.slug,
@@ -1257,7 +1258,38 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Sketch and interpret parabolas, circles, exponential graphs, and hyperbolas.",
         syllabusArea: "Number and Algebra",
         focus: "Non-linear graphs preview the function families taught deeply in senior maths.",
-        lessons: [],
+        lessons: [
+          {
+            slug: "introduction-to-parabolas",
+            title: "Introduction to Parabolas",
+            description:
+              "Recognise basic parabola features including vertex, symmetry, opening direction and y-intercept.",
+          },
+          {
+            slug: "sketching-parabolas",
+            title: "Sketching Parabolas",
+            description:
+              "Sketch simple parabolas using tables, symmetry, y-intercepts and factorised x-intercepts.",
+          },
+          {
+            slug: "circle-graphs",
+            title: "Circle Graphs",
+            description:
+              "Interpret circle equations using centre, radius and intercepts.",
+          },
+          {
+            slug: "exponential-functions",
+            title: "Exponential Functions",
+            description:
+              "Recognise introductory exponential growth and decay rules using tables, points and simple graphs.",
+          },
+          {
+            slug: "hyperbolas",
+            title: "Hyperbolas",
+            description:
+              "Interpret reciprocal graphs, excluded values, asymptotes and branch locations.",
+          },
+        ],
       },
       {
         slug: "trigonometry",

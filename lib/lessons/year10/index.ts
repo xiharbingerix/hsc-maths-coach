@@ -6,3 +6,4 @@ export { year10FinancialMathematicsLessonOverride } from "./financialMathematics
 export { year10ProbabilityLessonOverride } from "./probability";
 export { year10StatisticsDataLessonOverride } from "./statisticsData";
 export { year10LinearRelationshipsLessonOverride } from "./linearRelationships";
+export { year10NonLinearRelationshipsLessonOverride } from "./nonLinearRelationships";
