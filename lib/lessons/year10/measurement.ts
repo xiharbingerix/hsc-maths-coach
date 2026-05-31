@@ -844,6 +844,1066 @@ const volumePrismsCylindersMastery: PracticeQuestion[] = [
   ),
 ];
 
+// ─── Lesson 4: Surface Area and Volume of Pyramids ───────────────────────────
+
+const pyramidsWorkedExamples: WorkedExample[] = [
+  {
+    title: "Volume of a square pyramid",
+    questionLatex:
+      "\\text{A square pyramid has a base side of 6 cm and a perpendicular height of 8 cm. Find its volume.}",
+    steps: [
+      {
+        explanation:
+          "The volume of any pyramid is one-third of the base area multiplied by the perpendicular (vertical) height.",
+        latex: "V=\\tfrac{1}{3}\\times A_{\\text{base}}\\times h",
+      },
+      {
+        explanation: "The base is a square. Find its area: 6 × 6 = 36 cm².",
+        latex: "A_{\\text{base}}=6^2=36\\text{ cm}^2",
+      },
+      {
+        explanation: "Substitute and calculate.",
+        latex: "V=\\tfrac{1}{3}\\times 36\\times 8=\\tfrac{288}{3}=96\\text{ cm}^3",
+      },
+    ],
+    finalAnswerLatex: "V=96\\text{ cm}^3",
+  },
+  {
+    title: "Surface area of a square pyramid",
+    questionLatex:
+      "\\text{A square pyramid has a base side of 5 cm and a slant height of 7 cm. Find its surface area.}",
+    steps: [
+      {
+        explanation:
+          "The surface area is the square base plus four congruent triangular faces. Each triangular face has base = side length and height = slant height (the height of the triangular face, not the pyramid's vertical height).",
+        latex: "SA=s^2+4\\times\\tfrac{1}{2}\\times s\\times l",
+      },
+      {
+        explanation: "Substitute s = 5 and l = 7.",
+        latex: "SA=5^2+4\\times\\tfrac{1}{2}\\times 5\\times 7=25+4\\times 17.5",
+      },
+      {
+        explanation: "Calculate.",
+        latex: "SA=25+70=95\\text{ cm}^2",
+      },
+    ],
+    finalAnswerLatex: "SA=95\\text{ cm}^2",
+  },
+  {
+    title: "Finding the height from the volume",
+    questionLatex:
+      "\\text{A rectangular pyramid has base dimensions 6 cm × 4 cm and volume 80 cm}^3.\\text{ Find its perpendicular height.}",
+    steps: [
+      {
+        explanation: "Write the volume formula.",
+        latex: "V=\\tfrac{1}{3}\\times l\\times w\\times h",
+      },
+      {
+        explanation: "Substitute V = 80, l = 6, w = 4.",
+        latex: "80=\\tfrac{1}{3}\\times 24\\times h=8h",
+      },
+      {
+        explanation: "Solve for h.",
+        latex: "h=\\frac{80}{8}=10\\text{ cm}",
+      },
+    ],
+    finalAnswerLatex: "h=10\\text{ cm}",
+  },
+];
+
+const pyramidsGuided: PracticeQuestion[] = [
+  measAnswer(
+    "pyr-g1",
+    "A rectangular pyramid has base dimensions 6 cm × 4 cm and perpendicular height 9 cm. Find its volume.",
+    "l=6\\text{ cm},\\;w=4\\text{ cm},\\;h=9\\text{ cm}",
+    "72",
+    ["72 cm³", "72 cm^3"],
+    "V = (1/3) × base area × height = (1/3) × 24 × 9."
+  ),
+  measAnswer(
+    "pyr-g2",
+    "A square pyramid has base side 4 cm and slant height 5 cm. Find its surface area.",
+    "s=4\\text{ cm},\\;l=5\\text{ cm (slant height)}",
+    "56",
+    ["56 cm²", "56 cm^2"],
+    "SA = s² + 4 × (½ × s × l) = 16 + 4 × 10."
+  ),
+  measChoice(
+    "pyr-g3",
+    "A square pyramid is 12 cm tall (perpendicular height) and has a slant height of 14 cm. Which measurement do you use to find the volume?",
+    "A",
+    [
+      "The perpendicular height of 12 cm — volume uses the vertical distance from base to apex.",
+      "The slant height of 14 cm — this is the height of the pyramid.",
+      "Either — both give the same volume.",
+      "The average of both: (12 + 14) ÷ 2 = 13 cm.",
+    ],
+    "Volume = (1/3) × base area × perpendicular height. The slant height is used only in surface area calculations. It is always longer than the perpendicular height."
+  ),
+  measAnswer(
+    "pyr-g4",
+    "A square pyramid has base side 9 cm and perpendicular height 6 cm. Find its volume.",
+    "s=9\\text{ cm},\\;h=6\\text{ cm}",
+    "162",
+    ["162 cm³", "162 cm^3"],
+    "V = (1/3) × 81 × 6."
+  ),
+];
+
+const pyramidsIndependent: PracticeQuestion[] = [
+  measAnswer(
+    "pyr-i1",
+    "A square pyramid has base side 5 cm and perpendicular height 12 cm. Find its volume.",
+    "s=5\\text{ cm},\\;h=12\\text{ cm}",
+    "100",
+    ["100 cm³", "100 cm^3"]
+  ),
+  measAnswer(
+    "pyr-i2",
+    "A square pyramid has base side 8 cm and slant height 10 cm. Find its surface area.",
+    "s=8\\text{ cm},\\;l=10\\text{ cm (slant height)}",
+    "224",
+    ["224 cm²", "224 cm^2"],
+    "SA = 8² + 4 × (½ × 8 × 10)."
+  ),
+  measAnswer(
+    "pyr-i3",
+    "A rectangular pyramid has base dimensions 10 cm × 3 cm and perpendicular height 8 cm. Find its volume.",
+    "l=10\\text{ cm},\\;w=3\\text{ cm},\\;h=8\\text{ cm}",
+    "80",
+    ["80 cm³", "80 cm^3"]
+  ),
+  measAnswer(
+    "pyr-i4",
+    "A square pyramid has base side 6 cm and volume 60 cm³. Find its perpendicular height.",
+    "s=6\\text{ cm},\\;V=60\\text{ cm}^3",
+    "5",
+    ["5 cm"],
+    "60 = (1/3) × 36 × h → 60 = 12h → h = 5."
+  ),
+  measChoice(
+    "pyr-i5",
+    "A student calculates the volume of a square pyramid with base 4 cm and height 6 cm as V = 4² × 6 = 96 cm³. What error did they make?",
+    "B",
+    [
+      "They used the wrong formula for the base area.",
+      "They forgot to multiply by 1/3 — the correct answer is 32 cm³.",
+      "They used the slant height instead of the perpendicular height.",
+      "They should have used V = 4 × 6 = 24 cm³.",
+    ],
+    "V = (1/3) × s² × h = (1/3) × 16 × 6 = 32 cm³. The student correctly found the base area (16) and multiplied by h (6) but omitted the factor of 1/3."
+  ),
+];
+
+const pyramidsMistakes = [
+  {
+    mistake:
+      "Forgetting to multiply by 1/3 — computing volume as base area × height instead of (1/3) × base area × height.",
+    fix:
+      "A pyramid's volume is always one-third of the equivalent prism's volume. Write V = (1/3) × A_base × h before substituting. The 1/3 is not optional.",
+  },
+  {
+    mistake:
+      "Using the slant height instead of the perpendicular height in the volume formula.",
+    fix:
+      "The slant height is the length along the face of the pyramid from apex to base edge — it is always longer than the perpendicular height. The volume formula V = (1/3) × A_base × h uses only the perpendicular (vertical) height.",
+  },
+  {
+    mistake:
+      "Forgetting the base face when calculating surface area — adding only the four triangular faces.",
+    fix:
+      "A square pyramid has 5 faces: 1 square base and 4 triangular faces. Always include the base: SA = s² + 4 × (½ × s × l).",
+  },
+  {
+    mistake:
+      "Using the pyramid's perpendicular height in the surface area formula instead of the slant height.",
+    fix:
+      "The triangular faces are slanted, so their 'height' (measured from apex to base edge along the face) is the slant height l, not the pyramid's vertical height h. The slant height is always greater than the vertical height.",
+  },
+];
+
+const pyramidsMastery: PracticeQuestion[] = [
+  measAnswer(
+    "pyr-m1",
+    "A square pyramid has base side 3 cm and perpendicular height 5 cm. Find its volume.",
+    "s=3\\text{ cm},\\;h=5\\text{ cm}",
+    "15",
+    ["15 cm³", "15 cm^3"]
+  ),
+  measAnswer(
+    "pyr-m2",
+    "A square pyramid has base side 6 cm and slant height 5 cm. Find its surface area.",
+    "s=6\\text{ cm},\\;l=5\\text{ cm (slant height)}",
+    "96",
+    ["96 cm²", "96 cm^2"],
+    "SA = 36 + 4 × (½ × 6 × 5) = 36 + 60."
+  ),
+  measChoice(
+    "pyr-m3",
+    "Which formula gives the surface area of a square pyramid with base side s and slant height l?",
+    "C",
+    [
+      "$SA=\\tfrac{1}{3}s^2 l$",
+      "$SA=s^2+4sl$",
+      "$SA=s^2+2sl$",
+      "$SA=4\\times\\tfrac{1}{2}\\times s\\times l$",
+    ],
+    "SA = base area + 4 triangular faces = s² + 4 × (½ × s × l) = s² + 2sl. Option B misses the ½ factor; option D omits the base."
+  ),
+  measAnswer(
+    "pyr-m4",
+    "A rectangular pyramid has base 8 cm × 5 cm and perpendicular height 9 cm. Find its volume.",
+    "l=8\\text{ cm},\\;w=5\\text{ cm},\\;h=9\\text{ cm}",
+    "120",
+    ["120 cm³", "120 cm^3"]
+  ),
+  measAnswer(
+    "pyr-m5",
+    "A square pyramid has base side 10 cm and slant height 13 cm. Find its surface area.",
+    "s=10\\text{ cm},\\;l=13\\text{ cm (slant height)}",
+    "360",
+    ["360 cm²", "360 cm^2"],
+    "SA = 100 + 4 × (½ × 10 × 13) = 100 + 260."
+  ),
+  measAnswer(
+    "pyr-m6",
+    "A rectangular pyramid has base dimensions 10 cm × 5 cm and volume 200 cm³. Find its perpendicular height.",
+    "l=10\\text{ cm},\\;w=5\\text{ cm},\\;V=200\\text{ cm}^3",
+    "12",
+    ["12 cm"],
+    "200 = (1/3) × 50 × h → h = 200 × 3 / 50 = 12."
+  ),
+  measAnswer(
+    "pyr-m7",
+    "A square pyramid has base side 12 cm and perpendicular height 7 cm. Find its volume.",
+    "s=12\\text{ cm},\\;h=7\\text{ cm}",
+    "336",
+    ["336 cm³", "336 cm^3"]
+  ),
+  measAnswer(
+    "pyr-m8",
+    "A square pyramid has base side 9 cm and slant height 12 cm. Find its surface area.",
+    "s=9\\text{ cm},\\;l=12\\text{ cm (slant height)}",
+    "297",
+    ["297 cm²", "297 cm^2"],
+    "SA = 81 + 4 × (½ × 9 × 12) = 81 + 216."
+  ),
+  measAnswer(
+    "pyr-m9",
+    "A square pyramid has base side 6 cm and volume 120 cm³. Find its perpendicular height.",
+    "s=6\\text{ cm},\\;V=120\\text{ cm}^3",
+    "10",
+    ["10 cm"],
+    "120 = (1/3) × 36 × h → h = 120 × 3 / 36 = 10."
+  ),
+  measAnswer(
+    "pyr-m10",
+    "A square pyramid has base side 8 cm and volume 192 cm³. Find its perpendicular height.",
+    "s=8\\text{ cm},\\;V=192\\text{ cm}^3",
+    "9",
+    ["9 cm"],
+    "192 = (1/3) × 64 × h → h = 192 × 3 / 64 = 9."
+  ),
+];
+
+// ─── Lesson 5: Surface Area and Volume of Cones ───────────────────────────────
+
+const conesWorkedExamples: WorkedExample[] = [
+  {
+    title: "Volume of a cone",
+    questionLatex:
+      "\\text{A cone has radius 6 cm and perpendicular height 8 cm. Find its volume to 1 decimal place.}",
+    steps: [
+      {
+        explanation:
+          "Like a pyramid, a cone's volume is one-third of the base area multiplied by the perpendicular height. The base is a circle of area πr².",
+        latex: "V=\\tfrac{1}{3}\\pi r^2 h",
+      },
+      {
+        explanation: "Substitute r = 6 and h = 8.",
+        latex: "V=\\tfrac{1}{3}\\times\\pi\\times 36\\times 8=96\\pi",
+      },
+      {
+        explanation: "Evaluate.",
+        latex: "V=96\\pi\\approx 301.6\\text{ cm}^3",
+      },
+    ],
+    finalAnswerLatex: "V\\approx 301.6\\text{ cm}^3",
+  },
+  {
+    title: "Curved surface area of a cone",
+    questionLatex:
+      "\\text{A cone has radius 5 cm and slant height 13 cm. Find its curved surface area to 1 decimal place.}",
+    steps: [
+      {
+        explanation:
+          "The curved surface area (CSA) of a cone uses the slant height l — the distance from the apex to any point on the base circle edge. CSA = πrl.",
+        latex: "CSA=\\pi r l",
+      },
+      {
+        explanation: "Substitute r = 5 and l = 13.",
+        latex: "CSA=\\pi\\times 5\\times 13=65\\pi",
+      },
+      {
+        explanation: "Evaluate.",
+        latex: "CSA=65\\pi\\approx 204.2\\text{ cm}^2",
+      },
+    ],
+    finalAnswerLatex: "CSA\\approx 204.2\\text{ cm}^2",
+  },
+  {
+    title: "Total surface area of a cone",
+    questionLatex:
+      "\\text{A cone has radius 4 cm and slant height 5 cm. Find its total surface area to 1 decimal place.}",
+    steps: [
+      {
+        explanation:
+          "The total surface area (TSA) of a closed cone is the circular base plus the curved surface: TSA = πr² + πrl.",
+        latex: "TSA=\\pi r^2+\\pi r l",
+      },
+      {
+        explanation: "Substitute r = 4 and l = 5.",
+        latex: "TSA=\\pi\\times 16+\\pi\\times 4\\times 5=16\\pi+20\\pi=36\\pi",
+      },
+      {
+        explanation: "Evaluate.",
+        latex: "TSA=36\\pi\\approx 113.1\\text{ cm}^2",
+      },
+    ],
+    finalAnswerLatex: "TSA\\approx 113.1\\text{ cm}^2",
+  },
+];
+
+const conesGuided: PracticeQuestion[] = [
+  measAnswer(
+    "cone-g1",
+    "A cone has radius 3 cm and perpendicular height 4 cm. Find its volume to 1 decimal place.",
+    "r=3\\text{ cm},\\;h=4\\text{ cm}",
+    "37.7",
+    ["37.7 cm³", "37.7 cm^3"],
+    "V = (1/3)π(9)(4) = 12π."
+  ),
+  measAnswer(
+    "cone-g2",
+    "A cone has radius 6 cm and slant height 10 cm. Find its curved surface area to 1 decimal place.",
+    "r=6\\text{ cm},\\;l=10\\text{ cm (slant height)}",
+    "188.5",
+    ["188.5 cm²", "188.5 cm^2"],
+    "CSA = π × 6 × 10 = 60π."
+  ),
+  measAnswer(
+    "cone-g3",
+    "A cone has radius 5 cm and slant height 12 cm. Find its total surface area to 1 decimal place.",
+    "r=5\\text{ cm},\\;l=12\\text{ cm (slant height)}",
+    "267.0",
+    ["267.0 cm²", "267.0 cm^2"],
+    "TSA = π(25) + π(5)(12) = 25π + 60π = 85π."
+  ),
+  measChoice(
+    "cone-g4",
+    "Which formula gives the total surface area of a closed cone with radius r and slant height l?",
+    "D",
+    [
+      "$TSA=\\pi r l$",
+      "$TSA=\\tfrac{1}{3}\\pi r^2 h$",
+      "$TSA=\\pi r^2$",
+      "$TSA=\\pi r^2+\\pi r l$",
+    ],
+    "TSA = πr² (circular base) + πrl (curved surface). Option A is only the curved surface; option B is the volume formula; option C is only the base."
+  ),
+];
+
+const conesIndependent: PracticeQuestion[] = [
+  measAnswer(
+    "cone-i1",
+    "A cone has radius 5 cm and perpendicular height 12 cm. Find its volume to 1 decimal place.",
+    "r=5\\text{ cm},\\;h=12\\text{ cm}",
+    "314.2",
+    ["314.2 cm³", "314.2 cm^3"],
+    "V = (1/3)π(25)(12) = 100π."
+  ),
+  measAnswer(
+    "cone-i2",
+    "A cone has radius 3 cm and slant height 5 cm. Find its curved surface area to 1 decimal place.",
+    "r=3\\text{ cm},\\;l=5\\text{ cm (slant height)}",
+    "47.1",
+    ["47.1 cm²", "47.1 cm^2"],
+    "CSA = π × 3 × 5 = 15π."
+  ),
+  measAnswer(
+    "cone-i3",
+    "A cone has radius 6 cm and slant height 8 cm. Find its total surface area to 1 decimal place.",
+    "r=6\\text{ cm},\\;l=8\\text{ cm (slant height)}",
+    "263.9",
+    ["263.9 cm²", "263.9 cm^2"],
+    "TSA = π(36) + π(6)(8) = 36π + 48π = 84π."
+  ),
+  measAnswer(
+    "cone-i4",
+    "A cone has volume 48π cm³ and radius 6 cm. Find its perpendicular height.",
+    "V=48\\pi\\text{ cm}^3,\\;r=6\\text{ cm}",
+    "4",
+    ["4 cm"],
+    "48π = (1/3)π(36)h → 48 = 12h → h = 4."
+  ),
+  measChoice(
+    "cone-i5",
+    "A cone has diameter 8 cm and height 9 cm. What is its volume to 1 decimal place?",
+    "A",
+    ["$150.8\\text{ cm}^3$", "$452.4\\text{ cm}^3$", "$603.2\\text{ cm}^3$", "$37.7\\text{ cm}^3$"],
+    "r = d/2 = 4 cm. V = (1/3)π(16)(9) = 48π ≈ 150.8 cm³. Option B omits the 1/3. Option C uses d=8 as if it were the radius. Option D incorrectly uses r=2.",
+    "d=8\\text{ cm},\\;h=9\\text{ cm}"
+  ),
+];
+
+const conesMistakes = [
+  {
+    mistake:
+      "Forgetting to multiply by 1/3 in the volume formula — computing V = πr²h instead of V = (1/3)πr²h.",
+    fix:
+      "A cone holds exactly one-third the volume of a cylinder with the same base and height. Always write V = (1/3)πr²h and keep the 1/3 through to the final calculation.",
+  },
+  {
+    mistake:
+      "Using the perpendicular height instead of the slant height in the curved surface area formula CSA = πrl.",
+    fix:
+      "The slant height l is the length of the sloped side from apex to base circle. It is always longer than the perpendicular height h. Use l in CSA = πrl and h in V = (1/3)πr²h.",
+  },
+  {
+    mistake:
+      "Using the diameter instead of the radius — substituting d into r without halving first.",
+    fix:
+      "Always halve the diameter to get the radius before substituting into any cone formula. r = d ÷ 2. Squaring the diameter instead gives a volume four times too large.",
+  },
+  {
+    mistake:
+      "Forgetting the base circle when calculating total surface area — computing only the curved surface area πrl.",
+    fix:
+      "A closed cone has two parts: a circular base (area πr²) and a curved lateral surface (area πrl). Total SA = πr² + πrl. If the cone has no base (like an ice-cream cone without the scoop base), use CSA = πrl only.",
+  },
+];
+
+const conesMastery: PracticeQuestion[] = [
+  measAnswer(
+    "cone-m1",
+    "A cone has radius 3 cm and perpendicular height 8 cm. Find its volume to 1 decimal place.",
+    "r=3\\text{ cm},\\;h=8\\text{ cm}",
+    "75.4",
+    ["75.4 cm³", "75.4 cm^3"],
+    "V = (1/3)π(9)(8) = 24π."
+  ),
+  measAnswer(
+    "cone-m2",
+    "A cone has radius 4 cm and slant height 10 cm. Find its curved surface area to 1 decimal place.",
+    "r=4\\text{ cm},\\;l=10\\text{ cm (slant height)}",
+    "125.7",
+    ["125.7 cm²", "125.7 cm^2"],
+    "CSA = π × 4 × 10 = 40π."
+  ),
+  measChoice(
+    "cone-m3",
+    "Which measurement is needed for the volume of a cone but NOT for the curved surface area?",
+    "B",
+    [
+      "The radius",
+      "The perpendicular height",
+      "The slant height",
+      "π",
+    ],
+    "V = (1/3)πr²h uses the perpendicular height h. CSA = πrl uses the slant height l. The perpendicular height does not appear in the CSA formula."
+  ),
+  measAnswer(
+    "cone-m4",
+    "A cone has radius 4 cm and slant height 9 cm. Find its total surface area to 1 decimal place.",
+    "r=4\\text{ cm},\\;l=9\\text{ cm (slant height)}",
+    "163.4",
+    ["163.4 cm²", "163.4 cm^2"],
+    "TSA = π(16) + π(4)(9) = 16π + 36π = 52π."
+  ),
+  measAnswer(
+    "cone-m5",
+    "A cone has radius 9 cm and perpendicular height 4 cm. Find its volume to 1 decimal place.",
+    "r=9\\text{ cm},\\;h=4\\text{ cm}",
+    "339.3",
+    ["339.3 cm³", "339.3 cm^3"],
+    "V = (1/3)π(81)(4) = 108π."
+  ),
+  measAnswer(
+    "cone-m6",
+    "A cone has volume 75π cm³ and radius 5 cm. Find its perpendicular height.",
+    "V=75\\pi\\text{ cm}^3,\\;r=5\\text{ cm}",
+    "9",
+    ["9 cm"],
+    "75π = (1/3)π(25)h → 75 = (25/3)h → h = 9."
+  ),
+  measAnswer(
+    "cone-m7",
+    "A cone has radius 6 cm and slant height 10 cm. Find its total surface area to 1 decimal place.",
+    "r=6\\text{ cm},\\;l=10\\text{ cm (slant height)}",
+    "301.6",
+    ["301.6 cm²", "301.6 cm^2"],
+    "TSA = π(36) + π(6)(10) = 36π + 60π = 96π."
+  ),
+  measAnswer(
+    "cone-m8",
+    "A cone has diameter 12 cm and perpendicular height 7 cm. Find its volume to 1 decimal place.",
+    "d=12\\Rightarrow r=6\\text{ cm},\\;h=7\\text{ cm}",
+    "263.9",
+    ["263.9 cm³", "263.9 cm^3"],
+    "V = (1/3)π(36)(7) = 84π."
+  ),
+  measAnswer(
+    "cone-m9",
+    "A cone has radius 8 cm and perpendicular height 6 cm. Using the Pythagorean theorem to find the slant height, calculate the curved surface area to 1 decimal place.",
+    "r=8\\text{ cm},\\;h=6\\text{ cm}",
+    "251.3",
+    ["251.3 cm²", "251.3 cm^2"],
+    "l = √(r² + h²) = √(64 + 36) = √100 = 10 cm. CSA = π × 8 × 10 = 80π."
+  ),
+  measAnswer(
+    "cone-m10",
+    "A cone has radius 5 cm and perpendicular height 12 cm. Find the slant height using Pythagoras, then calculate the total surface area to 1 decimal place.",
+    "r=5\\text{ cm},\\;h=12\\text{ cm}",
+    "282.7",
+    ["282.7 cm²", "282.7 cm^2"],
+    "l = √(25 + 144) = √169 = 13 cm. TSA = π(25) + π(5)(13) = 25π + 65π = 90π."
+  ),
+];
+
+// ─── Lesson 6: Surface Area and Volume of Spheres ─────────────────────────────
+
+const spheresWorkedExamples: WorkedExample[] = [
+  {
+    title: "Surface area of a sphere",
+    questionLatex:
+      "\\text{Find the surface area of a sphere with radius 6 cm. Give your answer to 1 decimal place.}",
+    steps: [
+      {
+        explanation:
+          "The surface area of a sphere uses only the radius. Every point on the sphere is at the same distance r from the centre.",
+        latex: "SA=4\\pi r^2",
+      },
+      {
+        explanation: "Substitute r = 6.",
+        latex: "SA=4\\times\\pi\\times 6^2=4\\times\\pi\\times 36=144\\pi",
+      },
+      {
+        explanation: "Evaluate.",
+        latex: "SA=144\\pi\\approx 452.4\\text{ cm}^2",
+      },
+    ],
+    finalAnswerLatex: "SA\\approx 452.4\\text{ cm}^2",
+  },
+  {
+    title: "Volume of a sphere",
+    questionLatex:
+      "\\text{Find the volume of a sphere with radius 3 cm. Give your answer to 1 decimal place.}",
+    steps: [
+      {
+        explanation: "Write the volume formula for a sphere.",
+        latex: "V=\\tfrac{4}{3}\\pi r^3",
+      },
+      {
+        explanation: "Substitute r = 3. Cube the radius first.",
+        latex: "V=\\tfrac{4}{3}\\times\\pi\\times 3^3=\\tfrac{4}{3}\\times\\pi\\times 27=36\\pi",
+      },
+      {
+        explanation: "Evaluate.",
+        latex: "V=36\\pi\\approx 113.1\\text{ cm}^3",
+      },
+    ],
+    finalAnswerLatex: "V\\approx 113.1\\text{ cm}^3",
+  },
+  {
+    title: "Using a diameter to find surface area and volume",
+    questionLatex:
+      "\\text{A sphere has diameter 10 cm. Find its surface area and volume to 1 decimal place.}",
+    steps: [
+      {
+        explanation: "The diameter is 10 cm, so the radius is r = 10 ÷ 2 = 5 cm.",
+        latex: "r=\\frac{d}{2}=\\frac{10}{2}=5\\text{ cm}",
+      },
+      {
+        explanation: "Surface area.",
+        latex: "SA=4\\pi\\times 5^2=100\\pi\\approx 314.2\\text{ cm}^2",
+      },
+      {
+        explanation: "Volume.",
+        latex: "V=\\tfrac{4}{3}\\pi\\times 5^3=\\tfrac{500}{3}\\pi\\approx 523.6\\text{ cm}^3",
+      },
+    ],
+    finalAnswerLatex:
+      "SA\\approx 314.2\\text{ cm}^2,\\quad V\\approx 523.6\\text{ cm}^3",
+  },
+];
+
+const spheresGuided: PracticeQuestion[] = [
+  measAnswer(
+    "sph-g1",
+    "Find the surface area of a sphere with radius 4 cm. Give your answer to 1 decimal place.",
+    "r=4\\text{ cm}",
+    "201.1",
+    ["201.1 cm²", "201.1 cm^2"],
+    "SA = 4π(4²) = 64π."
+  ),
+  measAnswer(
+    "sph-g2",
+    "Find the volume of a sphere with radius 2 cm. Give your answer to 1 decimal place.",
+    "r=2\\text{ cm}",
+    "33.5",
+    ["33.5 cm³", "33.5 cm^3"],
+    "V = (4/3)π(2³) = (32/3)π."
+  ),
+  measChoice(
+    "sph-g3",
+    "A sphere has diameter 8 cm. Before applying any formula, what is the first step?",
+    "C",
+    [
+      "Square the diameter: 8² = 64.",
+      "Cube the diameter: 8³ = 512.",
+      "Halve the diameter to find the radius: r = 4 cm.",
+      "Multiply the diameter by π.",
+    ],
+    "Both SA = 4πr² and V = (4/3)πr³ require the radius, not the diameter. Always halve the diameter first: r = 8 ÷ 2 = 4 cm."
+  ),
+  measAnswer(
+    "sph-g4",
+    "Find the volume of a sphere with diameter 6 cm. Give your answer to 1 decimal place.",
+    "d=6\\text{ cm}",
+    "113.1",
+    ["113.1 cm³", "113.1 cm^3"],
+    "r = 3 cm. V = (4/3)π(27) = 36π."
+  ),
+];
+
+const spheresIndependent: PracticeQuestion[] = [
+  measAnswer(
+    "sph-i1",
+    "Find the surface area of a sphere with radius 7 cm. Give your answer to 1 decimal place.",
+    "r=7\\text{ cm}",
+    "615.8",
+    ["615.8 cm²", "615.8 cm^2"],
+    "SA = 4π(49) = 196π."
+  ),
+  measAnswer(
+    "sph-i2",
+    "Find the volume of a sphere with radius 6 cm. Give your answer to 1 decimal place.",
+    "r=6\\text{ cm}",
+    "904.8",
+    ["904.8 cm³", "904.8 cm^3"],
+    "V = (4/3)π(216) = 288π."
+  ),
+  measAnswer(
+    "sph-i3",
+    "Find the surface area of a sphere with diameter 16 cm. Give your answer to 1 decimal place.",
+    "d=16\\text{ cm}",
+    "804.2",
+    ["804.2 cm²", "804.2 cm^2"],
+    "r = 8 cm. SA = 4π(64) = 256π."
+  ),
+  measAnswer(
+    "sph-i4",
+    "A sphere has surface area 100π cm². Find its radius.",
+    "SA=100\\pi\\text{ cm}^2",
+    "5",
+    ["5 cm"],
+    "4πr² = 100π → r² = 25 → r = 5 cm."
+  ),
+  measChoice(
+    "sph-i5",
+    "A sphere has diameter 10 cm. A student calculates its volume as (4/3)π × 10³ ≈ 4189 cm³. What error did they make?",
+    "A",
+    [
+      "They used the diameter 10 cm instead of the radius 5 cm — the correct volume is (4/3)π × 5³ ≈ 524 cm³.",
+      "The formula should be (4/3)πr² not (4/3)πr³.",
+      "There is no error — 4189 cm³ is correct.",
+      "They should have multiplied by π² not π.",
+    ],
+    "V = (4/3)πr³ where r = d/2 = 5 cm. V = (4/3)π × 125 = (500/3)π ≈ 524 cm³. Using d = 10 instead gives (4/3)π × 1000 — eight times too large (because radius was doubled, and 2³ = 8).",
+    "d=10\\text{ cm}"
+  ),
+];
+
+const spheresMistakes = [
+  {
+    mistake:
+      "Using the diameter instead of the radius — substituting d into r without halving first.",
+    fix:
+      "Both SA = 4πr² and V = (4/3)πr³ require the radius. If d is given, always compute r = d/2 as the very first step. Using d instead of r gives a surface area 4 times too large and a volume 8 times too large.",
+  },
+  {
+    mistake:
+      "Squaring instead of cubing in the volume formula — writing (4/3)πr² h instead of (4/3)πr³.",
+    fix:
+      "The sphere volume formula has r³ (r cubed), not r². There is no separate height for a sphere. The formula is V = (4/3)πr³. Memorise: the exponent matches the dimension — area has r², volume has r³.",
+  },
+  {
+    mistake:
+      "Writing 4/3 as 4 × 3 = 12 instead of the fraction 4/3 ≈ 1.333.",
+    fix:
+      "The formula is V = (4/3)πr³, where 4/3 is the fraction four-thirds (approximately 1.333). On a calculator: enter 4 ÷ 3 × π × r³, or equivalently 4 × π × r³ ÷ 3. Do not multiply by 12.",
+  },
+  {
+    mistake:
+      "Confusing surface area and volume — using 4πr³ for volume or (4/3)πr² for surface area.",
+    fix:
+      "Surface area SA = 4πr² (square units — the 2D outer skin). Volume V = (4/3)πr³ (cubic units — the 3D interior). The exponent on r tells you which formula: r² for area, r³ for volume.",
+  },
+];
+
+const spheresMastery: PracticeQuestion[] = [
+  measAnswer(
+    "sph-m1",
+    "Find the surface area of a sphere with radius 3 cm. Give your answer to 1 decimal place.",
+    "r=3\\text{ cm}",
+    "113.1",
+    ["113.1 cm²", "113.1 cm^2"],
+    "SA = 4π(9) = 36π."
+  ),
+  measAnswer(
+    "sph-m2",
+    "Find the volume of a sphere with radius 4 cm. Give your answer to 1 decimal place.",
+    "r=4\\text{ cm}",
+    "268.1",
+    ["268.1 cm³", "268.1 cm^3"],
+    "V = (4/3)π(64) = (256/3)π."
+  ),
+  measChoice(
+    "sph-m3",
+    "A sphere has radius r. Which expression gives its volume?",
+    "B",
+    [
+      "$4\\pi r^2$",
+      "$\\tfrac{4}{3}\\pi r^3$",
+      "$\\tfrac{1}{3}\\pi r^2 h$",
+      "$\\tfrac{4}{3}\\pi r^2$",
+    ],
+    "V = (4/3)πr³. Option A is the surface area. Option C is the cone volume formula. Option D has r² instead of r³.",
+    "\\text{Select A, B, C, or D.}"
+  ),
+  measAnswer(
+    "sph-m4",
+    "Find the surface area of a sphere with radius 10 cm. Give your answer to 1 decimal place.",
+    "r=10\\text{ cm}",
+    "1256.6",
+    ["1256.6 cm²", "1256.6 cm^2"],
+    "SA = 4π(100) = 400π."
+  ),
+  measAnswer(
+    "sph-m5",
+    "Find the volume of a sphere with radius 9 cm. Give your answer to 1 decimal place.",
+    "r=9\\text{ cm}",
+    "3053.6",
+    ["3053.6 cm³", "3053.6 cm^3"],
+    "V = (4/3)π(729) = 972π."
+  ),
+  measAnswer(
+    "sph-m6",
+    "A sphere has surface area 64π cm². Find its radius.",
+    "SA=64\\pi\\text{ cm}^2",
+    "4",
+    ["4 cm"],
+    "4πr² = 64π → r² = 16 → r = 4 cm."
+  ),
+  measAnswer(
+    "sph-m7",
+    "Find the volume of a sphere with diameter 10 cm. Give your answer to 1 decimal place.",
+    "d=10\\text{ cm}",
+    "523.6",
+    ["523.6 cm³", "523.6 cm^3"],
+    "r = 5 cm. V = (4/3)π(125) = (500/3)π."
+  ),
+  measAnswer(
+    "sph-m8",
+    "Find the surface area of a sphere with radius 8 cm. Give your answer to 1 decimal place.",
+    "r=8\\text{ cm}",
+    "804.2",
+    ["804.2 cm²", "804.2 cm^2"],
+    "SA = 4π(64) = 256π."
+  ),
+  measAnswer(
+    "sph-m9",
+    "A sphere has volume 288π cm³. Find its radius.",
+    "V=288\\pi\\text{ cm}^3",
+    "6",
+    ["6 cm"],
+    "(4/3)πr³ = 288π → r³ = 288 × 3/4 = 216 → r = 6 cm."
+  ),
+  measChoice(
+    "sph-m10",
+    "A sphere has radius 6 cm. A smaller sphere has radius 3 cm. How many times greater is the volume of the larger sphere?",
+    "C",
+    [
+      "2 times (the radius doubled)",
+      "4 times (the radius ratio squared)",
+      "8 times (the radius ratio cubed)",
+      "6 times (the radii multiplied)",
+    ],
+    "Volume scale factor = (length scale factor)³ = (6/3)³ = 2³ = 8. The larger sphere has 8 times the volume of the smaller.",
+    "r_1=6\\text{ cm},\\;r_2=3\\text{ cm}"
+  ),
+];
+
+// ─── Lesson 7: Similar Figures and Scale Factors ──────────────────────────────
+
+const similarFiguresWorkedExamples: WorkedExample[] = [
+  {
+    title: "Using a length scale factor to find new lengths and areas",
+    questionLatex:
+      "\\text{Two similar shapes have a length scale factor of }k=3.\\text{ The original shape has length 8 cm and area 12 cm}^2.\\text{ Find the new length and area.}",
+    steps: [
+      {
+        explanation:
+          "The length scale factor k means every length is multiplied by k.",
+        latex: "\\text{New length}=8\\times 3=24\\text{ cm}",
+      },
+      {
+        explanation:
+          "Areas scale by k² (the square of the length scale factor), because area is a two-dimensional measurement.",
+        latex: "\\text{New area}=12\\times 3^2=12\\times 9=108\\text{ cm}^2",
+      },
+    ],
+    finalAnswerLatex: "\\text{New length }=24\\text{ cm},\\quad\\text{New area }=108\\text{ cm}^2",
+  },
+  {
+    title: "Finding the scale factor from corresponding lengths",
+    questionLatex:
+      "\\text{Two similar prisms have corresponding lengths 5 cm and 15 cm. The smaller prism has volume 40 cm}^3.\\text{ Find the volume of the larger prism.}",
+    steps: [
+      {
+        explanation: "Find the length scale factor from the corresponding lengths.",
+        latex: "k=\\frac{15}{5}=3",
+      },
+      {
+        explanation:
+          "Volumes scale by k³ (the cube of the length scale factor).",
+        latex: "\\text{Volume scale factor}=k^3=3^3=27",
+      },
+      {
+        explanation: "Multiply the original volume by the volume scale factor.",
+        latex: "\\text{New volume}=40\\times 27=1080\\text{ cm}^3",
+      },
+    ],
+    finalAnswerLatex: "V_{\\text{large}}=1080\\text{ cm}^3",
+  },
+  {
+    title: "Scale factor less than 1 — a reduction",
+    questionLatex:
+      "\\text{A model is built at scale }1:2\\text{, meaning every dimension is halved }(k=\\tfrac{1}{2}).\\text{ The original has length 12 cm, area 80 cm}^2\\text{, and volume 200 cm}^3.\\text{ Find the model's length, area, and volume.}",
+    steps: [
+      {
+        explanation: "Length scales by k = 1/2.",
+        latex: "\\text{Length}=12\\times\\tfrac{1}{2}=6\\text{ cm}",
+      },
+      {
+        explanation: "Area scales by k² = (1/2)² = 1/4.",
+        latex: "\\text{Area}=80\\times\\tfrac{1}{4}=20\\text{ cm}^2",
+      },
+      {
+        explanation: "Volume scales by k³ = (1/2)³ = 1/8.",
+        latex: "\\text{Volume}=200\\times\\tfrac{1}{8}=25\\text{ cm}^3",
+      },
+    ],
+    finalAnswerLatex:
+      "\\text{Length }=6\\text{ cm},\\quad\\text{Area }=20\\text{ cm}^2,\\quad\\text{Volume }=25\\text{ cm}^3",
+  },
+];
+
+const similarFiguresGuided: PracticeQuestion[] = [
+  measAnswer(
+    "sim-g1",
+    "Two similar shapes have length scale factor k = 4. The original shape has length 3 cm. Find the new length.",
+    "k=4,\\;\\text{original length}=3\\text{ cm}",
+    "12",
+    ["12 cm"],
+    "New length = original × k = 3 × 4."
+  ),
+  measAnswer(
+    "sim-g2",
+    "Two similar shapes have length scale factor k = 3. The original shape has area 15 cm². Find the new area.",
+    "k=3,\\;\\text{original area}=15\\text{ cm}^2",
+    "135",
+    ["135 cm²", "135 cm^2"],
+    "Area scale factor = k² = 9. New area = 15 × 9."
+  ),
+  measChoice(
+    "sim-g3",
+    "Two similar solids have a length scale factor of k. What is the area scale factor?",
+    "B",
+    [
+      "$k$",
+      "$k^2$",
+      "$k^3$",
+      "$2k$",
+    ],
+    "Areas scale by the square of the length scale factor. If k = 3, lengths triple but areas become 9 times as large. Volume scales by k³."
+  ),
+  measAnswer(
+    "sim-g4",
+    "Two similar solids have length scale factor k = 2. The original has volume 100 cm³. Find the new volume.",
+    "k=2,\\;\\text{original volume}=100\\text{ cm}^3",
+    "800",
+    ["800 cm³", "800 cm^3"],
+    "Volume scale factor = k³ = 8. New volume = 100 × 8."
+  ),
+];
+
+const similarFiguresIndependent: PracticeQuestion[] = [
+  measAnswer(
+    "sim-i1",
+    "Two similar triangles have corresponding sides 4 cm and 12 cm. Find the length scale factor.",
+    "\\text{sides }4\\text{ cm and }12\\text{ cm}",
+    "3",
+    [],
+    "k = larger ÷ smaller = 12 ÷ 4."
+  ),
+  measAnswer(
+    "sim-i2",
+    "Two similar figures have length scale factor k = 5. The original area is 8 cm². Find the new area.",
+    "k=5,\\;\\text{original area}=8\\text{ cm}^2",
+    "200",
+    ["200 cm²", "200 cm^2"],
+    "Area scale factor = 5² = 25. New area = 8 × 25."
+  ),
+  measAnswer(
+    "sim-i3",
+    "Two similar solids have length scale factor k = 2. The original has volume 27 cm³. Find the new volume.",
+    "k=2,\\;\\text{original volume}=27\\text{ cm}^3",
+    "216",
+    ["216 cm³", "216 cm^3"],
+    "Volume scale factor = 2³ = 8. New volume = 27 × 8."
+  ),
+  measAnswer(
+    "sim-i4",
+    "Two similar prisms have volumes 64 cm³ and 512 cm³. Find the length scale factor.",
+    "V_1=64\\text{ cm}^3,\\;V_2=512\\text{ cm}^3",
+    "2",
+    [],
+    "Volume scale factor = 512 ÷ 64 = 8 = k³. So k = ∛8 = 2."
+  ),
+  measChoice(
+    "sim-i5",
+    "A solid has volume 40 cm³. A similar solid has length scale factor k = 3. A student writes: new volume = 40 × 3 = 120 cm³. What is the correct new volume?",
+    "C",
+    ["$120\\text{ cm}^3$", "$360\\text{ cm}^3$", "$1080\\text{ cm}^3$", "$1200\\text{ cm}^3$"],
+    "Volume scale factor = k³ = 3³ = 27. New volume = 40 × 27 = 1080 cm³. The student used k instead of k³. Option B used k² = 9.",
+    "V=40\\text{ cm}^3,\\;k=3"
+  ),
+];
+
+const similarFiguresMistakes = [
+  {
+    mistake:
+      "Applying the length scale factor k to area or volume — multiplying by k instead of k² or k³.",
+    fix:
+      "The scale factor k applies only to lengths. Area (2D) scales by k². Volume (3D) scales by k³. If k = 3: lengths × 3, areas × 9, volumes × 27. Write this key fact at the top of any similar solids problem.",
+  },
+  {
+    mistake:
+      "Using the area scale factor (k²) for volume — multiplying volume by k² instead of k³.",
+    fix:
+      "Volume scales by k³. If you find k² to adjust area, you must go one step further and multiply again by k to get k³ for volume. Three dimensions → cube the scale factor.",
+  },
+  {
+    mistake:
+      "Finding the scale factor in the wrong direction — dividing smaller by larger to get k > 1 when comparing a reduction.",
+    fix:
+      "The scale factor k = new ÷ original. If the new shape is smaller, k < 1. If the new shape is larger, k > 1. Always be clear about which shape is 'original' and which is 'new'.",
+  },
+  {
+    mistake:
+      "Squaring or cubing the wrong number — applying the scale factor multiple times instead of raising it to a power.",
+    fix:
+      "If k = 4, the area scale factor is 4² = 16 (not 4 × 2 = 8). The volume scale factor is 4³ = 64 (not 4 × 3 = 12). Square or cube the scale factor itself, not the number of dimensions.",
+  },
+];
+
+const similarFiguresMastery: PracticeQuestion[] = [
+  measAnswer(
+    "sim-m1",
+    "Two similar shapes have length scale factor k = 3. The original length is 7 cm. Find the new length.",
+    "k=3,\\;\\text{original length}=7\\text{ cm}",
+    "21",
+    ["21 cm"]
+  ),
+  measAnswer(
+    "sim-m2",
+    "Two similar shapes have length scale factor k = 2. The original area is 25 m². Find the new area.",
+    "k=2,\\;\\text{original area}=25\\text{ m}^2",
+    "100",
+    ["100 m²", "100 m^2"],
+    "Area scale factor = 4. New area = 25 × 4."
+  ),
+  measChoice(
+    "sim-m3",
+    "Two similar shapes have length scale factor k = 5. What is the ratio of their areas?",
+    "C",
+    ["$5:1$", "$10:1$", "$25:1$", "$125:1$"],
+    "Area scale factor = k² = 5² = 25. The new area is 25 times the original, so the ratio is 25:1.",
+    "k=5"
+  ),
+  measAnswer(
+    "sim-m4",
+    "Two similar solids have length scale factor k = 4. The original volume is 12 cm³. Find the new volume.",
+    "k=4,\\;\\text{original volume}=12\\text{ cm}^3",
+    "768",
+    ["768 cm³", "768 cm^3"],
+    "Volume scale factor = 4³ = 64. New volume = 12 × 64."
+  ),
+  measAnswer(
+    "sim-m5",
+    "Two similar shapes have corresponding sides 6 cm and 18 cm. The original area is 20 cm². Find the new area.",
+    "\\text{sides }6\\text{ and }18\\text{ cm},\\;\\text{original area}=20\\text{ cm}^2",
+    "180",
+    ["180 cm²", "180 cm^2"],
+    "k = 18/6 = 3. Area scale factor = 9. New area = 20 × 9."
+  ),
+  measAnswer(
+    "sim-m6",
+    "Two similar cylinders have radii 3 cm and 9 cm. Find the volume scale factor.",
+    "r_1=3\\text{ cm},\\;r_2=9\\text{ cm}",
+    "27",
+    [],
+    "k = 9/3 = 3. Volume scale factor = k³ = 27."
+  ),
+  measAnswer(
+    "sim-m7",
+    "Two similar shapes have length scale factor k = 2. The original surface area is 48 cm². Find the new surface area.",
+    "k=2,\\;\\text{original SA}=48\\text{ cm}^2",
+    "192",
+    ["192 cm²", "192 cm^2"],
+    "Area scale factor = k² = 4. New SA = 48 × 4."
+  ),
+  measAnswer(
+    "sim-m8",
+    "Two similar solids have volumes 8 cm³ and 216 cm³. Find the length scale factor.",
+    "V_1=8\\text{ cm}^3,\\;V_2=216\\text{ cm}^3",
+    "3",
+    [],
+    "Volume scale factor = 216/8 = 27 = k³. So k = ∛27 = 3."
+  ),
+  measChoice(
+    "sim-m9",
+    "All dimensions of a solid are halved. What happens to its volume?",
+    "C",
+    [
+      "It halves — the volume is divided by 2.",
+      "It becomes one quarter — the volume is divided by 4.",
+      "It becomes one eighth — the volume is divided by 8.",
+      "It stays the same — only the shape changes.",
+    ],
+    "k = 1/2. Volume scale factor = (1/2)³ = 1/8. The volume becomes one-eighth of the original. This shows why volume changes much more dramatically than length when dimensions are scaled."
+  ),
+  measChoice(
+    "sim-m10",
+    "A small container holds 125 mL and is similar in shape to a larger container that is 4 times as tall. How much does the larger container hold?",
+    "D",
+    ["$500\\text{ mL}$", "$2000\\text{ mL}$", "$1000\\text{ mL}$", "$8000\\text{ mL}$"],
+    "k = 4 (length scale factor). Volume scale factor = k³ = 64. Larger volume = 125 × 64 = 8000 mL.",
+    "V_{\\text{small}}=125\\text{ mL},\\;k=4"
+  ),
+];
+
 // ─── Main override function ───────────────────────────────────────────────────
 
 export function year10MeasurementLessonOverride(
@@ -954,6 +2014,143 @@ export function year10MeasurementLessonOverride(
       independentPractice: volumePrismsCylindersIndependent,
       commonMistakes: volumePrismsCylindersMistakes,
       masteryQuiz: volumePrismsCylindersMastery,
+      masteryPassMark: 0.8,
+    };
+  }
+
+  if (lesson.slug === "pyramids") {
+    return {
+      description:
+        "Calculate the volume of pyramids using V = (1/3) × base area × height, and the surface area of square pyramids using the slant height.",
+      learningIntention:
+        "Apply V = (1/3) × A_base × h for volume and SA = s² + 2sl for square pyramids, correctly distinguishing perpendicular height from slant height.",
+      successCriteria: [
+        "Calculate the volume of a square or rectangular pyramid using the perpendicular height.",
+        "Calculate the surface area of a square pyramid using the slant height.",
+        "Distinguish between the perpendicular height (used for volume) and the slant height (used for surface area).",
+        "Rearrange the volume formula to find an unknown perpendicular height.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A pyramid tapers from a polygonal base to a single apex. Its volume is always one-third of the equivalent prism: V = (1/3) × base area × h, where h is the perpendicular (vertical) height from the base to the apex.",
+          "The slant height l is the height of a triangular face — the distance from the apex to the midpoint of a base edge, measured along the face. The slant height is always longer than the perpendicular height.",
+          "For a square pyramid with base side s and slant height l: SA = s² + 4 × (½ × s × l) = s² + 2sl. The first term is the square base; the second is the area of four identical triangular faces.",
+          "Rule: use the perpendicular height h for volume; use the slant height l for surface area. Never mix them up.",
+        ],
+        latexBlocks: [
+          "V_{\\text{pyramid}}=\\tfrac{1}{3}\\times A_{\\text{base}}\\times h",
+          "SA_{\\text{square pyramid}}=s^2+2sl\\quad(s=\\text{base side},\\;l=\\text{slant height})",
+        ],
+      },
+      workedExamples: pyramidsWorkedExamples,
+      guidedPractice: pyramidsGuided,
+      independentPractice: pyramidsIndependent,
+      commonMistakes: pyramidsMistakes,
+      masteryQuiz: pyramidsMastery,
+      masteryPassMark: 0.8,
+    };
+  }
+
+  if (lesson.slug === "cones") {
+    return {
+      description:
+        "Calculate the volume and surface area of cones using V = (1/3)πr²h and TSA = πr² + πrl, distinguishing between perpendicular height and slant height.",
+      learningIntention:
+        "Apply cone volume and surface area formulas correctly, using perpendicular height for volume and slant height for curved surface area.",
+      successCriteria: [
+        "Calculate the volume of a cone using V = (1/3)πr²h with the perpendicular height.",
+        "Calculate the curved surface area using CSA = πrl with the slant height.",
+        "Calculate the total surface area using TSA = πr² + πrl.",
+        "Find the slant height using the Pythagorean theorem: l = √(r² + h²).",
+      ],
+      teaching: {
+        paragraphs: [
+          "A cone has a circular base and tapers to a single apex. Like a pyramid, its volume is one-third of the equivalent cylinder: V = (1/3)πr²h, where r is the base radius and h is the perpendicular height.",
+          "The slant height l is the distance from the apex to any point on the base circle edge. It satisfies the Pythagorean theorem: l² = r² + h², so l = √(r² + h²). The slant height is always longer than the perpendicular height.",
+          "The curved surface area (CSA) of a cone unrolls into a sector of a circle: CSA = πrl. The total surface area of a closed cone adds the circular base: TSA = πr² + πrl.",
+          "Rule: volume uses h (perpendicular); curved surface area uses l (slant). If neither h nor l is given but the other is known, find the missing one with Pythagoras.",
+        ],
+        latexBlocks: [
+          "V_{\\text{cone}}=\\tfrac{1}{3}\\pi r^2 h",
+          "CSA=\\pi r l\\quad(l=\\text{slant height})",
+          "TSA=\\pi r^2+\\pi r l",
+          "l=\\sqrt{r^2+h^2}",
+        ],
+      },
+      workedExamples: conesWorkedExamples,
+      guidedPractice: conesGuided,
+      independentPractice: conesIndependent,
+      commonMistakes: conesMistakes,
+      masteryQuiz: conesMastery,
+      masteryPassMark: 0.8,
+    };
+  }
+
+  if (lesson.slug === "spheres") {
+    return {
+      description:
+        "Calculate the surface area and volume of spheres using SA = 4πr² and V = (4/3)πr³, correctly identifying the radius from a given diameter.",
+      learningIntention:
+        "Apply SA = 4πr² and V = (4/3)πr³ to find the surface area and volume of spheres, and rearrange to find the radius.",
+      successCriteria: [
+        "Apply SA = 4πr² to find the surface area of a sphere.",
+        "Apply V = (4/3)πr³ to find the volume of a sphere.",
+        "Identify the radius from a given diameter before substituting.",
+        "Rearrange the surface area or volume formula to find the radius.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A sphere is a perfectly round solid where every surface point is the same distance (the radius r) from the centre. The diameter d = 2r — always halve the diameter to get the radius before substituting into any formula.",
+          "Surface area of a sphere: SA = 4πr². The surface area is four times the area of a great circle — a useful way to remember the formula.",
+          "Volume of a sphere: V = (4/3)πr³. The exponent on r is 3 (cubed) for volume — one higher than the exponent 2 used in surface area.",
+          "To find r from the surface area: rearrange 4πr² = SA → r = √(SA/(4π)). To find r from the volume: rearrange (4/3)πr³ = V → r = ∛(3V/(4π)).",
+        ],
+        latexBlocks: [
+          "SA=4\\pi r^2",
+          "V=\\tfrac{4}{3}\\pi r^3",
+          "r=\\frac{d}{2}\\text{ (always halve the diameter first)}",
+        ],
+      },
+      workedExamples: spheresWorkedExamples,
+      guidedPractice: spheresGuided,
+      independentPractice: spheresIndependent,
+      commonMistakes: spheresMistakes,
+      masteryQuiz: spheresMastery,
+      masteryPassMark: 0.8,
+    };
+  }
+
+  if (lesson.slug === "similar-figures-scale") {
+    return {
+      description:
+        "Apply length, area, and volume scale factors to similar figures, understanding that area scales by k² and volume scales by k³ when the length scale factor is k.",
+      learningIntention:
+        "Use scale factors to find new lengths, areas, and volumes of similar figures, and find the scale factor from corresponding measurements.",
+      successCriteria: [
+        "Identify the length scale factor k from corresponding lengths of similar figures.",
+        "Calculate new areas using the area scale factor k².",
+        "Calculate new volumes using the volume scale factor k³.",
+        "Find k from volumes or areas by taking the cube root or square root of the scale factor.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Two figures are similar if one is an enlargement (or reduction) of the other, with all lengths multiplied by the same scale factor k. If k > 1, the figure is enlarged; if k < 1, it is reduced.",
+          "Lengths scale by k: new length = original length × k. This applies to every linear measurement — sides, perimeter, radius, height.",
+          "Areas scale by k²: new area = original area × k². Because area involves two length dimensions, the scale factor is applied twice (k × k = k²).",
+          "Volumes scale by k³: new volume = original volume × k³. Volume involves three length dimensions, so the scale factor is cubed (k × k × k = k³). This means a small change in k causes a large change in volume.",
+          "To find k from lengths: k = new ÷ original. To find k from areas: k = √(area scale factor). To find k from volumes: k = ∛(volume scale factor).",
+        ],
+        latexBlocks: [
+          "\\text{Length scale factor: }k\\qquad\\text{e.g. }k=3",
+          "\\text{Area scale factor: }k^2\\qquad\\text{e.g. }3^2=9",
+          "\\text{Volume scale factor: }k^3\\qquad\\text{e.g. }3^3=27",
+        ],
+      },
+      workedExamples: similarFiguresWorkedExamples,
+      guidedPractice: similarFiguresGuided,
+      independentPractice: similarFiguresIndependent,
+      commonMistakes: similarFiguresMistakes,
+      masteryQuiz: similarFiguresMastery,
       masteryPassMark: 0.8,
     };
   }

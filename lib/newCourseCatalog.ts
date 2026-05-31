@@ -1314,6 +1314,30 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Calculate the volume of rectangular prisms, triangular prisms, and cylinders, and rearrange the formula to find an unknown dimension.",
           },
+          {
+            slug: "pyramids",
+            title: "Surface Area and Volume of Pyramids",
+            description:
+              "Calculate the volume of square and rectangular pyramids using V = (1/3) × base area × height, and the surface area of square pyramids using the slant height.",
+          },
+          {
+            slug: "cones",
+            title: "Surface Area and Volume of Cones",
+            description:
+              "Apply V = (1/3)πr²h for cone volume, CSA = πrl for curved surface area, and TSA = πr² + πrl for total surface area, using Pythagoras to find the slant height when needed.",
+          },
+          {
+            slug: "spheres",
+            title: "Surface Area and Volume of Spheres",
+            description:
+              "Apply SA = 4πr² and V = (4/3)πr³ to find the surface area and volume of spheres, and rearrange to find the radius.",
+          },
+          {
+            slug: "similar-figures-scale",
+            title: "Similar Figures and Scale Factors",
+            description:
+              "Apply length, area, and volume scale factors to similar figures: area scales by k², volume scales by k³.",
+          },
         ],
       },
       {
