@@ -1422,6 +1422,24 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Use angle and side relationships to identify similar triangles and calculate scale factors.",
           },
+          {
+            slug: "circle-chord-angle",
+            title: "Circle Geometry: Chord and Angle Theorems",
+            description:
+              "Use chord and angle theorems to find missing angles in circles and cyclic quadrilaterals.",
+          },
+          {
+            slug: "circle-tangents",
+            title: "Circle Geometry: Tangent Theorems",
+            description:
+              "Use radius-tangent, equal-tangent and alternate-segment facts to reason about circles.",
+          },
+          {
+            slug: "geometric-proofs",
+            title: "Writing Geometric Proofs",
+            description:
+              "Write short geometric proofs by linking given facts, valid reasons and precise conclusions.",
+          },
         ],
       },
       {
