@@ -1128,6 +1128,99 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     ],
   },
   {
+    slug: "year-9-mathematics",
+    title: "Year 9 Mathematics",
+    yearLevel: "9",
+    courseType: "standard",
+    status: "coming_soon",
+    description:
+      "Build the Stage 5 foundations for Year 10 Mathematics through geometry, trigonometry, algebra, measurement, finance, probability and statistics.",
+    positioning:
+      "A Year 9 Stage 5 foundation pathway based on the NSW Mathematics K–10 Syllabus and guided by the NSW Stage 5 sample scope and sequence. It prepares students for the completed Year 10 Mathematics course.",
+    units: [
+      {
+        slug: "geometrical-representations",
+        title: "Geometrical Representations",
+        description:
+          "Use similarity, ratio, scale factors and geometric representations to compare shapes and diagrams.",
+        syllabusArea: "Measurement and Space",
+        focus:
+          "Build proportional reasoning, scale and geometric representation skills needed for Year 10 geometry and measurement.",
+        lessons: [],
+      },
+      {
+        slug: "working-with-triangles",
+        title: "Working with Triangles",
+        description:
+          "Use Pythagoras, right-triangle trigonometry and coordinate geometry to solve triangle and distance problems.",
+        syllabusArea: "Measurement and Space",
+        focus:
+          "Prepare for Year 10 trigonometry, bearings, elevation and coordinate geometry.",
+        lessons: [],
+      },
+      {
+        slug: "prisms-and-cylinders",
+        title: "Prisms and Cylinders",
+        description:
+          "Calculate area, surface area and volume for prisms, cylinders and composite solids.",
+        syllabusArea: "Measurement and Space",
+        focus:
+          "Develop measurement fluency for Year 10 surface area, volume and similarity.",
+        lessons: [],
+      },
+      {
+        slug: "index-laws",
+        title: "Index Laws",
+        description:
+          "Work with positive, zero and simple negative indices, and use scientific notation for large and small numbers.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Strengthen algebraic fluency before Year 10 algebra and non-linear relationships.",
+        lessons: [],
+      },
+      {
+        slug: "financial-mathematics",
+        title: "Financial Mathematics",
+        description:
+          "Calculate earnings, spending, tax, net earnings and simple interest in practical contexts.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Build practical financial mathematics before Year 10 compound interest, depreciation and comparisons.",
+        lessons: [],
+      },
+      {
+        slug: "constant-rates-of-change",
+        title: "Constant Rates of Change",
+        description:
+          "Connect linear relationships, gradient, graphing and constant rates of change.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Prepare for Year 10 linear relationships and modelling.",
+        lessons: [],
+      },
+      {
+        slug: "making-predictions",
+        title: "Making Predictions",
+        description:
+          "Use sample spaces, multi-stage probability, dependent and independent events, and simulations to make predictions.",
+        syllabusArea: "Statistics and Probability",
+        focus:
+          "Prepare for Year 10 probability, tree diagrams, Venn diagrams and conditional probability.",
+        lessons: [],
+      },
+      {
+        slug: "making-decisions",
+        title: "Making Decisions",
+        description:
+          "Use data summaries, quartiles, box plots and standard deviation to compare groups and make decisions.",
+        syllabusArea: "Statistics and Probability",
+        focus:
+          "Prepare for Year 10 statistics, IQR, box plots, spread and data-based reasoning.",
+        lessons: [],
+      },
+    ],
+  },
+  {
     slug: "year-10-mathematics",
     title: "Year 10 Mathematics",
     yearLevel: "Year 10",
