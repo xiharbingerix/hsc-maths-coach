@@ -289,6 +289,13 @@ function validateCartesianGraph(value: unknown, path: string) {
         addIssue("FAIL", "cartesian-payload", regionPath, "Shaded region requires finite xMin < xMax.");
       }
 
+      if (
+        region.color !== undefined &&
+        !["blue", "green", "red", "amber"].includes(String(region.color))
+      ) {
+        addIssue("FAIL", "cartesian-payload", regionPath, `Shaded region color "${String(region.color)}" must be blue, green, red, or amber.`);
+      }
+
       if (region.kind === "under-function") {
         if (region.baseline !== undefined && !isFiniteNumber(region.baseline)) {
           addIssue("FAIL", "cartesian-payload", regionPath, "Shaded region baseline must be finite when supplied.");

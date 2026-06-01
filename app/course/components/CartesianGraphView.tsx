@@ -5,7 +5,15 @@ import type {
   CartesianFunction,
   CartesianGraph,
   CartesianPoint,
+  ShadedRegionColor,
 } from "../../../lib/lessons/types";
+
+const shadedRegionFill: Record<ShadedRegionColor, string> = {
+  blue: "#0ea5e9",
+  green: "#10b981",
+  red: "#ef4444",
+  amber: "#f59e0b",
+};
 
 const width = 420;
 const height = 320;
@@ -216,11 +224,12 @@ export function CartesianGraphView({
               })
               .join(" ");
 
+            const fill = shadedRegionFill[region.color ?? "blue"];
             return (
               <path
                 key={`shaded-region-${index}`}
                 d={`${path} Z`}
-                fill="#0ea5e9"
+                fill={fill}
                 fillOpacity={0.2}
                 stroke="none"
               />

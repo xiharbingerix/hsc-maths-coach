@@ -1429,6 +1429,7 @@ export const signedAreaTotalAreaLesson: ExplicitLesson = {
             line: { m: 1, b: -1 },
             xMin: 0,
             xMax: 1,
+            color: "red",
             description: "Shaded region below the x-axis from x equals 0 to x equals 1. This part contributes negative signed area.",
           },
           {
@@ -1437,6 +1438,7 @@ export const signedAreaTotalAreaLesson: ExplicitLesson = {
             line: { m: 1, b: -1 },
             xMin: 1,
             xMax: 3,
+            color: "green",
             description: "Shaded region above the x-axis from x equals 1 to x equals 3. This part contributes positive signed area.",
           },
         ],
@@ -1474,6 +1476,7 @@ export const signedAreaTotalAreaLesson: ExplicitLesson = {
             line: { m: 1, b: -1 },
             xMin: 0,
             xMax: 1,
+            color: "red",
             description: "Shaded below-axis piece from x equals 0 to x equals 1. It contributes negative signed area but positive total area.",
           },
           {
@@ -1482,6 +1485,7 @@ export const signedAreaTotalAreaLesson: ExplicitLesson = {
             line: { m: 1, b: -1 },
             xMin: 1,
             xMax: 3,
+            color: "green",
             description: "Shaded above-axis piece from x equals 1 to x equals 3. It contributes positive signed area and positive total area.",
           },
         ],

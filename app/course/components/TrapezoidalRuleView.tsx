@@ -24,6 +24,10 @@ export function TrapezoidalRuleView({
   const titleId = `${reactId}-title`;
   const descriptionId = `${reactId}-description`;
   const { xValues, yValues } = diagram;
+  const trapezoidCount = xValues.length - 1;
+  const svgTitle = diagram.functionLabel
+    ? `Trapezoidal rule for ${diagram.functionLabel}`
+    : `Trapezoidal rule: ${trapezoidCount} trapezoid${trapezoidCount === 1 ? "" : "s"}`;
 
   if (
     xValues.length < 2 ||
@@ -62,7 +66,7 @@ export function TrapezoidalRuleView({
         preserveAspectRatio="xMidYMid meet"
         className="max-h-[380px] min-w-[360px]"
       >
-        <title id={titleId}>Trapezoidal rule diagram</title>
+        <title id={titleId}>{svgTitle}</title>
         <desc id={descriptionId}>{diagram.description}</desc>
 
         <rect

@@ -478,6 +478,7 @@ export const areaBetweenCurvesExtendedLesson = furtherIntegralLesson(
             line: { m: 1, b: 0 },
             xMin: -1,
             xMax: 0,
+            color: "red",
             description: "Shaded triangle below the x-axis from x equals negative 1 to x equals 0.",
           },
           {
@@ -486,6 +487,7 @@ export const areaBetweenCurvesExtendedLesson = furtherIntegralLesson(
             line: { m: 1, b: 0 },
             xMin: 0,
             xMax: 1,
+            color: "green",
             description: "Shaded triangle above the x-axis from x equals 0 to x equals 1.",
           },
         ],

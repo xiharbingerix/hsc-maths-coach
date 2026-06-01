@@ -64,13 +64,15 @@ export type CartesianFunction =
       quadratic: { a: number; b: number; c: number };
     };
 
+export type ShadedRegionColor = "blue" | "green" | "red" | "amber";
+
 export type CartesianShadedRegion =
   | (CartesianFunction & {
       kind: "under-function";
       xMin: number;
       xMax: number;
       baseline?: number;
-      label?: string;
+      color?: ShadedRegionColor;
       description?: string;
     })
   | {
@@ -79,7 +81,7 @@ export type CartesianShadedRegion =
       xMax: number;
       top: CartesianFunction;
       bottom: CartesianFunction;
-      label?: string;
+      color?: ShadedRegionColor;
       description?: string;
     };
 
