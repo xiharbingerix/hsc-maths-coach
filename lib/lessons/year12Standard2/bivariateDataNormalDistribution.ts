@@ -130,30 +130,144 @@ export function year12Standard2StatisticsLessonOverride(
     };
   }
 
-  if (lesson.slug === "correlation-regression") {
+  if (lesson.slug === "correlation-association") {
     return {
       ...base,
       description:
-        "Use correlation, regression equations, predictions, residuals, slope, intercept, and extrapolation warnings.",
+        "Describe direction and strength of linear association using scatterplots and correlation values, while avoiding causation claims.",
       learningIntention:
-        "Use correlation and least-squares regression ideas to make and interpret statistical predictions.",
+        "Describe how two variables move together and use correlation values without making unsupported cause-and-effect claims.",
       successCriteria: [
-        "Interpret the sign and size of a correlation coefficient.",
-        "Use a regression equation to make an appropriate prediction.",
-        "Interpret slope and intercept in context.",
-        "Calculate and interpret residuals using actual minus predicted.",
+        "Describe positive, negative, and no clear association in plain English.",
+        "Use weak, moderate, and strong to describe how closely points follow a linear pattern.",
+        "Interpret correlation values close to 1, close to -1, and close to 0.",
+        "Explain why correlation does not prove causation.",
       ],
       teaching: {
         paragraphs: [
-          "The correlation coefficient r describes the direction and strength of a linear association. Values close to 1 show strong positive association, values close to -1 show strong negative association, and values close to 0 show weak linear association.",
-          "A regression equation models the relationship between an explanatory variable x and a response variable y. It can be used for prediction within the data range.",
-          "The slope gives the predicted change in y for a one-unit increase in x. The intercept is the predicted y-value when x is 0, but it should only be interpreted when x = 0 makes sense in context.",
-          "A residual is actual value minus predicted value. A positive residual means the actual value is above the regression prediction.",
+          "Association means that two variables tend to move together in a pattern. If larger x-values usually go with larger y-values, the association is positive. If larger x-values usually go with smaller y-values, it is negative.",
+          "Strength describes how closely the points follow the pattern. Points packed close to a line suggest a strong linear association. More spread-out points suggest a moderate or weak association.",
+          "The correlation coefficient r is a compact way to describe linear association. Values close to 1 mean strong positive association, values close to -1 mean strong negative association, and values close to 0 mean weak or no linear association.",
+          "Correlation does not prove causation. Two variables can move together because another variable influences both. That hidden influence is sometimes called a lurking variable.",
+          "A clear scatterplot description usually names direction, strength, and form. Mention an outlier as well if one point sits away from the main pattern.",
         ],
         latexBlocks: [
           "-1\\le r\\le 1",
+          "r\\approx 1\\Rightarrow \\text{strong positive linear association}",
+          "r\\approx -1\\Rightarrow \\text{strong negative linear association}",
+          "r\\approx 0\\Rightarrow \\text{weak or no linear association}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Describe a positive association",
+          questionLatex:
+            "\\text{A scatterplot of study hours and marks rises from left to right, with points close to a line.}",
+          steps: [
+            {
+              explanation:
+                "As study hours increase, marks tend to increase as well. That gives the association a positive direction.",
+            },
+            {
+              explanation:
+                "The points stay close to a line, so the linear association is strong rather than weak.",
+            },
+          ],
+          finalAnswerLatex: "\\text{Strong positive linear association.}",
+        },
+        {
+          title: "Describe a negative association",
+          questionLatex:
+            "\\text{A scatterplot of vehicle speed and travel time slopes downward with moderate scatter.}",
+          steps: [
+            {
+              explanation:
+                "As speed increases, travel time tends to decrease. When one variable rises while the other falls, the direction is negative.",
+            },
+            {
+              explanation:
+                "The points follow the pattern with some spread, so moderate is a sensible strength description.",
+            },
+          ],
+          finalAnswerLatex: "\\text{Moderate negative association.}",
+        },
+        {
+          title: "Avoid a causation trap",
+          questionLatex:
+            "\\text{Ice-cream sales and sunburn cases both rise during summer. Does buying ice cream cause sunburn?}",
+          steps: [
+            {
+              explanation:
+                "The two variables can have a positive association because they often rise at the same time.",
+            },
+            {
+              explanation:
+                "Hot, sunny weather is a lurking variable that can increase both. The association does not prove that one variable causes the other.",
+            },
+          ],
+          finalAnswerLatex:
+            "\\text{Positive association, but causation is not proven.}",
+        },
+      ],
+      guidedPractice: [
+        financeChoice("y12s2-corr-g1", "A scatterplot rises from left to right. Which direction best describes the association?", "A", ["Positive", "Negative", "No clear association", "Causation"], "Larger x-values tend to come with larger y-values, so the direction is positive."),
+        financeChoice("y12s2-corr-g2", "Points lie close to a downward-sloping line. Which description is best?", "C", ["Weak positive", "Moderate positive", "Strong negative linear association", "No association"], "The downward direction makes the association negative. Points close to a line make it strong."),
+        financeChoice("y12s2-corr-g3", "A correlation coefficient is r = 0.88. Which description is best?", "B", ["Strong negative", "Strong positive linear association", "Weak or no linear association", "Causation proven"], "The value is close to 1, so it describes a strong positive linear association."),
+        financeChoice("y12s2-corr-g4", "Sunglasses sales and ice-cream sales increase together in hot weather. What is the safest conclusion?", "D", ["Sunglasses cause ice-cream sales", "Ice cream causes sunglasses sales", "There is no association", "The variables are associated, but hot weather may influence both"], "A lurking variable can influence both variables. Correlation supports association, not a cause-and-effect claim."),
+      ],
+      independentPractice: [
+        financeChoice("y12s2-corr-i1", "A scatterplot has points widely spread around a slight upward trend. Which description fits best?", "A", ["Weak positive association", "Strong negative association", "No variables can be compared", "Causation proven"], "The direction is upward, but the wide spread makes the association weak."),
+        financeChoice("y12s2-corr-i2", "A correlation coefficient is r = -0.93. Which description is best?", "C", ["Weak positive", "Moderate positive", "Strong negative linear association", "No linear association"], "The negative sign gives the direction, and the value is close to -1, so the association is strong."),
+        financeChoice("y12s2-corr-i3", "A correlation coefficient is r = 0.06. Which description is best?", "B", ["Strong positive", "Weak or no linear association", "Strong negative", "Causation proven"], "A value close to zero suggests little linear pattern. It does not rule out every possible relationship."),
+        financeChoice("y12s2-corr-i4", "Which is the clearest scatterplot description?", "D", ["The graph looks good", "The variables are related", "The line goes somewhere", "There is a moderate negative linear association with one outlier"], "A useful description names direction, strength, form, and any noticeable outlier."),
+        financeChoice("y12s2-corr-i5", "Umbrella sales and traffic delays both rise on rainy days. Which variable is a likely lurking variable?", "A", ["Rainfall", "Umbrella colour", "Road name", "Correlation coefficient"], "Rain can increase both umbrella sales and traffic delays, so it may explain the association."),
+      ],
+      commonMistakes: [
+        { mistake: "Treating a positive correlation as proof that x causes y.", fix: "Say the variables are associated. A lurking variable or reverse direction may explain the pattern." },
+        { mistake: "Using the sign of r to describe strength.", fix: "The sign gives direction. Distance from zero gives strength: values near 1 or -1 are stronger." },
+        { mistake: "Saying r close to zero proves there is no relationship of any kind.", fix: "A value close to zero means weak or no linear association. A curved pattern could still exist." },
+        { mistake: "Describing only direction.", fix: "Add strength and form, then mention any outlier that sits away from the main pattern." },
+      ],
+      masteryQuiz: [
+        financeChoice("y12s2-corr-m1", "An upward trend in a scatterplot indicates:", "A", ["Positive association", "Negative association", "No association", "A residual"], "When both variables tend to rise together, the association is positive."),
+        financeChoice("y12s2-corr-m2", "A downward trend in a scatterplot indicates:", "B", ["Positive association", "Negative association", "A normal distribution", "Causation"], "When y tends to decrease as x increases, the association is negative."),
+        financeChoice("y12s2-corr-m3", "r = 0.95 is best described as:", "C", ["Strong negative", "Weak linear association", "Strong positive linear association", "No relationship of any kind"], "The value is close to 1, so the linear association is strong and positive."),
+        financeChoice("y12s2-corr-m4", "r = -0.81 is best described as:", "D", ["Strong positive", "Weak positive", "No clear linear association", "Strong negative linear association"], "The value is reasonably close to -1, so the linear association is strong and negative."),
+        financeChoice("y12s2-corr-m5", "r = 0.03 suggests:", "A", ["Weak or no linear association", "Strong positive association", "Strong negative association", "Guaranteed causation"], "A value close to zero shows little linear association."),
+        financeChoice("y12s2-corr-m6", "Which statement about r is correct?", "B", ["r must be greater than 1", "r is between -1 and 1", "r proves causation", "r measures a residual"], "A correlation coefficient lies between -1 and 1."),
+        financeChoice("y12s2-corr-m7", "Points are tightly packed around an upward-sloping line. Which description is best?", "C", ["Weak negative", "Moderate negative", "Strong positive linear association", "No association"], "Close points indicate strength, and the upward direction is positive."),
+        financeChoice("y12s2-corr-m8", "Coffee sales and heater use both rise in winter. What is the safest conclusion?", "D", ["Coffee causes heater use", "Heater use causes coffee sales", "No association is possible", "The variables may be associated, with cold weather influencing both"], "Cold weather is a plausible lurking variable. The association alone cannot establish causation."),
+        financeChoice("y12s2-corr-m9", "Why should an outlier be mentioned when describing a scatterplot?", "A", ["It may not fit the main pattern", "It always proves causation", "It makes r equal to zero", "It is the response variable"], "An outlier sits away from the pattern and can affect the interpretation."),
+        financeChoice("y12s2-corr-m10", "Which is the best full description?", "B", ["The points move", "Strong negative linear association with one outlier", "The graph proves causation", "r must be positive"], "A clear description names strength, direction, form, and the noticeable outlier."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "regression-prediction-residuals") {
+    return {
+      ...base,
+      description:
+        "Use regression equations to make predictions, interpret slope, and calculate residuals as actual minus predicted values.",
+      learningIntention:
+        "Use a regression line as a prediction tool and explain what its slope, intercept, residuals, and prediction limits mean in context.",
+      successCriteria: [
+        "Use a regression equation to make an appropriate prediction.",
+        "Interpret slope and intercept in context.",
+        "Calculate and interpret residuals using actual minus predicted.",
+        "Distinguish interpolation from cautious extrapolation.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A regression line is a prediction tool. It summarises the overall linear pattern in a scatterplot so you can estimate a response value y from a known explanatory value x.",
+          "In a regression equation, substitute the known x-value to calculate a predicted y-value. The answer is a prediction, not a guarantee, because real data points do not all sit exactly on the line.",
+          "The slope tells the practical story: for each extra 1 of x, predicted y changes by about this much. The intercept is the predicted y-value when x is 0, but only explain it when x = 0 makes sense in the situation.",
+          "A residual is actual minus predicted: the leftover error after using the line. A positive residual means the actual point sits above the prediction. A negative residual means it sits below.",
+          "Interpolation means predicting within the observed x-values. Extrapolation means predicting outside that range, where the old pattern may no longer continue.",
+        ],
+        latexBlocks: [
           "\\hat{y}=a+bx",
           "\\text{residual}=y-\\hat{y}",
+          "\\text{residual}=\\text{actual}-\\text{predicted}",
         ],
       },
       workedExamples: [
@@ -210,8 +324,8 @@ export function year12Standard2StatisticsLessonOverride(
         },
       ],
       guidedPractice: [
-        financeChoice("y12s2-reg-g1", "A correlation coefficient is r = 0.84. Which description is best?", "A", ["Strong positive linear association", "Strong negative linear association", "Weak association", "No variables are related"], "A value close to 1 is strong positive."),
-        financeChoice("y12s2-reg-g2", "A correlation coefficient is r = -0.78. Which description is best?", "B", ["Strong positive", "Strong negative", "No association", "Causation proven"], "A value close to -1 is strong negative."),
+        financeChoice("y12s2-reg-g1", "In y = 18 + 4x, what does the slope mean?", "A", ["Predicted y increases by about 4 for each extra 1 of x", "Predicted y is always 4", "The intercept is 4", "The residual is 4"], "The slope is the coefficient of x. It describes the predicted change in y for one extra unit of x."),
+        financeChoice("y12s2-reg-g2", "A regression model was built from x-values between 2 and 12. Predicting at x = 8 is:", "B", ["Extrapolation", "Interpolation", "A residual", "A causation claim"], "The input 8 sits inside the observed range, so this is interpolation."),
         financeShortAnswer("y12s2-reg-g3", "Use the regression model shown to predict the response value.", "y=12.5+4.2x,\\quad x=6", "37.7"),
         financeShortAnswer("y12s2-reg-g4", "A predicted score is 74 and the actual score is 80. Find the residual.", "\\text{actual}=80,\\quad \\text{predicted}=74", "6"),
       ],
@@ -223,22 +337,22 @@ export function year12Standard2StatisticsLessonOverride(
         financeChoice("y12s2-reg-i5", "In the displayed regression model, the intercept should be interpreted only if:", "A", ["$x=0$ is meaningful in context", "r is negative", "there is an outlier", "the residual is positive"], "Intercepts are contextual.", "y=12.5+4.2x"),
       ],
       commonMistakes: [
-        { mistake: "Treating correlation as proof of causation.", fix: "Correlation measures association, not proof of cause and effect." },
+        { mistake: "Treating a regression prediction as an exact result.", fix: "A regression line estimates the overall pattern. Real points can sit above or below the prediction." },
         { mistake: "Reversing x and y in the regression equation.", fix: "Substitute the explanatory variable into x to predict y." },
         { mistake: "Calculating residual as predicted minus actual.", fix: "Use residual = actual - predicted." },
         { mistake: "Extrapolating far outside the data range without caution.", fix: "Predictions are most reliable within the observed data range." },
       ],
       masteryQuiz: [
-        financeChoice("y12s2-reg-m1", "r = 0.91 is best described as:", "A", ["Strong positive linear association", "Strong negative linear association", "Weak association", "No linear association"], "0.91 is close to 1."),
-        financeChoice("y12s2-reg-m2", "r = -0.86 is best described as:", "B", ["Strong positive", "Strong negative", "No association", "Causation"], "-0.86 is close to -1."),
-        financeChoice("y12s2-reg-m3", "r = 0.08 suggests:", "C", ["Strong positive", "Strong negative", "Weak or no linear association", "A guaranteed cause"], "0.08 is close to 0."),
+        financeChoice("y12s2-reg-m1", "In y = 7 + 2.5x, the slope means:", "A", ["Predicted y rises by about 2.5 for each extra 1 of x", "Predicted y starts at 2.5", "The residual is 2.5", "x must equal 2.5"], "The slope is the predicted change in y for each one-unit increase in x."),
+        financeChoice("y12s2-reg-m2", "A regression model was fitted for x-values from 5 to 20. Predicting at x = 14 is:", "B", ["Extrapolation", "Interpolation", "A residual", "A lurking variable"], "The input is inside the observed range, so the prediction is interpolation."),
+        financeChoice("y12s2-reg-m3", "A regression model was fitted for x-values from 5 to 20. Predicting at x = 50 should be treated cautiously because it is:", "C", ["Interpolation", "A residual", "Extrapolation", "A z-score"], "The input lies outside the observed range. The old pattern may not continue that far."),
         financeShortAnswer("y12s2-reg-m4", "Use the regression equation shown to predict the response value.", "y=30+2.5x,\\quad x=8", "50"),
         financeShortAnswer("y12s2-reg-m5", "Use the model shown to predict the response value.", "y=5+1.8x,\\quad x=10", "23"),
         financeShortAnswer("y12s2-reg-m6", "A predicted value is 62 and the actual value is 57. Find the residual.", "\\text{predicted}=62,\\quad \\text{actual}=57", "-5"),
         financeChoice("y12s2-reg-m7", "A positive residual means:", "D", ["The correlation is positive", "The model proves causation", "The actual value is below predicted", "The actual value is above predicted"], "Residual = actual - predicted."),
         financeChoice("y12s2-reg-m8", "In the displayed regression model, what does the slope mean?", "A", ["Predicted y increases by 3 for each 1-unit increase in x", "Predicted y is always 3", "x must be 3", "The residual is 3"], "Slope is the predicted rate of change.", "y=12+3x"),
         financeChoice("y12s2-reg-m9", "Predicting outside the range of the data is called:", "B", ["Interpolation", "Extrapolation", "Residual calculation", "Standardising"], "Extrapolation is outside the observed data range."),
-        financeChoice("y12s2-reg-m10", "Which conclusion is safest from a strong positive correlation?", "C", ["x definitely causes y", "y definitely causes x", "x and y have a strong positive association", "There is no relationship"], "Correlation describes association, not causation."),
+        financeChoice("y12s2-reg-m10", "When is it sensible to interpret the intercept of a regression equation?", "C", ["Always", "Only when the slope is negative", "When x = 0 is meaningful in context", "Only when the residual is zero"], "The intercept predicts y when x = 0. Explain it only when that input has a practical meaning."),
       ],
     };
   }
