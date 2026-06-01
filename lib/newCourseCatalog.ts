@@ -42,7 +42,7 @@ import {
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
-import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9IndexLawsLessonOverride } from "./lessons/year9";
+import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9IndexLawsLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 
 export type {
   CourseLessonSeed,
@@ -198,6 +198,7 @@ export function buildLesson(
     year9IndexLawsLessonOverride(course, unit, lesson) ??
     year9FinancialMathematicsLessonOverride(course, unit, lesson) ??
     year9ConstantRatesOfChangeLessonOverride(course, unit, lesson) ??
+    year9WorkingWithTrianglesLessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
     year10TrigonometryLessonOverride(course, unit, lesson) ??
@@ -1160,7 +1161,16 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Measurement and Space",
         focus:
           "Prepare for Year 10 trigonometry, bearings, elevation and coordinate geometry.",
-        lessons: [],
+        lessons: [
+          { slug: "pythagoras-hypotenuse", title: "Pythagoras: Finding the Hypotenuse" },
+          { slug: "pythagoras-shorter-side", title: "Pythagoras: Finding a Shorter Side" },
+          { slug: "right-triangle-applications", title: "Right-Triangle Applications" },
+          { slug: "trigonometric-ratios", title: "Trigonometric Ratios" },
+          { slug: "finding-sides-right-triangles", title: "Finding Sides in Right Triangles" },
+          { slug: "finding-angles-right-triangles", title: "Finding Angles in Right Triangles" },
+          { slug: "midpoint-distance-coordinate", title: "Midpoint and Distance on the Cartesian Plane" },
+          { slug: "gradient-foundations", title: "Gradient Foundations" },
+        ],
       },
       {
         slug: "prisms-and-cylinders",
