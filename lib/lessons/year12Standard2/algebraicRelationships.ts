@@ -1,6 +1,132 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import type { ExplicitLesson } from "../differentialCalculus";
-import { practicalChoice, moneyAnswer, measurementAnswer, linearAnswer } from "../questionHelpers";
+import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import type { CartesianGraph, CartesianPoint } from "../types";
+import { practicalChoice, moneyAnswer, linearAnswer } from "../questionHelpers";
+
+function algebraAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  explanation: string,
+  acceptedAnswers: string[] = [],
+  cartesianGraph?: CartesianGraph
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    hint: "Identify the model type first, then use the feature or calculation that matches the question.",
+    explanation,
+    cartesianGraph,
+  };
+}
+
+function algebraChoice(
+  id: string,
+  prompt: string,
+  answer: "A" | "B" | "C" | "D",
+  choices: [string, string, string, string],
+  explanation: string,
+  cartesianGraph?: CartesianGraph
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex: "\\text{Select A, B, C, or D.}",
+    choices: ["A", "B", "C", "D"].map((label, index) => ({
+      label,
+      text: choices[index],
+    })),
+    answer,
+    hint: "Look for the feature that defines the model before choosing an option.",
+    explanation,
+    cartesianGraph,
+  };
+}
+
+function parabolaGraph(
+  description: string,
+  a: number,
+  b: number,
+  c: number,
+  points: CartesianPoint[] = [],
+  domain = { xMin: 0, xMax: 8, yMin: 0, yMax: 50, xStep: 1, yStep: 10 }
+): CartesianGraph {
+  return {
+    description,
+    ...domain,
+    xAxisLabel: "input",
+    yAxisLabel: "output",
+    parabolas: [{ kind: "quadratic", a, b, c }],
+    points,
+  };
+}
+
+function curveGraph(
+  description: string,
+  branches: CartesianPoint[][],
+  domain: Pick<CartesianGraph, "xMin" | "xMax" | "yMin" | "yMax" | "xStep" | "yStep">
+): CartesianGraph {
+  return {
+    description,
+    ...domain,
+    points: branches.flat(),
+    lineSegments: branches.flatMap((branch) =>
+      branch.slice(1).map((point, index) => ({
+        from: branch[index],
+        to: point,
+      }))
+    ),
+  };
+}
+
+const heightParabola = parabolaGraph(
+  "Downward-opening height parabola for h equals negative 5 times t squared plus 20t plus 1.5, with maximum at 2 seconds.",
+  -5,
+  20,
+  1.5,
+  [{ x: 0, y: 1.5, label: "(0, 1.5)" }, { x: 2, y: 21.5, label: "maximum (2, 21.5)" }],
+  { xMin: 0, xMax: 4.2, yMin: 0, yMax: 25, xStep: 1, yStep: 5 }
+);
+
+const revenueParabola = parabolaGraph(
+  "Downward-opening revenue parabola for R equals negative 2p squared plus 40p, with maximum at p equals 10.",
+  -2,
+  40,
+  0,
+  [{ x: 10, y: 200, label: "maximum (10, 200)" }],
+  { xMin: 0, xMax: 20, yMin: 0, yMax: 220, xStep: 5, yStep: 50 }
+);
+
+const costParabola = parabolaGraph(
+  "Upward-opening cost parabola for C equals 3 times x minus 4 squared plus 120, with minimum at x equals 4.",
+  3,
+  -24,
+  168,
+  [{ x: 4, y: 120, label: "minimum (4, 120)" }],
+  { xMin: 0, xMax: 8, yMin: 100, yMax: 180, xStep: 1, yStep: 20 }
+);
+
+const exponentialGrowthGraph = curveGraph(
+  "Exponential growth curve for V equals 100 times 2 to the power of x, showing repeated doubling.",
+  [[{ x: 0, y: 100 }, { x: 1, y: 200 }, { x: 2, y: 400 }, { x: 3, y: 800 }]],
+  { xMin: 0, xMax: 3, yMin: 0, yMax: 850, xStep: 1, yStep: 200 }
+);
+
+const exponentialDecayGraph = curveGraph(
+  "Exponential decay curve for V equals 80 times 0.5 to the power of x, showing repeated halving.",
+  [[{ x: 0, y: 80 }, { x: 1, y: 40 }, { x: 2, y: 20 }, { x: 3, y: 10 }]],
+  { xMin: 0, xMax: 4, yMin: 0, yMax: 90, xStep: 1, yStep: 20 }
+);
+
+const inverseVariationGraph = curveGraph(
+  "Inverse variation curve for y equals 24 divided by x. The positive branch approaches but never reaches either axis.",
+  [[{ x: 1, y: 24 }, { x: 2, y: 12 }, { x: 3, y: 8 }, { x: 4, y: 6 }, { x: 6, y: 4 }, { x: 8, y: 3 }]],
+  { xMin: 0, xMax: 9, yMin: 0, yMax: 26, xStep: 1, yStep: 5 }
+);
 export function year12Standard2AlgebraicRelationshipsLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -132,115 +258,190 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
     };
   }
 
-  if (lesson.slug === "non-linear-relationships-graphs") {
+  if (lesson.slug === "quadratic-models") {
     return {
       ...base,
       description:
-        "Interpret and evaluate non-linear models, including quadratic height and area models, graph features, and context restrictions.",
+        "Recognise and interpret quadratic models including parabola shape, opening direction, vertex, intercepts, and practical context restrictions.",
       learningIntention:
-        "Recognise and use non-linear relationships in practical graph and modelling contexts.",
+        "Recognise a quadratic model from its equation or graph and explain what its important features mean in a practical context.",
       successCriteria: [
-        "Recognise when a relationship is not linear.",
-        "Evaluate a quadratic or other simple non-linear model in context.",
-        "Interpret initial values, intercepts, and maximum or minimum values from a model or graph description.",
-        "Apply context restrictions such as non-negative time or distance.",
+        "I can recognise a quadratic model from a squared variable or a parabolic graph.",
+        "I can explain whether a parabola opens upwards or downwards.",
+        "I can interpret a vertex as a maximum or minimum in context.",
+        "I can use intercepts and context to decide which values make sense.",
       ],
       teaching: {
         paragraphs: [
-          "A non-linear relationship does not have a constant rate of change. Its graph is not a straight line.",
-          "Quadratic models often appear in height, area, revenue, and projectile contexts. A parabola can have a maximum or minimum turning point.",
-          "The initial value is the output when the input is 0. For the height model below, setting t = 0 gives the initial height directly.",
-          "Context restrictions matter. Time, length, and distance usually cannot be negative, even if an algebraic equation has a negative solution.",
+          "A quadratic model is useful when a quantity bends rather than changing at a steady rate. Its graph is a parabola: a smooth curve with one turning point.",
+          "The sign of the squared term tells you the broad story. A positive coefficient makes the graph open upwards and gives a minimum. A negative coefficient makes it open downwards and gives a maximum.",
+          "The vertex is the turning point. In a real situation it might represent the highest point of a ball, the price that gives the greatest revenue, or the lowest operating cost.",
+          "A model can produce mathematically valid values that do not make sense in context. For example, negative time is usually rejected even if it appears as an intercept.",
         ],
         latexBlocks: [
-          "h=-5t^2+20t+1.5",
-          "\\text{initial value}=\\text{output when input}=0",
-          "\\text{linear: constant first difference; non-linear: changing rate}",
+          "y=ax^2+bx+c",
+          "a>0\\Rightarrow \\text{ opens upwards and has a minimum}",
+          "a<0\\Rightarrow \\text{ opens downwards and has a maximum}",
+          "\\text{Use the context to keep only meaningful inputs and outputs.}",
         ],
       },
       workedExamples: [
         {
-          title: "Evaluate a quadratic model",
-          questionLatex:
-            "\\text{A ball's height is }h=-5t^2+20t+1.5.\\text{ Find }h\\text{ when }t=2.",
+          title: "Interpret the maximum height of a ball",
+          questionLatex: "h=-5t^2+20t+1.5",
           steps: [
-            {
-              explanation: "Substitute t = 2 into the model.",
-              latex: "h=-5(2)^2+20(2)+1.5",
-            },
-            {
-              explanation: "Calculate the height.",
-              latex: "h=21.5",
-            },
+            { explanation: "The coefficient of t squared is negative, so the parabola opens downwards. That tells us the turning point is a maximum height.", latex: "a=-5<0" },
+            { explanation: "The graph turns at t = 2 seconds. Read the height there because the question is about the maximum.", latex: "h(2)=-5(2)^2+20(2)+1.5=21.5" },
           ],
-          finalAnswerLatex: "21.5\\text{ m}",
+          finalAnswerLatex: "\\text{Maximum height }=21.5\\text{ m at }t=2\\text{ s}",
+          cartesianGraph: heightParabola,
         },
         {
-          title: "Interpret a maximum height",
-          questionLatex:
-            "\\text{A graph of a ball's height has vertex }(2,21.5).",
+          title: "Use a revenue vertex",
+          questionLatex: "R=-2p^2+40p",
           steps: [
-            {
-              explanation:
-                "The vertex of a downward-opening height parabola is the maximum point.",
-            },
-            {
-              explanation:
-                "The y-value gives the maximum height.",
-            },
+            { explanation: "Revenue rises and then falls, so a downward-opening quadratic is sensible. The vertex gives the price with the greatest revenue.", latex: "R=-2p^2+40p" },
+            { explanation: "The graph turns at p = 10. Evaluate the model there to find the maximum revenue.", latex: "R(10)=-2(10)^2+40(10)=200" },
           ],
-          finalAnswerLatex:
-            "\\text{Maximum height is }21.5\\text{ m at }2\\text{ s.}",
+          finalAnswerLatex: "\\text{Maximum revenue }=\\$200\\text{ when }p=\\$10",
+          cartesianGraph: revenueParabola,
         },
         {
-          title: "Identify why a relationship is not linear",
-          questionLatex:
-            "\\begin{array}{c|c} x&0&1&2&3\\\\ y&1&4&9&16 \\end{array}",
+          title: "Read a minimum from vertex form",
+          questionLatex: "C=3(x-4)^2+120",
           steps: [
-            {
-              explanation:
-                "Check the first differences.",
-              latex: "4-1=3,\\quad 9-4=5,\\quad 16-9=7",
-            },
-            {
-              explanation:
-                "The differences are not constant.",
-            },
+            { explanation: "The squared part can never be negative. Its smallest value is zero, which happens when x = 4.", latex: "(x-4)^2\\geq 0" },
+            { explanation: "When the squared part is zero, only 120 remains. That is the minimum cost.", latex: "C(4)=3(0)^2+120=120" },
           ],
-          finalAnswerLatex: "\\text{The relationship is non-linear.}",
+          finalAnswerLatex: "\\text{Minimum cost }=\\$120\\text{ when }x=4",
+          cartesianGraph: costParabola,
         },
       ],
       guidedPractice: [
-        measurementAnswer("y12s2-nonlin-g1", "A ball's height is h = -5t^2 + 20t + 1.5. Find the initial height.", "h(0)=1.5", "1.5 m", ["1.5", "1.50", "1.5m"]),
-        measurementAnswer("y12s2-nonlin-g2", "Using h = -5t^2 + 20t + 1.5, find h when t = 2.", "-5(2)^2+20(2)+1.5", "21.5 m", ["21.5", "21.50", "21.5m"]),
-        practicalChoice("y12s2-nonlin-g3", "A graph is a parabola with vertex (3, 40). What does 40 most likely represent in a maximum-height context?", "B", ["Initial time", "Maximum height", "Gradient", "x-intercept"], "The y-value of the vertex is the maximum height."),
-        practicalChoice("y12s2-nonlin-g4", "A table has y-values 2, 5, 10, 17 for equal x-steps. Why is it not linear?", "C", ["The values are positive", "There is an intercept", "The first differences are not constant", "It has units"], "Linear tables have constant first differences."),
+        algebraChoice("y12s2-quad-g1", "Which equation is quadratic?", "C", ["y=4x+7", "y=30/x", "y=2x^2-5x+1", "y=5(1.2)^x"], "A quadratic equation contains a squared variable. Here x squared is the feature that separates the quadratic model from linear, inverse variation, and exponential models."),
+        algebraChoice("y12s2-quad-g2", "The graph of R = -2p^2 + 40p is shown. What does its vertex represent?", "B", ["The starting revenue", "The maximum revenue", "A constant rate of change", "The minimum price"], "The graph opens downwards, so its turning point is the highest output. In this context the vertex represents the maximum revenue.", revenueParabola),
+        algebraAnswer("y12s2-quad-g3", "For C = 3(x - 4)^2 + 120, state the value of x that gives the minimum cost.", "x=4", "4", "The squared part is smallest when it equals zero. Set x - 4 = 0, so the minimum occurs at x = 4.", ["x=4"]),
+        algebraAnswer("y12s2-quad-g4", "For h = -5t^2 + 20t + 1.5, find the height when t = 0.", "h(0)=1.5", "1.5", "At t = 0 the squared and linear terms both disappear. The remaining constant, 1.5, is the initial height.", ["1.5 m", "1.5m"]),
       ],
       independentPractice: [
-        measurementAnswer("y12s2-nonlin-i1", "A revenue model is R = -2p^2 + 40p. Find R when p = 5.", "-2(5)^2+40(5)", "$150", ["150", "150.00", "$150.00"]),
-        measurementAnswer("y12s2-nonlin-i2", "A ball's height is h = -4t^2 + 16t + 2. Find the initial height.", "h(0)=2", "2 m", ["2", "2.0", "2m"]),
-        practicalChoice("y12s2-nonlin-i3", "The graph of A = s^2 for square area is not linear because:", "A", ["Area changes by increasing amounts as side length increases", "It has no input", "It is a straight line", "Area cannot be modelled"], "Squaring creates a changing rate."),
-        practicalChoice("y12s2-nonlin-i4", "A model gives t = -3 seconds as one solution for time. In context this should usually be:", "D", ["Chosen first", "Converted to dollars", "Treated as the maximum", "Rejected because time cannot be negative"], "Negative time is not meaningful in most practical contexts."),
-        measurementAnswer("y12s2-nonlin-i5", "A graph description says a quadratic cost has minimum point (4, 120). What is the minimum cost?", "y=120", "$120", ["120", "120.00", "$120.00"]),
+        algebraChoice("y12s2-quad-i1", "Which graph shape belongs to a quadratic model?", "D", ["A straight line", "A circle", "A hyperbola", "A parabola"], "A quadratic graph is a parabola. It bends smoothly and has one turning point."),
+        algebraAnswer("y12s2-quad-i2", "For y = 2(x - 3)^2 + 5, state the minimum value of y.", "y_{\\min}=5", "5", "The squared part is never negative, so its smallest value is zero. The graph therefore cannot go below 5.", ["y=5"]),
+        algebraAnswer("y12s2-quad-i3", "For R = -p^2 + 12p, find R when p = 4.", "R(4)=-4^2+12(4)", "32", "The question asks for an output at a given input. Substitute p = 4 carefully: -(4 squared) + 48 = 32."),
+        algebraChoice("y12s2-quad-i4", "A model for height gives t = -1 and t = 5 when the object is on the ground. Which time is meaningful after launch?", "C", ["Both times", "Neither time", "t = 5 only", "t = -1 only"], "The algebra can produce two roots, but the context decides which one is useful. A negative time is before launch, so keep t = 5 seconds."),
+        algebraAnswer("y12s2-quad-i5", "For P = -3(x - 6)^2 + 150, state the maximum value of P.", "P_{\\max}=150", "150", "The negative coefficient makes the graph open downwards. The squared part is zero at the vertex, leaving the maximum output 150."),
       ],
       commonMistakes: [
-        { mistake: "Treating every table as linear.", fix: "Check whether first differences are constant." },
-        { mistake: "Interpreting the x-intercept as the starting value.", fix: "The starting value is the y-intercept when x = 0." },
-        { mistake: "Ignoring negative values that are impossible in context.", fix: "Reject negative time, distance, or length unless the context allows it." },
-        { mistake: "Forgetting to square the input in a quadratic model.", fix: "Apply powers before multiplication and addition." },
+        { mistake: "Treating a quadratic graph as if it has a constant gradient.", fix: "A straight line has a constant gradient. A parabola bends, so its rate of change varies as the input changes." },
+        { mistake: "Calling every vertex a maximum.", fix: "Check the opening direction. An upward-opening parabola has a minimum; a downward-opening parabola has a maximum." },
+        { mistake: "Using both roots without checking the context.", fix: "Roots can be mathematically correct but practically impossible. Reject values such as negative time when the situation starts at zero." },
+        { mistake: "Reading the constant term as the vertex.", fix: "The constant term is the output when the input is zero. The vertex is the turning point, and it may be somewhere else." },
       ],
       masteryQuiz: [
-        measurementAnswer("y12s2-nonlin-m1", "A ball's height follows the model shown. What is the initial height?", "h=-5t^2+20t+1.5", "1.5 m", ["1.5", "1.50", "1.5m"]),
-        measurementAnswer("y12s2-nonlin-m2", "Using the height model shown, find h when t = 1.", "h=-5t^2+20t+1.5", "16.5 m", ["16.5", "16.50", "16.5m"]),
-        practicalChoice("y12s2-nonlin-m3", "A parabola opening downward has vertex (2, 21.5). In a height model, this is the:", "A", ["Maximum height", "Starting time only", "Gradient", "Linear rate"], "A downward parabola has a maximum at its vertex."),
-        practicalChoice("y12s2-nonlin-m4", "A graph that curves is generally:", "B", ["Linear", "Non-linear", "A fixed fee", "A constant gradient line"], "A curve is non-linear."),
-        practicalChoice("y12s2-nonlin-m5", "A table has equal x-steps and y-values 3, 8, 15, 24. The first differences are:", "C", ["Constant", "3, 3, 3", "5, 7, 9", "Negative only"], "The differences increase."),
-        measurementAnswer("y12s2-nonlin-m6", "A profit follows the model shown. Find P when x = 4.", "P=-x^2+12x", "$32", ["32", "32.00", "$32.00"]),
-        practicalChoice("y12s2-nonlin-m7", "A solution x = -5 metres in a length context is:", "D", ["Always correct", "A maximum", "The y-intercept", "Not meaningful"], "Lengths cannot be negative."),
-        practicalChoice("y12s2-nonlin-m8", "A height equation gives possible times t = -1 and t = 5. Which value should be used for the landing time?", "B", ["-1 second", "5 seconds", "Both values", "Neither, because all quadratics are impossible"], "Negative time is not meaningful in this context, so the positive time is used."),
-        measurementAnswer("y12s2-nonlin-m9", "A square garden has area A = s^2. If the area is 49 m^2, find the side length.", "A=s^2,\\quad A=49", "7 m", ["7", "7m"]),
-        practicalChoice("y12s2-nonlin-m10", "A table has equal input steps and first differences 3, 5, 7. What is the best conclusion?", "C", ["The relationship is linear", "The gradient is constant", "The relationship is non-linear", "The initial value must be 7"], "Changing first differences indicate a non-linear relationship."),
+        algebraChoice("y12s2-quad-m1", "Which feature proves that y = -4x^2 + 7x + 3 is quadratic?", "A", ["The x squared term", "The constant term", "The negative sign", "The number 7"], "A squared variable is the defining feature of a quadratic equation."),
+        algebraAnswer("y12s2-quad-m2", "For h = -5t^2 + 20t + 1.5, state the maximum height.", "h_{\\max}=21.5", "21.5", "The graph opens downwards, so use its vertex. At t = 2 seconds, the height is 21.5 metres.", ["21.5 m", "21.5m"], heightParabola),
+        algebraAnswer("y12s2-quad-m3", "For y = (x - 7)^2 + 4, state the x-coordinate of the vertex.", "x=7", "7", "The squared bracket is zero when x - 7 = 0. That makes x = 7 the turning-point input.", ["x=7"]),
+        algebraChoice("y12s2-quad-m4", "A parabola opens upwards. What type of turning point does it have?", "B", ["Maximum", "Minimum", "Intercept only", "Constant gradient"], "An upward-opening parabola falls towards its turning point and rises after it, so the vertex is a minimum."),
+        algebraAnswer("y12s2-quad-m5", "For C = 2(x - 5)^2 + 90, find the minimum cost.", "C_{\\min}=90", "90", "The squared part reaches its smallest value, zero, at x = 5. The model then leaves the minimum cost 90.", ["$90"]),
+        algebraAnswer("y12s2-quad-m6", "For y = -x^2 + 10x, find y when x = 3.", "y(3)=-3^2+10(3)", "21", "Substitute x = 3 into both terms. The negative applies after squaring: -9 + 30 = 21."),
+        algebraChoice("y12s2-quad-m7", "A quadratic profit model has roots x = 2 and x = 9. What do the roots represent?", "D", ["Maximum profits", "Constant rates", "Minimum costs", "Break-even inputs"], "At a root the output is zero. For a profit model, zero profit means break-even."),
+        algebraAnswer("y12s2-quad-m8", "For P = -4(x - 8)^2 + 300, state the input that gives maximum profit.", "x=8", "8", "The negative coefficient makes the vertex a maximum. Vertex form shows that the squared bracket is zero at x = 8.", ["x=8"]),
+        algebraChoice("y12s2-quad-m9", "A height model produces a root t = -0.4. Why is it usually rejected?", "C", ["Quadratics cannot have negative roots", "The graph must open upwards", "It represents a time before launch", "It is not an intercept"], "The root can be algebraically correct. It is rejected because negative time is outside the practical situation after launch."),
+        algebraAnswer("y12s2-quad-m10", "For R = -2p^2 + 40p, find the maximum revenue.", "R(10)=200", "200", "The downward-opening graph has its maximum at the vertex p = 10. Substituting gives maximum revenue 200.", ["$200", "200 dollars"]),
       ],
+      masteryPassMark: 0.8,
+    };
+  }
+
+  if (lesson.slug === "exponential-inverse-variation") {
+    return {
+      ...base,
+      description:
+        "Recognise and evaluate exponential growth and decay models and inverse variation models, and identify each type from tables, equations, and contexts.",
+      learningIntention:
+        "Recognise exponential and inverse variation models and use their defining patterns to make practical predictions.",
+      successCriteria: [
+        "I can recognise exponential growth or decay from repeated multiplication.",
+        "I can evaluate a simple exponential model for a given input.",
+        "I can recognise inverse variation from a constant product or an equation of the form y = k/x.",
+        "I can distinguish linear, exponential, and inverse variation patterns in context.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A linear model adds the same amount each step. An exponential model multiplies by the same factor each step, so its changes become larger during growth or smaller during decay.",
+          "In V = ab^n, a is the starting value and b is the repeated multiplier. If b is greater than 1 the model grows. If b is between 0 and 1 the model decays.",
+          "Inverse variation describes a trade-off. In y = k/x, the product xy stays constant. If one quantity doubles, the other halves.",
+          "Recognition comes before calculation. Ask whether the pattern adds a constant amount, multiplies by a constant factor, or keeps a constant product.",
+        ],
+        latexBlocks: [
+          "V=ab^n",
+          "b>1\\Rightarrow \\text{ exponential growth}",
+          "0<b<1\\Rightarrow \\text{ exponential decay}",
+          "y=\\frac{k}{x}\\quad\\text{or}\\quad xy=k,\\;x\\ne 0",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Recognise repeated doubling",
+          questionLatex: "V=100(2)^n\\quad\\text{Find }V\\text{ when }n=3.",
+          steps: [
+            { explanation: "The value is multiplied by 2 each step, so this is exponential growth rather than a steady linear increase.", latex: "b=2>1" },
+            { explanation: "Apply the repeated multiplier three times.", latex: "V=100(2)^3=800" },
+          ],
+          finalAnswerLatex: "V=800",
+          cartesianGraph: exponentialGrowthGraph,
+        },
+        {
+          title: "Use an inverse variation travel model",
+          questionLatex: "t=\\frac{240}{v}\\quad\\text{Find }t\\text{ when }v=80.",
+          steps: [
+            { explanation: "For a fixed 240 km journey, speed and time trade off. A higher speed means a lower time, and their product stays 240.", latex: "tv=240" },
+            { explanation: "Substitute the known speed into the denominator.", latex: "t=\\frac{240}{80}=3" },
+          ],
+          finalAnswerLatex: "t=3\\text{ hours}",
+          cartesianGraph: inverseVariationGraph,
+        },
+        {
+          title: "Classify patterns from a table",
+          questionLatex: "\\begin{array}{c|cccc}x&1&2&3&4\\ A&5&8&11&14\\ B&3&6&12&24\\ C&24&12&8&6\\end{array}",
+          steps: [
+            { explanation: "A adds 3 each time, so it is linear. B multiplies by 2 each time, so it is exponential.", latex: "A:\\;+3\\qquad B:\\;\\times 2" },
+            { explanation: "For C, multiply each output by its input. The product stays 24, so C is inverse variation.", latex: "1(24)=2(12)=3(8)=4(6)=24" },
+          ],
+          finalAnswerLatex: "A:\\text{ linear},\\quad B:\\text{ exponential},\\quad C:\\text{ inverse variation}",
+        },
+      ],
+      guidedPractice: [
+        algebraChoice("y12s2-expinv-g1", "Which model is exponential growth?", "B", ["y=5x+2", "y=80(1.05)^x", "y=60/x", "y=x^2-4"], "The variable is in the exponent and the repeated multiplier 1.05 is greater than 1. That makes the model exponential growth."),
+        algebraAnswer("y12s2-expinv-g2", "For V = 80(0.5)^n, find V when n = 2.", "V=80(0.5)^2", "20", "The factor 0.5 means the value halves each step. After two halvings, 80 becomes 20.", [], exponentialDecayGraph),
+        algebraAnswer("y12s2-expinv-g3", "For y = 36/x, find y when x = 9.", "y=\\frac{36}{9}", "4", "Inverse variation keeps the product xy equal to 36. Divide the constant 36 by the known input 9."),
+        algebraChoice("y12s2-expinv-g4", "If x doubles in y = 50/x, what happens to y?", "C", ["It doubles", "It increases by 2", "It halves", "It stays the same"], "The product xy must stay 50. If x doubles, y must halve to keep that product unchanged."),
+      ],
+      independentPractice: [
+        algebraAnswer("y12s2-expinv-i1", "For V = 200(1.1)^n, find V when n = 2.", "V=200(1.1)^2", "242", "The multiplier 1.1 is applied twice: 200 times 1.1 times 1.1 gives 242."),
+        algebraChoice("y12s2-expinv-i2", "Which table pattern is exponential?", "B", ["Add 4 each step", "Multiply by 3 each step", "Keep xy constant", "Decrease by 7 each step"], "Exponential patterns use repeated multiplication. Multiplying by 3 each step is the defining clue."),
+        algebraAnswer("y12s2-expinv-i3", "For xy = 72, find y when x = 8.", "y=\\frac{72}{8}", "9", "The product must stay 72. Divide 72 by 8 to find the matching y-value."),
+        algebraChoice("y12s2-expinv-i4", "What kind of model is shown by the curve y = 24/x?", "D", ["Linear", "Quadratic", "Exponential", "Inverse variation"], "The model has the variable in the denominator and keeps xy constant. That is inverse variation.", inverseVariationGraph),
+        algebraAnswer("y12s2-expinv-i5", "A quantity starts at 500 and decreases by 20% each period. Write the repeated multiplier.", "1-0.20", "0.8", "A 20% decrease leaves 80% of the previous value. As a decimal, the repeated multiplier is 0.8.", ["0.80", "80%"]),
+      ],
+      commonMistakes: [
+        { mistake: "Calling every curved graph quadratic.", fix: "Look at the rule and the pattern. Quadratics contain a squared variable, exponentials use repeated multiplication, and inverse variation keeps a constant product." },
+        { mistake: "Using 0.2 as the multiplier for a 20% decrease.", fix: "A 20% decrease leaves 80% behind. The decay multiplier is 1 - 0.20 = 0.80." },
+        { mistake: "Adding the same amount in an exponential model.", fix: "Exponential models multiply by the same factor each step. The actual amount added changes as the value changes." },
+        { mistake: "Forgetting the trade-off in inverse variation.", fix: "Keep the product constant. If one variable doubles, the other must halve." },
+      ],
+      masteryQuiz: [
+        algebraChoice("y12s2-expinv-m1", "Which equation represents inverse variation?", "D", ["y=4x+1", "y=3x^2", "y=5(1.2)^x", "y=40/x"], "Inverse variation has the form y = k/x, so the product xy stays constant."),
+        algebraAnswer("y12s2-expinv-m2", "For V = 150(2)^n, find V when n = 3.", "V=150(2)^3", "1200", "The model doubles the starting value three times: 150 times 8 equals 1200.", ["1,200"]),
+        algebraChoice("y12s2-expinv-m3", "Which multiplier represents exponential decay?", "A", ["0.75", "1", "1.08", "3"], "A decay multiplier lies between 0 and 1. Multiplying by 0.75 keeps 75% each period."),
+        algebraAnswer("y12s2-expinv-m4", "For y = 96/x, find y when x = 12.", "y=\\frac{96}{12}", "8", "Inverse variation keeps xy equal to 96. Divide 96 by 12."),
+        algebraChoice("y12s2-expinv-m5", "A fixed job takes 6 hours with 4 workers. Assuming inverse variation, how long should it take with 8 workers?", "B", ["12 hours", "3 hours", "10 hours", "2 hours"], "Doubling the workers halves the time because workers times hours stays constant."),
+        algebraAnswer("y12s2-expinv-m6", "For xy = 24, find x when y = 6.", "x=\\frac{24}{6}", "4", "The constant product is 24. Divide by the known y-value to find x.", [], inverseVariationGraph),
+        algebraChoice("y12s2-expinv-m7", "A table has outputs 10, 15, 22.5, 33.75 as the input increases by 1. Which model fits?", "C", ["Linear decrease", "Inverse variation", "Exponential growth", "Quadratic with a minimum"], "Each output is multiplied by 1.5. Repeated multiplication identifies exponential growth."),
+        algebraAnswer("y12s2-expinv-m8", "A value starts at 400 and decreases by 15% each year. State the decay multiplier.", "1-0.15", "0.85", "A 15% decrease leaves 85% of the previous value, so use multiplier 0.85.", ["85%"]),
+        algebraChoice("y12s2-expinv-m9", "For y = 60/x, why can x not equal zero?", "A", ["Division by zero is undefined", "The graph must be linear", "The product would be too large", "Zero is always negative"], "The rule requires division by x. Division by zero is undefined, so x = 0 is excluded."),
+        algebraAnswer("y12s2-expinv-m10", "For V = 320(0.5)^n, find V when n = 3.", "V=320(0.5)^3", "40", "The value halves three times: 320 to 160 to 80 to 40."),
+      ],
+      masteryPassMark: 0.8,
     };
   }
 
@@ -361,25 +562,26 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
   return {
     ...base,
     description:
-      "Practise HSC-style algebra modelling questions using linear models, non-linear graphs, simultaneous equations, and contextual interpretation.",
+      "Practise HSC-style algebra modelling questions using linear, quadratic, exponential, inverse variation, and simultaneous-equation models in practical contexts.",
     learningIntention:
-      "Apply algebraic models to practical exam-style contexts involving costs, savings, height, area, revenue, and option comparisons.",
+      "Apply algebraic models to practical exam-style contexts involving costs, savings, growth, inverse trade-offs, revenue, and option comparisons.",
     successCriteria: [
       "Construct and interpret linear models from fixed costs and rates.",
-      "Evaluate and interpret non-linear models and graph features.",
+      "Recognise and interpret quadratic, exponential, and inverse variation models.",
       "Solve and interpret simultaneous equations in context.",
       "Check units, context restrictions, and reasonableness.",
     ],
     teaching: {
       paragraphs: [
         "Algebraic Relationships questions usually start with a real situation and ask you to build, use, compare, or interpret a model.",
-        "Linear models have constant rates of change. Non-linear models, such as quadratic height or area models, have changing rates and curved graphs.",
+        "Linear models add the same amount each step. Quadratic graphs bend through a turning point, exponential models multiply by a repeated factor, and inverse variation models keep a product constant.",
         "Simultaneous equations are useful when two models describe two options. The solution tells where the options have the same value.",
         "For exam responses, keep typed answers short: an equation, a value, a coordinate, or a labelled multiple-choice conclusion.",
       ],
       latexBlocks: [
         "y=mx+b",
-        "h=-5t^2+20t+1.5",
+        "V=200(1.1)^n",
+        "y=\\frac{k}{x}",
         "\\text{intersection: model A} = \\text{model B}",
       ],
     },
@@ -401,16 +603,20 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         finalAnswerLatex: "\\$130",
       },
       {
-        title: "Use a non-linear model",
+        title: "Recognise and use an exponential model",
         questionLatex:
-          "h=-5t^2+20t+1.5,\\quad t=2",
+          "V=200(1.1)^n,\\quad n=2",
         steps: [
           {
-            explanation: "Substitute t = 2 and calculate.",
-            latex: "h=-5(2)^2+20(2)+1.5=21.5",
+            explanation: "The factor 1.1 is repeated multiplication, so this is exponential growth rather than a steady increase.",
+            latex: "1.1>1",
+          },
+          {
+            explanation: "Apply the growth factor twice because n = 2.",
+            latex: "V=200(1.1)^2=242",
           },
         ],
-        finalAnswerLatex: "21.5\\text{ m}",
+        finalAnswerLatex: "V=242",
       },
       {
         title: "Compare two options",
@@ -432,7 +638,7 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
     guidedPractice: [
       linearAnswer("y12s2-alg-exam-g1", "A gym charges 40 dollars plus 18 dollars per week. Write the cost model C after w weeks.", "C=40+18w", "C = 40 + 18w", ["C=40+18w", "c=40+18w", "C=18w+40"]),
       moneyAnswer("y12s2-alg-exam-g2", "Using C = 40 + 18w, find the cost after 5 weeks.", "C=40+18w,\\quad w=5", "130"),
-      measurementAnswer("y12s2-alg-exam-g3", "A ball height is h = -5t^2 + 20t + 1.5. Find h when t = 2.", "h=-5t^2+20t+1.5,\\quad t=2", "21.5 m", ["21.5", "21.50", "21.5m"]),
+      algebraAnswer("y12s2-alg-exam-g3", "For inverse variation xy = 48, find y when x = 6.", "y=\\frac{48}{6}", "8", "Inverse variation keeps the product xy constant. Divide 48 by 6 to get the matching y-value."),
       linearAnswer("y12s2-alg-exam-g4", "Costs A = 30 + 15h and B = 60 + 10h are equal after how many hours?", "30+15h=60+10h", "6", ["6 h", "6 hours"]),
     ],
     independentPractice: [
@@ -452,8 +658,8 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
       linearAnswer("y12s2-alg-exam-m1", "A hire company charges 35 dollars plus 12 dollars per hour. Write C for h hours.", "", "C = 35 + 12h", ["C=35+12h", "c=35+12h", "C=12h+35"]),
       moneyAnswer("y12s2-alg-exam-m2", "Using the cost model shown, find C when h = 4.", "C=35+12h", "83"),
       practicalChoice("y12s2-alg-exam-m3", "In S = 120 + 25w, the 120 is:", "A", ["Starting savings", "Weekly increase", "Number of weeks", "Gradient only"], "It is the value when w = 0."),
-      measurementAnswer("y12s2-alg-exam-m4", "A height follows the model shown. Find the initial height.", "h=-4t^2+16t+2", "2 m", ["2", "2m", "2.0"]),
-      measurementAnswer("y12s2-alg-exam-m5", "Using the height model shown, find h when t = 1.", "h=-4t^2+16t+2", "14 m", ["14", "14m"]),
+      algebraChoice("y12s2-alg-exam-m4", "Which model represents exponential decay?", "C", ["y=4x+2", "y=30/x", "y=120(0.8)^x", "y=x^2-5"], "The variable is in the exponent and the repeated multiplier 0.8 lies between 0 and 1. That means the model decays."),
+      algebraAnswer("y12s2-alg-exam-m5", "For inverse variation xy = 72, find y when x = 9.", "y=\\frac{72}{9}", "8", "Inverse variation keeps xy equal to 72. Divide the constant product by the known x-value."),
       practicalChoice("y12s2-alg-exam-m6", "A curved graph with changing rate is:", "B", ["Linear", "Non-linear", "Always impossible", "A fixed fee"], "Curved graphs are non-linear."),
       linearAnswer("y12s2-alg-exam-m7", "Models A = 30 + 15h and B = 60 + 10h are equal at what h?", "A=30+15h,\\quad B=60+10h", "6", ["6 h", "6 hours"]),
       practicalChoice("y12s2-alg-exam-m8", "A hire cost follows C = 35 + 12h. If the total cost is 107 dollars, what is h?", "C", ["4 hours", "5 hours", "6 hours", "7 hours"], "Reverse the model by removing the fixed cost, then dividing by the hourly rate."),

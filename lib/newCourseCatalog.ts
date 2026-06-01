@@ -297,7 +297,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "algebraic-relationships",
         title: "Algebraic Relationships",
         description:
-          "Linear modelling, non-linear graphs, simultaneous-equation comparisons, and HSC-style algebra in practical contexts.",
+          "Linear modelling, quadratic models, exponential and inverse variation models, simultaneous-equation comparisons, and HSC-style algebra in practical contexts.",
         syllabusArea: "Algebra",
         focus: "Algebraic relationships",
         lessons: [
@@ -308,10 +308,16 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Build and interpret linear models from fixed costs, starting values, rates of change, tables, and practical equations.",
           },
           {
-            slug: "non-linear-relationships-graphs",
-            title: "Non-Linear Relationships and Graphs",
+            slug: "quadratic-models",
+            title: "Quadratic Models",
             description:
-              "Interpret and evaluate non-linear models, including quadratic height and area models, graph features, and context restrictions.",
+              "Recognise and interpret quadratic models including parabola shape, opening direction, vertex, intercepts, and practical context restrictions.",
+          },
+          {
+            slug: "exponential-inverse-variation",
+            title: "Exponential and Inverse Variation Models",
+            description:
+              "Recognise and evaluate exponential growth and decay models and inverse variation models, and identify each type from tables, equations, and contexts.",
           },
           {
             slug: "simultaneous-equations-context",
