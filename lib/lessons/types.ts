@@ -126,3 +126,14 @@ export type CartesianGraph = {
   }[];
   shadedRegions?: CartesianShadedRegion[];
 };
+
+export type TrapezoidalRuleDiagram = {
+  description: string;
+  xValues: number[];
+  yValues: number[];
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+  showOrdinateLabels?: boolean;
+  showTrapezoidLabels?: boolean;
+  functionLabel?: string;
+};

@@ -564,6 +564,14 @@ export const trapezoidalRuleLesson = furtherIntegralLesson(
         { explanation: "Use the one-trapezoid rule.", latex: "\\frac{2}{2}(0+4)=4" },
       ],
       finalAnswerLatex: "4",
+      trapezoidalRuleDiagram: {
+        description: "One lightly shaded trapezoid spans x equals 0 to x equals 2 under the straight top edge joining y zero equals 0 and y one equals 4.",
+        xValues: [0, 2],
+        yValues: [0, 4],
+        showOrdinateLabels: true,
+        showTrapezoidLabels: true,
+        functionLabel: "values from y = x^2",
+      },
     },
     {
       title: "Two trapezoids for a simple integral",
@@ -575,6 +583,14 @@ export const trapezoidalRuleLesson = furtherIntegralLesson(
         { explanation: "Double the interior value.", latex: "\\frac12(0+2(1)+4)=3" },
       ],
       finalAnswerLatex: "3",
+      trapezoidalRuleDiagram: {
+        description: "Two lightly shaded trapezoids span x equals 0 to x equals 2. The middle ordinate y one equals 1 is the shared edge of both trapezoids, which is why its value is counted twice.",
+        xValues: [0, 1, 2],
+        yValues: [0, 1, 4],
+        showOrdinateLabels: true,
+        showTrapezoidLabels: true,
+        functionLabel: "values from y = x^2",
+      },
     },
     {
       title: "Use a table of values",
@@ -586,6 +602,13 @@ export const trapezoidalRuleLesson = furtherIntegralLesson(
         { explanation: "Evaluate the approximation.", latex: "16" },
       ],
       finalAnswerLatex: "16",
+      trapezoidalRuleDiagram: {
+        description: "Four table points at x equals 0, 1, 2 and 3 have heights 2, 5, 6 and 8. Straight top edges create three lightly shaded trapezoids. The two interior ordinates are shared edges.",
+        xValues: [0, 1, 2, 3],
+        yValues: [2, 5, 6, 8],
+        showOrdinateLabels: true,
+        showTrapezoidLabels: true,
+      },
     },
     {
       title: "Interpret concavity",

@@ -2122,6 +2122,13 @@ export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
         },
       ],
       finalAnswerLatex: "24.5\\text{ square units}",
+      trapezoidalRuleDiagram: {
+        description: "Four ordinates at x equals 0, 1, 2 and 3 have heights 2, 5, 10 and 17. Straight top edges join adjacent points, creating three lightly shaded trapezia. The two middle ordinates are shared by neighbouring trapezia.",
+        xValues: [0, 1, 2, 3],
+        yValues: [2, 5, 10, 17],
+        showOrdinateLabels: true,
+        showTrapezoidLabels: true,
+      },
     },
     {
       title: "Worked example 2: Function values",
@@ -2146,6 +2153,14 @@ export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
         },
       ],
       finalAnswerLatex: "26\\text{ square units}",
+      trapezoidalRuleDiagram: {
+        description: "Five ordinates for y equals x squared plus 1 are drawn at x equals 0, 1, 2, 3 and 4. Straight top edges form four lightly shaded trapezia. The three middle ordinates belong to two adjacent trapezia.",
+        xValues: [0, 1, 2, 3, 4],
+        yValues: [1, 2, 5, 10, 17],
+        showOrdinateLabels: true,
+        showTrapezoidLabels: true,
+        functionLabel: "y = x^2 + 1",
+      },
     },
   ],
 

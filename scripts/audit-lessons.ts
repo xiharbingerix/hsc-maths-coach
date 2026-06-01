@@ -96,7 +96,8 @@ function hasVisualPayload(lesson: ExplicitLesson) {
       item.diagram ||
       ("solutionDiagram" in item && item.solutionDiagram) ||
       item.triangleDiagram ||
-      item.cartesianGraph
+      item.cartesianGraph ||
+      item.trapezoidalRuleDiagram
   );
 }
 
@@ -380,11 +381,61 @@ function validateNetworkDiagram(value: unknown, path: string) {
   }
 }
 
+function validateTrapezoidalRuleDiagram(value: unknown, path: string) {
+  if (!isRecord(value)) {
+    addIssue("FAIL", "trapezoidal-rule-payload", path, "Trapezoidal rule diagram must be an object.");
+    return;
+  }
+
+  if (!isNonEmptyString(value.description)) {
+    addIssue("FAIL", "trapezoidal-rule-payload", path, "Trapezoidal rule diagram requires a description.");
+  }
+
+  if (!Array.isArray(value.xValues) || !Array.isArray(value.yValues)) {
+    addIssue("FAIL", "trapezoidal-rule-payload", path, "Trapezoidal rule diagram requires xValues and yValues arrays.");
+    return;
+  }
+
+  const xValues = value.xValues;
+  const yValues = value.yValues;
+
+  if (xValues.length !== yValues.length) {
+    addIssue("FAIL", "trapezoidal-rule-payload", path, "xValues and yValues must have matching lengths.");
+  }
+
+  if (xValues.length < 2) {
+    addIssue("FAIL", "trapezoidal-rule-payload", path, "Trapezoidal rule diagram requires at least two points.");
+  }
+
+  if (xValues.some((xValue) => !isFiniteNumber(xValue))) {
+    addIssue("FAIL", "trapezoidal-rule-payload", path, "Every x-value must be finite.");
+  }
+
+  if (yValues.some((yValue) => !isFiniteNumber(yValue))) {
+    addIssue("FAIL", "trapezoidal-rule-payload", path, "Every y-value must be finite.");
+  }
+
+  if (
+    xValues.some(
+      (xValue, index) =>
+        index > 0 &&
+        isFiniteNumber(xValue) &&
+        isFiniteNumber(xValues[index - 1]) &&
+        xValue <= xValues[index - 1]
+    )
+  ) {
+    addIssue("FAIL", "trapezoidal-rule-payload", path, "xValues must strictly increase.");
+  }
+}
+
 function validateVisualPayloads(lesson: ExplicitLesson, basePath: string) {
   visualItems(lesson).forEach((item, index) => {
     const path = `${basePath}.visualItem[${index}]`;
     if (item.triangleDiagram) validateTriangleDiagram(item.triangleDiagram, `${path}.triangleDiagram`);
     if (item.cartesianGraph) validateCartesianGraph(item.cartesianGraph, `${path}.cartesianGraph`);
+    if (item.trapezoidalRuleDiagram) {
+      validateTrapezoidalRuleDiagram(item.trapezoidalRuleDiagram, `${path}.trapezoidalRuleDiagram`);
+    }
     if (item.diagram) validateNetworkDiagram(item.diagram, `${path}.diagram`);
     if ("solutionDiagram" in item && item.solutionDiagram) {
       validateNetworkDiagram(item.solutionDiagram, `${path}.solutionDiagram`);
