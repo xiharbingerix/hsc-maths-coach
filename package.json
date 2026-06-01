@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "audit:lessons": "tsx scripts/audit-lessons.ts",
+    "test:answer-marking": "tsx scripts/test-answer-marking.ts",
     "generate-slides": "tsx scripts/generate-trapezoidal-rule-slides.ts"
   },
   "dependencies": {

@@ -16,6 +16,7 @@ import type {
 import { NetworkDiagramView } from "./components/NetworkDiagramView";
 import { TriangleDiagramView } from "./components/TriangleDiagramView";
 import { CartesianGraphView } from "./components/CartesianGraphView";
+import { markTypedAnswer } from "../../lib/answerMarking";
 
 type LessonStage =
   | "watch"
@@ -88,6 +89,14 @@ function answerOptions(question: PracticeQuestion) {
 }
 
 function isCorrectAnswer(question: PracticeQuestion, value: string) {
+  if (!question.choices) {
+    return markTypedAnswer({
+      userAnswer: value,
+      correctAnswer: question.answer,
+      acceptedAnswers: answerOptions(question).slice(1),
+    }).correct;
+  }
+
   const userAnswer = normaliseAnswer(value);
 
   return answerOptions(question).some(
