@@ -99,8 +99,8 @@ export const courseUnits: CourseUnitSummary[] = [
     title: "Financial Mathematics",
     href: "/course/financial-mathematics",
     description:
-      "Growth factors, sequences, series, compound interest, depreciation, recurrence relations, annuities, loans, and financial decision-making.",
-    activeLessonCount: 10,
+      "Growth factors, compound interest, depreciation, recurrence relations, annuities, loans, and financial decision-making.",
+    activeLessonCount: 6,
   },
   {
     title: "Statistical Analysis",
@@ -118,7 +118,7 @@ export const year12AdvancedCourse: CourseCatalogueItem = {
   courseType: "Mathematics Advanced",
   href: "/course/year-12-advanced",
   description:
-    "Year 12 Mathematics Advanced now includes 89 active lessons across functions, trigonometry, exponential and logarithmic functions, calculus, statistics, sequences, series and financial mathematics. Ongoing refinements and visual supports are being added.",
+    "Year 12 Mathematics Advanced now includes 85 active lessons across functions, trigonometry, exponential and logarithmic functions, calculus, statistics, sequences, series and financial mathematics. Ongoing refinements and visual supports are being added.",
   unitCount: courseUnits.length,
   activeLessonCount: courseUnits.reduce(
     (total, unit) => total + unit.activeLessonCount,

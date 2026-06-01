@@ -3857,30 +3857,6 @@ export const functionsGraphingTechniquesOutline: LessonOutlineItem[] = [
     status: "active",
   },
   {
-    id: "solving-equations-inequalities-graphically",
-    slug: "solving-equations-inequalities-graphically",
-    title: "Solving Equations and Inequalities Graphically",
-    description:
-      "Use graphs to solve equations, inequalities, and compare functions.",
-    status: "active",
-  },
-  {
-    id: "modelling-with-functions",
-    slug: "modelling-with-functions",
-    title: "Modelling with Functions",
-    description:
-      "Use functions and graphs to model and interpret real-world relationships.",
-    status: "active",
-  },
-  {
-    id: "mixed-functions-graphing-exam-practice",
-    slug: "mixed-functions-graphing-exam-practice",
-    title: "Mixed Functions and Graphing Exam Practice",
-    description:
-      "Practise mixed exam-style questions involving function notation, transformations, features, asymptotes, and graphical solving.",
-    status: "active",
-  },
-  {
     id: "exponential-logarithmic-graphs",
     slug: "exponential-logarithmic-graphs",
     title: "Exponential and Logarithmic Graphs in Graphing Techniques",
@@ -3904,6 +3880,30 @@ export const functionsGraphingTechniquesOutline: LessonOutlineItem[] = [
       "Use inverse notation, inverse graph relationships, horizontal line tests and domain restrictions.",
     status: "active",
   },
+  {
+    id: "solving-equations-inequalities-graphically",
+    slug: "solving-equations-inequalities-graphically",
+    title: "Solving Equations and Inequalities Graphically",
+    description:
+      "Use graphs to solve equations, inequalities, and compare functions.",
+    status: "active",
+  },
+  {
+    id: "modelling-with-functions",
+    slug: "modelling-with-functions",
+    title: "Modelling with Functions",
+    description:
+      "Use functions and graphs to model and interpret real-world relationships.",
+    status: "active",
+  },
+  {
+    id: "mixed-functions-graphing-exam-practice",
+    slug: "mixed-functions-graphing-exam-practice",
+    title: "Mixed Functions and Graphing Exam Practice",
+    description:
+      "Practise mixed exam-style questions involving function notation, transformations, features, asymptotes, and graphical solving.",
+    status: "active",
+  },
 ];
 
 export const functionsGraphingTechniquesLessons = [
@@ -3912,10 +3912,10 @@ export const functionsGraphingTechniquesLessons = [
   reflectionsStretchesTranslationsLesson,
   interceptsKeyFeaturesLesson,
   asymptotesReciprocalGraphsLesson,
-  solvingEquationsInequalitiesGraphicallyLesson,
-  modellingWithFunctionsLesson,
-  mixedFunctionsGraphingExamPracticeLesson,
   exponentialLogarithmicGraphsLesson,
   absoluteValueFunctionsLesson,
   inverseFunctionsLesson,
+  solvingEquationsInequalitiesGraphicallyLesson,
+  modellingWithFunctionsLesson,
+  mixedFunctionsGraphingExamPracticeLesson,
 ];

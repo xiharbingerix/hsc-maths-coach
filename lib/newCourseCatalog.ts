@@ -336,16 +336,16 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus: "Trigonometry, ratios and rates",
         lessons: [
           {
-            slug: "non-right-angled-trigonometry",
-            title: "Non-Right-Angled Trigonometry",
-            description:
-              "Choose sine rule or cosine rule for practical non-right-angled triangle problems in surveying and navigation contexts.",
-          },
-          {
             slug: "sine-rule-cosine-rule-area-triangle",
             title: "Sine Rule, Cosine Rule and Area of a Triangle",
             description:
               "Apply sine rule, cosine rule, and the triangular area formula to practical distance and land-area problems.",
+          },
+          {
+            slug: "non-right-angled-trigonometry",
+            title: "Non-Right-Angled Trigonometry",
+            description:
+              "Choose sine rule or cosine rule for practical non-right-angled triangle problems in surveying and navigation contexts.",
           },
           {
             slug: "ratios-rates-unit-conversions",
