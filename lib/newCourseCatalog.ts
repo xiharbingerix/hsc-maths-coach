@@ -42,7 +42,7 @@ import {
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
-import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9IndexLawsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
+import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9IndexLawsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 
 export type {
   CourseLessonSeed,
@@ -200,6 +200,7 @@ export function buildLesson(
     year9ConstantRatesOfChangeLessonOverride(course, unit, lesson) ??
     year9WorkingWithTrianglesLessonOverride(course, unit, lesson) ??
     year9PrismsAndCylindersLessonOverride(course, unit, lesson) ??
+    year9MakingPredictionsLessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
     year10TrigonometryLessonOverride(course, unit, lesson) ??
@@ -1253,7 +1254,14 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Statistics and Probability",
         focus:
           "Prepare for Year 10 probability, tree diagrams, Venn diagrams and conditional probability.",
-        lessons: [],
+        lessons: [
+          { slug: "simple-complementary-events", title: "Simple and Complementary Events" },
+          { slug: "sample-spaces", title: "Sample Spaces" },
+          { slug: "multi-stage-events", title: "Multi-Stage Events" },
+          { slug: "independent-events", title: "Independent Events" },
+          { slug: "dependent-events", title: "Dependent Events" },
+          { slug: "probability-simulations", title: "Probability Simulations" },
+        ],
       },
       {
         slug: "making-decisions",
