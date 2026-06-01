@@ -1,6 +1,71 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
 
+function eqAnswerHint(id: string) {
+  if (id.startsWith("lin-")) {
+    return "Treat the equation like a balance scale. Undo operations in reverse order and make the same change to both sides.";
+  }
+  if (id.startsWith("qf-")) {
+    return "Make one side zero, factorise, then set each factor equal to zero separately.";
+  }
+  if (id.startsWith("qform-")) {
+    return "Identify a, b and c with their signs before using the discriminant or quadratic formula.";
+  }
+  if (id.startsWith("sub-")) {
+    return "Replace one variable with its matching expression in the other equation, then substitute back for the second value.";
+  }
+  return "Choose a variable to cancel by adding or subtracting the whole equations, then substitute back for the second value.";
+}
+
+function eqAnswerExplanation(id: string, prompt: string, latex: string, answer: string) {
+  const question = `${prompt} ${latex}`.toLowerCase();
+
+  if (id.startsWith("lin-")) {
+    if (question.includes("(") || question.includes("\\dfrac")) {
+      return `An equation is a balance scale. Undo the outside operation first, then undo the operation grouped with x, making the same change to both sides each time. This isolates x and gives ${answer}.`;
+    }
+    if ((question.match(/x/g) ?? []).length > 1) {
+      return `Keep the equation balanced while bringing the x-terms together on one side and the constants together on the other. Then divide by the coefficient of x; this gives ${answer}.`;
+    }
+    return `Keep the equation balanced: undo the operation attached to x by doing the same thing to both sides. This isolates x and gives ${answer}.`;
+  }
+
+  if (id.startsWith("qf-")) {
+    if (question.includes("sum of the two solutions")) {
+      return `Factorise the quadratic and use the zero-product property to find both roots. Add those two roots only after solving the two bracket equations; their sum is ${answer}.`;
+    }
+    if (question.includes("x² =") || question.includes("x^2=")) {
+      return `A positive square has two square roots, one positive and one negative. Check both values in the original equation; the solutions are ${answer}.`;
+    }
+    return `First write the quadratic as a product equal to zero. The zero-product property means each factor gets its own mini-equation, so solve both factors and keep every root: ${answer}.`;
+  }
+
+  if (id.startsWith("qform-")) {
+    if (question.includes("discriminant equal to 0")) {
+      return `The discriminant is the part under the square root. When it is zero, the plus and minus versions meet at the same value, so there is ${answer} repeated real solution.`;
+    }
+    if (question.includes("discriminant")) {
+      return `Read a, b and c with their signs, then evaluate b^2 - 4ac carefully. This number tells you what the square-root part of the quadratic formula will do; here it is ${answer}.`;
+    }
+    return `Use the quadratic formula when factorising is not the chosen route. Copy the signs of a, b and c carefully, evaluate both plus-or-minus branches, and select the root requested: ${answer}.`;
+  }
+
+  if (id.startsWith("sub-")) {
+    const pairReminder = question.includes("(x, y)")
+      ? "The final pair is the point where both equations are true at the same time."
+      : "Substitute back if you need the other variable.";
+    return `Substitution means replacing a variable with an equal expression from the other equation. That turns two variables into one so you can solve normally. ${pairReminder} This gives ${answer}.`;
+  }
+
+  const operation = question.includes("add the") || question.includes("x-y") || question.includes("x − y")
+    ? "add"
+    : "subtract";
+  const pairReminder = question.includes("(x, y)")
+    ? "Substitute back for the second value: the coordinate pair is the point where both equations meet."
+    : "Substitute back if the question asks for the other variable.";
+  return `Elimination works by combining the whole equations so one variable cancels out. Here, ${operation} the equations, solve the remaining one-variable equation, then check the result. ${pairReminder} This gives ${answer}.`;
+}
+
 function eqAnswer(
   id: string,
   prompt: string,
@@ -14,8 +79,8 @@ function eqAnswer(
     latex,
     answer,
     acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
-    hint: "Use inverse operations, keeping both sides balanced.",
-    explanation: `The answer is ${answer}.`,
+    hint: eqAnswerHint(id),
+    explanation: eqAnswerExplanation(id, prompt, latex, answer),
   };
 }
 
