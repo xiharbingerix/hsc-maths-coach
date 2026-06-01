@@ -7,9 +7,10 @@ declare global {
 }
 
 function track(name: string, params?: Record<string, unknown>) {
-  if (typeof window === "undefined") return;
-  if (typeof window.gtag !== "function") return;
+  if (typeof window === "undefined") return false;
+  if (typeof window.gtag !== "function") return false;
   window.gtag("event", name, params);
+  return true;
 }
 
 export function trackEvent(name: string, params?: Record<string, unknown>) {
@@ -26,6 +27,13 @@ export function trackCheckoutStarted() {
 
 export function trackPaymentSuccess() {
   track("payment_success");
+}
+
+export function trackGoogleAdsPurchaseConversion(transactionId?: string) {
+  return track("conversion", {
+    send_to: "AW-18195883998/o6pYCKXb0rYcEN7PvORD",
+    transaction_id: transactionId ?? "",
+  });
 }
 
 export function trackSignupCompleted() {
