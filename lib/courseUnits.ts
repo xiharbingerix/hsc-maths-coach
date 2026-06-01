@@ -72,7 +72,7 @@ export const courseUnits: CourseUnitSummary[] = [
     href: "/course/trigonometric-functions-graphs",
     description:
       "Radians, exact values, the unit circle, sine, cosine, tangent graphs, equations, identities, and modelling.",
-    activeLessonCount: 7,
+    activeLessonCount: 8,
   },
   {
     title: "Further Trigonometry",
@@ -118,7 +118,7 @@ export const year12AdvancedCourse: CourseCatalogueItem = {
   courseType: "Mathematics Advanced",
   href: "/course/year-12-advanced",
   description:
-    "Year 12 Mathematics Advanced now includes 85 active lessons across functions, trigonometry, exponential and logarithmic functions, calculus, statistics, sequences, series and financial mathematics. Ongoing refinements and visual supports are being added.",
+    "Year 12 Mathematics Advanced now includes 86 active lessons across functions, trigonometry, exponential and logarithmic functions, calculus, statistics, sequences, series and financial mathematics. Ongoing refinements and visual supports are being added.",
   unitCount: courseUnits.length,
   activeLessonCount: courseUnits.reduce(
     (total, unit) => total + unit.activeLessonCount,

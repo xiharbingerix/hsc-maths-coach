@@ -3,329 +3,165 @@ import type {
   LessonOutlineItem,
 } from "./differentialCalculus";
 
-export const dataDisplaysSummaryStatisticsOutliersLesson: ExplicitLesson = {
-  id: "data-displays-summary-statistics-outliers",
-  slug: "data-displays-summary-statistics-outliers",
+export const dataDisplaysMeasuresOfCentreLesson: ExplicitLesson = {
+  id: "data-displays-measures-of-centre",
+  slug: "data-displays-measures-of-centre",
   moduleSlug: "statistical-analysis",
   moduleTitle: "Statistical Analysis",
   courseTitle: "Year 12 Mathematics Advanced",
-  title: "Data Displays, Summary Statistics, and Outliers",
-  description:
-    "Use summary statistics and data displays to describe centre, spread, and the effect of outliers.",
+  title: "Data Displays and Measures of Centre",
+  description: "Read simple data displays and choose useful measures of centre, including mean, median, and mode.",
   syllabusArea: "Statistical Analysis",
   focus: "Statistical analysis",
   status: "active",
-
-  video: {
-    title: "Data Displays, Summary Statistics, and Outliers",
-    url: "/videos/placeholder-lesson.mp4",
-  },
-
-  learningIntention:
-    "Learn how to calculate and interpret summary statistics, box plot features, and outliers.",
-
+  video: { title: "Data Displays and Measures of Centre", url: "/videos/placeholder-lesson.mp4" },
+  learningIntention: "Learn how data displays reveal patterns and how to choose a measure of centre that suits the data context.",
   successCriteria: [
-    "Calculate mean, median, range, and interquartile range.",
-    "Identify the five-number summary from a data display.",
-    "Explain how outliers can affect summary statistics.",
-    "Choose resistant summary statistics for skewed data or data with outliers.",
-    "Interpret summary statistics in context.",
+    "Read simple frequency information from a data display.",
+    "Calculate and interpret mean, median, and mode.",
+    "Explain why an outlier affects the mean more than the median.",
+    "Choose an appropriate measure of centre for a context.",
   ],
-
   teaching: {
     paragraphs: [
-      "Data can be summarised using measures of centre and spread.",
-      "The mean and median describe centre, while range, interquartile range, and standard deviation describe spread.",
-      "The median and IQR are more resistant to outliers than the mean and range.",
-      "A box plot shows the five-number summary: minimum, lower quartile, median, upper quartile, and maximum.",
-      "Outliers can strongly affect interpretation, especially when the mean or range is used.",
-      "Good statistical answers connect the calculation to the data context, not just the number.",
+      "Start by looking at the display before calculating. A table, dot plot, or list can reveal clusters, gaps, repeated values, and unusually large or small values.",
+      "The mean is the balance point. Add every value and share the total evenly. Because every value contributes, one extreme value can pull the mean towards it.",
+      "The median is the middle value after ordering the data. It depends on position rather than the size of every value, so it is usually more resistant to an outlier.",
+      "The mode is the most common value. It is useful when the question cares about the most frequent result, such as the most common shoe size sold.",
+      "There is no automatic best centre measure. Use the mean for a fairly balanced set without strong outliers, the median when extremes would distort the story, and the mode when the most frequent category or value matters.",
     ],
     latexBlocks: [
       "\\text{mean}=\\frac{\\text{sum of values}}{\\text{number of values}}",
+      "\\text{median}=\\text{middle ordered value}",
+      "\\text{mode}=\\text{most frequent value}",
+    ],
+  },
+  workedExamples: [
+    { title: "Worked example 1: Mean as a balance point", questionLatex: "4,\\ 6,\\ 7,\\ 8,\\ 10", steps: [
+      { explanation: "Add all five values, then share the total evenly across the five positions.", latex: "\\frac{4+6+7+8+10}{5}=7" },
+      { explanation: "A mean of 7 is the balance point of the data set." },
+    ], finalAnswerLatex: "\\text{mean}=7" },
+    { title: "Worked example 2: Median resists an outlier", questionLatex: "4,\\ 6,\\ 7,\\ 8,\\ 40", steps: [
+      { explanation: "The values are ordered already, so the middle position is easy to see.", latex: "\\text{median}=7" },
+      { explanation: "The large value 40 pulls the mean upward, but it does not move the middle position.", latex: "\\text{mean}=\\frac{65}{5}=13" },
+    ], finalAnswerLatex: "\\text{median}=7\\text{ is the more resistant centre measure.}" },
+    { title: "Worked example 3: Read a frequency table", questionLatex: "\\begin{array}{c|ccc}\\text{books read}&0&1&2\\\\\\text{frequency}&2&5&3\\end{array}", steps: [
+      { explanation: "Frequency tells how often each value appears. The largest frequency is 5.", latex: "\\text{frequency of }1=5" },
+      { explanation: "The value paired with the largest frequency is the mode.", latex: "\\text{mode}=1" },
+    ], finalAnswerLatex: "\\text{mode}=1\\text{ book}" },
+  ],
+  guidedPractice: [
+    { id: "centre-guided-1", prompt: "Find the mean.", latex: "3,\\ 5,\\ 7,\\ 9", answer: "6", hint: "Add the values and divide by 4.", explanation: "The total is 24. Sharing 24 evenly across 4 values gives a mean of 6." },
+    { id: "centre-guided-2", prompt: "Find the median.", latex: "2,\\ 4,\\ 6,\\ 8,\\ 12", answer: "6", hint: "Use the middle ordered value.", explanation: "There are five ordered values, so the third value is the middle. The median is 6." },
+    { id: "centre-guided-3", prompt: "Find the mode.", latex: "2,\\ 3,\\ 3,\\ 5,\\ 7", answer: "3", hint: "Look for the value that appears most often.", explanation: "The value 3 appears twice while each other value appears once, so the mode is 3." },
+    { id: "centre-guided-4", prompt: "Which centre measure is usually better when one value is much larger than the rest?", latex: "\\text{Choose one}", answer: "B", choices: [{ label: "A", text: "Mean" }, { label: "B", text: "Median" }, { label: "C", text: "Maximum" }], hint: "Choose the measure based on position.", explanation: "The median is resistant because one extreme value usually does not move the middle position very far." },
+  ],
+  independentPractice: [
+    { id: "centre-ind-1", prompt: "Find the mean.", latex: "5,\\ 7,\\ 8,\\ 12", answer: "8", hint: "Add, then divide by 4.", explanation: "The total is 32, so the mean is 32 divided by 4, which is 8." },
+    { id: "centre-ind-2", prompt: "Find the median.", latex: "3,\\ 5,\\ 9,\\ 11,\\ 20", answer: "9", hint: "Find the middle ordered value.", explanation: "The third of five ordered values is 9." },
+    { id: "centre-ind-3", prompt: "Find the mode.", latex: "1,\\ 4,\\ 4,\\ 4,\\ 6,\\ 8", answer: "4", hint: "Count repeated values.", explanation: "The value 4 occurs three times, more often than any other value." },
+    { id: "centre-ind-4", prompt: "A cafe wants to stock the most commonly ordered drink size. Which measure is most useful?", latex: "\\text{Choose one}", answer: "C", choices: [{ label: "A", text: "Mean" }, { label: "B", text: "Median" }, { label: "C", text: "Mode" }], hint: "The question asks for the most common choice.", explanation: "The mode identifies the drink size ordered most often." },
+    { id: "centre-ind-5", prompt: "House prices include one extremely expensive property. Which measure better describes a typical price?", latex: "\\text{Choose one}", answer: "B", choices: [{ label: "A", text: "Mean" }, { label: "B", text: "Median" }, { label: "C", text: "Maximum" }], hint: "Use a resistant centre measure.", explanation: "The extreme price can pull the mean upward. The median usually gives a steadier picture of a typical price." },
+  ],
+  commonMistakes: [
+    { mistake: "Calculating before looking at the display.", fix: "Scan for clusters, gaps, repeated values, and outliers first. Those features help you choose a useful statistic." },
+    { mistake: "Confusing mean and median.", fix: "Mean is the balance point found by adding and dividing. Median is the middle ordered value." },
+    { mistake: "Choosing the mean automatically.", fix: "Check for extreme values. If an outlier would pull the mean away from the typical values, consider the median." },
+    { mistake: "Calling the largest value the mode.", fix: "Mode means most frequent, not biggest. Count how often each value appears." },
+  ],
+  masteryQuiz: [
+    { id: "centre-mastery-1", prompt: "Find the mean.", latex: "4,\\ 6,\\ 7,\\ 8,\\ 10", answer: "7", hint: "Add and divide by 5.", explanation: "The total is 35, and 35 divided by 5 is 7." },
+    { id: "centre-mastery-2", prompt: "Find the median.", latex: "4,\\ 6,\\ 7,\\ 8,\\ 10", answer: "7", hint: "Use the middle ordered value.", explanation: "The third value is the middle of the five ordered values." },
+    { id: "centre-mastery-3", prompt: "Find the mode.", latex: "2,\\ 2,\\ 3,\\ 5,\\ 8", answer: "2", hint: "Find the most frequent value.", explanation: "The value 2 occurs twice, more than any other value." },
+    { id: "centre-mastery-4", prompt: "Which measure is the balance point of a data set?", latex: "\\text{Choose one}", answer: "A", choices: [{ label: "A", text: "Mean" }, { label: "B", text: "Median" }, { label: "C", text: "Mode" }], hint: "Think of sharing the total evenly.", explanation: "The mean is the balance point because it shares the total evenly across all values." },
+    { id: "centre-mastery-5", prompt: "Which measure is based on the middle position?", latex: "\\text{Choose one}", answer: "B", choices: [{ label: "A", text: "Mean" }, { label: "B", text: "Median" }, { label: "C", text: "Range" }], hint: "Order the data first.", explanation: "The median is the middle value after the data is ordered." },
+    { id: "centre-mastery-6", prompt: "An extreme maximum is added. Which centre measure usually changes more?", latex: "\\text{Choose one}", answer: "A", choices: [{ label: "A", text: "Mean" }, { label: "B", text: "Median" }, { label: "C", text: "Mode always" }], hint: "Which measure uses every value?", explanation: "The mean uses the size of every value, so an extreme maximum pulls it upward." },
+    { id: "centre-mastery-7", prompt: "A shoe store wants the most common size sold. Which measure should it use?", latex: "\\text{Choose one}", answer: "C", choices: [{ label: "A", text: "Mean" }, { label: "B", text: "Median" }, { label: "C", text: "Mode" }], hint: "Look for the most frequent value.", explanation: "The mode identifies the shoe size sold most often." },
+    { id: "centre-mastery-8", prompt: "Find the mean from the frequency information.", latex: "\\begin{array}{c|cc}x&2&5\\\\\\text{frequency}&3&1\\end{array}", answer: "2.75", acceptedAnswers: ["2.750"], hint: "Use each value as many times as its frequency.", explanation: "The total is 2+2+2+5=11 across 4 values, so the mean is 2.75." },
+    { id: "centre-mastery-9", prompt: "Which statement best explains why the median is resistant?", latex: "\\text{Choose one}", answer: "B", choices: [{ label: "A", text: "It ignores ordering" }, { label: "B", text: "It depends on the middle position" }, { label: "C", text: "It is always the mode" }], hint: "Think about position rather than magnitude.", explanation: "One extreme value may change the size of an endpoint without moving the middle position much." },
+    { id: "centre-mastery-10", prompt: "Which measure best describes a typical salary when one executive earns far more than everyone else?", latex: "\\text{Choose one}", answer: "C", choices: [{ label: "A", text: "Maximum" }, { label: "B", text: "Mean" }, { label: "C", text: "Median" }], hint: "Choose a resistant measure.", explanation: "The executive salary can pull the mean upward. The median is less distorted by that extreme value." },
+  ],
+  masteryPassMark: 0.8,
+};
+
+export const spreadIqrBoxPlotsOutliersLesson: ExplicitLesson = {
+  id: "spread-iqr-box-plots-outliers",
+  slug: "spread-iqr-box-plots-outliers",
+  moduleSlug: "statistical-analysis",
+  moduleTitle: "Statistical Analysis",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Spread, IQR, Box Plots and Outliers",
+  description: "Interpret range, quartiles, IQR, five-number summaries, box plots, and the effect of outliers on spread.",
+  syllabusArea: "Statistical Analysis",
+  focus: "Statistical analysis",
+  status: "active",
+  video: { title: "Spread, IQR, Box Plots and Outliers", url: "/videos/placeholder-lesson.mp4" },
+  learningIntention: "Learn how spread measures and box plots describe how data is distributed, including when outliers are present.",
+  successCriteria: [
+    "Calculate range and interquartile range.",
+    "Interpret quartiles and the five-number summary.",
+    "Describe a box plot from a textual five-number summary.",
+    "Explain why IQR is more resistant to outliers than range.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Centre tells where data sits; spread tells how far it stretches out. Two data sets can have the same median but feel very different if one is tightly grouped and the other is widely scattered.",
+      "Range is the full width from minimum to maximum. It is quick to calculate, but one extreme value can stretch it dramatically.",
+      "Quartiles split ordered data into four sections. The interquartile range, or IQR, runs from the lower quartile to the upper quartile, so it describes the middle half of the data.",
+      "A box plot is a compact map of the five-number summary: minimum, lower quartile, median, upper quartile, and maximum. The box is the middle 50%, and the whiskers extend towards the extremes.",
+      "Because IQR focuses on the middle half, an outlier usually affects range more than IQR. The next lesson adds standard deviation, another spread measure that considers distances from the mean.",
+    ],
+    latexBlocks: [
       "\\text{range}=\\text{maximum}-\\text{minimum}",
       "IQR=Q_3-Q_1",
       "\\text{five-number summary}=\\min, Q_1, \\text{median}, Q_3, \\max",
     ],
   },
-
   workedExamples: [
-    {
-      title: "Worked example 1: Mean, median, and range",
-      questionLatex: "4,\\ 6,\\ 7,\\ 8,\\ 10",
-      steps: [
-        {
-          explanation: "Find the mean by adding the values and dividing by 5.",
-          latex: "\\frac{4+6+7+8+10}{5}=7",
-        },
-        {
-          explanation: "The middle value is the median.",
-          latex: "\\text{median}=7",
-        },
-        {
-          explanation: "Find the range by subtracting the minimum from the maximum.",
-          latex: "10-4=6",
-        },
-      ],
-      finalAnswerLatex: "\\text{mean}=7,\\quad \\text{median}=7,\\quad \\text{range}=6",
-    },
-    {
-      title: "Worked example 2: IQR from a five-number summary",
-      questionLatex:
-        "\\min=2,\\quad Q_1=5,\\quad \\text{median}=7,\\quad Q_3=11,\\quad \\max=15",
-      steps: [
-        {
-          explanation: "The IQR is the upper quartile minus the lower quartile.",
-          latex: "IQR=Q_3-Q_1",
-        },
-        {
-          explanation: "Substitute $Q_3=11$ and $Q_1=5$.",
-          latex: "IQR=11-5=6",
-        },
-        {
-          explanation: "The middle 50% of the data spans 6 units.",
-          latex: "\\text{middle spread}=6",
-        },
-      ],
-      finalAnswerLatex: "IQR=6",
-    },
-    {
-      title: "Worked example 3: Resistant statistics",
-      questionLatex:
-        "\\text{Which is more resistant to an outlier: the mean or the median?}",
-      steps: [
-        {
-          explanation: "An outlier can pull the mean strongly because every value is included in the calculation.",
-          latex: "\\text{mean uses every value}",
-        },
-        {
-          explanation: "The median depends on position, so one extreme value usually has less effect.",
-          latex: "\\text{median uses the middle position}",
-        },
-      ],
-      finalAnswerLatex: "\\text{The median is more resistant.}",
-    },
+    { title: "Worked example 1: Compare range and IQR", questionLatex: "\\min=2,\\quad Q_1=5,\\quad \\text{median}=7,\\quad Q_3=11,\\quad \\max=15", steps: [
+      { explanation: "Range uses the two extremes, so it describes the full spread.", latex: "\\text{range}=15-2=13" },
+      { explanation: "IQR uses the quartiles, so it describes the middle half of the data.", latex: "IQR=11-5=6" },
+    ], finalAnswerLatex: "\\text{range}=13,\\quad IQR=6" },
+    { title: "Worked example 2: Read a box plot from text", questionLatex: "\\min=3,\\quad Q_1=8,\\quad \\text{median}=12,\\quad Q_3=18,\\quad \\max=25", steps: [
+      { explanation: "The box would run from 8 to 18, because the box represents the middle 50%.", latex: "Q_1=8,\\quad Q_3=18" },
+      { explanation: "The median line would sit at 12, and the whiskers would extend to 3 and 25.", latex: "\\min=3,\\quad \\text{median}=12,\\quad \\max=25" },
+    ], finalAnswerLatex: "\\text{box from }8\\text{ to }18,\\quad \\text{median }12,\\quad \\text{whiskers to }3\\text{ and }25" },
+    { title: "Worked example 3: Explain an outlier effect", questionLatex: "4,\\ 6,\\ 7,\\ 8,\\ 10\\quad \\text{then add }100", steps: [
+      { explanation: "The new value 100 becomes the maximum, so it stretches the full spread immediately.", latex: "\\text{old range}=10-4=6,\\quad \\text{new range}=100-4=96" },
+      { explanation: "IQR focuses on the middle half, so it is usually much less affected by one extreme endpoint." },
+    ], finalAnswerLatex: "\\text{The outlier changes range far more than IQR.}" },
   ],
-
   guidedPractice: [
-    {
-      id: "summary-guided-1",
-      prompt: "Find the mean.",
-      latex: "3,\\ 5,\\ 7,\\ 9",
-      answer: "6",
-      hint: "Add the values and divide by 4.",
-      explanation: "$(3+5+7+9)\\div4=6$.",
-    },
-    {
-      id: "summary-guided-2",
-      prompt: "Find the median.",
-      latex: "2,\\ 4,\\ 6,\\ 8,\\ 12",
-      answer: "6",
-      hint: "The median is the middle value in an ordered data set.",
-      explanation: "The middle value is $6$.",
-    },
-    {
-      id: "summary-guided-3",
-      prompt: "Find the IQR.",
-      latex: "Q_1=9,\\quad Q_3=17",
-      answer: "8",
-      hint: "Use $Q_3-Q_1$.",
-      explanation: "$IQR=17-9=8$.",
-    },
-    {
-      id: "summary-guided-4",
-      prompt: "Which statistic is more resistant to an outlier?",
-      latex: "\\text{Choose one}",
-      answer: "B",
-      choices: [
-        { label: "A", text: "Mean" },
-        { label: "B", text: "Median" },
-        { label: "C", text: "Range" },
-      ],
-      hint: "Resistant statistics are less affected by extreme values.",
-      explanation: "The median is more resistant to an outlier than the mean.",
-    },
+    { id: "spread-guided-1", prompt: "Find the range.", latex: "5,\\ 8,\\ 9,\\ 12,\\ 20", answer: "15", hint: "Subtract minimum from maximum.", explanation: "The full spread is 20 minus 5, which is 15." },
+    { id: "spread-guided-2", prompt: "Find the IQR.", latex: "Q_1=9,\\quad Q_3=17", answer: "8", hint: "Use Q3 minus Q1.", explanation: "The middle half runs from 9 to 17, so its width is 8." },
+    { id: "spread-guided-3", prompt: "Which values form the box in a box plot?", latex: "\\text{Choose one}", answer: "B", choices: [{ label: "A", text: "Minimum and maximum" }, { label: "B", text: "Lower quartile and upper quartile" }, { label: "C", text: "Mean and mode" }], hint: "The box represents the middle half.", explanation: "The box extends from Q1 to Q3 and contains the middle 50% of the data." },
+    { id: "spread-guided-4", prompt: "Which spread measure is usually more resistant to an outlier?", latex: "\\text{Choose one}", answer: "C", choices: [{ label: "A", text: "Range" }, { label: "B", text: "Maximum" }, { label: "C", text: "IQR" }], hint: "Which measure focuses on the middle half?", explanation: "IQR ignores the extreme endpoints and focuses on the middle 50%." },
   ],
-
   independentPractice: [
-    {
-      id: "summary-ind-1",
-      prompt: "Find the range.",
-      latex: "5,\\ 8,\\ 9,\\ 12,\\ 20",
-      answer: "15",
-      hint: "Subtract the minimum from the maximum.",
-      explanation: "$20-5=15$.",
-    },
-    {
-      id: "summary-ind-2",
-      prompt: "Find the median.",
-      latex: "11,\\ 12,\\ 15,\\ 18,\\ 44",
-      answer: "15",
-      hint: "The median is the middle value.",
-      explanation: "The middle value is $15$.",
-    },
-    {
-      id: "summary-ind-3",
-      prompt: "Find the IQR.",
-      latex: "\\min=4,\\quad Q_1=7,\\quad \\text{median}=10,\\quad Q_3=16,\\quad \\max=30",
-      answer: "9",
-      hint: "Use $Q_3-Q_1$.",
-      explanation: "$IQR=16-7=9$.",
-    },
-    {
-      id: "summary-ind-4",
-      prompt: "Which statistic is most affected by an extreme maximum?",
-      latex: "\\text{Choose one}",
-      answer: "A",
-      choices: [
-        { label: "A", text: "Range" },
-        { label: "B", text: "Median" },
-        { label: "C", text: "Lower quartile" },
-      ],
-      hint: "Range uses the maximum and minimum.",
-      explanation: "The range is strongly affected by an extreme maximum.",
-    },
-    {
-      id: "summary-ind-5",
-      prompt: "Which pair is best for summarising data with a clear outlier?",
-      latex: "\\text{Choose one}",
-      answer: "C",
-      choices: [
-        { label: "A", text: "Mean and range" },
-        { label: "B", text: "Mean and maximum" },
-        { label: "C", text: "Median and IQR" },
-      ],
-      hint: "Use resistant measures when outliers are present.",
-      explanation: "Median and IQR are more resistant to outliers.",
-    },
+    { id: "spread-ind-1", prompt: "Find the range.", latex: "4,\\ 9,\\ 11,\\ 18", answer: "14", hint: "Use maximum minus minimum.", explanation: "The range is 18 minus 4, which is 14." },
+    { id: "spread-ind-2", prompt: "Find the IQR.", latex: "Q_1=7,\\quad Q_3=16", answer: "9", hint: "Subtract Q1 from Q3.", explanation: "The middle half has width 16 minus 7, which is 9." },
+    { id: "spread-ind-3", prompt: "Identify the median from the five-number summary.", latex: "\\min=2,\\quad Q_1=6,\\quad \\text{median}=10,\\quad Q_3=14,\\quad \\max=22", answer: "10", hint: "Read the middle summary value.", explanation: "The median is stated as 10. On a box plot, its line would sit inside the box." },
+    { id: "spread-ind-4", prompt: "What percentage of data lies inside the box of a box plot?", latex: "\\text{Choose one}", answer: "B", choices: [{ label: "A", text: "25%" }, { label: "B", text: "50%" }, { label: "C", text: "100%" }], hint: "The box runs from Q1 to Q3.", explanation: "From Q1 to Q3 is the middle half, so the box contains 50% of the data." },
+    { id: "spread-ind-5", prompt: "One very large outlier is added. Which measure is likely to change most immediately?", latex: "\\text{Choose one}", answer: "A", choices: [{ label: "A", text: "Range" }, { label: "B", text: "IQR" }, { label: "C", text: "Median" }], hint: "Which measure uses the maximum?", explanation: "The range uses the maximum directly, so a large outlier can stretch it sharply." },
   ],
-
   commonMistakes: [
-    {
-      mistake: "Confusing median and mean.",
-      fix: "The mean is the balance point found by adding and dividing. The median is the middle value.",
-    },
-    {
-      mistake: "Calculating range instead of IQR.",
-      fix: "Range is maximum minus minimum. IQR is $Q_3-Q_1$.",
-    },
-    {
-      mistake: "Thinking outliers affect the median as strongly as the mean.",
-      fix: "The median is position-based, so it is usually more resistant.",
-    },
-    {
-      mistake: "Interpreting statistics without context.",
-      fix: "State what the statistic means for the data being described.",
-    },
+    { mistake: "Confusing range and IQR.", fix: "Range is maximum minus minimum. IQR is Q3 minus Q1, the width of the middle half." },
+    { mistake: "Treating the box as the whole data set.", fix: "The box contains the middle 50%. The whiskers extend towards the minimum and maximum." },
+    { mistake: "Thinking an outlier affects all spread measures equally.", fix: "An extreme value changes range directly. IQR is usually steadier because it focuses on the middle half." },
+    { mistake: "Reading quartiles without ordering them.", fix: "Keep the five-number summary in order: minimum, Q1, median, Q3, maximum." },
   ],
-
   masteryQuiz: [
-    {
-      id: "summary-mastery-1",
-      prompt: "Find the mean.",
-      latex: "4,\\ 6,\\ 7,\\ 8,\\ 10",
-      answer: "7",
-      hint: "Add the values and divide by 5.",
-      explanation: "$(4+6+7+8+10)\\div5=7$.",
-    },
-    {
-      id: "summary-mastery-2",
-      prompt: "Find the median.",
-      latex: "4,\\ 6,\\ 7,\\ 8,\\ 10",
-      answer: "7",
-      hint: "The median is the middle value.",
-      explanation: "The middle value is $7$.",
-    },
-    {
-      id: "summary-mastery-3",
-      prompt: "Find the range.",
-      latex: "4,\\ 6,\\ 7,\\ 8,\\ 10",
-      answer: "6",
-      hint: "Subtract the minimum from the maximum.",
-      explanation: "$10-4=6$.",
-    },
-    {
-      id: "summary-mastery-4",
-      prompt: "Find the IQR.",
-      latex: "Q_1=5,\\quad Q_3=11",
-      answer: "6",
-      hint: "Use $Q_3-Q_1$.",
-      explanation: "$IQR=11-5=6$.",
-    },
-    {
-      id: "summary-mastery-5",
-      prompt: "Which statistic is more resistant to an outlier?",
-      latex: "\\text{Choose one}",
-      answer: "B",
-      choices: [
-        { label: "A", text: "Mean" },
-        { label: "B", text: "Median" },
-        { label: "C", text: "Range" },
-      ],
-      hint: "Think about position versus all values.",
-      explanation: "The median is more resistant to an outlier.",
-    },
-    {
-      id: "summary-mastery-6",
-      prompt: "Which spread measure is more resistant to outliers?",
-      latex: "\\text{Choose one}",
-      answer: "C",
-      choices: [
-        { label: "A", text: "Range" },
-        { label: "B", text: "Maximum" },
-        { label: "C", text: "IQR" },
-      ],
-      hint: "IQR focuses on the middle 50% of the data.",
-      explanation: "The IQR is more resistant because it ignores the extremes.",
-    },
-    {
-      id: "summary-mastery-7",
-      prompt: "Identify the lower quartile.",
-      latex: "\\min=3,\\quad Q_1=8,\\quad \\text{median}=12,\\quad Q_3=18,\\quad \\max=25",
-      answer: "8",
-      hint: "The lower quartile is $Q_1$.",
-      explanation: "$Q_1=8$.",
-    },
-    {
-      id: "summary-mastery-8",
-      prompt: "Which display uses the five-number summary?",
-      latex: "\\text{Choose one}",
-      answer: "A",
-      choices: [
-        { label: "A", text: "Box plot" },
-        { label: "B", text: "Scatterplot" },
-        { label: "C", text: "Residual plot" },
-      ],
-      hint: "A box plot shows quartiles and extremes.",
-      explanation: "A box plot uses the five-number summary.",
-    },
-    {
-      id: "summary-mastery-9",
-      prompt: "An outlier is added far above the rest of the data. Which centre measure is likely to increase more?",
-      latex: "\\text{Choose one}",
-      answer: "A",
-      choices: [
-        { label: "A", text: "Mean" },
-        { label: "B", text: "Median" },
-      ],
-      hint: "The mean uses every value.",
-      explanation: "The mean is pulled upward more strongly by the outlier.",
-    },
-    {
-      id: "summary-mastery-10",
-      prompt: "Which conclusion is most appropriate when a data set has a strong outlier?",
-      latex: "\\text{Choose one}",
-      answer: "C",
-      choices: [
-        { label: "A", text: "Use only the maximum" },
-        { label: "B", text: "Ignore all spread" },
-        { label: "C", text: "Consider median and IQR" },
-      ],
-      hint: "Use resistant measures.",
-      explanation: "Median and IQR are useful because they are less affected by outliers.",
-    },
+    { id: "spread-mastery-1", prompt: "Find the range.", latex: "4,\\ 6,\\ 7,\\ 8,\\ 10", answer: "6", hint: "Subtract the minimum from the maximum.", explanation: "The range is 10 minus 4, which is 6." },
+    { id: "spread-mastery-2", prompt: "Find the IQR.", latex: "Q_1=5,\\quad Q_3=11", answer: "6", hint: "Use Q3 minus Q1.", explanation: "The middle half spans 11 minus 5, which is 6." },
+    { id: "spread-mastery-3", prompt: "What does IQR describe?", latex: "\\text{Choose one}", answer: "C", choices: [{ label: "A", text: "The most common value" }, { label: "B", text: "The full spread" }, { label: "C", text: "The spread of the middle 50%" }], hint: "IQR runs from Q1 to Q3.", explanation: "The interval from Q1 to Q3 contains the middle half of the ordered data." },
+    { id: "spread-mastery-4", prompt: "Identify the lower quartile.", latex: "\\min=3,\\quad Q_1=8,\\quad \\text{median}=12,\\quad Q_3=18,\\quad \\max=25", answer: "8", hint: "Lower quartile means Q1.", explanation: "The five-number summary gives Q1 as 8." },
+    { id: "spread-mastery-5", prompt: "Identify the upper quartile.", latex: "\\min=3,\\quad Q_1=8,\\quad \\text{median}=12,\\quad Q_3=18,\\quad \\max=25", answer: "18", hint: "Upper quartile means Q3.", explanation: "The five-number summary gives Q3 as 18." },
+    { id: "spread-mastery-6", prompt: "Which display is built from a five-number summary?", latex: "\\text{Choose one}", answer: "A", choices: [{ label: "A", text: "Box plot" }, { label: "B", text: "Scatterplot" }, { label: "C", text: "Residual plot" }], hint: "Think of a box with whiskers.", explanation: "A box plot maps the minimum, Q1, median, Q3, and maximum." },
+    { id: "spread-mastery-7", prompt: "Which spread measure changes directly when the maximum becomes much larger?", latex: "\\text{Choose one}", answer: "B", choices: [{ label: "A", text: "Median" }, { label: "B", text: "Range" }, { label: "C", text: "Mode" }], hint: "Which formula uses maximum?", explanation: "Range equals maximum minus minimum, so a larger maximum increases range directly." },
+    { id: "spread-mastery-8", prompt: "A box plot has Q1 = 6 and Q3 = 14. Find the width of its box.", latex: "Q_1=6,\\quad Q_3=14", answer: "8", hint: "The box width is the IQR.", explanation: "The box represents the middle half, and its width is 14 minus 6, which is 8." },
+    { id: "spread-mastery-9", prompt: "Which spread measure is usually better when outliers are present?", latex: "\\text{Choose one}", answer: "C", choices: [{ label: "A", text: "Maximum" }, { label: "B", text: "Range" }, { label: "C", text: "IQR" }], hint: "Use the middle half.", explanation: "IQR is more resistant because it is based on the middle 50%, not the extreme endpoints." },
+    { id: "spread-mastery-10", prompt: "Which measure will the next lesson add to describe spread around the mean?", latex: "\\text{Choose one}", answer: "A", choices: [{ label: "A", text: "Standard deviation" }, { label: "B", text: "Mode" }, { label: "C", text: "Maximum" }], hint: "The next lesson standardises distances from the mean.", explanation: "Standard deviation describes how spread out values are around the mean." },
   ],
-
   masteryPassMark: 0.8,
 };
 
@@ -2309,11 +2145,19 @@ export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
 
 export const statisticalAnalysisOutline: LessonOutlineItem[] = [
   {
-    id: "data-displays-summary-statistics-outliers",
-    slug: "data-displays-summary-statistics-outliers",
-    title: "Data Displays, Summary Statistics, and Outliers",
+    id: "data-displays-measures-of-centre",
+    slug: "data-displays-measures-of-centre",
+    title: "Data Displays and Measures of Centre",
     description:
-      "Summarise data using centre, spread, five-number summaries, and outlier-aware interpretation.",
+      "Read simple data displays and choose useful measures of centre, including mean, median, and mode.",
+    status: "active",
+  },
+  {
+    id: "spread-iqr-box-plots-outliers",
+    slug: "spread-iqr-box-plots-outliers",
+    title: "Spread, IQR, Box Plots and Outliers",
+    description:
+      "Interpret range, quartiles, IQR, five-number summaries, box plots, and the effect of outliers on spread.",
     status: "active",
   },
   {
@@ -2367,7 +2211,8 @@ export const statisticalAnalysisOutline: LessonOutlineItem[] = [
 ];
 
 export const statisticalAnalysisLessons = [
-  dataDisplaysSummaryStatisticsOutliersLesson,
+  dataDisplaysMeasuresOfCentreLesson,
+  spreadIqrBoxPlotsOutliersLesson,
   standardDeviationZScoresStandardisedValuesLesson,
   correlationLeastSquaresRegressionLesson,
   interpretingAssociationResidualsLesson,

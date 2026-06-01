@@ -192,7 +192,7 @@ const lessonRecommendations: Record<
   },
   "statistics-summary-median": {
     title: "Data Displays, Summary Statistics, and Outliers",
-    href: "/course/statistical-analysis/data-displays-summary-statistics-outliers",
+    href: "/course/statistical-analysis/data-displays-measures-of-centre",
   },
   "statistics-standardised-score": {
     title: "Standard Deviation, Z-Scores, and Standardised Values",
