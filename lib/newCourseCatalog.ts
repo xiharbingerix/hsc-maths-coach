@@ -416,10 +416,16 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Interpret bivariate data, scatterplots, association direction, strength, outliers, and causation warnings.",
           },
           {
-            slug: "correlation-regression",
-            title: "Correlation and Regression",
+            slug: "correlation-association",
+            title: "Correlation and Association",
             description:
-              "Use correlation, regression equations, predictions, residuals, slope, intercept, and extrapolation warnings.",
+              "Describe direction and strength of linear association using scatterplots and correlation values, while avoiding causation claims.",
+          },
+          {
+            slug: "regression-prediction-residuals",
+            title: "Regression Equations, Predictions and Residuals",
+            description:
+              "Use regression equations to make predictions, interpret slope, and calculate residuals as actual minus predicted values.",
           },
           {
             slug: "normal-distribution-z-scores",
