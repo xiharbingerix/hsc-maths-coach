@@ -42,7 +42,7 @@ import {
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
-import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
+import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 
 export type {
   CourseLessonSeed,
@@ -202,6 +202,7 @@ export function buildLesson(
     year9PrismsAndCylindersLessonOverride(course, unit, lesson) ??
     year9MakingPredictionsLessonOverride(course, unit, lesson) ??
     year9MakingDecisionsLessonOverride(course, unit, lesson) ??
+    year9GeometricalRepresentationsLessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
     year10TrigonometryLessonOverride(course, unit, lesson) ??
@@ -1154,7 +1155,13 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Measurement and Space",
         focus:
           "Build proportional reasoning, scale and geometric representation skills needed for Year 10 geometry and measurement.",
-        lessons: [],
+        lessons: [
+          { slug: "similar-figures", title: "Similar Figures" },
+          { slug: "ratio-scale-factors", title: "Ratio and Scale Factors" },
+          { slug: "scale-drawings", title: "Scale Drawings" },
+          { slug: "geometric-representations", title: "Geometric Representations" },
+          { slug: "networks-introduction", title: "Introduction to Networks" },
+        ],
       },
       {
         slug: "working-with-triangles",
