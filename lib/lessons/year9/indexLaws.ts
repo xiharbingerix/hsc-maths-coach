@@ -179,7 +179,7 @@ const powerOfPower: LessonContent = {
   ],
   guidedPractice: [
     choice("y9-ind-pp-g1", "Simplify.", "A", ["$5^6$", "$5^5$", "$10^6$", "$5^9$"], "Multiply 2 and 3.", "(5^2)^3"),
-    choice("y9-ind-pp-g2", "Simplify.", "C", ["$2^9$", "$4^{10}$", "$2^{25}$", "$2^{10}$"], "Multiply 5 and 2.", "(2^5)^2"),
+    choice("y9-ind-pp-g2", "Simplify.", "D", ["$2^9$", "$4^{10}$", "$2^{25}$", "$2^{10}$"], "Multiply 5 and 2.", "(2^5)^2"),
     choice("y9-ind-pp-g3", "Which statement is correct?", "B", ["$(7^3)^2=7^5$", "$(7^3)^2=7^6$", "$(7^3)^2=14^6$", "$(7^3)^2=7^9$"], "A power of a power multiplies exponents."),
     answer("y9-ind-pp-g4", "Evaluate.", "(3^2)^2", "81", "The expression simplifies to 3^4, which is 81."),
   ],
