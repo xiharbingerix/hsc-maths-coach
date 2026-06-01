@@ -50,7 +50,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {children}
         <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "AW-18195883998"}`}
+          src="https://www.googletagmanager.com/gtag/js?id=G-LJJYFDBB5Q"
           strategy="afterInteractive"
         />
         <Script id="google-analytics-init" strategy="afterInteractive">
@@ -58,8 +58,8 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){window.dataLayer.push(arguments);}
             gtag('js', new Date());
+            gtag('config', 'G-LJJYFDBB5Q');
             gtag('config', 'AW-18195883998');
-            ${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ? `gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');` : ""}
           `}
         </Script>
       </body>
