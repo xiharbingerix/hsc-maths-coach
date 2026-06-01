@@ -1,6 +1,49 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
 
+function trigAnswerExplanation(id: string, prompt: string, latex: string, answer: string) {
+  const question = `${prompt} ${latex}`.toLowerCase();
+
+  if (id.startsWith("trig-rat-")) {
+    return `Opposite and adjacent are named from the angle in the question, not from where the sides sit on the page. Tangent connects those two sides: tan(theta) = opposite / adjacent, which gives ${answer}.`;
+  }
+
+  if (id.startsWith("find-side-")) {
+    const ratio = question.includes("opposite") && question.includes("adjacent")
+      ? "Tangent connects opposite and adjacent."
+      : question.includes("adjacent") && question.includes("hyp")
+        ? "Cosine connects adjacent and hypotenuse."
+        : "Sine connects opposite and hypotenuse.";
+    const rearrange = question.includes("find hyp")
+      ? "Because the hypotenuse is the unknown, divide by the trig ratio rather than multiplying."
+      : "Because the unknown side is on top of the ratio, multiply after choosing the matching ratio.";
+    return `${ratio} ${rearrange} Keep the calculator in degree mode and round only at the end; this gives ${answer}.`;
+  }
+
+  if (id.startsWith("find-ang-")) {
+    const ratio = question.includes("opposite") && question.includes("adjacent")
+      ? "Tangent connects the known opposite and adjacent sides."
+      : question.includes("adjacent") && question.includes("hyp")
+        ? "Cosine connects the known adjacent side and hypotenuse."
+        : "Sine connects the known opposite side and hypotenuse.";
+    return `${ratio} Once the ratio is set up, use the matching inverse trig button to undo it. In degree mode, the angle is ${answer}.`;
+  }
+
+  if (id.startsWith("elev-dep-")) {
+    const angleReminder = question.includes("depression")
+      ? "An angle of depression is measured down from a horizontal line at the observer."
+      : "An angle of elevation is measured up from a horizontal line at the observer.";
+    const method = question.includes("find the angle")
+      ? "Height is opposite and horizontal distance is adjacent, so use inverse tan on height / horizontal."
+      : question.includes("horizontal distance")
+        ? "Height is opposite and horizontal distance is adjacent, so start with tan(theta) = height / horizontal and work backwards."
+        : "Height is opposite and horizontal distance is adjacent, so use tan(theta) = height / horizontal.";
+    return `${angleReminder} ${method} This gives ${answer}.`;
+  }
+
+  return `Name the sides from the angle in the question, choose the ratio that connects them, and keep the calculator in degree mode. This gives ${answer}.`;
+}
+
 function trigAnswer(
   id: string,
   prompt: string,
@@ -15,7 +58,7 @@ function trigAnswer(
     answer,
     acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
     hint: "Draw the triangle, label the known sides and angle, then choose sin, cos, or tan.",
-    explanation: `The answer is ${answer}.`,
+    explanation: trigAnswerExplanation(id, prompt, latex, answer),
   };
 }
 
@@ -1365,13 +1408,46 @@ const elevationDepressionMastery: PracticeQuestion[] = [
 
 // ─── Lesson 5: The Sine Rule ──────────────────────────────────────────────────
 
+function nonRightAnswerExplanation(id: string, prompt: string, answer: string, hint: string) {
+  const question = prompt.toLowerCase();
+
+  if (id.startsWith("sine-rule-")) {
+    return `The sine rule works here because there is a known side-angle opposite pair. Match each side with the angle directly across from it: ${hint} This gives ${answer}.`;
+  }
+
+  if (id.startsWith("cosine-rule-")) {
+    const reason = question.includes("largest angle") || question.includes("sides ")
+      ? "All three side lengths are available, so use the SSS form of the cosine rule and apply inverse cosine for the angle."
+      : "Two sides and the included angle are available, so use the SAS form of the cosine rule.";
+    return `${reason} This is not a right-triangle SOH-CAH-TOA question. ${hint} This gives ${answer}.`;
+  }
+
+  if (id.startsWith("area-trig-")) {
+    const method = question.includes("find the included angle")
+      ? "The area formula can be undone to find the included angle: isolate sin(C), then use inverse sine."
+      : "Use the two known sides and the angle sandwiched between them in Area = (1/2)ab sin(C).";
+    return `${method} ${hint} This gives ${answer}.`;
+  }
+
+  if (id.startsWith("bearings-")) {
+    const method = question.includes("reverse bearing") || question.includes("bearing of")
+      ? "A reverse bearing points back along the same line, so it differs by 180 degrees."
+      : question.includes("how far")
+        ? "Bearings are measured clockwise from north. Split the journey into north-south and east-west components before choosing sine or cosine."
+        : "Bearings are measured clockwise from north and written with three digits.";
+    return `${method} ${hint} This gives ${answer}.`;
+  }
+
+  return `Choose the rule from the information given, keep full calculator precision until the end, and round only the final value. ${hint} This gives ${answer}.`;
+}
+
 function nonRightAnswer(
   id: string,
   prompt: string,
   latex: string,
   answer: string,
   acceptedAnswers: string[] = [],
-  hint = "Set up the formula, substitute the known values, and solve."
+  hint = "Decide which information pattern you have first: an opposite pair for sine rule, SAS or SSS for cosine rule, or two sides with their included angle for area."
 ): PracticeQuestion {
   return {
     id,
@@ -1380,7 +1456,7 @@ function nonRightAnswer(
     answer,
     acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
     hint,
-    explanation: `The answer is ${answer}.`,
+    explanation: nonRightAnswerExplanation(id, prompt, answer, hint),
   };
 }
 
