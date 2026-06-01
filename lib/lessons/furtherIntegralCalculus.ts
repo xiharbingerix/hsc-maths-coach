@@ -417,6 +417,22 @@ export const areaBetweenCurvesExtendedLesson = furtherIntegralLesson(
         { explanation: "Evaluate the area.", latex: "[4x-\\frac{x^2}{2}]_0^2=6" },
       ],
       finalAnswerLatex: "6",
+      cartesianGraph: {
+        description: "The horizontal line y equals 4 stays above the line y equals x from x equals 0 to x equals 2. The vertical gap between the lines is shaded.",
+        xMin: -0.5, xMax: 2.5, yMin: -1, yMax: 5, xStep: 0.5, yStep: 1,
+        lines: [
+          { kind: "linear", m: 0, b: 4, label: "y = 4" },
+          { kind: "linear", m: 1, b: 0, label: "y = x" },
+        ],
+        shadedRegions: [{
+          kind: "between-functions",
+          xMin: 0,
+          xMax: 2,
+          top: { functionType: "line", line: { m: 0, b: 4 } },
+          bottom: { functionType: "line", line: { m: 1, b: 0 } },
+          description: "Shaded vertical gap between y equals 4 and y equals x from x equals 0 to x equals 2.",
+        }],
+      },
     },
     {
       title: "Find intersections first",
@@ -427,6 +443,20 @@ export const areaBetweenCurvesExtendedLesson = furtherIntegralLesson(
         { explanation: "On 0 to 1, x is above x squared.", latex: "\\int_0^1(x-x^2)\\,dx" },
       ],
       finalAnswerLatex: "\\frac16",
+      cartesianGraph: {
+        description: "The line y equals x and the parabola y equals x squared meet at x equals 0 and x equals 1. The gap between the curves is shaded on that interval.",
+        xMin: -0.5, xMax: 1.5, yMin: -0.5, yMax: 2, xStep: 0.5, yStep: 0.5,
+        lines: [{ kind: "linear", m: 1, b: 0, label: "y = x" }],
+        parabolas: [{ kind: "quadratic", a: 1, b: 0, c: 0, label: "y = x^2" }],
+        shadedRegions: [{
+          kind: "between-functions",
+          xMin: 0,
+          xMax: 1,
+          top: { functionType: "line", line: { m: 1, b: 0 } },
+          bottom: { functionType: "quadratic", quadratic: { a: 1, b: 0, c: 0 } },
+          description: "Shaded region between y equals x and y equals x squared from x equals 0 to x equals 1.",
+        }],
+      },
     },
     {
       title: "Split when curves cross",
@@ -437,6 +467,29 @@ export const areaBetweenCurvesExtendedLesson = furtherIntegralLesson(
         { explanation: "Each triangular part has area one half." },
       ],
       finalAnswerLatex: "1",
+      cartesianGraph: {
+        description: "The line y equals x crosses the x-axis at x equals 0. The two triangular regions are shaded separately so their positive geometric areas can be added.",
+        xMin: -1.5, xMax: 1.5, yMin: -1.5, yMax: 1.5, xStep: 0.5, yStep: 0.5,
+        lines: [{ kind: "linear", m: 1, b: 0, label: "y = x" }],
+        shadedRegions: [
+          {
+            kind: "under-function",
+            functionType: "line",
+            line: { m: 1, b: 0 },
+            xMin: -1,
+            xMax: 0,
+            description: "Shaded triangle below the x-axis from x equals negative 1 to x equals 0.",
+          },
+          {
+            kind: "under-function",
+            functionType: "line",
+            line: { m: 1, b: 0 },
+            xMin: 0,
+            xMax: 1,
+            description: "Shaded triangle above the x-axis from x equals 0 to x equals 1.",
+          },
+        ],
+      },
     },
   ],
   [

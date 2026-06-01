@@ -1418,6 +1418,29 @@ export const signedAreaTotalAreaLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "\\frac{3}{2}. \\quad \\text{This is signed area because below-axis area counts negatively.}",
+      cartesianGraph: {
+        description: "The line y equals x minus 1 crosses the x-axis at x equals 1. The below-axis and above-axis pieces are shaded separately to show how signed area combines negative and positive contributions.",
+        xMin: -0.5, xMax: 3.5, yMin: -2, yMax: 3, xStep: 0.5, yStep: 1,
+        lines: [{ kind: "linear", m: 1, b: -1, label: "y = x - 1" }],
+        shadedRegions: [
+          {
+            kind: "under-function",
+            functionType: "line",
+            line: { m: 1, b: -1 },
+            xMin: 0,
+            xMax: 1,
+            description: "Shaded region below the x-axis from x equals 0 to x equals 1. This part contributes negative signed area.",
+          },
+          {
+            kind: "under-function",
+            functionType: "line",
+            line: { m: 1, b: -1 },
+            xMin: 1,
+            xMax: 3,
+            description: "Shaded region above the x-axis from x equals 1 to x equals 3. This part contributes positive signed area.",
+          },
+        ],
+      },
     },
     {
       title: "Worked example 2: Total area",
@@ -1759,6 +1782,19 @@ export const areaUnderCurveLesson: ExplicitLesson = {
         },
       ],
       finalAnswerLatex: "\\frac{14}{3}\\text{ square units}",
+      cartesianGraph: {
+        description: "The parabola y equals x squared plus 1 stays above the x-axis. The region under the curve is shaded from x equals 0 to x equals 2.",
+        xMin: -0.5, xMax: 2.5, yMin: -1, yMax: 6, xStep: 0.5, yStep: 1,
+        parabolas: [{ kind: "quadratic", a: 1, b: 0, c: 1, label: "y = x^2 + 1" }],
+        shadedRegions: [{
+          kind: "under-function",
+          functionType: "quadratic",
+          quadratic: { a: 1, b: 0, c: 1 },
+          xMin: 0,
+          xMax: 2,
+          description: "Shaded area under y equals x squared plus 1 and above the x-axis from x equals 0 to x equals 2.",
+        }],
+      },
     },
     {
       title: "Worked example 2: Area bounded by the x-axis",
@@ -2422,6 +2458,19 @@ export const areaBetweenTwoCurvesLesson: ExplicitLesson = {
         },
       ],
       finalAnswerLatex: "\\frac{32}{3}\\text{ square units}",
+      cartesianGraph: {
+        description: "The parabola y equals 4 minus x squared meets the x-axis at x equals negative 2 and x equals 2. The enclosed region is shaded.",
+        xMin: -2.5, xMax: 2.5, yMin: -1, yMax: 5, xStep: 0.5, yStep: 1,
+        parabolas: [{ kind: "quadratic", a: -1, b: 0, c: 4, label: "y = 4 - x^2" }],
+        shadedRegions: [{
+          kind: "under-function",
+          functionType: "quadratic",
+          quadratic: { a: -1, b: 0, c: 4 },
+          xMin: -2,
+          xMax: 2,
+          description: "Shaded region enclosed by y equals 4 minus x squared and the x-axis from x equals negative 2 to x equals 2.",
+        }],
+      },
     },
   ],
 
