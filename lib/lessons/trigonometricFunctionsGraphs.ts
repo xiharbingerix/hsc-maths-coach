@@ -724,11 +724,11 @@ export const amplitudePeriodPhaseVerticalShiftLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "For $y=a\\sin(b(x-c))+d$ and $y=a\\cos(b(x-c))+d$, each constant changes a graph feature.",
-      "The amplitude is $|a|$. It measures the distance from the midline to a maximum or minimum.",
-      "The period is the length of one full cycle. For sine and cosine, the period is $\\frac{2\\pi}{|b|}$.",
-      "The phase shift is $c$, which moves the graph left or right. The vertical shift is $d$.",
-      "The midline is $y=d$. Tangent has no amplitude, and its period is $\\frac{\\pi}{|b|}$.",
+      "A transformed trigonometric graph is still the same basic wave, but it may be stretched or slid. For $y=a\\sin(b(x-c))+d$ and $y=a\\cos(b(x-c))+d$, each constant describes one part of that change.",
+      "Amplitude is a vertical distance: measure from the midline to a maximum or minimum. This is why amplitude is $|a|$ and cannot be negative. It is not the maximum height unless the midline is zero.",
+      "Period is how long the graph takes to complete one full wave and start repeating. For sine and cosine, the basic cycle length $2\\pi$ is divided by $|b|$.",
+      "Phase shift is a horizontal slide. The bracket $x-c$ moves the graph right by $c$, while $x+c$ moves it left. Vertical shift is a vertical slide: adding $d$ moves the midline to $y=d$.",
+      "Tangent needs one important adjustment. It has no maximum or minimum, so it has no amplitude. A multiplier in front changes the steepness of its branches, its period is $\\frac{\\pi}{|b|}$, and adding $d$ moves its centre line to $y=d$.",
     ],
     latexBlocks: [
       "y=a\\sin(b(x-c))+d",
@@ -763,6 +763,17 @@ export const amplitudePeriodPhaseVerticalShiftLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "\\text{amplitude }2,\\quad \\text{period }2\\pi,\\quad \\text{phase shift }\\frac{\\pi}{3}\\text{ right},\\quad \\text{midline }y=4",
+    },
+    {
+      title: "Worked example 3: Tangent transformation",
+      questionLatex: "y=2\\tan(3x)+1",
+      steps: [
+        { explanation: "Tangent has no maximum or minimum, so it does not have an amplitude. The multiplier 2 makes each branch steeper instead.", latex: "a=2\\quad \\Rightarrow\\quad \\text{vertical stretch, not amplitude}" },
+        { explanation: "A basic tangent graph repeats every $\\pi$. Dividing by $|b|=3$ gives the new period.", latex: "\\frac{\\pi}{|3|}=\\frac{\\pi}{3}" },
+        { explanation: "Adding 1 slides the graph upwards. The centre line moves from $y=0$ to $y=1$.", latex: "d=1\\quad \\Rightarrow\\quad \\text{midline }y=1" },
+      ],
+      finalAnswerLatex:
+        "\\text{no amplitude},\\quad \\text{period }\\frac{\\pi}{3},\\quad \\text{vertical stretch factor }2,\\quad \\text{midline }y=1",
     },
   ],
 
