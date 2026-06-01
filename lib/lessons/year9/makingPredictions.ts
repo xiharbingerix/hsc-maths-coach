@@ -27,6 +27,24 @@ const equivalentProbabilities: Record<string, string[]> = {
   "9/10": ["0.9", "90%"],
 };
 
+function terminatingFractionVariants(answer: string) {
+  const match = answer.match(/^(\d+)\/(\d+)$/);
+  if (!match) return [];
+
+  const numerator = Number(match[1]);
+  const denominator = Number(match[2]);
+  let remainingDenominator = denominator;
+
+  while (remainingDenominator % 2 === 0) remainingDenominator /= 2;
+  while (remainingDenominator % 5 === 0) remainingDenominator /= 5;
+
+  if (remainingDenominator !== 1) return [];
+
+  const decimal = Number((numerator / denominator).toPrecision(12));
+  const percentage = Number((decimal * 100).toPrecision(12));
+  return [String(decimal), `${percentage}%`];
+}
+
 function probability(id: string, prompt: string, latex: string, answer: string, explanation: string, acceptedAnswers: string[] = []): PracticeQuestion {
   const displayLatex = /-(?:g|i)\d+$/.test(id) ? "\\text{Show your probability method clearly.}" : latex;
   return {
@@ -34,7 +52,7 @@ function probability(id: string, prompt: string, latex: string, answer: string, 
     prompt,
     latex: displayLatex,
     answer,
-    acceptedAnswers: Array.from(new Set([answer, ...(equivalentProbabilities[answer] ?? []), ...acceptedAnswers])),
+    acceptedAnswers: Array.from(new Set([answer, ...(equivalentProbabilities[answer] ?? []), ...terminatingFractionVariants(answer), ...acceptedAnswers])),
     hint: "Identify the possible outcomes and the favourable outcomes before calculating.",
     explanation,
   };
@@ -181,7 +199,7 @@ const multiStage: LessonContent = {
     probability("y9-pred-multi-m5", "Two fair coins are tossed. Find the probability of at least one head.", "P(HH)+P(HT)+P(TH)=\\frac34", "3/4", "Three of the four paths include at least one head."),
     probability("y9-pred-multi-m6", "A fair die is rolled twice. Find the probability of rolling a 6 twice.", "P=\\frac16\\times\\frac16", "1/36", "Multiply the probabilities."),
     probability("y9-pred-multi-m7", "A spinner has equal red and blue sectors and is spun twice. Find the probability of different colours.", "P(RB)+P(BR)=\\frac14+\\frac14", "1/2", "Add the red-blue and blue-red paths."),
-    probability("y9-pred-multi-m8", "A bag has 3 red and 1 blue counter. A counter is drawn, replaced, then another is drawn. Find the probability of exactly one blue.", "P(BR)+P(RB)=\\frac14\\frac34+\\frac34\\frac14", "3/8", "Add the blue-red and red-blue paths."),
+    probability("y9-pred-multi-m8", "A bag has 3 red and 1 blue counter. A counter is drawn, replaced, then another is drawn. Find the probability of exactly one blue.", "P(BR)+P(RB)=\\frac14\\times\\frac34+\\frac34\\times\\frac14", "3/8", "Add the blue-red and red-blue paths."),
     probability("y9-pred-multi-m9", "A fair coin is tossed three times. Find the probability of three heads.", "P(HHH)=\\left(\\frac12\\right)^3", "1/8", "Multiply one half three times."),
     probability("y9-pred-multi-m10", "A fair coin is tossed twice and a fair die is rolled. Find the probability of exactly one head and an even die result.", "P=\\frac12\\times\\frac12", "1/4", "Exactly one head has probability one half and an even die result has probability one half."),
   ],
@@ -274,8 +292,8 @@ const dependentEvents: LessonContent = {
     probability("y9-pred-dep-m6", "A bag has 4 red and 2 blue counters. Find the probability of blue twice without replacement.", "P=\\frac26\\times\\frac15", "1/15", "After one blue is removed, 1 blue remains among 5 counters."),
     choice("y9-pred-dep-m7", "A bag has 3 red and 2 blue counters. After drawing one red without replacement, what is the probability of red next?", "C", ["3/5", "3/4", "2/4", "2/5"], "Two red counters remain among four counters."),
     probability("y9-pred-dep-m8", "A bag has 3 red and 2 blue counters. Find the probability of red then blue without replacement.", "P=\\frac35\\times\\frac24", "3/10", "After red is removed, 2 blue remain among 4 counters."),
-    probability("y9-pred-dep-m9", "A bag has 2 red and 3 blue counters. Find the probability of drawing different colours in either order without replacement.", "P(RB)+P(BR)=\\frac25\\frac34+\\frac35\\frac24", "3/5", "Add the red-blue and blue-red paths."),
-    probability("y9-pred-dep-m10", "A bag has 3 red and 2 blue counters. Find the probability that both counters drawn without replacement have the same colour.", "P(RR)+P(BB)=\\frac35\\frac24+\\frac25\\frac14", "2/5", "Add the red-red and blue-blue paths."),
+    probability("y9-pred-dep-m9", "A bag has 2 red and 3 blue counters. Find the probability of drawing different colours in either order without replacement.", "P(RB)+P(BR)=\\frac25\\times\\frac34+\\frac35\\times\\frac24", "3/5", "Add the red-blue and blue-red paths."),
+    probability("y9-pred-dep-m10", "A bag has 3 red and 2 blue counters. Find the probability that both counters drawn without replacement have the same colour.", "P(RR)+P(BB)=\\frac35\\times\\frac24+\\frac25\\times\\frac14", "2/5", "Add the red-red and blue-blue paths."),
   ],
 };
 

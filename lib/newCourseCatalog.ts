@@ -42,7 +42,7 @@ import {
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
-import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9IndexLawsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
+import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 
 export type {
   CourseLessonSeed,
@@ -201,6 +201,7 @@ export function buildLesson(
     year9WorkingWithTrianglesLessonOverride(course, unit, lesson) ??
     year9PrismsAndCylindersLessonOverride(course, unit, lesson) ??
     year9MakingPredictionsLessonOverride(course, unit, lesson) ??
+    year9MakingDecisionsLessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
     year10TrigonometryLessonOverride(course, unit, lesson) ??
@@ -1271,7 +1272,14 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Statistics and Probability",
         focus:
           "Prepare for Year 10 statistics, IQR, box plots, spread and data-based reasoning.",
-        lessons: [],
+        lessons: [
+          { slug: "mean-median-mode-range-review", title: "Mean, Median, Mode and Range Review" },
+          { slug: "quartiles-iqr", title: "Quartiles and Interquartile Range" },
+          { slug: "box-plots", title: "Box Plots" },
+          { slug: "comparing-data-sets", title: "Comparing Data Sets" },
+          { slug: "standard-deviation-introduction", title: "Standard Deviation Introduction" },
+          { slug: "data-based-decisions", title: "Data-Based Decisions" },
+        ],
       },
     ],
   },

@@ -4,3 +4,4 @@ export { year9ConstantRatesOfChangeLessonOverride } from "./constantRatesOfChang
 export { year9WorkingWithTrianglesLessonOverride } from "./workingWithTriangles";
 export { year9PrismsAndCylindersLessonOverride } from "./prismsAndCylinders";
 export { year9MakingPredictionsLessonOverride } from "./makingPredictions";
+export { year9MakingDecisionsLessonOverride } from "./makingDecisions";
