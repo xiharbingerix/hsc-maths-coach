@@ -42,7 +42,7 @@ import {
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
-import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9IndexLawsLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
+import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9IndexLawsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 
 export type {
   CourseLessonSeed,
@@ -199,6 +199,7 @@ export function buildLesson(
     year9FinancialMathematicsLessonOverride(course, unit, lesson) ??
     year9ConstantRatesOfChangeLessonOverride(course, unit, lesson) ??
     year9WorkingWithTrianglesLessonOverride(course, unit, lesson) ??
+    year9PrismsAndCylindersLessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
     year10TrigonometryLessonOverride(course, unit, lesson) ??
@@ -1180,7 +1181,15 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Measurement and Space",
         focus:
           "Develop measurement fluency for Year 10 surface area, volume and similarity.",
-        lessons: [],
+        lessons: [
+          { slug: "perimeter-area-review", title: "Perimeter and Area Review" },
+          { slug: "composite-area", title: "Composite Area" },
+          { slug: "surface-area-prisms", title: "Surface Area of Prisms" },
+          { slug: "surface-area-cylinders", title: "Surface Area of Cylinders" },
+          { slug: "volume-prisms", title: "Volume of Prisms" },
+          { slug: "volume-cylinders", title: "Volume of Cylinders" },
+          { slug: "composite-solids", title: "Composite Solids" },
+        ],
       },
       {
         slug: "index-laws",
