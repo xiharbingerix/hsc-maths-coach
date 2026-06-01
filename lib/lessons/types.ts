@@ -52,6 +52,37 @@ export type CartesianPoint = {
   label?: string;
 };
 
+export type CartesianFunction =
+  | {
+      functionType: "line";
+      line: { m: number; b: number };
+      quadratic?: never;
+    }
+  | {
+      functionType: "quadratic";
+      line?: never;
+      quadratic: { a: number; b: number; c: number };
+    };
+
+export type CartesianShadedRegion =
+  | (CartesianFunction & {
+      kind: "under-function";
+      xMin: number;
+      xMax: number;
+      baseline?: number;
+      label?: string;
+      description?: string;
+    })
+  | {
+      kind: "between-functions";
+      xMin: number;
+      xMax: number;
+      top: CartesianFunction;
+      bottom: CartesianFunction;
+      label?: string;
+      description?: string;
+    };
+
 export type CartesianGraph = {
   description: string;
   xMin?: number;
@@ -93,4 +124,5 @@ export type CartesianGraph = {
     r: number;
     label?: string;
   }[];
+  shadedRegions?: CartesianShadedRegion[];
 };

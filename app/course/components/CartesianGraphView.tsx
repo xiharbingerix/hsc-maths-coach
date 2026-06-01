@@ -1,7 +1,11 @@
 "use client";
 
 import * as React from "react";
-import type { CartesianGraph, CartesianPoint } from "../../../lib/lessons/types";
+import type {
+  CartesianFunction,
+  CartesianGraph,
+  CartesianPoint,
+} from "../../../lib/lessons/types";
 
 const width = 420;
 const height = 320;
@@ -63,6 +67,28 @@ function lineBounds(
   );
 }
 
+function evaluateFunction(fn: CartesianFunction, x: number) {
+  if (fn.functionType === "line" && fn.line) {
+    return fn.line.m * x + fn.line.b;
+  }
+
+  if (fn.functionType === "quadratic" && fn.quadratic) {
+    return fn.quadratic.a * x * x + fn.quadratic.b * x + fn.quadratic.c;
+  }
+
+  return null;
+}
+
+function sampleFunction(fn: CartesianFunction, xMin: number, xMax: number) {
+  if (!Number.isFinite(xMin) || !Number.isFinite(xMax) || xMin >= xMax) return [];
+
+  return Array.from({ length: 81 }, (_, index) => {
+    const x = xMin + ((xMax - xMin) * index) / 80;
+    const y = evaluateFunction(fn, x);
+    return y === null || !Number.isFinite(y) ? null : { x, y };
+  }).filter((point): point is CartesianPoint => point !== null);
+}
+
 export function CartesianGraphView({
   graph,
   className,
@@ -72,6 +98,7 @@ export function CartesianGraphView({
 }): React.ReactElement {
   const reactId = React.useId();
   const titleId = `${reactId}-title`;
+  const descriptionId = `${reactId}-description`;
   const clipId = `${reactId}-clip`;
   const xMin = graph.xMin ?? -5;
   const xMax = graph.xMax ?? 5;
@@ -85,6 +112,9 @@ export function CartesianGraphView({
   const yAxisX = xMin <= 0 && xMax >= 0 ? 0 : xMin;
   const showGrid = graph.showGrid ?? true;
   const showAxisLabels = graph.showAxisLabels ?? true;
+  const shadedRegionDescriptions = graph.shadedRegions
+    ?.map((region) => region.description)
+    .filter((description): description is string => Boolean(description));
 
   const toSvg = React.useCallback(
     (point: CartesianPoint) => ({
@@ -99,12 +129,16 @@ export function CartesianGraphView({
       <svg
         role="img"
         aria-labelledby={titleId}
+        aria-describedby={shadedRegionDescriptions?.length ? descriptionId : undefined}
         viewBox={`0 0 ${width} ${height}`}
         width="100%"
         preserveAspectRatio="xMidYMid meet"
         className="max-h-[360px] min-w-[320px]"
       >
         <title id={titleId}>{graph.description}</title>
+        {shadedRegionDescriptions?.length ? (
+          <desc id={descriptionId}>{shadedRegionDescriptions.join(" ")}</desc>
+        ) : null}
         <defs>
           <clipPath id={clipId}>
             <rect x={padding.left} y={padding.top} width={plotWidth} height={plotHeight} />
@@ -153,6 +187,46 @@ export function CartesianGraphView({
           })}
 
         <g clipPath={`url(#${clipId})`}>
+          {graph.shadedRegions?.map((region, index) => {
+            const start = Math.max(xMin, region.xMin);
+            const end = Math.min(xMax, region.xMax);
+            if (start >= end) return null;
+
+            let points: CartesianPoint[];
+            if (region.kind === "under-function") {
+              const sampled = sampleFunction(region, start, end);
+              if (sampled.length < 2) return null;
+              const baseline = Number.isFinite(region.baseline) ? region.baseline ?? 0 : 0;
+              points = [
+                { x: start, y: baseline },
+                ...sampled,
+                { x: end, y: baseline },
+              ];
+            } else {
+              const top = sampleFunction(region.top, start, end);
+              const bottom = sampleFunction(region.bottom, start, end);
+              if (top.length < 2 || bottom.length < 2) return null;
+              points = [...top, ...bottom.reverse()];
+            }
+
+            const path = points
+              .map((point, pointIndex) => {
+                const svgPoint = toSvg(point);
+                return `${pointIndex === 0 ? "M" : "L"} ${svgPoint.x} ${svgPoint.y}`;
+              })
+              .join(" ");
+
+            return (
+              <path
+                key={`shaded-region-${index}`}
+                d={`${path} Z`}
+                fill="#0ea5e9"
+                fillOpacity={0.2}
+                stroke="none"
+              />
+            );
+          })}
+
           <line
             x1={padding.left}
             y1={toSvg({ x: 0, y: xAxisY }).y}

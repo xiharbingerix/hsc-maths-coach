@@ -1440,6 +1440,29 @@ export const signedAreaTotalAreaLesson: ExplicitLesson = {
         },
       ],
       finalAnswerLatex: "\\frac{5}{2}\\text{ square units}",
+      cartesianGraph: {
+        description: "The line y equals x minus 1 crosses the x-axis at x equals 1. Both bounded pieces from x equals 0 to x equals 3 are shaded to show total geometric area.",
+        xMin: -0.5, xMax: 3.5, yMin: -2, yMax: 3, xStep: 0.5, yStep: 1,
+        lines: [{ kind: "linear", m: 1, b: -1, label: "y = x - 1" }],
+        shadedRegions: [
+          {
+            kind: "under-function",
+            functionType: "line",
+            line: { m: 1, b: -1 },
+            xMin: 0,
+            xMax: 1,
+            description: "Shaded below-axis piece from x equals 0 to x equals 1. It contributes negative signed area but positive total area.",
+          },
+          {
+            kind: "under-function",
+            functionType: "line",
+            line: { m: 1, b: -1 },
+            xMin: 1,
+            xMax: 3,
+            description: "Shaded above-axis piece from x equals 1 to x equals 3. It contributes positive signed area and positive total area.",
+          },
+        ],
+      },
     },
   ],
 
@@ -1757,6 +1780,19 @@ export const areaUnderCurveLesson: ExplicitLesson = {
         },
       ],
       finalAnswerLatex: "\\frac{16}{3}\\text{ square units}",
+      cartesianGraph: {
+        description: "The parabola y equals 4 minus x squared, with the area between the curve and the x-axis shaded from x equals 0 to x equals 2.",
+        xMin: -0.5, xMax: 2.5, yMin: -1, yMax: 5, xStep: 0.5, yStep: 1,
+        parabolas: [{ kind: "quadratic", a: -1, b: 0, c: 4, label: "y = 4 - x^2" }],
+        shadedRegions: [{
+          kind: "under-function",
+          functionType: "quadratic",
+          quadratic: { a: -1, b: 0, c: 4 },
+          xMin: 0,
+          xMax: 2,
+          description: "Shaded area under y equals 4 minus x squared and above the x-axis from x equals 0 to x equals 2.",
+        }],
+      },
     },
   ],
 
@@ -2351,6 +2387,20 @@ export const areaBetweenTwoCurvesLesson: ExplicitLesson = {
         },
       ],
       finalAnswerLatex: "\\frac{22}{3}\\text{ square units}",
+      cartesianGraph: {
+        description: "The line y equals x plus 4 sits above the parabola y equals x squared from x equals 0 to x equals 2. The region between the curves is shaded.",
+        xMin: -0.5, xMax: 2.5, yMin: -1, yMax: 7, xStep: 0.5, yStep: 1,
+        lines: [{ kind: "linear", m: 1, b: 4, label: "y = x + 4" }],
+        parabolas: [{ kind: "quadratic", a: 1, b: 0, c: 0, label: "y = x^2" }],
+        shadedRegions: [{
+          kind: "between-functions",
+          xMin: 0,
+          xMax: 2,
+          top: { functionType: "line", line: { m: 1, b: 4 } },
+          bottom: { functionType: "quadratic", quadratic: { a: 1, b: 0, c: 0 } },
+          description: "Shaded vertical gap between y equals x plus 4 and y equals x squared from x equals 0 to x equals 2.",
+        }],
+      },
     },
     {
       title: "Worked example 2: Curve and the x-axis",

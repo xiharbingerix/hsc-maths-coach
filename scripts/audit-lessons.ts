@@ -184,6 +184,7 @@ function validateCartesianGraph(value: unknown, path: string) {
     ["lines", value.lines],
     ["parabolas", value.parabolas],
     ["circles", value.circles],
+    ["shadedRegions", value.shadedRegions],
   ] as const) {
     if (values !== undefined && !Array.isArray(values)) {
       addIssue("FAIL", "cartesian-payload", path, `${collection} must be an array when supplied.`);
@@ -244,6 +245,64 @@ function validateCartesianGraph(value: unknown, path: string) {
       ) {
         addIssue("FAIL", "cartesian-payload", `${path}.circles[${index}]`, "Circle requires finite h, k and a positive radius.");
       }
+    });
+  }
+
+  if (Array.isArray(value.shadedRegions)) {
+    const validateFunction = (fn: unknown, functionPath: string) => {
+      if (!isRecord(fn)) {
+        addIssue("FAIL", "cartesian-payload", functionPath, "Shaded region function must be an object.");
+        return;
+      }
+
+      if (fn.functionType === "line") {
+        if (!isRecord(fn.line) || !isFiniteNumber(fn.line.m) || !isFiniteNumber(fn.line.b)) {
+          addIssue("FAIL", "cartesian-payload", functionPath, "Line function requires finite m and b.");
+        }
+        return;
+      }
+
+      if (fn.functionType === "quadratic") {
+        if (
+          !isRecord(fn.quadratic) ||
+          !isFiniteNumber(fn.quadratic.a) ||
+          !isFiniteNumber(fn.quadratic.b) ||
+          !isFiniteNumber(fn.quadratic.c)
+        ) {
+          addIssue("FAIL", "cartesian-payload", functionPath, "Quadratic function requires finite a, b and c.");
+        }
+        return;
+      }
+
+      addIssue("FAIL", "cartesian-payload", functionPath, "Shaded region functionType must be line or quadratic.");
+    };
+
+    value.shadedRegions.forEach((region, index) => {
+      const regionPath = `${path}.shadedRegions[${index}]`;
+      if (!isRecord(region)) {
+        addIssue("FAIL", "cartesian-payload", regionPath, "Shaded region must be an object.");
+        return;
+      }
+
+      if (!isFiniteNumber(region.xMin) || !isFiniteNumber(region.xMax) || region.xMin >= region.xMax) {
+        addIssue("FAIL", "cartesian-payload", regionPath, "Shaded region requires finite xMin < xMax.");
+      }
+
+      if (region.kind === "under-function") {
+        if (region.baseline !== undefined && !isFiniteNumber(region.baseline)) {
+          addIssue("FAIL", "cartesian-payload", regionPath, "Shaded region baseline must be finite when supplied.");
+        }
+        validateFunction(region, regionPath);
+        return;
+      }
+
+      if (region.kind === "between-functions") {
+        validateFunction(region.top, `${regionPath}.top`);
+        validateFunction(region.bottom, `${regionPath}.bottom`);
+        return;
+      }
+
+      addIssue("FAIL", "cartesian-payload", regionPath, "Shaded region kind must be under-function or between-functions.");
     });
   }
 }
