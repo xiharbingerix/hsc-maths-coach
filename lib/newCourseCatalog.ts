@@ -42,7 +42,7 @@ import {
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
-import { year9IndexLawsLessonOverride } from "./lessons/year9";
+import { year9FinancialMathematicsLessonOverride, year9IndexLawsLessonOverride } from "./lessons/year9";
 
 export type {
   CourseLessonSeed,
@@ -196,6 +196,7 @@ export function buildLesson(
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
     year9IndexLawsLessonOverride(course, unit, lesson) ??
+    year9FinancialMathematicsLessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
     year10TrigonometryLessonOverride(course, unit, lesson) ??
@@ -1196,7 +1197,15 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus:
           "Build practical financial mathematics before Year 10 compound interest, depreciation and comparisons.",
-        lessons: [],
+        lessons: [
+          { slug: "wages-and-earnings", title: "Wages and Earnings" },
+          { slug: "penalty-rates-overtime", title: "Penalty Rates and Overtime" },
+          { slug: "non-wage-earnings", title: "Non-Wage Earnings" },
+          { slug: "tax-and-net-earnings", title: "Tax and Net Earnings" },
+          { slug: "spending-and-budgets", title: "Spending and Budgets" },
+          { slug: "simple-interest", title: "Simple Interest" },
+          { slug: "deposits-and-repayments", title: "Deposits and Repayments" },
+        ],
       },
       {
         slug: "constant-rates-of-change",
