@@ -1680,6 +1680,7 @@ export const modellingPeriodicPhenomenaLesson: ExplicitLesson = {
       "The amplitude is half the distance between the maximum and minimum values.",
       "For sine and cosine models, the period is $\\frac{2\\pi}{|b|}$.",
       "Maximum and minimum values come from midline plus or minus amplitude, and units matter in context.",
+      "When building a model, the starting point helps you choose the function. Cosine is convenient when the cycle starts at a maximum or minimum. Sine is convenient when it starts on the midline moving upwards or downwards.",
     ],
     latexBlocks: [
       "y=a\\sin(b(t-c))+d",
@@ -1711,6 +1712,19 @@ export const modellingPeriodicPhenomenaLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "\\text{maximum }22\\text{ m},\\quad \\text{minimum }2\\text{ m},\\quad \\text{period }30\\text{ s}",
+    },
+    {
+      title: "Worked example 3: Build a Ferris wheel model",
+      questionLatex:
+        "\\text{A Ferris wheel reaches }18\\text{ m at its highest point and }2\\text{ m at its lowest point. It completes one rotation every }40\\text{ s and starts at its lowest point. Build a model for height }h\\text{ after }t\\text{ seconds.}",
+      steps: [
+        { explanation: "The midline is the average of the highest and lowest heights. It is the centre height of the wheel.", latex: "\\text{midline}=\\frac{18+2}{2}=10" },
+        { explanation: "The amplitude is half the distance from the minimum to the maximum. It measures how far the height moves above or below the midline.", latex: "\\text{amplitude}=\\frac{18-2}{2}=8" },
+        { explanation: "One rotation takes 40 seconds, so choose b so that the cosine period is 40.", latex: "b=\\frac{2\\pi}{40}=\\frac{\\pi}{20}" },
+        { explanation: "Cosine is convenient because the wheel starts at an extreme value. It starts at the minimum, so use negative cosine to begin 8 metres below the midline.", latex: "h(t)=10-8\\cos\\left(\\frac{\\pi}{20}t\\right)" },
+      ],
+      finalAnswerLatex:
+        "h(t)=10-8\\cos\\left(\\frac{\\pi}{20}t\\right)",
     },
   ],
 
