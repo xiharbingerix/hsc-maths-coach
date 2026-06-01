@@ -1,13 +1,125 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
 
+function includesAny(value: string, terms: string[]) {
+  return terms.some((term) => value.includes(term));
+}
+
+function measurementExplanation(prompt: string, latex: string, answer: string) {
+  const question = `${prompt} ${latex}`.toLowerCase();
+  const isReverse = includesAny(question, [
+    "find its radius",
+    "find the radius",
+    "find its height",
+    "find the height",
+    "find its side",
+    "find the side",
+    "find the length scale factor",
+    "find k",
+    "find the original",
+  ]);
+
+  if (includesAny(question, ["similar", "scale factor", "scale by"])) {
+    if (includesAny(question, ["volume", "k^3", "k³"])) {
+      if (question.includes("find the volume scale factor")) {
+        return `Volume changes in three directions, so first find the length scale factor k and then cube it. The volume scale factor is ${answer}.`;
+      }
+      return isReverse
+        ? `Volume changes in three directions, so it scales by k^3. Work backwards by taking the cube root of the volume scale factor; this gives ${answer}.`
+        : `Volume changes in three directions, so use the volume scale factor k^3 rather than k. Apply the cubed scale factor to the original volume to get ${answer}.`;
+    }
+    if (includesAny(question, ["area", "surface area", "k^2", "k²"])) {
+      if (question.includes("find the area scale factor")) {
+        return `Area changes in two directions, so first find the length scale factor k and then square it. The area scale factor is ${answer}.`;
+      }
+      return isReverse
+        ? `Area changes in two directions, so it scales by k^2. Work backwards by taking the square root of the area scale factor; this gives ${answer}.`
+        : `Area changes in two directions, so use k^2 rather than k. Apply the squared scale factor to the original area to get ${answer}.`;
+    }
+    return `Lengths scale directly by k. Compare matching lengths in the same order, or multiply the original length by k, to get ${answer}.`;
+  }
+
+  if (question.includes("sphere")) {
+    const radiusReminder = question.includes("diameter")
+      ? "The formula needs the radius, so halve the diameter first. "
+      : "";
+    if (question.includes("surface area")) {
+      return isReverse
+        ? `${radiusReminder}Surface area uses 4pi r^2. To undo the square, divide by 4pi and then take the square root; the radius is ${answer}.`
+        : `${radiusReminder}This asks for the outside skin of the sphere, so use 4pi r^2 and finish with square units. The result is ${answer}.`;
+    }
+    return isReverse
+      ? `${radiusReminder}Volume uses (4/3)pi r^3. Work backwards through the formula, then take the cube root; the radius is ${answer}.`
+      : `${radiusReminder}This asks for the space inside the sphere, so use (4/3)pi r^3 and finish with cubic units. The result is ${answer}.`;
+  }
+
+  if (question.includes("cone")) {
+    const needsSlantHeight = includesAny(question, [
+      "surface area",
+      "curved surface",
+      "slant height",
+      "pi r l",
+      "πrl",
+    ]);
+    if (needsSlantHeight) {
+      return `A cone's curved surface uses the slant height l because that is the length running along the outside face. ${question.includes("total") ? "For total surface area, include the circular base as well. " : ""}The result is ${answer}.`;
+    }
+    return isReverse
+      ? `Cone volume is one-third of the matching cylinder: V=(1/3)pi r^2h. Undo the multiplication carefully to find the missing dimension; this gives ${answer}.`
+      : `This asks for the space inside the cone, so use the perpendicular height h and keep the one-third factor. The volume is ${answer}.`;
+  }
+
+  if (question.includes("pyramid")) {
+    if (question.includes("surface area")) {
+      return `Surface area counts the square base and the four triangular faces. Use the slant height along each triangular face, not the vertical height inside the pyramid; the result is ${answer}.`;
+    }
+    return isReverse
+      ? `A pyramid holds one-third of the matching prism. Start from V=(1/3)A_base h and undo the operations to isolate the missing height; this gives ${answer}.`
+      : `Volume measures the space inside the pyramid. Use the perpendicular height from the base to the apex and keep the one-third factor; the result is ${answer}.`;
+  }
+
+  if (question.includes("cylinder")) {
+    const radiusReminder = question.includes("diameter")
+      ? "The formula needs the radius, so halve the diameter first. "
+      : "";
+    if (includesAny(question, ["surface area", "lateral", "curved surface"])) {
+      const surfaceReminder = includesAny(question, ["open", "no lid", "no base"])
+        ? "Count the wrap-around rectangle and only the circular end that is actually present. "
+        : includesAny(question, ["lateral", "curved surface"])
+          ? "This asks for the wrap-around rectangle only, so do not add the circular ends. "
+          : "For a closed cylinder, count the wrap-around rectangle and both circular ends. ";
+      return `${radiusReminder}${surfaceReminder}The surface area is ${answer}.`;
+    }
+    return isReverse
+      ? `${radiusReminder}Cylinder volume is pi r^2h. Divide by the full known product before undoing any square; the missing dimension is ${answer}.`
+      : `${radiusReminder}Volume asks for the space inside the cylinder, so use the circular cross-section pi r^2 and multiply by the height. The volume is ${answer}.`;
+  }
+
+  if (question.includes("prism") || question.includes("cube")) {
+    if (question.includes("surface area")) {
+      return isReverse
+        ? `Surface area counts the outside faces, not the space inside. Use the known face areas and work backwards to isolate the missing length; this gives ${answer}.`
+        : `Surface area means the total area of the outside faces. Count every matching face once, use square units, and the result is ${answer}.`;
+    }
+    return isReverse
+      ? `A prism's volume is cross-sectional area times length. Divide by the known dimensions to uncover the missing length; this gives ${answer}.`
+      : `Volume means the space inside the prism. Find the cross-sectional area, multiply by the prism length, and use cubic units; the result is ${answer}.`;
+  }
+
+  if (includesAny(question, ["litre", "liter", " m^3", "m³"])) {
+    return `Match the units before calculating: one cubic metre is 1000 litres. Convert in the direction the question asks to get ${answer}.`;
+  }
+
+  return `First decide whether the question is asking for a length, an area, or a volume. Use the matching dimensions and units; the result is ${answer}.`;
+}
+
 function measAnswer(
   id: string,
   prompt: string,
   latex: string,
   answer: string,
   acceptedAnswers: string[] = [],
-  hint = "Write the formula, substitute the dimensions, and calculate step by step."
+  hint = "Name the measure first: length, outside area, or inside volume. Then choose the dimensions that belong in that formula."
 ): PracticeQuestion {
   return {
     id,
@@ -16,7 +128,7 @@ function measAnswer(
     answer,
     acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
     hint,
-    explanation: `The answer is ${answer}.`,
+    explanation: measurementExplanation(prompt, latex, answer),
   };
 }
 
