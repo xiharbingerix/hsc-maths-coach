@@ -103,11 +103,11 @@ export const compoundAngleFormulasLesson = furtherTrigLesson(
   ],
   {
     paragraphs: [
-      "Compound angle formulas connect trigonometric functions of A plus or minus B to trigonometric functions of A and B.",
-      "The sine formula changes the sign between the two terms in the same way as the angle expression.",
-      "The cosine formula reverses the sign between the two terms: cosine of a sum uses a minus, and cosine of a difference uses a plus.",
-      "The tangent formula is a fraction. Its denominator must not be zero.",
-      "These identities are often used to simplify expressions, evaluate exact values and solve equations.",
+      "A trigonometric function does not distribute across addition. For example, $\\cos(60^\\circ+30^\\circ)=\\cos90^\\circ=0$, but $\\cos60^\\circ+\\cos30^\\circ=\\frac12+\\frac{\\sqrt3}{2}$, which is not zero.",
+      "Compound angle formulas are the correct tools when one angle is built from two simpler angles. They let us rewrite expressions such as $\\sin(A+B)$ or evaluate angles such as $75^\\circ=45^\\circ+30^\\circ$ using values we already know.",
+      "For sine, the sign inside the angle carries through to the middle of the expansion: sine of a sum uses plus, and sine of a difference uses minus.",
+      "Cosine has the common trap: its sign reverses. Cosine of a sum uses a minus between the products, while cosine of a difference uses a plus.",
+      "Tangent also follows a sign pattern, but its formula is a fraction. Check the denominator because the expression is undefined when that denominator is zero.",
     ],
     latexBlocks: [
       "\\sin(A\\pm B)=\\sin A\\cos B\\pm\\cos A\\sin B",
@@ -286,11 +286,11 @@ export const doubleAngleFormulasLesson = furtherTrigLesson(
   ],
   {
     paragraphs: [
-      "Double-angle formulas are compound angle formulas where the two angles are the same.",
-      "The sine double-angle formula contains a factor of 2.",
-      "The cosine double-angle formula has three common forms. The best one depends on whether sine or cosine information is given.",
-      "The tangent double-angle formula is a fraction and is undefined when its denominator is zero.",
-      "Double-angle identities are useful for simplifying expressions and transforming equations.",
+      "Double-angle formulas do not appear from nowhere. They come from the compound angle formulas by setting the two angles equal: write $2A$ as $A+A$.",
+      "For sine, substituting $A+A$ gives two identical products, so they combine to make $\\sin2A=2\\sin A\\cos A$.",
+      "For cosine, the first form is $\\cos2A=\\cos^2A-\\sin^2A$. The Pythagorean identity $\\sin^2A+\\cos^2A=1$ lets us replace either squared term, producing the two equivalent forms $2\\cos^2A-1$ and $1-2\\sin^2A$.",
+      "Choose the cosine form that matches the information you already have. Use $2\\cos^2A-1$ when cosine is known, $1-2\\sin^2A$ when sine is known, and $\\cos^2A-\\sin^2A$ when both appear naturally.",
+      "The tangent double-angle formula comes from substituting $B=A$ into the tangent sum formula. It stays a fraction, so the denominator $1-\\tan^2A$ must not be zero.",
     ],
     latexBlocks: [
       "\\sin2A=2\\sin A\\cos A",
