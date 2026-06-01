@@ -6,6 +6,8 @@ import { scoreDiagnostic } from "../../lib/diagnosticScoring";
 import type { DiagnosticSubmission } from "../../lib/reportTypes";
 import { supabaseAdmin } from "../../lib/supabaseAdmin";
 
+// ─── Types ────────────────────────────────────────────────────────────────────
+
 type BetaAccessStatus = "pending" | "active" | "revoked";
 
 type BetaAccessRow = {
@@ -24,11 +26,6 @@ type ProfileRow = {
   student_name?: string | null;
   student_first_name: string | null;
   parent_email: string | null;
-};
-
-type BetaAccessRequest = BetaAccessRow & {
-  profile?: ProfileRow;
-  authUser?: AdminAuthUser;
 };
 
 type AdminAuthUser = {
@@ -74,7 +71,6 @@ type PaymentRow = {
   parent_email: string | null;
   student_first_name: string | null;
   offer_selected: string | null;
-  stripe_checkout_session_id: string | null;
   stripe_subscription_id: string | null;
   amount_total: number | null;
   currency: string | null;
@@ -84,72 +80,13 @@ type PaymentRow = {
 };
 
 const betaAccessStatuses: BetaAccessStatus[] = ["pending", "active", "revoked"];
-const enquiryStatuses: EnquiryStatus[] = [
-  "new",
-  "contacted",
-  "converted",
-  "closed",
-];
+const enquiryStatuses: EnquiryStatus[] = ["new", "contacted", "converted", "closed"];
 
-const launchChecklist = [
-  {
-    area: "Public funnel",
-    items: [
-      { label: "Homepage loads", href: "/" },
-      { label: "Online learning page loads", href: "/online-learning" },
-      { label: "Course page lists six units", href: "/course" },
-      { label: "Enquiry form submits", href: "/enquire?offer=online-learning" },
-      { label: "Diagnostic form submits", href: "/diagnostic" },
-      { label: "Thanks page shows next steps", href: "/thanks" },
-    ],
-  },
-  {
-    area: "Student access",
-    items: [
-      { label: "Signup creates account", href: "/signup" },
-      { label: "Dashboard shows pending access", href: "/dashboard" },
-      { label: "Admin can approve access", href: "/admin" },
-      { label: "Active user can open lessons", href: "/course" },
-      { label: "Pending user sees access gate", href: "/course" },
-      { label: "Revoked user sees access gate", href: "/course" },
-    ],
-  },
-  {
-    area: "Diagnostic/report workflow",
-    items: [
-      { label: "Diagnostic submission appears in admin", href: "/admin" },
-      { label: "Report draft can be generated" },
-      { label: "Report notes can be edited" },
-      { label: "PDF report opens" },
-      { label: "PDF can be saved manually" },
-      { label: "Parent email template can be copied" },
-      { label: "Report can be marked sent" },
-      { label: "Follow-up required can be marked" },
-    ],
-  },
-  {
-    area: "Course quality",
-    items: [
-      { label: "All six unit pages load", href: "/course" },
-      { label: "One lesson from each unit loads for active user" },
-      { label: "Watch stage remains hidden" },
-      { label: "Mastery quiz works" },
-    ],
-  },
-  {
-    area: "Environment",
-    items: [
-      { label: "Supabase public submissions working" },
-      { label: "Admin login working", href: "/admin/login" },
-      { label: "Service role/admin actions working" },
-      { label: "Vercel deployment current" },
-    ],
-  },
-];
+// ─── Server actions ───────────────────────────────────────────────────────────
 
 async function ensureProfileAndAccess(
   userId: string,
-  email: string | null | undefined
+  email: string | null | undefined,
 ) {
   const { data: existingProfile, error: profileReadError } = await supabaseAdmin
     .from("profiles")
@@ -157,22 +94,13 @@ async function ensureProfileAndAccess(
     .eq("id", userId)
     .maybeSingle();
 
-  if (profileReadError) {
-    throw new Error(profileReadError.message);
-  }
+  if (profileReadError) throw new Error(profileReadError.message);
 
   if (!existingProfile) {
     const { error: profileInsertError } = await supabaseAdmin
       .from("profiles")
-      .insert({
-        id: userId,
-        email: email ?? null,
-        role: "student",
-      });
-
-    if (profileInsertError) {
-      throw new Error(profileInsertError.message);
-    }
+      .insert({ id: userId, email: email ?? null, role: "student" });
+    if (profileInsertError) throw new Error(profileInsertError.message);
   }
 
   const { data: existingAccess, error: accessReadError } = await supabaseAdmin
@@ -182,9 +110,7 @@ async function ensureProfileAndAccess(
     .eq("access_type", "online_learning_beta")
     .maybeSingle();
 
-  if (accessReadError) {
-    throw new Error(accessReadError.message);
-  }
+  if (accessReadError) throw new Error(accessReadError.message);
 
   if (!existingAccess) {
     const { error: accessInsertError } = await supabaseAdmin
@@ -194,130 +120,66 @@ async function ensureProfileAndAccess(
         access_type: "online_learning_beta",
         status: "pending",
       });
-
-    if (accessInsertError) {
-      throw new Error(accessInsertError.message);
-    }
+    if (accessInsertError) throw new Error(accessInsertError.message);
   }
 }
 
 async function ensureProfileAccess(formData: FormData) {
   "use server";
-
   await requireAdmin();
-
   const userId = String(formData.get("userId") ?? "");
   const email = String(formData.get("email") ?? "");
-
-  if (!userId) {
-    throw new Error("Missing user id.");
-  }
-
+  if (!userId) throw new Error("Missing user id.");
   await ensureProfileAndAccess(userId, email || null);
   revalidatePath("/admin");
 }
 
 async function setStudentAccessStatus(formData: FormData) {
   "use server";
-
   await requireAdmin();
-
   const userId = String(formData.get("userId") ?? "");
   const email = String(formData.get("email") ?? "");
   const status = String(formData.get("status") ?? "") as BetaAccessStatus;
-
   if (!userId || !betaAccessStatuses.includes(status)) {
     throw new Error("Invalid student access status update.");
   }
-
   await ensureProfileAndAccess(userId, email || null);
-
   const { error } = await supabaseAdmin
     .from("user_access")
-    .update({
-      status,
-      updated_at: new Date().toISOString(),
-    })
+    .update({ status, updated_at: new Date().toISOString() })
     .eq("user_id", userId)
     .eq("access_type", "online_learning_beta");
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
+  if (error) throw new Error(error.message);
   revalidatePath("/admin");
 }
 
 async function deleteTestUser(formData: FormData) {
   "use server";
-
   await requireAdmin();
-
   const userId = String(formData.get("userId") ?? "");
-
-  if (!userId) {
-    throw new Error("Missing user id.");
-  }
-
+  if (!userId) throw new Error("Missing user id.");
   const { error } = await supabaseAdmin.auth.admin.deleteUser(userId);
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  revalidatePath("/admin");
-}
-
-async function updateBetaAccessStatus(formData: FormData) {
-  "use server";
-
-  await requireAdmin();
-
-  const id = String(formData.get("id") ?? "");
-  const status = String(formData.get("status") ?? "") as BetaAccessStatus;
-
-  if (!id || !betaAccessStatuses.includes(status)) {
-    throw new Error("Invalid beta access status update.");
-  }
-
-  const { error } = await supabaseAdmin
-    .from("user_access")
-    .update({
-      status,
-      updated_at: new Date().toISOString(),
-    })
-    .eq("id", id);
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
+  if (error) throw new Error(error.message);
   revalidatePath("/admin");
 }
 
 async function updateEnquiryStatus(formData: FormData) {
   "use server";
-
   await requireAdmin();
-
   const id = String(formData.get("id") ?? "");
   const status = String(formData.get("status") ?? "") as EnquiryStatus;
-
   if (!id || !enquiryStatuses.includes(status)) {
     throw new Error("Invalid enquiry status update.");
   }
-
   const { error } = await supabaseAdmin
     .from("enquiries")
     .update({ status })
     .eq("id", id);
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
+  if (error) throw new Error(error.message);
   revalidatePath("/admin");
 }
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function formatDateTime(value: string) {
   return new Intl.DateTimeFormat("en-AU", {
@@ -327,17 +189,14 @@ function formatDateTime(value: string) {
 }
 
 function formatOptionalDateTime(value: string | null | undefined) {
-  if (!value) {
-    return "Not recorded";
-  }
-
+  if (!value) return "—";
   return formatDateTime(value);
 }
 
 function formatDateGroup(value: string) {
-  return new Intl.DateTimeFormat("en-AU", {
-    dateStyle: "full",
-  }).format(new Date(value));
+  return new Intl.DateTimeFormat("en-AU", { dateStyle: "full" }).format(
+    new Date(value),
+  );
 }
 
 function formatStatus(value: string | null | undefined) {
@@ -345,28 +204,25 @@ function formatStatus(value: string | null | undefined) {
 }
 
 function formatMoney(cents: number | null, currency: string | null) {
-  if (typeof cents !== "number") {
-    return "Not recorded";
-  }
-
+  if (typeof cents !== "number") return "—";
   return new Intl.NumberFormat("en-AU", {
     style: "currency",
     currency: (currency ?? "aud").toUpperCase(),
   }).format(cents / 100);
 }
 
-function shortId(value: string | null | undefined) {
-  if (!value) {
-    return "Not recorded";
-  }
-
-  return value.length > 14 ? `${value.slice(0, 14)}...` : value;
+function formatRevenue(cents: number) {
+  return new Intl.NumberFormat("en-AU", {
+    style: "currency",
+    currency: "AUD",
+    maximumFractionDigits: 0,
+  }).format(cents / 100);
 }
 
 function firstPresent(...values: Array<string | null | undefined>) {
   return values
-    .map((value) => value?.trim())
-    .find((value): value is string => Boolean(value));
+    .map((v) => v?.trim())
+    .find((v): v is string => Boolean(v));
 }
 
 function studentDisplayName({
@@ -392,207 +248,135 @@ function studentDisplayName({
       authUser?.user_metadata?.student_first_name,
       profile?.email,
       authUser?.email,
-      email
-    ) ?? "Unnamed student"
+      email,
+    ) ?? "Unnamed"
   );
 }
 
 function accessStatusClass(status: string | null | undefined) {
-  if (status === "active") {
-    return "bg-emerald-100 text-emerald-900";
-  }
-
-  if (status === "revoked") {
-    return "bg-red-100 text-red-800";
-  }
-
+  if (status === "active") return "bg-emerald-100 text-emerald-900";
+  if (status === "revoked") return "bg-red-100 text-red-800";
   return "bg-amber-100 text-amber-900";
 }
 
 function enquiryStatusClass(status: string | null | undefined) {
-  if (status === "converted") {
-    return "bg-emerald-100 text-emerald-900";
-  }
-
-  if (status === "closed") {
-    return "bg-slate-200 text-slate-700";
-  }
-
-  if (status === "contacted") {
-    return "bg-blue-100 text-blue-900";
-  }
-
+  if (status === "converted") return "bg-emerald-100 text-emerald-900";
+  if (status === "closed") return "bg-slate-200 text-slate-700";
+  if (status === "contacted") return "bg-blue-100 text-blue-900";
   return "bg-amber-100 text-amber-900";
 }
 
-function LaunchChecklistSection() {
-  return (
-    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            Launch readiness
-          </p>
-          <h2 className="mt-2 text-2xl font-bold tracking-tight">
-            Beta launch checklist
-          </h2>
-          <p className="mt-2 text-sm leading-6 text-slate-600">
-            Static admin checklist for a final smoke test before inviting
-            students or parents.
-          </p>
-        </div>
-        <p className="text-sm font-semibold text-slate-500">
-          Visual only for now
-        </p>
-      </div>
-
-      <div className="mt-6 grid gap-4 lg:grid-cols-2">
-        {launchChecklist.map((group) => (
-          <article
-            key={group.area}
-            className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
-          >
-            <h3 className="font-semibold text-slate-950">{group.area}</h3>
-            <ul className="mt-3 space-y-2">
-              {group.items.map((item) => (
-                <li
-                  key={item.label}
-                  className="flex items-start justify-between gap-3 rounded-xl bg-white px-3 py-2 text-sm text-slate-700"
-                >
-                  <label className="flex min-w-0 items-start gap-2">
-                    <input
-                      type="checkbox"
-                      className="mt-0.5"
-                      aria-label={item.label}
-                    />
-                    <span>{item.label}</span>
-                  </label>
-                  {item.href ? (
-                    <Link
-                      href={item.href}
-                      className="shrink-0 font-semibold text-slate-950 underline"
-                    >
-                      Open
-                    </Link>
-                  ) : null}
-                </li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
+function paymentStatusClass(status: string | null | undefined) {
+  if (status === "paid") return "bg-emerald-100 text-emerald-900";
+  if (status === "unpaid" || status === "failed") return "bg-red-100 text-red-800";
+  return "bg-slate-100 text-slate-700";
 }
 
 function groupSubmissionsByDate(submissions: DiagnosticSubmission[]) {
   return submissions.reduce<Record<string, DiagnosticSubmission[]>>(
     (groups, submission) => {
       const key = formatDateGroup(submission.created_at);
-      return {
-        ...groups,
-        [key]: [...(groups[key] ?? []), submission],
-      };
+      return { ...groups, [key]: [...(groups[key] ?? []), submission] };
     },
-    {}
+    {},
   );
 }
+
+// ─── Summary card ─────────────────────────────────────────────────────────────
+
+function SummaryCard({
+  label,
+  value,
+  highlight,
+}: {
+  label: string;
+  value: string | number;
+  highlight?: "amber" | "red" | "emerald";
+}) {
+  const valueClass =
+    highlight === "amber"
+      ? "text-amber-700"
+      : highlight === "red"
+        ? "text-red-700"
+        : highlight === "emerald"
+          ? "text-emerald-700"
+          : "text-slate-900";
+
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+        {label}
+      </p>
+      <p className={`mt-2 text-3xl font-bold tracking-tight ${valueClass}`}>
+        {String(value)}
+      </p>
+    </div>
+  );
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default async function AdminPage() {
   await requireAdmin();
 
-  const { data, error } = await supabaseAdmin
+  // Diagnostic submissions
+  const { data, error: submissionsError } = await supabaseAdmin
     .from("diagnostic_submissions")
     .select("*")
     .order("created_at", { ascending: false })
     .limit(100);
 
-  if (error) {
+  if (submissionsError) {
     throw new Error(
-      `${error.message}. If report workflow columns are missing, add report_status, report_notes, follow_up_required, offer_selected, and report_sent_at to diagnostic_submissions.`
+      `${submissionsError.message}. If report workflow columns are missing, add report_status, report_notes, follow_up_required, offer_selected, and report_sent_at to diagnostic_submissions.`,
     );
   }
 
   const submissions = (data ?? []) as DiagnosticSubmission[];
   const groupedSubmissions = groupSubmissionsByDate(submissions);
 
+  // Enquiries
   const { data: enquiriesData, error: enquiriesError } = await supabaseAdmin
     .from("enquiries")
     .select(
-      "id,created_at,offer_selected,student_first_name,parent_first_name,parent_email,year_level,course,message,status"
+      "id,created_at,offer_selected,student_first_name,parent_first_name,parent_email,year_level,course,message,status",
     )
     .order("created_at", { ascending: false })
     .limit(100);
 
   const enquiries = (enquiriesData ?? []) as EnquiryRow[];
 
+  // Payments (checkout session ID excluded — not useful at a glance)
   const { data: paymentsData, error: paymentsError } = await supabaseAdmin
     .from("payments")
     .select(
-      "id,created_at,user_id,parent_email,student_first_name,offer_selected,stripe_checkout_session_id,stripe_subscription_id,amount_total,currency,payment_status,subscription_status,access_status"
+      "id,created_at,user_id,parent_email,student_first_name,offer_selected,stripe_subscription_id,amount_total,currency,payment_status,subscription_status,access_status",
     )
     .order("created_at", { ascending: false })
     .limit(50);
 
   const payments = (paymentsData ?? []) as PaymentRow[];
 
-  const {
-    data: betaAccessData,
-    error: betaAccessError,
-  } = await supabaseAdmin
-    .from("user_access")
-    .select("id,user_id,access_type,status,created_at,updated_at")
-    .order("created_at", { ascending: false })
-    .limit(100);
-
-  const betaAccessRows = (betaAccessData ?? []) as BetaAccessRow[];
-  const userIds = Array.from(
-    new Set(betaAccessRows.map((request) => request.user_id).filter(Boolean))
-  );
-
+  // Auth users — increased perPage so the user count is accurate
   const { data: usersData, error: usersError } =
-    await supabaseAdmin.auth.admin.listUsers({
-      page: 1,
-      perPage: 100,
-    });
+    await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 1000 });
 
   const adminUsers = ((usersData?.users ?? []) as AdminAuthUser[]).filter(
-    (user) => user.email
+    (u) => u.email,
   );
-  const authUsersById = new Map(adminUsers.map((user) => [user.id, user]));
+  const authUserIds = adminUsers.map((u) => u.id);
 
+  // Profiles — single merged query covering all auth users
   const { data: profilesData } =
-    userIds.length > 0
-      ? await supabaseAdmin
-          .from("profiles")
-          .select("*")
-          .in("id", userIds)
-      : { data: [] };
-
-  const profilesById = new Map(
-    ((profilesData ?? []) as ProfileRow[]).map((profile) => [
-      profile.id,
-      profile,
-    ])
-  );
-
-  const betaAccessRequests: BetaAccessRequest[] = betaAccessRows.map(
-    (request) => ({
-      ...request,
-      profile: profilesById.get(request.user_id),
-      authUser: authUsersById.get(request.user_id),
-    })
-  );
-
-  const authUserIds = adminUsers.map((user) => user.id);
-  const { data: userProfilesData } =
     authUserIds.length > 0
-      ? await supabaseAdmin
-          .from("profiles")
-          .select("*")
-          .in("id", authUserIds)
+      ? await supabaseAdmin.from("profiles").select("*").in("id", authUserIds)
       : { data: [] };
 
+  const allProfilesById = new Map(
+    ((profilesData ?? []) as ProfileRow[]).map((p) => [p.id, p]),
+  );
+
+  // User access keyed by user_id
   const { data: userAccessData } =
     authUserIds.length > 0
       ? await supabaseAdmin
@@ -602,43 +386,65 @@ export default async function AdminPage() {
           .eq("access_type", "online_learning_beta")
       : { data: [] };
 
-  const userProfilesById = new Map(
-    ((userProfilesData ?? []) as ProfileRow[]).map((profile) => [
-      profile.id,
-      profile,
-    ])
-  );
-
   const userAccessByUserId = new Map(
-    ((userAccessData ?? []) as BetaAccessRow[]).map((access) => [
-      access.user_id,
-      access,
-    ])
+    ((userAccessData ?? []) as BetaAccessRow[]).map((a) => [a.user_id, a]),
   );
 
+  // Build student rows
   const studentUsers: StudentUserRow[] = adminUsers.map((user) => ({
     user,
-    profile: userProfilesById.get(user.id),
+    profile: allProfilesById.get(user.id),
     access: userAccessByUserId.get(user.id),
   }));
+
+  // Summary metrics
+  const totalUsers = studentUsers.length;
+  const activeStudents = studentUsers.filter(
+    (u) => u.access?.status === "active",
+  ).length;
+  const pendingAccessStudents = studentUsers.filter(
+    (u) => u.access?.status === "pending",
+  );
+  const pendingCount = pendingAccessStudents.length;
+  const newEnquiryCount = enquiries.filter(
+    (e) => (e.status ?? "new") === "new",
+  ).length;
+  const totalRevenueCents = payments
+    .filter((p) => p.payment_status === "paid")
+    .reduce((sum, p) => sum + (p.amount_total ?? 0), 0);
+
+  // Alert derivations
+  const newEnquiriesList = enquiries.filter(
+    (e) => (e.status ?? "new") === "new",
+  );
+  const paidButNotActive = payments.filter(
+    (p) =>
+      p.payment_status === "paid" &&
+      p.offer_selected === "online-learning" &&
+      p.access_status !== "active",
+  );
+  const hasAlerts =
+    pendingAccessStudents.length > 0 ||
+    newEnquiriesList.length > 0 ||
+    paidButNotActive.length > 0;
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
       <section className="mx-auto max-w-6xl space-y-8">
+
+        {/* ── Header ────────────────────────────────────────────────────── */}
         <header className="flex flex-col gap-4 rounded-3xl bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
               Nova Maths
             </p>
             <h1 className="mt-2 text-3xl font-bold tracking-tight">
-              Report dashboard
+              Admin Dashboard
             </h1>
             <p className="mt-2 text-sm text-slate-600">
-              Review diagnostic submissions, open report editors, and view
-              printable parent reports.
+              Manage students, enquiries, payments and diagnostic reports.
             </p>
           </div>
-
           <form action="/api/admin/logout" method="post">
             <button
               type="submit"
@@ -649,8 +455,282 @@ export default async function AdminPage() {
           </form>
         </header>
 
-        <LaunchChecklistSection />
+        {/* ── Summary cards ─────────────────────────────────────────────── */}
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+          <SummaryCard label="Total users" value={totalUsers} />
+          <SummaryCard
+            label="Active students"
+            value={activeStudents}
+            highlight="emerald"
+          />
+          <SummaryCard
+            label="Pending access"
+            value={pendingCount}
+            highlight={pendingCount > 0 ? "amber" : undefined}
+          />
+          <SummaryCard
+            label="New enquiries"
+            value={newEnquiryCount}
+            highlight={newEnquiryCount > 0 ? "amber" : undefined}
+          />
+          <SummaryCard
+            label="Recent revenue"
+            value={formatRevenue(totalRevenueCents)}
+            highlight={totalRevenueCents > 0 ? "emerald" : undefined}
+          />
+        </div>
 
+        {/* ── Alerts ────────────────────────────────────────────────────── */}
+        {hasAlerts && (
+          <section className="rounded-3xl border border-amber-200 bg-amber-50 p-5 shadow-sm">
+            <h2 className="text-base font-semibold text-amber-900">
+              Action required
+            </h2>
+            <ul className="mt-3 space-y-3 text-sm">
+
+              {pendingAccessStudents.length > 0 && (
+                <li>
+                  <p className="font-semibold text-amber-900">
+                    {pendingAccessStudents.length} student
+                    {pendingAccessStudents.length === 1 ? "" : "s"} waiting for
+                    access approval
+                  </p>
+                  <div className="mt-2 space-y-2">
+                    {pendingAccessStudents.map(({ user, profile }) => {
+                      const name = studentDisplayName({
+                        profile,
+                        authUser: user,
+                      });
+                      return (
+                        <div
+                          key={user.id}
+                          className="flex flex-wrap items-center gap-3 rounded-2xl bg-white/80 px-4 py-2.5"
+                        >
+                          <div className="min-w-0 flex-1">
+                            <span className="font-medium text-slate-900">
+                              {name}
+                            </span>
+                            <span className="ml-2 text-slate-500">
+                              {user.email}
+                            </span>
+                          </div>
+                          <form
+                            action={setStudentAccessStatus}
+                            className="flex gap-2"
+                          >
+                            <input
+                              type="hidden"
+                              name="userId"
+                              value={user.id}
+                            />
+                            <input
+                              type="hidden"
+                              name="email"
+                              value={user.email ?? ""}
+                            />
+                            <button
+                              name="status"
+                              value="active"
+                              type="submit"
+                              className="rounded-lg bg-emerald-700 px-3 py-1 text-xs font-semibold text-white hover:bg-emerald-800"
+                            >
+                              Approve
+                            </button>
+                            <button
+                              name="status"
+                              value="revoked"
+                              type="submit"
+                              className="rounded-lg border border-slate-300 bg-white px-3 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                            >
+                              Revoke
+                            </button>
+                          </form>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </li>
+              )}
+
+              {newEnquiriesList.length > 0 && (
+                <li className="rounded-2xl bg-white/80 px-4 py-2.5 text-slate-800">
+                  <span className="font-semibold">
+                    {newEnquiriesList.length} new enquir
+                    {newEnquiriesList.length === 1 ? "y" : "ies"}
+                  </span>
+                  {" — "}
+                  {newEnquiriesList.map((e) => (
+                    <span key={e.id} className="mr-2">
+                      {e.student_first_name ?? e.parent_email ?? "Unknown"}
+                    </span>
+                  ))}
+                </li>
+              )}
+
+              {paidButNotActive.length > 0 && (
+                <li className="rounded-2xl bg-white/80 px-4 py-2.5 text-slate-800">
+                  <span className="font-semibold">
+                    {paidButNotActive.length} online learning payment
+                    {paidButNotActive.length === 1 ? "" : "s"} without active
+                    access
+                  </span>
+                  {" — "}
+                  {paidButNotActive.map((p) => (
+                    <span key={p.id} className="mr-2">
+                      {p.parent_email ?? p.student_first_name ?? "Unknown"}
+                    </span>
+                  ))}
+                </li>
+              )}
+
+            </ul>
+          </section>
+        )}
+
+        {/* ── Students table ────────────────────────────────────────────── */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Accounts
+              </p>
+              <h2 className="mt-2 text-2xl font-bold tracking-tight">
+                Students
+              </h2>
+              <p className="mt-2 text-sm text-slate-600">
+                Use Ensure to repair a partially created account. Delete is for
+                test accounts only.
+              </p>
+            </div>
+            <p className="text-sm font-semibold text-slate-500">
+              {totalUsers} user{totalUsers === 1 ? "" : "s"}
+            </p>
+          </div>
+
+          {usersError ? (
+            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+              Could not load Supabase Auth users: {usersError.message}. This
+              requires a server-only SUPABASE_SERVICE_ROLE_KEY.
+            </div>
+          ) : studentUsers.length === 0 ? (
+            <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+              No student accounts yet.
+            </p>
+          ) : (
+            <div className="mt-5 overflow-x-auto">
+              <table className="min-w-full divide-y divide-slate-200 text-sm">
+                <thead>
+                  <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <th className="px-3 py-2 text-left">Name</th>
+                    <th className="px-3 py-2 text-left">Email</th>
+                    <th className="px-3 py-2 text-left">Signed up</th>
+                    <th className="px-3 py-2 text-left">Last login</th>
+                    <th className="px-3 py-2 text-left">Access</th>
+                    <th className="px-3 py-2 text-left">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {studentUsers.map(({ user, profile, access }) => {
+                    const status = access?.status ?? "missing";
+                    const name = studentDisplayName({
+                      profile,
+                      authUser: user,
+                    });
+                    const parentEmail =
+                      firstPresent(
+                        profile?.parent_email,
+                        user.user_metadata?.parent_email,
+                      ) ?? null;
+
+                    return (
+                      <tr key={user.id} className="align-top">
+                        <td className="px-3 py-3">
+                          <p className="font-medium text-slate-900">{name}</p>
+                          {parentEmail && (
+                            <p className="mt-0.5 text-xs text-slate-400">
+                              Parent: {parentEmail}
+                            </p>
+                          )}
+                        </td>
+                        <td className="px-3 py-3 break-all text-slate-600">
+                          {user.email}
+                        </td>
+                        <td className="px-3 py-3 whitespace-nowrap text-slate-500">
+                          {formatOptionalDateTime(user.created_at)}
+                        </td>
+                        <td className="px-3 py-3 whitespace-nowrap text-slate-500">
+                          {formatOptionalDateTime(user.last_sign_in_at)}
+                        </td>
+                        <td className="px-3 py-3">
+                          <span
+                            className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${accessStatusClass(access?.status)}`}
+                          >
+                            {status}
+                          </span>
+                        </td>
+                        <td className="px-3 py-3">
+                          <div className="flex flex-col gap-2">
+                            <form action={ensureProfileAccess}>
+                              <input
+                                type="hidden"
+                                name="userId"
+                                value={user.id}
+                              />
+                              <input
+                                type="hidden"
+                                name="email"
+                                value={user.email ?? ""}
+                              />
+                              <button
+                                type="submit"
+                                className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                              >
+                                Ensure
+                              </button>
+                            </form>
+                            <form
+                              action={setStudentAccessStatus}
+                              className="flex flex-wrap gap-1"
+                            >
+                              <input
+                                type="hidden"
+                                name="userId"
+                                value={user.id}
+                              />
+                              <input
+                                type="hidden"
+                                name="email"
+                                value={user.email ?? ""}
+                              />
+                              {betaAccessStatuses.map((s) => (
+                                <button
+                                  key={s}
+                                  type="submit"
+                                  name="status"
+                                  value={s}
+                                  disabled={access?.status === s}
+                                  className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold capitalize text-slate-700 hover:bg-slate-50 disabled:cursor-default disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400"
+                                >
+                                  {s}
+                                </button>
+                              ))}
+                            </form>
+                            <DeleteUserForm
+                              userId={user.id}
+                              deleteUserAction={deleteTestUser}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+
+        {/* ── Enquiries table ───────────────────────────────────────────── */}
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
             <div>
@@ -660,9 +740,8 @@ export default async function AdminPage() {
               <h2 className="mt-2 text-2xl font-bold tracking-tight">
                 Enquiries
               </h2>
-              <p className="mt-2 text-sm leading-6 text-slate-600">
-                Interest captured from /enquire before a diagnostic is
-                completed.
+              <p className="mt-2 text-sm text-slate-600">
+                Interest captured from /enquire before payment or sign-up.
               </p>
             </div>
             <p className="text-sm font-semibold text-slate-500">
@@ -671,7 +750,7 @@ export default async function AdminPage() {
           </div>
 
           {enquiriesError ? (
-            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
+            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
               Could not load enquiries: {enquiriesError.message}. Create the
               public.enquiries table if it does not exist yet.
             </div>
@@ -680,96 +759,88 @@ export default async function AdminPage() {
               No enquiries yet.
             </p>
           ) : (
-            <div className="mt-5 space-y-3">
-              {enquiries.map((enquiry) => {
-                const status = enquiry.status ?? "new";
-                const displayName = studentDisplayName({
-                  submissionName: enquiry.student_first_name,
-                  email: enquiry.parent_email,
-                });
-
-                return (
-                  <article
-                    key={enquiry.id}
-                    className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
-                  >
-                    <div className="grid gap-5 xl:grid-cols-[1.2fr_1.1fr_1.3fr] xl:items-start">
-                      <div>
-                        <div className="flex flex-wrap items-center gap-2">
-                          <h3 className="font-semibold text-slate-950">
-                            {displayName}
-                          </h3>
+            <div className="mt-5 overflow-x-auto">
+              <table className="min-w-full divide-y divide-slate-200 text-sm">
+                <thead>
+                  <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <th className="px-3 py-2 text-left">Created</th>
+                    <th className="px-3 py-2 text-left">Student</th>
+                    <th className="px-3 py-2 text-left">Parent email</th>
+                    <th className="px-3 py-2 text-left">Offer</th>
+                    <th className="px-3 py-2 text-left">Year</th>
+                    <th className="px-3 py-2 text-left">Status</th>
+                    <th className="px-3 py-2 text-left">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {enquiries.map((enquiry) => {
+                    const status = enquiry.status ?? "new";
+                    return (
+                      <tr key={enquiry.id} className="align-top">
+                        <td className="px-3 py-3 whitespace-nowrap text-slate-500">
+                          {formatOptionalDateTime(enquiry.created_at)}
+                        </td>
+                        <td className="px-3 py-3">
+                          <p className="font-medium text-slate-900">
+                            {enquiry.student_first_name ?? "—"}
+                          </p>
+                          {enquiry.message && (
+                            <details className="mt-1 text-xs text-slate-500">
+                              <summary className="cursor-pointer font-medium text-slate-600 hover:text-slate-900">
+                                Message
+                              </summary>
+                              <p className="mt-1 max-w-xs leading-5">
+                                {enquiry.message}
+                              </p>
+                            </details>
+                          )}
+                        </td>
+                        <td className="px-3 py-3 break-all text-slate-600">
+                          {enquiry.parent_email ?? "—"}
+                        </td>
+                        <td className="px-3 py-3 text-slate-600">
+                          {enquiry.offer_selected ?? "—"}
+                        </td>
+                        <td className="px-3 py-3 text-slate-600">
+                          {enquiry.year_level ?? "—"}
+                        </td>
+                        <td className="px-3 py-3">
                           <span
-                            className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ${enquiryStatusClass(
-                              status
-                            )}`}
+                            className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${enquiryStatusClass(status)}`}
                           >
                             {status}
                           </span>
-                        </div>
-                        <p className="mt-1 text-sm text-slate-600">
-                          Parent: {enquiry.parent_first_name ?? "Not saved"}
-                        </p>
-                        <p className="mt-1 text-sm text-slate-600">
-                          {enquiry.parent_email ?? "No parent email"}
-                        </p>
-                        <p className="mt-1 text-xs text-slate-500">
-                          Created {formatOptionalDateTime(enquiry.created_at)}
-                        </p>
-                      </div>
-
-                      <div className="text-sm text-slate-600">
-                        <p>
-                          <span className="font-medium text-slate-900">
-                            Offer:
-                          </span>{" "}
-                          {enquiry.offer_selected ?? "Not selected"}
-                        </p>
-                        <p className="mt-1">
-                          <span className="font-medium text-slate-900">
-                            Year:
-                          </span>{" "}
-                          {enquiry.year_level ?? "Not saved"}
-                        </p>
-                        <p className="mt-1">
-                          <span className="font-medium text-slate-900">
-                            Course:
-                          </span>{" "}
-                          {enquiry.course ?? "Not saved"}
-                        </p>
-                        {enquiry.message ? (
-                          <p className="mt-3 rounded-xl bg-white p-3 leading-6 text-slate-700">
-                            {enquiry.message}
-                          </p>
-                        ) : null}
-                      </div>
-
-                      <form
-                        action={updateEnquiryStatus}
-                        className="flex flex-wrap gap-2 xl:justify-end"
-                      >
-                        <input type="hidden" name="id" value={enquiry.id} />
-                        {enquiryStatuses.map((nextStatus) => (
-                          <button
-                            key={nextStatus}
-                            type="submit"
-                            name="status"
-                            value={nextStatus}
-                            disabled={status === nextStatus}
-                            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-semibold capitalize text-slate-800 transition hover:bg-slate-50 disabled:cursor-default disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400"
+                        </td>
+                        <td className="px-3 py-3">
+                          <form
+                            action={updateEnquiryStatus}
+                            className="flex flex-wrap gap-1"
                           >
-                            {nextStatus}
-                          </button>
-                        ))}
-                      </form>
-                    </div>
-                  </article>
-                );
-              })}
+                            <input type="hidden" name="id" value={enquiry.id} />
+                            {enquiryStatuses.map((s) => (
+                              <button
+                                key={s}
+                                type="submit"
+                                name="status"
+                                value={s}
+                                disabled={status === s}
+                                className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold capitalize text-slate-700 hover:bg-slate-50 disabled:cursor-default disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400"
+                              >
+                                {s}
+                              </button>
+                            ))}
+                          </form>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
           )}
         </section>
 
+        {/* ── Payments table ────────────────────────────────────────────── */}
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
             <div>
@@ -777,12 +848,11 @@ export default async function AdminPage() {
                 Stripe
               </p>
               <h2 className="mt-2 text-2xl font-bold tracking-tight">
-                Recent payments
+                Payments
               </h2>
-              <p className="mt-2 text-sm leading-6 text-slate-600">
-                Checkout records for report options and online learning
-                subscriptions. Manual report and enquiry workflows stay
-                available.
+              <p className="mt-2 text-sm text-slate-600">
+                Recent checkout records. Revenue card above counts paid
+                payments only.
               </p>
             </div>
             <p className="text-sm font-semibold text-slate-500">
@@ -791,7 +861,7 @@ export default async function AdminPage() {
           </div>
 
           {paymentsError ? (
-            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
+            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
               Could not load payments: {paymentsError.message}. Create the
               public.payments table if it does not exist yet.
             </div>
@@ -801,57 +871,52 @@ export default async function AdminPage() {
             </p>
           ) : (
             <div className="mt-5 overflow-x-auto">
-              <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
+              <table className="min-w-full divide-y divide-slate-200 text-sm">
                 <thead>
                   <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                    <th className="px-3 py-2">Created</th>
-                    <th className="px-3 py-2">Offer</th>
-                    <th className="px-3 py-2">Parent/student</th>
-                    <th className="px-3 py-2">Amount</th>
-                    <th className="px-3 py-2">Payment</th>
-                    <th className="px-3 py-2">Subscription</th>
-                    <th className="px-3 py-2">Access</th>
-                    <th className="px-3 py-2">User/session</th>
+                    <th className="px-3 py-2 text-left">Created</th>
+                    <th className="px-3 py-2 text-left">Offer</th>
+                    <th className="px-3 py-2 text-left">Parent / student</th>
+                    <th className="px-3 py-2 text-left">Amount</th>
+                    <th className="px-3 py-2 text-left">Payment</th>
+                    <th className="px-3 py-2 text-left">Subscription</th>
+                    <th className="px-3 py-2 text-left">Access</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
                   {payments.map((payment) => (
                     <tr key={payment.id} className="align-top">
-                      <td className="px-3 py-3 text-slate-600">
+                      <td className="px-3 py-3 whitespace-nowrap text-slate-500">
                         {formatOptionalDateTime(payment.created_at)}
                       </td>
-                      <td className="px-3 py-3 font-medium text-slate-950">
-                        {payment.offer_selected ?? "Not recorded"}
+                      <td className="px-3 py-3 font-medium text-slate-900">
+                        {payment.offer_selected ?? "—"}
                       </td>
                       <td className="px-3 py-3 text-slate-600">
-                        <p>{payment.parent_email ?? "No parent email"}</p>
-                        <p className="mt-1 text-xs">
-                          {payment.student_first_name ?? "No student name"}
+                        <p>{payment.parent_email ?? "—"}</p>
+                        <p className="mt-0.5 text-xs text-slate-400">
+                          {payment.student_first_name ?? ""}
                         </p>
                       </td>
-                      <td className="px-3 py-3 text-slate-600">
+                      <td className="px-3 py-3 font-medium text-slate-900">
                         {formatMoney(payment.amount_total, payment.currency)}
-                      </td>
-                      <td className="px-3 py-3 text-slate-600">
-                        {payment.payment_status ?? "Not recorded"}
-                      </td>
-                      <td className="px-3 py-3 text-slate-600">
-                        {payment.subscription_status ?? "Not applicable"}
                       </td>
                       <td className="px-3 py-3">
                         <span
-                          className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ${accessStatusClass(
-                            payment.access_status
-                          )}`}
+                          className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${paymentStatusClass(payment.payment_status)}`}
+                        >
+                          {payment.payment_status ?? "—"}
+                        </span>
+                      </td>
+                      <td className="px-3 py-3 text-slate-600">
+                        {payment.subscription_status ?? "—"}
+                      </td>
+                      <td className="px-3 py-3">
+                        <span
+                          className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${accessStatusClass(payment.access_status)}`}
                         >
                           {payment.access_status ?? "pending"}
                         </span>
-                      </td>
-                      <td className="px-3 py-3 text-xs text-slate-600">
-                        <p>User: {shortId(payment.user_id)}</p>
-                        <p className="mt-1">
-                          Session: {shortId(payment.stripe_checkout_session_id)}
-                        </p>
                       </td>
                     </tr>
                   ))}
@@ -861,394 +926,140 @@ export default async function AdminPage() {
           )}
         </section>
 
+        {/* ── Diagnostic submissions (collapsed) ───────────────────────── */}
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Accounts
-              </p>
-              <h2 className="mt-2 text-2xl font-bold tracking-tight">
-                Student users
-              </h2>
-              <p className="mt-2 text-sm leading-6 text-slate-600">
-                Use Ensure profile/access if a signup partially failed.
-                Deleting a user only deletes the account/profile/access rows,
-                not diagnostic submissions.
-              </p>
-            </div>
-            <p className="text-sm font-semibold text-slate-500">
-              {studentUsers.length} user{studentUsers.length === 1 ? "" : "s"}
-            </p>
-          </div>
-
-          {usersError ? (
-            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
-              Could not load Supabase Auth users: {usersError.message}. This
-              requires a server-only SUPABASE_SERVICE_ROLE_KEY.
-            </div>
-          ) : studentUsers.length === 0 ? (
-            <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
-              No student Auth users found yet.
-            </p>
-          ) : (
-            <div className="mt-5 space-y-3">
-              {studentUsers.map(({ user, profile, access }) => {
-                const status = access?.status ?? "missing";
-                const accessType = access?.access_type ?? "missing";
-                const studentName = studentDisplayName({
-                  profile,
-                  authUser: user,
-                  email: user.email,
-                });
-                const parentEmail =
-                  firstPresent(
-                    profile?.parent_email,
-                    user.user_metadata?.parent_email
-                  ) ??
-                  "Not saved";
-
-                return (
-                  <article
-                    key={user.id}
-                    className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
-                  >
-                    <div className="grid gap-5 xl:grid-cols-[1.4fr_1fr_1.4fr] xl:items-start">
-                      <div>
-                        <h3 className="font-semibold text-slate-950">
-                          {studentName}
-                        </h3>
-                        <p className="mt-1 break-all text-sm text-slate-600">
-                          {user.email}
-                        </p>
-                        <p className="mt-1 break-all text-xs text-slate-500">
-                          {user.id}
-                        </p>
-                        <dl className="mt-3 grid gap-1 text-sm text-slate-600">
-                          <div>
-                            <dt className="inline font-medium text-slate-900">
-                              Created:
-                            </dt>{" "}
-                            <dd className="inline">
-                              {formatOptionalDateTime(user.created_at)}
-                            </dd>
-                          </div>
-                          <div>
-                            <dt className="inline font-medium text-slate-900">
-                              Last sign in:
-                            </dt>{" "}
-                            <dd className="inline">
-                              {formatOptionalDateTime(user.last_sign_in_at)}
-                            </dd>
-                          </div>
-                          <div>
-                            <dt className="inline font-medium text-slate-900">
-                              Email confirmed:
-                            </dt>{" "}
-                            <dd className="inline">
-                              {formatOptionalDateTime(user.email_confirmed_at)}
-                            </dd>
-                          </div>
-                        </dl>
-                      </div>
-
-                      <div className="text-sm text-slate-600">
-                        <p>
-                          <span className="font-medium text-slate-900">
-                            Student:
-                          </span>{" "}
-                          {studentName}
-                        </p>
-                        <p className="mt-1">
-                          <span className="font-medium text-slate-900">
-                            Parent:
-                          </span>{" "}
-                          {parentEmail}
-                        </p>
-                        <p className="mt-1">
-                          <span className="font-medium text-slate-900">
-                            Access:
-                          </span>{" "}
-                          {accessType}
-                        </p>
-                        <p className="mt-2">
-                          <span
-                            className={`inline-flex rounded-full px-3 py-1.5 text-sm font-semibold capitalize ${accessStatusClass(
-                              access?.status
-                            )}`}
-                          >
-                            {status}
-                          </span>
-                        </p>
-                      </div>
-
-                      <div className="flex flex-col gap-3">
-                        <form action={ensureProfileAccess}>
-                          <input type="hidden" name="userId" value={user.id} />
-                          <input
-                            type="hidden"
-                            name="email"
-                            value={user.email ?? ""}
-                          />
-                          <button
-                            type="submit"
-                            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-800 transition hover:bg-slate-50"
-                          >
-                            Ensure profile/access
-                          </button>
-                        </form>
-
-                        <form
-                          action={setStudentAccessStatus}
-                          className="flex flex-wrap gap-2"
-                        >
-                          <input type="hidden" name="userId" value={user.id} />
-                          <input
-                            type="hidden"
-                            name="email"
-                            value={user.email ?? ""}
-                          />
-                          {betaAccessStatuses.map((nextStatus) => (
-                            <button
-                              key={nextStatus}
-                              type="submit"
-                              name="status"
-                              value={nextStatus}
-                              disabled={access?.status === nextStatus}
-                              className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-semibold capitalize text-slate-800 transition hover:bg-slate-50 disabled:cursor-default disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400"
-                            >
-                              {nextStatus}
-                            </button>
-                          ))}
-                        </form>
-
-                        <DeleteUserForm
-                          userId={user.id}
-                          deleteUserAction={deleteTestUser}
-                        />
-                      </div>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          )}
-        </section>
-
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Online learning beta
-              </p>
-              <h2 className="mt-2 text-2xl font-bold tracking-tight">
-                Beta access requests
-              </h2>
-              <p className="mt-2 text-sm text-slate-600">
-                Approve or revoke dashboard access for student beta accounts.
-              </p>
-            </div>
-            <p className="text-sm font-semibold text-slate-500">
-              {betaAccessRequests.length} request
-              {betaAccessRequests.length === 1 ? "" : "s"}
-            </p>
-          </div>
-
-          {betaAccessError ? (
-            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
-              Could not load beta access requests: {betaAccessError.message}.
-              Check that the profiles and user_access tables exist. This admin
-              section uses the existing protected server-side Supabase admin
-              client, so no service role key is exposed to the browser.
-            </div>
-          ) : betaAccessRequests.length === 0 ? (
-            <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
-              No beta access requests yet.
-            </p>
-          ) : (
-            <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200">
-              <div className="hidden grid-cols-[1.4fr_1fr_0.9fr_1.2fr] gap-4 bg-slate-100 px-4 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 lg:grid">
-                <span>Student</span>
-                <span>Access</span>
-                <span>Status</span>
-                <span>Manage</span>
-              </div>
-
-              <div className="divide-y divide-slate-200">
-                {betaAccessRequests.map((request) => {
-                  const profile = request.profile;
-                  const status = request.status ?? "pending";
-                  const displayName = studentDisplayName({
-                    profile,
-                    authUser: request.authUser,
-                    email: profile?.email ?? request.authUser?.email,
-                  });
-                  const email =
-                    firstPresent(profile?.email, request.authUser?.email) ??
-                    "No student email saved";
-                  const parentEmail = firstPresent(
-                    profile?.parent_email,
-                    request.authUser?.user_metadata?.parent_email
-                  );
-
-                  return (
-                    <article
-                      key={request.id}
-                      className="grid gap-4 px-4 py-4 lg:grid-cols-[1.4fr_1fr_0.9fr_1.2fr] lg:items-center"
-                    >
-                      <div>
-                        <h3 className="font-semibold text-slate-950">
-                          {displayName}
-                        </h3>
-                        <p className="mt-1 text-sm text-slate-600">
-                          {email}
-                        </p>
-                        {parentEmail ? (
-                          <p className="mt-1 text-xs text-slate-500">
-                            Parent: {parentEmail}
-                          </p>
-                        ) : null}
-                      </div>
-
-                      <div className="text-sm text-slate-600">
-                        <p className="font-medium text-slate-900">
-                          {request.access_type ?? "online_learning_beta"}
-                        </p>
-                        <p className="mt-1">
-                          Created {formatOptionalDateTime(request.created_at)}
-                        </p>
-                        <p className="mt-1">
-                          Updated {formatOptionalDateTime(request.updated_at)}
-                        </p>
-                      </div>
-
-                      <div>
-                        <span
-                          className={`inline-flex rounded-full px-3 py-1.5 text-sm font-semibold capitalize ${accessStatusClass(
-                            status
-                          )}`}
-                        >
-                          {status}
-                        </span>
-                      </div>
-
-                      <form
-                        action={updateBetaAccessStatus}
-                        className="flex flex-wrap gap-2"
-                      >
-                        <input type="hidden" name="id" value={request.id} />
-                        {betaAccessStatuses.map((nextStatus) => (
-                          <button
-                            key={nextStatus}
-                            type="submit"
-                            name="status"
-                            value={nextStatus}
-                            disabled={status === nextStatus}
-                            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-semibold capitalize text-slate-800 transition hover:bg-slate-50 disabled:cursor-default disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400"
-                          >
-                            {nextStatus}
-                          </button>
-                        ))}
-                      </form>
-                    </article>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </section>
-
-        {submissions.length === 0 ? (
-          <div className="rounded-3xl bg-white p-8 shadow-sm">
-            <p className="text-slate-600">No submissions yet.</p>
-          </div>
-        ) : (
-          <div className="space-y-8">
-            {Object.entries(groupedSubmissions).map(([date, items]) => (
-              <section key={date} className="space-y-3">
-                <h2 className="px-1 text-sm font-semibold uppercase tracking-wide text-slate-500">
-                  {date}
+          <details>
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  Reports
+                </p>
+                <h2 className="mt-2 text-2xl font-bold tracking-tight">
+                  Diagnostic submissions ({submissions.length})
                 </h2>
+              </div>
+              <span className="shrink-0 rounded-xl border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-500">
+                Expand ▾
+              </span>
+            </summary>
 
-                <div className="space-y-3">
-                  {items.map((submission) => {
-                    const score = scoreDiagnostic(
-                      submission.answers,
-                      submission.confidence
-                    );
-
-                    return (
-                      <article
-                        key={submission.id}
-                        className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
-                      >
-                        <div className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-center">
-                          <div className="grid gap-4 md:grid-cols-3">
-                            <div>
-                              <h3 className="text-lg font-semibold text-slate-950">
-                                {submission.student_first_name}
-                              </h3>
-                              <p className="mt-1 text-sm text-slate-600">
-                                {submission.parent_email}
-                              </p>
-                              <p className="mt-1 text-xs text-slate-500">
-                                Submitted {formatDateTime(submission.created_at)}
-                              </p>
+            {submissions.length === 0 ? (
+              <p className="mt-6 text-sm text-slate-600">No submissions yet.</p>
+            ) : (
+              <div className="mt-6 space-y-8">
+                {Object.entries(groupedSubmissions).map(([date, items]) => (
+                  <div key={date} className="space-y-3">
+                    <h3 className="px-1 text-sm font-semibold uppercase tracking-wide text-slate-500">
+                      {date}
+                    </h3>
+                    <div className="space-y-3">
+                      {items.map((submission) => {
+                        const score = scoreDiagnostic(
+                          submission.answers,
+                          submission.confidence,
+                        );
+                        return (
+                          <article
+                            key={submission.id}
+                            className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
+                          >
+                            <div className="grid gap-4 md:grid-cols-[1fr_auto]">
+                              <div className="grid gap-3 sm:grid-cols-3">
+                                <div>
+                                  <h4 className="font-semibold text-slate-900">
+                                    {submission.student_first_name}
+                                  </h4>
+                                  <p className="mt-1 text-sm text-slate-500">
+                                    {submission.parent_email}
+                                  </p>
+                                  <p className="mt-1 text-xs text-slate-400">
+                                    {formatDateTime(submission.created_at)}
+                                  </p>
+                                </div>
+                                <div className="space-y-1 text-sm text-slate-600">
+                                  <p>
+                                    <span className="font-medium text-slate-900">
+                                      Year:
+                                    </span>{" "}
+                                    {submission.year_level ?? "—"}
+                                  </p>
+                                  <p>
+                                    <span className="font-medium text-slate-900">
+                                      Course:
+                                    </span>{" "}
+                                    {submission.course ?? "—"}
+                                  </p>
+                                  <p>
+                                    <span className="font-medium text-slate-900">
+                                      Offer:
+                                    </span>{" "}
+                                    {submission.offer_selected ?? "—"}
+                                  </p>
+                                </div>
+                                <div className="flex flex-wrap items-start gap-2">
+                                  <span className="rounded-full bg-slate-900 px-3 py-1.5 text-xs font-semibold capitalize text-white">
+                                    {formatStatus(submission.report_status)}
+                                  </span>
+                                  <span className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700">
+                                    {score.correct}/{score.totalQuestions} (
+                                    {score.percentage}%)
+                                  </span>
+                                  {submission.follow_up_required && (
+                                    <span className="rounded-full bg-amber-100 px-3 py-1.5 text-xs font-semibold text-amber-900">
+                                      Follow-up
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                              <div className="flex flex-wrap gap-2 md:flex-col md:items-end">
+                                <Link
+                                  href={`/admin/reports/${submission.id}`}
+                                  className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+                                >
+                                  Open report
+                                </Link>
+                                <Link
+                                  href={`/admin/reports/${submission.id}/pdf`}
+                                  className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                                >
+                                  View PDF
+                                </Link>
+                              </div>
                             </div>
+                          </article>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </details>
+        </section>
 
-                            <div className="space-y-1 text-sm">
-                              <p>
-                                <span className="font-medium">Year:</span>{" "}
-                                {submission.year_level ?? "Not provided"}
-                              </p>
-                              <p>
-                                <span className="font-medium">Course:</span>{" "}
-                                {submission.course ?? "Not provided"}
-                              </p>
-                              <p>
-                                <span className="font-medium">Offer:</span>{" "}
-                                {submission.offer_selected ?? "Not selected"}
-                              </p>
-                            </div>
+        {/* ── Learning analytics placeholder ────────────────────────────── */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Analytics
+          </p>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight">
+            Learning Analytics
+          </h2>
+          <p className="mt-3 max-w-prose text-sm leading-6 text-slate-600">
+            Lesson and mastery events are currently sent to Google Analytics. No
+            internal learning-events table exists yet, so student activity
+            analytics are not shown here.
+          </p>
+          <a
+            href="https://analytics.google.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-block rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+          >
+            Open Google Analytics →
+          </a>
+        </section>
 
-                            <div className="flex flex-wrap items-center gap-2">
-                              <span className="rounded-full bg-slate-950 px-3 py-1.5 text-sm font-semibold capitalize text-white">
-                                {formatStatus(submission.report_status)}
-                              </span>
-                              <span className="rounded-full bg-slate-100 px-3 py-1.5 text-sm font-semibold text-slate-700">
-                                Score {score.correct}/{score.totalQuestions} (
-                                {score.percentage}%)
-                              </span>
-                              {submission.follow_up_required ? (
-                                <span className="rounded-full bg-amber-100 px-3 py-1.5 text-sm font-semibold text-amber-900">
-                                  Follow-up required
-                                </span>
-                              ) : null}
-                            </div>
-                          </div>
-
-                          <div className="flex flex-wrap gap-2 lg:justify-end">
-                            <Link
-                              href={`/admin/reports/${submission.id}`}
-                              className="rounded-xl bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
-                            >
-                              Open report
-                            </Link>
-                            <Link
-                              href={`/admin/reports/${submission.id}/pdf`}
-                              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
-                            >
-                              View PDF
-                            </Link>
-                          </div>
-                        </div>
-                      </article>
-                    );
-                  })}
-                </div>
-              </section>
-            ))}
-          </div>
-        )}
       </section>
     </main>
   );
