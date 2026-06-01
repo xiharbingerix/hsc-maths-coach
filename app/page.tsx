@@ -9,7 +9,7 @@ const steps = [
   {
     title: "Choose a lesson",
     description:
-      "Pick from Year 11 or Year 12 topics across Advanced, Standard, or Extension pathways.",
+      "Pick from Year 9, 10, 11 or 12 topics across Mathematics, Standard, Advanced and Extension pathways.",
   },
   {
     title: "Work through clear explanation",
@@ -29,6 +29,8 @@ const steps = [
 ];
 
 const coursePills = [
+  "Year 9 Mathematics - 53 lessons",
+  "Year 10 Mathematics · 53 lessons",
   "Year 12 Advanced · 89 lessons",
   "Year 11 Advanced",
   "Year 11 Standard",
@@ -37,7 +39,7 @@ const coursePills = [
 ];
 
 const pricingFeatures = [
-  "Available Year 11 and Year 12 maths pathways",
+  "Available Year 9, 10, 11 and 12 maths pathways",
   "Structured lessons — learn, practise, check mastery",
   "Instant access after payment when logged in",
   "Cancel any time from your account",
@@ -77,7 +79,7 @@ const commonQuestions = [
   {
     question: "What year levels are covered?",
     answer:
-      "Year 12 Advanced is the most complete pathway, with 89 lessons across 12 units. Year 11 Advanced, Year 11 Extension, Year 11 Standard, and Year 12 Standard 2 are also available. Coverage is expanding.",
+      "Year 9 Mathematics has 53 lessons across 8 units. Year 10 Mathematics has 53 lessons across 10 units. Year 12 Advanced has 89 lessons across 12 units. Year 11 Advanced, Year 11 Extension, Year 11 Standard and Year 12 Standard 2 are also available.",
   },
 ];
 
@@ -163,17 +165,17 @@ export default function Home() {
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-12">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold text-slate-500">
-              NSW Stage 6 maths &middot; Year 11 and Year 12
+              NSW maths &middot; Year 9 to Year 12
             </p>
 
             <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-              Structured online maths lessons for NSW Year 11 and Year 12
+              Structured online maths lessons for NSW Year 9, 10, 11 and 12
               students.
             </h1>
 
             <p className="mt-5 text-lg leading-8 text-slate-600">
               Work through lessons, guided practice and mastery quizzes at your
-              own pace. Built for the NSW senior maths curriculum by a working
+              own pace. Built for the NSW maths curriculum by a working
               tutor.
             </p>
 
@@ -237,9 +239,11 @@ export default function Home() {
                 Year 12 Advanced includes 89 lessons across 12 units.
               </h2>
               <p className="mt-3 leading-7 text-slate-600">
-                Year 12 Mathematics Advanced is the most complete pathway, with
-                89 lessons across 12 units. Year 11 Advanced, Year 11 Extension,
-                Year 11 Standard, and Year 12 Standard 2 pathways are also
+                Year 9 Mathematics is fully available with 53 lessons across 8
+                units. Year 10 Mathematics is also fully available with 53
+                lessons across 10 units. Year 12 Advanced remains the most
+                complete senior pathway with 89 lessons. Year 11 Advanced, Year
+                11 Extension, Year 11 Standard and Year 12 Standard 2 are also
                 available.
               </p>
             </div>
@@ -260,7 +264,7 @@ export default function Home() {
                 Online learning access &mdash; $19/month
               </h2>
               <p className="mt-4 max-w-2xl leading-7 text-slate-600">
-                Subscribe to access lessons across the available NSW senior
+                Subscribe to access lessons across the available NSW
                 maths pathways. Access activates automatically when you are
                 logged in. Create an account before subscribing for the
                 smoothest setup.
@@ -291,7 +295,7 @@ export default function Home() {
                 $19/month
               </p>
               <p className="mt-3 leading-7 text-slate-600">
-                Self-guided lessons, practice and mastery checks for NSW senior
+                Self-guided lessons, practice and mastery checks for NSW
                 maths.
               </p>
             </div>
@@ -364,7 +368,7 @@ export default function Home() {
 
         <section className="flex flex-col items-start gap-6 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:flex-row md:items-center md:justify-between md:p-10">
           <h2 className="max-w-xl text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
-            Start learning NSW senior maths for $19/month.
+            Start learning NSW maths for $19/month.
           </h2>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <SubscribeCTA href="/checkout?offer=online-learning">
@@ -376,7 +380,7 @@ export default function Home() {
         </section>
 
         <footer className="flex flex-col gap-4 border-t border-slate-200 pb-8 pt-6 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
-          <p>Nova Maths by Joshua Taylor for NSW senior maths students.</p>
+          <p>Nova Maths by Joshua Taylor for NSW maths students.</p>
           <nav className="flex flex-wrap gap-4" aria-label="Footer">
             <Link href="/diagnostic" className="hover:text-slate-900">
               Diagnostic

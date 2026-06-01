@@ -55,9 +55,9 @@ const included = [
       "Typed and multiple-choice checks help students decide whether to move on or review.",
   },
   {
-    title: "NSW senior mathematics pathways",
+    title: "NSW mathematics pathways",
     description:
-      "Built around skills students need across the available Year 11 and Year 12 maths course pathways.",
+      "Built around skills students need across the available Year 9, 10, 11 and 12 maths course pathways.",
   },
 ];
 
@@ -115,13 +115,13 @@ export default function OnlineLearningPage() {
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-12">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold text-slate-500">
-              Stage 6 maths &middot; Online learning
+              NSW maths &middot; Online learning
             </p>
             <h1 className="mt-4 text-4xl font-bold tracking-tight md:text-5xl">
-              Online lessons for available Year 11 and Year 12 maths pathways.
+              Online lessons for available Year 9, 10, 11 and 12 maths pathways.
             </h1>
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Structured online learning for students who want targeted senior
+              Structured online learning for students who want targeted
               maths revision without committing to weekly tutoring.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -171,15 +171,17 @@ export default function OnlineLearningPage() {
             <div>
               <SectionLabel>Current pathways</SectionLabel>
               <h2 className="mt-3 text-3xl font-bold tracking-tight">
-                Expanding Year 11 and Year 12 coverage.
+                Year 9 to Year 12 maths pathways.
               </h2>
               <p className="mt-3 max-w-2xl leading-7 text-slate-600">
-                The Year 12 Mathematics Advanced pathway remains the main
-                launched diagnostic pathway. Online learning access now also
-                includes expanding pathways for Standard and Year 11 students.
+                Year 9 Mathematics is fully available with 53 lessons across 8
+                units. Year 10 Mathematics is fully available with 53 lessons
+                across 10 units. Year 12 Advanced remains the main diagnostic
+                pathway. Year 11 Advanced, Year 11 Standard, Year 11 Extension
+                and Year 12 Standard 2 are also available.
               </p>
             </div>
-            <SecondaryLink href="/course">View HSC course</SecondaryLink>
+            <SecondaryLink href="/course">View all courses</SecondaryLink>
           </div>
 
           <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -284,7 +286,7 @@ export default function OnlineLearningPage() {
                 Students wanting live support can enquire about Weekly Tutoring
                 + Online Learning for $75/week. This combines weekly individual
                 support with access to the online learning package. Support
-                across available senior maths pathways is subject to
+                across available maths pathways is subject to
                 availability.
               </p>
             </div>

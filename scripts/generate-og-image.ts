@@ -53,7 +53,7 @@ function baseSvg(): string {
   <text x="${W / 2}" y="368"
     text-anchor="middle"
     font-family="Arial,'Helvetica Neue',Helvetica,sans-serif"
-    font-size="42" font-weight="600" fill="#1d4ed8">for NSW Year 11 and Year 12</text>
+    font-size="42" font-weight="600" fill="#1d4ed8">for NSW Years 9-12</text>
 
   <!-- Divider pill -->
   <rect x="${W / 2 - 28}" y="420" width="56" height="3" rx="1.5" fill="#dbeafe"/>

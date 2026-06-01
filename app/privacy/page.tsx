@@ -29,7 +29,7 @@ export default function PrivacyPage() {
             learning. The current diagnostic is for Year 12 Mathematics
             Advanced and is designed to help identify a student&apos;s maths
             strengths, weak areas, and possible study priorities. Online
-            learning may include additional Year 11 and Year 12 course pathways.
+            learning may include additional Year 9 to Year 12 course pathways.
           </p>
 
           <p className="text-slate-700">

@@ -1141,7 +1141,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 9 Mathematics",
     yearLevel: "9",
     courseType: "standard",
-    status: "coming_soon",
+    status: "available",
     description:
       "Build the Stage 5 foundations for Year 10 Mathematics through geometry, trigonometry, algebra, measurement, finance, probability and statistics.",
     positioning:
