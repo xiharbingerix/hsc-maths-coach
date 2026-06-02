@@ -497,30 +497,55 @@ function validateBoxPlotDiagram(value: unknown, path: string) {
       addIssue("FAIL", "box-plot-payload", plotPath, "Box plot label must be non-empty.");
     }
 
-    const { min, q1, median, q3, max } = plot;
-    if (![min, q1, median, q3, max].every(isFiniteNumber)) {
-      addIssue("FAIL", "box-plot-payload", plotPath, "Box plot requires finite min, q1, median, q3 and max values.");
+    const { min, q1, median, q3, max, lowerWhisker, upperWhisker } = plot;
+    const resolvedLowerWhisker = lowerWhisker ?? min;
+    const resolvedUpperWhisker = upperWhisker ?? max;
+    if (
+      (min !== undefined && !isFiniteNumber(min)) ||
+      (max !== undefined && !isFiniteNumber(max)) ||
+      (lowerWhisker !== undefined && !isFiniteNumber(lowerWhisker)) ||
+      (upperWhisker !== undefined && !isFiniteNumber(upperWhisker)) ||
+      ![resolvedLowerWhisker, q1, median, q3, resolvedUpperWhisker].every(isFiniteNumber)
+    ) {
+      addIssue("FAIL", "box-plot-payload", plotPath, "Box plot requires finite q1, median and q3 values plus lower and upper whisker endpoints. Endpoints resolve from lowerWhisker ?? min and upperWhisker ?? max.");
       return;
     }
 
     if (
       !(
-        isFiniteNumber(min) &&
+        isFiniteNumber(resolvedLowerWhisker) &&
         isFiniteNumber(q1) &&
         isFiniteNumber(median) &&
         isFiniteNumber(q3) &&
-        isFiniteNumber(max) &&
-        min <= q1 &&
+        isFiniteNumber(resolvedUpperWhisker) &&
+        resolvedLowerWhisker <= q1 &&
         q1 <= median &&
         median <= q3 &&
-        q3 <= max
+        q3 <= resolvedUpperWhisker
       )
     ) {
-      addIssue("FAIL", "box-plot-payload", plotPath, "Box plot values must satisfy min <= q1 <= median <= q3 <= max.");
+      addIssue("FAIL", "box-plot-payload", plotPath, "Box plot values must satisfy lower whisker <= q1 <= median <= q3 <= upper whisker.");
     }
 
     if (plot.outliers !== undefined && (!Array.isArray(plot.outliers) || plot.outliers.some((outlier) => !isFiniteNumber(outlier)))) {
       addIssue("FAIL", "box-plot-payload", plotPath, "Box plot outliers must be an array of finite numbers when supplied.");
+      return;
+    }
+
+    if (
+      Array.isArray(plot.outliers) &&
+      isFiniteNumber(resolvedLowerWhisker) &&
+      isFiniteNumber(resolvedUpperWhisker)
+    ) {
+      plot.outliers.forEach((outlier, outlierIndex) => {
+        if (
+          isFiniteNumber(outlier) &&
+          outlier >= resolvedLowerWhisker &&
+          outlier <= resolvedUpperWhisker
+        ) {
+          addIssue("WARN", "box-plot-outlier-inside-whiskers", `${plotPath}.outliers[${outlierIndex}]`, "Outlier lies inside the resolved whisker range.");
+        }
+      });
     }
   });
 }

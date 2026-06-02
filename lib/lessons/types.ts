@@ -155,11 +155,13 @@ export type BoxPlotDiagram = {
   description: string;
   plots: {
     label: string;
-    min: number;
+    min?: number;
     q1: number;
     median: number;
     q3: number;
-    max: number;
+    max?: number;
+    lowerWhisker?: number;
+    upperWhisker?: number;
     outliers?: number[];
   }[];
   axisLabel?: string;
