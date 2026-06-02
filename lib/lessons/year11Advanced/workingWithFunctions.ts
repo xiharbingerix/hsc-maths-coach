@@ -1,6 +1,48 @@
-import type { ExplicitLesson } from "../differentialCalculus";
+import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import { practicalChoice, formulaAnswer } from "../questionHelpers";
+import { practicalChoice, formulaAnswer as baseFormulaAnswer } from "../questionHelpers";
+
+function workingFunctionsFeedback(prompt: string, answer: string) {
+  if (prompt.includes("Evaluate the displayed function")) {
+    return `Function notation is an instruction to substitute the given input everywhere x appears. Use brackets around negative inputs before evaluating powers; this gives ${answer}.`;
+  }
+  if (
+    prompt.includes("excluded from the domain") ||
+    prompt.includes("excluded x-value")
+  ) {
+    return `A reciprocal function cannot use an input that makes its denominator zero. Set the denominator equal to zero and exclude that x-value, which gives ${answer}.`;
+  }
+  if (prompt.includes("vertical asymptote")) {
+    return `A vertical asymptote occurs where the reciprocal denominator would be zero. Solve that denominator equation to find the vertical line ${answer}.`;
+  }
+  if (prompt.includes("horizontal asymptote")) {
+    return `For a simple reciprocal function, the fraction shrinks towards zero as x moves far from the centre. The remaining vertical shift is the horizontal asymptote, so the answer is ${answer}.`;
+  }
+  if (prompt.includes("y-intercept")) {
+    return `The y-intercept is where the graph crosses the y-axis, so use x = 0. Evaluating the function at zero gives ${answer}.`;
+  }
+  if (
+    prompt.includes("zero") ||
+    prompt.includes("x-intercept")
+  ) {
+    return `Zeros and x-intercepts occur where the output is zero. Set each factor or the full function equal to zero, then choose the requested solution; this gives ${answer}.`;
+  }
+  return `Identify whether the question asks for an output, a restriction, an intercept or an asymptote before calculating. Following that feature gives ${answer}.`;
+}
+
+function formulaAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseFormulaAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: workingFunctionsFeedback(prompt, answer),
+  };
+}
+
 export function year11AdvancedWorkingFunctionsLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
