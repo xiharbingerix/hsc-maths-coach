@@ -1,5 +1,10 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Deployment
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for required Vercel environment variables,
+the Supabase lesson-progress migration, and the post-deploy smoke checklist.
+
 ## Getting Started
 
 First, run the development server:
