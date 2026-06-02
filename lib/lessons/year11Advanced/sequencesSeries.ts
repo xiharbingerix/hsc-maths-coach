@@ -2,6 +2,79 @@ import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
 import { formatChoiceText } from "../questionHelpers";
 
+function sequenceFeedback(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string
+) {
+  if (id.includes("-arith-")) {
+    if (prompt.includes("common difference")) {
+      return `An arithmetic sequence is built by adding the same amount each time. Compare the term values, and if the given terms are not consecutive, divide the value change by the number of steps between them; this gives ${answer}.`;
+    }
+    if (prompt.includes("Which term")) {
+      return `Use T_n=a+(n-1)d and set the term value equal to the number in the question. The n - 1 matters because the first term has had zero additions; solving gives n=${answer}.`;
+    }
+    if (prompt.includes("first term") || prompt.includes("T_1")) {
+      return `Work backwards along the arithmetic pattern to the first term. Each step backwards undoes one addition of d, giving a=${answer}.`;
+    }
+    return `Use T_n=a+(n-1)d because an arithmetic term is the first term plus repeated additions of d. There are n - 1 jumps from the first term to term n, which gives ${answer}.`;
+  }
+
+  if (id.includes("-geo-")) {
+    if (prompt.includes("common ratio")) {
+      return `A geometric sequence is built by multiplying by the same factor each time. Compare consecutive terms by division, or compare separated terms using the number of multiplication steps; the ratio is ${answer}.`;
+    }
+    if (prompt.includes("Which term")) {
+      return `Use T_n=ar^{n-1} and match the target value by repeated multiplication. The exponent is n - 1 because the first term has had zero multiplications; this gives n=${answer}.`;
+    }
+    if (prompt.includes("first term") || prompt.includes("T_1")) {
+      return `Work backwards by undoing each multiplication by r. Dividing back to the first term gives a=${answer}.`;
+    }
+    return `Use T_n=ar^{n-1} because a geometric sequence repeats multiplication rather than addition. Count n - 1 multiplication steps from the first term to obtain ${answer}.`;
+  }
+
+  if (id.includes("-aseries-")) {
+    if (latex.includes("\\sum")) {
+      return `Sigma notation is a compact instruction to add. Substitute each whole-number index from the lower limit to the upper limit, then add the generated terms to get ${answer}.`;
+    }
+    if (prompt.includes("number of terms")) {
+      return `First treat the last value as a term and solve T_n=a+(n-1)d. This avoids the off-by-one trap and shows that the series contains ${answer} terms.`;
+    }
+    if (prompt.includes("weekly increase")) {
+      return `The deposits form an arithmetic series because the same dollar amount is added each week. Put the total into S_n = n / 2(2a + (n - 1)d) and solve for the repeated increase, giving ${answer}.`;
+    }
+    return `This asks for a total, so use an arithmetic series rule rather than stopping at one term. The sum is the number of terms multiplied by the average of the first and last terms, giving ${answer}.`;
+  }
+
+  if (id.includes("-gseries-")) {
+    if (prompt.includes("recurring decimal")) {
+      return `Write the recurring decimal as a shrinking geometric series. Each new place value is one tenth of the previous one, so the limiting-sum rule gives ${answer}.`;
+    }
+    if (prompt.includes("common ratio")) {
+      return `Start from S_infinity = a / (1 - r) and solve for r. A limiting sum only makes sense when |r| < 1, and the ratio is ${answer}.`;
+    }
+    if (prompt.includes("limiting sum")) {
+      return `The terms keep shrinking because |r| < 1, so the infinite total settles toward a fixed value. Use S_infinity = a / (1 - r) to get ${answer}.`;
+    }
+    return `This is a finite geometric total: each term is made by multiplying by the same ratio. Use the finite geometric sum rule with the stated number of terms to get ${answer}.`;
+  }
+
+  if (latex.includes("\\sum")) {
+    return `Sigma notation means repeated addition. Generate one term for each index value shown and add those terms to get ${answer}.`;
+  }
+  if (prompt.includes("limiting sum")) {
+    return `Check the ratio before using the limiting-sum rule. Since the terms shrink with |r| < 1, S_infinity = a / (1 - r) gives ${answer}.`;
+  }
+  if (prompt.includes("sum") || prompt.includes("total seats")) {
+    return `The question asks for a total, so use a series rule after identifying the pattern. Adding the required terms gives ${answer}.`;
+  }
+  if (prompt.includes("Which term")) {
+    return `This asks for the position n, not merely a term value. Set the matching nth-term rule equal to the target and solve to get n=${answer}.`;
+  }
+  return `Identify whether the pattern repeats addition or multiplication before choosing the term rule. Applying the matching rule gives ${answer}.`;
+}
+
 function sequenceAnswer(
   id: string,
   prompt: string,
@@ -17,7 +90,7 @@ function sequenceAnswer(
     answer,
     acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
     hint: "Identify the sequence type first, then use the matching term or sum rule.",
-    explanation: explanation ?? `The answer is ${answer}.`,
+    explanation: explanation ?? sequenceFeedback(id, prompt, latex, answer),
   };
 }
 
@@ -282,11 +355,11 @@ export function year11AdvancedSequencesSeriesLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A sequence is an ordered list of terms. The nth term is often written as T_n.",
-          "An arithmetic sequence has a constant difference between consecutive terms.",
-          "The first term is usually called a, and the common difference is called d.",
-          "The nth term formula lets you find a term without listing every previous term.",
-          "If two terms are known, the difference in their values can be compared with the difference in their term numbers to find d.",
+          "A sequence is an ordered list of terms. Think of an arithmetic sequence as walking along a number line with the same-sized step each time.",
+          "That repeated step is the common difference d. If you add 3 each time, every move to the next term contributes one more group of 3.",
+          "The first term is a. To reach term n from the first term, you make n - 1 steps, which is why the formula uses a + (n - 1)d rather than a + nd.",
+          "The nth-term rule lets you jump straight to any position without writing every earlier term.",
+          "When two separated terms are known, compare both gaps: the change in term values is spread across the number of steps between their positions.",
         ],
         latexBlocks: [
           "T_n=a+(n-1)d",
@@ -344,11 +417,11 @@ export function year11AdvancedSequencesSeriesLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A geometric sequence has a constant ratio between consecutive terms.",
-          "The common ratio is found by dividing a term by the previous term, provided the previous term is not zero.",
-          "The nth-term formula for a geometric sequence uses powers because the same factor is applied repeatedly.",
-          "Some sequences are neither arithmetic nor geometric. Check differences and ratios before choosing a model.",
-          "Clean geometric equations can often be solved by matching powers with the same base.",
+          "A geometric sequence changes by repeated multiplication. Instead of adding the same step, you scale the previous term by the same factor each time.",
+          "That scale factor is the common ratio r. Find it by dividing a term by the previous non-zero term.",
+          "Powers appear because multiplication repeats: reaching term n takes n - 1 multiplications from the first term, so T_n = ar^{n - 1}.",
+          "Do not choose a geometric model just because values grow quickly. Check for a constant ratio; a constant difference belongs to an arithmetic sequence.",
+          "In clean cases, finding a term position means matching powers with the same base and then remembering that the exponent is n - 1.",
         ],
         latexBlocks: [
           "T_n=ar^{n-1}",
@@ -407,11 +480,11 @@ export function year11AdvancedSequencesSeriesLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A sequence lists terms. A series is the sum of terms.",
-          "Arithmetic series formulas add a finite number of terms from an arithmetic sequence.",
-          "If the first and last terms are known, use the average of the first and last terms multiplied by the number of terms.",
-          "Sigma notation is a compact way to write a sum. The index tells you which values to substitute.",
-          "Contextual arithmetic series often involve rows, repeated deposits with a fixed increase, or patterns with a constant difference.",
+          "A sequence lists terms; a series adds them. Ask whether the question wants one position or a running total before choosing a formula.",
+          "For an arithmetic series, the first and last terms balance each other: their average is also the average of all the terms in between.",
+          "That is why the sum is average term multiplied by number of terms. It is the same idea as finding a total from an average.",
+          "Sigma notation is a shorter way to say repeated adding. The lower and upper limits tell you exactly which index values to substitute.",
+          "Context questions about rows of seats or deposits with a fixed increase are arithmetic-series questions when the total is required.",
         ],
         latexBlocks: [
           "S_n=\\frac{n}{2}(a+l)",
@@ -470,11 +543,11 @@ export function year11AdvancedSequencesSeriesLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A geometric series is the sum of terms from a geometric sequence.",
-          "The finite geometric series formula depends on the first term, common ratio and number of terms.",
-          "An infinite geometric series has a limiting sum only when the absolute value of the common ratio is less than 1.",
-          "If the common ratio has absolute value 1 or greater, the terms do not shrink toward zero, so there is no limiting sum.",
-          "Some recurring decimals can be understood as infinite geometric series with common ratio one tenth or a power of one tenth.",
+          "A geometric series adds terms made by repeated multiplication. First find the common ratio so you know how each new term is generated.",
+          "For a finite total, the number of terms matters because you stop after a fixed number of multiplications.",
+          "For an infinite total, the key question is whether the extra pieces keep shrinking. A limiting sum exists only when |r| < 1.",
+          "If |r| is 1 or greater, the terms do not shrink toward zero, so adding more terms cannot settle toward one fixed value.",
+          "A recurring decimal is a useful example: each new place value is a smaller copy of the previous one, often with ratio one tenth.",
         ],
         latexBlocks: [
           "S_n=\\frac{a(r^n-1)}{r-1}\\quad (r\\ne1)",
@@ -533,11 +606,11 @@ export function year11AdvancedSequencesSeriesLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Mixed sequence and series questions reward choosing the model before calculating.",
-          "Arithmetic models use repeated addition; geometric models use repeated multiplication.",
-          "Series questions ask for a total, while sequence questions ask about individual terms.",
-          "Sigma notation is a compact way to write a finite sum, so expand the index values if the expression is simple.",
-          "For limiting sums, always check the common ratio before using the formula.",
+          "Mixed questions are mostly about choosing the right tool before calculating. Start by asking what repeats and what the question wants.",
+          "A constant addition means arithmetic; a constant multiplier means geometric. Do not decide from whether the values rise or fall.",
+          "A sequence question asks about an individual term or its position. A series question asks for a total.",
+          "Sigma notation is compact repeated adding, so expand the listed index values when the expression is short.",
+          "For an infinite geometric total, check |r| < 1 before using the limiting-sum rule. Shrinking terms are what make a fixed total possible.",
         ],
         latexBlocks: [
           "T_n=a+(n-1)d",
