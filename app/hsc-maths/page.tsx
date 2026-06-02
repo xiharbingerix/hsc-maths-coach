@@ -150,8 +150,8 @@ export default function HscMathsPage() {
               </SecondaryLink>
             </div>
             <p className="mt-3 text-sm leading-6 text-slate-500">
-              Cancel any time &middot; Less than $1/day &middot; Built by a NSW
-              maths tutor
+              Self-paced &middot; Cancel any time &middot; Less than $1/day
+              &middot; Built by a NSW maths tutor
             </p>
           </div>
 
@@ -166,8 +166,12 @@ export default function HscMathsPage() {
               Area Under a Curve
             </h2>
             <div className="mt-4 flex flex-wrap gap-2">
-              {["Learn", "Guided practice", "Mastery quiz"].map(
-                (step, index) => (
+              {[
+                "Learn",
+                "Guided practice",
+                "Independent practice",
+                "Mastery quiz",
+              ].map((step, index) => (
                   <span
                     key={step}
                     className={`rounded-full border px-3 py-1.5 text-xs font-semibold ${
@@ -178,8 +182,7 @@ export default function HscMathsPage() {
                   >
                     {step}
                   </span>
-                )
-              )}
+                ))}
             </div>
             <div className="mt-5 rounded-xl border border-slate-200 bg-white p-4">
               <p className="text-sm leading-6 text-slate-700">
