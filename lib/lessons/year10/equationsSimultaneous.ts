@@ -1,6 +1,75 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
 
+function terminatingDecimalFromFraction(answer: string): string | null {
+  const match = answer.match(/^(-?\d+)\/(\d+)$/);
+  if (!match) return null;
+
+  const numerator = Number(match[1]);
+  const denominator = Number(match[2]);
+  if (denominator === 0) return null;
+
+  let remainingDenominator = Math.abs(denominator);
+  while (remainingDenominator % 2 === 0) remainingDenominator /= 2;
+  while (remainingDenominator % 5 === 0) remainingDenominator /= 5;
+
+  return remainingDenominator === 1 ? String(numerator / denominator) : null;
+}
+
+function safeEquationAnswerVariants(prompt: string, answer: string): string[] {
+  const variants: string[] = [];
+  const normalisedPrompt = prompt.toLowerCase();
+  const numericAnswer = Number(answer);
+
+  if (Number.isFinite(numericAnswer) && Number.isInteger(numericAnswer)) {
+    variants.push(numericAnswer.toFixed(1));
+  }
+
+  const terminatingDecimal = terminatingDecimalFromFraction(answer);
+  if (terminatingDecimal) variants.push(terminatingDecimal);
+
+  const coordinatePair = answer.match(/^\(\s*([^,]+),\s*([^)]+)\)$/);
+  if (coordinatePair) {
+    const [, x, y] = coordinatePair;
+    variants.push(`(${x},${y})`, `${x},${y}`, `${x}, ${y}`, `x=${x}, y=${y}`, `x = ${x}, y = ${y}`);
+    return variants;
+  }
+
+  const rootPair = answer.match(/^\s*([^,]+),\s*([^,]+)\s*$/);
+  if (rootPair && normalisedPrompt.includes("both solutions")) {
+    const [, firstRoot, secondRoot] = rootPair;
+    variants.push(
+      `${firstRoot},${secondRoot}`,
+      `${secondRoot}, ${firstRoot}`,
+      `${secondRoot},${firstRoot}`,
+      `x=${firstRoot} or x=${secondRoot}`,
+      `x=${secondRoot} or x=${firstRoot}`,
+      `${firstRoot} or ${secondRoot}`,
+      `${secondRoot} or ${firstRoot}`,
+      `${firstRoot} and ${secondRoot}`,
+      `${secondRoot} and ${firstRoot}`
+    );
+    return variants;
+  }
+
+  let variable: "x" | "y" | null = null;
+  if (normalisedPrompt.includes("what is y") || normalisedPrompt.includes("value of y")) variable = "y";
+  if (
+    normalisedPrompt.includes("what is x") ||
+    normalisedPrompt.includes("value of x") ||
+    normalisedPrompt.includes("positive solution") ||
+    normalisedPrompt.includes("larger solution") ||
+    normalisedPrompt.includes("larger root") ||
+    normalisedPrompt.startsWith("solve ")
+  ) {
+    variable = "x";
+  }
+
+  if (variable) variants.push(`${variable}=${answer}`, `${variable} = ${answer}`);
+
+  return variants;
+}
+
 function eqAnswerHint(id: string) {
   if (id.startsWith("lin-")) {
     return "Treat the equation like a balance scale. Undo operations in reverse order and make the same change to both sides.";
@@ -78,7 +147,7 @@ function eqAnswer(
     prompt,
     latex,
     answer,
-    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...safeEquationAnswerVariants(prompt, answer)])),
     hint: eqAnswerHint(id),
     explanation: eqAnswerExplanation(id, prompt, latex, answer),
   };
