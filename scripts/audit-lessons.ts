@@ -45,7 +45,7 @@ const warnings: AuditIssue[] = [];
 const placeholderPattern =
   /\bTODO\b|lorem ipsum|placeholder lesson|generated fallback|sample question/i;
 const visualKeywordPattern =
-  /\bbox(?:-and-whisker)? plot\b|\btree diagram\b|\bvenn\b|\btwo-way table\b|\btrapezoidal rule\b|\barea between curves\b|\bcircle theorem\b|\bsurface area\b|\bvolume\b|\bcylinder\b|\bprism\b|\bsphere\b|\bcone\b|\bpyramid\b/i;
+  /\bbox(?:-and-whisker)? plot\b|\btree diagram\b|\bvenn(?: diagram)?\b|\btwo-way table\b|\btrapezoidal rule\b|\barea between curves\b|\bcircle theorem\b/i;
 
 function addIssue(
   level: AuditLevel,

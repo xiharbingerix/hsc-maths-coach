@@ -593,6 +593,21 @@ export function year11AdvancedProbabilityDataLessonOverride(
             },
           ],
           finalAnswerLatex: "\\frac45",
+          twoWayTableDiagram: {
+            description:
+              "Two-way table of pass results by group. The Group A row is highlighted because the condition says to work within Group A.",
+            rowLabels: ["Group A", "Group B"],
+            columnLabels: ["Pass", "Not pass"],
+            values: [[24, 6], [21, 9]],
+            rowTotals: [30, 30],
+            columnTotals: [45, 15],
+            grandTotal: 60,
+            highlight: {
+              kind: "row",
+              rowIndex: 0,
+              label: "Conditioned group",
+            },
+          },
         },
         {
           title: "Expected value from a distribution",
