@@ -3,6 +3,7 @@ import type {
   CartesianGraph,
   NetworkDiagram,
   NormalDistributionDiagram,
+  ProbabilityTreeDiagram,
   TrapezoidalRuleDiagram,
   TriangleDiagram,
   TwoWayTableDiagram,
@@ -19,6 +20,7 @@ export type PracticeQuestion = {
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
   boxPlotDiagram?: BoxPlotDiagram;
   normalDistributionDiagram?: NormalDistributionDiagram;
+  probabilityTreeDiagram?: ProbabilityTreeDiagram;
   twoWayTableDiagram?: TwoWayTableDiagram;
   vennDiagram?: VennDiagram;
   solutionDiagram?: NetworkDiagram;
@@ -46,6 +48,7 @@ export type WorkedExample = {
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
   boxPlotDiagram?: BoxPlotDiagram;
   normalDistributionDiagram?: NormalDistributionDiagram;
+  probabilityTreeDiagram?: ProbabilityTreeDiagram;
   twoWayTableDiagram?: TwoWayTableDiagram;
   vennDiagram?: VennDiagram;
   steps: WorkedExampleStep[];

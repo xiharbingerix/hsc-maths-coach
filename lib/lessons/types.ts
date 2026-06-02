@@ -217,3 +217,18 @@ export type TwoWayTableDiagram = {
     label?: string;
   };
 };
+
+export type ProbabilityTreeBranch = {
+  id: string;
+  label: string;
+  probability?: string;
+  children?: ProbabilityTreeBranch[];
+};
+
+export type ProbabilityTreeDiagram = {
+  description: string;
+  rootLabel?: string;
+  stages?: string[];
+  branches: ProbabilityTreeBranch[];
+  highlightedPaths?: string[][];
+};

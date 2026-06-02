@@ -82,6 +82,22 @@ const multiStageWorkedExamples: WorkedExample[] = [
       { explanation: "Multiply along the two-stage path.", latex: "\\frac{3}{5}\\times\\frac{2}{4}=\\frac{3}{10}" },
     ],
     finalAnswerLatex: "\\frac{3}{10}",
+    probabilityTreeDiagram: {
+      description: "Two-stage probability tree for drawing counters without replacement. The highlighted red-red path changes from three fifths to two quarters after the first red counter is removed.",
+      rootLabel: "bag",
+      stages: ["first draw", "second draw"],
+      branches: [
+        { id: "R", label: "red", probability: "3/5", children: [
+          { id: "R", label: "red", probability: "2/4" },
+          { id: "B", label: "blue", probability: "2/4" },
+        ] },
+        { id: "B", label: "blue", probability: "2/5", children: [
+          { id: "R", label: "red", probability: "3/4" },
+          { id: "B", label: "blue", probability: "1/4" },
+        ] },
+      ],
+      highlightedPaths: [["R", "R"]],
+    },
   },
 ];
 
@@ -122,6 +138,22 @@ const treeWorkedExamples: WorkedExample[] = [
       { explanation: "Multiply along the path.", latex: "P(HT)=\\frac{1}{4}" },
     ],
     finalAnswerLatex: "\\frac{1}{4}",
+    probabilityTreeDiagram: {
+      description: "Two-stage fair-coin tree. The highlighted heads-then-tails path shows the two branches multiplied to find one quarter.",
+      rootLabel: "start",
+      stages: ["first toss", "second toss"],
+      branches: [
+        { id: "H", label: "heads", probability: "1/2", children: [
+          { id: "H", label: "heads", probability: "1/2" },
+          { id: "T", label: "tails", probability: "1/2" },
+        ] },
+        { id: "T", label: "tails", probability: "1/2", children: [
+          { id: "H", label: "heads", probability: "1/2" },
+          { id: "T", label: "tails", probability: "1/2" },
+        ] },
+      ],
+      highlightedPaths: [["H", "T"]],
+    },
   },
   {
     title: "Add paths for an or event",
@@ -131,6 +163,22 @@ const treeWorkedExamples: WorkedExample[] = [
       { explanation: "Add the two paths.", latex: "\\frac{1}{4}+\\frac{1}{4}=\\frac{1}{2}" },
     ],
     finalAnswerLatex: "\\frac{1}{2}",
+    probabilityTreeDiagram: {
+      description: "Two-stage fair-coin tree. The highlighted heads-tails and tails-heads paths are the two separate ways to get exactly one head, so their probabilities are added.",
+      rootLabel: "start",
+      stages: ["first toss", "second toss"],
+      branches: [
+        { id: "H", label: "heads", probability: "1/2", children: [
+          { id: "H", label: "heads", probability: "1/2" },
+          { id: "T", label: "tails", probability: "1/2" },
+        ] },
+        { id: "T", label: "tails", probability: "1/2", children: [
+          { id: "H", label: "heads", probability: "1/2" },
+          { id: "T", label: "tails", probability: "1/2" },
+        ] },
+      ],
+      highlightedPaths: [["H", "T"], ["T", "H"]],
+    },
   },
   {
     title: "Update branches without replacement",
@@ -141,6 +189,22 @@ const treeWorkedExamples: WorkedExample[] = [
       { explanation: "Multiply along the red-blue path.", latex: "\\frac{3}{5}\\times\\frac{2}{4}=\\frac{3}{10}" },
     ],
     finalAnswerLatex: "\\frac{3}{10}",
+    probabilityTreeDiagram: {
+      description: "Two-stage counter tree without replacement. The highlighted red-blue path uses three fifths for red first, then two quarters for blue after one red is removed.",
+      rootLabel: "bag",
+      stages: ["first draw", "second draw"],
+      branches: [
+        { id: "R", label: "red", probability: "3/5", children: [
+          { id: "R", label: "red", probability: "2/4" },
+          { id: "B", label: "blue", probability: "2/4" },
+        ] },
+        { id: "B", label: "blue", probability: "2/5", children: [
+          { id: "R", label: "red", probability: "3/4" },
+          { id: "B", label: "blue", probability: "1/4" },
+        ] },
+      ],
+      highlightedPaths: [["R", "B"]],
+    },
   },
 ];
 

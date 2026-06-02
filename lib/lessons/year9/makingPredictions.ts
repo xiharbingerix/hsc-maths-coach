@@ -169,8 +169,38 @@ const multiStage: LessonContent = {
   },
   workedExamples: [
     { title: "Coin then die", questionLatex: "\\text{Find }P(\\text{heads then rolling }6).", steps: [{ explanation: "Multiply along the single path.", latex: "P(H\\text{ then }6)=\\frac12\\times\\frac16" }, { explanation: "Simplify.", latex: "P=\\frac{1}{12}" }], finalAnswerLatex: "\\frac{1}{12}" },
-    { title: "Two spins", questionLatex: "\\text{A spinner has equal red and blue sectors. Find }P(\\text{red twice}).", steps: [{ explanation: "Each spin has red probability one half.", latex: "P(RR)=\\frac12\\times\\frac12" }, { explanation: "Multiply.", latex: "P(RR)=\\frac14" }], finalAnswerLatex: "\\frac14" },
-    { title: "Add two successful paths", questionLatex: "\\text{Two fair coins are tossed. Find }P(\\text{exactly one head}).", steps: [{ explanation: "The successful paths are HT and TH.", latex: "P(HT)=\\frac14,\\quad P(TH)=\\frac14" }, { explanation: "Add the separate paths.", latex: "P(\\text{exactly one H})=\\frac14+\\frac14=\\frac12" }], finalAnswerLatex: "\\frac12" },
+    {
+      title: "Two spins",
+      questionLatex: "\\text{A spinner has equal red and blue sectors. Find }P(\\text{red twice}).",
+      steps: [{ explanation: "Each spin has red probability one half.", latex: "P(RR)=\\frac12\\times\\frac12" }, { explanation: "Multiply.", latex: "P(RR)=\\frac14" }],
+      finalAnswerLatex: "\\frac14",
+      probabilityTreeDiagram: {
+        description: "Two-stage spinner tree. The highlighted red-red path shows that the unchanged one-half branch probability is multiplied twice.",
+        rootLabel: "spinner",
+        stages: ["first spin", "second spin"],
+        branches: [
+          { id: "R", label: "red", probability: "1/2", children: [{ id: "R", label: "red", probability: "1/2" }, { id: "B", label: "blue", probability: "1/2" }] },
+          { id: "B", label: "blue", probability: "1/2", children: [{ id: "R", label: "red", probability: "1/2" }, { id: "B", label: "blue", probability: "1/2" }] },
+        ],
+        highlightedPaths: [["R", "R"]],
+      },
+    },
+    {
+      title: "Add two successful paths",
+      questionLatex: "\\text{Two fair coins are tossed. Find }P(\\text{exactly one head}).",
+      steps: [{ explanation: "The successful paths are HT and TH.", latex: "P(HT)=\\frac14,\\quad P(TH)=\\frac14" }, { explanation: "Add the separate paths.", latex: "P(\\text{exactly one H})=\\frac14+\\frac14=\\frac12" }],
+      finalAnswerLatex: "\\frac12",
+      probabilityTreeDiagram: {
+        description: "Two-stage fair-coin tree. The highlighted heads-tails and tails-heads paths are the separate successful paths for exactly one head.",
+        rootLabel: "start",
+        stages: ["first toss", "second toss"],
+        branches: [
+          { id: "H", label: "heads", probability: "1/2", children: [{ id: "H", label: "heads", probability: "1/2" }, { id: "T", label: "tails", probability: "1/2" }] },
+          { id: "T", label: "tails", probability: "1/2", children: [{ id: "H", label: "heads", probability: "1/2" }, { id: "T", label: "tails", probability: "1/2" }] },
+        ],
+        highlightedPaths: [["H", "T"], ["T", "H"]],
+      },
+    },
   ],
   guidedPractice: [
     probability("y9-pred-multi-g1", "A fair coin is tossed and a fair die is rolled. Find the probability of tails then rolling a 2.", "P=\\frac12\\times\\frac16", "1/12", "Multiply the probabilities along the path."),
@@ -260,8 +290,38 @@ const dependentEvents: LessonContent = {
     latexBlocks: ["P(A\\text{ then }B)=P(A)\\times P(B\\text{ after }A)"],
   },
   workedExamples: [
-    { title: "Two red counters", questionLatex: "\\text{A bag has 3 red and 2 blue counters. Two are drawn without replacement. Find }P(RR).", steps: [{ explanation: "The first red probability is three fifths.", latex: "P(R_1)=\\frac35" }, { explanation: "After one red is removed, 2 red remain among 4 counters.", latex: "P(R_2\\text{ after }R_1)=\\frac24" }, { explanation: "Multiply.", latex: "P(RR)=\\frac35\\times\\frac24=\\frac{3}{10}" }], finalAnswerLatex: "\\frac{3}{10}" },
-    { title: "Two different colours", questionLatex: "\\text{A bag has 2 red and 3 blue counters. Find }P(R\\text{ then }B)\\text{ without replacement}.", steps: [{ explanation: "Draw red first.", latex: "P(R)=\\frac25" }, { explanation: "All 3 blue counters remain among 4 counters.", latex: "P(B\\text{ after }R)=\\frac34" }, { explanation: "Multiply.", latex: "P(RB)=\\frac25\\times\\frac34=\\frac{3}{10}" }], finalAnswerLatex: "\\frac{3}{10}" },
+    {
+      title: "Two red counters",
+      questionLatex: "\\text{A bag has 3 red and 2 blue counters. Two are drawn without replacement. Find }P(RR).",
+      steps: [{ explanation: "The first red probability is three fifths.", latex: "P(R_1)=\\frac35" }, { explanation: "After one red is removed, 2 red remain among 4 counters.", latex: "P(R_2\\text{ after }R_1)=\\frac24" }, { explanation: "Multiply.", latex: "P(RR)=\\frac35\\times\\frac24=\\frac{3}{10}" }],
+      finalAnswerLatex: "\\frac{3}{10}",
+      probabilityTreeDiagram: {
+        description: "Two-stage counter tree without replacement. The highlighted red-red path changes from three fifths to two quarters after the first red counter is removed.",
+        rootLabel: "bag",
+        stages: ["first draw", "second draw"],
+        branches: [
+          { id: "R", label: "red", probability: "3/5", children: [{ id: "R", label: "red", probability: "2/4" }, { id: "B", label: "blue", probability: "2/4" }] },
+          { id: "B", label: "blue", probability: "2/5", children: [{ id: "R", label: "red", probability: "3/4" }, { id: "B", label: "blue", probability: "1/4" }] },
+        ],
+        highlightedPaths: [["R", "R"]],
+      },
+    },
+    {
+      title: "Two different colours",
+      questionLatex: "\\text{A bag has 2 red and 3 blue counters. Find }P(R\\text{ then }B)\\text{ without replacement}.",
+      steps: [{ explanation: "Draw red first.", latex: "P(R)=\\frac25" }, { explanation: "All 3 blue counters remain among 4 counters.", latex: "P(B\\text{ after }R)=\\frac34" }, { explanation: "Multiply.", latex: "P(RB)=\\frac25\\times\\frac34=\\frac{3}{10}" }],
+      finalAnswerLatex: "\\frac{3}{10}",
+      probabilityTreeDiagram: {
+        description: "Two-stage counter tree without replacement. The highlighted red-blue path uses two fifths for red first and three quarters for blue after red is removed.",
+        rootLabel: "bag",
+        stages: ["first draw", "second draw"],
+        branches: [
+          { id: "R", label: "red", probability: "2/5", children: [{ id: "R", label: "red", probability: "1/4" }, { id: "B", label: "blue", probability: "3/4" }] },
+          { id: "B", label: "blue", probability: "3/5", children: [{ id: "R", label: "red", probability: "2/4" }, { id: "B", label: "blue", probability: "2/4" }] },
+        ],
+        highlightedPaths: [["R", "B"]],
+      },
+    },
     { title: "Small card set", questionLatex: "\\text{Cards }1,2,3,4\\text{ are used. Two are drawn without replacement. Find }P(\\text{both even}).", steps: [{ explanation: "Two of four cards are even.", latex: "P(E_1)=\\frac24" }, { explanation: "One even card remains among three cards.", latex: "P(E_2\\text{ after }E_1)=\\frac13" }, { explanation: "Multiply.", latex: "P(EE)=\\frac24\\times\\frac13=\\frac16" }], finalAnswerLatex: "\\frac16" },
   ],
   guidedPractice: [

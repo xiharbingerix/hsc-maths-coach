@@ -19,6 +19,7 @@ import { CartesianGraphView } from "./components/CartesianGraphView";
 import { TrapezoidalRuleView } from "./components/TrapezoidalRuleView";
 import { BoxPlotView } from "./components/BoxPlotView";
 import { NormalDistributionView } from "./components/NormalDistributionView";
+import { ProbabilityTreeView } from "./components/ProbabilityTreeView";
 import { TwoWayTableView } from "./components/TwoWayTableView";
 import { VennDiagramView } from "./components/VennDiagramView";
 import { markTypedAnswer } from "../../lib/answerMarking";
@@ -244,6 +245,9 @@ function PracticeCard({
         {question.normalDistributionDiagram && (
           <NormalDistributionView diagram={question.normalDistributionDiagram} />
         )}
+        {question.probabilityTreeDiagram && (
+          <ProbabilityTreeView diagram={question.probabilityTreeDiagram} />
+        )}
         {question.twoWayTableDiagram && (
           <TwoWayTableView diagram={question.twoWayTableDiagram} />
         )}
@@ -370,6 +374,9 @@ function QuizQuestion({
         {question.normalDistributionDiagram && (
           <NormalDistributionView diagram={question.normalDistributionDiagram} />
         )}
+        {question.probabilityTreeDiagram && (
+          <ProbabilityTreeView diagram={question.probabilityTreeDiagram} />
+        )}
         {question.twoWayTableDiagram && (
           <TwoWayTableView diagram={question.twoWayTableDiagram} />
         )}
@@ -487,6 +494,9 @@ function MasteryResultPanel({
                 )}
                 {question.normalDistributionDiagram && (
                   <NormalDistributionView diagram={question.normalDistributionDiagram} />
+                )}
+                {question.probabilityTreeDiagram && (
+                  <ProbabilityTreeView diagram={question.probabilityTreeDiagram} />
                 )}
                 {question.twoWayTableDiagram && (
                   <TwoWayTableView diagram={question.twoWayTableDiagram} />
@@ -890,6 +900,9 @@ export function LessonRenderer({
                 )}
                 {example.normalDistributionDiagram && (
                   <NormalDistributionView diagram={example.normalDistributionDiagram} />
+                )}
+                {example.probabilityTreeDiagram && (
+                  <ProbabilityTreeView diagram={example.probabilityTreeDiagram} />
                 )}
                 {example.twoWayTableDiagram && (
                   <TwoWayTableView diagram={example.twoWayTableDiagram} />

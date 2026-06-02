@@ -100,6 +100,7 @@ function hasVisualPayload(lesson: ExplicitLesson) {
       item.trapezoidalRuleDiagram ||
       item.boxPlotDiagram ||
       item.normalDistributionDiagram ||
+      item.probabilityTreeDiagram ||
       item.twoWayTableDiagram ||
       item.vennDiagram
   );
@@ -764,6 +765,99 @@ function validateTwoWayTableDiagram(value: unknown, path: string) {
   }
 }
 
+function validateProbabilityTreeDiagram(value: unknown, path: string) {
+  if (!isRecord(value)) {
+    addIssue("FAIL", "probability-tree-payload", path, "Probability tree diagram must be an object.");
+    return;
+  }
+
+  if (!isNonEmptyString(value.description)) {
+    addIssue("FAIL", "probability-tree-payload", path, "Probability tree diagram requires a description.");
+  }
+
+  if (value.rootLabel !== undefined && !isNonEmptyString(value.rootLabel)) {
+    addIssue("FAIL", "probability-tree-payload", `${path}.rootLabel`, "rootLabel must be non-empty when supplied.");
+  }
+
+  if (
+    value.stages !== undefined &&
+    (!Array.isArray(value.stages) || value.stages.some((stage) => !isNonEmptyString(stage)))
+  ) {
+    addIssue("FAIL", "probability-tree-payload", `${path}.stages`, "stages must be an array of non-empty strings when supplied.");
+  }
+
+  if (!Array.isArray(value.branches) || value.branches.length === 0) {
+    addIssue("FAIL", "probability-tree-payload", `${path}.branches`, "Probability tree diagram requires a non-empty branches array.");
+    return;
+  }
+
+  let maximumDepth = 0;
+  function validateBranches(branches: unknown[], branchPath: string, depth: number) {
+    maximumDepth = Math.max(maximumDepth, depth);
+    const siblingIds = new Set<string>();
+    branches.forEach((branch, index) => {
+      const currentPath = `${branchPath}[${index}]`;
+      if (!isRecord(branch)) {
+        addIssue("FAIL", "probability-tree-payload", currentPath, "Probability tree branch must be an object.");
+        return;
+      }
+      if (!isNonEmptyString(branch.id)) {
+        addIssue("FAIL", "probability-tree-payload", `${currentPath}.id`, "Probability tree branch requires a non-empty id.");
+      } else if (siblingIds.has(branch.id)) {
+        addIssue("FAIL", "probability-tree-payload", `${currentPath}.id`, "Probability tree branch ids must be unique among siblings.");
+      } else {
+        siblingIds.add(branch.id);
+      }
+      if (!isNonEmptyString(branch.label)) {
+        addIssue("FAIL", "probability-tree-payload", `${currentPath}.label`, "Probability tree branch requires a non-empty label.");
+      }
+      if (branch.probability !== undefined && !isNonEmptyString(branch.probability)) {
+        addIssue("FAIL", "probability-tree-payload", `${currentPath}.probability`, "Probability tree branch probability must be a non-empty string when supplied.");
+      }
+      if (branch.children !== undefined) {
+        if (!Array.isArray(branch.children) || branch.children.length === 0) {
+          addIssue("FAIL", "probability-tree-payload", `${currentPath}.children`, "Probability tree branch children must be a non-empty array when supplied.");
+        } else {
+          validateBranches(branch.children, `${currentPath}.children`, depth + 1);
+        }
+      }
+    });
+  }
+  validateBranches(value.branches, `${path}.branches`, 1);
+
+  if (maximumDepth > 4) {
+    addIssue("FAIL", "probability-tree-payload", path, "Probability tree depth must not exceed 4 stages.");
+  }
+
+  if (value.highlightedPaths === undefined) return;
+  if (!Array.isArray(value.highlightedPaths)) {
+    addIssue("FAIL", "probability-tree-payload", `${path}.highlightedPaths`, "highlightedPaths must be an array when supplied.");
+    return;
+  }
+
+  function pathExists(branches: unknown[], highlightedPath: unknown[]): boolean {
+    if (highlightedPath.length === 0) return false;
+    const [nextId, ...remainingIds] = highlightedPath;
+    if (!isNonEmptyString(nextId)) return false;
+    const matchingBranch = branches.find(
+      (branch) => isRecord(branch) && branch.id === nextId
+    );
+    if (!matchingBranch || !isRecord(matchingBranch)) return false;
+    if (remainingIds.length === 0) return true;
+    return Array.isArray(matchingBranch.children) &&
+      pathExists(matchingBranch.children, remainingIds);
+  }
+
+  value.highlightedPaths.forEach((highlightedPath, index) => {
+    if (
+      !Array.isArray(highlightedPath) ||
+      !pathExists(value.branches as unknown[], highlightedPath)
+    ) {
+      addIssue("FAIL", "probability-tree-payload", `${path}.highlightedPaths[${index}]`, "Highlighted probability-tree path must reference a valid non-empty branch-id path.");
+    }
+  });
+}
+
 function validateVisualPayloads(lesson: ExplicitLesson, basePath: string) {
   visualItems(lesson).forEach((item, index) => {
     const path = `${basePath}.visualItem[${index}]`;
@@ -775,6 +869,9 @@ function validateVisualPayloads(lesson: ExplicitLesson, basePath: string) {
     if (item.boxPlotDiagram) validateBoxPlotDiagram(item.boxPlotDiagram, `${path}.boxPlotDiagram`);
     if (item.normalDistributionDiagram) {
       validateNormalDistributionDiagram(item.normalDistributionDiagram, `${path}.normalDistributionDiagram`);
+    }
+    if (item.probabilityTreeDiagram) {
+      validateProbabilityTreeDiagram(item.probabilityTreeDiagram, `${path}.probabilityTreeDiagram`);
     }
     if (item.twoWayTableDiagram) {
       validateTwoWayTableDiagram(item.twoWayTableDiagram, `${path}.twoWayTableDiagram`);
