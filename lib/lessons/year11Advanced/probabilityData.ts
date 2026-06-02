@@ -1,6 +1,82 @@
-import type { ExplicitLesson } from "../differentialCalculus";
+import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import { practicalChoice, dataAnswer } from "../questionHelpers";
+import { practicalChoice, dataAnswer as baseDataAnswer } from "../questionHelpers";
+
+function probabilityDataFeedback(
+  id: string,
+  prompt: string,
+  answer: string
+) {
+  if (prompt.includes("median")) {
+    return `Put the values in order and locate the middle position. The median is the centre value, so unusually large or small values do not pull it around; here it is ${answer}.`;
+  }
+  if (prompt.includes("interquartile range")) {
+    return `The IQR measures the width of the middle half of the data. Subtract Q1 from Q3 to get ${answer}.`;
+  }
+  if (prompt.includes("range")) {
+    return `The range measures the full spread from the smallest value to the largest. Subtract minimum from maximum to get ${answer}.`;
+  }
+  if (prompt.includes("mode")) {
+    return `The mode is the value that appears most often. In a frequency table, look for the value above the largest frequency; this gives ${answer}.`;
+  }
+  if (prompt.includes("mean")) {
+    return `The mean shares the total evenly across the data values. For a frequency table, multiply each value by its frequency before dividing by the total frequency; the result is ${answer}.`;
+  }
+  if (prompt.includes("upper fence")) {
+    return `The upper outlier fence is Q3 + 1.5(IQR). Find the middle-half spread first, then extend beyond Q3 to get ${answer}.`;
+  }
+  if (prompt.includes("complement rule") || prompt.includes("not equal")) {
+    return `A complement means everything except the stated event. Subtract the stated probability from 1 to get ${answer}.`;
+  }
+  if (prompt.includes("relative frequency")) {
+    return `Relative frequency is an estimate from observed trials. Divide the outcome count by the total number of trials to get ${answer}.`;
+  }
+  if (prompt.includes("union") || prompt.includes("either event")) {
+    return `A union means either event occurs. Add the event probabilities, then subtract the overlap once if both events can happen together; this gives ${answer}.`;
+  }
+  if (prompt.includes("missing probability")) {
+    return `A complete probability distribution must add to 1. Add the known probabilities and subtract that total from 1 to get ${answer}.`;
+  }
+  if (prompt.includes("at least")) {
+    return `At least means the stated value or anything larger. Add the probabilities for those table entries to get ${answer}.`;
+  }
+  if (prompt.includes("at most")) {
+    return `At most means the stated value or anything smaller. Add the probabilities for those table entries to get ${answer}.`;
+  }
+  if (prompt.includes("Read the probability")) {
+    return `Match the requested x-value to its probability in the table. Read from the probability row, not the value row; this gives ${answer}.`;
+  }
+  if (prompt.includes("expected value") || prompt.includes("expected winnings")) {
+    return `Expected value is a long-run weighted average. Multiply each possible value by its probability and add the products to get ${answer}.`;
+  }
+  if (prompt.includes("second moment")) {
+    return `For E(X^2), square each possible value before weighting it by its probability. Add those weighted squares to get ${answer}.`;
+  }
+  if (prompt.includes("variance")) {
+    return `Variance measures spread after accounting for the mean. Use Var(X) = E(X^2) - [E(X)]^2 to get ${answer}.`;
+  }
+  if (prompt.includes("standard deviation")) {
+    return `Standard deviation is the square root of the variance, so it returns the spread to the original units. The result is ${answer}.`;
+  }
+  if (id.includes("-prob-")) {
+    return `List all possible outcomes, then count the outcomes that match the event. Probability is favourable outcomes divided by total outcomes, which gives ${answer}.`;
+  }
+  return `Read the representation first and choose the matching rule before calculating. Following that structure gives ${answer}.`;
+}
+
+function dataAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseDataAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: probabilityDataFeedback(id, prompt, answer),
+  };
+}
+
 export function year11AdvancedProbabilityDataLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -30,11 +106,11 @@ export function year11AdvancedProbabilityDataLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Data can be categorical, such as a phone brand, or numerical, such as a time or score. Numerical data can be discrete when it is counted, or continuous when it is measured.",
-          "A frequency table records how often each value or category occurs. For numerical data, the mean from a frequency table is found by multiplying each value by its frequency, adding the products, and dividing by the total frequency.",
-          "The mean, median, and mode describe centre. The range and interquartile range describe spread.",
-          "The five-number summary is the minimum, lower quartile, median, upper quartile, and maximum. The IQR is the upper quartile minus the lower quartile.",
-          "Outlier fences are used to detect unusually low or high values. The median and IQR are usually better than the mean and range when data is skewed or has an outlier.",
+          "Start by asking what kind of data you have. Counts are discrete, measurements are continuous, and labels such as phone brand are categorical.",
+          "A frequency table is a compressed list: instead of rewriting a score five times, it records that the score occurred five times. For a mean, each value must still contribute once for every occurrence, which is why you multiply value by frequency.",
+          "Centre and spread answer different questions. Mean, median, and mode describe a typical location; range and IQR describe how scattered the values are.",
+          "The IQR is the width of the middle half of the data. It ignores the outer quarters, so one extreme value affects it much less than it affects the full range.",
+          "Outlier fences give a consistent check for unusually distant values. When an outlier pulls the mean away from most of the data, the median is often the calmer summary of centre.",
         ],
         latexBlocks: [
           "\\bar{x}=\\frac{\\sum x}{n}",
@@ -176,11 +252,12 @@ export function year11AdvancedProbabilityDataLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A sample space is the set of possible outcomes. An event is a subset of the sample space.",
-          "For equally likely outcomes, probability is the number of favourable outcomes divided by the total number of outcomes.",
-          "The complement rule finds the probability that an event does not happen. Addition rules combine probabilities for events.",
-          "Relative frequency estimates probability using observed data. As the number of trials increases, relative frequency often becomes a more reliable estimate.",
-          "Two-way tables show joint frequencies inside the table and marginal totals on the edges. Conditional probability restricts attention to one row, column, or group.",
+          "A sample space is simply the full list of possible outcomes. An event is the smaller group of outcomes you care about.",
+          "For equally likely outcomes, probability is favourable outcomes divided by all possible outcomes. The denominator comes from the whole sample space.",
+          "A complement means everything except the event, so its probability is what remains after subtracting from 1. A union means A or B; if events overlap, subtract the intersection once because it was counted twice.",
+          "Mutually exclusive events cannot happen together. Independent events can happen together, but one event does not change the chance of the other.",
+          "A row-and-column table has cell counts inside and totals at the edges. Conditional probability means restrict your attention to the named row, column, or group, so the denominator becomes that smaller total.",
+          "Relative frequency is an estimate built from observed trials. It often settles down as more trials are collected, but it is not automatically the exact theoretical probability.",
         ],
         latexBlocks: [
           "P(A)=\\frac{n(A)}{n(S)}",
@@ -306,10 +383,10 @@ export function year11AdvancedProbabilityDataLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A random variable assigns a number to the outcome of a chance process. It is discrete when the possible values can be listed.",
-          "A probability distribution table lists each possible value of the random variable and the probability of that value.",
-          "For a valid probability distribution, every probability must be at least zero and all probabilities must add to 1.",
-          "To find probabilities such as at least, at most, or not equal to a value, add the relevant table probabilities or use a complement.",
+          "A random variable gives a number to each outcome of a chance process. It is discrete when the possible values are countable, such as 0, 1, 2, or 3 goals.",
+          "A probability distribution table pairs each possible value with its chance. Read across carefully: the value row tells you what can happen, and the probability row tells you how likely it is.",
+          "The probabilities must all be non-negative and add to 1 because the table must account for every possible outcome.",
+          "Words matter: at least means include the stated value and everything above it; at most means include the stated value and everything below it. For not equal, a complement is often quicker.",
         ],
         latexBlocks: [
           "\\sum P(X=x)=1",
@@ -418,10 +495,10 @@ export function year11AdvancedProbabilityDataLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Expected value is the long-run average value of a random variable. It is a weighted average where each value is weighted by its probability.",
-          "Variance measures spread around the expected value. For a discrete random variable, it is often calculated using $E(X^2)-[E(X)]^2$.",
-          "Standard deviation is the square root of the variance and is measured in the same units as the random variable.",
-          "In games of chance, expected winnings can show whether the game is favourable, unfavourable, or fair. A fair game has expected winnings of zero.",
+          "Expected value is the long-run average you would expect after many repetitions. More likely outcomes should influence that average more strongly, which is why each value is multiplied by its probability.",
+          "Variance measures how spread out the results are around that long-run average. The shortcut E(X^2) - [E(X)]^2 compares the weighted square values with the square of the mean.",
+          "Standard deviation is the square root of variance. Taking the square root brings the spread back into the same units as the original random variable.",
+          "For games of chance, expected winnings describe the long-run balance, not what must happen on one play. Zero is fair, a positive result favours the player, and a negative result does not.",
         ],
         latexBlocks: [
           "E(X)=\\sum xP(X=x)",
@@ -544,10 +621,10 @@ export function year11AdvancedProbabilityDataLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Mixed assessment questions often combine reading data, choosing a summary statistic, calculating a probability, and interpreting a result.",
-          "Before calculating, identify the representation: sorted list, frequency table, two-way table, probability distribution, or expected-value table.",
-          "Keep typed answers short. For interpretation questions, choose the option that matches the statistical meaning rather than just the largest number.",
-          "Use exact fractions or clean decimals where appropriate, and include units or context in your thinking even when the answer box only needs a number.",
+          "Mixed questions become easier when you name the representation before calculating: sorted list, frequency table, row-and-column table, or probability distribution.",
+          "Then name the job. Are you finding a typical value, measuring spread, restricting a denominator, completing probabilities to 1, or calculating a weighted average?",
+          "In a row-and-column table, a condition narrows the group and therefore narrows the denominator. In a probability distribution, every possible outcome must still be accounted for.",
+          "Keep typed answers short, but keep the meaning in mind: exact fractions and clean decimals can describe the same probability, while variance and standard deviation are different stages of the calculation.",
         ],
         latexBlocks: [
           "IQR=Q_3-Q_1",
