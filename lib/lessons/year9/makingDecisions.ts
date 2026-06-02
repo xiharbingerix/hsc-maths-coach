@@ -3,9 +3,44 @@ import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 
 type LessonContent = Pick<ExplicitLesson, "description" | "learningIntention" | "successCriteria" | "teaching" | "workedExamples" | "guidedPractice" | "independentPractice" | "commonMistakes" | "masteryQuiz">;
 
+function safeStatisticsAnswerVariants(prompt: string, answer: string) {
+  const variants: string[] = [];
+  const lowerPrompt = prompt.toLowerCase();
+  const numericAnswer = Number(answer.replace(/,/g, ""));
+
+  if (Number.isFinite(numericAnswer)) {
+    if (Number.isInteger(numericAnswer)) {
+      variants.push(numericAnswer.toFixed(1));
+    }
+    if (Math.abs(numericAnswer) >= 1000) {
+      variants.push(numericAnswer.toLocaleString("en-AU"));
+    }
+  }
+
+  const labels: string[] = [];
+  if (lowerPrompt.startsWith("find the mean")) labels.push("mean");
+  if (lowerPrompt.startsWith("find the median")) labels.push("median");
+  if (lowerPrompt.startsWith("find the mode")) labels.push("mode");
+  if (lowerPrompt.startsWith("find the range")) labels.push("range");
+  if (lowerPrompt.includes("find q1")) labels.push("Q1", "q1");
+  if (lowerPrompt.includes("find q3")) labels.push("Q3", "q3");
+  if (lowerPrompt.includes("find its iqr") || lowerPrompt.includes("find the iqr")) labels.push("IQR", "iqr");
+  if (lowerPrompt.startsWith("find the population standard deviation")) labels.push("SD", "sd");
+
+  for (const label of labels) {
+    variants.push(`${label}=${answer}`, `${label} = ${answer}`);
+  }
+
+  if (lowerPrompt.includes("minutes")) {
+    variants.push(`${answer} minutes`, `${answer} min`);
+  }
+
+  return variants;
+}
+
 function number(id: string, prompt: string, latex: string, answer: string, explanation: string, acceptedAnswers: string[] = []): PracticeQuestion {
   const displayLatex = /-(?:g|i)\d+$/.test(id) ? "\\text{Show your statistical method clearly.}" : latex;
-  return { id, prompt, latex: displayLatex, answer, acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])), hint: "Identify the statistic requested, then calculate carefully.", explanation };
+  return { id, prompt, latex: displayLatex, answer, acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...safeStatisticsAnswerVariants(prompt, answer)])), hint: "Identify the statistic requested, then calculate carefully.", explanation };
 }
 
 function choice(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices: [string, string, string, string], explanation: string, latex = "\\text{Select A, B, C, or D.}"): PracticeQuestion {
