@@ -10,6 +10,8 @@ export default async function FunctionsGraphingTechniquesLessonPage({
 
   return (
     <LessonRenderer
+      courseSlug="year-12-advanced"
+      unitSlug="functions-graphing-techniques"
       lessonSlug={lessonSlug}
       lessons={functionsGraphingTechniquesLessons}
       backHref="/course/functions-graphing-techniques"

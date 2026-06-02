@@ -381,6 +381,8 @@ export function NewCourseLessonPage({
 
   return (
     <LessonRenderer
+      courseSlug={courseSlug}
+      unitSlug={unitSlug}
       lessonSlug={lesson.slug}
       lessons={getNewCourseUnitLessons(courseSlug, unitSlug)}
       backHref={`/course/${courseSlug}/${unitSlug}`}

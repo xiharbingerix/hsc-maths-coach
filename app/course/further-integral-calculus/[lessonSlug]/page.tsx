@@ -10,6 +10,8 @@ export default async function FurtherIntegralCalculusLessonPage({
 
   return (
     <LessonRenderer
+      courseSlug="year-12-advanced"
+      unitSlug="further-integral-calculus"
       lessonSlug={lessonSlug}
       lessons={furtherIntegralCalculusLessons}
       backHref="/course/further-integral-calculus"

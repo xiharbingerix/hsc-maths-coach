@@ -10,6 +10,8 @@ export default async function StatisticalAnalysisLessonPage({
 
   return (
     <LessonRenderer
+      courseSlug="year-12-advanced"
+      unitSlug="statistical-analysis"
       lessonSlug={lessonSlug}
       lessons={statisticalAnalysisLessons}
       backHref="/course/statistical-analysis"

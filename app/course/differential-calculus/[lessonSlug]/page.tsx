@@ -10,6 +10,8 @@ export default async function DifferentialCalculusLessonPage({
 
   return (
     <LessonRenderer
+      courseSlug="year-12-advanced"
+      unitSlug="differential-calculus"
       lessonSlug={lessonSlug}
       lessons={differentialCalculusLessons}
       backHref="/course/differential-calculus"

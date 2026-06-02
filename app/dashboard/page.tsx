@@ -5,6 +5,10 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { courseCatalogue } from "../../lib/courseUnits";
+import {
+  getUserAllProgress,
+  type LessonProgressRecord,
+} from "../../lib/lessonProgress";
 import { supabase } from "../../lib/supabaseClient";
 import {
   getUserAccessDashboardCopy,
@@ -22,6 +26,9 @@ export default function DashboardPage() {
   const [stripeCustomerId, setStripeCustomerId] = useState<string | null>(null);
   const [isPortalLoading, setIsPortalLoading] = useState(false);
   const [billingPortalError, setBillingPortalError] = useState("");
+  const [lessonProgress, setLessonProgress] = useState<
+    Record<string, LessonProgressRecord>
+  >({});
 
   useEffect(() => {
     async function loadDashboard() {
@@ -34,6 +41,7 @@ export default function DashboardPage() {
       }
 
       setUser(sessionUser);
+      setLessonProgress(await getUserAllProgress(sessionUser.id));
 
       const { data: profileData } = await supabase
         .from("profiles")
@@ -152,6 +160,11 @@ export default function DashboardPage() {
   }
 
   const accessCopy = getUserAccessDashboardCopy(accessStatus);
+  const availableCourses = courseCatalogue.filter(
+    (course) => course.status === "available"
+  );
+  const progressRecords = Object.values(lessonProgress);
+  const hasLessonProgress = progressRecords.length > 0;
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -283,6 +296,60 @@ export default function DashboardPage() {
               </>
             ) : null}
           </div>
+        </section>
+
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-2xl font-bold tracking-tight">Your progress</h2>
+          <p className="mt-3 max-w-3xl leading-7 text-slate-600">
+            Lessons count as complete after you pass their mastery quiz.
+          </p>
+
+          {hasLessonProgress ? (
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              {availableCourses.map((course) => {
+                const completedLessons = Math.min(
+                  progressRecords.filter(
+                    (record) =>
+                      record.courseSlug === course.courseSlug && record.passed
+                  ).length,
+                  course.activeLessonCount
+                );
+                const percentage =
+                  course.activeLessonCount > 0
+                    ? Math.round(
+                        (completedLessons / course.activeLessonCount) * 100
+                      )
+                    : 0;
+
+                return (
+                  <Link
+                    key={course.courseSlug}
+                    href={course.href}
+                    className="rounded-2xl border border-slate-200 p-5 transition hover:bg-slate-50"
+                  >
+                    <h3 className="font-bold">{course.courseTitle}</h3>
+                    <p className="mt-2 text-sm text-slate-600">
+                      {completedLessons} of {course.activeLessonCount} lessons
+                      complete
+                    </p>
+                    <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-100">
+                      <div
+                        className="h-full rounded-full bg-slate-950"
+                        style={{ width: `${Math.min(percentage, 100)}%` }}
+                      />
+                    </div>
+                    <p className="mt-2 text-sm font-semibold text-slate-700">
+                      {percentage}%
+                    </p>
+                  </Link>
+                );
+              })}
+            </div>
+          ) : (
+            <p className="mt-6 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
+              Start a lesson and pass mastery to see your progress here.
+            </p>
+          )}
         </section>
 
         {accessStatus === "active" || accessStatus === "revoked" ? (

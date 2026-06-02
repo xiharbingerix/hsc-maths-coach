@@ -10,6 +10,8 @@ export default async function ExponentialLogarithmicFunctionsLessonPage({
 
   return (
     <LessonRenderer
+      courseSlug="year-12-advanced"
+      unitSlug="exponential-logarithmic-functions"
       lessonSlug={lessonSlug}
       lessons={exponentialLogarithmicFunctionsLessons}
       backHref="/course/exponential-logarithmic-functions"

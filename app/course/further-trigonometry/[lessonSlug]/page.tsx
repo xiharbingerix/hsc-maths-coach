@@ -10,6 +10,8 @@ export default async function FurtherTrigonometryLessonPage({
 
   return (
     <LessonRenderer
+      courseSlug="year-12-advanced"
+      unitSlug="further-trigonometry"
       lessonSlug={lessonSlug}
       lessons={furtherTrigonometryLessons}
       backHref="/course/further-trigonometry"

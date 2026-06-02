@@ -10,6 +10,8 @@ export default async function TrigonometricFunctionsGraphsLessonPage({
 
   return (
     <LessonRenderer
+      courseSlug="year-12-advanced"
+      unitSlug="trigonometric-functions-graphs"
       lessonSlug={lessonSlug}
       lessons={trigonometricFunctionsGraphsLessons}
       backHref="/course/trigonometric-functions-graphs"

@@ -72,7 +72,7 @@ export const courseUnits: CourseUnitSummary[] = [
     href: "/course/trigonometric-functions-graphs",
     description:
       "Radians, exact values, the unit circle, sine, cosine, tangent graphs, equations, identities, and modelling.",
-    activeLessonCount: 8,
+    activeLessonCount: 7,
   },
   {
     title: "Further Trigonometry",
@@ -107,7 +107,7 @@ export const courseUnits: CourseUnitSummary[] = [
     href: "/course/statistical-analysis",
     description:
       "Data displays, summary statistics, outliers, standard deviation, z-scores, correlation, regression, normal distributions, and random variables.",
-    activeLessonCount: 7,
+    activeLessonCount: 8,
   },
 ];
 

@@ -10,6 +10,8 @@ export default async function FinancialMathematicsLessonPage({
 
   return (
     <LessonRenderer
+      courseSlug="year-12-advanced"
+      unitSlug="financial-mathematics"
       lessonSlug={lessonSlug}
       lessons={financialMathematicsLessons}
       backHref="/course/financial-mathematics"

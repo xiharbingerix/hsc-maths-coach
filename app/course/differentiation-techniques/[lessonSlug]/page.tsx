@@ -10,6 +10,8 @@ export default async function DifferentiationTechniquesLessonPage({
 
   return (
     <LessonRenderer
+      courseSlug="year-12-advanced"
+      unitSlug="differentiation-techniques"
       lessonSlug={lessonSlug}
       lessons={differentiationTechniquesLessons}
       backHref="/course/differentiation-techniques"
