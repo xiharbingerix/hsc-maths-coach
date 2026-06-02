@@ -1,6 +1,60 @@
-import type { ExplicitLesson } from "../differentialCalculus";
+import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import { practicalChoice, formulaAnswer } from "../questionHelpers";
+import { practicalChoice, formulaAnswer as baseFormulaAnswer } from "../questionHelpers";
+
+function differentiationFeedback(prompt: string, answer: string) {
+  if (prompt.includes("average rate") || prompt.includes("average velocity") || prompt.includes("gradient of the secant")) {
+    return `Average rate of change is the steepness between two points: change in output divided by change in input. This secant gradient is ${answer}.`;
+  }
+  if (prompt.includes("Simplify the numerator")) {
+    return `Expand carefully so the common factor of h becomes visible. This matters because first principles only lets h approach zero after that factor can cancel; the numerator simplifies to ${answer}.`;
+  }
+  if (prompt.includes("difference quotient")) {
+    return `The difference quotient compares a nearby output with the original output, then divides by the small horizontal change h. Simplify before letting h shrink toward zero; this gives ${answer}.`;
+  }
+  if (prompt.includes("first principles")) {
+    return `First principles starts with a secant gradient and shrinks the interval until it behaves like the tangent at one point. After simplifying and taking the limit, the derivative is ${answer}.`;
+  }
+  if (prompt.includes("Differentiate")) {
+    return `Differentiate term by term. For each power of x, multiply by the old power and reduce that power by 1; constants disappear because they do not change, giving ${answer}.`;
+  }
+  if (prompt.includes("Evaluate the derivative") || prompt.includes("derivative value")) {
+    return `The derivative is the gradient function. Find it first if needed, then substitute the stated x-value to get the curve's local steepness, ${answer}.`;
+  }
+  if (prompt.includes("x-value where the tangent is horizontal")) {
+    return `A horizontal tangent has gradient 0. Set the derivative equal to zero and solve for the x-value, giving ${answer}.`;
+  }
+  if (prompt.includes("point on the curve")) {
+    return `A tangent or normal line must pass through the actual point on the curve. Substitute the given x-value into the original function to get ${answer}.`;
+  }
+  if (prompt.includes("normal gradient")) {
+    return `A normal is perpendicular to the tangent, so use the negative reciprocal of the tangent gradient. This gives ${answer}.`;
+  }
+  if (prompt.includes("tangent gradient")) {
+    return `The y-value tells you the point's height, but the derivative tells you the curve's local steepness. Evaluate the derivative at the stated x-value to get tangent gradient ${answer}.`;
+  }
+  if (prompt.includes("normal equation")) {
+    return `Use the negative-reciprocal normal gradient and the point on the curve in point-gradient form. Simplifying that line gives ${answer}.`;
+  }
+  if (prompt.includes("tangent equation")) {
+    return `Find the local gradient from the derivative, find the point from the original curve, then use point-gradient form. Simplifying gives ${answer}.`;
+  }
+  return `Choose the derivative step that matches the question, then keep gradient and function value separate. The result is ${answer}.`;
+}
+
+function formulaAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseFormulaAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: differentiationFeedback(prompt, answer),
+  };
+}
+
 export function year11AdvancedIntroductionDifferentiationLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -34,9 +88,10 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A rate of change compares how much one quantity changes compared with another. In functions, this usually means change in output divided by change in input.",
-          "The average rate of change over an interval is the gradient of the secant joining the two points on the graph.",
-          "The instantaneous rate of change at one point is the gradient of the tangent at that point. In this introductory unit, think of it as what the secant gradient approaches as the two points get closer together.",
+          "A gradient tells you steepness: how much the output changes for each one-unit change in the input. In a context, it answers a practical question such as how quickly height or volume is changing.",
+          "Average rate of change uses two points. The straight line joining them is a secant, and its gradient summarises the change across the whole interval.",
+          "Instantaneous rate of change asks for steepness at one point. A tangent captures the curve's local straight-line behaviour there, as though you zoomed in until the curve looked almost straight.",
+          "You can imagine sliding the second secant point closer to the first. The secant gradients approach the tangent gradient, linking average change to instantaneous change.",
           "A positive gradient means the graph is increasing, a negative gradient means it is decreasing, and a zero gradient means it is momentarily flat.",
           "In context, units matter. If height is measured in metres and time in seconds, a rate of change is measured in metres per second.",
         ],
@@ -133,10 +188,10 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "First principles builds differentiation from gradients. It starts with the average gradient between two nearby points on a function.",
-          "The difference quotient compares the function value at $x+h$ with the function value at $x$, then divides by the horizontal change $h$.",
-          "Taking the limit as $h$ approaches zero turns the secant gradient into the tangent gradient.",
-          "For simple functions, algebraic simplification lets the $h$ in the denominator cancel before the limit is used.",
+          "First principles builds a derivative from the gradient idea rather than dropping in a rule. Start with two nearby points on the curve and calculate the secant gradient between them.",
+          "The second point is h units to the right, so its output is f(x + h). The difference quotient is new output minus original output, divided by the horizontal change h.",
+          "Now shrink h toward zero. The secant becomes a better and better local model of the curve, so its gradient approaches the tangent gradient.",
+          "Do not substitute h = 0 at the start because that divides by zero. Simplify first so a factor of h cancels, then let the remaining h approach zero.",
           "In this Year 11 introduction, the goal is to understand the setup and process before using faster derivative rules.",
         ],
         latexBlocks: [
@@ -228,11 +283,11 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Once first principles has built the idea of a derivative, rules make differentiation faster.",
-          "The power rule differentiates powers of x by multiplying by the power, then reducing the power by one.",
-          "A constant differentiates to zero because it does not change as x changes.",
-          "Polynomial functions are differentiated term-by-term. Keep signs attached to their terms.",
-          "After finding the derivative function, substitute an x-value to find the gradient at a point.",
+          "A derivative is a gradient function: it tells you the local steepness of the original curve at any x-value. First principles explains where it comes from; rules make the calculation faster.",
+          "For a power of x, the power rule brings the old power down as a multiplier and reduces the power by 1. The reduced power reflects how the steepness changes as x changes.",
+          "A constant differentiates to zero because a flat constant value has no change and therefore no steepness.",
+          "Differentiate a polynomial one term at a time and keep each sign attached to its term. Treat dy/dx and f'(x) as notation for the derivative, not as a fraction to cancel casually.",
+          "After finding the derivative function, substitute an x-value to find the tangent gradient at that point. Do not substitute into the original function when the question asks for steepness.",
         ],
         latexBlocks: [
           "\\frac{d}{dx}(ax^n)=anx^{n-1}",
@@ -323,11 +378,11 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A tangent touches a curve at a point and has the same gradient as the curve at that point.",
-          "The derivative gives the tangent gradient. If the point is not already given, substitute the x-value into the original function to find it.",
+          "A tangent is the straight line that matches the curve's local behaviour at one point. Its gradient is the curve's instantaneous rate of change there.",
+          "Use the derivative for the tangent gradient, but use the original function for the point's y-value. These are different jobs, and mixing them up is a common source of errors.",
           "A normal is perpendicular to the tangent. Its gradient is the negative reciprocal of the tangent gradient, provided the tangent gradient is not zero.",
           "Use point-gradient form to build the tangent or normal equation from a gradient and point.",
-          "In applications, a tangent line can approximate the curve near the point of contact.",
+          "Near the point of contact, the tangent gives a useful straight-line approximation because it shares the curve's local direction.",
         ],
         latexBlocks: [
           "m_{\\text{tangent}}=f'(a)",
@@ -418,11 +473,11 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Mixed differentiation questions usually test whether you can identify the role of the derivative: gradient, rate of change, tangent, or normal.",
-          "Average rate of change uses two points or two values. A derivative value gives instantaneous gradient at one point.",
-          "First-principles questions often focus on the correct setup or simplification rather than long typed limit notation.",
-          "For tangent and normal questions, find the derivative, find the point, then use point-gradient form.",
-          "Check whether the question asks for a gradient, an equation, a coordinate, or an interpretation before answering.",
+          "Mixed differentiation questions become easier when you name the job first: average change, instantaneous gradient, derivative rule, tangent line, or normal line.",
+          "Average rate uses two points and gives a secant gradient. Instantaneous rate uses the derivative at one point and gives the tangent gradient.",
+          "First-principles questions are about shrinking an interval: simplify the nearby-point gradient before letting h approach zero.",
+          "For polynomial derivatives, multiply by the old power and reduce the power by 1. For tangent and normal equations, find the derivative, find the point, then use point-gradient form.",
+          "Before answering, check whether the question wants a y-value, a gradient, a coordinate, an equation, or an interpretation. Those are related ideas, but they are not interchangeable.",
         ],
         latexBlocks: [
           "\\frac{f(b)-f(a)}{b-a}",
