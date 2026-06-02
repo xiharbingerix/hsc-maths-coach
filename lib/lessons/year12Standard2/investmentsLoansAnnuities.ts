@@ -1,6 +1,81 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import type { ExplicitLesson } from "../differentialCalculus";
-import { financeChoice, financeShortAnswer, moneyAnswer } from "../questionHelpers";
+import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import {
+  financeChoice,
+  financeShortAnswer as baseFinanceShortAnswer,
+  moneyAnswer as baseMoneyAnswer,
+} from "../questionHelpers";
+
+function financeFeedback(prompt: string, latex: string, answer: string) {
+  if (prompt.includes("interest earned")) {
+    return `Interest earned is the extra money added, not the whole balance. Subtract the original amount from the final balance to get ${answer}.`;
+  }
+  if (prompt.includes("growth factor")) {
+    return prompt.includes("What annual percentage rate") ||
+      prompt.includes("represents what percentage")
+      ? `A growth factor is 1 plus the decimal rate. Subtract 1, then convert the decimal to a percentage; this gives ${answer}.`
+      : `Growth keeps the original balance and adds the percentage increase, so use 1 plus the decimal rate. The growth factor is ${answer}.`;
+  }
+  if (prompt.includes("decay factor")) {
+    return `Depreciation keeps only part of the value each period. Subtract the decimal depreciation rate from 1 to get the decay factor ${answer}.`;
+  }
+  if (prompt.includes("net return") || prompt.includes("net balance")) {
+    return `Net balance means the amount left after fees. Subtract the stated fee from the return before comparing options; this gives ${answer}.`;
+  }
+  if (
+    prompt.includes("previous balance") ||
+    prompt.includes("Find the starting balance")
+  ) {
+    return `This is a reverse recurrence question. Undo the final addition or subtraction first, then undo the multiplication factor to recover ${answer}.`;
+  }
+  if (latex.includes("B_{n+1}")) {
+    return `A loan recurrence follows the order shown: apply interest to the current debt, then subtract the repayment. Carrying out those steps gives the next balance ${answer}.`;
+  }
+  if (latex.includes("S_{n+1}")) {
+    return `A savings recurrence grows the current balance first, then adds the regular deposit. Following that order gives the new balance ${answer}.`;
+  }
+  if (prompt.includes("depreciat") || latex.includes("V=P(1-r)^n")) {
+    return `Depreciation is repeated percentage loss, so multiply by a decay factor below 1 for each period. Applying the factor and rounding at the end gives ${answer}.`;
+  }
+  if (
+    prompt.includes("compounded") ||
+    prompt.includes("investment") ||
+    latex.includes("A=P(1+r)^n")
+  ) {
+    return `Compound interest is repeated multiplication because each period earns interest on the updated balance. Use the growth factor once per period and round at the end to get ${answer}.`;
+  }
+  if (prompt.includes("deposit")) {
+    return `Apply interest to the existing savings first, then add the new deposit at the time stated. The resulting balance is ${answer}.`;
+  }
+  return `Read whether the balance is growing, shrinking, or changing by a regular payment before calculating. Following the stated financial process gives ${answer}.`;
+}
+
+function moneyAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseMoneyAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: financeFeedback(prompt, latex, answer),
+  };
+}
+
+function financeShortAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseFinanceShortAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: financeFeedback(prompt, latex, answer),
+  };
+}
+
 export function year12Standard2FinanceLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
