@@ -100,6 +100,7 @@ function hasVisualPayload(lesson: ExplicitLesson) {
       item.trapezoidalRuleDiagram ||
       item.boxPlotDiagram ||
       item.normalDistributionDiagram ||
+      item.twoWayTableDiagram ||
       item.vennDiagram
   );
 }
@@ -657,6 +658,112 @@ function validateVennDiagram(value: unknown, path: string) {
   }
 }
 
+function isTableValue(value: unknown) {
+  return isFiniteNumber(value) || isNonEmptyString(value);
+}
+
+function validateTwoWayTableDiagram(value: unknown, path: string) {
+  if (!isRecord(value)) {
+    addIssue("FAIL", "two-way-table-payload", path, "Two-way table diagram must be an object.");
+    return;
+  }
+
+  if (!isNonEmptyString(value.description)) {
+    addIssue("FAIL", "two-way-table-payload", path, "Two-way table diagram requires a description.");
+  }
+
+  if (
+    !Array.isArray(value.rowLabels) ||
+    value.rowLabels.length === 0 ||
+    value.rowLabels.some((label) => !isNonEmptyString(label))
+  ) {
+    addIssue("FAIL", "two-way-table-payload", path, "Two-way table diagram requires a non-empty rowLabels array.");
+  }
+
+  if (
+    !Array.isArray(value.columnLabels) ||
+    value.columnLabels.length === 0 ||
+    value.columnLabels.some((label) => !isNonEmptyString(label))
+  ) {
+    addIssue("FAIL", "two-way-table-payload", path, "Two-way table diagram requires a non-empty columnLabels array.");
+  }
+
+  if (!Array.isArray(value.values)) {
+    addIssue("FAIL", "two-way-table-payload", path, "Two-way table diagram requires a rectangular values array.");
+    return;
+  }
+
+  const rowCount = Array.isArray(value.rowLabels) ? value.rowLabels.length : 0;
+  const columnCount = Array.isArray(value.columnLabels) ? value.columnLabels.length : 0;
+  if (
+    value.values.length !== rowCount ||
+    value.values.some(
+      (row) =>
+        !Array.isArray(row) ||
+        row.length !== columnCount ||
+        row.some((cell) => !isTableValue(cell))
+    )
+  ) {
+    addIssue("FAIL", "two-way-table-payload", `${path}.values`, "Values must be a rectangular rowLabels by columnLabels array of finite numbers or non-empty strings.");
+  }
+
+  if (
+    value.rowTotals !== undefined &&
+    (!Array.isArray(value.rowTotals) ||
+      value.rowTotals.length !== rowCount ||
+      value.rowTotals.some((total) => !isTableValue(total)))
+  ) {
+    addIssue("FAIL", "two-way-table-payload", `${path}.rowTotals`, "rowTotals must match rowLabels and contain finite numbers or non-empty strings.");
+  }
+
+  if (
+    value.columnTotals !== undefined &&
+    (!Array.isArray(value.columnTotals) ||
+      value.columnTotals.length !== columnCount ||
+      value.columnTotals.some((total) => !isTableValue(total)))
+  ) {
+    addIssue("FAIL", "two-way-table-payload", `${path}.columnTotals`, "columnTotals must match columnLabels and contain finite numbers or non-empty strings.");
+  }
+
+  if (value.grandTotal !== undefined && !isTableValue(value.grandTotal)) {
+    addIssue("FAIL", "two-way-table-payload", `${path}.grandTotal`, "grandTotal must be a finite number or non-empty string.");
+  }
+
+  if (value.highlight === undefined) return;
+  if (!isRecord(value.highlight)) {
+    addIssue("FAIL", "two-way-table-payload", `${path}.highlight`, "highlight must be an object.");
+    return;
+  }
+
+  const { kind, rowIndex, columnIndex } = value.highlight;
+  const validKinds = ["cell", "row", "column", "row-total", "column-total", "grand-total"];
+  if (!validKinds.includes(String(kind))) {
+    addIssue("FAIL", "two-way-table-payload", `${path}.highlight.kind`, "highlight kind is invalid.");
+    return;
+  }
+
+  const hasValidRowIndex = Number.isInteger(rowIndex) && Number(rowIndex) >= 0 && Number(rowIndex) < rowCount;
+  const hasValidColumnIndex = Number.isInteger(columnIndex) && Number(columnIndex) >= 0 && Number(columnIndex) < columnCount;
+  if ((kind === "cell" || kind === "row" || kind === "row-total") && !hasValidRowIndex) {
+    addIssue("FAIL", "two-way-table-payload", `${path}.highlight.rowIndex`, "highlight requires a valid rowIndex.");
+  }
+  if ((kind === "cell" || kind === "column" || kind === "column-total") && !hasValidColumnIndex) {
+    addIssue("FAIL", "two-way-table-payload", `${path}.highlight.columnIndex`, "highlight requires a valid columnIndex.");
+  }
+  if (kind === "row-total" && !Array.isArray(value.rowTotals)) {
+    addIssue("FAIL", "two-way-table-payload", `${path}.highlight`, "row-total highlight requires rowTotals.");
+  }
+  if (kind === "column-total" && !Array.isArray(value.columnTotals)) {
+    addIssue("FAIL", "two-way-table-payload", `${path}.highlight`, "column-total highlight requires columnTotals.");
+  }
+  if (kind === "grand-total" && value.grandTotal === undefined) {
+    addIssue("FAIL", "two-way-table-payload", `${path}.highlight`, "grand-total highlight requires grandTotal.");
+  }
+  if (value.highlight.label !== undefined && !isNonEmptyString(value.highlight.label)) {
+    addIssue("FAIL", "two-way-table-payload", `${path}.highlight.label`, "highlight label must be non-empty when supplied.");
+  }
+}
+
 function validateVisualPayloads(lesson: ExplicitLesson, basePath: string) {
   visualItems(lesson).forEach((item, index) => {
     const path = `${basePath}.visualItem[${index}]`;
@@ -668,6 +775,9 @@ function validateVisualPayloads(lesson: ExplicitLesson, basePath: string) {
     if (item.boxPlotDiagram) validateBoxPlotDiagram(item.boxPlotDiagram, `${path}.boxPlotDiagram`);
     if (item.normalDistributionDiagram) {
       validateNormalDistributionDiagram(item.normalDistributionDiagram, `${path}.normalDistributionDiagram`);
+    }
+    if (item.twoWayTableDiagram) {
+      validateTwoWayTableDiagram(item.twoWayTableDiagram, `${path}.twoWayTableDiagram`);
     }
     if (item.vennDiagram) validateVennDiagram(item.vennDiagram, `${path}.vennDiagram`);
     if (item.diagram) validateNetworkDiagram(item.diagram, `${path}.diagram`);

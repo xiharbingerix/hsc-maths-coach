@@ -201,3 +201,19 @@ export type VennDiagram = {
   total?: number | string;
   showCounts?: boolean;
 };
+
+export type TwoWayTableDiagram = {
+  description: string;
+  rowLabels: string[];
+  columnLabels: string[];
+  values: (number | string)[][];
+  rowTotals?: (number | string)[];
+  columnTotals?: (number | string)[];
+  grandTotal?: number | string;
+  highlight?: {
+    kind: "cell" | "row" | "column" | "row-total" | "column-total" | "grand-total";
+    rowIndex?: number;
+    columnIndex?: number;
+    label?: string;
+  };
+};

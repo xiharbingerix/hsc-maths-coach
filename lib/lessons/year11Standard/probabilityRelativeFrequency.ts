@@ -136,6 +136,16 @@ function probabilityWorkedExamples(slug: string): WorkedExample[] {
           { explanation: "Year 11 bus students are in the Year 11 row and Bus column.", latex: "12" },
         ],
         finalAnswerLatex: "12\\text{ students}",
+        twoWayTableDiagram: {
+          description: "Two-way table of transport mode by year group. The highlighted cell shows the 12 Year 11 students who catch the bus.",
+          rowLabels: ["Year 11", "Year 12"],
+          columnLabels: ["Bus", "Train", "Walk"],
+          values: [[12, 8, 5], [10, 6, 9]],
+          rowTotals: [25, 25],
+          columnTotals: [22, 14, 14],
+          grandTotal: 50,
+          highlight: { kind: "cell", rowIndex: 0, columnIndex: 0, label: "Year 11 and bus" },
+        },
       },
       {
         title: "Probability of an 'and' event",
@@ -146,6 +156,16 @@ function probabilityWorkedExamples(slug: string): WorkedExample[] {
           { explanation: "There are 50 students in total.", latex: "P(\\text{Year 12 and walk})=\\frac{9}{50}" },
         ],
         finalAnswerLatex: "\\frac{9}{50}",
+        twoWayTableDiagram: {
+          description: "Two-way table of transport mode by year group. The highlighted Year 12 and Walk cell supplies the favourable count 9, while the highlighted-table context uses the grand total 50 as the denominator.",
+          rowLabels: ["Year 11", "Year 12"],
+          columnLabels: ["Bus", "Train", "Walk"],
+          values: [[12, 8, 5], [10, 6, 9]],
+          rowTotals: [25, 25],
+          columnTotals: [22, 14, 14],
+          grandTotal: 50,
+          highlight: { kind: "cell", rowIndex: 1, columnIndex: 2, label: "Year 12 and walk favourable count" },
+        },
       },
       {
         title: "Simple 'or' from categories",

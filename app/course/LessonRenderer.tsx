@@ -19,6 +19,7 @@ import { CartesianGraphView } from "./components/CartesianGraphView";
 import { TrapezoidalRuleView } from "./components/TrapezoidalRuleView";
 import { BoxPlotView } from "./components/BoxPlotView";
 import { NormalDistributionView } from "./components/NormalDistributionView";
+import { TwoWayTableView } from "./components/TwoWayTableView";
 import { VennDiagramView } from "./components/VennDiagramView";
 import { markTypedAnswer } from "../../lib/answerMarking";
 
@@ -243,6 +244,9 @@ function PracticeCard({
         {question.normalDistributionDiagram && (
           <NormalDistributionView diagram={question.normalDistributionDiagram} />
         )}
+        {question.twoWayTableDiagram && (
+          <TwoWayTableView diagram={question.twoWayTableDiagram} />
+        )}
         {question.vennDiagram && <VennDiagramView diagram={question.vennDiagram} />}
       </div>
 
@@ -366,6 +370,9 @@ function QuizQuestion({
         {question.normalDistributionDiagram && (
           <NormalDistributionView diagram={question.normalDistributionDiagram} />
         )}
+        {question.twoWayTableDiagram && (
+          <TwoWayTableView diagram={question.twoWayTableDiagram} />
+        )}
         {question.vennDiagram && <VennDiagramView diagram={question.vennDiagram} />}
       </div>
 
@@ -480,6 +487,9 @@ function MasteryResultPanel({
                 )}
                 {question.normalDistributionDiagram && (
                   <NormalDistributionView diagram={question.normalDistributionDiagram} />
+                )}
+                {question.twoWayTableDiagram && (
+                  <TwoWayTableView diagram={question.twoWayTableDiagram} />
                 )}
                 {question.vennDiagram && (
                   <VennDiagramView diagram={question.vennDiagram} />
@@ -880,6 +890,9 @@ export function LessonRenderer({
                 )}
                 {example.normalDistributionDiagram && (
                   <NormalDistributionView diagram={example.normalDistributionDiagram} />
+                )}
+                {example.twoWayTableDiagram && (
+                  <TwoWayTableView diagram={example.twoWayTableDiagram} />
                 )}
                 {example.vennDiagram && (
                   <VennDiagramView diagram={example.vennDiagram} />

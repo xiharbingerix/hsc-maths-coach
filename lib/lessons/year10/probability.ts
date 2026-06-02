@@ -268,12 +268,32 @@ const tablesWorkedExamples: WorkedExample[] = [
     questionLatex: `${tableA}\\quad\\text{How many Year 10 students prefer Maths?}`,
     steps: [{ explanation: "Use the cell where the Year 10 row and Maths column meet.", latex: "18" }],
     finalAnswerLatex: "18",
+    twoWayTableDiagram: {
+      description: "Two-way table of subject preference by year group. The highlighted cell is the 18 Year 10 students who prefer Maths.",
+      rowLabels: ["Year 10", "Year 11"],
+      columnLabels: ["Maths", "Art"],
+      values: [[18, 12], [14, 16]],
+      rowTotals: [30, 30],
+      columnTotals: [32, 28],
+      grandTotal: 60,
+      highlight: { kind: "cell", rowIndex: 0, columnIndex: 0, label: "Year 10 and Maths" },
+    },
   },
   {
     title: "Read a marginal frequency",
     questionLatex: `${tableA}\\quad\\text{How many students prefer Art?}`,
     steps: [{ explanation: "Use the total at the bottom of the Art column.", latex: "28" }],
     finalAnswerLatex: "28",
+    twoWayTableDiagram: {
+      description: "Two-way table of subject preference by year group. The highlighted Art column total is the marginal frequency 28.",
+      rowLabels: ["Year 10", "Year 11"],
+      columnLabels: ["Maths", "Art"],
+      values: [[18, 12], [14, 16]],
+      rowTotals: [30, 30],
+      columnTotals: [32, 28],
+      grandTotal: 60,
+      highlight: { kind: "column-total", columnIndex: 1, label: "Art column total" },
+    },
   },
   {
     title: "Compare proportions",
@@ -283,6 +303,16 @@ const tablesWorkedExamples: WorkedExample[] = [
       { explanation: "For walkers, compare sport with the walk-row total.", latex: "\\frac{9}{15}=0.60" },
     ],
     finalAnswerLatex: "\\text{The proportions are equal at }60\\%.",
+    twoWayTableDiagram: {
+      description: "Two-way table of travel mode and sport participation. Compare each sport cell with its own row total: 15 out of 25 bus travellers and 9 out of 15 walkers.",
+      rowLabels: ["Bus", "Walk"],
+      columnLabels: ["Sport", "No sport"],
+      values: [[15, 10], [9, 6]],
+      rowTotals: [25, 15],
+      columnTotals: [24, 16],
+      grandTotal: 40,
+      highlight: { kind: "column", columnIndex: 0, label: "sport counts; compare each with its row total" },
+    },
   },
 ];
 
@@ -323,6 +353,16 @@ const conditionalWorkedExamples: WorkedExample[] = [
       { explanation: "Of these students, 18 prefer Maths.", latex: "P(\\text{Maths}\\mid\\text{Year 10})=\\frac{18}{30}=\\frac{3}{5}" },
     ],
     finalAnswerLatex: "\\frac{3}{5}",
+    twoWayTableDiagram: {
+      description: "Two-way table of subject preference by year group. The highlighted Year 10 row is the restricted denominator group for the conditional probability.",
+      rowLabels: ["Year 10", "Year 11"],
+      columnLabels: ["Maths", "Art"],
+      values: [[18, 12], [14, 16]],
+      rowTotals: [30, 30],
+      columnTotals: [32, 28],
+      grandTotal: 60,
+      highlight: { kind: "row", rowIndex: 0, label: "condition group: Year 10 total = 30" },
+    },
   },
   {
     title: "Use an overlap as the favourable count",
@@ -341,6 +381,16 @@ const conditionalWorkedExamples: WorkedExample[] = [
       { explanation: "For the conditional probability, restrict to bus travellers.", latex: "P(\\text{sport}\\mid\\text{bus})=\\frac{15}{25}=\\frac{3}{5}" },
     ],
     finalAnswerLatex: "\\frac{3}{8}\\neq\\frac{3}{5}",
+    twoWayTableDiagram: {
+      description: "Two-way table of travel mode and sport participation. The highlighted bus row shows why the conditional probability uses the bus total 25 rather than the overall total 40.",
+      rowLabels: ["Bus", "Walk"],
+      columnLabels: ["Sport", "No sport"],
+      values: [[15, 10], [9, 6]],
+      rowTotals: [25, 15],
+      columnTotals: [24, 16],
+      grandTotal: 40,
+      highlight: { kind: "row", rowIndex: 0, label: "conditional denominator: all 25 bus travellers" },
+    },
   },
 ];
 
