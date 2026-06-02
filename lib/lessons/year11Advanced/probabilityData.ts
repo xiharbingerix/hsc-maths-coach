@@ -2,6 +2,85 @@ import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import { practicalChoice, dataAnswer as baseDataAnswer } from "../questionHelpers";
 
+function gcd(a: number, b: number): number {
+  let x = Math.abs(a);
+  let y = Math.abs(b);
+  while (y !== 0) {
+    const next = x % y;
+    x = y;
+    y = next;
+  }
+  return x;
+}
+
+function probabilityAnswerVariants(prompt: string, answer: string): string[] {
+  const lowerPrompt = prompt.toLowerCase();
+  const isProbabilityPrompt =
+    lowerPrompt.includes("probability") ||
+    lowerPrompt.includes("relative frequency") ||
+    lowerPrompt.includes("complement") ||
+    lowerPrompt.includes("union") ||
+    lowerPrompt.includes("event occurs") ||
+    lowerPrompt.includes("at least") ||
+    lowerPrompt.includes("at most");
+  const asksForSpecificForm = lowerPrompt.includes("exact fraction") || lowerPrompt.includes("decimal only");
+
+  if (!isProbabilityPrompt || asksForSpecificForm) return [];
+
+  const variants: string[] = [];
+  const fractionMatch = answer.match(/^(-?\d+)\/(\d+)$/);
+  if (fractionMatch) {
+    const numerator = Number(fractionMatch[1]);
+    const denominator = Number(fractionMatch[2]);
+    if (denominator !== 0) {
+      let remainingDenominator = Math.abs(denominator);
+      while (remainingDenominator % 2 === 0) remainingDenominator /= 2;
+      while (remainingDenominator % 5 === 0) remainingDenominator /= 5;
+      if (remainingDenominator === 1) {
+        const decimal = numerator / denominator;
+        variants.push(String(decimal), `${decimal * 100}%`);
+      }
+    }
+  }
+
+  const decimalMatch = answer.match(/^(-?\d+)(?:\.(\d+))?$/);
+  if (decimalMatch) {
+    const decimal = Number(answer);
+    const places = decimalMatch[2]?.length ?? 0;
+    if (Number.isFinite(decimal) && decimal >= 0 && decimal <= 1 && places > 0) {
+      const denominator = 10 ** places;
+      const numerator = Math.round(decimal * denominator);
+      const divisor = gcd(numerator, denominator);
+      variants.push(`${numerator / divisor}/${denominator / divisor}`, `${decimal * 100}%`);
+    }
+  }
+
+  return variants;
+}
+
+function labelledDataAnswerVariants(prompt: string, answer: string): string[] {
+  const lowerPrompt = prompt.toLowerCase();
+  const variants = probabilityAnswerVariants(prompt, answer);
+  const labels: string[] = [];
+
+  if (lowerPrompt.includes("median")) labels.push("median");
+  if (lowerPrompt.includes("interquartile range")) labels.push("IQR", "iqr");
+  if (lowerPrompt.includes("mean")) labels.push("mean");
+  if (lowerPrompt.includes("range")) labels.push("range");
+  if (lowerPrompt.includes("mode")) labels.push("mode");
+  if (lowerPrompt.includes("upper fence")) labels.push("upper fence");
+  if (lowerPrompt.includes("expected value") || lowerPrompt.includes("expected winnings")) labels.push("E(X)", "E");
+  if (lowerPrompt.includes("second moment")) labels.push("E(X^2)", "second moment");
+  if (lowerPrompt.includes("variance")) labels.push("Var(X)", "variance");
+  if (lowerPrompt.includes("standard deviation")) labels.push("SD", "sd", "standard deviation");
+
+  for (const label of labels) {
+    variants.push(`${label}=${answer}`, `${label} = ${answer}`);
+  }
+
+  return variants;
+}
+
 function probabilityDataFeedback(
   id: string,
   prompt: string,
@@ -72,7 +151,7 @@ function dataAnswer(
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
   return {
-    ...baseDataAnswer(id, prompt, latex, answer, acceptedAnswers),
+    ...baseDataAnswer(id, prompt, latex, answer, [...acceptedAnswers, ...labelledDataAnswerVariants(prompt, answer)]),
     explanation: probabilityDataFeedback(id, prompt, answer),
   };
 }
