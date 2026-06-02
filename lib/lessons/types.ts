@@ -126,6 +126,17 @@ export type CartesianGraph = {
     r: number;
     label?: string;
   }[];
+  sinusoidals?: {
+    kind: "sin" | "cos" | "tan";
+    a: number;
+    b: number;
+    c: number;
+    d: number;
+    xMin?: number;
+    xMax?: number;
+    label?: string;
+    description?: string;
+  }[];
   shadedRegions?: CartesianShadedRegion[];
 };
 

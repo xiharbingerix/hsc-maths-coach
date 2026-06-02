@@ -411,6 +411,19 @@ export const graphsSineCosineTangentLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "\\text{Period }2\\pi,\\quad \\text{range }[-1,1]",
+      cartesianGraph: {
+        description: "One complete sine wave from zero to two pi, starting at zero, reaching one, returning to zero, reaching negative one, and returning to zero.",
+        xMin: 0, xMax: 2 * Math.PI, yMin: -1.5, yMax: 1.5, xStep: Math.PI / 2, yStep: 0.5,
+        xAxisLabel: "x (radians)",
+        sinusoidals: [{ kind: "sin", a: 1, b: 1, c: 0, d: 0, label: "y = sin(x)", description: "The sine curve completes one wave from x equals zero to x equals two pi." }],
+        points: [
+          { x: 0, y: 0, label: "0" },
+          { x: Math.PI / 2, y: 1, label: "pi/2" },
+          { x: Math.PI, y: 0, label: "pi" },
+          { x: 3 * Math.PI / 2, y: -1, label: "3pi/2" },
+          { x: 2 * Math.PI, y: 0, label: "2pi" },
+        ],
+      },
     },
     {
       title: "Worked example 2: Key features of cosine",
@@ -435,6 +448,19 @@ export const graphsSineCosineTangentLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "\\text{Period }2\\pi,\\quad \\text{range }[-1,1]",
+      cartesianGraph: {
+        description: "One complete cosine wave from zero to two pi, starting at one, crossing zero, reaching negative one, crossing zero again, and returning to one.",
+        xMin: 0, xMax: 2 * Math.PI, yMin: -1.5, yMax: 1.5, xStep: Math.PI / 2, yStep: 0.5,
+        xAxisLabel: "x (radians)",
+        sinusoidals: [{ kind: "cos", a: 1, b: 1, c: 0, d: 0, label: "y = cos(x)", description: "The cosine curve completes one wave from x equals zero to x equals two pi." }],
+        points: [
+          { x: 0, y: 1, label: "0" },
+          { x: Math.PI / 2, y: 0, label: "pi/2" },
+          { x: Math.PI, y: -1, label: "pi" },
+          { x: 3 * Math.PI / 2, y: 0, label: "3pi/2" },
+          { x: 2 * Math.PI, y: 1, label: "2pi" },
+        ],
+      },
     },
     {
       title: "Worked example 3: Tangent period and asymptotes",
@@ -455,6 +481,13 @@ export const graphsSineCosineTangentLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "\\text{Period }\\pi,\\quad \\text{asymptotes }x=\\frac{\\pi}{2}+k\\pi",
+      cartesianGraph: {
+        description: "The basic tangent graph is drawn as separate increasing branches between its vertical asymptotes. It crosses the origin and repeats every pi radians.",
+        xMin: -Math.PI, xMax: Math.PI, yMin: -4, yMax: 4, xStep: Math.PI / 2, yStep: 1,
+        xAxisLabel: "x (radians)",
+        sinusoidals: [{ kind: "tan", a: 1, b: 1, c: 0, d: 0, label: "y = tan(x)", description: "Separate tangent branches approach asymptotes at negative pi over two and pi over two." }],
+        points: [{ x: 0, y: 0, label: "origin" }],
+      },
     },
   ],
 
@@ -751,6 +784,19 @@ export const amplitudePeriodPhaseVerticalShiftLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "\\text{amplitude }3,\\quad \\text{period }\\pi,\\quad \\text{vertical shift }1",
+      cartesianGraph: {
+        description: "The transformed sine graph has midline y equals 1, amplitude 3 and one complete period from zero to pi.",
+        xMin: 0, xMax: Math.PI, yMin: -2.5, yMax: 4.5, xStep: Math.PI / 4, yStep: 1,
+        xAxisLabel: "x (radians)",
+        lines: [{ kind: "linear", m: 0, b: 1, label: "midline y = 1" }],
+        sinusoidals: [{ kind: "sin", a: 3, b: 2, c: 0, d: 1, label: "y = 3sin(2x) + 1", description: "The sine wave oscillates three units above and below the midline y equals 1 and repeats after pi radians." }],
+        points: [
+          { x: 0, y: 1, label: "start" },
+          { x: Math.PI / 4, y: 4, label: "maximum" },
+          { x: 3 * Math.PI / 4, y: -2, label: "minimum" },
+          { x: Math.PI, y: 1, label: "one period" },
+        ],
+      },
     },
     {
       title: "Worked example 2: Cosine transformation",
@@ -763,6 +809,18 @@ export const amplitudePeriodPhaseVerticalShiftLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "\\text{amplitude }2,\\quad \\text{period }2\\pi,\\quad \\text{phase shift }\\frac{\\pi}{3}\\text{ right},\\quad \\text{midline }y=4",
+      cartesianGraph: {
+        description: "The transformed negative cosine graph starts at its minimum after a right shift of pi over three, oscillates around the midline y equals 4, and completes one period after two pi radians.",
+        xMin: Math.PI / 3, xMax: 7 * Math.PI / 3, yMin: 1, yMax: 7, xStep: Math.PI / 2, yStep: 1,
+        xAxisLabel: "x (radians)",
+        lines: [{ kind: "linear", m: 0, b: 4, label: "midline y = 4" }],
+        sinusoidals: [{ kind: "cos", a: -2, b: 1, c: Math.PI / 3, d: 4, label: "y = -2cos(x - pi/3) + 4", description: "The cosine curve is shifted right by pi over three and reflected, so it begins at its minimum value of 2." }],
+        points: [
+          { x: Math.PI / 3, y: 2, label: "shifted start" },
+          { x: 4 * Math.PI / 3, y: 6, label: "maximum" },
+          { x: 7 * Math.PI / 3, y: 2, label: "one period" },
+        ],
+      },
     },
     {
       title: "Worked example 3: Tangent transformation",
@@ -774,6 +832,14 @@ export const amplitudePeriodPhaseVerticalShiftLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "\\text{no amplitude},\\quad \\text{period }\\frac{\\pi}{3},\\quad \\text{vertical stretch factor }2,\\quad \\text{midline }y=1",
+      cartesianGraph: {
+        description: "The transformed tangent graph is drawn as separate steep branches around the centre line y equals 1. The branches repeat every pi over three radians.",
+        xMin: -Math.PI / 3, xMax: Math.PI / 3, yMin: -5, yMax: 7, xStep: Math.PI / 6, yStep: 2,
+        xAxisLabel: "x (radians)",
+        lines: [{ kind: "linear", m: 0, b: 1, label: "centre line y = 1" }],
+        sinusoidals: [{ kind: "tan", a: 2, b: 3, c: 0, d: 1, label: "y = 2tan(3x) + 1", description: "Separate tangent branches cross the centre line y equals 1 and repeat every pi over three radians." }],
+        points: [{ x: 0, y: 1, label: "centre" }],
+      },
     },
   ],
 
@@ -1701,6 +1767,19 @@ export const modellingPeriodicPhenomenaLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "\\text{amplitude }2\\text{ m},\\quad \\text{midline }3\\text{ m},\\quad \\text{period }12\\text{ h}",
+      cartesianGraph: {
+        description: "The tide height follows one sine wave over twelve hours, moving two metres above and below the midline height of three metres.",
+        xMin: 0, xMax: 12, yMin: 0, yMax: 6, xStep: 2, yStep: 1,
+        xAxisLabel: "time (hours)", yAxisLabel: "height (m)",
+        lines: [{ kind: "linear", m: 0, b: 3, label: "midline h = 3" }],
+        sinusoidals: [{ kind: "sin", a: 2, b: Math.PI / 6, c: 0, d: 3, label: "h(t) = 2sin((pi/6)t) + 3", description: "The tide starts on its midline, reaches five metres, returns through the midline, falls to one metre and returns to the midline after twelve hours." }],
+        points: [
+          { x: 0, y: 3, label: "start" },
+          { x: 3, y: 5, label: "maximum" },
+          { x: 9, y: 1, label: "minimum" },
+          { x: 12, y: 3, label: "one period" },
+        ],
+      },
     },
     {
       title: "Worked example 2: Ferris wheel model",
@@ -1712,6 +1791,18 @@ export const modellingPeriodicPhenomenaLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "\\text{maximum }22\\text{ m},\\quad \\text{minimum }2\\text{ m},\\quad \\text{period }30\\text{ s}",
+      cartesianGraph: {
+        description: "The Ferris wheel height follows one cosine wave over thirty seconds, starting at its maximum of twenty-two metres and oscillating around the midline height of twelve metres.",
+        xMin: 0, xMax: 30, yMin: 0, yMax: 24, xStep: 5, yStep: 4,
+        xAxisLabel: "time (seconds)", yAxisLabel: "height (m)",
+        lines: [{ kind: "linear", m: 0, b: 12, label: "midline h = 12" }],
+        sinusoidals: [{ kind: "cos", a: 10, b: Math.PI / 15, c: 0, d: 12, label: "h(t) = 10cos((pi/15)t) + 12", description: "The wheel starts at twenty-two metres, reaches two metres halfway through the rotation and returns to twenty-two metres after thirty seconds." }],
+        points: [
+          { x: 0, y: 22, label: "maximum" },
+          { x: 15, y: 2, label: "minimum" },
+          { x: 30, y: 22, label: "one rotation" },
+        ],
+      },
     },
     {
       title: "Worked example 3: Build a Ferris wheel model",
@@ -1725,6 +1816,18 @@ export const modellingPeriodicPhenomenaLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "h(t)=10-8\\cos\\left(\\frac{\\pi}{20}t\\right)",
+      cartesianGraph: {
+        description: "The Ferris wheel height follows one negative cosine wave over forty seconds. It starts at its minimum of two metres, rises to eighteen metres, and returns to two metres.",
+        xMin: 0, xMax: 40, yMin: 0, yMax: 20, xStep: 5, yStep: 2,
+        xAxisLabel: "time (seconds)", yAxisLabel: "height (m)",
+        lines: [{ kind: "linear", m: 0, b: 10, label: "midline h = 10" }],
+        sinusoidals: [{ kind: "cos", a: -8, b: Math.PI / 20, c: 0, d: 10, label: "h(t) = 10 - 8cos((pi/20)t)", description: "The negative cosine model begins eight metres below its midline, reaches its highest point after twenty seconds and completes one rotation after forty seconds." }],
+        points: [
+          { x: 0, y: 2, label: "start: minimum" },
+          { x: 20, y: 18, label: "maximum" },
+          { x: 40, y: 2, label: "one rotation" },
+        ],
+      },
     },
   ],
 

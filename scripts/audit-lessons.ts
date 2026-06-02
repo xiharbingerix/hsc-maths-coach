@@ -185,6 +185,7 @@ function validateCartesianGraph(value: unknown, path: string) {
     ["lines", value.lines],
     ["parabolas", value.parabolas],
     ["circles", value.circles],
+    ["sinusoidals", value.sinusoidals],
     ["shadedRegions", value.shadedRegions],
   ] as const) {
     if (values !== undefined && !Array.isArray(values)) {
@@ -245,6 +246,32 @@ function validateCartesianGraph(value: unknown, path: string) {
         circle.r <= 0
       ) {
         addIssue("FAIL", "cartesian-payload", `${path}.circles[${index}]`, "Circle requires finite h, k and a positive radius.");
+      }
+    });
+  }
+
+  if (Array.isArray(value.sinusoidals)) {
+    value.sinusoidals.forEach((curve, index) => {
+      const curvePath = `${path}.sinusoidals[${index}]`;
+      if (
+        !isRecord(curve) ||
+        !["sin", "cos", "tan"].includes(String(curve.kind)) ||
+        !isFiniteNumber(curve.a) ||
+        !isFiniteNumber(curve.b) ||
+        !isFiniteNumber(curve.c) ||
+        !isFiniteNumber(curve.d) ||
+        curve.b === 0
+      ) {
+        addIssue("FAIL", "cartesian-payload", curvePath, "Sinusoidal curve requires kind sin, cos or tan and finite a, b, c and d, with b non-zero.");
+        return;
+      }
+
+      if (
+        (curve.xMin !== undefined && !isFiniteNumber(curve.xMin)) ||
+        (curve.xMax !== undefined && !isFiniteNumber(curve.xMax)) ||
+        (isFiniteNumber(curve.xMin) && isFiniteNumber(curve.xMax) && curve.xMin >= curve.xMax)
+      ) {
+        addIssue("FAIL", "cartesian-payload", curvePath, "Sinusoidal xMin and xMax must be finite with xMin < xMax when supplied.");
       }
     });
   }

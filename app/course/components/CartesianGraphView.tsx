@@ -97,6 +97,64 @@ function sampleFunction(fn: CartesianFunction, xMin: number, xMax: number) {
   }).filter((point): point is CartesianPoint => point !== null);
 }
 
+function sinusoidalPath(
+  curve: NonNullable<CartesianGraph["sinusoidals"]>[number],
+  graphBounds: { xMin: number; xMax: number; yMin: number; yMax: number },
+  toSvg: (point: CartesianPoint) => CartesianPoint
+) {
+  const { xMin, xMax, yMin, yMax } = graphBounds;
+  const start = Math.max(xMin, curve.xMin ?? xMin);
+  const end = Math.min(xMax, curve.xMax ?? xMax);
+  if (
+    !["sin", "cos", "tan"].includes(curve.kind) ||
+    ![curve.a, curve.b, curve.c, curve.d, start, end].every(Number.isFinite) ||
+    curve.b === 0 ||
+    start >= end
+  ) {
+    return "";
+  }
+
+  const ySpan = yMax - yMin;
+  let previousY: number | null = null;
+  let previousWasVisible = false;
+
+  return Array.from({ length: 401 }, (_, index) => {
+    const x = start + ((end - start) * index) / 400;
+    const angle = curve.b * (x - curve.c);
+    const cosine = Math.cos(angle);
+    const y =
+      curve.kind === "sin"
+        ? curve.a * Math.sin(angle) + curve.d
+        : curve.kind === "cos"
+          ? curve.a * cosine + curve.d
+          : curve.a * Math.tan(angle) + curve.d;
+    const nearTangentAsymptote = curve.kind === "tan" && Math.abs(cosine) < 0.035;
+    const jumpedAcrossAsymptote =
+      curve.kind === "tan" &&
+      previousY !== null &&
+      Math.abs(y - previousY) > ySpan * 0.8;
+    const isVisible =
+      Number.isFinite(y) &&
+      y >= yMin - ySpan * 0.05 &&
+      y <= yMax + ySpan * 0.05 &&
+      !nearTangentAsymptote &&
+      !jumpedAcrossAsymptote;
+
+    previousY = y;
+    if (!isVisible) {
+      previousWasVisible = false;
+      return null;
+    }
+
+    const svgPoint = toSvg({ x, y });
+    const command = previousWasVisible ? "L" : "M";
+    previousWasVisible = true;
+    return `${command} ${svgPoint.x} ${svgPoint.y}`;
+  })
+    .filter(Boolean)
+    .join(" ");
+}
+
 export function CartesianGraphView({
   graph,
   className,
@@ -120,8 +178,11 @@ export function CartesianGraphView({
   const yAxisX = xMin <= 0 && xMax >= 0 ? 0 : xMin;
   const showGrid = graph.showGrid ?? true;
   const showAxisLabels = graph.showAxisLabels ?? true;
-  const shadedRegionDescriptions = graph.shadedRegions
-    ?.map((region) => region.description)
+  const graphDetailDescriptions = [
+    ...(graph.shadedRegions ?? []),
+    ...(graph.sinusoidals ?? []),
+  ]
+    .map((item) => item.description)
     .filter((description): description is string => Boolean(description));
 
   const toSvg = React.useCallback(
@@ -137,15 +198,15 @@ export function CartesianGraphView({
       <svg
         role="img"
         aria-labelledby={titleId}
-        aria-describedby={shadedRegionDescriptions?.length ? descriptionId : undefined}
+        aria-describedby={graphDetailDescriptions.length ? descriptionId : undefined}
         viewBox={`0 0 ${width} ${height}`}
         width="100%"
         preserveAspectRatio="xMidYMid meet"
         className="max-h-[360px] min-w-[320px]"
       >
         <title id={titleId}>{graph.description}</title>
-        {shadedRegionDescriptions?.length ? (
-          <desc id={descriptionId}>{shadedRegionDescriptions.join(" ")}</desc>
+        {graphDetailDescriptions.length ? (
+          <desc id={descriptionId}>{graphDetailDescriptions.join(" ")}</desc>
         ) : null}
         <defs>
           <clipPath id={clipId}>
@@ -350,6 +411,22 @@ export function CartesianGraphView({
               />
             );
           })}
+
+          {graph.sinusoidals?.map((curve, index) => {
+            const path = sinusoidalPath(curve, { xMin, xMax, yMin, yMax }, toSvg);
+            if (!path) return null;
+            return (
+              <path
+                key={`sinusoidal-${index}`}
+                d={path}
+                fill="none"
+                stroke="#db2777"
+                strokeWidth={3}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            );
+          })}
         </g>
 
         {xTicks.map((value) => {
@@ -432,6 +509,11 @@ export function CartesianGraphView({
         {graph.circles?.map((circle, index) => circle.label ? (
           <text key={`circle-label-${index}`} x={toSvg({ x: circle.h + circle.r, y: circle.k }).x + 6} y={toSvg({ x: circle.h + circle.r, y: circle.k }).y - 6} className="fill-amber-700 text-xs font-semibold" stroke="#ffffff" strokeWidth={4} paintOrder="stroke">
             {circle.label}
+          </text>
+        ) : null)}
+        {graph.sinusoidals?.map((curve, index) => curve.label ? (
+          <text key={`sinusoidal-label-${index}`} x={padding.left + plotWidth - 8} y={padding.top + 16 + index * 16} textAnchor="end" className="fill-pink-700 text-xs font-semibold" stroke="#ffffff" strokeWidth={4} paintOrder="stroke">
+            {curve.label}
           </text>
         ) : null)}
       </svg>
