@@ -1,6 +1,63 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import type { ExplicitLesson, WorkedExample } from "../differentialCalculus";
-import { financeChoice, moneyAnswer } from "../questionHelpers";
+import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import { financeChoice, moneyAnswer as baseMoneyAnswer } from "../questionHelpers";
+
+function earningMoneyFeedback(prompt: string, answer: string) {
+  if (prompt.includes("salary") && (prompt.includes("weekly") || prompt.includes("fortnightly"))) {
+    return `Match the pay period before calculating. Divide the annual salary by the number of that pay period in a year, which gives ${answer} dollars.`;
+  }
+  if (prompt.includes("time-and-a-half") && prompt.includes("hourly rate")) {
+    return `Time-and-a-half is a multiplier, not an extra 1.5 dollars. Multiply the ordinary hourly rate by 1.5 to get ${answer} dollars per hour.`;
+  }
+  if (prompt.includes("double-time") || prompt.includes("double time")) {
+    return `Double time means each of these hours is paid at twice the ordinary rate. Apply the 2 times multiplier only to the stated higher-rate hours, giving ${answer} dollars.`;
+  }
+  if (prompt.includes("overtime pay")) {
+    return `Keep ordinary hours and overtime hours separate. Multiply the overtime hours by the higher overtime rate, then combine pay components only if the question asks for a total; here the result is ${answer} dollars.`;
+  }
+  if (prompt.includes("commission") && (prompt.includes("total") || prompt.includes("earnings"))) {
+    return `Calculate commission first by changing the percentage to a decimal and multiplying by sales. Then add the base pay because both parts count as earnings, giving ${answer} dollars.`;
+  }
+  if (prompt.includes("commission")) {
+    return `Commission is a percentage of sales. Convert the percentage to a decimal before multiplying by the sales amount; the commission is ${answer} dollars.`;
+  }
+  if (prompt.includes("piecework") || prompt.includes("per parcel") || prompt.includes("each brochure") || prompt.includes("each tray") || prompt.includes("gift boxes")) {
+    return `Piecework pays for each completed item rather than each hour. Multiply the number of items by the rate per item to get ${answer} dollars.`;
+  }
+  if (prompt.includes("What was the gross pay")) {
+    return `Gross pay comes before deductions. Reverse the subtraction by adding the deductions back to net pay, giving ${answer} dollars.`;
+  }
+  if (prompt.includes("net pay") && prompt.includes("gross pay")) {
+    return `Net pay is what remains after deductions leave the payslip. Start with gross pay and subtract every listed deduction to get ${answer} dollars.`;
+  }
+  if (prompt.includes("deduction") || prompt.includes("tax withheld") || prompt.includes("tax withholding")) {
+    if (prompt.includes("percent")) {
+      return `A percentage deduction is part of the gross pay. Convert the percentage to a decimal and multiply by gross pay to get ${answer} dollars.`;
+    }
+    return `Deductions are amounts taken away after gross pay is calculated. Subtract every listed deduction to get ${answer} dollars.`;
+  }
+  if (prompt.includes("gross earnings") || prompt.includes("gross pay") || prompt.includes("total earnings") || prompt.includes("total pay") || prompt.includes("total shift pay")) {
+    return `Gross earnings include all pay components before deductions. Add the ordinary pay, higher-rate pay, and any allowances named in the question to get ${answer} dollars.`;
+  }
+  if (prompt.includes("ordinary pay") || prompt.includes("hours") || prompt.includes("hourly")) {
+    return `Hourly pay means a rate is earned once for each hour worked. Multiply hours by the hourly rate to get ${answer} dollars.`;
+  }
+  return `Keep the units and pay period consistent, then combine only the amounts requested. The calculation gives ${answer} dollars.`;
+}
+
+function moneyAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseMoneyAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: earningMoneyFeedback(prompt, answer),
+  };
+}
+
 function earningMoneyWorkedExamples(slug: string, title: string): WorkedExample[] {
   if (slug === "wages-salaries-payslips") {
     return [
@@ -187,10 +244,10 @@ export function year11StandardEarningMoneyLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Hourly wages are paid using an hourly rate. Ordinary hours are the standard hours paid at the normal rate.",
-          "A salary is usually a fixed yearly amount. To estimate weekly salary pay, divide the yearly salary by 52.",
-          "Gross pay is the amount earned before tax and other deductions. A payslip may show ordinary pay, allowances, tax withheld, deductions, and net pay.",
-          "Wages can change with hours worked, while salaries are more stable across pay periods.",
+          "An hourly wage pays the same rate once for each ordinary hour worked. If someone works 12 hours at 25 dollars per hour, think of twelve lots of 25 dollars.",
+          "A salary is usually written as a yearly total. To compare it with weekly work, change the time unit first by dividing by 52 weeks.",
+          "Gross pay is the total earned before anything is taken out. Ordinary pay and allowances add to gross pay; tax and other deductions come later.",
+          "Wages can change when hours change, while a salary is more stable across pay periods. Always compare jobs over the same time period.",
         ],
         latexBlocks: [
           "\\text{hourly pay}=\\text{ordinary hours}\\times\\text{hourly rate}",
@@ -279,10 +336,10 @@ export function year11StandardEarningMoneyLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Overtime is extra work beyond ordinary hours. It may be paid at a higher rate.",
-          "Time-and-a-half means 1.5 times the ordinary hourly rate. Double time means 2 times the ordinary hourly rate.",
-          "Penalty rates are higher rates for certain times, such as weekends or public holidays. Allowances are extra amounts paid for specific costs or duties.",
-          "For mixed-rate questions, calculate each part separately, then add them for total gross earnings.",
+          "Overtime is paid for the extra hours beyond ordinary work. Keep those hours separate because only the overtime hours receive the higher rate.",
+          "Time-and-a-half means multiply the ordinary rate by 1.5; double time means multiply it by 2. These are multipliers, not amounts to add.",
+          "Penalty rates reward work at particular times, such as weekends or public holidays. Allowances are separate extra amounts paid for a cost or duty.",
+          "For a mixed shift, calculate ordinary pay, higher-rate pay, and allowances as separate pieces. Add the pieces only after each one has the correct rate.",
         ],
         latexBlocks: [
           "\\text{time-and-a-half rate}=1.5\\times\\text{ordinary rate}",
@@ -340,10 +397,10 @@ export function year11StandardEarningMoneyLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Commission is pay based on sales. It is often calculated as a percentage of the sales amount.",
-          "Some jobs pay a base amount plus commission. Calculate the commission first, then add the base pay.",
-          "Piecework pays a fixed amount for each item made, delivered, or completed.",
-          "When comparing earning structures, use the same sales amount, item count, or time period so the comparison is fair.",
+          "Commission is pay linked to sales. A 6 percent commission means the worker earns 6 cents from each dollar of sales, so use 0.06 in the calculation.",
+          "Some jobs pay commission only; others pay a base amount plus commission. If a base is listed, calculate the commission first and then add both earnings.",
+          "Piecework pays once for every item completed. Multiply the number of items by the rate per item; hours are irrelevant unless the question explicitly asks for them.",
+          "When comparing jobs, hold the sales amount, item count, or time period steady. A comparison is only fair when both options are measured on the same basis.",
         ],
         latexBlocks: [
           "\\text{commission}=\\text{commission rate}\\times\\text{sales}",
@@ -401,10 +458,10 @@ export function year11StandardEarningMoneyLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Deductions are amounts taken out of gross pay. In simplified questions these may include tax withheld, union fees, insurance, or other listed deductions.",
-          "Net pay is the amount received after deductions are subtracted from gross pay.",
-          "Percentage deductions are found by converting the percentage to a decimal and multiplying by the relevant amount.",
-          "Payslip questions often ask you to identify which values are earnings, which are deductions, and what the final net pay should be.",
+          "Gross pay is the earnings total before anything is removed. Deductions such as tax withheld or union fees are taken out after that total is known.",
+          "Net pay is the money left after every listed deduction is subtracted. If deductions apply, net pay should be lower than gross pay.",
+          "For a percentage deduction, convert the percentage to a decimal and multiply by gross pay. Do not treat 5 percent as the whole number 5.",
+          "Read a payslip in two passes: add the earnings to understand gross pay, then subtract the deductions to find net pay.",
         ],
         latexBlocks: [
           "\\text{net pay}=\\text{gross pay}-\\text{total deductions}",
@@ -459,10 +516,10 @@ export function year11StandardEarningMoneyLessonOverride(
     ],
     teaching: {
       paragraphs: [
-        "Mixed earning-money questions often combine several ideas, such as ordinary pay, overtime, allowances, commission, tax and net pay.",
-        "Start by identifying what is being asked: gross pay, net pay, a deduction, commission, piecework, or a comparison.",
-        "Calculate each earning component separately before adding them. Subtract deductions only when the question asks for net pay.",
-        "A reasonable answer should match the context. For example, double time should be higher than ordinary pay, and net pay should be less than gross pay when deductions apply.",
+        "Mixed earning-money questions become manageable when you sort the amounts before calculating. Label each amount as an earning, a deduction, a rate, or a number of hours or items.",
+        "Work out each earning component separately: ordinary pay, higher-rate pay, allowances, commission, or piecework. Then add the earnings to get gross pay.",
+        "Subtract deductions only after gross pay is known and only when the question asks for net pay. Keep weekly, fortnightly, hourly, and annual amounts in matching units.",
+        "Use a quick reasonableness check: double time must exceed the ordinary rate, a percentage such as 5 percent should become 0.05, and net pay should fall below gross pay when deductions apply.",
       ],
       latexBlocks: [
         "\\text{gross pay}=\\text{all earnings before deductions}",
