@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
+import { AdminGoogleAdsTestConversion } from "./AdminGoogleAdsTestConversion";
 import { DeleteUserForm } from "./DeleteUserForm";
 import { requireAdmin } from "../../lib/adminSession";
 import {
@@ -1351,6 +1352,23 @@ export default async function AdminPage() {
           >
             Open Google Analytics →
           </a>
+        </section>
+
+        {/* ── Testing tools ─────────────────────────────────────────────── */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <details>
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
+              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Testing tools
+              </p>
+              <span className="shrink-0 rounded-xl border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-500">
+                Expand
+              </span>
+            </summary>
+            <div className="mt-5">
+              <AdminGoogleAdsTestConversion />
+            </div>
+          </details>
         </section>
 
       </section>
