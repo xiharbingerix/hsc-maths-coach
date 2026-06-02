@@ -169,14 +169,14 @@ export default function Home() {
             </p>
 
             <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-              Structured online maths lessons for NSW Year 9, 10, 11 and 12
-              students.
+              Stop guessing what to study. Get a clear path through NSW maths.
             </h1>
 
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Work through lessons, guided practice and mastery quizzes at your
-              own pace. Built for the NSW maths curriculum by a working
-              tutor.
+              195+ lessons built for the NSW curriculum &mdash; from Year 9 to
+              HSC. Worked examples, practice questions, and a mastery quiz in
+              every lesson so students know exactly what they understand and
+              what needs work.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -285,6 +285,10 @@ export default function Home() {
                 </SubscribeCTA>
                 <SecondaryLink href="/signup">Create account first</SecondaryLink>
               </div>
+              <p className="mt-4 text-sm leading-6 text-slate-600">
+                Private tutoring in NSW often costs $80&ndash;120/hour. Nova
+                Maths is $19/month &mdash; less than one hour of tutoring.
+              </p>
             </div>
 
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">

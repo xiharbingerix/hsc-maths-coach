@@ -39,7 +39,7 @@ export default async function PaymentSuccessPage({
           </h1>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
             {isOnlineLearning
-              ? "Online learning access is linked automatically when checkout was completed while logged in. If you checked out with an email only, Joshua may need to match the payment to your account manually."
+              ? "Access is activated automatically. If your dashboard does not show active access within a few minutes, contact support@novamaths.com.au."
               : "Year 12 Mathematics Advanced report and study plan options are reviewed before follow-up."}
           </p>
         </header>

@@ -30,10 +30,8 @@ export default async function CheckoutPage({
             Checkout
           </h1>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
-            Confirm the selected option, then continue to Stripe
-            Checkout. Report and study-plan checkout options currently relate
-            to the Year 12 Mathematics Advanced diagnostic. Weekly tutoring
-            remains enquiry-only.
+            You will be redirected to Stripe&apos;s secure payment page. No
+            card details are entered here.
           </p>
         </header>
 

@@ -27,6 +27,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
       const sessionUser = data.session?.user ?? null;
 
       if (!sessionUser && offer.slug === "online-learning") {
+        trackEvent("checkout_login_wall_hit", { offer: offer.slug });
         router.replace(
           "/signup?next=%2Fcheckout%3Foffer%3Donline-learning"
         );
