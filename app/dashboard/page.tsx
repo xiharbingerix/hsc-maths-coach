@@ -382,7 +382,7 @@ export default function DashboardPage() {
 
         {accessStatus === "active" ? (
           <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {courseCatalogue.map((course) => (
+            {availableCourses.map((course) => (
               <Link
                 key={course.courseSlug}
                 href={course.href}
@@ -408,7 +408,7 @@ export default function DashboardPage() {
 
         {accessStatus === "pending" ? (
           <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {courseCatalogue.map((course) => (
+            {availableCourses.map((course) => (
               <Link
                 key={course.courseSlug}
                 href={course.href}

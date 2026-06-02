@@ -41,6 +41,7 @@ type MasteryState = {
   mustCompleteLesson: boolean;
   completedStages: LessonStage[];
   lastScore?: number;
+  updatedAt?: string;
 };
 
 export const WATCH_STAGE_ENABLED = false;
@@ -602,6 +603,21 @@ export function LessonRenderer({
 
   const masteryStartedRef = useRef<string | null>(null);
   const progressChangedRef = useRef(false);
+  const progressSyncRef = useRef(Promise.resolve());
+
+  function queueProgressSync(
+    record: Parameters<typeof upsertLessonProgress>[1]
+  ) {
+    progressSyncRef.current = progressSyncRef.current.then(async () => {
+      try {
+        const { data } = await supabase.auth.getUser();
+        if (!data.user) return;
+        await upsertLessonProgress(data.user.id, record);
+      } catch (error) {
+        console.error("Could not sync lesson progress.", error);
+      }
+    });
+  }
 
   useEffect(() => {
     progressChangedRef.current = false;
@@ -618,6 +634,7 @@ export function LessonRenderer({
     trackLessonViewed(lesson.courseTitle, lesson.moduleTitle, lesson.title);
 
     const storageKey = masteryStorageKey(lesson.moduleSlug, lessonSlug);
+    let localState: MasteryState | null = null;
 
     try {
       const storedValue = localStorage.getItem(storageKey);
@@ -626,7 +643,7 @@ export function LessonRenderer({
           MasteryState & { sequenceLocked: boolean }
         >;
 
-        setMasteryState({
+        localState = {
           passed: storedState.passed ?? false,
           mustCompleteLesson:
             storedState.mustCompleteLesson ??
@@ -634,7 +651,9 @@ export function LessonRenderer({
             false,
           completedStages: storedState.completedStages ?? [],
           lastScore: storedState.lastScore,
-        });
+          updatedAt: storedState.updatedAt,
+        };
+        setMasteryState(localState);
       }
     } catch {
       localStorage.removeItem(storageKey);
@@ -653,7 +672,21 @@ export function LessonRenderer({
 
         const progress = await getUserCourseProgress(user.id, progressCourseSlug);
         const remoteRecord = progress[`${progressUnitSlug}/${lessonSlug}`];
-        if (!remoteRecord || cancelled || progressChangedRef.current) return;
+        if (cancelled || progressChangedRef.current) return;
+
+        if (!remoteRecord) {
+          if (localState) {
+            queueProgressSync({
+              courseSlug: progressCourseSlug,
+              unitSlug: progressUnitSlug,
+              lessonSlug,
+              passed: localState.passed,
+              lastScore: localState.lastScore,
+              completedStages: localState.completedStages,
+            });
+          }
+          return;
+        }
 
         const completedStages = remoteRecord.completedStages.filter(
           (stage): stage is LessonStage =>
@@ -664,9 +697,30 @@ export function LessonRenderer({
           mustCompleteLesson: false,
           completedStages,
           lastScore: remoteRecord.lastScore ?? undefined,
+          updatedAt: remoteRecord.updatedAt,
         };
-        setMasteryState(remoteState);
-        localStorage.setItem(storageKey, JSON.stringify(remoteState));
+        const localUpdatedAt = Date.parse(localState?.updatedAt ?? "");
+        const remoteUpdatedAt = Date.parse(remoteRecord.updatedAt ?? "");
+        const shouldKeepLocalState =
+          localState !== null &&
+          Number.isFinite(localUpdatedAt) &&
+          (!Number.isFinite(remoteUpdatedAt) || localUpdatedAt > remoteUpdatedAt);
+        const hydratedState =
+          shouldKeepLocalState && localState ? localState : remoteState;
+
+        setMasteryState(hydratedState);
+        localStorage.setItem(storageKey, JSON.stringify(hydratedState));
+
+        if (shouldKeepLocalState) {
+          queueProgressSync({
+            courseSlug: progressCourseSlug,
+            unitSlug: progressUnitSlug,
+            lessonSlug,
+            passed: hydratedState.passed,
+            lastScore: hydratedState.lastScore,
+            completedStages: hydratedState.completedStages,
+          });
+        }
       } catch (error) {
         console.error("Could not load remote lesson progress.", error);
       }
@@ -724,32 +778,28 @@ export function LessonRenderer({
   const quizScore = quizCorrectCount / currentLesson.masteryQuiz.length;
 
   function saveMasteryState(nextState: MasteryState) {
+    const storedState = {
+      ...nextState,
+      updatedAt: new Date().toISOString(),
+    };
     progressChangedRef.current = true;
-    setMasteryState(nextState);
+    setMasteryState(storedState);
     localStorage.setItem(
       masteryStorageKey(currentLesson.moduleSlug, lessonSlug),
-      JSON.stringify(nextState)
+      JSON.stringify(storedState)
     );
 
     if (courseSlug && unitSlug) {
       const progressCourseSlug = courseSlug;
       const progressUnitSlug = unitSlug;
-      void (async () => {
-        try {
-          const { data } = await supabase.auth.getUser();
-          if (!data.user) return;
-          await upsertLessonProgress(data.user.id, {
-            courseSlug: progressCourseSlug,
-            unitSlug: progressUnitSlug,
-            lessonSlug,
-            passed: nextState.passed,
-            lastScore: nextState.lastScore,
-            completedStages: nextState.completedStages,
-          });
-        } catch (error) {
-          console.error("Could not sync lesson progress.", error);
-        }
-      })();
+      queueProgressSync({
+        courseSlug: progressCourseSlug,
+        unitSlug: progressUnitSlug,
+        lessonSlug,
+        passed: storedState.passed,
+        lastScore: storedState.lastScore,
+        completedStages: storedState.completedStages,
+      });
     }
   }
 
