@@ -1,6 +1,71 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import type { ExplicitLesson } from "../differentialCalculus";
-import { practicalChoice, measurementAnswer } from "../questionHelpers";
+import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import {
+  practicalChoice,
+  measurementAnswer as baseMeasurementAnswer,
+} from "../questionHelpers";
+
+function measurementFeedback(prompt: string, answer: string) {
+  const lowerPrompt = prompt.toLowerCase();
+
+  if (lowerPrompt.includes("side opposite")) {
+    return `The sine rule works because the known side and angle form an opposite pair. Match that pair with the required side and its opposite angle, then rearrange to get ${answer}.`;
+  }
+  if (lowerPrompt.includes("third side")) {
+    return `Two sides and the included angle point to the cosine rule. Substitute the three known measurements, then take the square root at the end to get ${answer}.`;
+  }
+  if (lowerPrompt.includes("area")) {
+    return `For a triangle area question, use the two sides with the angle between them. Apply one half times side times side times sine of the included angle, then round at the end to get ${answer}.`;
+  }
+  if (lowerPrompt.includes("average speed")) {
+    return `Average speed compares the whole distance with the whole travel time. Convert the time to hours first, then divide distance by time to get ${answer}.`;
+  }
+  if (
+    lowerPrompt.includes("flow rate") ||
+    lowerPrompt.includes("fills 450") ||
+    lowerPrompt.includes("delivers 720") ||
+    lowerPrompt.includes("fills 600")
+  ) {
+    return `A flow rate tells you how much volume passes each minute. Divide the total volume by the number of minutes to get ${answer}.`;
+  }
+  if (
+    lowerPrompt.includes("fuel consumption") ||
+    lowerPrompt.includes("fuel use")
+  ) {
+    return `Fuel consumption in litres per 100 kilometres rescales the trip to a 100 km comparison. Divide litres by kilometres, then multiply by 100 to get ${answer}.`;
+  }
+  if (lowerPrompt.includes("map scale")) {
+    return `A map scale of 1:n means each map unit represents n of the same real-world units. Multiply first, then convert the resulting distance into kilometres to get ${answer}.`;
+  }
+  if (
+    lowerPrompt.includes("ratio") ||
+    lowerPrompt.includes("shared") ||
+    lowerPrompt.includes("drink mix")
+  ) {
+    return `A ratio splits the total into equal-sized parts. Add the ratio parts, find the value of one part, then take the required number of parts to get ${answer}.`;
+  }
+  if (
+    lowerPrompt.includes("convert") ||
+    lowerPrompt.includes("how many millilitres")
+  ) {
+    return `Choose a conversion that matches the required unit before calculating. Scaling the given volume into the smaller unit gives ${answer}.`;
+  }
+  return `Match the calculation to the units and the practical context, then round only when the question asks. This gives ${answer}.`;
+}
+
+function measurementAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseMeasurementAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: measurementFeedback(prompt, answer),
+  };
+}
+
 export function year12Standard2TrigRatesLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
