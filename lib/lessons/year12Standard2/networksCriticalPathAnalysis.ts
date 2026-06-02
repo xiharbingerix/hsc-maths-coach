@@ -1,7 +1,89 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import type { ExplicitLesson } from "../differentialCalculus";
+import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import type { NetworkDiagram } from "../types";
-import { labelledChoice, shortAnswer } from "../questionHelpers";
+import {
+  labelledChoice,
+  shortAnswer as baseShortAnswer,
+} from "../questionHelpers";
+
+function networkFeedback(prompt: string, answer: string) {
+  const lowerPrompt = prompt.toLowerCase();
+
+  if (lowerPrompt.includes("degree")) {
+    return `The degree of a vertex counts only the direct edges touching that vertex. Count those connections once each to get ${answer}.`;
+  }
+  if (
+    lowerPrompt.includes("how many edges") ||
+    lowerPrompt.includes("how many edges are listed")
+  ) {
+    return `Each listed connection is one edge. Count the connections in the edge list once each to get ${answer}.`;
+  }
+  if (
+    lowerPrompt.includes("how many vertices") ||
+    lowerPrompt.includes("vertices are named")
+  ) {
+    return `Vertices are the distinct endpoint labels, not the number of roads. List each different label once to get ${answer}.`;
+  }
+  if (
+    lowerPrompt.includes("shortest path label") ||
+    lowerPrompt.includes("enter the shortest path")
+  ) {
+    return `A shortest path is the route with the smallest total weight between the two endpoints. Compare the candidate route totals, then enter the labels in travel order: ${answer}.`;
+  }
+  if (lowerPrompt.includes("shortest-path weight")) {
+    return `A shortest-path question asks for the smallest route total, not the fewest edges. Compare the available totals and choose ${answer}.`;
+  }
+  if (
+    lowerPrompt.includes("mst") ||
+    lowerPrompt.includes("connector lengths") ||
+    lowerPrompt.includes("total cable length")
+  ) {
+    return `For an MST total, add the selected connector edges once each. Those edges already form the minimum cycle-free connection, so their combined weight is ${answer}.`;
+  }
+  if (lowerPrompt.includes("earliest finish")) {
+    return `Earliest finish means the activity's earliest start plus its duration. Add those two times to get ${answer}.`;
+  }
+  if (lowerPrompt.includes("earliest start")) {
+    return `An activity cannot start until every prerequisite is complete. Use the latest prerequisite finish time, which gives ${answer}.`;
+  }
+  if (
+    lowerPrompt.includes("project completion time") ||
+    lowerPrompt.includes("completion time")
+  ) {
+    return `Project completion is controlled by the longest dependent path, because the project must wait for that chain to finish. Choose the largest path total to get ${answer}.`;
+  }
+  if (lowerPrompt.includes("float")) {
+    return `Float is the spare time between the earliest and latest allowed start. Subtract earliest start from latest start to get ${answer}.`;
+  }
+  if (lowerPrompt.includes("critical path")) {
+    return `The critical path is the longest dependent route through the activity network. It controls the completion time, so the required path is ${answer}.`;
+  }
+  if (lowerPrompt.includes("path total")) {
+    return `A project path total is the sum of the activity durations along that one dependent chain. Add the listed durations to get ${answer}.`;
+  }
+  if (
+    lowerPrompt.includes("route weight") ||
+    lowerPrompt.includes("route time") ||
+    lowerPrompt.includes("route uses") ||
+    lowerPrompt.includes("find the total")
+  ) {
+    return `A route total is found by adding the weights of the edges actually travelled. Add the listed edge weights once each to get ${answer}.`;
+  }
+  return `Read what the network quantity represents, then use only the relevant edges or activity times. This gives ${answer}.`;
+}
+
+function shortAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseShortAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: networkFeedback(prompt, answer),
+  };
+}
 
 const y12CampusDiagram: NetworkDiagram = {
   description:
