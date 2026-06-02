@@ -2,6 +2,72 @@ import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
 import type { TriangleDiagram } from "../types";
 
+function safeGeometryAnswerVariants(prompt: string, latex: string, answer: string): string[] {
+  const variants: string[] = [];
+  const context = `${prompt} ${latex}`;
+  const lowerContext = context.toLowerCase();
+  const isNumeric = /^-?\d+(\.\d+)?$/.test(answer);
+
+  if (!isNumeric) return variants;
+
+  const numericAnswer = Number(answer);
+  if (Number.isInteger(numericAnswer)) variants.push(numericAnswer.toFixed(1));
+
+  const isAnglePrompt = lowerContext.includes("angle") || lowerContext.includes("degrees") || latex.includes("^\\circ");
+  if (isAnglePrompt) {
+    variants.push(`${answer}°`, `${answer} degrees`, `angle=${answer}`, `angle = ${answer}`, `angle = ${answer}°`);
+
+    const namedAngle = prompt.match(/angle\s+([A-Z]{1,3})/);
+    if (namedAngle) {
+      const label = namedAngle[1];
+      variants.push(
+        `angle ${label}=${answer}`,
+        `angle ${label} = ${answer}`,
+        `angle ${label} = ${answer}°`,
+        `∠${label}=${answer}`,
+        `∠${label} = ${answer}`,
+        `∠${label} = ${answer}°`
+      );
+    }
+  }
+
+  const isScaleFactorPrompt = lowerContext.includes("scale factor");
+  if (isScaleFactorPrompt) {
+    variants.push(`k=${answer}`, `k = ${answer}`, `scale factor=${answer}`, `scale factor = ${answer}`);
+  }
+
+  const segmentMatch = prompt.match(/find\s+([A-Z]{2})\b/);
+  const isLengthPrompt =
+    !isScaleFactorPrompt &&
+    !isAnglePrompt &&
+    (lowerContext.includes("side") ||
+      lowerContext.includes("length") ||
+      lowerContext.includes("tangent") ||
+      lowerContext.includes("radius") ||
+      Boolean(segmentMatch));
+
+  if (isLengthPrompt) {
+    variants.push(`${answer} cm`, `${answer}cm`);
+    if (segmentMatch) {
+      const segment = segmentMatch[1];
+      variants.push(
+        `${segment}=${answer}`,
+        `${segment} = ${answer}`,
+        `${segment} = ${answer} cm`,
+        `${segment}=${answer}cm`
+      );
+    }
+  }
+
+  if (/\by\b/.test(latex) && lowerContext.includes("find y")) {
+    variants.push(`y=${answer}`, `y = ${answer}`);
+  } else if (/\bx\b/.test(latex) && lowerContext.includes("find x")) {
+    variants.push(`x=${answer}`, `x = ${answer}`);
+  }
+
+  return variants;
+}
+
 function numeric(
   id: string,
   prompt: string,
@@ -15,7 +81,7 @@ function numeric(
     prompt,
     latex,
     answer,
-    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...safeGeometryAnswerVariants(prompt, latex, answer)])),
     hint: "Match corresponding parts before calculating.",
     explanation,
   };
