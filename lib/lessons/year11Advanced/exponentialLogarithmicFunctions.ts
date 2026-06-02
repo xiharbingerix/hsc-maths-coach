@@ -1,6 +1,69 @@
-import type { ExplicitLesson } from "../differentialCalculus";
+import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import { practicalChoice, formulaAnswer } from "../questionHelpers";
+import { practicalChoice, formulaAnswer as baseFormulaAnswer } from "../questionHelpers";
+
+function exponentialLogarithmicFeedback(prompt: string, answer: string) {
+  if (prompt.includes("negative-index")) {
+    return `A negative index means reciprocal, not a negative value. Rewrite the matching positive power underneath 1, which gives ${answer}.`;
+  }
+  if (prompt.includes("fractional-index")) {
+    return `A fractional index connects powers with roots. An exponent of one half means square root, so the expression evaluates to ${answer}.`;
+  }
+  if (prompt.includes("Simplify") && prompt.includes("index")) {
+    return `Use index laws only after checking that the bases match. Multiplication adds indices, division subtracts them, and a power of a power multiplies them; this simplifies to ${answer}.`;
+  }
+  if (prompt.includes("power expression")) {
+    return `A power raised to another power repeats the multiplication pattern, so multiply the indices. The simplified expression is ${answer}.`;
+  }
+  if (prompt.includes("Evaluate the expression")) {
+    return `A non-zero base raised to power zero equals 1. The exponent records repeated multiplication, and zero repetitions leave the multiplicative starting point ${answer}.`;
+  }
+  if (prompt.includes("logarithm by inspection") || prompt.includes("special logarithm")) {
+    return `A logarithm asks: what exponent on this base produces the input? Rewrite the input as a familiar power of the base to see that the needed exponent is ${answer}.`;
+  }
+  if (prompt.includes("combined logarithm")) {
+    return `Use the log laws to translate addition into multiplication and subtraction into division. Then read the remaining logarithm as an exponent question to get ${answer}.`;
+  }
+  if (prompt.includes("applying the product law") || prompt.includes("using a logarithm law")) {
+    return `Combine the logarithms first: addition of logs represents multiplication inside one logarithm. Convert that single logarithm to exponential form and solve to get ${answer}.`;
+  }
+  if (prompt.includes("applying the quotient law")) {
+    return `Combine the logarithms first: subtraction of logs represents division inside one logarithm. Convert the result to exponential form and solve to get ${answer}.`;
+  }
+  if (prompt.includes("logarithmic equation") || prompt.includes("converting from logarithmic form")) {
+    return `A logarithm tells you the exponent needed. Convert log base a of an expression equals b into a^b equals that expression, then solve and check the log input stays positive; this gives ${answer}.`;
+  }
+  if (prompt.includes("matching bases") || prompt.includes("Solve by matching bases")) {
+    return `Rewrite both sides using the same base. Once the bases match, the exponents must match too, so solving the exponent equation gives ${answer}.`;
+  }
+  if (prompt.includes("time needed")) {
+    return `Exponential change repeats multiplication each period. Compare the target with the starting value, then count how many growth-factor multiplications are needed; the time is ${answer}.`;
+  }
+  if (prompt.includes("half-lives") || prompt.includes("halves every")) {
+    return `Each half-life multiplies the amount by one half. Apply that decay factor once for each elapsed half-life to get ${answer}.`;
+  }
+  if (prompt.includes("model") || prompt.includes("balance") || prompt.includes("population") || prompt.includes("amount after")) {
+    return `An exponential model starts with an initial value and multiplies by the same factor each period. Substitute the time and keep full precision until the final step to get ${answer}.`;
+  }
+  if (prompt.includes("exponential function")) {
+    return `In an exponential function, the variable is in the exponent. Substitute the input as the exponent and evaluate the repeated multiplication to get ${answer}.`;
+  }
+  return `Identify whether the expression needs an index law, an inverse logarithm step, or an exponential model. Following that structure gives ${answer}.`;
+}
+
+function formulaAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseFormulaAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: exponentialLogarithmicFeedback(prompt, answer),
+  };
+}
+
 export function year11AdvancedExponentialLogarithmicLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -34,11 +97,11 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Index laws describe how powers behave when the same base is multiplied, divided, or raised to another power.",
-          "A zero index gives 1 for any non-zero base. A negative index means the reciprocal of the matching positive power.",
-          "Fractional indices connect powers and radicals. A power of one half represents a square root.",
-          "An exponential function has the variable in the exponent. For a basic function, the base must be positive and not equal to 1.",
-          "If the base is greater than 1, the function shows growth. If the base is between 0 and 1, the function shows decay.",
+          "An exponent records repeated multiplication. In 3^4, the base 3 is the factor being repeated and the exponent 4 tells you how many copies to multiply.",
+          "Index laws are bookkeeping rules for that repetition. With the same base, multiplying joins the repeated factors, dividing removes factors, and raising a power to a power repeats the repetition.",
+          "A zero index gives 1 for any non-zero base because all matching factors have cancelled. A negative index means the factors belong in the denominator, so it creates a reciprocal rather than a negative value.",
+          "Fractional indices connect powers and roots. An exponent of one half asks for a square root because squaring that result returns the original value.",
+          "An exponential function has the variable in the exponent, so its output changes by repeated multiplication. A base above 1 gives growth; a base between 0 and 1 gives decay.",
           "For a basic exponential graph, the y-intercept occurs at x = 0 and the horizontal asymptote is usually the x-axis.",
         ],
         latexBlocks: [
@@ -140,12 +203,12 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A logarithm answers an exponent question. It tells you what power is needed to produce a number from a given base.",
-          "Logarithms and exponentials are inverse operations. Converting between forms is often the first step.",
-          "Some logarithms can be evaluated by inspection when the input is a familiar power of the base.",
-          "The common logarithm uses base 10. The natural logarithm uses base e and is written ln.",
-          "Logarithm laws turn products into sums, quotients into differences, and powers into multipliers.",
-          "A logarithm input must be positive. Expressions such as logarithms of zero or negative numbers are not defined in this course.",
+          "A logarithm answers one question: what exponent do I need? For example, log base 2 of 8 is 3 because 2^3 = 8.",
+          "Exponentials and logarithms undo each other. Converting between the two forms is useful because one form often makes the hidden exponent easier to see.",
+          "Log laws are index laws translated into logarithm language. Products become sums, quotients become differences, and powers move to the front as multipliers.",
+          "There is no general law saying log(a + b) = log a + log b. Addition inside a logarithm does not represent repeated multiplication.",
+          "The common logarithm uses base 10. The natural logarithm uses the special base e and is written ln.",
+          "A logarithm input must be positive. Zero or negative inputs do not fit the exponent question for the real-valued logarithms used in this course.",
         ],
         latexBlocks: [
           "\\log_a x=y\\quad \\Longleftrightarrow \\quad a^y=x",
@@ -246,11 +309,11 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "When both sides of an exponential equation can be written using the same base, match the exponents.",
-          "When the base cannot be matched neatly, logarithms can be used to isolate the exponent. In this renderer, exact logarithmic forms are best handled as multiple choice.",
-          "A logarithmic equation can often be solved by converting it to exponential form.",
-          "Sometimes a logarithm law must be used first, such as combining a sum of logarithms into one logarithm.",
-          "For logarithmic equations, always keep the domain restriction in mind: every logarithm input must be positive.",
+          "When an unknown sits in an exponent, first ask whether both sides can be rewritten with the same base. If they can, equal bases force equal exponents.",
+          "If the bases do not match neatly, use a logarithm to ask for the missing exponent directly. Keep full calculator precision until the final rounding step.",
+          "For a logarithmic equation, reverse the logarithm by converting to exponential form. Log base a of an expression equals b means a^b equals that expression.",
+          "Sometimes log laws come first: combine a sum of logs into a product or a difference of logs into a quotient before converting forms.",
+          "Always check the final answer in the original logarithm. Every log input must remain positive.",
         ],
         latexBlocks: [
           "2^x=2^5\\Rightarrow x=5",
@@ -350,12 +413,12 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Exponential models are used when a quantity changes by a constant percentage or factor over equal time periods.",
-          "In a discrete model, the starting amount is multiplied by a growth or decay factor each period.",
-          "If the base is greater than 1, the model shows growth. If the base is between 0 and 1, the model shows decay.",
-          "Continuous models use e, a special base approximately equal to 2.718. The natural logarithm ln reverses powers of e.",
+          "Use an exponential model when a quantity changes by the same multiplier over equal time periods. This is repeated multiplication, not repeated addition.",
+          "The starting value tells you where the model begins. The base is the per-period multiplier: 1.04 means keep 100 percent and add 4 percent growth each period.",
+          "A base above 1 gives growth. A base between 0 and 1 gives decay because each step keeps only a fraction of the previous amount.",
+          "Continuous models use e, a special base approximately equal to 2.718. The natural logarithm ln undoes powers of e when you need to solve for time.",
           "Half-life is the time taken for a quantity to halve. Doubling time is the time taken for a quantity to double.",
-          "Context matters: populations, bacteria, balances, medicine concentration, and radioactive material all need units and realistic interpretation.",
+          "Keep the model in context and round at the end. Populations, balances, medicine amounts, and radioactive samples need the right units and a sensible level of accuracy.",
         ],
         latexBlocks: [
           "A=A_0b^t",
@@ -459,10 +522,10 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "This lesson mixes the skills from the unit. The first decision is whether the question is about index laws, logarithm meaning, equation solving, modelling, or graph interpretation.",
-          "For exact logarithmic-form solutions, choose the best expression rather than typing a fragile equivalent form.",
-          "For modelling questions, identify the starting amount, the growth or decay factor, and the time unit before calculating.",
-          "Graph questions usually test the base, the y-intercept, the horizontal asymptote, or the logarithm domain.",
+          "Mixed questions become easier when you identify the job first: simplify powers, read a logarithm as an exponent question, solve for an exponent, evaluate a model, or interpret a graph.",
+          "With powers, look for matching bases. With logarithms, remember that the log value is the exponent needed to rebuild the input.",
+          "For equations, match bases when possible and use logarithms when the exponent cannot be exposed neatly. For models, identify the starting value, multiplier, and time unit before calculating.",
+          "Graph questions usually test the base, y-intercept, horizontal asymptote, or logarithm domain. Check for growth versus decay and remember that a log input must be positive.",
         ],
         latexBlocks: [
           "a^m a^n=a^{m+n},\\quad \\frac{a^m}{a^n}=a^{m-n}",
