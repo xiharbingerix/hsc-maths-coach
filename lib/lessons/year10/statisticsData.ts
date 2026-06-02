@@ -1,6 +1,36 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
 
+function safeStatAnswerVariants(prompt: string, answer: string): string[] {
+  const variants: string[] = [];
+  const normalisedPrompt = prompt.toLowerCase();
+  const numericAnswer = Number(answer.replace(/,/g, ""));
+
+  if (Number.isFinite(numericAnswer)) {
+    if (Number.isInteger(numericAnswer)) variants.push(numericAnswer.toFixed(1));
+    if (Math.abs(numericAnswer) >= 1000) variants.push(numericAnswer.toLocaleString("en-AU"));
+  }
+
+  const labels: string[] = [];
+  if (normalisedPrompt.includes("find the median")) labels.push("median");
+  if (normalisedPrompt.includes("find the lower quartile")) labels.push("Q1", "q1");
+  if (normalisedPrompt.includes("find the upper quartile")) labels.push("Q3", "q3");
+  if (normalisedPrompt.includes("find the interquartile range") || normalisedPrompt.includes("find its interquartile range")) {
+    labels.push("IQR", "iqr");
+  }
+  if (normalisedPrompt.includes("find the range")) labels.push("range");
+  if (normalisedPrompt.includes("find the mean")) labels.push("mean");
+  if (normalisedPrompt.includes("find the population standard deviation")) labels.push("SD", "sd", "standard deviation");
+  if (normalisedPrompt.includes("actual minus predicted")) labels.push("residual");
+  if (normalisedPrompt.includes("predict the output")) labels.push("y");
+
+  for (const label of labels) {
+    variants.push(`${label}=${answer}`, `${label} = ${answer}`);
+  }
+
+  return variants;
+}
+
 function statAnswer(
   id: string,
   prompt: string,
@@ -14,7 +44,7 @@ function statAnswer(
     prompt,
     latex,
     answer,
-    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...safeStatAnswerVariants(prompt, answer)])),
     hint: "Use the displayed data and identify the statistic being requested.",
     explanation,
   };
