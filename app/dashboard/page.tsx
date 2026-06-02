@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { courseCatalogue } from "../../lib/courseUnits";
+import { getContinueLearningTarget } from "../../lib/courseLessonTargets";
 import {
   getUserAllProgress,
   type LessonProgressRecord,
@@ -165,6 +166,7 @@ export default function DashboardPage() {
   );
   const progressRecords = Object.values(lessonProgress);
   const hasLessonProgress = progressRecords.length > 0;
+  const continueLearningTarget = getContinueLearningTarget(progressRecords);
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -230,7 +232,7 @@ export default function DashboardPage() {
             {accessStatus === "active" ? (
               <>
                 <Link
-                  href="/course"
+                  href={continueLearningTarget?.href ?? "/course"}
                   className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
                 >
                   Continue learning
@@ -297,6 +299,42 @@ export default function DashboardPage() {
             ) : null}
           </div>
         </section>
+
+        {continueLearningTarget ? (
+          <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+              Continue learning
+            </p>
+            <div className="mt-4 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-sm font-semibold text-slate-600">
+                  {continueLearningTarget.status}
+                </p>
+                <h2 className="mt-2 text-2xl font-bold tracking-tight">
+                  {continueLearningTarget.lessonTitle}
+                </h2>
+                <p className="mt-2 text-sm leading-6 text-slate-600">
+                  {continueLearningTarget.courseTitle} &middot;{" "}
+                  {continueLearningTarget.unitTitle}
+                </p>
+                {continueLearningTarget.lastScore != null ? (
+                  <p className="mt-2 text-sm font-medium text-slate-600">
+                    Last mastery score:{" "}
+                    {Math.round(continueLearningTarget.lastScore * 100)}%
+                  </p>
+                ) : null}
+              </div>
+              <Link
+                href={continueLearningTarget.href}
+                className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+              >
+                {continueLearningTarget.status === "In progress"
+                  ? "Continue lesson"
+                  : "Start lesson"}
+              </Link>
+            </div>
+          </section>
+        ) : null}
 
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <h2 className="text-2xl font-bold tracking-tight">Your progress</h2>
