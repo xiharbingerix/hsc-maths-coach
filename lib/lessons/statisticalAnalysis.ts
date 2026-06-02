@@ -121,11 +121,11 @@ export const spreadIqrBoxPlotsOutliersLesson: ExplicitLesson = {
     { title: "Worked example 1: Compare range and IQR", questionLatex: "\\min=2,\\quad Q_1=5,\\quad \\text{median}=7,\\quad Q_3=11,\\quad \\max=15", steps: [
       { explanation: "Range uses the two extremes, so it describes the full spread.", latex: "\\text{range}=15-2=13" },
       { explanation: "IQR uses the quartiles, so it describes the middle half of the data.", latex: "IQR=11-5=6" },
-    ], finalAnswerLatex: "\\text{range}=13,\\quad IQR=6" },
+    ], finalAnswerLatex: "\\text{range}=13,\\quad IQR=6", boxPlotDiagram: { description: "A box plot with whiskers from 2 to 15 and a box from 5 to 11. The full whisker width is the range of 13, while the box width is the IQR of 6.", plots: [{ label: "Dataset", min: 2, q1: 5, median: 7, q3: 11, max: 15 }], showValueLabels: true } },
     { title: "Worked example 2: Read a box plot from text", questionLatex: "\\min=3,\\quad Q_1=8,\\quad \\text{median}=12,\\quad Q_3=18,\\quad \\max=25", steps: [
       { explanation: "The box would run from 8 to 18, because the box represents the middle 50%.", latex: "Q_1=8,\\quad Q_3=18" },
       { explanation: "The median line would sit at 12, and the whiskers would extend to 3 and 25.", latex: "\\min=3,\\quad \\text{median}=12,\\quad \\max=25" },
-    ], finalAnswerLatex: "\\text{box from }8\\text{ to }18,\\quad \\text{median }12,\\quad \\text{whiskers to }3\\text{ and }25" },
+    ], finalAnswerLatex: "\\text{box from }8\\text{ to }18,\\quad \\text{median }12,\\quad \\text{whiskers to }3\\text{ and }25", boxPlotDiagram: { description: "A box plot with whiskers extending to 3 and 25, a box from 8 to 18 and a median line at 12.", plots: [{ label: "Dataset", min: 3, q1: 8, median: 12, q3: 18, max: 25 }], showValueLabels: true } },
     { title: "Worked example 3: Explain an outlier effect", questionLatex: "4,\\ 6,\\ 7,\\ 8,\\ 10\\quad \\text{then add }100", steps: [
       { explanation: "The new value 100 becomes the maximum, so it stretches the full spread immediately.", latex: "\\text{old range}=10-4=6,\\quad \\text{new range}=100-4=96" },
       { explanation: "IQR focuses on the middle half, so it is usually much less affected by one extreme endpoint." },

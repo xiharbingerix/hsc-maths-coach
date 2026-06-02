@@ -150,3 +150,20 @@ export type TrapezoidalRuleDiagram = {
   showTrapezoidLabels?: boolean;
   functionLabel?: string;
 };
+
+export type BoxPlotDiagram = {
+  description: string;
+  plots: {
+    label: string;
+    min: number;
+    q1: number;
+    median: number;
+    q3: number;
+    max: number;
+    outliers?: number[];
+  }[];
+  axisLabel?: string;
+  xMin?: number;
+  xMax?: number;
+  showValueLabels?: boolean;
+};

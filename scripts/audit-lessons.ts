@@ -97,7 +97,8 @@ function hasVisualPayload(lesson: ExplicitLesson) {
       ("solutionDiagram" in item && item.solutionDiagram) ||
       item.triangleDiagram ||
       item.cartesianGraph ||
-      item.trapezoidalRuleDiagram
+      item.trapezoidalRuleDiagram ||
+      item.boxPlotDiagram
   );
 }
 
@@ -462,6 +463,68 @@ function validateTrapezoidalRuleDiagram(value: unknown, path: string) {
   }
 }
 
+function validateBoxPlotDiagram(value: unknown, path: string) {
+  if (!isRecord(value)) {
+    addIssue("FAIL", "box-plot-payload", path, "Box plot diagram must be an object.");
+    return;
+  }
+
+  if (!isNonEmptyString(value.description)) {
+    addIssue("FAIL", "box-plot-payload", path, "Box plot diagram requires a description.");
+  }
+
+  if (!Array.isArray(value.plots) || value.plots.length === 0) {
+    addIssue("FAIL", "box-plot-payload", path, "Box plot diagram requires at least one plot.");
+    return;
+  }
+
+  if (
+    (value.xMin !== undefined && !isFiniteNumber(value.xMin)) ||
+    (value.xMax !== undefined && !isFiniteNumber(value.xMax)) ||
+    (isFiniteNumber(value.xMin) && isFiniteNumber(value.xMax) && value.xMin >= value.xMax)
+  ) {
+    addIssue("FAIL", "box-plot-payload", path, "Box plot xMin and xMax must be finite with xMin < xMax when supplied.");
+  }
+
+  value.plots.forEach((plot, index) => {
+    const plotPath = `${path}.plots[${index}]`;
+    if (!isRecord(plot)) {
+      addIssue("FAIL", "box-plot-payload", plotPath, "Box plot must be an object.");
+      return;
+    }
+
+    if (!isNonEmptyString(plot.label)) {
+      addIssue("FAIL", "box-plot-payload", plotPath, "Box plot label must be non-empty.");
+    }
+
+    const { min, q1, median, q3, max } = plot;
+    if (![min, q1, median, q3, max].every(isFiniteNumber)) {
+      addIssue("FAIL", "box-plot-payload", plotPath, "Box plot requires finite min, q1, median, q3 and max values.");
+      return;
+    }
+
+    if (
+      !(
+        isFiniteNumber(min) &&
+        isFiniteNumber(q1) &&
+        isFiniteNumber(median) &&
+        isFiniteNumber(q3) &&
+        isFiniteNumber(max) &&
+        min <= q1 &&
+        q1 <= median &&
+        median <= q3 &&
+        q3 <= max
+      )
+    ) {
+      addIssue("FAIL", "box-plot-payload", plotPath, "Box plot values must satisfy min <= q1 <= median <= q3 <= max.");
+    }
+
+    if (plot.outliers !== undefined && (!Array.isArray(plot.outliers) || plot.outliers.some((outlier) => !isFiniteNumber(outlier)))) {
+      addIssue("FAIL", "box-plot-payload", plotPath, "Box plot outliers must be an array of finite numbers when supplied.");
+    }
+  });
+}
+
 function validateVisualPayloads(lesson: ExplicitLesson, basePath: string) {
   visualItems(lesson).forEach((item, index) => {
     const path = `${basePath}.visualItem[${index}]`;
@@ -470,6 +533,7 @@ function validateVisualPayloads(lesson: ExplicitLesson, basePath: string) {
     if (item.trapezoidalRuleDiagram) {
       validateTrapezoidalRuleDiagram(item.trapezoidalRuleDiagram, `${path}.trapezoidalRuleDiagram`);
     }
+    if (item.boxPlotDiagram) validateBoxPlotDiagram(item.boxPlotDiagram, `${path}.boxPlotDiagram`);
     if (item.diagram) validateNetworkDiagram(item.diagram, `${path}.diagram`);
     if ("solutionDiagram" in item && item.solutionDiagram) {
       validateNetworkDiagram(item.solutionDiagram, `${path}.solutionDiagram`);

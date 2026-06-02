@@ -1,4 +1,5 @@
 import type {
+  BoxPlotDiagram,
   CartesianGraph,
   NetworkDiagram,
   TrapezoidalRuleDiagram,
@@ -13,6 +14,7 @@ export type PracticeQuestion = {
   triangleDiagram?: TriangleDiagram;
   cartesianGraph?: CartesianGraph;
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
+  boxPlotDiagram?: BoxPlotDiagram;
   solutionDiagram?: NetworkDiagram;
   answer: string;
   acceptedAnswers?: string[];
@@ -36,6 +38,7 @@ export type WorkedExample = {
   triangleDiagram?: TriangleDiagram;
   cartesianGraph?: CartesianGraph;
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
+  boxPlotDiagram?: BoxPlotDiagram;
   steps: WorkedExampleStep[];
   finalAnswerLatex: string;
 };

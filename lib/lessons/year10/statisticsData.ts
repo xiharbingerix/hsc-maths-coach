@@ -53,6 +53,11 @@ const quartilesWorked: WorkedExample[] = [
       { explanation: "Find the median of the upper half.", latex: "Q_3=12" },
     ],
     finalAnswerLatex: "Q_1=4,\\quad \\text{median}=8,\\quad Q_3=12",
+    boxPlotDiagram: {
+      description: "A box plot for the ordered data with whiskers from 2 to 14, a box from 4 to 12 and a median line at 8.",
+      plots: [{ label: "Dataset", min: 2, q1: 4, median: 8, q3: 12, max: 14 }],
+      showValueLabels: true,
+    },
   },
   {
     title: "Find the interquartile range",
@@ -105,6 +110,11 @@ const boxWorked: WorkedExample[] = [
       { explanation: "Subtract the lower quartile from the upper quartile.", latex: "IQR=18-9=9" },
     ],
     finalAnswerLatex: "\\text{median}=13,\\quad IQR=9",
+    boxPlotDiagram: {
+      description: "A box plot with whiskers from 4 to 25, a box from 9 to 18 and a median line at 13. The width of the box is the IQR.",
+      plots: [{ label: "Dataset", min: 4, q1: 9, median: 13, q3: 18, max: 25 }],
+      showValueLabels: true,
+    },
   },
   {
     title: "Describe the box and whiskers",
@@ -114,6 +124,11 @@ const boxWorked: WorkedExample[] = [
       { explanation: "The whiskers extend to the minimum and maximum.", latex: "\\text{whiskers: }2\\text{ and }21" },
     ],
     finalAnswerLatex: "\\text{box from }6\\text{ to }17,\\quad \\text{whiskers to }2\\text{ and }21",
+    boxPlotDiagram: {
+      description: "A box plot with its box from 6 to 17, median line at 10 and whiskers extending to the minimum 2 and maximum 21.",
+      plots: [{ label: "Dataset", min: 2, q1: 6, median: 10, q3: 17, max: 21 }],
+      showValueLabels: true,
+    },
   },
   {
     title: "Compare two box plots using summaries",
@@ -123,6 +138,14 @@ const boxWorked: WorkedExample[] = [
       { explanation: "Compare interquartile ranges.", latex: "IQR_A=16-8=8,\\quad IQR_B=19-7=12" },
     ],
     finalAnswerLatex: "\\text{Dataset B has the higher median and larger IQR.}",
+    boxPlotDiagram: {
+      description: "Side-by-side box plots for datasets A and B. Dataset B has the higher median and its wider box shows the larger IQR.",
+      plots: [
+        { label: "A", min: 3, q1: 8, median: 12, q3: 16, max: 22 },
+        { label: "B", min: 4, q1: 7, median: 14, q3: 19, max: 24 },
+      ],
+      showValueLabels: true,
+    },
   },
 ];
 

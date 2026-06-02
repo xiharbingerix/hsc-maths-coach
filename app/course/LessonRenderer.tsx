@@ -17,6 +17,7 @@ import { NetworkDiagramView } from "./components/NetworkDiagramView";
 import { TriangleDiagramView } from "./components/TriangleDiagramView";
 import { CartesianGraphView } from "./components/CartesianGraphView";
 import { TrapezoidalRuleView } from "./components/TrapezoidalRuleView";
+import { BoxPlotView } from "./components/BoxPlotView";
 import { markTypedAnswer } from "../../lib/answerMarking";
 
 type LessonStage =
@@ -234,6 +235,9 @@ function PracticeCard({
         {question.trapezoidalRuleDiagram && (
           <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
         )}
+        {question.boxPlotDiagram && (
+          <BoxPlotView diagram={question.boxPlotDiagram} />
+        )}
       </div>
 
       {question.choices ? (
@@ -350,6 +354,9 @@ function QuizQuestion({
         {question.trapezoidalRuleDiagram && (
           <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
         )}
+        {question.boxPlotDiagram && (
+          <BoxPlotView diagram={question.boxPlotDiagram} />
+        )}
       </div>
 
       {question.choices ? (
@@ -457,6 +464,9 @@ function MasteryResultPanel({
                 )}
                 {question.trapezoidalRuleDiagram && (
                   <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
+                )}
+                {question.boxPlotDiagram && (
+                  <BoxPlotView diagram={question.boxPlotDiagram} />
                 )}
               </div>
 
@@ -848,6 +858,9 @@ export function LessonRenderer({
                 )}
                 {example.trapezoidalRuleDiagram && (
                   <TrapezoidalRuleView diagram={example.trapezoidalRuleDiagram} />
+                )}
+                {example.boxPlotDiagram && (
+                  <BoxPlotView diagram={example.boxPlotDiagram} />
                 )}
 
                 <div className="space-y-3">
