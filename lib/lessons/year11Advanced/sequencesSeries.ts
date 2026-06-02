@@ -75,6 +75,52 @@ function sequenceFeedback(
   return `Identify whether the pattern repeats addition or multiplication before choosing the term rule. Applying the matching rule gives ${answer}.`;
 }
 
+function safeSequenceAnswerVariants(
+  prompt: string,
+  latex: string,
+  answer: string
+) {
+  const variants: string[] = [];
+  const numericAnswer = Number(answer);
+  const termMatch = prompt.match(/\bT_(\d+)\b/);
+
+  if (Number.isInteger(numericAnswer)) {
+    variants.push(numericAnswer.toFixed(1));
+  }
+
+  const fractionMatch = answer.match(/^(-?\d+)\/(\d+)$/);
+  if (fractionMatch) {
+    variants.push(`${fractionMatch[1]} / ${fractionMatch[2]}`);
+  }
+
+  if (prompt.includes("common difference")) {
+    variants.push(`d=${answer}`, `d = ${answer}`);
+  }
+  if (prompt.includes("common ratio")) {
+    variants.push(`r=${answer}`, `r = ${answer}`);
+  }
+  if (prompt.includes("first term") || prompt.includes("T_1")) {
+    variants.push(`a=${answer}`, `a = ${answer}`, `T_1=${answer}`);
+  }
+  if (termMatch && !prompt.includes("Which term")) {
+    variants.push(`T_${termMatch[1]}=${answer}`, `T_${termMatch[1]} = ${answer}`);
+  }
+  if (prompt.includes("Which term")) {
+    variants.push(`${answer}th`, `${answer}th term`, `n=${answer}`, `n = ${answer}`);
+  }
+  if (prompt.includes("number of terms")) {
+    variants.push(`${answer} terms`, `n=${answer}`, `n = ${answer}`);
+  }
+  if (prompt.includes("sum") || latex.includes("\\sum")) {
+    variants.push(`S=${answer}`, `S = ${answer}`);
+  }
+  if (prompt.includes("total seats") || prompt.includes("total number of seats")) {
+    variants.push(`${answer} seats`);
+  }
+
+  return variants;
+}
+
 function sequenceAnswer(
   id: string,
   prompt: string,
@@ -88,7 +134,13 @@ function sequenceAnswer(
     prompt,
     latex,
     answer,
-    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    acceptedAnswers: Array.from(
+      new Set([
+        answer,
+        ...acceptedAnswers,
+        ...safeSequenceAnswerVariants(prompt, latex, answer),
+      ])
+    ),
     hint: "Identify the sequence type first, then use the matching term or sum rule.",
     explanation: explanation ?? sequenceFeedback(id, prompt, latex, answer),
   };
