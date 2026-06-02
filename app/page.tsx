@@ -189,8 +189,9 @@ export default function Home() {
             </div>
 
             <p className="mt-3 text-sm leading-6 text-slate-500">
-              $19/month &middot; cancel any time from your account &middot;
-              access activates automatically after payment when logged in
+              $19/month &middot; cancel any time &middot; access activates
+              after payment &middot; create a free account first so your
+              progress is saved
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2">
