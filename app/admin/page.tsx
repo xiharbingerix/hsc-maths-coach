@@ -2,6 +2,10 @@ import Link from "next/link";
 import { revalidatePath } from "next/cache";
 import { DeleteUserForm } from "./DeleteUserForm";
 import { requireAdmin } from "../../lib/adminSession";
+import {
+  availableCourseLessonTargets,
+  type CourseLessonTarget,
+} from "../../lib/courseLessonTargets";
 import { scoreDiagnostic } from "../../lib/diagnosticScoring";
 import type { DiagnosticSubmission } from "../../lib/reportTypes";
 import { supabaseAdmin } from "../../lib/supabaseAdmin";
@@ -77,6 +81,17 @@ type PaymentRow = {
   payment_status: string | null;
   subscription_status: string | null;
   access_status: string | null;
+};
+
+type LessonProgressAdminRow = {
+  user_id: string;
+  course_slug: string;
+  unit_slug: string;
+  lesson_slug: string;
+  passed: boolean;
+  last_score: number | string | null;
+  completed_stages: string[] | null;
+  updated_at: string | null;
 };
 
 const betaAccessStatuses: BetaAccessStatus[] = ["pending", "active", "revoked"];
@@ -219,6 +234,40 @@ function formatRevenue(cents: number) {
   }).format(cents / 100);
 }
 
+function formatScore(score: number | null) {
+  return score === null ? "--" : `${Math.round(score * 100)}%`;
+}
+
+function numericScore(score: number | string | null) {
+  if (score === null) return null;
+  const value = Number(score);
+  return Number.isFinite(value) ? value : null;
+}
+
+function lessonProgressKey({
+  courseSlug,
+  unitSlug,
+  lessonSlug,
+}: {
+  courseSlug: string;
+  unitSlug: string;
+  lessonSlug: string;
+}) {
+  return `${courseSlug}/${unitSlug}/${lessonSlug}`;
+}
+
+function progressRowKey(row: LessonProgressAdminRow) {
+  return lessonProgressKey({
+    courseSlug: row.course_slug,
+    unitSlug: row.unit_slug,
+    lessonSlug: row.lesson_slug,
+  });
+}
+
+function shortUserId(userId: string) {
+  return userId.length > 8 ? `${userId.slice(0, 8)}...` : userId;
+}
+
 function firstPresent(...values: Array<string | null | undefined>) {
   return values
     .map((v) => v?.trim())
@@ -358,6 +407,19 @@ export default async function AdminPage() {
   const payments = (paymentsData ?? []) as PaymentRow[];
 
   // Auth users — increased perPage so the user count is accurate
+  // Latest persisted lesson progress for internal learning analytics
+  const { data: lessonProgressData, error: lessonProgressError } =
+    await supabaseAdmin
+      .from("lesson_progress")
+      .select(
+        "user_id,course_slug,unit_slug,lesson_slug,passed,last_score,completed_stages,updated_at",
+      )
+      .order("updated_at", { ascending: false })
+      .limit(1000);
+
+  const lessonProgressRows = (lessonProgressData ??
+    []) as LessonProgressAdminRow[];
+
   const { data: usersData, error: usersError } =
     await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 1000 });
 
@@ -412,6 +474,67 @@ export default async function AdminPage() {
   const totalRevenueCents = payments
     .filter((p) => p.payment_status === "paid")
     .reduce((sum, p) => sum + (p.amount_total ?? 0), 0);
+  const lessonTargetByKey = new Map(
+    availableCourseLessonTargets.map((target) => [
+      lessonProgressKey(target),
+      target,
+    ]),
+  );
+  const lessonScores = lessonProgressRows
+    .map((row) => numericScore(row.last_score))
+    .filter((score): score is number => score !== null);
+  const averageLessonScore =
+    lessonScores.length > 0
+      ? lessonScores.reduce((sum, score) => sum + score, 0) /
+        lessonScores.length
+      : null;
+  const recentLessonProgress = lessonProgressRows.slice(0, 20);
+  const hardestLessonsByKey = new Map<
+    string,
+    {
+      target: CourseLessonTarget;
+      attempts: number;
+      passes: number;
+      scores: number[];
+    }
+  >();
+
+  lessonProgressRows.forEach((row) => {
+    const key = progressRowKey(row);
+    const target = lessonTargetByKey.get(key);
+    if (!target) return;
+
+    const lessonSummary = hardestLessonsByKey.get(key) ?? {
+      target,
+      attempts: 0,
+      passes: 0,
+      scores: [],
+    };
+    const score = numericScore(row.last_score);
+    lessonSummary.attempts += 1;
+    if (row.passed) lessonSummary.passes += 1;
+    if (score !== null) lessonSummary.scores.push(score);
+    hardestLessonsByKey.set(key, lessonSummary);
+  });
+
+  const hardestLessons = [...hardestLessonsByKey.values()]
+    .filter((lesson) => lesson.attempts >= 2)
+    .map((lesson) => ({
+      ...lesson,
+      averageScore:
+        lesson.scores.length > 0
+          ? lesson.scores.reduce((sum, score) => sum + score, 0) /
+            lesson.scores.length
+          : null,
+      passRate: lesson.passes / lesson.attempts,
+    }))
+    .sort(
+      (left, right) =>
+        left.passRate - right.passRate ||
+        (left.averageScore ?? Number.POSITIVE_INFINITY) -
+          (right.averageScore ?? Number.POSITIVE_INFINITY),
+    )
+    .slice(0, 10);
 
   // Alert derivations
   const newEnquiriesList = enquiries.filter(
@@ -1046,10 +1169,180 @@ export default async function AdminPage() {
             Learning Analytics
           </h2>
           <p className="mt-3 max-w-prose text-sm leading-6 text-slate-600">
-            Lesson and mastery events are currently sent to Google Analytics. No
-            internal learning-events table exists yet, so student activity
-            analytics are not shown here.
+            Persisted lesson progress gives a compact view of recent student
+            learning activity. Expand for internal metrics and lesson-level
+            signals.
           </p>
+          <details className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
+              <span className="text-sm font-semibold text-slate-800">
+                Internal lesson progress
+              </span>
+              <span className="shrink-0 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-500">
+                Expand
+              </span>
+            </summary>
+
+            {lessonProgressError ? (
+              <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+                Could not load internal lesson progress:{" "}
+                {lessonProgressError.message}. Confirm the lesson_progress
+                migration has been applied.
+              </div>
+            ) : (
+              <div className="mt-6 space-y-6">
+                <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+                  <SummaryCard
+                    label="Progress records"
+                    value={lessonProgressRows.length}
+                  />
+                  <SummaryCard
+                    label="Active learners"
+                    value={
+                      new Set(lessonProgressRows.map((row) => row.user_id)).size
+                    }
+                  />
+                  <SummaryCard
+                    label="Lessons passed"
+                    value={lessonProgressRows.filter((row) => row.passed).length}
+                    highlight="emerald"
+                  />
+                  <SummaryCard
+                    label="Average latest score"
+                    value={formatScore(averageLessonScore)}
+                  />
+                </div>
+
+                <div>
+                  <h3 className="text-base font-semibold text-slate-900">
+                    Recent activity
+                  </h3>
+                  {recentLessonProgress.length === 0 ? (
+                    <p className="mt-3 text-sm text-slate-600">
+                      No lesson progress recorded yet.
+                    </p>
+                  ) : (
+                    <div className="mt-3 overflow-x-auto">
+                      <table className="min-w-full divide-y divide-slate-200 text-sm">
+                        <thead>
+                          <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                            <th className="px-3 py-2 text-left">Updated</th>
+                            <th className="px-3 py-2 text-left">Student</th>
+                            <th className="px-3 py-2 text-left">Course</th>
+                            <th className="px-3 py-2 text-left">Unit</th>
+                            <th className="px-3 py-2 text-left">Lesson</th>
+                            <th className="px-3 py-2 text-left">Status</th>
+                            <th className="px-3 py-2 text-left">Score</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                          {recentLessonProgress.map((row) => {
+                            const user = adminUsers.find(
+                              (nextUser) => nextUser.id === row.user_id,
+                            );
+                            const target = lessonTargetByKey.get(
+                              progressRowKey(row),
+                            );
+
+                            return (
+                              <tr key={progressRowKey(row)} className="align-top">
+                                <td className="px-3 py-3 whitespace-nowrap text-slate-500">
+                                  {formatOptionalDateTime(row.updated_at)}
+                                </td>
+                                <td className="px-3 py-3 text-slate-600">
+                                  {user?.email ?? shortUserId(row.user_id)}
+                                </td>
+                                <td className="px-3 py-3 text-slate-600">
+                                  {target?.courseTitle ?? row.course_slug}
+                                </td>
+                                <td className="px-3 py-3 text-slate-600">
+                                  {target?.unitTitle ?? row.unit_slug}
+                                </td>
+                                <td className="px-3 py-3 font-medium text-slate-900">
+                                  {target?.lessonTitle ?? "Unknown lesson"}
+                                </td>
+                                <td className="px-3 py-3">
+                                  <span
+                                    className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${row.passed ? "bg-emerald-100 text-emerald-900" : "bg-amber-100 text-amber-900"}`}
+                                  >
+                                    {row.passed ? "Passed" : "In progress"}
+                                  </span>
+                                </td>
+                                <td className="px-3 py-3 text-slate-600">
+                                  {formatScore(numericScore(row.last_score))}
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <h3 className="text-base font-semibold text-slate-900">
+                    Hardest lessons
+                  </h3>
+                  <p className="mt-1 text-xs leading-5 text-slate-500">
+                    Active lessons with at least two learner progress records,
+                    ordered by lowest pass rate.
+                  </p>
+                  {hardestLessons.length === 0 ? (
+                    <p className="mt-3 text-sm text-slate-600">
+                      Not enough progress data yet.
+                    </p>
+                  ) : (
+                    <div className="mt-3 overflow-x-auto">
+                      <table className="min-w-full divide-y divide-slate-200 text-sm">
+                        <thead>
+                          <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                            <th className="px-3 py-2 text-left">Course</th>
+                            <th className="px-3 py-2 text-left">Unit</th>
+                            <th className="px-3 py-2 text-left">Lesson</th>
+                            <th className="px-3 py-2 text-left">Attempts</th>
+                            <th className="px-3 py-2 text-left">Passes</th>
+                            <th className="px-3 py-2 text-left">Pass rate</th>
+                            <th className="px-3 py-2 text-left">Average score</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                          {hardestLessons.map((lesson) => (
+                            <tr
+                              key={lessonProgressKey(lesson.target)}
+                              className="align-top"
+                            >
+                              <td className="px-3 py-3 text-slate-600">
+                                {lesson.target.courseTitle}
+                              </td>
+                              <td className="px-3 py-3 text-slate-600">
+                                {lesson.target.unitTitle}
+                              </td>
+                              <td className="px-3 py-3 font-medium text-slate-900">
+                                {lesson.target.lessonTitle}
+                              </td>
+                              <td className="px-3 py-3 text-slate-600">
+                                {lesson.attempts}
+                              </td>
+                              <td className="px-3 py-3 text-slate-600">
+                                {lesson.passes}
+                              </td>
+                              <td className="px-3 py-3 text-slate-600">
+                                {formatScore(lesson.passRate)}
+                              </td>
+                              <td className="px-3 py-3 text-slate-600">
+                                {formatScore(lesson.averageScore)}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </details>
           <a
             href="https://analytics.google.com/"
             target="_blank"
