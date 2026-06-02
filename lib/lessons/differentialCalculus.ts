@@ -2,6 +2,7 @@ import type {
   BoxPlotDiagram,
   CartesianGraph,
   NetworkDiagram,
+  NormalDistributionDiagram,
   TrapezoidalRuleDiagram,
   TriangleDiagram,
 } from "./types";
@@ -15,6 +16,7 @@ export type PracticeQuestion = {
   cartesianGraph?: CartesianGraph;
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
   boxPlotDiagram?: BoxPlotDiagram;
+  normalDistributionDiagram?: NormalDistributionDiagram;
   solutionDiagram?: NetworkDiagram;
   answer: string;
   acceptedAnswers?: string[];
@@ -39,6 +41,7 @@ export type WorkedExample = {
   cartesianGraph?: CartesianGraph;
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
   boxPlotDiagram?: BoxPlotDiagram;
+  normalDistributionDiagram?: NormalDistributionDiagram;
   steps: WorkedExampleStep[];
   finalAnswerLatex: string;
 };

@@ -18,6 +18,7 @@ import { TriangleDiagramView } from "./components/TriangleDiagramView";
 import { CartesianGraphView } from "./components/CartesianGraphView";
 import { TrapezoidalRuleView } from "./components/TrapezoidalRuleView";
 import { BoxPlotView } from "./components/BoxPlotView";
+import { NormalDistributionView } from "./components/NormalDistributionView";
 import { markTypedAnswer } from "../../lib/answerMarking";
 
 type LessonStage =
@@ -238,6 +239,9 @@ function PracticeCard({
         {question.boxPlotDiagram && (
           <BoxPlotView diagram={question.boxPlotDiagram} />
         )}
+        {question.normalDistributionDiagram && (
+          <NormalDistributionView diagram={question.normalDistributionDiagram} />
+        )}
       </div>
 
       {question.choices ? (
@@ -357,6 +361,9 @@ function QuizQuestion({
         {question.boxPlotDiagram && (
           <BoxPlotView diagram={question.boxPlotDiagram} />
         )}
+        {question.normalDistributionDiagram && (
+          <NormalDistributionView diagram={question.normalDistributionDiagram} />
+        )}
       </div>
 
       {question.choices ? (
@@ -467,6 +474,9 @@ function MasteryResultPanel({
                 )}
                 {question.boxPlotDiagram && (
                   <BoxPlotView diagram={question.boxPlotDiagram} />
+                )}
+                {question.normalDistributionDiagram && (
+                  <NormalDistributionView diagram={question.normalDistributionDiagram} />
                 )}
               </div>
 
@@ -861,6 +871,9 @@ export function LessonRenderer({
                 )}
                 {example.boxPlotDiagram && (
                   <BoxPlotView diagram={example.boxPlotDiagram} />
+                )}
+                {example.normalDistributionDiagram && (
+                  <NormalDistributionView diagram={example.normalDistributionDiagram} />
                 )}
 
                 <div className="space-y-3">

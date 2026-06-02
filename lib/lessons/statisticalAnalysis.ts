@@ -1237,6 +1237,14 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
         },
       ],
       finalAnswerLatex: "65\\le x\\le75",
+      normalDistributionDiagram: {
+        description: "A bell curve with mean 70 and standard deviation 5. The shaded central band from 65 to 75 shows about 68% of values within 1 standard deviation of the mean.",
+        mean: 70,
+        standardDeviation: 5,
+        axisLabel: "value",
+        showStandardDeviationLabels: true,
+        shadedBands: [{ standardDeviations: 1, label: "about 68% within 1 SD", color: "blue" }],
+      },
     },
     {
       title: "Worked example 2: Find a z-score",
@@ -1257,6 +1265,18 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
         },
       ],
       finalAnswerLatex: "z=2",
+      normalDistributionDiagram: {
+        description: "A bell curve with mean 70 and standard deviation 6. The score 82 is marked two standard deviations above the mean.",
+        mean: 70,
+        standardDeviation: 6,
+        axisLabel: "score",
+        showStandardDeviationLabels: true,
+        shadedBands: [
+          { standardDeviations: 2, label: "about 95% within 2 SD", color: "green" },
+          { standardDeviations: 1, label: "about 68% within 1 SD", color: "blue" },
+        ],
+        markers: [{ value: 82, label: "score 82", zScore: 2 }],
+      },
     },
     {
       title: "Worked example 3: Two-standard-deviation interval",
@@ -1277,6 +1297,17 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
         },
       ],
       finalAnswerLatex: "\\text{about }95\\%",
+      normalDistributionDiagram: {
+        description: "A bell curve with mean 70 and standard deviation 5. The wider shaded band from 60 to 80 shows about 95% of values within 2 standard deviations. The inner 68% band remains visible on top.",
+        mean: 70,
+        standardDeviation: 5,
+        axisLabel: "value",
+        showStandardDeviationLabels: true,
+        shadedBands: [
+          { standardDeviations: 2, label: "about 95% within 2 SD", color: "green" },
+          { standardDeviations: 1, label: "about 68% within 1 SD", color: "blue" },
+        ],
+      },
     },
   ],
 

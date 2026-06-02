@@ -169,3 +169,23 @@ export type BoxPlotDiagram = {
   xMax?: number;
   showValueLabels?: boolean;
 };
+
+export type NormalDistributionDiagram = {
+  description: string;
+  mean: number;
+  standardDeviation: number;
+  axisLabel?: string;
+  xMin?: number;
+  xMax?: number;
+  showStandardDeviationLabels?: boolean;
+  shadedBands?: {
+    standardDeviations: 1 | 2 | 3;
+    label?: string;
+    color?: "blue" | "green" | "amber";
+  }[];
+  markers?: {
+    value: number;
+    label?: string;
+    zScore?: number;
+  }[];
+};

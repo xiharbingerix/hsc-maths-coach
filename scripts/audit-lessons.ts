@@ -98,7 +98,8 @@ function hasVisualPayload(lesson: ExplicitLesson) {
       item.triangleDiagram ||
       item.cartesianGraph ||
       item.trapezoidalRuleDiagram ||
-      item.boxPlotDiagram
+      item.boxPlotDiagram ||
+      item.normalDistributionDiagram
   );
 }
 
@@ -550,6 +551,73 @@ function validateBoxPlotDiagram(value: unknown, path: string) {
   });
 }
 
+function validateNormalDistributionDiagram(value: unknown, path: string) {
+  if (!isRecord(value)) {
+    addIssue("FAIL", "normal-distribution-payload", path, "Normal distribution diagram must be an object.");
+    return;
+  }
+
+  if (!isNonEmptyString(value.description)) {
+    addIssue("FAIL", "normal-distribution-payload", path, "Normal distribution diagram requires a description.");
+  }
+
+  if (!isFiniteNumber(value.mean)) {
+    addIssue("FAIL", "normal-distribution-payload", path, "Normal distribution mean must be finite.");
+  }
+
+  if (!isFiniteNumber(value.standardDeviation) || value.standardDeviation <= 0) {
+    addIssue("FAIL", "normal-distribution-payload", path, "Normal distribution standardDeviation must be a positive finite number.");
+  }
+
+  if (
+    (value.xMin !== undefined && !isFiniteNumber(value.xMin)) ||
+    (value.xMax !== undefined && !isFiniteNumber(value.xMax)) ||
+    (isFiniteNumber(value.xMin) && isFiniteNumber(value.xMax) && value.xMin >= value.xMax)
+  ) {
+    addIssue("FAIL", "normal-distribution-payload", path, "Normal distribution xMin and xMax must be finite with xMin < xMax when supplied.");
+  }
+
+  if (value.shadedBands !== undefined && !Array.isArray(value.shadedBands)) {
+    addIssue("FAIL", "normal-distribution-payload", path, "Normal distribution shadedBands must be an array when supplied.");
+  }
+
+  if (Array.isArray(value.shadedBands)) {
+    const seenWidths = new Set<number>();
+    value.shadedBands.forEach((band, index) => {
+      const bandPath = `${path}.shadedBands[${index}]`;
+      if (
+        !isRecord(band) ||
+        ![1, 2, 3].includes(Number(band.standardDeviations)) ||
+        (band.color !== undefined && !["blue", "green", "amber"].includes(String(band.color)))
+      ) {
+        addIssue("FAIL", "normal-distribution-payload", bandPath, "Shaded band requires standardDeviations 1, 2 or 3 and optional color blue, green or amber.");
+        return;
+      }
+      if (seenWidths.has(Number(band.standardDeviations))) {
+        addIssue("FAIL", "normal-distribution-payload", bandPath, "Shaded band standard-deviation widths must be unique.");
+      }
+      seenWidths.add(Number(band.standardDeviations));
+    });
+  }
+
+  if (value.markers !== undefined && !Array.isArray(value.markers)) {
+    addIssue("FAIL", "normal-distribution-payload", path, "Normal distribution markers must be an array when supplied.");
+  }
+
+  if (Array.isArray(value.markers)) {
+    value.markers.forEach((marker, index) => {
+      const markerPath = `${path}.markers[${index}]`;
+      if (
+        !isRecord(marker) ||
+        !isFiniteNumber(marker.value) ||
+        (marker.zScore !== undefined && !isFiniteNumber(marker.zScore))
+      ) {
+        addIssue("FAIL", "normal-distribution-payload", markerPath, "Marker requires a finite value and optional finite zScore.");
+      }
+    });
+  }
+}
+
 function validateVisualPayloads(lesson: ExplicitLesson, basePath: string) {
   visualItems(lesson).forEach((item, index) => {
     const path = `${basePath}.visualItem[${index}]`;
@@ -559,6 +627,9 @@ function validateVisualPayloads(lesson: ExplicitLesson, basePath: string) {
       validateTrapezoidalRuleDiagram(item.trapezoidalRuleDiagram, `${path}.trapezoidalRuleDiagram`);
     }
     if (item.boxPlotDiagram) validateBoxPlotDiagram(item.boxPlotDiagram, `${path}.boxPlotDiagram`);
+    if (item.normalDistributionDiagram) {
+      validateNormalDistributionDiagram(item.normalDistributionDiagram, `${path}.normalDistributionDiagram`);
+    }
     if (item.diagram) validateNetworkDiagram(item.diagram, `${path}.diagram`);
     if ("solutionDiagram" in item && item.solutionDiagram) {
       validateNetworkDiagram(item.solutionDiagram, `${path}.solutionDiagram`);

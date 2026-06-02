@@ -399,6 +399,15 @@ export function year12Standard2StatisticsLessonOverride(
             },
           ],
           finalAnswerLatex: "z=1",
+          normalDistributionDiagram: {
+            description: "A bell curve for exam scores with mean 68 and standard deviation 8. The score 76 is marked one standard deviation above the mean.",
+            mean: 68,
+            standardDeviation: 8,
+            axisLabel: "exam score",
+            showStandardDeviationLabels: true,
+            shadedBands: [{ standardDeviations: 1, label: "about 68% within 1 SD", color: "blue" }],
+            markers: [{ value: 76, label: "score 76", zScore: 1 }],
+          },
         },
         {
           title: "Interpret above or below the mean",
@@ -416,6 +425,14 @@ export function year12Standard2StatisticsLessonOverride(
           ],
           finalAnswerLatex:
             "\\text{1.5 standard deviations below the mean.}",
+          normalDistributionDiagram: {
+            description: "A standard normal bell curve with a marker at z equals negative 1.5, showing a value one and a half standard deviations below the mean.",
+            mean: 0,
+            standardDeviation: 1,
+            axisLabel: "z-score",
+            showStandardDeviationLabels: true,
+            markers: [{ value: -1.5, label: "value", zScore: -1.5 }],
+          },
         },
         {
           title: "Use the empirical rule",
@@ -433,6 +450,17 @@ export function year12Standard2StatisticsLessonOverride(
             },
           ],
           finalAnswerLatex: "\\text{About }95\\%",
+          normalDistributionDiagram: {
+            description: "A bell curve for scores with mean 70 and standard deviation 6. The wider shaded band from 58 to 82 shows about 95% within 2 standard deviations. The narrower inner band shows about 68% within 1 standard deviation.",
+            mean: 70,
+            standardDeviation: 6,
+            axisLabel: "score",
+            showStandardDeviationLabels: true,
+            shadedBands: [
+              { standardDeviations: 2, label: "about 95% within 2 SD", color: "green" },
+              { standardDeviations: 1, label: "about 68% within 1 SD", color: "blue" },
+            ],
+          },
         },
       ],
       guidedPractice: [
