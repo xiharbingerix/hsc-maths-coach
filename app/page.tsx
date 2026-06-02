@@ -202,6 +202,98 @@ export default function Home() {
         </section>
 
         <section className="space-y-6">
+          <div className="max-w-3xl">
+            <SectionLabel>Inside Nova Maths</SectionLabel>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+              See exactly what students work through
+            </h2>
+            <p className="mt-3 text-lg leading-8 text-slate-600">
+              Each lesson follows the same clear structure: learn the idea,
+              practise with support, then prove mastery.
+            </p>
+          </div>
+
+          <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+            <div className="border-b border-slate-200 bg-slate-950 px-6 py-5 text-white md:px-8">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-300">
+                Year 10 Mathematics
+              </p>
+              <p className="mt-2 text-sm font-medium text-slate-300">
+                Trigonometry
+              </p>
+              <h3 className="mt-1 text-2xl font-bold tracking-tight">
+                Finding Sides in Right Triangles
+              </h3>
+            </div>
+
+            <div className="p-6 md:p-8">
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Learn",
+                  "Guided practice",
+                  "Independent practice",
+                  "Mastery quiz",
+                ].map((step, index) => (
+                  <span
+                    key={step}
+                    className={`rounded-full border px-3 py-1.5 text-xs font-semibold ${
+                      index === 0
+                        ? "border-slate-950 bg-slate-950 text-white"
+                        : "border-slate-200 bg-slate-50 text-slate-600"
+                    }`}
+                  >
+                    {step}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-6 grid gap-5 lg:grid-cols-[1fr_0.38fr]">
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 md:p-6">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Worked example
+                  </p>
+                  <p className="mt-3 text-lg font-semibold leading-7 text-slate-900">
+                    A ladder leans against a wall. Which trig ratio connects
+                    the known angle and the side you need?
+                  </p>
+                  <div className="mt-5 rounded-xl border border-slate-200 bg-white p-4">
+                    <p className="text-sm font-semibold text-slate-900">
+                      Start with the sides, not the formula.
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">
+                      The lesson shows why the ratio fits before asking
+                      students to calculate.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 md:p-6">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">
+                    Mastery quiz
+                  </p>
+                  <p className="mt-4 text-3xl font-bold tracking-tight text-slate-950">
+                    8 / 10 correct
+                  </p>
+                  <div className="mt-4 h-2 overflow-hidden rounded-full bg-emerald-100">
+                    <div className="h-full w-4/5 rounded-full bg-emerald-600" />
+                  </div>
+                  <p className="mt-4 text-sm leading-6 text-emerald-950">
+                    Progress saved to your dashboard
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <SubscribeCTA href="/checkout?offer=online-learning">
+              Start learning &mdash; $19/month
+            </SubscribeCTA>
+            <SecondaryLink href="/course">Preview lessons first</SecondaryLink>
+          </div>
+        </section>
+
+        <section className="space-y-6">
           <div className="max-w-2xl">
             <SectionLabel>How it works</SectionLabel>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
