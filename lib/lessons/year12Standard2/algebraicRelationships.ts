@@ -1,7 +1,70 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import type { CartesianGraph, CartesianPoint } from "../types";
-import { practicalChoice, moneyAnswer, linearAnswer } from "../questionHelpers";
+import {
+  practicalChoice,
+  moneyAnswer as baseMoneyAnswer,
+  linearAnswer as baseLinearAnswer,
+} from "../questionHelpers";
+
+function algebraicRelationshipsFeedback(prompt: string, answer: string) {
+  const lowerPrompt = prompt.toLowerCase();
+
+  if (
+    lowerPrompt.includes("equal after how many") ||
+    lowerPrompt.includes("equal at what") ||
+    lowerPrompt.includes("find d when costs are equal") ||
+    lowerPrompt.includes("are equal after how many")
+  ) {
+    return `When two models are equal, they describe the same output at the same input. Set the full expressions equal and solve for the input to get ${answer}.`;
+  }
+  if (
+    lowerPrompt.includes("write") ||
+    lowerPrompt.includes("write the") ||
+    lowerPrompt.includes("write c") ||
+    lowerPrompt.includes("write s") ||
+    lowerPrompt.includes("write v") ||
+    lowerPrompt.includes("write f")
+  ) {
+    return `A linear model is starting value plus rate times input. Put the fixed amount on its own and multiply the repeating rate by the variable to get ${answer}.`;
+  }
+  if (
+    lowerPrompt.includes("equal cost") ||
+    lowerPrompt.includes("find c") ||
+    lowerPrompt.includes("find s") ||
+    lowerPrompt.includes("find the cost") ||
+    lowerPrompt.includes("find the fare")
+  ) {
+    return `The rule already describes the output from the input. Substitute the given input into the model and calculate the total to get ${answer}.`;
+  }
+  return `Identify the starting value, the rate and the input before calculating. Following the linear model gives ${answer}.`;
+}
+
+function linearAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseLinearAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: algebraicRelationshipsFeedback(prompt, answer),
+  };
+}
+
+function moneyAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseMoneyAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: algebraicRelationshipsFeedback(prompt, answer),
+  };
+}
 
 function algebraAnswer(
   id: string,
