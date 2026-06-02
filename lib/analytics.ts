@@ -40,6 +40,10 @@ export function trackSignupCompleted() {
   track("signup_completed");
 }
 
+export function trackSignupCheckoutWallViewed() {
+  track("signup_checkout_wall_viewed", { offer: "online-learning" });
+}
+
 export function trackLessonViewed(course: string, unit: string, lesson: string) {
   track("lesson_viewed", { course, unit, lesson });
 }

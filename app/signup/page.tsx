@@ -4,7 +4,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
-import { trackSignupCompleted } from "../../lib/analytics";
+import {
+  trackSignupCompleted,
+  trackSignupCheckoutWallViewed,
+} from "../../lib/analytics";
 
 function safeInternalNext(value: string | null) {
   if (!value || !value.startsWith("/") || value.startsWith("//")) {
@@ -14,9 +17,18 @@ function safeInternalNext(value: string | null) {
   return value;
 }
 
+function isOnlineLearningCheckoutNext(value: string) {
+  const url = new URL(value, window.location.origin);
+  return (
+    url.pathname === "/checkout" &&
+    url.searchParams.get("offer") === "online-learning"
+  );
+}
+
 export default function SignupPage() {
   const router = useRouter();
   const [nextPath, setNextPath] = useState("/dashboard");
+  const [isCheckoutFlow, setIsCheckoutFlow] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [studentFirstName, setStudentFirstName] = useState("");
@@ -27,7 +39,13 @@ export default function SignupPage() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    setNextPath(safeInternalNext(params.get("next")));
+    const next = safeInternalNext(params.get("next"));
+    setNextPath(next);
+
+    if (isOnlineLearningCheckoutNext(next)) {
+      setIsCheckoutFlow(true);
+      trackSignupCheckoutWallViewed();
+    }
   }, []);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -102,6 +120,23 @@ export default function SignupPage() {
           to unlock lessons after signing up.
         </p>
 
+        {isCheckoutFlow ? (
+          <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <p className="text-sm font-semibold text-slate-900">
+              Create your account to start learning
+            </p>
+            <p className="mt-1 text-sm leading-6 text-slate-600">
+              Your subscription is linked to your Nova Maths account so
+              progress, mastery results and access are saved across devices.
+              After signup, you&apos;ll continue to secure Stripe checkout.
+            </p>
+            <p className="mt-2 text-xs text-slate-500">
+              $19/month &middot; cancel any time &middot; secure payment
+              through Stripe
+            </p>
+          </div>
+        ) : null}
+
         {errorMessage ? (
           <div className="mt-5 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
             {errorMessage}
@@ -169,7 +204,11 @@ export default function SignupPage() {
             disabled={isSubmitting}
             className="w-full rounded-xl bg-slate-950 px-4 py-3 font-semibold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400"
           >
-            {isSubmitting ? "Creating account..." : "Create account"}
+            {isSubmitting
+              ? "Creating account..."
+              : isCheckoutFlow
+                ? "Create account and continue to checkout"
+                : "Create account"}
           </button>
         </form>
 
