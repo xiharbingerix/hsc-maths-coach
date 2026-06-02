@@ -9,12 +9,16 @@ function answer(
   explanation: string,
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
+  const commaFormattedAnswer = /^-?\d{4,}$/.test(answer)
+    ? answer.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    : null;
+
   return {
     id,
     prompt,
     latex,
     answer,
-    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...(commaFormattedAnswer ? [commaFormattedAnswer] : [])])),
     hint: "Apply the index rule carefully, then check the form of your answer.",
     explanation,
   };
@@ -281,13 +285,13 @@ const negativeIndices: LessonContent = {
   ],
   guidedPractice: [
     choice("y9-ind-neg-g1", "Choose the correct value.", "B", ["$-8$", "$\\frac{1}{8}$", "$\\frac{1}{6}$", "$8$"], "Use the reciprocal of 2^3.", "2^{-3}"),
-    answer("y9-ind-neg-g2", "Write the value as a decimal.", "10^{-1}", "0.1", "10^-1 is one tenth."),
-    answer("y9-ind-neg-g3", "Write the value as a decimal.", "10^{-3}", "0.001", "10^-3 is one thousandth."),
+    answer("y9-ind-neg-g2", "Write the value as a decimal.", "10^{-1}", "0.1", "10^-1 is one tenth.", ["1/10"]),
+    answer("y9-ind-neg-g3", "Write the value as a decimal.", "10^{-3}", "0.001", "10^-3 is one thousandth.", ["1/1000"]),
     choice("y9-ind-neg-g4", "Choose the correct reciprocal form.", "D", ["$-\\frac{1}{4}$", "$\\frac{1}{6}$", "$-4$", "$\\frac{1}{4}$"], "Use 1 divided by 4.", "4^{-1}"),
   ],
   independentPractice: [
     choice("y9-ind-neg-i1", "Choose the correct value.", "A", ["$\\frac{1}{9}$", "$-9$", "$\\frac{1}{6}$", "$9$"], "Use 1 divided by 3^2.", "3^{-2}"),
-    answer("y9-ind-neg-i2", "Write the value as a decimal.", "10^{-4}", "0.0001", "10^-4 is one ten-thousandth."),
+    answer("y9-ind-neg-i2", "Write the value as a decimal.", "10^{-4}", "0.0001", "10^-4 is one ten-thousandth.", ["1/10000"]),
     choice("y9-ind-neg-i3", "Which statement is correct?", "C", ["$5^{-2}=-25$", "$5^{-2}=25$", "$5^{-2}=\\frac{1}{25}$", "$5^{-2}=\\frac{1}{10}$"], "Use the reciprocal of 5^2."),
     answer("y9-ind-neg-i4", "Write the value as a decimal.", "2^{-2}", "0.25", "2^-2 is 1/4, which is 0.25.", ["1/4", "0.250"]),
     choice("y9-ind-neg-i5", "Which value is greatest?", "B", ["$10^{-3}$", "$10^{-1}$", "$10^{-4}$", "$10^{-2}$"], "One tenth is larger than one hundredth, one thousandth and one ten-thousandth."),
@@ -300,9 +304,9 @@ const negativeIndices: LessonContent = {
   ],
   masteryQuiz: [
     choice("y9-ind-neg-m1", "Choose the correct value.", "A", ["$\\frac{1}{4}$", "$-4$", "$4$", "$\\frac{1}{2}$"], "Use the reciprocal of 2^2.", "2^{-2}"),
-    answer("y9-ind-neg-m2", "Write the value as a decimal.", "10^{-2}", "0.01", "10^-2 is one hundredth."),
+    answer("y9-ind-neg-m2", "Write the value as a decimal.", "10^{-2}", "0.01", "10^-2 is one hundredth.", ["1/100"]),
     choice("y9-ind-neg-m3", "Choose the correct value.", "D", ["$-27$", "$\\frac{1}{9}$", "$27$", "$\\frac{1}{27}$"], "Use the reciprocal of 3^3.", "3^{-3}"),
-    answer("y9-ind-neg-m4", "Write the value as a decimal.", "10^{-5}", "0.00001", "10^-5 is one hundred-thousandth."),
+    answer("y9-ind-neg-m4", "Write the value as a decimal.", "10^{-5}", "0.00001", "10^-5 is one hundred-thousandth.", ["1/100000"]),
     choice("y9-ind-neg-m5", "Which statement is correct?", "B", ["$6^{-1}=-6$", "$6^{-1}=\\frac{1}{6}$", "$6^{-1}=0$", "$6^{-1}=6$"], "An exponent of -1 gives the reciprocal."),
     answer("y9-ind-neg-m6", "Write the value as a decimal.", "4^{-1}", "0.25", "4^-1 is one quarter.", ["1/4", "0.250"]),
     choice("y9-ind-neg-m7", "Which value is smallest?", "C", ["$10^{-2}$", "$10^{-4}$", "$10^{-5}$", "$10^{-3}$"], "10^-5 is one hundred-thousandth."),
@@ -332,7 +336,7 @@ const scientificNotation: LessonContent = {
   ],
   guidedPractice: [
     answer("y9-ind-sci-g1", "Write the number in scientific notation.", "72000", "7.2 x 10^4", "Move the decimal point four places left.", ["7.2x10^4", "7.2 * 10^4", "7.2×10^4"]),
-    answer("y9-ind-sci-g2", "Write the number in ordinary notation.", "3.5\\times10^3", "3500", "Move the decimal point three places right."),
+    answer("y9-ind-sci-g2", "Write the number in ordinary notation.", "3.5\\times10^3", "3500", "Move the decimal point three places right.", ["3,500"]),
     answer("y9-ind-sci-g3", "Write the number in scientific notation.", "0.006", "6 x 10^-3", "Move the decimal point three places right.", ["6x10^-3", "6 * 10^-3", "6×10^-3"]),
     choice("y9-ind-sci-g4", "Which is valid scientific notation?", "B", ["$45\\times10^3$", "$4.5\\times10^4$", "$0.45\\times10^5$", "$45000\\times10^0$"], "The first factor must be at least 1 and less than 10."),
   ],
@@ -351,14 +355,14 @@ const scientificNotation: LessonContent = {
   ],
   masteryQuiz: [
     answer("y9-ind-sci-m1", "Write the number in scientific notation.", "53000", "5.3 x 10^4", "Move four places left.", ["5.3x10^4", "5.3 * 10^4", "5.3×10^4"]),
-    answer("y9-ind-sci-m2", "Write the number in ordinary notation.", "2.8\\times10^4", "28000", "Move four places right."),
+    answer("y9-ind-sci-m2", "Write the number in ordinary notation.", "2.8\\times10^4", "28000", "Move four places right.", ["28,000"]),
     answer("y9-ind-sci-m3", "Write the number in scientific notation.", "0.0074", "7.4 x 10^-3", "Move three places right.", ["7.4x10^-3", "7.4 * 10^-3", "7.4×10^-3"]),
     answer("y9-ind-sci-m4", "Write the number in ordinary notation.", "6.1\\times10^{-5}", "0.000061", "Move five places left."),
     choice("y9-ind-sci-m5", "Which is valid scientific notation?", "A", ["$9.2\\times10^6$", "$92\\times10^5$", "$0.92\\times10^7$", "$9200000\\times10^0$"], "The first factor must be at least 1 and less than 10."),
     choice("y9-ind-sci-m6", "Which number is smallest?", "D", ["$4\\times10^{-2}$", "$7\\times10^{-3}$", "$9\\times10^{-4}$", "$2\\times10^{-5}$"], "The most negative exponent gives the smallest magnitude here."),
     answer("y9-ind-sci-m7", "Write the number in scientific notation.", "3040000", "3.04 x 10^6", "Move six places left and retain the zero in 3.04.", ["3.04x10^6", "3.04 * 10^6", "3.04×10^6"]),
     choice("y9-ind-sci-m8", "A student writes 0.00082 as 8.2 x 10^4. What must change?", "B", ["The first factor should be 82", "The exponent should be -4", "The exponent should be -3", "The first factor should be 0.82"], "Small decimals use a negative exponent; the decimal moves four places."),
-    answer("y9-ind-sci-m9", "Write the number in ordinary notation.", "7.05\\times10^5", "705000", "Move five places right and preserve the zero in 7.05."),
+    answer("y9-ind-sci-m9", "Write the number in ordinary notation.", "7.05\\times10^5", "705000", "Move five places right and preserve the zero in 7.05.", ["705,000"]),
     choice("y9-ind-sci-m10", "Which number lies between 0.004 and 0.005?", "C", ["$4.8\\times10^{-2}$", "$3.9\\times10^{-3}$", "$4.8\\times10^{-3}$", "$5.1\\times10^{-3}$"], "4.8 x 10^-3 is 0.0048."),
   ],
 };
@@ -383,12 +387,12 @@ const magnitudeRounding: LessonContent = {
   ],
   guidedPractice: [
     answer("y9-ind-round-g1", "Round to 2 decimal places.", "7.386", "7.39", "The third decimal digit is 6, so round up."),
-    answer("y9-ind-round-g2", "Round to 2 significant figures.", "6420", "6400", "Keep 6 and 4. The next digit is 2."),
+    answer("y9-ind-round-g2", "Round to 2 significant figures.", "6420", "6400", "Keep 6 and 4. The next digit is 2.", ["6,400"]),
     choice("y9-ind-round-g3", "What is the order of magnitude?", "C", ["$10^3$", "$10^4$", "$10^5$", "$10^6$"], "The number is on the hundred-thousands scale.", "3.2\\times10^5"),
     answer("y9-ind-round-g4", "Round to 3 decimal places.", "0.72846", "0.728", "The fourth decimal digit is 4, so the third decimal digit stays unchanged."),
   ],
   independentPractice: [
-    answer("y9-ind-round-i1", "Round to 3 significant figures.", "58320", "58300", "Keep 5, 8 and 3. The next digit is 2."),
+    answer("y9-ind-round-i1", "Round to 3 significant figures.", "58320", "58300", "Keep 5, 8 and 3. The next digit is 2.", ["58,300"]),
     answer("y9-ind-round-i2", "Round to 2 decimal places.", "12.995", "13.00", "The third decimal digit is 5, so 12.99 rounds up to 13.00.", ["13", "13.0"]),
     choice("y9-ind-round-i3", "What is the order of magnitude?", "B", ["$10^{-2}$", "$10^{-3}$", "$10^{-4}$", "$10^3$"], "The number is on the thousandths scale.", "2.4\\times10^{-3}"),
     choice("y9-ind-round-i4", "Which is the best estimate?", "A", ["$6\\times10^6$", "$6\\times10^5$", "$60\\times10^7$", "$6\\times10^8$"], "Round the first factors to 3 and 2, then add exponents.", "(3.1\\times10^4)(1.9\\times10^2)"),
@@ -402,7 +406,7 @@ const magnitudeRounding: LessonContent = {
   ],
   masteryQuiz: [
     answer("y9-ind-round-m1", "Round to 2 decimal places.", "5.678", "5.68", "The third decimal digit is 8."),
-    answer("y9-ind-round-m2", "Round to 2 significant figures.", "7310", "7300", "Keep 7 and 3. The next digit is 1."),
+    answer("y9-ind-round-m2", "Round to 2 significant figures.", "7310", "7300", "Keep 7 and 3. The next digit is 1.", ["7,300"]),
     choice("y9-ind-round-m3", "What is the order of magnitude?", "A", ["$10^7$", "$10^6$", "$10^{-7}$", "$10^8$"], "The exponent gives the scale.", "2.6\\times10^7"),
     answer("y9-ind-round-m4", "Round to 3 decimal places.", "0.90456", "0.905", "The fourth decimal digit is 5, so round up."),
     answer("y9-ind-round-m5", "Round to 3 significant figures.", "0.006438", "0.00644", "Start counting at 6. The next digit after 4 is 8."),

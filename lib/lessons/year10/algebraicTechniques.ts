@@ -1,6 +1,33 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
 
+function algebraicAnswerVariants(prompt: string, answer: string) {
+  const variants = new Set<string>();
+  const asciiAnswer = answer.replaceAll("−", "-").replaceAll("²", "^2").replaceAll("³", "^3");
+  const compactAnswer = asciiAnswer.replace(/\s+/g, "");
+
+  if (asciiAnswer !== answer) {
+    variants.add(asciiAnswer);
+  }
+  if (compactAnswer !== answer) {
+    variants.add(compactAnswer);
+  }
+
+  const labelledVariable =
+    prompt.match(/\bvalue of ([a-z])\b/i)?.[1] ??
+    prompt.match(/\bwhat is ([a-z]) where\b/i)?.[1];
+  if (labelledVariable && /^[+-]?(?:\d+(?:\.\d+)?|\d*[a-z](?:\^\d+)?)$/i.test(compactAnswer)) {
+    variants.add(`${labelledVariable}=${compactAnswer}`);
+    variants.add(`${labelledVariable} = ${compactAnswer}`);
+  }
+  if (/\b(?:HCF|highest common factor)\b/i.test(prompt)) {
+    variants.add(`HCF=${compactAnswer}`);
+    variants.add(`HCF = ${compactAnswer}`);
+  }
+
+  return [...variants];
+}
+
 function algAnswer(
   id: string,
   prompt: string,
@@ -13,7 +40,7 @@ function algAnswer(
     prompt,
     latex,
     answer,
-    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...algebraicAnswerVariants(prompt, answer)])),
     hint: "Identify the algebraic method first, then apply it step by step.",
     explanation: `The answer is ${answer}.`,
   };
