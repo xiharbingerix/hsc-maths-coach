@@ -1,6 +1,50 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import type { ExplicitLesson } from "../differentialCalculus";
-import { financeChoice, financeShortAnswer } from "../questionHelpers";
+import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import {
+  financeChoice,
+  financeShortAnswer as baseFinanceShortAnswer,
+} from "../questionHelpers";
+
+function statisticsFeedback(prompt: string, answer: string) {
+  const lowerPrompt = prompt.toLowerCase();
+
+  if (lowerPrompt.includes("residual")) {
+    return `A residual is the gap left after using the regression line: actual minus predicted. Keep that order so the sign shows whether the actual value is above or below the prediction; here the residual is ${answer}.`;
+  }
+  if (lowerPrompt.includes("z-score")) {
+    return `A z-score measures distance from the mean in standard-deviation units. Subtract the mean from the raw value, divide by the standard deviation, and keep the sign to get ${answer}.`;
+  }
+  if (
+    lowerPrompt.includes("what raw score") ||
+    lowerPrompt.includes("find the raw value")
+  ) {
+    return `To move back from a z-score to a raw value, start at the mean and shift by z standard deviations. Use raw value = mean + z times standard deviation to get ${answer}.`;
+  }
+  if (
+    lowerPrompt.includes("upper value") ||
+    lowerPrompt.includes("lower value")
+  ) {
+    return `A normal-distribution interval is built around the mean. Move the required number of standard deviations above or below the mean to get the requested boundary, ${answer}.`;
+  }
+  if (lowerPrompt.includes("predict")) {
+    return `A regression equation gives an estimate of the response from a known x-value. Substitute the explanatory value into x and calculate the predicted response, ${answer}; it is an estimate rather than a guarantee.`;
+  }
+  return `Identify whether the question is asking for a prediction, a residual, or a standardised value before calculating. Following that statistical meaning gives ${answer}.`;
+}
+
+function financeShortAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseFinanceShortAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: statisticsFeedback(prompt, answer),
+  };
+}
+
 export function year12Standard2StatisticsLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
