@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import {
   trackGoogleAdsPurchaseConversion,
@@ -50,7 +51,7 @@ export function AdminGoogleAdsTestConversion() {
         repeatedly.
       </p>
 
-      <div className="mt-4">
+      <div className="mt-4 space-y-3">
         {status === "idle" || status === "sending" ? (
           <button
             type="button"
@@ -86,6 +87,22 @@ export function AdminGoogleAdsTestConversion() {
             </button>
           </div>
         ) : null}
+
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <p className="text-xs font-semibold text-slate-700">
+            Confirmation page
+          </p>
+          <p className="mt-1 text-xs leading-5 text-slate-500">
+            Use this if Google asks you to navigate to a confirmation page
+            during tag verification.
+          </p>
+          <Link
+            href="/admin/test-google-ads-conversion"
+            className="mt-3 inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-800 hover:bg-slate-50"
+          >
+            Open test confirmation page →
+          </Link>
+        </div>
       </div>
     </div>
   );
