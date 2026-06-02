@@ -5,6 +5,7 @@ import type {
   NormalDistributionDiagram,
   TrapezoidalRuleDiagram,
   TriangleDiagram,
+  VennDiagram,
 } from "./types";
 
 export type PracticeQuestion = {
@@ -17,6 +18,7 @@ export type PracticeQuestion = {
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
   boxPlotDiagram?: BoxPlotDiagram;
   normalDistributionDiagram?: NormalDistributionDiagram;
+  vennDiagram?: VennDiagram;
   solutionDiagram?: NetworkDiagram;
   answer: string;
   acceptedAnswers?: string[];
@@ -42,6 +44,7 @@ export type WorkedExample = {
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
   boxPlotDiagram?: BoxPlotDiagram;
   normalDistributionDiagram?: NormalDistributionDiagram;
+  vennDiagram?: VennDiagram;
   steps: WorkedExampleStep[];
   finalAnswerLatex: string;
 };

@@ -99,7 +99,8 @@ function hasVisualPayload(lesson: ExplicitLesson) {
       item.cartesianGraph ||
       item.trapezoidalRuleDiagram ||
       item.boxPlotDiagram ||
-      item.normalDistributionDiagram
+      item.normalDistributionDiagram ||
+      item.vennDiagram
   );
 }
 
@@ -618,6 +619,44 @@ function validateNormalDistributionDiagram(value: unknown, path: string) {
   }
 }
 
+function validateVennDiagram(value: unknown, path: string) {
+  if (!isRecord(value)) {
+    addIssue("FAIL", "venn-diagram-payload", path, "Venn diagram must be an object.");
+    return;
+  }
+
+  if (!isNonEmptyString(value.description)) {
+    addIssue("FAIL", "venn-diagram-payload", path, "Venn diagram requires a description.");
+  }
+
+  if (!isNonEmptyString(value.setALabel) || !isNonEmptyString(value.setBLabel)) {
+    addIssue("FAIL", "venn-diagram-payload", path, "Venn diagram requires non-empty set A and set B labels.");
+  }
+
+  const regionNames = ["aOnly", "intersection", "bOnly", "neither", "total"] as const;
+  regionNames.forEach((regionName) => {
+    const regionValue = value[regionName];
+    if (
+      regionValue !== undefined &&
+      !(isFiniteNumber(regionValue) || isNonEmptyString(regionValue))
+    ) {
+      addIssue("FAIL", "venn-diagram-payload", `${path}.${regionName}`, "Venn diagram region values must be finite numbers or non-empty strings.");
+    }
+  });
+
+  const { aOnly, intersection, bOnly, neither, total } = value;
+  if (
+    isFiniteNumber(aOnly) &&
+    isFiniteNumber(intersection) &&
+    isFiniteNumber(bOnly) &&
+    isFiniteNumber(neither) &&
+    isFiniteNumber(total) &&
+    total < aOnly + intersection + bOnly + neither
+  ) {
+    addIssue("FAIL", "venn-diagram-payload", `${path}.total`, "Numeric Venn diagram total must be at least the sum of the numeric regions.");
+  }
+}
+
 function validateVisualPayloads(lesson: ExplicitLesson, basePath: string) {
   visualItems(lesson).forEach((item, index) => {
     const path = `${basePath}.visualItem[${index}]`;
@@ -630,6 +669,7 @@ function validateVisualPayloads(lesson: ExplicitLesson, basePath: string) {
     if (item.normalDistributionDiagram) {
       validateNormalDistributionDiagram(item.normalDistributionDiagram, `${path}.normalDistributionDiagram`);
     }
+    if (item.vennDiagram) validateVennDiagram(item.vennDiagram, `${path}.vennDiagram`);
     if (item.diagram) validateNetworkDiagram(item.diagram, `${path}.diagram`);
     if ("solutionDiagram" in item && item.solutionDiagram) {
       validateNetworkDiagram(item.solutionDiagram, `${path}.solutionDiagram`);

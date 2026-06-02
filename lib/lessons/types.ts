@@ -189,3 +189,15 @@ export type NormalDistributionDiagram = {
     zScore?: number;
   }[];
 };
+
+export type VennDiagram = {
+  description: string;
+  setALabel: string;
+  setBLabel: string;
+  aOnly?: number | string;
+  intersection?: number | string;
+  bOnly?: number | string;
+  neither?: number | string;
+  total?: number | string;
+  showCounts?: boolean;
+};

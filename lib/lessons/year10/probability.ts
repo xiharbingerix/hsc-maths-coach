@@ -181,6 +181,16 @@ const vennWorkedExamples: WorkedExample[] = [
       { explanation: "Repeat for music.", latex: "\\text{music only}=12-5=7" },
     ],
     finalAnswerLatex: "\\text{sport only}=13,\\quad \\text{music only}=7",
+    vennDiagram: {
+      description: "Venn diagram for a class of 30 students. Sport only is 13, both sport and music is 5, music only is 7, and neither is 5.",
+      setALabel: "Sport",
+      setBLabel: "Music",
+      aOnly: 13,
+      intersection: 5,
+      bOnly: 7,
+      neither: 5,
+      total: 30,
+    },
   },
   {
     title: "Find the union",
@@ -189,6 +199,16 @@ const vennWorkedExamples: WorkedExample[] = [
       { explanation: "Add the two set totals, then subtract the overlap counted twice.", latex: "18+12-5=25" },
     ],
     finalAnswerLatex: "25",
+    vennDiagram: {
+      description: "Venn diagram for the same class. The union contains sport only 13, both activities 5, and music only 7, for a total of 25 students in at least one circle.",
+      setALabel: "Sport",
+      setBLabel: "Music",
+      aOnly: 13,
+      intersection: 5,
+      bOnly: 7,
+      neither: 5,
+      total: 30,
+    },
   },
   {
     title: "Find outside both sets",
@@ -198,6 +218,16 @@ const vennWorkedExamples: WorkedExample[] = [
       { explanation: "Subtract from the total group.", latex: "40-29=11" },
     ],
     finalAnswerLatex: "11",
+    vennDiagram: {
+      description: "Venn diagram for a group of 40 students. French only is 14, both languages is 8, Japanese only is 7, and the 11 students outside both circles study neither language.",
+      setALabel: "French",
+      setBLabel: "Japanese",
+      aOnly: 14,
+      intersection: 8,
+      bOnly: 7,
+      neither: 11,
+      total: 40,
+    },
   },
 ];
 

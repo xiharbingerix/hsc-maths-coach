@@ -19,6 +19,7 @@ import { CartesianGraphView } from "./components/CartesianGraphView";
 import { TrapezoidalRuleView } from "./components/TrapezoidalRuleView";
 import { BoxPlotView } from "./components/BoxPlotView";
 import { NormalDistributionView } from "./components/NormalDistributionView";
+import { VennDiagramView } from "./components/VennDiagramView";
 import { markTypedAnswer } from "../../lib/answerMarking";
 
 type LessonStage =
@@ -242,6 +243,7 @@ function PracticeCard({
         {question.normalDistributionDiagram && (
           <NormalDistributionView diagram={question.normalDistributionDiagram} />
         )}
+        {question.vennDiagram && <VennDiagramView diagram={question.vennDiagram} />}
       </div>
 
       {question.choices ? (
@@ -364,6 +366,7 @@ function QuizQuestion({
         {question.normalDistributionDiagram && (
           <NormalDistributionView diagram={question.normalDistributionDiagram} />
         )}
+        {question.vennDiagram && <VennDiagramView diagram={question.vennDiagram} />}
       </div>
 
       {question.choices ? (
@@ -477,6 +480,9 @@ function MasteryResultPanel({
                 )}
                 {question.normalDistributionDiagram && (
                   <NormalDistributionView diagram={question.normalDistributionDiagram} />
+                )}
+                {question.vennDiagram && (
+                  <VennDiagramView diagram={question.vennDiagram} />
                 )}
               </div>
 
@@ -874,6 +880,9 @@ export function LessonRenderer({
                 )}
                 {example.normalDistributionDiagram && (
                   <NormalDistributionView diagram={example.normalDistributionDiagram} />
+                )}
+                {example.vennDiagram && (
+                  <VennDiagramView diagram={example.vennDiagram} />
                 )}
 
                 <div className="space-y-3">
