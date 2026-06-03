@@ -3,7 +3,32 @@ import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differe
 import type { CartesianGraph } from "../types";
 
 function answer(id: string, prompt: string, latex: string, answer: string, explanation: string, acceptedAnswers: string[] = [], cartesianGraph?: CartesianGraph): PracticeQuestion {
-  return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])), hint: "Read the graph or relationship carefully, then calculate.", explanation, cartesianGraph };
+  const autoVariants: string[] = [];
+
+  // Plain integers → decimal form (e.g. 7 → 7.0)
+  if (/^-?\d+$/.test(answer)) {
+    autoVariants.push(`${answer}.0`);
+  }
+
+  // Decimals → one trailing zero (e.g. 2.5 → 2.50)
+  if (/^-?\d*\.\d+$/.test(answer)) {
+    autoVariants.push(`${answer}0`);
+  }
+
+  // Leading-zero decimal → no leading zero (e.g. 0.5 → .5)
+  if (/^0\./.test(answer)) {
+    autoVariants.push(answer.slice(1));
+  }
+
+  // Coordinate pairs like "(3, 4)" → compact and bare forms
+  const coordMatch = answer.match(/^\((-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)\)$/);
+  if (coordMatch) {
+    autoVariants.push(`(${coordMatch[1]},${coordMatch[2]})`);
+    autoVariants.push(`${coordMatch[1]}, ${coordMatch[2]}`);
+    autoVariants.push(`${coordMatch[1]},${coordMatch[2]}`);
+  }
+
+  return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...autoVariants])), hint: "Read the graph or relationship carefully, then calculate.", explanation, cartesianGraph };
 }
 
 function choice(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices: [string, string, string, string], explanation: string, latex = "\\text{Select A, B, C, or D.}", cartesianGraph?: CartesianGraph): PracticeQuestion {
