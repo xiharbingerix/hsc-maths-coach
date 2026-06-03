@@ -10,12 +10,39 @@ function linearAnswer(
   explanation: string,
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
+  const autoVariants: string[] = [];
+
+  // Plain integers → decimal form (e.g. 5 → 5.0)
+  if (/^-?\d+$/.test(answer)) {
+    autoVariants.push(`${answer}.0`);
+  }
+
+  // Decimals → one trailing zero (e.g. 7.07 → 7.070)
+  if (/^-?\d*\.\d+$/.test(answer)) {
+    autoVariants.push(`${answer}0`);
+  }
+
+  // Leading-zero decimal → no leading zero (e.g. 0.5 → .5)
+  if (/^0\./.test(answer)) {
+    autoVariants.push(answer.slice(1));
+  }
+
+  // Coordinate pairs like "(3, 4)" → compact and bare forms
+  const coordMatch = answer.match(
+    /^\((-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)\)$/
+  );
+  if (coordMatch) {
+    autoVariants.push(`(${coordMatch[1]},${coordMatch[2]})`);
+    autoVariants.push(`${coordMatch[1]}, ${coordMatch[2]}`);
+    autoVariants.push(`${coordMatch[1]},${coordMatch[2]}`);
+  }
+
   return {
     id,
     prompt,
     latex,
     answer,
-    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...autoVariants])),
     hint: "Identify the linear relationship or coordinate formula, then calculate carefully.",
     explanation,
   };
