@@ -16,7 +16,19 @@ function money(id: string, prompt: string, latex: string, answer: string, explan
 }
 
 function number(id: string, prompt: string, latex: string, answer: string, explanation: string, acceptedAnswers: string[] = []): PracticeQuestion {
-  return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])), hint: "Identify the financial relationship, then calculate carefully.", explanation };
+  const autoVariants: string[] = [];
+
+  // Plain integers → decimal form (e.g. 11 → 11.0)
+  if (/^-?\d+$/.test(answer)) {
+    autoVariants.push(`${answer}.0`);
+  }
+
+  // Decimals → one trailing zero (e.g. 32.5 → 32.50)
+  if (/^-?\d*\.\d+$/.test(answer)) {
+    autoVariants.push(`${answer}0`);
+  }
+
+  return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...autoVariants])), hint: "Identify the financial relationship, then calculate carefully.", explanation };
 }
 
 function choice(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices: [string, string, string, string], explanation: string, latex = "\\text{Select A, B, C, or D.}"): PracticeQuestion {
