@@ -1,7 +1,43 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, WorkedExample } from "../differentialCalculus";
 import type { NetworkDiagram } from "../types";
-import { labelledChoice, shortAnswer } from "../questionHelpers";
+import { labelledChoice, shortAnswer as baseShortAnswer } from "../questionHelpers";
+
+function networkAnswerVariants(prompt: string, answer: string): string[] {
+  if (!/^-?\d+(\.\d+)?$/.test(answer)) return [];
+
+  const lowerPrompt = prompt.toLowerCase();
+  const variants: string[] = [];
+
+  if (lowerPrompt.includes("degree")) {
+    variants.push(`degree=${answer}`, `degree = ${answer}`, `deg=${answer}`);
+    const vertex = prompt.match(/degree of ([A-Z])/);
+    if (vertex) variants.push(`deg(${vertex[1]})=${answer}`);
+  } else if (lowerPrompt.includes("vertices")) {
+    variants.push(`${answer} vertices`, `vertices=${answer}`, `vertices = ${answer}`);
+  } else if (lowerPrompt.includes("edge")) {
+    variants.push(`${answer} edges`, `edges=${answer}`, `edges = ${answer}`);
+  } else if (lowerPrompt.includes("weight")) {
+    variants.push(`${answer} units`, `total=${answer}`, `total = ${answer}`, `weight=${answer}`);
+  } else if (lowerPrompt.includes("total")) {
+    variants.push(`${answer} units`, `total=${answer}`, `total = ${answer}`);
+  }
+
+  return variants.slice(0, 4);
+}
+
+function shortAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+) {
+  return baseShortAnswer(id, prompt, latex, answer, [
+    ...acceptedAnswers,
+    ...networkAnswerVariants(prompt, answer),
+  ]);
+}
 
 const schoolMapDiagram: NetworkDiagram = {
   description:
@@ -815,4 +851,3 @@ export function year11StandardNetworksLessonOverride(
     ],
   };
 }
-

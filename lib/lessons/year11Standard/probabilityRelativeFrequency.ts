@@ -281,7 +281,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
       ],
       masteryQuiz: [
         probabilityAnswer("prob-outcomes-m1", "A fair coin is tossed once. Find the probability of heads.", "\\text{fair coin}", "1/2", halves),
-        probabilityAnswer("prob-outcomes-m2", "A fair die is rolled. Find the probability of rolling a 5.", "\\text{fair six-sided die}", "1/6", []),
+        probabilityAnswer("prob-outcomes-m2", "A fair die is rolled. Find the probability of rolling a 5.", "\\text{fair six-sided die}", "1/6", ["one sixth", "1 in 6", "16 2/3%", "16⅔%"]),
         probabilityAnswer("prob-outcomes-m3", "A spinner has 8 equal sectors, with 2 sectors shaded blue. Find the probability of blue.", "\\text{8 equal sectors, 2 blue}", "1/4", quarters),
         probabilityChoice("prob-outcomes-m4", "Which value could not be a probability?", "D", ["0", "0.25", "1", "1.2"], "A probability cannot be greater than 1."),
         probabilityAnswer("prob-outcomes-m5", "The probability a randomly selected student catches the bus is 3/5. Find the probability the student does not catch the bus.", "P(\\text{bus})=\\frac{3}{5}", "2/5", fifths2),
@@ -447,7 +447,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
         ],
       },
       guidedPractice: [
-        probabilityAnswer("prob-exam-g1", "A fair die is rolled once. Find the probability of rolling a number greater than 4.", "\\text{fair six-sided die}", "1/3", []),
+        probabilityAnswer("prob-exam-g1", "A fair die is rolled once. Find the probability of rolling a number greater than 4.", "\\text{fair six-sided die}", "1/3", ["one third", "1 in 3", "33 1/3%", "33⅓%"]),
         probabilityAnswer("prob-exam-g2", "A bus is late 15 times in 50 school mornings. Find the relative frequency of late buses.", "\\text{15 late mornings from 50 mornings}", "3/10", tenths3),
         probabilityChoice("prob-exam-g3", "A bag has 4 red and 6 blue counters. Which option gives the probability of not selecting red?", "C", ["4/10", "4/6", "6/10", "10/6"], "Not red means selecting blue, which is 6 out of 10."),
         probabilityAnswer("prob-exam-g4", "A table of 80 students shows 20 students are Year 11 and walk to school. Find the probability of Year 11 and walking.", "\\text{20 students from 80}", "1/4", quarters),
