@@ -1,6 +1,127 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import type { ExplicitLesson, WorkedExample } from "../differentialCalculus";
-import { financeChoice, moneyAnswer, linearAnswer } from "../questionHelpers";
+import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import {
+  financeChoice,
+  linearAnswer as baseLinearAnswer,
+  moneyAnswer as baseMoneyAnswer,
+} from "../questionHelpers";
+
+function linearRelationshipsFeedback(prompt: string, latex: string, answer: string): string {
+  const context = `${prompt} ${latex}`.toLowerCase();
+
+  if (
+    context.includes("gradient") ||
+    context.includes("hourly increase") ||
+    context.includes("weekly increase") ||
+    context.includes("rate")
+  ) {
+    return `The gradient is the constant change in the output for each 1-unit increase in the input. Compare two matching table values or read the coefficient of the input to get ${answer}.`;
+  }
+
+  if (
+    context.includes("starting") ||
+    context.includes("intercept") ||
+    context.includes("fixed") ||
+    context.includes("when }w=0") ||
+    context.includes("when }d=0")
+  ) {
+    return `The starting value is the output when the input is 0, so it appears as the constant term in the rule. Do not confuse it with the rate of change; here it is ${answer}.`;
+  }
+
+  if (
+    context.includes("write a rule") ||
+    context.includes("write a direct variation rule") ||
+    context.includes("model") ||
+    context.includes("rule for")
+  ) {
+    if (
+      context.includes("drains") ||
+      context.includes("decreases") ||
+      context.includes("negative") ||
+      context.includes("tank")
+    ) {
+      return `A draining or decreasing situation needs a negative gradient because the output goes down as the input increases. Start with the initial amount, then subtract the rate each time to get ${answer}.`;
+    }
+
+    if (
+      context.includes("direct variation") ||
+      context.includes("per litre") ||
+      context.includes("per page") ||
+      context.includes("per person") ||
+      context.includes("conversion")
+    ) {
+      return `Direct variation has no starting fee or fixed amount, so the rule is just multiplier times input. Use the unit rate as the multiplier to get ${answer}.`;
+    }
+
+    return `A linear rule is starting value plus rate times input. Use the intercept for the fixed part and the gradient for the repeated change to get ${answer}.`;
+  }
+
+  if (
+    context.includes("cost for") ||
+    context.includes("fare for") ||
+    context.includes("cost of") ||
+    context.includes("using c =") ||
+    context.includes("charges")
+  ) {
+    if (context.includes("+")) {
+      return `For a linear cost model, add the fixed starting amount after calculating the variable part. That keeps the intercept and the rate separate, giving ${answer}.`;
+    }
+
+    return `This cost comes from a rate multiplied by the amount used. Multiply the unit cost by the input quantity to get ${answer}.`;
+  }
+
+  if (
+    context.includes("direct variation") ||
+    context.includes("y=kx") ||
+    context.includes("constant of variation")
+  ) {
+    return `Direct variation means the graph passes through the origin and every output is the same multiplier times the input. Find that multiplier from y divided by x to get ${answer}.`;
+  }
+
+  if (
+    context.includes("table") ||
+    context.includes("costs:") ||
+    context.includes("0, 1, 2, 3")
+  ) {
+    return `A linear table changes by the same amount each step. Use the first value as the starting amount and the repeated difference as the gradient to get ${answer}.`;
+  }
+
+  if (
+    context.includes("tank") ||
+    context.includes("drains") ||
+    context.includes("volume")
+  ) {
+    return `In a tank model, the intercept is the starting volume and the gradient is the fill or drain rate. A negative rate means the volume is decreasing, so the result is ${answer}.`;
+  }
+
+  return `Look for the starting value and the constant rate of change. Those two pieces build or interpret the linear relationship, giving ${answer}.`;
+}
+
+function linearAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseLinearAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: linearRelationshipsFeedback(prompt, latex, answer),
+  };
+}
+
+function moneyAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseMoneyAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: linearRelationshipsFeedback(prompt, latex, answer),
+  };
+}
 function linearRelationshipsWorkedExamples(slug: string, title: string): WorkedExample[] {
   if (slug === "linear-relationships-graphs") {
     return [
