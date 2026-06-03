@@ -5,7 +5,24 @@ type LessonContent = Pick<ExplicitLesson, "description" | "learningIntention" | 
 
 function answer(id: string, prompt: string, latex: string, value: string, explanation: string, acceptedAnswers: string[] = []): PracticeQuestion {
   const displayLatex = /-(?:g|i)\d+$/.test(id) ? "\\text{Show your method clearly.}" : latex;
-  return { id, prompt, latex: displayLatex, answer: value, acceptedAnswers: Array.from(new Set([value, ...acceptedAnswers])), hint: "Identify the matching information, then calculate or interpret carefully.", explanation };
+  const autoVariants: string[] = [];
+
+  // Plain integers → decimal form (e.g. 4 → 4.0)
+  if (/^-?\d+$/.test(value)) {
+    autoVariants.push(`${value}.0`);
+  }
+
+  // Decimals → one trailing zero (e.g. 2.5 → 2.50)
+  if (/^-?\d*\.\d+$/.test(value)) {
+    autoVariants.push(`${value}0`);
+  }
+
+  // Leading-zero decimal → no leading zero (e.g. 0.25 → .25)
+  if (/^0\./.test(value)) {
+    autoVariants.push(value.slice(1));
+  }
+
+  return { id, prompt, latex: displayLatex, answer: value, acceptedAnswers: Array.from(new Set([value, ...acceptedAnswers, ...autoVariants])), hint: "Identify the matching information, then calculate or interpret carefully.", explanation };
 }
 
 function number(id: string, prompt: string, latex: string, value: string, explanation: string, acceptedAnswers: string[] = []): PracticeQuestion {
