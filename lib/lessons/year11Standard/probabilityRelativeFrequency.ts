@@ -2,6 +2,82 @@ import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
 import { formatChoiceText } from "../questionHelpers";
 
+function probabilityFeedback(prompt: string, latex: string, answer: string): string {
+  const context = `${prompt} ${latex}`.toLowerCase();
+
+  if (
+    context.includes("relative frequency") ||
+    context.includes("experimental") ||
+    context.includes("trials") ||
+    context.includes("tosses") ||
+    context.includes("spins") ||
+    context.includes("attempts") ||
+    context.includes("games") ||
+    context.includes("tests") ||
+    context.includes("responses") ||
+    context.includes("trips")
+  ) {
+    if (context.includes("does not") || context.includes("not blue") || context.includes("not ")) {
+      return `Relative frequency uses the observed count from the trials. Here the event is a "not" event, so find that count first, then divide by the total number of trials to get ${answer}.`;
+    }
+
+    return `Relative frequency is the observed proportion: the number of times the event happened divided by the total trials. It is an estimate from data, so the calculation gives ${answer}.`;
+  }
+
+  if (
+    context.includes("does not") ||
+    context.includes("not late") ||
+    context.includes("not arrive") ||
+    context.includes("not catch") ||
+    context.includes("not use") ||
+    context.includes("no rain") ||
+    context.includes("does not pay")
+  ) {
+    return `This is a complement question: it asks for everything except the event named first. Subtract the given probability from 1, or use the remaining count, to get ${answer}.`;
+  }
+
+  if (
+    context.includes("two-way") ||
+    context.includes("\\begin{array}") ||
+    context.includes("table")
+  ) {
+    if (context.includes(" and ")) {
+      return `In a two-way table, "and" means both conditions at once, so the favourable count is the single matching cell. Put that cell count over the table total to get ${answer}.`;
+    }
+
+    if (context.includes("total") || context.includes("how many")) {
+      return `This question is asking for a count, not a probability. Add the relevant table entries carefully so every person or item is counted once: ${answer}.`;
+    }
+
+    if (context.includes(" or ")) {
+      return `For an "or" question, combine the relevant categories without double-counting anyone. Then divide by the full table total to get ${answer}.`;
+    }
+
+    return `First decide whether the table question needs a cell, a row total, a column total or the grand total. Use that count as the favourable amount to get ${answer}.`;
+  }
+
+  if (context.includes(" or ")) {
+    return `An "or" event includes outcomes from either named group. Add the favourable outcomes, avoiding overlap if there is any, then place the result over the total to get ${answer}.`;
+  }
+
+  if (
+    context.includes("fair die") ||
+    context.includes("fair coin") ||
+    context.includes("spinner") ||
+    context.includes("bag") ||
+    context.includes("equal sectors") ||
+    context.includes("sample space")
+  ) {
+    return `For equally likely outcomes, probability means favourable outcomes divided by total possible outcomes. Count the outcomes that match the event, then write that count over the total to get ${answer}.`;
+  }
+
+  if (context.includes("chance of") || context.includes("probability")) {
+    return `Probability is a proportion, not just a raw count. Identify the favourable event and compare it with the total possible outcomes to get ${answer}.`;
+  }
+
+  return `First identify whether the question uses equally likely outcomes, trial data or table data. Then use the matching denominator carefully to get ${answer}.`;
+}
+
 function probabilityAnswer(
   id: string,
   prompt: string,
@@ -17,7 +93,7 @@ function probabilityAnswer(
     answer,
     acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
     hint: "Use favourable outcomes over total outcomes, or read the data carefully.",
-    explanation: explanation ?? `The answer is ${answer}.`,
+    explanation: explanation ?? probabilityFeedback(prompt, latex, answer),
   };
 }
 
