@@ -10,12 +10,37 @@ function answer(
   explanation: string,
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
+  const autoVariants: string[] = [];
+
+  // Plain integers → decimal form (e.g. 7 → 7.0)
+  if (/^-?\d+$/.test(expected)) {
+    autoVariants.push(`${expected}.0`);
+  }
+
+  // Decimal → one trailing zero (e.g. 1.25 → 1.250)
+  if (/^-?\d*\.\d+$/.test(expected)) {
+    autoVariants.push(`${expected}0`);
+  }
+
+  // Leading-zero decimal → no leading zero (e.g. 0.5 → .5)
+  if (/^0\./.test(expected)) {
+    autoVariants.push(expected.slice(1));
+  }
+
+  // Coordinate pairs like "(3, 4)" → compact and bare forms
+  const coordMatch = expected.match(/^\((-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)\)$/);
+  if (coordMatch) {
+    autoVariants.push(`(${coordMatch[1]},${coordMatch[2]})`);
+    autoVariants.push(`${coordMatch[1]}, ${coordMatch[2]}`);
+    autoVariants.push(`${coordMatch[1]},${coordMatch[2]}`);
+  }
+
   return {
     id,
     prompt,
     latex,
     answer: expected,
-    acceptedAnswers: Array.from(new Set([expected, ...acceptedAnswers])),
+    acceptedAnswers: Array.from(new Set([expected, ...acceptedAnswers, ...autoVariants])),
     hint: "Use the defining feature of the graph family, then keep the final answer short.",
     explanation,
   };
