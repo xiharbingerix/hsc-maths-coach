@@ -25,7 +25,87 @@ function algebraicAnswerVariants(prompt: string, answer: string) {
     variants.add(`HCF = ${compactAnswer}`);
   }
 
+  // Plain integers: accept the decimal form (e.g. 9 → 9.0)
+  if (/^-?\d+$/.test(answer)) {
+    variants.add(`${answer}.0`);
+  }
+
+  // Simple coefficient-variable monomials like "5x" or "3x": accept with a space
+  if (/^\d+[a-z]$/i.test(answer)) {
+    variants.add(answer.replace(/^(\d+)([a-z])$/i, "$1 $2"));
+  }
+
   return [...variants];
+}
+
+function algExplanation(id: string, prompt: string, _latex: string, answer: string): string {
+  const ctx = `${prompt}`.toLowerCase();
+
+  // ── Expanding ────────────────────────────────────────────────────────────
+  if (id.startsWith("exp-bp-")) {
+    if (ctx.includes("constant term")) {
+      return `The constant term comes from the Last step of FOIL: multiply the two constant terms. The sign of the result follows from the signs in the brackets, giving ${answer}.`;
+    }
+    if (ctx.includes("coefficient of x") || ctx.includes("x-coefficient")) {
+      return `The x-term comes from the Outer and Inner products of FOIL. Add those two results to find the coefficient, which is ${answer}.`;
+    }
+    if (ctx.includes("expand") && !ctx.includes("(")) {
+      return `Multiply the outside term by every term inside the bracket separately. Each product is written out, then collected, giving ${answer}.`;
+    }
+    if (ctx.includes("expand")) {
+      return `The outside term multiplies both terms inside the bracket. Write each product, then collect any like terms to get ${answer}.`;
+    }
+    return `Apply the distributive law or FOIL, collecting like terms where needed, to get ${answer}.`;
+  }
+
+  // ── Factorising expressions ──────────────────────────────────────────────
+  if (id.startsWith("fac-ex-")) {
+    if (ctx.includes("hcf") || ctx.includes("highest common factor")) {
+      return `List the factors of each term and find the largest one they share. The highest common factor is ${answer}.`;
+    }
+    if (ctx.includes("inside the bracket") || ctx.includes("\\square")) {
+      return `Divide each term of the expression by the HCF shown outside the bracket. What remains inside the bracket is ${answer}.`;
+    }
+    return `Find the HCF of all terms, write it outside a bracket, then divide each original term by it to get the bracket ${answer}.`;
+  }
+
+  // ── Factorising quadratics ───────────────────────────────────────────────
+  if (id.startsWith("fac-qt-")) {
+    if ((ctx.includes("multiply to") && ctx.includes("add to")) || ctx.includes("two numbers")) {
+      return `List factor pairs of the constant term and check which pair also sums to the required total. The pair is ${answer}.`;
+    }
+    if (ctx.includes("larger of the two") || ctx.includes("larger number")) {
+      return `Find the two numbers whose product equals c and whose sum equals b, then pick the larger one: ${answer}.`;
+    }
+    if (ctx.includes("product") && (ctx.includes("p") || ctx.includes("p × q"))) {
+      return `In (x + p)(x + q) = x² + bx + c, the constant term always equals p × q directly. Here p × q = ${answer}.`;
+    }
+    return `Use the product-sum method: find two numbers that multiply to c and add to b. This gives ${answer}.`;
+  }
+
+  // ── Difference of two squares ────────────────────────────────────────────
+  if (id.startsWith("dots-")) {
+    if (ctx.includes("√") || ctx.includes("square root") || ctx.includes("(a)²") || ctx.includes("= (a)")) {
+      return `Take the square root of the coefficient and the variable separately: √(coeff) × √(x²) = the a-value. Here a = ${answer}.`;
+    }
+    if (ctx.includes("value of b") || ctx.includes("(x − b)(x + b)") || ctx.includes("(x-b)(x+b)")) {
+      return `b is the positive square root of the constant term. √(constant) = ${answer}, so the factorisation is (x − ${answer})(x + ${answer}).`;
+    }
+    return `Apply the DOTS rule a² − b² = (a − b)(a + b). Identify the square root of each term, then write the two conjugate factors. Result: ${answer}.`;
+  }
+
+  // ── Algebraic fractions ──────────────────────────────────────────────────
+  if (id.startsWith("alg-fr-")) {
+    if (ctx.includes("undefined") || ctx.includes("restriction")) {
+      return `A fraction is undefined when its denominator equals zero. Set the denominator equal to zero and solve: x = ${answer}.`;
+    }
+    if (ctx.includes("simplify")) {
+      return `Find the HCF of numerator and denominator, then cancel it from both. The simplified result is ${answer}.`;
+    }
+    return `Factorise numerator and denominator where possible, cancel any common factor, and state any restrictions. The result is ${answer}.`;
+  }
+
+  return `The answer is ${answer}.`;
 }
 
 function algAnswer(
@@ -42,7 +122,7 @@ function algAnswer(
     answer,
     acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...algebraicAnswerVariants(prompt, answer)])),
     hint: "Identify the algebraic method first, then apply it step by step.",
-    explanation: `The answer is ${answer}.`,
+    explanation: algExplanation(id, prompt, latex, answer),
   };
 }
 
