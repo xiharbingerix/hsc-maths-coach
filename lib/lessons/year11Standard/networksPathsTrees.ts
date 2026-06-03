@@ -1,5 +1,5 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import type { ExplicitLesson, WorkedExample } from "../differentialCalculus";
+import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
 import type { NetworkDiagram } from "../types";
 import { labelledChoice, shortAnswer as baseShortAnswer } from "../questionHelpers";
 
@@ -26,17 +26,72 @@ function networkAnswerVariants(prompt: string, answer: string): string[] {
   return variants.slice(0, 4);
 }
 
+function networkFeedback(prompt: string, latex: string, answer: string): string {
+  const context = `${prompt} ${latex}`.toLowerCase();
+
+  if (context.includes("degree")) {
+    return `The degree of a vertex is the number of edges meeting at that vertex, not the number of vertices in the whole network. Count only the edges touching the named vertex to get ${answer}.`;
+  }
+
+  if (context.includes("vertices") || context.includes("vertex")) {
+    return `Vertices are the points or nodes in the network, such as places or tasks. Count each named point once, even if it appears in more than one edge, to get ${answer}.`;
+  }
+
+  if (context.includes("edge") || context.includes("connection")) {
+    return `Edges are the direct connections between vertices. Count each listed connection once, rather than counting both directions separately, to get ${answer}.`;
+  }
+
+  if (
+    context.includes("shortest") ||
+    context.includes("path") ||
+    context.includes("route")
+  ) {
+    if (context.includes("yes or no") || context.includes("10 vertices") || context.includes("9-vertex")) {
+      return `This is checking the size condition for a shortest-path question. Compare the number of vertices with the stated limit to get ${answer}.`;
+    }
+
+    return `For a shortest path, add the weights along each sensible route and compare the totals. The route with the smallest total gives ${answer}.`;
+  }
+
+  if (
+    context.includes("mst") ||
+    context.includes("minimum spanning") ||
+    context.includes("spanning tree") ||
+    context.includes("selected weights") ||
+    context.includes("connector")
+  ) {
+    return `A minimum spanning tree connects every required vertex without making a loop. Add only the selected edge weights to find the total ${answer}.`;
+  }
+
+  if (context.includes("tree")) {
+    if (context.includes("edges")) {
+      return `A tree is connected and has no cycles, so its edge count is one less than its vertex count. Use edges = vertices - 1 to get ${answer}.`;
+    }
+
+    return `For a tree, use the connected-with-no-cycles idea. The relationship between vertices and edges gives ${answer}.`;
+  }
+
+  if (context.includes("weight") || context.includes("total") || context.includes("add")) {
+    return `A route or connector total is found by adding the relevant edge weights once each. Keep the route order clear so no edge is missed or counted twice; the total is ${answer}.`;
+  }
+
+  return `First decide which network idea is being tested: degree, vertices, edges, route total, shortest path, or spanning tree. Use that definition carefully to get ${answer}.`;
+}
+
 function shortAnswer(
   id: string,
   prompt: string,
   latex: string,
   answer: string,
   acceptedAnswers: string[] = []
-) {
-  return baseShortAnswer(id, prompt, latex, answer, [
-    ...acceptedAnswers,
-    ...networkAnswerVariants(prompt, answer),
-  ]);
+): PracticeQuestion {
+  return {
+    ...baseShortAnswer(id, prompt, latex, answer, [
+      ...acceptedAnswers,
+      ...networkAnswerVariants(prompt, answer),
+    ]),
+    explanation: networkFeedback(prompt, latex, answer),
+  };
 }
 
 const schoolMapDiagram: NetworkDiagram = {
