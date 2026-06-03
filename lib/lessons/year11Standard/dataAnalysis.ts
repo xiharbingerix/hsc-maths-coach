@@ -1,6 +1,83 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import type { ExplicitLesson, WorkedExample } from "../differentialCalculus";
-import { financeChoice, dataAnswer } from "../questionHelpers";
+import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import { financeChoice, dataAnswer as baseDataAnswer } from "../questionHelpers";
+
+function dataAnalysisFeedback(prompt: string, latex: string, answer: string): string {
+  const context = `${prompt} ${latex}`.toLowerCase();
+
+  if (context.includes("mean")) {
+    return `The mean is the balance point of the data: add all the values, then share the total evenly across the number of values. That gives ${answer}.`;
+  }
+
+  if (context.includes("median")) {
+    return `The median is the middle value after the data are in order. Count in from both ends, or find the central position, to get ${answer}.`;
+  }
+
+  if (context.includes("mode")) {
+    return `The mode is the value or category that appears most often. Look for the repeated value or the highest frequency, which gives ${answer}.`;
+  }
+
+  if (context.includes("range")) {
+    return `Range measures the full spread of the data, from the smallest value to the largest. Subtract the minimum from the maximum to get ${answer}.`;
+  }
+
+  if (
+    context.includes("outlier") ||
+    context.includes("unusually") ||
+    context.includes("far from") ||
+    context.includes("likely an outlier")
+  ) {
+    return `An outlier is not just the biggest or smallest value; it sits noticeably away from the main group. Compare it with the cluster of typical values to identify ${answer}.`;
+  }
+
+  if (context.includes("percentage") || context.includes("percent")) {
+    return `A percentage compares the part with the whole out of 100. Divide the relevant count by the total, then multiply by 100 to get ${answer}.`;
+  }
+
+  if (
+    context.includes("total") ||
+    context.includes("how many") ||
+    context.includes("surveyed")
+  ) {
+    return `This asks for a total count, so add the relevant frequencies or data values once each. Do not average them; the total is ${answer}.`;
+  }
+
+  if (
+    context.includes("frequency table") ||
+    context.includes("rating") ||
+    context.includes("column graph") ||
+    context.includes("bar chart")
+  ) {
+    return `For a display or frequency table, separate the data value from how often it occurs. Read the matching category or frequency carefully to get ${answer}.`;
+  }
+
+  if (
+    context.includes("temperature") ||
+    context.includes("delivery") ||
+    context.includes("travel") ||
+    context.includes("customer") ||
+    context.includes("sport") ||
+    context.includes("study") ||
+    context.includes("absences")
+  ) {
+    return `First identify which statistic the question asks for, then use the data values in the context. Keep the unit or label attached so the result is ${answer}.`;
+  }
+
+  return `Start by deciding whether the question asks for centre, spread, a frequency, or a practical interpretation. Use the matching data rule carefully to get ${answer}.`;
+}
+
+function dataAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseDataAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: dataAnalysisFeedback(prompt, latex, answer),
+  };
+}
 function dataAnalysisWorkedExamples(slug: string, title: string): WorkedExample[] {
   if (slug === "data-displays-summary-statistics") {
     return [
