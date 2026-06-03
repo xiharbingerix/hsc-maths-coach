@@ -1,6 +1,111 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import type { ExplicitLesson, WorkedExample } from "../differentialCalculus";
-import { financeChoice, measurementAnswer, timeAnswer } from "../questionHelpers";
+import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import {
+  financeChoice,
+  measurementAnswer as baseMeasurementAnswer,
+  timeAnswer as baseTimeAnswer,
+} from "../questionHelpers";
+
+function timeLocationFeedback(prompt: string, latex: string, answer: string): string {
+  const context = `${prompt} ${latex}`.toLowerCase();
+
+  if (context.includes("24-hour") || context.includes("24 hour")) {
+    return `The question wants 24-hour time, so the key idea is whether the time is before or after midday. For pm times, add 12 to the hour unless it is already 12 pm, then write the result as ${answer}.`;
+  }
+
+  if (context.includes("wait") || context.includes("waiting")) {
+    return `Waiting time starts when the person arrives and ends at the next suitable departure, not at the final destination. Choose the first departure after the arrival time, then count the gap to get ${answer}.`;
+  }
+
+  if (
+    context.includes("travel time") ||
+    context.includes("trip duration") ||
+    context.includes("how long") ||
+    context.includes("duration")
+  ) {
+    if (
+      context.includes("midnight") ||
+      context.includes("next day") ||
+      context.includes("23:") ||
+      context.includes("00:")
+    ) {
+      return `When the trip crosses midnight, count to midnight first and then add the time after midnight. That keeps the elapsed time positive and gives ${answer}.`;
+    }
+
+    return `Elapsed time is the difference between the start and finish times. Count forward in hours and minutes, rather than treating minutes like decimals, to get ${answer}.`;
+  }
+
+  if (context.includes("utc") || context.includes("time zone") || context.includes("offset")) {
+    if (context.includes("date") || context.includes("international date line")) {
+      return `Time-zone questions can change the date as well as the clock time. Apply the offset first, then check whether the new time has crossed midnight to get ${answer}.`;
+    }
+
+    return `A time-zone offset tells you how far a place is ahead of or behind the reference time. Compare the offsets, then add or subtract the difference carefully to get ${answer}.`;
+  }
+
+  if (
+    context.includes("international date line") ||
+    context.includes("next day") ||
+    context.includes("monday") ||
+    context.includes("tuesday")
+  ) {
+    return `The day label matters whenever a time change crosses midnight or the International Date Line. Track the clock adjustment and the date change together to get ${answer}.`;
+  }
+
+  if (context.includes("scale")) {
+    if (context.includes("map distance") || context.includes("real distance")) {
+      return `A map scale is a conversion rule between the drawing and the real world. Decide which direction you are converting, then multiply or divide by the scale factor to get ${answer}.`;
+    }
+
+    return `Use the scale as the link between the measured distance and the actual distance. Keep the units attached so the final value is ${answer}.`;
+  }
+
+  if (context.includes("grid") || context.includes("row") || context.includes("column")) {
+    return `For a grid reference, the order matters: locate the row and column exactly as the question describes. Reading one place across or down gives the wrong cell, so the correct location is ${answer}.`;
+  }
+
+  if (
+    context.includes("coordinate") ||
+    context.includes("north") ||
+    context.includes("south") ||
+    context.includes("east") ||
+    context.includes("west")
+  ) {
+    return `Location questions are about direction and distance, not just arithmetic. Track east/west changes separately from north/south changes to arrive at ${answer}.`;
+  }
+
+  if (context.includes("speed") || context.includes("distance")) {
+    return `Speed, distance and time questions use matching units. Choose the quantity being asked for, then use the relationship between distance, speed and time to get ${answer}.`;
+  }
+
+  return `First decide whether the question is asking for a clock time, an elapsed time, a time-zone conversion, or a location result. Using the right interpretation leads to ${answer}.`;
+}
+
+function timeAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseTimeAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: timeLocationFeedback(prompt, latex, answer),
+  };
+}
+
+function measurementAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseMeasurementAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: timeLocationFeedback(prompt, latex, answer),
+  };
+}
 function timeLocationWorkedExamples(slug: string, title: string): WorkedExample[] {
   if (slug === "time-calculations-timetables") {
     return [
