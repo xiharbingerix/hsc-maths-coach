@@ -1,6 +1,86 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import type { ExplicitLesson, WorkedExample } from "../differentialCalculus";
-import { financeChoice, financeShortAnswer, moneyAnswer } from "../questionHelpers";
+import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import {
+  financeChoice,
+  financeShortAnswer as baseFinanceShortAnswer,
+  moneyAnswer as baseMoneyAnswer,
+} from "../questionHelpers";
+
+function managingMoneyFeedback(prompt: string, latex: string, answer: string): string {
+  const context = `${prompt} ${latex}`.toLowerCase();
+
+  if (context.includes("surplus")) {
+    return `A surplus is what is left after all listed expenses and planned savings come out of income. Add the outgoing amounts first, then subtract from income to get ${answer}.`;
+  }
+  if (context.includes("deficit")) {
+    return `A deficit means expenses are bigger than income. Subtract income from expenses to find the shortfall, which is ${answer}.`;
+  }
+  if (context.includes("4-week") || context.includes("4 weeks") || context.includes("monthly estimate")) {
+    return `The question asks for a simple 4-week estimate, so keep the weekly amount unchanged and multiply it by 4. That gives ${answer}.`;
+  }
+  if (context.includes("how many") && context.includes("weeks")) {
+    return `First find how much money is still needed, then divide by the regular weekly saving. The quotient tells how many full saving weeks are needed: ${answer}.`;
+  }
+  if (context.includes("how much more") || context.includes("current savings")) {
+    return `Compare the target with what has already been saved. Subtract current savings from the goal or cost to find the remaining amount: ${answer}.`;
+  }
+  if (context.includes("deposits") || context.includes("deposited") || context.includes("saves") || context.includes("saved")) {
+    return `Regular saving is repeated addition, so multiply the weekly deposit by the number of weeks. Use the existing balance too if the question gives one; this gives ${answer}.`;
+  }
+  if (context.includes("simple interest") || context.includes("p.a.") || context.includes("principal")) {
+    if (context.includes("total amount")) {
+      return `Simple interest is earned on the original principal only. When the question asks for the total amount, add the interest to the starting principal to get ${answer}.`;
+    }
+    return `Simple interest uses the original principal, the decimal rate, and the time in years. Convert the percent rate first, then use I = Prt to get ${answer}.`;
+  }
+  if (context.includes("as a decimal")) {
+    return `Percent means out of 100, so divide the percentage by 100 before using it in a formula. That is why the decimal form is ${answer}.`;
+  }
+  if (context.includes("discount")) {
+    if (context.includes("sale price") || context.includes("final cost")) {
+      return `A discount reduces the original price before any extra fees are added. Find the discount, subtract it, then include the fee if there is one to get ${answer}.`;
+    }
+    return `A discount is a percentage of the original price, not a number of dollars copied from the percent sign. Multiply the original price by the discount rate to get ${answer}.`;
+  }
+  if (context.includes("delivery") || context.includes("booking fee") || context.includes("service fee") || context.includes("fee")) {
+    return `Fees increase the amount paid, so include them after the item price and after any discount or coupon. The total cost is ${answer}.`;
+  }
+  if (context.includes("coupon")) {
+    return `A coupon reduces the price, while delivery adds to it. Apply both changes in the direction they affect the total to get ${answer}.`;
+  }
+  if (context.includes("cheaper")) {
+    return `To compare options fairly, subtract the lower total from the higher total. The difference between the two costs is ${answer}.`;
+  }
+
+  return `Read the money context first: decide whether you need a surplus, saving total, interest amount, or final cost. Following that calculation gives ${answer}.`;
+}
+
+function moneyAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseMoneyAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: managingMoneyFeedback(prompt, latex, answer),
+  };
+}
+
+function financeShortAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseFinanceShortAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: managingMoneyFeedback(prompt, latex, answer),
+  };
+}
+
 function managingMoneyWorkedExamples(slug: string, title: string): WorkedExample[] {
   if (slug === "budgets-cash-flow") {
     return [
