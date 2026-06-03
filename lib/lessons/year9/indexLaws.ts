@@ -9,16 +9,27 @@ function answer(
   explanation: string,
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
-  const commaFormattedAnswer = /^-?\d{4,}$/.test(answer)
-    ? answer.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    : null;
+  const autoVariants: string[] = [];
+
+  if (/^-?\d{4,}$/.test(answer)) {
+    autoVariants.push(answer.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+  }
+  if (/^-?\d+$/.test(answer)) {
+    autoVariants.push(`${answer}.0`);
+  }
+  if (/^-?\d*\.\d+$/.test(answer)) {
+    autoVariants.push(`${answer}0`);
+  }
+  if (/^0\./.test(answer)) {
+    autoVariants.push(answer.slice(1));
+  }
 
   return {
     id,
     prompt,
     latex,
     answer,
-    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...(commaFormattedAnswer ? [commaFormattedAnswer] : [])])),
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...autoVariants])),
     hint: "Apply the index rule carefully, then check the form of your answer.",
     explanation,
   };
