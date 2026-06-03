@@ -10,6 +10,10 @@ function probabilityVariants(answer: string, extra: string[] = []) {
     variants.push(String(value), `${value * 100}%`);
   }
 
+  if (/^\d+$/.test(answer)) {
+    variants.push(`${answer}.0`);
+  }
+
   return Array.from(new Set(variants));
 }
 
