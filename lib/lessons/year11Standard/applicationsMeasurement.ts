@@ -1,6 +1,66 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import type { ExplicitLesson, WorkedExample } from "../differentialCalculus";
-import { financeChoice, measurementAnswer } from "../questionHelpers";
+import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import { financeChoice, measurementAnswer as baseMeasurementAnswer } from "../questionHelpers";
+
+function applicationsMeasurementFeedback(prompt: string, latex: string, answer: string): string {
+  const context = `${prompt} ${latex}`.toLowerCase();
+
+  if (context.includes("percentage error")) {
+    return `Percentage error compares the absolute error with the actual value, so the actual value belongs in the denominator. Find the error first, then convert to a percentage to get ${answer}.`;
+  }
+  if (context.includes("absolute error")) {
+    return `Absolute error is the size of the difference between measured and actual values, so ignore direction and subtract the two measurements. That difference is ${answer}.`;
+  }
+  if (context.includes("lower limit") || context.includes("upper limit") || context.includes("limit of accuracy")) {
+    return `A rounded measurement can be half a measuring unit either side of the reported value. Use the lower or upper boundary requested, keeping the unit attached: ${answer}.`;
+  }
+  if (context.includes("convert")) {
+    if (context.includes("litres") || context.includes("l}")) {
+      return `This is a capacity conversion: 1 cubic metre equals 1000 litres. Multiply the cubic metres by 1000 and keep the litre unit to get ${answer}.`;
+    }
+    if (context.includes("centimetres") || context.includes("cm")) {
+      return `Converting metres to centimetres uses the length scale factor 100. Multiply the metre value by 100, not by an area or volume factor, to get ${answer}.`;
+    }
+    if (context.includes("grams") || context.includes("\\text{ g}") || context.includes(" kg")) {
+      return `Mass conversions use groups of 1000: kilograms to grams multiply by 1000, and tonnes to kilograms also multiply by 1000. The converted mass is ${answer}.`;
+    }
+    return `Use the conversion factor named in the question, then keep the requested unit with the number. That gives ${answer}.`;
+  }
+  if (context.includes("area")) {
+    if (context.includes("surface area")) {
+      return `Surface area is the outside covering of the object, so use square units and count the outside faces, not the space inside. This gives ${answer}.`;
+    }
+    return `Area is for a flat surface such as flooring, paint or a sign. Multiply the two relevant lengths and write square units to get ${answer}.`;
+  }
+  if (context.includes("volume") || context.includes("capacity") || context.includes("tank") || context.includes("container")) {
+    return `Volume measures three-dimensional space, so use length, width and height when they are given. If the question asks for capacity, convert cubic metres to litres; here the result is ${answer}.`;
+  }
+  if (context.includes("kwh") || context.includes("per kwh")) {
+    return `Electricity cost uses energy used times the rate per kWh. Multiply those two values and keep the answer in cents or dollars as requested: ${answer}.`;
+  }
+  if (context.includes("kj") || context.includes("energy")) {
+    return `Energy labels are usually per serve or per item. Multiply the energy amount by the number of serves/items to get the total energy: ${answer}.`;
+  }
+  if (context.includes("mass")) {
+    return `Use the mass unit that fits the context, then apply the conversion factor if needed. The practical mass is ${answer}.`;
+  }
+
+  return `First decide what is being measured: length, area, volume, capacity, mass, energy or cost. Choosing the matching measurement method gives ${answer}.`;
+}
+
+function measurementAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseMeasurementAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: applicationsMeasurementFeedback(prompt, latex, answer),
+  };
+}
+
 function measurementWorkedExamples(slug: string, title: string): WorkedExample[] {
   if (slug === "units-accuracy-measurement-error") {
     return [
