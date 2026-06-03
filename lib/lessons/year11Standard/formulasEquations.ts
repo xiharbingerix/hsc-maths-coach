@@ -1,6 +1,111 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import type { ExplicitLesson, WorkedExample } from "../differentialCalculus";
-import { financeChoice, formulaAnswer } from "../questionHelpers";
+import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import { financeChoice, formulaAnswer as baseFormulaAnswer } from "../questionHelpers";
+
+function formulasEquationsFeedback(prompt: string, latex: string, answer: string): string {
+  const context = `${prompt} ${latex}`.toLowerCase();
+
+  if ((context.includes("make") && context.includes("subject")) || context.includes("rearrange")) {
+    if (context.includes("2\\pi") || context.includes("circumference")) {
+      return `Changing the subject means isolating the named variable. Here r is multiplied by the whole coefficient 2 pi, so divide both sides by 2 pi to get ${answer}.`;
+    }
+
+    if (context.includes("bh/2") || context.includes("\\frac{bh}{2}") || context.includes("triangle area")) {
+      return `The variable is trapped inside a divide-by-2 formula, so undo the division first, then divide by the remaining coefficient. Keeping the same operation on both sides gives ${answer}.`;
+    }
+
+    if (context.includes("1.8") || context.includes("fahrenheit") || context.includes("celsius")) {
+      return `Undo the formula in reverse order: remove the +32 first, then undo the multiplication by 1.8. That keeps the formula balanced and gives ${answer}.`;
+    }
+
+    if (context.includes("+") || context.includes("-")) {
+      return `To change the subject, undo the outside addition or subtraction first, then undo the multiplication or division attached to the variable. Doing both sides the same way gives ${answer}.`;
+    }
+
+    return `Changing the subject is just solving for a different variable. Undo what is attached to that variable on both sides until it is alone, giving ${answer}.`;
+  }
+
+  if (
+    context.includes("if c =") ||
+    context.includes("if the total") ||
+    context.includes("if f =") ||
+    context.includes("if d =") ||
+    context.includes("find h") ||
+    context.includes("find n") ||
+    context.includes("find p")
+  ) {
+    return `This is an equation-solving question, so work backwards from the final value. Undo the fixed part first, then undo the multiplier to isolate the unknown: ${answer}.`;
+  }
+
+  if (
+    context.includes("v^2") ||
+    context.includes("stopping distance") ||
+    context.includes("square")
+  ) {
+    return `Substitution means replacing the variable with the given number. Because the formula contains a square, square the value before multiplying, then finish the arithmetic to get ${answer}.`;
+  }
+
+  if (
+    context.includes("d=st") ||
+    context.includes("speed") ||
+    context.includes("distance") ||
+    context.includes("time")
+  ) {
+    return `Match each value to the variable before substituting: speed goes into s and time goes into t. Multiplying the matching quantities gives the distance ${answer}.`;
+  }
+
+  if (
+    context.includes("cost") ||
+    context.includes("electricity") ||
+    context.includes("parking") ||
+    context.includes("hire") ||
+    context.includes("delivery") ||
+    context.includes("bill") ||
+    context.includes("$")
+  ) {
+    if (context.includes("if c =")) {
+      return `For a cost equation, the fixed starting cost is removed first, then the per-item or per-hour rate is undone. That leaves the unknown value as ${answer}.`;
+    }
+
+    return `For a cost formula, substitute the usage value first and then add any fixed charge. The final amount should be in dollars, so the result is ${answer}.`;
+  }
+
+  if (
+    context.includes("dose") ||
+    context.includes("dosage") ||
+    context.includes("weight") ||
+    context.includes("w=")
+  ) {
+    return `The formula links the practical quantity to the variable named in the question. Substitute the given weight for w and keep the context unit in mind to get ${answer}.`;
+  }
+
+  if (
+    context.includes("fuel") ||
+    context.includes("litres") ||
+    context.includes("km")
+  ) {
+    return `Keep the practical units connected to the variables: distance goes into d and the formula returns fuel or distance as requested. Substitute or rearrange first, then calculate ${answer}.`;
+  }
+
+  if (context.includes("perimeter") || context.includes("area")) {
+    return `Formula questions work best when each variable is matched to its meaning first. Substitute the given lengths, or rearrange for the requested length, then keep the correct unit with ${answer}.`;
+  }
+
+  return `Start by deciding whether the question asks you to substitute, solve, or rearrange. Use inverse operations carefully and check the practical unit to get ${answer}.`;
+}
+
+function formulaAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseFormulaAnswer(id, prompt, latex, answer, acceptedAnswers),
+    explanation: formulasEquationsFeedback(prompt, latex, answer),
+  };
+}
 function formulasEquationsWorkedExamples(slug: string, title: string): WorkedExample[] {
   if (slug === "substitution-formulae-equations") {
     return [
