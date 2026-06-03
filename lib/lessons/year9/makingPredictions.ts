@@ -58,9 +58,31 @@ function probability(id: string, prompt: string, latex: string, answer: string, 
   };
 }
 
-function number(id: string, prompt: string, latex: string, answer: string, explanation: string, acceptedAnswers: string[] = []): PracticeQuestion {
-  const displayLatex = /-(?:g|i)\d+$/.test(id) ? "\\text{Show your method clearly.}" : latex;
-  return { id, prompt, latex: displayLatex, answer, acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])), hint: "List or count the outcomes carefully.", explanation };
+function number(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  explanation: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  const displayLatex = /-(?:g|i)\d+$/.test(id)
+    ? "\\text{Show your method clearly.}"
+    : latex;
+  const autoVariants: string[] = [];
+  const numericValue = Number(answer);
+  if (Number.isFinite(numericValue) && Number.isInteger(numericValue)) {
+    autoVariants.push(numericValue.toFixed(1));
+  }
+  return {
+    id,
+    prompt,
+    latex: displayLatex,
+    answer,
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...autoVariants])),
+    hint: "List or count the outcomes carefully.",
+    explanation,
+  };
 }
 
 function choice(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices: [string, string, string, string], explanation: string, latex = "\\text{Select A, B, C, or D.}"): PracticeQuestion {
@@ -87,7 +109,7 @@ const simpleComplementary: LessonContent = {
     choice("y9-pred-simple-g4", "Which probability represents a certain event?", "D", ["0", "0.25", "0.8", "1"], "A certain event has probability 1."),
   ],
   independentPractice: [
-    probability("y9-pred-simple-i1", "A fair die is rolled. Find the probability of rolling a number greater than 4.", "P(>4)=\\frac26", "1/3", "The favourable outcomes are 5 and 6."),
+    probability("y9-pred-simple-i1", "A fair die is rolled. Find the probability of rolling a number greater than 4.", "P(>4)=\\frac26", "1/3", "The favourable outcomes are 5 and 6.", ["2/6"]),
     probability("y9-pred-simple-i2", "A bag contains 2 red, 5 blue and 3 white counters. Find the probability of not selecting blue.", "P(\\text{not blue})=1-\\frac{5}{10}", "1/2", "Five of the ten counters are not blue."),
     choice("y9-pred-simple-i3", "Which event is impossible when rolling a standard die?", "C", ["Rolling an odd number", "Rolling a number below 3", "Rolling a 7", "Rolling a factor of 6"], "A standard die has no 7."),
     probability("y9-pred-simple-i4", "A spinner has 8 equal sectors: 3 orange and 5 purple. Find the probability of not landing on orange.", "P(\\text{not orange})=1-\\frac38", "5/8", "Five of the eight sectors are not orange."),
@@ -135,7 +157,7 @@ const sampleSpaces: LessonContent = {
   independentPractice: [
     probability("y9-pred-space-i1", "Two fair coins are tossed. Find the probability of at least one head.", "P=\\frac34", "3/4", "HH, HT and TH are favourable."),
     number("y9-pred-space-i2", "A fair die and a coin are used. How many ordered outcomes are possible?", "n(S)=6\\times2", "12", "Multiply 6 by 2."),
-    probability("y9-pred-space-i3", "A coin and a fair die are used. Find the probability of tails and a number above 4.", "P=\\frac{2}{12}", "1/6", "The favourable outcomes are T5 and T6."),
+    probability("y9-pred-space-i3", "A coin and a fair die are used. Find the probability of tails and a number above 4.", "P=\\frac{2}{12}", "1/6", "The favourable outcomes are T5 and T6.", ["2/12"]),
     choice("y9-pred-space-i4", "Why are HT and TH both included when two coins are tossed in order?", "C", ["They have different probabilities", "They both mean two heads", "The order of the results is different", "One of them is impossible"], "The first and second toss positions differ."),
     probability("y9-pred-space-i5", "Two fair dice are rolled. Find the probability that the sum is 2.", "P=\\frac{1}{36}", "1/36", "Only the ordered pair (1, 1) is favourable."),
   ],
@@ -149,7 +171,7 @@ const sampleSpaces: LessonContent = {
     number("y9-pred-space-m1", "Two coins are tossed. How many ordered outcomes are possible?", "n(S)=2^2", "4", "There are four ordered outcomes."),
     probability("y9-pred-space-m2", "Two fair coins are tossed. Find the probability of HH.", "P(HH)=\\frac14", "1/4", "One of the four outcomes is HH."),
     number("y9-pred-space-m3", "A coin and a six-sided die are used. How many outcomes are possible?", "n(S)=2\\times6", "12", "Multiply the choices for each stage."),
-    probability("y9-pred-space-m4", "A coin and a fair die are used. Find the probability of heads and a number below 3.", "P=\\frac{2}{12}", "1/6", "The favourable outcomes are H1 and H2."),
+    probability("y9-pred-space-m4", "A coin and a fair die are used. Find the probability of heads and a number below 3.", "P=\\frac{2}{12}", "1/6", "The favourable outcomes are H1 and H2.", ["2/12"]),
     choice("y9-pred-space-m5", "Which sample space is complete for a spinner labelled A or B used twice?", "D", ["AA, BB", "A, B", "AA, AB, BB", "AA, AB, BA, BB"], "The two mixed ordered outcomes are both needed."),
     probability("y9-pred-space-m6", "Two fair dice are rolled. Find the probability of a sum of 12.", "P=\\frac{1}{36}", "1/36", "Only (6, 6) is favourable."),
     probability("y9-pred-space-m7", "Two fair dice are rolled. Find the probability of a sum of 6.", "P=\\frac{5}{36}", "5/36", "The favourable pairs are (1,5), (2,4), (3,3), (4,2) and (5,1)."),
@@ -249,7 +271,7 @@ const independentEvents: LessonContent = {
     { title: "Replacement preserves independence", questionLatex: "\\text{A bag has 2 red and 3 blue counters. Draw, replace and draw again. Find }P(\\text{red twice}).", steps: [{ explanation: "Replacement restores the original bag.", latex: "P(R)=\\frac25\\text{ on each draw}" }, { explanation: "Multiply.", latex: "P(RR)=\\frac25\\times\\frac25=\\frac{4}{25}" }], finalAnswerLatex: "\\frac{4}{25}" },
   ],
   guidedPractice: [
-    probability("y9-pred-ind-g1", "A fair coin is tossed and a fair die is rolled. Find the probability of tails and a number above 4.", "P=\\frac12\\times\\frac26", "1/6", "The independent probabilities are one half and one third."),
+    probability("y9-pred-ind-g1", "A fair coin is tossed and a fair die is rolled. Find the probability of tails and a number above 4.", "P=\\frac12\\times\\frac26", "1/6", "The independent probabilities are one half and one third.", ["2/12"]),
     probability("y9-pred-ind-g2", "A spinner lands on green with probability 1/3. It is spun twice. Find the probability of green twice.", "P=\\frac13\\times\\frac13", "1/9", "Separate spins are independent."),
     choice("y9-pred-ind-g3", "Which experiment describes independent events?", "A", ["Toss a coin twice", "Draw two counters without replacement", "Select two students without returning the first name", "Take two cards from a pack without replacement"], "One coin toss does not change the next."),
     probability("y9-pred-ind-g4", "A bag contains 4 red and 1 blue counter. A counter is drawn, replaced, then another is drawn. Find the probability of blue twice.", "P=\\frac15\\times\\frac15", "1/25", "Replacement makes the draws independent."),
@@ -259,7 +281,7 @@ const independentEvents: LessonContent = {
     probability("y9-pred-ind-i2", "A spinner lands on yellow with probability 3/5. It is spun twice. Find the probability of yellow twice.", "P=\\frac35\\times\\frac35", "9/25", "Multiply the unchanged probabilities."),
     choice("y9-pred-ind-i3", "Why are two draws with replacement independent?", "B", ["The second draw is skipped", "The original contents are restored before the second draw", "The first result is always red", "The probabilities are added"], "Replacement restores the initial probabilities."),
     probability("y9-pred-ind-i4", "A fair coin is tossed three times. Find the probability of three tails.", "P=\\left(\\frac12\\right)^3", "1/8", "Multiply one half three times."),
-    probability("y9-pred-ind-i5", "A die is rolled and a coin is tossed. Find the probability of rolling a number below 3 and getting heads.", "P=\\frac26\\times\\frac12", "1/6", "Multiply one third by one half."),
+    probability("y9-pred-ind-i5", "A die is rolled and a coin is tossed. Find the probability of rolling a number below 3 and getting heads.", "P=\\frac26\\times\\frac12", "1/6", "Multiply one third by one half.", ["2/12"]),
   ],
   commonMistakes: [
     { mistake: "Adding probabilities for an and event.", fix: "Multiply independent probabilities when both events must occur." },
@@ -274,10 +296,10 @@ const independentEvents: LessonContent = {
     probability("y9-pred-ind-m4", "A spinner lands on blue with probability 1/4. It is spun twice. Find the probability of blue twice.", "P=\\frac14\\times\\frac14", "1/16", "Multiply the two blue probabilities."),
     choice("y9-pred-ind-m5", "Which operation finds P(A and B) for independent events?", "B", ["Subtract", "Multiply", "Add", "Divide"], "Multiply independent probabilities."),
     probability("y9-pred-ind-m6", "A bag has 3 green and 2 white counters. Draw, replace and draw again. Find the probability of green twice.", "P=\\frac35\\times\\frac35", "9/25", "Replacement leaves both probabilities unchanged."),
-    probability("y9-pred-ind-m7", "A fair coin is tossed and a fair die is rolled. Find the probability of tails and a number at least 5.", "P=\\frac12\\times\\frac26", "1/6", "Multiply one half by one third."),
+    probability("y9-pred-ind-m7", "A fair coin is tossed and a fair die is rolled. Find the probability of tails and a number at least 5.", "P=\\frac12\\times\\frac26", "1/6", "Multiply one half by one third.", ["2/12"]),
     choice("y9-pred-ind-m8", "A counter is drawn from a bag and replaced before another draw. Which statement is correct?", "D", ["The second probability must be smaller", "The second draw has no possible outcomes", "The first counter stays outside the bag", "The original probabilities apply again"], "Replacement restores the original bag."),
     probability("y9-pred-ind-m9", "A spinner lands on red with probability 2/5. It is spun three times. Find the probability of red every time.", "P=\\left(\\frac25\\right)^3", "8/125", "Multiply two fifths three times."),
-    probability("y9-pred-ind-m10", "A fair coin is tossed twice and a fair die is rolled. Find the probability of two heads and a number above 4.", "P=\\frac12\\times\\frac12\\times\\frac26", "1/12", "Multiply one half, one half and one third."),
+    probability("y9-pred-ind-m10", "A fair coin is tossed twice and a fair die is rolled. Find the probability of two heads and a number above 4.", "P=\\frac12\\times\\frac12\\times\\frac26", "1/12", "Multiply one half, one half and one third.", ["2/24"]),
   ],
 };
 
@@ -335,7 +357,7 @@ const dependentEvents: LessonContent = {
     probability("y9-pred-dep-i2", "A bag has 1 green and 4 yellow counters. Two are drawn without replacement. Find the probability of green then yellow.", "P=\\frac15\\times\\frac44", "1/5", "After green is removed, every remaining counter is yellow."),
     choice("y9-pred-dep-i3", "Which experiment contains dependent events?", "C", ["Toss a coin twice", "Roll a die and toss a coin", "Draw two cards without replacement", "Spin a spinner twice"], "The first card removal changes the second draw."),
     probability("y9-pred-dep-i4", "Cards numbered 1 to 5 are used. Two are drawn without replacement. Find the probability of drawing 5 then 4.", "P=\\frac15\\times\\frac14", "1/20", "After drawing 5, card 4 is one of four remaining cards."),
-    probability("y9-pred-dep-i5", "A bag has 2 red and 2 blue counters. Two are drawn without replacement. Find the probability of red then blue.", "P=\\frac24\\times\\frac23", "1/3", "After red is removed, 2 blue remain among 3 counters."),
+    probability("y9-pred-dep-i5", "A bag has 2 red and 2 blue counters. Two are drawn without replacement. Find the probability of red then blue.", "P=\\frac24\\times\\frac23", "1/3", "After red is removed, 2 blue remain among 3 counters.", ["4/12"]),
   ],
   commonMistakes: [
     { mistake: "Keeping the original denominator for the second draw.", fix: "Without replacement leaves one fewer item for the next draw." },
@@ -348,8 +370,8 @@ const dependentEvents: LessonContent = {
     probability("y9-pred-dep-m2", "A bag has 2 black and 3 white counters. Find the probability of black then white without replacement.", "P=\\frac25\\times\\frac34", "3/10", "After black is removed, 3 white counters remain among 4 counters."),
     choice("y9-pred-dep-m3", "Which phrase signals dependent draws from a bag?", "B", ["With replacement", "Without replacement", "With a fair coin", "With equal spinner sectors"], "Without replacement changes the contents."),
     probability("y9-pred-dep-m4", "Cards numbered 1, 2, 3 and 4 are used. Find the probability of drawing 1 then 2 without replacement.", "P=\\frac14\\times\\frac13", "1/12", "After card 1 is removed, card 2 is one of three cards."),
-    probability("y9-pred-dep-m5", "A bag has 5 green and 1 purple counter. Find the probability of purple then green without replacement.", "P=\\frac16\\times\\frac55", "1/6", "After purple is removed, every remaining counter is green."),
-    probability("y9-pred-dep-m6", "A bag has 4 red and 2 blue counters. Find the probability of blue twice without replacement.", "P=\\frac26\\times\\frac15", "1/15", "After one blue is removed, 1 blue remains among 5 counters."),
+    probability("y9-pred-dep-m5", "A bag has 5 green and 1 purple counter. Find the probability of purple then green without replacement.", "P=\\frac16\\times\\frac55", "1/6", "After purple is removed, every remaining counter is green.", ["5/30"]),
+    probability("y9-pred-dep-m6", "A bag has 4 red and 2 blue counters. Find the probability of blue twice without replacement.", "P=\\frac26\\times\\frac15", "1/15", "After one blue is removed, 1 blue remains among 5 counters.", ["2/30"]),
     choice("y9-pred-dep-m7", "A bag has 3 red and 2 blue counters. After drawing one red without replacement, what is the probability of red next?", "C", ["3/5", "3/4", "2/4", "2/5"], "Two red counters remain among four counters."),
     probability("y9-pred-dep-m8", "A bag has 3 red and 2 blue counters. Find the probability of red then blue without replacement.", "P=\\frac35\\times\\frac24", "3/10", "After red is removed, 2 blue remain among 4 counters."),
     probability("y9-pred-dep-m9", "A bag has 2 red and 3 blue counters. Find the probability of drawing different colours in either order without replacement.", "P(RB)+P(BR)=\\frac25\\times\\frac34+\\frac35\\times\\frac24", "3/5", "Add the red-blue and blue-red paths."),
