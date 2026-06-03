@@ -372,12 +372,19 @@ export default function Home() {
                 ))}
               </ul>
 
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-7">
                 <SubscribeCTA href="/checkout?offer=online-learning">
                   Subscribe &mdash; $19/month
                 </SubscribeCTA>
-                <SecondaryLink href="/signup">Create account first</SecondaryLink>
               </div>
+              <p className="mt-3 text-sm leading-6 text-slate-700">
+                You&apos;ll create a free account before checkout &mdash; takes
+                under a minute.
+              </p>
+              <p className="mt-2 text-sm leading-6 text-slate-500">
+                Secure checkout with Stripe &middot; Cancel any time from your
+                account
+              </p>
               <p className="mt-4 text-sm leading-6 text-slate-600">
                 Private tutoring in NSW often costs $80&ndash;120/hour. Nova
                 Maths is $19/month &mdash; less than one hour of tutoring.
@@ -398,29 +405,6 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-10">
-            <h3 className="text-xl font-bold tracking-tight text-slate-900">
-              Year 12 Advanced diagnostic options
-            </h3>
-            <div className="mt-5 grid gap-5 md:grid-cols-2">
-              {diagnosticOptions.map((option) => (
-                <article
-                  key={option.title}
-                  className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-                >
-                  <h4 className="text-lg font-semibold text-slate-900">
-                    {option.title}
-                  </h4>
-                  <p className="mt-3 leading-7 text-slate-600">
-                    {option.body}
-                  </p>
-                  <div className="mt-5">
-                    <SecondaryLink href={option.href}>{option.cta}</SecondaryLink>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
         </section>
 
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
@@ -437,6 +421,31 @@ export default function Home() {
               refined by hand before students use them. Visuals and worked
               example improvements are added regularly.
             </p>
+          </div>
+        </section>
+
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <div className="max-w-2xl">
+            <SectionLabel>Optional add-ons</SectionLabel>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+              Year 12 Advanced diagnostic options
+            </h2>
+          </div>
+          <div className="mt-5 grid gap-5 md:grid-cols-2">
+            {diagnosticOptions.map((option) => (
+              <article
+                key={option.title}
+                className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm"
+              >
+                <h3 className="text-lg font-semibold text-slate-900">
+                  {option.title}
+                </h3>
+                <p className="mt-3 leading-7 text-slate-600">{option.body}</p>
+                <div className="mt-5">
+                  <SecondaryLink href={option.href}>{option.cta}</SecondaryLink>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 
