@@ -25,6 +25,10 @@ function isOnlineLearningCheckoutNext(value: string) {
   );
 }
 
+function isDuplicateEmailError(message: string): boolean {
+  return /already registered|already been registered|user already|email.*already|already.*email/i.test(message);
+}
+
 export default function SignupPage() {
   const router = useRouter();
   const [nextPath, setNextPath] = useState("/dashboard");
@@ -66,7 +70,9 @@ export default function SignupPage() {
     });
 
     if (error) {
-      setErrorMessage(error.message);
+      setErrorMessage(
+        isDuplicateEmailError(error.message) ? "__duplicate__" : error.message
+      );
       setIsSubmitting(false);
       return;
     }
@@ -113,34 +119,38 @@ export default function SignupPage() {
           Nova Maths
         </p>
         <h1 className="mt-3 text-3xl font-bold tracking-tight">
-          Create student account
+          {isCheckoutFlow
+            ? "Create your account to continue to checkout"
+            : "Create student account"}
         </h1>
         <p className="mt-3 text-sm leading-6 text-slate-600">
-          Create an account to access the Nova Maths dashboard. Subscribe
-          to unlock lessons after signing up.
+          {isCheckoutFlow
+            ? "Your subscription is linked to your Nova Maths account so progress and access are saved across devices."
+            : "Create an account to access the Nova Maths dashboard. Subscribe to unlock lessons after signing up."}
         </p>
 
         {isCheckoutFlow ? (
-          <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4">
-            <p className="text-sm font-semibold text-slate-900">
-              Create your account to start learning
-            </p>
-            <p className="mt-1 text-sm leading-6 text-slate-600">
-              Your subscription is linked to your Nova Maths account so
-              progress, mastery results and access are saved across devices.
-              After signup, you&apos;ll continue to secure Stripe checkout.
-            </p>
-            <p className="mt-2 text-xs text-slate-500">
-              $19/month &middot; cancel any time &middot; secure payment
-              through Stripe
-            </p>
-          </div>
+          <p className="mt-3 text-xs text-slate-500">
+            $19/month &middot; Cancel any time &middot; Secure Stripe checkout
+          </p>
         ) : null}
 
         {errorMessage ? (
-          <div className="mt-5 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
-            {errorMessage}
-          </div>
+          errorMessage === "__duplicate__" ? (
+            <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
+              <p>If you already have an account, log in to continue.</p>
+              <Link
+                href={loginHref}
+                className="mt-1 inline-block font-semibold underline"
+              >
+                {isCheckoutFlow ? "Log in to continue checkout" : "Log in"}
+              </Link>
+            </div>
+          ) : (
+            <div className="mt-5 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+              {errorMessage}
+            </div>
+          )
         ) : null}
 
         {notice ? (
@@ -215,7 +225,7 @@ export default function SignupPage() {
         <p className="mt-5 text-sm text-slate-600">
           Already have an account?{" "}
           <Link href={loginHref} className="font-semibold text-slate-950 underline">
-            Log in
+            {isCheckoutFlow ? "Log in to continue checkout" : "Log in"}
           </Link>
         </p>
       </section>

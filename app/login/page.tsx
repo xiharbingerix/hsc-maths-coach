@@ -13,9 +13,19 @@ function safeInternalNext(value: string | null) {
   return value;
 }
 
+function isCheckoutNext(path: string) {
+  try {
+    const url = new URL(path, "http://x");
+    return url.pathname === "/checkout" && url.searchParams.get("offer") === "online-learning";
+  } catch {
+    return false;
+  }
+}
+
 export default function LoginPage() {
   const router = useRouter();
   const [nextPath, setNextPath] = useState("/dashboard");
+  const [isCheckoutFlow, setIsCheckoutFlow] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -23,7 +33,9 @@ export default function LoginPage() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    setNextPath(safeInternalNext(params.get("next")));
+    const next = safeInternalNext(params.get("next"));
+    setNextPath(next);
+    setIsCheckoutFlow(isCheckoutNext(next));
   }, []);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -57,10 +69,12 @@ export default function LoginPage() {
           Nova Maths
         </p>
         <h1 className="mt-3 text-3xl font-bold tracking-tight">
-          Log in
+          {isCheckoutFlow ? "Log in to continue to checkout" : "Log in"}
         </h1>
         <p className="mt-3 text-sm leading-6 text-slate-600">
-          Access the online learning dashboard.
+          {isCheckoutFlow
+            ? "Log in to your Nova Maths account, then continue to secure Stripe checkout."
+            : "Access the online learning dashboard."}
         </p>
 
         {errorMessage ? (
@@ -99,14 +113,18 @@ export default function LoginPage() {
             disabled={isSubmitting}
             className="w-full rounded-xl bg-slate-950 px-4 py-3 font-semibold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400"
           >
-            {isSubmitting ? "Logging in..." : "Log in"}
+            {isSubmitting
+              ? "Logging in..."
+              : isCheckoutFlow
+                ? "Log in and continue to checkout"
+                : "Log in"}
           </button>
         </form>
 
         <p className="mt-5 text-sm text-slate-600">
           New here?{" "}
           <Link href={signupHref} className="font-semibold text-slate-950 underline">
-            Create account
+            {isCheckoutFlow ? "Create account to continue checkout" : "Create account"}
           </Link>
         </p>
       </section>
