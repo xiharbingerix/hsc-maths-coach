@@ -72,6 +72,16 @@ function networkFeedback(prompt: string, answer: string) {
   return `Read what the network quantity represents, then use only the relevant edges or activity times. This gives ${answer}.`;
 }
 
+// Returns safe numeric formatting equivalents: integer "7" → ["7.0"],
+// decimal "7.5" → ["7.50"]. Returns [] for path labels, unit strings,
+// or any answer containing non-digit characters.
+function numericFormatVariants(answer: string): string[] {
+  const t = answer.trim();
+  if (/^\d+$/.test(t)) return [`${t}.0`];
+  if (/^\d+\.\d*[1-9]$/.test(t)) return [`${t}0`];
+  return [];
+}
+
 function shortAnswer(
   id: string,
   prompt: string,
@@ -80,7 +90,7 @@ function shortAnswer(
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
   return {
-    ...baseShortAnswer(id, prompt, latex, answer, acceptedAnswers),
+    ...baseShortAnswer(id, prompt, latex, answer, [...numericFormatVariants(answer), ...acceptedAnswers]),
     explanation: networkFeedback(prompt, answer),
   };
 }
