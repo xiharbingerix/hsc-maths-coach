@@ -63,6 +63,16 @@ function moneyAnswer(
   };
 }
 
+// Returns safe numeric formatting equivalents: integer "7" → ["7.0"],
+// decimal "1.042" → ["1.0420"], "0.92" → ["0.920"]. Returns [] for
+// answers containing %, letters, or other non-numeric characters.
+function numericFormatVariants(answer: string): string[] {
+  const t = answer.trim();
+  if (/^-?\d+$/.test(t)) return [`${t}.0`];
+  if (/^-?\d+\.\d*[1-9]$/.test(t)) return [`${t}0`];
+  return [];
+}
+
 function financeShortAnswer(
   id: string,
   prompt: string,
@@ -71,7 +81,7 @@ function financeShortAnswer(
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
   return {
-    ...baseFinanceShortAnswer(id, prompt, latex, answer, acceptedAnswers),
+    ...baseFinanceShortAnswer(id, prompt, latex, answer, [...numericFormatVariants(answer), ...acceptedAnswers]),
     explanation: financeFeedback(prompt, latex, answer),
   };
 }
