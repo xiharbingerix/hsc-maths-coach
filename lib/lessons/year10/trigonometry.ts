@@ -51,12 +51,29 @@ function trigAnswer(
   answer: string,
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
+  const autoVariants: string[] = [];
+
+  // Plain integers → decimal form (e.g. 6 → 6.0)
+  if (/^-?\d+$/.test(answer)) {
+    autoVariants.push(`${answer}.0`);
+  }
+
+  // Decimals → one trailing zero (e.g. 7.1 → 7.10)
+  if (/^-?\d*\.\d+$/.test(answer)) {
+    autoVariants.push(`${answer}0`);
+  }
+
+  // Leading-zero decimal → no leading zero (e.g. 0.75 → .75)
+  if (/^0\./.test(answer)) {
+    autoVariants.push(answer.slice(1));
+  }
+
   return {
     id,
     prompt,
     latex,
     answer,
-    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...autoVariants])),
     hint: "Draw the triangle, label the known sides and angle, then choose sin, cos, or tan.",
     explanation: trigAnswerExplanation(id, prompt, latex, answer),
   };
