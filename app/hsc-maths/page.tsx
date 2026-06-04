@@ -142,16 +142,18 @@ export default function HscMathsPage() {
               saved progress &mdash; all built for the NSW curriculum.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href="/sample-hsc-lesson"
+                className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+              >
+                Preview a free HSC lesson
+              </Link>
               <SubscribeCTA href="/checkout?offer=online-learning">
                 Start HSC maths &mdash; $19/month
               </SubscribeCTA>
-              <SecondaryLink href="#year-12-courses">
-                View Year 12 courses
-              </SecondaryLink>
             </div>
             <p className="mt-3 text-sm leading-6 text-slate-500">
-              Self-paced &middot; Cancel any time &middot; Less than $1/day
-              &middot; Built by a NSW maths tutor
+              No signup needed to preview &middot; Self-paced &middot; Cancel any time &middot; Less than $1/day
             </p>
           </div>
 
