@@ -32,6 +32,16 @@ function statisticsFeedback(prompt: string, answer: string) {
   return `Identify whether the question is asking for a prediction, a residual, or a standardised value before calculating. Following that statistical meaning gives ${answer}.`;
 }
 
+// Returns safe numeric formatting equivalents: integer "7" → ["7.0"],
+// "-5" → ["-5.0"], decimal "37.7" → ["37.70"]. Returns [] for any
+// answer containing letters, symbols, or units.
+function numericFormatVariants(answer: string): string[] {
+  const t = answer.trim();
+  if (/^-?\d+$/.test(t)) return [`${t}.0`];
+  if (/^-?\d+\.\d*[1-9]$/.test(t)) return [`${t}0`];
+  return [];
+}
+
 function financeShortAnswer(
   id: string,
   prompt: string,
@@ -40,7 +50,7 @@ function financeShortAnswer(
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
   return {
-    ...baseFinanceShortAnswer(id, prompt, latex, answer, acceptedAnswers),
+    ...baseFinanceShortAnswer(id, prompt, latex, answer, [...numericFormatVariants(answer), ...acceptedAnswers]),
     explanation: statisticsFeedback(prompt, answer),
   };
 }
