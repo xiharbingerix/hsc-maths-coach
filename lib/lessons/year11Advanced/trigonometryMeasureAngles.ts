@@ -1,6 +1,90 @@
 import type { ExplicitLesson } from "../differentialCalculus";
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import { practicalChoice, formulaAnswer } from "../questionHelpers";
+import { practicalChoice, formulaAnswer as baseFormulaAnswer } from "../questionHelpers";
+
+function numericFormatVariants(answer: string): string[] {
+  const t = answer.trim();
+  if (/^-?\d+$/.test(t)) return [`${t}.0`];
+  if (/^-?\d+\.\d*[1-9]$/.test(t)) return [`${t}0`];
+  return [];
+}
+
+const TRIG_MEASURE_EXPLANATIONS: Record<string, string> = {
+  // ── Radians and exact values ───────────────────────────────────────────────
+  "y11adv-trig-rad-g1":
+    "Multiply by π/180 and simplify: 60 × π/180 = π/3. The factor π/180 converts any degree measure to radians.",
+  "y11adv-trig-rad-g2":
+    "Multiply by 180/π and cancel: (3π/2) × (180/π) = 3 × 90 = 270°. The π factors cancel, leaving a pure degree value.",
+  "y11adv-trig-rad-g3":
+    "The arc length formula s = rθ requires θ in radians. Substituting: s = 6 × (π/3) = 2π. Keep the answer as an exact pi expression.",
+  "y11adv-trig-rad-i1":
+    "Multiply by π/180: 135 × π/180 = 3π/4. The common factor of 135 and 180 is 45, so both divide to give 3 and 4.",
+  "y11adv-trig-rad-i2":
+    "Multiply by 180/π: (5π/6) × (180/π) = 5 × 30 = 150°. The π cancels and 180 ÷ 6 = 30.",
+  "y11adv-trig-rad-i3":
+    "The sector area formula is A = ½r²θ with θ in radians. Substituting: A = ½ × 16 × (π/3) = 8π/3.",
+  "y11adv-trig-rad-m1":
+    "A right angle is exactly one quarter of a full turn. Since a full turn is 2π, a quarter turn is 2π/4 = π/2.",
+  "y11adv-trig-rad-m2":
+    "Multiply by 180/π and cancel: (π/6) × (180/π) = 180/6 = 30°. The π cancels cleanly.",
+  "y11adv-trig-rad-m4":
+    "Apply s = rθ with θ already in radians: s = 8 × (π/4) = 2π. The 4 in the denominator divides into 8.",
+  "y11adv-trig-rad-m5":
+    "Apply A = ½r²θ: A = ½ × 36 × (2π/3) = 18 × (2π/3) = 12π. Multiply before simplifying to avoid fraction errors.",
+  "y11adv-trig-rad-m9":
+    "Apply A = ½r²θ: A = ½ × 4 × (2π/3) = 2 × (2π/3) = 4π/3. Both the ½ and the r² = 4 combine to give the factor 2.",
+  "y11adv-trig-rad-m10":
+    "Multiply by π/180: 300 × π/180 = 5π/3. The common factor of 300 and 180 is 60, leaving 5 and 3.",
+
+  // ── Unit circle and graphs ─────────────────────────────────────────────────
+  "y11adv-trig-circle-g4":
+    "The cosine graph traces the x-coordinate of a point moving around the unit circle. One full orbit is 2π radians, so the graph repeats — and the period is 2π.",
+  "y11adv-trig-circle-i3":
+    "On the unit circle the starting point at angle 0 is (1, 0). Since sine equals the y-coordinate and the y-coordinate is 0 there, sin(0) = 0.",
+  "y11adv-trig-circle-i5":
+    "Tangent is sine divided by cosine. Both sine and cosine reverse sign together after π radians, returning the ratio to its original value. The period of tangent is therefore π, half that of sine or cosine.",
+  "y11adv-trig-circle-m3":
+    "The sine graph traces the y-coordinate of a point travelling around the unit circle. One full orbit takes 2π radians, so the pattern repeats every 2π.",
+  "y11adv-trig-circle-m9":
+    "Tangent is undefined wherever cosine equals zero. The smallest positive angle where cosine is zero is π/2 — the point on the unit circle reaches the top of the circle, giving x-coordinate 0.",
+
+  // ── Exam practice ─────────────────────────────────────────────────────────
+  "y11adv-trig-exam-g1":
+    "Multiply by π/180: 30 × π/180 = π/6. This is the smallest of the common exact radian angles.",
+  "y11adv-trig-exam-g2":
+    "Apply s = rθ: s = 3 × 2π = 6π. An angle of 2π is a full turn, so the arc is the full circumference: 2π × r.",
+  "y11adv-trig-exam-i1":
+    "Multiply by 180/π and cancel: (3π/4) × (180/π) = 3 × 45 = 135°. The π cancels and 180 ÷ 4 = 45.",
+  "y11adv-trig-exam-i2":
+    "Apply A = ½r²θ: A = ½ × 9 × (2π/3) = (9/2) × (2π/3) = 3π. Multiply the fractions carefully before simplifying.",
+  "y11adv-trig-exam-i5":
+    "Tangent is undefined where cosine is zero. The first positive angle where cosine is zero is π/2, so the first vertical asymptote is at x = π/2.",
+  "y11adv-trig-exam-m1":
+    "A half turn is the benchmark conversion: 180° = π radians. Multiply by π/180 and cancel to confirm: 180 × π/180 = π.",
+  "y11adv-trig-exam-m2":
+    "Multiply by 180/π: (π/4) × (180/π) = 180/4 = 45°. This is the angle in the 45-45-90 triangle.",
+  "y11adv-trig-exam-m4":
+    "Apply s = rθ: s = 5 × (2π/5) = 2π. The 5 in the radius cancels the 5 in the denominator of the angle.",
+  "y11adv-trig-exam-m5":
+    "Apply A = ½r²θ: A = ½ × 36 × (π/3) = 18 × (π/3) = 6π. The 18 divided by 3 gives 6.",
+  "y11adv-trig-exam-m10":
+    "Tangent repeats every π radians because after half a turn the sine and cosine values both reverse sign, restoring the ratio to its original value. Its period is half that of sine and cosine.",
+};
+
+function formulaAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+) {
+  const q = baseFormulaAnswer(id, prompt, latex, answer, [...numericFormatVariants(answer), ...acceptedAnswers]);
+  const explanation =
+    TRIG_MEASURE_EXPLANATIONS[id] ??
+    `Identify whether the question needs a conversion, a formula, or an exact-value recall, then follow through to get ${answer}.`;
+  return { ...q, explanation };
+}
+
 export function year11AdvancedTrigonometryMeasureLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
