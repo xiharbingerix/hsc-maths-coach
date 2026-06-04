@@ -22,33 +22,46 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    async function loadSession() {
-      const { data } = await supabase.auth.getSession();
-      const sessionUser = data.session?.user ?? null;
+    let tracked = false;
 
-      if (!sessionUser && offer.slug === "online-learning") {
-        trackEvent("checkout_login_wall_hit", { offer: offer.slug });
-        router.replace(
-          "/signup?next=%2Fcheckout%3Foffer%3Donline-learning"
-        );
-        return;
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session) {
+        setUser(session.user);
+        if (session.user.email) {
+          setParentEmail(session.user.email);
+        }
+        if (session.user.user_metadata?.student_first_name) {
+          setStudentFirstName(
+            String(session.user.user_metadata.student_first_name)
+          );
+        }
+        setIsCheckingSession(false);
+        if (!tracked) {
+          tracked = true;
+          trackCheckoutStarted();
+        }
+      } else if (event === "INITIAL_SESSION") {
+        // INITIAL_SESSION fires after Supabase has fully initialized (localStorage
+        // read complete), so a null session here means the user is genuinely
+        // not logged in — not a timing race from a just-completed signup.
+        if (offer.slug === "online-learning") {
+          trackEvent("checkout_login_wall_hit", { offer: offer.slug });
+          router.replace(
+            "/signup?next=%2Fcheckout%3Foffer%3Donline-learning"
+          );
+        } else {
+          setIsCheckingSession(false);
+          if (!tracked) {
+            tracked = true;
+            trackCheckoutStarted();
+          }
+        }
       }
+    });
 
-      setUser(sessionUser);
-
-      if (sessionUser?.email) {
-        setParentEmail(sessionUser.email);
-      }
-
-      if (sessionUser?.user_metadata?.student_first_name) {
-        setStudentFirstName(String(sessionUser.user_metadata.student_first_name));
-      }
-
-      setIsCheckingSession(false);
-      trackCheckoutStarted();
-    }
-
-    loadSession();
+    return () => subscription.unsubscribe();
   }, [offer.slug, router]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
