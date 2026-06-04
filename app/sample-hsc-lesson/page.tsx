@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import katex from "katex";
-import type { ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import { SubscribeCTA } from "../components/SubscribeCTA";
 import { areaUnderCurveLesson } from "../../lib/lessons/integralCalculus";
 
@@ -11,13 +11,31 @@ export const metadata: Metadata = {
     "Preview a real HSC maths lesson — Area Under a Curve — from Nova Maths. See worked examples and practice questions. No signup required.",
 };
 
+// Strips $...$ dollar-sign markers from prose strings so literal "$x=a$"
+// renders as "x=a" rather than showing raw LaTeX delimiters.
+function stripInlineDollars(text: string): string {
+  return text.replace(/\$([^$\n]+)\$/g, "$1");
+}
+
 function KaTeXBlock({ tex }: Readonly<{ tex: string }>) {
   const html = katex.renderToString(tex, { displayMode: true, throwOnError: false });
   return (
-    <div
-      className="my-4 overflow-x-auto rounded-xl bg-slate-50 px-4 py-3"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    <div className="my-4">
+      <div
+        className="overflow-x-auto rounded-xl bg-slate-50 px-4 py-3"
+        // touch-action and -webkit-overflow-scrolling are set inline because
+        // Tailwind's purge may strip rarely-used arbitrary values in this build.
+        style={{ WebkitOverflowScrolling: "touch" } as React.CSSProperties}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+      {/* Mobile-only scroll hint — hidden on sm+ breakpoint */}
+      <p
+        className="mt-1 text-right text-xs text-slate-400 sm:hidden"
+        aria-hidden="true"
+      >
+        Scroll formula →
+      </p>
+    </div>
   );
 }
 
@@ -153,7 +171,7 @@ export default function SampleHscLessonPage() {
           <div className="mt-5 space-y-4">
             {lesson.teaching.paragraphs.map((para, i) => (
               <p key={i} className="leading-7 text-slate-700">
-                {para}
+                {stripInlineDollars(para)}
               </p>
             ))}
           </div>
@@ -183,7 +201,7 @@ export default function SampleHscLessonPage() {
                 className="rounded-2xl border border-slate-200 bg-slate-50 p-5"
               >
                 <p className="text-sm font-semibold text-slate-700">
-                  Step {i + 1}: {step.explanation}
+                  Step {i + 1}: {stripInlineDollars(step.explanation)}
                 </p>
                 {step.latex !== undefined && <KaTeXBlock tex={step.latex} />}
               </div>
@@ -246,7 +264,7 @@ export default function SampleHscLessonPage() {
                 )}
                 {q.hint && (
                   <p className="mt-3 text-sm italic text-slate-500">
-                    Hint: {q.hint}
+                    Hint: {stripInlineDollars(q.hint)}
                   </p>
                 )}
               </div>
