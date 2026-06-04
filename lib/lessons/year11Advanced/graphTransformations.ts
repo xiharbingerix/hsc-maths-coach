@@ -1,6 +1,70 @@
 import type { ExplicitLesson } from "../differentialCalculus";
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import { practicalChoice, formulaAnswer } from "../questionHelpers";
+import { practicalChoice, formulaAnswer as baseFormulaAnswer } from "../questionHelpers";
+
+function numericFormatVariants(answer: string): string[] {
+  const t = answer.trim();
+  if (/^-?\d+$/.test(t)) return [`${t}.0`];
+  if (/^-?\d+\.\d*[1-9]$/.test(t)) return [`${t}0`];
+  return [];
+}
+
+const GRAPH_TRANSFORM_EXPLANATIONS: Record<string, string> = {
+  // ── Composite functions ────────────────────────────────────────────────────
+  "y11adv-gtc-i4":
+    "Evaluate the inner function first: g(1) = 2. Then use that output as input to the outer function: f(2) = 5. For (f∘g)(x), always substitute into g before f.",
+  "y11adv-gtc-m6":
+    "Work from the inside out: g(3) = −1, so the inner output is −1. Then f(−1) = 7. In a composite function, the right-hand function is always applied first.",
+
+  // ── Polynomial and reciprocal graphs ──────────────────────────────────────
+  "y11adv-gt-poly-g1":
+    "Compare with vertex form y = (x − h)² + k. Here h = 4 and k = −1, so the vertex is (4, −1). The minus sign inside the brackets makes h positive — it is not −4.",
+  "y11adv-gt-poly-g3":
+    "Set the denominator equal to zero: x − 5 = 0 gives x = 5. Division by zero is undefined there, so x = 5 is the vertical asymptote.",
+  "y11adv-gt-poly-i1":
+    "In vertex form y = (x − h)² + k, the bracket x + 1 equals x − (−1), so h = −1 and k = 5. The negative sign outside reflects the parabola down but does not shift the vertex.",
+  "y11adv-gt-poly-i2":
+    "As x grows very large, the fraction 1/(x + 3) approaches zero, and the remaining constant −4 becomes the limiting value. The horizontal asymptote is y = −4.",
+  "y11adv-gt-poly-m1":
+    "Vertex form y = (x − h)² + k gives vertex (h, k) directly. Here h = 2 and k = 6, so the parabola has shifted 2 units right and 6 units up from the origin.",
+  "y11adv-gt-poly-m2":
+    "Set the denominator to zero: x + 7 = 0 gives x = −7. The sign is negative because the bracket uses +7, not −7.",
+  "y11adv-gt-poly-m5":
+    "The coefficient 2 in the numerator does not affect the horizontal asymptote. As x grows large, 2/(x − 1) → 0, and the expression approaches the constant 4.",
+  "y11adv-gt-poly-m7":
+    "Set the denominator to zero: x − 6 = 0 gives x = 6. Division by zero is undefined, so x = 6 is excluded from the domain.",
+
+  // ── Exam practice ─────────────────────────────────────────────────────────
+  "y11adv-gt-exam-g2":
+    "Compare with vertex form y = (x − h)² + k. The bracket x + 4 equals x − (−4), so h = −4. With k = −6 the vertex is (−4, −6).",
+  "y11adv-gt-exam-g4":
+    "Set the denominator to zero: x + 2 = 0 gives x = −2. The vertical asymptote is at x = −2, not x = 2 — the sign comes from the bracket, not the number.",
+  "y11adv-gt-exam-i2":
+    "The term 3/(x − 7) approaches zero as x grows large regardless of the 3 in the numerator. The constant −2 outside is what the graph approaches, giving horizontal asymptote y = −2.",
+  "y11adv-gt-exam-i4":
+    "In y = (x − a)² + 1, the vertex x-coordinate is the value that makes x − a = 0. Since the vertex is at x = 5, the parameter a = 5.",
+  "y11adv-gt-exam-m3":
+    "Compare with vertex form y = a(x − h)² + k. Here h = 2 and k = 8, so the vertex is (2, 8). The negative sign outside reflects the parabola downward but does not change the vertex position.",
+  "y11adv-gt-exam-m4":
+    "Set the denominator to zero: x − 9 = 0 gives x = 9. The graph is undefined at x = 9, which is the vertical asymptote.",
+  "y11adv-gt-exam-m8":
+    "The fraction 1/(x + 1) can get arbitrarily close to zero but never equals zero, so the whole expression can never equal −3. The horizontal asymptote y = −3 is the excluded y-value in the range.",
+};
+
+function formulaAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+) {
+  const q = baseFormulaAnswer(id, prompt, latex, answer, [...numericFormatVariants(answer), ...acceptedAnswers]);
+  const explanation =
+    GRAPH_TRANSFORM_EXPLANATIONS[id] ??
+    `Identify whether the question needs a coordinate, an asymptote, or a parameter value, then read it from the equation directly to get ${answer}.`;
+  return { ...q, explanation };
+}
+
 export function year11AdvancedGraphTransformationsLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
