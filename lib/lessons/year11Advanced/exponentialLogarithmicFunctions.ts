@@ -51,6 +51,16 @@ function exponentialLogarithmicFeedback(prompt: string, answer: string) {
   return `Identify whether the expression needs an index law, an inverse logarithm step, or an exponential model. Following that structure gives ${answer}.`;
 }
 
+// Returns safe numeric formatting equivalents: integer "7" → ["7.0"],
+// "-3" → ["-3.0"], "0" → ["0.0"], decimal "7.5" → ["7.50"].
+// Returns [] for fractions, algebraic expressions, or unit strings.
+function numericFormatVariants(answer: string): string[] {
+  const t = answer.trim();
+  if (/^-?\d+$/.test(t)) return [`${t}.0`];
+  if (/^-?\d+\.\d*[1-9]$/.test(t)) return [`${t}0`];
+  return [];
+}
+
 function formulaAnswer(
   id: string,
   prompt: string,
@@ -59,7 +69,7 @@ function formulaAnswer(
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
   return {
-    ...baseFormulaAnswer(id, prompt, latex, answer, acceptedAnswers),
+    ...baseFormulaAnswer(id, prompt, latex, answer, [...numericFormatVariants(answer), ...acceptedAnswers]),
     explanation: exponentialLogarithmicFeedback(prompt, answer),
   };
 }
