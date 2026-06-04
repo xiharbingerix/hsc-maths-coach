@@ -1,6 +1,110 @@
 import type { ExplicitLesson } from "../differentialCalculus";
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import { practicalChoice, formulaAnswer } from "../questionHelpers";
+import { practicalChoice, formulaAnswer as baseFormulaAnswer } from "../questionHelpers";
+
+// Returns safe numeric formatting equivalents: integer "7" → ["7.0"],
+// "0" → ["0.0"]. Returns [] for fractions, pi-expressions, and symbolic
+// answers, so trig answers like "pi/6", "sinx", "sin^2x", "-1/3" are
+// never touched.
+function numericFormatVariants(answer: string): string[] {
+  const t = answer.trim();
+  if (/^-?\d+$/.test(t)) return [`${t}.0`];
+  if (/^-?\d+\.\d*[1-9]$/.test(t)) return [`${t}0`];
+  return [];
+}
+
+// Targeted feedback for every formulaAnswer question in this unit.
+// Keyed by question ID so explanations stay stable if prompts change.
+const TRIG_EXPLANATIONS: Record<string, string> = {
+  // ── Trig equations ────────────────────────────────────────────────────────
+  "y11adv-trig-eq-g1":
+    "Treat the equation like any linear equation: add 1 to both sides and divide by 2. Once the trig function is isolated you can move on to exact values.",
+  "y11adv-trig-eq-g2":
+    "sin(π/6) = 1/2 comes from the 30-60-90 triangle and is an exact value to memorise. The reference angle is always the positive acute angle that gives the right ratio.",
+  "y11adv-trig-eq-i1":
+    "Sine is positive in quadrants I and II. The quadrant I solution equals the reference angle directly: x = π/6.",
+  "y11adv-trig-eq-i2":
+    "The quadrant II solution mirrors the reference angle across the y-axis: x = π − π/6 = 5π/6.",
+  "y11adv-trig-eq-i4":
+    "Subtract 1 from both sides and divide by 3 to isolate cosine. The result −1/3 is not an exact value, but the isolation step is identical regardless.",
+  "y11adv-trig-eq-m1":
+    "Subtract 1 and divide by 2. The negative right-hand side tells you solutions lie in quadrants III and IV, where sine is negative.",
+  "y11adv-trig-eq-m2":
+    "cos(π/3) = 1/2 is an exact value from the 30-60-90 triangle. The reference angle is π/3.",
+  "y11adv-trig-eq-m4":
+    "Cosine is positive in quadrants I and IV. The quadrant I solution equals the reference angle: x = π/3.",
+  "y11adv-trig-eq-m5":
+    "The quadrant IV solution uses the full period: x = 2π − π/3 = 5π/3.",
+  "y11adv-trig-eq-m9":
+    "tan(π/4) = 1, so π/4 is the reference angle. Tangent is negative in quadrants II and IV; the smaller solution in [0, 2π] is π − π/4 = 3π/4.",
+
+  // ── Trig identities ───────────────────────────────────────────────────────
+  "y11adv-trig-id-g1":
+    "This is the Pythagorean identity. Every point on the unit circle satisfies x² + y² = 1, which translates to sin²x + cos²x = 1 for all values of x.",
+  "y11adv-trig-id-g2":
+    "Tangent is the ratio of the opposite side to the adjacent side, which equals sine over cosine. The quotient identity tanx = sinx/cosx is valid wherever cosx ≠ 0.",
+  "y11adv-trig-id-g3":
+    "Rearrange sin²x + cos²x = 1 by subtracting cos²x from both sides. The left side becomes 1 − cos²x and the right side becomes sin²x.",
+  "y11adv-trig-id-i1":
+    "Recognise the core Pythagorean identity directly. The sum sin²x + cos²x equals 1 for every allowed value of x — you do not need to solve for particular solutions.",
+  "y11adv-trig-id-i2":
+    "Replace tanx with sinx/cosx using the quotient identity, then the cosx factors cancel. Cancellation is valid wherever cosx ≠ 0, leaving sinx.",
+  "y11adv-trig-id-i3":
+    "Rearrange the Pythagorean identity: subtract sin²x from both sides of sin²x + cos²x = 1 to get 1 − sin²x = cos²x.",
+  "y11adv-trig-id-i4":
+    "The quotient identity defines tanx = sinx/cosx. Recognising this ratio in the expression lets you name it tanx directly — with the restriction cosx ≠ 0.",
+  "y11adv-trig-id-m1":
+    "The Pythagorean identity is a fact about the unit circle, not an equation to solve. The sum equals 1 for all allowed x, which is what makes it an identity rather than an equation.",
+  "y11adv-trig-id-m2":
+    "Subtract sin²x from both sides of sin²x + cos²x = 1. The right side becomes 1 − sin²x and the left side is cos²x. The identity works in either direction.",
+  "y11adv-trig-id-m3":
+    "Subtract cos²x from both sides of sin²x + cos²x = 1. The left side becomes 1 − cos²x and the right side is sin²x.",
+  "y11adv-trig-id-m4":
+    "Write tanx as sinx/cosx using the quotient identity, then multiply by cosx. The cosx in the numerator and denominator cancel wherever cosx ≠ 0, leaving sinx.",
+  "y11adv-trig-id-m9":
+    "This is sinx/cosx multiplied by cosx. The cosx cancels wherever cosx ≠ 0, so the expression simplifies to sinx — the same step as the tanx·cosx pattern.",
+
+  // ── Exam practice ─────────────────────────────────────────────────────────
+  "y11adv-trig-mixed-g1":
+    "Subtract 1 and divide by 2 to isolate cosine. A negative value tells you solutions lie in quadrants II and III, where cosine is negative.",
+  "y11adv-trig-mixed-g2":
+    "cos(π/3) = 1/2, so π/3 is the reference angle. The reference angle is always the positive acute angle, regardless of the sign in the original equation.",
+  "y11adv-trig-mixed-g3":
+    "The Pythagorean identity is a fundamental relationship from the unit circle. The sum sin²x + cos²x is always 1 — no working is needed, just recognition.",
+  "y11adv-trig-mixed-i1":
+    "With reference angle π/3 and cosine negative, solutions lie in quadrants II and III. The quadrant II solution is π − π/3 = 2π/3.",
+  "y11adv-trig-mixed-i2":
+    "The quadrant III solution is π + π/3 = 4π/3. Both solutions fall inside the stated domain [0, 2π].",
+  "y11adv-trig-mixed-i4":
+    "Recognise the rearranged Pythagorean identity: sin²x + cos²x = 1 rearranges to 1 − cos²x = sin²x. Write sin²x directly.",
+  "y11adv-trig-mixed-i5":
+    "Replace tanx with sinx/cosx using the quotient identity, then multiply by cosx. The denominators cancel to give sinx wherever cosx ≠ 0.",
+  "y11adv-trig-mixed-m1":
+    "Add 1 and divide by 2 to get sinx = 1/2. A positive value places solutions in quadrants I and II, where sine is positive.",
+  "y11adv-trig-mixed-m2":
+    "Rearrange sin²x + cos²x = 1 by subtracting sin²x from both sides. The result is the identity 1 − sin²x = cos²x.",
+  "y11adv-trig-mixed-m3":
+    "The quotient identity defines tanx = sinx/cosx. Replacing tanx with this ratio is the essential first step for simplifying any expression that contains tangent.",
+  "y11adv-trig-mixed-m4":
+    "sin(π/6) = 1/2 gives the reference angle π/6. Sine is negative in quadrants III and IV; the quadrant III solution is π + π/6 = 7π/6.",
+  "y11adv-trig-mixed-m5":
+    "The quadrant IV solution is 2π − π/6 = 11π/6. This is the larger of the two solutions in [0, 2π].",
+};
+
+function formulaAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+) {
+  const q = baseFormulaAnswer(id, prompt, latex, answer, [...numericFormatVariants(answer), ...acceptedAnswers]);
+  const explanation =
+    TRIG_EXPLANATIONS[id] ??
+    `Identify the method — isolating a trig function, using an exact value, or applying an identity — then follow the steps to get ${answer}.`;
+  return { ...q, explanation };
+}
+
 export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
