@@ -113,6 +113,18 @@ function measurementExplanation(prompt: string, latex: string, answer: string) {
   return `First decide whether the question is asking for a length, an area, or a volume. Use the matching dimensions and units; the result is ${answer}.`;
 }
 
+// Returns safe numeric formatting variants for a canonical answer string:
+//   integer "7"   → ["7.0"]   (trailing decimal)
+//   decimal "7.5" → ["7.50"]  (trailing zero)
+// Does not generate variants for answers that contain letters, units, or
+// non-standard characters — those are handled by explicit acceptedAnswers.
+function numericFormatVariants(answer: string): string[] {
+  const t = answer.trim();
+  if (/^\d+$/.test(t)) return [`${t}.0`];
+  if (/^\d+\.\d*[1-9]$/.test(t)) return [`${t}0`];
+  return [];
+}
+
 function measAnswer(
   id: string,
   prompt: string,
@@ -126,7 +138,7 @@ function measAnswer(
     prompt,
     latex,
     answer,
-    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    acceptedAnswers: Array.from(new Set([answer, ...numericFormatVariants(answer), ...acceptedAnswers])),
     hint,
     explanation: measurementExplanation(prompt, latex, answer),
   };
