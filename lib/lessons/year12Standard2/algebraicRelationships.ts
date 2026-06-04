@@ -66,6 +66,15 @@ function moneyAnswer(
   };
 }
 
+// Returns safe numeric formatting equivalents: integer "7" → ["7.0"],
+// decimal "7.5" → ["7.50"]. Does not touch answers with letters/symbols.
+function numericFormatVariants(answer: string): string[] {
+  const t = answer.trim();
+  if (/^\d+$/.test(t)) return [`${t}.0`];
+  if (/^\d+\.\d*[1-9]$/.test(t)) return [`${t}0`];
+  return [];
+}
+
 function algebraAnswer(
   id: string,
   prompt: string,
@@ -80,7 +89,7 @@ function algebraAnswer(
     prompt,
     latex,
     answer,
-    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    acceptedAnswers: Array.from(new Set([answer, ...numericFormatVariants(answer), ...acceptedAnswers])),
     hint: "Identify the model type first, then use the feature or calculation that matches the question.",
     explanation,
     cartesianGraph,
