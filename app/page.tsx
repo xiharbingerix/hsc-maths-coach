@@ -209,24 +209,24 @@ export default function Home() {
           <div className="max-w-3xl">
             <SectionLabel>Inside Nova Maths</SectionLabel>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-              See exactly what students work through
+              See a full lesson before subscribing
             </h2>
             <p className="mt-3 text-lg leading-8 text-slate-600">
-              Each lesson follows the same clear structure: learn the idea,
-              practise with support, then prove mastery.
+              Try a complete Year 7 algebra lesson with explanation, worked
+              examples, practice questions and answers. No signup required.
             </p>
           </div>
 
           <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
             <div className="border-b border-slate-200 bg-slate-950 px-6 py-5 text-white md:px-8">
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-300">
-                Year 10 Mathematics
+                Year 7 Mathematics
               </p>
               <p className="mt-2 text-sm font-medium text-slate-300">
-                Trigonometry
+                Algebra
               </p>
               <h3 className="mt-1 text-2xl font-bold tracking-tight">
-                Finding Sides in Right Triangles
+                Solving Equations: Inverse and Balance Methods
               </h3>
             </div>
 
@@ -234,9 +234,9 @@ export default function Home() {
               <div className="flex flex-wrap gap-2">
                 {[
                   "Learn",
-                  "Guided practice",
-                  "Independent practice",
-                  "Mastery quiz",
+                  "Worked examples",
+                  "Practice",
+                  "Check",
                 ].map((step, index) => (
                   <span
                     key={step}
@@ -257,32 +257,34 @@ export default function Home() {
                     Worked example
                   </p>
                   <p className="mt-3 text-lg font-semibold leading-7 text-slate-900">
-                    A ladder leans against a wall. Which trig ratio connects
-                    the known angle and the side you need?
+                    Solve x + 3 = 11 without guessing. What operation do we
+                    undo first?
                   </p>
                   <div className="mt-5 rounded-xl border border-slate-200 bg-white p-4">
                     <p className="text-sm font-semibold text-slate-900">
-                      Start with the sides, not the formula.
+                      The lesson explains the why before the steps.
                     </p>
                     <p className="mt-2 text-sm leading-6 text-slate-600">
-                      The lesson shows why the ratio fits before asking
-                      students to calculate.
+                      Students see the inverse method and the balance method
+                      side by side, then practise with hints and revealable
+                      answers.
                     </p>
                   </div>
                 </div>
 
                 <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 md:p-6">
                   <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">
-                    Mastery quiz
+                    Free preview
                   </p>
                   <p className="mt-4 text-3xl font-bold tracking-tight text-slate-950">
-                    8 / 10 correct
+                    No signup
                   </p>
                   <div className="mt-4 h-2 overflow-hidden rounded-full bg-emerald-100">
-                    <div className="h-full w-4/5 rounded-full bg-emerald-600" />
+                    <div className="h-full w-full rounded-full bg-emerald-600" />
                   </div>
                   <p className="mt-4 text-sm leading-6 text-emerald-950">
-                    Progress saved to your dashboard
+                    Open the full lesson and see the Nova Maths teaching style
+                    before subscribing.
                   </p>
                 </div>
               </div>
@@ -290,12 +292,12 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row">
+            <SecondaryLink href="/free-year-7-algebra">
+              Open the free lesson
+            </SecondaryLink>
             <SubscribeCTA href="/checkout?offer=online-learning">
               Start learning &mdash; $19/month
             </SubscribeCTA>
-            <SecondaryLink href="/free-year-7-algebra">
-              Try the free algebra lesson
-            </SecondaryLink>
           </div>
         </section>
 
