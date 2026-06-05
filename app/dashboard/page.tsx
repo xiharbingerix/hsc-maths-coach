@@ -300,6 +300,29 @@ export default function DashboardPage() {
           </div>
         </section>
 
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Quick diagnostic quiz
+              </p>
+              <h2 className="mt-2 text-2xl font-bold tracking-tight">
+                Find out where to focus
+              </h2>
+              <p className="mt-2 max-w-xl leading-7 text-slate-600">
+                20 multiple-choice questions across all major units. Takes about
+                5 minutes and gives you a prioritised study list.
+              </p>
+            </div>
+            <Link
+              href="/diagnostic/select"
+              className="inline-flex shrink-0 items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+            >
+              Start quiz →
+            </Link>
+          </div>
+        </section>
+
         {continueLearningTarget ? (
           <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
             <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">

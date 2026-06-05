@@ -103,7 +103,7 @@ export default function Year12AdvancedPage() {
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link
-                href="/diagnostic"
+                href="/diagnostic/select"
                 className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
               >
                 Start diagnostic
