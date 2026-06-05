@@ -51,6 +51,21 @@ The environment check warns when they are missing.
 Never expose `SUPABASE_SERVICE_ROLE_KEY`, `STRIPE_SECRET_KEY`,
 `STRIPE_WEBHOOK_SECRET`, or `ADMIN_PASSWORD` as `NEXT_PUBLIC_` variables.
 
+### Email Automation
+
+These server-only variables are required for automated signup recovery emails.
+The environment check warns when they are missing.
+
+| Variable | Purpose |
+| --- | --- |
+| `RESEND_API_KEY` | Server-only Resend API key used to send purchase prompt emails |
+| `CRON_SECRET` | Secret used by Vercel Cron to call `/api/cron/send-purchase-prompts` |
+
+The scheduled recovery route runs every 30 minutes from `vercel.json`. It sends
+the existing purchase prompt to users who signed up more than 30 minutes ago,
+do not already have active online-learning access, have not paid for online
+learning, and have not already received the automated signup recovery email.
+
 ### Optional Analytics And Marketing
 
 | Variable | Purpose |
@@ -73,6 +88,14 @@ policy that lets users manage only their own progress, and creates the user and
 course lookup index.
 
 The environment check cannot verify whether the SQL migration has been applied.
+
+Before testing checkout funnel analytics, run:
+
+`lib/supabase-migrations/002_checkout_funnel_events.sql`
+
+Before enabling automated signup recovery emails, run:
+
+`lib/supabase-migrations/003_signup_recovery_emails.sql`
 
 ## Pre-Deploy Checks
 

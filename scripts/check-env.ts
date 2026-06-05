@@ -39,6 +39,12 @@ const environmentGroups: EnvironmentGroup[] = [
     failWhenMissing: false,
   },
   {
+    title: "Email automation (required for signup recovery prompts)",
+    description: "Required for Resend purchase prompts and scheduled signup recovery.",
+    variables: ["RESEND_API_KEY", "CRON_SECRET"],
+    failWhenMissing: false,
+  },
+  {
     title: "Optional analytics / marketing",
     description: "Optional GA4 measurement ID. Google Ads is configured in app code.",
     variables: ["NEXT_PUBLIC_GA_MEASUREMENT_ID"],
