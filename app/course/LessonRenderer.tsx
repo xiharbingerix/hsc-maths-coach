@@ -44,7 +44,8 @@ type MasteryState = {
   updatedAt?: string;
 };
 
-export const WATCH_STAGE_ENABLED = false;
+export const WATCH_STAGE_ENABLED = true;
+const PLACEHOLDER_VIDEO_URL = "/videos/placeholder-lesson.mp4";
 
 const allLessonStages: { id: LessonStage; label: string }[] = [
   { id: "watch", label: "Watch" },
@@ -54,12 +55,43 @@ const allLessonStages: { id: LessonStage; label: string }[] = [
   { id: "mastery-quiz", label: "Mastery Quiz" },
 ];
 
-const lessonStages = WATCH_STAGE_ENABLED
-  ? allLessonStages
-  : allLessonStages.filter((stage) => stage.id !== "watch");
-
-const firstLessonStage = lessonStages[0].id;
 const firstContentStage: LessonStage = "learn";
+
+function normaliseVideoUrl(url?: string) {
+  return url?.trim() ?? "";
+}
+
+function isPlaceholderVideoUrl(url?: string) {
+  const normalisedUrl = normaliseVideoUrl(url);
+  return !normalisedUrl || normalisedUrl === PLACEHOLDER_VIDEO_URL;
+}
+
+function getYouTubeEmbedUrl(url?: string) {
+  const normalisedUrl = normaliseVideoUrl(url);
+
+  if (normalisedUrl.includes("youtube.com/embed/")) {
+    return normalisedUrl;
+  }
+
+  if (normalisedUrl.includes("youtu.be/")) {
+    try {
+      const parsedUrl = new URL(normalisedUrl);
+      const videoId = parsedUrl.pathname.split("/").filter(Boolean)[0];
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+    } catch {
+      const [, videoId] = normalisedUrl.split("youtu.be/");
+      return videoId
+        ? `https://www.youtube.com/embed/${videoId.split(/[?&]/)[0]}`
+        : null;
+    }
+  }
+
+  return null;
+}
+
+function hasPlayableVideoUrl(url?: string) {
+  return !isPlaceholderVideoUrl(url);
+}
 
 function normaliseAnswer(value: string) {
   return value
@@ -121,6 +153,8 @@ function formatPercent(score: number) {
 }
 
 function choiceAnswerText(question: PracticeQuestion, answer: string) {
+  if (answer === MULTI_STEP_SKIPPED) return "Not all steps answered correctly";
+
   if (!question.choices) {
     return answer.trim() || "No answer submitted";
   }
@@ -135,6 +169,8 @@ function choiceAnswerText(question: PracticeQuestion, answer: string) {
 
   return `${selectedChoice.label}. ${selectedChoice.text}`;
 }
+
+const MULTI_STEP_SKIPPED = "__SKIPPED__";
 
 function masteryStorageKey(moduleSlug: string, lessonSlug: string) {
   if (moduleSlug === "differential-calculus") {
@@ -211,10 +247,184 @@ function PracticeCard({
   question: PracticeQuestion;
   index: number;
 }) {
+  // Single-step state
   const [answer, setAnswer] = useState("");
   const [result, setResult] = useState<"correct" | "incorrect" | null>(null);
   const [showHint, setShowHint] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
+
+  // Multi-step state (all hooks called unconditionally)
+  const [stepIndex, setStepIndex] = useState(0);
+  const [stepAnswer, setStepAnswer] = useState("");
+  const [stepResult, setStepResult] = useState<"correct" | "incorrect" | null>(null);
+  const [stepAttempts, setStepAttempts] = useState(0);
+  const [anyStepSkipped, setAnyStepSkipped] = useState(false);
+  const [showStepHint, setShowStepHint] = useState(false);
+  const [stepsDone, setStepsDone] = useState(false);
+
+  const steps = question.steps;
+  const isMultiStep = (steps?.length ?? 0) > 0;
+
+  if (isMultiStep) {
+    const allSteps = steps!;
+    const totalSteps = allSteps.length;
+
+    if (stepsDone) {
+      return (
+        <div className="space-y-4 rounded-2xl border border-slate-200 p-5">
+          <div>
+            <p className="text-sm font-medium text-slate-500">
+              Question {index + 1}
+            </p>
+            <p className="mt-2 font-medium">
+              <MathText text={question.prompt} />
+            </p>
+            <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+              <BlockMath math={question.latex} />
+            </div>
+          </div>
+          {anyStepSkipped ? (
+            <div className="rounded-xl bg-amber-50 p-3 text-sm font-medium text-amber-900">
+              Some steps were not answered correctly. Review the worked example and try the question again when ready.
+            </div>
+          ) : (
+            <div className="rounded-xl bg-green-50 p-3 text-sm font-medium text-green-800">
+              All steps completed correctly.
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    const step = allSteps[stepIndex];
+
+    function checkStepAnswer() {
+      const correct = markTypedAnswer({
+        userAnswer: stepAnswer,
+        correctAnswer: step.answer,
+        acceptedAnswers: step.acceptedAnswers ?? [],
+      }).correct;
+      setStepResult(correct ? "correct" : "incorrect");
+      if (!correct) setStepAttempts((a) => a + 1);
+    }
+
+    function advanceStep(skipped: boolean) {
+      if (skipped) setAnyStepSkipped(true);
+      if (stepIndex + 1 >= totalSteps) {
+        setStepsDone(true);
+      } else {
+        setStepIndex((s) => s + 1);
+        setStepAnswer("");
+        setStepResult(null);
+        setStepAttempts(0);
+        setShowStepHint(false);
+      }
+    }
+
+    return (
+      <div className="space-y-4 rounded-2xl border border-slate-200 p-5">
+        <div>
+          <p className="text-sm font-medium text-slate-500">
+            Question {index + 1}
+          </p>
+          <p className="mt-2 font-medium">
+            <MathText text={question.prompt} />
+          </p>
+          <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+            <BlockMath math={question.latex} />
+          </div>
+        </div>
+
+        <p className="text-sm font-semibold text-slate-500">
+          Step {stepIndex + 1} of {totalSteps}
+        </p>
+
+        <div>
+          <p className="font-medium">
+            <MathText text={step.prompt} />
+          </p>
+          <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+            <BlockMath math={step.latex} />
+          </div>
+        </div>
+
+        <label className="block space-y-1">
+          <span className="text-sm font-medium">Your answer</span>
+          <input
+            value={stepAnswer}
+            onChange={(e) => {
+              setStepAnswer(e.target.value);
+              setStepResult(null);
+            }}
+            disabled={stepResult === "correct"}
+            className="w-full rounded-xl border border-slate-300 px-3 py-2 disabled:bg-slate-50"
+          />
+        </label>
+
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={checkStepAnswer}
+            disabled={stepResult === "correct"}
+            className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-50"
+          >
+            Check answer
+          </button>
+          {step.hint && (
+            <button
+              type="button"
+              onClick={() => setShowStepHint(!showStepHint)}
+              className="rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200"
+            >
+              {showStepHint ? "Hide hint" : "Show hint"}
+            </button>
+          )}
+        </div>
+
+        {showStepHint && step.hint && (
+          <div className="rounded-xl bg-blue-50 p-3 text-sm text-blue-900">
+            <MathText text={step.hint} />
+          </div>
+        )}
+
+        {stepResult === "correct" && (
+          <div className="space-y-2 rounded-xl bg-green-50 p-3 text-sm">
+            <p className="font-medium text-green-800">Correct.</p>
+            <p className="text-green-900">
+              <MathText text={step.explanation} />
+            </p>
+            <button
+              type="button"
+              onClick={() => advanceStep(false)}
+              className="rounded-xl bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800"
+            >
+              {stepIndex + 1 < totalSteps ? "Next step" : "Finish"}
+            </button>
+          </div>
+        )}
+
+        {stepResult === "incorrect" && (
+          <div className="space-y-2 rounded-xl bg-red-50 p-3 text-sm">
+            <p className="font-medium text-red-800">
+              Not quite.{stepAttempts < 2 ? " Check the explanation and try again." : ""}
+            </p>
+            <p className="text-red-900">
+              <MathText text={step.explanation} />
+            </p>
+            {stepAttempts >= 2 && (
+              <button
+                type="button"
+                onClick={() => advanceStep(true)}
+                className="rounded-xl bg-slate-600 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+              >
+                Continue anyway
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
 
   function checkAnswer() {
     setResult(isCorrectAnswer(question, answer) ? "correct" : "incorrect");
@@ -351,6 +561,172 @@ function QuizQuestion({
   value: string;
   onChange: (value: string) => void;
 }) {
+  // Multi-step state (all hooks called unconditionally)
+  const [stepIndex, setStepIndex] = useState(0);
+  const [stepAnswer, setStepAnswer] = useState("");
+  const [stepResult, setStepResult] = useState<"correct" | "incorrect" | null>(null);
+  const [stepAttempts, setStepAttempts] = useState(0);
+  const [anyStepSkipped, setAnyStepSkipped] = useState(false);
+  const [showStepHint, setShowStepHint] = useState(false);
+
+  const steps = question.steps;
+  const isMultiStep = (steps?.length ?? 0) > 0;
+
+  if (isMultiStep) {
+    const allSteps = steps!;
+    const totalSteps = allSteps.length;
+    const isCompleted = value === question.answer || value === MULTI_STEP_SKIPPED;
+
+    const questionHeader = (
+      <div>
+        <p className="text-sm font-medium text-slate-500">Question {index + 1}</p>
+        <p className="mt-2 font-medium">
+          <MathText text={question.prompt} />
+        </p>
+        <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+          <BlockMath math={question.latex} />
+        </div>
+      </div>
+    );
+
+    if (isCompleted) {
+      return (
+        <div className="space-y-4 rounded-2xl border border-slate-200 p-5">
+          {questionHeader}
+          {value === question.answer ? (
+            <div className="rounded-xl bg-green-50 p-3 text-sm font-medium text-green-800">
+              All steps completed correctly.
+            </div>
+          ) : (
+            <div className="rounded-xl bg-amber-50 p-3 text-sm font-medium text-amber-900">
+              Not all steps answered correctly — this question will count as incorrect.
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    const step = allSteps[stepIndex];
+
+    function checkStepAnswer() {
+      const correct = markTypedAnswer({
+        userAnswer: stepAnswer,
+        correctAnswer: step.answer,
+        acceptedAnswers: step.acceptedAnswers ?? [],
+      }).correct;
+      setStepResult(correct ? "correct" : "incorrect");
+      if (!correct) setStepAttempts((a) => a + 1);
+    }
+
+    function advanceStep(skipped: boolean) {
+      const nextAnySkipped = anyStepSkipped || skipped;
+      if (skipped) setAnyStepSkipped(true);
+      if (stepIndex + 1 >= totalSteps) {
+        onChange(nextAnySkipped ? MULTI_STEP_SKIPPED : question.answer);
+      } else {
+        setStepIndex((s) => s + 1);
+        setStepAnswer("");
+        setStepResult(null);
+        setStepAttempts(0);
+        setShowStepHint(false);
+      }
+    }
+
+    return (
+      <div className="space-y-4 rounded-2xl border border-slate-200 p-5">
+        {questionHeader}
+
+        <p className="text-sm font-semibold text-slate-500">
+          Step {stepIndex + 1} of {totalSteps}
+        </p>
+
+        <div>
+          <p className="font-medium">
+            <MathText text={step.prompt} />
+          </p>
+          <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+            <BlockMath math={step.latex} />
+          </div>
+        </div>
+
+        <label className="block space-y-1">
+          <span className="text-sm font-medium">Your answer</span>
+          <input
+            value={stepAnswer}
+            onChange={(e) => {
+              setStepAnswer(e.target.value);
+              setStepResult(null);
+            }}
+            disabled={stepResult === "correct"}
+            className="w-full rounded-xl border border-slate-300 px-3 py-2 disabled:bg-slate-50"
+          />
+        </label>
+
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={checkStepAnswer}
+            disabled={stepResult === "correct"}
+            className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-50"
+          >
+            Check answer
+          </button>
+          {step.hint && (
+            <button
+              type="button"
+              onClick={() => setShowStepHint(!showStepHint)}
+              className="rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200"
+            >
+              {showStepHint ? "Hide hint" : "Show hint"}
+            </button>
+          )}
+        </div>
+
+        {showStepHint && step.hint && (
+          <div className="rounded-xl bg-blue-50 p-3 text-sm text-blue-900">
+            <MathText text={step.hint} />
+          </div>
+        )}
+
+        {stepResult === "correct" && (
+          <div className="space-y-2 rounded-xl bg-green-50 p-3 text-sm">
+            <p className="font-medium text-green-800">Correct.</p>
+            <p className="text-green-900">
+              <MathText text={step.explanation} />
+            </p>
+            <button
+              type="button"
+              onClick={() => advanceStep(false)}
+              className="rounded-xl bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800"
+            >
+              {stepIndex + 1 < totalSteps ? "Next step" : "Finish"}
+            </button>
+          </div>
+        )}
+
+        {stepResult === "incorrect" && (
+          <div className="space-y-2 rounded-xl bg-red-50 p-3 text-sm">
+            <p className="font-medium text-red-800">
+              Not quite.{stepAttempts < 2 ? " Check the explanation and try again." : ""}
+            </p>
+            <p className="text-red-900">
+              <MathText text={step.explanation} />
+            </p>
+            {stepAttempts >= 2 && (
+              <button
+                type="button"
+                onClick={() => advanceStep(true)}
+                className="rounded-xl bg-slate-600 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+              >
+                Continue anyway
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-4 rounded-2xl border border-slate-200 p-5">
       <div>
@@ -585,7 +961,7 @@ export function LessonRenderer({
   backHref: string;
   backLabel: string;
 }) {
-  const [activeStage, setActiveStage] = useState<LessonStage>(firstLessonStage);
+  const [activeStage, setActiveStage] = useState<LessonStage>(firstContentStage);
   const [videoEnded, setVideoEnded] = useState(false);
   const [videoLoadFailed, setVideoLoadFailed] = useState(false);
   const [quizAnswers, setQuizAnswers] = useState<Record<string, string>>({});
@@ -600,6 +976,16 @@ export function LessonRenderer({
     () => lessons.find((item) => item.slug === lessonSlug),
     [lessons, lessonSlug]
   );
+  const currentLessonStages = useMemo(() => {
+    const shouldShowWatchStage =
+      WATCH_STAGE_ENABLED && hasPlayableVideoUrl(lesson?.video.url);
+
+    return shouldShowWatchStage
+      ? allLessonStages
+      : allLessonStages.filter((stage) => stage.id !== "watch");
+  }, [lesson?.video.url]);
+  const firstCurrentLessonStage =
+    currentLessonStages[0]?.id ?? firstContentStage;
 
   const masteryStartedRef = useRef<string | null>(null);
   const progressChangedRef = useRef(false);
@@ -690,7 +1076,7 @@ export function LessonRenderer({
 
         const completedStages = remoteRecord.completedStages.filter(
           (stage): stage is LessonStage =>
-            lessonStages.some((lessonStage) => lessonStage.id === stage)
+            currentLessonStages.some((lessonStage) => lessonStage.id === stage)
         );
         const remoteState: MasteryState = {
           passed: remoteRecord.passed,
@@ -730,16 +1116,16 @@ export function LessonRenderer({
     return () => {
       cancelled = true;
     };
-  }, [courseSlug, lesson, lessonSlug, unitSlug]);
+  }, [courseSlug, currentLessonStages, lesson, lessonSlug, unitSlug]);
 
   useEffect(() => {
-    setActiveStage(firstLessonStage);
+    setActiveStage(firstCurrentLessonStage);
     setVideoEnded(false);
     setVideoLoadFailed(false);
     setQuizAnswers({});
     setQuizSubmitted(false);
     masteryStartedRef.current = null;
-  }, [lessonSlug]);
+  }, [firstCurrentLessonStage, lessonSlug]);
 
   useEffect(() => {
     if (activeStage !== "mastery-quiz" || !lesson) return;
@@ -769,7 +1155,7 @@ export function LessonRenderer({
   }
 
   const currentLesson = lesson;
-  const activeStageIndex = lessonStages.findIndex(
+  const activeStageIndex = currentLessonStages.findIndex(
     (stage) => stage.id === activeStage
   );
   const quizCorrectCount = currentLesson.masteryQuiz.filter((question) =>
@@ -806,13 +1192,16 @@ export function LessonRenderer({
   function canOpenStage(stage: LessonStage) {
     const hasCompleted = (completedStage: LessonStage) =>
       masteryState.completedStages.includes(completedStage);
+    const hasWatchStage = currentLessonStages.some(
+      (lessonStage) => lessonStage.id === "watch"
+    );
 
     if (stage === "watch") {
-      return WATCH_STAGE_ENABLED;
+      return hasWatchStage;
     }
 
     if (stage === "learn") {
-      return !WATCH_STAGE_ENABLED || hasCompleted("watch");
+      return !hasWatchStage || hasCompleted("watch");
     }
 
     if (stage === "guided-practice") {
@@ -844,7 +1233,7 @@ export function LessonRenderer({
       completedStages,
     });
 
-    const nextStage = lessonStages[activeStageIndex + 1];
+    const nextStage = currentLessonStages[activeStageIndex + 1];
     if (nextStage) {
       setActiveStage(nextStage.id);
     }
@@ -864,7 +1253,7 @@ export function LessonRenderer({
       saveMasteryState({
         passed: true,
         mustCompleteLesson: false,
-        completedStages: lessonStages.map((stage) => stage.id),
+        completedStages: currentLessonStages.map((stage) => stage.id),
         lastScore: quizScore,
       });
       return;
@@ -893,6 +1282,10 @@ export function LessonRenderer({
 
   function renderStage() {
     if (activeStage === "watch") {
+      const videoUrl = normaliseVideoUrl(currentLesson.video.url);
+      const youtubeEmbedUrl = getYouTubeEmbedUrl(videoUrl);
+      const hasVideo = hasPlayableVideoUrl(videoUrl);
+
       return (
         <section className="space-y-5 rounded-2xl bg-white p-6 shadow-sm">
           <div>
@@ -902,26 +1295,54 @@ export function LessonRenderer({
             </p>
           </div>
 
-          <div className="overflow-hidden rounded-2xl bg-slate-950">
-            <video
-              key={currentLesson.video.url}
-              controls
-              className="aspect-video w-full"
-              onEnded={() => setVideoEnded(true)}
-              onError={() => setVideoLoadFailed(true)}
-            >
-              <source
-                src={currentLesson.video.url}
-                type="video/mp4"
+          {!hasVideo ? (
+            <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
+              <p className="text-lg font-semibold text-slate-900">
+                Video coming soon
+              </p>
+              <p className="mt-2 text-sm text-slate-600">
+                This lesson does not have a video yet. Start with the written
+                lesson when access is available.
+              </p>
+            </div>
+          ) : youtubeEmbedUrl ? (
+            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-950">
+              <div className="aspect-video w-full">
+                <iframe
+                  key={youtubeEmbedUrl}
+                  src={youtubeEmbedUrl}
+                  title={currentLesson.video.title}
+                  className="h-full w-full"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="overflow-hidden rounded-2xl bg-slate-950">
+              <video
+                key={videoUrl}
+                controls
+                className="aspect-video w-full"
+                onEnded={() => setVideoEnded(true)}
                 onError={() => setVideoLoadFailed(true)}
-              />
-            </video>
-          </div>
+              >
+                <source
+                  src={videoUrl}
+                  type="video/mp4"
+                  onError={() => setVideoLoadFailed(true)}
+                />
+              </video>
+            </div>
+          )}
 
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm font-medium text-slate-600">
               {videoEnded
                 ? "Video complete. You can continue."
+                : youtubeEmbedUrl
+                ? "Watch the public video, then continue when you are ready."
                 : "Video gate temporarily unlocked for MVP testing."}
             </p>
             <button
@@ -1179,8 +1600,7 @@ export function LessonRenderer({
   }
 
   return (
-    <AccessGate>
-      <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
+    <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
       <article className="mx-auto max-w-4xl space-y-8">
         <header className="rounded-2xl bg-white p-6 shadow-sm">
           <Link
@@ -1222,10 +1642,12 @@ export function LessonRenderer({
         <section className="rounded-2xl bg-white p-3 shadow-sm">
           <div
             className={`grid gap-2 ${
-              WATCH_STAGE_ENABLED ? "md:grid-cols-5" : "md:grid-cols-4"
+              currentLessonStages.length === 5
+                ? "md:grid-cols-5"
+                : "md:grid-cols-4"
             }`}
           >
-            {lessonStages.map((stage, index) => {
+            {currentLessonStages.map((stage, index) => {
               const isActive = stage.id === activeStage;
               const isComplete = masteryState.completedStages.includes(
                 stage.id
@@ -1274,9 +1696,12 @@ export function LessonRenderer({
           )}
         </section>
 
-        {renderStage()}
+        {activeStage === "watch" ? (
+          renderStage()
+        ) : (
+          <AccessGate>{renderStage()}</AccessGate>
+        )}
       </article>
-      </main>
-    </AccessGate>
+    </main>
   );
 }

@@ -32,6 +32,14 @@ export type PracticeQuestion = {
   }[];
   hint?: string;
   explanation?: string;
+  steps?: Array<{
+    prompt: string;
+    latex: string;
+    answer: string;
+    acceptedAnswers?: string[];
+    hint?: string;
+    explanation: string;
+  }>;
 };
 
 export type WorkedExampleStep = {
@@ -115,7 +123,7 @@ export const derivativeAsRateOfChangeLesson: ExplicitLesson = {
 
   video: {
     title: "The Derivative as Rate of Change",
-    url: "/videos/placeholder-lesson.mp4",
+    url: "https://www.youtube.com/embed/NRSmIE5MMBQ",
   },
 
   learningIntention:
@@ -483,7 +491,7 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
 
   video: {
     title: "Differentiating Polynomial Terms",
-    url: "/videos/placeholder-lesson.mp4",
+    url: "https://www.youtube.com/embed/I8IM9P-2TRU",
   },
 
   learningIntention:
@@ -819,7 +827,7 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
 
   video: {
     title: "Differentiating Polynomial Functions",
-    url: "/videos/placeholder-lesson.mp4",
+    url: "https://www.youtube.com/embed/I8IM9P-2TRU",
   },
 
   learningIntention:
@@ -1167,7 +1175,7 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
 
   video: {
     title: "Tangents and Normals",
-    url: "/videos/placeholder-lesson.mp4",
+    url: "https://www.youtube.com/embed/N4blOA66TF8",
   },
 
   learningIntention:
@@ -1487,7 +1495,7 @@ export const stationaryPointsLesson: ExplicitLesson = {
 
   video: {
     title: "Stationary Points",
-    url: "/videos/placeholder-lesson.mp4",
+    url: "https://www.youtube.com/embed/sex1k07fPdM",
   },
 
   learningIntention:
@@ -1815,7 +1823,7 @@ export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
 
   video: {
     title: "Increasing and Decreasing Functions",
-    url: "/videos/placeholder-lesson.mp4",
+    url: "https://www.youtube.com/embed/m_wx8WXBGnc",
   },
 
   learningIntention:
@@ -2181,7 +2189,7 @@ export const firstDerivativeTestLesson: ExplicitLesson = {
 
   video: {
     title: "First Derivative Test",
-    url: "/videos/placeholder-lesson.mp4",
+    url: "https://www.youtube.com/embed/Of1lkx9IXu4",
   },
 
   learningIntention:
@@ -2582,7 +2590,7 @@ export const secondDerivativeTestLesson: ExplicitLesson = {
 
   video: {
     title: "Second Derivative Test",
-    url: "/videos/placeholder-lesson.mp4",
+    url: "https://www.youtube.com/embed/QslLK2NJ-Js",
   },
 
   learningIntention:
@@ -2962,7 +2970,7 @@ export const curveSketchingLesson: ExplicitLesson = {
 
   video: {
     title: "Curve Sketching with Derivatives",
-    url: "/videos/placeholder-lesson.mp4",
+    url: "https://www.youtube.com/embed/mt2BfYpaDgA",
   },
 
   learningIntention:
@@ -3322,7 +3330,7 @@ export const optimisationLesson: ExplicitLesson = {
 
   video: {
     title: "Optimisation Problems",
-    url: "/videos/placeholder-lesson.mp4",
+    url: "https://www.youtube.com/embed/HsUY94Fjxao",
   },
 
   learningIntention:
@@ -3634,7 +3642,7 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
 
   video: {
     title: "Rates of Change Applications",
-    url: "/videos/placeholder-lesson.mp4",
+    url: "https://www.youtube.com/embed/CwTqRSv2GiU",
   },
 
   learningIntention:
@@ -3828,17 +3836,45 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
   masteryQuiz: [
     {
       id: "rates-mastery-1",
-      prompt: "Differentiate the contextual function:",
-      latex: "h(t)=-4t^2+24t+3",
-      answer: "C",
-      choices: [
-        { label: "A", text: "$-8t+24+3$" },
-        { label: "B", text: "$-4t+24$" },
-        { label: "C", text: "$-8t+24$" },
-        { label: "D", text: "$8t+24$" },
+      prompt: "A ball is thrown upward. Find and interpret the instantaneous velocity at $t = 3$.",
+      latex: "h(t)=-4t^2+24t+3 \\quad \\text{(metres)}",
+      answer: "momentarily not changing",
+      acceptedAnswers: ["not changing", "stationary"],
+      explanation: "v(t) = h'(t) = -8t + 24. At t = 3, h'(3) = 0, so the height is momentarily not changing — the ball is at its highest point.",
+      steps: [
+        {
+          prompt: "State the formula for instantaneous velocity in terms of $h(t)$.",
+          latex: "h(t)=-4t^2+24t+3",
+          answer: "h'(t)",
+          acceptedAnswers: ["v(t)", "v=h'(t)"],
+          hint: "Velocity is the instantaneous rate of change of height.",
+          explanation: "Velocity is $v(t) = h'(t)$, the derivative of height with respect to time.",
+        },
+        {
+          prompt: "Differentiate $h(t)$ to find $h'(t)$.",
+          latex: "h(t)=-4t^2+24t+3",
+          answer: "-8t+24",
+          acceptedAnswers: ["h'(t)=-8t+24"],
+          hint: "Apply the power rule to each term. The constant $3$ has derivative $0$.",
+          explanation: "$h'(t) = -8t + 24$.",
+        },
+        {
+          prompt: "Substitute $t = 3$ into $h'(t)$ and evaluate.",
+          latex: "h'(t)=-8t+24, \\quad t=3",
+          answer: "0",
+          acceptedAnswers: ["h'(3)=0", "0 m/s", "0 metres per second"],
+          hint: "Replace $t$ with $3$: $-8(3) + 24 = ?$",
+          explanation: "$h'(3) = -8(3) + 24 = -24 + 24 = 0$.",
+        },
+        {
+          prompt: "Interpret $h'(3) = 0$. What is the ball doing at $t = 3$?",
+          latex: "h'(3)=0 \\text{ m/s}",
+          answer: "momentarily not changing",
+          acceptedAnswers: ["not changing", "stationary"],
+          hint: "A zero derivative means the height is momentarily not changing.",
+          explanation: "$h'(3) = 0$, so the ball's height is momentarily not changing at $t = 3$ — it is at its highest point.",
+        },
       ],
-      hint: "Find $h'(t)$.",
-      explanation: "$h'(t)=-8t+24$.",
     },
     {
       id: "rates-mastery-2",
@@ -3888,12 +3924,45 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
     },
     {
       id: "rates-mastery-6",
-      prompt: "Find the rate of change at $t=3$:",
+      prompt: "Find and interpret the rate of change of $P$ at $t = 3$.",
       latex: "P(t)=t^3-6t^2+20t+100",
-      answer: "11",
-      hint: "Differentiate, then substitute $t=3$.",
-      explanation:
-        "$P'(t)=3t^2-12t+20$, so $P'(3)=27-36+20=11$.",
+      answer: "increasing",
+      acceptedAnswers: ["positive"],
+      explanation: "P'(t) = 3t² - 12t + 20. P'(3) = 11 > 0, so P is increasing at t = 3.",
+      steps: [
+        {
+          prompt: "State the derivative formula for $P(t)$.",
+          latex: "P(t)=t^3-6t^2+20t+100",
+          answer: "P'(t)",
+          acceptedAnswers: ["dP/dt"],
+          hint: "The instantaneous rate of change of $P$ is its derivative.",
+          explanation: "The rate of change is $P'(t)$, the derivative of $P$ with respect to $t$.",
+        },
+        {
+          prompt: "Differentiate $P(t)$.",
+          latex: "P(t)=t^3-6t^2+20t+100",
+          answer: "3t^2-12t+20",
+          acceptedAnswers: ["P'(t)=3t^2-12t+20"],
+          hint: "Apply the power rule to each term. The constant $100$ has derivative $0$.",
+          explanation: "$P'(t) = 3t^2 - 12t + 20$.",
+        },
+        {
+          prompt: "Substitute $t = 3$ into $P'(t)$ and evaluate.",
+          latex: "P'(t)=3t^2-12t+20, \\quad t=3",
+          answer: "11",
+          acceptedAnswers: ["P'(3)=11"],
+          hint: "Replace $t$ with $3$: $3(9) - 12(3) + 20 = ?$",
+          explanation: "$P'(3) = 3(9) - 12(3) + 20 = 27 - 36 + 20 = 11$.",
+        },
+        {
+          prompt: "Interpret $P'(3) = 11$. Is $P$ increasing, decreasing, or momentarily not changing?",
+          latex: "P'(3)=11>0",
+          answer: "increasing",
+          acceptedAnswers: ["positive"],
+          hint: "A positive rate means the quantity is increasing.",
+          explanation: "Since $P'(3) = 11 > 0$, the quantity $P$ is increasing at $t = 3$.",
+        },
+      ],
     },
     {
       id: "rates-mastery-7",
@@ -3938,17 +4007,45 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
     },
     {
       id: "rates-mastery-10",
-      prompt:
-        "A cost function is given. At $x=8$, is the cost increasing or decreasing?",
-      latex: "C(x)=x^2-10x+60",
-      answer: "A",
-      choices: [
-        { label: "A", text: "increasing" },
-        { label: "B", text: "decreasing" },
+      prompt: "Find and interpret the marginal cost at $x = 8$ items.",
+      latex: "C(x)=x^2-10x+60 \\quad \\text{(dollars)}",
+      answer: "increasing",
+      acceptedAnswers: ["positive", "going up"],
+      explanation: "C'(x) = 2x - 10. C'(8) = 6 > 0, so the cost is increasing at x = 8, at 6 dollars per item.",
+      steps: [
+        {
+          prompt: "State the formula for marginal cost.",
+          latex: "C(x)=x^2-10x+60",
+          answer: "C'(x)",
+          acceptedAnswers: ["dC/dx"],
+          hint: "Marginal cost is the instantaneous rate of change of cost.",
+          explanation: "Marginal cost is $C'(x)$, the derivative of cost with respect to quantity.",
+        },
+        {
+          prompt: "Differentiate $C(x)$.",
+          latex: "C(x)=x^2-10x+60",
+          answer: "2x-10",
+          acceptedAnswers: ["C'(x)=2x-10"],
+          hint: "Apply the power rule to each term. The constant $60$ has derivative $0$.",
+          explanation: "$C'(x) = 2x - 10$.",
+        },
+        {
+          prompt: "Substitute $x = 8$ into $C'(x)$ and evaluate.",
+          latex: "C'(x)=2x-10, \\quad x=8",
+          answer: "6",
+          acceptedAnswers: ["C'(8)=6", "6 dollars per item"],
+          hint: "Replace $x$ with $8$: $2(8) - 10 = ?$",
+          explanation: "$C'(8) = 2(8) - 10 = 16 - 10 = 6$.",
+        },
+        {
+          prompt: "Interpret $C'(8) = 6$. Is the cost increasing or decreasing?",
+          latex: "C'(8)=6>0",
+          answer: "increasing",
+          acceptedAnswers: ["positive", "going up"],
+          hint: "A positive derivative means the quantity is increasing.",
+          explanation: "Since $C'(8) = 6 > 0$, the cost is increasing at $x = 8$, at $6$ dollars per item.",
+        },
       ],
-      hint: "Differentiate, substitute $x=8$, then use the sign of the derivative.",
-      explanation:
-        "$C'(x)=2x-10$, so $C'(8)=6$. The cost is increasing at $6$ dollars per item when $x=8$.",
     },
   ],
 
@@ -3970,7 +4067,7 @@ export const mixedExamPracticeLesson: ExplicitLesson = {
 
   video: {
     title: "Mixed Differential Calculus Exam Practice",
-    url: "/videos/placeholder-lesson.mp4",
+    url: "https://www.youtube.com/embed/SXKGKoPlCpc",
   },
 
   learningIntention:
