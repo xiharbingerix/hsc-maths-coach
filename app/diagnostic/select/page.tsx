@@ -1,12 +1,13 @@
 import Link from "next/link";
 
 const yearLevels = [
-  { slug: "year-9-mathematics", label: "Year 9 Mathematics", available: false },
-  { slug: "year-10-mathematics", label: "Year 10 Mathematics", available: false },
-  { slug: "year-11-standard", label: "Year 11 Standard", available: false },
-  { slug: "year-11-advanced", label: "Year 11 Advanced", available: false },
+  { slug: "year-9-mathematics", label: "Year 9 Mathematics", available: true },
+  { slug: "year-10-mathematics", label: "Year 10 Mathematics", available: true },
+  { slug: "year-11-standard", label: "Year 11 Standard", available: true },
+  { slug: "year-11-advanced", label: "Year 11 Advanced", available: true },
   { slug: "year-12-advanced", label: "Year 12 Advanced", available: true },
-  { slug: "year-12-standard-2", label: "Year 12 Standard 2", available: false },
+  { slug: "year-12-standard-2", label: "Year 12 Standard 2", available: true },
+  { slug: "year-12-extension-1", label: "Year 12 Extension 1", available: true },
 ];
 
 export default function DiagnosticSelectPage() {

@@ -1,10 +1,22 @@
 import Link from "next/link";
+import { diagnosticData as y9Data } from "../../../lib/diagnostics/year-9-mathematics";
+import { diagnosticData as y10Data } from "../../../lib/diagnostics/year-10-mathematics";
+import { diagnosticData as y11StdData } from "../../../lib/diagnostics/year-11-standard";
+import { diagnosticData as y11AdvData } from "../../../lib/diagnostics/year-11-advanced";
 import { diagnosticData as y12AdvancedData } from "../../../lib/diagnostics/year-12-advanced";
+import { diagnosticData as y12Std2Data } from "../../../lib/diagnostics/year-12-standard-2";
+import { diagnosticData as y12Ext1Data } from "../../../lib/diagnostics/year-12-extension-1";
 import type { DiagnosticData } from "../../../lib/diagnostics/types";
 import { DiagnosticQuizClient } from "./DiagnosticQuizClient";
 
 const dataByYearLevel: Record<string, DiagnosticData> = {
+  "year-9-mathematics": y9Data,
+  "year-10-mathematics": y10Data,
+  "year-11-standard": y11StdData,
+  "year-11-advanced": y11AdvData,
   "year-12-advanced": y12AdvancedData,
+  "year-12-standard-2": y12Std2Data,
+  "year-12-extension-1": y12Ext1Data,
 };
 
 export default async function DiagnosticYearLevelPage({
