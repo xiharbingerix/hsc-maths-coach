@@ -61,10 +61,13 @@ The environment check warns when they are missing.
 | `RESEND_API_KEY` | Server-only Resend API key used to send purchase prompt emails |
 | `CRON_SECRET` | Secret used by Vercel Cron to call `/api/cron/send-purchase-prompts` |
 
-The scheduled recovery route runs every 30 minutes from `vercel.json`. It sends
-the existing purchase prompt to users who signed up more than 30 minutes ago,
-do not already have active online-learning access, have not paid for online
+The scheduled recovery route runs daily from `vercel.json`. It sends the
+existing purchase prompt to users who signed up more than 30 minutes ago, do
+not already have active online-learning access, have not paid for online
 learning, and have not already received the automated signup recovery email.
+
+Vercel Hobby projects only support daily cron schedules. If the project is moved
+to Vercel Pro, the schedule can be increased to every 30 minutes.
 
 ### Optional Analytics And Marketing
 

@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/cron/send-purchase-prompts",
-      "schedule": "*/30 * * * *"
+      "schedule": "0 23 * * *"
     }
   ]
 }
