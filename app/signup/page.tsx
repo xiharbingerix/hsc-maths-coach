@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
 import {
+  trackEvent,
   trackSignupCompleted,
   trackSignupCheckoutWallViewed,
 } from "../../lib/analytics";
@@ -27,6 +28,40 @@ function isOnlineLearningCheckoutNext(value: string) {
 
 function isDuplicateEmailError(message: string): boolean {
   return /already registered|already been registered|user already|email.*already|already.*email/i.test(message);
+}
+
+async function createCheckoutSessionAfterSignup({
+  accessToken,
+  parentEmail,
+  studentFirstName,
+}: {
+  accessToken: string;
+  parentEmail: string;
+  studentFirstName: string;
+}) {
+  const response = await fetch("/api/stripe/create-checkout-session", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({
+      offer: "online-learning",
+      parentEmail,
+      studentFirstName,
+    }),
+  });
+
+  const payload = (await response.json().catch(() => ({}))) as {
+    url?: string;
+    error?: string;
+  };
+
+  if (!response.ok || !payload.url) {
+    throw new Error(payload.error ?? "Checkout could not be started.");
+  }
+
+  return payload.url;
 }
 
 export default function SignupPage() {
@@ -90,6 +125,31 @@ export default function SignupPage() {
     }
 
     trackSignupCompleted();
+
+    if (isCheckoutFlow) {
+      const accessToken = data.session?.access_token;
+
+      if (accessToken) {
+        try {
+          trackEvent("signup_checkout_direct_checkout_started", {
+            offer: "online-learning",
+          });
+          const checkoutUrl = await createCheckoutSessionAfterSignup({
+            accessToken,
+            parentEmail: parentEmail || email,
+            studentFirstName,
+          });
+          window.location.href = checkoutUrl;
+          return;
+        } catch (checkoutError) {
+          console.error("Could not start checkout after signup", checkoutError);
+          trackEvent("signup_checkout_direct_checkout_failed", {
+            offer: "online-learning",
+          });
+        }
+      }
+    }
+
     router.push(nextPath);
   }
 
@@ -201,7 +261,9 @@ export default function SignupPage() {
             className="w-full rounded-xl bg-slate-950 px-4 py-3 font-semibold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400"
           >
             {isSubmitting
-              ? "Creating account..."
+              ? isCheckoutFlow
+                ? "Creating account and opening secure checkout..."
+                : "Creating account..."
               : isCheckoutFlow
                 ? "Create account and continue to checkout"
                 : "Create account"}
