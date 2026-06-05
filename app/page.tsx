@@ -290,8 +290,8 @@ export default function Home() {
             <SubscribeCTA href="/checkout?offer=online-learning">
               Start learning &mdash; $19/month
             </SubscribeCTA>
-            <SecondaryLink href="/sample-hsc-lesson">
-              Preview a free HSC lesson
+            <SecondaryLink href="/free-year-7-algebra">
+              Try the free algebra lesson
             </SecondaryLink>
           </div>
         </section>

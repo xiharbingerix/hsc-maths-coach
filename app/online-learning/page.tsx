@@ -265,6 +265,9 @@ export default function OnlineLearningPage() {
             <SubscribeCTA href="/checkout?offer=online-learning">
               Subscribe to online learning
             </SubscribeCTA>
+            <SecondaryLink href="/free-year-7-algebra">
+              Try free algebra lesson
+            </SecondaryLink>
             <SecondaryLink href="/enquire?offer=online-learning">
               Register interest
             </SecondaryLink>
@@ -304,6 +307,9 @@ export default function OnlineLearningPage() {
             <SubscribeCTA href="/checkout?offer=online-learning">
               Subscribe to online learning
             </SubscribeCTA>
+            <SecondaryLink href="/free-year-7-algebra">
+              Try free algebra lesson
+            </SecondaryLink>
             <SecondaryLink href="/signup">Create account</SecondaryLink>
             <SecondaryLink href="/diagnostic?offer=online-learning">
               Start diagnostic
