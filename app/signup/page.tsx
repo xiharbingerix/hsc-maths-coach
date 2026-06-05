@@ -80,27 +80,13 @@ export default function SignupPage() {
     const user = data.user;
 
     if (user) {
-      const { error: profileError } = await supabase.from("profiles").upsert({
+      await supabase.from("profiles").upsert({
         id: user.id,
         email,
         student_first_name: studentFirstName,
         parent_email: parentEmail || null,
         role: "student",
       });
-
-      const { error: accessError } = await supabase
-        .from("user_access")
-        .insert({
-          user_id: user.id,
-          access_type: "online_learning_beta",
-          status: "pending",
-        });
-
-      if (profileError || accessError) {
-        setNotice(
-          "Account created. Subscribe to online learning to unlock lesson access from the dashboard."
-        );
-      }
     }
 
     trackSignupCompleted();
