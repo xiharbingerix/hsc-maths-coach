@@ -77,12 +77,21 @@ type PaymentRow = {
   parent_email: string | null;
   student_first_name: string | null;
   offer_selected: string | null;
+  stripe_checkout_session_id: string | null;
   stripe_subscription_id: string | null;
   amount_total: number | null;
   currency: string | null;
   payment_status: string | null;
   subscription_status: string | null;
   access_status: string | null;
+};
+
+type CheckoutFunnelEventRow = {
+  id: string;
+  user_id: string | null;
+  offer_selected: string | null;
+  stripe_checkout_session_id: string | null;
+  created_at: string | null;
 };
 
 type LessonProgressAdminRow = {
@@ -392,6 +401,14 @@ function paymentStatusClass(status: string | null | undefined) {
   return "bg-slate-100 text-slate-700";
 }
 
+function funnelStageClass(stage: string) {
+  if (stage === "Mastery passed") return "bg-emerald-100 text-emerald-900";
+  if (stage === "Lesson started") return "bg-blue-100 text-blue-900";
+  if (stage === "Paid") return "bg-indigo-100 text-indigo-900";
+  if (stage === "Checkout started") return "bg-amber-100 text-amber-900";
+  return "bg-slate-100 text-slate-700";
+}
+
 function groupSubmissionsByDate(submissions: DiagnosticSubmission[]) {
   return submissions.reduce<Record<string, DiagnosticSubmission[]>>(
     (groups, submission) => {
@@ -470,12 +487,24 @@ export default async function AdminPage() {
   const { data: paymentsData, error: paymentsError } = await supabaseAdmin
     .from("payments")
     .select(
-      "id,created_at,user_id,parent_email,student_first_name,offer_selected,stripe_subscription_id,amount_total,currency,payment_status,subscription_status,access_status",
+      "id,created_at,user_id,parent_email,student_first_name,offer_selected,stripe_checkout_session_id,stripe_subscription_id,amount_total,currency,payment_status,subscription_status,access_status",
     )
     .order("created_at", { ascending: false })
     .limit(50);
 
   const payments = (paymentsData ?? []) as PaymentRow[];
+
+  const { data: checkoutFunnelData, error: checkoutFunnelError } =
+    await supabaseAdmin
+      .from("checkout_funnel_events")
+      .select(
+        "id,user_id,offer_selected,stripe_checkout_session_id,created_at",
+      )
+      .order("created_at", { ascending: false })
+      .limit(500);
+
+  const checkoutFunnelEvents = (checkoutFunnelData ??
+    []) as CheckoutFunnelEventRow[];
 
   // Auth users — increased perPage so the user count is accurate
   // Latest persisted lesson progress for internal learning analytics
@@ -545,6 +574,12 @@ export default async function AdminPage() {
   const totalRevenueCents = payments
     .filter((p) => p.payment_status === "paid")
     .reduce((sum, p) => sum + (p.amount_total ?? 0), 0);
+  const onlineLearningPayments = payments.filter(
+    (payment) => payment.offer_selected === "online-learning",
+  );
+  const paidOnlineLearningPayments = onlineLearningPayments.filter(
+    (payment) => payment.payment_status === "paid",
+  );
   const lessonTargetByKey = new Map(
     availableCourseLessonTargets.map((target) => [
       lessonProgressKey(target),
@@ -606,6 +641,85 @@ export default async function AdminPage() {
           (right.averageScore ?? Number.POSITIVE_INFINITY),
     )
     .slice(0, 10);
+
+  const onlineLearningCheckoutEvents = checkoutFunnelEvents.filter(
+    (event) => event.offer_selected === "online-learning",
+  );
+  const userHasOnlineLearningCheckout = new Set(
+    onlineLearningCheckoutEvents
+      .map((event) => event.user_id)
+      .filter((userId): userId is string => Boolean(userId)),
+  );
+  const userHasProgress = new Set(lessonProgressRows.map((row) => row.user_id));
+  const userHasMasteryPass = new Set(
+    lessonProgressRows.filter((row) => row.passed).map((row) => row.user_id),
+  );
+
+  const signupFunnelRows = studentUsers
+    .map(({ user, profile, access }) => {
+      const userPayments = onlineLearningPayments.filter(
+        (payment) =>
+          payment.user_id === user.id ||
+          (payment.user_id === null && payment.parent_email === user.email),
+      );
+      const paidPayment = userPayments.find(
+        (payment) => payment.payment_status === "paid",
+      );
+      const checkoutEvent = onlineLearningCheckoutEvents.find(
+        (event) => event.user_id === user.id,
+      );
+      const progressRows = lessonProgressRows.filter(
+        (row) => row.user_id === user.id,
+      );
+      const latestProgress = progressRows[0];
+      const hasMasteryPass = progressRows.some((row) => row.passed);
+      const stage = hasMasteryPass
+        ? "Mastery passed"
+        : progressRows.length > 0
+          ? "Lesson started"
+          : paidPayment
+            ? "Paid"
+            : checkoutEvent
+              ? "Checkout started"
+              : "Signed up only";
+
+      return {
+        user,
+        profile,
+        access,
+        checkoutEvent,
+        paidPayment,
+        latestProgress,
+        stage,
+      };
+    })
+    .sort(
+      (left, right) =>
+        new Date(right.user.created_at ?? 0).getTime() -
+        new Date(left.user.created_at ?? 0).getTime(),
+    );
+
+  const signupFunnelPaidUserIds = new Set(
+    signupFunnelRows
+      .filter((row) => Boolean(row.paidPayment))
+      .map((row) => row.user.id),
+  );
+  const signupFunnelMetrics = {
+    signedUp: studentUsers.length,
+    checkoutStarted: userHasOnlineLearningCheckout.size,
+    paid: signupFunnelPaidUserIds.size,
+    lessonStarted: userHasProgress.size,
+    masteryPassed: userHasMasteryPass.size,
+    signedUpNotPaid: studentUsers.filter(
+      ({ user }) => !signupFunnelPaidUserIds.has(user.id),
+    ).length,
+    checkoutStartedNotPaid: [...userHasOnlineLearningCheckout].filter(
+      (userId) => !signupFunnelPaidUserIds.has(userId),
+    ).length,
+    paidNoLessonProgress: [...signupFunnelPaidUserIds].filter(
+      (userId) => !userHasProgress.has(userId),
+    ).length,
+  };
 
   // Alert derivations
   const newEnquiriesList = enquiries.filter(
@@ -782,6 +896,194 @@ export default async function AdminPage() {
         )}
 
         {/* ── Students table ────────────────────────────────────────────── */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Conversion
+              </p>
+              <h2 className="mt-2 text-2xl font-bold tracking-tight">
+                Signup to learning funnel
+              </h2>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+                Tracks the online-learning path from account creation to Stripe
+                checkout, payment, lesson progress and mastery. Checkout-started
+                data begins after the checkout_funnel_events migration is
+                applied.
+              </p>
+            </div>
+            <p className="text-sm font-semibold text-slate-500">
+              {signupFunnelMetrics.signedUp} signup
+              {signupFunnelMetrics.signedUp === 1 ? "" : "s"}
+            </p>
+          </div>
+
+          {checkoutFunnelError ? (
+            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+              Checkout-started rows could not be loaded:{" "}
+              {checkoutFunnelError.message}. Apply{" "}
+              <span className="font-mono">
+                lib/supabase-migrations/002_checkout_funnel_events.sql
+              </span>{" "}
+              to enable this middle-funnel signal.
+            </div>
+          ) : null}
+
+          <div className="mt-5 grid grid-cols-2 gap-4 lg:grid-cols-5">
+            <SummaryCard label="Signed up" value={signupFunnelMetrics.signedUp} />
+            <SummaryCard
+              label="Checkout started"
+              value={signupFunnelMetrics.checkoutStarted}
+              highlight={
+                signupFunnelMetrics.checkoutStartedNotPaid > 0
+                  ? "amber"
+                  : undefined
+              }
+            />
+            <SummaryCard
+              label="Paid online"
+              value={signupFunnelMetrics.paid}
+              highlight={signupFunnelMetrics.paid > 0 ? "emerald" : undefined}
+            />
+            <SummaryCard
+              label="Lesson started"
+              value={signupFunnelMetrics.lessonStarted}
+            />
+            <SummaryCard
+              label="Mastery passed"
+              value={signupFunnelMetrics.masteryPassed}
+            />
+          </div>
+
+          <div className="mt-5 grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700 md:grid-cols-3">
+            <p>
+              <span className="font-semibold text-slate-950">
+                {signupFunnelMetrics.signedUpNotPaid}
+              </span>{" "}
+              signed up without a paid online-learning payment.
+            </p>
+            <p>
+              <span className="font-semibold text-slate-950">
+                {signupFunnelMetrics.checkoutStartedNotPaid}
+              </span>{" "}
+              started checkout without a paid online-learning payment.
+            </p>
+            <p>
+              <span className="font-semibold text-slate-950">
+                {signupFunnelMetrics.paidNoLessonProgress}
+              </span>{" "}
+              paid but have no recorded lesson progress.
+            </p>
+          </div>
+
+          {signupFunnelRows.length === 0 ? (
+            <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+              No student accounts yet.
+            </p>
+          ) : (
+            <div className="mt-5 overflow-x-auto">
+              <table className="min-w-full divide-y divide-slate-200 text-sm">
+                <thead>
+                  <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <th className="px-3 py-2 text-left">Student</th>
+                    <th className="px-3 py-2 text-left">Signed up</th>
+                    <th className="px-3 py-2 text-left">Checkout</th>
+                    <th className="px-3 py-2 text-left">Payment</th>
+                    <th className="px-3 py-2 text-left">Learning</th>
+                    <th className="px-3 py-2 text-left">Current stage</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {signupFunnelRows.map(
+                    ({
+                      user,
+                      profile,
+                      access,
+                      checkoutEvent,
+                      paidPayment,
+                      latestProgress,
+                      stage,
+                    }) => {
+                      const name = studentDisplayName({
+                        profile,
+                        authUser: user,
+                      });
+
+                      return (
+                        <tr key={user.id} className="align-top">
+                          <td className="px-3 py-3">
+                            <p className="font-medium text-slate-900">{name}</p>
+                            <p className="mt-0.5 break-all text-xs text-slate-500">
+                              {user.email}
+                            </p>
+                            <p className="mt-0.5 text-xs text-slate-400">
+                              Access: {access?.status ?? "missing"}
+                            </p>
+                          </td>
+                          <td className="px-3 py-3 whitespace-nowrap text-slate-500">
+                            {formatOptionalDateTime(user.created_at)}
+                          </td>
+                          <td className="px-3 py-3 whitespace-nowrap text-slate-600">
+                            {formatOptionalDateTime(checkoutEvent?.created_at)}
+                          </td>
+                          <td className="px-3 py-3 text-slate-600">
+                            {paidPayment ? (
+                              <>
+                                <p className="font-medium text-slate-900">
+                                  {formatMoney(
+                                    paidPayment.amount_total,
+                                    paidPayment.currency,
+                                  )}
+                                </p>
+                                <p className="mt-0.5 text-xs text-slate-500">
+                                  {formatOptionalDateTime(
+                                    paidPayment.created_at,
+                                  )}
+                                </p>
+                              </>
+                            ) : (
+                              "--"
+                            )}
+                          </td>
+                          <td className="px-3 py-3 text-slate-600">
+                            {latestProgress ? (
+                              <>
+                                <p>
+                                  {latestProgress.passed
+                                    ? "Mastery passed"
+                                    : "In progress"}
+                                </p>
+                                <p className="mt-0.5 text-xs text-slate-500">
+                                  {formatScore(
+                                    numericScore(latestProgress.last_score),
+                                  )}{" "}
+                                  -{" "}
+                                  {formatOptionalDateTime(
+                                    latestProgress.updated_at,
+                                  )}
+                                </p>
+                              </>
+                            ) : (
+                              "--"
+                            )}
+                          </td>
+                          <td className="px-3 py-3">
+                            <span
+                              className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${funnelStageClass(stage)}`}
+                            >
+                              {stage}
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    },
+                  )}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
             <div>

@@ -151,9 +151,26 @@ export async function POST(request: Request) {
                 student_first_name: studentFirstName,
                 ...(userId ? { user_id: userId } : {}),
               },
-            }
+        }
           : undefined,
     });
+
+    if (userId) {
+      const { error: funnelEventError } = await supabaseAdmin
+        .from("checkout_funnel_events")
+        .insert({
+          user_id: userId,
+          offer_selected: offer.slug,
+          stripe_checkout_session_id: session.id,
+        });
+
+      if (funnelEventError) {
+        console.error("Could not record checkout funnel event", {
+          message: funnelEventError.message,
+          offer_selected: offer.slug,
+        });
+      }
+    }
 
     return NextResponse.json({ url: session.url });
   } catch (error) {
