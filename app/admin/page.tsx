@@ -201,6 +201,7 @@ function formatDateTime(value: string) {
   return new Intl.DateTimeFormat("en-AU", {
     dateStyle: "medium",
     timeStyle: "short",
+    timeZone: "Australia/Sydney",
   }).format(new Date(value));
 }
 
@@ -210,9 +211,10 @@ function formatOptionalDateTime(value: string | null | undefined) {
 }
 
 function formatDateGroup(value: string) {
-  return new Intl.DateTimeFormat("en-AU", { dateStyle: "full" }).format(
-    new Date(value),
-  );
+  return new Intl.DateTimeFormat("en-AU", {
+    dateStyle: "full",
+    timeZone: "Australia/Sydney",
+  }).format(new Date(value));
 }
 
 function formatStatus(value: string | null | undefined) {
