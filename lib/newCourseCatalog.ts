@@ -41,6 +41,7 @@ import {
   year11ExtensionBinomialTheoremLessonOverride,
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
+import { year12Extension1ProofInductionLessonOverride } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 
@@ -193,6 +194,7 @@ export function buildLesson(
     year11AdvancedExponentialLogarithmicLessonOverride(course, unit, lesson) ??
     year11AdvancedIntroductionDifferentiationLessonOverride(course, unit, lesson) ??
     year11AdvancedGraphTransformationsLessonOverride(course, unit, lesson) ??
+    year12Extension1ProofInductionLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
     year9IndexLawsLessonOverride(course, unit, lesson) ??
@@ -1086,20 +1088,39 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 12 Mathematics Extension 1",
     yearLevel: "Year 12",
     courseType: "Mathematics Extension 1",
-    status: "coming_soon",
+    status: "in_progress",
     description:
-      "Coming soon — no active lessons yet. Future Extension 1 support is being planned against the NSW Mathematics Extension 1 11-12 syllabus.",
+      "Year 12 Mathematics Extension 1 support is beginning with proof by mathematical induction. Additional Extension 1 units are planned.",
     positioning:
-      "Coming soon — no active lessons yet. Future Extension 1 support is being planned against the NSW Mathematics Extension 1 11-12 syllabus. Planned units are listed below while lesson content is being prepared.",
+      "A growing Year 12 Mathematics Extension 1 pathway. Proof by Mathematical Induction is active now, with vectors, inverse trigonometry, further calculus and binomial distribution units planned against the NSW Mathematics Extension 1 11-12 syllabus.",
     units: [
       {
         slug: "proof-induction",
         title: "Proof by Mathematical Induction",
         description:
-          "Planned proof work using mathematical induction and structured algebraic reasoning.",
+          "Learn induction structure, divisibility proofs, and inequality proofs using clear base-case and inductive-step reasoning.",
         syllabusArea: "Proof",
         focus: "Proof by mathematical induction",
-        lessons: [],
+        lessons: [
+          {
+            slug: "intro-to-mathematical-induction",
+            title: "Introduction to Mathematical Induction",
+            description:
+              "Understand why induction works and prove the formula for the sum of the first n positive integers.",
+          },
+          {
+            slug: "induction-divisibility",
+            title: "Induction Divisibility Proofs",
+            description:
+              "Use induction to prove divisibility results by exposing known multiples in the k + 1 step.",
+          },
+          {
+            slug: "induction-inequalities",
+            title: "Induction Inequality Proofs",
+            description:
+              "Use induction to prove inequalities and choose the correct base case for the stated range.",
+          },
+        ],
       },
       {
         slug: "vectors",

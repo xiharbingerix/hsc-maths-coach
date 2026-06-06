@@ -42,7 +42,7 @@ function courseStatusNote(courseSlug: string) {
   }
 
   if (courseSlug === "year-12-extension-1") {
-    return "Coming soon — no active lessons yet.";
+    return "Proof by Mathematical Induction is active now. The remaining Year 12 Extension 1 units are planned and will be added progressively.";
   }
 
   return null;
