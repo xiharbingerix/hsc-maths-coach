@@ -186,7 +186,7 @@ export default function Home() {
               <SecondaryLink href="/free-year-7-algebra">
                 Try free algebra lesson
               </SecondaryLink>
-              <SecondaryLink href="/diagnostic">
+              <SecondaryLink href="/diagnostic/select">
                 Start free diagnostic
               </SecondaryLink>
             </div>
@@ -488,7 +488,7 @@ export default function Home() {
               Subscribe &mdash; $19/month
             </SubscribeCTA>
             <SecondaryLink href="/signup">Create account</SecondaryLink>
-            <SecondaryLink href="/diagnostic">Start free diagnostic</SecondaryLink>
+            <SecondaryLink href="/diagnostic/select">Start free diagnostic</SecondaryLink>
           </div>
         </section>
 
