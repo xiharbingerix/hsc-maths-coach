@@ -45,9 +45,18 @@ type ImportWarning = {
 };
 
 type ImportOptions = {
-  courseSlug: string;
+  courseSlugs: string[];
   dryRun: boolean;
 };
+
+const SUPPORTED_COURSE_SLUGS = [
+  "year-9-mathematics",
+  "year-10-mathematics",
+  "year-11-standard",
+  "year-11-advanced",
+  "year-12-standard-2",
+  "year-12-extension-1",
+] as const;
 
 const PLACEHOLDER_PATTERNS = [
   /TODO/i,
@@ -66,9 +75,26 @@ function requiredEnv(name: string) {
 }
 
 function parseArgs(args: string[]): ImportOptions {
-  const courseArg = args.find((arg) => arg.startsWith("--course="));
+  const courseSlugs: string[] = [];
+
+  args.forEach((arg, index) => {
+    if (arg.startsWith("--course=")) {
+      courseSlugs.push(arg.replace("--course=", ""));
+      return;
+    }
+
+    if (arg === "--course" && args[index + 1]) {
+      courseSlugs.push(args[index + 1]);
+    }
+  });
+
+  const requestedCourses = courseSlugs.length > 0 ? courseSlugs : ["year-9-mathematics"];
+  const expandedCourses = requestedCourses.flatMap((courseSlug) =>
+    courseSlug === "all" ? [...SUPPORTED_COURSE_SLUGS] : [courseSlug]
+  );
+
   return {
-    courseSlug: courseArg?.replace("--course=", "") || "year-9-mathematics",
+    courseSlugs: [...new Set(expandedCourses)],
     dryRun: args.includes("--dry-run"),
   };
 }
@@ -225,6 +251,45 @@ function collectQuestionsFromCourse(courseSlug: string) {
   return { course, rows, warnings };
 }
 
+function collectQuestionsFromCourses(courseSlugs: string[]) {
+  const rows: QuestionRow[] = [];
+  const warnings: ImportWarning[] = [];
+  const seenSourceIds = new Map<string, string>();
+
+  for (const courseSlug of courseSlugs) {
+    const result = collectQuestionsFromCourse(courseSlug);
+    warnings.push(...result.warnings);
+
+    for (const row of result.rows) {
+      const existingSource = seenSourceIds.get(row.source_id);
+      const nextSource = `${row.course_slug}/${row.topic_slug}/${row.subtopic_slug}`;
+
+      if (existingSource) {
+        warnings.push({
+          sourceId: row.source_id,
+          reason: `Skipped duplicate source_id from ${nextSource}; already used by ${existingSource}.`,
+        });
+        continue;
+      }
+
+      seenSourceIds.set(row.source_id, nextSource);
+      rows.push(row);
+    }
+  }
+
+  return { rows, warnings };
+}
+
+function groupCourseCounts(rows: QuestionRow[]) {
+  const counts = new Map<string, number>();
+
+  for (const row of rows) {
+    counts.set(row.course_slug, (counts.get(row.course_slug) ?? 0) + 1);
+  }
+
+  return [...counts.entries()].sort(([a], [b]) => a.localeCompare(b));
+}
+
 function groupCounts(rows: QuestionRow[]) {
   const counts = new Map<string, number>();
 
@@ -241,6 +306,13 @@ function printSummary(rows: QuestionRow[], warnings: ImportWarning[], dryRun: bo
   console.log(`  Questions prepared: ${rows.length}`);
   console.log(`  Warnings: ${warnings.length}`);
   console.log("");
+
+  console.log("Counts by course:");
+  for (const [courseSlug, count] of groupCourseCounts(rows)) {
+    console.log(`  ${courseSlug}: ${count}`);
+  }
+  console.log("");
+
   console.log("Counts by course/topic/subtopic:");
 
   for (const [key, count] of groupCounts(rows)) {
@@ -280,7 +352,7 @@ async function upsertQuestions(rows: QuestionRow[]) {
 
 async function main() {
   const options = parseArgs(process.argv.slice(2));
-  const { rows, warnings } = collectQuestionsFromCourse(options.courseSlug);
+  const { rows, warnings } = collectQuestionsFromCourses(options.courseSlugs);
 
   printSummary(rows, warnings, options.dryRun);
 
