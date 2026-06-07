@@ -23,6 +23,7 @@ import { ProbabilityTreeView } from "./components/ProbabilityTreeView";
 import { TwoWayTableView } from "./components/TwoWayTableView";
 import { VennDiagramView } from "./components/VennDiagramView";
 import { markTypedAnswer } from "../../lib/answerMarking";
+import { MathAnswerInput } from "../components/MathAnswerInput";
 import {
   getUserCourseProgress,
   upsertLessonProgress,
@@ -348,18 +349,18 @@ function PracticeCard({
           </div>
         </div>
 
-        <label className="block space-y-1">
+        <div className="space-y-1">
           <span className="text-sm font-medium">Your answer</span>
-          <input
+          <MathAnswerInput
             value={stepAnswer}
-            onChange={(e) => {
-              setStepAnswer(e.target.value);
+            onChange={(v) => {
+              setStepAnswer(v);
               setStepResult(null);
             }}
             disabled={stepResult === "correct"}
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 disabled:bg-slate-50"
+            ariaLabel="Your answer"
           />
-        </label>
+        </div>
 
         <div className="flex flex-wrap gap-2">
           <button
@@ -480,17 +481,17 @@ function PracticeCard({
           }}
         />
       ) : (
-        <label className="block space-y-1">
+        <div className="space-y-1">
           <span className="text-sm font-medium">Your answer</span>
-          <input
+          <MathAnswerInput
             value={answer}
-            onChange={(event) => {
-              setAnswer(event.target.value);
+            onChange={(v) => {
+              setAnswer(v);
               setResult(null);
             }}
-            className="w-full rounded-xl border border-slate-300 px-3 py-2"
+            ariaLabel="Your answer"
           />
-        </label>
+        </div>
       )}
 
       <div className="flex flex-wrap gap-2">
@@ -649,18 +650,18 @@ function QuizQuestion({
           </div>
         </div>
 
-        <label className="block space-y-1">
+        <div className="space-y-1">
           <span className="text-sm font-medium">Your answer</span>
-          <input
+          <MathAnswerInput
             value={stepAnswer}
-            onChange={(e) => {
-              setStepAnswer(e.target.value);
+            onChange={(v) => {
+              setStepAnswer(v);
               setStepResult(null);
             }}
             disabled={stepResult === "correct"}
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 disabled:bg-slate-50"
+            ariaLabel="Your answer"
           />
-        </label>
+        </div>
 
         <div className="flex flex-wrap gap-2">
           <button
@@ -768,14 +769,14 @@ function QuizQuestion({
       {question.choices ? (
         <ChoiceButtons question={question} value={value} onChange={onChange} />
       ) : (
-        <label className="block space-y-1">
+        <div className="space-y-1">
           <span className="text-sm font-medium">Your answer</span>
-          <input
+          <MathAnswerInput
             value={value}
-            onChange={(event) => onChange(event.target.value)}
-            className="w-full rounded-xl border border-slate-300 px-3 py-2"
+            onChange={onChange}
+            ariaLabel="Your answer"
           />
-        </label>
+        </div>
       )}
     </div>
   );
