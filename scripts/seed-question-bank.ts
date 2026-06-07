@@ -1,5 +1,12 @@
 import { createClient } from "@supabase/supabase-js";
-import type { PracticeQuestion } from "../lib/lessons/differentialCalculus";
+import {
+  getNewCourse,
+  getNewCourseUnitLessons,
+  newCoursePathways,
+} from "../lib/newCourseCatalog";
+import type { ExplicitLesson, PracticeQuestion } from "../lib/lessons/differentialCalculus";
+
+type PracticeSection = "guidedPractice" | "independentPractice" | "masteryQuiz";
 
 type QuestionRow = {
   source_id: string;
@@ -8,7 +15,7 @@ type QuestionRow = {
   year_level: string;
   course_slug: string;
   difficulty: number;
-  question_type: string;
+  question_type: "conceptual" | "procedural";
   prompt: string;
   latex: string | null;
   choices: { label: string; text: string }[] | null;
@@ -26,9 +33,29 @@ type QuestionMappingContext = {
   subtopicSlug: string;
   yearLevel: string;
   courseSlug: string;
+  section?: PracticeSection;
+  position?: number;
   syllabusRef?: string;
   transferFromTopics?: string[];
 };
+
+type ImportWarning = {
+  sourceId: string;
+  reason: string;
+};
+
+type ImportOptions = {
+  courseSlug: string;
+  dryRun: boolean;
+};
+
+const PLACEHOLDER_PATTERNS = [
+  /TODO/i,
+  /lorem ipsum/i,
+  /placeholder lesson/i,
+  /generated fallback/i,
+  /sample question/i,
+];
 
 function requiredEnv(name: string) {
   const value = process.env[name];
@@ -36,6 +63,38 @@ function requiredEnv(name: string) {
     throw new Error(`Missing required environment variable: ${name}`);
   }
   return value;
+}
+
+function parseArgs(args: string[]): ImportOptions {
+  const courseArg = args.find((arg) => arg.startsWith("--course="));
+  return {
+    courseSlug: courseArg?.replace("--course=", "") || "year-9-mathematics",
+    dryRun: args.includes("--dry-run"),
+  };
+}
+
+function containsPlaceholderText(question: PracticeQuestion) {
+  const text = [
+    question.id,
+    question.prompt,
+    question.latex,
+    question.answer,
+    question.hint,
+    question.explanation,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return PLACEHOLDER_PATTERNS.some((pattern) => pattern.test(text));
+}
+
+function isRealQuestion(question: PracticeQuestion) {
+  return Boolean(
+    question.id &&
+      question.prompt &&
+      question.answer &&
+      !containsPlaceholderText(question)
+  );
 }
 
 export function normaliseChoices(question: PracticeQuestion) {
@@ -49,143 +108,163 @@ export function normaliseChoices(question: PracticeQuestion) {
   }));
 }
 
-export function inferDifficulty(question: PracticeQuestion) {
+export function inferDifficulty(
+  question: PracticeQuestion,
+  section: PracticeSection = "guidedPractice",
+  position = 0
+) {
   const prompt = `${question.prompt} ${question.latex}`.toLowerCase();
 
-  if (prompt.includes("exam") || prompt.includes("prove") || prompt.includes("projection")) {
-    return 4;
+  if (section === "guidedPractice") {
+    return question.choices?.length ? 1 : 2;
+  }
+
+  if (section === "independentPractice") {
+    return position >= 3 ? 3 : 2;
   }
 
   if (
-    prompt.includes("differentiate") ||
-    prompt.includes("mastery") ||
-    prompt.includes("angle") ||
-    prompt.includes("compound")
+    prompt.includes("exam") ||
+    prompt.includes("prove") ||
+    prompt.includes("projection") ||
+    position >= 7
   ) {
-    return 3;
+    return 5;
   }
 
-  if (question.choices?.length) {
-    return 2;
+  if (position >= 4) {
+    return 4;
   }
 
-  return 1;
+  return 3;
 }
 
 export function mapPracticeQuestionToQuestionRow(
   question: PracticeQuestion,
   context: QuestionMappingContext
 ): QuestionRow {
+  const section = context.section ?? "guidedPractice";
+  const position = context.position ?? 0;
+
   return {
     source_id: question.id,
     topic_slug: context.topicSlug,
     subtopic_slug: context.subtopicSlug,
     year_level: context.yearLevel,
     course_slug: context.courseSlug,
-    difficulty: inferDifficulty(question),
-    question_type: question.choices?.length ? "multiple_choice" : "procedural",
+    difficulty: inferDifficulty(question, section, position),
+    question_type: question.choices?.length ? "conceptual" : "procedural",
     prompt: question.prompt,
     latex: question.latex || null,
     choices: normaliseChoices(question),
     answer: question.answer,
     accepted_answers: question.acceptedAnswers ?? [],
     hint: question.hint ?? null,
-    explanation: question.explanation ?? "Review the worked method and compare each step with the expected answer.",
+    explanation:
+      question.explanation ??
+      "Review the worked method and compare each step with the expected answer.",
     syllabus_ref: context.syllabusRef ?? null,
     transfer_from_topics: context.transferFromTopics ?? [],
     is_active: true,
   };
 }
 
-const SAMPLE_QUESTIONS: Array<{
-  context: QuestionMappingContext;
-  question: PracticeQuestion;
-}> = [
-  {
-    context: {
-      topicSlug: "algebra",
-      subtopicSlug: "linear-equations",
-      yearLevel: "Year 7",
-      courseSlug: "free-year-7-algebra",
-    },
-    question: {
-      id: "sample-y7-equations-1",
-      prompt: "Solve the equation.",
-      latex: "x+5=12",
-      answer: "7",
-      acceptedAnswers: ["x=7", "x = 7"],
-      hint: "Undo +5 by subtracting 5 from both sides.",
-      explanation: "The equation is balanced. Subtract 5 from both sides to isolate x, giving x = 7.",
-    },
-  },
-  {
-    context: {
-      topicSlug: "vectors",
-      subtopicSlug: "magnitude",
-      yearLevel: "Year 12",
-      courseSlug: "year-12-extension-1",
-    },
-    question: {
-      id: "sample-y12e1-vectors-1",
-      prompt: "Find the magnitude of the vector.",
-      latex: "\\mathbf{a}=\\begin{pmatrix}3\\\\4\\end{pmatrix}",
-      answer: "5",
-      acceptedAnswers: ["|a|=5", "|\\mathbf{a}|=5"],
-      hint: "Use Pythagoras on the two components.",
-      explanation: "The components form a right triangle, so the magnitude is sqrt(3^2 + 4^2) = 5.",
-    },
-  },
-  {
-    context: {
-      topicSlug: "probability",
-      subtopicSlug: "complement",
-      yearLevel: "Year 9",
-      courseSlug: "year-9-mathematics",
-    },
-    question: {
-      id: "sample-y9-probability-1",
-      prompt: "If P(rain) = 0.3, what is P(no rain)?",
-      latex: "P(\\text{rain})=0.3",
-      answer: "0.7",
-      acceptedAnswers: ["7/10", "70%"],
-      hint: "Use the complement: 1 - P(rain).",
-      explanation: "No rain is the complement of rain, so P(no rain) = 1 - 0.3 = 0.7.",
-    },
-  },
-  {
-    context: {
-      topicSlug: "calculus",
-      subtopicSlug: "inverse-trig-derivatives",
-      yearLevel: "Year 12",
-      courseSlug: "year-12-extension-1",
-    },
-    question: {
-      id: "sample-y12e1-inverse-trig-1",
-      prompt: "Which derivative is correct?",
-      latex: "\\frac{d}{dx}\\arctan x",
-      choices: [
-        { label: "A", text: "$1/(1+x^2)$" },
-        { label: "B", text: "$1/\\sqrt{1-x^2}$" },
-        { label: "C", text: "$-1/\\sqrt{1-x^2}$" },
-        { label: "D", text: "$\\sec^2x$" },
-      ],
-      answer: "A",
-      hint: "Recall the standard inverse tangent derivative.",
-      explanation: "The derivative of arctan x is 1/(1+x^2).",
-    },
-  },
-];
+function questionSections(lesson: ExplicitLesson) {
+  return [
+    ["guidedPractice", lesson.guidedPractice],
+    ["independentPractice", lesson.independentPractice],
+    ["masteryQuiz", lesson.masteryQuiz],
+  ] as const;
+}
 
-async function main() {
+function collectQuestionsFromCourse(courseSlug: string) {
+  const course = getNewCourse(courseSlug);
+  const rows: QuestionRow[] = [];
+  const warnings: ImportWarning[] = [];
+
+  if (!course) {
+    throw new Error(
+      `Unknown course slug "${courseSlug}". Available courses: ${newCoursePathways
+        .map((item) => item.slug)
+        .join(", ")}`
+    );
+  }
+
+  for (const unit of course.units) {
+    if (unit.lessons.length === 0) continue;
+
+    const lessons = getNewCourseUnitLessons(course.slug, unit.slug);
+
+    for (const lesson of lessons) {
+      for (const [section, questions] of questionSections(lesson)) {
+        questions.forEach((question, position) => {
+          if (!isRealQuestion(question)) {
+            warnings.push({
+              sourceId: question.id || `${lesson.slug}/${section}/${position}`,
+              reason: "Skipped placeholder or incomplete question.",
+            });
+            return;
+          }
+
+          rows.push(
+            mapPracticeQuestionToQuestionRow(question, {
+              topicSlug: unit.slug,
+              subtopicSlug: lesson.slug,
+              yearLevel: course.yearLevel,
+              courseSlug: course.slug,
+              section,
+              position,
+              syllabusRef: unit.syllabusArea,
+            })
+          );
+        });
+      }
+    }
+  }
+
+  return { course, rows, warnings };
+}
+
+function groupCounts(rows: QuestionRow[]) {
+  const counts = new Map<string, number>();
+
+  for (const row of rows) {
+    const key = `${row.course_slug}/${row.topic_slug}/${row.subtopic_slug}`;
+    counts.set(key, (counts.get(key) ?? 0) + 1);
+  }
+
+  return [...counts.entries()].sort(([a], [b]) => a.localeCompare(b));
+}
+
+function printSummary(rows: QuestionRow[], warnings: ImportWarning[], dryRun: boolean) {
+  console.log(`Question bank ${dryRun ? "dry run" : "seed"} summary`);
+  console.log(`  Questions prepared: ${rows.length}`);
+  console.log(`  Warnings: ${warnings.length}`);
+  console.log("");
+  console.log("Counts by course/topic/subtopic:");
+
+  for (const [key, count] of groupCounts(rows)) {
+    console.log(`  ${key}: ${count}`);
+  }
+
+  if (warnings.length > 0) {
+    console.log("");
+    console.log("Warnings:");
+    for (const warning of warnings.slice(0, 25)) {
+      console.log(`  ${warning.sourceId}: ${warning.reason}`);
+    }
+    if (warnings.length > 25) {
+      console.log(`  ... ${warnings.length - 25} more warning(s)`);
+    }
+  }
+}
+
+async function upsertQuestions(rows: QuestionRow[]) {
   const supabaseUrl = requiredEnv("NEXT_PUBLIC_SUPABASE_URL");
   const serviceRoleKey = requiredEnv("SUPABASE_SERVICE_ROLE_KEY");
   const supabase = createClient(supabaseUrl, serviceRoleKey, {
     auth: { persistSession: false },
   });
-
-  const rows = SAMPLE_QUESTIONS.map(({ question, context }) =>
-    mapPracticeQuestionToQuestionRow(question, context)
-  );
 
   const { data, error } = await supabase
     .from("questions")
@@ -196,7 +275,24 @@ async function main() {
     throw new Error(`Could not seed question bank: ${error.message}`);
   }
 
-  console.log(`Question bank seed complete. Upserted ${data?.length ?? 0} question(s).`);
+  return data?.length ?? 0;
+}
+
+async function main() {
+  const options = parseArgs(process.argv.slice(2));
+  const { rows, warnings } = collectQuestionsFromCourse(options.courseSlug);
+
+  printSummary(rows, warnings, options.dryRun);
+
+  if (options.dryRun) {
+    console.log("");
+    console.log("Dry run only. No Supabase writes performed.");
+    return;
+  }
+
+  const upsertedCount = await upsertQuestions(rows);
+  console.log("");
+  console.log(`Question bank seed complete. Upserted ${upsertedCount} question(s).`);
 }
 
 main().catch((error) => {
