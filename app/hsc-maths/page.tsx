@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { SubscribeCTA } from "../components/SubscribeCTA";
 import { courseCatalogue } from "../../lib/courseUnits";
+import { FreeLessonCTAButton, DiagnosticCTALink } from "./HscMathsCTAs";
 
 export const metadata: Metadata = {
   title: "HSC Maths Online Lessons | Nova Maths",
@@ -142,19 +143,25 @@ export default function HscMathsPage() {
               saved progress &mdash; all built for the NSW curriculum.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/sample-hsc-lesson"
-                className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+              <FreeLessonCTAButton>
+                Try a free HSC lesson
+              </FreeLessonCTAButton>
+              <SubscribeCTA
+                href="/checkout?offer=online-learning"
+                className="border border-slate-300 bg-white text-slate-900 shadow-sm hover:bg-slate-50"
               >
-                Preview a free HSC lesson
-              </Link>
-              <SubscribeCTA href="/checkout?offer=online-learning">
-                Start HSC maths &mdash; $19/month
+                Subscribe &mdash; $19/month
               </SubscribeCTA>
             </div>
-            <p className="mt-3 text-sm leading-6 text-slate-500">
-              No signup needed to preview &middot; Self-paced &middot; Cancel any time &middot; Less than $1/day
-            </p>
+            <div className="mt-3">
+              <DiagnosticCTALink />
+            </div>
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-slate-500">
+              <span>195+ NSW maths lessons</span>
+              <span>Worked examples + practice</span>
+              <span>Mastery quizzes</span>
+              <span>$19/month &middot; cancel any time</span>
+            </div>
           </div>
 
           <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
@@ -243,6 +250,23 @@ export default function HscMathsPage() {
                 </p>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section className="rounded-3xl border border-emerald-100 bg-emerald-50 p-8 shadow-sm md:p-10">
+          <SectionLabel>Try before you subscribe</SectionLabel>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+            Not ready to subscribe yet?
+          </h2>
+          <p className="mt-3 max-w-xl leading-7 text-slate-700">
+            Open a complete Year 12 Advanced lesson with worked examples,
+            practice questions and a mastery quiz — no account needed.
+          </p>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <FreeLessonCTAButton>
+              Try one full HSC lesson free
+            </FreeLessonCTAButton>
+            <p className="text-sm text-slate-600">No signup needed.</p>
           </div>
         </section>
 

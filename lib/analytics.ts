@@ -61,3 +61,11 @@ export function trackMasteryCompleted(
 ) {
   track("mastery_completed", { course, unit, lesson, passed, score });
 }
+
+export function trackPreviewHscLessonClicked(source?: string) {
+  track("preview_hsc_lesson_clicked", source ? { source } : undefined);
+}
+
+export function trackDiagnosticStarted(source?: string) {
+  track("diagnostic_started", source ? { source } : undefined);
+}
