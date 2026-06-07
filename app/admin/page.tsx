@@ -699,14 +699,22 @@ export default async function AdminPage() {
               Manage students, enquiries, payments and diagnostic reports.
             </p>
           </div>
-          <form action="/api/admin/logout" method="post">
-            <button
-              type="submit"
-              className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+          <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href="/admin/worksheets/new"
+              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
             >
-              Log out
-            </button>
-          </form>
+              New worksheet
+            </Link>
+            <form action="/api/admin/logout" method="post">
+              <button
+                type="submit"
+                className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+              >
+                Log out
+              </button>
+            </form>
+          </div>
         </header>
 
         {/* ── Summary cards ─────────────────────────────────────────────── */}
