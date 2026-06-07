@@ -40,7 +40,7 @@ export async function POST(
   // Confirm the attempt's worksheet matches the token in the URL
   const { data: worksheet, error: wsError } = await supabaseAdmin
     .from("worksheets")
-    .select("id")
+    .select("id, expires_at")
     .eq("id", attempt.worksheet_id)
     .eq("share_token", token)
     .maybeSingle();
@@ -52,6 +52,13 @@ export async function POST(
     );
   }
 
+  if (worksheet.expires_at && new Date(worksheet.expires_at) < new Date()) {
+    return NextResponse.json(
+      { error: "This worksheet link has expired." },
+      { status: 410 }
+    );
+  }
+
   // 2. Idempotent — if already completed, return the saved score
   if (attempt.completed_at) {
     return NextResponse.json({
@@ -60,11 +67,34 @@ export async function POST(
     });
   }
 
-  // 3. Count answers for this attempt
+  // 3. Score against the worksheet question count, not just submitted rows.
+  const { data: worksheetQuestions, error: questionCountError } = await supabaseAdmin
+    .from("worksheet_questions")
+    .select("question_id")
+    .eq("worksheet_id", attempt.worksheet_id);
+
+  if (questionCountError || !worksheetQuestions) {
+    console.error("[worksheet/complete] worksheet question count failed", {
+      attemptId,
+      message: questionCountError?.message,
+    });
+    return NextResponse.json(
+      { error: "Could not complete worksheet. Please try again." },
+      { status: 500 }
+    );
+  }
+
+  const scoreTotal = worksheetQuestions.length;
+  const expectedQuestionIds = new Set(
+    worksheetQuestions.map((row: { question_id: string }) => row.question_id)
+  );
+
   const { data: answers, error: countError } = await supabaseAdmin
     .from("worksheet_answers")
-    .select("is_correct")
-    .eq("attempt_id", attemptId);
+    .select("question_id, is_correct, answered_at")
+    .eq("attempt_id", attemptId)
+    .eq("worksheet_id", attempt.worksheet_id)
+    .order("answered_at", { ascending: false });
 
   if (countError) {
     console.error("[worksheet/complete] count failed", {
@@ -77,10 +107,23 @@ export async function POST(
     );
   }
 
-  const scoreTotal = (answers ?? []).length;
-  const scoreCorrect = (answers ?? []).filter(
-    (a: { is_correct: boolean | null }) => a.is_correct === true
-  ).length;
+  const latestAnswersByQuestion = new Map<string, boolean>();
+  for (const answer of answers ?? []) {
+    const row = answer as { question_id: string; is_correct: boolean | null };
+    if (!expectedQuestionIds.has(row.question_id)) continue;
+    if (!latestAnswersByQuestion.has(row.question_id)) {
+      latestAnswersByQuestion.set(row.question_id, row.is_correct === true);
+    }
+  }
+
+  if (latestAnswersByQuestion.size < scoreTotal) {
+    return NextResponse.json(
+      { error: "Please answer every question before finishing the worksheet." },
+      { status: 409 }
+    );
+  }
+
+  const scoreCorrect = [...latestAnswersByQuestion.values()].filter(Boolean).length;
 
   // 4. Mark the attempt as completed
   const { error: updateError } = await supabaseAdmin

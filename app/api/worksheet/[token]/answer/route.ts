@@ -62,7 +62,7 @@ export async function POST(
   // Confirm the attempt's worksheet matches the token in the URL
   const { data: worksheet, error: wsError } = await supabaseAdmin
     .from("worksheets")
-    .select("id")
+    .select("id, expires_at")
     .eq("id", attempt.worksheet_id)
     .eq("share_token", token)
     .maybeSingle();
@@ -71,6 +71,13 @@ export async function POST(
     return NextResponse.json(
       { error: "Attempt does not match this worksheet." },
       { status: 403 }
+    );
+  }
+
+  if (worksheet.expires_at && new Date(worksheet.expires_at) < new Date()) {
+    return NextResponse.json(
+      { error: "This worksheet link has expired." },
+      { status: 410 }
     );
   }
 
@@ -130,17 +137,18 @@ export async function POST(
   // 5. Save the answer
   const { error: saveError } = await supabaseAdmin
     .from("worksheet_answers")
-    .insert({
+    .upsert({
       attempt_id: attemptId,
       worksheet_id: attempt.worksheet_id,
       question_id: questionId,
       student_answer: trimmedAnswer,
       is_correct: isCorrect,
       time_spent_secs: typeof timeSpentSecs === "number" ? timeSpentSecs : null,
-    });
+      answered_at: new Date().toISOString(),
+    }, { onConflict: "attempt_id,question_id" });
 
   if (saveError) {
-    console.error("[worksheet/answer] insert failed", {
+    console.error("[worksheet/answer] save failed", {
       attemptId,
       questionId,
       message: saveError.message,

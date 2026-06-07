@@ -61,7 +61,8 @@ CREATE TABLE IF NOT EXISTS worksheet_answers (
   student_answer text,
   is_correct boolean,
   time_spent_secs smallint,
-  answered_at timestamptz NOT NULL DEFAULT now()
+  answered_at timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (attempt_id, question_id)
 );
 
 CREATE INDEX IF NOT EXISTS questions_course_topic_difficulty_active_idx
@@ -81,6 +82,9 @@ CREATE INDEX IF NOT EXISTS worksheet_answers_attempt_id_idx
 
 CREATE INDEX IF NOT EXISTS worksheet_answers_worksheet_id_idx
   ON worksheet_answers (worksheet_id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS worksheet_answers_attempt_question_idx
+  ON worksheet_answers (attempt_id, question_id);
 
 ALTER TABLE questions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE worksheets ENABLE ROW LEVEL SECURITY;
