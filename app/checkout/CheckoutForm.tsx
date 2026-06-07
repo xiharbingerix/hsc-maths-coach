@@ -223,6 +223,11 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
         <h2 className="mt-3 text-2xl font-bold tracking-tight">
           Checking account status...
         </h2>
+        {offer.slug === "online-learning" ? (
+          <p className="mt-2 text-sm text-slate-500">
+            Nova Maths Online Learning &middot; $19/month &middot; cancel any time
+          </p>
+        ) : null}
       </section>
     );
   }
@@ -261,12 +266,12 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
           <div>
             <h1 className="text-3xl font-bold tracking-tight">
               {isOnlineLearningSignupCheckout
-                ? "Create your account and subscribe"
-                : "Continue to secure checkout"}
+                ? "Create your account to continue to secure checkout"
+                : "Continue to secure Stripe checkout"}
             </h1>
             <p className="mt-3 leading-7 text-slate-600">
               {isOnlineLearningSignupCheckout
-                ? "Your Nova Maths account saves lesson progress, mastery results and access across devices. After this step, you will go to Stripe's secure checkout."
+                ? "Your account saves lesson progress, mastery results and subscription access across devices. After this step you will go to Stripe's secure checkout page."
                 : "No card details are entered on this site. Stripe handles the secure payment page."}
             </p>
             {isOnlineLearningSignupCheckout ? (
@@ -388,10 +393,10 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
             {isSubmitting
               ? isOnlineLearningSignupCheckout
                 ? "Creating account and opening secure checkout..."
-                : "Redirecting to secure checkout..."
+                : "Redirecting to Stripe checkout..."
               : isOnlineLearningSignupCheckout
-                ? "Create account and subscribe — $19/month"
-                : "Continue to secure checkout"}
+                ? "Create account and continue to Stripe — $19/month"
+                : "Continue to secure Stripe checkout"}
           </button>
 
           {isOnlineLearningSignupCheckout ? (
