@@ -134,6 +134,9 @@ export async function POST(request: Request) {
       mode: offer.mode,
       line_items: [{ price: priceId, quantity: 1 }],
       customer_email: parentEmail,
+      // client_reference_id is a top-level Stripe field — a reliable second
+      // path to the user ID if metadata is somehow absent in the webhook.
+      ...(userId ? { client_reference_id: userId } : {}),
       success_url: `${siteUrl}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteUrl}/payment-cancelled?offer=${offer.slug}`,
       metadata: {
@@ -151,7 +154,7 @@ export async function POST(request: Request) {
                 student_first_name: studentFirstName,
                 ...(userId ? { user_id: userId } : {}),
               },
-        }
+            }
           : undefined,
     });
 

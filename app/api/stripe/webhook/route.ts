@@ -19,12 +19,15 @@ async function setOnlineLearningAccess(
   status: AccessStatus
 ) {
   if (!userId) {
+    console.warn("[webhook] setOnlineLearningAccess called with null userId");
     return;
   }
 
+  console.log("[webhook] setOnlineLearningAccess", { userId, status });
+
   const { data: existingAccess, error: readError } = await supabaseAdmin
     .from("user_access")
-    .select("id")
+    .select("id, status")
     .eq("user_id", userId)
     .eq("access_type", "online_learning_beta")
     .order("created_at", { ascending: false })
@@ -32,24 +35,30 @@ async function setOnlineLearningAccess(
     .maybeSingle();
 
   if (readError) {
-    throw new Error(readError.message);
+    throw new Error(`user_access read failed: ${readError.message}`);
   }
 
   if (existingAccess?.id) {
+    console.log("[webhook] updating existing user_access row", {
+      id: existingAccess.id,
+      currentStatus: existingAccess.status,
+      nextStatus: status,
+    });
+
+    // Do not include updated_at — the column may not exist; let the DB handle timestamps.
     const { error } = await supabaseAdmin
       .from("user_access")
-      .update({
-        status,
-        updated_at: new Date().toISOString(),
-      })
+      .update({ status })
       .eq("id", existingAccess.id);
 
     if (error) {
-      throw new Error(error.message);
+      throw new Error(`user_access update failed: ${error.message}`);
     }
 
     return;
   }
+
+  console.log("[webhook] inserting new user_access row", { userId, status });
 
   const { error } = await supabaseAdmin.from("user_access").insert({
     user_id: userId,
@@ -58,14 +67,19 @@ async function setOnlineLearningAccess(
   });
 
   if (error) {
-    throw new Error(error.message);
+    throw new Error(`user_access insert failed: ${error.message}`);
   }
 }
 
 async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   const metadata = session.metadata ?? {};
   const offerSelected = metadataValue(metadata, "offer_selected");
-  const userId = metadataValue(metadata, "user_id");
+
+  // Use metadata.user_id first; fall back to client_reference_id (set at session creation).
+  const userId =
+    metadataValue(metadata, "user_id") ??
+    (session.client_reference_id || null);
+
   const parentEmail =
     metadataValue(metadata, "parent_email") ?? session.customer_email;
   const studentFirstName = metadataValue(metadata, "student_first_name");
@@ -78,7 +92,17 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
       ? session.payment_intent
       : session.payment_intent?.id ?? null;
 
-  const { error } = await supabaseAdmin.from("payments").upsert(
+  console.log("[webhook] checkout.session.completed", {
+    session_id: session.id,
+    offer_selected: offerSelected,
+    user_id: userId,
+    payment_status: session.payment_status,
+  });
+
+  // Record the payment. This is best-effort — a failure here must not block
+  // access activation below, because the payments table schema or constraints
+  // may differ from what this upsert expects.
+  const { error: paymentsError } = await supabaseAdmin.from("payments").upsert(
     {
       user_id: userId,
       parent_email: parentEmail,
@@ -105,10 +129,15 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     { onConflict: "stripe_checkout_session_id" }
   );
 
-  if (error) {
-    throw new Error(error.message);
+  if (paymentsError) {
+    // Log but do not throw — access activation must still run.
+    console.error("[webhook] payments upsert failed (non-fatal)", {
+      session_id: session.id,
+      message: paymentsError.message,
+    });
   }
 
+  // Access activation is the critical operation — always attempt it independently.
   if (offerSelected === "online-learning") {
     await setOnlineLearningAccess(userId, "active");
   }
