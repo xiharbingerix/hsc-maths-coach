@@ -41,7 +41,11 @@ import {
   year11ExtensionBinomialTheoremLessonOverride,
   year11ExtensionPermutationsCombinationsLessonOverride,
 } from "./lessons/year11Extension";
-import { year12Extension1ProofInductionLessonOverride } from "./lessons/year12Extension1";
+import {
+  year12Extension1InverseTrigLessonOverride,
+  year12Extension1ProofInductionLessonOverride,
+  year12Extension1VectorsLessonOverride,
+} from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 
@@ -195,6 +199,8 @@ export function buildLesson(
     year11AdvancedIntroductionDifferentiationLessonOverride(course, unit, lesson) ??
     year11AdvancedGraphTransformationsLessonOverride(course, unit, lesson) ??
     year12Extension1ProofInductionLessonOverride(course, unit, lesson) ??
+    year12Extension1VectorsLessonOverride(course, unit, lesson) ??
+    year12Extension1InverseTrigLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
     year9IndexLawsLessonOverride(course, unit, lesson) ??
@@ -1090,9 +1096,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     courseType: "Mathematics Extension 1",
     status: "in_progress",
     description:
-      "Year 12 Mathematics Extension 1 support is beginning with proof by mathematical induction. Additional Extension 1 units are planned.",
+      "Year 12 Mathematics Extension 1 support is growing, with proof by mathematical induction, vectors and inverse trigonometric functions active now. Additional Extension 1 units are planned.",
     positioning:
-      "A growing Year 12 Mathematics Extension 1 pathway. Proof by Mathematical Induction is active now, with vectors, inverse trigonometry, further calculus and binomial distribution units planned against the NSW Mathematics Extension 1 11-12 syllabus.",
+      "A growing Year 12 Mathematics Extension 1 pathway. Proof by Mathematical Induction, Vectors and Inverse Trigonometric Functions are active now, with further calculus and binomial distribution units planned against the NSW Mathematics Extension 1 11-12 syllabus.",
     units: [
       {
         slug: "proof-induction",
@@ -1126,19 +1132,63 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "vectors",
         title: "Introduction to Vectors",
         description:
-          "Planned vector concepts, notation, operations, and geometric interpretation.",
+          "Build vector notation, operations, dot products, projections and practical vector applications.",
         syllabusArea: "Vectors",
         focus: "Introduction to vectors",
-        lessons: [],
+        lessons: [
+          {
+            slug: "vectors-scalars-notation",
+            title: "Vectors, Scalars and Notation",
+            description:
+              "Define vectors and scalars, use column and i, j notation, and calculate magnitudes and unit vectors.",
+          },
+          {
+            slug: "vector-addition-subtraction",
+            title: "Vector Addition and Subtraction",
+            description:
+              "Add, subtract and scale vectors using component methods and geometric interpretations.",
+          },
+          {
+            slug: "dot-product",
+            title: "The Dot Product",
+            description:
+              "Use the dot product to find scalar products, angles between vectors, and perpendicularity.",
+          },
+          {
+            slug: "vector-projections-applications",
+            title: "Vector Projections and Applications",
+            description:
+              "Calculate scalar and vector projections and apply them to force, velocity and displacement contexts.",
+          },
+        ],
       },
       {
         slug: "inverse-trig",
         title: "Inverse Trigonometric Functions",
         description:
-          "Planned support for inverse trigonometric functions, restrictions, graphs, and equations.",
+          "Study inverse sine, cosine and tangent functions, their restrictions, exact values, graphs and calculus links.",
         syllabusArea: "Trigonometric functions",
         focus: "Inverse trigonometric functions",
-        lessons: [],
+        lessons: [
+          {
+            slug: "inverse-sine-cosine",
+            title: "Inverse Sine and Cosine",
+            description:
+              "Understand restricted domains, principal ranges, exact values and graph features for arcsin and arccos.",
+          },
+          {
+            slug: "inverse-tangent",
+            title: "Inverse Tangent",
+            description:
+              "Use arctan's domain, range, asymptotes and exact values to solve inverse tangent and triangle problems.",
+          },
+          {
+            slug: "differentiating-inverse-trig",
+            title: "Differentiating Inverse Trig Functions",
+            description:
+              "Differentiate inverse trigonometric functions, apply the chain rule and recognise basic inverse-trig integrals.",
+          },
+        ],
       },
       {
         slug: "further-calculus",

@@ -1,25 +1,33 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { offerConfigs, type OfferSlug } from "../../lib/offers";
 import { supabase } from "../../lib/supabaseClient";
-import { trackCheckoutStarted, trackEvent } from "../../lib/analytics";
+import {
+  trackCheckoutStarted,
+  trackEvent,
+  trackSignupCompleted,
+} from "../../lib/analytics";
 
 type CheckoutFormProps = {
   offerSlug: OfferSlug;
 };
 
 export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
-  const router = useRouter();
   const offer = offerConfigs[offerSlug];
   const [user, setUser] = useState<User | null>(null);
   const [isCheckingSession, setIsCheckingSession] = useState(true);
   const [parentEmail, setParentEmail] = useState("");
+  const [accountEmail, setAccountEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [studentFirstName, setStudentFirstName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [notice, setNotice] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isOnlineLearningSignupCheckout =
+    offer.slug === "online-learning" && !user;
 
   useEffect(() => {
     let tracked = false;
@@ -48,9 +56,12 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
         // not logged in — not a timing race from a just-completed signup.
         if (offer.slug === "online-learning") {
           trackEvent("checkout_login_wall_hit", { offer: offer.slug });
-          router.replace(
-            "/signup?next=%2Fcheckout%3Foffer%3Donline-learning"
-          );
+          trackEvent("checkout_account_form_viewed", { offer: offer.slug });
+          if (!tracked) {
+            tracked = true;
+            trackCheckoutStarted();
+          }
+          setIsCheckingSession(false);
         } else {
           setIsCheckingSession(false);
           if (!tracked) {
@@ -62,17 +73,73 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
     });
 
     return () => subscription.unsubscribe();
-  }, [offer.slug, router]);
+  }, [offer.slug]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setErrorMessage("");
+    setNotice("");
     setIsSubmitting(true);
     trackEvent("checkout_form_submitted", { offer: offer.slug });
 
     try {
-      const { data } = await supabase.auth.getSession();
-      const accessToken = data.session?.access_token;
+      let accessToken: string | undefined;
+      let checkoutParentEmail = parentEmail.trim();
+      let checkoutStudentFirstName = studentFirstName.trim();
+
+      if (isOnlineLearningSignupCheckout) {
+        const trimmedAccountEmail = accountEmail.trim();
+        checkoutParentEmail = parentEmail.trim() || trimmedAccountEmail;
+
+        const { data: signupData, error: signupError } =
+          await supabase.auth.signUp({
+            email: trimmedAccountEmail,
+            password,
+            options: {
+              data: {
+                student_first_name: checkoutStudentFirstName,
+                parent_email: parentEmail.trim() || null,
+              },
+            },
+          });
+
+        if (signupError) {
+          const duplicateAccount = /already registered|already been registered|user already|email.*already|already.*email/i.test(
+            signupError.message
+          );
+          setErrorMessage(
+            duplicateAccount
+              ? "This email already has a Nova Maths account. Log in to continue checkout."
+              : signupError.message
+          );
+          setIsSubmitting(false);
+          return;
+        }
+
+        if (signupData.user) {
+          await supabase.from("profiles").upsert({
+            id: signupData.user.id,
+            email: trimmedAccountEmail,
+            student_first_name: checkoutStudentFirstName,
+            parent_email: parentEmail.trim() || null,
+            role: "student",
+          });
+        }
+
+        trackSignupCompleted();
+        accessToken = signupData.session?.access_token;
+
+        if (!accessToken) {
+          setNotice(
+            "Account created. Please confirm your email, then log in to finish checkout."
+          );
+          setIsSubmitting(false);
+          return;
+        }
+      } else {
+        const { data } = await supabase.auth.getSession();
+        accessToken = data.session?.access_token;
+      }
 
       const response = await fetch("/api/stripe/create-checkout-session", {
         method: "POST",
@@ -82,8 +149,8 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
         },
         body: JSON.stringify({
           offer: offer.slug,
-          parentEmail,
-          studentFirstName,
+          parentEmail: checkoutParentEmail,
+          studentFirstName: checkoutStudentFirstName,
         }),
       });
 
@@ -111,9 +178,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
           payload,
           rawResponse,
         });
-        setErrorMessage(
-          payload.error ?? "Checkout could not be started. Please try again."
-        );
+        setErrorMessage(payload.error ?? "Checkout could not be started. Please try again.");
         setIsSubmitting(false);
         return;
       }
@@ -126,6 +191,11 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
       }
 
       if (payload.url) {
+        if (isOnlineLearningSignupCheckout) {
+          trackEvent("checkout_account_created_checkout_started", {
+            offer: offer.slug,
+          });
+        }
         window.location.href = payload.url;
         return;
       }
@@ -175,6 +245,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
             <p className="font-semibold text-slate-950">What happens next</p>
             {offer.slug === "online-learning" ? (
               <p className="mt-2">
+                Create your Nova Maths account here, then continue to Stripe.
                 Access activates automatically after payment.
               </p>
             ) : (
@@ -189,12 +260,21 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
         <form onSubmit={handleSubmit}>
           <div>
             <h1 className="text-3xl font-bold tracking-tight">
-              Continue to secure checkout
+              {isOnlineLearningSignupCheckout
+                ? "Create your account and subscribe"
+                : "Continue to secure checkout"}
             </h1>
             <p className="mt-3 leading-7 text-slate-600">
-              No card details are entered on this site. Stripe handles the
-              secure payment page.
+              {isOnlineLearningSignupCheckout
+                ? "Your Nova Maths account saves lesson progress, mastery results and access across devices. After this step, you will go to Stripe's secure checkout."
+                : "No card details are entered on this site. Stripe handles the secure payment page."}
             </p>
+            {isOnlineLearningSignupCheckout ? (
+              <p className="mt-3 text-sm font-medium text-slate-500">
+                $19/month &middot; cancel any time &middot; secure payment
+                through Stripe
+              </p>
+            ) : null}
           </div>
 
           {user ? (
@@ -206,25 +286,26 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
 
           {errorMessage ? (
             <div className="mt-5 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-              {errorMessage}
+              <p>{errorMessage}</p>
+              {isOnlineLearningSignupCheckout &&
+              errorMessage.includes("already has a Nova Maths account") ? (
+                <Link
+                  href="/login?next=%2Fcheckout%3Foffer%3Donline-learning"
+                  className="mt-2 inline-block font-semibold underline"
+                >
+                  Log in to continue checkout
+                </Link>
+              ) : null}
+            </div>
+          ) : null}
+
+          {notice ? (
+            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+              {notice}
             </div>
           ) : null}
 
           <div className="mt-6 grid gap-4">
-            <label className="space-y-1">
-              <span className="text-sm font-medium text-slate-800">
-                Parent/guardian email
-              </span>
-              <input
-                type="email"
-                value={parentEmail}
-                onChange={(event) => setParentEmail(event.target.value)}
-                required
-                disabled={isSubmitting}
-                className="w-full rounded-xl border border-slate-300 px-3 py-2"
-              />
-            </label>
-
             <label className="space-y-1">
               <span className="text-sm font-medium text-slate-800">
                 Student first name
@@ -237,6 +318,66 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
                 className="w-full rounded-xl border border-slate-300 px-3 py-2"
               />
             </label>
+
+            {isOnlineLearningSignupCheckout ? (
+              <>
+                <label className="space-y-1">
+                  <span className="text-sm font-medium text-slate-800">
+                    Email
+                  </span>
+                  <input
+                    type="email"
+                    value={accountEmail}
+                    onChange={(event) => setAccountEmail(event.target.value)}
+                    required
+                    disabled={isSubmitting}
+                    className="w-full rounded-xl border border-slate-300 px-3 py-2"
+                  />
+                </label>
+
+                <label className="space-y-1">
+                  <span className="text-sm font-medium text-slate-800">
+                    Password
+                  </span>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                    required
+                    minLength={6}
+                    disabled={isSubmitting}
+                    className="w-full rounded-xl border border-slate-300 px-3 py-2"
+                  />
+                </label>
+
+                <label className="space-y-1">
+                  <span className="text-sm font-medium text-slate-800">
+                    Parent/guardian email optional
+                  </span>
+                  <input
+                    type="email"
+                    value={parentEmail}
+                    onChange={(event) => setParentEmail(event.target.value)}
+                    disabled={isSubmitting}
+                    className="w-full rounded-xl border border-slate-300 px-3 py-2"
+                  />
+                </label>
+              </>
+            ) : (
+              <label className="space-y-1">
+                <span className="text-sm font-medium text-slate-800">
+                  Parent/guardian email
+                </span>
+                <input
+                  type="email"
+                  value={parentEmail}
+                  onChange={(event) => setParentEmail(event.target.value)}
+                  required
+                  disabled={isSubmitting}
+                  className="w-full rounded-xl border border-slate-300 px-3 py-2"
+                />
+              </label>
+            )}
           </div>
 
           <button
@@ -245,9 +386,25 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
             className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400 sm:w-auto"
           >
             {isSubmitting
-              ? "Redirecting to secure checkout..."
-              : "Continue to secure checkout"}
+              ? isOnlineLearningSignupCheckout
+                ? "Creating account and opening secure checkout..."
+                : "Redirecting to secure checkout..."
+              : isOnlineLearningSignupCheckout
+                ? "Create account and subscribe — $19/month"
+                : "Continue to secure checkout"}
           </button>
+
+          {isOnlineLearningSignupCheckout ? (
+            <p className="mt-4 text-sm text-slate-600">
+              Already have an account?{" "}
+              <Link
+                href="/login?next=%2Fcheckout%3Foffer%3Donline-learning"
+                className="font-semibold text-slate-950 underline"
+              >
+                Log in to continue checkout
+              </Link>
+            </p>
+          ) : null}
         </form>
       </div>
     </section>
