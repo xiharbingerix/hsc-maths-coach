@@ -157,13 +157,13 @@ export const diagnosticData: DiagnosticData = {
       id: "y12std2-il1",
       unitSlug: "investments-loans-annuities",
       prompt:
-        "$\\$5000$ is invested at $6\\%$ p.a. compounded annually for $4$ years. The final amount is closest to:",
+        "$5000 is invested at $6\\%$ p.a. compounded annually for $4$ years. The final amount is closest to:",
       latex: "A = P(1+r)^n",
       choices: [
-        { label: "A", text: "$\\$5600$" },
-        { label: "B", text: "$\\$6312$" },
-        { label: "C", text: "$\\$7200$" },
-        { label: "D", text: "$\\$8000$" },
+        { label: "A", text: "$5600" },
+        { label: "B", text: "$6312" },
+        { label: "C", text: "$7200" },
+        { label: "D", text: "$8000" },
       ],
       correctAnswer: "B",
       explanation:
@@ -173,12 +173,12 @@ export const diagnosticData: DiagnosticData = {
       id: "y12std2-il2",
       unitSlug: "investments-loans-annuities",
       prompt:
-        "A loan has monthly repayments of $\\$450$ for $3$ years. The total amount repaid is:",
+        "A loan has monthly repayments of $450 for $3$ years. The total amount repaid is:",
       choices: [
-        { label: "A", text: "$\\$10\\,800$" },
-        { label: "B", text: "$\\$14\\,400$" },
-        { label: "C", text: "$\\$16\\,200$" },
-        { label: "D", text: "$\\$18\\,000$" },
+        { label: "A", text: "$10,800" },
+        { label: "B", text: "$14,400" },
+        { label: "C", text: "$16,200" },
+        { label: "D", text: "$18,000" },
       ],
       correctAnswer: "C",
       explanation: "$\\$450 \\times 36 \\text{ months} = \\$16\\,200$.",

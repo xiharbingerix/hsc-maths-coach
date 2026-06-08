@@ -265,13 +265,13 @@ export const diagnosticData: DiagnosticData = {
       id: "y12adv-fm1",
       unitSlug: "sequences-series-financial-maths",
       prompt:
-        "Using $A = P(1 + r)^n$, find the value of $\\$2000$ invested at $5\\%$ p.a. compounded annually for $3$ years.",
+        "Using $A = P(1 + r)^n$, find the value of $2000 invested at $5\\%$ p.a. compounded annually for $3$ years.",
       latex: "A = 2000(1.05)^3",
       choices: [
-        { label: "A", text: "$\\$2200.00$" },
-        { label: "B", text: "$\\$2300.00$" },
-        { label: "C", text: "$\\$2315.25$" },
-        { label: "D", text: "$\\$2420.50$" },
+        { label: "A", text: "$2200.00" },
+        { label: "B", text: "$2300.00" },
+        { label: "C", text: "$2315.25" },
+        { label: "D", text: "$2420.50" },
       ],
       correctAnswer: "C",
       explanation:

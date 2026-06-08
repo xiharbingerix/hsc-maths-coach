@@ -336,13 +336,13 @@ export const diagnosticData: DiagnosticData = {
       id: "y10-fm1",
       unitSlug: "financial-mathematics",
       prompt:
-        "Simple interest on $\\$500$ at $4\\%$ per year for $3$ years. $I = Prn$:",
+        "Simple interest on $500 at $4\\%$ per year for $3$ years. $I = Prn$:",
       latex: "I = Prn",
       choices: [
-        { label: "A", text: "$\\$40$" },
-        { label: "B", text: "$\\$60$" },
-        { label: "C", text: "$\\$120$" },
-        { label: "D", text: "$\\$200$" },
+        { label: "A", text: "$40" },
+        { label: "B", text: "$60" },
+        { label: "C", text: "$120" },
+        { label: "D", text: "$200" },
       ],
       correctAnswer: "B",
       explanation: "$I = 500 \\times 0.04 \\times 3 = \\$60$.",
@@ -351,13 +351,13 @@ export const diagnosticData: DiagnosticData = {
       id: "y10-fm2",
       unitSlug: "financial-mathematics",
       prompt:
-        "$\\$1000$ is invested at $10\\%$ p.a. compounded annually for $2$ years. The final amount $A$ is:",
+        "$1000 is invested at $10\\%$ p.a. compounded annually for $2$ years. The final amount $A$ is:",
       latex: "A = P(1 + r)^n",
       choices: [
-        { label: "A", text: "$\\$1100$" },
-        { label: "B", text: "$\\$1200$" },
-        { label: "C", text: "$\\$1210$" },
-        { label: "D", text: "$\\$1250$" },
+        { label: "A", text: "$1100" },
+        { label: "B", text: "$1200" },
+        { label: "C", text: "$1210" },
+        { label: "D", text: "$1250" },
       ],
       correctAnswer: "C",
       explanation:
