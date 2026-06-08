@@ -89,7 +89,7 @@ export default function ThanksPage() {
                   Request study plan
                 </SecondaryLink>
                 <SecondaryLink href="/checkout?offer=online-learning">
-                  Subscribe to online learning
+                  Start your 7-day free trial
                 </SecondaryLink>
                 <SecondaryLink href="/enquire?offer=weekly-tutoring">
                   Enquire about tutoring
@@ -129,7 +129,7 @@ export default function ThanksPage() {
             </div>
 
             <PrimaryLink href="/checkout?offer=online-learning">
-              Subscribe
+              Start your 7-day free trial
             </PrimaryLink>
           </div>
         </section>

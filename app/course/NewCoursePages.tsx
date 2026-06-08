@@ -228,7 +228,7 @@ export function NewCourseOverviewPage({
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               {hasActiveLessons ? (
                 <ButtonLink href="/checkout?offer=online-learning" variant="primary">
-                  Subscribe
+                  Start your 7-day free trial
                 </ButtonLink>
               ) : (
                 <ButtonLink href="/enquire?offer=online-learning" variant="primary">

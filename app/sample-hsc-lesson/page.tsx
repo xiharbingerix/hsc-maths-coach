@@ -225,8 +225,9 @@ export default function SampleHscLessonPage() {
             Try these questions
           </h2>
           <p className="mt-3 leading-7 text-slate-600">
-            These questions are from the guided practice section. Subscribe to
-            attempt them, check your answers and save your progress.
+            These questions are from the guided practice section. Start your
+            free trial to attempt them, check your answers and save your
+            progress.
           </p>
 
           <div className="mt-6 space-y-4">
@@ -273,7 +274,7 @@ export default function SampleHscLessonPage() {
 
           <div className="mt-6 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 p-6 text-center">
             <p className="font-semibold text-slate-900">
-              Subscribe to attempt these questions and check your answers
+              Start your trial to attempt these questions and check your answers
             </p>
             <p className="mt-2 text-sm text-slate-600">
               Your answers and progress are saved to your dashboard when subscribed.
@@ -324,14 +325,14 @@ export default function SampleHscLessonPage() {
           </div>
         </section>
 
-        {/* Full access value */}
+        {/* What's included */}
         <section className="rounded-3xl border border-slate-200 bg-slate-100/80 p-6 shadow-sm md:p-8">
-          <SectionLabel>Full access</SectionLabel>
+          <SectionLabel>What&apos;s included</SectionLabel>
           <h2 className="mt-3 text-2xl font-bold tracking-tight">
             This is one lesson out of 195+.
           </h2>
           <p className="mt-4 leading-7 text-slate-600">
-            Full access includes every available NSW maths lesson from Year 9 to
+            Your trial unlocks every available NSW maths lesson from Year 9 to
             HSC &mdash; worked examples, practice questions and mastery quizzes
             &mdash; with saved progress across all devices.
           </p>

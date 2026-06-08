@@ -172,7 +172,7 @@ export default function SignupPage() {
         <p className="mt-3 text-sm leading-6 text-slate-600">
           {isCheckoutFlow
             ? "Your subscription is linked to your Nova Maths account so progress and access are saved across devices."
-            : "Create an account to access the Nova Maths dashboard. Subscribe to unlock lessons after signing up."}
+            : "Create an account to access the Nova Maths dashboard. Start your free trial after signing up to unlock lessons."}
         </p>
 
         {isCheckoutFlow ? (

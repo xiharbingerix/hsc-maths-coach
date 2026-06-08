@@ -375,13 +375,13 @@ export default function FreeYear7AlgebraPage() {
         </section>
 
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
-          <SectionLabel>Full access</SectionLabel>
+          <SectionLabel>What&apos;s included</SectionLabel>
           <h2 className="mt-3 text-3xl font-bold tracking-tight">
             This is the Nova Maths lesson style.
           </h2>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
-            Full access gives students a structured pathway through NSW maths
-            from Year 9 to HSC: clear explanations, worked examples, guided
+            Your trial gives you a structured pathway through NSW maths from
+            Year 9 to HSC: clear explanations, worked examples, guided
             practice, independent practice, mastery quizzes and saved progress.
           </p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">

@@ -359,13 +359,13 @@ export default function Home() {
             <div>
               <SectionLabel>Pricing</SectionLabel>
               <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-                Online learning access &mdash; $19/month
+                7-day free trial &mdash; then $19/month
               </h2>
               <p className="mt-4 max-w-2xl leading-7 text-slate-600">
-                Subscribe to access lessons across the available NSW
-                maths pathways. Access activates automatically when you are
-                logged in. Create an account before subscribing for the
-                smoothest setup.
+                Start your free trial to access lessons across the available
+                NSW maths pathways. Access activates on the day your trial
+                starts. Create an account before checkout for the smoothest
+                setup.
               </p>
 
               <ul className="mt-6 space-y-3 text-sm leading-6 text-slate-700">
