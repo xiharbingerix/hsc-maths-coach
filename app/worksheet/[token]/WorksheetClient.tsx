@@ -12,6 +12,7 @@ import { TrapezoidalRuleView } from "../../course/components/TrapezoidalRuleView
 import { TriangleDiagramView } from "../../course/components/TriangleDiagramView";
 import { TwoWayTableView } from "../../course/components/TwoWayTableView";
 import { VennDiagramView } from "../../course/components/VennDiagramView";
+import { supabase } from "../../../lib/supabaseClient";
 import type {
   BoxPlotDiagram,
   CartesianGraph,
@@ -253,9 +254,14 @@ export function WorksheetClient({
     setPhase("starting");
 
     try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const accessToken = sessionData.session?.access_token;
       const res = await fetch(`/api/worksheet/${token}/start`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+        },
         body: JSON.stringify({ studentName }),
       });
       const data = (await res.json()) as { attemptId?: string; error?: string };

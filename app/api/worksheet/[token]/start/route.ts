@@ -7,6 +7,20 @@ type StartBody = {
   studentName?: string;
 };
 
+async function getUserIdFromRequest(request: Request) {
+  const authorization = request.headers.get("authorization");
+  const token = authorization?.startsWith("Bearer ")
+    ? authorization.slice("Bearer ".length)
+    : "";
+
+  if (!token) return null;
+
+  const { data, error } = await supabaseAdmin.auth.getUser(token);
+  if (error || !data.user) return null;
+
+  return data.user.id;
+}
+
 export async function POST(
   request: Request,
   { params }: { params: Promise<{ token: string }> }
@@ -50,12 +64,14 @@ export async function POST(
     );
   }
 
-  // Create a new attempt (anonymous — user_id is null)
+  const userId = await getUserIdFromRequest(request);
+
+  // Shared links still work anonymously; logged-in attempts are tied to the user.
   const { data: attempt, error: insertError } = await supabaseAdmin
     .from("worksheet_attempts")
     .insert({
       worksheet_id: worksheet.id,
-      user_id: null,
+      user_id: userId,
       share_token: token,
       student_name: studentName,
     })
