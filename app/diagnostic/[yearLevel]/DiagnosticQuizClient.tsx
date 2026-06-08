@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import { BlockMath, InlineMath } from "react-katex";
 import { supabase } from "../../../lib/supabaseClient";
+import { SubscribeCTA } from "../../components/SubscribeCTA";
 import type { DiagnosticQuestion, DiagnosticUnit } from "../../../lib/diagnostics/types";
 
 type UnitResult = DiagnosticUnit & {
@@ -12,14 +13,63 @@ type UnitResult = DiagnosticUnit & {
 };
 
 function MathText({ text }: { text: string }) {
-  const parts = text.split(/(\$[^$]+\$)/g);
+  const parts: Array<{ type: "text" | "math"; value: string }> = [];
+  let index = 0;
+
+  while (index < text.length) {
+    const dollarIndex = text.indexOf("$", index);
+    if (dollarIndex === -1) {
+      parts.push({ type: "text", value: text.slice(index) });
+      break;
+    }
+
+    if (dollarIndex > index) {
+      parts.push({ type: "text", value: text.slice(index, dollarIndex) });
+    }
+
+    const currencyMatch = text
+      .slice(dollarIndex)
+      .match(/^\$[0-9][0-9,]*(?:\.[0-9]+)?(?![0-9,.$\\])/);
+    if (currencyMatch) {
+      parts.push({ type: "text", value: currencyMatch[0] });
+      index = dollarIndex + currencyMatch[0].length;
+      continue;
+    }
+
+    let cursor = dollarIndex + 1;
+    let closingDollarIndex = -1;
+    while (cursor < text.length) {
+      if (text[cursor] === "\\" && cursor + 1 < text.length) {
+        cursor += 2;
+        continue;
+      }
+      if (text[cursor] === "$") {
+        closingDollarIndex = cursor;
+        break;
+      }
+      cursor += 1;
+    }
+
+    if (closingDollarIndex === -1) {
+      parts.push({ type: "text", value: "$" });
+      index = dollarIndex + 1;
+      continue;
+    }
+
+    parts.push({
+      type: "math",
+      value: text.slice(dollarIndex + 1, closingDollarIndex),
+    });
+    index = closingDollarIndex + 1;
+  }
+
   return (
     <>
       {parts.map((part, i) =>
-        part.startsWith("$") && part.endsWith("$") ? (
-          <InlineMath key={i} math={part.slice(1, -1)} />
+        part.type === "math" ? (
+          <InlineMath key={i} math={part.value} />
         ) : (
-          <span key={i}>{part}</span>
+          <span key={i}>{part.value}</span>
         )
       )}
     </>
@@ -137,67 +187,176 @@ export function DiagnosticQuizClient({
 
   // ── Results phase ────────────────────────────────────────────────────────────
   if (phase === "results") {
+    const scorePct = Math.round((totalCorrect / totalQuestions) * 100);
+    const priorityUnits = unitResults.slice(0, Math.min(3, unitResults.length));
+    const focusFirstCount = unitResults.filter((u) => u.correct <= 1).length;
+
     return (
       <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
         <div className="mx-auto max-w-2xl space-y-6">
+
+          {/* ── Score header ─────────────────────────────────────────────── */}
           <header className="rounded-2xl bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-              {yearLevelTitle}
+              {yearLevelTitle} · Diagnostic complete
             </p>
-            <h1 className="mt-2 text-3xl font-bold">Your diagnostic results</h1>
-            <p className="mt-3 text-2xl font-semibold">
-              {totalCorrect} / {totalQuestions} correct
+            <h1 className="mt-2 text-3xl font-bold">
+              {scorePct >= 80
+                ? "Strong results — here's what to review."
+                : "Here's what to study next."}
+            </h1>
+            <p className="mt-3 text-2xl font-semibold tabular-nums">
+              {totalCorrect} / {totalQuestions} correct &mdash; {scorePct}%
             </p>
-            <p className="mt-1 text-slate-600">
-              Units are listed from weakest to strongest.
-            </p>
+            {focusFirstCount > 0 ? (
+              <p className="mt-1 text-slate-600">
+                {focusFirstCount === 1
+                  ? "1 unit needs your attention first."
+                  : `${focusFirstCount} units need attention — start with these.`}
+              </p>
+            ) : (
+              <p className="mt-1 text-slate-600">
+                Great score. Review the units below to stay sharp before your exam.
+              </p>
+            )}
           </header>
 
-          <section className="space-y-4">
-            {unitResults.map((unit) => (
-              <div
-                key={unit.slug}
-                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
-              >
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <h2 className="font-semibold">{unit.title}</h2>
-                    <p className="mt-1 text-sm text-slate-600">
+          {/* ── Study plan ───────────────────────────────────────────────── */}
+          <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Your study plan
+            </p>
+            <h2 className="mt-2 text-xl font-bold">
+              {focusFirstCount > 0 ? "Your priority units" : "Top units to review"}
+            </h2>
+            <p className="mt-1 text-sm text-slate-500">
+              Work through these in order for the fastest improvement.
+            </p>
+
+            <ol className="mt-5 space-y-5">
+              {priorityUnits.map((unit, idx) => (
+                <li key={unit.slug} className="flex items-start gap-4">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-950 text-sm font-bold text-white">
+                    {idx + 1}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-start justify-between gap-2">
+                      <p className="font-semibold leading-snug">{unit.title}</p>
+                      <span
+                        className={`shrink-0 rounded-full border px-2.5 py-0.5 text-xs font-semibold ${priorityBadgeClass(unit.correct, unit.total)}`}
+                      >
+                        {priorityLabel(unit.correct, unit.total)}
+                      </span>
+                    </div>
+                    <p className="mt-0.5 text-sm text-slate-500">
                       {unit.correct} of {unit.total} correct
                     </p>
+                    <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-100">
+                      <div
+                        className={`h-full rounded-full ${
+                          unit.correct === unit.total
+                            ? "bg-emerald-500"
+                            : unit.correct <= 1
+                            ? "bg-red-400"
+                            : "bg-amber-400"
+                        }`}
+                        style={{
+                          width: `${Math.round((unit.correct / unit.total) * 100)}%`,
+                        }}
+                      />
+                    </div>
+                    <Link
+                      href={unit.startHref}
+                      className="mt-2 inline-flex text-sm font-semibold text-slate-900 underline underline-offset-2 hover:text-slate-600"
+                    >
+                      Preview this unit →
+                    </Link>
                   </div>
-                  <span
-                    className={`rounded-full border px-3 py-1 text-xs font-semibold ${priorityBadgeClass(unit.correct, unit.total)}`}
-                  >
-                    {priorityLabel(unit.correct, unit.total)}
-                  </span>
-                </div>
-                <div className="mt-4">
-                  <Link
-                    href={unit.startHref}
-                    className="inline-flex rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
-                  >
-                    Start studying →
-                  </Link>
-                </div>
-              </div>
-            ))}
+                </li>
+              ))}
+            </ol>
           </section>
 
-          {/* Save / login panel */}
+          {/* ── Free trial CTA ───────────────────────────────────────────── */}
+          <section className="rounded-2xl bg-slate-950 p-6 text-white shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+              Get started
+            </p>
+            <h2 className="mt-2 text-xl font-bold">
+              Start studying your priority units today.
+            </h2>
+            <p className="mt-2 leading-7 text-slate-300">
+              Access all 195+ NSW maths lessons, save your progress and track
+              mastery across every unit.
+            </p>
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <SubscribeCTA
+                href="/checkout?offer=online-learning"
+                className="bg-white text-slate-950 hover:bg-slate-100"
+              >
+                Start your 7-day free trial
+              </SubscribeCTA>
+              <Link
+                href={`/login?returnTo=/diagnostic/${yearLevel}`}
+                className="text-sm font-semibold text-slate-300 hover:text-white"
+              >
+                Already have access? Log in →
+              </Link>
+            </div>
+            <p className="mt-3 text-sm text-slate-400">
+              No charge today &middot; Then $19/month &middot; Cancel anytime
+            </p>
+          </section>
+
+          {/* ── Full unit breakdown ──────────────────────────────────────── */}
+          <section>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Full unit breakdown
+            </p>
+            <div className="space-y-3">
+              {unitResults.map((unit) => (
+                <div
+                  key={unit.slug}
+                  className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+                >
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <h3 className="font-semibold">{unit.title}</h3>
+                      <p className="mt-1 text-sm text-slate-600">
+                        {unit.correct} of {unit.total} correct
+                      </p>
+                    </div>
+                    <span
+                      className={`rounded-full border px-3 py-1 text-xs font-semibold ${priorityBadgeClass(unit.correct, unit.total)}`}
+                    >
+                      {priorityLabel(unit.correct, unit.total)}
+                    </span>
+                  </div>
+                  <div className="mt-4">
+                    <Link
+                      href={unit.startHref}
+                      className="inline-flex rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+                    >
+                      Start studying →
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── Save / login panel ───────────────────────────────────────── */}
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             {saved && (
               <div className="rounded-xl bg-green-50 p-4 text-sm font-medium text-green-800">
                 Results saved to your account.
               </div>
             )}
-
             {saveError && (
               <div className="rounded-xl bg-red-50 p-4 text-sm font-medium text-red-800">
                 Could not save results: {saveError}
               </div>
             )}
-
             {isLoggedIn === false && !saved && (
               <div className="space-y-3">
                 <p className="text-sm text-slate-700">
@@ -211,18 +370,18 @@ export function DiagnosticQuizClient({
                 </Link>
               </div>
             )}
-
             {isLoggedIn === null && !saved && (
               <p className="text-sm text-slate-500">Checking login status…</p>
             )}
           </div>
 
+          {/* ── Bottom actions ───────────────────────────────────────────── */}
           <div className="flex flex-wrap gap-3">
             <Link
-              href="/course/year-12-advanced"
+              href="/course"
               className="rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
             >
-              View full course
+              View all courses
             </Link>
             <button
               type="button"
@@ -241,6 +400,7 @@ export function DiagnosticQuizClient({
               Retake diagnostic
             </button>
           </div>
+
         </div>
       </main>
     );
