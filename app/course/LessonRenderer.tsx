@@ -1278,6 +1278,7 @@ export function LessonRenderer({
           const token = data.session?.access_token;
           if (!token) return;
           const events = capturedQuestions.map((q) => ({
+            questionId: q.id,
             difficulty: 4,
             isCorrect: isCorrectAnswer(q, capturedAnswers[q.id] ?? ""),
           }));

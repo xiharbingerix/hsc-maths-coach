@@ -5,6 +5,9 @@ export type MasteryEventInput = {
   sourceType: "diagnostic" | "lesson" | "quiz" | "worksheet";
   sourceId: string;
   questionId: string;
+  /** Original lesson question ID (e.g. "q1"). Enables per-question analytics
+   *  and idempotency for lesson mastery events. Null for worksheet/diagnostic. */
+  sourceQuestionId?: string | null;
   courseSlug: string;
   topicSlug: string;
   subtopicSlug: string | null;
@@ -74,6 +77,7 @@ export async function recordMasteryEvents(
         source_type: e.sourceType,
         source_id: e.sourceId,
         question_id: e.questionId,
+        source_question_id: e.sourceQuestionId ?? null,
         course_slug: e.courseSlug,
         topic_slug: e.topicSlug,
         subtopic_slug: e.subtopicSlug,

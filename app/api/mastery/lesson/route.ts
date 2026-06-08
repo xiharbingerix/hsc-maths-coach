@@ -6,6 +6,7 @@ import type { MasteryEventInput } from "../../../../lib/mastery/updateMastery";
 export const runtime = "nodejs";
 
 type LessonEventInput = {
+  questionId: string;
   difficulty: number;
   isCorrect: boolean;
 };
@@ -64,11 +65,32 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid sourceId." }, { status: 400 });
   }
 
-  const masteryEvents: MasteryEventInput[] = events.map((ev) => ({
+  // Idempotency check: find question IDs already recorded for this attempt.
+  const { data: existingRows } = await supabaseAdmin
+    .from("mastery_events")
+    .select("source_question_id")
+    .eq("user_id", userId)
+    .eq("source_type", "lesson")
+    .eq("source_id", sourceId)
+    .not("source_question_id", "is", null);
+
+  const alreadyRecorded = new Set(
+    (existingRows ?? []).map(
+      (r: { source_question_id: string | null }) => r.source_question_id
+    )
+  );
+
+  const newEvents = events.filter((ev) => !alreadyRecorded.has(ev.questionId));
+  if (newEvents.length === 0) {
+    return NextResponse.json({ ok: true });
+  }
+
+  const masteryEvents: MasteryEventInput[] = newEvents.map((ev) => ({
     userId,
     sourceType: "lesson" as const,
     sourceId,
     questionId: crypto.randomUUID(),
+    sourceQuestionId: ev.questionId,
     courseSlug,
     topicSlug,
     subtopicSlug: lessonSlug,
