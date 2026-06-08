@@ -5,6 +5,7 @@ import Link from "next/link";
 import { BlockMath, InlineMath } from "react-katex";
 import { supabase } from "../../../lib/supabaseClient";
 import { SubscribeCTA } from "../../components/SubscribeCTA";
+import { generateStudyPlan } from "../../../lib/studyPlans/generateStudyPlan";
 import type { DiagnosticQuestion, DiagnosticUnit } from "../../../lib/diagnostics/types";
 
 type UnitResult = DiagnosticUnit & {
@@ -190,6 +191,17 @@ export function DiagnosticQuizClient({
     const scorePct = Math.round((totalCorrect / totalQuestions) * 100);
     const priorityUnits = unitResults.slice(0, Math.min(3, unitResults.length));
     const focusFirstCount = unitResults.filter((u) => u.correct <= 1).length;
+    const studyPlan = generateStudyPlan({
+      yearLevel,
+      diagnosticResults: unitResults.map((unit) => ({
+        courseSlug: yearLevel,
+        unitSlug: unit.slug,
+        unitTitle: unit.title,
+        correct: unit.correct,
+        total: unit.total,
+        startHref: unit.startHref,
+      })),
+    });
 
     return (
       <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -201,9 +213,7 @@ export function DiagnosticQuizClient({
               {yearLevelTitle} · Diagnostic complete
             </p>
             <h1 className="mt-2 text-3xl font-bold">
-              {scorePct >= 80
-                ? "Strong results — here's what to review."
-                : "Here's what to study next."}
+              Here is your personalised study plan.
             </h1>
             <p className="mt-3 text-2xl font-semibold tabular-nums">
               {totalCorrect} / {totalQuestions} correct &mdash; {scorePct}%
@@ -216,7 +226,7 @@ export function DiagnosticQuizClient({
               </p>
             ) : (
               <p className="mt-1 text-slate-600">
-                Great score. Review the units below to stay sharp before your exam.
+                {studyPlan.summary}
               </p>
             )}
           </header>
@@ -227,11 +237,33 @@ export function DiagnosticQuizClient({
               Your study plan
             </p>
             <h2 className="mt-2 text-xl font-bold">
-              {focusFirstCount > 0 ? "Your priority units" : "Top units to review"}
+              {studyPlan.nextTopic
+                ? `Start with ${studyPlan.nextTopic.title}`
+                : "Top units to review"}
             </h2>
             <p className="mt-1 text-sm text-slate-500">
-              Work through these in order for the fastest improvement.
+              {studyPlan.nextTopic?.reason ??
+                "Work through these in order for the fastest improvement."}
             </p>
+            {studyPlan.nextTopic ? (
+              <div className="mt-4 grid gap-3 text-sm text-slate-600 sm:grid-cols-3">
+                <div className="rounded-xl bg-slate-50 p-3">
+                  <p className="font-semibold text-slate-900">Next topic</p>
+                  <p className="mt-1">{studyPlan.nextTopic.title}</p>
+                </div>
+                <div className="rounded-xl bg-slate-50 p-3">
+                  <p className="font-semibold text-slate-900">Study time</p>
+                  <p className="mt-1">
+                    About {studyPlan.estimatedHours} hour
+                    {studyPlan.estimatedHours !== 1 ? "s" : ""}
+                  </p>
+                </div>
+                <div className="rounded-xl bg-slate-50 p-3">
+                  <p className="font-semibold text-slate-900">Priority</p>
+                  <p className="mt-1 capitalize">{studyPlan.priorityLevel}</p>
+                </div>
+              </div>
+            ) : null}
 
             <ol className="mt-5 space-y-5">
               {priorityUnits.map((unit, idx) => (

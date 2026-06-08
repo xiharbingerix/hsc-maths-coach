@@ -10,6 +10,10 @@ import {
   getUserAllProgress,
   type LessonProgressRecord,
 } from "../../lib/lessonProgress";
+import {
+  generateStudyPlan,
+  type StudyPlanDiagnosticResult,
+} from "../../lib/studyPlans/generateStudyPlan";
 import { newCoursePathways } from "../../lib/newCourseCatalog";
 import { supabase } from "../../lib/supabaseClient";
 import {
@@ -24,6 +28,30 @@ type MasteryRow = {
   topic_slug: string;
   mastery_score: number;
   attempt_count: number;
+};
+
+type AssignedWorksheet = {
+  id: string;
+  title: string;
+  share_token: string;
+  due_at: string | null;
+  status: string | null;
+  created_at: string;
+};
+
+type AttemptRow = {
+  id: string;
+  worksheet_id: string;
+  completed_at: string | null;
+  score_correct: number | null;
+  score_total: number | null;
+  started_at: string;
+};
+
+type DiagnosticResultRow = {
+  year_level: string;
+  unit_results: StudyPlanDiagnosticResult[];
+  created_at: string;
 };
 
 function prettifySlug(slug: string): string {
@@ -52,6 +80,12 @@ export default function DashboardPage() {
     Record<string, LessonProgressRecord>
   >({});
   const [masteryRows, setMasteryRows] = useState<MasteryRow[]>([]);
+  const [diagnosticResults, setDiagnosticResults] = useState<
+    StudyPlanDiagnosticResult[]
+  >([]);
+  const [diagnosticYearLevel, setDiagnosticYearLevel] = useState("year-12-advanced");
+  const [assignedWorksheets, setAssignedWorksheets] = useState<AssignedWorksheet[]>([]);
+  const [recentAttempts, setRecentAttempts] = useState<AttemptRow[]>([]);
 
   useEffect(() => {
     async function loadDashboard() {
@@ -115,6 +149,44 @@ export default function DashboardPage() {
       if (masteryData) {
         setMasteryRows(masteryData as MasteryRow[]);
       }
+
+      const { data: diagnosticData } = await supabase
+        .from("diagnostic_results")
+        .select("year_level, unit_results, created_at")
+        .eq("user_id", sessionUser.id)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (diagnosticData) {
+        const row = diagnosticData as DiagnosticResultRow;
+        setDiagnosticYearLevel(row.year_level);
+        setDiagnosticResults(
+          Array.isArray(row.unit_results) ? row.unit_results : []
+        );
+      }
+
+      // Worksheets assigned to this student's email (RLS: migration 010).
+      const userEmail = sessionUser.email ?? null;
+      if (userEmail) {
+        const { data: wsData } = await supabase
+          .from("worksheets")
+          .select("id, title, share_token, due_at, status, created_at")
+          .eq("assigned_student_email", userEmail)
+          .order("created_at", { ascending: false })
+          .limit(20);
+        if (wsData) setAssignedWorksheets(wsData as AssignedWorksheet[]);
+      }
+
+      // Recent completed attempts where this user was logged in.
+      const { data: attemptsData } = await supabase
+        .from("worksheet_attempts")
+        .select("id, worksheet_id, completed_at, score_correct, score_total, started_at")
+        .eq("user_id", sessionUser.id)
+        .not("completed_at", "is", null)
+        .order("started_at", { ascending: false })
+        .limit(20);
+      if (attemptsData) setRecentAttempts(attemptsData as AttemptRow[]);
 
       setIsLoading(false);
     }
@@ -199,6 +271,11 @@ export default function DashboardPage() {
   const progressRecords = Object.values(lessonProgress);
   const hasLessonProgress = progressRecords.length > 0;
   const continueLearningTarget = getContinueLearningTarget(progressRecords);
+  const studyPlan = generateStudyPlan({
+    yearLevel: diagnosticYearLevel,
+    masteryRows,
+    diagnosticResults,
+  });
 
   // Build a slug → human label lookup from the course catalog.
   const topicLabelMap = new Map<string, string>();
@@ -223,6 +300,21 @@ export default function DashboardPage() {
     .sort((a, b) => a.mastery_score - b.mastery_score)
     .slice(0, 3);
   const showSplit = masteryRows.length >= 4;
+
+  // Worksheet history: latest completed attempt keyed by worksheet_id.
+  const latestAttemptByWorksheet = new Map<string, AttemptRow>();
+  for (const attempt of recentAttempts) {
+    if (!latestAttemptByWorksheet.has(attempt.worksheet_id)) {
+      latestAttemptByWorksheet.set(attempt.worksheet_id, attempt);
+    }
+  }
+
+  // Attempts for worksheets not in the assigned list (logged-in open-link attempts).
+  const assignedIds = new Set(assignedWorksheets.map((w) => w.id));
+  const extraAttempts = recentAttempts.filter((a) => !assignedIds.has(a.worksheet_id));
+
+  const hasWorksheets = assignedWorksheets.length > 0;
+  const hasExtraAttempts = extraAttempts.length > 0;
 
   // Next best action: weakest topic with at least one attempt.
   const nextBestRow = hasMastery
@@ -391,6 +483,129 @@ export default function DashboardPage() {
               Start quiz →
             </Link>
           </div>
+        </section>
+
+        {/* ── Your worksheets ───────────────────────────────────────────────── */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Your Study Plan
+          </p>
+          <div className="mt-4 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex-1">
+              <h2 className="text-2xl font-bold tracking-tight">
+                {studyPlan.headline}
+              </h2>
+              <p className="mt-2 max-w-2xl leading-7 text-slate-600">
+                {studyPlan.nextTopic?.reason ?? studyPlan.summary}
+              </p>
+              {studyPlan.nextTopic ? (
+                <div className="mt-4 grid gap-3 text-sm text-slate-600 sm:grid-cols-3">
+                  <div className="rounded-2xl bg-slate-50 p-4">
+                    <p className="font-semibold text-slate-900">Next topic</p>
+                    <p className="mt-1">{studyPlan.nextTopic.title}</p>
+                  </div>
+                  <div className="rounded-2xl bg-slate-50 p-4">
+                    <p className="font-semibold text-slate-900">Study time</p>
+                    <p className="mt-1">
+                      About {studyPlan.estimatedHours} hour
+                      {studyPlan.estimatedHours !== 1 ? "s" : ""}
+                    </p>
+                  </div>
+                  <div className="rounded-2xl bg-slate-50 p-4">
+                    <p className="font-semibold text-slate-900">Priority</p>
+                    <p className="mt-1 capitalize">{studyPlan.priorityLevel}</p>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+            {studyPlan.nextTopic ? (
+              <Link
+                href={studyPlan.nextTopic.href}
+                className="inline-flex shrink-0 items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+              >
+                Start studying
+              </Link>
+            ) : (
+              <Link
+                href="/diagnostic/select"
+                className="inline-flex shrink-0 items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+              >
+                Start diagnostic
+              </Link>
+            )}
+          </div>
+        </section>
+
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-2xl font-bold tracking-tight">Your worksheets</h2>
+
+          {!hasWorksheets && !hasExtraAttempts ? (
+            <p className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
+              No assigned worksheets yet.
+            </p>
+          ) : (
+            <div className="mt-5 space-y-3">
+              {/* Assigned worksheets */}
+              {assignedWorksheets.map((ws) => {
+                const attempt = latestAttemptByWorksheet.get(ws.id) ?? null;
+                const isCompleted = !!attempt?.completed_at;
+                const isPastDue =
+                  ws.due_at && !isCompleted && new Date(ws.due_at) < new Date();
+
+                return (
+                  <div
+                    key={ws.id}
+                    className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-semibold text-slate-900">
+                        {ws.title}
+                      </p>
+                      <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
+                        {ws.due_at ? (
+                          <span className={isPastDue ? "font-semibold text-red-600" : ""}>
+                            Due{" "}
+                            {new Date(ws.due_at).toLocaleDateString("en-AU", {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
+                            })}
+                            {isPastDue ? " — overdue" : ""}
+                          </span>
+                        ) : null}
+                        {ws.status && ws.status !== "active" ? (
+                          <span className="rounded-full bg-slate-200 px-2 py-0.5 font-semibold capitalize text-slate-700">
+                            {ws.status}
+                          </span>
+                        ) : null}
+                        {isCompleted && attempt ? (
+                          <span className="font-semibold text-emerald-700">
+                            Score: {attempt.score_correct}/{attempt.score_total}
+                          </span>
+                        ) : attempt && !isCompleted ? (
+                          <span className="text-amber-600">In progress</span>
+                        ) : null}
+                      </div>
+                    </div>
+                    <Link
+                      href={`/worksheet/${ws.share_token}`}
+                      className="inline-flex shrink-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
+                    >
+                      {isCompleted ? "Review" : "Open worksheet"}
+                    </Link>
+                  </div>
+                );
+              })}
+
+              {/* Extra logged-in attempts (open-link worksheets) */}
+              {hasExtraAttempts ? (
+                <p className="pt-1 text-xs text-slate-400">
+                  Plus {extraAttempts.length} other worksheet attempt
+                  {extraAttempts.length !== 1 ? "s" : ""} from shared links.
+                </p>
+              ) : null}
+            </div>
+          )}
         </section>
 
         {continueLearningTarget ? (

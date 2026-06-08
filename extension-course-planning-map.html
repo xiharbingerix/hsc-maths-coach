@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSW Mathematics Extension 1 — Course Planning Map</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.65;
+    color: #1a1a1a;
+    background: #fff;
+    padding: 32px 40px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 6px;
+  }
+  .meta {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 32px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1.5px solid #e2e8f0;
+  }
+  h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e40af;
+    margin-top: 18px;
+    margin-bottom: 6px;
+  }
+  h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin-top: 14px;
+    margin-bottom: 5px;
+  }
+  p { margin-bottom: 8px; }
+  ul, ol {
+    padding-left: 20px;
+    margin-bottom: 10px;
+  }
+  li { margin-bottom: 3px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 14px;
+    font-size: 12.5px;
+  }
+  th {
+    background: #f1f5f9;
+    color: #374151;
+    font-weight: 600;
+    text-align: left;
+    padding: 7px 10px;
+    border: 1px solid #e2e8f0;
+  }
+  td {
+    padding: 6px 10px;
+    border: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f8fafc; }
+  code {
+    font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+    font-size: 11.5px;
+    background: #f1f5f9;
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: #0f172a;
+  }
+  pre {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+    font-size: 11.5px;
+    overflow-x: auto;
+    margin-bottom: 12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #1e293b;
+  }
+  .badge-high {
+    display: inline-block;
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+    border-radius: 4px;
+    padding: 1px 7px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .badge-med {
+    display: inline-block;
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fcd34d;
+    border-radius: 4px;
+    padding: 1px 7px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .badge-low {
+    display: inline-block;
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #86efac;
+    border-radius: 4px;
+    padding: 1px 7px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .highlight-box {
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    padding: 12px 16px;
+    margin: 14px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .highlight-box strong { color: #1d4ed8; }
+  .context-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+  .lesson-list {
+    padding-left: 0;
+    list-style: none;
+    margin-bottom: 10px;
+  }
+  .lesson-list li {
+    padding: 4px 0;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+  .lesson-num {
+    font-weight: 700;
+    color: #6366f1;
+    min-width: 20px;
+    font-size: 12px;
+  }
+  @media print {
+    body { padding: 20px 24px; }
+    h2 { page-break-after: avoid; }
+    h3 { page-break-after: avoid; }
+    table { page-break-inside: avoid; }
+    pre { page-break-inside: avoid; }
+  }
+  .section-number {
+    display: inline-block;
+    background: #6366f1;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 8px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+
+<h1>NSW Mathematics Extension 1 — Course Planning Map</h1>
+<div class="subtitle">Year 11 &amp; Year 12 Extension 1 Content Strategy</div>
+<div class="meta">Source: NSW Mathematics Extension 1 11–12 Syllabus (2024) &nbsp;·&nbsp; HSC Maths Coach &nbsp;·&nbsp; Generated 2026-05-26</div>
+
+<div class="context-box">
+<strong>Implementation context:</strong>
+Year 11 Extension begins new syllabus in <strong>2026</strong>.
+Year 12 Extension 1 begins new syllabus in <strong>Term 4 2026</strong>.
+First HSC examination under the new syllabus is <strong>2027</strong>.
+Year 12 lesson wording should not imply this content is "your HSC" until 2027.
+</div>
+
+<!-- ===== SECTION 1 ===== -->
+<h2><span class="section-number">1</span>Recommended Unit Order</h2>
+
+<h3>Year 11 Mathematics Extension (5 units)</h3>
+<table>
+  <tr><th>#</th><th>Unit</th><th>Slug</th></tr>
+  <tr><td>1</td><td>Further Work with Functions</td><td><code>further-functions</code></td></tr>
+  <tr><td>2</td><td>Polynomials</td><td><code>polynomials</code></td></tr>
+  <tr><td>3</td><td>Further Trigonometry</td><td><code>further-trigonometry</code></td></tr>
+  <tr><td>4</td><td>Permutations and Combinations</td><td><code>permutations-combinations</code></td></tr>
+  <tr><td>5</td><td>The Binomial Theorem</td><td><code>binomial-theorem</code></td></tr>
+</table>
+<p><em>Rationale:</em> Functions and Polynomials build on Year 11 Advanced algebraic fluency. Further Trig builds on trig identities already studied. Permutations precedes Binomial Theorem because C(n,r) notation is essential.</p>
+
+<h3>Year 12 Mathematics Extension 1 (6 units)</h3>
+<table>
+  <tr><th>#</th><th>Unit</th><th>Slug</th></tr>
+  <tr><td>1</td><td>Proof by Mathematical Induction</td><td><code>proof-induction</code></td></tr>
+  <tr><td>2</td><td>Introduction to Vectors</td><td><code>vectors</code></td></tr>
+  <tr><td>3</td><td>Inverse Trigonometric Functions</td><td><code>inverse-trig</code></td></tr>
+  <tr><td>4</td><td>Further Calculus Skills</td><td><code>further-calculus</code></td></tr>
+  <tr><td>5</td><td>Further Applications of Calculus</td><td><code>calculus-applications</code></td></tr>
+  <tr><td>6</td><td>The Binomial Distribution</td><td><code>binomial-distribution</code></td></tr>
+</table>
+<p><em>Rationale:</em> Induction is standalone and sets the proof-writing culture early. Vectors are self-contained and prerequisite-light. Inverse Trig builds on Year 11 trig. Further Calculus needs inverse trig for arcsin/arctan integrals. Applications of Calculus builds on Further Calculus. Binomial Distribution connects Year 11 Binomial Theorem to probability.</p>
+
+<!-- ===== SECTION 2 ===== -->
+<h2><span class="section-number">2</span>Sub-unit Split Recommendations</h2>
+
+<table>
+  <tr><th>Unit</th><th>Split?</th><th>Reason</th></tr>
+  <tr><td>Further Work with Functions</td><td><strong>Yes — 5 lessons</strong></td><td>Absolute value, reciprocal/sqrt, composite/inverse, parametric are conceptually distinct; each lesson has a different algebraic mode</td></tr>
+  <tr><td>Polynomials</td><td><strong>Yes — 5 lessons</strong></td><td>Division, remainder, factor theorem, roots/coefficients, graphing are separate skills with different markability profiles</td></tr>
+  <tr><td>Further Trigonometry</td><td><strong>Yes — 5 lessons</strong></td><td>Reciprocal ratios, sum/difference, double angle, t-substitution each require fresh identities</td></tr>
+  <tr><td>Permutations and Combinations</td><td><strong>Yes — 5 lessons</strong></td><td>Natural sequence: counting principles → factorial → permutation → combination → restrictions</td></tr>
+  <tr><td>The Binomial Theorem</td><td><strong>4–5 lessons</strong></td><td>Pascal → theorem → general term → identities; exam practice as 5th</td></tr>
+  <tr><td>Proof by Mathematical Induction</td><td><strong>Yes — 5 lessons</strong></td><td>Principle → summation → divisibility → inequalities → exam practice</td></tr>
+  <tr><td>Introduction to Vectors</td><td><strong>Yes — 5 lessons</strong></td><td>Geometric intro → operations → components → dot product → applications</td></tr>
+  <tr><td>Inverse Trig Functions</td><td><strong>4–5 lessons</strong></td><td>arcsin → arccos/arctan → identities → equations → optional exam practice</td></tr>
+  <tr><td>Further Calculus Skills</td><td><strong>4 lessons</strong></td><td>Substitution → inverse-trig integrals → harder techniques → exam practice</td></tr>
+  <tr><td>Further Applications of Calculus</td><td><strong>4–5 lessons</strong></td><td>Related rates → volumes → SHM → exam practice</td></tr>
+  <tr><td>Binomial Distribution</td><td><strong>Yes — 5 lessons</strong></td><td>Binomial model → P(X=k) → mean/variance → sampling distribution → normal approximation</td></tr>
+</table>
+
+<!-- ===== SECTION 3 ===== -->
+<h2><span class="section-number">3</span>Lesson Lists by Unit</h2>
+
+<h3>Year 11 — Unit 1: Further Work with Functions</h3>
+<ul class="lesson-list">
+  <li><span class="lesson-num">1</span><span><code>absolute-value-functions</code> — Graphs of y=|f(x)|; solving |f(x)|=a</span></li>
+  <li><span class="lesson-num">2</span><span><code>absolute-value-inequalities</code> — Solving |f(x)|&lt;a, |f(x)|&gt;a algebraically and graphically</span></li>
+  <li><span class="lesson-num">3</span><span><code>reciprocal-sqrt-functions</code> — Graphs of 1/f(x) and √f(x); domain/range</span></li>
+  <li><span class="lesson-num">4</span><span><code>composite-inverse-functions</code> — f∘g, f⁻¹(x); domain restrictions for invertibility</span></li>
+  <li><span class="lesson-num">5</span><span><code>further-functions-exam-practice</code> — Exam practice across all four concepts</span></li>
+</ul>
+
+<h3>Year 11 — Unit 2: Polynomials</h3>
+<ul class="lesson-list">
+  <li><span class="lesson-num">1</span><span><code>polynomial-division</code> — Division algorithm P(x)=d(x)Q(x)+R; long division</span></li>
+  <li><span class="lesson-num">2</span><span><code>remainder-factor-theorem</code> — Remainder theorem; factor theorem; testing factors</span></li>
+  <li><span class="lesson-num">3</span><span><code>roots-and-coefficients</code> — Vieta's formulas for sum/product of roots (quadratics, cubics)</span></li>
+  <li><span class="lesson-num">4</span><span><code>graphing-polynomials</code> — Multiplicity of roots; shape near roots; sketching</span></li>
+  <li><span class="lesson-num">5</span><span><code>polynomials-exam-practice</code> — Exam practice</span></li>
+</ul>
+
+<h3>Year 11 — Unit 3: Further Trigonometry</h3>
+<ul class="lesson-list">
+  <li><span class="lesson-num">1</span><span><code>reciprocal-trig-functions</code> — sec, cosec, cot; graphs; Pythagorean identities</span></li>
+  <li><span class="lesson-num">2</span><span><code>sum-difference-formulas</code> — sin(A±B), cos(A±B), tan(A±B); exact values</span></li>
+  <li><span class="lesson-num">3</span><span><code>double-angle-formulas</code> — sin2A, cos2A, tan2A; applications</span></li>
+  <li><span class="lesson-num">4</span><span><code>t-substitution</code> — t = tan(θ/2); expressing sin/cos/tan in terms of t</span></li>
+  <li><span class="lesson-num">5</span><span><code>further-trig-exam-practice</code> — Exam practice</span></li>
+</ul>
+
+<h3>Year 11 — Unit 4: Permutations and Combinations</h3>
+<ul class="lesson-list">
+  <li><span class="lesson-num">1</span><span><code>counting-principles</code> — Multiplication principle; tree diagrams; factorial notation</span></li>
+  <li><span class="lesson-num">2</span><span><code>permutations</code> — Arrangements of n distinct objects; P(n,r) = n!/(n−r)!</span></li>
+  <li><span class="lesson-num">3</span><span><code>combinations</code> — Selections without order; C(n,r) = n!/(r!(n−r)!)</span></li>
+  <li><span class="lesson-num">4</span><span><code>arrangements-with-restrictions</code> — At least/at most; identical objects; circular arrangements</span></li>
+  <li><span class="lesson-num">5</span><span><code>perms-combs-exam-practice</code> — Exam practice</span></li>
+</ul>
+
+<h3>Year 11 — Unit 5: The Binomial Theorem</h3>
+<ul class="lesson-list">
+  <li><span class="lesson-num">1</span><span><code>pascals-triangle</code> — Pascal's triangle; binomial expansion for small n</span></li>
+  <li><span class="lesson-num">2</span><span><code>binomial-theorem</code> — (a+b)^n = Σ C(n,k) a^(n−k) b^k; full expansion</span></li>
+  <li><span class="lesson-num">3</span><span><code>general-term</code> — T(k+1) = C(n,k) a^(n−k) b^k; finding a specific term</span></li>
+  <li><span class="lesson-num">4</span><span><code>binomial-identities</code> — Identities proved by substituting x=1, x=−1 into expansion</span></li>
+  <li><span class="lesson-num">5</span><span><code>binomial-theorem-exam-practice</code> — Exam practice</span></li>
+</ul>
+
+<h3>Year 12 — Unit 1: Proof by Mathematical Induction</h3>
+<ul class="lesson-list">
+  <li><span class="lesson-num">1</span><span><code>induction-principle</code> — Base case; inductive step; writing formal induction proofs</span></li>
+  <li><span class="lesson-num">2</span><span><code>induction-summation</code> — Proving summation formulas (1+2+…+n, sum of squares)</span></li>
+  <li><span class="lesson-num">3</span><span><code>induction-divisibility</code> — Proving divisibility results (e.g. 3^n+2 divisible by 3)</span></li>
+  <li><span class="lesson-num">4</span><span><code>induction-harder</code> — Inequalities; combinatorial identities; multi-step proofs</span></li>
+  <li><span class="lesson-num">5</span><span><code>induction-exam-practice</code> — Exam practice</span></li>
+</ul>
+
+<h3>Year 12 — Unit 2: Introduction to Vectors</h3>
+<ul class="lesson-list">
+  <li><span class="lesson-num">1</span><span><code>vectors-intro</code> — Vectors vs scalars; magnitude; geometric representation; notation</span></li>
+  <li><span class="lesson-num">2</span><span><code>vector-operations</code> — Addition, subtraction, scalar multiplication; triangle/parallelogram law</span></li>
+  <li><span class="lesson-num">3</span><span><code>components-unit-vectors</code> — Column vector notation; unit vectors î, ĵ; magnitude formula</span></li>
+  <li><span class="lesson-num">4</span><span><code>dot-product</code> — a·b = |a||b|cosθ; component form; perpendicularity condition</span></li>
+  <li><span class="lesson-num">5</span><span><code>vectors-geometry</code> — Position vectors; geometric proofs using vectors</span></li>
+</ul>
+
+<h3>Year 12 — Unit 3: Inverse Trigonometric Functions</h3>
+<ul class="lesson-list">
+  <li><span class="lesson-num">1</span><span><code>inverse-sine</code> — Domain/range of arcsin; graph; evaluating exact values</span></li>
+  <li><span class="lesson-num">2</span><span><code>inverse-cosine-tangent</code> — arccos, arctan; graphs; domain and range</span></li>
+  <li><span class="lesson-num">3</span><span><code>inverse-trig-identities</code> — arcsin(x)+arccos(x)=π/2; compositions sin(arccos(x)) etc.</span></li>
+  <li><span class="lesson-num">4</span><span><code>inverse-trig-equations</code> — Solving equations involving arcsin, arccos, arctan</span></li>
+  <li><span class="lesson-num">5</span><span><code>inverse-trig-exam-practice</code> — Exam practice</span></li>
+</ul>
+
+<h3>Year 12 — Unit 4: Further Calculus Skills</h3>
+<ul class="lesson-list">
+  <li><span class="lesson-num">1</span><span><code>integration-substitution</code> — u-substitution; indefinite and definite integrals</span></li>
+  <li><span class="lesson-num">2</span><span><code>inverse-trig-integrals</code> — ∫ 1/√(a²−x²) dx = arcsin(x/a)+C; ∫ a/(a²+x²) dx = arctan(x/a)+C</span></li>
+  <li><span class="lesson-num">3</span><span><code>further-integration</code> — Harder substitution; combined techniques</span></li>
+  <li><span class="lesson-num">4</span><span><code>further-calculus-exam-practice</code> — Exam practice</span></li>
+</ul>
+
+<h3>Year 12 — Unit 5: Further Applications of Calculus</h3>
+<ul class="lesson-list">
+  <li><span class="lesson-num">1</span><span><code>related-rates</code> — Implicit differentiation over time; chain rule dA/dt = dA/dr · dr/dt</span></li>
+  <li><span class="lesson-num">2</span><span><code>volumes-revolution</code> — V = π∫ y² dx; rotating about x-axis or y-axis</span></li>
+  <li><span class="lesson-num">3</span><span><code>simple-harmonic-motion</code> — ẍ = −n²x; x = a·cos(nt+α); velocity/acceleration relations</span></li>
+  <li><span class="lesson-num">4</span><span><code>calculus-applications-exam-practice</code> — Exam practice</span></li>
+</ul>
+
+<h3>Year 12 — Unit 6: The Binomial Distribution</h3>
+<ul class="lesson-list">
+  <li><span class="lesson-num">1</span><span><code>binomial-model</code> — Bernoulli trials; conditions for binomial; X ~ B(n,p) notation</span></li>
+  <li><span class="lesson-num">2</span><span><code>binomial-probabilities</code> — P(X=k) = C(n,k) p^k (1−p)^(n−k); exact and cumulative</span></li>
+  <li><span class="lesson-num">3</span><span><code>mean-variance-binomial</code> — E(X)=np; Var(X)=np(1−p); SD(X)</span></li>
+  <li><span class="lesson-num">4</span><span><code>sampling-distribution-mean</code> — Sample mean X̄; distribution of X̄; standard error</span></li>
+  <li><span class="lesson-num">5</span><span><code>binomial-distribution-exam-practice</code> — Exam practice</span></li>
+</ul>
+
+<!-- ===== SECTION 4 ===== -->
+<h2><span class="section-number">4</span>Prerequisite Relationships</h2>
+<pre>Year 11 Advanced (assumed complete before Extension begins)
+  ├── Working With Functions        → Year 11 Ext: Further Work with Functions
+  ├── Trig Identities/Equations     → Year 11 Ext: Further Trigonometry
+  ├── Probability and Data          → Year 12 Ext: Binomial Distribution
+  └── Introduction to Differentiation → Year 12 Ext: All calculus units
+
+Year 11 Extension
+  Permutations and Combinations (Unit 4)
+    → The Binomial Theorem (Unit 5)        [C(n,r) notation essential]
+    → Year 12 Ext: Binomial Distribution   [B(n,p) builds on C(n,r)]
+
+  Further Trigonometry (Unit 3)
+    → Year 12 Ext: Inverse Trig (Unit 3)   [reciprocal ratios, identities used]
+
+Year 12 Extension 1 internal dependencies
+  Inverse Trig (Unit 3)
+    → Further Calculus Skills (Unit 4)     [arcsin/arctan integrals]
+
+  Further Calculus Skills (Unit 4)
+    → Further Applications (Unit 5)        [substitution used in volumes/SHM]
+
+  Polynomials          — standalone (no Year 12 dependents)
+  Proof by Induction   — standalone
+  Vectors              — standalone (can be taught in any order)</pre>
+
+<!-- ===== SECTION 5 ===== -->
+<h2><span class="section-number">5</span>Markability Warnings for the Current Renderer</h2>
+<p>The renderer has no image rendering. <code>normaliseAnswer()</code> strips whitespace, lowercases, normalises Unicode minus, and normalises spaces around operators — but <strong>fractions ≠ decimals</strong> and <strong>surd forms ≠ decimals</strong>.</p>
+
+<table>
+  <tr><th>Content type</th><th>Warning</th><th>Recommendation</th></tr>
+  <tr><td>Compound inequalities (e.g. −3&lt;x&lt;3)</td><td>Students may write "x∈(−3,3)" or use ≤ instead of &lt;</td><td>MC for inequality solutions; typed only for a single bound</td></tr>
+  <tr><td>Polynomial quotient Q(x)</td><td>Typed polynomial strings are fragile (variable spacing, sign form)</td><td>Typed for numeric remainder only; MC for quotient</td></tr>
+  <tr><td>Exact trig values with √ (e.g. (√6+√2)/4)</td><td>"sqrt(6)" / "root6" / "(√6+√2)/4" all normalise differently</td><td>MC for any exact value involving square roots</td></tr>
+  <tr><td>arcsin/arccos values in radians</td><td>"pi/6" works; "π/6" may not; "30" (degrees) is wrong format</td><td>Typed for "pi/6", "pi/3", "pi/4", "pi/2" only; MC for others</td></tr>
+  <tr><td>Inverse function f⁻¹(x) expressions</td><td>Student may write function expression — fragile</td><td>MC for the inverse function form</td></tr>
+  <tr><td>Proof by induction steps</td><td>Cannot mark free-form algebraic manipulation</td><td>Decompose into: base case value (typed), inductive assumption (MC), algebraic step (MC)</td></tr>
+  <tr><td>Vector components</td><td>Asking for (a, b) as typed text is fragile</td><td>Typed for single component or magnitude; MC for full vector</td></tr>
+  <tr><td>Definite integrals with irrational results</td><td>√3/2, π/4 etc. — normaliser may not match all forms</td><td>Use acceptedAnswers with multiple forms; prefer MC for complex results</td></tr>
+  <tr><td>SD(X) when Var(X) is not a perfect square</td><td>Irrational result — never type</td><td>MC only unless √Var(X) is an integer</td></tr>
+  <tr><td>Binomial P(X=k)</td><td>Decimals to 4dp + fractions are different strings</td><td>Always list both in acceptedAnswers; prefer MC for messy values</td></tr>
+  <tr><td>Circular arrangements</td><td>(n−1)! — typed integer, safe</td><td>Safe for typed</td></tr>
+  <tr><td>Trig identity proofs</td><td>Cannot mark multi-step algebraic proof</td><td>MC for "which is the correct next step" or "which identity applies"</td></tr>
+</table>
+
+<!-- ===== SECTION 6 ===== -->
+<h2><span class="section-number">6</span>Lessons Requiring Careful Human Review</h2>
+
+<h4><span class="badge-high">HIGH RISK</span> Significant human review required before ship</h4>
+<table>
+  <tr><th>Lesson</th><th>Risk</th><th>Review focus</th></tr>
+  <tr><td><code>absolute-value-inequalities</code></td><td>Compound inequality answers are fragile</td><td>Ensure typed questions ask for single bound; verify MC distractors cover common sign errors</td></tr>
+  <tr><td><code>composite-inverse-functions</code></td><td>Inverse function expressions and restricted domains</td><td>Verify domain restrictions in questions; MC for f⁻¹(x) form</td></tr>
+  <tr><td><code>sum-difference-formulas</code></td><td>Exact trig value questions with surd answers</td><td>Confirm all surd-value questions use MC</td></tr>
+  <tr><td><code>t-substitution</code></td><td>t-formula manipulation is algebraically dense</td><td>High MC ratio; typed only for simple substitution results</td></tr>
+  <tr><td><code>polynomial-division</code></td><td>Quotient polynomial form unreliable as typed</td><td>Numeric remainder only as typed; MC for quotient polynomial</td></tr>
+  <tr><td><code>graphing-polynomials</code></td><td>Graph features (shape, turning points) not renderable</td><td>All graph questions must describe properties in MC; no "sketch the graph" questions</td></tr>
+  <tr><td><code>reciprocal-sqrt-functions</code></td><td>Graph-based questions not renderable</td><td>Same: describe features via MC</td></tr>
+  <tr><td><code>further-functions-exam-practice</code></td><td>Compounds risks from all four lessons</td><td>Human check that no question inadvertently requires graph interpretation</td></tr>
+  <tr><td>All 5 <code>proof-induction</code> lessons</td><td>Proof steps cannot be typed; decomposition is non-trivial</td><td>Every lesson needs manual review of inductive step MC options for algebraic correctness</td></tr>
+  <tr><td><code>vectors-geometry</code></td><td>Geometric proof steps are non-trivial to decompose</td><td>Review that MC options cover genuine algebraic steps, not superficial labels</td></tr>
+  <tr><td><code>related-rates</code></td><td>Multi-step setup — identify variables, differentiate, substitute</td><td>Each step should be a separate question; verify the question chain is consistent</td></tr>
+  <tr><td><code>simple-harmonic-motion</code></td><td>SHM equations are dense; easy to introduce sign errors</td><td>Verify all ẍ = −n²x sign conventions are consistent across lesson</td></tr>
+</table>
+
+<h4><span class="badge-med">MEDIUM RISK</span> Review recommended</h4>
+<ul>
+  <li><code>roots-and-coefficients</code> — Vieta's formulas for cubics (three distinct relations); verify which questions ask for sum vs product vs sum-of-pairs</li>
+  <li><code>binomial-identities</code> — Substituting x=1 or x=−1 produces integer results (safe), but the identity being proved must be stated precisely in each question</li>
+  <li><code>inverse-trig-identities</code> — arcsin+arccos=π/2 identity is safe; compositions like sin(arccos(x)) give √(1−x²) which cannot be typed</li>
+  <li><code>inverse-trig-equations</code> — Results in "pi/6" are typable; results involving arcsin of a non-standard value should use MC</li>
+</ul>
+
+<!-- ===== SECTION 7 ===== -->
+<h2><span class="section-number">7</span>Multiple-Choice Heavy Lessons</h2>
+<p>These lessons should have <strong>≥ 70% MC</strong> in the mastery quiz (≥ 7 of 10 questions):</p>
+<table>
+  <tr><th>Lesson</th><th>Reason</th></tr>
+  <tr><td><code>absolute-value-inequalities</code></td><td>Compound inequality answers fragile</td></tr>
+  <tr><td><code>composite-inverse-functions</code></td><td>Function expression answers fragile</td></tr>
+  <tr><td><code>reciprocal-sqrt-functions</code></td><td>Graph-feature questions only via MC</td></tr>
+  <tr><td><code>graphing-polynomials</code></td><td>All graph and curve-shape questions via MC</td></tr>
+  <tr><td><code>sum-difference-formulas</code></td><td>Surd exact values → MC</td></tr>
+  <tr><td><code>t-substitution</code></td><td>Dense algebraic manipulation → MC</td></tr>
+  <tr><td>All 5 <code>proof-induction</code> lessons</td><td>Proof steps never typed</td></tr>
+  <tr><td><code>vectors-geometry</code></td><td>Proof conclusions via MC</td></tr>
+  <tr><td><code>related-rates</code></td><td>Multi-step setup conclusions via MC</td></tr>
+  <tr><td><code>simple-harmonic-motion</code></td><td>Phase/amplitude interpretation via MC</td></tr>
+  <tr><td><code>further-integration</code></td><td>Complex integral results → MC</td></tr>
+</table>
+
+<!-- ===== SECTION 8 ===== -->
+<h2><span class="section-number">8</span>Lessons Where Typed Numeric Answers Are Safe</h2>
+<p>These lessons can have <strong>≥ 50% typed questions</strong> with low markability risk:</p>
+<table>
+  <tr><th>Lesson</th><th>Safe typed question types</th></tr>
+  <tr><td><code>counting-principles</code></td><td>Integer count answers</td></tr>
+  <tr><td><code>permutations</code></td><td>P(n,r) results — clean integers</td></tr>
+  <tr><td><code>combinations</code></td><td>C(n,r) results — clean integers</td></tr>
+  <tr><td><code>arrangements-with-restrictions</code></td><td>Integer count with restriction applied</td></tr>
+  <tr><td><code>polynomial-division</code></td><td>Numeric remainder (integer or simple fraction)</td></tr>
+  <tr><td><code>remainder-factor-theorem</code></td><td>f(a) evaluations; typed "yes"/"no" for factor test</td></tr>
+  <tr><td><code>roots-and-coefficients</code></td><td>Sum of roots, product of roots as simple fractions</td></tr>
+  <tr><td><code>pascals-triangle</code></td><td>Integer coefficients</td></tr>
+  <tr><td><code>binomial-theorem</code></td><td>Coefficient of x^k term — clean integer</td></tr>
+  <tr><td><code>general-term</code></td><td>Coefficient extraction — integer</td></tr>
+  <tr><td><code>induction-summation</code></td><td>Base case LHS/RHS evaluation — integer</td></tr>
+  <tr><td><code>induction-divisibility</code></td><td>Base case residue — integer</td></tr>
+  <tr><td><code>dot-product</code></td><td>a·b = integer; angle as "pi/3" etc.</td></tr>
+  <tr><td><code>components-unit-vectors</code></td><td>Magnitude (if integer); single component value</td></tr>
+  <tr><td><code>inverse-sine</code></td><td>arcsin exact values: "pi/6", "pi/2", "pi/4"</td></tr>
+  <tr><td><code>inverse-cosine-tangent</code></td><td>arccos/arctan exact values: "pi/3", "pi/4", "pi/6"</td></tr>
+  <tr><td><code>integration-substitution</code></td><td>Definite integral if clean fraction or integer result</td></tr>
+  <tr><td><code>binomial-model</code></td><td>Identify n and p — typed integers/decimals</td></tr>
+  <tr><td><code>mean-variance-binomial</code></td><td>E(X)=np (typed), Var(X)=np(1−p) if clean</td></tr>
+</table>
+
+<!-- ===== SECTION 9 ===== -->
+<h2><span class="section-number">9</span>Suggested First Unit to Build</h2>
+
+<div class="highlight-box">
+  <strong>→ Year 11 Extension Unit 4: Permutations and Combinations</strong>
+  <br><code>permutations-combinations</code>
+</div>
+
+<p><strong>Reasons:</strong></p>
+<ul>
+  <li>All answers are clean positive integers — zero markability risk</li>
+  <li>No image rendering needed (no graphs, no geometry)</li>
+  <li>Clear, ordered pedagogical sequence that composes naturally</li>
+  <li>C(n,r) notation is an essential prerequisite for Binomial Theorem (Unit 5) — builds upward</li>
+  <li>Lowest lesson-to-lesson dependency on prior Extension content — can be built first</li>
+  <li>Strong analogous patterns exist in the existing probability-data lessons (counting contexts, factorial manipulation)</li>
+  <li>Zero risk of introducing mark-scheme errors from surd or irrational answers</li>
+</ul>
+<p><em>Alternative if integer-heavy feel is undesirable:</em> <strong>Unit 2 Polynomials</strong> — remainder/factor theorem yield typed integer answers; roots/coefficients are fractions. Both are safe first builds.</p>
+
+<!-- ===== SECTION 10 ===== -->
+<h2><span class="section-number">10</span>Codex Implementation Prompt — Unit 4: Permutations and Combinations</h2>
+<p>This prompt is ready to paste into Codex to build the first unit.</p>
+
+<pre>Task: Write complete lesson content for the Year 11 Mathematics Extension unit
+"Permutations and Combinations" (unit slug: permutations-combinations).
+
+This unit does NOT yet exist. Create a new file:
+  lib/lessons/year11Extension/permutationsCombinations.ts
+
+Export five named lesson constants, then wire them into newCourseCatalog.ts
+following the same pattern as existing Extension course seeds.
+
+---
+
+REFERENCE FILES TO READ FIRST (mandatory):
+
+1. lib/lessons/year11Advanced/probabilityData.ts
+   Read the complete file. Study how counting-context questions are structured,
+   how "how many ways" prompts are phrased, and how integer typed answers are
+   formatted (no acceptedAnswers needed).
+
+2. lib/newCourseCatalog.ts
+   Find any existing "year11Extension" course seed (or confirm it doesn't exist).
+   If it doesn't exist, create a new course entry following the Year 11 Advanced
+   pattern. Wire the five lessons under moduleSlug "permutations-combinations".
+
+3. lib/lessons/differentialCalculus.ts (lines 1–60 only)
+   Read the ExplicitLesson type definition and export pattern only.
+
+4. app/course/LessonRenderer.tsx (lines 43–57)
+   Read the normaliseAnswer function. Note: integer answers need no acceptedAnswers.
+
+---
+
+OUTPUT FILE: lib/lessons/year11Extension/permutationsCombinations.ts
+
+Export five constants:
+  countingPrinciplesLesson
+  permutationsLesson
+  combinationsLesson
+  arrangementsRestrictionsLesson
+  permsCombsExamPracticeLesson
+
+---
+
+UNIT METADATA:
+courseTitle: "Year 11 Mathematics Extension"
+moduleSlug: "permutations-combinations"
+moduleTitle: "Permutations and Combinations"
+syllabusArea: "Combinatorics"
+
+---
+
+LESSON STRUCTURE (all five lessons):
+Each lesson must include:
+  id, slug, moduleSlug, moduleTitle, courseTitle, title, description, syllabusArea
+  description: 2 sentences naming 3–4 specific sub-concepts
+  status: "active"
+  learningIntention (one sentence)
+  successCriteria (5–6 measurable bullet points)
+  teaching: { paragraphs: string[], latexBlocks: string[] }
+  workedExamples (3–4, each with title, questionLatex, steps[], finalAnswerLatex)
+  guidedPractice (exactly 4 questions)
+  independentPractice (exactly 5 questions)
+  commonMistakes (4 items)
+  masteryQuiz (exactly 10 questions)
+  masteryPassMark: 0.8
+
+---
+
+LESSON 1 — Counting Principles and Factorials
+slug: "counting-principles"
+Topics:
+  Multiplication principle: if A can happen m ways and B n ways, total = m×n
+  Addition principle: if events are mutually exclusive, total = m+n
+  Factorial notation: n! = n × (n−1) × … × 2 × 1
+  Simplifying factorial expressions: n!/r!, (n+1)!/n! = n+1
+Worked examples (3):
+  1. Multiplication principle: 3 shirt colours × 4 trouser colours = 12 outfits
+  2. Factorial computation: 6! = 720; 8!/6! = 8×7 = 56
+  3. Simplification: (n+2)!/n! = (n+2)(n+1)
+Mastery quiz (10): 4 factorials, 3 multiplication principle, 2 addition principle, 1 factorial comparison (MC)
+
+LESSON 2 — Permutations
+slug: "permutations"
+Topics:
+  Ordered arrangements where "order matters"
+  Number of ways to arrange n distinct objects in a line: n!
+  P(n,r) = n!/(n−r)! — arrange r from n distinct objects
+  Computing P(n,r) for given n and r
+Worked examples (4):
+  1. Arrange 4 books on a shelf: 4! = 24
+  2. Choose and arrange 3 runners from 8 for a podium: P(8,3) = 8×7×6 = 336
+  3. 3-digit PINs from digits 1–9 (no repetition): P(9,3) = 504
+  4. Compute P(10,4) step-by-step: 10×9×8×7 = 5040
+Mastery quiz (10): 3 compute P(n,r), 3 contextual arrangements, 2 ordered-vs-unordered MC, 1 formula simplification, 1 comparison MC
+
+LESSON 3 — Combinations
+slug: "combinations"
+Topics:
+  Selections where order does NOT matter
+  C(n,r) = n!/(r!(n−r)!) — also written ⁿCᵣ
+  Relationship C(n,r) = P(n,r)/r!
+  Symmetry property: C(n,r) = C(n,n−r)
+  Pascal's identity: C(n+1,r) = C(n,r−1) + C(n,r)
+Worked examples (4):
+  1. Choose 3 students from 8 for a committee: C(8,3) = 56
+  2. Choose 2 toppings from 5: C(5,2) = 10
+  3. Use symmetry: C(10,8) = C(10,2) = 45
+  4. Calculate C(12,5) step-by-step
+Mastery quiz (10): 3 compute C(n,r), 3 contextual selection, 2 symmetry/Pascal, 1 P-vs-C MC, 1 two-stage C×C
+
+LESSON 4 — Arrangements with Restrictions
+slug: "arrangements-with-restrictions"
+Topics:
+  Items together: treat as one unit → (n−1)! × k!
+  Items apart: total − together (complement)
+  Identical objects: n!/(n₁!·n₂!·…)
+  Circular arrangements: (n−1)!
+Worked examples (4):
+  1. 5 people in a row; A and B must be together: 4! × 2! = 48
+  2. A and B must NOT be together: 5! − 48 = 72
+  3. Arrange letters of ARRANGEMENT: 12!/(3!·2!·2!·2!)
+  4. 6 people at a round table: (6−1)! = 120
+Mastery quiz (10): 3 restriction-based line arrangements, 2 circular, 2 identical objects,
+                   2 complement method, 1 classify-which-rule MC
+
+LESSON 5 — Exam Practice
+slug: "perms-combs-exam-practice"
+No teaching section. masteryPassMark: 0.8
+10 questions sampling all four lessons:
+  Q1: Factorial simplification (typed integer)
+  Q2: Multiplication principle (typed integer)
+  Q3: P(n,r) calculation (typed integer)
+  Q4: Contextual permutation (typed integer)
+  Q5: C(n,r) calculation (typed integer)
+  Q6: Contextual combination (typed integer)
+  Q7: P vs C classification (MC)
+  Q8: Circular arrangement (typed integer)
+  Q9: Items-together restriction (typed integer)
+  Q10: Complement method — items-apart or at-least-one (typed integer or MC)
+
+---
+
+LATEX AND FORMATTING RULES:
+  Prompts must be natural English. No raw maths in the prompt string.
+    WRONG: prompt: "Find P(6,3)."
+    RIGHT: prompt: "Find the number of ways to arrange 3 objects from 6 distinct objects.",
+           latex: "P(6,3) = \\dfrac{6!}{(6-3)!}"
+
+  Notation in prompts uses inline $...$:
+    $P(n,r)$, $C(n,r)$, $n!$, $r!$
+
+  Combination formula in latex field:
+    "C(n,r) = \\dbinom{n}{r} = \\dfrac{n!}{r!(n-r)!}"
+
+  No internal labels in any student-facing field:
+    NO: "Transfer:", "Trap:", "Core:", "Harder:", "Standard:", "Interpretation:"
+
+---
+
+ANSWER CONVENTIONS:
+  All answers are positive integers. No acceptedAnswers needed for integer results.
+  For algebraic simplification answers (e.g. (n+1)!/n! = n+1), answer: "n+1"
+  For classification questions use MC instead of typed yes/no.
+
+---
+
+QUALITY CHECKLIST:
+  □ Every prompt is natural English — no raw maths in the prompt string
+  □ Notation uses inline $...$ in prompts and choices
+  □ No image-based questions — no graphs, no geometric figures
+  □ Every lesson has exactly 4 guidedPractice, 5 independentPractice, 10 masteryQuiz questions
+  □ No internal labels in any field
+  □ All integer answers have no acceptedAnswers
+  □ Lesson 5 has no teaching section
+  □ masteryPassMark: 0.8 on all five lessons
+  □ Circular arrangement formula is (n−1)!, not n!
+  □ Identical-objects formula is n!/(n₁!·n₂!·…) — verify all counts in questions
+  □ "Items together" = treat as 1 unit: arrangements = (n−1)! × k!
+  □ Worked examples include step-by-step arithmetic, not just final answers
+  □ No question requires typing a probability — answers are always "how many ways" counts</pre>
+
+</body>
+</html>
