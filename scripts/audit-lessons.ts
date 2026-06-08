@@ -27,6 +27,20 @@ type AuditIssue = {
   message: string;
 };
 
+type VisualFindingKind =
+  | "visual required, no payload"
+  | "visual helpful but not required"
+  | "text table/data fully present";
+
+type VisualStimulusFinding = {
+  kind: VisualFindingKind;
+  courseSlug: string;
+  unitSlug: string;
+  lessonSlug: string;
+  path: string;
+  excerpt: string;
+};
+
 type LessonRecord = {
   courseSlug: string;
   unitSlug: string;
@@ -41,11 +55,15 @@ type QuestionRecord = {
 const workspaceRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const failures: AuditIssue[] = [];
 const warnings: AuditIssue[] = [];
+const visualStimulusFindings: VisualStimulusFinding[] = [];
 
 const placeholderPattern =
   /\bTODO\b|lorem ipsum|placeholder lesson|generated fallback|sample question/i;
-const visualKeywordPattern =
-  /\bbox(?:-and-whisker)? plot\b|\btree diagram\b|\bvenn(?: diagram)?\b|\btwo-way table\b|\btrapezoidal rule\b|\barea between curves\b|\bcircle theorem\b/i;
+const visualRequiredPattern =
+  /\b(?:read|use|using|from|shown (?:in|on)|given (?:in|on)|according to)\s+(?:the\s+)?(?:graph|diagram|figure|box(?:-and-whisker)? plot|tree diagram|venn(?: diagram)?|two-way table|network diagram)\b|\b(?:graph|diagram|figure|box(?:-and-whisker)? plot|tree diagram|venn(?: diagram)?|two-way table|network diagram)\s+(?:below|above|shown)\b/i;
+const visualHelpfulPattern =
+  /\bgraph|diagram|figure|box(?:-and-whisker)? plot|tree diagram|venn(?: diagram)?|two-way table|network diagram|trapezoidal rule|area between curves|circle theorem\b/i;
+const tableDataPattern = /\btable|data set|data below|values below|following data|frequency table\b/i;
 
 function addIssue(
   level: AuditLevel,
@@ -90,10 +108,9 @@ function visualItems(lesson: ExplicitLesson) {
   return [...lesson.workedExamples, ...questionRecords(lesson).map(({ question }) => question)];
 }
 
-function hasVisualPayload(lesson: ExplicitLesson) {
-  return visualItems(lesson).some(
-    (item) =>
-      item.diagram ||
+function hasItemVisualPayload(item: WorkedExample | PracticeQuestion) {
+  return Boolean(
+    item.diagram ||
       ("solutionDiagram" in item && item.solutionDiagram) ||
       item.triangleDiagram ||
       item.cartesianGraph ||
@@ -104,6 +121,10 @@ function hasVisualPayload(lesson: ExplicitLesson) {
       item.twoWayTableDiagram ||
       item.vennDiagram
   );
+}
+
+function hasVisualPayload(lesson: ExplicitLesson) {
+  return visualItems(lesson).some((item) => hasItemVisualPayload(item));
 }
 
 function lessonPath(courseSlug: string, unitSlug: string, lessonSlug: string) {
@@ -920,6 +941,82 @@ function feedbackOnlyRestatesAnswer(question: PracticeQuestion) {
   );
 }
 
+function questionStimulusText(question: PracticeQuestion) {
+  return [
+    question.prompt,
+    question.latex,
+    ...(question.choices?.map((choice) => choice.text) ?? []),
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
+
+function compactExcerpt(text: string) {
+  return text.replace(/\s+/g, " ").trim().slice(0, 180);
+}
+
+function hasSelfContainedTableData(text: string) {
+  const numericTokens = text.match(/-?\d+(?:\.\d+)?/g) ?? [];
+  return (
+    tableDataPattern.test(text) &&
+    numericTokens.length >= 3 &&
+    /[,;:|]|\n|\brow\b|\bcolumn\b|\bfrequency\b/i.test(text)
+  );
+}
+
+function classifyQuestionVisualStimulus(
+  courseSlug: string,
+  unitSlug: string,
+  lessonSlug: string,
+  section: QuestionRecord["section"],
+  question: PracticeQuestion
+) {
+  const text = questionStimulusText(question);
+  if (!text.trim() || hasItemVisualPayload(question)) return;
+
+  const path = `${lessonPath(courseSlug, unitSlug, lessonSlug)}/${section}/${question.id}`;
+  if (hasSelfContainedTableData(text)) {
+    visualStimulusFindings.push({
+      kind: "text table/data fully present",
+      courseSlug,
+      unitSlug,
+      lessonSlug,
+      path,
+      excerpt: compactExcerpt(text),
+    });
+    return;
+  }
+
+  if (visualRequiredPattern.test(text)) {
+    visualStimulusFindings.push({
+      kind: "visual required, no payload",
+      courseSlug,
+      unitSlug,
+      lessonSlug,
+      path,
+      excerpt: compactExcerpt(text),
+    });
+    addIssue(
+      "WARN",
+      "visual-required-no-payload",
+      path,
+      "Question stimulus asks students to use/read a visual, but this question has no visual payload."
+    );
+    return;
+  }
+
+  if (visualHelpfulPattern.test(text)) {
+    visualStimulusFindings.push({
+      kind: "visual helpful but not required",
+      courseSlug,
+      unitSlug,
+      lessonSlug,
+      path,
+      excerpt: compactExcerpt(text),
+    });
+  }
+}
+
 function validateIndexExports(year: "year9" | "year10") {
   const directory = join(workspaceRoot, "lib", "lessons", year);
   const indexPath = join(directory, "index.ts");
@@ -1008,6 +1105,8 @@ function validateLesson(
   const questions = questionRecords(lesson);
   for (const { section, question } of questions) {
     const questionPath = `${path}/${section}/${question.id}`;
+    classifyQuestionVisualStimulus(courseSlug, unitSlug, lesson.slug, section, question);
+
     if (question.choices) {
       const labels = question.choices.map((choice) => choice.label);
       if (!labels.includes(question.answer)) {
@@ -1031,17 +1130,6 @@ function validateLesson(
 
   if (!hasVisualPayload(lesson)) {
     addIssue("WARN", "no-visual-payload", path, "Lesson has no visual payload.");
-  }
-
-  const visualDependencyText = JSON.stringify({
-    title: lesson.title,
-    description: lesson.description,
-    learningIntention: lesson.learningIntention,
-    successCriteria: lesson.successCriteria,
-    teaching: lesson.teaching,
-  });
-  if (visualKeywordPattern.test(visualDependencyText) && !hasVisualPayload(lesson)) {
-    addIssue("WARN", "visual-dependent-without-visual", path, "Lesson contains visually dependent keywords but no visual payload.");
   }
 }
 
@@ -1093,6 +1181,68 @@ function printCourseUnitWarningBreakdown(records: LessonRecord[]) {
         );
         console.log(`      ${record.lesson.slug}: ${lessonWarnings.length}`);
       }
+    }
+  }
+}
+
+function countVisualFindingsByKind() {
+  const counts = new Map<VisualFindingKind, number>();
+  for (const finding of visualStimulusFindings) {
+    counts.set(finding.kind, (counts.get(finding.kind) ?? 0) + 1);
+  }
+
+  return [
+    "visual required, no payload",
+    "visual helpful but not required",
+    "text table/data fully present",
+  ].map((kind) => [kind, counts.get(kind as VisualFindingKind) ?? 0] as const);
+}
+
+function printVisualStimulusReport() {
+  console.log("\nVISUAL STIMULUS AUDIT");
+  console.log("  Fields inspected: prompt, latex, and choice text only.");
+  console.log("  Fields ignored: hint, explanation, teaching paragraphs, helper feedback, and generic feedback strings.");
+  console.log("  Distinctions:");
+  for (const [kind, count] of countVisualFindingsByKind()) {
+    console.log(`    ${kind}: ${count}`);
+  }
+
+  const grouped = new Map<string, Record<VisualFindingKind, number>>();
+  for (const finding of visualStimulusFindings) {
+    const key = `${finding.courseSlug}/${finding.unitSlug}`;
+    const counts =
+      grouped.get(key) ??
+      {
+        "visual required, no payload": 0,
+        "visual helpful but not required": 0,
+        "text table/data fully present": 0,
+      };
+    counts[finding.kind] += 1;
+    grouped.set(key, counts);
+  }
+
+  console.log("  Category counts by course/unit:");
+  if (grouped.size === 0) {
+    console.log("    None");
+  } else {
+    for (const [key, counts] of [...grouped.entries()].sort(([a], [b]) => a.localeCompare(b))) {
+      console.log(
+        `    ${key}: required=${counts["visual required, no payload"]}, helpful=${counts["visual helpful but not required"]}, text-data=${counts["text table/data fully present"]}`
+      );
+    }
+  }
+
+  const topRequired = visualStimulusFindings
+    .filter((finding) => finding.kind === "visual required, no payload")
+    .slice(0, 10);
+
+  console.log("  Top category-3 examples (visual required, no payload):");
+  if (topRequired.length === 0) {
+    console.log("    None");
+  } else {
+    for (const finding of topRequired) {
+      console.log(`    ${finding.path}`);
+      console.log(`      ${finding.excerpt}`);
     }
   }
 }
@@ -1159,6 +1309,7 @@ function audit() {
   console.log(`Audited ${records.length} catalogue lesson(s) across ${newCoursePathways.length} course pathway(s).`);
   printIssueList("FAIL-LEVEL ISSUES", failures);
   printWarningSummary();
+  printVisualStimulusReport();
   printCourseUnitWarningBreakdown(records);
 
   console.log(`\nFINAL RESULT: ${failures.length > 0 ? "FAIL" : "PASS"}`);
