@@ -3,6 +3,26 @@
 import { useEffect, useRef, useState } from "react";
 import { BlockMath, InlineMath } from "react-katex";
 import { MathAnswerInput } from "../../components/MathAnswerInput";
+import { BoxPlotView } from "../../course/components/BoxPlotView";
+import { CartesianGraphView } from "../../course/components/CartesianGraphView";
+import { NetworkDiagramView } from "../../course/components/NetworkDiagramView";
+import { NormalDistributionView } from "../../course/components/NormalDistributionView";
+import { ProbabilityTreeView } from "../../course/components/ProbabilityTreeView";
+import { TrapezoidalRuleView } from "../../course/components/TrapezoidalRuleView";
+import { TriangleDiagramView } from "../../course/components/TriangleDiagramView";
+import { TwoWayTableView } from "../../course/components/TwoWayTableView";
+import { VennDiagramView } from "../../course/components/VennDiagramView";
+import type {
+  BoxPlotDiagram,
+  CartesianGraph,
+  NetworkDiagram,
+  NormalDistributionDiagram,
+  ProbabilityTreeDiagram,
+  TrapezoidalRuleDiagram,
+  TriangleDiagram,
+  TwoWayTableDiagram,
+  VennDiagram,
+} from "../../../lib/lessons/types";
 import type { WorksheetQuestion } from "./page";
 
 // ── Inline math renderer for plain text with $...$  delimiters ────────────────
@@ -20,6 +40,35 @@ function MathText({ text }: { text: string }) {
       )}
     </>
   );
+}
+
+// ── Diagram renderer ───────────────────────────────────────────────────────────
+
+function DiagramRenderer({ data }: { data: Record<string, unknown> | null }) {
+  if (!data) return null;
+  const { type, ...rest } = data;
+  switch (type) {
+    case "cartesianGraph":
+      return <CartesianGraphView graph={rest as CartesianGraph} />;
+    case "triangleDiagram":
+      return <TriangleDiagramView diagram={rest as TriangleDiagram} />;
+    case "trapezoidalRuleDiagram":
+      return <TrapezoidalRuleView diagram={rest as TrapezoidalRuleDiagram} />;
+    case "boxPlotDiagram":
+      return <BoxPlotView diagram={rest as BoxPlotDiagram} />;
+    case "normalDistributionDiagram":
+      return <NormalDistributionView diagram={rest as NormalDistributionDiagram} />;
+    case "probabilityTreeDiagram":
+      return <ProbabilityTreeView diagram={rest as ProbabilityTreeDiagram} />;
+    case "twoWayTableDiagram":
+      return <TwoWayTableView diagram={rest as TwoWayTableDiagram} />;
+    case "vennDiagram":
+      return <VennDiagramView diagram={rest as VennDiagram} />;
+    case "networkDiagram":
+      return <NetworkDiagramView diagram={rest as NetworkDiagram} />;
+    default:
+      return null;
+  }
 }
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -342,6 +391,7 @@ export function WorksheetClient({
                 <BlockMath math={currentQuestion.latex} />
               </div>
             ) : null}
+            <DiagramRenderer data={currentQuestion.diagramData} />
           </div>
 
           {/* Answer input */}

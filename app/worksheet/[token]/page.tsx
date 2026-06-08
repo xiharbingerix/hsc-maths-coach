@@ -15,6 +15,7 @@ export type WorksheetQuestion = {
   prompt: string;
   latex: string | null;
   choices: Array<{ label: string; text: string }> | null;
+  diagramData: Record<string, unknown> | null;
 };
 
 function safeChoices(value: unknown): Array<{ label: string; text: string }> | null {
@@ -90,7 +91,7 @@ export default async function WorksheetPage({
   );
   const { data: qRows, error: qError } = await supabaseAdmin
     .from("questions")
-    .select("id, prompt, latex, choices")
+    .select("id, prompt, latex, choices, diagram_data")
     .in("id", questionIds);
 
   if (qError || !qRows) {
@@ -100,8 +101,16 @@ export default async function WorksheetPage({
   }
 
   // 4. Join and sort by worksheet position
-  const qById = new Map<string, { id: string; prompt: string; latex: string | null; choices: unknown }>(
-    qRows.map((q: { id: string; prompt: string; latex: string | null; choices: unknown }) => [q.id, q])
+  type RawQuestion = {
+    id: string;
+    prompt: string;
+    latex: string | null;
+    choices: unknown;
+    diagram_data: Record<string, unknown> | null;
+  };
+
+  const qById = new Map<string, RawQuestion>(
+    qRows.map((q: RawQuestion) => [q.id, q])
   );
 
   const questions: WorksheetQuestion[] = (
@@ -116,6 +125,7 @@ export default async function WorksheetPage({
         prompt: q.prompt,
         latex: q.latex,
         choices: safeChoices(q.choices),
+        diagramData: q.diagram_data ?? null,
       };
     })
     .filter((q): q is WorksheetQuestion => q !== null);

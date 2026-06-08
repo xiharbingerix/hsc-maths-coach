@@ -26,6 +26,7 @@ type QuestionRow = {
   syllabus_ref: string | null;
   transfer_from_topics: string[];
   is_active: boolean;
+  diagram_data: Record<string, unknown> | null;
 };
 
 type QuestionMappingContext = {
@@ -165,6 +166,19 @@ export function inferDifficulty(
   return 3;
 }
 
+function extractDiagramData(q: PracticeQuestion): Record<string, unknown> | null {
+  if (q.cartesianGraph)            return { type: "cartesianGraph",            ...q.cartesianGraph };
+  if (q.triangleDiagram)           return { type: "triangleDiagram",           ...q.triangleDiagram };
+  if (q.trapezoidalRuleDiagram)    return { type: "trapezoidalRuleDiagram",    ...q.trapezoidalRuleDiagram };
+  if (q.boxPlotDiagram)            return { type: "boxPlotDiagram",            ...q.boxPlotDiagram };
+  if (q.normalDistributionDiagram) return { type: "normalDistributionDiagram", ...q.normalDistributionDiagram };
+  if (q.probabilityTreeDiagram)    return { type: "probabilityTreeDiagram",    ...q.probabilityTreeDiagram };
+  if (q.twoWayTableDiagram)        return { type: "twoWayTableDiagram",        ...q.twoWayTableDiagram };
+  if (q.vennDiagram)               return { type: "vennDiagram",               ...q.vennDiagram };
+  if (q.diagram)                   return { type: "networkDiagram",            ...q.diagram };
+  return null;
+}
+
 export function mapPracticeQuestionToQuestionRow(
   question: PracticeQuestion,
   context: QuestionMappingContext
@@ -192,6 +206,7 @@ export function mapPracticeQuestionToQuestionRow(
     syllabus_ref: context.syllabusRef ?? null,
     transfer_from_topics: context.transferFromTopics ?? [],
     is_active: true,
+    diagram_data: extractDiagramData(question),
   };
 }
 
@@ -301,6 +316,16 @@ function groupCounts(rows: QuestionRow[]) {
   return [...counts.entries()].sort(([a], [b]) => a.localeCompare(b));
 }
 
+function groupDiagramCounts(rows: QuestionRow[]) {
+  const counts = new Map<string, number>();
+  for (const row of rows) {
+    if (!row.diagram_data) continue;
+    const type = String((row.diagram_data as { type?: unknown }).type ?? "unknown");
+    counts.set(type, (counts.get(type) ?? 0) + 1);
+  }
+  return [...counts.entries()].sort(([a], [b]) => a.localeCompare(b));
+}
+
 function printSummary(rows: QuestionRow[], warnings: ImportWarning[], dryRun: boolean) {
   console.log(`Question bank ${dryRun ? "dry run" : "seed"} summary`);
   console.log(`  Questions prepared: ${rows.length}`);
@@ -310,6 +335,16 @@ function printSummary(rows: QuestionRow[], warnings: ImportWarning[], dryRun: bo
   console.log("Counts by course:");
   for (const [courseSlug, count] of groupCourseCounts(rows)) {
     console.log(`  ${courseSlug}: ${count}`);
+  }
+  console.log("");
+
+  const diagramRows = rows.filter((r) => r.diagram_data !== null);
+  console.log(`Questions with diagram_data: ${diagramRows.length}`);
+  const diagramCounts = groupDiagramCounts(rows);
+  if (diagramCounts.length > 0) {
+    for (const [type, count] of diagramCounts) {
+      console.log(`  ${type}: ${count}`);
+    }
   }
   console.log("");
 
