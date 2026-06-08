@@ -148,6 +148,9 @@ export async function POST(request: Request) {
       subscription_data:
         offer.mode === "subscription"
           ? {
+              ...(offer.slug === "online-learning"
+                ? { trial_period_days: 7 }
+                : {}),
               metadata: {
                 offer_selected: offer.slug,
                 parent_email: parentEmail,

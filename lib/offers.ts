@@ -46,7 +46,7 @@ export const offerConfigs: Record<OfferSlug, OfferConfig> = {
   "online-learning": {
     slug: "online-learning",
     label: "Online Learning Access",
-    priceLabel: "$19/month",
+    priceLabel: "7-day free trial, then $19/month",
     description:
       "Structured online lessons, guided practice, independent practice, and mastery quizzes across available course pathways.",
     checkoutEnabled: true,

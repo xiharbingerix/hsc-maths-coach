@@ -30,8 +30,15 @@ async function ensureOnlineLearningAccessActivated(
     const stripe = getStripe();
     const session = await stripe.checkout.sessions.retrieve(sessionId);
 
-    if (session.payment_status !== "paid") return;
     if (session.metadata?.offer_selected !== "online-learning") return;
+    const hasSuccessfulOnlineLearningSubscription =
+      session.mode === "subscription" && Boolean(session.subscription);
+    if (
+      session.payment_status !== "paid" &&
+      !hasSuccessfulOnlineLearningSubscription
+    ) {
+      return;
+    }
 
     const userId =
       session.metadata?.user_id || session.client_reference_id || null;
@@ -121,18 +128,22 @@ export default async function PaymentSuccessPage({
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
-      <TrackPaymentSuccess />
+      <TrackPaymentSuccess
+        extraEventName={isOnlineLearning ? "trial_started" : undefined}
+      />
       <section className="mx-auto max-w-4xl space-y-8">
         <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
-            Payment received
+            {isOnlineLearning ? "Trial active" : "Payment received"}
           </p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight">
-            Thanks - your payment has been received.
+            {isOnlineLearning
+              ? "Your trial is active."
+              : "Thanks - your payment has been received."}
           </h1>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
             {isOnlineLearning
-              ? "Access is activated automatically. If your dashboard does not show active access within a few minutes, contact support@novamaths.com.au."
+              ? "Your 7-day free trial is active and access is activated automatically. If your dashboard does not show active access within a few minutes, contact support@novamaths.com.au."
               : "Year 12 Mathematics Advanced report and study plan options are reviewed before follow-up."}
           </p>
         </header>

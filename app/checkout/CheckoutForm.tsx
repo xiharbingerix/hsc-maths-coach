@@ -225,7 +225,8 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
         </h2>
         {offer.slug === "online-learning" ? (
           <p className="mt-2 text-sm text-slate-500">
-            Nova Maths Online Learning &middot; $19/month &middot; cancel any time
+            Nova Maths Online Learning &middot; 7-day free trial &middot; then
+            $19/month &middot; cancel any time
           </p>
         ) : null}
       </section>
@@ -251,7 +252,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
             {offer.slug === "online-learning" ? (
               <p className="mt-2">
                 Create your Nova Maths account here, then continue to Stripe.
-                Access activates automatically after payment.
+                Your trial access activates automatically after checkout.
               </p>
             ) : (
               <p className="mt-2">
@@ -276,8 +277,8 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
             </p>
             {isOnlineLearningSignupCheckout ? (
               <p className="mt-3 text-sm font-medium text-slate-500">
-                $19/month &middot; cancel any time &middot; secure payment
-                through Stripe
+                No charge today &middot; then $19/month &middot; cancel any time
+                &middot; secure payment through Stripe
               </p>
             ) : null}
           </div>
@@ -395,7 +396,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
                 ? "Creating account and opening secure checkout..."
                 : "Redirecting to Stripe checkout..."
               : isOnlineLearningSignupCheckout
-                ? "Create account and continue to Stripe — $19/month"
+                ? "Create account and start 7-day free trial"
                 : "Continue to secure Stripe checkout"}
           </button>
 

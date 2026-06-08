@@ -3,12 +3,20 @@
 import { useEffect } from "react";
 import {
   trackGoogleAdsPurchaseConversion,
+  trackEvent,
   trackPaymentSuccess,
 } from "../../lib/analytics";
 
-export function TrackPaymentSuccess() {
+export function TrackPaymentSuccess({
+  extraEventName,
+}: {
+  extraEventName?: string;
+}) {
   useEffect(() => {
     trackPaymentSuccess();
+    if (extraEventName) {
+      trackEvent(extraEventName);
+    }
 
     const sessionId = new URLSearchParams(window.location.search).get(
       "session_id"
@@ -50,7 +58,7 @@ export function TrackPaymentSuccess() {
         window.clearTimeout(retryTimer);
       }
     };
-  }, []);
+  }, [extraEventName]);
 
   return null;
 }

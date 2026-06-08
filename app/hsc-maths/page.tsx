@@ -8,7 +8,7 @@ import { FreeLessonCTAButton, DiagnosticCTALink } from "./HscMathsCTAs";
 export const metadata: Metadata = {
   title: "HSC Maths Online Lessons | Nova Maths",
   description:
-    "Structured NSW HSC maths lessons, practice and mastery quizzes for Year 12 students. Study at your own pace for $19/month.",
+    "Structured NSW HSC maths lessons, practice and mastery quizzes for Year 12 students. Start with a 7-day free trial, then study at your own pace for $19/month.",
 };
 
 const included = [
@@ -68,7 +68,7 @@ const FAQs = [
   {
     question: "What happens after I subscribe?",
     answer:
-      "Create your account, continue to secure Stripe checkout, then use your dashboard to start learning. Your access and progress are linked to your account.",
+      "Create your account, continue to secure Stripe checkout, then start your 7-day free trial. Your access and progress are linked to your account.",
   },
   {
     question: "Are there videos?",
@@ -150,7 +150,7 @@ export default function HscMathsPage() {
                 href="/checkout?offer=online-learning"
                 className="border border-slate-300 bg-white text-slate-900 shadow-sm hover:bg-slate-50"
               >
-                Subscribe &mdash; $19/month
+                Start 7-day free trial
               </SubscribeCTA>
             </div>
             <div className="mt-3">
@@ -160,7 +160,8 @@ export default function HscMathsPage() {
               <span>195+ NSW maths lessons</span>
               <span>Worked examples + practice</span>
               <span>Mastery quizzes</span>
-              <span>$19/month &middot; cancel any time</span>
+              <span>7-day free trial &middot; then $19/month</span>
+              <span>Cancel any time</span>
             </div>
           </div>
 
@@ -310,16 +311,17 @@ export default function HscMathsPage() {
           </h2>
           <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
             Private HSC maths tutoring can cost $80&ndash;120 per hour. Nova
-            Maths is $19/month, with access to all available Year 9&ndash;12
-            maths pathways.
+            Maths starts with a 7-day free trial, then is $19/month, with
+            access to all available Year 9&ndash;12 maths pathways.
           </p>
           <div className="mt-7">
             <SubscribeCTA href="/checkout?offer=online-learning">
-              Start learning &mdash; $19/month
+              Start 7-day free trial
             </SubscribeCTA>
           </div>
           <p className="mt-3 text-sm text-slate-500">
-            Secure checkout with Stripe &middot; Cancel any time
+            No charge today &middot; then $19/month &middot; secure checkout with
+            Stripe &middot; cancel any time
           </p>
         </section>
 
@@ -365,7 +367,7 @@ export default function HscMathsPage() {
               href="/checkout?offer=online-learning"
               className="bg-white text-slate-950 hover:bg-slate-100"
             >
-              Start HSC maths &mdash; $19/month
+              Start 7-day free trial
             </SubscribeCTA>
             <Link
               href="/course"
