@@ -10,6 +10,7 @@ import {
   getUserAllProgress,
   type LessonProgressRecord,
 } from "../../lib/lessonProgress";
+import { newCoursePathways } from "../../lib/newCourseCatalog";
 import { supabase } from "../../lib/supabaseClient";
 import {
   getUserAccessDashboardCopy,
@@ -17,6 +18,26 @@ import {
   normaliseUserAccessStatus,
   type UserAccessStatus,
 } from "../../lib/userAccess";
+
+type MasteryRow = {
+  course_slug: string;
+  topic_slug: string;
+  mastery_score: number;
+  attempt_count: number;
+};
+
+function prettifySlug(slug: string): string {
+  return slug
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+}
+
+function masteryBarColor(score: number): string {
+  if (score >= 70) return "bg-emerald-500";
+  if (score >= 40) return "bg-amber-400";
+  return "bg-red-400";
+}
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -30,6 +51,7 @@ export default function DashboardPage() {
   const [lessonProgress, setLessonProgress] = useState<
     Record<string, LessonProgressRecord>
   >({});
+  const [masteryRows, setMasteryRows] = useState<MasteryRow[]>([]);
 
   useEffect(() => {
     async function loadDashboard() {
@@ -83,6 +105,16 @@ export default function DashboardPage() {
       const cid = (paymentData as { stripe_customer_id?: string | null } | null)
         ?.stripe_customer_id ?? null;
       setStripeCustomerId(typeof cid === "string" && cid.length > 0 ? cid : null);
+
+      const { data: masteryData } = await supabase
+        .from("student_mastery")
+        .select("course_slug, topic_slug, mastery_score, attempt_count")
+        .eq("user_id", sessionUser.id)
+        .order("mastery_score", { ascending: false });
+
+      if (masteryData) {
+        setMasteryRows(masteryData as MasteryRow[]);
+      }
 
       setIsLoading(false);
     }
@@ -167,6 +199,30 @@ export default function DashboardPage() {
   const progressRecords = Object.values(lessonProgress);
   const hasLessonProgress = progressRecords.length > 0;
   const continueLearningTarget = getContinueLearningTarget(progressRecords);
+
+  // Build a slug → human label lookup from the course catalog.
+  const topicLabelMap = new Map<string, string>();
+  for (const pathway of newCoursePathways) {
+    for (const unit of pathway.units) {
+      topicLabelMap.set(`${pathway.slug}::${unit.slug}`, unit.title);
+    }
+  }
+  function topicLabel(courseSlug: string, topicSlug: string): string {
+    return topicLabelMap.get(`${courseSlug}::${topicSlug}`) ?? prettifySlug(topicSlug);
+  }
+
+  const hasMastery = masteryRows.length > 0;
+  const avgMastery = hasMastery
+    ? Math.round(
+        masteryRows.reduce((s, r) => s + r.mastery_score, 0) / masteryRows.length
+      )
+    : 0;
+  // Rows are already sorted descending by mastery_score from the query.
+  const strongestTopics = masteryRows.slice(0, 3);
+  const weakestTopics = [...masteryRows]
+    .sort((a, b) => a.mastery_score - b.mastery_score)
+    .slice(0, 3);
+  const showSplit = masteryRows.length >= 4;
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -410,6 +466,122 @@ export default function DashboardPage() {
             <p className="mt-6 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
               Start a lesson and pass mastery to see your progress here.
             </p>
+          )}
+        </section>
+
+        {/* ── Mastery summary ─────────────────────────────────────────────── */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-2xl font-bold tracking-tight">Your mastery</h2>
+
+          {!hasMastery ? (
+            <p className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
+              Complete a worksheet or quiz to start building your mastery map.
+            </p>
+          ) : (
+            <>
+              {/* Overall average */}
+              <div className="mt-5 flex items-center gap-4">
+                <div className="w-16 shrink-0 text-center">
+                  <p className="text-3xl font-bold tabular-nums leading-none">
+                    {avgMastery}
+                  </p>
+                  <p className="mt-0.5 text-xs font-semibold text-slate-500">
+                    avg %
+                  </p>
+                </div>
+                <div className="flex-1">
+                  <div className="h-2.5 overflow-hidden rounded-full bg-slate-100">
+                    <div
+                      className={`h-full rounded-full transition-all ${masteryBarColor(avgMastery)}`}
+                      style={{ width: `${avgMastery}%` }}
+                    />
+                  </div>
+                  <p className="mt-1 text-xs text-slate-500">
+                    {masteryRows.length} topic{masteryRows.length !== 1 ? "s" : ""} tracked
+                  </p>
+                </div>
+              </div>
+
+              {showSplit ? (
+                <div className="mt-6 grid gap-6 md:grid-cols-2">
+                  {/* Needs work */}
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Needs work
+                    </p>
+                    <ul className="mt-3 space-y-3">
+                      {weakestTopics.map((row) => (
+                        <li key={`weak-${row.course_slug}::${row.topic_slug}`}>
+                          <div className="flex items-baseline justify-between gap-2 text-sm">
+                            <span className="font-medium text-slate-800 leading-snug">
+                              {topicLabel(row.course_slug, row.topic_slug)}
+                            </span>
+                            <span className="shrink-0 tabular-nums text-slate-400 text-xs">
+                              {row.mastery_score}% · {row.attempt_count}q
+                            </span>
+                          </div>
+                          <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-slate-100">
+                            <div
+                              className={`h-full rounded-full ${masteryBarColor(row.mastery_score)}`}
+                              style={{ width: `${row.mastery_score}%` }}
+                            />
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Strongest */}
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Strong topics
+                    </p>
+                    <ul className="mt-3 space-y-3">
+                      {strongestTopics.map((row) => (
+                        <li key={`strong-${row.course_slug}::${row.topic_slug}`}>
+                          <div className="flex items-baseline justify-between gap-2 text-sm">
+                            <span className="font-medium text-slate-800 leading-snug">
+                              {topicLabel(row.course_slug, row.topic_slug)}
+                            </span>
+                            <span className="shrink-0 tabular-nums text-slate-400 text-xs">
+                              {row.mastery_score}% · {row.attempt_count}q
+                            </span>
+                          </div>
+                          <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-slate-100">
+                            <div
+                              className={`h-full rounded-full ${masteryBarColor(row.mastery_score)}`}
+                              style={{ width: `${row.mastery_score}%` }}
+                            />
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ) : (
+                /* 1–3 topics: single flat list */
+                <ul className="mt-5 space-y-3">
+                  {masteryRows.map((row) => (
+                    <li key={`${row.course_slug}::${row.topic_slug}`}>
+                      <div className="flex items-baseline justify-between gap-2 text-sm">
+                        <span className="font-medium text-slate-800 leading-snug">
+                          {topicLabel(row.course_slug, row.topic_slug)}
+                        </span>
+                        <span className="shrink-0 tabular-nums text-slate-400 text-xs">
+                          {row.mastery_score}% · {row.attempt_count}q
+                        </span>
+                      </div>
+                      <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-slate-100">
+                        <div
+                          className={`h-full rounded-full ${masteryBarColor(row.mastery_score)}`}
+                          style={{ width: `${row.mastery_score}%` }}
+                        />
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </>
           )}
         </section>
 
