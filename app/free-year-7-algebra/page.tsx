@@ -143,7 +143,7 @@ export default function FreeYear7AlgebraPage() {
                 Start the free lesson
               </a>
               <SubscribeCTA href="/checkout?offer=online-learning">
-                Start learning - $19/month
+                Start your 7-day free trial
               </SubscribeCTA>
             </div>
             <p className="mt-3 text-sm text-slate-500">
@@ -386,7 +386,7 @@ export default function FreeYear7AlgebraPage() {
           </p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <SubscribeCTA href="/checkout?offer=online-learning">
-              Start learning - $19/month
+              Start your 7-day free trial
             </SubscribeCTA>
             <SecondaryLink href="/course">View courses</SecondaryLink>
           </div>

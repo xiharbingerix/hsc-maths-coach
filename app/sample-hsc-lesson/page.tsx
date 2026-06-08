@@ -104,11 +104,11 @@ export default function SampleHscLessonPage() {
               Start the free sample
             </a>
             <SubscribeCTA href="/checkout?offer=online-learning">
-              Subscribe &mdash; $19/month
+              Start your 7-day free trial
             </SubscribeCTA>
           </div>
           <p className="mt-3 text-sm text-slate-500">
-            No signup needed to preview &middot; Full access $19/month &middot; Cancel any time
+            No signup needed to preview &middot; No charge today &middot; Then $19/month &middot; Cancel anytime
           </p>
         </section>
 
@@ -280,7 +280,7 @@ export default function SampleHscLessonPage() {
             </p>
             <div className="mt-4 flex justify-center">
               <SubscribeCTA href="/checkout?offer=online-learning">
-                Subscribe &mdash; $19/month
+                Start your 7-day free trial
               </SubscribeCTA>
             </div>
           </div>
@@ -318,7 +318,7 @@ export default function SampleHscLessonPage() {
             </p>
             <div className="mt-5 flex justify-center">
               <SubscribeCTA href="/checkout?offer=online-learning">
-                Subscribe to unlock &mdash; $19/month
+                Start your 7-day free trial
               </SubscribeCTA>
             </div>
           </div>
@@ -350,7 +350,7 @@ export default function SampleHscLessonPage() {
             ))}
           </ul>
           <p className="mt-5 text-sm text-slate-500">
-            $19/month &middot; Cancel any time &middot; Secure Stripe checkout
+            No charge today &middot; Then $19/month &middot; Cancel anytime
           </p>
         </section>
 
@@ -366,12 +366,12 @@ export default function SampleHscLessonPage() {
           </p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <SubscribeCTA href="/checkout?offer=online-learning">
-              Subscribe &mdash; $19/month
+              Start your 7-day free trial
             </SubscribeCTA>
             <SecondaryLink href="/hsc-maths">View HSC maths page</SecondaryLink>
           </div>
           <p className="mt-3 text-sm text-slate-500">
-            You&apos;ll create a free account before checkout &mdash; takes under a minute.
+            No charge today &middot; Then $19/month &middot; Cancel anytime
           </p>
         </section>
 

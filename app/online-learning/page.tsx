@@ -78,7 +78,7 @@ const lessonActions = [
 
 const accessSteps = [
   "Create an account from the signup page.",
-  "Subscribe to online learning for $19/month.",
+  "Start your 7-day free trial — then $19/month after the trial.",
   "Access activates automatically after payment.",
   "Cancel any time from your account.",
 ];
@@ -126,12 +126,12 @@ export default function OnlineLearningPage() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <SubscribeCTA href="/checkout?offer=online-learning">
-                Subscribe to online learning
+                Start your 7-day free trial
               </SubscribeCTA>
               <SecondaryLink href="/signup">Create account</SecondaryLink>
             </div>
             <p className="mt-2 text-sm text-slate-500">
-              $19/month &middot; Cancel any time.
+              No charge today &middot; Then $19/month &middot; Cancel anytime
             </p>
 
             <div className="mt-4 flex flex-col gap-3 sm:flex-row">
@@ -263,7 +263,7 @@ export default function OnlineLearningPage() {
           </ol>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <SubscribeCTA href="/checkout?offer=online-learning">
-              Subscribe to online learning
+              Start your 7-day free trial
             </SubscribeCTA>
             <SecondaryLink href="/free-year-7-algebra">
               Try free algebra lesson
@@ -305,7 +305,7 @@ export default function OnlineLearningPage() {
           </h2>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <SubscribeCTA href="/checkout?offer=online-learning">
-              Subscribe to online learning
+              Start your 7-day free trial
             </SubscribeCTA>
             <SecondaryLink href="/free-year-7-algebra">
               Try free algebra lesson

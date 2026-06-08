@@ -320,8 +320,7 @@ export default function HscMathsPage() {
             </SubscribeCTA>
           </div>
           <p className="mt-3 text-sm text-slate-500">
-            No charge today &middot; then $19/month &middot; secure checkout with
-            Stripe &middot; cancel any time
+            No charge today &middot; Then $19/month &middot; Cancel anytime
           </p>
         </section>
 

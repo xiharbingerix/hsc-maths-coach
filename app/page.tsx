@@ -181,7 +181,7 @@ export default function Home() {
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <SubscribeCTA href="/checkout?offer=online-learning">
-                Subscribe &mdash; $19/month
+                Start your 7-day free trial
               </SubscribeCTA>
               <SecondaryLink href="/free-year-7-algebra">
                 Try free algebra lesson
@@ -192,9 +192,7 @@ export default function Home() {
             </div>
 
             <p className="mt-3 text-sm leading-6 text-slate-500">
-              $19/month &middot; cancel any time &middot; access activates
-              after payment &middot; create a free account first so your
-              progress is saved
+              No charge today &middot; Then $19/month &middot; Cancel anytime
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2">
@@ -296,7 +294,7 @@ export default function Home() {
               Open the free lesson
             </SecondaryLink>
             <SubscribeCTA href="/checkout?offer=online-learning">
-              Start learning &mdash; $19/month
+              Start your 7-day free trial
             </SubscribeCTA>
           </div>
         </section>
@@ -381,7 +379,7 @@ export default function Home() {
 
               <div className="mt-7">
                 <SubscribeCTA href="/checkout?offer=online-learning">
-                  Subscribe &mdash; $19/month
+                  Start your 7-day free trial
                 </SubscribeCTA>
               </div>
               <p className="mt-3 text-sm leading-6 text-slate-700">
@@ -389,8 +387,7 @@ export default function Home() {
                 under a minute.
               </p>
               <p className="mt-2 text-sm leading-6 text-slate-500">
-                Secure checkout with Stripe &middot; Cancel any time from your
-                account
+                No charge today &middot; Then $19/month &middot; Cancel anytime
               </p>
               <p className="mt-4 text-sm leading-6 text-slate-600">
                 Private tutoring in NSW often costs $80&ndash;120/hour. Nova
@@ -480,12 +477,17 @@ export default function Home() {
         </section>
 
         <section className="flex flex-col items-start gap-6 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:flex-row md:items-center md:justify-between md:p-10">
-          <h2 className="max-w-xl text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
-            Start learning NSW maths for $19/month.
-          </h2>
+          <div>
+            <h2 className="max-w-xl text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
+              Start your 7-day free trial today.
+            </h2>
+            <p className="mt-2 text-sm text-slate-500">
+              No charge today &middot; Then $19/month &middot; Cancel anytime
+            </p>
+          </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <SubscribeCTA href="/checkout?offer=online-learning">
-              Subscribe &mdash; $19/month
+              Start your 7-day free trial
             </SubscribeCTA>
             <SecondaryLink href="/signup">Create account</SecondaryLink>
             <SecondaryLink href="/diagnostic/select">Start free diagnostic</SecondaryLink>
