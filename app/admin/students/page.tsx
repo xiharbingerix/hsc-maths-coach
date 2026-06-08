@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireAdmin } from "../../../lib/adminSession";
+import { newCoursePathways } from "../../../lib/newCourseCatalog";
 import { supabaseAdmin } from "../../../lib/supabaseAdmin";
 
 export const metadata: Metadata = {
@@ -32,6 +33,8 @@ type ProfileRow = {
 
 type MasteryRow = {
   user_id: string;
+  course_slug: string;
+  topic_slug: string;
   mastery_score: number;
   last_updated: string | null;
 };
@@ -40,6 +43,8 @@ type WorksheetRow = {
   id: string;
   assigned_to_user: string | null;
   assigned_student_email: string | null;
+  due_at: string | null;
+  status: string | null;
   created_at: string | null;
 };
 
@@ -59,6 +64,13 @@ function firstPresent(...values: Array<string | null | undefined>) {
   return values
     .map((value) => value?.trim())
     .find((value): value is string => Boolean(value));
+}
+
+function prettifySlug(slug: string) {
+  return slug
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
 function studentName(user: AdminAuthUser, profile?: ProfileRow) {
@@ -99,8 +111,30 @@ function average(values: number[]) {
   return Math.round(values.reduce((sum, value) => sum + value, 0) / values.length);
 }
 
-export default async function AdminStudentsPage() {
+function isOverdue(value: string | null | undefined) {
+  return Boolean(value && new Date(value) < new Date());
+}
+
+const topicLabelMap = new Map<string, string>();
+for (const pathway of newCoursePathways) {
+  for (const unit of pathway.units) {
+    topicLabelMap.set(`${pathway.slug}::${unit.slug}`, unit.title);
+  }
+}
+
+function topicLabel(courseSlug: string, topicSlug: string) {
+  return topicLabelMap.get(`${courseSlug}::${topicSlug}`) ?? prettifySlug(topicSlug);
+}
+
+export default async function AdminStudentsPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ q?: string; filter?: string }>;
+}) {
   await requireAdmin();
+  const params = await searchParams;
+  const query = params?.q?.trim().toLowerCase() ?? "";
+  const filter = params?.filter ?? "all";
 
   const { data: usersData } = await supabaseAdmin.auth.admin.listUsers({
     page: 1,
@@ -128,19 +162,19 @@ export default async function AdminStudentsPage() {
     userIds.length
       ? supabaseAdmin
           .from("student_mastery")
-          .select("user_id, mastery_score, last_updated")
+          .select("user_id, course_slug, topic_slug, mastery_score, last_updated")
           .in("user_id", userIds)
       : Promise.resolve({ data: [] }),
     emails.length
       ? supabaseAdmin
           .from("worksheets")
-          .select("id, assigned_to_user, assigned_student_email, created_at")
+          .select("id, assigned_to_user, assigned_student_email, due_at, status, created_at")
           .in("assigned_student_email", emails)
       : Promise.resolve({ data: [] }),
     userIds.length
       ? supabaseAdmin
           .from("worksheets")
-          .select("id, assigned_to_user, assigned_student_email, created_at")
+          .select("id, assigned_to_user, assigned_student_email, due_at, status, created_at")
           .in("assigned_to_user", userIds)
       : Promise.resolve({ data: [] }),
     userIds.length
@@ -186,6 +220,7 @@ export default async function AdminStudentsPage() {
   const rows = users
     .map((user) => {
       const email = user.email?.toLowerCase() ?? "";
+      const profile = profilesById.get(user.id);
       const userMastery = masteryRows.filter((row) => row.user_id === user.id);
       const assignedWorksheets = worksheets.filter(
         (worksheet) =>
@@ -208,9 +243,21 @@ export default async function AdminStudentsPage() {
               candidate.started_at === attempt.started_at
           ) === index
       );
-      const completedWorksheets = worksheetAttempts.filter(
-        (attempt) => attempt.completed_at
+      const completedWorksheetIds = new Set(
+        worksheetAttempts
+          .filter((attempt) => attempt.completed_at)
+          .map((attempt) => attempt.worksheet_id)
+      );
+      const completedWorksheets = completedWorksheetIds.size;
+      const overdueWorksheetCount = assignedWorksheets.filter(
+        (worksheet) =>
+          isOverdue(worksheet.due_at) &&
+          worksheet.status !== "archived" &&
+          !completedWorksheetIds.has(worksheet.id)
       ).length;
+      const weakestMastery =
+        [...userMastery].sort((a, b) => a.mastery_score - b.mastery_score)[0] ??
+        null;
       const latestMastery = latestDate(...userMastery.map((row) => row.last_updated));
       const latestWorksheet = latestDate(
         ...worksheetAttempts.map((attempt) => attempt.completed_at ?? attempt.started_at)
@@ -223,10 +270,16 @@ export default async function AdminStudentsPage() {
 
       return {
         user,
-        profile: profilesById.get(user.id),
+        profile,
+        name: studentName(user, profile),
         masteryAverage: average(userMastery.map((row) => row.mastery_score)),
+        weakestTopic: weakestMastery
+          ? topicLabel(weakestMastery.course_slug, weakestMastery.topic_slug)
+          : null,
+        weakestScore: weakestMastery?.mastery_score ?? null,
         assignedWorksheetCount: assignedWorksheets.length,
         completedWorksheetCount: completedWorksheets,
+        overdueWorksheetCount,
         latestActivity: latestDate(
           user.last_sign_in_at,
           user.created_at,
@@ -239,9 +292,50 @@ export default async function AdminStudentsPage() {
     .sort((left, right) => {
       const leftTime = Date.parse(left.latestActivity ?? "");
       const rightTime = Date.parse(right.latestActivity ?? "");
-      return (Number.isFinite(rightTime) ? rightTime : 0) -
-        (Number.isFinite(leftTime) ? leftTime : 0);
+      return (
+        (Number.isFinite(rightTime) ? rightTime : 0) -
+        (Number.isFinite(leftTime) ? leftTime : 0)
+      );
     });
+
+  const filteredRows = rows.filter((row) => {
+    const searchable = [
+      row.name,
+      row.user.email,
+      row.profile?.email,
+      row.profile?.parent_email,
+      row.weakestTopic,
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+    const matchesQuery = !query || searchable.includes(query);
+    const matchesFilter =
+      filter === "overdue"
+        ? row.overdueWorksheetCount > 0
+        : filter === "low-mastery"
+        ? row.masteryAverage != null && row.masteryAverage < 50
+        : true;
+    return matchesQuery && matchesFilter;
+  });
+
+  const lowMasteryCount = rows.filter(
+    (row) => row.masteryAverage != null && row.masteryAverage < 50
+  ).length;
+  const studentsWithOverdue = rows.filter(
+    (row) => row.overdueWorksheetCount > 0
+  ).length;
+  const assignedTotal = rows.reduce(
+    (sum, row) => sum + row.assignedWorksheetCount,
+    0
+  );
+  const completedTotal = rows.reduce(
+    (sum, row) => sum + row.completedWorksheetCount,
+    0
+  );
+  const latestOverallActivity = latestDate(
+    ...rows.map((row) => row.latestActivity)
+  );
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -266,6 +360,63 @@ export default async function AdminStudentsPage() {
           </Link>
         </header>
 
+        <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+          <SummaryCard label="Students" value={String(rows.length)} />
+          <SummaryCard label="Low mastery" value={String(lowMasteryCount)} />
+          <SummaryCard label="Overdue" value={String(studentsWithOverdue)} />
+          <SummaryCard
+            label="Worksheets"
+            value={`${completedTotal}/${assignedTotal}`}
+            helper="completed / assigned"
+          />
+          <SummaryCard
+            label="Latest activity"
+            value={formatDateTime(latestOverallActivity)}
+            compact
+          />
+        </section>
+
+        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <form className="flex flex-col gap-3 lg:flex-row lg:items-end">
+            <label className="flex-1 space-y-1">
+              <span className="text-sm font-medium text-slate-700">
+                Search students
+              </span>
+              <input
+                type="search"
+                name="q"
+                defaultValue={params?.q ?? ""}
+                placeholder="Name, email, parent email or weakest topic"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm outline-none focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
+              />
+            </label>
+            <label className="space-y-1">
+              <span className="text-sm font-medium text-slate-700">Filter</span>
+              <select
+                name="filter"
+                defaultValue={filter}
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm outline-none focus:border-slate-900 focus:ring-2 focus:ring-slate-200 lg:w-56"
+              >
+                <option value="all">All students</option>
+                <option value="overdue">Has overdue worksheet</option>
+                <option value="low-mastery">Low mastery &lt; 50</option>
+              </select>
+            </label>
+            <button
+              type="submit"
+              className="rounded-xl bg-slate-900 px-5 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+            >
+              Apply
+            </button>
+            <Link
+              href="/admin/students"
+              className="rounded-xl border border-slate-300 bg-white px-5 py-2 text-center text-sm font-semibold text-slate-800 hover:bg-slate-50"
+            >
+              Clear
+            </Link>
+          </form>
+        </section>
+
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
           <table className="w-full text-sm">
             <thead className="border-b border-slate-200 bg-slate-50 text-xs font-semibold uppercase tracking-wide text-slate-500">
@@ -273,39 +424,96 @@ export default async function AdminStudentsPage() {
                 <th className="px-5 py-3 text-left">Student</th>
                 <th className="px-5 py-3 text-left">Email</th>
                 <th className="px-4 py-3 text-center">Mastery avg</th>
+                <th className="px-5 py-3 text-left">Weakest topic</th>
                 <th className="px-4 py-3 text-center">Assigned</th>
                 <th className="px-4 py-3 text-center">Completed</th>
+                <th className="px-4 py-3 text-center">Overdue</th>
                 <th className="px-5 py-3 text-left">Latest activity</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {rows.map(({ user, profile, masteryAverage, assignedWorksheetCount, completedWorksheetCount, latestActivity }) => (
-                <tr key={user.id} className="hover:bg-slate-50">
+              {filteredRows.map((row) => (
+                <tr key={row.user.id} className="hover:bg-slate-50">
                   <td className="px-5 py-3 font-semibold">
-                    <Link href={`/admin/students/${user.id}`} className="hover:underline">
-                      {studentName(user, profile)}
+                    <Link
+                      href={`/admin/students/${row.user.id}`}
+                      className="hover:underline"
+                    >
+                      {row.name}
                     </Link>
                   </td>
-                  <td className="px-5 py-3 text-slate-600">{user.email}</td>
+                  <td className="px-5 py-3 text-slate-600">{row.user.email}</td>
                   <td className="px-4 py-3 text-center tabular-nums">
-                    {masteryAverage == null ? "—" : `${masteryAverage}%`}
-                  </td>
-                  <td className="px-4 py-3 text-center tabular-nums">
-                    {assignedWorksheetCount}
-                  </td>
-                  <td className="px-4 py-3 text-center tabular-nums">
-                    {completedWorksheetCount}
+                    {row.masteryAverage == null ? "-" : `${row.masteryAverage}%`}
                   </td>
                   <td className="px-5 py-3 text-slate-600">
-                    {formatDateTime(latestActivity)}
+                    {row.weakestTopic ? (
+                      <>
+                        <span className="font-medium text-slate-800">
+                          {row.weakestTopic}
+                        </span>
+                        <span className="ml-2 text-xs tabular-nums text-slate-400">
+                          {row.weakestScore}%
+                        </span>
+                      </>
+                    ) : (
+                      "No mastery yet"
+                    )}
+                  </td>
+                  <td className="px-4 py-3 text-center tabular-nums">
+                    {row.assignedWorksheetCount}
+                  </td>
+                  <td className="px-4 py-3 text-center tabular-nums">
+                    {row.completedWorksheetCount}
+                  </td>
+                  <td className="px-4 py-3 text-center tabular-nums">
+                    {row.overdueWorksheetCount > 0 ? (
+                      <span className="rounded-full bg-red-50 px-2 py-1 text-xs font-semibold text-red-700">
+                        {row.overdueWorksheetCount}
+                      </span>
+                    ) : (
+                      "0"
+                    )}
+                  </td>
+                  <td className="px-5 py-3 text-slate-600">
+                    {formatDateTime(row.latestActivity)}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          {filteredRows.length === 0 ? (
+            <div className="border-t border-slate-100 p-8 text-center text-sm text-slate-500">
+              No students match this search or filter. Clear the filters to see
+              the full workspace again.
+            </div>
+          ) : null}
         </div>
       </div>
     </main>
   );
 }
 
+function SummaryCard({
+  label,
+  value,
+  helper,
+  compact = false,
+}: {
+  label: string;
+  value: string;
+  helper?: string;
+  compact?: boolean;
+}) {
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+        {label}
+      </p>
+      <p className={compact ? "mt-2 text-sm font-semibold" : "mt-2 text-3xl font-bold"}>
+        {value}
+      </p>
+      {helper ? <p className="mt-1 text-xs text-slate-500">{helper}</p> : null}
+    </div>
+  );
+}

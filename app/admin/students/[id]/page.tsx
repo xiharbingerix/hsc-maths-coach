@@ -100,7 +100,7 @@ function studentName(user: AdminAuthUser, profile?: ProfileRow | null) {
 }
 
 function formatDateTime(value: string | null | undefined) {
-  if (!value) return "—";
+  if (!value) return "-";
   return new Intl.DateTimeFormat("en-AU", {
     dateStyle: "medium",
     timeStyle: "short",
@@ -114,6 +114,23 @@ function formatDate(value: string | null | undefined) {
     dateStyle: "medium",
     timeZone: "Australia/Sydney",
   }).format(new Date(value));
+}
+
+function latestDate(...values: Array<string | null | undefined>) {
+  const timestamps = values
+    .map((value) => (value ? Date.parse(value) : NaN))
+    .filter((value) => Number.isFinite(value));
+  if (timestamps.length === 0) return null;
+  return new Date(Math.max(...timestamps)).toISOString();
+}
+
+function average(values: number[]) {
+  if (values.length === 0) return null;
+  return Math.round(values.reduce((sum, value) => sum + value, 0) / values.length);
+}
+
+function isOverdue(value: string | null | undefined) {
+  return Boolean(value && new Date(value) < new Date());
 }
 
 export default async function AdminStudentDetailPage({
@@ -214,7 +231,27 @@ export default async function AdminStudentDetailPage({
     ]);
   }
 
+  const completedWorksheetIds = new Set(
+    attempts
+      .filter((attempt) => attempt.completed_at)
+      .map((attempt) => attempt.worksheet_id)
+  );
+  const overdueWorksheetCount = worksheets.filter(
+    (worksheet) =>
+      isOverdue(worksheet.due_at) &&
+      worksheet.status !== "archived" &&
+      !completedWorksheetIds.has(worksheet.id)
+  ).length;
+  const masteryAverage = average(masteryRows.map((row) => row.mastery_score));
+  const weakestTopic = masteryRows[0] ?? null;
   const latestDiagnostic = diagnosticRows[0] ?? null;
+  const latestActivity = latestDate(
+    user.last_sign_in_at,
+    user.created_at,
+    ...masteryRows.map((row) => row.last_updated),
+    ...attempts.map((attempt) => attempt.completed_at ?? attempt.started_at),
+    ...diagnosticRows.map((diagnostic) => diagnostic.created_at)
+  );
   const studyPlan = generateStudyPlan({
     yearLevel: latestDiagnostic?.year_level ?? "year-12-advanced",
     masteryRows,
@@ -227,7 +264,7 @@ export default async function AdminStudentDetailPage({
         <header className="flex items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-              Nova Maths Admin · Student
+              Nova Maths Admin / Student
             </p>
             <h1 className="mt-1 text-3xl font-bold tracking-tight">
               {studentName(user, profile)}
@@ -242,40 +279,79 @@ export default async function AdminStudentDetailPage({
           </Link>
         </header>
 
+        <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-6">
+          <SummaryCard
+            label="Average mastery"
+            value={masteryAverage == null ? "-" : `${masteryAverage}%`}
+          />
+          <SummaryCard
+            label="Weakest topic"
+            value={weakestTopic ? prettifySlug(weakestTopic.topic_slug) : "No data"}
+            helper={weakestTopic ? `${weakestTopic.mastery_score}% mastery` : undefined}
+            compact
+          />
+          <SummaryCard label="Assigned" value={String(worksheets.length)} />
+          <SummaryCard label="Completed" value={String(completedWorksheetIds.size)} />
+          <SummaryCard label="Overdue" value={String(overdueWorksheetCount)} />
+          <SummaryCard
+            label="Latest activity"
+            value={formatDateTime(latestActivity)}
+            compact
+          />
+        </section>
+
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-            Next recommended topic
-          </p>
-          <h2 className="mt-2 text-2xl font-bold">
-            {studyPlan.nextTopic?.title ?? "No recommendation yet"}
-          </h2>
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
-            {studyPlan.nextTopic?.reason ??
-              "Ask the student to complete a diagnostic or worksheet to generate a recommendation."}
-          </p>
-          {studyPlan.nextTopic ? (
-            <div className="mt-4 flex flex-wrap gap-3 text-sm text-slate-600">
-              <span className="rounded-full bg-slate-100 px-3 py-1 capitalize">
-                {studyPlan.priorityLevel} priority
-              </span>
-              <span className="rounded-full bg-slate-100 px-3 py-1">
-                About {studyPlan.estimatedHours} hour
-                {studyPlan.estimatedHours !== 1 ? "s" : ""}
-              </span>
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Recommended next action
+              </p>
+              <h2 className="mt-2 text-2xl font-bold">
+                {studyPlan.nextTopic?.title ?? "No recommendation yet"}
+              </h2>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+                {studyPlan.nextTopic?.reason ??
+                  "Ask the student to complete a diagnostic or worksheet to generate a recommendation."}
+              </p>
+              {studyPlan.nextTopic ? (
+                <div className="mt-4 flex flex-wrap gap-3 text-sm text-slate-600">
+                  <span className="rounded-full bg-slate-100 px-3 py-1 capitalize">
+                    {studyPlan.priorityLevel} priority
+                  </span>
+                  <span className="rounded-full bg-slate-100 px-3 py-1">
+                    About {studyPlan.estimatedHours} hour
+                    {studyPlan.estimatedHours !== 1 ? "s" : ""}
+                  </span>
+                </div>
+              ) : null}
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+              {studyPlan.nextTopic ? (
+                <Link
+                  href={studyPlan.nextTopic.href}
+                  className="inline-flex justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-700"
+                >
+                  Open topic
+                </Link>
+              ) : null}
               <Link
-                href={studyPlan.nextTopic.href}
-                className="rounded-full bg-slate-900 px-3 py-1 font-semibold text-white"
+                href="/admin/worksheets/new"
+                className="inline-flex justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50"
               >
-                Open topic
+                Generate worksheet
               </Link>
             </div>
-          ) : null}
+          </div>
         </section>
 
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="text-xl font-bold">Mastery by topic</h2>
           {masteryRows.length === 0 ? (
-            <p className="mt-4 text-sm text-slate-500">No mastery data yet.</p>
+            <p className="mt-4 rounded-xl bg-slate-50 p-4 text-sm text-slate-500">
+              No mastery data yet. Have the student complete a diagnostic,
+              lesson mastery quiz, or worksheet so this page can recommend
+              targeted work.
+            </p>
           ) : (
             <div className="mt-4 overflow-hidden rounded-xl border border-slate-200">
               <table className="w-full text-sm">
@@ -317,12 +393,20 @@ export default async function AdminStudentDetailPage({
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="text-xl font-bold">Worksheet history</h2>
           {worksheets.length === 0 && attempts.length === 0 ? (
-            <p className="mt-4 text-sm text-slate-500">No worksheet history yet.</p>
+            <p className="mt-4 rounded-xl bg-slate-50 p-4 text-sm text-slate-500">
+              No worksheet history yet. Generate a worksheet and assign it to
+              this student's email to start tracking practice.
+            </p>
           ) : (
             <div className="mt-4 space-y-3">
               {worksheets.map((worksheet) => {
                 const worksheetAttempts = attemptsByWorksheet.get(worksheet.id) ?? [];
                 const latestAttempt = worksheetAttempts[0] ?? null;
+                const isCompleted = Boolean(latestAttempt?.completed_at);
+                const overdue =
+                  isOverdue(worksheet.due_at) &&
+                  worksheet.status !== "archived" &&
+                  !isCompleted;
                 return (
                   <div
                     key={worksheet.id}
@@ -332,8 +416,9 @@ export default async function AdminStudentDetailPage({
                       <div>
                         <p className="font-semibold">{worksheet.title}</p>
                         <p className="mt-1 text-xs text-slate-500">
-                          Due {formatDate(worksheet.due_at)} · Status{" "}
+                          Due {formatDate(worksheet.due_at)} / Status{" "}
                           {worksheet.status ?? "active"}
+                          {overdue ? " / overdue" : ""}
                         </p>
                       </div>
                       <Link
@@ -345,9 +430,9 @@ export default async function AdminStudentDetailPage({
                     </div>
                     <p className="mt-3 text-sm text-slate-600">
                       {latestAttempt?.completed_at
-                        ? `Completed ${formatDateTime(latestAttempt.completed_at)} · Score ${latestAttempt.score_correct}/${latestAttempt.score_total}`
+                        ? `Completed ${formatDateTime(latestAttempt.completed_at)} / Score ${latestAttempt.score_correct}/${latestAttempt.score_total}`
                         : latestAttempt
-                        ? `In progress · Started ${formatDateTime(latestAttempt.started_at)}`
+                        ? `In progress / Started ${formatDateTime(latestAttempt.started_at)}`
                         : "Not started yet"}
                     </p>
                   </div>
@@ -360,7 +445,10 @@ export default async function AdminStudentDetailPage({
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="text-xl font-bold">Diagnostic history</h2>
           {diagnosticRows.length === 0 ? (
-            <p className="mt-4 text-sm text-slate-500">No diagnostic results yet.</p>
+            <p className="mt-4 rounded-xl bg-slate-50 p-4 text-sm text-slate-500">
+              No diagnostic results yet. A diagnostic is the fastest way to
+              seed a useful study plan for this student.
+            </p>
           ) : (
             <div className="mt-4 space-y-3">
               {diagnosticRows.map((diagnostic) => {
@@ -381,8 +469,8 @@ export default async function AdminStudentDetailPage({
                     className="rounded-xl border border-slate-200 bg-slate-50 p-4"
                   >
                     <summary className="cursor-pointer font-semibold">
-                      {prettifySlug(diagnostic.year_level)} ·{" "}
-                      {formatDateTime(diagnostic.created_at)} · {totalCorrect}/
+                      {prettifySlug(diagnostic.year_level)} /{" "}
+                      {formatDateTime(diagnostic.created_at)} / {totalCorrect}/
                       {totalQuestions}
                     </summary>
                     <ul className="mt-3 space-y-2 text-sm text-slate-600">
@@ -404,3 +492,26 @@ export default async function AdminStudentDetailPage({
   );
 }
 
+function SummaryCard({
+  label,
+  value,
+  helper,
+  compact = false,
+}: {
+  label: string;
+  value: string;
+  helper?: string;
+  compact?: boolean;
+}) {
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+        {label}
+      </p>
+      <p className={compact ? "mt-2 text-sm font-semibold" : "mt-2 text-3xl font-bold"}>
+        {value}
+      </p>
+      {helper ? <p className="mt-1 text-xs text-slate-500">{helper}</p> : null}
+    </div>
+  );
+}
