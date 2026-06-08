@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { BlockMath, InlineMath } from "react-katex";
 import { MathAnswerInput } from "../../components/MathAnswerInput";
 import { BoxPlotView } from "../../course/components/BoxPlotView";
@@ -85,6 +85,21 @@ type FinalScore = {
   scoreTotal: number;
 };
 
+type ResumeAnswer = {
+  questionId: string;
+  isCorrect: boolean;
+};
+
+type ResumeAttempt = {
+  attemptId?: string;
+  studentName?: string | null;
+  completedAt?: string | null;
+  scoreCorrect?: number | null;
+  scoreTotal?: number | null;
+  answeredQuestions?: ResumeAnswer[];
+  error?: string;
+};
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function scoreLabel(pct: number): string {
@@ -129,6 +144,7 @@ export function WorksheetClient({
   const [finalScore, setFinalScore] = useState<FinalScore | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const storageKey = useMemo(() => `nova-worksheet-attempt:${token}`, [token]);
 
   // Track time spent on each question
   const questionStartTimeRef = useRef<number>(Date.now());
@@ -143,6 +159,89 @@ export function WorksheetClient({
         year: "numeric",
       })
     : null;
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function resumeStoredAttempt() {
+      let storedAttemptId: string | null = null;
+      try {
+        storedAttemptId = window.localStorage.getItem(storageKey);
+      } catch {
+        return;
+      }
+
+      if (!storedAttemptId) return;
+
+      setPhase("starting");
+      setErrorMessage("");
+
+      try {
+        const res = await fetch(
+          `/api/worksheet/${token}/attempt/${storedAttemptId}`
+        );
+        const data = (await res.json()) as ResumeAttempt;
+
+        if (cancelled) return;
+
+        if (!res.ok || data.error || !data.attemptId) {
+          try {
+            window.localStorage.removeItem(storageKey);
+          } catch {
+            // localStorage may be unavailable; ignore and fall back to fresh start.
+          }
+          setAttemptId(null);
+          setFinalScore(null);
+          setCurrentIndex(0);
+          setPhase("intro");
+          return;
+        }
+
+        setAttemptId(data.attemptId);
+        if (data.studentName?.trim()) {
+          setStudentName(data.studentName.trim());
+        }
+
+        if (data.completedAt) {
+          setFinalScore({
+            scoreCorrect: data.scoreCorrect ?? 0,
+            scoreTotal: data.scoreTotal ?? totalQuestions,
+          });
+          setPhase("done");
+          return;
+        }
+
+        const answeredIds = new Set(
+          (data.answeredQuestions ?? []).map((answer) => answer.questionId)
+        );
+        const firstUnansweredIndex = questions.findIndex(
+          (question) => !answeredIds.has(question.id)
+        );
+
+        setCurrentIndex(
+          firstUnansweredIndex === -1
+            ? Math.max(0, totalQuestions - 1)
+            : firstUnansweredIndex
+        );
+        setTypedAnswer("");
+        setChoiceAnswer("");
+        setResult(null);
+        setFinalScore(null);
+        setPhase("asking");
+        questionStartTimeRef.current = Date.now();
+      } catch {
+        if (!cancelled) {
+          setPhase("intro");
+        }
+      }
+    }
+
+    void resumeStoredAttempt();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [questions, storageKey, token, totalQuestions]);
 
   // ── Start attempt ──────────────────────────────────────────────────────────
 
@@ -168,6 +267,11 @@ export function WorksheetClient({
       }
 
       setAttemptId(data.attemptId);
+      try {
+        window.localStorage.setItem(storageKey, data.attemptId);
+      } catch {
+        // localStorage is a same-device convenience only; worksheet still works.
+      }
       setPhase("asking");
       questionStartTimeRef.current = Date.now();
     } catch {
