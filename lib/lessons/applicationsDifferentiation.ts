@@ -157,7 +157,7 @@ export const secondDerivativeConcavityLesson = applicationLesson(
   ],
   [
     appNumber("appdiff-conc-i1", "Find the possible inflection x-value.", "f''(x)=3x+9", "-3"),
-    appChoice("appdiff-conc-i2", "Which statement is correct?", "f''(x)<0\\text{ on }(1,5)", "B", ["The graph is increasing", "The graph is concave down", "The graph has no tangent", "The graph is stationary everywhere"], "A negative second derivative means concave down."),
+    appChoice("appdiff-conc-i2", "A profit function P(x) has P''(x)<0 on (0,100). Which conclusion is correct?", "P''(x)<0\\text{ on }(0,100)", "B", ["Profit is decreasing on $(0,100)$", "Marginal profit is decreasing on $(0,100)$", "Profit has a local minimum in $(0,100)$", "Marginal profit is zero on $(0,100)$"], "P''(x)<0 means the gradient P'(x) is decreasing. The marginal profit is decreasing over this interval."),
     appChoice("appdiff-conc-i3", "Does the information confirm a point of inflection at x = 2?", "\\begin{array}{c|ccc}x&x<2&2&x>2\\\\\\hline f''(x)&+&0&+\\end{array}", "C", ["Yes, because f''(2)=0", "Yes, because f'' is positive", "No, because concavity does not change", "No, because f'(2) is not shown"], "There is no sign change in f''."),
     appNumber("appdiff-conc-i4", "Find f''(2).", "f''(x)=6x-5", "7"),
     appChoice("appdiff-conc-i5", "Which graph description matches the sign of f''?", "\\begin{array}{c|cc}x&(-\\infty,3)&(3,\\infty)\\\\\\hline f''(x)&-&+\\end{array}", "D", ["Concave up everywhere", "Concave down everywhere", "Increasing then decreasing", "Concave down then concave up"], "The second derivative changes from negative to positive."),
@@ -169,7 +169,7 @@ export const secondDerivativeConcavityLesson = applicationLesson(
     { mistake: "Ignoring points where f'' is undefined.", fix: "Possible inflection points can also occur where f'' is undefined." },
   ],
   [
-    appChoice("appdiff-conc-m1", "What concavity is indicated?", "f''(x)<0", "B", ["Concave up", "Concave down", "Stationary", "Undefined"], "Negative second derivative means concave down."),
+    appChoice("appdiff-conc-m1", "Find f''(1) and identify the concavity.", "f(x)=x^3-3x+5", "A", ["Concave up", "Concave down", "Cannot determine without more information", "Concave down only for $x>0$"], "f'(x)=3x^2-3, so f''(x)=6x. At x=1: f''(1)=6>0. The graph is concave up at x=1."),
     appNumber("appdiff-conc-m2", "Find the possible inflection x-value.", "f''(x)=10x-30", "3"),
     appChoice("appdiff-conc-m3", "Does the sign chart confirm a point of inflection?", "\\begin{array}{c|ccc}x&x<-1&-1&x>-1\\\\\\hline f''(x)&-&0&+\\end{array}", "A", ["Yes", "No", "Only if f'(-1)=0", "Only if f(-1)=0"], "The second derivative changes sign."),
     appChoice("appdiff-conc-m4", "Which statement identifies the error?", "f''(0)=0\\text{ and }f''(x)=12x^2", "C", ["The graph is concave down on both sides", "There must be a maximum", "There is no sign change in f''", "The first derivative is undefined"], "12x^2 is positive on both sides of 0, so f'' = 0 alone is insufficient."),
@@ -262,7 +262,7 @@ export const stationaryPointClassificationLesson = applicationLesson(
     { mistake: "Ignoring the first derivative sign test.", fix: "Use f' signs when the second derivative test is inconclusive." },
   ],
   [
-    appChoice("appdiff-stat-m1", "Classify the stationary point.", "f'(5)=0,\\quad f''(5)=9", "B", ["Local maximum", "Local minimum", "Inconclusive", "No stationary point"], "Positive f'' gives a local minimum."),
+    appChoice("appdiff-stat-m1", "Find and classify the stationary point.", "f(x)=x^2-8x+3", "B", ["Local maximum at $x=4$", "Local minimum at $x=4$", "Stationary point of inflection at $x=4$", "No stationary point"], "f'(x)=2x-8=0 gives x=4. Since f''(x)=2>0, the stationary point is a local minimum."),
     appChoice("appdiff-stat-m2", "Classify the stationary point.", "f'(-2)=0,\\quad f''(-2)=-4", "A", ["Local maximum", "Local minimum", "Inconclusive", "No stationary point"], "Negative f'' gives a local maximum."),
     appNumber("appdiff-stat-m3", "Find the stationary x-value.", "f'(x)=3x+12", "-4", [], "Set f'(x)=0: 3x+12=0, so x=-4."),
     appChoice("appdiff-stat-m4", "Use the sign chart to classify x = 2.", "\\begin{array}{c|ccc}x&x<2&2&x>2\\\\\\hline f'(x)&-&0&+\\end{array}", "B", ["Local maximum", "Local minimum", "Stationary point of inflection", "No stationary point"], "The derivative changes from negative to positive."),
@@ -541,7 +541,7 @@ export const kinematicsRatesChangeLesson = applicationLesson(
     { mistake: "Thinking s(t)=0 means the particle is at rest.", fix: "At rest means v(t)=0." },
   ],
   [
-    appNumber("appdiff-kin-m1", "Find v(1).", "s(t)=t^2+5t", "7", [], "Differentiate: v(t)=s'(t)=2t+5. Substitute t=1: v(1)=2+5=7."),
+    appNumber("appdiff-kin-m1", "Find the first time the particle comes to rest.", "v(t)=t^2-5t+4", "1", [], "Set v(t)=0: (t-1)(t-4)=0 gives t=1 and t=4. The first rest time is t=1."),
     appNumber("appdiff-kin-m2", "Find a(2).", "s(t)=t^3", "12", [], "Differentiate twice: v(t)=3t^2, a(t)=6t. Substitute t=2: a(2)=6(2)=12."),
     appNumber("appdiff-kin-m3", "Find when the particle is at rest.", "v(t)=5t-20", "4", [], "The particle is at rest when v(t)=0. Solve: 5t-20=0, so t=4."),
     appChoice("appdiff-kin-m4", "Which statement correctly compares speed and velocity?", "\\text{Select A, B, C, or D.}", "D", ["Speed can be negative", "Velocity is always positive", "Speed includes direction", "Speed is the magnitude of velocity"], "Speed is |v|."),
