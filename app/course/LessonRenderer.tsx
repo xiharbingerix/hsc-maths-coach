@@ -991,6 +991,7 @@ export function LessonRenderer({
   const masteryStartedRef = useRef<string | null>(null);
   const progressChangedRef = useRef(false);
   const progressSyncRef = useRef(Promise.resolve());
+  const masteryRecordedRef = useRef(false);
 
   function queueProgressSync(
     record: Parameters<typeof upsertLessonProgress>[1]
@@ -1257,18 +1258,52 @@ export function LessonRenderer({
         completedStages: currentLessonStages.map((stage) => stage.id),
         lastScore: quizScore,
       });
-      return;
+    } else {
+      saveMasteryState({
+        passed: false,
+        mustCompleteLesson: false,
+        completedStages: masteryState.completedStages,
+        lastScore: quizScore,
+      });
     }
 
-    saveMasteryState({
-      passed: false,
-      mustCompleteLesson: false,
-      completedStages: masteryState.completedStages,
-      lastScore: quizScore,
-    });
+    // Record mastery events for logged-in students — fire-and-forget.
+    if (courseSlug && unitSlug && !masteryRecordedRef.current) {
+      masteryRecordedRef.current = true;
+      const capturedAnswers = { ...quizAnswers };
+      const capturedQuestions = currentLesson.masteryQuiz;
+      void (async () => {
+        try {
+          const { data } = await supabase.auth.getSession();
+          const token = data.session?.access_token;
+          if (!token) return;
+          const events = capturedQuestions.map((q) => ({
+            difficulty: 4,
+            isCorrect: isCorrectAnswer(q, capturedAnswers[q.id] ?? ""),
+          }));
+          await fetch("/api/mastery/lesson", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              courseSlug,
+              topicSlug: unitSlug,
+              lessonSlug,
+              sourceId: crypto.randomUUID(),
+              events,
+            }),
+          });
+        } catch {
+          // Mastery recording failure never affects the student's UX.
+        }
+      })();
+    }
   }
 
   function retryQuiz() {
+    masteryRecordedRef.current = false;
     setQuizAnswers({});
     setQuizSubmitted(false);
     setActiveStage("mastery-quiz");
