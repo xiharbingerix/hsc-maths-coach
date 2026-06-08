@@ -224,6 +224,20 @@ export default function DashboardPage() {
     .slice(0, 3);
   const showSplit = masteryRows.length >= 4;
 
+  // Next best action: weakest topic with at least one attempt.
+  const nextBestRow = hasMastery
+    ? masteryRows
+        .filter((r) => r.attempt_count > 0)
+        .sort((a, b) => a.mastery_score - b.mastery_score)[0] ?? null
+    : null;
+  const nextBestAction = nextBestRow
+    ? {
+        topicName: topicLabel(nextBestRow.course_slug, nextBestRow.topic_slug),
+        mastery: nextBestRow.mastery_score,
+        href: `/course/${nextBestRow.course_slug}/${nextBestRow.topic_slug}`,
+      }
+    : null;
+
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
       <section className="mx-auto max-w-5xl space-y-8">
@@ -466,6 +480,42 @@ export default function DashboardPage() {
             <p className="mt-6 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
               Start a lesson and pass mastery to see your progress here.
             </p>
+          )}
+        </section>
+
+        {/* ── Next best action ──────────────────────────────────────────────── */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            Your next best action
+          </p>
+
+          {!nextBestAction ? (
+            <p className="mt-3 text-sm text-slate-600">
+              Complete a diagnostic or worksheet to get your personalised next step.
+            </p>
+          ) : (
+            <div className="mt-3 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <div className="flex-1">
+                <h2 className="text-2xl font-bold tracking-tight">
+                  Focus on {nextBestAction.topicName} next.
+                </h2>
+                <p className="mt-2 text-slate-600">
+                  Your current mastery is {nextBestAction.mastery}%.
+                </p>
+                <div className="mt-3 h-2 max-w-xs overflow-hidden rounded-full bg-slate-100">
+                  <div
+                    className={`h-full rounded-full ${masteryBarColor(nextBestAction.mastery)}`}
+                    style={{ width: `${nextBestAction.mastery}%` }}
+                  />
+                </div>
+              </div>
+              <Link
+                href={nextBestAction.href}
+                className="inline-flex shrink-0 items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+              >
+                Start this topic
+              </Link>
+            </div>
           )}
         </section>
 
