@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { BlockMath, InlineMath } from "react-katex";
 import { MathAnswerInput } from "../../components/MathAnswerInput";
 import { BoxPlotView } from "../../course/components/BoxPlotView";
@@ -73,7 +73,7 @@ function DiagramRenderer({ data }: { data: Record<string, unknown> | null }) {
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-type Phase = "starting" | "asking" | "answered" | "done" | "error";
+type Phase = "intro" | "starting" | "asking" | "answered" | "done" | "error";
 
 type AnswerResult = {
   isCorrect: boolean;
@@ -115,8 +115,9 @@ export function WorksheetClient({
   yearLevel: string;
   questions: WorksheetQuestion[];
 }) {
-  const [phase, setPhase] = useState<Phase>("starting");
+  const [phase, setPhase] = useState<Phase>("intro");
   const [attemptId, setAttemptId] = useState<string | null>(null);
+  const [studentName, setStudentName] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [typedAnswer, setTypedAnswer] = useState("");
   const [choiceAnswer, setChoiceAnswer] = useState("");
@@ -127,43 +128,43 @@ export function WorksheetClient({
 
   // Track time spent on each question
   const questionStartTimeRef = useRef<number>(Date.now());
-  // Prevent double-start in React strict mode
-  const startedRef = useRef(false);
-
   const totalQuestions = questions.length;
   const currentQuestion = questions[currentIndex];
   const isLastQuestion = currentIndex === totalQuestions - 1;
 
   // ── Start attempt ──────────────────────────────────────────────────────────
 
-  useEffect(() => {
-    if (startedRef.current) return;
-    startedRef.current = true;
+  async function handleStartAttempt() {
+    if (phase !== "intro" || isSubmitting) return;
 
-    async function startAttempt() {
-      try {
-        const res = await fetch(`/api/worksheet/${token}/start`, {
-          method: "POST",
-        });
-        const data = (await res.json()) as { attemptId?: string; error?: string };
+    setIsSubmitting(true);
+    setErrorMessage("");
+    setPhase("starting");
 
-        if (!res.ok || !data.attemptId) {
-          setErrorMessage(data.error ?? "Could not start worksheet. Please reload.");
-          setPhase("error");
-          return;
-        }
+    try {
+      const res = await fetch(`/api/worksheet/${token}/start`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentName }),
+      });
+      const data = (await res.json()) as { attemptId?: string; error?: string };
 
-        setAttemptId(data.attemptId);
-        setPhase("asking");
-        questionStartTimeRef.current = Date.now();
-      } catch {
-        setErrorMessage("Network error. Please check your connection and reload.");
+      if (!res.ok || !data.attemptId) {
+        setErrorMessage(data.error ?? "Could not start worksheet. Please reload.");
         setPhase("error");
+        return;
       }
-    }
 
-    void startAttempt();
-  }, [token]);
+      setAttemptId(data.attemptId);
+      setPhase("asking");
+      questionStartTimeRef.current = Date.now();
+    } catch {
+      setErrorMessage("Network error. Please check your connection and reload.");
+      setPhase("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   // ── Submit answer ──────────────────────────────────────────────────────────
 
@@ -271,6 +272,59 @@ export function WorksheetClient({
   );
 
   // ── Starting ───────────────────────────────────────────────────────────────
+  if (phase === "intro") {
+    return (
+      <main className="min-h-screen bg-slate-50 px-4 py-10">
+        <div className="mx-auto max-w-2xl space-y-4">
+          {headerBar}
+          <form
+            className="space-y-5 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm"
+            onSubmit={(event) => {
+              event.preventDefault();
+              void handleStartAttempt();
+            }}
+          >
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Before you begin
+              </p>
+              <h1 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">
+                Enter your name
+              </h1>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                This helps Joshua match your worksheet result to you. It is optional,
+                but encouraged.
+              </p>
+            </div>
+
+            <label className="block space-y-1.5">
+              <span className="text-sm font-medium text-slate-700">
+                Student name
+              </span>
+              <input
+                type="text"
+                value={studentName}
+                onChange={(event) => setStudentName(event.target.value)}
+                maxLength={120}
+                autoComplete="name"
+                placeholder="e.g. Mia Chen"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
+              />
+            </label>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {isSubmitting ? "Starting..." : "Start worksheet"}
+            </button>
+          </form>
+        </div>
+      </main>
+    );
+  }
+
   if (phase === "starting") {
     return (
       <main className="min-h-screen bg-slate-50 px-4 py-10">

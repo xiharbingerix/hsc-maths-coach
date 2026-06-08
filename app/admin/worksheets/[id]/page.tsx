@@ -32,6 +32,7 @@ type WorksheetQuestionRow = {
 
 type AttemptRow = {
   id: string;
+  student_name: string | null;
   started_at: string;
   completed_at: string | null;
   score_correct: number | null;
@@ -81,7 +82,7 @@ export default async function WorksheetDetailPage({
       .order("position"),
     supabaseAdmin
       .from("worksheet_attempts")
-      .select("id, started_at, completed_at, score_correct, score_total")
+      .select("id, student_name, started_at, completed_at, score_correct, score_total")
       .eq("worksheet_id", id)
       .order("started_at", { ascending: false }),
   ]);
@@ -212,6 +213,9 @@ export default async function WorksheetDetailPage({
                   <div className="flex items-center justify-between gap-4 border-b border-slate-100 bg-slate-50 px-5 py-3">
                     <div className="flex items-center gap-3">
                       <span className="text-sm font-semibold text-slate-700">
+                        {attempt.student_name?.trim() || "Anonymous student"}
+                      </span>
+                      <span className="text-xs font-medium text-slate-400">
                         Attempt {attempts.length - idx}
                       </span>
                       <span className="text-xs text-slate-400">

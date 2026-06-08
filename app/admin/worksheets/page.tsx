@@ -26,6 +26,7 @@ type WorksheetRow = {
 
 type AttemptSummary = {
   count: number;
+  latestStudentName?: string;
   latestScore?: { correct: number; total: number };
 };
 
@@ -59,19 +60,23 @@ export default async function WorksheetsPage() {
 
     const { data: aRows } = await supabaseAdmin
       .from("worksheet_attempts")
-      .select("worksheet_id, score_correct, score_total, completed_at, started_at")
+      .select("worksheet_id, student_name, score_correct, score_total, completed_at, started_at")
       .in("worksheet_id", ids)
       .order("started_at", { ascending: false });
 
     if (aRows) {
       for (const row of aRows as {
         worksheet_id: string;
+        student_name: string | null;
         score_correct: number | null;
         score_total: number | null;
         completed_at: string | null;
       }[]) {
         const summary = attemptSummaries[row.worksheet_id] ?? { count: 0 };
         summary.count++;
+        if (!summary.latestStudentName) {
+          summary.latestStudentName = row.student_name?.trim() || "Anonymous student";
+        }
         if (
           row.completed_at &&
           row.score_correct != null &&
@@ -134,6 +139,7 @@ export default async function WorksheetsPage() {
                   <th className="px-5 py-3 text-left">Course / Year</th>
                   <th className="px-5 py-3 text-left">Created</th>
                   <th className="px-4 py-3 text-center">Qs</th>
+                  <th className="px-5 py-3 text-left">Latest student</th>
                   <th className="px-4 py-3 text-center">Attempts</th>
                   <th className="px-4 py-3 text-center">Latest score</th>
                   <th className="px-5 py-3 text-left">Link</th>
@@ -167,6 +173,9 @@ export default async function WorksheetsPage() {
                       </td>
                       <td className="px-4 py-3 text-center tabular-nums text-slate-700">
                         {qCount}
+                      </td>
+                      <td className="px-5 py-3 text-slate-600">
+                        {aSummary?.latestStudentName ?? "Anonymous student"}
                       </td>
                       <td className="px-4 py-3 text-center tabular-nums text-slate-700">
                         {aSummary?.count ?? 0}

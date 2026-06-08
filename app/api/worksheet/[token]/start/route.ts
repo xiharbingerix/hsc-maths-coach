@@ -3,11 +3,27 @@ import { supabaseAdmin } from "../../../../../lib/supabaseAdmin";
 
 export const runtime = "nodejs";
 
+type StartBody = {
+  studentName?: string;
+};
+
 export async function POST(
-  _request: Request,
+  request: Request,
   { params }: { params: Promise<{ token: string }> }
 ) {
   const { token } = await params;
+
+  let body: StartBody = {};
+  try {
+    body = (await request.json()) as StartBody;
+  } catch {
+    body = {};
+  }
+
+  const studentName =
+    typeof body.studentName === "string" && body.studentName.trim()
+      ? body.studentName.trim().slice(0, 120)
+      : null;
 
   if (!token) {
     return NextResponse.json({ error: "Invalid worksheet link." }, { status: 400 });
@@ -41,6 +57,7 @@ export async function POST(
       worksheet_id: worksheet.id,
       user_id: null,
       share_token: token,
+      student_name: studentName,
     })
     .select("id")
     .single();
