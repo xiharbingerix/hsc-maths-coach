@@ -13,8 +13,17 @@ type CourseTopicEntry = {
   topicSlug: string;
 };
 
-export default async function NewWorksheetPage() {
+export default async function NewWorksheetPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ studentName?: string; studentEmail?: string }>;
+}) {
   await requireAdmin();
+  const params = await searchParams;
+  const initialStudentName =
+    typeof params?.studentName === "string" ? params.studentName : "";
+  const initialStudentEmail =
+    typeof params?.studentEmail === "string" ? params.studentEmail : "";
 
   // Load distinct (course_slug, topic_slug) pairs from active questions.
   // Returns an empty list if the questions table is empty or migration not applied.
@@ -96,7 +105,11 @@ export default async function NewWorksheetPage() {
           </div>
         ) : (
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <WorksheetGeneratorForm courseTopics={courseTopics} />
+            <WorksheetGeneratorForm
+              courseTopics={courseTopics}
+              initialStudentName={initialStudentName}
+              initialStudentEmail={initialStudentEmail}
+            />
           </div>
         )}
       </div>

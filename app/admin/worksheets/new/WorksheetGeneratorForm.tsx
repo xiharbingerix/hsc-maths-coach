@@ -36,14 +36,18 @@ const QUESTION_COUNTS = [5, 8, 10, 12, 15, 20];
 
 export function WorksheetGeneratorForm({
   courseTopics,
+  initialStudentName = "",
+  initialStudentEmail = "",
 }: {
   courseTopics: CourseTopicEntry[];
+  initialStudentName?: string;
+  initialStudentEmail?: string;
 }) {
   const courses = [...new Set(courseTopics.map((ct) => ct.courseSlug))].sort();
 
   const [title, setTitle] = useState("");
-  const [studentName, setStudentName] = useState("");
-  const [studentEmail, setStudentEmail] = useState("");
+  const [studentName, setStudentName] = useState(initialStudentName);
+  const [studentEmail, setStudentEmail] = useState(initialStudentEmail);
   const [dueDate, setDueDate] = useState("");
   const [courseSlug, setCourseSlug] = useState(courses[0] ?? "");
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);

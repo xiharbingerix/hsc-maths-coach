@@ -257,6 +257,9 @@ export default async function AdminStudentDetailPage({
     masteryRows,
     diagnosticResults: latestDiagnostic?.unit_results ?? [],
   });
+  const worksheetGeneratorHref = `/admin/worksheets/new?studentName=${encodeURIComponent(
+    studentName(user, profile)
+  )}&studentEmail=${encodeURIComponent(user.email ?? "")}`;
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -335,7 +338,7 @@ export default async function AdminStudentDetailPage({
                 </Link>
               ) : null}
               <Link
-                href="/admin/worksheets/new"
+                href={worksheetGeneratorHref}
                 className="inline-flex justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50"
               >
                 Generate worksheet
