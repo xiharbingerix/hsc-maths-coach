@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "../../../../../lib/supabaseAdmin";
+import { recordMasteryEvents } from "../../../../../lib/mastery/updateMastery";
+import type { MasteryEventInput } from "../../../../../lib/mastery/updateMastery";
 
 export const runtime = "nodejs";
 
@@ -29,7 +31,7 @@ export async function POST(
   // 1. Validate attempt belongs to this token
   const { data: attempt, error: attemptError } = await supabaseAdmin
     .from("worksheet_attempts")
-    .select("id, worksheet_id, completed_at, score_correct, score_total")
+    .select("id, worksheet_id, user_id, completed_at, score_correct, score_total")
     .eq("id", attemptId)
     .maybeSingle();
 
@@ -144,6 +146,58 @@ export async function POST(
       { error: "Could not complete worksheet. Please try again." },
       { status: 500 }
     );
+  }
+
+  // 5. Record mastery events for logged-in students only.
+  const userId = (attempt as { user_id?: string | null }).user_id;
+  if (userId) {
+    try {
+      const questionIds = [...latestAnswersByQuestion.keys()];
+      const { data: questionMeta } = await supabaseAdmin
+        .from("questions")
+        .select("id, course_slug, topic_slug, subtopic_slug, difficulty")
+        .in("id", questionIds);
+
+      if (questionMeta && questionMeta.length > 0) {
+        const metaById = new Map(
+          (
+            questionMeta as {
+              id: string;
+              course_slug: string;
+              topic_slug: string;
+              subtopic_slug: string | null;
+              difficulty: number;
+            }[]
+          ).map((q) => [q.id, q])
+        );
+
+        const events: MasteryEventInput[] = [];
+        for (const [questionId, isCorrect] of latestAnswersByQuestion) {
+          const meta = metaById.get(questionId);
+          if (!meta) continue;
+          events.push({
+            userId,
+            sourceType: "worksheet",
+            sourceId: attemptId,
+            questionId,
+            courseSlug: meta.course_slug,
+            topicSlug: meta.topic_slug,
+            subtopicSlug: meta.subtopic_slug ?? null,
+            difficulty: meta.difficulty,
+            isCorrect,
+          });
+        }
+
+        await recordMasteryEvents(events);
+      }
+    } catch (masteryErr) {
+      console.error("[worksheet/complete] mastery update failed", {
+        attemptId,
+        userId,
+        error: masteryErr instanceof Error ? masteryErr.message : masteryErr,
+      });
+      // Mastery failure does not affect the student's score response.
+    }
   }
 
   return NextResponse.json({ scoreCorrect, scoreTotal });
