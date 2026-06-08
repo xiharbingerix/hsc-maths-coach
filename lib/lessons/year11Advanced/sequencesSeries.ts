@@ -630,7 +630,7 @@ export function year11AdvancedSequencesSeriesLessonOverride(
         sequenceAnswer("y11adv-seq-gseries-m1", "Find the sum of the first 4 terms of the geometric sequence.", "a=2,\\quad r=3", "80"),
         sequenceAnswer("y11adv-seq-gseries-m2", "Find the limiting sum.", "20+10+5+\\cdots", "40"),
         sequenceChoice("y11adv-seq-gseries-m3", "Which condition is required for an infinite geometric series to have a limiting sum?", "C", ["$r>1$", "$r=1$", "$|r|<1$", "$a=0$ only"], "A non-zero infinite geometric series converges when |r| < 1."),
-        sequenceAnswer("y11adv-seq-gseries-m4", "Find the sum of the first 5 terms.", "4+8+16+32+64", "124"),
+        sequenceAnswer("y11adv-seq-gseries-m4", "A prize starts at $4 and doubles each round for 5 rounds. Find the total prize money paid.", "a=4,\\quad r=2,\\quad n=5", "124", ["$124", "124 dollars"]),
         sequenceChoice("y11adv-seq-gseries-m5", "Does the series have a limiting sum?", "B", ["Yes", "No", "Only if n = 10", "Only if a = 1"], "The common ratio is 3, so |r| is greater than 1.", "2+6+18+\\cdots"),
         sequenceAnswer("y11adv-seq-gseries-m6", "Find the limiting sum.", "9+3+1+\\cdots", "27/2", ["13.5"]),
         sequenceChoice("y11adv-seq-gseries-m7", "Which series is geometric?", "A", ["$5+10+20+40+\\cdots$", "$5+10+15+20+\\cdots$", "$1+4+9+16+\\cdots$", "$2+5+10+17+\\cdots$"], "Only the first series has a constant ratio."),

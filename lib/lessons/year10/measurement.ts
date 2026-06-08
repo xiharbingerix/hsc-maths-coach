@@ -1945,10 +1945,11 @@ const similarFiguresMistakes = [
 const similarFiguresMastery: PracticeQuestion[] = [
   measAnswer(
     "sim-m1",
-    "Two similar shapes have length scale factor k = 3. The original length is 7 cm. Find the new length.",
-    "k=3,\\;\\text{original length}=7\\text{ cm}",
-    "21",
-    ["21 cm"]
+    "Two similar shapes have corresponding sides 4 cm and 20 cm. The original shape has another side of 6 cm. Find the corresponding side in the new shape.",
+    "\\text{sides }4\\text{ cm and }20\\text{ cm},\\;\\text{original side}=6\\text{ cm}",
+    "30",
+    ["30 cm"],
+    "Find k first by dividing the new corresponding length by the original: k = 20 ÷ 4 = 5. Then multiply the other original side by k."
   ),
   measAnswer(
     "sim-m2",

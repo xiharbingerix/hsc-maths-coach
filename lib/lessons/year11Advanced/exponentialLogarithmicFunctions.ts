@@ -392,7 +392,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
         { mistake: "Ignoring domain restrictions after solving a log equation.", fix: "Check that each logarithm input is positive." },
       ],
       masteryQuiz: [
-        formulaAnswer("y11adv-exp-solve-m1", "Solve by matching bases.", "2^{x}=64", "6", ["x=6"]),
+        formulaAnswer("y11adv-exp-solve-m1", "Solve by matching bases.", "2^{x+1}=64", "5", ["x=5"]),
         formulaAnswer("y11adv-exp-solve-m2", "Solve the logarithmic equation.", "\\log_3 x=4", "81", ["x=81"]),
         formulaAnswer("y11adv-exp-solve-m3", "Solve the exponential equation by matching bases.", "4^{x}=\\frac{1}{16}", "-2", ["x=-2"]),
         practicalChoice("y11adv-exp-solve-m4", "Which exact solution form is correct?", "D", ["$x=\\log_7 2$", "$x=2\\log 7$", "$x=\\log_2 7$", "$x=\\log_2 50$"], "The log base matches the exponential base.", "2^x=50"),
@@ -501,7 +501,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
         { mistake: "Typing fragile logarithmic time solutions.", fix: "For non-clean time values, use a multiple-choice rounded answer in this interface." },
       ],
       masteryQuiz: [
-        formulaAnswer("y11adv-exp-model-m1", "A population model is shown. Find the population after the given time.", "P=1000(2)^t,\\quad t=3", "8000", ["8000 people", "8,000"]),
+        formulaAnswer("y11adv-exp-model-m1", "A population starts at 1000 and doubles each year. Find the population after 3 years.", "P=1000(2)^t", "8000", ["8000 people", "8,000"]),
         practicalChoice("y11adv-exp-model-m2", "Which statement describes the model?", "C", ["Growth", "No change", "Decay", "Linear increase"], "The base is between 0 and 1.", "A=600(0.75)^t"),
         formulaAnswer("y11adv-exp-model-m3", "A sample halves every day. Find the amount remaining after three days.", "A_0=64\\text{ g}", "8", ["8 g", "8 grams"]),
         formulaAnswer("y11adv-exp-model-m4", "A compound-interest model is shown. Find the balance after the given number of years.", "A=2000(1.05)^2", "2205", ["2205.00", "$2205", "$2205.00", "$2,205", "$2,205.00", "2,205", "2,205.00"]),
@@ -610,4 +610,3 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
 
   return null;
 }
-

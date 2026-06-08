@@ -122,6 +122,9 @@ function probabilityDataFeedback(
   if (prompt.includes("at most")) {
     return `At most means the stated value or anything smaller. Add the probabilities for those table entries to get ${answer}.`;
   }
+  if (prompt.includes("X is odd")) {
+    return `Odd values in the table are 1 and 3. Add their probabilities, $0.4+0.2$, to get ${answer}.`;
+  }
   if (prompt.includes("Read the probability")) {
     return `Match the requested x-value to its probability in the table. Read from the probability row, not the value row; this gives ${answer}.`;
   }
@@ -133,6 +136,9 @@ function probabilityDataFeedback(
   }
   if (prompt.includes("variance")) {
     return `Variance measures spread after accounting for the mean. Use Var(X) = E(X^2) - [E(X)]^2 to get ${answer}.`;
+  }
+  if (prompt.includes("standard deviation") && prompt.includes("moments")) {
+    return `Use the moments to find the variance first: $20-2^2=16$. The standard deviation is the square root of variance, so the result is ${answer}.`;
   }
   if (prompt.includes("standard deviation")) {
     return `Standard deviation is the square root of the variance, so it returns the spread to the original units. The result is ${answer}.`;
@@ -303,7 +309,7 @@ export function year11AdvancedProbabilityDataLessonOverride(
       masteryQuiz: [
         dataAnswer("y11adv-pd-data-m1", "Find the median of the sorted data set.", "7,\\ 9,\\ 10,\\ 14,\\ 18", "10"),
         dataAnswer("y11adv-pd-data-m2", "Find the range of the data set.", "3,\\ 8,\\ 12,\\ 17", "14"),
-        dataAnswer("y11adv-pd-data-m3", "Find the interquartile range from the displayed quartiles.", "Q_1=6,\\quad Q_3=15", "9"),
+        dataAnswer("y11adv-pd-data-m3", "Find the interquartile range of the sorted data set.", "4,\\ 6,\\ 8,\\ 10,\\ 15,\\ 20,\\ 24", "14"),
         dataAnswer("y11adv-pd-data-m4", "Find the mean from the frequency table. Give the exact fraction.", "\\begin{array}{c|ccc}x&1&2&5\\\\ \\hline f&2&3&1\\end{array}", "13/6"),
         dataAnswer("y11adv-pd-data-m5", "Find the mode from the frequency table.", "\\begin{array}{c|cccc}x&4&5&6&7\\\\ \\hline f&1&4&2&3\\end{array}", "5"),
         practicalChoice("y11adv-pd-data-m6", "Using the displayed outlier fences, classify the test value.", "B", ["Not an outlier", "High outlier", "Low outlier", "The upper quartile"], "The test value is greater than the upper fence.", "\\text{lower fence}=2,\\quad \\text{upper fence}=26,\\quad \\text{test value}=29"),
@@ -546,7 +552,7 @@ export function year11AdvancedProbabilityDataLessonOverride(
       masteryQuiz: [
         practicalChoice("y11adv-pd-drv-m1", "Decide whether the distribution is valid.", "B", ["Invalid", "Valid", "Invalid because values are not equally spaced", "Invalid because x includes zero"], "The probabilities add to 1 and are non-negative.", "\\begin{array}{c|ccc}x&0&1&2\\\\ \\hline P(X=x)&0.25&0.25&0.50\\end{array}"),
         dataAnswer("y11adv-pd-drv-m2", "Find the missing probability.", "\\begin{array}{c|ccc}x&1&2&3\\\\ \\hline P(X=x)&0.2&p&0.5\\end{array}", "0.3", ["3/10", "0.30"]),
-        dataAnswer("y11adv-pd-drv-m3", "Read the probability for the displayed value.", "\\begin{array}{c|cccc}x&0&1&2&3\\\\ \\hline P(X=x)&0.1&0.4&0.3&0.2\\end{array}\\quad P(X=1)", "0.4", ["2/5", "0.40"]),
+        dataAnswer("y11adv-pd-drv-m3", "Find the probability that X is odd.", "\\begin{array}{c|cccc}x&0&1&2&3\\\\ \\hline P(X=x)&0.1&0.4&0.3&0.2\\end{array}", "0.6", ["3/5", "0.60"]),
         dataAnswer("y11adv-pd-drv-m4", "Find the probability that the random variable is at least the displayed value.", "\\begin{array}{c|cccc}x&0&1&2&3\\\\ \\hline P(X=x)&0.1&0.2&0.4&0.3\\end{array}\\quad P(X\\ge2)", "0.7", ["7/10", "0.70"]),
         dataAnswer("y11adv-pd-drv-m5", "Find the probability that the random variable is at most the displayed value.", "\\begin{array}{c|cccc}x&0&1&2&3\\\\ \\hline P(X=x)&0.15&0.35&0.30&0.20\\end{array}\\quad P(X\\le1)", "0.5", ["1/2", "0.50"]),
         dataAnswer("y11adv-pd-drv-m6", "Find the probability that the random variable is not equal to the displayed value.", "P(X=2)=0.6,\\quad P(X\\ne2)", "0.4", ["2/5", "0.40"]),
@@ -672,7 +678,7 @@ export function year11AdvancedProbabilityDataLessonOverride(
       masteryQuiz: [
         dataAnswer("y11adv-pd-ev-m1", "Find the expected value.", "\\begin{array}{c|cc}x&0&8\\\\ \\hline P(X=x)&0.75&0.25\\end{array}", "2"),
         dataAnswer("y11adv-pd-ev-m2", "Find the displayed second moment.", "\\begin{array}{c|cc}x&2&4\\\\ \\hline P(X=x)&0.5&0.5\\end{array}\\quad E(X^2)", "10"),
-        dataAnswer("y11adv-pd-ev-m3", "Find the standard deviation using the displayed variance.", "\\operatorname{Var}(X)=16", "4"),
+        dataAnswer("y11adv-pd-ev-m3", "Find the standard deviation using the displayed moments.", "E(X)=2,\\quad E(X^2)=20", "4"),
         dataAnswer("y11adv-pd-ev-m4", "Find the variance using the displayed moments.", "E(X)=2,\\quad E(X^2)=7", "3"),
         dataAnswer("y11adv-pd-ev-m5", "Find the expected winnings for the game.", "\\begin{array}{c|cc}\\text{winnings}&5&-1\\\\ \\hline P&\\frac14&\\frac34\\end{array}", "0.5", ["1/2", "0.50"]),
         practicalChoice("y11adv-pd-ev-m6", "Decide whether the game is favourable to the player.", "B", ["Fair", "Favourable", "Unfavourable", "Impossible"], "A positive expected winning is favourable to the player.", "E(\\text{winnings})=0.5"),
