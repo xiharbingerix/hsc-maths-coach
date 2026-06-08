@@ -28,6 +28,17 @@ type MasteryRow = {
   topic_slug: string;
   mastery_score: number;
   attempt_count: number;
+  last_updated: string;
+};
+
+type RevisionReason = "Needs strengthening" | "Due for review" | "Long time since practice";
+
+type RevisionDueItem = {
+  course_slug: string;
+  topic_slug: string;
+  mastery_score: number;
+  last_updated: string;
+  reason: RevisionReason;
 };
 
 type AssignedWorksheet = {
@@ -67,6 +78,49 @@ function masteryBarColor(score: number): string {
   return "bg-red-400";
 }
 
+const REVISION_REASON_ORDER: Record<RevisionReason, number> = {
+  "Needs strengthening": 0,
+  "Long time since practice": 1,
+  "Due for review": 2,
+};
+
+function getRevisionQueue(rows: MasteryRow[]): RevisionDueItem[] {
+  const now = Date.now();
+  const MS_14 = 14 * 24 * 60 * 60 * 1000;
+  const MS_21 = 21 * 24 * 60 * 60 * 1000;
+
+  const due: RevisionDueItem[] = [];
+  for (const row of rows) {
+    const age = now - new Date(row.last_updated).getTime();
+    let reason: RevisionReason | null = null;
+    if (row.mastery_score < 50) {
+      reason = "Needs strengthening";
+    } else if (age > MS_21) {
+      reason = "Long time since practice";
+    } else if (age > MS_14 && row.mastery_score < 80) {
+      reason = "Due for review";
+    }
+    if (reason) {
+      due.push({ course_slug: row.course_slug, topic_slug: row.topic_slug, mastery_score: row.mastery_score, last_updated: row.last_updated, reason });
+    }
+  }
+  due.sort((a, b) => {
+    const r = REVISION_REASON_ORDER[a.reason] - REVISION_REASON_ORDER[b.reason];
+    return r !== 0 ? r : a.mastery_score - b.mastery_score;
+  });
+  return due.slice(0, 3);
+}
+
+function formatLastPractised(isoString: string): string {
+  const ms = Date.now() - new Date(isoString).getTime();
+  const days = Math.floor(ms / (24 * 60 * 60 * 1000));
+  if (days === 0) return "Today";
+  if (days === 1) return "Yesterday";
+  if (days < 30) return `${days} days ago`;
+  const months = Math.floor(days / 30);
+  return `${months} month${months !== 1 ? "s" : ""} ago`;
+}
+
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
@@ -86,6 +140,8 @@ export default function DashboardPage() {
   const [diagnosticYearLevel, setDiagnosticYearLevel] = useState("year-12-advanced");
   const [assignedWorksheets, setAssignedWorksheets] = useState<AssignedWorksheet[]>([]);
   const [recentAttempts, setRecentAttempts] = useState<AttemptRow[]>([]);
+  const [isGeneratingWorksheet, setIsGeneratingWorksheet] = useState(false);
+  const [adaptiveWorksheetError, setAdaptiveWorksheetError] = useState("");
 
   useEffect(() => {
     async function loadDashboard() {
@@ -142,7 +198,7 @@ export default function DashboardPage() {
 
       const { data: masteryData } = await supabase
         .from("student_mastery")
-        .select("course_slug, topic_slug, mastery_score, attempt_count")
+        .select("course_slug, topic_slug, mastery_score, attempt_count, last_updated")
         .eq("user_id", sessionUser.id)
         .order("mastery_score", { ascending: false });
 
@@ -249,6 +305,58 @@ export default function DashboardPage() {
     }
   }
 
+  async function handleGenerateRevisionWorksheet() {
+    setIsGeneratingWorksheet(true);
+    setAdaptiveWorksheetError("");
+
+    try {
+      const { data } = await supabase.auth.getSession();
+      const accessToken = data.session?.access_token;
+
+      if (!accessToken) {
+        setAdaptiveWorksheetError("Session expired. Please log in again.");
+        setIsGeneratingWorksheet(false);
+        return;
+      }
+
+      const response = await fetch("/api/worksheets/adaptive", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+
+      let payload: { href?: string; error?: string } = {};
+      const rawText = await response.text();
+      if (rawText) {
+        try {
+          payload = JSON.parse(rawText) as { href?: string; error?: string };
+        } catch {
+          // Ignore parse errors and show the generic fallback below.
+        }
+      }
+
+      if (!response.ok || payload.error) {
+        setAdaptiveWorksheetError(
+          payload.error ?? "Could not generate a revision worksheet."
+        );
+        setIsGeneratingWorksheet(false);
+        return;
+      }
+
+      if (payload.href) {
+        router.push(payload.href);
+        return;
+      }
+
+      setAdaptiveWorksheetError("Could not generate a revision worksheet.");
+      setIsGeneratingWorksheet(false);
+    } catch {
+      setAdaptiveWorksheetError(
+        "Network error while generating your worksheet. Please try again."
+      );
+      setIsGeneratingWorksheet(false);
+    }
+  }
+
   if (isLoading) {
     return (
       <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -329,6 +437,8 @@ export default function DashboardPage() {
         href: `/course/${nextBestRow.course_slug}/${nextBestRow.topic_slug}`,
       }
     : null;
+
+  const revisionQueue = getRevisionQueue(masteryRows);
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -519,21 +629,105 @@ export default function DashboardPage() {
               ) : null}
             </div>
             {studyPlan.nextTopic ? (
-              <Link
-                href={studyPlan.nextTopic.href}
-                className="inline-flex shrink-0 items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
-              >
-                Start studying
-              </Link>
+              <div className="flex shrink-0 flex-col gap-3 sm:items-end">
+                <Link
+                  href={studyPlan.nextTopic.href}
+                  className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+                >
+                  Start studying
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => void handleGenerateRevisionWorksheet()}
+                  disabled={isGeneratingWorksheet}
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {isGeneratingWorksheet
+                    ? "Generating..."
+                    : "Generate revision worksheet"}
+                </button>
+                {adaptiveWorksheetError ? (
+                  <p className="max-w-xs text-sm text-red-600">
+                    {adaptiveWorksheetError}
+                  </p>
+                ) : null}
+              </div>
             ) : (
-              <Link
-                href="/diagnostic/select"
-                className="inline-flex shrink-0 items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
-              >
-                Start diagnostic
-              </Link>
+              <div className="flex shrink-0 flex-col gap-3 sm:items-end">
+                <Link
+                  href="/diagnostic/select"
+                  className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+                >
+                  Start diagnostic
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => void handleGenerateRevisionWorksheet()}
+                  disabled={isGeneratingWorksheet}
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {isGeneratingWorksheet
+                    ? "Generating..."
+                    : "Generate revision worksheet"}
+                </button>
+                {adaptiveWorksheetError ? (
+                  <p className="max-w-xs text-sm text-red-600">
+                    {adaptiveWorksheetError}
+                  </p>
+                ) : null}
+              </div>
             )}
           </div>
+        </section>
+
+        {/* ── Today's revision ──────────────────────────────────────────────── */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Spaced revision
+          </p>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight">Today&apos;s revision</h2>
+
+          {revisionQueue.length === 0 ? (
+            <p className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
+              You&apos;re up to date. Complete a worksheet or lesson to keep your mastery fresh.
+            </p>
+          ) : (
+            <ul className="mt-5 space-y-3">
+              {revisionQueue.map((item) => (
+                <li
+                  key={`${item.course_slug}::${item.topic_slug}`}
+                  className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between"
+                >
+                  <div className="flex-1">
+                    <p className="font-semibold text-slate-900">
+                      {topicLabel(item.course_slug, item.topic_slug)}
+                    </p>
+                    <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
+                      <span className="tabular-nums">{item.mastery_score}% mastery</span>
+                      <span>Last practised: {formatLastPractised(item.last_updated)}</span>
+                      <span
+                        className={`rounded-full px-2 py-0.5 font-semibold ${
+                          item.reason === "Needs strengthening"
+                            ? "bg-red-100 text-red-700"
+                            : item.reason === "Long time since practice"
+                            ? "bg-amber-100 text-amber-700"
+                            : "bg-blue-100 text-blue-700"
+                        }`}
+                      >
+                        {item.reason}
+                      </span>
+                    </div>
+                  </div>
+                  <Link
+                    href={`/course/${item.course_slug}/${item.topic_slug}`}
+                    className="inline-flex shrink-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
+                  >
+                    Revise
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
 
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
