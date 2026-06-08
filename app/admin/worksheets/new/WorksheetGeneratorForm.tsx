@@ -42,6 +42,9 @@ export function WorksheetGeneratorForm({
   const courses = [...new Set(courseTopics.map((ct) => ct.courseSlug))].sort();
 
   const [title, setTitle] = useState("");
+  const [studentName, setStudentName] = useState("");
+  const [studentEmail, setStudentEmail] = useState("");
+  const [dueDate, setDueDate] = useState("");
   const [courseSlug, setCourseSlug] = useState(courses[0] ?? "");
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [preset, setPreset] = useState<"catch-up" | "standard" | "push-forward">(
@@ -88,6 +91,7 @@ export function WorksheetGeneratorForm({
 
     setStatus("submitting");
     setErrorMessage("");
+    const dueAt = dueDate ? new Date(`${dueDate}T23:59:00`).toISOString() : undefined;
 
     try {
       const res = await fetch("/api/admin/worksheets/generate", {
@@ -99,6 +103,9 @@ export function WorksheetGeneratorForm({
           topicSlugs: selectedTopics,
           preset,
           totalQuestions,
+          assignedStudentName: studentName.trim() || undefined,
+          assignedStudentEmail: studentEmail.trim() || undefined,
+          dueAt,
         }),
       });
 
@@ -135,6 +142,9 @@ export function WorksheetGeneratorForm({
     setStatus("idle");
     setResult(null);
     setTitle("");
+    setStudentName("");
+    setStudentEmail("");
+    setDueDate("");
     setSelectedTopics([]);
     setCopied(false);
   }
@@ -211,6 +221,54 @@ export function WorksheetGeneratorForm({
           className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm disabled:opacity-50"
         />
       </label>
+
+      {/* Assignment */}
+      <fieldset className="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+        <legend className="px-1 text-sm font-semibold text-slate-800">
+          Assign to student{" "}
+          <span className="font-normal text-slate-500">(optional)</span>
+        </legend>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <label className="block space-y-1.5">
+            <span className="text-sm font-medium text-slate-700">
+              Student name
+            </span>
+            <input
+              type="text"
+              value={studentName}
+              onChange={(e) => setStudentName(e.target.value)}
+              placeholder="e.g. Mia Chen"
+              maxLength={120}
+              disabled={status === "submitting"}
+              className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm disabled:opacity-50"
+            />
+          </label>
+          <label className="block space-y-1.5">
+            <span className="text-sm font-medium text-slate-700">
+              Student email
+            </span>
+            <input
+              type="email"
+              value={studentEmail}
+              onChange={(e) => setStudentEmail(e.target.value)}
+              placeholder="student@example.com"
+              maxLength={180}
+              disabled={status === "submitting"}
+              className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm disabled:opacity-50"
+            />
+          </label>
+        </div>
+        <label className="block max-w-xs space-y-1.5">
+          <span className="text-sm font-medium text-slate-700">Due date</span>
+          <input
+            type="date"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+            disabled={status === "submitting"}
+            className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm disabled:opacity-50"
+          />
+        </label>
+      </fieldset>
 
       {/* Course */}
       <label className="block space-y-1.5">

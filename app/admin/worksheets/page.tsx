@@ -11,7 +11,9 @@ export const metadata: Metadata = {
 
 type TopicConfig = {
   courseSlug?: string;
+  course_slug?: string;
   topicSlugs?: string[];
+  topic_slugs?: string[];
   preset?: string;
 };
 
@@ -21,6 +23,10 @@ type WorksheetRow = {
   year_level: string;
   topic_config: TopicConfig;
   share_token: string;
+  assigned_student_name: string | null;
+  assigned_student_email: string | null;
+  due_at: string | null;
+  status: string | null;
   created_at: string;
 };
 
@@ -35,7 +41,9 @@ export default async function WorksheetsPage() {
 
   const { data: worksheets } = await supabaseAdmin
     .from("worksheets")
-    .select("id, title, year_level, topic_config, share_token, created_at")
+    .select(
+      "id, title, year_level, topic_config, share_token, assigned_student_name, assigned_student_email, due_at, status, created_at"
+    )
     .order("created_at", { ascending: false })
     .limit(100);
 
@@ -136,7 +144,9 @@ export default async function WorksheetsPage() {
               <thead className="border-b border-slate-200 bg-slate-50 text-xs font-semibold uppercase tracking-wide text-slate-500">
                 <tr>
                   <th className="px-5 py-3 text-left">Title</th>
+                  <th className="px-5 py-3 text-left">Assigned to</th>
                   <th className="px-5 py-3 text-left">Course / Year</th>
+                  <th className="px-5 py-3 text-left">Due / Status</th>
                   <th className="px-5 py-3 text-left">Created</th>
                   <th className="px-4 py-3 text-center">Qs</th>
                   <th className="px-5 py-3 text-left">Latest student</th>
@@ -149,8 +159,20 @@ export default async function WorksheetsPage() {
                 {ws.map((w) => {
                   const qCount = questionCounts[w.id] ?? 0;
                   const aSummary = attemptSummaries[w.id];
+                  const assignedName =
+                    w.assigned_student_name?.trim() || "Unassigned";
+                  const assignedEmail = w.assigned_student_email?.trim();
+                  const dueLabel = w.due_at
+                    ? new Date(w.due_at).toLocaleDateString("en-AU", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })
+                    : "No due date";
+                  const statusLabel = w.status?.trim() || "active";
                   const shareUrl = `${baseUrl}/worksheet/${w.share_token}`;
-                  const courseSlug = w.topic_config?.courseSlug ?? "—";
+                  const courseSlug =
+                    w.topic_config?.courseSlug ?? w.topic_config?.course_slug ?? "—";
                   return (
                     <tr key={w.id} className="hover:bg-slate-50">
                       <td className="px-5 py-3 font-medium">
@@ -162,7 +184,25 @@ export default async function WorksheetsPage() {
                         </Link>
                       </td>
                       <td className="px-5 py-3 text-slate-600">
+                        <div className="max-w-[180px]">
+                          <p className="truncate font-medium text-slate-700">
+                            {assignedName}
+                          </p>
+                          {assignedEmail ? (
+                            <p className="truncate text-xs text-slate-400">
+                              {assignedEmail}
+                            </p>
+                          ) : null}
+                        </div>
+                      </td>
+                      <td className="px-5 py-3 text-slate-600">
                         {courseSlug} / Yr&nbsp;{w.year_level}
+                      </td>
+                      <td className="px-5 py-3 text-slate-600">
+                        <p>{dueLabel}</p>
+                        <span className="mt-1 inline-flex rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-xs font-semibold capitalize text-slate-600">
+                          {statusLabel}
+                        </span>
                       </td>
                       <td className="px-5 py-3 text-slate-500">
                         {new Date(w.created_at).toLocaleDateString("en-AU", {

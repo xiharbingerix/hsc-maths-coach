@@ -64,6 +64,9 @@ type GenerateBody = {
   topicSlugs?: string[];
   preset?: string;
   totalQuestions?: number;
+  assignedStudentName?: string;
+  assignedStudentEmail?: string;
+  dueAt?: string;
 };
 
 // ── Route handler ─────────────────────────────────────────────────────────────
@@ -80,7 +83,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const { title, courseSlug, topicSlugs, preset, totalQuestions } = body;
+  const {
+    title,
+    courseSlug,
+    topicSlugs,
+    preset,
+    totalQuestions,
+    assignedStudentName,
+    assignedStudentEmail,
+    dueAt,
+  } = body;
 
   if (!title?.trim()) {
     return NextResponse.json({ error: "Title is required." }, { status: 400 });
@@ -100,6 +112,20 @@ export async function POST(request: Request) {
       { error: "Question count must be between 1 and 50." },
       { status: 400 }
     );
+  }
+
+  const trimmedStudentName =
+    typeof assignedStudentName === "string" && assignedStudentName.trim()
+      ? assignedStudentName.trim().slice(0, 120)
+      : null;
+  const trimmedStudentEmail =
+    typeof assignedStudentEmail === "string" && assignedStudentEmail.trim()
+      ? assignedStudentEmail.trim().toLowerCase().slice(0, 180)
+      : null;
+  const parsedDueAt =
+    typeof dueAt === "string" && dueAt.trim() ? new Date(dueAt) : null;
+  if (parsedDueAt && Number.isNaN(parsedDueAt.getTime())) {
+    return NextResponse.json({ error: "Due date is invalid." }, { status: 400 });
   }
 
   const distribution = scalePreset(PRESETS[preset], count);
@@ -159,6 +185,10 @@ export async function POST(request: Request) {
       title: title.trim(),
       year_level: courseSlug,
       topic_config: { course_slug: courseSlug, topic_slugs: topicSlugs, preset },
+      assigned_student_name: trimmedStudentName,
+      assigned_student_email: trimmedStudentEmail,
+      due_at: parsedDueAt ? parsedDueAt.toISOString() : null,
+      status: "active",
     })
     .select("id, share_token")
     .single();

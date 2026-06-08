@@ -12,7 +12,9 @@ export const metadata: Metadata = {
 
 type TopicConfig = {
   courseSlug?: string;
+  course_slug?: string;
   topicSlugs?: string[];
+  topic_slugs?: string[];
   preset?: string;
 };
 
@@ -59,7 +61,9 @@ export default async function WorksheetDetailPage({
 
   const { data: wsData } = await supabaseAdmin
     .from("worksheets")
-    .select("id, title, year_level, topic_config, share_token, created_at")
+    .select(
+      "id, title, year_level, topic_config, share_token, assigned_student_name, assigned_student_email, due_at, status, created_at"
+    )
     .eq("id", id)
     .single();
 
@@ -71,6 +75,10 @@ export default async function WorksheetDetailPage({
     year_level: string;
     topic_config: TopicConfig;
     share_token: string;
+    assigned_student_name: string | null;
+    assigned_student_email: string | null;
+    due_at: string | null;
+    status: string | null;
     created_at: string;
   };
 
@@ -109,7 +117,18 @@ export default async function WorksheetDetailPage({
   }
 
   const shareUrl = `${getSiteUrl()}/worksheet/${worksheet.share_token}`;
-  const courseSlug = worksheet.topic_config?.courseSlug ?? "—";
+  const courseSlug =
+    worksheet.topic_config?.courseSlug ?? worksheet.topic_config?.course_slug ?? "—";
+  const assignedName = worksheet.assigned_student_name?.trim() || "Unassigned";
+  const assignedEmail = worksheet.assigned_student_email?.trim();
+  const dueLabel = worksheet.due_at
+    ? new Date(worksheet.due_at).toLocaleDateString("en-AU", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : "No due date";
+  const statusLabel = worksheet.status?.trim() || "active";
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -139,6 +158,35 @@ export default async function WorksheetDetailPage({
             ← Worksheets
           </Link>
         </header>
+
+        {/* Assignment */}
+        <section className="grid gap-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:grid-cols-3">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Assigned to
+            </p>
+            <p className="mt-1 font-semibold text-slate-900">{assignedName}</p>
+            {assignedEmail ? (
+              <p className="mt-0.5 break-all text-sm text-slate-500">
+                {assignedEmail}
+              </p>
+            ) : null}
+          </div>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Due date
+            </p>
+            <p className="mt-1 font-semibold text-slate-900">{dueLabel}</p>
+          </div>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Status
+            </p>
+            <span className="mt-1 inline-flex rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-sm font-semibold capitalize text-slate-700">
+              {statusLabel}
+            </span>
+          </div>
+        </section>
 
         {/* Share URL */}
         <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">

@@ -107,12 +107,16 @@ export function WorksheetClient({
   worksheetId: _worksheetId,
   title,
   yearLevel,
+  assignedStudentName,
+  dueAt,
   questions,
 }: {
   token: string;
   worksheetId: string;
   title: string;
   yearLevel: string;
+  assignedStudentName?: string | null;
+  dueAt?: string | null;
   questions: WorksheetQuestion[];
 }) {
   const [phase, setPhase] = useState<Phase>("intro");
@@ -131,6 +135,14 @@ export function WorksheetClient({
   const totalQuestions = questions.length;
   const currentQuestion = questions[currentIndex];
   const isLastQuestion = currentIndex === totalQuestions - 1;
+  const assignedName = assignedStudentName?.trim();
+  const dueLabel = dueAt
+    ? new Date(dueAt).toLocaleDateString("en-AU", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : null;
 
   // ── Start attempt ──────────────────────────────────────────────────────────
 
@@ -267,6 +279,13 @@ export function WorksheetClient({
           Nova Maths · {yearLevel.replace(/-/g, " ")}
         </p>
         <p className="mt-0.5 truncate font-semibold text-slate-900">{title}</p>
+        {assignedName || dueLabel ? (
+          <p className="mt-0.5 text-sm text-slate-500">
+            {assignedName ? `Worksheet for ${assignedName}` : null}
+            {assignedName && dueLabel ? " · " : null}
+            {dueLabel ? `Due ${dueLabel}` : null}
+          </p>
+        ) : null}
       </div>
     </header>
   );

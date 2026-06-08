@@ -56,7 +56,7 @@ export default async function WorksheetPage({
   // 1. Load worksheet by share token
   const { data: worksheet, error: wsError } = await supabaseAdmin
     .from("worksheets")
-    .select("id, title, year_level, expires_at")
+    .select("id, title, year_level, expires_at, assigned_student_name, due_at")
     .eq("share_token", token)
     .maybeSingle();
 
@@ -136,6 +136,8 @@ export default async function WorksheetPage({
       worksheetId={worksheet.id}
       title={worksheet.title}
       yearLevel={worksheet.year_level}
+      assignedStudentName={worksheet.assigned_student_name}
+      dueAt={worksheet.due_at}
       questions={questions}
     />
   );
