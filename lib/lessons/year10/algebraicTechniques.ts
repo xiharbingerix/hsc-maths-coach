@@ -71,6 +71,9 @@ function algExplanation(id: string, prompt: string, _latex: string, answer: stri
 
   // ── Factorising quadratics ───────────────────────────────────────────────
   if (id.startsWith("fac-qt-")) {
+    if (id === "fac-qt-m6") {
+      return `For x^2 + x - 12, the two numbers must multiply to -12 and add to 1. The pair 4 and -3 works, so the factorisation is ${answer}.`;
+    }
     if ((ctx.includes("multiply to") && ctx.includes("add to")) || ctx.includes("two numbers")) {
       return `List factor pairs of the constant term and check which pair also sums to the required total. The pair is ${answer}.`;
     }
@@ -85,6 +88,9 @@ function algExplanation(id: string, prompt: string, _latex: string, answer: stri
 
   // ── Difference of two squares ────────────────────────────────────────────
   if (id.startsWith("dots-")) {
+    if (id === "dots-m6") {
+      return `Recognise 36x^2 as (6x)^2 and 1 as 1^2. Apply a^2 - b^2 = (a - b)(a + b) to get ${answer}.`;
+    }
     if (ctx.includes("√") || ctx.includes("square root") || ctx.includes("(a)²") || ctx.includes("= (a)")) {
       return `Take the square root of the coefficient and the variable separately: √(coeff) × √(x²) = the a-value. Here a = ${answer}.`;
     }
@@ -96,6 +102,9 @@ function algExplanation(id: string, prompt: string, _latex: string, answer: stri
 
   // ── Algebraic fractions ──────────────────────────────────────────────────
   if (id.startsWith("alg-fr-")) {
+    if (id === "alg-fr-m7") {
+      return `Factor the denominator first: 2x - 6 = 2(x - 3). There is no common factor to cancel with 3x, so the simplified form is ${answer}, with x not equal to 3.`;
+    }
     if (ctx.includes("undefined") || ctx.includes("restriction")) {
       return `A fraction is undefined when its denominator equals zero. Set the denominator equal to zero and solve: x = ${answer}.`;
     }
@@ -444,7 +453,7 @@ const factorisingQuadraticsMastery: PracticeQuestion[] = [
     ["$(x-3)(x-5)$", "$(x+3)(x+5)$", "$(x-3)(x+5)$", "$(x-15)(x+1)$"],
     "Product = 15 (positive), sum = −8 (negative): both numbers negative. −3 and −5 work.",
     "x^2-8x+15"),
-  algAnswer("fac-qt-m6", "What is the product p × q needed when factorising x² + x − 12?", "x^2+x-12", "-12", ["-12"]),
+  algAnswer("fac-qt-m6", "Factorise x² + x − 12. Give the complete factorisation.", "x^2+x-12", "(x+4)(x-3)", ["(x-3)(x+4)", "(x + 4)(x - 3)", "(x - 3)(x + 4)"]),
   algChoice("fac-qt-m7", "Which is the correct factorisation of x² − x − 20?", "A",
     ["$(x-5)(x+4)$", "$(x+5)(x-4)$", "$(x-20)(x+1)$", "$(x-4)(x+5)$"],
     "Need p × q = −20, p + q = −1. The pair −5 and 4 works.",
@@ -547,7 +556,7 @@ const dotsMastery: PracticeQuestion[] = [
     ["$x^2+4$", "$x^2-7$", "$9x^2-16$", "$x^2-2x+1$"],
     "9x² = (3x)² and 16 = (4)², with a minus sign. DOTS applies: (3x − 4)(3x + 4).",
     "\\text{Identify the DOTS expression}"),
-  algAnswer("dots-m6", "In the expression 36x² − 1, what is a where 36x² = (a)²?", "36x^2=(a)^2", "6x", ["6x"]),
+  algAnswer("dots-m6", "Factorise 36x² − 1 fully.", "36x^2-1", "(6x-1)(6x+1)", ["(6x+1)(6x-1)", "(6x - 1)(6x + 1)", "(6x + 1)(6x - 1)"]),
   algChoice("dots-m7", "A student writes x² − 49 = (x − 7)². Which statement identifies the error?", "B",
     ["49 is not a perfect square", "The two factors must have opposite signs: (x − 7)(x + 7)", "The exponent on x is wrong", "The answer is correct"],
     "(x − 7)² = x² − 14x + 49. DOTS gives (x − 7)(x + 7) = x² − 49.",
@@ -651,7 +660,7 @@ const algebraicFractionsMastery: PracticeQuestion[] = [
     ["$x-1$", "$x^2-1$", "$x$", "$x-x$"],
     "Factorise the numerator: x(x − 1). Cancel the x: result is x − 1.",
     "\\frac{x^2-x}{x}"),
-  algAnswer("alg-fr-m7", "For what value of x is 3x/(2x − 6) undefined?", "\\frac{3x}{2x-6}", "3", ["3"]),
+  algAnswer("alg-fr-m7", "Simplify 3x/(2x − 6), stating the restriction.", "\\frac{3x}{2x-6}", "3x/(2(x-3)), x≠3", ["3x/[2(x-3)], x≠3", "3x/(2(x-3)), x != 3", "3x/[2(x-3)], x != 3"]),
   algChoice("alg-fr-m8", "Which is the fully simplified form of (x² − 9)/(x² + 6x + 9)?", "A",
     ["$\\frac{x-3}{x+3}$", "$\\frac{x+3}{x-3}$", "$x-3$", "$\\frac{x^2-9}{x^2+9}$"],
     "Numerator: (x − 3)(x + 3). Denominator: (x + 3)². Cancel one (x + 3): result is (x − 3)/(x + 3).",
