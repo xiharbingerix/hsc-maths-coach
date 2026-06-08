@@ -26,10 +26,10 @@ const gateContent: Record<
   }
 > = {
   "logged-out": {
-    title: "Create an account to access this lesson",
-    text: "Create an account to subscribe and unlock this lesson.",
-    primaryHref: "/signup?next=%2Fcheckout%3Foffer%3Donline-learning",
-    primaryLabel: "Create account",
+    title: "Start your 7-day free trial",
+    text: "Create your account and start checkout in one step. Your trial unlocks online learning and saves progress across devices.",
+    primaryHref: "/checkout?offer=online-learning",
+    primaryLabel: "Start your 7-day free trial",
     secondaryHref: "/login?next=%2Fcheckout%3Foffer%3Donline-learning",
     secondaryLabel: "Log in",
   },
