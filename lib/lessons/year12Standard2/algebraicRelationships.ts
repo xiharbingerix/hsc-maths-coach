@@ -18,6 +18,12 @@ function algebraicRelationshipsFeedback(prompt: string, answer: string) {
   ) {
     return `When two models are equal, they describe the same output at the same input. Set the full expressions equal and solve for the input to get ${answer}.`;
   }
+  if (lowerPrompt.includes("booking fee") && lowerPrompt.includes("per hour")) {
+    return `Build the cost as fixed fee plus hourly rate times hours. That gives 30 + 15(4) = ${answer}.`;
+  }
+  if (lowerPrompt.includes("find the equal cost")) {
+    return `At the intersection input, both models give the same output. Substitute the given input into either full model to get ${answer}.`;
+  }
   if (
     lowerPrompt.includes("write") ||
     lowerPrompt.includes("write the") ||
@@ -319,7 +325,7 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         linearAnswer("y12s2-lin-m1", "A gym charges 40 dollars plus 18 dollars per week. Write C after w weeks.", "", "C = 40 + 18w", ["C=40+18w", "c=40+18w", "C=18w+40", "c=18w+40"]),
         practicalChoice("y12s2-lin-m2", "In C = 40 + 18w, the 40 represents:", "A", ["Joining fee", "Weekly cost", "Number of weeks", "Gradient only"], "It is the starting cost when w = 0."),
         practicalChoice("y12s2-lin-m3", "In C = 40 + 18w, the 18 represents:", "B", ["Joining fee", "Cost per week", "Total cost", "Number of weeks"], "The coefficient of w is the weekly rate."),
-        moneyAnswer("y12s2-lin-m4", "A hire company charges according to the rule shown. Find C for 4 hours.", "C=30+15h", "90"),
+        moneyAnswer("y12s2-lin-m4", "A hire company charges a 30 dollar booking fee plus 15 dollars per hour. Find the cost for 4 hours.", "", "90"),
         linearAnswer("y12s2-lin-m5", "A savings account starts at 200 dollars and increases by 35 dollars per week. Write S after w weeks.", "", "S = 200 + 35w", ["S=200+35w", "s=200+35w", "S=35w+200"]),
         moneyAnswer("y12s2-lin-m6", "Using the savings rule shown, find S after 6 weeks.", "S=200+35w", "410"),
         practicalChoice("y12s2-lin-m7", "A table increases by the same amount each step. The relationship is likely:", "C", ["Quadratic", "Reciprocal", "Linear", "Random"], "Constant first difference suggests linear."),
@@ -410,8 +416,8 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
       ],
       masteryQuiz: [
         algebraChoice("y12s2-quad-m1", "Which feature proves that y = -4x^2 + 7x + 3 is quadratic?", "A", ["The x squared term", "The constant term", "The negative sign", "The number 7"], "A squared variable is the defining feature of a quadratic equation."),
-        algebraAnswer("y12s2-quad-m2", "For h = -5t^2 + 20t + 1.5, state the maximum height.", "h_{\\max}=21.5", "21.5", "The graph opens downwards, so use its vertex. At t = 2 seconds, the height is 21.5 metres.", ["21.5 m", "21.5m"], heightParabola),
-        algebraAnswer("y12s2-quad-m3", "For y = (x - 7)^2 + 4, state the x-coordinate of the vertex.", "x=7", "7", "The squared bracket is zero when x - 7 = 0. That makes x = 7 the turning-point input.", ["x=7"]),
+        algebraAnswer("y12s2-quad-m2", "For h = -5t^2 + 20t + 1.5, state the maximum height.", "h=-5t^2+20t+1.5", "21.5", "The graph opens downwards, so the maximum occurs at the vertex. The axis of symmetry is t = 2, and substituting gives h = 21.5 metres.", ["21.5 m", "21.5m"], heightParabola),
+        algebraAnswer("y12s2-quad-m3", "For y = (x - 7)^2 + 4, state the vertex as a coordinate.", "y=(x-7)^2+4", "(7,4)", "In vertex form, the squared bracket is zero when x = 7, and the remaining value is y = 4. So the vertex is (7, 4).", ["7,4", "7, 4", "(7, 4)"]),
         algebraChoice("y12s2-quad-m4", "A parabola opens upwards. What type of turning point does it have?", "B", ["Maximum", "Minimum", "Intercept only", "Constant gradient"], "An upward-opening parabola falls towards its turning point and rises after it, so the vertex is a minimum."),
         algebraAnswer("y12s2-quad-m5", "For C = 2(x - 5)^2 + 90, find the minimum cost.", "C_{\\min}=90", "90", "The squared part reaches its smallest value, zero, at x = 5. The model then leaves the minimum cost 90.", ["$90"]),
         algebraAnswer("y12s2-quad-m6", "For y = -x^2 + 10x, find y when x = 3.", "y(3)=-3^2+10(3)", "21", "Substitute x = 3 into both terms. The negative applies after squaring: -9 + 30 = 21."),
@@ -505,11 +511,11 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         algebraChoice("y12s2-expinv-m1", "Which equation represents inverse variation?", "D", ["y=4x+1", "y=3x^2", "y=5(1.2)^x", "y=40/x"], "Inverse variation has the form y = k/x, so the product xy stays constant."),
         algebraAnswer("y12s2-expinv-m2", "For V = 150(2)^n, find V when n = 3.", "V=150(2)^3", "1200", "The model doubles the starting value three times: 150 times 8 equals 1200.", ["1,200"]),
         algebraChoice("y12s2-expinv-m3", "Which multiplier represents exponential decay?", "A", ["0.75", "1", "1.08", "3"], "A decay multiplier lies between 0 and 1. Multiplying by 0.75 keeps 75% each period."),
-        algebraAnswer("y12s2-expinv-m4", "For y = 96/x, find y when x = 12.", "y=\\frac{96}{12}", "8", "Inverse variation keeps xy equal to 96. Divide 96 by 12."),
+        algebraAnswer("y12s2-expinv-m4", "An inverse variation model has constant product xy = 96. Find y when x = 12.", "xy=96,\\quad x=12", "8", "Inverse variation keeps the product xy constant. Substitute x = 12 into 12y = 96, so y = 8."),
         algebraChoice("y12s2-expinv-m5", "A fixed job takes 6 hours with 4 workers. Assuming inverse variation, how long should it take with 8 workers?", "B", ["12 hours", "3 hours", "10 hours", "2 hours"], "Doubling the workers halves the time because workers times hours stays constant."),
         algebraAnswer("y12s2-expinv-m6", "For xy = 24, find x when y = 6.", "x=\\frac{24}{6}", "4", "The constant product is 24. Divide by the known y-value to find x.", [], inverseVariationGraph),
         algebraChoice("y12s2-expinv-m7", "A table has outputs 10, 15, 22.5, 33.75 as the input increases by 1. Which model fits?", "C", ["Linear decrease", "Inverse variation", "Exponential growth", "Quadratic with a minimum"], "Each output is multiplied by 1.5. Repeated multiplication identifies exponential growth."),
-        algebraAnswer("y12s2-expinv-m8", "A value starts at 400 and decreases by 15% each year. State the decay multiplier.", "1-0.15", "0.85", "A 15% decrease leaves 85% of the previous value, so use multiplier 0.85.", ["85%"]),
+        algebraAnswer("y12s2-expinv-m8", "A value starts at 400 and decreases by 15% each year. State the decay multiplier.", "\\text{15% annual decrease}", "0.85", "A 15% decrease means 85% of the value remains each year. As a decimal multiplier, 85% is 0.85.", ["85%"]),
         algebraChoice("y12s2-expinv-m9", "For y = 60/x, why can x not equal zero?", "A", ["Division by zero is undefined", "The graph must be linear", "The product would be too large", "Zero is always negative"], "The rule requires division by x. Division by zero is undefined, so x = 0 is excluded."),
         algebraAnswer("y12s2-expinv-m10", "For V = 320(0.5)^n, find V when n = 3.", "V=320(0.5)^3", "40", "The value halves three times: 320 to 160 to 80 to 40."),
       ],
@@ -618,7 +624,7 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
       ],
       masteryQuiz: [
         linearAnswer("y12s2-sim-m1", "Hire costs A = 30 + 15h and B = 60 + 10h are equal after how many hours?", "A=30+15h,\\quad B=60+10h", "6", ["6 h", "6 hours"]),
-        moneyAnswer("y12s2-sim-m2", "At h = 6, what is the equal cost for the model shown?", "A=30+15h", "120"),
+        moneyAnswer("y12s2-sim-m2", "Hire models A = 30 + 15h and B = 60 + 10h are equal at h = 6. Find the equal cost.", "A=30+15h,\\quad B=60+10h,\\quad h=6", "120"),
         linearAnswer("y12s2-sim-m3", "Phone plans P = 20 + 4g and Q = 50 + g are equal at what g?", "P=20+4g,\\quad Q=50+g", "10", ["10 GB", "10GB"]),
         moneyAnswer("y12s2-sim-m4", "Using the phone plan shown, find the equal cost when g = 10.", "P=20+4g", "60"),
         practicalChoice("y12s2-sim-m5", "The intersection of two cost lines means:", "B", ["Both gradients are zero", "Both costs are equal", "The cheaper option is impossible", "The y-intercept is negative"], "The outputs are the same at the intersection."),
@@ -740,4 +746,3 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
     ],
   };
 }
-
