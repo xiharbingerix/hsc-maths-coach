@@ -112,6 +112,20 @@ function computeUnitResults(
     .sort((a, b) => a.correct / a.total - b.correct / b.total);
 }
 
+function estimatedDiagnosticMinutes(totalQuestions: number): number {
+  return Math.max(1, Math.ceil((totalQuestions * 15) / 60));
+}
+
+function estimatedTimeRemaining(questionIndex: number, totalQuestions: number): string {
+  const remainingQuestions = Math.max(0, totalQuestions - questionIndex);
+  const remainingSeconds = remainingQuestions * 15;
+
+  if (remainingSeconds <= 30) return "Less than 1 minute remaining";
+
+  const minutes = Math.ceil(remainingSeconds / 60);
+  return `About ${minutes} minute${minutes !== 1 ? "s" : ""} remaining`;
+}
+
 export function DiagnosticQuizClient({
   yearLevel,
   yearLevelTitle,
@@ -128,7 +142,7 @@ export function DiagnosticQuizClient({
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [phase, setPhase] = useState<"quiz" | "results">("quiz");
+  const [phase, setPhase] = useState<"intro" | "quiz" | "results">("intro");
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [saved, setSaved] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
@@ -209,6 +223,19 @@ export function DiagnosticQuizClient({
   function handleNext() {
     if (!selectedAnswer) return;
     const q = questions[questionIndex];
+
+    try {
+      void clientTrackEvent("diagnostic_question_answered", {
+        yearLevel,
+        questionIndex: questionIndex + 1,
+        totalQuestions,
+        questionId: q.id,
+        unitSlug: q.unitSlug,
+      });
+    } catch {
+      // Analytics must never interrupt the diagnostic flow.
+    }
+
     const newAnswers = { ...answers, [q.id]: selectedAnswer };
     setAnswers(newAnswers);
     setSelectedAnswer(null);
@@ -218,6 +245,49 @@ export function DiagnosticQuizClient({
     } else {
       setQuestionIndex((i) => i + 1);
     }
+  }
+
+  // ── Intro phase ──────────────────────────────────────────────────────────────
+  if (phase === "intro") {
+    const estimatedMinutes = estimatedDiagnosticMinutes(totalQuestions);
+
+    return (
+      <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
+        <div className="mx-auto max-w-2xl space-y-6">
+          <section className="rounded-2xl bg-white p-8 shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+              {yearLevelTitle}
+            </p>
+            <h1 className="mt-3 text-3xl font-bold tracking-tight">
+              Start your diagnostic
+            </h1>
+            <p className="mt-3 text-lg font-semibold text-slate-800">
+              {totalQuestions} questions &bull; about {estimatedMinutes} minutes &bull; builds your personalised study plan
+            </p>
+            <p className="mt-4 leading-7 text-slate-600">
+              Answer each question as best you can. The goal is not a school
+              mark; it is to find the first topics that will make study feel
+              clearer.
+            </p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <button
+                type="button"
+                onClick={() => setPhase("quiz")}
+                className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 font-semibold text-white hover:bg-slate-700"
+              >
+                Start diagnostic
+              </button>
+              <Link
+                href="/diagnostic/select"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-900 hover:bg-slate-50"
+              >
+                Choose another diagnostic
+              </Link>
+            </div>
+          </section>
+        </div>
+      </main>
+    );
   }
 
   // ── Results phase ────────────────────────────────────────────────────────────
@@ -261,6 +331,11 @@ export function DiagnosticQuizClient({
             ) : (
               <p className="mt-1 text-slate-600">
                 {studyPlan.summary}
+              </p>
+            )}
+            {saved && (
+              <p className="mt-4 rounded-xl bg-green-50 p-3 text-sm font-semibold text-green-800">
+                Results saved to your account.
               </p>
             )}
           </header>
@@ -413,11 +488,6 @@ export function DiagnosticQuizClient({
 
           {/* ── Save / login panel ───────────────────────────────────────── */}
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            {saved && (
-              <div className="rounded-xl bg-green-50 p-4 text-sm font-medium text-green-800">
-                Results saved to your account.
-              </div>
-            )}
             {saveError && (
               <div className="rounded-xl bg-red-50 p-4 text-sm font-medium text-red-800">
                 Could not save results: {saveError}
@@ -455,7 +525,7 @@ export function DiagnosticQuizClient({
                 setQuestionIndex(0);
                 setAnswers({});
                 setSelectedAnswer(null);
-                setPhase("quiz");
+                setPhase("intro");
                 setSaved(false);
                 setSaveError(null);
                 setIsLoggedIn(null);
@@ -474,7 +544,7 @@ export function DiagnosticQuizClient({
 
   // ── Quiz phase ───────────────────────────────────────────────────────────────
   const currentQuestion = questions[questionIndex];
-  const progressPercent = (questionIndex / totalQuestions) * 100;
+  const progressPercent = ((questionIndex + 1) / totalQuestions) * 100;
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -487,6 +557,12 @@ export function DiagnosticQuizClient({
               Question {questionIndex + 1} of {totalQuestions}
             </span>
           </div>
+          <p className="mt-1 text-xs font-medium text-slate-500">
+            {estimatedTimeRemaining(questionIndex, totalQuestions)}
+          </p>
+          <p className="mt-1 text-xs text-slate-500">
+            About {estimatedDiagnosticMinutes(totalQuestions)} minutes &middot; {totalQuestions} multiple-choice questions
+          </p>
 
           {/* Progress bar */}
           <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
@@ -495,6 +571,11 @@ export function DiagnosticQuizClient({
               style={{ width: `${progressPercent}%` }}
             />
           </div>
+          {questionIndex === 9 && (
+            <p className="mt-3 rounded-xl bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-700">
+              Halfway there — 10 questions to go.
+            </p>
+          )}
         </div>
 
         {/* Question card */}
