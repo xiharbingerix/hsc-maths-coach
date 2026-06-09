@@ -13,6 +13,49 @@ type CourseTopicEntry = {
   topicSlug: string;
 };
 
+type QuestionTopicRow = {
+  course_slug: string;
+  topic_slug: string;
+};
+
+async function loadCourseTopics(): Promise<CourseTopicEntry[]> {
+  const rows: QuestionTopicRow[] = [];
+  const batchSize = 1000;
+  let from = 0;
+
+  while (true) {
+    const { data, error } = await supabaseAdmin
+      .from("questions")
+      .select("course_slug, topic_slug")
+      .eq("is_active", true)
+      .order("course_slug")
+      .order("topic_slug")
+      .range(from, from + batchSize - 1);
+
+    if (error) {
+      throw error;
+    }
+
+    rows.push(...((data ?? []) as QuestionTopicRow[]));
+
+    if (!data || data.length < batchSize) {
+      break;
+    }
+
+    from += batchSize;
+  }
+
+  const seen = new Set<string>();
+  return rows
+    .filter((row) => {
+      const key = `${row.course_slug}::${row.topic_slug}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .map((row) => ({ courseSlug: row.course_slug, topicSlug: row.topic_slug }));
+}
+
 export default async function NewWorksheetPage({
   searchParams,
 }: {
@@ -30,25 +73,7 @@ export default async function NewWorksheetPage({
   let courseTopics: CourseTopicEntry[] = [];
 
   try {
-    const { data } = await supabaseAdmin
-      .from("questions")
-      .select("course_slug, topic_slug")
-      .eq("is_active", true)
-      .order("course_slug")
-      .order("topic_slug");
-
-    if (data) {
-      // Deduplicate (course_slug, topic_slug) pairs
-      const seen = new Set<string>();
-      courseTopics = (data as { course_slug: string; topic_slug: string }[])
-        .filter((row) => {
-          const key = `${row.course_slug}::${row.topic_slug}`;
-          if (seen.has(key)) return false;
-          seen.add(key);
-          return true;
-        })
-        .map((row) => ({ courseSlug: row.course_slug, topicSlug: row.topic_slug }));
-    }
+    courseTopics = await loadCourseTopics();
   } catch {
     // Questions table may not exist yet — handled below via empty courseTopics
   }
