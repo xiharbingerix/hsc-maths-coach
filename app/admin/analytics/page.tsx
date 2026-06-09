@@ -242,10 +242,37 @@ export default async function AdminAnalyticsPage() {
   const hscMathsViews = count("hsc_maths_viewed");
   const diagnosticStarts = count("diagnostic_started");
   const diagnosticCompletions = count("diagnostic_completed");
+  const trialCtaClicks = count("trial_cta_clicked");
   const checkoutStarts = count("checkout_started");
+  const checkoutFormSubmissions = count("checkout_form_submitted");
+  const checkoutRedirectsToStripe = count("checkout_redirected_to_stripe");
   const trialStarts = count("trial_started");
+  const signupCompletions = count("signup_completed");
+  const adaptiveWorksheetGenerations = count("adaptive_worksheet_generated");
+  const lessonMasterySubmissions = count("lesson_mastery_submitted");
+  const lessonMasteryPasses = count("lesson_mastery_passed");
+  const freeLessonViews = count("free_lesson_viewed");
+  const sampleLessonViews = count("sample_lesson_viewed");
   const worksheetCompletions = count("worksheet_completed");
   const totalLast7Days = [...counts.values()].reduce((s, n) => s + n, 0);
+
+  const funnelSteps = [
+    { label: "Homepage viewed", event: "homepage_viewed", value: homepageViews },
+    { label: "HSC maths viewed", event: "hsc_maths_viewed", value: hscMathsViews },
+    { label: "Trial CTA clicked", event: "trial_cta_clicked", value: trialCtaClicks },
+    { label: "Checkout started", event: "checkout_started", value: checkoutStarts },
+    {
+      label: "Checkout form submitted",
+      event: "checkout_form_submitted",
+      value: checkoutFormSubmissions,
+    },
+    {
+      label: "Redirected to Stripe",
+      event: "checkout_redirected_to_stripe",
+      value: checkoutRedirectsToStripe,
+    },
+    { label: "Trial started", event: "trial_started", value: trialStarts },
+  ];
 
   const recentEvents = (recentData ?? []) as AnalyticsEventRow[];
 
@@ -327,13 +354,95 @@ export default async function AdminAnalyticsPage() {
           <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             <StatCard label="Homepage views" value={homepageViews} />
             <StatCard label="HSC maths views" value={hscMathsViews} />
+            <StatCard label="Trial CTA clicks" value={trialCtaClicks} />
             <StatCard label="Diagnostic starts" value={diagnosticStarts} />
             <StatCard
               label="Diagnostic completions"
               value={diagnosticCompletions}
             />
             <StatCard label="Checkout starts" value={checkoutStarts} />
+            <StatCard
+              label="Checkout forms"
+              value={checkoutFormSubmissions}
+            />
+            <StatCard
+              label="Stripe redirects"
+              value={checkoutRedirectsToStripe}
+            />
             <StatCard label="Trial starts" value={trialStarts} />
+            <StatCard label="Signup completions" value={signupCompletions} />
+            <StatCard label="Free lesson views" value={freeLessonViews} />
+            <StatCard label="Sample lesson views" value={sampleLessonViews} />
+            <StatCard
+              label="Worksheet completions"
+              value={worksheetCompletions}
+            />
+          </div>
+        </section>
+
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Funnel steps · last 7 days
+          </p>
+          <h2 className="mt-2 text-xl font-bold tracking-tight">
+            Trial funnel
+          </h2>
+          <p className="mt-1 text-xs text-slate-500">
+            Raw event counts in the order a visitor should move through the
+            online-learning trial flow.
+          </p>
+          <div className="mt-5 overflow-x-auto">
+            <table className="min-w-full divide-y divide-slate-200 text-sm">
+              <thead>
+                <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  <th className="px-3 py-2 text-left">Step</th>
+                  <th className="px-3 py-2 text-left">Event</th>
+                  <th className="px-3 py-2 text-right">Count</th>
+                  <th className="px-3 py-2 text-right">From previous</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {funnelSteps.map((step, index) => {
+                  const previous = index > 0 ? funnelSteps[index - 1].value : 0;
+                  return (
+                    <tr key={step.event}>
+                      <td className="px-3 py-3 font-medium text-slate-900">
+                        {step.label}
+                      </td>
+                      <td className="px-3 py-3 font-mono text-xs text-slate-500">
+                        {step.event}
+                      </td>
+                      <td className="px-3 py-3 text-right font-semibold tabular-nums text-slate-900">
+                        {step.value}
+                      </td>
+                      <td className="px-3 py-3 text-right text-slate-500">
+                        {index === 0 ? "—" : pct(step.value, previous)}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Learning activity · last 7 days
+          </p>
+          <h2 className="mt-2 text-xl font-bold tracking-tight">
+            Student learning events
+          </h2>
+          <div className="mt-5 grid grid-cols-2 gap-4 md:grid-cols-4">
+            <StatCard
+              label="Mastery submitted"
+              value={lessonMasterySubmissions}
+            />
+            <StatCard label="Mastery passed" value={lessonMasteryPasses} />
+            <StatCard
+              label="Adaptive worksheets"
+              value={adaptiveWorksheetGenerations}
+            />
             <StatCard
               label="Worksheet completions"
               value={worksheetCompletions}
@@ -353,7 +462,19 @@ export default async function AdminAnalyticsPage() {
             Rates are based on event counts, not unique users. A single student
             can fire multiple events of the same type.
           </p>
-          <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            <RateCard
+              label="HSC maths → CTA"
+              numerator={trialCtaClicks}
+              denominator={hscMathsViews}
+              description={`${trialCtaClicks} trial CTA clicks / ${hscMathsViews} HSC maths views`}
+            />
+            <RateCard
+              label="CTA → checkout"
+              numerator={checkoutStarts}
+              denominator={trialCtaClicks}
+              description={`${checkoutStarts} checkout starts / ${trialCtaClicks} trial CTA clicks`}
+            />
             <RateCard
               label="Diagnostic completion"
               numerator={diagnosticCompletions}
@@ -361,16 +482,16 @@ export default async function AdminAnalyticsPage() {
               description={`${diagnosticCompletions} completed / ${diagnosticStarts} started`}
             />
             <RateCard
-              label="HSC maths → checkout"
-              numerator={checkoutStarts}
-              denominator={hscMathsViews}
-              description={`${checkoutStarts} checkout starts / ${hscMathsViews} HSC maths views`}
+              label="Checkout form → Stripe"
+              numerator={checkoutRedirectsToStripe}
+              denominator={checkoutFormSubmissions}
+              description={`${checkoutRedirectsToStripe} Stripe redirects / ${checkoutFormSubmissions} checkout forms`}
             />
             <RateCard
-              label="Checkout → trial"
+              label="Stripe → trial"
               numerator={trialStarts}
-              denominator={checkoutStarts}
-              description={`${trialStarts} trials / ${checkoutStarts} checkout starts`}
+              denominator={checkoutRedirectsToStripe}
+              description={`${trialStarts} trials / ${checkoutRedirectsToStripe} Stripe redirects`}
             />
           </div>
         </section>
