@@ -14,6 +14,12 @@ type AnalyticsEventRow = {
   created_at: string;
 };
 
+type CountRow = {
+  event_name: string;
+  user_id: string | null;
+  anonymous_id: string | null;
+};
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function formatDateTime(iso: string) {
@@ -38,6 +44,34 @@ function metaPreview(meta: Record<string, unknown> | null): string {
 function pct(numerator: number, denominator: number): string {
   if (denominator === 0) return "—";
   return `${Math.round((numerator / denominator) * 100)}%`;
+}
+
+function identityKey(
+  userId: string | null | undefined,
+  anonymousId: string | null | undefined
+): string | null {
+  if (userId) return `u:${userId}`;
+  if (anonymousId) return `a:${anonymousId}`;
+  return null;
+}
+
+function metadataString(
+  metadata: Record<string, unknown> | null,
+  key: string
+): string | null {
+  const value = metadata?.[key];
+  return typeof value === "string" && value.trim().length > 0
+    ? value.trim()
+    : null;
+}
+
+function trialCtaSource(row: AnalyticsEventRow): string {
+  return (
+    metadataString(row.metadata, "source") ??
+    row.page ??
+    metadataString(row.metadata, "href") ??
+    "Unknown source"
+  );
 }
 
 // ── Alert types ───────────────────────────────────────────────────────────────
@@ -135,9 +169,11 @@ function FunnelAlert({ kind, title, detail }: FunnelAlertData) {
 function StatCard({
   label,
   value,
+  subtitle,
 }: {
   label: string;
   value: number | string;
+  subtitle?: string;
 }) {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
@@ -147,6 +183,9 @@ function StatCard({
       <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900">
         {String(value)}
       </p>
+      {subtitle ? (
+        <p className="mt-1 text-xs text-slate-500">{subtitle}</p>
+      ) : null}
     </div>
   );
 }
@@ -155,14 +194,23 @@ function RateCard({
   label,
   numerator,
   denominator,
+  uniqueNumerator,
+  uniqueDenominator,
   description,
 }: {
   label: string;
   numerator: number;
   denominator: number;
+  uniqueNumerator?: number;
+  uniqueDenominator?: number;
   description: string;
 }) {
   const rate = pct(numerator, denominator);
+  const uRate =
+    uniqueNumerator !== undefined && uniqueDenominator !== undefined
+      ? pct(uniqueNumerator, uniqueDenominator)
+      : null;
+
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
@@ -171,6 +219,12 @@ function RateCard({
       <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900">
         {rate}
       </p>
+      {uRate !== null ? (
+        <p className="mt-0.5 text-sm font-semibold text-slate-600">
+          {uRate}{" "}
+          <span className="font-normal text-slate-400">unique</span>
+        </p>
+      ) : null}
       <p className="mt-1 text-xs text-slate-500">{description}</p>
     </div>
   );
@@ -183,10 +237,11 @@ export default async function AdminAnalyticsPage() {
 
   const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
 
-  // Count events from the last 7 days (event_name only — minimal payload).
+  // Fetch event_name + identity columns so we can compute both totals and
+  // unique identity counts in a single query.
   const { data: countData, error: countError } = await supabaseAdmin
     .from("analytics_events")
-    .select("event_name")
+    .select("event_name, user_id, anonymous_id")
     .gte("created_at", since);
 
   // Recent events for the activity log.
@@ -198,9 +253,21 @@ export default async function AdminAnalyticsPage() {
     .order("created_at", { ascending: false })
     .limit(50);
 
+  const { data: trialCtaSourceData, error: trialCtaSourceError } =
+    await supabaseAdmin
+      .from("analytics_events")
+      .select(
+        "id, user_id, anonymous_id, event_name, page, metadata, created_at"
+      )
+      .eq("event_name", "trial_cta_clicked")
+      .gte("created_at", since)
+      .order("created_at", { ascending: false })
+      .limit(1000);
+
   const tableNotReady =
     countError?.message?.includes("does not exist") ||
-    recentError?.message?.includes("does not exist");
+    recentError?.message?.includes("does not exist") ||
+    trialCtaSourceError?.message?.includes("does not exist");
 
   if (tableNotReady) {
     return (
@@ -228,15 +295,36 @@ export default async function AdminAnalyticsPage() {
     );
   }
 
-  // Build counts map from the last 7 days.
-  const counts = new Map<string, number>();
-  for (const row of countData ?? []) {
-    const key = (row as { event_name: string }).event_name;
-    counts.set(key, (counts.get(key) ?? 0) + 1);
+  // ── Build totals and unique-identity sets in one pass ─────────────────────
+  // Identity key: "u:<user_id>" when authenticated, "a:<anonymous_id>" otherwise.
+  // Events with neither identity are counted in totals but excluded from unique.
+
+  const totalCounts = new Map<string, number>();
+  const uniqueSets = new Map<string, Set<string>>();
+  const allIdentities = new Set<string>();
+
+  for (const raw of countData ?? []) {
+    const row = raw as CountRow;
+    totalCounts.set(row.event_name, (totalCounts.get(row.event_name) ?? 0) + 1);
+
+    const id = identityKey(row.user_id, row.anonymous_id);
+
+    if (id) {
+      allIdentities.add(id);
+      const set = uniqueSets.get(row.event_name) ?? new Set<string>();
+      set.add(id);
+      uniqueSets.set(row.event_name, set);
+    }
   }
+
   function count(name: string) {
-    return counts.get(name) ?? 0;
+    return totalCounts.get(name) ?? 0;
   }
+  function unique(name: string) {
+    return uniqueSets.get(name)?.size ?? 0;
+  }
+
+  // ── Totals ─────────────────────────────────────────────────────────────────
 
   const homepageViews = count("homepage_viewed");
   const hscMathsViews = count("hsc_maths_viewed");
@@ -254,25 +342,59 @@ export default async function AdminAnalyticsPage() {
   const freeLessonViews = count("free_lesson_viewed");
   const sampleLessonViews = count("sample_lesson_viewed");
   const worksheetCompletions = count("worksheet_completed");
-  const totalLast7Days = [...counts.values()].reduce((s, n) => s + n, 0);
+  const totalLast7Days = [...totalCounts.values()].reduce((s, n) => s + n, 0);
+
+  // ── Unique identities ──────────────────────────────────────────────────────
+
+  const totalUniqueIdentities = allIdentities.size;
+  const uniqueHomepageViews = unique("homepage_viewed");
+  const uniqueHscMathsViews = unique("hsc_maths_viewed");
+  const uniqueTrialCtaClicks = unique("trial_cta_clicked");
+  const uniqueCheckoutStarts = unique("checkout_started");
+  const uniqueCheckoutForms = unique("checkout_form_submitted");
+  const uniqueStripeRedirects = unique("checkout_redirected_to_stripe");
+  const uniqueTrialStarts = unique("trial_started");
+  const uniqueDiagnosticStarts = unique("diagnostic_started");
+  const uniqueDiagnosticCompletions = unique("diagnostic_completed");
+
+  // ── Funnel steps (total + unique per step) ─────────────────────────────────
 
   const funnelSteps = [
-    { label: "Homepage viewed", event: "homepage_viewed", value: homepageViews },
-    { label: "HSC maths viewed", event: "hsc_maths_viewed", value: hscMathsViews },
-    { label: "Trial CTA clicked", event: "trial_cta_clicked", value: trialCtaClicks },
-    { label: "Checkout started", event: "checkout_started", value: checkoutStarts },
-    {
-      label: "Checkout form submitted",
-      event: "checkout_form_submitted",
-      value: checkoutFormSubmissions,
-    },
-    {
-      label: "Redirected to Stripe",
-      event: "checkout_redirected_to_stripe",
-      value: checkoutRedirectsToStripe,
-    },
-    { label: "Trial started", event: "trial_started", value: trialStarts },
+    { label: "Homepage viewed",       event: "homepage_viewed",               total: homepageViews,             uniq: uniqueHomepageViews },
+    { label: "HSC maths viewed",      event: "hsc_maths_viewed",              total: hscMathsViews,             uniq: uniqueHscMathsViews },
+    { label: "Trial CTA clicked",     event: "trial_cta_clicked",             total: trialCtaClicks,            uniq: uniqueTrialCtaClicks },
+    { label: "Checkout started",      event: "checkout_started",              total: checkoutStarts,            uniq: uniqueCheckoutStarts },
+    { label: "Checkout form submitted", event: "checkout_form_submitted",     total: checkoutFormSubmissions,   uniq: uniqueCheckoutForms },
+    { label: "Redirected to Stripe",  event: "checkout_redirected_to_stripe", total: checkoutRedirectsToStripe, uniq: uniqueStripeRedirects },
+    { label: "Trial started",         event: "trial_started",                 total: trialStarts,               uniq: uniqueTrialStarts },
   ];
+
+  const trialCtaSources = new Map<
+    string,
+    { source: string; clicks: number; identities: Set<string> }
+  >();
+
+  for (const raw of trialCtaSourceData ?? []) {
+    const row = raw as AnalyticsEventRow;
+    const source = trialCtaSource(row);
+    const sourceRow =
+      trialCtaSources.get(source) ??
+      { source, clicks: 0, identities: new Set<string>() };
+
+    sourceRow.clicks += 1;
+    const id = identityKey(row.user_id, row.anonymous_id);
+    if (id) {
+      sourceRow.identities.add(id);
+    }
+    trialCtaSources.set(source, sourceRow);
+  }
+
+  const trialCtaSourceRows = [...trialCtaSources.values()].sort(
+    (a, b) =>
+      b.clicks - a.clicks ||
+      b.identities.size - a.identities.size ||
+      a.source.localeCompare(b.source)
+  );
 
   const recentEvents = (recentData ?? []) as AnalyticsEventRow[];
 
@@ -299,7 +421,8 @@ export default async function AdminAnalyticsPage() {
               Analytics
             </h1>
             <p className="mt-2 text-sm text-slate-600">
-              Last 7 days · {totalLast7Days} events recorded
+              Last 7 days &middot; {totalLast7Days} events &middot;{" "}
+              {totalUniqueIdentities} unique identities
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -326,15 +449,13 @@ export default async function AdminAnalyticsPage() {
           </div>
         )}
 
-        {/* ── Funnel health alerts ──────────────────────────────────────── */}
+        {/* ── Health alerts ─────────────────────────────────────────────── */}
         {alerts.length > 0 && (
           <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
               Funnel health · last 7 days
             </p>
-            <h2 className="mt-2 text-xl font-bold tracking-tight">
-              Alerts
-            </h2>
+            <h2 className="mt-2 text-xl font-bold tracking-tight">Alerts</h2>
             <div className="mt-5 space-y-3">
               {alerts.map((alert, i) => (
                 <FunnelAlert key={i} {...alert} />
@@ -343,43 +464,68 @@ export default async function AdminAnalyticsPage() {
           </section>
         )}
 
-        {/* ── Top-of-funnel counts ──────────────────────────────────────── */}
+        {/* ── Unique audience summary ───────────────────────────────────── */}
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            Funnel · last 7 days
+            Unique audience · last 7 days
+          </p>
+          <h2 className="mt-2 text-xl font-bold tracking-tight">
+            Unique identities
+          </h2>
+          <p className="mt-1 text-xs text-slate-500">
+            Identity = user_id when authenticated, otherwise anonymous_id.
+            Events with neither are counted in totals but excluded here.
+          </p>
+          <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-4">
+            <StatCard
+              label="Total unique"
+              value={totalUniqueIdentities}
+              subtitle="across all events"
+            />
+            <StatCard
+              label="Unique diagnostic starters"
+              value={uniqueDiagnosticStarts}
+              subtitle={`of ${diagnosticStarts} total starts`}
+            />
+            <StatCard
+              label="Unique checkout starters"
+              value={uniqueCheckoutStarts}
+              subtitle={`of ${checkoutStarts} total starts`}
+            />
+            <StatCard
+              label="Unique trial starters"
+              value={uniqueTrialStarts}
+              subtitle={`of ${trialStarts} total starts`}
+            />
+          </div>
+        </section>
+
+        {/* ── Event counts ──────────────────────────────────────────────── */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            All events · last 7 days
           </p>
           <h2 className="mt-2 text-xl font-bold tracking-tight">
             Event counts
           </h2>
           <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            <StatCard label="Homepage views" value={homepageViews} />
-            <StatCard label="HSC maths views" value={hscMathsViews} />
-            <StatCard label="Trial CTA clicks" value={trialCtaClicks} />
-            <StatCard label="Diagnostic starts" value={diagnosticStarts} />
-            <StatCard
-              label="Diagnostic completions"
-              value={diagnosticCompletions}
-            />
-            <StatCard label="Checkout starts" value={checkoutStarts} />
-            <StatCard
-              label="Checkout forms"
-              value={checkoutFormSubmissions}
-            />
-            <StatCard
-              label="Stripe redirects"
-              value={checkoutRedirectsToStripe}
-            />
-            <StatCard label="Trial starts" value={trialStarts} />
-            <StatCard label="Signup completions" value={signupCompletions} />
-            <StatCard label="Free lesson views" value={freeLessonViews} />
-            <StatCard label="Sample lesson views" value={sampleLessonViews} />
-            <StatCard
-              label="Worksheet completions"
-              value={worksheetCompletions}
-            />
+            <StatCard label="Homepage views"         value={homepageViews} />
+            <StatCard label="HSC maths views"        value={hscMathsViews} />
+            <StatCard label="Trial CTA clicks"       value={trialCtaClicks} />
+            <StatCard label="Diagnostic starts"      value={diagnosticStarts} />
+            <StatCard label="Diagnostic completions" value={diagnosticCompletions} />
+            <StatCard label="Checkout starts"        value={checkoutStarts} />
+            <StatCard label="Checkout forms"         value={checkoutFormSubmissions} />
+            <StatCard label="Stripe redirects"       value={checkoutRedirectsToStripe} />
+            <StatCard label="Trial starts"           value={trialStarts} />
+            <StatCard label="Signup completions"     value={signupCompletions} />
+            <StatCard label="Free lesson views"      value={freeLessonViews} />
+            <StatCard label="Sample lesson views"    value={sampleLessonViews} />
+            <StatCard label="Worksheet completions"  value={worksheetCompletions} />
           </div>
         </section>
 
+        {/* ── Trial funnel table ────────────────────────────────────────── */}
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
             Funnel steps · last 7 days
@@ -388,8 +534,8 @@ export default async function AdminAnalyticsPage() {
             Trial funnel
           </h2>
           <p className="mt-1 text-xs text-slate-500">
-            Raw event counts in the order a visitor should move through the
-            online-learning trial flow.
+            Rate columns show step-over-step drop-off using the previous
+            step&apos;s same column as denominator.
           </p>
           <div className="mt-5 overflow-x-auto">
             <table className="min-w-full divide-y divide-slate-200 text-sm">
@@ -397,26 +543,35 @@ export default async function AdminAnalyticsPage() {
                 <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                   <th className="px-3 py-2 text-left">Step</th>
                   <th className="px-3 py-2 text-left">Event</th>
-                  <th className="px-3 py-2 text-right">Count</th>
-                  <th className="px-3 py-2 text-right">From previous</th>
+                  <th className="px-3 py-2 text-right">Total</th>
+                  <th className="px-3 py-2 text-right">Unique</th>
+                  <th className="px-3 py-2 text-right">Rate (total)</th>
+                  <th className="px-3 py-2 text-right">Rate (unique)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {funnelSteps.map((step, index) => {
-                  const previous = index > 0 ? funnelSteps[index - 1].value : 0;
+                  const prevTotal = index > 0 ? funnelSteps[index - 1].total : 0;
+                  const prevUniq  = index > 0 ? funnelSteps[index - 1].uniq  : 0;
                   return (
-                    <tr key={step.event}>
+                    <tr key={step.event} className="align-middle">
                       <td className="px-3 py-3 font-medium text-slate-900">
                         {step.label}
                       </td>
-                      <td className="px-3 py-3 font-mono text-xs text-slate-500">
+                      <td className="px-3 py-3 font-mono text-xs text-slate-400">
                         {step.event}
                       </td>
                       <td className="px-3 py-3 text-right font-semibold tabular-nums text-slate-900">
-                        {step.value}
+                        {step.total}
+                      </td>
+                      <td className="px-3 py-3 text-right tabular-nums text-slate-600">
+                        {step.uniq}
                       </td>
                       <td className="px-3 py-3 text-right text-slate-500">
-                        {index === 0 ? "—" : pct(step.value, previous)}
+                        {index === 0 ? "—" : pct(step.total, prevTotal)}
+                      </td>
+                      <td className="px-3 py-3 text-right text-slate-500">
+                        {index === 0 ? "—" : pct(step.uniq, prevUniq)}
                       </td>
                     </tr>
                   );
@@ -424,6 +579,69 @@ export default async function AdminAnalyticsPage() {
               </tbody>
             </table>
           </div>
+        </section>
+
+        {/* ── Trial CTA sources ─────────────────────────────────────────── */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Trial CTA sources · last 7 days
+              </p>
+              <h2 className="mt-2 text-xl font-bold tracking-tight">
+                Which trial CTAs are getting clicks
+              </h2>
+              <p className="mt-1 text-xs text-slate-500">
+                Source uses metadata.source when present, then page, then
+                metadata.href.
+              </p>
+            </div>
+            <p className="text-sm font-semibold text-slate-500">
+              {trialCtaSourceRows.length} source
+              {trialCtaSourceRows.length !== 1 ? "s" : ""}
+            </p>
+          </div>
+
+          {trialCtaSourceError && !tableNotReady ? (
+            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+              Could not load CTA source data: {trialCtaSourceError.message}
+            </div>
+          ) : trialCtaSourceRows.length === 0 ? (
+            <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+              No trial CTA clicks recorded in this period.
+            </p>
+          ) : (
+            <div className="mt-5 overflow-x-auto">
+              <table className="min-w-full divide-y divide-slate-200 text-sm">
+                <thead>
+                  <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <th className="px-3 py-2 text-left">Source/page</th>
+                    <th className="px-3 py-2 text-right">Clicks</th>
+                    <th className="px-3 py-2 text-right">Unique identities</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {trialCtaSourceRows.map((row) => (
+                    <tr key={row.source}>
+                      <td className="max-w-lg px-3 py-3 font-medium text-slate-900">
+                        <span className="break-words">{row.source}</span>
+                      </td>
+                      <td className="px-3 py-3 text-right font-semibold tabular-nums text-slate-900">
+                        {row.clicks}
+                      </td>
+                      <td className="px-3 py-3 text-right tabular-nums text-slate-600">
+                        {row.identities.size}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="mt-3 text-xs leading-5 text-slate-500">
+                Source labels may vary until every CTA consistently sends
+                metadata.source.
+              </p>
+            </div>
+          )}
         </section>
 
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -434,19 +652,10 @@ export default async function AdminAnalyticsPage() {
             Student learning events
           </h2>
           <div className="mt-5 grid grid-cols-2 gap-4 md:grid-cols-4">
-            <StatCard
-              label="Mastery submitted"
-              value={lessonMasterySubmissions}
-            />
-            <StatCard label="Mastery passed" value={lessonMasteryPasses} />
-            <StatCard
-              label="Adaptive worksheets"
-              value={adaptiveWorksheetGenerations}
-            />
-            <StatCard
-              label="Worksheet completions"
-              value={worksheetCompletions}
-            />
+            <StatCard label="Mastery submitted"   value={lessonMasterySubmissions} />
+            <StatCard label="Mastery passed"       value={lessonMasteryPasses} />
+            <StatCard label="Adaptive worksheets"  value={adaptiveWorksheetGenerations} />
+            <StatCard label="Worksheet completions" value={worksheetCompletions} />
           </div>
         </section>
 
@@ -459,39 +668,49 @@ export default async function AdminAnalyticsPage() {
             Funnel rates
           </h2>
           <p className="mt-1 text-xs text-slate-500">
-            Rates are based on event counts, not unique users. A single student
-            can fire multiple events of the same type.
+            Large figure = rate by total events. Smaller figure = rate by
+            unique identities.
           </p>
           <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
             <RateCard
               label="HSC maths → CTA"
               numerator={trialCtaClicks}
               denominator={hscMathsViews}
-              description={`${trialCtaClicks} trial CTA clicks / ${hscMathsViews} HSC maths views`}
+              uniqueNumerator={uniqueTrialCtaClicks}
+              uniqueDenominator={uniqueHscMathsViews}
+              description={`${trialCtaClicks} CTA clicks / ${hscMathsViews} HSC views`}
             />
             <RateCard
               label="CTA → checkout"
               numerator={checkoutStarts}
               denominator={trialCtaClicks}
-              description={`${checkoutStarts} checkout starts / ${trialCtaClicks} trial CTA clicks`}
+              uniqueNumerator={uniqueCheckoutStarts}
+              uniqueDenominator={uniqueTrialCtaClicks}
+              description={`${checkoutStarts} checkout starts / ${trialCtaClicks} CTA clicks`}
             />
             <RateCard
               label="Diagnostic completion"
               numerator={diagnosticCompletions}
               denominator={diagnosticStarts}
+              uniqueNumerator={uniqueDiagnosticCompletions}
+              uniqueDenominator={uniqueDiagnosticStarts}
               description={`${diagnosticCompletions} completed / ${diagnosticStarts} started`}
             />
             <RateCard
               label="Checkout form → Stripe"
               numerator={checkoutRedirectsToStripe}
               denominator={checkoutFormSubmissions}
-              description={`${checkoutRedirectsToStripe} Stripe redirects / ${checkoutFormSubmissions} checkout forms`}
+              uniqueNumerator={uniqueStripeRedirects}
+              uniqueDenominator={uniqueCheckoutForms}
+              description={`${checkoutRedirectsToStripe} redirects / ${checkoutFormSubmissions} forms`}
             />
             <RateCard
               label="Stripe → trial"
               numerator={trialStarts}
               denominator={checkoutRedirectsToStripe}
-              description={`${trialStarts} trials / ${checkoutRedirectsToStripe} Stripe redirects`}
+              uniqueNumerator={uniqueTrialStarts}
+              uniqueDenominator={uniqueStripeRedirects}
+              description={`${trialStarts} trials / ${checkoutRedirectsToStripe} redirects`}
             />
           </div>
         </section>
