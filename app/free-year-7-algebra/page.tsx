@@ -3,6 +3,7 @@ import Link from "next/link";
 import katex from "katex";
 import React, { type ReactNode } from "react";
 import { SubscribeCTA } from "../components/SubscribeCTA";
+import { PageViewTracker } from "../components/PageViewTracker";
 
 export const metadata: Metadata = {
   title: "Free Year 7 Algebra Lesson | Nova Maths",
@@ -109,6 +110,10 @@ const quickChecks = [
 export default function FreeYear7AlgebraPage() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
+      <PageViewTracker
+        eventName="free_lesson_viewed"
+        metadata={{ lesson: "algebra-equations", course: "year-7" }}
+      />
       <div className="mx-auto max-w-5xl space-y-10 px-4 py-10 sm:px-6 lg:px-8">
         <header className="flex items-center justify-between gap-4">
           <Link href="/" className="text-lg font-bold tracking-tight">

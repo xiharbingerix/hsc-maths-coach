@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { trackSubscribeClicked } from "../../lib/analytics";
+import { clientTrackEvent } from "../../lib/analytics/clientTrackEvent";
 
 export function SubscribeCTA({
   href,
@@ -17,7 +18,10 @@ export function SubscribeCTA({
     <Link
       href={href}
       className={`inline-flex max-w-full shrink-0 items-center justify-center whitespace-nowrap rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold leading-none text-white shadow-sm transition hover:bg-slate-800 ${className}`}
-      onClick={() => trackSubscribeClicked()}
+      onClick={() => {
+        trackSubscribeClicked();
+        clientTrackEvent("trial_cta_clicked", { href });
+      }}
     >
       {children}
     </Link>

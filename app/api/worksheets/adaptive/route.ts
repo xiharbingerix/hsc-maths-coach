@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "../../../../lib/supabaseAdmin";
+import { trackEvent } from "../../../../lib/analytics/trackEvent";
 
 export const runtime = "nodejs";
 
@@ -263,6 +264,16 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
+
+  void trackEvent({
+    userId: user.id,
+    eventName: "adaptive_worksheet_generated",
+    metadata: {
+      questionCount: finalQuestionIds.length,
+      courseSlug: primaryCourseSlug,
+      topics: topicTitles,
+    },
+  });
 
   return NextResponse.json({
     worksheetId: worksheet.id,

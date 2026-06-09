@@ -3,6 +3,7 @@ import Link from "next/link";
 import katex from "katex";
 import React, { type ReactNode } from "react";
 import { SubscribeCTA } from "../components/SubscribeCTA";
+import { PageViewTracker } from "../components/PageViewTracker";
 import { areaUnderCurveLesson } from "../../lib/lessons/integralCalculus";
 
 export const metadata: Metadata = {
@@ -68,6 +69,10 @@ const previewQuestions = (lesson.guidedPractice ?? []).slice(0, 3);
 export default function SampleHscLessonPage() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
+      <PageViewTracker
+        eventName="sample_lesson_viewed"
+        metadata={{ lesson: "area-under-curve", course: "year-12-advanced" }}
+      />
       <div className="mx-auto max-w-4xl space-y-10 px-4 py-10 sm:px-6 lg:px-8">
 
         {/* Header */}

@@ -29,6 +29,7 @@ import {
   upsertLessonProgress,
 } from "../../lib/lessonProgress";
 import { supabase } from "../../lib/supabaseClient";
+import { clientTrackEvent } from "../../lib/analytics/clientTrackEvent";
 
 type LessonStage =
   | "watch"
@@ -1264,6 +1265,25 @@ export function LessonRenderer({
         mustCompleteLesson: false,
         completedStages: masteryState.completedStages,
         lastScore: quizScore,
+      });
+    }
+
+    // Supabase analytics — fire-and-forget, always safe.
+    clientTrackEvent("lesson_mastery_submitted", {
+      ...(courseSlug ? { courseSlug } : {}),
+      ...(unitSlug ? { topicSlug: unitSlug } : {}),
+      lessonSlug,
+      score: Math.round(quizScore * 100),
+      questionCount: currentLesson.masteryQuiz.length,
+      correct: quizCorrectCount,
+    });
+    if (quizScore >= currentLesson.masteryPassMark) {
+      clientTrackEvent("lesson_mastery_passed", {
+        ...(courseSlug ? { courseSlug } : {}),
+        ...(unitSlug ? { topicSlug: unitSlug } : {}),
+        lessonSlug,
+        score: Math.round(quizScore * 100),
+        questionCount: currentLesson.masteryQuiz.length,
       });
     }
 

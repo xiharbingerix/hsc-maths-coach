@@ -9,6 +9,7 @@ import {
   trackSignupCompleted,
   trackSignupCheckoutWallViewed,
 } from "../../lib/analytics";
+import { clientTrackEvent } from "../../lib/analytics/clientTrackEvent";
 
 function safeInternalNext(value: string | null) {
   if (!value || !value.startsWith("/") || value.startsWith("//")) {
@@ -125,6 +126,7 @@ export default function SignupPage() {
     }
 
     trackSignupCompleted();
+    clientTrackEvent("signup_completed", { source: "signup_page" });
 
     if (isCheckoutFlow) {
       const accessToken = data.session?.access_token;

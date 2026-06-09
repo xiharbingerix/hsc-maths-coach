@@ -85,6 +85,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
     setNotice("");
     setIsSubmitting(true);
     trackEvent("checkout_form_submitted", { offer: offer.slug });
+    clientTrackEvent("checkout_form_submitted", { offer: offerSlug });
 
     try {
       let accessToken: string | undefined;
@@ -131,6 +132,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
         }
 
         trackSignupCompleted();
+        clientTrackEvent("signup_completed", { source: "checkout_form", offer: offerSlug });
         accessToken = signupData.session?.access_token;
 
         if (!accessToken) {
@@ -200,6 +202,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
             offer: offer.slug,
           });
         }
+        clientTrackEvent("checkout_redirected_to_stripe", { offer: offerSlug });
         window.location.href = payload.url;
         return;
       }
