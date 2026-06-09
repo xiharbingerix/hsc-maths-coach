@@ -31,6 +31,19 @@ type MasteryRow = {
   last_updated: string;
 };
 
+type MasteryHistoryRow = {
+  course_slug: string;
+  topic_slug: string;
+  mastery_score: number;
+  created_at: string | null;
+};
+
+type MasteryTrendSummary = {
+  latestAverage: number | null;
+  previousAverage: number | null;
+  change: number | null;
+};
+
 type RevisionReason = "Needs strengthening" | "Due for review" | "Long time since practice";
 
 type RevisionDueItem = {
@@ -76,6 +89,81 @@ function masteryBarColor(score: number): string {
   if (score >= 70) return "bg-emerald-500";
   if (score >= 40) return "bg-amber-400";
   return "bg-red-400";
+}
+
+function averageRounded(values: number[]): number | null {
+  if (values.length === 0) return null;
+  return Math.round(values.reduce((sum, value) => sum + value, 0) / values.length);
+}
+
+function getMasteryTrendSummary(
+  masteryRows: MasteryRow[],
+  historyRows: MasteryHistoryRow[]
+): MasteryTrendSummary {
+  const latestAverage = averageRounded(
+    masteryRows.map((row) => row.mastery_score)
+  );
+  const historyByTopic = new Map<string, MasteryHistoryRow[]>();
+
+  for (const row of historyRows) {
+    const key = `${row.course_slug}/${row.topic_slug}`;
+    historyByTopic.set(key, [...(historyByTopic.get(key) ?? []), row]);
+  }
+
+  for (const snapshots of historyByTopic.values()) {
+    snapshots.sort((a, b) => {
+      const aTime = a.created_at ? Date.parse(a.created_at) : 0;
+      const bTime = b.created_at ? Date.parse(b.created_at) : 0;
+      return bTime - aTime;
+    });
+  }
+
+  const previousScores = masteryRows
+    .map((row) => {
+      const snapshots =
+        historyByTopic.get(`${row.course_slug}/${row.topic_slug}`) ?? [];
+      const latestSnapshot = snapshots[0] ?? null;
+      const previousSnapshot =
+        latestSnapshot?.mastery_score === row.mastery_score
+          ? snapshots[1] ?? null
+          : latestSnapshot;
+      return previousSnapshot?.mastery_score ?? null;
+    })
+    .filter((score): score is number => score != null);
+
+  const previousAverage = averageRounded(previousScores);
+
+  return {
+    latestAverage,
+    previousAverage,
+    change:
+      latestAverage == null || previousAverage == null
+        ? null
+        : latestAverage - previousAverage,
+  };
+}
+
+function formatMasteryChange(change: number | null): string {
+  if (change == null) return "No change yet";
+  if (change > 0) return `+${change}`;
+  if (change < 0) return String(change);
+  return "No change";
+}
+
+function masteryTrendMessage(summary: MasteryTrendSummary): string {
+  if (summary.latestAverage == null || summary.previousAverage == null) {
+    return "Complete quizzes or worksheets to build your mastery trend.";
+  }
+  if ((summary.change ?? 0) > 0) return "Your mastery is improving.";
+  if ((summary.change ?? 0) < 0) {
+    return "Your recent answers show some topics need revision.";
+  }
+  return "Your mastery is steady. Keep practising to move it up.";
+}
+
+function masteryTrendTone(change: number | null): string {
+  if (change == null || change === 0) return "text-slate-700";
+  return change > 0 ? "text-emerald-700" : "text-rose-700";
 }
 
 const REVISION_REASON_ORDER: Record<RevisionReason, number> = {
@@ -145,6 +233,11 @@ export default function DashboardPage() {
     Record<string, LessonProgressRecord>
   >({});
   const [masteryRows, setMasteryRows] = useState<MasteryRow[]>([]);
+  const [masteryHistoryRows, setMasteryHistoryRows] = useState<
+    MasteryHistoryRow[]
+  >([]);
+  const [isMasteryHistoryUnavailable, setIsMasteryHistoryUnavailable] =
+    useState(false);
   const [diagnosticResults, setDiagnosticResults] = useState<
     StudyPlanDiagnosticResult[]
   >([]);
@@ -216,6 +309,22 @@ export default function DashboardPage() {
 
       if (masteryData) {
         setMasteryRows(masteryData as MasteryRow[]);
+      }
+
+      const { data: masteryHistoryData, error: masteryHistoryError } =
+        await supabase
+          .from("student_mastery_history")
+          .select("course_slug, topic_slug, mastery_score, created_at")
+          .eq("user_id", sessionUser.id)
+          .order("created_at", { ascending: false })
+          .limit(500);
+
+      if (masteryHistoryError) {
+        setMasteryHistoryRows([]);
+        setIsMasteryHistoryUnavailable(true);
+      } else if (masteryHistoryData) {
+        setMasteryHistoryRows(masteryHistoryData as MasteryHistoryRow[]);
+        setIsMasteryHistoryUnavailable(false);
       }
 
       const { data: diagnosticData } = await supabase
@@ -415,6 +524,7 @@ export default function DashboardPage() {
         masteryRows.reduce((s, r) => s + r.mastery_score, 0) / masteryRows.length
       )
     : 0;
+  const masteryTrend = getMasteryTrendSummary(masteryRows, masteryHistoryRows);
   // Rows are already sorted descending by mastery_score from the query.
   const strongestTopics = masteryRows.slice(0, 3);
   const weakestTopics = [...masteryRows]
@@ -958,6 +1068,59 @@ export default function DashboardPage() {
             Mastery
           </p>
           <h2 className="mt-2 text-2xl font-bold tracking-tight">Your mastery</h2>
+
+          <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  Mastery trend
+                </p>
+                <p className="mt-2 text-sm leading-6 text-slate-600">
+                  {masteryTrendMessage(masteryTrend)}
+                </p>
+                {isMasteryHistoryUnavailable ? (
+                  <p className="mt-2 text-xs text-slate-500">
+                    Trend history is not available yet, so this card is using
+                    current mastery only.
+                  </p>
+                ) : null}
+              </div>
+              <div className="grid gap-3 text-sm sm:grid-cols-3">
+                <div className="rounded-xl bg-white p-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Latest
+                  </p>
+                  <p className="mt-1 text-2xl font-bold tabular-nums">
+                    {masteryTrend.latestAverage == null
+                      ? "-"
+                      : `${masteryTrend.latestAverage}%`}
+                  </p>
+                </div>
+                <div className="rounded-xl bg-white p-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Previous
+                  </p>
+                  <p className="mt-1 text-2xl font-bold tabular-nums">
+                    {masteryTrend.previousAverage == null
+                      ? "-"
+                      : `${masteryTrend.previousAverage}%`}
+                  </p>
+                </div>
+                <div className="rounded-xl bg-white p-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Change
+                  </p>
+                  <p
+                    className={`mt-1 text-2xl font-bold tabular-nums ${masteryTrendTone(
+                      masteryTrend.change
+                    )}`}
+                  >
+                    {formatMasteryChange(masteryTrend.change)}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
           {!hasMastery ? (
             <p className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
