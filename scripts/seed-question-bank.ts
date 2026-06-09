@@ -1,10 +1,22 @@
 import { createClient } from "@supabase/supabase-js";
+import { courseUnits, year12AdvancedCourse } from "../lib/courseUnits";
 import {
   getNewCourse,
   getNewCourseUnitLessons,
-  newCoursePathways,
 } from "../lib/newCourseCatalog";
+import { applicationsDifferentiationLessons } from "../lib/lessons/applicationsDifferentiation";
 import type { ExplicitLesson, PracticeQuestion } from "../lib/lessons/differentialCalculus";
+import { differentialCalculusLessons } from "../lib/lessons/differentialCalculus";
+import { differentiationTechniquesLessons } from "../lib/lessons/differentiationTechniques";
+import { exponentialLogarithmicFunctionsLessons } from "../lib/lessons/exponentialLogarithmicFunctions";
+import { financialMathematicsLessons } from "../lib/lessons/financialMathematics";
+import { functionsGraphingTechniquesLessons } from "../lib/lessons/functionsGraphingTechniques";
+import { furtherIntegralCalculusLessons } from "../lib/lessons/furtherIntegralCalculus";
+import { furtherTrigonometryLessons } from "../lib/lessons/furtherTrigonometry";
+import { integralCalculusLessons } from "../lib/lessons/integralCalculus";
+import { sequencesSeriesFinancialMathsLessons } from "../lib/lessons/sequencesSeriesFinancialMaths";
+import { statisticalAnalysisLessons } from "../lib/lessons/statisticalAnalysis";
+import { trigonometricFunctionsGraphsLessons } from "../lib/lessons/trigonometricFunctionsGraphs";
 
 type PracticeSection = "guidedPractice" | "independentPractice" | "masteryQuiz";
 
@@ -51,6 +63,7 @@ type ImportOptions = {
 };
 
 const SUPPORTED_COURSE_SLUGS = [
+  "year-12-advanced",
   "year-9-mathematics",
   "year-10-mathematics",
   "year-11-standard",
@@ -66,6 +79,25 @@ const PLACEHOLDER_PATTERNS = [
   /generated fallback/i,
   /sample question/i,
 ];
+
+const year12AdvancedLessonSets: Record<string, ExplicitLesson[]> = {
+  "differential-calculus": differentialCalculusLessons,
+  "differentiation-techniques": differentiationTechniquesLessons,
+  "applications-differentiation": applicationsDifferentiationLessons,
+  "integral-calculus": integralCalculusLessons,
+  "further-integral-calculus": furtherIntegralCalculusLessons,
+  "functions-graphing-techniques": functionsGraphingTechniquesLessons,
+  "trigonometric-functions-graphs": trigonometricFunctionsGraphsLessons,
+  "further-trigonometry": furtherTrigonometryLessons,
+  "exponential-logarithmic-functions": exponentialLogarithmicFunctionsLessons,
+  "sequences-series-financial-maths": sequencesSeriesFinancialMathsLessons,
+  "financial-mathematics": financialMathematicsLessons,
+  "statistical-analysis": statisticalAnalysisLessons,
+};
+
+function unitSlugFromHref(href: string) {
+  return href.split("/").filter(Boolean).at(-1) ?? href;
+}
 
 function requiredEnv(name: string) {
   const value = process.env[name];
@@ -219,14 +251,18 @@ function questionSections(lesson: ExplicitLesson) {
 }
 
 function collectQuestionsFromCourse(courseSlug: string) {
+  if (courseSlug === "year-12-advanced") {
+    return collectQuestionsFromYear12Advanced();
+  }
+
   const course = getNewCourse(courseSlug);
   const rows: QuestionRow[] = [];
   const warnings: ImportWarning[] = [];
 
   if (!course) {
     throw new Error(
-      `Unknown course slug "${courseSlug}". Available courses: ${newCoursePathways
-        .map((item) => item.slug)
+      `Unknown course slug "${courseSlug}". Available courses: ${SUPPORTED_COURSE_SLUGS
+        .map((item) => item)
         .join(", ")}`
     );
   }
@@ -264,6 +300,54 @@ function collectQuestionsFromCourse(courseSlug: string) {
   }
 
   return { course, rows, warnings };
+}
+
+function collectQuestionsFromYear12Advanced() {
+  const rows: QuestionRow[] = [];
+  const warnings: ImportWarning[] = [];
+
+  for (const unit of courseUnits) {
+    const unitSlug = unitSlugFromHref(unit.href);
+    const lessons = year12AdvancedLessonSets[unitSlug];
+
+    if (!lessons) {
+      warnings.push({
+        sourceId: `year-12-advanced/${unitSlug}`,
+        reason: "Skipped unit because no legacy lesson array is mapped.",
+      });
+      continue;
+    }
+
+    for (const lesson of lessons) {
+      for (const [section, questions] of questionSections(lesson)) {
+        questions.forEach((question, position) => {
+          if (!isRealQuestion(question)) {
+            warnings.push({
+              sourceId: question.id || `${lesson.slug}/${section}/${position}`,
+              reason: "Skipped placeholder or incomplete question.",
+            });
+            return;
+          }
+
+          const row = mapPracticeQuestionToQuestionRow(question, {
+            topicSlug: unitSlug,
+            subtopicSlug: lesson.slug,
+            yearLevel: year12AdvancedCourse.yearLevel,
+            courseSlug: year12AdvancedCourse.courseSlug,
+            section,
+            position,
+            syllabusRef: unit.title,
+          });
+
+          row.source_id =
+            `${year12AdvancedCourse.courseSlug}/${unitSlug}/${lesson.slug}/${question.id}`;
+          rows.push(row);
+        });
+      }
+    }
+  }
+
+  return { course: year12AdvancedCourse, rows, warnings };
 }
 
 function collectQuestionsFromCourses(courseSlugs: string[]) {
