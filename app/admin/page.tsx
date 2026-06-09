@@ -718,6 +718,12 @@ export default async function AdminPage() {
             >
               New worksheet
             </Link>
+            <Link
+              href="/admin/analytics"
+              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+            >
+              Analytics
+            </Link>
             <form action="/api/admin/logout" method="post">
               <button
                 type="submit"

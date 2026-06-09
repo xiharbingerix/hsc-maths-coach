@@ -1,50 +1,27 @@
-import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 import { ADMIN_COOKIE_NAME, getAdminToken } from "../../../../../lib/adminAuth";
 import { supabaseAdmin } from "../../../../../lib/supabaseAdmin";
 import { getSiteUrl } from "../../../../../lib/stripe";
+import {
+  isDifficultyPreset,
+  loadApprovedWorksheetQuestions,
+  selectWorksheetQuestions,
+} from "../../../../../lib/worksheetGeneration";
 
 export const runtime = "nodejs";
 
-// ── Difficulty presets ────────────────────────────────────────────────────────
-// Each sums to 10. Scaled to the requested total via largest-remainder rounding.
-
-type DifficultyLevel = 1 | 2 | 3 | 4 | 5;
-type DifficultyDist = Record<DifficultyLevel, number>;
-
-const PRESETS: Record<string, DifficultyDist> = {
-  "catch-up":     { 1: 3, 2: 4, 3: 2, 4: 1, 5: 0 },
-  "standard":     { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 },
-  "push-forward": { 1: 0, 2: 2, 3: 3, 4: 3, 5: 2 },
+type GenerateBody = {
+  title?: string;
+  courseSlug?: string;
+  topicSlugs?: string[];
+  preset?: string;
+  totalQuestions?: number;
+  questionIds?: string[];
+  assignedStudentName?: string;
+  assignedStudentEmail?: string;
+  dueAt?: string;
 };
-
-function scalePreset(preset: DifficultyDist, target: number): Map<DifficultyLevel, number> {
-  const total = (Object.values(preset) as number[]).reduce((s, v) => s + v, 0);
-  if (total === 0) return new Map();
-
-  const levels = (Object.keys(preset) as unknown as DifficultyLevel[]).map((level) => ({
-    level,
-    exact: (preset[level] / total) * target,
-    floor: Math.floor((preset[level] / total) * target),
-  }));
-
-  const floorSum = levels.reduce((s, l) => s + l.floor, 0);
-  const remainder = target - floorSum;
-
-  // Give leftover to levels with the largest fractional parts
-  const sorted = [...levels].sort(
-    (a, b) => (b.exact - b.floor) - (a.exact - a.floor)
-  );
-  sorted.slice(0, remainder).forEach((l) => { l.floor++; });
-
-  return new Map(
-    levels
-      .filter((l) => l.floor > 0)
-      .map((l) => [l.level, l.floor])
-  );
-}
-
-// ── Admin auth helper ─────────────────────────────────────────────────────────
 
 async function isAdmin(): Promise<boolean> {
   try {
@@ -56,20 +33,11 @@ async function isAdmin(): Promise<boolean> {
   }
 }
 
-// ── Request body ──────────────────────────────────────────────────────────────
-
-type GenerateBody = {
-  title?: string;
-  courseSlug?: string;
-  topicSlugs?: string[];
-  preset?: string;
-  totalQuestions?: number;
-  assignedStudentName?: string;
-  assignedStudentEmail?: string;
-  dueAt?: string;
-};
-
-// ── Route handler ─────────────────────────────────────────────────────────────
+function normaliseOptionalText(value: unknown, maxLength: number) {
+  return typeof value === "string" && value.trim()
+    ? value.trim().slice(0, maxLength)
+    : null;
+}
 
 export async function POST(request: Request) {
   if (!(await isAdmin())) {
@@ -89,6 +57,7 @@ export async function POST(request: Request) {
     topicSlugs,
     preset,
     totalQuestions,
+    questionIds,
     assignedStudentName,
     assignedStudentEmail,
     dueAt,
@@ -101,11 +70,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Course is required." }, { status: 400 });
   }
   if (!Array.isArray(topicSlugs) || topicSlugs.length === 0) {
-    return NextResponse.json({ error: "At least one topic is required." }, { status: 400 });
+    return NextResponse.json(
+      { error: "At least one topic is required." },
+      { status: 400 }
+    );
   }
-  if (!preset || !(preset in PRESETS)) {
-    return NextResponse.json({ error: "Invalid difficulty preset." }, { status: 400 });
+  if (!isDifficultyPreset(preset)) {
+    return NextResponse.json(
+      { error: "Invalid difficulty preset." },
+      { status: 400 }
+    );
   }
+
   const count = Number(totalQuestions);
   if (!Number.isInteger(count) || count < 1 || count > 50) {
     return NextResponse.json(
@@ -114,77 +90,83 @@ export async function POST(request: Request) {
     );
   }
 
-  const trimmedStudentName =
-    typeof assignedStudentName === "string" && assignedStudentName.trim()
-      ? assignedStudentName.trim().slice(0, 120)
-      : null;
-  const trimmedStudentEmail =
-    typeof assignedStudentEmail === "string" && assignedStudentEmail.trim()
-      ? assignedStudentEmail.trim().toLowerCase().slice(0, 180)
-      : null;
+  const trimmedStudentName = normaliseOptionalText(assignedStudentName, 120);
+  const trimmedStudentEmail = normaliseOptionalText(
+    typeof assignedStudentEmail === "string"
+      ? assignedStudentEmail.toLowerCase()
+      : assignedStudentEmail,
+    180
+  );
   const parsedDueAt =
     typeof dueAt === "string" && dueAt.trim() ? new Date(dueAt) : null;
   if (parsedDueAt && Number.isNaN(parsedDueAt.getTime())) {
     return NextResponse.json({ error: "Due date is invalid." }, { status: 400 });
   }
 
-  const distribution = scalePreset(PRESETS[preset], count);
-
-  // ── Fetch question IDs per difficulty level ───────────────────────────────
-
-  const allSelectedIds: string[] = [];
-
-  for (const [level, needed] of distribution) {
-    if (needed === 0) continue;
-
-    const { data: qRows, error } = await supabaseAdmin
-      .from("questions")
-      .select("id")
-      .eq("course_slug", courseSlug)
-      .in("topic_slug", topicSlugs)
-      .eq("difficulty", level)
-      .eq("is_active", true);
-
-    if (error) {
-      console.error("[worksheets/generate] questions query failed", {
-        level,
-        message: error.message,
-      });
-      return NextResponse.json(
-        { error: "Could not query questions. Check the database." },
-        { status: 500 }
-      );
-    }
-
-    if (!qRows || qRows.length === 0) continue;
-
-    // Shuffle and take up to `needed`
-    const shuffled = (qRows as { id: string }[])
-      .map((q) => q.id)
-      .sort(() => Math.random() - 0.5);
-
-    allSelectedIds.push(...shuffled.slice(0, needed));
+  const approvedQuestionIds = Array.isArray(questionIds)
+    ? questionIds.filter((id) => typeof id === "string" && id.trim())
+    : [];
+  if (approvedQuestionIds.length > 50) {
+    return NextResponse.json(
+      { error: "Question count must be between 1 and 50." },
+      { status: 400 }
+    );
   }
 
-  if (allSelectedIds.length === 0) {
+  let selectedQuestionIds: string[];
+  try {
+    selectedQuestionIds =
+      approvedQuestionIds.length > 0
+        ? await loadApprovedWorksheetQuestions(approvedQuestionIds)
+        : (
+            await selectWorksheetQuestions({
+              courseSlug,
+              topicSlugs,
+              preset,
+              totalQuestions: count,
+            })
+          ).map((question) => question.id);
+  } catch (error) {
+    console.error("[worksheets/generate] questions query failed", {
+      message: error instanceof Error ? error.message : String(error),
+    });
+    return NextResponse.json(
+      { error: "Could not query questions. Check the database." },
+      { status: 500 }
+    );
+  }
+
+  if (
+    approvedQuestionIds.length > 0 &&
+    selectedQuestionIds.length !== approvedQuestionIds.length
+  ) {
+    return NextResponse.json(
+      { error: "One or more preview questions are no longer available." },
+      { status: 422 }
+    );
+  }
+
+  if (selectedQuestionIds.length === 0) {
     return NextResponse.json(
       {
         error:
-          "No active questions found for the selected course and topic(s). " +
-          "Apply the migration and run the seed script first.",
+          "No active questions found for the selected course and topic(s). Apply the migration and run the seed script first.",
       },
       { status: 422 }
     );
   }
 
-  // ── Create worksheet ──────────────────────────────────────────────────────
-
-  const { data: worksheet, error: wsError } = await supabaseAdmin
+  const { data: worksheet, error: worksheetError } = await supabaseAdmin
     .from("worksheets")
     .insert({
       title: title.trim(),
       year_level: courseSlug,
-      topic_config: { course_slug: courseSlug, topic_slugs: topicSlugs, preset },
+      topic_config: {
+        course_slug: courseSlug,
+        topic_slugs: topicSlugs,
+        preset,
+        preview_approved: approvedQuestionIds.length > 0,
+      },
       assigned_student_name: trimmedStudentName,
       assigned_student_email: trimmedStudentEmail,
       due_at: parsedDueAt ? parsedDueAt.toISOString() : null,
@@ -193,9 +175,9 @@ export async function POST(request: Request) {
     .select("id, share_token")
     .single();
 
-  if (wsError || !worksheet) {
+  if (worksheetError || !worksheet) {
     console.error("[worksheets/generate] worksheet insert failed", {
-      message: wsError?.message,
+      message: worksheetError?.message,
     });
     return NextResponse.json(
       { error: "Could not create worksheet." },
@@ -203,24 +185,21 @@ export async function POST(request: Request) {
     );
   }
 
-  // ── Create worksheet_questions rows ──────────────────────────────────────
-
-  const wqRows = allSelectedIds.map((questionId, index) => ({
+  const worksheetQuestionRows = selectedQuestionIds.map((questionId, index) => ({
     worksheet_id: worksheet.id,
     question_id: questionId,
     position: index,
   }));
 
-  const { error: wqError } = await supabaseAdmin
+  const { error: worksheetQuestionsError } = await supabaseAdmin
     .from("worksheet_questions")
-    .insert(wqRows);
+    .insert(worksheetQuestionRows);
 
-  if (wqError) {
+  if (worksheetQuestionsError) {
     console.error("[worksheets/generate] worksheet_questions insert failed", {
       worksheetId: worksheet.id,
-      message: wqError.message,
+      message: worksheetQuestionsError.message,
     });
-    // Best-effort cleanup
     await supabaseAdmin.from("worksheets").delete().eq("id", worksheet.id);
     return NextResponse.json(
       { error: "Could not attach questions to worksheet." },
@@ -234,16 +213,17 @@ export async function POST(request: Request) {
   console.log("[worksheets/generate] created", {
     worksheetId: worksheet.id,
     shareToken,
-    questionCount: allSelectedIds.length,
+    questionCount: selectedQuestionIds.length,
     courseSlug,
     topicSlugs,
     preset,
+    usedPreview: approvedQuestionIds.length > 0,
   });
 
   return NextResponse.json({
     worksheetId: worksheet.id,
     shareToken,
     shareUrl,
-    questionCount: allSelectedIds.length,
+    questionCount: selectedQuestionIds.length,
   });
 }
