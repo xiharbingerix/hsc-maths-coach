@@ -145,5 +145,26 @@ export async function recordMasteryEvents(
         `student_mastery upsert failed for ${courseSlug}/${topicSlug}: ${upsertError.message}`
       );
     }
+
+    const sourceTypes = new Set(topicEvents.map((event) => event.sourceType));
+    const sourceType =
+      sourceTypes.size === 1 ? topicEvents[0].sourceType : "mixed";
+
+    const { error: historyError } = await supabaseAdmin
+      .from("student_mastery_history")
+      .insert({
+        user_id: userId,
+        course_slug: courseSlug,
+        topic_slug: topicSlug,
+        mastery_score: score,
+        attempt_count: attemptCount,
+        source_type: sourceType,
+      });
+
+    if (historyError) {
+      throw new Error(
+        `student_mastery_history insert failed for ${courseSlug}/${topicSlug}: ${historyError.message}`
+      );
+    }
   }
 }
