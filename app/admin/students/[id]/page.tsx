@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { requireAdmin } from "../../../../lib/adminSession";
 import { supabaseAdmin } from "../../../../lib/supabaseAdmin";
 import {
@@ -106,6 +107,12 @@ type AccessRow = {
   status: string | null;
   created_at: string | null;
   updated_at: string | null;
+};
+
+type NoteRow = {
+  id: string;
+  note: string;
+  created_at: string | null;
 };
 
 type TimelineItem = {
@@ -391,6 +398,20 @@ export default async function AdminStudentDetailPage({
   const user = userData.user as AdminAuthUser;
   const email = user.email?.toLowerCase() ?? "";
 
+  // Server action — defined here to close over `id` and `email`.
+  async function addNote(formData: FormData) {
+    "use server";
+    await requireAdmin();
+    const note = String(formData.get("note") ?? "").trim();
+    if (!note) return;
+    await supabaseAdmin.from("student_notes").insert({
+      student_user_id: id,
+      student_email: email || null,
+      note,
+    });
+    revalidatePath(`/admin/students/${id}`);
+  }
+
   const [
     profileResult,
     masteryResult,
@@ -401,6 +422,7 @@ export default async function AdminStudentDetailPage({
     masteryEventsResult,
     masteryHistoryResult,
     accessResult,
+    notesResult,
   ] = await Promise.all([
     supabaseAdmin.from("profiles").select("*").eq("id", id).maybeSingle(),
     supabaseAdmin
@@ -459,7 +481,20 @@ export default async function AdminStudentDetailPage({
       .eq("user_id", id)
       .order("updated_at", { ascending: false })
       .limit(10),
+    supabaseAdmin
+      .from("student_notes")
+      .select("id, note, created_at")
+      .eq("student_user_id", id)
+      .order("created_at", { ascending: false })
+      .limit(50),
   ]);
+
+  const notesMissing =
+    notesResult.error?.code === "42P01" ||
+    notesResult.error?.message?.toLowerCase().includes("student_notes");
+  const noteRows = notesMissing
+    ? []
+    : ((notesResult.data ?? []) as NoteRow[]);
 
   const profile = profileResult.data as ProfileRow | null;
   const masteryRows = (masteryResult.data ?? []) as MasteryRow[];
@@ -943,6 +978,67 @@ export default async function AdminStudentDetailPage({
           )}
         </section>
 
+        {/* ── Tutor notes ──────────────────────────────────────────────────── */}
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-bold">Tutor notes</h2>
+              <p className="mt-1 text-xs text-slate-500">
+                Private — not visible to the student.
+              </p>
+            </div>
+            {noteRows.length > 0 && (
+              <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-600">
+                {noteRows.length} note{noteRows.length === 1 ? "" : "s"}
+              </span>
+            )}
+          </div>
+
+          {notesMissing && (
+            <p className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+              <code className="font-mono">student_notes</code> table not found.
+              Run migration <code className="font-mono">014_student_notes.sql</code> to enable tutor notes.
+            </p>
+          )}
+
+          {!notesMissing && noteRows.length > 0 && (
+            <ul className="mt-4 space-y-3">
+              {noteRows.map((note) => (
+                <li
+                  key={note.id}
+                  className="rounded-xl border border-slate-200 bg-slate-50 p-4"
+                >
+                  <p className="whitespace-pre-wrap text-sm text-slate-800">
+                    {note.note}
+                  </p>
+                  <p className="mt-2 text-xs text-slate-400">
+                    {formatDateTime(note.created_at)}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {!notesMissing && (
+            <form action={addNote} className="mt-4 space-y-3">
+              <textarea
+                name="note"
+                rows={3}
+                required
+                placeholder="Add a private note about this student…"
+                className="w-full rounded-xl border border-slate-200 p-3 text-sm text-slate-900 placeholder-slate-400 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
+              />
+              <button
+                type="submit"
+                className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+              >
+                Add note
+              </button>
+            </form>
+          )}
+        </section>
+
+        {/* ── Diagnostic history ───────────────────────────────────────────── */}
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="text-xl font-bold">Diagnostic history</h2>
           {diagnosticRows.length === 0 ? (
