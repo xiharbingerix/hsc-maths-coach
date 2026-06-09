@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requireAdmin } from "../../../lib/adminSession";
 import { supabaseAdmin } from "../../../lib/supabaseAdmin";
+import { summariseAnalytics } from "../../../lib/analytics/summariseAnalytics";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -18,6 +19,7 @@ type CountRow = {
   event_name: string;
   user_id: string | null;
   anonymous_id: string | null;
+  page: string | null;
 };
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -257,7 +259,7 @@ export default async function AdminAnalyticsPage({
   // unique identity counts in a single query.
   const { data: countData, error: countError } = await supabaseAdmin
     .from("analytics_events")
-    .select("event_name, user_id, anonymous_id")
+    .select("event_name, user_id, anonymous_id, page")
     .gte("created_at", since);
 
   // Recent events for the activity log.
@@ -318,6 +320,7 @@ export default async function AdminAnalyticsPage({
   const totalCounts = new Map<string, number>();
   const uniqueSets = new Map<string, Set<string>>();
   const allIdentities = new Set<string>();
+  const pageCounts = new Map<string, number>();
 
   for (const raw of countData ?? []) {
     const row = raw as CountRow;
@@ -330,6 +333,10 @@ export default async function AdminAnalyticsPage({
       const set = uniqueSets.get(row.event_name) ?? new Set<string>();
       set.add(id);
       uniqueSets.set(row.event_name, set);
+    }
+
+    if (row.page) {
+      pageCounts.set(row.page, (pageCounts.get(row.page) ?? 0) + 1);
     }
   }
 
@@ -413,6 +420,17 @@ export default async function AdminAnalyticsPage({
   );
 
   const recentEvents = (recentData ?? []) as AnalyticsEventRow[];
+
+  const summary = summariseAnalytics({
+    visitors: totalUniqueIdentities,
+    diagnosticStarts,
+    diagnosticCompletions,
+    checkoutStarts,
+    trialStarts,
+    topCtaSource: trialCtaSourceRows[0]?.source ?? null,
+    pageCounts,
+    funnelSteps,
+  });
 
   const alerts = buildAlerts({
     hscMathsViews,
@@ -501,6 +519,52 @@ export default async function AdminAnalyticsPage({
             </div>
           </section>
         )}
+
+        {/* ── Period summary ───────────────────────────────────────────── */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Period summary · last {days} day{days === 1 ? "" : "s"}
+          </p>
+          <h2 className="mt-2 text-xl font-bold tracking-tight">Snapshot</h2>
+
+          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-5">
+            <StatCard label="Visitors" value={summary.visitors} />
+            <StatCard label="Diag starts" value={summary.diagnosticStarts} />
+            <StatCard label="Diag completions" value={summary.diagnosticCompletions} />
+            <StatCard label="Checkout starts" value={summary.checkoutStarts} />
+            <StatCard label="Trial starts" value={summary.trialStarts} />
+          </div>
+
+          <dl className="mt-5 grid gap-3 rounded-2xl bg-slate-50 p-4 text-sm sm:grid-cols-3">
+            <div>
+              <dt className="font-semibold text-slate-500">Top CTA source</dt>
+              <dd className="mt-0.5 truncate font-mono text-xs text-slate-800">
+                {summary.topCtaSource ?? "—"}
+              </dd>
+            </div>
+            <div>
+              <dt className="font-semibold text-slate-500">Top page</dt>
+              <dd className="mt-0.5 truncate font-mono text-xs text-slate-800">
+                {summary.topPage ?? "—"}
+              </dd>
+            </div>
+            <div>
+              <dt className="font-semibold text-slate-500">Biggest funnel drop</dt>
+              <dd className="mt-0.5 text-xs text-slate-800">
+                {summary.biggestDropLabel
+                  ? `${summary.biggestDropLabel} (${summary.biggestDropPct})`
+                  : "—"}
+              </dd>
+            </div>
+          </dl>
+
+          <div className="mt-4 rounded-2xl border border-blue-200 bg-blue-50 p-4">
+            <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">
+              Recommended action
+            </p>
+            <p className="mt-1 text-sm text-blue-900">{summary.recommendedAction}</p>
+          </div>
+        </section>
 
         {/* ── Unique audience summary ───────────────────────────────────── */}
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
