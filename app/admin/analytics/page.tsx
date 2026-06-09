@@ -40,7 +40,97 @@ function pct(numerator: number, denominator: number): string {
   return `${Math.round((numerator / denominator) * 100)}%`;
 }
 
+// ── Alert types ───────────────────────────────────────────────────────────────
+
+type AlertKind = "warning" | "positive";
+
+type FunnelAlertData = {
+  kind: AlertKind;
+  title: string;
+  detail: string;
+};
+
+function buildAlerts(counts: {
+  hscMathsViews: number;
+  checkoutStarts: number;
+  diagnosticStarts: number;
+  diagnosticCompletions: number;
+  trialStarts: number;
+  worksheetCompletions: number;
+}): FunnelAlertData[] {
+  const alerts: FunnelAlertData[] = [];
+
+  if (counts.hscMathsViews > 20 && counts.checkoutStarts === 0) {
+    alerts.push({
+      kind: "warning",
+      title: "Traffic is not reaching checkout.",
+      detail: `HSC maths page had ${counts.hscMathsViews} views but 0 checkout starts in this period.`,
+    });
+  }
+
+  if (
+    counts.diagnosticStarts > 10 &&
+    counts.diagnosticCompletions / counts.diagnosticStarts < 0.4
+  ) {
+    const rate = Math.round(
+      (counts.diagnosticCompletions / counts.diagnosticStarts) * 100
+    );
+    alerts.push({
+      kind: "warning",
+      title: "Diagnostic completion rate is low.",
+      detail: `${counts.diagnosticCompletions} of ${counts.diagnosticStarts} started diagnostics were completed (${rate}%).`,
+    });
+  }
+
+  if (counts.checkoutStarts > 5 && counts.trialStarts === 0) {
+    alerts.push({
+      kind: "warning",
+      title: "Checkout starts are not becoming trials.",
+      detail: `${counts.checkoutStarts} checkout starts recorded with 0 trial conversions.`,
+    });
+  }
+
+  if (counts.trialStarts > 0) {
+    alerts.push({
+      kind: "positive",
+      title: "Trials are starting.",
+      detail: `${counts.trialStarts} trial start${counts.trialStarts === 1 ? "" : "s"} in this period.`,
+    });
+  }
+
+  if (counts.worksheetCompletions > 0) {
+    alerts.push({
+      kind: "positive",
+      title: "Students are completing worksheets.",
+      detail: `${counts.worksheetCompletions} worksheet completion${counts.worksheetCompletions === 1 ? "" : "s"} in this period.`,
+    });
+  }
+
+  return alerts;
+}
+
 // ── Sub-components ────────────────────────────────────────────────────────────
+
+function FunnelAlert({ kind, title, detail }: FunnelAlertData) {
+  const isWarning = kind === "warning";
+  return (
+    <div
+      className={`flex items-start gap-3 rounded-2xl border p-4 ${
+        isWarning
+          ? "border-amber-200 bg-amber-50 text-amber-900"
+          : "border-emerald-200 bg-emerald-50 text-emerald-900"
+      }`}
+    >
+      <span className="mt-0.5 shrink-0 text-base leading-none">
+        {isWarning ? "⚠" : "✓"}
+      </span>
+      <div>
+        <p className="font-semibold">{title}</p>
+        <p className="mt-0.5 text-sm opacity-80">{detail}</p>
+      </div>
+    </div>
+  );
+}
 
 function StatCard({
   label,
@@ -159,6 +249,15 @@ export default async function AdminAnalyticsPage() {
 
   const recentEvents = (recentData ?? []) as AnalyticsEventRow[];
 
+  const alerts = buildAlerts({
+    hscMathsViews,
+    checkoutStarts,
+    diagnosticStarts,
+    diagnosticCompletions,
+    trialStarts,
+    worksheetCompletions,
+  });
+
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
       <section className="mx-auto max-w-6xl space-y-8">
@@ -198,6 +297,23 @@ export default async function AdminAnalyticsPage() {
           <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
             Could not load event counts: {countError.message}
           </div>
+        )}
+
+        {/* ── Funnel health alerts ──────────────────────────────────────── */}
+        {alerts.length > 0 && (
+          <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+              Funnel health · last 7 days
+            </p>
+            <h2 className="mt-2 text-xl font-bold tracking-tight">
+              Alerts
+            </h2>
+            <div className="mt-5 space-y-3">
+              {alerts.map((alert, i) => (
+                <FunnelAlert key={i} {...alert} />
+              ))}
+            </div>
+          </section>
         )}
 
         {/* ── Top-of-funnel counts ──────────────────────────────────────── */}
