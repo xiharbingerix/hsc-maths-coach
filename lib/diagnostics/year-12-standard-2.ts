@@ -95,7 +95,7 @@ export const diagnosticData: DiagnosticData = {
       id: "y12std2-tr1",
       unitSlug: "trigonometry-ratios-rates",
       prompt:
-        "Using the sine rule: in a triangle, $a = 8$, $A = 30°$, $B = 60°$. Find $b$.",
+        "Using the sine rule: in a triangle, $a = 8$, $A = 30^\\circ$, $B = 60^\\circ$. Find $b$.",
       latex: "\\frac{a}{\\sin A} = \\frac{b}{\\sin B}",
       choices: [
         { label: "A", text: "$4$" },
@@ -105,13 +105,13 @@ export const diagnosticData: DiagnosticData = {
       ],
       correctAnswer: "B",
       explanation:
-        "$b = \\dfrac{8 \\sin 60°}{\\sin 30°} = \\dfrac{8 \\times \\frac{\\sqrt{3}}{2}}{\\frac{1}{2}} = 8\\sqrt{3}$.",
+        "$b = \\dfrac{8 \\sin 60^\\circ}{\\sin 30^\\circ} = \\dfrac{8 \\times \\frac{\\sqrt{3}}{2}}{\\frac{1}{2}} = 8\\sqrt{3}$.",
     },
     {
       id: "y12std2-tr2",
       unitSlug: "trigonometry-ratios-rates",
       prompt:
-        "Area of a triangle $= \\frac{1}{2}ab\\sin C$. With $a = 6$, $b = 8$, $C = 30°$, the area is:",
+        "Area of a triangle $= \\frac{1}{2}ab\\sin C$. With $a = 6$, $b = 8$, $C = 30^\\circ$, the area is:",
       latex: "A = \\tfrac{1}{2}ab\\sin C",
       choices: [
         { label: "A", text: "$6$" },
@@ -121,12 +121,12 @@ export const diagnosticData: DiagnosticData = {
       ],
       correctAnswer: "C",
       explanation:
-        "$A = \\frac{1}{2} \\times 6 \\times 8 \\times \\sin 30° = 24 \\times 0.5 = 12$.",
+        "$A = \\frac{1}{2} \\times 6 \\times 8 \\times \\sin 30^\\circ = 24 \\times 0.5 = 12$.",
     },
     {
       id: "y12std2-tr3",
       unitSlug: "trigonometry-ratios-rates",
-      prompt: "$\\cos(60°) =$",
+      prompt: "$\\cos(60^\\circ) =$",
       choices: [
         { label: "A", text: "$\\dfrac{1}{2}$" },
         { label: "B", text: "$\\dfrac{\\sqrt{3}}{2}$" },
@@ -134,13 +134,13 @@ export const diagnosticData: DiagnosticData = {
         { label: "D", text: "$1$" },
       ],
       correctAnswer: "A",
-      explanation: "$\\cos(60°) = \\dfrac{1}{2}$.",
+      explanation: "$\\cos(60^\\circ) = \\dfrac{1}{2}$.",
     },
     {
       id: "y12std2-tr4",
       unitSlug: "trigonometry-ratios-rates",
       prompt:
-        "A person walks $5$ km on a bearing of $090°$ then $12$ km on a bearing of $000°$. The straight-line distance from the start is:",
+        "A person walks $5$ km on a bearing of $090^\\circ$ then $12$ km on a bearing of $000^\\circ$. The straight-line distance from the start is:",
       choices: [
         { label: "A", text: "$13$ km" },
         { label: "B", text: "$17$ km" },
@@ -157,7 +157,7 @@ export const diagnosticData: DiagnosticData = {
       id: "y12std2-il1",
       unitSlug: "investments-loans-annuities",
       prompt:
-        "$5000 is invested at $6\\%$ p.a. compounded annually for $4$ years. The final amount is closest to:",
+        "$5000 is invested at 6\\% p.a. compounded annually for $4$ years. The final amount is closest to:",
       latex: "A = P(1+r)^n",
       choices: [
         { label: "A", text: "$5600" },
@@ -326,7 +326,7 @@ export const diagnosticData: DiagnosticData = {
       id: "y12std2-nc4",
       unitSlug: "networks-critical-path-analysis",
       prompt:
-        "An Euler path (traversing every edge exactly once) exists in a network when:",
+        "An open Euler path (traversing every edge exactly once, starting and ending at different vertices) exists in a network when:",
       choices: [
         { label: "A", text: "All vertices have even degree" },
         { label: "B", text: "Exactly two vertices have odd degree" },
@@ -335,7 +335,7 @@ export const diagnosticData: DiagnosticData = {
       ],
       correctAnswer: "B",
       explanation:
-        "An Euler path exists when exactly two vertices have odd degree (the start and end vertices).",
+        "An open Euler path exists when exactly two vertices have odd degree (the start and end vertices).",
     },
   ],
 };

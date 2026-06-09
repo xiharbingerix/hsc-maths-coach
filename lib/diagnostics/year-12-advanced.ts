@@ -114,7 +114,7 @@ export const diagnosticData: DiagnosticData = {
       ],
       correctAnswer: "B",
       explanation:
-        "$\\cos\\!\\left(\\dfrac{\\pi}{3}\\right) = \\cos(60°) = \\dfrac{1}{2}$.",
+        "$\\cos\\!\\left(\\dfrac{\\pi}{3}\\right) = \\cos(60^\\circ) = \\dfrac{1}{2}$.",
     },
     {
       id: "y12adv-t3",
@@ -265,7 +265,7 @@ export const diagnosticData: DiagnosticData = {
       id: "y12adv-fm1",
       unitSlug: "sequences-series-financial-maths",
       prompt:
-        "Using $A = P(1 + r)^n$, find the value of $2000 invested at $5\\%$ p.a. compounded annually for $3$ years.",
+        "Using $A = P(1 + r)^n$, find the value of $2000 invested at 5\\% p.a. compounded annually for $3$ years.",
       latex: "A = 2000(1.05)^3",
       choices: [
         { label: "A", text: "$2200.00" },

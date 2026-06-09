@@ -32,7 +32,15 @@ function MathText({ text }: { text: string }) {
     const currencyMatch = text
       .slice(dollarIndex)
       .match(/^\$[0-9][0-9,]*(?:\.[0-9]+)?(?![0-9,.$\\])/);
-    if (currencyMatch) {
+    const textAfterCurrency = currencyMatch
+      ? text.slice(dollarIndex + currencyMatch[0].length)
+      : "";
+    const nextNonSpace = textAfterCurrency.match(/\S/)?.[0] ?? "";
+    const touchesMathToken = /^[A-Za-z(]/.test(textAfterCurrency);
+    const looksLikeMathExpression =
+      touchesMathToken ||
+      (nextNonSpace.length > 0 && /[+\-*/=<>^_\\)]/.test(nextNonSpace));
+    if (currencyMatch && !looksLikeMathExpression) {
       parts.push({ type: "text", value: currencyMatch[0] });
       index = dollarIndex + currencyMatch[0].length;
       continue;
