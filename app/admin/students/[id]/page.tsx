@@ -42,6 +42,24 @@ type MasteryRow = {
   last_updated: string | null;
 };
 
+type MasteryHistoryRow = {
+  course_slug: string;
+  topic_slug: string;
+  mastery_score: number;
+  attempt_count: number;
+  source_type: string | null;
+  created_at: string | null;
+};
+
+type MasteryTrendRow = {
+  courseSlug: string;
+  topicSlug: string;
+  latestScore: number;
+  previousScore: number | null;
+  change: number | null;
+  updatedAt: string | null;
+};
+
 type WorksheetRow = {
   id: string;
   title: string;
@@ -166,6 +184,59 @@ function scoreText(correct: number | null, total: number | null) {
   if (total <= 0) return `${correct}/${total}`;
   const percent = Math.round((correct / total) * 100);
   return `${correct}/${total} (${percent}%)`;
+}
+
+function formatMasteryChange(change: number | null) {
+  if (change == null) return "No previous score";
+  if (change > 0) return `+${change}`;
+  if (change < 0) return String(change);
+  return "No change";
+}
+
+function masteryChangeClass(change: number | null) {
+  if (change == null || change === 0) return "text-slate-600";
+  return change > 0 ? "text-emerald-700" : "text-rose-700";
+}
+
+function buildMasteryTrends(
+  masteryRows: MasteryRow[],
+  historyRows: MasteryHistoryRow[]
+) {
+  const historyByTopic = new Map<string, MasteryHistoryRow[]>();
+
+  for (const row of historyRows) {
+    const key = `${row.course_slug}/${row.topic_slug}`;
+    historyByTopic.set(key, [...(historyByTopic.get(key) ?? []), row]);
+  }
+
+  for (const rows of historyByTopic.values()) {
+    rows.sort((a, b) => {
+      const aTime = a.created_at ? Date.parse(a.created_at) : 0;
+      const bTime = b.created_at ? Date.parse(b.created_at) : 0;
+      return bTime - aTime;
+    });
+  }
+
+  return masteryRows.map((row): MasteryTrendRow => {
+    const key = `${row.course_slug}/${row.topic_slug}`;
+    const snapshots = historyByTopic.get(key) ?? [];
+    const latestSnapshot = snapshots[0] ?? null;
+    const previousSnapshot =
+      latestSnapshot?.mastery_score === row.mastery_score
+        ? snapshots[1] ?? null
+        : latestSnapshot;
+    const previousScore = previousSnapshot?.mastery_score ?? null;
+
+    return {
+      courseSlug: row.course_slug,
+      topicSlug: row.topic_slug,
+      latestScore: row.mastery_score,
+      previousScore,
+      change:
+        previousScore == null ? null : row.mastery_score - previousScore,
+      updatedAt: row.last_updated ?? latestSnapshot?.created_at ?? null,
+    };
+  });
 }
 
 function diagnosticScoreText(diagnostic: DiagnosticRow) {
@@ -328,6 +399,7 @@ export default async function AdminStudentDetailPage({
     assignedByUserResult,
     attemptsByUserResult,
     masteryEventsResult,
+    masteryHistoryResult,
     accessResult,
   ] = await Promise.all([
     supabaseAdmin.from("profiles").select("*").eq("id", id).maybeSingle(),
@@ -374,6 +446,14 @@ export default async function AdminStudentDetailPage({
       .order("created_at", { ascending: false })
       .limit(50),
     supabaseAdmin
+      .from("student_mastery_history")
+      .select(
+        "course_slug, topic_slug, mastery_score, attempt_count, source_type, created_at"
+      )
+      .eq("user_id", id)
+      .order("created_at", { ascending: false })
+      .limit(500),
+    supabaseAdmin
       .from("user_access")
       .select("id, access_type, status, created_at, updated_at")
       .eq("user_id", id)
@@ -385,6 +465,14 @@ export default async function AdminStudentDetailPage({
   const masteryRows = (masteryResult.data ?? []) as MasteryRow[];
   const diagnosticRows = (diagnosticResult.data ?? []) as DiagnosticRow[];
   const masteryEvents = (masteryEventsResult.data ?? []) as MasteryEventRow[];
+  const masteryHistoryMissing =
+    masteryHistoryResult.error?.code === "42P01" ||
+    masteryHistoryResult.error?.message
+      ?.toLowerCase()
+      .includes("student_mastery_history");
+  const masteryHistoryRows = masteryHistoryMissing
+    ? []
+    : ((masteryHistoryResult.data ?? []) as MasteryHistoryRow[]);
   const accessRows = (accessResult.data ?? []) as AccessRow[];
   const worksheets = [
     ...((assignedByEmailResult.data ?? []) as WorksheetRow[]),
@@ -433,6 +521,24 @@ export default async function AdminStudentDetailPage({
   ).length;
   const masteryAverage = average(masteryRows.map((row) => row.mastery_score));
   const weakestTopic = masteryRows[0] ?? null;
+  const masteryTrends = buildMasteryTrends(masteryRows, masteryHistoryRows);
+  const latestMasteryTrend =
+    masteryTrends
+      .filter((row) => row.updatedAt)
+      .sort(
+        (a, b) =>
+          Date.parse(b.updatedAt ?? "") - Date.parse(a.updatedAt ?? "")
+      )[0] ??
+    masteryTrends[0] ??
+    null;
+  const improvingTopics = masteryTrends
+    .filter((row) => (row.change ?? 0) > 0)
+    .sort((a, b) => (b.change ?? 0) - (a.change ?? 0))
+    .slice(0, 5);
+  const decliningTopics = masteryTrends
+    .filter((row) => (row.change ?? 0) < 0)
+    .sort((a, b) => (a.change ?? 0) - (b.change ?? 0))
+    .slice(0, 5);
   const latestDiagnostic = diagnosticRows[0] ?? null;
   const latestActivity = latestDate(
     user.last_sign_in_at,
@@ -542,6 +648,140 @@ export default async function AdminStudentDetailPage({
               </Link>
             </div>
           </div>
+        </section>
+
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Mastery trend
+              </p>
+              <h2 className="mt-1 text-xl font-bold">Recent movement</h2>
+            </div>
+            {masteryHistoryMissing ? (
+              <p className="text-sm text-slate-500">
+                History snapshots are not available yet.
+              </p>
+            ) : null}
+          </div>
+
+          {masteryRows.length === 0 ? (
+            <p className="mt-4 rounded-xl bg-slate-50 p-4 text-sm text-slate-500">
+              No mastery data yet.
+            </p>
+          ) : (
+            <div className="mt-5 space-y-5">
+              <div className="grid gap-4 md:grid-cols-3">
+                <div className="rounded-xl bg-slate-50 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Latest score
+                  </p>
+                  <p className="mt-2 text-3xl font-bold">
+                    {latestMasteryTrend?.latestScore ?? "-"}%
+                  </p>
+                  <p className="mt-1 text-sm text-slate-600">
+                    {latestMasteryTrend
+                      ? prettifySlug(latestMasteryTrend.topicSlug)
+                      : "No topic yet"}
+                  </p>
+                </div>
+                <div className="rounded-xl bg-slate-50 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Previous score
+                  </p>
+                  <p className="mt-2 text-3xl font-bold">
+                    {latestMasteryTrend?.previousScore == null
+                      ? "-"
+                      : `${latestMasteryTrend.previousScore}%`}
+                  </p>
+                  <p className="mt-1 text-sm text-slate-600">
+                    Before the latest snapshot
+                  </p>
+                </div>
+                <div className="rounded-xl bg-slate-50 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Change
+                  </p>
+                  <p
+                    className={`mt-2 text-3xl font-bold ${masteryChangeClass(
+                      latestMasteryTrend?.change ?? null
+                    )}`}
+                  >
+                    {formatMasteryChange(latestMasteryTrend?.change ?? null)}
+                  </p>
+                  <p className="mt-1 text-sm text-slate-600">
+                    Current score compared with previous
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid gap-4 lg:grid-cols-2">
+                <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4">
+                  <h3 className="font-semibold text-slate-900">
+                    Top improving topics
+                  </h3>
+                  {improvingTopics.length === 0 ? (
+                    <p className="mt-3 text-sm text-slate-600">
+                      No improving topics yet.
+                    </p>
+                  ) : (
+                    <ul className="mt-3 space-y-2 text-sm">
+                      {improvingTopics.map((row) => (
+                        <li
+                          key={`${row.courseSlug}/${row.topicSlug}`}
+                          className="flex items-center justify-between gap-3 rounded-lg bg-white px-3 py-2"
+                        >
+                          <span>
+                            <span className="font-medium">
+                              {prettifySlug(row.topicSlug)}
+                            </span>
+                            <span className="ml-2 text-slate-500">
+                              {prettifySlug(row.courseSlug)}
+                            </span>
+                          </span>
+                          <span className="font-semibold text-emerald-700">
+                            {formatMasteryChange(row.change)}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+
+                <div className="rounded-xl border border-rose-100 bg-rose-50/50 p-4">
+                  <h3 className="font-semibold text-slate-900">
+                    Top declining topics
+                  </h3>
+                  {decliningTopics.length === 0 ? (
+                    <p className="mt-3 text-sm text-slate-600">
+                      No declining topics yet.
+                    </p>
+                  ) : (
+                    <ul className="mt-3 space-y-2 text-sm">
+                      {decliningTopics.map((row) => (
+                        <li
+                          key={`${row.courseSlug}/${row.topicSlug}`}
+                          className="flex items-center justify-between gap-3 rounded-lg bg-white px-3 py-2"
+                        >
+                          <span>
+                            <span className="font-medium">
+                              {prettifySlug(row.topicSlug)}
+                            </span>
+                            <span className="ml-2 text-slate-500">
+                              {prettifySlug(row.courseSlug)}
+                            </span>
+                          </span>
+                          <span className="font-semibold text-rose-700">
+                            {formatMasteryChange(row.change)}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
         </section>
 
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
