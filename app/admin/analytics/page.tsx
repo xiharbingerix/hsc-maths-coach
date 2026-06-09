@@ -282,6 +282,14 @@ export default async function AdminAnalyticsPage({
       .order("created_at", { ascending: false })
       .limit(1000);
 
+  // Per-question answer counts — only populated once diagnostic_question_answered is tracked.
+  const { data: diagQuestionRaw } = await supabaseAdmin
+    .from("analytics_events")
+    .select("metadata")
+    .eq("event_name", "diagnostic_question_answered")
+    .gte("created_at", since)
+    .limit(10000);
+
   const tableNotReady =
     countError?.message?.includes("does not exist") ||
     recentError?.message?.includes("does not exist") ||
@@ -418,6 +426,43 @@ export default async function AdminAnalyticsPage({
       b.identities.size - a.identities.size ||
       a.source.localeCompare(b.source)
   );
+
+  // ── Diagnostic question-level analysis ────────────────────────────────────
+  // metadata shape: { questionIndex: number, totalQuestions: number, yearLevel: string }
+  const questionCounts = new Map<number, number>();
+  for (const raw of diagQuestionRaw ?? []) {
+    const meta = (raw as { metadata: Record<string, unknown> | null }).metadata;
+    const qi = typeof meta?.questionIndex === "number" ? meta.questionIndex : null;
+    if (qi === null || qi < 0) continue;
+    questionCounts.set(qi, (questionCounts.get(qi) ?? 0) + 1);
+  }
+
+  // Sort ascending by 0-based index and attach drop-off to each row.
+  type QuestionDropRow = {
+    display: number;    // 1-based for UI
+    count: number;
+    dropPct: number | null; // % drop from previous question; null for Q1
+    isBigDrop: boolean;
+  };
+
+  const questionDropRows: QuestionDropRow[] = [...questionCounts.entries()]
+    .sort((a, b) => a[0] - b[0])
+    .map(([qi, count], idx, arr) => {
+      const prev = idx > 0 ? arr[idx - 1][1] : null;
+      const dropPct =
+        prev !== null && prev > 0
+          ? Math.round(((prev - count) / prev) * 100)
+          : null;
+      return {
+        display: qi + 1,
+        count,
+        dropPct,
+        isBigDrop: dropPct !== null && dropPct > 25,
+      };
+    });
+
+  const firstBigDrop = questionDropRows.find((r) => r.isBigDrop) ?? null;
+  const hasDiagQuestionData = questionDropRows.length > 0;
 
   const recentEvents = (recentData ?? []) as AnalyticsEventRow[];
 
@@ -759,6 +804,116 @@ export default async function AdminAnalyticsPage({
             <StatCard label="Adaptive worksheets"  value={adaptiveWorksheetGenerations} />
             <StatCard label="Worksheet completions" value={worksheetCompletions} />
           </div>
+        </section>
+
+        {/* ── Diagnostic question-level progress ───────────────────────── */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Diagnostic progress · last {days} day{days === 1 ? "" : "s"}
+          </p>
+          <h2 className="mt-2 text-xl font-bold tracking-tight">
+            Question-level drop-off
+          </h2>
+
+          <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
+            <StatCard label="Diagnostic starts"      value={diagnosticStarts} />
+            <StatCard label="Diagnostic completions" value={diagnosticCompletions} />
+            <StatCard
+              label="Completion rate"
+              value={pct(diagnosticCompletions, diagnosticStarts)}
+            />
+            <StatCard
+              label="First big drop (Q#)"
+              value={firstBigDrop ? `Q${firstBigDrop.display}` : "—"}
+              subtitle={
+                firstBigDrop
+                  ? `${firstBigDrop.dropPct}% fewer than Q${firstBigDrop.display - 1}`
+                  : hasDiagQuestionData
+                  ? "No drop >25% detected"
+                  : undefined
+              }
+            />
+          </div>
+
+          {!hasDiagQuestionData ? (
+            <p className="mt-5 rounded-2xl bg-slate-50 p-4 text-sm text-slate-500">
+              No question-level diagnostic data yet. Instrument{" "}
+              <code className="font-mono">diagnostic_question_answered</code>{" "}
+              in <code className="font-mono">DiagnosticQuizClient</code> to
+              populate this section.
+            </p>
+          ) : (
+            <>
+              {firstBigDrop && (
+                <div className="mt-4 flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+                  <span className="mt-0.5 shrink-0">⚠</span>
+                  <p>
+                    <span className="font-semibold">
+                      Drop at Q{firstBigDrop.display}:
+                    </span>{" "}
+                    answer count fell by{" "}
+                    <span className="font-semibold">{firstBigDrop.dropPct}%</span>{" "}
+                    compared to Q{firstBigDrop.display - 1}. Consider adding an
+                    encouragement message or milestone at this question.
+                  </p>
+                </div>
+              )}
+              <div className="mt-5 overflow-x-auto">
+                <table className="min-w-full divide-y divide-slate-200 text-sm">
+                  <thead>
+                    <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      <th className="px-3 py-2 text-left">Question</th>
+                      <th className="px-3 py-2 text-right">Answers received</th>
+                      <th className="px-3 py-2 text-right">Drop from previous</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {questionDropRows.map((row) => (
+                      <tr
+                        key={row.display}
+                        className={
+                          row.isBigDrop
+                            ? "bg-amber-50"
+                            : "bg-white"
+                        }
+                      >
+                        <td className="px-3 py-2 font-medium text-slate-900">
+                          Q{row.display}
+                          {row.isBigDrop && (
+                            <span className="ml-2 rounded-full bg-amber-200 px-2 py-0.5 text-xs font-semibold text-amber-800">
+                              drop
+                            </span>
+                          )}
+                        </td>
+                        <td className="px-3 py-2 text-right tabular-nums text-slate-700">
+                          {row.count}
+                        </td>
+                        <td
+                          className={`px-3 py-2 text-right tabular-nums ${
+                            row.dropPct === null
+                              ? "text-slate-400"
+                              : row.isBigDrop
+                              ? "font-semibold text-amber-700"
+                              : row.dropPct > 0
+                              ? "text-slate-600"
+                              : "text-emerald-600"
+                          }`}
+                        >
+                          {row.dropPct === null
+                            ? "—"
+                            : row.dropPct > 0
+                            ? `−${row.dropPct}%`
+                            : row.dropPct < 0
+                            ? `+${Math.abs(row.dropPct)}%`
+                            : "0%"}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
         </section>
 
         {/* ── Conversion rates ──────────────────────────────────────────── */}
