@@ -7,6 +7,7 @@ import { supabase } from "../../../lib/supabaseClient";
 import { SubscribeCTA } from "../../components/SubscribeCTA";
 import { generateStudyPlan } from "../../../lib/studyPlans/generateStudyPlan";
 import type { DiagnosticQuestion, DiagnosticUnit } from "../../../lib/diagnostics/types";
+import { clientTrackEvent } from "../../../lib/analytics/clientTrackEvent";
 
 type UnitResult = DiagnosticUnit & {
   correct: number;
@@ -134,6 +135,10 @@ export function DiagnosticQuizClient({
 
   const saveAttemptedRef = useRef(false);
 
+  useEffect(() => {
+    clientTrackEvent("diagnostic_started", { yearLevel });
+  }, [yearLevel]);
+
   const unitResults = useMemo(
     () => computeUnitResults(questions, units, answers),
     [questions, units, answers]
@@ -167,6 +172,12 @@ export function DiagnosticQuizClient({
 
       if (error) setSaveError(error.message);
       else setSaved(true);
+
+      clientTrackEvent("diagnostic_completed", {
+        yearLevel,
+        totalCorrect,
+        totalQuestions,
+      });
 
       // Seed student_mastery from diagnostic answers — fire-and-forget.
       const { data: sessionData } = await supabase.auth.getSession();

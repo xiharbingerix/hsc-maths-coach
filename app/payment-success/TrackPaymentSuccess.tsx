@@ -6,6 +6,7 @@ import {
   trackEvent,
   trackPaymentSuccess,
 } from "../../lib/analytics";
+import { clientTrackEvent } from "../../lib/analytics/clientTrackEvent";
 
 export function TrackPaymentSuccess({
   extraEventName,
@@ -16,6 +17,9 @@ export function TrackPaymentSuccess({
     trackPaymentSuccess();
     if (extraEventName) {
       trackEvent(extraEventName);
+    }
+    if (extraEventName === "trial_started") {
+      clientTrackEvent("trial_started");
     }
 
     const sessionId = new URLSearchParams(window.location.search).get(

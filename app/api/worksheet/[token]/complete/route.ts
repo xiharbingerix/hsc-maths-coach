@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { supabaseAdmin } from "../../../../../lib/supabaseAdmin";
 import { recordMasteryEvents } from "../../../../../lib/mastery/updateMastery";
 import type { MasteryEventInput } from "../../../../../lib/mastery/updateMastery";
+import { trackEvent } from "../../../../../lib/analytics/trackEvent";
 
 export const runtime = "nodejs";
 
@@ -199,6 +200,13 @@ export async function POST(
       // Mastery failure does not affect the student's score response.
     }
   }
+
+  void trackEvent({
+    userId: userId ?? null,
+    eventName: "worksheet_completed",
+    page: `/worksheet/${token}`,
+    metadata: { scoreCorrect, scoreTotal, attemptId },
+  });
 
   return NextResponse.json({ scoreCorrect, scoreTotal });
 }

@@ -10,6 +10,7 @@ import {
   trackEvent,
   trackSignupCompleted,
 } from "../../lib/analytics";
+import { clientTrackEvent } from "../../lib/analytics/clientTrackEvent";
 
 type CheckoutFormProps = {
   offerSlug: OfferSlug;
@@ -49,6 +50,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
         if (!tracked) {
           tracked = true;
           trackCheckoutStarted();
+          clientTrackEvent("checkout_started", { offer: offerSlug });
         }
       } else if (event === "INITIAL_SESSION") {
         // INITIAL_SESSION fires after Supabase has fully initialized (localStorage
@@ -60,6 +62,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
           if (!tracked) {
             tracked = true;
             trackCheckoutStarted();
+            clientTrackEvent("checkout_started", { offer: offerSlug });
           }
           setIsCheckingSession(false);
         } else {
@@ -67,6 +70,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
           if (!tracked) {
             tracked = true;
             trackCheckoutStarted();
+            clientTrackEvent("checkout_started", { offer: offerSlug });
           }
         }
       }

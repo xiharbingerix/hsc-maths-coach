@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { SubscribeCTA } from "../components/SubscribeCTA";
 import { courseCatalogue } from "../../lib/courseUnits";
 import { FreeLessonCTAButton, DiagnosticCTALink } from "./HscMathsCTAs";
+import { PageViewTracker } from "../components/PageViewTracker";
 
 export const metadata: Metadata = {
   title: "HSC Maths Online Lessons | Nova Maths",
@@ -116,6 +117,7 @@ function SectionLabel({ children }: Readonly<{ children: ReactNode }>) {
 export default function HscMathsPage() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
+      <PageViewTracker eventName="hsc_maths_viewed" />
       <div className="mx-auto max-w-6xl space-y-12 px-4 py-10 sm:px-6 lg:px-8">
         <header className="flex items-center justify-between gap-4">
           <Link href="/" className="text-lg font-bold tracking-tight">
