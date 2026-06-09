@@ -46,13 +46,17 @@ export async function POST(request: Request) {
       : {};
 
   try {
-    await supabaseAdmin.from("analytics_events").insert({
+    const { error } = await supabaseAdmin.from("analytics_events").insert({
       user_id: userId,
       anonymous_id: anonymousId?.trim() || null,
       event_name: eventName.trim(),
       page: page?.trim() || null,
       metadata: safeMeta,
     });
+
+    if (error) {
+      console.error("[analytics/event] insert failed", eventName, error.message);
+    }
   } catch (err) {
     // Log but always return 200 — analytics must never break the client.
     console.error(
