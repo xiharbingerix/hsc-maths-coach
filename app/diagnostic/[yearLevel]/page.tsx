@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { diagnosticData as y8Data } from "../../../lib/diagnostics/year-8-mathematics";
 import { diagnosticData as y9Data } from "../../../lib/diagnostics/year-9-mathematics";
 import { diagnosticData as y10Data } from "../../../lib/diagnostics/year-10-mathematics";
 import { diagnosticData as y11StdData } from "../../../lib/diagnostics/year-11-standard";
@@ -11,6 +12,7 @@ import type { DiagnosticData } from "../../../lib/diagnostics/types";
 import { DiagnosticQuizClient } from "./DiagnosticQuizClient";
 
 const dataByYearLevel: Record<string, DiagnosticData> = {
+  "year-8-mathematics": y8Data,
   "year-9-mathematics": y9Data,
   "year-10-mathematics": y10Data,
   "year-11-standard": y11StdData,

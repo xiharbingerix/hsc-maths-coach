@@ -64,6 +64,7 @@ type ImportOptions = {
 
 const SUPPORTED_COURSE_SLUGS = [
   "year-12-advanced",
+  "year-8-mathematics",
   "year-9-mathematics",
   "year-10-mathematics",
   "year-11-standard",
@@ -250,6 +251,26 @@ function questionSections(lesson: ExplicitLesson) {
   ] as const;
 }
 
+function isGeneratedCatalogueFallbackLesson(lesson: ExplicitLesson) {
+  const hasGenericLearningIntention = lesson.learningIntention.startsWith(
+    "Understand the core ideas in "
+  );
+  const hasGenericTeaching = lesson.teaching.paragraphs.some((paragraph) =>
+    paragraph.includes(
+      "The aim is to recognise the structure of the question before doing any calculation."
+    )
+  );
+  const hasGenericQuestions = questionSections(lesson).some(([, questions]) =>
+    questions.some(
+      (question) =>
+        question.prompt.startsWith("Short calculation for ") ||
+        question.prompt.startsWith("Choose the best ")
+    )
+  );
+
+  return hasGenericLearningIntention && hasGenericTeaching && hasGenericQuestions;
+}
+
 function collectQuestionsFromCourse(courseSlug: string) {
   if (courseSlug === "year-12-advanced") {
     return collectQuestionsFromYear12Advanced();
@@ -273,6 +294,14 @@ function collectQuestionsFromCourse(courseSlug: string) {
     const lessons = getNewCourseUnitLessons(course.slug, unit.slug);
 
     for (const lesson of lessons) {
+      if (isGeneratedCatalogueFallbackLesson(lesson)) {
+        warnings.push({
+          sourceId: `${course.slug}/${unit.slug}/${lesson.slug}`,
+          reason: "Skipped generated catalogue fallback lesson; no real lesson override exists yet.",
+        });
+        continue;
+      }
+
       for (const [section, questions] of questionSections(lesson)) {
         questions.forEach((question, position) => {
           if (!isRealQuestion(question)) {
