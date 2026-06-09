@@ -232,10 +232,26 @@ function RateCard({
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 
-export default async function AdminAnalyticsPage() {
+const ALLOWED_DAYS = [1, 7, 30] as const;
+type AllowedDays = (typeof ALLOWED_DAYS)[number];
+
+function parseDays(raw: string | string[] | undefined): AllowedDays {
+  const n = Number(raw);
+  return (ALLOWED_DAYS as readonly number[]).includes(n)
+    ? (n as AllowedDays)
+    : 7;
+}
+
+export default async function AdminAnalyticsPage({
+  searchParams,
+}: {
+  searchParams?: Promise<Record<string, string | string[]>>;
+}) {
   await requireAdmin();
 
-  const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+  const params = await searchParams;
+  const days = parseDays(params?.days);
+  const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
 
   // Fetch event_name + identity columns so we can compute both totals and
   // unique identity counts in a single query.
@@ -421,11 +437,33 @@ export default async function AdminAnalyticsPage() {
               Analytics
             </h1>
             <p className="mt-2 text-sm text-slate-600">
-              Last 7 days &middot; {totalLast7Days} events &middot;{" "}
+              Last {days} day{days === 1 ? "" : "s"} &middot;{" "}
+              {totalLast7Days} events &middot;{" "}
               {totalUniqueIdentities} unique identities
             </p>
+            <div className="mt-3 flex gap-2">
+              {ALLOWED_DAYS.map((d) => (
+                <Link
+                  key={d}
+                  href={`/admin/analytics?days=${d}`}
+                  className={`rounded-lg px-3 py-1 text-xs font-semibold ${
+                    d === days
+                      ? "bg-slate-900 text-white"
+                      : "border border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+                  }`}
+                >
+                  {d}d
+                </Link>
+              ))}
+            </div>
           </div>
           <div className="flex flex-wrap gap-3">
+            <Link
+              href={`/api/admin/analytics/export?days=${days}`}
+              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+            >
+              Export CSV
+            </Link>
             <Link
               href="/admin"
               className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
