@@ -48,6 +48,7 @@ import {
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
+import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride } from "./lessons/year8";
 
 export type {
   CourseLessonSeed,
@@ -203,6 +204,9 @@ export function buildLesson(
     year12Extension1InverseTrigLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
+    year8AlgebraFoundationsLessonOverride(course, unit, lesson) ??
+    year8NumberFinancialMathematicsLessonOverride(course, unit, lesson) ??
+    year8PythagorasTheoremLessonOverride(course, unit, lesson) ??
     year9IndexLawsLessonOverride(course, unit, lesson) ??
     year9FinancialMathematicsLessonOverride(course, unit, lesson) ??
     year9ConstantRatesOfChangeLessonOverride(course, unit, lesson) ??
@@ -1801,6 +1805,140 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Compare financial options using final amounts, interest methods, fixed fees and net gains.",
           },
         ],
+      },
+    ],
+  },
+  {
+    slug: "year-8-mathematics",
+    title: "Year 8 Mathematics",
+    yearLevel: "Year 8",
+    courseType: "Mathematics",
+    status: "in_progress",
+    description:
+      "Build Stage 4 foundations across number, algebra, geometry, measurement and statistics — the essential groundwork for Year 9 and 10 Mathematics.",
+    positioning:
+      "Year 8 Mathematics covers the Late Stage 4 NSW curriculum, preparing students for the Year 9 pathway and the transition to Stage 5 content. It extends Year 7 foundations with linear relationships, Pythagoras, geometric reasoning and algebraic equation-solving.",
+    units: [
+      {
+        slug: "number-operations",
+        title: "Number Operations and Properties",
+        description:
+          "Consolidate directed numbers, rational and irrational numbers, index notation, fractions and real-world financial contexts.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Ensure fluency with the number system before extending to algebra and coordinate geometry.",
+        lessons: [],
+      },
+      {
+        slug: "algebra-foundations",
+        title: "Algebra Foundations",
+        description:
+          "Simplify expressions, collect like terms, substitute values, expand single brackets, and solve one- and two-step equations — building the fluency and confidence needed for Year 9 algebra.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Develop core algebraic fluency before Year 9 index laws, linear relationships and simultaneous equations. No quadratics, no simultaneous equations, no factorisation.",
+        lessons: [
+          { slug: "simplifying-algebraic-expressions", title: "Simplifying Algebraic Expressions" },
+          { slug: "collecting-like-terms",             title: "Collecting Like Terms" },
+          { slug: "substitution",                      title: "Substitution" },
+          { slug: "expanding-single-brackets",         title: "Expanding Single Brackets" },
+          { slug: "solving-one-step-equations",        title: "Solving One-Step Equations" },
+          { slug: "solving-two-step-equations",        title: "Solving Two-Step Equations" },
+        ],
+      },
+      {
+        slug: "number-financial-mathematics",
+        title: "Number and Financial Mathematics",
+        description:
+          "Calculate percentages, apply percentage increase and decrease, find profit and loss, work with discounts and use simple interest in everyday Australian money contexts.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Build financial numeracy and percentage fluency needed for Year 9 financial mathematics and real-world problem solving.",
+        lessons: [
+          { slug: "percentages-basics",            title: "Percentages Basics" },
+          { slug: "percentage-increase",           title: "Percentage Increase" },
+          { slug: "percentage-decrease",           title: "Percentage Decrease" },
+          { slug: "profit-and-loss",               title: "Profit and Loss" },
+          { slug: "discounts-and-sales",           title: "Discounts and Sales" },
+          { slug: "simple-interest-introduction",  title: "Simple Interest Introduction" },
+        ],
+      },
+      {
+        slug: "algebra-equations",
+        title: "Algebra and Equations",
+        description:
+          "Expand and factorise algebraic expressions, and solve linear equations including those with brackets and variables on both sides.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Build equation-solving fluency that directly underpins Year 9 index laws, linear relationships and simultaneous equations.",
+        lessons: [],
+      },
+      {
+        slug: "linear-relationships",
+        title: "Linear Relationships",
+        description:
+          "Plot points and graph linear equations on the Cartesian plane, and interpret gradient, intercepts and the equation y = mx + b.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Establish the Cartesian plane and linear graph fluency required for Year 9 constant rates of change and Year 10 linear relationships.",
+        lessons: [],
+      },
+      {
+        slug: "pythagoras-theorem",
+        title: "Pythagoras' Theorem",
+        description:
+          "Apply Pythagoras' theorem to find unknown sides in right-angled triangles and calculate distances on the coordinate plane.",
+        syllabusArea: "Measurement and Space",
+        focus:
+          "Develop Pythagoras fluency as the direct prerequisite for Year 9 working with triangles and trigonometric ratios.",
+        lessons: [
+          { slug: "right-angled-triangles-pythagoras", title: "Right-Angled Triangles and Pythagoras" },
+          { slug: "finding-the-hypotenuse",            title: "Finding the Hypotenuse" },
+          { slug: "finding-a-shorter-side",            title: "Finding a Shorter Side" },
+          { slug: "pythagoras-real-contexts",        title: "Pythagoras in Real Contexts" },
+          { slug: "pythagorean-triples",             title: "Pythagorean Triples" },
+          { slug: "distance-between-two-points",      title: "Distance Between Two Points" },
+        ],
+      },
+      {
+        slug: "geometry-properties",
+        title: "Geometric Properties and Reasoning",
+        description:
+          "Investigate congruence and similarity, apply scale factors, and write short geometric arguments using congruence tests.",
+        syllabusArea: "Measurement and Space",
+        focus:
+          "Build the geometric reasoning skills required for Year 9 geometrical representations and Year 10 congruence and similarity proofs.",
+        lessons: [],
+      },
+      {
+        slug: "volume-and-surface-area",
+        title: "Volume and Surface Area",
+        description:
+          "Calculate surface area and volume of prisms and cylinders, and solve problems involving composite solids.",
+        syllabusArea: "Measurement and Space",
+        focus:
+          "Establish 3D measurement fluency that Year 9 prisms and cylinders content directly extends.",
+        lessons: [],
+      },
+      {
+        slug: "data-and-graphs",
+        title: "Data Analysis and Graphs",
+        description:
+          "Organise, display and analyse data using frequency tables, cumulative frequency, IQR, back-to-back plots and sampling methods.",
+        syllabusArea: "Statistics and Probability",
+        focus:
+          "Prepare for Year 9 data-based decisions and Year 10 statistics content including box plots and standard deviation.",
+        lessons: [],
+      },
+      {
+        slug: "probability-and-chance",
+        title: "Probability and Chance",
+        description:
+          "Extend probability to two-step experiments, tree diagrams, arrays and expected outcomes.",
+        syllabusArea: "Statistics and Probability",
+        focus:
+          "Build multi-stage probability skills that Year 9 making predictions and Year 10 probability units extend.",
+        lessons: [],
       },
     ],
   },
