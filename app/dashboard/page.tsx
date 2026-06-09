@@ -495,7 +495,9 @@ export default function DashboardPage() {
     },
     {
       title: "Generate a revision worksheet",
-      description: "Create a short worksheet from your weakest topics.",
+      description: hasMastery
+        ? "Create a short worksheet from your weakest topics."
+        : "Complete a mastery quiz or diagnostic first so we know what to revise.",
       done: hasGeneratedRevisionWorksheet,
       actionLabel: isGeneratingWorksheet
         ? "Generating..."
@@ -503,7 +505,7 @@ export default function DashboardPage() {
         ? "Generate another"
         : "Generate worksheet",
       onClick: () => void handleGenerateRevisionWorksheet(),
-      disabled: isGeneratingWorksheet,
+      disabled: !hasMastery || isGeneratingWorksheet,
     },
     {
       title: "Review today's revision",
@@ -602,7 +604,7 @@ export default function DashboardPage() {
                   Continue learning
                 </Link>
                 <Link
-                  href="/diagnostic?offer=online-learning"
+                  href="/diagnostic/select?offer=online-learning"
                   className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
                 >
                   Start diagnostic
@@ -625,7 +627,7 @@ export default function DashboardPage() {
                   Register interest
                 </Link>
                 <Link
-                  href="/diagnostic?offer=online-learning"
+                  href="/diagnostic/select?offer=online-learning"
                   className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
                 >
                   Start diagnostic
@@ -654,7 +656,7 @@ export default function DashboardPage() {
                   Register interest
                 </Link>
                 <Link
-                  href="/diagnostic?offer=online-learning"
+                  href="/diagnostic/select?offer=online-learning"
                   className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
                 >
                   Start diagnostic
@@ -782,7 +784,7 @@ export default function DashboardPage() {
                 <button
                   type="button"
                   onClick={() => void handleGenerateRevisionWorksheet()}
-                  disabled={isGeneratingWorksheet}
+                  disabled={!hasMastery || isGeneratingWorksheet}
                   className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {isGeneratingWorksheet
@@ -806,7 +808,7 @@ export default function DashboardPage() {
                 <button
                   type="button"
                   onClick={() => void handleGenerateRevisionWorksheet()}
-                  disabled={isGeneratingWorksheet}
+                  disabled={!hasMastery || isGeneratingWorksheet}
                   className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {isGeneratingWorksheet
@@ -832,7 +834,9 @@ export default function DashboardPage() {
 
           {revisionQueue.length === 0 ? (
             <p className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
-              You&apos;re up to date for now.
+              {hasMastery
+                ? "You’re all caught up. Keep practising to maintain your mastery."
+                : "Complete your first lesson quiz to start building your revision queue."}
             </p>
           ) : (
             <ul className="mt-5 space-y-3">

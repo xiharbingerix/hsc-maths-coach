@@ -165,10 +165,16 @@ export default async function PaymentSuccessPage({
                   Go to dashboard
                 </Link>
                 <Link
-                  href="/login"
+                  href="/online-learning"
                   className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
                 >
-                  Log in
+                  View online learning
+                </Link>
+                <Link
+                  href="/login"
+                  className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold text-slate-500 transition hover:text-slate-900"
+                >
+                  Having trouble? Log in again
                 </Link>
               </>
             ) : (
@@ -185,14 +191,14 @@ export default async function PaymentSuccessPage({
                 >
                   Enquire
                 </Link>
+                <Link
+                  href="/online-learning"
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+                >
+                  View online learning
+                </Link>
               </>
             )}
-            <Link
-              href="/online-learning"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
-            >
-              View online learning
-            </Link>
           </div>
         </section>
       </section>
