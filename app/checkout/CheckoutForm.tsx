@@ -202,7 +202,11 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
             offer: offer.slug,
           });
         }
-        clientTrackEvent("checkout_redirected_to_stripe", { offer: offerSlug });
+        clientTrackEvent(
+          "checkout_redirected_to_stripe",
+          { offer: offerSlug },
+          { beacon: true, token: accessToken }
+        );
         window.location.href = payload.url;
         return;
       }
