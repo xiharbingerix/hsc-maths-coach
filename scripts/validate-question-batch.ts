@@ -126,10 +126,15 @@ type BatchFile =
 
 type Issue = { level: "error" | "warning"; message: string };
 
-type RecordResult = {
+export type RecordResult = {
   record: QuestionBatchRecord;
   index: number;
   issues: Issue[];
+};
+
+export type LoadedQuestionBatch = {
+  batchId: string;
+  records: unknown[];
 };
 
 // ── Dollar / LaTeX pattern checks ─────────────────────────────────────────────
@@ -257,7 +262,7 @@ function normaliseSimpleAnswer(text: string): string {
 
 // ── Per-record validation ─────────────────────────────────────────────────────
 
-function validateRecord(
+export function validateRecord(
   record: unknown,
   index: number
 ): RecordResult {
@@ -549,7 +554,7 @@ function validateRecord(
 
 // ── Batch-level checks ────────────────────────────────────────────────────────
 
-function checkBatchDuplicates(results: RecordResult[]): void {
+export function checkBatchDuplicates(results: RecordResult[]): void {
   const seen = new Map<string, number>();
 
   for (const result of results) {
@@ -570,6 +575,55 @@ function checkBatchDuplicates(results: RecordResult[]): void {
       seen.set(sourceId, result.index);
     }
   }
+}
+
+export function parseQuestionBatch(raw: unknown): LoadedQuestionBatch {
+  if (Array.isArray(raw)) {
+    return { records: raw, batchId: "(no batch_id)" };
+  }
+
+  if (
+    typeof raw === "object" &&
+    raw !== null &&
+    "questions" in raw &&
+    Array.isArray((raw as Record<string, unknown>)["questions"])
+  ) {
+    const wrapped = raw as Record<string, unknown>;
+    return {
+      records: wrapped["questions"] as unknown[],
+      batchId:
+        typeof wrapped["batch_id"] === "string"
+          ? wrapped["batch_id"]
+          : "(no batch_id)",
+    };
+  }
+
+  throw new Error(
+    'JSON must be an array of question records or an object with a "questions" array. See --example.'
+  );
+}
+
+export function loadQuestionBatchFile(filePath: string): LoadedQuestionBatch {
+  const resolved = path.resolve(filePath);
+
+  if (!fs.existsSync(resolved)) {
+    throw new Error(`File not found: ${resolved}`);
+  }
+
+  let raw: unknown;
+  try {
+    raw = JSON.parse(fs.readFileSync(resolved, "utf-8"));
+  } catch (e) {
+    throw new Error(`Failed to parse JSON — ${(e as Error).message}`);
+  }
+
+  return parseQuestionBatch(raw);
+}
+
+export function validateQuestionBatch(records: unknown[]): RecordResult[] {
+  const results = records.map((rec, i) => validateRecord(rec, i));
+  checkBatchDuplicates(results);
+  return results;
 }
 
 // ── Example output ────────────────────────────────────────────────────────────
@@ -664,41 +718,15 @@ Options:
 
   const resolved = path.resolve(filePath);
 
-  if (!fs.existsSync(resolved)) {
-    console.error(`Error: File not found: ${resolved}`);
-    process.exit(1);
-  }
-
-  let raw: unknown;
+  let loaded: LoadedQuestionBatch;
   try {
-    raw = JSON.parse(fs.readFileSync(resolved, "utf-8"));
+    loaded = loadQuestionBatchFile(resolved);
   } catch (e) {
-    console.error(`Error: Failed to parse JSON — ${(e as Error).message}`);
+    console.error(`Error: ${(e as Error).message}`);
     process.exit(1);
   }
 
-  // Accept both a bare array and a wrapped batch object.
-  let records: unknown[];
-  let batchId = "(no batch_id)";
-
-  if (Array.isArray(raw)) {
-    records = raw;
-  } else if (
-    typeof raw === "object" &&
-    raw !== null &&
-    "questions" in raw &&
-    Array.isArray((raw as Record<string, unknown>)["questions"])
-  ) {
-    const wrapped = raw as Record<string, unknown>;
-    records = wrapped["questions"] as unknown[];
-    batchId = typeof wrapped["batch_id"] === "string" ? wrapped["batch_id"] : batchId;
-  } else {
-    console.error(
-      'Error: JSON must be an array of question records or an object ' +
-      'with a "questions" array. See --example.'
-    );
-    process.exit(1);
-  }
+  const { records, batchId } = loaded;
 
   console.log("━".repeat(62));
   console.log(`  Question batch validator`);
@@ -710,11 +738,7 @@ Options:
   console.log("━".repeat(62));
   console.log();
 
-  // Per-record validation.
-  const results = records.map((rec, i) => validateRecord(rec, i));
-
-  // Batch-level duplicate check.
-  checkBatchDuplicates(results);
+  const results = validateQuestionBatch(records);
 
   // Print results.
   let errorCount = 0;
@@ -779,4 +803,6 @@ Options:
   }
 }
 
-main();
+if (require.main === module) {
+  main();
+}
