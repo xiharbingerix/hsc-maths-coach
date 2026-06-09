@@ -121,6 +121,17 @@ function formatLastPractised(isoString: string): string {
   return `${months} month${months !== 1 ? "s" : ""} ago`;
 }
 
+function isTodayInSydney(isoString: string | null | undefined): boolean {
+  if (!isoString) return false;
+  const formatter = new Intl.DateTimeFormat("en-AU", {
+    timeZone: "Australia/Sydney",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+  return formatter.format(new Date(isoString)) === formatter.format(new Date());
+}
+
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
@@ -137,6 +148,7 @@ export default function DashboardPage() {
   const [diagnosticResults, setDiagnosticResults] = useState<
     StudyPlanDiagnosticResult[]
   >([]);
+  const [hasDiagnosticResult, setHasDiagnosticResult] = useState(false);
   const [diagnosticYearLevel, setDiagnosticYearLevel] = useState("year-12-advanced");
   const [assignedWorksheets, setAssignedWorksheets] = useState<AssignedWorksheet[]>([]);
   const [recentAttempts, setRecentAttempts] = useState<AttemptRow[]>([]);
@@ -216,6 +228,7 @@ export default function DashboardPage() {
 
       if (diagnosticData) {
         const row = diagnosticData as DiagnosticResultRow;
+        setHasDiagnosticResult(true);
         setDiagnosticYearLevel(row.year_level);
         setDiagnosticResults(
           Array.isArray(row.unit_results) ? row.unit_results : []
@@ -439,6 +452,85 @@ export default function DashboardPage() {
     : null;
 
   const revisionQueue = getRevisionQueue(masteryRows);
+  const firstOpenWorksheet =
+    assignedWorksheets.find((ws) => !latestAttemptByWorksheet.get(ws.id)?.completed_at) ??
+    assignedWorksheets[0] ??
+    null;
+  const recommendedLessonHref =
+    continueLearningTarget?.href ?? studyPlan.nextTopic?.href ?? nextBestAction?.href ?? "/course";
+  const hasStartedRecommendedLesson = progressRecords.some(
+    (record) =>
+      record.passed ||
+      record.lastScore != null ||
+      (record.completedStages?.length ?? 0) > 0
+  );
+  const hasCompletedMasteryQuiz = progressRecords.some(
+    (record) => record.passed || record.lastScore != null
+  );
+  const hasGeneratedRevisionWorksheet = hasWorksheets || recentAttempts.length > 0;
+  const hasReviewedTodaysRevision = recentAttempts.some((attempt) =>
+    isTodayInSydney(attempt.completed_at)
+  );
+  const onboardingChecklist = [
+    {
+      title: "Complete a diagnostic",
+      description: "Get a quick baseline so Nova Maths can choose what to prioritise.",
+      done: hasDiagnosticResult,
+      actionLabel: hasDiagnosticResult ? "Retake diagnostic" : "Start diagnostic",
+      href: "/diagnostic/select",
+    },
+    {
+      title: "Start your first recommended lesson",
+      description: "Open the lesson Nova Maths thinks is the best next step for you.",
+      done: hasStartedRecommendedLesson,
+      actionLabel: hasStartedRecommendedLesson ? "Continue learning" : "Start lesson",
+      href: recommendedLessonHref,
+    },
+    {
+      title: "Complete a mastery quiz",
+      description: "Submit a mastery quiz so your dashboard can track real progress.",
+      done: hasCompletedMasteryQuiz,
+      actionLabel: hasCompletedMasteryQuiz ? "Keep practising" : "Open lesson",
+      href: recommendedLessonHref,
+    },
+    {
+      title: "Generate a revision worksheet",
+      description: "Create a short worksheet from your weakest topics.",
+      done: hasGeneratedRevisionWorksheet,
+      actionLabel: isGeneratingWorksheet
+        ? "Generating..."
+        : hasGeneratedRevisionWorksheet
+        ? "Generate another"
+        : "Generate worksheet",
+      onClick: () => void handleGenerateRevisionWorksheet(),
+      disabled: isGeneratingWorksheet,
+    },
+    {
+      title: "Review today's revision",
+      description: "Finish or review a worksheet so today has a clear revision win.",
+      done: hasReviewedTodaysRevision,
+      actionLabel: hasReviewedTodaysRevision
+        ? "View worksheets"
+        : firstOpenWorksheet
+        ? "Open worksheet"
+        : revisionQueue.length > 0
+        ? "Review topic"
+        : "Generate revision",
+      href: hasReviewedTodaysRevision
+        ? "#worksheets"
+        : firstOpenWorksheet
+        ? `/worksheet/${firstOpenWorksheet.share_token}`
+        : revisionQueue.length > 0
+        ? `/course/${revisionQueue[0].course_slug}/${revisionQueue[0].topic_slug}`
+        : undefined,
+      onClick:
+        !hasReviewedTodaysRevision && !firstOpenWorksheet && revisionQueue.length === 0
+          ? () => void handleGenerateRevisionWorksheet()
+          : undefined,
+      disabled: isGeneratingWorksheet,
+    },
+  ];
+  const isOnboardingComplete = onboardingChecklist.every((item) => item.done);
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -573,6 +665,81 @@ export default function DashboardPage() {
         </section>
 
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Getting started
+              </p>
+              <h2 className="mt-2 text-2xl font-bold tracking-tight">
+                Your Nova Maths setup checklist
+              </h2>
+              <p className="mt-2 max-w-2xl leading-7 text-slate-600">
+                Follow these five steps to turn your trial into a clear study routine.
+              </p>
+            </div>
+            <span className="w-fit rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">
+              {onboardingChecklist.filter((item) => item.done).length}/
+              {onboardingChecklist.length} done
+            </span>
+          </div>
+
+          {isOnboardingComplete ? (
+            <p className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm font-semibold text-emerald-800">
+              You&apos;re set up — keep following your study plan.
+            </p>
+          ) : null}
+
+          <ol className="mt-6 space-y-3">
+            {onboardingChecklist.map((item, index) => (
+              <li
+                key={item.title}
+                className={`flex flex-col gap-4 rounded-2xl border p-4 sm:flex-row sm:items-center sm:justify-between ${
+                  item.done
+                    ? "border-emerald-200 bg-emerald-50"
+                    : "border-slate-200 bg-slate-50"
+                }`}
+              >
+                <div className="flex gap-3">
+                  <span
+                    className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
+                      item.done
+                        ? "bg-emerald-600 text-white"
+                        : "bg-white text-slate-700 ring-1 ring-slate-300"
+                    }`}
+                  >
+                    {item.done ? "✓" : index + 1}
+                  </span>
+                  <div>
+                    <p className="font-semibold text-slate-900">{item.title}</p>
+                    <p className="mt-1 text-sm leading-6 text-slate-600">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+
+                {item.href ? (
+                  <Link
+                    href={item.href}
+                    className="inline-flex shrink-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
+                  >
+                    {item.actionLabel}
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={item.onClick}
+                    disabled={item.disabled}
+                    className="inline-flex shrink-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {item.actionLabel}
+                  </button>
+                )}
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
@@ -681,7 +848,7 @@ export default function DashboardPage() {
         </section>
 
         {/* ── Today's revision ──────────────────────────────────────────────── */}
-        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+        <section id="worksheets" className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
             Spaced revision
           </p>
