@@ -70,6 +70,34 @@ type DiagnosticRow = {
   created_at: string | null;
 };
 
+type MasteryEventRow = {
+  id: string;
+  source_type: string;
+  source_id: string | null;
+  course_slug: string;
+  topic_slug: string;
+  subtopic_slug: string | null;
+  difficulty: number;
+  is_correct: boolean;
+  created_at: string | null;
+};
+
+type AccessRow = {
+  id: string;
+  access_type: string;
+  status: string | null;
+  created_at: string | null;
+  updated_at: string | null;
+};
+
+type TimelineItem = {
+  id: string;
+  occurredAt: string;
+  title: string;
+  description: string;
+  type: "diagnostic" | "worksheet" | "mastery" | "access";
+};
+
 function firstPresent(...values: Array<string | null | undefined>) {
   return values
     .map((value) => value?.trim())
@@ -133,6 +161,149 @@ function isOverdue(value: string | null | undefined) {
   return Boolean(value && new Date(value) < new Date());
 }
 
+function scoreText(correct: number | null, total: number | null) {
+  if (correct == null || total == null) return "Score not recorded";
+  if (total <= 0) return `${correct}/${total}`;
+  const percent = Math.round((correct / total) * 100);
+  return `${correct}/${total} (${percent}%)`;
+}
+
+function diagnosticScoreText(diagnostic: DiagnosticRow) {
+  const units = Array.isArray(diagnostic.unit_results)
+    ? diagnostic.unit_results
+    : [];
+  const totalCorrect = units.reduce((sum, unit) => sum + (unit.correct ?? 0), 0);
+  const totalQuestions = units.reduce((sum, unit) => sum + (unit.total ?? 0), 0);
+  return scoreText(totalCorrect, totalQuestions);
+}
+
+function localDateKey(value: string) {
+  return new Intl.DateTimeFormat("en-AU", {
+    dateStyle: "medium",
+    timeZone: "Australia/Sydney",
+  }).format(new Date(value));
+}
+
+function timelineBadgeClass(type: TimelineItem["type"]) {
+  switch (type) {
+    case "diagnostic":
+      return "bg-blue-50 text-blue-700 ring-blue-200";
+    case "worksheet":
+      return "bg-emerald-50 text-emerald-700 ring-emerald-200";
+    case "mastery":
+      return "bg-violet-50 text-violet-700 ring-violet-200";
+    case "access":
+      return "bg-amber-50 text-amber-700 ring-amber-200";
+  }
+}
+
+function buildActivityTimeline({
+  diagnostics,
+  worksheets,
+  attempts,
+  masteryRows,
+  masteryEvents,
+  accessRows,
+}: {
+  diagnostics: DiagnosticRow[];
+  worksheets: WorksheetRow[];
+  attempts: AttemptRow[];
+  masteryRows: MasteryRow[];
+  masteryEvents: MasteryEventRow[];
+  accessRows: AccessRow[];
+}) {
+  const worksheetById = new Map(worksheets.map((worksheet) => [worksheet.id, worksheet]));
+  const items: TimelineItem[] = [];
+
+  for (const diagnostic of diagnostics) {
+    if (!diagnostic.created_at) continue;
+    items.push({
+      id: `diagnostic:${diagnostic.id}`,
+      occurredAt: diagnostic.created_at,
+      title: "Completed diagnostic",
+      description: `${prettifySlug(diagnostic.year_level)} diagnostic / ${diagnosticScoreText(diagnostic)}`,
+      type: "diagnostic",
+    });
+  }
+
+  for (const worksheet of worksheets) {
+    if (!worksheet.created_at) continue;
+    const dueText = worksheet.due_at ? ` / Due ${formatDate(worksheet.due_at)}` : "";
+    items.push({
+      id: `worksheet-assigned:${worksheet.id}`,
+      occurredAt: worksheet.created_at,
+      title: "Worksheet assigned",
+      description: `${worksheet.title}${dueText}`,
+      type: "worksheet",
+    });
+  }
+
+  for (const attempt of attempts) {
+    const worksheetTitle =
+      worksheetById.get(attempt.worksheet_id)?.title ?? "Worksheet";
+    if (attempt.started_at) {
+      items.push({
+        id: `worksheet-started:${attempt.id}`,
+        occurredAt: attempt.started_at,
+        title: "Started worksheet",
+        description: worksheetTitle,
+        type: "worksheet",
+      });
+    }
+
+    if (attempt.completed_at) {
+      items.push({
+        id: `worksheet-completed:${attempt.id}`,
+        occurredAt: attempt.completed_at,
+        title: "Completed worksheet",
+        description: `${worksheetTitle} / ${scoreText(attempt.score_correct, attempt.score_total)}`,
+        type: "worksheet",
+      });
+    }
+  }
+
+  for (const event of masteryEvents) {
+    if (!event.created_at) continue;
+    items.push({
+      id: `mastery-event:${event.id}`,
+      occurredAt: event.created_at,
+      title:
+        event.source_type === "lesson"
+          ? "Lesson mastery recorded"
+          : "Mastery question recorded",
+      description: `${prettifySlug(event.course_slug)} / ${prettifySlug(event.topic_slug)}${event.subtopic_slug ? ` / ${prettifySlug(event.subtopic_slug)}` : ""} / Difficulty ${event.difficulty} / ${event.is_correct ? "Correct" : "Incorrect"}`,
+      type: "mastery",
+    });
+  }
+
+  for (const row of masteryRows) {
+    if (!row.last_updated) continue;
+    items.push({
+      id: `mastery-updated:${row.course_slug}:${row.topic_slug}`,
+      occurredAt: row.last_updated,
+      title: "Mastery updated",
+      description: `${prettifySlug(row.course_slug)} / ${prettifySlug(row.topic_slug)} is now ${row.mastery_score}%`,
+      type: "mastery",
+    });
+  }
+
+  for (const access of accessRows) {
+    const occurredAt = access.updated_at ?? access.created_at;
+    if (!occurredAt) continue;
+    items.push({
+      id: `access:${access.id}:${occurredAt}`,
+      occurredAt,
+      title: access.status === "active" ? "Access activated" : "Access updated",
+      description: `${prettifySlug(access.access_type)} / ${access.status ?? "unknown"}`,
+      type: "access",
+    });
+  }
+
+  return items
+    .sort((a, b) => Date.parse(b.occurredAt) - Date.parse(a.occurredAt))
+    .slice(0, 20);
+}
+
 export default async function AdminStudentDetailPage({
   params,
 }: {
@@ -156,6 +327,8 @@ export default async function AdminStudentDetailPage({
     assignedByEmailResult,
     assignedByUserResult,
     attemptsByUserResult,
+    masteryEventsResult,
+    accessResult,
   ] = await Promise.all([
     supabaseAdmin.from("profiles").select("*").eq("id", id).maybeSingle(),
     supabaseAdmin
@@ -192,11 +365,27 @@ export default async function AdminStudentDetailPage({
       )
       .eq("user_id", id)
       .order("started_at", { ascending: false }),
+    supabaseAdmin
+      .from("mastery_events")
+      .select(
+        "id, source_type, source_id, course_slug, topic_slug, subtopic_slug, difficulty, is_correct, created_at"
+      )
+      .eq("user_id", id)
+      .order("created_at", { ascending: false })
+      .limit(50),
+    supabaseAdmin
+      .from("user_access")
+      .select("id, access_type, status, created_at, updated_at")
+      .eq("user_id", id)
+      .order("updated_at", { ascending: false })
+      .limit(10),
   ]);
 
   const profile = profileResult.data as ProfileRow | null;
   const masteryRows = (masteryResult.data ?? []) as MasteryRow[];
   const diagnosticRows = (diagnosticResult.data ?? []) as DiagnosticRow[];
+  const masteryEvents = (masteryEventsResult.data ?? []) as MasteryEventRow[];
+  const accessRows = (accessResult.data ?? []) as AccessRow[];
   const worksheets = [
     ...((assignedByEmailResult.data ?? []) as WorksheetRow[]),
     ...((assignedByUserResult.data ?? []) as WorksheetRow[]),
@@ -260,6 +449,14 @@ export default async function AdminStudentDetailPage({
   const worksheetGeneratorHref = `/admin/worksheets/new?studentName=${encodeURIComponent(
     studentName(user, profile)
   )}&studentEmail=${encodeURIComponent(user.email ?? "")}`;
+  const timelineItems = buildActivityTimeline({
+    diagnostics: diagnosticRows,
+    worksheets,
+    attempts,
+    masteryRows,
+    masteryEvents,
+    accessRows,
+  });
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -345,6 +542,67 @@ export default async function AdminStudentDetailPage({
               </Link>
             </div>
           </div>
+        </section>
+
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Student activity
+              </p>
+              <h2 className="mt-1 text-xl font-bold">Recent timeline</h2>
+            </div>
+            <p className="text-sm text-slate-500">Latest 20 items</p>
+          </div>
+
+          {timelineItems.length === 0 ? (
+            <p className="mt-4 rounded-xl bg-slate-50 p-4 text-sm text-slate-500">
+              No activity yet.
+            </p>
+          ) : (
+            <div className="mt-5 space-y-6">
+              {[...new Set(timelineItems.map((item) => localDateKey(item.occurredAt)))].map(
+                (dateKey) => (
+                  <div key={dateKey}>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      {dateKey}
+                    </p>
+                    <ol className="mt-3 space-y-3 border-l border-slate-200 pl-4">
+                      {timelineItems
+                        .filter((item) => localDateKey(item.occurredAt) === dateKey)
+                        .map((item) => (
+                          <li key={item.id} className="relative">
+                            <span className="absolute -left-[21px] top-2 h-2.5 w-2.5 rounded-full bg-slate-300 ring-4 ring-white" />
+                            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                              <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                                <div>
+                                  <p className="font-semibold text-slate-900">
+                                    {item.title}
+                                  </p>
+                                  <p className="mt-1 text-sm leading-6 text-slate-600">
+                                    {item.description}
+                                  </p>
+                                </div>
+                                <div className="flex shrink-0 flex-col gap-2 sm:items-end">
+                                  <span
+                                    className={`inline-flex w-fit rounded-full px-2.5 py-1 text-xs font-semibold capitalize ring-1 ${timelineBadgeClass(item.type)}`}
+                                  >
+                                    {item.type}
+                                  </span>
+                                  <time className="text-xs text-slate-500">
+                                    {formatDateTime(item.occurredAt)}
+                                  </time>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        ))}
+                    </ol>
+                  </div>
+                )
+              )}
+            </div>
+          )}
         </section>
 
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
