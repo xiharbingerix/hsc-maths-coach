@@ -8,6 +8,7 @@ import {
   generateStudyPlan,
   type StudyPlanDiagnosticResult,
 } from "../../../../lib/studyPlans/generateStudyPlan";
+import { newCoursePathways } from "../../../../lib/newCourseCatalog";
 
 export const metadata: Metadata = {
   title: "Student Detail | Nova Maths Admin",
@@ -37,6 +38,16 @@ type ProfileRow = {
 type MasteryRow = {
   course_slug: string;
   topic_slug: string;
+  mastery_score: number;
+  attempt_count: number;
+  correct_count: number;
+  last_updated: string | null;
+};
+
+type SubtopicMasteryRow = {
+  course_slug: string;
+  topic_slug: string;
+  subtopic_slug: string;
   mastery_score: number;
   attempt_count: number;
   correct_count: number;
@@ -134,6 +145,26 @@ function prettifySlug(slug: string) {
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
+}
+
+const subtopicLabelMap = new Map<string, string>();
+for (const pathway of newCoursePathways) {
+  for (const unit of pathway.units) {
+    for (const lesson of unit.lessons) {
+      subtopicLabelMap.set(
+        `${pathway.slug}::${unit.slug}::${lesson.slug}`,
+        lesson.title
+      );
+    }
+  }
+}
+
+function subtopicLabel(row: SubtopicMasteryRow) {
+  return (
+    subtopicLabelMap.get(
+      `${row.course_slug}::${row.topic_slug}::${row.subtopic_slug}`
+    ) ?? prettifySlug(row.subtopic_slug)
+  );
 }
 
 function studentName(user: AdminAuthUser, profile?: ProfileRow | null) {
@@ -415,6 +446,7 @@ export default async function AdminStudentDetailPage({
   const [
     profileResult,
     masteryResult,
+    subtopicMasteryResult,
     diagnosticResult,
     assignedByEmailResult,
     assignedByUserResult,
@@ -429,6 +461,13 @@ export default async function AdminStudentDetailPage({
       .from("student_mastery")
       .select(
         "course_slug, topic_slug, mastery_score, attempt_count, correct_count, last_updated"
+      )
+      .eq("user_id", id)
+      .order("mastery_score", { ascending: true }),
+    supabaseAdmin
+      .from("student_subtopic_mastery")
+      .select(
+        "course_slug, topic_slug, subtopic_slug, mastery_score, attempt_count, correct_count, last_updated"
       )
       .eq("user_id", id)
       .order("mastery_score", { ascending: true }),
@@ -498,6 +537,14 @@ export default async function AdminStudentDetailPage({
 
   const profile = profileResult.data as ProfileRow | null;
   const masteryRows = (masteryResult.data ?? []) as MasteryRow[];
+  const subtopicMasteryMissing =
+    subtopicMasteryResult.error?.code === "42P01" ||
+    subtopicMasteryResult.error?.message
+      ?.toLowerCase()
+      .includes("student_subtopic_mastery");
+  const subtopicMasteryRows = subtopicMasteryMissing
+    ? []
+    : ((subtopicMasteryResult.data ?? []) as SubtopicMasteryRow[]);
   const diagnosticRows = (diagnosticResult.data ?? []) as DiagnosticRow[];
   const masteryEvents = (masteryEventsResult.data ?? []) as MasteryEventRow[];
   const masteryHistoryMissing =
@@ -904,6 +951,64 @@ export default async function AdminStudentDetailPage({
                   {masteryRows.map((row) => (
                     <tr key={`${row.course_slug}/${row.topic_slug}`}>
                       <td className="px-4 py-3 font-medium">
+                        {prettifySlug(row.topic_slug)}
+                      </td>
+                      <td className="px-4 py-3 text-slate-600">
+                        {prettifySlug(row.course_slug)}
+                      </td>
+                      <td className="px-4 py-3 text-center tabular-nums">
+                        {row.mastery_score}%
+                      </td>
+                      <td className="px-4 py-3 text-center tabular-nums">
+                        {row.attempt_count}
+                      </td>
+                      <td className="px-4 py-3 text-slate-600">
+                        {formatDateTime(row.last_updated)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 className="text-xl font-bold">Mastery by lesson</h2>
+          {subtopicMasteryMissing ? (
+            <p className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+              <code className="font-mono">student_subtopic_mastery</code> table
+              not found. Run migration{" "}
+              <code className="font-mono">015_student_subtopic_mastery.sql</code>{" "}
+              to enable lesson-level mastery.
+            </p>
+          ) : subtopicMasteryRows.length === 0 ? (
+            <p className="mt-4 rounded-xl bg-slate-50 p-4 text-sm text-slate-500">
+              No lesson-level mastery yet. Lesson quizzes and worksheet
+              questions with subtopic tags will populate this table.
+            </p>
+          ) : (
+            <div className="mt-4 overflow-hidden rounded-xl border border-slate-200">
+              <table className="w-full text-sm">
+                <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+                  <tr>
+                    <th className="px-4 py-3 text-left">Lesson</th>
+                    <th className="px-4 py-3 text-left">Topic</th>
+                    <th className="px-4 py-3 text-left">Course</th>
+                    <th className="px-4 py-3 text-center">Mastery</th>
+                    <th className="px-4 py-3 text-center">Attempts</th>
+                    <th className="px-4 py-3 text-left">Updated</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {subtopicMasteryRows.map((row) => (
+                    <tr
+                      key={`${row.course_slug}/${row.topic_slug}/${row.subtopic_slug}`}
+                    >
+                      <td className="px-4 py-3 font-medium">
+                        {subtopicLabel(row)}
+                      </td>
+                      <td className="px-4 py-3 text-slate-600">
                         {prettifySlug(row.topic_slug)}
                       </td>
                       <td className="px-4 py-3 text-slate-600">

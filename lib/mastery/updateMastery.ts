@@ -55,9 +55,52 @@ function applyEvent(
   return Math.min(100, Math.max(0, Math.round(raw)));
 }
 
+type MasterySnapshot = {
+  mastery_score?: number | null;
+  attempt_count?: number | null;
+  correct_count?: number | null;
+};
+
+type MasteryCounters = {
+  score: number;
+  attemptCount: number;
+  correctCount: number;
+};
+
+function countersFromSnapshot(current: MasterySnapshot | null): MasteryCounters {
+  return {
+    score: current?.mastery_score ?? 0,
+    attemptCount: current?.attempt_count ?? 0,
+    correctCount: current?.correct_count ?? 0,
+  };
+}
+
+function applyEventsToCounters(
+  current: MasteryCounters,
+  events: MasteryEventInput[]
+): MasteryCounters {
+  let { score, attemptCount, correctCount } = current;
+
+  for (const event of events) {
+    score = applyEvent(score, event.difficulty, event.isCorrect);
+    attemptCount += 1;
+    if (event.isCorrect) correctCount += 1;
+  }
+
+  return { score, attemptCount, correctCount };
+}
+
+function isMissingSubtopicMasteryTable(error: { code?: string; message?: string } | null) {
+  return Boolean(
+    error?.code === "42P01" ||
+      error?.message?.toLowerCase().includes("student_subtopic_mastery")
+  );
+}
+
 /**
  * Inserts mastery_events and updates student_mastery for a set of answered
- * questions. All events must belong to the same user.
+ * questions. Events with a subtopicSlug also update student_subtopic_mastery.
+ * All events must belong to the same user.
  *
  * The function is intentionally non-transactional for this MVP: in the unlikely
  * case of a concurrent completion for the same user/topic, the scores may
@@ -115,15 +158,10 @@ export async function recordMasteryEvents(
       .eq("topic_slug", topicSlug)
       .maybeSingle();
 
-    let score = (current?.mastery_score as number | null) ?? 0;
-    let attemptCount = (current?.attempt_count as number | null) ?? 0;
-    let correctCount = (current?.correct_count as number | null) ?? 0;
-
-    for (const event of topicEvents) {
-      score = applyEvent(score, event.difficulty, event.isCorrect);
-      attemptCount += 1;
-      if (event.isCorrect) correctCount += 1;
-    }
+    const { score, attemptCount, correctCount } = applyEventsToCounters(
+      countersFromSnapshot(current),
+      topicEvents
+    );
 
     const { error: upsertError } = await supabaseAdmin
       .from("student_mastery")
@@ -164,6 +202,70 @@ export async function recordMasteryEvents(
     if (historyError) {
       throw new Error(
         `student_mastery_history insert failed for ${courseSlug}/${topicSlug}: ${historyError.message}`
+      );
+    }
+  }
+
+  const groupedSubtopics = new Map<BucketKey, MasteryEventInput[]>();
+  for (const event of events) {
+    if (!event.subtopicSlug) continue;
+    const key = `${event.courseSlug}::${event.topicSlug}::${event.subtopicSlug}`;
+    const bucket = groupedSubtopics.get(key) ?? [];
+    bucket.push(event);
+    groupedSubtopics.set(key, bucket);
+  }
+
+  for (const [, subtopicEvents] of groupedSubtopics) {
+    const { courseSlug, topicSlug, subtopicSlug } = subtopicEvents[0];
+    if (!subtopicSlug) continue;
+
+    const { data: current, error: currentError } = await supabaseAdmin
+      .from("student_subtopic_mastery")
+      .select("mastery_score, attempt_count, correct_count")
+      .eq("user_id", userId)
+      .eq("course_slug", courseSlug)
+      .eq("topic_slug", topicSlug)
+      .eq("subtopic_slug", subtopicSlug)
+      .maybeSingle();
+
+    if (isMissingSubtopicMasteryTable(currentError)) {
+      return;
+    }
+
+    if (currentError) {
+      throw new Error(
+        `student_subtopic_mastery select failed for ${courseSlug}/${topicSlug}/${subtopicSlug}: ${currentError.message}`
+      );
+    }
+
+    const { score, attemptCount, correctCount } = applyEventsToCounters(
+      countersFromSnapshot(current),
+      subtopicEvents
+    );
+
+    const { error: upsertError } = await supabaseAdmin
+      .from("student_subtopic_mastery")
+      .upsert(
+        {
+          user_id: userId,
+          course_slug: courseSlug,
+          topic_slug: topicSlug,
+          subtopic_slug: subtopicSlug,
+          mastery_score: score,
+          attempt_count: attemptCount,
+          correct_count: correctCount,
+          last_updated: new Date().toISOString(),
+        },
+        { onConflict: "user_id,course_slug,topic_slug,subtopic_slug" }
+      );
+
+    if (isMissingSubtopicMasteryTable(upsertError)) {
+      return;
+    }
+
+    if (upsertError) {
+      throw new Error(
+        `student_subtopic_mastery upsert failed for ${courseSlug}/${topicSlug}/${subtopicSlug}: ${upsertError.message}`
       );
     }
   }

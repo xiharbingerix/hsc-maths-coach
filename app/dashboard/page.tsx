@@ -31,6 +31,15 @@ type MasteryRow = {
   last_updated: string;
 };
 
+type SubtopicMasteryRow = {
+  course_slug: string;
+  topic_slug: string;
+  subtopic_slug: string;
+  mastery_score: number;
+  attempt_count: number;
+  last_updated: string;
+};
+
 type MasteryHistoryRow = {
   course_slug: string;
   topic_slug: string;
@@ -233,6 +242,9 @@ export default function DashboardPage() {
     Record<string, LessonProgressRecord>
   >({});
   const [masteryRows, setMasteryRows] = useState<MasteryRow[]>([]);
+  const [subtopicMasteryRows, setSubtopicMasteryRows] = useState<
+    SubtopicMasteryRow[]
+  >([]);
   const [masteryHistoryRows, setMasteryHistoryRows] = useState<
     MasteryHistoryRow[]
   >([]);
@@ -309,6 +321,21 @@ export default function DashboardPage() {
 
       if (masteryData) {
         setMasteryRows(masteryData as MasteryRow[]);
+      }
+
+      const { data: subtopicMasteryData, error: subtopicMasteryError } =
+        await supabase
+          .from("student_subtopic_mastery")
+          .select(
+            "course_slug, topic_slug, subtopic_slug, mastery_score, attempt_count, last_updated"
+          )
+          .eq("user_id", sessionUser.id)
+          .order("mastery_score", { ascending: true });
+
+      if (!subtopicMasteryError && subtopicMasteryData) {
+        setSubtopicMasteryRows(subtopicMasteryData as SubtopicMasteryRow[]);
+      } else {
+        setSubtopicMasteryRows([]);
       }
 
       const { data: masteryHistoryData, error: masteryHistoryError } =
@@ -509,13 +536,40 @@ export default function DashboardPage() {
 
   // Build a slug → human label lookup from the course catalog.
   const topicLabelMap = new Map<string, string>();
+  const subtopicLabelMap = new Map<string, string>();
   for (const pathway of newCoursePathways) {
     for (const unit of pathway.units) {
       topicLabelMap.set(`${pathway.slug}::${unit.slug}`, unit.title);
+      for (const lesson of unit.lessons) {
+        subtopicLabelMap.set(
+          `${pathway.slug}::${unit.slug}::${lesson.slug}`,
+          lesson.title
+        );
+      }
     }
   }
   function topicLabel(courseSlug: string, topicSlug: string): string {
     return topicLabelMap.get(`${courseSlug}::${topicSlug}`) ?? prettifySlug(topicSlug);
+  }
+  function subtopicLabel(
+    courseSlug: string,
+    topicSlug: string,
+    subtopicSlug: string
+  ): string {
+    return (
+      subtopicLabelMap.get(`${courseSlug}::${topicSlug}::${subtopicSlug}`) ??
+      prettifySlug(subtopicSlug)
+    );
+  }
+  function subtopicsForTopic(row: MasteryRow): SubtopicMasteryRow[] {
+    return subtopicMasteryRows
+      .filter(
+        (subtopic) =>
+          subtopic.course_slug === row.course_slug &&
+          subtopic.topic_slug === row.topic_slug
+      )
+      .sort((a, b) => a.mastery_score - b.mastery_score)
+      .slice(0, 3);
   }
 
   const hasMastery = masteryRows.length > 0;
@@ -1175,6 +1229,27 @@ export default function DashboardPage() {
                               style={{ width: `${row.mastery_score}%` }}
                             />
                           </div>
+                          {subtopicsForTopic(row).length > 0 ? (
+                            <ul className="mt-2 space-y-1 rounded-xl bg-white p-2 text-xs text-slate-600">
+                              {subtopicsForTopic(row).map((subtopic) => (
+                                <li
+                                  key={`${subtopic.course_slug}::${subtopic.topic_slug}::${subtopic.subtopic_slug}`}
+                                  className="flex items-center justify-between gap-2"
+                                >
+                                  <span className="truncate">
+                                    {subtopicLabel(
+                                      subtopic.course_slug,
+                                      subtopic.topic_slug,
+                                      subtopic.subtopic_slug
+                                    )}
+                                  </span>
+                                  <span className="shrink-0 tabular-nums text-slate-500">
+                                    {subtopic.mastery_score}% / {subtopic.attempt_count}q
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : null}
                         </li>
                       ))}
                     </ul>
@@ -1226,6 +1301,27 @@ export default function DashboardPage() {
                           style={{ width: `${row.mastery_score}%` }}
                         />
                       </div>
+                      {subtopicsForTopic(row).length > 0 ? (
+                        <ul className="mt-2 space-y-1 rounded-xl bg-white p-2 text-xs text-slate-600">
+                          {subtopicsForTopic(row).map((subtopic) => (
+                            <li
+                              key={`${subtopic.course_slug}::${subtopic.topic_slug}::${subtopic.subtopic_slug}`}
+                              className="flex items-center justify-between gap-2"
+                            >
+                              <span className="truncate">
+                                {subtopicLabel(
+                                  subtopic.course_slug,
+                                  subtopic.topic_slug,
+                                  subtopic.subtopic_slug
+                                )}
+                              </span>
+                              <span className="shrink-0 tabular-nums text-slate-500">
+                                {subtopic.mastery_score}% / {subtopic.attempt_count}q
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
                     </li>
                   ))}
                 </ul>
