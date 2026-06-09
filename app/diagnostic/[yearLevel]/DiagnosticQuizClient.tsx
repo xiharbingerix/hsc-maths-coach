@@ -167,6 +167,29 @@ export function DiagnosticQuizClient({
 
       if (error) setSaveError(error.message);
       else setSaved(true);
+
+      // Seed student_mastery from diagnostic answers — fire-and-forget.
+      const { data: sessionData } = await supabase.auth.getSession();
+      const token = sessionData.session?.access_token;
+      if (!token) return;
+
+      const sourceId = crypto.randomUUID();
+      const events = questions.map((q) => ({
+        questionId: q.id,
+        topicSlug: q.unitSlug,
+        isCorrect: answers[q.id] === q.correctAnswer,
+      }));
+
+      void fetch("/api/mastery/diagnostic", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ courseSlug: yearLevel, sourceId, events }),
+      }).catch(() => {
+        // Mastery recording failure never affects the student's results.
+      });
     }
 
     void checkAndSave();
