@@ -1,0 +1,561 @@
+[
+  {
+    "source_id": "y12adv-c36-sample-01",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 1,
+    "question_type": "procedural",
+    "prompt": "Find the exact area enclosed between the curve y = x^2 and the x-axis from x = 0 to x = 3.",
+    "latex": "\\int_{0}^{3} x^2 \\, dx",
+    "choices": null,
+    "answer": "9",
+    "accepted_answers": [
+      "9",
+      "9 square units"
+    ],
+    "hint": "Integrate x^2 with respect to x, then evaluate the definite integral at the upper and lower bounds.",
+    "explanation": "The antiderivative of x^2 is x^3/3. Evaluating from 0 to 3 gives 3^3/3 - 0^3/3 = 27/3 = 9. Since x^2 is non-negative on [0, 3], the enclosed area is 9 square units.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-02",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 1,
+    "question_type": "procedural",
+    "prompt": "Find the exact area enclosed between the curve y = 4 - x^2 and the x-axis.",
+    "latex": "y = 4 - x^2",
+    "choices": null,
+    "answer": "32/3",
+    "accepted_answers": [
+      "32/3",
+      "32/3 square units"
+    ],
+    "hint": "Find the x-intercepts first. The curve is above the x-axis between the intercepts.",
+    "explanation": "Set 4 - x^2 = 0, so x = -2 and x = 2. The curve is above the x-axis on [-2, 2]. The antiderivative is 4x - x^3/3. Evaluating from -2 to 2 gives (8 - 8/3) - (-8 + 8/3) = 32/3, so the area is 32/3 square units.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-03",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 1,
+    "question_type": "procedural",
+    "prompt": "Evaluate the definite integral int_1^4 2sqrt(x) dx and state the exact value.",
+    "latex": "\\int_{1}^{4} 2\\sqrt{x} \\, dx",
+    "choices": null,
+    "answer": "28/3",
+    "accepted_answers": [
+      "28/3"
+    ],
+    "hint": "Rewrite sqrt(x) as x^(1/2), then use the power rule for integration.",
+    "explanation": "Rewrite 2sqrt(x) as 2x^(1/2). An antiderivative is (4/3)x^(3/2). Evaluating from 1 to 4 gives (4/3)(4^(3/2)) - (4/3)(1^(3/2)) = 32/3 - 4/3 = 28/3.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-04",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 1,
+    "question_type": "procedural",
+    "prompt": "Find the exact area of the region bounded by y = e^x, the x-axis, x = 0, and x = 2.",
+    "latex": "\\int_{0}^{2} e^x \\, dx",
+    "choices": null,
+    "answer": "e^2 - 1",
+    "accepted_answers": [
+      "e^2 - 1",
+      "e^2-1"
+    ],
+    "hint": "The antiderivative of e^x is e^x. Evaluate it at x = 2 and x = 0.",
+    "explanation": "The antiderivative of e^x is e^x. Evaluating from 0 to 2 gives e^2 - e^0 = e^2 - 1. Since e^x is positive on [0, 2], the area is e^2 - 1 square units.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-05",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 1,
+    "question_type": "procedural",
+    "prompt": "Find the exact area enclosed between y = sin(x) and the x-axis from x = 0 to x = pi.",
+    "latex": "\\int_{0}^{\\pi} \\sin x \\, dx",
+    "choices": null,
+    "answer": "2",
+    "accepted_answers": [
+      "2",
+      "2 square units"
+    ],
+    "hint": "The antiderivative of sin(x) is -cos(x). Evaluate at x = pi and x = 0.",
+    "explanation": "The antiderivative of sin(x) is -cos(x). Evaluating from 0 to pi gives -cos(pi) - (-cos(0)) = 1 + 1 = 2. Since sin(x) is non-negative on [0, pi], the area is 2 square units.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-06",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 2,
+    "question_type": "procedural",
+    "prompt": "Find the exact total area enclosed between the curve y = x^3 - 3x and the x-axis.",
+    "latex": "y = x^3 - 3x",
+    "choices": null,
+    "answer": "9/2",
+    "accepted_answers": [
+      "9/2",
+      "4.5",
+      "9/2 square units",
+      "4.5 square units"
+    ],
+    "hint": "Find the x-intercepts and split the integral where the curve crosses the x-axis.",
+    "explanation": "The zeros are x = -sqrt(3), 0, and sqrt(3). The curve is above the x-axis on [-sqrt(3), 0] and below it on [0, sqrt(3)]. An antiderivative is x^4/4 - 3x^2/2. Each region has area 9/4, so the total area is 9/4 + 9/4 = 9/2 square units.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-07",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 2,
+    "question_type": "procedural",
+    "prompt": "Find the exact area of the region bounded by y = 1/x, the x-axis, x = 1, and x = e^2.",
+    "latex": "\\int_{1}^{e^2} \\frac{1}{x} \\, dx",
+    "choices": null,
+    "answer": "2",
+    "accepted_answers": [
+      "2",
+      "2 square units"
+    ],
+    "hint": "The antiderivative of 1/x is ln(x) on this positive interval.",
+    "explanation": "The antiderivative of 1/x is ln(x) for x > 0. Evaluating from 1 to e^2 gives ln(e^2) - ln(1) = 2 - 0 = 2. Since 1/x is positive on [1, e^2], the area is 2 square units.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-08",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 2,
+    "question_type": "procedural",
+    "prompt": "Find the total area enclosed between y = cos(2x) and the x-axis over the interval 0 <= x <= pi.",
+    "latex": "y = \\cos(2x), \\quad 0 \\leq x \\leq \\pi",
+    "choices": null,
+    "answer": "2",
+    "accepted_answers": [
+      "2",
+      "2 square units"
+    ],
+    "hint": "Split the interval at the zeros x = pi/4 and x = 3pi/4, then add absolute areas.",
+    "explanation": "cos(2x) is zero at x = pi/4 and x = 3pi/4 on [0, pi]. An antiderivative is (1/2)sin(2x). The absolute areas on [0, pi/4], [pi/4, 3pi/4], and [3pi/4, pi] are 1/2, 1, and 1/2. The total area is 2 square units.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-09",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 2,
+    "question_type": "procedural",
+    "prompt": "Find the exact area enclosed between y = x^2 - 4x + 3 and the x-axis.",
+    "latex": "y = x^2 - 4x + 3",
+    "choices": null,
+    "answer": "4/3",
+    "accepted_answers": [
+      "4/3",
+      "4/3 square units"
+    ],
+    "hint": "Factorise the quadratic to find the x-intercepts, then take the absolute value of the integral between them.",
+    "explanation": "The quadratic factorises as (x - 1)(x - 3), so the intercepts are x = 1 and x = 3. The curve is below the x-axis between these roots. An antiderivative is x^3/3 - 2x^2 + 3x. Evaluating from 1 to 3 gives -4/3, so the enclosed area is 4/3 square units.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-10",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 2,
+    "question_type": "procedural",
+    "prompt": "Find the exact area of the region bounded by y = 2e^(-x), the x-axis, x = 0, and x = ln(3).",
+    "latex": "\\int_{0}^{\\ln 3} 2e^{-x} \\, dx",
+    "choices": null,
+    "answer": "4/3",
+    "accepted_answers": [
+      "4/3",
+      "4/3 square units"
+    ],
+    "hint": "Use the antiderivative -2e^(-x) and recall that e^(-ln 3) = 1/3.",
+    "explanation": "An antiderivative of 2e^(-x) is -2e^(-x). Evaluating from 0 to ln(3) gives -2e^(-ln 3) - (-2e^0) = -2/3 + 2 = 4/3. Since the function is positive on the interval, the area is 4/3 square units.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-11",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 3,
+    "question_type": "procedural",
+    "prompt": "It is given that int_0^5 f(x) dx = 7 and int_0^3 f(x) dx = 4. Find int_3^5 f(x) dx.",
+    "latex": "\\int_{0}^{5} f(x)\\,dx = 7, \\quad \\int_{0}^{3} f(x)\\,dx = 4",
+    "choices": null,
+    "answer": "3",
+    "accepted_answers": [
+      "3"
+    ],
+    "hint": "Use the additive interval property of definite integrals.",
+    "explanation": "By the additive interval property, int_0^5 f(x) dx = int_0^3 f(x) dx + int_3^5 f(x) dx. Substituting the known values gives 7 = 4 + int_3^5 f(x) dx, so int_3^5 f(x) dx = 3. This is the net signed area from x = 3 to x = 5.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-12",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 3,
+    "question_type": "procedural",
+    "prompt": "Find the value of k > 0 such that the area enclosed between y = x^2 and the x-axis from x = 0 to x = k equals 9.",
+    "latex": "\\int_{0}^{k} x^2 \\, dx = 9",
+    "choices": null,
+    "answer": "3",
+    "accepted_answers": [
+      "3",
+      "k=3",
+      "k = 3"
+    ],
+    "hint": "Set up the definite integral equal to 9, evaluate it in terms of k, then solve for k.",
+    "explanation": "The area is int_0^k x^2 dx = k^3/3. Set k^3/3 = 9, so k^3 = 27. Since k > 0, k = 3.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-13",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 3,
+    "question_type": "procedural",
+    "prompt": "A student claims that int_-1^1 (x^3 - x) dx = 0 means the total enclosed area is zero. Find the actual total enclosed area.",
+    "latex": "\\int_{-1}^{1} (x^3 - x)\\,dx",
+    "choices": null,
+    "answer": "1/2",
+    "accepted_answers": [
+      "1/2",
+      "0.5",
+      "1/2 square units",
+      "0.5 square units"
+    ],
+    "hint": "The definite integral gives net signed area. Split at x = 0 and add the absolute areas.",
+    "explanation": "The student is incorrect because the curve crosses the x-axis at x = -1, 0, and 1. An antiderivative is x^4/4 - x^2/2. The absolute area on [-1, 0] is 1/4 and the absolute area on [0, 1] is 1/4. The total enclosed area is 1/2 square units.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-14",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 3,
+    "question_type": "procedural",
+    "prompt": "Find the exact area enclosed between y = ln(x) and the x-axis from x = 1 to x = e.",
+    "latex": "\\int_{1}^{e} \\ln(x) \\, dx",
+    "choices": null,
+    "answer": "1",
+    "accepted_answers": [
+      "1",
+      "1 square unit"
+    ],
+    "hint": "Use the antiderivative x ln(x) - x.",
+    "explanation": "An antiderivative of ln(x) is x ln(x) - x. Evaluating from 1 to e gives (e ln(e) - e) - (1 ln(1) - 1) = 0 - (-1) = 1. Since ln(x) is non-negative on [1, e], the area is 1 square unit.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-15",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 4,
+    "question_type": "procedural",
+    "prompt": "Find the total area bounded by y = sin(x) and the x-axis over the interval 0 <= x <= 2pi.",
+    "latex": "\\int_{0}^{2\\pi} \\sin(x)\\,dx",
+    "choices": null,
+    "answer": "4",
+    "accepted_answers": [
+      "4",
+      "4 square units"
+    ],
+    "hint": "sin(x) is positive on (0, pi) and negative on (pi, 2pi), so split the area at x = pi.",
+    "explanation": "The curve crosses the x-axis at 0, pi, and 2pi. The area on [0, pi] is 2 and the absolute area on [pi, 2pi] is also 2. Therefore the total area is 4 square units. The single definite integral over [0, 2pi] is 0 because the positive and negative signed areas cancel.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-16",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 4,
+    "question_type": "procedural",
+    "prompt": "Find the exact area enclosed between y = x e^(-x^2) and the x-axis from x = 0 to x = 2.",
+    "latex": "\\int_{0}^{2} x e^{-x^2} \\, dx",
+    "choices": null,
+    "answer": "(1 - e^(-4))/2",
+    "accepted_answers": [
+      "(1 - e^(-4))/2",
+      "(1-e^(-4))/2",
+      "1/2 - e^(-4)/2"
+    ],
+    "hint": "Use the substitution u = -x^2, so du = -2x dx.",
+    "explanation": "Let u = -x^2, so du = -2x dx and x dx = -du/2. When x = 0, u = 0; when x = 2, u = -4. The integral becomes (1/2)int_-4^0 e^u du = (1/2)(e^0 - e^(-4)) = (1 - e^(-4))/2.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-17",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 4,
+    "question_type": "procedural",
+    "prompt": "The curve y = 3x^2 - 12x + 9 intersects the x-axis at two points. Find the exact area enclosed between the curve and the x-axis.",
+    "latex": "y = 3x^2 - 12x + 9",
+    "choices": null,
+    "answer": "4",
+    "accepted_answers": [
+      "4",
+      "4 square units"
+    ],
+    "hint": "Factorise the quadratic to find the intercepts, then integrate between them and take the absolute value.",
+    "explanation": "Factorising gives 3x^2 - 12x + 9 = 3(x - 1)(x - 3), so the roots are x = 1 and x = 3. The curve is below the x-axis between the roots. An antiderivative is x^3 - 6x^2 + 9x. Evaluating from 1 to 3 gives -4, so the enclosed area is 4 square units.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-18",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 4,
+    "question_type": "procedural",
+    "prompt": "The area under y = 6x^2 from x = 0 to x = k is equal to 16. Find the exact value of k, given that k > 0.",
+    "latex": "\\int_{0}^{k} 6x^2 \\, dx = 16",
+    "choices": null,
+    "answer": "2",
+    "accepted_answers": [
+      "2",
+      "k=2",
+      "k = 2"
+    ],
+    "hint": "Evaluate the definite integral in terms of k, set it equal to 16, and solve for k.",
+    "explanation": "The definite integral is int_0^k 6x^2 dx = [2x^3]_0^k = 2k^3. Set 2k^3 = 16, so k^3 = 8. Since k > 0, k = 2.",
+    "transfer_from_topics": [],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-19a",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 5,
+    "question_type": "procedural",
+    "prompt": "A particle has velocity v(t) = t^2 - 5t + 6 m/s for 0 <= t <= 4. Find the times at which the particle is momentarily at rest.",
+    "latex": "v(t) = t^2 - 5t + 6, \\quad 0 \\leq t \\leq 4",
+    "choices": null,
+    "answer": "2, 3",
+    "accepted_answers": [
+      "2, 3",
+      "2 and 3",
+      "t=2 and t=3",
+      "t = 2 and t = 3"
+    ],
+    "hint": "Set v(t) = 0 and solve the quadratic.",
+    "explanation": "The particle is momentarily at rest when v(t) = 0. Solve t^2 - 5t + 6 = 0, which factorises as (t - 2)(t - 3) = 0. Therefore t = 2 seconds and t = 3 seconds.",
+    "transfer_from_topics": [
+      "MA-C2.4"
+    ],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-19b",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 5,
+    "question_type": "procedural",
+    "prompt": "A particle has velocity v(t) = t^2 - 5t + 6 m/s for 0 <= t <= 4. Find the displacement over the interval 0 <= t <= 4.",
+    "latex": "\\int_{0}^{4} (t^2 - 5t + 6)\\,dt",
+    "choices": null,
+    "answer": "16/3",
+    "accepted_answers": [
+      "16/3",
+      "16/3 m",
+      "16/3 metres"
+    ],
+    "hint": "Displacement is the definite integral of velocity over the full interval.",
+    "explanation": "An antiderivative of v(t) is F(t) = t^3/3 - 5t^2/2 + 6t. Evaluating from 0 to 4 gives F(4) - F(0) = 64/3 - 40 + 24 = 16/3. The displacement is 16/3 m.",
+    "transfer_from_topics": [
+      "MA-C2.4"
+    ],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-19c",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 5,
+    "question_type": "procedural",
+    "prompt": "A particle has velocity v(t) = t^2 - 5t + 6 m/s for 0 <= t <= 4. Find the total distance travelled over the interval 0 <= t <= 4.",
+    "latex": "v(t) = t^2 - 5t + 6, \\quad 0 \\leq t \\leq 4",
+    "choices": null,
+    "answer": "17/3",
+    "accepted_answers": [
+      "17/3",
+      "17/3 m",
+      "17/3 metres"
+    ],
+    "hint": "Split the interval at the zeros t = 2 and t = 3, then add the absolute displacements.",
+    "explanation": "The velocity changes sign at t = 2 and t = 3. Using F(t) = t^3/3 - 5t^2/2 + 6t, the distances on [0, 2], [2, 3], and [3, 4] are 14/3, 1/6, and 5/6. Adding them gives 14/3 + 1/6 + 5/6 = 17/3 m.",
+    "transfer_from_topics": [
+      "MA-C2.4"
+    ],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-20a",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 5,
+    "question_type": "procedural",
+    "prompt": "A company has marginal revenue MR(x) = 120 - 6x dollars per unit. Find the total revenue from producing the first 10 units.",
+    "latex": "\\int_{0}^{10} (120 - 6x)\\,dx",
+    "choices": null,
+    "answer": "900",
+    "accepted_answers": [
+      "900",
+      "$900",
+      "900 dollars"
+    ],
+    "hint": "Total revenue over an interval is the definite integral of marginal revenue.",
+    "explanation": "Total revenue from the first 10 units is int_0^10 (120 - 6x) dx. An antiderivative is 120x - 3x^2. Evaluating from 0 to 10 gives 1200 - 300 = 900 dollars.",
+    "transfer_from_topics": [
+      "MA-C2.3",
+      "MA-C2.2"
+    ],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-20b",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 5,
+    "question_type": "procedural",
+    "prompt": "A company has marginal revenue MR(x) = 120 - 6x dollars per unit. Find the additional revenue generated by increasing production from 10 to 15 units.",
+    "latex": "\\int_{10}^{15} (120 - 6x)\\,dx",
+    "choices": null,
+    "answer": "225",
+    "accepted_answers": [
+      "225",
+      "$225",
+      "225 dollars"
+    ],
+    "hint": "Additional revenue over an interval is the definite integral of marginal revenue over that interval.",
+    "explanation": "Additional revenue from 10 to 15 units is int_10^15 (120 - 6x) dx. Using antiderivative 120x - 3x^2 gives (1800 - 675) - (1200 - 300) = 1125 - 900 = 225 dollars.",
+    "transfer_from_topics": [
+      "MA-C2.3",
+      "MA-C2.2"
+    ],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-20c",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 5,
+    "question_type": "procedural",
+    "prompt": "A company has marginal revenue MR(x) = 120 - 6x and marginal cost MC(x) = 30 + 2x. Find the production level that maximises profit.",
+    "latex": "120 - 6x = 30 + 2x",
+    "choices": null,
+    "answer": "45/4",
+    "accepted_answers": [
+      "45/4",
+      "11.25",
+      "x=45/4",
+      "x = 45/4",
+      "x=11.25",
+      "x = 11.25"
+    ],
+    "hint": "Profit is maximised when marginal revenue equals marginal cost, provided the profit curve is concave down.",
+    "explanation": "Set MR(x) = MC(x): 120 - 6x = 30 + 2x. Then 90 = 8x, so x = 45/4 = 11.25. Since the profit function has second derivative -8, this gives the profit-maximising production level.",
+    "transfer_from_topics": [
+      "MA-C2.3",
+      "MA-C2.2"
+    ],
+    "syllabus_ref": "MA-C3.6"
+  },
+  {
+    "source_id": "y12adv-c36-sample-20d",
+    "course_slug": "year-12-advanced",
+    "topic_slug": "calculus",
+    "subtopic_slug": "area-under-a-curve",
+    "year_level": "year-12",
+    "difficulty": 5,
+    "question_type": "procedural",
+    "prompt": "For the company with MR(x) = 120 - 6x, MC(x) = 30 + 2x, and fixed costs of $200, calculate the maximum profit.",
+    "latex": "P(x) = 90x - 4x^2 - 200",
+    "choices": null,
+    "answer": "306.25",
+    "accepted_answers": [
+      "306.25",
+      "$306.25",
+      "306.25 dollars"
+    ],
+    "hint": "Use the profit-maximising production level x = 11.25 in the profit function.",
+    "explanation": "Total revenue is TR(x) = 120x - 3x^2 and total cost is TC(x) = 200 + 30x + x^2. Therefore P(x) = 90x - 4x^2 - 200. At x = 11.25, P(11.25) = 90(11.25) - 4(11.25)^2 - 200 = 1012.5 - 506.25 - 200 = 306.25 dollars.",
+    "transfer_from_topics": [
+      "MA-C2.3",
+      "MA-C2.2"
+    ],
+    "syllabus_ref": "MA-C3.6"
+  }
+]
