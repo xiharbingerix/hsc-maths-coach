@@ -11,6 +11,13 @@ type MasteryRow = {
   last_updated: string | null;
 };
 
+type SubtopicMasteryRow = {
+  course_slug: string;
+  topic_slug: string;
+  subtopic_slug: string;
+  mastery_score: number;
+};
+
 type QuestionRow = {
   id: string;
   source_id: string | null;
@@ -117,6 +124,33 @@ export async function POST(request: Request) {
     );
   }
 
+  // Fetch subtopic mastery for the weakest topics in one query
+  const { data: subtopicMasteryData } = await supabaseAdmin
+    .from("student_subtopic_mastery")
+    .select("course_slug, topic_slug, subtopic_slug, mastery_score")
+    .eq("user_id", user.id)
+    .in(
+      "topic_slug",
+      weakestTopics.map((t) => t.topic_slug)
+    )
+    .order("mastery_score", { ascending: true });
+
+  const subtopicMasteryRows = (subtopicMasteryData ?? []) as SubtopicMasteryRow[];
+
+  // Bottom 3 subtopics per topic (already ordered ascending by mastery_score)
+  const weakSubtopicsByTopic = new Map<string, string[]>();
+  for (const topic of weakestTopics) {
+    const topicSubtopics = subtopicMasteryRows
+      .filter(
+        (s) =>
+          s.course_slug === topic.course_slug &&
+          s.topic_slug === topic.topic_slug
+      )
+      .slice(0, 3)
+      .map((s) => s.subtopic_slug);
+    weakSubtopicsByTopic.set(topic.topic_slug, topicSubtopics);
+  }
+
   const todaySeed = new Date().toISOString().slice(0, 10);
   const selectedIds: string[] = [];
   const selectedSet = new Set<string>();
@@ -124,6 +158,49 @@ export async function POST(request: Request) {
 
   for (const topic of weakestTopics) {
     const preferredDifficulties = difficultyBand(topic.mastery_score);
+    const weakSubtopics = weakSubtopicsByTopic.get(topic.topic_slug) ?? [];
+    const topicSeed = `${user.id}:${todaySeed}:${topic.course_slug}:${topic.topic_slug}`;
+    const weakTarget = Math.ceil(4 * 0.65); // 3 questions from weak subtopics
+    let topicQuestionCount = 0;
+
+    // Phase 1: preferred difficulty + weak subtopics
+    if (weakSubtopics.length > 0) {
+      const { data: weakPreferred, error: weakPreferredError } =
+        await supabaseAdmin
+          .from("questions")
+          .select("id, source_id, difficulty")
+          .eq("course_slug", topic.course_slug)
+          .eq("topic_slug", topic.topic_slug)
+          .in("subtopic_slug", weakSubtopics)
+          .eq("is_active", true)
+          .in("difficulty", preferredDifficulties);
+
+      if (weakPreferredError) {
+        console.error(
+          "[worksheets/adaptive] weak subtopic question query failed",
+          { userId: user.id, topic, message: weakPreferredError.message }
+        );
+        return NextResponse.json(
+          { error: "Could not load revision questions. Please try again." },
+          { status: 500 }
+        );
+      }
+
+      const shuffledWeak = stableDailyShuffle(
+        (weakPreferred ?? []) as QuestionRow[],
+        `${topicSeed}:weak-preferred`
+      );
+
+      for (const question of shuffledWeak) {
+        if (topicQuestionCount >= weakTarget) break;
+        if (selectedSet.has(question.id)) continue;
+        selectedIds.push(question.id);
+        selectedSet.add(question.id);
+        topicQuestionCount++;
+      }
+    }
+
+    // Phase 2: fill remaining from all subtopics at preferred difficulty
     const { data: preferred, error: preferredError } = await supabaseAdmin
       .from("questions")
       .select("id, source_id, difficulty")
@@ -146,13 +223,15 @@ export async function POST(request: Request) {
 
     const shuffledPreferred = stableDailyShuffle(
       (preferred ?? []) as QuestionRow[],
-      `${user.id}:${todaySeed}:${topic.course_slug}:${topic.topic_slug}:preferred`
+      `${topicSeed}:preferred`
     );
 
-    for (const question of shuffledPreferred.slice(0, 4)) {
+    for (const question of shuffledPreferred) {
+      if (topicQuestionCount >= 4) break;
       if (selectedSet.has(question.id)) continue;
       selectedIds.push(question.id);
       selectedSet.add(question.id);
+      topicQuestionCount++;
     }
 
     const { data: fallback, error: fallbackError } = await supabaseAdmin
@@ -176,6 +255,10 @@ export async function POST(request: Request) {
 
     fallbackQuestions.push(...((fallback ?? []) as QuestionRow[]));
   }
+
+  const allWeakSubtopics = [
+    ...new Set([...weakSubtopicsByTopic.values()].flat()),
+  ];
 
   if (selectedIds.length < 10) {
     const shuffledFallback = stableDailyShuffle(
@@ -281,5 +364,6 @@ export async function POST(request: Request) {
     href: `/worksheet/${worksheet.share_token}`,
     questionCount: finalQuestionIds.length,
     topics: topicTitles,
+    prioritisedSubtopics: allWeakSubtopics.length > 0 ? allWeakSubtopics : undefined,
   });
 }

@@ -59,7 +59,7 @@ async function loadCourseTopics(): Promise<CourseTopicEntry[]> {
 export default async function NewWorksheetPage({
   searchParams,
 }: {
-  searchParams?: Promise<{ studentName?: string; studentEmail?: string }>;
+  searchParams?: Promise<{ studentName?: string; studentEmail?: string; studentId?: string }>;
 }) {
   await requireAdmin();
   const params = await searchParams;
@@ -67,6 +67,8 @@ export default async function NewWorksheetPage({
     typeof params?.studentName === "string" ? params.studentName : "";
   const initialStudentEmail =
     typeof params?.studentEmail === "string" ? params.studentEmail : "";
+  const initialStudentId =
+    typeof params?.studentId === "string" ? params.studentId : "";
 
   // Load distinct (course_slug, topic_slug) pairs from active questions.
   // Returns an empty list if the questions table is empty or migration not applied.
@@ -134,6 +136,7 @@ export default async function NewWorksheetPage({
               courseTopics={courseTopics}
               initialStudentName={initialStudentName}
               initialStudentEmail={initialStudentEmail}
+              initialStudentId={initialStudentId}
             />
           </div>
         )}

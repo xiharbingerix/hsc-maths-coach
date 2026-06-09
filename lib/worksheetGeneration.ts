@@ -117,11 +117,13 @@ export async function selectWorksheetQuestions({
   topicSlugs,
   preset,
   totalQuestions,
+  weakSubtopicSlugs = [],
 }: {
   courseSlug: string;
   topicSlugs: string[];
   preset: DifficultyPreset;
   totalQuestions: number;
+  weakSubtopicSlugs?: string[];
 }) {
   const distribution = scalePreset(WORKSHEET_PRESETS[preset], totalQuestions);
   const selected: WorksheetQuestionPreview[] = [];
@@ -129,27 +131,54 @@ export async function selectWorksheetQuestions({
 
   for (const [level, needed] of distribution) {
     if (needed === 0) continue;
+    let levelCount = 0;
 
-    const { data, error } = await supabaseAdmin
-      .from("questions")
-      .select(QUESTION_SELECT)
-      .eq("course_slug", courseSlug)
-      .in("topic_slug", topicSlugs)
-      .eq("difficulty", level)
-      .eq("is_active", true);
+    // Phase 1: prioritise weak subtopics (~65% of needed)
+    if (weakSubtopicSlugs.length > 0) {
+      const weakTarget = Math.ceil(needed * 0.65);
+      const { data: weakData, error: weakError } = await supabaseAdmin
+        .from("questions")
+        .select(QUESTION_SELECT)
+        .eq("course_slug", courseSlug)
+        .in("topic_slug", topicSlugs)
+        .in("subtopic_slug", weakSubtopicSlugs)
+        .eq("difficulty", level)
+        .eq("is_active", true);
 
-    if (error) {
-      throw new Error(`Could not query questions: ${error.message}`);
+      if (weakError) {
+        throw new Error(`Could not query questions: ${weakError.message}`);
+      }
+
+      for (const row of shuffle((weakData ?? []) as RawQuestionRow[])) {
+        if (levelCount >= weakTarget || selected.length >= totalQuestions) break;
+        if (selectedIds.has(row.id)) continue;
+        selected.push(toPreviewQuestion(row));
+        selectedIds.add(row.id);
+        levelCount++;
+      }
     }
 
-    const rows = shuffle((data ?? []) as RawQuestionRow[]);
-    for (const row of rows) {
-      if (selected.length >= totalQuestions) break;
-      if (selectedIds.has(row.id)) continue;
-      selected.push(toPreviewQuestion(row));
-      selectedIds.add(row.id);
-      if (selected.filter((q) => q.difficulty === level).length >= needed) {
-        break;
+    // Phase 2: fill remaining from all subtopics in the topic
+    if (levelCount < needed) {
+      const { data, error } = await supabaseAdmin
+        .from("questions")
+        .select(QUESTION_SELECT)
+        .eq("course_slug", courseSlug)
+        .in("topic_slug", topicSlugs)
+        .eq("difficulty", level)
+        .eq("is_active", true);
+
+      if (error) {
+        throw new Error(`Could not query questions: ${error.message}`);
+      }
+
+      for (const row of shuffle((data ?? []) as RawQuestionRow[])) {
+        if (selected.length >= totalQuestions) break;
+        if (selectedIds.has(row.id)) continue;
+        selected.push(toPreviewQuestion(row));
+        selectedIds.add(row.id);
+        levelCount++;
+        if (levelCount >= needed) break;
       }
     }
   }

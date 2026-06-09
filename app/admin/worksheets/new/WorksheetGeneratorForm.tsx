@@ -127,16 +127,19 @@ export function WorksheetGeneratorForm({
   courseTopics,
   initialStudentName = "",
   initialStudentEmail = "",
+  initialStudentId = "",
 }: {
   courseTopics: CourseTopicEntry[];
   initialStudentName?: string;
   initialStudentEmail?: string;
+  initialStudentId?: string;
 }) {
   const courses = [...new Set(courseTopics.map((ct) => ct.courseSlug))].sort();
 
   const [title, setTitle] = useState("");
   const [studentName, setStudentName] = useState(initialStudentName);
   const [studentEmail, setStudentEmail] = useState(initialStudentEmail);
+  const [studentId] = useState(initialStudentId);
   const [dueDate, setDueDate] = useState("");
   const [courseSlug, setCourseSlug] = useState(courses[0] ?? "");
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
@@ -148,6 +151,7 @@ export function WorksheetGeneratorForm({
     "idle" | "previewing" | "preview" | "creating" | "success" | "error"
   >("idle");
   const [previewQuestions, setPreviewQuestions] = useState<PreviewQuestion[]>([]);
+  const [prioritisedSubtopics, setPrioritisedSubtopics] = useState<string[]>([]);
   const [replacingQuestionId, setReplacingQuestionId] = useState<string | null>(
     null
   );
@@ -205,12 +209,14 @@ export function WorksheetGeneratorForm({
           topicSlugs: selectedTopics,
           preset,
           totalQuestions,
+          studentId: studentId || undefined,
         }),
       });
 
       const data = (await res.json()) as {
         questions?: PreviewQuestion[];
         error?: string;
+        prioritisedSubtopics?: string[];
       };
 
       if (!res.ok || data.error || !data.questions) {
@@ -220,6 +226,7 @@ export function WorksheetGeneratorForm({
       }
 
       setPreviewQuestions(data.questions);
+      setPrioritisedSubtopics(data.prioritisedSubtopics ?? []);
       setStatus("preview");
     } catch {
       setErrorMessage("Network error. Please try again.");
@@ -330,6 +337,7 @@ export function WorksheetGeneratorForm({
     setDueDate("");
     setSelectedTopics([]);
     setPreviewQuestions([]);
+    setPrioritisedSubtopics([]);
     setCopied(false);
     setErrorMessage("");
   }
@@ -403,6 +411,13 @@ export function WorksheetGeneratorForm({
             worksheet when you are happy.
           </p>
         </div>
+
+        {prioritisedSubtopics.length > 0 ? (
+          <div className="rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800">
+            Prioritised weak subtopics:{" "}
+            {prioritisedSubtopics.map(displaySlug).join(", ")}
+          </div>
+        ) : null}
 
         <div className="space-y-4">
           {previewQuestions.map((question, index) => (

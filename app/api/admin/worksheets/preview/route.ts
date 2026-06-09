@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { ADMIN_COOKIE_NAME, getAdminToken } from "../../../../../lib/adminAuth";
+import { supabaseAdmin } from "../../../../../lib/supabaseAdmin";
 import {
   isDifficultyPreset,
   selectWorksheetQuestions,
@@ -13,6 +14,7 @@ type PreviewBody = {
   topicSlugs?: string[];
   preset?: string;
   totalQuestions?: number;
+  studentId?: string;
 };
 
 async function isAdmin(): Promise<boolean> {
@@ -37,7 +39,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const { courseSlug, topicSlugs, preset, totalQuestions } = body;
+  const { courseSlug, topicSlugs, preset, totalQuestions, studentId } = body;
 
   if (!courseSlug?.trim()) {
     return NextResponse.json({ error: "Course is required." }, { status: 400 });
@@ -65,12 +67,30 @@ export async function POST(request: Request) {
     );
   }
 
+  // Look up weak subtopics for this student if a studentId was provided
+  let weakSubtopicSlugs: string[] = [];
+  if (typeof studentId === "string" && studentId.trim()) {
+    const { data: subtopicData } = await supabaseAdmin
+      .from("student_subtopic_mastery")
+      .select("subtopic_slug")
+      .eq("user_id", studentId)
+      .eq("course_slug", courseSlug)
+      .in("topic_slug", topicSlugs as string[])
+      .order("mastery_score", { ascending: true })
+      .limit(6);
+
+    weakSubtopicSlugs = ((subtopicData ?? []) as { subtopic_slug: string }[]).map(
+      (row) => row.subtopic_slug
+    );
+  }
+
   try {
     const questions = await selectWorksheetQuestions({
       courseSlug,
       topicSlugs,
       preset,
       totalQuestions: count,
+      weakSubtopicSlugs,
     });
 
     if (questions.length === 0) {
@@ -86,6 +106,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       questions,
       questionCount: questions.length,
+      prioritisedSubtopics: weakSubtopicSlugs.length > 0 ? weakSubtopicSlugs : undefined,
     });
   } catch (error) {
     console.error("[worksheets/preview] failed", {

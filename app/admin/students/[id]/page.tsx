@@ -636,7 +636,7 @@ export default async function AdminStudentDetailPage({
   });
   const worksheetGeneratorHref = `/admin/worksheets/new?studentName=${encodeURIComponent(
     studentName(user, profile)
-  )}&studentEmail=${encodeURIComponent(user.email ?? "")}`;
+  )}&studentEmail=${encodeURIComponent(user.email ?? "")}&studentId=${encodeURIComponent(id)}`;
   const timelineItems = buildActivityTimeline({
     diagnostics: diagnosticRows,
     worksheets,
