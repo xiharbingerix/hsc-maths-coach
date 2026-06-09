@@ -22,6 +22,14 @@ type CountRow = {
   page: string | null;
 };
 
+type DiagnosticAnalyticsRow = {
+  event_name: string;
+  user_id: string | null;
+  anonymous_id: string | null;
+  metadata: Record<string, unknown> | null;
+  created_at: string;
+};
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function formatDateTime(iso: string) {
@@ -65,6 +73,14 @@ function metadataString(
   return typeof value === "string" && value.trim().length > 0
     ? value.trim()
     : null;
+}
+
+function metadataNumber(
+  metadata: Record<string, unknown> | null,
+  key: string
+): number | null {
+  const value = metadata?.[key];
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
 }
 
 function trialCtaSource(row: AnalyticsEventRow): string {
@@ -244,6 +260,19 @@ function parseDays(raw: string | string[] | undefined): AllowedDays {
     : 7;
 }
 
+function parseDiagnosticYear(raw: string | string[] | undefined): string {
+  const value = Array.isArray(raw) ? raw[0] : raw;
+  return value && value.trim().length > 0 ? value.trim() : "all";
+}
+
+function analyticsHref(days: AllowedDays, diagnosticYear: string) {
+  const params = new URLSearchParams({ days: String(days) });
+  if (diagnosticYear !== "all") {
+    params.set("diagnosticYear", diagnosticYear);
+  }
+  return `/admin/analytics?${params.toString()}`;
+}
+
 export default async function AdminAnalyticsPage({
   searchParams,
 }: {
@@ -253,6 +282,7 @@ export default async function AdminAnalyticsPage({
 
   const params = await searchParams;
   const days = parseDays(params?.days);
+  const selectedDiagnosticYear = parseDiagnosticYear(params?.diagnosticYear);
   const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
 
   // Fetch event_name + identity columns so we can compute both totals and
@@ -283,17 +313,24 @@ export default async function AdminAnalyticsPage({
       .limit(1000);
 
   // Per-question answer counts — only populated once diagnostic_question_answered is tracked.
-  const { data: diagQuestionRaw } = await supabaseAdmin
-    .from("analytics_events")
-    .select("metadata")
-    .eq("event_name", "diagnostic_question_answered")
-    .gte("created_at", since)
-    .limit(10000);
+  const { data: diagnosticEventData, error: diagnosticEventError } =
+    await supabaseAdmin
+      .from("analytics_events")
+      .select("event_name, user_id, anonymous_id, metadata, created_at")
+      .in("event_name", [
+        "diagnostic_started",
+        "diagnostic_question_answered",
+        "diagnostic_completed",
+      ])
+      .gte("created_at", since)
+      .order("created_at", { ascending: true })
+      .limit(20000);
 
   const tableNotReady =
     countError?.message?.includes("does not exist") ||
     recentError?.message?.includes("does not exist") ||
-    trialCtaSourceError?.message?.includes("does not exist");
+    trialCtaSourceError?.message?.includes("does not exist") ||
+    diagnosticEventError?.message?.includes("does not exist");
 
   if (tableNotReady) {
     return (
@@ -428,41 +465,248 @@ export default async function AdminAnalyticsPage({
   );
 
   // ── Diagnostic question-level analysis ────────────────────────────────────
-  // metadata shape: { questionIndex: number, totalQuestions: number, yearLevel: string }
-  const questionCounts = new Map<number, number>();
-  for (const raw of diagQuestionRaw ?? []) {
-    const meta = (raw as { metadata: Record<string, unknown> | null }).metadata;
-    const qi = typeof meta?.questionIndex === "number" ? meta.questionIndex : null;
-    if (qi === null || qi < 0) continue;
-    questionCounts.set(qi, (questionCounts.get(qi) ?? 0) + 1);
-  }
+  type DiagnosticSession = {
+    key: string;
+    yearLevel: string;
+    started: boolean;
+    completed: boolean;
+    maxQuestionReached: number;
+    totalQuestions: number | null;
+    lastSeenAt: string;
+  };
 
-  // Sort ascending by 0-based index and attach drop-off to each row.
-  type QuestionDropRow = {
-    display: number;    // 1-based for UI
-    count: number;
-    dropPct: number | null; // % drop from previous question; null for Q1
+  type DiagnosticQuestionRow = {
+    questionNumber: number;
+    reached: number;
+    completionPct: number | null;
+    dropFromPrevious: number | null;
+    dropPct: number | null;
     isBigDrop: boolean;
   };
 
-  const questionDropRows: QuestionDropRow[] = [...questionCounts.entries()]
-    .sort((a, b) => a[0] - b[0])
-    .map(([qi, count], idx, arr) => {
-      const prev = idx > 0 ? arr[idx - 1][1] : null;
+  const diagnosticSessions = new Map<string, DiagnosticSession>();
+  const diagnosticYears = new Set<string>();
+
+  function diagnosticSession(row: DiagnosticAnalyticsRow): DiagnosticSession | null {
+    const id = identityKey(row.user_id, row.anonymous_id);
+    if (!id) return null;
+
+    const yearLevel = metadataString(row.metadata, "yearLevel") ?? "unknown";
+    diagnosticYears.add(yearLevel);
+
+    const key = `${id}:${yearLevel}`;
+    const existing = diagnosticSessions.get(key);
+    if (existing) {
+      existing.lastSeenAt = row.created_at;
+      return existing;
+    }
+
+    const session = {
+      key,
+      yearLevel,
+      started: false,
+      completed: false,
+      maxQuestionReached: 0,
+      totalQuestions: null,
+      lastSeenAt: row.created_at,
+    };
+    diagnosticSessions.set(key, session);
+    return session;
+  }
+
+  for (const raw of diagnosticEventData ?? []) {
+    const row = raw as DiagnosticAnalyticsRow;
+    const session = diagnosticSession(row);
+    if (!session) continue;
+
+    if (row.event_name === "diagnostic_started") {
+      session.started = true;
+      const totalQuestions = metadataNumber(row.metadata, "totalQuestions");
+      if (totalQuestions !== null) session.totalQuestions = totalQuestions;
+      continue;
+    }
+
+    if (row.event_name === "diagnostic_completed") {
+      session.completed = true;
+      const totalQuestions = metadataNumber(row.metadata, "totalQuestions");
+      if (totalQuestions !== null) {
+        session.totalQuestions = totalQuestions;
+        session.maxQuestionReached = Math.max(
+          session.maxQuestionReached,
+          totalQuestions
+        );
+      }
+      continue;
+    }
+
+    if (row.event_name === "diagnostic_question_answered") {
+      const rawQuestionIndex = metadataNumber(row.metadata, "questionIndex");
+      if (rawQuestionIndex === null) continue;
+
+      const questionNumber =
+        rawQuestionIndex <= 0
+          ? Math.max(1, Math.round(rawQuestionIndex + 1))
+          : Math.round(rawQuestionIndex);
+
+      session.maxQuestionReached = Math.max(
+        session.maxQuestionReached,
+        questionNumber
+      );
+
+      const totalQuestions = metadataNumber(row.metadata, "totalQuestions");
+      if (totalQuestions !== null) session.totalQuestions = totalQuestions;
+    }
+  }
+
+  const diagnosticYearOptions = [...diagnosticYears].sort((a, b) =>
+    a.localeCompare(b, undefined, { numeric: true })
+  );
+  const activeDiagnosticYear = diagnosticYears.has(selectedDiagnosticYear)
+    ? selectedDiagnosticYear
+    : "all";
+
+  const allDiagnosticSessions = [...diagnosticSessions.values()];
+  const filteredDiagnosticSessions =
+    activeDiagnosticYear === "all"
+      ? allDiagnosticSessions
+      : allDiagnosticSessions.filter(
+          (session) => session.yearLevel === activeDiagnosticYear
+        );
+
+  const filteredStartedSessions = filteredDiagnosticSessions.filter(
+    (session) => session.started || session.maxQuestionReached > 0 || session.completed
+  );
+  const filteredStartedCount = filteredStartedSessions.length;
+  const filteredCompletedCount = filteredStartedSessions.filter(
+    (session) => session.completed
+  ).length;
+  const reachedTotal = filteredStartedSessions.reduce(
+    (sum, session) => sum + session.maxQuestionReached,
+    0
+  );
+  const averageQuestionReached =
+    filteredStartedCount > 0
+      ? Number((reachedTotal / filteredStartedCount).toFixed(1))
+      : null;
+
+  const maxDiagnosticQuestions = Math.max(
+    0,
+    ...filteredStartedSessions.map(
+      (session) => session.totalQuestions ?? session.maxQuestionReached
+    )
+  );
+
+  const questionDropRows: DiagnosticQuestionRow[] = Array.from(
+    { length: maxDiagnosticQuestions },
+    (_, index) => {
+      const questionNumber = index + 1;
+      const reached = filteredStartedSessions.filter(
+        (session) => session.maxQuestionReached >= questionNumber
+      ).length;
+      const previous =
+        questionNumber === 1
+          ? filteredStartedCount
+          : filteredStartedSessions.filter(
+              (session) => session.maxQuestionReached >= questionNumber - 1
+            ).length;
+      const dropFromPrevious = previous - reached;
       const dropPct =
-        prev !== null && prev > 0
-          ? Math.round(((prev - count) / prev) * 100)
-          : null;
+        previous > 0 ? Math.round((dropFromPrevious / previous) * 100) : null;
+
       return {
-        display: qi + 1,
-        count,
+        questionNumber,
+        reached,
+        completionPct:
+          filteredStartedCount > 0
+            ? Math.round((reached / filteredStartedCount) * 100)
+            : null,
+        dropFromPrevious,
         dropPct,
         isBigDrop: dropPct !== null && dropPct > 25,
       };
-    });
+    }
+  );
 
-  const firstBigDrop = questionDropRows.find((r) => r.isBigDrop) ?? null;
-  const hasDiagQuestionData = questionDropRows.length > 0;
+  const biggestDropQuestion =
+    questionDropRows
+      .filter((row) => row.dropPct !== null)
+      .sort(
+        (a, b) =>
+          (b.dropFromPrevious ?? 0) - (a.dropFromPrevious ?? 0) ||
+          (b.dropPct ?? 0) - (a.dropPct ?? 0)
+      )[0] ?? null;
+
+  const diagnosticYearRows = diagnosticYearOptions.map((yearLevel) => {
+    const sessions = allDiagnosticSessions.filter(
+      (session) => session.yearLevel === yearLevel
+    );
+    const starts = sessions.filter(
+      (session) => session.started || session.maxQuestionReached > 0 || session.completed
+    ).length;
+    const completions = sessions.filter((session) => session.completed).length;
+    const average =
+      starts > 0
+        ? Number(
+            (
+              sessions.reduce(
+                (sum, session) => sum + session.maxQuestionReached,
+                0
+              ) / starts
+            ).toFixed(1)
+          )
+        : null;
+    const maxQuestions = Math.max(
+      0,
+      ...sessions.map((session) => session.totalQuestions ?? session.maxQuestionReached)
+    );
+    const questionDrops = Array.from({ length: maxQuestions }, (_, index) => {
+      const questionNumber = index + 1;
+      const reached = sessions.filter(
+        (session) => session.maxQuestionReached >= questionNumber
+      ).length;
+      const previous =
+        questionNumber === 1
+          ? starts
+          : sessions.filter(
+              (session) => session.maxQuestionReached >= questionNumber - 1
+            ).length;
+      const dropFromPrevious = previous - reached;
+      const dropPct =
+        previous > 0 ? Math.round((dropFromPrevious / previous) * 100) : null;
+      return { questionNumber, dropFromPrevious, dropPct };
+    });
+    const biggestDrop =
+      questionDrops
+        .filter((row) => row.dropPct !== null)
+        .sort(
+          (a, b) =>
+            b.dropFromPrevious - a.dropFromPrevious ||
+            (b.dropPct ?? 0) - (a.dropPct ?? 0)
+        )[0] ?? null;
+
+    return {
+      yearLevel,
+      starts,
+      completions,
+      completionRate: starts > 0 ? Math.round((completions / starts) * 100) : 0,
+      incomplete: starts - completions,
+      averageQuestionReached: average,
+      biggestDropQuestion: biggestDrop?.questionNumber ?? null,
+      biggestDropPct: biggestDrop?.dropPct ?? null,
+    };
+  });
+
+  const biggestDropYear =
+    diagnosticYearRows
+      .filter((row) => row.starts > 0)
+      .sort(
+        (a, b) =>
+          b.incomplete - a.incomplete ||
+          a.completionRate - b.completionRate ||
+          b.starts - a.starts
+      )[0] ?? null;
+  const hasDiagQuestionData =
+    filteredStartedCount > 0 || diagnosticYearRows.some((row) => row.starts > 0);
 
   const recentEvents = (recentData ?? []) as AnalyticsEventRow[];
 
@@ -508,7 +752,7 @@ export default async function AdminAnalyticsPage({
               {ALLOWED_DAYS.map((d) => (
                 <Link
                   key={d}
-                  href={`/admin/analytics?days=${d}`}
+                  href={analyticsHref(d, activeDiagnosticYear)}
                   className={`rounded-lg px-3 py-1 text-xs font-semibold ${
                     d === days
                       ? "bg-slate-900 text-white"
@@ -811,66 +1055,103 @@ export default async function AdminAnalyticsPage({
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
             Diagnostic progress · last {days} day{days === 1 ? "" : "s"}
           </p>
-          <h2 className="mt-2 text-xl font-bold tracking-tight">
-            Question-level drop-off
-          </h2>
+          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+            <div>
+              <h2 className="mt-2 text-xl font-bold tracking-tight">
+                Completion funnel by question
+              </h2>
+              <p className="mt-1 text-xs text-slate-500">
+                Grouped by identity and year level. Use the filter to isolate a diagnostic.
+              </p>
+            </div>
+            <div className="flex max-w-xl flex-wrap gap-2">
+              <Link
+                href={analyticsHref(days, "all")}
+                className={`rounded-lg px-3 py-1 text-xs font-semibold ${
+                  activeDiagnosticYear === "all"
+                    ? "bg-slate-900 text-white"
+                    : "border border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+                }`}
+              >
+                All years
+              </Link>
+              {diagnosticYearOptions.map((yearLevel) => (
+                <Link
+                  key={yearLevel}
+                  href={analyticsHref(days, yearLevel)}
+                  className={`rounded-lg px-3 py-1 text-xs font-semibold ${
+                    activeDiagnosticYear === yearLevel
+                      ? "bg-slate-900 text-white"
+                      : "border border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+                  }`}
+                >
+                  {yearLevel.replace(/-/g, " ")}
+                </Link>
+              ))}
+            </div>
+          </div>
 
-          <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            <StatCard label="Diagnostic starts"      value={diagnosticStarts} />
-            <StatCard label="Diagnostic completions" value={diagnosticCompletions} />
+          <div className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-5">
+            <StatCard label="Started" value={filteredStartedCount} />
+            <StatCard label="Completed" value={filteredCompletedCount} />
             <StatCard
               label="Completion rate"
-              value={pct(diagnosticCompletions, diagnosticStarts)}
+              value={pct(filteredCompletedCount, filteredStartedCount)}
             />
             <StatCard
-              label="First big drop (Q#)"
-              value={firstBigDrop ? `Q${firstBigDrop.display}` : "—"}
+              label="Avg question reached"
+              value={averageQuestionReached === null ? "-" : averageQuestionReached}
+            />
+            <StatCard
+              label="Biggest drop"
+              value={biggestDropQuestion ? `Q${biggestDropQuestion.questionNumber}` : "-"}
               subtitle={
-                firstBigDrop
-                  ? `${firstBigDrop.dropPct}% fewer than Q${firstBigDrop.display - 1}`
-                  : hasDiagQuestionData
-                  ? "No drop >25% detected"
-                  : undefined
+                biggestDropQuestion?.dropPct !== null &&
+                biggestDropQuestion?.dropPct !== undefined
+                  ? `${biggestDropQuestion.dropPct}% drop`
+                  : "No question drop yet"
               }
             />
           </div>
 
+          {biggestDropYear ? (
+            <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+              <span className="font-semibold">Biggest year-level drop-off:</span>{" "}
+              {biggestDropYear.yearLevel.replace(/-/g, " ")} with{" "}
+              {biggestDropYear.incomplete} incomplete start
+              {biggestDropYear.incomplete === 1 ? "" : "s"}.
+            </div>
+          ) : null}
+
           {!hasDiagQuestionData ? (
             <p className="mt-5 rounded-2xl bg-slate-50 p-4 text-sm text-slate-500">
-              No question-level diagnostic data yet. Instrument{" "}
-              <code className="font-mono">diagnostic_question_answered</code>{" "}
-              in <code className="font-mono">DiagnosticQuizClient</code> to
-              populate this section.
+              No diagnostic abandonment data yet. This section uses{" "}
+              <code className="font-mono">diagnostic_started</code>,{" "}
+              <code className="font-mono">diagnostic_question_answered</code>, and{" "}
+              <code className="font-mono">diagnostic_completed</code>.
             </p>
           ) : (
-            <>
-              {firstBigDrop && (
-                <div className="mt-4 flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-                  <span className="mt-0.5 shrink-0">⚠</span>
-                  <p>
-                    <span className="font-semibold">
-                      Drop at Q{firstBigDrop.display}:
-                    </span>{" "}
-                    answer count fell by{" "}
-                    <span className="font-semibold">{firstBigDrop.dropPct}%</span>{" "}
-                    compared to Q{firstBigDrop.display - 1}. Consider adding an
-                    encouragement message or milestone at this question.
-                  </p>
-                </div>
-              )}
-              <div className="mt-5 overflow-x-auto">
+            <div className="mt-5 grid gap-5 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+              <div className="overflow-x-auto rounded-2xl border border-slate-200">
                 <table className="min-w-full divide-y divide-slate-200 text-sm">
-                  <thead>
+                  <thead className="bg-slate-50">
                     <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                      <th className="px-3 py-2 text-left">Question</th>
-                      <th className="px-3 py-2 text-right">Answers received</th>
-                      <th className="px-3 py-2 text-right">Drop from previous</th>
+                      <th className="px-3 py-2 text-left">Funnel step</th>
+                      <th className="px-3 py-2 text-right">Reached</th>
+                      <th className="px-3 py-2 text-right">Completion</th>
+                      <th className="px-3 py-2 text-right">Drop</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
+                    <tr>
+                      <td className="px-3 py-2 font-medium text-slate-900">Started</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{filteredStartedCount}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">100%</td>
+                      <td className="px-3 py-2 text-right text-slate-400">-</td>
+                    </tr>
                     {questionDropRows.map((row) => (
                       <tr
-                        key={row.display}
+                        key={row.questionNumber}
                         className={
                           row.isBigDrop
                             ? "bg-amber-50"
@@ -878,41 +1159,79 @@ export default async function AdminAnalyticsPage({
                         }
                       >
                         <td className="px-3 py-2 font-medium text-slate-900">
-                          Q{row.display}
+                          Q{row.questionNumber}
                           {row.isBigDrop && (
                             <span className="ml-2 rounded-full bg-amber-200 px-2 py-0.5 text-xs font-semibold text-amber-800">
                               drop
                             </span>
                           )}
                         </td>
-                        <td className="px-3 py-2 text-right tabular-nums text-slate-700">
-                          {row.count}
+                        <td className="px-3 py-2 text-right tabular-nums">
+                          {row.reached}
+                        </td>
+                        <td className="px-3 py-2 text-right tabular-nums">
+                          {row.completionPct === null ? "-" : `${row.completionPct}%`}
                         </td>
                         <td
                           className={`px-3 py-2 text-right tabular-nums ${
-                            row.dropPct === null
-                              ? "text-slate-400"
-                              : row.isBigDrop
-                              ? "font-semibold text-amber-700"
-                              : row.dropPct > 0
-                              ? "text-slate-600"
-                              : "text-emerald-600"
+                            row.isBigDrop ? "font-semibold text-amber-700" : "text-slate-600"
                           }`}
                         >
                           {row.dropPct === null
-                            ? "—"
-                            : row.dropPct > 0
-                            ? `−${row.dropPct}%`
-                            : row.dropPct < 0
-                            ? `+${Math.abs(row.dropPct)}%`
-                            : "0%"}
+                            ? "-"
+                            : `${row.dropFromPrevious} / ${row.dropPct}%`}
+                        </td>
+                      </tr>
+                    ))}
+                    <tr className="bg-slate-50">
+                      <td className="px-3 py-2 font-medium text-slate-900">Completed</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{filteredCompletedCount}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">
+                        {pct(filteredCompletedCount, filteredStartedCount)}
+                      </td>
+                      <td className="px-3 py-2 text-right text-slate-500">Final submit</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="overflow-x-auto rounded-2xl border border-slate-200">
+                <table className="min-w-full divide-y divide-slate-200 text-sm">
+                  <thead className="bg-slate-50">
+                    <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      <th className="px-3 py-2 text-left">Year level</th>
+                      <th className="px-3 py-2 text-right">Started</th>
+                      <th className="px-3 py-2 text-right">Completed</th>
+                      <th className="px-3 py-2 text-right">Rate</th>
+                      <th className="px-3 py-2 text-right">Avg Q</th>
+                      <th className="px-3 py-2 text-right">Big drop</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {diagnosticYearRows.map((row) => (
+                      <tr key={row.yearLevel}>
+                        <td className="px-3 py-2 font-medium text-slate-900">
+                          {row.yearLevel.replace(/-/g, " ")}
+                        </td>
+                        <td className="px-3 py-2 text-right tabular-nums">{row.starts}</td>
+                        <td className="px-3 py-2 text-right tabular-nums">{row.completions}</td>
+                        <td className="px-3 py-2 text-right tabular-nums">
+                          {row.completionRate}%
+                        </td>
+                        <td className="px-3 py-2 text-right tabular-nums">
+                          {row.averageQuestionReached ?? "-"}
+                        </td>
+                        <td className="px-3 py-2 text-right tabular-nums">
+                          {row.biggestDropQuestion
+                            ? `Q${row.biggestDropQuestion} / ${row.biggestDropPct}%`
+                            : "-"}
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-            </>
+            </div>
           )}
         </section>
 
