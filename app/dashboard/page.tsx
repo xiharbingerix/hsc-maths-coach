@@ -740,30 +740,6 @@ export default function DashboardPage() {
         </section>
 
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Quick diagnostic quiz
-              </p>
-              <h2 className="mt-2 text-2xl font-bold tracking-tight">
-                Find out where to focus
-              </h2>
-              <p className="mt-2 max-w-xl leading-7 text-slate-600">
-                20 multiple-choice questions across all major units. Takes about
-                5 minutes and gives you a prioritised study list.
-              </p>
-            </div>
-            <Link
-              href="/diagnostic/select"
-              className="inline-flex shrink-0 items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
-            >
-              Start quiz →
-            </Link>
-          </div>
-        </section>
-
-        {/* ── Your worksheets ───────────────────────────────────────────────── */}
-        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
             Your Study Plan
           </p>
@@ -848,7 +824,7 @@ export default function DashboardPage() {
         </section>
 
         {/* ── Today's revision ──────────────────────────────────────────────── */}
-        <section id="worksheets" className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
             Spaced revision
           </p>
@@ -856,7 +832,7 @@ export default function DashboardPage() {
 
           {revisionQueue.length === 0 ? (
             <p className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
-              You&apos;re up to date. Complete a worksheet or lesson to keep your mastery fresh.
+              You&apos;re up to date for now.
             </p>
           ) : (
             <ul className="mt-5 space-y-3">
@@ -897,12 +873,15 @@ export default function DashboardPage() {
           )}
         </section>
 
-        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-2xl font-bold tracking-tight">Your worksheets</h2>
+        <section id="worksheets" className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Practice
+          </p>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight">Your worksheets</h2>
 
           {!hasWorksheets && !hasExtraAttempts ? (
             <p className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
-              No assigned worksheets yet.
+              No worksheets yet. Generate one from your study plan when you are ready.
             </p>
           ) : (
             <div className="mt-5 space-y-3">
@@ -969,139 +948,16 @@ export default function DashboardPage() {
           )}
         </section>
 
-        {continueLearningTarget ? (
-          <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
-            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-              Continue learning
-            </p>
-            <div className="mt-4 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-sm font-semibold text-slate-600">
-                  {continueLearningTarget.status}
-                </p>
-                <h2 className="mt-2 text-2xl font-bold tracking-tight">
-                  {continueLearningTarget.lessonTitle}
-                </h2>
-                <p className="mt-2 text-sm leading-6 text-slate-600">
-                  {continueLearningTarget.courseTitle} &middot;{" "}
-                  {continueLearningTarget.unitTitle}
-                </p>
-                {continueLearningTarget.lastScore != null ? (
-                  <p className="mt-2 text-sm font-medium text-slate-600">
-                    Last mastery score:{" "}
-                    {Math.round(continueLearningTarget.lastScore * 100)}%
-                  </p>
-                ) : null}
-              </div>
-              <Link
-                href={continueLearningTarget.href}
-                className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
-              >
-                {continueLearningTarget.status === "In progress"
-                  ? "Continue lesson"
-                  : "Start lesson"}
-              </Link>
-            </div>
-          </section>
-        ) : null}
-
-        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-2xl font-bold tracking-tight">Your progress</h2>
-          <p className="mt-3 max-w-3xl leading-7 text-slate-600">
-            Lessons count as complete after you pass their mastery quiz.
-          </p>
-
-          {hasLessonProgress ? (
-            <div className="mt-6 grid gap-4 md:grid-cols-2">
-              {availableCourses.map((course) => {
-                const completedLessons = Math.min(
-                  progressRecords.filter(
-                    (record) =>
-                      record.courseSlug === course.courseSlug && record.passed
-                  ).length,
-                  course.activeLessonCount
-                );
-                const percentage =
-                  course.activeLessonCount > 0
-                    ? Math.round(
-                        (completedLessons / course.activeLessonCount) * 100
-                      )
-                    : 0;
-
-                return (
-                  <Link
-                    key={course.courseSlug}
-                    href={course.href}
-                    className="rounded-2xl border border-slate-200 p-5 transition hover:bg-slate-50"
-                  >
-                    <h3 className="font-bold">{course.courseTitle}</h3>
-                    <p className="mt-2 text-sm text-slate-600">
-                      {completedLessons} of {course.activeLessonCount} lessons
-                      complete
-                    </p>
-                    <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-100">
-                      <div
-                        className="h-full rounded-full bg-slate-950"
-                        style={{ width: `${Math.min(percentage, 100)}%` }}
-                      />
-                    </div>
-                    <p className="mt-2 text-sm font-semibold text-slate-700">
-                      {percentage}%
-                    </p>
-                  </Link>
-                );
-              })}
-            </div>
-          ) : (
-            <p className="mt-6 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
-              Start a lesson and pass mastery to see your progress here.
-            </p>
-          )}
-        </section>
-
-        {/* ── Next best action ──────────────────────────────────────────────── */}
-        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
-          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-            Your next best action
-          </p>
-
-          {!nextBestAction ? (
-            <p className="mt-3 text-sm text-slate-600">
-              Complete a diagnostic or worksheet to get your personalised next step.
-            </p>
-          ) : (
-            <div className="mt-3 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold tracking-tight">
-                  Focus on {nextBestAction.topicName} next.
-                </h2>
-                <p className="mt-2 text-slate-600">
-                  Your current mastery is {nextBestAction.mastery}%.
-                </p>
-                <div className="mt-3 h-2 max-w-xs overflow-hidden rounded-full bg-slate-100">
-                  <div
-                    className={`h-full rounded-full ${masteryBarColor(nextBestAction.mastery)}`}
-                    style={{ width: `${nextBestAction.mastery}%` }}
-                  />
-                </div>
-              </div>
-              <Link
-                href={nextBestAction.href}
-                className="inline-flex shrink-0 items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
-              >
-                Start this topic
-              </Link>
-            </div>
-          )}
-        </section>
-
         {/* ── Mastery summary ─────────────────────────────────────────────── */}
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-2xl font-bold tracking-tight">Your mastery</h2>
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Mastery
+          </p>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight">Your mastery</h2>
 
           {!hasMastery ? (
             <p className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
-              Complete a worksheet or quiz to start building your mastery map.
+              Complete a quiz or worksheet to start building your mastery map.
             </p>
           ) : (
             <>
@@ -1211,9 +1067,111 @@ export default function DashboardPage() {
           )}
         </section>
 
+        {continueLearningTarget ? (
+          <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+              Continue learning
+            </p>
+            <div className="mt-4 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-sm font-semibold text-slate-600">
+                  {continueLearningTarget.status}
+                </p>
+                <h2 className="mt-2 text-2xl font-bold tracking-tight">
+                  {continueLearningTarget.lessonTitle}
+                </h2>
+                <p className="mt-2 text-sm leading-6 text-slate-600">
+                  {continueLearningTarget.courseTitle} &middot;{" "}
+                  {continueLearningTarget.unitTitle}
+                </p>
+                {continueLearningTarget.lastScore != null ? (
+                  <p className="mt-2 text-sm font-medium text-slate-600">
+                    Last mastery score:{" "}
+                    {Math.round(continueLearningTarget.lastScore * 100)}%
+                  </p>
+                ) : null}
+              </div>
+              <Link
+                href={continueLearningTarget.href}
+                className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+              >
+                {continueLearningTarget.status === "In progress"
+                  ? "Continue lesson"
+                  : "Start lesson"}
+              </Link>
+            </div>
+          </section>
+        ) : null}
+
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Progress
+          </p>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight">Your courses</h2>
+          <p className="mt-3 max-w-3xl leading-7 text-slate-600">
+            Lessons count as complete after you pass their mastery quiz.
+          </p>
+
+          {hasLessonProgress ? (
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              {availableCourses.map((course) => {
+                const completedLessons = Math.min(
+                  progressRecords.filter(
+                    (record) =>
+                      record.courseSlug === course.courseSlug && record.passed
+                  ).length,
+                  course.activeLessonCount
+                );
+                const percentage =
+                  course.activeLessonCount > 0
+                    ? Math.round(
+                        (completedLessons / course.activeLessonCount) * 100
+                      )
+                    : 0;
+
+                return (
+                  <Link
+                    key={course.courseSlug}
+                    href={course.href}
+                    className="rounded-2xl border border-slate-200 p-5 transition hover:bg-slate-50"
+                  >
+                    <h3 className="font-bold">{course.courseTitle}</h3>
+                    <p className="mt-2 text-sm text-slate-600">
+                      {completedLessons} of {course.activeLessonCount} lessons
+                      complete
+                    </p>
+                    <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-100">
+                      <div
+                        className="h-full rounded-full bg-slate-950"
+                        style={{ width: `${Math.min(percentage, 100)}%` }}
+                      />
+                    </div>
+                    <p className="mt-2 text-sm font-semibold text-slate-700">
+                      {percentage}%
+                    </p>
+                  </Link>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="mt-6 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
+              <p>Start a lesson to see course progress here.</p>
+              <Link
+                href="/course"
+                className="mt-3 inline-flex font-semibold text-slate-950 hover:underline"
+              >
+                Browse courses
+              </Link>
+            </div>
+          )}
+        </section>
+
         {accessStatus === "active" || accessStatus === "revoked" ? (
           <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
-            <h2 className="text-xl font-bold tracking-tight">Billing</h2>
+            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+              Account
+            </p>
+            <h2 className="mt-2 text-xl font-bold tracking-tight">Billing</h2>
             {stripeCustomerId ? (
               <div className="mt-4">
                 <button
@@ -1239,57 +1197,6 @@ export default function DashboardPage() {
           </section>
         ) : null}
 
-        {accessStatus === "active" ? (
-          <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {availableCourses.map((course) => (
-              <Link
-                key={course.courseSlug}
-                href={course.href}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-md"
-              >
-                <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                  Available pathway
-                </p>
-                <h2 className="mt-3 text-xl font-bold">{course.courseTitle}</h2>
-                <p className="mt-2 text-sm font-medium text-slate-500">
-                  {course.unitCount} units &middot; {course.activeLessonCount} active lessons
-                </p>
-                <p className="mt-3 text-sm leading-6 text-slate-600">
-                  {course.description}
-                </p>
-                <p className="mt-5 text-sm font-semibold text-slate-950">
-                  Continue pathway
-                </p>
-              </Link>
-            ))}
-          </section>
-        ) : null}
-
-        {accessStatus === "pending" ? (
-          <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {availableCourses.map((course) => (
-              <Link
-                key={course.courseSlug}
-                href={course.href}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-md"
-              >
-                <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                  Preview available
-                </p>
-                <h2 className="mt-3 text-xl font-bold">{course.courseTitle}</h2>
-                <p className="mt-2 text-sm font-medium text-slate-500">
-                  {course.unitCount} units &middot; {course.activeLessonCount} active lessons
-                </p>
-                <p className="mt-3 text-sm leading-6 text-slate-600">
-                  {course.description}
-                </p>
-                <p className="mt-5 text-sm font-semibold text-slate-950">
-                  Preview pathway
-                </p>
-              </Link>
-            ))}
-          </section>
-        ) : null}
       </section>
     </main>
   );
