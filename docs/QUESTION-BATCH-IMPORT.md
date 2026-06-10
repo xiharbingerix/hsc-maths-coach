@@ -2,6 +2,12 @@
 
 How to prepare, validate, and import externally generated question batches (e.g. from Manus) into the Nova Maths question bank.
 
+> **Authoring standards:** For the full rules on question fields, LaTeX formatting, MCQ design, hint/explanation quality, and question difficulty — see the authoring standards pack:
+> - [QUESTION_AUTHORING_STANDARD.md](./QUESTION_AUTHORING_STANDARD.md) — fields, types, LaTeX/currency rules, validation commands
+> - [FEEDBACK_AND_HINTS_STANDARD.md](./FEEDBACK_AND_HINTS_STANDARD.md) — hints, explanations, common mistakes
+> - [PRACTICE_QUESTION_STANDARD.md](./PRACTICE_QUESTION_STANDARD.md) — guided/independent/mastery structure, difficulty, MCQ guidance
+> - [FEYNMAN_TEACHING_STANDARD.md](./FEYNMAN_TEACHING_STANDARD.md) — teaching paragraphs and worked example style
+
 ---
 
 ## Overview
