@@ -1,11 +1,81 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import type { ReactNode } from "react";
 import {
+  trackSubscribeClicked,
+  trackCheckoutStarted,
   trackPreviewHscLessonClicked,
   trackDiagnosticStarted,
 } from "../../lib/analytics";
+import { clientTrackEvent } from "../../lib/analytics/clientTrackEvent";
+
+/**
+ * Primary trial CTA for the /hsc-maths page.
+ * POSTs directly to create-checkout-session and redirects to Stripe,
+ * bypassing the intermediate /checkout page.
+ * Falls back to /checkout?offer=online-learning on any error.
+ */
+export function HscTrialCTAButton({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function handleClick() {
+    if (isLoading) return;
+    setIsLoading(true);
+
+    trackSubscribeClicked();
+    clientTrackEvent("trial_cta_clicked", {
+      source: "hsc-maths",
+      method: "direct-stripe",
+    });
+
+    try {
+      const response = await fetch("/api/stripe/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ offer: "online-learning" }),
+      });
+
+      const payload = (await response.json()) as { url?: string; error?: string };
+
+      if (response.ok && payload.url) {
+        trackCheckoutStarted();
+        clientTrackEvent("checkout_started", { offer: "online-learning" });
+        clientTrackEvent(
+          "checkout_redirected_to_stripe",
+          { offer: "online-learning" },
+          { beacon: true }
+        );
+        window.location.href = payload.url;
+        return;
+      }
+
+      // API returned an error — fall back to the checkout page.
+      window.location.href = "/checkout?offer=online-learning";
+    } catch {
+      // Network error — fall back to the checkout page.
+      window.location.href = "/checkout?offer=online-learning";
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={handleClick}
+      disabled={isLoading}
+      className={`inline-flex max-w-full shrink-0 items-center justify-center whitespace-nowrap rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold leading-none text-white shadow-sm transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
+    >
+      {isLoading ? "Opening secure checkout…" : children}
+    </button>
+  );
+}
 
 export function FreeLessonCTAButton({
   children,

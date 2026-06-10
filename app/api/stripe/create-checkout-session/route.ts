@@ -123,6 +123,13 @@ export async function POST(request: Request) {
 
     const stripe = getStripe();
 
+    // The customer-visible product name on the Stripe Checkout page is set on
+    // the Stripe Dashboard product record attached to the price ID.
+    // To show "Nova Maths Online Learning" there, rename the product in the
+    // Stripe Dashboard (Products → select the online-learning product → Edit name).
+    // The subscription_data.description below controls the per-subscription
+    // description shown in the Stripe Dashboard and on invoices/receipts.
+
     const session = await stripe.checkout.sessions.create({
       mode: offer.mode,
       line_items: [{ price: priceId, quantity: 1 }],
@@ -144,7 +151,10 @@ export async function POST(request: Request) {
         offer.mode === "subscription"
           ? {
               ...(offer.slug === "online-learning"
-                ? { trial_period_days: 7 }
+                ? {
+                    trial_period_days: 7,
+                    description: "Nova Maths Online Learning",
+                  }
                 : {}),
               metadata: {
                 offer_selected: offer.slug,

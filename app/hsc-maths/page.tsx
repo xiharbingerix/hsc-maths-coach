@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { SubscribeCTA } from "../components/SubscribeCTA";
 import { courseCatalogue } from "../../lib/courseUnits";
-import { FreeLessonCTAButton, DiagnosticCTALink } from "./HscMathsCTAs";
+import { HscTrialCTAButton, FreeLessonCTAButton, DiagnosticCTALink } from "./HscMathsCTAs";
 import { PageViewTracker } from "../components/PageViewTracker";
 
 export const metadata: Metadata = {
@@ -117,9 +116,9 @@ export default function HscMathsPage() {
             </Link>
             {/* CTA visible on sm+ only — mobile uses the fixed bottom bar */}
             <div className="hidden sm:block">
-              <SubscribeCTA href="/checkout?offer=online-learning">
+              <HscTrialCTAButton>
                 Start Free Trial
-              </SubscribeCTA>
+              </HscTrialCTAButton>
             </div>
           </div>
         </div>
@@ -144,9 +143,9 @@ export default function HscMathsPage() {
             </p>
 
             <div className="mt-8">
-              <SubscribeCTA href="/checkout?offer=online-learning">
+              <HscTrialCTAButton>
                 Start your 7-day free trial
-              </SubscribeCTA>
+              </HscTrialCTAButton>
             </div>
 
             <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-slate-500">
@@ -336,9 +335,9 @@ export default function HscMathsPage() {
             access to all available Year 9&ndash;12 maths pathways.
           </p>
           <div className="mt-7">
-            <SubscribeCTA href="/checkout?offer=online-learning">
+            <HscTrialCTAButton>
               Start 7-day free trial
-            </SubscribeCTA>
+            </HscTrialCTAButton>
           </div>
           <p className="mt-3 text-sm text-slate-500">
             No charge today &middot; Then $19/month &middot; Cancel anytime
@@ -383,12 +382,9 @@ export default function HscMathsPage() {
             Give HSC maths a clear study path.
           </h2>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <SubscribeCTA
-              href="/checkout?offer=online-learning"
-              className="bg-white text-slate-950 hover:bg-slate-100"
-            >
+            <HscTrialCTAButton className="bg-white text-slate-950 hover:bg-slate-100">
               Start 7-day free trial
-            </SubscribeCTA>
+            </HscTrialCTAButton>
             <Link
               href="/course"
               className="inline-flex items-center justify-center rounded-xl border border-slate-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
@@ -413,9 +409,9 @@ export default function HscMathsPage() {
 
       {/* Fixed bottom bar — mobile only (sm+ uses the sticky header CTA) */}
       <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white p-4 sm:hidden">
-        <SubscribeCTA href="/checkout?offer=online-learning" className="w-full">
+        <HscTrialCTAButton className="w-full">
           Start Free Trial
-        </SubscribeCTA>
+        </HscTrialCTAButton>
       </div>
     </main>
   );
