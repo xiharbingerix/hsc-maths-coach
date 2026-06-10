@@ -129,6 +129,11 @@ export function WorksheetClient({
   const [finalScore, setFinalScore] = useState<FinalScore | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [flagState, setFlagState] = useState<
+    "idle" | "open" | "submitting" | "submitted" | "error"
+  >("idle");
+  const [flagReason, setFlagReason] = useState("");
+  const [flagComment, setFlagComment] = useState("");
   const storageKey = useMemo(() => `nova-worksheet-attempt:${token}`, [token]);
 
   // Track time spent on each question
@@ -359,8 +364,36 @@ export function WorksheetClient({
       setTypedAnswer("");
       setChoiceAnswer("");
       setResult(null);
+      setFlagState("idle");
+      setFlagReason("");
+      setFlagComment("");
       setPhase("asking");
       questionStartTimeRef.current = Date.now();
+    }
+  }
+
+  // ── Submit question flag ───────────────────────────────────────────────────
+
+  async function handleFlag() {
+    if (!attemptId || !currentQuestion || !flagReason) return;
+    setFlagState("submitting");
+    const answer = currentQuestion.choices ? choiceAnswer : typedAnswer;
+    try {
+      const res = await fetch(`/api/worksheet/${token}/flag`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          attemptId,
+          questionId: currentQuestion.id,
+          reason: flagReason,
+          comment: flagComment,
+          studentAnswer: answer.trim(),
+          markedCorrect: result?.isCorrect ?? false,
+        }),
+      });
+      setFlagState(res.ok ? "submitted" : "error");
+    } catch {
+      setFlagState("error");
     }
   }
 
@@ -673,6 +706,99 @@ export function WorksheetClient({
                   ? "Finish worksheet"
                   : "Next question →"}
               </button>
+            </div>
+          ) : null}
+
+          {/* Flag this question */}
+          {phase === "answered" ? (
+            <div className="border-t border-slate-100 pt-4">
+              {flagState === "submitted" ? (
+                <p className="text-xs text-slate-400">
+                  Thanks for flagging — we&apos;ll review this question.
+                </p>
+              ) : flagState === "open" ||
+                flagState === "submitting" ||
+                flagState === "error" ? (
+                <div className="space-y-3">
+                  <p className="text-sm font-medium text-slate-700">
+                    What&apos;s the issue?
+                  </p>
+                  <div className="space-y-1.5">
+                    {(
+                      [
+                        { value: "wrong-answer", label: "The answer seems wrong" },
+                        {
+                          value: "confusing-question",
+                          label: "The question is confusing",
+                        },
+                        { value: "typo-or-error", label: "There's a typo or error" },
+                        {
+                          value: "diagram-issue",
+                          label: "The diagram is incorrect or unclear",
+                        },
+                        { value: "other", label: "Other issue" },
+                      ] as const
+                    ).map(({ value, label }) => (
+                      <label
+                        key={value}
+                        className="flex cursor-pointer items-center gap-2.5 text-sm text-slate-700"
+                      >
+                        <input
+                          type="radio"
+                          name="flag-reason"
+                          value={value}
+                          checked={flagReason === value}
+                          onChange={() => setFlagReason(value)}
+                          className="accent-slate-800"
+                        />
+                        {label}
+                      </label>
+                    ))}
+                  </div>
+                  <textarea
+                    value={flagComment}
+                    onChange={(e) => setFlagComment(e.target.value)}
+                    maxLength={400}
+                    placeholder="Additional details (optional)"
+                    rows={2}
+                    className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-300"
+                  />
+                  {flagState === "error" ? (
+                    <p className="text-xs text-red-600">
+                      Could not send — please try again.
+                    </p>
+                  ) : null}
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => void handleFlag()}
+                      disabled={!flagReason || flagState === "submitting"}
+                      className="rounded-xl bg-slate-800 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-40"
+                    >
+                      {flagState === "submitting" ? "Sending…" : "Send flag"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFlagState("idle");
+                        setFlagReason("");
+                        setFlagComment("");
+                      }}
+                      className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setFlagState("open")}
+                  className="text-xs text-slate-400 underline decoration-slate-300 underline-offset-2 hover:text-slate-600"
+                >
+                  Flag this question
+                </button>
+              )}
             </div>
           ) : null}
 
