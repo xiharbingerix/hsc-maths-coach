@@ -48,7 +48,7 @@ import {
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
-import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride } from "./lessons/year8";
+import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride } from "./lessons/year8";
 
 export type {
   CourseLessonSeed,
@@ -205,6 +205,7 @@ export function buildLesson(
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
     year8NumberOperationsLessonOverride(course, unit, lesson) ??
+    year8VolumeSurfaceAreaLessonOverride(course, unit, lesson) ??
     year8AlgebraFoundationsLessonOverride(course, unit, lesson) ??
     year8AlgebraEquationsLessonOverride(course, unit, lesson) ??
     year8NumberFinancialMathematicsLessonOverride(course, unit, lesson) ??
@@ -1991,7 +1992,14 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Measurement and Space",
         focus:
           "Establish 3D measurement fluency that Year 9 prisms and cylinders content directly extends.",
-        lessons: [],
+        lessons: [
+          { slug: "volume-of-prisms",                  title: "Volume of Prisms" },
+          { slug: "surface-area-of-prisms",            title: "Surface Area of Prisms" },
+          { slug: "volume-of-cylinders",               title: "Volume of Cylinders" },
+          { slug: "surface-area-of-cylinders",         title: "Surface Area of Cylinders" },
+          { slug: "volume-of-composite-solids",        title: "Volume of Composite Solids" },
+          { slug: "surface-area-of-composite-solids",  title: "Surface Area of Composite Solids" },
+        ],
       },
       {
         slug: "data-and-graphs",

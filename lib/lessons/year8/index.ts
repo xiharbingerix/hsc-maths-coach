@@ -6,3 +6,4 @@ export { year8LinearRelationshipsLessonOverride } from "./linearRelationships";
 export { year8StatisticsProbabilityLessonOverride } from "./statisticsProbability";
 export { year8AlgebraEquationsLessonOverride } from "./algebraEquations";
 export { year8NumberOperationsLessonOverride } from "./numberOperations";
+export { year8VolumeSurfaceAreaLessonOverride } from "./volumeSurfaceArea";
