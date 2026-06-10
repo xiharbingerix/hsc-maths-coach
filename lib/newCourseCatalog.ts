@@ -48,7 +48,7 @@ import {
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
-import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride } from "./lessons/year8";
+import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride } from "./lessons/year8";
 
 export type {
   CourseLessonSeed,
@@ -207,6 +207,7 @@ export function buildLesson(
     year8AlgebraFoundationsLessonOverride(course, unit, lesson) ??
     year8NumberFinancialMathematicsLessonOverride(course, unit, lesson) ??
     year8PythagorasTheoremLessonOverride(course, unit, lesson) ??
+    year8GeometryAnglesLessonOverride(course, unit, lesson) ??
     year9IndexLawsLessonOverride(course, unit, lesson) ??
     year9FinancialMathematicsLessonOverride(course, unit, lesson) ??
     year9ConstantRatesOfChangeLessonOverride(course, unit, lesson) ??
@@ -1898,6 +1899,23 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "pythagoras-real-contexts",        title: "Pythagoras in Real Contexts" },
           { slug: "pythagorean-triples",             title: "Pythagorean Triples" },
           { slug: "distance-between-two-points",      title: "Distance Between Two Points" },
+        ],
+      },
+      {
+        slug: "geometry-angles",
+        title: "Geometry and Angles",
+        description:
+          "Classify and calculate angle relationships, apply parallel-line properties, find angles in triangles and polygons, identify congruent triangles, and write geometric reasoning.",
+        syllabusArea: "Measurement and Space",
+        focus:
+          "Build Stage 4 geometric fluency — angle relationships, parallel lines, polygon properties and introductory congruence — as the foundation for Year 9 geometric representations and Year 10 geometry proofs.",
+        lessons: [
+          { slug: "angle-relationships",             title: "Angle Relationships" },
+          { slug: "parallel-lines-transversals",     title: "Parallel Lines and Transversals" },
+          { slug: "angles-triangles-quadrilaterals", title: "Angles in Triangles and Quadrilaterals" },
+          { slug: "properties-of-polygons",          title: "Properties of Polygons" },
+          { slug: "congruent-triangles",             title: "Congruent Triangles" },
+          { slug: "geometric-reasoning",             title: "Geometric Reasoning" },
         ],
       },
       {
