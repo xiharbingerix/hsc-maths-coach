@@ -48,7 +48,7 @@ import {
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
-import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride } from "./lessons/year8";
+import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride } from "./lessons/year8";
 
 export type {
   CourseLessonSeed,
@@ -208,6 +208,7 @@ export function buildLesson(
     year8NumberFinancialMathematicsLessonOverride(course, unit, lesson) ??
     year8PythagorasTheoremLessonOverride(course, unit, lesson) ??
     year8GeometryAnglesLessonOverride(course, unit, lesson) ??
+    year8LinearRelationshipsLessonOverride(course, unit, lesson) ??
     year9IndexLawsLessonOverride(course, unit, lesson) ??
     year9FinancialMathematicsLessonOverride(course, unit, lesson) ??
     year9ConstantRatesOfChangeLessonOverride(course, unit, lesson) ??
@@ -1882,7 +1883,14 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus:
           "Establish the Cartesian plane and linear graph fluency required for Year 9 constant rates of change and Year 10 linear relationships.",
-        lessons: [],
+        lessons: [
+          { slug: "number-patterns-and-rules",     title: "Number Patterns and Rules" },
+          { slug: "coordinates-and-points",         title: "Coordinates and Points" },
+          { slug: "tables-of-values",               title: "Tables of Values" },
+          { slug: "graphing-linear-relationships",  title: "Graphing Linear Relationships" },
+          { slug: "gradient-as-rate-of-change",     title: "Gradient as Rate of Change" },
+          { slug: "interpreting-linear-graphs",     title: "Interpreting Linear Graphs" },
+        ],
       },
       {
         slug: "pythagoras-theorem",
