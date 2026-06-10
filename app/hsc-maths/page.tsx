@@ -143,60 +143,83 @@ export default function HscMathsPage() {
               saved progress &mdash; all built for the NSW curriculum.
             </p>
 
-            {/* Primary: trial. Secondary: free lesson. */}
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8">
               <SubscribeCTA href="/checkout?offer=online-learning">
-                Start 7-day free trial
+                Start your 7-day free trial
               </SubscribeCTA>
-              <FreeLessonCTAButton className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50">
-                Try a free HSC lesson
-              </FreeLessonCTAButton>
             </div>
 
-            {/* Trust copy — prominent and structured */}
-            <p className="mt-3 text-sm text-slate-500">
-              No charge today &middot; 7-day free trial &middot; Then $19/month &middot; Cancel anytime
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-              Year 12 Mathematics Advanced
-            </p>
-            <p className="mt-2 text-sm font-semibold text-slate-600">
-              Calculus
-            </p>
-            <h2 className="mt-1 text-2xl font-bold tracking-tight">
-              Area Under a Curve
-            </h2>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {[
-                "Learn",
-                "Guided practice",
-                "Independent practice",
-                "Mastery quiz",
-              ].map((step, index) => (
-                <span
-                  key={step}
-                  className={`rounded-full border px-3 py-1.5 text-xs font-semibold ${
-                    index === 0
-                      ? "border-slate-950 bg-slate-950 text-white"
-                      : "border-slate-200 bg-white text-slate-600"
-                  }`}
-                >
-                  {step}
+            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-slate-500">
+              {(["No charge today", "Then $19/month", "Cancel anytime"] as const).map((item) => (
+                <span key={item} className="flex items-center gap-1.5">
+                  <svg className="h-3.5 w-3.5 shrink-0 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  {item}
                 </span>
               ))}
             </div>
-            <div className="mt-5 rounded-xl border border-slate-200 bg-white p-4">
-              <p className="text-sm leading-6 text-slate-700">
-                See why the integral measures accumulated area before
-                practising exam-style questions.
+
+            <FreeLessonCTAButton className="mt-3 inline-block text-sm font-semibold text-blue-600 hover:text-blue-800">
+              Or preview a free lesson first &rarr;
+            </FreeLessonCTAButton>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Year 12 Mathematics Advanced
+              </p>
+              <p className="mt-2 text-sm font-semibold text-slate-600">
+                Calculus
+              </p>
+              <h2 className="mt-1 text-2xl font-bold tracking-tight">
+                Area Under a Curve
+              </h2>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {[
+                  "Learn",
+                  "Guided practice",
+                  "Independent practice",
+                  "Mastery quiz",
+                ].map((step, index) => (
+                  <span
+                    key={step}
+                    className={`rounded-full border px-3 py-1.5 text-xs font-semibold ${
+                      index === 0
+                        ? "border-slate-950 bg-slate-950 text-white"
+                        : "border-slate-200 bg-white text-slate-600"
+                    }`}
+                  >
+                    {step}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-5 rounded-xl border border-slate-200 bg-white p-4">
+                <p className="text-sm leading-6 text-slate-700">
+                  See why the integral measures accumulated area before
+                  practising exam-style questions.
+                </p>
+              </div>
+              <p className="mt-4 text-sm font-semibold text-emerald-700">
+                Progress saved to your dashboard
               </p>
             </div>
-            <p className="mt-4 text-sm font-semibold text-emerald-700">
-              Progress saved to your dashboard
-            </p>
+
+            <div className="flex flex-wrap gap-4">
+              <span className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
+                <svg className="h-4 w-4 shrink-0 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                </svg>
+                Secure Stripe checkout
+              </span>
+              <span className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
+                <svg className="h-4 w-4 shrink-0 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+                </svg>
+                NSW curriculum aligned
+              </span>
+            </div>
           </div>
         </section>
 
