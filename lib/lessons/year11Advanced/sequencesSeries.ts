@@ -546,7 +546,7 @@ export function year11AdvancedSequencesSeriesLessonOverride(
       },
       guidedPractice: [
         sequenceAnswer("y11adv-seq-aseries-g1", "Find the sum of the first 10 terms of the arithmetic sequence.", "a=3,\\quad d=4", "210"),
-        sequenceAnswer("y11adv-seq-aseries-g2", "Find the sum of the arithmetic series.", "5+9+13+\\cdots+41", "253"),
+        sequenceAnswer("y11adv-seq-aseries-g2", "Find the sum of the arithmetic series.", "5+9+13+\\cdots+41", "230"),
         sequenceChoice("y11adv-seq-aseries-g3", "Which expansion matches the sigma notation?", "D", ["$2+3+4+5$", "$1+2+3+4$", "$3+5+7$", "$3+5+7+9$"], "Substitute k = 1, 2, 3 and 4 into 2k + 1.", "\\sum_{k=1}^{4}(2k+1)"),
         sequenceAnswer("y11adv-seq-aseries-g4", "Evaluate the finite sum.", "\\sum_{k=1}^{5} 3k", "45"),
       ],

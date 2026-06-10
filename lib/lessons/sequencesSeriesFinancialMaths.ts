@@ -198,7 +198,7 @@ const arithmeticGeometricSequencesLesson = ssLesson(
     ssNumber("y12adv-ssfm-seq-i1", "Find the fifteenth term of the arithmetic sequence.", "a=12,\\quad d=-2", "-16", [], "Use fourteen common differences from the first term."),
     ssNumber("y12adv-ssfm-seq-i2", "Find the common difference of the arithmetic sequence.", "T_4=17,\\quad T_9=37", "4", [], "The term value increases by 20 over 5 term steps, so d=4."),
     ssChoice("y12adv-ssfm-seq-i3", "Which nth-term rule represents a geometric sequence with first term 6 and ratio 1.08?", "\\text{first term }6,\\quad r=1.08", "A", ["$T_n=6(1.08)^{n-1}$", "$T_n=6+1.08(n-1)$", "$T_n=1.08(6)^{n-1}$", "$T_n=6(0.08)^{n-1}$"], "A geometric sequence uses first term times the ratio to the power n-1."),
-    ssNumber("y12adv-ssfm-seq-i4", "Find the sixth term of the geometric sequence.", "a=81,\\quad r=\\frac13", "1", [], "The sixth term is 81 multiplied by five factors of one third."),
+    ssNumber("y12adv-ssfm-seq-i4", "Find the sixth term of the geometric sequence.", "a=81,\\quad r=\\frac13", "1/3", ["1/3", "1 / 3"], "T_6=81\\times\\left(\\tfrac13\\right)^5=\\tfrac{81}{243}=\\tfrac13. Five multiplications by one third give one third."),
     ssChoice("y12adv-ssfm-seq-i5", "Which model is most appropriate for a salary that increases by the same dollar amount each year?", "\\text{same increase in dollars each year}", "A", ["Arithmetic sequence", "Geometric sequence", "Limiting series", "Alternating series"], "A fixed dollar increase is repeated addition, so it is arithmetic."),
   ],
   [
