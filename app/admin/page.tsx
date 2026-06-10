@@ -725,6 +725,12 @@ export default async function AdminPage() {
               Question Bank
             </Link>
             <Link
+              href="/admin/question-flags"
+              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+            >
+              Question Flags
+            </Link>
+            <Link
               href="/admin/analytics"
               className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
             >
