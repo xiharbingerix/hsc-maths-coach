@@ -462,7 +462,7 @@ export function year11AdvancedSequencesSeriesLessonOverride(
         "Recognise geometric sequences and use their nth-term structure in exact, markable cases.",
       successCriteria: [
         "Identify the common ratio in a geometric sequence.",
-        "Use T_n = ar^{n - 1} to find terms.",
+        "Use $T_n = ar^{n-1}$ to find terms.",
         "Solve for n in clean geometric cases.",
         "Find a or r from given sequence information.",
         "Classify sequences as arithmetic, geometric or neither.",
@@ -471,7 +471,7 @@ export function year11AdvancedSequencesSeriesLessonOverride(
         paragraphs: [
           "A geometric sequence changes by repeated multiplication. Instead of adding the same step, you scale the previous term by the same factor each time.",
           "That scale factor is the common ratio r. Find it by dividing a term by the previous non-zero term.",
-          "Powers appear because multiplication repeats: reaching term n takes n - 1 multiplications from the first term, so T_n = ar^{n - 1}.",
+          "Powers appear because multiplication repeats: reaching term n takes n - 1 multiplications from the first term, so $T_n = ar^{n-1}$.",
           "Do not choose a geometric model just because values grow quickly. Check for a constant ratio; a constant difference belongs to an arithmetic sequence.",
           "In clean cases, finding a term position means matching powers with the same base and then remembering that the exponent is n - 1.",
         ],
@@ -496,7 +496,7 @@ export function year11AdvancedSequencesSeriesLessonOverride(
       ],
       commonMistakes: [
         { mistake: "Using a common difference for a geometric sequence.", fix: "Use a common ratio and powers for geometric sequences." },
-        { mistake: "Writing T_n = ar^n instead of T_n = ar^{n - 1}.", fix: "The first term occurs when n = 1, so the power is n - 1." },
+        { mistake: "Writing $T_n = ar^n$ instead of $T_n = ar^{n-1}$.", fix: "The first term occurs when n = 1, so the power is n - 1." },
         { mistake: "Assuming every increasing sequence is geometric.", fix: "Check whether each term is multiplied by the same number." },
         { mistake: "Solving for n by treating powers as ordinary multipliers.", fix: "Match powers in clean cases or use appropriate algebra when required." },
       ],
@@ -510,7 +510,7 @@ export function year11AdvancedSequencesSeriesLessonOverride(
         sequenceAnswer("y11adv-seq-geo-m7", "A geometric sequence has T_4 = 40 and r = 2. Find T_1.", "T_4=40,\\quad r=2", "5"),
         sequenceChoice("y11adv-seq-geo-m8", "A balance follows 500, 550, 605, ... . Which reasoning is most appropriate?", "B", ["Arithmetic, because the first increase is 50", "Geometric, because each term is multiplied by 1.1", "Neither, because the terms increase", "Limiting sum, because the terms are finite"], "The multiplier is constant: 550/500 = 1.1 and 605/550 = 1.1."),
         sequenceAnswer("y11adv-seq-geo-m9", "A geometric sequence has T_2 = 12 and T_5 = 96. Find the positive common ratio.", "T_2=12,\\quad T_5=96", "2"),
-        sequenceChoice("y11adv-seq-geo-m10", "For the sequence with rule T_n = 5(2)^{n-1}, which term is 320?", "D", ["5th term", "6th term", "8th term", "7th term"], "Solving 5(2)^{n-1}=320 gives 2^{n-1}=64=2^6, so n = 7."),
+        sequenceChoice("y11adv-seq-geo-m10", "For the sequence with rule $T_n = 5(2)^{n-1}$, which term is 320?", "D", ["5th term", "6th term", "8th term", "7th term"], "Solving \\(5(2)^{n-1}=320\\) gives \\(2^{n-1}=64=2^6\\), so n = 7."),
       ],
     };
   }
