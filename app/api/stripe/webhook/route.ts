@@ -71,14 +71,108 @@ async function setOnlineLearningAccess(
   }
 }
 
+// Find an existing Supabase user by email (via profiles table), or create a
+// new confirmed user with a random password. Used for the anonymous online-
+// learning checkout flow where no Supabase account exists at checkout time.
+//
+// On success: returns { userId, isNewUser }.
+// Returns null (and logs) when the auth user exists but has no profile row —
+// this is a manually-created user that requires support intervention.
+// Throws for transient DB errors so Stripe retries the webhook.
+async function findOrCreateAnonUser(
+  email: string,
+  studentFirstName: string | null
+): Promise<{ userId: string; isNewUser: boolean } | null> {
+  // 1. Profile lookup first — idempotent, handles the payment-success-first
+  //    ordering and existing accounts.
+  const { data: profile, error: profileError } = await supabaseAdmin
+    .from("profiles")
+    .select("id")
+    .eq("email", email)
+    .maybeSingle();
+
+  if (profileError) {
+    // Transient DB error — rethrow so Stripe retries the webhook.
+    throw new Error(
+      `[webhook] profiles lookup failed: ${profileError.message}`
+    );
+  }
+
+  if (profile?.id) {
+    return { userId: profile.id, isNewUser: false };
+  }
+
+  // 2. No profile — create a confirmed auth user with a random password.
+  //    needs_password_setup: true signals to payment-success that the user
+  //    must set a real password regardless of which code path created them.
+  const { data: newUserData, error: createError } = await supabaseAdmin.auth.admin.createUser({
+    email,
+    email_confirm: true,
+    password: crypto.randomUUID(),
+    user_metadata: { needs_password_setup: true },
+  });
+
+  if (newUserData?.user) {
+    const userId = newUserData.user.id;
+
+    const { error: profileUpsertError } = await supabaseAdmin
+      .from("profiles")
+      .upsert({
+        id: userId,
+        email,
+        student_first_name: studentFirstName,
+        role: "student",
+      });
+
+    if (profileUpsertError) {
+      // Non-fatal: proceed with userId for access activation. payment-success
+      // will retry the profile upsert when the user lands on that page.
+      console.error("[webhook] anon user profile upsert failed (non-fatal)", {
+        email,
+        userId,
+        message: profileUpsertError.message,
+      });
+    }
+
+    return { userId, isNewUser: true };
+  }
+
+  // 3. createUser failed — decide whether to retry or accept.
+  const errorMsg = createError?.message ?? "unknown error";
+  const isDuplicateEmail =
+    /already (registered|been registered|exists)|email.*(taken|in use|already)/i.test(
+      errorMsg
+    );
+
+  if (isDuplicateEmail) {
+    // An auth user exists for this email but has no profile row (e.g. a user
+    // manually added to Supabase without going through app signup). We cannot
+    // retrieve their userId without paginating all auth users. Manual support
+    // required.
+    console.error(
+      "[webhook] auth user exists without profile — cannot auto-link anonymous checkout",
+      { email, message: errorMsg }
+    );
+    return null;
+  }
+
+  // 4. Unexpected error — rethrow so Stripe retries.
+  throw new Error(`[webhook] createUser failed: ${errorMsg}`);
+}
+
 async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   const metadata = session.metadata ?? {};
   const offerSelected = metadataValue(metadata, "offer_selected");
 
-  // Use metadata.user_id first; fall back to client_reference_id (set at session creation).
+  // userId from session metadata — present for the logged-in checkout flow,
+  // null for the anonymous checkout flow.
   const userId =
     metadataValue(metadata, "user_id") ??
     (session.client_reference_id || null);
+
+  // resolvedUserId starts as userId and is updated below for the anonymous
+  // flow once the user is found or created. All downstream operations use this.
+  let resolvedUserId: string | null = userId;
 
   const parentEmail =
     metadataValue(metadata, "parent_email") ?? session.customer_email;
@@ -99,9 +193,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     payment_status: session.payment_status,
   });
 
-  // Record the payment. This is best-effort — a failure here must not block
-  // access activation below, because the payments table schema or constraints
-  // may differ from what this upsert expects.
+  // Record the payment. Best-effort — failure must not block access activation.
   //
   // user_id is intentionally omitted when null (anonymous checkout flow). If we
   // included `user_id: null` explicitly, a conflict-update would overwrite a
@@ -141,44 +233,70 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     });
   }
 
-  // For the anonymous checkout flow (no userId in session metadata), try to
-  // link the payment row to a Supabase user by the Stripe customer email. This
-  // handles the race where payment-success ran first (created the user and
-  // profile) before the webhook arrived, leaving payments.user_id null because
-  // PS found no row to patch. Now the row exists, so we can fill it in.
-  if (!userId && offerSelected === "online-learning") {
+  // ── Anonymous online-learning user resolution ────────────────────────────
+  //
+  // When userId is null, the customer completed Stripe checkout without a
+  // pre-existing Supabase account. Find or create their account now so that:
+  //   - access is activated immediately (no dependency on the user loading PS)
+  //   - payments.user_id is set so subscription lifecycle events work later
+  //   - needs_password_setup metadata tells payment-success to show the form
+  //
+  // Handles both orderings correctly:
+  //   Webhook-first (most common): profile does not exist yet → createUser
+  //   PS-first (rare): profile created by PS → findUserIdByEmail returns it
+  //
+  // Does not affect:
+  //   - Logged-in checkout (userId is non-null, block is skipped)
+  //   - Non-online-learning offers (offerSelected check)
+  if (!resolvedUserId && offerSelected === "online-learning") {
     const checkoutEmail =
       session.customer_details?.email ?? session.customer_email ?? null;
+
     if (checkoutEmail) {
-      const { data: profile } = await supabaseAdmin
-        .from("profiles")
-        .select("id")
-        .eq("email", checkoutEmail)
-        .maybeSingle();
-      if (profile?.id) {
+      const anonUser = await findOrCreateAnonUser(checkoutEmail, studentFirstName);
+
+      if (anonUser) {
+        resolvedUserId = anonUser.userId;
+
         const { error: patchError } = await supabaseAdmin
           .from("payments")
-          .update({ user_id: profile.id })
+          .update({ user_id: resolvedUserId })
           .eq("stripe_checkout_session_id", session.id)
           .is("user_id", null);
+
         if (patchError) {
-          console.error("[webhook] payments user_id patch failed (non-fatal)", {
-            session_id: session.id,
-            message: patchError.message,
-          });
+          console.error(
+            "[webhook] anon user payments user_id patch failed (non-fatal)",
+            { session_id: session.id, message: patchError.message }
+          );
         } else {
-          console.log("[webhook] patched payments.user_id from profile lookup", {
-            session_id: session.id,
-            user_id: profile.id,
-          });
+          console.log(
+            "[webhook] resolved anonymous user for online-learning checkout",
+            {
+              session_id: session.id,
+              user_id: resolvedUserId,
+              is_new_user: anonUser.isNewUser,
+            }
+          );
         }
+      } else {
+        console.error(
+          "[webhook] could not resolve user for anonymous online-learning checkout — access will not be activated",
+          { session_id: session.id, email: checkoutEmail }
+        );
       }
+    } else {
+      console.warn(
+        "[webhook] anonymous online-learning checkout has no customer email",
+        { session_id: session.id }
+      );
     }
   }
 
-  // Access activation is the critical operation — always attempt it independently.
+  // Access activation — the critical operation. Uses resolvedUserId which is
+  // updated above for the anonymous flow. Throws on DB error (causes Stripe retry).
   if (offerSelected === "online-learning") {
-    await setOnlineLearningAccess(userId, "active");
+    await setOnlineLearningAccess(resolvedUserId, "active");
   }
 }
 

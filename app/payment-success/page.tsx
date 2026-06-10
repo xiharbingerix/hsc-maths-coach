@@ -21,7 +21,7 @@ async function getSessionOffer(sessionId: string | undefined) {
 
 type OnlineLearningSetupResult = {
   customerEmail: string | null;
-  isNewUser: boolean;
+  needsPasswordSetup: boolean;
 };
 
 // Look up a Supabase user by email. Returns the user's id if found.
@@ -44,6 +44,7 @@ async function createUserByEmail(
     email,
     email_confirm: true,
     password: crypto.randomUUID(),
+    user_metadata: { needs_password_setup: true },
   });
 
   if (error || !data.user) {
@@ -127,7 +128,7 @@ async function ensureOnlineLearningAccessActivated(
 ): Promise<OnlineLearningSetupResult> {
   const noResult: OnlineLearningSetupResult = {
     customerEmail: null,
-    isNewUser: false,
+    needsPasswordSetup: false,
   };
 
   if (!sessionId || !process.env.STRIPE_SECRET_KEY) return noResult;
@@ -152,7 +153,7 @@ async function ensureOnlineLearningAccessActivated(
     // Prefer the userId already embedded in the session (legacy/logged-in flow).
     let userId: string | null =
       session.metadata?.user_id || session.client_reference_id || null;
-    let isNewUser = false;
+    let needsPasswordSetup = false;
 
     if (!userId) {
       if (!customerEmail) {
@@ -167,13 +168,19 @@ async function ensureOnlineLearningAccessActivated(
       const existingId = await findUserIdByEmail(customerEmail);
 
       if (existingId) {
+        // User was already created — likely by the webhook (webhook-first ordering).
+        // Check whether they still need to set a password. The webhook sets
+        // needs_password_setup: true when it creates the user; the reset-password
+        // page clears it to false once the user has set a real password.
         userId = existingId;
+        const { data: authData } = await supabaseAdmin.auth.admin.getUserById(existingId);
+        needsPasswordSetup = authData.user?.user_metadata?.needs_password_setup === true;
       } else {
         const studentFirstName =
           session.metadata?.student_first_name ?? null;
         userId = await createUserByEmail(customerEmail, studentFirstName);
         if (userId) {
-          isNewUser = true;
+          needsPasswordSetup = true;
 
           // Patch the payments row so future subscription lifecycle webhooks
           // can find and update this user's access. This is a best-effort
@@ -200,7 +207,7 @@ async function ensureOnlineLearningAccessActivated(
         "[payment-success] Could not resolve userId for access activation",
         { sessionId, customerEmail }
       );
-      return { customerEmail, isNewUser: false };
+      return { customerEmail, needsPasswordSetup: false };
     }
 
     await activateOnlineLearningAccess(userId);
@@ -208,10 +215,10 @@ async function ensureOnlineLearningAccessActivated(
     console.log("[payment-success] Access activated", {
       userId,
       sessionId,
-      isNewUser,
+      needsPasswordSetup,
     });
 
-    return { customerEmail, isNewUser };
+    return { customerEmail, needsPasswordSetup };
   } catch (error) {
     console.error(
       "[payment-success] ensureOnlineLearningAccessActivated failed",
@@ -235,7 +242,7 @@ export default async function PaymentSuccessPage({
   ]);
 
   const isOnlineLearning = offer?.slug === "online-learning";
-  const { customerEmail, isNewUser } = onlineLearningSetup;
+  const { customerEmail, needsPasswordSetup } = onlineLearningSetup;
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -254,7 +261,7 @@ export default async function PaymentSuccessPage({
           </h1>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
             {isOnlineLearning
-              ? isNewUser
+              ? needsPasswordSetup
                 ? "Your 7-day free trial is active. Set a password below to access your lessons and dashboard."
                 : "Your 7-day free trial is active and access is activated automatically. Log in to access your dashboard."
               : "Year 12 Mathematics Advanced report and study plan options are reviewed before follow-up."}
@@ -263,7 +270,7 @@ export default async function PaymentSuccessPage({
 
         {/* Password setup prompt — only shown for the anonymous flow where a
             new Supabase account was just created in this request. */}
-        {isOnlineLearning && isNewUser && customerEmail ? (
+        {isOnlineLearning && needsPasswordSetup && customerEmail ? (
           <SetPasswordForm email={customerEmail} />
         ) : null}
 

@@ -49,7 +49,10 @@ export default function ResetPasswordPage() {
     }
 
     setIsSubmitting(true);
-    const { error } = await supabase.auth.updateUser({ password });
+    const { error } = await supabase.auth.updateUser({
+      password,
+      data: { needs_password_setup: false },
+    });
 
     if (error) {
       setErrorMessage(error.message);
