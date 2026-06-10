@@ -89,23 +89,6 @@ const hscCourses = courseCatalogue.filter(
     course.courseSlug === "year-12-standard-2"
 );
 
-function SecondaryLink({
-  href,
-  children,
-}: Readonly<{
-  href: string;
-  children: ReactNode;
-}>) {
-  return (
-    <Link
-      href={href}
-      className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
-    >
-      {children}
-    </Link>
-  );
-}
-
 function SectionLabel({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
@@ -118,19 +101,34 @@ export default function HscMathsPage() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
       <PageViewTracker eventName="hsc_maths_viewed" />
-      <div className="mx-auto max-w-6xl space-y-12 px-4 py-10 sm:px-6 lg:px-8">
-        <header className="flex items-center justify-between gap-4">
+
+      {/* Sticky full-width header */}
+      <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-sm">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
           <Link href="/" className="text-lg font-bold tracking-tight">
             Nova Maths
           </Link>
-          <Link
-            href="/login"
-            className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50"
-          >
-            Log in
-          </Link>
-        </header>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Link
+              href="/login"
+              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50"
+            >
+              Log in
+            </Link>
+            {/* CTA visible on sm+ only — mobile uses the fixed bottom bar */}
+            <div className="hidden sm:block">
+              <SubscribeCTA href="/checkout?offer=online-learning">
+                Start Free Trial
+              </SubscribeCTA>
+            </div>
+          </div>
+        </div>
+      </header>
 
+      {/* Page content — extra bottom padding on mobile for the fixed CTA bar */}
+      <div className="mx-auto max-w-6xl space-y-12 px-4 pb-28 pt-10 sm:px-6 sm:pb-10 lg:px-8">
+
+        {/* Hero */}
         <section className="grid gap-6 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <p className="text-sm font-semibold text-slate-500">
@@ -144,27 +142,21 @@ export default function HscMathsPage() {
               maths: worked examples, practice questions, mastery quizzes and
               saved progress &mdash; all built for the NSW curriculum.
             </p>
+
+            {/* Primary: trial. Secondary: free lesson. */}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <FreeLessonCTAButton>
-                Try a free HSC lesson
-              </FreeLessonCTAButton>
-              <SubscribeCTA
-                href="/checkout?offer=online-learning"
-                className="border border-slate-300 bg-white text-slate-900 shadow-sm hover:bg-slate-50"
-              >
+              <SubscribeCTA href="/checkout?offer=online-learning">
                 Start 7-day free trial
               </SubscribeCTA>
+              <FreeLessonCTAButton className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50">
+                Try a free HSC lesson
+              </FreeLessonCTAButton>
             </div>
-            <div className="mt-3">
-              <DiagnosticCTALink />
-            </div>
-            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-slate-500">
-              <span>195+ NSW maths lessons</span>
-              <span>Worked examples + practice</span>
-              <span>Mastery quizzes</span>
-              <span>7-day free trial &middot; then $19/month</span>
-              <span>Cancel any time</span>
-            </div>
+
+            {/* Trust copy — prominent and structured */}
+            <p className="mt-3 text-sm text-slate-500">
+              No charge today &middot; 7-day free trial &middot; Then $19/month &middot; Cancel anytime
+            </p>
           </div>
 
           <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
@@ -184,17 +176,17 @@ export default function HscMathsPage() {
                 "Independent practice",
                 "Mastery quiz",
               ].map((step, index) => (
-                  <span
-                    key={step}
-                    className={`rounded-full border px-3 py-1.5 text-xs font-semibold ${
-                      index === 0
-                        ? "border-slate-950 bg-slate-950 text-white"
-                        : "border-slate-200 bg-white text-slate-600"
-                    }`}
-                  >
-                    {step}
-                  </span>
-                ))}
+                <span
+                  key={step}
+                  className={`rounded-full border px-3 py-1.5 text-xs font-semibold ${
+                    index === 0
+                      ? "border-slate-950 bg-slate-950 text-white"
+                      : "border-slate-200 bg-white text-slate-600"
+                  }`}
+                >
+                  {step}
+                </span>
+              ))}
             </div>
             <div className="mt-5 rounded-xl border border-slate-200 bg-white p-4">
               <p className="text-sm leading-6 text-slate-700">
@@ -256,6 +248,7 @@ export default function HscMathsPage() {
           </div>
         </section>
 
+        {/* Diagnostic sits here as tertiary — below primary and secondary CTAs */}
         <section className="rounded-3xl border border-emerald-100 bg-emerald-50 p-8 shadow-sm md:p-10">
           <SectionLabel>Try before you subscribe</SectionLabel>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
@@ -263,13 +256,16 @@ export default function HscMathsPage() {
           </h2>
           <p className="mt-3 max-w-xl leading-7 text-slate-700">
             Open a complete Year 12 Advanced lesson with worked examples,
-            practice questions and a mastery quiz — no account needed.
+            practice questions and a mastery quiz &mdash; no account needed.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
             <FreeLessonCTAButton>
               Try one full HSC lesson free
             </FreeLessonCTAButton>
             <p className="text-sm text-slate-600">No signup needed.</p>
+          </div>
+          <div className="mt-4">
+            <DiagnosticCTALink />
           </div>
         </section>
 
@@ -390,6 +386,13 @@ export default function HscMathsPage() {
             Privacy Notice
           </Link>
         </footer>
+      </div>
+
+      {/* Fixed bottom bar — mobile only (sm+ uses the sticky header CTA) */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white p-4 sm:hidden">
+        <SubscribeCTA href="/checkout?offer=online-learning" className="w-full">
+          Start Free Trial
+        </SubscribeCTA>
       </div>
     </main>
   );

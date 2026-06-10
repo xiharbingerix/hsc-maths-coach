@@ -188,13 +188,18 @@ export default function Home() {
               <SecondaryLink href="/free-year-7-algebra">
                 Try free algebra lesson
               </SecondaryLink>
-              <SecondaryLink href="/diagnostic/select">
-                Start free diagnostic
-              </SecondaryLink>
             </div>
 
             <p className="mt-3 text-sm leading-6 text-slate-500">
               No charge today &middot; Then $19/month &middot; Cancel anytime
+            </p>
+            <p className="mt-2 text-sm">
+              <Link
+                href="/diagnostic/select"
+                className="font-semibold text-slate-600 underline decoration-slate-400 underline-offset-2 hover:text-slate-900"
+              >
+                Start free diagnostic &rarr;
+              </Link>
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2">
@@ -487,12 +492,17 @@ export default function Home() {
               No charge today &middot; Then $19/month &middot; Cancel anytime
             </p>
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <SubscribeCTA href="/checkout?offer=online-learning">
               Start your 7-day free trial
             </SubscribeCTA>
             <SecondaryLink href="/signup">Create account</SecondaryLink>
-            <SecondaryLink href="/diagnostic/select">Start free diagnostic</SecondaryLink>
+            <Link
+              href="/diagnostic/select"
+              className="text-sm font-semibold text-slate-600 underline decoration-slate-400 underline-offset-2 hover:text-slate-900"
+            >
+              Start free diagnostic &rarr;
+            </Link>
           </div>
         </section>
 
