@@ -35,28 +35,33 @@ type ExistingQuestion = {
 
 type ImportOptions = {
   filePath: string;
-  dryRun: boolean;
+  write: boolean;
 };
 
 function parseArgs(args: string[]): ImportOptions {
-  if (args.includes("--write")) {
-    throw new Error("--write is intentionally not implemented yet. This importer is dry-run only.");
+  const hasWrite = args.includes("--write");
+  const hasConfirmWrite = args.includes("--confirm-write");
+
+  if (hasWrite && !hasConfirmWrite) {
+    throw new Error(
+      "--write requires --confirm-write.\n" +
+        "Usage: npx tsx scripts/import-question-batch.ts <batch.json> --write --confirm-write\n" +
+        "Omit both flags for a dry run."
+    );
   }
 
   const filePath = args.find((arg) => !arg.startsWith("--"));
   if (!filePath) {
     throw new Error(
-      "No file path provided. Usage: npx tsx scripts/import-question-batch.ts <batch.json> [--dry-run]"
+      "No file path provided.\n" +
+        "Usage: npx tsx scripts/import-question-batch.ts <batch.json> [--write --confirm-write]"
     );
   }
 
-  return {
-    filePath,
-    dryRun: true,
-  };
+  return { filePath, write: hasWrite && hasConfirmWrite };
 }
 
-function hasIssues(result: RecordResult) {
+function hasAnyIssue(result: RecordResult) {
   return result.issues.length > 0;
 }
 
@@ -111,14 +116,10 @@ function buildBreakdown(rows: QuestionRow[]) {
     increment(questionType, row.question_type);
   }
 
-  return {
-    courseTopicSubtopic,
-    difficulty,
-    questionType,
-  };
+  return { courseTopicSubtopic, difficulty, questionType };
 }
 
-async function findExistingQuestions(
+async function resolveExisting(
   sourceIds: string[]
 ): Promise<{ existing: Map<string, ExistingQuestion>; note: string | null }> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -127,8 +128,7 @@ async function findExistingQuestions(
   if (!supabaseUrl || !serviceRoleKey) {
     return {
       existing: new Map(),
-      note:
-        "Skipped duplicate lookup: NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is missing.",
+      note: "Skipped duplicate lookup: NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is missing.",
     };
   }
 
@@ -145,10 +145,7 @@ async function findExistingQuestions(
       .in("source_id", chunk);
 
     if (error) {
-      return {
-        existing,
-        note: `Duplicate lookup failed: ${error.message}`,
-      };
+      return { existing, note: `Duplicate lookup failed: ${error.message}` };
     }
 
     for (const row of (data ?? []) as ExistingQuestion[]) {
@@ -171,7 +168,7 @@ function printCounts(title: string, counts: Map<string, number>) {
 }
 
 function printInvalidRecords(results: RecordResult[]) {
-  const invalid = results.filter(hasIssues);
+  const invalid = results.filter(hasAnyIssue);
   if (invalid.length === 0) return;
 
   console.log("");
@@ -188,40 +185,103 @@ function printInvalidRecords(results: RecordResult[]) {
   }
 }
 
+const UPSERT_CHUNK_SIZE = 50;
+
+async function writeToSupabase(
+  rows: QuestionRow[],
+  existing: Map<string, ExistingQuestion>
+): Promise<{ inserted: number; updated: number }> {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !serviceRoleKey) {
+    throw new Error(
+      "Write aborted: NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set."
+    );
+  }
+
+  const supabase = createClient(supabaseUrl, serviceRoleKey, {
+    auth: { persistSession: false },
+  });
+
+  const inserted = rows.filter((r) => !existing.has(r.source_id)).length;
+  const updated = rows.filter((r) => existing.has(r.source_id)).length;
+
+  for (let i = 0; i < rows.length; i += UPSERT_CHUNK_SIZE) {
+    const chunk = rows.slice(i, i + UPSERT_CHUNK_SIZE);
+    const { error } = await supabase
+      .from("questions")
+      .upsert(chunk, { onConflict: "source_id" });
+
+    if (error) {
+      throw new Error(
+        `Upsert failed at chunk ${Math.floor(i / UPSERT_CHUNK_SIZE) + 1}: ${error.message}`
+      );
+    }
+  }
+
+  return { inserted, updated };
+}
+
 async function main() {
   const options = parseArgs(process.argv.slice(2));
   const resolved = path.resolve(options.filePath);
   const { batchId, records } = loadQuestionBatchFile(resolved);
   const results = validateQuestionBatch(records);
-  const invalidResults = results.filter(hasIssues);
+  const invalidResults = results.filter(hasAnyIssue);
+
+  const mode = options.write ? "WRITE" : "dry-run only";
+
+  console.log("Question batch import");
+  console.log(`  File:  ${path.basename(resolved)}`);
+  console.log(`  Batch: ${batchId}`);
+  console.log(`  Mode:  ${mode}`);
+  console.log("");
+
+  // Write mode: any issue (warning or error) is fatal — no partial writes.
+  if (options.write && invalidResults.length > 0) {
+    printInvalidRecords(results);
+    console.log("");
+    console.error(
+      `✗ Write aborted — ${invalidResults.length} record(s) have validation issues ` +
+        `(errors or warnings). Fix all issues and re-run.`
+    );
+    process.exit(1);
+  }
+
+  // Write mode: env vars must be present before touching Supabase.
+  if (options.write) {
+    if (
+      !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+      !process.env.SUPABASE_SERVICE_ROLE_KEY
+    ) {
+      console.error(
+        "✗ Write aborted — NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set."
+      );
+      process.exit(1);
+    }
+  }
+
   const validRecords = results
-    .filter((result) => !hasIssues(result) && isQuestionBatchRecord(result.record))
+    .filter(
+      (result) => !hasAnyIssue(result) && isQuestionBatchRecord(result.record)
+    )
     .map((result) => result.record as QuestionBatchRecord);
   const rows = validRecords.map(mapRecordToQuestionRow);
   const sourceIds = rows.map((row) => row.source_id);
-  const duplicateLookup = await findExistingQuestions(sourceIds);
-  const duplicateSourceIds = new Set(duplicateLookup.existing.keys());
-  const insertCandidates = rows.filter(
-    (row) => !duplicateSourceIds.has(row.source_id)
-  );
-  const updateCandidates = rows.filter((row) =>
-    duplicateSourceIds.has(row.source_id)
-  );
+  const { existing, note: duplicateNote } = await resolveExisting(sourceIds);
+  const insertCandidates = rows.filter((row) => !existing.has(row.source_id));
+  const updateCandidates = rows.filter((row) => existing.has(row.source_id));
   const breakdown = buildBreakdown(rows);
 
-  console.log("Question batch import dry run");
-  console.log(`  File: ${path.basename(resolved)}`);
-  console.log(`  Batch: ${batchId}`);
-  console.log(`  Mode: dry-run only`);
-  console.log("");
   console.log("Summary");
-  console.log(`  Total records: ${records.length}`);
-  console.log(`  Valid records: ${rows.length}`);
-  console.log(`  Invalid records: ${invalidResults.length}`);
-  console.log(`  Insert candidates: ${insertCandidates.length}`);
+  console.log(`  Total records:               ${records.length}`);
+  console.log(`  Valid records:               ${rows.length}`);
+  console.log(`  Invalid records:             ${invalidResults.length}`);
+  console.log(`  Insert candidates:           ${insertCandidates.length}`);
   console.log(`  Duplicate/update candidates: ${updateCandidates.length}`);
-  if (duplicateLookup.note) {
-    console.log(`  Duplicate lookup: ${duplicateLookup.note}`);
+  if (duplicateNote) {
+    console.log(`  Duplicate lookup:            ${duplicateNote}`);
   }
 
   console.log("");
@@ -235,18 +295,33 @@ async function main() {
     console.log("");
     console.log("Duplicate/update candidates");
     for (const row of updateCandidates) {
-      const existing = duplicateLookup.existing.get(row.source_id);
-      console.log(`  ${row.source_id}${existing ? ` -> existing id ${existing.id}` : ""}`);
+      const existingRow = existing.get(row.source_id);
+      console.log(
+        `  ${row.source_id}${existingRow ? ` -> existing id ${existingRow.id}` : ""}`
+      );
     }
   }
 
   printInvalidRecords(results);
 
+  if (!options.write) {
+    console.log("");
+    console.log("Rows that would be inserted/updated");
+    console.log(JSON.stringify(rows, null, 2));
+    console.log("");
+    console.log("Dry run complete. No Supabase writes performed.");
+    return;
+  }
+
+  // Write path.
   console.log("");
-  console.log("Rows that would be inserted/updated");
-  console.log(JSON.stringify(rows, null, 2));
+  console.log(`Writing ${rows.length} row(s) to Supabase...`);
+  const { inserted, updated } = await writeToSupabase(rows, existing);
   console.log("");
-  console.log("Dry run complete. No Supabase writes performed.");
+  console.log("Write complete");
+  console.log(`  Inserted: ${inserted}`);
+  console.log(`  Updated:  ${updated}`);
+  console.log(`  Total:    ${inserted + updated}`);
 }
 
 main().catch((error) => {

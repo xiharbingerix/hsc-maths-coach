@@ -1,4 +1,7 @@
-[
+{
+  "batch_id": "nova-maths-2026-06-10-y12adv-c36",
+  "generated_by": "manus",
+  "questions": [
   {
     "source_id": "y12adv-c36-sample-01",
     "course_slug": "year-12-advanced",
@@ -558,4 +561,5 @@
     ],
     "syllabus_ref": "MA-C3.6"
   }
-]
+  ]
+}

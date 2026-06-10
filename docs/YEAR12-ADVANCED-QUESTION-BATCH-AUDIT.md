@@ -1,7 +1,7 @@
 # Year 12 Advanced — Question Batch Audit
 
-**Audited:** 2026-06-10  
-**Batches:** 3 files, 65 records total  
+**Audited:** 2026-06-10
+**Batches:** 3 files, 66 records total
 **Validator:** `scripts/validate-question-batch.ts --strict`
 
 ---
@@ -12,15 +12,23 @@
 |---|---|---|---|---|---|
 | MA-C3.6 Area Under a Curve | `nova_maths_c36_sample_v2.json` | 25 | 25 | 0 | ✓ Ready |
 | MA-C2.3 Optimisation | `nova_maths_c23_sample.json` | 20 | 20 | 0 | ✓ Ready |
-| MA-S1.2 Conditional Probability | `nova_maths_s12_sample.json` | 20 | 9 | 11 | ✗ Needs fixes |
-| **Total** | | **65** | **54** | **11** | |
+| MA-S1.2 Conditional Probability | `nova_maths_s12_sample.json` | 21 | 21 | 0 | ✓ Ready |
+| **Total** | | **66** | **66** | **0** | |
 
 Validator output (summary lines):
 
 ```
 nova_maths_c36_sample_v2.json   25/25  0 warnings  0 errors  ✓
 nova_maths_c23_sample.json      20/20  0 warnings  0 errors  ✓
-nova_maths_s12_sample.json       9/20  4 warnings  7 errors  ✗
+nova_maths_s12_sample.json      21/21  0 warnings  0 errors  ✓
+```
+
+Import dry-run output (summary lines):
+
+```
+nova_maths_c36_sample_v2.json   Total: 25  Valid: 25  Invalid: 0  Insert candidates: 25
+nova_maths_c23_sample.json      Total: 20  Valid: 20  Invalid: 0  Insert candidates: 20
+nova_maths_s12_sample.json      Total: 21  Valid: 21  Invalid: 0  Insert candidates: 21
 ```
 
 ---
@@ -33,11 +41,13 @@ All three batches target `course_slug: year-12-advanced`, `year_level: year-12`.
 |---|---|---|---|
 | C3.6 | `calculus` | `area-under-a-curve` | 25 |
 | C2.3 | `calculus` | `optimisation` | 20 |
-| S1.2 | `statistics` | `conditional-probability` | 20 |
+| S1.2 | `statistics` | `conditional-probability` | 21 |
 
 Each batch covers exactly one subtopic. No cross-subtopic mixing in any file.
 
 **Notable:** C3.6 questions 19a/b/c and 20a/b/c/d are scenario clusters — three and four linked sub-parts respectively treated as independent records. Students could encounter sub-part (b) or (c) without the shared setup context.
+
+**Notable:** S1.2 original sample-17 was split into 17a (addition rule / intersection) and 17b (independence of complements) to resolve the multi-part prompt issue, raising the record count from 20 to 21.
 
 ---
 
@@ -48,11 +58,11 @@ Each batch covers exactly one subtopic. No cross-subtopic mixing in any file.
 | 1 — guided | 5 | 5 | 5 | 15 |
 | 2 — standard | 5 | 5 | 5 | 15 |
 | 3 — independent | 4 | 4 | 4 | 12 |
-| 4 — harder | 4 | 4 | 4 | 12 |
+| 4 — harder | 4 | 4 | 5 | 13 |
 | 5 — mastery / exam | 7 | 2 | 2 | 11 |
-| **Total** | **25** | **20** | **20** | **65** |
+| **Total** | **25** | **20** | **21** | **66** |
 
-C3.6 is D5-heavy (7/25 = 28%) because the scenario clusters each contribute multiple records at difficulty 5. C2.3 and S1.2 have a thinner D5 tail (2 records each).
+C3.6 is D5-heavy (7/25 = 28%) because the scenario clusters each contribute multiple records at difficulty 5. C2.3 and S1.2 have a thinner D5 tail (2 records each). S1.2 has 5 D4 records (the split of sample-17 added one extra D4 record).
 
 ---
 
@@ -60,18 +70,43 @@ C3.6 is D5-heavy (7/25 = 28%) because the scenario clusters each contribute mult
 
 | Type | C3.6 | C2.3 | S1.2 | Notes |
 |---|---|---|---|---|
-| `procedural` | 25 | 20 | 10 | All valid; typed answer, `choices: null` |
-| `conceptual` (declared) | 0 | 0 | 5 | All 5 have `choices: null` → validator WARN |
-| `application` (declared) | 0 | 0 | 5 | Invalid type → validator ERROR |
+| `procedural` | 25 | 20 | 21 | All valid; typed answer, `choices: null` |
 
-S1.2 breakdown of failing records by declared type:
-
-- **`conceptual` / no choices** (samples 11, 12, 13, 14, 17): these are typed-answer Bayes-theorem questions mislabelled as `"conceptual"`. Fix: change to `"procedural"`.
-- **`application`** (samples 15, 16, 18, 19, 20): not a recognised enum value. Fix: change to `"procedural"` (all are typed-answer questions).
+All records across all three batches use `question_type: "procedural"` with `choices: null`. No MCQ records in any batch.
 
 ---
 
-## 5. Validator rules triggered during development
+## 5. Fixes applied before finalisation
+
+### S1.2 — type corrections (completed)
+
+All 11 originally-failing S1.2 records were corrected prior to this audit pass:
+
+| Records | Original issue | Fix applied |
+|---|---|---|
+| samples 11, 12, 13, 14 | `"conceptual"` / no choices | Changed to `"procedural"` |
+| samples 15, 16, 18, 19, 20 | `"application"` invalid type | Changed to `"procedural"` |
+| sample 17 | Multi-part prompt + wrong type | Split into 17a and 17b; both `"procedural"` |
+| sample 08 | Multi-part prompt (false positive) | Prompt rephrased to remove ambiguity |
+
+### C3.6 — wrapper format (completed)
+
+The file was a bare JSON array. Wrapped with:
+```json
+{
+  "batch_id": "nova-maths-2026-06-10-y12adv-c36",
+  "generated_by": "manus",
+  "questions": [ ... ]
+}
+```
+
+### C2.3 — type corrections (previously completed)
+
+All 13 original C2.3 records that used `"conceptual"` without choices were changed to `"procedural"` in a prior pass.
+
+---
+
+## 6. Validator rules triggered during development
 
 ### ERROR — `question_type: "application"` not recognised
 
@@ -79,7 +114,7 @@ Triggered on 5 records in S1.2 (samples 15, 16, 18, 19, 20) and on 14 records in
 
 ### ERROR — multi-part prompt with single answer field
 
-Triggered on samples 08 and 17 in S1.2. The validator detects prompts that appear to ask for two distinct results in a single record. Sample 08 ("Events A and B are independent … Find P(A | B)") is a false positive; the fix is to rephrase slightly. Sample 17 genuinely asks two things ("Determine whether A and B are independent, and find P(A' | B')") and should either be split or have its combined answer made explicit.
+Triggered on sample 17 in S1.2. The validator detected a prompt asking for two distinct results in a single record. Resolution: split into 17a and 17b. Sample 08 was a false positive; the prompt was rephrased slightly.
 
 ### WARN — `question_type: "conceptual"` with `choices: null`
 
@@ -91,43 +126,17 @@ Most common rule in C2.3 development (18+ occurrences across 10 records, all fix
 
 **Fix pattern:** wrap digit-starting spans in parentheses: `$2x - 6$` → `$(2x - 6)$`. This makes the opening character `(` not a digit, so the `$` is counted normally.
 
-### ERROR — `question_type: "conceptual"` in original C2.3 batch
-
-13 of the original 20 C2.3 records used `"conceptual"` without choices. All were typed-answer optimisation questions. Fix applied: bulk change to `"procedural"`.
-
 ---
 
-## 6. Remaining risks before enabling `--write` import
+## 7. Remaining risks before enabling `--write` import
 
-### R1 — S1.2 batch not import-ready (11 failures)
+### R1 — ~~S1.2 batch not import-ready~~ (RESOLVED)
 
-The S1.2 batch fails strict validation. **Do not import until the following are fixed:**
+All 11 originally-failing S1.2 records are fixed. Strict validation passes 21/21.
 
-| Record | Issue | Fix |
-|---|---|---|
-| sample-08 | Multi-part prompt (likely false positive) | Rephrase prompt to remove ambiguity |
-| sample-11 | `"conceptual"` / no choices | Change to `"procedural"` |
-| sample-12 | `"conceptual"` / no choices | Change to `"procedural"` |
-| sample-13 | `"conceptual"` / no choices | Change to `"procedural"` |
-| sample-14 | `"conceptual"` / no choices | Change to `"procedural"` |
-| sample-15 | `"application"` invalid | Change to `"procedural"` |
-| sample-16 | `"application"` invalid | Change to `"procedural"` |
-| sample-17 | Multi-part prompt + `"conceptual"` / no choices | Split into two records OR fix combined answer; change type to `"procedural"` |
-| sample-18 | `"application"` invalid | Change to `"procedural"` |
-| sample-19 | `"application"` invalid | Change to `"procedural"` |
-| sample-20 | `"application"` invalid | Change to `"procedural"` |
+### R2 — ~~C3.6 uses bare array format~~ (RESOLVED)
 
-### R2 — C3.6 uses bare array format (no `batch_id`)
-
-The file is a JSON array, not the preferred wrapper object. The `batch_id` is logged during seeding for traceability. Low operational risk but the batch cannot be identified in seed logs. Wrap before import:
-
-```json
-{
-  "batch_id": "nova-maths-2026-06-10-y12adv-c36",
-  "generated_by": "manus",
-  "questions": [ ... ]
-}
-```
+C3.6 now uses the preferred wrapper object with `batch_id: "nova-maths-2026-06-10-y12adv-c36"`.
 
 ### R3 — C3.6 scenario sub-parts lack self-contained context
 
@@ -147,42 +156,38 @@ Per prior audit: the local `STRIPE_SECRET_KEY` has an `mk_` prefix and is invali
 
 ---
 
-## 7. Recommended import order
+## 8. Recommended import order
+
+All three batches now pass strict validation. Import in this order:
 
 **Step 1 — MA-C2.3 Optimisation** (`nova_maths_c23_sample.json`)
 
 - 20 records, all pass strict, wrapper format with `batch_id`, generated by manus.
-- Import first as it is the most complete batch and covers a highly-tested HSC topic.
 
 **Step 2 — MA-C3.6 Area Under a Curve** (`nova_maths_c36_sample_v2.json`)
 
-- 25 records, all pass strict. Add wrapper object with `batch_id` before running seeder.
-- After import, review the 19a/b/c and 20a/b/c/d sub-part records for context self-containment.
+- 25 records, all pass strict. Wrapper added (`batch_id: nova-maths-2026-06-10-y12adv-c36`).
+- After import, review the 19a/b/c and 20a/b/c/d sub-part records for context self-containment (R3).
 
 **Step 3 — MA-S1.2 Conditional Probability** (`nova_maths_s12_sample.json`)
 
-- Fix 11 failing records first (see R1 table above), re-validate with `--strict`, then import.
-- After fixing, expected result: 20/20 pass.
+- 21 records, all pass strict. Original sample-17 was split into 17a and 17b.
 
 ```bash
-# Validate C2.3 (ready now)
+# Validate all (should all pass strict)
 npx tsx scripts/validate-question-batch.ts question-batches/nova_maths_c23_sample.json --strict
-
-# Seed C2.3 (when write flag available)
-npx tsx scripts/seed-question-bank.ts --file=question-batches/nova_maths_c23_sample.json --write
-
-# Fix C3.6 wrapper, then:
 npx tsx scripts/validate-question-batch.ts question-batches/nova_maths_c36_sample_v2.json --strict
-npx tsx scripts/seed-question-bank.ts --file=question-batches/nova_maths_c36_sample_v2.json --write
-
-# Fix S1.2 errors, then:
 npx tsx scripts/validate-question-batch.ts question-batches/nova_maths_s12_sample.json --strict
-npx tsx scripts/seed-question-bank.ts --file=question-batches/nova_maths_s12_sample.json --write
+
+# Dry-run all (no Supabase writes)
+npx tsx scripts/import-question-batch.ts question-batches/nova_maths_c23_sample.json
+npx tsx scripts/import-question-batch.ts question-batches/nova_maths_c36_sample_v2.json
+npx tsx scripts/import-question-batch.ts question-batches/nova_maths_s12_sample.json
 ```
 
 ---
 
-## 8. Recommended next 3 subtopics
+## 9. Recommended next 3 subtopics
 
 Priorities are based on: (a) HSC exam frequency, (b) adjacency to already-covered subtopics, and (c) gaps needed for adaptive worksheets to generate complete topic coverage.
 
