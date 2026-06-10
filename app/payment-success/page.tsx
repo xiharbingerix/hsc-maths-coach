@@ -190,6 +190,7 @@ async function ensureOnlineLearningAccessActivated(
               "[payment-success] payments user_id patch failed (non-fatal)",
               { sessionId: session.id, message: patchError.message }
             );
+          }
         }
       }
     }

@@ -102,9 +102,13 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   // Record the payment. This is best-effort — a failure here must not block
   // access activation below, because the payments table schema or constraints
   // may differ from what this upsert expects.
+  //
+  // user_id is intentionally omitted when null (anonymous checkout flow). If we
+  // included `user_id: null` explicitly, a conflict-update would overwrite a
+  // non-null value that payment-success may have already written.
   const { error: paymentsError } = await supabaseAdmin.from("payments").upsert(
     {
-      user_id: userId,
+      ...(userId ? { user_id: userId } : {}),
       parent_email: parentEmail,
       student_first_name: studentFirstName,
       offer_selected: offerSelected,
@@ -135,6 +139,41 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
       session_id: session.id,
       message: paymentsError.message,
     });
+  }
+
+  // For the anonymous checkout flow (no userId in session metadata), try to
+  // link the payment row to a Supabase user by the Stripe customer email. This
+  // handles the race where payment-success ran first (created the user and
+  // profile) before the webhook arrived, leaving payments.user_id null because
+  // PS found no row to patch. Now the row exists, so we can fill it in.
+  if (!userId && offerSelected === "online-learning") {
+    const checkoutEmail =
+      session.customer_details?.email ?? session.customer_email ?? null;
+    if (checkoutEmail) {
+      const { data: profile } = await supabaseAdmin
+        .from("profiles")
+        .select("id")
+        .eq("email", checkoutEmail)
+        .maybeSingle();
+      if (profile?.id) {
+        const { error: patchError } = await supabaseAdmin
+          .from("payments")
+          .update({ user_id: profile.id })
+          .eq("stripe_checkout_session_id", session.id)
+          .is("user_id", null);
+        if (patchError) {
+          console.error("[webhook] payments user_id patch failed (non-fatal)", {
+            session_id: session.id,
+            message: patchError.message,
+          });
+        } else {
+          console.log("[webhook] patched payments.user_id from profile lookup", {
+            session_id: session.id,
+            user_id: profile.id,
+          });
+        }
+      }
+    }
   }
 
   // Access activation is the critical operation — always attempt it independently.

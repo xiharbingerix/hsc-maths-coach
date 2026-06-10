@@ -69,7 +69,7 @@ const FAQs = [
   {
     question: "What happens after I subscribe?",
     answer:
-      "Create your account, continue to secure Stripe checkout, then start your 7-day free trial. Your access and progress are linked to your account.",
+      "Continue to Stripe's secure checkout. After your trial starts, you will set a password to access your Nova Maths dashboard. Your lessons and progress are linked to your account.",
   },
   {
     question: "Are there videos?",
