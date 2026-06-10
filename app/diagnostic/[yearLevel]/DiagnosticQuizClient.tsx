@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
-import { BlockMath, InlineMath } from "react-katex";
+import { BlockMath } from "react-katex";
+import { MathText } from "../../components/MathText";
 import { supabase } from "../../../lib/supabaseClient";
 import { SubscribeCTA } from "../../components/SubscribeCTA";
 import { generateStudyPlan } from "../../../lib/studyPlans/generateStudyPlan";
@@ -14,77 +15,7 @@ type UnitResult = DiagnosticUnit & {
   total: number;
 };
 
-function MathText({ text }: { text: string }) {
-  const parts: Array<{ type: "text" | "math"; value: string }> = [];
-  let index = 0;
 
-  while (index < text.length) {
-    const dollarIndex = text.indexOf("$", index);
-    if (dollarIndex === -1) {
-      parts.push({ type: "text", value: text.slice(index) });
-      break;
-    }
-
-    if (dollarIndex > index) {
-      parts.push({ type: "text", value: text.slice(index, dollarIndex) });
-    }
-
-    const currencyMatch = text
-      .slice(dollarIndex)
-      .match(/^\$[0-9][0-9,]*(?:\.[0-9]+)?(?![0-9,.$\\])/);
-    const textAfterCurrency = currencyMatch
-      ? text.slice(dollarIndex + currencyMatch[0].length)
-      : "";
-    const nextNonSpace = textAfterCurrency.match(/\S/)?.[0] ?? "";
-    const touchesMathToken = /^[A-Za-z(]/.test(textAfterCurrency);
-    const looksLikeMathExpression =
-      touchesMathToken ||
-      (nextNonSpace.length > 0 && /[+\-*/=<>^_\\)]/.test(nextNonSpace));
-    if (currencyMatch && !looksLikeMathExpression) {
-      parts.push({ type: "text", value: currencyMatch[0] });
-      index = dollarIndex + currencyMatch[0].length;
-      continue;
-    }
-
-    let cursor = dollarIndex + 1;
-    let closingDollarIndex = -1;
-    while (cursor < text.length) {
-      if (text[cursor] === "\\" && cursor + 1 < text.length) {
-        cursor += 2;
-        continue;
-      }
-      if (text[cursor] === "$") {
-        closingDollarIndex = cursor;
-        break;
-      }
-      cursor += 1;
-    }
-
-    if (closingDollarIndex === -1) {
-      parts.push({ type: "text", value: "$" });
-      index = dollarIndex + 1;
-      continue;
-    }
-
-    parts.push({
-      type: "math",
-      value: text.slice(dollarIndex + 1, closingDollarIndex),
-    });
-    index = closingDollarIndex + 1;
-  }
-
-  return (
-    <>
-      {parts.map((part, i) =>
-        part.type === "math" ? (
-          <InlineMath key={i} math={part.value} />
-        ) : (
-          <span key={i}>{part.value}</span>
-        )
-      )}
-    </>
-  );
-}
 
 function priorityLabel(correct: number, total: number): string {
   if (correct <= 1) return "Focus first";

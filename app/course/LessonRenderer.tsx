@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { BlockMath, InlineMath } from "react-katex";
+import { BlockMath } from "react-katex";
+import { MathText } from "../components/MathText";
 import { AccessGate } from "./AccessGate";
 import {
   trackLessonViewed,
@@ -180,24 +181,6 @@ function masteryStorageKey(moduleSlug: string, lessonSlug: string) {
   }
 
   return `hsc-maths-coach:mastery:${moduleSlug}:${lessonSlug}`;
-}
-
-function MathText({ text }: { text: string }) {
-  const parts = text.split(/(\$[^$]+\$)/g);
-
-  return (
-    <>
-      {parts.map((part, index) => {
-        if (part.startsWith("$") && part.endsWith("$")) {
-          return (
-            <InlineMath key={`${part}-${index}`} math={part.slice(1, -1)} />
-          );
-        }
-
-        return <span key={`${part}-${index}`}>{part}</span>;
-      })}
-    </>
-  );
 }
 
 function ChoiceButtons({

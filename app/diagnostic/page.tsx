@@ -4,7 +4,8 @@ import { Suspense, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { BlockMath, InlineMath } from "react-katex";
+import { BlockMath } from "react-katex";
+import { MathText } from "../components/MathText";
 import { questions } from "../../lib/questions";
 import { supabase } from "../../lib/supabaseClient";
 
@@ -51,18 +52,6 @@ const sectionDescriptions: Record<string, string> = {
 const sectionOrder = Array.from(
   new Set(questions.map((question) => question.section))
 );
-
-function renderMathText(text: string) {
-  const parts = text.split("$");
-
-  return parts.map((part, index) => {
-    if (index % 2 === 1) {
-      return <InlineMath key={`${part}-${index}`} math={part} />;
-    }
-
-    return <span key={`${part}-${index}`}>{part}</span>;
-  });
-}
 
 function FieldLabel({ children }: Readonly<{ children: ReactNode }>) {
   return <span className="text-sm font-medium text-slate-800">{children}</span>;
@@ -502,7 +491,7 @@ Hint: ${error.hint ?? "No hint"}`
                           </div>
 
                           <p className="mt-3 font-medium">
-                            {renderMathText(question.prompt)}
+                            <MathText text={question.prompt} />
                           </p>
 
                           {question.latex ? (
@@ -562,7 +551,7 @@ Hint: ${error.hint ?? "No hint"}`
                                     <span className="font-semibold">
                                       {choice.label}.
                                     </span>{" "}
-                                    {renderMathText(choice.text)}
+                                    <MathText text={choice.text} />
                                   </button>
                                 );
                               })}

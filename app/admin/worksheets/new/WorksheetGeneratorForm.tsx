@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { BlockMath, InlineMath } from "react-katex";
+import { BlockMath } from "react-katex";
+import { MathText } from "../../../components/MathText";
 import { BoxPlotView } from "../../../course/components/BoxPlotView";
 import { CartesianGraphView } from "../../../course/components/CartesianGraphView";
 import { NetworkDiagramView } from "../../../course/components/NetworkDiagramView";
@@ -74,20 +75,6 @@ function displaySlug(slug: string) {
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
-}
-
-function MathText({ text }: { text: string }) {
-  const parts = text.split(/(\$[^$]+\$)/g);
-  return (
-    <>
-      {parts.map((part, index) => {
-        if (part.startsWith("$") && part.endsWith("$")) {
-          return <InlineMath key={`${part}-${index}`} math={part.slice(1, -1)} />;
-        }
-        return <span key={`${part}-${index}`}>{part}</span>;
-      })}
-    </>
-  );
 }
 
 function DiagramPreview({ data }: { data: Record<string, unknown> | null }) {

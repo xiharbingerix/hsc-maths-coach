@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { BlockMath, InlineMath } from "react-katex";
+import { BlockMath } from "react-katex";
 import { MathAnswerInput } from "../../components/MathAnswerInput";
+import { MathText } from "../../components/MathText";
 import { BoxPlotView } from "../../course/components/BoxPlotView";
 import { CartesianGraphView } from "../../course/components/CartesianGraphView";
 import { NetworkDiagramView } from "../../course/components/NetworkDiagramView";
@@ -25,23 +26,6 @@ import type {
   VennDiagram,
 } from "../../../lib/lessons/types";
 import type { WorksheetQuestion } from "./page";
-
-// ── Inline math renderer for plain text with $...$  delimiters ────────────────
-
-function MathText({ text }: { text: string }) {
-  const parts = text.split(/(\$[^$]+\$)/g);
-  return (
-    <>
-      {parts.map((part, i) =>
-        part.startsWith("$") && part.endsWith("$") ? (
-          <InlineMath key={i} math={part.slice(1, -1)} />
-        ) : (
-          <span key={i}>{part}</span>
-        )
-      )}
-    </>
-  );
-}
 
 // ── Diagram renderer ───────────────────────────────────────────────────────────
 
