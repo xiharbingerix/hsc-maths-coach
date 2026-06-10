@@ -48,7 +48,7 @@ import {
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
-import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride } from "./lessons/year8";
+import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride } from "./lessons/year8";
 
 export type {
   CourseLessonSeed,
@@ -209,6 +209,7 @@ export function buildLesson(
     year8PythagorasTheoremLessonOverride(course, unit, lesson) ??
     year8GeometryAnglesLessonOverride(course, unit, lesson) ??
     year8LinearRelationshipsLessonOverride(course, unit, lesson) ??
+    year8StatisticsProbabilityLessonOverride(course, unit, lesson) ??
     year9IndexLawsLessonOverride(course, unit, lesson) ??
     year9FinancialMathematicsLessonOverride(course, unit, lesson) ??
     year9ConstantRatesOfChangeLessonOverride(course, unit, lesson) ??
@@ -1954,7 +1955,26 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Statistics and Probability",
         focus:
           "Prepare for Year 9 data-based decisions and Year 10 statistics content including box plots and standard deviation.",
-        lessons: [],
+        lessons: [
+          {
+            slug: "collecting-and-displaying-data",
+            title: "Collecting and Displaying Data",
+            description:
+              "Distinguish categorical and numerical data, read frequency tables and dot plots, and choose an appropriate display.",
+          },
+          {
+            slug: "mean-median-mode-range",
+            title: "Mean, Median, Mode and Range",
+            description:
+              "Calculate mean, median, mode and range to describe the centre and spread of a data set.",
+          },
+          {
+            slug: "comparing-data-displays",
+            title: "Comparing Data Displays",
+            description:
+              "Compare two data sets using median, mean and range, and interpret differences in centre and spread.",
+          },
+        ],
       },
       {
         slug: "probability-and-chance",
@@ -1964,7 +1984,26 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Statistics and Probability",
         focus:
           "Build multi-stage probability skills that Year 9 making predictions and Year 10 probability units extend.",
-        lessons: [],
+        lessons: [
+          {
+            slug: "probability-language-and-scale",
+            title: "Probability Language and Scale",
+            description:
+              "Describe likelihood using words and the probability scale from 0 to 1.",
+          },
+          {
+            slug: "simple-probability",
+            title: "Simple Probability",
+            description:
+              "Calculate P(event) = favourable outcomes ÷ total outcomes and apply the complement rule.",
+          },
+          {
+            slug: "two-step-chance-experiments",
+            title: "Two-Step Chance Experiments",
+            description:
+              "List all outcomes of two-step experiments using arrays and tree diagrams, and calculate combined probabilities.",
+          },
+        ],
       },
     ],
   },
