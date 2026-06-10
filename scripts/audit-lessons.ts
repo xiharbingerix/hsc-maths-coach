@@ -928,6 +928,21 @@ function looksLikeGeneratedFallback(lesson: ExplicitLesson) {
   );
 }
 
+function promptRevealsAnswer(question: PracticeQuestion): boolean {
+  const answer = question.answer?.trim() ?? "";
+  const numeric = Number(answer.replace(/[$,\s]/g, ""));
+  if (!Number.isFinite(numeric) || Math.abs(numeric) < 10) return false;
+  const escaped = String(Math.abs(numeric)).replace(/\./g, "\\.");
+  const prompt = question.prompt ?? "";
+  return new RegExp(`(?<![\\d.])${escaped}(?![\\d])`, "g").test(prompt);
+}
+
+function latexContainsWorkingSteps(latex: string): boolean {
+  if (/=\s*-?\d+(?:[.,]\d+)?\s*=/.test(latex)) return true;
+  if (/\\(?:Rightarrow|implies|therefore|Longrightarrow)/.test(latex)) return true;
+  return false;
+}
+
 function feedbackOnlyRestatesAnswer(question: PracticeQuestion) {
   const explanation = question.explanation?.trim() ?? "";
   const normalised = explanation.toLowerCase().replace(/[.\s]+$/g, "");
@@ -1125,6 +1140,24 @@ function validateLesson(
 
     if (feedbackOnlyRestatesAnswer(question)) {
       addIssue("WARN", "generic-feedback", questionPath, "Feedback only restates the answer.");
+    }
+
+    if (!question.choices && promptRevealsAnswer(question)) {
+      addIssue(
+        "WARN",
+        "prompt-reveals-answer",
+        questionPath,
+        `Prompt may state the answer directly (answer "${question.answer}" appears as a standalone number in the prompt).`
+      );
+    }
+
+    if (question.latex && latexContainsWorkingSteps(question.latex)) {
+      addIssue(
+        "WARN",
+        "latex-working-steps",
+        questionPath,
+        "latex field appears to contain multi-step working (= X = Y chain or step arrows). Move worked steps to the explanation."
+      );
     }
   }
 

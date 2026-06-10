@@ -111,10 +111,46 @@ These are the **only two** valid values. The validator rejects all others (`"app
 | Fraction | `"1/2"` | `["0.5", "13/26"]` |
 | Negative integer | `"-3"` | `["-3", "−3"]` |
 | Angle | `"53"` | `["53°", "53 degrees"]` |
+| Time (minutes) | `"5"` | `[]` |
 | Algebraic term | `"15a"` | `[]` |
 | Text (congruence test) | `"SSS"` | `[]` |
 | Named point | `"minimum at (3, -4)"` | `["min at (3, -4)", "(3, -4) minimum"]` |
 | Axis name | `"x-axis"` | `["X-axis", "the x-axis"]` |
+
+---
+
+## Unit handling (automatic)
+
+The marking engine automatically strips the following unit suffixes before comparing. The canonical `answer` should be unitless.
+
+### Angle
+`degree`, `degrees`, `deg`, `°`
+
+### Length
+`mm`, `cm`, `km`, `m` and their full word forms:
+`millimetre(s)`, `millimeter(s)`, `centimetre(s)`, `centimeter(s)`, `kilometre(s)`, `kilometer(s)`, `metre(s)`, `meter(s)`
+
+### Mass and volume
+`g`, `kg`, `ml`, `l` and their full word forms:
+`gram(s)`, `kilogram(s)`, `millilitre(s)`, `milliliter(s)`, `litre(s)`, `liter(s)`
+
+### Time
+`min`, `mins`, `minute`, `minutes`, `sec`, `secs`, `second`, `seconds`, `hr`, `hrs`, `hour`, `hours`
+
+### Currency
+Leading `$` and trailing `dollar`, `dollars`, `AUD`
+
+### Spacing
+Spacing between number and unit is ignored: `5 min`, `5min`, `5 minutes` all match canonical `"5"`.
+
+### Squared/cubic units
+A `^2`, `²`, `2`, `^3`, `³`, `3` suffix after the unit is also stripped: `12 cm^2`, `12 cm²`, `12cm2` all match canonical `"12"`.
+
+### What is NOT automatic
+
+- **Cross-unit conversion**: `100 cm` does not match `1 m`. Conversion logic does not exist — do not rely on it.
+- **Compound units**: `km/h`, `m/s` are not stripped. Write unit-free canonical answers for speed/rate questions.
+- **Repeating decimals**: `0.333` does not match `1/3`. Add `"0.33"` or `"0.333"` to `accepted_answers` if a specific precision is expected.
 
 ---
 
@@ -283,6 +319,8 @@ Unknown slugs produce a validator warning (not error).
 | `question_type: "procedural"` with non-null `choices` | Validator WARNING |
 | `question_type: "conceptual"` with null `choices` | Validator WARNING |
 | `$$...$$` in any text field | Renders incorrectly (not caught by validator) |
+| Prompt states the numeric answer verbatim (e.g. "There are 120 students. How many are there?") | Validator WARNING (`prompt-reveals-answer`) |
+| `latex` field contains a multi-step evaluation chain (`= X = Y`) or step arrows (`\Rightarrow`) | Validator WARNING (`latex-working-steps`); move worked steps to `explanation` |
 
 ---
 

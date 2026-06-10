@@ -107,9 +107,11 @@ function parseScalar(value: string): ScalarAnswer | null {
 
   working = working
     .replace(/^\$\s*/, "")
+    .replace(/\s*(?:dollars?|aud)\s*$/i, "")
     .replace(/\s*(?:degrees?|deg|°)\s*$/i, "")
+    .replace(/\s*(?:hours?|hrs?|minutes?|mins?|seconds?|secs?)\s*$/i, "")
     .replace(
-      /\s*(?:mm|cm|km|m|g|kg|ml|l)(?:\s*(?:\^?\s*[23]))?\s*$/i,
+      /\s*(?:millimetres?|millimeters?|mm|centimetres?|centimeters?|cm|kilometres?|kilometers?|km|metres?|meters?|m|kilograms?|kg|grams?|g|millilitres?|milliliters?|ml|litres?|liters?|l)(?:\s*(?:\^?\s*[23]))?\s*$/i,
       ""
     )
     .trim();

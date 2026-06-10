@@ -44,6 +44,33 @@ const tests: TestCase[] = [
   { name: "different number", userAnswer: "12", correctAnswer: "13", expected: false },
   { name: "algebra is not solved", userAnswer: "2(x+1)", correctAnswer: "2x+2", expected: false },
   { name: "unordered set is not reordered", userAnswer: "-3, -2", correctAnswer: "-2, -3", expected: false },
+
+  // ── Unit variants ─────────────────────────────────────────────────────────
+  { name: "min unit stripped", userAnswer: "5 min", correctAnswer: "5", expected: true },
+  { name: "mins unit stripped", userAnswer: "5 mins", correctAnswer: "5", expected: true },
+  { name: "minute unit stripped", userAnswer: "5 minute", correctAnswer: "5", expected: true },
+  { name: "minutes unit stripped", userAnswer: "5 minutes", correctAnswer: "5", expected: true },
+  { name: "min unit no space", userAnswer: "5min", correctAnswer: "5", expected: true },
+  { name: "seconds unit stripped", userAnswer: "30 seconds", correctAnswer: "30", expected: true },
+  { name: "sec unit stripped", userAnswer: "30 sec", correctAnswer: "30", expected: true },
+  { name: "hours unit stripped", userAnswer: "2 hours", correctAnswer: "2", expected: true },
+  { name: "hr unit stripped", userAnswer: "2 hr", correctAnswer: "2", expected: true },
+  { name: "metres unit stripped", userAnswer: "3 metres", correctAnswer: "3", expected: true },
+  { name: "meters unit stripped", userAnswer: "3 meters", correctAnswer: "3", expected: true },
+  { name: "metre unit stripped", userAnswer: "3 metre", correctAnswer: "3", expected: true },
+  { name: "meter unit stripped", userAnswer: "3 meter", correctAnswer: "3", expected: true },
+  { name: "centimetres unit stripped", userAnswer: "12 centimetres", correctAnswer: "12", expected: true },
+  { name: "centimeters unit stripped", userAnswer: "12 centimeters", correctAnswer: "12", expected: true },
+  { name: "kilometres unit stripped", userAnswer: "5 kilometres", correctAnswer: "5", expected: true },
+  { name: "AUD suffix stripped", userAnswer: "120 AUD", correctAnswer: "120", expected: true },
+  { name: "dollar suffix stripped", userAnswer: "120 dollar", correctAnswer: "120", expected: true },
+  { name: "dollars suffix stripped", userAnswer: "120 dollars", correctAnswer: "120", expected: true },
+  { name: "dollar prefix and AUD suffix both stripped", userAnswer: "$120 AUD", correctAnswer: "120", expected: true },
+  { name: "unit mismatch not accepted", userAnswer: "5 minutes", correctAnswer: "2", expected: false },
+
+  // ── Trailing zeros and integer-as-decimal ─────────────────────────────────
+  { name: "integer as decimal matches", userAnswer: "3.0", correctAnswer: "3", expected: true },
+  { name: "decimal trailing zero matches", userAnswer: "7.50", correctAnswer: "7.5", expected: true },
 ];
 
 let failures = 0;

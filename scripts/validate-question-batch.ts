@@ -76,6 +76,32 @@ const UNSUPPORTED_ADVANCED_PATTERNS = [
   },
 ];
 
+/**
+ * Detects whether a prompt text appears to state the answer outright.
+ * Only checks numeric answers ≥ 10 to reduce noise; single digits are too
+ * common in prompts to be meaningful.
+ */
+function promptRevealsAnswer(prompt: string, answer: string): boolean {
+  const numeric = Number(answer.replace(/[$,\s]/g, ""));
+  if (!Number.isFinite(numeric) || Math.abs(numeric) < 10) return false;
+  // Match the answer as a standalone number token (not part of a larger number)
+  const escaped = String(Math.abs(numeric)).replace(/\./g, "\\.");
+  return new RegExp(`(?<![\\d.])${escaped}(?![\\d])`, "g").test(prompt);
+}
+
+/**
+ * Detects a latex field that looks like multi-step working rather than a
+ * single display formula.  Flags when the field contains an evaluation chain
+ * like "= X = Y" (a number immediately following one = sign, then another =).
+ */
+function latexContainsWorkingSteps(latex: string): boolean {
+  // Evaluation chain: = <number> = (e.g. "= 120 = ...")
+  if (/=\s*-?\d+(?:[.,]\d+)?\s*=/.test(latex)) return true;
+  // Explicit step arrows
+  if (/\\(?:Rightarrow|implies|therefore|Longrightarrow)/.test(latex)) return true;
+  return false;
+}
+
 const PROMPT_CONTRADICTION_PAIRS = [
   {
     prompt: /\bnot simply\b/i,
@@ -255,7 +281,10 @@ function normaliseSimpleAnswer(text: string): string {
     .toLowerCase()
     .replace(/\$/g, "")
     .replace(/\b(?:k|x|t|a)\s*=/g, "")
-    .replace(/\b(?:units?|metres?|meters?|m|dollars?)\b/g, "")
+    .replace(
+      /\b(?:units?|millimetres?|millimeters?|mm|centimetres?|centimeters?|cm|kilometres?|kilometers?|km|metres?|meters?|m|kilograms?|kg|grams?|g|millilitres?|milliliters?|ml|litres?|liters?|l|hours?|hrs?|minutes?|mins?|seconds?|secs?|dollars?|aud|degrees?|deg)\b/g,
+      ""
+    )
     .replace(/\s+/g, "")
     .trim();
 }
@@ -531,6 +560,23 @@ export function validateRecord(
 
   const hint = typeof r["hint"] === "string" ? r["hint"] : null;
   if (hint)        issues.push(...checkDollarPatterns(hint,        "hint"));
+
+  // ── Answer-reveal and latex-working-steps checks ──────────────────────────
+  if (prompt && answer && promptRevealsAnswer(prompt, answer)) {
+    warn(
+      `prompt may state the answer directly (answer "${answer}" appears as ` +
+      `a standalone number in the prompt). Rephrase so students must calculate ` +
+      `the value rather than read it off.`
+    );
+  }
+
+  if (latex && latexContainsWorkingSteps(latex)) {
+    warn(
+      `latex field appears to contain multi-step working (e.g. "= X = Y" ` +
+      `evaluation chain or step arrows). The latex field should display a ` +
+      `single formula or expression — move worked steps to the explanation.`
+    );
+  }
 
   // ── source_id format hint ─────────────────────────────────────────────────
   const sourceId = typeof r["source_id"] === "string" ? r["source_id"] : "";
