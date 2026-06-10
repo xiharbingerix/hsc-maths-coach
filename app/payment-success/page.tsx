@@ -3,6 +3,7 @@ import { getOfferConfig } from "../../lib/offers";
 import { getStripe } from "../../lib/stripe";
 import { supabaseAdmin } from "../../lib/supabaseAdmin";
 import { TrackPaymentSuccess } from "./TrackPaymentSuccess";
+import { SetPasswordForm } from "./SetPasswordForm";
 
 async function getSessionOffer(sessionId: string | undefined) {
   if (!sessionId || !process.env.STRIPE_SECRET_KEY) {
@@ -18,95 +19,204 @@ async function getSessionOffer(sessionId: string | undefined) {
   }
 }
 
-// Fallback: if the Stripe webhook was delayed or failed, activate access
-// directly when the student lands on this page. This is idempotent — running
-// it when the webhook already succeeded is a no-op.
+type OnlineLearningSetupResult = {
+  customerEmail: string | null;
+  isNewUser: boolean;
+};
+
+// Look up a Supabase user by email. Returns the user's id if found.
+async function findUserIdByEmail(email: string): Promise<string | null> {
+  const { data } = await supabaseAdmin
+    .from("profiles")
+    .select("id")
+    .eq("email", email)
+    .maybeSingle();
+  return data?.id ?? null;
+}
+
+// Create a confirmed Supabase user with a random password. The user will set
+// their own password via the email link sent from SetPasswordForm.
+async function createUserByEmail(
+  email: string,
+  studentFirstName: string | null
+): Promise<string | null> {
+  const { data, error } = await supabaseAdmin.auth.admin.createUser({
+    email,
+    email_confirm: true,
+    password: crypto.randomUUID(),
+  });
+
+  if (error || !data.user) {
+    console.error("[payment-success] createUser failed", {
+      email,
+      message: error?.message,
+    });
+    return null;
+  }
+
+  const userId = data.user.id;
+
+  await supabaseAdmin.from("profiles").upsert({
+    id: userId,
+    email,
+    student_first_name: studentFirstName ?? null,
+    role: "student",
+  });
+
+  return userId;
+}
+
+// Activate online_learning_beta access for a user. Idempotent.
+async function activateOnlineLearningAccess(userId: string): Promise<void> {
+  const { data: existing, error: readError } = await supabaseAdmin
+    .from("user_access")
+    .select("id, status")
+    .eq("user_id", userId)
+    .eq("access_type", "online_learning_beta")
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (readError) {
+    console.error("[payment-success] user_access read error", {
+      userId,
+      message: readError.message,
+    });
+    return;
+  }
+
+  if (existing?.status === "active") return;
+
+  if (existing?.id) {
+    const { error } = await supabaseAdmin
+      .from("user_access")
+      .update({ status: "active" })
+      .eq("id", existing.id);
+
+    if (error) {
+      console.error("[payment-success] user_access update error", {
+        userId,
+        message: error.message,
+      });
+    }
+    return;
+  }
+
+  const { error } = await supabaseAdmin.from("user_access").insert({
+    user_id: userId,
+    access_type: "online_learning_beta",
+    status: "active",
+  });
+
+  if (error) {
+    console.error("[payment-success] user_access insert error", {
+      userId,
+      message: error.message,
+    });
+  }
+}
+
+// Ensure online learning access is activated. Handles both the legacy flow
+// (userId present in session metadata) and the new anonymous flow (no userId
+// — user is looked up or created by their Stripe checkout email).
+//
+// Returns the customer email and whether a new Supabase account was created,
+// so the page can render the appropriate password-setup prompt.
 async function ensureOnlineLearningAccessActivated(
   sessionId: string | undefined
-) {
-  if (!sessionId || !process.env.STRIPE_SECRET_KEY) return;
+): Promise<OnlineLearningSetupResult> {
+  const noResult: OnlineLearningSetupResult = {
+    customerEmail: null,
+    isNewUser: false,
+  };
+
+  if (!sessionId || !process.env.STRIPE_SECRET_KEY) return noResult;
 
   try {
     const stripe = getStripe();
     const session = await stripe.checkout.sessions.retrieve(sessionId);
 
-    if (session.metadata?.offer_selected !== "online-learning") return;
-    const hasSuccessfulOnlineLearningSubscription =
+    if (session.metadata?.offer_selected !== "online-learning") return noResult;
+
+    const hasActiveSubscription =
       session.mode === "subscription" && Boolean(session.subscription);
-    if (
-      session.payment_status !== "paid" &&
-      !hasSuccessfulOnlineLearningSubscription
-    ) {
-      return;
+
+    if (session.payment_status !== "paid" && !hasActiveSubscription) {
+      return noResult;
     }
 
-    const userId =
+    // Email is always available on a completed Stripe checkout session.
+    const customerEmail =
+      session.customer_details?.email ?? session.customer_email ?? null;
+
+    // Prefer the userId already embedded in the session (legacy/logged-in flow).
+    let userId: string | null =
       session.metadata?.user_id || session.client_reference_id || null;
+    let isNewUser = false;
+
     if (!userId) {
-      console.warn("[payment-success] No user_id in session", { sessionId });
-      return;
-    }
-
-    const { data: existingAccess, error: readError } = await supabaseAdmin
-      .from("user_access")
-      .select("id, status")
-      .eq("user_id", userId)
-      .eq("access_type", "online_learning_beta")
-      .order("created_at", { ascending: false })
-      .limit(1)
-      .maybeSingle();
-
-    if (readError) {
-      console.error("[payment-success] user_access read error", {
-        userId,
-        message: readError.message,
-      });
-      return;
-    }
-
-    if (existingAccess?.status === "active") {
-      // Webhook already handled it — nothing to do.
-      return;
-    }
-
-    if (existingAccess?.id) {
-      const { error } = await supabaseAdmin
-        .from("user_access")
-        .update({ status: "active" })
-        .eq("id", existingAccess.id);
-
-      if (error) {
-        console.error("[payment-success] user_access update error", {
-          userId,
-          message: error.message,
-        });
-        return;
+      if (!customerEmail) {
+        console.warn(
+          "[payment-success] No user_id and no customer email in session",
+          { sessionId }
+        );
+        return noResult;
       }
-    } else {
-      const { error } = await supabaseAdmin.from("user_access").insert({
-        user_id: userId,
-        access_type: "online_learning_beta",
-        status: "active",
-      });
 
-      if (error) {
-        console.error("[payment-success] user_access insert error", {
-          userId,
-          message: error.message,
-        });
-        return;
+      // Anonymous flow: find or create Supabase user by the email Stripe collected.
+      const existingId = await findUserIdByEmail(customerEmail);
+
+      if (existingId) {
+        userId = existingId;
+      } else {
+        const studentFirstName =
+          session.metadata?.student_first_name ?? null;
+        userId = await createUserByEmail(customerEmail, studentFirstName);
+        if (userId) {
+          isNewUser = true;
+
+          // Patch the payments row so future subscription lifecycle webhooks
+          // can find and update this user's access. This is a best-effort
+          // UPDATE — if the webhook hasn't created the row yet (payment-success
+          // before webhook ordering), 0 rows are affected and the webhook's
+          // post-upsert profile lookup will link the row instead.
+          const { error: patchError } = await supabaseAdmin
+            .from("payments")
+            .update({ user_id: userId })
+            .eq("stripe_checkout_session_id", session.id)
+            .is("user_id", null);
+          if (patchError) {
+            console.error(
+              "[payment-success] payments user_id patch failed (non-fatal)",
+              { sessionId: session.id, message: patchError.message }
+            );
+        }
       }
     }
 
-    console.log("[payment-success] Activated access via fallback", {
+    if (!userId) {
+      console.warn(
+        "[payment-success] Could not resolve userId for access activation",
+        { sessionId, customerEmail }
+      );
+      return { customerEmail, isNewUser: false };
+    }
+
+    await activateOnlineLearningAccess(userId);
+
+    console.log("[payment-success] Access activated", {
       userId,
       sessionId,
+      isNewUser,
     });
+
+    return { customerEmail, isNewUser };
   } catch (error) {
-    console.error("[payment-success] ensureOnlineLearningAccessActivated failed", {
-      sessionId,
-      error,
-    });
+    console.error(
+      "[payment-success] ensureOnlineLearningAccessActivated failed",
+      { sessionId, error }
+    );
+    return noResult;
   }
 }
 
@@ -118,13 +228,13 @@ export default async function PaymentSuccessPage({
   const params = await searchParams;
   const sessionId = params?.session_id;
 
-  // Run both in parallel — the offer lookup and the fallback access activation.
-  const [offer] = await Promise.all([
+  const [offer, onlineLearningSetup] = await Promise.all([
     getSessionOffer(sessionId),
     ensureOnlineLearningAccessActivated(sessionId),
   ]);
 
   const isOnlineLearning = offer?.slug === "online-learning";
+  const { customerEmail, isNewUser } = onlineLearningSetup;
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -139,14 +249,22 @@ export default async function PaymentSuccessPage({
           <h1 className="mt-3 text-4xl font-bold tracking-tight">
             {isOnlineLearning
               ? "Your trial is active."
-              : "Thanks - your payment has been received."}
+              : "Thanks — your payment has been received."}
           </h1>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
             {isOnlineLearning
-              ? "Your 7-day free trial is active and access is activated automatically. If your dashboard does not show active access within a few minutes, contact support@novamaths.com.au."
+              ? isNewUser
+                ? "Your 7-day free trial is active. Set a password below to access your lessons and dashboard."
+                : "Your 7-day free trial is active and access is activated automatically. Log in to access your dashboard."
               : "Year 12 Mathematics Advanced report and study plan options are reviewed before follow-up."}
           </p>
         </header>
+
+        {/* Password setup prompt — only shown for the anonymous flow where a
+            new Supabase account was just created in this request. */}
+        {isOnlineLearning && isNewUser && customerEmail ? (
+          <SetPasswordForm email={customerEmail} />
+        ) : null}
 
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
           <h2 className="text-2xl font-bold tracking-tight">

@@ -66,16 +66,6 @@ export async function POST(request: Request) {
 
     const userId = await getUserIdFromRequest(request);
 
-    if (offer.slug === "online-learning" && !userId) {
-      return NextResponse.json(
-        {
-          error:
-            "Please create an account or log in before subscribing to online learning.",
-        },
-        { status: 401 }
-      );
-    }
-
     const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
     const priceId = process.env[offer.stripePriceEnvKey];
@@ -118,10 +108,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const parentEmail = body.parentEmail?.trim();
-    const studentFirstName = body.studentFirstName?.trim();
+    const parentEmail = body.parentEmail?.trim() || undefined;
+    const studentFirstName = body.studentFirstName?.trim() || undefined;
 
-    if (!parentEmail || !studentFirstName) {
+    // For non-online-learning offers, contact details are always required.
+    // For online-learning, Stripe collects the email during checkout when the
+    // user comes through the anonymous (no pre-signup) flow.
+    if (offer.slug !== "online-learning" && (!parentEmail || !studentFirstName)) {
       return NextResponse.json(
         { error: "Parent email and student first name are required." },
         { status: 400 }
@@ -133,16 +126,18 @@ export async function POST(request: Request) {
     const session = await stripe.checkout.sessions.create({
       mode: offer.mode,
       line_items: [{ price: priceId, quantity: 1 }],
-      customer_email: parentEmail,
-      // client_reference_id is a top-level Stripe field — a reliable second
-      // path to the user ID if metadata is somehow absent in the webhook.
+      // customer_email pre-fills the Stripe checkout form when available.
+      // Omitting it for the anonymous online-learning flow lets Stripe collect it.
+      ...(parentEmail ? { customer_email: parentEmail } : {}),
+      // client_reference_id is a reliable second path to user_id if metadata
+      // is absent in the webhook.
       ...(userId ? { client_reference_id: userId } : {}),
       success_url: `${siteUrl}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteUrl}/payment-cancelled?offer=${offer.slug}`,
       metadata: {
         offer_selected: offer.slug,
-        parent_email: parentEmail,
-        student_first_name: studentFirstName,
+        ...(parentEmail ? { parent_email: parentEmail } : {}),
+        ...(studentFirstName ? { student_first_name: studentFirstName } : {}),
         ...(userId ? { user_id: userId } : {}),
       },
       subscription_data:
@@ -153,8 +148,10 @@ export async function POST(request: Request) {
                 : {}),
               metadata: {
                 offer_selected: offer.slug,
-                parent_email: parentEmail,
-                student_first_name: studentFirstName,
+                ...(parentEmail ? { parent_email: parentEmail } : {}),
+                ...(studentFirstName
+                  ? { student_first_name: studentFirstName }
+                  : {}),
                 ...(userId ? { user_id: userId } : {}),
               },
             }
