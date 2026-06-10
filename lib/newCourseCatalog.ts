@@ -48,7 +48,7 @@ import {
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
-import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride } from "./lessons/year8";
+import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride } from "./lessons/year8";
 
 export type {
   CourseLessonSeed,
@@ -205,6 +205,7 @@ export function buildLesson(
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
     year8AlgebraFoundationsLessonOverride(course, unit, lesson) ??
+    year8AlgebraEquationsLessonOverride(course, unit, lesson) ??
     year8NumberFinancialMathematicsLessonOverride(course, unit, lesson) ??
     year8PythagorasTheoremLessonOverride(course, unit, lesson) ??
     year8GeometryAnglesLessonOverride(course, unit, lesson) ??
@@ -1874,7 +1875,44 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus:
           "Build equation-solving fluency that directly underpins Year 9 index laws, linear relationships and simultaneous equations.",
-        lessons: [],
+        lessons: [
+          {
+            slug: "solving-one-step-equations",
+            title: "Solving One-Step Equations",
+            description:
+              "Use a single inverse operation to solve equations involving addition, subtraction, multiplication and division.",
+          },
+          {
+            slug: "solving-two-step-equations",
+            title: "Solving Two-Step Equations",
+            description:
+              "Undo the constant term first and then the coefficient to solve equations requiring two inverse operations.",
+          },
+          {
+            slug: "equations-with-brackets",
+            title: "Equations with Brackets",
+            description:
+              "Expand brackets using the distributive law and then solve the resulting equation.",
+          },
+          {
+            slug: "equations-with-pronumerals-on-both-sides",
+            title: "Equations with Pronumerals on Both Sides",
+            description:
+              "Collect all variable terms on one side and all constants on the other, then solve.",
+          },
+          {
+            slug: "forming-equations-from-word-problems",
+            title: "Forming Equations from Word Problems",
+            description:
+              "Translate a word problem into an algebraic equation, solve it, and interpret the answer in context.",
+          },
+          {
+            slug: "checking-solutions-and-error-analysis",
+            title: "Checking Solutions and Error Analysis",
+            description:
+              "Verify solutions by substitution, identify errors in incorrect working, and practise mixed equation types.",
+          },
+        ],
       },
       {
         slug: "linear-relationships",
