@@ -5,3 +5,4 @@ export { year8GeometryAnglesLessonOverride } from "./geometryAngles";
 export { year8LinearRelationshipsLessonOverride } from "./linearRelationships";
 export { year8StatisticsProbabilityLessonOverride } from "./statisticsProbability";
 export { year8AlgebraEquationsLessonOverride } from "./algebraEquations";
+export { year8NumberOperationsLessonOverride } from "./numberOperations";

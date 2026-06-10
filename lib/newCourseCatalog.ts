@@ -48,7 +48,7 @@ import {
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
-import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride } from "./lessons/year8";
+import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride } from "./lessons/year8";
 
 export type {
   CourseLessonSeed,
@@ -204,6 +204,7 @@ export function buildLesson(
     year12Extension1InverseTrigLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
+    year8NumberOperationsLessonOverride(course, unit, lesson) ??
     year8AlgebraFoundationsLessonOverride(course, unit, lesson) ??
     year8AlgebraEquationsLessonOverride(course, unit, lesson) ??
     year8NumberFinancialMathematicsLessonOverride(course, unit, lesson) ??
@@ -1831,7 +1832,14 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus:
           "Ensure fluency with the number system before extending to algebra and coordinate geometry.",
-        lessons: [],
+        lessons: [
+          { slug: "directed-numbers",          title: "Directed Numbers" },
+          { slug: "fractions-and-decimals",   title: "Fractions and Decimals" },
+          { slug: "percentages-and-fractions",    title: "Percentages and Fractions" },
+          { slug: "order-of-operations",         title: "Order of Operations" },
+          { slug: "powers-roots-and-squares",     title: "Powers, Roots and Squares" },
+          { slug: "estimation-and-reasonableness", title: "Estimation and Reasonableness" },
+        ],
       },
       {
         slug: "algebra-foundations",
