@@ -124,8 +124,13 @@ export default async function NewWorksheetPage({
               <li>
                 Run{" "}
                 <code className="rounded bg-amber-100 px-1 font-mono text-xs">
-                  npx tsx scripts/seed-question-bank.ts --course=year-9-mathematics
+                  npx tsx scripts/seed-question-bank.ts --course=year-8-mathematics
+                </code>{" "}
+                (or{" "}
+                <code className="rounded bg-amber-100 px-1 font-mono text-xs">
+                  --course=year-9-mathematics
                 </code>
+                {", "}etc.)
               </li>
               <li>Reload this page.</li>
             </ol>
