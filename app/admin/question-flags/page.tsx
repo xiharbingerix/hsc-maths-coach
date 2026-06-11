@@ -13,6 +13,7 @@ type FlagRow = {
   reason: string;
   comment: string | null;
   student_answer: string | null;
+  expected_answer_snapshot: string | null;
   marked_correct: boolean | null;
   prompt_snapshot: string | null;
   status: string;
@@ -53,7 +54,7 @@ export default async function AdminQuestionFlagsPage({
   const query = supabaseAdmin
     .from("question_flags")
     .select(
-      "id, source_id, reason, comment, student_answer, marked_correct, prompt_snapshot, status, created_at"
+      "id, source_id, reason, comment, student_answer, expected_answer_snapshot, marked_correct, prompt_snapshot, status, created_at"
     )
     .order("created_at", { ascending: false });
 
@@ -130,6 +131,7 @@ export default async function AdminQuestionFlagsPage({
                   <th className="px-5 py-3 text-left">Source ID</th>
                   <th className="px-5 py-3 text-left">Reason</th>
                   <th className="px-5 py-3 text-left">Student answer</th>
+                  <th className="px-5 py-3 text-left">Expected answer</th>
                   <th className="px-4 py-3 text-center">Correct?</th>
                   <th className="px-5 py-3 text-left">Comment / Prompt</th>
                   <th className="px-5 py-3 text-left">Status</th>
@@ -149,6 +151,9 @@ export default async function AdminQuestionFlagsPage({
                     </td>
                     <td className="px-5 py-3 font-mono text-xs text-slate-600 whitespace-nowrap">
                       {f.student_answer ?? "—"}
+                    </td>
+                    <td className="px-5 py-3 font-mono text-xs text-slate-700 whitespace-nowrap">
+                      {f.expected_answer_snapshot ?? "—"}
                     </td>
                     <td className="px-4 py-3 text-center">
                       {f.marked_correct === true ? (

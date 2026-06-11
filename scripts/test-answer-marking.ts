@@ -95,6 +95,19 @@ const tests: TestCase[] = [
   { name: "volume cubic centimetres stripped", userAnswer: "120 cubic centimetres", correctAnswer: "120", expected: true },
   { name: "volume cubic centimeters stripped", userAnswer: "120 cubic centimeters", correctAnswer: "120", expected: true },
 
+  // ── Algebraic power notation equivalence ─────────────────────────────────
+  { name: "x^(2) matches x^2", userAnswer: "x^(2)", correctAnswer: "x^2", expected: true },
+  { name: "x^2 matches x^(2)", userAnswer: "x^2", correctAnswer: "x^(2)", expected: true },
+  { name: "x² matches x^2", userAnswer: "x²", correctAnswer: "x^2", expected: true },
+  { name: "x^2 matches x²", userAnswer: "x^2", correctAnswer: "x²", expected: true },
+  { name: "y^(2) matches y^2", userAnswer: "y^(2)", correctAnswer: "y^2", expected: true },
+  { name: "-18x^(2) matches -18x^2", userAnswer: "-18x^(2)", correctAnswer: "-18x^2", expected: true },
+  { name: "x^(3) matches x^3", userAnswer: "x^(3)", correctAnswer: "x^3", expected: true },
+  { name: "x^(2) does not match x^3", userAnswer: "x^(2)", correctAnswer: "x^3", expected: false },
+  // Coefficient fraction forms are NOT auto-equivalent — use acceptedAnswers in content
+  { name: "x/2 does not auto-match 0.5x", userAnswer: "x/2", correctAnswer: "0.5x", expected: false },
+  { name: "0.5x does not auto-match x/2", userAnswer: "0.5x", correctAnswer: "x/2", expected: false },
+
   // ── Clock time 24-hour <-> am/pm equivalence ──────────────────────────────
   { name: "clock 14:30 = 2:30 pm", userAnswer: "2:30 pm", correctAnswer: "14:30", expected: true },
   { name: "clock 2:30 pm = 14:30", userAnswer: "14:30", correctAnswer: "2:30 pm", expected: true },

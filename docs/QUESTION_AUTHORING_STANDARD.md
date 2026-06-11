@@ -188,6 +188,40 @@ When at least one side (user answer or canonical/accepted answer) contains an ex
 
 ---
 
+## Algebraic answer equivalence
+
+### What is automatic
+
+| Student types | Canonical | Matches? |
+|---|---|---|
+| `x^(2)` | `x^2` | ✓ parenthesised exponents are stripped |
+| `x²` | `x^2` | ✓ Unicode superscript normalised |
+| `x^2` | `x^(2)` | ✓ |
+| `-18x^(2)` | `-18x^2` | ✓ |
+
+The engine normalises `^(N)` → `^N` for any integer exponent before comparing. Write canonical answers **without** parentheses (`x^2`, not `x^(2)`).
+
+### What is NOT automatic — use `accepted_answers` instead
+
+The engine does **not** perform symbolic algebra. These forms require explicit `accepted_answers` entries:
+
+| Forms that look equivalent | Why NOT auto-matched | How to handle |
+|---|---|---|
+| `x/2` and `0.5x` and `(1/2)x` | Requires polynomial CAS | Add all forms to `accepted_answers` |
+| `x^2 + 6x + 5` and `(x+1)(x+5)` | Requires factoring | Pick one canonical form |
+| `2x + 2` and `2(x+1)` | Requires expansion | Pick expanded form as canonical |
+| `sqrt(x)` and `x^(1/2)` | Different notation | Pick one; add other to `accepted_answers` |
+
+### Convention for algebraic canonical answers
+
+- Use `x^2` not `x^(2)`, `x²`
+- Use `x^3` not `x^(3)`, `x³`
+- Use the **expanded** polynomial form as canonical, e.g. `x^2+6x+5`
+- Add spaced forms as accepted variants: `["x^2 + 6x + 5"]`
+- For coefficient fractions (`x/2`, `1/2 x`), add all common student forms to `accepted_answers`
+
+---
+
 ## Accepted answer variants
 
 Add variants when reasonable alternate forms exist that the marking engine will not automatically handle:

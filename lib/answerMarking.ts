@@ -16,11 +16,12 @@ export type MarkTypedAnswerResult = {
 
 function normaliseText(value: string) {
   return value
+    .replace(/\u00b2/g, "^2")
+    .replace(/\u00b3/g, "^3")
     .normalize("NFKC")
     .replace(/\u2044/g, "/")
     .replace(/[\u2212\u2013\u2014]/g, "-")
-    .replace(/\u00b2/g, "^2")
-    .replace(/\u00b3/g, "^3")
+    .replace(/\^\((\d+)\)/g, "^$1")
     .toLowerCase()
     .trim()
     .replace(/\blocal\s+max\b/g, "local maximum")
