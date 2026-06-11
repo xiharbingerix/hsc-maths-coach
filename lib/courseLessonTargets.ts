@@ -70,8 +70,23 @@ const availableCourseSlugs = new Set(
     .map((course) => course.courseSlug)
 );
 
+// in_progress courses that have at least one real lesson (not shell units)
+const inProgressCourseSlugsWithContent = new Set<string>(
+  newCoursePathways
+    .filter(
+      (course) =>
+        course.status === "in_progress" &&
+        course.units.some((unit) => unit.lessons.length > 0)
+    )
+    .map((course) => course.slug)
+);
+
 const nestedCourseTargets = newCoursePathways.flatMap((course) => {
-  if (!availableCourseSlugs.has(course.slug)) return [];
+  if (
+    !availableCourseSlugs.has(course.slug) &&
+    !inProgressCourseSlugsWithContent.has(course.slug)
+  )
+    return [];
 
   return course.units.flatMap((unit) =>
     unit.lessons.map<CourseLessonTarget>((lesson) => ({
@@ -138,7 +153,11 @@ export function getContinueLearningTarget(
   }
 
   const courseOrder = courseCatalogue
-    .filter((course) => course.status === "available")
+    .filter(
+      (course) =>
+        course.status === "available" ||
+        inProgressCourseSlugsWithContent.has(course.courseSlug)
+    )
     .map((course) => course.courseSlug);
   const courseCandidates = courseOrder
     .map((courseSlug, order) => {
