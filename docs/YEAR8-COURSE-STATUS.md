@@ -1,25 +1,25 @@
 # Year 8 Course Status
 
-_Audit date: 10 June 2026_
+_Audit date: 11 June 2026_
 
 ---
 
 ## Executive Summary
 
-Year 8 Mathematics has **11 units** in the course catalogue. **7 units are fully content-complete** with real lesson overrides and seedable questions. **4 units are shells** (catalogue entry only, 0 lessons). The diagnostic has significant misalignment: it routes to 4 shell units and misses 3 completed units entirely.
+Year 8 Mathematics has **11 units** in the course catalogue. **10 units are fully content-complete** with real lesson overrides and seedable questions. **1 unit is a shell** (catalogue entry only, 0 lessons). The diagnostic now routes correctly to 7 of 8 referenced units; only `geometry-properties` remains a dead end. Three completed units (`algebra-foundations`, `number-financial-mathematics`, `geometry-angles`) still have no diagnostic entry.
 
 | Metric | Value |
 |---|---|
 | Total catalogue units | 11 |
-| Completed units | 7 |
-| Shell/empty units | 4 |
-| Total built lessons | 36 |
-| Total seedable questions | 684 |
+| Completed units | 10 |
+| Shell/empty units | 1 |
+| Total built lessons | 54 |
+| Total seedable questions | 1026 |
 | Build | PASS |
 | TypeScript | PASS |
 | Audit failures | 0 |
-| Audit warnings (Year 8) | 238 of 409 total |
-| Duplicate lesson slugs | None |
+| Audit warnings (Year 8) | 435 of 664 total |
+| Duplicate lesson slugs | ⚠ 2 slugs shared across units (see below) |
 | Seed dry-run warnings | 0 |
 
 ---
@@ -28,21 +28,35 @@ Year 8 Mathematics has **11 units** in the course catalogue. **7 units are fully
 
 | Unit slug | Title | Lessons | Override file | Status |
 |---|---|---:|---|---|
-| `number-operations` | Number Operations and Properties | 0 | — | **Shell** |
+| `number-operations` | Number Operations and Properties | 6 | `numberOperations.ts` | **Complete** ✅ |
 | `algebra-foundations` | Algebra Foundations | 6 | `algebraFoundations.ts` | **Complete** |
 | `number-financial-mathematics` | Number and Financial Mathematics | 6 | `numberFinancialMathematics.ts` | **Complete** |
-| `algebra-equations` | Algebra and Equations | 0 | — | **Shell** |
+| `algebra-equations` | Algebra and Equations | 6 | `algebraEquations.ts` | **Complete** ✅ |
 | `linear-relationships` | Linear Relationships | 6 | `linearRelationships.ts` | **Complete** |
 | `pythagoras-theorem` | Pythagoras' Theorem | 6 | `pythagorasTheorem.ts` | **Complete** |
 | `geometry-angles` | Geometry and Angles | 6 | `geometryAngles.ts` | **Complete** |
 | `geometry-properties` | Geometric Properties and Reasoning | 0 | — | **Shell** |
-| `volume-and-surface-area` | Volume and Surface Area | 0 | — | **Shell** |
+| `volume-and-surface-area` | Volume and Surface Area | 6 | `volumeSurfaceArea.ts` | **Complete** ✅ |
 | `data-and-graphs` | Data Analysis and Graphs | 3 | `statisticsProbability.ts` | **Complete** |
 | `probability-and-chance` | Probability and Chance | 3 | `statisticsProbability.ts` | **Complete** |
+
+✅ = newly completed since last audit
 
 ---
 
 ## Completed Units
+
+### number-operations (6 lessons) ✅ NEW
+
+- directed-numbers
+- fractions-and-decimals
+- percentages-and-fractions
+- order-of-operations
+- powers-roots-and-squares
+- estimation-and-reasonableness
+
+**Seedable questions:** 114 (6 × 19)
+**Diagnostic coverage:** Yes (3 diagnostic questions: y8-no1, y8-no2, y8-no3) — **now live**
 
 ### algebra-foundations (6 lessons)
 
@@ -67,6 +81,18 @@ Year 8 Mathematics has **11 units** in the course catalogue. **7 units are fully
 
 **Seedable questions:** 114 (6 × 19)
 **Diagnostic coverage:** None — not referenced in `year-8-mathematics.ts`
+
+### algebra-equations (6 lessons) ✅ NEW
+
+- solving-one-step-equations
+- solving-two-step-equations
+- equations-with-brackets
+- equations-with-pronumerals-on-both-sides
+- forming-equations-from-word-problems
+- checking-solutions-and-error-analysis
+
+**Seedable questions:** 114 (6 × 19)
+**Diagnostic coverage:** Yes (3 diagnostic questions: y8-ae1, y8-ae2, y8-ae3) — **now live**
 
 ### linear-relationships (6 lessons)
 
@@ -104,6 +130,18 @@ Year 8 Mathematics has **11 units** in the course catalogue. **7 units are fully
 **Seedable questions:** 114 (6 × 19)
 **Diagnostic coverage:** None — not referenced in `year-8-mathematics.ts`
 
+### volume-and-surface-area (6 lessons) ✅ NEW
+
+- volume-of-prisms
+- surface-area-of-prisms
+- volume-of-cylinders
+- surface-area-of-cylinders
+- volume-of-composite-solids
+- surface-area-of-composite-solids
+
+**Seedable questions:** 114 (6 × 19)
+**Diagnostic coverage:** Yes (2 diagnostic questions: y8-vs1, y8-vs2) — **now live**
+
 ### data-and-graphs (3 lessons)
 
 - collecting-and-displaying-data
@@ -126,14 +164,11 @@ Year 8 Mathematics has **11 units** in the course catalogue. **7 units are fully
 
 ## Shell / Empty Units
 
-These units exist in the catalogue with a slug, title, and description, but have zero lessons and no lesson override. A student following a diagnostic link to one of these lands on an empty unit page.
+Only one unit has zero lessons.
 
 | Unit slug | Diagnostic coverage? |
 |---|---|
-| `number-operations` | Yes (3 questions: y8-no1, y8-no2, y8-no3) |
-| `algebra-equations` | Yes (3 questions: y8-ae1, y8-ae2, y8-ae3) |
-| `geometry-properties` | Yes (2 questions: y8-gp1, y8-gp2) |
-| `volume-and-surface-area` | Yes (2 questions: y8-vs1, y8-vs2) |
+| `geometry-properties` | Yes (2 questions: y8-gp1, y8-gp2) — **dead link** |
 
 ---
 
@@ -141,17 +176,20 @@ These units exist in the catalogue with a slug, title, and description, but have
 
 | Unit | Lessons | Questions |
 |---|---:|---:|
+| number-operations | 6 | 114 |
 | algebra-foundations | 6 | 114 |
 | number-financial-mathematics | 6 | 114 |
+| algebra-equations | 6 | 114 |
 | linear-relationships | 6 | 114 |
 | pythagoras-theorem | 6 | 114 |
 | geometry-angles | 6 | 114 |
+| volume-and-surface-area | 6 | 114 |
 | data-and-graphs | 3 | 57 |
 | probability-and-chance | 3 | 57 |
-| **Total** | **36** | **684** |
+| **Total** | **54** | **1026** |
 
 Seed dry-run: `npx.cmd tsx scripts/seed-question-bank.ts --course year-8-mathematics --dry-run`
-Result: 684 questions prepared, 0 warnings.
+Result: 1026 questions prepared, 0 warnings.
 
 ---
 
@@ -161,12 +199,12 @@ The diagnostic (`lib/diagnostics/year-8-mathematics.ts`) references 8 unit slugs
 
 | Diagnostic unit slug | Exists in catalogue? | Has lessons? | Assessment |
 |---|---|---|---|
-| `number-operations` | Yes | No (shell) | **Bad link** — routes to empty unit |
-| `algebra-equations` | Yes | No (shell) | **Bad link** — routes to empty unit |
+| `number-operations` | Yes | Yes (6) | **Aligned ✓** (was dead link — now fixed) |
+| `algebra-equations` | Yes | Yes (6) | **Aligned ✓** (was dead link — now fixed) |
 | `linear-relationships` | Yes | Yes (6) | Aligned ✓ |
 | `pythagoras-theorem` | Yes | Yes (6) | Aligned ✓ |
 | `geometry-properties` | Yes | No (shell) | **Bad link** — routes to empty unit |
-| `volume-and-surface-area` | Yes | No (shell) | **Bad link** — routes to empty unit |
+| `volume-and-surface-area` | Yes | Yes (6) | **Aligned ✓** (was dead link — now fixed) |
 | `data-and-graphs` | Yes | Yes (3) | Aligned ✓ |
 | `probability-and-chance` | Yes | Yes (3) | Aligned ✓ |
 
@@ -175,19 +213,25 @@ The diagnostic (`lib/diagnostics/year-8-mathematics.ts`) references 8 unit slugs
 - `number-financial-mathematics` — 6 lessons, 114 questions, no diagnostic entry
 - `geometry-angles` — 6 lessons, 114 questions, no diagnostic entry
 
-**Impact:** The diagnostic directs students to 4 empty unit pages (dead ends) and entirely skips 3 units with 342 seedable questions. Any student completing the diagnostic has no path from it into algebra-foundations, number-financial-mathematics, or geometry-angles.
+**Impact:** 1 diagnostic dead-end remains (down from 4). 3 units with 342 seedable questions still have no diagnostic pathway.
 
 ---
 
-## Duplicate Lesson Slug Check
+## Duplicate Lesson Slug Warning
 
-All 36 built lesson slugs are unique across all units. No duplicates found.
+The lesson slugs `solving-one-step-equations` and `solving-two-step-equations` appear in **both** the `algebra-foundations` unit and the `algebra-equations` unit in the catalogue. The content and question IDs are different in each unit (the override functions are keyed on `unit.slug` so they resolve correctly), but the shared slugs create routing ambiguity. No failures result — the seed dry-run produces 0 warnings — but this is a maintenance risk.
+
+**Recommendation:** Rename the `algebra-equations` lessons to avoid the overlap:
+- `solving-one-step-equations` → `one-step-equations-review`
+- `solving-two-step-equations` → `two-step-equations-review`
+
+Or remove those two lessons from `algebra-equations` (whose intent is equations with brackets and variables on both sides) and replace them with more advanced content.
 
 ---
 
 ## buildLesson Registration Check
 
-All 6 override functions are registered in `lib/newCourseCatalog.ts` → `buildLesson`:
+All 9 override functions are registered in `lib/lessons/year8/index.ts`:
 
 ```
 year8AlgebraFoundationsLessonOverride
@@ -195,7 +239,10 @@ year8NumberFinancialMathematicsLessonOverride
 year8PythagorasTheoremLessonOverride
 year8GeometryAnglesLessonOverride
 year8LinearRelationshipsLessonOverride
-year8StatisticsProbabilityLessonOverride  ← handles both data-and-graphs and probability-and-chance
+year8StatisticsProbabilityLessonOverride  ← handles data-and-graphs and probability-and-chance
+year8AlgebraEquationsLessonOverride       ← new
+year8NumberOperationsLessonOverride       ← new
+year8VolumeSurfaceAreaLessonOverride      ← new
 ```
 
 Every lesson slug in the catalogue maps to a key in its override file's `lessons` record. No missing registrations.
@@ -204,30 +251,30 @@ Every lesson slug in the catalogue maps to a key in its override file's `lessons
 
 ## Audit Warnings by Category
 
-The audit script checks three warning rules relevant to Year 8:
-
-| Rule | Meaning | Year 8 affected lessons |
-|---|---|---|
-| `typed-answer-no-variants` | Typed answer has no `acceptedAnswers` beyond the canonical value | Majority of warnings in algebra-foundations (57) and linear-relationships |
-| `no-visual-payload` | Prompt references a graph/diagram/table but the question has no diagram payload | linear-relationships (73 total), data-and-graphs (43), probability-and-chance (25) |
-| `generic-feedback` | Hint or explanation only restates the answer | Scattered across all units |
+| Rule | Year 8 count | Primary cause |
+|---|---:|---|
+| `typed-answer-no-variants` | ~220 | Algebraic/numerical answers with no alternate form |
+| `no-visual-payload` | ~130 | Graphing/diagram questions without rendered payloads |
+| `prompt-reveals-answer` | ~40 | Questions in number-operations and linear-relationships |
+| `latex-working-steps` | ~15 | Evaluation chains in `latex` field (move to explanation) |
 
 **Per-unit warning counts (Year 8 only):**
 
 | Unit | Warnings | Primary cause |
 |---|---:|---|
-| linear-relationships | 73 | `no-visual-payload` (graphing questions without CartesianGraph payloads) |
-| algebra-foundations | 57 | `typed-answer-no-variants` (most algebraic answers have no alternate forms) |
-| data-and-graphs | 43 | `no-visual-payload` (data-table references without table payloads) |
-| geometry-angles | 25 | `typed-answer-no-variants` and `no-visual-payload` |
-| probability-and-chance | 25 | `no-visual-payload` (tree diagram and sample space references) |
-| pythagoras-theorem | 6 | `no-visual-payload` (1) and `typed-answer-no-variants` |
+| linear-relationships | 76 | `no-visual-payload` (graphing questions without CartesianGraph payloads) |
+| number-operations | 74 | `typed-answer-no-variants` (fraction/decimal answers) |
+| algebra-foundations | 57 | `typed-answer-no-variants` |
+| data-and-graphs | 48 | `no-visual-payload` (data-table references without table payloads) |
+| volume-and-surface-area | 68 | `typed-answer-no-variants` (numerical geometry answers) |
+| geometry-angles | 40 | `typed-answer-no-variants` and `no-visual-payload` |
+| probability-and-chance | 25 | `no-visual-payload` |
+| algebra-equations | 26 | `typed-answer-no-variants` |
+| pythagoras-theorem | 12 | `no-visual-payload` and `typed-answer-no-variants` |
 | number-financial-mathematics | 9 | `typed-answer-no-variants` |
-| **Year 8 total** | **238** | |
+| **Year 8 total** | **435** | |
 
 None of these warnings are failures. They do not block seeding or student access.
-
-**Highest-priority warning to fix:** The `no-visual-payload` warnings in `linear-relationships` (73 warnings) are the most significant. Questions that tell students to "read from the graph" or "plot the following points" without a rendered graph are incomplete pedagogically. Adding `CartesianGraph` payloads to graphing questions in this unit would eliminate the bulk of these warnings and substantially improve lesson quality.
 
 ---
 
@@ -235,33 +282,28 @@ None of these warnings are failures. They do not block seeding or student access
 
 | Unit | Lessons needed | Connects to |
 |---|---|---|
-| `number-operations` | ~6 (directed numbers, rationals, irrationals, indices, fractions) | All units; foundational |
-| `algebra-equations` | ~6 (factorising, equations with brackets, variables on both sides) | Year 9 index laws, simultaneous equations |
 | `geometry-properties` | ~4–5 (congruence tests, similarity, scale factors, short proofs) | Year 9 geometric representations; Year 10 geometry proofs |
-| `volume-and-surface-area` | ~5–6 (prism SA, cylinder SA, prism volume, cylinder volume, composite) | Year 9 prisms and cylinders |
 
 ---
 
 ## Next Recommendations (Highest-Value Units)
 
-### 1. `algebra-equations` — Algebra and Equations
+### 1. `geometry-properties` — Geometric Properties and Reasoning
 
 **Why now:**
-- Directly extends completed `algebra-foundations` (expanding, solving 1- and 2-step equations are done)
-- Appears in the diagnostic (3 questions: expand, solve, factorise) — building this unit fixes a diagnostic dead-end
-- Prerequisite content for Year 9 index laws, simultaneous equations, and all senior algebra
-- Content scope is well-defined and bounded: factorising by HCF, solving equations with brackets, equations with variables on both sides
+- Only remaining shell unit — completing it eliminates the last diagnostic dead-end
+- Appears in the diagnostic (2 questions: congruence test SSS, similarity/scale factor)
+- Direct prerequisite for Year 9 geometric representations and Year 10 geometry proofs
+- Content scope is well-defined: congruence tests (SSS, SAS, AAS, RHS), similarity, scale factors, and simple geometric proofs
 
-**Suggested lessons (6):** factorising-by-hcf, solving-equations-with-brackets, variables-on-both-sides, equations-from-contexts, algebraic-fractions-introduction, algebra-equations-exam-practice
+**Suggested lessons (5):** introduction-to-congruence, congruence-tests, similarity-and-scale-factors, applications-of-similarity, geometric-proofs-introduction
 
-### 2. `number-operations` — Number Operations and Properties
+### 2. Fix duplicate lesson slugs in `algebra-equations` / `algebra-foundations`
 
 **Why now:**
-- Appears in the diagnostic (3 questions: directed numbers, irrationals, percentage applied)
-- Builds number fluency assumed by all other Year 8 units; fixing this unit removes the last diagnostic dead-ends for number
-- The diagnostic question y8-no3 (percentage discount) overlaps with `number-financial-mathematics` — once this unit is built, remove or replace y8-no3 with a true number-operations question to separate coverage
-
-**Suggested lessons (6):** directed-numbers, rational-and-irrational-numbers, operations-with-fractions, index-notation-review, order-of-operations, number-operations-applications
+- `solving-one-step-equations` and `solving-two-step-equations` exist in both units
+- Ambiguous routing risk; the seed output shows both resolve to 19 questions each, but a student navigating by URL slug could land in the wrong unit
+- Simple rename in both the catalogue and `algebraEquations.ts` — low risk, high maintenance value
 
 ---
 
@@ -271,8 +313,8 @@ None of these warnings are failures. They do not block seeding or student access
 |---|---|
 | `npx.cmd tsc --noEmit` | PASS — 0 errors |
 | `npm.cmd run build` | PASS — all Year 8 routes compiled |
-| `npm.cmd run audit:lessons` | PASS — 0 failures, 409 warnings |
-| `seed-question-bank.ts --dry-run` | PASS — 684 questions, 0 warnings |
+| `npm.cmd run audit:lessons` | PASS — 0 failures, 664 warnings (435 Year 8) |
+| `seed-question-bank.ts --dry-run` | PASS — 1026 questions, 0 warnings |
 | `git diff --check` | PASS — no whitespace errors |
 
 ---
@@ -281,10 +323,10 @@ None of these warnings are failures. They do not block seeding or student access
 
 | Risk | Severity | Notes |
 |---|---|---|
-| Diagnostic routes to 4 empty units | **High** | Students following `number-operations`, `algebra-equations`, `geometry-properties`, or `volume-and-surface-area` diagnostic links land on empty pages. Fix by building those units or temporarily removing them from the diagnostic. |
-| 3 completed units absent from diagnostic | **High** | `algebra-foundations`, `number-financial-mathematics`, `geometry-angles` have 342 questions with no diagnostic pathway into them. Students cannot be routed into these units. |
-| 73 `no-visual-payload` warnings in linear-relationships | **Medium** | Questions that reference "the graph" or "plot the points" are incomplete without a rendered diagram. Pedagogically misleading until CartesianGraph payloads are added. |
-| `data-and-graphs` only has 3 of a planned larger lesson set | **Low** | The unit description mentions cumulative frequency, IQR, back-to-back plots and sampling — none of which are present. The 3 current lessons are self-contained and sound, but the unit is not fully representative of Stage 4 data content. |
+| Diagnostic routes to `geometry-properties` (empty) | **High** | Only 1 dead-end now (was 4). Students following y8-gp1 or y8-gp2 links land on an empty page. |
+| Duplicate lesson slugs across `algebra-foundations` and `algebra-equations` | **Medium** | Two lesson slugs shared between units. No seeding failures but routing ambiguity exists. Rename one set. |
+| 3 completed units absent from diagnostic | **Medium** | `algebra-foundations`, `number-financial-mathematics`, `geometry-angles` have 342 questions with no diagnostic pathway. |
+| 76 `no-visual-payload` warnings in linear-relationships | **Medium** | Questions referencing graphs/plots without rendered CartesianGraph payloads are pedagogically incomplete. |
 
 ---
 
