@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { BlockMath } from "react-katex";
 import { MathAnswerInput } from "../../components/MathAnswerInput";
@@ -414,6 +415,12 @@ export function WorksheetClient({
           </p>
         ) : null}
       </div>
+      <Link
+        href="/dashboard"
+        className="shrink-0 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+      >
+        ← Dashboard
+      </Link>
     </header>
   );
 
@@ -541,6 +548,12 @@ export function WorksheetClient({
               Your results have been saved. Ask your tutor to go through any
               questions you found tricky.
             </p>
+            <Link
+              href="/dashboard"
+              className="inline-flex rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+            >
+              Back to dashboard
+            </Link>
           </div>
         </div>
       </main>
@@ -690,7 +703,7 @@ export function WorksheetClient({
                     result.isCorrect ? "text-emerald-900" : "text-red-900"
                   }`}
                 >
-                  {result.explanation}
+                  <MathText text={result.explanation} />
                 </p>
               ) : null}
 

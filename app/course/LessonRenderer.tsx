@@ -774,6 +774,9 @@ function MasteryResultPanel({
   answers,
   onTryAgain,
   onReviewLesson,
+  nextHref,
+  nextLabel,
+  backHref,
 }: {
   correctCount: number;
   totalQuestions: number;
@@ -782,6 +785,9 @@ function MasteryResultPanel({
   answers: Record<string, string>;
   onTryAgain: () => void;
   onReviewLesson: () => void;
+  nextHref?: string;
+  nextLabel?: string;
+  backHref: string;
 }) {
   const score = correctCount / totalQuestions;
   const passed = score >= passMark;
@@ -802,6 +808,28 @@ function MasteryResultPanel({
         <p className="mt-1">
           Nice work. You have met the mastery mark for this lesson.
         </p>
+        <div className="mt-4 flex flex-wrap gap-3">
+          {nextHref ? (
+            <Link
+              href={nextHref}
+              className="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
+            >
+              {nextLabel ? `Next: ${nextLabel}` : "Next lesson"} →
+            </Link>
+          ) : null}
+          <Link
+            href={backHref}
+            className="rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50"
+          >
+            Back to unit
+          </Link>
+          <Link
+            href="/dashboard"
+            className="rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50"
+          >
+            Dashboard
+          </Link>
+        </div>
       </div>
     );
   }
@@ -938,6 +966,10 @@ export function LessonRenderer({
   lessons,
   backHref,
   backLabel,
+  prevHref,
+  prevLabel,
+  nextHref,
+  nextLabel,
 }: {
   courseSlug?: string;
   unitSlug?: string;
@@ -945,6 +977,10 @@ export function LessonRenderer({
   lessons: ExplicitLesson[];
   backHref: string;
   backLabel: string;
+  prevHref?: string;
+  prevLabel?: string;
+  nextHref?: string;
+  nextLabel?: string;
 }) {
   const [activeStage, setActiveStage] = useState<LessonStage>(firstContentStage);
   const [videoEnded, setVideoEnded] = useState(false);
@@ -1633,6 +1669,9 @@ export function LessonRenderer({
             answers={quizAnswers}
             onTryAgain={retryQuiz}
             onReviewLesson={reviewLesson}
+            nextHref={nextHref}
+            nextLabel={nextLabel}
+            backHref={backHref}
           />
         )}
       </section>
@@ -1643,12 +1682,20 @@ export function LessonRenderer({
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
       <article className="mx-auto max-w-4xl space-y-8">
         <header className="rounded-2xl bg-white p-6 shadow-sm">
-          <Link
-            href={backHref}
-            className="text-sm font-medium text-slate-500 underline"
-          >
-            {backLabel}
-          </Link>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <Link
+              href={backHref}
+              className="text-sm font-medium text-slate-500 underline"
+            >
+              {backLabel}
+            </Link>
+            <Link
+              href="/dashboard"
+              className="text-sm font-medium text-slate-500 hover:text-slate-900"
+            >
+              ← Dashboard
+            </Link>
+          </div>
 
           <p className="mt-6 text-sm font-semibold uppercase tracking-wide text-slate-500">
             {currentLesson.courseTitle} / {currentLesson.moduleTitle}
@@ -1677,6 +1724,29 @@ export function LessonRenderer({
               <p className="mt-1 font-medium">{currentLesson.focus}</p>
             </div>
           </div>
+
+          {(prevHref || nextHref) && (
+            <div className="mt-5 flex items-center justify-between gap-3 border-t border-slate-100 pt-5">
+              {prevHref ? (
+                <Link
+                  href={prevHref}
+                  className="text-sm font-medium text-slate-500 hover:text-slate-900"
+                >
+                  ← {prevLabel || "Previous lesson"}
+                </Link>
+              ) : (
+                <span />
+              )}
+              {nextHref ? (
+                <Link
+                  href={nextHref}
+                  className="text-sm font-medium text-slate-500 hover:text-slate-900"
+                >
+                  {nextLabel || "Next lesson"} →
+                </Link>
+              ) : null}
+            </div>
+          )}
         </header>
 
         <section className="rounded-2xl bg-white p-3 shadow-sm">

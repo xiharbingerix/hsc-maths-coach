@@ -10,6 +10,7 @@ import {
   newCourseLessonCount,
 } from "../../lib/newCourseCatalog";
 import type { CoursePathwayStatus } from "../../lib/courseTypes";
+import { StudentNav } from "../components/StudentNav";
 
 const lessonSequence = [
   "Learn",
@@ -89,12 +90,17 @@ export function NewCourseOverviewPage({
   const note = courseStatusNote(course.slug);
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
+    <>
+      <StudentNav />
+      <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
       <section className="mx-auto max-w-6xl space-y-8">
         <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
-          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            Course pathway
-          </p>
+          <Link
+            href="/course"
+            className="text-sm font-semibold uppercase tracking-wide text-slate-500 hover:text-slate-900"
+          >
+            ← Course catalogue
+          </Link>
           <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">
             {course.title}
           </h1>
@@ -242,6 +248,7 @@ export function NewCourseOverviewPage({
         </section>
       </section>
     </main>
+    </>
   );
 }
 
@@ -258,12 +265,17 @@ export function NewCourseUnitPage({
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
+    <>
+      <StudentNav />
+      <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
       <section className="mx-auto max-w-5xl space-y-8">
         <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            Course: {course.title}
-          </p>
+          <Link
+            href={`/course/${courseSlug}`}
+            className="text-sm font-semibold uppercase tracking-wide text-slate-500 hover:text-slate-900"
+          >
+            ← {course.title}
+          </Link>
           <h1 className="mt-3 text-4xl font-bold tracking-tight">
             {unit.title}
           </h1>
@@ -365,6 +377,7 @@ export function NewCourseUnitPage({
         </section>
       </section>
     </main>
+    </>
   );
 }
 
@@ -374,19 +387,39 @@ export function NewCourseLessonPage({
   lessonSlug,
 }: Readonly<{ courseSlug: string; unitSlug: string; lessonSlug: string }>) {
   const lesson = getNewCourseLesson(courseSlug, unitSlug, lessonSlug);
+  const allLessons = getNewCourseUnitLessons(courseSlug, unitSlug);
 
   if (!lesson) {
     notFound();
   }
+
+  const lessonIndex = allLessons.findIndex((l) => l.slug === lessonSlug);
+  const prevLesson = lessonIndex > 0 ? allLessons[lessonIndex - 1] : undefined;
+  const nextLesson =
+    lessonIndex < allLessons.length - 1
+      ? allLessons[lessonIndex + 1]
+      : undefined;
 
   return (
     <LessonRenderer
       courseSlug={courseSlug}
       unitSlug={unitSlug}
       lessonSlug={lesson.slug}
-      lessons={getNewCourseUnitLessons(courseSlug, unitSlug)}
+      lessons={allLessons}
       backHref={`/course/${courseSlug}/${unitSlug}`}
       backLabel={`Back to ${lesson.moduleTitle}`}
+      prevHref={
+        prevLesson
+          ? `/course/${courseSlug}/${unitSlug}/${prevLesson.slug}`
+          : undefined
+      }
+      prevLabel={prevLesson?.title}
+      nextHref={
+        nextLesson
+          ? `/course/${courseSlug}/${unitSlug}/${nextLesson.slug}`
+          : undefined
+      }
+      nextLabel={nextLesson?.title}
     />
   );
 }
