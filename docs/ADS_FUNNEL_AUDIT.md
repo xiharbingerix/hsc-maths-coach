@@ -125,3 +125,75 @@ The current Nova Maths HSC funnel is instrumented but incomplete. The paid landi
 - A/B test clearer hero messaging for "NSW HSC maths" versus "7-day free trial".
 - Test whether a preview lesson/demo before checkout improves conversion.
 - Add stronger social proof or exam-aligned testimonials near the primary CTA.
+
+## Ads funnel diagnostic SQL
+
+Use the `analytics_events` table to compare real ad traffic vs test traffic. The following query groups by `utm_campaign` and marks `gclid` values starting with `TEST` as test traffic.
+
+```sql
+with relevant_events as (
+  select
+    event_name,
+    metadata->> 'utm_campaign' as utm_campaign,
+    metadata->> 'gclid' as gclid,
+    case
+      when metadata->> 'utm_campaign' = 'test_hsc_trial'
+        or metadata->> 'gclid' like 'TEST%'
+      then true
+      else false
+    end as is_test
+  from analytics_events
+  where event_name in (
+    'hsc_maths_viewed',
+    'trial_cta_clicked',
+    'checkout_started',
+    'checkout_redirected_to_stripe',
+    'payment_success',
+    'trial_started',
+    'dashboard_viewed',
+    'lesson_started'
+  )
+)
+select
+  case
+    when is_test then 'test_hsc_trial / TEST gclid'
+    else 'real ads / organic'
+  end as traffic_segment,
+  coalesce(utm_campaign, '(none)') as utm_campaign,
+  sum((event_name = 'hsc_maths_viewed')::int) as hsc_maths_viewed,
+  sum((event_name = 'trial_cta_clicked')::int) as trial_cta_clicked,
+  sum((event_name = 'checkout_started')::int) as checkout_started,
+  sum((event_name = 'checkout_redirected_to_stripe')::int) as checkout_redirected_to_stripe,
+  sum((event_name = 'payment_success')::int) as payment_success,
+  sum((event_name = 'trial_started')::int) as trial_started,
+  sum((event_name = 'dashboard_viewed')::int) as dashboard_viewed,
+  sum((event_name = 'lesson_started')::int) as lesson_started,
+  round(100.0 * nullif(sum((event_name = 'trial_cta_clicked')::int), 0) / nullif(sum((event_name = 'hsc_maths_viewed')::int), 0), 1) as pct_view_to_cta,
+  round(100.0 * nullif(sum((event_name = 'checkout_started')::int), 0) / nullif(sum((event_name = 'trial_cta_clicked')::int), 0), 1) as pct_cta_to_checkout_started,
+  round(100.0 * nullif(sum((event_name = 'checkout_redirected_to_stripe')::int), 0) / nullif(sum((event_name = 'checkout_started')::int), 0), 1) as pct_checkout_started_to_stripe_redirect,
+  round(100.0 * nullif(sum((event_name = 'trial_started')::int), 0) / nullif(sum((event_name = 'checkout_redirected_to_stripe')::int), 0), 1) as pct_stripe_redirect_to_trial_started,
+  round(100.0 * nullif(sum((event_name = 'lesson_started')::int), 0) / nullif(sum((event_name = 'trial_started')::int), 0), 1) as pct_trial_started_to_lesson_started
+from relevant_events
+group by traffic_segment, utm_campaign
+order by traffic_segment, utm_campaign;
+```
+
+### How to read this
+
+- `traffic_segment = test_hsc_trial / TEST gclid` shows the controlled test traffic that should be excluded from real ad reporting.
+- `real ads / organic` includes all other traffic, including production UTM campaigns.
+- `pct_view_to_cta` measures the landing page conversion from page view to trial CTA click.
+- `pct_cta_to_checkout_started` measures the drop from clicking the CTA to starting checkout.
+- `pct_checkout_started_to_stripe_redirect` measures whether checkout attempts are actually reaching Stripe.
+- `pct_stripe_redirect_to_trial_started` measures how many Stripe redirects return and record a trial start.
+- `pct_trial_started_to_lesson_started` measures downstream engagement after trial activation.
+
+### Recommended diagnostic steps
+
+1. Run the query and verify test traffic is isolated by `utm_campaign = test_hsc_trial` or `gclid LIKE 'TEST%'`.
+2. Focus on the `real ads / organic` rows for production performance.
+3. If `hsc_maths_viewed` is large but `trial_cta_clicked` is low, the issue is landing page messaging.
+4. If `trial_cta_clicked` is healthy but `checkout_started` is low, the issue is CTA/checkout friction.
+5. If `checkout_started` is healthy but `checkout_redirected_to_stripe` is low, the issue is server/API or redirect flow.
+6. If `checkout_redirected_to_stripe` is healthy but `trial_started` is low, the issue is Stripe dropoff or return-path conversion.
+7. If `trial_started` is healthy but `lesson_started` is low, the issue is post-purchase onboarding.
