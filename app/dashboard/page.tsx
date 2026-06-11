@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { StudentNav } from "../components/StudentNav";
 import type { User } from "@supabase/supabase-js";
 import { courseCatalogue } from "../../lib/courseUnits";
 import { getContinueLearningTarget } from "../../lib/courseLessonTargets";
@@ -259,6 +260,9 @@ export default function DashboardPage() {
   const [recentAttempts, setRecentAttempts] = useState<AttemptRow[]>([]);
   const [isGeneratingWorksheet, setIsGeneratingWorksheet] = useState(false);
   const [adaptiveWorksheetError, setAdaptiveWorksheetError] = useState("");
+  const [selectedCourseSlug, setSelectedCourseSlug] = useState<string | null | undefined>(undefined);
+  const [isSavingCourse, setIsSavingCourse] = useState(false);
+  const [isCoursePickerOpen, setIsCoursePickerOpen] = useState(false);
 
   useEffect(() => {
     async function loadDashboard() {
@@ -275,7 +279,7 @@ export default function DashboardPage() {
 
       const { data: profileData } = await supabase
         .from("profiles")
-        .select("student_first_name")
+        .select("student_first_name, selected_course_slug")
         .eq("id", sessionUser.id)
         .maybeSingle();
 
@@ -284,6 +288,9 @@ export default function DashboardPage() {
       } else if (sessionUser.user_metadata?.student_first_name) {
         setStudentFirstName(String(sessionUser.user_metadata.student_first_name));
       }
+
+      const rawCourse = (profileData as { selected_course_slug?: string | null } | null)?.selected_course_slug;
+      setSelectedCourseSlug(typeof rawCourse === "string" && rawCourse.length > 0 ? rawCourse : null);
 
       const { data: accessData, error: accessError } = await supabase
         .from("user_access")
@@ -404,6 +411,17 @@ export default function DashboardPage() {
     router.push("/login");
   }
 
+  async function handleSelectCourse(courseSlug: string) {
+    if (!user) return;
+    setIsSavingCourse(true);
+    await supabase
+      .from("profiles")
+      .upsert({ id: user.id, selected_course_slug: courseSlug }, { onConflict: "id" });
+    setSelectedCourseSlug(courseSlug);
+    setIsCoursePickerOpen(false);
+    setIsSavingCourse(false);
+  }
+
   async function handleManageSubscription() {
     setIsPortalLoading(true);
     setBillingPortalError("");
@@ -508,16 +526,19 @@ export default function DashboardPage() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
-        <section className="mx-auto max-w-5xl rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            Nova Maths
-          </p>
-          <h1 className="mt-3 text-3xl font-bold tracking-tight">
-            Loading dashboard
-          </h1>
-        </section>
-      </main>
+      <>
+        <StudentNav />
+        <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
+          <section className="mx-auto max-w-5xl rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+              Nova Maths
+            </p>
+            <h1 className="mt-3 text-3xl font-bold tracking-tight">
+              Loading dashboard
+            </h1>
+          </section>
+        </main>
+      </>
     );
   }
 
@@ -525,9 +546,29 @@ export default function DashboardPage() {
   const availableCourses = courseCatalogue.filter(
     (course) => course.status === "available"
   );
+  // Courses shown in the "What are you studying?" picker.
+  // Include available courses plus any in_progress courses that have content.
+  const coursePickerOptions = [
+    ...availableCourses,
+    ...newCoursePathways
+      .filter(
+        (c) =>
+          c.status === "in_progress" &&
+          c.units.some((u) => u.lessons.length > 0) &&
+          !availableCourses.some((a) => a.courseSlug === c.slug)
+      )
+      .map((c) => ({ courseSlug: c.slug, courseTitle: c.title })),
+  ];
+  const showCoursePicker =
+    accessStatus === "active" &&
+    (selectedCourseSlug === null || isCoursePickerOpen);
+  const selectedCourseTitle =
+    selectedCourseSlug != null
+      ? (coursePickerOptions.find((c) => c.courseSlug === selectedCourseSlug)?.courseTitle ?? null)
+      : null;
   const progressRecords = Object.values(lessonProgress);
   const hasLessonProgress = progressRecords.length > 0;
-  const continueLearningTarget = getContinueLearningTarget(progressRecords);
+  const continueLearningTarget = getContinueLearningTarget(progressRecords, selectedCourseSlug);
   const studyPlan = generateStudyPlan({
     yearLevel: diagnosticYearLevel,
     masteryRows,
@@ -699,6 +740,8 @@ export default function DashboardPage() {
   const isOnboardingComplete = onboardingChecklist.every((item) => item.done);
 
   return (
+    <>
+    <StudentNav />
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
       <section className="mx-auto max-w-5xl space-y-8">
         <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
@@ -758,20 +801,81 @@ export default function DashboardPage() {
             ) : null}
           </div>
 
+          {showCoursePicker ? (
+            <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-5">
+              <p className="text-sm font-semibold text-blue-900">
+                What are you studying?
+              </p>
+              <p className="mt-1 text-sm text-blue-700">
+                Choose your course so Nova Maths can recommend the right lessons for you.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {coursePickerOptions.map((course) => (
+                  <button
+                    key={course.courseSlug}
+                    type="button"
+                    onClick={() => void handleSelectCourse(course.courseSlug)}
+                    disabled={isSavingCourse}
+                    className={`rounded-xl border px-4 py-2 text-sm font-semibold shadow-sm transition disabled:opacity-60 ${
+                      course.courseSlug === selectedCourseSlug
+                        ? "border-blue-600 bg-blue-600 text-white"
+                        : "border-blue-300 bg-white text-slate-900 hover:bg-blue-100"
+                    }`}
+                  >
+                    {course.courseTitle}
+                  </button>
+                ))}
+                {isCoursePickerOpen && selectedCourseSlug !== null ? (
+                  <button
+                    type="button"
+                    onClick={() => setIsCoursePickerOpen(false)}
+                    className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm transition hover:bg-slate-50"
+                  >
+                    Cancel
+                  </button>
+                ) : null}
+              </div>
+            </div>
+          ) : null}
+
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             {accessStatus === "active" ? (
               <>
                 <Link
-                  href={continueLearningTarget?.href ?? "/course"}
+                  href={continueLearningTarget?.href ?? (selectedCourseSlug ? `/course/${selectedCourseSlug}` : "/course")}
                   className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
                 >
                   Continue learning
                 </Link>
+                {selectedCourseTitle && !isCoursePickerOpen ? (
+                  <span className="inline-flex items-center gap-2 self-center text-sm text-slate-500">
+                    {selectedCourseTitle}
+                    <button
+                      type="button"
+                      onClick={() => setIsCoursePickerOpen(true)}
+                      className="text-slate-400 underline hover:text-slate-700"
+                    >
+                      Change
+                    </button>
+                  </span>
+                ) : null}
                 <Link
                   href="/diagnostic/select?offer=online-learning"
                   className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
                 >
-                  Start diagnostic
+                  {hasDiagnosticResult ? "Retake diagnostic" : "Start diagnostic"}
+                </Link>
+                <Link
+                  href="#worksheets"
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+                >
+                  View worksheets
+                </Link>
+                <Link
+                  href="/course"
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+                >
+                  Browse courses
                 </Link>
               </>
             ) : null}
@@ -1462,5 +1566,6 @@ export default function DashboardPage() {
 
       </section>
     </main>
+    </>
   );
 }

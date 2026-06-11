@@ -105,7 +105,8 @@ function updatedAtTimestamp(record: LessonProgressRecord) {
 }
 
 export function getContinueLearningTarget(
-  progressRecords: LessonProgressRecord[]
+  progressRecords: LessonProgressRecord[],
+  selectedCourseSlug?: string | null
 ): ContinueLearningTarget | null {
   const targetByKey = new Map(
     availableCourseLessonTargets.map((target) => [progressKey(target), target])
@@ -159,14 +160,23 @@ export function getContinueLearningTarget(
         touchedCount: courseProgress.length,
       };
     })
-    .filter((course) => course.firstIncomplete)
-    .sort(
-      (left, right) =>
-        right.passedCount - left.passedCount ||
-        right.touchedCount - left.touchedCount ||
-        left.order - right.order
-    );
+    .filter((course) => course.firstIncomplete);
 
-  const nextLesson = courseCandidates[0]?.firstIncomplete;
+  // If the student has explicitly selected a course, use only that course.
+  // If no selection, only surface courses where they already have progress —
+  // new students with no selection return null so the dashboard shows the
+  // course picker instead of defaulting to year-12-advanced.
+  const filtered = selectedCourseSlug
+    ? courseCandidates.filter((c) => c.courseSlug === selectedCourseSlug)
+    : courseCandidates.filter((c) => c.passedCount > 0 || c.touchedCount > 0);
+
+  const sorted = filtered.sort(
+    (left, right) =>
+      right.passedCount - left.passedCount ||
+      right.touchedCount - left.touchedCount ||
+      left.order - right.order
+  );
+
+  const nextLesson = sorted[0]?.firstIncomplete;
   return nextLesson ? { ...nextLesson, status: "Next lesson" } : null;
 }
