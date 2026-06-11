@@ -413,6 +413,7 @@ const fractionsAndDecimals: LessonContent = {
       "7/20",
       "LCD is 20. $\\frac{3}{5} = \\frac{12}{20}$, $\\frac{1}{4} = \\frac{5}{20}$. So $\\frac{12}{20} - \\frac{5}{20} = \\frac{7}{20}$.",
       "Find a common denominator for 5 and 4.",
+      ["0.35"],
     ),
     answer(
       "y8-nop-frd-i2",
@@ -546,6 +547,7 @@ const fractionsAndDecimals: LessonContent = {
       "3/4",
       "$1\\frac{1}{2} = \\frac{6}{4}$. So $\\frac{6}{4} - \\frac{3}{4} = \\frac{3}{4}$ m.",
       "Convert the mixed number to quarters, then subtract.",
+      ["0.75"],
     ),
     answer(
       "y8-nop-frd-m10",

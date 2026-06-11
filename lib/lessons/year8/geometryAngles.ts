@@ -506,7 +506,8 @@ const parallelLinesTransversals: LessonContent = {
       "Parallel lines cut by a transversal. Co-interior angles are (3x + 10)° and (2x + 20)°. Find x.",
       "(3x+10) + (2x+20) = 180",
       "30",
-      "5x + 30 = 180, so 5x = 150, giving x = 30."
+      "5x + 30 = 180, so 5x = 150, giving x = 30.",
+      ["x = 30"]
     ),
   ],
   commonMistakes: [
@@ -569,14 +570,16 @@ const parallelLinesTransversals: LessonContent = {
       "Parallel lines. Corresponding angles: (4x − 20)° and (2x + 40)°. Find x.",
       "4x - 20 = 2x + 40",
       "30",
-      "4x − 20 = 2x + 40, so 2x = 60, giving x = 30."
+      "4x − 20 = 2x + 40, so 2x = 60, giving x = 30.",
+      ["x = 30"]
     ),
     answer(
       "y8-geo-par-m6",
       "Parallel lines. Alternate angles: (5x + 15)° and (3x + 35)°. Find x.",
       "5x + 15 = 3x + 35",
       "10",
-      "5x + 15 = 3x + 35, so 2x = 20, giving x = 10."
+      "5x + 15 = 3x + 35, so 2x = 20, giving x = 10.",
+      ["x = 10"]
     ),
     choice(
       "y8-geo-par-m7",
@@ -1252,7 +1255,8 @@ const congruentTriangles: LessonContent = {
       "Name the congruence test: right angle, hypotenuse equal, one other side equal.",
       "\\text{right angle + hypotenuse + one side}",
       "RHS",
-      "RHS = Right angle, Hypotenuse, Side."
+      "RHS = Right angle, Hypotenuse, Side.",
+      ["rhs"]
     ),
     choice(
       "y8-geo-con-g4",
@@ -1273,14 +1277,16 @@ const congruentTriangles: LessonContent = {
       "In triangles PQR and XYZ: PQ = XY, QR = YZ, PR = XZ. Name the congruence test.",
       "\\text{three pairs of equal sides}",
       "SSS",
-      "Three pairs of equal sides → SSS."
+      "Three pairs of equal sides → SSS.",
+      ["sss"]
     ),
     answer(
       "y8-geo-con-i2",
       "Two right-angled triangles have equal hypotenuses and one other equal side. Name the congruence test.",
       "\\text{right angle + hypotenuse + one side}",
       "RHS",
-      "RHS = Right angle, Hypotenuse, Side."
+      "RHS = Right angle, Hypotenuse, Side.",
+      ["rhs"]
     ),
     choice(
       "y8-geo-con-i3",
@@ -1299,7 +1305,8 @@ const congruentTriangles: LessonContent = {
       "Two triangles share two equal angles and one pair of corresponding equal sides. Name the congruence test.",
       "\\text{two angles + corresponding side}",
       "AAS",
-      "Two equal angles and a corresponding side → AAS."
+      "Two equal angles and a corresponding side → AAS.",
+      ["aas"]
     ),
     choice(
       "y8-geo-con-i5",
@@ -1338,28 +1345,32 @@ const congruentTriangles: LessonContent = {
       "Three pairs of corresponding sides are equal. Name the congruence test.",
       "\\text{three equal sides}",
       "SSS",
-      "Three equal sides → SSS."
+      "Three equal sides → SSS.",
+      ["sss"]
     ),
     answer(
       "y8-geo-con-m2",
       "Two pairs of corresponding sides and the included angle are equal. Name the test.",
       "\\text{two sides + included angle}",
       "SAS",
-      "Two sides and the included angle → SAS."
+      "Two sides and the included angle → SAS.",
+      ["sas"]
     ),
     answer(
       "y8-geo-con-m3",
       "Two pairs of corresponding angles and one pair of corresponding sides are equal. Name the test.",
       "\\text{two angles + corresponding side}",
       "AAS",
-      "Two equal angles and a corresponding side → AAS."
+      "Two equal angles and a corresponding side → AAS.",
+      ["aas"]
     ),
     answer(
       "y8-geo-con-m4",
       "Both triangles have a right angle, and the hypotenuse and one other side are equal. Name the test.",
       "\\text{right angle + hypotenuse + side}",
       "RHS",
-      "Right angle, Hypotenuse, Side → RHS."
+      "Right angle, Hypotenuse, Side → RHS.",
+      ["rhs"]
     ),
     choice(
       "y8-geo-con-m5",
@@ -1517,7 +1528,8 @@ const geometricReasoning: LessonContent = {
       "Parallel lines. Corresponding angles are (2x + 10)° and (4x − 30)°. Find x.",
       "2x + 10 = 4x - 30",
       "20",
-      "2x + 10 = 4x − 30. So 40 = 2x, giving x = 20."
+      "2x + 10 = 4x − 30. So 40 = 2x, giving x = 20.",
+      ["x = 20"]
     ),
     answer(
       "y8-geo-rea-g2",
@@ -1562,7 +1574,8 @@ const geometricReasoning: LessonContent = {
       "Parallel lines. Co-interior angles are 3x° and (2x + 30)°. Find x.",
       "3x + (2x+30) = 180",
       "30",
-      "5x + 30 = 180, so 5x = 150, giving x = 30."
+      "5x + 30 = 180, so 5x = 150, giving x = 30.",
+      ["x = 30"]
     ),
     choice(
       "y8-geo-rea-i3",
@@ -1581,7 +1594,8 @@ const geometricReasoning: LessonContent = {
       "A triangle has angles (2x + 10)°, (x + 20)°, and 90°. Find x.",
       "(2x+10) + (x+20) + 90 = 180",
       "20",
-      "3x + 120 = 180, so 3x = 60, giving x = 20."
+      "3x + 120 = 180, so 3x = 60, giving x = 20.",
+      ["x = 20"]
     ),
     answer(
       "y8-geo-rea-i5",
@@ -1624,14 +1638,16 @@ const geometricReasoning: LessonContent = {
       "Triangle: angles are x°, (x + 30)°, and (x + 60)°. Find x.",
       "x + (x+30) + (x+60) = 180",
       "30",
-      "3x + 90 = 180, so 3x = 90, giving x = 30."
+      "3x + 90 = 180, so 3x = 90, giving x = 30.",
+      ["x = 30"]
     ),
     answer(
       "y8-geo-rea-m3",
       "Parallel lines. Corresponding angles: (3x + 15)° = (x + 55)°. Find x.",
       "3x + 15 = x + 55",
       "20",
-      "3x + 15 = x + 55, so 2x = 40, giving x = 20."
+      "3x + 15 = x + 55, so 2x = 40, giving x = 20.",
+      ["x = 20"]
     ),
     answer(
       "y8-geo-rea-m4",
@@ -1666,7 +1682,8 @@ const geometricReasoning: LessonContent = {
       "Two lines intersect. One angle is 5x° and the vertically opposite angle is (3x + 20)°. Find x.",
       "5x = 3x + 20",
       "10",
-      "Vertically opposite angles are equal: 5x = 3x + 20, so 2x = 20, giving x = 10."
+      "Vertically opposite angles are equal: 5x = 3x + 20, so 2x = 20, giving x = 10.",
+      ["x = 10"]
     ),
     choice(
       "y8-geo-rea-m8",

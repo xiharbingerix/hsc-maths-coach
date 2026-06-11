@@ -141,6 +141,7 @@ const volumeOfPrisms: LessonContent = {
       "120",
       "V = 8 × 5 × 3 = 120 cm³.",
       "Multiply all three dimensions: length × width × height.",
+      ["120 cm^3"],
     ),
     answer(
       "y8-vsa-vp-g3",
@@ -149,6 +150,7 @@ const volumeOfPrisms: LessonContent = {
       "120",
       "Area of cross-section = ½ × 6 × 4 = 12 cm². V = 12 × 10 = 120 cm³.",
       "Find the triangular cross-section area first using A = ½bh, then multiply by the prism length.",
+      ["120 cm^3"],
     ),
     answer(
       "y8-vsa-vp-g4",
@@ -157,6 +159,7 @@ const volumeOfPrisms: LessonContent = {
       "80",
       "V = 10 × 4 × 2 = 80 cm³.",
       "Multiply length × width × height.",
+      ["80 cm^3"],
     ),
   ],
   independentPractice: [
@@ -167,6 +170,7 @@ const volumeOfPrisms: LessonContent = {
       "84",
       "V = 7 × 3 × 4 = 84 cm³.",
       "Use V = l × w × h.",
+      ["84 cm^3"],
     ),
     answer(
       "y8-vsa-vp-i2",
@@ -175,6 +179,7 @@ const volumeOfPrisms: LessonContent = {
       "150",
       "Area = ½ × 10 × 6 = 30 cm². V = 30 × 5 = 150 cm³.",
       "Calculate the triangular area with ½ × base × height, then multiply by the prism length.",
+      ["150 cm^3"],
     ),
     choice(
       "y8-vsa-vp-i3",
@@ -196,6 +201,7 @@ const volumeOfPrisms: LessonContent = {
       "168",
       "V = A × l = 24 × 7 = 168 cm³.",
       "Apply V = A × l directly with the given cross-sectional area.",
+      ["168 cm^3"],
     ),
     answer(
       "y8-vsa-vp-i5",
@@ -204,6 +210,7 @@ const volumeOfPrisms: LessonContent = {
       "4",
       "5 × 6 = 30. So 30h = 120, giving h = 120 ÷ 30 = 4 cm.",
       "Divide the volume by the product of the two known dimensions.",
+      ["4 cm"],
     ),
   ],
   commonMistakes: [
@@ -232,6 +239,7 @@ const volumeOfPrisms: LessonContent = {
       "180",
       "V = 9 × 4 × 5 = 180 cm³.",
       "Multiply all three dimensions.",
+      ["180 cm^3"],
     ),
     answer(
       "y8-vsa-vp-m2",
@@ -240,6 +248,7 @@ const volumeOfPrisms: LessonContent = {
       "240",
       "Area = ½ × 12 × 5 = 30 cm². V = 30 × 8 = 240 cm³.",
       "Find the triangular cross-section area first.",
+      ["240 cm^3"],
     ),
     choice(
       "y8-vsa-vp-m3",
@@ -261,6 +270,7 @@ const volumeOfPrisms: LessonContent = {
       "7",
       "l = V ÷ A = 210 ÷ 30 = 7 cm.",
       "Rearrange V = A × l to get l = V ÷ A.",
+      ["7 cm"],
     ),
     answer(
       "y8-vsa-vp-m5",
@@ -269,6 +279,7 @@ const volumeOfPrisms: LessonContent = {
       "540",
       "Area = ½ × 9 × 8 = 36 cm². V = 36 × 15 = 540 cm³.",
       "Calculate the triangular area first, then multiply by the prism length.",
+      ["540 cm^3"],
     ),
     choice(
       "y8-vsa-vp-m6",
@@ -290,6 +301,7 @@ const volumeOfPrisms: LessonContent = {
       "8",
       "7 × 6 = 42. So 42h = 336, giving h = 336 ÷ 42 = 8 cm.",
       "Divide the volume by l × w to find h.",
+      ["8 cm"],
     ),
     answer(
       "y8-vsa-vp-m8",
@@ -307,6 +319,7 @@ const volumeOfPrisms: LessonContent = {
       "6",
       "½ × 10 × h × 12 = 60h = 360. So h = 360 ÷ 60 = 6 cm.",
       "Set up ½ × 10 × h × 12 = 360, simplify, then solve for h.",
+      ["6 cm"],
     ),
     answer(
       "y8-vsa-vp-m10",
@@ -315,6 +328,7 @@ const volumeOfPrisms: LessonContent = {
       "400",
       "The pool is a rectangular prism. V = 25 × 8 × 2 = 400 m³.",
       "Treat the pool as a rectangular prism and apply V = l × w × h.",
+      ["400 m^3"],
     ),
   ],
 };
@@ -391,6 +405,7 @@ const surfaceAreaOfPrisms: LessonContent = {
       "94",
       "SA = 2(5×4 + 5×3 + 4×3) = 2(20+15+12) = 2×47 = 94 cm².",
       "Apply SA = 2(lw + lh + wh): find each product, add, then double.",
+      ["94 cm^2"],
     ),
     answer(
       "y8-vsa-sp-g3",
@@ -399,6 +414,7 @@ const surfaceAreaOfPrisms: LessonContent = {
       "216",
       "All 6 faces are identical squares. SA = 6 × 6² = 6 × 36 = 216 cm².",
       "A cube has 6 equal square faces — find one face area and multiply by 6.",
+      ["216 cm^2"],
     ),
     answer(
       "y8-vsa-sp-g4",
@@ -407,6 +423,7 @@ const surfaceAreaOfPrisms: LessonContent = {
       "92",
       "SA = 2(8×3 + 8×2 + 3×2) = 2(24+16+6) = 2×46 = 92 cm².",
       "List the three pairs of faces: lw, lh, and wh.",
+      ["92 cm^2"],
     ),
   ],
   independentPractice: [
@@ -417,6 +434,7 @@ const surfaceAreaOfPrisms: LessonContent = {
       "220",
       "SA = 2(10×5 + 10×4 + 5×4) = 2(50+40+20) = 2×110 = 220 cm².",
       "Calculate each of the three pairs: lw, lh, wh.",
+      ["220 cm^2"],
     ),
     answer(
       "y8-vsa-sp-i2",
@@ -425,6 +443,7 @@ const surfaceAreaOfPrisms: LessonContent = {
       "336",
       "Two triangular faces: 2 × ½ × 6 × 8 = 48 cm². Three rectangular faces: (6+8+10) × 12 = 24 × 12 = 288 cm². SA = 48 + 288 = 336 cm².",
       "Add the two triangular end areas to the total area of the three rectangular sides.",
+      ["336 cm^2"],
     ),
     choice(
       "y8-vsa-sp-i3",
@@ -446,6 +465,7 @@ const surfaceAreaOfPrisms: LessonContent = {
       "4",
       "SA = 2(7w + 2w + 14) = 2(9w + 14) = 18w + 28 = 100. So 18w = 72, w = 4 cm.",
       "Substitute l = 7 and h = 2 into SA = 2(lw + lh + wh), then solve for w.",
+      ["4 cm"],
     ),
     answer(
       "y8-vsa-sp-i5",
@@ -454,6 +474,7 @@ const surfaceAreaOfPrisms: LessonContent = {
       "7900",
       "Base: 50×30 = 1500. Two long sides: 2×50×40 = 4000. Two short sides: 2×30×40 = 2400. Total = 7900 cm².",
       "Calculate the base plus the four side panels. There is no top face.",
+      ["7900 cm^2"],
     ),
   ],
   commonMistakes: [
@@ -482,6 +503,7 @@ const surfaceAreaOfPrisms: LessonContent = {
       "166",
       "SA = 2(7×5 + 7×4 + 5×4) = 2(35+28+20) = 2×83 = 166 cm².",
       "Apply SA = 2(lw + lh + wh).",
+      ["166 cm^2"],
     ),
     answer(
       "y8-vsa-sp-m2",
@@ -490,6 +512,7 @@ const surfaceAreaOfPrisms: LessonContent = {
       "294",
       "SA = 6 × 7² = 6 × 49 = 294 cm².",
       "A cube has 6 identical square faces.",
+      ["294 cm^2"],
     ),
     choice(
       "y8-vsa-sp-m3",
@@ -506,6 +529,7 @@ const surfaceAreaOfPrisms: LessonContent = {
       "360",
       "Two triangular faces: 2 × ½ × 5 × 12 = 60 cm². Three rectangular faces: (5+12+13) × 10 = 30 × 10 = 300 cm². SA = 60 + 300 = 360 cm².",
       "Find the two triangular end areas and three rectangular side areas separately.",
+      ["360 cm^2"],
     ),
     answer(
       "y8-vsa-sp-m5",
@@ -514,6 +538,7 @@ const surfaceAreaOfPrisms: LessonContent = {
       "5",
       "SA = 2(24 + 10h) = 48 + 20h = 148. So 20h = 100, h = 5 cm.",
       "Substitute l = 6 and w = 4 into SA = 2(lw + lh + wh), then solve for h.",
+      ["5 cm"],
     ),
     choice(
       "y8-vsa-sp-m6",
@@ -535,6 +560,7 @@ const surfaceAreaOfPrisms: LessonContent = {
       "408",
       "Two triangular faces: 2 × ½ × 8 × 6 = 48 cm². Three rectangular faces: (8+6+10) × 15 = 24 × 15 = 360 cm². SA = 48 + 360 = 408 cm².",
       "Calculate the two triangular end areas and the three rectangular face areas separately.",
+      ["408 cm^2"],
     ),
     answer(
       "y8-vsa-sp-m8",
@@ -543,6 +569,7 @@ const surfaceAreaOfPrisms: LessonContent = {
       "4900",
       "Base: 40×25 = 1000. Two long sides: 2×40×30 = 2400. Two short sides: 2×25×30 = 1500. Total = 1000+2400+1500 = 4900 cm².",
       "Add the base plus the four side panels — there is no top face.",
+      ["4900 cm^2"],
     ),
     answer(
       "y8-vsa-sp-m9",
@@ -551,6 +578,7 @@ const surfaceAreaOfPrisms: LessonContent = {
       "8",
       "Two triangular faces: 2 × ½ × 3 × 4 = 12 cm². Rectangular faces: 12 × l cm². So 12 + 12l = 108, 12l = 96, l = 8 cm.",
       "Find the area of the two triangular ends, then solve 12 + 12l = 108 for l.",
+      ["8 cm"],
     ),
     answer(
       "y8-vsa-sp-m10",
@@ -695,6 +723,7 @@ const volumeOfCylinders: LessonContent = {
       "4",
       "π × 25 × h = 100π. Divide both sides by 25π: h = 100π ÷ (25π) = 4 cm.",
       "Divide the volume by πr². The π will cancel.",
+      ["4 cm"],
     ),
     answer(
       "y8-vsa-vc-i5",
@@ -763,6 +792,7 @@ const volumeOfCylinders: LessonContent = {
       "9",
       "π × 16 × h = 144π. Divide both sides by 16π: h = 144π ÷ (16π) = 9 cm.",
       "Divide the volume by πr².",
+      ["9 cm"],
     ),
     answer(
       "y8-vsa-vc-m5",
@@ -802,6 +832,7 @@ const volumeOfCylinders: LessonContent = {
       "5",
       "2πr² = 50π. Divide both sides by 2π: r² = 25, so r = 5 cm.",
       "Rearrange to r² = V ÷ (πh), then take the square root.",
+      ["5 cm"],
     ),
     answer(
       "y8-vsa-vc-m9",
@@ -958,6 +989,7 @@ const surfaceAreaOfCylinders: LessonContent = {
       "7",
       "6π(3 + h) = 60π. Divide both sides by 6π: 3 + h = 10, so h = 7 cm.",
       "Use SA = 2πr(r + h), substitute r = 3, then solve for h.",
+      ["7 cm"],
     ),
     answer(
       "y8-vsa-sc-i5",
@@ -1026,6 +1058,7 @@ const surfaceAreaOfCylinders: LessonContent = {
       "6",
       "8π(4 + h) = 80π. Divide both sides by 8π: 4 + h = 10, so h = 6 cm.",
       "Use SA = 2πr(r + h), substitute r = 4, then solve for h.",
+      ["6 cm"],
     ),
     answer(
       "y8-vsa-sc-m5",
@@ -1065,6 +1098,7 @@ const surfaceAreaOfCylinders: LessonContent = {
       "9",
       "16π(8 + h) = 272π. Divide both sides by 16π: 8 + h = 17, so h = 9 cm.",
       "Use SA = 2πr(r + h), substitute r = 8, then solve for h.",
+      ["9 cm"],
     ),
     answer(
       "y8-vsa-sc-m9",
@@ -1172,6 +1206,7 @@ const volumeOfCompositeSolids: LessonContent = {
       "152",
       "V_A = 80 cm³. V_B = 72 cm³. Total = 80 + 72 = 152 cm³.",
       "Calculate each prism volume separately then add.",
+      ["152 cm^3"],
     ),
     answer(
       "y8-vsa-cv-g3",
@@ -1180,6 +1215,7 @@ const volumeOfCompositeSolids: LessonContent = {
       "168",
       "Outer = 192 cm³. Removed = 24 cm³. Remaining = 192 − 24 = 168 cm³.",
       "Subtract the removed piece from the full outer shape.",
+      ["168 cm^3"],
     ),
     answer(
       "y8-vsa-cv-g4",
@@ -1188,6 +1224,7 @@ const volumeOfCompositeSolids: LessonContent = {
       "160",
       "Rectangular V = 120 cm³. Triangular V = ½ × 4 × 2 × 10 = 40 cm³. Total = 160 cm³.",
       "The triangular prism formula is ½ × base × height × length.",
+      ["160 cm^3"],
     ),
   ],
   independentPractice: [
@@ -1198,6 +1235,7 @@ const volumeOfCompositeSolids: LessonContent = {
       "276",
       "V_A = 216 cm³. V_B = 60 cm³. Total = 276 cm³.",
       "Add both rectangular prism volumes.",
+      ["276 cm^3"],
     ),
     answer(
       "y8-vsa-cv-i2",
@@ -1206,6 +1244,7 @@ const volumeOfCompositeSolids: LessonContent = {
       "450",
       "V_A = 300 cm³. V_B = 150 cm³. Total = 450 cm³.",
       "Identify each rectangular prism and calculate both volumes separately.",
+      ["450 cm^3"],
     ),
     choice(
       "y8-vsa-cv-i3",
@@ -1227,6 +1266,7 @@ const volumeOfCompositeSolids: LessonContent = {
       "360",
       "Outer V = 400 cm³. Hole V = 40 cm³. Remaining = 400 − 40 = 360 cm³.",
       "Subtract the removed rectangular volume from the full outer prism.",
+      ["360 cm^3"],
     ),
     answer(
       "y8-vsa-cv-i5",
@@ -1235,6 +1275,7 @@ const volumeOfCompositeSolids: LessonContent = {
       "120",
       "V_A = ½ × 6 × 4 × 8 = 96 cm³. V_B = ½ × 3 × 2 × 8 = 24 cm³. Total = 120 cm³.",
       "Each triangular prism: V = ½ × base × height × length.",
+      ["120 cm^3"],
     ),
   ],
   commonMistakes: [
@@ -1267,6 +1308,7 @@ const volumeOfCompositeSolids: LessonContent = {
       "264",
       "V_A = 192 cm³. V_B = 72 cm³. Total = 192 + 72 = 264 cm³.",
       "Add both rectangular prism volumes.",
+      ["264 cm^3"],
     ),
     answer(
       "y8-vsa-cv-m2",
@@ -1275,6 +1317,7 @@ const volumeOfCompositeSolids: LessonContent = {
       "435",
       "Outer = 480 cm³. Removed = 45 cm³. Remaining = 480 − 45 = 435 cm³.",
       "Subtract the removed prism volume from the full outer prism.",
+      ["435 cm^3"],
     ),
     choice(
       "y8-vsa-cv-m3",
@@ -1296,6 +1339,7 @@ const volumeOfCompositeSolids: LessonContent = {
       "330",
       "V_rect = 240 cm³. V_tri = ½ × 6 × 3 × 10 = 90 cm³. Total = 330 cm³.",
       "The triangular prism is on top — add its volume to the rectangular prism volume.",
+      ["330 cm^3"],
     ),
     answer(
       "y8-vsa-cv-m5",
@@ -1304,6 +1348,7 @@ const volumeOfCompositeSolids: LessonContent = {
       "396",
       "Lower V = 252 cm³. Upper V = 144 cm³. Total = 252 + 144 = 396 cm³.",
       "Add both rectangular prism volumes — neither is removed.",
+      ["396 cm^3"],
     ),
     choice(
       "y8-vsa-cv-m6",
@@ -1320,6 +1365,7 @@ const volumeOfCompositeSolids: LessonContent = {
       "444",
       "Lower V = 252 cm³. Upper V = 192 cm³. Total = 252 + 192 = 444 cm³.",
       "Add both rectangular prism volumes, noting the different heights.",
+      ["444 cm^3"],
     ),
     answer(
       "y8-vsa-cv-m8",
@@ -1328,6 +1374,7 @@ const volumeOfCompositeSolids: LessonContent = {
       "5.5",
       "Section A: 4 × 2 × 0.5 = 4 m³. Section B: 3 × 1 × 0.5 = 1.5 m³. Total = 5.5 m³.",
       "Split the L-shape into two rectangles and find each section's volume.",
+      ["5.5 m^3"],
     ),
     answer(
       "y8-vsa-cv-m9",
@@ -1345,6 +1392,7 @@ const volumeOfCompositeSolids: LessonContent = {
       "220",
       "V_rect = 160 cm³. V_tri = ½ × 8 × 3 × 5 = 60 cm³. Total = 220 cm³.",
       "Identify the two component shapes and add their volumes.",
+      ["220 cm^3"],
     ),
   ],
 };
@@ -1451,6 +1499,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       "308",
       "SA_large = 2(60+40+24) = 248. SA_small = 2(24+18+12) = 108. Joint = 24. SA = 248+108−48 = 308 cm².",
       "Use SA = SA₁ + SA₂ − 2 × joint area.",
+      ["308 cm^2"],
     ),
     answer(
       "y8-vsa-cs-g3",
@@ -1459,6 +1508,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       "324",
       "SA_large = 2(72+48+24) = 288. SA_small = 2(18+6+12) = 72. Joint = 18. SA = 288+72−36 = 324 cm².",
       "Calculate full SA of each prism, then subtract 2 × joint area.",
+      ["324 cm^2"],
     ),
     answer(
       "y8-vsa-cs-g4",
@@ -1467,6 +1517,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       "218",
       "Base exposed (no top): 8×5 + 2×8×4 + 2×5×4 = 40+64+40 = 144. Roof (no bottom): 2×(½×8×3) + 2×(5×5) = 24+50 = 74. Total = 144+74 = 218 cm².",
       "Exclude the top of the base and the bottom of the roof — both are at the join.",
+      ["218 cm^2"],
     ),
   ],
   independentPractice: [
@@ -1477,6 +1528,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       "412",
       "SA_large = 2(96+36+24) = 312. SA_small = 2(24+30+20) = 148. Joint = 24. SA = 312+148−48 = 412 cm².",
       "Apply SA = SA₁ + SA₂ − 2 × joint area.",
+      ["412 cm^2"],
     ),
     answer(
       "y8-vsa-cs-i2",
@@ -1485,6 +1537,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       "326",
       "SA_large = 2(70+42+15) = 254. SA_small = 2(18+24+12) = 108. Joint = 18. SA = 254+108−36 = 326 cm².",
       "Identify the joint face dimensions and apply the composite SA formula.",
+      ["326 cm^2"],
     ),
     choice(
       "y8-vsa-cs-i3",
@@ -1501,6 +1554,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       "430",
       "SA_large = 2(96+48+32) = 352. SA_small = 2(40+24+15) = 158. Joint = 40. SA = 352+158−80 = 430 cm².",
       "Carefully calculate each full SA, identify the joint, then subtract 2 × joint.",
+      ["430 cm^2"],
     ),
     answer(
       "y8-vsa-cs-i5",
@@ -1509,6 +1563,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       "148",
       "Base exposed (no top): 6×4 + 2×6×3 + 2×4×3 = 24+36+24 = 84. Roof (no bottom): 2×(½×6×4) + 2×(5×4) = 24+40 = 64. Total = 84+64 = 148 cm².",
       "For the roof, include only the triangular ends and the slant rectangles — not the base rectangle.",
+      ["148 cm^2"],
     ),
   ],
   commonMistakes: [
@@ -1541,6 +1596,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       "364",
       "SA_large = 2(80+40+32) = 304. SA_small = 2(24+18+12) = 108. Joint = 24. SA = 304+108−48 = 364 cm².",
       "Apply SA = SA₁ + SA₂ − 2 × joint area.",
+      ["364 cm^2"],
     ),
     answer(
       "y8-vsa-cs-m2",
@@ -1549,6 +1605,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       "360",
       "SA_large = 2(64+40+40) = 288. SA_small = 2(36+18+18) = 144. Joint = 36. SA = 288+144−72 = 360 cm².",
       "Full SA of each prism, minus 2 × joint. The joint is where the small prism base meets the large prism top.",
+      ["360 cm^2"],
     ),
     choice(
       "y8-vsa-cs-m3",
@@ -1565,6 +1622,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       "432",
       "Base exposed (no top): 72+96+48 = 216. Roof (no bottom): 2×(½×12×8)+2×(10×6) = 96+120 = 216. Total = 432 cm².",
       "Slant side check: half-base = 6, height = 8 → slant = √(36+64) = 10. ✓",
+      ["432 cm^2"],
     ),
     answer(
       "y8-vsa-cs-m5",
@@ -1573,6 +1631,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       "372",
       "SA_lower = 2(84+42+18) = 288. SA_upper = 2(48+24+18) = 180. Joint = 48. SA = 288+180−96 = 372 cm².",
       "A stepped solid has the upper prism sitting on part of the lower prism's top — that shared face is the joint.",
+      ["372 cm^2"],
     ),
     choice(
       "y8-vsa-cs-m6",
@@ -1594,6 +1653,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       "216",
       "Base exposed (no top): 8×4 + 2×8×5 + 2×4×5 = 32+80+40 = 152. Roof (no bottom): 2×(½×8×3)+2×(5×4) = 24+40 = 64. Total = 216 cm².",
       "Half-base = 4, height = 3 → slant = √(16+9) = 5. The two slant rectangles are 5×4 each.",
+      ["216 cm^2"],
     ),
     answer(
       "y8-vsa-cs-m8",
@@ -1602,6 +1662,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       "312",
       "SA₁ = 2(72+24+12) = 216. SA₂ = 2(48+16+12) = 152. SA₃ = 2(24+8+12) = 88. Joint 1-2 = 48. Joint 2-3 = 24. SA = 456−96−48 = 312 cm².",
       "Apply the composite SA formula twice: once for each joint between adjacent steps.",
+      ["312 cm^2"],
     ),
     answer(
       "y8-vsa-cs-m9",
@@ -1619,6 +1680,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       "554",
       "SA_P1 = 2(120+36+30) = 372. SA_P2 = 2(48+32+24) = 208. SA_P3 = 2(12+20+15) = 94. SA = 372+208+94−96−24 = 554 cm².",
       "Subtract 2 × joint area for each of the two joins.",
+      ["554 cm^2"],
     ),
   ],
 };

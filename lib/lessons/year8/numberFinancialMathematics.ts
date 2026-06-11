@@ -123,7 +123,8 @@ const percentagesBasics: LessonContent = {
       "Convert 75% to a decimal.",
       "75\\% = \\;?",
       "0.75",
-      "75 ÷ 100 = 0.75."
+      "75 ÷ 100 = 0.75.",
+      [".75"]
     ),
     answer(
       "y8-fin-pct-g2",
@@ -155,7 +156,8 @@ const percentagesBasics: LessonContent = {
       "Convert 8% to a decimal.",
       "8\\% = \\;?",
       "0.08",
-      "8 ÷ 100 = 0.08."
+      "8 ÷ 100 = 0.08.",
+      [".08"]
     ),
     answer(
       "y8-fin-pct-i2",
