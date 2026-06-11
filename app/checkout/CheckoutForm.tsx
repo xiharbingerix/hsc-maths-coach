@@ -20,6 +20,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
   const [studentFirstName, setStudentFirstName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isAlreadySubscribed, setIsAlreadySubscribed] = useState(false);
 
   // True when online-learning and no logged-in user — use the new direct-to-Stripe flow.
   const isAnonymousOnlineLearning = offer.slug === "online-learning" && !user;
@@ -40,11 +41,32 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
             String(session.user.user_metadata.student_first_name)
           );
         }
-        setIsCheckingSession(false);
-        if (!tracked) {
-          tracked = true;
-          trackCheckoutStarted();
-          clientTrackEvent("checkout_started", { offer: offerSlug });
+        if (offer.slug === "online-learning") {
+          // Keep session check open until we know whether the user already has access.
+          supabase
+            .from("user_access")
+            .select("status")
+            .eq("user_id", session.user.id)
+            .eq("access_type", "online_learning_beta")
+            .order("created_at", { ascending: false })
+            .limit(1)
+            .maybeSingle()
+            .then(({ data }) => {
+              setIsAlreadySubscribed(data?.status === "active");
+              setIsCheckingSession(false);
+              if (!tracked) {
+                tracked = true;
+                trackCheckoutStarted();
+                clientTrackEvent("checkout_started", { offer: offerSlug });
+              }
+            });
+        } else {
+          setIsCheckingSession(false);
+          if (!tracked) {
+            tracked = true;
+            trackCheckoutStarted();
+            clientTrackEvent("checkout_started", { offer: offerSlug });
+          }
         }
       } else if (event === "INITIAL_SESSION") {
         if (offer.slug === "online-learning") {
@@ -175,6 +197,30 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
             $19/month &middot; cancel any time
           </p>
         ) : null}
+      </section>
+    );
+  }
+
+  if (isAlreadySubscribed) {
+    return (
+      <section className="rounded-3xl border border-emerald-200 bg-emerald-50 p-6 shadow-sm md:p-8">
+        <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
+          Access active
+        </p>
+        <h2 className="mt-3 text-2xl font-bold tracking-tight text-emerald-900">
+          You already have online learning access
+        </h2>
+        <p className="mt-2 leading-7 text-emerald-800">
+          Your subscription is active. Go to the dashboard to continue your lessons.
+        </p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link
+            href="/dashboard"
+            className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+          >
+            Go to dashboard
+          </Link>
+        </div>
       </section>
     );
   }

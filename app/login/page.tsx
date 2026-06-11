@@ -43,7 +43,7 @@ export default function LoginPage() {
     setErrorMessage("");
     setIsSubmitting(true);
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data: signInData, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -52,6 +52,22 @@ export default function LoginPage() {
       setErrorMessage(error.message);
       setIsSubmitting(false);
       return;
+    }
+
+    if (isCheckoutFlow && signInData.session) {
+      const { data: accessData } = await supabase
+        .from("user_access")
+        .select("status")
+        .eq("user_id", signInData.session.user.id)
+        .eq("access_type", "online_learning_beta")
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (accessData?.status === "active") {
+        router.push("/dashboard");
+        return;
+      }
     }
 
     router.push(nextPath);

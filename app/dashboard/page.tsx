@@ -845,7 +845,9 @@ export default function DashboardPage() {
                   href={continueLearningTarget?.href ?? (selectedCourseSlug ? `/course/${selectedCourseSlug}` : "/course")}
                   className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
                 >
-                  Continue learning
+                  {continueLearningTarget !== null || selectedCourseSlug !== null
+                    ? "Continue learning"
+                    : "Choose your course"}
                 </Link>
                 {selectedCourseTitle && !isCoursePickerOpen ? (
                   <span className="inline-flex items-center gap-2 self-center text-sm text-slate-500">
