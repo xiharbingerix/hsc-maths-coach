@@ -144,7 +144,41 @@ Leading `$` and trailing `dollar`, `dollars`, `AUD`
 Spacing between number and unit is ignored: `5 min`, `5min`, `5 minutes` all match canonical `"5"`.
 
 ### Squared/cubic units
-A `^2`, `²`, `2`, `^3`, `³`, `3` suffix after the unit is also stripped: `12 cm^2`, `12 cm²`, `12cm2` all match canonical `"12"`.
+A `^2`, `²`, `^(2)`, `2`, `^3`, `³`, `^(3)`, `3` suffix after the unit is also stripped.
+The word prefixes `square` and `cubic` before a unit name are also stripped.
+
+All of these match canonical `"12"`:
+
+| Student types | Matches `"12"` |
+|---|---|
+| `12 cm^2` | ✓ |
+| `12 cm²` | ✓ |
+| `12 cm^(2)` | ✓ |
+| `12cm2` | ✓ |
+| `12 square centimetres` | ✓ |
+| `12 square centimeters` | ✓ |
+| `12 square metres` | ✓ |
+| `12 m^3` | ✓ |
+| `12 m^(3)` | ✓ |
+| `12 cubic metres` | ✓ |
+| `12 cubic centimetres` | ✓ |
+
+### Clock time (automatic with meridiem)
+
+When at least one side (user answer or canonical/accepted answer) contains an explicit `am` or `pm` marker, the engine converts both sides to minutes-since-midnight and compares.
+
+| Student types | Canonical | Result |
+|---|---|---|
+| `2:30 pm` | `14:30` | ✓ |
+| `14:30` | `2:30 pm` | ✓ |
+| `9:05 am` | `9:05` | ✓ |
+| `12:15 am` | `00:15` | ✓ |
+| `12:00 pm` | `12:00` | ✓ |
+| `2:30` | `14:30` | ✗ (no meridiem — ambiguous) |
+
+**Duration vs clock time**: Unit stripping handles duration answers (`"43 min"` → `"43"`). Clock time matching handles point-in-time answers (`"14:30"` = `"2:30 pm"`). These do not conflict because clock time matching only activates when `am`/`pm` is present.
+
+**When to add acceptedAnswers for time**: Add the 24h form as an `acceptedAnswer` when the canonical answer is `am`/`pm` format (or vice versa), so students who skip the meridiem marker are not penalised for ambiguous short forms like `"9:05"`.
 
 ### What is NOT automatic
 

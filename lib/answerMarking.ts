@@ -113,7 +113,7 @@ function parseScalar(value: string): ScalarAnswer | null {
     .replace(/\s*(?:degrees?|deg|°)\s*$/i, "")
     .replace(/\s*(?:hours?|hrs?|minutes?|mins?|seconds?|secs?)\s*$/i, "")
     .replace(
-      /\s*(?:millimetres?|millimeters?|mm|centimetres?|centimeters?|cm|kilometres?|kilometers?|km|metres?|meters?|m|kilograms?|kg|grams?|g|millilitres?|milliliters?|ml|litres?|liters?|l)(?:\s*(?:\^?\s*[23]))?\s*$/i,
+      /\s*(?:(?:square|cubic)\s+)?(?:millimetres?|millimeters?|mm|centimetres?|centimeters?|cm|kilometres?|kilometers?|km|metres?|meters?|m|kilograms?|kg|grams?|g|millilitres?|milliliters?|ml|litres?|liters?|l)(?:\s*(?:\^?\s*\(?\s*[23]\s*\)?))?\s*$/i,
       ""
     )
     .trim();
@@ -186,7 +186,52 @@ function parseRatio(value: string): [Rational, Rational] | null {
   return left && right ? [left, right] : null;
 }
 
+function hasMeridiem(value: string): boolean {
+  return /\b(?:a\.?m\.?|p\.?m\.?)\b/i.test(value);
+}
+
+function parseClockTime(value: string): number | null {
+  const v = value
+    .normalize("NFKC")
+    .trim()
+    .toLowerCase()
+    .replace(/[−–—]/g, "-");
+
+  // 24-hour HH:MM (colon required to avoid matching plain integers)
+  const h24 = v.match(/^(\d{1,2}):(\d{2})$/);
+  if (h24) {
+    const h = parseInt(h24[1], 10);
+    const m = parseInt(h24[2], 10);
+    if (h >= 0 && h <= 23 && m >= 0 && m <= 59) return h * 60 + m;
+  }
+
+  // 12-hour H:MM am/pm (colon required)
+  const h12 = v.match(/^(\d{1,2}):(\d{2})\s*(?:a\.?m\.?|p\.?m\.?)$/);
+  if (h12) {
+    const h = parseInt(h12[1], 10);
+    const m = parseInt(h12[2], 10);
+    if (h < 1 || h > 12 || m < 0 || m > 59) return null;
+    const isPM = v.includes("p");
+    return isPM
+      ? (h === 12 ? 12 : h + 12) * 60 + m
+      : (h === 12 ? 0 : h) * 60 + m;
+  }
+
+  return null;
+}
+
 function semanticMatch(userAnswer: string, acceptedAnswer: string) {
+  // Clock time: 24-hour and am/pm forms are equivalent.
+  // Only engage when at least one side carries an explicit meridiem marker to
+  // avoid false-positive matches on numeric ratios that also contain a colon.
+  if (hasMeridiem(userAnswer) || hasMeridiem(acceptedAnswer)) {
+    const acceptedClock = parseClockTime(acceptedAnswer);
+    if (acceptedClock !== null) {
+      const userClock = parseClockTime(userAnswer);
+      return userClock !== null ? userClock === acceptedClock : false;
+    }
+  }
+
   const acceptedCoordinate = parseCoordinate(acceptedAnswer);
   if (acceptedCoordinate) {
     const userCoordinate = parseCoordinate(userAnswer);

@@ -75,6 +75,35 @@ const tests: TestCase[] = [
   // ── Trailing zeros and integer-as-decimal ─────────────────────────────────
   { name: "integer as decimal matches", userAnswer: "3.0", correctAnswer: "3", expected: true },
   { name: "decimal trailing zero matches", userAnswer: "7.50", correctAnswer: "7.5", expected: true },
+
+  // ── Area unit variants ────────────────────────────────────────────────────
+  { name: "area m^(2) stripped", userAnswer: "12.6 m^(2)", correctAnswer: "12.6", expected: true },
+  { name: "area m^(2) compact stripped", userAnswer: "12.6m^(2)", correctAnswer: "12.6", expected: true },
+  { name: "area cm^(2) stripped", userAnswer: "5 cm^(2)", correctAnswer: "5", expected: true },
+  { name: "area square metres stripped", userAnswer: "12.6 square metres", correctAnswer: "12.6", expected: true },
+  { name: "area square meters stripped", userAnswer: "12.6 square meters", correctAnswer: "12.6", expected: true },
+  { name: "area square centimetres stripped", userAnswer: "5 square centimetres", correctAnswer: "5", expected: true },
+  { name: "area square centimeters stripped", userAnswer: "5 square centimeters", correctAnswer: "5", expected: true },
+  { name: "area m^2 no space stripped", userAnswer: "12.6m^2", correctAnswer: "12.6", expected: true },
+
+  // ── Volume unit variants ──────────────────────────────────────────────────
+  { name: "volume m^(3) stripped", userAnswer: "15 m^(3)", correctAnswer: "15", expected: true },
+  { name: "volume m^(3) compact stripped", userAnswer: "15m^(3)", correctAnswer: "15", expected: true },
+  { name: "volume cm^(3) stripped", userAnswer: "120 cm^(3)", correctAnswer: "120", expected: true },
+  { name: "volume cubic metres stripped", userAnswer: "15 cubic metres", correctAnswer: "15", expected: true },
+  { name: "volume cubic meters stripped", userAnswer: "15 cubic meters", correctAnswer: "15", expected: true },
+  { name: "volume cubic centimetres stripped", userAnswer: "120 cubic centimetres", correctAnswer: "120", expected: true },
+  { name: "volume cubic centimeters stripped", userAnswer: "120 cubic centimeters", correctAnswer: "120", expected: true },
+
+  // ── Clock time 24-hour <-> am/pm equivalence ──────────────────────────────
+  { name: "clock 14:30 = 2:30 pm", userAnswer: "2:30 pm", correctAnswer: "14:30", expected: true },
+  { name: "clock 2:30 pm = 14:30", userAnswer: "14:30", correctAnswer: "2:30 pm", expected: true },
+  { name: "clock 9:05 = 9:05 am", userAnswer: "9:05 am", correctAnswer: "9:05", expected: true },
+  { name: "clock 00:15 = 12:15 am", userAnswer: "12:15 am", correctAnswer: "00:15", expected: true },
+  { name: "clock 12:00 = 12:00 pm", userAnswer: "12:00 pm", correctAnswer: "12:00", expected: true },
+  { name: "clock 12:30 am = 00:30", userAnswer: "12:30 am", correctAnswer: "00:30", expected: true },
+  { name: "clock no meridiem does not convert", userAnswer: "2:30", correctAnswer: "14:30", expected: false },
+  { name: "clock wrong time does not match", userAnswer: "3:30 pm", correctAnswer: "14:30", expected: false },
 ];
 
 let failures = 0;
