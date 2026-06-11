@@ -6,13 +6,13 @@ _Audit date: 11 June 2026 | Last updated: 11 June 2026 (sessions 1–2)_
 
 ## Executive Summary
 
-Year 8 Mathematics has **11 units** in the course catalogue. **10 units are fully content-complete** with real lesson overrides and seedable questions. **1 unit is a shell** (catalogue entry only, 0 lessons). The diagnostic now covers all 10 content-complete units; `algebra-foundations` and `number-financial-mathematics` were added in session 3, bringing the diagnostic to 10 units with 2 questions each (20 total).
+Year 8 Mathematics has **10 units** in the course catalogue. **All 10 units are fully content-complete** with real lesson overrides and seedable questions. The `geometry-properties` shell (0 lessons) was removed from the catalogue in session 4. The diagnostic covers all 10 units with 2 questions each (20 total).
 
 | Metric | Value |
 |---|---|
-| Total catalogue units | 11 |
+| Total catalogue units | 10 |
 | Completed units | 10 |
-| Shell/empty units | 1 |
+| Shell/empty units | 0 |
 | Total built lessons | 54 |
 | Total seedable questions | 1026 |
 | Build | PASS |
@@ -35,7 +35,7 @@ Year 8 Mathematics has **11 units** in the course catalogue. **10 units are full
 | `linear-relationships` | Linear Relationships | 6 | `linearRelationships.ts` | **Complete** |
 | `pythagoras-theorem` | Pythagoras' Theorem | 6 | `pythagorasTheorem.ts` | **Complete** |
 | `geometry-angles` | Geometry and Angles | 6 | `geometryAngles.ts` | **Complete** |
-| `geometry-properties` | Geometric Properties and Reasoning | 0 | — | **Shell** |
+| ~~`geometry-properties`~~ | ~~Geometric Properties and Reasoning~~ | ~~0~~ | ~~—~~ | **Removed from catalogue (session 4)** |
 | `volume-and-surface-area` | Volume and Surface Area | 6 | `volumeSurfaceArea.ts` | **Complete** ✅ |
 | `data-and-graphs` | Data Analysis and Graphs | 3 | `statisticsProbability.ts` | **Complete** |
 | `probability-and-chance` | Probability and Chance | 3 | `statisticsProbability.ts` | **Complete** |
@@ -164,11 +164,7 @@ Year 8 Mathematics has **11 units** in the course catalogue. **10 units are full
 
 ## Shell / Empty Units
 
-Only one unit has zero lessons.
-
-| Unit slug | Diagnostic coverage? |
-|---|---|
-| `geometry-properties` | Was 2 questions (y8-gp1, y8-gp2) — **dead link fixed in session 2** (repointed to `geometry-angles`) |
+No shell units remain. `geometry-properties` (0 lessons) was removed from the catalogue in session 4. Its diagnostic questions (y8-gp1, y8-gp2) were repointed to `geometry-angles` in session 2 before removal.
 
 ---
 
@@ -291,17 +287,7 @@ None of these warnings are failures. They do not block seeding or student access
 
 ## Next Recommendations (Highest-Value Units)
 
-### 1. `geometry-properties` — Geometric Properties and Reasoning
-
-**Why now:**
-- Only remaining shell unit — completing it eliminates the last diagnostic dead-end
-- Appears in the diagnostic (2 questions: congruence test SSS, similarity/scale factor)
-- Direct prerequisite for Year 9 geometric representations and Year 10 geometry proofs
-- Content scope is well-defined: congruence tests (SSS, SAS, AAS, RHS), similarity, scale factors, and simple geometric proofs
-
-**Suggested lessons (5):** introduction-to-congruence, congruence-tests, similarity-and-scale-factors, applications-of-similarity, geometric-proofs-introduction
-
-### 2. Fix duplicate lesson slugs in `algebra-equations` / `algebra-foundations`
+### 1. Fix duplicate lesson slugs in `algebra-equations` / `algebra-foundations`
 
 **Why now:**
 - `solving-one-step-equations` and `solving-two-step-equations` exist in both units
@@ -320,6 +306,7 @@ None of these warnings are failures. They do not block seeding or student access
 | `seed-question-bank.ts --dry-run` | PASS — 1026 questions, 0 warnings |
 | `git diff --check` | PASS — CRLF normalisation notes only (Windows line endings, non-blocking) |
 | `npm.cmd run test:answer-marking` | PASS — 61/61 |
+| Catalogue shell units | 0 (was 1 — `geometry-properties` removed session 4) |
 
 ---
 
@@ -327,7 +314,7 @@ None of these warnings are failures. They do not block seeding or student access
 
 | Risk | Severity | Notes |
 |---|---|---|
-| ~~Diagnostic routes to `geometry-properties` (empty)~~ | ~~High~~ | **Fixed session 2** — repointed to `geometry-angles`. 0 dead-ends remain. |
+| ~~`geometry-properties` shell in catalogue~~ | ~~High~~ | **Fixed sessions 2+4** — diagnostic repointed to `geometry-angles` (session 2); shell unit removed from catalogue (session 4). |
 | Duplicate lesson slugs across `algebra-foundations` and `algebra-equations` | **Medium** | Two lesson slugs shared between units. No seeding failures but routing ambiguity exists. Rename one set. |
 | ~~2 completed units absent from diagnostic~~ | ~~Medium~~ | **Fixed session 3** — `algebra-foundations` and `number-financial-mathematics` now have 2 diagnostic questions each. |
 | 76 `no-visual-payload` warnings in linear-relationships | **Medium** | Questions referencing graphs/plots without rendered CartesianGraph payloads are pedagogically incomplete. |

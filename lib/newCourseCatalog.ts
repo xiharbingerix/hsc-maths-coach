@@ -1975,16 +1975,6 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
-        slug: "geometry-properties",
-        title: "Geometric Properties and Reasoning",
-        description:
-          "Investigate congruence and similarity, apply scale factors, and write short geometric arguments using congruence tests.",
-        syllabusArea: "Measurement and Space",
-        focus:
-          "Build the geometric reasoning skills required for Year 9 geometrical representations and Year 10 congruence and similarity proofs.",
-        lessons: [],
-      },
-      {
         slug: "volume-and-surface-area",
         title: "Volume and Surface Area",
         description:
