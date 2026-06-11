@@ -800,36 +800,137 @@ function MasteryResultPanel({
 
   if (passed) {
     return (
-      <div className="rounded-xl bg-green-50 p-4 text-sm text-green-900">
-        <p className="font-semibold">
-          Passed: {correctCount} out of {totalQuestions} (
-          {formatPercent(score)}).
-        </p>
-        <p className="mt-1">
-          Nice work. You have met the mastery mark for this lesson.
-        </p>
-        <div className="mt-4 flex flex-wrap gap-3">
-          {nextHref ? (
+      <div className="space-y-4">
+        <div className="rounded-xl bg-green-50 p-4 text-sm text-green-900">
+          <p className="font-semibold">
+            Passed: {correctCount} out of {totalQuestions} (
+            {formatPercent(score)}).
+          </p>
+          <p className="mt-1">
+            Nice work. You have met the mastery mark for this lesson.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            {nextHref ? (
+              <Link
+                href={nextHref}
+                className="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
+              >
+                {nextLabel ? `Next: ${nextLabel}` : "Next lesson"} →
+              </Link>
+            ) : null}
             <Link
-              href={nextHref}
-              className="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
+              href={backHref}
+              className="rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50"
             >
-              {nextLabel ? `Next: ${nextLabel}` : "Next lesson"} →
+              Back to unit
             </Link>
-          ) : null}
-          <Link
-            href={backHref}
-            className="rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50"
-          >
-            Back to unit
-          </Link>
-          <Link
-            href="/dashboard"
-            className="rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50"
-          >
-            Dashboard
-          </Link>
+            <Link
+              href="/dashboard"
+              className="rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50"
+            >
+              Dashboard
+            </Link>
+          </div>
         </div>
+
+        {incorrectQuestions.length > 0 && (
+          <div className="space-y-3 rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-800">
+            <h3 className="font-semibold text-slate-900">
+              Review missed questions ({incorrectQuestions.length})
+            </h3>
+            {incorrectQuestions.map(({ question, quizIndex }) => {
+              const submittedAnswer = answers[question.id] ?? "";
+              return (
+                <div
+                  key={question.id}
+                  className="space-y-3 rounded-xl border border-slate-200 p-4"
+                >
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Question {quizIndex + 1}
+                    </p>
+                    <p className="mt-1 font-medium">
+                      <MathText text={question.prompt} />
+                    </p>
+                    {question.latex && (
+                      <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-3">
+                        <BlockMath math={question.latex} />
+                      </div>
+                    )}
+                    {question.diagram && (
+                      <NetworkDiagramView diagram={question.diagram} />
+                    )}
+                    {question.triangleDiagram && (
+                      <TriangleDiagramView diagram={question.triangleDiagram} />
+                    )}
+                    {question.cartesianGraph && (
+                      <CartesianGraphView graph={question.cartesianGraph} />
+                    )}
+                    {question.trapezoidalRuleDiagram && (
+                      <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
+                    )}
+                    {question.boxPlotDiagram && (
+                      <BoxPlotView diagram={question.boxPlotDiagram} />
+                    )}
+                    {question.normalDistributionDiagram && (
+                      <NormalDistributionView diagram={question.normalDistributionDiagram} />
+                    )}
+                    {question.probabilityTreeDiagram && (
+                      <ProbabilityTreeView diagram={question.probabilityTreeDiagram} />
+                    )}
+                    {question.twoWayTableDiagram && (
+                      <TwoWayTableView diagram={question.twoWayTableDiagram} />
+                    )}
+                    {question.vennDiagram && (
+                      <VennDiagramView diagram={question.vennDiagram} />
+                    )}
+                  </div>
+
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div className="rounded-xl bg-slate-50 p-3">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                        Your answer
+                      </p>
+                      <p className="mt-1 font-medium">
+                        <MathText text={choiceAnswerText(question, submittedAnswer)} />
+                      </p>
+                    </div>
+                    <div className="rounded-xl bg-green-50 p-3">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-green-700">
+                        Correct answer
+                      </p>
+                      <p className="mt-1 font-medium text-green-900">
+                        <MathText text={choiceAnswerText(question, question.answer)} />
+                      </p>
+                    </div>
+                  </div>
+
+                  {question.explanation && (
+                    <div className="rounded-xl bg-slate-50 p-3 text-slate-700">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                        Explanation
+                      </p>
+                      <p className="mt-1">
+                        <MathText text={question.explanation} />
+                      </p>
+                    </div>
+                  )}
+
+                  {question.hint && (
+                    <div className="rounded-xl bg-blue-50 p-3 text-blue-900">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-blue-700">
+                        Hint
+                      </p>
+                      <p className="mt-1">
+                        <MathText text={question.hint} />
+                      </p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   }
