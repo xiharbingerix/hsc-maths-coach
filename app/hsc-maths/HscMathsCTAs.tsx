@@ -9,7 +9,11 @@ import {
   trackPreviewHscLessonClicked,
   trackDiagnosticStarted,
 } from "../../lib/analytics";
-import { clientTrackEvent } from "../../lib/analytics/clientTrackEvent";
+import {
+  clientTrackEvent,
+  preserveMarketingParams,
+  getMarketingParamsFromUrl,
+} from "../../lib/analytics/clientTrackEvent";
 
 /**
  * Primary trial CTA for the /hsc-maths page.
@@ -30,10 +34,14 @@ export function HscTrialCTAButton({
     if (isLoading) return;
     setIsLoading(true);
 
+    preserveMarketingParams();
+    const marketingParams = getMarketingParamsFromUrl();
+
     trackSubscribeClicked();
     clientTrackEvent("trial_cta_clicked", {
       source: "hsc-maths",
       method: "direct-stripe",
+      ...marketingParams,
     });
 
     try {
@@ -47,10 +55,16 @@ export function HscTrialCTAButton({
 
       if (response.ok && payload.url) {
         trackCheckoutStarted();
-        clientTrackEvent("checkout_started", { offer: "online-learning" });
+        clientTrackEvent("checkout_started", {
+          offer: "online-learning",
+          ...marketingParams,
+        });
         clientTrackEvent(
           "checkout_redirected_to_stripe",
-          { offer: "online-learning" },
+          {
+            offer: "online-learning",
+            ...marketingParams,
+          },
           { beacon: true }
         );
         window.location.href = payload.url;

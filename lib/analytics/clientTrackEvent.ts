@@ -1,4 +1,14 @@
 const ANON_ID_KEY = "nova_anon_id";
+const MARKETING_PARAMS_KEY = "nova_marketing_params";
+
+type MarketingParams = {
+  gclid?: string;
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  utm_term?: string;
+  utm_content?: string;
+};
 
 function getOrCreateAnonId(): string {
   try {
@@ -9,6 +19,55 @@ function getOrCreateAnonId(): string {
     return id;
   } catch {
     return "";
+  }
+}
+
+export function getMarketingParamsFromUrl(): MarketingParams {
+  if (typeof window === "undefined") return {};
+
+  const params = new URLSearchParams(window.location.search);
+  const marketingParams: MarketingParams = {};
+  for (const key of [
+    "gclid",
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_term",
+    "utm_content",
+  ]) {
+    const value = params.get(key);
+    if (value) {
+      marketingParams[key as keyof MarketingParams] = value;
+    }
+  }
+
+  return marketingParams;
+}
+
+export function preserveMarketingParams(): void {
+  try {
+    const marketingParams = getMarketingParamsFromUrl();
+    if (Object.keys(marketingParams).length === 0) return;
+    localStorage.setItem(MARKETING_PARAMS_KEY, JSON.stringify(marketingParams));
+  } catch {
+    // Ignore storage failure.
+  }
+}
+
+export function consumeMarketingParams(): MarketingParams {
+  if (typeof window === "undefined") return {};
+
+  try {
+    const raw = localStorage.getItem(MARKETING_PARAMS_KEY);
+    if (!raw) return {};
+    localStorage.removeItem(MARKETING_PARAMS_KEY);
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      return {};
+    }
+    return parsed as MarketingParams;
+  } catch {
+    return {};
   }
 }
 

@@ -6,7 +6,10 @@ import {
   trackEvent,
   trackPaymentSuccess,
 } from "../../lib/analytics";
-import { clientTrackEvent } from "../../lib/analytics/clientTrackEvent";
+import {
+  clientTrackEvent,
+  consumeMarketingParams,
+} from "../../lib/analytics/clientTrackEvent";
 
 export function TrackPaymentSuccess({
   extraEventName,
@@ -14,12 +17,14 @@ export function TrackPaymentSuccess({
   extraEventName?: string;
 }) {
   useEffect(() => {
-    trackPaymentSuccess();
+    const marketingParams = consumeMarketingParams();
+    trackPaymentSuccess(marketingParams);
     if (extraEventName) {
-      trackEvent(extraEventName);
+      trackEvent(extraEventName, marketingParams);
     }
+    clientTrackEvent("payment_success", marketingParams);
     if (extraEventName === "trial_started") {
-      clientTrackEvent("trial_started");
+      clientTrackEvent("trial_started", marketingParams);
     }
 
     const sessionId = new URLSearchParams(window.location.search).get(

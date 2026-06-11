@@ -25,8 +25,8 @@ export function trackCheckoutStarted() {
   track("checkout_started");
 }
 
-export function trackPaymentSuccess() {
-  track("payment_success");
+export function trackPaymentSuccess(params?: Record<string, unknown>) {
+  track("payment_success", params);
 }
 
 export function trackGoogleAdsPurchaseConversion(transactionId?: string) {
