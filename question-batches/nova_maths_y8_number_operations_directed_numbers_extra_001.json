@@ -1,0 +1,455 @@
+{
+  "batch_id": "nova-maths-2026-06-y8-number-operations-directed-numbers-extra-001",
+  "generated_by": "chatgpt",
+  "questions": [
+    {
+      "source_id": "y8-no-directed-extra-001",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 1,
+      "question_type": "procedural",
+      "prompt": "Calculate -4 + 9.",
+      "answer": "5",
+      "accepted_answers": [
+        "5"
+      ],
+      "explanation": "Starting at -4 and adding 9 moves 9 places to the right on the number line, giving 5.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "addition"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-002",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 1,
+      "question_type": "procedural",
+      "prompt": "Calculate 7 + (-12).",
+      "answer": "-5",
+      "accepted_answers": [
+        "-5"
+      ],
+      "explanation": "Adding -12 is the same as subtracting 12, so 7 - 12 = -5.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "addition"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-003",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 1,
+      "question_type": "procedural",
+      "prompt": "Calculate -6 + (-3).",
+      "answer": "-9",
+      "accepted_answers": [
+        "-9"
+      ],
+      "explanation": "Both numbers are negative, so add their sizes: 6 + 3 = 9, then keep the negative sign to get -9.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "addition"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-004",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 1,
+      "question_type": "procedural",
+      "prompt": "Calculate 11 + (-8).",
+      "answer": "3",
+      "accepted_answers": [
+        "3"
+      ],
+      "explanation": "Adding -8 is the same as subtracting 8, so 11 - 8 = 3.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "addition"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-005",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 2,
+      "question_type": "procedural",
+      "prompt": "Calculate 6 - 10.",
+      "answer": "-4",
+      "accepted_answers": [
+        "-4"
+      ],
+      "explanation": "Since 10 is 4 more than 6, 6 - 10 goes 4 below zero, giving -4.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "subtraction"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-006",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 2,
+      "question_type": "procedural",
+      "prompt": "Calculate -5 - 4.",
+      "answer": "-9",
+      "accepted_answers": [
+        "-9"
+      ],
+      "explanation": "Subtracting 4 from -5 moves 4 places further left on the number line, giving -9.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "subtraction"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-007",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 2,
+      "question_type": "procedural",
+      "prompt": "Calculate -3 - (-8).",
+      "answer": "5",
+      "accepted_answers": [
+        "5"
+      ],
+      "explanation": "Subtracting a negative becomes addition, so -3 - (-8) = -3 + 8 = 5.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "subtraction"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-008",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 2,
+      "question_type": "procedural",
+      "prompt": "A lift is at level -2 and goes down 5 levels. What level is it on now?",
+      "answer": "-7",
+      "accepted_answers": [
+        "-7"
+      ],
+      "explanation": "Going down 5 levels means subtracting 5, so -2 - 5 = -7.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "elevation"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-009",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 3,
+      "question_type": "procedural",
+      "prompt": "Calculate (-6) × 4.",
+      "answer": "-24",
+      "accepted_answers": [
+        "-24"
+      ],
+      "explanation": "A negative number multiplied by a positive number gives a negative result, and 6 × 4 = 24, so the answer is -24.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "multiplication"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-010",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 3,
+      "question_type": "procedural",
+      "prompt": "Calculate (-7) × (-3).",
+      "answer": "21",
+      "accepted_answers": [
+        "21"
+      ],
+      "explanation": "A negative multiplied by a negative gives a positive result, and 7 × 3 = 21.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "multiplication"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-011",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 3,
+      "question_type": "procedural",
+      "prompt": "Calculate 36 ÷ (-9).",
+      "answer": "-4",
+      "accepted_answers": [
+        "-4"
+      ],
+      "explanation": "A positive divided by a negative gives a negative result, and 36 ÷ 9 = 4, so the answer is -4.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "division"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-012",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 3,
+      "question_type": "procedural",
+      "prompt": "The temperature is -3°C. It rises by 8°C. What is the new temperature?",
+      "answer": "5",
+      "accepted_answers": [
+        "5",
+        "5°C",
+        "5 °C",
+        "5 degrees"
+      ],
+      "explanation": "A rise of 8 means add 8, so -3 + 8 = 5 This gives the final temperature.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "temperature"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-013",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 4,
+      "question_type": "procedural",
+      "prompt": "Calculate -4 + 6 × (-3).",
+      "answer": "-22",
+      "accepted_answers": [
+        "-22"
+      ],
+      "explanation": "Multiply first: 6 × (-3) = -18. Then -4 + (-18) = -22.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "order-of-operations"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-014",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 4,
+      "question_type": "procedural",
+      "prompt": "Calculate (-18) ÷ 3 - (-5).",
+      "answer": "-1",
+      "accepted_answers": [
+        "-1"
+      ],
+      "explanation": "Divide first: (-18) ÷ 3 = -6. Then subtracting -5 becomes adding 5, so -6 + 5 = -1.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "order-of-operations"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-015",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 4,
+      "question_type": "procedural",
+      "prompt": "A bank balance is -$12. A deposit of $35 is made. What is the new balance?",
+      "answer": "23",
+      "accepted_answers": [
+        "23",
+        "$23",
+        "23 dollars"
+      ],
+      "explanation": "A deposit adds money to the balance, so -12 + 35 = 23.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "bank-balance"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-016",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 4,
+      "question_type": "procedural",
+      "prompt": "A hiker is at an elevation of 14 metres. They descend 27 metres. What is their new elevation?",
+      "answer": "-13",
+      "accepted_answers": [
+        "-13",
+        "-13m",
+        "-13 m",
+        "-13 metres",
+        "-13 meters"
+      ],
+      "explanation": "Descending 27 metres means subtracting 27, so 14 - 27 = -13.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "elevation"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-017",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 4,
+      "question_type": "procedural",
+      "prompt": "Calculate 5 - 2 × (-6).",
+      "answer": "17",
+      "accepted_answers": [
+        "17"
+      ],
+      "explanation": "Multiply first: 2 × (-6) = -12. Then 5 - (-12) = 5 + 12 = 17.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "order-of-operations"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-018",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 5,
+      "question_type": "procedural",
+      "prompt": "Calculate (-4) × [3 - 8].",
+      "answer": "20",
+      "accepted_answers": [
+        "20"
+      ],
+      "explanation": "Work inside the brackets first: 3 - 8 = -5. Then (-4) × (-5) = 20.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "order-of-operations"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-019",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 5,
+      "question_type": "procedural",
+      "prompt": "Calculate -30 ÷ (-5) + 4 × (-2).",
+      "answer": "-2",
+      "accepted_answers": [
+        "-2"
+      ],
+      "explanation": "Do division and multiplication first: -30 ÷ (-5) = 6 and 4 × (-2) = -8. Then 6 + (-8) = -2.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "order-of-operations"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    },
+    {
+      "source_id": "y8-no-directed-extra-020",
+      "course_slug": "year-8-mathematics",
+      "topic_slug": "number-operations",
+      "subtopic_slug": "directed-numbers",
+      "syllabus_ref": null,
+      "difficulty": 5,
+      "question_type": "procedural",
+      "prompt": "Calculate (-2) × (-7 + 3) - 6.",
+      "answer": "2",
+      "accepted_answers": [
+        "2"
+      ],
+      "explanation": "Work inside the brackets first: -7 + 3 = -4. Then (-2) × (-4) = 8, and 8 - 6 = 2.",
+      "tags": [
+        "directed-numbers",
+        "integers",
+        "order-of-operations"
+      ],
+      "year_level": "year-8",
+      "transfer_from_topics": []
+    }
+  ]
+}
