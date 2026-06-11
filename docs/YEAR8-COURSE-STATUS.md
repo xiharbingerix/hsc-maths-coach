@@ -6,7 +6,7 @@ _Audit date: 11 June 2026 | Last updated: 11 June 2026 (sessions 1–2)_
 
 ## Executive Summary
 
-Year 8 Mathematics has **11 units** in the course catalogue. **10 units are fully content-complete** with real lesson overrides and seedable questions. **1 unit is a shell** (catalogue entry only, 0 lessons). The diagnostic now routes correctly to all 8 referenced units; `geometry-properties` dead link was fixed in session 2 by repointing to `geometry-angles`. Three completed units (`algebra-foundations`, `number-financial-mathematics`, `geometry-angles`) still have no diagnostic entry.
+Year 8 Mathematics has **11 units** in the course catalogue. **10 units are fully content-complete** with real lesson overrides and seedable questions. **1 unit is a shell** (catalogue entry only, 0 lessons). The diagnostic now covers all 10 content-complete units; `algebra-foundations` and `number-financial-mathematics` were added in session 3, bringing the diagnostic to 10 units with 2 questions each (20 total).
 
 | Metric | Value |
 |---|---|
@@ -68,7 +68,7 @@ Year 8 Mathematics has **11 units** in the course catalogue. **10 units are full
 - solving-two-step-equations
 
 **Seedable questions:** 114 (6 × 19)
-**Diagnostic coverage:** None — not referenced in `year-8-mathematics.ts`
+**Diagnostic coverage:** Yes (2 questions: y8-af1 collecting like terms, y8-af2 substitution) — **added session 3**
 
 ### number-financial-mathematics (6 lessons)
 
@@ -80,7 +80,7 @@ Year 8 Mathematics has **11 units** in the course catalogue. **10 units are full
 - simple-interest-introduction
 
 **Seedable questions:** 114 (6 × 19)
-**Diagnostic coverage:** None — not referenced in `year-8-mathematics.ts`
+**Diagnostic coverage:** Yes (2 questions: y8-fm1 percentage profit, y8-fm2 simple interest) — **added session 3**
 
 ### algebra-equations (6 lessons) ✅ NEW
 
@@ -199,20 +199,24 @@ The diagnostic (`lib/diagnostics/year-8-mathematics.ts`) references 8 unit slugs
 
 | Diagnostic unit slug | Exists in catalogue? | Has lessons? | Assessment |
 |---|---|---|---|
-| `number-operations` | Yes | Yes (6) | **Aligned ✓** (was dead link — now fixed) |
-| `algebra-equations` | Yes | Yes (6) | **Aligned ✓** (was dead link — now fixed) |
-| `linear-relationships` | Yes | Yes (6) | Aligned ✓ |
-| `pythagoras-theorem` | Yes | Yes (6) | Aligned ✓ |
-| `geometry-angles` | Yes | Yes (6) | **Aligned ✓** (was `geometry-properties` dead link — fixed session 2) |
-| `volume-and-surface-area` | Yes | Yes (6) | **Aligned ✓** (was dead link — now fixed) |
-| `data-and-graphs` | Yes | Yes (3) | Aligned ✓ |
-| `probability-and-chance` | Yes | Yes (3) | Aligned ✓ |
+| `number-operations` | Yes | Yes (6) | Aligned ✓ (2 questions: y8-no2, y8-no3) |
+| `number-financial-mathematics` | Yes | Yes (6) | **Aligned ✓** (2 questions: y8-fm1, y8-fm2 — added session 3) |
+| `algebra-foundations` | Yes | Yes (6) | **Aligned ✓** (2 questions: y8-af1, y8-af2 — added session 3) |
+| `algebra-equations` | Yes | Yes (6) | Aligned ✓ (2 questions: y8-ae2, y8-ae3) |
+| `linear-relationships` | Yes | Yes (6) | Aligned ✓ (2 questions: y8-lr1, y8-lr2) |
+| `pythagoras-theorem` | Yes | Yes (6) | Aligned ✓ (2 questions: y8-py2, y8-py3) |
+| `geometry-angles` | Yes | Yes (6) | Aligned ✓ (2 questions: y8-gp1, y8-gp2) |
+| `volume-and-surface-area` | Yes | Yes (6) | Aligned ✓ (2 questions: y8-vs1, y8-vs2) |
+| `data-and-graphs` | Yes | Yes (3) | Aligned ✓ (2 questions: y8-dg2, y8-dg3) |
+| `probability-and-chance` | Yes | Yes (3) | Aligned ✓ (2 questions: y8-pc1, y8-pc2) |
 
-**Missing from diagnostic (but content-complete):**
-- `algebra-foundations` — 6 lessons, 114 questions, no diagnostic entry
-- `number-financial-mathematics` — 6 lessons, 114 questions, no diagnostic entry
+**Removed to maintain 20-question total (least discriminating questions from 3-question units):**
+- y8-no1: "Evaluate −6 + 14" (directed numbers — trivial addition)
+- y8-ae1: "Expand 3(x + 4)" (expansion — covered by foundations; equations unit focuses on solving/factorising)
+- y8-py1: "3 cm, 4 cm, find hypotenuse" (3-4-5 triple — most-known Pythagorean triple)
+- y8-dg1: "Median of 2, 4, 4, 7, 9" (median — basic; IQR and sampling are more discriminating)
 
-**Impact:** 0 diagnostic dead-ends (was 1). 2 units with 228 seedable questions still have no diagnostic pathway.
+**Impact:** All 10 content-complete units now have diagnostic coverage. 0 dead-ends. 20 questions, 2 per unit, balanced distribution.
 
 ---
 
@@ -325,7 +329,7 @@ None of these warnings are failures. They do not block seeding or student access
 |---|---|---|
 | ~~Diagnostic routes to `geometry-properties` (empty)~~ | ~~High~~ | **Fixed session 2** — repointed to `geometry-angles`. 0 dead-ends remain. |
 | Duplicate lesson slugs across `algebra-foundations` and `algebra-equations` | **Medium** | Two lesson slugs shared between units. No seeding failures but routing ambiguity exists. Rename one set. |
-| 2 completed units absent from diagnostic | **Medium** | `algebra-foundations`, `number-financial-mathematics` have 228 questions with no diagnostic pathway. |
+| ~~2 completed units absent from diagnostic~~ | ~~Medium~~ | **Fixed session 3** — `algebra-foundations` and `number-financial-mathematics` now have 2 diagnostic questions each. |
 | 76 `no-visual-payload` warnings in linear-relationships | **Medium** | Questions referencing graphs/plots without rendered CartesianGraph payloads are pedagogically incomplete. |
 | Worksheet explanation LaTeX rendering | ~~Medium~~ | **Fixed session 2** — `WorksheetClient.tsx` now passes explanations through `MathText`. |
 

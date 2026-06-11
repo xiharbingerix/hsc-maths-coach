@@ -10,6 +10,16 @@ export const diagnosticData: DiagnosticData = {
       startHref: "/course/year-8-mathematics/number-operations",
     },
     {
+      slug: "number-financial-mathematics",
+      title: "Number and Financial Mathematics",
+      startHref: "/course/year-8-mathematics/number-financial-mathematics",
+    },
+    {
+      slug: "algebra-foundations",
+      title: "Algebra Foundations",
+      startHref: "/course/year-8-mathematics/algebra-foundations",
+    },
+    {
       slug: "algebra-equations",
       title: "Algebra and Equations",
       startHref: "/course/year-8-mathematics/algebra-equations",
@@ -25,9 +35,9 @@ export const diagnosticData: DiagnosticData = {
       startHref: "/course/year-8-mathematics/pythagoras-theorem",
     },
     {
-      slug: "geometry-properties",
-      title: "Geometric Properties and Reasoning",
-      startHref: "/course/year-8-mathematics/geometry-properties",
+      slug: "geometry-angles",
+      title: "Geometry and Angles",
+      startHref: "/course/year-8-mathematics/geometry-angles",
     },
     {
       slug: "volume-and-surface-area",
@@ -47,19 +57,7 @@ export const diagnosticData: DiagnosticData = {
   ],
 
   questions: [
-    {
-      id: "y8-no1",
-      unitSlug: "number-operations",
-      prompt: "Evaluate $-6 + 14$.",
-      choices: [
-        { label: "A", text: "$-20$" },
-        { label: "B", text: "$-8$" },
-        { label: "C", text: "$8$" },
-        { label: "D", text: "$20$" },
-      ],
-      correctAnswer: "C",
-      explanation: "Adding 14 moves 14 places to the right from -6, landing at 8.",
-    },
+
     {
       id: "y8-no2",
       unitSlug: "number-operations",
@@ -87,17 +85,56 @@ export const diagnosticData: DiagnosticData = {
       explanation: "A 20% discount removes 16 dollars from 80 dollars, so the sale price is 64 dollars.",
     },
     {
-      id: "y8-ae1",
-      unitSlug: "algebra-equations",
-      prompt: "Expand $3(x + 4)$.",
+      id: "y8-fm1",
+      unitSlug: "number-financial-mathematics",
+      prompt: "An item is bought for $80 and sold for $100. What is the percentage profit?",
       choices: [
-        { label: "A", text: "$3x + 4$" },
-        { label: "B", text: "$3x + 7$" },
-        { label: "C", text: "$3x + 12$" },
-        { label: "D", text: "$x + 12$" },
+        { label: "A", text: "20%" },
+        { label: "B", text: "25%" },
+        { label: "C", text: "80%" },
+        { label: "D", text: "125%" },
       ],
-      correctAnswer: "C",
-      explanation: "The 3 multiplies both terms inside the bracket: $3 \\times x$ and $3 \\times 4$.",
+      correctAnswer: "B",
+      explanation: "Profit = $100 − $80 = $20. Percentage profit = (20 ÷ 80) × 100 = 25%.",
+    },
+    {
+      id: "y8-fm2",
+      unitSlug: "number-financial-mathematics",
+      prompt: "What is the simple interest on $500 invested at 4% per annum for 2 years?",
+      choices: [
+        { label: "A", text: "$20" },
+        { label: "B", text: "$40" },
+        { label: "C", text: "$80" },
+        { label: "D", text: "$540" },
+      ],
+      correctAnswer: "B",
+      explanation: "Using I = PRT ÷ 100: I = 500 × 4 × 2 ÷ 100 = 4000 ÷ 100 = 40. The simple interest is $40.",
+    },
+    {
+      id: "y8-af1",
+      unitSlug: "algebra-foundations",
+      prompt: "Simplify $5x - 3 + 2x + 7$.",
+      choices: [
+        { label: "A", text: "$7x + 4$" },
+        { label: "B", text: "$7x - 4$" },
+        { label: "C", text: "$3x + 4$" },
+        { label: "D", text: "$10x + 4$" },
+      ],
+      correctAnswer: "A",
+      explanation: "Collect the x-terms: $5x + 2x = 7x$. Collect the constants: $-3 + 7 = 4$. The result is $7x + 4$.",
+    },
+    {
+      id: "y8-af2",
+      unitSlug: "algebra-foundations",
+      prompt: "Evaluate $4p - 3$ when $p = 5$.",
+      choices: [
+        { label: "A", text: "$7$" },
+        { label: "B", text: "$17$" },
+        { label: "C", text: "$23$" },
+        { label: "D", text: "$32$" },
+      ],
+      correctAnswer: "B",
+      explanation: "Replace $p$ with 5: $4 \\times 5 - 3 = 20 - 3 = 17$.",
     },
     {
       id: "y8-ae2",
@@ -151,19 +188,7 @@ export const diagnosticData: DiagnosticData = {
       correctAnswer: "B",
       explanation: "Gradient is rise divided by run, so $6 \\div 3 = 2$.",
     },
-    {
-      id: "y8-py1",
-      unitSlug: "pythagoras-theorem",
-      prompt: "A right-angled triangle has shorter sides 3 cm and 4 cm. What is the hypotenuse?",
-      choices: [
-        { label: "A", text: "$5$ cm" },
-        { label: "B", text: "$6$ cm" },
-        { label: "C", text: "$7$ cm" },
-        { label: "D", text: "$12$ cm" },
-      ],
-      correctAnswer: "A",
-      explanation: "$3^2 + 4^2 = 25$, so the hypotenuse is $\\sqrt{25} = 5$ cm.",
-    },
+
     {
       id: "y8-py2",
       unitSlug: "pythagoras-theorem",
@@ -192,7 +217,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y8-gp1",
-      unitSlug: "geometry-properties",
+      unitSlug: "geometry-angles",
       prompt: "Which test proves two triangles are congruent using three equal side pairs?",
       choices: [
         { label: "A", text: "AA" },
@@ -205,7 +230,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y8-gp2",
-      unitSlug: "geometry-properties",
+      unitSlug: "geometry-angles",
       prompt: "Two similar shapes have scale factor 4. What happens to each corresponding side length?",
       choices: [
         { label: "A", text: "It is multiplied by 2" },
@@ -242,19 +267,7 @@ export const diagnosticData: DiagnosticData = {
       correctAnswer: "B",
       explanation: "Cylinder volume is circular base area times height, so use $\\pi r^2 h$.",
     },
-    {
-      id: "y8-dg1",
-      unitSlug: "data-and-graphs",
-      prompt: "For the data set $2, 4, 4, 7, 9$, what is the median?",
-      choices: [
-        { label: "A", text: "$2$" },
-        { label: "B", text: "$4$" },
-        { label: "C", text: "$5.2$" },
-        { label: "D", text: "$9$" },
-      ],
-      correctAnswer: "B",
-      explanation: "The median is the middle value after ordering; the third value is 4.",
-    },
+
     {
       id: "y8-dg2",
       unitSlug: "data-and-graphs",
