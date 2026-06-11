@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { courseCatalogue } from "../../lib/courseUnits";
 import type { CoursePathwayStatus } from "../../lib/courseTypes";
 import { SubscribeCTA } from "../components/SubscribeCTA";
+import { OnlineLearningHeroActions } from "./OnlineLearningHeroActions";
 
 const statusCopy: Record<
   CoursePathwayStatus,
@@ -124,22 +125,10 @@ export default function OnlineLearningPage() {
               Structured online learning for students who want targeted
               maths revision without committing to weekly tutoring.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <SubscribeCTA href="/checkout?offer=online-learning">
-                Start your 7-day free trial
-              </SubscribeCTA>
-              <SecondaryLink href="/signup">Create account</SecondaryLink>
-            </div>
+            <OnlineLearningHeroActions />
             <p className="mt-2 text-sm text-slate-500">
               No charge today &middot; Then $19/month &middot; Cancel anytime
             </p>
-
-            <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-              <SecondaryLink href="/diagnostic?offer=online-learning">
-                Start free diagnostic
-              </SecondaryLink>
-              <SecondaryLink href="/login">Log in</SecondaryLink>
-            </div>
           </div>
         </section>
 

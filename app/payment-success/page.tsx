@@ -291,10 +291,10 @@ export default async function PaymentSuccessPage({
                   Go to dashboard
                 </Link>
                 <Link
-                  href="/online-learning"
+                  href="/dashboard"
                   className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
                 >
-                  View online learning
+                  Start learning
                 </Link>
                 <Link
                   href="/login"
