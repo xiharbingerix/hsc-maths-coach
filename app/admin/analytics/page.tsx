@@ -326,11 +326,27 @@ export default async function AdminAnalyticsPage({
       .order("created_at", { ascending: true })
       .limit(20000);
 
+  const { data: adsFunnelRaw, error: adsFunnelError } = await supabaseAdmin
+    .from("analytics_events")
+    .select("event_name, metadata")
+    .in("event_name", [
+      "hsc_maths_viewed",
+      "trial_cta_clicked",
+      "checkout_started",
+      "checkout_redirected_to_stripe",
+      "payment_success",
+      "trial_started",
+      "dashboard_viewed",
+      "lesson_started",
+    ])
+    .gte("created_at", since);
+
   const tableNotReady =
     countError?.message?.includes("does not exist") ||
     recentError?.message?.includes("does not exist") ||
     trialCtaSourceError?.message?.includes("does not exist") ||
-    diagnosticEventError?.message?.includes("does not exist");
+    diagnosticEventError?.message?.includes("does not exist") ||
+    adsFunnelError?.message?.includes("does not exist");
 
   if (tableNotReady) {
     return (
@@ -709,6 +725,56 @@ export default async function AdminAnalyticsPage({
     filteredStartedCount > 0 || diagnosticYearRows.some((row) => row.starts > 0);
 
   const recentEvents = (recentData ?? []) as AnalyticsEventRow[];
+
+  // ── Ads funnel aggregation ─────────────────────────────────────────────────
+  type AdsCampaignRow = {
+    campaign: string;
+    isTest: boolean;
+    viewed: number;
+    cta: number;
+    checkout: number;
+    stripe: number;
+    payment: number;
+    trial: number;
+    dashboard: number;
+    lesson: number;
+  };
+
+  const adsCampaignMap = new Map<string, AdsCampaignRow>();
+
+  for (const raw of adsFunnelRaw ?? []) {
+    const r = raw as { event_name: string; metadata: Record<string, unknown> | null };
+    const campaign = metadataString(r.metadata, "utm_campaign");
+    const gclid = metadataString(r.metadata, "gclid");
+    const isTest =
+      campaign === "test_hsc_trial" ||
+      (gclid !== null && gclid.startsWith("TEST"));
+    const key = `${isTest ? "1" : "0"}::${campaign ?? ""}`;
+
+    if (!adsCampaignMap.has(key)) {
+      adsCampaignMap.set(key, {
+        campaign: campaign ?? "(none)",
+        isTest,
+        viewed: 0, cta: 0, checkout: 0, stripe: 0,
+        payment: 0, trial: 0, dashboard: 0, lesson: 0,
+      });
+    }
+    const cr = adsCampaignMap.get(key)!;
+    const ev = r.event_name;
+    if (ev === "hsc_maths_viewed")                  cr.viewed++;
+    else if (ev === "trial_cta_clicked")             cr.cta++;
+    else if (ev === "checkout_started")              cr.checkout++;
+    else if (ev === "checkout_redirected_to_stripe") cr.stripe++;
+    else if (ev === "payment_success")               cr.payment++;
+    else if (ev === "trial_started")                 cr.trial++;
+    else if (ev === "dashboard_viewed")              cr.dashboard++;
+    else if (ev === "lesson_started")                cr.lesson++;
+  }
+
+  const adsFunnelRows = [...adsCampaignMap.values()].sort((a, b) => {
+    if (a.isTest !== b.isTest) return Number(a.isTest) - Number(b.isTest);
+    return a.campaign.localeCompare(b.campaign);
+  });
 
   const summary = summariseAnalytics({
     visitors: totalUniqueIdentities,
@@ -1289,6 +1355,89 @@ export default async function AdminAnalyticsPage({
               description={`${trialStarts} trials / ${checkoutRedirectsToStripe} redirects`}
             />
           </div>
+        </section>
+
+        {/* ── Ads funnel ────────────────────────────────────────────────── */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Ads funnel · last {days} day{days === 1 ? "" : "s"}
+          </p>
+          <h2 className="mt-2 text-xl font-bold tracking-tight">
+            Campaign breakdown
+          </h2>
+          <p className="mt-1 text-xs text-slate-500">
+            Grouped by{" "}
+            <code className="font-mono">utm_campaign</code>. Rows with{" "}
+            <code className="font-mono">utm_campaign = test_hsc_trial</code> or{" "}
+            <code className="font-mono">gclid</code> starting with{" "}
+            <code className="font-mono">TEST</code> are marked as test and
+            sorted last.
+          </p>
+
+          {adsFunnelError && !tableNotReady ? (
+            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+              Could not load ads funnel data: {adsFunnelError.message}
+            </div>
+          ) : adsFunnelRows.length === 0 ? (
+            <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+              No ads funnel events in this period.
+            </p>
+          ) : (
+            <div className="mt-5 overflow-x-auto">
+              <table className="min-w-full divide-y divide-slate-200 text-xs">
+                <thead className="bg-slate-50">
+                  <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <th className="px-3 py-2 text-left">Campaign</th>
+                    <th className="px-3 py-2 text-right" title="hsc_maths_viewed">Viewed</th>
+                    <th className="px-3 py-2 text-right" title="trial_cta_clicked">CTA</th>
+                    <th className="px-3 py-2 text-right" title="checkout_started">Checkout</th>
+                    <th className="px-3 py-2 text-right" title="checkout_redirected_to_stripe">→Stripe</th>
+                    <th className="px-3 py-2 text-right" title="payment_success">Payment</th>
+                    <th className="px-3 py-2 text-right" title="trial_started">Trial</th>
+                    <th className="px-3 py-2 text-right" title="dashboard_viewed">Dashboard</th>
+                    <th className="px-3 py-2 text-right" title="lesson_started">Lesson</th>
+                    <th className="px-3 py-2 text-right">View→CTA</th>
+                    <th className="px-3 py-2 text-right">CTA→Checkout</th>
+                    <th className="px-3 py-2 text-right">Checkout→Trial</th>
+                    <th className="px-3 py-2 text-right">Trial→Lesson</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {adsFunnelRows.map((row) => (
+                    <tr
+                      key={`${row.isTest ? "1" : "0"}::${row.campaign}`}
+                      className={row.isTest ? "bg-slate-50 text-slate-400" : ""}
+                    >
+                      <td className="px-3 py-2 font-medium text-slate-900">
+                        {row.campaign}
+                        {row.isTest && (
+                          <span className="ml-2 rounded-full bg-slate-200 px-1.5 py-0.5 text-xs font-semibold text-slate-500">
+                            test
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-3 py-2 text-right tabular-nums">{row.viewed}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{row.cta}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{row.checkout}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{row.stripe}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{row.payment}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{row.trial}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{row.dashboard}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{row.lesson}</td>
+                      <td className="px-3 py-2 text-right text-slate-500">{pct(row.cta, row.viewed)}</td>
+                      <td className="px-3 py-2 text-right text-slate-500">{pct(row.checkout, row.cta)}</td>
+                      <td className="px-3 py-2 text-right text-slate-500">{pct(row.trial, row.checkout)}</td>
+                      <td className="px-3 py-2 text-right text-slate-500">{pct(row.lesson, row.trial)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="mt-3 text-xs text-slate-500">
+                Hover column headers to see the underlying event names. Rates
+                use total event counts, not unique identities.
+              </p>
+            </div>
+          )}
         </section>
 
         {/* ── Recent events ─────────────────────────────────────────────── */}
