@@ -13,9 +13,16 @@ export async function updateFlagStatus(id: string, status: string) {
     throw new Error("Invalid status");
   }
 
+  const resolved = status === "reviewed" || status === "dismissed";
+  const updates: Record<string, unknown> = {
+    status,
+    reviewed_at: resolved ? new Date().toISOString() : null,
+    reviewed_by: null,
+  };
+
   const { error } = await supabaseAdmin
     .from("question_flags")
-    .update({ status })
+    .update(updates)
     .eq("id", id);
 
   if (error) throw new Error(error.message);

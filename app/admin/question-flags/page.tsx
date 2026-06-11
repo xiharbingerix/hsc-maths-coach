@@ -19,6 +19,8 @@ type FlagRow = {
   prompt_snapshot: string | null;
   status: string;
   created_at: string;
+  reviewed_at: string | null;
+  reviewed_by: string | null;
 };
 
 const REASON_LABELS: Record<string, string> = {
@@ -66,7 +68,7 @@ export default async function AdminQuestionFlagsPage({
   let query = supabaseAdmin
     .from("question_flags")
     .select(
-      "id, source_id, reason, comment, student_answer, expected_answer_snapshot, marked_correct, prompt_snapshot, status, created_at"
+      "id, source_id, reason, comment, student_answer, expected_answer_snapshot, marked_correct, prompt_snapshot, status, created_at, reviewed_at, reviewed_by"
     )
     .order("created_at", { ascending: false });
 
@@ -269,6 +271,11 @@ export default async function AdminQuestionFlagsPage({
                         >
                           {f.status}
                         </span>
+                        {f.reviewed_at && (
+                          <p className="mt-0.5 text-[10px] text-slate-400">
+                            {fmtDate(f.reviewed_at)}
+                          </p>
+                        )}
                       </td>
                       <td className="px-4 py-3 whitespace-nowrap">
                         <div className="flex items-center gap-1">
