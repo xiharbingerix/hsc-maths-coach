@@ -44,6 +44,22 @@ export function trackSignupCheckoutWallViewed() {
   track("signup_checkout_wall_viewed", { offer: "online-learning" });
 }
 
+export function trackDashboardViewed(params?: Record<string, unknown>) {
+  track("dashboard_viewed", params);
+}
+
+export function trackCourseSelected(params?: Record<string, unknown>) {
+  track("course_selected", params);
+}
+
+export function trackContinueLearningClicked(params?: Record<string, unknown>) {
+  track("continue_learning_clicked", params);
+}
+
+export function trackLessonStarted(course: string, unit: string, lesson: string) {
+  track("lesson_started", { course, unit, lesson });
+}
+
 export function trackLessonViewed(course: string, unit: string, lesson: string) {
   track("lesson_viewed", { course, unit, lesson });
 }

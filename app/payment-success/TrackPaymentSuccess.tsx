@@ -8,7 +8,7 @@ import {
 } from "../../lib/analytics";
 import {
   clientTrackEvent,
-  consumeMarketingParams,
+  readMarketingParams,
 } from "../../lib/analytics/clientTrackEvent";
 
 export function TrackPaymentSuccess({
@@ -17,7 +17,7 @@ export function TrackPaymentSuccess({
   extraEventName?: string;
 }) {
   useEffect(() => {
-    const marketingParams = consumeMarketingParams();
+    const marketingParams = readMarketingParams();
     trackPaymentSuccess(marketingParams);
     if (extraEventName) {
       trackEvent(extraEventName, marketingParams);

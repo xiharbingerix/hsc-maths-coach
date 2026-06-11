@@ -9,6 +9,7 @@ import {
   trackLessonViewed,
   trackMasteryStarted,
   trackMasteryCompleted,
+  trackLessonStarted,
 } from "../../lib/analytics";
 import type {
   ExplicitLesson,
@@ -30,7 +31,7 @@ import {
   upsertLessonProgress,
 } from "../../lib/lessonProgress";
 import { supabase } from "../../lib/supabaseClient";
-import { clientTrackEvent } from "../../lib/analytics/clientTrackEvent";
+import { clientTrackEvent, readMarketingParams } from "../../lib/analytics/clientTrackEvent";
 
 type LessonStage =
   | "watch"
@@ -1156,6 +1157,14 @@ export function LessonRenderer({
     }
 
     trackLessonViewed(lesson.courseTitle, lesson.moduleTitle, lesson.title);
+    trackLessonStarted(courseSlug ?? "", unitSlug ?? "", lessonSlug);
+    clientTrackEvent("lesson_started", {
+      source: "lesson",
+      lesson_slug: lessonSlug,
+      course_slug: courseSlug ?? null,
+      unit_slug: unitSlug ?? null,
+      ...readMarketingParams(),
+    });
 
     const storageKey = masteryStorageKey(lesson.moduleSlug, lessonSlug);
     let localState: MasteryState | null = null;

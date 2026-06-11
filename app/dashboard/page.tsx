@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StudentNav } from "../components/StudentNav";
 import type { User } from "@supabase/supabase-js";
 import { courseCatalogue } from "../../lib/courseUnits";
@@ -23,6 +23,15 @@ import {
   normaliseUserAccessStatus,
   type UserAccessStatus,
 } from "../../lib/userAccess";
+import {
+  clientTrackEvent,
+  readMarketingParams,
+} from "../../lib/analytics/clientTrackEvent";
+import {
+  trackCourseSelected,
+  trackContinueLearningClicked,
+  trackDashboardViewed,
+} from "../../lib/analytics";
 
 type MasteryRow = {
   course_slug: string;
@@ -263,6 +272,7 @@ export default function DashboardPage() {
   const [selectedCourseSlug, setSelectedCourseSlug] = useState<string | null | undefined>(undefined);
   const [isSavingCourse, setIsSavingCourse] = useState(false);
   const [isCoursePickerOpen, setIsCoursePickerOpen] = useState(false);
+  const dashboardViewedRef = useRef(false);
 
   useEffect(() => {
     async function loadDashboard() {
@@ -406,6 +416,21 @@ export default function DashboardPage() {
     loadDashboard();
   }, [router]);
 
+  useEffect(() => {
+    if (isLoading || dashboardViewedRef.current) return;
+    dashboardViewedRef.current = true;
+
+    const metadata = {
+      source: "dashboard",
+      access_status: accessStatus,
+      selected_course_slug: selectedCourseSlug ?? null,
+      ...readMarketingParams(),
+    };
+
+    trackDashboardViewed(metadata);
+    clientTrackEvent("dashboard_viewed", metadata);
+  }, [accessStatus, isLoading, selectedCourseSlug]);
+
   async function handleSignOut() {
     await supabase.auth.signOut();
     router.push("/login");
@@ -420,6 +445,15 @@ export default function DashboardPage() {
     setSelectedCourseSlug(courseSlug);
     setIsCoursePickerOpen(false);
     setIsSavingCourse(false);
+
+    const metadata = {
+      source: "dashboard",
+      access_status: accessStatus,
+      selected_course_slug: courseSlug,
+      ...readMarketingParams(),
+    };
+    trackCourseSelected(metadata);
+    clientTrackEvent("course_selected", metadata);
   }
 
   async function handleManageSubscription() {
@@ -1462,6 +1496,19 @@ export default function DashboardPage() {
               </div>
               <Link
                 href={continueLearningTarget.href}
+                onClick={() => {
+                  const metadata = {
+                    source: "dashboard",
+                    access_status: accessStatus,
+                    selected_course_slug: selectedCourseSlug ?? null,
+                    continue_target_href: continueLearningTarget.href,
+                    ...readMarketingParams(),
+                  };
+                  trackContinueLearningClicked(metadata);
+                  clientTrackEvent("continue_learning_clicked", metadata, {
+                    beacon: true,
+                  });
+                }}
                 className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
               >
                 {continueLearningTarget.status === "In progress"

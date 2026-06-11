@@ -40,8 +40,12 @@ The current Nova Maths HSC funnel is instrumented but incomplete. The paid landi
      - `payment_success` now also recorded internally via `clientTrackEvent("payment_success", marketingParams)` after this audit
 
 6. Dashboard access / lesson starts
-   - No detected event named `lesson_started` in the repository.
-   - Dashboard page and lesson access are not instrumented with a dedicated event named `lesson_started`.
+   - Events added in this audit:
+     - `dashboard_viewed` when the student dashboard loads.
+     - `course_selected` when the course picker is updated.
+     - `continue_learning_clicked` when the dashboard continue learning button is clicked.
+     - `lesson_started` when an individual lesson page is loaded.
+   - These events include marketing attribution metadata when available.
 
 ## Trial Started implementation
 
@@ -86,10 +90,10 @@ The current Nova Maths HSC funnel is instrumented but incomplete. The paid landi
 
 ## Funnel gaps and risks
 
-- The funnel does not include a distinct `subscription_activated` or `lesson_started` event.
-- `trial_started` is the main finale, but it is a late-stage event that only happens after successful payment return.
-- There is no site-side event that confirms dashboard reach or first lesson start.
-- If customers create accounts or access the dashboard via login after purchase, that path is not clearly instrumented in this audit.
+- The funnel now includes downstream engagement events like `dashboard_viewed` and `lesson_started`, which helps validate post-purchase activity.
+- The source of truth still relies on `/payment-success` for Google Ads conversion and trial activation.
+- There is no distinct `subscription_activated` event yet, but lesson and dashboard engagement events improve downstream coverage.
+- If customers create accounts or access the dashboard via login after purchase, the dashboard and continue-learning events still provide better coverage than before.
 
 ## Offer/page audit
 
@@ -103,9 +107,7 @@ The current Nova Maths HSC funnel is instrumented but incomplete. The paid landi
   - The page may still ask users to start checkout before they have seen enough proof or a strong trust signal.
   - The promise is more about structure and progress than a quick Band 6 result, so ad copy and page messaging must match carefully.
   - The page is dense; the $19/month offer may not stand out enough for all visitors.
-
-## Recommended immediate changes
-
+- A low-risk experiment adds a stronger above-the-fold offer block plus a demo-focused secondary CTA so users can preview a sample lesson before heading to Stripe.
 ### Must fix before spending more
 
 - Pause or reduce spend until you confirm conversions on `/payment-success` via Google Ads tag diagnostics.
@@ -115,7 +117,7 @@ The current Nova Maths HSC funnel is instrumented but incomplete. The paid landi
 ### Should fix this week
 
 - Add a distinct `subscription_activated` or `checkout_completed` event separate from `trial_started`.
-- Add a `lesson_started` or `dashboard_viewed` event to validate post-purchase engagement.
+- Verify the newly added `dashboard_viewed`, `course_selected`, `continue_learning_clicked`, and `lesson_started` events in analytics reporting.
 - Document the funnel in admin analytics so the team can compare ad clicks → checkout → trial starts.
 
 ### Later experiments

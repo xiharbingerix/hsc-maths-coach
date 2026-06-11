@@ -71,6 +71,22 @@ export function consumeMarketingParams(): MarketingParams {
   }
 }
 
+export function readMarketingParams(): MarketingParams {
+  if (typeof window === "undefined") return {};
+
+  try {
+    const raw = localStorage.getItem(MARKETING_PARAMS_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      return {};
+    }
+    return parsed as MarketingParams;
+  } catch {
+    return {};
+  }
+}
+
 export type ClientTrackOptions = {
   /**
    * Use navigation-safe delivery. Tries fetch with keepalive:true first
