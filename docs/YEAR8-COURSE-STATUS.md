@@ -1,12 +1,12 @@
 # Year 8 Course Status
 
-_Audit date: 11 June 2026_
+_Audit date: 11 June 2026 | Last updated: 11 June 2026 (sessions 1–2)_
 
 ---
 
 ## Executive Summary
 
-Year 8 Mathematics has **11 units** in the course catalogue. **10 units are fully content-complete** with real lesson overrides and seedable questions. **1 unit is a shell** (catalogue entry only, 0 lessons). The diagnostic now routes correctly to 7 of 8 referenced units; only `geometry-properties` remains a dead end. Three completed units (`algebra-foundations`, `number-financial-mathematics`, `geometry-angles`) still have no diagnostic entry.
+Year 8 Mathematics has **11 units** in the course catalogue. **10 units are fully content-complete** with real lesson overrides and seedable questions. **1 unit is a shell** (catalogue entry only, 0 lessons). The diagnostic now routes correctly to all 8 referenced units; `geometry-properties` dead link was fixed in session 2 by repointing to `geometry-angles`. Three completed units (`algebra-foundations`, `number-financial-mathematics`, `geometry-angles`) still have no diagnostic entry.
 
 | Metric | Value |
 |---|---|
@@ -18,7 +18,7 @@ Year 8 Mathematics has **11 units** in the course catalogue. **10 units are full
 | Build | PASS |
 | TypeScript | PASS |
 | Audit failures | 0 |
-| Audit warnings (Year 8) | 435 of 664 total |
+| Audit warnings (Year 8) | 352 of 581 total (was 435 of 664) |
 | Duplicate lesson slugs | ⚠ 2 slugs shared across units (see below) |
 | Seed dry-run warnings | 0 |
 
@@ -128,7 +128,7 @@ Year 8 Mathematics has **11 units** in the course catalogue. **10 units are full
 - geometric-reasoning
 
 **Seedable questions:** 114 (6 × 19)
-**Diagnostic coverage:** None — not referenced in `year-8-mathematics.ts`
+**Diagnostic coverage:** Yes (2 questions: y8-gp1, y8-gp2) — **re-pointed from `geometry-properties` in session 2**
 
 ### volume-and-surface-area (6 lessons) ✅ NEW
 
@@ -168,7 +168,7 @@ Only one unit has zero lessons.
 
 | Unit slug | Diagnostic coverage? |
 |---|---|
-| `geometry-properties` | Yes (2 questions: y8-gp1, y8-gp2) — **dead link** |
+| `geometry-properties` | Was 2 questions (y8-gp1, y8-gp2) — **dead link fixed in session 2** (repointed to `geometry-angles`) |
 
 ---
 
@@ -203,7 +203,7 @@ The diagnostic (`lib/diagnostics/year-8-mathematics.ts`) references 8 unit slugs
 | `algebra-equations` | Yes | Yes (6) | **Aligned ✓** (was dead link — now fixed) |
 | `linear-relationships` | Yes | Yes (6) | Aligned ✓ |
 | `pythagoras-theorem` | Yes | Yes (6) | Aligned ✓ |
-| `geometry-properties` | Yes | No (shell) | **Bad link** — routes to empty unit |
+| `geometry-angles` | Yes | Yes (6) | **Aligned ✓** (was `geometry-properties` dead link — fixed session 2) |
 | `volume-and-surface-area` | Yes | Yes (6) | **Aligned ✓** (was dead link — now fixed) |
 | `data-and-graphs` | Yes | Yes (3) | Aligned ✓ |
 | `probability-and-chance` | Yes | Yes (3) | Aligned ✓ |
@@ -211,9 +211,8 @@ The diagnostic (`lib/diagnostics/year-8-mathematics.ts`) references 8 unit slugs
 **Missing from diagnostic (but content-complete):**
 - `algebra-foundations` — 6 lessons, 114 questions, no diagnostic entry
 - `number-financial-mathematics` — 6 lessons, 114 questions, no diagnostic entry
-- `geometry-angles` — 6 lessons, 114 questions, no diagnostic entry
 
-**Impact:** 1 diagnostic dead-end remains (down from 4). 3 units with 342 seedable questions still have no diagnostic pathway.
+**Impact:** 0 diagnostic dead-ends (was 1). 2 units with 228 seedable questions still have no diagnostic pathway.
 
 ---
 
@@ -253,26 +252,26 @@ Every lesson slug in the catalogue maps to a key in its override file's `lessons
 
 | Rule | Year 8 count | Primary cause |
 |---|---:|---|
-| `typed-answer-no-variants` | ~220 | Algebraic/numerical answers with no alternate form |
+| `typed-answer-no-variants` | ~137 | Algebraic/numerical answers with no safe alternate form (down from ~220) |
 | `no-visual-payload` | ~130 | Graphing/diagram questions without rendered payloads |
 | `prompt-reveals-answer` | ~40 | Questions in number-operations and linear-relationships |
 | `latex-working-steps` | ~15 | Evaluation chains in `latex` field (move to explanation) |
 
-**Per-unit warning counts (Year 8 only):**
+**Per-unit warning counts (Year 8 only) — session 1 reductions applied:**
 
-| Unit | Warnings | Primary cause |
-|---|---:|---|
-| linear-relationships | 76 | `no-visual-payload` (graphing questions without CartesianGraph payloads) |
-| number-operations | 74 | `typed-answer-no-variants` (fraction/decimal answers) |
-| algebra-foundations | 57 | `typed-answer-no-variants` |
-| data-and-graphs | 48 | `no-visual-payload` (data-table references without table payloads) |
-| volume-and-surface-area | 68 | `typed-answer-no-variants` (numerical geometry answers) |
-| geometry-angles | 40 | `typed-answer-no-variants` and `no-visual-payload` |
-| probability-and-chance | 25 | `no-visual-payload` |
-| algebra-equations | 26 | `typed-answer-no-variants` |
-| pythagoras-theorem | 12 | `no-visual-payload` and `typed-answer-no-variants` |
-| number-financial-mathematics | 9 | `typed-answer-no-variants` |
-| **Year 8 total** | **435** | |
+| Unit | Before | After | Primary remaining cause |
+|---|---:|---:|---|
+| linear-relationships | 76 | 76 | `no-visual-payload` (graphing without CartesianGraph — unfixable without diagrams) |
+| number-operations | 74 | 72 | `typed-answer-no-variants` (pure-number fraction answers with no safe decimal form) |
+| algebra-foundations | 57 | 57 | `typed-answer-no-variants` (not addressed in session 1) |
+| data-and-graphs | 48 | 48 | `no-visual-payload` (data-table references — unfixable without payloads) |
+| volume-and-surface-area | 68 | 6 | `no-visual-payload` only (1 per lesson — structurally unfixable) |
+| geometry-angles | 40 | 25 | `typed-answer-no-variants` (pure-number angle values) and `no-visual-payload` |
+| probability-and-chance | 25 | 25 | `no-visual-payload` |
+| algebra-equations | 26 | 26 | `typed-answer-no-variants` (substitution results with no safe alternate form) |
+| pythagoras-theorem | 12 | 12 | `no-visual-payload` and `typed-answer-no-variants` |
+| number-financial-mathematics | 9 | 7 | `typed-answer-no-variants` |
+| **Year 8 total** | **435** | **352** | |
 
 None of these warnings are failures. They do not block seeding or student access.
 
@@ -313,9 +312,10 @@ None of these warnings are failures. They do not block seeding or student access
 |---|---|
 | `npx.cmd tsc --noEmit` | PASS — 0 errors |
 | `npm.cmd run build` | PASS — all Year 8 routes compiled |
-| `npm.cmd run audit:lessons` | PASS — 0 failures, 664 warnings (435 Year 8) |
+| `npm.cmd run audit:lessons` | PASS — 0 failures, 581 warnings (352 Year 8; was 664 / 435) |
 | `seed-question-bank.ts --dry-run` | PASS — 1026 questions, 0 warnings |
-| `git diff --check` | PASS — no whitespace errors |
+| `git diff --check` | PASS — CRLF normalisation notes only (Windows line endings, non-blocking) |
+| `npm.cmd run test:answer-marking` | PASS — 61/61 |
 
 ---
 
@@ -323,10 +323,44 @@ None of these warnings are failures. They do not block seeding or student access
 
 | Risk | Severity | Notes |
 |---|---|---|
-| Diagnostic routes to `geometry-properties` (empty) | **High** | Only 1 dead-end now (was 4). Students following y8-gp1 or y8-gp2 links land on an empty page. |
+| ~~Diagnostic routes to `geometry-properties` (empty)~~ | ~~High~~ | **Fixed session 2** — repointed to `geometry-angles`. 0 dead-ends remain. |
 | Duplicate lesson slugs across `algebra-foundations` and `algebra-equations` | **Medium** | Two lesson slugs shared between units. No seeding failures but routing ambiguity exists. Rename one set. |
-| 3 completed units absent from diagnostic | **Medium** | `algebra-foundations`, `number-financial-mathematics`, `geometry-angles` have 342 questions with no diagnostic pathway. |
+| 2 completed units absent from diagnostic | **Medium** | `algebra-foundations`, `number-financial-mathematics` have 228 questions with no diagnostic pathway. |
 | 76 `no-visual-payload` warnings in linear-relationships | **Medium** | Questions referencing graphs/plots without rendered CartesianGraph payloads are pedagogically incomplete. |
+| Worksheet explanation LaTeX rendering | ~~Medium~~ | **Fixed session 2** — `WorksheetClient.tsx` now passes explanations through `MathText`. |
+
+---
+
+## QA Notes (Session 2 — 11 June 2026)
+
+Ten checks were run against the Year 8 student learning loop.
+
+### Fixed
+
+**1. Dead link in diagnostic results** (`lib/diagnostics/year-8-mathematics.ts`)
+- `geometry-properties` entry had `startHref: "/course/year-8-mathematics/geometry-properties"` — that unit has 0 lessons, so the page calls `notFound()` and returns a 404.
+- Fixed by replacing the entry with `geometry-angles` (6 real lessons) and retagging diagnostic questions y8-gp1 and y8-gp2 to `unitSlug: "geometry-angles"`.
+
+**2. Worksheet explanation plain-text rendering** (`app/worksheet/[token]/WorksheetClient.tsx`)
+- `result.explanation` was rendered as a bare React text node (`{result.explanation}`), so any `$...$` LaTeX in explanations would display as raw symbols rather than typeset maths.
+- Fixed by replacing with `<MathText text={result.explanation} />` (import was already present).
+
+### Unverified (requires live database)
+
+The following checks could not be completed without a Supabase connection:
+
+- **Check 6 — Answer marking on a live worksheet**: `markTypedAnswer` unit-variant logic confirmed in code; end-to-end marking requires a seeded worksheet row.
+- **Check 9 — Flag submission flow**: `/api/worksheet/[token]/flag` code looks correct; actual insertion into `question_flags` table and admin review page display require a live DB.
+- **Check 10 — Admin flag review page**: Query and REASON_LABELS map look correct in code; needs a real flag row to verify rendering.
+
+### No issues found
+
+- Course index page (`/course/year-8-mathematics`) renders unit cards correctly.
+- All unit lesson-list pages resolve (0 lessons → 404 for `geometry-properties` shell, all others have 6 lessons).
+- Lesson page route `[unitSlug]/[lessonSlug]` resolves correctly for sampled lessons.
+- MathText component handles all LaTeX delimiters used in Year 8 content.
+- `computeUnitResults` diagnostic aggregation logic is correct.
+- `progress-ring` and `start-studying` links in diagnostic results use `startHref` from the units array, now all valid.
 
 ---
 
