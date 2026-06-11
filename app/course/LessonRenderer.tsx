@@ -798,6 +798,8 @@ function MasteryResultPanel({
       ({ question }) => !isCorrectAnswer(question, answers[question.id] ?? "")
     );
 
+  const [reviewOpen, setReviewOpen] = useState(false);
+
   if (passed) {
     return (
       <div className="space-y-4">
@@ -834,10 +836,21 @@ function MasteryResultPanel({
         </div>
 
         {incorrectQuestions.length > 0 && (
-          <div className="space-y-3 rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-800">
-            <h3 className="font-semibold text-slate-900">
-              Review missed questions ({incorrectQuestions.length})
-            </h3>
+          <div className="rounded-xl border border-slate-200 bg-white text-sm text-slate-800">
+            <button
+              type="button"
+              onClick={() => setReviewOpen((open) => !open)}
+              className="flex w-full items-center justify-between px-4 py-3 text-left"
+            >
+              <span className="font-semibold text-slate-900">
+                Review missed questions ({incorrectQuestions.length})
+              </span>
+              <span className="ml-2 text-slate-500" aria-hidden="true">
+                {reviewOpen ? "▲" : "▼"}
+              </span>
+            </button>
+            {reviewOpen && (
+            <div className="space-y-3 border-t border-slate-200 p-4">
             {incorrectQuestions.map(({ question, quizIndex }) => {
               const submittedAnswer = answers[question.id] ?? "";
               return (
@@ -929,6 +942,8 @@ function MasteryResultPanel({
                 </div>
               );
             })}
+            </div>
+            )}
           </div>
         )}
       </div>
