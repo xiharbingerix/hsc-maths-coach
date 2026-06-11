@@ -38,7 +38,7 @@ export function StudentNav() {
             Worksheets
           </Link>
           <Link
-            href="/dashboard"
+            href="/dashboard#account"
             className="ml-auto shrink-0 rounded-lg px-3 py-1.5 font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900"
           >
             Account

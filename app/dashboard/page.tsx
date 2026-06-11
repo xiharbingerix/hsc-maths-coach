@@ -1534,7 +1534,7 @@ export default function DashboardPage() {
         </section>
 
         {accessStatus === "active" || accessStatus === "revoked" ? (
-          <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <section id="account" className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
             <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
               Account
             </p>
