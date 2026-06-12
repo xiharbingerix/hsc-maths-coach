@@ -115,21 +115,40 @@ export function WorksheetGeneratorForm({
   initialStudentName = "",
   initialStudentEmail = "",
   initialStudentId = "",
+  initialCourseSlug = "",
+  initialTopicSlug = "",
+  initialTitle = "",
 }: {
   courseTopics: CourseTopicEntry[];
   initialStudentName?: string;
   initialStudentEmail?: string;
   initialStudentId?: string;
+  initialCourseSlug?: string;
+  initialTopicSlug?: string;
+  initialTitle?: string;
 }) {
   const courses = [...new Set(courseTopics.map((ct) => ct.courseSlug))].sort();
 
-  const [title, setTitle] = useState("");
+  const resolvedInitialCourse =
+    initialCourseSlug && courses.includes(initialCourseSlug)
+      ? initialCourseSlug
+      : courses[0] ?? "";
+
+  const resolvedInitialTopics = (() => {
+    if (!initialTopicSlug) return [];
+    const available = courseTopics
+      .filter((ct) => ct.courseSlug === resolvedInitialCourse)
+      .map((ct) => ct.topicSlug);
+    return available.includes(initialTopicSlug) ? [initialTopicSlug] : [];
+  })();
+
+  const [title, setTitle] = useState(initialTitle);
   const [studentName, setStudentName] = useState(initialStudentName);
   const [studentEmail, setStudentEmail] = useState(initialStudentEmail);
   const [studentId] = useState(initialStudentId);
   const [dueDate, setDueDate] = useState("");
-  const [courseSlug, setCourseSlug] = useState(courses[0] ?? "");
-  const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+  const [courseSlug, setCourseSlug] = useState(resolvedInitialCourse);
+  const [selectedTopics, setSelectedTopics] = useState<string[]>(resolvedInitialTopics);
   const [preset, setPreset] = useState<"catch-up" | "standard" | "push-forward">(
     "standard"
   );

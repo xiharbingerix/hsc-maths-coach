@@ -12,6 +12,7 @@ import type {
   LessonLength,
   StudentLevel,
 } from "../../../lib/lessonMaker";
+import { VisualPayloadRenderer } from "../../components/VisualPayloadRenderer";
 
 // ── Props ────────────────────────────────────────────────────────────────────
 
@@ -20,6 +21,19 @@ interface Props {
 }
 
 // ── Plan-to-text serialiser (for clipboard) ──────────────────────────────────
+
+function buildWorksheetUrl(
+  courseSlug: string,
+  unitSlug: string,
+  lessonTitle: string
+): string {
+  const params = new URLSearchParams({
+    course: courseSlug,
+    topic: unitSlug,
+    title: lessonTitle,
+  });
+  return `/admin/worksheets/new?${params.toString()}`;
+}
 
 function planToText(plan: TutorLessonPlan): string {
   const lines: string[] = [];
@@ -119,6 +133,19 @@ function QuestionCard({
               <BlockMath math={question.displayLatex} />
             </div>
           )}
+
+          {/* Visual payload */}
+          <VisualPayloadRenderer
+            diagram={question.diagram}
+            triangleDiagram={question.triangleDiagram}
+            cartesianGraph={question.cartesianGraph}
+            trapezoidalRuleDiagram={question.trapezoidalRuleDiagram}
+            boxPlotDiagram={question.boxPlotDiagram}
+            normalDistributionDiagram={question.normalDistributionDiagram}
+            probabilityTreeDiagram={question.probabilityTreeDiagram}
+            twoWayTableDiagram={question.twoWayTableDiagram}
+            vennDiagram={question.vennDiagram}
+          />
 
           {/* MCQ choices */}
           {question.isMultipleChoice && question.choices && (
@@ -252,6 +279,17 @@ function SectionCard({
             <div className="overflow-x-auto rounded-xl bg-slate-50 px-4 py-3">
               <BlockMath math={section.example.questionLatex} />
             </div>
+            <VisualPayloadRenderer
+              diagram={section.example.diagram}
+              triangleDiagram={section.example.triangleDiagram}
+              cartesianGraph={section.example.cartesianGraph}
+              trapezoidalRuleDiagram={section.example.trapezoidalRuleDiagram}
+              boxPlotDiagram={section.example.boxPlotDiagram}
+              normalDistributionDiagram={section.example.normalDistributionDiagram}
+              probabilityTreeDiagram={section.example.probabilityTreeDiagram}
+              twoWayTableDiagram={section.example.twoWayTableDiagram}
+              vennDiagram={section.example.vennDiagram}
+            />
             <div className="space-y-2">
               {section.example.steps.map((step, i) => (
                 <div
@@ -596,6 +634,15 @@ export function LessonMakerClient({ catalog }: Props) {
               {plan.sections.reduce((t, s) => t + s.minutes, 0)} min total
             </p>
             <div className="flex gap-2">
+              <a
+                href={buildWorksheetUrl(courseSlug, unitSlug, plan.title)}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800 hover:bg-emerald-100"
+                title="Pre-filled from this lesson"
+              >
+                Create worksheet
+              </a>
               <button
                 type="button"
                 onClick={handleCopy}
@@ -625,6 +672,15 @@ export function LessonMakerClient({ catalog }: Props) {
 
           {/* Bottom toolbar */}
           <div className="flex justify-end gap-2 pt-2 print:hidden">
+            <a
+              href={buildWorksheetUrl(courseSlug, unitSlug, plan.title)}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800 hover:bg-emerald-100"
+              title="Pre-filled from this lesson"
+            >
+              Create worksheet
+            </a>
             <button
               type="button"
               onClick={handleCopy}

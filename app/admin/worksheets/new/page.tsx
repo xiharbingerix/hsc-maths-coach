@@ -59,7 +59,14 @@ async function loadCourseTopics(): Promise<CourseTopicEntry[]> {
 export default async function NewWorksheetPage({
   searchParams,
 }: {
-  searchParams?: Promise<{ studentName?: string; studentEmail?: string; studentId?: string }>;
+  searchParams?: Promise<{
+    studentName?: string;
+    studentEmail?: string;
+    studentId?: string;
+    course?: string;
+    topic?: string;
+    title?: string;
+  }>;
 }) {
   await requireAdmin();
   const params = await searchParams;
@@ -69,6 +76,12 @@ export default async function NewWorksheetPage({
     typeof params?.studentEmail === "string" ? params.studentEmail : "";
   const initialStudentId =
     typeof params?.studentId === "string" ? params.studentId : "";
+  const initialCourseSlug =
+    typeof params?.course === "string" ? params.course : "";
+  const initialTopicSlug =
+    typeof params?.topic === "string" ? params.topic : "";
+  const initialTitle =
+    typeof params?.title === "string" ? params.title : "";
 
   // Load distinct (course_slug, topic_slug) pairs from active questions.
   // Returns an empty list if the questions table is empty or migration not applied.
@@ -136,13 +149,25 @@ export default async function NewWorksheetPage({
             </ol>
           </div>
         ) : (
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <WorksheetGeneratorForm
-              courseTopics={courseTopics}
-              initialStudentName={initialStudentName}
-              initialStudentEmail={initialStudentEmail}
-              initialStudentId={initialStudentId}
-            />
+          <div className="space-y-4">
+            {initialCourseSlug && (
+              <div className="rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-3 text-sm text-indigo-800">
+                Pre-filled from lesson plan
+                {initialTopicSlug ? ` — topic preselected where available` : ""}.
+                Adjust selections as needed.
+              </div>
+            )}
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <WorksheetGeneratorForm
+                courseTopics={courseTopics}
+                initialStudentName={initialStudentName}
+                initialStudentEmail={initialStudentEmail}
+                initialStudentId={initialStudentId}
+                initialCourseSlug={initialCourseSlug}
+                initialTopicSlug={initialTopicSlug}
+                initialTitle={initialTitle}
+              />
+            </div>
           </div>
         )}
       </div>
