@@ -73,6 +73,7 @@ type PartAnswerResult = {
   marks: number;
   isCorrect: boolean;
   studentAnswer: string;
+  correctAnswer: string;
   explanation: string;
 };
 
@@ -785,6 +786,13 @@ export function WorksheetClient({
                         {part.label} {part.isCorrect ? "Correct" : "Not quite"} ({part.marks} {part.marks === 1 ? "mark" : "marks"})
                       </p>
                       <p className="mt-1">
+                        Your answer:{" "}
+                        <MathText text={part.studentAnswer || "No answer submitted"} />
+                      </p>
+                      <p className="mt-1 font-medium">
+                        Correct answer: <MathText text={part.correctAnswer} />
+                      </p>
+                      <p className="mt-2">
                         <MathText text={part.explanation} />
                       </p>
                     </div>

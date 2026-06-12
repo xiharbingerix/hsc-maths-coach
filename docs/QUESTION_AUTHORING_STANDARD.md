@@ -48,11 +48,12 @@ type PracticeQuestion = {
 
 ### Multi-part questions (`multiPartPractice` section)
 
-Multi-part questions live in the optional `multiPartPractice` array on a lesson — separate from the standard 4+5+10 sections. They are seeded at **D5** (exam-style) and are not counted by the lesson-structure audit.
+Multi-part questions live in the optional `multiPartPractice` array on a lesson — separate from the standard 4+5+10 sections. They are seeded at **D5** (exam-style), audited by `npm run audit:lessons`, and not counted against the standard lesson-section counts.
 
 Rules specific to multi-part questions:
 - Every part must have a unique `key` (e.g. `"a"`, `"b"`, `"c"`) and a display `label` (e.g. `"(a)"`).
 - Every part needs `marks`, `answer`, `acceptedAnswers`, `hint`, and `explanation`.
+- Add accepted answer variants when the answer is formatting-sensitive, especially coordinates, fractions, negative signs, or algebraic forms.
 - Keep all parts **auto-markable**: exact numeric, coordinate, or simple algebraic values only. No proof steps, no "show that", no free-text.
 - The top-level `answer` field should equal the answer to part (a) — this is what the seed stores in the `answer` column for backward compatibility.
 - The top-level `hint` and `explanation` may summarise all parts.
@@ -91,7 +92,7 @@ type QuestionBatchRecord = {
 
 Use multi-part questions for HSC Section II-style items where parts (a), (b), (c) share a stem but must be answered and marked separately. Do not use them as a replacement for guided `steps`: `steps` are a scaffolded teaching flow; `parts` are assessable question parts.
 
-Each part must be auto-markable with exact, numeric, or algebraic accepted answers. AI/free-text proof marking is not supported yet.
+Each part must be auto-markable with exact, numeric, coordinate, or simple algebraic accepted answers. AI/free-text proof marking is not supported yet.
 
 ```typescript
 type PracticeQuestionPart = {

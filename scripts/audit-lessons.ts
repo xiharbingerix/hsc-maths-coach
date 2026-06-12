@@ -48,7 +48,7 @@ type LessonRecord = {
 };
 
 type QuestionRecord = {
-  section: "guided" | "independent" | "mastery";
+  section: "guided" | "independent" | "mastery" | "multiPartPractice";
   question: PracticeQuestion;
 };
 
@@ -99,6 +99,10 @@ function questionRecords(lesson: ExplicitLesson): QuestionRecord[] {
     })),
     ...lesson.masteryQuiz.map((question) => ({
       section: "mastery" as const,
+      question,
+    })),
+    ...(lesson.multiPartPractice ?? []).map((question) => ({
+      section: "multiPartPractice" as const,
       question,
     })),
   ];
@@ -916,6 +920,7 @@ function placeholderText(lesson: ExplicitLesson) {
     independentPractice: lesson.independentPractice,
     commonMistakes: lesson.commonMistakes,
     masteryQuiz: lesson.masteryQuiz,
+    multiPartPractice: lesson.multiPartPractice,
   });
 }
 
@@ -961,9 +966,99 @@ function questionStimulusText(question: PracticeQuestion) {
     question.prompt,
     question.latex,
     ...(question.choices?.map((choice) => choice.text) ?? []),
+    ...(question.parts?.flatMap((part) => [part.prompt, part.latex]) ?? []),
   ]
     .filter(Boolean)
     .join(" ");
+}
+
+const freeTextPartPromptPattern =
+  /\b(?:prove|show\s+that|justify|explain|why|describe|discuss)\b/i;
+const sentenceLikeAnswerPattern = /\s{2,}|[.!?]|\b(?:because|therefore|hence|since)\b/i;
+
+function looksAutoMarkableAnswer(answer: string) {
+  const trimmed = answer.trim();
+  if (!trimmed) return false;
+  if (trimmed.length > 80) return false;
+  if (sentenceLikeAnswerPattern.test(trimmed)) return false;
+  return true;
+}
+
+function acceptedVariantsRecommended(answer: string) {
+  return /[(),\s]|−|\\frac|\/|-/.test(answer) && !/^-?\d+(?:\.\d+)?$/.test(answer.trim());
+}
+
+function validateMultiPartQuestion(question: PracticeQuestion, questionPath: string) {
+  if (!isNonEmptyString(question.id)) {
+    addIssue("FAIL", "multipart-question-shape", questionPath, "Multi-part question requires an id.");
+  }
+
+  if (!isNonEmptyString(question.prompt)) {
+    addIssue("FAIL", "multipart-question-shape", questionPath, "Multi-part question requires a prompt.");
+  }
+
+  if (question.choices?.length) {
+    addIssue("FAIL", "multipart-question-shape", questionPath, "Multi-part questions must not use MCQ choices.");
+  }
+
+  if (!Array.isArray(question.parts) || question.parts.length === 0) {
+    addIssue("FAIL", "multipart-question-shape", questionPath, "Multi-part question requires a non-empty parts array.");
+    return;
+  }
+
+  const seenKeys = new Set<string>();
+  question.parts.forEach((part, index) => {
+    const partPath = `${questionPath}.parts[${index}]`;
+
+    for (const field of ["key", "label", "prompt", "answer", "explanation"] as const) {
+      if (!isNonEmptyString(part[field])) {
+        addIssue("FAIL", "multipart-part-shape", partPath, `Part requires non-empty ${field}.`);
+      }
+    }
+
+    if (isNonEmptyString(part.key)) {
+      if (seenKeys.has(part.key)) {
+        addIssue("FAIL", "multipart-part-shape", partPath, `Duplicate part key "${part.key}".`);
+      }
+      seenKeys.add(part.key);
+    }
+
+    if (!isFiniteNumber(part.marks) || part.marks <= 0) {
+      addIssue("FAIL", "multipart-part-shape", partPath, "Part marks must be a positive number.");
+    }
+
+    if (isNonEmptyString(part.prompt) && freeTextPartPromptPattern.test(part.prompt)) {
+      addIssue(
+        "FAIL",
+        "multipart-free-text",
+        partPath,
+        "Part prompt appears to require proof/free-text marking; MVP multi-part parts must be exact, numeric, coordinate, or simple algebraic answers."
+      );
+    }
+
+    if (isNonEmptyString(part.answer) && !looksAutoMarkableAnswer(part.answer)) {
+      addIssue(
+        "FAIL",
+        "multipart-free-text",
+        partPath,
+        `Part answer "${part.answer}" does not look safely auto-markable.`
+      );
+    }
+
+    const variants = part.acceptedAnswers ?? [];
+    if (variants.some((answer) => !isNonEmptyString(answer))) {
+      addIssue("FAIL", "multipart-part-shape", partPath, "acceptedAnswers entries must be non-empty strings.");
+    }
+
+    if (isNonEmptyString(part.answer) && acceptedVariantsRecommended(part.answer) && variants.length === 0) {
+      addIssue(
+        "WARN",
+        "multipart-accepted-answer-variants",
+        partPath,
+        "Part answer has formatting-sensitive notation; add acceptedAnswers variants if students may type it differently."
+      );
+    }
+  });
 }
 
 function compactExcerpt(text: string) {
@@ -1121,6 +1216,11 @@ function validateLesson(
   for (const { section, question } of questions) {
     const questionPath = `${path}/${section}/${question.id}`;
     classifyQuestionVisualStimulus(courseSlug, unitSlug, lesson.slug, section, question);
+
+    if (section === "multiPartPractice" || question.parts?.length) {
+      validateMultiPartQuestion(question, questionPath);
+      continue;
+    }
 
     if (question.choices) {
       const labels = question.choices.map((choice) => choice.label);

@@ -11,8 +11,9 @@ Defines structure, coverage, and quality for the three practice sections of ever
 | `guidedPractice` | 4 questions | Scaffold the new skill with low cognitive load |
 | `independentPractice` | 5 questions | Consolidate across varied contexts |
 | `masteryQuiz` | 10 questions | Verify durable understanding without scaffolding |
+| `multiPartPractice` | Optional | HSC Section II-style multipart extension practice |
 
-**Total: 19 questions per lesson.** Do not deviate from this count.
+**Total: 19 standard questions per lesson.** Do not deviate from this count. Optional `multiPartPractice` questions sit outside this count and are audited separately.
 
 ---
 
@@ -118,7 +119,7 @@ Skip it for simple questions where the prompt is self-contained (e.g. "Find y wh
 - Include 2–3 MCQ to test conceptual understanding and misconception traps
 - Hints are minimal or absent
 - Every question must be auto-markable
-- Multi-part exam-style questions are allowed only when each part has its own `parts` entry with prompt, marks, answer, accepted answers, and explanation
+- Use `multiPartPractice`, not `masteryQuiz`, for HSC Section II-style multi-part extension practice
 - Must include at least one question targeting the most common misconception (see `commonMistakes`)
 - Explanations must be particularly clear — mastery quiz is the student's primary review stage
 

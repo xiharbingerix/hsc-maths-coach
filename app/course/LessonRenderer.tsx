@@ -443,6 +443,68 @@ function MultiPartQuizQuestion({
   );
 }
 
+function MultiPartReviewDetails({
+  question,
+  submittedAnswer,
+}: {
+  question: PracticeQuestion;
+  submittedAnswer: string;
+}) {
+  const parts = questionParts(question);
+  const answers = parsePartAnswers(submittedAnswer);
+
+  if (parts.length === 0) return null;
+
+  return (
+    <div className="space-y-3">
+      {parts.map((part) => (
+        <div key={part.key} className="rounded-xl border border-slate-200 bg-white p-3">
+          <div className="flex items-start justify-between gap-3">
+            <p className="font-semibold text-slate-900">{part.label}</p>
+            <span className="shrink-0 rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-600">
+              {part.marks} {part.marks === 1 ? "mark" : "marks"}
+            </span>
+          </div>
+          <p className="mt-2 text-slate-800">
+            <MathText text={part.prompt} />
+          </p>
+          {part.latex && (
+            <div className="mt-2 overflow-x-auto rounded-xl bg-slate-50 p-3">
+              <BlockMath math={part.latex} />
+            </div>
+          )}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-xl bg-slate-50 p-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Your answer
+              </p>
+              <p className="mt-1 font-medium">
+                <MathText text={answers[part.key]?.trim() || "No answer submitted"} />
+              </p>
+            </div>
+            <div className="rounded-xl bg-green-50 p-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-green-700">
+                Correct answer
+              </p>
+              <p className="mt-1 font-medium text-green-900">
+                <MathText text={part.answer} />
+              </p>
+            </div>
+          </div>
+          <div className="mt-3 rounded-xl bg-slate-50 p-3 text-slate-700">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Explanation
+            </p>
+            <p className="mt-1">
+              <MathText text={part.explanation} />
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function masteryStorageKey(moduleSlug: string, lessonSlug: string) {
   if (moduleSlug === "differential-calculus") {
     return `hsc-maths-coach:mastery:${lessonSlug}`;
@@ -1164,26 +1226,33 @@ function MasteryResultPanel({
                     )}
                   </div>
 
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div className="rounded-xl bg-slate-50 p-3">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                        Your answer
-                      </p>
-                      <p className="mt-1 font-medium">
-                        <MathText text={choiceAnswerText(question, submittedAnswer)} />
-                      </p>
+                  {hasQuestionParts(question) ? (
+                    <MultiPartReviewDetails
+                      question={question}
+                      submittedAnswer={submittedAnswer}
+                    />
+                  ) : (
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <div className="rounded-xl bg-slate-50 p-3">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                          Your answer
+                        </p>
+                        <p className="mt-1 font-medium">
+                          <MathText text={choiceAnswerText(question, submittedAnswer)} />
+                        </p>
+                      </div>
+                      <div className="rounded-xl bg-green-50 p-3">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-green-700">
+                          Correct answer
+                        </p>
+                        <p className="mt-1 font-medium text-green-900">
+                          <MathText text={choiceAnswerText(question, question.answer)} />
+                        </p>
+                      </div>
                     </div>
-                    <div className="rounded-xl bg-green-50 p-3">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-green-700">
-                        Correct answer
-                      </p>
-                      <p className="mt-1 font-medium text-green-900">
-                        <MathText text={choiceAnswerText(question, question.answer)} />
-                      </p>
-                    </div>
-                  </div>
+                  )}
 
-                  {question.explanation && (
+                  {!hasQuestionParts(question) && question.explanation && (
                     <div className="rounded-xl bg-slate-50 p-3 text-slate-700">
                       <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                         Explanation
@@ -1282,30 +1351,37 @@ function MasteryResultPanel({
                 )}
               </div>
 
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div className="rounded-xl bg-slate-50 p-3">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                    Your answer
-                  </p>
-                  <p className="mt-1 font-medium">
-                    <MathText
-                      text={choiceAnswerText(question, submittedAnswer)}
-                    />
-                  </p>
+              {hasQuestionParts(question) ? (
+                <MultiPartReviewDetails
+                  question={question}
+                  submittedAnswer={submittedAnswer}
+                />
+              ) : (
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-xl bg-slate-50 p-3">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Your answer
+                    </p>
+                    <p className="mt-1 font-medium">
+                      <MathText
+                        text={choiceAnswerText(question, submittedAnswer)}
+                      />
+                    </p>
+                  </div>
+                  <div className="rounded-xl bg-green-50 p-3">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-green-700">
+                      Correct answer
+                    </p>
+                    <p className="mt-1 font-medium text-green-900">
+                      <MathText
+                        text={choiceAnswerText(question, question.answer)}
+                      />
+                    </p>
+                  </div>
                 </div>
-                <div className="rounded-xl bg-green-50 p-3">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-green-700">
-                    Correct answer
-                  </p>
-                  <p className="mt-1 font-medium text-green-900">
-                    <MathText
-                      text={choiceAnswerText(question, question.answer)}
-                    />
-                  </p>
-                </div>
-              </div>
+              )}
 
-              {question.explanation && (
+              {!hasQuestionParts(question) && question.explanation && (
                 <div className="rounded-xl bg-slate-50 p-3 text-slate-700">
                   <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                     Explanation

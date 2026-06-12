@@ -29,6 +29,7 @@ type PartAnswerResult = {
   marks: number;
   isCorrect: boolean;
   studentAnswer: string;
+  correctAnswer: string;
   explanation: string;
 };
 
@@ -189,6 +190,7 @@ export async function POST(
         marks: part.marks,
         isCorrect: studentAnswer.length > 0 && result.correct,
         studentAnswer,
+        correctAnswer: part.answer,
         explanation: part.explanation,
       };
     });
