@@ -639,6 +639,62 @@ choice(
 )
 ```
 
+## Visual payloads
+
+Use visual payloads when the question asks the student to read from, reason with, or inspect a diagram. Keep the prompt self-contained and use the payload as the visual stimulus.
+
+Currently supported payload fields:
+
+- `cartesianGraph`
+- `triangleDiagram`
+- `boxPlotDiagram`
+- `normalDistributionDiagram`
+- `probabilityTreeDiagram`
+- `twoWayTableDiagram`
+- `vennDiagram`
+- `diagram` / `networkDiagram`
+- `trapezoidalRuleDiagram`
+- `argandDiagram`
+- `vector3DDiagram`
+
+### ArgandDiagram
+
+Use `argandDiagram` for Extension 2 complex-number questions involving plotted complex numbers, conjugates, modulus circles, geometric loci, distances, and arguments.
+
+```typescript
+argandDiagram: {
+  description: "Argand diagram showing z = 2 - 3i and its conjugate.",
+  realMin: -1,
+  realMax: 4,
+  imaginaryMin: -4,
+  imaginaryMax: 4,
+  points: [{ re: 2, im: -3, label: "z = 2 - 3i" }],
+  vectorsFromOrigin: [{ to: { re: 2, im: -3 }, label: "z" }],
+  showConjugates: true,
+  modulusCircles: [{ radius: 2, label: "|z| = 2" }],
+}
+```
+
+### Vector3DDiagram
+
+Use `vector3DDiagram` for Extension 2 vectors in three dimensions: labelled points, directed vectors, and lines through a point with a direction vector. It is for schematic reasoning, not exact 3D measurement.
+
+```typescript
+vector3DDiagram: {
+  description: "3D vector diagram showing point A and vector v.",
+  axisLength: 4,
+  points: [{ x: 1, y: 2, z: 3, label: "A" }],
+  vectors: [{ to: { x: 1, y: 2, z: 3 }, label: "OA" }],
+  lines: [
+    {
+      point: { x: 1, y: 0, z: 2 },
+      direction: { x: 2, y: 1, z: -1 },
+      label: "r = a + tv",
+    },
+  ],
+}
+```
+
 ---
 
 ## Invalid examples

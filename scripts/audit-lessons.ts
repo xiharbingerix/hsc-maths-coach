@@ -60,9 +60,9 @@ const visualStimulusFindings: VisualStimulusFinding[] = [];
 const placeholderPattern =
   /\bTODO\b|lorem ipsum|placeholder lesson|generated fallback|sample question/i;
 const visualRequiredPattern =
-  /\b(?:read|use|using|from|shown (?:in|on)|given (?:in|on)|according to)\s+(?:the\s+)?(?:graph|diagram|figure|box(?:-and-whisker)? plot|tree diagram|venn(?: diagram)?|two-way table|network diagram)\b|\b(?:graph|diagram|figure|box(?:-and-whisker)? plot|tree diagram|venn(?: diagram)?|two-way table|network diagram)\s+(?:below|above|shown)\b/i;
+  /\b(?:read|use|using|from|shown (?:in|on)|given (?:in|on)|according to)\s+(?:the\s+)?(?:graph|diagram|figure|box(?:-and-whisker)? plot|tree diagram|venn(?: diagram)?|two-way table|network diagram|argand diagram|3d vector diagram)\b|\b(?:graph|diagram|figure|box(?:-and-whisker)? plot|tree diagram|venn(?: diagram)?|two-way table|network diagram|argand diagram|3d vector diagram)\s+(?:below|above|shown)\b/i;
 const visualHelpfulPattern =
-  /\bgraph|diagram|figure|box(?:-and-whisker)? plot|tree diagram|venn(?: diagram)?|two-way table|network diagram|trapezoidal rule|area between curves|circle theorem\b/i;
+  /\bgraph|diagram|figure|box(?:-and-whisker)? plot|tree diagram|venn(?: diagram)?|two-way table|network diagram|argand diagram|3d vector diagram|trapezoidal rule|area between curves|circle theorem\b/i;
 const tableDataPattern = /\btable|data set|data below|values below|following data|frequency table\b/i;
 
 function addIssue(
@@ -118,6 +118,8 @@ function hasItemVisualPayload(item: WorkedExample | PracticeQuestion) {
       ("solutionDiagram" in item && item.solutionDiagram) ||
       item.triangleDiagram ||
       item.cartesianGraph ||
+      item.argandDiagram ||
+      item.vector3DDiagram ||
       item.trapezoidalRuleDiagram ||
       item.boxPlotDiagram ||
       item.normalDistributionDiagram ||
@@ -138,6 +140,150 @@ function lessonPath(courseSlug: string, unitSlug: string, lessonSlug: string) {
 function validatePoint(value: unknown, path: string) {
   if (!isRecord(value) || !isFiniteNumber(value.x) || !isFiniteNumber(value.y)) {
     addIssue("FAIL", "renderer-payload", path, "Point must contain finite numeric x and y coordinates.");
+  }
+}
+
+function validateArgandPoint(value: unknown, path: string) {
+  if (!isRecord(value) || !isFiniteNumber(value.re) || !isFiniteNumber(value.im)) {
+    addIssue("FAIL", "argand-payload", path, "Argand point must contain finite numeric re and im coordinates.");
+  }
+}
+
+function validateVector3DPoint(value: unknown, path: string) {
+  if (
+    !isRecord(value) ||
+    !isFiniteNumber(value.x) ||
+    !isFiniteNumber(value.y) ||
+    !isFiniteNumber(value.z)
+  ) {
+    addIssue("FAIL", "vector-3d-payload", path, "3D point must contain finite numeric x, y and z coordinates.");
+  }
+}
+
+function validateArgandDiagram(value: unknown, path: string) {
+  if (!isRecord(value)) {
+    addIssue("FAIL", "argand-payload", path, "Argand diagram must be an object.");
+    return;
+  }
+
+  if (!isNonEmptyString(value.description)) {
+    addIssue("FAIL", "argand-payload", path, "Argand diagram requires a description.");
+  }
+
+  for (const key of ["realMin", "realMax", "imaginaryMin", "imaginaryMax", "realStep", "imaginaryStep"]) {
+    if (value[key] !== undefined && !isFiniteNumber(value[key])) {
+      addIssue("FAIL", "argand-payload", path, `${key} must be a finite number when supplied.`);
+    }
+  }
+
+  if (isFiniteNumber(value.realMin) && isFiniteNumber(value.realMax) && value.realMin >= value.realMax) {
+    addIssue("FAIL", "argand-payload", path, "realMin must be less than realMax.");
+  }
+
+  if (isFiniteNumber(value.imaginaryMin) && isFiniteNumber(value.imaginaryMax) && value.imaginaryMin >= value.imaginaryMax) {
+    addIssue("FAIL", "argand-payload", path, "imaginaryMin must be less than imaginaryMax.");
+  }
+
+  if (value.points !== undefined) {
+    if (!Array.isArray(value.points)) {
+      addIssue("FAIL", "argand-payload", path, "points must be an array when supplied.");
+    } else {
+      value.points.forEach((point, index) => validateArgandPoint(point, `${path}.points[${index}]`));
+    }
+  }
+
+  if (value.vectorsFromOrigin !== undefined) {
+    if (!Array.isArray(value.vectorsFromOrigin)) {
+      addIssue("FAIL", "argand-payload", path, "vectorsFromOrigin must be an array when supplied.");
+    } else {
+      value.vectorsFromOrigin.forEach((vector, index) => {
+        if (!isRecord(vector)) {
+          addIssue("FAIL", "argand-payload", `${path}.vectorsFromOrigin[${index}]`, "Vector must be an object.");
+          return;
+        }
+        validateArgandPoint(vector.to, `${path}.vectorsFromOrigin[${index}].to`);
+      });
+    }
+  }
+
+  if (value.segments !== undefined) {
+    if (!Array.isArray(value.segments)) {
+      addIssue("FAIL", "argand-payload", path, "segments must be an array when supplied.");
+    } else {
+      value.segments.forEach((segment, index) => {
+        if (!isRecord(segment)) {
+          addIssue("FAIL", "argand-payload", `${path}.segments[${index}]`, "Segment must be an object.");
+          return;
+        }
+        validateArgandPoint(segment.from, `${path}.segments[${index}].from`);
+        validateArgandPoint(segment.to, `${path}.segments[${index}].to`);
+      });
+    }
+  }
+
+  if (value.modulusCircles !== undefined) {
+    if (!Array.isArray(value.modulusCircles)) {
+      addIssue("FAIL", "argand-payload", path, "modulusCircles must be an array when supplied.");
+    } else {
+      value.modulusCircles.forEach((circle, index) => {
+        if (!isRecord(circle) || !isFiniteNumber(circle.radius) || circle.radius <= 0) {
+          addIssue("FAIL", "argand-payload", `${path}.modulusCircles[${index}]`, "Modulus circle requires a positive finite radius.");
+        }
+      });
+    }
+  }
+}
+
+function validateVector3DDiagram(value: unknown, path: string) {
+  if (!isRecord(value)) {
+    addIssue("FAIL", "vector-3d-payload", path, "Vector3D diagram must be an object.");
+    return;
+  }
+
+  if (!isNonEmptyString(value.description)) {
+    addIssue("FAIL", "vector-3d-payload", path, "Vector3D diagram requires a description.");
+  }
+
+  if (value.axisLength !== undefined && (!isFiniteNumber(value.axisLength) || value.axisLength <= 0)) {
+    addIssue("FAIL", "vector-3d-payload", path, "axisLength must be a positive finite number when supplied.");
+  }
+
+  if (value.points !== undefined) {
+    if (!Array.isArray(value.points)) {
+      addIssue("FAIL", "vector-3d-payload", path, "points must be an array when supplied.");
+    } else {
+      value.points.forEach((point, index) => validateVector3DPoint(point, `${path}.points[${index}]`));
+    }
+  }
+
+  if (value.vectors !== undefined) {
+    if (!Array.isArray(value.vectors)) {
+      addIssue("FAIL", "vector-3d-payload", path, "vectors must be an array when supplied.");
+    } else {
+      value.vectors.forEach((vector, index) => {
+        if (!isRecord(vector)) {
+          addIssue("FAIL", "vector-3d-payload", `${path}.vectors[${index}]`, "Vector must be an object.");
+          return;
+        }
+        if (vector.from !== undefined) validateVector3DPoint(vector.from, `${path}.vectors[${index}].from`);
+        validateVector3DPoint(vector.to, `${path}.vectors[${index}].to`);
+      });
+    }
+  }
+
+  if (value.lines !== undefined) {
+    if (!Array.isArray(value.lines)) {
+      addIssue("FAIL", "vector-3d-payload", path, "lines must be an array when supplied.");
+    } else {
+      value.lines.forEach((line, index) => {
+        if (!isRecord(line)) {
+          addIssue("FAIL", "vector-3d-payload", `${path}.lines[${index}]`, "Line must be an object.");
+          return;
+        }
+        validateVector3DPoint(line.point, `${path}.lines[${index}].point`);
+        validateVector3DPoint(line.direction, `${path}.lines[${index}].direction`);
+      });
+    }
   }
 }
 
@@ -888,6 +1034,8 @@ function validateVisualPayloads(lesson: ExplicitLesson, basePath: string) {
     const path = `${basePath}.visualItem[${index}]`;
     if (item.triangleDiagram) validateTriangleDiagram(item.triangleDiagram, `${path}.triangleDiagram`);
     if (item.cartesianGraph) validateCartesianGraph(item.cartesianGraph, `${path}.cartesianGraph`);
+    if (item.argandDiagram) validateArgandDiagram(item.argandDiagram, `${path}.argandDiagram`);
+    if (item.vector3DDiagram) validateVector3DDiagram(item.vector3DDiagram, `${path}.vector3DDiagram`);
     if (item.trapezoidalRuleDiagram) {
       validateTrapezoidalRuleDiagram(item.trapezoidalRuleDiagram, `${path}.trapezoidalRuleDiagram`);
     }

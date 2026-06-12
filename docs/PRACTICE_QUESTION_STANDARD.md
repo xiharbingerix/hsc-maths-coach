@@ -139,6 +139,19 @@ Skip it for simple questions where the prompt is self-contained (e.g. "Find y wh
 
 ---
 
+## Visual payload guidance
+
+Attach a visual payload when the question says or implies that the student should use a diagram, graph, table, network, tree, or plotted point.
+
+- Use `cartesianGraph` for coordinate graphs, functions, loci in the Cartesian plane, and calculus graph reading.
+- Use `argandDiagram` for Extension 2 complex numbers: plotted complex points, conjugate reflection, vectors from the origin, modulus circles, and simple loci.
+- Use `vector3DDiagram` for Extension 2 vectors in space: labelled points, arrows, and schematic vector lines.
+- Use the existing statistical, probability, network, triangle, and trapezoidal payloads for their specific domains.
+
+Visual payloads support student understanding, but answers must still be auto-markable unless the question is explicitly for teacher-led discussion.
+
+---
+
 ## Multi-part practice (`multiPartPractice`)
 
 **Purpose:** exam-rehearsal. Multi-part questions replicate the structure of HSC Section II items — a shared stem, 2–4 dependent parts, and a marks-based mark scheme. They sit outside the 19-question lesson count and are never required for lesson completion.

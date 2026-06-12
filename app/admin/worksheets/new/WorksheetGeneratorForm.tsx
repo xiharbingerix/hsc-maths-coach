@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { BlockMath } from "react-katex";
 import { MathText } from "../../../components/MathText";
+import { ArgandDiagramView } from "../../../course/components/ArgandDiagramView";
 import { BoxPlotView } from "../../../course/components/BoxPlotView";
 import { CartesianGraphView } from "../../../course/components/CartesianGraphView";
 import { NetworkDiagramView } from "../../../course/components/NetworkDiagramView";
@@ -11,8 +12,10 @@ import { ProbabilityTreeView } from "../../../course/components/ProbabilityTreeV
 import { TrapezoidalRuleView } from "../../../course/components/TrapezoidalRuleView";
 import { TriangleDiagramView } from "../../../course/components/TriangleDiagramView";
 import { TwoWayTableView } from "../../../course/components/TwoWayTableView";
+import { Vector3DDiagramView } from "../../../course/components/Vector3DDiagramView";
 import { VennDiagramView } from "../../../course/components/VennDiagramView";
 import type {
+  ArgandDiagram,
   BoxPlotDiagram,
   CartesianGraph,
   NetworkDiagram,
@@ -21,6 +24,7 @@ import type {
   TrapezoidalRuleDiagram,
   TriangleDiagram,
   TwoWayTableDiagram,
+  Vector3DDiagram,
   VennDiagram,
 } from "../../../../lib/lessons/types";
 
@@ -52,8 +56,23 @@ type PreviewQuestion = {
   prompt: string;
   latex: string | null;
   choices: { label: string; text: string }[] | null;
+  parts: {
+    key: string;
+    label: string;
+    prompt: string;
+    latex?: string | null;
+    marks: number;
+    answer: string;
+    explanation: string;
+  }[] | null;
   answer: string;
   diagramData: Record<string, unknown> | null;
+};
+
+type PreviewMetadata = {
+  totalCandidates: number;
+  multipartCandidates: number;
+  selectedMultipartCount: number;
 };
 
 const PRESETS = [
@@ -91,6 +110,10 @@ function DiagramPreview({ data }: { data: Record<string, unknown> | null }) {
     <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-3">
       {type === "cartesianGraph" ? (
         <CartesianGraphView graph={rest as CartesianGraph} />
+      ) : type === "argandDiagram" ? (
+        <ArgandDiagramView diagram={rest as ArgandDiagram} />
+      ) : type === "vector3DDiagram" ? (
+        <Vector3DDiagramView diagram={rest as Vector3DDiagram} />
       ) : type === "triangleDiagram" ? (
         <TriangleDiagramView diagram={rest as TriangleDiagram} />
       ) : type === "trapezoidalRuleDiagram" ? (
@@ -178,11 +201,15 @@ export function WorksheetGeneratorForm({
     "standard"
   );
   const [totalQuestions, setTotalQuestions] = useState(10);
+  const [includeMultiPart, setIncludeMultiPart] = useState(false);
   const [status, setStatus] = useState<
     "idle" | "previewing" | "preview" | "creating" | "success" | "error"
   >("idle");
   const [previewQuestions, setPreviewQuestions] = useState<PreviewQuestion[]>([]);
   const [prioritisedSubtopics, setPrioritisedSubtopics] = useState<string[]>([]);
+  const [previewMetadata, setPreviewMetadata] = useState<PreviewMetadata | null>(
+    null
+  );
   const [replacingQuestionId, setReplacingQuestionId] = useState<string | null>(
     null
   );
@@ -211,6 +238,7 @@ export function WorksheetGeneratorForm({
     setSelectedTopics([]);
     setSelectedSubtopics([]);
     setPreviewQuestions([]);
+    setPreviewMetadata(null);
     setStatus("idle");
   }
 
@@ -280,6 +308,7 @@ export function WorksheetGeneratorForm({
           preset,
           totalQuestions,
           studentId: studentId || undefined,
+          includeMultiPart,
           selectedSubtopicSlugs:
             selectedSubtopics.length > 0 ? selectedSubtopics : undefined,
         }),
@@ -289,6 +318,7 @@ export function WorksheetGeneratorForm({
         questions?: PreviewQuestion[];
         error?: string;
         prioritisedSubtopics?: string[];
+        metadata?: PreviewMetadata;
       };
 
       if (!res.ok || data.error || !data.questions) {
@@ -299,6 +329,7 @@ export function WorksheetGeneratorForm({
 
       setPreviewQuestions(data.questions);
       setPrioritisedSubtopics(data.prioritisedSubtopics ?? []);
+      setPreviewMetadata(data.metadata ?? null);
       setStatus("preview");
     } catch {
       setErrorMessage("Network error. Please try again.");
@@ -317,7 +348,9 @@ export function WorksheetGeneratorForm({
         body: JSON.stringify({
           courseSlug: question.courseSlug,
           topicSlug: question.topicSlug,
+          subtopicSlug: question.subtopicSlug,
           difficulty: question.difficulty,
+          includeMultiPart,
           excludeQuestionIds: previewQuestions.map((q) => q.id),
         }),
       });
@@ -364,6 +397,7 @@ export function WorksheetGeneratorForm({
           topicSlugs: selectedTopics,
           preset,
           totalQuestions: previewQuestions.length,
+          includeMultiPart,
           questionIds: previewQuestions.map((q) => q.id),
           assignedStudentName: studentName.trim() || undefined,
           assignedStudentEmail: studentEmail.trim() || undefined,
@@ -411,6 +445,7 @@ export function WorksheetGeneratorForm({
     setSelectedSubtopics([]);
     setPreviewQuestions([]);
     setPrioritisedSubtopics([]);
+    setPreviewMetadata(null);
     setCopied(false);
     setErrorMessage("");
   }
@@ -483,6 +518,13 @@ export function WorksheetGeneratorForm({
             Nothing has been saved yet. Replace any question, then create the
             worksheet when you are happy.
           </p>
+          {previewMetadata ? (
+            <p className="mt-2 text-xs text-slate-500">
+              Candidates: {previewMetadata.totalCandidates} total,{" "}
+              {previewMetadata.multipartCandidates} multi-part; selected{" "}
+              {previewMetadata.selectedMultipartCount} multi-part.
+            </p>
+          ) : null}
         </div>
 
         {prioritisedSubtopics.length > 0 && selectedSubtopics.length === 0 ? (
@@ -509,6 +551,8 @@ export function WorksheetGeneratorForm({
                   </p>
                   <p className="mt-1 text-xs text-slate-500">
                     Difficulty {question.difficulty}
+                    {question.sourceId ? ` · ${question.sourceId}` : ""}
+                    {question.parts?.length ? " · Multi-part" : ""}
                   </p>
                 </div>
                 <button
@@ -545,11 +589,47 @@ export function WorksheetGeneratorForm({
                     ))}
                   </div>
                 ) : null}
+                {question.parts?.length ? (
+                  <div className="space-y-3">
+                    {question.parts.map((part) => (
+                      <div
+                        key={`${question.id}-${part.key}`}
+                        className="rounded-xl border border-slate-200 bg-slate-50 p-3"
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <p className="font-medium leading-7 text-slate-900">
+                            <span className="mr-2 text-slate-500">
+                              {part.label}
+                            </span>
+                            <MathText text={part.prompt} />
+                          </p>
+                          <span className="shrink-0 rounded-full bg-white px-2 py-1 text-xs font-semibold text-slate-600">
+                            {part.marks} {part.marks === 1 ? "mark" : "marks"}
+                          </span>
+                        </div>
+                        {part.latex ? (
+                          <div className="mt-2 overflow-x-auto rounded-xl bg-white px-4 py-3 text-lg">
+                            <BlockMath math={part.latex} />
+                          </div>
+                        ) : null}
+                        <div className="mt-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+                          <span className="font-semibold">Correct answer:</span>{" "}
+                          <MathText text={part.answer} />
+                        </div>
+                        <p className="mt-2 text-sm leading-6 text-slate-600">
+                          <MathText text={part.explanation} />
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
                 <DiagramPreview data={question.diagramData} />
-                <div className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
-                  <span className="font-semibold">Correct answer:</span>{" "}
-                  <MathText text={question.answer} />
-                </div>
+                {!question.parts?.length ? (
+                  <div className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+                    <span className="font-semibold">Correct answer:</span>{" "}
+                    <MathText text={question.answer} />
+                  </div>
+                ) : null}
               </div>
             </article>
           ))}
@@ -747,6 +827,25 @@ export function WorksheetGeneratorForm({
           </div>
         </fieldset>
       ) : null}
+
+      <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm hover:border-slate-300">
+        <input
+          type="checkbox"
+          checked={includeMultiPart}
+          onChange={(event) => setIncludeMultiPart(event.target.checked)}
+          disabled={status === "previewing"}
+          className="mt-1 rounded border-slate-300"
+        />
+        <span>
+          <span className="font-semibold text-slate-800">
+            Include multi-part questions
+          </span>
+          <span className="mt-1 block text-xs leading-5 text-slate-500">
+            Optional for HSC Section II-style practice. Leave off for the
+            existing single-part worksheet mix.
+          </span>
+        </span>
+      </label>
 
       <fieldset className="space-y-2">
         <legend className="text-sm font-medium text-slate-800">

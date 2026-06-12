@@ -52,6 +52,64 @@ export type CartesianPoint = {
   label?: string;
 };
 
+export type ArgandPoint = {
+  re: number;
+  im: number;
+  label?: string;
+};
+
+export type ArgandDiagram = {
+  description: string;
+  realMin?: number;
+  realMax?: number;
+  imaginaryMin?: number;
+  imaginaryMax?: number;
+  realStep?: number;
+  imaginaryStep?: number;
+  points?: ArgandPoint[];
+  vectorsFromOrigin?: {
+    to: ArgandPoint;
+    label?: string;
+    dashed?: boolean;
+  }[];
+  segments?: {
+    from: ArgandPoint;
+    to: ArgandPoint;
+    label?: string;
+    dashed?: boolean;
+  }[];
+  showConjugates?: boolean;
+  modulusCircles?: {
+    radius: number;
+    label?: string;
+  }[];
+};
+
+export type Vector3DPoint = {
+  x: number;
+  y: number;
+  z: number;
+  label?: string;
+};
+
+export type Vector3DDiagram = {
+  description: string;
+  axisLength?: number;
+  points?: Vector3DPoint[];
+  vectors?: {
+    from?: Vector3DPoint;
+    to: Vector3DPoint;
+    label?: string;
+  }[];
+  lines?: {
+    point: Vector3DPoint;
+    direction: Vector3DPoint;
+    label?: string;
+    tMin?: number;
+    tMax?: number;
+  }[];
+};
+
 export type CartesianFunction =
   | {
       functionType: "line";

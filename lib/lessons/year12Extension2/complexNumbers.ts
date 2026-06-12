@@ -1,4 +1,5 @@
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import type { ArgandDiagram } from "../types";
 import type {
   CourseLessonSeed,
   CoursePathwaySeed,
@@ -35,6 +36,36 @@ function cxTyped(
 ): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers, hint, explanation };
 }
+
+const conjugateArgandDiagram: ArgandDiagram = {
+  description:
+    "Argand diagram showing z = 2 - 3i and its conjugate 2 + 3i reflected across the real axis.",
+  realMin: -1,
+  realMax: 4,
+  imaginaryMin: -4,
+  imaginaryMax: 4,
+  points: [
+    { re: 2, im: -3, label: "z = 2 - 3i" },
+  ],
+  vectorsFromOrigin: [
+    { to: { re: 2, im: -3 }, label: "z" },
+  ],
+  showConjugates: true,
+};
+
+const unitCircleArgandDiagram: ArgandDiagram = {
+  description:
+    "Argand diagram showing the locus |z| = 2 as a circle of radius 2 centred at the origin.",
+  realMin: -3,
+  realMax: 3,
+  imaginaryMin: -3,
+  imaginaryMax: 3,
+  modulusCircles: [{ radius: 2, label: "|z| = 2" }],
+  points: [
+    { re: 2, im: 0, label: "2" },
+    { re: 0, im: 2, label: "2i" },
+  ],
+};
 
 // ─── Lesson 1: Complex Number Arithmetic ─────────────────────────────────────
 
@@ -366,14 +397,17 @@ const modulusArgumentConjugate: Partial<ExplicitLesson> = {
       "|5+12i| = √(25+144) = √169 = 13.",
       "Apply |z| = √(a² + b²) with a = 5, b = 12."
     ),
-    cxChoice(
-      "cx2-g3",
-      "Which of the following is the conjugate of 2 − 3i?",
-      "A",
-      ["2 + 3i", "−2 − 3i", "−2 + 3i", "3 − 2i"],
-      "The conjugate of a − bi is a + bi. Conjugate of 2 − 3i is 2 + 3i.",
-      "The conjugate keeps the real part and flips the sign of the imaginary part."
-    ),
+    {
+      ...cxChoice(
+        "cx2-g3",
+        "Which of the following is the conjugate of 2 − 3i?",
+        "A",
+        ["2 + 3i", "−2 − 3i", "−2 + 3i", "3 − 2i"],
+        "The conjugate of a − bi is a + bi. Conjugate of 2 − 3i is 2 + 3i.",
+        "The conjugate keeps the real part and flips the sign of the imaginary part."
+      ),
+      argandDiagram: conjugateArgandDiagram,
+    },
     cxTyped(
       "cx2-g4",
       "Find (3 + 4i)(3 − 4i).",
@@ -693,14 +727,17 @@ const argandDiagramGeometry: Partial<ExplicitLesson> = {
       [],
       "(2+3i) − (2−3i) = 6i. |6i| = 6."
     ),
-    cxChoice(
-      "cx3-m7",
-      "|z| = 2 represents which of the following on the Argand diagram?",
-      "A",
-      ["a circle of radius 2 centred at the origin", "a horizontal line", "a single point", "a circle of radius 4"],
-      "|z| = 2 means distance from origin equals 2: a circle of radius 2 centred at the origin.",
-      "|z − 0| = 2 is a circle centred at 0 with radius 2."
-    ),
+    {
+      ...cxChoice(
+        "cx3-m7",
+        "|z| = 2 represents which of the following on the Argand diagram?",
+        "A",
+        ["a circle of radius 2 centred at the origin", "a horizontal line", "a single point", "a circle of radius 4"],
+        "|z| = 2 means distance from origin equals 2: a circle of radius 2 centred at the origin.",
+        "|z − 0| = 2 is a circle centred at 0 with radius 2."
+      ),
+      argandDiagram: unitCircleArgandDiagram,
+    },
     cxTyped(
       "cx3-m8",
       "If z = x + yi satisfies |z − 3i| = |z + 3i|, find y.",

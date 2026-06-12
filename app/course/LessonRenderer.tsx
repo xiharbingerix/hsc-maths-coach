@@ -16,6 +16,7 @@ import type {
   PracticeQuestion,
   PracticeQuestionPart,
 } from "../../lib/lessons/differentialCalculus";
+import { ArgandDiagramView } from "./components/ArgandDiagramView";
 import { NetworkDiagramView } from "./components/NetworkDiagramView";
 import { TriangleDiagramView } from "./components/TriangleDiagramView";
 import { CartesianGraphView } from "./components/CartesianGraphView";
@@ -24,6 +25,7 @@ import { BoxPlotView } from "./components/BoxPlotView";
 import { NormalDistributionView } from "./components/NormalDistributionView";
 import { ProbabilityTreeView } from "./components/ProbabilityTreeView";
 import { TwoWayTableView } from "./components/TwoWayTableView";
+import { Vector3DDiagramView } from "./components/Vector3DDiagramView";
 import { VennDiagramView } from "./components/VennDiagramView";
 import { markTypedAnswer } from "../../lib/answerMarking";
 import { MathAnswerInput } from "../components/MathAnswerInput";
@@ -301,6 +303,12 @@ function MultiPartPracticeCard({
         {question.cartesianGraph && (
           <CartesianGraphView graph={question.cartesianGraph} />
         )}
+        {question.argandDiagram && (
+          <ArgandDiagramView diagram={question.argandDiagram} />
+        )}
+        {question.vector3DDiagram && (
+          <Vector3DDiagramView diagram={question.vector3DDiagram} />
+        )}
         {question.trapezoidalRuleDiagram && (
           <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
         )}
@@ -442,6 +450,12 @@ function MultiPartQuizQuestion({
         )}
         {question.cartesianGraph && (
           <CartesianGraphView graph={question.cartesianGraph} />
+        )}
+        {question.argandDiagram && (
+          <ArgandDiagramView diagram={question.argandDiagram} />
+        )}
+        {question.vector3DDiagram && (
+          <Vector3DDiagramView diagram={question.vector3DDiagram} />
         )}
         {question.trapezoidalRuleDiagram && (
           <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
@@ -834,6 +848,12 @@ function PracticeCard({
         {question.cartesianGraph && (
           <CartesianGraphView graph={question.cartesianGraph} />
         )}
+        {question.argandDiagram && (
+          <ArgandDiagramView diagram={question.argandDiagram} />
+        )}
+        {question.vector3DDiagram && (
+          <Vector3DDiagramView diagram={question.vector3DDiagram} />
+        )}
         {question.trapezoidalRuleDiagram && (
           <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
         )}
@@ -1116,6 +1136,12 @@ function QuizQuestion({
         {question.cartesianGraph && (
           <CartesianGraphView graph={question.cartesianGraph} />
         )}
+        {question.argandDiagram && (
+          <ArgandDiagramView diagram={question.argandDiagram} />
+        )}
+        {question.vector3DDiagram && (
+          <Vector3DDiagramView diagram={question.vector3DDiagram} />
+        )}
         {question.trapezoidalRuleDiagram && (
           <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
         )}
@@ -1263,6 +1289,12 @@ function MasteryResultPanel({
                     {question.cartesianGraph && (
                       <CartesianGraphView graph={question.cartesianGraph} />
                     )}
+                    {question.argandDiagram && (
+                      <ArgandDiagramView diagram={question.argandDiagram} />
+                    )}
+                    {question.vector3DDiagram && (
+                      <Vector3DDiagramView diagram={question.vector3DDiagram} />
+                    )}
                     {question.trapezoidalRuleDiagram && (
                       <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
                     )}
@@ -1387,6 +1419,12 @@ function MasteryResultPanel({
                 )}
                 {question.cartesianGraph && (
                   <CartesianGraphView graph={question.cartesianGraph} />
+                )}
+                {question.argandDiagram && (
+                  <ArgandDiagramView diagram={question.argandDiagram} />
+                )}
+                {question.vector3DDiagram && (
+                  <Vector3DDiagramView diagram={question.vector3DDiagram} />
                 )}
                 {question.trapezoidalRuleDiagram && (
                   <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
@@ -2033,6 +2071,12 @@ export function LessonRenderer({
                 )}
                 {example.cartesianGraph && (
                   <CartesianGraphView graph={example.cartesianGraph} />
+                )}
+                {example.argandDiagram && (
+                  <ArgandDiagramView diagram={example.argandDiagram} />
+                )}
+                {example.vector3DDiagram && (
+                  <Vector3DDiagramView diagram={example.vector3DDiagram} />
                 )}
                 {example.trapezoidalRuleDiagram && (
                   <TrapezoidalRuleView diagram={example.trapezoidalRuleDiagram} />

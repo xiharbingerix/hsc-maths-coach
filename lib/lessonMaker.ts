@@ -4,6 +4,7 @@ import type {
   WorkedExample,
 } from "./lessons/differentialCalculus";
 import type {
+  ArgandDiagram,
   BoxPlotDiagram,
   CartesianGraph,
   NetworkDiagram,
@@ -12,6 +13,7 @@ import type {
   TrapezoidalRuleDiagram,
   TriangleDiagram,
   TwoWayTableDiagram,
+  Vector3DDiagram,
   VennDiagram,
 } from "./lessons/types";
 
@@ -32,6 +34,8 @@ export interface TutorQuestion {
   diagram?: NetworkDiagram;
   triangleDiagram?: TriangleDiagram;
   cartesianGraph?: CartesianGraph;
+  argandDiagram?: ArgandDiagram;
+  vector3DDiagram?: Vector3DDiagram;
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
   boxPlotDiagram?: BoxPlotDiagram;
   normalDistributionDiagram?: NormalDistributionDiagram;
@@ -48,6 +52,8 @@ export interface TutorWorkedExample {
   diagram?: NetworkDiagram;
   triangleDiagram?: TriangleDiagram;
   cartesianGraph?: CartesianGraph;
+  argandDiagram?: ArgandDiagram;
+  vector3DDiagram?: Vector3DDiagram;
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
   boxPlotDiagram?: BoxPlotDiagram;
   normalDistributionDiagram?: NormalDistributionDiagram;
@@ -191,6 +197,8 @@ function toTutorQuestion(q: PracticeQuestion): TutorQuestion {
     diagram: q.diagram,
     triangleDiagram: q.triangleDiagram,
     cartesianGraph: q.cartesianGraph,
+    argandDiagram: q.argandDiagram,
+    vector3DDiagram: q.vector3DDiagram,
     trapezoidalRuleDiagram: q.trapezoidalRuleDiagram,
     boxPlotDiagram: q.boxPlotDiagram,
     normalDistributionDiagram: q.normalDistributionDiagram,
@@ -209,6 +217,8 @@ function toTutorWorkedExample(ex: WorkedExample): TutorWorkedExample {
     diagram: ex.diagram,
     triangleDiagram: ex.triangleDiagram,
     cartesianGraph: ex.cartesianGraph,
+    argandDiagram: ex.argandDiagram,
+    vector3DDiagram: ex.vector3DDiagram,
     trapezoidalRuleDiagram: ex.trapezoidalRuleDiagram,
     boxPlotDiagram: ex.boxPlotDiagram,
     normalDistributionDiagram: ex.normalDistributionDiagram,

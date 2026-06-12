@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { BlockMath } from "react-katex";
 import { MathAnswerInput } from "../../components/MathAnswerInput";
 import { MathText } from "../../components/MathText";
+import { ArgandDiagramView } from "../../course/components/ArgandDiagramView";
 import { BoxPlotView } from "../../course/components/BoxPlotView";
 import { CartesianGraphView } from "../../course/components/CartesianGraphView";
 import { NetworkDiagramView } from "../../course/components/NetworkDiagramView";
@@ -13,9 +14,11 @@ import { ProbabilityTreeView } from "../../course/components/ProbabilityTreeView
 import { TrapezoidalRuleView } from "../../course/components/TrapezoidalRuleView";
 import { TriangleDiagramView } from "../../course/components/TriangleDiagramView";
 import { TwoWayTableView } from "../../course/components/TwoWayTableView";
+import { Vector3DDiagramView } from "../../course/components/Vector3DDiagramView";
 import { VennDiagramView } from "../../course/components/VennDiagramView";
 import { supabase } from "../../../lib/supabaseClient";
 import type {
+  ArgandDiagram,
   BoxPlotDiagram,
   CartesianGraph,
   NetworkDiagram,
@@ -24,6 +27,7 @@ import type {
   TrapezoidalRuleDiagram,
   TriangleDiagram,
   TwoWayTableDiagram,
+  Vector3DDiagram,
   VennDiagram,
 } from "../../../lib/lessons/types";
 import type { WorksheetQuestion } from "./page";
@@ -36,6 +40,10 @@ function DiagramRenderer({ data }: { data: Record<string, unknown> | null }) {
   switch (type) {
     case "cartesianGraph":
       return <CartesianGraphView graph={rest as CartesianGraph} />;
+    case "argandDiagram":
+      return <ArgandDiagramView diagram={rest as ArgandDiagram} />;
+    case "vector3DDiagram":
+      return <Vector3DDiagramView diagram={rest as Vector3DDiagram} />;
     case "triangleDiagram":
       return <TriangleDiagramView diagram={rest as TriangleDiagram} />;
     case "trapezoidalRuleDiagram":
