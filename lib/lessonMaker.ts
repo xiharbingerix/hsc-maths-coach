@@ -3,6 +3,17 @@ import type {
   PracticeQuestion,
   WorkedExample,
 } from "./lessons/differentialCalculus";
+import type {
+  BoxPlotDiagram,
+  CartesianGraph,
+  NetworkDiagram,
+  NormalDistributionDiagram,
+  ProbabilityTreeDiagram,
+  TrapezoidalRuleDiagram,
+  TriangleDiagram,
+  TwoWayTableDiagram,
+  VennDiagram,
+} from "./lessons/types";
 
 export type LessonLength = 30 | 45 | 60;
 export type StudentLevel = "struggling" | "on-level" | "extension";
@@ -18,6 +29,15 @@ export interface TutorQuestion {
   answer: string;
   hint?: string;
   explanation?: string;
+  diagram?: NetworkDiagram;
+  triangleDiagram?: TriangleDiagram;
+  cartesianGraph?: CartesianGraph;
+  trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
+  boxPlotDiagram?: BoxPlotDiagram;
+  normalDistributionDiagram?: NormalDistributionDiagram;
+  probabilityTreeDiagram?: ProbabilityTreeDiagram;
+  twoWayTableDiagram?: TwoWayTableDiagram;
+  vennDiagram?: VennDiagram;
 }
 
 export interface TutorWorkedExample {
@@ -25,6 +45,15 @@ export interface TutorWorkedExample {
   questionLatex: string;
   steps: { explanation: string; latex?: string }[];
   finalAnswerLatex: string;
+  diagram?: NetworkDiagram;
+  triangleDiagram?: TriangleDiagram;
+  cartesianGraph?: CartesianGraph;
+  trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
+  boxPlotDiagram?: BoxPlotDiagram;
+  normalDistributionDiagram?: NormalDistributionDiagram;
+  probabilityTreeDiagram?: ProbabilityTreeDiagram;
+  twoWayTableDiagram?: TwoWayTableDiagram;
+  vennDiagram?: VennDiagram;
 }
 
 export interface TutorMisconception {
@@ -132,6 +161,15 @@ function toTutorQuestion(q: PracticeQuestion): TutorQuestion {
     answer: q.answer,
     hint: q.hint,
     explanation: q.explanation,
+    diagram: q.diagram,
+    triangleDiagram: q.triangleDiagram,
+    cartesianGraph: q.cartesianGraph,
+    trapezoidalRuleDiagram: q.trapezoidalRuleDiagram,
+    boxPlotDiagram: q.boxPlotDiagram,
+    normalDistributionDiagram: q.normalDistributionDiagram,
+    probabilityTreeDiagram: q.probabilityTreeDiagram,
+    twoWayTableDiagram: q.twoWayTableDiagram,
+    vennDiagram: q.vennDiagram,
   };
 }
 
@@ -141,6 +179,15 @@ function toTutorWorkedExample(ex: WorkedExample): TutorWorkedExample {
     questionLatex: ex.questionLatex,
     steps: ex.steps.map((s) => ({ explanation: s.explanation, latex: s.latex })),
     finalAnswerLatex: ex.finalAnswerLatex,
+    diagram: ex.diagram,
+    triangleDiagram: ex.triangleDiagram,
+    cartesianGraph: ex.cartesianGraph,
+    trapezoidalRuleDiagram: ex.trapezoidalRuleDiagram,
+    boxPlotDiagram: ex.boxPlotDiagram,
+    normalDistributionDiagram: ex.normalDistributionDiagram,
+    probabilityTreeDiagram: ex.probabilityTreeDiagram,
+    twoWayTableDiagram: ex.twoWayTableDiagram,
+    vennDiagram: ex.vennDiagram,
   };
 }
 

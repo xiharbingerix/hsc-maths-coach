@@ -1,0 +1,79 @@
+"use client";
+
+import type {
+  BoxPlotDiagram,
+  CartesianGraph,
+  NetworkDiagram,
+  NormalDistributionDiagram,
+  ProbabilityTreeDiagram,
+  TrapezoidalRuleDiagram,
+  TriangleDiagram,
+  TwoWayTableDiagram,
+  VennDiagram,
+} from "../../lib/lessons/types";
+import { CartesianGraphView } from "../course/components/CartesianGraphView";
+import { TriangleDiagramView } from "../course/components/TriangleDiagramView";
+import { BoxPlotView } from "../course/components/BoxPlotView";
+import { TwoWayTableView } from "../course/components/TwoWayTableView";
+import { NormalDistributionView } from "../course/components/NormalDistributionView";
+import { ProbabilityTreeView } from "../course/components/ProbabilityTreeView";
+import { VennDiagramView } from "../course/components/VennDiagramView";
+import { NetworkDiagramView } from "../course/components/NetworkDiagramView";
+import { TrapezoidalRuleView } from "../course/components/TrapezoidalRuleView";
+
+interface Props {
+  diagram?: NetworkDiagram;
+  triangleDiagram?: TriangleDiagram;
+  cartesianGraph?: CartesianGraph;
+  trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
+  boxPlotDiagram?: BoxPlotDiagram;
+  normalDistributionDiagram?: NormalDistributionDiagram;
+  probabilityTreeDiagram?: ProbabilityTreeDiagram;
+  twoWayTableDiagram?: TwoWayTableDiagram;
+  vennDiagram?: VennDiagram;
+}
+
+export function VisualPayloadRenderer({
+  diagram,
+  triangleDiagram,
+  cartesianGraph,
+  trapezoidalRuleDiagram,
+  boxPlotDiagram,
+  normalDistributionDiagram,
+  probabilityTreeDiagram,
+  twoWayTableDiagram,
+  vennDiagram,
+}: Props) {
+  const hasAny =
+    diagram ||
+    triangleDiagram ||
+    cartesianGraph ||
+    trapezoidalRuleDiagram ||
+    boxPlotDiagram ||
+    normalDistributionDiagram ||
+    probabilityTreeDiagram ||
+    twoWayTableDiagram ||
+    vennDiagram;
+
+  if (!hasAny) return null;
+
+  return (
+    <div className="my-2 overflow-x-auto print:break-inside-avoid">
+      {cartesianGraph && <CartesianGraphView graph={cartesianGraph} />}
+      {triangleDiagram && <TriangleDiagramView diagram={triangleDiagram} />}
+      {boxPlotDiagram && <BoxPlotView diagram={boxPlotDiagram} />}
+      {twoWayTableDiagram && <TwoWayTableView diagram={twoWayTableDiagram} />}
+      {normalDistributionDiagram && (
+        <NormalDistributionView diagram={normalDistributionDiagram} />
+      )}
+      {probabilityTreeDiagram && (
+        <ProbabilityTreeView diagram={probabilityTreeDiagram} />
+      )}
+      {vennDiagram && <VennDiagramView diagram={vennDiagram} />}
+      {diagram && <NetworkDiagramView diagram={diagram} />}
+      {trapezoidalRuleDiagram && (
+        <TrapezoidalRuleView diagram={trapezoidalRuleDiagram} />
+      )}
+    </div>
+  );
+}
