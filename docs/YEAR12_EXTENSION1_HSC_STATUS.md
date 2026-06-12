@@ -26,11 +26,13 @@ _Audited: June 2026_
 | `proof-induction` | Proof by Mathematical Induction | 3 | `proofInduction.ts` |
 | `vectors` | Introduction to Vectors | 4 | `vectors.ts` |
 | `inverse-trig` | Inverse Trigonometric Functions | 3 | `inverseTrig.ts` |
+| `binomial-distribution` | The Binomial Distribution | 4 | `binomialDistribution.ts` |
 
 **Lesson slugs:**
 - `intro-to-mathematical-induction`, `induction-divisibility`, `induction-inequalities`
 - `vectors-scalars-notation`, `vector-addition-subtraction`, `dot-product`, `vector-projections-applications`
 - `inverse-sine-cosine`, `inverse-tangent`, `differentiating-inverse-trig`
+- `bernoulli-trials`, `binomial-probabilities`, `mean-and-variance`, `binomial-exam-practice`
 
 ### Planned (in catalog, zero lessons)
 
@@ -38,7 +40,6 @@ _Audited: June 2026_
 |---|---|---|
 | `further-calculus` | Further Calculus Skills | 0 |
 | `calculus-applications` | Further Applications of Calculus | 0 |
-| `binomial-distribution` | The Binomial Distribution | 0 |
 
 ---
 
@@ -53,8 +54,8 @@ Each explicit lesson override includes: 4 guided + 5 independent + 10 mastery = 
 | Inverse Trigonometric Functions | 3 | ~57 |
 | Further Calculus Skills | 0 | 0 |
 | Further Applications of Calculus | 0 | 0 |
-| The Binomial Distribution | 0 | 0 |
-| **Total** | **10** | **~190** |
+| The Binomial Distribution | 4 | 76 |
+| **Total** | **14** | **~266** |
 
 Diagnostic questions: 20 (3 + 4 + 3 + 4 + 3 + 3 across all 6 units including stubs).
 
@@ -72,7 +73,7 @@ Diagnostic questions: 20 (3 + 4 + 3 + 4 + 3 + 3 across all 6 units including stu
 | Further trig (t-formula, compound/double angle in depth) | **Missing** |
 | Further calculus — trig integration, IBP basics, substitution | **Missing** |
 | Applications of calculus — related rates, Newton's law of cooling, SHM intro | **Missing** |
-| The binomial distribution — B(n,p), E(X), Var(X), probability calculations | Unit stub only — 0 lessons |
+| The binomial distribution — B(n,p), E(X), Var(X), probability calculations | Active — 4 lessons |
 | Statistical hypothesis testing with binomial | **Missing** |
 
 ### HSC exam preparation coverage
@@ -125,10 +126,10 @@ calculus-applications
   calculus-applications-exam-practice
 
 binomial-distribution
-  bernoulli-trials-binomial-model
+  bernoulli-trials
   binomial-probabilities
-  mean-variance-binomial
-  binomial-distribution-exam-practice
+  mean-and-variance
+  binomial-exam-practice
 ```
 
 ### HSC exam preparation slug (new course)

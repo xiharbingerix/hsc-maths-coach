@@ -53,6 +53,7 @@ import {
   year12Extension1InverseTrigLessonOverride,
   year12Extension1ProofInductionLessonOverride,
   year12Extension1VectorsLessonOverride,
+  year12Extension1BinomialDistributionLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
@@ -242,6 +243,7 @@ export function buildLesson(
     year12Extension1ProofInductionLessonOverride(course, unit, lesson) ??
     year12Extension1VectorsLessonOverride(course, unit, lesson) ??
     year12Extension1InverseTrigLessonOverride(course, unit, lesson) ??
+    year12Extension1BinomialDistributionLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
     year8NumberOperationsLessonOverride(course, unit, lesson) ??
@@ -1420,7 +1422,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Planned probability support for binomial random variables and distribution calculations.",
         syllabusArea: "Probability",
         focus: "The binomial distribution",
-        lessons: [],
+        lessons: [
+          { slug: "bernoulli-trials", title: "Bernoulli Trials" },
+          { slug: "binomial-probabilities", title: "Binomial Probabilities" },
+          { slug: "mean-and-variance", title: "Mean and Variance" },
+          { slug: "binomial-exam-practice", title: "Binomial Exam Practice" },
+        ],
       },
     ],
   },
