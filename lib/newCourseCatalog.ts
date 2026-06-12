@@ -62,6 +62,7 @@ import {
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride } from "./lessons/year8";
+import { year12Extension2ComplexNumbersLessonOverride } from "./lessons/year12Extension2";
 
 export type {
   CourseLessonSeed,
@@ -252,6 +253,7 @@ export function buildLesson(
     year12Extension1FurtherCalculusLessonOverride(course, unit, lesson) ??
     year12Extension1CalculusApplicationsLessonOverride(course, unit, lesson) ??
     year12Extension1BinomialDistributionLessonOverride(course, unit, lesson) ??
+    year12Extension2ComplexNumbersLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
     year8NumberOperationsLessonOverride(course, unit, lesson) ??
@@ -1482,10 +1484,15 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "complex-numbers",
         title: "Complex Numbers",
         description:
-          "Planned complex number work including arithmetic, modulus-argument form, De Moivre's theorem, roots and Argand diagram loci.",
+          "Complex number arithmetic, modulus-argument form, Argand diagram geometry and polar form with De Moivre's theorem.",
         syllabusArea: "Complex Numbers",
         focus: "Complex numbers and the Argand diagram",
-        lessons: [],
+        lessons: [
+          { slug: "complex-number-arithmetic", title: "Complex Number Arithmetic" },
+          { slug: "modulus-argument-conjugate", title: "Modulus, Argument and Conjugate" },
+          { slug: "argand-diagram-geometry", title: "Argand Diagram and Geometry" },
+          { slug: "polar-form-de-moivre", title: "Polar Form and De Moivre's Theorem" },
+        ],
       },
       {
         slug: "calculus",

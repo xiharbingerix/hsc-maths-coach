@@ -9,13 +9,13 @@ Audited: June 2026
 | Slug | `year-12-extension-2` |
 | Status | `coming_soon` |
 | App routes | `/course/year-12-extension-2` scaffolded |
-| Unit routes | Present, but return 404 while units have no active lessons |
-| Lesson routes | Present, but return 404 until real lessons are authored |
+| Unit routes | Present; complex-numbers unit now has 4 active lessons |
+| Lesson routes | Active for complex-numbers lessons; other units still return 404 |
 | Diagnostic | Not added |
-| Question bank | Supported by `scripts/seed-question-bank.ts`, but prepares 0 rows while lessons are empty |
-| Lesson files | No `lib/lessons/year12Extension2/` directory yet |
+| Question bank | `complex-numbers` unit seeds real questions; other units still prepare 0 rows |
+| Lesson files | `lib/lessons/year12Extension2/complexNumbers.ts` — 4 lessons authored |
 
-Extension 2 now exists as a student-facing course outline only. It must not be marketed as available until real lessons, diagnostics and question-bank items are authored and audited.
+Extension 2 has real lessons in the Complex Numbers unit. The course status remains `coming_soon` until all five units have authored content. It must not be marketed as available until lessons, diagnostics and question-bank items exist across all units.
 
 ## 2. Registered NSW Topic Areas
 
@@ -25,11 +25,20 @@ The scaffold registers the five NSW Mathematics Extension 2 Year 12 topic areas:
 |---|---|---|
 | `proof` | Proof | Planned only |
 | `vectors-3d` | Vectors in Three Dimensions | Planned only |
-| `complex-numbers` | Complex Numbers | Planned only |
+| `complex-numbers` | Complex Numbers | **4 lessons active** |
 | `calculus` | Calculus | Planned only |
 | `mechanics` | Mechanics | Planned only |
 
-All five units intentionally have empty `lessons: []` arrays. This prevents generated fallback lessons and fake question-bank rows.
+The Complex Numbers unit has 4 authored lessons with full question sets and multi-part exam practice. The remaining four units have empty `lessons: []` arrays to prevent generated fallback content.
+
+### Complex Numbers lessons
+
+| Lesson slug | Title | Multi-part |
+|---|---|---|
+| `complex-number-arithmetic` | Complex Number Arithmetic | Yes — zw and z² |
+| `modulus-argument-conjugate` | Modulus, Argument and Conjugate | No |
+| `argand-diagram-geometry` | Argand Diagram and Geometry | No |
+| `polar-form-de-moivre` | Polar Form and De Moivre's Theorem | Yes — √3+i polar/power |
 
 ## 3. Coverage Still Missing
 
@@ -37,7 +46,8 @@ All five units intentionally have empty `lessons: []` arrays. This prevents gene
 |---|---|
 | Proof: advanced induction, contradiction, contrapositive, inequalities | None |
 | 3D vectors: component form, dot/cross products, lines and planes | None |
-| Complex numbers: polar form, De Moivre, roots, loci | None |
+| Complex numbers: arithmetic, modulus/arg, Argand diagram, polar form, De Moivre | **4 lessons — core HSC skills covered** |
+| Complex numbers: roots of unity, loci proofs, advanced De Moivre applications | Not yet |
 | Calculus: integration by parts, partial fractions, trig substitution, volumes, ODEs | None |
 | Mechanics: SHM, circular motion, projectile motion, growth/decay models | None |
 

@@ -533,7 +533,7 @@ export const derivativeAsRateOfChangeLesson: ExplicitLesson = {
             "State the sign of the velocity at $t = 2$: positive, negative, or zero.",
           marks: 1,
           answer: "negative",
-          acceptedAnswers: ["negative direction", "in the negative direction"],
+          acceptedAnswers: ["negative direction", "in the negative direction", "decreasing"],
           hint: "Compare the value from part (a) with zero.",
           explanation:
             "$v(2)=-3<0$, so the velocity is negative. The particle is moving in the negative direction.",
