@@ -46,6 +46,19 @@ type PracticeQuestion = {
 
 > Lesson TypeScript questions do not carry `question_type`, `difficulty`, or `course_slug`. Those are inferred by `seed-question-bank.ts`.
 
+### Multi-part questions (`multiPartPractice` section)
+
+Multi-part questions live in the optional `multiPartPractice` array on a lesson — separate from the standard 4+5+10 sections. They are seeded at **D5** (exam-style) and are not counted by the lesson-structure audit.
+
+Rules specific to multi-part questions:
+- Every part must have a unique `key` (e.g. `"a"`, `"b"`, `"c"`) and a display `label` (e.g. `"(a)"`).
+- Every part needs `marks`, `answer`, `acceptedAnswers`, `hint`, and `explanation`.
+- Keep all parts **auto-markable**: exact numeric, coordinate, or simple algebraic values only. No proof steps, no "show that", no free-text.
+- The top-level `answer` field should equal the answer to part (a) — this is what the seed stores in the `answer` column for backward compatibility.
+- The top-level `hint` and `explanation` may summarise all parts.
+- Prefer asking for a **specific numeric value** (gradient, y-intercept, coordinate) rather than a full equation — equations have too many equivalent forms and exact-matching fails on whitespace/ordering.
+- Avoid multi-part questions where any part requires the free-text proof marker. Pilot scope: auto-markable parts only.
+
 ### Format B — External JSON batch (`QuestionBatchRecord`)
 
 Used in `question-batches/`. Validated by `scripts/validate-question-batch.ts`.

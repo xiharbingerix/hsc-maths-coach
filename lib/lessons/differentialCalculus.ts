@@ -88,6 +88,8 @@ export type ExplicitLesson = {
   syllabusArea: string;
   focus: string;
   status: "active" | "coming-soon";
+  /** HSC Section II-style multi-part questions seeded separately from the standard 4+5+10 sections. */
+  multiPartPractice?: PracticeQuestion[];
 
   video: {
     title: string;
@@ -1497,6 +1499,133 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
   ],
 
   masteryPassMark: 0.8,
+
+  multiPartPractice: [
+    {
+      id: "tan-norm-mp-1",
+      prompt:
+        "Consider the curve $y = x^3 - 2x + 1$ at the point where $x = 2$.",
+      latex: "",
+      answer: "10",
+      hint: "Differentiate to find $f'(x)$, then substitute $x=2$ to find the tangent gradient. Use point-gradient form for the tangent equation.",
+      explanation:
+        "Part (a): $f'(x)=3x^2-2$, so the tangent gradient at $x=2$ is $3(4)-2=10$. Part (b): $f(2)=8-4+1=5$, giving point $(2,5)$. The tangent is $y-5=10(x-2)$, i.e. $y=10x-15$, so the $y$-intercept is $-15$.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the gradient of the tangent to the curve at $x = 2$.",
+          marks: 2,
+          answer: "10",
+          acceptedAnswers: [],
+          hint: "Differentiate $f(x)=x^3-2x+1$ and substitute $x=2$.",
+          explanation:
+            "$f'(x)=3x^2-2$. At $x=2$: $f'(2)=3(4)-2=10$.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt:
+            "Find the $y$-intercept of the tangent line at $x = 2$.",
+          marks: 2,
+          answer: "-15",
+          acceptedAnswers: [],
+          hint: "Find the point on the curve using $f(2)$, then write the tangent in $y=mx+c$ form.",
+          explanation:
+            "$f(2)=8-4+1=5$, so the tangent passes through $(2,5)$ with gradient $10$. Using point-gradient form: $y-5=10(x-2) \\Rightarrow y=10x-15$. The $y$-intercept is $-15$.",
+        },
+      ],
+    },
+    {
+      id: "tan-norm-mp-2",
+      prompt:
+        "Consider the curve $y = x^2 - 5x + 4$ at the point where $x = 3$.",
+      latex: "",
+      answer: "1",
+      hint: "Find the tangent gradient, the point on the curve, and use the negative reciprocal for the normal gradient.",
+      explanation:
+        "Part (a): $f'(x)=2x-5$, so at $x=3$ the tangent gradient is $1$. Part (b): $f(3)=9-15+4=-2$, so the point is $(3,-2)$. Part (c): The normal gradient is $-1$. The normal is $y+2=-(x-3) \\Rightarrow y=-x+1$, so the $y$-intercept is $1$.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the gradient of the tangent at $x = 3$.",
+          marks: 1,
+          answer: "1",
+          acceptedAnswers: [],
+          hint: "Differentiate and substitute $x=3$.",
+          explanation: "$f'(x)=2x-5$. At $x=3$: $f'(3)=6-5=1$.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find the coordinates of the point on the curve at $x = 3$.",
+          marks: 1,
+          answer: "(3,-2)",
+          acceptedAnswers: ["3,-2", "3, -2", "(3, -2)"],
+          hint: "Substitute $x=3$ into the original function.",
+          explanation: "$f(3)=9-15+4=-2$, so the point is $(3,-2)$.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find the $y$-intercept of the normal to the curve at $x = 3$.",
+          marks: 2,
+          answer: "1",
+          acceptedAnswers: [],
+          hint: "The normal gradient is $-\\frac{1}{m_t}$. Write the normal equation using point-gradient form.",
+          explanation:
+            "Tangent gradient is $1$, so normal gradient is $-1$. Normal through $(3,-2)$: $y+2=-(x-3) \\Rightarrow y=-x+1$. The $y$-intercept is $1$.",
+        },
+      ],
+    },
+    {
+      id: "tan-norm-mp-3",
+      prompt:
+        "The curve $y = x^3 + kx + 2$ has a tangent with gradient $7$ at the point where $x = 1$.",
+      latex: "",
+      answer: "4",
+      hint: "Differentiate to get $f'(x)$, substitute $x=1$, and set equal to the given gradient to find $k$. Then find the point and tangent equation.",
+      explanation:
+        "Part (a): $f'(x)=3x^2+k$. At $x=1$: $3+k=7$, so $k=4$. Part (b): $f(1)=1+4+2=7$, so the point is $(1,7)$. Part (c): Tangent through $(1,7)$ with gradient $7$: $y-7=7(x-1) \\Rightarrow y=7x$. The $y$-intercept is $0$.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the value of $k$.",
+          marks: 2,
+          answer: "4",
+          acceptedAnswers: [],
+          hint: "Set $f'(1)=7$ and solve for $k$.",
+          explanation:
+            "$f'(x)=3x^2+k$. At $x=1$: $f'(1)=3+k=7$, so $k=4$.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt:
+            "Find the coordinates of the point on the curve at $x = 1$.",
+          marks: 1,
+          answer: "(1,7)",
+          acceptedAnswers: ["1,7", "1, 7", "(1, 7)"],
+          hint: "Substitute $k=4$ and $x=1$ into $y=x^3+kx+2$.",
+          explanation: "$y=1^3+4(1)+2=7$, so the point is $(1,7)$.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt:
+            "Find the $y$-intercept of the tangent to the curve at $x = 1$.",
+          marks: 2,
+          answer: "0",
+          acceptedAnswers: [],
+          hint: "Use point-gradient form with the point from (b) and the given gradient.",
+          explanation:
+            "Tangent through $(1,7)$ with gradient $7$: $y-7=7(x-1) \\Rightarrow y=7x-7+7=7x$. The $y$-intercept is $0$.",
+        },
+      ],
+    },
+  ],
 };
 
 export const stationaryPointsLesson: ExplicitLesson = {

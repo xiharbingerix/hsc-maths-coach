@@ -18,7 +18,7 @@ import { sequencesSeriesFinancialMathsLessons } from "../lib/lessons/sequencesSe
 import { statisticalAnalysisLessons } from "../lib/lessons/statisticalAnalysis";
 import { trigonometricFunctionsGraphsLessons } from "../lib/lessons/trigonometricFunctionsGraphs";
 
-type PracticeSection = "guidedPractice" | "independentPractice" | "masteryQuiz";
+type PracticeSection = "guidedPractice" | "independentPractice" | "masteryQuiz" | "multiPartPractice";
 
 type QuestionRow = {
   source_id: string;
@@ -203,6 +203,11 @@ export function inferDifficulty(
 ) {
   const prompt = `${question.prompt} ${question.latex}`.toLowerCase();
 
+  // Multi-part questions are always D5 — HSC Section II exam style.
+  if (section === "multiPartPractice") {
+    return 5;
+  }
+
   if (section === "guidedPractice") {
     return question.choices?.length ? 1 : 2;
   }
@@ -273,11 +278,15 @@ export function mapPracticeQuestionToQuestionRow(
 }
 
 function questionSections(lesson: ExplicitLesson) {
-  return [
+  const sections: [PracticeSection, PracticeQuestion[]][] = [
     ["guidedPractice", lesson.guidedPractice],
     ["independentPractice", lesson.independentPractice],
     ["masteryQuiz", lesson.masteryQuiz],
-  ] as const;
+  ];
+  if (lesson.multiPartPractice && lesson.multiPartPractice.length > 0) {
+    sections.push(["multiPartPractice", lesson.multiPartPractice]);
+  }
+  return sections;
 }
 
 function isGeneratedCatalogueFallbackLesson(lesson: ExplicitLesson) {
