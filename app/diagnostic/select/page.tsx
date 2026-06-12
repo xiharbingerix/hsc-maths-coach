@@ -3,7 +3,11 @@ import Link from "next/link";
 const yearLevels = [
   { slug: "year-8-mathematics", label: "Year 8 Mathematics", available: true },
   { slug: "year-9-mathematics", label: "Year 9 Mathematics", available: true },
+  { slug: "year-9-mathematics-advanced", label: "Year 9 Mathematics Advanced", available: true },
+  { slug: "year-9-mathematics-core", label: "Year 9 Mathematics Core", available: true },
   { slug: "year-10-mathematics", label: "Year 10 Mathematics", available: true },
+  { slug: "year-10-mathematics-advanced", label: "Year 10 Mathematics Advanced", available: true },
+  { slug: "year-10-mathematics-core", label: "Year 10 Mathematics Core", available: true },
   { slug: "year-11-standard", label: "Year 11 Standard", available: true },
   { slug: "year-11-advanced", label: "Year 11 Advanced", available: true },
   { slug: "year-12-advanced", label: "Year 12 Advanced", available: true },
