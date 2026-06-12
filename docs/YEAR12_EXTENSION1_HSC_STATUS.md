@@ -34,11 +34,11 @@ _Audited: June 2026_
 - `inverse-sine-cosine`, `inverse-tangent`, `differentiating-inverse-trig`
 - `bernoulli-trials`, `binomial-probabilities`, `mean-and-variance`, `binomial-exam-practice`
 
-### Planned (in catalog, zero lessons)
+### Planned (in catalog, explicit overrides active)
 
 | Unit slug | Title | Lessons |
 |---|---|---|
-| `further-calculus` | Further Calculus Skills | 0 |
+| `further-calculus` | Further Calculus Skills | 4 |
 | `calculus-applications` | Further Applications of Calculus | 0 |
 
 ---
@@ -52,7 +52,7 @@ Each explicit lesson override includes: 4 guided + 5 independent + 10 mastery = 
 | Proof by Mathematical Induction | 3 | ~57 |
 | Introduction to Vectors | 4 | ~76 |
 | Inverse Trigonometric Functions | 3 | ~57 |
-| Further Calculus Skills | 0 | 0 |
+| Further Calculus Skills | 4 | ~76 |
 | Further Applications of Calculus | 0 | 0 |
 | The Binomial Distribution | 4 | 76 |
 | **Total** | **14** | **~266** |
@@ -71,7 +71,7 @@ Diagnostic questions: 20 (3 + 4 + 3 + 4 + 3 + 3 across all 6 units including stu
 | Introduction to vectors (operations, dot product, projections) | Active — 4 lessons |
 | Inverse trigonometric functions (arcsin, arccos, arctan, derivatives) | Active — 3 lessons |
 | Further trig (t-formula, compound/double angle in depth) | **Missing** |
-| Further calculus — trig integration, IBP basics, substitution | **Missing** |
+| Further calculus — trig integration, IBP basics, substitution | Active — 4 lessons |
 | Applications of calculus — related rates, Newton's law of cooling, SHM intro | **Missing** |
 | The binomial distribution — B(n,p), E(X), Var(X), probability calculations | Active — 4 lessons |
 | Statistical hypothesis testing with binomial | **Missing** |
@@ -110,15 +110,9 @@ No past HSC Extension 1 questions are imported. The Advanced import audit (`docs
 
 ### Content slugs to complete the `year-12-extension-1` course
 
-Add explicit lesson overrides for the three empty units:
+Add explicit lesson overrides for the remaining empty unit:
 
 ```
-further-calculus
-  further-trig-functions               (t-formula, compound/double angle integration)
-  integration-by-substitution
-  integration-trig-products
-  further-calculus-exam-practice
-
 calculus-applications
   related-rates-of-change
   newtons-law-cooling-growth-decay

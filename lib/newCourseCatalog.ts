@@ -53,6 +53,7 @@ import {
   year12Extension1InverseTrigLessonOverride,
   year12Extension1ProofInductionLessonOverride,
   year12Extension1VectorsLessonOverride,
+  year12Extension1FurtherCalculusLessonOverride,
   year12Extension1BinomialDistributionLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
@@ -243,6 +244,7 @@ export function buildLesson(
     year12Extension1ProofInductionLessonOverride(course, unit, lesson) ??
     year12Extension1VectorsLessonOverride(course, unit, lesson) ??
     year12Extension1InverseTrigLessonOverride(course, unit, lesson) ??
+    year12Extension1FurtherCalculusLessonOverride(course, unit, lesson) ??
     year12Extension1BinomialDistributionLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
