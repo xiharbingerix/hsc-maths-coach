@@ -76,6 +76,7 @@ const SUPPORTED_COURSE_SLUGS = [
   "year-12-standard-2",
   "year-12-standard-1",
   "year-12-extension-1",
+  "year-12-extension-2",
 ] as const;
 
 const PLACEHOLDER_PATTERNS = [

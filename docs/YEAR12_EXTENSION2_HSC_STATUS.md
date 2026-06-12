@@ -1,156 +1,79 @@
-# Year 12 Mathematics Extension 2 — HSC Status
+# Year 12 Mathematics Extension 2 HSC Status
 
-_Audited: June 2026_
-
----
+Audited: June 2026
 
 ## 1. Course Registration
 
 | Field | Value |
 |---|---|
-| Slug | Not registered — `year-12-extension-2` does not exist in `lib/courseTypes.ts` |
-| Status | Not started |
-| App routes | None |
-| Diagnostic | None |
-| Question bank | Not in `SUPPORTED_COURSE_SLUGS` |
-| Lesson files | No `lib/lessons/year12Extension2/` directory |
+| Slug | `year-12-extension-2` |
+| Status | `coming_soon` |
+| App routes | `/course/year-12-extension-2` scaffolded |
+| Unit routes | Present, but return 404 while units have no active lessons |
+| Lesson routes | Present, but return 404 until real lessons are authored |
+| Diagnostic | Not added |
+| Question bank | Supported by `scripts/seed-question-bank.ts`, but prepares 0 rows while lessons are empty |
+| Lesson files | No `lib/lessons/year12Extension2/` directory yet |
 
-Extension 2 is completely absent from Nova Maths. No slug, no units, no lessons, no diagnostic, no question bank seeding.
+Extension 2 now exists as a student-facing course outline only. It must not be marketed as available until real lessons, diagnostics and question-bank items are authored and audited.
 
----
+## 2. Registered NSW Topic Areas
 
-## 2. NSW Syllabus Coverage Required
+The scaffold registers the five NSW Mathematics Extension 2 Year 12 topic areas:
 
-The NSW Mathematics Extension 2 Yr 12 course has five major topic areas:
+| Unit slug | Unit title | Status |
+|---|---|---|
+| `proof` | Proof | Planned only |
+| `vectors-3d` | Vectors in Three Dimensions | Planned only |
+| `complex-numbers` | Complex Numbers | Planned only |
+| `calculus` | Calculus | Planned only |
+| `mechanics` | Mechanics | Planned only |
 
-### Proof
-- Mathematical induction (advanced — stronger convergence and inequality proofs than Ext 1)
-- Proof by contradiction (assume negation, derive absurdity)
-- Proof by contrapositive
-- Inequality proofs using AM-GM, CBS
+All five units intentionally have empty `lessons: []` arrays. This prevents generated fallback lessons and fake question-bank rows.
 
-### Vectors (3D)
-- 3D vector arithmetic (i, j, k notation, component form)
-- Scalar and vector products in 3D
-- Geometric proofs using vectors
-- Vector equations of lines and planes
+## 3. Coverage Still Missing
 
-### Complex Numbers
-- Arithmetic (add, subtract, multiply, divide)
-- Modulus and argument; polar form $r(\cos\theta + i\sin\theta)$
-- De Moivre's theorem and roots of unity
-- Locus problems in the Argand diagram (lines, circles, rays)
-- Polynomial equations with complex roots; conjugate root theorem
-
-### Calculus
-- Integration techniques: integration by parts (IBP), partial fractions, trig substitution
-- Volumes of revolution (about x-axis and y-axis)
-- Further first-order ODEs; separation of variables
-
-### Mechanics
-- Simple harmonic motion (SHM) — equations of motion, period, amplitude
-- Circular motion — centripetal acceleration, horizontal/vertical circles
-- Projectile motion — with and without air resistance
-- Newton's law of cooling; growth-decay models
-
----
-
-## 3. Current Coverage
-
-| Topic | Status |
+| Topic | Current coverage |
 |---|---|
-| Proof (advanced induction, contradiction, contrapositive, inequalities) | **None** |
-| 3D Vectors | **None** |
-| Complex Numbers | **None** |
-| Integration techniques (IBP, partial fractions, trig substitution) | **None** |
-| Volumes of revolution | **None** |
-| Mechanics (SHM, circular motion, projectiles with resistance) | **None** |
+| Proof: advanced induction, contradiction, contrapositive, inequalities | None |
+| 3D vectors: component form, dot/cross products, lines and planes | None |
+| Complex numbers: polar form, De Moivre, roots, loci | None |
+| Calculus: integration by parts, partial fractions, trig substitution, volumes, ODEs | None |
+| Mechanics: SHM, circular motion, projectile motion, growth/decay models | None |
 
-Extension 2 is a complete zero across all topic areas.
+## 4. Diagnostic Position
 
----
+No Extension 2 diagnostic has been added. A diagnostic should only be created once there is enough authored, reviewed content to produce useful remediation and study-plan guidance.
 
-## 4. Missing HSC-Specific Features
+Minimum recommendation before adding a diagnostic:
 
-Everything listed for Extension 1 is also absent for Extension 2, plus:
+- 3 to 4 real questions per registered unit
+- coverage across both procedural and conceptual skills
+- no placeholder prompts, generic explanations or unsupported multi-part questions
+- alignment with `docs/QUESTION_AUTHORING_STANDARD.md`
 
-1. **Complex number renderer** — Argand diagram locus questions require a graphical question type that does not exist
-2. **Mechanics question type** — projectile/SHM questions involve multi-step worked solutions with intermediate values; no multi-part question structure exists
-3. **Extended proof questions** — the majority of HSC Extension 2 Section II is proof-based; free-text or show-that question support is a hard prerequisite
-4. **Timed exam practice** — same gap as Extension 1
-5. **Past paper import** — same structural blockers as documented in `docs/HSC_ADVANCED_2020_2025_IMPORT_AUDIT.md`
+## 5. Question Bank Position
 
----
+`scripts/seed-question-bank.ts --course year-12-extension-2 --dry-run` is supported. With the current scaffold it should prepare 0 questions and perform no writes.
 
-## 5. Recommended Structure — Slugs to Register
+Question seeding must remain empty until real lesson overrides or approved external question batches exist. Do not seed generated catalogue fallback content.
 
-### Step 1: Register the course slug
-
-Add to `lib/courseTypes.ts`:
-```typescript
-| "year-12-extension-2"
-```
-
-Add a `CoursePathwaySeed` to `newCourseCatalog.ts` with `status: "coming_soon"` and the 5 planned units:
-
-```
-year-12-extension-2
-  proof-ext2                           (contradiction, contrapositive, advanced inequalities)
-  vectors-3d                           (3D vectors, scalar product, geometric proofs)
-  complex-numbers                      (arithmetic, polar, De Moivre, locus)
-  calculus-ext2                        (IBP, partial fractions, trig substitution, volumes)
-  mechanics                            (SHM, circular motion, projectiles)
-```
-
-### Step 2: Add a diagnostic
-
-`lib/diagnostics/year-12-extension-2.ts` — 3–4 questions per unit to seed the study plan.
-
-### Step 3: Lesson overrides
-
-Build lesson override files under `lib/lessons/year12Extension2/`, starting with whichever unit has the least cross-unit dependencies.
-
-Recommended first unit: **Complex Numbers** — self-contained, high student demand, and maps cleanly to MCQ + typed answers for the fundamental arithmetic and modulus-argument topics.
-
-### Step 4: HSC exam preparation slug
-
-`hsc-extension-2-practice` — once the curriculum content is stable:
-
-```
-hsc-extension-2-practice
-  exam-technique-ext2
-  proof-hsc-questions
-  complex-numbers-hsc-questions
-  calculus-hsc-questions
-  mechanics-hsc-questions
-  mock-exam-section-i
-  mock-exam-section-ii
-```
-
----
-
-## 6. Recommended Implementation Order
-
-1. **Register `year-12-extension-2` slug** (`lib/courseTypes.ts`, `lib/newCourseCatalog.ts` `coming_soon`) — zero content risk, unblocks later work
-2. **Add Extension 2 diagnostic** (`lib/diagnostics/year-12-extension-2.ts`) — lets enrolled students get a study plan even before full content exists
-3. **Complex Numbers unit** — highest demand, most teachable via typed/MCQ; start with arithmetic and modulus-argument lessons
-4. **Proof unit** — builds on Extension 1 induction overrides already in the codebase; contradiction and contrapositive lessons are prose-light and MCQ-friendly
-5. **3D Vectors unit** — extends existing Ext 1 vector overrides; requires 3D component notation but no new question types
-6. **Calculus Ext 2 unit** — requires IBP and partial-fraction content not yet authored; highest authoring effort
-7. **Mechanics unit** — requires multi-part question support before SHM/circular motion questions are practical; block until multi-part type is built
-8. **`hsc-extension-2-practice` course** — final step; depends on multi-part questions, extended response type, and at least partial past-paper import pipeline
-
----
-
-## 7. Cross-Cutting Prerequisites
-
-These infrastructure gaps block both Extension 1 and Extension 2 HSC preparation:
+## 6. Known Product Gaps Before Real Extension 2 Lessons
 
 | Gap | Blocks |
 |---|---|
-| Multi-part question type (`PracticeQuestion` schema + UI) | Section II practice for both Ext 1 and Ext 2 |
-| Extended response / free-text marking | All show-that, prove, sketch questions |
-| Timed exam mode | Both mock exam courses |
-| Past-paper import pipeline (diagram assets, schema cleanup) | Both `hsc-extension-1-practice` and `hsc-extension-2-practice` |
-| Band predictor wired to Extension courses | Student motivation and conversion for both |
-| `year-12-extension-2` slug registration | All Extension 2 work |
+| Multi-part question type | HSC-style Section II proof, mechanics and calculus questions |
+| Extended response/free-text marking | Show-that and proof questions |
+| Argand diagram renderer | Complex number loci |
+| 3D vector/geometry visual support | Lines, planes and spatial vector diagrams |
+| Mechanics diagrams and multi-step solution support | SHM, circular motion and projectile modelling |
+| Past-paper import workflow | Authentic HSC Extension 2 exam preparation |
+
+## 7. Recommended Implementation Order
+
+1. Complex Numbers fundamentals: arithmetic, modulus, argument and polar form.
+2. Proof: contradiction, contrapositive and inequality proof patterns.
+3. Vectors in Three Dimensions: component operations and scalar product.
+4. Calculus: integration by parts and partial fractions before volumes.
+5. Mechanics: defer until multi-part question support is ready.
+6. Diagnostic: add only after enough real content exists across the five units.

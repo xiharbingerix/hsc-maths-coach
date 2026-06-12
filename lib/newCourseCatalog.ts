@@ -1450,6 +1450,64 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     ],
   },
   {
+    slug: "year-12-extension-2",
+    title: "Year 12 Mathematics Extension 2",
+    yearLevel: "Year 12",
+    courseType: "Mathematics Extension 2",
+    status: "coming_soon",
+    description:
+      "Year 12 Mathematics Extension 2 scaffold covering the planned NSW HSC topic areas. Lessons are not active yet.",
+    positioning:
+      "A planned Year 12 Mathematics Extension 2 pathway for NSW HSC students. The public outline lists the intended units only; real lessons, diagnostics and question-bank content will be added after authored content passes the Nova Maths question standard.",
+    units: [
+      {
+        slug: "proof",
+        title: "Proof",
+        description:
+          "Planned Extension 2 proof work including advanced induction, contradiction, contrapositive reasoning and inequality proofs.",
+        syllabusArea: "Proof",
+        focus: "Advanced proof techniques",
+        lessons: [],
+      },
+      {
+        slug: "vectors-3d",
+        title: "Vectors in Three Dimensions",
+        description:
+          "Planned 3D vector work including component notation, scalar and vector products, geometric proofs, lines and planes.",
+        syllabusArea: "Vectors",
+        focus: "Vectors in three dimensions",
+        lessons: [],
+      },
+      {
+        slug: "complex-numbers",
+        title: "Complex Numbers",
+        description:
+          "Planned complex number work including arithmetic, modulus-argument form, De Moivre's theorem, roots and Argand diagram loci.",
+        syllabusArea: "Complex Numbers",
+        focus: "Complex numbers and the Argand diagram",
+        lessons: [],
+      },
+      {
+        slug: "calculus",
+        title: "Calculus",
+        description:
+          "Planned Extension 2 calculus including integration techniques, volumes of revolution and differential equations.",
+        syllabusArea: "Calculus",
+        focus: "Further calculus methods and applications",
+        lessons: [],
+      },
+      {
+        slug: "mechanics",
+        title: "Mechanics",
+        description:
+          "Planned mechanics work including simple harmonic motion, circular motion, projectile motion and applied differential equations.",
+        syllabusArea: "Mechanics",
+        focus: "Mechanics modelling and motion",
+        lessons: [],
+      },
+    ],
+  },
+  {
     slug: "year-9-mathematics",
     title: "Year 9 Mathematics",
     yearLevel: "9",
