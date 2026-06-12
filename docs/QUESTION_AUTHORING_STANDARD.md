@@ -46,19 +46,134 @@ type PracticeQuestion = {
 
 > Lesson TypeScript questions do not carry `question_type`, `difficulty`, or `course_slug`. Those are inferred by `seed-question-bank.ts`.
 
-### Multi-part questions (`multiPartPractice` section)
+### Multi-part question design
 
-Multi-part questions live in the optional `multiPartPractice` array on a lesson — separate from the standard 4+5+10 sections. They are seeded at **D5** (exam-style), audited by `npm run audit:lessons`, and not counted against the standard lesson-section counts.
+Multi-part questions live in the optional `multiPartPractice` array on a lesson — separate from the standard 4+5+10 sections. They are seeded at **D5** (exam-style) and not counted against the standard lesson-section counts. See also [PRACTICE_QUESTION_STANDARD.md](./PRACTICE_QUESTION_STANDARD.md) for placement rules.
 
-Rules specific to multi-part questions:
-- Every part must have a unique `key` (e.g. `"a"`, `"b"`, `"c"`) and a display `label` (e.g. `"(a)"`).
-- Every part needs `marks`, `answer`, `acceptedAnswers`, `hint`, and `explanation`.
-- Add accepted answer variants when the answer is formatting-sensitive, especially coordinates, fractions, negative signs, or algebraic forms.
-- Keep all parts **auto-markable**: exact numeric, coordinate, or simple algebraic values only. No proof steps, no "show that", no free-text.
-- The top-level `answer` field should equal the answer to part (a) — this is what the seed stores in the `answer` column for backward compatibility.
-- The top-level `hint` and `explanation` may summarise all parts.
-- Prefer asking for a **specific numeric value** (gradient, y-intercept, coordinate) rather than a full equation — equations have too many equivalent forms and exact-matching fails on whitespace/ordering.
-- Avoid multi-part questions where any part requires the free-text proof marker. Pilot scope: auto-markable parts only.
+#### Taxonomy
+
+Choose a type before authoring. Each type measures different skills.
+
+| Type | What it measures | Parts | MVP-safe? |
+|---|---|---|---|
+| **Fluency chain** | Procedural steps sharing one stem | 2–3 | Yes |
+| **Concept-to-procedure** | Identify rule → apply it | 3 | (a)(b) yes; (c) "explain why" = free-text |
+| **Interpret-and-check** | Compute → interpret in context → verify | 3 | Yes if verify = number |
+| **Modelling/application** | Set up → solve → interpret result | 3 | Yes if result is numeric |
+| **Error analysis** | Spot wrong step → correct → get final answer | 3 | Yes if correction = number |
+| **Compare methods** | Method A → Method B → choose | 3 | (a)(b) yes; choice = free-text |
+| **Parameter/condition** | Compute → find constraint → interpret condition | 3 | Yes if constraint is a value |
+| **Graph/table reading** | Read from diagram → compute → interpret | 2–3 | Needs diagram-response infra |
+| **HSC Section II style** | Multi-skill layered exam item | 3–4 | (a)(b) usually yes; deeper parts risky |
+
+The pilot questions (`tan-norm-mp-*`) are fluency chains. They are correct but should not be the dominant type.
+
+#### Cognitive ladder
+
+The recommended part structure for all types except fluency chain:
+
+| Part | Cognitive demand | Typical answer | MVP-safe |
+|---|---|---|---|
+| **(a)** | Local procedural fact — compute one quantity from the stem | Number, coordinate | Yes |
+| **(b)** | Connected calculation — apply or extend (a) | Number, named outcome | Yes |
+| **(c)** | Interpret, check, model, or classify — a new cognitive mode | Classification, condition, parameter | Yes if specific; no if "explain why" |
+
+**Critical rule: part (c) must not merely be more arithmetic of the same type as parts (a) and (b).** If all three parts are the same cognitive demand, the question is a fluency chain — label it as such and consider whether it belongs in `masteryQuiz` instead.
+
+#### Authoring rules
+
+1. **No free-text parts (MVP constraint).** Do not ask "Explain why…", "Justify…", "Show that…", "Describe…", "Comment on…" until free-text/AI marking exists. These produce silent incorrect marking.
+
+2. **No equation-as-answer unless one canonical form is unambiguous.** `y = 2x + 1`, `y − 1 = 2(x − 0)`, and `2x − y + 1 = 0` are the same line but will not match. Ask for a specific coefficient, y-intercept, or gradient value instead.
+
+3. **Prefer specific numeric outputs.** Gradient, y-intercept, coordinate, parameter value, domain boundary — these collapse to one unambiguous answer.
+
+4. **Mark allocation:** Total 4–6 marks per question. Part (a): 1–2 marks. Part (b): 1–2 marks. Part (c): 2–3 marks.
+
+5. **Part-specific hints.** Each part's `hint` must help only with that part. A hint on part (a) must not reveal the setup or answer for part (c). Hints that span parts spoil the cognitive sequence.
+
+6. **Part-specific explanations.** Each part's `explanation` covers only that part's working. The top-level `hint` and `explanation` are the combined post-submission summary across all parts.
+
+7. **Top-level `answer` = part (a)'s answer.** The seed stores this for backward compatibility. The per-part answers drive marking.
+
+8. **`acceptedAnswers` is required for formatting-sensitive types:**
+
+| Answer type | Canonical | Must add to `acceptedAnswers` |
+|---|---|---|
+| Coordinate | `"(2,-4)"` | `"(2, -4)"`, `"2,-4"`, `"2, -4"` |
+| Fraction | `"1/3"` | `"0.333"`, `"0.3333"` |
+| Named classification | `"maximum"` | `"local max"`, `"max"`, `"local maximum"` |
+| Inequality | `"x>2"` | `"x > 2"` |
+| Unicode minus | `"-6"` | `"−6"` |
+
+#### MVP-safe and unsafe answer types
+
+| Answer type | Example | Safe? | Notes |
+|---|---|---|---|
+| Integer | `"10"` | Yes | |
+| Negative number | `"-6"` | Yes | Add Unicode minus to `acceptedAnswers` |
+| Fraction | `"1/3"` | Yes | Add decimal to `acceptedAnswers` |
+| Coordinate | `"(2,-4)"` | Yes | Add space variants |
+| Classification | `"maximum"` | Yes | Add common variants |
+| Inequality | `"x>2"` | Yes | Add spaced form; test direction |
+| Simple expression | `"3x^2-6x"` | **Risky** | Add all formatting variants; prefer asking for a numeric value |
+| Full equation | `"y=2x+1"` | **No** | Too many equivalent forms — ask for a component value |
+| "Explain why…" | Free text | **No** | Requires future free-text marking |
+| "Justify…" | Free text | **No** | Same |
+| Graph sketch | Drawing | **No** | Requires diagram-response infrastructure |
+
+#### Three blueprints
+
+**Blueprint 1 — Year 9/10 Core: Modelling/application**
+
+> Stem: A water tank holds 400 L and drains at 25 L/min.
+
+- **(a)** [1 mark] How many litres remain after 6 minutes? → `"250"`
+- **(b)** [2 marks] Find the time (in minutes) when the tank is empty. → `"16"`
+- **(c)** [1 mark] The drain rate doubles. Find the new time to empty. → `"8"`
+
+Part (c) changes a parameter — it is not just more arithmetic on the same setup. Fully MVP-safe.
+
+---
+
+**Blueprint 2 — Year 12 Advanced: Interpret-and-check (second derivative classification)**
+
+> Stem: A function has $f'(x) = 3x^2 - 12x + 9$.
+
+- **(a)** [2 marks] Find the x-values where $f'(x) = 0$. → `"1"` and `"3"` (two separate sub-parts, or `"1, 3"`)
+- **(b)** [1 mark] Find $f''(1)$. → `"-6"`
+- **(c)** [1 mark] State whether $x = 1$ is a local maximum or minimum. → `"maximum"`
+
+Part (c) is a classification from sign, not another differentiation. Fully MVP-safe.
+
+---
+
+**Blueprint 3 — Year 12 Extension 1/2: Parameter/condition reasoning**
+
+> Stem: The curve $y = x^3 + ax^2 + b$ passes through $(0, 5)$ and has a stationary point at $x = 2$.
+
+- **(a)** [1 mark] Find $b$. → `"5"`
+- **(b)** [2 marks] Find $a$. → `"-3"`
+- **(c)** [1 mark] Find the y-coordinate of the stationary point. → `"1"`
+
+Each part uses a different algebraic condition. Fully MVP-safe.
+
+---
+
+#### Marks-weighted scoring (infrastructure gap)
+
+Currently, multi-part questions score 0 or 1 (fully correct or not). A student who answers (a) and (b) correctly but misses (c) receives no credit. **Marks-weighted partial scoring is required before `multiPartPractice` is used heavily in student-facing assessments.** Until then, treat multi-part questions as exam-rehearsal practice, not primary graded work.
+
+#### Future audit checks (recommended, not yet implemented)
+
+When `audit:lessons` is extended to validate `multiPartPractice`:
+
+- Fail if part `key` values are not unique within a question
+- Fail if any part `answer` is empty
+- Fail if any part `prompt` contains "explain", "justify", "show that", "prove", or "describe"
+- Warn if part `explanation` is shorter than 40 characters
+- Warn if any part has no `hint`
+- Warn if top-level `answer` does not match part (a)'s `answer`
 
 ### Format B — External JSON batch (`QuestionBatchRecord`)
 

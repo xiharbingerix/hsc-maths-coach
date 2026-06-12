@@ -27,7 +27,7 @@ Difficulty is inferred by `seed-question-bank.ts` from the question's position a
 | D2 | Guided typed answer; Independent Q1–Q3 |
 | D3 | Independent Q4–Q5; Mastery Q1–Q4 |
 | D4 | Mastery Q5–Q7 |
-| D5 | Mastery Q8–Q10; or if prompt contains "exam" or "prove" |
+| D5 | Mastery Q8–Q10; `multiPartPractice` section; or if prompt contains "exam" or "prove" |
 
 ---
 
@@ -136,6 +136,57 @@ Skip it for simple questions where the prompt is self-contained (e.g. "Find y wh
 - A repeat of a guided question with the same numbers
 - A question at D1 or D2 difficulty (too easy for mastery)
 - A question requiring a calculator when none is available
+
+---
+
+## Multi-part practice (`multiPartPractice`)
+
+**Purpose:** exam-rehearsal. Multi-part questions replicate the structure of HSC Section II items — a shared stem, 2–4 dependent parts, and a marks-based mark scheme. They sit outside the 19-question lesson count and are never required for lesson completion.
+
+### Placement
+
+`multiPartPractice` appears after the student has completed guided, independent, and mastery sections. It is positioned as "Working Mathematically / Exam Practice" — an optional extension layer, not a replacement for fluency or mastery work.
+
+Do not put a question here because it is hard. Put it here because it is **structurally multi-part** — that is, it has a shared stem with 2–4 dependent parts where later parts build on earlier ones.
+
+### Rules
+
+- Always seeded at **D5** regardless of individual part difficulty.
+- Not counted toward the 19-question standard lesson total.
+- Not audited by the standard section-count check in `audit:lessons`.
+- Every part must be auto-markable. No "explain", "justify", "show that", "prove", or "describe" in any part prompt (free-text). See [QUESTION_AUTHORING_STANDARD.md](./QUESTION_AUTHORING_STANDARD.md) for the full MVP-safe/unsafe table.
+- Total marks per question: 4–6. Distribute as: (a) 1–2 marks, (b) 1–2 marks, (c) 2–3 marks.
+- Prefer specific numeric outputs over full equations. Equations have too many equivalent forms; exact matching will produce false negatives.
+- Each part needs its own `hint` and `explanation`. The top-level `hint` and `explanation` are the post-submission summary across all parts.
+
+### What belongs here
+
+- A calculus question with parts: compute derivative → classify stationary point → find inflection
+- A linear modelling question: build equation → solve → interpret changed parameter
+- A probability question: compute P(A) → compute P(A|B) → interpret result
+- An Extension 1 question mirroring an actual HSC Section II item
+
+### What does not belong here
+
+- A hard but single-output question (put in `masteryQuiz` at D4–D5)
+- A question where any part requires a proof or written explanation
+- A question where parts are independent (no shared stem, no dependency between parts)
+- A question where the answer to any part is a full equation with no canonical unique form
+
+### Marks-weighted scoring requirement
+
+Currently, the marking system scores multi-part questions 0 or 1 (fully correct or not). A student who answers (a) and (b) correctly but not (c) receives no credit. **Marks-weighted partial scoring must be implemented before `multiPartPractice` is used in primary graded assessments.** Until then, use multi-part questions as exam-rehearsal with instructor review.
+
+### Recommended future audit checks (not yet implemented)
+
+| Check | Severity |
+|---|---|
+| Part `key` values not unique within a question | Fail |
+| Any part `answer` is empty | Fail |
+| Any part prompt contains "explain", "justify", "show that", "prove", "describe" | Fail |
+| Top-level `answer` does not match part (a)'s `answer` | Warn |
+| Part `explanation` shorter than 40 characters | Warn |
+| Any part has no `hint` | Warn |
 
 ---
 
