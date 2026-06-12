@@ -10,6 +10,57 @@ type CompleteBody = {
   attemptId?: string;
 };
 
+type PartResultPayload = {
+  marksEarned?: unknown;
+  marksAvailable?: unknown;
+};
+
+type AnswerPayload = {
+  marksEarned?: unknown;
+};
+
+type WorksheetQuestionRow = {
+  question_id: string;
+  questions?: { question_parts?: unknown } | { question_parts?: unknown }[] | null;
+};
+
+type WorksheetAnswerRow = {
+  question_id: string;
+  is_correct: boolean | null;
+  answer_payload?: AnswerPayload | null;
+  part_results?: PartResultPayload[] | null;
+};
+
+function numericValue(value: unknown): number | null {
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+function questionMarksAvailable(questionParts: unknown): number {
+  if (!Array.isArray(questionParts) || questionParts.length === 0) return 1;
+
+  const total = questionParts.reduce((sum, part) => {
+    if (!part || typeof part !== "object") return sum + 1;
+    const marks = numericValue((part as { marks?: unknown }).marks);
+    return sum + (marks !== null && marks > 0 ? marks : 1);
+  }, 0);
+
+  return total > 0 ? total : 1;
+}
+
+function answerMarksEarned(answer: WorksheetAnswerRow): number {
+  const payloadMarks = numericValue(answer.answer_payload?.marksEarned);
+  if (payloadMarks !== null) return payloadMarks;
+
+  if (Array.isArray(answer.part_results) && answer.part_results.length > 0) {
+    return answer.part_results.reduce((sum, part) => {
+      const marks = numericValue(part.marksEarned);
+      return sum + (marks ?? 0);
+    }, 0);
+  }
+
+  return answer.is_correct === true ? 1 : 0;
+}
+
 export async function POST(
   request: Request,
   { params }: { params: Promise<{ token: string }> }
@@ -29,7 +80,6 @@ export async function POST(
     return NextResponse.json({ error: "attemptId is required." }, { status: 400 });
   }
 
-  // 1. Validate attempt belongs to this token
   const { data: attempt, error: attemptError } = await supabaseAdmin
     .from("worksheet_attempts")
     .select("id, worksheet_id, user_id, completed_at, score_correct, score_total")
@@ -40,7 +90,6 @@ export async function POST(
     return NextResponse.json({ error: "Attempt not found." }, { status: 404 });
   }
 
-  // Confirm the attempt's worksheet matches the token in the URL
   const { data: worksheet, error: wsError } = await supabaseAdmin
     .from("worksheets")
     .select("id, expires_at")
@@ -62,18 +111,9 @@ export async function POST(
     );
   }
 
-  // 2. Idempotent — if already completed, return the saved score
-  if (attempt.completed_at) {
-    return NextResponse.json({
-      scoreCorrect: attempt.score_correct ?? 0,
-      scoreTotal: attempt.score_total ?? 0,
-    });
-  }
-
-  // 3. Score against the worksheet question count, not just submitted rows.
   const { data: worksheetQuestions, error: questionCountError } = await supabaseAdmin
     .from("worksheet_questions")
-    .select("question_id")
+    .select("question_id, questions(question_parts)")
     .eq("worksheet_id", attempt.worksheet_id);
 
   if (questionCountError || !worksheetQuestions) {
@@ -87,14 +127,19 @@ export async function POST(
     );
   }
 
-  const scoreTotal = worksheetQuestions.length;
+  const typedWorksheetQuestions = worksheetQuestions as WorksheetQuestionRow[];
+  const scoreTotal = typedWorksheetQuestions.length;
+  const marksAvailable = typedWorksheetQuestions.reduce((sum, row) => {
+    const question = Array.isArray(row.questions) ? row.questions[0] : row.questions;
+    return sum + questionMarksAvailable(question?.question_parts);
+  }, 0);
   const expectedQuestionIds = new Set(
-    worksheetQuestions.map((row: { question_id: string }) => row.question_id)
+    typedWorksheetQuestions.map((row) => row.question_id)
   );
 
   const { data: answers, error: countError } = await supabaseAdmin
     .from("worksheet_answers")
-    .select("question_id, is_correct, answered_at")
+    .select("question_id, is_correct, answered_at, answer_payload, part_results")
     .eq("attempt_id", attemptId)
     .eq("worksheet_id", attempt.worksheet_id)
     .order("answered_at", { ascending: false });
@@ -110,13 +155,36 @@ export async function POST(
     );
   }
 
-  const latestAnswersByQuestion = new Map<string, boolean>();
+  const latestAnswersByQuestion = new Map<
+    string,
+    { isCorrect: boolean; marksEarned: number }
+  >();
   for (const answer of answers ?? []) {
-    const row = answer as { question_id: string; is_correct: boolean | null };
+    const row = answer as WorksheetAnswerRow;
     if (!expectedQuestionIds.has(row.question_id)) continue;
     if (!latestAnswersByQuestion.has(row.question_id)) {
-      latestAnswersByQuestion.set(row.question_id, row.is_correct === true);
+      latestAnswersByQuestion.set(row.question_id, {
+        isCorrect: row.is_correct === true,
+        marksEarned: answerMarksEarned(row),
+      });
     }
+  }
+
+  const scoreCorrect = [...latestAnswersByQuestion.values()].filter(
+    (answer) => answer.isCorrect
+  ).length;
+  const marksEarned = [...latestAnswersByQuestion.values()].reduce(
+    (sum, answer) => sum + answer.marksEarned,
+    0
+  );
+
+  if (attempt.completed_at) {
+    return NextResponse.json({
+      scoreCorrect: attempt.score_correct ?? scoreCorrect,
+      scoreTotal: attempt.score_total ?? scoreTotal,
+      marksEarned,
+      marksAvailable,
+    });
   }
 
   if (latestAnswersByQuestion.size < scoreTotal) {
@@ -126,9 +194,6 @@ export async function POST(
     );
   }
 
-  const scoreCorrect = [...latestAnswersByQuestion.values()].filter(Boolean).length;
-
-  // 4. Mark the attempt as completed
   const { error: updateError } = await supabaseAdmin
     .from("worksheet_attempts")
     .update({
@@ -149,7 +214,6 @@ export async function POST(
     );
   }
 
-  // 5. Record mastery events for logged-in students only.
   const userId = (attempt as { user_id?: string | null }).user_id;
   if (userId) {
     try {
@@ -173,7 +237,7 @@ export async function POST(
         );
 
         const events: MasteryEventInput[] = [];
-        for (const [questionId, isCorrect] of latestAnswersByQuestion) {
+        for (const [questionId, answer] of latestAnswersByQuestion) {
           const meta = metaById.get(questionId);
           if (!meta) continue;
           events.push({
@@ -185,7 +249,7 @@ export async function POST(
             topicSlug: meta.topic_slug,
             subtopicSlug: meta.subtopic_slug ?? null,
             difficulty: meta.difficulty,
-            isCorrect,
+            isCorrect: answer.isCorrect,
           });
         }
 
@@ -197,7 +261,6 @@ export async function POST(
         userId,
         error: masteryErr instanceof Error ? masteryErr.message : masteryErr,
       });
-      // Mastery failure does not affect the student's score response.
     }
   }
 
@@ -205,8 +268,8 @@ export async function POST(
     userId: userId ?? null,
     eventName: "worksheet_completed",
     page: `/worksheet/${token}`,
-    metadata: { scoreCorrect, scoreTotal, attemptId },
+    metadata: { scoreCorrect, scoreTotal, marksEarned, marksAvailable, attemptId },
   });
 
-  return NextResponse.json({ scoreCorrect, scoreTotal });
+  return NextResponse.json({ scoreCorrect, scoreTotal, marksEarned, marksAvailable });
 }

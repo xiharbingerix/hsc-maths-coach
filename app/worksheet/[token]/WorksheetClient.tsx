@@ -63,6 +63,10 @@ type Phase = "intro" | "starting" | "asking" | "answered" | "done" | "error";
 
 type AnswerResult = {
   isCorrect: boolean;
+  scoreState?: "correct" | "partial" | "incorrect";
+  marksEarned?: number;
+  marksAvailable?: number;
+  percentage?: number;
   explanation: string;
   partResults?: PartAnswerResult[];
 };
@@ -71,6 +75,8 @@ type PartAnswerResult = {
   key: string;
   label: string;
   marks: number;
+  marksEarned?: number;
+  marksAvailable?: number;
   isCorrect: boolean;
   studentAnswer: string;
   correctAnswer: string;
@@ -80,6 +86,8 @@ type PartAnswerResult = {
 type FinalScore = {
   scoreCorrect: number;
   scoreTotal: number;
+  marksEarned?: number;
+  marksAvailable?: number;
 };
 
 type ResumeAnswer = {
@@ -93,6 +101,8 @@ type ResumeAttempt = {
   completedAt?: string | null;
   scoreCorrect?: number | null;
   scoreTotal?: number | null;
+  marksEarned?: number | null;
+  marksAvailable?: number | null;
   answeredQuestions?: ResumeAnswer[];
   error?: string;
 };
@@ -209,6 +219,8 @@ export function WorksheetClient({
           setFinalScore({
             scoreCorrect: data.scoreCorrect ?? 0,
             scoreTotal: data.scoreTotal ?? totalQuestions,
+            marksEarned: data.marksEarned ?? undefined,
+            marksAvailable: data.marksAvailable ?? undefined,
           });
           setPhase("done");
           return;
@@ -322,6 +334,10 @@ export function WorksheetClient({
       });
       const data = (await res.json()) as {
         isCorrect?: boolean;
+        scoreState?: "correct" | "partial" | "incorrect";
+        marksEarned?: number;
+        marksAvailable?: number;
+        percentage?: number;
         explanation?: string;
         partResults?: PartAnswerResult[];
         error?: string;
@@ -335,6 +351,10 @@ export function WorksheetClient({
 
       setResult({
         isCorrect: Boolean(data.isCorrect),
+        scoreState: data.scoreState,
+        marksEarned: data.marksEarned,
+        marksAvailable: data.marksAvailable,
+        percentage: data.percentage,
         explanation: data.explanation ?? "",
         partResults: data.partResults ?? [],
       });
@@ -362,6 +382,8 @@ export function WorksheetClient({
         const data = (await res.json()) as {
           scoreCorrect?: number;
           scoreTotal?: number;
+          marksEarned?: number;
+          marksAvailable?: number;
           error?: string;
         };
 
@@ -373,6 +395,8 @@ export function WorksheetClient({
         setFinalScore({
           scoreCorrect: data.scoreCorrect ?? 0,
           scoreTotal: data.scoreTotal ?? totalQuestions,
+          marksEarned: data.marksEarned,
+          marksAvailable: data.marksAvailable,
         });
         setPhase("done");
       } catch {
@@ -540,7 +564,13 @@ export function WorksheetClient({
 
   // ── Done — final score ─────────────────────────────────────────────────────
   if (phase === "done" && finalScore) {
-    const pct = Math.round((finalScore.scoreCorrect / finalScore.scoreTotal) * 100);
+    const hasMarksScore =
+      typeof finalScore.marksEarned === "number" &&
+      typeof finalScore.marksAvailable === "number" &&
+      finalScore.marksAvailable > 0;
+    const pct = hasMarksScore
+      ? Math.round((finalScore.marksEarned! / finalScore.marksAvailable!) * 100)
+      : Math.round((finalScore.scoreCorrect / finalScore.scoreTotal) * 100);
     const barWidth = `${pct}%`;
 
     return (
@@ -552,8 +582,15 @@ export function WorksheetClient({
               Worksheet complete
             </p>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">
-              {finalScore.scoreCorrect} / {finalScore.scoreTotal} correct
+              {hasMarksScore
+                ? `${finalScore.marksEarned} / ${finalScore.marksAvailable} marks`
+                : `${finalScore.scoreCorrect} / ${finalScore.scoreTotal} correct`}
             </h1>
+            {hasMarksScore ? (
+              <p className="text-sm font-medium text-slate-600">
+                {finalScore.scoreCorrect} / {finalScore.scoreTotal} questions fully correct
+              </p>
+            ) : null}
 
             {/* Progress bar */}
             <div className="h-3 w-full overflow-hidden rounded-full bg-slate-100">
@@ -599,6 +636,31 @@ export function WorksheetClient({
       : isMcq
       ? choiceAnswer !== ""
       : typedAnswer.trim() !== "");
+  const resultState = result?.scoreState ?? (result?.isCorrect ? "correct" : "incorrect");
+  const resultPanelClass =
+    resultState === "correct"
+      ? "border-emerald-200 bg-emerald-50"
+      : resultState === "partial"
+      ? "border-amber-200 bg-amber-50"
+      : "border-red-200 bg-red-50";
+  const resultTextClass =
+    resultState === "correct"
+      ? "text-emerald-800"
+      : resultState === "partial"
+      ? "text-amber-800"
+      : "text-red-800";
+  const resultBodyClass =
+    resultState === "correct"
+      ? "text-emerald-900"
+      : resultState === "partial"
+      ? "text-amber-900"
+      : "text-red-900";
+  const resultTitle =
+    resultState === "correct"
+      ? "Correct!"
+      : resultState === "partial"
+      ? "Partly correct."
+      : "Not quite.";
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -749,25 +811,20 @@ export function WorksheetClient({
           {/* Result */}
           {phase === "answered" && result ? (
             <div
-              className={`space-y-2 rounded-xl border p-4 ${
-                result.isCorrect
-                  ? "border-emerald-200 bg-emerald-50"
-                  : "border-red-200 bg-red-50"
-              }`}
+              className={`space-y-2 rounded-xl border p-4 ${resultPanelClass}`}
             >
-              <p
-                className={`font-semibold ${
-                  result.isCorrect ? "text-emerald-800" : "text-red-800"
-                }`}
-              >
-                {result.isCorrect ? "Correct!" : "Not quite."}
-              </p>
+              <p className={`font-semibold ${resultTextClass}`}>{resultTitle}</p>
+              {typeof result.marksEarned === "number" &&
+              typeof result.marksAvailable === "number" ? (
+                <p className={`text-sm font-semibold ${resultBodyClass}`}>
+                  Marks: {result.marksEarned} / {result.marksAvailable}
+                  {typeof result.percentage === "number"
+                    ? ` (${Math.round(result.percentage * 100)}%)`
+                    : ""}
+                </p>
+              ) : null}
               {result.explanation ? (
-                <p
-                  className={`text-sm leading-6 ${
-                    result.isCorrect ? "text-emerald-900" : "text-red-900"
-                  }`}
-                >
+                <p className={`text-sm leading-6 ${resultBodyClass}`}>
                   <MathText text={result.explanation} />
                 </p>
               ) : null}
@@ -783,7 +840,9 @@ export function WorksheetClient({
                       }`}
                     >
                       <p className="font-semibold">
-                        {part.label} {part.isCorrect ? "Correct" : "Not quite"} ({part.marks} {part.marks === 1 ? "mark" : "marks"})
+                        {part.label} {part.isCorrect ? "Correct" : "Not quite"} (
+                        {part.marksEarned ?? (part.isCorrect ? part.marks : 0)} /{" "}
+                        {part.marksAvailable ?? part.marks} marks)
                       </p>
                       <p className="mt-1">
                         Your answer:{" "}

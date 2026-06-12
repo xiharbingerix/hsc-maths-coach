@@ -27,11 +27,15 @@ type PartAnswerResult = {
   key: string;
   label: string;
   marks: number;
+  marksEarned: number;
+  marksAvailable: number;
   isCorrect: boolean;
   studentAnswer: string;
   correctAnswer: string;
   explanation: string;
 };
+
+type QuestionScoreState = "correct" | "partial" | "incorrect";
 
 function normaliseQuestionParts(value: unknown): StoredQuestionPart[] {
   if (!Array.isArray(value)) return [];
@@ -166,8 +170,18 @@ export async function POST(
   let isCorrect = false;
   let explanation = String(question.explanation ?? "");
   let studentAnswerForStorage = trimmedAnswer;
-  let answerPayload: { parts?: Record<string, string> } | null = null;
+  let answerPayload: {
+    parts?: Record<string, string>;
+    marksEarned?: number;
+    marksAvailable?: number;
+    percentage?: number;
+    scoreState?: QuestionScoreState;
+  } | null = null;
   let partResults: PartAnswerResult[] | null = null;
+  let marksEarned = 0;
+  let marksAvailable = 1;
+  let percentage = 0;
+  let scoreState: QuestionScoreState = "incorrect";
 
   if (parts.length > 0) {
     if (!partAnswers || typeof partAnswers !== "object") {
@@ -184,11 +198,16 @@ export async function POST(
         correctAnswer: part.answer,
         acceptedAnswers: part.acceptedAnswers ?? part.accepted_answers ?? [],
       });
+      const marksAvailableForPart =
+        Number.isFinite(part.marks) && part.marks > 0 ? part.marks : 1;
+      const partIsCorrect = studentAnswer.length > 0 && result.correct;
       return {
         key: part.key,
         label: part.label,
-        marks: part.marks,
-        isCorrect: studentAnswer.length > 0 && result.correct,
+        marks: marksAvailableForPart,
+        marksEarned: partIsCorrect ? marksAvailableForPart : 0,
+        marksAvailable: marksAvailableForPart,
+        isCorrect: partIsCorrect,
         studentAnswer,
         correctAnswer: part.answer,
         explanation: part.explanation,
@@ -202,8 +221,26 @@ export async function POST(
       );
     }
 
-    isCorrect = partResults.every((part) => part.isCorrect);
-    answerPayload = { parts: partAnswers };
+    marksEarned = partResults.reduce((total, part) => total + part.marksEarned, 0);
+    marksAvailable = partResults.reduce(
+      (total, part) => total + part.marksAvailable,
+      0
+    );
+    percentage = marksAvailable > 0 ? marksEarned / marksAvailable : 0;
+    isCorrect = marksEarned === marksAvailable;
+    scoreState =
+      marksEarned === marksAvailable
+        ? "correct"
+        : marksEarned > 0
+        ? "partial"
+        : "incorrect";
+    answerPayload = {
+      parts: partAnswers,
+      marksEarned,
+      marksAvailable,
+      percentage,
+      scoreState,
+    };
     studentAnswerForStorage = partResults
       .map((part) => `${part.label} ${part.studentAnswer}`)
       .join(" | ");
@@ -225,6 +262,9 @@ export async function POST(
     isCorrect =
       trimmedAnswer.toUpperCase() ===
       String(question.answer ?? "").trim().toUpperCase();
+    marksEarned = isCorrect ? 1 : 0;
+    percentage = marksEarned;
+    scoreState = isCorrect ? "correct" : "incorrect";
   } else if (parts.length === 0) {
     // Typed: use semantic marking
     const result = markTypedAnswer({
@@ -235,6 +275,9 @@ export async function POST(
         : [],
     });
     isCorrect = result.correct;
+    marksEarned = isCorrect ? 1 : 0;
+    percentage = marksEarned;
+    scoreState = isCorrect ? "correct" : "incorrect";
   }
 
   // 5. Save the answer
@@ -266,6 +309,10 @@ export async function POST(
 
   return NextResponse.json({
     isCorrect,
+    scoreState,
+    marksEarned,
+    marksAvailable,
+    percentage,
     explanation,
     partResults: partResults ?? [],
   });

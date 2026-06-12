@@ -3,6 +3,56 @@ import { supabaseAdmin } from "../../../../../../lib/supabaseAdmin";
 
 export const runtime = "nodejs";
 
+type PartResultPayload = {
+  marksEarned?: unknown;
+};
+
+type AnswerPayload = {
+  marksEarned?: unknown;
+};
+
+type WorksheetQuestionRow = {
+  question_id: string;
+  questions?: { question_parts?: unknown } | { question_parts?: unknown }[] | null;
+};
+
+type WorksheetAnswerRow = {
+  question_id: string;
+  is_correct: boolean | null;
+  answer_payload?: AnswerPayload | null;
+  part_results?: PartResultPayload[] | null;
+};
+
+function numericValue(value: unknown): number | null {
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+function questionMarksAvailable(questionParts: unknown): number {
+  if (!Array.isArray(questionParts) || questionParts.length === 0) return 1;
+
+  const total = questionParts.reduce((sum, part) => {
+    if (!part || typeof part !== "object") return sum + 1;
+    const marks = numericValue((part as { marks?: unknown }).marks);
+    return sum + (marks !== null && marks > 0 ? marks : 1);
+  }, 0);
+
+  return total > 0 ? total : 1;
+}
+
+function answerMarksEarned(answer: WorksheetAnswerRow): number {
+  const payloadMarks = numericValue(answer.answer_payload?.marksEarned);
+  if (payloadMarks !== null) return payloadMarks;
+
+  if (Array.isArray(answer.part_results) && answer.part_results.length > 0) {
+    return answer.part_results.reduce((sum, part) => {
+      const marks = numericValue(part.marksEarned);
+      return sum + (marks ?? 0);
+    }, 0);
+  }
+
+  return answer.is_correct === true ? 1 : 0;
+}
+
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ token: string; attemptId: string }> }
@@ -44,9 +94,33 @@ export async function GET(
     );
   }
 
+  const { data: worksheetQuestions, error: questionCountError } = await supabaseAdmin
+    .from("worksheet_questions")
+    .select("question_id, questions(question_parts)")
+    .eq("worksheet_id", attempt.worksheet_id);
+
+  if (questionCountError || !worksheetQuestions) {
+    console.error("[worksheet/attempt] worksheet question count failed", {
+      attemptId,
+      message: questionCountError?.message,
+    });
+    return NextResponse.json(
+      { error: "Could not load worksheet attempt." },
+      { status: 500 }
+    );
+  }
+
+  const marksAvailable = (worksheetQuestions as WorksheetQuestionRow[]).reduce(
+    (sum, row) => {
+      const question = Array.isArray(row.questions) ? row.questions[0] : row.questions;
+      return sum + questionMarksAvailable(question?.question_parts);
+    },
+    0
+  );
+
   const { data: answers, error: answersError } = await supabaseAdmin
     .from("worksheet_answers")
-    .select("question_id, is_correct, answered_at")
+    .select("question_id, is_correct, answered_at, answer_payload, part_results")
     .eq("attempt_id", attemptId)
     .eq("worksheet_id", attempt.worksheet_id)
     .order("answered_at", { ascending: false });
@@ -62,13 +136,24 @@ export async function GET(
     );
   }
 
-  const latestByQuestion = new Map<string, boolean>();
+  const latestByQuestion = new Map<
+    string,
+    { isCorrect: boolean; marksEarned: number }
+  >();
   for (const answer of answers ?? []) {
-    const row = answer as { question_id: string; is_correct: boolean | null };
+    const row = answer as WorksheetAnswerRow;
     if (!latestByQuestion.has(row.question_id)) {
-      latestByQuestion.set(row.question_id, row.is_correct === true);
+      latestByQuestion.set(row.question_id, {
+        isCorrect: row.is_correct === true,
+        marksEarned: answerMarksEarned(row),
+      });
     }
   }
+
+  const marksEarned = [...latestByQuestion.values()].reduce(
+    (sum, answer) => sum + answer.marksEarned,
+    0
+  );
 
   return NextResponse.json({
     attemptId: attempt.id,
@@ -76,9 +161,10 @@ export async function GET(
     completedAt: attempt.completed_at ?? null,
     scoreCorrect: attempt.score_correct ?? null,
     scoreTotal: attempt.score_total ?? null,
+    marksEarned,
+    marksAvailable,
     answeredQuestions: [...latestByQuestion.entries()].map(
-      ([questionId, isCorrect]) => ({ questionId, isCorrect })
+      ([questionId, answer]) => ({ questionId, isCorrect: answer.isCorrect })
     ),
   });
 }
-

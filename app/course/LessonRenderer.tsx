@@ -152,6 +152,10 @@ function partAcceptedAnswers(part: PracticeQuestionPart) {
   return part.acceptedAnswers ?? [];
 }
 
+function partMarks(part: PracticeQuestionPart) {
+  return Number.isFinite(part.marks) && part.marks > 0 ? part.marks : 1;
+}
+
 function serialisePartAnswers(answers: Record<string, string>) {
   return JSON.stringify({ parts: answers });
 }
@@ -253,6 +257,12 @@ function MultiPartPracticeCard({
   const [results, setResults] = useState<Record<string, "correct" | "incorrect">>({});
   const allAnsweredCorrectly =
     parts.length > 0 && parts.every((part) => results[part.key] === "correct");
+  const checkedParts = parts.filter((part) => results[part.key]);
+  const marksEarned = checkedParts.reduce(
+    (sum, part) => sum + (results[part.key] === "correct" ? partMarks(part) : 0),
+    0
+  );
+  const marksAvailable = checkedParts.reduce((sum, part) => sum + partMarks(part), 0);
 
   function updateAnswer(key: string, value: string) {
     setAnswers((current) => ({ ...current, [key]: value }));
@@ -318,7 +328,7 @@ function MultiPartPracticeCard({
                   <MathText text={part.prompt} />
                 </p>
                 <span className="shrink-0 rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-600">
-                  {part.marks} {part.marks === 1 ? "mark" : "marks"}
+                  {partMarks(part)} {partMarks(part) === 1 ? "mark" : "marks"}
                 </span>
               </div>
               {part.latex && (
@@ -351,6 +361,9 @@ function MultiPartPracticeCard({
                   <p className="font-semibold">
                     {result === "correct" ? "Correct." : "Not quite."}
                   </p>
+                  <p className="mt-1 font-medium">
+                    Marks: {result === "correct" ? partMarks(part) : 0} / {partMarks(part)}
+                  </p>
                   <div className="mt-2 grid gap-2 sm:grid-cols-2">
                     <div className="rounded-lg bg-white/70 p-2">
                       <p className="text-xs font-semibold uppercase tracking-wide opacity-70">
@@ -382,6 +395,11 @@ function MultiPartPracticeCard({
       {allAnsweredCorrectly && (
         <div className="rounded-xl bg-green-50 p-3 text-sm font-medium text-green-800">
           All parts correct.
+        </div>
+      )}
+      {!allAnsweredCorrectly && checkedParts.length > 0 && (
+        <div className="rounded-xl bg-amber-50 p-3 text-sm font-medium text-amber-900">
+          Marks checked so far: {marksEarned} / {marksAvailable}
         </div>
       )}
     </div>
@@ -480,17 +498,28 @@ function MultiPartReviewDetails({
 }) {
   const parts = questionParts(question);
   const answers = parsePartAnswers(submittedAnswer);
+  const marksEarned = parts.reduce((sum, part) => {
+    const answer = answers[part.key]?.trim() ?? "";
+    return sum + (answer.length > 0 && isCorrectPart(part, answer) ? partMarks(part) : 0);
+  }, 0);
+  const marksAvailable = parts.reduce((sum, part) => sum + partMarks(part), 0);
 
   if (parts.length === 0) return null;
 
   return (
     <div className="space-y-3">
+      <div className="rounded-xl bg-amber-50 p-3 text-sm font-semibold text-amber-900">
+        Marks: {marksEarned} / {marksAvailable}
+      </div>
       {parts.map((part) => (
         <div key={part.key} className="rounded-xl border border-slate-200 bg-white p-3">
           <div className="flex items-start justify-between gap-3">
             <p className="font-semibold text-slate-900">{part.label}</p>
             <span className="shrink-0 rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-600">
-              {part.marks} {part.marks === 1 ? "mark" : "marks"}
+              {answers[part.key]?.trim() && isCorrectPart(part, answers[part.key])
+                ? partMarks(part)
+                : 0}{" "}
+              / {partMarks(part)} marks
             </span>
           </div>
           <p className="mt-2 text-slate-800">

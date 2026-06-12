@@ -173,9 +173,11 @@ Do not put a question here because it is hard. Put it here because it is **struc
 - A question where parts are independent (no shared stem, no dependency between parts)
 - A question where the answer to any part is a full equation with no canonical unique form
 
-### Marks-weighted scoring requirement
+### Marks-weighted scoring
 
-Currently, the marking system scores multi-part questions 0 or 1 (fully correct or not). A student who answers (a) and (b) correctly but not (c) receives no credit. **Marks-weighted partial scoring must be implemented before `multiPartPractice` is used in primary graded assessments.** Until then, use multi-part questions as exam-rehearsal with instructor review.
+Multi-part worksheet questions receive marks-weighted partial credit. Each correct part earns its `marks` value, and worksheet feedback shows total marks plus per-part marks, answers, and explanations. The question-level result is `correct`, `partial`, or `incorrect` based on total marks earned.
+
+This still relies on exact, numeric, coordinate, or simple algebraic auto-marking. Do not author proof-only or free-text parts for primary graded use.
 
 ### Recommended future audit checks (not yet implemented)
 

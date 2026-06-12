@@ -160,9 +160,15 @@ Each part uses a different algebraic condition. Fully MVP-safe.
 
 ---
 
-#### Marks-weighted scoring (infrastructure gap)
+#### Marks-weighted scoring
 
-Currently, multi-part questions score 0 or 1 (fully correct or not). A student who answers (a) and (b) correctly but misses (c) receives no credit. **Marks-weighted partial scoring is required before `multiPartPractice` is used heavily in student-facing assessments.** Until then, treat multi-part questions as exam-rehearsal practice, not primary graded work.
+Multi-part worksheet questions are scored by part marks. Each part contributes its `marks` value when auto-marked correct, and contributes 0 when incorrect. The question state is:
+
+- `correct` when earned marks equal available marks
+- `partial` when earned marks are greater than 0 but less than available marks
+- `incorrect` when earned marks are 0
+
+Part results are stored with the student answer, correct answer, explanation, and marks earned/available. AI/free-text marking is still not supported, so every part must have an exact, numeric, coordinate, or simple algebraic answer.
 
 #### Future audit checks (recommended, not yet implemented)
 
