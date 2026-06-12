@@ -6,6 +6,7 @@ import { diagnosticData as y11StdData } from "../../../lib/diagnostics/year-11-s
 import { diagnosticData as y11AdvData } from "../../../lib/diagnostics/year-11-advanced";
 import { diagnosticData as y12AdvancedData } from "../../../lib/diagnostics/year-12-advanced";
 import { diagnosticData as y12Std2Data } from "../../../lib/diagnostics/year-12-standard-2";
+import { diagnosticData as y12Std1Data } from "../../../lib/diagnostics/year-12-standard-1";
 import { diagnosticData as y12Ext1Data } from "../../../lib/diagnostics/year-12-extension-1";
 import { diagnosticData as y11ExtData } from "../../../lib/diagnostics/year-11-extension";
 import type { DiagnosticData } from "../../../lib/diagnostics/types";
@@ -20,6 +21,7 @@ const dataByYearLevel: Record<string, DiagnosticData> = {
   "year-11-extension": y11ExtData,
   "year-12-advanced": y12AdvancedData,
   "year-12-standard-2": y12Std2Data,
+  "year-12-standard-1": y12Std1Data,
   "year-12-extension-1": y12Ext1Data,
 };
 

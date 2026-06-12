@@ -23,7 +23,12 @@
 - Right-angle trigonometry content is scoped for future development.
 - Measurement and geometry with area, volume, scale drawings, and practical plan interpretation remain planned.
 - Statistics and data units are scaffolded but need Standard 1-specific lesson content rather than Standard 2 bivariate/normal-distribution content.
-- No Standard 1 diagnostic workflow has been added yet.
+- A Year 12 Standard 1 diagnostic has now been added for active Standard 1 units and reused Standard 2 overlap.
+
+## Diagnostic coverage
+- Active units covered: `algebraic-relationships`, `trigonometry-ratios-rates`, `investments-loans-annuities`.
+- Question count: 16.
+- Limitation: the diagnostic is intentionally smaller than 20 questions because only three active Standard 1 units are available at this stage.
 
 ## Next steps
 1. Create dedicated Standard 1 lessons for measurement, geometry, and probability.

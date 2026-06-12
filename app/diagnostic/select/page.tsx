@@ -8,6 +8,7 @@ const yearLevels = [
   { slug: "year-11-advanced", label: "Year 11 Advanced", available: true },
   { slug: "year-12-advanced", label: "Year 12 Advanced", available: true },
   { slug: "year-12-standard-2", label: "Year 12 Standard 2", available: true },
+  { slug: "year-12-standard-1", label: "Year 12 Standard 1", available: true },
   { slug: "year-12-extension-1", label: "Year 12 Extension 1", available: true },
 ];
 
