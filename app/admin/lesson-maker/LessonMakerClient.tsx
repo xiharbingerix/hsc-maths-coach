@@ -32,13 +32,15 @@ interface Props {
 function buildWorksheetUrl(
   courseSlug: string,
   unitSlug: string,
-  lessonTitle: string
+  lessonTitle: string,
+  lessonSlug?: string
 ): string {
   const params = new URLSearchParams({
     course: courseSlug,
     topic: unitSlug,
     title: lessonTitle,
   });
+  if (lessonSlug) params.set("subtopic", lessonSlug);
   return `/admin/worksheets/new?${params.toString()}`;
 }
 
@@ -780,7 +782,7 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
                       : "Save plan"}
               </button>
               <a
-                href={buildWorksheetUrl(courseSlug, unitSlug, plan.title)}
+                href={buildWorksheetUrl(courseSlug, unitSlug, plan.title, lessonSlug)}
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800 hover:bg-emerald-100"
@@ -838,7 +840,7 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
                     : "Save plan"}
             </button>
             <a
-              href={buildWorksheetUrl(courseSlug, unitSlug, plan.title)}
+              href={buildWorksheetUrl(courseSlug, unitSlug, plan.title, lessonSlug)}
               target="_blank"
               rel="noreferrer"
               className="rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800 hover:bg-emerald-100"

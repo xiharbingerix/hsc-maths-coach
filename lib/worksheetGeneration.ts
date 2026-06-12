@@ -118,39 +118,47 @@ export async function selectWorksheetQuestions({
   preset,
   totalQuestions,
   weakSubtopicSlugs = [],
+  selectedSubtopicSlugs,
 }: {
   courseSlug: string;
   topicSlugs: string[];
   preset: DifficultyPreset;
   totalQuestions: number;
   weakSubtopicSlugs?: string[];
+  selectedSubtopicSlugs?: string[];
 }) {
   const distribution = scalePreset(WORKSHEET_PRESETS[preset], totalQuestions);
   const selected: WorksheetQuestionPreview[] = [];
   const selectedIds = new Set<string>();
 
+  // Manual admin selection takes 100% of phase-1 slots;
+  // adaptive weak subtopics take 65% (existing behaviour).
+  const isManual = selectedSubtopicSlugs && selectedSubtopicSlugs.length > 0;
+  const prioritySubtopics = isManual ? selectedSubtopicSlugs : weakSubtopicSlugs;
+  const priorityFraction = isManual ? 1.0 : 0.65;
+
   for (const [level, needed] of distribution) {
     if (needed === 0) continue;
     let levelCount = 0;
 
-    // Phase 1: prioritise weak subtopics (~65% of needed)
-    if (weakSubtopicSlugs.length > 0) {
-      const weakTarget = Math.ceil(needed * 0.65);
-      const { data: weakData, error: weakError } = await supabaseAdmin
+    // Phase 1: prioritise selected/weak subtopics
+    if (prioritySubtopics.length > 0) {
+      const priorityTarget = Math.ceil(needed * priorityFraction);
+      const { data: priorityData, error: priorityError } = await supabaseAdmin
         .from("questions")
         .select(QUESTION_SELECT)
         .eq("course_slug", courseSlug)
         .in("topic_slug", topicSlugs)
-        .in("subtopic_slug", weakSubtopicSlugs)
+        .in("subtopic_slug", prioritySubtopics)
         .eq("difficulty", level)
         .eq("is_active", true);
 
-      if (weakError) {
-        throw new Error(`Could not query questions: ${weakError.message}`);
+      if (priorityError) {
+        throw new Error(`Could not query questions: ${priorityError.message}`);
       }
 
-      for (const row of shuffle((weakData ?? []) as RawQuestionRow[])) {
-        if (levelCount >= weakTarget || selected.length >= totalQuestions) break;
+      for (const row of shuffle((priorityData ?? []) as RawQuestionRow[])) {
+        if (levelCount >= priorityTarget || selected.length >= totalQuestions) break;
         if (selectedIds.has(row.id)) continue;
         selected.push(toPreviewQuestion(row));
         selectedIds.add(row.id);

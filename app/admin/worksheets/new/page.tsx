@@ -13,47 +13,67 @@ type CourseTopicEntry = {
   topicSlug: string;
 };
 
-type QuestionTopicRow = {
-  course_slug: string;
-  topic_slug: string;
+export type CourseTopicSubtopicEntry = {
+  courseSlug: string;
+  topicSlug: string;
+  subtopicSlug: string;
 };
 
-async function loadCourseTopics(): Promise<CourseTopicEntry[]> {
-  const rows: QuestionTopicRow[] = [];
+type QuestionMetaRow = {
+  course_slug: string;
+  topic_slug: string;
+  subtopic_slug: string;
+};
+
+async function loadCourseMeta(): Promise<{
+  courseTopics: CourseTopicEntry[];
+  courseTopicSubtopics: CourseTopicSubtopicEntry[];
+}> {
+  const rows: QuestionMetaRow[] = [];
   const batchSize = 1000;
   let from = 0;
 
   while (true) {
     const { data, error } = await supabaseAdmin
       .from("questions")
-      .select("course_slug, topic_slug")
+      .select("course_slug, topic_slug, subtopic_slug")
       .eq("is_active", true)
       .order("course_slug")
       .order("topic_slug")
+      .order("subtopic_slug")
       .range(from, from + batchSize - 1);
 
-    if (error) {
-      throw error;
-    }
-
-    rows.push(...((data ?? []) as QuestionTopicRow[]));
-
-    if (!data || data.length < batchSize) {
-      break;
-    }
-
+    if (error) throw error;
+    rows.push(...((data ?? []) as QuestionMetaRow[]));
+    if (!data || data.length < batchSize) break;
     from += batchSize;
   }
 
-  const seen = new Set<string>();
-  return rows
-    .filter((row) => {
-      const key = `${row.course_slug}::${row.topic_slug}`;
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    })
-    .map((row) => ({ courseSlug: row.course_slug, topicSlug: row.topic_slug }));
+  const seenTopics = new Set<string>();
+  const seenSubtopics = new Set<string>();
+  const courseTopics: CourseTopicEntry[] = [];
+  const courseTopicSubtopics: CourseTopicSubtopicEntry[] = [];
+
+  for (const row of rows) {
+    const topicKey = `${row.course_slug}::${row.topic_slug}`;
+    if (!seenTopics.has(topicKey)) {
+      seenTopics.add(topicKey);
+      courseTopics.push({ courseSlug: row.course_slug, topicSlug: row.topic_slug });
+    }
+    if (row.subtopic_slug) {
+      const subtopicKey = `${row.course_slug}::${row.topic_slug}::${row.subtopic_slug}`;
+      if (!seenSubtopics.has(subtopicKey)) {
+        seenSubtopics.add(subtopicKey);
+        courseTopicSubtopics.push({
+          courseSlug: row.course_slug,
+          topicSlug: row.topic_slug,
+          subtopicSlug: row.subtopic_slug,
+        });
+      }
+    }
+  }
+
+  return { courseTopics, courseTopicSubtopics };
 }
 
 export default async function NewWorksheetPage({
@@ -65,6 +85,7 @@ export default async function NewWorksheetPage({
     studentId?: string;
     course?: string;
     topic?: string;
+    subtopic?: string;
     title?: string;
   }>;
 }) {
@@ -80,15 +101,18 @@ export default async function NewWorksheetPage({
     typeof params?.course === "string" ? params.course : "";
   const initialTopicSlug =
     typeof params?.topic === "string" ? params.topic : "";
+  const initialSubtopicSlug =
+    typeof params?.subtopic === "string" ? params.subtopic : "";
   const initialTitle =
     typeof params?.title === "string" ? params.title : "";
 
-  // Load distinct (course_slug, topic_slug) pairs from active questions.
-  // Returns an empty list if the questions table is empty or migration not applied.
+  // Load distinct (course, topic, subtopic) tuples from active questions.
+  // Returns empty lists if the questions table is empty or migration not applied.
   let courseTopics: CourseTopicEntry[] = [];
+  let courseTopicSubtopics: CourseTopicSubtopicEntry[] = [];
 
   try {
-    courseTopics = await loadCourseTopics();
+    ({ courseTopics, courseTopicSubtopics } = await loadCourseMeta());
   } catch {
     // Questions table may not exist yet — handled below via empty courseTopics
   }
@@ -160,11 +184,13 @@ export default async function NewWorksheetPage({
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <WorksheetGeneratorForm
                 courseTopics={courseTopics}
+                courseTopicSubtopics={courseTopicSubtopics}
                 initialStudentName={initialStudentName}
                 initialStudentEmail={initialStudentEmail}
                 initialStudentId={initialStudentId}
                 initialCourseSlug={initialCourseSlug}
                 initialTopicSlug={initialTopicSlug}
+                initialSubtopicSlug={initialSubtopicSlug}
                 initialTitle={initialTitle}
               />
             </div>

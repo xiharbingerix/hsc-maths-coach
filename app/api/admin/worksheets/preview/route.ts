@@ -15,6 +15,7 @@ type PreviewBody = {
   preset?: string;
   totalQuestions?: number;
   studentId?: string;
+  selectedSubtopicSlugs?: string[];
 };
 
 async function isAdmin(): Promise<boolean> {
@@ -39,7 +40,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const { courseSlug, topicSlugs, preset, totalQuestions, studentId } = body;
+  const { courseSlug, topicSlugs, preset, totalQuestions, studentId, selectedSubtopicSlugs } = body;
 
   if (!courseSlug?.trim()) {
     return NextResponse.json({ error: "Course is required." }, { status: 400 });
@@ -67,9 +68,17 @@ export async function POST(request: Request) {
     );
   }
 
-  // Look up weak subtopics for this student if a studentId was provided
+  // Validate selectedSubtopicSlugs if provided
+  const manualSubtopics =
+    Array.isArray(selectedSubtopicSlugs) && selectedSubtopicSlugs.length > 0
+      ? (selectedSubtopicSlugs as string[]).filter(
+          (s) => typeof s === "string" && s.trim()
+        )
+      : [];
+
+  // Look up weak subtopics for this student only when no manual selection is made
   let weakSubtopicSlugs: string[] = [];
-  if (typeof studentId === "string" && studentId.trim()) {
+  if (manualSubtopics.length === 0 && typeof studentId === "string" && studentId.trim()) {
     const { data: subtopicData } = await supabaseAdmin
       .from("student_subtopic_mastery")
       .select("subtopic_slug")
@@ -91,6 +100,7 @@ export async function POST(request: Request) {
       preset,
       totalQuestions: count,
       weakSubtopicSlugs,
+      selectedSubtopicSlugs: manualSubtopics.length > 0 ? manualSubtopics : undefined,
     });
 
     if (questions.length === 0) {
@@ -106,7 +116,8 @@ export async function POST(request: Request) {
     return NextResponse.json({
       questions,
       questionCount: questions.length,
-      prioritisedSubtopics: weakSubtopicSlugs.length > 0 ? weakSubtopicSlugs : undefined,
+      prioritisedSubtopics:
+        weakSubtopicSlugs.length > 0 ? weakSubtopicSlugs : undefined,
     });
   } catch (error) {
     console.error("[worksheets/preview] failed", {

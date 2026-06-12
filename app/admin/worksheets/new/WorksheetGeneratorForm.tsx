@@ -29,6 +29,12 @@ type CourseTopicEntry = {
   topicSlug: string;
 };
 
+type CourseTopicSubtopicEntry = {
+  courseSlug: string;
+  topicSlug: string;
+  subtopicSlug: string;
+};
+
 type GenerateResult = {
   worksheetId: string;
   shareToken: string;
@@ -112,19 +118,23 @@ function DiagramPreview({ data }: { data: Record<string, unknown> | null }) {
 
 export function WorksheetGeneratorForm({
   courseTopics,
+  courseTopicSubtopics,
   initialStudentName = "",
   initialStudentEmail = "",
   initialStudentId = "",
   initialCourseSlug = "",
   initialTopicSlug = "",
+  initialSubtopicSlug = "",
   initialTitle = "",
 }: {
   courseTopics: CourseTopicEntry[];
+  courseTopicSubtopics: CourseTopicSubtopicEntry[];
   initialStudentName?: string;
   initialStudentEmail?: string;
   initialStudentId?: string;
   initialCourseSlug?: string;
   initialTopicSlug?: string;
+  initialSubtopicSlug?: string;
   initialTitle?: string;
 }) {
   const courses = [...new Set(courseTopics.map((ct) => ct.courseSlug))].sort();
@@ -142,6 +152,18 @@ export function WorksheetGeneratorForm({
     return available.includes(initialTopicSlug) ? [initialTopicSlug] : [];
   })();
 
+  const resolvedInitialSubtopics = (() => {
+    if (!initialSubtopicSlug || resolvedInitialTopics.length === 0) return [];
+    const available = courseTopicSubtopics
+      .filter(
+        (cts) =>
+          cts.courseSlug === resolvedInitialCourse &&
+          resolvedInitialTopics.includes(cts.topicSlug)
+      )
+      .map((cts) => cts.subtopicSlug);
+    return available.includes(initialSubtopicSlug) ? [initialSubtopicSlug] : [];
+  })();
+
   const [title, setTitle] = useState(initialTitle);
   const [studentName, setStudentName] = useState(initialStudentName);
   const [studentEmail, setStudentEmail] = useState(initialStudentEmail);
@@ -149,6 +171,9 @@ export function WorksheetGeneratorForm({
   const [dueDate, setDueDate] = useState("");
   const [courseSlug, setCourseSlug] = useState(resolvedInitialCourse);
   const [selectedTopics, setSelectedTopics] = useState<string[]>(resolvedInitialTopics);
+  const [selectedSubtopics, setSelectedSubtopics] = useState<string[]>(
+    resolvedInitialSubtopics
+  );
   const [preset, setPreset] = useState<"catch-up" | "standard" | "push-forward">(
     "standard"
   );
@@ -170,24 +195,63 @@ export function WorksheetGeneratorForm({
     .map((ct) => ct.topicSlug)
     .sort();
 
+  const subtopicsForSelectedTopics = [
+    ...new Set(
+      courseTopicSubtopics
+        .filter(
+          (cts) =>
+            cts.courseSlug === courseSlug && selectedTopics.includes(cts.topicSlug)
+        )
+        .map((cts) => cts.subtopicSlug)
+    ),
+  ].sort();
+
   function handleCourseChange(next: string) {
     setCourseSlug(next);
     setSelectedTopics([]);
+    setSelectedSubtopics([]);
     setPreviewQuestions([]);
     setStatus("idle");
   }
 
   function toggleTopic(topic: string) {
-    setSelectedTopics((prev) =>
-      prev.includes(topic) ? prev.filter((t) => t !== topic) : [...prev, topic]
-    );
+    const isRemoving = selectedTopics.includes(topic);
+    const next = isRemoving
+      ? selectedTopics.filter((t) => t !== topic)
+      : [...selectedTopics, topic];
+    setSelectedTopics(next);
+    if (isRemoving) {
+      const stillAvailable = new Set(
+        courseTopicSubtopics
+          .filter(
+            (cts) => cts.courseSlug === courseSlug && next.includes(cts.topicSlug)
+          )
+          .map((cts) => cts.subtopicSlug)
+      );
+      setSelectedSubtopics((prev) => prev.filter((s) => stillAvailable.has(s)));
+    }
   }
 
   function toggleAllTopics() {
     if (selectedTopics.length === topicsForCourse.length) {
       setSelectedTopics([]);
+      setSelectedSubtopics([]);
     } else {
       setSelectedTopics([...topicsForCourse]);
+    }
+  }
+
+  function toggleSubtopic(subtopic: string) {
+    setSelectedSubtopics((prev) =>
+      prev.includes(subtopic) ? prev.filter((s) => s !== subtopic) : [...prev, subtopic]
+    );
+  }
+
+  function toggleAllSubtopics() {
+    if (selectedSubtopics.length === subtopicsForSelectedTopics.length) {
+      setSelectedSubtopics([]);
+    } else {
+      setSelectedSubtopics([...subtopicsForSelectedTopics]);
     }
   }
 
@@ -216,6 +280,8 @@ export function WorksheetGeneratorForm({
           preset,
           totalQuestions,
           studentId: studentId || undefined,
+          selectedSubtopicSlugs:
+            selectedSubtopics.length > 0 ? selectedSubtopics : undefined,
         }),
       });
 
@@ -342,6 +408,7 @@ export function WorksheetGeneratorForm({
     setStudentEmail("");
     setDueDate("");
     setSelectedTopics([]);
+    setSelectedSubtopics([]);
     setPreviewQuestions([]);
     setPrioritisedSubtopics([]);
     setCopied(false);
@@ -418,7 +485,7 @@ export function WorksheetGeneratorForm({
           </p>
         </div>
 
-        {prioritisedSubtopics.length > 0 ? (
+        {prioritisedSubtopics.length > 0 && selectedSubtopics.length === 0 ? (
           <div className="rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800">
             Prioritised weak subtopics:{" "}
             {prioritisedSubtopics.map(displaySlug).join(", ")}
@@ -638,6 +705,48 @@ export function WorksheetGeneratorForm({
           </div>
         )}
       </fieldset>
+
+      {selectedTopics.length > 0 && subtopicsForSelectedTopics.length > 0 ? (
+        <fieldset className="space-y-2">
+          <div className="flex items-center justify-between">
+            <legend className="text-sm font-medium text-slate-800">
+              Subtopics{" "}
+              <span className="font-normal text-slate-500">(optional)</span>
+            </legend>
+            {subtopicsForSelectedTopics.length > 1 ? (
+              <button
+                type="button"
+                onClick={toggleAllSubtopics}
+                className="text-xs font-medium text-slate-500 hover:text-slate-800"
+              >
+                {selectedSubtopics.length === subtopicsForSelectedTopics.length
+                  ? "Deselect all"
+                  : "Select all"}
+              </button>
+            ) : null}
+          </div>
+          <p className="text-xs text-slate-500">
+            Leave blank to use weakest subtopics automatically.
+          </p>
+          <div className="grid gap-1.5 sm:grid-cols-2">
+            {subtopicsForSelectedTopics.map((subtopic) => (
+              <label
+                key={subtopic}
+                className="flex cursor-pointer items-center gap-2.5 rounded-lg border border-slate-200 px-3 py-2 text-sm hover:border-slate-300 hover:bg-slate-50"
+              >
+                <input
+                  type="checkbox"
+                  checked={selectedSubtopics.includes(subtopic)}
+                  onChange={() => toggleSubtopic(subtopic)}
+                  disabled={status === "previewing"}
+                  className="rounded border-slate-300"
+                />
+                <span className="text-slate-700">{displaySlug(subtopic)}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      ) : null}
 
       <fieldset className="space-y-2">
         <legend className="text-sm font-medium text-slate-800">
