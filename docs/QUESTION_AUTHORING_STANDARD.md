@@ -11,7 +11,7 @@ See also: [PRACTICE_QUESTION_STANDARD.md](./PRACTICE_QUESTION_STANDARD.md) · [F
 - [ ] Every question has a real, specific prompt — no TODO, lorem ipsum, TBD, or "sample question"
 - [ ] Every answer is correct and matches the explanation numerically
 - [ ] Every explanation is step-by-step, ≥ 40 characters, specific to this question
-- [ ] No multi-part prompts unless the answer field explicitly covers all parts
+- [ ] Multi-part prompts use `parts` / `question_parts`; do not hide (a), (b), (c) inside one unstructured answer
 - [ ] No draft/self-correction wording (Wait, Hmm, recalculate, on second thought, actually that)
 - [ ] No mojibake (Â, â€, Ï€, Ë, áµ)
 - [ ] Currency amounts use plain `$500` — never `\$500` or `\\$500`
@@ -40,6 +40,7 @@ type PracticeQuestion = {
   hint:            string;    // One next-step hint
   explanation:     string;    // Step-by-step worked solution
   choices?: { label: string; text: string }[];  // MCQ only
+  parts?: PracticeQuestionPart[];               // HSC Section II-style parts only
 };
 ```
 
@@ -61,6 +62,7 @@ type QuestionBatchRecord = {
   prompt:               string;
   latex?:               string | null;
   choices?:             { label: string; text: string }[] | null;
+  question_parts?:      QuestionPart[] | null;
   answer:               string;
   accepted_answers:     string[];                    // [] is valid
   hint?:                string | null;
@@ -71,6 +73,29 @@ type QuestionBatchRecord = {
   diagram_data?:        object | null;
 };
 ```
+
+### Multi-part questions
+
+Use multi-part questions for HSC Section II-style items where parts (a), (b), (c) share a stem but must be answered and marked separately. Do not use them as a replacement for guided `steps`: `steps` are a scaffolded teaching flow; `parts` are assessable question parts.
+
+Each part must be auto-markable with exact, numeric, or algebraic accepted answers. AI/free-text proof marking is not supported yet.
+
+```typescript
+type PracticeQuestionPart = {
+  key: "a" | "b" | "c";
+  label: "(a)";
+  prompt: string;
+  latex?: string;
+  marks: number;
+  answer: string;
+  acceptedAnswers?: string[];
+  hint?: string;
+  explanation: string;
+  working?: string[];
+};
+```
+
+External JSON uses the same shape in `question_parts`. `accepted_answers` is also accepted inside a part for batch compatibility. Keep the top-level `answer` and `explanation` as a short summary/fallback, but student marking uses the per-part answers when `question_parts` exists.
 
 ---
 
@@ -375,7 +400,7 @@ Unknown slugs produce a validator warning (not error).
 | Generic explanation: "Review the worked method and compare each step…" | Validator ERROR (exact string match) |
 | Draft language: "Wait", "Hmm", "recalculate", "on second thought", "actually that", "let me check" | Validator ERROR |
 | `question_type: "application"` or any value other than `"conceptual"` / `"procedural"` | Validator ERROR |
-| Multi-part prompt with single `answer` field | Validator ERROR |
+| Multi-part prompt with single unstructured `answer` field | Validator ERROR; use `parts` / `question_parts` |
 | `answer` contradicts final number in `explanation` (beyond tolerance) | Validator ERROR |
 | Prompt says "does not equal" but explanation says "equals" | Validator ERROR |
 | Mojibake characters (Â, â€, Ï€, Ë, áµ) | Validator ERROR |

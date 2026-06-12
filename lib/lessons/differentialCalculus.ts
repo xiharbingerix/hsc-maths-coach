@@ -10,6 +10,19 @@ import type {
   VennDiagram,
 } from "./types";
 
+export type PracticeQuestionPart = {
+  key: string;
+  label: string;
+  prompt: string;
+  latex?: string;
+  marks: number;
+  answer: string;
+  acceptedAnswers?: string[];
+  hint?: string;
+  explanation: string;
+  working?: string[];
+};
+
 export type PracticeQuestion = {
   id: string;
   prompt: string;
@@ -32,6 +45,7 @@ export type PracticeQuestion = {
   }[];
   hint?: string;
   explanation?: string;
+  parts?: PracticeQuestionPart[];
   steps?: Array<{
     prompt: string;
     latex: string;

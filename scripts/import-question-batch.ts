@@ -18,6 +18,7 @@ type QuestionRow = {
   prompt: string;
   latex: string | null;
   choices: { label: string; text: string }[] | null;
+  question_parts: QuestionBatchRecord["question_parts"] | null;
   answer: string;
   accepted_answers: string[];
   hint: string | null;
@@ -81,6 +82,7 @@ function mapRecordToQuestionRow(record: QuestionBatchRecord): QuestionRow {
     prompt: record.prompt,
     latex: record.latex ?? null,
     choices: record.choices ?? null,
+    question_parts: record.question_parts ?? null,
     answer: record.answer,
     accepted_answers: record.accepted_answers ?? [],
     hint: record.hint ?? null,

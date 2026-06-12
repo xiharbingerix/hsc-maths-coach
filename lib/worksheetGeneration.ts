@@ -14,6 +14,7 @@ export type WorksheetQuestionPreview = {
   prompt: string;
   latex: string | null;
   choices: { label: string; text: string }[] | null;
+  parts: unknown[] | null;
   answer: string;
   diagramData: Record<string, unknown> | null;
 };
@@ -28,6 +29,7 @@ type RawQuestionRow = {
   prompt: string;
   latex: string | null;
   choices: unknown;
+  question_parts: unknown;
   answer: string;
   diagram_data: Record<string, unknown> | null;
 };
@@ -100,6 +102,7 @@ function toPreviewQuestion(row: RawQuestionRow): WorksheetQuestionPreview {
     prompt: row.prompt,
     latex: row.latex,
     choices: normaliseChoices(row.choices),
+    parts: Array.isArray(row.question_parts) ? row.question_parts : null,
     answer: row.answer,
     diagramData: row.diagram_data ?? null,
   };
@@ -110,7 +113,7 @@ function shuffle<T>(items: T[]) {
 }
 
 const QUESTION_SELECT =
-  "id, source_id, course_slug, topic_slug, subtopic_slug, difficulty, prompt, latex, choices, answer, diagram_data";
+  "id, source_id, course_slug, topic_slug, subtopic_slug, difficulty, prompt, latex, choices, question_parts, answer, diagram_data";
 
 export async function selectWorksheetQuestions({
   courseSlug,

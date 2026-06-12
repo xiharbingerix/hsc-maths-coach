@@ -15,7 +15,16 @@ export type WorksheetQuestion = {
   prompt: string;
   latex: string | null;
   choices: Array<{ label: string; text: string }> | null;
+  parts: WorksheetQuestionPart[] | null;
   diagramData: Record<string, unknown> | null;
+};
+
+export type WorksheetQuestionPart = {
+  key: string;
+  label: string;
+  prompt: string;
+  latex: string | null;
+  marks: number;
 };
 
 function safeChoices(value: unknown): Array<{ label: string; text: string }> | null {
@@ -24,6 +33,25 @@ function safeChoices(value: unknown): Array<{ label: string; text: string }> | n
     const obj = item as Record<string, unknown>;
     return { label: String(obj?.label ?? ""), text: String(obj?.text ?? "") };
   });
+}
+
+function safeParts(value: unknown): WorksheetQuestionPart[] | null {
+  if (!Array.isArray(value) || value.length === 0) return null;
+  return value
+    .map((item: unknown) => {
+      const obj = item as Record<string, unknown>;
+      const key = String(obj?.key ?? "").trim();
+      const prompt = String(obj?.prompt ?? "").trim();
+      if (!key || !prompt) return null;
+      return {
+        key,
+        label: String(obj?.label ?? `(${key})`),
+        prompt,
+        latex: typeof obj?.latex === "string" ? obj.latex : null,
+        marks: typeof obj?.marks === "number" ? obj.marks : 1,
+      };
+    })
+    .filter((part): part is WorksheetQuestionPart => part !== null);
 }
 
 function UnavailablePage({ message }: { message: string }) {
@@ -91,7 +119,7 @@ export default async function WorksheetPage({
   );
   const { data: qRows, error: qError } = await supabaseAdmin
     .from("questions")
-    .select("id, prompt, latex, choices, diagram_data")
+    .select("id, prompt, latex, choices, question_parts, diagram_data")
     .in("id", questionIds);
 
   if (qError || !qRows) {
@@ -106,6 +134,7 @@ export default async function WorksheetPage({
     prompt: string;
     latex: string | null;
     choices: unknown;
+    question_parts: unknown;
     diagram_data: Record<string, unknown> | null;
   };
 
@@ -125,6 +154,7 @@ export default async function WorksheetPage({
         prompt: q.prompt,
         latex: q.latex,
         choices: safeChoices(q.choices),
+        parts: safeParts(q.question_parts),
         diagramData: q.diagram_data ?? null,
       };
     })

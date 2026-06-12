@@ -8,8 +8,58 @@ type AnswerBody = {
   attemptId?: string;
   questionId?: string;
   answer?: string;
+  partAnswers?: Record<string, string>;
   timeSpentSecs?: number;
 };
+
+type StoredQuestionPart = {
+  key: string;
+  label: string;
+  prompt: string;
+  marks: number;
+  answer: string;
+  acceptedAnswers?: string[];
+  accepted_answers?: string[];
+  explanation: string;
+};
+
+type PartAnswerResult = {
+  key: string;
+  label: string;
+  marks: number;
+  isCorrect: boolean;
+  studentAnswer: string;
+  explanation: string;
+};
+
+function normaliseQuestionParts(value: unknown): StoredQuestionPart[] {
+  if (!Array.isArray(value)) return [];
+  const parts: StoredQuestionPart[] = [];
+
+  for (const item of value) {
+    if (!item || typeof item !== "object") continue;
+    const part = item as Record<string, unknown>;
+    const key = String(part.key ?? "").trim();
+    const answer = String(part.answer ?? "").trim();
+    if (!key || !answer) continue;
+    parts.push({
+      key,
+      label: String(part.label ?? `(${key})`),
+      prompt: String(part.prompt ?? ""),
+      marks: typeof part.marks === "number" ? part.marks : 1,
+      answer,
+      acceptedAnswers: Array.isArray(part.acceptedAnswers)
+        ? part.acceptedAnswers.map(String)
+        : undefined,
+      accepted_answers: Array.isArray(part.accepted_answers)
+        ? part.accepted_answers.map(String)
+        : undefined,
+      explanation: String(part.explanation ?? ""),
+    });
+  }
+
+  return parts;
+}
 
 export async function POST(
   request: Request,
@@ -24,19 +74,16 @@ export async function POST(
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const { attemptId, questionId, answer, timeSpentSecs } = body;
+  const { attemptId, questionId, answer, partAnswers, timeSpentSecs } = body;
 
-  if (!attemptId || !questionId || typeof answer !== "string") {
+  if (!attemptId || !questionId) {
     return NextResponse.json(
-      { error: "attemptId, questionId and answer are required." },
+      { error: "attemptId and questionId are required." },
       { status: 400 }
     );
   }
 
-  const trimmedAnswer = answer.trim();
-  if (!trimmedAnswer) {
-    return NextResponse.json({ error: "Answer cannot be empty." }, { status: 400 });
-  }
+  const trimmedAnswer = typeof answer === "string" ? answer.trim() : "";
 
   // 1. Validate attempt belongs to this token
   const { data: attempt, error: attemptError } = await supabaseAdmin
@@ -99,7 +146,7 @@ export async function POST(
   // 3. Load the question answer data (kept server-side only)
   const { data: question, error: qError } = await supabaseAdmin
     .from("questions")
-    .select("answer, accepted_answers, choices, explanation")
+    .select("answer, accepted_answers, choices, explanation, question_parts")
     .eq("id", questionId)
     .maybeSingle();
 
@@ -111,18 +158,72 @@ export async function POST(
   }
 
   // 4. Mark the answer
+  const parts = normaliseQuestionParts(question.question_parts);
   const isMcq =
     Array.isArray(question.choices) && (question.choices as unknown[]).length > 0;
 
-  let isCorrect: boolean;
+  let isCorrect = false;
+  let explanation = String(question.explanation ?? "");
+  let studentAnswerForStorage = trimmedAnswer;
+  let answerPayload: { parts?: Record<string, string> } | null = null;
+  let partResults: PartAnswerResult[] | null = null;
 
-  if (isMcq) {
+  if (parts.length > 0) {
+    if (!partAnswers || typeof partAnswers !== "object") {
+      return NextResponse.json(
+        { error: "partAnswers are required for this question." },
+        { status: 400 }
+      );
+    }
+
+    partResults = parts.map((part) => {
+      const studentAnswer = String(partAnswers[part.key] ?? "").trim();
+      const result = markTypedAnswer({
+        userAnswer: studentAnswer,
+        correctAnswer: part.answer,
+        acceptedAnswers: part.acceptedAnswers ?? part.accepted_answers ?? [],
+      });
+      return {
+        key: part.key,
+        label: part.label,
+        marks: part.marks,
+        isCorrect: studentAnswer.length > 0 && result.correct,
+        studentAnswer,
+        explanation: part.explanation,
+      };
+    });
+
+    if (partResults.some((part) => !part.studentAnswer)) {
+      return NextResponse.json(
+        { error: "Every question part needs an answer." },
+        { status: 400 }
+      );
+    }
+
+    isCorrect = partResults.every((part) => part.isCorrect);
+    answerPayload = { parts: partAnswers };
+    studentAnswerForStorage = partResults
+      .map((part) => `${part.label} ${part.studentAnswer}`)
+      .join(" | ");
+    explanation =
+      explanation ||
+      partResults.map((part) => `${part.label} ${part.explanation}`).join(" ");
+  } else {
+    if (!trimmedAnswer) {
+      return NextResponse.json(
+        { error: "Answer cannot be empty." },
+        { status: 400 }
+      );
+    }
+  }
+
+  if (parts.length === 0 && isMcq) {
     // MCQ: compare the submitted choice label to the stored correct label.
     // Case-insensitive to be safe (labels are typically "A", "B", "C", "D").
     isCorrect =
       trimmedAnswer.toUpperCase() ===
       String(question.answer ?? "").trim().toUpperCase();
-  } else {
+  } else if (parts.length === 0) {
     // Typed: use semantic marking
     const result = markTypedAnswer({
       userAnswer: trimmedAnswer,
@@ -141,7 +242,9 @@ export async function POST(
       attempt_id: attemptId,
       worksheet_id: attempt.worksheet_id,
       question_id: questionId,
-      student_answer: trimmedAnswer,
+      student_answer: studentAnswerForStorage,
+      answer_payload: answerPayload,
+      part_results: partResults,
       is_correct: isCorrect,
       time_spent_secs: typeof timeSpentSecs === "number" ? timeSpentSecs : null,
       answered_at: new Date().toISOString(),
@@ -161,6 +264,7 @@ export async function POST(
 
   return NextResponse.json({
     isCorrect,
-    explanation: String(question.explanation ?? ""),
+    explanation,
+    partResults: partResults ?? [],
   });
 }

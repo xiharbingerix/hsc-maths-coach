@@ -117,8 +117,8 @@ Skip it for simple questions where the prompt is self-contained (e.g. "Find y wh
 - Q1–Q4: D3 | Q5–Q7: D4 | Q8–Q10: D5
 - Include 2–3 MCQ to test conceptual understanding and misconception traps
 - Hints are minimal or absent
-- Every question must be auto-markable (single correct answer)
-- No multi-part exam-style questions
+- Every question must be auto-markable
+- Multi-part exam-style questions are allowed only when each part has its own `parts` entry with prompt, marks, answer, accepted answers, and explanation
 - Must include at least one question targeting the most common misconception (see `commonMistakes`)
 - Explanations must be particularly clear — mastery quiz is the student's primary review stage
 
@@ -131,7 +131,7 @@ Skip it for simple questions where the prompt is self-contained (e.g. "Find y wh
 
 ### Not suitable
 
-- "Find x and then sketch the graph." (multi-part, not auto-markable)
+- "Find x and then sketch the graph." (not auto-markable unless each part has a structured, exact/numeric/algebraic answer)
 - A repeat of a guided question with the same numbers
 - A question at D1 or D2 difficulty (too easy for mastery)
 - A question requiring a calculator when none is available

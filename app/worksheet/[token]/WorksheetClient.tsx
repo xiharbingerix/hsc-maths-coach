@@ -64,6 +64,16 @@ type Phase = "intro" | "starting" | "asking" | "answered" | "done" | "error";
 type AnswerResult = {
   isCorrect: boolean;
   explanation: string;
+  partResults?: PartAnswerResult[];
+};
+
+type PartAnswerResult = {
+  key: string;
+  label: string;
+  marks: number;
+  isCorrect: boolean;
+  studentAnswer: string;
+  explanation: string;
 };
 
 type FinalScore = {
@@ -126,6 +136,7 @@ export function WorksheetClient({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [typedAnswer, setTypedAnswer] = useState("");
   const [choiceAnswer, setChoiceAnswer] = useState("");
+  const [partAnswers, setPartAnswers] = useState<Record<string, string>>({});
   const [result, setResult] = useState<AnswerResult | null>(null);
   const [finalScore, setFinalScore] = useState<FinalScore | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -216,6 +227,7 @@ export function WorksheetClient({
         );
         setTypedAnswer("");
         setChoiceAnswer("");
+        setPartAnswers({});
         setResult(null);
         setFinalScore(null);
         setPhase("asking");
@@ -284,7 +296,11 @@ export function WorksheetClient({
     if (!attemptId || !currentQuestion || isSubmitting) return;
 
     const answer = currentQuestion.choices ? choiceAnswer : typedAnswer;
-    if (!answer.trim()) return;
+    const isMultiPart = Boolean(currentQuestion.parts?.length);
+    const hasMultiPartAnswers = isMultiPart
+      ? currentQuestion.parts!.every((part) => partAnswers[part.key]?.trim())
+      : true;
+    if (isMultiPart ? !hasMultiPartAnswers : !answer.trim()) return;
 
     setIsSubmitting(true);
     const timeSpentSecs = Math.round(
@@ -299,12 +315,14 @@ export function WorksheetClient({
           attemptId,
           questionId: currentQuestion.id,
           answer: answer.trim(),
+          partAnswers: isMultiPart ? partAnswers : undefined,
           timeSpentSecs,
         }),
       });
       const data = (await res.json()) as {
         isCorrect?: boolean;
         explanation?: string;
+        partResults?: PartAnswerResult[];
         error?: string;
       };
 
@@ -317,6 +335,7 @@ export function WorksheetClient({
       setResult({
         isCorrect: Boolean(data.isCorrect),
         explanation: data.explanation ?? "",
+        partResults: data.partResults ?? [],
       });
       setPhase("answered");
     } catch {
@@ -364,6 +383,7 @@ export function WorksheetClient({
       setCurrentIndex((i) => i + 1);
       setTypedAnswer("");
       setChoiceAnswer("");
+      setPartAnswers({});
       setResult(null);
       setFlagState("idle");
       setFlagReason("");
@@ -379,6 +399,10 @@ export function WorksheetClient({
     if (!attemptId || !currentQuestion || !flagReason) return;
     setFlagState("submitting");
     const answer = currentQuestion.choices ? choiceAnswer : typedAnswer;
+    const isMultiPart = Boolean(currentQuestion.parts?.length);
+    const studentAnswer = isMultiPart
+      ? JSON.stringify({ parts: partAnswers })
+      : answer.trim();
     try {
       const res = await fetch(`/api/worksheet/${token}/flag`, {
         method: "POST",
@@ -388,7 +412,7 @@ export function WorksheetClient({
           questionId: currentQuestion.id,
           reason: flagReason,
           comment: flagComment,
-          studentAnswer: answer.trim(),
+          studentAnswer,
           markedCorrect: result?.isCorrect ?? false,
         }),
       });
@@ -565,10 +589,15 @@ export function WorksheetClient({
 
   const progressPct = Math.round((currentIndex / totalQuestions) * 100);
   const isMcq = Boolean(currentQuestion.choices?.length);
+  const isMultiPart = Boolean(currentQuestion.parts?.length);
   const canSubmit =
     phase === "asking" &&
     !isSubmitting &&
-    (isMcq ? choiceAnswer !== "" : typedAnswer.trim() !== "");
+    (isMultiPart
+      ? currentQuestion.parts!.every((part) => partAnswers[part.key]?.trim())
+      : isMcq
+      ? choiceAnswer !== ""
+      : typedAnswer.trim() !== "");
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -608,7 +637,42 @@ export function WorksheetClient({
           </div>
 
           {/* Answer input */}
-          {isMcq ? (
+          {isMultiPart ? (
+            <div className="space-y-4">
+              {currentQuestion.parts!.map((part) => (
+                <div key={part.key} className="space-y-3 rounded-xl border border-slate-200 p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <p className="font-medium leading-7 text-slate-900">
+                      <span className="mr-2 text-slate-500">{part.label}</span>
+                      <MathText text={part.prompt} />
+                    </p>
+                    <span className="shrink-0 rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-600">
+                      {part.marks} {part.marks === 1 ? "mark" : "marks"}
+                    </span>
+                  </div>
+                  {part.latex ? (
+                    <div className="overflow-x-auto rounded-xl bg-slate-50 px-4 py-3 text-lg">
+                      <BlockMath math={part.latex} />
+                    </div>
+                  ) : null}
+                  <MathAnswerInput
+                    value={partAnswers[part.key] ?? ""}
+                    onChange={(value) => {
+                      if (phase === "asking") {
+                        setPartAnswers((current) => ({
+                          ...current,
+                          [part.key]: value,
+                        }));
+                      }
+                    }}
+                    disabled={phase === "answered"}
+                    ariaLabel={`Answer for ${part.label}`}
+                    placeholder="Type your answer"
+                  />
+                </div>
+              ))}
+            </div>
+          ) : isMcq ? (
             <div className="space-y-2">
               {currentQuestion.choices!.map((choice) => {
                 const isSelected = choiceAnswer === choice.label;
@@ -705,6 +769,27 @@ export function WorksheetClient({
                 >
                   <MathText text={result.explanation} />
                 </p>
+              ) : null}
+              {result.partResults && result.partResults.length > 0 ? (
+                <div className="space-y-2">
+                  {result.partResults.map((part) => (
+                    <div
+                      key={part.key}
+                      className={`rounded-xl border p-3 text-sm ${
+                        part.isCorrect
+                          ? "border-emerald-200 bg-white/70 text-emerald-900"
+                          : "border-red-200 bg-white/70 text-red-900"
+                      }`}
+                    >
+                      <p className="font-semibold">
+                        {part.label} {part.isCorrect ? "Correct" : "Not quite"} ({part.marks} {part.marks === 1 ? "mark" : "marks"})
+                      </p>
+                      <p className="mt-1">
+                        <MathText text={part.explanation} />
+                      </p>
+                    </div>
+                  ))}
+                </div>
               ) : null}
 
               <button

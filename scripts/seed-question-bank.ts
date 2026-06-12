@@ -31,6 +31,7 @@ type QuestionRow = {
   prompt: string;
   latex: string | null;
   choices: { label: string; text: string }[] | null;
+  question_parts: Array<Record<string, unknown>> | null;
   answer: string;
   accepted_answers: string[];
   hint: string | null;
@@ -174,6 +175,27 @@ export function normaliseChoices(question: PracticeQuestion) {
   }));
 }
 
+export function normaliseQuestionParts(question: PracticeQuestion) {
+  if (!question.parts?.length) {
+    return null;
+  }
+
+  return question.parts
+    .filter((part) => part.key && part.prompt && part.answer)
+    .map((part) => ({
+      key: part.key,
+      label: part.label,
+      prompt: part.prompt,
+      latex: part.latex ?? null,
+      marks: part.marks,
+      answer: part.answer,
+      acceptedAnswers: part.acceptedAnswers ?? [],
+      hint: part.hint ?? null,
+      explanation: part.explanation,
+      working: part.working ?? [],
+    }));
+}
+
 export function inferDifficulty(
   question: PracticeQuestion,
   section: PracticeSection = "guidedPractice",
@@ -236,6 +258,7 @@ export function mapPracticeQuestionToQuestionRow(
     prompt: question.prompt,
     latex: question.latex || null,
     choices: normaliseChoices(question),
+    question_parts: normaliseQuestionParts(question),
     answer: question.answer,
     accepted_answers: question.acceptedAnswers ?? [],
     hint: question.hint ?? null,

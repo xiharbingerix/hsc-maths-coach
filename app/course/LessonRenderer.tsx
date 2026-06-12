@@ -14,6 +14,7 @@ import {
 import type {
   ExplicitLesson,
   PracticeQuestion,
+  PracticeQuestionPart,
 } from "../../lib/lessons/differentialCalculus";
 import { NetworkDiagramView } from "./components/NetworkDiagramView";
 import { TriangleDiagramView } from "./components/TriangleDiagramView";
@@ -137,7 +138,55 @@ function answerOptions(question: PracticeQuestion) {
   return options;
 }
 
+function questionParts(question: PracticeQuestion) {
+  return question.parts?.filter((part) => part.answer.trim()) ?? [];
+}
+
+function hasQuestionParts(question: PracticeQuestion) {
+  return questionParts(question).length > 0;
+}
+
+function partAcceptedAnswers(part: PracticeQuestionPart) {
+  return part.acceptedAnswers ?? [];
+}
+
+function serialisePartAnswers(answers: Record<string, string>) {
+  return JSON.stringify({ parts: answers });
+}
+
+function parsePartAnswers(value: string) {
+  try {
+    const parsed = JSON.parse(value) as { parts?: unknown };
+    if (!parsed.parts || typeof parsed.parts !== "object") return {};
+    return Object.fromEntries(
+      Object.entries(parsed.parts as Record<string, unknown>).map(([key, answer]) => [
+        key,
+        typeof answer === "string" ? answer : String(answer ?? ""),
+      ])
+    );
+  } catch {
+    return {};
+  }
+}
+
+function isCorrectPart(part: PracticeQuestionPart, value: string) {
+  return markTypedAnswer({
+    userAnswer: value,
+    correctAnswer: part.answer,
+    acceptedAnswers: partAcceptedAnswers(part),
+  }).correct;
+}
+
 function isCorrectAnswer(question: PracticeQuestion, value: string) {
+  const parts = questionParts(question);
+  if (parts.length > 0) {
+    const answers = parsePartAnswers(value);
+    return parts.every((part) => {
+      const answer = answers[part.key]?.trim() ?? "";
+      return answer.length > 0 && isCorrectPart(part, answer);
+    });
+  }
+
   if (!question.choices) {
     return markTypedAnswer({
       userAnswer: value,
@@ -160,6 +209,19 @@ function formatPercent(score: number) {
 function choiceAnswerText(question: PracticeQuestion, answer: string) {
   if (answer === MULTI_STEP_SKIPPED) return "Not all steps answered correctly";
 
+  const parts = questionParts(question);
+  if (parts.length > 0) {
+    const answers = parsePartAnswers(answer);
+    const text = parts
+      .map((part) => {
+        const partAnswer =
+          answer === question.answer ? part.answer : answers[part.key]?.trim();
+        return `${part.label}: ${partAnswer || "No answer"}`;
+      })
+      .join("; ");
+    return text || "No answer submitted";
+  }
+
   if (!question.choices) {
     return answer.trim() || "No answer submitted";
   }
@@ -176,6 +238,210 @@ function choiceAnswerText(question: PracticeQuestion, answer: string) {
 }
 
 const MULTI_STEP_SKIPPED = "__SKIPPED__";
+
+function MultiPartPracticeCard({
+  question,
+  index,
+}: {
+  question: PracticeQuestion;
+  index: number;
+}) {
+  const parts = questionParts(question);
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [results, setResults] = useState<Record<string, "correct" | "incorrect">>({});
+
+  function updateAnswer(key: string, value: string) {
+    setAnswers((current) => ({ ...current, [key]: value }));
+    setResults((current) => {
+      const next = { ...current };
+      delete next[key];
+      return next;
+    });
+  }
+
+  function checkPart(part: PracticeQuestionPart) {
+    const answer = answers[part.key] ?? "";
+    if (!answer.trim()) return;
+    setResults((current) => ({
+      ...current,
+      [part.key]: isCorrectPart(part, answer) ? "correct" : "incorrect",
+    }));
+  }
+
+  return (
+    <div className="space-y-4 rounded-2xl border border-slate-200 p-5">
+      <div>
+        <p className="text-sm font-medium text-slate-500">Question {index + 1}</p>
+        <p className="mt-2 font-medium">
+          <MathText text={question.prompt} />
+        </p>
+        {question.latex && (
+          <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+            <BlockMath math={question.latex} />
+          </div>
+        )}
+        {question.diagram && <NetworkDiagramView diagram={question.diagram} />}
+        {question.triangleDiagram && (
+          <TriangleDiagramView diagram={question.triangleDiagram} />
+        )}
+        {question.cartesianGraph && (
+          <CartesianGraphView graph={question.cartesianGraph} />
+        )}
+        {question.trapezoidalRuleDiagram && (
+          <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
+        )}
+        {question.boxPlotDiagram && <BoxPlotView diagram={question.boxPlotDiagram} />}
+        {question.normalDistributionDiagram && (
+          <NormalDistributionView diagram={question.normalDistributionDiagram} />
+        )}
+        {question.probabilityTreeDiagram && (
+          <ProbabilityTreeView diagram={question.probabilityTreeDiagram} />
+        )}
+        {question.twoWayTableDiagram && (
+          <TwoWayTableView diagram={question.twoWayTableDiagram} />
+        )}
+        {question.vennDiagram && <VennDiagramView diagram={question.vennDiagram} />}
+      </div>
+
+      <div className="space-y-4">
+        {parts.map((part) => {
+          const result = results[part.key];
+          return (
+            <div key={part.key} className="space-y-3 rounded-xl border border-slate-200 p-4">
+              <div className="flex items-start justify-between gap-3">
+                <p className="font-medium">
+                  <span className="mr-2 text-slate-500">{part.label}</span>
+                  <MathText text={part.prompt} />
+                </p>
+                <span className="shrink-0 rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-600">
+                  {part.marks} {part.marks === 1 ? "mark" : "marks"}
+                </span>
+              </div>
+              {part.latex && (
+                <div className="overflow-x-auto rounded-xl bg-slate-50 p-3">
+                  <BlockMath math={part.latex} />
+                </div>
+              )}
+              <MathAnswerInput
+                value={answers[part.key] ?? ""}
+                onChange={(value) => updateAnswer(part.key, value)}
+                ariaLabel={`Answer for ${part.label}`}
+                placeholder="Type your answer"
+              />
+              <button
+                type="button"
+                onClick={() => checkPart(part)}
+                disabled={!answers[part.key]?.trim()}
+                className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-40"
+              >
+                Check {part.label}
+              </button>
+              {result && (
+                <div
+                  className={`rounded-xl p-3 text-sm ${
+                    result === "correct"
+                      ? "bg-green-50 text-green-900"
+                      : "bg-red-50 text-red-900"
+                  }`}
+                >
+                  <p className="font-semibold">
+                    {result === "correct" ? "Correct." : "Not quite."}
+                  </p>
+                  <p className="mt-1">
+                    <MathText text={part.explanation} />
+                  </p>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function MultiPartQuizQuestion({
+  question,
+  index,
+  value,
+  onChange,
+}: {
+  question: PracticeQuestion;
+  index: number;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  const parts = questionParts(question);
+  const answers = parsePartAnswers(value);
+
+  function updateAnswer(key: string, answer: string) {
+    onChange(serialisePartAnswers({ ...answers, [key]: answer }));
+  }
+
+  return (
+    <div className="space-y-4 rounded-2xl border border-slate-200 p-5">
+      <div>
+        <p className="text-sm font-medium text-slate-500">Question {index + 1}</p>
+        <p className="mt-2 font-medium">
+          <MathText text={question.prompt} />
+        </p>
+        {question.latex && (
+          <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+            <BlockMath math={question.latex} />
+          </div>
+        )}
+        {question.diagram && <NetworkDiagramView diagram={question.diagram} />}
+        {question.triangleDiagram && (
+          <TriangleDiagramView diagram={question.triangleDiagram} />
+        )}
+        {question.cartesianGraph && (
+          <CartesianGraphView graph={question.cartesianGraph} />
+        )}
+        {question.trapezoidalRuleDiagram && (
+          <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
+        )}
+        {question.boxPlotDiagram && <BoxPlotView diagram={question.boxPlotDiagram} />}
+        {question.normalDistributionDiagram && (
+          <NormalDistributionView diagram={question.normalDistributionDiagram} />
+        )}
+        {question.probabilityTreeDiagram && (
+          <ProbabilityTreeView diagram={question.probabilityTreeDiagram} />
+        )}
+        {question.twoWayTableDiagram && (
+          <TwoWayTableView diagram={question.twoWayTableDiagram} />
+        )}
+        {question.vennDiagram && <VennDiagramView diagram={question.vennDiagram} />}
+      </div>
+
+      <div className="space-y-4">
+        {parts.map((part) => (
+          <div key={part.key} className="space-y-3 rounded-xl border border-slate-200 p-4">
+            <div className="flex items-start justify-between gap-3">
+              <p className="font-medium">
+                <span className="mr-2 text-slate-500">{part.label}</span>
+                <MathText text={part.prompt} />
+              </p>
+              <span className="shrink-0 rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-600">
+                {part.marks} {part.marks === 1 ? "mark" : "marks"}
+              </span>
+            </div>
+            {part.latex && (
+              <div className="overflow-x-auto rounded-xl bg-slate-50 p-3">
+                <BlockMath math={part.latex} />
+              </div>
+            )}
+            <MathAnswerInput
+              value={answers[part.key] ?? ""}
+              onChange={(next) => updateAnswer(part.key, next)}
+              ariaLabel={`Answer for ${part.label}`}
+              placeholder="Type your answer"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function masteryStorageKey(moduleSlug: string, lessonSlug: string) {
   if (moduleSlug === "differential-calculus") {
@@ -257,6 +523,10 @@ function PracticeCard({
 
   const steps = question.steps;
   const isMultiStep = (steps?.length ?? 0) > 0;
+
+  if (hasQuestionParts(question)) {
+    return <MultiPartPracticeCard question={question} index={index} />;
+  }
 
   if (isMultiStep) {
     const allSteps = steps!;
@@ -540,6 +810,17 @@ function QuizQuestion({
 
   const steps = question.steps;
   const isMultiStep = (steps?.length ?? 0) > 0;
+
+  if (hasQuestionParts(question)) {
+    return (
+      <MultiPartQuizQuestion
+        question={question}
+        index={index}
+        value={value}
+        onChange={onChange}
+      />
+    );
+  }
 
   if (isMultiStep) {
     const allSteps = steps!;

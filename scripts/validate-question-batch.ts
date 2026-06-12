@@ -21,13 +21,19 @@ import * as path from "path";
 const KNOWN_COURSE_SLUGS = new Set([
   "year-8-mathematics",
   "year-9-mathematics",
+  "year-9-mathematics-core",
+  "year-9-mathematics-advanced",
   "year-10-mathematics",
+  "year-10-mathematics-core",
+  "year-10-mathematics-advanced",
   "year-11-standard",
   "year-11-advanced",
   "year-11-extension",
   "year-12-advanced",
   "year-12-standard-2",
+  "year-12-standard-1",
   "year-12-extension-1",
+  "year-12-extension-2",
 ]);
 
 const ALLOWED_QUESTION_TYPES = new Set(["conceptual", "procedural"]);
@@ -121,6 +127,20 @@ const PROMPT_CONTRADICTION_PAIRS = [
 
 type Choice = { label: string; text: string };
 
+type QuestionPart = {
+  key: string;
+  label: string;
+  prompt: string;
+  latex?: string | null;
+  marks: number;
+  answer: string;
+  acceptedAnswers?: string[];
+  accepted_answers?: string[];
+  hint?: string | null;
+  explanation: string;
+  working?: string[];
+};
+
 export type QuestionBatchRecord = {
   source_id: string;
   topic_slug: string;
@@ -132,6 +152,7 @@ export type QuestionBatchRecord = {
   prompt: string;
   latex?: string | null;
   choices?: Choice[] | null;
+  question_parts?: QuestionPart[] | null;
   answer: string;
   accepted_answers: string[];
   hint?: string | null;
@@ -258,6 +279,10 @@ function choiceTextForAnswer(
 }
 
 function hasSingleAnswerField(r: Record<string, unknown>): boolean {
+  if (Array.isArray(r["question_parts"]) && r["question_parts"].length > 0) {
+    return false;
+  }
+
   const choices = r["choices"];
   const acceptedAnswers = r["accepted_answers"];
   return (
@@ -265,6 +290,81 @@ function hasSingleAnswerField(r: Record<string, unknown>): boolean {
     choices === undefined ||
     (Array.isArray(acceptedAnswers) && acceptedAnswers.length <= 1)
   );
+}
+
+function validateQuestionParts(value: unknown): Issue[] {
+  const issues: Issue[] = [];
+  if (value === undefined || value === null) return issues;
+
+  if (!Array.isArray(value)) {
+    return [{ level: "error", message: "question_parts must be an array or null" }];
+  }
+
+  if (value.length === 0) return issues;
+
+  value.forEach((item, index) => {
+    if (!item || typeof item !== "object" || Array.isArray(item)) {
+      issues.push({
+        level: "error",
+        message: `question_parts[${index}] must be an object`,
+      });
+      return;
+    }
+
+    const part = item as Record<string, unknown>;
+    for (const field of ["key", "label", "prompt", "answer", "explanation"] as const) {
+      if (typeof part[field] !== "string" || part[field].trim() === "") {
+        issues.push({
+          level: "error",
+          message: `question_parts[${index}].${field} must be a non-empty string`,
+        });
+      }
+    }
+
+    if (
+      typeof part.marks !== "number" ||
+      !Number.isInteger(part.marks) ||
+      part.marks < 1
+    ) {
+      issues.push({
+        level: "error",
+        message: `question_parts[${index}].marks must be a positive integer`,
+      });
+    }
+
+    const acceptedAnswers = part.acceptedAnswers ?? part.accepted_answers;
+    if (
+      acceptedAnswers !== undefined &&
+      (!Array.isArray(acceptedAnswers) ||
+        acceptedAnswers.some((answer) => typeof answer !== "string"))
+    ) {
+      issues.push({
+        level: "error",
+        message:
+          `question_parts[${index}].acceptedAnswers/accepted_answers must be an array of strings`,
+      });
+    }
+
+    for (const field of ["prompt", "explanation", "hint", "latex"] as const) {
+      const text = part[field];
+      if (typeof text === "string") {
+        issues.push(...checkDollarPatterns(text, `question_parts[${index}].${field}`));
+      }
+    }
+
+    const working = part.working;
+    if (
+      working !== undefined &&
+      (!Array.isArray(working) || working.some((line) => typeof line !== "string"))
+    ) {
+      issues.push({
+        level: "error",
+        message: `question_parts[${index}].working must be an array of strings`,
+      });
+    }
+  });
+
+  return issues;
 }
 
 function finalStatedNumericAnswer(explanation: string): string | null {
@@ -353,6 +453,8 @@ export function validateRecord(
   } else if ((aa as unknown[]).some((v) => typeof v !== "string")) {
     err("accepted_answers must be an array of strings");
   }
+
+  issues.push(...validateQuestionParts(r["question_parts"]));
 
   // ── transfer_from_topics ──────────────────────────────────────────────────
   const tft = r["transfer_from_topics"];
