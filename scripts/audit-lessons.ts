@@ -974,7 +974,7 @@ function questionStimulusText(question: PracticeQuestion) {
 
 const freeTextPartPromptPattern =
   /\b(?:prove|show\s+that|justify|explain|why|describe|discuss)\b/i;
-const sentenceLikeAnswerPattern = /\s{2,}|[.!?]|\b(?:because|therefore|hence|since)\b/i;
+const sentenceLikeAnswerPattern = /\s{2,}|(?<!\d)\.(?!\d)|[!?]|\b(?:because|therefore|hence|since)\b/i;
 
 function looksAutoMarkableAnswer(answer: string) {
   const trimmed = answer.trim();

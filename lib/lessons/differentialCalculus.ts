@@ -490,6 +490,57 @@ export const derivativeAsRateOfChangeLesson: ExplicitLesson = {
   ],
 
   masteryPassMark: 0.8,
+
+  multiPartPractice: [
+    {
+      id: "roc-mp-1",
+      prompt:
+        "The displacement of a particle after $t$ seconds is $s(t) = t^3 - 6t^2 + 9t$ metres.",
+      latex: "s(t) = t^3 - 6t^2 + 9t",
+      answer: "-3",
+      hint: "Find $v(t) = s'(t)$, then solve $v(t)=0$ for the rest times, then evaluate $v(2)$ and state its sign.",
+      explanation:
+        "Part (a): $v(t)=s'(t)=3t^2-12t+9$. At $t=2$: $v(2)=3(4)-12(2)+9=-3$ m/s. Part (b): $v(t)=3t^2-12t+9=3(t-1)(t-3)=0$, so $t=1$ or $t=3$. The smaller value is $t=1$. Part (c): $v(2)=-3<0$, so the velocity is negative.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the velocity of the particle at $t = 2$ seconds.",
+          latex: "v(t) = s'(t)",
+          marks: 1,
+          answer: "-3",
+          acceptedAnswers: ["−3"],
+          hint: "Differentiate $s(t)$ to find $v(t)$, then substitute $t=2$.",
+          explanation:
+            "$v(t)=3t^2-12t+9$. At $t=2$: $v(2)=12-24+9=-3$ m/s.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt:
+            "Find the smaller value of $t$ at which the particle is momentarily at rest.",
+          marks: 2,
+          answer: "1",
+          acceptedAnswers: [],
+          hint: "Set $v(t)=0$ and factorise $3t^2-12t+9$.",
+          explanation:
+            "$v(t)=3(t^2-4t+3)=3(t-1)(t-3)=0$, so $t=1$ or $t=3$. The smaller value is $t=1$.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt:
+            "State the sign of the velocity at $t = 2$: positive, negative, or zero.",
+          marks: 1,
+          answer: "negative",
+          acceptedAnswers: ["negative direction", "in the negative direction"],
+          hint: "Compare the value from part (a) with zero.",
+          explanation:
+            "$v(2)=-3<0$, so the velocity is negative. The particle is moving in the negative direction.",
+        },
+      ],
+    },
+  ],
 };
 
 export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
@@ -1954,6 +2005,56 @@ export const stationaryPointsLesson: ExplicitLesson = {
   ],
 
   masteryPassMark: 0.8,
+
+  multiPartPractice: [
+    {
+      id: "stat-mp-1",
+      prompt:
+        "The curve $y = x^3 + ax + 6$ has a stationary point at $x = 1$.",
+      latex: "y = x^3 + ax + 6",
+      answer: "-3",
+      hint: "Use $y'(1)=0$ to find $a$, then find the y-value and the other stationary x-value from $y'(x)=0$.",
+      explanation:
+        "Part (a): $y'=3x^2+a$. At $x=1$: $3+a=0$, so $a=-3$. Part (b): $y(1)=1-3+6=4$. Part (c): $y'=3x^2-3=3(x-1)(x+1)=0$, so $x=1$ or $x=-1$. The other stationary x-value is $-1$.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the value of $a$.",
+          latex: "y'(1) = 0",
+          marks: 2,
+          answer: "-3",
+          acceptedAnswers: ["−3"],
+          hint: "Differentiate $y$ and substitute $x=1$ into $y'(x)=0$.",
+          explanation:
+            "$y'=3x^2+a$. Setting $y'(1)=0$: $3(1)+a=0$, so $a=-3$.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt:
+            "Find the y-coordinate of the stationary point at $x = 1$.",
+          marks: 1,
+          answer: "4",
+          acceptedAnswers: [],
+          hint: "Substitute $a=-3$ and $x=1$ into the original function.",
+          explanation:
+            "With $a=-3$: $y=x^3-3x+6$. At $x=1$: $y=1-3+6=4$.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find the x-value of the other stationary point.",
+          marks: 2,
+          answer: "-1",
+          acceptedAnswers: ["−1"],
+          hint: "Solve $y'(x)=0$ using the value of $a$ from part (a). One solution is $x=1$.",
+          explanation:
+            "$y'=3x^2-3=3(x^2-1)=3(x-1)(x+1)=0$, giving $x=1$ or $x=-1$. The other stationary x-value is $-1$.",
+        },
+      ],
+    },
+  ],
 };
 
 export const increasingDecreasingFunctionsLesson: ExplicitLesson = {

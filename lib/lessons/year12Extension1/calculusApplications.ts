@@ -328,6 +328,57 @@ const relatedRates: Partial<ExplicitLesson> = {
     ),
   ],
   masteryPassMark: 0.8,
+
+  multiPartPractice: [
+    {
+      id: "calcapp-mp-1",
+      prompt:
+        "A 5 m ladder leans against a vertical wall. The base slides away from the wall at $1$ m/s. At the instant when the base is $3$ m from the wall:",
+      latex: "x^2 + h^2 = 25",
+      answer: "4",
+      hint: "Use Pythagoras for part (a). Differentiate $x^2+h^2=25$ with respect to $t$ for part (b), then substitute values. Use the sign of $dh/dt$ for part (c).",
+      explanation:
+        "Part (a): $3^2+h^2=25$, so $h^2=16$ and $h=4$ m. Part (b): Differentiating: $2x\\frac{dx}{dt}+2h\\frac{dh}{dt}=0$. With $x=3$, $h=4$, $\\frac{dx}{dt}=1$: $6+8\\frac{dh}{dt}=0$, so $\\frac{dh}{dt}=-\\frac{3}{4}$ m/s. Part (c): $\\frac{dh}{dt}<0$, so the top is moving down.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt:
+            "Find the height of the top of the ladder above the ground when the base is $3$ m from the wall.",
+          marks: 1,
+          answer: "4",
+          acceptedAnswers: [],
+          hint: "Use the Pythagorean relationship $x^2+h^2=25$ with $x=3$.",
+          explanation:
+            "$3^2+h^2=25 \\Rightarrow h^2=16 \\Rightarrow h=4$ m.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt:
+            "Find $\\frac{dh}{dt}$ at this instant, where $h$ is the height of the top of the ladder.",
+          marks: 2,
+          answer: "-3/4",
+          acceptedAnswers: ["-0.75", "−3/4"],
+          hint: "Differentiate $x^2+h^2=25$ with respect to $t$, then substitute $x=3$, $h=4$, $\\frac{dx}{dt}=1$.",
+          explanation:
+            "Differentiating: $2x\\frac{dx}{dt}+2h\\frac{dh}{dt}=0$. Substituting: $2(3)(1)+2(4)\\frac{dh}{dt}=0 \\Rightarrow \\frac{dh}{dt}=-\\frac{6}{8}=-\\frac{3}{4}$ m/s.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt:
+            "State whether the top of the ladder is moving up or down at this instant.",
+          marks: 1,
+          answer: "down",
+          acceptedAnswers: ["downward", "downwards", "moving down", "moving downward"],
+          hint: "Use the sign of $\\frac{dh}{dt}$ from part (b).",
+          explanation:
+            "$\\frac{dh}{dt}=-\\frac{3}{4}<0$, so $h$ is decreasing. The top of the ladder is moving down.",
+        },
+      ],
+    },
+  ],
 };
 
 // ─── Lesson 2: Exponential Growth and Decay ──────────────────────────────────

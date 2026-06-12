@@ -1304,6 +1304,54 @@ export function year12Standard1LinearAndDirectVariationLessonOverride(
         fix: "Attach the units (dollars, litres, km) to the final answer — not inside the equation.",
       },
     ],
+    multiPartPractice: [
+      {
+        id: "lin-var-mp-1",
+        prompt:
+          "A plumber charges a $60 call-out fee plus $80 per hour.",
+        latex: "C = 80h + 60",
+        answer: "380",
+        hint: "Substitute for part (a); rearrange for part (b); set both cost models equal for part (c).",
+        explanation:
+          "Part (a): C = 80(4) + 60 = 380. Part (b): 460 = 80h + 60, so 80h = 400 and h = 5. Part (c): 80h + 60 = 95h gives 60 = 15h, so h = 4.",
+        parts: [
+          {
+            key: "a",
+            label: "(a)",
+            prompt: "Find the total cost for 4 hours of work.",
+            marks: 1,
+            answer: "380",
+            acceptedAnswers: ["$380", "380.00", "$380.00"],
+            hint: "Substitute h = 4 into C = 80h + 60.",
+            explanation:
+              "C = 80 × 4 + 60 = 320 + 60 = 380.",
+          },
+          {
+            key: "b",
+            label: "(b)",
+            prompt: "The plumber's bill is $460. Find the number of hours worked.",
+            marks: 2,
+            answer: "5",
+            acceptedAnswers: [],
+            hint: "Set C = 460 and solve for h.",
+            explanation:
+              "460 = 80h + 60. Subtract 60: 400 = 80h. Divide by 80: h = 5.",
+          },
+          {
+            key: "c",
+            label: "(c)",
+            prompt:
+              "A second plumber charges $95 per hour with no call-out fee. Find the number of hours at which both plumbers charge the same total amount.",
+            marks: 1,
+            answer: "4",
+            acceptedAnswers: [],
+            hint: "Set 80h + 60 = 95h and solve for h.",
+            explanation:
+              "80h + 60 = 95h. Subtract 80h from both sides: 60 = 15h. Divide by 15: h = 4.",
+          },
+        ],
+      },
+    ],
     masteryPassMark: 0.75,
   };
 }

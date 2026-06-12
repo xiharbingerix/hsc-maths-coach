@@ -341,6 +341,57 @@ const meanVariance: Partial<ExplicitLesson> = {
     ),
   ],
   masteryPassMark: 0.8,
+
+  multiPartPractice: [
+    {
+      id: "binom-mp-1",
+      prompt:
+        "$X \\sim B(n, 0.5)$ and the mean of $X$ is $5$.",
+      latex: "E(X) = np = 5,\\quad p = 0.5",
+      answer: "10",
+      hint: "Use $E(X)=np$ to find $n$, then $\\text{Var}(X)=npq$ for part (b), then $P(X=0)=(0.5)^n$ for part (c).",
+      explanation:
+        "Part (a): $E(X)=np=0.5n=5$, so $n=10$. Part (b): $\\text{Var}(X)=npq=10\\times0.5\\times0.5=2.5$. Part (c): $P(X=0)=\\binom{10}{0}(0.5)^{10}=\\frac{1}{1024}$.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find $n$.",
+          latex: "E(X) = np",
+          marks: 1,
+          answer: "10",
+          acceptedAnswers: [],
+          hint: "Substitute $p=0.5$ and $E(X)=5$ into $E(X)=np$ and solve for $n$.",
+          explanation:
+            "$0.5n=5$, so $n=10$.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find $\\text{Var}(X)$.",
+          latex: "\\text{Var}(X) = npq",
+          marks: 1,
+          answer: "2.5",
+          acceptedAnswers: ["5/2"],
+          hint: "Use $q=1-p=0.5$ and your value of $n$ from part (a).",
+          explanation:
+            "$\\text{Var}(X)=10\\times0.5\\times0.5=2.5$.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find $P(X = 0)$, giving your answer as a fraction.",
+          latex: "P(X=0) = \\binom{n}{0} p^0 q^n",
+          marks: 2,
+          answer: "1/1024",
+          acceptedAnswers: ["0.000977", "0.0009765625"],
+          hint: "Use $P(X=0)=q^n=(0.5)^{10}$.",
+          explanation:
+            "$P(X=0)=\\binom{10}{0}(0.5)^{10}(0.5)^0=(0.5)^{10}=\\frac{1}{1024}$.",
+        },
+      ],
+    },
+  ],
 };
 
 const examPractice: Partial<ExplicitLesson> = {
