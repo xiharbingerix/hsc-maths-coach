@@ -40,6 +40,7 @@ type LessonStage =
   | "learn"
   | "guided-practice"
   | "independent-practice"
+  | "multi-part-practice"
   | "mastery-quiz";
 
 type MasteryState = {
@@ -58,6 +59,7 @@ const allLessonStages: { id: LessonStage; label: string }[] = [
   { id: "learn", label: "Learn" },
   { id: "guided-practice", label: "Guided Practice" },
   { id: "independent-practice", label: "Independent Practice" },
+  { id: "multi-part-practice", label: "Multi-Part Practice" },
   { id: "mastery-quiz", label: "Mastery Quiz" },
 ];
 
@@ -249,6 +251,8 @@ function MultiPartPracticeCard({
   const parts = questionParts(question);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [results, setResults] = useState<Record<string, "correct" | "incorrect">>({});
+  const allAnsweredCorrectly =
+    parts.length > 0 && parts.every((part) => results[part.key] === "correct");
 
   function updateAnswer(key: string, value: string) {
     setAnswers((current) => ({ ...current, [key]: value }));
@@ -347,6 +351,24 @@ function MultiPartPracticeCard({
                   <p className="font-semibold">
                     {result === "correct" ? "Correct." : "Not quite."}
                   </p>
+                  <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                    <div className="rounded-lg bg-white/70 p-2">
+                      <p className="text-xs font-semibold uppercase tracking-wide opacity-70">
+                        Your answer
+                      </p>
+                      <p className="mt-1 font-medium">
+                        <MathText text={answers[part.key]?.trim() || "No answer submitted"} />
+                      </p>
+                    </div>
+                    <div className="rounded-lg bg-white/70 p-2">
+                      <p className="text-xs font-semibold uppercase tracking-wide opacity-70">
+                        Correct answer
+                      </p>
+                      <p className="mt-1 font-medium">
+                        <MathText text={part.answer} />
+                      </p>
+                    </div>
+                  </div>
                   <p className="mt-1">
                     <MathText text={part.explanation} />
                   </p>
@@ -356,6 +378,12 @@ function MultiPartPracticeCard({
           );
         })}
       </div>
+
+      {allAnsweredCorrectly && (
+        <div className="rounded-xl bg-green-50 p-3 text-sm font-medium text-green-800">
+          All parts correct.
+        </div>
+      )}
     </div>
   );
 }
@@ -1457,11 +1485,14 @@ export function LessonRenderer({
   const currentLessonStages = useMemo(() => {
     const shouldShowWatchStage =
       WATCH_STAGE_ENABLED && hasPlayableVideoUrl(lesson?.video.url);
+    const hasMultiPartPractice = (lesson?.multiPartPractice?.length ?? 0) > 0;
 
-    return shouldShowWatchStage
-      ? allLessonStages
-      : allLessonStages.filter((stage) => stage.id !== "watch");
-  }, [lesson?.video.url]);
+    return allLessonStages.filter((stage) => {
+      if (stage.id === "watch") return shouldShowWatchStage;
+      if (stage.id === "multi-part-practice") return hasMultiPartPractice;
+      return true;
+    });
+  }, [lesson?.multiPartPractice?.length, lesson?.video.url]);
   const firstCurrentLessonStage =
     currentLessonStages[0]?.id ?? firstContentStage;
 
@@ -2076,10 +2107,46 @@ export function LessonRenderer({
     }
 
     if (activeStage === "independent-practice") {
+      const nextButtonLabel =
+        (currentLesson.multiPartPractice?.length ?? 0) > 0
+          ? "Continue to Multi-Part Practice"
+          : "Continue to Mastery Quiz";
+
       return (
         <section className="space-y-4 rounded-2xl bg-white p-6 shadow-sm">
           <h2 className="text-2xl font-bold">Independent Practice</h2>
           {currentLesson.independentPractice.map((question, index) => (
+            <PracticeCard
+              key={question.id}
+              question={question}
+              index={index}
+              courseSlug={courseSlug}
+              unitSlug={unitSlug}
+              lessonSlug={lessonSlug}
+              section="independent-practice"
+            />
+          ))}
+          <button
+            type="button"
+            onClick={completeCurrentStage}
+            className="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
+          >
+            {nextButtonLabel}
+          </button>
+        </section>
+      );
+    }
+
+    if (activeStage === "multi-part-practice") {
+      return (
+        <section className="space-y-4 rounded-2xl bg-white p-6 shadow-sm">
+          <div>
+            <h2 className="text-2xl font-bold">Multi-Part Practice</h2>
+            <p className="mt-2 text-slate-600">
+              HSC-style questions with separate answer checks for each part.
+            </p>
+          </div>
+          {(currentLesson.multiPartPractice ?? []).map((question, index) => (
             <PracticeCard
               key={question.id}
               question={question}
