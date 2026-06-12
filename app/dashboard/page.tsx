@@ -33,6 +33,10 @@ import {
   trackDashboardViewed,
 } from "../../lib/analytics";
 import { predictBand, type BandPrediction } from "../../lib/bandPredictor";
+import {
+  getDailyReviewQueue,
+  type DailyReviewItem,
+} from "../../lib/dailyReviewQueue";
 
 type MasteryRow = {
   course_slug: string;
@@ -62,16 +66,6 @@ type MasteryTrendSummary = {
   latestAverage: number | null;
   previousAverage: number | null;
   change: number | null;
-};
-
-type RevisionReason = "Needs strengthening" | "Due for review" | "Long time since practice";
-
-type RevisionDueItem = {
-  course_slug: string;
-  topic_slug: string;
-  mastery_score: number;
-  last_updated: string;
-  reason: RevisionReason;
 };
 
 type AssignedWorksheet = {
@@ -184,39 +178,6 @@ function masteryTrendMessage(summary: MasteryTrendSummary): string {
 function masteryTrendTone(change: number | null): string {
   if (change == null || change === 0) return "text-slate-700";
   return change > 0 ? "text-emerald-700" : "text-rose-700";
-}
-
-const REVISION_REASON_ORDER: Record<RevisionReason, number> = {
-  "Needs strengthening": 0,
-  "Long time since practice": 1,
-  "Due for review": 2,
-};
-
-function getRevisionQueue(rows: MasteryRow[]): RevisionDueItem[] {
-  const now = Date.now();
-  const MS_14 = 14 * 24 * 60 * 60 * 1000;
-  const MS_21 = 21 * 24 * 60 * 60 * 1000;
-
-  const due: RevisionDueItem[] = [];
-  for (const row of rows) {
-    const age = now - new Date(row.last_updated).getTime();
-    let reason: RevisionReason | null = null;
-    if (row.mastery_score < 50) {
-      reason = "Needs strengthening";
-    } else if (age > MS_21) {
-      reason = "Long time since practice";
-    } else if (age > MS_14 && row.mastery_score < 80) {
-      reason = "Due for review";
-    }
-    if (reason) {
-      due.push({ course_slug: row.course_slug, topic_slug: row.topic_slug, mastery_score: row.mastery_score, last_updated: row.last_updated, reason });
-    }
-  }
-  due.sort((a, b) => {
-    const r = REVISION_REASON_ORDER[a.reason] - REVISION_REASON_ORDER[b.reason];
-    return r !== 0 ? r : a.mastery_score - b.mastery_score;
-  });
-  return due.slice(0, 3);
 }
 
 function formatLastPractised(isoString: string): string {
@@ -442,6 +403,17 @@ export default function DashboardPage() {
       selected_course_slug: selectedCourseSlug ?? null,
     });
   }, [isLoading, accessStatus, selectedCourseSlug]);
+
+  const dailyReviewViewedRef = useRef(false);
+  useEffect(() => {
+    if (isLoading || dailyReviewViewedRef.current) return;
+    dailyReviewViewedRef.current = true;
+    clientTrackEvent("daily_review_viewed", {
+      source: "dashboard",
+      has_mastery: masteryRows.length > 0,
+      selected_course_slug: selectedCourseSlug ?? null,
+    });
+  }, [isLoading, masteryRows.length, selectedCourseSlug]);
 
   async function handleSignOut() {
     await supabase.auth.signOut();
@@ -712,7 +684,13 @@ export default function DashboardPage() {
       }
     : null;
 
-  const revisionQueue = getRevisionQueue(masteryRows);
+  const reviewQueue: DailyReviewItem[] = getDailyReviewQueue(
+    masteryRows,
+    subtopicMasteryRows,
+    selectedCourseSlug ?? null,
+    topicLabelMap,
+    subtopicLabelMap,
+  );
   const firstOpenWorksheet =
     assignedWorksheets.find((ws) => !latestAttemptByWorksheet.get(ws.id)?.completed_at) ??
     assignedWorksheets[0] ??
@@ -776,18 +754,18 @@ export default function DashboardPage() {
         ? "View worksheets"
         : firstOpenWorksheet
         ? "Open worksheet"
-        : revisionQueue.length > 0
+        : reviewQueue.length > 0
         ? "Review topic"
         : "Generate revision",
       href: hasReviewedTodaysRevision
         ? "#worksheets"
         : firstOpenWorksheet
         ? `/worksheet/${firstOpenWorksheet.share_token}`
-        : revisionQueue.length > 0
-        ? `/course/${revisionQueue[0].course_slug}/${revisionQueue[0].topic_slug}`
+        : reviewQueue.length > 0
+        ? reviewQueue[0].suggested_action_href
         : undefined,
       onClick:
-        !hasReviewedTodaysRevision && !firstOpenWorksheet && revisionQueue.length === 0
+        !hasReviewedTodaysRevision && !firstOpenWorksheet && reviewQueue.length === 0
           ? () => void handleGenerateRevisionWorksheet()
           : undefined,
       disabled: isGeneratingWorksheet,
@@ -1216,56 +1194,94 @@ export default function DashboardPage() {
           </section>
         ) : null}
 
-        {/* ── Today's revision ──────────────────────────────────────────────── */}
+        {/* ── Today’s review ────────────────────────────────────────────────── */}
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
-          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            Spaced revision
-          </p>
-          <h2 className="mt-2 text-2xl font-bold tracking-tight">Today&apos;s revision</h2>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Daily review
+              </p>
+              <h2 className="mt-2 text-2xl font-bold tracking-tight">Today&apos;s review</h2>
+            </div>
+            {hasMastery ? (
+              <button
+                type="button"
+                onClick={() => void handleGenerateRevisionWorksheet()}
+                disabled={isGeneratingWorksheet}
+                className="shrink-0 inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isGeneratingWorksheet ? "Generating..." : "Generate review worksheet"}
+              </button>
+            ) : null}
+          </div>
 
-          {revisionQueue.length === 0 ? (
+          {!hasMastery ? (
             <p className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
-              {hasMastery
-                ? "You’re all caught up. Keep practising to maintain your mastery."
-                : "Complete your first lesson quiz to start building your revision queue."}
+              {accessStatus === "active" && selectedCourseSlug !== null
+                ? `Complete your first ${selectedCourseTitle ?? "course"} lesson quiz to unlock personalised review.`
+                : "Complete a lesson quiz to unlock personalised review."}
+            </p>
+          ) : reviewQueue.length === 0 ? (
+            <p className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm font-semibold text-emerald-800">
+              You&apos;re all caught up. Keep practising to maintain your mastery.
             </p>
           ) : (
             <ul className="mt-5 space-y-3">
-              {revisionQueue.map((item) => (
+              {reviewQueue.map((item) => (
                 <li
-                  key={`${item.course_slug}::${item.topic_slug}`}
+                  key={`${item.course_slug}::${item.topic_slug}::${item.subtopic_slug ?? ""}`}
                   className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between"
                 >
                   <div className="flex-1">
-                    <p className="font-semibold text-slate-900">
-                      {topicLabel(item.course_slug, item.topic_slug)}
-                    </p>
+                    <p className="font-semibold text-slate-900">{item.title}</p>
                     <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
                       <span className="tabular-nums">{item.mastery_score}% mastery</span>
                       <span>Last practised: {formatLastPractised(item.last_updated)}</span>
+                      {item.subtopic_slug ? (
+                        <span className="text-slate-400">
+                          {topicLabel(item.course_slug, item.topic_slug)}
+                        </span>
+                      ) : null}
                       <span
                         className={`rounded-full px-2 py-0.5 font-semibold ${
-                          item.reason === "Needs strengthening"
+                          item.reason === "weak"
                             ? "bg-red-100 text-red-700"
-                            : item.reason === "Long time since practice"
+                            : item.reason === "stale"
                             ? "bg-amber-100 text-amber-700"
                             : "bg-blue-100 text-blue-700"
                         }`}
                       >
-                        {item.reason}
+                        {item.reason === "weak"
+                          ? "Needs strengthening"
+                          : item.reason === "stale"
+                          ? "Due for review"
+                          : "Confidence building"}
                       </span>
                     </div>
                   </div>
                   <Link
-                    href={`/course/${item.course_slug}/${item.topic_slug}`}
+                    href={item.suggested_action_href}
+                    onClick={() => {
+                      clientTrackEvent("daily_review_item_clicked", {
+                        source: "dashboard",
+                        course_slug: item.course_slug,
+                        topic_slug: item.topic_slug,
+                        subtopic_slug: item.subtopic_slug ?? null,
+                        reason: item.reason,
+                      });
+                    }}
                     className="inline-flex shrink-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
                   >
-                    Revise
+                    Practise this
                   </Link>
                 </li>
               ))}
             </ul>
           )}
+
+          {adaptiveWorksheetError ? (
+            <p className="mt-3 text-sm text-red-600">{adaptiveWorksheetError}</p>
+          ) : null}
         </section>
 
         <section id="worksheets" className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
