@@ -1,172 +1,150 @@
-# Nova Maths — Release Checkpoint
+# Nova Maths Release Checkpoint
 
-_Checkpoint date: 2026-06-12_
-_Branch: main | 1 commit ahead of origin/main_
+Checkpoint date: 2026-06-13
 
----
+This checkpoint summarises the current production release state. Use `docs/PRODUCTION_DEPLOY_RUNBOOK.md` as the operational deploy and smoke-test procedure.
 
-## 1. What Has Landed (last ~30 commits)
+## 1. Release scope
 
-### Ads & funnel
-- Ads funnel analytics: gclid/UTM preservation, `trial_cta_clicked`, `checkout_started`, `trial_started`, Google Ads conversion on `/payment-success` → see `docs/ADS_FUNNEL_AUDIT.md`
-- Active-user checkout guard: logged-in paying students are redirected to dashboard instead of re-entering checkout
-- Post-payment dashboard flow: `/payment-success` → dashboard with access activation and first-session banner
+The current release includes:
 
-### Student experience
-- First-session onboarding banner on dashboard for new trial students
-- Daily review queue on dashboard (weakest subtopics)
-- Band predictor on dashboard (HSC Advanced/Standard)
-- Progressive hint ladder in lesson practice questions
-- Continue Learning deep-links to first active lesson per selected course
+- Stripe-first checkout and post-payment dashboard flow.
+- Ads funnel analytics for CTA, checkout, trial, and conversion tracking.
+- First-session onboarding.
+- Year 9 and Year 10 Core/Advanced split pathways.
+- Year 12 Standard 1 fixes and diagnostic coverage for active units.
+- Year 12 Extension 1 content and nested course routes.
+- Year 12 Extension 2 scaffold marked as not available for real study yet.
+- Lesson Maker generation, saved plans, print/clipboard export, and worksheet handoff.
+- Worksheet subtopic control: auto weakest mode and manual subtopic selection.
+- Multi-part questions.
+- Marks-weighted multi-part worksheet scoring.
 
-### Admin / tutor workspace
-- Lesson Maker: plan generation, rich visual payloads, saved plans, clipboard/print export → `lib/supabase-migrations/019_saved_lesson_plans.sql`
-- Lesson Maker → worksheet handoff: pre-fills course/topic/subtopic via query params
-- Worksheet subtopic control: admin can manually select subtopics or leave blank for adaptive/weak-subtopic logic
+## 2. Required checks before deploy
 
-### Curriculum
-- **Year 8**: 10 units, 54 lessons, 1 026 seedable questions. All complete → `docs/YEAR8-COURSE-STATUS.md`
-- **Year 9/10 Core/Advanced split**: four courses (`year-9-mathematics-core`, `year-9-mathematics-advanced`, `year-10-mathematics-core`, `year-10-mathematics-advanced`) with separate lessons and seeds
-- **Year 12 Standard 1**: routes, diagnostic, 8 Standard-1-specific overrides, 2 scope-mismatched lessons rewritten June 2026 → `docs/YEAR12_STANDARD1_COURSE_STATUS.md`
-- **Year 12 Extension 1**: all 6 units complete (22 lessons), routes active, 366 seedable questions (0 warnings) → `docs/YEAR12_EXTENSION1_HSC_STATUS.md`
+Run from `C:\Users\joshu\hsc-maths-coach`:
 
----
+```powershell
+npx.cmd tsc --noEmit
+npm.cmd run build
+npm.cmd run audit:lessons
+npx.cmd tsx scripts/seed-question-bank.ts --course all --dry-run
+npx.cmd tsx scripts/predeploy-check.ts
+git diff --check
+git status --short
+```
 
-## 2. Uncommitted / Untracked Files
+Deploy is blocked by any TypeScript error, build failure, lesson audit failure, seed dry-run warning that affects release courses, missing production env, missing migration, or unintended dirty working-tree change.
 
-The following files are **modified but not staged**:
+## 3. Production env blockers
 
-| File | Reason |
+Vercel Production must have:
+
+| Env var | Required shape |
 |---|---|
-| `app/course/NewCoursePages.tsx` | Worksheet subtopic control |
-| `docs/YEAR12_EXTENSION1_HSC_STATUS.md` | Status field updated to `available` |
-| `lib/diagnostics/year-12-standard-1.ts` | LaTeX escape fixes |
-| `lib/lessons/year10/*.ts` (9 files) | Year 10 Core/Advanced split rewrites |
-| `lib/lessons/year9/*.ts` (8 files) | Year 9 Core/Advanced split rewrites |
-| `lib/lessons/year12Extension1/binomialDistribution.ts` | LaTeX and answer fixes |
+| `NEXT_PUBLIC_SUPABASE_URL` | `https://...` |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role secret/JWT |
+| `STRIPE_SECRET_KEY` | `sk_live_...` |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | `pk_live_...` |
+| `STRIPE_WEBHOOK_SECRET` | `whsec_...` |
 
-Untracked:
+Known blocker: a local Stripe secret has previously been invalid with an `mk_` prefix. Production must be checked directly in Vercel before ads or checkout smoke.
 
-| File | Reason |
-|---|---|
-| `docs/NEW_COURSE_QUALITY_AUDIT.md` | New audit doc — not committed |
+## 4. Migrations required
 
-**These must all be committed before deploy.**
-
----
-
-## 3. Migrations Required
-
-Run in the Supabase SQL editor in order. All are `IF NOT EXISTS` safe.
+Apply in order before production reseed:
 
 | # | File | Required for |
 |---|---|---|
-| 001–011 | Already in `docs/DEPLOYMENT-CHECKLIST.md` | Core mastery, worksheets, RLS |
-| 012 | `012_analytics_events.sql` | Analytics event store |
-| 013 | `013_mastery_history.sql` | Mastery history timeline |
-| 014 | `014_student_notes.sql` | Student notes (tutor workspace) |
-| 015 | `015_student_subtopic_mastery.sql` | Daily review queue, adaptive worksheet subtopic prioritisation |
-| 016 | `016_question_flags.sql` | Question flag/review workflow |
-| 017 | `017_selected_course_slug.sql` | Course selection persisted on profile |
-| 018 | `018_question_flags_review_trace.sql` | Flag review traceability |
+| 012 | `012_analytics_events.sql` | Ads and product analytics event store |
+| 013 | `013_mastery_history.sql` | Mastery history |
+| 014 | `014_student_notes.sql` | Tutor notes |
+| 015 | `015_student_subtopic_mastery.sql` | Daily review and adaptive/manual worksheet subtopic logic |
+| 016 | `016_question_flags.sql` | Question flag workflow |
+| 017 | `017_selected_course_slug.sql` | Persisted course selection |
+| 018 | `018_question_flags_review_trace.sql` | Question flag review trace |
 | 019 | `019_saved_lesson_plans.sql` | Lesson Maker saved plans |
+| 020 | `020_multi_part_questions.sql` | Multi-part question parts and worksheet answer storage |
 
-**015 is the most critical new one**: the daily review queue, subtopic-aware worksheet generation, and student subtopic mastery all depend on the `student_subtopic_mastery` table.
+Migration 020 is required for `questions.question_parts`, `worksheet_answers.answer_payload`, and `worksheet_answers.part_results`.
 
----
+## 5. Question bank reseed
 
-## 4. Seeds / Imports Required
-
-After migrations, seed the question bank for all courses:
+Run after migrations and deploy:
 
 ```powershell
-# Dry-run first
 npx.cmd tsx scripts/seed-question-bank.ts --course all --dry-run
-
-# Live seed
 npx.cmd tsx scripts/seed-question-bank.ts --course all
 ```
 
-New courses since last known-good seed:
+Targeted dry-runs worth checking:
 
-| Course | Est. questions |
-|---|---|
-| `year-9-mathematics-core` | ~400 |
-| `year-9-mathematics-advanced` | ~450 |
-| `year-10-mathematics-core` | ~400 |
-| `year-10-mathematics-advanced` | ~450 |
-| `year-12-standard-1` | ~300 |
-| `year-12-extension-1` | 366 |
+```powershell
+npx.cmd tsx scripts/seed-question-bank.ts --course year-12-advanced --dry-run
+npx.cmd tsx scripts/seed-question-bank.ts --course year-12-extension-1 --dry-run
+npx.cmd tsx scripts/seed-question-bank.ts --course year-12-extension-2 --dry-run
+```
 
----
+Expected:
 
-## 5. QA Required Before Deploy
+- Year 12 Advanced includes `tan-norm-mp-1`, `tan-norm-mp-2`, and `tan-norm-mp-3`.
+- Extension 1 prepares real questions.
+- Extension 2 prepares 0 questions until real lessons exist.
 
-### Critical path (must pass)
-- [ ] Checkout → Stripe → `/payment-success` → dashboard access granted
-- [ ] Active-user guard: logged-in paying user visiting `/checkout` is redirected to dashboard
-- [ ] Adaptive worksheet: generates from student's weakest subtopics (requires migration 015)
-- [ ] Worksheet subtopic control: selecting manual subtopics restricts question pool; leaving blank uses adaptive logic
-- [ ] Lesson Maker: generate plan, save, export to worksheet with topic/subtopic pre-filled
-- [ ] Daily review queue on dashboard: shows questions from weak subtopics, not blank
+## 6. Post-deploy smoke summary
 
-### Regression checks
-- [ ] Year 8 unit and lesson pages load
-- [ ] Year 9/10 Core and Advanced landing pages, unit pages, lesson pages all load
-- [ ] Standard 1 diagnostic completes and saves result
-- [ ] Extension 1 unit and lesson pages load (proof-induction, vectors, inverse-trig, further-calculus, calculus-applications, binomial-distribution)
-- [ ] Hint ladder appears on lesson practice questions
-- [ ] Band predictor renders on dashboard for HSC Advanced/Standard students
-- [ ] Admin question flag workflow: flag, review, approve/decline
+Use headed Chrome and pause for Joshua sign-in where required.
 
----
+- HSC CTA opens Stripe checkout.
+- Stripe success returns to dashboard with access active.
+- Active paid user is guarded away from checkout.
+- Dashboard onboarding, course selection, Continue Learning, Daily Review, and Band Predictor do not crash.
+- Year 12 Advanced nested route works:
+  `/course/year-12-advanced/differential-calculus/tangents-and-normals`
+- Year 12 Extension 1 nested route works:
+  `/course/year-12-extension-1/proof-induction/intro-to-mathematical-induction`
+- Year 12 Extension 2 course page shows honest scaffold state.
+- Worksheet generator works in auto weakest mode.
+- Worksheet generator works with manual Year 12 Advanced subtopic selection.
+- Multi-part worksheet scoring shows partial credit, per-part marks, explanations, and final marks total.
+- Lesson Maker can generate, save, reload, and hand off to worksheet creation.
+- Admin analytics ads funnel renders and shows expected events.
 
-## 6. Blockers Before Increasing Ads
+Recent disposable local/dev worksheet smoke token:
 
-**Do not scale ads spend until:**
+```text
+/worksheet/7d22a574-41c6-48c0-9189-858c0b87f887
+```
 
-1. **Stripe production key confirmed valid** — local `.env.local` has an `mk_` prefixed key which is invalid. Verify production `STRIPE_SECRET_KEY` in Vercel env is a live `sk_live_` key. See memory note: `project-stripe-key.md`.
-2. **Migration 015 applied** — daily review queue and subtopic adaptive worksheet are broken without `student_subtopic_mastery` table.
-3. **Migration 019 applied** — Lesson Maker "Save plan" will error without `saved_lesson_plans` table (admin-facing but a crash risk).
-4. **All uncommitted files committed and deployed** — Year 10 and Year 9 lesson files are still modified/untracked.
-5. **Question bank re-seeded** — new Year 9/10 Core/Advanced splits and Standard 1 are not in the database until seeded; adaptive worksheets will fail for students in those courses.
+Do not treat that token as production evidence.
 
----
+## 7. Things not to scale yet
 
-## 7. Known Risks
+Do not scale ads until:
+
+1. Vercel Stripe env is confirmed live-mode: `sk_live_`, `pk_live_`, `whsec_`.
+2. Migrations 012-020 are applied.
+3. Question bank reseed has completed after deploy.
+4. Checkout, payment success, dashboard activation, and analytics funnel smoke pass.
+5. Worksheet and Lesson Maker smoke pass.
+
+## 8. Known risks
 
 | Risk | Severity | Notes |
 |---|---|---|
-| Year 9/10 split — old `year-9-mathematics` and `year-10-mathematics` slugs still routable | Low | Original slugs remain in catalog as aliases; existing student mastery rows are unaffected |
-| Standard 1 diagnostic only covers 3 of 5 planned units | Low | Documented as intentional; remaining units are in-progress |
-| Extension 1 missing `further-trig` and `statistical-hypothesis-testing` units | Low | Documented in `docs/YEAR12_EXTENSION1_HSC_STATUS.md` §4; no student-visible gap until those slugs are added |
-| Binomial distribution question counts lower than other Extension 1 units | Low | Fixed in last audit — 6 questions/lesson vs 19; not a crash risk |
-| `audit:lessons` still reports 858 warnings | Low | All warnings are content-quality flags (not errors); audit PASS means no failures |
-| Year 8 duplicate lesson slugs across units | Low | Documented in `docs/YEAR8-COURSE-STATUS.md`; no routing conflict in practice |
-| Stripe trial email confirmation disabled | Medium | Needed to get students into onboarding faster; monitor for support requests about "no email received" |
-| No multi-part question type | Low | Blocks HSC Extension exam simulation; not needed for current scope |
+| Attempt-level worksheet score columns store question-count score | Medium | Marks totals are computed from answer rows for multi-part summaries |
+| Mastery partial weighting is not implemented | Medium | Multi-part partial credit does not yet feed weighted mastery |
+| Extension 2 scaffold only | Medium | Must remain coming-soon/in-progress until real lessons and diagnostics exist |
+| Multi-part auto-marking is exact/numeric/algebraic only | Medium | No AI/free-text proof marking yet |
+| Extension 1 HSC prep incomplete | Low | Course content exists, but timed exam/past-paper workflow is not complete |
+| Audit warnings remain | Low | Current audit warnings are content-quality warnings unless failures appear |
 
----
+## 9. Reference docs
 
-## 8. Validation (at checkpoint)
-
-```
-tsc --noEmit:   PASS (0 errors)
-next build:     PASS (all routes compiled)
-audit:lessons:  PASS (0 failures, 858 warnings)
-seed dry-run (extension-1): 366 questions, 0 warnings
-git diff --check: PASS (CRLF line-ending warnings only)
-```
-
----
-
-## 9. Deploy Order
-
-1. Commit all staged/unstaged changes (`git add -A && git commit`)
-2. Push to origin/main
-3. Apply Supabase migrations 012–019 in order
-4. Run environment variable check (`npm.cmd run check:env`)
-5. Deploy to Vercel (auto-deploys on push, or trigger manually)
-6. Run question bank seed for all courses
-7. Smoke-test critical path (see §5)
-8. Monitor Stripe webhook logs and `analytics_events` table for first 24 hours
+- `docs/PRODUCTION_DEPLOY_RUNBOOK.md`
+- `docs/CONTENT_AUTHENTICITY_AUDIT.md`
+- `docs/YEAR12_EXTENSION1_HSC_STATUS.md`
+- `docs/YEAR12_EXTENSION2_HSC_STATUS.md`
+- `docs/YEAR12_STANDARD1_COURSE_STATUS.md`
+- `docs/QUESTION_AUTHORING_STANDARD.md`
+- `docs/PRACTICE_QUESTION_STANDARD.md`
