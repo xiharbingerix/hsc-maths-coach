@@ -54,12 +54,12 @@ export const diagnosticData: DiagnosticData = {
       prompt: "Which equation shows an inverse variation between x and y?",
       choices: [
         { label: "A", text: "$y = 4x + 1$" },
-        { label: "B", text: "$y = \frac{12}{x}$" },
+        { label: "B", text: "$y = \\frac{12}{x}$" },
         { label: "C", text: "$y = x^2 - 3$" },
         { label: "D", text: "$y = 3x - 5$" },
       ],
       correctAnswer: "B",
-      explanation: "$y = \frac{12}{x}$ is an inverse variation because y changes as the reciprocal of x.",
+      explanation: "$y = \\frac{12}{x}$ is an inverse variation because y changes as the reciprocal of x.",
     },
     {
       id: "y12s1-ar4",

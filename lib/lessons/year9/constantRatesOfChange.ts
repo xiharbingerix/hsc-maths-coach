@@ -382,7 +382,7 @@ const lessons: Record<string, LessonContent> = {
 };
 
 export function year9ConstantRatesOfChangeLessonOverride(course: CoursePathwaySeed, unit: CourseUnitSeed, lesson: CourseLessonSeed): Partial<ExplicitLesson> | null {
-  if (course.slug !== "year-9-mathematics" || unit.slug !== "constant-rates-of-change") return null;
+  if (!["year-9-mathematics", "year-9-mathematics-advanced", "year-9-mathematics-core"].includes(course.slug) || unit.slug !== "constant-rates-of-change") return null;
   const content = lessons[lesson.slug];
   if (!content) return null;
   return { syllabusArea: "Number and Algebra", masteryPassMark: 0.8, ...content };

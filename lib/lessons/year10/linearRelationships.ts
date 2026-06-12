@@ -346,7 +346,7 @@ export function year10LinearRelationshipsLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
-  if (course.slug !== "year-10-mathematics" || unit.slug !== "linear-relationships") return null;
+  if (!["year-10-mathematics", "year-10-mathematics-advanced", "year-10-mathematics-core"].includes(course.slug) || unit.slug !== "linear-relationships") return null;
   const base = { syllabusArea: "Number and Algebra", masteryPassMark: 0.8 };
 
   if (lesson.slug === "gradient-y-intercept") return {

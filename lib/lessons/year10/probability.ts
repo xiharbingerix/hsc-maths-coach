@@ -530,7 +530,7 @@ export function year10ProbabilityLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
-  if (course.slug !== "year-10-mathematics" || unit.slug !== "probability") return null;
+  if (!["year-10-mathematics", "year-10-mathematics-advanced", "year-10-mathematics-core"].includes(course.slug) || unit.slug !== "probability") return null;
 
   const base = { syllabusArea: "Statistics and Probability", masteryPassMark: 0.8 };
 

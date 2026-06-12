@@ -435,7 +435,7 @@ const lessons: Record<string, LessonContent> = {
 };
 
 export function year9MakingPredictionsLessonOverride(course: CoursePathwaySeed, unit: CourseUnitSeed, lesson: CourseLessonSeed): Partial<ExplicitLesson> | null {
-  if (course.slug !== "year-9-mathematics" || unit.slug !== "making-predictions") return null;
+  if (!["year-9-mathematics", "year-9-mathematics-advanced", "year-9-mathematics-core"].includes(course.slug) || unit.slug !== "making-predictions") return null;
   const content = lessons[lesson.slug];
   if (!content) return null;
   return { syllabusArea: "Statistics and Probability", masteryPassMark: 0.8, ...content };

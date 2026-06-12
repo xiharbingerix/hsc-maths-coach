@@ -444,7 +444,7 @@ export function year9IndexLawsLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
-  if (course.slug !== "year-9-mathematics" || unit.slug !== "index-laws") {
+  if (!["year-9-mathematics", "year-9-mathematics-advanced", "year-9-mathematics-core"].includes(course.slug) || unit.slug !== "index-laws") {
     return null;
   }
 

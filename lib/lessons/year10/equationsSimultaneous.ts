@@ -671,7 +671,7 @@ export function year10EquationsSimultaneousLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
-  if (course.slug !== "year-10-mathematics" || unit.slug !== "equations-simultaneous") {
+  if (!["year-10-mathematics", "year-10-mathematics-advanced", "year-10-mathematics-core"].includes(course.slug) || unit.slug !== "equations-simultaneous") {
     return null;
   }
 

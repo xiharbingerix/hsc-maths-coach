@@ -2686,7 +2686,7 @@ export function year10TrigonometryLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
-  if (course.slug !== "year-10-mathematics" || unit.slug !== "trigonometry") {
+  if (!["year-10-mathematics", "year-10-mathematics-advanced", "year-10-mathematics-core"].includes(course.slug) || unit.slug !== "trigonometry") {
     return null;
   }
 

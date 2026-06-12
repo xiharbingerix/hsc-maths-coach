@@ -1,6 +1,6 @@
 # Year 12 Mathematics Extension 1 — HSC Status
 
-_Audited: June 2026 — calculus-applications unit filled June 2026_
+_Audited: June 2026 — calculus-applications unit filled June 2026; unit + lesson routes added June 2026_
 
 ---
 
@@ -10,8 +10,8 @@ _Audited: June 2026 — calculus-applications unit filled June 2026_
 |---|---|
 | Slug | `year-12-extension-1` |
 | Type alias | `NewCourseSlug` — registered in `lib/courseTypes.ts` |
-| Status | `in_progress` |
-| App routes | `app/course/year-12-extension-1/page.tsx` only — no unit or lesson sub-routes |
+| Status | `available` |
+| App routes | Course, unit and lesson routes active: `page.tsx`, `[unitSlug]/page.tsx`, `[unitSlug]/[lessonSlug]/page.tsx` |
 | Diagnostic | `lib/diagnostics/year-12-extension-1.ts` — 20 questions across 6 units |
 | Question bank | In `SUPPORTED_COURSE_SLUGS` in `scripts/seed-question-bank.ts` — seedable |
 
@@ -148,7 +148,7 @@ hsc-extension-1-practice
 1. ~~**Fill `further-calculus` unit**~~ — done
 2. ~~**Fill `binomial-distribution` unit**~~ — done
 3. ~~**Fill `calculus-applications` unit**~~ — done (June 2026)
-4. **Add unit-level and lesson-level app routes** — currently only the course landing page exists; unit pages and lesson pages are needed for lesson-by-lesson study
+4. ~~**Add unit-level and lesson-level app routes**~~ — done (June 2026)
 5. **Wire band predictor to `year-12-extension-1`** — currently not connected
 6. **Multi-part question type** — requires schema change to `PracticeQuestion` and UI changes; prerequisite for any serious HSC Section II prep
 7. **`hsc-extension-1-practice` course** — once multi-part questions exist and past-paper content is cleaned up

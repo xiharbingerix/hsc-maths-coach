@@ -43,7 +43,7 @@ function courseStatusNote(courseSlug: string) {
   }
 
   if (courseSlug === "year-12-extension-1") {
-    return "Proof by Mathematical Induction, Vectors and Inverse Trigonometric Functions are active now. The remaining Year 12 Extension 1 units are planned and will be added progressively.";
+    return "All 6 units are now active: Proof by Mathematical Induction, Introduction to Vectors, Inverse Trigonometric Functions, Further Calculus Skills, Further Applications of Calculus, and The Binomial Distribution.";
   }
 
   return null;

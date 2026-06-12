@@ -334,7 +334,7 @@ export function year10FinancialMathematicsLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
-  if (course.slug !== "year-10-mathematics" || unit.slug !== "financial-mathematics") {
+  if (!["year-10-mathematics", "year-10-mathematics-advanced", "year-10-mathematics-core"].includes(course.slug) || unit.slug !== "financial-mathematics") {
     return null;
   }
 

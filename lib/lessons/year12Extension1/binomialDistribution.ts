@@ -64,7 +64,7 @@ const bernoulliTrials: Partial<ExplicitLesson> = {
     {
       title: "Identify n, p and q",
       questionLatex:
-        "\\text{A student answers 10 questions, each with probability }0.75\text{ of success. Find n, p and q.}",
+        "\\text{A student answers 10 questions, each with probability }0.75\\text{ of success. Find n, p and q.}",
       steps: [
         { explanation: "There are 10 independent trials.", latex: "n=10" },
         { explanation: "The success probability is 0.75.", latex: "p=0.75" },
@@ -77,11 +77,11 @@ const bernoulliTrials: Partial<ExplicitLesson> = {
       questionLatex:
         "\\text{Which assumption is required for X to follow B(n,p)?}",
       steps: [
-        { explanation: "The trials must be independent.", latex: "\text{independence}" },
-        { explanation: "Each trial must have the same success probability.", latex: "\text{constant }p" },
+        { explanation: "The trials must be independent.", latex: "\\text{independence}" },
+        { explanation: "Each trial must have the same success probability.", latex: "\\text{constant }p" },
       ],
       finalAnswerLatex:
-        "\text{Trials are independent and each has the same probability }p.",
+        "\\text{Trials are independent and each has the same probability }p.",
     },
   ],
   guidedPractice: [
@@ -164,7 +164,7 @@ const binomialProbabilities: Partial<ExplicitLesson> = {
     latexBlocks: [
       "P(X=k)=\\binom{n}{k}p^kq^{n-k}",
       "q=1-p",
-      "P(X\ge k)=1-P(X\le k-1)",
+      "P(X\\ge k)=1-P(X\\le k-1)",
     ],
   },
   workedExamples: [
@@ -175,7 +175,7 @@ const binomialProbabilities: Partial<ExplicitLesson> = {
       steps: [
         { explanation: "There are 4 trials and we need exactly 3 successes.", latex: "n=4, k=3, p=0.8, q=0.2" },
         { explanation: "Substitute into the binomial formula.", latex: "P(X=3)=\\binom{4}{3}(0.8)^3(0.2)^1" },
-        { explanation: "Calculate the value.", latex: "P(X=3)=4\times0.512\times0.2=0.4096" },
+        { explanation: "Calculate the value.", latex: "P(X=3)=4\\times0.512\\times0.2=0.4096" },
       ],
       finalAnswerLatex: "0.4096",
     },
@@ -184,9 +184,9 @@ const binomialProbabilities: Partial<ExplicitLesson> = {
       questionLatex:
         "\\text{With n=5 and p=0.15, find }P(X\\ge1).",
       steps: [
-        { explanation: "At least one success is the complement of zero successes.", latex: "P(X\ge1)=1-P(X=0)" },
+        { explanation: "At least one success is the complement of zero successes.", latex: "P(X\\ge1)=1-P(X=0)" },
         { explanation: "Find P(X=0) using q=0.85.", latex: "P(X=0)=0.85^5=0.4437" },
-        { explanation: "Subtract from 1.", latex: "P(X\ge1)=0.5563" },
+        { explanation: "Subtract from 1.", latex: "P(X\\ge1)=0.5563" },
       ],
       finalAnswerLatex: "0.5563",
     },
@@ -272,7 +272,7 @@ const meanVariance: Partial<ExplicitLesson> = {
         "\\text{For X~B(20,0.3), calculate E(X).}",
       steps: [
         { explanation: "Use the formula E(X)=np.", latex: "E(X)=np" },
-        { explanation: "Multiply the number of trials by the success probability.", latex: "E(X)=20\times0.3=6" },
+        { explanation: "Multiply the number of trials by the success probability.", latex: "E(X)=20\\times0.3=6" },
       ],
       finalAnswerLatex: "6",
     },
@@ -282,7 +282,7 @@ const meanVariance: Partial<ExplicitLesson> = {
         "\\text{For X~B(15,0.4), calculate Var(X).}",
       steps: [
         { explanation: "Use q=1-p first.", latex: "q=0.6" },
-        { explanation: "Then calculate npq.", latex: "Var(X)=15\times0.4\times0.6=3.6" },
+        { explanation: "Then calculate npq.", latex: "Var(X)=15\\times0.4\\times0.6=3.6" },
       ],
       finalAnswerLatex: "3.6",
     },
@@ -337,7 +337,7 @@ const meanVariance: Partial<ExplicitLesson> = {
       "For X~B(15,0.2), find Var(X).",
       "2.4",
       ["12/5"],
-      "Use q=0.8 and npq = 15 \times 0.2 \times 0.8."
+      "Use q=0.8 and npq = 15 \\times 0.2 \\times 0.8."
     ),
   ],
   masteryPassMark: 0.8,
@@ -368,29 +368,29 @@ const examPractice: Partial<ExplicitLesson> = {
         "\\text{If X~B(5,0.4), what does P(X=2) represent?}",
       steps: [
         { explanation: "It is the probability of exactly two successes.", latex: "P(X=2)" },
-        { explanation: "Describe the trial context clearly.", latex: "\text{two successes in five independent trials}" },
+        { explanation: "Describe the trial context clearly.", latex: "\\text{two successes in five independent trials}" },
       ],
       finalAnswerLatex:
-        "\text{The chance of exactly two successes in five independent trials with }p=0.4.",
+        "\\text{The chance of exactly two successes in five independent trials with }p=0.4.",
     },
     {
       title: "Combine probability and expectation",
       questionLatex:
         "\\text{For X~B(12,0.25), calculate E(X) and explain its meaning.}",
       steps: [
-        { explanation: "Compute the expected value using np.", latex: "E(X)=12\times0.25=3" },
-        { explanation: "Explain this as the long-run average number of successes.", latex: "\text{average successes}=3" },
+        { explanation: "Compute the expected value using np.", latex: "E(X)=12\\times0.25=3" },
+        { explanation: "Explain this as the long-run average number of successes.", latex: "\\text{average successes}=3" },
       ],
-      finalAnswerLatex: "3\text{ expected successes in the long run}",
+      finalAnswerLatex: "3\\text{ expected successes in the long run}",
     },
   ],
   guidedPractice: [
     binomialTyped(
       "y12e1-binomial-exam-g1",
       "A machine has probability 0.1 of producing a faulty item. In 8 items, find P(X=1).",
-      "0.3874",
-      ["0.387"],
-      "Use the binomial formula with q = 0.9 and nCk = 8."
+      "0.3826",
+      ["0.383", "0.38264"],
+      "Use the binomial formula: C(8,1) × 0.1^1 × 0.9^7 = 8 × 0.1 × 0.4783 ≈ 0.3826."
     ),
     binomialChoice(
       "y12e1-binomial-exam-g2",

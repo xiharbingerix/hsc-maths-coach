@@ -798,7 +798,7 @@ export function year9WorkingWithTrianglesLessonOverride(
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
   if (
-    course.slug !== "year-9-mathematics" ||
+    !["year-9-mathematics", "year-9-mathematics-advanced", "year-9-mathematics-core"].includes(course.slug) ||
     unit.slug !== "working-with-triangles"
   ) {
     return null;
