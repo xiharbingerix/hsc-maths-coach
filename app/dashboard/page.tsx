@@ -201,6 +201,21 @@ function isTodayInSydney(isoString: string | null | undefined): boolean {
   return formatter.format(new Date(isoString)) === formatter.format(new Date());
 }
 
+const HSC_HIGHLIGHT_SLUGS = new Set(["year-12-advanced", "year-12-standard-2"]);
+
+function getFirstLessonHref(courseSlug: string | null): string {
+  if (!courseSlug) return "/course";
+  const pathway = newCoursePathways.find((p) => p.slug === courseSlug);
+  if (pathway) {
+    const firstUnit = pathway.units.find((u) => u.lessons.length > 0);
+    if (firstUnit?.lessons[0]) {
+      return `/course/${courseSlug}/${firstUnit.slug}/${firstUnit.lessons[0].slug}`;
+    }
+    return `/course/${courseSlug}`;
+  }
+  return `/course/${courseSlug}`;
+}
+
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
@@ -414,6 +429,19 @@ export default function DashboardPage() {
       selected_course_slug: selectedCourseSlug ?? null,
     });
   }, [isLoading, masteryRows.length, selectedCourseSlug]);
+
+  const onboardingCoursePromptViewedRef = useRef(false);
+  useEffect(() => {
+    if (isLoading || onboardingCoursePromptViewedRef.current) return;
+    if (accessStatus !== "active") return;
+    if (selectedCourseSlug !== null) return;
+    if (Object.keys(lessonProgress).length > 0) return;
+    onboardingCoursePromptViewedRef.current = true;
+    clientTrackEvent("onboarding_course_prompt_viewed", {
+      source: "dashboard",
+      access_status: accessStatus,
+    });
+  }, [isLoading, accessStatus, selectedCourseSlug, lessonProgress]);
 
   async function handleSignOut() {
     await supabase.auth.signOut();
@@ -773,6 +801,76 @@ export default function DashboardPage() {
   ];
   const isOnboardingComplete = onboardingChecklist.every((item) => item.done);
 
+  const isOnboardingPhase1 =
+    accessStatus === "active" && selectedCourseSlug === null && !hasLessonProgress;
+  const isOnboardingPhase2 =
+    accessStatus === "active" && selectedCourseSlug !== null && !hasLessonProgress;
+  const isOnboardingMode = isOnboardingPhase1 || isOnboardingPhase2;
+  const firstLessonHref = getFirstLessonHref(selectedCourseSlug ?? null);
+
+  const firstSessionChecklist = [
+    {
+      title: "Choose your course",
+      description:
+        "Pick the course you're studying so Nova Maths can personalise your experience.",
+      done: selectedCourseSlug !== null,
+      actionLabel: selectedCourseSlug !== null ? "Change course" : "Choose course",
+      onClick: () => setIsCoursePickerOpen(true),
+      disabled: false,
+    },
+    {
+      title: "Start your first lesson",
+      description: "Work through your first guided lesson and practice questions.",
+      done: hasLessonProgress,
+      actionLabel: hasLessonProgress ? "Continue learning" : "Start first lesson",
+      onClick: () => {
+        clientTrackEvent("onboarding_first_lesson_clicked", {
+          source: "dashboard",
+          course_slug: selectedCourseSlug ?? null,
+          href: firstLessonHref,
+        });
+        router.push(firstLessonHref);
+      },
+      disabled: selectedCourseSlug === null,
+    },
+    {
+      title: "Complete a mastery quiz",
+      description:
+        "Submit a mastery quiz at the end of a lesson to track your real progress.",
+      done: hasCompletedMasteryQuiz,
+      actionLabel: hasCompletedMasteryQuiz ? "Keep practising" : "Open a lesson",
+      onClick: () => router.push(firstLessonHref),
+      disabled: selectedCourseSlug === null,
+    },
+    {
+      title: "Unlock your band estimate",
+      description:
+        "Complete a few mastery quizzes and Nova Maths will estimate your HSC band.",
+      done:
+        bandPrediction.state === "ready" || bandPrediction.state === "building",
+      actionLabel:
+        bandPrediction.state === "ready"
+          ? "View estimate"
+          : bandPrediction.state === "building"
+          ? "Keep going"
+          : "Complete more lessons",
+      onClick: () => {
+        if (
+          bandPrediction.state === "ready" ||
+          bandPrediction.state === "building"
+        ) {
+          document
+            .getElementById("band-predictor")
+            ?.scrollIntoView({ behavior: "smooth" });
+        } else {
+          router.push(firstLessonHref);
+        }
+      },
+      disabled: !hasCompletedMasteryQuiz,
+    },
+  ];
+  const isFirstSessionComplete = firstSessionChecklist.every((item) => item.done);
+
   return (
     <>
     <StudentNav />
@@ -800,6 +898,171 @@ export default function DashboardPage() {
           </div>
         </header>
 
+        {/* ── Onboarding focus (active user, no progress yet) ───────────────── */}
+        {isOnboardingMode ? (
+          <>
+            <section className="rounded-3xl border border-blue-200 bg-blue-50 p-8 shadow-sm md:p-10">
+              <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+                Getting started
+              </p>
+              <h2 className="mt-3 text-2xl font-bold tracking-tight text-slate-900">
+                You&apos;re in — start with one course and we&apos;ll personalise from there.
+              </h2>
+
+              {isOnboardingPhase1 || isCoursePickerOpen ? (
+                <div className="mt-6">
+                  <p className="text-base font-semibold text-slate-900">
+                    Step 1 — Choose your course
+                  </p>
+                  <p className="mt-1 text-sm text-slate-600">
+                    HSC students: Year 12 Advanced and Standard 2 are the best
+                    starting points.
+                  </p>
+                  <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    {coursePickerOptions.map((course) => {
+                      const isHighlighted = HSC_HIGHLIGHT_SLUGS.has(
+                        course.courseSlug
+                      );
+                      return (
+                        <button
+                          key={course.courseSlug}
+                          type="button"
+                          onClick={() => void handleSelectCourse(course.courseSlug)}
+                          disabled={isSavingCourse}
+                          className={`rounded-xl border px-4 py-3 text-left text-sm font-semibold shadow-sm transition disabled:opacity-60 ${
+                            course.courseSlug === selectedCourseSlug
+                              ? "border-blue-600 bg-blue-600 text-white"
+                              : isHighlighted
+                              ? "border-blue-200 bg-white text-slate-900 ring-2 ring-blue-100 hover:border-blue-400 hover:bg-blue-50"
+                              : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                          }`}
+                        >
+                          {course.courseTitle}
+                          {isHighlighted ? (
+                            <span className="ml-2 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-semibold text-blue-700">
+                              HSC
+                            </span>
+                          ) : null}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {isCoursePickerOpen && selectedCourseSlug !== null ? (
+                    <button
+                      type="button"
+                      onClick={() => setIsCoursePickerOpen(false)}
+                      className="mt-3 text-sm text-slate-500 underline hover:text-slate-700"
+                    >
+                      Cancel
+                    </button>
+                  ) : null}
+                </div>
+              ) : (
+                <div className="mt-6">
+                  <p className="text-base font-semibold text-slate-900">
+                    Step 2 — Start your first lesson
+                  </p>
+                  <p className="mt-1 text-sm text-slate-600">
+                    You&apos;re studying{" "}
+                    <span className="font-semibold">{selectedCourseTitle}</span>.
+                    Open your first lesson and work through the guided content.
+                  </p>
+                  <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <Link
+                      href={firstLessonHref}
+                      onClick={() => {
+                        clientTrackEvent("onboarding_first_lesson_clicked", {
+                          source: "dashboard",
+                          course_slug: selectedCourseSlug ?? null,
+                          href: firstLessonHref,
+                        });
+                      }}
+                      className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+                    >
+                      Start first lesson
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => setIsCoursePickerOpen(true)}
+                      className="text-sm text-slate-500 underline hover:text-slate-700"
+                    >
+                      Change course
+                    </button>
+                  </div>
+                </div>
+              )}
+            </section>
+
+            {/* First-session checklist */}
+            <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                    Your progress
+                  </p>
+                  <h2 className="mt-2 text-2xl font-bold tracking-tight">
+                    First session checklist
+                  </h2>
+                </div>
+                <span className="w-fit rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">
+                  {firstSessionChecklist.filter((item) => item.done).length}/
+                  {firstSessionChecklist.length} done
+                </span>
+              </div>
+
+              {isFirstSessionComplete ? (
+                <p className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm font-semibold text-emerald-800">
+                  First session complete — your full dashboard is now unlocked.
+                </p>
+              ) : null}
+
+              <ol className="mt-6 space-y-3">
+                {firstSessionChecklist.map((item, index) => (
+                  <li
+                    key={item.title}
+                    className={`flex flex-col gap-4 rounded-2xl border p-4 sm:flex-row sm:items-center sm:justify-between ${
+                      item.done
+                        ? "border-emerald-200 bg-emerald-50"
+                        : "border-slate-200 bg-slate-50"
+                    }`}
+                  >
+                    <div className="flex gap-3">
+                      <span
+                        className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
+                          item.done
+                            ? "bg-emerald-600 text-white"
+                            : "bg-white text-slate-700 ring-1 ring-slate-300"
+                        }`}
+                      >
+                        {item.done ? "✓" : index + 1}
+                      </span>
+                      <div>
+                        <p className="font-semibold text-slate-900">
+                          {item.title}
+                        </p>
+                        <p className="mt-1 text-sm leading-6 text-slate-600">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={item.onClick}
+                      disabled={item.disabled}
+                      className="inline-flex shrink-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {item.actionLabel}
+                    </button>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          </>
+        ) : null}
+
+        {/* ── Normal dashboard (has progress, or non-active users) ─────────── */}
+        {!isOnboardingMode ? (
+          <>
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
@@ -1131,7 +1394,7 @@ export default function DashboardPage() {
 
         {/* ── Band Predictor ────────────────────────────────────────────────── */}
         {accessStatus === "active" ? (
-          <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <section id="band-predictor" className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
             <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
               Band Predictor
             </p>
@@ -1684,6 +1947,8 @@ export default function DashboardPage() {
             </div>
           )}
         </section>
+          </>
+        ) : null}
 
         {accessStatus === "active" || accessStatus === "revoked" ? (
           <section id="account" className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
