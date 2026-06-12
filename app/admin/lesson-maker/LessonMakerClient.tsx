@@ -3,7 +3,13 @@
 import { useState, useTransition } from "react";
 import { BlockMath } from "react-katex";
 import { MathText } from "../../components/MathText";
-import { generateLessonPlanAction } from "./actions";
+import {
+  generateLessonPlanAction,
+  saveLessonPlanAction,
+  loadSavedPlanAction,
+  deleteSavedPlanAction,
+  type SavedPlanSummary,
+} from "./actions";
 import type { CatalogCourse } from "./page";
 import type {
   TutorLessonPlan,
@@ -18,6 +24,7 @@ import { VisualPayloadRenderer } from "../../components/VisualPayloadRenderer";
 
 interface Props {
   catalog: CatalogCourse[];
+  initialSavedPlans: SavedPlanSummary[];
 }
 
 // ── Plan-to-text serialiser (for clipboard) ──────────────────────────────────
@@ -406,7 +413,7 @@ function PlanHeader({ plan }: { plan: TutorLessonPlan }) {
 
 // ── Main component ───────────────────────────────────────────────────────────
 
-export function LessonMakerClient({ catalog }: Props) {
+export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
   const [courseSlug, setCourseSlug] = useState("");
   const [unitSlug, setUnitSlug] = useState("");
   const [lessonSlug, setLessonSlug] = useState("");
@@ -416,6 +423,12 @@ export function LessonMakerClient({ catalog }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [isPending, startTransition] = useTransition();
+
+  // Saved plans state
+  const [savedPlans, setSavedPlans] = useState<SavedPlanSummary[]>(initialSavedPlans);
+  const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const [activeSavedId, setActiveSavedId] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   // Derived cascade data
   const selectedCourse = catalog.find((c) => c.slug === courseSlug) ?? null;
@@ -453,6 +466,8 @@ export function LessonMakerClient({ catalog }: Props) {
         setError(result.error);
       } else {
         setPlan(result.plan);
+        setSaveState("idle");
+        setActiveSavedId(null);
         // Scroll to plan
         setTimeout(() => {
           document.getElementById("lesson-plan-output")?.scrollIntoView({
@@ -473,6 +488,67 @@ export function LessonMakerClient({ catalog }: Props) {
     } catch {
       // Clipboard API not available in some contexts
     }
+  }
+
+  async function handleSave() {
+    if (!plan) return;
+    setSaveState("saving");
+    const result = await saveLessonPlanAction(
+      courseSlug,
+      unitSlug,
+      lessonSlug,
+      length,
+      level,
+      plan,
+    );
+    if ("error" in result) {
+      setSaveState("error");
+      return;
+    }
+    const summary: SavedPlanSummary = {
+      id: result.id,
+      title: plan.title,
+      courseSlug,
+      unitSlug,
+      lessonSlug,
+      lessonLength: length,
+      studentLevel: level,
+      createdAt: new Date().toISOString(),
+    };
+    setSavedPlans((prev) => [summary, ...prev]);
+    setActiveSavedId(result.id);
+    setSaveState("saved");
+  }
+
+  async function handleLoadPlan(id: string) {
+    const result = await loadSavedPlanAction(id);
+    if ("error" in result) return;
+    const { record } = result;
+    setCourseSlug(record.courseSlug);
+    setUnitSlug(record.unitSlug);
+    setLessonSlug(record.lessonSlug);
+    setLength(record.lessonLength as LessonLength);
+    setLevel(record.studentLevel as StudentLevel);
+    setPlan(record.plan);
+    setActiveSavedId(record.id);
+    setSaveState("saved");
+    setError(null);
+    setTimeout(() => {
+      document.getElementById("lesson-plan-output")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 100);
+  }
+
+  async function handleDeletePlan(id: string) {
+    if (!window.confirm("Delete this saved plan?")) return;
+    setDeletingId(id);
+    const result = await deleteSavedPlanAction(id);
+    setDeletingId(null);
+    if ("error" in result) return;
+    setSavedPlans((prev) => prev.filter((p) => p.id !== id));
+    if (activeSavedId === id) setActiveSavedId(null);
   }
 
   const canGenerate = !!courseSlug && !!unitSlug && !!lessonSlug;
@@ -624,6 +700,55 @@ export function LessonMakerClient({ catalog }: Props) {
         </div>
       </div>
 
+      {/* ── Saved plans ── */}
+      {savedPlans.length > 0 && (
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm print:hidden">
+          <h2 className="mb-4 text-base font-bold text-slate-900">
+            Saved plans
+          </h2>
+          <div className="space-y-2">
+            {savedPlans.map((saved) => (
+              <div
+                key={saved.id}
+                className={`flex items-center justify-between gap-3 rounded-xl border px-4 py-3 text-sm ${
+                  activeSavedId === saved.id
+                    ? "border-indigo-200 bg-indigo-50"
+                    : "border-slate-200 bg-slate-50"
+                }`}
+              >
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-semibold text-slate-900">
+                    {saved.title}
+                  </p>
+                  <p className="mt-0.5 truncate text-xs text-slate-500">
+                    {saved.courseSlug} / {saved.unitSlug} ·{" "}
+                    {saved.lessonLength} min · {saved.studentLevel} ·{" "}
+                    {new Date(saved.createdAt).toLocaleDateString("en-AU")}
+                  </p>
+                </div>
+                <div className="flex shrink-0 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => void handleLoadPlan(saved.id)}
+                    className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  >
+                    Load
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => void handleDeletePlan(saved.id)}
+                    disabled={deletingId === saved.id}
+                    className="rounded-lg border border-red-200 bg-white px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-50 disabled:opacity-50"
+                  >
+                    {deletingId === saved.id ? "…" : "Delete"}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* ── Generated plan ── */}
       {plan && (
         <div id="lesson-plan-output" className="space-y-4">
@@ -633,7 +758,27 @@ export function LessonMakerClient({ catalog }: Props) {
               {plan.sections.length} sections •{" "}
               {plan.sections.reduce((t, s) => t + s.minutes, 0)} min total
             </p>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => void handleSave()}
+                disabled={saveState === "saving" || saveState === "saved"}
+                className={`rounded-xl border px-4 py-2 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60 ${
+                  saveState === "saved"
+                    ? "border-indigo-300 bg-indigo-50 text-indigo-700"
+                    : saveState === "error"
+                      ? "border-red-300 bg-red-50 text-red-700"
+                      : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+                }`}
+              >
+                {saveState === "saving"
+                  ? "Saving…"
+                  : saveState === "saved"
+                    ? "Saved ✓"
+                    : saveState === "error"
+                      ? "Save failed"
+                      : "Save plan"}
+              </button>
               <a
                 href={buildWorksheetUrl(courseSlug, unitSlug, plan.title)}
                 target="_blank"
@@ -645,7 +790,7 @@ export function LessonMakerClient({ catalog }: Props) {
               </a>
               <button
                 type="button"
-                onClick={handleCopy}
+                onClick={() => void handleCopy()}
                 className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
               >
                 {copied ? "Copied!" : "Copy as text"}
@@ -671,7 +816,27 @@ export function LessonMakerClient({ catalog }: Props) {
           </div>
 
           {/* Bottom toolbar */}
-          <div className="flex justify-end gap-2 pt-2 print:hidden">
+          <div className="flex flex-wrap justify-end gap-2 pt-2 print:hidden">
+            <button
+              type="button"
+              onClick={() => void handleSave()}
+              disabled={saveState === "saving" || saveState === "saved"}
+              className={`rounded-xl border px-4 py-2 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60 ${
+                saveState === "saved"
+                  ? "border-indigo-300 bg-indigo-50 text-indigo-700"
+                  : saveState === "error"
+                    ? "border-red-300 bg-red-50 text-red-700"
+                    : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+              }`}
+            >
+              {saveState === "saving"
+                ? "Saving…"
+                : saveState === "saved"
+                  ? "Saved ✓"
+                  : saveState === "error"
+                    ? "Save failed"
+                    : "Save plan"}
+            </button>
             <a
               href={buildWorksheetUrl(courseSlug, unitSlug, plan.title)}
               target="_blank"
@@ -683,7 +848,7 @@ export function LessonMakerClient({ catalog }: Props) {
             </a>
             <button
               type="button"
-              onClick={handleCopy}
+              onClick={() => void handleCopy()}
               className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
             >
               {copied ? "Copied!" : "Copy as text"}

@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { requireAdmin } from "../../../lib/adminSession";
 import { newCoursePathways } from "../../../lib/newCourseCatalog";
+import { listSavedPlansAction, type SavedPlanSummary } from "./actions";
 import { LessonMakerClient } from "./LessonMakerClient";
 
 export const metadata: Metadata = {
   title: "Lesson Maker | Nova Maths Admin",
 };
+
+export type { SavedPlanSummary };
 
 export type CatalogCourse = {
   slug: string;
@@ -32,6 +35,10 @@ export default async function LessonMakerPage() {
     })),
   }));
 
+  const savedResult = await listSavedPlansAction();
+  const initialSavedPlans: SavedPlanSummary[] =
+    "plans" in savedResult ? savedResult.plans : [];
+
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900 print:bg-white print:px-0 print:py-0">
       <div className="mx-auto max-w-4xl space-y-8">
@@ -56,7 +63,7 @@ export default async function LessonMakerPage() {
           </Link>
         </header>
 
-        <LessonMakerClient catalog={catalog} />
+        <LessonMakerClient catalog={catalog} initialSavedPlans={initialSavedPlans} />
       </div>
     </main>
   );
