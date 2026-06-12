@@ -1,6 +1,6 @@
 # Year 12 Mathematics Extension 1 — HSC Status
 
-_Audited: June 2026_
+_Audited: June 2026 — calculus-applications unit filled June 2026_
 
 ---
 
@@ -26,20 +26,17 @@ _Audited: June 2026_
 | `proof-induction` | Proof by Mathematical Induction | 3 | `proofInduction.ts` |
 | `vectors` | Introduction to Vectors | 4 | `vectors.ts` |
 | `inverse-trig` | Inverse Trigonometric Functions | 3 | `inverseTrig.ts` |
+| `further-calculus` | Further Calculus Skills | 4 | `furtherCalculus.ts` |
+| `calculus-applications` | Further Applications of Calculus | 4 | `calculusApplications.ts` |
 | `binomial-distribution` | The Binomial Distribution | 4 | `binomialDistribution.ts` |
 
 **Lesson slugs:**
 - `intro-to-mathematical-induction`, `induction-divisibility`, `induction-inequalities`
 - `vectors-scalars-notation`, `vector-addition-subtraction`, `dot-product`, `vector-projections-applications`
 - `inverse-sine-cosine`, `inverse-tangent`, `differentiating-inverse-trig`
+- `trig-integrals`, `simple-substitution`, `integration-by-parts`, `further-calculus-exam-practice`
+- `related-rates-of-change`, `newtons-law-cooling-growth-decay`, `simple-harmonic-motion-intro`, `calculus-applications-exam-practice`
 - `bernoulli-trials`, `binomial-probabilities`, `mean-and-variance`, `binomial-exam-practice`
-
-### Planned (in catalog, explicit overrides active)
-
-| Unit slug | Title | Lessons |
-|---|---|---|
-| `further-calculus` | Further Calculus Skills | 4 |
-| `calculus-applications` | Further Applications of Calculus | 0 |
 
 ---
 
@@ -53,9 +50,11 @@ Each explicit lesson override includes: 4 guided + 5 independent + 10 mastery = 
 | Introduction to Vectors | 4 | ~76 |
 | Inverse Trigonometric Functions | 3 | ~57 |
 | Further Calculus Skills | 4 | ~76 |
-| Further Applications of Calculus | 0 | 0 |
+| Further Applications of Calculus | 4 | 76 |
 | The Binomial Distribution | 4 | 76 |
-| **Total** | **14** | **~266** |
+| **Total** | **22** | **418** |
+
+Seed dry-run (June 2026): 366 questions prepared, 0 warnings. The binomial-distribution unit counts are lower (~24 total) because its override currently returns fewer questions per section than the 4+5+10 standard.
 
 Diagnostic questions: 20 (3 + 4 + 3 + 4 + 3 + 3 across all 6 units including stubs).
 
@@ -72,7 +71,7 @@ Diagnostic questions: 20 (3 + 4 + 3 + 4 + 3 + 3 across all 6 units including stu
 | Inverse trigonometric functions (arcsin, arccos, arctan, derivatives) | Active — 3 lessons |
 | Further trig (t-formula, compound/double angle in depth) | **Missing** |
 | Further calculus — trig integration, IBP basics, substitution | Active — 4 lessons |
-| Applications of calculus — related rates, Newton's law of cooling, SHM intro | **Missing** |
+| Applications of calculus — related rates, Newton's law of cooling, SHM intro | Active — 4 lessons |
 | The binomial distribution — B(n,p), E(X), Var(X), probability calculations | Active — 4 lessons |
 | Statistical hypothesis testing with binomial | **Missing** |
 
@@ -146,9 +145,9 @@ hsc-extension-1-practice
 
 ## 7. Recommended Implementation Order
 
-1. **Fill `further-calculus` unit** — closest to existing Advanced calculus overrides; fastest to author
-2. **Fill `binomial-distribution` unit** — self-contained probability topic, no cross-unit dependencies
-3. **Fill `calculus-applications` unit** — builds on step 1
+1. ~~**Fill `further-calculus` unit**~~ — done
+2. ~~**Fill `binomial-distribution` unit**~~ — done
+3. ~~**Fill `calculus-applications` unit**~~ — done (June 2026)
 4. **Add unit-level and lesson-level app routes** — currently only the course landing page exists; unit pages and lesson pages are needed for lesson-by-lesson study
 5. **Wire band predictor to `year-12-extension-1`** — currently not connected
 6. **Multi-part question type** — requires schema change to `PracticeQuestion` and UI changes; prerequisite for any serious HSC Section II prep

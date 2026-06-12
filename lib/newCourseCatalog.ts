@@ -55,6 +55,7 @@ import {
   year12Extension1VectorsLessonOverride,
   year12Extension1FurtherCalculusLessonOverride,
   year12Extension1BinomialDistributionLessonOverride,
+  year12Extension1CalculusApplicationsLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
@@ -245,6 +246,7 @@ export function buildLesson(
     year12Extension1VectorsLessonOverride(course, unit, lesson) ??
     year12Extension1InverseTrigLessonOverride(course, unit, lesson) ??
     year12Extension1FurtherCalculusLessonOverride(course, unit, lesson) ??
+    year12Extension1CalculusApplicationsLessonOverride(course, unit, lesson) ??
     year12Extension1BinomialDistributionLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
@@ -1406,16 +1408,26 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Planned differentiation and integration skills for Extension 1 study.",
         syllabusArea: "Calculus",
         focus: "Further calculus skills",
-        lessons: [],
+        lessons: [
+          { slug: "trig-integrals", title: "Trigonometric Integral Forms" },
+          { slug: "simple-substitution", title: "Substitution for Linear Inner Functions" },
+          { slug: "integration-by-parts", title: "Introduction to Integration by Parts" },
+          { slug: "further-calculus-exam-practice", title: "Further Calculus Exam Practice" },
+        ],
       },
       {
         slug: "calculus-applications",
         title: "Further Applications of Calculus",
         description:
-          "Planned calculus applications, modelling, rates, and optimisation-style problems.",
+          "Extension 1 calculus applications: related rates, exponential growth and decay, and simple harmonic motion.",
         syllabusArea: "Calculus",
         focus: "Further applications of calculus",
-        lessons: [],
+        lessons: [
+          { slug: "related-rates-of-change", title: "Related Rates of Change" },
+          { slug: "newtons-law-cooling-growth-decay", title: "Exponential Growth and Decay" },
+          { slug: "simple-harmonic-motion-intro", title: "Simple Harmonic Motion" },
+          { slug: "calculus-applications-exam-practice", title: "Calculus Applications Exam Practice" },
+        ],
       },
       {
         slug: "binomial-distribution",
