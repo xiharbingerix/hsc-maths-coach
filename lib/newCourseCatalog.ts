@@ -21,6 +21,10 @@ import {
   year11StandardTimeLocationLessonOverride,
 } from "./lessons/year11Standard";
 import {
+  year12Standard1DataDisplaysSummaryStatisticsLessonOverride,
+  year12Standard1RightAngleTrigonometryLessonOverride,
+} from "./lessons/year12Standard1";
+import {
   year12Standard2AlgebraicRelationshipsLessonOverride,
   year12Standard2FinanceLessonOverride,
   year12Standard2NetworksLessonOverride,
@@ -212,6 +216,8 @@ export function buildLesson(
     year11StandardDataAnalysisLessonOverride(course, unit, lesson) ??
     year11StandardLinearRelationshipsLessonOverride(course, unit, lesson) ??
     year11StandardFormulasEquationsLessonOverride(course, unit, lesson) ??
+    year12Standard1RightAngleTrigonometryLessonOverride(course, unit, lesson) ??
+    year12Standard1DataDisplaysSummaryStatisticsLessonOverride(course, unit, lesson) ??
     year12Standard2NetworksLessonOverride(course, unit, lesson) ??
     year12Standard2FinanceLessonOverride(course, unit, lesson) ??
     year12Standard2StatisticsLessonOverride(course, unit, lesson) ??
@@ -530,9 +536,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     courseType: "Mathematics Standard 1",
     status: "in_progress",
     description:
-      "A NSW HSC Mathematics Standard 1 pathway in development, with selected algebra and finance lessons active and remaining units planned.",
+      "A NSW HSC Mathematics Standard 1 pathway in development, with selected algebra, finance, measurement and data lessons active and remaining units planned.",
     positioning:
-      "This pathway is being scaffolded with crossover content from Standard 2 where the syllabus overlap is clear. Additional measurement, geometry and data units are planned.",
+      "This pathway is being scaffolded with crossover content from Standard 2 where the syllabus overlap is clear. Standard 1-specific measurement and data lessons are now active, with further geometric and probability units planned.",
     units: [
       {
         slug: "algebraic-relationships",
