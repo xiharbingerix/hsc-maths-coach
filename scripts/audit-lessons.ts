@@ -1265,17 +1265,27 @@ function printVisualStimulusReport() {
     }
   }
 
-  const topRequired = visualStimulusFindings
-    .filter((finding) => finding.kind === "visual required, no payload")
-    .slice(0, 10);
+  const allRequired = visualStimulusFindings.filter(
+    (finding) => finding.kind === "visual required, no payload"
+  );
 
-  console.log("  Top category-3 examples (visual required, no payload):");
-  if (topRequired.length === 0) {
+  console.log("  All visual-required-no-payload findings by lesson:");
+  if (allRequired.length === 0) {
     console.log("    None");
   } else {
-    for (const finding of topRequired) {
-      console.log(`    ${finding.path}`);
-      console.log(`      ${finding.excerpt}`);
+    const byLesson = new Map<string, VisualStimulusFinding[]>();
+    for (const finding of allRequired) {
+      const lessonKey = `${finding.courseSlug}/${finding.unitSlug}/${finding.lessonSlug}`;
+      const bucket = byLesson.get(lessonKey) ?? [];
+      bucket.push(finding);
+      byLesson.set(lessonKey, bucket);
+    }
+    for (const [lessonKey, findings] of [...byLesson.entries()].sort(([a], [b]) => a.localeCompare(b))) {
+      console.log(`    ${lessonKey} (${findings.length}):`);
+      for (const finding of findings) {
+        const qId = finding.path.split("/").pop() ?? finding.path;
+        console.log(`      ${qId}: ${finding.excerpt.slice(0, 120)}`);
+      }
     }
   }
 }

@@ -8,6 +8,7 @@ import type {
   PracticeQuestion,
   WorkedExample,
 } from "../differentialCalculus";
+import type { CartesianGraph } from "../types";
 
 type LessonContent = Pick<
   ExplicitLesson,
@@ -30,7 +31,8 @@ function answer(
   latex: string,
   value: string,
   explanation: string,
-  acceptedAnswers: string[] = []
+  acceptedAnswers: string[] = [],
+  cartesianGraph?: CartesianGraph
 ): PracticeQuestion {
   return {
     id,
@@ -40,6 +42,7 @@ function answer(
     acceptedAnswers: Array.from(new Set([value, ...acceptedAnswers])),
     hint: "Substitute values carefully and show each step of working.",
     explanation,
+    cartesianGraph,
   };
 }
 
@@ -49,7 +52,8 @@ function choice(
   value: "A" | "B" | "C" | "D",
   choices: [string, string, string, string],
   explanation: string,
-  latex = "\\text{Select A, B, C or D.}"
+  latex = "\\text{Select A, B, C or D.}",
+  cartesianGraph?: CartesianGraph
 ): PracticeQuestion {
   return {
     id,
@@ -59,6 +63,48 @@ function choice(
     answer: value,
     hint: "Read each option carefully and eliminate those that don't fit.",
     explanation,
+    cartesianGraph,
+  };
+}
+
+function ptGraph(description: string, x: number, y: number): CartesianGraph {
+  const lim = Math.max(6, Math.abs(x) + 2, Math.abs(y) + 2);
+  return {
+    description,
+    xMin: -lim,
+    xMax: lim,
+    yMin: -lim,
+    yMax: lim,
+    xStep: 1,
+    yStep: 1,
+    points: [{ x, y, label: `(${x}, ${y})` }],
+  };
+}
+
+function lineGraph(
+  description: string,
+  m: number,
+  b: number,
+  xMin: number,
+  xMax: number,
+  yMin: number,
+  yMax: number,
+  xStep = 1,
+  yStep = 1,
+  highlightPoints?: { x: number; y: number }[]
+): CartesianGraph {
+  return {
+    description,
+    xMin,
+    xMax,
+    yMin,
+    yMax,
+    xStep,
+    yStep,
+    lines: [{ kind: "linear", m, b }],
+    ...(highlightPoints?.length
+      ? { points: highlightPoints.map((p) => ({ x: p.x, y: p.y, label: `(${p.x}, ${p.y})` })) }
+      : {}),
   };
 }
 
@@ -367,21 +413,27 @@ const coordinatesAndPoints: LessonContent = {
       "The point (4, −3) is in which quadrant?",
       "D",
       ["Quadrant I", "Quadrant II", "Quadrant III", "Quadrant IV"],
-      "x is positive and y is negative → Quadrant IV (+, −)."
+      "x is positive and y is negative → Quadrant IV (+, −).",
+      "\\text{Select A, B, C or D.}",
+      ptGraph("Point (4, −3) plotted on the Cartesian plane", 4, -3)
     ),
     answer(
       "y8-lin-coo-g2",
       "What is the x-coordinate of the point (7, −2)?",
       "(7,\\; -2)",
       "7",
-      "The x-coordinate is always the first number in the pair. It is 7."
+      "The x-coordinate is always the first number in the pair. It is 7.",
+      [],
+      ptGraph("Point (7, −2) plotted on the Cartesian plane", 7, -2)
     ),
     answer(
       "y8-lin-coo-g3",
       "What is the y-coordinate of the point (−3, 5)?",
       "(-3,\\; 5)",
       "5",
-      "The y-coordinate is the second number in the pair. It is 5."
+      "The y-coordinate is the second number in the pair. It is 5.",
+      [],
+      ptGraph("Point (−3, 5) plotted on the Cartesian plane", -3, 5)
     ),
     choice(
       "y8-lin-coo-g4",
@@ -849,21 +901,27 @@ const graphingLinearRelationships: LessonContent = {
       "Rule: y = x + 2. Find y when x = 0 (the y-intercept).",
       "y = 0 + 2",
       "2",
-      "The y-intercept is y = 2. The graph crosses the y-axis at (0, 2)."
+      "The y-intercept is y = 2. The graph crosses the y-axis at (0, 2).",
+      [],
+      lineGraph("Graph of y = x + 2", 1, 2, -4, 4, -3, 7)
     ),
     answer(
       "y8-lin-gra-g3",
       "Rule: y = 2x − 1. Find y when x = 3.",
       "y = 2(3) - 1",
       "5",
-      "y = 6 − 1 = 5. The point (3, 5) is on the line."
+      "y = 6 − 1 = 5. The point (3, 5) is on the line.",
+      [],
+      lineGraph("Graph of y = 2x − 1", 2, -1, -3, 5, -7, 9, 1, 1, [{ x: 3, y: 5 }])
     ),
     choice(
       "y8-lin-gra-g4",
       "Where does the graph of y = 3x + 4 cross the y-axis?",
       "B",
       ["(0, 3)", "(0, 4)", "(4, 0)", "(3, 4)"],
-      "Set x = 0: y = 3(0) + 4 = 4. The y-intercept is (0, 4)."
+      "Set x = 0: y = 3(0) + 4 = 4. The y-intercept is (0, 4).",
+      "\\text{Select A, B, C or D.}",
+      lineGraph("Graph of y = 3x + 4", 3, 4, -3, 3, -6, 14, 1, 2)
     ),
   ],
   independentPractice: [
@@ -873,14 +931,17 @@ const graphingLinearRelationships: LessonContent = {
       "y = 0 - 3",
       "-3",
       "y = −3. The graph crosses the y-axis at (0, −3).",
-      ["-3", "−3"]
+      ["-3", "−3"],
+      lineGraph("Graph of y = x − 3", 1, -3, -4, 5, -8, 3)
     ),
     answer(
       "y8-lin-gra-i2",
       "Rule: y = 2x + 5. Find y when x = −1.",
       "y = 2(-1) + 5",
       "3",
-      "y = −2 + 5 = 3."
+      "y = −2 + 5 = 3.",
+      [],
+      lineGraph("Graph of y = 2x + 5", 2, 5, -4, 3, -3, 12, 1, 1, [{ x: -1, y: 3 }])
     ),
     choice(
       "y8-lin-gra-i3",
@@ -941,7 +1002,21 @@ const graphingLinearRelationships: LessonContent = {
       "A graph passes through (0, 5) and (1, 7). Which rule fits?",
       "B",
       ["y = x + 5", "y = 2x + 5", "y = 3x + 2", "y = 2x + 3"],
-      "Check y = 2x + 5: x = 0 → 5 ✓, x = 1 → 7 ✓."
+      "Check y = 2x + 5: x = 0 → 5 ✓, x = 1 → 7 ✓.",
+      "\\text{Select A, B, C or D.}",
+      {
+        description: "Two points at (0, 5) and (1, 7) plotted on the Cartesian plane",
+        xMin: -1,
+        xMax: 3,
+        yMin: 3,
+        yMax: 9,
+        xStep: 1,
+        yStep: 1,
+        points: [
+          { x: 0, y: 5, label: "(0, 5)" },
+          { x: 1, y: 7, label: "(1, 7)" },
+        ],
+      }
     ),
     answer(
       "y8-lin-gra-m3",
@@ -949,7 +1024,8 @@ const graphingLinearRelationships: LessonContent = {
       "0 = x + 4",
       "-4",
       "x = −4. The graph crosses the x-axis at (−4, 0).",
-      ["-4", "−4"]
+      ["-4", "−4"],
+      lineGraph("Graph of y = x + 4", 1, 4, -6, 3, -3, 7)
     ),
     answer(
       "y8-lin-gra-m4",
@@ -963,7 +1039,9 @@ const graphingLinearRelationships: LessonContent = {
       "What is the y-intercept of y = −2x + 9?",
       "B",
       ["(0, −2)", "(0, 9)", "(9, 0)", "(−2, 0)"],
-      "Set x = 0: y = −2(0) + 9 = 9. The y-intercept is (0, 9)."
+      "Set x = 0: y = −2(0) + 9 = 9. The y-intercept is (0, 9).",
+      "\\text{Select A, B, C or D.}",
+      lineGraph("Graph of y = −2x + 9", -2, 9, -1, 6, -3, 12, 1, 2)
     ),
     answer(
       "y8-lin-gra-m6",
