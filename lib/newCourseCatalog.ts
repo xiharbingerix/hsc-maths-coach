@@ -62,7 +62,10 @@ import {
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride } from "./lessons/year8";
-import { year12Extension2ComplexNumbersLessonOverride } from "./lessons/year12Extension2";
+import {
+  year12Extension2ComplexNumbersLessonOverride,
+  year12Extension2Vectors3DLessonOverride,
+} from "./lessons/year12Extension2";
 
 export type {
   CourseLessonSeed,
@@ -254,6 +257,7 @@ export function buildLesson(
     year12Extension1CalculusApplicationsLessonOverride(course, unit, lesson) ??
     year12Extension1BinomialDistributionLessonOverride(course, unit, lesson) ??
     year12Extension2ComplexNumbersLessonOverride(course, unit, lesson) ??
+    year12Extension2Vectors3DLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
     year8NumberOperationsLessonOverride(course, unit, lesson) ??
@@ -1475,10 +1479,15 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "vectors-3d",
         title: "Vectors in Three Dimensions",
         description:
-          "Planned 3D vector work including component notation, scalar and vector products, geometric proofs, lines and planes.",
+          "3D vector operations, dot product and angles, equations of lines, and applied exam-style vector problems.",
         syllabusArea: "Vectors",
         focus: "Vectors in three dimensions",
-        lessons: [],
+        lessons: [
+          { slug: "vectors-and-points-3d", title: "Vectors and Points in 3D" },
+          { slug: "dot-product-and-angle", title: "Dot Product and Angle" },
+          { slug: "equations-of-lines-3d", title: "Equations of Lines in 3D" },
+          { slug: "vector-applications-exam-practice", title: "Vector Applications and Exam Practice" },
+        ],
       },
       {
         slug: "complex-numbers",
