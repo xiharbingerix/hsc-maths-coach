@@ -22,9 +22,9 @@
 - `data-displays-summary-statistics` now has Standard 1-specific data display and summary statistics support.
 
 ## Standard 1-specific topics / gaps
-- Right-angle trigonometry content is scoped for future development.
-- Measurement and geometry with area, volume, scale drawings, and practical plan interpretation remain planned.
-- Probability exam practice and more advanced statistics learning remain planned to round out the Standard 1 data pathway.
+- Right-angle trigonometry now has Standard 1-specific support.
+- Measurement and geometry now includes Standard 1-specific area, volume and scale drawing lessons.
+- Probability and statistics exam practice now has Standard 1-specific content for this pathway.
 - A Year 12 Standard 1 diagnostic has now been added for active Standard 1 units and reused Standard 2 overlap.
 
 ## Diagnostic coverage

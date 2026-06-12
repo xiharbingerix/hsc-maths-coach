@@ -22,7 +22,11 @@ import {
 } from "./lessons/year11Standard";
 import {
   year12Standard1DataDisplaysSummaryStatisticsLessonOverride,
+  year12Standard1MeasurementAreaVolumeLessonOverride,
+  year12Standard1ProbabilityAndChanceLessonOverride,
   year12Standard1RightAngleTrigonometryLessonOverride,
+  year12Standard1ScaleDrawingsAndPlansLessonOverride,
+  year12Standard1StatisticsExamPracticeLessonOverride,
 } from "./lessons/year12Standard1";
 import {
   year12Standard2AlgebraicRelationshipsLessonOverride,
@@ -217,7 +221,11 @@ export function buildLesson(
     year11StandardLinearRelationshipsLessonOverride(course, unit, lesson) ??
     year11StandardFormulasEquationsLessonOverride(course, unit, lesson) ??
     year12Standard1RightAngleTrigonometryLessonOverride(course, unit, lesson) ??
+    year12Standard1MeasurementAreaVolumeLessonOverride(course, unit, lesson) ??
+    year12Standard1ScaleDrawingsAndPlansLessonOverride(course, unit, lesson) ??
     year12Standard1DataDisplaysSummaryStatisticsLessonOverride(course, unit, lesson) ??
+    year12Standard1ProbabilityAndChanceLessonOverride(course, unit, lesson) ??
+    year12Standard1StatisticsExamPracticeLessonOverride(course, unit, lesson) ??
     year12Standard2NetworksLessonOverride(course, unit, lesson) ??
     year12Standard2FinanceLessonOverride(course, unit, lesson) ??
     year12Standard2StatisticsLessonOverride(course, unit, lesson) ??
