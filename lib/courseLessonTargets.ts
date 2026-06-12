@@ -1,5 +1,6 @@
 import { courseCatalogue, courseUnits } from "./courseUnits";
 import { newCoursePathways } from "./newCourseCatalog";
+import { year12AdvancedNestedLessonHref } from "./year12AdvancedRoutes";
 import { applicationsDifferentiationOutline } from "./lessons/applicationsDifferentiation";
 import { differentialCalculusOutline } from "./lessons/differentialCalculus";
 import { differentiationTechniquesOutline } from "./lessons/differentiationTechniques";
@@ -60,7 +61,7 @@ const year12AdvancedTargets = courseUnits.flatMap((unit) => {
       unitTitle: unit.title,
       lessonSlug: lesson.slug,
       lessonTitle: lesson.title,
-      href: `${unit.href}/${lesson.slug}`,
+      href: year12AdvancedNestedLessonHref(unitSlug, lesson.slug),
     }));
 });
 

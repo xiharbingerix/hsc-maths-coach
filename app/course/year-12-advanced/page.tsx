@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { courseUnits, year12AdvancedCourse } from "../../../lib/courseUnits";
+import { year12AdvancedNestedUnitHref } from "../../../lib/year12AdvancedRoutes";
 
 const lessonSequence = [
   "Learn",
@@ -64,7 +65,9 @@ export default function Year12AdvancedPage() {
           {courseUnits.map((unit) => (
             <Link
               key={unit.href}
-              href={unit.href}
+              href={year12AdvancedNestedUnitHref(
+                unit.href.replace("/course/", "")
+              )}
               className="block rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-md"
             >
               <div className="flex items-center justify-between gap-3">
