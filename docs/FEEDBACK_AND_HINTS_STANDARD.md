@@ -216,6 +216,25 @@ Vague misconception, vague fix. Could apply to any question in maths.
 
 ---
 
+## Hint ladder
+
+Questions in guided and independent practice render a progressive "I'm stuck" hint ladder. The ladder is built from existing question fields — no extra authoring required.
+
+| Level | Source | Reveals |
+|---|---|---|
+| 1 | `hint` field | Conceptual nudge — no answer |
+| 2 | `explanation` minus last sentence | Method and working steps — no final answer |
+| 3 | Full `explanation` | Complete worked solution including the answer (gated, explicit unlock) |
+
+If a question has only `hint` (no explanation): only level 1 appears.
+If a question has only `explanation`: level 1 uses the first sentence as a nudge, level 2 the setup, level 3 the full explanation.
+
+This means **a well-authored `hint` and multi-sentence `explanation` automatically produce a 3-level ladder** at no extra cost. Prioritise writing these fields for every guided and independent question.
+
+The mastery quiz has no hint ladder. Students are assessed without scaffolding.
+
+---
+
 ## Standards by section
 
 ### Guided practice

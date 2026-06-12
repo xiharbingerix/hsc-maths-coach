@@ -26,6 +26,7 @@ import { TwoWayTableView } from "./components/TwoWayTableView";
 import { VennDiagramView } from "./components/VennDiagramView";
 import { markTypedAnswer } from "../../lib/answerMarking";
 import { MathAnswerInput } from "../components/MathAnswerInput";
+import { HintLadder } from "./components/HintLadder";
 import {
   getUserCourseProgress,
   upsertLessonProgress,
@@ -229,15 +230,21 @@ function ChoiceButtons({
 function PracticeCard({
   question,
   index,
+  courseSlug,
+  unitSlug,
+  lessonSlug,
+  section,
 }: {
   question: PracticeQuestion;
   index: number;
+  courseSlug?: string;
+  unitSlug?: string;
+  lessonSlug: string;
+  section: "guided-practice" | "independent-practice";
 }) {
   // Single-step state
   const [answer, setAnswer] = useState("");
   const [result, setResult] = useState<"correct" | "incorrect" | null>(null);
-  const [showHint, setShowHint] = useState(false);
-  const [showExplanation, setShowExplanation] = useState(false);
 
   // Multi-step state (all hooks called unconditionally)
   const [stepIndex, setStepIndex] = useState(0);
@@ -487,26 +494,6 @@ function PracticeCard({
         >
           Check answer
         </button>
-
-        {question.hint && (
-          <button
-            type="button"
-            onClick={() => setShowHint(!showHint)}
-            className="rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200"
-          >
-            {showHint ? "Hide hint" : "Show hint"}
-          </button>
-        )}
-
-        {question.explanation && (
-          <button
-            type="button"
-            onClick={() => setShowExplanation(!showExplanation)}
-            className="rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200"
-          >
-            {showExplanation ? "Hide explanation" : "Show explanation"}
-          </button>
-        )}
       </div>
 
       {result === "correct" && (
@@ -521,17 +508,13 @@ function PracticeCard({
         </div>
       )}
 
-      {showHint && question.hint && (
-        <div className="rounded-xl bg-blue-50 p-3 text-sm text-blue-900">
-          <MathText text={question.hint} />
-        </div>
-      )}
-
-      {showExplanation && question.explanation && (
-        <div className="rounded-xl bg-slate-50 p-3 text-sm text-slate-700">
-          <MathText text={question.explanation} />
-        </div>
-      )}
+      <HintLadder
+        question={question}
+        courseSlug={courseSlug}
+        unitSlug={unitSlug}
+        lessonSlug={lessonSlug}
+        section={section}
+      />
     </div>
   );
 }
@@ -1714,7 +1697,15 @@ export function LessonRenderer({
         <section className="space-y-4 rounded-2xl bg-white p-6 shadow-sm">
           <h2 className="text-2xl font-bold">Guided Practice</h2>
           {currentLesson.guidedPractice.map((question, index) => (
-            <PracticeCard key={question.id} question={question} index={index} />
+            <PracticeCard
+              key={question.id}
+              question={question}
+              index={index}
+              courseSlug={courseSlug}
+              unitSlug={unitSlug}
+              lessonSlug={lessonSlug}
+              section="guided-practice"
+            />
           ))}
           <button
             type="button"
@@ -1732,7 +1723,15 @@ export function LessonRenderer({
         <section className="space-y-4 rounded-2xl bg-white p-6 shadow-sm">
           <h2 className="text-2xl font-bold">Independent Practice</h2>
           {currentLesson.independentPractice.map((question, index) => (
-            <PracticeCard key={question.id} question={question} index={index} />
+            <PracticeCard
+              key={question.id}
+              question={question}
+              index={index}
+              courseSlug={courseSlug}
+              unitSlug={unitSlug}
+              lessonSlug={lessonSlug}
+              section="independent-practice"
+            />
           ))}
           <button
             type="button"
