@@ -149,13 +149,40 @@ export interface TutorLessonPlan {
   sections: TutorSection[];
 }
 
+// ── Placeholder detection ─────────────────────────────────────────────────────
+
+const FALLBACK_SIGNALS = [
+  "Short calculation for",
+  "Choose the best method for this",
+  "Choose the relevant formula or representation",
+  "Ignore the context and choose the largest number",
+];
+
+export function detectPlaceholderLesson(lesson: ExplicitLesson): string | null {
+  const corpus = [
+    ...lesson.guidedPractice.map((q) => q.prompt),
+    ...lesson.workedExamples.map((e) => `${e.title} ${e.questionLatex}`),
+    ...(lesson.workedExamples[0]?.steps ?? []).map((s) => s.explanation),
+    lesson.teaching.latexBlocks.join(" "),
+    ...(lesson.guidedPractice.flatMap((q) => q.choices?.map((c) => c.text) ?? [])),
+  ].join("\n");
+
+  for (const signal of FALLBACK_SIGNALS) {
+    if (corpus.includes(signal)) return signal;
+  }
+  return null;
+}
+
 // ── Helpers ──────────────────────────────────────────────────────────────────
+
+const GENERIC_MCQ_LATEX = "\\text{Select A, B, C, or D.}";
 
 function toTutorQuestion(q: PracticeQuestion): TutorQuestion {
   return {
     id: q.id,
     prompt: q.prompt,
-    displayLatex: q.latex,
+    // Suppress the generic MCQ placeholder formula — it adds no information when choices are shown
+    displayLatex: q.latex === GENERIC_MCQ_LATEX ? "" : q.latex,
     isMultipleChoice: !!q.choices,
     choices: q.choices,
     answer: q.answer,

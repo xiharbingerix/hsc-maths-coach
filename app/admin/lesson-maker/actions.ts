@@ -5,6 +5,7 @@ import { getNewCourseLesson } from "../../../lib/newCourseCatalog";
 import { supabaseAdmin } from "../../../lib/supabaseAdmin";
 import {
   generateTutorPlan,
+  detectPlaceholderLesson,
   type LessonLength,
   type StudentLevel,
   type TutorLessonPlan,
@@ -25,6 +26,13 @@ export async function generateLessonPlanAction(
   if (!lesson) {
     return {
       error: `Lesson not found: ${courseSlug} / ${unitSlug} / ${lessonSlug}`,
+    };
+  }
+
+  const placeholderSignal = detectPlaceholderLesson(lesson);
+  if (placeholderSignal) {
+    return {
+      error: `This lesson contains fallback/placeholder content ("${placeholderSignal}") and cannot be used as a tutor lesson. The lesson override for ${unitSlug}/${lessonSlug} in ${courseSlug} needs to be written before this plan can be generated.`,
     };
   }
 
