@@ -71,16 +71,20 @@ export function year12Standard2TrigRatesLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
-  if (
-    course.slug !== "year-12-standard-2" ||
-    unit.slug !== "trigonometry-ratios-rates"
-  ) {
+  const isStandard2 = course.slug === "year-12-standard-2";
+  const isStandard1 = course.slug === "year-12-standard-1";
+
+  if ((!isStandard2 && !isStandard1) || unit.slug !== "trigonometry-ratios-rates") {
     return null;
   }
 
   const base = {
     masteryPassMark: 0.8,
   };
+
+  if (isStandard1 && lesson.slug !== "ratios-rates-unit-conversions") {
+    return null;
+  }
 
   if (lesson.slug === "non-right-angled-trigonometry") {
     return {

@@ -1,12 +1,17 @@
 export type NewCourseSlug =
   | "year-12-standard-2"
+  | "year-12-standard-1"
   | "year-11-advanced"
   | "year-11-standard"
   | "year-11-extension"
   | "year-12-extension-1"
   | "year-8-mathematics"
   | "year-9-mathematics"
-  | "year-10-mathematics";
+  | "year-9-mathematics-core"
+  | "year-9-mathematics-advanced"
+  | "year-10-mathematics"
+  | "year-10-mathematics-core"
+  | "year-10-mathematics-advanced";
 
 export type CoursePathwayStatus = "available" | "in_progress" | "coming_soon";
 

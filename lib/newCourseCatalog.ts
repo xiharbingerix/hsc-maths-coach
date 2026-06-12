@@ -168,6 +168,32 @@ function commonMistakes(topic: string) {
   ];
 }
 
+// Per-course question ID prefixes ensure globally unique IDs when the same override
+// content is shared across pathway variants (Advanced/Core reuse the same override
+// functions but generate distinct question IDs so the lesson audit never sees duplicates).
+const COURSE_QUESTION_ID_PREFIX: Partial<Record<string, string>> = {
+  "year-9-mathematics-advanced": "y9a-",
+  "year-9-mathematics-core":     "y9c-",
+  "year-10-mathematics-advanced": "y10a-",
+  "year-10-mathematics-core":     "y10c-",
+  "year-12-standard-1":           "y12s1-",
+};
+
+function prefixLessonQuestionIds(
+  built: ExplicitLesson,
+  courseSlug: string
+): ExplicitLesson {
+  const pfx = COURSE_QUESTION_ID_PREFIX[courseSlug];
+  if (!pfx) return built;
+  const p = (q: PracticeQuestion): PracticeQuestion => ({ ...q, id: `${pfx}${q.id}` });
+  return {
+    ...built,
+    guidedPractice: built.guidedPractice.map(p),
+    independentPractice: built.independentPractice.map(p),
+    masteryQuiz: built.masteryQuiz.map(p),
+  };
+}
+
 export function buildLesson(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -232,7 +258,7 @@ export function buildLesson(
     year10NonLinearRelationshipsLessonOverride(course, unit, lesson) ??
     year10GeometryProofsLessonOverride(course, unit, lesson);
 
-  return {
+  const built: ExplicitLesson = {
     id: lesson.slug,
     slug: lesson.slug,
     moduleSlug: unit.slug,
@@ -297,6 +323,8 @@ export function buildLesson(
     masteryPassMark: 0.8,
     ...override,
   };
+
+  return prefixLessonQuestionIds(built, course.slug);
 }
 
 export const newCoursePathways: CoursePathwaySeed[] = [
@@ -490,6 +518,159 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Networks Exam Practice",
             description:
               "Practise mixed HSC-style network questions involving routes, connectors, project schedules, and practical decisions.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "year-12-standard-1",
+    title: "Year 12 Mathematics Standard 1",
+    yearLevel: "Year 12",
+    courseType: "Mathematics Standard 1",
+    status: "in_progress",
+    description:
+      "A NSW HSC Mathematics Standard 1 pathway in development, with selected algebra and finance lessons active and remaining units planned.",
+    positioning:
+      "This pathway is being scaffolded with crossover content from Standard 2 where the syllabus overlap is clear. Additional measurement, geometry and data units are planned.",
+    units: [
+      {
+        slug: "algebraic-relationships",
+        title: "Algebraic Relationships",
+        description:
+          "Linear modelling, quadratic models, exponential and inverse variation models, simultaneous-equation comparisons, and practical algebra in everyday contexts.",
+        syllabusArea: "Algebra",
+        focus: "Algebraic relationships",
+        lessons: [
+          {
+            slug: "linear-relationships-modelling",
+            title: "Linear Relationships and Modelling",
+            description:
+              "Build and interpret linear models from fixed costs, starting values, rates of change, tables, and practical equations.",
+          },
+          {
+            slug: "quadratic-models",
+            title: "Quadratic Models",
+            description:
+              "Recognise and interpret quadratic models including parabola shape, opening direction, vertex, intercepts, and practical context restrictions.",
+          },
+          {
+            slug: "exponential-inverse-variation",
+            title: "Exponential and Inverse Variation Models",
+            description:
+              "Recognise and evaluate exponential growth and decay models and inverse variation models, and identify each type from tables, equations, and contexts.",
+          },
+          {
+            slug: "simultaneous-equations-context",
+            title: "Simultaneous Equations in Context",
+            description:
+              "Solve and interpret pairs of practical models, including equal-cost points and option comparisons.",
+          },
+          {
+            slug: "algebraic-relationships-exam-practice",
+            title: "Algebraic Relationships Exam Practice",
+            description:
+              "Practise algebra modelling questions using linear models, quadratic graphs, simultaneous equations, and contextual interpretation.",
+          },
+        ],
+      },
+      {
+        slug: "trigonometry-ratios-rates",
+        title: "Rates, Ratios and Measurement",
+        description:
+          "Rates, ratios, speed, scale, unit conversion and practical measurement. Standard 1 trig content is being added alongside ratio and rate practice.",
+        syllabusArea: "Measurement",
+        focus: "Rates, ratios and measurement",
+        lessons: [
+          {
+            slug: "ratios-rates-unit-conversions",
+            title: "Ratios, Rates and Unit Conversions",
+            description:
+              "Use ratios, sharing, rates, speed, fuel use, flow rates, map scales, and practical unit conversions.",
+          },
+        ],
+      },
+      {
+        slug: "investments-loans-annuities",
+        title: "Investments, Loans and Annuities",
+        description:
+          "Compound investments, depreciation, loan balances, regular payments, annuities, and financial decision-making.",
+        syllabusArea: "Financial Mathematics",
+        focus: "Investments, loans and annuities",
+        lessons: [
+          {
+            slug: "investment-compound-interest",
+            title: "Investment and Compound Interest",
+            description:
+              "Calculate compound investment balances, interest earned, growth factors, and net returns after fees.",
+          },
+          {
+            slug: "depreciation-loans",
+            title: "Depreciation and Loans",
+            description:
+              "Model asset depreciation and loan balances using decay factors, repayments, and recurrence relations.",
+          },
+          {
+            slug: "annuities-regular-payments",
+            title: "Annuities and Regular Payments",
+            description:
+              "Use recurrence and table methods for regular deposits, future value, annuities, and repayment schedules.",
+          },
+        ],
+      },
+      {
+        slug: "statistics-and-data",
+        title: "Statistics and Data",
+        description:
+          "Data displays, summary statistics, probability, and practical data reasoning for Standard 1 assessment.",
+        syllabusArea: "Statistics",
+        focus: "Statistics and data",
+        lessons: [
+          {
+            slug: "data-displays-summary-statistics",
+            title: "Data Displays and Summary Statistics",
+            description:
+              "Interpret graphs, tables, averages and spread measures in practical contexts.",
+          },
+          {
+            slug: "probability-and-chance",
+            title: "Probability and Chance",
+            description:
+              "Use probability language, tables, and simple chance models to solve practical problems.",
+          },
+          {
+            slug: "statistics-exam-practice",
+            title: "Statistics Exam Practice",
+            description:
+              "Practise Standard 1-style statistical and probability questions from everyday situations.",
+          },
+        ],
+      },
+      {
+        slug: "measurement-geometry",
+        title: "Measurement and Geometry",
+        description:
+          "Right-angle trigonometry, area, volume and geometry for practical measurement, scale drawings and design contexts.",
+        syllabusArea: "Measurement",
+        focus: "Measurement and geometry",
+        lessons: [
+          {
+            slug: "right-angle-trigonometry",
+            title: "Right-Angle Trigonometry",
+            description:
+              "Solve right-angle triangle problems using sine, cosine and tangent ratios.",
+          },
+          {
+            slug: "measurement-area-volume",
+            title: "Measurement, Area and Volume",
+            description:
+              "Calculate area, perimeter, surface area and volume for common shapes and solids.",
+          },
+          {
+            slug: "scale-drawings-and-plans",
+            title: "Scale Drawings and Plans",
+            description:
+              "Use scale, similarity and measurement to interpret plans, maps and diagrams.",
           },
         ],
       },
@@ -2052,6 +2233,111 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     ],
   },
 ];
+
+// Stage 5 pathway split — Core and Advanced variants.
+// Override guards in lib/lessons/year9/ and lib/lessons/year10/ accept all three slugs
+// per year level. Question IDs are globally unique via COURSE_QUESTION_ID_PREFIX above.
+// Advanced: shares full unit/lesson list from the base course (same content, course-prefixed IDs).
+// Core: trimmed lesson lists matching Stage 5.1/5.2 (Y9) and Stage 5.2 (Y10) syllabi.
+{
+  const year9Base = newCoursePathways.find((p) => p.slug === "year-9-mathematics")!;
+  const year10Base = newCoursePathways.find((p) => p.slug === "year-10-mathematics")!;
+
+  // Year 9 Core trims working-with-triangles to Pythagoras only (no trig / coord geom).
+  const year9CoreUnits = year9Base.units.map((u) =>
+    u.slug !== "working-with-triangles"
+      ? u
+      : {
+          ...u,
+          lessons: u.lessons.filter((l) =>
+            ["pythagoras-hypotenuse", "pythagoras-shorter-side", "right-triangle-applications"].includes(l.slug)
+          ),
+        }
+  );
+
+  // Year 10 Core trims:
+  //   non-linear-relationships → parabolas + circles only (no exponential / hyperbola)
+  //   trigonometry             → right-angled only (no sine/cosine rule, area, bearings)
+  //   geometry-proofs          → congruence + similarity only (no circle geometry / proofs)
+  const year10CoreUnits = year10Base.units.map((u) => {
+    if (u.slug === "non-linear-relationships") {
+      return {
+        ...u,
+        lessons: u.lessons.filter((l) =>
+          ["introduction-to-parabolas", "sketching-parabolas", "circle-graphs"].includes(l.slug)
+        ),
+      };
+    }
+    if (u.slug === "trigonometry") {
+      return {
+        ...u,
+        lessons: u.lessons.filter((l) =>
+          ["trigonometric-ratios", "finding-sides-trig", "finding-angles-trig", "elevation-depression"].includes(l.slug)
+        ),
+      };
+    }
+    if (u.slug === "geometry-proofs") {
+      return {
+        ...u,
+        lessons: u.lessons.filter((l) =>
+          ["congruent-triangles", "similar-triangles"].includes(l.slug)
+        ),
+      };
+    }
+    return u;
+  });
+
+  newCoursePathways.push(
+    {
+      slug: "year-9-mathematics-advanced",
+      title: "Year 9 Mathematics Advanced",
+      yearLevel: "9",
+      courseType: "Mathematics Advanced",
+      status: "in_progress",
+      description:
+        "Stage 5.2/5.3 Year 9 Mathematics for students on the Advanced pathway. Includes full trigonometry, coordinate geometry and extended algebra.",
+      positioning:
+        "Advanced Stage 5 pathway. Covers all Year 9 content including trigonometric ratios, right-triangle applications, midpoint, distance and gradient foundations.",
+      units: year9Base.units,
+    },
+    {
+      slug: "year-9-mathematics-core",
+      title: "Year 9 Mathematics Core",
+      yearLevel: "9",
+      courseType: "Mathematics Core",
+      status: "in_progress",
+      description:
+        "Stage 5.1/5.2 Year 9 Mathematics for students on the Core pathway. Covers geometry, measurement, index laws, financial maths, linear relationships and statistics.",
+      positioning:
+        "Core Stage 5 pathway preparing students for Year 10 Core. Working with Triangles covers Pythagoras only — trigonometric ratios and coordinate geometry are Advanced topics.",
+      units: year9CoreUnits,
+    },
+    {
+      slug: "year-10-mathematics-advanced",
+      title: "Year 10 Mathematics Advanced",
+      yearLevel: "10",
+      courseType: "Mathematics Advanced",
+      status: "in_progress",
+      description:
+        "Stage 5.3 Year 10 Mathematics for students on the Advanced pathway. Includes circle geometry, geometric proofs, full trigonometry (sine/cosine rule, bearings) and all non-linear function types.",
+      positioning:
+        "Advanced Stage 5 pathway preparing students for Year 11 Advanced and Extension. Covers all Year 10 content.",
+      units: year10Base.units,
+    },
+    {
+      slug: "year-10-mathematics-core",
+      title: "Year 10 Mathematics Core",
+      yearLevel: "10",
+      courseType: "Mathematics Core",
+      status: "in_progress",
+      description:
+        "Stage 5.2 Year 10 Mathematics for students on the Core pathway. Covers algebra, linear and non-linear relationships, right-angled trigonometry, measurement, probability and statistics.",
+      positioning:
+        "Core Stage 5 pathway preparing students for Year 11 Standard. Circle geometry, geometric proofs, full trigonometry and all non-linear function types are Advanced topics.",
+      units: year10CoreUnits,
+    },
+  );
+}
 
 export function getNewCourse(courseSlug: string) {
   return newCoursePathways.find((course) => course.slug === courseSlug);

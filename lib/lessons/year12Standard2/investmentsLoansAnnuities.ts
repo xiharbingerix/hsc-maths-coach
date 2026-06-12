@@ -92,7 +92,8 @@ export function year12Standard2FinanceLessonOverride(
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
   if (
-    course.slug !== "year-12-standard-2" ||
+    (course.slug !== "year-12-standard-2" &&
+      course.slug !== "year-12-standard-1") ||
     unit.slug !== "investments-loans-annuities"
   ) {
     return null;
