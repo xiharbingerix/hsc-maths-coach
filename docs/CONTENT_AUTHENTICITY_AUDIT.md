@@ -157,25 +157,24 @@
 ### Year 12 Standard 1 — `year-12-standard-1`
 
 **Status in catalog:** `in_progress` (correct — honest)
-**Safe for paying students:** NO ⚠️
+**Safe for paying students:** CONDITIONALLY — scope mismatches fixed; exam practice and unit depth gaps remain
 
 **Lessons audited:** 12 lessons across 5 units
 
 | Unit slug | Lessons | Assessment | Notes |
 |---|---|---|---|
-| algebraic-relationships | 5 | **Usable but thin (scope mismatch)** | LINEAR MODELS and QUADRATIC MODELS are appropriate for Standard 1. However, "Exponential and Inverse Variation Models" (Standard 2 only) and "Simultaneous Equations in Context" (Standard 2 scope) are presented without Standard 1 adaptation. The same Standard 2 lessons are served verbatim. |
-| trigonometry-ratios-rates | 1 | **Usable but thin** | Only `ratios-rates-unit-conversions` from Standard 2 — the Standard 1 ratios/rates/scale unit needs ≥3 lessons to be useful |
-| investments-loans-annuities | 3 | **Usable but thin (scope mismatch)** | "Annuities and Regular Payments" is Standard 2-specific content. Standard 1 Year 12 does not include annuities. "Investment and Compound Interest" and "Depreciation and Loans" are appropriate. |
+| algebraic-relationships | 5 | **Usable but thin** | LINEAR MODELS and QUADRATIC MODELS appropriate. `exponential-inverse-variation` **rewritten June 2026** with Standard 1 linear/direct variation content (y=mx+b). Simultaneous equations crossover from Standard 2 is scope-adjacent. |
+| trigonometry-ratios-rates | 1 | **Usable but thin** | Only `ratios-rates-unit-conversions` from Standard 2 — unit needs ≥3 lessons to be useful |
+| investments-loans-annuities | 3 | **Usable** | `annuities-regular-payments` **rewritten June 2026** with Standard 1 financial planning content (repayments, budgets, plan comparison). Investment and Depreciation crossover from Standard 2 is appropriate. |
 | statistics-and-data | 3 | **Production-quality** | Standard 1-specific lessons (data displays, probability, statistics exam practice) with actual Standard 1-appropriate content; math correct |
 | measurement-geometry | 3 | **Production-quality** | Standard 1-specific right-angle trig, area/volume, scale drawings — appropriate and correct |
 
-**Totals:** 12 lessons — 6 production-quality, 4 usable/thin, 2 scope-mismatched (Standard 2 in Standard 1)
+**Totals:** 12 lessons — 8 production-quality/fixed, 4 usable/thin, 0 scope-mismatched
 
-**Critical issues:**
-1. `exponential-inverse-variation` lesson (algebraic-relationships unit) — Standard 2 content. Standard 1 does not include exponential or inverse variation models. This lesson is incorrect for Standard 1 students.
-2. `annuities-regular-payments` lesson — Standard 2 content. Standard 1 financial maths covers investments and depreciation, but not annuities. This lesson will teach content not examined in Standard 1.
-3. `algebraic-relationships-exam-practice` — exam practice styles a Standard 2-scope exam, not Standard 1.
-4. `trigonometry-ratios-rates` has only 1 lesson — inadequate as a course unit.
+**Remaining issues:**
+1. `algebraic-relationships-exam-practice` — exam practice still uses Standard 2 question styles.
+2. `trigonometry-ratios-rates` has only 1 lesson — inadequate as a course unit.
+3. `simultaneous-equations-context` — Standard 2 crossover; scope-adjacent but not verified for Standard 1 appropriateness.
 
 ---
 
@@ -212,7 +211,7 @@
 | year-10-mathematics | available | 53 | 53 | 0 | 0 | 0 | **YES** |
 | year-10-mathematics-core | in_progress | ~43 | ~43 | 0 | 0 | 0 | **YES** (content) |
 | year-10-mathematics-advanced | in_progress | 53 | 53 | 0 | 0 | 0 | **YES** (content) |
-| year-12-standard-1 | in_progress | 12 | 6 | 4 | 0 | 0 | **NO** ⚠️ |
+| year-12-standard-1 | in_progress | 12 | 8 | 4 | 0 | 0 | Conditional ⚠️ |
 | year-12-extension-1 | available | 22 | 18 | 4 | 0 | 0 | **YES** |
 
 ---
@@ -221,8 +220,8 @@
 
 | # | Course | Unit | Lesson | Issue |
 |---|---|---|---|---|
-| 1 | year-12-standard-1 | algebraic-relationships | `exponential-inverse-variation` | Standard 2 content served to Standard 1 students. Exponential/inverse variation models are NOT in Standard 1 syllabus. Must be replaced with Standard 1-appropriate content or removed. |
-| 2 | year-12-standard-1 | investments-loans-annuities | `annuities-regular-payments` | Annuities are Standard 2-only. Standard 1 financial maths does not include annuities or future value tables. Replace with Standard 1 financial decision content. |
+| 1 | year-12-standard-1 | algebraic-relationships | `exponential-inverse-variation` | ✅ **Fixed June 2026** — rewritten with Standard 1 linear/direct variation content (y=mx+b, gradient, y-intercept, table linearity check). |
+| 2 | year-12-standard-1 | investments-loans-annuities | `annuities-regular-payments` | ✅ **Fixed June 2026** — rewritten with Standard 1 financial planning content (deposit, balance, repayment calculation, total cost comparison, budget affordability). |
 | 3 | year-12-standard-1 | algebraic-relationships | `algebraic-relationships-exam-practice` | Exam practice is modelled on Standard 2 exams. Standard 1 exam questions have different scope and difficulty. Needs Standard 1-specific exam practice content. |
 | 4 | year-12-standard-1 | investments-loans-annuities | `financial-decision-making-exam-practice` | Standard 2 exam practice embedded in Standard 1. Same issue as above. |
 | 5 | year-12-standard-1 | trigonometry-ratios-rates | (entire unit) | Unit has only 1 lesson. Standard 1 rates, ratios, and measurement needs ≥3 lessons to be a useful teaching unit. |
@@ -262,11 +261,11 @@ No course warranted a new downgrade. The Standard 1 scope issues are content pro
 
 ## Courses NOT Safe Yet
 
-**year-12-standard-1** — Do not market to paying Standard 1 students as a primary study resource until:
-1. `exponential-inverse-variation` is replaced with Standard 1-appropriate content
-2. `annuities-regular-payments` is replaced with Standard 1 financial maths
-3. Exam practice lessons (algebraic-relationships and financial) are rewritten for Standard 1 exams
-4. `trigonometry-ratios-rates` unit is expanded from 1 lesson to ≥3
+**year-12-standard-1** — Scope mismatches fixed. Remaining blockers before marketing as primary study resource:
+1. ~~`exponential-inverse-variation`~~ — ✅ fixed June 2026
+2. ~~`annuities-regular-payments`~~ — ✅ fixed June 2026
+3. Exam practice lessons (algebraic-relationships and financial) are still Standard 2 scope — needs rewrite
+4. `trigonometry-ratios-rates` unit is still 1 lesson — needs ≥3 for the unit to be useful
 
 **year-8-mathematics** — In_progress and incomplete (no status change needed; already honest)
 
@@ -274,9 +273,9 @@ No course warranted a new downgrade. The Standard 1 scope issues are content pro
 
 ## Top Priority Content Rewrites
 
-1. **Replace `exponential-inverse-variation` in Standard 1** — write a Standard 1-appropriate lesson covering linear models in practical contexts (straight-line depreciation, flat-rate calculations). Do not teach exponential or inverse variation.
+1. ~~**Replace `exponential-inverse-variation` in Standard 1**~~ — ✅ **Done June 2026.** Rewritten with Standard 1 linear/direct variation content: y=mx+b, gradient as rate, y-intercept as starting value, table linearity check. 13 questions (4 guided + 4 independent + 5 mastery).
 
-2. **Replace `annuities-regular-payments` in Standard 1** — write a lesson on simple compound interest comparisons and investment decisions appropriate for Standard 1. Remove annuity/future-value table content.
+2. ~~**Replace `annuities-regular-payments` in Standard 1**~~ — ✅ **Done June 2026.** Rewritten with Standard 1 financial planning content: deposit/balance calculations, total plan cost, plan comparison, budget affordability check. 13 questions (4 guided + 4 independent + 5 mastery).
 
 3. **Rewrite Standard 1 exam practice lessons** — both `algebraic-relationships-exam-practice` and `financial-decision-making-exam-practice` need Standard 1 exam question styles, not Standard 2 styles.
 

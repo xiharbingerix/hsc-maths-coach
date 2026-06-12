@@ -7,25 +7,32 @@
 - Route support: `/course/year-12-standard-1`, `/course/year-12-standard-1/[unitSlug]`, `/course/year-12-standard-1/[unitSlug]/[lessonSlug]`.
 
 ## Reused Standard 2 content
-- `algebraic-relationships` unit is reused from Standard 2 and covers:
-  - Linear relationships and modelling
-  - Quadratic models
-  - Exponential and inverse variation models
-  - Simultaneous equations in context
-  - Algebraic relationships exam practice
-- `investments-loans-annuities` unit is reused from Standard 2 and covers:
-  - Investment and compound interest
-  - Depreciation and loans
-  - Annuities and regular payments
-- `ratios-rates-unit-conversions` lesson is reused from Standard 2 to provide practical ratios and rates support for Standard 1.
-- `right-angle-trigonometry` now has Standard 1-specific right-angle trigonometry support.
-- `data-displays-summary-statistics` now has Standard 1-specific data display and summary statistics support.
+- `algebraic-relationships` unit lessons still reusing Standard 2 overrides:
+  - Linear relationships and modelling (Standard 2 override, appropriate crossover)
+  - Quadratic models (Standard 2 override, appropriate crossover)
+  - Simultaneous equations in context (Standard 2 override, appropriate crossover)
+  - Algebraic relationships exam practice (Standard 2 override, appropriate crossover)
+- `investments-loans-annuities` unit lessons still reusing Standard 2 overrides:
+  - Investment and compound interest (Standard 2 override, appropriate crossover)
+  - Depreciation and loans (Standard 2 override, appropriate crossover)
+- `ratios-rates-unit-conversions` lesson is reused from Standard 2 (appropriate crossover).
+
+## Standard 1-specific overrides (8 active)
+- `right-angle-trigonometry` — Standard 1 trig content.
+- `measurement-area-volume` — Standard 1 area and volume.
+- `scale-drawings-and-plans` — Standard 1 scale drawings.
+- `data-displays-summary-statistics` — Standard 1 data display and statistics.
+- `probability-and-chance` — Standard 1 probability.
+- `statistics-exam-practice` — Standard 1 exam practice.
+- `exponential-inverse-variation` — **Rewritten June 2026** from Standard 2 exponential/inverse content to Standard 1 linear and direct variation models (y = mx + b, gradient as rate, y-intercept as starting value).
+- `annuities-regular-payments` — **Rewritten June 2026** from Standard 2 annuities/recurrence to Standard 1 financial planning and repayments (deposit, balance, total cost, budget affordability).
 
 ## Standard 1-specific topics / gaps
 - Right-angle trigonometry now has Standard 1-specific support.
 - Measurement and geometry now includes Standard 1-specific area, volume and scale drawing lessons.
 - Probability and statistics exam practice now has Standard 1-specific content for this pathway.
 - A Year 12 Standard 1 diagnostic has now been added for active Standard 1 units and reused Standard 2 overlap.
+- The two scope-mismatched lessons (`exponential-inverse-variation`, `annuities-regular-payments`) have been corrected with Standard 1-appropriate content.
 
 ## Diagnostic coverage
 - Active units covered: `algebraic-relationships`, `trigonometry-ratios-rates`, `investments-loans-annuities`.

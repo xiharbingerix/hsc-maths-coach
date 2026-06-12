@@ -1,4 +1,4 @@
-import type {
+﻿import type {
   ExplicitLesson,
   LessonOutlineItem,
   PracticeQuestion,
@@ -22,6 +22,8 @@ import {
 } from "./lessons/year11Standard";
 import {
   year12Standard1DataDisplaysSummaryStatisticsLessonOverride,
+  year12Standard1FinancialPlanningRepaymentLessonOverride,
+  year12Standard1LinearAndDirectVariationLessonOverride,
   year12Standard1MeasurementAreaVolumeLessonOverride,
   year12Standard1ProbabilityAndChanceLessonOverride,
   year12Standard1RightAngleTrigonometryLessonOverride,
@@ -229,6 +231,8 @@ export function buildLesson(
     year12Standard1DataDisplaysSummaryStatisticsLessonOverride(course, unit, lesson) ??
     year12Standard1ProbabilityAndChanceLessonOverride(course, unit, lesson) ??
     year12Standard1StatisticsExamPracticeLessonOverride(course, unit, lesson) ??
+    year12Standard1LinearAndDirectVariationLessonOverride(course, unit, lesson) ??
+    year12Standard1FinancialPlanningRepaymentLessonOverride(course, unit, lesson) ??
     year12Standard2NetworksLessonOverride(course, unit, lesson) ??
     year12Standard2FinanceLessonOverride(course, unit, lesson) ??
     year12Standard2StatisticsLessonOverride(course, unit, lesson) ??
@@ -558,7 +562,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "algebraic-relationships",
         title: "Algebraic Relationships",
         description:
-          "Linear modelling, quadratic models, exponential and inverse variation models, simultaneous-equation comparisons, and practical algebra in everyday contexts.",
+          "Linear modelling, quadratic models, direct variation, simultaneous-equation comparisons, and practical algebra in everyday contexts.",
         syllabusArea: "Algebra",
         focus: "Algebraic relationships",
         lessons: [
@@ -576,9 +580,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           },
           {
             slug: "exponential-inverse-variation",
-            title: "Exponential and Inverse Variation Models",
+            title: "Linear and Direct Variation Models",
             description:
-              "Recognise and evaluate exponential growth and decay models and inverse variation models, and identify each type from tables, equations, and contexts.",
+              "Build and interpret linear models, identify gradient as a constant rate of change and y-intercept as a starting value, evaluate models by substitution, and check tables for linearity.",
           },
           {
             slug: "simultaneous-equations-context",
@@ -632,9 +636,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           },
           {
             slug: "annuities-regular-payments",
-            title: "Annuities and Regular Payments",
+            title: "Financial Planning and Repayments",
             description:
-              "Use recurrence and table methods for regular deposits, future value, annuities, and repayment schedules.",
+              "Calculate equal repayment amounts from a deposit and balance, find total plan costs, compare payment options, and check affordability against a monthly budget.",
           },
         ],
       },
@@ -1305,11 +1309,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 12 Mathematics Extension 1",
     yearLevel: "Year 12",
     courseType: "Mathematics Extension 1",
-    status: "in_progress",
+    status: "available",
     description:
-      "Year 12 Mathematics Extension 1 support is growing, with proof by mathematical induction, vectors and inverse trigonometric functions active now. Additional Extension 1 units are planned.",
+      "Year 12 Mathematics Extension 1 with all 6 units active: proof by mathematical induction, vectors, inverse trigonometric functions, further calculus, calculus applications, and the binomial distribution.",
     positioning:
-      "A growing Year 12 Mathematics Extension 1 pathway. Proof by Mathematical Induction, Vectors and Inverse Trigonometric Functions are active now, with further calculus and binomial distribution units planned against the NSW Mathematics Extension 1 11-12 syllabus.",
+      "A complete Year 12 Mathematics Extension 1 pathway covering all 6 units against the NSW Mathematics Extension 1 11-12 syllabus: Proof by Mathematical Induction, Vectors, Inverse Trigonometric Functions, Further Calculus Skills, Further Applications of Calculus, and The Binomial Distribution.",
     units: [
       {
         slug: "proof-induction",
@@ -1454,7 +1458,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     description:
       "Build the Stage 5 foundations for Year 10 Mathematics through geometry, trigonometry, algebra, measurement, finance, probability and statistics.",
     positioning:
-      "A Year 9 Stage 5 foundation pathway based on the NSW Mathematics K–10 Syllabus and guided by the NSW Stage 5 sample scope and sequence. It prepares students for the completed Year 10 Mathematics course.",
+      "A Year 9 Stage 5 foundation pathway based on the NSW Mathematics Kâ€“10 Syllabus and guided by the NSW Stage 5 sample scope and sequence. It prepares students for the completed Year 10 Mathematics course.",
     units: [
       {
         slug: "geometrical-representations",
@@ -1608,7 +1612,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     description:
       "Build the algebraic, graphical, measurement and trigonometric foundations needed for senior mathematics.",
     positioning:
-      "Year 10 Mathematics covers Stage 5 Core content with selected Path topics to prepare students for Year 11 Standard, Advanced and Extension pathways. One course covers both essential foundations and key extension content — from algebra, trigonometry and measurement through to non-linear graphs, circle geometry and geometric proof.",
+      "Year 10 Mathematics covers Stage 5 Core content with selected Path topics to prepare students for Year 11 Standard, Advanced and Extension pathways. One course covers both essential foundations and key extension content â€” from algebra, trigonometry and measurement through to non-linear graphs, circle geometry and geometric proof.",
     units: [
       {
         slug: "algebraic-techniques",
@@ -1616,7 +1620,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         description:
           "Expand and factorise expressions including quadratics, difference of two squares, and algebraic fractions.",
         syllabusArea: "Number and Algebra",
-        focus: "Fluency with algebraic manipulation — the foundation for all senior mathematics.",
+        focus: "Fluency with algebraic manipulation â€” the foundation for all senior mathematics.",
         lessons: [
           {
             slug: "expanding-binomial-products",
@@ -1634,13 +1638,13 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             slug: "factorising-quadratics",
             title: "Factorising Quadratic Trinomials",
             description:
-              "Factorise monic quadratic trinomials of the form x² + bx + c using the product-sum method.",
+              "Factorise monic quadratic trinomials of the form xÂ² + bx + c using the product-sum method.",
           },
           {
             slug: "difference-of-two-squares",
             title: "Difference of Two Squares",
             description:
-              "Recognise expressions of the form a² − b² and apply the difference of two squares identity to factorise them.",
+              "Recognise expressions of the form aÂ² âˆ’ bÂ² and apply the difference of two squares identity to factorise them.",
           },
           {
             slug: "algebraic-fractions",
@@ -1656,7 +1660,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         description:
           "Solve linear equations, quadratic equations, and pairs of simultaneous equations.",
         syllabusArea: "Number and Algebra",
-        focus: "Solving equations is the core skill of senior algebra — master every method here.",
+        focus: "Solving equations is the core skill of senior algebra â€” master every method here.",
         lessons: [
           {
             slug: "solving-linear-equations",
@@ -1696,7 +1700,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         description:
           "Gradient, y-intercept, parallel and perpendicular lines, and coordinate geometry formulas.",
         syllabusArea: "Number and Algebra",
-        focus: "Coordinate geometry and linear functions — essential preparation for senior functions.",
+        focus: "Coordinate geometry and linear functions â€” essential preparation for senior functions.",
         lessons: [
           {
             slug: "gradient-y-intercept",
@@ -1770,7 +1774,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         description:
           "Apply trigonometric ratios, the sine rule, cosine rule, and area formula to solve triangles.",
         syllabusArea: "Measurement and Space",
-        focus: "Trigonometry is tested in every senior pathway — build accuracy and speed here.",
+        focus: "Trigonometry is tested in every senior pathway â€” build accuracy and speed here.",
         lessons: [
           {
             slug: "trigonometric-ratios",
@@ -1788,7 +1792,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             slug: "finding-angles-trig",
             title: "Finding Unknown Angles",
             description:
-              "Apply sin⁻¹, cos⁻¹ or tan⁻¹ to find an unknown angle in a right triangle from two known sides.",
+              "Apply sinâ»Â¹, cosâ»Â¹ or tanâ»Â¹ to find an unknown angle in a right triangle from two known sides.",
           },
           {
             slug: "elevation-depression",
@@ -1800,7 +1804,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             slug: "sine-rule",
             title: "The Sine Rule",
             description:
-              "Use the sine rule to find unknown sides and angles in non-right-angled triangles when an opposite side–angle pair is known.",
+              "Use the sine rule to find unknown sides and angles in non-right-angled triangles when an opposite sideâ€“angle pair is known.",
           },
           {
             slug: "cosine-rule",
@@ -1812,7 +1816,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             slug: "area-trig-formula",
             title: "Area of a Triangle",
             description:
-              "Calculate the area of any triangle using A = ½ab sin C when two sides and their included angle are known.",
+              "Calculate the area of any triangle using A = Â½ab sin C when two sides and their included angle are known.",
           },
           {
             slug: "bearings",
@@ -1840,7 +1844,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             slug: "surface-area-cylinders",
             title: "Surface Area of Cylinders",
             description:
-              "Apply SA = 2πr² + 2πrh to find the surface area of closed and open cylinders.",
+              "Apply SA = 2Ï€rÂ² + 2Ï€rh to find the surface area of closed and open cylinders.",
           },
           {
             slug: "volume-prisms-cylinders",
@@ -1852,25 +1856,25 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             slug: "pyramids",
             title: "Surface Area and Volume of Pyramids",
             description:
-              "Calculate the volume of square and rectangular pyramids using V = (1/3) × base area × height, and the surface area of square pyramids using the slant height.",
+              "Calculate the volume of square and rectangular pyramids using V = (1/3) Ã— base area Ã— height, and the surface area of square pyramids using the slant height.",
           },
           {
             slug: "cones",
             title: "Surface Area and Volume of Cones",
             description:
-              "Apply V = (1/3)πr²h for cone volume, CSA = πrl for curved surface area, and TSA = πr² + πrl for total surface area, using Pythagoras to find the slant height when needed.",
+              "Apply V = (1/3)Ï€rÂ²h for cone volume, CSA = Ï€rl for curved surface area, and TSA = Ï€rÂ² + Ï€rl for total surface area, using Pythagoras to find the slant height when needed.",
           },
           {
             slug: "spheres",
             title: "Surface Area and Volume of Spheres",
             description:
-              "Apply SA = 4πr² and V = (4/3)πr³ to find the surface area and volume of spheres, and rearrange to find the radius.",
+              "Apply SA = 4Ï€rÂ² and V = (4/3)Ï€rÂ³ to find the surface area and volume of spheres, and rearrange to find the radius.",
           },
           {
             slug: "similar-figures-scale",
             title: "Similar Figures and Scale Factors",
             description:
-              "Apply length, area, and volume scale factors to similar figures: area scales by k², volume scales by k³.",
+              "Apply length, area, and volume scale factors to similar figures: area scales by kÂ², volume scales by kÂ³.",
           },
         ],
       },
@@ -2000,7 +2004,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         description:
           "Apply simple and compound interest, depreciation, and investment comparisons.",
         syllabusArea: "Number and Algebra",
-        focus: "Financial maths is a major senior Standard topic — this unit builds prerequisite fluency.",
+        focus: "Financial maths is a major senior Standard topic â€” this unit builds prerequisite fluency.",
         lessons: [
           {
             slug: "simple-interest",
@@ -2037,7 +2041,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     courseType: "Mathematics",
     status: "in_progress",
     description:
-      "Build Stage 4 foundations across number, algebra, geometry, measurement and statistics — the essential groundwork for Year 9 and 10 Mathematics.",
+      "Build Stage 4 foundations across number, algebra, geometry, measurement and statistics â€” the essential groundwork for Year 9 and 10 Mathematics.",
     positioning:
       "Year 8 Mathematics covers the Late Stage 4 NSW curriculum, preparing students for the Year 9 pathway and the transition to Stage 5 content. It extends Year 7 foundations with linear relationships, Pythagoras, geometric reasoning and algebraic equation-solving.",
     units: [
@@ -2062,7 +2066,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "algebra-foundations",
         title: "Algebra Foundations",
         description:
-          "Simplify expressions, collect like terms, substitute values, expand single brackets, and solve one- and two-step equations — building the fluency and confidence needed for Year 9 algebra.",
+          "Simplify expressions, collect like terms, substitute values, expand single brackets, and solve one- and two-step equations â€” building the fluency and confidence needed for Year 9 algebra.",
         syllabusArea: "Number and Algebra",
         focus:
           "Develop core algebraic fluency before Year 9 index laws, linear relationships and simultaneous equations. No quadratics, no simultaneous equations, no factorisation.",
@@ -2180,7 +2184,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Classify and calculate angle relationships, apply parallel-line properties, find angles in triangles and polygons, identify congruent triangles, and write geometric reasoning.",
         syllabusArea: "Measurement and Space",
         focus:
-          "Build Stage 4 geometric fluency — angle relationships, parallel lines, polygon properties and introductory congruence — as the foundation for Year 9 geometric representations and Year 10 geometry proofs.",
+          "Build Stage 4 geometric fluency â€” angle relationships, parallel lines, polygon properties and introductory congruence â€” as the foundation for Year 9 geometric representations and Year 10 geometry proofs.",
         lessons: [
           { slug: "angle-relationships",             title: "Angle Relationships" },
           { slug: "parallel-lines-transversals",     title: "Parallel Lines and Transversals" },
@@ -2255,7 +2259,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             slug: "simple-probability",
             title: "Simple Probability",
             description:
-              "Calculate P(event) = favourable outcomes ÷ total outcomes and apply the complement rule.",
+              "Calculate P(event) = favourable outcomes Ã· total outcomes and apply the complement rule.",
           },
           {
             slug: "two-step-chance-experiments",
@@ -2269,7 +2273,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
   },
 ];
 
-// Stage 5 pathway split — Core and Advanced variants.
+// Stage 5 pathway split â€” Core and Advanced variants.
 // Override guards in lib/lessons/year9/ and lib/lessons/year10/ accept all three slugs
 // per year level. Question IDs are globally unique via COURSE_QUESTION_ID_PREFIX above.
 // Advanced: shares full unit/lesson list from the base course (same content, course-prefixed IDs).
@@ -2291,9 +2295,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
   );
 
   // Year 10 Core trims:
-  //   non-linear-relationships → parabolas + circles only (no exponential / hyperbola)
-  //   trigonometry             → right-angled only (no sine/cosine rule, area, bearings)
-  //   geometry-proofs          → congruence + similarity only (no circle geometry / proofs)
+  //   non-linear-relationships â†’ parabolas + circles only (no exponential / hyperbola)
+  //   trigonometry             â†’ right-angled only (no sine/cosine rule, area, bearings)
+  //   geometry-proofs          â†’ congruence + similarity only (no circle geometry / proofs)
   const year10CoreUnits = year10Base.units.map((u) => {
     if (u.slug === "non-linear-relationships") {
       return {
@@ -2344,7 +2348,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       description:
         "Stage 5.1/5.2 Year 9 Mathematics for students on the Core pathway. Covers geometry, measurement, index laws, financial maths, linear relationships and statistics.",
       positioning:
-        "Core Stage 5 pathway preparing students for Year 10 Core. Working with Triangles covers Pythagoras only — trigonometric ratios and coordinate geometry are Advanced topics.",
+        "Core Stage 5 pathway preparing students for Year 10 Core. Working with Triangles covers Pythagoras only â€” trigonometric ratios and coordinate geometry are Advanced topics.",
       units: year9CoreUnits,
     },
     {

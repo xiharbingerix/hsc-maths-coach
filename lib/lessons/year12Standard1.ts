@@ -1036,3 +1036,570 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
     masteryPassMark: 0.75,
   };
 }
+
+export function year12Standard1LinearAndDirectVariationLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed
+): Partial<ExplicitLesson> | null {
+  if (
+    course.slug !== "year-12-standard-1" ||
+    unit.slug !== "algebraic-relationships" ||
+    lesson.slug !== "exponential-inverse-variation"
+  )
+    return null;
+
+  function linAnswer(
+    id: string,
+    prompt: string,
+    latex: string,
+    answer: string,
+    acceptedAnswers: string[],
+    explanation: string
+  ): PracticeQuestion {
+    return {
+      id,
+      prompt,
+      latex,
+      answer,
+      acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+      hint: "Identify the gradient (rate per unit) and y-intercept (starting value) before substituting.",
+      explanation,
+    };
+  }
+
+  function linChoice(
+    id: string,
+    prompt: string,
+    answer: "A" | "B" | "C" | "D",
+    choices: [string, string, string, string],
+    explanation: string
+  ): PracticeQuestion {
+    return {
+      id,
+      prompt,
+      latex: "\\text{Select A, B, C, or D.}",
+      choices: ["A", "B", "C", "D"].map((label, i) => ({ label, text: choices[i] })),
+      answer,
+      hint: "Read each option — match the gradient (multiplier) and y-intercept (constant) to the context.",
+      explanation,
+    };
+  }
+
+  return {
+    title: "Linear and Direct Variation Models",
+    learningIntention:
+      "Use linear equations of the form y = mx + b to model and analyse practical situations.",
+    successCriteria: [
+      "Identify the gradient and y-intercept in a linear equation and explain their practical meaning.",
+      "Use a linear model to calculate an unknown value by substituting a given input.",
+      "Recognise a linear relationship from a table by checking for a constant difference.",
+      "Build a linear equation from a described rate and starting value.",
+    ],
+    teaching: {
+      paragraphs: [
+        "A linear model has the form y = mx + b. The gradient m shows how much y changes for each unit increase in x. The y-intercept b is the value of y when x = 0, often called the starting value.",
+        "In practical contexts, the gradient is a constant rate — such as a cost per kilometre, an hourly charge, or a wage per item. The y-intercept is a fixed starting amount — such as a connection fee, a call-out cost, or an opening balance.",
+        "To check whether a table of values shows a linear relationship, calculate the change in y between consecutive rows with equal x-spacing. If the changes are all the same, the relationship is linear and the gradient equals that constant change.",
+        "To evaluate a linear model for a given input, substitute the x-value into the equation and simplify using order of operations.",
+      ],
+      latexBlocks: [
+        "y = mx + b",
+        "m = \\frac{\\text{change in }y}{\\text{change in }x}",
+      ],
+    },
+    workedExamples: [
+      {
+        title: "Interpret a practical linear model",
+        questionLatex:
+          "\\text{A plumber charges a }\\$45\\text{ call-out fee plus }\\$80\\text{ per hour. Write the cost equation and find the cost for 3 hours.}",
+        steps: [
+          {
+            explanation:
+              "The call-out fee is the y-intercept (starting value) and the hourly charge is the gradient.",
+            latex: "C = 80h + 45",
+          },
+          {
+            explanation: "Substitute h = 3 and evaluate.",
+            latex: "C = 80 \\times 3 + 45 = 240 + 45 = 285",
+          },
+        ],
+        finalAnswerLatex: "\\$285",
+      },
+      {
+        title: "Identify a linear relationship from a table",
+        questionLatex:
+          "\\text{A table shows hours: 0, 1, 2, 3 and cost: 12, 17, 22, 27. Is the relationship linear? Write the equation.}",
+        steps: [
+          {
+            explanation: "Find the differences in cost between consecutive entries.",
+            latex: "17-12=5,\\quad 22-17=5,\\quad 27-22=5",
+          },
+          {
+            explanation:
+              "The constant difference of 5 confirms a linear relationship. The gradient is 5 and the starting value at h=0 is 12.",
+            latex: "C = 5h + 12",
+          },
+        ],
+        finalAnswerLatex: "C = 5h + 12",
+      },
+      {
+        title: "Evaluate a linear model for a given input",
+        questionLatex:
+          "\\text{A model for daily earnings is }E = 24n + 60\\text{, where }n\\text{ is the number of items sold. Find }E\\text{ when }n = 8.",
+        steps: [
+          {
+            explanation: "Substitute n = 8 into the equation.",
+            latex: "E = 24 \\times 8 + 60",
+          },
+          {
+            explanation: "Evaluate the expression.",
+            latex: "E = 192 + 60 = 252",
+          },
+        ],
+        finalAnswerLatex: "\\$252",
+      },
+    ],
+    guidedPractice: [
+      linChoice(
+        "lin-var-g1",
+        "A taxi charges $3.20 per km plus a $5.50 flag fall. Which equation gives the total cost C (in dollars) for d km?",
+        "A",
+        [
+          "C = 3.20d + 5.50",
+          "C = 5.50d + 3.20",
+          "C = 3.20d − 5.50",
+          "C = 3.20 + 5.50d",
+        ],
+        "The per-km charge $3.20 is the gradient and the flag fall $5.50 is the y-intercept: C = 3.20d + 5.50."
+      ),
+      linAnswer(
+        "lin-var-g2",
+        "A model is C = 6h + 20. Find the value of C when h = 4.",
+        "C = 6 \\times 4 + 20",
+        "44",
+        [],
+        "C = 24 + 20 = 44."
+      ),
+      linAnswer(
+        "lin-var-g3",
+        "A table shows x: 0, 1, 2, 3 and y: 7, 12, 17, 22. What is the gradient?",
+        "12-7=5,\\quad 17-12=5,\\quad 22-17=5",
+        "5",
+        [],
+        "The y-values increase by 5 for each step of 1 in x, so the gradient is 5."
+      ),
+      linChoice(
+        "lin-var-g4",
+        "In the equation W = 35h + 50, what does the 35 represent?",
+        "C",
+        [
+          "The number of hours worked.",
+          "The starting pay.",
+          "The rate of pay per hour.",
+          "The total weekly pay.",
+        ],
+        "The gradient 35 is the rate per unit — W increases by $35 for each additional hour h. The y-intercept 50 is the starting value."
+      ),
+    ],
+    independentPractice: [
+      linAnswer(
+        "lin-var-i1",
+        "A water tank model is V = 1500 − 30t, where t is time in minutes. Find V when t = 20.",
+        "V = 1500 - 30 \\times 20",
+        "900",
+        ["900 L", "900 litres"],
+        "V = 1500 − 600 = 900 litres."
+      ),
+      linAnswer(
+        "lin-var-i2",
+        "A linear model passes through (0, 8) and (2, 16). Write the equation in the form y = mx + b.",
+        "m = \\frac{16-8}{2-0} = 4",
+        "y=4x+8",
+        ["y = 4x + 8"],
+        "Gradient = (16 − 8) ÷ (2 − 0) = 4. The y-intercept is 8 (the value at x = 0). Equation: y = 4x + 8."
+      ),
+      linAnswer(
+        "lin-var-i3",
+        "A phone plan costs $30 per month plus $0.10 per text message. How much does the plan cost in a month with 80 messages?",
+        "C = 30 + 0.10 \\times 80",
+        "38",
+        ["$38", "$38.00"],
+        "C = 30 + 8 = $38."
+      ),
+      linChoice(
+        "lin-var-i4",
+        "A table shows x: 1, 2, 3, 4 and y: 9, 14, 19, 24. Which statement is correct?",
+        "A",
+        [
+          "The relationship is linear with gradient 5.",
+          "The relationship is not linear.",
+          "The relationship is linear with gradient 9.",
+          "The relationship is linear with gradient 4.",
+        ],
+        "Differences: 14−9=5, 19−14=5, 24−19=5. Constant differences of 5 confirm linearity with gradient 5."
+      ),
+    ],
+    masteryQuiz: [
+      linAnswer(
+        "lin-var-m1",
+        "In the model C = 15n + 80, what is the rate per unit of n?",
+        "C = 15n + 80",
+        "15",
+        [],
+        "The gradient 15 is the rate per unit — C increases by 15 for each additional unit of n."
+      ),
+      linChoice(
+        "lin-var-m2",
+        "A salary model is P = 850 + 120n, where n is the number of extra items sold. Which statement correctly interprets the model?",
+        "B",
+        [
+          "Base salary $120, bonus $850 per item sold.",
+          "Base salary $850, bonus $120 per item sold.",
+          "Total pay $850 with $120 deducted per item.",
+          "Salary increases by $850 per additional item.",
+        ],
+        "The y-intercept $850 is the base salary (at n=0). The gradient $120 is the bonus per additional item sold."
+      ),
+      linAnswer(
+        "lin-var-m3",
+        "Use C = 4.5d + 12 to find C when d = 6.",
+        "C = 4.5 \\times 6 + 12",
+        "39",
+        [],
+        "C = 27 + 12 = 39."
+      ),
+      linAnswer(
+        "lin-var-m4",
+        "A tank model is V = 2000 − 50t litres, where t is minutes. After how many minutes does the tank hold 750 litres?",
+        "750 = 2000 - 50t",
+        "25",
+        ["25 minutes", "t = 25"],
+        "2000 − 750 = 1250. t = 1250 ÷ 50 = 25 minutes."
+      ),
+      linAnswer(
+        "lin-var-m5",
+        "A table shows x: 0, 3, 6, 9 and y: 4, 16, 28, 40. Write the equation of the linear model.",
+        "m = \\frac{16-4}{3-0} = 4",
+        "y=4x+4",
+        ["y = 4x + 4"],
+        "Gradient = 12 ÷ 3 = 4. y-intercept = 4 (value at x = 0). Equation: y = 4x + 4."
+      ),
+    ],
+    commonMistakes: [
+      {
+        mistake: "Swapping the gradient and the y-intercept.",
+        fix: "In y = mx + b, m is the multiplier (rate per unit) and b is the constant added at the start.",
+      },
+      {
+        mistake: "Forgetting to follow order of operations when substituting.",
+        fix: "Replace the variable with the given number, then multiply before adding.",
+      },
+      {
+        mistake: "Checking only one difference in a table instead of all consecutive pairs.",
+        fix: "Verify the difference is constant across every consecutive pair before concluding the relationship is linear.",
+      },
+      {
+        mistake: "Leaving units out of the final answer.",
+        fix: "Attach the units (dollars, litres, km) to the final answer — not inside the equation.",
+      },
+    ],
+    masteryPassMark: 0.75,
+  };
+}
+
+export function year12Standard1FinancialPlanningRepaymentLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed
+): Partial<ExplicitLesson> | null {
+  if (
+    course.slug !== "year-12-standard-1" ||
+    unit.slug !== "investments-loans-annuities" ||
+    lesson.slug !== "annuities-regular-payments"
+  )
+    return null;
+
+  function finPlanAnswer(
+    id: string,
+    prompt: string,
+    latex: string,
+    answer: string,
+    acceptedAnswers: string[],
+    explanation: string
+  ): PracticeQuestion {
+    const numeric = Number(answer.replace(/[$,]/g, ""));
+    const moneyVars = Number.isFinite(numeric)
+      ? [
+          String(numeric),
+          numeric.toFixed(2),
+          `$${numeric}`,
+          `$${numeric.toFixed(2)}`,
+        ]
+      : [answer];
+    return {
+      id,
+      prompt,
+      latex,
+      answer,
+      acceptedAnswers: Array.from(new Set([answer, ...moneyVars, ...acceptedAnswers])),
+      hint: "Subtract the deposit first to find the balance owing, then divide or multiply as required.",
+      explanation,
+    };
+  }
+
+  function finPlanChoice(
+    id: string,
+    prompt: string,
+    answer: "A" | "B" | "C" | "D",
+    choices: [string, string, string, string],
+    explanation: string
+  ): PracticeQuestion {
+    return {
+      id,
+      prompt,
+      latex: "\\text{Select A, B, C, or D.}",
+      choices: ["A", "B", "C", "D"].map((label, i) => ({ label, text: choices[i] })),
+      answer,
+      hint: "Calculate the total cost of each option (deposit + all repayments) before comparing.",
+      explanation,
+    };
+  }
+
+  return {
+    title: "Financial Planning and Repayments",
+    learningIntention:
+      "Compare repayment plans and use income and expenses to determine whether a payment option is affordable.",
+    successCriteria: [
+      "Calculate equal repayment amounts from the balance owing after a deposit.",
+      "Find the total cost of a payment plan and the extra cost compared to the cash price.",
+      "Compare two payment plans by calculating and comparing their total costs.",
+      "Use a budget to assess whether a monthly repayment is affordable.",
+    ],
+    teaching: {
+      paragraphs: [
+        "A payment plan allows a purchase to be spread over time. The deposit is paid upfront. The remaining balance — the price minus the deposit — is split into equal regular repayments.",
+        "The total cost of a plan is the deposit plus all repayments combined. This total is often greater than the cash price because payment plans can include additional fees spread across repayments.",
+        "To compare two plans, calculate the total cost of each plan (deposit plus number of repayments multiplied by the repayment amount). The plan with the lower total is usually the better financial choice.",
+        "A budget lists income and all expenses. The monthly surplus is income minus total expenses. A repayment is only affordable if it fits within the surplus — there must be enough left over after all other expenses.",
+      ],
+      latexBlocks: [
+        "\\text{balance owing} = \\text{price} - \\text{deposit}",
+        "\\text{repayment} = \\frac{\\text{balance owing}}{\\text{number of repayments}}",
+        "\\text{total cost} = \\text{deposit} + n \\times \\text{repayment amount}",
+      ],
+    },
+    workedExamples: [
+      {
+        title: "Find the equal repayment amount",
+        questionLatex:
+          "\\text{A laptop costs }\\$1200\\text{. A deposit of }\\$300\\text{ is paid upfront. The remaining balance is split into 6 equal monthly repayments. Find each repayment.}",
+        steps: [
+          {
+            explanation: "Find the balance after the deposit.",
+            latex: "1200 - 300 = 900",
+          },
+          {
+            explanation: "Divide the balance equally among the 6 repayments.",
+            latex: "900 \\div 6 = 150",
+          },
+        ],
+        finalAnswerLatex: "\\$150 \\text{ per month}",
+      },
+      {
+        title: "Calculate total cost and extra cost",
+        questionLatex:
+          "\\text{A plan for a }\\$1800\\text{ fridge requires a }\\$400\\text{ deposit and 12 monthly repayments of }\\$130\\text{. Find the total cost and the extra cost.}",
+        steps: [
+          {
+            explanation: "Find the total of all repayments.",
+            latex: "12 \\times 130 = 1560",
+          },
+          {
+            explanation: "Add the deposit to find the total cost.",
+            latex: "400 + 1560 = 1960",
+          },
+          {
+            explanation: "Subtract the cash price to find the extra cost.",
+            latex: "1960 - 1800 = 160",
+          },
+        ],
+        finalAnswerLatex:
+          "\\text{Total cost: }\\$1960,\\quad \\text{extra cost: }\\$160",
+      },
+      {
+        title: "Use a budget to check affordability",
+        questionLatex:
+          "\\text{Monthly income is }\\$2600\\text{. Monthly expenses total }\\$1950\\text{. Is a monthly repayment of }\\$550\\text{ affordable?}",
+        steps: [
+          {
+            explanation: "Find the monthly surplus (income minus all expenses).",
+            latex: "2600 - 1950 = 650",
+          },
+          {
+            explanation: "Compare the surplus with the required repayment.",
+            latex: "650 > 550",
+          },
+          {
+            explanation:
+              "The surplus exceeds the repayment, so it is affordable.",
+          },
+        ],
+        finalAnswerLatex:
+          "\\text{Yes — surplus }\\$650 > \\$550\\text{ repayment, so it is affordable.}",
+      },
+    ],
+    guidedPractice: [
+      finPlanAnswer(
+        "fin-plan-g1",
+        "A TV costs $960. A deposit of $160 is paid and the balance is split into 8 equal monthly payments. Find each payment amount.",
+        "\\frac{960 - 160}{8}",
+        "100",
+        ["$100"],
+        "Balance = $960 − $160 = $800. Each payment = $800 ÷ 8 = $100."
+      ),
+      finPlanAnswer(
+        "fin-plan-g2",
+        "A payment plan has a $250 deposit and 10 monthly repayments of $75. Find the total amount paid.",
+        "250 + 10 \\times 75",
+        "1000",
+        ["$1000"],
+        "Total repayments = 10 × $75 = $750. Total paid = $250 + $750 = $1000."
+      ),
+      finPlanChoice(
+        "fin-plan-g3",
+        "A phone costs $780 cash. A payment plan costs $250 deposit plus 10 repayments of $65. Which option costs less and by how much?",
+        "A",
+        [
+          "Cash is cheaper by $120.",
+          "The plan is cheaper by $120.",
+          "They cost the same.",
+          "Cash is cheaper by $65.",
+        ],
+        "Plan total = $250 + 10×$65 = $250 + $650 = $900. Cash = $780. Cash is cheaper by $900 − $780 = $120."
+      ),
+      finPlanAnswer(
+        "fin-plan-g4",
+        "Monthly income is $2200 and monthly expenses total $1800. What is the monthly surplus?",
+        "2200 - 1800",
+        "400",
+        ["$400"],
+        "Surplus = $2200 − $1800 = $400."
+      ),
+    ],
+    independentPractice: [
+      finPlanAnswer(
+        "fin-plan-i1",
+        "A camera costs $1050. A deposit of $150 is paid and the remaining balance is split into 9 equal monthly payments. Find each payment.",
+        "\\frac{1050 - 150}{9}",
+        "100",
+        ["$100"],
+        "Balance = $900. Each payment = $900 ÷ 9 = $100."
+      ),
+      finPlanAnswer(
+        "fin-plan-i2",
+        "A payment plan for a $2500 item has a $500 deposit and 24 monthly repayments of $90. Find the total cost of the plan.",
+        "500 + 24 \\times 90",
+        "2660",
+        ["$2660"],
+        "Total repayments = 24 × $90 = $2160. Total paid = $500 + $2160 = $2660."
+      ),
+      finPlanChoice(
+        "fin-plan-i3",
+        "Plan A has a $400 deposit and 12 monthly repayments of $75. Plan B costs $1200 cash. Which option has the lower total cost and by how much?",
+        "B",
+        [
+          "Plan A is cheaper by $100.",
+          "Plan B is cheaper by $100.",
+          "They cost the same.",
+          "Plan A is cheaper by $300.",
+        ],
+        "Plan A total = $400 + 12×$75 = $400 + $900 = $1300. Plan B = $1200. Plan B is cheaper by $100."
+      ),
+      finPlanChoice(
+        "fin-plan-i4",
+        "Monthly income is $3100. Monthly expenses total $2650. Is a monthly repayment of $400 affordable?",
+        "A",
+        [
+          "Yes — surplus $450 leaves $50 after the repayment.",
+          "No — the repayment exceeds the surplus.",
+          "Yes — surplus $750 comfortably covers it.",
+          "Cannot tell without knowing all expenses.",
+        ],
+        "Surplus = $3100 − $2650 = $450. The $400 repayment fits within the surplus, leaving $50 to spare."
+      ),
+    ],
+    masteryQuiz: [
+      finPlanAnswer(
+        "fin-plan-m1",
+        "A laptop costs $1800. A deposit of $300 is paid. The balance is split into 10 equal monthly repayments. Find each repayment.",
+        "\\frac{1800 - 300}{10}",
+        "150",
+        ["$150"],
+        "Balance = $1500. Each repayment = $1500 ÷ 10 = $150."
+      ),
+      finPlanAnswer(
+        "fin-plan-m2",
+        "A plan has a $600 deposit and 18 repayments of $95. The cash price is $2100. Find the extra cost of choosing the plan.",
+        "600 + 18 \\times 95 - 2100",
+        "210",
+        ["$210"],
+        "Plan total = $600 + $1710 = $2310. Extra cost = $2310 − $2100 = $210."
+      ),
+      finPlanChoice(
+        "fin-plan-m3",
+        "Compare Plan A ($500 deposit, 12 repayments of $100) with Plan B ($300 deposit, 18 repayments of $80). Which has the lower total cost?",
+        "A",
+        [
+          "Plan A is cheaper by $40.",
+          "Plan B is cheaper by $40.",
+          "They cost the same.",
+          "Plan A is cheaper by $100.",
+        ],
+        "Plan A = $500 + $1200 = $1700. Plan B = $300 + $1440 = $1740. Plan A is $40 cheaper."
+      ),
+      finPlanChoice(
+        "fin-plan-m4",
+        "Monthly income is $2800. Expenses: rent $1200, food $350, transport $180, other $420. Is a $700 monthly repayment affordable?",
+        "A",
+        [
+          "No — total expenses $2150 leave a surplus of only $650.",
+          "Yes — surplus $750 comfortably covers the repayment.",
+          "No — the repayment alone exceeds income.",
+          "Yes — with $100 to spare.",
+        ],
+        "Total expenses = $1200+$350+$180+$420 = $2150. Surplus = $2800−$2150 = $650. The $700 repayment exceeds the $650 surplus, so it is not affordable."
+      ),
+      finPlanAnswer(
+        "fin-plan-m5",
+        "A $3000 car is bought on a plan with a $600 deposit and 24 monthly repayments. What repayment amount makes the total plan cost equal the cash price?",
+        "\\frac{3000 - 600}{24}",
+        "100",
+        ["$100"],
+        "Balance = $2400. Repayment = $2400 ÷ 24 = $100. Total paid = $600 + $2400 = $3000, equal to the cash price."
+      ),
+    ],
+    commonMistakes: [
+      {
+        mistake:
+          "Dividing the full item price by the number of repayments without subtracting the deposit first.",
+        fix: "Always subtract the deposit to find the balance owing before dividing.",
+      },
+      {
+        mistake: "Forgetting to add the deposit when calculating the total cost.",
+        fix: "Total cost = deposit + (repayment × number of repayments).",
+      },
+      {
+        mistake:
+          "Comparing repayment amounts instead of total costs when choosing between plans.",
+        fix: "A lower repayment over more months can cost more overall — always compare total costs.",
+      },
+      {
+        mistake:
+          "Checking whether the repayment fits within income rather than within the surplus.",
+        fix: "Surplus = income − all other expenses. The repayment must fit within the surplus, not the full income.",
+      },
+    ],
+    masteryPassMark: 0.75,
+  };
+}
