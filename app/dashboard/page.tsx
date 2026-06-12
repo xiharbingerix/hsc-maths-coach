@@ -32,6 +32,7 @@ import {
   trackContinueLearningClicked,
   trackDashboardViewed,
 } from "../../lib/analytics";
+import { predictBand, type BandPrediction } from "../../lib/bandPredictor";
 
 type MasteryRow = {
   course_slug: string;
@@ -431,6 +432,17 @@ export default function DashboardPage() {
     clientTrackEvent("dashboard_viewed", metadata);
   }, [accessStatus, isLoading, selectedCourseSlug]);
 
+  const bandPredictorViewedRef = useRef(false);
+  useEffect(() => {
+    if (isLoading || bandPredictorViewedRef.current) return;
+    if (accessStatus !== "active") return;
+    bandPredictorViewedRef.current = true;
+    clientTrackEvent("band_predictor_viewed", {
+      source: "dashboard",
+      selected_course_slug: selectedCourseSlug ?? null,
+    });
+  }, [isLoading, accessStatus, selectedCourseSlug]);
+
   async function handleSignOut() {
     await supabase.auth.signOut();
     router.push("/login");
@@ -660,6 +672,16 @@ export default function DashboardPage() {
     .sort((a, b) => a.mastery_score - b.mastery_score)
     .slice(0, 3);
   const showSplit = masteryRows.length >= 4;
+
+  const totalCourseTopics =
+    selectedCourseSlug != null
+      ? (newCoursePathways.find((p) => p.slug === selectedCourseSlug)?.units.length ?? 0)
+      : 0;
+  const bandPrediction: BandPrediction = predictBand(
+    masteryRows,
+    selectedCourseSlug,
+    totalCourseTopics
+  );
 
   // Worksheet history: latest completed attempt keyed by worksheet_id.
   const latestAttemptByWorksheet = new Map<string, AttemptRow>();
@@ -1128,6 +1150,71 @@ export default function DashboardPage() {
             )}
           </div>
         </section>
+
+        {/* ── Band Predictor ────────────────────────────────────────────────── */}
+        {accessStatus === "active" ? (
+          <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+              Band Predictor
+            </p>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight">
+              Estimated current band
+            </h2>
+
+            {bandPrediction.state === "no_course" ? (
+              <p className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
+                Choose your course above to start estimating your band.
+              </p>
+            ) : bandPrediction.state === "no_data" ? (
+              <p className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
+                Complete a lesson quiz or mastery check to start building your estimate.
+              </p>
+            ) : bandPrediction.state === "building" ? (
+              <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-5">
+                <p className="text-lg font-bold text-amber-900">Building estimate</p>
+                <p className="mt-1 text-sm text-amber-800">
+                  Complete more topics so Nova Maths can build a more accurate picture.
+                </p>
+                <p className="mt-3 text-xs text-amber-700">
+                  Based on completed Nova Maths practice. This is not an official HSC prediction.
+                </p>
+              </div>
+            ) : (
+              <div className="mt-4 space-y-4">
+                <div className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="text-4xl font-extrabold tracking-tight text-slate-950">
+                      {bandPrediction.band}
+                    </p>
+                    <p className="mt-2 text-sm text-slate-600">
+                      Confidence:{" "}
+                      <span
+                        className={`font-semibold capitalize ${
+                          bandPrediction.confidence === "high"
+                            ? "text-emerald-700"
+                            : bandPrediction.confidence === "medium"
+                            ? "text-amber-700"
+                            : "text-slate-500"
+                        }`}
+                      >
+                        {bandPrediction.confidence}
+                      </span>
+                    </p>
+                  </div>
+                  <Link
+                    href={bandPrediction.nextActionHref}
+                    className="inline-flex shrink-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
+                  >
+                    {bandPrediction.nextActionLabel}
+                  </Link>
+                </div>
+                <p className="text-xs text-slate-400">
+                  Based on completed Nova Maths practice. This is not an official HSC prediction.
+                </p>
+              </div>
+            )}
+          </section>
+        ) : null}
 
         {/* ── Today's revision ──────────────────────────────────────────────── */}
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
