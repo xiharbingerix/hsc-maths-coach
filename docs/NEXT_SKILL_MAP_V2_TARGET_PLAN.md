@@ -1,7 +1,20 @@
 # Next Skill Map v2 Target Plan
 
 Created: 2026-06-13
-Status: Planning only — no lesson code edited.
+Status: Phase 1 implemented — 2026-06-13.
+
+## Phase 1 Implementation Status
+
+| Lesson | Status | File | Questions |
+|---|---|---|---|
+| `chain-rule-basics` | ✅ Done | `introductionDifferentiation.ts` | 3 worked + 4 guided + 5 independent + 10 mastery |
+| `stationary-points-first-derivative-test` | ✅ Done | `introductionDifferentiation.ts` | 3 worked + 4 guided + 5 independent + 10 mastery |
+| `second-derivative-concavity` | ✅ Done | `introductionDifferentiation.ts` | 3 worked + 4 guided + 5 independent + 10 mastery |
+
+Catalog updated: 3 slugs inserted before `tangents-normals-applications` in `lib/newCourseCatalog.ts`.
+`stableSkillId` and 4 `skillCheckpoints` added per lesson.
+`CartesianGraph` used in each lesson's first worked example.
+Phase 2 (curve-sketching-calculus + exam practice expansion) remains pending.
 
 ---
 
