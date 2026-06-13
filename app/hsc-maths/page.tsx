@@ -98,7 +98,7 @@ function SectionLabel({ children }: Readonly<{ children: ReactNode }>) {
 
 export default function HscMathsPage() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
+    <main className="min-h-screen overflow-x-hidden bg-slate-50 text-slate-900">
       <PageViewTracker
         eventName="hsc_maths_viewed"
         includeMarketingParams
@@ -120,7 +120,7 @@ export default function HscMathsPage() {
             {/* CTA visible on sm+ only — mobile uses the fixed bottom bar */}
             <div className="hidden sm:block">
               <HscTrialCTAButton>
-                Start 7-day free trial
+                Start your 7-day free trial
               </HscTrialCTAButton>
             </div>
           </div>
@@ -128,15 +128,15 @@ export default function HscMathsPage() {
       </header>
 
       {/* Page content — extra bottom padding on mobile for the fixed CTA bar */}
-      <div className="mx-auto max-w-6xl space-y-12 px-4 pb-28 pt-10 sm:px-6 sm:pb-10 lg:px-8">
+      <div className="mx-auto max-w-6xl space-y-12 overflow-x-hidden px-4 pb-28 pt-8 sm:px-6 sm:pb-10 sm:pt-10 lg:px-8">
 
         {/* Hero */}
-        <section className="grid gap-6 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-12 lg:grid-cols-[1.1fr_0.9fr]">
-          <div>
+        <section className="grid min-w-0 gap-6 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8 md:p-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+          <div className="min-w-0">
             <p className="text-sm font-semibold text-slate-500">
               Built for NSW HSC Advanced and Standard 2
             </p>
-            <h1 className="mt-4 text-4xl font-bold tracking-tight md:text-5xl">
+            <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight md:text-5xl">
               Stop guessing what to revise for HSC maths.
             </h1>
             <p className="mt-5 text-lg leading-8 text-slate-600">
@@ -144,7 +144,23 @@ export default function HscMathsPage() {
               mastery quizzes and progress saved to your dashboard.
             </p>
 
-            <div className="mt-6 rounded-3xl border border-slate-200 bg-slate-50 p-5">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <HscTrialCTAButton className="w-full sm:w-auto">
+                Start your 7-day free trial
+              </HscTrialCTAButton>
+              <FreeLessonCTAButton className="inline-flex w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 sm:w-auto">
+                Preview a free HSC lesson
+              </FreeLessonCTAButton>
+            </div>
+
+            <p className="mt-3 text-sm font-medium text-slate-600">
+              No charge today &middot; Then $19/month &middot; Cancel anytime
+            </p>
+            <p className="mt-1 text-sm text-slate-500">
+              Built for NSW HSC Advanced and Standard 2
+            </p>
+
+            <div className="mt-6 rounded-3xl border border-slate-200 bg-slate-50 p-4 sm:p-5">
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                 7-day free trial offer
               </p>
@@ -155,28 +171,11 @@ export default function HscMathsPage() {
                   "Cancel anytime",
                   "Built for NSW HSC Advanced and Standard 2",
                 ] as const).map((item) => (
-                  <div key={item} className="rounded-2xl bg-white p-3 text-sm text-slate-700 shadow-sm">
+                  <div key={item} className="min-w-0 rounded-2xl bg-white p-3 text-sm text-slate-700 shadow-sm">
                     {item}
                   </div>
                 ))}
               </div>
-            </div>
-
-            <div className="mt-8">
-              <HscTrialCTAButton>
-                Start your 7-day free trial
-              </HscTrialCTAButton>
-            </div>
-
-            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-slate-500">
-              {(["No charge today", "Then $19/month", "Cancel anytime"] as const).map((item) => (
-                <span key={item} className="flex items-center gap-1.5">
-                  <svg className="h-3.5 w-3.5 shrink-0 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
-                  {item}
-                </span>
-              ))}
             </div>
 
             <div className="mt-6 rounded-3xl border border-slate-200 bg-slate-50 p-6">
@@ -189,12 +188,12 @@ export default function HscMathsPage() {
                 <li>No signup or payment needed to review the demo lesson.</li>
               </ul>
               <FreeLessonCTAButton className="mt-5 inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800">
-                Preview a free lesson
+                Preview a free HSC lesson
               </FreeLessonCTAButton>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex min-w-0 flex-col gap-4">
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                 Year 12 Mathematics Advanced
@@ -366,7 +365,7 @@ export default function HscMathsPage() {
           </p>
           <div className="mt-7">
             <HscTrialCTAButton>
-              Start 7-day free trial
+              Start your 7-day free trial
             </HscTrialCTAButton>
           </div>
           <p className="mt-3 text-sm text-slate-500">
@@ -413,7 +412,7 @@ export default function HscMathsPage() {
           </h2>
           <div className="flex flex-col gap-3 sm:flex-row">
             <HscTrialCTAButton className="bg-white text-slate-950 hover:bg-slate-100">
-              Start 7-day free trial
+              Start your 7-day free trial
             </HscTrialCTAButton>
             <Link
               href="/course"
@@ -440,7 +439,7 @@ export default function HscMathsPage() {
       {/* Fixed bottom bar — mobile only (sm+ uses the sticky header CTA) */}
       <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white p-4 sm:hidden">
         <HscTrialCTAButton className="w-full">
-          Start 7-day free trial
+          Start your 7-day free trial
         </HscTrialCTAButton>
       </div>
     </main>
