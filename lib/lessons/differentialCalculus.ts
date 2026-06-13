@@ -1,4 +1,5 @@
 import type {
+  ArgandDiagram,
   BoxPlotDiagram,
   CartesianGraph,
   NetworkDiagram,
@@ -7,6 +8,7 @@ import type {
   TrapezoidalRuleDiagram,
   TriangleDiagram,
   TwoWayTableDiagram,
+  Vector3DDiagram,
   VennDiagram,
 } from "./types";
 
@@ -30,6 +32,8 @@ export type PracticeQuestion = {
   diagram?: NetworkDiagram;
   triangleDiagram?: TriangleDiagram;
   cartesianGraph?: CartesianGraph;
+  argandDiagram?: ArgandDiagram;
+  vector3DDiagram?: Vector3DDiagram;
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
   boxPlotDiagram?: BoxPlotDiagram;
   normalDistributionDiagram?: NormalDistributionDiagram;
@@ -67,6 +71,8 @@ export type WorkedExample = {
   diagram?: NetworkDiagram;
   triangleDiagram?: TriangleDiagram;
   cartesianGraph?: CartesianGraph;
+  argandDiagram?: ArgandDiagram;
+  vector3DDiagram?: Vector3DDiagram;
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
   boxPlotDiagram?: BoxPlotDiagram;
   normalDistributionDiagram?: NormalDistributionDiagram;
