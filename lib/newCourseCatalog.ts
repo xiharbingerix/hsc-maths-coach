@@ -2678,16 +2678,21 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       })),
     }));
 
-  // Year 9 Core trims working-with-triangles to Pythagoras only (no trig / coord geom).
+  // Year 9 Core trims working-with-triangles to Pythagoras + Stage 5.2 trig (lessons 1–3).
+  // The three trig-* slugs are Core-only and are not in the base unit, so we build the
+  // lesson list explicitly rather than filtering from year9Base.
+  const year9CoreTriangleLessons: CourseLessonSeed[] = [
+    { slug: "pythagoras-hypotenuse", title: "Pythagoras: Finding the Hypotenuse" },
+    { slug: "pythagoras-shorter-side", title: "Pythagoras: Finding a Shorter Side" },
+    { slug: "right-triangle-applications", title: "Right-Triangle Applications" },
+    { slug: "trig-naming-sides", title: "Naming Sides of a Right Triangle" },
+    { slug: "trig-ratios-intro", title: "The Trig Ratios: SOH-CAH-TOA" },
+    { slug: "trig-finding-sides-multiply", title: "Finding Sides (Multiply Step)" },
+  ];
   const year9CoreUnits = year9Base.units.map((u) =>
     u.slug !== "working-with-triangles"
       ? u
-      : {
-          ...u,
-          lessons: u.lessons.filter((l) =>
-            ["pythagoras-hypotenuse", "pythagoras-shorter-side", "right-triangle-applications"].includes(l.slug)
-          ),
-        }
+      : { ...u, lessons: year9CoreTriangleLessons }
   );
 
   // Year 10 Core trims:
