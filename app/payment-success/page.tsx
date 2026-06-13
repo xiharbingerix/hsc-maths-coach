@@ -261,17 +261,58 @@ export default async function PaymentSuccessPage({
   const isOnlineLearning = offer?.slug === "online-learning";
   const { customerEmail, needsPasswordSetup } = onlineLearningSetup;
 
+  if (!offer) {
+    return (
+      <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
+        <section className="mx-auto max-w-4xl space-y-8">
+          <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+            <p className="text-sm font-semibold uppercase tracking-wide text-amber-700">
+              Checkout not verified
+            </p>
+            <h1 className="mt-3 text-4xl font-bold tracking-tight">
+              We could not verify this checkout session.
+            </h1>
+            <p className="mt-4 max-w-3xl leading-7 text-slate-600">
+              If you completed checkout, please contact support or try signing
+              in. If you were just testing the page, no payment or trial has
+              been recorded.
+            </p>
+          </header>
+
+          <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+            <h2 className="text-2xl font-bold tracking-tight">Next steps</h2>
+            <p className="mt-3 text-sm font-semibold text-slate-500">
+              Return to Nova Maths or sign in to check your account.
+            </p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link
+                href="/hsc-maths"
+                className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+              >
+                Back to HSC Maths
+              </Link>
+              <Link
+                href="/login"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+              >
+                Sign in
+              </Link>
+            </div>
+          </section>
+        </section>
+      </main>
+    );
+  }
+
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
-      {offer ? (
-        <TrackPaymentSuccess
-          extraEventName={isOnlineLearning ? "trial_started" : undefined}
-          metadata={{
-            session_id: sessionId,
-            offer: offer.slug,
-          }}
-        />
-      ) : null}
+      <TrackPaymentSuccess
+        extraEventName={isOnlineLearning ? "trial_started" : undefined}
+        metadata={{
+          session_id: sessionId,
+          offer: offer.slug,
+        }}
+      />
       <section className="mx-auto max-w-4xl space-y-8">
         <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
