@@ -812,8 +812,130 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Trigonometric functions",
         focus: "Trigonometry and measure of angles",
         lessons: [
-          { slug: "radians-exact-trigonometric-values", title: "Radians and Exact Trigonometric Values" },
-          { slug: "unit-circle-trigonometric-graphs", title: "Unit Circle and Trigonometric Graphs" },
+          {
+            slug: "radians-exact-trigonometric-values",
+            title: "Radians and Exact Trigonometric Values",
+            description: "Legacy broad lesson covering radian concept, conversion, arc length, sector area, and exact values. Replaced by focused v2 skill slots.",
+            seedQuestions: false,
+            showInCourseNav: false,
+          },
+          {
+            slug: "unit-circle-trigonometric-graphs",
+            title: "Unit Circle and Trigonometric Graphs",
+            description: "Legacy broad lesson covering unit circle, ASTC, reference angles, and trig graph features. Replaced by focused v2 skill slots.",
+            seedQuestions: false,
+            showInCourseNav: false,
+          },
+          {
+            slug: "degrees-and-radians-concept",
+            title: "Degrees and Radians",
+            description: "Understand what a radian is, learn the benchmark radian-degree equivalences, and identify quadrants using radian boundaries.",
+            stableSkillId: "y11adv-trig-measure-degrees-and-radians-concept",
+            legacySlugs: ["radians-exact-trigonometric-values"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-measure-radian-definition",
+                label: "Define a radian and state that one full turn equals 2π radians",
+                legacySlugs: ["radians-exact-trigonometric-values"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-radian-benchmarks",
+                label: "Recall benchmark radian equivalences: 0, π/6, π/4, π/3, π/2, π, 3π/2, 2π",
+                legacySlugs: ["radians-exact-trigonometric-values"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-radian-quadrants",
+                label: "Identify which quadrant contains a given radian angle using benchmark boundaries",
+                legacySlugs: ["radians-exact-trigonometric-values"],
+              },
+            ],
+          },
+          {
+            slug: "converting-degrees-radians",
+            title: "Converting Degrees to Radians",
+            description: "Multiply by π/180 to convert any degree measure to an exact radian fraction and simplify.",
+            stableSkillId: "y11adv-trig-measure-converting-degrees-radians",
+            legacySlugs: ["radians-exact-trigonometric-values"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-measure-deg-to-rad-rule",
+                label: "Apply the multiply-by-π/180 rule to convert degrees to radians",
+                legacySlugs: ["radians-exact-trigonometric-values"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-deg-to-rad-simplify",
+                label: "Simplify the resulting fraction by cancelling common factors",
+                legacySlugs: ["radians-exact-trigonometric-values"],
+              },
+            ],
+          },
+          {
+            slug: "converting-radians-degrees",
+            title: "Converting Radians to Degrees",
+            description: "Multiply by 180/π to convert any radian measure to degrees, cancelling π to get a pure number.",
+            stableSkillId: "y11adv-trig-measure-converting-radians-degrees",
+            legacySlugs: ["radians-exact-trigonometric-values"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-measure-rad-to-deg-rule",
+                label: "Apply the multiply-by-180/π rule to convert radians to degrees",
+                legacySlugs: ["radians-exact-trigonometric-values"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-rad-to-deg-cancel",
+                label: "Cancel π from numerator and denominator to obtain the degree value",
+                legacySlugs: ["radians-exact-trigonometric-values"],
+              },
+            ],
+          },
+          {
+            slug: "arc-length-radian-measure",
+            title: "Arc Length",
+            description: "Apply s = rθ to find arc lengths, radii, and angles — converting degree angles to radians first when needed.",
+            stableSkillId: "y11adv-trig-measure-arc-length-radian-measure",
+            legacySlugs: ["radians-exact-trigonometric-values"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-measure-arc-find-s",
+                label: "Find arc length given radius and angle in radians using s = rθ",
+                legacySlugs: ["radians-exact-trigonometric-values"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-arc-find-r-theta",
+                label: "Rearrange s = rθ to find the radius or angle",
+                legacySlugs: ["radians-exact-trigonometric-values"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-arc-convert-first",
+                label: "Convert a degree angle to radians before applying s = rθ",
+                legacySlugs: ["radians-exact-trigonometric-values"],
+              },
+            ],
+          },
+          {
+            slug: "sector-area-radian-measure",
+            title: "Sector Area",
+            description: "Apply A = ½r²θ to find sector areas, radii, and angles, and calculate the perimeter of a sector.",
+            stableSkillId: "y11adv-trig-measure-sector-area-radian-measure",
+            legacySlugs: ["radians-exact-trigonometric-values"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-measure-sector-find-a",
+                label: "Find sector area given radius and angle using A = ½r²θ",
+                legacySlugs: ["radians-exact-trigonometric-values"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-sector-find-r-theta",
+                label: "Rearrange A = ½r²θ to find the radius or angle",
+                legacySlugs: ["radians-exact-trigonometric-values"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-sector-perimeter",
+                label: "Calculate the perimeter of a sector using P = 2r + rθ",
+                legacySlugs: ["radians-exact-trigonometric-values"],
+              },
+            ],
+          },
           { slug: "trigonometry-measure-angles-exam-practice", title: "Trigonometry and Measure of Angles Exam Practice" },
         ],
       },

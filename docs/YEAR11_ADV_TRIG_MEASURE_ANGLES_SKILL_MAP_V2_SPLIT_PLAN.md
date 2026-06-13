@@ -2,10 +2,50 @@
 # Skill Map v2 Split Plan
 
 Created: 2026-06-13  
-Status: Design only. No code changes.  
+Status: Phase 1 implemented 2026-06-13.  
 Course: `year-11-advanced`  
 Unit: `trigonometry-measure-angles`  
 NSW strand: MA-T1 — Trigonometry and Measure of Angles
+
+---
+
+## Phase 1 Implementation Status — 2026-06-13
+
+### Slots implemented
+
+| Slug | Title | Status | Seed count |
+|---|---|---|---|
+| `degrees-and-radians-concept` | Degrees and Radians | ✅ Done | 19 |
+| `converting-degrees-radians` | Converting Degrees to Radians | ✅ Done | 19 |
+| `converting-radians-degrees` | Converting Radians to Degrees | ✅ Done | 19 |
+| `arc-length-radian-measure` | Arc Length | ✅ Done | 19 |
+| `sector-area-radian-measure` | Sector Area | ✅ Done | 20 (includes 1 multiPartPractice with 3 parts) |
+
+### Legacy routes
+
+| Slug | `showInCourseNav` | `seedQuestions` | Route resolves? |
+|---|---|---|---|
+| `radians-exact-trigonometric-values` | false | false | ✅ Yes |
+| `unit-circle-trigonometric-graphs` | false | false | ✅ Yes |
+
+### Validation results
+
+| Check | Result |
+|---|---|
+| `npx tsc --noEmit` | ✅ Clean |
+| `npm run build` | ✅ Clean |
+| `npm run audit:lessons` | ✅ PASS (0 failures) |
+| `seed --dry-run` (year-11-advanced) | ✅ 5 new lessons seeded; 2 legacy skipped |
+| `git diff --check` | ✅ Clean |
+
+### Notes
+
+- Phase 1 slugs differ slightly from the Section 8 plan (e.g. `degrees-and-radians-concept` vs `trig-radian-measure`) to match the task brief.
+- No exact trig values slot in this phase — kept in legacy `radians-exact-trigonometric-values` until Phase 2.
+- One MVP multi-part question added to `sector-area-radian-measure` covering arc length + area + perimeter in a single r = 9, θ = 2π/3 context.
+- No visual payloads added (no sector diagram type exists yet); text/formula stems used throughout.
+
+---
 
 ---
 
