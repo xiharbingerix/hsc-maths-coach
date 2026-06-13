@@ -1,5 +1,6 @@
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
+import type { CartesianGraph } from "../types";
 import { practicalChoice, formulaAnswer as baseFormulaAnswer } from "../questionHelpers";
 
 function workingFunctionsFeedback(prompt: string, answer: string) {
@@ -27,6 +28,12 @@ function workingFunctionsFeedback(prompt: string, answer: string) {
   ) {
     return `Zeros and x-intercepts occur where the output is zero. Set each factor or the full function equal to zero, then choose the requested solution; this gives ${answer}.`;
   }
+  if (prompt.includes("absolute value") || prompt.includes("|")) {
+    return `Absolute value measures distance from zero, so it is never negative. Work inside the absolute value first, then make the result positive if needed; this gives ${answer}.`;
+  }
+  if (prompt.includes("even") || prompt.includes("odd") || prompt.includes("symmetry")) {
+    return `Even functions satisfy f(-x) = f(x) and have y-axis symmetry. Odd functions satisfy f(-x) = -f(x) and have origin symmetry. Applying the matching test gives ${answer}.`;
+  }
   return `Identify whether the question asks for an output, a restriction, an intercept or an asymptote before calculating. Following that feature gives ${answer}.`;
 }
 
@@ -40,6 +47,54 @@ function formulaAnswer(
   return {
     ...baseFormulaAnswer(id, prompt, latex, answer, acceptedAnswers),
     explanation: workingFunctionsFeedback(prompt, answer),
+  };
+}
+
+function absoluteValueGraph(
+  description: string,
+  h: number,
+  k: number,
+  label: string
+): CartesianGraph {
+  return {
+    description,
+    xMin: -5,
+    xMax: 5,
+    yMin: -1,
+    yMax: 7,
+    xStep: 1,
+    yStep: 1,
+    lineSegments: [
+      { from: { x: -5, y: Math.abs(-5 - h) + k }, to: { x: h, y: k } },
+      { from: { x: h, y: k }, to: { x: 5, y: Math.abs(5 - h) + k } },
+    ],
+    points: [{ x: h, y: k, label }],
+  };
+}
+
+function sampledCurveGraph(
+  description: string,
+  fn: (x: number) => number,
+  points: CartesianGraph["points"]
+): CartesianGraph {
+  const curvePoints = Array.from({ length: 81 }, (_, index) => {
+    const x = -3 + (6 * index) / 80;
+    return { x, y: fn(x) };
+  });
+
+  return {
+    description,
+    xMin: -3,
+    xMax: 3,
+    yMin: -5,
+    yMax: 5,
+    xStep: 1,
+    yStep: 1,
+    lineSegments: curvePoints.slice(1).map((point, index) => ({
+      from: curvePoints[index],
+      to: point,
+    })),
+    points,
   };
 }
 
@@ -390,6 +445,220 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         formulaAnswer("y11adv-poly-m8", "For the displayed function, enter the zero that is neither positive nor negative.", "p(x)=x(x-3)(x+2),\\quad x=0", "0", ["x=0"]),
         practicalChoice("y11adv-poly-m9", "For the displayed reciprocal function, the graph cannot cross which vertical line?", "A", ["x = 4", "x = -4", "y = 4", "y = 0"], "x = 4 is the vertical asymptote.", "y=\\frac{1}{x-4}"),
         practicalChoice("y11adv-poly-m10", "A factor x - 5 means the graph has an x-intercept at:", "C", ["(-5,0)", "(0,5)", "(5,0)", "(0,-5)"], "Set x - 5 = 0, so x = 5."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "absolute-value-functions") {
+    const basicAbsGraph = absoluteValueGraph(
+      "Graph of y = |x| with vertex at the origin and two straight arms forming a V-shape.",
+      0,
+      0,
+      "vertex (0, 0)"
+    );
+    const shiftedAbsGraph = absoluteValueGraph(
+      "Graph of y = |x - 2| + 1 with vertex at (2, 1), shifted right two units and up one unit.",
+      2,
+      1,
+      "vertex (2, 1)"
+    );
+
+    return {
+      ...base,
+      description:
+        "Evaluate, sketch and interpret absolute-value functions, including transformations of y = |x|.",
+      learningIntention:
+        "Understand absolute value as distance from zero and use it to evaluate, solve and identify features of simple V-shaped graphs.",
+      successCriteria: [
+        "Evaluate absolute-value expressions such as |x - a|.",
+        "Identify the vertex and axis of symmetry of y = |x - a| + b.",
+        "Solve simple absolute-value equations by considering both positive and negative cases.",
+        "Match absolute-value rules to V-shaped graph features.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Absolute value tells you distance from zero on the number line. That is why |3| = 3 and |-3| = 3: both numbers are three units from zero.",
+          "The graph of y = |x| is a V-shape. It has vertex (0, 0), slopes down to the left of the vertex, and slopes up to the right.",
+          "A function like y = |x - a| + b shifts the V-shape. The vertex moves to (a, b), so y = |x - 2| + 1 has vertex (2, 1).",
+          "When solving |x - a| = c, remember there are usually two x-values because two points can be the same distance from a.",
+        ],
+        latexBlocks: [
+          "|x|=\\begin{cases}x,&x\\ge0\\\\-x,&x<0\\end{cases}",
+          "y=|x-a|+b\\Rightarrow \\text{vertex }(a,b)",
+          "|x-a|=c\\Rightarrow x-a=c\\text{ or }x-a=-c",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Evaluate an absolute-value expression",
+          questionLatex: "\\text{Find } |{-4}|+2",
+          cartesianGraph: basicAbsGraph,
+          steps: [
+            { explanation: "Absolute value gives the distance from zero, so |-4| becomes 4.", latex: "|-4|=4" },
+            { explanation: "Add the remaining 2 after evaluating the absolute value.", latex: "4+2=6" },
+          ],
+          finalAnswerLatex: "6",
+        },
+        {
+          title: "Find the vertex of a shifted absolute-value graph",
+          questionLatex: "y=|x-2|+1",
+          cartesianGraph: shiftedAbsGraph,
+          steps: [
+            { explanation: "Compare the rule with y = |x - a| + b.", latex: "a=2,\\quad b=1" },
+            { explanation: "The vertex is the point (a, b).", latex: "(2,1)" },
+          ],
+          finalAnswerLatex: "\\text{Vertex }(2,1)",
+        },
+        {
+          title: "Solve a simple absolute-value equation",
+          questionLatex: "|x-3|=5",
+          steps: [
+            { explanation: "The expression x - 3 can be 5 or -5 because both have absolute value 5.", latex: "x-3=5\\quad \\text{or}\\quad x-3=-5" },
+            { explanation: "Solve both linear equations.", latex: "x=8\\quad \\text{or}\\quad x=-2" },
+          ],
+          finalAnswerLatex: "x=-2,\\ 8",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice("y11adv-abs-g1", "What does absolute value measure?", "B", ["Gradient from left to right", "Distance from zero", "The largest x-value", "The y-intercept only"], "Absolute value gives distance from zero, so it is never negative."),
+        formulaAnswer("y11adv-abs-g2", "Evaluate the absolute value expression.", "|-7|", "7", ["|-7|=7"]),
+        formulaAnswer("y11adv-abs-g3", "Find the vertex of the absolute-value function.", "y=|x-3|+2", "(3,2)", ["(3, 2)", "3,2", "3, 2", "vertex (3,2)", "vertex (3, 2)"]),
+        formulaAnswer("y11adv-abs-g4", "Solve the absolute-value equation. Enter the positive solution.", "|x|=4", "4", ["x=4"]),
+      ],
+      independentPractice: [
+        formulaAnswer("y11adv-abs-i1", "Evaluate the absolute value expression.", "|-5|+3", "8", ["|-5|+3=8"]),
+        formulaAnswer("y11adv-abs-i2", "Find the vertex of the absolute-value function.", "y=|x+1|-4", "(-1,-4)", ["(-1, -4)", "-1,-4", "-1, -4", "vertex (-1,-4)", "vertex (-1, -4)"]),
+        formulaAnswer("y11adv-abs-i3", "Solve the absolute-value equation. Enter the smaller solution.", "|x-2|=5", "-3", ["x=-3"]),
+        practicalChoice("y11adv-abs-i4", "Which graph feature belongs to y = |x - 4|?", "C", ["A horizontal asymptote", "A cubic turning point", "Vertex at (4, 0)", "Vertex at (-4, 0)"], "For y = |x - a|, the vertex is (a, 0)."),
+        formulaAnswer("y11adv-abs-i5", "Find the minimum value of the absolute-value function.", "y=|x-6|+2", "2", ["minimum=2", "min=2", "y=2"]),
+      ],
+      commonMistakes: [
+        { mistake: "Leaving absolute values negative.", fix: "Absolute value is distance, so |negative number| becomes positive." },
+        { mistake: "Reversing the horizontal shift in |x - a|.", fix: "The vertex of y = |x - a| + b is (a, b), not (-a, b)." },
+        { mistake: "Giving only one solution to |x - a| = c.", fix: "Use both x - a = c and x - a = -c when c is positive." },
+        { mistake: "Treating the V-shaped graph as a parabola.", fix: "Absolute-value graphs are made from straight-line arms, not a smooth quadratic curve." },
+      ],
+      masteryQuiz: [
+        formulaAnswer("y11adv-abs-m1", "Evaluate the absolute value expression.", "|-9|-2", "7", ["|-9|-2=7"]),
+        formulaAnswer("y11adv-abs-m2", "Find the vertex of the absolute-value function.", "y=|x-5|-3", "(5,-3)", ["(5, -3)", "5,-3", "5, -3", "vertex (5,-3)", "vertex (5, -3)"]),
+        practicalChoice("y11adv-abs-m3", "Which equation has vertex (-2, 1)?", "D", ["y=|x-2|+1", "y=|x+1|-2", "y=|x-1|-2", "y=|x+2|+1"], "A vertex at (-2, 1) matches y = |x - (-2)| + 1 = |x + 2| + 1."),
+        formulaAnswer("y11adv-abs-m4", "Solve the absolute-value equation. Enter the larger solution.", "|x+3|=6", "3", ["x=3"]),
+        formulaAnswer("y11adv-abs-m5", "Find the y-intercept of the absolute-value function.", "y=|x-2|+1,\\quad x=0", "3", ["(0,3)", "y=3"]),
+        practicalChoice("y11adv-abs-m6", "Which statement about y = |x| is true?", "A", ["It has vertex (0, 0)", "It is negative for x < 0", "It has no y-intercept", "It is a cubic graph"], "The graph y = |x| has vertex at the origin."),
+        formulaAnswer("y11adv-abs-m7", "Solve the absolute-value equation. Enter the smaller solution.", "|x-1|=4", "-3", ["x=-3"]),
+        formulaAnswer("y11adv-abs-m8", "Find the axis of symmetry of the absolute-value function.", "y=|x+4|-1", "x=-4", ["-4"]),
+        formulaAnswer("y11adv-abs-m9", "Find the minimum value of the absolute-value function.", "y=|x+2|-5", "-5", ["minimum=-5", "min=-5", "y=-5"]),
+        practicalChoice("y11adv-abs-m10", "A student says y = |x - 3| has vertex (-3, 0). What is the error?", "B", ["They used the wrong y-intercept", "They reversed the horizontal shift", "They treated |-3| as 0", "They used a reciprocal asymptote"], "In y = |x - a|, the vertex x-value is a."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "odd-even-functions") {
+    const evenGraph = sampledCurveGraph(
+      "Graph of y = x squared, showing matching points (-2, 4) and (2, 4) reflected across the y-axis.",
+      (x) => x * x,
+      [
+        { x: -2, y: 4, label: "(-2, 4)" },
+        { x: 2, y: 4, label: "(2, 4)" },
+        { x: 0, y: 0, label: "y-axis symmetry" },
+      ]
+    );
+    const oddGraph = sampledCurveGraph(
+      "Graph of y = x cubed, showing points (-1, -1) and (1, 1) related by origin symmetry.",
+      (x) => x * x * x,
+      [
+        { x: -1, y: -1, label: "(-1, -1)" },
+        { x: 1, y: 1, label: "(1, 1)" },
+        { x: 0, y: 0, label: "origin" },
+      ]
+    );
+
+    return {
+      ...base,
+      description:
+        "Identify even, odd and neither functions using algebraic tests and graph symmetry.",
+      learningIntention:
+        "Use f(-x) to classify functions as even, odd or neither, and connect the algebraic test to graph symmetry.",
+      successCriteria: [
+        "Use f(-x) = f(x) to identify even functions.",
+        "Use f(-x) = -f(x) to identify odd functions.",
+        "Recognise y-axis symmetry for even functions and origin symmetry for odd functions.",
+        "Classify simple polynomial functions as even, odd or neither.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Even and odd are symmetry labels for functions. They are not about whether the powers look visually even or odd in isolation; the whole function must pass the test.",
+          "A function is even when f(-x) = f(x). Its graph has y-axis symmetry, so the left side mirrors the right side.",
+          "A function is odd when f(-x) = -f(x). Its graph has origin symmetry, meaning a point (a, b) is matched by (-a, -b).",
+          "Some functions are neither. If f(-x) is not the same as f(x) and not the negative of f(x), do not force a symmetry label.",
+        ],
+        latexBlocks: [
+          "\\text{Even: }f(-x)=f(x)",
+          "\\text{Odd: }f(-x)=-f(x)",
+          "\\text{Even symmetry: y-axis;}\\quad \\text{odd symmetry: origin}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Classify an even function",
+          questionLatex: "f(x)=x^2+1",
+          cartesianGraph: evenGraph,
+          steps: [
+            { explanation: "Substitute -x into the function.", latex: "f(-x)=(-x)^2+1" },
+            { explanation: "Simplify and compare with f(x).", latex: "x^2+1=f(x)" },
+          ],
+          finalAnswerLatex: "\\text{Even function}",
+        },
+        {
+          title: "Classify an odd function",
+          questionLatex: "g(x)=x^3",
+          cartesianGraph: oddGraph,
+          steps: [
+            { explanation: "Substitute -x into the function.", latex: "g(-x)=(-x)^3" },
+            { explanation: "Simplify and compare with -g(x).", latex: "-x^3=-g(x)" },
+          ],
+          finalAnswerLatex: "\\text{Odd function}",
+        },
+        {
+          title: "Recognise a function that is neither",
+          questionLatex: "h(x)=x^2+x",
+          steps: [
+            { explanation: "Substitute -x into the function.", latex: "h(-x)=(-x)^2+(-x)=x^2-x" },
+            { explanation: "This is not h(x) and not -h(x).", latex: "x^2-x\\ne x^2+x,\\quad x^2-x\\ne -x^2-x" },
+          ],
+          finalAnswerLatex: "\\text{Neither even nor odd}",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice("y11adv-sym-g1", "An even function has which graph symmetry?", "A", ["Symmetry about the y-axis", "Symmetry about the x-axis", "Symmetry about x = 1", "No possible symmetry"], "Even functions satisfy f(-x) = f(x), which gives y-axis symmetry."),
+        practicalChoice("y11adv-sym-g2", "An odd function has which graph symmetry?", "C", ["Symmetry about the y-axis", "Symmetry about y = 1", "Symmetry about the origin", "Symmetry about the x-axis"], "Odd functions satisfy f(-x) = -f(x), which gives origin symmetry."),
+        formulaAnswer("y11adv-sym-g3", "Classify the function as even, odd or neither.", "f(x)=x^2", "even", ["even function"]),
+        formulaAnswer("y11adv-sym-g4", "Classify the function as even, odd or neither.", "f(x)=x^3", "odd", ["odd function"]),
+      ],
+      independentPractice: [
+        formulaAnswer("y11adv-sym-i1", "Classify the function as even, odd or neither.", "f(x)=x^4+2", "even", ["even function"]),
+        formulaAnswer("y11adv-sym-i2", "Classify the function as even, odd or neither.", "g(x)=x^3+x", "odd", ["odd function"]),
+        formulaAnswer("y11adv-sym-i3", "Classify the function as even, odd or neither.", "h(x)=x^2+x", "neither", ["neither even nor odd", "neither odd nor even"]),
+        practicalChoice("y11adv-sym-i4", "If a graph contains (2, 5) and is even, which point must also be on it?", "B", ["(2, -5)", "(-2, 5)", "(-2, -5)", "(5, 2)"], "Even symmetry reflects across the y-axis, changing x but not y."),
+        practicalChoice("y11adv-sym-i5", "If a graph contains (3, -4) and is odd, which point must also be on it?", "C", ["(-3, -4)", "(3, 4)", "(-3, 4)", "(4, -3)"], "Origin symmetry changes both coordinates' signs."),
+      ],
+      commonMistakes: [
+        { mistake: "Classifying from one term instead of the whole function.", fix: "Substitute -x into the entire function before deciding." },
+        { mistake: "Confusing y-axis symmetry with origin symmetry.", fix: "Even means y-axis symmetry; odd means origin symmetry." },
+        { mistake: "Thinking every function must be even or odd.", fix: "Many functions are neither when neither test works." },
+        { mistake: "Forgetting to compare f(-x) with -f(x) for odd functions.", fix: "For odd functions, the whole output changes sign." },
+      ],
+      masteryQuiz: [
+        formulaAnswer("y11adv-sym-m1", "Classify the function as even, odd or neither.", "f(x)=x^6-3x^2", "even", ["even function"]),
+        formulaAnswer("y11adv-sym-m2", "Classify the function as even, odd or neither.", "g(x)=2x^5-x", "odd", ["odd function"]),
+        formulaAnswer("y11adv-sym-m3", "Classify the function as even, odd or neither.", "h(x)=x^3+1", "neither", ["neither even nor odd", "neither odd nor even"]),
+        practicalChoice("y11adv-sym-m4", "Which condition defines an even function?", "A", ["f(-x)=f(x)", "f(-x)=-f(x)", "f(x)=0", "f(-x)=x"], "Even functions have the same output for x and -x."),
+        practicalChoice("y11adv-sym-m5", "Which condition defines an odd function?", "B", ["f(-x)=f(x)", "f(-x)=-f(x)", "f(x)=x^2", "f(0)=1"], "Odd functions change sign when x changes to -x."),
+        formulaAnswer("y11adv-sym-m6", "For the even function, find f(-4).", "f(4)=9", "9", ["f(-4)=9"]),
+        formulaAnswer("y11adv-sym-m7", "For the odd function, find f(-2).", "f(2)=7", "-7", ["f(-2)=-7"]),
+        practicalChoice("y11adv-sym-m8", "A graph contains (-1, -3) and (1, 3). Which symmetry does this suggest?", "C", ["Y-axis symmetry", "X-axis symmetry", "Origin symmetry", "No function symmetry"], "The coordinates both change sign, matching origin symmetry."),
+        formulaAnswer("y11adv-sym-m9", "Classify the function as even, odd or neither.", "p(x)=x^4+x^2+5", "even", ["even function"]),
+        formulaAnswer("y11adv-sym-m10", "Classify the function as even, odd or neither.", "q(x)=x^5+x^2", "neither", ["neither even nor odd", "neither odd nor even"]),
       ],
     };
   }

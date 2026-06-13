@@ -18,6 +18,21 @@ Phase 2 (curve-sketching-calculus + exam practice expansion) remains pending.
 
 ---
 
+## Working with Functions Sprint Status
+
+Implemented: 2026-06-13.
+
+| Lesson | Status | File | Questions |
+|---|---|---|---|
+| `absolute-value-functions` | Done | `workingWithFunctions.ts` | 3 worked + 4 guided + 5 independent + 10 mastery |
+| `odd-even-functions` | Done | `workingWithFunctions.ts` | 3 worked + 4 guided + 5 independent + 10 mastery |
+
+Catalog updated: 2 slugs inserted before `working-with-functions-exam-practice` in `lib/newCourseCatalog.ts`.
+`stableSkillId` and 4 `skillCheckpoints` added per lesson.
+`CartesianGraph` used for `y = |x|`, `y = |x - a| + b`, even y-axis symmetry, and odd origin symmetry.
+
+---
+
 ## Recommendation: Year 11 Advanced — Introduction to Differentiation
 
 **Rationale:**

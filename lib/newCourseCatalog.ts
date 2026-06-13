@@ -744,6 +744,56 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Use degree, leading coefficient, roots, factors, reciprocal functions and asymptotes to interpret function features.",
           },
           {
+            slug: "absolute-value-functions",
+            title: "Absolute Value Functions",
+            description:
+              "Evaluate, sketch and interpret absolute-value functions, including transformations of y = |x|.",
+            stableSkillId: "y11adv-functions-absolute-value-functions",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-functions-abs-evaluate-expressions",
+                label: "Evaluate absolute-value expressions",
+              },
+              {
+                stableCheckpointId: "y11adv-functions-abs-identify-vertex",
+                label: "Identify the vertex of y = |x - a| + b",
+              },
+              {
+                stableCheckpointId: "y11adv-functions-abs-solve-equations",
+                label: "Solve simple absolute-value equations",
+              },
+              {
+                stableCheckpointId: "y11adv-functions-abs-match-graph-features",
+                label: "Match absolute-value rules to graph features",
+              },
+            ],
+          },
+          {
+            slug: "odd-even-functions",
+            title: "Odd and Even Functions",
+            description:
+              "Classify functions as even, odd or neither using f(-x) tests and graph symmetry.",
+            stableSkillId: "y11adv-functions-odd-even-functions",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-functions-sym-even-test",
+                label: "Use f(-x) = f(x) to identify even functions",
+              },
+              {
+                stableCheckpointId: "y11adv-functions-sym-odd-test",
+                label: "Use f(-x) = -f(x) to identify odd functions",
+              },
+              {
+                stableCheckpointId: "y11adv-functions-sym-connect-graph-symmetry",
+                label: "Connect y-axis and origin symmetry to function type",
+              },
+              {
+                stableCheckpointId: "y11adv-functions-sym-classify-polynomials",
+                label: "Classify simple polynomial functions as even, odd or neither",
+              },
+            ],
+          },
+          {
             slug: "working-with-functions-exam-practice",
             title: "Working with Functions Exam Practice",
             description:
