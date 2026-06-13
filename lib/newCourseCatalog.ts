@@ -65,6 +65,7 @@ import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOver
 import {
   year12Extension2CalculusLessonOverride,
   year12Extension2ComplexNumbersLessonOverride,
+  year12Extension2MechanicsLessonOverride,
   year12Extension2Vectors3DLessonOverride,
 } from "./lessons/year12Extension2";
 
@@ -260,6 +261,7 @@ export function buildLesson(
     year12Extension2ComplexNumbersLessonOverride(course, unit, lesson) ??
     year12Extension2Vectors3DLessonOverride(course, unit, lesson) ??
     year12Extension2CalculusLessonOverride(course, unit, lesson) ??
+    year12Extension2MechanicsLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
     year8NumberOperationsLessonOverride(course, unit, lesson) ??
@@ -2026,10 +2028,86 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "mechanics",
         title: "Mechanics",
         description:
-          "Planned mechanics work including simple harmonic motion, circular motion, projectile motion and applied differential equations.",
+          "Extension 2 mechanics using calculus: rectilinear motion, simple harmonic motion, and uniform circular motion. Resisted motion and projectile applications are planned for Phase 2.",
         syllabusArea: "Mechanics",
         focus: "Mechanics modelling and motion",
-        lessons: [],
+        lessons: [
+          {
+            slug: "rectilinear-motion-calculus",
+            title: "Rectilinear Motion with Calculus",
+            description:
+              "Use v = dx/dt and a = dv/dt to find velocity and acceleration from a position function, recover position from acceleration using initial conditions, and interpret direction and speed from signs.",
+            stableSkillId: "y12e2-mech-rectilinear-motion-calculus",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-mech-rect-velocity-from-position",
+                label: "Find velocity by differentiating a position function",
+              },
+              {
+                stableCheckpointId: "y12e2-mech-rect-acceleration-from-velocity",
+                label: "Find acceleration by differentiating a velocity function",
+              },
+              {
+                stableCheckpointId: "y12e2-mech-rect-integrate-acceleration",
+                label: "Recover velocity and position by integrating acceleration with initial conditions",
+              },
+              {
+                stableCheckpointId: "y12e2-mech-rect-interpret-signs",
+                label: "Interpret the sign and magnitude of velocity as direction and speed",
+              },
+            ],
+          },
+          {
+            slug: "simple-harmonic-motion-extended",
+            title: "Simple Harmonic Motion — Energy and Initial Conditions",
+            description:
+              "Use x = a sin(nt + α) or x = a cos(nt + α) to identify amplitude, angular frequency and period, apply the energy equation v² = n²(a² − x²) to find speed at any position, and determine maximum speed and acceleration.",
+            stableSkillId: "y12e2-mech-simple-harmonic-motion-extended",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-mech-shm-amplitude-period",
+                label: "Identify amplitude and period from a SHM displacement equation",
+              },
+              {
+                stableCheckpointId: "y12e2-mech-shm-max-speed-acceleration",
+                label: "State maximum speed as an and maximum acceleration as an²",
+              },
+              {
+                stableCheckpointId: "y12e2-mech-shm-energy-equation",
+                label: "Apply v² = n²(a² − x²) to find speed at any given position",
+              },
+              {
+                stableCheckpointId: "y12e2-mech-shm-defining-condition",
+                label: "Verify ẍ = −n²x as the defining condition of SHM",
+              },
+            ],
+          },
+          {
+            slug: "circular-motion-uniform",
+            title: "Uniform Circular Motion",
+            description:
+              "Apply v = rω and a = rω² = v²/r to find speed, centripetal acceleration, and centripetal force for objects in uniform circular motion, and connect angular velocity to period.",
+            stableSkillId: "y12e2-mech-circular-motion-uniform",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-mech-circ-speed-angular-velocity",
+                label: "Convert between linear speed and angular velocity using v = rω",
+              },
+              {
+                stableCheckpointId: "y12e2-mech-circ-centripetal-acceleration",
+                label: "Calculate centripetal acceleration using a = rω² or a = v²/r",
+              },
+              {
+                stableCheckpointId: "y12e2-mech-circ-centripetal-force",
+                label: "Apply F = mrω² to find centripetal force",
+              },
+              {
+                stableCheckpointId: "y12e2-mech-circ-period-frequency",
+                label: "Use T = 2π/ω to find period and angular velocity",
+              },
+            ],
+          },
+        ],
       },
     ],
   },

@@ -1,6 +1,24 @@
 # Year 12 Extension 2 Mechanics Skill Map v2 Plan
 
 Created: June 2026
+Phase 1 implemented: June 2026
+
+## Phase 1 Implementation Status
+
+| Lesson | Status | File | Questions |
+|---|---|---|---|
+| `rectilinear-motion-calculus` | ✅ Done | `mechanics.ts` | 4 guided + 5 independent + 10 mastery (19 total) |
+| `simple-harmonic-motion-extended` | ✅ Done | `mechanics.ts` | 4 guided + 5 independent + 10 mastery (19 total) |
+| `circular-motion-uniform` | ✅ Done | `mechanics.ts` | 4 guided + 5 independent + 10 mastery (19 total) |
+
+Catalog updated: 3 slugs with `stableSkillId` + 4 `skillCheckpoints` each.
+Seed dry-run: 57 new questions prepared (19 × 3); total course count 272.
+No visual payloads in Phase 1 — confirmed by audit:lessons.
+Course status remains `coming_soon`.
+
+Phase 2 (resisted-vertical-motion, projectile-motion-calculus, mechanics-exam-practice) remains pending.
+
+---
 
 ---
 

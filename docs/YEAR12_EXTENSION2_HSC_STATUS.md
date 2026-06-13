@@ -1,6 +1,6 @@
 # Year 12 Mathematics Extension 2 HSC Status
 
-Audited: June 2026 · Calculus Phase 1 added: June 2026
+Audited: June 2026 · Calculus Phase 1 added: June 2026 · Mechanics Phase 1 added: June 2026
 
 ## 1. Course Registration
 
@@ -9,14 +9,14 @@ Audited: June 2026 · Calculus Phase 1 added: June 2026
 | Slug | `year-12-extension-2` |
 | Status | `coming_soon` |
 | App routes | `/course/year-12-extension-2` scaffolded |
-| Unit routes | Active for complex-numbers, vectors-3d, and calculus (Phase 1) |
-| Lesson routes | Active for 11 lessons across three units |
+| Unit routes | Active for complex-numbers, vectors-3d, calculus (Phase 1), and mechanics (Phase 1) |
+| Lesson routes | Active for 14 lessons across four units |
 | Diagnostic | Not added |
-| Question bank | 158 questions (complex-numbers + vectors-3d) + ~57 new calculus questions (dry-run pending) |
-| Lesson files | `complexNumbers.ts` (4 lessons), `vectors3D.ts` (4 lessons), `calculus.ts` (3 lessons) |
-| Skill Map v2 | Catalogue metadata on Complex Numbers + all 3 Calculus Phase 1 lessons |
+| Question bank | 272 questions across all active units (dry-run verified June 2026) |
+| Lesson files | `complexNumbers.ts` (4 lessons), `vectors3D.ts` (4 lessons), `calculus.ts` (3 lessons), `mechanics.ts` (3 lessons) |
+| Skill Map v2 | Catalogue metadata on Complex Numbers + all 3 Calculus Phase 1 lessons + all 3 Mechanics Phase 1 lessons |
 
-Extension 2 has real lessons in Complex Numbers, Vectors in 3D, and now Calculus Phase 1. Course status remains `coming_soon` — Proof and Mechanics still have no content, and Calculus is partial (3 of 6 planned lessons).
+Extension 2 has real lessons in Complex Numbers, Vectors in 3D, Calculus Phase 1, and Mechanics Phase 1. Course status remains `coming_soon` — Proof still has no content, and both Calculus and Mechanics are partial.
 
 ## 2. Registered NSW Topic Areas
 
@@ -28,7 +28,7 @@ The scaffold registers the five NSW Mathematics Extension 2 Year 12 topic areas:
 | `vectors-3d` | Vectors in Three Dimensions | **4 lessons active** |
 | `complex-numbers` | Complex Numbers | **4 lessons active** |
 | `calculus` | Calculus | **3 lessons active (Phase 1)** |
-| `mechanics` | Mechanics | Planned only |
+| `mechanics` | Mechanics | **3 lessons active (Phase 1)** |
 
 ### Complex Numbers lessons
 
@@ -68,7 +68,7 @@ Phase 2 planned: `partial-fractions-rational-integrals`, `volumes-solids-of-revo
 | Complex numbers: arithmetic, modulus/arg, Argand diagram, polar form, De Moivre | **4 lessons — core HSC skills covered** |
 | Complex numbers: roots of unity, loci proofs, advanced De Moivre applications | Not yet |
 | Calculus: integration by parts, partial fractions, trig substitution, volumes, ODEs | **Method selection, by-parts extension, reduction formulae (Phase 1)** |
-| Mechanics: SHM, circular motion, projectile motion, growth/decay models | None |
+| Mechanics: SHM, circular motion, projectile motion, resisted motion | **3 lessons — rectilinear motion, SHM energy equation, uniform circular motion (Phase 1)** |
 
 ## 4. Diagnostic Position
 
