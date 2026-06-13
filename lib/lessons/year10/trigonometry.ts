@@ -220,6 +220,133 @@ const trigRatiosWorkedExamples: WorkedExample[] = [
   },
 ];
 
+const identifyingSidesV2WorkedExamples: WorkedExample[] = [
+  trigRatiosWorkedExamples[0],
+  {
+    title: "Relabelling opposite and adjacent when theta moves",
+    questionLatex:
+      "\\text{Triangle }ABC\\text{ has a right angle at }C.\\text{ If }\\theta\\text{ is at }B,\\text{ label the sides.}",
+    triangleDiagram: {
+      description:
+        "Right triangle with right angle at C, theta at B, AB as hypotenuse, AC as opposite and BC as adjacent.",
+      vertices: {
+        A: { x: 80, y: 40 },
+        C: { x: 80, y: 230 },
+        B: { x: 330, y: 230 },
+      },
+      rightAngleAt: "C",
+      angleLabels: { B: "θ" },
+      sideLabels: {
+        AB: "hypotenuse",
+        AC: "opposite",
+        BC: "adjacent",
+      },
+    },
+    steps: [
+      {
+        explanation:
+          "AB is opposite the right angle at C, so AB is still the hypotenuse.",
+        latex: "\\text{Hypotenuse: }AB",
+      },
+      {
+        explanation:
+          "AC does not touch theta at B, so AC is opposite to this marked angle.",
+        latex: "\\text{Opposite: }AC",
+      },
+      {
+        explanation:
+          "BC touches theta at B and is not the hypotenuse, so BC is adjacent.",
+        latex: "\\text{Adjacent: }BC",
+      },
+    ],
+    finalAnswerLatex:
+      "\\text{Hyp: }AB,\\quad\\text{Opp: }AC,\\quad\\text{Adj: }BC",
+  },
+  {
+    title: "Avoiding the adjacent-side misconception",
+    questionLatex:
+      "\\text{In a right triangle, why is the adjacent side not simply any side next to the right angle?}",
+    triangleDiagram: {
+      description:
+        "Right triangle with right angle at C and theta at A. AB is hypotenuse, AC is adjacent to theta, and BC is opposite theta.",
+      vertices: {
+        A: { x: 80, y: 40 },
+        C: { x: 80, y: 230 },
+        B: { x: 330, y: 230 },
+      },
+      rightAngleAt: "C",
+      angleLabels: { A: "θ" },
+      sideLabels: {
+        AB: "hypotenuse",
+        AC: "adjacent",
+        BC: "opposite",
+      },
+    },
+    steps: [
+      {
+        explanation:
+          "Adjacent is named from the marked angle theta, not from the right angle.",
+        latex: "\\text{Adjacent depends on }\\theta",
+      },
+      {
+        explanation:
+          "The adjacent side must touch theta and must not be the hypotenuse.",
+        latex: "\\text{Adjacent: touches }\\theta\\text{ and is not hyp}",
+      },
+      {
+        explanation:
+          "With theta at A, AC is adjacent. If theta moved to B, BC would become adjacent.",
+        latex: "\\theta\\text{ moves}\\Rightarrow\\text{adjacent can change}",
+      },
+    ],
+    finalAnswerLatex:
+      "\\text{Adjacent is the non-hypotenuse side touching the marked angle.}",
+  },
+];
+
+const ratioSelectionV2WorkedExamples: WorkedExample[] = [
+  trigRatiosWorkedExamples[1],
+  trigRatiosWorkedExamples[2],
+  {
+    title: "Selecting a ratio from two named sides",
+    questionLatex:
+      "\\text{A right triangle has opposite side }12\\text{ and adjacent side }5\\text{ relative to }\\theta.\\text{ Which ratio is used?}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta at A, opposite side BC = 12 and adjacent side AC = 5.",
+      vertices: {
+        A: { x: 80, y: 40 },
+        C: { x: 80, y: 230 },
+        B: { x: 330, y: 230 },
+      },
+      rightAngleAt: "C",
+      angleLabels: { A: "θ" },
+      sideLabels: {
+        AC: "5 (adj)",
+        BC: "12 (opp)",
+      },
+    },
+    steps: [
+      {
+        explanation:
+          "The two sides involved are opposite and adjacent.",
+        latex: "\\text{Sides involved: opp and adj}",
+      },
+      {
+        explanation:
+          "TOA says tangent connects opposite and adjacent.",
+        latex: "\\tan\\theta=\\frac{\\text{opp}}{\\text{adj}}",
+      },
+      {
+        explanation:
+          "Substitute the given side lengths in the correct order.",
+        latex: "\\tan\\theta=\\frac{12}{5}",
+      },
+    ],
+    finalAnswerLatex: "\\tan\\theta=\\frac{12}{5}",
+  },
+];
+
 const trigRatiosGuided: PracticeQuestion[] = [
   trigChoice(
     "trig-rat-g1",
@@ -3953,9 +4080,9 @@ function year10TrigV2Lesson(lessonSlug: string): Partial<ExplicitLesson> | null 
         "\\text{hypotenuse} = \\text{side opposite the right angle}",
         "\\text{opposite and adjacent are named from the marked angle}",
       ],
-      workedExamples: [trigRatiosWorkedExamples[0]],
+      workedExamples: identifyingSidesV2WorkedExamples,
       guidedPractice: identifyingSidesGuided,
-      independentPractice: identifyingSidesIndependent,
+      independentPractice: identifyingSidesIndependent.slice(0, 5),
       commonMistakes: trigRatiosMistakes,
       masteryQuiz: identifyingSidesMastery,
     },
@@ -3979,9 +4106,9 @@ function year10TrigV2Lesson(lessonSlug: string): Partial<ExplicitLesson> | null 
         "\\sin\\theta=\\frac{\\text{opp}}{\\text{hyp}},\\quad\\cos\\theta=\\frac{\\text{adj}}{\\text{hyp}},\\quad\\tan\\theta=\\frac{\\text{opp}}{\\text{adj}}",
         "\\text{Known sides} \\rightarrow \\text{matching ratio}",
       ],
-      workedExamples: [trigRatiosWorkedExamples[1], trigRatiosWorkedExamples[2]],
+      workedExamples: ratioSelectionV2WorkedExamples,
       guidedPractice: ratioSelectionGuided,
-      independentPractice: ratioSelectionIndependent,
+      independentPractice: ratioSelectionIndependent.slice(0, 5),
       commonMistakes: trigRatiosMistakes,
       masteryQuiz: ratioSelectionMastery,
     },
@@ -4007,7 +4134,7 @@ function year10TrigV2Lesson(lessonSlug: string): Partial<ExplicitLesson> | null 
       ],
       workedExamples: findingSidesWorkedExamples,
       guidedPractice: findingSidesGuided,
-      independentPractice: findingSidesSinCosIndependent,
+      independentPractice: findingSidesSinCosIndependent.slice(0, 5),
       commonMistakes: findingSidesSinCosMistakes,
       masteryQuiz: findingSidesSinCosMastery,
     },
@@ -4033,7 +4160,7 @@ function year10TrigV2Lesson(lessonSlug: string): Partial<ExplicitLesson> | null 
       ],
       workedExamples: findingSidesTanWorkedExamples,
       guidedPractice: findingSidesTanGuided,
-      independentPractice: findingSidesTanIndependent,
+      independentPractice: findingSidesTanIndependent.slice(0, 5),
       commonMistakes: findingSidesTanMistakes,
       masteryQuiz: findingSidesTanMastery,
     },
