@@ -16,10 +16,19 @@ export type NewCourseSlug =
 
 export type CoursePathwayStatus = "available" | "in_progress" | "coming_soon";
 
+export type SkillCheckpointSeed = {
+  stableCheckpointId: string;
+  label: string;
+  legacySlugs?: string[];
+};
+
 export type CourseLessonSeed = {
   slug: string;
   title: string;
   description?: string;
+  stableSkillId?: string;
+  legacySlugs?: string[];
+  skillCheckpoints?: SkillCheckpointSeed[];
 };
 
 export type CourseUnitSeed = {

@@ -4,6 +4,7 @@ import {
   getNewCourse,
   getNewCourseUnitLessons,
 } from "../lib/newCourseCatalog";
+import { flattenSkillMapV2Nodes } from "../lib/skillMapV2";
 import { applicationsDifferentiationLessons } from "../lib/lessons/applicationsDifferentiation";
 import type { ExplicitLesson, PracticeQuestion } from "../lib/lessons/differentialCalculus";
 import { differentialCalculusLessons } from "../lib/lessons/differentialCalculus";
@@ -498,6 +499,35 @@ function printSummary(rows: QuestionRow[], warnings: ImportWarning[], dryRun: bo
     for (const [type, count] of diagramCounts) {
       console.log(`  ${type}: ${count}`);
     }
+  }
+  console.log("");
+
+  const skillNodes = flattenSkillMapV2Nodes();
+  const skillNodeKeys = new Set(
+    skillNodes
+      .filter((node) => node.type === "skill")
+      .map((node) => `${node.courseSlug}/${node.topicSlug}/${node.subtopicSlug}`)
+  );
+  const checkpointCountByLesson = new Map<string, number>();
+  for (const node of skillNodes.filter((node) => node.type === "checkpoint")) {
+    const key = `${node.courseSlug}/${node.topicSlug}/${node.subtopicSlug}`;
+    checkpointCountByLesson.set(key, (checkpointCountByLesson.get(key) ?? 0) + 1);
+  }
+  const skillMappedRows = rows.filter((row) =>
+    skillNodeKeys.has(`${row.course_slug}/${row.topic_slug}/${row.subtopic_slug}`)
+  );
+  const mappedLessonKeys = new Set(
+    skillMappedRows.map((row) => `${row.course_slug}/${row.topic_slug}/${row.subtopic_slug}`)
+  );
+  const mappedCheckpointCount = [...mappedLessonKeys].reduce(
+    (total, key) => total + (checkpointCountByLesson.get(key) ?? 0),
+    0
+  );
+  console.log(`Questions under Skill Map v2 lesson metadata: ${skillMappedRows.length}`);
+  if (skillMappedRows.length > 0) {
+    console.log(`  mapped lessons: ${mappedLessonKeys.size}`);
+    console.log(`  checkpoint labels available: ${mappedCheckpointCount}`);
+    console.log("  stable IDs are catalogue-only; no question-bank columns are written yet.");
   }
   console.log("");
 

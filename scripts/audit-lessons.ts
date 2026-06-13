@@ -5,6 +5,7 @@ import {
   getNewCourseUnitLessons,
   newCoursePathways,
 } from "../lib/newCourseCatalog";
+import { flattenSkillMapV2Nodes } from "../lib/skillMapV2";
 import type {
   ExplicitLesson,
   PracticeQuestion,
@@ -1546,6 +1547,7 @@ function audit() {
   const lessonIds = new Map<string, string[]>();
   const lessonSlugs = new Map<string, string[]>();
   const questionIds = new Map<string, string[]>();
+  const stableSkillMapIds = new Map<string, string[]>();
 
   for (const course of newCoursePathways) {
     for (const unit of course.units) {
@@ -1576,6 +1578,25 @@ function audit() {
 
   for (const [id, paths] of questionIds) {
     if (paths.length > 1) addIssue("FAIL", "duplicate-question-id", paths.join(", "), `Duplicate question id "${id}".`);
+  }
+
+  for (const node of flattenSkillMapV2Nodes()) {
+    const path = `${node.courseSlug}/${node.topicSlug}/${node.subtopicSlug}/${node.type}`;
+    stableSkillMapIds.set(node.stableId, [
+      ...(stableSkillMapIds.get(node.stableId) ?? []),
+      path,
+    ]);
+  }
+
+  for (const [stableId, paths] of stableSkillMapIds) {
+    if (paths.length > 1) {
+      addIssue(
+        "FAIL",
+        "duplicate-skill-map-stable-id",
+        paths.join(", "),
+        `Duplicate Skill Map v2 stable ID "${stableId}".`
+      );
+    }
   }
 
   const rendererSource = readFileSync(

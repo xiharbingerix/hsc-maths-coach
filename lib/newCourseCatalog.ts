@@ -1497,10 +1497,91 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Complex Numbers",
         focus: "Complex numbers and the Argand diagram",
         lessons: [
-          { slug: "complex-number-arithmetic", title: "Complex Number Arithmetic" },
-          { slug: "modulus-argument-conjugate", title: "Modulus, Argument and Conjugate" },
-          { slug: "argand-diagram-geometry", title: "Argand Diagram and Geometry" },
-          { slug: "polar-form-de-moivre", title: "Polar Form and De Moivre's Theorem" },
+          {
+            slug: "complex-number-arithmetic",
+            title: "Complex Number Arithmetic",
+            stableSkillId: "y12e2-cn-complex-number-arithmetic",
+            legacySlugs: ["complex-number-arithmetic"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-cn-complex-arithmetic-add-subtract",
+                label: "Add and subtract complex numbers in Cartesian form",
+                legacySlugs: ["complex-number-arithmetic"],
+              },
+              {
+                stableCheckpointId: "y12e2-cn-complex-arithmetic-multiply",
+                label: "Multiply complex numbers and simplify powers of i",
+                legacySlugs: ["complex-number-arithmetic"],
+              },
+              {
+                stableCheckpointId: "y12e2-cn-complex-arithmetic-divide-conjugate",
+                label: "Divide complex numbers using the conjugate",
+                legacySlugs: ["complex-number-arithmetic"],
+              },
+            ],
+          },
+          {
+            slug: "modulus-argument-conjugate",
+            title: "Modulus, Argument and Conjugate",
+            stableSkillId: "y12e2-cn-modulus-argument-conjugate",
+            legacySlugs: ["modulus-argument-conjugate"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-cn-modulus-argument-definition",
+                label: "Find the modulus and principal argument of a complex number",
+                legacySlugs: ["modulus-argument-conjugate"],
+              },
+              {
+                stableCheckpointId: "y12e2-cn-conjugate-properties-division",
+                label: "Use conjugate properties in algebraic and geometric forms",
+                legacySlugs: ["modulus-argument-conjugate"],
+              },
+            ],
+          },
+          {
+            slug: "argand-diagram-geometry",
+            title: "Argand Diagram and Geometry",
+            stableSkillId: "y12e2-cn-argand-diagram-geometry",
+            legacySlugs: ["argand-diagram-geometry"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-cn-argand-plotting-loci",
+                label: "Plot complex numbers and interpret simple Argand loci",
+                legacySlugs: ["argand-diagram-geometry"],
+              },
+              {
+                stableCheckpointId: "y12e2-cn-argand-geometric-operations",
+                label: "Interpret complex operations geometrically on the Argand plane",
+                legacySlugs: ["argand-diagram-geometry"],
+              },
+            ],
+          },
+          {
+            slug: "polar-form-de-moivre",
+            title: "Polar Form and De Moivre's Theorem",
+            stableSkillId: "y12e2-cn-polar-form-de-moivre",
+            legacySlugs: ["polar-form-de-moivre"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-cn-polar-form-conversion",
+                label: "Convert between Cartesian and polar form",
+                legacySlugs: ["polar-form-de-moivre"],
+              },
+              {
+                stableCheckpointId: "y12e2-cn-de-moivre-theorem-powers",
+                label: "Use De Moivre's theorem to raise complex numbers to powers",
+                legacySlugs: ["polar-form-de-moivre"],
+              },
+              {
+                stableCheckpointId: "y12e2-cn-roots-of-unity",
+                label: "Recognise roots-of-unity as a future Skill Map v2 slot",
+              },
+              {
+                stableCheckpointId: "y12e2-cn-complex-polynomials",
+                label: "Recognise complex-polynomial connections as a future Skill Map v2 slot",
+              },
+            ],
+          },
         ],
       },
       {

@@ -14,6 +14,7 @@ Audited: June 2026
 | Diagnostic | Not added |
 | Question bank | 158 questions seeded across complex-numbers and vectors-3d |
 | Lesson files | `complexNumbers.ts` (4 lessons), `vectors3D.ts` (4 lessons) |
+| Skill Map v2 | Phase 1a catalogue metadata pilot on Complex Numbers |
 
 Extension 2 has real lessons in Complex Numbers and Vectors in 3D. Course status remains `coming_soon` — three units (Proof, Calculus, Mechanics) still have no content.
 
@@ -31,12 +32,12 @@ The scaffold registers the five NSW Mathematics Extension 2 Year 12 topic areas:
 
 ### Complex Numbers lessons
 
-| Lesson slug | Title | Multi-part |
-|---|---|---|
-| `complex-number-arithmetic` | Complex Number Arithmetic | Yes — z+w, zw, Im(z²) |
-| `modulus-argument-conjugate` | Modulus, Argument and Conjugate | No |
-| `argand-diagram-geometry` | Argand Diagram and Geometry | No |
-| `polar-form-de-moivre` | Polar Form and De Moivre's Theorem | Yes — √3+i → modulus/arg/Re(z⁴) |
+| Lesson slug | Title | Multi-part | Skill Map v2 metadata |
+|---|---|---|---|
+| `complex-number-arithmetic` | Complex Number Arithmetic | Yes - z+w, zw, Im(z^2) | `stableSkillId` + 3 checkpoints |
+| `modulus-argument-conjugate` | Modulus, Argument and Conjugate | No | `stableSkillId` + 2 checkpoints |
+| `argand-diagram-geometry` | Argand Diagram and Geometry | No | `stableSkillId` + 2 checkpoints |
+| `polar-form-de-moivre` | Polar Form and De Moivre's Theorem | Yes - sqrt(3)+i to modulus/arg/Re(z^4) | `stableSkillId` + 4 checkpoints |
 
 ### Vectors in Three Dimensions lessons
 
@@ -70,13 +71,23 @@ Minimum recommendation before adding a diagnostic:
 - no placeholder prompts, generic explanations or unsupported multi-part questions
 - alignment with `docs/QUESTION_AUTHORING_STANDARD.md`
 
-## 5. Question Bank Position
+## 5. Skill Map v2 Phase 1a Position
 
-`scripts/seed-question-bank.ts --course year-12-extension-2 --dry-run` is supported. With the current scaffold it should prepare 0 questions and perform no writes.
+Complex Numbers now carries catalogue-only Skill Map v2 metadata:
 
-Question seeding must remain empty until real lesson overrides or approved external question batches exist. Do not seed generated catalogue fallback content.
+- stable skill IDs on the four existing lesson seeds
+- legacy slug arrays pointing back to current public lesson slugs
+- checkpoint labels for planned finer-grained Complex Numbers slots
 
-## 6. Known Product Gaps Before Real Extension 2 Lessons
+This does not change public URLs, lesson rendering, worksheet generation, mastery writes, or Continue Learning. The metadata is consumed by audit tooling and dry-run reporting only until a later migration adds nullable database columns such as `questions.skill_id` or `mastery_events.checkpoint_id`.
+
+## 6. Question Bank Position
+
+`scripts/seed-question-bank.ts --course year-12-extension-2 --dry-run` is supported. With the current active lessons it prepares approved Complex Numbers and Vectors in Three Dimensions questions and performs no writes in dry-run mode.
+
+Question seeding currently prepares approved rows for the active Complex Numbers and Vectors in Three Dimensions lessons. It must continue to skip generated catalogue fallback content for empty Proof, Calculus and Mechanics units.
+
+## 7. Known Product Gaps Before Real Extension 2 Lessons
 
 | Gap | Blocks |
 |---|---|
@@ -87,7 +98,7 @@ Question seeding must remain empty until real lesson overrides or approved exter
 | Mechanics diagrams and multi-step solution support | SHM, circular motion and projectile modelling |
 | Past-paper import workflow | Authentic HSC Extension 2 exam preparation |
 
-## 7. Recommended Implementation Order
+## 8. Recommended Implementation Order
 
 1. Complex Numbers fundamentals: arithmetic, modulus, argument and polar form.
 2. Proof: contradiction, contrapositive and inequality proof patterns.
