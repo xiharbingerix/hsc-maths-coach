@@ -48,6 +48,64 @@ const TRIG_MEASURE_EXPLANATIONS: Record<string, string> = {
   "y11adv-trig-circle-m9":
     "Tangent is undefined wherever cosine equals zero. The smallest positive angle where cosine is zero is π/2 — the point on the unit circle reaches the top of the circle, giving x-coordinate 0.",
 
+  // ── Exact trig values — special triangles ─────────────────────────────────
+  "y11adv-ev-g1":
+    "From the 30-60-90 triangle: opposite to 30° is 1, hypotenuse is 2. sin(π/6) = opp/hyp = 1/2.",
+  "y11adv-ev-g2":
+    "From the 30-60-90 triangle: adjacent to 60° is 1, hypotenuse is 2. cos(π/3) = adj/hyp = 1/2.",
+  "y11adv-ev-g3":
+    "From the 45-45-90 triangle: opposite = adjacent = 1. tan(π/4) = opp/adj = 1/1 = 1.",
+  "y11adv-ev-i1":
+    "From the 30-60-90 triangle: opposite to 60° is √3, hypotenuse is 2. sin(π/3) = √3/2.",
+  "y11adv-ev-i2":
+    "From the 30-60-90 triangle: adjacent to 30° is √3, hypotenuse is 2. cos(π/6) = √3/2.",
+  "y11adv-ev-i3":
+    "tan(π/6) = sin(π/6)/cos(π/6) = (1/2)/(√3/2) = 1/√3. Rationalise: 1/√3 × √3/√3 = √3/3.",
+  "y11adv-ev-i4":
+    "From the 45-45-90 triangle: adjacent = 1, hypotenuse = √2. cos(π/4) = 1/√2 = √2/2.",
+  "y11adv-ev-i5":
+    "sin²(π/3) + cos²(π/3) = (√3/2)² + (1/2)² = 3/4 + 1/4 = 1. This is the Pythagorean identity.",
+  "y11adv-ev-m1":
+    "sin(π/6) = sin(30°) = 1/2. In the 30-60-90 triangle the side opposite 30° is 1 and the hypotenuse is 2.",
+  "y11adv-ev-m2":
+    "cos(π/3) = cos(60°) = 1/2. Adjacent to 60° is 1 and the hypotenuse is 2 in the 30-60-90 triangle.",
+  "y11adv-ev-m3":
+    "sin(π/3) = sin(60°) = √3/2. The side opposite 60° is √3 and the hypotenuse is 2.",
+  "y11adv-ev-m4":
+    "cos(π/6) = cos(30°) = √3/2. The side adjacent to 30° is √3 and the hypotenuse is 2.",
+  "y11adv-ev-m5":
+    "tan(π/3) = tan(60°) = opp/adj = √3/1 = √3. From the 30-60-90 triangle with opposite √3 and adjacent 1.",
+  "y11adv-ev-m6":
+    "sin(π/4) = sin(45°) = 1/√2 = √2/2. In the 45-45-90 triangle: opposite = 1, hypotenuse = √2.",
+  "y11adv-ev-m8":
+    "2sin(π/6) + cos(π/3) = 2(1/2) + (1/2) = 1 + 1/2 = 3/2.",
+  "y11adv-ev-m9":
+    "tan(π/3) × cos(π/3) = √3 × 1/2 = √3/2.",
+
+  // ── Graphing sin, cos, tan ─────────────────────────────────────────────────
+  "y11adv-graph-g1":
+    "y = sin x has period 2π because one full wave completes from x = 0 to x = 2π — one full revolution of the unit circle.",
+  "y11adv-graph-g3":
+    "The cosine graph starts at y = 1 when x = 0 because cos(0) = 1. This is the y-intercept of y = cos x.",
+  "y11adv-graph-g4":
+    "y = tan x has period π because after half a revolution, sin and cos both change sign, so their ratio returns to its original value.",
+  "y11adv-graph-i1":
+    "y = cos x has the same period as y = sin x. Both repeat every 2π radians — one full revolution.",
+  "y11adv-graph-i5":
+    "After passing through (0, 0), the sine curve reaches zero again at x = π. The first positive x-intercept of y = sin x is π.",
+  "y11adv-graph-m1":
+    "y = sin x completes one full cycle from 0 to 2π. Its period is 2π.",
+  "y11adv-graph-m2":
+    "y = tan x has period π — half the period of sin and cos. After rotating half a turn, the ratio sin/cos repeats.",
+  "y11adv-graph-m4":
+    "The maximum value of y = sin x is 1, achieved at x = π/2 (the top of the unit circle).",
+  "y11adv-graph-m5":
+    "cos(π) = −1. At x = π the cosine curve is at its minimum, corresponding to the leftmost point (−1, 0) of the unit circle.",
+  "y11adv-graph-m6":
+    "sin(3π/2) = −1. At x = 3π/2 the sine curve is at its minimum, corresponding to the bottom of the unit circle.",
+  "y11adv-graph-m9":
+    "tan x is undefined where cos x = 0. The first positive value where cos x = 0 is x = π/2, so the first positive asymptote is x = π/2.",
+
   // ── Degrees and radians concept ───────────────────────────────────────────
   "y11adv-rcon-g2":
     "π/6 is the radian equivalent of 30°. Multiply 30 by π/180 to verify: 30π/180 = π/6. Memorise the benchmark table.",
@@ -573,6 +631,431 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         practicalChoice("y11adv-trig-exam-m8", "Which graph has starting value one?", "C", ["$y=\\sin x$", "$y=\\tan x$", "$y=\\cos x$", "$y=-\\cos x$"], "Cosine starts at 1 when x is zero.", "x=0"),
         practicalChoice("y11adv-trig-exam-m9", "Which exact value is correct?", "D", ["$\\frac{\\sqrt3}{2}$", "$-\\frac{\\sqrt2}{2}$", "$\\frac12$", "$-\\frac{\\sqrt3}{2}$"], "Use the reference angle and quadrant III cosine sign.", "\\cos\\left(\\frac{7\\pi}{6}\\right)"),
         formulaAnswer("y11adv-trig-exam-m10", "State the period of the basic tangent graph.", "y=\\tan x", "pi", ["\\pi", "π"]),
+      ],
+    };
+  }
+
+  // ── PHASE 2A v2 SLOTS ───────────────────────────────────────────────────────
+
+  if (lesson.slug === "exact-trig-values-special-triangles") {
+    const tri3060: import("../types").TriangleDiagram = {
+      description:
+        "Right triangle with the 30-degree angle at B (bottom-right), the 60-degree angle at A (top-left), and the right angle at C (bottom-left). The vertical side AC is labelled 1, the horizontal side BC is labelled √3, and the hypotenuse AB is labelled 2.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      sideLabels: { AC: "1", BC: "\\sqrt{3}", AB: "2" },
+      angleLabels: { A: "60\\degree\\,(\\frac{\\pi}{3})", B: "30\\degree\\,(\\frac{\\pi}{6})" },
+    };
+    const tri4545: import("../types").TriangleDiagram = {
+      description:
+        "Right isosceles triangle with 45-degree angles at A (top-left) and B (bottom-right), and the right angle at C (bottom-left). Both legs AC and BC are labelled 1 and the hypotenuse AB is labelled √2.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      sideLabels: { AC: "1", BC: "1", AB: "\\sqrt{2}" },
+      angleLabels: { A: "45\\degree\\,(\\frac{\\pi}{4})", B: "45\\degree\\,(\\frac{\\pi}{4})" },
+    };
+    return {
+      ...base,
+      description:
+        "Derive and recall exact sin, cos, and tan values for π/6, π/4, and π/3 using the 30-60-90 and 45-45-90 special triangles.",
+      learningIntention:
+        "Use the two special right triangles to derive and memorise exact trigonometric values for the angles 30°, 45°, and 60°.",
+      successCriteria: [
+        "Use SOHCAHTOA to read sin, cos, and tan from the 30-60-90 triangle.",
+        "Use SOHCAHTOA to read sin, cos, and tan from the 45-45-90 triangle.",
+        "Recall all nine exact values without a calculator.",
+        "Apply exact values to evaluate trigonometric expressions.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The 30-60-90 triangle has sides in the ratio 1 : √3 : 2. With the right angle at C, angle A = 60° (π/3) and angle B = 30° (π/6). The side opposite each angle gives the sine, the adjacent side gives the cosine, and their ratio gives the tangent.",
+          "The 45-45-90 triangle is isosceles with equal legs of length 1 and hypotenuse √2. Both non-right angles equal 45° (π/4).",
+          "Mnemonic for the values under the root (over 2): sin(30°) = √1/2 = 1/2, sin(45°) = √2/2, sin(60°) = √3/2. Cosine runs in the opposite order.",
+          "Rationalise √3/3 when the answer to tan(π/6) is requested in simplified form: 1/√3 = √3/3.",
+        ],
+        latexBlocks: [
+          "\\text{30-60-90: sides }1,\\,\\sqrt{3},\\,2",
+          "\\sin\\tfrac{\\pi}{6}=\\tfrac{1}{2},\\quad\\cos\\tfrac{\\pi}{6}=\\tfrac{\\sqrt{3}}{2},\\quad\\tan\\tfrac{\\pi}{6}=\\tfrac{1}{\\sqrt{3}}=\\tfrac{\\sqrt{3}}{3}",
+          "\\sin\\tfrac{\\pi}{3}=\\tfrac{\\sqrt{3}}{2},\\quad\\cos\\tfrac{\\pi}{3}=\\tfrac{1}{2},\\quad\\tan\\tfrac{\\pi}{3}=\\sqrt{3}",
+          "\\text{45-45-90: sides }1,\\,1,\\,\\sqrt{2}",
+          "\\sin\\tfrac{\\pi}{4}=\\cos\\tfrac{\\pi}{4}=\\tfrac{\\sqrt{2}}{2}=\\tfrac{1}{\\sqrt{2}},\\quad\\tan\\tfrac{\\pi}{4}=1",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Derive exact values from the 30-60-90 triangle",
+          questionLatex: "\\text{Find }\\sin,\\cos,\\tan\\text{ for }\\tfrac{\\pi}{6}\\text{ and }\\tfrac{\\pi}{3}.",
+          triangleDiagram: tri3060,
+          steps: [
+            { explanation: "Label the sides from the angle at B (30° = π/6): opp = AC = 1, adj = BC = √3, hyp = AB = 2.", latex: "\\sin\\tfrac{\\pi}{6}=\\tfrac{1}{2},\\quad\\cos\\tfrac{\\pi}{6}=\\tfrac{\\sqrt{3}}{2},\\quad\\tan\\tfrac{\\pi}{6}=\\tfrac{1}{\\sqrt{3}}=\\tfrac{\\sqrt{3}}{3}" },
+            { explanation: "From the angle at A (60° = π/3): opp = BC = √3, adj = AC = 1, hyp = AB = 2.", latex: "\\sin\\tfrac{\\pi}{3}=\\tfrac{\\sqrt{3}}{2},\\quad\\cos\\tfrac{\\pi}{3}=\\tfrac{1}{2},\\quad\\tan\\tfrac{\\pi}{3}=\\tfrac{\\sqrt{3}}{1}=\\sqrt{3}" },
+          ],
+          finalAnswerLatex: "\\sin\\tfrac{\\pi}{6}=\\tfrac{1}{2},\\;\\cos\\tfrac{\\pi}{6}=\\tfrac{\\sqrt{3}}{2},\\;\\tan\\tfrac{\\pi}{6}=\\tfrac{\\sqrt{3}}{3};\\quad\\sin\\tfrac{\\pi}{3}=\\tfrac{\\sqrt{3}}{2},\\;\\cos\\tfrac{\\pi}{3}=\\tfrac{1}{2},\\;\\tan\\tfrac{\\pi}{3}=\\sqrt{3}",
+        },
+        {
+          title: "Derive exact values from the 45-45-90 triangle",
+          questionLatex: "\\text{Find }\\sin,\\cos,\\tan\\text{ for }\\tfrac{\\pi}{4}.",
+          triangleDiagram: tri4545,
+          steps: [
+            { explanation: "From angle A (or B), 45°: opp = 1, adj = 1, hyp = √2.", latex: "\\sin\\tfrac{\\pi}{4}=\\tfrac{1}{\\sqrt{2}}=\\tfrac{\\sqrt{2}}{2},\\quad\\cos\\tfrac{\\pi}{4}=\\tfrac{1}{\\sqrt{2}}=\\tfrac{\\sqrt{2}}{2}" },
+            { explanation: "Tangent is opposite over adjacent.", latex: "\\tan\\tfrac{\\pi}{4}=\\tfrac{1}{1}=1" },
+          ],
+          finalAnswerLatex: "\\sin\\tfrac{\\pi}{4}=\\cos\\tfrac{\\pi}{4}=\\tfrac{\\sqrt{2}}{2},\\quad\\tan\\tfrac{\\pi}{4}=1",
+        },
+        {
+          title: "Evaluate a trigonometric expression using exact values",
+          questionLatex: "2\\cos\\tfrac{\\pi}{3}+\\tan\\tfrac{\\pi}{4}",
+          steps: [
+            { explanation: "Substitute the exact values.", latex: "2\\cdot\\tfrac{1}{2}+1" },
+            { explanation: "Simplify.", latex: "=1+1=2" },
+          ],
+          finalAnswerLatex: "2",
+        },
+      ],
+      guidedPractice: [
+        {
+          ...formulaAnswer("y11adv-ev-g1", "Evaluate without a calculator.", "\\sin\\left(\\frac{\\pi}{6}\\right)", "1/2", ["0.5"]),
+          hint: "Use the 30-60-90 triangle. The side opposite 30° is 1 and the hypotenuse is 2.",
+        },
+        {
+          ...formulaAnswer("y11adv-ev-g2", "Evaluate without a calculator.", "\\cos\\left(\\frac{\\pi}{3}\\right)", "1/2", ["0.5"]),
+          hint: "Use the 30-60-90 triangle. The side adjacent to 60° is 1 and the hypotenuse is 2.",
+        },
+        {
+          ...formulaAnswer("y11adv-ev-g3", "Evaluate without a calculator.", "\\tan\\left(\\frac{\\pi}{4}\\right)", "1", []),
+          hint: "Use the 45-45-90 triangle. Opposite and adjacent are equal, so the ratio is 1.",
+        },
+        practicalChoice(
+          "y11adv-ev-g4",
+          "A student writes $\\tan\\!\\left(\\frac{\\pi}{3}\\right)=1$. Identify the error.",
+          "C",
+          ["$\\tan(\\frac{\\pi}{3})$ is undefined", "$\\tan(\\frac{\\pi}{3})=\\frac{1}{2}$", "$\\tan(\\frac{\\pi}{4})=1$, not $\\tan(\\frac{\\pi}{3})$", "$\\tan(\\frac{\\pi}{3})=\\frac{\\sqrt{2}}{2}$"],
+          "tan(π/3) = √3 ≈ 1.73. The value 1 belongs to tan(π/4).",
+          "\\tan\\left(\\frac{\\pi}{3}\\right)"
+        ),
+      ],
+      independentPractice: [
+        {
+          ...formulaAnswer("y11adv-ev-i1", "Evaluate without a calculator.", "\\sin\\left(\\frac{\\pi}{3}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2", "√3/2"]),
+          hint: "From the 30-60-90 triangle, opposite to 60° is √3 and hypotenuse is 2.",
+        },
+        {
+          ...formulaAnswer("y11adv-ev-i2", "Evaluate without a calculator.", "\\cos\\left(\\frac{\\pi}{6}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2", "√3/2"]),
+          hint: "From the 30-60-90 triangle, adjacent to 30° is √3 and hypotenuse is 2.",
+        },
+        {
+          ...formulaAnswer("y11adv-ev-i3", "Evaluate without a calculator.", "\\tan\\left(\\frac{\\pi}{6}\\right)", "sqrt(3)/3", ["1/sqrt(3)", "\\sqrt{3}/3", "1/√3"]),
+          hint: "tan(π/6) = sin(π/6)/cos(π/6). Then rationalise the denominator.",
+        },
+        {
+          ...formulaAnswer("y11adv-ev-i4", "Evaluate without a calculator.", "\\cos\\left(\\frac{\\pi}{4}\\right)", "sqrt(2)/2", ["1/sqrt(2)", "\\sqrt{2}/2", "√2/2"]),
+          hint: "From the 45-45-90 triangle, adjacent is 1 and hypotenuse is √2.",
+        },
+        {
+          ...formulaAnswer("y11adv-ev-i5", "Evaluate without a calculator.", "\\sin^2\\!\\left(\\frac{\\pi}{3}\\right)+\\cos^2\\!\\left(\\frac{\\pi}{3}\\right)", "1", []),
+          hint: "Substitute the exact values, square them, then add. You should recognise this as the Pythagorean identity.",
+        },
+      ],
+      commonMistakes: [
+        { mistake: "Swapping sin(π/6) and sin(π/3) — writing sin(π/3) = 1/2.", fix: "sin(π/3) = √3/2 (larger angle, larger sine). Mnemonic: √1, √2, √3 over 2 for 30°, 45°, 60°." },
+        { mistake: "Writing tan(π/4) = √2.", fix: "tan(π/4) = opp/adj = 1/1 = 1 in the 45-45-90 triangle. √2 is the hypotenuse, not the tangent." },
+        { mistake: "Leaving tan(π/6) as 1/√3 without rationalising.", fix: "Multiply numerator and denominator by √3: 1/√3 = √3/3." },
+        { mistake: "Confusing cos(π/4) = √2 with the correct value √2/2.", fix: "The hypotenuse is √2; dividing the leg 1 by √2 gives 1/√2 = √2/2." },
+      ],
+      masteryQuiz: [
+        {
+          ...formulaAnswer("y11adv-ev-m1", "Evaluate without a calculator.", "\\sin\\left(\\frac{\\pi}{6}\\right)", "1/2", ["0.5"]),
+          hint: "Opposite to 30° is 1, hypotenuse is 2.",
+        },
+        {
+          ...formulaAnswer("y11adv-ev-m2", "Evaluate without a calculator.", "\\cos\\left(\\frac{\\pi}{3}\\right)", "1/2", ["0.5"]),
+          hint: "Adjacent to 60° is 1, hypotenuse is 2.",
+        },
+        {
+          ...formulaAnswer("y11adv-ev-m3", "Evaluate without a calculator.", "\\sin\\left(\\frac{\\pi}{3}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2"]),
+          hint: "Opposite to 60° is √3, hypotenuse is 2.",
+        },
+        {
+          ...formulaAnswer("y11adv-ev-m4", "Evaluate without a calculator.", "\\cos\\left(\\frac{\\pi}{6}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2"]),
+          hint: "Adjacent to 30° is √3, hypotenuse is 2.",
+        },
+        {
+          ...formulaAnswer("y11adv-ev-m5", "Evaluate without a calculator.", "\\tan\\left(\\frac{\\pi}{3}\\right)", "sqrt(3)", ["\\sqrt{3}"]),
+          hint: "Opposite to 60° is √3, adjacent is 1.",
+        },
+        {
+          ...formulaAnswer("y11adv-ev-m6", "Evaluate without a calculator.", "\\sin\\left(\\frac{\\pi}{4}\\right)", "sqrt(2)/2", ["1/sqrt(2)", "\\sqrt{2}/2"]),
+          hint: "Opposite is 1, hypotenuse is √2 in the 45-45-90 triangle.",
+        },
+        practicalChoice(
+          "y11adv-ev-m7",
+          "Which is the correct value of $\\cos\\!\\left(\\frac{\\pi}{4}\\right)$?",
+          "A",
+          ["$\\frac{\\sqrt{2}}{2}$", "$1$", "$\\frac{\\sqrt{3}}{2}$", "$\\frac{1}{2}$"],
+          "cos(π/4) = adjacent/hypotenuse = 1/√2 = √2/2.",
+          "\\cos\\left(\\frac{\\pi}{4}\\right)"
+        ),
+        {
+          ...formulaAnswer("y11adv-ev-m8", "Evaluate without a calculator.", "2\\sin\\!\\left(\\frac{\\pi}{6}\\right)+\\cos\\!\\left(\\frac{\\pi}{3}\\right)", "3/2", []),
+          hint: "Substitute sin(π/6) = 1/2 and cos(π/3) = 1/2, then compute 2(1/2) + 1/2.",
+        },
+        {
+          ...formulaAnswer("y11adv-ev-m9", "Evaluate without a calculator.", "\\tan\\!\\left(\\frac{\\pi}{3}\\right)\\times\\cos\\!\\left(\\frac{\\pi}{3}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2"]),
+          hint: "Substitute tan(π/3) = √3 and cos(π/3) = 1/2, then multiply.",
+        },
+        practicalChoice(
+          "y11adv-ev-m10",
+          "A student writes $\\sin\\!\\left(\\frac{\\pi}{3}\\right)=\\frac{1}{2}$. Identify the error.",
+          "B",
+          ["They used the wrong triangle", "They swapped $\\sin(\\frac{\\pi}{3})$ and $\\sin(\\frac{\\pi}{6})$", "They forgot to rationalise", "The hypotenuse should be √3"],
+          "sin(π/3) = √3/2. The value 1/2 belongs to sin(π/6).",
+          "\\sin\\left(\\frac{\\pi}{3}\\right)"
+        ),
+      ],
+    };
+  }
+
+  if (lesson.slug === "graphing-sin-cos-tan") {
+    const sinGraph: import("../types").CartesianGraph = {
+      description:
+        "The sine curve for 0 ≤ x ≤ 2π starts at the origin, rises to a maximum of 1 at x = π/2, returns to zero at x = π, falls to a minimum of −1 at x = 3π/2, and returns to zero at x = 2π.",
+      xMin: 0,
+      xMax: 2 * Math.PI + 0.3,
+      yMin: -1.5,
+      yMax: 1.5,
+      showGrid: true,
+      showAxisLabels: true,
+      xAxisLabel: "x",
+      yAxisLabel: "y",
+      xStep: Math.PI / 2,
+      points: [
+        { x: 0, y: 0, label: "0" },
+        { x: Math.PI / 2, y: 1, label: "π/2" },
+        { x: Math.PI, y: 0, label: "π" },
+        { x: 3 * Math.PI / 2, y: -1, label: "3π/2" },
+        { x: 2 * Math.PI, y: 0, label: "2π" },
+      ],
+      sinusoidals: [{ kind: "sin", a: 1, b: 1, c: 0, d: 0, label: "y = sin(x)", description: "The sine curve completes one full wave from x equals zero to x equals two pi." }],
+    };
+    const cosGraph: import("../types").CartesianGraph = {
+      description:
+        "The cosine curve for 0 ≤ x ≤ 2π starts at a maximum of 1 when x = 0, falls to zero at x = π/2, reaches a minimum of −1 at x = π, returns to zero at x = 3π/2, and reaches 1 again at x = 2π.",
+      xMin: 0,
+      xMax: 2 * Math.PI + 0.3,
+      yMin: -1.5,
+      yMax: 1.5,
+      showGrid: true,
+      showAxisLabels: true,
+      xAxisLabel: "x",
+      yAxisLabel: "y",
+      xStep: Math.PI / 2,
+      points: [
+        { x: 0, y: 1, label: "0" },
+        { x: Math.PI / 2, y: 0, label: "π/2" },
+        { x: Math.PI, y: -1, label: "π" },
+        { x: 3 * Math.PI / 2, y: 0, label: "3π/2" },
+        { x: 2 * Math.PI, y: 1, label: "2π" },
+      ],
+      sinusoidals: [{ kind: "cos", a: 1, b: 1, c: 0, d: 0, label: "y = cos(x)", description: "The cosine curve starts at its maximum of one and completes one full wave by x equals two pi." }],
+    };
+    const tanGraph: import("../types").CartesianGraph = {
+      description:
+        "The tangent curve on [0, 2π] has two branches. Each branch passes through zero, rising steeply toward vertical asymptotes at x = π/2 and x = 3π/2. Zeros occur at x = 0, π, and 2π.",
+      xMin: 0,
+      xMax: 2 * Math.PI + 0.3,
+      yMin: -3.5,
+      yMax: 3.5,
+      showGrid: true,
+      showAxisLabels: true,
+      xAxisLabel: "x",
+      yAxisLabel: "y",
+      xStep: Math.PI / 2,
+      points: [
+        { x: 0, y: 0, label: "0" },
+        { x: Math.PI, y: 0, label: "π" },
+        { x: 2 * Math.PI, y: 0, label: "2π" },
+      ],
+      sinusoidals: [{ kind: "tan", a: 1, b: 1, c: 0, d: 0, label: "y = tan(x)", description: "The tangent curve has vertical asymptotes at x equals pi over two and x equals three pi over two." }],
+    };
+    return {
+      ...base,
+      description:
+        "State and apply the period, range, starting value, zeros, maxima, minima, and asymptotes of y = sin x, y = cos x, and y = tan x.",
+      learningIntention:
+        "Describe and compare the key features of the three basic trigonometric graphs using radians.",
+      successCriteria: [
+        "State the period, range, and y-intercept of y = sin x and y = cos x.",
+        "State the period, range, and asymptote positions of y = tan x.",
+        "Locate zeros, maxima, and minima of y = sin x and y = cos x on [0, 2π].",
+        "State where y = tan x is undefined.",
+      ],
+      teaching: {
+        paragraphs: [
+          "y = sin x starts at 0, reaches a maximum of 1 at x = π/2, returns to 0 at x = π, reaches a minimum of −1 at x = 3π/2, and completes one period at x = 2π.",
+          "y = cos x starts at 1, falls to 0 at x = π/2, reaches a minimum of −1 at x = π, returns to 0 at x = 3π/2, and completes one period at x = 2π.",
+          "Both y = sin x and y = cos x have period 2π and range [−1, 1].",
+          "y = tan x is defined as sin x / cos x. It is undefined wherever cos x = 0, giving vertical asymptotes at x = π/2 + kπ for any integer k. Its period is π and its range is all real numbers.",
+        ],
+        latexBlocks: [
+          "y=\\sin x:\\quad\\text{period }2\\pi,\\quad\\text{range }[-1,1],\\quad y(0)=0",
+          "y=\\cos x:\\quad\\text{period }2\\pi,\\quad\\text{range }[-1,1],\\quad y(0)=1",
+          "y=\\tan x:\\quad\\text{period }\\pi,\\quad\\text{range }\\mathbb{R},\\quad\\text{asymptotes }x=\\tfrac{\\pi}{2}+k\\pi",
+          "\\text{Zeros of }\\sin x\\text{ on }[0,2\\pi]:\\;x=0,\\,\\pi,\\,2\\pi",
+          "\\text{Zeros of }\\cos x\\text{ on }[0,2\\pi]:\\;x=\\tfrac{\\pi}{2},\\,\\tfrac{3\\pi}{2}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Key points of y = sin x on [0, 2π]",
+          questionLatex: "y=\\sin x,\\quad 0\\le x\\le 2\\pi",
+          cartesianGraph: sinGraph,
+          steps: [
+            { explanation: "The curve starts at the origin.", latex: "(0,0)" },
+            { explanation: "Maximum at x = π/2.", latex: "\\left(\\tfrac{\\pi}{2},1\\right)" },
+            { explanation: "Zero, minimum, then back to zero.", latex: "(\\pi,0),\\;\\left(\\tfrac{3\\pi}{2},-1\\right),\\;(2\\pi,0)" },
+          ],
+          finalAnswerLatex: "\\text{Period }2\\pi,\\text{ range }[-1,1],\\;y(0)=0",
+        },
+        {
+          title: "Key features of y = cos x",
+          questionLatex: "y=\\cos x",
+          cartesianGraph: cosGraph,
+          steps: [
+            { explanation: "Cosine starts at its maximum.", latex: "y(0)=1" },
+            { explanation: "Period and range match sine.", latex: "\\text{period }2\\pi,\\quad\\text{range }[-1,1]" },
+            { explanation: "Zeros at x = π/2 and x = 3π/2.", latex: "\\cos\\tfrac{\\pi}{2}=0,\\quad\\cos\\tfrac{3\\pi}{2}=0" },
+          ],
+          finalAnswerLatex: "\\text{Period }2\\pi,\\text{ range }[-1,1],\\;y(0)=1,\\;\\text{zeros at }\\tfrac{\\pi}{2}\\text{ and }\\tfrac{3\\pi}{2}",
+        },
+        {
+          title: "Key features of y = tan x",
+          questionLatex: "y=\\tan x",
+          cartesianGraph: tanGraph,
+          steps: [
+            { explanation: "Tangent is undefined where cos x = 0.", latex: "\\text{asymptotes: }x=\\tfrac{\\pi}{2},\\;x=\\tfrac{3\\pi}{2}" },
+            { explanation: "Period is π (half that of sin and cos).", latex: "\\text{period }=\\pi" },
+            { explanation: "Range is all real numbers.", latex: "\\text{range }=\\mathbb{R}" },
+          ],
+          finalAnswerLatex: "\\text{Period }\\pi,\\text{ range }\\mathbb{R},\\;\\text{asymptotes at }x=\\tfrac{\\pi}{2}+k\\pi",
+        },
+      ],
+      guidedPractice: [
+        {
+          ...formulaAnswer("y11adv-graph-g1", "State the period of the graph.", "y=\\sin x", "2pi", ["2\\pi", "2π"]),
+          hint: "One complete wave of y = sin x takes from x = 0 to x = 2π.",
+        },
+        practicalChoice(
+          "y11adv-graph-g2",
+          "Which range is correct for $y=\\cos x$?",
+          "A",
+          ["$[-1,1]$", "$(0,1]$", "All real numbers", "$[-\\pi,\\pi]$"],
+          "Cosine values are bounded between −1 and 1 inclusive.",
+          "y=\\cos x"
+        ),
+        {
+          ...formulaAnswer("y11adv-graph-g3", "State the y-intercept of the graph.", "y=\\cos x", "1", []),
+          cartesianGraph: cosGraph,
+          hint: "Read the y-value when x = 0 from the graph.",
+        },
+        {
+          ...formulaAnswer("y11adv-graph-g4", "State the period of the graph.", "y=\\tan x", "pi", ["\\pi", "π"]),
+          hint: "Tangent repeats every half turn. Count the distance between identical-looking parts of the curve.",
+        },
+      ],
+      independentPractice: [
+        {
+          ...formulaAnswer("y11adv-graph-i1", "State the period of the graph.", "y=\\cos x", "2pi", ["2\\pi", "2π"]),
+          hint: "Cosine has the same period as sine.",
+        },
+        practicalChoice(
+          "y11adv-graph-i2",
+          "Which statement correctly describes $y=\\sin x$?",
+          "C",
+          ["Starts at 1, period $2\\pi$, range $[-1,1]$", "Starts at 0, period $\\pi$, range $[-1,1]$", "Starts at 0, period $2\\pi$, range $[-1,1]$", "Starts at 0, period $2\\pi$, range all reals"],
+          "y = sin x starts at 0 (not 1), has period 2π, and range [−1,1].",
+          "y=\\sin x"
+        ),
+        {
+          ...formulaAnswer("y11adv-graph-i3", "State the period of the graph.", "y=\\tan x", "pi", ["\\pi", "π"]),
+          cartesianGraph: tanGraph,
+          hint: "Read the distance between two consecutive asymptotes or identical-looking branches.",
+        },
+        practicalChoice(
+          "y11adv-graph-i4",
+          "Where does $y=\\cos x$ equal zero on $[0,2\\pi]$?",
+          "D",
+          ["$x=0$ and $x=\\pi$", "$x=\\pi$ only", "$x=0,\\,\\pi,\\,2\\pi$", "$x=\\tfrac{\\pi}{2}$ and $x=\\tfrac{3\\pi}{2}$"],
+          "Cosine is zero at the top and bottom of the unit circle: x = π/2 and x = 3π/2.",
+          "y=\\cos x"
+        ),
+        {
+          ...formulaAnswer("y11adv-graph-i5", "State the first positive x-intercept of the graph.", "y=\\sin x", "pi", ["\\pi", "π"]),
+          hint: "After x = 0, the sine curve returns to zero at x = π.",
+        },
+      ],
+      commonMistakes: [
+        { mistake: "Stating that y = tan x has period 2π.", fix: "Tangent has period π — half that of sine and cosine." },
+        { mistake: "Stating that y = tan x has range [−1, 1].", fix: "Tangent has no maximum or minimum; its range is all real numbers." },
+        { mistake: "Confusing the starting values: saying y = sin x starts at 1.", fix: "sin(0) = 0; cos(0) = 1. Cosine starts at 1." },
+        { mistake: "Locating the zeros of cos x at x = 0 and x = π.", fix: "cos(0) = 1 and cos(π) = −1. Cosine is zero at x = π/2 and x = 3π/2." },
+      ],
+      masteryQuiz: [
+        {
+          ...formulaAnswer("y11adv-graph-m1", "State the period of the graph.", "y=\\sin x", "2pi", ["2\\pi", "2π"]),
+          hint: "One full wave of y = sin x spans from 0 to 2π.",
+        },
+        {
+          ...formulaAnswer("y11adv-graph-m2", "State the period of the graph.", "y=\\tan x", "pi", ["\\pi", "π"]),
+          hint: "Tangent repeats every π radians.",
+        },
+        practicalChoice(
+          "y11adv-graph-m3",
+          "Which graph has a y-intercept of 1?",
+          "B",
+          ["$y=\\sin x$", "$y=\\cos x$", "$y=\\tan x$", "$y=-\\sin x$"],
+          "cos(0) = 1. Cosine starts at its maximum.",
+          "x=0"
+        ),
+        {
+          ...formulaAnswer("y11adv-graph-m4", "State the maximum value of the graph.", "y=\\sin x", "1", []),
+          hint: "Sine reaches its highest point at the top of the unit circle.",
+        },
+        {
+          ...formulaAnswer("y11adv-graph-m5", "Evaluate.", "\\cos\\pi", "-1", []),
+          hint: "At x = π the cosine curve is at its minimum.",
+        },
+        {
+          ...formulaAnswer("y11adv-graph-m6", "Evaluate.", "\\sin\\frac{3\\pi}{2}", "-1", []),
+          hint: "At x = 3π/2 the sine curve is at its minimum.",
+        },
+        practicalChoice(
+          "y11adv-graph-m7",
+          "A student states that $y=\\tan x$ has range $[-1,1]$. Identify the error.",
+          "C",
+          ["Tangent is never negative", "Tangent has no period", "Tangent has range all real numbers, not $[-1,1]$", "Tangent equals sine divided by sine"],
+          "Tangent = sin/cos and is unbounded. Its range is all real numbers.",
+          "y=\\tan x"
+        ),
+        practicalChoice(
+          "y11adv-graph-m8",
+          "A student states that $y=\\tan x$ has period $2\\pi$. Identify the error.",
+          "A",
+          ["Tangent has period $\\pi$, not $2\\pi$", "Tangent has no period", "Period $2\\pi$ is correct for tangent", "Tangent has period $\\pi/2$"],
+          "Tangent completes one cycle every π radians.",
+          "y=\\tan x"
+        ),
+        {
+          ...formulaAnswer("y11adv-graph-m9", "State the first positive vertical asymptote.", "y=\\tan x", "pi/2", ["\\pi/2", "π/2"]),
+          hint: "Tangent is undefined where cos x = 0. The first positive angle where cos x = 0 is π/2.",
+        },
+        practicalChoice(
+          "y11adv-graph-m10",
+          "Which set gives all zeros of $y=\\sin x$ on $[0,2\\pi]$?",
+          "D",
+          ["$\\left\\{\\frac{\\pi}{2},\\,\\frac{3\\pi}{2}\\right\\}$", "$\\{0,\\,\\pi\\}$", "$\\left\\{\\frac{\\pi}{2},\\,\\pi,\\,\\frac{3\\pi}{2}\\right\\}$", "$\\{0,\\,\\pi,\\,2\\pi\\}$"],
+          "sin x = 0 at x = 0, π, and 2π on [0, 2π].",
+          "y=\\sin x,\\quad x\\in[0,2\\pi]"
+        ),
       ],
     };
   }

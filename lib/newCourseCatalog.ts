@@ -936,6 +936,49 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               },
             ],
           },
+          {
+            slug: "exact-trig-values-special-triangles",
+            title: "Exact Trigonometric Values",
+            description: "Derive and recall exact sin, cos, and tan values for π/6, π/4, and π/3 using the 30-60-90 and 45-45-90 special triangles.",
+            stableSkillId: "y11adv-trig-measure-exact-trig-values-special-triangles",
+            legacySlugs: ["radians-exact-trigonometric-values"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-measure-exact-values-30-60-90",
+                label: "Derive exact sin, cos, tan for π/6 and π/3 from the 30-60-90 triangle",
+                legacySlugs: ["radians-exact-trigonometric-values"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-exact-values-45-45-90",
+                label: "Derive exact sin, cos, tan for π/4 from the 45-45-90 triangle",
+                legacySlugs: ["radians-exact-trigonometric-values"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-exact-values-application",
+                label: "Apply exact values to evaluate trigonometric expressions without a calculator",
+                legacySlugs: ["radians-exact-trigonometric-values"],
+              },
+            ],
+          },
+          {
+            slug: "graphing-sin-cos-tan",
+            title: "Graphs of Sine, Cosine and Tangent",
+            description: "State and apply the period, range, starting value, zeros, maxima, minima, and asymptotes of y = sin x, y = cos x, and y = tan x.",
+            stableSkillId: "y11adv-trig-measure-graphing-sin-cos-tan",
+            legacySlugs: ["unit-circle-trigonometric-graphs"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-measure-sin-cos-graph-features",
+                label: "State period, range, zeros, and starting value of y = sin x and y = cos x",
+                legacySlugs: ["unit-circle-trigonometric-graphs"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-tan-graph-features",
+                label: "State period, range, and asymptote positions of y = tan x",
+                legacySlugs: ["unit-circle-trigonometric-graphs"],
+              },
+            ],
+          },
           { slug: "trigonometry-measure-angles-exam-practice", title: "Trigonometry and Measure of Angles Exam Practice" },
         ],
       },
