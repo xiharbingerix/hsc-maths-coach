@@ -882,66 +882,61 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
   }
 
   if (lesson.slug === "graphing-sin-cos-tan") {
-    const sinGraph: import("../types").CartesianGraph = {
+    const sinGraph: import("../types").TrigGraphDiagram = {
       description:
         "The sine curve for 0 ≤ x ≤ 2π starts at the origin, rises to a maximum of 1 at x = π/2, returns to zero at x = π, falls to a minimum of −1 at x = 3π/2, and returns to zero at x = 2π.",
-      xMin: 0,
-      xMax: 2 * Math.PI + 0.3,
+      functionType: "sin",
+      equationLabel: "y = sin(x)",
+      xMin: "0",
+      xMax: "2pi",
       yMin: -1.5,
       yMax: 1.5,
-      showGrid: true,
-      showAxisLabels: true,
-      xAxisLabel: "x",
-      yAxisLabel: "y",
-      xStep: Math.PI / 2,
-      points: [
-        { x: 0, y: 0, label: "0" },
-        { x: Math.PI / 2, y: 1, label: "π/2" },
-        { x: Math.PI, y: 0, label: "π" },
-        { x: 3 * Math.PI / 2, y: -1, label: "3π/2" },
-        { x: 2 * Math.PI, y: 0, label: "2π" },
+      keyPoints: [
+        { x: "0", y: "0", label: "(0, 0)" },
+        { x: "pi/2", y: "1", label: "(pi/2, 1)" },
+        { x: "pi", y: "0", label: "(pi, 0)" },
+        { x: "3pi/2", y: "-1", label: "(3pi/2, -1)" },
+        { x: "2pi", y: "0", label: "(2pi, 0)" },
       ],
-      sinusoidals: [{ kind: "sin", a: 1, b: 1, c: 0, d: 0, label: "y = sin(x)", description: "The sine curve completes one full wave from x equals zero to x equals two pi." }],
+      periodMarkers: [{ x: "0", label: "0" }, { x: "2pi", label: "2pi" }],
     };
-    const cosGraph: import("../types").CartesianGraph = {
+    const cosGraph: import("../types").TrigGraphDiagram = {
       description:
         "The cosine curve for 0 ≤ x ≤ 2π starts at a maximum of 1 when x = 0, falls to zero at x = π/2, reaches a minimum of −1 at x = π, returns to zero at x = 3π/2, and reaches 1 again at x = 2π.",
-      xMin: 0,
-      xMax: 2 * Math.PI + 0.3,
+      functionType: "cos",
+      equationLabel: "y = cos(x)",
+      xMin: "0",
+      xMax: "2pi",
       yMin: -1.5,
       yMax: 1.5,
-      showGrid: true,
-      showAxisLabels: true,
-      xAxisLabel: "x",
-      yAxisLabel: "y",
-      xStep: Math.PI / 2,
-      points: [
-        { x: 0, y: 1, label: "0" },
-        { x: Math.PI / 2, y: 0, label: "π/2" },
-        { x: Math.PI, y: -1, label: "π" },
-        { x: 3 * Math.PI / 2, y: 0, label: "3π/2" },
-        { x: 2 * Math.PI, y: 1, label: "2π" },
+      keyPoints: [
+        { x: "0", y: "1", label: "(0, 1)" },
+        { x: "pi/2", y: "0", label: "(pi/2, 0)" },
+        { x: "pi", y: "-1", label: "(pi, -1)" },
+        { x: "3pi/2", y: "0", label: "(3pi/2, 0)" },
+        { x: "2pi", y: "1", label: "(2pi, 1)" },
       ],
-      sinusoidals: [{ kind: "cos", a: 1, b: 1, c: 0, d: 0, label: "y = cos(x)", description: "The cosine curve starts at its maximum of one and completes one full wave by x equals two pi." }],
+      periodMarkers: [{ x: "0", label: "0" }, { x: "2pi", label: "2pi" }],
     };
-    const tanGraph: import("../types").CartesianGraph = {
+    const tanGraph: import("../types").TrigGraphDiagram = {
       description:
         "The tangent curve on [0, 2π] has two branches. Each branch passes through zero, rising steeply toward vertical asymptotes at x = π/2 and x = 3π/2. Zeros occur at x = 0, π, and 2π.",
-      xMin: 0,
-      xMax: 2 * Math.PI + 0.3,
+      functionType: "tan",
+      equationLabel: "y = tan(x)",
+      xMin: "0",
+      xMax: "2pi",
       yMin: -3.5,
       yMax: 3.5,
-      showGrid: true,
-      showAxisLabels: true,
-      xAxisLabel: "x",
-      yAxisLabel: "y",
-      xStep: Math.PI / 2,
-      points: [
-        { x: 0, y: 0, label: "0" },
-        { x: Math.PI, y: 0, label: "π" },
-        { x: 2 * Math.PI, y: 0, label: "2π" },
+      keyPoints: [
+        { x: "0", y: "0", label: "(0, 0)" },
+        { x: "pi", y: "0", label: "(pi, 0)" },
+        { x: "2pi", y: "0", label: "(2pi, 0)" },
       ],
-      sinusoidals: [{ kind: "tan", a: 1, b: 1, c: 0, d: 0, label: "y = tan(x)", description: "The tangent curve has vertical asymptotes at x equals pi over two and x equals three pi over two." }],
+      asymptotes: [
+        { x: "pi/2", label: "x = pi/2" },
+        { x: "3pi/2", label: "x = 3pi/2" },
+      ],
+      periodMarkers: [{ x: "0", label: "0" }, { x: "pi", label: "pi" }, { x: "2pi", label: "2pi" }],
     };
     return {
       ...base,
@@ -974,7 +969,7 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         {
           title: "Key points of y = sin x on [0, 2π]",
           questionLatex: "y=\\sin x,\\quad 0\\le x\\le 2\\pi",
-          cartesianGraph: sinGraph,
+          trigGraphDiagram: sinGraph,
           steps: [
             { explanation: "The curve starts at the origin.", latex: "(0,0)" },
             { explanation: "Maximum at x = π/2.", latex: "\\left(\\tfrac{\\pi}{2},1\\right)" },
@@ -985,7 +980,7 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         {
           title: "Key features of y = cos x",
           questionLatex: "y=\\cos x",
-          cartesianGraph: cosGraph,
+          trigGraphDiagram: cosGraph,
           steps: [
             { explanation: "Cosine starts at its maximum.", latex: "y(0)=1" },
             { explanation: "Period and range match sine.", latex: "\\text{period }2\\pi,\\quad\\text{range }[-1,1]" },
@@ -996,7 +991,7 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         {
           title: "Key features of y = tan x",
           questionLatex: "y=\\tan x",
-          cartesianGraph: tanGraph,
+          trigGraphDiagram: tanGraph,
           steps: [
             { explanation: "Tangent is undefined where cos x = 0.", latex: "\\text{asymptotes: }x=\\tfrac{\\pi}{2},\\;x=\\tfrac{3\\pi}{2}" },
             { explanation: "Period is π (half that of sin and cos).", latex: "\\text{period }=\\pi" },
@@ -1020,7 +1015,7 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         ),
         {
           ...formulaAnswer("y11adv-graph-g3", "State the y-intercept of the graph.", "y=\\cos x", "1", []),
-          cartesianGraph: cosGraph,
+          trigGraphDiagram: cosGraph,
           hint: "Read the y-value when x = 0 from the graph.",
         },
         {
@@ -1043,7 +1038,7 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         ),
         {
           ...formulaAnswer("y11adv-graph-i3", "State the period of the graph.", "y=\\tan x", "pi", ["\\pi", "π"]),
-          cartesianGraph: tanGraph,
+          trigGraphDiagram: tanGraph,
           hint: "Read the distance between two consecutive asymptotes or identical-looking branches.",
         },
         practicalChoice(
