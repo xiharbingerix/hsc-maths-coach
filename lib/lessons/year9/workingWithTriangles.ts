@@ -1333,7 +1333,7 @@ const trigRatiosIntro: LessonContent = {
       "\\text{Right angle at }C,\\quad\\theta\\text{ at }A,\\quad AC=5,\\;BC=12,\\;AB=13.",
       "12/13",
       "Opposite is BC = 12, hypotenuse is AB = 13. So sin theta = 12/13.",
-      [],
+      ["\\frac{12}{13}", "0.923", "0.92"],
       triangle(
         "Right triangle with right angle at C, theta at A, AC=5, BC=12, AB=13.",
         { AB: "13", AC: "5", BC: "12" },
@@ -1346,7 +1346,7 @@ const trigRatiosIntro: LessonContent = {
       "\\text{Right angle at }C,\\quad\\theta\\text{ at }A,\\quad AC=5,\\;BC=12,\\;AB=13.",
       "12/5",
       "Tangent equals opposite over adjacent. Opposite is BC = 12, adjacent is AC = 5. So tan theta = 12/5.",
-      [],
+      ["\\frac{12}{5}", "2.4"],
       triangle(
         "Right triangle with right angle at C, theta at A, AC=5, BC=12, AB=13.",
         { AB: "13", AC: "5", BC: "12" },
@@ -1440,7 +1440,7 @@ const trigRatiosIntro: LessonContent = {
       "\\text{Right angle at }C,\\quad\\theta\\text{ at }A,\\quad AC=3,\\;BC=4,\\;AB=5.",
       "4/3",
       "Tangent equals opposite over adjacent. Opposite is BC = 4, adjacent is AC = 3. So tan theta = 4/3.",
-      [],
+      ["\\frac{4}{3}", "1.333", "1.33"],
       triangle(
         "Right triangle with right angle at C, theta at A, AC=3, BC=4, AB=5.",
         { AB: "5", AC: "3", BC: "4" },
@@ -1712,7 +1712,7 @@ const trigFindingSidesMultiply: LessonContent = {
       "\\text{hyp}=15,\\quad\\theta=40^\\circ,\\quad x\\text{ is opposite}",
       "9.6",
       "Sine: x = 15 × sin 40° = 15 × 0.6428 ≈ 9.6.",
-      [],
+      ["9.60"],
       triangle(
         "Right triangle with right angle at C, 40 degrees at A, hypotenuse 15 and unknown opposite x.",
         { AB: "15", BC: "x" },
@@ -1725,7 +1725,7 @@ const trigFindingSidesMultiply: LessonContent = {
       "\\text{hyp}=14,\\quad\\theta=37^\\circ,\\quad x\\text{ is adjacent (theta at }B)",
       "11.2",
       "Cosine: x = 14 × cos 37° = 14 × 0.7986 ≈ 11.2.",
-      [],
+      ["11.20"],
       {
         description:
           "Right triangle with right angle at C, 37 degrees at B, hypotenuse 14 and unknown adjacent x.",
@@ -1745,7 +1745,7 @@ const trigFindingSidesMultiply: LessonContent = {
       "\\text{adj}=7,\\quad\\theta=53^\\circ,\\quad x\\text{ is opposite}",
       "9.3",
       "Tangent: x = 7 × tan 53° = 7 × 1.3270 ≈ 9.3.",
-      [],
+      ["9.30"],
       triangleAltB(
         "Right triangle with right angle at B, 53 degrees at A, adjacent AC=7 and unknown opposite BC=x.",
         { AC: "7", BC: "x" },
@@ -1811,7 +1811,7 @@ const trigFindingSidesMultiply: LessonContent = {
       "\\text{hyp}=10,\\quad\\theta=37^\\circ,\\quad x\\text{ is adjacent (theta at }B)",
       "8.0",
       "Cosine: x = 10 × cos 37° = 10 × 0.7986 ≈ 8.0.",
-      [],
+      ["8"],
       {
         description:
           "Right triangle with right angle at C, 37 degrees at B, hypotenuse 10 and unknown adjacent x.",
@@ -1831,7 +1831,7 @@ const trigFindingSidesMultiply: LessonContent = {
       "\\text{adj}=6,\\quad\\theta=37^\\circ,\\quad x\\text{ is opposite}",
       "4.5",
       "Tangent: x = 6 × tan 37° = 6 × 0.7536 ≈ 4.5.",
-      [],
+      ["4.50"],
       triangleAltB(
         "Right triangle with right angle at B, 37 degrees at A, adjacent AC=6 and unknown opposite BC=x.",
         { AC: "6", BC: "x" },
@@ -1848,7 +1848,13 @@ const trigFindingSidesMultiply: LessonContent = {
         "$x=20\\times\\tan53^\\circ$",
         "$x=\\frac{20}{\\cos53^\\circ}$",
       ],
-      "The adjacent and hypotenuse are involved — use cosine and multiply: x = 20 × cos 53°."
+      "The adjacent and hypotenuse are involved — use cosine and multiply: x = 20 × cos 53°.",
+      "\\text{hyp}=20,\\quad\\theta=53^\\circ,\\quad x\\text{ is adjacent}.",
+      triangle(
+        "Right triangle with right angle at C, 53 degrees at A, hypotenuse AB=20 and unknown adjacent AC=x.",
+        { AB: "20", AC: "x" },
+        { A: "53°" }
+      )
     ),
     answer(
       "tri-sm-m5",
@@ -1876,7 +1882,7 @@ const trigFindingSidesMultiply: LessonContent = {
       "\\text{hyp}=18,\\quad\\theta=40^\\circ,\\quad x\\text{ is opposite}",
       "11.6",
       "Sine: x = 18 × sin 40° = 18 × 0.6428 ≈ 11.6.",
-      [],
+      ["11.60"],
       triangle(
         "Right triangle with right angle at C, 40 degrees at A, hypotenuse 18 and unknown opposite x.",
         { AB: "18", BC: "x" },
@@ -1889,7 +1895,7 @@ const trigFindingSidesMultiply: LessonContent = {
       "\\text{adj}=10,\\quad\\theta=60^\\circ,\\quad x\\text{ is opposite}",
       "17.3",
       "Tangent: x = 10 × tan 60° = 10 × 1.7321 ≈ 17.3.",
-      [],
+      ["17.30"],
       triangleAltB(
         "Right triangle with right angle at B, 60 degrees at A, adjacent AC=10 and unknown opposite BC=x.",
         { AC: "10", BC: "x" },
@@ -1902,7 +1908,7 @@ const trigFindingSidesMultiply: LessonContent = {
       "\\text{hyp}=5\\text{ m},\\quad\\theta=37^\\circ,\\quad\\text{height is opposite}",
       "3.0",
       "Sine: height = 5 × sin 37° = 5 × 0.6018 ≈ 3.0 m.",
-      [],
+      ["3", "3 m", "3.0 m"],
       triangle(
         "Right triangle: ramp is hypotenuse 5 m, 37 degrees at base, unknown height x.",
         { AB: "5 m", BC: "x" },
@@ -2069,7 +2075,7 @@ const trigFindingSidesDivide: LessonContent = {
       "\\text{adj}=8,\\quad\\theta=37^\\circ\\text{ at }B,\\quad x\\text{ is the hypotenuse}",
       "10.0",
       "Cosine: x = 8 ÷ cos 37° = 8 ÷ 0.7986 ≈ 10.0.",
-      [],
+      ["10"],
       {
         description:
           "Right triangle with right angle at C, 37 degrees at B, adjacent BC=8 and unknown hypotenuse AB=x.",
@@ -2091,7 +2097,7 @@ const trigFindingSidesDivide: LessonContent = {
       "\\text{opp}=8,\\quad\\theta=53^\\circ,\\quad x\\text{ is the hypotenuse}",
       "10.0",
       "Sine: x = 8 ÷ sin 53° = 8 ÷ 0.7986 ≈ 10.0.",
-      [],
+      ["10"],
       triangle(
         "Right triangle with 53 degrees at A, opposite BC=8 and unknown hypotenuse AB=x.",
         { AB: "x", BC: "8" },
@@ -2124,7 +2130,7 @@ const trigFindingSidesDivide: LessonContent = {
       "\\text{opp}=7,\\quad\\theta=40^\\circ,\\quad x\\text{ is the adjacent}",
       "8.3",
       "Tangent: x = 7 ÷ tan 40° = 7 ÷ 0.8391 ≈ 8.3.",
-      [],
+      ["8.30"],
       triangleAltB(
         "Right triangle with right angle at B, 40 degrees at A, opposite BC=7 and unknown adjacent AC=x.",
         { AC: "x", BC: "7" },
@@ -2149,7 +2155,7 @@ const trigFindingSidesDivide: LessonContent = {
       "\\text{opp}=3\\text{ m},\\quad\\theta=37^\\circ,\\quad x\\text{ is the slide surface (hypotenuse)}",
       "5.0",
       "Sine: x = 3 ÷ sin 37° = 3 ÷ 0.6018 ≈ 5.0 m.",
-      [],
+      ["5", "5 m", "5.0 m"],
       triangle(
         "Right triangle: slide surface is hypotenuse x, height 3 m is opposite, angle 37 degrees at base.",
         { AB: "x", BC: "3 m" },
@@ -2195,7 +2201,7 @@ const trigFindingSidesDivide: LessonContent = {
       "\\text{adj}=6,\\quad\\theta=45^\\circ,\\quad x\\text{ is the hypotenuse}",
       "8.5",
       "Cosine: x = 6 ÷ cos 45° = 6 ÷ 0.7071 ≈ 8.5.",
-      [],
+      ["8.50"],
       triangleAltB(
         "Right triangle with right angle at B, 45 degrees at A, adjacent AC=6 and unknown hypotenuse AB=x.",
         { AB: "x", AC: "6" },
@@ -2212,7 +2218,13 @@ const trigFindingSidesDivide: LessonContent = {
         "$x=9\\times\\cos45^\\circ$",
         "$x=\\frac{\\sin45^\\circ}{9}$",
       ],
-      "Sine links opp and hyp. Hyp is unknown, so rearrange: x = opp ÷ sin θ."
+      "Sine links opp and hyp. Hyp is unknown, so rearrange: x = opp ÷ sin θ.",
+      "\\text{opp}=9,\\quad\\theta=45^\\circ,\\quad x\\text{ is hypotenuse}.",
+      triangle(
+        "Right triangle with right angle at C, 45 degrees at A, opposite BC=9 and unknown hypotenuse AB=x.",
+        { AB: "x", BC: "9" },
+        { A: "45°" }
+      )
     ),
     answer(
       "tri-sd-m4",
@@ -2220,7 +2232,7 @@ const trigFindingSidesDivide: LessonContent = {
       "\\text{opp}=12,\\quad\\theta=53^\\circ,\\quad x\\text{ is the adjacent}",
       "9.0",
       "Tangent: x = 12 ÷ tan 53° = 12 ÷ 1.3270 ≈ 9.0.",
-      [],
+      ["9"],
       triangleAltB(
         "Right triangle with right angle at B, 53 degrees at A, opposite BC=12 and unknown adjacent AC=x.",
         { AC: "x", BC: "12" },
@@ -2233,7 +2245,7 @@ const trigFindingSidesDivide: LessonContent = {
       "\\text{adj}=9,\\quad\\theta=45^\\circ,\\quad x\\text{ is the hypotenuse}",
       "12.7",
       "Cosine: x = 9 ÷ cos 45° = 9 ÷ 0.7071 ≈ 12.7.",
-      [],
+      ["12.70"],
       triangle(
         "Right triangle with 45 degrees at A, adjacent AC=9 and unknown hypotenuse AB=x.",
         { AB: "x", AC: "9" },
@@ -2278,7 +2290,7 @@ const trigFindingSidesDivide: LessonContent = {
       "\\text{opp}=2\\text{ m},\\quad\\theta=40^\\circ,\\quad x\\text{ is the slide surface (hypotenuse)}",
       "3.1",
       "Sine: x = 2 ÷ sin 40° = 2 ÷ 0.6428 ≈ 3.1 m.",
-      [],
+      ["3.10", "3.1 m"],
       triangle(
         "Right triangle: slide surface is hypotenuse x, height 2 m opposite, angle 40 degrees.",
         { AB: "x", BC: "2 m" },
@@ -2303,7 +2315,7 @@ const trigFindingSidesDivide: LessonContent = {
       "\\text{opp}=10,\\quad\\theta=60^\\circ,\\quad x\\text{ is the adjacent}",
       "5.8",
       "Tangent: x = 10 ÷ tan 60° = 10 ÷ 1.7321 ≈ 5.8.",
-      [],
+      ["5.80"],
       triangleAltB(
         "Right triangle with right angle at B, 60 degrees at A, opposite BC=10 and unknown adjacent AC=x.",
         { AC: "x", BC: "10" },
@@ -2494,7 +2506,13 @@ const trigChoosingRatio: LessonContent = {
         "$x=13\\times\\sin40^\\circ$",
         "$x=\\frac{13}{\\cos40^\\circ}$",
       ],
-      "Opposite and hypotenuse — use sine. Unknown x is in the numerator, so multiply: x = 13 × sin 40°."
+      "Opposite and hypotenuse — use sine. Unknown x is in the numerator, so multiply: x = 13 × sin 40°.",
+      "\\text{hyp}=13,\\quad\\theta=40^\\circ,\\quad x\\text{ is opposite}.",
+      triangle(
+        "Right triangle with right angle at C, 40 degrees at A, hypotenuse AB=13 and unknown opposite BC=x.",
+        { AB: "13", BC: "x" },
+        { A: "40°" }
+      )
     ),
     choice(
       "tri-ch-i3",
@@ -2514,7 +2532,7 @@ const trigChoosingRatio: LessonContent = {
       "\\text{hyp}=20,\\quad\\theta=53^\\circ,\\quad x\\text{ is opposite}",
       "16.0",
       "Sine — opposite in numerator, so multiply: x = 20 × sin 53° = 20 × 0.7986 ≈ 16.0.",
-      [],
+      ["16"],
       triangle(
         "Right triangle with 53 degrees at A, hypotenuse AB=20 and unknown opposite BC=x.",
         { AB: "20", BC: "x" },
@@ -2527,7 +2545,7 @@ const trigChoosingRatio: LessonContent = {
       "\\text{opp}=6,\\quad\\theta=37^\\circ,\\quad x\\text{ is the hypotenuse}",
       "10.0",
       "Sine — hypotenuse in denominator, so divide: x = 6 ÷ sin 37° = 6 ÷ 0.6018 ≈ 10.0.",
-      [],
+      ["10"],
       triangleAltB(
         "Right triangle with 37 degrees at A, opposite BC=6 and unknown hypotenuse AB=x.",
         { AB: "x", BC: "6" },
@@ -2581,7 +2599,7 @@ const trigChoosingRatio: LessonContent = {
       "\\text{adj}=11,\\quad\\theta=30^\\circ,\\quad x\\text{ is opposite}",
       "6.4",
       "Tangent — opposite in numerator, multiply: x = 11 × tan 30° = 11 × 0.5774 ≈ 6.4.",
-      [],
+      ["6.40"],
       triangleAltB(
         "Right triangle with right angle at B, 30 degrees at A, adjacent AC=11 and unknown opposite BC=x.",
         { AC: "11", BC: "x" },
@@ -2606,7 +2624,7 @@ const trigChoosingRatio: LessonContent = {
       "\\text{adj}=10,\\quad\\theta=37^\\circ,\\quad x\\text{ is the hypotenuse}",
       "12.5",
       "Cosine — hyp in denominator, divide: x = 10 ÷ cos 37° = 10 ÷ 0.7986 ≈ 12.5.",
-      [],
+      ["12.50"],
       triangle(
         "Right triangle with 37 degrees at A, adjacent AC=10 and unknown hypotenuse AB=x.",
         { AB: "x", AC: "10" },
@@ -2631,7 +2649,7 @@ const trigChoosingRatio: LessonContent = {
       "\\text{hyp}=16,\\quad\\theta=45^\\circ,\\quad x\\text{ is opposite}",
       "11.3",
       "Sine — opposite in numerator, multiply: x = 16 × sin 45° = 16 × 0.7071 ≈ 11.3.",
-      [],
+      ["11.30"],
       {
         description:
           "Right triangle with right angle at C, 45 degrees at B, hypotenuse AB=16 and unknown opposite AC=x.",
@@ -2651,7 +2669,7 @@ const trigChoosingRatio: LessonContent = {
       "\\text{opp}=8,\\quad\\theta=53^\\circ,\\quad x\\text{ is adjacent}",
       "6.0",
       "Tangent — adjacent in denominator, divide: x = 8 ÷ tan 53° = 8 ÷ 1.3270 ≈ 6.0.",
-      [],
+      ["6"],
       triangleAltB(
         "Right triangle with right angle at B, 53 degrees at A, opposite BC=8 and unknown adjacent AC=x.",
         { AC: "x", BC: "8" },
@@ -3187,7 +3205,20 @@ const trigApplications: LessonContent = {
         "Opposite",
         "The right angle",
       ],
-      "The shadow lies along the ground next to the angle — it is the adjacent side."
+      "The shadow lies along the ground next to the angle — it is the adjacent side.",
+      "\\text{Building height is vertical; shadow is horizontal along the ground.}",
+      {
+        description:
+          "Right triangle for a shadow problem: vertical building height is opposite, horizontal shadow is adjacent, sun-ray path is hypotenuse.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AC: "building", BC: "shadow", AB: "sun ray" },
+        angleLabels: { B: "theta" },
+      }
     ),
     answer(
       "tri-app-g3",
@@ -3195,7 +3226,7 @@ const trigApplications: LessonContent = {
       "\\text{adj (shadow)}=8\\text{ m},\\quad\\theta=37^\\circ,\\quad\\text{height is opposite}",
       "6.0",
       "Tangent: height = 8 × tan 37° = 8 × 0.7536 ≈ 6.0 m.",
-      [],
+      ["6", "6 m", "6.0 m"],
       {
         description:
           "Right triangle: shadow 8 m is adjacent, angle 37 degrees at base, unknown height x is opposite.",
@@ -3215,7 +3246,7 @@ const trigApplications: LessonContent = {
       "\\text{hyp (ramp surface)}=6\\text{ m},\\quad\\theta=30^\\circ,\\quad\\text{run is adjacent}",
       "5.2",
       "Cosine: run = 6 × cos 30° = 6 × 0.8660 ≈ 5.2 m.",
-      [],
+      ["5.20", "5.2 m"],
       triangle(
         "Right triangle: ramp surface 6 m is hypotenuse, angle 30 degrees at base, unknown run x is adjacent.",
         { AB: "6 m", AC: "x" },
@@ -3230,7 +3261,7 @@ const trigApplications: LessonContent = {
       "\\text{hyp (ramp surface)}=10\\text{ m},\\quad\\theta=37^\\circ,\\quad\\text{rise is opposite}",
       "6.0",
       "Sine: rise = 10 × sin 37° = 10 × 0.6018 ≈ 6.0 m.",
-      [],
+      ["6", "6 m", "6.0 m"],
       triangle(
         "Right triangle: ramp surface 10 m is hypotenuse, angle 37 degrees at base, unknown rise x.",
         { AB: "10 m", BC: "x" },
@@ -3243,7 +3274,7 @@ const trigApplications: LessonContent = {
       "\\text{opp (height)}=12\\text{ m},\\quad\\theta=53^\\circ,\\quad\\text{horizontal is adjacent}",
       "9.0",
       "Tangent: horizontal = 12 ÷ tan 53° = 12 ÷ 1.3270 ≈ 9.0 m.",
-      [],
+      ["9", "9 m", "9.0 m"],
       triangleAltB(
         "Right triangle: building height 12 m is opposite, angle 53 degrees at base, unknown horizontal distance x is adjacent.",
         { AC: "x", BC: "12 m" },
@@ -3334,7 +3365,7 @@ const trigApplications: LessonContent = {
       "\\text{opp (rise)}=5\\text{ m},\\quad\\theta=30^\\circ,\\quad\\text{run is adjacent}",
       "8.7",
       "Tangent: run = 5 ÷ tan 30° = 5 ÷ 0.5774 ≈ 8.7 m.",
-      [],
+      ["8.70", "8.7 m"],
       triangleAltB(
         "Right triangle: rise 5 m is opposite, angle 30 degrees at base, unknown run x is adjacent.",
         { AC: "x", BC: "5 m" },
@@ -3352,9 +3383,9 @@ const trigApplications: LessonContent = {
       "tri-app-m4",
       "A shadow is 12 m long and the sun angle is 45 degrees. Find the building height in metres.",
       "\\text{adj (shadow)}=12\\text{ m},\\quad\\theta=45^\\circ,\\quad\\text{height is opposite}",
-      "12.0",
+      "12 m",
       "Tangent: height = 12 × tan 45° = 12 × 1 = 12.0 m.",
-      ["12"],
+      ["12", "12.0", "12.0 m"],
       {
         description:
           "Right triangle: shadow 12 m is adjacent, angle 45 degrees at base, unknown height x is opposite.",
@@ -3399,7 +3430,7 @@ const trigApplications: LessonContent = {
       "\\text{adj (span)}=10\\text{ m},\\quad\\theta=40^\\circ,\\quad\\text{rise is opposite}",
       "8.4",
       "Tangent: rise = 10 × tan 40° = 10 × 0.8391 ≈ 8.4 m.",
-      [],
+      ["8.40", "8.4 m"],
       triangleAltB(
         "Right triangle: span 10 m is adjacent, angle 40 degrees at base, unknown rise x is opposite.",
         { AC: "10 m", BC: "x" },
@@ -3412,7 +3443,7 @@ const trigApplications: LessonContent = {
       "\\text{adj (distance)}=7\\text{ m},\\quad\\theta=60^\\circ,\\quad\\text{height is opposite}",
       "12.1",
       "Tangent: height = 7 × tan 60° = 7 × 1.7321 ≈ 12.1 m.",
-      [],
+      ["12.10", "12.1 m"],
       {
         description:
           "Right triangle: horizontal distance 7 m is adjacent, angle 60 degrees at base, unknown height x is opposite.",
@@ -3444,7 +3475,7 @@ const trigApplications: LessonContent = {
       "\\text{opp (rise)}=4\\text{ m},\\quad\\theta=53^\\circ,\\quad\\text{ramp surface is hypotenuse}",
       "5.0",
       "Sine: ramp = 4 ÷ sin 53° = 4 ÷ 0.7986 ≈ 5.0 m.",
-      [],
+      ["5", "5 m", "5.0 m"],
       triangle(
         "Right triangle: ramp surface x is hypotenuse, rise 4 m is opposite, angle 53 degrees at base.",
         { AB: "x", BC: "4 m" },
