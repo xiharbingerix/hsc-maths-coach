@@ -1,5 +1,5 @@
 import { courseCatalogue, courseUnits } from "./courseUnits";
-import { newCoursePathways } from "./newCourseCatalog";
+import { isVisibleCourseLesson, newCoursePathways } from "./newCourseCatalog";
 import { year12AdvancedNestedLessonHref } from "./year12AdvancedRoutes";
 import { applicationsDifferentiationOutline } from "./lessons/applicationsDifferentiation";
 import { differentialCalculusOutline } from "./lessons/differentialCalculus";
@@ -77,7 +77,7 @@ const inProgressCourseSlugsWithContent = new Set<string>(
     .filter(
       (course) =>
         course.status === "in_progress" &&
-        course.units.some((unit) => unit.lessons.length > 0)
+        course.units.some((unit) => unit.lessons.some(isVisibleCourseLesson))
     )
     .map((course) => course.slug)
 );
@@ -90,15 +90,17 @@ const nestedCourseTargets = newCoursePathways.flatMap((course) => {
     return [];
 
   return course.units.flatMap((unit) =>
-    unit.lessons.map<CourseLessonTarget>((lesson) => ({
-      courseSlug: course.slug,
-      courseTitle: course.title,
-      unitSlug: unit.slug,
-      unitTitle: unit.title,
-      lessonSlug: lesson.slug,
-      lessonTitle: lesson.title,
-      href: `/course/${course.slug}/${unit.slug}/${lesson.slug}`,
-    }))
+    unit.lessons
+      .filter(isVisibleCourseLesson)
+      .map<CourseLessonTarget>((lesson) => ({
+        courseSlug: course.slug,
+        courseTitle: course.title,
+        unitSlug: unit.slug,
+        unitTitle: unit.title,
+        lessonSlug: lesson.slug,
+        lessonTitle: lesson.title,
+        href: `/course/${course.slug}/${unit.slug}/${lesson.slug}`,
+      }))
   );
 });
 

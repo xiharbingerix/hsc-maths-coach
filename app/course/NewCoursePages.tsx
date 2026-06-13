@@ -5,8 +5,8 @@ import {
   getNewCourse,
   getNewCourseLesson,
   getNewCourseUnit,
-  getNewCourseUnitLessons,
   getNewCourseUnitOutline,
+  getVisibleNewCourseLessons,
   newCourseLessonCount,
   newCourseUnitLessonCount,
 } from "../../lib/newCourseCatalog";
@@ -389,25 +389,28 @@ export function NewCourseLessonPage({
   lessonSlug,
 }: Readonly<{ courseSlug: string; unitSlug: string; lessonSlug: string }>) {
   const lesson = getNewCourseLesson(courseSlug, unitSlug, lessonSlug);
-  const allLessons = getNewCourseUnitLessons(courseSlug, unitSlug);
+  const visibleLessons = getVisibleNewCourseLessons(courseSlug, unitSlug);
 
   if (!lesson) {
     notFound();
   }
 
-  const lessonIndex = allLessons.findIndex((l) => l.slug === lessonSlug);
-  const prevLesson = lessonIndex > 0 ? allLessons[lessonIndex - 1] : undefined;
+  const lessonIndex = visibleLessons.findIndex((l) => l.slug === lessonSlug);
+  const prevLesson = lessonIndex > 0 ? visibleLessons[lessonIndex - 1] : undefined;
   const nextLesson =
-    lessonIndex < allLessons.length - 1
-      ? allLessons[lessonIndex + 1]
-      : undefined;
+    lessonIndex >= 0 && lessonIndex < visibleLessons.length - 1
+      ? visibleLessons[lessonIndex + 1]
+      : lessonIndex === -1
+        ? visibleLessons[0]
+        : undefined;
+  const lessonNavigation = lessonIndex === -1 ? [lesson, ...visibleLessons] : visibleLessons;
 
   return (
     <LessonRenderer
       courseSlug={courseSlug}
       unitSlug={unitSlug}
       lessonSlug={lesson.slug}
-      lessons={allLessons}
+      lessons={lessonNavigation}
       backHref={`/course/${courseSlug}/${unitSlug}`}
       backLabel={`Back to ${lesson.moduleTitle}`}
       prevHref={

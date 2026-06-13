@@ -1,6 +1,9 @@
 import { NewCourseUnitPage } from "../../NewCoursePages";
 import { notFound } from "next/navigation";
-import { getNewCourseUnit } from "../../../../lib/newCourseCatalog";
+import {
+  getNewCourseUnit,
+  newCourseUnitLessonCount,
+} from "../../../../lib/newCourseCatalog";
 
 export default async function Year10MathematicsAdvancedUnitPage({
   params,
@@ -10,7 +13,7 @@ export default async function Year10MathematicsAdvancedUnitPage({
   const { unitSlug } = await params;
   const unit = getNewCourseUnit("year-10-mathematics-advanced", unitSlug);
 
-  if (!unit || unit.lessons.length === 0) {
+  if (!unit || newCourseUnitLessonCount(unit) === 0) {
     notFound();
   }
 

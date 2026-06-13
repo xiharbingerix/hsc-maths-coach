@@ -2804,6 +2804,14 @@ export function getNewCourseUnit(courseSlug: string, unitSlug: string) {
   return getNewCourse(courseSlug)?.units.find((unit) => unit.slug === unitSlug);
 }
 
+export function isHiddenLegacyLesson(lesson: CourseLessonSeed) {
+  return lesson.showInCourseNav === false;
+}
+
+export function isVisibleCourseLesson(lesson: CourseLessonSeed) {
+  return !isHiddenLegacyLesson(lesson);
+}
+
 export function getNewCourseLesson(
   courseSlug: string,
   unitSlug: string,
@@ -2839,6 +2847,22 @@ export function getNewCourseUnitLessons(courseSlug: string, unitSlug: string) {
   );
 }
 
+export function getVisibleNewCourseLessons(courseSlug: string, unitSlug: string) {
+  const course = getNewCourse(courseSlug);
+  const unit = course?.units.find((nextUnit) => nextUnit.slug === unitSlug);
+
+  if (!course || !unit) {
+    return [];
+  }
+
+  return unit.lessons
+    .map((lesson, index) => ({ lesson, index }))
+    .filter(({ lesson }) => isVisibleCourseLesson(lesson))
+    .map(({ lesson, index }) => buildLesson(course, unit, lesson, index));
+}
+
+export const getVisibleCourseUnitLessons = getVisibleNewCourseLessons;
+
 export function getNewCourseUnitOutline(
   courseSlug: string,
   unitSlug: string
@@ -2847,7 +2871,7 @@ export function getNewCourseUnitOutline(
 
   return (
     unit?.lessons
-      .filter((lesson) => lesson.showInCourseNav !== false)
+      .filter(isVisibleCourseLesson)
       .map((lesson) => ({
         id: lesson.slug,
         slug: lesson.slug,
@@ -2861,7 +2885,7 @@ export function getNewCourseUnitOutline(
 }
 
 export function newCourseUnitLessonCount(unit: CourseUnitSeed) {
-  return unit.lessons.filter((lesson) => lesson.showInCourseNav !== false).length;
+  return unit.lessons.filter(isVisibleCourseLesson).length;
 }
 
 export function newCourseLessonCount(course: CoursePathwaySeed) {

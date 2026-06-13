@@ -53,7 +53,19 @@ Controls whether a lesson appears in student-facing course overview/unit pathway
 
 - Default: `true`.
 - Set to `false` for legacy route entries that should remain resolvable but should not be presented as active Skill Map v2 slots.
-- `getNewCourseLesson` still resolves hidden lessons; `getNewCourseUnitOutline` and lesson counts hide them.
+- `getNewCourseLesson` still resolves hidden lessons; visible lesson helpers, `getNewCourseUnitOutline`, and lesson counts hide them.
+
+## Hidden Legacy Lesson Rule
+
+Hidden legacy lessons are route-resolvable compatibility entries, not active learning targets. A lesson with `showInCourseNav: false` should be excluded from:
+
+- course overview lesson counts,
+- unit pathway navigation,
+- default Continue Learning targets,
+- previous/next lesson sequencing,
+- question-bank seeding when it also has `seedQuestions: false`.
+
+Direct routes must continue to resolve through `getNewCourseLesson` so bookmarked or historical URLs still render. Student-facing lists and default progression should use visible lesson helpers such as `getVisibleNewCourseLessons` or `getVisibleCourseUnitLessons`.
 
 ### `stableSkillId`
 
