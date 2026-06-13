@@ -2,7 +2,7 @@
 # Skill Map v2 Split Plan
 
 Created: 2026-06-13  
-Status: Phase 1 ✅, Phase 2A ✅, Phase 2B ✅ implemented 2026-06-13. Phase 3 blueprint added 2026-06-13.
+Status: Phase 1 ✅, Phase 2A ✅, Phase 2B ✅, Phase 3 ✅ implemented 2026-06-13.
 Course: `year-11-advanced`  
 Unit: `trigonometry-measure-angles`  
 NSW strand: MA-T1 — Trigonometry and Measure of Angles
@@ -120,6 +120,50 @@ NSW strand: MA-T1 — Trigonometry and Measure of Angles
 - Question ID prefixes follow task brief (`y11adv-ucv-*`, `y11adv-ucq-*`) rather than planning doc's earlier suggestions (`y11adv-uc-*`, `y11adv-refang-*`).
 - Catalog entries placed between `exact-trig-values-special-triangles` and `graphing-sin-cos-tan`, with `legacySlugs: ["unit-circle-trigonometric-graphs"]`.
 - Both lessons have `stableSkillId` and `skillCheckpoints` per Skill Map v2 contract.
+
+---
+
+## Phase 3 Implementation Status — 2026-06-13
+
+### Slots implemented
+
+| Slug | Title | Status | Seed count |
+|---|---|---|---|
+| `trig-graph-amplitude-period` | Amplitude and Period of Trigonometric Graphs | ✅ Done | 19 (4 guided + 5 independent + 10 mastery) |
+| `trig-graph-transformations` | Transformations of Trigonometric Graphs | ✅ Done | 19 (4 guided + 5 independent + 10 mastery) |
+
+### Visual payload usage
+
+| Lesson | Payload type | Used on |
+|---|---|---|
+| `trig-graph-amplitude-period` | `CartesianGraph` sinusoidals | WE1 (y=3sinx, base+transformed), WE2 (y=cos2x), WE3 (y=-2sin3x), i3 (y=3cos2x), m4 (y=2sinπx) |
+| `trig-graph-transformations` | `CartesianGraph` sinusoidals | WE1 (y=2sin(x+π/3)+1), WE2 (y=3cos(2x-π/2)), WE3 (y=-sinx+2), i2 (y=sinx+2), m4 (y=2sinx+3) |
+
+**Note:** `TrigGraphDiagram` was NOT used in Phase 3. Per the renderer audit in the Phase 3 blueprint, `TrigGraphDiagram` only draws the base unscaled function (no a/b/c/d fields). All transformed-graph visuals use `CartesianGraph` with `sinusoidals`.
+
+### Question ID prefixes used
+
+| Lesson | Prefix |
+|---|---|
+| `trig-graph-amplitude-period` | `y11adv-amp-*` |
+| `trig-graph-transformations` | `y11adv-shift-*` |
+
+### Catalog entries
+
+| Slug | `stableSkillId` | `legacySlugs` | `seedQuestions` |
+|---|---|---|---|
+| `trig-graph-amplitude-period` | `y11adv-trig-measure-trig-graph-amplitude-period` | `["unit-circle-trigonometric-graphs"]` | true |
+| `trig-graph-transformations` | `y11adv-trig-measure-trig-graph-transformations` | `["unit-circle-trigonometric-graphs"]` | true |
+
+### Validation results
+
+| Check | Result |
+|---|---|
+| `npx tsc --noEmit` | ✅ Clean |
+| `npm run build` | ✅ Clean |
+| `npm run audit:lessons` | ✅ PASS (0 failures; 0 warnings on both new lessons) |
+| `seed --dry-run` (year-11-advanced) | ✅ 2 new lessons seeded (19 each); 2 legacy still skipped |
+| `git diff --check` | ✅ Clean (pre-existing LF/CRLF notice on docs file only) |
 
 ---
 

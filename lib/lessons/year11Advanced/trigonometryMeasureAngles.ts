@@ -326,6 +326,72 @@ const TRIG_MEASURE_EXPLANATIONS: Record<string, string> = {
   "y11adv-ucv-m10":
     "2 sin(π/6) cos(π/6) = 2 × (1/2) × (√3/2) = √3/2. Substitute the exact values and multiply step by step.",
 
+  // ── Amplitude and period ─────────────────────────────────────────────────────
+  "y11adv-amp-g1":
+    "Amplitude is |a| in y = a cos(x). Here a = 4, so amplitude = |4| = 4.",
+  "y11adv-amp-g2":
+    "Period = 2π/b = 2π/3. For y = sin(bx), a larger b compresses the wave horizontally, giving a shorter period.",
+  "y11adv-amp-g3":
+    "Amplitude is |a|, always non-negative. y = −3 sin(x) has a = −3, so amplitude = |−3| = 3. The negative sign reflects the graph but does not reduce the amplitude.",
+  "y11adv-amp-i1":
+    "Period = 2π/b = 2π/2 = π. Doubling b halves the period.",
+  "y11adv-amp-i2":
+    "Amplitude = |a| = |−5| = 5. The negative reflects the wave; amplitude is always the absolute value.",
+  "y11adv-amp-i3":
+    "The graph shows y = 3 cos(2x). Read the amplitude: the wave oscillates between −3 and 3, so amplitude = 3. Verify: |a| = |3| = 3.",
+  "y11adv-amp-i4":
+    "Maximum value of y = a sin(x) (with d = 0) equals |a| = 4.",
+  "y11adv-amp-m1":
+    "Period = 2π/b = 2π/2 = π.",
+  "y11adv-amp-m2":
+    "Amplitude = |a| = 7.",
+  "y11adv-amp-m3":
+    "Period = 2π/b = 2π/3.",
+  "y11adv-amp-m4":
+    "For y = 2 sin(πx), b = π. Period = 2π/π = 2.",
+  "y11adv-amp-m5":
+    "Maximum value = d + |a| = 0 + 5 = 5.",
+  "y11adv-amp-m6":
+    "Minimum value = d − |a| = 0 − 3 = −3.",
+  "y11adv-amp-m9":
+    "Amplitude = |a| = 2 and period = π. Period = 2π/b, so b = 2π/π = 2.",
+  "y11adv-amp-m10":
+    "For y = 3 sin(πx/2), b = π/2. Period = 2π/(π/2) = 2π × 2/π = 4.",
+
+  // ── Trig graph transformations ─────────────────────────────────────────────
+  "y11adv-shift-g1":
+    "Vertical shift is d in y = sin(x) + d. Here d = 3.",
+  "y11adv-shift-g2":
+    "y = cos(x − π/4) is cos(x + (−π/4)), so c = −π/4, b = 1. Phase shift = −c/b = −(−π/4)/1 = π/4 right.",
+  "y11adv-shift-g3":
+    "Maximum value = d + |a| = 1 + 2 = 3.",
+  "y11adv-shift-i1":
+    "The vertical shift is d = −4 in y = 3 cos(2x) − 4.",
+  "y11adv-shift-i2":
+    "y = sin(x) + 2 has d = 2 and |a| = 1. Maximum = d + |a| = 2 + 1 = 3.",
+  "y11adv-shift-i3":
+    "Amplitude = |a| = 4 in y = 4 sin(x − π/3) + 1.",
+  "y11adv-shift-i4":
+    "Minimum = d − |a| = −3 − 2 = −5.",
+  "y11adv-shift-m1":
+    "Amplitude = |a| = |−3| = 3.",
+  "y11adv-shift-m2":
+    "Period = 2π/b = 2π/3.",
+  "y11adv-shift-m3":
+    "Vertical shift d = −2.",
+  "y11adv-shift-m4":
+    "Minimum = d − |a| = 3 − 2 = 1.",
+  "y11adv-shift-m5":
+    "Phase shift = −c/b = −(π/2)/2 = −π/4. The magnitude is π/4.",
+  "y11adv-shift-m6":
+    "Maximum = d + |a| = 2 + 3 = 5.",
+  "y11adv-shift-m7":
+    "Minimum = d − |a| = −1 − 2 = −3.",
+  "y11adv-shift-m9":
+    "Period = 2π/π = 2.",
+  "y11adv-shift-m10":
+    "Maximum = d + |a| = 1 + 2 = 3.",
+
   // ── Unit circle — all quadrants ────────────────────────────────────────────
   "y11adv-ucq-g1":
     "π/2 < 5π/6 < π, so 5π/6 is in Q2. The reference angle is π − 5π/6 = π/6.",
@@ -2126,6 +2192,470 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         {
           ...formulaAnswer("y11adv-ucq-m10", "Evaluate using the related-angle rule $\\sin(\\pi+\\theta)=-\\sin\\theta$.", "\\sin\\!\\left(\\pi+\\frac{\\pi}{6}\\right)", "-1/2", ["-0.5"]),
           hint: "sin(π + π/6) = −sin(π/6) = −(1/2) = −1/2. The rule adds a negative sign for Q3 angles.",
+        },
+      ],
+    };
+  }
+
+  // ── PHASE 3 v2 SLOTS ────────────────────────────────────────────────────────
+
+  if (lesson.slug === "trig-graph-amplitude-period") {
+    const we1Graph: import("../types").CartesianGraph = {
+      description:
+        "y = 3 sin(x) on [0, 2π]. The wave oscillates between −3 and 3 — amplitude 3. The shape is identical to y = sin(x) but vertically stretched by a factor of 3.",
+      xMin: 0, xMax: 2 * Math.PI, yMin: -3.5, yMax: 3.5,
+      xStep: Math.PI / 2, yStep: 1,
+      xAxisLabel: "x",
+      sinusoidals: [
+        { kind: "sin", a: 1, b: 1, c: 0, d: 0, label: "y = sin(x)", description: "Base sine curve for comparison — amplitude 1." },
+        { kind: "sin", a: 3, b: 1, c: 0, d: 0, label: "y = 3sin(x)", description: "Amplitude 3: maximum 3, minimum −3, same period 2π." },
+      ],
+    };
+    const we2Graph: import("../types").CartesianGraph = {
+      description:
+        "y = cos(2x) on [0, 2π]. Two full cycles are shown because b = 2 halves the period to π. Key points: (0,1), (π/4,0), (π/2,−1), (3π/4,0), (π,1).",
+      xMin: 0, xMax: 2 * Math.PI, yMin: -1.5, yMax: 1.5,
+      xStep: Math.PI / 4, yStep: 0.5,
+      xAxisLabel: "x",
+      sinusoidals: [
+        { kind: "cos", a: 1, b: 2, c: 0, d: 0, label: "y = cos(2x)", description: "Period π: two complete waves fit between 0 and 2π." },
+      ],
+    };
+    const we3Graph: import("../types").CartesianGraph = {
+      description:
+        "y = −2 sin(3x) on [0, 2π/3] — one full period. Amplitude 2 (reflected), period 2π/3. The graph starts at 0 and immediately falls to its minimum of −2 (reflection of y = 2 sin(3x)).",
+      xMin: 0, xMax: (2 * Math.PI) / 3, yMin: -2.5, yMax: 2.5,
+      xStep: Math.PI / 6, yStep: 1,
+      xAxisLabel: "x",
+      sinusoidals: [
+        { kind: "sin", a: -2, b: 3, c: 0, d: 0, label: "y = −2sin(3x)", description: "Amplitude 2, reflected: starts at 0, minimum −2, maximum 2, period 2π/3." },
+      ],
+    };
+    const i3Graph: import("../types").CartesianGraph = {
+      description:
+        "y = 3 cos(2x) on [0, π] — one full period. The wave oscillates between −3 and 3.",
+      xMin: 0, xMax: Math.PI, yMin: -3.5, yMax: 3.5,
+      xStep: Math.PI / 4, yStep: 1,
+      xAxisLabel: "x",
+      sinusoidals: [
+        { kind: "cos", a: 3, b: 2, c: 0, d: 0, label: "y = 3cos(2x)", description: "Amplitude 3, period π." },
+      ],
+    };
+    const m4Graph: import("../types").CartesianGraph = {
+      description:
+        "y = 2 sin(πx) on [0, 2] — one full period. b = π gives period 2π/π = 2.",
+      xMin: 0, xMax: 2, yMin: -2.5, yMax: 2.5,
+      xStep: 0.5, yStep: 1,
+      sinusoidals: [
+        { kind: "sin", a: 2, b: Math.PI, c: 0, d: 0, label: "y = 2sin(πx)", description: "Period 2: one complete wave from x = 0 to x = 2." },
+      ],
+    };
+    return {
+      ...base,
+      description:
+        "Identify the amplitude and period of y = a sin(bx) and y = a cos(bx), and apply the formulas amplitude = |a| and period = 2π/b.",
+      learningIntention:
+        "Learn how the constants a and b in y = a sin(bx) control the vertical size (amplitude) and horizontal spacing (period) of the wave.",
+      successCriteria: [
+        "State the amplitude of y = a sin(bx) as |a|.",
+        "State the period of y = sin(bx) or y = cos(bx) as $\\frac{2\\pi}{b}$.",
+        "Explain why a negative value of a reflects the graph without changing the amplitude.",
+        "State the maximum and minimum values of y = a sin(bx) + d.",
+        "Find b given a required period.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The amplitude of y = a sin(bx) is |a|. It measures the maximum displacement from the midline. A negative a reflects the graph but does not change the amplitude.",
+          "The period of y = sin(bx) or y = cos(bx) is 2π/b. A larger b means the wave completes a cycle in less horizontal space — a shorter period.",
+          "For y = sin(x) the period is 2π and the amplitude is 1. For y = 3 sin(2x) the amplitude is 3 and the period is 2π/2 = π.",
+          "The maximum value of y = a sin(bx) is |a| and the minimum is −|a| (when d = 0).",
+        ],
+        latexBlocks: [
+          "\\text{amplitude}=|a|",
+          "\\text{period}=\\frac{2\\pi}{b}\\quad(\\text{for }\\sin\\text{ and }\\cos)",
+          "\\text{range}=[-|a|,\\,|a|]\\quad(\\text{when }d=0)",
+          "y=a\\sin(bx):\\quad\\text{max }|a|,\\quad\\min -|a|",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Amplitude: y = 3 sin(x)",
+          questionLatex: "y=3\\sin x",
+          cartesianGraph: we1Graph,
+          steps: [
+            { explanation: "Identify a and b.", latex: "a=3,\\quad b=1" },
+            { explanation: "Amplitude is |a|.", latex: "\\text{amplitude}=|3|=3" },
+            { explanation: "Period is unchanged: b = 1.", latex: "\\text{period}=\\frac{2\\pi}{1}=2\\pi" },
+            { explanation: "Range stretches from −3 to 3.", latex: "\\text{range}=[-3,3]" },
+          ],
+          finalAnswerLatex: "\\text{amplitude }3,\\quad\\text{period }2\\pi,\\quad\\text{range }[-3,3]",
+        },
+        {
+          title: "Period: y = cos(2x)",
+          questionLatex: "y=\\cos(2x)",
+          cartesianGraph: we2Graph,
+          steps: [
+            { explanation: "Identify b = 2.", latex: "b=2" },
+            { explanation: "Period = 2π/b.", latex: "\\text{period}=\\frac{2\\pi}{2}=\\pi" },
+            { explanation: "Amplitude is unchanged: |a| = |1| = 1.", latex: "\\text{amplitude}=1" },
+            { explanation: "Key points compress to fit in [0, π]: zero at π/4 and 3π/4, maximum at 0 and π.", latex: "\\text{zeros at }\\frac{\\pi}{4},\\,\\frac{3\\pi}{4}" },
+          ],
+          finalAnswerLatex: "\\text{amplitude }1,\\quad\\text{period }\\pi",
+        },
+        {
+          title: "Both effects: y = −2 sin(3x)",
+          questionLatex: "y=-2\\sin(3x)",
+          cartesianGraph: we3Graph,
+          steps: [
+            { explanation: "Identify a = −2 and b = 3.", latex: "a=-2,\\quad b=3" },
+            { explanation: "Amplitude is |a| — ignore the sign.", latex: "\\text{amplitude}=|-2|=2" },
+            { explanation: "Period = 2π/b.", latex: "\\text{period}=\\frac{2\\pi}{3}" },
+            { explanation: "Negative a reflects the graph: the curve opens downward first, going to −2 before reaching 2.", latex: "\\text{reflected: starts at }0\\text{ and falls to }-2" },
+          ],
+          finalAnswerLatex: "\\text{amplitude }2,\\quad\\text{period }\\frac{2\\pi}{3},\\quad\\text{reflected}",
+        },
+      ],
+      guidedPractice: [
+        {
+          ...formulaAnswer("y11adv-amp-g1", "State the amplitude.", "y=4\\cos x", "4", []),
+          hint: "Amplitude = |a|. Read the coefficient of cos.",
+        },
+        {
+          ...formulaAnswer("y11adv-amp-g2", "State the period.", "y=\\sin(3x)", "2pi/3", ["2\\pi/3", "2π/3"]),
+          hint: "Period = 2π/b. Identify b = 3, then divide.",
+        },
+        {
+          ...formulaAnswer("y11adv-amp-g3", "State the amplitude.", "y=-3\\sin x", "3", []),
+          hint: "Amplitude = |a|. The negative sign causes reflection but does not change the amplitude.",
+        },
+        practicalChoice(
+          "y11adv-amp-g4",
+          "What is the period of $y=\\cos(4x)$?",
+          "D",
+          ["$8\\pi$", "$2\\pi$", "$4\\pi$", "$\\frac{\\pi}{2}$"],
+          "Period = 2π/b = 2π/4 = π/2. Larger b gives a shorter period.",
+          "y=\\cos(4x)"
+        ),
+      ],
+      independentPractice: [
+        {
+          ...formulaAnswer("y11adv-amp-i1", "State the period.", "y=\\sin(2x)", "pi", ["\\pi", "π"]),
+          hint: "Period = 2π/b = 2π/2.",
+        },
+        {
+          ...formulaAnswer("y11adv-amp-i2", "State the amplitude.", "y=-5\\cos x", "5", []),
+          hint: "Amplitude = |a| = |−5|.",
+        },
+        {
+          ...formulaAnswer("y11adv-amp-i3", "The graph shows y = 3cos(2x). State the amplitude.", "y=3\\cos(2x)", "3", []),
+          cartesianGraph: i3Graph,
+          hint: "Read the maximum y-value from the graph.",
+        },
+        {
+          ...formulaAnswer("y11adv-amp-i4", "State the maximum value.", "y=4\\sin x", "4", []),
+          hint: "Maximum value = |a| (when d = 0).",
+        },
+        practicalChoice(
+          "y11adv-amp-i5",
+          "A student says $y=\\sin(3x)$ has period $6\\pi$. Identify the error.",
+          "B",
+          [
+            "The student used the correct formula but made an arithmetic error",
+            "Period $=2\\pi/b=2\\pi/3$, not $6\\pi$. The student multiplied instead of dividing",
+            "The period of $y=\\sin(3x)$ is actually $3\\pi$",
+            "There is no error — $6\\pi$ is correct",
+          ],
+          "Period = 2π/b = 2π/3. The student wrote 2π × b instead of 2π ÷ b.",
+          "y=\\sin(3x)"
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Writing period = 2πb instead of 2π/b.", fix: "Period is divided by b, not multiplied. Bigger b means faster oscillation, so the period gets SHORTER." },
+        { mistake: "Writing amplitude = a including the sign — e.g. −3 for y = −3sin(x).", fix: "Amplitude = |a|, always non-negative. y = −3sin(x) has amplitude 3." },
+        { mistake: "Thinking y = sin(πx) has period π because b = π.", fix: "Period = 2π/π = 2, not π. Always divide 2π by b." },
+        { mistake: "Confusing amplitude change with vertical shift.", fix: "Amplitude stretches the wave; vertical shift moves the midline. y = 3sin(x) still has midline y = 0." },
+      ],
+      masteryQuiz: [
+        {
+          ...formulaAnswer("y11adv-amp-m1", "State the period.", "y=\\sin(2x)", "pi", ["\\pi", "π"]),
+          hint: "Period = 2π/b.",
+        },
+        {
+          ...formulaAnswer("y11adv-amp-m2", "State the amplitude.", "y=7\\cos x", "7", []),
+          hint: "Amplitude = |a|.",
+        },
+        {
+          ...formulaAnswer("y11adv-amp-m3", "State the period.", "y=4\\sin(3x)", "2pi/3", ["2\\pi/3", "2π/3"]),
+          hint: "Period = 2π/3.",
+        },
+        {
+          ...formulaAnswer("y11adv-amp-m4", "The graph shows y = 2sin(πx). State the period.", "y=2\\sin(\\pi x)", "2", []),
+          cartesianGraph: m4Graph,
+          hint: "b = π. Period = 2π/π.",
+        },
+        {
+          ...formulaAnswer("y11adv-amp-m5", "State the maximum value.", "y=5\\cos x", "5", []),
+          hint: "Maximum = d + |a| = 0 + 5.",
+        },
+        {
+          ...formulaAnswer("y11adv-amp-m6", "State the minimum value.", "y=-3\\sin(2x)", "-3", []),
+          hint: "Minimum = d − |a| = 0 − 3.",
+        },
+        practicalChoice(
+          "y11adv-amp-m7",
+          "Which is the range of $y=4\\cos x$?",
+          "D",
+          ["$(0,4]$", "$[-1,1]$", "$[0,4]$", "$[-4,4]$"],
+          "Amplitude = 4, so range = [−4, 4].",
+          "y=4\\cos x"
+        ),
+        practicalChoice(
+          "y11adv-amp-m8",
+          "A student doubles $b$ and says the period doubles. Identify the error.",
+          "A",
+          ["Period halves when $b$ doubles: period $=2\\pi/b$", "The student is correct — period doubles", "Period is unaffected by $b$", "Period doubles only for cosine, not sine"],
+          "Period = 2π/b. Doubling b halves the period, not doubles it.",
+          "y=\\sin(bx)"
+        ),
+        {
+          ...formulaAnswer("y11adv-amp-m9", "y = a sin(bx) has amplitude 2 and period π. Find b.", "\\text{amplitude }2,\\text{ period }\\pi", "2", []),
+          hint: "Period = 2π/b = π. Solve for b.",
+        },
+        {
+          ...formulaAnswer("y11adv-amp-m10", "State the period.", "y=3\\sin\\!\\left(\\frac{\\pi x}{2}\\right)", "4", []),
+          hint: "b = π/2. Period = 2π ÷ (π/2) = 4.",
+        },
+      ],
+    };
+  }
+
+  if (lesson.slug === "trig-graph-transformations") {
+    const we1Graph: import("../types").CartesianGraph = {
+      description:
+        "y = 2 sin(x + π/3) + 1 on [0, 2π]. Amplitude 2, midline y = 1, range [−1, 3]. The curve is shifted left by π/3 compared to y = 2 sin(x) + 1.",
+      xMin: 0, xMax: 2 * Math.PI, yMin: -1.5, yMax: 3.5,
+      xStep: Math.PI / 2, yStep: 1,
+      xAxisLabel: "x",
+      lines: [{ kind: "linear", m: 0, b: 1, label: "midline y = 1" }],
+      sinusoidals: [
+        { kind: "sin", a: 2, b: 1, c: Math.PI / 3, d: 1, label: "y = 2sin(x + π/3) + 1", description: "Amplitude 2, phase shift −π/3 (left), midline y = 1, range [−1, 3]." },
+      ],
+    };
+    const we2Graph: import("../types").CartesianGraph = {
+      description:
+        "y = 3 cos(2x − π/2) on [0, π] — one full period. Amplitude 3, period π, phase shift π/4 right. Range [−3, 3].",
+      xMin: 0, xMax: Math.PI, yMin: -3.5, yMax: 3.5,
+      xStep: Math.PI / 4, yStep: 1,
+      xAxisLabel: "x",
+      sinusoidals: [
+        { kind: "cos", a: 3, b: 2, c: -Math.PI / 2, d: 0, label: "y = 3cos(2x − π/2)", description: "Amplitude 3, period π, phase shift π/4 right." },
+      ],
+    };
+    const we3Graph: import("../types").CartesianGraph = {
+      description:
+        "y = −sin(x) + 2 on [0, 2π]. Amplitude 1 (reflected), midline y = 2, range [1, 3]. The curve starts at the midline y = 2 and immediately falls.",
+      xMin: 0, xMax: 2 * Math.PI, yMin: 0.5, yMax: 3.5,
+      xStep: Math.PI / 2, yStep: 1,
+      xAxisLabel: "x",
+      lines: [{ kind: "linear", m: 0, b: 2, label: "midline y = 2" }],
+      sinusoidals: [
+        { kind: "sin", a: -1, b: 1, c: 0, d: 2, label: "y = −sin(x) + 2", description: "Reflected sine, midline y = 2, range [1, 3]." },
+      ],
+    };
+    const i2Graph: import("../types").CartesianGraph = {
+      description:
+        "y = sin(x) + 2 on [0, 2π]. Midline y = 2, amplitude 1, range [1, 3].",
+      xMin: 0, xMax: 2 * Math.PI, yMin: 0.5, yMax: 3.5,
+      xStep: Math.PI / 2, yStep: 1,
+      xAxisLabel: "x",
+      lines: [{ kind: "linear", m: 0, b: 2, label: "midline y = 2" }],
+      sinusoidals: [
+        { kind: "sin", a: 1, b: 1, c: 0, d: 2, label: "y = sin(x) + 2", description: "Amplitude 1, midline y = 2, range [1, 3]." },
+      ],
+    };
+    const m4Graph: import("../types").CartesianGraph = {
+      description:
+        "y = 2 sin(x) + 3 on [0, 2π]. Midline y = 3, amplitude 2, range [1, 5].",
+      xMin: 0, xMax: 2 * Math.PI, yMin: 0.5, yMax: 5.5,
+      xStep: Math.PI / 2, yStep: 1,
+      xAxisLabel: "x",
+      lines: [{ kind: "linear", m: 0, b: 3, label: "midline y = 3" }],
+      sinusoidals: [
+        { kind: "sin", a: 2, b: 1, c: 0, d: 3, label: "y = 2sin(x) + 3", description: "Amplitude 2, midline y = 3, range [1, 5]." },
+      ],
+    };
+    return {
+      ...base,
+      description:
+        "Identify the amplitude, period, phase shift, and vertical shift of y = a sin(bx + c) + d, and state the new range.",
+      learningIntention:
+        "Learn how each constant in y = a sin(bx + c) + d transforms the basic sine or cosine graph: a controls amplitude, b controls period, c introduces a phase shift, and d shifts the midline.",
+      successCriteria: [
+        "State the amplitude, period, phase shift, and vertical shift from the equation y = a sin(bx + c) + d.",
+        "Calculate the phase shift as $-c/b$ and state its direction.",
+        "State the range as $[d-|a|,\\,d+|a|]$.",
+        "State the maximum and minimum values.",
+        "Identify the error when a positive c is said to shift the graph to the right.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The general form y = a sin(bx + c) + d adds two new transformations to amplitude and period: a phase shift and a vertical shift.",
+          "The vertical shift is d — it moves the midline from y = 0 to y = d. The range becomes [d − |a|, d + |a|].",
+          "The phase shift is −c/b. A positive c shifts the graph LEFT; a negative c shifts it RIGHT. This surprises many students who expect the opposite.",
+          "For y = sin(x + π/3), c = π/3 and b = 1, so phase shift = −(π/3)/1 = −π/3 — the graph shifts π/3 to the LEFT.",
+          "For y = cos(2x − π/2), rewrite as cos(2x + (−π/2)): c = −π/2, b = 2, phase shift = −(−π/2)/2 = π/4 RIGHT.",
+        ],
+        latexBlocks: [
+          "y=a\\sin(bx+c)+d",
+          "\\text{amplitude}=|a|,\\quad\\text{period}=\\frac{2\\pi}{b}",
+          "\\text{phase shift}=-\\frac{c}{b}\\quad(\\text{negative: left; positive: right})",
+          "\\text{vertical shift}=d,\\quad\\text{midline: }y=d",
+          "\\text{range}=[d-|a|,\\,d+|a|]",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Phase shift and vertical shift: y = 2sin(x + π/3) + 1",
+          questionLatex: "y=2\\sin\\!\\left(x+\\frac{\\pi}{3}\\right)+1",
+          cartesianGraph: we1Graph,
+          steps: [
+            { explanation: "Identify a, b, c, d.", latex: "a=2,\\;b=1,\\;c=\\frac{\\pi}{3},\\;d=1" },
+            { explanation: "Amplitude and period.", latex: "|a|=2,\\quad\\text{period}=\\frac{2\\pi}{1}=2\\pi" },
+            { explanation: "Phase shift = −c/b = −(π/3)/1. Negative means LEFT.", latex: "\\text{phase shift}=-\\frac{\\pi}{3}\\;(\\text{left})" },
+            { explanation: "Vertical shift d = 1. Range = [d−|a|, d+|a|].", latex: "\\text{range}=[1-2,\\,1+2]=[-1,3]" },
+          ],
+          finalAnswerLatex: "\\text{amplitude }2,\\;\\text{period }2\\pi,\\;\\text{shift }-\\frac{\\pi}{3}\\text{ left},\\;\\text{range }[-1,3]",
+        },
+        {
+          title: "Right phase shift: y = 3cos(2x − π/2)",
+          questionLatex: "y=3\\cos\\!\\left(2x-\\frac{\\pi}{2}\\right)",
+          cartesianGraph: we2Graph,
+          steps: [
+            { explanation: "Rewrite to identify c: subtract becomes adding a negative.", latex: "3\\cos\\!\\left(2x+\\left(-\\frac{\\pi}{2}\\right)\\right)\\implies c=-\\frac{\\pi}{2}" },
+            { explanation: "Amplitude = 3, period = 2π/2 = π.", latex: "|a|=3,\\quad\\text{period}=\\pi" },
+            { explanation: "Phase shift = −c/b = −(−π/2)/2 = π/4. Positive means RIGHT.", latex: "\\text{phase shift}=+\\frac{\\pi}{4}\\;(\\text{right})" },
+            { explanation: "No vertical shift. Range stays [−3, 3].", latex: "d=0,\\;\\text{range}=[-3,3]" },
+          ],
+          finalAnswerLatex: "\\text{amplitude }3,\\;\\text{period }\\pi,\\;\\text{shift }\\frac{\\pi}{4}\\text{ right},\\;\\text{range }[-3,3]",
+        },
+        {
+          title: "Vertical shift and reflection: y = −sin(x) + 2",
+          questionLatex: "y=-\\sin x+2",
+          cartesianGraph: we3Graph,
+          steps: [
+            { explanation: "a = −1, b = 1, c = 0, d = 2.", latex: "a=-1,\\;b=1,\\;c=0,\\;d=2" },
+            { explanation: "Amplitude = |a| = 1 (reflected).", latex: "|a|=1" },
+            { explanation: "No phase shift. Vertical shift d = 2 moves midline to y = 2.", latex: "\\text{midline: }y=2" },
+            { explanation: "Range = [d−|a|, d+|a|] = [1, 3].", latex: "\\text{range}=[2-1,\\,2+1]=[1,3]" },
+          ],
+          finalAnswerLatex: "\\text{amplitude }1\\text{ (reflected)},\\;\\text{range }[1,3]",
+        },
+      ],
+      guidedPractice: [
+        {
+          ...formulaAnswer("y11adv-shift-g1", "State the vertical shift.", "y=\\sin x+3", "3", []),
+          hint: "Vertical shift is d. Look for the constant added outside the trig function.",
+        },
+        {
+          ...formulaAnswer("y11adv-shift-g2", "State the size of the phase shift.", "y=\\cos\\!\\left(x-\\frac{\\pi}{4}\\right)", "pi/4", ["\\pi/4", "π/4"]),
+          hint: "Rewrite as cos(x + (−π/4)): c = −π/4, b = 1. Phase shift = −c/b = π/4.",
+        },
+        {
+          ...formulaAnswer("y11adv-shift-g3", "State the maximum value.", "y=2\\sin x+1", "3", []),
+          hint: "Maximum = d + |a| = 1 + 2.",
+        },
+        practicalChoice(
+          "y11adv-shift-g4",
+          "In $y=\\sin\\!\\left(x+\\frac{\\pi}{6}\\right)$, the graph shifts in which direction?",
+          "B",
+          ["Right by $\\frac{\\pi}{6}$", "Left by $\\frac{\\pi}{6}$", "Up by $\\frac{\\pi}{6}$", "Down by $\\frac{\\pi}{6}$"],
+          "Phase shift = −c/b = −(π/6)/1 = −π/6. A negative phase shift means left.",
+          "y=\\sin\\!\\left(x+\\frac{\\pi}{6}\\right)"
+        ),
+      ],
+      independentPractice: [
+        {
+          ...formulaAnswer("y11adv-shift-i1", "State the vertical shift.", "y=3\\cos(2x)-4", "-4", ["−4"]),
+          hint: "Vertical shift d = −4. The negative moves the midline down.",
+        },
+        {
+          ...formulaAnswer("y11adv-shift-i2", "The graph shows y = sin(x) + 2. State the maximum value.", "y=\\sin x+2", "3", []),
+          cartesianGraph: i2Graph,
+          hint: "Read the highest point on the graph. Maximum = d + |a|.",
+        },
+        {
+          ...formulaAnswer("y11adv-shift-i3", "State the amplitude.", "y=4\\sin\\!\\left(x-\\frac{\\pi}{3}\\right)+1", "4", []),
+          hint: "Amplitude = |a|. The phase shift and vertical shift do not affect amplitude.",
+        },
+        {
+          ...formulaAnswer("y11adv-shift-i4", "State the minimum value.", "y=2\\cos\\!\\left(x+\\frac{\\pi}{4}\\right)-3", "-5", ["−5"]),
+          hint: "Minimum = d − |a| = −3 − 2.",
+        },
+        practicalChoice(
+          "y11adv-shift-i5",
+          "A student says $y=\\sin\\!\\left(x+\\frac{\\pi}{3}\\right)$ shifts the graph to the right. Identify the error.",
+          "A",
+          ["A positive $c$ shifts LEFT; the graph moves $\\frac{\\pi}{3}$ to the left", "The student is correct — positive $c$ shifts right", "There is no shift — only amplitude changes", "The shift is in the vertical direction, not horizontal"],
+          "Phase shift = −c/b = −π/3 — negative, so the graph moves left. Positive c always means left shift.",
+          "y=\\sin\\!\\left(x+\\frac{\\pi}{3}\\right)"
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Saying y = sin(x + c) shifts right because the constant is added.", fix: "Positive c shifts LEFT. Phase shift = −c/b. For y = sin(x + π/3), shift = −π/3 (left π/3)." },
+        { mistake: "Taking phase shift = c instead of −c/b.", fix: "Divide by b as well. For y = sin(2x + π/2), shift = −(π/2)/2 = −π/4 (left π/4), not π/2." },
+        { mistake: "Computing range as [d, d + |a|] instead of [d − |a|, d + |a|].", fix: "The wave goes |a| units BELOW the midline too. Range = [d − |a|, d + |a|]." },
+        { mistake: "Including the sign in the amplitude — writing a = −3 instead of 3.", fix: "Amplitude = |a|. y = −3sin(x) has amplitude 3, not −3." },
+      ],
+      masteryQuiz: [
+        {
+          ...formulaAnswer("y11adv-shift-m1", "State the amplitude.", "y=-3\\sin(2x)+5", "3", []),
+          hint: "Amplitude = |a| = |−3|.",
+        },
+        {
+          ...formulaAnswer("y11adv-shift-m2", "State the period.", "y=\\cos(3x-\\pi)+1", "2pi/3", ["2\\pi/3", "2π/3"]),
+          hint: "Period = 2π/b = 2π/3.",
+        },
+        {
+          ...formulaAnswer("y11adv-shift-m3", "State the vertical shift.", "y=4\\sin(x+\\pi)-2", "-2", ["−2"]),
+          hint: "Vertical shift d = −2.",
+        },
+        {
+          ...formulaAnswer("y11adv-shift-m4", "The graph shows y = 2sin(x) + 3. State the minimum value.", "y=2\\sin x+3", "1", []),
+          cartesianGraph: m4Graph,
+          hint: "Read the lowest point. Minimum = d − |a| = 3 − 2.",
+        },
+        {
+          ...formulaAnswer("y11adv-shift-m5", "State the size of the phase shift.", "y=\\sin\\!\\left(2x+\\frac{\\pi}{2}\\right)", "pi/4", ["\\pi/4", "π/4"]),
+          hint: "Phase shift = −c/b = −(π/2)/2 = −π/4. Size = π/4.",
+        },
+        {
+          ...formulaAnswer("y11adv-shift-m6", "State the maximum value.", "y=3\\cos x+2", "5", []),
+          hint: "Maximum = d + |a| = 2 + 3.",
+        },
+        {
+          ...formulaAnswer("y11adv-shift-m7", "State the minimum value.", "y=2\\sin\\!\\left(x+\\frac{\\pi}{6}\\right)-1", "-3", ["−3"]),
+          hint: "Minimum = d − |a| = −1 − 2.",
+        },
+        practicalChoice(
+          "y11adv-shift-m8",
+          "A student reads $y=\\sin\\!\\left(x+\\frac{\\pi}{3}\\right)$ and says the phase shift is $\\frac{\\pi}{3}$ to the right because the sign is positive. Identify the error.",
+          "B",
+          [
+            "The student forgot to include the period in the calculation",
+            "Positive $c$ means shift LEFT; phase shift $=-c/b=-\\frac{\\pi}{3}$ (left)",
+            "The phase shift should be $\\frac{\\pi}{6}$, not $\\frac{\\pi}{3}$",
+            "The student is correct",
+          ],
+          "Phase shift = −c/b = −π/3. Negative result means left. Positive c always shifts left.",
+          "y=\\sin\\!\\left(x+\\frac{\\pi}{3}\\right)"
+        ),
+        {
+          ...formulaAnswer("y11adv-shift-m9", "State the period.", "y=5\\cos(\\pi x+\\tfrac{\\pi}{2})", "2", []),
+          hint: "b = π. Period = 2π/π = 2.",
+        },
+        {
+          ...formulaAnswer("y11adv-shift-m10", "State the maximum value of y.", "y=2\\sin\\!\\left(\\frac{\\pi x}{3}+\\frac{\\pi}{6}\\right)+1", "3", []),
+          hint: "Maximum = d + |a| = 1 + 2.",
         },
       ],
     };

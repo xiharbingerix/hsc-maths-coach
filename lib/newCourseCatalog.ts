@@ -1027,6 +1027,46 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               },
             ],
           },
+          {
+            slug: "trig-graph-amplitude-period",
+            title: "Amplitude and Period of Trigonometric Graphs",
+            description:
+              "Identify and calculate the amplitude |a| and period 2π/b of y = a sin(bx) and y = a cos(bx).",
+            stableSkillId: "y11adv-trig-measure-trig-graph-amplitude-period",
+            legacySlugs: ["unit-circle-trigonometric-graphs"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-measure-amplitude",
+                label: "State the amplitude of y = a sin(bx) or y = a cos(bx) as |a|",
+                legacySlugs: ["unit-circle-trigonometric-graphs"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-period",
+                label: "Calculate the period of y = sin(bx) or y = cos(bx) as 2π/b",
+                legacySlugs: ["unit-circle-trigonometric-graphs"],
+              },
+            ],
+          },
+          {
+            slug: "trig-graph-transformations",
+            title: "Transformations of Trigonometric Graphs",
+            description:
+              "Identify amplitude, period, phase shift (−c/b), and vertical shift (d) of y = a sin(bx + c) + d, and state the new range.",
+            stableSkillId: "y11adv-trig-measure-trig-graph-transformations",
+            legacySlugs: ["unit-circle-trigonometric-graphs"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-measure-phase-shift",
+                label: "Calculate the phase shift of y = a sin(bx + c) + d as −c/b",
+                legacySlugs: ["unit-circle-trigonometric-graphs"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-vertical-shift-range",
+                label: "State the vertical shift and range [d − |a|, d + |a|] of y = a sin(bx + c) + d",
+                legacySlugs: ["unit-circle-trigonometric-graphs"],
+              },
+            ],
+          },
           { slug: "trigonometry-measure-angles-exam-practice", title: "Trigonometry and Measure of Angles Exam Practice" },
         ],
       },
