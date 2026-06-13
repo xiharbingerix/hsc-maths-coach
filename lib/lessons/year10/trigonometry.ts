@@ -469,6 +469,596 @@ const trigRatiosMastery: PracticeQuestion[] = [
   ),
 ];
 
+// ─── V2 Slot 1: Identifying Sides ────────────────────────────────────────────
+
+const identifyingSidesGuided: PracticeQuestion[] = [
+  trigChoice(
+    "g1",
+    "In a right triangle, which side is always the longest and is opposite the right angle?",
+    "A",
+    ["Hypotenuse", "Opposite", "Adjacent", "It depends on the angle marked"],
+    "The hypotenuse is always the longest side. It is opposite the right angle and connects the two non-right-angle vertices. Opposite and adjacent change depending on which angle is marked, but the hypotenuse never changes.",
+    "\\text{Which side is longest in any right triangle?}"
+  ),
+  {
+    id: "g2",
+    prompt: "In the right triangle shown, which side is opposite angle θ at A?",
+    latex: "\\text{Identify the side opposite }\\theta.",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta at A (top left), right angle at C (bottom left), and vertex B at bottom right.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { A: "θ" },
+    },
+    choices: [
+      { label: "A", text: "BC — it does not touch vertex A" },
+      { label: "B", text: "AC — it connects A to the right angle" },
+      { label: "C", text: "AB — it is the hypotenuse" },
+      { label: "D", text: "CA — same as AC, runs from C to A" },
+    ],
+    answer: "A",
+    hint: "The opposite side is across from the marked angle — it does not share vertex A.",
+    explanation:
+      "BC is the side opposite θ at A because BC does not touch vertex A at all. AC is adjacent (it connects A to the right angle at C), and AB is the hypotenuse (opposite the right angle).",
+  },
+  {
+    id: "g3",
+    prompt: "In the right triangle shown, which side is adjacent to angle θ at A?",
+    latex: "\\text{Identify the side adjacent to }\\theta.",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta at A (top left), right angle at C (bottom left), and vertex B at bottom right. AC connects A directly to the right angle at C.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { A: "θ" },
+    },
+    choices: [
+      { label: "A", text: "AC — it connects θ to the right angle without being the hypotenuse" },
+      { label: "B", text: "BC — it does not touch vertex A" },
+      { label: "C", text: "AB — it is the hypotenuse" },
+      { label: "D", text: "Both AC and AB are adjacent because both touch vertex A" },
+    ],
+    answer: "A",
+    hint: "Adjacent is the non-hypotenuse side that runs from the marked angle to the right angle.",
+    explanation:
+      "AC runs from vertex A to the right angle at C. It is not the hypotenuse, so it is the adjacent side. AB also touches A but is the hypotenuse. BC does not touch A so it is the opposite.",
+  },
+  trigChoice(
+    "g4",
+    "In the standard triangle, θ is at A and the right angle is at C. If θ moves to vertex B (right angle stays at C), which side is now opposite θ?",
+    "B",
+    [
+      "BC — it used to be adjacent when θ was at A",
+      "AC — it does not touch vertex B",
+      "AB — it is the hypotenuse",
+      "Nothing changes — opposite stays the same when θ moves",
+    ],
+    "When θ moves from A to B, the side that does not touch B becomes the new opposite. AC does not touch vertex B, so AC is now opposite. BC now runs from θ at B to the right angle at C, making it the new adjacent. The hypotenuse AB stays fixed because the right angle at C stays fixed.",
+    "\\theta\\text{ moves from vertex }A\\text{ to vertex }B"
+  ),
+];
+
+const identifyingSidesIndependent: PracticeQuestion[] = [
+  {
+    id: "i1",
+    prompt: "In the right triangle shown, θ is at vertex B and the right angle is still at C. Which side is opposite θ?",
+    latex: "\\theta\\text{ at }B,\\text{ right angle at }C.\\text{ Identify the opposite side.}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta at B (bottom right), right angle at C (bottom left), and vertex A at top left. AC does not touch vertex B.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { B: "θ" },
+    },
+    choices: [
+      { label: "A", text: "AC — it does not touch vertex B" },
+      { label: "B", text: "BC — it connects B to the right angle" },
+      { label: "C", text: "AB — it is the hypotenuse" },
+      { label: "D", text: "All three sides are opposite B" },
+    ],
+    answer: "A",
+    hint: "Opposite means the side that does not touch the marked angle vertex.",
+    explanation:
+      "AC does not touch vertex B, so it is the opposite side. BC connects B to the right angle at C, making it the adjacent side. AB is the hypotenuse.",
+  },
+  {
+    id: "i2",
+    prompt: "Using the same triangle with θ at B and right angle at C, which side is adjacent to θ?",
+    latex: "\\theta\\text{ at }B,\\text{ right angle at }C.\\text{ Identify the adjacent side.}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta at B (bottom right), right angle at C (bottom left), and vertex A at top left. BC runs from B to the right angle at C.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { B: "θ" },
+    },
+    choices: [
+      { label: "A", text: "BC — it connects θ at B to the right angle at C, and is not the hypotenuse" },
+      { label: "B", text: "AC — it does not touch vertex B" },
+      { label: "C", text: "AB — it is the hypotenuse" },
+      { label: "D", text: "BC and AB are both adjacent because both touch B" },
+    ],
+    answer: "A",
+    hint: "Adjacent is the non-hypotenuse side running from the marked angle to the right angle.",
+    explanation:
+      "BC runs from θ at B directly to the right angle at C. It is not the hypotenuse, so it is the adjacent side. AB also touches B but is the hypotenuse. AC does not touch B so it is the opposite.",
+  },
+  trigChoice(
+    "i3",
+    "A 5 m ladder leans against a wall. The angle at the base (floor level) is θ. Which part of this setup is the hypotenuse?",
+    "A",
+    [
+      "The ladder — it connects the floor and the wall, running opposite the right angle",
+      "The wall — it is vertical",
+      "The floor — it is horizontal",
+      "The right angle formed where wall meets floor",
+    ],
+    "The right angle is where the wall meets the floor. The hypotenuse is the side opposite that right angle — the ladder runs from the floor to the wall, spanning opposite the right angle, so the ladder is the hypotenuse.",
+    "\\text{Ladder against wall, }\\theta\\text{ at base}"
+  ),
+  {
+    id: "i4",
+    prompt: "In a 5-12-13 right triangle: right angle at C, hypotenuse AB = 13, AC = 5, BC = 12. θ is at A. Which side is adjacent to θ?",
+    latex: "AB=13\\text{ (hyp)},\\;AC=5,\\;BC=12,\\;\\theta\\text{ at }A",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta at A (top left), right angle at C (bottom left), vertex B at bottom right. AB = 13 (hyp), AC = 5, BC = 12.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { A: "θ" },
+      sideLabels: { AB: "13", AC: "5", BC: "12" },
+    },
+    choices: [
+      { label: "A", text: "AC = 5 — it connects θ at A to the right angle at C" },
+      { label: "B", text: "BC = 12 — it is the longer of the two legs" },
+      { label: "C", text: "AB = 13 — it is the hypotenuse" },
+      { label: "D", text: "Both AC and BC are adjacent because both are shorter than the hypotenuse" },
+    ],
+    answer: "A",
+    hint: "Adjacent is the non-hypotenuse side that connects the marked angle to the right angle.",
+    explanation:
+      "AC = 5 connects vertex A to the right angle at C without being the hypotenuse, so it is the adjacent side. BC = 12 is the opposite (it does not touch A). AB = 13 is the hypotenuse.",
+  },
+  trigChoice(
+    "i5",
+    "In the same 5-12-13 triangle (right angle at C, AB = 13, AC = 5, BC = 12), θ moves to vertex B. Which side is now adjacent to θ?",
+    "B",
+    [
+      "AC = 5 — it was adjacent when θ was at A",
+      "BC = 12 — it connects θ at B to the right angle at C",
+      "AB = 13 — it is the hypotenuse",
+      "Nothing changes — adjacent stays the same when θ moves",
+    ],
+    "When θ moves to B, the adjacent side is the non-hyp side running from B to the right angle at C. That is BC = 12. AC = 5 becomes the new opposite because it no longer touches the marked angle vertex B.",
+    "\\theta\\text{ now at }B:\\;AB=13,\\;AC=5,\\;BC=12"
+  ),
+  trigChoice(
+    "i6",
+    "Both AC and AB touch vertex A. What makes AB the hypotenuse and not the adjacent side?",
+    "A",
+    [
+      "AB is opposite the right angle at C — that is what defines the hypotenuse",
+      "AB is longer, so it must be the hypotenuse",
+      "AB has angle θ at both ends, so it is special",
+      "Adjacent and hypotenuse are the same thing",
+    ],
+    "The hypotenuse is defined as the side opposite the right angle, not the longest side (though it is always the longest as a result). AB connects A and B, running opposite the right angle at C, so it is the hypotenuse. AC runs from A to the right angle at C, making it the adjacent side.",
+    "\\text{What makes a side the hypotenuse?}"
+  ),
+  trigChoice(
+    "i7",
+    "A slope rises at angle θ from horizontal. The horizontal distance along the base is 40 m. What is the role of this 40 m horizontal distance?",
+    "B",
+    [
+      "Hypotenuse — it is the longest side",
+      "Adjacent — it runs from the base of the slope (θ) along to the foot of the vertical rise (right angle)",
+      "Opposite — it is the vertical component",
+      "It is not one of the three triangle sides",
+    ],
+    "The right angle is at the foot of the slope (where horizontal meets vertical). The horizontal distance runs from the marked angle θ to that right angle, so it is the adjacent side. The slope surface would be the hypotenuse.",
+    "\\theta\\text{ at base of slope, horizontal base}=40\\text{ m}"
+  ),
+];
+
+const identifyingSidesMastery: PracticeQuestion[] = [
+  {
+    id: "m1",
+    prompt: "In the right triangle shown, angle θ is at A and the right angle is at C. Which side is the hypotenuse?",
+    latex: "\\text{Identify the hypotenuse.}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta at A (top left), right angle at C (bottom left), vertex B at bottom right.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { A: "θ" },
+    },
+    choices: [
+      { label: "A", text: "AB — it is opposite the right angle at C" },
+      { label: "B", text: "AC — it runs along the left side" },
+      { label: "C", text: "BC — it is the bottom side" },
+      { label: "D", text: "It depends on which angle is largest" },
+    ],
+    answer: "A",
+    hint: "The hypotenuse is always opposite the right angle.",
+    explanation:
+      "AB connects the two non-right-angle vertices A and B, running opposite the right angle at C. It is always the longest side.",
+  },
+  {
+    id: "m2",
+    prompt: "In the same triangle with θ at A and right angle at C, which side is adjacent to θ?",
+    latex: "\\theta\\text{ at }A,\\text{ right angle at }C.\\text{ Identify the adjacent side.}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta at A (top left), right angle at C (bottom left), vertex B at bottom right.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { A: "θ" },
+    },
+    choices: [
+      { label: "A", text: "AC — it connects A to the right angle at C" },
+      { label: "B", text: "BC — it is opposite θ" },
+      { label: "C", text: "AB — it is the hypotenuse" },
+      { label: "D", text: "Both AC and AB are adjacent because both share vertex A" },
+    ],
+    answer: "A",
+    hint: "Adjacent is the non-hypotenuse side that shares the marked angle vertex.",
+    explanation:
+      "AC runs from vertex A to the right angle at C. It is not the hypotenuse, so it is the adjacent side. AB is the hypotenuse; BC is the opposite.",
+  },
+  {
+    id: "m3",
+    prompt: "Right triangle with θ at B and right angle at C. Which side is adjacent to θ?",
+    latex: "\\theta\\text{ at }B,\\text{ right angle at }C.\\text{ Identify adjacent.}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta at B (bottom right), right angle at C (bottom left), vertex A at top left. BC connects B to the right angle.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { B: "θ" },
+    },
+    choices: [
+      { label: "A", text: "BC — it connects θ at B to the right angle at C" },
+      { label: "B", text: "AC — it does not touch vertex B" },
+      { label: "C", text: "AB — it is the hypotenuse" },
+      { label: "D", text: "Adjacent does not change when θ moves to a different vertex" },
+    ],
+    answer: "A",
+    hint: "Adjacent always runs from the marked angle to the right angle.",
+    explanation:
+      "BC runs from θ at B to the right angle at C. That makes it adjacent. AC is now the opposite (does not touch B). AB is still the hypotenuse.",
+  },
+  trigChoice(
+    "m4",
+    "In right triangle DEF: right angle at E, θ at D. Side EF is ___.",
+    "C",
+    [
+      "Hypotenuse — it is the longest side in most triangles",
+      "Adjacent to θ — it connects D to the right angle at E",
+      "Opposite to θ — it does not touch vertex D",
+      "Adjacent to both D and F equally",
+    ],
+    "EF runs from E (the right angle) to F and does not touch vertex D at all, so it is opposite θ at D. DE runs from D to E (the right angle), making it the adjacent side. DF connects the two non-right-angle vertices, so it is the hypotenuse.",
+    "\\text{Right angle at }E,\\;\\theta\\text{ at }D.\\text{ Name side }EF."
+  ),
+  trigChoice(
+    "m5",
+    "In right triangle DEF: right angle at E, θ at D. Which side is the hypotenuse?",
+    "B",
+    [
+      "DE — it runs from D to the right angle at E",
+      "DF — it connects the two non-right-angle vertices D and F",
+      "EF — it runs from E to F",
+      "The hypotenuse changes depending on where θ is",
+    ],
+    "The hypotenuse is always opposite the right angle. With the right angle at E, the hypotenuse is DF — it runs from D to F, opposite E. DE and EF are the two legs.",
+    "\\text{Right angle at }E,\\;\\theta\\text{ at }D.\\text{ Name the hypotenuse.}"
+  ),
+  trigChoice(
+    "m6",
+    "Which side label never changes regardless of which acute angle is marked as θ?",
+    "A",
+    [
+      "Hypotenuse — it is always opposite the right angle",
+      "Opposite — it is always the vertical side",
+      "Adjacent — it is always the horizontal side",
+      "All three labels change when θ moves",
+    ],
+    "The hypotenuse is defined by the right angle's position, not by θ. It is always opposite the right angle. Opposite and adjacent swap when θ moves between the two acute angles.",
+    "\\text{Which side label is fixed regardless of where }\\theta\\text{ is placed?}"
+  ),
+  {
+    id: "m7",
+    prompt: "In a 5-12-13 right triangle: right angle at C, hyp AB = 13, AC = 5, BC = 12. θ is at A. Which side is the opposite?",
+    latex: "AB=13\\text{ (hyp)},\\;AC=5,\\;BC=12,\\;\\theta\\text{ at }A",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta at A (top left), right angle at C (bottom left), vertex B at bottom right. AB = 13 (hyp), AC = 5, BC = 12.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { A: "θ" },
+      sideLabels: { AB: "13", AC: "5", BC: "12" },
+    },
+    choices: [
+      { label: "A", text: "BC = 12 — it does not touch vertex A" },
+      { label: "B", text: "AC = 5 — it connects A to the right angle" },
+      { label: "C", text: "AB = 13 — it is the hypotenuse" },
+      { label: "D", text: "BC = 12 because it is the longer leg and legs are always opposite" },
+    ],
+    answer: "A",
+    hint: "Opposite is the side that does not touch the marked vertex.",
+    explanation:
+      "BC = 12 does not touch vertex A, so it is the opposite side. AC = 5 is adjacent. AB = 13 is the hypotenuse. The longer leg being opposite here is coincidental — position, not length, determines the label.",
+  },
+  trigChoice(
+    "m8",
+    "A right triangle: vertical height = 8 m, horizontal distance = 6 m, hypotenuse = 10 m. θ is the angle at the base between horizontal and hypotenuse. What role does the vertical height play?",
+    "B",
+    [
+      "Adjacent — it is next to the right angle",
+      "Opposite — it does not touch the base angle θ",
+      "Hypotenuse — it is the longest described dimension",
+      "Adjacent — it is vertical",
+    ],
+    "The right angle is at the corner where vertical meets horizontal. θ is at the base on the horizontal side. The vertical height runs from the right angle up — it does not touch θ at the base, so it is the opposite side.",
+    "\\theta\\text{ at base, vertical height}=8\\text{ m, horizontal}=6\\text{ m}"
+  ),
+  trigChoice(
+    "m9",
+    "Two students label sides of a right triangle. θ is at vertex A, right angle at C. Student A says AC is opposite. Student B says BC is opposite. Who is correct?",
+    "B",
+    [
+      "Student A — AC is adjacent, which can also be called opposite in some conventions",
+      "Student B — BC does not touch vertex A, so it is opposite",
+      "Both students are correct depending on the labelling convention used",
+      "Neither — only hypotenuse has a definite label",
+    ],
+    "Opposite is defined by position, not convention. With θ at A, the opposite side is the one that does not touch vertex A. BC does not touch A, so Student B is correct. AC runs from A to the right angle, making it adjacent.",
+    "\\theta\\text{ at }A.\\text{ Which side is opposite?}"
+  ),
+  trigChoice(
+    "m10",
+    "A student claims: 'the hypotenuse is adjacent to the right angle because adjacent means next to.' What is wrong with this reasoning?",
+    "B",
+    [
+      "Nothing — the hypotenuse does touch the right-angle vertex in some configurations",
+      "Adjacent and opposite are defined relative to the MARKED angle θ, not the right angle. The hypotenuse is always OPPOSITE the right angle.",
+      "Adjacent only applies to the longest side",
+      "The student is correct for isosceles right triangles",
+    ],
+    "Opposite, adjacent, and hypotenuse are all defined relative to the marked angle θ, not the right angle. The hypotenuse is the side OPPOSITE the right angle — the longest side. 'Adjacent' means next to the marked angle θ.",
+    "\\text{Identify the error in the student's reasoning}"
+  ),
+];
+
+// ─── V2 Slot 2: Writing and Selecting Ratios ─────────────────────────────────
+
+const ratioSelectionGuided: PracticeQuestion[] = [
+  trigChoice(
+    "g1",
+    "Which trigonometric ratio is defined as opposite ÷ hypotenuse?",
+    "A",
+    ["sin θ", "cos θ", "tan θ", "1 ÷ cos θ"],
+    "SOH stands for Sin = Opposite ÷ Hypotenuse. CAH gives Cos = Adjacent ÷ Hypotenuse, and TOA gives Tan = Opposite ÷ Adjacent.",
+    "\\text{Which ratio equals }\\dfrac{\\text{opp}}{\\text{hyp}}?"
+  ),
+  trigChoice(
+    "g2",
+    "You know the hypotenuse and need the adjacent side. Which ratio should you use?",
+    "B",
+    ["sin θ", "cos θ", "tan θ", "Neither — you need two sides first"],
+    "CAH: cos θ = adjacent ÷ hypotenuse. Rearranging: adjacent = hypotenuse × cos θ. This uses exactly the sides you have (hyp) and want (adj).",
+    "\\text{Known: hyp. Want: adj. Which ratio?}"
+  ),
+  trigChoice(
+    "g3",
+    "A right triangle has opposite = 4 and hypotenuse = 5. Which expression gives sin θ?",
+    "A",
+    [
+      "$\\dfrac{4}{5}$",
+      "$\\dfrac{5}{4}$",
+      "$\\dfrac{3}{5}$",
+      "$\\dfrac{4}{3}$",
+    ],
+    "SOH: sin θ = opp ÷ hyp = 4 ÷ 5 = 4/5. The value 5/4 is upside-down. The value 3/5 uses the adjacent (from Pythagoras). The value 4/3 is tan θ.",
+    "\\text{opp}=4,\\quad\\text{hyp}=5"
+  ),
+  trigChoice(
+    "g4",
+    "You know the opposite and adjacent sides. Which ratio connects them?",
+    "C",
+    ["sin θ", "cos θ", "tan θ", "All three ratios use opposite and adjacent"],
+    "TOA: tan θ = opp ÷ adj. This is the only ratio that involves opposite and adjacent without the hypotenuse.",
+    "\\text{Known: opp and adj. Which ratio?}"
+  ),
+];
+
+const ratioSelectionIndependent: PracticeQuestion[] = [
+  trigChoice(
+    "i1",
+    "In a right triangle with θ at A and right angle at C, which side is adjacent to θ?",
+    "A",
+    [
+      "AC — it connects A to the right angle and is not the hypotenuse",
+      "BC — it is opposite A",
+      "AB — it is the hypotenuse",
+      "Any side can be adjacent depending on the context",
+    ],
+    "Adjacent means 'next to'. AC shares vertex A, runs to the right angle at C, and is shorter than the hypotenuse AB. BC is the opposite (does not touch A).",
+    "\\text{Right angle at }C,\\;\\theta\\text{ at }A.\\text{ Identify adjacent.}"
+  ),
+  trigChoice(
+    "i2",
+    "What does TOA stand for in SOH-CAH-TOA?",
+    "A",
+    [
+      "Tan = Opposite ÷ Adjacent",
+      "Tan = Adjacent ÷ Opposite",
+      "Tan = Opposite ÷ Hypotenuse",
+      "Tan = Hypotenuse ÷ Adjacent",
+    ],
+    "TOA: Tangent equals Opposite divided by Adjacent. Tan uses the two shorter sides relative to the marked angle — opposite and adjacent — without involving the hypotenuse.",
+    "\\text{What does TOA represent?}"
+  ),
+  trigChoice(
+    "i3",
+    "You know opposite and adjacent sides. Which ratio uses both?",
+    "C",
+    ["sin θ", "cos θ", "tan θ", "All three ratios use opposite and adjacent"],
+    "TOA: tan θ = opp ÷ adj. This is the only ratio involving opposite and adjacent without the hypotenuse.",
+    "\\text{Known: opp and adj. Which ratio?}"
+  ),
+  trigChoice(
+    "i4",
+    "In a right triangle, opposite = 3 and hypotenuse = 5. What is sin θ?",
+    "A",
+    ["$\\dfrac{3}{5}$", "$\\dfrac{5}{3}$", "$\\dfrac{4}{5}$", "$\\dfrac{3}{4}$"],
+    "SOH: sin θ = opp ÷ hyp = 3 ÷ 5 = 3/5. The value 4/5 would be cos θ (adjacent = 4 from a 3-4-5 triple). The value 5/3 is upside-down.",
+    "\\text{opp}=3,\\quad\\text{hyp}=5"
+  ),
+  trigChoice(
+    "i5",
+    "In a right triangle, adjacent = 4 and hypotenuse = 5. What is cos θ?",
+    "B",
+    ["$\\dfrac{3}{5}$", "$\\dfrac{4}{5}$", "$\\dfrac{4}{3}$", "$\\dfrac{5}{4}$"],
+    "CAH: cos θ = adj ÷ hyp = 4 ÷ 5 = 4/5. The value 3/5 would be sin θ (opposite = 3 from a 3-4-5 triple).",
+    "\\text{adj}=4,\\quad\\text{hyp}=5"
+  ),
+  trigChoice(
+    "i6",
+    "In a right triangle, opposite = 8, adjacent = 6, hypotenuse = 10. What is tan θ?",
+    "B",
+    [
+      "$\\dfrac{8}{10}$",
+      "$\\dfrac{8}{6}$",
+      "$\\dfrac{6}{8}$",
+      "$\\dfrac{6}{10}$",
+    ],
+    "TOA: tan θ = opp ÷ adj = 8 ÷ 6 = 4/3. The value 8/10 would be sin θ (opp/hyp), and 6/10 would be cos θ (adj/hyp).",
+    "\\text{opp}=8,\\;\\text{adj}=6,\\;\\text{hyp}=10"
+  ),
+  trigChoice(
+    "i7",
+    "In a right triangle, opposite = 5, adjacent = 12, hypotenuse = 13. Which ratio gives 12/13?",
+    "B",
+    [
+      "sin θ = opp/hyp = 5/13",
+      "cos θ = adj/hyp = 12/13",
+      "tan θ = opp/adj = 5/12",
+      "sin θ = adj/hyp (inverted definition)",
+    ],
+    "CAH: cos θ = adj ÷ hyp = 12 ÷ 13 = 12/13. Sin θ would use the opposite (5/13), and tan θ would use opp/adj (5/12).",
+    "\\text{opp}=5,\\;\\text{adj}=12,\\;\\text{hyp}=13.\\;\\text{Which ratio gives }\\tfrac{12}{13}?"
+  ),
+];
+
+const ratioSelectionMastery: PracticeQuestion[] = [
+  trigChoice(
+    "m1",
+    "Which ratio is defined as opposite ÷ adjacent?",
+    "C",
+    ["sin θ", "cos θ", "tan θ", "1 ÷ sin θ"],
+    "TOA: tan θ = opposite ÷ adjacent. This ratio can exceed 1 for angles above 45°, unlike sin and cos which stay at most 1 for acute angles.",
+    "\\text{Which ratio equals }\\dfrac{\\text{opp}}{\\text{adj}}?"
+  ),
+  trigChoice(
+    "m2",
+    "A right triangle has opposite = 5 and hypotenuse = 13. What is sin θ?",
+    "A",
+    ["$\\dfrac{5}{13}$", "$\\dfrac{13}{5}$", "$\\dfrac{12}{13}$", "$\\dfrac{5}{12}$"],
+    "SOH: sin θ = opp ÷ hyp = 5 ÷ 13. The value 12/13 would be cos θ (adj/hyp, adj = 12 from the 5-12-13 triple).",
+    "\\text{opp}=5,\\quad\\text{hyp}=13"
+  ),
+  trigChoice(
+    "m3",
+    "A right triangle has adjacent = 12 and hypotenuse = 13. What is cos θ?",
+    "B",
+    ["$\\dfrac{5}{13}$", "$\\dfrac{12}{13}$", "$\\dfrac{13}{12}$", "$\\dfrac{5}{12}$"],
+    "CAH: cos θ = adj ÷ hyp = 12 ÷ 13. The value 5/13 would be sin θ (opp/hyp with opp = 5).",
+    "\\text{adj}=12,\\quad\\text{hyp}=13"
+  ),
+  trigChoice(
+    "m4",
+    "You know opposite and hypotenuse. Which ratio connects them?",
+    "A",
+    ["sin θ", "cos θ", "tan θ", "All three"],
+    "SOH: sin θ = opposite ÷ hypotenuse. This is the only ratio involving opposite and hypotenuse together without adjacent.",
+    "\\text{Known: opp and hyp. Which ratio?}"
+  ),
+  trigAnswer(
+    "m5",
+    "In a right triangle, opposite = 3 and adjacent = 4. What is tan θ? Give your answer as a decimal.",
+    "\\text{opp}=3,\\quad\\text{adj}=4",
+    "0.75",
+    ["3/4", "0.75"]
+  ),
+  trigChoice(
+    "m6",
+    "In a 3-4-5 right triangle, sin θ = 3/5. What is cos θ for the same angle θ?",
+    "C",
+    [
+      "$\\dfrac{3}{5}$",
+      "$\\dfrac{3}{4}$",
+      "$\\dfrac{4}{5}$",
+      "$\\dfrac{5}{4}$",
+    ],
+    "If sin θ = 3/5, then opp = 3 and hyp = 5. By Pythagoras, adj = 4. So cos θ = adj/hyp = 4/5.",
+    "\\sin\\theta=\\dfrac{3}{5}\\implies\\cos\\theta=?"
+  ),
+  trigChoice(
+    "m7",
+    "Which expression correctly gives tan θ when opposite = 7 and adjacent = 24?",
+    "A",
+    [
+      "$\\tan\\theta=\\dfrac{7}{24}$",
+      "$\\tan\\theta=\\dfrac{24}{7}$",
+      "$\\tan\\theta=\\dfrac{7}{25}$",
+      "$\\tan\\theta=\\dfrac{24}{25}$",
+    ],
+    "TOA: tan θ = opp ÷ adj = 7 ÷ 24. The value 24/7 is upside-down. The values 7/25 and 24/25 confuse the hypotenuse (25 in this triple) with one of the legs.",
+    "\\text{opp}=7,\\quad\\text{adj}=24"
+  ),
+  trigChoice(
+    "m8",
+    "A student claims: 'adjacent means next to, so the hypotenuse is adjacent to the right angle.' What is wrong?",
+    "B",
+    [
+      "Nothing — the hypotenuse does touch the right-angle vertex",
+      "Adjacent and opposite are defined relative to the MARKED angle θ, not the right angle. The hypotenuse is always OPPOSITE the right angle.",
+      "Adjacent only applies to the longest side",
+      "The student is correct for isosceles right triangles",
+    ],
+    "Opposite, adjacent, and hypotenuse are all defined relative to the marked angle θ. The hypotenuse is the side OPPOSITE the right angle — the longest side. 'Adjacent' means next to the marked angle θ, not the right angle.",
+    "\\text{Identify the error in the student's claim}"
+  ),
+  trigChoice(
+    "m9",
+    "If cos θ = 5/13, which sides are represented?",
+    "A",
+    [
+      "Adjacent = 5, hypotenuse = 13",
+      "Opposite = 5, hypotenuse = 13",
+      "Adjacent = 5, opposite = 13",
+      "Adjacent = 13, hypotenuse = 5",
+    ],
+    "CAH: cos θ = adj/hyp. So if cos θ = 5/13, then adj = 5 and hyp = 13. The numerator is always the adjacent side in the cosine ratio.",
+    "\\cos\\theta=\\dfrac{5}{13}"
+  ),
+  trigChoice(
+    "m10",
+    "In a 7-24-25 right triangle (hyp = 25), θ is at the vertex between sides 7 and 25. What is tan θ?",
+    "B",
+    [
+      "$\\dfrac{7}{25}$",
+      "$\\dfrac{24}{7}$",
+      "$\\dfrac{7}{24}$",
+      "$\\dfrac{24}{25}$",
+    ],
+    "With θ between the adjacent side (7) and hypotenuse (25), the opposite is 24. TOA: tan θ = opp/adj = 24/7.",
+    "\\text{7-24-25 triangle, }\\theta\\text{ between sides 7 and 25}"
+  ),
+];
+
 // ─── Lesson 2: Finding Unknown Sides ─────────────────────────────────────────
 
 const findingSidesWorkedExamples: WorkedExample[] = [
@@ -795,6 +1385,621 @@ const findingSidesMastery: PracticeQuestion[] = [
     ],
     "The horizontal run (8 m) is adjacent to the 25° angle. The sloping roof is the hypotenuse. CAH: hyp = adj ÷ cos θ = 8 ÷ cos 25°.",
     "\\text{adj}=8\\text{ m},\\;\\theta=25^\\circ,\\;\\text{find hyp (slant)}"
+  ),
+];
+
+// ─── V2 Slot 3: Finding Sides (sin and cos only) ─────────────────────────────
+
+const findingSidesSinCosIndependent: PracticeQuestion[] = [
+  trigAnswer(
+    "i1",
+    "In a right triangle, hypotenuse = 10 and angle θ = 45°. Find the opposite side to 1 decimal place.",
+    "\\text{hyp}=10,\\;\\theta=45^\\circ,\\;\\text{find opp}",
+    "7.1",
+    ["7.1"]
+  ),
+  trigAnswer(
+    "i2",
+    "In a right triangle, hypotenuse = 20 and angle θ = 60°. Find the adjacent side to 1 decimal place.",
+    "\\text{hyp}=20,\\;\\theta=60^\\circ,\\;\\text{find adj}",
+    "10",
+    ["10.0"]
+  ),
+  trigChoice(
+    "i3",
+    "In a right triangle, opposite = 5 and angle θ = 30°. Which equation gives the hypotenuse?",
+    "A",
+    [
+      "$\\text{hyp}=5\\div\\sin 30^\\circ$",
+      "$\\text{hyp}=5\\times\\sin 30^\\circ$",
+      "$\\text{hyp}=5\\div\\tan 30^\\circ$",
+      "$\\text{hyp}=5\\times\\cos 30^\\circ$",
+    ],
+    "SOH: hyp = opp ÷ sin θ = 5 ÷ sin 30° = 5 ÷ 0.5 = 10.",
+    "\\text{opp}=5,\\;\\theta=30^\\circ,\\;\\text{find hyp}"
+  ),
+  trigAnswer(
+    "i4",
+    "In a right triangle, hypotenuse = 16 and angle θ = 25°. Find the adjacent side to 1 decimal place.",
+    "\\text{hyp}=16,\\;\\theta=25^\\circ,\\;\\text{find adj}",
+    "14.5",
+    ["14.5"]
+  ),
+  {
+    id: "i5",
+    prompt: "In a right triangle, adjacent = 7 and angle θ = 42°. Find the hypotenuse to 1 decimal place.",
+    latex: "\\text{adj}=7,\\;\\theta=42^\\circ,\\;\\text{find hyp}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta = 42° at A (top left), right angle at C (bottom left), adjacent side AC = 7, and unknown hypotenuse AB labelled h.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { A: "42°" },
+      sideLabels: { AC: "7", AB: "h" },
+    },
+    answer: "9.4",
+    acceptedAnswers: ["9.4"],
+    hint: "CAH: cos θ = adj/hyp, so hyp = adj ÷ cos θ = 7 ÷ cos 42°.",
+    explanation:
+      "Cosine connects adjacent and hypotenuse. When the hypotenuse is unknown, rearrange: hyp = adj ÷ cos θ = 7 ÷ cos 42° = 7 ÷ 0.7431 ≈ 9.4.",
+  },
+  {
+    id: "i6",
+    prompt: "In a right triangle, opposite = 6 and angle θ = 40°. Find the hypotenuse to 1 decimal place.",
+    latex: "\\text{opp}=6,\\;\\theta=40^\\circ,\\;\\text{find hyp}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta = 40° at A (top left), right angle at C (bottom left), opposite side BC = 6, and unknown hypotenuse AB labelled h.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { A: "40°" },
+      sideLabels: { BC: "6", AB: "h" },
+    },
+    answer: "9.3",
+    acceptedAnswers: ["9.3"],
+    hint: "SOH: sin θ = opp/hyp, so hyp = opp ÷ sin θ = 6 ÷ sin 40°.",
+    explanation:
+      "Sine connects opposite and hypotenuse. When the hypotenuse is unknown, rearrange: hyp = opp ÷ sin θ = 6 ÷ sin 40° = 6 ÷ 0.6428 ≈ 9.3.",
+  },
+  {
+    id: "i7",
+    prompt: "In a right triangle, hypotenuse = 11 and angle θ = 28°. Find the opposite side to 1 decimal place.",
+    latex: "\\text{hyp}=11,\\;\\theta=28^\\circ,\\;\\text{find opp}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta = 28° at A (top left), right angle at C (bottom left), hypotenuse AB = 11, and unknown opposite side BC labelled x.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { A: "28°" },
+      sideLabels: { AB: "11", BC: "x" },
+    },
+    answer: "5.2",
+    acceptedAnswers: ["5.2"],
+    hint: "SOH: sin θ = opp/hyp, so opp = hyp × sin θ = 11 × sin 28°.",
+    explanation:
+      "Sine connects opposite and hypotenuse. The opposite is the unknown, so multiply: opp = hyp × sin θ = 11 × sin 28° = 11 × 0.4695 ≈ 5.2.",
+  },
+];
+
+const findingSidesSinCosMastery: PracticeQuestion[] = [
+  trigChoice(
+    "m1",
+    "In a right triangle, angle θ = 50° and hypotenuse = 18. Which equation finds the opposite side?",
+    "A",
+    [
+      "$\\text{opp}=18\\times\\sin 50^\\circ$",
+      "$\\text{opp}=18\\times\\cos 50^\\circ$",
+      "$\\text{opp}=18\\div\\sin 50^\\circ$",
+      "$\\text{opp}=18\\div\\cos 50^\\circ$",
+    ],
+    "SOH: opp = hyp × sin θ = 18 × sin 50°.",
+    "\\text{hyp}=18,\\;\\theta=50^\\circ,\\;\\text{find opp}"
+  ),
+  trigAnswer(
+    "m2",
+    "In a right triangle, hypotenuse = 8 and angle θ = 35°. Find the opposite side to 1 decimal place.",
+    "\\text{hyp}=8,\\;\\theta=35^\\circ,\\;\\text{find opp}",
+    "4.6",
+    ["4.6"]
+  ),
+  trigAnswer(
+    "m3",
+    "In a right triangle, hypotenuse = 14 and angle θ = 40°. Find the adjacent side to 1 decimal place.",
+    "\\text{hyp}=14,\\;\\theta=40^\\circ,\\;\\text{find adj}",
+    "10.7",
+    ["10.7"]
+  ),
+  trigChoice(
+    "m4",
+    "Adjacent = 6 and angle θ = 50°. Which equation gives the hypotenuse?",
+    "A",
+    [
+      "$\\text{hyp}=6\\div\\cos 50^\\circ$",
+      "$\\text{hyp}=6\\times\\cos 50^\\circ$",
+      "$\\text{hyp}=6\\div\\sin 50^\\circ$",
+      "$\\text{hyp}=6\\times\\sin 50^\\circ$",
+    ],
+    "CAH: cos θ = adj/hyp → hyp = adj ÷ cos θ = 6 ÷ cos 50°.",
+    "\\text{adj}=6,\\;\\theta=50^\\circ,\\;\\text{find hyp}"
+  ),
+  {
+    id: "m5",
+    prompt: "In a right triangle, hypotenuse = 25 and angle θ = 36°. Find the adjacent side to 1 decimal place.",
+    latex: "\\text{hyp}=25,\\;\\theta=36^\\circ,\\;\\text{find adj}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta = 36° at A (top left), right angle at C (bottom left), hypotenuse AB = 25, and unknown adjacent side AC labelled x.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { A: "36°" },
+      sideLabels: { AB: "25", AC: "x" },
+    },
+    answer: "20.2",
+    acceptedAnswers: ["20.2"],
+    hint: "CAH: cos θ = adj/hyp, so adj = hyp × cos θ = 25 × cos 36°.",
+    explanation:
+      "Cosine connects adjacent and hypotenuse. The adjacent is the unknown, so multiply: adj = hyp × cos θ = 25 × cos 36° = 25 × 0.8090 ≈ 20.2.",
+  },
+  trigChoice(
+    "m6",
+    "Opposite = 5 and angle θ = 60°. A student writes hyp = 5 × sin 60°. What is wrong?",
+    "A",
+    [
+      "The hypotenuse should be opp ÷ sin 60°, not opp × sin 60°",
+      "The student should use cos 60°, not sin 60°",
+      "The student should use tan 60°",
+      "Nothing is wrong — both forms are equivalent",
+    ],
+    "SOH: sin θ = opp/hyp → hyp = opp ÷ sin θ. Multiplying gives a result smaller than 5, but the hypotenuse must be longer than the opposite side.",
+    "\\text{opp}=5,\\;\\theta=60^\\circ,\\;\\text{find hyp}"
+  ),
+  trigAnswer(
+    "m7",
+    "In a right triangle, opposite = 5 and angle θ = 60°. Find the hypotenuse to 1 decimal place.",
+    "\\text{opp}=5,\\;\\theta=60^\\circ,\\;\\text{find hyp}",
+    "5.8",
+    ["5.8"]
+  ),
+  trigAnswer(
+    "m8",
+    "A ramp rises at an angle of 20° and is 8 m long. Find the vertical height of the ramp to 1 decimal place.",
+    "\\text{hyp}=8\\text{ m},\\;\\theta=20^\\circ,\\;\\text{find vertical height}",
+    "2.7",
+    ["2.7", "2.7 m", "2.7m"]
+  ),
+  trigChoice(
+    "m9",
+    "A 6 m ladder leans against a wall at 65° to the ground. Which equation gives the height reached on the wall?",
+    "A",
+    [
+      "$h=6\\times\\sin 65^\\circ$",
+      "$h=6\\times\\cos 65^\\circ$",
+      "$h=6\\div\\sin 65^\\circ$",
+      "$h=6\\times\\tan 65^\\circ$",
+    ],
+    "The ladder is the hypotenuse (6 m), the height up the wall is the opposite side, and the angle to the ground is 65°. SOH: h = 6 × sin 65°.",
+    "\\text{hyp}=6\\text{ m},\\;\\theta=65^\\circ,\\;\\text{find height}"
+  ),
+  trigChoice(
+    "m10",
+    "A roof has a horizontal run of 8 m and a rise angle of 25°. Which equation gives the sloping roof length?",
+    "B",
+    [
+      "$\\text{slant}=8\\times\\cos 25^\\circ$",
+      "$\\text{slant}=8\\div\\cos 25^\\circ$",
+      "$\\text{slant}=8\\times\\sin 25^\\circ$",
+      "$\\text{slant}=8\\div\\sin 25^\\circ$",
+    ],
+    "The horizontal run (8 m) is adjacent. The sloping roof is the hypotenuse. CAH: hyp = adj ÷ cos θ = 8 ÷ cos 25°.",
+    "\\text{adj}=8\\text{ m},\\;\\theta=25^\\circ,\\;\\text{find hyp (slant)}"
+  ),
+];
+
+const findingSidesSinCosMistakes = [
+  {
+    mistake: "Using sin when cos is needed — writing sin θ = adj/hyp instead of cos θ = adj/hyp.",
+    fix: "CAH: Cosine = Adjacent ÷ Hypotenuse. Sin uses opposite and hyp, cos uses adjacent and hyp. Always identify which two sides are involved before choosing the ratio.",
+  },
+  {
+    mistake: "Multiplying when the hypotenuse is unknown — writing hyp = opp × sin θ instead of hyp = opp ÷ sin θ.",
+    fix: "When the hypotenuse is the unknown, rearrange: sin θ = opp/hyp → hyp = opp ÷ sin θ. Multiplying gives a result smaller than opp, which is impossible since the hypotenuse is the longest side.",
+  },
+  {
+    mistake: "Calculator left in radian mode — getting a completely wrong decimal (e.g. sin(35) ≈ −0.428 in radians).",
+    fix: "Always check the calculator is in DEG mode before any trig calculation. In radian mode, sin(35) means sin(35 radians), which is unrelated to sin(35°).",
+  },
+  {
+    mistake: "Rounding an intermediate value before completing the calculation, causing accumulated rounding error.",
+    fix: "Keep the full calculator value throughout the working. Only round the final answer to the specified decimal places.",
+  },
+];
+
+// ─── V2 Slot 4: Finding Sides (tan only) ─────────────────────────────────────
+
+const findingSidesTanWorkedExamples: WorkedExample[] = [
+  {
+    title: "Finding the opposite side using tan",
+    questionLatex:
+      "\\text{Find }x\\text{ in a right triangle where adjacent}=9\\text{ and }\\theta=53^\\circ.\\text{ No hypotenuse is given or needed.}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta = 53° at A (top left), right angle at C (bottom left), adjacent side AC = 9, and unknown opposite side BC labelled x.",
+      vertices: {
+        A: { x: 80, y: 40 },
+        C: { x: 80, y: 230 },
+        B: { x: 330, y: 230 },
+      },
+      rightAngleAt: "C",
+      angleLabels: { A: "53°" },
+      sideLabels: { AC: "9", BC: "x" },
+    },
+    steps: [
+      {
+        explanation:
+          "Known: adjacent = 9 and angle = 53°. Want: opposite side x. The hypotenuse is not needed — use TOA.",
+        latex: "\\tan 53^\\circ=\\frac{x}{9}",
+      },
+      {
+        explanation: "Multiply both sides by 9.",
+        latex: "x=9\\times\\tan 53^\\circ",
+      },
+      {
+        explanation: "Evaluate on a calculator in degree mode.",
+        latex: "x=9\\times 1.3270\\approx 11.9",
+      },
+    ],
+    finalAnswerLatex: "x\\approx 11.9",
+  },
+  {
+    title: "Finding the adjacent side using tan",
+    questionLatex:
+      "\\text{The opposite side is 12 and }\\theta=36^\\circ.\\text{ Find the adjacent side.}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta = 36° at A (top left), right angle at C (bottom left), opposite side BC = 12, and unknown adjacent side AC labelled x.",
+      vertices: {
+        A: { x: 80, y: 40 },
+        C: { x: 80, y: 230 },
+        B: { x: 330, y: 230 },
+      },
+      rightAngleAt: "C",
+      angleLabels: { A: "36°" },
+      sideLabels: { BC: "12", AC: "x" },
+    },
+    steps: [
+      {
+        explanation:
+          "Known: opposite = 12, angle = 36°. Want: adjacent x. Use TOA.",
+        latex: "\\tan 36^\\circ=\\frac{12}{x}",
+      },
+      {
+        explanation:
+          "The unknown x is in the denominator. Multiply both sides by x, then divide both sides by tan 36°.",
+        latex: "x=\\frac{12}{\\tan 36^\\circ}",
+      },
+      {
+        explanation: "Evaluate. tan 36° ≈ 0.7265.",
+        latex: "x=\\frac{12}{0.7265}\\approx 16.5",
+      },
+    ],
+    finalAnswerLatex: "x\\approx 16.5",
+  },
+  {
+    title: "Recognising when to use tan",
+    questionLatex:
+      "\\text{A right triangle has adjacent}=8\\text{ m and }\\theta=35^\\circ.\\text{ Find the opposite side to 1 decimal place.}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta = 35° at A (top left), right angle at C (bottom left), adjacent side AC = 8 m, and unknown opposite side BC labelled x.",
+      vertices: {
+        A: { x: 80, y: 40 },
+        C: { x: 80, y: 230 },
+        B: { x: 330, y: 230 },
+      },
+      rightAngleAt: "C",
+      angleLabels: { A: "35°" },
+      sideLabels: { AC: "8 m", BC: "x" },
+    },
+    steps: [
+      {
+        explanation:
+          "The hypotenuse is not given and not wanted. Only adjacent and opposite are involved — use TOA.",
+        latex: "\\tan 35^\\circ=\\frac{x}{8}",
+      },
+      {
+        explanation: "Multiply both sides by 8.",
+        latex: "x=8\\times\\tan 35^\\circ",
+      },
+      {
+        explanation: "Evaluate. tan 35° ≈ 0.7002.",
+        latex: "x=8\\times 0.7002\\approx 5.6\\text{ m}",
+      },
+    ],
+    finalAnswerLatex: "x\\approx 5.6\\text{ m}",
+  },
+];
+
+const findingSidesTanGuided: PracticeQuestion[] = [
+  trigChoice(
+    "g1",
+    "In a right triangle, adjacent = 5 and angle θ = 45°. Which equation correctly finds the opposite side?",
+    "A",
+    [
+      "$\\text{opp}=5\\times\\tan 45^\\circ$",
+      "$\\text{opp}=5\\times\\sin 45^\\circ$",
+      "$\\text{opp}=5\\div\\tan 45^\\circ$",
+      "$\\text{opp}=5\\times\\cos 45^\\circ$",
+    ],
+    "TOA: tan θ = opp/adj, so opp = adj × tan θ = 5 × tan 45°. Tan uses adjacent and opposite only — the hypotenuse does not appear.",
+    "\\text{adj}=5,\\;\\theta=45^\\circ,\\;\\text{find opp}"
+  ),
+  trigChoice(
+    "g2",
+    "In a right triangle, opposite = 8 and angle θ = 35°. Which equation finds the adjacent side?",
+    "A",
+    [
+      "$\\text{adj}=8\\div\\tan 35^\\circ$",
+      "$\\text{adj}=8\\times\\tan 35^\\circ$",
+      "$\\text{adj}=8\\div\\sin 35^\\circ$",
+      "$\\text{adj}=8\\times\\sin 35^\\circ$",
+    ],
+    "TOA: tan θ = opp/adj → adj = opp ÷ tan θ = 8 ÷ tan 35°. When adjacent is unknown, divide opposite by tan θ.",
+    "\\text{opp}=8,\\;\\theta=35^\\circ,\\;\\text{find adj}"
+  ),
+  trigAnswer(
+    "g3",
+    "In a right triangle, adjacent = 6 and angle θ = 30°. Find the opposite side to 1 decimal place.",
+    "\\text{adj}=6,\\;\\theta=30^\\circ,\\;\\text{find opp}",
+    "3.5",
+    ["3.5"]
+  ),
+  trigChoice(
+    "g4",
+    "A right triangle has only opposite and adjacent sides labelled — no hypotenuse is given. Which ratio connects these two sides?",
+    "C",
+    [
+      "sin θ — connects opposite and hypotenuse",
+      "cos θ — connects adjacent and hypotenuse",
+      "tan θ — connects opposite and adjacent",
+      "All three ratios use opposite and adjacent",
+    ],
+    "TOA: tan θ = opp ÷ adj. Only tangent connects opposite and adjacent directly. Sin and cos both require the hypotenuse.",
+    "\\text{Known: adj and opp. Which ratio?}"
+  ),
+];
+
+const findingSidesTanIndependent: PracticeQuestion[] = [
+  {
+    id: "i1",
+    prompt: "In a right triangle, adjacent = 9 and angle θ = 53°. Find the opposite side to 1 decimal place.",
+    latex: "\\text{adj}=9,\\;\\theta=53^\\circ,\\;\\text{find opp}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta = 53° at A (top left), right angle at C (bottom left), adjacent side AC = 9, and unknown opposite side BC labelled x.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { A: "53°" },
+      sideLabels: { AC: "9", BC: "x" },
+    },
+    answer: "11.9",
+    acceptedAnswers: ["11.9"],
+    hint: "TOA: tan θ = opp/adj, so opp = adj × tan θ = 9 × tan 53°.",
+    explanation:
+      "Tangent connects adjacent and opposite without the hypotenuse. opp = adj × tan θ = 9 × tan 53° = 9 × 1.3270 ≈ 11.9.",
+  },
+  {
+    id: "i2",
+    prompt: "In a right triangle, adjacent = 4 and angle θ = 45°. Find the opposite side to 1 decimal place.",
+    latex: "\\text{adj}=4,\\;\\theta=45^\\circ,\\;\\text{find opp}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta = 45° at A (top left), right angle at C (bottom left), adjacent side AC = 4, and unknown opposite side BC labelled x.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { A: "45°" },
+      sideLabels: { AC: "4", BC: "x" },
+    },
+    answer: "4.0",
+    acceptedAnswers: ["4", "4.0"],
+    hint: "TOA: opp = adj × tan θ = 4 × tan 45°. Recall tan 45° = 1 exactly.",
+    explanation:
+      "Tangent connects adjacent and opposite. opp = adj × tan θ = 4 × tan 45° = 4 × 1 = 4.0. When θ = 45°, opposite equals adjacent.",
+  },
+  {
+    id: "i3",
+    prompt: "In a right triangle, opposite = 10 and angle θ = 30°. Find the adjacent side to 1 decimal place.",
+    latex: "\\text{opp}=10,\\;\\theta=30^\\circ,\\;\\text{find adj}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta = 30° at A (top left), right angle at C (bottom left), opposite side BC = 10, and unknown adjacent side AC labelled x.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { A: "30°" },
+      sideLabels: { BC: "10", AC: "x" },
+    },
+    answer: "17.3",
+    acceptedAnswers: ["17.3"],
+    hint: "TOA: tan θ = opp/adj, so adj = opp ÷ tan θ = 10 ÷ tan 30°.",
+    explanation:
+      "Tangent connects opposite and adjacent. adj = opp ÷ tan θ = 10 ÷ tan 30° = 10 ÷ 0.5774 ≈ 17.3.",
+  },
+  trigChoice(
+    "i4",
+    "In a right triangle, opposite = 12 and angle θ = 60°. Which equation gives the adjacent?",
+    "A",
+    [
+      "$\\text{adj}=12\\div\\tan 60^\\circ$",
+      "$\\text{adj}=12\\times\\tan 60^\\circ$",
+      "$\\text{adj}=12\\div\\sin 60^\\circ$",
+      "$\\text{adj}=12\\times\\cos 60^\\circ$",
+    ],
+    "TOA: tan θ = opp/adj → adj = opp ÷ tan θ = 12 ÷ tan 60°. The opposite is in the numerator of tan, so divide by tan to find adjacent.",
+    "\\text{opp}=12,\\;\\theta=60^\\circ,\\;\\text{find adj}"
+  ),
+  {
+    id: "i5",
+    prompt: "In a right triangle, adjacent = 15 and angle θ = 40°. Find the opposite side to 1 decimal place.",
+    latex: "\\text{adj}=15,\\;\\theta=40^\\circ,\\;\\text{find opp}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta = 40° at A (top left), right angle at C (bottom left), adjacent side AC = 15, and unknown opposite side BC labelled x.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { A: "40°" },
+      sideLabels: { AC: "15", BC: "x" },
+    },
+    answer: "12.6",
+    acceptedAnswers: ["12.6"],
+    hint: "TOA: opp = adj × tan θ = 15 × tan 40°.",
+    explanation:
+      "Tangent connects adjacent and opposite. opp = adj × tan θ = 15 × tan 40° = 15 × 0.8391 ≈ 12.6.",
+  },
+  {
+    id: "i6",
+    prompt: "In a right triangle, opposite = 20 and angle θ = 70°. Find the adjacent side to 1 decimal place.",
+    latex: "\\text{opp}=20,\\;\\theta=70^\\circ,\\;\\text{find adj}",
+    triangleDiagram: {
+      description:
+        "Right triangle with angle theta = 70° at A (top left), right angle at C (bottom left), opposite side BC = 20, and unknown adjacent side AC labelled x.",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { A: "70°" },
+      sideLabels: { BC: "20", AC: "x" },
+    },
+    answer: "7.3",
+    acceptedAnswers: ["7.3"],
+    hint: "TOA: tan θ = opp/adj, so adj = opp ÷ tan θ = 20 ÷ tan 70°.",
+    explanation:
+      "Tangent connects opposite and adjacent. adj = opp ÷ tan θ = 20 ÷ tan 70° = 20 ÷ 2.7475 ≈ 7.3.",
+  },
+  {
+    id: "i7",
+    prompt: "A ramp rises 2 m vertically over a horizontal base. The angle at the base is 15°. Find the horizontal distance to 1 decimal place.",
+    latex: "\\text{vertical rise}=2\\text{ m},\\;\\theta=15^\\circ,\\;\\text{find horizontal distance}",
+    triangleDiagram: {
+      description:
+        "Right triangle representing a ramp: angle theta = 15° at A (top left), right angle at C (bottom left), vertical rise BC = 2 m (opposite), horizontal base AC labelled x (adjacent).",
+      vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+      rightAngleAt: "C",
+      angleLabels: { A: "15°" },
+      sideLabels: { BC: "2 m", AC: "x" },
+    },
+    answer: "7.5",
+    acceptedAnswers: ["7.5", "7.5 m"],
+    hint: "The vertical rise is opposite and the horizontal base is adjacent. TOA: adj = opp ÷ tan θ = 2 ÷ tan 15°.",
+    explanation:
+      "The vertical rise (2 m) is opposite and the horizontal base is adjacent. adj = opp ÷ tan θ = 2 ÷ tan 15° = 2 ÷ 0.2679 ≈ 7.5 m.",
+  },
+];
+
+const findingSidesTanMistakes = [
+  {
+    mistake: "Using sin or cos instead of tan when no hypotenuse is involved.",
+    fix: "When only opposite and adjacent appear in the question, use tan θ = opp/adj. Sin and cos both require the hypotenuse — if it is not given or wanted, they will not help.",
+  },
+  {
+    mistake: "Writing opp = adj ÷ tan θ instead of opp = adj × tan θ when finding the opposite.",
+    fix: "From tan θ = opp/adj, rearranging gives opp = adj × tan θ (multiply). Dividing gives adj = opp ÷ tan θ. Choose the arrangement based on which side is unknown.",
+  },
+  {
+    mistake: "Forgetting to check degree mode when evaluating tan.",
+    fix: "Tan values differ dramatically between degrees and radians. Always check the calculator is in DEG mode. For example, tan(45°) = 1, but tan(45 radians) ≈ 1.619.",
+  },
+  {
+    mistake: "Confusing the ratio direction: writing tan θ = adj/opp instead of tan θ = opp/adj.",
+    fix: "TOA: Tangent = Opposite ÷ Adjacent. Opposite is always in the numerator. A quick check: tan(45°) = 1 means opp = adj at 45°, which confirms opp/adj = 1 when both sides are equal.",
+  },
+];
+
+const findingSidesTanMastery: PracticeQuestion[] = [
+  trigChoice(
+    "m1",
+    "Which ratio connects opposite and adjacent sides without using the hypotenuse?",
+    "C",
+    ["sin θ", "cos θ", "tan θ", "All three ratios can skip the hypotenuse"],
+    "TOA: tan θ = opp ÷ adj. Sin and cos both require the hypotenuse. Tangent is the only ratio that connects the two legs directly.",
+    "\\text{Which ratio skips the hypotenuse?}"
+  ),
+  trigAnswer(
+    "m2",
+    "In a right triangle, adjacent = 10 and angle θ = 45°. Find the opposite side to 1 decimal place.",
+    "\\text{adj}=10,\\;\\theta=45^\\circ,\\;\\text{find opp}",
+    "10.0",
+    ["10", "10.0"]
+  ),
+  trigAnswer(
+    "m3",
+    "In a right triangle, opposite = 7 and angle θ = 28°. Find the adjacent side to 1 decimal place.",
+    "\\text{opp}=7,\\;\\theta=28^\\circ,\\;\\text{find adj}",
+    "13.2",
+    ["13.2"]
+  ),
+  trigChoice(
+    "m4",
+    "In a right triangle, adjacent = 6 and angle θ = 50°. Which equation gives the opposite?",
+    "A",
+    [
+      "$\\text{opp}=6\\times\\tan 50^\\circ$",
+      "$\\text{opp}=6\\div\\tan 50^\\circ$",
+      "$\\text{opp}=6\\times\\sin 50^\\circ$",
+      "$\\text{opp}=6\\times\\cos 50^\\circ$",
+    ],
+    "TOA: opp = adj × tan θ = 6 × tan 50°. When adjacent is known and opposite is wanted, multiply by tan θ.",
+    "\\text{adj}=6,\\;\\theta=50^\\circ,\\;\\text{find opp}"
+  ),
+  trigAnswer(
+    "m5",
+    "In a right triangle, adjacent = 20 and angle θ = 28°. Find the opposite side to 1 decimal place.",
+    "\\text{adj}=20,\\;\\theta=28^\\circ,\\;\\text{find opp}",
+    "10.6",
+    ["10.6"]
+  ),
+  trigChoice(
+    "m6",
+    "A student finds the opposite side by writing opp = adj ÷ tan θ. What is the error?",
+    "A",
+    [
+      "When finding opposite, multiply adj by tan θ — dividing gives the adjacent from opposite, not the other way around",
+      "The student should use sin θ instead",
+      "The student should use cos θ instead",
+      "Nothing is wrong — both forms give the same answer",
+    ],
+    "TOA: tan θ = opp/adj → opp = adj × tan θ. Dividing gives adj = opp ÷ tan θ, the formula for finding adjacent. Check which side is unknown before choosing the arrangement.",
+    "\\text{adj known, finding opp: error in opp}=\\text{adj}\\div\\tan\\theta"
+  ),
+  trigAnswer(
+    "m7",
+    "In a right triangle, adjacent = 12 and angle θ = 62°. Find the opposite side to 1 decimal place.",
+    "\\text{adj}=12,\\;\\theta=62^\\circ,\\;\\text{find opp}",
+    "22.6",
+    ["22.6"]
+  ),
+  trigAnswer(
+    "m8",
+    "In a right triangle, opposite = 15 and angle θ = 55°. Find the adjacent side to 1 decimal place.",
+    "\\text{opp}=15,\\;\\theta=55^\\circ,\\;\\text{find adj}",
+    "10.5",
+    ["10.5"]
+  ),
+  trigAnswer(
+    "m9",
+    "A vertical wall is 8 m tall. The angle of elevation to the top from the observer on the ground is 35°. Find the horizontal distance from the observer to the wall to 1 decimal place.",
+    "\\text{opp (height)}=8\\text{ m},\\;\\theta=35^\\circ,\\;\\text{find adj (horizontal distance)}",
+    "11.4",
+    ["11.4", "11.4 m"]
+  ),
+  trigChoice(
+    "m10",
+    "When should you use tan θ rather than sin θ or cos θ?",
+    "A",
+    [
+      "When only opposite and adjacent are involved — the hypotenuse is not given and not needed",
+      "When the hypotenuse is given and the opposite is needed",
+      "When the hypotenuse is given and the adjacent is needed",
+      "Tan can always replace sin and cos",
+    ],
+    "Use tan when only opposite and adjacent are involved. If the hypotenuse appears in the given or wanted information, use sin or cos instead.",
+    "\\text{When to use tan instead of sin or cos}"
   ),
 ];
 
@@ -2748,11 +3953,11 @@ function year10TrigV2Lesson(lessonSlug: string): Partial<ExplicitLesson> | null 
         "\\text{hypotenuse} = \\text{side opposite the right angle}",
         "\\text{opposite and adjacent are named from the marked angle}",
       ],
-      workedExamples: trigRatiosWorkedExamples,
-      guidedPractice: trigRatiosGuided,
-      independentPractice: trigRatiosIndependent,
+      workedExamples: [trigRatiosWorkedExamples[0]],
+      guidedPractice: identifyingSidesGuided,
+      independentPractice: identifyingSidesIndependent,
       commonMistakes: trigRatiosMistakes,
-      masteryQuiz: trigRatiosMastery,
+      masteryQuiz: identifyingSidesMastery,
     },
     "trig-ratios-sin-cos-tan": {
       idPrefix: "trig-rat2",
@@ -2774,11 +3979,11 @@ function year10TrigV2Lesson(lessonSlug: string): Partial<ExplicitLesson> | null 
         "\\sin\\theta=\\frac{\\text{opp}}{\\text{hyp}},\\quad\\cos\\theta=\\frac{\\text{adj}}{\\text{hyp}},\\quad\\tan\\theta=\\frac{\\text{opp}}{\\text{adj}}",
         "\\text{Known sides} \\rightarrow \\text{matching ratio}",
       ],
-      workedExamples: trigRatiosWorkedExamples,
-      guidedPractice: trigRatiosGuided,
-      independentPractice: trigRatiosIndependent,
+      workedExamples: [trigRatiosWorkedExamples[1], trigRatiosWorkedExamples[2]],
+      guidedPractice: ratioSelectionGuided,
+      independentPractice: ratioSelectionIndependent,
       commonMistakes: trigRatiosMistakes,
-      masteryQuiz: trigRatiosMastery,
+      masteryQuiz: ratioSelectionMastery,
     },
     "finding-sides-sin-cos": {
       idPrefix: "find-sc",
@@ -2802,9 +4007,9 @@ function year10TrigV2Lesson(lessonSlug: string): Partial<ExplicitLesson> | null 
       ],
       workedExamples: findingSidesWorkedExamples,
       guidedPractice: findingSidesGuided,
-      independentPractice: findingSidesIndependent,
-      commonMistakes: findingSidesMistakes,
-      masteryQuiz: findingSidesMastery,
+      independentPractice: findingSidesSinCosIndependent,
+      commonMistakes: findingSidesSinCosMistakes,
+      masteryQuiz: findingSidesSinCosMastery,
     },
     "finding-sides-tan": {
       idPrefix: "find-tan",
@@ -2826,11 +4031,11 @@ function year10TrigV2Lesson(lessonSlug: string): Partial<ExplicitLesson> | null 
         "\\tan\\theta=\\frac{\\text{opp}}{\\text{adj}}",
         "\\text{opp}=\\text{adj}\\tan\\theta,\\quad\\text{adj}=\\frac{\\text{opp}}{\\tan\\theta}",
       ],
-      workedExamples: findingSidesWorkedExamples,
-      guidedPractice: findingSidesGuided,
-      independentPractice: findingSidesIndependent,
-      commonMistakes: findingSidesMistakes,
-      masteryQuiz: findingSidesMastery,
+      workedExamples: findingSidesTanWorkedExamples,
+      guidedPractice: findingSidesTanGuided,
+      independentPractice: findingSidesTanIndependent,
+      commonMistakes: findingSidesTanMistakes,
+      masteryQuiz: findingSidesTanMastery,
     },
     "finding-angles-inverse-trig": {
       idPrefix: "find-ang-v2",

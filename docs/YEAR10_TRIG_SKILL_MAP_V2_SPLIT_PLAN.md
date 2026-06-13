@@ -1,7 +1,7 @@
 # Year 10 Trigonometry — Skill Map v2 Split Plan
 
 Created: 2026-06-13  
-Status: Phase 1b implemented. Catalogue split, Core visibility, lesson wrappers and seed dry-run support are in place.
+Status: Phase 2 content deepening complete for slots 1–4. All 12 v2 slots have focused question banks; seed dry-run passes.
 Applies to: `year-10-mathematics`, `year-10-mathematics-advanced`, `year-10-mathematics-core`
 
 ---
@@ -393,3 +393,51 @@ Step 3 — Validation:
 Output: files changed, new slug list, question count per slot, any audit warnings, validation result.
 Constraints: Do not modify sine-rule, cosine-rule, area, or bearings lessons in this step.
 ```
+
+---
+
+## 10. Phase 2 Implementation Notes (2026-06-13)
+
+### What was done
+
+Slots 1–4 received fully focused, independent question banks. Previously, slots 1 and 2 shared the same `trigRatiosGuided/Independent/Mastery` arrays (different ID prefix only), and slots 3 and 4 shared the same `findingSidesGuided/Independent/Mastery` arrays (different ID prefix only, and slot 4 had zero tan-specific questions).
+
+**Changes made to `lib/lessons/year10/trigonometry.ts`:**
+
+| Array | Questions | Purpose |
+|---|---|---|
+| `identifyingSidesGuided` | 4 | Pure side-labelling (hyp/opp/adj), all MCQ, 3 with `triangleDiagram` |
+| `identifyingSidesIndependent` | 7 | Side labelling in different triangle orientations; standard + θ-at-B variants; ladder context |
+| `identifyingSidesMastery` | 10 | Rapid side ID; 5-12-13 triangle; misconception catch (adj ≠ next to right angle) |
+| `ratioSelectionGuided` | 4 | Pure ratio writing/selection (SOH-CAH-TOA); no side length calculation |
+| `ratioSelectionIndependent` | 7 | Ratio writing from given sides; ratio selection from side pair; identifying which ratio gives 12/13 |
+| `ratioSelectionMastery` | 10 | cos θ from sin θ via Pythagoras; cos θ = 5/13 direction-reading; 7-24-25 triple tan calculation |
+| `findingSidesSinCosIndependent` | 7 | Sin/cos only; removed tan question (old i4); added 3 new with `triangleDiagram` (hyp from adj, hyp from opp, opp from hyp) |
+| `findingSidesSinCosMastery` | 10 | Sin/cos only; replaced old m5 (tan-based) with hyp=25 cos question with `triangleDiagram` |
+| `findingSidesSinCosMistakes` | 4 | Sin/cos specific: sin vs cos confusion, hyp multiply vs divide, radian mode, rounding |
+| `findingSidesTanWorkedExamples` | 3 | New: find opp from adj (adj=9, θ=53°); find adj from opp (opp=12, θ=36°); "no hyp needed" recognition (adj=8, θ=35°) |
+| `findingSidesTanGuided` | 4 | Tan-only: multiply for opp, divide for adj, compute opp, recognise when tan applies |
+| `findingSidesTanIndependent` | 7 | Tan-only with `triangleDiagram` on all; includes tan 45°=1 insight, ramp context |
+| `findingSidesTanMistakes` | 4 | Tan-specific: sin/cos used when no hyp; multiply vs divide error; degree mode; ratio direction |
+| `findingSidesTanMastery` | 10 | Tan-only; opp=adj at 45°; error-analysis MCQ; wall height from angle; "when to use tan" conceptual |
+
+The `year10TrigV2Lesson` config was updated to wire each slot to its dedicated arrays.
+
+### Seed dry-run results (post-change)
+
+| Slot | Advanced | Core |
+|---|---|---|
+| `trig-ratios-identifying-sides` | 21 | 21 |
+| `trig-ratios-sin-cos-tan` | 21 | 21 |
+| `finding-sides-sin-cos` | 21 | 21 |
+| `finding-sides-tan` | 21 | 21 |
+| Other 8 slots | 19 each | 19 each (Core-visible only) |
+
+**TypeScript:** `tsc --noEmit` — clean, no errors.
+
+### What remains for Phase 3
+
+- Worksheet generation targeting: update `worksheetGeneration.ts` to filter by new subtopic slugs once the live seed has been run.
+- Live seed run against production Supabase (when ready to go live).
+- Slots 7–12 content audit: sine rule, cosine rule, area, bearings currently share questions between side and angle variants — same issue as slots 1/2 but lower urgency.
+- Year 9 Core Trig authoring (see `docs/YEAR9_CORE_TRIG_AUTHORING_PLAN.md`).
