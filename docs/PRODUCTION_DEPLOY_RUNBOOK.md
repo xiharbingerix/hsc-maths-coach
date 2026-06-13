@@ -4,6 +4,15 @@ Last updated: 2026-06-13
 
 This runbook covers the current release: Stripe-first checkout, ads funnel analytics, first-session onboarding, Year 9/10 Core and Advanced pathways, Year 12 Standard 1 fixes, Year 12 Extension 1, Year 12 Extension 2 scaffold, Lesson Maker saved plans, worksheet subtopic control, multi-part questions, and marks-weighted multi-part worksheet scoring.
 
+Current release status:
+
+- HSC page-view attribution now includes UTM/gclid metadata.
+- Cancelled Stripe checkout path has been smoke-tested and works.
+- Year 10 Trigonometry Skill Map v2 split is implemented.
+- Year 10 Trig Slots 1-4 have been content-deepened and now target isolated skills.
+- Multi-part worksheet preview/scoring has been implemented and smoke-tested with a disposable worksheet.
+- Extension 2 has active Complex Numbers and 3D Vectors units, but course remains coming_soon.
+
 ## 1. Rules for this deploy
 
 - Do not scale ads until every blocker in this runbook is cleared.
@@ -142,9 +151,12 @@ Use production URL in headed Chrome. Pause for Joshua sign-in where required.
 
 - Open HSC CTA from public marketing page.
 - Confirm it redirects to Stripe checkout.
+- Confirm the cancelled Stripe checkout path still returns safely only if checkout redirect or cancel URL code changed.
 - Complete a safe production payment test only if Joshua explicitly approves the action and account.
 - Confirm `/payment-success` lands on dashboard and access is active.
 - Confirm active paid user visiting `/checkout` is sent to dashboard.
+
+Completed checkout path was manually verified previously. Do not repeat unless Stripe/webhook/payment-success code changes. Monitor trial_started and payment_success in admin analytics after real traffic.
 
 ### Dashboard and onboarding
 

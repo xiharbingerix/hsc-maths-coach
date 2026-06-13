@@ -20,6 +20,15 @@ The current release includes:
 - Multi-part questions.
 - Marks-weighted multi-part worksheet scoring.
 
+Current release status:
+
+- HSC page-view attribution now includes UTM/gclid metadata.
+- Cancelled Stripe checkout path has been smoke-tested and works.
+- Year 10 Trigonometry Skill Map v2 split is implemented.
+- Year 10 Trig Slots 1-4 have been content-deepened and now target isolated skills.
+- Multi-part worksheet preview/scoring has been implemented and smoke-tested with a disposable worksheet.
+- Extension 2 has active Complex Numbers and 3D Vectors units, but course remains coming_soon.
+
 ## 2. Required checks before deploy
 
 Run from `C:\Users\joshu\hsc-maths-coach`:
@@ -98,6 +107,7 @@ Use headed Chrome and pause for Joshua sign-in where required.
 - HSC CTA opens Stripe checkout.
 - Stripe success returns to dashboard with access active.
 - Active paid user is guarded away from checkout.
+- Cancelled Stripe checkout returns safely and has been smoke-tested.
 - Dashboard onboarding, course selection, Continue Learning, Daily Review, and Band Predictor do not crash.
 - Year 12 Advanced nested route works:
   `/course/year-12-advanced/differential-calculus/tangents-and-normals`
@@ -109,6 +119,8 @@ Use headed Chrome and pause for Joshua sign-in where required.
 - Multi-part worksheet scoring shows partial credit, per-part marks, explanations, and final marks total.
 - Lesson Maker can generate, save, reload, and hand off to worksheet creation.
 - Admin analytics ads funnel renders and shows expected events.
+
+Completed checkout path was manually verified previously. Do not repeat unless Stripe/webhook/payment-success code changes. Monitor trial_started and payment_success in admin analytics after real traffic.
 
 Recent disposable local/dev worksheet smoke token:
 
