@@ -28,6 +28,8 @@ Skill Map v2 metadata is additive. It must not rename or remove existing slugs i
 `CourseLessonSeed` may define:
 
 ```ts
+seedQuestions?: boolean;
+showInCourseNav?: boolean;
 stableSkillId?: string;
 legacySlugs?: string[];
 skillCheckpoints?: {
@@ -36,6 +38,22 @@ skillCheckpoints?: {
   legacySlugs?: string[];
 }[];
 ```
+
+### `seedQuestions`
+
+Controls whether `scripts/seed-question-bank.ts` exports questions for a catalogue lesson.
+
+- Default: `true`.
+- Set to `false` only for catalogue-visible legacy route entries that must remain resolvable but should not receive new question-bank rows.
+- This is useful during a broad-lesson split where old public slugs remain available while new Skill Map v2 subtopic slugs become the worksheet/mastery seed targets.
+
+### `showInCourseNav`
+
+Controls whether a lesson appears in student-facing course overview/unit pathway lists.
+
+- Default: `true`.
+- Set to `false` for legacy route entries that should remain resolvable but should not be presented as active Skill Map v2 slots.
+- `getNewCourseLesson` still resolves hidden lessons; `getNewCourseUnitOutline` and lesson counts hide them.
 
 ### `stableSkillId`
 
@@ -89,6 +107,7 @@ Phase 1a does not add `skill_id` or `checkpoint_id` columns to Supabase. Therefo
 - `scripts/seed-question-bank.ts` continues writing only existing fields,
 - `course_slug`, `topic_slug`, and `subtopic_slug` remain the worksheet/mastery filter keys,
 - dry-run output reports how many prepared questions sit under lessons that have Skill Map v2 metadata,
+- lessons marked `seedQuestions: false` are skipped with a dry-run warning,
 - no stable IDs are written to Supabase yet.
 
 When schema support is added, the safe next step is nullable columns:
@@ -124,4 +143,3 @@ The initial pilot covers four existing Complex Numbers lessons:
 - `polar-form-de-moivre`
 
 The checkpoint labels include the planned split slots from the Skill Map v2 slot map, but they are metadata only. They do not create new routes or seeded rows.
-

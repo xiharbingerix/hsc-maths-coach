@@ -1936,48 +1936,269 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Trigonometric Ratios",
             description:
               "Identify the hypotenuse, opposite and adjacent sides relative to a marked angle, and write sin, cos and tan using SOH-CAH-TOA.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "finding-sides-trig",
             title: "Finding Unknown Sides",
             description:
               "Use trigonometric ratios to find an unknown side length in a right triangle when one side and one acute angle are known.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "finding-angles-trig",
             title: "Finding Unknown Angles",
             description:
               "Apply sinâ»Â¹, cosâ»Â¹ or tanâ»Â¹ to find an unknown angle in a right triangle from two known sides.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "elevation-depression",
             title: "Angles of Elevation and Depression",
             description:
               "Model real-world situations using angles of elevation and depression, and solve for unknown heights and distances.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "sine-rule",
             title: "The Sine Rule",
             description:
               "Use the sine rule to find unknown sides and angles in non-right-angled triangles when an opposite sideâ€“angle pair is known.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "cosine-rule",
             title: "The Cosine Rule",
             description:
               "Apply the cosine rule to find an unknown side or angle in a non-right-angled triangle from two sides and the included angle, or from three sides.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "area-trig-formula",
             title: "Area of a Triangle",
             description:
               "Calculate the area of any triangle using A = Â½ab sin C when two sides and their included angle are known.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "bearings",
             title: "Bearings",
             description:
               "Read and write three-digit compass bearings, find reverse bearings, and solve simple navigation problems using bearings and trigonometry.",
+            seedQuestions: false,
+            showInCourseNav: false,
+          },
+          {
+            slug: "trig-ratios-identifying-sides",
+            title: "Identifying Triangle Sides",
+            description:
+              "Identify the hypotenuse, opposite and adjacent sides relative to a marked angle in a right triangle.",
+            stableSkillId: "y10-trig-ratios-identifying-sides",
+            legacySlugs: ["trigonometric-ratios"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y10-trig-side-labels-hypotenuse",
+                label: "Identify the hypotenuse from the right angle",
+                legacySlugs: ["trigonometric-ratios"],
+              },
+              {
+                stableCheckpointId: "y10-trig-side-labels-opposite-adjacent",
+                label: "Identify opposite and adjacent sides from the marked angle",
+                legacySlugs: ["trigonometric-ratios"],
+              },
+            ],
+          },
+          {
+            slug: "trig-ratios-sin-cos-tan",
+            title: "Writing and Selecting Trig Ratios",
+            description:
+              "Write sin, cos and tan ratios from labelled right triangles and select the correct ratio for a pair of sides.",
+            stableSkillId: "y10-trig-ratios-sin-cos-tan",
+            legacySlugs: ["trigonometric-ratios"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y10-trig-soh-cah-toa-ratio-writing",
+                label: "Write sin, cos and tan using SOH-CAH-TOA",
+                legacySlugs: ["trigonometric-ratios"],
+              },
+              {
+                stableCheckpointId: "y10-trig-ratio-selection",
+                label: "Select the ratio that matches the known and wanted sides",
+                legacySlugs: ["trigonometric-ratios"],
+              },
+            ],
+          },
+          {
+            slug: "finding-sides-sin-cos",
+            title: "Finding Sides Using Sin and Cos",
+            description:
+              "Use sin and cos to find unknown sides in right triangles involving the hypotenuse.",
+            stableSkillId: "y10-trig-finding-sides-sin-cos",
+            legacySlugs: ["finding-sides-trig"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y10-trig-find-side-sin",
+                label: "Use sine to connect opposite and hypotenuse",
+                legacySlugs: ["finding-sides-trig"],
+              },
+              {
+                stableCheckpointId: "y10-trig-find-side-cos",
+                label: "Use cosine to connect adjacent and hypotenuse",
+                legacySlugs: ["finding-sides-trig"],
+              },
+            ],
+          },
+          {
+            slug: "finding-sides-tan",
+            title: "Finding Sides Using Tan",
+            description:
+              "Use tan to find unknown opposite or adjacent side lengths without using the hypotenuse.",
+            stableSkillId: "y10-trig-finding-sides-tan",
+            legacySlugs: ["finding-sides-trig"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y10-trig-find-side-tan-opposite",
+                label: "Find an opposite side using tan",
+                legacySlugs: ["finding-sides-trig"],
+              },
+              {
+                stableCheckpointId: "y10-trig-find-side-tan-adjacent",
+                label: "Find an adjacent side using tan",
+                legacySlugs: ["finding-sides-trig"],
+              },
+            ],
+          },
+          {
+            slug: "finding-angles-inverse-trig",
+            title: "Finding Angles Using Inverse Trig",
+            description:
+              "Apply inverse sin, inverse cos or inverse tan to find an unknown angle in a right triangle.",
+            stableSkillId: "y10-trig-finding-angles-inverse-trig",
+            legacySlugs: ["finding-angles-trig"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y10-trig-inverse-ratio-selection",
+                label: "Choose the inverse trig function from two known sides",
+                legacySlugs: ["finding-angles-trig"],
+              },
+            ],
+          },
+          {
+            slug: "elevation-depression-applications",
+            title: "Angles of Elevation and Depression",
+            description:
+              "Model elevation and depression contexts as right triangles and solve for heights, distances or angles.",
+            stableSkillId: "y10-trig-elevation-depression-applications",
+            legacySlugs: ["elevation-depression"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y10-trig-elevation-depression-models",
+                label: "Draw and solve elevation and depression models",
+                legacySlugs: ["elevation-depression"],
+              },
+            ],
+          },
+          {
+            slug: "sine-rule-finding-sides",
+            title: "Sine Rule - Finding Sides",
+            description:
+              "Use the sine rule to find unknown sides in non-right-angled triangles.",
+            stableSkillId: "y10-trig-sine-rule-finding-sides",
+            legacySlugs: ["sine-rule"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y10-trig-sine-rule-side-pairs",
+                label: "Use opposite side-angle pairs to find a side",
+                legacySlugs: ["sine-rule"],
+              },
+            ],
+          },
+          {
+            slug: "sine-rule-finding-angles",
+            title: "Sine Rule - Finding Angles",
+            description:
+              "Use the sine rule and inverse sine to find unknown angles in non-right-angled triangles.",
+            stableSkillId: "y10-trig-sine-rule-finding-angles",
+            legacySlugs: ["sine-rule"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y10-trig-sine-rule-angle-pairs",
+                label: "Use opposite side-angle pairs to find an angle",
+                legacySlugs: ["sine-rule"],
+              },
+            ],
+          },
+          {
+            slug: "cosine-rule-finding-sides",
+            title: "Cosine Rule - Finding Sides",
+            description:
+              "Use the cosine rule to find a side from two sides and the included angle.",
+            stableSkillId: "y10-trig-cosine-rule-finding-sides",
+            legacySlugs: ["cosine-rule"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y10-trig-cosine-rule-sas",
+                label: "Use the cosine rule for SAS side-finding",
+                legacySlugs: ["cosine-rule"],
+              },
+            ],
+          },
+          {
+            slug: "cosine-rule-finding-angles",
+            title: "Cosine Rule - Finding Angles",
+            description:
+              "Rearrange the cosine rule to find an unknown angle from three sides.",
+            stableSkillId: "y10-trig-cosine-rule-finding-angles",
+            legacySlugs: ["cosine-rule"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y10-trig-cosine-rule-sss",
+                label: "Use the cosine rule for SSS angle-finding",
+                legacySlugs: ["cosine-rule"],
+              },
+            ],
+          },
+          {
+            slug: "area-of-triangle-formula",
+            title: "Area of a Triangle",
+            description:
+              "Calculate triangle area using one half ab sin C and rearrange the formula in simple cases.",
+            stableSkillId: "y10-trig-area-of-triangle-formula",
+            legacySlugs: ["area-trig-formula"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y10-trig-area-half-ab-sin-c",
+                label: "Use one half ab sin C for non-right triangle area",
+                legacySlugs: ["area-trig-formula"],
+              },
+            ],
+          },
+          {
+            slug: "bearings-and-trigonometry",
+            title: "Bearings",
+            description:
+              "Read and write three-digit bearings and solve navigation problems using trigonometry.",
+            stableSkillId: "y10-trig-bearings-and-trigonometry",
+            legacySlugs: ["bearings"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y10-trig-three-digit-bearings",
+                label: "Interpret three-digit and reverse bearings",
+                legacySlugs: ["bearings"],
+              },
+              {
+                stableCheckpointId: "y10-trig-bearing-components",
+                label: "Use trig to resolve bearing distances",
+                legacySlugs: ["bearings"],
+              },
+            ],
           },
         ],
       },
@@ -2436,6 +2657,26 @@ export const newCoursePathways: CoursePathwaySeed[] = [
 {
   const year9Base = newCoursePathways.find((p) => p.slug === "year-9-mathematics")!;
   const year10Base = newCoursePathways.find((p) => p.slug === "year-10-mathematics")!;
+  const namespaceSkillMapIds = (
+    units: CourseUnitSeed[],
+    fromPrefix: string,
+    toPrefix: string
+  ): CourseUnitSeed[] =>
+    units.map((unit) => ({
+      ...unit,
+      lessons: unit.lessons.map((lesson) => ({
+        ...lesson,
+        stableSkillId: lesson.stableSkillId?.startsWith(fromPrefix)
+          ? lesson.stableSkillId.replace(fromPrefix, toPrefix)
+          : lesson.stableSkillId,
+        skillCheckpoints: lesson.skillCheckpoints?.map((checkpoint) => ({
+          ...checkpoint,
+          stableCheckpointId: checkpoint.stableCheckpointId.startsWith(fromPrefix)
+            ? checkpoint.stableCheckpointId.replace(fromPrefix, toPrefix)
+            : checkpoint.stableCheckpointId,
+        })),
+      })),
+    }));
 
   // Year 9 Core trims working-with-triangles to Pythagoras only (no trig / coord geom).
   const year9CoreUnits = year9Base.units.map((u) =>
@@ -2453,7 +2694,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
   //   non-linear-relationships â†’ parabolas + circles only (no exponential / hyperbola)
   //   trigonometry             â†’ right-angled only (no sine/cosine rule, area, bearings)
   //   geometry-proofs          â†’ congruence + similarity only (no circle geometry / proofs)
-  const year10CoreUnits = year10Base.units.map((u) => {
+  const year10CoreTrimmedUnits = year10Base.units.map((u) => {
     if (u.slug === "non-linear-relationships") {
       return {
         ...u,
@@ -2466,7 +2707,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       return {
         ...u,
         lessons: u.lessons.filter((l) =>
-          ["trigonometric-ratios", "finding-sides-trig", "finding-angles-trig", "elevation-depression"].includes(l.slug)
+          [
+            "trigonometric-ratios",
+            "finding-sides-trig",
+            "finding-angles-trig",
+            "elevation-depression",
+            "trig-ratios-identifying-sides",
+            "trig-ratios-sin-cos-tan",
+            "finding-sides-sin-cos",
+            "finding-sides-tan",
+            "finding-angles-inverse-trig",
+            "elevation-depression-applications",
+          ].includes(l.slug)
         ),
       };
     }
@@ -2480,6 +2732,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     }
     return u;
   });
+  const year10AdvancedUnits = namespaceSkillMapIds(year10Base.units, "y10-", "y10a-");
+  const year10CoreUnits = namespaceSkillMapIds(year10CoreTrimmedUnits, "y10-", "y10c-");
 
   newCoursePathways.push(
     {
@@ -2516,7 +2770,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         "Stage 5.3 Year 10 Mathematics for students on the Advanced pathway. Includes circle geometry, geometric proofs, full trigonometry (sine/cosine rule, bearings) and all non-linear function types.",
       positioning:
         "Advanced Stage 5 pathway preparing students for Year 11 Advanced and Extension. Covers all Year 10 content.",
-      units: year10Base.units,
+      units: year10AdvancedUnits,
     },
     {
       slug: "year-10-mathematics-core",
@@ -2583,18 +2837,24 @@ export function getNewCourseUnitOutline(
   const unit = getNewCourseUnit(courseSlug, unitSlug);
 
   return (
-    unit?.lessons.map((lesson) => ({
-      id: lesson.slug,
-      slug: lesson.slug,
-      title: lesson.title,
-      description:
-        lesson.description ??
-        `Practise ${lesson.title.toLowerCase()} with concise examples and mastery checks.`,
-      status: "active" as const,
-    })) ?? []
+    unit?.lessons
+      .filter((lesson) => lesson.showInCourseNav !== false)
+      .map((lesson) => ({
+        id: lesson.slug,
+        slug: lesson.slug,
+        title: lesson.title,
+        description:
+          lesson.description ??
+          `Practise ${lesson.title.toLowerCase()} with concise examples and mastery checks.`,
+        status: "active" as const,
+      })) ?? []
   );
 }
 
+export function newCourseUnitLessonCount(unit: CourseUnitSeed) {
+  return unit.lessons.filter((lesson) => lesson.showInCourseNav !== false).length;
+}
+
 export function newCourseLessonCount(course: CoursePathwaySeed) {
-  return course.units.reduce((total, unit) => total + unit.lessons.length, 0);
+  return course.units.reduce((total, unit) => total + newCourseUnitLessonCount(unit), 0);
 }

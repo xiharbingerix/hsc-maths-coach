@@ -1,7 +1,7 @@
 # Year 10 Trigonometry — Skill Map v2 Split Plan
 
 Created: 2026-06-13  
-Status: Design only. No lesson files edited.  
+Status: Phase 1b implemented. Catalogue split, Core visibility, lesson wrappers and seed dry-run support are in place.
 Applies to: `year-10-mathematics`, `year-10-mathematics-advanced`, `year-10-mathematics-core`
 
 ---
@@ -315,6 +315,23 @@ When the 8 current lessons split into 12 subtopics, existing question IDs must b
 ---
 
 ## 8. Visual Payload Requirements by Slot
+
+## Phase 1b Implementation Notes
+
+- Added the 12 v2 subtopic lesson slots to the Year 10 `trigonometry` unit.
+- Kept all 8 original public lesson slugs in the catalogue for legacy route compatibility.
+- Marked the 8 original slugs with `seedQuestions: false` and `showInCourseNav: false` so old URLs remain resolvable while course navigation and re-seeding target the v2 subtopic slugs.
+- Added `stableSkillId`, `legacySlugs`, and checkpoint labels to the 12 v2 slots.
+- Namespaced cloned pathway metadata as `y10a-*` and `y10c-*` so base, Advanced and Core stable IDs remain globally unique.
+- Updated the Year 10 Core trim to include the six right-angle v2 slots:
+  - `trig-ratios-identifying-sides`
+  - `trig-ratios-sin-cos-tan`
+  - `finding-sides-sin-cos`
+  - `finding-sides-tan`
+  - `finding-angles-inverse-trig`
+  - `elevation-depression-applications`
+- Added minimal lesson wrappers for all 12 v2 slots using existing authored content with slot-specific teaching metadata and unique question ID namespaces.
+- The wrappers are intentionally conservative. They create real route, worksheet and seed targets now; deeper question redistribution can happen in a later authoring pass.
 
 | Slot | Payload type | All questions? | Notes |
 |---|---|---|---|

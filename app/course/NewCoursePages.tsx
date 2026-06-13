@@ -8,6 +8,7 @@ import {
   getNewCourseUnitLessons,
   getNewCourseUnitOutline,
   newCourseLessonCount,
+  newCourseUnitLessonCount,
 } from "../../lib/newCourseCatalog";
 import type { CoursePathwayStatus } from "../../lib/courseTypes";
 import { StudentNav } from "../components/StudentNav";
@@ -84,8 +85,8 @@ export function NewCourseOverviewPage({
 
   const lessonCount = newCourseLessonCount(course);
   const status = statusCopy[course.status];
-  const activeUnits = course.units.filter((unit) => unit.lessons.length > 0);
-  const plannedUnits = course.units.filter((unit) => unit.lessons.length === 0);
+  const activeUnits = course.units.filter((unit) => newCourseUnitLessonCount(unit) > 0);
+  const plannedUnits = course.units.filter((unit) => newCourseUnitLessonCount(unit) === 0);
   const hasActiveLessons = activeUnits.length > 0;
   const note = courseStatusNote(course.slug);
 
@@ -162,7 +163,7 @@ export function NewCourseOverviewPage({
                 </div>
                 <h2 className="mt-3 text-2xl font-bold">{unit.title}</h2>
                 <p className="mt-2 text-sm font-semibold text-slate-500">
-                  {unit.lessons.length} active lessons
+                  {newCourseUnitLessonCount(unit)} active lessons
                 </p>
                 <p className="mt-3 leading-7 text-slate-600">
                   {unit.description}
@@ -259,6 +260,7 @@ export function NewCourseUnitPage({
   const course = getNewCourse(courseSlug);
   const unit = getNewCourseUnit(courseSlug, unitSlug);
   const outline = getNewCourseUnitOutline(courseSlug, unitSlug);
+  const visibleLessonCount = outline.length;
 
   if (!course || !unit) {
     notFound();
@@ -287,7 +289,7 @@ export function NewCourseUnitPage({
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                 Active lessons
               </p>
-              <p className="mt-1 text-3xl font-bold">{unit.lessons.length}</p>
+              <p className="mt-1 text-3xl font-bold">{visibleLessonCount}</p>
             </div>
             <div className="rounded-2xl bg-slate-50 p-4">
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">

@@ -335,6 +335,15 @@ function collectQuestionsFromCourse(courseSlug: string) {
     const lessons = getNewCourseUnitLessons(course.slug, unit.slug);
 
     for (const lesson of lessons) {
+      const lessonSeed = unit.lessons.find((item) => item.slug === lesson.slug);
+      if (lessonSeed?.seedQuestions === false) {
+        warnings.push({
+          sourceId: `${course.slug}/${unit.slug}/${lesson.slug}`,
+          reason: "Skipped catalogue-only legacy lesson; seedQuestions is false.",
+        });
+        continue;
+      }
+
       if (isGeneratedCatalogueFallbackLesson(lesson)) {
         warnings.push({
           sourceId: `${course.slug}/${unit.slug}/${lesson.slug}`,

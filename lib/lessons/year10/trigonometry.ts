@@ -2681,6 +2681,371 @@ const bearingsMastery: PracticeQuestion[] = [
 
 // ─── Main override function ───────────────────────────────────────────────────
 
+type TrigLessonContent = {
+  workedExamples: WorkedExample[];
+  guidedPractice: PracticeQuestion[];
+  independentPractice: PracticeQuestion[];
+  commonMistakes: { mistake: string; fix: string }[];
+  masteryQuiz: PracticeQuestion[];
+};
+
+type TrigV2LessonConfig = TrigLessonContent & {
+  idPrefix: string;
+  description: string;
+  learningIntention: string;
+  successCriteria: string[];
+  teachingParagraphs: string[];
+  latexBlocks: string[];
+};
+
+function prefixTrigQuestions(
+  questions: PracticeQuestion[],
+  idPrefix: string
+): PracticeQuestion[] {
+  return questions.map((question) => ({
+    ...question,
+    id: `${idPrefix}-${question.id}`,
+  }));
+}
+
+function buildTrigV2Lesson(config: TrigV2LessonConfig): Partial<ExplicitLesson> {
+  return {
+    description: config.description,
+    learningIntention: config.learningIntention,
+    successCriteria: config.successCriteria,
+    teaching: {
+      paragraphs: config.teachingParagraphs,
+      latexBlocks: config.latexBlocks,
+    },
+    workedExamples: config.workedExamples,
+    guidedPractice: prefixTrigQuestions(config.guidedPractice, config.idPrefix),
+    independentPractice: prefixTrigQuestions(config.independentPractice, config.idPrefix),
+    commonMistakes: config.commonMistakes,
+    masteryQuiz: prefixTrigQuestions(config.masteryQuiz, config.idPrefix),
+    masteryPassMark: 0.8,
+  };
+}
+
+function year10TrigV2Lesson(lessonSlug: string): Partial<ExplicitLesson> | null {
+  const configs: Record<string, TrigV2LessonConfig> = {
+    "trig-ratios-identifying-sides": {
+      idPrefix: "trig-id",
+      description: "Identify hypotenuse, opposite and adjacent sides relative to a marked angle in a right triangle.",
+      learningIntention: "Label the three key sides of a right triangle accurately before choosing any trigonometric ratio.",
+      successCriteria: [
+        "Identify the hypotenuse as the side opposite the right angle.",
+        "Label opposite and adjacent sides from the marked angle.",
+        "Explain why opposite and adjacent change when the marked angle changes.",
+        "Use side labels to prepare for SOH-CAH-TOA ratio selection.",
+      ],
+      teachingParagraphs: [
+        "Before using sin, cos or tan, name the sides from the marked angle. The hypotenuse is fixed, but opposite and adjacent depend on the angle being used.",
+        "The opposite side is across from the marked angle and does not touch that vertex. The adjacent side touches the marked angle but is not the hypotenuse.",
+        "This slot isolates side labelling because many later trig errors begin with the wrong opposite or adjacent side.",
+        "Use the diagram first, then move to the ratio only after the side labels are secure.",
+      ],
+      latexBlocks: [
+        "\\text{hypotenuse} = \\text{side opposite the right angle}",
+        "\\text{opposite and adjacent are named from the marked angle}",
+      ],
+      workedExamples: trigRatiosWorkedExamples,
+      guidedPractice: trigRatiosGuided,
+      independentPractice: trigRatiosIndependent,
+      commonMistakes: trigRatiosMistakes,
+      masteryQuiz: trigRatiosMastery,
+    },
+    "trig-ratios-sin-cos-tan": {
+      idPrefix: "trig-rat2",
+      description: "Write and select sin, cos and tan ratios from labelled right triangles.",
+      learningIntention: "Use SOH-CAH-TOA to write trig ratios and select the ratio that matches the known and wanted sides.",
+      successCriteria: [
+        "Write sin theta, cos theta and tan theta as side-length fractions.",
+        "Match opposite/hypotenuse to sin, adjacent/hypotenuse to cos, and opposite/adjacent to tan.",
+        "Choose the appropriate ratio from the sides given in a question.",
+        "Avoid inverting ratios when writing trig equations.",
+      ],
+      teachingParagraphs: [
+        "SOH-CAH-TOA is the bridge between side labels and calculation. Once the sides are named, each ratio has a fixed structure.",
+        "Sin uses opposite and hypotenuse, cos uses adjacent and hypotenuse, and tan uses opposite and adjacent.",
+        "This slot focuses on ratio writing and selection, not yet on rearranging equations to find side lengths.",
+        "Check the two sides involved before choosing the ratio.",
+      ],
+      latexBlocks: [
+        "\\sin\\theta=\\frac{\\text{opp}}{\\text{hyp}},\\quad\\cos\\theta=\\frac{\\text{adj}}{\\text{hyp}},\\quad\\tan\\theta=\\frac{\\text{opp}}{\\text{adj}}",
+        "\\text{Known sides} \\rightarrow \\text{matching ratio}",
+      ],
+      workedExamples: trigRatiosWorkedExamples,
+      guidedPractice: trigRatiosGuided,
+      independentPractice: trigRatiosIndependent,
+      commonMistakes: trigRatiosMistakes,
+      masteryQuiz: trigRatiosMastery,
+    },
+    "finding-sides-sin-cos": {
+      idPrefix: "find-sc",
+      description: "Use sin and cos to find unknown right-triangle sides involving the hypotenuse.",
+      learningIntention: "Find unknown opposite, adjacent or hypotenuse lengths using sine or cosine.",
+      successCriteria: [
+        "Choose sine when opposite and hypotenuse are involved.",
+        "Choose cosine when adjacent and hypotenuse are involved.",
+        "Rearrange equations correctly when the hypotenuse is unknown.",
+        "Check calculator degree mode and round only at the end.",
+      ],
+      teachingParagraphs: [
+        "Sin and cos are the hypotenuse ratios. Use them when the hypotenuse appears in the known or wanted sides.",
+        "If the unknown side is on top of the fraction, multiply by the denominator. If the hypotenuse is unknown, divide by the trig ratio.",
+        "Draw and label the triangle first so the ratio choice is driven by the diagram rather than by guessing.",
+        "A useful check is that the hypotenuse should be the longest side.",
+      ],
+      latexBlocks: [
+        "\\sin\\theta=\\frac{\\text{opp}}{\\text{hyp}},\\quad\\cos\\theta=\\frac{\\text{adj}}{\\text{hyp}}",
+        "\\text{unknown in numerator: multiply};\\quad\\text{unknown in denominator: divide}",
+      ],
+      workedExamples: findingSidesWorkedExamples,
+      guidedPractice: findingSidesGuided,
+      independentPractice: findingSidesIndependent,
+      commonMistakes: findingSidesMistakes,
+      masteryQuiz: findingSidesMastery,
+    },
+    "finding-sides-tan": {
+      idPrefix: "find-tan",
+      description: "Use tan to find unknown opposite or adjacent sides when the hypotenuse is not needed.",
+      learningIntention: "Find right-triangle side lengths using tangent when opposite and adjacent are the useful sides.",
+      successCriteria: [
+        "Recognise when a question uses opposite and adjacent sides only.",
+        "Use tan theta = opposite divided by adjacent.",
+        "Rearrange tangent equations to find either opposite or adjacent.",
+        "Explain why the hypotenuse is not required for tan problems.",
+      ],
+      teachingParagraphs: [
+        "Tangent connects the two shorter sides relative to the marked angle: opposite and adjacent.",
+        "Use tan when the hypotenuse is not part of the information you need.",
+        "If the opposite side is unknown, multiply adjacent by tan theta. If the adjacent side is unknown, divide opposite by tan theta.",
+        "Separating tan from sin and cos makes it easier to avoid using the hypotenuse by habit.",
+      ],
+      latexBlocks: [
+        "\\tan\\theta=\\frac{\\text{opp}}{\\text{adj}}",
+        "\\text{opp}=\\text{adj}\\tan\\theta,\\quad\\text{adj}=\\frac{\\text{opp}}{\\tan\\theta}",
+      ],
+      workedExamples: findingSidesWorkedExamples,
+      guidedPractice: findingSidesGuided,
+      independentPractice: findingSidesIndependent,
+      commonMistakes: findingSidesMistakes,
+      masteryQuiz: findingSidesMastery,
+    },
+    "finding-angles-inverse-trig": {
+      idPrefix: "find-ang-v2",
+      description: "Apply inverse trigonometric functions to find unknown right-triangle angles from two sides.",
+      learningIntention: "Choose and apply inverse sin, inverse cos or inverse tan to find an unknown angle.",
+      successCriteria: [
+        "Identify which two sides are known.",
+        "Choose the matching trig ratio before applying the inverse function.",
+        "Use degree mode and round angles appropriately.",
+        "Recognise common inverse-function and calculator-mode errors.",
+      ],
+      teachingParagraphs: [
+        "When two sides are known and the angle is unknown, write the ratio first, then apply the inverse trig function.",
+        "Inverse trig functions undo sin, cos and tan. They are calculator operations that return an angle.",
+        "Choose the ratio from the sides you know: opp/hyp, adj/hyp or opp/adj.",
+        "A radian-mode answer will usually look like a small decimal, so check degree mode.",
+      ],
+      latexBlocks: [
+        "\\sin\\theta=\\frac{\\text{opp}}{\\text{hyp}}\\implies\\theta=\\sin^{-1}\\left(\\frac{\\text{opp}}{\\text{hyp}}\\right)",
+        "\\theta=\\cos^{-1}\\left(\\frac{\\text{adj}}{\\text{hyp}}\\right),\\quad\\theta=\\tan^{-1}\\left(\\frac{\\text{opp}}{\\text{adj}}\\right)",
+      ],
+      workedExamples: findingAnglesWorkedExamples,
+      guidedPractice: findingAnglesGuided,
+      independentPractice: findingAnglesIndependent,
+      commonMistakes: findingAnglesMistakes,
+      masteryQuiz: findingAnglesMastery,
+    },
+    "elevation-depression-applications": {
+      idPrefix: "elev-dep-v2",
+      description: "Model angles of elevation and depression as right triangles and solve practical problems.",
+      learningIntention: "Draw and solve elevation and depression problems using right-triangle trigonometry.",
+      successCriteria: [
+        "Distinguish elevation from depression.",
+        "Place the horizontal, vertical and line of sight correctly in a diagram.",
+        "Choose an appropriate trig ratio for the unknown height, distance or angle.",
+        "Interpret the numerical answer in context.",
+      ],
+      teachingParagraphs: [
+        "Elevation is measured upward from a horizontal line. Depression is measured downward from a horizontal line.",
+        "Both situations can be represented by a right triangle once the horizontal and vertical parts are identified.",
+        "Most height-from-distance questions use tangent because height and horizontal distance form opposite and adjacent sides.",
+        "Draw the model before calculating so the context does not hide the triangle.",
+      ],
+      latexBlocks: [
+        "\\tan\\theta=\\frac{\\text{height}}{\\text{horizontal distance}}",
+        "\\text{angle of depression} = \\text{matching angle of elevation in the right-triangle model}",
+      ],
+      workedExamples: elevationDepressionWorkedExamples,
+      guidedPractice: elevationDepressionGuided,
+      independentPractice: elevationDepressionIndependent,
+      commonMistakes: elevationDepressionMistakes,
+      masteryQuiz: elevationDepressionMastery,
+    },
+    "sine-rule-finding-sides": {
+      idPrefix: "sine-s",
+      description: "Use the sine rule to find unknown sides in non-right-angled triangles.",
+      learningIntention: "Use opposite side-angle pairs in the sine rule to find an unknown side.",
+      successCriteria: [
+        "Label opposite side-angle pairs correctly.",
+        "Use a complete known pair to set up the sine rule.",
+        "Rearrange the sine rule to make the unknown side the subject.",
+        "Check that the largest side is opposite the largest angle where possible.",
+      ],
+      teachingParagraphs: [
+        "The sine rule works in non-right triangles when an opposite side-angle pair is known.",
+        "For side-finding, keep the unknown side in the numerator where possible.",
+        "Careful labelling matters: side a is opposite angle A, side b is opposite angle B, and side c is opposite angle C.",
+        "This slot focuses on finding side lengths before moving to inverse-sine angle questions.",
+      ],
+      latexBlocks: [
+        "\\frac{a}{\\sin A}=\\frac{b}{\\sin B}=\\frac{c}{\\sin C}",
+        "b=\\frac{a\\sin B}{\\sin A}",
+      ],
+      workedExamples: sineRuleWorkedExamples,
+      guidedPractice: sineRuleGuided,
+      independentPractice: sineRuleIndependent,
+      commonMistakes: sineRuleMistakes,
+      masteryQuiz: sineRuleMastery,
+    },
+    "sine-rule-finding-angles": {
+      idPrefix: "sine-a",
+      description: "Use the sine rule and inverse sine to find unknown angles in non-right-angled triangles.",
+      learningIntention: "Use opposite side-angle pairs and inverse sine to find an unknown angle.",
+      successCriteria: [
+        "Set up the sine rule using corresponding sides and angles.",
+        "Rearrange to isolate sine of the unknown angle.",
+        "Apply inverse sine and check the angle sum.",
+        "Recognise when an obtuse alternative may need consideration.",
+      ],
+      teachingParagraphs: [
+        "For angle-finding with the sine rule, isolate sin of the unknown angle first.",
+        "Then apply inverse sine to find the angle.",
+        "Because inverse sine returns a principal angle, check whether the triangle context allows another angle.",
+        "Use the angle sum of a triangle to confirm the result is plausible.",
+      ],
+      latexBlocks: [
+        "\\frac{\\sin A}{a}=\\frac{\\sin B}{b}",
+        "A=\\sin^{-1}\\left(\\frac{a\\sin B}{b}\\right)",
+      ],
+      workedExamples: sineRuleWorkedExamples,
+      guidedPractice: sineRuleGuided,
+      independentPractice: sineRuleIndependent,
+      commonMistakes: sineRuleMistakes,
+      masteryQuiz: sineRuleMastery,
+    },
+    "cosine-rule-finding-sides": {
+      idPrefix: "cos-s",
+      description: "Use the cosine rule to find an unknown side from two sides and the included angle.",
+      learningIntention: "Apply the cosine rule in SAS situations to find the side opposite the included angle.",
+      successCriteria: [
+        "Recognise SAS information in a non-right triangle.",
+        "Substitute accurately into c squared equals a squared plus b squared minus 2ab cos C.",
+        "Take the square root only after evaluating c squared.",
+        "Check that the answer is sensible compared with the given sides and angle.",
+      ],
+      teachingParagraphs: [
+        "Use the cosine rule for side-finding when two sides and the included angle are known.",
+        "The included angle is the angle between the two known sides.",
+        "Substitute carefully, evaluate the squared expression, then take the square root.",
+        "When the included angle is 90 degrees, the cosine rule reduces to Pythagoras.",
+      ],
+      latexBlocks: [
+        "c^2=a^2+b^2-2ab\\cos C",
+        "c=\\sqrt{a^2+b^2-2ab\\cos C}",
+      ],
+      workedExamples: cosineRuleWorkedExamples,
+      guidedPractice: cosineRuleGuided,
+      independentPractice: cosineRuleIndependent,
+      commonMistakes: cosineRuleMistakes,
+      masteryQuiz: cosineRuleMastery,
+    },
+    "cosine-rule-finding-angles": {
+      idPrefix: "cos-a",
+      description: "Rearrange the cosine rule to find an unknown angle when all three sides are known.",
+      learningIntention: "Use the rearranged cosine rule to find angles in SSS non-right triangles.",
+      successCriteria: [
+        "Recognise SSS information in a non-right triangle.",
+        "Substitute side lengths into the rearranged cosine rule.",
+        "Apply inverse cosine to find the required angle.",
+        "Use the largest side/largest angle relationship as a reasonableness check.",
+      ],
+      teachingParagraphs: [
+        "When all three sides are known, rearrange the cosine rule to find an angle.",
+        "The side opposite the angle being found is the side that appears as c in the rearranged formula.",
+        "A negative cosine value means the angle is obtuse; inverse cosine handles this directly.",
+        "Check the final angle against the triangle side lengths.",
+      ],
+      latexBlocks: [
+        "\\cos C=\\frac{a^2+b^2-c^2}{2ab}",
+        "C=\\cos^{-1}\\left(\\frac{a^2+b^2-c^2}{2ab}\\right)",
+      ],
+      workedExamples: cosineRuleWorkedExamples,
+      guidedPractice: cosineRuleGuided,
+      independentPractice: cosineRuleIndependent,
+      commonMistakes: cosineRuleMistakes,
+      masteryQuiz: cosineRuleMastery,
+    },
+    "area-of-triangle-formula": {
+      idPrefix: "area-trig-v2",
+      description: "Calculate non-right triangle area using one half ab sin C.",
+      learningIntention: "Use the trigonometric area formula when two sides and the included angle are known.",
+      successCriteria: [
+        "Identify the included angle between the two known sides.",
+        "Substitute into A = one half ab sin C accurately.",
+        "State area answers in square units.",
+        "Rearrange the formula in simple reverse-area questions.",
+      ],
+      teachingParagraphs: [
+        "The formula A = one half ab sin C finds the area of any triangle when two sides and their included angle are known.",
+        "The included angle is the angle formed by the two sides used in the formula.",
+        "For a right angle, sin 90 degrees equals 1, so the formula matches the usual half base times height formula.",
+        "Always include square units for area.",
+      ],
+      latexBlocks: [
+        "A=\\tfrac{1}{2}ab\\sin C",
+        "\\sin C=\\frac{2A}{ab}",
+      ],
+      workedExamples: areaTrigWorkedExamples,
+      guidedPractice: areaTrigGuided,
+      independentPractice: areaTrigIndependent,
+      commonMistakes: areaTrigMistakes,
+      masteryQuiz: areaTrigMastery,
+    },
+    "bearings-and-trigonometry": {
+      idPrefix: "bearing-v2",
+      description: "Read and write bearings and solve navigation problems using trigonometry.",
+      learningIntention: "Use three-digit bearings, reverse bearings and trig components to model navigation problems.",
+      successCriteria: [
+        "Write compass directions as three-digit bearings.",
+        "Find reverse bearings by adding or subtracting 180 degrees.",
+        "Resolve a journey into north/east components where appropriate.",
+        "Interpret bearing diagrams consistently from north clockwise.",
+      ],
+      teachingParagraphs: [
+        "A bearing is measured clockwise from north and written with three digits.",
+        "Reverse bearings differ by 180 degrees.",
+        "Navigation problems often become triangle or component problems once the diagram is drawn.",
+        "Keep north at the top of the diagram so the angle direction is consistent.",
+      ],
+      latexBlocks: [
+        "\\text{reverse bearing}=\\text{bearing}\\pm180^\\circ",
+        "\\text{north}=d\\cos\\theta,\\quad\\text{east}=d\\sin\\theta",
+      ],
+      workedExamples: bearingsWorkedExamples,
+      guidedPractice: bearingsGuided,
+      independentPractice: bearingsIndependent,
+      commonMistakes: bearingsMistakes,
+      masteryQuiz: bearingsMastery,
+    },
+  };
+
+  const config = configs[lessonSlug];
+  return config ? buildTrigV2Lesson(config) : null;
+}
+
 export function year10TrigonometryLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -2688,6 +3053,11 @@ export function year10TrigonometryLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (!["year-10-mathematics", "year-10-mathematics-advanced", "year-10-mathematics-core"].includes(course.slug) || unit.slug !== "trigonometry") {
     return null;
+  }
+
+  const v2Lesson = year10TrigV2Lesson(lesson.slug);
+  if (v2Lesson) {
+    return v2Lesson;
   }
 
   if (lesson.slug === "trigonometric-ratios") {

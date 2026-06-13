@@ -26,6 +26,8 @@ export type CourseLessonSeed = {
   slug: string;
   title: string;
   description?: string;
+  seedQuestions?: boolean;
+  showInCourseNav?: boolean;
   stableSkillId?: string;
   legacySlugs?: string[];
   skillCheckpoints?: SkillCheckpointSeed[];
