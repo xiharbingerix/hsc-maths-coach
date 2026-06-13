@@ -13,18 +13,22 @@ import {
 
 export function TrackPaymentSuccess({
   extraEventName,
+  metadata,
 }: {
   extraEventName?: string;
+  metadata?: Record<string, unknown>;
 }) {
   useEffect(() => {
     const marketingParams = readMarketingParams();
-    trackPaymentSuccess(marketingParams);
+    const eventMetadata = { ...marketingParams, ...(metadata ?? {}) };
+
+    trackPaymentSuccess(eventMetadata);
     if (extraEventName) {
-      trackEvent(extraEventName, marketingParams);
+      trackEvent(extraEventName, eventMetadata);
     }
-    clientTrackEvent("payment_success", marketingParams);
+    clientTrackEvent("payment_success", eventMetadata);
     if (extraEventName === "trial_started") {
-      clientTrackEvent("trial_started", marketingParams);
+      clientTrackEvent("trial_started", eventMetadata);
     }
 
     const sessionId = new URLSearchParams(window.location.search).get(
@@ -67,7 +71,7 @@ export function TrackPaymentSuccess({
         window.clearTimeout(retryTimer);
       }
     };
-  }, [extraEventName]);
+  }, [extraEventName, metadata]);
 
   return null;
 }

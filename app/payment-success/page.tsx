@@ -13,6 +13,23 @@ async function getSessionOffer(sessionId: string | undefined) {
   try {
     const stripe = getStripe();
     const session = await stripe.checkout.sessions.retrieve(sessionId);
+    const hasActiveSubscription =
+      session.mode === "subscription" && Boolean(session.subscription);
+    const isCompleted =
+      session.status === "complete" &&
+      (session.payment_status === "paid" ||
+        session.payment_status === "no_payment_required" ||
+        hasActiveSubscription);
+
+    if (!isCompleted) {
+      console.warn("[payment-success] Unverified checkout session", {
+        sessionId,
+        status: session.status,
+        paymentStatus: session.payment_status,
+      });
+      return null;
+    }
+
     return getOfferConfig(session.metadata?.offer_selected);
   } catch {
     return null;
@@ -246,9 +263,15 @@ export default async function PaymentSuccessPage({
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
-      <TrackPaymentSuccess
-        extraEventName={isOnlineLearning ? "trial_started" : undefined}
-      />
+      {offer ? (
+        <TrackPaymentSuccess
+          extraEventName={isOnlineLearning ? "trial_started" : undefined}
+          metadata={{
+            session_id: sessionId,
+            offer: offer.slug,
+          }}
+        />
+      ) : null}
       <section className="mx-auto max-w-4xl space-y-8">
         <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
