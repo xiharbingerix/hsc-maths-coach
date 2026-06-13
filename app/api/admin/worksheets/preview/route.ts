@@ -4,7 +4,7 @@ import { ADMIN_COOKIE_NAME, getAdminToken } from "../../../../../lib/adminAuth";
 import { supabaseAdmin } from "../../../../../lib/supabaseAdmin";
 import {
   isDifficultyPreset,
-  selectWorksheetQuestions,
+  selectWorksheetQuestionsWithMetadata,
 } from "../../../../../lib/worksheetGeneration";
 
 export const runtime = "nodejs";
@@ -16,6 +16,7 @@ type PreviewBody = {
   totalQuestions?: number;
   studentId?: string;
   selectedSubtopicSlugs?: string[];
+  includeMultiPart?: boolean;
 };
 
 async function isAdmin(): Promise<boolean> {
@@ -40,7 +41,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const { courseSlug, topicSlugs, preset, totalQuestions, studentId, selectedSubtopicSlugs } = body;
+  const {
+    courseSlug,
+    topicSlugs,
+    preset,
+    totalQuestions,
+    studentId,
+    selectedSubtopicSlugs,
+    includeMultiPart,
+  } = body;
 
   if (!courseSlug?.trim()) {
     return NextResponse.json({ error: "Course is required." }, { status: 400 });
@@ -94,13 +103,14 @@ export async function POST(request: Request) {
   }
 
   try {
-    const questions = await selectWorksheetQuestions({
+    const { questions, metadata } = await selectWorksheetQuestionsWithMetadata({
       courseSlug,
       topicSlugs,
       preset,
       totalQuestions: count,
       weakSubtopicSlugs,
       selectedSubtopicSlugs: manualSubtopics.length > 0 ? manualSubtopics : undefined,
+      includeMultiPart: includeMultiPart === true,
     });
 
     if (questions.length === 0) {
@@ -116,6 +126,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       questions,
       questionCount: questions.length,
+      metadata,
       prioritisedSubtopics:
         weakSubtopicSlugs.length > 0 ? weakSubtopicSlugs : undefined,
     });

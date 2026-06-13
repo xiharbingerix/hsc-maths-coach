@@ -8,8 +8,10 @@ export const runtime = "nodejs";
 type ReplaceBody = {
   courseSlug?: string;
   topicSlug?: string;
+  subtopicSlug?: string;
   difficulty?: number;
   excludeQuestionIds?: string[];
+  includeMultiPart?: boolean;
 };
 
 async function isAdmin(): Promise<boolean> {
@@ -34,7 +36,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const { courseSlug, topicSlug, difficulty, excludeQuestionIds } = body;
+  const {
+    courseSlug,
+    topicSlug,
+    subtopicSlug,
+    difficulty,
+    excludeQuestionIds,
+    includeMultiPart,
+  } = body;
 
   if (!courseSlug?.trim() || !topicSlug?.trim()) {
     return NextResponse.json(
@@ -55,10 +64,12 @@ export async function POST(request: Request) {
     const replacement = await findReplacementQuestion({
       courseSlug,
       topicSlug,
+      subtopicSlug,
       difficulty: desiredDifficulty,
       excludeQuestionIds: Array.isArray(excludeQuestionIds)
         ? excludeQuestionIds
         : [],
+      includeMultiPart: includeMultiPart === true,
     });
 
     if (!replacement) {

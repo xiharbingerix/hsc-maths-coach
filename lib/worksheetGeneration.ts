@@ -19,6 +19,12 @@ export type WorksheetQuestionPreview = {
   diagramData: Record<string, unknown> | null;
 };
 
+export type WorksheetSelectionMetadata = {
+  totalCandidates: number;
+  multipartCandidates: number;
+  selectedMultipartCount: number;
+};
+
 type RawQuestionRow = {
   id: string;
   source_id: string | null;
@@ -39,6 +45,10 @@ export const WORKSHEET_PRESETS: Record<DifficultyPreset, DifficultyDist> = {
   standard: { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 },
   "push-forward": { 1: 0, 2: 2, 3: 3, 4: 3, 5: 2 },
 };
+
+function hasQuestionParts(row: Pick<RawQuestionRow, "question_parts">) {
+  return Array.isArray(row.question_parts) && row.question_parts.length > 0;
+}
 
 export function isDifficultyPreset(value: unknown): value is DifficultyPreset {
   return typeof value === "string" && value in WORKSHEET_PRESETS;
@@ -122,6 +132,7 @@ export async function selectWorksheetQuestions({
   totalQuestions,
   weakSubtopicSlugs = [],
   selectedSubtopicSlugs,
+  includeMultiPart = false,
 }: {
   courseSlug: string;
   topicSlugs: string[];
@@ -129,10 +140,43 @@ export async function selectWorksheetQuestions({
   totalQuestions: number;
   weakSubtopicSlugs?: string[];
   selectedSubtopicSlugs?: string[];
+  includeMultiPart?: boolean;
+}) {
+  const result = await selectWorksheetQuestionsWithMetadata({
+    courseSlug,
+    topicSlugs,
+    preset,
+    totalQuestions,
+    weakSubtopicSlugs,
+    selectedSubtopicSlugs,
+    includeMultiPart,
+  });
+
+  return result.questions;
+}
+
+export async function selectWorksheetQuestionsWithMetadata({
+  courseSlug,
+  topicSlugs,
+  preset,
+  totalQuestions,
+  weakSubtopicSlugs = [],
+  selectedSubtopicSlugs,
+  includeMultiPart = false,
+}: {
+  courseSlug: string;
+  topicSlugs: string[];
+  preset: DifficultyPreset;
+  totalQuestions: number;
+  weakSubtopicSlugs?: string[];
+  selectedSubtopicSlugs?: string[];
+  includeMultiPart?: boolean;
 }) {
   const distribution = scalePreset(WORKSHEET_PRESETS[preset], totalQuestions);
   const selected: WorksheetQuestionPreview[] = [];
   const selectedIds = new Set<string>();
+  let totalCandidates = 0;
+  let multipartCandidates = 0;
 
   // Manual admin selection takes 100% of phase-1 slots;
   // adaptive weak subtopics take 65% (existing behaviour).
@@ -160,7 +204,14 @@ export async function selectWorksheetQuestions({
         throw new Error(`Could not query questions: ${priorityError.message}`);
       }
 
-      for (const row of shuffle((priorityData ?? []) as RawQuestionRow[])) {
+      const priorityRows = (priorityData ?? []) as RawQuestionRow[];
+      totalCandidates += priorityRows.length;
+      multipartCandidates += priorityRows.filter(hasQuestionParts).length;
+      const eligiblePriorityRows = includeMultiPart
+        ? priorityRows
+        : priorityRows.filter((row) => !hasQuestionParts(row));
+
+      for (const row of shuffle(eligiblePriorityRows)) {
         if (levelCount >= priorityTarget || selected.length >= totalQuestions) break;
         if (selectedIds.has(row.id)) continue;
         selected.push(toPreviewQuestion(row));
@@ -183,7 +234,14 @@ export async function selectWorksheetQuestions({
         throw new Error(`Could not query questions: ${error.message}`);
       }
 
-      for (const row of shuffle((data ?? []) as RawQuestionRow[])) {
+      const rows = (data ?? []) as RawQuestionRow[];
+      totalCandidates += rows.length;
+      multipartCandidates += rows.filter(hasQuestionParts).length;
+      const eligibleRows = includeMultiPart
+        ? rows
+        : rows.filter((row) => !hasQuestionParts(row));
+
+      for (const row of shuffle(eligibleRows)) {
         if (selected.length >= totalQuestions) break;
         if (selectedIds.has(row.id)) continue;
         selected.push(toPreviewQuestion(row));
@@ -194,26 +252,43 @@ export async function selectWorksheetQuestions({
     }
   }
 
-  return selected;
+  return {
+    questions: selected,
+    metadata: {
+      totalCandidates,
+      multipartCandidates,
+      selectedMultipartCount: selected.filter((question) => question.parts?.length).length,
+    },
+  };
 }
 
 export async function findReplacementQuestion({
   courseSlug,
   topicSlug,
+  subtopicSlug,
   difficulty,
   excludeQuestionIds,
+  includeMultiPart = false,
 }: {
   courseSlug: string;
   topicSlug: string;
+  subtopicSlug?: string;
   difficulty: number;
   excludeQuestionIds: string[];
+  includeMultiPart?: boolean;
 }) {
-  const { data, error } = await supabaseAdmin
+  let query = supabaseAdmin
     .from("questions")
     .select(QUESTION_SELECT)
     .eq("course_slug", courseSlug)
     .eq("topic_slug", topicSlug)
     .eq("is_active", true);
+
+  if (subtopicSlug?.trim()) {
+    query = query.eq("subtopic_slug", subtopicSlug);
+  }
+
+  const { data, error } = await query;
 
   if (error) {
     throw new Error(`Could not query replacement questions: ${error.message}`);
@@ -221,7 +296,7 @@ export async function findReplacementQuestion({
 
   const excluded = new Set(excludeQuestionIds);
   const candidates = ((data ?? []) as RawQuestionRow[]).filter(
-    (row) => !excluded.has(row.id)
+    (row) => !excluded.has(row.id) && (includeMultiPart || !hasQuestionParts(row))
   );
 
   if (candidates.length === 0) {

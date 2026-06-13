@@ -21,6 +21,7 @@ type GenerateBody = {
   assignedStudentName?: string;
   assignedStudentEmail?: string;
   dueAt?: string;
+  includeMultiPart?: boolean;
 };
 
 async function isAdmin(): Promise<boolean> {
@@ -61,6 +62,7 @@ export async function POST(request: Request) {
     assignedStudentName,
     assignedStudentEmail,
     dueAt,
+    includeMultiPart,
   } = body;
 
   if (!title?.trim()) {
@@ -124,6 +126,7 @@ export async function POST(request: Request) {
               topicSlugs,
               preset,
               totalQuestions: count,
+              includeMultiPart: includeMultiPart === true,
             })
           ).map((question) => question.id);
   } catch (error) {
