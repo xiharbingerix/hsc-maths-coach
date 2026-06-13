@@ -9,7 +9,7 @@ The current Nova Maths HSC funnel is instrumented but incomplete. The paid landi
 1. `/hsc-maths` page view
    - Event: `hsc_maths_viewed`
    - File: `app/hsc-maths/page.tsx` via `PageViewTracker`
-   - Notes: page path is captured via `clientTrackEvent` default metadata.
+   - Notes: page path is captured via `clientTrackEvent`, and the HSC page now opts into `gclid`, `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, and `utm_content` metadata on the page-view event.
 
 2. Trial CTA click from HSC page
    - Events:
@@ -86,6 +86,7 @@ The current Nova Maths HSC funnel is instrumented but incomplete. The paid landi
 - Before this audit, UTM and gclid values were not explicitly preserved through the Stripe flow.
 - I added a small safe fix to preserve `gclid`, `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, and `utm_content` from the HSC page before redirecting to Stripe.
 - Those values are now replayed into `trial_started` and `payment_success` analytics metadata on the success page.
+- Follow-up fix: `hsc_maths_viewed` now also reads the same URL marketing parameters before firing, so the first landing-page event can be attributed to the same campaign as later CTA and checkout events.
 - This improves internal attribution and debugging, but it does not change how Google Ads auto-tagging works.
 
 ## Funnel gaps and risks
