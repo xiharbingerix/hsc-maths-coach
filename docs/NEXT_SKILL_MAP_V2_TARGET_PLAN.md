@@ -18,6 +18,105 @@ Phase 2 (curve-sketching-calculus + exam practice expansion) remains pending.
 
 ---
 
+## Phase 2 Plan: Year 11 Advanced - Introduction to Differentiation
+
+Planned: 2026-06-13. Implementation not started.
+
+### Current unit audit
+
+Source file: `lib/lessons/year11Advanced/introductionDifferentiation.ts`
+Catalog unit: `lib/newCourseCatalog.ts` -> `year-11-advanced` / `introduction-differentiation`
+
+| Order | Slug | Current status | Notes |
+|---|---|---|---|
+| 1 | `rates-of-change-gradients` | Existing | Rates, secants, gradients, interpretation |
+| 2 | `derivatives-first-principles` | Existing | Difference quotient and first-principles setup |
+| 3 | `differentiating-polynomial-functions` | Existing | Power rule fluency |
+| 4 | `chain-rule-basics` | Phase 1 done | Composite polynomial derivatives |
+| 5 | `stationary-points-first-derivative-test` | Phase 1 done | Stationary points, sign tests, increasing/decreasing intervals |
+| 6 | `second-derivative-concavity` | Phase 1 done | Concavity, inflection, second derivative test |
+| 7 | `tangents-normals-applications` | Existing | Tangent/normal gradients and equations |
+| 8 | `introduction-differentiation-exam-practice` | Existing, weak after Phase 1 | Samples earlier skills but does not yet deliberately integrate all 8 content lessons |
+
+Current standard question footprint: 8 lessons x 19 standard questions = 152 seeded questions, before any optional multi-part practice.
+
+### Recommendation
+
+Implement **both** `curve-sketching-calculus` and an **exam-practice expansion**, in that order.
+
+Rationale:
+- `curve-sketching-calculus` is the missing synthesis skill. Students now learn first derivative tests, second derivative/concavity, and tangents/normals, but there is no lesson that asks them to combine intercepts, stationary points, concavity, and monotonicity into a coherent graph analysis workflow.
+- The current exam practice should remain as the unit capstone, but it should be expanded only after curve sketching exists so it can sample the complete unit rather than the current 8-lesson set.
+- Do not replace or hide existing slugs. Add one new slug before the exam-practice lesson, then expand the existing exam-practice lesson in place.
+
+### Proposed Phase 2 slots
+
+| Slot | Slug | Action | Question count | Catalog position |
+|---|---|---|---|---|
+| 9 | `curve-sketching-calculus` | New lesson | 3 worked + 4 guided + 5 independent + 10 mastery | Insert after `tangents-normals-applications` and before `introduction-differentiation-exam-practice` |
+| 10 | `introduction-differentiation-exam-practice` | Expand existing lesson in place | Keep 3 worked + 4 guided + 5 independent + 10 mastery; add optional 2-3 multi-part practice questions if safe | Remains final lesson |
+
+Expected standard question footprint after Phase 2: 9 lessons x 19 standard questions = 171 seeded questions, plus any optional D5 multi-part practice.
+
+### Proposed `curve-sketching-calculus` lesson
+
+Title: Curve Sketching Using Calculus
+Stable skill ID: `y11adv-diff-curve-sketching-calculus`
+ID prefix: `y11adv-curve-*`
+
+Skill checkpoints:
+1. Find useful graph features: intercepts, stationary points, and inflection candidates.
+2. Use the sign of `f'(x)` to state increasing and decreasing intervals.
+3. Use the sign of `f''(x)` to state concavity intervals and confirm inflection points.
+4. Combine features into a calculus-informed graph description.
+
+Question design:
+- Keep typed answers narrow: x-values, coordinates, classifications, interval choices, and MCQ feature interpretation.
+- Avoid asking students to "sketch" as a graded typed response. Graph sketching can appear in teaching/worked examples, while graded questions ask for auto-markable features.
+- Include at least 2 MCQ items in mastery for graph-feature interpretation and common misconception traps.
+
+Visual payload needs:
+- Use existing `CartesianGraph`.
+- Worked example 1: smooth cubic or quartic with labelled stationary points and inflection point.
+- Worked example 2 or 3: graph feature checklist beside `CartesianGraph`.
+- Practice questions may use `cartesianGraph` only when the prompt asks students to read or verify a plotted feature.
+- If the current graph primitive cannot safely draw the needed smooth cubic/quartic, use supported point/annotation payloads and document the visual limitation rather than adding a new graph renderer in this sprint.
+
+Answer-marking risks:
+- Interval answers are the main risk: `x > 2`, `x<2`, `-1 < x < 1`, `x<-1 or x>1`, and interval notation variants need explicit accepted answers.
+- Coordinate answers need space and labelled variants: `(1, -2)`, `(1,-2)`, `1,-2`, `x=1,y=-2`.
+- Classification answers need variants: `local maximum`, `maximum`, `local max`, `max`.
+- Algebraic expressions should be avoided where a numeric value or MCQ can test the same skill.
+
+### Exam-practice expansion
+
+Keep slug: `introduction-differentiation-exam-practice`
+Action: expand content in place without changing route/progress identity.
+ID prefix for new/reworked questions: keep existing prefix style or use `y11adv-id-exam-*` if adding new items.
+
+Coverage targets:
+- Rates and first principles: 2-3 questions
+- Polynomial differentiation and chain rule: 3-4 questions
+- Tangents/normals: 2-3 questions
+- Stationary points and increasing/decreasing: 3-4 questions
+- Second derivative, concavity, inflection: 2-3 questions
+- Curve sketching synthesis: 3-4 questions
+
+Optional multi-part practice:
+- Add 2-3 D5 multi-part items only if every part is exact-markable.
+- Suitable structures: derivative -> stationary point -> classification; stationary point -> concavity -> inflection; curve feature table -> identify interval/classification.
+- Do not use proof, justify, explain, or free-text sketch prompts.
+
+### Implementation order
+
+1. Add `curve-sketching-calculus` lesson in `introductionDifferentiation.ts`.
+2. Add its catalog entry with `stableSkillId` and 4 `skillCheckpoints`, before `introduction-differentiation-exam-practice`.
+3. Run dry validation and smoke the new lesson route.
+4. Expand `introduction-differentiation-exam-practice` in place to sample all unit skills.
+5. Run full validation and seed dry-run.
+
+---
+
 ## Working with Functions Sprint Status
 
 Implemented: 2026-06-13.
