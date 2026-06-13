@@ -67,8 +67,23 @@ function formulaAnswer(
   answer: string,
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
+  const greaterThanMatch = answer.match(/^x > (-?\d+(?:\.\d+)?)$/);
+  const intervalVariants = greaterThanMatch
+    ? [
+        `${greaterThanMatch[1]} < x`,
+        `${greaterThanMatch[1]}<x`,
+        `x is greater than ${greaterThanMatch[1]}`,
+        `(${greaterThanMatch[1]}, infinity)`,
+        `(${greaterThanMatch[1]},\\infty)`,
+        `(${greaterThanMatch[1]}, \\infty)`,
+      ]
+    : [];
+
   return {
-    ...baseFormulaAnswer(id, prompt, latex, answer, acceptedAnswers),
+    ...baseFormulaAnswer(id, prompt, latex, answer, [
+      ...acceptedAnswers,
+      ...intervalVariants,
+    ]),
     explanation: differentiationFeedback(prompt, answer),
   };
 }
@@ -680,21 +695,22 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
   }
 
   if (lesson.slug === "stationary-points-first-derivative-test") {
+    const cubicCurvePoints = Array.from({ length: 81 }, (_, index) => {
+      const x = -2.5 + (5 * index) / 80;
+      return { x, y: x * x * x - 3 * x };
+    });
     const cubicStatGraph: import("../types").CartesianGraph = {
       description:
         "Graph of f(x) = x³ − 3x. The local maximum at (−1, 2) and local minimum at (1, −2) are marked. The curve rises before x = −1, falls between x = −1 and x = 1, then rises again — matching the sign diagram of f'(x).",
       xMin: -2.5, xMax: 2.5, yMin: -3, yMax: 3,
       xStep: 1, yStep: 1,
+      lineSegments: cubicCurvePoints.slice(1).map((point, index) => ({
+        from: cubicCurvePoints[index],
+        to: point,
+      })),
       points: [
-        { x: -2, y: -2 },
-        { x: -1.5, y: 1.125 },
         { x: -1, y: 2, label: "Local max (−1, 2)" },
-        { x: -0.5, y: 1.375 },
-        { x: 0, y: 0 },
-        { x: 0.5, y: -1.375 },
         { x: 1, y: -2, label: "Local min (1, −2)" },
-        { x: 1.5, y: -1.125 },
-        { x: 2, y: 2 },
       ],
     };
 
@@ -903,4 +919,3 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
 
   return null;
 }
-
