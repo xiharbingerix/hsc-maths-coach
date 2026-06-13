@@ -1,7 +1,24 @@
 # Year 12 Extension 2 Calculus Skill Map v2 Plan
 
 Created: June 2026  
-Scope: Planning only; no lesson code authored.
+Phase 1 implemented: June 2026
+
+## Phase 1 Implementation Status
+
+| Lesson | Status | File | Questions |
+|---|---|---|---|
+| `advanced-integration-method-selection` | ✅ Done | `calculus.ts` | 4 guided + 5 independent + 10 mastery (19 total) |
+| `integration-by-parts-extension` | ✅ Done | `calculus.ts` | 4 guided + 5 independent + 10 mastery (19 total) |
+| `reduction-formulae-introduction` | ✅ Done | `calculus.ts` | 4 guided + 5 independent + 10 mastery (19 total) |
+
+Catalog updated: 3 slugs with `stableSkillId` + 4 `skillCheckpoints` each.
+Seed dry-run: 57 new questions prepared (19 × 3); total course count 215.
+No visual payloads in Phase 1 — confirmed by `audit:lessons`.
+Course status remains `coming_soon`.
+
+Phase 2 (partial-fractions-rational-integrals, volumes-solids-of-revolution, calculus-exam-practice) remains pending.
+
+---
 
 ## 1. Current Scaffold State
 

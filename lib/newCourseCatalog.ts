@@ -63,6 +63,7 @@ import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLes
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride } from "./lessons/year8";
 import {
+  year12Extension2CalculusLessonOverride,
   year12Extension2ComplexNumbersLessonOverride,
   year12Extension2Vectors3DLessonOverride,
 } from "./lessons/year12Extension2";
@@ -258,6 +259,7 @@ export function buildLesson(
     year12Extension1BinomialDistributionLessonOverride(course, unit, lesson) ??
     year12Extension2ComplexNumbersLessonOverride(course, unit, lesson) ??
     year12Extension2Vectors3DLessonOverride(course, unit, lesson) ??
+    year12Extension2CalculusLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
     year8NumberOperationsLessonOverride(course, unit, lesson) ??
@@ -1939,10 +1941,86 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "calculus",
         title: "Calculus",
         description:
-          "Planned Extension 2 calculus including integration techniques, volumes of revolution and differential equations.",
+          "Extension 2 integration techniques including method selection, integration by parts, and reduction formulae. Volumes and differential equations will be added in later phases.",
         syllabusArea: "Calculus",
         focus: "Further calculus methods and applications",
-        lessons: [],
+        lessons: [
+          {
+            slug: "advanced-integration-method-selection",
+            title: "Advanced Integration Method Selection",
+            description:
+              "Identify which technique to use before computing: substitution, integration by parts, partial fractions, standard form, or trigonometric identities.",
+            stableSkillId: "y12e2-calc-advanced-integration-method-selection",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-calc-method-substitution",
+                label: "Identify substitution integrals: composite function with derivative of inner function present",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-method-by-parts",
+                label: "Identify integration by parts integrals: product of different function families",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-method-partial-fractions",
+                label: "Identify partial fractions integrals: rational function with factorable denominator",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-method-trig-identity",
+                label: "Identify trigonometric identity integrals: powers of sin or cos requiring half-angle reduction",
+              },
+            ],
+          },
+          {
+            slug: "integration-by-parts-extension",
+            title: "Integration by Parts Extension",
+            description:
+              "Apply integration by parts to repeated products, logarithmic integrands, and definite integrals with exact answers.",
+            stableSkillId: "y12e2-calc-integration-by-parts-extension",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-calc-ibp-liate-choice",
+                label: "Apply LIATE to choose u and dv in a by-parts integral",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-ibp-repeated",
+                label: "Perform repeated by-parts applications for polynomial × exponential products",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-ibp-logarithm",
+                label: "Integrate ∫ln(x)dx and ∫x·ln(x)dx by setting dv = dx or dv = x dx",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-ibp-definite",
+                label: "Evaluate definite by-parts integrals by substituting limits after all algebra is complete",
+              },
+            ],
+          },
+          {
+            slug: "reduction-formulae-introduction",
+            title: "Reduction Formulae Introduction",
+            description:
+              "Use supplied reduction formulae to evaluate families of integrals recursively from base cases.",
+            stableSkillId: "y12e2-calc-reduction-formulae-introduction",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-calc-red-base-case",
+                label: "Identify the correct base case(s) required to initialise a reduction recurrence",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-red-substitute",
+                label: "Substitute a given n into a reduction formula to compute the next value",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-red-iterate",
+                label: "Evaluate several successive terms of a recurrence from supplied initial values",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-red-apply-definite",
+                label: "Use a reduction result to evaluate a definite integral exactly",
+              },
+            ],
+          },
+        ],
       },
       {
         slug: "mechanics",

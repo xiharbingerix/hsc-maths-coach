@@ -1,6 +1,6 @@
 # Year 12 Mathematics Extension 2 HSC Status
 
-Audited: June 2026
+Audited: June 2026 · Calculus Phase 1 added: June 2026
 
 ## 1. Course Registration
 
@@ -9,14 +9,14 @@ Audited: June 2026
 | Slug | `year-12-extension-2` |
 | Status | `coming_soon` |
 | App routes | `/course/year-12-extension-2` scaffolded |
-| Unit routes | Active for complex-numbers and vectors-3d; remaining units return 404 |
-| Lesson routes | Active for 8 lessons across two units |
+| Unit routes | Active for complex-numbers, vectors-3d, and calculus (Phase 1) |
+| Lesson routes | Active for 11 lessons across three units |
 | Diagnostic | Not added |
-| Question bank | 158 questions seeded across complex-numbers and vectors-3d |
-| Lesson files | `complexNumbers.ts` (4 lessons), `vectors3D.ts` (4 lessons) |
-| Skill Map v2 | Phase 1a catalogue metadata pilot on Complex Numbers |
+| Question bank | 158 questions (complex-numbers + vectors-3d) + ~57 new calculus questions (dry-run pending) |
+| Lesson files | `complexNumbers.ts` (4 lessons), `vectors3D.ts` (4 lessons), `calculus.ts` (3 lessons) |
+| Skill Map v2 | Catalogue metadata on Complex Numbers + all 3 Calculus Phase 1 lessons |
 
-Extension 2 has real lessons in Complex Numbers and Vectors in 3D. Course status remains `coming_soon` — three units (Proof, Calculus, Mechanics) still have no content.
+Extension 2 has real lessons in Complex Numbers, Vectors in 3D, and now Calculus Phase 1. Course status remains `coming_soon` — Proof and Mechanics still have no content, and Calculus is partial (3 of 6 planned lessons).
 
 ## 2. Registered NSW Topic Areas
 
@@ -27,7 +27,7 @@ The scaffold registers the five NSW Mathematics Extension 2 Year 12 topic areas:
 | `proof` | Proof | Planned only |
 | `vectors-3d` | Vectors in Three Dimensions | **4 lessons active** |
 | `complex-numbers` | Complex Numbers | **4 lessons active** |
-| `calculus` | Calculus | Planned only |
+| `calculus` | Calculus | **3 lessons active (Phase 1)** |
 | `mechanics` | Mechanics | Planned only |
 
 ### Complex Numbers lessons
@@ -48,6 +48,16 @@ The scaffold registers the five NSW Mathematics Extension 2 Year 12 topic areas:
 | `equations-of-lines-3d` | Equations of Lines in 3D | Yes — parametric z, coordinates, plane crossing | `vector3DDiagram` on worked example + G2 |
 | `vector-applications-exam-practice` | Vector Applications and Exam Practice | Yes — d₁·d₂, \|d₁\|, cosθ | None |
 
+### Calculus lessons (Phase 1)
+
+| Lesson slug | Title | Multi-part | Skill Map v2 metadata |
+|---|---|---|---|
+| `advanced-integration-method-selection` | Advanced Integration Method Selection | No | `stableSkillId` + 4 checkpoints |
+| `integration-by-parts-extension` | Integration by Parts Extension | No | `stableSkillId` + 4 checkpoints |
+| `reduction-formulae-introduction` | Reduction Formulae Introduction | No | `stableSkillId` + 4 checkpoints |
+
+Phase 2 planned: `partial-fractions-rational-integrals`, `volumes-solids-of-revolution`, `calculus-exam-practice`.
+
 ## 3. Coverage Still Missing
 
 | Topic | Current coverage |
@@ -57,7 +67,7 @@ The scaffold registers the five NSW Mathematics Extension 2 Year 12 topic areas:
 | 3D vectors: cross product, planes, skew lines, distance from point to line | Not yet |
 | Complex numbers: arithmetic, modulus/arg, Argand diagram, polar form, De Moivre | **4 lessons — core HSC skills covered** |
 | Complex numbers: roots of unity, loci proofs, advanced De Moivre applications | Not yet |
-| Calculus: integration by parts, partial fractions, trig substitution, volumes, ODEs | None |
+| Calculus: integration by parts, partial fractions, trig substitution, volumes, ODEs | **Method selection, by-parts extension, reduction formulae (Phase 1)** |
 | Mechanics: SHM, circular motion, projectile motion, growth/decay models | None |
 
 ## 4. Diagnostic Position
