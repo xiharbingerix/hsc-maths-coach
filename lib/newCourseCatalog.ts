@@ -1196,6 +1196,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             ],
           },
           { slug: "tangents-normals-applications", title: "Tangents, Normals and Applications" },
+          {
+            slug: "curve-sketching-calculus",
+            title: "Curve Sketching Using Calculus",
+            description: "Combine intercepts, stationary points, increasing/decreasing intervals, concavity, and inflection points to describe a curve using calculus.",
+            stableSkillId: "y11adv-diff-curve-sketching-calculus",
+            skillCheckpoints: [
+              { stableCheckpointId: "y11adv-diff-curve-features", label: "Find useful graph features: intercepts, stationary points, and inflection candidates" },
+              { stableCheckpointId: "y11adv-diff-curve-increasing-decreasing", label: "Use the sign of f'(x) to state increasing and decreasing intervals" },
+              { stableCheckpointId: "y11adv-diff-curve-concavity", label: "Use the sign of f''(x) to state concavity intervals and confirm inflection points" },
+              { stableCheckpointId: "y11adv-diff-curve-synthesis", label: "Combine features into a calculus-informed graph description" },
+            ],
+          },
           { slug: "introduction-differentiation-exam-practice", title: "Introduction to Differentiation Exam Practice" },
         ],
       },

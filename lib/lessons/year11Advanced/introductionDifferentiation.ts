@@ -68,8 +68,19 @@ function formulaAnswer(
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
   const greaterThanMatch = answer.match(/^x > (-?\d+(?:\.\d+)?)$/);
-  const intervalVariants = greaterThanMatch
-    ? [
+  const lessThanMatch = answer.match(/^x < (-?\d+(?:\.\d+)?)$/);
+  const boundedIntervalMatch = answer.match(/^(-?\d+(?:\.\d+)?) < x < (-?\d+(?:\.\d+)?)$/);
+  const coordinateMatch = answer.match(/^\((-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)\)$/);
+  const classificationVariants: Record<string, string[]> = {
+    "local maximum": ["local max", "maximum", "max"],
+    "local minimum": ["local min", "minimum", "min"],
+    "point of inflection": ["inflection point", "inflection"],
+    "concave up": ["concave upward", "upward concavity"],
+    "concave down": ["concave downward", "downward concavity"],
+  };
+  const intervalVariants = [
+    ...(greaterThanMatch
+      ? [
         `${greaterThanMatch[1]} < x`,
         `${greaterThanMatch[1]}<x`,
         `x is greater than ${greaterThanMatch[1]}`,
@@ -77,7 +88,35 @@ function formulaAnswer(
         `(${greaterThanMatch[1]},\\infty)`,
         `(${greaterThanMatch[1]}, \\infty)`,
       ]
-    : [];
+      : []),
+    ...(lessThanMatch
+      ? [
+        `${lessThanMatch[1]} > x`,
+        `${lessThanMatch[1]}>x`,
+        `x is less than ${lessThanMatch[1]}`,
+        `(-infinity, ${lessThanMatch[1]})`,
+        `(-\\infty, ${lessThanMatch[1]})`,
+        `(-\\infty,${lessThanMatch[1]})`,
+      ]
+      : []),
+    ...(boundedIntervalMatch
+      ? [
+        `${boundedIntervalMatch[1]}<x<${boundedIntervalMatch[2]}`,
+        `(${boundedIntervalMatch[1]}, ${boundedIntervalMatch[2]})`,
+        `(${boundedIntervalMatch[1]},${boundedIntervalMatch[2]})`,
+      ]
+      : []),
+    ...(coordinateMatch
+      ? [
+        `(${coordinateMatch[1]}, ${coordinateMatch[2]})`,
+        `${coordinateMatch[1]},${coordinateMatch[2]}`,
+        `${coordinateMatch[1]}, ${coordinateMatch[2]}`,
+        `x=${coordinateMatch[1]},y=${coordinateMatch[2]}`,
+        `x = ${coordinateMatch[1]}, y = ${coordinateMatch[2]}`,
+      ]
+      : []),
+    ...(classificationVariants[answer.toLowerCase()] ?? []),
+  ];
 
   return {
     ...baseFormulaAnswer(id, prompt, latex, answer, [
@@ -489,97 +528,279 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
     };
   }
 
+  if (lesson.slug === "curve-sketching-calculus") {
+    const curveFeatureGraph: import("../types").CartesianGraph = {
+      description:
+        "Feature map for f(x)=x^3-3x. The renderer does not draw smooth cubic curves in this lesson, so line segments approximate the curve while labelled points show the local maximum, point of inflection, and local minimum.",
+      xMin: -3, xMax: 3, yMin: -4, yMax: 4,
+      xStep: 1, yStep: 1,
+      lineSegments: [
+        { from: { x: -2.2, y: -4 }, to: { x: -1, y: 2 }, label: "increasing" },
+        { from: { x: -1, y: 2 }, to: { x: 0, y: 0 }, label: "decreasing" },
+        { from: { x: 0, y: 0 }, to: { x: 1, y: -2 }, label: "decreasing" },
+        { from: { x: 1, y: -2 }, to: { x: 2.2, y: 4 }, label: "increasing" },
+      ],
+      points: [
+        { x: -1, y: 2, label: "local max (-1, 2)" },
+        { x: 0, y: 0, label: "inflection (0, 0)" },
+        { x: 1, y: -2, label: "local min (1, -2)" },
+      ],
+    };
+    const parabolaFeatureGraph: import("../types").CartesianGraph = {
+      description:
+        "Feature map for y=(x-2)^2-1, showing the x-intercepts, y-intercept, and local minimum. A parabola primitive is used because it is directly supported by the renderer.",
+      xMin: -1, xMax: 5, yMin: -2, yMax: 8,
+      xStep: 1, yStep: 1,
+      parabolas: [
+        { kind: "quadratic", a: 1, b: -4, c: 3, label: "y=(x-2)^2-1" },
+      ],
+      points: [
+        { x: 1, y: 0, label: "x-intercept" },
+        { x: 3, y: 0, label: "x-intercept" },
+        { x: 0, y: 3, label: "y-intercept" },
+        { x: 2, y: -1, label: "local min" },
+      ],
+    };
+
+    return {
+      ...base,
+      description:
+        "Combine intercepts, stationary points, increasing/decreasing intervals, concavity, and inflection points to describe a curve using calculus.",
+      learningIntention:
+        "Learn how to assemble derivative information into a calculus-informed graph description without relying on guesswork.",
+      successCriteria: [
+        "Find useful graph features: intercepts, stationary points, and inflection candidates.",
+        "Use the sign of f'(x) to state increasing and decreasing intervals.",
+        "Use the sign of f''(x) to state concavity intervals and confirm inflection points.",
+        "Combine features into a concise graph description.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Curve sketching with calculus is a feature-gathering process. You do not start by drawing; you first identify the points and intervals that control the shape.",
+          "Find intercepts from the original function. Then solve f'(x) = 0 to locate stationary points and use derivative signs or the second derivative test to classify them.",
+          "Increasing and decreasing intervals come from the sign of f'(x). Concavity and inflection points come from f''(x), with a sign change needed to confirm an inflection point.",
+          "In this course, graph visuals mark key points and intervals. Smooth cubic and quartic curves are approximated with supported line segments and labelled points, so graded questions ask for exact features rather than a typed sketch.",
+        ],
+        latexBlocks: [
+          "\\text{stationary points: }f'(x)=0",
+          "f'(x)>0\\Rightarrow\\text{increasing};\\quad f'(x)<0\\Rightarrow\\text{decreasing}",
+          "f''(x)>0\\Rightarrow\\text{concave up};\\quad f''(x)<0\\Rightarrow\\text{concave down}",
+          "\\text{inflection: }f''(x)=0\\text{ and concavity changes}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Assemble cubic features",
+          questionLatex: "f(x)=x^3-3x",
+          cartesianGraph: curveFeatureGraph,
+          steps: [
+            { explanation: "Find stationary points.", latex: "f'(x)=3x^2-3=3(x-1)(x+1)\\Rightarrow x=-1,1" },
+            { explanation: "Substitute into f(x).", latex: "f(-1)=2,\\quad f(1)=-2" },
+            { explanation: "Use the first derivative signs.", latex: "f'(x)>0\\text{ on }x<-1\\text{ and }x>1;\\quad f'(x)<0\\text{ on }-1<x<1" },
+            { explanation: "Use the second derivative for concavity.", latex: "f''(x)=6x\\Rightarrow \\text{inflection at }(0,0)" },
+          ],
+          finalAnswerLatex: "\\text{Local max }(-1,2),\\text{ local min }(1,-2),\\text{ inflection }(0,0)",
+        },
+        {
+          title: "Use a feature checklist",
+          questionLatex: "y=(x-2)^2-1",
+          cartesianGraph: parabolaFeatureGraph,
+          steps: [
+            { explanation: "Find the vertex from the completed-square form.", latex: "(2,-1)" },
+            { explanation: "Find x-intercepts by setting y=0.", latex: "(x-2)^2-1=0\\Rightarrow x=1,3" },
+            { explanation: "Find the y-intercept.", latex: "y=(0-2)^2-1=3" },
+            { explanation: "Classify the stationary point.", latex: "y''=2>0\\Rightarrow\\text{local minimum}" },
+          ],
+          finalAnswerLatex: "\\text{Local min }(2,-1),\\text{ x-intercepts }(1,0),(3,0),\\text{ y-intercept }(0,3)",
+        },
+        {
+          title: "Read intervals from derivatives",
+          questionLatex: "f'(x)=3(x-1)(x+1),\\quad f''(x)=6x",
+          steps: [
+            { explanation: "The derivative is positive outside the roots and negative between them.", latex: "\\text{Increasing: }x<-1\\text{ or }x>1;\\quad\\text{decreasing: }-1<x<1" },
+            { explanation: "The second derivative changes from negative to positive at x=0.", latex: "\\text{Concave down for }x<0;\\quad\\text{concave up for }x>0" },
+          ],
+          finalAnswerLatex: "\\text{Increasing outside }[-1,1],\\text{ decreasing between, inflection at }x=0",
+        },
+      ],
+      guidedPractice: [
+        formulaAnswer("y11adv-curve-g1", "For f(x)=x^3-3x, find the local maximum coordinate.", "f'(x)=3x^2-3", "(-1,2)", ["(-1, 2)"]),
+        formulaAnswer("y11adv-curve-g2", "For f(x)=x^3-3x, state the interval where the function is decreasing.", "f'(x)=3(x-1)(x+1)", "-1 < x < 1", ["(-1, 1)"]),
+        practicalChoice("y11adv-curve-g3", "Which feature is confirmed when f''(x) changes sign at x=0?", "C", ["Local maximum", "Local minimum", "Point of inflection", "Vertical tangent"], "A sign change in f'' confirms a point of inflection.", "f''(x)=6x"),
+        formulaAnswer("y11adv-curve-g4", "For y=(x-2)^2-1, give the local minimum coordinate.", "y=(x-2)^2-1", "(2,-1)", ["(2, -1)"]),
+      ],
+      independentPractice: [
+        formulaAnswer("y11adv-curve-i1", "For f(x)=x^3-3x, state one interval where the function is increasing for x>0.", "f'(x)=3(x-1)(x+1)", "x > 1", ["x>1", "(1, infinity)", "(1, \\infty)"]),
+        formulaAnswer("y11adv-curve-i2", "For f(x)=x^3-3x, state the concavity for x<0.", "f''(x)=6x", "concave down", ["downward concavity"]),
+        practicalChoice("y11adv-curve-i3", "A cubic has a local maximum at (-1,2), a local minimum at (1,-2), and f'' changes sign at x=0. Which feature belongs at x=0?", "B", ["Another local maximum", "A point of inflection", "An x-intercept only", "A vertical asymptote"], "The sign change in f'' gives an inflection point.", "\\text{Feature summary}"),
+        formulaAnswer("y11adv-curve-i4", "For y=(x-2)^2-1, find the x-values of the intercepts. Give answers in ascending order, separated by a comma.", "0=(x-2)^2-1", "1, 3", ["x=1,3", "1 and 3", "x=1 and x=3"]),
+        practicalChoice("y11adv-curve-i5", "Which sequence is a sensible curve-sketching workflow?", "A", ["Intercepts, stationary points, derivative intervals, concavity", "Normal equation, area, volume, probability", "Only substitute x=0", "Only draw a shape from memory"], "A calculus sketch is built from exact features and interval information.", "\\text{Curve sketching workflow}"),
+      ],
+      commonMistakes: [
+        { mistake: "Starting with a sketch before finding features.", fix: "Find intercepts, stationary points, intervals, and concavity first; the graph follows those features." },
+        { mistake: "Calling f''(x)=0 an inflection point without checking signs.", fix: "Confirm that f'' changes sign across the candidate x-value." },
+        { mistake: "Mixing up increasing intervals with concavity intervals.", fix: "Increasing/decreasing uses f'(x); concavity uses f''(x)." },
+        { mistake: "Asking the typed answer to be a sketch.", fix: "Use exact features such as coordinates, intervals, and classifications for graded answers." },
+      ],
+      masteryQuiz: [
+        formulaAnswer("y11adv-curve-m1", "For f(x)=x^3-3x, give the local minimum coordinate.", "f'(x)=3x^2-3", "(1,-2)", ["(1, -2)"]),
+        formulaAnswer("y11adv-curve-m2", "For f(x)=x^3-3x, state an interval where the function is concave up.", "f''(x)=6x", "x > 0", ["x>0", "(0, infinity)", "(0, \\infty)"]),
+        formulaAnswer("y11adv-curve-m3", "For f(x)=x^3-3x, state an interval where the function is concave down.", "f''(x)=6x", "x < 0", ["x<0", "(-infinity, 0)", "(-\\infty, 0)"]),
+        practicalChoice("y11adv-curve-m4", "Which classification matches f'(a)=0 and f''(a)<0?", "A", ["Local maximum", "Local minimum", "Point of inflection", "Increasing interval"], "A negative second derivative at a stationary point indicates a local maximum.", "f'(a)=0,\\quad f''(a)<0"),
+        formulaAnswer("y11adv-curve-m5", "For f'(x)=3(x-2)(x+1), state the bounded interval where f is decreasing.", "f'(x)<0\\text{ between the roots}", "-1 < x < 2", ["(-1, 2)", "-1<x<2"]),
+        practicalChoice("y11adv-curve-m6", "For f'(x)=3(x-2)(x+1), which interval is increasing?", "D", ["$-1<x<2$ only", "$x<2$ only", "$x>-1$ only", "$x<-1$ or $x>2$"], "The product is positive outside the two roots.", "f'(x)=3(x-2)(x+1)"),
+        formulaAnswer("y11adv-curve-m7", "For f(x)=x^3-3x, find the x-coordinate of the point of inflection.", "f''(x)=6x", "0", ["x=0"]),
+        practicalChoice("y11adv-curve-m8", "Which graph feature is most directly found by solving f'(x)=0?", "B", ["x-intercepts", "Stationary points", "y-intercept", "Domain"], "Stationary points occur where the derivative is zero.", "f'(x)=0"),
+        formulaAnswer("y11adv-curve-m9", "For y=(x-2)^2-1, state the range feature from the local minimum.", "\\text{local minimum at }(2,-1)", "y >= -1", ["y>=-1", "y \\ge -1", "minimum y=-1", "minimum value -1"]),
+        practicalChoice("y11adv-curve-m10", "A curve is increasing, then decreasing, then increasing again. What feature pattern does this suggest?", "C", ["Only one inflection point", "No stationary points", "A local maximum followed by a local minimum", "A vertical asymptote"], "The change from increasing to decreasing gives a local maximum; decreasing to increasing gives a local minimum.", "\\text{Sign of }f'\\text{: }+,-,+"),
+      ],
+    };
+  }
+
   if (lesson.slug === "introduction-differentiation-exam-practice") {
     return {
       ...base,
       description:
-        "Practise mixed assessment-style differentiation questions involving rates, first principles, polynomial derivatives, tangents, and normals.",
+        "Practise mixed assessment-style differentiation questions across rates, first principles, derivative rules, tangents, stationary points, concavity, and curve sketching features.",
       learningIntention:
-        "Apply introductory differentiation skills to mixed school-assessment questions with clear setup, short answers, and interpretation.",
+        "Apply the full Introduction to Differentiation skill set to mixed school-assessment questions with clear setup, short answers, and interpretation.",
       successCriteria: [
         "Calculate average rates of change from values, tables, and contexts.",
         "Choose correct first-principles setups.",
-        "Differentiate polynomial functions accurately.",
-        "Evaluate derivatives at points.",
+        "Differentiate polynomial and simple composite functions accurately.",
         "Find tangent and normal gradients and equations.",
-        "Recognise common differentiation errors.",
+        "Classify stationary points and state increasing/decreasing intervals.",
+        "Use second derivative information for concavity and inflection.",
+        "Identify curve-sketching features from derivative information.",
       ],
       teaching: {
         paragraphs: [
-          "Mixed differentiation questions become easier when you name the job first: average change, instantaneous gradient, derivative rule, tangent line, or normal line.",
+          "Mixed differentiation questions become easier when you name the job first: average change, first principles, derivative rule, tangent or normal line, stationary point, concavity, or curve feature.",
           "Average rate uses two points and gives a secant gradient. Instantaneous rate uses the derivative at one point and gives the tangent gradient.",
           "First-principles questions are about shrinking an interval: simplify the nearby-point gradient before letting h approach zero.",
-          "For polynomial derivatives, multiply by the old power and reduce the power by 1. For tangent and normal equations, find the derivative, find the point, then use point-gradient form.",
+          "For polynomial derivatives, multiply by the old power and reduce the power by 1. For simple composite powers, multiply by the derivative of the inside as well.",
+          "For tangent and normal equations, find the derivative, find the point, then use point-gradient form. For graph features, use f'(x) for stationary and increasing/decreasing information, and f''(x) for concavity and inflection information.",
           "Before answering, check whether the question wants a y-value, a gradient, a coordinate, an equation, or an interpretation. Those are related ideas, but they are not interchangeable.",
         ],
         latexBlocks: [
           "\\frac{f(b)-f(a)}{b-a}",
           "f'(x)=\\lim_{h\\to0}\\frac{f(x+h)-f(x)}{h}",
           "\\frac{d}{dx}(ax^n)=anx^{n-1}",
+          "\\frac{d}{dx}[(g(x))^n]=n[g(x)]^{n-1}g'(x)",
           "y-y_1=m(x-x_1)",
           "m_{\\text{normal}}=-\\frac{1}{m_{\\text{tangent}}}",
+          "f'(x)=0\\Rightarrow\\text{stationary candidate};\\quad f''\\text{ sign change}\\Rightarrow\\text{inflection}",
         ],
       },
       workedExamples: [
         {
-          title: "Mixed rate and derivative question",
-          questionLatex: "f(1)=2,\\quad f(5)=18,\\quad g(x)=x^3-4x",
+          title: "Mixed rate, derivative, and tangent question",
+          questionLatex: "f(1)=2,\\quad f(5)=18,\\quad g(x)=x^3-4x,\\quad x=2",
           steps: [
             { explanation: "Average rate of change for f uses two function values.", latex: "\\frac{18-2}{5-1}=4" },
             { explanation: "A derivative question for g starts by differentiating.", latex: "g'(x)=3x^2-4" },
+            { explanation: "Evaluate the derivative to get the tangent gradient at x=2.", latex: "g'(2)=3(2)^2-4=8" },
           ],
-          finalAnswerLatex: "\\text{Average rate }=4,\\quad g'(x)=3x^2-4",
+          finalAnswerLatex: "\\text{Average rate }=4,\\quad g'(x)=3x^2-4,\\quad g'(2)=8",
         },
         {
-          title: "Tangent equation in an assessment style",
+          title: "Stationary points and curve features",
+          questionLatex: "f(x)=x^3-3x",
+          steps: [
+            { explanation: "Find stationary x-values.", latex: "f'(x)=3x^2-3=0\\Rightarrow x=-1,1" },
+            { explanation: "Find the coordinates.", latex: "f(-1)=2,\\quad f(1)=-2" },
+            { explanation: "Classify using the second derivative.", latex: "f''(x)=6x,\\quad f''(-1)<0\\Rightarrow\\text{local max},\\quad f''(1)>0\\Rightarrow\\text{local min}" },
+            { explanation: "Find concavity change.", latex: "f''(x)=0\\Rightarrow x=0\\text{, with sign change}" },
+          ],
+          finalAnswerLatex: "\\text{Local max }(-1,2),\\quad\\text{local min }(1,-2),\\quad\\text{inflection }(0,0)",
+        },
+        {
+          title: "Tangent and normal in an assessment style",
           questionLatex: "y=x^2-2x,\\quad x=3",
           steps: [
             { explanation: "Find the point on the curve.", latex: "y=3^2-2(3)=3\\Rightarrow (3,3)" },
-            { explanation: "Differentiate and evaluate the tangent gradient.", latex: "\\frac{dy}{dx}=2x-2,\\quad m=4" },
-            { explanation: "Use point-gradient form.", latex: "y-3=4(x-3)" },
+            { explanation: "Differentiate and evaluate the tangent gradient.", latex: "\\frac{dy}{dx}=2x-2,\\quad m_T=4" },
+            { explanation: "Use the negative reciprocal for the normal gradient.", latex: "m_N=-\\frac14" },
+            { explanation: "Use point-gradient form for the tangent.", latex: "y-3=4(x-3)\\Rightarrow y=4x-9" },
           ],
-          finalAnswerLatex: "y=4x-9",
-        },
-        {
-          title: "Recognise a first-principles setup",
-          questionLatex: "f'(x)=\\lim_{h\\to0}\\frac{f(x+h)-f(x)}{h}",
-          steps: [
-            { explanation: "The numerator is the new output minus the original output.", latex: "f(x+h)-f(x)" },
-            { explanation: "The denominator is the small change in input.", latex: "h" },
-          ],
-          finalAnswerLatex: "\\frac{f(x+h)-f(x)}{h}",
+          finalAnswerLatex: "m_N=-\\frac14,\\quad y_{\\text{tangent}}=4x-9",
         },
       ],
       guidedPractice: [
         formulaAnswer("y11adv-id-exam-g1", "Find the average rate of change over the interval.", "f(2)=5,\\quad f(8)=23", "3", ["m=3"]),
         practicalChoice("y11adv-id-exam-g2", "Choose the correct first-principles setup.", "B", ["$\\lim_{h\\to0}\\frac{f(x)-f(x+h)}{h}$", "$\\lim_{h\\to0}\\frac{f(x+h)-f(x)}{h}$", "$\\lim_{h\\to0}\\frac{f(x+h)+f(x)}{h}$", "$\\lim_{h\\to0}\\frac{f(h)-f(x)}{x}$"], "Use new output minus original output over h.", "f'(x)"),
         formulaAnswer("y11adv-id-exam-g3", "Differentiate the polynomial function.", "f(x)=3x^3-2x+1", "9x^2-2", ["f'(x)=9x^2-2"]),
-        formulaAnswer("y11adv-id-exam-g4", "Find the normal gradient for the given tangent gradient.", "m_{\\text{tangent}}=5", "-1/5", ["-0.2"]),
+        formulaAnswer("y11adv-id-exam-g4", "Differentiate using the chain rule.", "y=(2x+1)^3", "6(2x+1)^2", ["dy/dx=6(2x+1)^2"]),
       ],
       independentPractice: [
         formulaAnswer("y11adv-id-exam-i1", "Find the average rate of change from the table.", "\\begin{array}{c|cc}x&0&4\\\\ f(x)&6&30\\end{array}", "6", ["m=6"]),
         formulaAnswer("y11adv-id-exam-i2", "Evaluate the derivative at the given x-value.", "f(x)=2x^2-5x,\\quad x=3", "7", ["f'(3)=7"]),
-        practicalChoice("y11adv-id-exam-i3", "Which option identifies the constant-term error?", "C", ["The derivative should use first principles only", "The derivative should be negative", "The constant should differentiate to zero", "The x-value should be substituted first"], "Constants differentiate to zero.", "\\frac{d}{dx}(4x^2+9)=8x+9"),
-        formulaAnswer("y11adv-id-exam-i4", "Find the tangent equation at the point on the curve. Give your answer in the form $y=mx+c$.", "y=x^2+2,\\quad x=1", "y=2x+1", ["y = 2x + 1"]),
-        practicalChoice("y11adv-id-exam-i5", "Which interpretation matches the derivative value in this context?", "A", ["The height is decreasing at 6 metres per second", "The height is increasing at 6 metres per second", "The average height is 6 metres", "The tangent is vertical"], "A negative derivative means the height is decreasing.", "h'(4)=-6\\text{ m/s}"),
+        formulaAnswer("y11adv-id-exam-i3", "Find the normal gradient for the given tangent gradient.", "m_{\\text{tangent}}=5", "-1/5", ["-0.2"]),
+        formulaAnswer("y11adv-id-exam-i4", "For f(x)=x^2-4x+1, state the interval where f is increasing.", "f'(x)=2x-4", "x > 2", ["x>2", "(2, infinity)", "(2, \\infty)"]),
+        practicalChoice("y11adv-id-exam-i5", "For f(x)=x^3-3x, f''(x)=6x. What is the concavity for x<0?", "D", ["Increasing", "Decreasing", "Concave up", "Concave down"], "For x<0, f''(x)<0, so the curve is concave down.", "f''(x)=6x"),
       ],
       commonMistakes: [
         { mistake: "Using average rate of change when the question asks for a tangent gradient.", fix: "Average rates use two points; tangent gradients use the derivative at one point." },
         { mistake: "Typing a long limit expression when a multiple-choice setup is enough.", fix: "For setup questions, choose the option matching $\\frac{f(x+h)-f(x)}{h}$." },
         { mistake: "Substituting into the original function when a derivative value is required.", fix: "Differentiate first, then substitute." },
         { mistake: "Using the tangent gradient for the normal.", fix: "For the normal, use the negative reciprocal of the tangent gradient." },
+        { mistake: "Using f'' to decide increasing and decreasing intervals.", fix: "Use f'(x) for increasing/decreasing; use f''(x) for concavity." },
       ],
       masteryQuiz: [
         formulaAnswer("y11adv-id-exam-m1", "Find the average rate of change over the interval.", "f(1)=4,\\quad f(5)=28", "6", ["m=6"]),
-        formulaAnswer("y11adv-id-exam-m2", "Differentiate the polynomial function.", "y=4x^3-x+10", "12x^2-1", ["dy/dx=12x^2-1", "\\frac{dy}{dx}=12x^2-1"]),
-        formulaAnswer("y11adv-id-exam-m3", "Find the normal gradient for the displayed tangent gradient.", "m_{\\text{tangent}}=-2", "1/2", ["0.5"]),
-        practicalChoice("y11adv-id-exam-m4", "Choose the correct first-principles setup.", "D", ["$\\lim_{h\\to0}\\frac{(x+h)^2+x^2}{h}$", "$\\lim_{h\\to0}\\frac{x^2-(x+h)^2}{h}$", "$\\lim_{h\\to0}\\frac{(x+h)^2-x^2}{x}$", "$\\lim_{h\\to0}\\frac{(x+h)^2-x^2}{h}$"], "Use f(x+h) minus f(x), divided by h.", "f(x)=x^2"),
-        formulaAnswer("y11adv-id-exam-m5", "Evaluate the derivative at the given x-value.", "f(x)=x^3-5x,\\quad x=2", "7", ["f'(2)=7"]),
+        practicalChoice("y11adv-id-exam-m2", "Choose the correct first-principles setup.", "D", ["$\\lim_{h\\to0}\\frac{(x+h)^2+x^2}{h}$", "$\\lim_{h\\to0}\\frac{x^2-(x+h)^2}{h}$", "$\\lim_{h\\to0}\\frac{(x+h)^2-x^2}{x}$", "$\\lim_{h\\to0}\\frac{(x+h)^2-x^2}{h}$"], "Use f(x+h) minus f(x), divided by h.", "f(x)=x^2"),
+        formulaAnswer("y11adv-id-exam-m3", "Differentiate the polynomial function.", "y=4x^3-x+10", "12x^2-1", ["dy/dx=12x^2-1", "\\frac{dy}{dx}=12x^2-1"]),
+        formulaAnswer("y11adv-id-exam-m4", "Find the normal gradient for the displayed tangent gradient.", "m_{\\text{tangent}}=-2", "1/2", ["0.5"]),
+        formulaAnswer("y11adv-id-exam-m5", "Differentiate using the chain rule.", "y=(x^2+1)^3", "6x(x^2+1)^2", ["dy/dx=6x(x^2+1)^2"]),
         formulaAnswer("y11adv-id-exam-m6", "Find the tangent equation at the point on the curve. Give your answer in the form $y=mx+c$.", "y=x^2-1,\\quad x=2", "y=4x-5", ["y = 4x - 5"]),
-        practicalChoice("y11adv-id-exam-m7", "Which option identifies the differentiation error?", "B", ["The constant should stay as 3", "The derivative of x squared should be 2x", "The function should be integrated", "The x-value should be negative"], "The derivative of x^2 is 2x, not x.", "\\frac{d}{dx}(x^2+3)=x+3"),
-        practicalChoice("y11adv-id-exam-m8", "Which statement correctly distinguishes the two rates?", "A", ["Average rate uses a secant; instantaneous rate uses a tangent", "Average rate uses a tangent; instantaneous rate uses a secant", "Both always use two far apart points", "Neither uses gradients"], "Average rate is a secant gradient; instantaneous rate is a tangent gradient.", "\\text{Rates of change}"),
-        formulaAnswer("y11adv-id-exam-m9", "Find the normal equation at the point on the curve. Give your answer in the form $y=mx+c$.", "y=x^2,\\quad x=2", "y=-1/4x+9/2", ["y = -1/4x + 9/2"]),
-        formulaAnswer("y11adv-id-exam-m10", "Use the table to find the average velocity over the time interval.", "\\begin{array}{c|cc}t\\text{ s}&2&8\\\\ s\\text{ m}&5&41\\end{array}", "6", ["6 m/s"]),
+        practicalChoice("y11adv-id-exam-m7", "For f(x)=x^3-3x, classify the stationary point at x=1.", "C", ["Local maximum", "Point of inflection", "Local minimum", "Not stationary"], "f''(1)=6>0, so the stationary point is a local minimum.", "f'(1)=0,\\quad f''(1)=6"),
+        formulaAnswer("y11adv-id-exam-m8", "For f(x)=x^3-3x, state the interval where f is decreasing.", "f'(x)=3(x-1)(x+1)", "-1 < x < 1", ["(-1, 1)", "-1<x<1"]),
+        practicalChoice("y11adv-id-exam-m9", "For f''(x)=6x, what curve-sketching feature occurs at x=0 when the sign changes?", "B", ["Local maximum", "Point of inflection", "Local minimum", "Horizontal asymptote"], "A sign change in f'' confirms a point of inflection.", "f''(x)=6x"),
+        formulaAnswer("y11adv-id-exam-m10", "For f(x)=x^3-3x, give the local maximum coordinate.", "f'(x)=3x^2-3", "(-1,2)", ["(-1, 2)"]),
+      ],
+      multiPartPractice: [
+        {
+          id: "y11adv-id-exam-mp1",
+          prompt: "A function has derivative information $f'(x)=3(x-1)(x+1)$ and $f''(x)=6x$. Also $f(1)=-2$.",
+          latex: "f'(x)=3(x-1)(x+1),\\quad f''(x)=6x,\\quad f(1)=-2",
+          answer: "(1,-2)",
+          hint: "Use f'(x)=0 for stationary x-values, then use f''(1) to classify.",
+          explanation:
+            "The stationary x-values are x=-1 and x=1. Since f''(1)=6>0, the point at x=1 is a local minimum. With f(1)=-2, the coordinate is (1,-2).",
+          parts: [
+            { key: "a", label: "(a)", prompt: "State the positive stationary x-value.", marks: 1, answer: "1", acceptedAnswers: ["x=1"], hint: "Solve f'(x)=0 and choose the positive solution.", explanation: "3(x-1)(x+1)=0 gives x=-1 or x=1, so the positive stationary x-value is 1." },
+            { key: "b", label: "(b)", prompt: "Classify the stationary point at x=1.", marks: 1, answer: "local minimum", acceptedAnswers: ["local min", "minimum", "min"], hint: "Use the sign of f''(1).", explanation: "f''(1)=6>0, so the stationary point is a local minimum." },
+            { key: "c", label: "(c)", prompt: "Give the coordinate of this stationary point.", marks: 1, answer: "(1,-2)", acceptedAnswers: ["(1, -2)", "1,-2", "1, -2", "x=1,y=-2"], hint: "Use the given value f(1)=-2.", explanation: "The x-value is 1 and f(1)=-2, so the coordinate is (1,-2)." },
+          ],
+        },
+        {
+          id: "y11adv-id-exam-mp2",
+          prompt: "A function has $f'(x)=3(x-2)(x+1)$ and $f''(x)=6x-3$.",
+          latex: "f'(x)=3(x-2)(x+1),\\quad f''(x)=6x-3",
+          answer: "-1 < x < 2",
+          hint: "Use f'(x)<0 for decreasing, and solve f''(x)=0 for the concavity change.",
+          explanation:
+            "The derivative is negative between its roots, so the function is decreasing on -1<x<2. Also f''(x)=0 at x=1/2, where concavity changes from down to up.",
+          parts: [
+            { key: "a", label: "(a)", prompt: "State the bounded interval where the function is decreasing.", marks: 1, answer: "-1 < x < 2", acceptedAnswers: ["-1<x<2", "(-1, 2)", "(-1,2)"], hint: "For this upward-opening quadratic derivative, f'(x)<0 between the roots.", explanation: "The roots are -1 and 2, and f'(x)<0 between them, so the decreasing interval is -1<x<2." },
+            { key: "b", label: "(b)", prompt: "Find the x-value where concavity can change.", marks: 1, answer: "1/2", acceptedAnswers: ["0.5", "x=1/2", "x=0.5"], hint: "Set f''(x)=0.", explanation: "6x-3=0 gives x=1/2." },
+            { key: "c", label: "(c)", prompt: "State the concavity for x>1/2.", marks: 1, answer: "concave up", acceptedAnswers: ["concave upward", "upward concavity"], hint: "Test a value greater than 1/2 in f''(x).", explanation: "For x>1/2, f''(x)=6x-3>0, so the function is concave up." },
+          ],
+        },
+        {
+          id: "y11adv-id-exam-mp3",
+          prompt: "For a curve, $f'(a)=0$, $f''(a)<0$, and $f(a)=5$.",
+          latex: "f'(a)=0,\\quad f''(a)<0,\\quad f(a)=5",
+          answer: "local maximum",
+          hint: "Use the second derivative test, then state the range feature near the point.",
+          explanation:
+            "Since f'(a)=0 and f''(a)<0, the curve has a local maximum at x=a. The y-value there is 5, so the nearby range feature is a peak value of 5.",
+          parts: [
+            { key: "a", label: "(a)", prompt: "Classify the stationary point at x=a.", marks: 1, answer: "local maximum", acceptedAnswers: ["local max", "maximum", "max"], hint: "A negative second derivative at a stationary point means the curve bends down.", explanation: "f''(a)<0 at a stationary point, so x=a is a local maximum." },
+            { key: "b", label: "(b)", prompt: "State the y-value of this local maximum.", marks: 1, answer: "5", acceptedAnswers: ["y=5", "f(a)=5"], hint: "Use the given function value.", explanation: "The question gives f(a)=5, so the local maximum has y-value 5." },
+            { key: "c", label: "(c)", prompt: "State the concavity at x=a.", marks: 1, answer: "concave down", acceptedAnswers: ["concave downward", "downward concavity"], hint: "Use the sign of f''(a).", explanation: "Since f''(a)<0, the curve is concave down at x=a." },
+          ],
+        },
       ],
     };
   }

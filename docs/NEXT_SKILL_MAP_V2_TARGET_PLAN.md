@@ -1,5 +1,21 @@
 # Next Skill Map v2 Target Plan
 
+## Phase 2 Implementation Status
+
+Implemented: 2026-06-13.
+
+| Lesson | Status | File | Questions |
+|---|---|---|---|
+| `curve-sketching-calculus` | Done | `introductionDifferentiation.ts` | 3 worked + 4 guided + 5 independent + 10 mastery |
+| `introduction-differentiation-exam-practice` | Expanded | `introductionDifferentiation.ts` | 3 worked + 4 guided + 5 independent + 10 mastery + 3 multi-part D5 |
+
+Catalog updated: `curve-sketching-calculus` inserted after `tangents-normals-applications` and before `introduction-differentiation-exam-practice` in `lib/newCourseCatalog.ts`.
+`stableSkillId` and 4 `skillCheckpoints` added for `curve-sketching-calculus`.
+Exam practice now samples first principles / derivative basics, polynomial differentiation, chain rule, tangents/normals, stationary points, increasing/decreasing intervals, second derivative / concavity, and curve-sketching synthesis.
+Visual payload note: `CartesianGraph` is used with supported parabolas, points, and lineSegments. Smooth cubic/quartic rendering is not currently a supported primitive, so curve-sketching visuals use labelled feature maps and approximate line segments rather than changing renderer code.
+
+---
+
 Created: 2026-06-13
 Status: Phase 1 implemented — 2026-06-13.
 
@@ -14,13 +30,13 @@ Status: Phase 1 implemented — 2026-06-13.
 Catalog updated: 3 slugs inserted before `tangents-normals-applications` in `lib/newCourseCatalog.ts`.
 `stableSkillId` and 4 `skillCheckpoints` added per lesson.
 `CartesianGraph` used in each lesson's first worked example.
-Phase 2 (curve-sketching-calculus + exam practice expansion) remains pending.
+Phase 2 (curve-sketching-calculus + exam practice expansion) is implemented; details are recorded above.
 
 ---
 
 ## Phase 2 Plan: Year 11 Advanced - Introduction to Differentiation
 
-Planned: 2026-06-13. Implementation not started.
+Planned: 2026-06-13. Implemented: 2026-06-13.
 
 ### Current unit audit
 
