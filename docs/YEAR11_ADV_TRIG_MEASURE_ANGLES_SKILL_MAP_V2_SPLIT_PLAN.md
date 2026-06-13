@@ -2,7 +2,7 @@
 # Skill Map v2 Split Plan
 
 Created: 2026-06-13  
-Status: Phase 1 implemented 2026-06-13.  
+Status: Phase 1 ✅, Phase 2A ✅, Phase 2B ✅ implemented 2026-06-13. Phase 3 blueprint added 2026-06-13.
 Course: `year-11-advanced`  
 Unit: `trigonometry-measure-angles`  
 NSW strand: MA-T1 — Trigonometry and Measure of Angles
@@ -120,6 +120,235 @@ NSW strand: MA-T1 — Trigonometry and Measure of Angles
 - Question ID prefixes follow task brief (`y11adv-ucv-*`, `y11adv-ucq-*`) rather than planning doc's earlier suggestions (`y11adv-uc-*`, `y11adv-refang-*`).
 - Catalog entries placed between `exact-trig-values-special-triangles` and `graphing-sin-cos-tan`, with `legacySlugs: ["unit-circle-trigonometric-graphs"]`.
 - Both lessons have `stableSkillId` and `skillCheckpoints` per Skill Map v2 contract.
+
+---
+
+## Phase 3 Blueprint — Graph Transformations — 2026-06-13
+
+### Visual infrastructure — renderer audit
+
+| Payload | Transformed-graph support | Verdict |
+|---|---|---|
+| `TrigGraphDiagram` | **No.** `curveValue()` calls only `Math.sin(x)`, `Math.cos(x)`, `Math.tan(x)`. Type has no `a`/`b`/`c`/`d` fields. Always draws the base unscaled function. | **Do not use for any transformed graph question.** Safe for base-function reference only. |
+| `CartesianGraph` → `sinusoidals` | **Yes.** `sinusoidals` supports `{ kind, a, b, c, d }`. Already proven in `graphing-sin-cos-tan`. | **Primary visual for Phase 3.** |
+
+**Rule:** every Phase 3 question that shows a transformed graph uses `cartesianGraph` with a `sinusoidals` entry carrying explicit `a`, `b`, `c`, `d` values. `trigGraphDiagram` is permitted only in teaching text as a base-function reference alongside a `cartesianGraph`, never as the sole visual for a transformed-graph question.
+
+---
+
+### Slot 10 — `trig-graph-amplitude-period`
+
+**Slug:** `trig-graph-amplitude-period`
+**Question ID prefix:** `y11adv-amp-*`
+**Learning goal:** Given y = a sin(bx) or y = a cos(bx), identify amplitude |a| and period 2π/b and sketch one period.
+**Prerequisite:** `graphing-sin-cos-tan` (base period 2π, range [−1, 1]).
+
+#### Worked example outlines
+
+| # | Equation | Focus | CartesianGraph |
+|---|---|---|---|
+| WE1 | y = 3 sin(x) | Amplitude stretches range to [−3, 3]. Key points (0,0), (π/2, 3), (π, 0), (3π/2, −3), (2π, 0). | `{kind:"sin", a:3, b:1, c:0, d:0}` |
+| WE2 | y = cos(2x) | b = 2 compresses period to π. New zeros at π/4, 3π/4. Key points: (0,1), (π/4, 0), (π/2, −1), (3π/4, 0), (π, 1). | `{kind:"cos", a:1, b:2, c:0, d:0}` |
+| WE3 | y = −2 sin(3x) | |a| = 2 (reflected), period = 2π/3. Reflection: graph starts by going down instead of up. | `{kind:"sin", a:-2, b:3, c:0, d:0}` |
+
+#### Guided (4)
+
+| ID | Prompt | Answer | Type | Visual |
+|---|---|---|---|---|
+| g1 | State the amplitude of y = 4 cos(x). | 4 | typed | none |
+| g2 | State the period of y = sin(3x). | 2pi/3 | typed | none |
+| g3 | State the amplitude of y = −3 sin(x). | 3 | typed | none — stress |a| |
+| g4 | MCQ: What is the period of y = cos(4x)? Distractors: 8π, 2π, 4π, **π/2**. | B: π/2 | MCQ | none |
+
+#### Independent (5)
+
+| ID | Prompt | Answer | Type | Visual |
+|---|---|---|---|---|
+| i1 | State the period of y = sin(2x). | pi | typed | none |
+| i2 | State the amplitude of y = −5 cos(x). | 5 | typed | none |
+| i3 | The graph shown is y = 3 cos(2x). State the amplitude. | 3 | typed | CartesianGraph `{kind:"cos", a:3, b:2, c:0, d:0}` |
+| i4 | State the maximum value of y = 4 sin(x). | 4 | typed | none |
+| i5 | MCQ error — A student says y = sin(3x) has period 6π. Identify the error. | B: period = 2π/b = 2π/3, not 6π | MCQ | none |
+
+#### Mastery (10)
+
+| ID | Prompt | Answer | Type | Visual |
+|---|---|---|---|---|
+| m1 | State the period of y = sin(2x). | pi | typed | none |
+| m2 | State the amplitude of y = 7 cos(x). | 7 | typed | none |
+| m3 | State the period of y = 4 sin(3x). | 2pi/3 | typed | none |
+| m4 | The graph shown is y = 2 sin(πx). State the period. | 2 | typed | CartesianGraph `{kind:"sin", a:2, b:Math.PI, c:0, d:0}` |
+| m5 | State the maximum value of y = 5 cos(x). | 5 | typed | none |
+| m6 | State the minimum value of y = −3 sin(2x). | -3 | typed | none |
+| m7 | MCQ: Which is the range of y = 4 cos(x)? | D: [−4, 4] | MCQ | none |
+| m8 | MCQ error — A student doubles b and says the period doubles. Identify the error. | A: period halves when b doubles | MCQ | none |
+| m9 | y = a sin(bx) has amplitude 2 and period π. Find b. | 2 | typed | none |
+| m10 | State the period of y = 3 sin(πx/2). | 4 | typed | none — period = 2π/(π/2) = 4 |
+
+#### Misconceptions
+
+| Error | Fix |
+|---|---|
+| Period = 2π × b instead of 2π/b | Period is DIVIDED by b, not multiplied. Bigger b = faster oscillation = shorter period. |
+| Amplitude = a (including sign) | Amplitude is |a|, always non-negative. y = −3sin(x) has amplitude 3. |
+| Confusing amplitude change with vertical shift | Amplitude stretches the wave; vertical shift moves the midline. y = 3sin(x) still has midline y = 0. |
+| y = sin(πx) has period π | b = π gives period = 2π/π = 2, not π. Substitute into 2π/b carefully. |
+
+#### Accepted answer strategy
+
+| Value | Canonical | Accept also |
+|---|---|---|
+| Period 2π/3 | `"2pi/3"` | `"2π/3"`, `"(2/3)pi"` |
+| Period π | `"pi"` | `"π"`, `"3.14159..."` — do NOT accept as decimal for exact |
+| Period 4 | `"4"` | `"4.0"` |
+| Amplitude 3 | `"3"` | `"3.0"` |
+| Range [−4, 4] | MCQ choice — no parser needed | — |
+| Max value 5 | `"5"` | `"5.0"` |
+
+---
+
+### Slot 11 — `trig-graph-transformations`
+
+**Slug:** `trig-graph-transformations`
+**Question ID prefix:** `y11adv-shift-*`
+**Learning goal:** Given y = a sin(bx + c) + d, identify amplitude, period, phase shift (−c/b), and vertical shift (d). State the new range and describe the effect on the graph.
+**Prerequisite:** `trig-graph-amplitude-period` (amplitude and period must be solid).
+
+#### Worked example outlines
+
+| # | Equation | Focus | CartesianGraph |
+|---|---|---|---|
+| WE1 | y = 2 sin(x + π/3) + 1 | Phase shift: c = π/3 → shift = −π/3 (LEFT by π/3). Vertical shift +1. Amplitude 2. Range [−1, 3]. | `{kind:"sin", a:2, b:1, c:Math.PI/3, d:1}` |
+| WE2 | y = 3 cos(2x − π/2) | c = −π/2 → shift = −(−π/2)/2 = +π/4 (RIGHT by π/4). Period = π. No vertical shift. Range [−3, 3]. | `{kind:"cos", a:3, b:2, c:-Math.PI/2, d:0}` |
+| WE3 | y = −sin(x) + 2 | Amplitude 1 (reflected). Vertical shift +2. Range [1, 3]. Starts at y = 2 and immediately decreases. | `{kind:"sin", a:-1, b:1, c:0, d:2}` |
+
+#### Guided (4)
+
+| ID | Prompt | Answer | Type | Visual |
+|---|---|---|---|---|
+| g1 | State the vertical shift of y = sin(x) + 3. | 3 | typed | none |
+| g2 | State the phase shift direction and size for y = cos(x − π/4). | right by π/4 — ask for size: pi/4 | typed | none |
+| g3 | State the maximum value of y = 2 sin(x) + 1. | 3 | typed | none |
+| g4 | MCQ: In y = sin(x + π/6), which direction is the phase shift? Distractors: right π/6, left π/6, up π/6, down π/6. | B: left by π/6 | MCQ | none |
+
+#### Independent (5)
+
+| ID | Prompt | Answer | Type | Visual |
+|---|---|---|---|---|
+| i1 | State the vertical shift of y = 3 cos(2x) − 4. | -4 | typed | none |
+| i2 | The graph shown is y = sin(x) + 2. State the maximum value. | 3 | typed | CartesianGraph `{kind:"sin", a:1, b:1, c:0, d:2}` |
+| i3 | State the amplitude of y = 4 sin(x − π/3) + 1. | 4 | typed | none |
+| i4 | State the minimum value of y = 2 cos(x + π/4) − 3. | -5 | typed | none |
+| i5 | MCQ — A student says y = sin(x + π/3) shifts the graph to the right. Identify the error. | A: a positive c shifts LEFT | MCQ | none |
+
+#### Mastery (10)
+
+| ID | Prompt | Answer | Type | Visual |
+|---|---|---|---|---|
+| m1 | State the amplitude of y = −3 sin(2x) + 5. | 3 | typed | none |
+| m2 | State the period of y = cos(3x − π) + 1. | 2pi/3 | typed | none |
+| m3 | State the vertical shift of y = 4 sin(x + π) − 2. | -2 | typed | none |
+| m4 | The graph shown is y = 2 sin(x) + 3. State the minimum value. | 1 | typed | CartesianGraph `{kind:"sin", a:2, b:1, c:0, d:3}` |
+| m5 | State the phase shift size for y = sin(2x + π/2). Phase shift = −c/b = −(π/2)/2. | pi/4 | typed | none |
+| m6 | State the maximum value of y = 3 cos(x) + 2. | 5 | typed | none |
+| m7 | State the minimum value of y = 2 sin(x + π/6) − 1. | -3 | typed | none — d − |a| = −1 − 2 = −3 |
+| m8 | MCQ error — A student reads y = sin(x + π/3) and says phase shift is π/3 to the right because the sign is positive. Identify the error. | B: positive c means shift LEFT; the shift is −c/b = −π/3 | MCQ | none |
+| m9 | State the period of y = 5 cos(πx + π/2). | 2 | typed | none — period = 2π/π = 2 |
+| m10 | y = 2 sin(πx/3 + π/6) + 1. State the maximum value of y. | 3 | typed | none — d + |a| = 1 + 2 = 3 |
+
+#### Misconceptions
+
+| Error | Fix |
+|---|---|
+| y = sin(x + c) shifts right because the constant is added | Positive c shifts LEFT. Think of it as the starting x being earlier. |
+| Phase shift = c, not −c/b | Phase shift = −c/b. For y = sin(2x + π/2), shift = −(π/2)/2 = −π/4 (left π/4). |
+| Range of y = 2sin(x) + 1 is [0, 2] | The range is [d − |a|, d + |a|] = [−1, 3], not [d, d + |a|]. |
+| Amplitude includes the sign of a | Amplitude is |a|. y = −3sin(x) has amplitude 3, not −3. |
+
+#### Accepted answer strategy
+
+| Value | Canonical | Accept also |
+|---|---|---|
+| Vertical shift −4 | `"-4"` | `"−4"` (Unicode minus) |
+| Phase shift π/4 | `"pi/4"` | `"π/4"` |
+| Min value −5 | `"-5"` | `"−5"` |
+| Max value 3 | `"3"` | `"3.0"` |
+| Period 2π/3 | `"2pi/3"` | `"2π/3"` |
+| Period 2 | `"2"` | `"2.0"` |
+
+---
+
+### Phase 3 TrigGraphDiagram usage plan
+
+| Question type | Safe visual | Notes |
+|---|---|---|
+| y = a sin(bx) — show stretched/compressed graph | `CartesianGraph` sinusoidals | Only safe option for transformed graphs |
+| y = a sin(bx + c) + d — show shifted graph | `CartesianGraph` sinusoidals | Only safe option |
+| Base y = sin x reference alongside transformed | `CartesianGraph` two sinusoidals entries | Add a:1, b:1 entry alongside the transformed one |
+| `TrigGraphDiagram` in teaching text only | Teaching `latexBlocks` or description | Renderer draws unscaled base only — acceptable as concept illustration |
+| Any question relying on visual accuracy of transformed shape | `CartesianGraph` | Never use `TrigGraphDiagram` for this |
+
+**Renderer limitation — do NOT test these via TrigGraphDiagram questions:**
+- "Read the amplitude from the graph" when the amplitude ≠ 1
+- "Read the period from the graph" when the period ≠ 2π (sin/cos) or π (tan)
+- Phase shift or vertical shift visible from graph positioning
+
+---
+
+### Phase 3 catalog entries (to add before `trig-measure-angles-exam-practice`)
+
+```
+slug: "trig-graph-amplitude-period"
+stableSkillId: "y11adv-trig-measure-trig-graph-amplitude-period"
+legacySlugs: ["unit-circle-trigonometric-graphs"]
+
+slug: "trig-graph-transformations"
+stableSkillId: "y11adv-trig-measure-trig-graph-transformations"
+legacySlugs: ["unit-circle-trigonometric-graphs"]
+```
+
+---
+
+### Phase 3 implementation prompt
+
+```
+Nova Maths context: c:\Users\joshu\hsc-maths-coach
+Do not touch checkout/auth/payments.
+Do not write to Supabase.
+Do not edit visual renderer code.
+
+Task: Implement Year 11 Advanced trigonometry-measure-angles Phase 3 — graph transformations.
+
+Reference: docs/YEAR11_ADV_TRIG_MEASURE_ANGLES_SKILL_MAP_V2_SPLIT_PLAN.md (Phase 3 Blueprint section)
+
+Files to change:
+1. lib/lessons/year11Advanced/trigonometryMeasureAngles.ts
+   - Add lesson handlers for "trig-graph-amplitude-period" and "trig-graph-transformations"
+   - Use CartesianGraph sinusoidals for ALL transformed-graph visuals
+   - Do NOT use TrigGraphDiagram for any transformed-graph question
+   - TrigGraphDiagram is permitted only in teaching latexBlocks descriptions
+2. lib/newCourseCatalog.ts
+   - Add both new slugs before "trig-measure-angles-exam-practice"
+   - Include stableSkillId, legacySlugs, skillCheckpoints per Skill Map v2 contract
+
+Rules:
+- Question ID prefix: y11adv-amp-* for amplitude-period, y11adv-shift-* for transformations
+- Each lesson: 3 WE + 4 guided + 5 independent + 10 mastery = 22 questions (19 seeded)
+- CartesianGraph sinusoidals params: use Math.PI for c values (e.g. c: Math.PI/3)
+- Add one multiPartPractice per lesson (fluency chain: find amplitude → find period → find max value)
+- All phase-shift answers: ask for the magnitude only (e.g. "pi/4"), not direction+magnitude
+- Accepted answers: always add unicode-minus and π-symbol variants
+- Do not introduce graph sketching or diagram-response questions
+
+Validate:
+npx.cmd tsc --noEmit
+npm.cmd run build
+npm.cmd run audit:lessons
+npx.cmd tsx scripts/seed-question-bank.ts --course year-11-advanced --dry-run
+git diff --check
+
+Output: files changed, question counts, CartesianGraph usage, seed counts, validation result, risks.
+```
 
 ---
 
