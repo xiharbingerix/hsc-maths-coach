@@ -81,6 +81,48 @@ NSW strand: MA-T1 — Trigonometry and Measure of Angles
 
 ---
 
+## Phase 2B Implementation Status — 2026-06-13
+
+### Slots implemented
+
+| Slug | Title | Status | Seed count |
+|---|---|---|---|
+| `exact-trig-values-unit-circle` | The Unit Circle and Exact Values | ✅ Done | 19 |
+| `unit-circle-all-quadrants` | Exact Values in All Quadrants | ✅ Done | 19 |
+
+### Visual payload usage
+
+| Lesson | Payload type | Used on |
+|---|---|---|
+| `exact-trig-values-unit-circle` | `UnitCircleDiagram` | WE1 (π/3), WE2 (π/2), WE3 (π/4), g1 (π/6), g2 (π/3), g3 (π/4), i1 (π/6), i2 (π/2), m3 (π), m5 (π/2) |
+| `unit-circle-all-quadrants` | `UnitCircleDiagram` | WE1 (5π/6 Q2), WE2 (7π/6 Q3), WE3 (5π/3 Q4), g1 (5π/6), g2 (7π/6), i1 (5π/6), i2 (4π/3), m2 (5π/6), m3 (5π/4) |
+
+### Question ID prefixes used
+
+| Lesson | Prefix |
+|---|---|
+| `exact-trig-values-unit-circle` | `y11adv-ucv-*` |
+| `unit-circle-all-quadrants` | `y11adv-ucq-*` |
+
+### Validation results
+
+| Check | Result |
+|---|---|
+| `npx tsc --noEmit` | ✅ Clean |
+| `npm run build` | ✅ Clean |
+| `npm run audit:lessons` | ✅ PASS (0 failures) |
+| `seed --dry-run` (year-11-advanced) | ✅ 2 new lessons seeded (19 each); 2 legacy still skipped |
+| `git diff --check` (changed files only) | ✅ Clean (pre-existing CRLF warning on unrelated file) |
+
+### Notes
+
+- `UnitCircleDiagram` used heavily: all 3 worked examples per lesson, 3 guided questions in `exact-trig-values-unit-circle`, 2 guided in `unit-circle-all-quadrants`, plus 2+ independent/mastery per lesson.
+- Question ID prefixes follow task brief (`y11adv-ucv-*`, `y11adv-ucq-*`) rather than planning doc's earlier suggestions (`y11adv-uc-*`, `y11adv-refang-*`).
+- Catalog entries placed between `exact-trig-values-special-triangles` and `graphing-sin-cos-tan`, with `legacySlugs: ["unit-circle-trigonometric-graphs"]`.
+- Both lessons have `stableSkillId` and `skillCheckpoints` per Skill Map v2 contract.
+
+---
+
 ## Phase 2 Content Blueprint — 2026-06-13
 
 ### Visual infrastructure audit

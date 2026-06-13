@@ -293,6 +293,72 @@ const TRIG_MEASURE_EXPLANATIONS: Record<string, string> = {
     "Apply A = ½r²θ: A = ½ × 36 × (π/3) = 18 × (π/3) = 6π. The 18 divided by 3 gives 6.",
   "y11adv-trig-exam-m10":
     "Tangent repeats every π radians because after half a turn the sine and cosine values both reverse sign, restoring the ratio to its original value. Its period is half that of sine and cosine.",
+
+  // ── Unit circle — exact values (Q1 and axes) ──────────────────────────────
+  "y11adv-ucv-g1":
+    "On the unit circle the point at angle θ is (cos θ, sin θ). At θ = π/6 the x-coordinate is cos(π/6) = √3/2.",
+  "y11adv-ucv-g2":
+    "The y-coordinate at θ = π/3 is sin(π/3). From the 30-60-90 triangle, sin(π/3) = √3/2.",
+  "y11adv-ucv-g3":
+    "At θ = π/4, cos(π/4) = sin(π/4) = √2/2. The unit-circle point is (√2/2, √2/2) — both coordinates are equal.",
+  "y11adv-ucv-i1":
+    "The unit-circle point at π/6 is (cos(π/6), sin(π/6)) = (√3/2, 1/2). The y-coordinate (sine) is 1/2.",
+  "y11adv-ucv-i2":
+    "At θ = π/2 the terminal point reaches the top of the circle: (0, 1). The y-coordinate gives sin(π/2) = 1.",
+  "y11adv-ucv-i3":
+    "At θ = π the terminal point is the leftmost point: (−1, 0). The x-coordinate gives cos(π) = −1.",
+  "y11adv-ucv-i4":
+    "At θ = 3π/2 the terminal point is at the bottom: (0, −1). sin(3π/2) = −1 (y-coordinate).",
+  "y11adv-ucv-m1":
+    "cos(π/6) is the x-coordinate at θ = π/6. From the 30-60-90 triangle, the adjacent side over hypotenuse is √3/2.",
+  "y11adv-ucv-m2":
+    "sin(π/3) is the y-coordinate at θ = π/3. From the 30-60-90 triangle, the opposite over hypotenuse is √3/2.",
+  "y11adv-ucv-m3":
+    "At θ = π the terminal point is (−1, 0). cos(π) = −1 (x-coordinate) and sin(π) = 0 (y-coordinate).",
+  "y11adv-ucv-m4":
+    "tan(π/4) = sin(π/4)/cos(π/4) = (√2/2)/(√2/2) = 1. On the unit circle, tangent = y/x.",
+  "y11adv-ucv-m5":
+    "At θ = π/2 the terminal point is (0, 1). cos(π/2) = 0 (x-coordinate). sin(π/2) = 1 (y-coordinate).",
+  "y11adv-ucv-m7":
+    "cos(0) is the x-coordinate at the starting point (1, 0) on the unit circle. cos(0) = 1.",
+  "y11adv-ucv-m8":
+    "sin(0) is the y-coordinate at the starting point (1, 0) on the unit circle. sin(0) = 0.",
+  "y11adv-ucv-m10":
+    "2 sin(π/6) cos(π/6) = 2 × (1/2) × (√3/2) = √3/2. Substitute the exact values and multiply step by step.",
+
+  // ── Unit circle — all quadrants ────────────────────────────────────────────
+  "y11adv-ucq-g1":
+    "π/2 < 5π/6 < π, so 5π/6 is in Q2. The reference angle is π − 5π/6 = π/6.",
+  "y11adv-ucq-g2":
+    "π < 7π/6 < 3π/2 (Q3). The reference angle is the acute angle measured back to the x-axis: 7π/6 − π = π/6.",
+  "y11adv-ucq-g4":
+    "3π/2 < 7π/4 < 2π (Q4). The reference angle is 2π − 7π/4 = π/4.",
+  "y11adv-ucq-i1":
+    "Reference angle for 5π/6: π − 5π/6 = π/6. In Q2 sine is positive. |sin(π/6)| = 1/2, so sin(5π/6) = 1/2.",
+  "y11adv-ucq-i2":
+    "Reference angle for 4π/3: 4π/3 − π = π/3. In Q3 cosine is negative. |cos(π/3)| = 1/2, so cos(4π/3) = −1/2.",
+  "y11adv-ucq-i3":
+    "Reference angle for 7π/6: π/6. In Q3 tangent is positive (sin and cos both negative, ratio positive). |tan(π/6)| = √3/3, so tan(7π/6) = √3/3.",
+  "y11adv-ucq-i4":
+    "Reference angle for 7π/4: 2π − 7π/4 = π/4. In Q4 cosine is positive. |cos(π/4)| = √2/2, so cos(7π/4) = √2/2.",
+  "y11adv-ucq-m1":
+    "Reference angle for 2π/3: π − 2π/3 = π/3. In Q2 sine is positive. |sin(π/3)| = √3/2, so sin(2π/3) = √3/2.",
+  "y11adv-ucq-m2":
+    "Reference angle for 5π/6: π/6. In Q2 cosine is negative. |cos(π/6)| = √3/2, so cos(5π/6) = −√3/2.",
+  "y11adv-ucq-m3":
+    "π < 5π/4 < 3π/2 (Q3). The reference angle is 5π/4 − π = π/4.",
+  "y11adv-ucq-m4":
+    "Reference angle for 5π/4: π/4. In Q3 tangent is positive. |tan(π/4)| = 1, so tan(5π/4) = 1.",
+  "y11adv-ucq-m5":
+    "Reference angle for 11π/6: 2π − 11π/6 = π/6. In Q4 cosine is positive. |cos(π/6)| = √3/2, so cos(11π/6) = √3/2.",
+  "y11adv-ucq-m6":
+    "Reference angle for 4π/3: π/3. In Q3 sine is negative. |sin(π/3)| = √3/2, so sin(4π/3) = −√3/2.",
+  "y11adv-ucq-m7":
+    "Reference angle for 2π/3: π/3. In Q2 tangent is negative (sine positive, cosine negative). |tan(π/3)| = √3, so tan(2π/3) = −√3.",
+  "y11adv-ucq-m9":
+    "Reference angle for 5π/3: 2π − 5π/3 = π/3. In Q4 sine is negative. |sin(π/3)| = √3/2, so sin(5π/3) = −√3/2.",
+  "y11adv-ucq-m10":
+    "sin(π + θ) = −sin θ. So sin(π + π/6) = −sin(π/6) = −1/2. The angle π + π/6 is in Q3 where sine is negative.",
 };
 
 function formulaAnswer(
@@ -1557,6 +1623,514 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
               explanation: "P = 2(9) + 6π = 18 + 6π.",
             },
           ],
+        },
+      ],
+    };
+  }
+
+  // ── PHASE 2B v2 SLOTS ───────────────────────────────────────────────────────
+
+  if (lesson.slug === "exact-trig-values-unit-circle") {
+    const ucvPiOver6: import("../types").UnitCircleDiagram = {
+      description:
+        "Unit circle showing the terminal point at θ = π/6 (30°). The angle is in Q1, and the terminal point is at (√3/2, 1/2). The x-coordinate is cos(π/6) = √3/2 and the y-coordinate is sin(π/6) = 1/2.",
+      angleRadians: "π/6",
+      angleDegrees: "30",
+      terminalPoint: { x: "√3/2", y: "1/2", label: "(√3/2, 1/2)" },
+      quadrant: 1,
+      showReferenceTriangle: true,
+      highlightRadius: true,
+    };
+    const ucvPiOver3: import("../types").UnitCircleDiagram = {
+      description:
+        "Unit circle showing the terminal point at θ = π/3 (60°). The angle is in Q1, and the terminal point is at (1/2, √3/2). The x-coordinate is cos(π/3) = 1/2 and the y-coordinate is sin(π/3) = √3/2.",
+      angleRadians: "π/3",
+      angleDegrees: "60",
+      terminalPoint: { x: "1/2", y: "√3/2", label: "(1/2, √3/2)" },
+      quadrant: 1,
+      showReferenceTriangle: true,
+      highlightRadius: true,
+    };
+    const ucvPiOver2: import("../types").UnitCircleDiagram = {
+      description:
+        "Unit circle showing the boundary angle θ = π/2 (90°). The terminal point (0, 1) is at the top of the circle on the positive y-axis. cos(π/2) = 0 and sin(π/2) = 1.",
+      angleRadians: "π/2",
+      angleDegrees: "90",
+      terminalPoint: { x: "0", y: "1", label: "(0, 1)" },
+      quadrant: "axis",
+      highlightRadius: true,
+    };
+    const ucvPiOver4: import("../types").UnitCircleDiagram = {
+      description:
+        "Unit circle showing the terminal point at θ = π/4 (45°). The angle is in Q1, and the terminal point is at (√2/2, √2/2). Both coordinates are equal: cos(π/4) = sin(π/4) = √2/2.",
+      angleRadians: "π/4",
+      angleDegrees: "45",
+      terminalPoint: { x: "√2/2", y: "√2/2", label: "(√2/2, √2/2)" },
+      quadrant: 1,
+      showReferenceTriangle: true,
+      highlightRadius: true,
+    };
+    const ucvPi: import("../types").UnitCircleDiagram = {
+      description:
+        "Unit circle showing the boundary angle θ = π (180°). The terminal point (−1, 0) is at the leftmost point of the circle on the negative x-axis. cos(π) = −1 and sin(π) = 0.",
+      angleRadians: "π",
+      angleDegrees: "180",
+      terminalPoint: { x: "-1", y: "0", label: "(-1, 0)" },
+      quadrant: "axis",
+      highlightRadius: true,
+    };
+    return {
+      ...base,
+      description:
+        "Use the unit-circle rule (cos θ, sin θ) to read exact trigonometric values at common Q1 and axis angles.",
+      learningIntention:
+        "Learn that the terminal point on the unit circle at angle θ has coordinates (cos θ, sin θ), and apply this to read exact values at π/6, π/4, π/3, π/2, π, 3π/2, and 2π.",
+      successCriteria: [
+        "State the unit-circle coordinate rule: the terminal point at θ is (cos θ, sin θ).",
+        "Explain why cos θ is the x-coordinate and sin θ is the y-coordinate.",
+        "Read exact values of sin, cos, and tan at π/6, π/4, π/3 from the unit circle.",
+        "State the coordinates at boundary angles 0, π/2, π, 3π/2, and 2π.",
+        "Evaluate tan θ = sin θ / cos θ using unit-circle coordinates.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Place a point on the circle of radius 1 centred at the origin. As the angle θ is measured anticlockwise from the positive x-axis, the point moves to position (cos θ, sin θ).",
+          "This is the unit-circle rule: the x-coordinate is always cos θ and the y-coordinate is always sin θ.",
+          "At Q1 angles π/6, π/4, π/3 the coordinates come directly from the 30-60-90 and 45-45-90 triangles.",
+          "At the boundary angles: θ = 0 gives (1, 0); π/2 gives (0, 1); π gives (−1, 0); 3π/2 gives (0, −1); 2π returns to (1, 0).",
+          "Tangent is the ratio of the two coordinates: tan θ = sin θ / cos θ = y/x. It is undefined when the x-coordinate is 0.",
+        ],
+        latexBlocks: [
+          "(\\cos\\theta,\\,\\sin\\theta)\\quad\\text{unit-circle point at }\\theta",
+          "\\cos\\theta=x\\text{-coordinate},\\quad\\sin\\theta=y\\text{-coordinate}",
+          "\\tan\\theta=\\frac{\\sin\\theta}{\\cos\\theta}=\\frac{y}{x},\\quad x\\ne0",
+          "\\theta=0:\\,(1,0);\\;\\frac{\\pi}{2}:\\,(0,1);\\;\\pi:\\,(-1,0);\\;\\frac{3\\pi}{2}:\\,(0,-1)",
+          "\\tfrac{\\pi}{6}:\\,(\\tfrac{\\sqrt{3}}{2},\\tfrac{1}{2});\\quad\\tfrac{\\pi}{4}:\\,(\\tfrac{\\sqrt{2}}{2},\\tfrac{\\sqrt{2}}{2});\\quad\\tfrac{\\pi}{3}:\\,(\\tfrac{1}{2},\\tfrac{\\sqrt{3}}{2})",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Read cos and sin from the unit circle at θ = π/3",
+          questionLatex: "\\theta=\\frac{\\pi}{3}",
+          unitCircleDiagram: ucvPiOver3,
+          steps: [
+            { explanation: "The terminal point on the unit circle at any angle θ is (cos θ, sin θ).", latex: "\\text{point}=(\\cos\\theta,\\,\\sin\\theta)" },
+            { explanation: "From the 30-60-90 triangle, the adjacent side over hypotenuse gives cos(π/3).", latex: "\\cos\\tfrac{\\pi}{3}=\\tfrac{1}{2}" },
+            { explanation: "The opposite side over hypotenuse gives sin(π/3).", latex: "\\sin\\tfrac{\\pi}{3}=\\tfrac{\\sqrt{3}}{2}" },
+          ],
+          finalAnswerLatex: "\\left(\\tfrac{1}{2},\\,\\tfrac{\\sqrt{3}}{2}\\right)",
+        },
+        {
+          title: "Read the coordinates at boundary angle θ = π/2",
+          questionLatex: "\\theta=\\frac{\\pi}{2}",
+          unitCircleDiagram: ucvPiOver2,
+          steps: [
+            { explanation: "A quarter turn places the terminal point at the top of the circle.", latex: "\\text{point}=(0,\\,1)" },
+            { explanation: "The x-coordinate gives cos(π/2) = 0.", latex: "\\cos\\tfrac{\\pi}{2}=0" },
+            { explanation: "The y-coordinate gives sin(π/2) = 1.", latex: "\\sin\\tfrac{\\pi}{2}=1" },
+            { explanation: "tan(π/2) = sin/cos = 1/0 — the denominator is zero.", latex: "\\tan\\tfrac{\\pi}{2}=\\text{undefined}" },
+          ],
+          finalAnswerLatex: "(0,\\,1);\\quad\\cos\\tfrac{\\pi}{2}=0,\\;\\sin\\tfrac{\\pi}{2}=1,\\;\\tan\\tfrac{\\pi}{2}\\text{ undefined}",
+        },
+        {
+          title: "Read cos and sin at θ = π/4, then evaluate tan",
+          questionLatex: "\\theta=\\frac{\\pi}{4}",
+          unitCircleDiagram: ucvPiOver4,
+          steps: [
+            { explanation: "From the 45-45-90 triangle, both legs equal 1 and the hypotenuse is √2.", latex: "\\cos\\tfrac{\\pi}{4}=\\sin\\tfrac{\\pi}{4}=\\tfrac{\\sqrt{2}}{2}" },
+            { explanation: "The terminal point has equal coordinates.", latex: "\\left(\\tfrac{\\sqrt{2}}{2},\\,\\tfrac{\\sqrt{2}}{2}\\right)" },
+            { explanation: "tan(π/4) = y/x = (√2/2)/(√2/2) = 1.", latex: "\\tan\\tfrac{\\pi}{4}=1" },
+          ],
+          finalAnswerLatex: "\\left(\\tfrac{\\sqrt{2}}{2},\\,\\tfrac{\\sqrt{2}}{2}\\right);\\quad\\tan\\tfrac{\\pi}{4}=1",
+        },
+      ],
+      guidedPractice: [
+        {
+          ...formulaAnswer("y11adv-ucv-g1", "Evaluate using the unit-circle rule: cos θ is the x-coordinate.", "\\cos\\left(\\frac{\\pi}{6}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2", "√3/2"]),
+          unitCircleDiagram: ucvPiOver6,
+          hint: "The terminal point at π/6 is (cos(π/6), sin(π/6)). Read the x-coordinate.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucv-g2", "Evaluate using the unit-circle rule: sin θ is the y-coordinate.", "\\sin\\left(\\frac{\\pi}{3}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2", "√3/2"]),
+          unitCircleDiagram: ucvPiOver3,
+          hint: "The terminal point at π/3 is (1/2, √3/2). Read the y-coordinate.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucv-g3", "Evaluate using the unit-circle rule.", "\\sin\\left(\\frac{\\pi}{4}\\right)", "sqrt(2)/2", ["1/sqrt(2)", "\\sqrt{2}/2", "√2/2"]),
+          unitCircleDiagram: ucvPiOver4,
+          hint: "The terminal point at π/4 has equal x and y coordinates. Read the y-coordinate for sine.",
+        },
+        practicalChoice(
+          "y11adv-ucv-g4",
+          "A student writes the unit-circle coordinate rule as $(\\sin\\theta,\\,\\cos\\theta)$. Identify the error.",
+          "B",
+          [
+            "$\\sin\\theta$ and $\\cos\\theta$ are always equal on the unit circle",
+            "The order is reversed — the correct rule is $(\\cos\\theta,\\,\\sin\\theta)$",
+            "The formula only works in quadrant I",
+            "$\\tan\\theta$ should replace $\\cos\\theta$",
+          ],
+          "The unit-circle point is (x, y) = (cos θ, sin θ): cosine is the x-coordinate and sine is the y-coordinate — not the reverse.",
+          "(\\sin\\theta,\\,\\cos\\theta)"
+        ),
+      ],
+      independentPractice: [
+        {
+          ...formulaAnswer("y11adv-ucv-i1", "The unit-circle point at θ = π/6 is (cos θ, sin θ). Evaluate sin(π/6).", "\\sin\\left(\\frac{\\pi}{6}\\right)", "1/2", ["0.5"]),
+          unitCircleDiagram: ucvPiOver6,
+          hint: "Read the y-coordinate of the terminal point at θ = π/6.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucv-i2", "The terminal point at θ = π/2 is (0, 1). Evaluate sin(π/2).", "\\sin\\left(\\frac{\\pi}{2}\\right)", "1", []),
+          unitCircleDiagram: ucvPiOver2,
+          hint: "At θ = π/2 the point is at the top of the circle: (0, 1). The y-coordinate gives sin(π/2).",
+        },
+        {
+          ...formulaAnswer("y11adv-ucv-i3", "Evaluate using the unit circle.", "\\cos\\pi", "-1", []),
+          hint: "At θ = π the point is at (−1, 0). The x-coordinate gives cos(π).",
+        },
+        {
+          ...formulaAnswer("y11adv-ucv-i4", "Evaluate using the unit circle.", "\\sin\\frac{3\\pi}{2}", "-1", []),
+          hint: "At θ = 3π/2 the point is at the bottom of the circle: (0, −1). The y-coordinate gives sin(3π/2).",
+        },
+        practicalChoice(
+          "y11adv-ucv-i5",
+          "Which coordinate pair is the unit-circle point at $\\theta=\\frac{\\pi}{3}$?",
+          "B",
+          [
+            "$\\left(\\frac{\\sqrt{3}}{2},\\,\\frac{1}{2}\\right)$",
+            "$\\left(\\frac{1}{2},\\,\\frac{\\sqrt{3}}{2}\\right)$",
+            "$\\left(\\frac{\\sqrt{2}}{2},\\,\\frac{\\sqrt{2}}{2}\\right)$",
+            "$(0,\\,1)$",
+          ],
+          "At θ = π/3: x = cos(π/3) = 1/2 and y = sin(π/3) = √3/2. The point is (1/2, √3/2).",
+          "\\theta=\\frac{\\pi}{3}"
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Writing the unit-circle point as (sin θ, cos θ) instead of (cos θ, sin θ).", fix: "Cosine is always the x-coordinate and sine is always the y-coordinate. x comes before y, and cosine comes before sine." },
+        { mistake: "Reading sin(π/6) = √3/2 instead of 1/2.", fix: "The terminal point at π/6 is (√3/2, 1/2). Sine = y-coordinate = 1/2. The value √3/2 is sin(π/3)." },
+        { mistake: "Saying tan(π/2) = 0 because sin(π/2) = 1.", fix: "tan(π/2) = sin(π/2)/cos(π/2) = 1/0. Division by zero is undefined, not zero." },
+        { mistake: "Forgetting the boundary-angle coordinates.", fix: "Memorise the four axis points: (1,0), (0,1), (−1,0), (0,−1) at θ = 0, π/2, π, 3π/2." },
+      ],
+      masteryQuiz: [
+        {
+          ...formulaAnswer("y11adv-ucv-m1", "Evaluate using the unit circle.", "\\cos\\left(\\frac{\\pi}{6}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2", "√3/2"]),
+          hint: "cos(π/6) = x-coordinate at θ = π/6.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucv-m2", "Evaluate using the unit circle.", "\\sin\\left(\\frac{\\pi}{3}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2", "√3/2"]),
+          hint: "sin(π/3) = y-coordinate at θ = π/3.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucv-m3", "Evaluate using the unit circle.", "\\cos\\pi", "-1", []),
+          unitCircleDiagram: ucvPi,
+          hint: "At θ = π the terminal point is (−1, 0). Read the x-coordinate.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucv-m4", "Evaluate using $\\tan\\theta=\\sin\\theta/\\cos\\theta$.", "\\tan\\left(\\frac{\\pi}{4}\\right)", "1", []),
+          hint: "sin(π/4) = cos(π/4) = √2/2. Their ratio is 1.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucv-m5", "Evaluate using the unit circle.", "\\cos\\left(\\frac{\\pi}{2}\\right)", "0", []),
+          unitCircleDiagram: ucvPiOver2,
+          hint: "At θ = π/2 the terminal point is (0, 1). Read the x-coordinate for cosine.",
+        },
+        practicalChoice(
+          "y11adv-ucv-m6",
+          "Which is the correct unit-circle point at $\\theta=\\frac{\\pi}{6}$?",
+          "C",
+          [
+            "$\\left(\\frac{1}{2},\\,\\frac{\\sqrt{3}}{2}\\right)$",
+            "$\\left(\\frac{\\sqrt{2}}{2},\\,\\frac{\\sqrt{2}}{2}\\right)$",
+            "$\\left(\\frac{\\sqrt{3}}{2},\\,\\frac{1}{2}\\right)$",
+            "$(0,\\,1)$",
+          ],
+          "At π/6: x = cos(π/6) = √3/2, y = sin(π/6) = 1/2. The point is (√3/2, 1/2).",
+          "\\theta=\\frac{\\pi}{6}"
+        ),
+        {
+          ...formulaAnswer("y11adv-ucv-m7", "Evaluate using the unit circle.", "\\cos 0", "1", []),
+          hint: "The starting point on the unit circle is (1, 0). cos(0) = x-coordinate = 1.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucv-m8", "Evaluate using the unit circle.", "\\sin 0", "0", []),
+          hint: "The starting point on the unit circle is (1, 0). sin(0) = y-coordinate = 0.",
+        },
+        practicalChoice(
+          "y11adv-ucv-m9",
+          "A student writes $\\sin\\!\\left(\\frac{\\pi}{6}\\right)=\\frac{\\sqrt{3}}{2}$. Identify the error.",
+          "C",
+          [
+            "$\\sin\\!\\left(\\frac{\\pi}{6}\\right)=1$",
+            "$\\frac{\\sqrt{3}}{2}$ is correct",
+            "$\\sin\\!\\left(\\frac{\\pi}{6}\\right)=\\frac{1}{2}$; the value $\\frac{\\sqrt{3}}{2}$ belongs to $\\sin\\!\\left(\\frac{\\pi}{3}\\right)$",
+            "$\\sin\\!\\left(\\frac{\\pi}{6}\\right)=\\frac{\\sqrt{2}}{2}$",
+          ],
+          "At π/6 the y-coordinate is 1/2. The value √3/2 is the y-coordinate at π/3 — the two angles are swapped.",
+          "\\sin\\left(\\frac{\\pi}{6}\\right)"
+        ),
+        {
+          ...formulaAnswer("y11adv-ucv-m10", "Evaluate without a calculator.", "2\\sin\\!\\left(\\frac{\\pi}{6}\\right)\\cos\\!\\left(\\frac{\\pi}{6}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2", "√3/2"]),
+          hint: "Substitute sin(π/6) = 1/2 and cos(π/6) = √3/2. Multiply: 2 × (1/2) × (√3/2).",
+        },
+      ],
+    };
+  }
+
+  if (lesson.slug === "unit-circle-all-quadrants") {
+    const ucqQ2a: import("../types").UnitCircleDiagram = {
+      description:
+        "Unit circle showing the angle 5π/6 in Q2. The reference angle π/6 is the acute angle between the terminal ray and the negative x-axis. The terminal point (−√3/2, 1/2) is labelled. In Q2 cosine is negative and sine is positive.",
+      angleRadians: "5π/6",
+      angleDegrees: "150",
+      terminalPoint: { x: "-√3/2", y: "1/2", label: "(-√3/2, 1/2)" },
+      quadrant: 2,
+      referenceAngle: "π/6",
+      showReferenceTriangle: true,
+    };
+    const ucqQ3a: import("../types").UnitCircleDiagram = {
+      description:
+        "Unit circle showing the angle 7π/6 in Q3. The reference angle π/6 is the acute angle to the nearest x-axis. The terminal point (−√3/2, −1/2) is labelled. In Q3 both cosine and sine are negative, so tangent is positive.",
+      angleRadians: "7π/6",
+      angleDegrees: "210",
+      terminalPoint: { x: "-√3/2", y: "-1/2", label: "(-√3/2, -1/2)" },
+      quadrant: 3,
+      referenceAngle: "π/6",
+      showReferenceTriangle: true,
+    };
+    const ucqQ4a: import("../types").UnitCircleDiagram = {
+      description:
+        "Unit circle showing the angle 5π/3 in Q4. The reference angle π/3 is marked. The terminal point (1/2, −√3/2) is labelled. In Q4 cosine is positive and sine is negative, so tangent is negative.",
+      angleRadians: "5π/3",
+      angleDegrees: "300",
+      terminalPoint: { x: "1/2", y: "-√3/2", label: "(1/2, -√3/2)" },
+      quadrant: 4,
+      referenceAngle: "π/3",
+      showReferenceTriangle: true,
+    };
+    const ucqQ2b: import("../types").UnitCircleDiagram = {
+      description:
+        "Unit circle showing the angle 5π/6 in Q2 with the reference angle π/6 marked at the x-axis.",
+      angleRadians: "5π/6",
+      angleDegrees: "150",
+      terminalPoint: { x: "-√3/2", y: "1/2", label: "(-√3/2, 1/2)" },
+      quadrant: 2,
+      referenceAngle: "π/6",
+    };
+    const ucqQ3b: import("../types").UnitCircleDiagram = {
+      description:
+        "Unit circle showing the angle 7π/6 in Q3. The reference angle π/6 is the acute angle to the nearest x-axis.",
+      angleRadians: "7π/6",
+      angleDegrees: "210",
+      terminalPoint: { x: "-√3/2", y: "-1/2", label: "(-√3/2, -1/2)" },
+      quadrant: 3,
+      referenceAngle: "π/6",
+    };
+    const ucqQ3c: import("../types").UnitCircleDiagram = {
+      description:
+        "Unit circle showing the angle 4π/3 in Q3. The reference angle π/3 is marked. The terminal point (−1/2, −√3/2) is labelled.",
+      angleRadians: "4π/3",
+      angleDegrees: "240",
+      terminalPoint: { x: "-1/2", y: "-√3/2", label: "(-1/2, -√3/2)" },
+      quadrant: 3,
+      referenceAngle: "π/3",
+    };
+    const ucqQ3d: import("../types").UnitCircleDiagram = {
+      description:
+        "Unit circle showing the angle 5π/4 in Q3. The reference angle π/4 is marked. The terminal point (−√2/2, −√2/2) is labelled.",
+      angleRadians: "5π/4",
+      angleDegrees: "225",
+      terminalPoint: { x: "-√2/2", y: "-√2/2", label: "(-√2/2, -√2/2)" },
+      quadrant: 3,
+      referenceAngle: "π/4",
+    };
+    return {
+      ...base,
+      description:
+        "Use reference angles and ASTC to evaluate exact sin, cos, and tan values for angles in all four quadrants.",
+      learningIntention:
+        "Apply the three-step method — identify quadrant, find reference angle, apply ASTC sign — to evaluate exact trigonometric values in Q2, Q3, and Q4.",
+      successCriteria: [
+        "State the ASTC rule: All positive in Q1, Sine in Q2, Tangent in Q3, Cosine in Q4.",
+        "Find the reference angle for any angle in Q2, Q3, or Q4.",
+        "Evaluate exact sin, cos, and tan in all quadrants using the reference angle and ASTC sign.",
+        "Explain why tan is positive in Q3 even though sin and cos are both negative.",
+        "Apply related-angle rules: sin(π − θ) = sin θ; sin(π + θ) = −sin θ; sin(2π − θ) = −sin θ.",
+      ],
+      teaching: {
+        paragraphs: [
+          "ASTC tells you which ratios are positive in each quadrant: All in Q1, Sine in Q2, Tangent in Q3, Cosine in Q4.",
+          "The reference angle is the acute angle between the terminal ray and the nearest x-axis. It determines the magnitude of the value.",
+          "To find the reference angle: Q2 — use π − θ; Q3 — use θ − π; Q4 — use 2π − θ.",
+          "In Q3 both sin and cos are negative. Their ratio tan = sin/cos = (−)/(−) = positive, so tangent is positive in Q3.",
+          "Related-angle rules summarise the sign changes: sin(π − θ) = +sin θ; sin(π + θ) = −sin θ; sin(2π − θ) = −sin θ.",
+        ],
+        latexBlocks: [
+          "\\text{ASTC: Q1 all, Q2 sin, Q3 tan, Q4 cos}",
+          "\\text{Q2: ref}=\\pi-\\theta;\\quad\\text{Q3: ref}=\\theta-\\pi;\\quad\\text{Q4: ref}=2\\pi-\\theta",
+          "\\sin(\\pi-\\theta)=\\sin\\theta,\\quad\\cos(\\pi-\\theta)=-\\cos\\theta",
+          "\\sin(\\pi+\\theta)=-\\sin\\theta,\\quad\\cos(\\pi+\\theta)=-\\cos\\theta",
+          "\\sin(2\\pi-\\theta)=-\\sin\\theta,\\quad\\cos(2\\pi-\\theta)=\\cos\\theta",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Evaluate cos(5π/6)",
+          questionLatex: "\\cos\\left(\\frac{5\\pi}{6}\\right)",
+          unitCircleDiagram: ucqQ2a,
+          steps: [
+            { explanation: "5π/6 is between π/2 and π — it is in Q2.", latex: "\\frac{\\pi}{2}<\\frac{5\\pi}{6}<\\pi\\implies\\text{Q2}" },
+            { explanation: "Reference angle: π − 5π/6 = π/6.", latex: "\\text{ref}=\\pi-\\frac{5\\pi}{6}=\\frac{\\pi}{6}" },
+            { explanation: "The magnitude is |cos(π/6)| = √3/2.", latex: "\\left|\\cos\\frac{\\pi}{6}\\right|=\\frac{\\sqrt{3}}{2}" },
+            { explanation: "Cosine is negative in Q2 (ASTC: only sine positive in Q2).", latex: "\\cos\\frac{5\\pi}{6}=-\\frac{\\sqrt{3}}{2}" },
+          ],
+          finalAnswerLatex: "-\\frac{\\sqrt{3}}{2}",
+        },
+        {
+          title: "Evaluate sin(7π/6)",
+          questionLatex: "\\sin\\left(\\frac{7\\pi}{6}\\right)",
+          unitCircleDiagram: ucqQ3a,
+          steps: [
+            { explanation: "7π/6 is between π and 3π/2 — it is in Q3.", latex: "\\pi<\\frac{7\\pi}{6}<\\frac{3\\pi}{2}\\implies\\text{Q3}" },
+            { explanation: "Reference angle: 7π/6 − π = π/6.", latex: "\\text{ref}=\\frac{7\\pi}{6}-\\pi=\\frac{\\pi}{6}" },
+            { explanation: "The magnitude is |sin(π/6)| = 1/2.", latex: "\\left|\\sin\\frac{\\pi}{6}\\right|=\\frac{1}{2}" },
+            { explanation: "Sine is negative in Q3 (ASTC: only tangent positive in Q3).", latex: "\\sin\\frac{7\\pi}{6}=-\\frac{1}{2}" },
+          ],
+          finalAnswerLatex: "-\\frac{1}{2}",
+        },
+        {
+          title: "Evaluate tan(5π/3)",
+          questionLatex: "\\tan\\left(\\frac{5\\pi}{3}\\right)",
+          unitCircleDiagram: ucqQ4a,
+          steps: [
+            { explanation: "5π/3 is between 3π/2 and 2π — it is in Q4.", latex: "\\frac{3\\pi}{2}<\\frac{5\\pi}{3}<2\\pi\\implies\\text{Q4}" },
+            { explanation: "Reference angle: 2π − 5π/3 = π/3.", latex: "\\text{ref}=2\\pi-\\frac{5\\pi}{3}=\\frac{\\pi}{3}" },
+            { explanation: "The magnitude is |tan(π/3)| = √3.", latex: "\\left|\\tan\\frac{\\pi}{3}\\right|=\\sqrt{3}" },
+            { explanation: "Tangent is negative in Q4 (ASTC: only cosine positive in Q4).", latex: "\\tan\\frac{5\\pi}{3}=-\\sqrt{3}" },
+          ],
+          finalAnswerLatex: "-\\sqrt{3}",
+        },
+      ],
+      guidedPractice: [
+        {
+          ...formulaAnswer("y11adv-ucq-g1", "Find the reference angle for the given angle.", "\\frac{5\\pi}{6}", "pi/6", ["\\pi/6", "π/6"]),
+          unitCircleDiagram: ucqQ2b,
+          hint: "5π/6 is in Q2. Reference angle = π − 5π/6.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucq-g2", "Find the reference angle for the given angle.", "\\frac{7\\pi}{6}", "pi/6", ["\\pi/6", "π/6"]),
+          unitCircleDiagram: ucqQ3b,
+          hint: "7π/6 is in Q3. Reference angle = 7π/6 − π.",
+        },
+        practicalChoice(
+          "y11adv-ucq-g3",
+          "Evaluate $\\cos\\!\\left(\\frac{2\\pi}{3}\\right)$.",
+          "B",
+          [
+            "$\\frac{1}{2}$",
+            "$-\\frac{1}{2}$",
+            "$\\frac{\\sqrt{3}}{2}$",
+            "$-\\frac{\\sqrt{3}}{2}$",
+          ],
+          "Reference angle of 2π/3 is π − 2π/3 = π/3. |cos(π/3)| = 1/2. Cosine is negative in Q2 → −1/2.",
+          "\\cos\\left(\\frac{2\\pi}{3}\\right)"
+        ),
+        {
+          ...formulaAnswer("y11adv-ucq-g4", "Find the reference angle for the given angle.", "\\frac{7\\pi}{4}", "pi/4", ["\\pi/4", "π/4"]),
+          hint: "7π/4 is in Q4. Reference angle = 2π − 7π/4.",
+        },
+      ],
+      independentPractice: [
+        {
+          ...formulaAnswer("y11adv-ucq-i1", "Evaluate using a reference angle.", "\\sin\\left(\\frac{5\\pi}{6}\\right)", "1/2", ["0.5"]),
+          unitCircleDiagram: ucqQ2b,
+          hint: "Reference angle of 5π/6 is π/6. Sine is positive in Q2.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucq-i2", "Evaluate using a reference angle.", "\\cos\\left(\\frac{4\\pi}{3}\\right)", "-1/2", ["-0.5"]),
+          unitCircleDiagram: ucqQ3c,
+          hint: "Reference angle of 4π/3 is π/3. Cosine is negative in Q3.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucq-i3", "Evaluate using a reference angle.", "\\tan\\left(\\frac{7\\pi}{6}\\right)", "sqrt(3)/3", ["1/sqrt(3)", "\\sqrt{3}/3"]),
+          hint: "Reference angle of 7π/6 is π/6. Tangent is positive in Q3.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucq-i4", "Evaluate using a reference angle.", "\\cos\\left(\\frac{7\\pi}{4}\\right)", "sqrt(2)/2", ["\\sqrt{2}/2", "1/sqrt(2)"]),
+          hint: "Reference angle of 7π/4 is π/4. Cosine is positive in Q4.",
+        },
+        practicalChoice(
+          "y11adv-ucq-i5",
+          "A student evaluates $\\sin\\!\\left(\\frac{5\\pi}{6}\\right)=-\\frac{1}{2}$. Identify the error.",
+          "B",
+          [
+            "The reference angle should be $\\frac{\\pi}{4}$, not $\\frac{\\pi}{6}$",
+            "In Q2 sine is positive, so $\\sin\\!\\left(\\frac{5\\pi}{6}\\right)=\\frac{1}{2}$",
+            "$\\frac{5\\pi}{6}$ is in Q3, not Q2",
+            "$\\sin\\!\\left(\\frac{5\\pi}{6}\\right)=\\frac{\\sqrt{3}}{2}$",
+          ],
+          "5π/6 is in Q2 (between π/2 and π). ASTC: sine is positive in Q2, so the answer is +1/2, not −1/2.",
+          "\\sin\\left(\\frac{5\\pi}{6}\\right)"
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Measuring the reference angle from the y-axis instead of the x-axis.", fix: "The reference angle is always the acute angle between the terminal ray and the nearest part of the x-axis, not the y-axis." },
+        { mistake: "Applying the Q1 magnitude without adjusting the sign.", fix: "Use ASTC to determine the sign in the given quadrant, then attach that sign to the Q1 magnitude." },
+        { mistake: "Saying tan is negative in Q3 because sin and cos are both negative.", fix: "Negative divided by negative is positive. tan = sin/cos, so tan is positive in Q3 — this is what ASTC tells you." },
+        { mistake: "Confusing which formula gives the reference angle in each quadrant.", fix: "Q2: ref = π − θ. Q3: ref = θ − π. Q4: ref = 2π − θ. In each case the result should be acute (between 0 and π/2)." },
+      ],
+      masteryQuiz: [
+        {
+          ...formulaAnswer("y11adv-ucq-m1", "Evaluate using a reference angle.", "\\sin\\left(\\frac{2\\pi}{3}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2", "√3/2"]),
+          hint: "Reference angle of 2π/3 is π/3. Sine is positive in Q2.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucq-m2", "Evaluate using a reference angle.", "\\cos\\left(\\frac{5\\pi}{6}\\right)", "-sqrt(3)/2", ["-\\sqrt{3}/2", "-(√3)/2"]),
+          unitCircleDiagram: ucqQ2a,
+          hint: "Reference angle of 5π/6 is π/6. Cosine is negative in Q2.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucq-m3", "Find the reference angle.", "\\frac{5\\pi}{4}", "pi/4", ["\\pi/4", "π/4"]),
+          unitCircleDiagram: ucqQ3d,
+          hint: "5π/4 is in Q3. Reference angle = 5π/4 − π.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucq-m4", "Evaluate using a reference angle.", "\\tan\\left(\\frac{5\\pi}{4}\\right)", "1", []),
+          hint: "Reference angle of 5π/4 is π/4. tan(π/4) = 1. Tangent is positive in Q3.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucq-m5", "Evaluate using a reference angle.", "\\cos\\left(\\frac{11\\pi}{6}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2", "√3/2"]),
+          hint: "Reference angle of 11π/6 is 2π − 11π/6 = π/6. Cosine is positive in Q4.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucq-m6", "Evaluate using a reference angle.", "\\sin\\left(\\frac{4\\pi}{3}\\right)", "-sqrt(3)/2", ["-\\sqrt{3}/2", "-(√3)/2"]),
+          hint: "Reference angle of 4π/3 is π/3. Sine is negative in Q3.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucq-m7", "Evaluate using a reference angle.", "\\tan\\left(\\frac{2\\pi}{3}\\right)", "-sqrt(3)", ["-\\sqrt{3}", "-√3"]),
+          hint: "Reference angle of 2π/3 is π/3. tan(π/3) = √3. Tangent is negative in Q2.",
+        },
+        practicalChoice(
+          "y11adv-ucq-m8",
+          "Why is $\\tan\\!\\left(\\frac{7\\pi}{6}\\right)$ positive?",
+          "B",
+          [
+            "In Q3 tangent is always negative",
+            "In Q3 both sin and cos are negative, so their ratio is positive",
+            "$\\frac{7\\pi}{6}$ is in Q2 where tangent is positive",
+            "$\\tan\\!\\left(\\frac{7\\pi}{6}\\right)=1$",
+          ],
+          "ASTC: in Q3 only tangent is positive. Because sin < 0 and cos < 0, their ratio sin/cos is (−)/(−) = positive.",
+          "\\tan\\left(\\frac{7\\pi}{6}\\right)"
+        ),
+        {
+          ...formulaAnswer("y11adv-ucq-m9", "Evaluate using a reference angle.", "\\sin\\left(\\frac{5\\pi}{3}\\right)", "-sqrt(3)/2", ["-\\sqrt{3}/2", "-(√3)/2"]),
+          hint: "Reference angle of 5π/3 is 2π − 5π/3 = π/3. Sine is negative in Q4.",
+        },
+        {
+          ...formulaAnswer("y11adv-ucq-m10", "Evaluate using the related-angle rule $\\sin(\\pi+\\theta)=-\\sin\\theta$.", "\\sin\\!\\left(\\pi+\\frac{\\pi}{6}\\right)", "-1/2", ["-0.5"]),
+          hint: "sin(π + π/6) = −sin(π/6) = −(1/2) = −1/2. The rule adds a negative sign for Q3 angles.",
         },
       ],
     };

@@ -961,6 +961,54 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             ],
           },
           {
+            slug: "exact-trig-values-unit-circle",
+            title: "The Unit Circle and Exact Values",
+            description: "Use the unit-circle rule (cos θ, sin θ) to read exact trigonometric values at common Q1 and axis angles.",
+            stableSkillId: "y11adv-trig-measure-exact-trig-values-unit-circle",
+            legacySlugs: ["unit-circle-trigonometric-graphs"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-measure-unit-circle-coordinate-rule",
+                label: "State and apply the unit-circle coordinate rule (cos θ, sin θ)",
+                legacySlugs: ["unit-circle-trigonometric-graphs"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-unit-circle-q1-values",
+                label: "Read exact sin, cos, and tan at π/6, π/4, and π/3 from the unit circle",
+                legacySlugs: ["unit-circle-trigonometric-graphs"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-unit-circle-boundary-values",
+                label: "State the coordinates at boundary angles 0, π/2, π, 3π/2, and 2π",
+                legacySlugs: ["unit-circle-trigonometric-graphs"],
+              },
+            ],
+          },
+          {
+            slug: "unit-circle-all-quadrants",
+            title: "Exact Values in All Quadrants",
+            description: "Use reference angles and ASTC to evaluate exact sin, cos, and tan values for angles in Q2, Q3, and Q4.",
+            stableSkillId: "y11adv-trig-measure-unit-circle-all-quadrants",
+            legacySlugs: ["unit-circle-trigonometric-graphs"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-measure-astc-signs",
+                label: "State the sign of sin, cos, and tan in each quadrant using ASTC",
+                legacySlugs: ["unit-circle-trigonometric-graphs"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-reference-angle",
+                label: "Find the reference angle for any angle in Q2, Q3, or Q4",
+                legacySlugs: ["unit-circle-trigonometric-graphs"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-measure-exact-values-all-quadrants",
+                label: "Evaluate exact sin, cos, tan in Q2, Q3, and Q4 using reference angle and ASTC sign",
+                legacySlugs: ["unit-circle-trigonometric-graphs"],
+              },
+            ],
+          },
+          {
             slug: "graphing-sin-cos-tan",
             title: "Graphs of Sine, Cosine and Tangent",
             description: "State and apply the period, range, starting value, zeros, maxima, minima, and asymptotes of y = sin x, y = cos x, and y = tan x.",
