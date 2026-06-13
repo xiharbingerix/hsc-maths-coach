@@ -47,6 +47,212 @@ NSW strand: MA-T1 — Trigonometry and Measure of Angles
 
 ---
 
+## Phase 2A Implementation Status — 2026-06-13
+
+### Slots implemented
+
+| Slug | Title | Status | Seed count |
+|---|---|---|---|
+| `exact-trig-values-special-triangles` | Exact Trigonometric Values | ✅ Done | 19 |
+| `graphing-sin-cos-tan` | Graphs of Sine, Cosine and Tangent | ✅ Done | 19 |
+
+### Visual payload usage
+
+| Lesson | Payload type | Used on |
+|---|---|---|
+| `exact-trig-values-special-triangles` | `TriangleDiagram` | WE1 (30-60-90), WE2 (45-45-90) |
+| `graphing-sin-cos-tan` | `CartesianGraph` + `sinusoidals` | WE1 (sin), WE2 (cos), WE3 (tan), g3 (cos), i3 (tan) |
+
+### Validation results
+
+| Check | Result |
+|---|---|
+| `npx tsc --noEmit` | ✅ Clean |
+| `npm run build` | ✅ Clean |
+| `npm run audit:lessons` | ✅ PASS (0 failures; 1 pre-existing warning per lesson, consistent with all other year-11-advanced units) |
+| `seed --dry-run` (year-11-advanced) | ✅ 2 new lessons seeded (19 each); 2 legacy still skipped |
+| `git diff --check` (changed files only) | ✅ Clean |
+
+### Notes
+
+- `TriangleDiagram` used inline via `import("../types").TriangleDiagram` to avoid adding a top-level import that would alter the existing import footprint.
+- `CartesianGraph` sinusoidals use `Math.PI` for exact radian x-values on key point labels.
+- Pre-existing `LessonRenderer.tsx` trailing blank line causes `git diff --check` exit-2 on the full working tree; not introduced by this change.
+
+---
+
+## Phase 2 Content Blueprint — 2026-06-13
+
+### Visual infrastructure audit
+
+| Payload | Status | Suitable for |
+|---|---|---|
+| `TriangleDiagram` | ✅ Ready | Slot 6 — 30-60-90 and 45-45-90 triangles |
+| `CartesianGraph` → `sinusoidals` | ✅ Ready | Slot 9 — sin, cos, tan graph features |
+| `CartesianGraph` → `circles` + `points` + `lineSegments` | ⚠️ Approximate | Slots 7, 8 — can draw unit circle but no angle arcs, radian labels, or quadrant shading |
+| `UnitCircleDiagram` (dedicated) | ❌ Does not exist | Slots 7, 8 — defer to Phase 3 |
+
+**Conclusion:** Slots 6 and 9 have full visual support. Slots 7 and 8 must be authored text-only for Phase 2.
+
+---
+
+### Slot 6 — `exact-trig-values-special-triangles`
+
+**Learning goal:** Recall exact sin, cos, tan values for π/6, π/4, π/3 using the 30-60-90 and 45-45-90 triangles, and apply them in calculations.
+
+**Prerequisite:** Phase 1 conversion (`degrees-and-radians-concept`, `converting-degrees-radians`). Student must know π/6 = 30°, π/4 = 45°, π/3 = 60°.
+
+**Worked example outlines:**
+1. Derive all six values from the 30-60-90 triangle (sides 1, √3, 2). Label each ratio. Show sin π/6 = 1/2, cos π/6 = √3/2, tan π/6 = 1/√3 = √3/3; sin π/3 = √3/2, cos π/3 = 1/2, tan π/3 = √3. `TriangleDiagram` used.
+2. Derive sin π/4 = cos π/4 = √2/2 and tan π/4 = 1 from the 45-45-90 triangle (sides 1, 1, √2). `TriangleDiagram` used.
+3. Evaluate 2cos(π/3) + tan(π/4) without a calculator. Substitute exact values, simplify: 2(1/2) + 1 = 2. Text only.
+
+**Guided practice focus:** Single exact value recall: sin π/6, cos π/3, tan π/4, sin π/4. One MCQ identifying a common error ("a student writes tan π/3 = 1 — identify the error").
+
+**Independent practice focus:** All 9 exact values (sin, cos, tan at π/6, π/4, π/3); one mixed evaluation (e.g. "find sin²(π/3) + cos²(π/3)"); one MCQ error-identification.
+
+**Mastery focus:** Distinguishing sin π/6 = 1/2 from sin π/3 = √3/2; tan π/3 = √3 not 1/√3 (rationalise or recall directly); combined exact-value expressions.
+
+**Common misconceptions:**
+- Swapping sin π/6 and sin π/3 — write the mnemonic: "1 2 3 under the root, over 2"
+- Writing tan π/4 = √2 — tan = opposite/adjacent = 1/1 = 1
+- Leaving √2/2 × √2/2 unsimplified as 2/4 instead of 1/2
+
+**Accepted answer strategy:**
+- sin π/6, cos π/3: accept "1/2", "0.5"
+- sin π/4, cos π/4: accept "sqrt(2)/2", "(√2)/2", "1/sqrt(2)"
+- tan π/3: accept "sqrt(3)", "√3"
+- tan π/6: accept "1/sqrt(3)", "sqrt(3)/3", "(√3)/3" — do not accept decimal unless asked
+- sin π/3, cos π/6: accept "sqrt(3)/2", "(√3)/2"
+
+**Visual requirement:** `TriangleDiagram` on 2 worked examples. All 19 practice questions are text-only. **No blocker.**
+
+---
+
+### Slot 7 — `exact-trig-values-unit-circle`
+
+**Learning goal:** Use (cosθ, sinθ) as the unit-circle coordinate rule and apply ASTC to determine the sign of sin, cos, and tan in each quadrant.
+
+**Prerequisite:** Slot 6 (exact Q1 values to use as magnitudes), Phase 1 benchmark quadrant knowledge.
+
+**Worked example outlines:**
+1. Place 5π/6 on the unit circle: identify Q2; state sin > 0, cos < 0, tan < 0; give coordinates (−√3/2, 1/2). Text only (describe the circle verbally).
+2. Given the angle 4π/3, identify Q3 using ASTC; state the sign of each function. Text only.
+3. State the unit-circle coordinates at the boundary angle π/2: (0, 1); confirm sin(π/2) = 1, cos(π/2) = 0, tan(π/2) undefined. Text only.
+
+**Guided practice focus:** Identify quadrant from radian angle; give the ASTC sign of each function; match an angle to its unit circle coordinates using a text-based coordinate table.
+
+**Independent practice focus:** Coordinate identification at all four boundary angles (0, π/2, π, 3π/2); ASTC sign for sin/cos/tan at angles in each quadrant; one MCQ catching the (sin, cos) vs (cos, sin) coordinate reversal.
+
+**Mastery focus:** (cosθ, sinθ) order (not (sinθ, cosθ)); tan = sin/cos so positive in Q3 (both negative, ratio positive); boundary angle traps (tan π/2 undefined); "a student writes the unit-circle point as (sinθ, cosθ) — identify the error."
+
+**Common misconceptions:**
+- Reversing the coordinate order to (sinθ, cosθ)
+- Saying tan is negative in Q3 — it is positive because sin and cos are both negative
+- Confusing "sin positive" (Q1 and Q2) with "all positive" (Q1 only)
+
+**Accepted answer strategy:**
+- Coordinates: accept "(cos θ, sin θ)" with explicit values; accept parenthesised tuples with ± fractions
+- Signs: accept "positive", "+", "greater than zero"
+- "undefined": accept "undefined", "DNE", "no value"
+
+**Visual requirement:** A dedicated `UnitCircleDiagram` would show angle arcs, quadrant shading, and labelled points — it does not exist. `CartesianGraph` can draw a circle with plotted points as a fallback, but it cannot label radian angles on the arc or shade quadrants natively. **Text-only for Phase 2; defer unit circle visual to Phase 3.**
+
+---
+
+### Slot 8 — `unit-circle-all-quadrants`
+
+**Learning goal:** Use a reference angle to evaluate exact sin, cos, tan in Q2, Q3, and Q4.
+
+**Prerequisite:** Slot 7 (ASTC signs), Slot 6 (exact Q1 values as magnitudes).
+
+**Worked example outlines:**
+1. Evaluate cos(5π/6): reference angle = π − 5π/6 = π/6; |cos(π/6)| = √3/2; cosine negative in Q2 → −√3/2. Text only.
+2. Evaluate sin(7π/6): reference angle = 7π/6 − π = π/6; |sin(π/6)| = 1/2; sine negative in Q3 → −1/2. Text only.
+3. Evaluate tan(5π/3): reference angle = 2π − 5π/3 = π/3; |tan(π/3)| = √3; tangent negative in Q4 → −√3. Text only.
+
+**Guided practice focus:** Three-step drill — state the quadrant, state the reference angle, apply the sign. Angles in Q2 and Q3 only (scaffold).
+
+**Independent practice focus:** All three functions in Q2, Q3, Q4; an MCQ catching a sign error ("sin(5π/6) = −1/2 — identify the error").
+
+**Mastery focus:** Q3 tangent is positive (error trap); reference angle must be measured from the nearest x-axis, not from the origin or y-axis; a combined evaluation requiring two exact values.
+
+**Common misconceptions:**
+- Taking the reference angle as the angle from the y-axis rather than the x-axis
+- Applying the Q1 value without any sign adjustment
+- Getting tan sign wrong in Q3 (positive, not negative)
+
+**Accepted answer strategy:**
+- Negative exact values: accept "-sqrt(3)/2", "-(√3)/2", "−√3/2"
+- Positive values in Q3 (tan): accept "sqrt(3)", "√3" — reject if student writes −√3
+- Error identification MCQs: answer key must name the specific error, not just the correct value
+
+**Visual requirement:** A diagram showing the reference angle reflected onto the x-axis would be ideal — not available. `CartesianGraph` with a circle, a point, and a lineSegment can approximate it but lacks angle arc labels. **Text-only for Phase 2; defer to Phase 3 with unit circle visual infrastructure.**
+
+---
+
+### Slot 9 — `graphing-sin-cos-tan`
+
+**Learning goal:** State and apply the period, range, starting value, and key points of y = sin x, y = cos x, and y = tan x.
+
+**Prerequisite:** Slot 7 (unit circle connection: graph value = coordinate). Phase 1 benchmarks for x-axis labels.
+
+**Worked example outlines:**
+1. Sketch y = sin x for 0 ≤ x ≤ 2π: mark key points (0,0), (π/2,1), (π,0), (3π/2,−1), (2π,0). Use `CartesianGraph` sinusoidal {kind:"sin", a:1, b:1, c:0, d:0}.
+2. State all key features of y = cos x: period 2π, range [−1,1], starting value 1, zeros at π/2 and 3π/2. Attach `CartesianGraph` sinusoidal {kind:"cos", a:1, b:1, c:0, d:0}.
+3. State all key features of y = tan x: period π, range all reals, asymptotes at x = π/2 + kπ, zeros at x = kπ. Attach `CartesianGraph` sinusoidal {kind:"tan", a:1, b:1, c:0, d:0}.
+
+**Guided practice focus:** Feature extraction by description ("which graph starts at 1?", "state the period of y = sin x", "where does cos x = 0 for x ∈ [0, 2π]?"). CartesianGraph payloads on 2 questions.
+
+**Independent practice focus:** Period, range, amplitude for each; distinguishing sin from cos by start value and initial gradient; "where does tan x have a vertical asymptote?" One graph-reading question where the CartesianGraph is provided and the student names a feature.
+
+**Mastery focus:** Tangent period = π (not 2π); tangent range is all reals (not [−1,1]); zeros of sin x vs cos x; "a student claims y = tan x has range [−1,1] — identify the error."
+
+**Common misconceptions:**
+- Tangent period is 2π — it is π
+- Tangent range is bounded — it is all real numbers
+- Confusing the y-intercept of sin (0) with cos (1)
+
+**Accepted answer strategy:**
+- Period: accept "2pi", "2π", "pi", "π" as appropriate
+- Range: accept "[-1,1]", "−1 ≤ y ≤ 1", "from −1 to 1" for sin/cos; "all real numbers", "all reals", "ℝ", "(-∞, ∞)" for tan
+- Asymptote: accept "pi/2", "π/2", "x = π/2"
+- Zeros of sin x on [0,2π]: accept "0, pi, 2pi", "{0, π, 2π}"
+
+**Visual requirement:** `CartesianGraph` with `sinusoidals` is fully supported (verified in `trigonometricFunctionsGraphs.ts`). Use it on all three worked examples and 2–3 practice questions. **No blocker.**
+
+---
+
+### Questions that must wait for visual infrastructure
+
+| Slot | Question type | Waiting for |
+|---|---|---|
+| 7 | Any question that asks students to read an angle from a unit circle diagram | `UnitCircleDiagram` type |
+| 7 | Questions showing the reference angle arc on a circle | `UnitCircleDiagram` type |
+| 8 | Questions showing the reflected reference angle visually | `UnitCircleDiagram` type |
+
+Everything else in Phase 2 is safe to author now.
+
+---
+
+### Recommended implementation order
+
+1. **Slot 6 — `exact-trig-values-special-triangles`** — zero visual risk; `TriangleDiagram` ready; the most procedurally bounded of the four slots.
+2. **Slot 9 — `graphing-sin-cos-tan`** — `CartesianGraph` sinusoidals ready; does not depend on unit circle knowledge; independent of slots 7–8.
+3. **Slot 7 — `exact-trig-values-unit-circle`** — text-only; conceptually links slot 6 to slot 8.
+4. **Slot 8 — `unit-circle-all-quadrants`** — text-only; depends on slot 7 for ASTC prerequisite chain.
+
+---
+
+### Phase 2 question ID prefixes
+
+| Slot | Prefix | Avoids collision with |
+|---|---|---|
+| `exact-trig-values-special-triangles` | `y11adv-ev-` | existing `y11adv-trig-rad-*`, `y11adv-rcon-*`, etc. |
+| `exact-trig-values-unit-circle` | `y11adv-uc-` | — |
+| `unit-circle-all-quadrants` | `y11adv-refang-` | — |
+| `graphing-sin-cos-tan` | `y11adv-graph-` | existing `y11adv-trig-circle-*` |
+
 ---
 
 ## 1. Current State
