@@ -1,7 +1,7 @@
 # Year 9 Core Trigonometry — Authoring Plan
 
 Created: 2026-06-13  
-Status: Lessons 1–3 implemented (2026-06-13). Lessons 4–7 pending.
+Status: All 7 lessons implemented (2026-06-13). Unit complete.
 Course: `year-9-mathematics-core`  
 Unit: `working-with-triangles` (new lessons added to existing unit)  
 NSW stage: Stage 5.2 — right-angle trigonometry only

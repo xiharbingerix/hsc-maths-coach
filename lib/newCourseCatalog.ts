@@ -2688,6 +2688,10 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     { slug: "trig-naming-sides", title: "Naming Sides of a Right Triangle" },
     { slug: "trig-ratios-intro", title: "The Trig Ratios: SOH-CAH-TOA" },
     { slug: "trig-finding-sides-multiply", title: "Finding Sides (Multiply Step)" },
+    { slug: "trig-finding-sides-divide", title: "Finding Sides (Divide Step)" },
+    { slug: "trig-choosing-ratio", title: "Choosing the Right Ratio" },
+    { slug: "trig-finding-angles", title: "Finding Unknown Angles" },
+    { slug: "trig-applications", title: "Trig in Practical Contexts" },
   ];
   const year9CoreUnits = year9Base.units.map((u) =>
     u.slug !== "working-with-triangles"

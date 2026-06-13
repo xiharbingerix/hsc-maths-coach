@@ -1924,6 +1924,1536 @@ const trigFindingSidesMultiply: LessonContent = {
   ],
 };
 
+const trigFindingSidesDivide: LessonContent = {
+  description:
+    "Use SOH-CAH-TOA to find an unknown hypotenuse or adjacent side by rearranging a trig equation and dividing.",
+  learningIntention:
+    "Recognise when the unknown side is in the denominator of a trig ratio and find it by dividing.",
+  successCriteria: [
+    "Identify when the unknown appears in the denominator of the trig equation.",
+    "Rearrange the equation by multiplying both sides then dividing to isolate the unknown.",
+    "Evaluate the result on a calculator in degree mode and round to 1 decimal place.",
+    "Check that the hypotenuse is longer than both shorter sides as a plausibility check.",
+  ],
+  teaching: {
+    paragraphs: [
+      "When the unknown side is in the denominator of the trig ratio, a different rearrangement is needed. For example, sin θ = opp / hyp. If the hypotenuse is unknown, multiply both sides by hyp, then divide both sides by sin θ to get hyp = opp ÷ sin θ.",
+      "The key sign: if the unknown sits under the fraction line, you divide by the trig ratio value to find it. This is the opposite of the multiply step from the previous lesson. Always write the equation first, then rearrange.",
+      "A quick plausibility check: the hypotenuse must be the longest side. If your calculated hypotenuse is shorter than the given side, something has gone wrong — most likely you multiplied when you should have divided.",
+    ],
+    latexBlocks: [
+      "\\sin\\theta=\\frac{\\text{opp}}{\\text{hyp}}\\quad\\Rightarrow\\quad\\text{hyp}=\\frac{\\text{opp}}{\\sin\\theta}",
+      "\\cos\\theta=\\frac{\\text{adj}}{\\text{hyp}}\\quad\\Rightarrow\\quad\\text{hyp}=\\frac{\\text{adj}}{\\cos\\theta}",
+      "\\tan\\theta=\\frac{\\text{opp}}{\\text{adj}}\\quad\\Rightarrow\\quad\\text{adj}=\\frac{\\text{opp}}{\\tan\\theta}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Find the hypotenuse using sine",
+      questionLatex: "\\text{Find }x\\text{ to 1 decimal place.}",
+      triangleDiagram: triangle(
+        "Right triangle with right angle at C, 30 degrees at A, opposite BC=6 and unknown hypotenuse AB=x.",
+        { AB: "x", BC: "6" },
+        { A: "30°" }
+      ),
+      steps: [
+        {
+          explanation:
+            "The unknown x is the hypotenuse and the given side (6) is opposite — use sine.",
+          latex: "\\sin30^\\circ=\\frac{6}{x}",
+        },
+        {
+          explanation: "Multiply both sides by x, then divide by sin 30°.",
+          latex: "x=\\frac{6}{\\sin30^\\circ}=\\frac{6}{0.5}=12.0",
+        },
+      ],
+      finalAnswerLatex: "12.0",
+    },
+    {
+      title: "Find the hypotenuse using cosine",
+      questionLatex: "\\text{Find }x\\text{ to 1 decimal place.}",
+      triangleDiagram: {
+        description:
+          "Right triangle with right angle at C, 37 degrees at B, adjacent BC=8 and unknown hypotenuse AB=x.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AB: "x", BC: "8" },
+        angleLabels: { B: "37°" },
+      },
+      steps: [
+        {
+          explanation:
+            "The unknown x is the hypotenuse and the given side (8) is adjacent to theta at B — use cosine.",
+          latex: "\\cos37^\\circ=\\frac{8}{x}",
+        },
+        {
+          explanation: "Rearrange: x = 8 ÷ cos 37°.",
+          latex: "x=\\frac{8}{\\cos37^\\circ}=\\frac{8}{0.7986}\\approx10.0",
+        },
+      ],
+      finalAnswerLatex: "10.0",
+    },
+    {
+      title: "Find an adjacent side using tangent",
+      questionLatex: "\\text{Find }x\\text{ to 1 decimal place.}",
+      triangleDiagram: triangleAltB(
+        "Right triangle with right angle at B, 53 degrees at A, opposite BC=9 and unknown adjacent AC=x.",
+        { AC: "x", BC: "9" },
+        { A: "53°" }
+      ),
+      steps: [
+        {
+          explanation:
+            "The unknown x is adjacent and the given side (9) is opposite — use tangent.",
+          latex: "\\tan53^\\circ=\\frac{9}{x}",
+        },
+        {
+          explanation: "Rearrange: x = 9 ÷ tan 53°.",
+          latex: "x=\\frac{9}{\\tan53^\\circ}=\\frac{9}{1.3270}\\approx6.8",
+        },
+      ],
+      finalAnswerLatex: "6.8",
+    },
+  ],
+  guidedPractice: [
+    choice(
+      "tri-sd-g1",
+      "The unknown side is in the denominator of a trig equation. Which operation isolates it?",
+      "B",
+      [
+        "Multiply by the trig ratio",
+        "Divide by the trig ratio",
+        "Take the square root",
+        "Use Pythagoras instead",
+      ],
+      "When the unknown is in the denominator, rearrange by dividing both sides by the trig ratio."
+    ),
+    answer(
+      "tri-sd-g2",
+      "Find x. Round to 1 decimal place.",
+      "\\text{opp}=6,\\quad\\theta=30^\\circ,\\quad x\\text{ is the hypotenuse}",
+      "12.0",
+      "Sine: x = 6 ÷ sin 30° = 6 ÷ 0.5 = 12.0.",
+      ["12"],
+      triangle(
+        "Right triangle with 30 degrees at A, opposite 6 and unknown hypotenuse x.",
+        { AB: "x", BC: "6" },
+        { A: "30°" }
+      )
+    ),
+    choice(
+      "tri-sd-g3",
+      "Which equation finds the hypotenuse x when the adjacent side is 8 and the angle is 53 degrees?",
+      "D",
+      [
+        "$x=8\\times\\cos53^\\circ$",
+        "$x=8\\times\\sin53^\\circ$",
+        "$x=\\frac{\\cos53^\\circ}{8}$",
+        "$x=\\frac{8}{\\cos53^\\circ}$",
+      ],
+      "Cosine links adjacent and hypotenuse. Since hyp is unknown, rearrange: x = adj ÷ cos θ.",
+      "\\text{adj}=8,\\quad\\theta=53^\\circ,\\quad x\\text{ is hypotenuse}.",
+      triangle(
+        "Right triangle with 53 degrees at A, adjacent AC=8 and unknown hypotenuse AB=x.",
+        { AB: "x", AC: "8" },
+        { A: "53°" }
+      )
+    ),
+    answer(
+      "tri-sd-g4",
+      "Find x. Round to 1 decimal place.",
+      "\\text{adj}=8,\\quad\\theta=37^\\circ\\text{ at }B,\\quad x\\text{ is the hypotenuse}",
+      "10.0",
+      "Cosine: x = 8 ÷ cos 37° = 8 ÷ 0.7986 ≈ 10.0.",
+      [],
+      {
+        description:
+          "Right triangle with right angle at C, 37 degrees at B, adjacent BC=8 and unknown hypotenuse AB=x.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AB: "x", BC: "8" },
+        angleLabels: { B: "37°" },
+      }
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "tri-sd-i1",
+      "Find x. Round to 1 decimal place.",
+      "\\text{opp}=8,\\quad\\theta=53^\\circ,\\quad x\\text{ is the hypotenuse}",
+      "10.0",
+      "Sine: x = 8 ÷ sin 53° = 8 ÷ 0.7986 ≈ 10.0.",
+      [],
+      triangle(
+        "Right triangle with 53 degrees at A, opposite BC=8 and unknown hypotenuse AB=x.",
+        { AB: "x", BC: "8" },
+        { A: "53°" }
+      )
+    ),
+    answer(
+      "tri-sd-i2",
+      "Find x. Round to 1 decimal place.",
+      "\\text{adj}=12,\\quad\\theta=60^\\circ\\text{ at }B,\\quad x\\text{ is the hypotenuse}",
+      "24.0",
+      "Cosine: x = 12 ÷ cos 60° = 12 ÷ 0.5 = 24.0.",
+      ["24"],
+      {
+        description:
+          "Right triangle with right angle at C, 60 degrees at B, adjacent BC=12 and unknown hypotenuse AB=x.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AB: "x", BC: "12" },
+        angleLabels: { B: "60°" },
+      }
+    ),
+    answer(
+      "tri-sd-i3",
+      "Find x. Round to 1 decimal place.",
+      "\\text{opp}=7,\\quad\\theta=40^\\circ,\\quad x\\text{ is the adjacent}",
+      "8.3",
+      "Tangent: x = 7 ÷ tan 40° = 7 ÷ 0.8391 ≈ 8.3.",
+      [],
+      triangleAltB(
+        "Right triangle with right angle at B, 40 degrees at A, opposite BC=7 and unknown adjacent AC=x.",
+        { AC: "x", BC: "7" },
+        { A: "40°" }
+      )
+    ),
+    choice(
+      "tri-sd-i4",
+      "A student writes x = 3 × sin 30° to find the hypotenuse when the opposite side is 3 and the angle is 30°. What is wrong?",
+      "C",
+      [
+        "Cosine should be used instead of sine",
+        "The angle should be 60° not 30°",
+        "The hypotenuse is in the denominator, so the student should divide: x = 3 ÷ sin 30°",
+        "The student should use Pythagoras instead",
+      ],
+      "When the hypotenuse is unknown it sits in the denominator, so rearrange by dividing: hyp = opp ÷ sin θ."
+    ),
+    answer(
+      "tri-sd-i5",
+      "A slide surface is inclined at 37 degrees and its bottom edge (opposite side) is 3 m above the ground. Find the length of the slide surface in metres. Round to 1 decimal place.",
+      "\\text{opp}=3\\text{ m},\\quad\\theta=37^\\circ,\\quad x\\text{ is the slide surface (hypotenuse)}",
+      "5.0",
+      "Sine: x = 3 ÷ sin 37° = 3 ÷ 0.6018 ≈ 5.0 m.",
+      [],
+      triangle(
+        "Right triangle: slide surface is hypotenuse x, height 3 m is opposite, angle 37 degrees at base.",
+        { AB: "x", BC: "3 m" },
+        { A: "37°" }
+      )
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Multiplying by the trig ratio when the unknown is in the denominator.",
+      fix: "Write the equation first. If the unknown is under the fraction line, rearrange by dividing: hyp = opp ÷ sin θ.",
+    },
+    {
+      mistake: "Getting a result smaller than the given side when finding the hypotenuse.",
+      fix: "The hypotenuse is always the longest side. A smaller result means you multiplied instead of divided.",
+    },
+    {
+      mistake: "Using the wrong ratio for the sides involved.",
+      fix: "Label opp, adj and hyp relative to the marked angle before choosing a ratio.",
+    },
+    {
+      mistake: "Forgetting to check degree mode.",
+      fix: "Radian mode gives a completely different result. Check the calculator setting before evaluating.",
+    },
+  ],
+  masteryQuiz: [
+    answer(
+      "tri-sd-m1",
+      "Find x. Round to 1 decimal place.",
+      "\\text{opp}=5,\\quad\\theta=30^\\circ,\\quad x\\text{ is the hypotenuse}",
+      "10.0",
+      "Sine: x = 5 ÷ sin 30° = 5 ÷ 0.5 = 10.0.",
+      ["10"],
+      triangle(
+        "Right triangle with 30 degrees at A, opposite BC=5 and unknown hypotenuse AB=x.",
+        { AB: "x", BC: "5" },
+        { A: "30°" }
+      )
+    ),
+    answer(
+      "tri-sd-m2",
+      "Find x. Round to 1 decimal place.",
+      "\\text{adj}=6,\\quad\\theta=45^\\circ,\\quad x\\text{ is the hypotenuse}",
+      "8.5",
+      "Cosine: x = 6 ÷ cos 45° = 6 ÷ 0.7071 ≈ 8.5.",
+      [],
+      triangleAltB(
+        "Right triangle with right angle at B, 45 degrees at A, adjacent AC=6 and unknown hypotenuse AB=x.",
+        { AB: "x", AC: "6" },
+        { A: "45°" }
+      )
+    ),
+    choice(
+      "tri-sd-m3",
+      "Which equation correctly finds the hypotenuse x when the opposite is 9 and the angle is 45 degrees?",
+      "A",
+      [
+        "$x=\\frac{9}{\\sin45^\\circ}$",
+        "$x=9\\times\\sin45^\\circ$",
+        "$x=9\\times\\cos45^\\circ$",
+        "$x=\\frac{\\sin45^\\circ}{9}$",
+      ],
+      "Sine links opp and hyp. Hyp is unknown, so rearrange: x = opp ÷ sin θ."
+    ),
+    answer(
+      "tri-sd-m4",
+      "Find x. Round to 1 decimal place.",
+      "\\text{opp}=12,\\quad\\theta=53^\\circ,\\quad x\\text{ is the adjacent}",
+      "9.0",
+      "Tangent: x = 12 ÷ tan 53° = 12 ÷ 1.3270 ≈ 9.0.",
+      [],
+      triangleAltB(
+        "Right triangle with right angle at B, 53 degrees at A, opposite BC=12 and unknown adjacent AC=x.",
+        { AC: "x", BC: "12" },
+        { A: "53°" }
+      )
+    ),
+    answer(
+      "tri-sd-m5",
+      "Find x. Round to 1 decimal place.",
+      "\\text{adj}=9,\\quad\\theta=45^\\circ,\\quad x\\text{ is the hypotenuse}",
+      "12.7",
+      "Cosine: x = 9 ÷ cos 45° = 9 ÷ 0.7071 ≈ 12.7.",
+      [],
+      triangle(
+        "Right triangle with 45 degrees at A, adjacent AC=9 and unknown hypotenuse AB=x.",
+        { AB: "x", AC: "9" },
+        { A: "45°" }
+      )
+    ),
+    choice(
+      "tri-sd-m6",
+      "A calculated hypotenuse turns out shorter than the given opposite side. What does this signal?",
+      "B",
+      [
+        "The angle was wrong",
+        "The student multiplied instead of divided",
+        "The triangle has no hypotenuse",
+        "The answer should be negative",
+      ],
+      "The hypotenuse is always the longest side. A shorter result means the rearrangement step was inverted."
+    ),
+    answer(
+      "tri-sd-m7",
+      "Find x. Round to 1 decimal place.",
+      "\\text{adj}=15,\\quad\\theta=60^\\circ\\text{ at }B,\\quad x\\text{ is the hypotenuse}",
+      "30.0",
+      "Cosine: x = 15 ÷ cos 60° = 15 ÷ 0.5 = 30.0.",
+      ["30"],
+      {
+        description:
+          "Right triangle with right angle at C, 60 degrees at B, adjacent BC=15 and unknown hypotenuse AB=x.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AB: "x", BC: "15" },
+        angleLabels: { B: "60°" },
+      }
+    ),
+    answer(
+      "tri-sd-m8",
+      "A slide makes an angle of 40 degrees with the ground. The top of the slide is 2 m above the ground. Find the length of the slide surface in metres. Round to 1 decimal place.",
+      "\\text{opp}=2\\text{ m},\\quad\\theta=40^\\circ,\\quad x\\text{ is the slide surface (hypotenuse)}",
+      "3.1",
+      "Sine: x = 2 ÷ sin 40° = 2 ÷ 0.6428 ≈ 3.1 m.",
+      [],
+      triangle(
+        "Right triangle: slide surface is hypotenuse x, height 2 m opposite, angle 40 degrees.",
+        { AB: "x", BC: "2 m" },
+        { A: "40°" }
+      )
+    ),
+    choice(
+      "tri-sd-m9",
+      "When is the divide step needed instead of the multiply step?",
+      "C",
+      [
+        "When the given side is the hypotenuse",
+        "When the angle is greater than 45 degrees",
+        "When the unknown side appears in the denominator of the trig equation",
+        "When both shorter sides are given",
+      ],
+      "If the unknown is in the denominator, multiply both sides by it and then divide by the trig ratio."
+    ),
+    answer(
+      "tri-sd-m10",
+      "Find x. Round to 1 decimal place.",
+      "\\text{opp}=10,\\quad\\theta=60^\\circ,\\quad x\\text{ is the adjacent}",
+      "5.8",
+      "Tangent: x = 10 ÷ tan 60° = 10 ÷ 1.7321 ≈ 5.8.",
+      [],
+      triangleAltB(
+        "Right triangle with right angle at B, 60 degrees at A, opposite BC=10 and unknown adjacent AC=x.",
+        { AC: "x", BC: "10" },
+        { A: "60°" }
+      )
+    ),
+  ],
+};
+
+const trigChoosingRatio: LessonContent = {
+  description:
+    "Select the correct trig ratio for any pair of sides and decide whether to multiply or divide to find the unknown.",
+  learningIntention:
+    "Choose sin, cos or tan and the correct operation given any right-triangle setup.",
+  successCriteria: [
+    "Name the two sides involved and match them to sin, cos or tan.",
+    "Decide whether to multiply or divide based on whether the unknown is in the numerator or denominator.",
+    "Set up the equation correctly before evaluating.",
+    "Identify and correct common ratio-selection errors.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Every right-triangle trig problem requires two decisions: which ratio, and which operation. Work through them in order. First, label the sides relative to the marked angle. Then identify which two sides are involved. Finally, pick the ratio that connects those two sides.",
+      "Once the ratio is chosen, look at where the unknown sits. If the unknown is in the numerator (it equals hyp × trig or adj × tan), multiply. If the unknown is in the denominator (it equals opp ÷ sin, adj ÷ cos, or opp ÷ tan), divide.",
+      "A common mistake is mixing up the ratio and the operation independently. They are linked: always write the equation first (sin θ = opp/hyp, etc.) and read off the operation from the position of the unknown.",
+    ],
+    latexBlocks: [
+      "\\text{opp and hyp} \\to \\sin\\theta \\qquad \\text{adj and hyp} \\to \\cos\\theta \\qquad \\text{opp and adj} \\to \\tan\\theta",
+      "\\text{unknown on top} \\Rightarrow \\text{multiply} \\qquad \\text{unknown on bottom} \\Rightarrow \\text{divide}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Identify the ratio from the sides involved",
+      questionLatex:
+        "\\text{The marked angle is }\\theta.\\text{ The known side is the hypotenuse and the unknown is the opposite. Which ratio and which operation?}",
+      triangleDiagram: triangle(
+        "Right triangle with right angle at C, theta at A, hypotenuse AB=14 and unknown opposite BC=x.",
+        { AB: "14", BC: "x" },
+        { A: "theta" }
+      ),
+      steps: [
+        {
+          explanation:
+            "Opposite and hypotenuse are involved — choose sine.",
+          latex: "\\sin\\theta=\\frac{x}{14}",
+        },
+        {
+          explanation:
+            "The unknown x is in the numerator, so multiply both sides by 14.",
+          latex: "x=14\\times\\sin\\theta",
+        },
+      ],
+      finalAnswerLatex: "\\text{sine, multiply: }x=14\\times\\sin\\theta",
+    },
+    {
+      title: "Ratio and divide",
+      questionLatex:
+        "\\text{The adjacent side is }9\\text{ and the hypotenuse is unknown. Which ratio and operation?}",
+      triangleDiagram: {
+        description:
+          "Right triangle with right angle at C, 40 degrees at B, adjacent BC=9 and unknown hypotenuse AB=x.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AB: "x", BC: "9" },
+        angleLabels: { B: "40°" },
+      },
+      steps: [
+        {
+          explanation:
+            "Adjacent and hypotenuse — choose cosine. The hypotenuse (x) is in the denominator.",
+          latex: "\\cos40^\\circ=\\frac{9}{x}",
+        },
+        {
+          explanation: "Divide to isolate x.",
+          latex: "x=\\frac{9}{\\cos40^\\circ}\\approx11.7",
+        },
+      ],
+      finalAnswerLatex: "\\text{cosine, divide: }x\\approx11.7",
+    },
+    {
+      title: "Tangent case — full solve",
+      questionLatex:
+        "\\text{Adjacent }=11,\\text{ angle }=30^\\circ,\\text{ find the opposite side }x.\\text{ Round to 1 decimal place.}",
+      triangleDiagram: triangleAltB(
+        "Right triangle with right angle at B, 30 degrees at A, adjacent AC=11 and unknown opposite BC=x.",
+        { AC: "11", BC: "x" },
+        { A: "30°" }
+      ),
+      steps: [
+        {
+          explanation: "Opposite and adjacent — choose tangent.",
+          latex: "\\tan30^\\circ=\\frac{x}{11}",
+        },
+        {
+          explanation:
+            "The unknown x is in the numerator, so multiply by 11.",
+          latex: "x=11\\times\\tan30^\\circ=11\\times0.5774\\approx6.4",
+        },
+      ],
+      finalAnswerLatex: "6.4",
+    },
+  ],
+  guidedPractice: [
+    choice(
+      "tri-ch-g1",
+      "The known side is the hypotenuse and the unknown is the opposite. Which ratio?",
+      "A",
+      ["Sine", "Cosine", "Tangent", "Pythagoras"],
+      "SOH: sine links opposite and hypotenuse.",
+      "\\text{opp unknown, hyp given}.",
+      triangle(
+        "Right triangle with theta at A, hypotenuse AB labelled and opposite BC marked x.",
+        { AB: "hyp", BC: "x" },
+        { A: "theta" }
+      )
+    ),
+    choice(
+      "tri-ch-g2",
+      "The known side is the hypotenuse and the unknown is the adjacent. Which ratio?",
+      "B",
+      ["Sine", "Cosine", "Tangent", "Inverse tangent"],
+      "CAH: cosine links adjacent and hypotenuse.",
+      "\\text{adj unknown, hyp given}.",
+      {
+        description:
+          "Right triangle with theta at B, hypotenuse AB and unknown adjacent BC=x.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AB: "hyp", BC: "x" },
+        angleLabels: { B: "theta" },
+      }
+    ),
+    choice(
+      "tri-ch-g3",
+      "The known side is the adjacent and the unknown is the opposite. Which ratio?",
+      "C",
+      ["Sine", "Cosine", "Tangent", "Cosine inverse"],
+      "TOA: tangent links opposite and adjacent.",
+      "\\text{opp unknown, adj given}.",
+      triangleAltB(
+        "Right triangle with theta at A, adjacent AC and unknown opposite BC=x.",
+        { AC: "adj", BC: "x" },
+        { A: "theta" }
+      )
+    ),
+    choice(
+      "tri-ch-g4",
+      "The hypotenuse is known and the adjacent is unknown. Which operation?",
+      "A",
+      [
+        "Multiply: adj = hyp × cos θ",
+        "Divide: adj = cos θ ÷ hyp",
+        "Divide: adj = hyp ÷ cos θ",
+        "Add: adj = hyp + cos θ",
+      ],
+      "Cosine: adj/hyp = cos θ, so adj = hyp × cos θ — the unknown is in the numerator."
+    ),
+  ],
+  independentPractice: [
+    choice(
+      "tri-ch-i1",
+      "The opposite is known and the hypotenuse is unknown. Which operation?",
+      "B",
+      [
+        "Multiply: hyp = opp × sin θ",
+        "Divide: hyp = opp ÷ sin θ",
+        "Multiply: hyp = sin θ × opp",
+        "Divide: hyp = sin θ ÷ opp",
+      ],
+      "Sine: opp/hyp = sin θ. Since hyp is unknown (in the denominator), rearrange: hyp = opp ÷ sin θ."
+    ),
+    choice(
+      "tri-ch-i2",
+      "Which equation correctly sets up the problem: hyp=13, theta=40 degrees, find the opposite side x?",
+      "C",
+      [
+        "$x=\\frac{13}{\\sin40^\\circ}$",
+        "$x=13\\times\\cos40^\\circ$",
+        "$x=13\\times\\sin40^\\circ$",
+        "$x=\\frac{13}{\\cos40^\\circ}$",
+      ],
+      "Opposite and hypotenuse — use sine. Unknown x is in the numerator, so multiply: x = 13 × sin 40°."
+    ),
+    choice(
+      "tri-ch-i3",
+      "A student writes tan theta = opp/hyp. What is wrong?",
+      "D",
+      [
+        "Tangent should use adj/hyp",
+        "Tangent should use hyp/opp",
+        "The ratio should be cos not tan",
+        "Tangent uses opp/adj, not opp/hyp",
+      ],
+      "TOA: tangent equals opposite over adjacent. Using hypotenuse in place of adjacent is a common error."
+    ),
+    answer(
+      "tri-ch-i4",
+      "Find x. Round to 1 decimal place.",
+      "\\text{hyp}=20,\\quad\\theta=53^\\circ,\\quad x\\text{ is opposite}",
+      "16.0",
+      "Sine — opposite in numerator, so multiply: x = 20 × sin 53° = 20 × 0.7986 ≈ 16.0.",
+      [],
+      triangle(
+        "Right triangle with 53 degrees at A, hypotenuse AB=20 and unknown opposite BC=x.",
+        { AB: "20", BC: "x" },
+        { A: "53°" }
+      )
+    ),
+    answer(
+      "tri-ch-i5",
+      "Find x. Round to 1 decimal place.",
+      "\\text{opp}=6,\\quad\\theta=37^\\circ,\\quad x\\text{ is the hypotenuse}",
+      "10.0",
+      "Sine — hypotenuse in denominator, so divide: x = 6 ÷ sin 37° = 6 ÷ 0.6018 ≈ 10.0.",
+      [],
+      triangleAltB(
+        "Right triangle with 37 degrees at A, opposite BC=6 and unknown hypotenuse AB=x.",
+        { AB: "x", BC: "6" },
+        { A: "37°" }
+      )
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Selecting the ratio first and then deciding to multiply or divide at random.",
+      fix: "Write the equation (e.g. sin θ = x/hyp) and read the operation from the position of the unknown.",
+    },
+    {
+      mistake: "Writing tan θ = opp/hyp.",
+      fix: "Tangent uses opposite over adjacent. The hypotenuse never appears in the tangent ratio.",
+    },
+    {
+      mistake: "Choosing cosine when the opposite side is involved.",
+      fix: "Cosine connects adjacent and hypotenuse. If the opposite side is involved, use sine or tangent.",
+    },
+    {
+      mistake: "Forgetting to label sides relative to the marked angle before choosing a ratio.",
+      fix: "Always identify hyp, opp and adj first. The ratio choice follows from these labels.",
+    },
+  ],
+  masteryQuiz: [
+    choice(
+      "tri-ch-m1",
+      "Which ratio connects the opposite side and the hypotenuse?",
+      "A",
+      ["Sine", "Cosine", "Tangent", "Gradient"],
+      "SOH: sine equals opposite over hypotenuse."
+    ),
+    choice(
+      "tri-ch-m2",
+      "Which ratio connects the adjacent side and the hypotenuse?",
+      "B",
+      ["Sine", "Cosine", "Tangent", "Pythagoras"],
+      "CAH: cosine equals adjacent over hypotenuse."
+    ),
+    choice(
+      "tri-ch-m3",
+      "Which ratio connects the opposite side and the adjacent side?",
+      "C",
+      ["Sine", "Cosine", "Tangent", "Inverse sine"],
+      "TOA: tangent equals opposite over adjacent."
+    ),
+    answer(
+      "tri-ch-m4",
+      "Find x. Round to 1 decimal place.",
+      "\\text{adj}=11,\\quad\\theta=30^\\circ,\\quad x\\text{ is opposite}",
+      "6.4",
+      "Tangent — opposite in numerator, multiply: x = 11 × tan 30° = 11 × 0.5774 ≈ 6.4.",
+      [],
+      triangleAltB(
+        "Right triangle with right angle at B, 30 degrees at A, adjacent AC=11 and unknown opposite BC=x.",
+        { AC: "11", BC: "x" },
+        { A: "30°" }
+      )
+    ),
+    choice(
+      "tri-ch-m5",
+      "The adjacent is known and the hypotenuse is unknown. Which operation?",
+      "D",
+      [
+        "Multiply: hyp = adj × cos θ",
+        "Add the sides",
+        "Multiply: hyp = adj × sin θ",
+        "Divide: hyp = adj ÷ cos θ",
+      ],
+      "Cosine: adj/hyp = cos θ. Since hyp is in the denominator, rearrange by dividing: hyp = adj ÷ cos θ."
+    ),
+    answer(
+      "tri-ch-m6",
+      "Find x. Round to 1 decimal place.",
+      "\\text{adj}=10,\\quad\\theta=37^\\circ,\\quad x\\text{ is the hypotenuse}",
+      "12.5",
+      "Cosine — hyp in denominator, divide: x = 10 ÷ cos 37° = 10 ÷ 0.7986 ≈ 12.5.",
+      [],
+      triangle(
+        "Right triangle with 37 degrees at A, adjacent AC=10 and unknown hypotenuse AB=x.",
+        { AB: "x", AC: "10" },
+        { A: "37°" }
+      )
+    ),
+    choice(
+      "tri-ch-m7",
+      "A student writes tan theta = opp/hyp. Which correction is needed?",
+      "B",
+      [
+        "Change tan to sin",
+        "Change hyp to adj in the denominator",
+        "Flip the fraction to hyp/opp",
+        "Change opp to adj in the numerator",
+      ],
+      "Tangent is opposite over adjacent. Replacing hyp with adj fixes the error."
+    ),
+    answer(
+      "tri-ch-m8",
+      "Find x. Round to 1 decimal place.",
+      "\\text{hyp}=16,\\quad\\theta=45^\\circ,\\quad x\\text{ is opposite}",
+      "11.3",
+      "Sine — opposite in numerator, multiply: x = 16 × sin 45° = 16 × 0.7071 ≈ 11.3.",
+      [],
+      {
+        description:
+          "Right triangle with right angle at C, 45 degrees at B, hypotenuse AB=16 and unknown opposite AC=x.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AB: "16", AC: "x" },
+        angleLabels: { B: "45°" },
+      }
+    ),
+    answer(
+      "tri-ch-m9",
+      "Find x. Round to 1 decimal place.",
+      "\\text{opp}=8,\\quad\\theta=53^\\circ,\\quad x\\text{ is adjacent}",
+      "6.0",
+      "Tangent — adjacent in denominator, divide: x = 8 ÷ tan 53° = 8 ÷ 1.3270 ≈ 6.0.",
+      [],
+      triangleAltB(
+        "Right triangle with right angle at B, 53 degrees at A, opposite BC=8 and unknown adjacent AC=x.",
+        { AC: "x", BC: "8" },
+        { A: "53°" }
+      )
+    ),
+    choice(
+      "tri-ch-m10",
+      "Which pair of steps is always correct when solving a right-triangle trig problem?",
+      "C",
+      [
+        "Choose a ratio, then guess whether to multiply or divide",
+        "Use Pythagoras first, then choose a ratio",
+        "Label opp, adj and hyp relative to theta; then choose the ratio linking the two sides involved",
+        "Subtract the angle from 90°, then use the complementary angle",
+      ],
+      "Labelling comes first. The ratio choice and operation follow directly from which sides are known and unknown."
+    ),
+  ],
+};
+
+const trigFindingAngles: LessonContent = {
+  description:
+    "Use inverse sine, cosine and tangent to find an unknown acute angle in a right triangle from two known sides.",
+  learningIntention:
+    "Apply the correct inverse trig function to find an unknown angle, given two side lengths.",
+  successCriteria: [
+    "Identify the two known sides and write the trig ratio involving those sides.",
+    "Apply the matching inverse function (sin⁻¹, cos⁻¹ or tan⁻¹) to find the angle.",
+    "Round the angle to the nearest degree.",
+    "Recognise the radian-mode error and avoid inverting the ratio.",
+  ],
+  teaching: {
+    paragraphs: [
+      "When two sides are known but the angle is unknown, write the trig ratio in the usual way and then apply the inverse function to both sides. For example, sin θ = 4/5 becomes θ = sin⁻¹(4/5).",
+      "The inverse functions are labelled sin⁻¹, cos⁻¹ and tan⁻¹ on a calculator — sometimes written as arcsin, arccos, arctan. They undo the original trig function and give you back the angle.",
+      "Two common errors: leaving the calculator in radian mode (the answer will be a tiny decimal such as 0.64 instead of a sensible degree value), and inverting the ratio before applying the inverse (writing sin⁻¹(hyp/opp) instead of sin⁻¹(opp/hyp)). Always write the ratio correctly first.",
+    ],
+    latexBlocks: [
+      "\\theta=\\sin^{-1}\\!\\left(\\frac{\\text{opp}}{\\text{hyp}}\\right),\\quad\\theta=\\cos^{-1}\\!\\left(\\frac{\\text{adj}}{\\text{hyp}}\\right),\\quad\\theta=\\tan^{-1}\\!\\left(\\frac{\\text{opp}}{\\text{adj}}\\right)",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Use inverse sine",
+      questionLatex: "\\text{Find }\\theta\\text{ to the nearest degree.}",
+      triangleDiagram: triangle(
+        "Right triangle with right angle at C, unknown theta at A, hypotenuse AB=10 and opposite BC=8.",
+        { AB: "10", BC: "8" },
+        { A: "theta" }
+      ),
+      steps: [
+        {
+          explanation: "Opposite (8) and hypotenuse (10) — write the sine ratio.",
+          latex: "\\sin\\theta=\\frac{8}{10}",
+        },
+        {
+          explanation: "Apply inverse sine.",
+          latex: "\\theta=\\sin^{-1}(0.8)\\approx53^\\circ",
+        },
+      ],
+      finalAnswerLatex: "53^\\circ",
+    },
+    {
+      title: "Use inverse cosine",
+      questionLatex: "\\text{Find }\\theta\\text{ to the nearest degree.}",
+      triangleDiagram: {
+        description:
+          "Right triangle with right angle at C, unknown theta at B, adjacent BC=9 and hypotenuse AB=15.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AB: "15", BC: "9" },
+        angleLabels: { B: "theta" },
+      },
+      steps: [
+        {
+          explanation: "Adjacent (9) and hypotenuse (15) — write the cosine ratio.",
+          latex: "\\cos\\theta=\\frac{9}{15}",
+        },
+        {
+          explanation: "Apply inverse cosine.",
+          latex: "\\theta=\\cos^{-1}(0.6)\\approx53^\\circ",
+        },
+      ],
+      finalAnswerLatex: "53^\\circ",
+    },
+    {
+      title: "Use inverse tangent",
+      questionLatex: "\\text{Find }\\theta\\text{ to the nearest degree.}",
+      triangleDiagram: triangleAltB(
+        "Right triangle with right angle at B, unknown theta at A, adjacent AC=7 and opposite BC=7.",
+        { AC: "7", BC: "7" },
+        { A: "theta" }
+      ),
+      steps: [
+        {
+          explanation: "Opposite (7) and adjacent (7) — write the tangent ratio.",
+          latex: "\\tan\\theta=\\frac{7}{7}=1",
+        },
+        {
+          explanation: "Apply inverse tangent.",
+          latex: "\\theta=\\tan^{-1}(1)=45^\\circ",
+        },
+      ],
+      finalAnswerLatex: "45^\\circ",
+    },
+  ],
+  guidedPractice: [
+    choice(
+      "tri-ang-g1",
+      "The two known sides are the opposite and the hypotenuse. Which inverse function is needed?",
+      "A",
+      [
+        "Inverse sine",
+        "Inverse cosine",
+        "Inverse tangent",
+        "Square root",
+      ],
+      "SOH links opposite and hypotenuse, so use inverse sine to find the angle."
+    ),
+    answer(
+      "tri-ang-g2",
+      "Find theta to the nearest degree.",
+      "\\text{opp}=3,\\quad\\text{hyp}=5",
+      "37",
+      "Sine: sin theta = 3/5 = 0.6. Apply inverse sine: theta = sin⁻¹(0.6) ≈ 37°.",
+      ["37°", "37 degrees"],
+      triangle(
+        "Right triangle with right angle at C, unknown theta at A, hypotenuse AB=5 and opposite BC=3.",
+        { AB: "5", BC: "3" },
+        { A: "theta" }
+      )
+    ),
+    answer(
+      "tri-ang-g3",
+      "Find theta to the nearest degree.",
+      "\\text{adj}=4,\\quad\\text{hyp}=5",
+      "37",
+      "Cosine: cos theta = 4/5 = 0.8. Apply inverse cosine: theta = cos⁻¹(0.8) ≈ 37°.",
+      ["37°", "37 degrees"],
+      {
+        description:
+          "Right triangle with right angle at C, unknown theta at B, adjacent BC=4 and hypotenuse AB=5.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AB: "5", BC: "4" },
+        angleLabels: { B: "theta" },
+      }
+    ),
+    answer(
+      "tri-ang-g4",
+      "Find theta to the nearest degree.",
+      "\\text{opp}=5,\\quad\\text{adj}=5",
+      "45",
+      "Tangent: tan theta = 5/5 = 1. Apply inverse tangent: theta = tan⁻¹(1) = 45°.",
+      ["45°", "45 degrees"],
+      triangleAltB(
+        "Right triangle with right angle at B, unknown theta at A, opposite BC=5 and adjacent AC=5.",
+        { AC: "5", BC: "5" },
+        { A: "theta" }
+      )
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "tri-ang-i1",
+      "Find theta to the nearest degree.",
+      "\\text{opp}=12,\\quad\\text{hyp}=13",
+      "67",
+      "Sine: sin theta = 12/13 ≈ 0.9231. Apply inverse sine: theta ≈ 67°.",
+      ["67°", "67 degrees"],
+      triangle(
+        "Right triangle with right angle at C, unknown theta at A, hypotenuse AB=13 and opposite BC=12.",
+        { AB: "13", BC: "12" },
+        { A: "theta" }
+      )
+    ),
+    answer(
+      "tri-ang-i2",
+      "Find theta to the nearest degree.",
+      "\\text{adj}=8,\\quad\\text{hyp}=10",
+      "37",
+      "Cosine: cos theta = 8/10 = 0.8. Apply inverse cosine: theta = cos⁻¹(0.8) ≈ 37°.",
+      ["37°", "37 degrees"],
+      {
+        description:
+          "Right triangle with right angle at C, unknown theta at B, adjacent BC=8 and hypotenuse AB=10.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AB: "10", BC: "8" },
+        angleLabels: { B: "theta" },
+      }
+    ),
+    answer(
+      "tri-ang-i3",
+      "Find theta to the nearest degree.",
+      "\\text{opp}=9,\\quad\\text{adj}=9",
+      "45",
+      "Tangent: tan theta = 9/9 = 1. Apply inverse tangent: theta = tan⁻¹(1) = 45°.",
+      ["45°", "45 degrees"],
+      triangleAltB(
+        "Right triangle with right angle at B, unknown theta at A, opposite BC=9 and adjacent AC=9.",
+        { AC: "9", BC: "9" },
+        { A: "theta" }
+      )
+    ),
+    choice(
+      "tri-ang-i4",
+      "Which inverse function finds an angle when the adjacent and opposite sides are both given?",
+      "C",
+      ["Inverse sine", "Inverse cosine", "Inverse tangent", "Pythagoras"],
+      "TOA links opposite and adjacent, so use inverse tangent."
+    ),
+    choice(
+      "tri-ang-i5",
+      "A student applies inverse sine to (10/6) instead of (6/10) when the opposite is 6 and the hypotenuse is 10. What is wrong?",
+      "B",
+      [
+        "Inverse cosine should be used",
+        "The ratio is inverted — it should be sin⁻¹(6/10), not sin⁻¹(10/6)",
+        "The calculator must be in radian mode",
+        "Both values should be squared first",
+      ],
+      "Sine equals opp/hyp, which is 6/10. Applying the inverse to 10/6 gives an error because 10/6 > 1, which is outside the valid range for sine."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Using sin instead of sin⁻¹ when the angle is unknown.",
+      fix: "When the angle is the unknown, apply the inverse function to both sides of the equation.",
+    },
+    {
+      mistake: "Inverting the ratio before applying the inverse function.",
+      fix: "Write the ratio in standard SOH-CAH-TOA order first, then apply the inverse to the whole fraction.",
+    },
+    {
+      mistake: "Leaving the calculator in radian mode.",
+      fix: "A degree answer between 0° and 90° that comes back as a tiny decimal (e.g. 0.64) is a radian-mode result.",
+    },
+    {
+      mistake: "Using inverse cosine when the opposite and adjacent sides are given.",
+      fix: "Cosine involves adjacent and hypotenuse. For opposite and adjacent, use inverse tangent.",
+    },
+  ],
+  masteryQuiz: [
+    answer(
+      "tri-ang-m1",
+      "Find theta to the nearest degree.",
+      "\\text{opp}=5,\\quad\\text{hyp}=10",
+      "30",
+      "Sine: sin theta = 5/10 = 0.5. Apply inverse sine: theta = sin⁻¹(0.5) = 30°.",
+      ["30°", "30 degrees"],
+      triangle(
+        "Right triangle with right angle at C, unknown theta at A, hypotenuse AB=10 and opposite BC=5.",
+        { AB: "10", BC: "5" },
+        { A: "theta" }
+      )
+    ),
+    answer(
+      "tri-ang-m2",
+      "Find theta to the nearest degree.",
+      "\\text{adj}=8,\\quad\\text{hyp}=16",
+      "60",
+      "Cosine: cos theta = 8/16 = 0.5. Apply inverse cosine: theta = cos⁻¹(0.5) = 60°.",
+      ["60°", "60 degrees"],
+      {
+        description:
+          "Right triangle with right angle at C, unknown theta at B, adjacent BC=8 and hypotenuse AB=16.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AB: "16", BC: "8" },
+        angleLabels: { B: "theta" },
+      }
+    ),
+    answer(
+      "tri-ang-m3",
+      "Find theta to the nearest degree.",
+      "\\text{opp}=7,\\quad\\text{adj}=7",
+      "45",
+      "Tangent: tan theta = 7/7 = 1. Apply inverse tangent: theta = tan⁻¹(1) = 45°.",
+      ["45°", "45 degrees"],
+      triangleAltB(
+        "Right triangle with right angle at B, unknown theta at A, opposite BC=7 and adjacent AC=7.",
+        { AC: "7", BC: "7" },
+        { A: "theta" }
+      )
+    ),
+    choice(
+      "tri-ang-m4",
+      "Which inverse ratio matches the two sides shown in the diagram?",
+      "B",
+      [
+        "Inverse sine",
+        "Inverse cosine",
+        "Inverse tangent",
+        "Pythagoras",
+      ],
+      "The labelled sides are adjacent and hypotenuse — use inverse cosine.",
+      "\\text{Right angle at }C,\\quad\\theta\\text{ unknown at }B,\\quad BC=7\\text{ (adj)},\\;AB=10\\text{ (hyp)}.",
+      {
+        description:
+          "Right triangle with right angle at C, unknown theta at B, adjacent BC=7 and hypotenuse AB=10.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AB: "10", BC: "7" },
+        angleLabels: { B: "theta" },
+      }
+    ),
+    answer(
+      "tri-ang-m5",
+      "Find theta to the nearest degree.",
+      "\\text{opp}=4,\\quad\\text{hyp}=8",
+      "30",
+      "Sine: sin theta = 4/8 = 0.5. Apply inverse sine: theta = sin⁻¹(0.5) = 30°.",
+      ["30°", "30 degrees"],
+      triangle(
+        "Right triangle with right angle at C, unknown theta at A, hypotenuse AB=8 and opposite BC=4.",
+        { AB: "8", BC: "4" },
+        { A: "theta" }
+      )
+    ),
+    answer(
+      "tri-ang-m6",
+      "Find theta to the nearest degree.",
+      "\\text{adj}=9,\\quad\\text{hyp}=18",
+      "60",
+      "Cosine: cos theta = 9/18 = 0.5. Apply inverse cosine: theta = cos⁻¹(0.5) = 60°.",
+      ["60°", "60 degrees"],
+      {
+        description:
+          "Right triangle with right angle at C, unknown theta at B, adjacent BC=9 and hypotenuse AB=18.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AB: "18", BC: "9" },
+        angleLabels: { B: "theta" },
+      }
+    ),
+    choice(
+      "tri-ang-m7",
+      "A student's calculator returns 0.93 when finding an angle expected to be around 68 degrees. What is the most likely cause?",
+      "C",
+      [
+        "The ratio was set up incorrectly",
+        "The sides were swapped",
+        "The calculator is in radian mode",
+        "Inverse tangent was used instead of inverse sine",
+      ],
+      "An angle near 68° should return about 68. A result near 0.93 is what radian mode gives for that same input."
+    ),
+    answer(
+      "tri-ang-m8",
+      "Find theta to the nearest degree.",
+      "\\text{opp}=7,\\quad\\text{hyp}=25",
+      "16",
+      "Sine: sin theta = 7/25 = 0.28. Apply inverse sine: theta = sin⁻¹(0.28) ≈ 16°.",
+      ["16°", "16 degrees"],
+      triangle(
+        "Right triangle with right angle at C, unknown theta at A, hypotenuse AB=25 and opposite BC=7.",
+        { AB: "25", BC: "7" },
+        { A: "theta" }
+      )
+    ),
+    choice(
+      "tri-ang-m9",
+      "A student writes theta = cos⁻¹(hyp/adj) when the adjacent and hypotenuse are given. What is the correction?",
+      "A",
+      [
+        "Write theta = cos⁻¹(adj/hyp) — cosine is adj over hyp, not hyp over adj",
+        "Use inverse sine instead",
+        "The ratio is correct but the inverse function is wrong",
+        "Swap cos⁻¹ for tan⁻¹",
+      ],
+      "CAH: cosine = adj/hyp. Applying inverse cosine to the correct fraction gives the angle."
+    ),
+    answer(
+      "tri-ang-m10",
+      "A ramp rises 3 m over a horizontal run of 9 m. Find the angle the ramp makes with the ground, to the nearest degree.",
+      "\\text{opp (rise)}=3\\text{ m},\\quad\\text{adj (run)}=9\\text{ m}",
+      "18",
+      "Tangent: tan theta = 3/9 = 0.333. Apply inverse tangent: theta = tan⁻¹(0.333) ≈ 18°.",
+      ["18°", "18 degrees"],
+      triangleAltB(
+        "Right triangle: rise 3 m is opposite, run 9 m is adjacent, unknown angle theta at base.",
+        { AC: "9 m", BC: "3 m" },
+        { A: "theta" }
+      )
+    ),
+  ],
+};
+
+const trigApplications: LessonContent = {
+  description:
+    "Apply right-angle trigonometry to practical contexts including ramp heights, building heights, shadow lengths and roof pitch.",
+  learningIntention:
+    "Identify the right triangle in a practical situation, choose the appropriate trig method, and interpret the answer in context.",
+  successCriteria: [
+    "Draw and label a right triangle from a word description.",
+    "Identify the given sides and angle, and name the unknown.",
+    "Choose and apply the correct ratio to find the unknown.",
+    "State the answer with appropriate units.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Many real-world problems involve a right triangle hidden inside a physical situation. Common examples include ramps (the surface is the hypotenuse), buildings with shadows (shadow is adjacent, building height is opposite), and roof pitch (horizontal span is adjacent, rise is opposite).",
+      "The process is always the same: draw the right triangle and label the sides relative to the marked angle. Then apply SOH-CAH-TOA exactly as in the earlier lessons. The only new skill is reading the triangle out of a word description.",
+      "State your answer with units from the context. A ramp height of 4.0 is meaningless — 4.0 m tells the reader what it is. If the question asks for a length, include the unit. If it asks for an angle, include the degree symbol.",
+    ],
+    latexBlocks: [
+      "\\text{Ramp: hyp = surface, opp = rise, adj = horizontal run}",
+      "\\text{Shadow: adj = shadow length, opp = height, hyp = sun-ray path}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Find the height a ramp rises",
+      questionLatex:
+        "\\text{A ramp surface is }10\\text{ m long and makes an angle of }30^\\circ\\text{ with the ground. Find the height it rises.}",
+      triangleDiagram: triangle(
+        "Right triangle: ramp surface is hypotenuse 10 m, angle 30 degrees at base, unknown rise x is opposite.",
+        { AB: "10 m", BC: "x" },
+        { A: "30°" }
+      ),
+      steps: [
+        {
+          explanation:
+            "The ramp surface (10 m) is the hypotenuse. The rise is opposite the 30° angle — use sine.",
+          latex: "\\sin30^\\circ=\\frac{x}{10}",
+        },
+        {
+          explanation: "Multiply both sides by 10.",
+          latex: "x=10\\times0.5=5.0\\text{ m}",
+        },
+      ],
+      finalAnswerLatex: "5.0\\text{ m}",
+    },
+    {
+      title: "Find a building height from a shadow",
+      questionLatex:
+        "\\text{A vertical pole casts a shadow }8\\text{ m long. The angle between the sun-ray and the ground is }37^\\circ.\\text{ Find the height of the pole.}",
+      triangleDiagram: {
+        description:
+          "Right triangle: shadow 8 m is adjacent (ground), angle 37 degrees at far end of shadow, unknown pole height x is opposite.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AC: "x", BC: "8 m" },
+        angleLabels: { B: "37°" },
+      },
+      steps: [
+        {
+          explanation:
+            "Shadow (8 m) is adjacent, pole height is opposite — use tangent.",
+          latex: "\\tan37^\\circ=\\frac{x}{8}",
+        },
+        {
+          explanation: "Multiply both sides by 8.",
+          latex: "x=8\\times0.7536\\approx6.0\\text{ m}",
+        },
+      ],
+      finalAnswerLatex: "6.0\\text{ m}",
+    },
+    {
+      title: "Find the angle of a roof",
+      questionLatex:
+        "\\text{A roof rises }4\\text{ m over a horizontal span of }6\\text{ m. Find the angle of the roof to the nearest degree.}",
+      triangleDiagram: triangleAltB(
+        "Right triangle: horizontal span 6 m is adjacent, rise 4 m is opposite, unknown angle theta at base.",
+        { AC: "6 m", BC: "4 m" },
+        { A: "theta" }
+      ),
+      steps: [
+        {
+          explanation:
+            "Rise (4 m) is opposite and horizontal span (6 m) is adjacent — use inverse tangent.",
+          latex: "\\theta=\\tan^{-1}\\!\\left(\\frac{4}{6}\\right)",
+        },
+        {
+          explanation: "Evaluate on a calculator in degree mode.",
+          latex: "\\theta\\approx34^\\circ",
+        },
+      ],
+      finalAnswerLatex: "34^\\circ",
+    },
+  ],
+  guidedPractice: [
+    answer(
+      "tri-app-g1",
+      "A ramp surface is 6 m long and makes an angle of 30 degrees with the ground. Find the height it rises in metres.",
+      "\\text{hyp (ramp surface)}=6\\text{ m},\\quad\\theta=30^\\circ,\\quad\\text{rise is opposite}",
+      "3.0",
+      "Sine: rise = 6 × sin 30° = 6 × 0.5 = 3.0 m.",
+      ["3"],
+      triangle(
+        "Right triangle: ramp surface 6 m is hypotenuse, angle 30 degrees at base, unknown rise x is opposite.",
+        { AB: "6 m", BC: "x" },
+        { A: "30°" }
+      )
+    ),
+    choice(
+      "tri-app-g2",
+      "In a shadow problem, a vertical building casts a horizontal shadow. Which side is the shadow length?",
+      "B",
+      [
+        "Hypotenuse",
+        "Adjacent",
+        "Opposite",
+        "The right angle",
+      ],
+      "The shadow lies along the ground next to the angle — it is the adjacent side."
+    ),
+    answer(
+      "tri-app-g3",
+      "A shadow is 8 m long and the sun angle is 37 degrees. Find the pole height in metres. Round to 1 decimal place.",
+      "\\text{adj (shadow)}=8\\text{ m},\\quad\\theta=37^\\circ,\\quad\\text{height is opposite}",
+      "6.0",
+      "Tangent: height = 8 × tan 37° = 8 × 0.7536 ≈ 6.0 m.",
+      [],
+      {
+        description:
+          "Right triangle: shadow 8 m is adjacent, angle 37 degrees at base, unknown height x is opposite.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AC: "x", BC: "8 m" },
+        angleLabels: { B: "37°" },
+      }
+    ),
+    answer(
+      "tri-app-g4",
+      "A ramp surface is 6 m long and makes an angle of 30 degrees with the horizontal. Find the horizontal run in metres.",
+      "\\text{hyp (ramp surface)}=6\\text{ m},\\quad\\theta=30^\\circ,\\quad\\text{run is adjacent}",
+      "5.2",
+      "Cosine: run = 6 × cos 30° = 6 × 0.8660 ≈ 5.2 m.",
+      [],
+      triangle(
+        "Right triangle: ramp surface 6 m is hypotenuse, angle 30 degrees at base, unknown run x is adjacent.",
+        { AB: "6 m", AC: "x" },
+        { A: "30°" }
+      )
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "tri-app-i1",
+      "A ramp surface is 10 m long and is angled at 37 degrees to the ground. Find the rise in metres. Round to 1 decimal place.",
+      "\\text{hyp (ramp surface)}=10\\text{ m},\\quad\\theta=37^\\circ,\\quad\\text{rise is opposite}",
+      "6.0",
+      "Sine: rise = 10 × sin 37° = 10 × 0.6018 ≈ 6.0 m.",
+      [],
+      triangle(
+        "Right triangle: ramp surface 10 m is hypotenuse, angle 37 degrees at base, unknown rise x.",
+        { AB: "10 m", BC: "x" },
+        { A: "37°" }
+      )
+    ),
+    answer(
+      "tri-app-i2",
+      "A building is 12 m tall. The angle from the ground to the top is 53 degrees (measured from the base). Find the horizontal distance from the base to the observation point in metres. Round to 1 decimal place.",
+      "\\text{opp (height)}=12\\text{ m},\\quad\\theta=53^\\circ,\\quad\\text{horizontal is adjacent}",
+      "9.0",
+      "Tangent: horizontal = 12 ÷ tan 53° = 12 ÷ 1.3270 ≈ 9.0 m.",
+      [],
+      triangleAltB(
+        "Right triangle: building height 12 m is opposite, angle 53 degrees at base, unknown horizontal distance x is adjacent.",
+        { AC: "x", BC: "12 m" },
+        { A: "53°" }
+      )
+    ),
+    answer(
+      "tri-app-i3",
+      "A 9 m pole casts a shadow. The angle from the tip of the shadow to the top of the pole is 45 degrees. Find the shadow length in metres.",
+      "\\text{opp (pole)}=9\\text{ m},\\quad\\theta=45^\\circ,\\quad\\text{shadow is adjacent}",
+      "9.0",
+      "Tangent: tan 45° = 1, so shadow = 9 ÷ tan 45° = 9 ÷ 1 = 9.0 m.",
+      ["9"],
+      {
+        description:
+          "Right triangle: pole height 9 m is opposite, angle 45 degrees at base, unknown shadow length x is adjacent.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AC: "9 m", BC: "x" },
+        angleLabels: { B: "45°" },
+      }
+    ),
+    answer(
+      "tri-app-i4",
+      "A roof rises 6 m over a horizontal span of 8 m. Find the angle of the roof to the nearest degree.",
+      "\\text{opp (rise)}=6\\text{ m},\\quad\\text{adj (span)}=8\\text{ m}",
+      "37",
+      "Tangent: theta = tan⁻¹(6/8) = tan⁻¹(0.75) ≈ 37°.",
+      ["37°", "37 degrees"],
+      triangleAltB(
+        "Right triangle: rise 6 m is opposite, span 8 m is adjacent, unknown angle theta at base.",
+        { AC: "8 m", BC: "6 m" },
+        { A: "theta" }
+      )
+    ),
+    choice(
+      "tri-app-i5",
+      "A ramp rises to a platform and the hypotenuse (ramp surface) and angle are both given. Which method finds the rise?",
+      "A",
+      [
+        "Multiply the ramp length by sine of the angle",
+        "Divide the ramp length by cosine of the angle",
+        "Multiply the ramp length by cosine of the angle",
+        "Use Pythagoras with the ramp and angle",
+      ],
+      "Sine links opposite (rise) and hypotenuse (ramp). Rise = ramp × sin θ."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Identifying the ramp surface as the opposite side.",
+      fix: "The ramp surface is the hypotenuse — it is the longest side and lies opposite the right angle.",
+    },
+    {
+      mistake: "Forgetting to include units in a practical answer.",
+      fix: "Return to the context after calculating and attach the correct unit (m, cm, etc.).",
+    },
+    {
+      mistake: "Using the elevation/depression angle as the interior right-triangle angle incorrectly.",
+      fix: "Draw the right triangle first and mark the angle at the correct vertex before applying any formula.",
+    },
+    {
+      mistake: "Confusing shadow (adjacent) with the sun-ray path (hypotenuse).",
+      fix: "The shadow is horizontal — it touches the angle at the base and is not the hypotenuse.",
+    },
+  ],
+  masteryQuiz: [
+    answer(
+      "tri-app-m1",
+      "A ramp surface is 20 m long and makes an angle of 30 degrees with the ground. Find the rise in metres.",
+      "\\text{hyp}=20\\text{ m},\\quad\\theta=30^\\circ,\\quad\\text{rise is opposite}",
+      "10.0",
+      "Sine: rise = 20 × sin 30° = 20 × 0.5 = 10.0 m.",
+      ["10"],
+      triangle(
+        "Right triangle: ramp surface 20 m hypotenuse, 30 degrees at base, rise x is opposite.",
+        { AB: "20 m", BC: "x" },
+        { A: "30°" }
+      )
+    ),
+    answer(
+      "tri-app-m2",
+      "A ramp rises 5 m at an angle of 30 degrees to the ground. Find the horizontal run in metres. Round to 1 decimal place.",
+      "\\text{opp (rise)}=5\\text{ m},\\quad\\theta=30^\\circ,\\quad\\text{run is adjacent}",
+      "8.7",
+      "Tangent: run = 5 ÷ tan 30° = 5 ÷ 0.5774 ≈ 8.7 m.",
+      [],
+      triangleAltB(
+        "Right triangle: rise 5 m is opposite, angle 30 degrees at base, unknown run x is adjacent.",
+        { AC: "x", BC: "5 m" },
+        { A: "30°" }
+      )
+    ),
+    choice(
+      "tri-app-m3",
+      "In a shadow problem, which trig ratio connects the shadow length (adjacent) and the building height (opposite)?",
+      "C",
+      ["Sine", "Cosine", "Tangent", "Inverse cosine"],
+      "TOA: tangent links opposite (height) and adjacent (shadow)."
+    ),
+    answer(
+      "tri-app-m4",
+      "A shadow is 12 m long and the sun angle is 45 degrees. Find the building height in metres.",
+      "\\text{adj (shadow)}=12\\text{ m},\\quad\\theta=45^\\circ,\\quad\\text{height is opposite}",
+      "12.0",
+      "Tangent: height = 12 × tan 45° = 12 × 1 = 12.0 m.",
+      ["12"],
+      {
+        description:
+          "Right triangle: shadow 12 m is adjacent, angle 45 degrees at base, unknown height x is opposite.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AC: "x", BC: "12 m" },
+        angleLabels: { B: "45°" },
+      }
+    ),
+    answer(
+      "tri-app-m5",
+      "A ramp surface is 13 m long and rises 5 m. Find the angle the ramp makes with the ground to the nearest degree.",
+      "\\text{hyp}=13\\text{ m},\\quad\\text{opp (rise)}=5\\text{ m}",
+      "23",
+      "Sine: theta = sin⁻¹(5/13) = sin⁻¹(0.3846) ≈ 23°.",
+      ["23°", "23 degrees"],
+      triangle(
+        "Right triangle: ramp surface 13 m is hypotenuse, rise 5 m is opposite, unknown angle theta at base.",
+        { AB: "13 m", BC: "5 m" },
+        { A: "theta" }
+      )
+    ),
+    choice(
+      "tri-app-m6",
+      "In a ramp problem, which side is the hypotenuse?",
+      "D",
+      [
+        "The horizontal ground",
+        "The vertical rise",
+        "The right angle",
+        "The sloped ramp surface",
+      ],
+      "The ramp surface is the longest side and lies opposite the right angle at the corner of the ramp."
+    ),
+    answer(
+      "tri-app-m7",
+      "A roof makes an angle of 40 degrees with the horizontal. The horizontal span is 10 m. Find the rise in metres. Round to 1 decimal place.",
+      "\\text{adj (span)}=10\\text{ m},\\quad\\theta=40^\\circ,\\quad\\text{rise is opposite}",
+      "8.4",
+      "Tangent: rise = 10 × tan 40° = 10 × 0.8391 ≈ 8.4 m.",
+      [],
+      triangleAltB(
+        "Right triangle: span 10 m is adjacent, angle 40 degrees at base, unknown rise x is opposite.",
+        { AC: "10 m", BC: "x" },
+        { A: "40°" }
+      )
+    ),
+    answer(
+      "tri-app-m8",
+      "A building stands 7 m from a measurement point. The angle from the ground to the top of the building is 60 degrees. Find the building height in metres. Round to 1 decimal place.",
+      "\\text{adj (distance)}=7\\text{ m},\\quad\\theta=60^\\circ,\\quad\\text{height is opposite}",
+      "12.1",
+      "Tangent: height = 7 × tan 60° = 7 × 1.7321 ≈ 12.1 m.",
+      [],
+      {
+        description:
+          "Right triangle: horizontal distance 7 m is adjacent, angle 60 degrees at base, unknown height x is opposite.",
+        vertices: {
+          A: { x: 80, y: 40 },
+          C: { x: 80, y: 230 },
+          B: { x: 330, y: 230 },
+        },
+        rightAngleAt: "C",
+        sideLabels: { AC: "x", BC: "7 m" },
+        angleLabels: { B: "60°" },
+      }
+    ),
+    choice(
+      "tri-app-m9",
+      "A ramp surface and its angle are given. Which ratio finds the rise (height)?",
+      "A",
+      [
+        "Sine: rise = ramp × sin θ",
+        "Cosine: rise = ramp × cos θ",
+        "Tangent: rise = ramp × tan θ",
+        "Pythagoras: rise = ramp − run",
+      ],
+      "Sine links the opposite (rise) and the hypotenuse (ramp surface)."
+    ),
+    answer(
+      "tri-app-m10",
+      "A ramp must rise 4 m with the ramp surface inclined at 53 degrees. Find the length of the ramp surface in metres. Round to 1 decimal place.",
+      "\\text{opp (rise)}=4\\text{ m},\\quad\\theta=53^\\circ,\\quad\\text{ramp surface is hypotenuse}",
+      "5.0",
+      "Sine: ramp = 4 ÷ sin 53° = 4 ÷ 0.7986 ≈ 5.0 m.",
+      [],
+      triangle(
+        "Right triangle: ramp surface x is hypotenuse, rise 4 m is opposite, angle 53 degrees at base.",
+        { AB: "x", BC: "4 m" },
+        { A: "53°" }
+      )
+    ),
+  ],
+};
+
 const lessons: Record<string, LessonContent> = {
   "pythagoras-hypotenuse": hypotenuse,
   "pythagoras-shorter-side": shorterSide,
@@ -1936,6 +3466,10 @@ const lessons: Record<string, LessonContent> = {
   "trig-naming-sides": trigNamingSides,
   "trig-ratios-intro": trigRatiosIntro,
   "trig-finding-sides-multiply": trigFindingSidesMultiply,
+  "trig-finding-sides-divide": trigFindingSidesDivide,
+  "trig-choosing-ratio": trigChoosingRatio,
+  "trig-finding-angles": trigFindingAngles,
+  "trig-applications": trigApplications,
 };
 
 export function year9WorkingWithTrianglesLessonOverride(
