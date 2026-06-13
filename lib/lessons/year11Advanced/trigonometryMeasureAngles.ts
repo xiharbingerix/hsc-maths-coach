@@ -293,6 +293,18 @@ const TRIG_MEASURE_EXPLANATIONS: Record<string, string> = {
     "Apply A = ½r²θ: A = ½ × 36 × (π/3) = 18 × (π/3) = 6π. The 18 divided by 3 gives 6.",
   "y11adv-trig-exam-m10":
     "Tangent repeats every π radians because after half a turn the sine and cosine values both reverse sign, restoring the ratio to its original value. Its period is half that of sine and cosine.",
+  "y11adv-trig-exam-n1":
+    "Amplitude = |a|. In y = 3cos(2x) − 1, a = 3, so amplitude = |3| = 3. The vertical shift d = −1 raises or lowers the midline but does not change amplitude.",
+  "y11adv-trig-exam-n2":
+    "Period = 2π/b. In y = sin(2x) + 4, b = 2, so period = 2π/2 = π. The vertical shift d = 4 does not affect the period.",
+  "y11adv-trig-exam-p1":
+    "Amplitude = |a|. In y = 5sin(2x) + 3, a = 5, so amplitude = |5| = 5. The vertical shift d = 3 does not affect amplitude.",
+  "y11adv-trig-exam-p2":
+    "Period = 2π/b. In y = cos(3x) − 2, b = 3, so period = 2π/3. The vertical shift d = −2 does not affect the period.",
+  "y11adv-trig-exam-p3":
+    "Maximum = d + |a| = −1 + 4 = 3. The amplitude |a| = 4 and midline d = −1, so the wave crests 4 units above −1.",
+  "y11adv-trig-exam-p4":
+    "Phase shift = −c/b. Rewrite 2x − π/2 = 2(x − π/4), so the graph shifts π/4 to the right. The size of the phase shift is π/4.",
 
   // ── Unit circle — exact values (Q1 and axes) ──────────────────────────────
   "y11adv-ucv-g1":
@@ -678,9 +690,9 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
     return {
       ...base,
       description:
-        "Practise mixed assessment-style questions on radians, exact values, arc length, sector area, the unit circle, and basic trigonometric graphs.",
+        "Practise mixed assessment-style questions covering all v2 unit skills: radians, exact values, arc length, sector area, the unit circle, basic trigonometric graphs, amplitude, period, phase shift, and vertical shift.",
       learningIntention:
-        "Apply angle-measure, exact-value, unit-circle, and trigonometric-graph skills to mixed assessment-style questions.",
+        "Apply all trigonometry and measure of angles skills — from radian conversion to graph transformations — to mixed assessment-style questions.",
       successCriteria: [
         "Convert common angles between degrees and radians.",
         "Use arc length and sector area formulas with radians.",
@@ -688,20 +700,25 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         "Use the unit-circle coordinate rule.",
         "Identify tangent undefined values and asymptotes.",
         "State basic sine, cosine, and tangent graph features.",
+        "State the amplitude and period of $y=a\\sin(bx)$ or $y=a\\cos(bx)$.",
+        "State the phase shift and vertical shift of $y=a\\sin(bx+c)+d$.",
+        "Find the maximum and minimum values of a transformed sinusoidal.",
       ],
       teaching: {
         paragraphs: [
-          "This exam-practice lesson mixes the skills from the unit. First identify whether the question is about angle conversion, arc length, sector area, exact values, the unit circle, or graph features.",
+          "This exam-practice lesson mixes all skills from the unit. First identify whether the question is about angle conversion, arc length, sector area, exact values, the unit circle, basic graph features, or transformed graphs.",
           "Keep exact answers in terms of pi where appropriate, and use radians for arc length and sector area formulas.",
-          "For exact trigonometric values outside quadrant I, use the reference angle for the size and the quadrant for the sign.",
-          "For graph questions, remember that sine and cosine have period $2\\pi$, while tangent has period $\\pi$ and vertical asymptotes.",
+          "For exact trigonometric values outside quadrant I, use the reference angle for the size and the quadrant for the sign (ASTC).",
+          "For basic graph questions: sine and cosine have period $2\\pi$, tangent has period $\\pi$ and vertical asymptotes at $x=\\frac{\\pi}{2}+k\\pi$.",
+          "For transformed sinusoidals $y=a\\sin(bx+c)+d$: amplitude is $|a|$, period is $\\frac{2\\pi}{b}$, phase shift is $-\\frac{c}{b}$ (positive $c$ shifts left), and vertical shift is $d$. Maximum is $d+|a|$, minimum is $d-|a|$.",
         ],
         latexBlocks: [
           "180^\\circ=\\pi",
           "s=r\\theta,\\quad A=\\frac12r^2\\theta",
           "(x,y)=(\\cos\\theta,\\sin\\theta)",
-          "\\tan\\theta=\\frac{\\sin\\theta}{\\cos\\theta}",
           "y=\\sin x,\\ y=\\cos x:\\text{ period }2\\pi;\\quad y=\\tan x:\\text{ period }\\pi",
+          "y=a\\sin(bx+c)+d:\\quad\\text{amp}=|a|,\\quad\\text{period}=\\frac{2\\pi}{b},\\quad\\text{phase shift}=-\\frac{c}{b}",
+          "\\text{max}=d+|a|,\\quad\\text{min}=d-|a|",
         ],
       },
       workedExamples: [
@@ -732,6 +749,18 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
           ],
           finalAnswerLatex: "\\text{period }\\pi,\\quad \\text{asymptote }x=\\frac{\\pi}{2}",
         },
+        {
+          title: "Full feature summary from one transformed equation",
+          questionLatex: "y=3\\cos\\!\\left(2x+\\frac{\\pi}{2}\\right)-1",
+          steps: [
+            { explanation: "Identify a, b, c, d.", latex: "a=3,\\quad b=2,\\quad c=\\frac{\\pi}{2},\\quad d=-1" },
+            { explanation: "Amplitude = |a|.", latex: "\\text{amplitude}=|3|=3" },
+            { explanation: "Period = 2π/b.", latex: "\\text{period}=\\frac{2\\pi}{2}=\\pi" },
+            { explanation: "Phase shift = −c/b. Positive c shifts left.", latex: "\\text{phase shift}=-\\frac{\\pi/2}{2}=-\\frac{\\pi}{4}\\text{ (left }\\tfrac{\\pi}{4}\\text{)}" },
+            { explanation: "Range = [d − |a|, d + |a|].", latex: "[-1-3,\\,-1+3]=[-4,\\,2]" },
+          ],
+          finalAnswerLatex: "\\text{amp }3,\\;\\text{period }\\pi,\\;\\text{shift left }\\tfrac{\\pi}{4},\\;\\text{range }[-4,2]",
+        },
       ],
       guidedPractice: [
         formulaAnswer("y11adv-trig-exam-g1", "Convert the angle to radians.", "30^\\circ", "pi/6", ["\\pi/6", "π/6"]),
@@ -745,12 +774,16 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         practicalChoice("y11adv-trig-exam-i3", "Which coordinate rule is correct?", "A", ["$(\\cos\\theta,\\sin\\theta)$", "$(\\sin\\theta,\\cos\\theta)$", "$(\\tan\\theta,\\sin\\theta)$", "$(\\theta,\\tan\\theta)$"], "On the unit circle, cosine is x and sine is y.", "\\theta"),
         practicalChoice("y11adv-trig-exam-i4", "Which sign pattern is correct?", "C", ["Sine positive, cosine positive", "Sine positive, cosine negative", "Sine negative, cosine positive", "Sine negative, cosine negative"], "In quadrant IV, y is negative and x is positive.", "\\text{Quadrant IV}"),
         formulaAnswer("y11adv-trig-exam-i5", "State the first positive vertical asymptote of the tangent graph.", "y=\\tan x", "pi/2", ["\\pi/2", "π/2"]),
+        formulaAnswer("y11adv-trig-exam-n1", "State the amplitude.", "y=3\\cos(2x)-1", "3", []),
+        practicalChoice("y11adv-trig-exam-n2", "What is the period of $y=\\sin(2x)+4$?", "B", ["$2\\pi$", "$\\pi$", "$\\frac{\\pi}{2}$", "$4\\pi$"], "Period = 2π/b = 2π/2 = π. The vertical shift d = 4 does not affect the period.", "y=\\sin(2x)+4"),
       ],
       commonMistakes: [
         { mistake: "Forgetting to convert degrees to radians before using circular-measure formulas.", fix: "Use radians in $s=r\\theta$ and $A=\\frac12r^2\\theta$." },
         { mistake: "Using the reference angle but forgetting the quadrant sign.", fix: "Reference angles give magnitude; quadrant signs give positive or negative." },
         { mistake: "Mixing up sine and cosine on the unit circle.", fix: "The unit-circle point is $(\\cos\\theta,\\sin\\theta)$." },
         { mistake: "Giving tangent the same period and range as sine and cosine.", fix: "Tangent has period $\\pi$ and all real y-values." },
+        { mistake: "Writing period $=b\\times2\\pi$ instead of $\\frac{2\\pi}{b}$.", fix: "Period is DIVIDED by $b$. Larger $b$ gives a shorter period." },
+        { mistake: "Including the vertical shift $d$ in the amplitude.", fix: "Amplitude $=|a|$. Vertical shift raises the midline but does not change $|a|$." },
       ],
       masteryQuiz: [
         formulaAnswer("y11adv-trig-exam-m1", "Convert the angle to radians.", "180^\\circ", "pi", ["\\pi", "π"]),
@@ -763,6 +796,67 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         practicalChoice("y11adv-trig-exam-m8", "Which graph has starting value one?", "C", ["$y=\\sin x$", "$y=\\tan x$", "$y=\\cos x$", "$y=-\\cos x$"], "Cosine starts at 1 when x is zero.", "x=0"),
         practicalChoice("y11adv-trig-exam-m9", "Which exact value is correct?", "D", ["$\\frac{\\sqrt3}{2}$", "$-\\frac{\\sqrt2}{2}$", "$\\frac12$", "$-\\frac{\\sqrt3}{2}$"], "Use the reference angle and quadrant III cosine sign.", "\\cos\\left(\\frac{7\\pi}{6}\\right)"),
         formulaAnswer("y11adv-trig-exam-m10", "State the period of the basic tangent graph.", "y=\\tan x", "pi", ["\\pi", "π"]),
+        formulaAnswer("y11adv-trig-exam-p1", "State the amplitude.", "y=5\\sin(2x)+3", "5", []),
+        formulaAnswer("y11adv-trig-exam-p2", "State the period.", "y=\\cos(3x)-2", "2pi/3", ["2\\pi/3", "2π/3"]),
+        practicalChoice("y11adv-trig-exam-p3", "What is the maximum value of $y=4\\sin\\!\\left(x+\\frac{\\pi}{6}\\right)-1$?", "B", ["$5$", "$3$", "$-1$", "$4$"], "Maximum = d + |a| = −1 + 4 = 3.", "y=4\\sin\\!\\left(x+\\frac{\\pi}{6}\\right)-1"),
+        formulaAnswer("y11adv-trig-exam-p4", "State the size of the phase shift.", "y=\\sin\\!\\left(2x-\\frac{\\pi}{2}\\right)", "pi/4", ["\\pi/4", "π/4"]),
+      ],
+      multiPartPractice: [
+        {
+          id: "y11adv-trig-exam-mp1",
+          prompt: "For the sinusoidal $y=2\\sin\\!\\left(3x-\\frac{\\pi}{2}\\right)+1$, state each feature.",
+          latex: "y=2\\sin\\!\\left(3x-\\frac{\\pi}{2}\\right)+1",
+          answer: "see parts",
+          hint: "Identify a = 2, b = 3, c = −π/2, d = 1. Then apply the standard formulas.",
+          explanation:
+            "(a) amplitude = |a| = 2. (b) period = 2π/b = 2π/3. (c) phase shift = −c/b = −(−π/2)/3 = π/6 (right). (d) maximum = d + |a| = 1 + 2 = 3.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "State the amplitude.",
+              latex: "\\text{amplitude}=|a|",
+              marks: 1,
+              answer: "2",
+              acceptedAnswers: [],
+              hint: "Amplitude = |a|. Read the coefficient of sin.",
+              explanation: "a = 2, so amplitude = |2| = 2.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "State the period.",
+              latex: "\\text{period}=\\frac{2\\pi}{b}",
+              marks: 1,
+              answer: "2pi/3",
+              acceptedAnswers: ["2\\pi/3", "2π/3"],
+              hint: "Period = 2π/b. Here b = 3.",
+              explanation: "b = 3. Period = 2π/3.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "State the size of the phase shift.",
+              latex: "\\text{phase shift}=-\\frac{c}{b}",
+              marks: 1,
+              answer: "pi/6",
+              acceptedAnswers: ["\\pi/6", "π/6"],
+              hint: "Phase shift = −c/b = −(−π/2)/3. Simplify the double negative.",
+              explanation: "c = −π/2, b = 3. Phase shift = (π/2)/3 = π/6 to the right.",
+            },
+            {
+              key: "d",
+              label: "(d)",
+              prompt: "State the maximum value of y.",
+              latex: "\\text{max}=d+|a|",
+              marks: 1,
+              answer: "3",
+              acceptedAnswers: [],
+              hint: "Maximum = d + |a| = 1 + 2.",
+              explanation: "d = 1, |a| = 2. Maximum = 1 + 2 = 3.",
+            },
+          ],
+        },
       ],
     };
   }
@@ -2272,9 +2366,9 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         ],
         latexBlocks: [
           "\\text{amplitude}=|a|",
-          "\\text{period}=\\frac{2\\pi}{b}\\quad(\\text{for }\\sin\\text{ and }\\cos)",
-          "\\text{range}=[-|a|,\\,|a|]\\quad(\\text{when }d=0)",
-          "y=a\\sin(bx):\\quad\\text{max }|a|,\\quad\\min -|a|",
+          "\\text{period}=\\frac{2\\pi}{b}",
+          "\\text{range}=[-|a|,\\,|a|]",
+          "\\text{max}=|a|,\\quad\\text{min}=-|a|",
         ],
       },
       workedExamples: [
@@ -2288,7 +2382,7 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
             { explanation: "Period is unchanged: b = 1.", latex: "\\text{period}=\\frac{2\\pi}{1}=2\\pi" },
             { explanation: "Range stretches from −3 to 3.", latex: "\\text{range}=[-3,3]" },
           ],
-          finalAnswerLatex: "\\text{amplitude }3,\\quad\\text{period }2\\pi,\\quad\\text{range }[-3,3]",
+          finalAnswerLatex: "\\text{amp }3,\\;\\text{period }2\\pi\\\\\\text{range }[-3,3]",
         },
         {
           title: "Period: y = cos(2x)",
@@ -2310,9 +2404,9 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
             { explanation: "Identify a = −2 and b = 3.", latex: "a=-2,\\quad b=3" },
             { explanation: "Amplitude is |a| — ignore the sign.", latex: "\\text{amplitude}=|-2|=2" },
             { explanation: "Period = 2π/b.", latex: "\\text{period}=\\frac{2\\pi}{3}" },
-            { explanation: "Negative a reflects the graph: the curve opens downward first, going to −2 before reaching 2.", latex: "\\text{reflected: starts at }0\\text{ and falls to }-2" },
+            { explanation: "Negative a reflects the graph: the curve opens downward first, going to −2 before reaching 2.", latex: "\\text{reflected: falls to }-2\\text{ first}" },
           ],
-          finalAnswerLatex: "\\text{amplitude }2,\\quad\\text{period }\\frac{2\\pi}{3},\\quad\\text{reflected}",
+          finalAnswerLatex: "\\text{amp }2,\\;\\text{period }\\tfrac{2\\pi}{3}\\\\\\text{reflected}",
         },
       ],
       guidedPractice: [
@@ -2508,7 +2602,7 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         latexBlocks: [
           "y=a\\sin(bx+c)+d",
           "\\text{amplitude}=|a|,\\quad\\text{period}=\\frac{2\\pi}{b}",
-          "\\text{phase shift}=-\\frac{c}{b}\\quad(\\text{negative: left; positive: right})",
+          "\\text{phase shift}=-\\frac{c}{b}",
           "\\text{vertical shift}=d,\\quad\\text{midline: }y=d",
           "\\text{range}=[d-|a|,\\,d+|a|]",
         ],
@@ -2524,7 +2618,7 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
             { explanation: "Phase shift = −c/b = −(π/3)/1. Negative means LEFT.", latex: "\\text{phase shift}=-\\frac{\\pi}{3}\\;(\\text{left})" },
             { explanation: "Vertical shift d = 1. Range = [d−|a|, d+|a|].", latex: "\\text{range}=[1-2,\\,1+2]=[-1,3]" },
           ],
-          finalAnswerLatex: "\\text{amplitude }2,\\;\\text{period }2\\pi,\\;\\text{shift }-\\frac{\\pi}{3}\\text{ left},\\;\\text{range }[-1,3]",
+          finalAnswerLatex: "\\text{amp }2,\\;\\text{period }2\\pi,\\;\\text{shift }-\\tfrac{\\pi}{3}\\text{ left}\\\\\\text{range }[-1,3]",
         },
         {
           title: "Right phase shift: y = 3cos(2x − π/2)",
@@ -2536,7 +2630,7 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
             { explanation: "Phase shift = −c/b = −(−π/2)/2 = π/4. Positive means RIGHT.", latex: "\\text{phase shift}=+\\frac{\\pi}{4}\\;(\\text{right})" },
             { explanation: "No vertical shift. Range stays [−3, 3].", latex: "d=0,\\;\\text{range}=[-3,3]" },
           ],
-          finalAnswerLatex: "\\text{amplitude }3,\\;\\text{period }\\pi,\\;\\text{shift }\\frac{\\pi}{4}\\text{ right},\\;\\text{range }[-3,3]",
+          finalAnswerLatex: "\\text{amp }3,\\;\\text{period }\\pi,\\;\\text{shift }+\\tfrac{\\pi}{4}\\text{ right}\\\\\\text{range }[-3,3]",
         },
         {
           title: "Vertical shift and reflection: y = −sin(x) + 2",

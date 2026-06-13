@@ -2,7 +2,7 @@
 # Skill Map v2 Split Plan
 
 Created: 2026-06-13  
-Status: Phase 1 ✅, Phase 2A ✅, Phase 2B ✅, Phase 3 ✅ implemented 2026-06-13.
+Status: Phase 1 ✅, Phase 2A ✅, Phase 2B ✅, Phase 3 ✅, Phase 4 ✅ implemented 2026-06-13.
 Course: `year-11-advanced`  
 Unit: `trigonometry-measure-angles`  
 NSW strand: MA-T1 — Trigonometry and Measure of Angles
@@ -923,4 +923,51 @@ y = tan x graph and asymptotes             → trig-tangent-graph (9)
 y = a sin(bx): amplitude and period        → trig-amplitude-period (10) ← NEW
 y = a sin(bx + c) + d: shifts             → trig-phase-vertical-shift (11) ← NEW
 Mixed MA-T1 exam practice                  → trig-measure-angles-exam-practice (12)
+
+---
+
+## Phase 4 Implementation Status — 2026-06-13
+
+### Objective
+Expand `trigonometry-measure-angles-exam-practice` to sample all 11 v2 unit slots, add 4+ new exam-style questions covering slots 10–11 (amplitude/period + transformations), and include an MVP-safe multi-part question. Conduct visual smoke on the two Phase 3 lesson pages at 390px viewport and resolve all horizontal overflow.
+
+### Exam practice question expansion
+
+| Section | Before | After | New IDs |
+|---|---|---|---|
+| `guidedPractice` | 4 | 4 | — |
+| `independentPractice` | 5 | 7 | `y11adv-trig-exam-n1`, `y11adv-trig-exam-n2` |
+| `masteryQuiz` | 10 | 14 | `y11adv-trig-exam-n1`, `y11adv-trig-exam-n2`, `y11adv-trig-exam-p1`–`p4` |
+| `multiPartPractice` | 0 | 1 | `y11adv-trig-exam-mp1` |
+| **Total seed questions** | **19** | **26** | |
+
+### Multi-part question
+`y11adv-trig-exam-mp1`: For y = 2sin(3x − π/2) + 1, state (a) amplitude=2, (b) period=2π/3, (c) phase shift=π/6 right, (d) maximum=3.
+
+### Teaching section latexBlocks expanded
+Added `y=a\sin(bx+c)+d` summary formula, max/min formulas to the exam practice teaching block.
+
+### Visual smoke results (390px viewport, headed Chromium)
+
+| Page | Overflow before | Overflow after | SVG count |
+|---|---|---|---|
+| `trig-graph-amplitude-period` | scroll=416 > client=375 | ✅ scroll=375=client | 17 |
+| `trig-graph-transformations` | scroll=375=client | ✅ scroll=375=client | 17 |
+
+**Root causes fixed:**
+- `trig-graph-amplitude-period` WE1 `finalAnswerLatex`: shortened amplitude/period/range to use `\\\\` line break
+- `trig-graph-amplitude-period` WE3 step latex: shortened "reflected: starts at 0 and falls to −2"
+- `trig-graph-amplitude-period` WE3 `finalAnswerLatex`: shortened amplitude/period/reflected to use `\\\\` line break
+- `trig-graph-amplitude-period` latexBlocks: removed `\quad(\text{for sin and cos})` and `\quad(\text{when }d=0)` qualifiers; split combined max/min entry
+- `trig-graph-transformations` latexBlocks: removed phase-shift qualifier; broke WE1/WE2 `finalAnswerLatex` with `\\\\`
+
+### Validation results
+
+| Check | Result |
+|---|---|
+| `npx tsc --noEmit` | ✅ Clean |
+| `npm run build` | ✅ Clean |
+| `npm run audit:lessons` | ✅ PASS (0 failures) |
+| `seed --dry-run` (year-11-advanced) | ✅ exam-practice seeded 26 questions |
+| `git diff --check` | ✅ Clean (pre-existing LF/CRLF notices only) |
 ```
