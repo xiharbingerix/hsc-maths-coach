@@ -148,6 +148,8 @@ function QuestionCard({
             diagram={question.diagram}
             triangleDiagram={question.triangleDiagram}
             cartesianGraph={question.cartesianGraph}
+            unitCircleDiagram={question.unitCircleDiagram}
+            trigGraphDiagram={question.trigGraphDiagram}
             argandDiagram={question.argandDiagram}
             vector3DDiagram={question.vector3DDiagram}
             trapezoidalRuleDiagram={question.trapezoidalRuleDiagram}
@@ -294,6 +296,8 @@ function SectionCard({
               diagram={section.example.diagram}
               triangleDiagram={section.example.triangleDiagram}
               cartesianGraph={section.example.cartesianGraph}
+              unitCircleDiagram={section.example.unitCircleDiagram}
+              trigGraphDiagram={section.example.trigGraphDiagram}
               argandDiagram={section.example.argandDiagram}
               vector3DDiagram={section.example.vector3DDiagram}
               trapezoidalRuleDiagram={section.example.trapezoidalRuleDiagram}

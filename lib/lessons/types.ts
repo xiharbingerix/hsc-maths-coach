@@ -110,6 +110,52 @@ export type Vector3DDiagram = {
   }[];
 };
 
+export type UnitCirclePoint = {
+  x: string;
+  y: string;
+  label?: string;
+};
+
+export type UnitCircleDiagram = {
+  description: string;
+  angleRadians?: string;
+  angleDegrees?: string;
+  terminalPoint?: UnitCirclePoint;
+  quadrant?: 1 | 2 | 3 | 4 | "axis";
+  referenceAngle?: string;
+  showReferenceTriangle?: boolean;
+  highlightRadius?: boolean;
+  symmetryPoints?: UnitCirclePoint[];
+  notes?: string[];
+};
+
+export type TrigGraphFunctionType = "sin" | "cos" | "tan";
+
+export type TrigGraphPoint = {
+  x: string;
+  y: string;
+  label?: string;
+};
+
+export type TrigGraphMarker = {
+  x: string;
+  label?: string;
+};
+
+export type TrigGraphDiagram = {
+  description: string;
+  functionType: TrigGraphFunctionType;
+  equationLabel?: string;
+  xMin?: string;
+  xMax?: string;
+  yMin?: number;
+  yMax?: number;
+  keyPoints?: TrigGraphPoint[];
+  asymptotes?: TrigGraphMarker[];
+  periodMarkers?: TrigGraphMarker[];
+  notes?: string[];
+};
+
 export type CartesianFunction =
   | {
       functionType: "line";

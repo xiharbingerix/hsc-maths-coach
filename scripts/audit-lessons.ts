@@ -119,6 +119,8 @@ function hasItemVisualPayload(item: WorkedExample | PracticeQuestion) {
       ("solutionDiagram" in item && item.solutionDiagram) ||
       item.triangleDiagram ||
       item.cartesianGraph ||
+      item.unitCircleDiagram ||
+      item.trigGraphDiagram ||
       item.argandDiagram ||
       item.vector3DDiagram ||
       item.trapezoidalRuleDiagram ||
@@ -285,6 +287,133 @@ function validateVector3DDiagram(value: unknown, path: string) {
         validateVector3DPoint(line.direction, `${path}.lines[${index}].direction`);
       });
     }
+  }
+}
+
+function validateStringPoint(value: unknown, path: string) {
+  if (!isRecord(value) || !isNonEmptyString(value.x) || !isNonEmptyString(value.y)) {
+    addIssue("FAIL", "visual-payload", path, "Point must contain non-empty string x and y values.");
+  }
+}
+
+function validateUnitCircleDiagram(value: unknown, path: string) {
+  if (!isRecord(value)) {
+    addIssue("FAIL", "unit-circle-payload", path, "Unit circle diagram must be an object.");
+    return;
+  }
+
+  if (!isNonEmptyString(value.description)) {
+    addIssue("FAIL", "unit-circle-payload", path, "Unit circle diagram requires a description.");
+  }
+
+  if (value.angleRadians !== undefined && !isNonEmptyString(value.angleRadians)) {
+    addIssue("FAIL", "unit-circle-payload", path, "angleRadians must be a non-empty string when supplied.");
+  }
+
+  if (value.angleDegrees !== undefined && !isNonEmptyString(value.angleDegrees)) {
+    addIssue("FAIL", "unit-circle-payload", path, "angleDegrees must be a non-empty string when supplied.");
+  }
+
+  if (
+    value.quadrant !== undefined &&
+    ![1, 2, 3, 4, "axis"].includes(value.quadrant as 1 | 2 | 3 | 4 | "axis")
+  ) {
+    addIssue("FAIL", "unit-circle-payload", path, "quadrant must be 1, 2, 3, 4 or axis.");
+  }
+
+  if (value.terminalPoint !== undefined) {
+    validateStringPoint(value.terminalPoint, `${path}.terminalPoint`);
+  }
+
+  if (value.referenceAngle !== undefined && !isNonEmptyString(value.referenceAngle)) {
+    addIssue("FAIL", "unit-circle-payload", path, "referenceAngle must be a non-empty string when supplied.");
+  }
+
+  if (value.showReferenceTriangle !== undefined && typeof value.showReferenceTriangle !== "boolean") {
+    addIssue("FAIL", "unit-circle-payload", path, "showReferenceTriangle must be boolean when supplied.");
+  }
+
+  if (value.highlightRadius !== undefined && typeof value.highlightRadius !== "boolean") {
+    addIssue("FAIL", "unit-circle-payload", path, "highlightRadius must be boolean when supplied.");
+  }
+
+  if (value.symmetryPoints !== undefined) {
+    if (!Array.isArray(value.symmetryPoints)) {
+      addIssue("FAIL", "unit-circle-payload", path, "symmetryPoints must be an array when supplied.");
+    } else {
+      value.symmetryPoints.forEach((point, index) =>
+        validateStringPoint(point, `${path}.symmetryPoints[${index}]`)
+      );
+    }
+  }
+
+  if (
+    value.notes !== undefined &&
+    (!Array.isArray(value.notes) || value.notes.some((note) => !isNonEmptyString(note)))
+  ) {
+    addIssue("FAIL", "unit-circle-payload", path, "notes must be non-empty strings when supplied.");
+  }
+}
+
+function validateTrigGraphDiagram(value: unknown, path: string) {
+  if (!isRecord(value)) {
+    addIssue("FAIL", "trig-graph-payload", path, "Trig graph diagram must be an object.");
+    return;
+  }
+
+  if (!isNonEmptyString(value.description)) {
+    addIssue("FAIL", "trig-graph-payload", path, "Trig graph diagram requires a description.");
+  }
+
+  if (!["sin", "cos", "tan"].includes(String(value.functionType))) {
+    addIssue("FAIL", "trig-graph-payload", path, "functionType must be sin, cos or tan.");
+  }
+
+  for (const key of ["equationLabel", "xMin", "xMax"] as const) {
+    if (value[key] !== undefined && !isNonEmptyString(value[key])) {
+      addIssue("FAIL", "trig-graph-payload", path, `${key} must be a non-empty string when supplied.`);
+    }
+  }
+
+  for (const key of ["yMin", "yMax"] as const) {
+    if (value[key] !== undefined && !isFiniteNumber(value[key])) {
+      addIssue("FAIL", "trig-graph-payload", path, `${key} must be a finite number when supplied.`);
+    }
+  }
+
+  if (isFiniteNumber(value.yMin) && isFiniteNumber(value.yMax) && value.yMin >= value.yMax) {
+    addIssue("FAIL", "trig-graph-payload", path, "yMin must be less than yMax.");
+  }
+
+  if (value.keyPoints !== undefined) {
+    if (!Array.isArray(value.keyPoints)) {
+      addIssue("FAIL", "trig-graph-payload", path, "keyPoints must be an array when supplied.");
+    } else {
+      value.keyPoints.forEach((point, index) =>
+        validateStringPoint(point, `${path}.keyPoints[${index}]`)
+      );
+    }
+  }
+
+  for (const collection of ["asymptotes", "periodMarkers"] as const) {
+    if (value[collection] !== undefined) {
+      if (!Array.isArray(value[collection])) {
+        addIssue("FAIL", "trig-graph-payload", path, `${collection} must be an array when supplied.`);
+      } else {
+        value[collection].forEach((marker, index) => {
+          if (!isRecord(marker) || !isNonEmptyString(marker.x)) {
+            addIssue("FAIL", "trig-graph-payload", `${path}.${collection}[${index}]`, "Marker requires non-empty string x.");
+          }
+        });
+      }
+    }
+  }
+
+  if (
+    value.notes !== undefined &&
+    (!Array.isArray(value.notes) || value.notes.some((note) => !isNonEmptyString(note)))
+  ) {
+    addIssue("FAIL", "trig-graph-payload", path, "notes must be non-empty strings when supplied.");
   }
 }
 
@@ -1035,6 +1164,8 @@ function validateVisualPayloads(lesson: ExplicitLesson, basePath: string) {
     const path = `${basePath}.visualItem[${index}]`;
     if (item.triangleDiagram) validateTriangleDiagram(item.triangleDiagram, `${path}.triangleDiagram`);
     if (item.cartesianGraph) validateCartesianGraph(item.cartesianGraph, `${path}.cartesianGraph`);
+    if (item.unitCircleDiagram) validateUnitCircleDiagram(item.unitCircleDiagram, `${path}.unitCircleDiagram`);
+    if (item.trigGraphDiagram) validateTrigGraphDiagram(item.trigGraphDiagram, `${path}.trigGraphDiagram`);
     if (item.argandDiagram) validateArgandDiagram(item.argandDiagram, `${path}.argandDiagram`);
     if (item.vector3DDiagram) validateVector3DDiagram(item.vector3DDiagram, `${path}.vector3DDiagram`);
     if (item.trapezoidalRuleDiagram) {

@@ -12,8 +12,10 @@ import { NetworkDiagramView } from "../../course/components/NetworkDiagramView";
 import { NormalDistributionView } from "../../course/components/NormalDistributionView";
 import { ProbabilityTreeView } from "../../course/components/ProbabilityTreeView";
 import { TrapezoidalRuleView } from "../../course/components/TrapezoidalRuleView";
+import { TrigGraphDiagramView } from "../../course/components/TrigGraphDiagramView";
 import { TriangleDiagramView } from "../../course/components/TriangleDiagramView";
 import { TwoWayTableView } from "../../course/components/TwoWayTableView";
+import { UnitCircleDiagramView } from "../../course/components/UnitCircleDiagramView";
 import { Vector3DDiagramView } from "../../course/components/Vector3DDiagramView";
 import { VennDiagramView } from "../../course/components/VennDiagramView";
 import { supabase } from "../../../lib/supabaseClient";
@@ -24,9 +26,11 @@ import type {
   NetworkDiagram,
   NormalDistributionDiagram,
   ProbabilityTreeDiagram,
+  TrigGraphDiagram,
   TrapezoidalRuleDiagram,
   TriangleDiagram,
   TwoWayTableDiagram,
+  UnitCircleDiagram,
   Vector3DDiagram,
   VennDiagram,
 } from "../../../lib/lessons/types";
@@ -40,6 +44,10 @@ function DiagramRenderer({ data }: { data: Record<string, unknown> | null }) {
   switch (type) {
     case "cartesianGraph":
       return <CartesianGraphView graph={rest as CartesianGraph} />;
+    case "unitCircleDiagram":
+      return <UnitCircleDiagramView diagram={rest as UnitCircleDiagram} />;
+    case "trigGraphDiagram":
+      return <TrigGraphDiagramView diagram={rest as TrigGraphDiagram} />;
     case "argandDiagram":
       return <ArgandDiagramView diagram={rest as ArgandDiagram} />;
     case "vector3DDiagram":

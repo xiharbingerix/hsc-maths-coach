@@ -656,6 +656,8 @@ Currently supported payload fields:
 - `trapezoidalRuleDiagram`
 - `argandDiagram`
 - `vector3DDiagram`
+- `unitCircleDiagram`
+- `trigGraphDiagram`
 
 ### ArgandDiagram
 
@@ -692,6 +694,53 @@ vector3DDiagram: {
       label: "r = a + tv",
     },
   ],
+}
+```
+
+### UnitCircleDiagram
+
+Use `unitCircleDiagram` for exact trigonometric values, quadrant signs, reference angles, terminal points, and symmetry on the unit circle.
+
+```typescript
+unitCircleDiagram: {
+  description: "Unit circle showing angle 2pi/3 in quadrant II.",
+  angleRadians: "2pi/3",
+  angleDegrees: "120",
+  terminalPoint: { x: "-1/2", y: "sqrt{3}/2", label: "(-1/2, sqrt(3)/2)" },
+  quadrant: 2,
+  referenceAngle: "pi/3",
+  showReferenceTriangle: true,
+  highlightRadius: true,
+  symmetryPoints: [
+    { x: "1/2", y: "sqrt{3}/2", label: "Q1 related point" },
+  ],
+  notes: ["Cosine is negative and sine is positive in quadrant II."],
+}
+```
+
+### TrigGraphDiagram
+
+Use `trigGraphDiagram` for sine, cosine, and tangent graph features when symbolic radian labels, key points, period markers, or tangent asymptotes matter.
+
+```typescript
+trigGraphDiagram: {
+  description: "Graph of y = tan x from -pi to pi with asymptotes.",
+  functionType: "tan",
+  equationLabel: "y = tan x",
+  xMin: "-pi",
+  xMax: "pi",
+  yMin: -4,
+  yMax: 4,
+  keyPoints: [{ x: "0", y: "0", label: "(0, 0)" }],
+  asymptotes: [
+    { x: "-pi/2", label: "x = -pi/2" },
+    { x: "pi/2", label: "x = pi/2" },
+  ],
+  periodMarkers: [
+    { x: "0", label: "centre" },
+    { x: "pi", label: "period pi" },
+  ],
+  notes: ["Tangent repeats every pi radians."],
 }
 ```
 

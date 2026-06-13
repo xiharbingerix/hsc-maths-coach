@@ -5,9 +5,11 @@ import type {
   NetworkDiagram,
   NormalDistributionDiagram,
   ProbabilityTreeDiagram,
+  TrigGraphDiagram,
   TrapezoidalRuleDiagram,
   TriangleDiagram,
   TwoWayTableDiagram,
+  UnitCircleDiagram,
   Vector3DDiagram,
   VennDiagram,
 } from "./types";
@@ -32,6 +34,8 @@ export type PracticeQuestion = {
   diagram?: NetworkDiagram;
   triangleDiagram?: TriangleDiagram;
   cartesianGraph?: CartesianGraph;
+  unitCircleDiagram?: UnitCircleDiagram;
+  trigGraphDiagram?: TrigGraphDiagram;
   argandDiagram?: ArgandDiagram;
   vector3DDiagram?: Vector3DDiagram;
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
@@ -71,6 +75,8 @@ export type WorkedExample = {
   diagram?: NetworkDiagram;
   triangleDiagram?: TriangleDiagram;
   cartesianGraph?: CartesianGraph;
+  unitCircleDiagram?: UnitCircleDiagram;
+  trigGraphDiagram?: TrigGraphDiagram;
   argandDiagram?: ArgandDiagram;
   vector3DDiagram?: Vector3DDiagram;
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;

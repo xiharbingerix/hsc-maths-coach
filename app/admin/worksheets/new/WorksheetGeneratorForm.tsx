@@ -10,8 +10,10 @@ import { NetworkDiagramView } from "../../../course/components/NetworkDiagramVie
 import { NormalDistributionView } from "../../../course/components/NormalDistributionView";
 import { ProbabilityTreeView } from "../../../course/components/ProbabilityTreeView";
 import { TrapezoidalRuleView } from "../../../course/components/TrapezoidalRuleView";
+import { TrigGraphDiagramView } from "../../../course/components/TrigGraphDiagramView";
 import { TriangleDiagramView } from "../../../course/components/TriangleDiagramView";
 import { TwoWayTableView } from "../../../course/components/TwoWayTableView";
+import { UnitCircleDiagramView } from "../../../course/components/UnitCircleDiagramView";
 import { Vector3DDiagramView } from "../../../course/components/Vector3DDiagramView";
 import { VennDiagramView } from "../../../course/components/VennDiagramView";
 import type {
@@ -21,9 +23,11 @@ import type {
   NetworkDiagram,
   NormalDistributionDiagram,
   ProbabilityTreeDiagram,
+  TrigGraphDiagram,
   TrapezoidalRuleDiagram,
   TriangleDiagram,
   TwoWayTableDiagram,
+  UnitCircleDiagram,
   Vector3DDiagram,
   VennDiagram,
 } from "../../../../lib/lessons/types";
@@ -110,6 +114,10 @@ function DiagramPreview({ data }: { data: Record<string, unknown> | null }) {
     <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-3">
       {type === "cartesianGraph" ? (
         <CartesianGraphView graph={rest as CartesianGraph} />
+      ) : type === "unitCircleDiagram" ? (
+        <UnitCircleDiagramView diagram={rest as UnitCircleDiagram} />
+      ) : type === "trigGraphDiagram" ? (
+        <TrigGraphDiagramView diagram={rest as TrigGraphDiagram} />
       ) : type === "argandDiagram" ? (
         <ArgandDiagramView diagram={rest as ArgandDiagram} />
       ) : type === "vector3DDiagram" ? (

@@ -235,6 +235,8 @@ export function inferDifficulty(
 
 function extractDiagramData(q: PracticeQuestion): Record<string, unknown> | null {
   if (q.cartesianGraph)            return { type: "cartesianGraph",            ...q.cartesianGraph };
+  if (q.unitCircleDiagram)         return { type: "unitCircleDiagram",         ...q.unitCircleDiagram };
+  if (q.trigGraphDiagram)          return { type: "trigGraphDiagram",          ...q.trigGraphDiagram };
   if (q.argandDiagram)             return { type: "argandDiagram",             ...q.argandDiagram };
   if (q.vector3DDiagram)           return { type: "vector3DDiagram",           ...q.vector3DDiagram };
   if (q.triangleDiagram)           return { type: "triangleDiagram",           ...q.triangleDiagram };

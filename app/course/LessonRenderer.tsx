@@ -24,7 +24,9 @@ import { TrapezoidalRuleView } from "./components/TrapezoidalRuleView";
 import { BoxPlotView } from "./components/BoxPlotView";
 import { NormalDistributionView } from "./components/NormalDistributionView";
 import { ProbabilityTreeView } from "./components/ProbabilityTreeView";
+import { TrigGraphDiagramView } from "./components/TrigGraphDiagramView";
 import { TwoWayTableView } from "./components/TwoWayTableView";
+import { UnitCircleDiagramView } from "./components/UnitCircleDiagramView";
 import { Vector3DDiagramView } from "./components/Vector3DDiagramView";
 import { VennDiagramView } from "./components/VennDiagramView";
 import { markTypedAnswer } from "../../lib/answerMarking";
@@ -303,6 +305,12 @@ function MultiPartPracticeCard({
         {question.cartesianGraph && (
           <CartesianGraphView graph={question.cartesianGraph} />
         )}
+        {question.unitCircleDiagram && (
+          <UnitCircleDiagramView diagram={question.unitCircleDiagram} />
+        )}
+        {question.trigGraphDiagram && (
+          <TrigGraphDiagramView diagram={question.trigGraphDiagram} />
+        )}
         {question.argandDiagram && (
           <ArgandDiagramView diagram={question.argandDiagram} />
         )}
@@ -450,6 +458,12 @@ function MultiPartQuizQuestion({
         )}
         {question.cartesianGraph && (
           <CartesianGraphView graph={question.cartesianGraph} />
+        )}
+        {question.unitCircleDiagram && (
+          <UnitCircleDiagramView diagram={question.unitCircleDiagram} />
+        )}
+        {question.trigGraphDiagram && (
+          <TrigGraphDiagramView diagram={question.trigGraphDiagram} />
         )}
         {question.argandDiagram && (
           <ArgandDiagramView diagram={question.argandDiagram} />
@@ -848,6 +862,12 @@ function PracticeCard({
         {question.cartesianGraph && (
           <CartesianGraphView graph={question.cartesianGraph} />
         )}
+        {question.unitCircleDiagram && (
+          <UnitCircleDiagramView diagram={question.unitCircleDiagram} />
+        )}
+        {question.trigGraphDiagram && (
+          <TrigGraphDiagramView diagram={question.trigGraphDiagram} />
+        )}
         {question.argandDiagram && (
           <ArgandDiagramView diagram={question.argandDiagram} />
         )}
@@ -1136,6 +1156,12 @@ function QuizQuestion({
         {question.cartesianGraph && (
           <CartesianGraphView graph={question.cartesianGraph} />
         )}
+        {question.unitCircleDiagram && (
+          <UnitCircleDiagramView diagram={question.unitCircleDiagram} />
+        )}
+        {question.trigGraphDiagram && (
+          <TrigGraphDiagramView diagram={question.trigGraphDiagram} />
+        )}
         {question.argandDiagram && (
           <ArgandDiagramView diagram={question.argandDiagram} />
         )}
@@ -1289,6 +1315,12 @@ function MasteryResultPanel({
                     {question.cartesianGraph && (
                       <CartesianGraphView graph={question.cartesianGraph} />
                     )}
+                    {question.unitCircleDiagram && (
+                      <UnitCircleDiagramView diagram={question.unitCircleDiagram} />
+                    )}
+                    {question.trigGraphDiagram && (
+                      <TrigGraphDiagramView diagram={question.trigGraphDiagram} />
+                    )}
                     {question.argandDiagram && (
                       <ArgandDiagramView diagram={question.argandDiagram} />
                     )}
@@ -1419,6 +1451,12 @@ function MasteryResultPanel({
                 )}
                 {question.cartesianGraph && (
                   <CartesianGraphView graph={question.cartesianGraph} />
+                )}
+                {question.unitCircleDiagram && (
+                  <UnitCircleDiagramView diagram={question.unitCircleDiagram} />
+                )}
+                {question.trigGraphDiagram && (
+                  <TrigGraphDiagramView diagram={question.trigGraphDiagram} />
                 )}
                 {question.argandDiagram && (
                   <ArgandDiagramView diagram={question.argandDiagram} />
@@ -2071,6 +2109,12 @@ export function LessonRenderer({
                 )}
                 {example.cartesianGraph && (
                   <CartesianGraphView graph={example.cartesianGraph} />
+                )}
+                {example.unitCircleDiagram && (
+                  <UnitCircleDiagramView diagram={example.unitCircleDiagram} />
+                )}
+                {example.trigGraphDiagram && (
+                  <TrigGraphDiagramView diagram={example.trigGraphDiagram} />
                 )}
                 {example.argandDiagram && (
                   <ArgandDiagramView diagram={example.argandDiagram} />
