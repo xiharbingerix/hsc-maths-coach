@@ -18,7 +18,7 @@
 | Year 10 Mathematics | 10 | ~56 | — | ✅ Available |
 | Year 10 Mathematics Advanced | 10 | ~56 | 16 topics / 128 subtopics | 🔄 In progress |
 | Year 10 Mathematics Core | 10 trimmed | ~40 | 12 topics / 76 subtopics | 🔄 In progress |
-| Year 11 Standard | 9 | 61 | 9 topics / 63 subtopics (2026) | 🔄 Depth pass in progress (+2 remaining) |
+| Year 11 Standard | 9 | 63 | 9 topics / 63 subtopics (2026) | ✅ Depth pass complete |
 | Year 11 Advanced | 8 | 54 | 11 topics / 90 subtopics (2026) | ✅ Available |
 | Year 11 Extension | 5 of 5 | 25 | 5 topics / 30 subtopics (2026) | ✅ Available |
 | Year 12 Standard 1 | 5 | 18 | 7 topics / 29 subtopics | 🔄 In progress |
@@ -155,15 +155,15 @@ Depth pass completed 2026-06-14.
 - [x] **Leave Entitlements and Superannuation** — annual leave, leave loading at 17.5%, super guarantee at 11%, calculating employer contributions
 - [x] **Government Benefits and Allowances** — Youth Allowance, Centrelink payments, Family Tax Benefit, means testing with income-free area
 
-### Managing Money (5 / ~7)
+### Managing Money (7 / ~7) ✅
 
 - [x] Budgets and Cash Flow
 - [x] Saving, Spending and Financial Goals
 - [x] Simple Interest
 - [x] Comparing Financial Decisions
 - [x] Managing Money Exam Practice
-- [ ] **Credit Cards and Consumer Finance** — credit card interest, minimum payments, buy-now-pay-later, late fees, annual fees
-- [ ] **GST, Discounts and Consumer Arithmetic** — calculating GST (10%), pre/post-GST prices, percentage discounts, best-buy and unit pricing
+- [x] **Credit Cards and Consumer Finance** — monthly interest (rate÷12), minimum payments, new balance after payment, BNPL instalments
+- [x] **GST, Discounts and Consumer Arithmetic** — GST-inclusive price (×1.10), pre-GST price (÷1.10), GST amount (÷11), discounts, unit pricing
 
 ### Applications of Measurement (7 / ~7) ✅
 
@@ -217,9 +217,8 @@ Depth pass completed 2026-06-14.
 
 ---
 
-**Depth pass summary (2026-06-14):** 28 lessons to author across all 9 units to reach Class Maths parity.
-**Progress (2026-06-14):** Formulas+Equations ✅ (+4). Linear Relationships ✅ (+4). Earning Money ✅ (+2). Data Analysis ✅ (+4). Networks ✅ (+3). Probability ✅ (+3). Measurement ✅ (+3). Time/Location ✅ (+3). 2 lessons remaining.
-Authoring priority: Managing Money (2) — Credit Cards, GST/Discounts.
+**Depth pass summary (2026-06-14):** 28 lessons authored across all 9 units. ✅ COMPLETE.
+**Final tally:** Formulas+Equations ✅ (+4). Linear Relationships ✅ (+4). Earning Money ✅ (+2). Data Analysis ✅ (+4). Networks ✅ (+3). Probability ✅ (+3). Measurement ✅ (+3). Time/Location ✅ (+3). Managing Money ✅ (+2). Total: +28 lessons, 63 lessons across 9 units.
 
 ---
 

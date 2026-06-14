@@ -1764,6 +1764,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Compare financial choices using total cost, discounts, fees, charges and reasonableness.",
           },
           {
+            slug: "credit-cards-consumer-finance",
+            title: "Credit Cards and Consumer Finance",
+            description:
+              "Calculate monthly interest on credit card balances, find minimum payments, track new balances after payments, and compare credit cards with BNPL services.",
+          },
+          {
+            slug: "gst-discounts-consumer-arithmetic",
+            title: "GST, Discounts and Consumer Arithmetic",
+            description:
+              "Apply 10% GST to find inclusive prices and pre-GST prices, calculate percentage discounts, and use unit pricing to find the best buy.",
+          },
+          {
             slug: "managing-money-exam-practice",
             title: "Managing Money Exam Practice",
             description:

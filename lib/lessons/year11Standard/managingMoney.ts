@@ -27,6 +27,36 @@ function managingMoneyFeedback(prompt: string, latex: string, answer: string): s
   if (context.includes("deposits") || context.includes("deposited") || context.includes("saves") || context.includes("saved")) {
     return `Regular saving is repeated addition, so multiply the weekly deposit by the number of weeks. Use the existing balance too if the question gives one; this gives ${answer}.`;
   }
+  if (context.includes("credit card") || context.includes("minimum payment") || context.includes("bnpl") || context.includes("buy now") || context.includes("annual fee") || context.includes("outstanding balance") || context.includes("monthly interest") || context.includes("instalment")) {
+    if (context.includes("minimum payment")) {
+      return `The minimum payment is a percentage of the outstanding balance. Multiply the balance by the minimum payment rate to find ${answer}.`;
+    }
+    if (context.includes("new balance") || (context.includes("after") && context.includes("payment"))) {
+      return `New balance = old balance + monthly interest − payment made. Add the interest charge first, then subtract the payment to get ${answer}.`;
+    }
+    if (context.includes("monthly interest") || (context.includes("interest") && context.includes("month"))) {
+      return `Monthly interest = balance × annual rate ÷ 12. Convert the annual rate to a decimal, then divide by 12 for the monthly rate. This gives ${answer}.`;
+    }
+    if (context.includes("bnpl") || context.includes("buy now") || context.includes("instalment") || context.includes("equal") ) {
+      return `BNPL splits the purchase into equal instalments. Divide the total price by the number of payments to get ${answer}.`;
+    }
+    return `Credit card charges depend on whether the full balance is paid by the due date. If not, interest accrues at the annual rate. The answer is ${answer}.`;
+  }
+  if (context.includes("gst") || context.includes("goods and services tax")) {
+    if (context.includes("pre-gst") || context.includes("before gst") || context.includes("excluding gst") || context.includes("divide by 1.10") || context.includes("÷ 1.10")) {
+      return `To find the pre-GST price, divide the inclusive price by 1.10 (since inclusive = pre-GST × 1.10). That gives ${answer}.`;
+    }
+    if (context.includes("gst amount") || (context.includes("gst") && (context.includes("how much") || context.includes("find the gst")))) {
+      if (context.includes("inclusive") || context.includes("including gst")) {
+        return `The GST in an inclusive price is found by dividing the inclusive price by 11. That gives ${answer}.`;
+      }
+      return `GST is 10% of the pre-GST price. Multiply the pre-GST price by 0.10 to find the GST amount: ${answer}.`;
+    }
+    return `GST-inclusive price = pre-GST price × 1.10. To reverse: pre-GST = inclusive ÷ 1.10. The answer is ${answer}.`;
+  }
+  if (context.includes("unit price") || context.includes("unit pricing") || context.includes("per 100") || context.includes("per gram") || context.includes("per ml") || context.includes("better value") || context.includes("best buy") || context.includes("best value") || context.includes("value")) {
+    return `Unit pricing compares value by finding the cost per unit (per gram, per mL, per 100 g). Divide price by quantity for each option, then choose the lowest cost per unit: ${answer}.`;
+  }
   if (context.includes("simple interest") || context.includes("p.a.") || context.includes("principal")) {
     if (context.includes("total amount")) {
       return `Simple interest is earned on the original principal only. When the question asks for the total amount, add the interest to the starting principal to get ${answer}.`;
@@ -216,6 +246,75 @@ function managingMoneyWorkedExamples(slug: string, title: string): WorkedExample
           { explanation: "Use total cost, not just the monthly price." },
         ],
         finalAnswerLatex: "\\text{Plan B is cheaper for 4 months.}",
+      },
+    ];
+  }
+
+  if (slug === "credit-cards-consumer-finance") {
+    return [
+      {
+        title: "Monthly interest on a credit card balance",
+        questionLatex:
+          "\\text{A credit card balance is }\\$800.\\text{ The annual interest rate is }18\\%\\text{ p.a. Find the monthly interest charge.}",
+        steps: [
+          { explanation: "Convert annual rate to monthly rate.", latex: "\\text{monthly rate}=\\frac{18\\%}{12}=1.5\\%" },
+          { explanation: "Apply to the balance.", latex: "I=800\\times 0.015=\\$12" },
+        ],
+        finalAnswerLatex: "\\$12",
+      },
+      {
+        title: "Minimum payment and new balance",
+        questionLatex:
+          "\\text{Balance }\\$600,\\text{ monthly interest }\\$10,\\text{ minimum payment }2\\%\\text{ of balance.}",
+        steps: [
+          { explanation: "Find the minimum payment.", latex: "0.02\\times 600=\\$12" },
+          { explanation: "New balance = old balance + interest − payment.", latex: "600+10-12=\\$598" },
+        ],
+        finalAnswerLatex: "\\text{New balance }=\\$598",
+      },
+      {
+        title: "BNPL equal instalments",
+        questionLatex:
+          "\\text{A }\\$200\\text{ purchase is split into 4 equal fortnightly BNPL payments. Find each payment.}",
+        steps: [
+          { explanation: "Divide the total by the number of instalments.", latex: "200\\div 4=\\$50" },
+        ],
+        finalAnswerLatex: "\\$50\\text{ per instalment}",
+      },
+    ];
+  }
+
+  if (slug === "gst-discounts-consumer-arithmetic") {
+    return [
+      {
+        title: "Adding GST to a pre-GST price",
+        questionLatex:
+          "\\text{A skateboard has a pre-GST price of }\\$80.\\text{ Find the GST amount and the inclusive price.}",
+        steps: [
+          { explanation: "GST = 10% of pre-GST price.", latex: "\\text{GST}=80\\times 0.10=\\$8" },
+          { explanation: "Inclusive price = pre-GST + GST.", latex: "80+8=\\$88" },
+        ],
+        finalAnswerLatex: "\\text{GST }=\\$8,\\quad\\text{inclusive price }=\\$88",
+      },
+      {
+        title: "Finding the pre-GST price from an inclusive price",
+        questionLatex:
+          "\\text{A laptop costs }\\$132\\text{ including GST. Find the pre-GST price.}",
+        steps: [
+          { explanation: "Inclusive price = pre-GST × 1.10, so divide by 1.10.", latex: "\\text{pre-GST}=132\\div 1.10=\\$120" },
+          { explanation: "Check: 120 × 1.10 = 132 ✓" },
+        ],
+        finalAnswerLatex: "\\$120",
+      },
+      {
+        title: "Best buy using unit pricing",
+        questionLatex:
+          "\\text{Product A: 600 g for }\\$4.80.\\quad\\text{Product B: 400 g for }\\$3.60.",
+        steps: [
+          { explanation: "Find cost per 100 g for each product.", latex: "A:\\frac{4.80}{600}\\times 100=\\$0.80/100\\text{ g}" },
+          { explanation: "Compare.", latex: "B:\\frac{3.60}{400}\\times 100=\\$0.90/100\\text{ g}" },
+        ],
+        finalAnswerLatex: "\\text{Product A is better value at }\\$0.80\\text{ per 100 g.}",
       },
     ];
   }
@@ -504,6 +603,189 @@ export function year11StandardManagingMoneyLessonOverride(
         moneyAnswer("manage-compare-m8", "Option A totals 410 dollars. Option B totals 395 dollars. How much cheaper is Option B?", "\\text{Option A}=\\$410,\\quad \\text{Option B}=\\$395", "15"),
         financeChoice("manage-compare-m9", "A plan with a cheap first month and high later fees should be judged by:", "D", ["First month only", "The colour of the advertisement", "Setup fee only", "Total cost over the relevant period"], "Total cost over the relevant period is fairer."),
         moneyAnswer("manage-compare-m10", "A 120 dollar purchase has 25 percent off and a 9 dollar fee. What is the final cost?", "\\text{price}=\\$120,\\quad \\text{discount}=25\\%,\\quad \\text{fee}=\\$9", "99"),
+      ],
+    };
+  }
+
+  if (lesson.slug === "credit-cards-consumer-finance") {
+    return {
+      ...base,
+      description:
+        "Calculate monthly interest on credit card balances, find minimum payments, track new balances after payments, and compare credit cards with BNPL services.",
+      learningIntention:
+        "Apply credit card interest calculations, minimum payments and BNPL instalment arithmetic to practical consumer finance contexts.",
+      successCriteria: [
+        "Calculate monthly credit card interest using annual rate ÷ 12.",
+        "Find the minimum payment as a percentage of the outstanding balance.",
+        "Find the new balance after adding interest and subtracting a payment.",
+        "Calculate equal BNPL instalments from a total purchase price.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A credit card lets you buy now and pay later. If you pay the full balance by the due date, no interest is charged. If you carry a balance, interest accrues at the annual percentage rate.",
+          "Monthly interest is calculated by applying one month's share of the annual rate to the balance. Monthly rate = annual rate ÷ 12. For example, 18% p.a. gives 1.5% per month.",
+          "A minimum payment is the smallest amount required each month, typically 2–3% of the balance. Making only the minimum payment means most of the balance remains and interest continues to accumulate.",
+          "Buy Now Pay Later (BNPL) services such as Afterpay split a purchase into equal instalments (usually 4 fortnightly payments) with no interest. However, late fees apply if a payment is missed.",
+        ],
+        latexBlocks: [
+          "\\text{monthly interest}=\\text{balance}\\times\\frac{\\text{annual rate}}{12}",
+          "\\text{minimum payment}=\\text{minimum rate}\\times\\text{balance}",
+          "\\text{new balance}=\\text{old balance}+\\text{monthly interest}-\\text{payment}",
+          "\\text{BNPL instalment}=\\frac{\\text{total price}}{\\text{number of payments}}",
+        ],
+      },
+      guidedPractice: [
+        financeChoice("manage-credit-g1", "If you pay the full credit card balance by the due date, you:", "B", [
+          "Are charged 10% interest immediately",
+          "Pay no interest on purchases",
+          "Automatically receive a credit limit increase",
+          "Owe only the minimum payment",
+        ], "Paying the full balance by the due date avoids any interest charge."),
+        moneyAnswer("manage-credit-g2", "A credit card balance is $800. The annual interest rate is 18% p.a. Find the monthly interest charge.", "I=800\\times\\frac{0.18}{12}", "12"),
+        moneyAnswer("manage-credit-g3", "A credit card minimum payment is 2% of the balance. The balance is $850. Find the minimum payment.", "\\text{min payment}=0.02\\times 850", "17"),
+        financeChoice("manage-credit-g4", "Buy Now Pay Later (BNPL) services:", "C", [
+          "Charge 20% p.a. interest on all balances",
+          "Are the same as credit cards",
+          "Split a purchase into equal instalments with no interest, but may charge late fees",
+          "Require a credit check for every purchase",
+        ], "BNPL splits the cost into instalments, typically with no interest but with late fees if payments are missed."),
+      ],
+      independentPractice: [
+        moneyAnswer("manage-credit-i1", "A credit card balance of $500 carries interest at 24% p.a. Find the monthly interest charge.", "I=500\\times\\frac{0.24}{12}", "10"),
+        moneyAnswer("manage-credit-i2", "A credit card balance is $600. Monthly interest of $10 is charged and a minimum payment of $12 is made. Find the new balance.", "\\text{new balance}=600+10-12", "598"),
+        moneyAnswer("manage-credit-i3", "A credit card has an annual fee of $60. How much is this per month?", "60\\div 12", "5"),
+        financeChoice("manage-credit-i4", "A customer makes only the minimum payment on a large credit card balance each month. Over time, the balance will:", "B", [
+          "Be paid off within a few months",
+          "Decrease very slowly because interest is still charged on the remaining amount",
+          "Not change at all",
+          "Increase by exactly the minimum payment amount",
+        ], "Interest on the remaining balance means minimum payments clear very little of the principal."),
+        moneyAnswer("manage-credit-i5", "A $200 purchase is split into 4 equal fortnightly BNPL payments. Find each payment.", "200\\div 4", "50"),
+      ],
+      commonMistakes: [
+        { mistake: "Using the annual interest rate directly instead of the monthly rate.", fix: "Divide the annual rate by 12 to get the monthly rate. At 18% p.a., the monthly rate is 1.5%." },
+        { mistake: "Forgetting to add the monthly interest before subtracting the payment.", fix: "New balance = old balance + interest − payment. Add interest first, then deduct the payment." },
+        { mistake: "Thinking BNPL is always free.", fix: "BNPL has no interest but does charge late fees if an instalment payment is missed." },
+        { mistake: "Calculating the minimum payment as the same dollar amount each month regardless of the balance.", fix: "Minimum payment is a percentage of the current balance. As the balance changes, so does the minimum payment." },
+      ],
+      masteryQuiz: [
+        financeChoice("manage-credit-m1", "Credit card interest is charged when:", "A", [
+          "The full balance is not paid by the due date",
+          "The card has no annual fee",
+          "The card is used for BNPL",
+          "The minimum payment is made before the due date",
+        ], "If the full balance is not paid by the due date, interest accrues on the outstanding amount."),
+        moneyAnswer("manage-credit-m2", "A credit card balance of $1200 carries interest at 20% p.a. Find the monthly interest charge.", "I=1200\\times\\frac{0.20}{12}", "20"),
+        moneyAnswer("manage-credit-m3", "A minimum payment is 3% of a $600 balance. Find the minimum payment.", "0.03\\times 600", "18"),
+        moneyAnswer("manage-credit-m4", "A balance of $400 earns $8 monthly interest. A $10 minimum payment is made. Find the new balance.", "400+8-10", "398"),
+        financeChoice("manage-credit-m5", "A credit card has a $95 annual fee. A customer misses a payment and pays a $15 late fee. What is the total extra cost this year?", "C", [
+          "$95",
+          "$15",
+          "$110",
+          "$80",
+        ], "95 + 15 = $110."),
+        moneyAnswer("manage-credit-m6", "A credit card balance is $750 and the minimum payment rate is 2%. Find the minimum payment.", "0.02\\times 750", "15"),
+        financeChoice("manage-credit-m7", "A student owes $480 at 20% p.a. The monthly interest charge is:", "B", [
+          "$96",
+          "$8",
+          "$4.80",
+          "$48",
+        ], "480 × 0.20 ÷ 12 = 480 ÷ 60 = $8."),
+        moneyAnswer("manage-credit-m8", "A $360 purchase is split into 4 equal BNPL instalments. Find each instalment.", "360\\div 4", "90"),
+        financeChoice("manage-credit-m9", "Making only minimum payments on a credit card is costly because:", "A", [
+          "Interest continues to accumulate on the unpaid balance",
+          "The annual fee doubles each month",
+          "The credit limit is automatically reduced",
+          "Minimum payments are not accepted by card issuers",
+        ], "Interest on the remaining balance means it takes much longer and more money to pay off the debt."),
+        moneyAnswer("manage-credit-m10", "A credit card balance is $900. Monthly interest of $15 is charged and a payment of $50 is made. Find the new balance.", "900+15-50", "865"),
+      ],
+    };
+  }
+
+  if (lesson.slug === "gst-discounts-consumer-arithmetic") {
+    return {
+      ...base,
+      description:
+        "Apply 10% GST to find inclusive prices and pre-GST prices, calculate percentage discounts, and use unit pricing to find the best buy.",
+      learningIntention:
+        "Calculate GST amounts and inclusive prices, find sale prices after discounts, and compare unit prices to identify best value.",
+      successCriteria: [
+        "Find the GST amount and GST-inclusive price from a pre-GST price.",
+        "Find the pre-GST price by dividing an inclusive price by 1.10.",
+        "Find the GST component in an inclusive price by dividing by 11.",
+        "Calculate a discount amount and the resulting sale price.",
+        "Compare unit prices to identify the best buy.",
+      ],
+      teaching: {
+        paragraphs: [
+          "GST (Goods and Services Tax) is a 10% tax added to most goods and services in Australia. GST-inclusive price = pre-GST price × 1.10.",
+          "To find the pre-GST price when given the inclusive price, divide by 1.10. The GST component in an inclusive price = inclusive price ÷ 11 (since GST is 1/11 of the inclusive total).",
+          "A percentage discount reduces the original price. Discount amount = rate × original price. Sale price = original price − discount amount, or equivalently: sale price = original price × (1 − discount rate).",
+          "Unit pricing finds the cost per standard unit (per 100 g, per litre, per item) so that different pack sizes can be compared fairly. The option with the lowest cost per unit is the best buy.",
+        ],
+        latexBlocks: [
+          "\\text{inclusive price}=\\text{pre-GST price}\\times 1.10",
+          "\\text{pre-GST price}=\\frac{\\text{inclusive price}}{1.10}\\qquad\\text{GST amount}=\\frac{\\text{inclusive price}}{11}",
+          "\\text{sale price}=\\text{original price}\\times(1-\\text{discount rate})",
+          "\\text{unit price}=\\frac{\\text{total cost}}{\\text{quantity}}",
+        ],
+      },
+      guidedPractice: [
+        financeChoice("manage-gst-g1", "GST in Australia is:", "B", [
+          "5%",
+          "10%",
+          "15%",
+          "20%",
+        ], "Australian GST is 10%."),
+        moneyAnswer("manage-gst-g2", "A skateboard is priced at $80 before GST. Find the GST amount.", "\\text{GST}=80\\times 0.10", "8"),
+        moneyAnswer("manage-gst-g3", "A jacket has a pre-GST price of $80. Find the GST-inclusive price.", "80\\times 1.10", "88"),
+        moneyAnswer("manage-gst-g4", "A $150 bag has a 20% discount. Find the sale price.", "150\\times 0.80", "120"),
+      ],
+      independentPractice: [
+        moneyAnswer("manage-gst-i1", "A laptop costs $132 including GST. Find the pre-GST price.", "132\\div 1.10", "120"),
+        moneyAnswer("manage-gst-i2", "A TV costs $110 including GST. Find the GST amount.", "110\\div 11", "10"),
+        moneyAnswer("manage-gst-i3", "A $240 jacket has 30% off. Find the sale price.", "240\\times 0.70", "168"),
+        financeChoice("manage-gst-i4", "Product A: 600 g for $4.80. Product B: 400 g for $3.60. Which is better value?", "A", [
+          "Product A — $0.80 per 100 g vs $0.90 per 100 g for Product B",
+          "Product B — it costs less in total",
+          "They are the same value",
+          "Product B — $0.90 is cheaper than $0.80",
+        ], "4.80 ÷ 600 × 100 = $0.80/100 g. 3.60 ÷ 400 × 100 = $0.90/100 g. Product A is better value."),
+        moneyAnswer("manage-gst-i5", "A phone case costs $22 before GST. Find the GST-inclusive price.", "22\\times 1.10", "24.20"),
+      ],
+      commonMistakes: [
+        { mistake: "Finding 10% of the inclusive price instead of dividing the inclusive price by 11.", fix: "If the price already includes GST, the GST component is inclusive price ÷ 11. For example, $110 ÷ 11 = $10 of GST." },
+        { mistake: "Subtracting 10% from the inclusive price to find the pre-GST price.", fix: "Subtracting 10% of $110 gives $99, which is wrong. The correct method is $110 ÷ 1.10 = $100." },
+        { mistake: "Comparing 600 g for $4.80 and 400 g for $3.60 by looking at total prices only.", fix: "Compare per 100 g: $4.80 ÷ 600 × 100 = $0.80 versus $3.60 ÷ 400 × 100 = $0.90. The 600 g pack is cheaper per unit." },
+        { mistake: "Adding the discount percentage to the price instead of subtracting.", fix: "A discount reduces the price. Subtract the discount amount: sale price = original − (rate × original)." },
+      ],
+      masteryQuiz: [
+        financeChoice("manage-gst-m1", "To find the GST-inclusive price from the pre-GST price:", "B", [
+          "Divide by 1.10",
+          "Multiply by 1.10",
+          "Multiply by 0.10",
+          "Add 10 to the price",
+        ], "Inclusive = pre-GST × 1.10."),
+        moneyAnswer("manage-gst-m2", "A $200 phone has 10% GST added. Find the GST amount.", "200\\times 0.10", "20"),
+        moneyAnswer("manage-gst-m3", "A $200 phone has 10% GST added. Find the GST-inclusive price.", "200\\times 1.10", "220"),
+        moneyAnswer("manage-gst-m4", "A restaurant bill of $165 includes GST. Find the GST amount.", "165\\div 11", "15"),
+        moneyAnswer("manage-gst-m5", "A bag costs $220 including GST. Find the pre-GST price.", "220\\div 1.10", "200"),
+        moneyAnswer("manage-gst-m6", "A $180 jacket has 25% off. Find the sale price.", "180\\times 0.75", "135"),
+        financeChoice("manage-gst-m7", "Juice A: 500 mL for $2.50. Juice B: 750 mL for $3.00. Which is better value?", "B", [
+          "Juice A — it costs less in total",
+          "Juice B — $0.40 per 100 mL vs $0.50 per 100 mL for Juice A",
+          "They are the same value",
+          "Juice A — $0.50 looks smaller",
+        ], "2.50 ÷ 500 × 100 = $0.50/100 mL. 3.00 ÷ 750 × 100 = $0.40/100 mL. Juice B is better value."),
+        moneyAnswer("manage-gst-m8", "A textbook is $77 including GST. Find the pre-GST price.", "77\\div 1.10", "70"),
+        moneyAnswer("manage-gst-m9", "A student wants to buy a $300 item with 15% off. Find the discount amount.", "300\\times 0.15", "45"),
+        financeChoice("manage-gst-m10", "The GST amount in a $110 inclusive price is found by:", "A", [
+          "Dividing by 11",
+          "Multiplying by 0.10",
+          "Dividing by 1.10",
+          "Subtracting 10",
+        ], "$110 ÷ 11 = $10. The GST is 1/11 of the inclusive price."),
       ],
     };
   }
