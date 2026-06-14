@@ -85,3 +85,11 @@ export function trackPreviewHscLessonClicked(source?: string) {
 export function trackDiagnosticStarted(source?: string) {
   track("diagnostic_started", source ? { source } : undefined);
 }
+
+export function trackDiagnosticCompleted() {
+  return track("conversion", {
+    send_to: "AW-18195883998/iRjZCMmmwL4cEN7PvORD",
+    value: 1.0,
+    currency: "AUD",
+  });
+}

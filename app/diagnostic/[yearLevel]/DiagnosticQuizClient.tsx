@@ -9,6 +9,7 @@ import { SubscribeCTA } from "../../components/SubscribeCTA";
 import { generateStudyPlan } from "../../../lib/studyPlans/generateStudyPlan";
 import type { DiagnosticQuestion, DiagnosticUnit } from "../../../lib/diagnostics/types";
 import { clientTrackEvent } from "../../../lib/analytics/clientTrackEvent";
+import { trackDiagnosticCompleted } from "../../../lib/analytics";
 
 type UnitResult = DiagnosticUnit & {
   correct: number;
@@ -102,6 +103,7 @@ export function DiagnosticQuizClient({
         totalCorrect,
         totalQuestions,
       });
+      trackDiagnosticCompleted();
     }
 
     const resultsSnapshot = unitResults.map((u) => ({
