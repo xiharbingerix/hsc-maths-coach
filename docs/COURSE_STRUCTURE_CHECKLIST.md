@@ -18,7 +18,7 @@
 | Year 10 Mathematics | 10 | ~56 | — | ✅ Available |
 | Year 10 Mathematics Advanced | 10 | ~56 | 16 topics / 128 subtopics | 🔄 In progress |
 | Year 10 Mathematics Core | 10 trimmed | ~40 | 12 topics / 76 subtopics | 🔄 In progress |
-| Year 11 Standard | 9 | 49 | 9 topics / 63 subtopics (2026) | 🔄 Depth pass in progress (+14 remaining) |
+| Year 11 Standard | 9 | 52 | 9 topics / 63 subtopics (2026) | 🔄 Depth pass in progress (+11 remaining) |
 | Year 11 Advanced | 8 | 54 | 11 topics / 90 subtopics (2026) | ✅ Available |
 | Year 11 Extension | 2 of 5 | 10 | 5 topics / 30 subtopics (2026) | 🔄 In progress |
 | Year 12 Standard 1 | 5 | 18 | 7 topics / 29 subtopics | 🔄 In progress |
@@ -185,15 +185,15 @@ Depth pass completed 2026-06-14.
 - [ ] **Speed, Distance and Time** — D = ST in travel contexts, average speed, multi-leg journeys, time elapsed
 - [ ] **Latitude, Longitude and Global Location** — GPS coordinates, distance on meridians, international navigation basics
 
-### Networks, Paths and Trees (4 / ~7)
+### Networks, Paths and Trees (7 / ~7) ✅
 
 - [x] Network Diagrams and Terminology
 - [x] Paths, Trails, Circuits and Connectivity
 - [x] Trees and Minimum Spanning Trees
 - [x] Network Applications Exam Practice
-- [ ] **Euler Paths and Circuits** — conditions (even/odd vertices), Chinese Postman concept, route-inspection problems
-- [ ] **Weighted Networks and Shortest Paths** — dedicated lesson with tracing, practical optimization (cable, road layouts)
-- [ ] **Network Flow and Connectivity** — bridges, cut edges, connected vs disconnected, network reliability
+- [x] **Euler Paths and Circuits** — odd-degree vertex counts, Euler path/circuit conditions, Chinese Postman concept
+- [x] **Weighted Networks and Shortest Paths** — systematic route listing and comparison, delivery and cable-routing contexts
+- [x] **Network Flow and Connectivity** — bridges, cut edges, pendant vertices, network reliability and redundancy
 
 ### Probability and Relative Frequency (4 / ~7)
 
@@ -218,8 +218,8 @@ Depth pass completed 2026-06-14.
 ---
 
 **Depth pass summary (2026-06-14):** 28 lessons to author across all 9 units to reach Class Maths parity.
-**Progress (2026-06-14):** Formulas+Equations complete (+4). Linear Relationships complete (+4). Earning Money complete (+2). Data Analysis complete (+4). 14 lessons remaining.
-Authoring priority: Networks (3) > Probability (3) > Measurement (3) > Time/Location (3) > Managing Money (2).
+**Progress (2026-06-14):** Formulas+Equations complete (+4). Linear Relationships complete (+4). Earning Money complete (+2). Data Analysis complete (+4). Networks complete (+3). 11 lessons remaining.
+Authoring priority: Probability (3) > Measurement (3) > Time/Location (3) > Managing Money (2).
 
 ---
 

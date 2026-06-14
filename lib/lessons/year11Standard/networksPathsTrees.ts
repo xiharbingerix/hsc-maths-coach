@@ -75,7 +75,24 @@ function networkFeedback(prompt: string, latex: string, answer: string): string 
     return `A route or connector total is found by adding the relevant edge weights once each. Keep the route order clear so no edge is missed or counted twice; the total is ${answer}.`;
   }
 
-  return `First decide which network idea is being tested: degree, vertices, edges, route total, shortest path, or spanning tree. Use that definition carefully to get ${answer}.`;
+  if (
+    context.includes("euler") ||
+    context.includes("odd degree") ||
+    context.includes("odd vertices") ||
+    context.includes("chinese postman")
+  ) {
+    return `The key to Euler paths and circuits is counting odd-degree vertices: 0 odd-degree vertices means an Euler circuit exists; exactly 2 means an Euler path exists; 4 or more means neither exists. The answer is ${answer}.`;
+  }
+
+  if (
+    context.includes("bridge") ||
+    context.includes("redundan") ||
+    context.includes("disconnect")
+  ) {
+    return `A bridge is an edge whose removal disconnects the network — some vertices can no longer be reached. To check, remove the edge and test whether all remaining vertices stay connected. The answer is ${answer}.`;
+  }
+
+  return `First decide which network idea is being tested: degree, vertices, edges, route total, shortest path, spanning tree, Euler conditions, or bridges. Use that definition carefully to get ${answer}.`;
 }
 
 function shortAnswer(
@@ -306,6 +323,147 @@ const kruskalCycleDiagram: NetworkDiagram = {
   ],
 };
 
+const eulerSquareDiagram: NetworkDiagram = {
+  description:
+    "Undirected square network with vertices A, B, C, D. Edges: A-B, B-C, C-D, D-A. All vertices have degree 2 (even).",
+  vertices: [
+    { id: "A", label: "A", x: 90, y: 150 },
+    { id: "B", label: "B", x: 230, y: 80 },
+    { id: "C", label: "C", x: 370, y: 150 },
+    { id: "D", label: "D", x: 230, y: 220 },
+  ],
+  edges: [
+    { from: "A", to: "B" },
+    { from: "B", to: "C" },
+    { from: "C", to: "D" },
+    { from: "D", to: "A" },
+  ],
+};
+
+const eulerTwoOddDiagram: NetworkDiagram = {
+  description:
+    "Undirected network with vertices A, B, C, D. Edges: A-B, B-C, C-D, D-A, A-C. Degrees: A=3, B=2, C=3, D=2. Two odd-degree vertices: A and C.",
+  vertices: [
+    { id: "A", label: "A", x: 90, y: 150 },
+    { id: "B", label: "B", x: 230, y: 80 },
+    { id: "C", label: "C", x: 370, y: 150 },
+    { id: "D", label: "D", x: 230, y: 220 },
+  ],
+  edges: [
+    { from: "A", to: "B" },
+    { from: "B", to: "C" },
+    { from: "C", to: "D" },
+    { from: "D", to: "A" },
+    { from: "A", to: "C" },
+  ],
+};
+
+const eulerStarDiagram: NetworkDiagram = {
+  description:
+    "Star network with central vertex X and four leaf vertices A, B, C, D. Edges: X-A, X-B, X-C, X-D. X has degree 4 (even); A, B, C, D each have degree 1 (odd). Four odd-degree vertices.",
+  vertices: [
+    { id: "X", label: "X", x: 220, y: 150 },
+    { id: "A", label: "A", x: 110, y: 80 },
+    { id: "B", label: "B", x: 330, y: 80 },
+    { id: "C", label: "C", x: 330, y: 220 },
+    { id: "D", label: "D", x: 110, y: 220 },
+  ],
+  edges: [
+    { from: "X", to: "A" },
+    { from: "X", to: "B" },
+    { from: "X", to: "C" },
+    { from: "X", to: "D" },
+  ],
+};
+
+const weightedFiveEdgeDiagram: NetworkDiagram = {
+  description:
+    "Undirected weighted network with vertices A, B, C, D. Edges: A-B weight 3, A-C weight 6, B-C weight 2, B-D weight 5, C-D weight 4.",
+  vertices: [
+    { id: "A", label: "A", x: 80, y: 150 },
+    { id: "B", label: "B", x: 220, y: 80 },
+    { id: "C", label: "C", x: 220, y: 220 },
+    { id: "D", label: "D", x: 360, y: 150 },
+  ],
+  edges: [
+    { from: "A", to: "B", weight: 3 },
+    { from: "A", to: "C", weight: 6 },
+    { from: "B", to: "C", weight: 2 },
+    { from: "B", to: "D", weight: 5 },
+    { from: "C", to: "D", weight: 4 },
+  ],
+};
+
+const weightedDeliveryDiagram: NetworkDiagram = {
+  description:
+    "Undirected weighted delivery network with vertices P (Depot), A, B, and Q (Warehouse). Edges: P-A weight 5, A-Q weight 3, P-B weight 8, B-Q weight 4, A-B weight 6.",
+  vertices: [
+    { id: "P", label: "P", x: 80, y: 150 },
+    { id: "A", label: "A", x: 210, y: 80 },
+    { id: "B", label: "B", x: 210, y: 220 },
+    { id: "Q", label: "Q", x: 360, y: 150 },
+  ],
+  edges: [
+    { from: "P", to: "A", weight: 5 },
+    { from: "A", to: "Q", weight: 3 },
+    { from: "P", to: "B", weight: 8 },
+    { from: "B", to: "Q", weight: 4 },
+    { from: "A", to: "B", weight: 6 },
+  ],
+};
+
+const chainBridgeDiagram: NetworkDiagram = {
+  description:
+    "Undirected chain network with vertices A, B, C, D. Edges: A-B, B-C, C-D. Every edge is a bridge — removing any one disconnects the network.",
+  vertices: [
+    { id: "A", label: "A", x: 80, y: 150 },
+    { id: "B", label: "B", x: 190, y: 150 },
+    { id: "C", label: "C", x: 300, y: 150 },
+    { id: "D", label: "D", x: 410, y: 150 },
+  ],
+  edges: [
+    { from: "A", to: "B" },
+    { from: "B", to: "C" },
+    { from: "C", to: "D" },
+  ],
+};
+
+const trianglePendantDiagram: NetworkDiagram = {
+  description:
+    "Undirected network with a triangle of vertices A, B, C and a pendant vertex D attached to C. Edges: A-B, B-C, C-A, C-D. The triangle edges are not bridges; C-D is the only bridge.",
+  vertices: [
+    { id: "A", label: "A", x: 150, y: 80 },
+    { id: "B", label: "B", x: 80, y: 220 },
+    { id: "C", label: "C", x: 280, y: 220 },
+    { id: "D", label: "D", x: 380, y: 220 },
+  ],
+  edges: [
+    { from: "A", to: "B" },
+    { from: "B", to: "C" },
+    { from: "C", to: "A" },
+    { from: "C", to: "D" },
+  ],
+};
+
+const cyclePendantDiagram: NetworkDiagram = {
+  description:
+    "Undirected network with vertices A, B, C, D, E. Edges: A-B, B-C, C-D, D-E, E-B. Vertex A is a pendant (degree 1). Edge A-B is the only bridge; edges B-C, C-D, D-E, E-B form a cycle with no bridges.",
+  vertices: [
+    { id: "A", label: "A", x: 80, y: 150 },
+    { id: "B", label: "B", x: 200, y: 150 },
+    { id: "C", label: "C", x: 280, y: 80 },
+    { id: "D", label: "D", x: 380, y: 150 },
+    { id: "E", label: "E", x: 280, y: 220 },
+  ],
+  edges: [
+    { from: "A", to: "B" },
+    { from: "B", to: "C" },
+    { from: "C", to: "D" },
+    { from: "D", to: "E" },
+    { from: "E", to: "B" },
+  ],
+};
+
 function networkWorkedExamples(slug: string, title: string): WorkedExample[] {
   if (slug === "network-diagrams-terminology") {
     return [
@@ -504,6 +662,191 @@ function networkWorkedExamples(slug: string, title: string): WorkedExample[] {
         ],
         finalAnswerLatex:
           "\\text{The lowest cable length is }38\\text{ m.}",
+      },
+    ];
+  }
+
+  if (slug === "euler-paths-circuits") {
+    return [
+      {
+        title: "Checking the Euler condition",
+        questionLatex:
+          "\\text{Network: edges A-B, B-C, C-D, D-A. Count degrees and determine what exists.}",
+        diagram: eulerSquareDiagram,
+        steps: [
+          {
+            explanation: "Count the edges at each vertex.",
+            latex:
+              "\\deg(A)=2,\\quad\\deg(B)=2,\\quad\\deg(C)=2,\\quad\\deg(D)=2",
+          },
+          {
+            explanation: "All four degrees are even, so there are 0 odd-degree vertices.",
+            latex: "\\text{odd-degree vertices}=0",
+          },
+          {
+            explanation: "With 0 odd-degree vertices, an Euler circuit exists: every edge is visited exactly once and the route returns to the start.",
+            latex: "0\\text{ odd} \\Rightarrow \\text{Euler circuit exists}",
+          },
+        ],
+        finalAnswerLatex: "\\text{Euler circuit exists. Sample route: A-B-C-D-A.}",
+      },
+      {
+        title: "Euler path with two odd-degree vertices",
+        questionLatex:
+          "\\text{Network: edges A-B, B-C, C-D, D-A, A-C. Find odd-degree vertices.}",
+        diagram: eulerTwoOddDiagram,
+        steps: [
+          {
+            explanation:
+              "Count degrees: A connects to B, D, C (degree 3); B connects to A, C (degree 2); C connects to B, D, A (degree 3); D connects to C, A (degree 2).",
+            latex: "\\deg(A)=3,\\;\\deg(B)=2,\\;\\deg(C)=3,\\;\\deg(D)=2",
+          },
+          {
+            explanation: "Vertices A and C have odd degree. That is exactly 2 odd-degree vertices.",
+            latex: "\\text{odd-degree vertices}=2",
+          },
+          {
+            explanation:
+              "With exactly 2 odd-degree vertices, an Euler path exists. It must start at one odd vertex and finish at the other.",
+            latex: "2\\text{ odd} \\Rightarrow \\text{Euler path from A to C}",
+          },
+        ],
+        finalAnswerLatex:
+          "\\text{Euler path exists: start at A, finish at C (or vice versa).}",
+      },
+      {
+        title: "Chinese Postman concept",
+        questionLatex:
+          "\\text{A street inspector must travel every road at least once and return to base. When can they avoid repeating any road?}",
+        steps: [
+          {
+            explanation:
+              "If every vertex in the street network has even degree, an Euler circuit exists.",
+            latex: "\\text{all even degrees} \\Rightarrow \\text{Euler circuit}",
+          },
+          {
+            explanation:
+              "The inspector can cover every street exactly once and return to base, with no repeated roads.",
+          },
+          {
+            explanation:
+              "If there are odd-degree vertices, some roads must be repeated. The Chinese Postman problem finds the minimum extra distance required to make all vertices even.",
+          },
+        ],
+        finalAnswerLatex:
+          "\\text{All even degrees} \\Rightarrow \\text{cover every street once with no repeats.}",
+      },
+    ];
+  }
+
+  if (slug === "weighted-networks-shortest-paths") {
+    return [
+      {
+        title: "Systematic route comparison",
+        questionLatex:
+          "\\text{Edges: A-B=3, A-C=6, B-C=2, B-D=5, C-D=4. Find the shortest path from A to D.}",
+        diagram: weightedFiveEdgeDiagram,
+        steps: [
+          {
+            explanation: "List all sensible routes from A to D and calculate each total.",
+            latex: "A\\text{-}B\\text{-}D = 3+5=8",
+          },
+          {
+            explanation: "Second route via C then D.",
+            latex: "A\\text{-}C\\text{-}D = 6+4=10",
+          },
+          {
+            explanation: "Third route via B then C.",
+            latex: "A\\text{-}B\\text{-}C\\text{-}D = 3+2+4=9",
+          },
+          {
+            explanation: "The smallest total is 8, via route A-B-D.",
+            latex: "\\min(8,10,9)=8",
+          },
+        ],
+        finalAnswerLatex:
+          "\\text{Shortest path: A-B-D with total weight }8.",
+      },
+      {
+        title: "Delivery route optimisation",
+        questionLatex:
+          "\\text{P-A=5, A-Q=3, P-B=8, B-Q=4, A-B=6. Find the quickest route from P to Q.}",
+        diagram: weightedDeliveryDiagram,
+        steps: [
+          {
+            explanation: "Route via A:",
+            latex: "P\\text{-}A\\text{-}Q = 5+3=8",
+          },
+          {
+            explanation: "Route via B:",
+            latex: "P\\text{-}B\\text{-}Q = 8+4=12",
+          },
+          {
+            explanation: "Route via A then B:",
+            latex: "P\\text{-}A\\text{-}B\\text{-}Q = 5+6+4=15",
+          },
+          {
+            explanation: "The minimum total is 8 via route P-A-Q.",
+            latex: "\\min(8,12,15)=8",
+          },
+        ],
+        finalAnswerLatex:
+          "\\text{Shortest route: P-A-Q with total weight }8.",
+      },
+    ];
+  }
+
+  if (slug === "network-flow-connectivity") {
+    return [
+      {
+        title: "Identifying bridges in a chain",
+        questionLatex:
+          "\\text{Network: chain A-B-C-D. Which edges are bridges?}",
+        diagram: chainBridgeDiagram,
+        steps: [
+          {
+            explanation:
+              "Remove edge A-B. Can A still reach B, C, or D? No — A is now isolated.",
+            latex: "\\text{remove A-B} \\Rightarrow A \\text{ disconnected}",
+          },
+          {
+            explanation:
+              "In a chain there is no alternative path around any edge, so every edge is a bridge.",
+            latex: "\\text{chain} \\Rightarrow \\text{every edge is a bridge}",
+          },
+          {
+            explanation:
+              "Three edges A-B, B-C, C-D are all bridges.",
+            latex: "\\text{bridge count}=3",
+          },
+        ],
+        finalAnswerLatex:
+          "\\text{All 3 edges — A-B, B-C, C-D — are bridges.}",
+      },
+      {
+        title: "Bridge in a triangle-plus-pendant",
+        questionLatex:
+          "\\text{Network: triangle A-B-C-A plus pendant C-D. How many bridges?}",
+        diagram: trianglePendantDiagram,
+        steps: [
+          {
+            explanation:
+              "Remove edge C-D. Can D reach anything? No — D is isolated. So C-D is a bridge.",
+            latex: "\\text{remove C-D} \\Rightarrow D \\text{ disconnected}",
+          },
+          {
+            explanation:
+              "Remove edge A-B. Can A still reach B? Yes: A-C-B. The network stays connected — A-B is not a bridge.",
+            latex: "\\text{remove A-B} \\Rightarrow \\text{still connected via C}",
+          },
+          {
+            explanation:
+              "The triangle edges are not bridges (alternative paths exist); only C-D is a bridge.",
+            latex: "\\text{bridge count}=1",
+          },
+        ],
+        finalAnswerLatex:
+          "\\text{There is exactly 1 bridge: edge C-D.}",
       },
     ];
   }
@@ -812,6 +1155,439 @@ export function year11StandardNetworksLessonOverride(
         },
         shortAnswer("net-tree-m9", "Using Kruskal's method, choose AB=2, BC=3, and CD=4. What is the total?", "AB=2,\\ BC=3,\\ CD=4", "9"),
         labelledChoice("net-tree-m10", "A minimal connector problem asks you to:", "C", ["Return to the start", "Choose the longest path", "Connect required vertices cheaply", "Ignore weights"], "Minimal connectors connect required points at least total cost."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "euler-paths-circuits") {
+    return {
+      ...base,
+      description:
+        "Use odd-degree vertex counts to determine whether an Euler path or Euler circuit exists, and interpret the Chinese Postman concept for route-inspection problems.",
+      learningIntention:
+        "Decide whether an Euler path or circuit exists by counting odd-degree vertices, and connect this to practical route-inspection problems.",
+      successCriteria: [
+        "Define an Euler path as a route that travels every edge exactly once.",
+        "Define an Euler circuit as an Euler path that returns to the starting vertex.",
+        "State the conditions: 0 odd-degree vertices → circuit, 2 odd → path, 4+ → neither.",
+        "Describe the Chinese Postman problem as minimising repeated edges when covering every street.",
+      ],
+      teaching: {
+        paragraphs: [
+          "An Euler path is a route through a network that travels along every edge exactly once without repeating any edge.",
+          "An Euler circuit is an Euler path that starts and finishes at the same vertex. Every vertex must be visited but each edge must be used exactly once.",
+          "Whether an Euler path or circuit exists depends entirely on how many vertices have odd degree. Count the degree of each vertex, then count how many are odd.",
+          "If all vertices have even degree (0 odd-degree vertices), an Euler circuit exists. If exactly 2 vertices have odd degree, an Euler path exists — starting at one odd vertex and ending at the other. If 4 or more vertices have odd degree, neither exists.",
+        ],
+        latexBlocks: [
+          "0 \\text{ odd-degree vertices} \\Rightarrow \\text{Euler circuit exists}",
+          "2 \\text{ odd-degree vertices} \\Rightarrow \\text{Euler path exists}",
+          "4\\text{+ odd-degree vertices} \\Rightarrow \\text{neither exists}",
+        ],
+      },
+      guidedPractice: [
+        labelledChoice(
+          "net-euler-g1",
+          "An Euler circuit is a route that:",
+          "B",
+          ["Visits every vertex exactly once", "Travels every edge exactly once and returns to the starting vertex", "Takes the shortest path between two vertices", "Connects all vertices with minimum total weight"],
+          "An Euler circuit covers every edge once and returns to the start.",
+        ),
+        shortAnswer("net-euler-g2", "Triangle: edges A-B, B-C, C-A. Find the degree of vertex A.", "\\deg(A)=?", "2"),
+        shortAnswer("net-euler-g3", "Count the odd-degree vertices in the triangle (degrees A=2, B=2, C=2).", "\\text{how many vertices with odd degree?}", "0"),
+        labelledChoice(
+          "net-euler-g4",
+          "The triangle has 0 odd-degree vertices. What can be concluded?",
+          "A",
+          ["An Euler circuit exists", "An Euler path only exists", "Neither exists", "The network is disconnected"],
+          "0 odd-degree vertices means an Euler circuit exists.",
+        ),
+      ],
+      independentPractice: [
+        shortAnswer("net-euler-i1", "Network has degrees A=3, B=2, C=3, D=2. How many odd-degree vertices are there?", "\\text{odd degrees among }3,2,3,2", "2"),
+        labelledChoice(
+          "net-euler-i2",
+          "A network has exactly 2 odd-degree vertices. What can be concluded?",
+          "B",
+          ["An Euler circuit exists", "An Euler path exists, starting at one odd vertex and ending at the other", "Neither an Euler path nor circuit exists", "The network is a tree"],
+          "2 odd-degree vertices means an Euler path exists between the two odd vertices.",
+        ),
+        {
+          ...shortAnswer("net-euler-i3", "Use the displayed network to count the degree of vertex X.", "\\deg(X)=?", "4"),
+          diagram: eulerStarDiagram,
+        },
+        {
+          ...shortAnswer("net-euler-i4", "Using the same star network, how many odd-degree vertices are there? (X has degree 4; A, B, C, D each have degree 1.)", "\\text{count vertices with odd degree}", "4"),
+          diagram: eulerStarDiagram,
+        },
+        labelledChoice(
+          "net-euler-i5",
+          "The star network has 4 odd-degree vertices. What exists?",
+          "C",
+          ["Euler circuit only", "Euler path only", "Neither an Euler path nor an Euler circuit", "Both Euler path and circuit"],
+          "4 or more odd-degree vertices means neither exists.",
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Saying an Euler circuit exists because a circuit can be drawn — without checking that all vertices have even degree.", fix: "Always count odd-degree vertices first. A circuit that repeats edges is not an Euler circuit." },
+        { mistake: "Confusing an Euler circuit (uses every edge once) with a Hamiltonian circuit (visits every vertex once).", fix: "Euler is about edges; Hamiltonian is about vertices. Count edges per vertex (degrees) to decide the Euler condition." },
+        { mistake: "Forgetting that an Euler path must start at an odd-degree vertex when exactly 2 exist.", fix: "With 2 odd-degree vertices, the Euler path must begin at one and end at the other — it cannot start at an even-degree vertex." },
+        { mistake: "Counting the number of vertices in the network instead of counting how many vertices have odd degree.", fix: "Find the degree of each vertex first, then count how many of those degrees are odd numbers." },
+      ],
+      masteryQuiz: [
+        labelledChoice(
+          "net-euler-m1",
+          "An Euler path is a route that:",
+          "B",
+          ["Visits every vertex once", "Travels every edge exactly once", "Follows the shortest route", "Connects all vertices with minimum weight"],
+          "An Euler path covers every edge exactly once.",
+        ),
+        labelledChoice(
+          "net-euler-m2",
+          "An Euler circuit differs from an Euler path because:",
+          "A",
+          ["It returns to the starting vertex", "It visits fewer edges", "It uses directed edges only", "It avoids all odd-degree vertices"],
+          "A circuit starts and ends at the same vertex.",
+        ),
+        shortAnswer("net-euler-m3", "Network degrees: 4, 2, 4, 2. How many odd-degree vertices?", "\\text{count odd among }4,2,4,2", "0"),
+        labelledChoice(
+          "net-euler-m4",
+          "A network has 0 odd-degree vertices. Which exists?",
+          "A",
+          ["Euler circuit", "Euler path only (not circuit)", "Neither", "Cannot determine"],
+          "0 odd-degree vertices guarantees an Euler circuit.",
+        ),
+        shortAnswer("net-euler-m5", "Network degrees: 3, 2, 4, 3. How many odd-degree vertices?", "\\text{count odd among }3,2,4,3", "2"),
+        labelledChoice(
+          "net-euler-m6",
+          "A network has exactly 2 odd-degree vertices. An Euler path:",
+          "B",
+          ["Does not exist", "Exists and must start at one odd vertex and end at the other", "Exists and can start anywhere", "Requires repeating edges"],
+          "The Euler path must begin and end at the two odd-degree vertices.",
+        ),
+        shortAnswer("net-euler-m7", "Network degrees: 1, 3, 1, 3. How many odd-degree vertices?", "\\text{count odd among }1,3,1,3", "4"),
+        labelledChoice(
+          "net-euler-m8",
+          "A network has 4 odd-degree vertices. Which exists?",
+          "C",
+          ["Euler circuit", "Euler path", "Neither an Euler path nor circuit", "Both"],
+          "4 or more odd-degree vertices means neither exists.",
+        ),
+        labelledChoice(
+          "net-euler-m9",
+          "The Chinese Postman problem asks:",
+          "B",
+          ["What is the shortest route between two vertices?", "How can every edge be covered with minimum repeated travel?", "How to connect all vertices with minimum total weight?", "How many vertices have odd degree?"],
+          "The Chinese Postman finds minimum extra edges to repeat when covering all streets.",
+        ),
+        labelledChoice(
+          "net-euler-m10",
+          "A square network (all vertices degree 2) has an Euler circuit. The circuit can start at:",
+          "A",
+          ["Any vertex", "Only the vertex with the highest degree", "Only the two odd-degree vertices", "No vertex — no circuit exists"],
+          "All even degrees mean an Euler circuit exists and can start anywhere.",
+        ),
+      ],
+    };
+  }
+
+  if (lesson.slug === "weighted-networks-shortest-paths") {
+    return {
+      ...base,
+      description:
+        "Systematically list and compare all viable routes in weighted networks to find the shortest path, and apply this to practical delivery and cable-routing problems.",
+      learningIntention:
+        "Find the shortest path in a weighted network by systematically listing and comparing all viable routes.",
+      successCriteria: [
+        "List all sensible routes between two vertices in a small weighted network.",
+        "Add the edge weights along each route to find its total.",
+        "Identify the shortest path as the route with the minimum total weight.",
+        "Apply shortest-path thinking to practical contexts such as delivery and cable routing.",
+      ],
+      teaching: {
+        paragraphs: [
+          "In a weighted network, each edge has a number representing distance, time, cost, or cable length. The shortest path is the route between two vertices with the smallest total weight.",
+          "To find the shortest path, list every sensible route between the two vertices, add the edge weights along each route, then compare the totals.",
+          "Work systematically: start from the source vertex, follow each possible first edge, then follow each possible next edge until you reach the destination. Record the route and running total before moving on.",
+          "Once you have all the route totals, the shortest path is the route with the minimum. If two routes have the same minimum, either is valid.",
+        ],
+        latexBlocks: [
+          "\\text{route total} = \\sum \\text{edge weights on that route}",
+          "\\text{shortest path} = \\text{route with minimum total weight}",
+        ],
+      },
+      guidedPractice: [
+        labelledChoice(
+          "net-wsp-g1",
+          "To find the shortest path in a weighted network, you should:",
+          "B",
+          ["Choose the route with the fewest edges", "List all sensible routes, add their weights, and choose the minimum total", "Always go through the vertex with the highest degree", "Use Kruskal's method"],
+          "Shortest path requires comparing total weights across all viable routes.",
+        ),
+        {
+          ...shortAnswer("net-wsp-g2", "Using the displayed network, calculate the total weight of route A-B-D.", "AB=3,\\ BD=5", "8"),
+          diagram: weightedFiveEdgeDiagram,
+        },
+        {
+          ...shortAnswer("net-wsp-g3", "Calculate the total weight of route A-C-D.", "AC=6,\\ CD=4", "10"),
+          diagram: weightedFiveEdgeDiagram,
+        },
+        {
+          ...labelledChoice(
+            "net-wsp-g4",
+            "Routes from A to D have totals: A-B-D=8, A-C-D=10, A-B-C-D=9. Which is the shortest path?",
+            "A",
+            ["A-B-D with total weight 8", "A-C-D with total weight 10", "A-B-C-D with total weight 9", "All routes are the same length"],
+            "The minimum total is 8, so A-B-D is the shortest path.",
+          ),
+          diagram: weightedFiveEdgeDiagram,
+        },
+      ],
+      independentPractice: [
+        {
+          ...shortAnswer("net-wsp-i1", "Delivery network: route P-A-Q has weights P-A=5 and A-Q=3. Find the total.", "5+3", "8"),
+          diagram: weightedDeliveryDiagram,
+        },
+        {
+          ...shortAnswer("net-wsp-i2", "Route P-B-Q has weights P-B=8 and B-Q=4. Find the total.", "8+4", "12"),
+          diagram: weightedDeliveryDiagram,
+        },
+        {
+          ...labelledChoice(
+            "net-wsp-i3",
+            "Delivery routes: P-A-Q=8, P-B-Q=12, P-A-B-Q=15. Which is the shortest?",
+            "A",
+            ["P-A-Q with total 8", "P-B-Q with total 12", "P-A-B-Q with total 15", "All are equal"],
+            "Minimum total is 8, so P-A-Q is the shortest.",
+          ),
+          diagram: weightedDeliveryDiagram,
+        },
+        labelledChoice(
+          "net-wsp-i4",
+          "A cable company wants to lay the least cable from Station S to Home H in a weighted network. The method is:",
+          "B",
+          ["Build a minimum spanning tree", "Find the shortest path from S to H", "Count the degree of each vertex", "Find an Euler circuit"],
+          "A point-to-point minimum route is a shortest path problem.",
+        ),
+        shortAnswer("net-wsp-i5", "A route uses edge weights 4, 2, and 6. Find the total route weight.", "4+2+6", "12"),
+      ],
+      commonMistakes: [
+        { mistake: "Choosing the route with the fewest edges instead of the one with the smallest total weight.", fix: "A longer route (more edges) can still be shorter in total weight if the individual edges are small." },
+        { mistake: "Forgetting to include all viable routes in the comparison, missing the true shortest path.", fix: "Work systematically from the source vertex: list every path that reaches the destination without backtracking unnecessarily." },
+        { mistake: "Confusing shortest path (one specific route) with MST (connecting all vertices).", fix: "Shortest path is for one route between two specific points. MST connects every vertex with minimum total weight across the whole network." },
+        { mistake: "Adding edge weights incorrectly by missing one edge or counting an edge twice.", fix: "Write out each edge weight in the route — e.g., A-B-D: write AB=3, BD=5, then add to get 8." },
+      ],
+      masteryQuiz: [
+        labelledChoice(
+          "net-wsp-m1",
+          "The shortest path in a weighted network is:",
+          "B",
+          ["The route with the fewest edges", "The route with the minimum total edge weight", "The route that visits every vertex", "The route that uses every edge"],
+          "Shortest path minimises total weight, not edge count.",
+        ),
+        shortAnswer("net-wsp-m2", "A route uses weights 5, 3, and 7. Find the total.", "5+3+7", "15"),
+        shortAnswer("net-wsp-m3", "Two routes: A-B-D total 8, A-C-D total 11. What is the shortest-path weight?", "\\min(8,11)", "8"),
+        labelledChoice(
+          "net-wsp-m4",
+          "When comparing routes in a weighted network, you need to:",
+          "B",
+          ["Count vertices on each route", "Add the weights of all edges on each route", "Compare the number of edges only", "Select the route through the highest-weight edge"],
+          "Total weight = sum of edge weights on that route.",
+        ),
+        {
+          ...shortAnswer("net-wsp-m5", "Route A-B-D: A-B=3, B-D=5. Find the total.", "3+5", "8"),
+          diagram: weightedFiveEdgeDiagram,
+        },
+        labelledChoice(
+          "net-wsp-m6",
+          "Three routes have totals 10, 7, and 13. The shortest-path weight is:",
+          "B",
+          ["10", "7", "13", "Cannot determine without the network"],
+          "The minimum of 10, 7, 13 is 7.",
+        ),
+        {
+          ...shortAnswer("net-wsp-m7", "Route A-B-C-D: A-B=3, B-C=2, C-D=4. Find the total.", "3+2+4", "9"),
+          diagram: weightedFiveEdgeDiagram,
+        },
+        labelledChoice(
+          "net-wsp-m8",
+          "Choosing the shortest path in a delivery network helps to:",
+          "B",
+          ["Connect all delivery stops with minimum total distance", "Minimise travel distance from depot to one customer", "Find an Euler circuit through all streets", "Identify all bridges in the network"],
+          "Shortest path = minimum route between two specific points.",
+        ),
+        {
+          ...labelledChoice(
+            "net-wsp-m9",
+            "Delivery routes P-A-Q=8, P-B-Q=12, P-A-B-Q=15. Which is shortest?",
+            "A",
+            ["P-A-Q with total weight 8", "P-B-Q with total weight 12", "P-A-B-Q with total weight 15", "All routes are the same"],
+            "Minimum is 8 via P-A-Q.",
+          ),
+          diagram: weightedDeliveryDiagram,
+        },
+        labelledChoice(
+          "net-wsp-m10",
+          "Tracing shortest paths is most appropriate when:",
+          "A",
+          ["Finding the most efficient route between two specific vertices", "Connecting every vertex with minimum total cable", "Covering every edge exactly once", "Counting odd-degree vertices"],
+          "Shortest path is a point-to-point route problem.",
+        ),
+      ],
+    };
+  }
+
+  if (lesson.slug === "network-flow-connectivity") {
+    return {
+      ...base,
+      description:
+        "Identify bridges (cut edges) by checking whether their removal disconnects the network, compare network reliability, and explain how redundant connections improve robustness.",
+      learningIntention:
+        "Identify bridges in a network and explain how redundant connections affect network reliability.",
+      successCriteria: [
+        "Define a bridge as an edge whose removal disconnects the network.",
+        "Identify bridges by checking whether alternative paths exist.",
+        "Recognise that a degree-1 (pendant) vertex is always connected by a bridge.",
+        "Explain why networks with fewer bridges are more reliable.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A bridge is an edge whose removal disconnects the network — after removing it, at least one vertex can no longer reach the others. Bridges represent critical links: if a bridge fails, some part of the network is cut off.",
+          "To identify a bridge, remove the edge and check whether every remaining vertex is still connected. If any vertex becomes unreachable, the removed edge was a bridge.",
+          "A vertex with degree 1 (a pendant or leaf) is always connected to the rest of the network by exactly one edge, which is therefore always a bridge. In contrast, edges that form part of a cycle are never bridges — if the edge is removed, the alternative path around the cycle still connects both endpoints.",
+          "A network with many bridges is more vulnerable to failures. Adding redundant connections (extra edges that create alternative paths) removes bridge status from edges and makes the network more reliable.",
+        ],
+        latexBlocks: [
+          "\\text{bridge: remove edge} \\Rightarrow \\text{network disconnects}",
+          "\\text{no bridge: remove edge} \\Rightarrow \\text{alternative path still exists}",
+        ],
+      },
+      guidedPractice: [
+        labelledChoice(
+          "net-flow-g1",
+          "A bridge in a network is:",
+          "B",
+          ["The heaviest edge in the network", "An edge whose removal disconnects the network", "Any edge with degree greater than 2", "The shortest path between two vertices"],
+          "A bridge is critical — removing it breaks the network into disconnected parts.",
+        ),
+        {
+          ...shortAnswer("net-flow-g2", "The displayed chain A-B-C-D has edges A-B, B-C, C-D. How many bridges does it have?", "\\text{bridges in chain}", "3"),
+          diagram: chainBridgeDiagram,
+        },
+        labelledChoice(
+          "net-flow-g3",
+          "Why is the single edge connecting a pendant vertex (degree 1) always a bridge?",
+          "B",
+          ["Because it has the largest weight", "Because removing it leaves the pendant vertex completely disconnected", "Because it is the first edge in the edge list", "Because it connects the two highest-degree vertices"],
+          "A degree-1 vertex has only one edge — remove it and that vertex has no other path.",
+        ),
+        {
+          ...shortAnswer("net-flow-g4", "Triangle A-B-C-A has edges A-B, B-C, C-A. If edge A-B is removed, can A still reach B? (yes/no)", "\\text{A-C-B still exists}", "yes", ["Yes", "YES"]),
+          diagram: circuitDiagram,
+        },
+      ],
+      independentPractice: [
+        {
+          ...shortAnswer("net-flow-i1", "Triangle-plus-pendant: edges A-B, B-C, C-A, C-D. How many bridges are there?", "\\text{only C-D is a bridge}", "1"),
+          diagram: trianglePendantDiagram,
+        },
+        {
+          ...labelledChoice(
+            "net-flow-i2",
+            "In the chain network A-B-C-D, why are all edges bridges?",
+            "B",
+            ["Because the chain has 4 vertices", "Because there are no alternative paths — removing any edge separates the chain", "Because the edges are unweighted", "Because vertex A has degree 1"],
+            "A chain has no cycles, so every edge is the only link between its two halves.",
+          ),
+          diagram: chainBridgeDiagram,
+        },
+        {
+          ...shortAnswer("net-flow-i3", "Cycle-plus-pendant: edges A-B, B-C, C-D, D-E, E-B. Vertex A is pendant (degree 1). How many bridges does this network have?", "\\text{only A-B is a bridge}", "1"),
+          diagram: cyclePendantDiagram,
+        },
+        labelledChoice(
+          "net-flow-i4",
+          "A network with no bridges is:",
+          "B",
+          ["More vulnerable to disconnection if any edge fails", "More reliable because every pair of vertices has at least two independent paths", "Impossible to construct", "Always a tree"],
+          "No bridges means alternative paths exist everywhere — the network is robust.",
+        ),
+        shortAnswer("net-flow-i5", "A network has edges A-B, B-C, C-A (triangle), then C-D and D-E (tail). Bridges are C-D and D-E. How many bridges does this network have?", "C-D\\text{ and }D-E", "2"),
+      ],
+      commonMistakes: [
+        { mistake: "Saying all edges in a triangle are bridges because the triangle looks like it might be critical.", fix: "Triangle edges are NOT bridges — removing any one still leaves two edges connecting the same three vertices via the other path." },
+        { mistake: "Forgetting that a pendant vertex's edge is always a bridge.", fix: "A pendant vertex (degree 1) has only one edge. Remove it and the pendant is disconnected. Its edge is always a bridge." },
+        { mistake: "Confusing a connected network with a network that has no bridges.", fix: "A connected network can still have bridges. A network has no bridges only when every edge lies on at least one cycle." },
+        { mistake: "Checking whether the removed vertex (not edge) disconnects the network when looking for a bridge.", fix: "A bridge is defined for edges, not vertices. Remove the edge and check if the network remains connected." },
+      ],
+      masteryQuiz: [
+        labelledChoice(
+          "net-flow-m1",
+          "What is a bridge in a network?",
+          "B",
+          ["The longest path between any two vertices", "An edge whose removal disconnects the network", "A vertex with the highest degree", "An edge that is part of a cycle"],
+          "A bridge is a critical edge — removing it splits the network.",
+        ),
+        shortAnswer("net-flow-m2", "A chain of 5 vertices A-B-C-D-E has 4 edges. How many bridges does it have?", "\\text{no alternative paths in chain}", "4"),
+        labelledChoice(
+          "net-flow-m3",
+          "Why does a triangle A-B-C-A have no bridges?",
+          "B",
+          ["Because all its vertices have the same degree", "Because removing any edge still leaves two edges connecting the same vertices via the other path", "Because it is directed", "Because it has exactly 3 vertices"],
+          "Each triangle edge has an alternative path around the other two edges.",
+        ),
+        labelledChoice(
+          "net-flow-m4",
+          "In the triangle-plus-pendant (edges A-B, B-C, C-A, C-D), which is the only bridge?",
+          "D",
+          ["A-B", "B-C", "C-A", "C-D"],
+          "C-D is the only bridge — removing it leaves D disconnected.",
+        ),
+        {
+          ...shortAnswer("net-flow-m5", "In the displayed cycle B-C-D-E-B (no pendant), how many bridges are there?", "\\text{every edge lies on the cycle}", "0"),
+          diagram: {
+            description:
+              "Undirected cycle network with vertices B, C, D, E. Edges: B-C, C-D, D-E, E-B. Every edge lies on the cycle, so there are no bridges.",
+            vertices: [
+              { id: "B", label: "B", x: 90, y: 150 },
+              { id: "C", label: "C", x: 220, y: 80 },
+              { id: "D", label: "D", x: 350, y: 150 },
+              { id: "E", label: "E", x: 220, y: 220 },
+            ],
+            edges: [
+              { from: "B", to: "C" },
+              { from: "C", to: "D" },
+              { from: "D", to: "E" },
+              { from: "E", to: "B" },
+            ],
+          },
+        },
+        labelledChoice(
+          "net-flow-m6",
+          "A pendant vertex (degree 1) is always connected to the rest of the network by:",
+          "B",
+          ["An edge that is not a bridge", "A bridge — its single edge must be a bridge", "A directed edge only", "A cycle"],
+          "One edge in, one edge out — remove it and the pendant is cut off.",
+        ),
+        {
+          ...shortAnswer("net-flow-m7", "Cycle-plus-pendant: A-B, B-C, C-D, D-E, E-B. How many bridges?", "\\text{only A-B is a bridge}", "1"),
+          diagram: cyclePendantDiagram,
+        },
+        labelledChoice(
+          "net-flow-m8",
+          "Adding an extra edge to a network to create a cycle:",
+          "B",
+          ["Always creates a bridge", "Can remove bridge status from all edges in the new cycle", "Has no effect on connectivity", "Always creates a tree"],
+          "A new cycle means alternative paths exist, removing bridge status from each edge in the cycle.",
+        ),
+        shortAnswer("net-flow-m9", "Network: A-B, B-C, C-A (triangle) plus C-D and D-E (tail). How many bridges?", "C-D\\text{ and }D-E\\text{ are bridges}", "2"),
+        labelledChoice(
+          "net-flow-m10",
+          "A reliable network is best described as one that:",
+          "B",
+          ["Has as many bridges as possible", "Has redundant connections so no single edge failure disconnects it", "Has exactly one path between every pair of vertices", "Is always directed"],
+          "Redundant connections mean the network keeps working even if one edge fails.",
+        ),
       ],
     };
   }

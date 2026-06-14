@@ -1860,6 +1860,24 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Use trees, spanning trees and minimum spanning trees to solve minimal connector problems.",
           },
           {
+            slug: "euler-paths-circuits",
+            title: "Euler Paths and Circuits",
+            description:
+              "Use odd-degree vertex counts to determine whether an Euler path or Euler circuit exists, and interpret the Chinese Postman concept for route-inspection problems.",
+          },
+          {
+            slug: "weighted-networks-shortest-paths",
+            title: "Weighted Networks and Shortest Paths",
+            description:
+              "Systematically list and compare all viable routes in weighted networks to find the shortest path, and apply this to practical delivery and cable-routing problems.",
+          },
+          {
+            slug: "network-flow-connectivity",
+            title: "Network Flow and Connectivity",
+            description:
+              "Identify bridges (cut edges) by checking whether their removal disconnects the network, compare network reliability, and explain how redundant connections improve robustness.",
+          },
+          {
             slug: "network-applications-exam-practice",
             title: "Network Applications Exam Practice",
             description:
