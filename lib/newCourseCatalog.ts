@@ -1642,6 +1642,30 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Use direct variation, constants of variation and practical linear models with and without fixed costs.",
           },
           {
+            slug: "constructing-linear-models",
+            title: "Constructing Linear Models",
+            description:
+              "Write a linear rule from a word description, two given points or a table of values, and verify by substituting back.",
+          },
+          {
+            slug: "piecewise-step-functions",
+            title: "Piecewise and Step Functions",
+            description:
+              "Identify and evaluate piecewise and step models with different rates for different input ranges, such as tariffs and parking fees.",
+          },
+          {
+            slug: "break-even-analysis",
+            title: "Break-even Analysis",
+            description:
+              "Find the break-even quantity by setting revenue equal to cost and interpret profit and loss regions in practical contexts.",
+          },
+          {
+            slug: "practical-limitations-linear-models",
+            title: "Practical Limitations of Linear Models",
+            description:
+              "Identify domain restrictions, explain why extrapolation may be unreliable, and state meaningful limitations of linear models in context.",
+          },
+          {
             slug: "linear-relationships-exam-practice",
             title: "Linear Relationships Exam Practice",
             description:

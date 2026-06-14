@@ -193,6 +193,123 @@ function linearRelationshipsWorkedExamples(slug: string, title: string): WorkedE
     ];
   }
 
+  if (slug === "constructing-linear-models") {
+    return [
+      {
+        title: "Building a rule from two points",
+        questionLatex: "\\text{A cost table has points }(2,\\ 34)\\text{ and }(6,\\ 66).\\text{ Find the rule.}",
+        steps: [
+          { explanation: "Calculate the gradient using the two points.", latex: "m = \\frac{66 - 34}{6 - 2} = \\frac{32}{4} = 8" },
+          { explanation: "Substitute one point into C = 8x + b to find b.", latex: "34 = 8(2) + b \\Rightarrow b = 18" },
+          { explanation: "Write the rule and verify with the second point.", latex: "C = 18 + 8x \\quad \\checkmark\\ C(6) = 18 + 48 = 66" },
+        ],
+        finalAnswerLatex: "C = 18 + 8x",
+      },
+      {
+        title: "Building a rule from a table",
+        questionLatex: "\\begin{array}{c|c}x & 0 & 1 & 2 & 3 \\\\ C & 25 & 38 & 51 & 64\\end{array}",
+        steps: [
+          { explanation: "The cost at x = 0 is the y-intercept.", latex: "b = 25" },
+          { explanation: "The repeated difference gives the gradient.", latex: "m = 38 - 25 = 13" },
+          { explanation: "Write the rule.", latex: "C = 25 + 13x" },
+        ],
+        finalAnswerLatex: "C = 25 + 13x",
+      },
+      {
+        title: "Building a rule from a word description",
+        questionLatex: "\\text{A plumber charges a }\\$80\\text{ callout fee plus }\\$60\\text{ per hour.}",
+        steps: [
+          { explanation: "The callout fee is the starting value — it is charged regardless of hours.", latex: "b = 80" },
+          { explanation: "The hourly charge is the gradient — it repeats for each extra hour.", latex: "m = 60" },
+          { explanation: "Write the rule for cost C after h hours.", latex: "C = 80 + 60h" },
+        ],
+        finalAnswerLatex: "C = 80 + 60h",
+      },
+    ];
+  }
+
+  if (slug === "piecewise-step-functions") {
+    return [
+      {
+        title: "Electricity tariff with two rates",
+        questionLatex: "\\text{First 200 kWh at }\\$0.20\\text{/kWh, remainder at }\\$0.30\\text{/kWh.}\\text{ Find cost for 320 kWh.}",
+        steps: [
+          { explanation: "The first 200 kWh use the lower rate.", latex: "200 \\times 0.20 = 40" },
+          { explanation: "The remaining 120 kWh use the higher rate.", latex: "120 \\times 0.30 = 36" },
+          { explanation: "Add the two parts.", latex: "40 + 36 = 76" },
+        ],
+        finalAnswerLatex: "\\$76",
+      },
+      {
+        title: "Step postage rates",
+        questionLatex: "\\text{Up to 100 g: }\\$2.50.\\quad 101\\text{–}250\\text{ g: }\\$4.50.\\quad \\text{Find cost for 180 g.}",
+        steps: [
+          { explanation: "180 g falls in the 101–250 g range.", latex: "180 \\in [101,\\ 250]" },
+          { explanation: "Apply the flat rate for that range.", latex: "\\text{Cost} = \\$4.50" },
+        ],
+        finalAnswerLatex: "\\$4.50",
+      },
+      {
+        title: "Parking fee: first hour free",
+        questionLatex: "\\text{First 1 hour free, then }\\$5\\text{ per hour. Find fee for 4 hours.}",
+        steps: [
+          { explanation: "The first hour costs nothing.", latex: "\\text{hours at }\\$0: 1" },
+          { explanation: "The remaining 3 hours cost $5 each.", latex: "3 \\times 5 = 15" },
+        ],
+        finalAnswerLatex: "\\$15",
+      },
+    ];
+  }
+
+  if (slug === "break-even-analysis") {
+    return [
+      {
+        title: "Finding the break-even quantity",
+        questionLatex: "\\text{Sell at }\\$5\\text{ each. Fixed costs }\\$60,\\text{ variable cost }\\$2\\text{ per item.}",
+        steps: [
+          { explanation: "Write the revenue rule: price times quantity.", latex: "R = 5n" },
+          { explanation: "Write the cost rule: fixed cost plus variable cost times quantity.", latex: "C = 60 + 2n" },
+          { explanation: "Set revenue equal to cost and solve.", latex: "5n = 60 + 2n \\Rightarrow 3n = 60 \\Rightarrow n = 20" },
+          { explanation: "Find the break-even revenue or cost.", latex: "R = 5(20) = \\$100" },
+        ],
+        finalAnswerLatex: "n = 20\\text{ items},\\quad \\text{break-even revenue }\\$100",
+      },
+      {
+        title: "Interpreting profit at a given quantity",
+        questionLatex: "\\text{Using }R = 5n\\text{ and }C = 60 + 2n.\\text{ Find profit when }n = 25.",
+        steps: [
+          { explanation: "Calculate revenue at n = 25.", latex: "R = 5(25) = 125" },
+          { explanation: "Calculate cost at n = 25.", latex: "C = 60 + 2(25) = 110" },
+          { explanation: "Profit equals revenue minus cost.", latex: "\\text{Profit} = 125 - 110 = \\$15" },
+        ],
+        finalAnswerLatex: "\\$15\\text{ profit}",
+      },
+    ];
+  }
+
+  if (slug === "practical-limitations-linear-models") {
+    return [
+      {
+        title: "Finding when a tank model becomes invalid",
+        questionLatex: "\\text{Tank model: }V = 200 - 10t.\\text{ When does the model stop being valid?}",
+        steps: [
+          { explanation: "The tank is empty when V = 0 — it cannot drain further.", latex: "200 - 10t = 0 \\Rightarrow t = 20" },
+          { explanation: "For t > 20, the formula gives V < 0, which is impossible.", latex: "\\text{Valid domain: } 0 \\leq t \\leq 20" },
+        ],
+        finalAnswerLatex: "\\text{Valid for }0 \\leq t \\leq 20\\text{ min}",
+      },
+      {
+        title: "Explaining extrapolation risk",
+        questionLatex: "\\text{A savings model }S = 50 + 30w\\text{ is built from 6 weeks of data. A student uses it to predict }S\\text{ after 3 years (156 weeks).}",
+        steps: [
+          { explanation: "The model predicts S = 50 + 30(156) = $4730, but this is extrapolation — using the model far beyond its data range.", latex: "S = 50 + 30(156) = 4730" },
+          { explanation: "Over 3 years, the weekly savings amount may change: income may rise or fall, expenses change, or the person may stop saving at the same rate.", latex: "\\text{Extrapolation warning: constant rate may not hold for 3 years.}" },
+        ],
+        finalAnswerLatex: "\\text{Unreliable extrapolation — savings rate may not stay constant for 3 years.}",
+      },
+    ];
+  }
+
   return [
     {
       title: `${title}: table to rule`,
@@ -350,6 +467,383 @@ export function year11StandardLinearRelationshipsLessonOverride(
         linearAnswer("linear-direct-m8", "A direct variation relationship is shown. Find the constant of variation.", "y=kx,\\quad y=24\\text{ when }x=6", "4", ["k=4"]),
         financeChoice("linear-direct-m9", "The model S = 50w for savings after w weeks means:", "B", ["50 dollars fixed fee", "50 dollars saved each week", "50 weeks", "50 dollars subtracted"], "The multiplier is the weekly saving rate."),
         financeChoice("linear-direct-m10", "A limitation of a fuel cost model is that:", "A", ["Prices can change over time", "Costs can never be estimated", "Litres are not measurable", "Direct variation has no context"], "Fuel prices may change, so the model may stop being accurate."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "constructing-linear-models") {
+    return {
+      ...base,
+      description:
+        "Write a linear rule from a word description, two given points or a table of values, and verify by substituting back.",
+      learningIntention:
+        "Construct a linear rule in the form C = b + mx from practical information.",
+      successCriteria: [
+        "Identify the starting value (y-intercept) and rate of change (gradient) from a word description.",
+        "Calculate the gradient from two given points using the rise-over-run formula.",
+        "Read the gradient and intercept from a table of values.",
+        "Verify a constructed rule by substituting a known input.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Every linear rule in the form C = b + mx has two key parts: b is the starting value (what C equals when input is zero) and m is the gradient (how much C increases for each extra unit of input).",
+          "When building from a word description, find the starting value first: it is the fixed amount that applies even at zero input, like a callout fee or joining fee. The gradient is the repeated charge per unit, such as dollars per hour.",
+          "When given two points, calculate the gradient first: m = (y₂ − y₁) ÷ (x₂ − x₁). Then substitute one point into C = mx + b to find b.",
+          "When given a table, check the output at x = 0 for the intercept, and find the consistent difference between successive outputs for the gradient. Always verify by checking another point in the table.",
+        ],
+        latexBlocks: [
+          "C = b + mx \\quad (b = \\text{starting value},\\ m = \\text{gradient})",
+          "m = \\frac{y_2 - y_1}{x_2 - x_1}",
+          "\\text{Verify: substitute known } x \\text{ and check } C \\text{ matches.}",
+        ],
+      },
+      guidedPractice: [
+        financeChoice(
+          "linear-constr-g1",
+          "A tradesman charges a $80 callout fee plus $60 per hour. In the rule C = 80 + 60h, the gradient is:",
+          "B",
+          ["80", "60", "140", "20"],
+          "The gradient is the rate per hour: $60/h. The $80 is the fixed starting cost.",
+        ),
+        linearAnswer("linear-constr-g2", "A tradesman charges a $80 callout fee plus $60 per hour. Write a rule for cost C after h hours.", "C = 80 + 60h", "C = 80 + 60h", ["C=80+60h", "c=80+60h", "C=60h+80", "c=60h+80"]),
+        linearAnswer("linear-constr-g3", "Two points on a linear graph are (0, 40) and (5, 90). Find the gradient.", "m = \\frac{90-40}{5-0}", "10", ["m=10", "gradient = 10", "10 per unit"]),
+        linearAnswer("linear-constr-g4", "Using gradient 10 and y-intercept 40, write the linear rule for C in terms of x.", "m=10,\\quad b=40", "C = 40 + 10x", ["C=40+10x", "C=10x+40", "c=40+10x", "c=10x+40"]),
+      ],
+      independentPractice: [
+        linearAnswer("linear-constr-i1", "A table shows x = 0, 1, 2, 3 with y = 15, 23, 31, 39. What is the gradient?", "23-15", "8", ["m=8", "gradient = 8", "8 per unit", "$8"]),
+        linearAnswer("linear-constr-i2", "Using that table (starting at 15, gradient 8), write the rule for y in terms of x.", "b=15,\\quad m=8", "y = 15 + 8x", ["y=15+8x", "y=8x+15", "C=15+8x", "C=8x+15"]),
+        linearAnswer("linear-constr-i3", "Two points are (2, 30) and (5, 51). Find the gradient.", "m = \\frac{51-30}{5-2}", "7", ["m=7", "gradient = 7", "7 per unit"]),
+        moneyAnswer("linear-constr-i4", "A gym membership costs a $25 joining fee plus $12 per month. Find the total cost after 6 months.", "C=25+12\\times 6", "97"),
+        financeChoice(
+          "linear-constr-i5",
+          "Which pair of points gives a gradient of 3?",
+          "A",
+          ["(0, 5) and (2, 11)", "(1, 4) and (3, 9)", "(0, 1) and (5, 11)", "(2, 6) and (4, 10)"],
+          "(11 − 5) ÷ (2 − 0) = 6 ÷ 2 = 3.",
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "In C = 80 + 60h, calling 80 the gradient and 60 the starting cost.", fix: "The gradient is the coefficient of the input variable (60 per hour); the constant 80 is the fixed starting cost." },
+        { mistake: "When finding gradient from two points, subtracting x values but not dividing: getting 32 instead of 8.", fix: "Gradient = rise ÷ run = (y₂ − y₁) ÷ (x₂ − x₁). Always divide the change in output by the change in input." },
+        { mistake: "Reading gradient from the table as the y-value at x = 1, not the difference.", fix: "If the value at x = 0 is 25 and at x = 1 is 38, the gradient is 38 − 25 = 13, not 38." },
+        { mistake: "Not verifying the rule by substituting a second known point.", fix: "After finding the rule, substitute a second point from the table or problem to confirm the rule is correct." },
+      ],
+      masteryQuiz: [
+        moneyAnswer("linear-constr-m1", "A taxi charges $4 plus $2.50 per km. Find the total cost for 6 km.", "4+2.50\\times 6", "19"),
+        financeChoice(
+          "linear-constr-m2",
+          "Two points (0, 20) and (3, 35) give gradient:",
+          "A",
+          ["5", "10", "15", "20"],
+          "(35 − 20) ÷ (3 − 0) = 15 ÷ 3 = 5.",
+        ),
+        linearAnswer("linear-constr-m3", "Using gradient 5 and intercept 20, write the rule for C in terms of n.", "m=5,\\quad b=20", "C = 20 + 5n", ["C=20+5n", "C=5n+20", "c=20+5n"]),
+        linearAnswer("linear-constr-m4", "A table has x = 0, 2, 4, 6 with y = 10, 18, 26, 34. Find the gradient.", "m = \\frac{18-10}{2-0}", "4", ["m=4", "gradient = 4", "4 per 2 units → 4/unit → 4"]),
+        linearAnswer("linear-constr-m5", "Using gradient 4 and intercept 10, write the rule for y in terms of x.", "m=4,\\quad b=10", "y = 10 + 4x", ["y=10+4x", "y=4x+10", "C=10+4x"]),
+        moneyAnswer("linear-constr-m6", "Use y = 10 + 4x to find y when x = 7.", "y=10+4\\times 7", "38"),
+        financeChoice(
+          "linear-constr-m7",
+          "A tradesman charges a $60 callout fee and $75 per hour. The y-intercept in the cost rule is:",
+          "B",
+          ["75", "60", "135", "0"],
+          "The y-intercept is the fixed cost at zero hours: $60.",
+        ),
+        moneyAnswer("linear-constr-m8", "Tickets cost $15 each with a $5 booking fee. Find the total cost for 8 tickets.", "5+15\\times 8", "125"),
+        linearAnswer("linear-constr-m9", "A pool starts empty and fills at 40 L/min. After how many minutes does it hold 2000 L?", "40t = 2000", "50", ["t=50", "50 minutes", "50 min"]),
+        linearAnswer("linear-constr-m10", "A hire cost line passes through (1, 45) and (4, 87). Find the hourly rate (gradient).", "m = \\frac{87-45}{4-1}", "14", ["m=14", "gradient = 14", "$14 per hour", "14 per hour"]),
+      ],
+    };
+  }
+
+  if (lesson.slug === "piecewise-step-functions") {
+    return {
+      ...base,
+      description:
+        "Identify and evaluate piecewise and step models with different rates for different input ranges, such as tariffs and parking fees.",
+      learningIntention:
+        "Calculate costs from piecewise and step function models by identifying the correct rule for a given input.",
+      successCriteria: [
+        "Identify which range an input falls into for a piecewise model.",
+        "Apply the correct rate to each portion of usage in a two-rate tariff.",
+        "Read a step function to find the flat rate that applies for a given input.",
+        "Explain how a piecewise model differs from a single linear model.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Some practical situations have different rates for different ranges of input. Electricity tariffs, parking fees, postage rates and mobile data plans often work this way. These are called piecewise or step functions.",
+          "A piecewise function uses one rule for inputs in one range and a different rule for inputs in another range. To find the output, first check which range the input falls into, then apply the correct rule.",
+          "A step function is a special case where the output stays constant across a range and then jumps to a new flat value. Postage pricing is a good example — a letter weighing 180 g costs the same as one weighing 120 g if both fall in the same weight band.",
+          "To calculate the cost under a two-rate tariff (like electricity), split the total usage at the boundary. Charge the lower rate for the first portion and the higher rate for the rest, then add.",
+        ],
+        latexBlocks: [
+          "\\text{Cost} = r_1 \\times q_1 + r_2 \\times q_2",
+          "\\text{where } q_1 + q_2 = \\text{total quantity and } r_1 \\neq r_2",
+        ],
+      },
+      guidedPractice: [
+        financeChoice(
+          "linear-piece-g1",
+          "A tariff charges $0.20/kWh for the first 200 kWh and $0.30/kWh after. A customer uses 150 kWh. Which rate applies?",
+          "A",
+          ["$0.20/kWh", "$0.30/kWh", "Both rates equally", "$0.25/kWh (average)"],
+          "150 ≤ 200, so the first-tier rate of $0.20/kWh applies to all 150 kWh.",
+        ),
+        moneyAnswer("linear-piece-g2", "Using $0.20/kWh for the first 200 kWh, find the electricity cost for 150 kWh.", "0.20 \\times 150", "30"),
+        moneyAnswer("linear-piece-g3", "A customer uses 280 kWh. The first 200 kWh cost $0.20 each; the remaining 80 kWh cost $0.30 each. Find the total cost.", "200 \\times 0.20 + 80 \\times 0.30", "64"),
+        financeChoice(
+          "linear-piece-g4",
+          "Which of these best describes a step function?",
+          "A",
+          ["Output stays constant across a range, then jumps to a new flat value", "Output increases by the same amount for every extra unit of input", "Output passes through the origin in all cases", "There is only one possible output for all inputs"],
+          "A step function has constant output over each range, then jumps — like postage rates by weight band.",
+        ),
+      ],
+      independentPractice: [
+        moneyAnswer("linear-piece-i1", "A parking fee is $0 for the first 2 hours, then $4 per hour after. Find the fee for 5 hours.", "3 \\times 4", "12"),
+        moneyAnswer("linear-piece-i2", "Postage: up to 100 g costs $2.00, and 101–250 g costs $4.00. Find the postage for a 180 g parcel.", "\\text{180 g} \\in [101,250]", "4"),
+        moneyAnswer("linear-piece-i3", "An electricity tariff: first 300 kWh at $0.18/kWh, remainder at $0.28/kWh. Find the cost for 450 kWh.", "300 \\times 0.18 + 150 \\times 0.28", "96"),
+        moneyAnswer("linear-piece-i4", "A phone tariff: first 100 min at $0.05/min, then 101–500 min at $0.03/min. Find the cost for 350 min.", "100 \\times 0.05 + 250 \\times 0.03", "12.5", ["12.50", "$12.50", "$12.5"]),
+        financeChoice(
+          "linear-piece-i5",
+          "A piecewise model uses one rule for x ≤ 10 and another for x > 10. For x = 10, which rule applies?",
+          "B",
+          ["The rule for x > 10", "The rule for x ≤ 10", "Neither rule", "The average of both rules"],
+          "x = 10 satisfies x ≤ 10, so the first rule applies.",
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Applying the higher rate to all usage when only part of the usage exceeds the threshold.", fix: "Split usage at the threshold: charge the lower rate for the first portion and the higher rate only for the remainder." },
+        { mistake: "In a step function (like postage), calculating a rate per gram instead of using the flat fee for the weight band.", fix: "A step function has one flat fee per weight band — look up which band the weight falls into and apply that fee." },
+        { mistake: "Adding the two rates instead of multiplying each rate by its portion.", fix: "The formula is Cost = r₁ × q₁ + r₂ × q₂. Multiply each rate by the number of units in its portion, then add the two amounts." },
+        { mistake: "Forgetting to subtract the lower-tier amount when finding the remaining usage.", fix: "If total usage is 280 kWh and the lower tier covers 200 kWh, the remainder is 280 − 200 = 80 kWh at the higher rate." },
+      ],
+      masteryQuiz: [
+        financeChoice(
+          "linear-piece-m1",
+          "A tariff charges $0.22/kWh for the first 250 kWh and $0.32/kWh after. Which expression gives the cost for 300 kWh?",
+          "C",
+          ["300 × 0.22", "300 × 0.32", "250 × 0.22 + 50 × 0.32", "50 × 0.22 + 250 × 0.32"],
+          "Split at 250: 250 kWh at $0.22 plus 50 kWh at $0.32.",
+        ),
+        moneyAnswer("linear-piece-m2", "Using the tariff from the previous question, find the cost for 300 kWh.", "250 \\times 0.22 + 50 \\times 0.32", "71"),
+        moneyAnswer("linear-piece-m3", "A gym: $5 per visit for the first 10 visits, $3 per visit after. Find the cost for 15 visits.", "10 \\times 5 + 5 \\times 3", "65"),
+        moneyAnswer("linear-piece-m4", "Postage: up to 250 g = $3.50, 251–500 g = $6.00. Find the cost for a 400 g parcel.", "\\text{400 g} \\in [251,500]", "6"),
+        financeChoice(
+          "linear-piece-m5",
+          "Parking is free for the first 2 hours, then $4 per hour. The cost for exactly 2 hours is:",
+          "C",
+          ["$4", "$8", "$0", "$2"],
+          "2 hours falls within the free period — no charge.",
+        ),
+        moneyAnswer("linear-piece-m6", "Using the same parking fee (free for first 2 hours, $4 per hour after), find the fee for 7 hours.", "(7-2) \\times 4", "20"),
+        moneyAnswer("linear-piece-m7", "Electricity tariff: first 200 kWh at $0.15/kWh, rest at $0.25/kWh. Find cost for 350 kWh.", "200 \\times 0.15 + 150 \\times 0.25", "67.5", ["67.50", "$67.50", "$67.5"]),
+        moneyAnswer("linear-piece-m8", "Water rate: first 200 kL per quarter at $1.20/kL, remainder at $2.40/kL. A household uses 280 kL. Find the bill.", "200 \\times 1.20 + 80 \\times 2.40", "432"),
+        financeChoice(
+          "linear-piece-m9",
+          "A piecewise model differs from a single linear model because:",
+          "C",
+          ["It always passes through the origin", "It has one constant gradient everywhere", "It uses different rules for different input ranges", "It can only apply to electricity"],
+          "A piecewise model applies different rules across different portions of the domain.",
+        ),
+        moneyAnswer("linear-piece-m10", "A data tariff: first 10 GB included free, then $2 per GB extra. Find the cost for 14 GB.", "(14-10) \\times 2", "8"),
+      ],
+    };
+  }
+
+  if (lesson.slug === "break-even-analysis") {
+    return {
+      ...base,
+      description:
+        "Find the break-even quantity by setting revenue equal to cost and interpret profit and loss regions in practical contexts.",
+      learningIntention:
+        "Calculate and interpret the break-even point using simultaneous linear equations for revenue and cost.",
+      successCriteria: [
+        "Write a revenue rule and a cost rule as linear functions of quantity sold.",
+        "Find the break-even quantity by setting revenue equal to cost.",
+        "Calculate the break-even revenue by substituting the break-even quantity back.",
+        "Determine whether a given quantity produces a profit or a loss.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Break-even is the quantity at which total revenue exactly equals total cost — no profit and no loss. Below break-even the seller makes a loss; above it the seller makes a profit.",
+          "Revenue is the total money received from sales: Revenue = selling price × quantity. Cost is the total money spent: Cost = fixed costs + variable cost per item × quantity.",
+          "To find the break-even quantity, set Revenue = Cost and solve. This is a simultaneous equation problem — the same approach used when two practical models intersect.",
+          "After finding the break-even quantity, substitute back into either rule to find the break-even dollar amount. For a profit/loss question, calculate Revenue − Cost: positive means profit, negative means loss.",
+        ],
+        latexBlocks: [
+          "R = p \\cdot n \\quad (\\text{selling price} \\times \\text{quantity})",
+          "C = F + v \\cdot n \\quad (\\text{fixed cost} + \\text{variable cost per item} \\times \\text{quantity})",
+          "\\text{Break-even: } R = C \\Rightarrow p \\cdot n = F + v \\cdot n",
+        ],
+      },
+      guidedPractice: [
+        financeChoice(
+          "linear-beven-g1",
+          "A stall sells items at $5 each. Revenue for n items sold is:",
+          "B",
+          ["60 + 2n", "5n", "5 + n", "2n"],
+          "Revenue = selling price × quantity = 5n.",
+        ),
+        linearAnswer("linear-beven-g2", "A stall has fixed costs of $60 and variable cost $2 per item. Write the cost rule for n items.", "C = 60 + 2n", "C = 60 + 2n", ["C=60+2n", "c=60+2n", "C=2n+60"]),
+        linearAnswer("linear-beven-g3", "Set 5n = 60 + 2n and solve for the break-even quantity n.", "5n = 60 + 2n", "20", ["n=20", "20 items"]),
+        moneyAnswer("linear-beven-g4", "Find the break-even revenue by substituting n = 20 into R = 5n.", "R=5\\times 20", "100"),
+      ],
+      independentPractice: [
+        linearAnswer("linear-beven-i1", "A product sells for $8 each. Fixed costs are $90, variable cost $3 per item. Write the cost rule.", "C = 90 + 3n", "C = 90 + 3n", ["C=90+3n", "c=90+3n"]),
+        linearAnswer("linear-beven-i2", "Set 8n = 90 + 3n and solve for the break-even quantity n.", "8n = 90 + 3n", "18", ["n=18", "18 items"]),
+        moneyAnswer("linear-beven-i3", "Find the break-even revenue using R = 8n and n = 18.", "R=8\\times 18", "144"),
+        linearAnswer("linear-beven-i4", "A market stall sells at $10 per item. Fixed cost $120, variable cost $4 per item. Find the break-even quantity.", "10n = 120 + 4n", "20", ["n=20", "20 items"]),
+        financeChoice(
+          "linear-beven-i5",
+          "At the break-even point, profit is:",
+          "C",
+          ["Maximum", "Negative", "Zero", "Equal to fixed costs"],
+          "Break-even means Revenue = Cost, so Profit = Revenue − Cost = 0.",
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Writing Revenue as Fixed cost + selling price, confusing revenue with total cost.", fix: "Revenue = selling price × quantity only. Fixed costs and variable costs belong in the Cost rule, not Revenue." },
+        { mistake: "Setting Revenue = 0 instead of Revenue = Cost to find break-even.", fix: "Break-even is where Revenue and Cost are equal to each other, not where either is zero." },
+        { mistake: "After finding break-even quantity, forgetting to find the break-even dollar amount.", fix: "Substitute n back into either R or C to find the dollar value at break-even." },
+        { mistake: "Confusing profit with revenue — reporting revenue as profit.", fix: "Profit = Revenue − Cost. If selling 25 items at $5 gives revenue $125 but cost is $110, profit is $15, not $125." },
+      ],
+      masteryQuiz: [
+        linearAnswer("linear-beven-m1", "A food truck earns $12 per meal. Fixed costs $160, variable cost $4 per meal. Write the cost rule.", "C = 160 + 4n", "C = 160 + 4n", ["C=160+4n", "c=160+4n"]),
+        linearAnswer("linear-beven-m2", "Write the revenue rule for the food truck (selling at $12 per meal).", "R = 12n", "R = 12n", ["R=12n", "r=12n"]),
+        financeChoice(
+          "linear-beven-m3",
+          "To find the break-even quantity, you should:",
+          "C",
+          ["Set Cost = 0", "Set Revenue = 0", "Set Revenue = Cost", "Subtract Revenue from Cost"],
+          "Break-even is the point where Revenue = Cost.",
+        ),
+        linearAnswer("linear-beven-m4", "Solve 12n = 160 + 4n to find the break-even quantity.", "12n = 160 + 4n \\Rightarrow 8n = 160", "20", ["n=20", "20 meals"]),
+        moneyAnswer("linear-beven-m5", "Find the break-even revenue for the food truck using R = 12n and n = 20.", "R=12\\times 20", "240"),
+        financeChoice(
+          "linear-beven-m6",
+          "A stall sells 30 items. Revenue = $150 and Cost = $120. The profit is:",
+          "C",
+          ["$150", "$120", "$30", "-$30"],
+          "Profit = Revenue − Cost = $150 − $120 = $30.",
+        ),
+        linearAnswer("linear-beven-m7", "A popcorn stall charges $6 per bag. Fixed cost $90, variable cost $1 per bag. Find the break-even quantity.", "6n = 90 + n \\Rightarrow 5n = 90", "18", ["n=18", "18 bags"]),
+        moneyAnswer("linear-beven-m8", "Find the break-even revenue for the popcorn stall (n = 18, R = 6n).", "R=6\\times 18", "108"),
+        linearAnswer("linear-beven-m9", "A craft stall sells items at $15 each. Fixed cost $180, variable cost $6 per item. Find the quantity needed to make a $90 profit.", "9n - 180 = 90 \\Rightarrow 9n = 270", "30", ["n=30", "30 items"]),
+        financeChoice(
+          "linear-beven-m10",
+          "A stall with fixed costs $100 sells items at $8 each, variable cost $3. At n = 15 items, the stall has:",
+          "B",
+          ["Profit of $25", "Loss of $25", "Profit of $10", "Break-even"],
+          "Revenue = $120. Cost = $100 + $45 = $145. Profit = $120 − $145 = −$25 (loss).",
+        ),
+      ],
+    };
+  }
+
+  if (lesson.slug === "practical-limitations-linear-models") {
+    return {
+      ...base,
+      description:
+        "Identify domain restrictions, explain why extrapolation may be unreliable, and state meaningful limitations of linear models in context.",
+      learningIntention:
+        "Evaluate whether a linear model gives reliable predictions for a given input by checking domain restrictions and extrapolation risks.",
+      successCriteria: [
+        "Identify valid and invalid input values for a practical linear model.",
+        "Find the endpoint of a model's domain by setting the output to its minimum or maximum practical value.",
+        "Explain why extrapolation beyond the data range may be unreliable.",
+        "State a practical limitation of a linear model in context.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Every practical linear model is only meaningful for a specific range of inputs. This range is called the domain. For example, a tank volume model cannot predict negative litres, so it is only valid until V = 0.",
+          "To find the domain endpoint, set the output to its boundary value and solve. For V = 200 − 10t, setting V = 0 gives t = 20 — the tank empties at 20 minutes and the model stops being valid.",
+          "Extrapolation means using a model for input values beyond the range of the original data it was built from. A model built on 6 weeks of data may work well for week 7, but predicting year 3 is extrapolation and may be very unreliable — the situation may have changed significantly.",
+          "Linear models also assume a constant rate of change. In reality, rates can change over time: fuel prices change, spending habits shift, and demand fluctuates. Always state practical limitations in context, not just as a general statement.",
+        ],
+        latexBlocks: [
+          "\\text{Find domain endpoint: set output} = \\text{boundary value and solve for input}",
+          "V = 200 - 10t \\geq 0 \\Rightarrow t \\leq 20",
+          "\\text{Extrapolation risk: model built on data for } 0 \\leq x \\leq a \\text{ may fail for } x \\gg a",
+        ],
+      },
+      guidedPractice: [
+        financeChoice(
+          "linear-limit-g1",
+          "A tank model V = 200 − 10t is valid only while:",
+          "B",
+          ["t ≥ 200", "V ≥ 0, i.e. t ≤ 20", "V can be any value including negative", "t can be any value including negative"],
+          "The tank cannot have a negative volume, so the model is valid only while V ≥ 0.",
+        ),
+        linearAnswer("linear-limit-g2", "For V = 200 − 10t, find the value of t when V = 0 (the tank is empty).", "200 - 10t = 0", "20", ["t=20", "20 minutes", "20 min"]),
+        financeChoice(
+          "linear-limit-g3",
+          "Extrapolation means:",
+          "B",
+          ["Using a model within the range of its data", "Using a model beyond the range of its data", "Finding the gradient of a model", "Identifying the y-intercept"],
+          "Extrapolation uses the model for inputs outside the range from which it was built.",
+        ),
+        financeChoice(
+          "linear-limit-g4",
+          "A fuel model C = 1.80L is built from data with 0 ≤ L ≤ 60. Using it to predict cost for 90 L is unreliable because:",
+          "A",
+          ["90 > 60, so the model is used outside its data range", "Multiplication is too difficult for 90", "The model only works at exactly 60 L", "Direct variation is always unreliable"],
+          "Using the model for L = 90 is extrapolation — it is outside the observed data range of 0–60 L.",
+        ),
+      ],
+      independentPractice: [
+        moneyAnswer("linear-limit-i1", "A car hire costs C = 80 + 0.25d. Find the maximum cost if the car can travel at most 1000 km.", "80 + 0.25 \\times 1000", "330"),
+        linearAnswer("linear-limit-i2", "A savings model is S = 50 + 30w. After how many weeks does the model predict a balance of $500?", "50 + 30w = 500", "15", ["w=15", "15 weeks"]),
+        financeChoice(
+          "linear-limit-i3",
+          "A factory output grows by 200 units per month. Why might a model for 5 years into the future be unreliable?",
+          "B",
+          ["Monthly growth is impossible", "Resources or demand may limit growth over a long period", "Linear models are always accurate for factories", "5 years is the same as 5 months"],
+          "A constant growth rate over 5 years is unlikely — resources, staffing, or demand will change.",
+        ),
+        linearAnswer("linear-limit-i4", "A water model V = 120 − 8t is used for 0 ≤ t ≤ 15 minutes. What is the model's output at t = 15 (the boundary)?", "V = 120 - 8\\times 15", "0", ["V=0", "0 L", "zero"]),
+        linearAnswer("linear-limit-i5", "A population model P = 1200 + 50t is extrapolated to t = 100 years. What value does the model predict?", "P = 1200 + 50\\times 100", "6200", ["P=6200", "6200 people"]),
+      ],
+      commonMistakes: [
+        { mistake: "Applying a model for inputs that make the output negative or physically impossible.", fix: "Find the domain first: set the output to its minimum meaningful value (often 0) and solve to find the upper limit of valid input." },
+        { mistake: "Treating a model's prediction as exact even when far from its data range.", fix: "Any prediction well outside the original data range is extrapolation — acknowledge that the actual value may differ significantly." },
+        { mistake: "Stating a limitation as 'the model may be wrong' without context.", fix: "State specifically why the rate may change: 'the fuel price may change over time' or 'demand may not grow at a constant rate'." },
+        { mistake: "Confusing domain restriction with the model being incorrect.", fix: "A linear model is not wrong — it just has a finite valid range. State the domain and use the model only within it." },
+      ],
+      masteryQuiz: [
+        financeChoice(
+          "linear-limit-m1",
+          "A practical linear model should only be used where:",
+          "B",
+          ["The gradient is positive", "Inputs are within the realistic domain", "All negative values are included", "The model gives very large numbers"],
+          "A model is only meaningful within the context and range for which it was built.",
+        ),
+        linearAnswer("linear-limit-m2", "A battery model is B = 100 − 2h for h hours of use. After how many hours does B = 0?", "100 - 2h = 0", "50", ["h=50", "50 hours", "50 h"]),
+        linearAnswer("linear-limit-m3", "For the battery model B = 100 − 2h, state the upper limit of the valid domain (the value of h where B = 0).", "100 - 2h = 0 \\Rightarrow h = 50", "50", ["h=50", "50 hours", "50"]),
+        financeChoice(
+          "linear-limit-m4",
+          "A hire car cost model uses data from 0 to 500 km. Using it to predict costs at 800 km is:",
+          "B",
+          ["Reliable because it is just multiplication", "Unreliable as it is outside the data range (extrapolation)", "Exact always", "Impossible to calculate"],
+          "800 km is beyond the 500 km data range — this is extrapolation and may be unreliable.",
+        ),
+        linearAnswer("linear-limit-m5", "A tank model V = 400 − 20t is valid while V ≥ 0. Find the time t when V = 0.", "400 - 20t = 0", "20", ["t=20", "20 minutes", "20 min"]),
+        linearAnswer("linear-limit-m6", "A savings model S = 200 + 40w was built from 8 weeks of data. What does the model predict for week 52?", "S = 200 + 40\\times 52", "2280", ["S=2280", "$2280", "2280 dollars"]),
+        financeChoice(
+          "linear-limit-m7",
+          "The prediction for week 52 may be unreliable because:",
+          "B",
+          ["52 weeks is fewer than 8 weeks", "The model is extrapolated far beyond the 8-week data range", "Savings always stop growing", "The gradient is always wrong beyond 8 weeks"],
+          "Using an 8-week model to predict 52 weeks ahead is a large extrapolation — the savings rate may have changed.",
+        ),
+        moneyAnswer("linear-limit-m8", "A hire model is C = 60 + 12h, valid for 0 ≤ h ≤ 8 hours. Find the maximum cost within the valid domain.", "60 + 12\\times 8", "156"),
+        moneyAnswer("linear-limit-m9", "A fuel model C = 1.75L is valid for 0 ≤ L ≤ 60 litres. Find the maximum predicted cost within this domain.", "1.75\\times 60", "105"),
+        financeChoice(
+          "linear-limit-m10",
+          "Which statement best describes a practical limitation of a linear model?",
+          "C",
+          ["Linear models are never useful in real life", "Linear models cannot be graphed", "A constant rate of change may not apply indefinitely in real contexts", "Linear models are too complex to apply in practice"],
+          "Real rates of change (prices, savings, usage) often vary over time, so assuming a constant gradient indefinitely may lead to unreliable predictions.",
+        ),
       ],
     };
   }
