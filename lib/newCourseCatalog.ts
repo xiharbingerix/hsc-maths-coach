@@ -26,9 +26,12 @@ import {
   year12Standard1LinearAndDirectVariationLessonOverride,
   year12Standard1MeasurementAreaVolumeLessonOverride,
   year12Standard1ProbabilityAndChanceLessonOverride,
+  year12Standard1RightAngleTrigApplicationsLessonOverride,
   year12Standard1RightAngleTrigonometryLessonOverride,
+  year12Standard1RatesPracticalProblemsLessonOverride,
   year12Standard1ScaleDrawingsAndPlansLessonOverride,
   year12Standard1StatisticsExamPracticeLessonOverride,
+  year12Standard1TrigRatesExamPracticeLessonOverride,
 } from "./lessons/year12Standard1";
 import {
   year12Standard2AlgebraicRelationshipsLessonOverride,
@@ -233,6 +236,9 @@ export function buildLesson(
     year11StandardLinearRelationshipsLessonOverride(course, unit, lesson) ??
     year11StandardFormulasEquationsLessonOverride(course, unit, lesson) ??
     year12Standard1RightAngleTrigonometryLessonOverride(course, unit, lesson) ??
+    year12Standard1RightAngleTrigApplicationsLessonOverride(course, unit, lesson) ??
+    year12Standard1RatesPracticalProblemsLessonOverride(course, unit, lesson) ??
+    year12Standard1TrigRatesExamPracticeLessonOverride(course, unit, lesson) ??
     year12Standard1MeasurementAreaVolumeLessonOverride(course, unit, lesson) ??
     year12Standard1ScaleDrawingsAndPlansLessonOverride(course, unit, lesson) ??
     year12Standard1DataDisplaysSummaryStatisticsLessonOverride(course, unit, lesson) ??
@@ -623,6 +629,81 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Ratios, Rates and Unit Conversions",
             description:
               "Use ratios, sharing, rates, speed, fuel use, flow rates, map scales, and practical unit conversions.",
+          },
+          {
+            slug: "right-angle-trig-applications",
+            title: "Right-Angle Trigonometry — Applied Problems",
+            description:
+              "Apply sine, cosine and tangent to multi-step practical problems involving angles of elevation and depression, ramp gradients, and distances in real-world contexts.",
+            stableSkillId: "y12s1-trig-right-angle-trig-applications",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12s1-trig-app-cp-a",
+                label: "Identify the relevant sides and angle in a practical trig context",
+              },
+              {
+                stableCheckpointId: "y12s1-trig-app-cp-b",
+                label: "Choose the correct trigonometric ratio for the unknown quantity",
+              },
+              {
+                stableCheckpointId: "y12s1-trig-app-cp-c",
+                label: "Apply inverse trigonometry to find an angle to the nearest degree",
+              },
+              {
+                stableCheckpointId: "y12s1-trig-app-cp-d",
+                label: "Solve a two-step applied problem using a right triangle",
+              },
+            ],
+          },
+          {
+            slug: "rates-practical-problems",
+            title: "Rates in Practical Contexts",
+            description:
+              "Calculate and interpret rates in multi-step practical problems including speed, fuel consumption, flow rate and pay, applying rate formulas to find totals and compare options.",
+            stableSkillId: "y12s1-trig-rates-practical-problems",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12s1-rates-pp-cp-a",
+                label: "Calculate a rate from two related quantities",
+              },
+              {
+                stableCheckpointId: "y12s1-rates-pp-cp-b",
+                label: "Apply a rate to find a total amount, distance or time",
+              },
+              {
+                stableCheckpointId: "y12s1-rates-pp-cp-c",
+                label: "Compare two rate options to identify the better value",
+              },
+              {
+                stableCheckpointId: "y12s1-rates-pp-cp-d",
+                label: "Solve a multi-step rate problem combining two rates or two phases",
+              },
+            ],
+          },
+          {
+            slug: "trig-rates-exam-practice",
+            title: "Trigonometry and Rates Exam Practice",
+            description:
+              "Practise Standard 1 exam-style questions mixing right-angle trigonometry, rate calculations, and ratio reasoning with technique identification and multi-step working.",
+            stableSkillId: "y12s1-trig-trig-rates-exam-practice",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12s1-exam-cp-a",
+                label: "Identify whether a question requires trig, rate, or ratio reasoning",
+              },
+              {
+                stableCheckpointId: "y12s1-exam-cp-b",
+                label: "Execute the correct method to find a side, angle, or rate value",
+              },
+              {
+                stableCheckpointId: "y12s1-exam-cp-c",
+                label: "Apply a result from one part to answer a connected question",
+              },
+              {
+                stableCheckpointId: "y12s1-exam-cp-d",
+                label: "Interpret a calculated value in its practical context",
+              },
+            ],
           },
         ],
       },
