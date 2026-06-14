@@ -18,7 +18,7 @@
 | Year 10 Mathematics | 10 | ~56 | — | ✅ Available |
 | Year 10 Mathematics Advanced | 10 | ~56 | 16 topics / 128 subtopics | 🔄 In progress |
 | Year 10 Mathematics Core | 10 trimmed | ~40 | 12 topics / 76 subtopics | 🔄 In progress |
-| Year 11 Standard | 9 | 58 | 9 topics / 63 subtopics (2026) | 🔄 Depth pass in progress (+5 remaining) |
+| Year 11 Standard | 9 | 61 | 9 topics / 63 subtopics (2026) | 🔄 Depth pass in progress (+2 remaining) |
 | Year 11 Advanced | 8 | 54 | 11 topics / 90 subtopics (2026) | ✅ Available |
 | Year 11 Extension | 5 of 5 | 25 | 5 topics / 30 subtopics (2026) | ✅ Available |
 | Year 12 Standard 1 | 5 | 18 | 7 topics / 29 subtopics | 🔄 In progress |
@@ -175,15 +175,15 @@ Depth pass completed 2026-06-14.
 - [x] **Density, Concentration and Practical Rates** — density (mass/volume), fuel consumption, population density, concentration, unit-rate reasoning
 - [x] **Scale Drawings and Models** — scale factor, interpreting plans and maps, enlargement/reduction, construction contexts
 
-### Time and Location (4 / ~7)
+### Time and Location (7 / ~7) ✅
 
 - [x] Time Calculations and Timetables
 - [x] Time Zones, UTC and the International Date Line
 - [x] Map Scales, Grid References and Location
 - [x] Time and Location Exam Practice
-- [ ] **Compass Bearings and Navigation** — true north, true bearings (3-figure notation), back bearings, direction problems
-- [ ] **Speed, Distance and Time** — D = ST in travel contexts, average speed, multi-leg journeys, time elapsed
-- [ ] **Latitude, Longitude and Global Location** — GPS coordinates, distance on meridians, international navigation basics
+- [x] **Compass Bearings and Navigation** — true north, true bearings (3-figure notation), back bearings, direction problems
+- [x] **Speed, Distance and Time** — D = ST in travel contexts, average speed, multi-leg journeys, time elapsed
+- [x] **Latitude, Longitude and Global Location** — GPS coordinates, distance on meridians, international navigation basics
 
 ### Networks, Paths and Trees (7 / ~7) ✅
 
@@ -218,8 +218,8 @@ Depth pass completed 2026-06-14.
 ---
 
 **Depth pass summary (2026-06-14):** 28 lessons to author across all 9 units to reach Class Maths parity.
-**Progress (2026-06-14):** Formulas+Equations ✅ (+4). Linear Relationships ✅ (+4). Earning Money ✅ (+2). Data Analysis ✅ (+4). Networks ✅ (+3). Probability ✅ (+3). Measurement ✅ (+3). 5 lessons remaining.
-Authoring priority: Time/Location (3) > Managing Money (2).
+**Progress (2026-06-14):** Formulas+Equations ✅ (+4). Linear Relationships ✅ (+4). Earning Money ✅ (+2). Data Analysis ✅ (+4). Networks ✅ (+3). Probability ✅ (+3). Measurement ✅ (+3). Time/Location ✅ (+3). 2 lessons remaining.
+Authoring priority: Managing Money (2) — Credit Cards, GST/Discounts.
 
 ---
 

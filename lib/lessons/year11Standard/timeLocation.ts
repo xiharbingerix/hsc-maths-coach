@@ -74,6 +74,27 @@ function timeLocationFeedback(prompt: string, latex: string, answer: string): st
     return `Location questions are about direction and distance, not just arithmetic. Track east/west changes separately from north/south changes to arrive at ${answer}.`;
   }
 
+  if (context.includes("back bearing") || (context.includes("bearing") && (context.includes("return") || context.includes("back")))) {
+    return `To find the back bearing, add 180° if the bearing is 180° or less, or subtract 180° if the bearing is greater than 180°. The back bearing is ${answer}.`;
+  }
+  if (context.includes("bearing") || context.includes("true north") || context.includes("clockwise from north")) {
+    return `True bearings are measured clockwise from north using three digits: N=000°, NE=045°, E=090°, SE=135°, S=180°, SW=225°, W=270°, NW=315°. The answer is ${answer}.`;
+  }
+  if (context.includes("latitude") || context.includes("longitude") || context.includes("gps") || context.includes("prime meridian") || context.includes("equator") || context.includes("hemisphere")) {
+    if (context.includes("111") || (context.includes("distance") && context.includes("degree"))) {
+      return `Each degree of latitude represents approximately 111 km of north-south distance. Multiply the difference in latitude by 111 to get ${answer}.`;
+    }
+    if (context.includes("utc") || context.includes("15°") || context.includes("15 degrees") || context.includes("offset")) {
+      return `Each 15° of longitude corresponds to 1 hour of UTC offset (360° ÷ 24 h = 15°/h). Divide the longitude by 15 to get the UTC offset: ${answer}.`;
+    }
+    return `Latitude measures north-south position (equator = 0°, poles = 90°). Longitude measures east-west position (prime meridian = 0°, range ±180°). Read the N/S and E/W labels to determine the hemisphere: ${answer}.`;
+  }
+  if (context.includes("average speed") || (context.includes("speed") && context.includes("km/h"))) {
+    if (context.includes("two") || context.includes("total") || context.includes("leg") || context.includes("then")) {
+      return `For average speed over multiple legs, use total distance ÷ total time. Never average the speeds of individual legs. Here that gives ${answer}.`;
+    }
+    return `Use D = S × T and match units: if speed is in km/h, distance must be in km and time in hours. Convert minutes to decimal hours by dividing by 60. The answer is ${answer}.`;
+  }
   if (context.includes("speed") || context.includes("distance")) {
     return `Speed, distance and time questions use matching units. Choose the quantity being asked for, then use the relationship between distance, speed and time to get ${answer}.`;
   }
@@ -204,6 +225,100 @@ function timeLocationWorkedExamples(slug: string, title: string): WorkedExample[
           { explanation: "The y-coordinate increases from 3 to 7, so B is north of A." },
         ],
         finalAnswerLatex: "\\text{B is north of A.}",
+      },
+    ];
+  }
+
+  if (slug === "compass-bearings-navigation") {
+    return [
+      {
+        title: "True bearing of NE",
+        questionLatex: "\\text{What is the true bearing of north-east (NE)?}",
+        steps: [
+          { explanation: "True bearings are measured clockwise from north using three digits." },
+          { explanation: "North-east is exactly halfway between north (000°) and east (090°).", latex: "\\frac{000^\\circ+090^\\circ}{2}=045^\\circ" },
+        ],
+        finalAnswerLatex: "045^\\circ",
+      },
+      {
+        title: "Back bearing of 060°",
+        questionLatex: "\\text{A ship sails on bearing }060^\\circ.\\text{ Find the back bearing.}",
+        steps: [
+          { explanation: "The bearing is 060° which is ≤ 180°, so add 180°.", latex: "060^\\circ+180^\\circ=240^\\circ" },
+        ],
+        finalAnswerLatex: "240^\\circ",
+      },
+      {
+        title: "Back bearing of 300°",
+        questionLatex: "\\text{A vessel sails on bearing }300^\\circ.\\text{ Find the back bearing.}",
+        steps: [
+          { explanation: "The bearing is 300° which is > 180°, so subtract 180°.", latex: "300^\\circ-180^\\circ=120^\\circ" },
+        ],
+        finalAnswerLatex: "120^\\circ",
+      },
+    ];
+  }
+
+  if (slug === "speed-distance-time") {
+    return [
+      {
+        title: "Finding distance",
+        questionLatex: "\\text{A car travels at }80\\text{ km/h for }3\\text{ hours. Find the distance.}",
+        steps: [
+          { explanation: "Write the formula.", latex: "D=S\\times T" },
+          { explanation: "Substitute values.", latex: "D=80\\times 3=240\\text{ km}" },
+        ],
+        finalAnswerLatex: "240\\text{ km}",
+      },
+      {
+        title: "Finding time",
+        questionLatex: "\\text{A car travels }300\\text{ km at }60\\text{ km/h. Find the time.}",
+        steps: [
+          { explanation: "Rearrange for time.", latex: "T=\\frac{D}{S}" },
+          { explanation: "Substitute values.", latex: "T=\\frac{300}{60}=5\\text{ h}" },
+        ],
+        finalAnswerLatex: "5\\text{ h}",
+      },
+      {
+        title: "Average speed over multiple legs",
+        questionLatex: "\\text{A driver travels }120\\text{ km in }2\\text{ h then }60\\text{ km in }1\\text{ h.}",
+        steps: [
+          { explanation: "Find total distance and total time.", latex: "\\text{total D}=120+60=180\\text{ km},\\quad \\text{total T}=2+1=3\\text{ h}" },
+          { explanation: "Average speed = total D ÷ total T.", latex: "S=\\frac{180}{3}=60\\text{ km/h}" },
+        ],
+        finalAnswerLatex: "60\\text{ km/h}",
+      },
+    ];
+  }
+
+  if (slug === "latitude-longitude-global-location") {
+    return [
+      {
+        title: "Reading GPS coordinates",
+        questionLatex: "\\text{A city has GPS coordinates }(33.9^\\circ\\text{S},\\;151.2^\\circ\\text{E}).\\text{ Identify the hemispheres.}",
+        steps: [
+          { explanation: "The latitude is 33.9°S — the S label means southern hemisphere." },
+          { explanation: "The longitude is 151.2°E — the E label means eastern hemisphere." },
+        ],
+        finalAnswerLatex: "\\text{Southern hemisphere, Eastern hemisphere}",
+      },
+      {
+        title: "North-south distance from latitude change",
+        questionLatex: "\\text{Two cities are }4^\\circ\\text{ of latitude apart. Estimate the distance. Use }1^\\circ\\approx 111\\text{ km.}",
+        steps: [
+          { explanation: "Each degree of latitude ≈ 111 km.", latex: "1^\\circ\\approx 111\\text{ km}" },
+          { explanation: "Multiply by the degree difference.", latex: "4\\times 111=444\\text{ km}" },
+        ],
+        finalAnswerLatex: "444\\text{ km}",
+      },
+      {
+        title: "Longitude to UTC offset",
+        questionLatex: "\\text{A location is at longitude }150^\\circ\\text{E. Find the UTC offset. (Use }15^\\circ=1\\text{ hour.)}",
+        steps: [
+          { explanation: "360° ÷ 24 h = 15° per hour.", latex: "\\text{UTC offset}=\\frac{150}{15}=10" },
+          { explanation: "East longitudes are positive offsets.", latex: "\\text{UTC+10}" },
+        ],
+        finalAnswerLatex: "\\text{UTC+10}",
       },
     ];
   }
@@ -457,6 +572,331 @@ export function year11StandardTimeLocationLessonOverride(
           explanation:
             "2.5 km is 250000 cm. On a 1:25000 map, map distance is $250000\\div25000=10$ cm.",
         },
+      ],
+    };
+  }
+
+  if (lesson.slug === "compass-bearings-navigation") {
+    return {
+      ...base,
+      description:
+        "Read true bearings using three-digit notation measured clockwise from north, identify key compass points as bearings, and calculate back bearings.",
+      learningIntention:
+        "Interpret true bearings, identify compass points as 3-digit bearings, and find back bearings.",
+      successCriteria: [
+        "State true bearings for the 8 main compass points (N, NE, E, SE, S, SW, W, NW).",
+        "Interpret a given bearing as a compass direction.",
+        "Calculate the back bearing by adding or subtracting 180°.",
+        "Apply the correct rule: add 180° when bearing ≤ 180°, subtract 180° when bearing > 180°.",
+      ],
+      teaching: {
+        paragraphs: [
+          "True bearings are measured clockwise from north and always written with three digits, e.g. 045°, not 45°. North itself is 000°.",
+          "Key compass points as bearings: N=000°, NE=045°, E=090°, SE=135°, S=180°, SW=225°, W=270°, NW=315°.",
+          "A back bearing is the reverse direction — the bearing you would travel to return to your starting point.",
+          "Back bearing rule: if the bearing is 180° or less, add 180°. If the bearing is greater than 180°, subtract 180°. The result stays between 000° and 360°.",
+        ],
+        latexBlocks: [
+          "\\text{N}=000^\\circ,\\;\\text{NE}=045^\\circ,\\;\\text{E}=090^\\circ,\\;\\text{SE}=135^\\circ,\\;\\text{S}=180^\\circ,\\;\\text{SW}=225^\\circ,\\;\\text{W}=270^\\circ,\\;\\text{NW}=315^\\circ",
+          "\\text{back bearing}=\\text{bearing}+180^\\circ \\quad(\\text{if bearing}\\le 180^\\circ)",
+          "\\text{back bearing}=\\text{bearing}-180^\\circ \\quad(\\text{if bearing}>180^\\circ)",
+        ],
+      },
+      guidedPractice: [
+        financeChoice("time-bear-g1", "True bearings are always measured:", "B", [
+          "Anti-clockwise from south using two digits",
+          "Clockwise from north using three digits",
+          "From east using four digits",
+          "From the nearest compass point",
+        ], "True bearings are always clockwise from north, written with three digits."),
+        financeChoice("time-bear-g2", "The true bearing of east is:", "C", [
+          "000°",
+          "045°",
+          "090°",
+          "270°",
+        ], "East is 90° clockwise from north: 090°."),
+        measurementAnswer("time-bear-g3", "A ship sails on a bearing of 060°. Find the back bearing.", "060^\\circ+180^\\circ", "240°", ["240", "240 degrees"]),
+        financeChoice("time-bear-g4", "Which bearing represents south-west (SW)?", "D", [
+          "045°",
+          "135°",
+          "180°",
+          "225°",
+        ], "SW is 225° — halfway between S (180°) and W (270°)."),
+      ],
+      independentPractice: [
+        measurementAnswer("time-bear-i1", "Find the back bearing of 125°.", "125^\\circ+180^\\circ", "305°", ["305", "305 degrees"]),
+        measurementAnswer("time-bear-i2", "Find the back bearing of 250°.", "250^\\circ-180^\\circ", "070°", ["70", "070", "70 degrees", "070 degrees"]),
+        financeChoice("time-bear-i3", "A vessel travels on bearing 270°. In which direction is it heading?", "C", [
+          "North",
+          "South",
+          "West",
+          "East",
+        ], "270° is due west."),
+        measurementAnswer("time-bear-i4", "Find the back bearing of 300°.", "300^\\circ-180^\\circ", "120°", ["120", "120 degrees"]),
+        financeChoice("time-bear-i5", "A walker travels due north then turns to travel due east. Their final position relative to the start is:", "B", [
+          "Due north",
+          "North-east",
+          "Due east",
+          "South-east",
+        ], "North then east places the walker north-east of the start."),
+      ],
+      commonMistakes: [
+        { mistake: "Writing a bearing as 45° instead of 045°.", fix: "True bearings always use three digits: 045°, 090°, 000°. Pad single or double-digit angles with leading zeros." },
+        { mistake: "Adding 180° to a bearing greater than 180° and getting a result over 360°.", fix: "If the bearing is already more than 180°, subtract 180° instead of adding it." },
+        { mistake: "Confusing NE (045°) with SE (135°).", fix: "Work clockwise from north: after NE (045°) comes E (090°), then SE (135°)." },
+        { mistake: "Using the back bearing rule backwards — subtracting when the bearing is less than 180°.", fix: "Add 180° for bearings ≤ 180°; subtract 180° for bearings > 180°. Check: the result must be between 000° and 360°." },
+      ],
+      masteryQuiz: [
+        financeChoice("time-bear-m1", "How many digits are always used in a true bearing?", "B", [
+          "Two",
+          "Three",
+          "Four",
+          "It varies",
+        ], "True bearings are always three digits: 000° to 360°."),
+        measurementAnswer("time-bear-m2", "Find the back bearing of 045°.", "045^\\circ+180^\\circ", "225°", ["225", "225 degrees"]),
+        measurementAnswer("time-bear-m3", "Find the back bearing of 315°.", "315^\\circ-180^\\circ", "135°", ["135", "135 degrees"]),
+        financeChoice("time-bear-m4", "A bearing of 135° represents which compass direction?", "C", [
+          "North-east",
+          "South-west",
+          "South-east",
+          "North-west",
+        ], "135° is SE — halfway between S (180°) and E (090°), measuring clockwise from N."),
+        measurementAnswer("time-bear-m5", "Find the back bearing of 090°.", "090^\\circ+180^\\circ", "270°", ["270", "270 degrees"]),
+        financeChoice("time-bear-m6", "Which rule gives the correct back bearing for a bearing of 200°?", "A", [
+          "200 − 180 = 020°",
+          "200 + 180 = 380° = 020°",
+          "200 ÷ 2 = 100°",
+          "360 − 200 = 160°",
+        ], "200° > 180°, so subtract 180°: 200 − 180 = 020°."),
+        measurementAnswer("time-bear-m7", "Find the back bearing of 225°.", "225^\\circ-180^\\circ", "045°", ["45", "045", "45 degrees", "045 degrees"]),
+        financeChoice("time-bear-m8", "A vessel departs on bearing 270°. Its back bearing is:", "B", [
+          "180°",
+          "090°",
+          "000°",
+          "360°",
+        ], "270° > 180°, so back bearing = 270 − 180 = 090°."),
+        measurementAnswer("time-bear-m9", "Find the back bearing of 180°.", "180^\\circ+180^\\circ=360^\\circ=000^\\circ", "000°", ["0", "000", "360", "0 degrees", "000 degrees"]),
+        financeChoice("time-bear-m10", "A navigator sees a lighthouse on a bearing of 000°. The bearing from the lighthouse back to the navigator is:", "C", [
+          "000°",
+          "090°",
+          "180°",
+          "270°",
+        ], "Back bearing of 000°: add 180° → 180°."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "speed-distance-time") {
+    return {
+      ...base,
+      description:
+        "Apply D = S × T to find distance, speed or time, convert between minutes and decimal hours, and calculate average speed for multi-leg journeys.",
+      learningIntention:
+        "Use D = S × T to solve practical travel problems, and calculate average speed for journeys with multiple legs.",
+      successCriteria: [
+        "Apply D = S × T to find distance, speed or time.",
+        "Convert minutes to decimal hours before substituting into the formula.",
+        "Find average speed for multi-leg journeys using total distance ÷ total time.",
+        "Interpret answers in appropriate units and check reasonableness.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The DST triangle relates distance, speed and time: D = S × T. Cover the unknown with your thumb — the remaining two quantities show the calculation needed.",
+          "Units must match. If speed is in km/h, distance must be in km and time in hours. Convert minutes to hours by dividing by 60: 30 min = 0.5 h, 15 min = 0.25 h, 45 min = 0.75 h.",
+          "For multi-leg journeys, find total distance and total time separately before dividing to get average speed. Averaging individual speeds gives the wrong answer unless all legs take the same time.",
+          "Convert a decimal time back to hours and minutes if needed: 2.5 h = 2 h 30 min, 1.25 h = 1 h 15 min.",
+        ],
+        latexBlocks: [
+          "D=S\\times T \\qquad S=\\frac{D}{T} \\qquad T=\\frac{D}{S}",
+          "\\text{average speed}=\\frac{\\text{total distance}}{\\text{total time}}",
+          "30\\text{ min}=0.5\\text{ h},\\quad 15\\text{ min}=0.25\\text{ h},\\quad 45\\text{ min}=0.75\\text{ h}",
+        ],
+      },
+      guidedPractice: [
+        financeChoice("time-sdt-g1", "The formula for distance is:", "A", [
+          "D = S × T",
+          "D = S ÷ T",
+          "D = T ÷ S",
+          "D = S + T",
+        ], "Distance = Speed × Time."),
+        measurementAnswer("time-sdt-g2", "A car travels at 80 km/h for 3 hours. Find the distance.", "D=80\\times 3", "240 km", ["240", "240km"]),
+        measurementAnswer("time-sdt-g3", "A car travels 300 km at 60 km/h. Find the time taken.", "T=\\frac{300}{60}", "5 h", ["5", "5h", "5 hours"]),
+        financeChoice("time-sdt-g4", "15 minutes expressed as a fraction of an hour is:", "B", [
+          "0.15 h",
+          "0.25 h",
+          "0.5 h",
+          "1.5 h",
+        ], "15 ÷ 60 = 0.25 h."),
+      ],
+      independentPractice: [
+        measurementAnswer("time-sdt-i1", "A runner travels 12 km in 2 hours. Find the average speed.", "S=\\frac{12}{2}", "6 km/h", ["6", "6km/h", "6 km/h"]),
+        measurementAnswer("time-sdt-i2", "A cyclist rides at 24 km/h for 2.5 hours. Find the distance.", "D=24\\times 2.5", "60 km", ["60", "60km"]),
+        measurementAnswer("time-sdt-i3", "A train travels 180 km at 72 km/h. Find the time taken.", "T=\\frac{180}{72}", "2.5 h", ["2.5", "2h 30min", "2 h 30 min", "2 hours 30 minutes"]),
+        financeChoice("time-sdt-i4", "A driver travels 120 km in 2 h then 60 km in 1 h. The average speed for the whole journey is:", "B", [
+          "90 km/h",
+          "60 km/h",
+          "70 km/h",
+          "80 km/h",
+        ], "Total D = 180 km, total T = 3 h. Average speed = 180 ÷ 3 = 60 km/h."),
+        measurementAnswer("time-sdt-i5", "A bus travels 150 km in 2 h 30 min (= 2.5 h). Find the average speed.", "S=\\frac{150}{2.5}", "60 km/h", ["60", "60km/h", "60 km/h"]),
+      ],
+      commonMistakes: [
+        { mistake: "Using minutes directly in the formula without converting to hours.", fix: "The formula uses hours for time when speed is in km/h. Convert minutes to hours by dividing by 60: 30 min = 0.5 h." },
+        { mistake: "Finding average speed by averaging 80 km/h and 60 km/h to get 70 km/h.", fix: "Always use total distance ÷ total time. Different legs can take different amounts of time, so simple speed averages give the wrong answer." },
+        { mistake: "Dividing S by D to find T, or D by T to find S.", fix: "Use the DST triangle: cover the unknown. T = D ÷ S; S = D ÷ T; D = S × T." },
+        { mistake: "Giving a time answer as 2.5 when the question asks for hours and minutes.", fix: "Convert 2.5 h to 2 h 30 min when the question asks for the format hours and minutes." },
+      ],
+      masteryQuiz: [
+        financeChoice("time-sdt-m1", "Speed = ?", "C", [
+          "Distance × Time",
+          "Time ÷ Distance",
+          "Distance ÷ Time",
+          "Distance + Time",
+        ], "Speed = Distance ÷ Time."),
+        measurementAnswer("time-sdt-m2", "A plane flies at 900 km/h for 4 hours. Find the distance.", "D=900\\times 4", "3600 km", ["3600", "3,600", "3600km"]),
+        measurementAnswer("time-sdt-m3", "A jogger runs 9 km in 1.5 hours. Find the average speed.", "S=\\frac{9}{1.5}", "6 km/h", ["6", "6km/h", "6 km/h"]),
+        measurementAnswer("time-sdt-m4", "A bus travels at 60 km/h. How long does it take to travel 90 km?", "T=\\frac{90}{60}", "1.5 h", ["1.5", "1h 30min", "1 h 30 min", "1 hour 30 minutes"]),
+        financeChoice("time-sdt-m5", "A driver travels 120 km in 2 h, then 60 km in 1 h. The average speed is:", "B", [
+          "90 km/h",
+          "60 km/h",
+          "50 km/h",
+          "80 km/h",
+        ], "Total D = 180 km, total T = 3 h. Average = 180 ÷ 3 = 60 km/h."),
+        measurementAnswer("time-sdt-m6", "A cyclist travels at 18 km/h for 45 minutes (= 0.75 h). Find the distance.", "D=18\\times 0.75", "13.5 km", ["13.5", "13.5km"]),
+        measurementAnswer("time-sdt-m7", "A truck covers 240 km in 4 hours. Find the average speed.", "S=\\frac{240}{4}", "60 km/h", ["60", "60km/h", "60 km/h"]),
+        financeChoice("time-sdt-m8", "A train takes 2 h 30 min (= 2.5 h) to travel 200 km. Its average speed is:", "A", [
+          "80 km/h",
+          "60 km/h",
+          "100 km/h",
+          "50 km/h",
+        ], "S = 200 ÷ 2.5 = 80 km/h."),
+        measurementAnswer("time-sdt-m9", "A car travels at 100 km/h. How long does it take to travel 250 km?", "T=\\frac{250}{100}", "2.5 h", ["2.5", "2h 30min", "2 h 30 min", "2 hours 30 minutes"]),
+        financeChoice("time-sdt-m10", "Why can average speed not be found by averaging the speeds of each leg?", "B", [
+          "Speeds are always the same",
+          "Each leg may have a different duration, so speeds must be weighted by time",
+          "Distance is irrelevant",
+          "You can only use total time",
+        ], "Average speed = total distance ÷ total time. Individual speeds need not be averaged."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "latitude-longitude-global-location") {
+    return {
+      ...base,
+      description:
+        "Read GPS coordinates as (latitude, longitude), identify hemispheres, estimate north-south distances using 111 km per degree, and connect longitude to UTC offsets.",
+      learningIntention:
+        "Interpret latitude and longitude coordinates, identify hemispheres, and use the 111 km per degree rule for north-south distances.",
+      successCriteria: [
+        "Identify latitude as north-south position (equator = 0°) and longitude as east-west position (prime meridian = 0°).",
+        "Read GPS coordinates in (latitude, longitude) format and identify the hemisphere.",
+        "Estimate north-south distance by multiplying the degree difference in latitude by 111 km.",
+        "Connect longitude to UTC offsets using the rule 15° of longitude = 1 hour.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Latitude lines (parallels) run east-west and measure north-south position. The equator is 0°. Latitudes range from 90°S to 90°N. Australia lies roughly between 10°S and 44°S.",
+          "Longitude lines (meridians) run north-south and measure east-west position. The prime meridian is 0° (through Greenwich, UK). Longitudes range from 180°W to 180°E.",
+          "GPS coordinates are written as (latitude, longitude). A location at (33.9°S, 151.2°E) is in the southern hemisphere (S label) and eastern hemisphere (E label).",
+          "Each degree of latitude represents approximately 111 km of north-south distance. Time zones connect to longitude: Earth rotates 360° in 24 hours = 15° per hour, so every 15° of longitude adds or subtracts 1 hour from UTC.",
+        ],
+        latexBlocks: [
+          "\\text{equator}=0^\\circ\\text{ latitude}\\qquad\\text{prime meridian}=0^\\circ\\text{ longitude}",
+          "\\text{north-south distance}\\approx\\Delta\\text{latitude}\\times 111\\text{ km}",
+          "\\frac{360^\\circ}{24\\text{ h}}=15^\\circ/\\text{h}\\qquad\\text{UTC offset}=\\frac{\\text{longitude (°E)}}{15}",
+        ],
+      },
+      guidedPractice: [
+        financeChoice("time-latlong-g1", "The equator has a latitude of:", "B", [
+          "90°",
+          "0°",
+          "180°",
+          "45°",
+        ], "The equator is at 0° latitude."),
+        financeChoice("time-latlong-g2", "GPS coordinates are written as:", "A", [
+          "(latitude, longitude)",
+          "(longitude, latitude)",
+          "(east, north)",
+          "(bearing, distance)",
+        ], "GPS coordinates are always (latitude, longitude)."),
+        financeChoice("time-latlong-g3", "A location at (34°S, 151°E) is in which hemispheres?", "C", [
+          "Northern and western",
+          "Northern and eastern",
+          "Southern and eastern",
+          "Southern and western",
+        ], "S = southern hemisphere; E = eastern hemisphere."),
+        measurementAnswer("time-latlong-g4", "Two cities are 4° of latitude apart. Estimate the north-south distance. (Use 1° ≈ 111 km.)", "4\\times 111", "444 km", ["444", "444km"]),
+      ],
+      independentPractice: [
+        financeChoice("time-latlong-i1", "The prime meridian has a longitude of:", "A", [
+          "0°",
+          "90°E",
+          "180°",
+          "45°W",
+        ], "The prime meridian is at 0° longitude."),
+        measurementAnswer("time-latlong-i2", "Two places are 10° of latitude apart. Estimate the north-south distance. (Use 1° ≈ 111 km.)", "10\\times 111", "1110 km", ["1110", "1110km", "1,110"]),
+        financeChoice("time-latlong-i3", "A location at longitude 75°W is in which hemisphere?", "B", [
+          "Eastern hemisphere",
+          "Western hemisphere",
+          "Northern hemisphere",
+          "Southern hemisphere",
+        ], "W labels indicate the western hemisphere."),
+        measurementAnswer("time-latlong-i4", "A location is at longitude 150°E. Using 15° = 1 hour, find the UTC offset.", "150\\div 15", "UTC+10", ["+10", "10", "UTC +10"]),
+        financeChoice("time-latlong-i5", "Which statement about latitude is correct?", "C", [
+          "Latitude measures east-west position",
+          "The prime meridian is a latitude line",
+          "Latitude lines run parallel to the equator and measure north-south position",
+          "Latitude is measured from the South Pole",
+        ], "Latitude measures north-south position; lines of latitude are parallel to the equator."),
+      ],
+      commonMistakes: [
+        { mistake: "Confusing latitude (north-south) and longitude (east-west).", fix: "Latitude = flat/horizontal lines like the equator (measure north-south). Longitude = vertical meridian lines (measure east-west)." },
+        { mistake: "Writing GPS coordinates as (longitude, latitude) instead of (latitude, longitude).", fix: "GPS format is always (latitude, longitude): north-south first, then east-west." },
+        { mistake: "Dividing by 111 instead of multiplying when finding north-south distance.", fix: "Distance = degrees of latitude × 111 km. Multiply: 4° of latitude = 4 × 111 = 444 km." },
+        { mistake: "Using 15° per hour but multiplying instead of dividing.", fix: "UTC offset = longitude ÷ 15. At 150°E: 150 ÷ 15 = UTC+10." },
+      ],
+      masteryQuiz: [
+        financeChoice("time-latlong-m1", "Which correctly describes longitude?", "B", [
+          "Longitude measures north-south position from 90°S to 90°N",
+          "Longitude measures east-west position from 180°W to 180°E",
+          "Longitude is the same as latitude",
+          "Longitude starts at the equator",
+        ], "Longitude is east-west, ranging from 180°W to 180°E."),
+        measurementAnswer("time-latlong-m2", "Two cities have latitudes 20°S and 25°S. Find the north-south distance. (Use 1° ≈ 111 km.)", "5\\times 111", "555 km", ["555", "555km"]),
+        financeChoice("time-latlong-m3", "Sydney is at approximately (33.9°S, 151.2°E). Which is true?", "A", [
+          "Sydney is in the southern and eastern hemispheres",
+          "Sydney is in the northern and eastern hemispheres",
+          "Sydney is in the southern and western hemispheres",
+          "Sydney is on the prime meridian",
+        ], "33.9°S → southern; 151.2°E → eastern."),
+        measurementAnswer("time-latlong-m4", "A location is at longitude 120°E. Find the UTC offset. (Use 15° = 1 hour.)", "120\\div 15", "UTC+8", ["+8", "8", "UTC +8"]),
+        financeChoice("time-latlong-m5", "Latitude ranges from:", "C", [
+          "0° to 360°",
+          "0° to 180°",
+          "90°S to 90°N",
+          "180°W to 180°E",
+        ], "Latitude runs from 90°S (South Pole) to 90°N (North Pole)."),
+        measurementAnswer("time-latlong-m6", "Two cities have latitudes 0° and 3°N. Estimate the distance between them. (Use 1° ≈ 111 km.)", "3\\times 111", "333 km", ["333", "333km"]),
+        financeChoice("time-latlong-m7", "GPS coordinates (40°N, 74°W) describe a location that is:", "B", [
+          "Southern and eastern hemispheres",
+          "Northern and western hemispheres",
+          "Southern and western hemispheres",
+          "Northern and eastern hemispheres",
+        ], "N → northern; W → western."),
+        measurementAnswer("time-latlong-m8", "A location is at longitude 75°W. Find the UTC offset. (Use 15° = 1 hour; W longitudes give negative offsets.)", "75\\div 15", "UTC-5", ["-5", "−5", "UTC -5"]),
+        financeChoice("time-latlong-m9", "The International Date Line is located at approximately:", "D", [
+          "0° longitude",
+          "90°E longitude",
+          "90°W longitude",
+          "180° longitude",
+        ], "The International Date Line runs roughly along 180° longitude."),
+        financeChoice("time-latlong-m10", "A plane travels from latitude 10°N to latitude 20°N along the same meridian. Using 1° ≈ 111 km, how far does it travel?", "B", [
+          "222 km",
+          "1110 km",
+          "555 km",
+          "2220 km",
+        ], "20 − 10 = 10°. Distance = 10 × 111 = 1110 km."),
       ],
     };
   }
