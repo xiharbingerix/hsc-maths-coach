@@ -598,6 +598,98 @@ export function year12Standard2NetworksLessonOverride(
     };
   }
 
+  if (lesson.slug === "network-flow-capacity-cuts") {
+    return {
+      ...base,
+      description:
+        "Interpret directed flow networks, capacities, bottlenecks, feasible flow, cuts, and maximum-flow limits in practical contexts.",
+      learningIntention:
+        "Use capacities and cuts to reason about feasible flow through a directed network.",
+      successCriteria: [
+        "Identify source, sink, arcs, and capacities in a directed flow network.",
+        "Check whether a proposed flow is feasible by comparing flow with capacity.",
+        "Find the capacity of a cut by adding relevant forward arcs.",
+        "Use bottlenecks and cuts to place an upper limit on total network flow.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A flow network is a directed network used to model movement through a system. The source is where flow begins, and the sink is where flow leaves the network.",
+          "Each directed edge, or arc, has a capacity. A proposed flow is feasible only if no arc carries more than its capacity.",
+          "A bottleneck is a part of the network with limited capacity. It can restrict the amount of water, traffic, data, or goods that can pass through the whole system.",
+          "A cut separates the source from the sink. The capacity of the cut is found by adding the capacities of forward arcs crossing from the source side to the sink side.",
+        ],
+        latexBlocks: [
+          "\\text{flow on an arc}\\le\\text{capacity of that arc}",
+          "\\text{source}\\to\\text{network}\\to\\text{sink}",
+          "\\text{cut capacity}=\\sum \\text{forward capacities crossing the cut}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Check a proposed flow",
+          questionLatex:
+            "\\text{Arc }A\\to B\\text{ has capacity }12.\\text{ A proposed flow sends }9\\text{ units.}",
+          steps: [
+            { explanation: "Compare the proposed flow with the capacity.", latex: "9\\le12" },
+            { explanation: "The proposed flow does not exceed the capacity." },
+          ],
+          finalAnswerLatex: "\\text{Feasible on this arc.}",
+        },
+        {
+          title: "Find the capacity of a cut",
+          questionLatex:
+            "\\text{Forward arcs crossing a cut have capacities }8,\\ 5,\\ 7.",
+          steps: [
+            { explanation: "Add the forward capacities that cross the cut.", latex: "8+5+7" },
+            { explanation: "Evaluate the total.", latex: "20" },
+          ],
+          finalAnswerLatex: "20",
+        },
+        {
+          title: "Identify a bottleneck",
+          questionLatex:
+            "\\text{Two pipes into the sink have capacities }6\\text{ and }9\\text{ litres per second.}",
+          steps: [
+            { explanation: "All flow into the sink must use these final pipes." },
+            { explanation: "Their combined capacity limits the total flow into the sink.", latex: "6+9=15" },
+          ],
+          finalAnswerLatex: "\\text{At most }15\\text{ L/s can enter the sink through these pipes.}",
+        },
+      ],
+      guidedPractice: [
+        labelledChoice("y12s2-flow-g1", "In a flow network, what is the source?", "A", ["Where flow begins", "Where flow leaves", "Any edge weight", "A cycle"], "The source is the starting point of the flow."),
+        labelledChoice("y12s2-flow-g2", "An arc has capacity 10 and proposed flow 7. Is the arc feasible?", "B", ["No", "Yes", "Only if it is undirected", "Only if capacity is ignored"], "The flow is not greater than the capacity."),
+        shortAnswer("y12s2-flow-g3", "A cut has forward capacities 4, 6 and 5. Find the cut capacity.", "4+6+5", "15"),
+        shortAnswer("y12s2-flow-g4", "Two final arcs into a sink have capacities 8 and 3. Find the most that can enter through those arcs.", "8+3", "11"),
+      ],
+      independentPractice: [
+        shortAnswer("y12s2-flow-i1", "A pipe has capacity 18 L/s and carries 12 L/s. How much spare capacity remains?", "18-12", "6", ["6 L/s"]),
+        labelledChoice("y12s2-flow-i2", "An arc has capacity 9 and proposed flow 11. What is the issue?", "C", ["It has no source", "It is always optimal", "It exceeds capacity", "It is a cut"], "A feasible flow cannot exceed capacity."),
+        shortAnswer("y12s2-flow-i3", "Forward arcs crossing a cut have capacities 7 and 13. Find the cut capacity.", "7+13", "20"),
+        shortAnswer("y12s2-flow-i4", "A source can send along two outgoing arcs with capacities 10 and 14. Find the outgoing capacity total.", "10+14", "24"),
+        labelledChoice("y12s2-flow-i5", "What does a cut capacity provide for the total flow?", "D", ["A lower limit only", "A vertex degree", "A residual", "An upper limit"], "A cut limits how much flow can cross from source side to sink side."),
+      ],
+      commonMistakes: [
+        { mistake: "Treating every directed edge as two-way.", fix: "Follow the arrow direction in a flow network." },
+        { mistake: "Allowing flow to exceed capacity.", fix: "Check each arc separately against its capacity." },
+        { mistake: "Adding backward arcs when finding a cut capacity.", fix: "For a source-to-sink cut, add only forward arcs crossing the cut." },
+        { mistake: "Confusing shortest path with maximum flow.", fix: "Flow questions are about capacity through the network, not one shortest route." },
+      ],
+      masteryQuiz: [
+        labelledChoice("y12s2-flow-m1", "In a flow network, what is the sink?", "B", ["Where flow begins", "Where flow leaves", "The largest capacity", "A repeated edge"], "The sink is the endpoint that receives the flow."),
+        shortAnswer("y12s2-flow-m2", "A proposed flow sends 16 on an arc with capacity 20. Find the spare capacity.", "20-16", "4"),
+        labelledChoice("y12s2-flow-m3", "A proposed flow sends 15 on an arc with capacity 12. The flow is:", "A", ["Not feasible", "Always maximum", "A cut", "A source"], "The proposed flow is greater than the capacity."),
+        shortAnswer("y12s2-flow-m4", "A cut has forward capacities 6, 9 and 10. Find the cut capacity.", "6+9+10", "25"),
+        shortAnswer("y12s2-flow-m5", "Final arcs into a sink have capacities 5, 7 and 8. Find their combined capacity.", "5+7+8", "20"),
+        labelledChoice("y12s2-flow-m6", "Which practical context is naturally modelled by network flow?", "C", ["A box plot", "A residual", "Water through pipes with capacity limits", "A normal z-score"], "Pipes with capacity limits are a flow-network context."),
+        labelledChoice("y12s2-flow-m7", "A bottleneck in a flow network is:", "D", ["The first vertex alphabetically", "Any triangle", "A shortest path", "A low-capacity part that restricts total flow"], "A bottleneck restricts the total amount that can pass through."),
+        shortAnswer("y12s2-flow-m8", "An arc has capacity 30 and flow 22. Find the unused capacity.", "30-22", "8"),
+        labelledChoice("y12s2-flow-m9", "When calculating a cut capacity, which arcs are added?", "A", ["Forward arcs crossing from source side to sink side", "All arcs in the network", "Only loops", "Only the shortest path"], "A cut capacity adds the forward crossing arcs."),
+        shortAnswer("y12s2-flow-m10", "A cut capacity is 18. What is the largest possible total flow across that cut?", "\\text{cut capacity}=18", "18"),
+      ],
+    };
+  }
+
   return {
     ...base,
     description:
@@ -709,4 +801,3 @@ export function year12Standard2NetworksLessonOverride(
     ],
   };
 }
-

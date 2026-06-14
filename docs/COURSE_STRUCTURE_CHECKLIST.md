@@ -22,7 +22,7 @@
 | Year 11 Advanced | 8 | 54 | 11 topics / 90 subtopics (2026) | ✅ Available |
 | Year 11 Extension | 5 of 5 | 25 | 5 topics / 30 subtopics (2026) | ✅ Available |
 | Year 12 Standard 1 | 5 | 18 | 7 topics / 29 subtopics | 🔄 In progress |
-| Year 12 Standard 2 | 5 | 22 | 10 topics / 59 subtopics | ✅ Available |
+| Year 12 Standard 2 | 5 | 24 | 10 topics / 59 subtopics | ✅ Available |
 | Year 12 Advanced | 12 | 86 | 11 topics / 64 subtopics | ✅ Available |
 | Year 12 Extension 1 | 6 | 22 | 7 topics / 28 subtopics | ✅ Available |
 | Year 12 Extension 2 | 5 | 17 | 5 topics / 40 subtopics | 🔄 In progress |
@@ -283,14 +283,16 @@ Class Maths: 10 topics / 59 subtopics.
 - [x] Algebraic Relationships (5 lessons)
 - [x] Trigonometry, Ratios and Rates (4 lessons)
 - [x] Investments, Loans and Annuities (4 lessons)
-- [x] Bivariate Data and Normal Distribution (5 lessons)
-- [x] Networks and Critical Path Analysis (4 lessons)
+- [x] Bivariate Data and Normal Distribution (6 lessons — includes relative frequency/probability Phase 1)
+- [x] Networks and Critical Path Analysis (5 lessons — includes network flow Phase 1)
 
 **Gaps vs Class Maths 10-topic target:**
-Nova has 5 units / 22 lessons vs target of 10 topics / 59 subtopics.
-Missing topics likely include: Measurement, Simultaneous Equations, further Statistics, further Algebra.
+Nova has 5 public units / 24 lessons vs target of 10 topics / 59 subtopics.
+Phase 1 added relative frequency/probability and network flow as missing focus-area coverage. Remaining depth gaps are mainly finer granularity in Measurement, Financial Mathematics, Algebra, and exam-practice slices.
 
-- [ ] Audit Class Maths Standard 2 topic list and add missing units
+- [x] Phase 1: add relative frequency/probability and network flow focus-area lessons
+- [ ] Phase 2: deepen Measurement into separate trigonometry and ratios/rates skill slices
+- [ ] Phase 3: deepen Financial Mathematics into investment/loans and annuities skill slices
 
 ---
 
@@ -370,7 +372,7 @@ Courses that need a depth pass before they match Class Maths granularity:
 | Course | Current avg lessons/unit | Target avg | Gap |
 |---|---|---|---|
 | Year 11 Standard | 3.9 | ~7 | +28 total (see unit-by-unit breakdown above) |
-| Year 12 Standard 2 | 4.4 | ~6 | +2 per unit |
+| Year 12 Standard 2 | 4.8 | ~6 | +1–2 per unit |
 | Year 12 Standard 1 | 3.6 | ~4 | ~+1 per unit |
 | Year 12 Extension 1 | 3.7 | ~4 | ~+1 per unit |
 | Year 12 Extension 2 | 3.4 | ~8 | +5 per unit |

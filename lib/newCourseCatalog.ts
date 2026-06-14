@@ -528,6 +528,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Calculate and interpret z-scores, standard deviations from the mean, and empirical-rule percentages.",
           },
           {
+            slug: "relative-frequency-probability",
+            title: "Relative Frequency and Probability",
+            description:
+              "Use relative frequency, experimental probability, simulations, and two-way tables to estimate and interpret probabilities.",
+          },
+          {
             slug: "statistical-analysis-exam-practice",
             title: "Statistical Analysis Exam Practice",
             description:
@@ -554,6 +560,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Shortest Paths and Minimum Spanning Trees",
             description:
               "Solve route and minimal connector problems using shortest paths, path weights, MSTs, and Kruskal's method.",
+          },
+          {
+            slug: "network-flow-capacity-cuts",
+            title: "Network Flow, Capacity and Cuts",
+            description:
+              "Interpret directed flow networks, capacities, bottlenecks, feasible flow, cuts, and maximum-flow limits in practical contexts.",
           },
           {
             slug: "critical-path-analysis",

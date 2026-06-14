@@ -624,6 +624,98 @@ export function year12Standard2StatisticsLessonOverride(
     };
   }
 
+  if (lesson.slug === "relative-frequency-probability") {
+    return {
+      ...base,
+      description:
+        "Use relative frequency, experimental probability, simulations, and two-way tables to estimate and interpret probabilities.",
+      learningIntention:
+        "Estimate and interpret probabilities from repeated trials, simulations, and two-way frequency tables.",
+      successCriteria: [
+        "Calculate relative frequency as successful trials divided by total trials.",
+        "Use experimental results to estimate probability in context.",
+        "Interpret how increasing the number of trials can stabilise relative frequency.",
+        "Read two-way frequency tables to find simple and conditional probabilities.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Relative frequency uses observed data to estimate probability. It is calculated by dividing the number of times an event occurs by the total number of trials.",
+          "Experimental probability is useful when a theoretical probability is hard to model or when data has been collected from a real process.",
+          "A small number of trials can give a noisy estimate. As the number of trials grows, the relative frequency often becomes more stable.",
+          "Two-way tables organise outcomes across two categories. They can be used to find probabilities from totals, rows, columns, and restricted groups.",
+        ],
+        latexBlocks: [
+          "\\text{relative frequency}=\\frac{\\text{number of successful trials}}{\\text{total number of trials}}",
+          "\\text{estimated probability}\\approx\\text{relative frequency}",
+          "P(A\\mid B)=\\frac{\\text{number in both }A\\text{ and }B}{\\text{number in group }B}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Estimate probability from relative frequency",
+          questionLatex:
+            "\\text{A machine produces }18\\text{ faulty items in }300\\text{ tests. Estimate the probability of a faulty item.}",
+          steps: [
+            { explanation: "Use faulty items divided by total items.", latex: "\\frac{18}{300}" },
+            { explanation: "Simplify or convert to a decimal.", latex: "\\frac{18}{300}=0.06" },
+          ],
+          finalAnswerLatex: "0.06\\text{ or }6\\%",
+        },
+        {
+          title: "Use a simulation result",
+          questionLatex:
+            "\\text{A simulation gives }124\\text{ wins in }500\\text{ games. Estimate the chance of a win.}",
+          steps: [
+            { explanation: "Divide the number of wins by the number of simulated games.", latex: "\\frac{124}{500}" },
+            { explanation: "Evaluate the relative frequency.", latex: "0.248" },
+          ],
+          finalAnswerLatex: "0.248",
+        },
+        {
+          title: "Read a two-way table",
+          questionLatex:
+            "\\begin{array}{c|cc|c}&\\text{Bus}&\\text{Train}&\\text{Total}\\\\ \\text{Student}&18&12&30\\\\ \\text{Adult}&22&28&50\\\\ \\hline \\text{Total}&40&40&80\\end{array}",
+          steps: [
+            { explanation: "For the probability of student given bus, restrict attention to the Bus column.", latex: "\\text{Bus total}=40" },
+            { explanation: "There are 18 students in the Bus column.", latex: "P(\\text{Student}\\mid\\text{Bus})=\\frac{18}{40}=0.45" },
+          ],
+          finalAnswerLatex: "0.45",
+        },
+      ],
+      guidedPractice: [
+        financeShortAnswer("y12s2-relfreq-g1", "A spinner lands on red 24 times in 100 spins. Estimate P(red).", "\\frac{24}{100}", "0.24", ["24%", "6/25"]),
+        financeShortAnswer("y12s2-relfreq-g2", "A quality check finds 7 faulty items in 200. Estimate the probability an item is faulty.", "\\frac{7}{200}", "0.035", ["3.5%"]),
+        financeChoice("y12s2-relfreq-g3", "What usually happens to relative frequency as the number of trials becomes large?", "B", ["It must become zero", "It often becomes more stable", "It must become one", "It stops being data"], "More trials usually reduce random fluctuation."),
+        financeChoice("y12s2-relfreq-g4", "Which calculation gives relative frequency?", "A", ["event count / total trials", "total trials / event count", "mean / standard deviation", "actual - predicted"], "Relative frequency is successful outcomes divided by total trials."),
+      ],
+      independentPractice: [
+        financeShortAnswer("y12s2-relfreq-i1", "A bus is late 15 times in 60 observed trips. Estimate the probability it is late.", "\\frac{15}{60}", "0.25", ["25%", "1/4"]),
+        financeShortAnswer("y12s2-relfreq-i2", "A simulation records 312 successes in 800 trials. Estimate the probability of success.", "\\frac{312}{800}", "0.39", ["39%"]),
+        financeShortAnswer("y12s2-relfreq-i3", "In a sample of 250 customers, 90 chose online delivery. Estimate the probability a customer chooses online delivery.", "\\frac{90}{250}", "0.36", ["36%", "9/25"]),
+        financeShortAnswer("y12s2-relfreq-i4", "A two-way table has 14 students who walk out of 35 students. Find P(walk | student).", "\\frac{14}{35}", "0.4", ["40%", "2/5"]),
+        financeChoice("y12s2-relfreq-i5", "A relative-frequency estimate from 20 trials is very different from one from 2000 trials. Which is usually more reliable?", "D", ["The 20-trial estimate always", "Neither estimate can be used", "The smaller sample always", "The 2000-trial estimate usually"], "A larger number of trials usually gives a more stable estimate."),
+      ],
+      commonMistakes: [
+        { mistake: "Dividing by the wrong total in a conditional probability.", fix: "Use the total for the restricted group named after 'given'." },
+        { mistake: "Treating experimental probability as exact theory.", fix: "Call it an estimate based on the observed data." },
+        { mistake: "Converting percentages and decimals inconsistently.", fix: "Check that 0.24 is 24%, not 2.4%." },
+        { mistake: "Assuming small samples are always reliable.", fix: "Mention that larger samples usually give more stable estimates." },
+      ],
+      masteryQuiz: [
+        financeShortAnswer("y12s2-relfreq-m1", "A die simulation gives 83 sixes in 500 rolls. Estimate P(six).", "\\frac{83}{500}", "0.166", ["16.6%"]),
+        financeShortAnswer("y12s2-relfreq-m2", "A website has 48 purchases from 1200 visits. Estimate the purchase probability.", "\\frac{48}{1200}", "0.04", ["4%", "1/25"]),
+        financeShortAnswer("y12s2-relfreq-m3", "A survey finds 96 out of 240 people prefer train travel. Estimate the probability.", "\\frac{96}{240}", "0.4", ["40%", "2/5"]),
+        financeShortAnswer("y12s2-relfreq-m4", "In 75 rainy days, a road floods 9 times. Estimate P(flood | rainy day).", "\\frac{9}{75}", "0.12", ["12%", "3/25"]),
+        financeShortAnswer("y12s2-relfreq-m5", "A two-way table has 21 adults who use card out of 60 adults. Find P(card | adult).", "\\frac{21}{60}", "0.35", ["35%", "7/20"]),
+        financeChoice("y12s2-relfreq-m6", "A simulation is repeated with more trials. The main reason is to:", "C", ["force the answer to 0.5", "avoid division", "improve the stability of the estimate", "change the event"], "More trials usually reduce random variation."),
+        financeChoice("y12s2-relfreq-m7", "Which is the best wording for a probability from observed data?", "A", ["estimated probability", "guaranteed probability", "impossible outcome", "residual"], "Observed relative frequency gives an estimate."),
+        financeChoice("y12s2-relfreq-m8", "In P(A | B), which total should be used in the denominator?", "D", ["all outcomes always", "only group A", "the largest cell", "the total in group B"], "Given B restricts the sample space to group B."),
+        financeShortAnswer("y12s2-relfreq-m9", "A factory tests 400 bulbs and 10 fail. Estimate the failure probability.", "\\frac{10}{400}", "0.025", ["2.5%", "1/40"]),
+        financeChoice("y12s2-relfreq-m10", "If relative frequency is 0.72, what percentage is this?", "B", ["7.2%", "72%", "0.72%", "720%"], "Multiply the decimal by 100 to convert to a percentage."),
+      ],
+    };
+  }
+
   return {
     ...base,
     description:
@@ -733,4 +825,3 @@ export function year12Standard2StatisticsLessonOverride(
     ],
   };
 }
-
