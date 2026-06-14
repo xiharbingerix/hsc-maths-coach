@@ -2506,6 +2506,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "kinematics-velocity-acceleration", title: "Velocity and Acceleration from Displacement" },
           { slug: "kinematics-displacement-from-velocity", title: "Displacement from Velocity by Integration" },
           { slug: "kinematics-motion-analysis", title: "Analysing Motion: Direction Changes and Total Distance" },
+          { slug: "kinematics-exam-practice", title: "Kinematics Exam Practice" },
         ],
       },
       {
@@ -2519,6 +2520,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "projectile-equations-setup", title: "Setting Up Projectile Equations" },
           { slug: "projectile-max-height", title: "Maximum Height and Time" },
           { slug: "projectile-range-flight", title: "Range and Time of Flight" },
+          { slug: "projectile-exam-practice", title: "Projectile Motion Exam Practice" },
         ],
       },
     ],

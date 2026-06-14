@@ -861,6 +861,253 @@ const projectileRangeFlight: Partial<ExplicitLesson> = {
   masteryPassMark: 0.8,
 };
 
+// Lesson 4: Projectile Motion Exam Practice
+
+const projectileExamPractice: Partial<ExplicitLesson> = {
+  description:
+    "HSC-style multi-step projectile motion problems combining time of flight, maximum height, range, and reading off components at a given time.",
+  learningIntention:
+    "Integrate all projectile motion skills to solve complete multi-part HSC exam questions.",
+  successCriteria: [
+    "Write down x(t) and y(t) from a given speed V and angle θ.",
+    "Find time of maximum height (y-dot = 0), maximum height H, time of flight T, and range R.",
+    "Use Pythagorean triples (3-4-5) to produce clean integer answers.",
+    "Identify the position or speed of the projectile at a specified time.",
+  ],
+  teaching: {
+    paragraphs: [
+      "A complete HSC projectile question typically gives a launch speed V and angle θ, then asks for several of: the equations of motion, time of maximum height, maximum height, time of flight, horizontal range, and velocity components at a time. Set out the equations first, then work through each part systematically.",
+      "The two key equations are x(t) = Vt·cosθ and y(t) = Vt·sinθ − ½gt². From these, four standard results follow: t_max = V·sinθ/g, H = (V·sinθ)²/(2g), T = 2V·sinθ/g, R = V²·sin(2θ)/g.",
+      "For clean arithmetic, HSC problems often use Pythagorean triple angles: cosθ = 4/5, sinθ = 3/5 (a 3-4-5 triangle) or cosθ = 3/5, sinθ = 4/5. With V = 50 m/s and cosθ = 4/5, the horizontal component is 40 m/s; with sinθ = 3/5 it is 30 m/s.",
+      "Speed at a time t is the magnitude of the velocity vector: speed = √(ẋ² + ẏ²). Remember horizontal velocity is constant (ẋ = V·cosθ), while vertical velocity changes with time (ẏ = V·sinθ − gt).",
+    ],
+    latexBlocks: [
+      "x(t) = Vt\\cos\\theta,\\quad y(t) = Vt\\sin\\theta - \\tfrac{g}{2}t^2",
+      "t_{\\max} = \\frac{V\\sin\\theta}{g},\\quad H = \\frac{(V\\sin\\theta)^2}{2g},\\quad T = \\frac{2V\\sin\\theta}{g},\\quad R = \\frac{V^2\\sin 2\\theta}{g}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Complete projectile question",
+      questionLatex:
+        "\\text{A ball is launched at } V = 50 \\text{ m/s with } \\cos\\theta = \\tfrac{3}{5},\\; \\sin\\theta = \\tfrac{4}{5}.\\text{ Use } g = 10." +
+        "\\text{ Find: (a) the equations of motion, (b) the maximum height, (c) the range.}",
+      steps: [
+        {
+          explanation: "(a) Horizontal component: 50 × 3/5 = 30; vertical: 50 × 4/5 = 40.",
+          latex: "x(t) = 30t,\\quad y(t) = 40t - 5t^2",
+        },
+        {
+          explanation: "(b) Set y-dot = 0: 40 − 10t = 0, t_max = 4 s. H = y(4).",
+          latex: "H = 40(4) - 5(16) = 160 - 80 = 80 \\text{ m}",
+        },
+        {
+          explanation: "(c) T = 2 × 4 = 8 s. R = x(8) = 30 × 8.",
+          latex: "R = 240 \\text{ m}",
+        },
+      ],
+      finalAnswerLatex: "H = 80 \\text{ m},\\quad R = 240 \\text{ m}",
+    },
+    {
+      title: "Velocity at a specified time",
+      questionLatex:
+        "\\text{For the ball above (}x(t)=30t,\\;y(t)=40t-5t^2\\text{), find the speed at } t = 6 \\text{ s.}",
+      steps: [
+        {
+          explanation: "Horizontal velocity is constant: ẋ = 30.",
+          latex: "\\dot{x}(6) = 30 \\text{ m/s}",
+        },
+        {
+          explanation: "Vertical velocity: ẏ = 40 − 10t. At t = 6: ẏ = 40 − 60 = −20.",
+          latex: "\\dot{y}(6) = -20 \\text{ m/s}",
+        },
+        {
+          explanation: "Speed = √(30² + (−20)²) = √(900 + 400) = √1300.",
+          latex: "\\text{speed} = \\sqrt{1300} = 10\\sqrt{13} \\text{ m/s}",
+        },
+      ],
+      finalAnswerLatex: "10\\sqrt{13} \\text{ m/s}",
+    },
+  ],
+  guidedPractice: [
+    projTyped(
+      "y12e1-proj-ep-g1",
+      "A projectile is launched at $V = 50$ m/s with $\\cos\\theta = \\frac{4}{5}$ and $\\sin\\theta = \\frac{3}{5}$. Write $x(t)$ and state the horizontal component of velocity.",
+      "\\dot{x} = V\\cos\\theta = 50 \\times \\frac{4}{5}",
+      "40",
+      ["40 m/s", "x(t) = 40t"],
+      "V·cosθ = 50 × 4/5 = 40 m/s. x(t) = 40t."
+    ),
+    projTyped(
+      "y12e1-proj-ep-g2",
+      "A projectile has $y(t) = 30t - 5t^2$. Find the time of maximum height.",
+      "\\dot{y} = 30 - 10t = 0",
+      "3",
+      ["3 s"],
+      "y-dot = 30 − 10t = 0 gives t = 3 s."
+    ),
+    projTyped(
+      "y12e1-proj-ep-g3",
+      "Using $y(t) = 30t - 5t^2$ and $t_{\\max} = 3$ s, find the maximum height.",
+      "H = y(3) = 30(3) - 5(9)",
+      "45",
+      ["45 m"],
+      "H = 90 − 45 = 45 m."
+    ),
+    projChoice(
+      "y12e1-proj-ep-g4",
+      "A projectile is launched at $V = 50$ m/s and $\\cos\\theta = \\frac{3}{5}$. What is the horizontal range if the time of flight is $T = 8$ s?",
+      "C",
+      ["$160$ m", "$200$ m", "$240$ m", "$300$ m"],
+      "Horizontal velocity = 50 × 3/5 = 30 m/s. R = 30 × 8 = 240 m."
+    ),
+  ],
+  independentPractice: [
+    projTyped(
+      "y12e1-proj-ep-i1",
+      "A projectile has $y(t) = 40t - 5t^2$. Find the time of flight.",
+      "5t(8-t) = 0",
+      "8",
+      ["8 s"],
+      "y = 5t(8−t) = 0 gives T = 8 s."
+    ),
+    projTyped(
+      "y12e1-proj-ep-i2",
+      "A projectile is launched at $V = 25$ m/s with $\\sin\\theta = \\frac{4}{5}$ and $\\cos\\theta = \\frac{3}{5}$. Find the maximum height. Use $g = 10$.",
+      "t_{\\max} = \\frac{25 \\times 4/5}{10} = 2;\\quad H = 20(2) - 5(4)",
+      "20",
+      ["20 m"],
+      "V·sinθ = 20 m/s. t_max = 2 s. H = 20(2) − 5(4) = 40 − 20 = 20 m."
+    ),
+    projTyped(
+      "y12e1-proj-ep-i3",
+      "For the projectile in i2, find the range. ($T = 4$ s, horizontal velocity $= 15$ m/s.)",
+      "R = 15 \\times 4",
+      "60",
+      ["60 m"],
+      "R = 15 × 4 = 60 m."
+    ),
+    projChoice(
+      "y12e1-proj-ep-i4",
+      "A projectile has $\\dot{x} = 30$ m/s and $\\dot{y}(t) = 40 - 10t$ m/s. At $t = 7$ s, the vertical velocity is:",
+      "C",
+      ["$+30$ m/s", "$0$ m/s", "$-30$ m/s", "$-70$ m/s"],
+      "y-dot(7) = 40 − 70 = −30 m/s (downward)."
+    ),
+    projTyped(
+      "y12e1-proj-ep-i5",
+      "A projectile is launched at $V = 50$ m/s with $\\sin\\theta = \\frac{3}{5}$. Find the time of flight. Use $g = 10$.",
+      "T = \\frac{2 \\times 30}{10}",
+      "6",
+      ["6 s"],
+      "V·sinθ = 30 m/s. T = 2 × 30/10 = 6 s."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Mixing up sinθ and cosθ when computing horizontal and vertical components.",
+      fix: "Horizontal uses cosθ (adjacent/hypotenuse), vertical uses sinθ (opposite/hypotenuse). Check: for a 3-4-5 triangle with angle opposite 4, sinθ = 4/5 and cosθ = 3/5.",
+    },
+    {
+      mistake: "Using g = 9.8 instead of g = 10.",
+      fix: "HSC Extension 1 problems state g = 10 m/s² unless told otherwise. Use 10 for clean answers in exam practice.",
+    },
+    {
+      mistake: "Substituting T into x(t) to verify, but computing y(T) and calling it the range.",
+      fix: "Range is horizontal: R = x(T) = V·cosθ × T. y(T) = 0 by definition (the projectile has landed).",
+    },
+    {
+      mistake: "Forgetting that T = 2 × t_max when launch and landing heights are equal.",
+      fix: "The trajectory is symmetric: equal time rising and falling. T = 2t_max gives a quick check on your time of flight.",
+    },
+  ],
+  masteryQuiz: [
+    projTyped(
+      "y12e1-proj-ep-m1",
+      "A projectile has $y(t) = 20t - 5t^2$. Find the maximum height.",
+      "t_{\\max} = 2;\\quad H = 20(2) - 5(4)",
+      "20",
+      ["20 m"],
+      "t_max = 2 s. H = 40 − 20 = 20 m."
+    ),
+    projTyped(
+      "y12e1-proj-ep-m2",
+      "A projectile has $x(t) = 15t$ and $y(t) = 20t - 5t^2$. Find the range.",
+      "y = 5t(4-t) = 0 \\Rightarrow T = 4;\\quad R = 15(4)",
+      "60",
+      ["60 m"],
+      "T = 4 s. R = 15 × 4 = 60 m."
+    ),
+    projChoice(
+      "y12e1-proj-ep-m3",
+      "A projectile is launched at $V = 50$ m/s with $\\cos\\theta = \\frac{4}{5}$. What is the horizontal velocity at $t = 5$ s?",
+      "A",
+      ["$40$ m/s", "$30$ m/s", "$0$ m/s", "$50$ m/s"],
+      "Horizontal velocity is constant throughout: V·cosθ = 50 × 4/5 = 40 m/s."
+    ),
+    projTyped(
+      "y12e1-proj-ep-m4",
+      "A projectile has $\\dot{y}(t) = 30 - 10t$ m/s. At what time does the projectile reach maximum height?",
+      "30 - 10t = 0",
+      "3",
+      ["3 s", "t = 3"],
+      "y-dot = 0: 30 − 10t = 0 gives t = 3 s."
+    ),
+    projTyped(
+      "y12e1-proj-ep-m5",
+      "A projectile has $y(t) = 30t - 5t^2$ and $x(t) = 40t$. Find the range.",
+      "5t(6-t) = 0 \\Rightarrow T = 6;\\quad R = 40(6)",
+      "240",
+      ["240 m"],
+      "T = 6 s. R = 40 × 6 = 240 m."
+    ),
+    projChoice(
+      "y12e1-proj-ep-m6",
+      "A projectile has $\\dot{x} = 40$ m/s and $\\dot{y}(t) = 30 - 10t$ m/s. At $t = 6$ s, the vertical velocity is:",
+      "C",
+      ["$30$ m/s", "$0$ m/s", "$-30$ m/s", "$-60$ m/s"],
+      "y-dot(6) = 30 − 60 = −30 m/s (downward — past maximum height)."
+    ),
+    projTyped(
+      "y12e1-proj-ep-m7",
+      "A projectile reaches maximum height at $t = 3$ s. What is the time of flight (landing at same height)?",
+      "T = 2 \\times t_{\\max} = 2 \\times 3",
+      "6",
+      ["6 s"],
+      "T = 2 × 3 = 6 s."
+    ),
+    projTyped(
+      "y12e1-proj-ep-m8",
+      "A projectile is launched at $V = 50$ m/s with $\\cos\\theta = \\frac{3}{5}$ and $\\sin\\theta = \\frac{4}{5}$. Find the maximum height. Use $g = 10$.",
+      "V\\sin\\theta = 40;\\quad t_{\\max} = 4;\\quad H = 40(4) - 5(16)",
+      "80",
+      ["80 m"],
+      "V·sinθ = 40 m/s. t_max = 4 s. H = 160 − 80 = 80 m."
+    ),
+    projChoice(
+      "y12e1-proj-ep-m9",
+      "Which formula gives the horizontal range for a projectile launched and landing at the same height?",
+      "B",
+      [
+        "$R = \\dfrac{V^2\\sin\\theta}{g}$",
+        "$R = \\dfrac{V^2\\sin 2\\theta}{g}$",
+        "$R = \\dfrac{2V\\sin\\theta}{g}$",
+        "$R = \\dfrac{V\\sin 2\\theta}{g}$",
+      ],
+      "R = V²sin(2θ)/g, derived from R = V·cosθ × T = V·cosθ × 2V·sinθ/g = V²·2sinθcosθ/g = V²sin(2θ)/g."
+    ),
+    projTyped(
+      "y12e1-proj-ep-m10",
+      "A projectile is launched with vertical component $V\\sin\\theta = 30$ m/s and horizontal component $V\\cos\\theta = 40$ m/s. Find the range. Use $g = 10$.",
+      "T = \\frac{2 \\times 30}{10} = 6;\\quad R = 40 \\times 6",
+      "240",
+      ["240 m"],
+      "T = 6 s. R = 40 × 6 = 240 m."
+    ),
+  ],
+  masteryPassMark: 0.8,
+};
+
 export function year12Extension1ProjectileMotionLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -890,6 +1137,13 @@ export function year12Extension1ProjectileMotionLessonOverride(
         id: "projectile-range-flight",
         slug: "projectile-range-flight",
         title: "Range and Time of Flight",
+      };
+    case "projectile-exam-practice":
+      return {
+        ...projectileExamPractice,
+        id: "projectile-exam-practice",
+        slug: "projectile-exam-practice",
+        title: "Projectile Motion Exam Practice",
       };
     default:
       return undefined;

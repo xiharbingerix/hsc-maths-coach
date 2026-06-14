@@ -856,6 +856,265 @@ const kinematicsMotionAnalysis: Partial<ExplicitLesson> = {
   masteryPassMark: 0.8,
 };
 
+// Lesson 4: Kinematics Exam Practice
+
+const kinematicsExamPractice: Partial<ExplicitLesson> = {
+  description:
+    "HSC-style mixed kinematics problems combining differentiation, integration, direction analysis and total distance in multi-step questions.",
+  learningIntention:
+    "Apply all kinematics techniques together to solve multi-step HSC exam problems about straight-line motion.",
+  successCriteria: [
+    "Differentiate x(t) to find v(t) and a(t), and interpret their signs.",
+    "Integrate v(t) to recover x(t) using an initial condition.",
+    "Find when a particle is at rest, changes direction, and compute total distance.",
+    "Set up and solve problems given only a(t) and initial conditions.",
+  ],
+  teaching: {
+    paragraphs: [
+      "HSC kinematics questions nearly always combine several skills in a single part. A typical question gives x(t) or v(t) and asks for multiple things: velocity at a time, when the particle is at rest, whether it changes direction, displacement over an interval, and total distance.",
+      "The key chain is: x(t) → v(t) = dx/dt → a(t) = dv/dt and the reverse: a(t) → v(t) = ∫a dt + C → x(t) = ∫v dt + C. Each integration step introduces a constant that must be pinned down with the given initial condition.",
+      "When finding total distance, always solve v(t) = 0 first. Check whether the sign of v changes at those times. Then evaluate x at each endpoint and direction-change time, and sum the absolute sub-interval displacements.",
+      "A clean strategy for every kinematics question: (1) Write down what is given. (2) Identify what you need. (3) Decide: differentiate or integrate? (4) Apply the initial condition. (5) Interpret the sign of your answer.",
+    ],
+    latexBlocks: [
+      "v(t) = \\frac{dx}{dt},\\quad a(t) = \\frac{dv}{dt}",
+      "v(t) = \\int a(t)\\,dt + C,\\quad x(t) = \\int v(t)\\,dt + C",
+      "\\text{Total distance} = \\sum_i |x(t_{i+1}) - x(t_i)|\\text{ (split at direction changes)}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Full multi-step kinematics question",
+      questionLatex:
+        "\\text{A particle moves so that } x(t) = t^3 - 6t^2 + 9t \\text{ m, } t \\ge 0." +
+        "\\text{ (a) Find } v(t).\\text{ (b) When is the particle at rest? (c) Find the total distance in } [0,4].",
+      steps: [
+        {
+          explanation: "(a) Differentiate x(t).",
+          latex: "v(t) = 3t^2 - 12t + 9 = 3(t-1)(t-3)",
+        },
+        {
+          explanation: "(b) Set v = 0: t = 1 and t = 3.",
+          latex: "v(1) = 0,\\quad v(3) = 0",
+        },
+        {
+          explanation: "(c) Evaluate x at t = 0, 1, 3, 4.",
+          latex: "x(0)=0,\\; x(1)=4,\\; x(3)=0,\\; x(4)=4",
+        },
+        {
+          explanation: "Sum absolute sub-interval distances.",
+          latex: "|4-0| + |0-4| + |4-0| = 4 + 4 + 4 = 12 \\text{ m}",
+        },
+      ],
+      finalAnswerLatex: "\\text{Total distance} = 12 \\text{ m}",
+    },
+    {
+      title: "Starting from acceleration",
+      questionLatex:
+        "\\text{A particle has } a(t) = 6t - 6 \\text{ m/s}^2 \\text{ with } v(0) = 3 \\text{ m/s and } x(0) = 1 \\text{ m. Find } x(t).",
+      steps: [
+        {
+          explanation: "Integrate a to get v, apply v(0) = 3.",
+          latex: "v(t) = 3t^2 - 6t + C_1;\\quad v(0)=3 \\Rightarrow C_1=3 \\Rightarrow v(t)=3t^2-6t+3",
+        },
+        {
+          explanation: "Integrate v to get x, apply x(0) = 1.",
+          latex: "x(t) = t^3 - 3t^2 + 3t + C_2;\\quad x(0)=1 \\Rightarrow C_2=1",
+        },
+      ],
+      finalAnswerLatex: "x(t) = t^3 - 3t^2 + 3t + 1",
+    },
+  ],
+  guidedPractice: [
+    kinTyped(
+      "y12e1-kin-ep-g1",
+      "A particle has $x(t) = 2t^3 - 9t^2 + 12t$. Find $v(t)$.",
+      "v(t) = \\frac{d}{dt}(2t^3 - 9t^2 + 12t)",
+      "6t^2 - 18t + 12",
+      ["6t² - 18t + 12"],
+      "v(t) = 6t² − 18t + 12 = 6(t−1)(t−2).",
+      "Differentiate each term of x(t)."
+    ),
+    kinTyped(
+      "y12e1-kin-ep-g2",
+      "Using $v(t) = 6t^2 - 18t + 12 = 6(t-1)(t-2)$, at what times is the particle at rest?",
+      "6(t-1)(t-2) = 0",
+      "t = 1 and t = 2",
+      ["t=1 and t=2", "1 and 2", "t = 1, t = 2"],
+      "v = 0 when t = 1 or t = 2."
+    ),
+    kinChoice(
+      "y12e1-kin-ep-g3",
+      "A particle has $v(t) = t^2 - 5t + 6 = (t-2)(t-3)$. On $[0,4]$, what sign does $v$ have on the interval $2 < t < 3$?",
+      "B",
+      ["Positive", "Negative", "Zero", "Cannot be determined"],
+      "v = (t−2)(t−3). For 2 < t < 3: (t−2) > 0 and (t−3) < 0, so v < 0 (negative)."
+    ),
+    kinTyped(
+      "y12e1-kin-ep-g4",
+      "A particle has $a(t) = 4$ m/s² and $v(0) = -6$ m/s. Find $v(t)$.",
+      "v(t) = 4t + C,\\quad v(0) = -6",
+      "4t - 6",
+      ["4t − 6", "4t - 6"],
+      "v(t) = ∫4 dt = 4t + C. v(0) = −6 gives C = −6, so v(t) = 4t − 6."
+    ),
+  ],
+  independentPractice: [
+    kinTyped(
+      "y12e1-kin-ep-i1",
+      "A particle has $v(t) = 3t^2 - 12$ m/s and $x(0) = 5$ m. Find $x(t)$.",
+      "x(t) = t^3 - 12t + C,\\quad x(0) = 5",
+      "t^3 - 12t + 5",
+      ["t³ − 12t + 5"],
+      "x(t) = ∫(3t² − 12) dt = t³ − 12t + C. x(0) = 5 gives C = 5."
+    ),
+    kinTyped(
+      "y12e1-kin-ep-i2",
+      "A particle has $x(t) = t^2 - 6t + 8$ on $[0,5]$. Velocity is zero at $t = 3$. Find the total distance.",
+      "x(0)=8,\\; x(3)=-1,\\; x(5)=3",
+      "12",
+      ["12 m"],
+      "Distance [0,3] = |−1 − 8| = 9. Distance [3,5] = |3 − (−1)| = 4. Total = 13 m."
+    ),
+    kinChoice(
+      "y12e1-kin-ep-i3",
+      "A particle has acceleration $a(t) = 2t - 4$. Starting from rest ($v = 0$) at $t = 2$, which expression gives $v(t)$?",
+      "C",
+      [
+        "$v(t) = 2t - 4$",
+        "$v(t) = t^2 - 4t$",
+        "$v(t) = t^2 - 4t + 4$",
+        "$v(t) = t^2 - 4$",
+      ],
+      "v(t) = ∫(2t−4)dt = t²−4t+C. v(2) = 0: 4−8+C = 0, so C = 4. v(t) = t²−4t+4."
+    ),
+    kinTyped(
+      "y12e1-kin-ep-i4",
+      "A particle has $x(t) = t^3 - 3t^2$ on $[0,4]$. Velocity is zero at $t = 0$ and $t = 2$. Given $x(0) = 0$, $x(2) = -4$, $x(4) = 16$. Find the total distance.",
+      "|{-4}-0| + |16-({-4})|",
+      "24",
+      ["24 m"],
+      "Distance [0,2] = 4. Distance [2,4] = 20. Total = 24 m."
+    ),
+    kinTyped(
+      "y12e1-kin-ep-i5",
+      "A particle has $v(t) = 6 - 2t$ m/s and $x(0) = 0$ m. Find when the particle returns to the origin ($x = 0$, $t > 0$).",
+      "x(t) = 6t - t^2 + C,\\quad C = 0.\\quad 6t - t^2 = 0 \\Rightarrow t(6-t) = 0",
+      "6",
+      ["t = 6", "6 s"],
+      "x(t) = 6t − t². x = 0 when t(6 − t) = 0, so t = 0 or t = 6. Returns at t = 6 s."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Forgetting the constant of integration when working from a(t) or v(t).",
+      fix: "Every integration step introduces a constant C. Use the given initial condition (v(0) or x(0)) to find it immediately before moving on.",
+    },
+    {
+      mistake: "Integrating over the full interval to find total distance.",
+      fix: "∫v dt gives net displacement. Split at direction-change times and sum |Δx| over each sub-interval for total distance.",
+    },
+    {
+      mistake: "Using a(t) = 0 to find when the particle is at rest.",
+      fix: "v(t) = 0 gives when the particle is at rest (momentarily stopped). a(t) = 0 gives when acceleration is zero — that is a different question.",
+    },
+    {
+      mistake: "Not checking whether v actually changes sign at v = 0 times.",
+      fix: "Evaluate v either side of each zero. If the sign doesn't change, there's no direction change at that point.",
+    },
+  ],
+  masteryQuiz: [
+    kinTyped(
+      "y12e1-kin-ep-m1",
+      "A particle has $x(t) = t^3 - 3t$. Find the velocity at $t = 2$.",
+      "v(t) = 3t^2 - 3;\\quad v(2) = 12 - 3",
+      "9",
+      ["9 m/s"],
+      "v(t) = 3t² − 3. v(2) = 12 − 3 = 9 m/s."
+    ),
+    kinTyped(
+      "y12e1-kin-ep-m2",
+      "A particle has $v(t) = 4t - 8$ and $x(0) = 3$ m. Find $x(t)$.",
+      "x(t) = 2t^2 - 8t + C,\\quad x(0)=3 \\Rightarrow C=3",
+      "2t^2 - 8t + 3",
+      ["2t² − 8t + 3"],
+      "x(t) = ∫(4t−8) dt = 2t²−8t+C. x(0) = 3 gives C = 3."
+    ),
+    kinChoice(
+      "y12e1-kin-ep-m3",
+      "A particle has $v(t) = (t-3)(t-5)$. On the interval $3 < t < 5$, the particle is:",
+      "B",
+      [
+        "Moving in the positive direction",
+        "Moving in the negative direction",
+        "At rest",
+        "Accelerating",
+      ],
+      "v = (t−3)(t−5). For 3 < t < 5: (t−3) > 0 and (t−5) < 0, so v < 0 (negative direction)."
+    ),
+    kinTyped(
+      "y12e1-kin-ep-m4",
+      "A particle has $a(t) = 6t$ m/s² with $v(0) = -9$ m/s and $x(0) = 0$. Find $x(t)$.",
+      "v(t) = 3t^2 - 9;\\quad x(t) = t^3 - 9t + C,\\quad C=0",
+      "t^3 - 9t",
+      ["t³ − 9t"],
+      "v(t) = 3t²+C₁; v(0) = −9 gives C₁ = −9. x(t) = t³−9t+C₂; x(0) = 0 gives C₂ = 0."
+    ),
+    kinTyped(
+      "y12e1-kin-ep-m5",
+      "Using $x(t) = t^3 - 9t$ from above, at what positive time is the particle at rest?",
+      "v(t) = 3t^2 - 9 = 0 \\Rightarrow t^2 = 3 \\Rightarrow t = \\sqrt{3}",
+      "√3",
+      ["√3 s", "sqrt(3)"],
+      "v = 3t²−9 = 0 gives t² = 3, so t = √3 s."
+    ),
+    kinTyped(
+      "y12e1-kin-ep-m6",
+      "A particle has $x(t) = t^2 - 4t + 3$ on $[0,5]$. Velocity is zero at $t = 2$. Find the total distance.",
+      "x(0)=3,\\; x(2)=-1,\\; x(5)=8",
+      "13",
+      ["13 m"],
+      "Distance [0,2] = |−1−3| = 4. Distance [2,5] = |8−(−1)| = 9. Total = 13 m."
+    ),
+    kinChoice(
+      "y12e1-kin-ep-m7",
+      "A particle has $v(t) = t^2 - 4$. For $0 \\le t \\le 4$, at what time does it change direction?",
+      "B",
+      ["$t = 0$", "$t = 2$", "$t = 4$", "$t = 1$"],
+      "v = t²−4 = (t−2)(t+2). For t ≥ 0: zero at t = 2. v < 0 for t < 2 and v > 0 for t > 2 — direction changes at t = 2."
+    ),
+    kinTyped(
+      "y12e1-kin-ep-m8",
+      "A particle has $v(t) = 6t^2 - 6$ m/s and $x(0) = 4$. Find $x(1)$.",
+      "x(t) = 2t^3 - 6t + C,\\quad C=4;\\quad x(1) = 2-6+4",
+      "0",
+      ["0 m"],
+      "x(t) = 2t³−6t+4. x(1) = 2−6+4 = 0 m."
+    ),
+    kinChoice(
+      "y12e1-kin-ep-m9",
+      "Which is the correct method to find the TOTAL distance (not net displacement) on $[a, b]$?",
+      "C",
+      [
+        "$\\int_a^b v(t)\\,dt$",
+        "$\\left| x(b) - x(a) \\right|$",
+        "Split at $v(t) = 0$ zeros in $[a,b]$ and sum $|\\Delta x|$ for each sub-interval",
+        "$\\int_a^b a(t)\\,dt$",
+      ],
+      "Split at direction changes (v = 0 with sign change), evaluate x at each split point, and sum |Δx| for each sub-interval."
+    ),
+    kinTyped(
+      "y12e1-kin-ep-m10",
+      "A particle starts at $x = 0$ and has $v(t) = t - 4$ m/s. How far from the origin is the particle when $t = 8$?",
+      "x(t) = \\frac{t^2}{2} - 4t + C,\\quad C=0;\\quad x(8) = 32 - 32",
+      "0",
+      ["0 m"],
+      "x(t) = t²/2 − 4t. x(8) = 32 − 32 = 0 m. The particle returns to the origin at t = 8."
+    ),
+  ],
+  masteryPassMark: 0.8,
+};
+
 export function year12Extension1KinematicsLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -885,6 +1144,13 @@ export function year12Extension1KinematicsLessonOverride(
         id: "kinematics-motion-analysis",
         slug: "kinematics-motion-analysis",
         title: "Analysing Motion: Direction Changes and Total Distance",
+      };
+    case "kinematics-exam-practice":
+      return {
+        ...kinematicsExamPractice,
+        id: "kinematics-exam-practice",
+        slug: "kinematics-exam-practice",
+        title: "Kinematics Exam Practice",
       };
     default:
       return undefined;
