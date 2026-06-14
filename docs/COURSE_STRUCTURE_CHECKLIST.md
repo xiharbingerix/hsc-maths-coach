@@ -28,7 +28,7 @@
 | Year 12 Standard 1 | 18 (5 units) | 7 / 29 | 5 / 7 (71%) | ~62% | ✅ Full |
 | Year 12 Standard 2 | 31 (6 units) | 10 / 59 | 6 / 10 (60%) | ~53% | ✅ Full |
 | Year 12 Advanced | 91 (13 units) | 11 / 64 | 13 / 11 (118%) | ~142% | ✅ Full |
-| Year 12 Extension 1 | 24 (8 units) | 7 / 28 | 8 / 8 (100%) | ~86% | ✅ Full |
+| Year 12 Extension 1 | 26 (8 units) | 7 / 28 | 8 / 8 (100%) | ~93% | ✅ Full |
 | Year 12 Extension 2 | 25 (5 units) | 5 / 40 | 5 / 5 (100%) | ~63% | ✅ Full |
 
 ---
@@ -351,13 +351,16 @@ Class Maths: 7 topics / 28 subtopics.
 - [x] The Binomial Distribution (4 lessons)
 
 **Batch 1 complete (2026-06-15):** 2 new units added — Kinematics and Projectile Motion. 24 lessons / 406 seeded questions.
+**Batch 2 complete (2026-06-15):** 26 lessons / 444 seeded questions.
 
 - [x] Rates of Change and Kinematics (`kinematics` unit) — lesson 1: velocity and acceleration from displacement
+- [x] Rates of Change and Kinematics (`kinematics` unit) — lesson 2: displacement from velocity by integration
 - [x] Projectile Motion (`projectile-motion` unit) — lesson 1: setting up projectile equations
+- [x] Projectile Motion (`projectile-motion` unit) — lesson 2: maximum height and time
 
-**Remaining lessons to author (3 per unit):**
-- [ ] Kinematics: displacement from velocity (integration), full motion analysis, exam practice
-- [ ] Projectile Motion: maximum height and time, range and angle, exam practice
+**Remaining lessons to author (2 per unit):**
+- [ ] Kinematics: full motion analysis (distance vs displacement, direction changes), exam practice
+- [ ] Projectile Motion: range and time of flight, exam practice
 
 ---
 
@@ -389,7 +392,7 @@ Nova average lessons per unit: ~4–5.
 | Year 12 Advanced | 91 (13 units) | ~64 subtopics | ✅ Depth pass complete (exceeds) |
 | Year 12 Extension 2 | 25 (5 units) | ~40 subtopics | ✅ Depth pass complete |
 | Year 12 Standard 1 | 18 (5 units) | ~29 subtopics | 🔄 Missing ~2 topics |
-| Year 12 Extension 1 | 24 (8 units) | ~28 subtopics | 🔄 Batch 1 done — 6 lessons remaining (kinematics × 3, projectile × 3) |
+| Year 12 Extension 1 | 26 (8 units) | ~28 subtopics | 🔄 Batch 2 done — 4 lessons remaining (kinematics × 2, projectile × 2) |
 | Year 11 Advanced | 54 (8 units) | ~90 subtopics | 🔄 Missing equations/inequations, coord geometry, trig phase 3 |
 | Year 9 / Year 10 variants | — | — | 🔄 Promote Advanced + Core to available |
 | Year 8 | 59 (10 units) | ~111 subtopics | 🔄 4 units missing vs Class Maths |

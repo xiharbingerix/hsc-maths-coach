@@ -2492,6 +2492,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus: "Kinematics and rates of change",
         lessons: [
           { slug: "kinematics-velocity-acceleration", title: "Velocity and Acceleration from Displacement" },
+          { slug: "kinematics-displacement-from-velocity", title: "Displacement from Velocity by Integration" },
         ],
       },
       {
@@ -2503,6 +2504,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus: "Projectile motion",
         lessons: [
           { slug: "projectile-equations-setup", title: "Setting Up Projectile Equations" },
+          { slug: "projectile-max-height", title: "Maximum Height and Time" },
         ],
       },
     ],

@@ -318,6 +318,279 @@ const kinematicsVelocityAcceleration: Partial<ExplicitLesson> = {
   masteryPassMark: 0.8,
 };
 
+// ─── Lesson 2: Displacement from Velocity by Integration ────────────────────
+
+const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
+  description:
+    "Use integration to recover displacement from a velocity function and velocity from an acceleration function, applying initial conditions to determine constants.",
+  learningIntention:
+    "Integrate a velocity (or acceleration) function and apply an initial condition to find the displacement (or velocity) function.",
+  successCriteria: [
+    "Find displacement by integrating velocity: x = ∫v dt, then apply x(0) to find C.",
+    "Find velocity by integrating acceleration: v = ∫a dt, then apply v(0) to find C.",
+    "Recognise that integration is the reverse process of differentiation in kinematics.",
+    "Calculate displacement over a time interval using a definite integral of velocity.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Differentiation takes us from displacement to velocity to acceleration. Integration reverses the journey: given velocity, integrate to recover displacement; given acceleration, integrate to recover velocity.",
+      "When you integrate a velocity function, you get a family of displacement functions differing by a constant C. An initial condition — such as the starting position x(0) = 0 — pins down the exact function by fixing the value of C.",
+      "Distance travelled is not the same as displacement. Displacement can be negative if the particle moves in the negative direction. To find total distance, split the integral at times when v = 0 and take the magnitude of each piece.",
+      "Definite integration of velocity over a time interval gives the net displacement (change in position) over that interval, not the total distance covered.",
+    ],
+    latexBlocks: [
+      "x(t) = \\int v(t)\\,dt + C",
+      "v(t) = \\int a(t)\\,dt + C",
+      "\\text{Net displacement from } t_1 \\text{ to } t_2: \\int_{t_1}^{t_2} v(t)\\,dt",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Find displacement from velocity using initial conditions",
+      questionLatex:
+        "\\text{A particle has velocity } v(t) = 6t - 4 \\text{ m/s and starts at } x = 3 \\text{ when } t = 0.\\text{ Find } x(t).",
+      steps: [
+        {
+          explanation: "Integrate v(t) with respect to t.",
+          latex: "x(t) = \\int (6t - 4)\\,dt = 3t^2 - 4t + C",
+        },
+        {
+          explanation: "Apply the initial condition x(0) = 3 to find C.",
+          latex: "3(0)^2 - 4(0) + C = 3 \\;\\Rightarrow\\; C = 3",
+        },
+        {
+          explanation: "Write the complete displacement function.",
+          latex: "x(t) = 3t^2 - 4t + 3",
+        },
+      ],
+      finalAnswerLatex: "x(t) = 3t^2 - 4t + 3",
+    },
+    {
+      title: "Find velocity from acceleration",
+      questionLatex:
+        "\\text{A particle has acceleration } a(t) = 6 - 2t \\text{ m/s}^2 \\text{ and initial velocity } v(0) = 2 \\text{ m/s. Find } v(t).",
+      steps: [
+        {
+          explanation: "Integrate a(t) with respect to t.",
+          latex: "v(t) = \\int (6 - 2t)\\,dt = 6t - t^2 + C",
+        },
+        {
+          explanation: "Apply v(0) = 2 to find C.",
+          latex: "6(0) - (0)^2 + C = 2 \\;\\Rightarrow\\; C = 2",
+        },
+      ],
+      finalAnswerLatex: "v(t) = 6t - t^2 + 2",
+    },
+    {
+      title: "Net displacement using a definite integral",
+      questionLatex:
+        "\\text{A particle has velocity } v(t) = 3t^2 - 6t \\text{ m/s. Find the net displacement from } t = 0 \\text{ to } t = 3.",
+      steps: [
+        {
+          explanation: "Integrate v(t) from 0 to 3.",
+          latex: "\\int_0^3 (3t^2 - 6t)\\,dt = \\left[t^3 - 3t^2\\right]_0^3",
+        },
+        {
+          explanation: "Evaluate at the upper and lower limits.",
+          latex: "(27 - 27) - (0 - 0) = 0",
+        },
+      ],
+      finalAnswerLatex: "\\text{Net displacement} = 0 \\text{ m}",
+    },
+  ],
+  guidedPractice: [
+    kinChoice(
+      "y12e1-kin-int-g1",
+      "Which operation recovers displacement from a velocity function?",
+      "C",
+      [
+        "Differentiation",
+        "Multiplying by t",
+        "Integration",
+        "Taking the absolute value",
+      ],
+      "Integration is the reverse of differentiation, so integrating v(t) gives x(t) up to a constant C."
+    ),
+    kinTyped(
+      "y12e1-kin-int-g2",
+      "A particle has velocity $v(t) = 4t - 2$ m/s and starts at the origin when $t = 0$. Find $x(2)$.",
+      "x(t) = \\int (4t - 2)\\,dt = 2t^2 - 2t + C,\\quad x(0) = 0",
+      "4",
+      ["4 m"],
+      "x(t) = 2t² − 2t + C. x(0) = 0 gives C = 0. x(2) = 2(4) − 2(2) = 8 − 4 = 4 m.",
+      "Integrate v(t), apply x(0) = 0 to find C, then substitute t = 2."
+    ),
+    kinTyped(
+      "y12e1-kin-int-g3",
+      "A particle has acceleration $a(t) = 10$ m/s² and initial velocity $v(0) = 5$ m/s. Find $v(3)$.",
+      "v(t) = 10t + C,\\quad v(0) = 5",
+      "35",
+      ["35 m/s"],
+      "v(t) = 10t + C. v(0) = 5 gives C = 5. v(3) = 30 + 5 = 35 m/s."
+    ),
+    kinChoice(
+      "y12e1-kin-int-g4",
+      "What does $\\int_{t_1}^{t_2} v(t)\\,dt$ give?",
+      "B",
+      [
+        "Total distance travelled",
+        "Net displacement from $t_1$ to $t_2$",
+        "Average speed",
+        "The velocity at $t_2$",
+      ],
+      "A definite integral of velocity over a time interval gives net displacement (change in position), which can be positive, negative, or zero."
+    ),
+  ],
+  independentPractice: [
+    kinTyped(
+      "y12e1-kin-int-i1",
+      "A particle has velocity $v(t) = 6t^2 - 4$ m/s and starts at $x = 1$ when $t = 0$. Find $x(2)$.",
+      "x(t) = 2t^3 - 4t + C,\\quad x(0) = 1",
+      "9",
+      ["9 m"],
+      "x(t) = 2t³ − 4t + C. x(0) = 1 gives C = 1. x(2) = 2(8) − 4(2) + 1 = 16 − 8 + 1 = 9 m."
+    ),
+    kinTyped(
+      "y12e1-kin-int-i2",
+      "A particle has acceleration $a(t) = 4 - 6t$ m/s² and $v(0) = 0$. Find $v(2)$.",
+      "v(t) = 4t - 3t^2 + C,\\quad v(0) = 0",
+      "-4",
+      ["−4", "-4 m/s"],
+      "v(t) = 4t − 3t² + C. v(0) = 0 gives C = 0. v(2) = 8 − 12 = -4 m/s."
+    ),
+    kinTyped(
+      "y12e1-kin-int-i3",
+      "Find the net displacement of a particle from $t = 0$ to $t = 2$ if its velocity is $v(t) = 3t^2 - 6$.",
+      "\\int_0^2 (3t^2 - 6)\\,dt = \\left[t^3 - 6t\\right]_0^2",
+      "-4",
+      ["−4", "-4 m"],
+      "∫₀² (3t² − 6) dt = [t³ − 6t]₀² = (8 − 12) − (0) = -4 m. Net displacement is -4 m."
+    ),
+    kinChoice(
+      "y12e1-kin-int-i4",
+      "A particle starts at rest at the origin. Its velocity becomes $v(t) = 2t$. Which expression gives its displacement at time $t$?",
+      "A",
+      ["$t^2$", "$2t^2$", "$t^2 + C$", "$2$"],
+      "x(t) = ∫2t dt = t² + C. With x(0) = 0, C = 0, so x(t) = t²."
+    ),
+    kinTyped(
+      "y12e1-kin-int-i5",
+      "A particle has velocity $v(t) = 8 - 2t$ m/s. Find the net displacement from $t = 0$ to $t = 6$.",
+      "\\int_0^6 (8 - 2t)\\,dt = \\left[8t - t^2\\right]_0^6",
+      "12",
+      ["12 m"],
+      "∫₀⁶ (8 − 2t) dt = [8t − t²]₀⁶ = (48 − 36) − 0 = 12 m."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Forgetting to apply the initial condition to find C.",
+      fix: "After integrating, substitute the known value (e.g. x(0) = 0) to determine C before writing the final function.",
+    },
+    {
+      mistake: "Treating net displacement as total distance.",
+      fix: "Net displacement is ∫v dt and can be zero or negative. Total distance requires splitting at v = 0 and adding magnitudes.",
+    },
+    {
+      mistake: "Integrating x(t) instead of v(t) to find displacement.",
+      fix: "Integrate velocity to get displacement: x = ∫v dt. Integrating displacement gives something unrelated to motion.",
+    },
+    {
+      mistake: "Leaving C in the answer after an initial condition is given.",
+      fix: "Always substitute the initial condition to find the numerical value of C and remove it from the final answer.",
+    },
+  ],
+  masteryQuiz: [
+    kinTyped(
+      "y12e1-kin-int-m1",
+      "A particle has velocity $v(t) = 2t + 3$ m/s and starts at the origin. Find $x(4)$.",
+      "x(t) = t^2 + 3t + C,\\quad x(0) = 0",
+      "28",
+      ["28 m"],
+      "x(t) = t² + 3t. x(4) = 16 + 12 = 28 m."
+    ),
+    kinTyped(
+      "y12e1-kin-int-m2",
+      "A particle has acceleration $a(t) = 6t$ m/s² and $v(0) = -4$ m/s. Find $v(2)$.",
+      "v(t) = 3t^2 + C,\\quad v(0) = -4",
+      "8",
+      ["8 m/s"],
+      "v(t) = 3t² + C. v(0) = -4 gives C = -4. v(2) = 3(4) − 4 = 12 − 4 = 8 m/s."
+    ),
+    kinTyped(
+      "y12e1-kin-int-m3",
+      "Find the net displacement from $t = 1$ to $t = 3$ for a particle with velocity $v(t) = 2t$.",
+      "\\int_1^3 2t\\,dt = \\left[t^2\\right]_1^3",
+      "8",
+      ["8 m"],
+      "∫₁³ 2t dt = [t²]₁³ = 9 − 1 = 8 m."
+    ),
+    kinChoice(
+      "y12e1-kin-int-m4",
+      "A particle starts at $x = 5$ when $t = 0$. After integrating $v(t)$, you get $x(t) = t^2 - 3t + C$. What is $C$?",
+      "B",
+      ["$0$", "$5$", "$-5$", "$3$"],
+      "x(0) = 0 − 0 + C = 5, so C = 5."
+    ),
+    kinTyped(
+      "y12e1-kin-int-m5",
+      "A particle has velocity $v(t) = 12 - 4t$ m/s. Find the net displacement from $t = 0$ to $t = 4$.",
+      "\\int_0^4 (12 - 4t)\\,dt = \\left[12t - 2t^2\\right]_0^4",
+      "16",
+      ["16 m"],
+      "∫₀⁴ (12 − 4t) dt = [12t − 2t²]₀⁴ = (48 − 32) − 0 = 16 m."
+    ),
+    kinChoice(
+      "y12e1-kin-int-m6",
+      "What does it mean for net displacement to equal zero over an interval?",
+      "D",
+      [
+        "The particle stayed at the origin the whole time",
+        "The particle did not move",
+        "The velocity was always zero",
+        "The particle returned to its starting position",
+      ],
+      "Zero net displacement means the particle finished at the same position it started — it may have moved away and returned."
+    ),
+    kinTyped(
+      "y12e1-kin-int-m7",
+      "A particle has acceleration $a(t) = -10$ m/s² (constant) and $v(0) = 30$ m/s. Find the time when the particle is at rest.",
+      "v(t) = 30 - 10t = 0",
+      "3",
+      ["3 s", "t = 3"],
+      "v(t) = -10t + 30. Setting v = 0: 30 − 10t = 0, so t = 3 s."
+    ),
+    kinChoice(
+      "y12e1-kin-int-m8",
+      "Which expression gives the velocity function when $a(t) = 4$ and $v(0) = 7$?",
+      "A",
+      ["$4t + 7$", "$4t$", "$4t - 7$", "$4t^2 + 7$"],
+      "v(t) = ∫4 dt = 4t + C. v(0) = 7 gives C = 7, so v(t) = 4t + 7."
+    ),
+    kinTyped(
+      "y12e1-kin-int-m9",
+      "A particle has velocity $v(t) = t^2 - 4$ m/s and starts at $x = 0$ when $t = 0$. Find $x(3)$.",
+      "x(t) = \\frac{t^3}{3} - 4t + C,\\quad x(0) = 0",
+      "-3",
+      ["−3", "-3 m"],
+      "x(t) = t³/3 − 4t. x(3) = 27/3 − 12 = 9 − 12 = -3 m."
+    ),
+    kinChoice(
+      "y12e1-kin-int-m10",
+      "Which is the correct relationship between displacement, velocity and acceleration?",
+      "C",
+      [
+        "$v = \\int a\\,dt,\\quad x = \\int v\\,dt$",
+        "$a = \\int v\\,dt,\\quad v = \\int x\\,dt$",
+        "$v = \\int a\\,dt,\\quad x = \\int v\\,dt$",
+        "$x = \\frac{dv}{dt},\\quad v = \\frac{da}{dt}$",
+      ],
+      "Velocity is the integral of acceleration; displacement is the integral of velocity. Differentiation goes the other way."
+    ),
+  ],
+  masteryPassMark: 0.8,
+};
+
 export function year12Extension1KinematicsLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -333,6 +606,13 @@ export function year12Extension1KinematicsLessonOverride(
         id: "kinematics-velocity-acceleration",
         slug: "kinematics-velocity-acceleration",
         title: "Velocity and Acceleration from Displacement",
+      };
+    case "kinematics-displacement-from-velocity":
+      return {
+        ...kinematicsDisplacementFromVelocity,
+        id: "kinematics-displacement-from-velocity",
+        slug: "kinematics-displacement-from-velocity",
+        title: "Displacement from Velocity by Integration",
       };
     default:
       return undefined;

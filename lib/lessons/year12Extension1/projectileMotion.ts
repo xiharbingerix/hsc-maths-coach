@@ -333,6 +333,273 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
   masteryPassMark: 0.8,
 };
 
+// ─── Lesson 2: Maximum Height and Time ───────────────────────────────────────
+
+const projectileMaxHeight: Partial<ExplicitLesson> = {
+  description:
+    "Find the time at which a projectile reaches maximum height by setting vertical velocity to zero, then calculate the maximum height by substituting that time into y(t).",
+  learningIntention:
+    "Find the time of maximum height and the maximum height itself for a projectile launched at a given speed and angle.",
+  successCriteria: [
+    "Identify that maximum height occurs when vertical velocity ẏ(t) = 0.",
+    "Solve V·sinθ − gt = 0 to find the time of maximum height.",
+    "Substitute that time into y(t) to find the maximum height.",
+    "Interpret maximum height in context and check the answer is positive.",
+  ],
+  teaching: {
+    paragraphs: [
+      "A projectile rises, reaches a peak, then falls. At the very top of the trajectory, the vertical velocity is zero — the particle has stopped moving upward and is about to start moving downward. This is the key condition for finding maximum height.",
+      "Set ẏ(t) = V·sinθ − gt = 0 and solve for t. This gives the time at which the projectile is at its highest point: t_max = V·sinθ / g. With g = 10, this simplifies nicely for Pythagorean-triple angles.",
+      "Once you have t_max, substitute it into the vertical position equation y(t) = Vt·sinθ − ½gt² to find the maximum height. Do not skip this substitution step — t_max alone is not the height.",
+      "The horizontal velocity does not affect maximum height. Only the vertical component V·sinθ and gravity g determine how high the projectile goes.",
+    ],
+    latexBlocks: [
+      "\\dot{y}(t) = V\\sin\\theta - gt = 0 \\;\\Rightarrow\\; t_{\\max} = \\frac{V\\sin\\theta}{g}",
+      "H = y(t_{\\max}) = Vt_{\\max}\\sin\\theta - \\frac{1}{2}g\\,t_{\\max}^2",
+      "H = \\frac{(V\\sin\\theta)^2}{2g}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Time of maximum height",
+      questionLatex:
+        "\\text{A projectile is launched at } V = 25 \\text{ m/s with } \\sin\\theta = \\tfrac{3}{5}.\\text{ Find the time of maximum height. Use } g = 10.",
+      steps: [
+        {
+          explanation: "Set vertical velocity equal to zero.",
+          latex: "\\dot{y}(t) = V\\sin\\theta - gt = 25 \\cdot \\frac{3}{5} - 10t = 15 - 10t = 0",
+        },
+        {
+          explanation: "Solve for t.",
+          latex: "t = \\frac{15}{10} = 1.5 \\text{ s}",
+        },
+      ],
+      finalAnswerLatex: "t_{\\max} = 1.5 \\text{ s}",
+    },
+    {
+      title: "Maximum height",
+      questionLatex:
+        "\\text{Using } y(t) = 15t - 5t^2 \\text{ from above, find the maximum height.}",
+      steps: [
+        {
+          explanation: "Substitute t = 1.5 into y(t).",
+          latex: "y(1.5) = 15(1.5) - 5(1.5)^2 = 22.5 - 5(2.25)",
+        },
+        {
+          explanation: "Simplify.",
+          latex: "y(1.5) = 22.5 - 11.25 = 11.25 \\text{ m}",
+        },
+      ],
+      finalAnswerLatex: "H = 11.25 \\text{ m}",
+    },
+    {
+      title: "Maximum height using the compact formula",
+      questionLatex:
+        "\\text{A projectile is launched at } V = 50 \\text{ m/s with } \\sin\\theta = \\tfrac{4}{5}.\\text{ Find the maximum height using } H = \\dfrac{(V\\sin\\theta)^2}{2g}.",
+      steps: [
+        {
+          explanation: "Find the vertical component of initial velocity.",
+          latex: "V\\sin\\theta = 50 \\cdot \\frac{4}{5} = 40 \\text{ m/s}",
+        },
+        {
+          explanation: "Apply the formula with g = 10.",
+          latex: "H = \\frac{40^2}{2 \\times 10} = \\frac{1600}{20} = 80 \\text{ m}",
+        },
+      ],
+      finalAnswerLatex: "H = 80 \\text{ m}",
+    },
+  ],
+  guidedPractice: [
+    projChoice(
+      "y12e1-proj-max-g1",
+      "At what point in its flight does a projectile reach maximum height?",
+      "C",
+      [
+        "When horizontal velocity is zero",
+        "When displacement is zero",
+        "When vertical velocity is zero",
+        "When the projectile returns to ground level",
+      ],
+      "Maximum height occurs when the projectile momentarily stops moving upward, i.e. when ẏ(t) = 0."
+    ),
+    projTyped(
+      "y12e1-proj-max-g2",
+      "A projectile has vertical velocity $\\dot{y}(t) = 20 - 10t$ m/s. Find the time of maximum height.",
+      "\\dot{y}(t) = 20 - 10t = 0",
+      "2",
+      ["2 s", "t = 2"],
+      "Set 20 − 10t = 0: t = 2 s.",
+      "Set ẏ(t) = 0 and solve for t."
+    ),
+    projTyped(
+      "y12e1-proj-max-g3",
+      "A projectile has $y(t) = 20t - 5t^2$. Find the maximum height.",
+      "\\dot{y}(t) = 20 - 10t = 0 \\Rightarrow t = 2",
+      "20",
+      ["20 m"],
+      "ẏ(t) = 20 − 10t = 0 gives t = 2. y(2) = 20(2) − 5(4) = 40 − 20 = 20 m.",
+      "Find t when ẏ = 0, then substitute into y(t)."
+    ),
+    projTyped(
+      "y12e1-proj-max-g4",
+      "Use the formula $H = \\dfrac{(V\\sin\\theta)^2}{2g}$ to find the maximum height when $V\\sin\\theta = 30$ m/s and $g = 10$.",
+      "H = \\frac{30^2}{2 \\times 10}",
+      "45",
+      ["45 m"],
+      "H = 900 / 20 = 45 m."
+    ),
+  ],
+  independentPractice: [
+    projTyped(
+      "y12e1-proj-max-i1",
+      "A projectile has $y(t) = 30t - 5t^2$. Find the time of maximum height.",
+      "\\dot{y}(t) = 30 - 10t = 0",
+      "3",
+      ["3 s"],
+      "ẏ(t) = 30 − 10t = 0 gives t = 3 s."
+    ),
+    projTyped(
+      "y12e1-proj-max-i2",
+      "A projectile has $y(t) = 30t - 5t^2$. Find the maximum height.",
+      "y(3) = 30(3) - 5(3)^2",
+      "45",
+      ["45 m"],
+      "y(3) = 90 − 5(9) = 90 − 45 = 45 m."
+    ),
+    projChoice(
+      "y12e1-proj-max-i3",
+      "A projectile is launched at $V = 25$ m/s with $\\sin\\theta = \\frac{3}{5}$. What is the initial vertical velocity?",
+      "B",
+      ["$20$ m/s", "$15$ m/s", "$25$ m/s", "$12.5$ m/s"],
+      "V·sinθ = 25 × 3/5 = 15 m/s."
+    ),
+    projTyped(
+      "y12e1-proj-max-i4",
+      "A projectile is launched at $V = 50$ m/s with $\\sin\\theta = \\frac{3}{5}$. Find the maximum height using $H = \\dfrac{(V\\sin\\theta)^2}{2g}$, with $g = 10$.",
+      "V\\sin\\theta = 30,\\quad H = \\frac{30^2}{20}",
+      "45",
+      ["45 m"],
+      "V·sinθ = 50 × 3/5 = 30. H = 900/20 = 45 m."
+    ),
+    projTyped(
+      "y12e1-proj-max-i5",
+      "A projectile is launched at $V = 50$ m/s with $\\sin\\theta = \\frac{4}{5}$ and $g = 10$. Find the time of maximum height.",
+      "\\dot{y}(t) = 40 - 10t = 0",
+      "4",
+      ["4 s"],
+      "V·sinθ = 50 × 4/5 = 40. ẏ(t) = 40 − 10t = 0 gives t = 4 s."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Setting x(t) = 0 or y(t) = 0 to find maximum height.",
+      fix: "Set ẏ(t) = V·sinθ − gt = 0. Maximum height requires zero vertical velocity, not zero position.",
+    },
+    {
+      mistake: "Reporting t_max as the maximum height.",
+      fix: "t_max is the time of maximum height. Substitute t_max into y(t) to find the actual height.",
+    },
+    {
+      mistake: "Using V instead of V·sinθ in the formula H = (V sinθ)² / (2g).",
+      fix: "Only the vertical component V·sinθ drives vertical motion. The horizontal component has no effect on height.",
+    },
+    {
+      mistake: "Using g = 9.8 instead of g = 10.",
+      fix: "NSW HSC Extension 1 convention is g = 10 m/s² unless explicitly told otherwise.",
+    },
+  ],
+  masteryQuiz: [
+    projTyped(
+      "y12e1-proj-max-m1",
+      "A projectile has $y(t) = 40t - 5t^2$. Find the time of maximum height.",
+      "\\dot{y}(t) = 40 - 10t = 0",
+      "4",
+      ["4 s"],
+      "ẏ(t) = 40 − 10t = 0 gives t = 4 s."
+    ),
+    projTyped(
+      "y12e1-proj-max-m2",
+      "A projectile has $y(t) = 40t - 5t^2$. Find the maximum height.",
+      "y(4) = 40(4) - 5(4)^2",
+      "80",
+      ["80 m"],
+      "y(4) = 160 − 5(16) = 160 − 80 = 80 m."
+    ),
+    projTyped(
+      "y12e1-proj-max-m3",
+      "Use $H = \\dfrac{(V\\sin\\theta)^2}{2g}$ to find the maximum height when $V = 25$ m/s, $\\sin\\theta = \\dfrac{3}{5}$, $g = 10$.",
+      "H = \\frac{(25 \\cdot 3/5)^2}{20} = \\frac{15^2}{20}",
+      "11.25",
+      ["11.25 m", "45/4"],
+      "V·sinθ = 15. H = 225/20 = 11.25 m."
+    ),
+    projChoice(
+      "y12e1-proj-max-m4",
+      "Which quantity determines maximum height?",
+      "B",
+      [
+        "Horizontal velocity component only",
+        "Vertical velocity component only",
+        "Both components equally",
+        "The launch angle only",
+      ],
+      "Maximum height depends on the vertical component V·sinθ and gravity. Horizontal velocity plays no role."
+    ),
+    projTyped(
+      "y12e1-proj-max-m5",
+      "A projectile is launched with vertical velocity component $V\\sin\\theta = 20$ m/s. Find the time of maximum height. Use $g = 10$.",
+      "\\dot{y}(t) = 20 - 10t = 0",
+      "2",
+      ["2 s"],
+      "t_max = 20/10 = 2 s."
+    ),
+    projTyped(
+      "y12e1-proj-max-m6",
+      "A projectile is launched with $V = 50$ m/s and $\\sin\\theta = \\frac{4}{5}$. Find the maximum height using $H = \\dfrac{(V\\sin\\theta)^2}{2g}$.",
+      "H = \\frac{40^2}{20}",
+      "80",
+      ["80 m"],
+      "V·sinθ = 40. H = 1600/20 = 80 m."
+    ),
+    projChoice(
+      "y12e1-proj-max-m7",
+      "A projectile has $y(t) = 15t - 5t^2$. At what time is it at maximum height?",
+      "C",
+      ["$t = 1$", "$t = 2$", "$t = 1.5$", "$t = 3$"],
+      "ẏ(t) = 15 − 10t = 0 gives t = 1.5 s."
+    ),
+    projTyped(
+      "y12e1-proj-max-m8",
+      "A projectile has $y(t) = 15t - 5t^2$. Find the maximum height.",
+      "y(1.5) = 15(1.5) - 5(1.5)^2",
+      "11.25",
+      ["11.25 m", "45/4"],
+      "y(1.5) = 22.5 − 5(2.25) = 22.5 − 11.25 = 11.25 m."
+    ),
+    projChoice(
+      "y12e1-proj-max-m9",
+      "At maximum height, which of the following is true?",
+      "A",
+      [
+        "Vertical velocity = 0, horizontal velocity unchanged",
+        "Both velocity components equal zero",
+        "Acceleration equals zero",
+        "Displacement equals zero",
+      ],
+      "At maximum height ẏ = 0. Horizontal velocity is constant throughout (no horizontal force), and acceleration is still g downward."
+    ),
+    projTyped(
+      "y12e1-proj-max-m10",
+      "A projectile is launched at $V = 25$ m/s with $\\sin\\theta = \\frac{4}{5}$. Find the time of maximum height.",
+      "\\dot{y}(t) = 25 \\cdot \\frac{4}{5} - 10t = 20 - 10t = 0",
+      "2",
+      ["2 s"],
+      "V·sinθ = 20. t_max = 20/10 = 2 s."
+    ),
+  ],
+  masteryPassMark: 0.8,
+};
+
 export function year12Extension1ProjectileMotionLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -348,6 +615,13 @@ export function year12Extension1ProjectileMotionLessonOverride(
         id: "projectile-equations-setup",
         slug: "projectile-equations-setup",
         title: "Setting Up Projectile Equations",
+      };
+    case "projectile-max-height":
+      return {
+        ...projectileMaxHeight,
+        id: "projectile-max-height",
+        slug: "projectile-max-height",
+        title: "Maximum Height and Time",
       };
     default:
       return undefined;
