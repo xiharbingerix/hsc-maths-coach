@@ -2,7 +2,7 @@
 
 > Target: match Class Mathematics NSW structure (17 pathways, ~172 topics, ~1,204 subtopics).
 > Source audit: CLASS_MATHEMATICS_NSW_STRUCTURE_REPORT.md
-> Last updated: 2026-06-14
+> Last updated: 2026-06-14 (session 3 — Ext 2 / Std 2 / Adv depth passes complete)
 
 ---
 
@@ -341,7 +341,7 @@ Class Maths: 7 topics / 28 subtopics.
 
 ## Year 12 Extension 2 ✅ Depth pass complete
 
-`year-12-extension-2` — `in_progress`. Override file: `lib/lessons/year12Extension2/`.
+`year-12-extension-2` — `available`. Override file: `lib/lessons/year12Extension2/`.
 Class Maths: 5 topics / 40 subtopics. Nova: 5 units / 25 lessons (+8 from depth pass).
 
 - [x] Proof (4 lessons: contradiction, contrapositive, algebraic inequalities, **mathematical induction** ✅)
@@ -360,24 +360,29 @@ Class Maths: 5 topics / 40 subtopics. Nova: 5 units / 25 lessons (+8 from depth 
 Class Mathematics average subtopics per topic: ~7.
 Nova average lessons per unit: ~4–5.
 
-Courses that need a depth pass before they match Class Maths granularity:
-
-| Course | Current avg lessons/unit | Target avg | Gap |
+| Course | Current lessons | Target | Status |
 |---|---|---|---|
-| Year 11 Standard | 3.9 | ~7 | +28 total (see unit-by-unit breakdown above) |
-| Year 12 Standard 2 | 4.8 | ~6 | +1–2 per unit |
-| Year 12 Standard 1 | 3.6 | ~4 | ~+1 per unit |
-| Year 12 Extension 1 | 3.7 | ~4 | ~+1 per unit |
-| Year 12 Extension 2 | 5.0 | ~8 | ✅ Depth pass complete |
+| Year 11 Standard | 63 (9 units) | ~63 | ✅ Depth pass complete |
+| Year 12 Standard 2 | 31 (6 units) | ~31 | ✅ Depth pass complete |
+| Year 12 Advanced | 91 (13 units) | ~64 subtopics | ✅ Depth pass complete (exceeds) |
+| Year 12 Extension 2 | 25 (5 units) | ~40 subtopics | ✅ Depth pass complete |
+| Year 12 Standard 1 | 18 (5 units) | ~29 subtopics | 🔄 Missing ~2 topics |
+| Year 12 Extension 1 | 22 (6 units) | ~28 subtopics | 🔄 Missing 1 topic |
+| Year 11 Advanced | 54 (8 units) | ~90 subtopics | 🔄 Missing equations/inequations, coord geometry, trig phase 3 |
+| Year 9 / Year 10 variants | — | — | 🔄 Promote Advanced + Core to available |
+| Year 8 | 59 (10 units) | ~111 subtopics | 🔄 4 units missing vs Class Maths |
+| Year 7 | 0 | ~117 subtopics | ⬜ Not started |
 
 ---
 
 ## Priority Order
 
 1. ~~**Year 12 Extension 2 depth**~~ ✅ Complete — 25 lessons, 481 questions
-2. **Year 12 Standard 2 depth** — 5 units covering only half the Class Maths topics
-3. **Year 11 Advanced gaps** — equations/inequations, coordinate geometry units
-4. **Year 12 Standard 1** — add missing 2 topics, promote to available
-5. **Year 9 / Year 10 variants** — promote Advanced and Core to available
-6. **Year 8 depth** — 4 missing units vs Class Maths 14-topic target (ratios/rates, index laws, etc.)
-7. **Year 7** — new course, not yet started
+2. ~~**Year 12 Standard 2 depth**~~ ✅ Complete — 31 lessons, 589 questions
+3. ~~**Year 12 Advanced depth**~~ ✅ Complete — 91 lessons, 1715 questions (Probability unit added)
+4. **Year 12 Extension 1 depth** — 1 missing topic (rates of change or projectile motion as standalone unit); 22 lessons → ~25
+5. **Year 12 Standard 1** — add missing ~2 topics (likely Networks + further Measurement); promote to `available`
+6. **Year 11 Advanced gaps** — equations/inequations unit, coordinate geometry unit, trig identities phase 3
+7. **Year 9 / Year 10 variants** — promote Advanced and Core to `available`
+8. **Year 8 depth** — 4 missing units vs Class Maths 14-topic target (ratios/rates, index laws, algebraic fractions, additional data)
+9. **Year 7** — new course, not yet started
