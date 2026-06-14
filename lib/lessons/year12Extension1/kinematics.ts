@@ -1,4 +1,4 @@
-import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+﻿import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import type {
   CourseLessonSeed,
   CoursePathwaySeed,
@@ -47,7 +47,7 @@ function kinTyped(
   };
 }
 
-// ─── Lesson 1: Velocity and Acceleration from Displacement ───────────────────
+// â”€â”€â”€ Lesson 1: Velocity and Acceleration from Displacement â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const kinematicsVelocityAcceleration: Partial<ExplicitLesson> = {
   description:
@@ -56,16 +56,16 @@ const kinematicsVelocityAcceleration: Partial<ExplicitLesson> = {
     "Differentiate a displacement function to find velocity and acceleration, and interpret their signs to describe the motion of a particle.",
   successCriteria: [
     "Find velocity by differentiating displacement with respect to time: v = dx/dt.",
-    "Find acceleration by differentiating velocity: a = dv/dt = d²x/dt².",
+    "Find acceleration by differentiating velocity: a = dv/dt = dÂ²x/dtÂ².",
     "Identify when a particle is at rest by solving v(t) = 0.",
     "Interpret the sign of velocity as the direction of motion.",
   ],
   teaching: {
     paragraphs: [
       "In kinematics, displacement x(t) measures a particle's position from a fixed origin at time t. The rate at which that position changes is the velocity. Since velocity measures how quickly displacement changes, it is simply the derivative of x with respect to t.",
-      "Acceleration measures how quickly velocity is changing. It is the derivative of v — or equivalently the second derivative of x. These two relationships, v = dx/dt and a = dv/dt, are the foundation of all straight-line motion problems.",
+      "Acceleration measures how quickly velocity is changing. It is the derivative of v â€” or equivalently the second derivative of x. These two relationships, v = dx/dt and a = dv/dt, are the foundation of all straight-line motion problems.",
       "When v(t) > 0 the particle moves in the positive direction. When v(t) < 0 it moves in the negative direction. The particle is momentarily at rest when v(t) = 0, and it often changes direction at that instant if the sign of v changes.",
-      "Speed and velocity are different: speed = |v|. A particle can have a large speed while moving in the negative direction. Deceleration occurs when acceleration and velocity have opposite signs — the particle is slowing down even if it is not reversing.",
+      "Speed and velocity are different: speed = |v|. A particle can have a large speed while moving in the negative direction. Deceleration occurs when acceleration and velocity have opposite signs â€” the particle is slowing down even if it is not reversing.",
     ],
     latexBlocks: [
       "v(t) = \\frac{dx}{dt}",
@@ -145,7 +145,7 @@ const kinematicsVelocityAcceleration: Partial<ExplicitLesson> = {
       "v(t) = 4t - 8",
       "4",
       ["4 m/s^2"],
-      "a(t) = dv/dt = 4. The acceleration is constant at 4 m/s²."
+      "a(t) = dv/dt = 4. The acceleration is constant at 4 m/sÂ²."
     ),
     kinChoice(
       "y12e1-kin-va-g4",
@@ -174,8 +174,8 @@ const kinematicsVelocityAcceleration: Partial<ExplicitLesson> = {
       "A particle has displacement $x(t) = 2t^3 - 9t^2 + 12t$. Find the acceleration at $t = 1$.",
       "x(t) = 2t^3 - 9t^2 + 12t,\\quad t = 1",
       "-6",
-      ["−6", "-6 m/s^2"],
-      "v(t) = 6t^2 - 18t + 12, so a(t) = 12t - 18. At t = 1: a(1) = 12 - 18 = -6 m/s²."
+      ["âˆ’6", "-6 m/s^2"],
+      "v(t) = 6t^2 - 18t + 12, so a(t) = 12t - 18. At t = 1: a(1) = 12 - 18 = -6 m/sÂ²."
     ),
     kinChoice(
       "y12e1-kin-va-i3",
@@ -238,7 +238,7 @@ const kinematicsVelocityAcceleration: Partial<ExplicitLesson> = {
       "x(t) = t^3 - 3t^2",
       "6",
       ["6 m/s^2"],
-      "v(t) = 3t^2 - 6t, so a(t) = 6t - 6. At t = 2: a(2) = 12 - 6 = 6 m/s²."
+      "v(t) = 3t^2 - 6t, so a(t) = 6t - 6. At t = 2: a(2) = 12 - 6 = 6 m/sÂ²."
     ),
     kinChoice(
       "y12e1-kin-va-m3",
@@ -277,7 +277,7 @@ const kinematicsVelocityAcceleration: Partial<ExplicitLesson> = {
         "Acceleration and velocity have opposite signs",
         "Its displacement is decreasing",
       ],
-      "Deceleration means the speed is decreasing, which occurs when a and v have opposite signs — the acceleration is working against the motion."
+      "Deceleration means the speed is decreasing, which occurs when a and v have opposite signs â€” the acceleration is working against the motion."
     ),
     kinTyped(
       "y12e1-kin-va-m7",
@@ -312,13 +312,13 @@ const kinematicsVelocityAcceleration: Partial<ExplicitLesson> = {
         "$a(t) = \\frac{dx}{dt}$",
         "$a(t) = \\frac{d^2x}{dt^2}$",
       ],
-      "Acceleration is the second derivative of displacement with respect to time: a = d²x/dt²."
+      "Acceleration is the second derivative of displacement with respect to time: a = dÂ²x/dtÂ²."
     ),
   ],
   masteryPassMark: 0.8,
 };
 
-// ─── Lesson 2: Displacement from Velocity by Integration ────────────────────
+// â”€â”€â”€ Lesson 2: Displacement from Velocity by Integration â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
   description:
@@ -326,15 +326,15 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
   learningIntention:
     "Integrate a velocity (or acceleration) function and apply an initial condition to find the displacement (or velocity) function.",
   successCriteria: [
-    "Find displacement by integrating velocity: x = ∫v dt, then apply x(0) to find C.",
-    "Find velocity by integrating acceleration: v = ∫a dt, then apply v(0) to find C.",
+    "Find displacement by integrating velocity: x = âˆ«v dt, then apply x(0) to find C.",
+    "Find velocity by integrating acceleration: v = âˆ«a dt, then apply v(0) to find C.",
     "Recognise that integration is the reverse process of differentiation in kinematics.",
     "Calculate displacement over a time interval using a definite integral of velocity.",
   ],
   teaching: {
     paragraphs: [
       "Differentiation takes us from displacement to velocity to acceleration. Integration reverses the journey: given velocity, integrate to recover displacement; given acceleration, integrate to recover velocity.",
-      "When you integrate a velocity function, you get a family of displacement functions differing by a constant C. An initial condition — such as the starting position x(0) = 0 — pins down the exact function by fixing the value of C.",
+      "When you integrate a velocity function, you get a family of displacement functions differing by a constant C. An initial condition â€” such as the starting position x(0) = 0 â€” pins down the exact function by fixing the value of C.",
       "Distance travelled is not the same as displacement. Displacement can be negative if the particle moves in the negative direction. To find total distance, split the integral at times when v = 0 and take the magnitude of each piece.",
       "Definite integration of velocity over a time interval gives the net displacement (change in position) over that interval, not the total distance covered.",
     ],
@@ -417,12 +417,12 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
       "x(t) = \\int (4t - 2)\\,dt = 2t^2 - 2t + C,\\quad x(0) = 0",
       "4",
       ["4 m"],
-      "x(t) = 2t² − 2t + C. x(0) = 0 gives C = 0. x(2) = 2(4) − 2(2) = 8 − 4 = 4 m.",
+      "x(t) = 2tÂ² âˆ’ 2t + C. x(0) = 0 gives C = 0. x(2) = 2(4) âˆ’ 2(2) = 8 âˆ’ 4 = 4 m.",
       "Integrate v(t), apply x(0) = 0 to find C, then substitute t = 2."
     ),
     kinTyped(
       "y12e1-kin-int-g3",
-      "A particle has acceleration $a(t) = 10$ m/s² and initial velocity $v(0) = 5$ m/s. Find $v(3)$.",
+      "A particle has acceleration $a(t) = 10$ m/sÂ² and initial velocity $v(0) = 5$ m/s. Find $v(3)$.",
       "v(t) = 10t + C,\\quad v(0) = 5",
       "35",
       ["35 m/s"],
@@ -448,30 +448,30 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
       "x(t) = 2t^3 - 4t + C,\\quad x(0) = 1",
       "9",
       ["9 m"],
-      "x(t) = 2t³ − 4t + C. x(0) = 1 gives C = 1. x(2) = 2(8) − 4(2) + 1 = 16 − 8 + 1 = 9 m."
+      "x(t) = 2tÂ³ âˆ’ 4t + C. x(0) = 1 gives C = 1. x(2) = 2(8) âˆ’ 4(2) + 1 = 16 âˆ’ 8 + 1 = 9 m."
     ),
     kinTyped(
       "y12e1-kin-int-i2",
-      "A particle has acceleration $a(t) = 4 - 6t$ m/s² and $v(0) = 0$. Find $v(2)$.",
+      "A particle has acceleration $a(t) = 4 - 6t$ m/sÂ² and $v(0) = 0$. Find $v(2)$.",
       "v(t) = 4t - 3t^2 + C,\\quad v(0) = 0",
       "-4",
-      ["−4", "-4 m/s"],
-      "v(t) = 4t − 3t² + C. v(0) = 0 gives C = 0. v(2) = 8 − 12 = -4 m/s."
+      ["âˆ’4", "-4 m/s"],
+      "v(t) = 4t âˆ’ 3tÂ² + C. v(0) = 0 gives C = 0. v(2) = 8 âˆ’ 12 = -4 m/s."
     ),
     kinTyped(
       "y12e1-kin-int-i3",
       "Find the net displacement of a particle from $t = 0$ to $t = 2$ if its velocity is $v(t) = 3t^2 - 6$.",
       "\\int_0^2 (3t^2 - 6)\\,dt = \\left[t^3 - 6t\\right]_0^2",
       "-4",
-      ["−4", "-4 m"],
-      "∫₀² (3t² − 6) dt = [t³ − 6t]₀² = (8 − 12) − (0) = -4 m. Net displacement is -4 m."
+      ["âˆ’4", "-4 m"],
+      "âˆ«â‚€Â² (3tÂ² âˆ’ 6) dt = [tÂ³ âˆ’ 6t]â‚€Â² = (8 âˆ’ 12) âˆ’ (0) = -4 m. Net displacement is -4 m."
     ),
     kinChoice(
       "y12e1-kin-int-i4",
       "A particle starts at rest at the origin. Its velocity becomes $v(t) = 2t$. Which expression gives its displacement at time $t$?",
       "A",
       ["$t^2$", "$2t^2$", "$t^2 + C$", "$2$"],
-      "x(t) = ∫2t dt = t² + C. With x(0) = 0, C = 0, so x(t) = t²."
+      "x(t) = âˆ«2t dt = tÂ² + C. With x(0) = 0, C = 0, so x(t) = tÂ²."
     ),
     kinTyped(
       "y12e1-kin-int-i5",
@@ -479,7 +479,7 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
       "\\int_0^6 (8 - 2t)\\,dt = \\left[8t - t^2\\right]_0^6",
       "12",
       ["12 m"],
-      "∫₀⁶ (8 − 2t) dt = [8t − t²]₀⁶ = (48 − 36) − 0 = 12 m."
+      "âˆ«â‚€â¶ (8 âˆ’ 2t) dt = [8t âˆ’ tÂ²]â‚€â¶ = (48 âˆ’ 36) âˆ’ 0 = 12 m."
     ),
   ],
   commonMistakes: [
@@ -489,11 +489,11 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
     },
     {
       mistake: "Treating net displacement as total distance.",
-      fix: "Net displacement is ∫v dt and can be zero or negative. Total distance requires splitting at v = 0 and adding magnitudes.",
+      fix: "Net displacement is âˆ«v dt and can be zero or negative. Total distance requires splitting at v = 0 and adding magnitudes.",
     },
     {
       mistake: "Integrating x(t) instead of v(t) to find displacement.",
-      fix: "Integrate velocity to get displacement: x = ∫v dt. Integrating displacement gives something unrelated to motion.",
+      fix: "Integrate velocity to get displacement: x = âˆ«v dt. Integrating displacement gives something unrelated to motion.",
     },
     {
       mistake: "Leaving C in the answer after an initial condition is given.",
@@ -507,15 +507,15 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
       "x(t) = t^2 + 3t + C,\\quad x(0) = 0",
       "28",
       ["28 m"],
-      "x(t) = t² + 3t. x(4) = 16 + 12 = 28 m."
+      "x(t) = tÂ² + 3t. x(4) = 16 + 12 = 28 m."
     ),
     kinTyped(
       "y12e1-kin-int-m2",
-      "A particle has acceleration $a(t) = 6t$ m/s² and $v(0) = -4$ m/s. Find $v(2)$.",
+      "A particle has acceleration $a(t) = 6t$ m/sÂ² and $v(0) = -4$ m/s. Find $v(2)$.",
       "v(t) = 3t^2 + C,\\quad v(0) = -4",
       "8",
       ["8 m/s"],
-      "v(t) = 3t² + C. v(0) = -4 gives C = -4. v(2) = 3(4) − 4 = 12 − 4 = 8 m/s."
+      "v(t) = 3tÂ² + C. v(0) = -4 gives C = -4. v(2) = 3(4) âˆ’ 4 = 12 âˆ’ 4 = 8 m/s."
     ),
     kinTyped(
       "y12e1-kin-int-m3",
@@ -523,14 +523,14 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
       "\\int_1^3 2t\\,dt = \\left[t^2\\right]_1^3",
       "8",
       ["8 m"],
-      "∫₁³ 2t dt = [t²]₁³ = 9 − 1 = 8 m."
+      "âˆ«â‚Â³ 2t dt = [tÂ²]â‚Â³ = 9 âˆ’ 1 = 8 m."
     ),
     kinChoice(
       "y12e1-kin-int-m4",
       "A particle starts at $x = 5$ when $t = 0$. After integrating $v(t)$, you get $x(t) = t^2 - 3t + C$. What is $C$?",
       "B",
       ["$0$", "$5$", "$-5$", "$3$"],
-      "x(0) = 0 − 0 + C = 5, so C = 5."
+      "x(0) = 0 âˆ’ 0 + C = 5, so C = 5."
     ),
     kinTyped(
       "y12e1-kin-int-m5",
@@ -538,7 +538,7 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
       "\\int_0^4 (12 - 4t)\\,dt = \\left[12t - 2t^2\\right]_0^4",
       "16",
       ["16 m"],
-      "∫₀⁴ (12 − 4t) dt = [12t − 2t²]₀⁴ = (48 − 32) − 0 = 16 m."
+      "âˆ«â‚€â´ (12 âˆ’ 4t) dt = [12t âˆ’ 2tÂ²]â‚€â´ = (48 âˆ’ 32) âˆ’ 0 = 16 m."
     ),
     kinChoice(
       "y12e1-kin-int-m6",
@@ -550,30 +550,30 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
         "The velocity was always zero",
         "The particle returned to its starting position",
       ],
-      "Zero net displacement means the particle finished at the same position it started — it may have moved away and returned."
+      "Zero net displacement means the particle finished at the same position it started â€” it may have moved away and returned."
     ),
     kinTyped(
       "y12e1-kin-int-m7",
-      "A particle has acceleration $a(t) = -10$ m/s² (constant) and $v(0) = 30$ m/s. Find the time when the particle is at rest.",
+      "A particle has acceleration $a(t) = -10$ m/sÂ² (constant) and $v(0) = 30$ m/s. Find the time when the particle is at rest.",
       "v(t) = 30 - 10t = 0",
       "3",
       ["3 s", "t = 3"],
-      "v(t) = -10t + 30. Setting v = 0: 30 − 10t = 0, so t = 3 s."
+      "v(t) = -10t + 30. Setting v = 0: 30 âˆ’ 10t = 0, so t = 3 s."
     ),
     kinChoice(
       "y12e1-kin-int-m8",
       "Which expression gives the velocity function when $a(t) = 4$ and $v(0) = 7$?",
       "A",
       ["$4t + 7$", "$4t$", "$4t - 7$", "$4t^2 + 7$"],
-      "v(t) = ∫4 dt = 4t + C. v(0) = 7 gives C = 7, so v(t) = 4t + 7."
+      "v(t) = âˆ«4 dt = 4t + C. v(0) = 7 gives C = 7, so v(t) = 4t + 7."
     ),
     kinTyped(
       "y12e1-kin-int-m9",
       "A particle has velocity $v(t) = t^2 - 4$ m/s and starts at $x = 0$ when $t = 0$. Find $x(3)$.",
       "x(t) = \\frac{t^3}{3} - 4t + C,\\quad x(0) = 0",
       "-3",
-      ["−3", "-3 m"],
-      "x(t) = t³/3 − 4t. x(3) = 27/3 − 12 = 9 − 12 = -3 m."
+      ["âˆ’3", "-3 m"],
+      "x(t) = tÂ³/3 âˆ’ 4t. x(3) = 27/3 âˆ’ 12 = 9 âˆ’ 12 = -3 m."
     ),
     kinChoice(
       "y12e1-kin-int-m10",

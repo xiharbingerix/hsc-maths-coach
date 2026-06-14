@@ -1,4 +1,4 @@
-import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+﻿import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import type {
   CourseLessonSeed,
   CoursePathwaySeed,
@@ -47,7 +47,7 @@ function projTyped(
   };
 }
 
-// ─── Lesson 1: Setting Up Projectile Equations ───────────────────────────────
+// â”€â”€â”€ Lesson 1: Setting Up Projectile Equations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const projectileEquationsSetup: Partial<ExplicitLesson> = {
   description:
@@ -55,18 +55,18 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
   learningIntention:
     "Write the x(t) and y(t) equations for a projectile from its initial speed and launch angle, and calculate position or velocity at a given time.",
   successCriteria: [
-    "Resolve initial speed V into horizontal component V·cosθ and vertical component V·sinθ.",
-    "Write x(t) = Vt·cosθ for horizontal displacement (no air resistance).",
-    "Write y(t) = Vt·sinθ − ½gt² for vertical displacement under gravity.",
+    "Resolve initial speed V into horizontal component VÂ·cosÎ¸ and vertical component VÂ·sinÎ¸.",
+    "Write x(t) = VtÂ·cosÎ¸ for horizontal displacement (no air resistance).",
+    "Write y(t) = VtÂ·sinÎ¸ âˆ’ Â½gtÂ² for vertical displacement under gravity.",
     "Calculate x and y coordinates of a projectile at a given time t.",
     "Find horizontal and vertical velocity components at any time t.",
   ],
   teaching: {
     paragraphs: [
       "A projectile is launched into the air and moves under gravity alone. The key insight is that horizontal and vertical motions are independent: what happens vertically does not affect what happens horizontally, and vice versa.",
-      "Horizontally, no force acts on the projectile (ignoring air resistance), so the horizontal velocity stays constant at V·cosθ for the entire flight. Multiplying by time gives the horizontal displacement: x(t) = Vt·cosθ.",
-      "Vertically, gravity pulls the projectile downward at g = 10 m/s². The vertical velocity starts at V·sinθ and decreases by 10 each second. Position follows from integrating velocity: y(t) = Vt·sinθ − ½gt². The vertical velocity at time t is ẏ(t) = V·sinθ − gt.",
-      "In HSC problems, take g = 10 m/s² and measure from the launch point, so x(0) = 0 and y(0) = 0. When the launch angle is given as a Pythagorean ratio (e.g. cosθ = 4/5, sinθ = 3/5), the arithmetic stays clean.",
+      "Horizontally, no force acts on the projectile (ignoring air resistance), so the horizontal velocity stays constant at VÂ·cosÎ¸ for the entire flight. Multiplying by time gives the horizontal displacement: x(t) = VtÂ·cosÎ¸.",
+      "Vertically, gravity pulls the projectile downward at g = 10 m/sÂ². The vertical velocity starts at VÂ·sinÎ¸ and decreases by 10 each second. Position follows from integrating velocity: y(t) = VtÂ·sinÎ¸ âˆ’ Â½gtÂ². The vertical velocity at time t is áº(t) = VÂ·sinÎ¸ âˆ’ gt.",
+      "In HSC problems, take g = 10 m/sÂ² and measure from the launch point, so x(0) = 0 and y(0) = 0. When the launch angle is given as a Pythagorean ratio (e.g. cosÎ¸ = 4/5, sinÎ¸ = 3/5), the arithmetic stays clean.",
     ],
     latexBlocks: [
       "x(t) = Vt\\cos\\theta",
@@ -81,15 +81,15 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
         "\\text{A projectile is launched at } V = 25 \\text{ m/s at angle } \\theta \\text{ where } \\cos\\theta = \\tfrac{4}{5}.\\text{ Write } x(t) \\text{ and } y(t).\\text{ Take } g = 10.",
       steps: [
         {
-          explanation: "Find sinθ from cosθ = 4/5 using the Pythagorean identity.",
+          explanation: "Find sinÎ¸ from cosÎ¸ = 4/5 using the Pythagorean identity.",
           latex: "\\sin\\theta = \\frac{3}{5}",
         },
         {
-          explanation: "Write the horizontal equation using x = Vt·cosθ.",
+          explanation: "Write the horizontal equation using x = VtÂ·cosÎ¸.",
           latex: "x(t) = 25 \\cdot \\frac{4}{5} \\cdot t = 20t",
         },
         {
-          explanation: "Write the vertical equation using y = Vt·sinθ − 5t².",
+          explanation: "Write the vertical equation using y = VtÂ·sinÎ¸ âˆ’ 5tÂ².",
           latex: "y(t) = 25 \\cdot \\frac{3}{5} \\cdot t - 5t^2 = 15t - 5t^2",
         },
       ],
@@ -121,7 +121,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
           latex: "\\dot{x} = 50 \\cdot \\frac{3}{5} = 30 \\text{ m/s}",
         },
         {
-          explanation: "Find sinθ: since cosθ = 3/5, sinθ = 4/5.",
+          explanation: "Find sinÎ¸: since cosÎ¸ = 3/5, sinÎ¸ = 4/5.",
           latex: "\\dot{y}(3) = 50 \\cdot \\frac{4}{5} - 10(3) = 40 - 30 = 10 \\text{ m/s}",
         },
       ],
@@ -139,7 +139,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
         "$Vt\\cos\\theta - \\frac{1}{2}gt^2$",
         "$V\\cos\\theta - gt$",
       ],
-      "Horizontal position = constant horizontal velocity × time = Vt·cosθ (no horizontal acceleration)."
+      "Horizontal position = constant horizontal velocity Ã— time = VtÂ·cosÎ¸ (no horizontal acceleration)."
     ),
     projTyped(
       "y12e1-proj-setup-g2",
@@ -147,7 +147,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
       "\\dot{x} = V\\cos\\theta = 25 \\cdot \\frac{4}{5}",
       "20",
       ["20 m/s"],
-      "Horizontal velocity = V·cosθ = 25 × 4/5 = 20 m/s. This stays constant throughout the flight."
+      "Horizontal velocity = VÂ·cosÎ¸ = 25 Ã— 4/5 = 20 m/s. This stays constant throughout the flight."
     ),
     projTyped(
       "y12e1-proj-setup-g3",
@@ -167,7 +167,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
         "$Vt\\sin\\theta - gt$",
         "$V\\sin\\theta - gt$",
       ],
-      "Vertical velocity = initial vertical velocity minus the effect of gravity: ẏ(t) = V·sinθ − gt."
+      "Vertical velocity = initial vertical velocity minus the effect of gravity: áº(t) = VÂ·sinÎ¸ âˆ’ gt."
     ),
   ],
   independentPractice: [
@@ -177,7 +177,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
       "x(t) = 50 \\cdot \\frac{3}{5} \\cdot t = 30t",
       "90",
       ["90 m"],
-      "Horizontal velocity = 50 × 3/5 = 30 m/s. x(3) = 30 × 3 = 90 m."
+      "Horizontal velocity = 50 Ã— 3/5 = 30 m/s. x(3) = 30 Ã— 3 = 90 m."
     ),
     projTyped(
       "y12e1-proj-setup-i2",
@@ -185,7 +185,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
       "y(t) = 50 \\cdot \\frac{4}{5} \\cdot t - 5t^2 = 40t - 5t^2",
       "60",
       ["60 m"],
-      "y(t) = 40t - 5t². At t = 2: y(2) = 80 - 20 = 60 m."
+      "y(t) = 40t - 5tÂ². At t = 2: y(2) = 80 - 20 = 60 m."
     ),
     projChoice(
       "y12e1-proj-setup-i3",
@@ -197,7 +197,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
         "The angle of projection is constant",
         "The initial speed is constant",
       ],
-      "With no horizontal force (Newton's first law), horizontal velocity stays at its initial value V·cosθ."
+      "With no horizontal force (Newton's first law), horizontal velocity stays at its initial value VÂ·cosÎ¸."
     ),
     projChoice(
       "y12e1-proj-setup-i4",
@@ -209,7 +209,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
         "$15t - 5t^2$",
         "$15t - 10t^2$",
       ],
-      "y(t) = V·sinθ·t − 5t² = 25 × (3/5) × t − 5t² = 15t − 5t²."
+      "y(t) = VÂ·sinÎ¸Â·t âˆ’ 5tÂ² = 25 Ã— (3/5) Ã— t âˆ’ 5tÂ² = 15t âˆ’ 5tÂ²."
     ),
     projTyped(
       "y12e1-proj-setup-i5",
@@ -217,25 +217,25 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
       "\\dot{y}(t) = V\\sin\\theta - gt = 15 - 10t",
       "5",
       ["5 m/s"],
-      "ẏ(t) = 25 × (3/5) − 10t = 15 − 10t. At t = 1: ẏ(1) = 15 − 10 = 5 m/s."
+      "áº(t) = 25 Ã— (3/5) âˆ’ 10t = 15 âˆ’ 10t. At t = 1: áº(1) = 15 âˆ’ 10 = 5 m/s."
     ),
   ],
   commonMistakes: [
     {
-      mistake: "Using sinθ for the horizontal component instead of cosθ.",
-      fix: "Horizontal = cosθ (adjacent side); vertical = sinθ (opposite side). Draw the right triangle if unsure.",
+      mistake: "Using sinÎ¸ for the horizontal component instead of cosÎ¸.",
+      fix: "Horizontal = cosÎ¸ (adjacent side); vertical = sinÎ¸ (opposite side). Draw the right triangle if unsure.",
     },
     {
-      mistake: "Applying the −½gt² term to the horizontal equation.",
-      fix: "Gravity only acts vertically. The horizontal equation is x = Vt·cosθ — no gravity term.",
+      mistake: "Applying the âˆ’Â½gtÂ² term to the horizontal equation.",
+      fix: "Gravity only acts vertically. The horizontal equation is x = VtÂ·cosÎ¸ â€” no gravity term.",
     },
     {
       mistake: "Using g = 9.8 when the question expects g = 10.",
-      fix: "In NSW HSC extension problems, use g = 10 m/s² unless the question explicitly states otherwise.",
+      fix: "In NSW HSC extension problems, use g = 10 m/sÂ² unless the question explicitly states otherwise.",
     },
     {
       mistake: "Forgetting to differentiate y(t) to find vertical velocity.",
-      fix: "ẏ(t) = V·sinθ − gt. This is the derivative of y(t) = Vt·sinθ − ½gt², not y(t) itself.",
+      fix: "áº(t) = VÂ·sinÎ¸ âˆ’ gt. This is the derivative of y(t) = VtÂ·sinÎ¸ âˆ’ Â½gtÂ², not y(t) itself.",
     },
   ],
   masteryQuiz: [
@@ -245,7 +245,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
       "x(t) = 30t",
       "120",
       ["120 m"],
-      "Horizontal velocity = 50 × 3/5 = 30 m/s. x(4) = 30 × 4 = 120 m."
+      "Horizontal velocity = 50 Ã— 3/5 = 30 m/s. x(4) = 30 Ã— 4 = 120 m."
     ),
     projTyped(
       "y12e1-proj-setup-m2",
@@ -253,7 +253,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
       "y(t) = 40t - 5t^2,\\quad t = 3",
       "75",
       ["75 m"],
-      "y(t) = 40t − 5t². At t = 3: y(3) = 120 − 45 = 75 m."
+      "y(t) = 40t âˆ’ 5tÂ². At t = 3: y(3) = 120 âˆ’ 45 = 75 m."
     ),
     projChoice(
       "y12e1-proj-setup-m3",
@@ -265,14 +265,14 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
         "$y(t) = Vt\\sin\\theta + \\frac{1}{2}gt^2$",
         "$y(t) = V\\sin\\theta - gt$",
       ],
-      "Vertical displacement = initial vertical velocity × t − ½gt². The initial vertical velocity is V·sinθ, not V·cosθ."
+      "Vertical displacement = initial vertical velocity Ã— t âˆ’ Â½gtÂ². The initial vertical velocity is VÂ·sinÎ¸, not VÂ·cosÎ¸."
     ),
     projChoice(
       "y12e1-proj-setup-m4",
       "A projectile is launched at $V = 25$ m/s with $\\cos\\theta = \\frac{4}{5}$. What is the horizontal velocity throughout the flight?",
       "C",
       ["$25$ m/s", "$15$ m/s", "$20$ m/s", "$10$ m/s"],
-      "Horizontal velocity = V·cosθ = 25 × 4/5 = 20 m/s. It stays constant because no horizontal force acts."
+      "Horizontal velocity = VÂ·cosÎ¸ = 25 Ã— 4/5 = 20 m/s. It stays constant because no horizontal force acts."
     ),
     projTyped(
       "y12e1-proj-setup-m5",
@@ -280,7 +280,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
       "x(t) = 20t,\\quad t = 5",
       "100",
       ["100 m"],
-      "x(5) = 20 × 5 = 100 m."
+      "x(5) = 20 Ã— 5 = 100 m."
     ),
     projChoice(
       "y12e1-proj-setup-m6",
@@ -292,7 +292,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
         "$V\\sin\\theta - g$",
         "$0$",
       ],
-      "At t = 0: ẏ(0) = V·sinθ − g(0) = V·sinθ. The full weight of the initial speed's vertical component."
+      "At t = 0: áº(0) = VÂ·sinÎ¸ âˆ’ g(0) = VÂ·sinÎ¸. The full weight of the initial speed's vertical component."
     ),
     projTyped(
       "y12e1-proj-setup-m7",
@@ -300,14 +300,14 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
       "\\dot{y}(t) = 40 - 10t,\\quad t = 2",
       "20",
       ["20 m/s"],
-      "ẏ(t) = 50 × (4/5) − 10t = 40 − 10t. At t = 2: ẏ(2) = 40 − 20 = 20 m/s."
+      "áº(t) = 50 Ã— (4/5) âˆ’ 10t = 40 âˆ’ 10t. At t = 2: áº(2) = 40 âˆ’ 20 = 20 m/s."
     ),
     projChoice(
       "y12e1-proj-setup-m8",
       "What value of $g$ is used in NSW HSC Extension 1 projectile problems unless stated otherwise?",
       "B",
       ["$9.8$ m/s$^2$", "$10$ m/s$^2$", "$9.81$ m/s$^2$", "$10.8$ m/s$^2$"],
-      "The NSW HSC convention for Extension 1 is g = 10 m/s² unless the question specifies otherwise."
+      "The NSW HSC convention for Extension 1 is g = 10 m/sÂ² unless the question specifies otherwise."
     ),
     projTyped(
       "y12e1-proj-setup-m9",
@@ -315,7 +315,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
       "y(1) = 15(1) - 5(1)^2",
       "10",
       ["10 m"],
-      "y(1) = 15 − 5 = 10 m."
+      "y(1) = 15 âˆ’ 5 = 10 m."
     ),
     projChoice(
       "y12e1-proj-setup-m10",
@@ -327,13 +327,13 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
         "$x = 40t,\\; y = 40t - 5t^2$",
         "$x = 30t,\\; y = 40t - 5t^2$",
       ],
-      "Horizontal: 50 × 3/5 = 30, so x = 30t. Vertical: 50 × 4/5 = 40, so y = 40t − 5t²."
+      "Horizontal: 50 Ã— 3/5 = 30, so x = 30t. Vertical: 50 Ã— 4/5 = 40, so y = 40t âˆ’ 5tÂ²."
     ),
   ],
   masteryPassMark: 0.8,
 };
 
-// ─── Lesson 2: Maximum Height and Time ───────────────────────────────────────
+// â”€â”€â”€ Lesson 2: Maximum Height and Time â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const projectileMaxHeight: Partial<ExplicitLesson> = {
   description:
@@ -341,17 +341,17 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
   learningIntention:
     "Find the time of maximum height and the maximum height itself for a projectile launched at a given speed and angle.",
   successCriteria: [
-    "Identify that maximum height occurs when vertical velocity ẏ(t) = 0.",
-    "Solve V·sinθ − gt = 0 to find the time of maximum height.",
+    "Identify that maximum height occurs when vertical velocity áº(t) = 0.",
+    "Solve VÂ·sinÎ¸ âˆ’ gt = 0 to find the time of maximum height.",
     "Substitute that time into y(t) to find the maximum height.",
     "Interpret maximum height in context and check the answer is positive.",
   ],
   teaching: {
     paragraphs: [
-      "A projectile rises, reaches a peak, then falls. At the very top of the trajectory, the vertical velocity is zero — the particle has stopped moving upward and is about to start moving downward. This is the key condition for finding maximum height.",
-      "Set ẏ(t) = V·sinθ − gt = 0 and solve for t. This gives the time at which the projectile is at its highest point: t_max = V·sinθ / g. With g = 10, this simplifies nicely for Pythagorean-triple angles.",
-      "Once you have t_max, substitute it into the vertical position equation y(t) = Vt·sinθ − ½gt² to find the maximum height. Do not skip this substitution step — t_max alone is not the height.",
-      "The horizontal velocity does not affect maximum height. Only the vertical component V·sinθ and gravity g determine how high the projectile goes.",
+      "A projectile rises, reaches a peak, then falls. At the very top of the trajectory, the vertical velocity is zero â€” the particle has stopped moving upward and is about to start moving downward. This is the key condition for finding maximum height.",
+      "Set áº(t) = VÂ·sinÎ¸ âˆ’ gt = 0 and solve for t. This gives the time at which the projectile is at its highest point: t_max = VÂ·sinÎ¸ / g. With g = 10, this simplifies nicely for Pythagorean-triple angles.",
+      "Once you have t_max, substitute it into the vertical position equation y(t) = VtÂ·sinÎ¸ âˆ’ Â½gtÂ² to find the maximum height. Do not skip this substitution step â€” t_max alone is not the height.",
+      "The horizontal velocity does not affect maximum height. Only the vertical component VÂ·sinÎ¸ and gravity g determine how high the projectile goes.",
     ],
     latexBlocks: [
       "\\dot{y}(t) = V\\sin\\theta - gt = 0 \\;\\Rightarrow\\; t_{\\max} = \\frac{V\\sin\\theta}{g}",
@@ -420,7 +420,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
         "When vertical velocity is zero",
         "When the projectile returns to ground level",
       ],
-      "Maximum height occurs when the projectile momentarily stops moving upward, i.e. when ẏ(t) = 0."
+      "Maximum height occurs when the projectile momentarily stops moving upward, i.e. when áº(t) = 0."
     ),
     projTyped(
       "y12e1-proj-max-g2",
@@ -428,8 +428,8 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
       "\\dot{y}(t) = 20 - 10t = 0",
       "2",
       ["2 s", "t = 2"],
-      "Set 20 − 10t = 0: t = 2 s.",
-      "Set ẏ(t) = 0 and solve for t."
+      "Set 20 âˆ’ 10t = 0: t = 2 s.",
+      "Set áº(t) = 0 and solve for t."
     ),
     projTyped(
       "y12e1-proj-max-g3",
@@ -437,8 +437,8 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
       "\\dot{y}(t) = 20 - 10t = 0 \\Rightarrow t = 2",
       "20",
       ["20 m"],
-      "ẏ(t) = 20 − 10t = 0 gives t = 2. y(2) = 20(2) − 5(4) = 40 − 20 = 20 m.",
-      "Find t when ẏ = 0, then substitute into y(t)."
+      "áº(t) = 20 âˆ’ 10t = 0 gives t = 2. y(2) = 20(2) âˆ’ 5(4) = 40 âˆ’ 20 = 20 m.",
+      "Find t when áº = 0, then substitute into y(t)."
     ),
     projTyped(
       "y12e1-proj-max-g4",
@@ -456,7 +456,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
       "\\dot{y}(t) = 30 - 10t = 0",
       "3",
       ["3 s"],
-      "ẏ(t) = 30 − 10t = 0 gives t = 3 s."
+      "áº(t) = 30 âˆ’ 10t = 0 gives t = 3 s."
     ),
     projTyped(
       "y12e1-proj-max-i2",
@@ -464,14 +464,14 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
       "y(3) = 30(3) - 5(3)^2",
       "45",
       ["45 m"],
-      "y(3) = 90 − 5(9) = 90 − 45 = 45 m."
+      "y(3) = 90 âˆ’ 5(9) = 90 âˆ’ 45 = 45 m."
     ),
     projChoice(
       "y12e1-proj-max-i3",
       "A projectile is launched at $V = 25$ m/s with $\\sin\\theta = \\frac{3}{5}$. What is the initial vertical velocity?",
       "B",
       ["$20$ m/s", "$15$ m/s", "$25$ m/s", "$12.5$ m/s"],
-      "V·sinθ = 25 × 3/5 = 15 m/s."
+      "VÂ·sinÎ¸ = 25 Ã— 3/5 = 15 m/s."
     ),
     projTyped(
       "y12e1-proj-max-i4",
@@ -479,7 +479,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
       "V\\sin\\theta = 30,\\quad H = \\frac{30^2}{20}",
       "45",
       ["45 m"],
-      "V·sinθ = 50 × 3/5 = 30. H = 900/20 = 45 m."
+      "VÂ·sinÎ¸ = 50 Ã— 3/5 = 30. H = 900/20 = 45 m."
     ),
     projTyped(
       "y12e1-proj-max-i5",
@@ -487,25 +487,25 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
       "\\dot{y}(t) = 40 - 10t = 0",
       "4",
       ["4 s"],
-      "V·sinθ = 50 × 4/5 = 40. ẏ(t) = 40 − 10t = 0 gives t = 4 s."
+      "VÂ·sinÎ¸ = 50 Ã— 4/5 = 40. áº(t) = 40 âˆ’ 10t = 0 gives t = 4 s."
     ),
   ],
   commonMistakes: [
     {
       mistake: "Setting x(t) = 0 or y(t) = 0 to find maximum height.",
-      fix: "Set ẏ(t) = V·sinθ − gt = 0. Maximum height requires zero vertical velocity, not zero position.",
+      fix: "Set áº(t) = VÂ·sinÎ¸ âˆ’ gt = 0. Maximum height requires zero vertical velocity, not zero position.",
     },
     {
       mistake: "Reporting t_max as the maximum height.",
       fix: "t_max is the time of maximum height. Substitute t_max into y(t) to find the actual height.",
     },
     {
-      mistake: "Using V instead of V·sinθ in the formula H = (V sinθ)² / (2g).",
-      fix: "Only the vertical component V·sinθ drives vertical motion. The horizontal component has no effect on height.",
+      mistake: "Using V instead of VÂ·sinÎ¸ in the formula H = (V sinÎ¸)Â² / (2g).",
+      fix: "Only the vertical component VÂ·sinÎ¸ drives vertical motion. The horizontal component has no effect on height.",
     },
     {
       mistake: "Using g = 9.8 instead of g = 10.",
-      fix: "NSW HSC Extension 1 convention is g = 10 m/s² unless explicitly told otherwise.",
+      fix: "NSW HSC Extension 1 convention is g = 10 m/sÂ² unless explicitly told otherwise.",
     },
   ],
   masteryQuiz: [
@@ -515,7 +515,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
       "\\dot{y}(t) = 40 - 10t = 0",
       "4",
       ["4 s"],
-      "ẏ(t) = 40 − 10t = 0 gives t = 4 s."
+      "áº(t) = 40 âˆ’ 10t = 0 gives t = 4 s."
     ),
     projTyped(
       "y12e1-proj-max-m2",
@@ -523,7 +523,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
       "y(4) = 40(4) - 5(4)^2",
       "80",
       ["80 m"],
-      "y(4) = 160 − 5(16) = 160 − 80 = 80 m."
+      "y(4) = 160 âˆ’ 5(16) = 160 âˆ’ 80 = 80 m."
     ),
     projTyped(
       "y12e1-proj-max-m3",
@@ -531,7 +531,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
       "H = \\frac{(25 \\cdot 3/5)^2}{20} = \\frac{15^2}{20}",
       "11.25",
       ["11.25 m", "45/4"],
-      "V·sinθ = 15. H = 225/20 = 11.25 m."
+      "VÂ·sinÎ¸ = 15. H = 225/20 = 11.25 m."
     ),
     projChoice(
       "y12e1-proj-max-m4",
@@ -543,7 +543,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
         "Both components equally",
         "The launch angle only",
       ],
-      "Maximum height depends on the vertical component V·sinθ and gravity. Horizontal velocity plays no role."
+      "Maximum height depends on the vertical component VÂ·sinÎ¸ and gravity. Horizontal velocity plays no role."
     ),
     projTyped(
       "y12e1-proj-max-m5",
@@ -559,14 +559,14 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
       "H = \\frac{40^2}{20}",
       "80",
       ["80 m"],
-      "V·sinθ = 40. H = 1600/20 = 80 m."
+      "VÂ·sinÎ¸ = 40. H = 1600/20 = 80 m."
     ),
     projChoice(
       "y12e1-proj-max-m7",
       "A projectile has $y(t) = 15t - 5t^2$. At what time is it at maximum height?",
       "C",
       ["$t = 1$", "$t = 2$", "$t = 1.5$", "$t = 3$"],
-      "ẏ(t) = 15 − 10t = 0 gives t = 1.5 s."
+      "áº(t) = 15 âˆ’ 10t = 0 gives t = 1.5 s."
     ),
     projTyped(
       "y12e1-proj-max-m8",
@@ -574,7 +574,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
       "y(1.5) = 15(1.5) - 5(1.5)^2",
       "11.25",
       ["11.25 m", "45/4"],
-      "y(1.5) = 22.5 − 5(2.25) = 22.5 − 11.25 = 11.25 m."
+      "y(1.5) = 22.5 âˆ’ 5(2.25) = 22.5 âˆ’ 11.25 = 11.25 m."
     ),
     projChoice(
       "y12e1-proj-max-m9",
@@ -586,7 +586,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
         "Acceleration equals zero",
         "Displacement equals zero",
       ],
-      "At maximum height ẏ = 0. Horizontal velocity is constant throughout (no horizontal force), and acceleration is still g downward."
+      "At maximum height áº = 0. Horizontal velocity is constant throughout (no horizontal force), and acceleration is still g downward."
     ),
     projTyped(
       "y12e1-proj-max-m10",
@@ -594,7 +594,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
       "\\dot{y}(t) = 25 \\cdot \\frac{4}{5} - 10t = 20 - 10t = 0",
       "2",
       ["2 s"],
-      "V·sinθ = 20. t_max = 20/10 = 2 s."
+      "VÂ·sinÎ¸ = 20. t_max = 20/10 = 2 s."
     ),
   ],
   masteryPassMark: 0.8,
