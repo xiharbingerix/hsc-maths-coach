@@ -23,7 +23,7 @@
 | Year 11 Extension | 5 of 5 | 25 | 5 topics / 30 subtopics (2026) | ✅ Available |
 | Year 12 Standard 1 | 5 | 18 | 7 topics / 29 subtopics | 🔄 In progress |
 | Year 12 Standard 2 | 6 | 31 | 10 topics / 59 subtopics | ✅ Depth pass complete |
-| Year 12 Advanced | 12 | 86 | 11 topics / 64 subtopics | ✅ Available |
+| Year 12 Advanced | 13 | 91 | 11 topics / 64 subtopics | ✅ Depth pass complete |
 | Year 12 Extension 1 | 6 | 22 | 7 topics / 28 subtopics | ✅ Available |
 | Year 12 Extension 2 | 5 | 25 | 5 topics / 40 subtopics | ✅ Depth pass complete |
 
@@ -292,11 +292,11 @@ Seed total: 589 questions (31 lessons × 19 questions).
 
 ---
 
-## Year 12 Advanced ✅
+## Year 12 Advanced ✅ Depth pass complete
 
 `year-12-advanced` — `available`. Status: **available**. Lesson files: `lib/lessons/*.ts` (legacy top-level format, not in a subdirectory).
 Catalogue: `lib/courseUnits.ts` + `lib/year12AdvancedRoutes.ts` (separate from `newCourseCatalog.ts`).
-Class Maths: 11 topics / 64 subtopics. **Nova: 12 units / 86 lessons — exceeds target.**
+Class Maths: 11 topics / 64 subtopics. **Nova: 13 units / 91 lessons — exceeds target.**
 
 - [x] Differential Calculus (12 lessons) — `lib/lessons/differentialCalculus.ts`
 - [x] Differentiation Techniques (5 lessons) — `lib/lessons/differentiationTechniques.ts`
@@ -310,12 +310,15 @@ Class Maths: 11 topics / 64 subtopics. **Nova: 12 units / 86 lessons — exceeds
 - [x] Sequences, Series and Financial Mathematics (5 lessons) — `lib/lessons/sequencesSeriesFinancialMaths.ts`
 - [x] Financial Mathematics (6 lessons) — `lib/lessons/financialMathematics.ts`
 - [x] Statistical Analysis (8 lessons) — `lib/lessons/statisticalAnalysis.ts`
+- [x] Probability (4 lessons — NEW) — `lib/lessons/probability.ts`
+  - probability-basics-venn-diagrams: axioms, complement, addition rule, Venn diagrams
+  - conditional-probability-tree-diagrams: P(A|B), tree diagrams, without-replacement
+  - independence-multiplication-rule: P(A∩B)=P(A)P(B), with/without replacement
+  - probability-exam-practice: two-way tables, mixed HSC practice
 
 **Note:** This course uses a legacy lesson format (`ExplicitLesson[]` arrays, not the `buildLesson` override pattern). Seeding is handled via `year12AdvancedLessonSets` in `seed-question-bank.ts`. Routing is via `year12AdvancedRoutes.ts`, not the new course catalog.
 
-**Possible depth gaps vs Class Maths (for future consideration):**
-- [ ] Probability unit (conditional probability, independence) — may be covered within Statistical Analysis
-- [ ] Discrete probability distributions — check if in Statistical Analysis or missing
+**Depth pass complete 2026-06-14:** Added Probability unit (MA-P1) — the only missing syllabus strand. 91 lessons / 1715 seeded questions total.
 
 ---
 

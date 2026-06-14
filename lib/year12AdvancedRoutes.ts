@@ -48,6 +48,10 @@ import {
   statisticalAnalysisOutline,
 } from "./lessons/statisticalAnalysis";
 import {
+  probabilityLessons,
+  probabilityOutline,
+} from "./lessons/probability";
+import {
   trigonometricFunctionsGraphsLessons,
   trigonometricFunctionsGraphsOutline,
 } from "./lessons/trigonometricFunctionsGraphs";
@@ -132,6 +136,10 @@ const lessonContentByUnitSlug = new Map<
   [
     "statistical-analysis",
     { outline: statisticalAnalysisOutline, lessons: statisticalAnalysisLessons },
+  ],
+  [
+    "probability",
+    { outline: probabilityOutline, lessons: probabilityLessons },
   ],
 ]);
 

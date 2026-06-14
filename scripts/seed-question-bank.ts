@@ -18,6 +18,7 @@ import { integralCalculusLessons } from "../lib/lessons/integralCalculus";
 import { sequencesSeriesFinancialMathsLessons } from "../lib/lessons/sequencesSeriesFinancialMaths";
 import { statisticalAnalysisLessons } from "../lib/lessons/statisticalAnalysis";
 import { trigonometricFunctionsGraphsLessons } from "../lib/lessons/trigonometricFunctionsGraphs";
+import { probabilityLessons } from "../lib/lessons/probability";
 
 type PracticeSection = "guidedPractice" | "independentPractice" | "masteryQuiz" | "multiPartPractice";
 
@@ -103,6 +104,7 @@ const year12AdvancedLessonSets: Record<string, ExplicitLesson[]> = {
   "sequences-series-financial-maths": sequencesSeriesFinancialMathsLessons,
   "financial-mathematics": financialMathematicsLessons,
   "statistical-analysis": statisticalAnalysisLessons,
+  "probability": probabilityLessons,
 };
 
 function unitSlugFromHref(href: string) {

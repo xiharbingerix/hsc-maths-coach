@@ -109,6 +109,13 @@ export const courseUnits: CourseUnitSummary[] = [
       "Data displays, summary statistics, outliers, standard deviation, z-scores, correlation, regression, normal distributions, and random variables.",
     activeLessonCount: 8,
   },
+  {
+    title: "Probability",
+    href: "/course/probability",
+    description:
+      "Probability axioms, Venn diagrams, the addition rule, conditional probability, tree diagrams, independence, the multiplication rule, and two-way tables.",
+    activeLessonCount: 4,
+  },
 ];
 
 export const year12AdvancedCourse: CourseCatalogueItem = {
