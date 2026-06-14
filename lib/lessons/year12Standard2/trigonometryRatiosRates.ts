@@ -8,6 +8,24 @@ import {
 function measurementFeedback(prompt: string, answer: string) {
   const lowerPrompt = prompt.toLowerCase();
 
+  if (lowerPrompt.includes("back bearing")) {
+    return `A back bearing is the return direction. Add 180° to the forward bearing if it is less than 180°, or subtract 180° if it is 180° or more. This gives ${answer}.`;
+  }
+  if (lowerPrompt.includes("bearing") && lowerPrompt.includes("angle at")) {
+    return `Find the back bearing at the turning point first: add or subtract 180° from the arrival bearing. Subtract the departure bearing from that back bearing to find the interior angle. This gives ${answer}.`;
+  }
+  if (lowerPrompt.includes("bearing") && (lowerPrompt.includes("distance between") || lowerPrompt.includes("find the distance") || lowerPrompt.includes("find ac") || lowerPrompt.includes("find pq") || lowerPrompt.includes("find qr"))) {
+    return `Use the included angle from the bearing difference, then apply the cosine rule with both distances and that angle. Take the square root of c squared to get ${answer}.`;
+  }
+  if (lowerPrompt.includes("utc") && (lowerPrompt.includes("what time") || lowerPrompt.includes("what utc"))) {
+    return `Subtract the UTC offset from the local time to find UTC. This gives ${answer}.`;
+  }
+  if ((lowerPrompt.includes("hours ahead") || lowerPrompt.includes("how many hours")) && lowerPrompt.includes("time zone")) {
+    return `The gap between two time zones equals the difference in their UTC offsets. Subtract the smaller offset from the larger to get ${answer}.`;
+  }
+  if (lowerPrompt.includes("what time") && (lowerPrompt.includes("sydney") || lowerPrompt.includes("london") || lowerPrompt.includes("tokyo") || lowerPrompt.includes("dubai") || lowerPrompt.includes("perth") || lowerPrompt.includes("brisbane") || lowerPrompt.includes("new york") || lowerPrompt.includes("los angeles"))) {
+    return `Find the offset difference between the two cities and add or subtract as appropriate. A positive UTC offset is ahead; a negative offset is behind. This gives ${answer}.`;
+  }
   if (lowerPrompt.includes("side opposite")) {
     return `The sine rule works because the known side and angle form an opposite pair. Match that pair with the required side and its opposite angle, then rearrange to get ${answer}.`;
   }
@@ -882,6 +900,479 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer("y12s2-rate-m8", "A 2.5 L bottle contains how many millilitres?", "V=2.5\\text{ L}", "2500 mL", ["2500", "2,500", "2500mL", "2500 ml"]),
         measurementAnswer("y12s2-rate-m9", "A cyclist travels 42 km in 1 h 45 min. Find average speed in km/h.", "d=42\\text{ km},\\quad t=1.75\\text{ h}", "24 km/h", ["24", "24km/h", "24 kmh"]),
         practicalChoice("y12s2-rate-m10", "Which comparison is most reasonable for fuel efficiency?", "D", ["Total litres only", "Colour of the car", "Distance only", "Litres per 100 km"], "Fuel efficiency compares fuel used with distance."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "bearings-navigation-problems") {
+    return {
+      ...base,
+      description:
+        "Read and write true bearings, calculate back bearings, find interior angles from bearing information, and apply the cosine rule to solve practical navigation problems.",
+      learningIntention:
+        "Use true bearings to describe directions and solve distance problems in navigation and surveying contexts.",
+      successCriteria: [
+        "Read and write a true bearing using three-figure notation.",
+        "Identify the four cardinal bearings: N = 000°, E = 090°, S = 180°, W = 270°.",
+        "Calculate a back bearing by adding or subtracting 180°.",
+        "Find the interior angle at a turning point from two bearings.",
+        "Apply the cosine rule to find distances in bearing problems.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A true bearing describes a direction as an angle measured clockwise from True North. It is always written with three digits, so north is 000°, east is 090°, south is 180°, and west is 270°.",
+          "If you travel from A to B on a bearing of 060°, then from B looking back towards A, the direction is called the back bearing. To find it, add 180° to the forward bearing if the forward bearing is less than 180°, or subtract 180° if it is 180° or more.",
+          "Many bearing problems involve two ships leaving a port or a journey with a turn. The key step is finding the angle inside the triangle at the relevant vertex. At the port, the included angle equals the difference between the two bearings. At a turning point B, use the back bearing minus the leaving bearing.",
+          "Once the interior angle is known, apply the cosine rule with the two known distances: c² = a² + b² − 2ab cos C. If the angle happens to be 90°, Pythagoras is quicker.",
+        ],
+        latexBlocks: [
+          "\\text{back bearing} = \\text{forward bearing} \\pm 180°",
+          "\\text{included angle at port} = \\text{larger bearing} - \\text{smaller bearing}",
+          "\\text{angle at turn} = \\text{back bearing to previous point} - \\text{bearing to next point}",
+          "c^2 = a^2 + b^2 - 2ab\\cos C",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Read bearings and find a back bearing",
+          questionLatex:
+            "\\text{A ship sails from port on bearing }050°.\\text{ Find the back bearing from the destination to port.}",
+          steps: [
+            {
+              explanation:
+                "The forward bearing is 050°, which is less than 180°, so add 180°.",
+              latex: "050° + 180° = 230°",
+            },
+          ],
+          finalAnswerLatex: "\\text{Back bearing} = 230°",
+        },
+        {
+          title: "Find the included angle at the starting port",
+          questionLatex:
+            "\\text{Two ships leave port on bearings }040°\\text{ and }100°.\\text{ Find the angle between their paths.}",
+          steps: [
+            {
+              explanation:
+                "Both bearings are measured from the same point, so the angle between the two paths is the difference.",
+              latex: "100° - 040° = 60°",
+            },
+          ],
+          finalAnswerLatex: "\\text{Included angle} = 60°",
+        },
+        {
+          title: "Use cosine rule after finding the interior angle",
+          questionLatex:
+            "\\text{Ship A sails bearing }040°\\text{ for }150\\text{ km.}\\\\\\text{Ship B sails bearing }100°\\text{ for }120\\text{ km.}\\\\\\text{Find the distance between them.}",
+          steps: [
+            {
+              explanation: "The included angle at the port is the bearing difference.",
+              latex: "100° - 040° = 60°",
+            },
+            {
+              explanation:
+                "Apply the cosine rule with both distances and the included angle.",
+              latex: "d^2 = 150^2 + 120^2 - 2(150)(120)\\cos60°",
+            },
+            {
+              explanation: "Evaluate and take the square root.",
+              latex: "d^2 = 22500 + 14400 - 18000 = 18900 \\implies d \\approx 137.5\\text{ km}",
+            },
+          ],
+          finalAnswerLatex: "137.5\\text{ km}",
+        },
+        {
+          title: "Find the interior angle at a turning point",
+          questionLatex:
+            "\\text{From A, travel bearing }060°\\text{ to B. From B, travel bearing }120°\\text{ to C.}\\\\\\text{Find the interior angle at B.}",
+          steps: [
+            {
+              explanation:
+                "Find the back bearing from B looking towards A. The arrival bearing at B was 060°, so add 180°.",
+              latex: "060° + 180° = 240°\\text{ (back bearing to A)}",
+            },
+            {
+              explanation:
+                "The leaving bearing from B is 120°. The interior angle is the back bearing minus the leaving bearing.",
+              latex: "240° - 120° = 120°",
+            },
+          ],
+          finalAnswerLatex: "\\text{Angle at B} = 120°",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice(
+          "y12s2-bear-g1",
+          "A true bearing of 090° represents which direction?",
+          "B",
+          ["North", "East", "South", "West"],
+          "Bearings are measured clockwise from True North. 000° is north, 090° is exactly east, 180° is south, and 270° is west."
+        ),
+        measurementAnswer(
+          "y12s2-bear-g2",
+          "A ship sails from port on a bearing of 035°. Find the back bearing from the destination back to port.",
+          "\\text{back bearing} = 035° + 180°",
+          "215",
+          ["215°", "215 degrees"]
+        ),
+        measurementAnswer(
+          "y12s2-bear-g3",
+          "Two ships leave port. Ship A sails on bearing 040° and Ship B sails on bearing 100°. What is the angle between their courses at the port?",
+          "\\text{included angle} = 100° - 040°",
+          "60",
+          ["60°", "60 degrees"]
+        ),
+        measurementAnswer(
+          "y12s2-bear-g4",
+          "Two ships leave port. Ship A sails bearing 040° for 150 km and Ship B sails bearing 100° for 120 km. Find the distance between them to 1 decimal place.",
+          "d^2 = 150^2 + 120^2 - 2(150)(120)\\cos60°",
+          "137.5",
+          ["137.5 km", "137.5km"]
+        ),
+      ],
+      independentPractice: [
+        practicalChoice(
+          "y12s2-bear-i1",
+          "A hiker walks on bearing 125°. What is the return bearing from the destination back to the start?",
+          "B",
+          ["055°", "305°", "235°", "315°"],
+          "The forward bearing is 125°, which is less than 180°. Back bearing = 125° + 180° = 305°."
+        ),
+        measurementAnswer(
+          "y12s2-bear-i2",
+          "From town A, a road on bearing 070° runs for 50 km to B. From B, a road on bearing 160° runs for 40 km to C. Find the interior angle at B.",
+          "\\text{back bearing to A} = 070° + 180° = 250°,\\quad \\text{angle at B} = 250° - 160°",
+          "90",
+          ["90°", "90 degrees"]
+        ),
+        measurementAnswer(
+          "y12s2-bear-i3",
+          "Using the same triangle (AB = 50 km, BC = 40 km, angle at B = 90°), find AC to 1 decimal place.",
+          "AC^2 = 50^2 + 40^2",
+          "64.0",
+          ["64", "64.0 km", "64.0km"]
+        ),
+        practicalChoice(
+          "y12s2-bear-i4",
+          "When two ships leave from the same port on different bearings, the included angle at the port equals:",
+          "C",
+          ["The sum of the bearings", "Half the larger bearing", "The difference between the two bearings", "The back bearing of the larger"],
+          "Subtracting the smaller bearing from the larger gives the angle between the two paths at the port."
+        ),
+        measurementAnswer(
+          "y12s2-bear-i5",
+          "Two ships leave port. Ship P sails bearing 020° for 60 km. Ship Q sails bearing 080° for 80 km. Find the distance PQ to 1 decimal place.",
+          "d^2 = 60^2 + 80^2 - 2(60)(80)\\cos60°",
+          "72.1",
+          ["72.1 km", "72.1km"]
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Writing bearings with fewer than three digits.", fix: "Always use three digits: write 050° not 50°, and 090° not 90°." },
+        { mistake: "Adding 180° when the forward bearing is already more than 180°.", fix: "If the forward bearing ≥ 180°, subtract 180° to get the back bearing." },
+        { mistake: "Using the bearing angle directly as the interior triangle angle.", fix: "At a turning point, the interior angle is the back bearing minus the leaving bearing, not the raw bearing value." },
+        { mistake: "Forgetting to take the square root after using the cosine rule.", fix: "The cosine rule gives c squared. Always take the square root to find the side length." },
+      ],
+      masteryQuiz: [
+        practicalChoice(
+          "y12s2-bear-m1",
+          "A true bearing is measured:",
+          "B",
+          ["Anticlockwise from south", "Clockwise from true north", "From east only", "As a compass letter direction"],
+          "True bearings are always measured clockwise from true north and written with three digits."
+        ),
+        measurementAnswer(
+          "y12s2-bear-m2",
+          "A bearing of 270° corresponds to which cardinal direction? Write the direction name.",
+          "270°",
+          "West",
+          ["west", "W"]
+        ),
+        measurementAnswer(
+          "y12s2-bear-m3",
+          "A vessel sails on bearing 150° to an island. Find the back bearing from the island to the departure point.",
+          "\\text{back bearing} = 150° + 180°",
+          "330",
+          ["330°", "330 degrees"]
+        ),
+        practicalChoice(
+          "y12s2-bear-m4",
+          "A person walks on bearing 305° to a cave. What is the back bearing from the cave to the start?",
+          "A",
+          ["125°", "135°", "115°", "215°"],
+          "The forward bearing 305° is greater than 180°, so subtract 180°: 305° − 180° = 125°."
+        ),
+        measurementAnswer(
+          "y12s2-bear-m5",
+          "Two ships leave port. Ship A sails bearing 050° for 120 km. Ship B sails bearing 080° for 90 km. What is the included angle at the port between their paths?",
+          "\\text{angle} = 080° - 050°",
+          "30",
+          ["30°", "30 degrees"]
+        ),
+        measurementAnswer(
+          "y12s2-bear-m6",
+          "Using the ship setup (120 km on bearing 050°, 90 km on bearing 080°, included angle 30°), find the distance between the ships to 1 decimal place.",
+          "d^2 = 120^2 + 90^2 - 2(120)(90)\\cos30°",
+          "61.6",
+          ["61.6 km", "61.6km"]
+        ),
+        measurementAnswer(
+          "y12s2-bear-m7",
+          "From A, travel bearing 060° for 80 km to B. From B, travel bearing 120° for 100 km to C. Find the interior angle at B.",
+          "\\text{back bearing to A} = 060° + 180° = 240°,\\quad \\text{angle at B} = 240° - 120°",
+          "120",
+          ["120°", "120 degrees"]
+        ),
+        measurementAnswer(
+          "y12s2-bear-m8",
+          "Using the triangle (AB = 80 km, BC = 100 km, angle at B = 120°), find AC to 1 decimal place.",
+          "AC^2 = 80^2 + 100^2 - 2(80)(100)\\cos120°",
+          "156.2",
+          ["156.2 km", "156.2km"]
+        ),
+        practicalChoice(
+          "y12s2-bear-m9",
+          "In a bearing journey problem with two sides and an included angle at the turning point, which formula finds the third side?",
+          "C",
+          ["Sine rule using a known opposite pair", "Right-angle Pythagoras only", "Cosine rule — two sides and included angle", "Ratio sharing"],
+          "Bearing journey problems typically give two distances and an interior angle, which is the cosine rule setup."
+        ),
+        measurementAnswer(
+          "y12s2-bear-m10",
+          "From A, travel bearing 150° for 200 km to B. From B, travel bearing 240° for 150 km to C. Find AC.",
+          "\\text{back bearing to A} = 150° + 180° = 330°,\\quad \\text{angle at B} = 330° - 240° = 90°,\\quad AC^2 = 200^2 + 150^2",
+          "250",
+          ["250 km", "250km"]
+        ),
+      ],
+    };
+  }
+
+  if (lesson.slug === "time-zones-conversions") {
+    return {
+      ...base,
+      description:
+        "Convert times between Australian and international time zones using UTC offsets, handle midnight crossings and day changes, and understand the International Date Line.",
+      learningIntention:
+        "Use UTC offsets to convert times between cities and interpret time zone differences in practical contexts.",
+      successCriteria: [
+        "Explain what UTC is and what a UTC offset represents.",
+        "Convert a local time to UTC and then to another city's local time.",
+        "Calculate the hour difference between two time zones from their offsets.",
+        "Handle midnight crossings that cause a day change.",
+        "Describe what happens to the calendar date when crossing the International Date Line.",
+      ],
+      teaching: {
+        paragraphs: [
+          "UTC (Coordinated Universal Time) is the global reference for time. Every other time zone is described as UTC plus or minus a number of hours. Cities east of Greenwich are ahead of UTC (positive offset); cities west are behind (negative offset).",
+          "Australia spans several time zones. Sydney and Melbourne use AEST (UTC+10) in winter or AEDT (UTC+11) during daylight saving. Perth uses AWST (UTC+8). Adelaide uses ACST (UTC+9:30). To find the time difference between two Australian cities, subtract the smaller offset from the larger.",
+          "To find the time in another city, first convert to UTC by subtracting your offset from your local time. Then add the destination offset. Alternatively, add or subtract the offset difference directly.",
+          "When a calculation crosses midnight, the day changes. Adding hours past midnight moves the date forward; subtracting hours before midnight moves the date backward. The International Date Line near 180° longitude is where the calendar day changes: crossing it heading east (towards the Americas) sets the date back one day; crossing heading west (towards Asia-Pacific) adds one day.",
+        ],
+        latexBlocks: [
+          "\\text{UTC time} = \\text{local time} - \\text{UTC offset}",
+          "\\text{destination time} = \\text{UTC time} + \\text{destination offset}",
+          "\\text{hour difference} = \\text{destination offset} - \\text{source offset}",
+          "\\text{Australian offsets: AEST = UTC+10,}\\quad\\text{AWST = UTC+8,}\\quad\\text{ACST = UTC+9:30}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Convert between two cities using UTC",
+          questionLatex:
+            "\\text{It is 3:00 pm in London (UTC+0). What time is it in Sydney (AEST, UTC+10)?}",
+          steps: [
+            {
+              explanation:
+                "Sydney is 10 hours ahead of London (10 − 0 = 10).",
+            },
+            {
+              explanation: "Add 10 hours to the London time.",
+              latex: "3{:}00\\text{ pm} + 10\\text{ h} = 1{:}00\\text{ am (next day)}",
+            },
+          ],
+          finalAnswerLatex: "1{:}00\\text{ am (next day)}",
+        },
+        {
+          title: "Convert using UTC as an intermediate step",
+          questionLatex:
+            "\\text{It is 8:00 am Tuesday in Tokyo (UTC+9). What time and day is it in New York (UTC−5)?}",
+          steps: [
+            {
+              explanation: "Convert Tokyo time to UTC by subtracting Tokyo's offset.",
+              latex: "8{:}00\\text{ am} - 9\\text{ h} = 11{:}00\\text{ pm Monday UTC}",
+            },
+            {
+              explanation: "Apply New York's offset to find local time.",
+              latex: "11{:}00\\text{ pm} - 5\\text{ h} = 6{:}00\\text{ pm Monday}",
+            },
+          ],
+          finalAnswerLatex: "6{:}00\\text{ pm Monday}",
+        },
+        {
+          title: "Flight arrival time across time zones",
+          questionLatex:
+            "\\text{A flight leaves Sydney (UTC+10) at 2:00 pm Monday and takes 9 hours.}\\\\\\text{What is the local arrival time in Dubai (UTC+4)?}",
+          steps: [
+            {
+              explanation: "Convert Sydney departure to UTC.",
+              latex: "2{:}00\\text{ pm} - 10\\text{ h} = 4{:}00\\text{ am Monday UTC}",
+            },
+            {
+              explanation: "Add the 9-hour flight time to get arrival in UTC.",
+              latex: "4{:}00\\text{ am} + 9\\text{ h} = 1{:}00\\text{ pm Monday UTC}",
+            },
+            {
+              explanation: "Apply Dubai's offset.",
+              latex: "1{:}00\\text{ pm} + 4\\text{ h} = 5{:}00\\text{ pm Monday}",
+            },
+          ],
+          finalAnswerLatex: "5{:}00\\text{ pm Monday}",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice(
+          "y12s2-tz-g1",
+          "Sydney (AEST, UTC+10) compared to London (UTC+0): Sydney is how many hours ahead?",
+          "B",
+          ["5 hours ahead", "10 hours ahead", "10 hours behind", "15 hours ahead"],
+          "The offset difference is 10 − 0 = 10. Being east of Greenwich, Sydney is 10 hours ahead."
+        ),
+        measurementAnswer(
+          "y12s2-tz-g2",
+          "It is 6:00 am in London (UTC+0). What time is it in Sydney (AEST, UTC+10)? Write the answer in the form H:MM am/pm.",
+          "6{:}00\\text{ am} + 10\\text{ h}",
+          "4:00 pm",
+          ["4pm", "4:00pm", "16:00"]
+        ),
+        practicalChoice(
+          "y12s2-tz-g3",
+          "When it is noon in Sydney (UTC+10), what time is it in Dubai (UTC+4)?",
+          "B",
+          ["4:00 am", "6:00 am", "8:00 pm", "4:00 pm"],
+          "Sydney is 10 − 4 = 6 hours ahead of Dubai. Noon − 6 hours = 6:00 am in Dubai."
+        ),
+        practicalChoice(
+          "y12s2-tz-g4",
+          "A flight leaves Sydney (UTC+10) at 11:00 pm Monday and takes 8 hours to reach Tokyo (UTC+9). What is the local Tokyo arrival time and day?",
+          "B",
+          ["7:00 am Tuesday", "6:00 am Tuesday", "5:00 am Tuesday", "6:00 am Monday"],
+          "Sydney 11 pm = 1 pm Monday UTC. Add 8 hours: 9 pm Monday UTC. Add Tokyo offset of 9 hours: 6:00 am Tuesday."
+        ),
+      ],
+      independentPractice: [
+        measurementAnswer(
+          "y12s2-tz-i1",
+          "What UTC time corresponds to 3:00 pm in Sydney (AEST, UTC+10)? Write the answer in the form H:MM am.",
+          "3{:}00\\text{ pm} - 10\\text{ h}",
+          "5:00 am",
+          ["5am", "5:00am", "05:00"]
+        ),
+        practicalChoice(
+          "y12s2-tz-i2",
+          "It is 10:00 am on Tuesday in New York (UTC−5). What time and day is it in Sydney (UTC+10)?",
+          "B",
+          ["1:00 am Tuesday", "1:00 am Wednesday", "7:00 pm Monday", "3:00 pm Tuesday"],
+          "Sydney is 10 − (−5) = 15 hours ahead. 10:00 am + 15 hours = 1:00 am Wednesday."
+        ),
+        measurementAnswer(
+          "y12s2-tz-i3",
+          "How many hours ahead is Sydney (UTC+10) compared to Perth (AWST, UTC+8)?",
+          "10 - 8",
+          "2",
+          ["2 hours"]
+        ),
+        measurementAnswer(
+          "y12s2-tz-i4",
+          "It is 4:00 pm in Perth (UTC+8). What time is it in Sydney (UTC+10)? Write the answer in the form H:MM pm.",
+          "4{:}00\\text{ pm} + 2\\text{ h}",
+          "6:00 pm",
+          ["6pm", "6:00pm", "18:00"]
+        ),
+        practicalChoice(
+          "y12s2-tz-i5",
+          "The International Date Line runs near which longitude?",
+          "D",
+          ["0° (the Greenwich meridian)", "45° East", "90° West", "180°"],
+          "The International Date Line runs near 180° longitude in the Pacific Ocean. Crossing it east subtracts a day; crossing it west adds a day."
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Adding the UTC offset instead of subtracting it to find UTC.", fix: "UTC = local time − offset. Always subtract the local offset when converting to UTC." },
+        { mistake: "Mixing up ahead and behind when the offset is negative.", fix: "A negative UTC offset (e.g. UTC−5) means that city is behind UTC, not ahead." },
+        { mistake: "Ignoring the day change when calculation crosses midnight.", fix: "If adding hours goes past midnight, the day increases by one. If subtracting hours goes before midnight, the day decreases by one." },
+        { mistake: "Confusing the direction of the date change at the International Date Line.", fix: "Heading east across the IDL goes back a day; heading west adds a day." },
+      ],
+      masteryQuiz: [
+        practicalChoice(
+          "y12s2-tz-m1",
+          "UTC+10 means a time zone is:",
+          "B",
+          ["10 hours behind UTC", "10 hours ahead of UTC", "10 minutes ahead of UTC", "The same time as UTC"],
+          "A positive offset means the zone is ahead of UTC by that many hours."
+        ),
+        measurementAnswer(
+          "y12s2-tz-m2",
+          "It is 9:00 am in London (UTC+0). What time is it in Sydney (AEST, UTC+10)? Write the answer in the form H:MM pm.",
+          "9{:}00\\text{ am} + 10\\text{ h}",
+          "7:00 pm",
+          ["7pm", "7:00pm", "19:00"]
+        ),
+        measurementAnswer(
+          "y12s2-tz-m3",
+          "How many hours ahead is Sydney (UTC+10) compared to New York (UTC−5)?",
+          "10 - (-5)",
+          "15",
+          ["15 hours"]
+        ),
+        practicalChoice(
+          "y12s2-tz-m4",
+          "It is 11:00 pm Sunday in Sydney (UTC+10). What time and day is it in London (UTC+0)?",
+          "B",
+          ["9:00 am Monday", "1:00 pm Sunday", "9:00 am Sunday", "1:00 pm Monday"],
+          "London is 10 hours behind Sydney: 11:00 pm − 10 hours = 1:00 pm Sunday."
+        ),
+        measurementAnswer(
+          "y12s2-tz-m5",
+          "It is 10:00 am in London (UTC+0). What time is it in Brisbane (AEST, UTC+10)? Write the answer in the form H:MM pm.",
+          "10{:}00\\text{ am} + 10\\text{ h}",
+          "8:00 pm",
+          ["8pm", "8:00pm", "20:00"]
+        ),
+        practicalChoice(
+          "y12s2-tz-m6",
+          "Perth (UTC+8) compared to Sydney (UTC+10): Perth is:",
+          "C",
+          ["8 hours behind Sydney", "18 hours ahead of Sydney", "2 hours behind Sydney", "2 hours ahead of Sydney"],
+          "Offset difference = 10 − 8 = 2. Perth has the smaller offset, so it is 2 hours behind Sydney."
+        ),
+        practicalChoice(
+          "y12s2-tz-m7",
+          "A flight departs Sydney (UTC+10) at 6:00 pm Friday and takes 22 hours to reach London (UTC+0). What is the local London arrival time and day?",
+          "B",
+          ["4:00 am Saturday", "6:00 am Saturday", "4:00 pm Friday", "4:00 am Sunday"],
+          "Sydney 6 pm = 8 am Friday UTC. Add 22 hours: 6 am Saturday UTC. London is UTC+0, so arrival is 6:00 am Saturday."
+        ),
+        measurementAnswer(
+          "y12s2-tz-m8",
+          "It is 3:00 pm in Tokyo (UTC+9). What time is it in Sydney (AEST, UTC+10)? Write the answer in the form H:MM pm.",
+          "3{:}00\\text{ pm} + 1\\text{ h}",
+          "4:00 pm",
+          ["4pm", "4:00pm", "16:00"]
+        ),
+        practicalChoice(
+          "y12s2-tz-m9",
+          "When a plane crosses the International Date Line heading east from Japan to the USA, the calendar date:",
+          "B",
+          ["Increases by one day", "Decreases by one day", "Stays the same", "Changes by two days"],
+          "Crossing the IDL heading east moves the calendar back one day. You arrive on the previous calendar date."
+        ),
+        measurementAnswer(
+          "y12s2-tz-m10",
+          "It is 3:00 pm in London (UTC+0). What time is it in New York (UTC−5)? Write the answer in the form H:MM am.",
+          "3{:}00\\text{ pm} - 5\\text{ h}",
+          "10:00 am",
+          ["10am", "10:00am"]
+        ),
       ],
     };
   }

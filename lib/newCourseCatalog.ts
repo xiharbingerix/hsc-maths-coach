@@ -468,6 +468,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Use ratios, sharing, rates, speed, fuel use, flow rates, map scales, and practical unit conversions.",
           },
           {
+            slug: "bearings-navigation-problems",
+            title: "Bearings and Navigation Problems",
+            description:
+              "Read and write true bearings, calculate back bearings, find interior angles from bearing information, and apply the cosine rule to solve practical navigation problems.",
+          },
+          {
+            slug: "time-zones-conversions",
+            title: "Time Zones and Conversions",
+            description:
+              "Convert times between Australian and international time zones using UTC offsets, handle midnight crossings and day changes, and understand the International Date Line.",
+          },
+          {
             slug: "practical-rates-ratios-exam-practice",
             title: "Practical Rates and Ratios Exam Practice",
             description:

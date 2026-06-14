@@ -8,24 +8,28 @@
 
 ## Quick Status
 
-| Course | Nova units | Nova lessons | Class Maths target | Status |
-|---|---|---|---|---|
-| Year 7 Mathematics | 0 | 0 | 13 topics / 117 subtopics | ⬜ Not started |
-| Year 8 Mathematics | 10 | 59 | 14 topics / 111 subtopics | ✅ Available |
-| Year 9 Mathematics | 8 | 53 | 13 topics / 82 subtopics (Core) | ✅ Available |
-| Year 9 Mathematics Advanced | 8 | 53 | 14 topics / 109 subtopics | 🔄 In progress |
-| Year 9 Mathematics Core | 8 trimmed | ~40 | 13 topics / 82 subtopics | 🔄 In progress |
-| Year 10 Mathematics | 10 | ~56 | — | ✅ Available |
-| Year 10 Mathematics Advanced | 10 | ~56 | 16 topics / 128 subtopics | 🔄 In progress |
-| Year 10 Mathematics Core | 10 trimmed | ~40 | 12 topics / 76 subtopics | 🔄 In progress |
-| Year 11 Standard | 9 | 63 | 9 topics / 63 subtopics (2026) | ✅ Depth pass complete |
-| Year 11 Advanced | 8 | 54 | 11 topics / 90 subtopics (2026) | ✅ Available |
-| Year 11 Extension | 5 of 5 | 25 | 5 topics / 30 subtopics (2026) | ✅ Available |
-| Year 12 Standard 1 | 5 | 18 | 7 topics / 29 subtopics | 🔄 In progress |
-| Year 12 Standard 2 | 6 | 31 | 10 topics / 59 subtopics | ✅ Depth pass complete |
-| Year 12 Advanced | 13 | 91 | 11 topics / 64 subtopics | ✅ Depth pass complete |
-| Year 12 Extension 1 | 6 | 22 | 7 topics / 28 subtopics | ✅ Available |
-| Year 12 Extension 2 | 5 | 25 | 5 topics / 40 subtopics | ✅ Depth pass complete |
+> **Depth** — quality of individual lessons that exist: ✅ Full (19Q + worked examples + teaching + common mistakes) | ⬜ None
+> **Topic breadth** — Nova units covered out of NSW curriculum topics (Class Mathematics is the reference implementation of the NSW syllabus).
+> **Subtopic breadth** — % of Class Maths subtopics that have a Nova lesson. Raw % understates real coverage because Nova lessons are ~2× longer than a Class Maths subtopic.
+
+| Course | Nova lessons | NSW curriculum (topics / subtopics) | Topic breadth | Subtopic breadth | Depth |
+|---|---|---|---|---|---|
+| Year 7 Mathematics | 0 | 13 / 117 | 0 / 13 (0%) | 0% | ⬜ None |
+| Year 8 Mathematics | 59 (10 units) | 14 / 111 | 10 / 14 (71%) | ~53% | ✅ Full |
+| Year 9 Mathematics | 53 (8 units) | 13 / 82 | 8 / 13 (62%) | ~65% | ✅ Full |
+| Year 9 Mathematics Advanced | 53 (8 units) | 14 / 109 | 8 / 14 (57%) | ~49% | ✅ Full |
+| Year 9 Mathematics Core | ~40 (8 trimmed) | 13 / 82 | 8 / 13 (62%) | ~49% | ✅ Full |
+| Year 10 Mathematics | ~56 (10 units) | — / — | — | — | ✅ Full |
+| Year 10 Mathematics Advanced | ~56 (10 units) | 16 / 128 | 10 / 16 (63%) | ~44% | ✅ Full |
+| Year 10 Mathematics Core | ~40 (10 trimmed) | 12 / 76 | 10 / 12 (83%) | ~53% | ✅ Full |
+| Year 11 Standard | 63 (9 units) | 9 / 63 | 9 / 9 (100%) | ~100% | ✅ Full |
+| Year 11 Advanced | 54 (8 units) | 11 / 90 | 8 / 11 (73%) | ~60% | ✅ Full |
+| Year 11 Extension | 25 (5 units) | 5 / 30 | 5 / 5 (100%) | ~83% | ✅ Full |
+| Year 12 Standard 1 | 18 (5 units) | 7 / 29 | 5 / 7 (71%) | ~62% | ✅ Full |
+| Year 12 Standard 2 | 31 (6 units) | 10 / 59 | 6 / 10 (60%) | ~53% | ✅ Full |
+| Year 12 Advanced | 91 (13 units) | 11 / 64 | 13 / 11 (118%) | ~142% | ✅ Full |
+| Year 12 Extension 1 | 22 (6 units) | 7 / 28 | 6 / 8 (75%) | ~79% | ✅ Full |
+| Year 12 Extension 2 | 25 (5 units) | 5 / 40 | 5 / 5 (100%) | ~63% | ✅ Full |
 
 ---
 
@@ -275,20 +279,32 @@ Class Maths: 7 topics / 29 subtopics.
 
 ---
 
-## Year 12 Standard 2 ✅ Depth pass complete
+## Year 12 Standard 2 🔄 Breadth pass in progress
 
 `year-12-standard-2` — `available`. Override file: `lib/lessons/year12Standard2/`.
-Class Maths: 10 topics / 59 subtopics. Nova: 6 units / 31 lessons.
+Class Maths: 10 topics / 59 subtopics. Nova: 6 units / 33 lessons (↑ from 31).
 
-- [x] Algebraic Relationships (7 lessons — added linear-inequalities-modelling, working-with-formulae-substitution)
-- [x] Trigonometry, Ratios and Rates (4 lessons)
-- [x] Surface Area and Volume (3 lessons — NEW unit: surface-area-prisms-cylinders, volume-prisms-cylinders-spheres, composite-solids-practical)
-- [x] Investments, Loans and Annuities (6 lessons — added comparing-investments-risk-return, credit-cards-consumer-decisions)
-- [x] Bivariate Data and Normal Distribution (6 lessons — includes relative frequency/probability Phase 1)
-- [x] Networks and Critical Path Analysis (5 lessons — includes network flow Phase 1)
+- [x] Algebraic Relationships (7 lessons — linear-inequalities-modelling, working-with-formulae-substitution)
+- [x] Trigonometry, Ratios and Rates (6 lessons — **+2 breadth pass 2026-06-15**)
+  - [x] sine-rule-cosine-rule-area-triangle
+  - [x] non-right-angled-trigonometry
+  - [x] ratios-rates-unit-conversions
+  - [x] **bearings-navigation-problems** ← NEW (MS-M6 NSW syllabus gap)
+  - [x] **time-zones-conversions** ← NEW (MS-M7 NSW syllabus gap)
+  - [x] practical-rates-ratios-exam-practice
+- [x] Surface Area and Volume (3 lessons)
+- [x] Investments, Loans and Annuities (6 lessons)
+- [x] Bivariate Data and Normal Distribution (6 lessons)
+- [x] Networks and Critical Path Analysis (5 lessons)
 
-**Depth pass complete 2026-06-14:** +7 lessons added across 2 existing units plus 1 new unit.
-Seed total: 589 questions (31 lessons × 19 questions).
+**Depth pass complete 2026-06-14:** +7 lessons. **Breadth pass 2026-06-15:** +2 lessons (bearings, time zones).
+Seed total: 627 questions (33 lessons × 19 questions).
+
+**Remaining NSW syllabus gaps (priority order):**
+- [ ] Ambiguous case of sine rule (MS-M6)
+- [ ] Present value of annuities (MS-F5)
+- [ ] Straight-line (flat-rate) depreciation (MS-F4)
+- [ ] Residual plots and interpolation vs extrapolation (MS-S4)
 
 ---
 
@@ -334,8 +350,9 @@ Class Maths: 7 topics / 28 subtopics.
 - [x] Further Applications of Calculus (4 lessons)
 - [x] The Binomial Distribution (4 lessons)
 
-**Gap vs Class Maths 7-topic target:**
-- [ ] One additional topic not yet mapped — possibly Rates of Change or Projectile Motion as a standalone unit
+**Gaps vs Class Maths 7-topic target (actual count: 6 / 9 topics — two topics missing):**
+- [ ] Rates of Change — ME-C1: related rates, kinematics, chain rule in context
+- [ ] Projectile Motion — applications of calculus to two-dimensional motion under gravity
 
 ---
 
@@ -367,7 +384,7 @@ Nova average lessons per unit: ~4–5.
 | Year 12 Advanced | 91 (13 units) | ~64 subtopics | ✅ Depth pass complete (exceeds) |
 | Year 12 Extension 2 | 25 (5 units) | ~40 subtopics | ✅ Depth pass complete |
 | Year 12 Standard 1 | 18 (5 units) | ~29 subtopics | 🔄 Missing ~2 topics |
-| Year 12 Extension 1 | 22 (6 units) | ~28 subtopics | 🔄 Missing 1 topic |
+| Year 12 Extension 1 | 22 (6 units) | ~28 subtopics | 🔄 Missing 2 topics (Rates of Change + Projectile Motion) |
 | Year 11 Advanced | 54 (8 units) | ~90 subtopics | 🔄 Missing equations/inequations, coord geometry, trig phase 3 |
 | Year 9 / Year 10 variants | — | — | 🔄 Promote Advanced + Core to available |
 | Year 8 | 59 (10 units) | ~111 subtopics | 🔄 4 units missing vs Class Maths |
@@ -380,7 +397,7 @@ Nova average lessons per unit: ~4–5.
 1. ~~**Year 12 Extension 2 depth**~~ ✅ Complete — 25 lessons, 481 questions
 2. ~~**Year 12 Standard 2 depth**~~ ✅ Complete — 31 lessons, 589 questions
 3. ~~**Year 12 Advanced depth**~~ ✅ Complete — 91 lessons, 1715 questions (Probability unit added)
-4. **Year 12 Extension 1 depth** — 1 missing topic (rates of change or projectile motion as standalone unit); 22 lessons → ~25
+4. **Year 12 Extension 1 depth** — 2 missing topics (Rates of Change + Projectile Motion); 22 lessons → ~28–30
 5. **Year 12 Standard 1** — add missing ~2 topics (likely Networks + further Measurement); promote to `available`
 6. **Year 11 Advanced gaps** — equations/inequations unit, coordinate geometry unit, trig identities phase 3
 7. **Year 9 / Year 10 variants** — promote Advanced and Core to `available`
