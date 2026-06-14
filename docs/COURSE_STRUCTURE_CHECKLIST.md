@@ -26,7 +26,7 @@
 | Year 11 Advanced | 54 (8 units) | 11 / 90 | 8 / 11 (73%) | ~60% | ✅ Full |
 | Year 11 Extension | 25 (5 units) | 5 / 30 | 5 / 5 (100%) | ~83% | ✅ Full |
 | Year 12 Standard 1 | 18 (5 units) | 7 / 29 | 5 / 7 (71%) | ~62% | ✅ Full |
-| Year 12 Standard 2 | 31 (6 units) | 10 / 59 | 6 / 10 (60%) | ~53% | ✅ Full |
+| Year 12 Standard 2 | 35 (6 units) | 10 / 59 | 6 / 10 (60%) | ~59% | ✅ Full |
 | Year 12 Advanced | 91 (13 units) | 11 / 64 | 13 / 11 (118%) | ~142% | ✅ Full |
 | Year 12 Extension 1 | 28 (8 units) | 7 / 28 | 8 / 8 (100%) | ~100% | ✅ Full |
 | Year 12 Extension 2 | 25 (5 units) | 5 / 40 | 5 / 5 (100%) | ~63% | ✅ Full |
@@ -282,27 +282,35 @@ Class Maths: 7 topics / 29 subtopics.
 ## Year 12 Standard 2 🔄 Breadth pass in progress
 
 `year-12-standard-2` — `available`. Override file: `lib/lessons/year12Standard2/`.
-Class Maths: 10 topics / 59 subtopics. Nova: 6 units / 33 lessons (↑ from 31).
+Class Maths: 10 topics / 59 subtopics. Nova: 6 units / 35 lessons (↑ from 31).
 
 - [x] Algebraic Relationships (7 lessons — linear-inequalities-modelling, working-with-formulae-substitution)
-- [x] Trigonometry, Ratios and Rates (6 lessons — **+2 breadth pass 2026-06-15**)
+- [x] Trigonometry, Ratios and Rates (7 lessons — **+2 breadth pass 2026-06-15**)
   - [x] sine-rule-cosine-rule-area-triangle
   - [x] non-right-angled-trigonometry
   - [x] ratios-rates-unit-conversions
   - [x] **bearings-navigation-problems** ← NEW (MS-M6 NSW syllabus gap)
   - [x] **time-zones-conversions** ← NEW (MS-M7 NSW syllabus gap)
+  - [x] **ambiguous-case-sine-rule** ← NEW (MS-M6 NSW syllabus gap)
   - [x] practical-rates-ratios-exam-practice
 - [x] Surface Area and Volume (3 lessons)
-- [x] Investments, Loans and Annuities (6 lessons)
+- [x] Investments, Loans and Annuities (7 lessons — **+1 breadth pass 2026-06-15**)
+  - [x] investment-compound-interest
+  - [x] depreciation-loans
+  - [x] annuities-regular-payments
+  - [x] **present-value-annuities** ← NEW (MS-F5 NSW syllabus gap)
+  - [x] comparing-investments-risk-return
+  - [x] credit-cards-consumer-decisions
+  - [x] financial-decision-making-exam-practice
 - [x] Bivariate Data and Normal Distribution (6 lessons)
 - [x] Networks and Critical Path Analysis (5 lessons)
 
-**Depth pass complete 2026-06-14:** +7 lessons. **Breadth pass 2026-06-15:** +2 lessons (bearings, time zones).
-Seed total: 627 questions (33 lessons × 19 questions).
+**Depth pass complete 2026-06-14:** +7 lessons. **Breadth pass 2026-06-15:** +4 lessons (bearings, time zones, ambiguous case, PV annuities).
+Seed total: 665 questions (35 lessons × 19 questions).
 
 **Remaining NSW syllabus gaps (priority order):**
-- [ ] Ambiguous case of sine rule (MS-M6)
-- [ ] Present value of annuities (MS-F5)
+- [x] ~~Ambiguous case of sine rule (MS-M6)~~ ✅ 2026-06-15
+- [x] ~~Present value of annuities (MS-F5)~~ ✅ 2026-06-15
 - [ ] Straight-line (flat-rate) depreciation (MS-F4)
 - [ ] Residual plots and interpolation vs extrapolation (MS-S4)
 
@@ -391,7 +399,7 @@ Nova average lessons per unit: ~4–5.
 | Course | Current lessons | Target | Status |
 |---|---|---|---|
 | Year 11 Standard | 63 (9 units) | ~63 | ✅ Depth pass complete |
-| Year 12 Standard 2 | 31 (6 units) | ~31 | ✅ Depth pass complete |
+| Year 12 Standard 2 | 35 (6 units) | ~35 | ✅ Depth pass complete + 4 breadth lessons |
 | Year 12 Advanced | 91 (13 units) | ~64 subtopics | ✅ Depth pass complete (exceeds) |
 | Year 12 Extension 2 | 25 (5 units) | ~40 subtopics | ✅ Depth pass complete |
 | Year 12 Standard 1 | 18 (5 units) | ~29 subtopics | 🔄 Missing ~2 topics |
@@ -406,7 +414,7 @@ Nova average lessons per unit: ~4–5.
 ## Priority Order
 
 1. ~~**Year 12 Extension 2 depth**~~ ✅ Complete — 25 lessons, 481 questions
-2. ~~**Year 12 Standard 2 depth**~~ ✅ Complete — 31 lessons, 589 questions
+2. ~~**Year 12 Standard 2 depth**~~ ✅ Complete — 35 lessons (breadth pass ongoing), 665 questions
 3. ~~**Year 12 Advanced depth**~~ ✅ Complete — 91 lessons, 1715 questions (Probability unit added)
 4. **Year 12 Extension 1 depth** — 28 lessons / 482 questions; 2 exam-practice lessons remaining (batch 4)
 5. **Year 12 Standard 1** — add missing ~2 topics (likely Networks + further Measurement); promote to `available`

@@ -26,6 +26,15 @@ function measurementFeedback(prompt: string, answer: string) {
   if (lowerPrompt.includes("what time") && (lowerPrompt.includes("sydney") || lowerPrompt.includes("london") || lowerPrompt.includes("tokyo") || lowerPrompt.includes("dubai") || lowerPrompt.includes("perth") || lowerPrompt.includes("brisbane") || lowerPrompt.includes("new york") || lowerPrompt.includes("los angeles"))) {
     return `Find the offset difference between the two cities and add or subtract as appropriate. A positive UTC offset is ahead; a negative offset is behind. This gives ${answer}.`;
   }
+  if (lowerPrompt.includes("find sin b") || lowerPrompt.includes("calculate sin b")) {
+    return `Rearrange the sine rule: sin B = b × sin A ÷ a. Substitute the given values and calculate to get ${answer}.`;
+  }
+  if (lowerPrompt.includes("using sin b") || (lowerPrompt.includes("find b1") && !lowerPrompt.includes("bearing"))) {
+    return `Apply arcsin (sin⁻¹) on your calculator using the computed sin B value. The acute result is B₁ = ${answer}.`;
+  }
+  if (lowerPrompt.includes("find b2") || lowerPrompt.includes("given b1")) {
+    return `The supplement of B₁ gives B₂ = 180° − B₁. Subtract to get ${answer}.`;
+  }
   if (lowerPrompt.includes("side opposite")) {
     return `The sine rule works because the known side and angle form an opposite pair. Match that pair with the required side and its opposite angle, then rearrange to get ${answer}.`;
   }
@@ -1372,6 +1381,317 @@ export function year12Standard2TrigRatesLessonOverride(
           "3{:}00\\text{ pm} - 5\\text{ h}",
           "10:00 am",
           ["10am", "10:00am"]
+        ),
+      ],
+    };
+  }
+
+  if (lesson.slug === "ambiguous-case-sine-rule") {
+    return {
+      ...base,
+      description:
+        "Recognise when SSA information produces one or two valid triangles, apply B₂ = 180° − B₁, and test validity by checking A + B < 180°.",
+      learningIntention:
+        "Apply the ambiguous case of the sine rule to determine the number of valid triangles and find both possible angles when two solutions exist.",
+      successCriteria: [
+        "Explain why SSA information can lead to two possible triangles.",
+        "Calculate sin B = b sin A / a and find both possible angles B₁ and B₂.",
+        "Test whether B₂ is valid by checking A + B₂ < 180°.",
+        "State the number of valid triangles and find the remaining angles for each.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The sine rule finds a missing angle when you know one complete side-angle pair. But sin θ = sin(180° − θ), so the same sine value belongs to two different angles. The calculator returns only the acute one (B₁), and you must always check whether the obtuse supplement B₂ = 180° − B₁ also fits the triangle.",
+          "This situation arises specifically when you are given two sides and a non-included angle (SSA). Picture a compass arm of length b swinging from the endpoint of side a — it can land in two places, forming two possible triangles.",
+          "To decide how many triangles exist: compute sin B = b sin A / a. If the result exceeds 1, no triangle is possible. Otherwise find B₁ = arcsin(sin B) and B₂ = 180° − B₁, then test each by checking whether A plus that angle stays below 180°.",
+          "Do not reject B₂ simply because it is obtuse. An obtuse angle is valid in a triangle provided the total angle sum remains under 180°. The correct test is always A + B₂ < 180°.",
+        ],
+        latexBlocks: [
+          "\\sin B = \\dfrac{b\\sin A}{a}",
+          "B_1 = \\arcsin\\!\\left(\\dfrac{b\\sin A}{a}\\right),\\quad B_2 = 180° - B_1",
+          "B_2\\text{ is valid only if }A + B_2 < 180°",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Two triangles possible",
+          questionLatex:
+            "\\text{Find all possible values of angle }B\\text{ given }a=7,\\;b=9,\\;A=45°.",
+          steps: [
+            {
+              explanation: "Apply the sine rule to find sin B.",
+              latex:
+                "\\sin B = \\dfrac{9\\sin 45°}{7} = \\dfrac{9\\times 0.7071}{7} \\approx 0.9091",
+            },
+            {
+              explanation: "Find the acute angle B₁.",
+              latex: "B_1 = \\arcsin(0.9091) \\approx 65.4°",
+            },
+            {
+              explanation: "Find the supplement B₂ and test both.",
+              latex:
+                "B_2 = 180° - 65.4° = 114.6°,\\quad A+B_1 = 110.4° < 180°\\;\\checkmark,\\quad A+B_2 = 159.6° < 180°\\;\\checkmark",
+            },
+          ],
+          finalAnswerLatex:
+            "\\text{Two triangles: }B\\approx 65.4°\\text{ or }B\\approx 114.6°.",
+        },
+        {
+          title: "One triangle only (B₂ rejected)",
+          questionLatex:
+            "\\text{Find all possible values of angle }B\\text{ given }a=12,\\;b=7,\\;A=65°.",
+          steps: [
+            {
+              explanation: "Apply the sine rule.",
+              latex:
+                "\\sin B = \\dfrac{7\\sin 65°}{12} \\approx 0.5287",
+            },
+            {
+              explanation: "Find B₁ and B₂.",
+              latex:
+                "B_1 \\approx 31.9°,\\quad B_2 = 180° - 31.9° = 148.1°",
+            },
+            {
+              explanation: "Test B₂: angle sum exceeds 180°, so reject.",
+              latex:
+                "A + B_2 = 65° + 148.1° = 213.1° > 180°\\;\\times",
+            },
+          ],
+          finalAnswerLatex: "\\text{One triangle only: }B\\approx 31.9°.",
+        },
+        {
+          title: "Find angle C for each valid triangle",
+          questionLatex:
+            "\\text{For }a=7,\\;b=9,\\;A=45°\\text{ with }B_1=65.4°,\\;B_2=114.6°,\\text{ find }C\\text{ for each triangle.}",
+          steps: [
+            {
+              explanation: "Triangle 1: subtract A and B₁ from 180°.",
+              latex: "C_1 = 180° - 45° - 65.4° = 69.6°",
+            },
+            {
+              explanation: "Triangle 2: subtract A and B₂ from 180°.",
+              latex: "C_2 = 180° - 45° - 114.6° = 20.4°",
+            },
+          ],
+          finalAnswerLatex:
+            "C_1 \\approx 69.6°,\\quad C_2 \\approx 20.4°",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice(
+          "y12s2-amb-g1",
+          "The ambiguous case of the sine rule arises for which set of given information?",
+          "C",
+          [
+            "All three sides known (SSS)",
+            "Two sides and the included angle (SAS)",
+            "Two sides and a non-included angle (SSA)",
+            "All three angles known (AAA)",
+          ],
+          "SSA — the angle is not between the two known sides — can produce two possible triangles because sin θ = sin(180° − θ)."
+        ),
+        practicalChoice(
+          "y12s2-amb-g2",
+          "In the ambiguous case, B₁ = 65.4°. What is B₂?",
+          "B",
+          [
+            "90° − 65.4° = 24.6°",
+            "180° − 65.4° = 114.6°",
+            "2 × 65.4° = 130.8°",
+            "360° − 65.4° = 294.6°",
+          ],
+          "The supplement is found by subtracting B₁ from 180°."
+        ),
+        practicalChoice(
+          "y12s2-amb-g3",
+          "For a = 7, b = 9, A = 45°, B₂ = 114.6°. Is B₂ valid for this triangle?",
+          "C",
+          [
+            "No, because B₂ is obtuse",
+            "No, because B₂ > B₁",
+            "Yes, because A + B₂ = 45° + 114.6° = 159.6° < 180°",
+            "Yes, because a < b",
+          ],
+          "The test is A + B₂ < 180°. Here 159.6° < 180°, so B₂ is valid."
+        ),
+        practicalChoice(
+          "y12s2-amb-g4",
+          "For a = 12, b = 7, A = 65°, B₁ = 31.9° and B₂ = 148.1°. How many valid triangles exist?",
+          "B",
+          [
+            "0 — sin B > 1 so no triangle exists",
+            "1 — B₂ is rejected because 65° + 148.1° > 180°",
+            "2 — both B₁ and B₂ are valid",
+            "3 — one for each subset of sides",
+          ],
+          "A + B₂ = 213.1° > 180°, so B₂ is rejected and only one triangle exists."
+        ),
+      ],
+      independentPractice: [
+        practicalChoice(
+          "y12s2-amb-i1",
+          "For a = 10, b = 8, A = 35°, sin B = 0.4589, B₁ = 27.3° and B₂ = 152.7°. Is B₂ valid?",
+          "A",
+          [
+            "No, because 35° + 152.7° = 187.7° > 180°",
+            "Yes, because sin(B₂) = sin(B₁)",
+            "Yes, because B₂ is the supplement",
+            "No, because B₂ > 90°",
+          ],
+          "A + B₂ = 187.7° > 180°, so B₂ is rejected and only one triangle exists."
+        ),
+        measurementAnswer(
+          "y12s2-amb-i2",
+          "For a = 10, b = 8, A = 35°, sin B = 0.4589. Find B1 to 1 decimal place.",
+          "B_1 = \\arcsin(0.4589)",
+          "27.3°",
+          ["27.3", "27.3 degrees"]
+        ),
+        practicalChoice(
+          "y12s2-amb-i3",
+          "For a = 5, b = 9, A = 25°, sin B = 0.7607, B₁ = 49.5° and B₂ = 130.5°. How many valid triangles exist?",
+          "C",
+          [
+            "0 — no triangle possible",
+            "1 — only B₁ is valid",
+            "2 — both B₁ and B₂ are valid",
+            "4 — one for each combination of sides",
+          ],
+          "A + B₁ = 74.5° < 180° and A + B₂ = 155.5° < 180°, so both are valid — two triangles."
+        ),
+        measurementAnswer(
+          "y12s2-amb-i4",
+          "For a = 5, b = 9, A = 25°, find B1 to 1 decimal place. (sin B = 0.7607)",
+          "B_1 = \\arcsin(0.7607)",
+          "49.5°",
+          ["49.5", "49.5 degrees"]
+        ),
+        practicalChoice(
+          "y12s2-amb-i5",
+          "An SSA triangle uses which rule to find the missing angle?",
+          "C",
+          [
+            "Pythagoras theorem",
+            "Cosine rule (a² = b² + c² − 2bc cos A)",
+            "Sine rule (sin A / a = sin B / b)",
+            "Area formula (½ab sin C)",
+          ],
+          "The sine rule links each side to its opposite angle, making it the tool for SSA triangles."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Forgetting to check B₂ after finding B₁.",
+          fix: "Always compute B₂ = 180° − B₁ and test A + B₂ < 180° before concluding there is only one solution.",
+        },
+        {
+          mistake: "Rejecting B₂ because it is obtuse.",
+          fix: "An obtuse B₂ is valid when A + B₂ < 180°. The size of B₂ alone is not the test.",
+        },
+        {
+          mistake: "Using the cosine rule for an SSA setup.",
+          fix: "SSA uses the sine rule. Cosine rule applies for SAS (two sides, included angle) or SSS (all three sides).",
+        },
+        {
+          mistake: "Not checking whether sin B > 1 before taking arcsin.",
+          fix: "If sin B > 1, no triangle is possible. Check this first.",
+        },
+      ],
+      masteryQuiz: [
+        practicalChoice(
+          "y12s2-amb-m1",
+          "The ambiguous case exists because:",
+          "B",
+          [
+            "Cosine is equal for two different angles",
+            "sin θ = sin(180° − θ), so two angles share the same sine",
+            "SSA always creates a right angle",
+            "The cosine rule has two solutions",
+          ],
+          "sin(65.4°) = sin(114.6°), so the sine rule cannot distinguish between them without a validity test."
+        ),
+        practicalChoice(
+          "y12s2-amb-m2",
+          "B₂ = 180° − B₁ is rejected when:",
+          "B",
+          [
+            "B₁ is acute",
+            "A + B₂ ≥ 180°",
+            "B₂ > B₁",
+            "sin B < 1",
+          ],
+          "If A + B₂ ≥ 180°, the angle sum would exceed 180° and B₂ is impossible."
+        ),
+        measurementAnswer(
+          "y12s2-amb-m3",
+          "For a triangle with a = 7, b = 9, A = 45°, calculate sin B to 4 decimal places.",
+          "\\sin B = \\dfrac{9\\sin 45°}{7}",
+          "0.9091",
+          ["0.909", "0.9090", "0.90909"]
+        ),
+        measurementAnswer(
+          "y12s2-amb-m4",
+          "Using sin B = 0.9091, find B1 to 1 decimal place.",
+          "B_1 = \\arcsin(0.9091)",
+          "65.4°",
+          ["65.4", "65.4 degrees"]
+        ),
+        measurementAnswer(
+          "y12s2-amb-m5",
+          "Given B1 = 65.4°, find B2.",
+          "B_2 = 180° - B_1",
+          "114.6°",
+          ["114.6", "114.6 degrees"]
+        ),
+        practicalChoice(
+          "y12s2-amb-m6",
+          "For a = 7, b = 9, A = 45°, B₁ = 65.4° and B₂ = 114.6°. How many triangles are possible?",
+          "C",
+          [
+            "0 — no valid triangle",
+            "1 — only B₁ is valid",
+            "2 — both B₁ and B₂ are valid",
+            "4 — one for each arrangement of sides",
+          ],
+          "A + B₁ = 110.4° < 180° and A + B₂ = 159.6° < 180°, so both are valid."
+        ),
+        measurementAnswer(
+          "y12s2-amb-m7",
+          "For a triangle with a = 12, b = 7, A = 65°, calculate sin B to 4 decimal places.",
+          "\\sin B = \\dfrac{7\\sin 65°}{12}",
+          "0.5287",
+          ["0.529", "0.5286", "0.5288"]
+        ),
+        measurementAnswer(
+          "y12s2-amb-m8",
+          "Using sin B = 0.5287, find B1 to 1 decimal place.",
+          "B_1 = \\arcsin(0.5287)",
+          "31.9°",
+          ["31.9", "31.9 degrees"]
+        ),
+        practicalChoice(
+          "y12s2-amb-m9",
+          "For a = 12, b = 7, A = 65°, B₂ = 148.1°. Is B₂ valid?",
+          "B",
+          [
+            "Yes, because sin(148.1°) = sin(31.9°)",
+            "No, because 65° + 148.1° = 213.1° > 180°",
+            "Yes, because B₂ is always the correct angle",
+            "No, because B₂ > 90°",
+          ],
+          "A + B₂ = 213.1° > 180°, so B₂ would make the angles exceed a straight line."
+        ),
+        practicalChoice(
+          "y12s2-amb-m10",
+          "Rearranging the sine rule sinA/a = sinB/b to find angle B gives:",
+          "C",
+          [
+            "B = arccos(b sin A / a)",
+            "B = arctan(b sin A / a)",
+            "B = arcsin(b sin A / a)",
+            "B = sin A × b × a",
+          ],
+          "Rearranging: sin B = b sin A / a, so B = arcsin(b sin A / a)."
         ),
       ],
     };

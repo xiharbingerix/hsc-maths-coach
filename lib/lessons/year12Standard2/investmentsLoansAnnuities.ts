@@ -47,6 +47,19 @@ function financeFeedback(prompt: string, latex: string, answer: string) {
   if (prompt.includes("deposit")) {
     return `Apply interest to the existing savings first, then add the new deposit at the time stated. The resulting balance is ${answer}.`;
   }
+  if (
+    prompt.includes("monthly repayment") ||
+    prompt.includes("Find the monthly") ||
+    prompt.includes("repayment on a")
+  ) {
+    return `Use M = P × r ÷ (1 − (1+r)^(−n)). Substitute the monthly rate r = annual rate ÷ 12, number of months n, and loan P to get the repayment M = ${answer}.`;
+  }
+  if (prompt.includes("total interest paid") || (prompt.includes("total interest") && prompt.includes("loan"))) {
+    return `Total interest = total amount repaid − original loan = M × n − P. Multiply the repayment by the number of months, then subtract P to get ${answer}.`;
+  }
+  if (prompt.includes("total amount paid") || prompt.includes("total amount repaid")) {
+    return `Total amount repaid = M × n. Multiply the monthly repayment by the number of periods to get ${answer}.`;
+  }
   return `Read whether the balance is growing, shrinking, or changing by a regular payment before calculating. Following the stated financial process gives ${answer}.`;
 }
 
@@ -633,6 +646,311 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer("y12s2-credit-m8", "A 240 dollar purchase on BNPL: 4 instalments of 60 dollars. What is the total paid?", "4\\times60", "240", ["$240"]),
         financeChoice("y12s2-credit-m9", "Comparing credit card and BNPL for the same purchase, the key advantage of BNPL (when paid on time) is:", "B", ["Higher interest", "No interest charged", "Longer interest-free period", "Lower purchase price"], "BNPL typically charges no interest if payments are made on time."),
         financeChoice("y12s2-credit-m10", "If you save 200 dollars per month for 4 months earning 3% p.a., you avoid credit card interest of 18% p.a. Saving first is better because:", "A", ["You earn interest instead of paying it", "You delay the purchase indefinitely", "You pay less each month", "Credit cards always charge more than 18%"], "Saving earns interest; credit cards charge it. Saving first is financially better."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "present-value-annuities") {
+    return {
+      ...base,
+      description:
+        "Use the present value formula to find loan repayments from a lump-sum amount, calculate total interest paid, and compare loan options with different terms.",
+      learningIntention:
+        "Apply the PV annuity formula to find monthly repayments and total interest for a loan, and explain the trade-off between loan term, repayment size, and total interest.",
+      successCriteria: [
+        "Explain the difference between a present value annuity (loan) and a future value annuity (savings).",
+        "Calculate the monthly repayment using M = P × r / (1 − (1+r)^(−n)).",
+        "Find the total interest paid as M × n − P.",
+        "Compare two loan options and explain the effect of a longer term.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A present value annuity begins with a lump sum today — the loan — and a series of equal repayments gradually reduce the balance to zero. This is the opposite of a savings annuity, which builds up a balance from regular deposits.",
+          "Each repayment covers the interest added that period plus a slice of the original principal. Early repayments mostly cover interest; later ones chip away more principal. The formula connects the loan amount P, periodic rate r, number of periods n, and repayment M.",
+          "To find the monthly repayment M for a loan P at monthly rate r over n months, use the rearranged formula. For an annual rate of 6% compounded monthly, r = 0.06 ÷ 12 = 0.005.",
+          "Once you have M, total amount repaid = M × n. Subtracting the original loan gives total interest = M × n − P. A longer loan term means lower monthly payments but higher total interest because interest accumulates over more periods.",
+        ],
+        latexBlocks: [
+          "P = M\\times\\dfrac{1-(1+r)^{-n}}{r}",
+          "M = \\dfrac{P\\times r}{1-(1+r)^{-n}}",
+          "\\text{Total interest} = M\\times n - P",
+          "r = \\dfrac{\\text{annual rate}}{12}\\quad(\\text{monthly compounding})",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Find the monthly repayment",
+          questionLatex:
+            "\\text{A }\\$12\\,000\\text{ loan at }6\\%\\text{ p.a. monthly is repaid over }24\\text{ months. Find the monthly repayment.}",
+          steps: [
+            {
+              explanation: "Identify the monthly rate and number of periods.",
+              latex: "r = 0.06 \\div 12 = 0.005,\\quad n = 24,\\quad P = 12000",
+            },
+            {
+              explanation: "Substitute into the repayment formula.",
+              latex:
+                "M = \\dfrac{12000 \\times 0.005}{1-(1.005)^{-24}} = \\dfrac{60}{1-0.8872} = \\dfrac{60}{0.1128}",
+            },
+            {
+              explanation: "Calculate M to the nearest cent.",
+              latex: "M \\approx \\$531.85",
+            },
+          ],
+          finalAnswerLatex: "\\text{Monthly repayment} \\approx \\$531.85.",
+        },
+        {
+          title: "Find total interest paid",
+          questionLatex:
+            "\\text{Using the repayment of }\\$531.85\\text{ over }24\\text{ months on a }\\$12\\,000\\text{ loan, find the total interest.}",
+          steps: [
+            {
+              explanation: "Find total amount repaid.",
+              latex: "531.85 \\times 24 = 12764.40",
+            },
+            {
+              explanation: "Subtract the original loan to find interest.",
+              latex: "12764.40 - 12000 = 764.40",
+            },
+          ],
+          finalAnswerLatex: "\\text{Total interest paid} = \\$764.40.",
+        },
+        {
+          title: "Compare loan terms",
+          questionLatex:
+            "\\text{Compare a }\\$10\\,000\\text{ loan at }6\\%\\text{ monthly over 24 months vs 48 months.}",
+          steps: [
+            {
+              explanation: "24-month repayment (r = 0.005, n = 24).",
+              latex:
+                "M_{24} = \\dfrac{10000 \\times 0.005}{1-(1.005)^{-24}} \\approx \\$443.21",
+            },
+            {
+              explanation: "48-month repayment (r = 0.005, n = 48).",
+              latex:
+                "M_{48} = \\dfrac{10000 \\times 0.005}{1-(1.005)^{-48}} \\approx \\$234.85",
+            },
+            {
+              explanation: "Compare total interest.",
+              latex:
+                "\\text{24 months: }443.21\\times24-10000=\\$637.04\\quad\\text{48 months: }234.85\\times48-10000=\\$1272.80",
+            },
+          ],
+          finalAnswerLatex:
+            "\\text{Longer term lowers repayments but increases total interest.}",
+        },
+      ],
+      guidedPractice: [
+        financeChoice(
+          "y12s2-pv-g1",
+          "A bank lends $15,000 and receives equal monthly repayments until the loan is paid off. This is modelled by:",
+          "C",
+          [
+            "A future value annuity (savings accumulation)",
+            "Compound interest on an investment",
+            "A present value annuity (loan repayment)",
+            "Straight-line depreciation",
+          ],
+          "A lump sum today repaid in equal instalments is a present value annuity."
+        ),
+        moneyAnswer(
+          "y12s2-pv-g2",
+          "A $12,000 loan at 6% p.a. compounded monthly is repaid over 24 months. Find the monthly repayment.",
+          "M = \\dfrac{12000\\times0.005}{1-(1.005)^{-24}}",
+          "531.85",
+          ["$531.85", "531.85", "531.9", "$531.9"]
+        ),
+        moneyAnswer(
+          "y12s2-pv-g3",
+          "Using the repayment from the previous question ($531.85 per month for 24 months on a $12,000 loan), find the total interest paid.",
+          "\\text{Total interest} = 531.85\\times24 - 12000",
+          "764.40",
+          ["$764.40", "764.40", "764.4", "$764.4"]
+        ),
+        financeChoice(
+          "y12s2-pv-g4",
+          "Increasing the loan term from 24 to 36 months (same rate and amount) will:",
+          "C",
+          [
+            "Increase monthly repayments and decrease total interest",
+            "Decrease monthly repayments and decrease total interest",
+            "Decrease monthly repayments and increase total interest",
+            "Leave both monthly repayments and total interest unchanged",
+          ],
+          "A longer term spreads repayments but interest accrues over more periods, so total interest increases."
+        ),
+      ],
+      independentPractice: [
+        financeChoice(
+          "y12s2-pv-i1",
+          "In the formula M = P × r / (1 − (1+r)^(−n)), what does r represent?",
+          "C",
+          [
+            "The annual interest rate",
+            "The total number of repayments",
+            "The interest rate per compounding period",
+            "The monthly repayment amount",
+          ],
+          "r is the rate per period. For 6% p.a. monthly, r = 0.06 ÷ 12 = 0.005."
+        ),
+        moneyAnswer(
+          "y12s2-pv-i2",
+          "A $15,000 loan at 6% p.a. compounded monthly is repaid over 36 months. Find the monthly repayment.",
+          "M = \\dfrac{15000\\times0.005}{1-(1.005)^{-36}}",
+          "456.33",
+          ["$456.33", "456.33", "456.3", "$456.3"]
+        ),
+        moneyAnswer(
+          "y12s2-pv-i3",
+          "Using the repayment from the previous question ($456.33 per month for 36 months on a $15,000 loan), find the total interest paid.",
+          "\\text{Total interest} = 456.33\\times36 - 15000",
+          "1427.88",
+          ["$1427.88", "1427.88", "1427.9", "$1,427.88"]
+        ),
+        financeChoice(
+          "y12s2-pv-i4",
+          "A $10,000 loan at 6% p.a. monthly over 24 months has repayments of $443.21. What is the total amount repaid?",
+          "C",
+          [
+            "$443.21",
+            "$10,000",
+            "$10,637.04",
+            "$10,000 × 24",
+          ],
+          "Total amount repaid = $443.21 × 24 = $10,637.04."
+        ),
+        financeChoice(
+          "y12s2-pv-i5",
+          "Which formula correctly gives the total interest paid on a loan?",
+          "C",
+          [
+            "Total interest = P × r × n",
+            "Total interest = M × n",
+            "Total interest = M × n − P",
+            "Total interest = P − M × n",
+          ],
+          "Total amount repaid is M × n. Subtracting the original loan P gives the interest component."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Using the annual interest rate directly instead of the monthly rate.",
+          fix: "For monthly compounding at 6% p.a., use r = 0.06 ÷ 12 = 0.005, not r = 0.06.",
+        },
+        {
+          mistake: "Confusing present value (loan) with future value (savings) annuities.",
+          fix: "PV starts with a lump sum and repayments reduce it to zero. FV starts at zero and regular deposits build it up.",
+        },
+        {
+          mistake: "Taking M × n as the total interest instead of the total amount repaid.",
+          fix: "M × n is the total amount repaid. Subtract the original loan P to find just the interest.",
+        },
+        {
+          mistake: "Assuming a longer loan term always saves money.",
+          fix: "A longer term lowers monthly repayments but increases total interest. Always compare both figures.",
+        },
+      ],
+      masteryQuiz: [
+        financeChoice(
+          "y12s2-pv-m1",
+          "A present value annuity is used to:",
+          "B",
+          [
+            "Calculate future savings from regular deposits",
+            "Find repayments that reduce a lump-sum loan to zero",
+            "Depreciate an asset over multiple years",
+            "Compound interest on a growing balance",
+          ],
+          "PV annuities model loan repayment: a lump sum now, repaid in equal instalments."
+        ),
+        financeChoice(
+          "y12s2-pv-m2",
+          "Which formula gives the regular repayment M for a loan P at periodic rate r over n periods?",
+          "B",
+          [
+            "M = P × (1+r)^n",
+            "M = P × r / (1 − (1+r)^(−n))",
+            "M = P / n",
+            "M = P × r × n",
+          ],
+          "M = Pr / (1 − (1+r)^(−n)) is the standard loan repayment formula."
+        ),
+        moneyAnswer(
+          "y12s2-pv-m3",
+          "Find the monthly repayment on a $10,000 loan at 6% p.a. compounded monthly over 24 months.",
+          "M = \\dfrac{10000\\times0.005}{1-(1.005)^{-24}}",
+          "443.21",
+          ["$443.21", "443.21", "443.2", "$443.2"]
+        ),
+        moneyAnswer(
+          "y12s2-pv-m4",
+          "Using the repayment from the previous question ($443.21 per month for 24 months on a $10,000 loan), find the total interest paid.",
+          "\\text{Total interest} = 443.21\\times24 - 10000",
+          "637.04",
+          ["$637.04", "637.04", "637.0", "$637.0"]
+        ),
+        moneyAnswer(
+          "y12s2-pv-m5",
+          "Find the monthly repayment on a $10,000 loan at 6% p.a. compounded monthly over 36 months.",
+          "M = \\dfrac{10000\\times0.005}{1-(1.005)^{-36}}",
+          "304.22",
+          ["$304.22", "304.22", "304.2", "$304.2"]
+        ),
+        moneyAnswer(
+          "y12s2-pv-m6",
+          "Using the repayment from the previous question ($304.22 per month for 36 months on a $10,000 loan), find the total interest paid.",
+          "\\text{Total interest} = 304.22\\times36 - 10000",
+          "951.92",
+          ["$951.92", "951.92", "951.9", "$951.9"]
+        ),
+        financeChoice(
+          "y12s2-pv-m7",
+          "A $10,000 loan at 6% p.a. monthly has M = $443.21 over 24 months and M = $304.22 over 36 months. What is the total amount repaid for the 36-month option?",
+          "C",
+          [
+            "$304.22",
+            "$10,000",
+            "$10,951.92",
+            "$10,304.22",
+          ],
+          "Total amount repaid = $304.22 × 36 = $10,951.92."
+        ),
+        financeChoice(
+          "y12s2-pv-m8",
+          "Compared to the 24-month loan, the 36-month loan on $10,000 at 6% p.a. has:",
+          "B",
+          [
+            "Higher monthly repayments and lower total interest",
+            "Lower monthly repayments and higher total interest",
+            "The same monthly repayments",
+            "Lower total interest because more time passes",
+          ],
+          "24-month interest = $637.04; 36-month interest = $951.92. Longer term = lower repayments, higher total interest."
+        ),
+        financeChoice(
+          "y12s2-pv-m9",
+          "To rearrange P = M × (1 − (1+r)^(−n)) / r to make M the subject, the correct step is:",
+          "B",
+          [
+            "Divide both sides by (1 − (1+r)^(−n)) only",
+            "Multiply both sides by r, then divide by (1 − (1+r)^(−n))",
+            "Subtract r from both sides first",
+            "Multiply both sides by n",
+          ],
+          "M = P × r / (1 − (1+r)^(−n))."
+        ),
+        financeChoice(
+          "y12s2-pv-m10",
+          "A loan has monthly repayments of $350 over 30 months. The total amount paid includes:",
+          "B",
+          [
+            "$350 only",
+            "$350 × 30 = $10,500, covering both principal and interest",
+            "Only the interest component",
+            "$350 × 30 × 12",
+          ],
+          "Total amount paid = M × n = $350 × 30 = $10,500. This covers both principal and interest."
+        ),
       ],
     };
   }
