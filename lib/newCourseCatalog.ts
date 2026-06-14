@@ -898,6 +898,56 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         lessons: [
           { slug: "transformations-composite-functions", title: "Transformations and Composite Functions" },
           { slug: "transformations-polynomial-reciprocal-graphs", title: "Transformations of Polynomial and Reciprocal Graphs" },
+          {
+            slug: "function-translations-general",
+            title: "Translating Functions",
+            description:
+              "Apply vertical, horizontal and combined translations of y = f(x), including image coordinates and horizontal sign conventions.",
+            stableSkillId: "y11adv-gt-function-translations-general",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-gt-trans-horizontal-sign-direction",
+                label: "Identify horizontal shift direction and size from y = f(x + a) and y = f(x - a)",
+              },
+              {
+                stableCheckpointId: "y11adv-gt-trans-vertical-direction-size",
+                label: "State vertical shift direction and size from y = f(x) + b",
+              },
+              {
+                stableCheckpointId: "y11adv-gt-trans-image-coordinates",
+                label: "Find the image coordinates of a key point under a translation",
+              },
+              {
+                stableCheckpointId: "y11adv-gt-trans-match-description-equation",
+                label: "Match a translation description to the correct equation form",
+              },
+            ],
+          },
+          {
+            slug: "function-dilations-reflections",
+            title: "Dilating and Reflecting Functions",
+            description:
+              "Apply vertical and horizontal dilations, reflections in the axes, and image-point rules for transformed functions.",
+            stableSkillId: "y11adv-gt-function-dilations-reflections",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-gt-dil-vertical-factor",
+                label: "State the effect of y = kf(x) on y-coordinates",
+              },
+              {
+                stableCheckpointId: "y11adv-gt-dil-horizontal-reciprocal-factor",
+                label: "State the effect of y = f(kx) on x-coordinates",
+              },
+              {
+                stableCheckpointId: "y11adv-gt-dil-reflection-image-points",
+                label: "Find the image of a point under y = -f(x) or y = f(-x)",
+              },
+              {
+                stableCheckpointId: "y11adv-gt-dil-match-equation-form",
+                label: "Match a dilation or reflection description to the correct equation form",
+              },
+            ],
+          },
           { slug: "graph-transformations-exam-practice", title: "Graph Transformations Exam Practice" },
         ],
       },

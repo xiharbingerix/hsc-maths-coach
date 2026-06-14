@@ -9,12 +9,78 @@ function numericFormatVariants(answer: string): string[] {
   return [];
 }
 
+function coordinateVariants(x: number, y: number): string[] {
+  return [
+    `(${x}, ${y})`,
+    `${x},${y}`,
+    `${x}, ${y}`,
+    `x=${x},y=${y}`,
+    `x = ${x}, y = ${y}`,
+  ];
+}
+
 const GRAPH_TRANSFORM_EXPLANATIONS: Record<string, string> = {
   // ── Composite functions ────────────────────────────────────────────────────
   "y11adv-gtc-i4":
     "Evaluate the inner function first: g(1) = 2. Then use that output as input to the outer function: f(2) = 5. For (f∘g)(x), always substitute into g before f.",
   "y11adv-gtc-m6":
     "Work from the inside out: g(3) = −1, so the inner output is −1. Then f(−1) = 7. In a composite function, the right-hand function is always applied first.",
+
+  // General translations
+  "y11adv-gt-trans-g2":
+    "In y = f(x) + 6, the +6 is outside the function, so every y-coordinate increases by 6. The vertical translation is 6 units up.",
+  "y11adv-gt-trans-g3":
+    "The expression x + 4 is inside the function, so the horizontal direction reverses. y = f(x + 4) shifts the graph 4 units left.",
+  "y11adv-gt-trans-g4":
+    "For y = f(x - 3) - 2, every point moves right 3 and down 2. The point (1,5) moves to (4,3).",
+  "y11adv-gt-trans-i1":
+    "The -7 is outside f(x), so it changes only the y-values. The graph shifts 7 units down.",
+  "y11adv-gt-trans-i2":
+    "A shift right 5 is written with x - 5 inside the function. The minus sign inside does not mean left; it means the image moves right.",
+  "y11adv-gt-trans-i4":
+    "Under y = f(x + 2) + 3, points move left 2 and up 3. Starting from (6,-1), the image is (4,2).",
+  "y11adv-gt-trans-i5":
+    "The transformation is left 3 and down 4. Applying that to (-2,6) gives x = -5 and y = 2, so the image is (-5,2).",
+  "y11adv-gt-trans-m3":
+    "For y = f(x - 8), the x - 8 is inside the function, so the graph shifts 8 units right.",
+  "y11adv-gt-trans-m5":
+    "The rule y = f(x + 1) - 6 moves every point left 1 and down 6. The point (2,9) becomes (1,3).",
+  "y11adv-gt-trans-m6":
+    "A vertical shift down 4 is written outside the function as -4. The required equation form is y = f(x) - 4.",
+  "y11adv-gt-trans-m7":
+    "For y = f(x - a) + b, the point (x,y) moves to (x + a, y + b). Here (0,-2) moves right 5 and up 7 to (5,5).",
+  "y11adv-gt-trans-m9":
+    "To move (-3,4) to (-6,9), the x-coordinate decreases by 3 and the y-coordinate increases by 5. The translation is left 3 and up 5.",
+  "y11adv-gt-trans-m10":
+    "The inside expression x + 4 shifts left 4, and the outside -1 shifts down 1. Applying both to (7,2) gives (3,1).",
+
+  // Dilations and reflections
+  "y11adv-gt-dil-g2":
+    "In y = 4f(x), the 4 is outside the function, so y-values are multiplied by 4. The vertical dilation factor is 4.",
+  "y11adv-gt-dil-g3":
+    "For y = f(2x), x-coordinates are divided by 2. The horizontal scale factor is 1/2, not 2.",
+  "y11adv-gt-dil-g4":
+    "The rule y = -f(x) changes each y-coordinate to its opposite. The point (3,-5) reflects in the x-axis to (3,5).",
+  "y11adv-gt-dil-i1":
+    "The coefficient 3 outside f(x) multiplies every y-coordinate by 3. The image of (2,-4) is (2,-12).",
+  "y11adv-gt-dil-i3":
+    "For y = f(x/5), x-coordinates are multiplied by 5. The horizontal scale factor is 5.",
+  "y11adv-gt-dil-i4":
+    "The rule y = f(-x) changes each x-coordinate to its opposite and leaves y unchanged. The point (-6,1) becomes (6,1).",
+  "y11adv-gt-dil-i5":
+    "A vertical dilation by factor 1/2 multiplies y by 1/2. The point (4,10) becomes (4,5).",
+  "y11adv-gt-dil-m2":
+    "For y = f(3x), the horizontal scale factor is the reciprocal of 3. The graph is horizontally dilated by factor 1/3.",
+  "y11adv-gt-dil-m4":
+    "Reflection in the y-axis changes x to -x. The equation form is y = f(-x).",
+  "y11adv-gt-dil-m5":
+    "The rule y = -2f(x) multiplies y-values by -2: this combines a reflection in the x-axis with a vertical dilation by factor 2. The point (-1,3) becomes (-1,-6).",
+  "y11adv-gt-dil-m6":
+    "For y = f(x/4), x-coordinates are multiplied by 4. The point (2,-3) becomes (8,-3).",
+  "y11adv-gt-dil-m8":
+    "Reflecting in the y-axis changes x from 5 to -5. Then the vertical dilation by factor 3 multiplies y from -2 to -6, giving (-5,-6).",
+  "y11adv-gt-dil-m10":
+    "The factor 1/2 outside f(x) halves each y-coordinate. The point (-4,8) becomes (-4,4).",
 
   // ── Polynomial and reciprocal graphs ──────────────────────────────────────
   "y11adv-gt-poly-g1":
@@ -196,6 +262,233 @@ export function year11AdvancedGraphTransformationsLessonOverride(
         practicalChoice("y11adv-gtc-m8", "Which equation shows reflection in the y-axis and a vertical shift down 2?", "C", ["y = -f(x) - 2", "y = f(x - 2)", "y = f(-x) - 2", "y = -f(-x) + 2"], "Reflection in the y-axis gives f(-x), then down 2 gives -2 outside.", "\\text{Reflect in the }y\\text{-axis and shift down }2."),
         practicalChoice("y11adv-gtc-m9", "A point on the original graph is transformed by the displayed rule. Where does it move?", "D", ["(4, 4)", "(-1, 4)", "(4, 1)", "(-1, 1)"], "The graph moves left 4 and down 3, so (3,4) moves to (-1,1).", "y=f(x+4)-3,\\quad (3,4)"),
         practicalChoice("y11adv-gtc-m10", "Which equation matches the transformation sequence shown?", "A", ["y = -f(x - 2) + 1", "y = f(-x - 2) + 1", "y = -f(x + 2) - 1", "y = f(x - 2) - 1"], "Right 2 gives f(x - 2), reflecting in the x-axis gives -f(x - 2), then up 1 gives +1.", "\\text{Shift right }2,\\text{ reflect in the }x\\text{-axis, then shift up }1."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "function-translations-general") {
+    const translationWorkedGraph: import("../types").CartesianGraph = {
+      description:
+        "The graph of y = x^2 and its translation y = (x - 2)^2 + 3, with the vertex image labelled.",
+      xMin: -3,
+      xMax: 6,
+      yMin: -1,
+      yMax: 8,
+      xStep: 1,
+      yStep: 1,
+      showGrid: true,
+      parabolas: [
+        { kind: "quadratic", a: 1, b: 0, c: 0, label: "y = f(x)" },
+        { kind: "quadratic", a: 1, b: -4, c: 7, label: "y = f(x - 2) + 3" },
+      ],
+      points: [
+        { x: 0, y: 0, label: "(0,0)" },
+        { x: 2, y: 3, label: "(2,3)" },
+      ],
+    };
+
+    return {
+      ...base,
+      description:
+        "Translate functions vertically, horizontally and in combination, and find image points after a translation.",
+      learningIntention:
+        "Apply general translation rules for y = f(x), including vertical shifts, horizontal shifts with reversed inside signs, combined translations and image coordinates.",
+      successCriteria: [
+        "Identify vertical translations from y = f(x) + a and y = f(x) - a.",
+        "Identify horizontal translations from y = f(x + a) and y = f(x - a).",
+        "Find the image of a point after a combined translation.",
+        "Match a translation description to the correct equation form.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A translation slides the graph without changing its shape. For y = f(x), changes outside the function move points up or down.",
+          "The rules y = f(x) + a and y = f(x) - a are vertical translations. Adding outside shifts up; subtracting outside shifts down.",
+          "Horizontal translations use the input inside f. This is the sign trap: y = f(x + a) shifts left a, while y = f(x - a) shifts right a.",
+          "For a combined translation y = f(x - a) + b, a point (x,y) on the original graph moves to (x + a, y + b). If the rule is y = f(x + a) + b, the x-coordinate moves to x - a.",
+        ],
+        latexBlocks: [
+          "y=f(x)+a \\Rightarrow \\text{up }a",
+          "y=f(x)-a \\Rightarrow \\text{down }a",
+          "y=f(x+a) \\Rightarrow \\text{left }a",
+          "y=f(x-a) \\Rightarrow \\text{right }a",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Translate a graph and a point",
+          questionLatex: "y=f(x-2)+3,\\quad (0,0)\\text{ on }y=f(x)",
+          cartesianGraph: translationWorkedGraph,
+          steps: [
+            { explanation: "The expression x - 2 is inside f, so the graph shifts 2 units right.", latex: "x-2\\Rightarrow \\text{right }2" },
+            { explanation: "The +3 is outside f, so the graph shifts 3 units up.", latex: "+3\\Rightarrow \\text{up }3" },
+            { explanation: "Apply the same movement to the point (0,0).", latex: "(0,0)\\mapsto(2,3)" },
+          ],
+          finalAnswerLatex: "\\text{Right }2\\text{ and up }3;\\quad (0,0)\\mapsto(2,3).",
+        },
+        {
+          title: "Read the sign in a horizontal translation",
+          questionLatex: "y=f(x+5)",
+          steps: [
+            { explanation: "The +5 is inside the function, so the horizontal shift reverses direction.", latex: "x+5=x-(-5)" },
+            { explanation: "The graph shifts left 5 units, not right 5 units.", latex: "\\text{left }5" },
+          ],
+          finalAnswerLatex: "\\text{Shift }y=f(x)\\text{ left }5\\text{ units.}",
+        },
+        {
+          title: "Find the image under a combined translation",
+          questionLatex: "y=f(x+3)-4,\\quad (-2,6)\\text{ on }y=f(x)",
+          steps: [
+            { explanation: "The x + 3 inside f shifts the graph 3 units left.", latex: "x\\mapsto x-3" },
+            { explanation: "The -4 outside f shifts the graph 4 units down.", latex: "y\\mapsto y-4" },
+            { explanation: "Apply both changes to (-2,6).", latex: "(-2,6)\\mapsto(-5,2)" },
+          ],
+          finalAnswerLatex: "(-5,2)",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice("y11adv-gt-trans-g1", "Which description matches the transformation?", "B", ["Right 3", "Left 3", "Up 3", "Down 3"], "The +3 is inside f, so the graph shifts left 3 units.", "y=f(x+3)"),
+        formulaAnswer("y11adv-gt-trans-g2", "Find the vertical shift distance for the transformation.", "y=f(x)+6", "6", ["up 6", "6 up"]),
+        formulaAnswer("y11adv-gt-trans-g3", "Find the horizontal shift distance for the transformation.", "y=f(x+4)", "4", ["left 4", "4 left"]),
+        formulaAnswer("y11adv-gt-trans-g4", "A point (1,5) lies on y = f(x). Find its image under the displayed transformation.", "y=f(x-3)-2", "(4,3)", coordinateVariants(4, 3)),
+      ],
+      independentPractice: [
+        formulaAnswer("y11adv-gt-trans-i1", "Find the vertical shift distance for the transformation.", "y=f(x)-7", "7", ["down 7", "7 down"]),
+        formulaAnswer("y11adv-gt-trans-i2", "A graph is shifted 5 units right. Find the number that appears inside y = f(x - a).", "y=f(x-a)", "5", ["a=5"]),
+        practicalChoice("y11adv-gt-trans-i3", "Which equation shifts y = f(x) left 2 and up 4?", "A", ["y = f(x + 2) + 4", "y = f(x - 2) + 4", "y = f(x + 4) + 2", "y = f(x - 2) - 4"], "Left 2 uses x + 2 inside f, and up 4 adds +4 outside.", "\\text{Left }2,\\quad \\text{up }4"),
+        formulaAnswer("y11adv-gt-trans-i4", "A point (6,-1) lies on y = f(x). Find its image under the displayed transformation.", "y=f(x+2)+3", "(4,2)", coordinateVariants(4, 2)),
+        formulaAnswer("y11adv-gt-trans-i5", "A point (-2,6) lies on y = f(x). Find its image under the displayed transformation.", "y=f(x+3)-4", "(-5,2)", coordinateVariants(-5, 2)),
+      ],
+      commonMistakes: [
+        { mistake: "Reading y = f(x + a) as a shift right.", fix: "Inside the function, the sign reverses: x + a shifts left a." },
+        { mistake: "Reading y = f(x - a) as a shift left.", fix: "x - a inside f shifts the graph right a." },
+        { mistake: "Applying a vertical shift to the x-coordinate.", fix: "Outside changes affect y-values only." },
+        { mistake: "Applying a horizontal shift to the y-coordinate.", fix: "Inside changes affect x-values only." },
+      ],
+      masteryQuiz: [
+        practicalChoice("y11adv-gt-trans-m1", "Which transformation is represented?", "D", ["Up 4", "Right 4", "Down 4", "Left 4"], "The +4 is inside f, so the graph shifts left 4.", "y=f(x+4)"),
+        practicalChoice("y11adv-gt-trans-m2", "Which transformation is represented?", "A", ["Down 9", "Up 9", "Left 9", "Right 9"], "The -9 is outside f, so the graph shifts down 9.", "y=f(x)-9"),
+        formulaAnswer("y11adv-gt-trans-m3", "Find the horizontal shift distance for the transformation.", "y=f(x-8)", "8", ["right 8", "8 right"]),
+        practicalChoice("y11adv-gt-trans-m4", "Which equation shifts y = f(x) right 6 and down 2?", "C", ["y = f(x + 6) - 2", "y = f(x - 2) + 6", "y = f(x - 6) - 2", "y = f(x + 6) + 2"], "Right 6 uses x - 6 inside f, and down 2 gives -2 outside.", "\\text{Right }6,\\quad \\text{down }2"),
+        formulaAnswer("y11adv-gt-trans-m5", "A point (2,9) lies on y = f(x). Find its image under the displayed transformation.", "y=f(x+1)-6", "(1,3)", coordinateVariants(1, 3)),
+        formulaAnswer("y11adv-gt-trans-m6", "A graph shifts 4 units down. Find the outside term b in y = f(x) + b.", "y=f(x)+b", "-4", ["b=-4", "b = -4"]),
+        formulaAnswer("y11adv-gt-trans-m7", "A point (0,-2) lies on y = f(x). Find its image under the displayed transformation.", "y=f(x-5)+7", "(5,5)", coordinateVariants(5, 5)),
+        practicalChoice("y11adv-gt-trans-m8", "Which equation matches a shift left 3 and down 5?", "B", ["y = f(x - 3) - 5", "y = f(x + 3) - 5", "y = f(x + 5) - 3", "y = f(x - 3) + 5"], "Left 3 uses x + 3 inside f, and down 5 gives -5 outside.", "\\text{Left }3,\\quad \\text{down }5"),
+        formulaAnswer("y11adv-gt-trans-m9", "A point (-3,4) is translated to (-6,9). Find the vertical shift distance.", "(-3,4)\\mapsto(-6,9)", "5", ["up 5", "5 up"]),
+        formulaAnswer("y11adv-gt-trans-m10", "A point (7,2) lies on y = f(x). Find its image under the displayed transformation.", "y=f(x+4)-1", "(3,1)", coordinateVariants(3, 1)),
+      ],
+    };
+  }
+
+  if (lesson.slug === "function-dilations-reflections") {
+    const dilationWorkedGraph: import("../types").CartesianGraph = {
+      description:
+        "The graph of y = x^2 and its vertical dilation y = 3x^2, with the image of (1,1) labelled.",
+      xMin: -3,
+      xMax: 3,
+      yMin: -1,
+      yMax: 8,
+      xStep: 1,
+      yStep: 1,
+      showGrid: true,
+      parabolas: [
+        { kind: "quadratic", a: 1, b: 0, c: 0, label: "y = f(x)" },
+        { kind: "quadratic", a: 3, b: 0, c: 0, label: "y = 3f(x)" },
+      ],
+      points: [
+        { x: 1, y: 1, label: "(1,1)" },
+        { x: 1, y: 3, label: "(1,3)" },
+      ],
+    };
+
+    return {
+      ...base,
+      description:
+        "Dilate and reflect functions, including vertical dilation, horizontal dilation, axis reflections and image points.",
+      learningIntention:
+        "Apply general dilation and reflection rules for y = f(x), including the reciprocal scale factor in y = f(ax).",
+      successCriteria: [
+        "Find the effect of y = kf(x) on y-coordinates.",
+        "Find the horizontal scale factor in y = f(kx) and y = f(x/k).",
+        "Find image points under reflections in the x-axis and y-axis.",
+        "Match dilation and reflection descriptions to equation forms.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A dilation changes the size of a graph relative to an axis. A reflection flips the graph in an axis.",
+          "In y = kf(x), the multiplier is outside the function, so it multiplies y-coordinates by k. A negative outside also reflects in the x-axis.",
+          "Horizontal dilations are counterintuitive. In y = f(ax), x-coordinates are divided by a, so the horizontal scale factor is 1/a.",
+          "The form y = f(x/a) has horizontal scale factor a. Reflections follow the same inside/outside idea: y = -f(x) reflects in the x-axis, while y = f(-x) reflects in the y-axis.",
+        ],
+        latexBlocks: [
+          "y=kf(x) \\Rightarrow y\\text{-values multiply by }k",
+          "y=f(ax) \\Rightarrow x\\text{-values multiply by }\\frac{1}{a}",
+          "y=f(x/a) \\Rightarrow x\\text{-values multiply by }a",
+          "y=-f(x)\\Rightarrow \\text{reflection in the }x\\text{-axis}",
+          "y=f(-x)\\Rightarrow \\text{reflection in the }y\\text{-axis}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Apply a vertical dilation",
+          questionLatex: "y=3f(x),\\quad (1,1)\\text{ on }y=f(x)",
+          cartesianGraph: dilationWorkedGraph,
+          steps: [
+            { explanation: "The 3 is outside f, so it multiplies every y-coordinate by 3.", latex: "y\\mapsto 3y" },
+            { explanation: "The x-coordinate is unchanged because the input x has not changed.", latex: "x\\mapsto x" },
+            { explanation: "Apply the change to (1,1).", latex: "(1,1)\\mapsto(1,3)" },
+          ],
+          finalAnswerLatex: "\\text{Vertical dilation factor }3;\\quad (1,1)\\mapsto(1,3).",
+        },
+        {
+          title: "Use the reciprocal horizontal scale factor",
+          questionLatex: "y=f(2x),\\quad (6,1)\\text{ on }y=f(x)",
+          steps: [
+            { explanation: "The 2 is inside f with x, so the horizontal scale factor is the reciprocal.", latex: "\\text{scale factor }\\frac{1}{2}" },
+            { explanation: "Divide the x-coordinate by 2 and leave y unchanged.", latex: "(6,1)\\mapsto(3,1)" },
+          ],
+          finalAnswerLatex: "(3,1)",
+        },
+        {
+          title: "Reflect in an axis",
+          questionLatex: "y=-f(x),\\quad (-3,5)\\text{ on }y=f(x)",
+          steps: [
+            { explanation: "The negative sign is outside f, so y-values change sign.", latex: "y\\mapsto -y" },
+            { explanation: "The x-coordinate is unchanged.", latex: "x\\mapsto x" },
+            { explanation: "Apply the reflection to (-3,5).", latex: "(-3,5)\\mapsto(-3,-5)" },
+          ],
+          finalAnswerLatex: "\\text{Reflection in the }x\\text{-axis; }(-3,-5).",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice("y11adv-gt-dil-g1", "Which transformation is represented?", "A", ["Reflection in the x-axis", "Reflection in the y-axis", "Vertical dilation by factor 2", "Horizontal dilation by factor 2"], "A negative outside f reflects the graph in the x-axis.", "y=-f(x)"),
+        formulaAnswer("y11adv-gt-dil-g2", "Find the vertical dilation factor.", "y=4f(x)", "4", ["factor 4"]),
+        formulaAnswer("y11adv-gt-dil-g3", "Find the horizontal scale factor.", "y=f(2x)", "1/2", ["0.5", "factor 1/2", "scale factor 1/2"]),
+        formulaAnswer("y11adv-gt-dil-g4", "A point (3,-5) lies on y = f(x). Find its image under the displayed transformation.", "y=-f(x)", "(3,5)", coordinateVariants(3, 5)),
+      ],
+      independentPractice: [
+        formulaAnswer("y11adv-gt-dil-i1", "A point (2,-4) lies on y = f(x). Find its image under the displayed transformation.", "y=3f(x)", "(2,-12)", coordinateVariants(2, -12)),
+        practicalChoice("y11adv-gt-dil-i2", "Which equation represents reflection in the y-axis?", "C", ["y = -f(x)", "y = f(x) - 1", "y = f(-x)", "y = 2f(x)"], "Reflection in the y-axis changes x to -x inside f.", "\\text{Reflect }y=f(x)\\text{ in the }y\\text{-axis.}"),
+        formulaAnswer("y11adv-gt-dil-i3", "Find the horizontal scale factor.", "y=f(x/5)", "5", ["factor 5", "scale factor 5"]),
+        formulaAnswer("y11adv-gt-dil-i4", "A point (-6,1) lies on y = f(x). Find its image under the displayed transformation.", "y=f(-x)", "(6,1)", coordinateVariants(6, 1)),
+        formulaAnswer("y11adv-gt-dil-i5", "A point (4,10) lies on y = f(x). Find its image under a vertical dilation by factor 1/2.", "y=\\frac{1}{2}f(x)", "(4,5)", coordinateVariants(4, 5)),
+      ],
+      commonMistakes: [
+        { mistake: "Using k instead of 1/k for y = f(kx).", fix: "Inside multipliers affect x-coordinates by the reciprocal factor." },
+        { mistake: "Reflecting in the wrong axis.", fix: "A negative outside f reflects in the x-axis; a negative inside f reflects in the y-axis." },
+        { mistake: "Changing both coordinates for a vertical dilation.", fix: "Vertical dilation changes y-values only." },
+        { mistake: "Changing y-values for a horizontal dilation.", fix: "Horizontal dilation changes x-values only." },
+      ],
+      masteryQuiz: [
+        practicalChoice("y11adv-gt-dil-m1", "Which transformation is represented?", "B", ["Vertical dilation by factor 3", "Horizontal dilation by factor 1/3", "Horizontal dilation by factor 3", "Reflection in the y-axis"], "For y = f(3x), x-values multiply by 1/3.", "y=f(3x)"),
+        formulaAnswer("y11adv-gt-dil-m2", "Find the horizontal scale factor.", "y=f(3x)", "1/3", ["0.333", "0.3333", "factor 1/3", "scale factor 1/3"]),
+        practicalChoice("y11adv-gt-dil-m3", "Which equation gives a vertical dilation by factor 5?", "D", ["y = f(5x)", "y = f(x/5)", "y = -f(x)", "y = 5f(x)"], "A multiplier outside f multiplies the y-values.", "\\text{Vertical dilation factor }5"),
+        formulaAnswer("y11adv-gt-dil-m4", "Which equation form represents reflection in the y-axis? Enter the expression after y =.", "y=f(-x)", "f(-x)", ["y=f(-x)", "y = f(-x)"]),
+        formulaAnswer("y11adv-gt-dil-m5", "A point (-1,3) lies on y = f(x). Find its image under the displayed transformation.", "y=-2f(x)", "(-1,-6)", coordinateVariants(-1, -6)),
+        formulaAnswer("y11adv-gt-dil-m6", "A point (2,-3) lies on y = f(x). Find its image under the displayed transformation.", "y=f(x/4)", "(8,-3)", coordinateVariants(8, -3)),
+        practicalChoice("y11adv-gt-dil-m7", "Which transformation is represented by y = -f(x)?", "A", ["Reflection in the x-axis", "Reflection in the y-axis", "Horizontal dilation by factor -1", "Vertical shift down 1"], "The negative sign outside f changes y-values to their opposites.", "y=-f(x)"),
+        formulaAnswer("y11adv-gt-dil-m8", "A point (5,-2) lies on y = f(x). Find its image under y = 3f(-x).", "y=3f(-x)", "(-5,-6)", coordinateVariants(-5, -6)),
+        practicalChoice("y11adv-gt-dil-m9", "Which statement is correct for y = f(4x)?", "C", ["The graph stretches horizontally by factor 4", "The graph shifts right 4", "The graph has horizontal scale factor 1/4", "The graph reflects in the y-axis"], "For y = f(ax), the horizontal scale factor is 1/a.", "y=f(4x)"),
+        formulaAnswer("y11adv-gt-dil-m10", "A point (-4,8) lies on y = f(x). Find its image under the displayed transformation.", "y=\\frac{1}{2}f(x)", "(-4,4)", coordinateVariants(-4, 4)),
       ],
     };
   }
