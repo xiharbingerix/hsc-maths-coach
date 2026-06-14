@@ -75,6 +75,55 @@ function probabilityFeedback(prompt: string, latex: string, answer: string): str
     return `Probability is a proportion, not just a raw count. Identify the favourable event and compare it with the total possible outcomes to get ${answer}.`;
   }
 
+  if (
+    context.includes("venn") ||
+    context.includes("intersection") ||
+    context.includes("\\cap") ||
+    context.includes("\\cup") ||
+    context.includes("only in") ||
+    context.includes("only soccer") ||
+    context.includes("only music") ||
+    context.includes("only sport") ||
+    context.includes("only basketball") ||
+    (context.includes("neither") && !context.includes("experimental"))
+  ) {
+    if (context.includes("neither")) {
+      return `"Neither" is the region outside both circles. First find the union count: n(A ∪ B) = n(A) + n(B) − n(A ∩ B), then subtract from the grand total. The answer is ${answer}.`;
+    }
+    if (context.includes("only")) {
+      return `"Only in one set" means subtracting the overlap from that set's total: n(A only) = n(A) − n(A ∩ B). Do not include the intersection count here. The answer is ${answer}.`;
+    }
+    return `For Venn diagram questions, identify which region is needed — intersection (A ∩ B), union (A ∪ B), only one set, or neither — then place that count over the grand total for a probability. The answer is ${answer}.`;
+  }
+
+  if (
+    context.includes("given that") ||
+    context.includes("given the") ||
+    context.includes("conditional") ||
+    context.includes("p(a|b)") ||
+    context.includes("p(bus | ") ||
+    context.includes("restricted sample") ||
+    (context.includes("given") && context.includes("year"))
+  ) {
+    return `Conditional probability restricts the sample space to the given group. Use the total of that group as the denominator, and the count matching both conditions as the numerator. The answer is ${answer}.`;
+  }
+
+  if (
+    context.includes("tree") ||
+    context.includes("branch") ||
+    context.includes("without replacement") ||
+    context.includes("with replacement") ||
+    context.includes("two draws") ||
+    context.includes("two coin") ||
+    context.includes("p(hh)") ||
+    context.includes("p(rr)")
+  ) {
+    if (context.includes("at least") || context.includes("exactly one")) {
+      return `Add the probabilities of all branches giving the desired outcome. List each qualifying sequence, multiply along its branch, then sum those results. The answer is ${answer}.`;
+    }
+    return `In a tree diagram: multiply probabilities along a single branch to get the probability of that sequence. For "without replacement", reduce both the count and the total after each draw. The answer is ${answer}.`;
+  }
+
   return `First identify whether the question uses equally likely outcomes, trial data or table data. Then use the matching denominator carefully to get ${answer}.`;
 }
 
@@ -252,6 +301,120 @@ function probabilityWorkedExamples(slug: string): WorkedExample[] {
           { explanation: "Write the result over the total of 40.", latex: "\\frac{24}{40}=\\frac{3}{5}" },
         ],
         finalAnswerLatex: "\\frac{3}{5}",
+      },
+    ];
+  }
+
+  if (slug === "venn-diagrams") {
+    return [
+      {
+        title: "Filling in a two-circle Venn diagram",
+        questionLatex:
+          "\\text{30 students: 18 play soccer (A), 15 play basketball (B), 7 play both. Find each region.}",
+        steps: [
+          { explanation: "Only soccer = total soccer − both.", latex: "n(A\\text{ only})=18-7=11" },
+          { explanation: "Only basketball = total basketball − both.", latex: "n(B\\text{ only})=15-7=8" },
+          { explanation: "Neither = grand total − union. Union = 11 + 7 + 8 = 26.", latex: "n(\\text{neither})=30-26=4" },
+        ],
+        finalAnswerLatex:
+          "\\text{Only soccer: 11, both: 7, only basketball: 8, neither: 4}",
+      },
+      {
+        title: "Probability from a Venn diagram",
+        questionLatex:
+          "\\text{Using the same diagram, find }P(\\text{soccer or basketball})\\text{ and }P(\\text{neither}).",
+        steps: [
+          { explanation: "Soccer or basketball means any of the three Venn regions: only A, both, only B.", latex: "\\frac{11+7+8}{30}=\\frac{26}{30}=\\frac{13}{15}" },
+          { explanation: "Neither is the region outside both circles.", latex: "P(\\text{neither})=\\frac{4}{30}=\\frac{2}{15}" },
+        ],
+        finalAnswerLatex:
+          "P(A\\cup B)=\\frac{13}{15},\\quad P(\\text{neither})=\\frac{2}{15}",
+      },
+      {
+        title: "Set notation: intersection, union, complement",
+        questionLatex:
+          "\\text{A ∩ B means both. A ∪ B means either/or. A' means not in A.}",
+        steps: [
+          { explanation: "A ∩ B is the overlap — elements in both sets at the same time.", latex: "A\\cap B\\Rightarrow\\text{intersection}" },
+          { explanation: "A ∪ B combines every element in either set (including the overlap).", latex: "A\\cup B\\Rightarrow\\text{union}" },
+          { explanation: "A' is everything outside A — the complement of A.", latex: "A'\\Rightarrow\\text{complement of }A" },
+        ],
+        finalAnswerLatex:
+          "A\\cap B\\text{ (both)},\\quad A\\cup B\\text{ (either/or)},\\quad A'\\text{ (not A)}",
+      },
+    ];
+  }
+
+  if (slug === "conditional-probability") {
+    return [
+      {
+        title: "Conditional probability from a two-way table",
+        questionLatex:
+          "\\begin{array}{c|cc|c}\\text{Year}&\\text{Bus}&\\text{Train}&\\text{Total}\\\\\\hline\\text{Year 11}&12&8&20\\\\\\text{Year 12}&10&20&30\\\\\\hline\\text{Total}&22&28&50\\end{array}",
+        steps: [
+          { explanation: "The question 'given Year 11' restricts the sample space to the Year 11 row only (20 students).", latex: "\\text{denominator}=20" },
+          { explanation: "Of those 20 Year 11 students, 12 catch the bus.", latex: "\\text{numerator}=12" },
+          { explanation: "Write the conditional probability.", latex: "P(\\text{bus}\\mid\\text{Year 11})=\\frac{12}{20}=\\frac{3}{5}" },
+        ],
+        finalAnswerLatex: "P(\\text{bus}\\mid\\text{Year 11})=\\frac{3}{5}",
+      },
+      {
+        title: "P(A|B) in the other direction",
+        questionLatex:
+          "\\text{Using the same table, find }P(\\text{train}\\mid\\text{Year 12}).",
+        steps: [
+          { explanation: "Restrict to Year 12 students only: 30 students.", latex: "\\text{denominator}=30" },
+          { explanation: "Of those 30, 20 catch the train.", latex: "P(\\text{train}\\mid\\text{Year 12})=\\frac{20}{30}=\\frac{2}{3}" },
+        ],
+        finalAnswerLatex: "P(\\text{train}\\mid\\text{Year 12})=\\frac{2}{3}",
+      },
+      {
+        title: "Independent events",
+        questionLatex:
+          "\\text{Are the events 'taking the bus' and 'being Year 11' independent? Explain.}",
+        steps: [
+          { explanation: "P(bus) for all students: 22/50 = 11/25 = 0.44.", latex: "P(\\text{bus})=\\frac{22}{50}=0.44" },
+          { explanation: "P(bus | Year 11) = 12/20 = 0.60 — different from 0.44.", latex: "P(\\text{bus}\\mid\\text{Year 11})=\\frac{12}{20}=0.60" },
+          { explanation: "Since P(bus | Year 11) ≠ P(bus), knowing a student is in Year 11 changes the probability. The events are not independent.", latex: "0.60\\neq 0.44\\Rightarrow\\text{not independent}" },
+        ],
+        finalAnswerLatex:
+          "\\text{Not independent — knowing the year group changes the probability of catching the bus.}",
+      },
+    ];
+  }
+
+  if (slug === "tree-diagrams") {
+    return [
+      {
+        title: "Tree diagram for two coin tosses",
+        questionLatex:
+          "\\text{A fair coin is tossed twice. Find }P(\\text{exactly one head}).",
+        steps: [
+          { explanation: "Draw branches: first toss H or T (each prob 1/2), then second toss H or T (each prob 1/2). Four paths: HH, HT, TH, TT.", latex: "P(\\text{each path})=\\frac{1}{2}\\times\\frac{1}{2}=\\frac{1}{4}" },
+          { explanation: "Exactly one head means HT or TH — two separate paths.", latex: "P(HT)+P(TH)=\\frac{1}{4}+\\frac{1}{4}=\\frac{1}{2}" },
+        ],
+        finalAnswerLatex: "P(\\text{exactly one head})=\\frac{1}{2}",
+      },
+      {
+        title: "Tree diagram without replacement",
+        questionLatex:
+          "\\text{Bag: 2 red, 3 blue. Two counters drawn without replacement. Find }P(RR).",
+        steps: [
+          { explanation: "First draw: 5 counters total, P(R) = 2/5.", latex: "P(R_1)=\\frac{2}{5}" },
+          { explanation: "After removing one red, 4 counters remain (1 red, 3 blue). P(R₂|R₁) = 1/4.", latex: "P(R_2\\mid R_1)=\\frac{1}{4}" },
+          { explanation: "Multiply along the RR branch.", latex: "P(RR)=\\frac{2}{5}\\times\\frac{1}{4}=\\frac{1}{10}" },
+        ],
+        finalAnswerLatex: "P(RR)=\\frac{1}{10}",
+      },
+      {
+        title: "Adding branches for 'at least one red'",
+        questionLatex:
+          "\\text{Bag: 2 red, 3 blue, two draws without replacement. Find }P(\\text{at least one red}).",
+        steps: [
+          { explanation: "Use the complement: P(at least one R) = 1 − P(no R) = 1 − P(BB).", latex: "P(BB)=\\frac{3}{5}\\times\\frac{2}{4}=\\frac{3}{10}" },
+          { explanation: "Subtract from 1.", latex: "P(\\text{at least one R})=1-\\frac{3}{10}=\\frac{7}{10}" },
+        ],
+        finalAnswerLatex: "P(\\text{at least one red})=\\frac{7}{10}",
       },
     ];
   }
@@ -489,6 +652,388 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
         probabilityChoice("prob-table-m8", "A student uses the table total when the question asks 'How many Year 12 students are there?' What should they use instead?", "B", ["A single cell only", "The Year 12 row total", "The Year 11 row total", "The largest number in the table"], "A row total counts all students in that row category."),
         probabilityAnswer("prob-table-m9", "A canteen table has 14 Year 11 students buying wraps, 16 Year 11 students buying salads, 10 Year 12 students buying wraps and 20 Year 12 students buying salads. Find the probability that a randomly selected order is a wrap.", "\\begin{array}{c|cc}\\text{Year}&\\text{Wrap}&\\text{Salad}\\\\\\hline\\text{Year 11}&14&16\\\\\\text{Year 12}&10&20\\end{array}", "2/5", fifths2),
         probabilityChoice("prob-table-m10", "A table of travel method by year group has 100 students in total. The bus column total is 35 and the Year 12 row total is 48. Which extra information is needed to find the probability of Year 12 and bus?", "C", ["The table title", "The largest cell", "The Year 12 bus cell count", "The number of columns"], "The 'Year 12 and bus' event is a specific cell count."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "venn-diagrams") {
+    return {
+      ...base,
+      description:
+        "Use two-circle Venn diagrams to count elements in the intersection, union and complement of two sets, and calculate probabilities from each region.",
+      learningIntention:
+        "Organise practical data into Venn diagrams and calculate probabilities from the intersection, union, and neither regions.",
+      successCriteria: [
+        "Identify the four Venn regions: only A, only B, both (A ∩ B), and neither.",
+        "Find 'only A' by subtracting the intersection from the total of A.",
+        "Find 'neither' by subtracting the union count from the grand total.",
+        "Calculate probabilities from each region using the grand total as the denominator.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A Venn diagram uses two overlapping circles to display two sets. The left circle is set A, the right circle is set B, and the overlapping region is A ∩ B (elements in both).",
+          "There are four regions: only in A (elements in A but not B), only in B (elements in B but not A), the intersection A ∩ B (in both), and outside both circles (in neither).",
+          "To fill in a Venn diagram from data: start with the intersection (A ∩ B), then subtract it from n(A) to get 'only A', and from n(B) to get 'only B'. Subtract the union from the total for 'neither'.",
+          "For probability, place the count of the desired region over the grand total. A ∪ B (union, meaning A or B) is the sum of all three inner regions.",
+        ],
+        latexBlocks: [
+          "n(A\\text{ only})=n(A)-n(A\\cap B)",
+          "n(A\\cup B)=n(A)+n(B)-n(A\\cap B)",
+          "n(\\text{neither})=n(\\text{total})-n(A\\cup B)",
+        ],
+      },
+      guidedPractice: [
+        probabilityChoice(
+          "prob-venn-g1",
+          "In a Venn diagram, A ∩ B represents:",
+          "B",
+          ["Elements in A but not B", "Elements in both A and B", "Elements in A or B or both", "Elements outside both circles"],
+          "The intersection A ∩ B is the overlapping region — elements belonging to both sets.",
+        ),
+        probabilityAnswer("prob-venn-g2", "A Venn diagram shows 18 soccer players and 15 basketball players with 7 playing both. How many play only soccer?", "n(A)-n(A\\cap B)=18-7", "11", ["11 students"]),
+        probabilityAnswer("prob-venn-g3", "From the same diagram with 30 students total, 11 play only soccer, 7 play both, and 8 play only basketball. How many play neither?", "30-11-7-8", "4", ["4 students"]),
+        probabilityAnswer("prob-venn-g4", "Find P(both soccer and basketball) using the Venn diagram (7 play both, 30 students total).", "\\frac{7}{30}", "7/30", ["0.23", "23%"]),
+      ],
+      independentPractice: [
+        probabilityChoice(
+          "prob-venn-i1",
+          "In a Venn diagram, A ∪ B (union) represents:",
+          "A",
+          ["Elements in A or B or both", "Elements in both A and B only", "Elements not in A", "Elements outside both circles"],
+          "The union A ∪ B includes every element in at least one of the two sets.",
+        ),
+        probabilityAnswer("prob-venn-i2", "15 students play basketball, 7 play both soccer and basketball. How many play only basketball?", "15-7", "8", ["8 students"]),
+        probabilityChoice(
+          "prob-venn-i3",
+          "A' (the complement of A) means:",
+          "B",
+          ["Elements in both A and B", "Elements not in A", "Elements in A and not in B", "Elements in the union of A and B"],
+          "The complement A' is everything outside set A.",
+        ),
+        probabilityAnswer("prob-venn-i4", "26 of 30 students play soccer or basketball. Find P(soccer or basketball).", "\\frac{26}{30}", "13/15", ["26/30"]),
+        probabilityAnswer("prob-venn-i5", "4 of 30 students play neither soccer nor basketball. Find P(neither).", "\\frac{4}{30}", "2/15", ["4/30"]),
+      ],
+      commonMistakes: [
+        { mistake: "Adding n(A) + n(B) without subtracting the intersection when finding the union count.", fix: "n(A ∪ B) = n(A) + n(B) − n(A ∩ B). The intersection is counted in both n(A) and n(B), so subtract it once to avoid double-counting." },
+        { mistake: "Writing n(A) = 18 as 'only soccer' when 7 students play both.", fix: "Only soccer = n(A) − n(A ∩ B) = 18 − 7 = 11. The intersection must be removed first." },
+        { mistake: "Using the union count as the denominator for probability instead of the grand total.", fix: "All probabilities use the grand total (all students surveyed) as the denominator, not the union count." },
+        { mistake: "Confusing A ∩ B (intersection, meaning both) with A ∪ B (union, meaning either or both).", fix: "∩ is the overlap region only. ∪ covers all three inner regions: only A, both, and only B." },
+      ],
+      masteryQuiz: [
+        probabilityChoice(
+          "prob-venn-m1",
+          "n(A ∪ B) = n(A) + n(B) − n(A ∩ B). Why is the intersection subtracted?",
+          "B",
+          ["Because n(A ∩ B) is always zero", "Because elements in both A and B are counted twice when adding n(A) and n(B)", "Because the intersection is in neither set", "Because n(A ∪ B) is always smaller than n(A ∩ B)"],
+          "Adding n(A) + n(B) counts the overlap twice — subtracting once gives the correct union total.",
+        ),
+        probabilityAnswer("prob-venn-m2", "Venn diagram: 20 like music (A), 25 like sport (B), 12 like both, 40 total. Find n(only music).", "20-12", "8", ["8 students"]),
+        probabilityAnswer("prob-venn-m3", "Find n(only sport) for the same diagram.", "25-12", "13", ["13 students"]),
+        probabilityAnswer("prob-venn-m4", "Find n(neither music nor sport) for 40 students total, with only music=8, both=12, only sport=13.", "40-8-12-13", "7", ["7 students"]),
+        probabilityAnswer("prob-venn-m5", "Find P(music or sport) from the same diagram (33 students in the union, 40 total).", "\\frac{33}{40}", "33/40", ["0.825", "82.5%"]),
+        probabilityAnswer("prob-venn-m6", "Find P(neither music nor sport) from the same diagram.", "\\frac{7}{40}", "7/40", ["0.175", "17.5%"]),
+        probabilityChoice(
+          "prob-venn-m7",
+          "In a Venn diagram, the region outside both circles represents:",
+          "C",
+          ["A ∩ B", "A ∪ B", "Elements in neither A nor B", "The complement of A ∩ B only"],
+          "The outside region contains elements that belong to neither set.",
+        ),
+        probabilityAnswer("prob-venn-m8", "P(A ∩ B) when n(A ∩ B) = 12 and total = 40.", "\\frac{12}{40}", "3/10", ["12/40", "0.3", "30%"]),
+        probabilityChoice(
+          "prob-venn-m9",
+          "A Venn diagram has 50 students: 20 in A, 15 in B, 8 in both. How many are in neither?",
+          "C",
+          ["7", "15", "23", "50"],
+          "n(A ∪ B) = 20 + 15 − 8 = 27. Neither = 50 − 27 = 23.",
+        ),
+        probabilityChoice(
+          "prob-venn-m10",
+          "A' in a Venn diagram with 40 students and 20 in A represents:",
+          "B",
+          ["The 20 students in A", "The 20 students not in A", "All students in A ∪ B", "The students in A ∩ B"],
+          "A' is the complement: everything outside A, which is 40 − 20 = 20 students.",
+        ),
+      ],
+    };
+  }
+
+  if (lesson.slug === "conditional-probability") {
+    return {
+      ...base,
+      description:
+        "Find P(A|B) by restricting the sample space to the given event B, using two-way tables to identify the correct denominator.",
+      learningIntention:
+        "Calculate conditional probabilities by restricting the sample space to a known group, and recognise when two events are independent.",
+      successCriteria: [
+        "Define P(A|B) as the probability of A given that B has already occurred.",
+        "Restrict the sample space to the given group when finding P(A|B) from a table.",
+        "Use the group total as the denominator in a conditional probability.",
+        "Recognise that P(A|B) = P(A) means A and B are independent events.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Conditional probability asks: given that one event has already happened, what is the probability of another? P(A|B) is read as 'the probability of A, given B'.",
+          "To find P(A|B) from a two-way table: identify the row or column corresponding to event B — that is the restricted sample space. Count only students or items in that group.",
+          "The denominator becomes the total of group B, not the grand total. The numerator is the count of elements that satisfy both A and B (the cell at the intersection of A and B).",
+          "Two events A and B are independent if knowing B occurred does not change the probability of A: P(A|B) = P(A). If P(A|B) ≠ P(A), the events are not independent.",
+        ],
+        latexBlocks: [
+          "P(A\\mid B)=\\frac{n(A\\cap B)}{n(B)}",
+          "\\text{independent: }P(A\\mid B)=P(A)",
+        ],
+      },
+      guidedPractice: [
+        probabilityChoice(
+          "prob-cond-g1",
+          "P(A|B) means:",
+          "B",
+          ["The probability of both A and B occurring", "The probability of A given that B has occurred", "The probability of A plus P(B)", "The probability of neither A nor B"],
+          "P(A|B) is a conditional probability — we already know B happened.",
+        ),
+        probabilityAnswer(
+          "prob-cond-g2",
+          "Table: Year 11 has 20 students total (12 bus, 8 train). A Year 11 student is chosen at random. Find P(bus | Year 11).",
+          "\\begin{array}{c|cc|c}&\\text{Bus}&\\text{Train}&\\text{Total}\\\\\\hline\\text{Year 11}&12&8&20\\\\\\text{Year 12}&10&20&30\\end{array}",
+          "3/5",
+          ["12/20", "0.6", "60%"],
+        ),
+        probabilityChoice(
+          "prob-cond-g3",
+          "Why is the denominator 20, not 50, when finding P(bus | Year 11)?",
+          "A",
+          ["Because the sample space is restricted to the 20 Year 11 students", "Because 20 is greater than 10", "Because the train count is 20", "Because buses are chosen at random from 20 stops"],
+          "Conditional probability restricts the denominator to the given group — Year 11 students only.",
+        ),
+        probabilityAnswer(
+          "prob-cond-g4",
+          "Using the same table (Year 12: 10 bus, 20 train, total 30), find P(train | Year 12).",
+          "\\begin{array}{c|cc|c}&\\text{Bus}&\\text{Train}&\\text{Total}\\\\\\hline\\text{Year 11}&12&8&20\\\\\\text{Year 12}&10&20&30\\end{array}",
+          "2/3",
+          ["20/30", "0.67", "67%"],
+        ),
+      ],
+      independentPractice: [
+        probabilityAnswer(
+          "prob-cond-i1",
+          "Using the same table (Year 12: 10 bus, 20 train, total 30), find P(bus | Year 12).",
+          "\\begin{array}{c|cc|c}&\\text{Bus}&\\text{Train}&\\text{Total}\\\\\\hline\\text{Year 11}&12&8&20\\\\\\text{Year 12}&10&20&30\\end{array}",
+          "1/3",
+          ["10/30", "0.33", "33%"],
+        ),
+        probabilityChoice(
+          "prob-cond-i2",
+          "Restricting the sample space to 'Year 12' students means:",
+          "B",
+          ["We consider all 50 students but highlight Year 12", "We use only the 30 Year 12 students as our new total", "We remove Year 12 from the table", "We use 30 as the numerator"],
+          "The denominator becomes 30 — only Year 12 students are in the restricted space.",
+        ),
+        probabilityAnswer(
+          "prob-cond-i3",
+          "From the same table, bus total = 22 (Year 11: 12, Year 12: 10). Find P(Year 11 | bus).",
+          "\\text{restrict to 22 bus students; 12 are Year 11}",
+          "6/11",
+          ["12/22"],
+        ),
+        probabilityChoice(
+          "prob-cond-i4",
+          "Two events A and B are independent if:",
+          "C",
+          ["P(A) + P(B) = 1", "A and B cannot both occur", "P(A|B) = P(A) — knowing B occurred does not change P(A)", "P(A ∩ B) = 0"],
+          "Independence means knowing one event gives no information about the other.",
+        ),
+        probabilityAnswer(
+          "prob-cond-i5",
+          "Events A and B are independent. P(A) = 0.4. What is P(A|B)?",
+          "\\text{independent: }P(A\\mid B)=P(A)",
+          "0.4",
+          ["40%", "40 percent", "2/5"],
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Using the grand total (50) instead of the group total (20) as the denominator for P(bus | Year 11).", fix: "Conditional probability restricts the sample space — the denominator is the total of the given group, not the table total." },
+        { mistake: "Confusing P(bus | Year 11) = 12/20 with P(Year 11 | bus) = 12/22.", fix: "The condition (the 'given' part) determines which group becomes the denominator. Reversing the condition gives a different fraction with a different denominator." },
+        { mistake: "Assuming all events are independent without comparing P(A|B) with P(A).", fix: "Check independence by comparing: if P(A|B) ≠ P(A), the events affect each other and are not independent." },
+        { mistake: "Using the numerator as the total number in the given group rather than the count matching both conditions.", fix: "The numerator is the cell where both conditions overlap (e.g., Year 11 AND bus), not the entire Year 11 row total." },
+      ],
+      masteryQuiz: [
+        probabilityChoice(
+          "prob-cond-m1",
+          "P(A|B) is calculated by:",
+          "C",
+          ["Dividing P(A) by P(B) always", "Multiplying P(A) by P(B)", "Restricting the denominator to group B and using the A ∩ B count as numerator", "Adding P(A) and P(B)"],
+          "P(A|B) = n(A ∩ B) ÷ n(B) — restrict the space to group B.",
+        ),
+        probabilityAnswer(
+          "prob-cond-m2",
+          "Sports table: Year 11 total = 25 (15 soccer, 10 netball). Find P(soccer | Year 11).",
+          "\\begin{array}{c|cc|c}&\\text{Soccer}&\\text{Netball}&\\text{Total}\\\\\\hline\\text{Year 11}&15&10&25\\\\\\text{Year 12}&20&15&35\\end{array}",
+          "3/5",
+          ["15/25", "0.6", "60%"],
+        ),
+        probabilityAnswer(
+          "prob-cond-m3",
+          "Year 12 total = 35 (20 soccer, 15 netball). Find P(netball | Year 12).",
+          "\\begin{array}{c|cc|c}&\\text{Soccer}&\\text{Netball}&\\text{Total}\\\\\\hline\\text{Year 11}&15&10&25\\\\\\text{Year 12}&20&15&35\\end{array}",
+          "3/7",
+          ["15/35", "0.43", "43%"],
+        ),
+        probabilityChoice(
+          "prob-cond-m4",
+          "In P(soccer | Year 11), the denominator is:",
+          "B",
+          ["The total number of soccer players (35)", "The total number of Year 11 students (25)", "The grand total (60)", "The Year 11 soccer cell (15)"],
+          "The given group (Year 11) determines the denominator — 25 Year 11 students.",
+        ),
+        probabilityAnswer(
+          "prob-cond-m5",
+          "Soccer total = 35 (15 from Year 11). Find P(Year 11 | soccer).",
+          "\\text{restrict to 35 soccer players; 15 are Year 11}",
+          "3/7",
+          ["15/35", "0.43"],
+        ),
+        probabilityChoice(
+          "prob-cond-m6",
+          "Independent events means:",
+          "A",
+          ["P(A|B) = P(A) — the probability of A is unchanged by knowing B", "P(A ∩ B) = 0", "A and B cannot occur together", "P(A) + P(B) = 1"],
+          "Independence: the condition gives no information. P(A|B) = P(A).",
+        ),
+        probabilityAnswer(
+          "prob-cond-m7",
+          "A and B are independent. P(A) = 3/5. What is P(A|B)?",
+          "\\text{independent} \\Rightarrow P(A\\mid B)=P(A)",
+          "3/5",
+          ["0.6", "60%"],
+        ),
+        probabilityChoice(
+          "prob-cond-m8",
+          "P(A|B) = P(A) tells us:",
+          "C",
+          ["P(A) is impossible", "A and B always occur together", "A and B are independent events", "The sample space is empty"],
+          "Equal conditional and unconditional probabilities signal independence.",
+        ),
+        probabilityAnswer(
+          "prob-cond-m9",
+          "Table of 100: 60 female (40 choc, 20 van), 40 male (30 choc, 10 van). Find P(chocolate | female).",
+          "\\text{restrict to 60 female customers; 40 chose chocolate}",
+          "2/3",
+          ["40/60", "0.67", "67%"],
+        ),
+        probabilityChoice(
+          "prob-cond-m10",
+          "P(A and B) = 8/50 and P(A|B) are different because:",
+          "B",
+          ["They always give the same value", "P(A and B) uses the grand total, while P(A|B) uses only the B group total as denominator", "P(A|B) is always larger than P(A and B)", "They involve different events"],
+          "P(A ∩ B) divides by the grand total; P(A|B) divides by n(B) — a smaller denominator.",
+        ),
+      ],
+    };
+  }
+
+  if (lesson.slug === "tree-diagrams") {
+    return {
+      ...base,
+      description:
+        "Construct tree diagrams for multi-stage probability problems, multiply along branches and add separate paths to find combined event probabilities with and without replacement.",
+      learningIntention:
+        "Use tree diagrams to find combined event probabilities by multiplying along branches and adding paths for multi-stage situations.",
+      successCriteria: [
+        "Draw a tree diagram showing all branches for a two-stage probability problem.",
+        "Multiply probabilities along a single branch to find the probability of that sequence.",
+        "Add the probabilities of all branches giving the desired outcome.",
+        "Adjust branch probabilities correctly when drawing without replacement.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A tree diagram shows all possible outcomes of a multi-stage probability situation. Each branch represents one possible outcome at that stage. The probability of each branch is written on it.",
+          "To find the probability of a particular sequence of outcomes, multiply the probabilities along that branch from left to right.",
+          "To find the probability of an event that can happen in several ways (like 'exactly one head'), add the probabilities of all branches that produce that outcome.",
+          "When drawing without replacement, the probabilities on later branches change because the total number of items in the bag or population decreases. Always count how many remain for each possible second draw.",
+        ],
+        latexBlocks: [
+          "P(\\text{sequence})=P(\\text{stage 1})\\times P(\\text{stage 2}\\mid\\text{stage 1})",
+          "P(\\text{event})=\\sum_{\\text{branches giving event}} P(\\text{branch})",
+        ],
+      },
+      guidedPractice: [
+        probabilityChoice(
+          "prob-tree-g1",
+          "In a tree diagram, to find the probability of a specific sequence of outcomes, you:",
+          "B",
+          ["Add the probabilities on each branch of that path", "Multiply the probabilities on each branch of that path", "Add the probabilities across all paths", "Use the complement rule only"],
+          "Multiply along a single branch to combine the sequential probabilities.",
+        ),
+        probabilityAnswer("prob-tree-g2", "A fair coin is tossed twice. P(H) = 1/2 each toss. Find P(HH) by multiplying along the HH branch.", "\\frac{1}{2}\\times\\frac{1}{2}", "1/4", quarters),
+        probabilityAnswer("prob-tree-g3", "Find P(HT) for the same two-coin tree.", "\\frac{1}{2}\\times\\frac{1}{2}", "1/4", quarters),
+        probabilityChoice(
+          "prob-tree-g4",
+          "P(exactly one head) = P(HT) + P(TH). This uses addition because:",
+          "A",
+          ["HT and TH are separate paths that each give exactly one head", "HT and TH are the same outcome", "The paths are multiplied first and then divided", "Only the last branch matters"],
+          "When the same event can happen via different paths, add the path probabilities.",
+        ),
+      ],
+      independentPractice: [
+        probabilityAnswer("prob-tree-i1", "Two fair coin tosses: find P(exactly one head) = P(HT) + P(TH).", "\\frac{1}{4}+\\frac{1}{4}", "1/2", halves),
+        probabilityAnswer("prob-tree-i2", "Two fair coin tosses: find P(at least one head) = P(HH) + P(HT) + P(TH).", "\\frac{1}{4}+\\frac{1}{4}+\\frac{1}{4}", "3/4", threeQuarters),
+        probabilityChoice(
+          "prob-tree-i3",
+          "Bag: 2 red, 3 blue (5 total). Two drawn without replacement. After drawing a red first, the bag contains:",
+          "B",
+          ["2 red and 3 blue (5 total)", "1 red and 3 blue (4 total)", "2 red and 2 blue (4 total)", "1 red and 2 blue (3 total)"],
+          "Remove 1 red from the bag: 5 − 1 = 4 remaining, with 1 red and 3 blue.",
+        ),
+        probabilityAnswer("prob-tree-i4", "Bag: 2 red, 3 blue. Without replacement: P(R₁ then R₂) = 2/5 × 1/4.", "\\frac{2}{5}\\times\\frac{1}{4}", "1/10", ["2/20", "0.1", "10%"]),
+        probabilityAnswer("prob-tree-i5", "P(R₁ then B₂) = 2/5 × 3/4.", "\\frac{2}{5}\\times\\frac{3}{4}", "3/10", ["6/20", "0.3", "30%"]),
+      ],
+      commonMistakes: [
+        { mistake: "Adding branch probabilities along a single path instead of multiplying.", fix: "Multiply along one branch: P(RR) = P(R₁) × P(R₂|R₁) = 2/5 × 1/4 = 1/10, not 2/5 + 1/4." },
+        { mistake: "Forgetting to include all paths when finding P(exactly one red) — listing only P(RB) and missing P(BR).", fix: "Draw all branches first. Exactly one red can happen two ways: RB or BR. Add both branch probabilities." },
+        { mistake: "Using the original bag size as the denominator on the second branch when drawing without replacement.", fix: "After one draw, the bag has one fewer item. For a bag of 5, the second-draw denominator is 4." },
+        { mistake: "Thinking P(at least one red) = P(one red) — missing the case where both draws are red.", fix: "At least one red means RB, BR, or RR. Either add all three path probabilities or use the complement: 1 − P(BB)." },
+      ],
+      masteryQuiz: [
+        probabilityChoice(
+          "prob-tree-m1",
+          "Multiplying along a branch in a tree diagram gives:",
+          "B",
+          ["The sum of all possible outcomes", "The probability of that specific sequence of events", "The complement of the event", "The total number of branches"],
+          "Each branch represents one sequence; multiplying along it gives its probability.",
+        ),
+        probabilityAnswer("prob-tree-m2", "Bag: 2 red, 3 blue (5 total), draw 2 without replacement. P(BB) = 3/5 × 2/4.", "\\frac{3}{5}\\times\\frac{2}{4}", "3/10", ["6/20", "0.3", "30%"]),
+        probabilityAnswer("prob-tree-m3", "P(BR) = 3/5 × 2/4 for the same bag.", "\\frac{3}{5}\\times\\frac{2}{4}", "3/10", ["6/20", "0.3", "30%"]),
+        probabilityChoice(
+          "prob-tree-m4",
+          "P(at least one red) = 1 − P(BB) = 1 − 3/10. What is this?",
+          "C",
+          ["3/10", "1/10", "7/10", "1/2"],
+          "1 − 3/10 = 7/10.",
+        ),
+        probabilityAnswer("prob-tree-m5", "P(exactly one red) = P(RB) + P(BR) = 3/10 + 3/10.", "\\frac{3}{10}+\\frac{3}{10}", "3/5", ["6/10", "0.6", "60%"]),
+        probabilityChoice(
+          "prob-tree-m6",
+          "What changes when drawing WITHOUT replacement compared to WITH replacement?",
+          "B",
+          ["The first-draw probabilities change", "The second-branch probabilities change because the bag has one fewer item", "Nothing changes — both give the same result", "The number of branches doubles"],
+          "After one draw, the bag is smaller — the denominator on later branches decreases.",
+        ),
+        probabilityAnswer("prob-tree-m7", "Bag: 3 red, 2 blue (5 total), draw 2 WITH replacement. P(RR) = 3/5 × 3/5.", "\\frac{3}{5}\\times\\frac{3}{5}", "9/25", ["0.36", "36%"]),
+        probabilityAnswer("prob-tree-m8", "Same bag with replacement: P(RB) = 3/5 × 2/5.", "\\frac{3}{5}\\times\\frac{2}{5}", "6/25", ["0.24", "24%"]),
+        probabilityChoice(
+          "prob-tree-m9",
+          "For bag 2R, 3B without replacement: P(both same colour) = P(RR) + P(BB) = 1/10 + 3/10. This equals:",
+          "A",
+          ["2/5", "1/2", "3/5", "7/10"],
+          "1/10 + 3/10 = 4/10 = 2/5.",
+        ),
+        probabilityChoice(
+          "prob-tree-m10",
+          "To find P(at least one blue) using the complement method:",
+          "B",
+          ["Find P(at least one red) and subtract", "Find P(no blue) = P(RR) and subtract from 1", "Add P(blue) on the first branch only", "Multiply P(blue) on both branches"],
+          "P(at least one blue) = 1 − P(no blue) = 1 − P(RR) = 1 − 1/10 = 9/10.",
+        ),
       ],
     };
   }

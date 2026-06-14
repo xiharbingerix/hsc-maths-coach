@@ -1912,6 +1912,24 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Read two-way tables, row and column totals, and simple table probabilities from practical data.",
           },
           {
+            slug: "venn-diagrams",
+            title: "Venn Diagrams",
+            description:
+              "Use two-circle Venn diagrams to count elements in the intersection, union and complement of two sets, and calculate probabilities from each region.",
+          },
+          {
+            slug: "conditional-probability",
+            title: "Conditional Probability",
+            description:
+              "Find P(A|B) by restricting the sample space to the given event B, using two-way tables and Venn diagrams to identify the correct denominator.",
+          },
+          {
+            slug: "tree-diagrams",
+            title: "Tree Diagrams",
+            description:
+              "Construct tree diagrams for multi-stage probability problems, multiply along branches and add separate paths to find combined event probabilities with and without replacement.",
+          },
+          {
             slug: "probability-exam-practice",
             title: "Probability Exam Practice",
             description:
