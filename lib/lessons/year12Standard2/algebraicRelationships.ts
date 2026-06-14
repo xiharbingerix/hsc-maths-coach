@@ -638,6 +638,194 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
     };
   }
 
+  if (lesson.slug === "linear-inequalities-modelling") {
+    return {
+      ...base,
+      description:
+        "Solve linear inequalities, represent solutions on a number line, and interpret inequality constraints in practical budgeting and threshold contexts.",
+      learningIntention:
+        "Use inequalities to express practical constraints and find the range of input values that satisfy them.",
+      successCriteria: [
+        "Solve a linear inequality by isolating the variable, remembering to reverse the sign when multiplying or dividing by a negative number.",
+        "Represent inequality solutions on a number line using open and closed circles.",
+        "Interpret an inequality answer in a practical context such as a budget limit or minimum profit.",
+        "Write an inequality from a word problem and identify the meaning of the solution set.",
+      ],
+      teaching: {
+        paragraphs: [
+          "An inequality is like an equation but uses <, ≤, >, or ≥ instead of =. Solving one means finding all values of the variable that make it true.",
+          "The key rule: if you multiply or divide both sides by a negative number, reverse the inequality sign. Adding or subtracting never changes the sign.",
+          "On a number line, use an open circle ○ for strict inequalities (< or >) and a closed circle ● for ≤ or ≥. Shade in the direction of the solution.",
+          "Practical contexts: a budget constraint means total spending must be less than or equal to the limit; a profit threshold means revenue minus cost must exceed the target.",
+        ],
+        latexBlocks: [
+          "3x+5\\le20\\implies 3x\\le15\\implies x\\le5",
+          "-2x>8\\implies x<-4\\;(\\text{sign reverses})",
+          "\\text{Number line: }\\bullet\\!\\!\\!-\\!\\!\\!-\\!\\!\\!-\\text{ for }\\le,\\quad \\circ\\!\\!\\!-\\!\\!\\!-\\text{ for }<",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Solve a budget inequality",
+          questionLatex:
+            "\\text{A student can spend at most }\\$50.\\text{ Books cost }\\$8\\text{ each; she already paid }\\$10\\text{ for a bag. Find the max number of books.}",
+          steps: [
+            {
+              explanation: "Write the inequality.",
+              latex: "10+8b\\le50",
+            },
+            {
+              explanation: "Subtract 10 from both sides.",
+              latex: "8b\\le40",
+            },
+            {
+              explanation: "Divide by 8.",
+              latex: "b\\le5",
+            },
+          ],
+          finalAnswerLatex: "b\\le5\\text{ (at most 5 books)}",
+        },
+        {
+          title: "Solve an inequality with sign reversal",
+          questionLatex:
+            "-3x+6>12",
+          steps: [
+            {
+              explanation: "Subtract 6 from both sides.",
+              latex: "-3x>6",
+            },
+            {
+              explanation: "Divide by −3 and reverse the sign.",
+              latex: "x<-2",
+            },
+          ],
+          finalAnswerLatex: "x<-2",
+        },
+      ],
+      guidedPractice: [
+        algebraAnswer("y12s2-ineq-g1", "Solve 2x + 3 ≤ 11.", "2x+3\\le11", "x≤4", "Subtract 3: 2x ≤ 8. Divide by 2: x ≤ 4."),
+        algebraAnswer("y12s2-ineq-g2", "Solve 5x − 2 > 13.", "5x-2>13", "x>3", "Add 2: 5x > 15. Divide by 5: x > 3."),
+        practicalChoice("y12s2-ineq-g3", "When solving −4x < 20, which is the correct answer?", "B", ["x < −5", "x > −5", "x < 5", "x > 5"], "Dividing by −4 reverses the inequality: x > 20/4 = 5 — wait, 20/4 = 5 and dividing negative gives x > −5."),
+        practicalChoice("y12s2-ineq-g4", "A budget inequality gives h ≤ 6. In a hire context, this means:", "A", ["At most 6 hours can be hired", "Exactly 6 hours must be hired", "At least 6 hours are needed", "6 dollars is the fixed fee"], "≤ means up to and including 6."),
+      ],
+      independentPractice: [
+        algebraAnswer("y12s2-ineq-i1", "Solve 3x + 7 ≤ 22.", "3x+7\\le22", "x≤5", "Subtract 7: 3x ≤ 15. Divide by 3: x ≤ 5."),
+        algebraAnswer("y12s2-ineq-i2", "Solve −2x + 4 ≥ 10.", "-2x+4\\ge10", "x≤−3", "Subtract 4: −2x ≥ 6. Divide by −2 and reverse: x ≤ −3.", ["x ≤ -3", "x≤-3"]),
+        algebraAnswer("y12s2-ineq-i3", "A phone plan lets you use at most 15 GB. If you already used 6 GB, write an inequality for the remaining data r.", "6+r\\le15", "r≤9", "6 + r ≤ 15 gives r ≤ 9 GB remaining."),
+        practicalChoice("y12s2-ineq-i4", "Profit P = 5n − 80. For P > 0, find the minimum n.", "C", ["n > 5", "n > 10", "n > 16", "n > 80"], "5n − 80 > 0 → 5n > 80 → n > 16."),
+        practicalChoice("y12s2-ineq-i5", "Which number line correctly shows x > 3?", "A", ["Open circle at 3, shading to the right", "Closed circle at 3, shading to the right", "Open circle at 3, shading to the left", "Closed circle at 3, shading to the left"], "Strict inequality > uses an open circle, and shading goes in the direction where values are larger."),
+      ],
+      commonMistakes: [
+        { mistake: "Not reversing the inequality sign when dividing by a negative.", fix: "Whenever you multiply or divide both sides by a negative number, flip <, ≤, >, ≥." },
+        { mistake: "Using a closed circle for strict inequalities.", fix: "Use ○ for < and >, and ● for ≤ and ≥ on a number line." },
+        { mistake: "Writing the wrong direction on the number line.", fix: "x > 3 shades to the right; x < 3 shades to the left." },
+        { mistake: "Solving correctly but not interpreting in context.", fix: "State what the answer means: 'at most 5 books', 'at least 16 items', etc." },
+      ],
+      masteryQuiz: [
+        algebraAnswer("y12s2-ineq-m1", "Solve 4x − 1 ≤ 15.", "4x-1\\le15", "x≤4", "Add 1: 4x ≤ 16. Divide by 4: x ≤ 4."),
+        algebraAnswer("y12s2-ineq-m2", "Solve −x + 5 > 2.", "-x+5>2", "x<3", "Subtract 5: −x > −3. Divide by −1 and reverse: x < 3."),
+        practicalChoice("y12s2-ineq-m3", "A profit model P = 8n − 64. The minimum number of units for profit (P > 0) is:", "C", ["n > 6", "n > 7", "n > 8", "n > 64"], "8n > 64 → n > 8."),
+        algebraAnswer("y12s2-ineq-m4", "Solve 6 − 2x ≥ 0.", "6-2x\\ge0", "x≤3", "−2x ≥ −6. Divide by −2 and reverse: x ≤ 3."),
+        practicalChoice("y12s2-ineq-m5", "A student solves 2x > 10 and writes x > 2. What went wrong?", "B", ["Nothing; x > 2 is correct", "She divided by 5, not by 2. x > 5 is correct.", "She reversed the sign", "She forgot to add 10"], "2x > 10 → x > 5. Dividing 10 by 2 gives 5, not 2."),
+        algebraAnswer("y12s2-ineq-m6", "A budget: 15 + 4n ≤ 55. Find the maximum n.", "15+4n\\le55", "n≤10", "4n ≤ 40. n ≤ 10."),
+        practicalChoice("y12s2-ineq-m7", "The solution x ≤ 5 means:", "A", ["All values up to and including 5", "Only the value 5", "All values greater than 5", "All negative values"], "≤ includes 5 and all smaller values."),
+        algebraAnswer("y12s2-ineq-m8", "Solve 3 − 5x < 28.", "3-5x<28", "x>−5", "−5x < 25. Divide by −5 and reverse: x > −5.", ["x > -5", "x>-5"]),
+        practicalChoice("y12s2-ineq-m9", "Which inequality represents 'earn at least 200 dollars from selling n items at 12 dollars each'?", "C", ["12n < 200", "12n = 200", "12n ≥ 200", "12 ≥ 200n"], "'At least' means ≥."),
+        practicalChoice("y12s2-ineq-m10", "A rental inequality gives t ≤ 4. The maximum rental time is:", "A", ["4 hours", "Less than 4 hours", "More than 4 hours", "Exactly 4 hours if positive"], "≤ means up to and including 4 hours."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "working-with-formulae-substitution") {
+    return {
+      ...base,
+      description:
+        "Substitute values into literal equations from science, finance, and measurement contexts, and rearrange simple formulas to find a target variable.",
+      learningIntention:
+        "Use substitution and simple rearrangement to find unknown quantities from practical formulas.",
+      successCriteria: [
+        "Substitute given values into a formula and evaluate the result.",
+        "Rearrange a simple formula to make a different variable the subject.",
+        "Apply formulas from finance (compound interest, depreciation) and measurement (area, speed, density).",
+        "Check units and reasonableness after substitution.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Many practical problems give you a formula and ask you to find one value when others are known. Substitute the given values and simplify.",
+          "To make a variable the subject, use inverse operations: if the variable is multiplied by a number, divide both sides; if it is added, subtract both sides.",
+          "Common HSC formulas: compound interest A = P(1 + r)^n, speed S = D/T, density D = M/V, area A = lw or A = (1/2)bh, BMI = mass/height².",
+          "Always include units in the final answer. The formula gives a number; the context gives the unit.",
+        ],
+        latexBlocks: [
+          "A=P(1+r)^n",
+          "S=\\frac{D}{T}\\implies D=S\\times T\\implies T=\\frac{D}{S}",
+          "\\text{BMI}=\\frac{m}{h^2},\\quad D=\\frac{M}{V}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Substitute into compound interest",
+          questionLatex:
+            "A=P(1+r)^n.\\;P=2000,\\;r=0.05,\\;n=3.",
+          steps: [
+            {
+              explanation: "Substitute the values.",
+              latex: "A=2000(1.05)^3",
+            },
+            {
+              explanation: "Evaluate (1.05)³ = 1.157625.",
+              latex: "A=2000\\times1.157625=2315.25",
+            },
+          ],
+          finalAnswerLatex: "A=\\$2315.25",
+        },
+        {
+          title: "Rearrange to find time",
+          questionLatex:
+            "S=\\frac{D}{T}.\\;\\text{Find }T\\text{ when }S=60\\text{ km/h, }D=150\\text{ km.}",
+          steps: [
+            {
+              explanation: "Rearrange: T = D/S.",
+              latex: "T=\\frac{150}{60}=2.5",
+            },
+          ],
+          finalAnswerLatex: "T=2.5\\text{ h}",
+        },
+      ],
+      guidedPractice: [
+        algebraAnswer("y12s2-form-g1", "Using A = P(1 + r)^n with P = 1000, r = 0.04, n = 2, find A.", "A=1000(1.04)^2", "1081.60", "A = 1000 × 1.0816 = 1081.60.", ["$1081.60", "1081.6"]),
+        algebraAnswer("y12s2-form-g2", "Speed S = D/T. Find D when S = 80 km/h and T = 3 h.", "D=S\\times T=80\\times3", "240", "D = 80 × 3 = 240 km.", ["240 km"]),
+        practicalChoice("y12s2-form-g3", "To make D the subject in S = D/T:", "B", ["Divide both sides by D", "Multiply both sides by T", "Subtract T from both sides", "Square both sides"], "D = S × T. Multiply both sides by T."),
+        practicalChoice("y12s2-form-g4", "BMI = mass/height². A person is 70 kg and 1.75 m. Their BMI is:", "C", ["40.0", "28.6", "22.9", "17.5"], "BMI = 70/1.75² = 70/3.0625 ≈ 22.9."),
+      ],
+      independentPractice: [
+        algebraAnswer("y12s2-form-i1", "Compound interest: A = P(1 + r)^n. Find A when P = 5000, r = 0.06, n = 4.", "A=5000(1.06)^4", "6312.38", "A = 5000 × 1.2625 ≈ 6312.38.", ["$6312.38", "6312.4"]),
+        algebraAnswer("y12s2-form-i2", "Density D = M/V. Find M when D = 3 g/cm³ and V = 40 cm³.", "M=D\\times V=3\\times40", "120", "M = 3 × 40 = 120 g.", ["120 g"]),
+        algebraAnswer("y12s2-form-i3", "Rearrange A = lw to make l the subject.", "l=\\frac{A}{w}", "l=A/w", "Divide both sides by w: l = A/w.", ["l = A/w", "A/w"]),
+        practicalChoice("y12s2-form-i4", "Using V = P(1 − r)^n for depreciation with P = 18000, r = 0.15, n = 3:", "B", ["\\$10935", "\\$11054.63", "\\$11000", "\\$15300"], "V = 18000 × (0.85)³ = 18000 × 0.614125 ≈ 11054.25 ≈ $11054."),
+        algebraAnswer("y12s2-form-i5", "Speed S = D/T. A car travels 270 km at 90 km/h. Find the time T.", "T=\\frac{270}{90}", "3", "T = 270/90 = 3 h.", ["3 h", "3 hours"]),
+      ],
+      commonMistakes: [
+        { mistake: "Substituting into the wrong variable.", fix: "Label each given value with its variable letter before substituting." },
+        { mistake: "Not rearranging before substituting a missing variable.", fix: "If the target variable is not the subject, rearrange first, then substitute." },
+        { mistake: "Forgetting to apply the exponent in compound interest.", fix: "Use (1 + r)^n. The exponent is n periods, not 1 + r × n." },
+        { mistake: "Dropping units from the final answer.", fix: "The formula gives a number. State the unit: dollars, km/h, g, etc." },
+      ],
+      masteryQuiz: [
+        algebraAnswer("y12s2-form-m1", "Find A using A = P(1 + r)^n with P = 3000, r = 0.05, n = 2.", "A=3000(1.05)^2", "3307.50", "A = 3000 × 1.1025 = 3307.50.", ["$3307.50", "3307.5"]),
+        algebraAnswer("y12s2-form-m2", "Speed formula S = D/T. Find T when S = 75 km/h and D = 225 km.", "T=\\frac{225}{75}", "3", "T = 225 ÷ 75 = 3 h.", ["3 h", "3 hours"]),
+        practicalChoice("y12s2-form-m3", "Density D = M/V. To find V when D and M are known:", "B", ["V = M × D", "V = M / D", "V = D / M", "V = M + D"], "Rearrange D = M/V: V = M/D."),
+        algebraAnswer("y12s2-form-m4", "Find density D when M = 90 g and V = 30 cm³.", "D=\\frac{90}{30}", "3", "D = 90/30 = 3 g/cm³.", ["3 g/cm³", "3g/cm3"]),
+        practicalChoice("y12s2-form-m5", "A = P(1 + r)^n. Which value is the principal?", "A", ["P", "A", "r", "n"], "P is the initial amount invested or borrowed."),
+        algebraAnswer("y12s2-form-m6", "Rearrange A = (1/2)bh for b.", "b=\\frac{2A}{h}", "b=2A/h", "Multiply both sides by 2: 2A = bh. Divide by h: b = 2A/h.", ["b = 2A/h", "2A/h"]),
+        algebraAnswer("y12s2-form-m7", "Depreciation V = P(1 − r)^n. P = 20000, r = 0.10, n = 2. Find V.", "V=20000(0.90)^2", "16200", "V = 20000 × 0.81 = 16200.", ["$16200", "16200.00"]),
+        practicalChoice("y12s2-form-m8", "BMI = m/h². A person of mass 80 kg and height 1.6 m has BMI:", "C", ["40", "32.5", "31.25", "50"], "BMI = 80/1.6² = 80/2.56 = 31.25."),
+        algebraAnswer("y12s2-form-m9", "Find S when D = 300 km and T = 2.5 h.", "S=\\frac{300}{2.5}", "120", "S = 300/2.5 = 120 km/h.", ["120 km/h"]),
+        practicalChoice("y12s2-form-m10", "A compound interest calculation gives A = 2000(1.03)^5. The interest earned is:", "B", ["The value of A", "A minus 2000", "2000 times 5 times 3 percent", "5 percent of 2000"], "Interest earned = A − P = A − 2000."),
+      ],
+    };
+  }
+
   return {
     ...base,
     description:

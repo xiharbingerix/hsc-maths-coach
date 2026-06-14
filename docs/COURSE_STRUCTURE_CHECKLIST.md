@@ -22,7 +22,7 @@
 | Year 11 Advanced | 8 | 54 | 11 topics / 90 subtopics (2026) | ✅ Available |
 | Year 11 Extension | 5 of 5 | 25 | 5 topics / 30 subtopics (2026) | ✅ Available |
 | Year 12 Standard 1 | 5 | 18 | 7 topics / 29 subtopics | 🔄 In progress |
-| Year 12 Standard 2 | 5 | 24 | 10 topics / 59 subtopics | ✅ Available |
+| Year 12 Standard 2 | 6 | 31 | 10 topics / 59 subtopics | ✅ Depth pass complete |
 | Year 12 Advanced | 12 | 86 | 11 topics / 64 subtopics | ✅ Available |
 | Year 12 Extension 1 | 6 | 22 | 7 topics / 28 subtopics | ✅ Available |
 | Year 12 Extension 2 | 5 | 25 | 5 topics / 40 subtopics | ✅ Depth pass complete |
@@ -275,24 +275,20 @@ Class Maths: 7 topics / 29 subtopics.
 
 ---
 
-## Year 12 Standard 2 ✅
+## Year 12 Standard 2 ✅ Depth pass complete
 
 `year-12-standard-2` — `available`. Override file: `lib/lessons/year12Standard2/`.
-Class Maths: 10 topics / 59 subtopics.
+Class Maths: 10 topics / 59 subtopics. Nova: 6 units / 31 lessons.
 
-- [x] Algebraic Relationships (5 lessons)
+- [x] Algebraic Relationships (7 lessons — added linear-inequalities-modelling, working-with-formulae-substitution)
 - [x] Trigonometry, Ratios and Rates (4 lessons)
-- [x] Investments, Loans and Annuities (4 lessons)
+- [x] Surface Area and Volume (3 lessons — NEW unit: surface-area-prisms-cylinders, volume-prisms-cylinders-spheres, composite-solids-practical)
+- [x] Investments, Loans and Annuities (6 lessons — added comparing-investments-risk-return, credit-cards-consumer-decisions)
 - [x] Bivariate Data and Normal Distribution (6 lessons — includes relative frequency/probability Phase 1)
 - [x] Networks and Critical Path Analysis (5 lessons — includes network flow Phase 1)
 
-**Gaps vs Class Maths 10-topic target:**
-Nova has 5 public units / 24 lessons vs target of 10 topics / 59 subtopics.
-Phase 1 added relative frequency/probability and network flow as missing focus-area coverage. Remaining depth gaps are mainly finer granularity in Measurement, Financial Mathematics, Algebra, and exam-practice slices.
-
-- [x] Phase 1: add relative frequency/probability and network flow focus-area lessons
-- [ ] Phase 2: deepen Measurement into separate trigonometry and ratios/rates skill slices
-- [ ] Phase 3: deepen Financial Mathematics into investment/loans and annuities skill slices
+**Depth pass complete 2026-06-14:** +7 lessons added across 2 existing units plus 1 new unit.
+Seed total: 589 questions (31 lessons × 19 questions).
 
 ---
 

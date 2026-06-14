@@ -36,6 +36,7 @@ import {
 import {
   year12Standard2AlgebraicRelationshipsLessonOverride,
   year12Standard2FinanceLessonOverride,
+  year12Standard2MeasurementSAVLessonOverride,
   year12Standard2NetworksLessonOverride,
   year12Standard2StatisticsLessonOverride,
   year12Standard2TrigRatesLessonOverride,
@@ -251,6 +252,7 @@ export function buildLesson(
     year12Standard1FinancialPlanningRepaymentLessonOverride(course, unit, lesson) ??
     year12Standard2NetworksLessonOverride(course, unit, lesson) ??
     year12Standard2FinanceLessonOverride(course, unit, lesson) ??
+    year12Standard2MeasurementSAVLessonOverride(course, unit, lesson) ??
     year12Standard2StatisticsLessonOverride(course, unit, lesson) ??
     year12Standard2TrigRatesLessonOverride(course, unit, lesson) ??
     year12Standard2AlgebraicRelationshipsLessonOverride(course, unit, lesson) ??
@@ -420,6 +422,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Solve and interpret pairs of practical models, including equal-cost points and option comparisons.",
           },
           {
+            slug: "linear-inequalities-modelling",
+            title: "Linear Inequalities and Modelling",
+            description:
+              "Solve linear inequalities, represent solutions on a number line, and interpret inequality constraints in practical budgeting and threshold contexts.",
+          },
+          {
+            slug: "working-with-formulae-substitution",
+            title: "Working with Formulae and Substitution",
+            description:
+              "Substitute values into literal equations from science, finance, and measurement contexts, and rearrange simple formulas to find a target variable.",
+          },
+          {
             slug: "algebraic-relationships-exam-practice",
             title: "Algebraic Relationships Exam Practice",
             description:
@@ -462,6 +476,34 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
+        slug: "measurement-surface-area-volume",
+        title: "Surface Area and Volume",
+        description:
+          "Calculate total surface area and volume of right prisms, cylinders and spheres, convert between volume units, and solve practical composite solid problems.",
+        syllabusArea: "Measurement",
+        focus: "Surface area and volume",
+        lessons: [
+          {
+            slug: "surface-area-prisms-cylinders",
+            title: "Surface Area of Prisms and Cylinders",
+            description:
+              "Find the total surface area of rectangular prisms, triangular prisms and cylinders by identifying each face, using nets, and applying TSA formulas.",
+          },
+          {
+            slug: "volume-prisms-cylinders-spheres",
+            title: "Volume of Prisms, Cylinders and Spheres",
+            description:
+              "Calculate volume using V = Ah for prisms, V = πr²h for cylinders and V = (4/3)πr³ for spheres, and convert between cm³, m³ and litres.",
+          },
+          {
+            slug: "composite-solids-practical",
+            title: "Composite Solids and Practical Applications",
+            description:
+              "Find surface area and volume of composite solids formed by combining or removing basic shapes, and solve practical capacity and material-cost problems.",
+          },
+        ],
+      },
+      {
         slug: "investments-loans-annuities",
         title: "Investments, Loans and Annuities",
         description:
@@ -486,6 +528,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Annuities and Regular Payments",
             description:
               "Use recurrence and table methods for regular deposits, future value, annuities, and repayment schedules.",
+          },
+          {
+            slug: "comparing-investments-risk-return",
+            title: "Comparing Investments and the Effect of Inflation",
+            description:
+              "Compare investment options by effective return, identify how inflation reduces purchasing power, and use future value formulas to evaluate lump-sum alternatives.",
+          },
+          {
+            slug: "credit-cards-consumer-decisions",
+            title: "Credit Cards and Consumer Decisions",
+            description:
+              "Calculate monthly credit-card interest, find the total cost of a purchase paid over time, and compare buy-now-pay-later options with saving-first alternatives.",
           },
           {
             slug: "financial-decision-making-exam-practice",

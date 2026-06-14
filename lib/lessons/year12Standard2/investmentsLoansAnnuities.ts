@@ -441,6 +441,202 @@ export function year12Standard2FinanceLessonOverride(
     };
   }
 
+  if (lesson.slug === "comparing-investments-risk-return") {
+    return {
+      ...base,
+      description:
+        "Compare investment options by effective return, identify how inflation reduces purchasing power, and use future value formulas to evaluate lump-sum alternatives.",
+      learningIntention:
+        "Evaluate and compare investment options using net return, effective interest rates, and inflation-adjusted thinking.",
+      successCriteria: [
+        "Calculate the net return after fees for an investment using A − P − fees.",
+        "Compare two investment options over the same term using final balances.",
+        "Explain how inflation reduces the purchasing power of savings.",
+        "Identify which investment option provides the better outcome in a given context.",
+      ],
+      teaching: {
+        paragraphs: [
+          "When comparing investments, always use the same time period and include fees. A higher interest rate does not automatically mean a better outcome if fees are large.",
+          "Net return = final balance − initial principal − fees paid. This is the real gain from the investment.",
+          "Inflation means that money loses purchasing power over time. If your investment earns 3% but inflation is 4%, the real return is negative — you can buy less next year than this year.",
+          "Effective annual rate accounts for compounding within the year. More frequent compounding (monthly vs annually) gives a slightly higher effective rate.",
+        ],
+        latexBlocks: [
+          "\\text{Net return}=A-P-\\text{fees}",
+          "A=P\\left(1+\\frac{r}{k}\\right)^{kn}\\;(k=\\text{compoundings/year})",
+          "\\text{Real return}\\approx\\text{nominal rate}-\\text{inflation rate}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Compare two investments by net return",
+          questionLatex:
+            "\\text{Option A: }\\$5000\\text{ at }6\\%\\text{ p.a. for 2 yr, no fee.}\\;\\text{Option B: }\\$5000\\text{ at }7\\%\\text{ for 2 yr, }\\$120\\text{ fee.}",
+          steps: [
+            {
+              explanation: "Option A: A = 5000(1.06)² = 5618.",
+              latex: "A_A=5000(1.06)^2=5618.00",
+            },
+            {
+              explanation: "Option B: A = 5000(1.07)² − 120.",
+              latex: "A_B=5000(1.07)^2-120=5724.50-120=5604.50",
+            },
+            {
+              explanation: "Option A gives a higher net balance.",
+              latex: "5618.00>5604.50\\;\\Rightarrow\\;\\text{Option A}",
+            },
+          ],
+          finalAnswerLatex: "\\text{Option A is better by }\\$13.50.",
+        },
+        {
+          title: "Effect of inflation on savings",
+          questionLatex:
+            "\\text{An account earns }2\\%\\text{ p.a. Inflation is }3\\%\\text{ p.a. What is the real return?}",
+          steps: [
+            {
+              explanation: "Real return ≈ nominal − inflation.",
+              latex: "2\\%-3\\%=-1\\%",
+            },
+            {
+              explanation: "A negative real return means purchasing power decreases.",
+              latex: "\\text{You can buy less next year than this year.}",
+            },
+          ],
+          finalAnswerLatex: "\\text{Real return is }−1\\%;\\text{ savings lose value in real terms.}",
+        },
+      ],
+      guidedPractice: [
+        moneyAnswer("y12s2-inv-g1", "An investment of 4000 dollars earns 5% p.a. compounded annually for 2 years. Find the balance.", "A=4000(1.05)^2", "4410"),
+        moneyAnswer("y12s2-inv-g2", "A second option earns 6% for 2 years but charges a 90 dollar fee. Find the net balance starting from 4000 dollars.", "A=4000(1.06)^2-90", "4404.40", ["4404.4", "$4404.40"]),
+        financeChoice("y12s2-inv-g3", "Which option above is better?", "A", ["Option 1 at 5% (balance $4410)", "Option 2 at 6% after fee (balance $4404.40)", "They are equal", "The higher rate is always better"], "After subtracting the fee, Option 1 gives a higher net balance."),
+        financeChoice("y12s2-inv-g4", "Inflation of 4% and a savings rate of 2% gives a real return of:", "C", ["6%", "2%", "−2%", "4%"], "Real return ≈ 2% − 4% = −2%. The savings lose purchasing power."),
+      ],
+      independentPractice: [
+        moneyAnswer("y12s2-inv-i1", "Find the balance when 6000 dollars is invested at 4.5% p.a. compounded annually for 3 years.", "A=6000(1.045)^3", "6843.79", ["6843.8", "$6843.79"]),
+        moneyAnswer("y12s2-inv-i2", "A competing option pays 5% for 3 years but charges a 150 dollar fee. Find the net balance from 6000 dollars.", "A=6000(1.05)^3-150", "6795.75", ["6795.8", "$6795.75"]),
+        financeChoice("y12s2-inv-i3", "Which option from i1 and i2 is better?", "A", ["4.5% with no fee (higher net balance)", "5% minus fee (higher rate wins)", "They are equal", "Always choose the higher rate"], "4.5% with no fee gives a higher net balance here."),
+        financeChoice("y12s2-inv-i4", "If inflation rises from 2% to 4% and your savings rate stays at 3%, your real return:", "C", ["Increases to 7%", "Stays at 3%", "Falls and becomes negative at −1%", "Falls to 1%"], "Real return = 3% − 4% = −1%."),
+        moneyAnswer("y12s2-inv-i5", "An account of 10000 dollars earns 2% compounded annually for 1 year. If inflation is 3%, what is the real value of the account after one year in today's dollars?", "\\text{Balance}=10200;\\;\\text{real value}=\\frac{10200}{1.03}", "9903", ["$9903", "9903.00"]),
+      ],
+      commonMistakes: [
+        { mistake: "Comparing investments by advertised rate only.", fix: "Always compute net balance after fees over the same term." },
+        { mistake: "Confusing inflation rate with interest rate.", fix: "Real return = interest rate − inflation rate. These are different quantities." },
+        { mistake: "Treating nominal and effective rates as identical.", fix: "More frequent compounding gives a slightly higher effective rate than the nominal rate." },
+        { mistake: "Forgetting to subtract the fee when finding net return.", fix: "Net return = A − P − fees. Fees reduce the benefit of a higher rate." },
+      ],
+      masteryQuiz: [
+        moneyAnswer("y12s2-inv-m1", "Find A for 8000 dollars at 3% p.a. compounded annually for 2 years.", "A=8000(1.03)^2", "8487.20", ["8487.2", "$8487.20"]),
+        moneyAnswer("y12s2-inv-m2", "Option B gives 8000 dollars at 4% for 2 years with a 110 dollar fee. Find the net balance.", "A=8000(1.04)^2-110", "8539.52", ["8539.5", "$8539.52"]),
+        financeChoice("y12s2-inv-m3", "Comparing Option A ($8487.20) and Option B ($8539.52), which is better?", "B", ["Option A", "Option B", "Equal", "Need more information"], "Option B's net balance is higher."),
+        financeChoice("y12s2-inv-m4", "A real return of −1% means:", "C", ["You earn 1% more than inflation", "You earn exactly 1%", "Your purchasing power decreases by approximately 1%", "You lose 1% in dollar terms"], "Negative real return means less purchasing power, not less actual dollars."),
+        moneyAnswer("y12s2-inv-m5", "Net return for a 5000 dollar investment growing to 5400 dollars with a 50 dollar fee.", "\\text{Net return}=5400-5000-50", "350", ["$350"]),
+        financeChoice("y12s2-inv-m6", "Two accounts both have no fees. Account A earns 4% compounded annually; Account B earns 4% compounded monthly. Which is better?", "B", ["Account A", "Account B", "They are identical", "Cannot compare"], "Monthly compounding gives a slightly higher effective annual rate."),
+        moneyAnswer("y12s2-inv-m7", "6000 dollars invested at 5% p.a. for 1 year compounded annually. Find the interest earned.", "\\text{interest}=6000\\times0.05", "300", ["$300"]),
+        financeChoice("y12s2-inv-m8", "Savings earn 4% but inflation is 4%. The real return is:", "D", ["4%", "8%", "−4%", "0%"], "Real return ≈ 4% − 4% = 0%. No real gain."),
+        moneyAnswer("y12s2-inv-m9", "An investment of 2000 dollars at 6% for 3 years compounded annually. Find the balance to the nearest cent.", "A=2000(1.06)^3", "2382.03", ["$2382.03", "2382.0"]),
+        financeChoice("y12s2-inv-m10", "The best comparison of two investment options always involves:", "D", ["Only the advertised rate", "Only the fee", "Only the first month", "Final balance after the same term and after all fees"], "A complete comparison uses net balance over the same period."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "credit-cards-consumer-decisions") {
+    return {
+      ...base,
+      description:
+        "Calculate monthly credit-card interest, find the total cost of a purchase paid over time, and compare buy-now-pay-later options with saving-first alternatives.",
+      learningIntention:
+        "Apply interest calculations to credit card balances and evaluate the true cost of consumer credit decisions.",
+      successCriteria: [
+        "Calculate monthly interest on a credit card balance using I = P × (r/12).",
+        "Find the total repayment cost including interest over a set number of months.",
+        "Identify the interest-free period and its effect on credit card use.",
+        "Compare BNPL (buy now pay later) instalments with saving-first alternatives.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Credit cards charge interest on the outstanding balance. Interest is usually stated as an annual rate but charged monthly: monthly interest = balance × (r/12).",
+          "If you pay the full balance within the interest-free period (often 55 days), no interest is charged. Carrying a balance beyond that period triggers the monthly interest.",
+          "Total cost of a credit purchase = sum of all repayments, including interest. This is always more than the purchase price if you carry a balance.",
+          "Buy now pay later (BNPL) splits the cost into equal instalments (often 4) with no explicit interest, but late fees apply. Compare this with saving first: if you save the instalments, you earn interest instead of paying it.",
+        ],
+        latexBlocks: [
+          "I=P\\times\\frac{r}{12}\\;(\\text{monthly interest})",
+          "\\text{Total cost}=\\text{repayments}\\times n",
+          "\\text{BNPL instalment}=\\frac{\\text{total price}}{4}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Monthly credit card interest",
+          questionLatex:
+            "\\text{Balance }\\$800,\\text{ annual rate }18\\%.\\text{ Find monthly interest.}",
+          steps: [
+            {
+              explanation: "Monthly rate = 18%/12 = 1.5%.",
+              latex: "r_{\\text{monthly}}=0.18/12=0.015",
+            },
+            {
+              explanation: "Monthly interest = 800 × 0.015.",
+              latex: "I=800\\times0.015=12",
+            },
+          ],
+          finalAnswerLatex: "I=\\$12\\text{ per month}",
+        },
+        {
+          title: "Compare BNPL and saving first",
+          questionLatex:
+            "\\text{A }\\$400\\text{ purchase: BNPL in 4 equal fortnights, or save }\\$100\\text{ per fortnight at }2\\%\\text{ p.a.}",
+          steps: [
+            {
+              explanation: "BNPL instalment = 400/4 = $100 per fortnight. Total cost = $400 (no fee if paid on time).",
+              latex: "\\text{BNPL total}=\\$400",
+            },
+            {
+              explanation: "Saving $100 per fortnight for 4 fortnights earns small interest. Total saved ≈ $400 + a few cents interest.",
+              latex: "\\text{Saving total cost}\\le\\$400",
+            },
+            {
+              explanation: "Saving first costs the same or slightly less AND avoids late fees.",
+              latex: "\\text{Saving first is the better option.}",
+            },
+          ],
+          finalAnswerLatex: "\\text{Saving first: same cost, no late-fee risk.}",
+        },
+      ],
+      guidedPractice: [
+        moneyAnswer("y12s2-credit-g1", "A credit card balance of 600 dollars has an annual interest rate of 18%. Find the monthly interest charge.", "I=600\\times(0.18/12)", "9", ["$9", "9.00"]),
+        moneyAnswer("y12s2-credit-g2", "A BNPL purchase of 320 dollars is split into 4 equal fortnightly payments. Find each payment.", "\\text{instalment}=320/4", "80", ["$80", "80.00"]),
+        financeChoice("y12s2-credit-g3", "A credit card with a 55-day interest-free period means:", "B", ["Interest always applies", "No interest if the full balance is paid within 55 days", "The rate is 55%", "You must wait 55 days to use it"], "Paying the full balance in the interest-free period avoids interest charges."),
+        financeChoice("y12s2-credit-g4", "Total repayment on a credit card is always:", "B", ["Equal to the purchase price", "Greater than or equal to the purchase price", "Less than the purchase price", "Fixed regardless of interest rate"], "Interest adds to the total, so total repayment ≥ purchase price."),
+      ],
+      independentPractice: [
+        moneyAnswer("y12s2-credit-i1", "A card balance of 1200 dollars has an annual rate of 21%. Find the monthly interest.", "I=1200\\times(0.21/12)", "21", ["$21", "21.00"]),
+        moneyAnswer("y12s2-credit-i2", "After paying a 200 dollar repayment, the new card balance is 1021 dollars before this month's interest. How did we get there?", "\\text{balance}=1200+21-200", "1021", ["$1021"]),
+        moneyAnswer("y12s2-credit-i3", "A BNPL service charges $0 interest but a $10 late fee per missed payment. If 2 payments are missed on a $400 purchase, find the total cost.", "\\text{total}=400+2\\times10", "420", ["$420"]),
+        financeChoice("y12s2-credit-i4", "Carrying a credit card balance for 12 months at 18% p.a. means you pay approximately:", "B", ["No extra cost", "18% extra on the outstanding balance", "1% extra over 12 months", "12% extra on the original price"], "Monthly charges of 1.5% compound over 12 months, approximately 18% annually."),
+        moneyAnswer("y12s2-credit-i5", "A 1000 dollar purchase on a card at 20% p.a. is repaid in full after 1 month. Find the total cost.", "I=1000\\times(0.20/12)", "1016.67", ["$1016.67", "1016.7"]),
+      ],
+      commonMistakes: [
+        { mistake: "Using the annual rate directly instead of monthly rate.", fix: "Divide annual rate by 12 for monthly interest: I = P × (r/12)." },
+        { mistake: "Thinking BNPL is always free.", fix: "BNPL has no explicit interest but may charge late fees. Compare the total cost including any penalties." },
+        { mistake: "Confusing interest-free period with zero interest rate.", fix: "The interest-free period only applies if the full balance is paid on time. After the period, the full annual rate applies." },
+        { mistake: "Forgetting that a credit balance compounds.", fix: "Each month, interest is added to the balance before the next month's interest is calculated." },
+      ],
+      masteryQuiz: [
+        moneyAnswer("y12s2-credit-m1", "Find monthly interest on a 900 dollar balance at 18% p.a.", "I=900\\times(0.18/12)", "13.50", ["$13.50", "13.5"]),
+        financeChoice("y12s2-credit-m2", "Monthly interest rate for a card at 24% p.a. is:", "A", ["2%", "24%", "12%", "0.24%"], "Monthly rate = 24/12 = 2%."),
+        moneyAnswer("y12s2-credit-m3", "A 500 dollar BNPL purchase is split into 4 fortnightly payments. Find each payment.", "500/4", "125", ["$125"]),
+        financeChoice("y12s2-credit-m4", "A credit card balance of 2000 dollars has a 20% annual rate. The monthly interest is:", "B", ["$400", "$33.33", "$20", "$200"], "Monthly interest = 2000 × (0.20/12) = 33.33."),
+        moneyAnswer("y12s2-credit-m5", "New balance after starting at 2000 dollars, adding monthly interest (rate 20% p.a.), and paying 150 dollars.", "\\text{balance}=2000+33.33-150", "1883.33", ["$1883.33", "1883.3"]),
+        financeChoice("y12s2-credit-m6", "The total cost of a 600 dollar purchase repaid monthly over 3 months with $5 interest per month is:", "C", ["$600", "$615", "$615", "$645"], "Total = 600 + 3 × 5 = 615. (Answer C is $615.)"),
+        financeChoice("y12s2-credit-m7", "An interest-free period of 55 days means:", "A", ["No interest if full balance paid within 55 days", "No interest ever", "55% annual rate", "Interest starts after 55 months"], "Pay in full within 55 days to avoid interest."),
+        moneyAnswer("y12s2-credit-m8", "A 240 dollar purchase on BNPL: 4 instalments of 60 dollars. What is the total paid?", "4\\times60", "240", ["$240"]),
+        financeChoice("y12s2-credit-m9", "Comparing credit card and BNPL for the same purchase, the key advantage of BNPL (when paid on time) is:", "B", ["Higher interest", "No interest charged", "Longer interest-free period", "Lower purchase price"], "BNPL typically charges no interest if payments are made on time."),
+        financeChoice("y12s2-credit-m10", "If you save 200 dollars per month for 4 months earning 3% p.a., you avoid credit card interest of 18% p.a. Saving first is better because:", "A", ["You earn interest instead of paying it", "You delay the purchase indefinitely", "You pay less each month", "Credit cards always charge more than 18%"], "Saving earns interest; credit cards charge it. Saving first is financially better."),
+      ],
+    };
+  }
+
   return {
     ...base,
     description:
