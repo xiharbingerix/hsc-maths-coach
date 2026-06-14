@@ -6,3 +6,4 @@ export * from "./binomialDistribution";
 export * from "./calculusApplications";
 export * from "./kinematics";
 export * from "./projectileMotion";
+export * from "./samplingDistribution";

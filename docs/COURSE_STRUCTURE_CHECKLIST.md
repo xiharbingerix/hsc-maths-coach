@@ -935,17 +935,16 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 - [x] Solve practical binomial problems with/without digital tools (excluding normal approximation) → `binomial-exam-practice`
 
 **Sampling distribution of the mean and CLT**
-- [ ] **Define statistical population and sample** → ❌ MISSING
-- [ ] **Define sample mean x̄ and sample variance s²** → ❌ MISSING
-- [ ] **Examine distribution of sample means from population with mean μ, variance σ²** → ❌ MISSING
-- [ ] **Examine effect of sample size n on variance of sample means (Var(x̄) = σ²/n)** → ❌ MISSING
-- [ ] **Apply central limit theorem: estimate P(x̄ within given bounds)** → ❌ MISSING
+- [x] **Define statistical population and sample** → `sampling-distribution-mean`
+- [x] **Define sample mean x̄ and sample variance s²** → `sampling-distribution-mean`
+- [x] **Examine distribution of sample means from population with mean μ, variance σ²** → `sampling-distribution-mean`
+- [x] **Examine effect of sample size n on variance of sample means (Var(x̄) = σ²/n)** → `sampling-distribution-mean`
+- [x] **Apply central limit theorem: estimate P(x̄ within given bounds)** → `central-limit-theorem`
 
-#### Current lessons (unit: `binomial-distribution`) — 4 lessons, 76Q ❌ ~50% coverage (entire CLT sub-strand missing)
+#### Current lessons (unit: `binomial-distribution`) — 4 lessons, 76Q ✅ binomial sub-strand complete
+#### Current lessons (unit: `sampling-distribution`) — 2 lessons, 38Q ✅ CLT sub-strand complete (added 2026-06-15)
 #### Required new lessons
 - [ ] **`binomial-revision`** — Probability rules, C(n,r), discrete random variables. Prior knowledge activation.
-- [ ] **`sampling-distribution-mean`** — Population vs sample; distribution of x̄; Var(x̄) = σ²/n; effect of increasing sample size.
-- [ ] **`central-limit-theorem`** — State CLT; calculate P(x̄ within bounds); interpret in real-world context.
 
 ---
 
@@ -958,10 +957,10 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 | Inverse Trigonometric Functions | ME1-12-03 | 3 (57Q) | ⚠️ ~75% | Properties/identities lesson, revision lesson |
 | Further Calculus Skills | ME1-12-04 | 4 (76Q) | ✅ ~100% | Revision lesson only |
 | Further Applications of Calculus | ME1-12-05 | 4 (76Q) | ❌ ~45% | Polynomial zeroes, Newton cooling, volumes, slope fields |
-| Binomial Distribution + Sampling | ME1-12-06 | 4 (76Q) | ❌ ~50% | Entire sampling distribution + CLT sub-strand |
+| Binomial Distribution + Sampling | ME1-12-06 | 6 (114Q) | ✅ ~100% | Revision lesson only |
 
-**Current:** 30 lessons (8 units) / 520Q
-**New lessons to meet syllabus fully:** ~18 (6 revision + 4 vectors/proj + 5 further-applications + 3 CLT/sampling)
+**Current:** 32 lessons (9 units) / 558Q
+**New lessons to meet syllabus fully:** ~16 (6 revision + 4 vectors/proj + 5 further-applications + 1 inverse-trig-properties)
 **Target:** ~48 lessons
 
 ### Priority order

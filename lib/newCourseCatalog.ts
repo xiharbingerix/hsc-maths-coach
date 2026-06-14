@@ -67,6 +67,7 @@ import {
   year12Extension1CalculusApplicationsLessonOverride,
   year12Extension1KinematicsLessonOverride,
   year12Extension1ProjectileMotionLessonOverride,
+  year12Extension1SamplingDistributionLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
@@ -274,6 +275,7 @@ export function buildLesson(
     year12Extension1BinomialDistributionLessonOverride(course, unit, lesson) ??
     year12Extension1KinematicsLessonOverride(course, unit, lesson) ??
     year12Extension1ProjectileMotionLessonOverride(course, unit, lesson) ??
+    year12Extension1SamplingDistributionLessonOverride(course, unit, lesson) ??
     year12Extension2ComplexNumbersLessonOverride(course, unit, lesson) ??
     year12Extension2Vectors3DLessonOverride(course, unit, lesson) ??
     year12Extension2CalculusLessonOverride(course, unit, lesson) ??
@@ -2545,6 +2547,28 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "projectile-max-height", title: "Maximum Height and Time" },
           { slug: "projectile-range-flight", title: "Range and Time of Flight" },
           { slug: "projectile-exam-practice", title: "Projectile Motion Exam Practice" },
+        ],
+      },
+      {
+        slug: "sampling-distribution",
+        title: "Sampling Distribution of the Mean",
+        description:
+          "Understand the distribution of sample means, apply the formula Var(x̄) = σ²/n, and use the Central Limit Theorem to estimate probabilities about x̄.",
+        syllabusArea: "Probability",
+        focus: "The binomial distribution and sampling distribution of the mean",
+        lessons: [
+          {
+            slug: "sampling-distribution-mean",
+            title: "Distribution of the Sample Mean",
+            description:
+              "Define population and sample, derive E(x̄) = μ and Var(x̄) = σ²/n, and examine the effect of sample size on the spread of x̄.",
+          },
+          {
+            slug: "central-limit-theorem",
+            title: "The Central Limit Theorem",
+            description:
+              "State the CLT, convert x̄ to z-scores, and calculate probabilities about sample means using normal distribution values.",
+          },
         ],
       },
     ],
