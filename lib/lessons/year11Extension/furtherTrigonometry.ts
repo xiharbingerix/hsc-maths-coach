@@ -170,33 +170,34 @@ const tFormulaExamples: WorkedExample[] = [
   },
 ];
 
-const inverseExamples: WorkedExample[] = [
+const productExamples: WorkedExample[] = [
   {
-    title: "Use principal values",
-    questionLatex: "\\arcsin\\left(\\frac12\\right)",
+    title: "Convert a product to a sum",
+    questionLatex: "2\\sin A\\cos B",
     steps: [
-      { explanation: "The principal range of arcsine is from negative pi over 2 to pi over 2.", latex: "-\\frac\\pi2\\le y\\le\\frac\\pi2" },
-      { explanation: "In that range, sine equals one half at pi over 6.", latex: "\\sin\\frac\\pi6=\\frac12" },
+      { explanation: "Start with the sine addition and subtraction formulae.", latex: "\\sin(A+B)=\\sin A\\cos B+\\cos A\\sin B" },
+      { explanation: "Add the sine sum and sine difference formulae.", latex: "\\sin(A+B)+\\sin(A-B)=2\\sin A\\cos B" },
     ],
-    finalAnswerLatex: "\\frac\\pi6",
+    finalAnswerLatex: "\\sin(A+B)+\\sin(A-B)",
   },
   {
-    title: "Use arccos range",
-    questionLatex: "\\arccos\\left(-\\frac12\\right)",
+    title: "Use a product-to-sum identity",
+    questionLatex: "2\\cos75^\\circ\\cos15^\\circ",
     steps: [
-      { explanation: "The principal range of arccos is zero to pi.", latex: "0\\le y\\le\\pi" },
-      { explanation: "Cosine equals negative one half at two pi over three.", latex: "\\cos\\frac{2\\pi}{3}=-\\frac12" },
+      { explanation: "Use two cosine product-to-sum.", latex: "2\\cos A\\cos B=\\cos(A+B)+\\cos(A-B)" },
+      { explanation: "Substitute A equals 75 degrees and B equals 15 degrees.", latex: "\\cos90^\\circ+\\cos60^\\circ" },
+      { explanation: "Evaluate exact values.", latex: "0+\\frac12=\\frac12" },
     ],
-    finalAnswerLatex: "\\frac{2\\pi}{3}",
+    finalAnswerLatex: "\\frac12",
   },
   {
-    title: "Solve with inverse tangent",
-    questionLatex: "\\tan x=1,\\quad -\\frac\\pi2<x<\\frac\\pi2",
+    title: "Prove a double-angle link",
+    questionLatex: "\\sin(2A)=2\\sin A\\cos A",
     steps: [
-      { explanation: "Arctangent returns the principal solution in this interval.", latex: "x=\\arctan(1)" },
-      { explanation: "Use the exact value.", latex: "x=\\frac\\pi4" },
+      { explanation: "Use the sine addition formula.", latex: "\\sin(A+A)=\\sin A\\cos A+\\cos A\\sin A" },
+      { explanation: "Combine like terms.", latex: "\\sin(2A)=2\\sin A\\cos A" },
     ],
-    finalAnswerLatex: "\\frac\\pi4",
+    finalAnswerLatex: "\\sin(2A)=2\\sin A\\cos A",
   },
 ];
 
@@ -423,69 +424,70 @@ function tFormulaLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
       countAnswer("ftrig-tf-m3", "Find R for 20sin theta+21cos theta.", "20\\sin\\theta+21\\cos\\theta", "29", "R=sqrt(400+441)=29."),
       countAnswer("ftrig-tf-m4", "Find the maximum of 8sin theta-15cos theta.", "8\\sin\\theta-15\\cos\\theta", "17", "R=sqrt(64+225)=17."),
       countAnswer("ftrig-tf-m5", "Find the minimum of 7sin theta+24cos theta.", "7\\sin\\theta+24\\cos\\theta", "-25", "R=25, so the minimum is -25."),
-      choice("ftrig-tf-m6", "Which expression gives R for asin theta+bcos theta?", "D", ["$a+b$", "$ab$", "$a^2+b^2$", "$\\sqrt{a^2+b^2}$"], "R is the Pythagorean magnitude."),
+      choice("ftrig-tf-m6", "Which expression gives R for a sin theta plus b cos theta?", "D", ["$a+b$", "$ab$", "$a^2+b^2$", "$\\sqrt{a^2+b^2}$"], "R is the Pythagorean magnitude."),
       choice("ftrig-tf-m7", "For Rsin(theta+alpha), which coefficient matches sin theta?", "A", ["$R\\cos\\alpha$", "$R\\sin\\alpha$", "$R\\tan\\alpha$", "$R$"], "Expanding gives Rsin theta cos alpha + Rcos theta sin alpha."),
       choice("ftrig-tf-m8", "What is t in the t-formula?", "B", ["$\\tan\\theta$", "$\\tan(\\theta/2)$", "$\\sin\\theta$", "$\\sec\\theta$"], "The substitution is t=tan(theta/2)."),
       countAnswer("ftrig-tf-m9", "For 5sin theta+12cos theta=Rsin(theta+alpha), find tan alpha.", "5\\sin\\theta+12\\cos\\theta", "12/5", "Rcos alpha=5 and Rsin alpha=12, so tan alpha=12/5."),
-      countAnswer("ftrig-tf-m10", "Find the range of 3sin theta+4cos theta using interval notation.", "3\\sin\\theta+4\\cos\\theta", "[-5,5]", "R=5, so the range is [-5,5]."),
+      countAnswer("ftrig-tf-m10", "Find the range of 3sin theta+4cos theta using interval notation.", "3\\sin\\theta+4\\cos\\theta", "[-5,5]", "R=5, so the range is [-5,5].", ["[-5, 5]", "-5<=y<=5", "-5\\le y\\le5"]),
     ],
   };
 }
 
-function inverseTrigLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
+function productSumLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
   return {
-    ...lessonBase(lesson, "Use inverse trigonometric functions, principal ranges, and simple inverse trig equations.", "Inverse trigonometric functions"),
-    learningIntention: "Evaluate inverse trigonometric functions using principal values and solve simple equations.",
+    ...lessonBase(lesson, "Use product-to-sum, sum-to-product, and identity reasoning in further trigonometry.", "Product-to-sum identities and proofs"),
+    learningIntention: "Transform trigonometric products and sums, and use compound-angle identities to prove simple results.",
     successCriteria: [
-      "State the principal range of arcsin, arccos, and arctan.",
-      "Evaluate exact inverse trigonometric values.",
-      "Use inverse trig functions to solve simple restricted equations.",
-      "Distinguish inverse trig notation from reciprocal trig notation.",
+      "Convert products such as $2\\sin A\\cos B$ into sums.",
+      "Convert sums such as $\\sin X+\\sin Y$ into products.",
+      "Use product-to-sum identities to evaluate exact expressions.",
+      "Use compound-angle formulae to justify double-angle and related identities.",
     ],
     teaching: {
       paragraphs: [
-        "Inverse trigonometric functions return angles, not ratios.",
-        "Because sine, cosine, and tangent are not one-to-one on all real numbers, inverse trig functions use restricted principal ranges.",
-        "Arcsine returns values from negative pi over two to pi over two, arccosine returns values from zero to pi, and arctangent returns values from negative pi over two to pi over two.",
-        "Inverse notation such as sine to the negative one means arcsine in this context, not cosecant.",
+        "Product-to-sum and sum-to-product identities are efficient ways to transform trigonometric expressions.",
+        "They are derived by adding or subtracting compound-angle formulae, so the signs must be tracked carefully.",
+        "These identities can make exact-value products easier because the resulting angles are often familiar special angles.",
+        "Identity proofs usually become simpler when both sides are rewritten using compound-angle, double-angle, or product-to-sum forms.",
       ],
       latexBlocks: [
-        "\\arcsin x\\in\\left[-\\frac\\pi2,\\frac\\pi2\\right]",
-        "\\arccos x\\in[0,\\pi]",
-        "\\arctan x\\in\\left(-\\frac\\pi2,\\frac\\pi2\\right)",
+        "2\\sin A\\cos B=\\sin(A+B)+\\sin(A-B)",
+        "2\\cos A\\cos B=\\cos(A+B)+\\cos(A-B)",
+        "2\\sin A\\sin B=\\cos(A-B)-\\cos(A+B)",
+        "\\sin X+\\sin Y=2\\sin\\frac{X+Y}{2}\\cos\\frac{X-Y}{2}",
       ],
     },
-    workedExamples: inverseExamples,
+    workedExamples: productExamples,
     guidedPractice: [
-      countAnswer("ftrig-inv-g1", "Find arcsin(1/2).", "\\arcsin(1/2)", "pi/6", "The principal angle with sine 1/2 is pi/6.", ["\\pi/6"]),
-      countAnswer("ftrig-inv-g2", "Find arccos(1/2).", "\\arccos(1/2)", "pi/3", "The principal angle with cosine 1/2 is pi/3.", ["\\pi/3"]),
-      choice("ftrig-inv-g3", "What is the principal range of arccos x?", "B", ["$[-\\pi/2,\\pi/2]$", "$[0,\\pi]$", "$(-\\pi/2,\\pi/2)$", "$[0,2\\pi]$"], "Arccos returns angles from 0 to pi."),
-      choice("ftrig-inv-g4", "What does sin^{-1}(x) mean in inverse trig?", "C", ["$1/\\sin x$", "$\\sec x$", "$\\arcsin x$", "$\\sin x$"], "In inverse trig notation it means arcsine."),
+      countAnswer("ftrig-prod-g1", "Rewrite 2sin A cos B as a sum.", "2\\sin A\\cos B", "sin(A+B)+sin(A-B)", "Add the sine sum and sine difference formulae.", ["\\sin(A+B)+\\sin(A-B)"]),
+      countAnswer("ftrig-prod-g2", "Evaluate 2cos 75 degrees cos 15 degrees.", "2\\cos75^\\circ\\cos15^\\circ", "1/2", "Use cos(90)+cos(60)=0+1/2.", ["0.5"]),
+      choice("ftrig-prod-g3", "Which identity matches 2cos A cos B?", "B", ["$\\cos(A-B)-\\cos(A+B)$", "$\\cos(A+B)+\\cos(A-B)$", "$\\sin(A+B)+\\sin(A-B)$", "$\\sin(A+B)-\\sin(A-B)$"], "Two cosine product-to-sum uses the sum of cosine sum and cosine difference."),
+      choice("ftrig-prod-g4", "Which formula is usually the source of product-to-sum identities?", "A", ["Compound angle formulae", "Quadratic formula", "Remainder theorem", "Vieta's formulae"], "Product-to-sum identities come from adding or subtracting compound-angle identities."),
     ],
     independentPractice: [
-      countAnswer("ftrig-inv-i1", "Find arcsin(0).", "\\arcsin0", "0", "The principal angle with sine zero is 0."),
-      countAnswer("ftrig-inv-i2", "Find arccos(-1/2).", "\\arccos(-1/2)", "2pi/3", "In [0,pi], cosine is -1/2 at 2pi/3.", ["2\\pi/3"]),
-      countAnswer("ftrig-inv-i3", "Find arctan(1).", "\\arctan1", "pi/4", "The principal angle with tangent 1 is pi/4.", ["\\pi/4"]),
-      countAnswer("ftrig-inv-i4", "Find arcsin(-1).", "\\arcsin(-1)", "-pi/2", "The principal angle with sine -1 is -pi/2.", ["-\\pi/2"]),
-      choice("ftrig-inv-i5", "Which inverse trig function has range (-pi/2, pi/2)?", "D", ["arccos only", "cosec", "sec", "arctan"], "Arctan uses an open interval from -pi/2 to pi/2."),
+      countAnswer("ftrig-prod-i1", "Rewrite 2sin A sin B as a difference of cosines.", "2\\sin A\\sin B", "cos(A-B)-cos(A+B)", "Subtract cosine sum from cosine difference.", ["\\cos(A-B)-\\cos(A+B)"]),
+      countAnswer("ftrig-prod-i2", "Rewrite sin X+sin Y as a product.", "\\sin X+\\sin Y", "2sin((X+Y)/2)cos((X-Y)/2)", "Use the sum-to-product identity for sine plus sine.", ["2\\sin((X+Y)/2)\\cos((X-Y)/2)"]),
+      countAnswer("ftrig-prod-i3", "Evaluate 2sin 75 degrees cos 15 degrees.", "2\\sin75^\\circ\\cos15^\\circ", "1+sqrt(3)/2", "Use 2sin A cos B=sin(A+B)+sin(A-B), so sin90+sin60=1+sqrt3/2.", ["1+\\sqrt{3}/2", "(2+sqrt(3))/2", "(2+\\sqrt{3})/2"]),
+      countAnswer("ftrig-prod-i4", "Evaluate 2sin 45 degrees sin 15 degrees exactly.", "2\\sin45^\\circ\\sin15^\\circ", "(sqrt(3)-1)/2", "Use cos(30)-cos(60)=sqrt3/2-1/2.", ["(\\sqrt{3}-1)/2"]),
+      choice("ftrig-prod-i5", "Which expression equals sin X-sin Y?", "C", ["$2\\sin\\frac{X+Y}{2}\\cos\\frac{X-Y}{2}$", "$2\\cos\\frac{X+Y}{2}\\cos\\frac{X-Y}{2}$", "$2\\cos\\frac{X+Y}{2}\\sin\\frac{X-Y}{2}$", "$\\cos(X-Y)-\\cos(X+Y)$"], "The sine difference sum-to-product identity uses cosine of the average times sine of the half-difference."),
     ],
     commonMistakes: [
-      { mistake: "Treating inverse sine as reciprocal sine.", fix: "Use arcsin for inverse sine; cosec is reciprocal sine." },
-      { mistake: "Giving a non-principal value.", fix: "Check the principal range for the inverse function." },
-      { mistake: "Using degrees and radians inconsistently.", fix: "Follow the units used in the question." },
-      { mistake: "Using the arcsin range for arccos.", fix: "Arccos returns values from 0 to pi." },
+      { mistake: "Forgetting the factor of 2 in sum-to-product identities.", fix: "Check whether the identity starts with a product or a sum before rearranging." },
+      { mistake: "Reversing the signs in cosine product identities.", fix: "Derive from cosine sum and difference if unsure." },
+      { mistake: "Using product-to-sum without halving angles in sum-to-product.", fix: "Sum-to-product identities use the average and half-difference of the angles." },
+      { mistake: "Writing a proof as isolated formula quoting.", fix: "Show which compound-angle formulae are added or subtracted." },
     ],
     masteryQuiz: [
-      countAnswer("ftrig-inv-m1", "Find arcsin(1/2).", "\\arcsin(1/2)", "pi/6", "The principal value is pi/6.", ["\\pi/6"]),
-      countAnswer("ftrig-inv-m2", "Find arcsin(-1/2).", "\\arcsin(-1/2)", "-pi/6", "The principal value is -pi/6.", ["-\\pi/6"]),
-      countAnswer("ftrig-inv-m3", "Find arccos(1).", "\\arccos1", "0", "cos 0=1."),
-      countAnswer("ftrig-inv-m4", "Find arccos(-1).", "\\arccos(-1)", "pi", "cos pi=-1.", ["\\pi"]),
-      countAnswer("ftrig-inv-m5", "Find arctan(0).", "\\arctan0", "0", "tan 0=0."),
-      choice("ftrig-inv-m6", "Which value is in the principal range of arcsin?", "A", ["$\\pi/6$", "$5\\pi/6$", "$3\\pi/2$", "$2\\pi$"], "Arcsin values lie between -pi/2 and pi/2."),
-      choice("ftrig-inv-m7", "Which value is in the principal range of arccos?", "C", ["$-\\pi/3$", "$3\\pi/2$", "$2\\pi/3$", "$-\\pi$"], "Arccos values lie from 0 to pi."),
-      choice("ftrig-inv-m8", "Which equation is solved by x=arctan(3) on the principal interval?", "B", ["$\\sin x=3$", "$\\tan x=3$", "$\\cos x=3$", "$\\sec x=3$"], "Arctan returns the angle whose tangent is the input."),
-      countAnswer("ftrig-inv-m9", "Solve sin x=1/2 for x in [-pi/2, pi/2].", "\\sin x=1/2", "pi/6", "The principal arcsine value is pi/6.", ["\\pi/6"]),
-      countAnswer("ftrig-inv-m10", "Solve cos x=-1/2 for x in [0, pi].", "\\cos x=-1/2", "2pi/3", "The arccos principal value is 2pi/3.", ["2\\pi/3"]),
+      countAnswer("ftrig-prod-m1", "Rewrite 2sin A cos B as a sum.", "2\\sin A\\cos B", "sin(A+B)+sin(A-B)", "Add sine sum and sine difference.", ["\\sin(A+B)+\\sin(A-B)"]),
+      countAnswer("ftrig-prod-m2", "Rewrite 2cos A cos B as a sum.", "2\\cos A\\cos B", "cos(A+B)+cos(A-B)", "Add cosine sum and cosine difference.", ["\\cos(A+B)+\\cos(A-B)"]),
+      countAnswer("ftrig-prod-m3", "Rewrite 2sin A sin B as a difference.", "2\\sin A\\sin B", "cos(A-B)-cos(A+B)", "Subtract cosine sum from cosine difference.", ["\\cos(A-B)-\\cos(A+B)"]),
+      countAnswer("ftrig-prod-m4", "Evaluate 2cos 75 degrees cos 15 degrees.", "2\\cos75^\\circ\\cos15^\\circ", "1/2", "cos90+cos60=1/2.", ["0.5"]),
+      countAnswer("ftrig-prod-m5", "Evaluate 2sin 75 degrees sin 15 degrees.", "2\\sin75^\\circ\\sin15^\\circ", "1/2", "cos60-cos90=1/2.", ["0.5"]),
+      choice("ftrig-prod-m6", "Which identity matches cos X+cos Y?", "B", ["$2\\sin\\frac{X+Y}{2}\\cos\\frac{X-Y}{2}$", "$2\\cos\\frac{X+Y}{2}\\cos\\frac{X-Y}{2}$", "$2\\cos\\frac{X+Y}{2}\\sin\\frac{X-Y}{2}$", "$\\cos(X+Y)+\\cos(X-Y)$"], "Cosine plus cosine becomes two cosines using average and half-difference."),
+      choice("ftrig-prod-m7", "Which identity matches cos X-cos Y?", "D", ["$2\\cos\\frac{X+Y}{2}\\cos\\frac{X-Y}{2}$", "$2\\sin\\frac{X+Y}{2}\\cos\\frac{X-Y}{2}$", "$\\sin(X+Y)-\\sin(X-Y)$", "$-2\\sin\\frac{X+Y}{2}\\sin\\frac{X-Y}{2}$"], "Cosine difference has the negative two sine product form."),
+      choice("ftrig-prod-m8", "A proof of sin 2A=2sin A cos A should start from which identity?", "A", ["$\\sin(A+A)$", "$\\cos(A-A)$", "$\\tan(A-A)$", "$\\sec A$"], "Set both angles equal in the sine addition formula."),
+      countAnswer("ftrig-prod-m9", "Rewrite sin 80 degrees+sin 20 degrees as a product.", "\\sin80^\\circ+\\sin20^\\circ", "2sin50cos30", "Average is 50 degrees and half-difference is 30 degrees.", ["2\\sin50^\\circ\\cos30^\\circ"]),
+      countAnswer("ftrig-prod-m10", "Evaluate cos 80 degrees+cos 40 degrees as a product.", "\\cos80^\\circ+\\cos40^\\circ", "2cos60cos20", "Average is 60 degrees and half-difference is 20 degrees.", ["2\\cos60^\\circ\\cos20^\\circ", "cos20"]),
     ],
   };
 }
@@ -515,8 +517,8 @@ export function year11ExtensionFurtherTrigonometryLessonOverride(
     return tFormulaLesson(lesson);
   }
 
-  if (lesson.slug === "inverse-trigonometric-functions") {
-    return inverseTrigLesson(lesson);
+  if (lesson.slug === "product-to-sum-identities") {
+    return productSumLesson(lesson);
   }
 
   return null;

@@ -2169,10 +2169,10 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Use the t-formula and subsidiary angle method to rewrite trigonometric expressions.",
           },
           {
-            slug: "inverse-trigonometric-functions",
-            title: "Inverse Trigonometric Functions",
+            slug: "product-to-sum-identities",
+            title: "Product-to-Sum Identities",
             description:
-              "Use inverse trigonometric functions, principal ranges, and simple inverse trig equations.",
+              "Use product-to-sum, sum-to-product, and identity reasoning in further trigonometry.",
           },
         ],
       },

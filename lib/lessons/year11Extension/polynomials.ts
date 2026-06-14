@@ -309,7 +309,7 @@ function divisionLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
       choice("poly-div-m7", "If x+2 is a factor, which value of P is zero?", "D", ["P(2)", "P(0)", "P(1/2)", "P(-2)"], "x+2=x-(-2)."),
       choice("poly-div-m8", "What does exact division mean?", "C", ["The quotient is zero", "The divisor is constant", "The remainder is zero", "The polynomial has no roots"], "Exact division leaves no remainder."),
       countAnswer("poly-div-m9", "Find k if P(x)=x^3+kx+1 has remainder 3 on division by x-1.", "P(1)=3", "1", "1+k+1=3, so k=1."),
-      countAnswer("poly-div-m10", "Find the quotient of x^3-1 divided by x-1.", "\\frac{x^3-1}{x-1}", "x^2+x+1", "x^3-1=(x-1)(x^2+x+1)."),
+      countAnswer("poly-div-m10", "Find the quotient of x^3-1 divided by x-1.", "\\frac{x^3-1}{x-1}", "x^2+x+1", "x^3-1=(x-1)(x^2+x+1).", ["x^2 + x + 1"]),
     ],
   };
 }
@@ -345,8 +345,8 @@ function factorLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
       choice("poly-fac-g4", "What does P(a)=0 mean graphically?", "C", ["a is the y-intercept", "The graph is constant", "x=a is an x-intercept", "The degree is a"], "The graph has y-value zero at x=a."),
     ],
     independentPractice: [
-      countAnswer("poly-fac-i1", "Fully factorise x^3-6x^2+11x-6.", "x^3-6x^2+11x-6", "(x-1)(x-2)(x-3)", "The roots are 1, 2 and 3."),
-      countAnswer("poly-fac-i2", "Fully factorise x^3+x^2-4x-4.", "x^3+x^2-4x-4", "(x+1)(x-2)(x+2)", "Group terms: x^2(x+1)-4(x+1)."),
+      countAnswer("poly-fac-i1", "Fully factorise x^3-6x^2+11x-6.", "x^3-6x^2+11x-6", "(x-1)(x-2)(x-3)", "The roots are 1, 2 and 3.", ["(x-1)(x-3)(x-2)", "(x-2)(x-1)(x-3)", "(x-2)(x-3)(x-1)", "(x-3)(x-1)(x-2)", "(x-3)(x-2)(x-1)"]),
+      countAnswer("poly-fac-i2", "Fully factorise x^3+x^2-4x-4.", "x^3+x^2-4x-4", "(x+1)(x-2)(x+2)", "Group terms: x^2(x+1)-4(x+1).", ["(x+1)(x+2)(x-2)", "(x-2)(x+1)(x+2)", "(x-2)(x+2)(x+1)", "(x+2)(x+1)(x-2)", "(x+2)(x-2)(x+1)"]),
       countAnswer("poly-fac-i3", "Find a factor of P(x)=x^3-4x if P(0)=0.", "P(x)=x^3-4x", "x", "P(x)=x(x^2-4), so x is a factor."),
       countAnswer("poly-fac-i4", "Find k if x-3 is a factor of P(x)=x^2+kx-6.", "P(3)=0", "-1", "9+3k-6=0, so 3k=-3 and k=-1."),
       choice("poly-fac-i5", "Which possible integer roots should be tested first for x^3-7x+6?", "A", ["Factors of 6", "Factors of 7 only", "All fractions", "No roots possible"], "Integer roots divide the constant term for a monic polynomial."),
@@ -360,13 +360,13 @@ function factorLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
     masteryQuiz: [
       countAnswer("poly-fac-m1", "Evaluate P(-1) for P(x)=x^3+2x^2-x-2.", "P(-1)", "0", "P(-1)=-1+2+1-2=0."),
       countAnswer("poly-fac-m2", "Which linear factor follows from P(4)=0?", "P(4)=0", "x-4", "A root at x=4 gives factor x-4."),
-      countAnswer("poly-fac-m3", "Fully factorise x^3-4x.", "x^3-4x", "x(x-2)(x+2)", "Factor out x, then use difference of squares."),
-      countAnswer("poly-fac-m4", "Fully factorise x^3-3x^2-4x+12.", "x^3-3x^2-4x+12", "(x-3)(x-2)(x+2)", "Group: x^2(x-3)-4(x-3)=(x-3)(x^2-4)."),
+      countAnswer("poly-fac-m3", "Fully factorise x^3-4x.", "x^3-4x", "x(x-2)(x+2)", "Factor out x, then use difference of squares.", ["x(x+2)(x-2)", "(x-2)x(x+2)", "(x-2)(x+2)x", "(x+2)x(x-2)", "(x+2)(x-2)x"]),
+      countAnswer("poly-fac-m4", "Fully factorise x^3-3x^2-4x+12.", "x^3-3x^2-4x+12", "(x-3)(x-2)(x+2)", "Group: x^2(x-3)-4(x-3)=(x-3)(x^2-4).", ["(x-3)(x+2)(x-2)", "(x-2)(x-3)(x+2)", "(x-2)(x+2)(x-3)", "(x+2)(x-3)(x-2)", "(x+2)(x-2)(x-3)"]),
       countAnswer("poly-fac-m5", "Find k if x+1 is a factor of x^2+kx+5.", "P(-1)=0", "6", "1-k+5=0, so k=6."),
       choice("poly-fac-m6", "If x-2 is a factor, which root is present?", "A", ["2", "-2", "0", "1/2"], "x-2=0 gives x=2."),
       choice("poly-fac-m7", "Which theorem connects P(a)=0 with x-a being a factor?", "D", ["Sine rule", "Remainder estimate", "Index law", "Factor theorem"], "That equivalence is the factor theorem."),
       choice("poly-fac-m8", "After finding a factor of a cubic, what is the usual next step?", "B", ["Differentiate", "Divide to get a quadratic quotient", "Ignore it", "Square the factor"], "Division lowers the degree so the rest can be factorised."),
-      countAnswer("poly-fac-m9", "Fully factorise x^3-2x^2-x+2.", "x^3-2x^2-x+2", "(x-2)(x-1)(x+1)", "Group: x^2(x-2)-1(x-2)=(x-2)(x^2-1)."),
+      countAnswer("poly-fac-m9", "Fully factorise x^3-2x^2-x+2.", "x^3-2x^2-x+2", "(x-2)(x-1)(x+1)", "Group: x^2(x-2)-1(x-2)=(x-2)(x^2-1).", ["(x-2)(x+1)(x-1)", "(x-1)(x-2)(x+1)", "(x-1)(x+1)(x-2)", "(x+1)(x-2)(x-1)", "(x+1)(x-1)(x-2)"]),
       countAnswer("poly-fac-m10", "Find P(2) for P(x)=x^3-6x^2+11x-6.", "P(2)", "0", "P(2)=8-24+22-6=0."),
     ],
   };
