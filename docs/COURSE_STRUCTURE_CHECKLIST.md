@@ -122,18 +122,18 @@ Advanced: skill map IDs namespaced `y10a-`. Core: trimmed + `y10c-`.
 ## Year 11 Standard 🔄
 
 `year-11-standard` — `available`. Override file: `lib/lessons/year11Standard/`.
-Class Maths 2026: 9 topics / 63 subtopics. Nova: 9 units / 35 lessons. Gap: **28 lessons** across all units.
+Class Maths 2026: 9 topics / 63 subtopics. Nova: 9 units / 39 lessons. Gap: **24 lessons** across all units.
 Depth pass completed 2026-06-14.
 
-### Formulas and Equations (3 / ~7)
+### Formulas and Equations (7 / ~7) ✅
 
 - [x] Substitution, Formulae and Equations
 - [x] Changing the Subject of a Formula
 - [x] Formulae and Equations Exam Practice
-- [ ] **Solving Linear Equations** — dedicated solving lesson (isolating unknowns, checking solutions, multi-step)
-- [ ] **Non-linear Models in Context** — quadratic/practical non-linear models (stopping distance, BMI, area contexts)
-- [ ] **Simultaneous Equations** — graphical method, two-model intersection in practical contexts
-- [ ] **Inequalities in Context** — reading inequality notation, solving simple inequalities, practical constraint problems
+- [x] **Solving Linear Equations** — dedicated solving lesson (isolating unknowns, checking solutions, multi-step)
+- [x] **Non-linear Models in Context** — quadratic/practical non-linear models (stopping distance, BMI, area contexts)
+- [x] **Simultaneous Equations** — graphical method, two-model intersection in practical contexts
+- [x] **Inequalities in Context** — reading inequality notation, solving simple inequalities, practical constraint problems
 
 ### Linear Relationships (3 / ~7)
 
@@ -218,7 +218,8 @@ Depth pass completed 2026-06-14.
 ---
 
 **Depth pass summary (2026-06-14):** 28 lessons to author across all 9 units to reach Class Maths parity.
-Authoring priority within the course: Data Analysis (4 missing) > Formulas+Equations (4) > Linear Relationships (4) > Networks (3) > Probability (3) > Measurement (3) > Time/Location (3) > Managing Money (2) > Earning Money (2).
+**Progress (2026-06-14):** Formulas+Equations complete (+4). 24 lessons remaining.
+Authoring priority: Data Analysis (4 missing) > Linear Relationships (4) > Networks (3) > Probability (3) > Measurement (3) > Time/Location (3) > Managing Money (2) > Earning Money (2).
 
 ---
 
