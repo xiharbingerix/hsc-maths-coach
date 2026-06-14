@@ -55,16 +55,6 @@ function estimatedDiagnosticMinutes(totalQuestions: number): number {
   return Math.max(1, Math.ceil((totalQuestions * 15) / 60));
 }
 
-function estimatedTimeRemaining(questionIndex: number, totalQuestions: number): string {
-  const remainingQuestions = Math.max(0, totalQuestions - questionIndex);
-  const remainingSeconds = remainingQuestions * 15;
-
-  if (remainingSeconds <= 30) return "Less than 1 minute remaining";
-
-  const minutes = Math.ceil(remainingSeconds / 60);
-  return `About ${minutes} minute${minutes !== 1 ? "s" : ""} remaining`;
-}
-
 export function DiagnosticQuizClient({
   yearLevel,
   yearLevelTitle,
@@ -78,15 +68,17 @@ export function DiagnosticQuizClient({
 }) {
   const totalQuestions = questions.length;
 
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [phase, setPhase] = useState<"intro" | "quiz" | "results">("intro");
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [saved, setSaved] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [submitWarning, setSubmitWarning] = useState<string | null>(null);
 
   const saveAttemptedRef = useRef(false);
+  const completedTrackedRef = useRef(false);
+  const answeredTrackedRef = useRef<Set<string>>(new Set());
+  const questionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
     clientTrackEvent("diagnostic_started", { yearLevel });
@@ -102,6 +94,15 @@ export function DiagnosticQuizClient({
   useEffect(() => {
     if (phase !== "results" || saveAttemptedRef.current) return;
     saveAttemptedRef.current = true;
+
+    if (!completedTrackedRef.current) {
+      completedTrackedRef.current = true;
+      clientTrackEvent("diagnostic_completed", {
+        yearLevel,
+        totalCorrect,
+        totalQuestions,
+      });
+    }
 
     const resultsSnapshot = unitResults.map((u) => ({
       unitSlug: u.slug,
@@ -125,12 +126,6 @@ export function DiagnosticQuizClient({
 
       if (error) setSaveError(error.message);
       else setSaved(true);
-
-      clientTrackEvent("diagnostic_completed", {
-        yearLevel,
-        totalCorrect,
-        totalQuestions,
-      });
 
       // Seed student_mastery from diagnostic answers — fire-and-forget.
       const { data: sessionData } = await supabase.auth.getSession();
@@ -159,31 +154,50 @@ export function DiagnosticQuizClient({
     void checkAndSave();
   }, [phase, yearLevel, unitResults]);
 
-  function handleNext() {
-    if (!selectedAnswer) return;
-    const q = questions[questionIndex];
-
+  function handleAnswer(question: DiagnosticQuestion, answer: string, questionIndex: number) {
+    setAnswers((current) => ({ ...current, [question.id]: answer }));
+    setSubmitWarning(null);
     try {
-      void clientTrackEvent("diagnostic_question_answered", {
-        yearLevel,
-        questionIndex: questionIndex + 1,
-        totalQuestions,
-        questionId: q.id,
-        unitSlug: q.unitSlug,
-      });
+      if (!answeredTrackedRef.current.has(question.id)) {
+        answeredTrackedRef.current.add(question.id);
+        void clientTrackEvent("diagnostic_question_answered", {
+          yearLevel,
+          questionIndex: questionIndex + 1,
+          totalQuestions,
+          questionId: question.id,
+          unitSlug: question.unitSlug,
+        });
+      }
     } catch {
       // Analytics must never interrupt the diagnostic flow.
     }
+  }
 
-    const newAnswers = { ...answers, [q.id]: selectedAnswer };
-    setAnswers(newAnswers);
-    setSelectedAnswer(null);
+  function handleSubmit() {
+    const firstUnansweredIndex = questions.findIndex((q) => !answers[q.id]);
 
-    if (questionIndex + 1 >= totalQuestions) {
-      setPhase("results");
-    } else {
-      setQuestionIndex((i) => i + 1);
+    void clientTrackEvent("diagnostic_submit_clicked", {
+      yearLevel,
+      answeredQuestions: Object.keys(answers).length,
+      totalQuestions,
+      complete: firstUnansweredIndex === -1,
+    });
+
+    if (firstUnansweredIndex !== -1) {
+      const missingCount = questions.filter((q) => !answers[q.id]).length;
+      const firstUnanswered = questions[firstUnansweredIndex];
+      setSubmitWarning(
+        `${missingCount} question${missingCount === 1 ? "" : "s"} still unanswered. Answer every question before seeing results.`
+      );
+      questionRefs.current[firstUnanswered.id]?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+      return;
     }
+
+    setSubmitWarning(null);
+    setPhase("results");
   }
 
   // ── Intro phase ──────────────────────────────────────────────────────────────
@@ -211,7 +225,10 @@ export function DiagnosticQuizClient({
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <button
                 type="button"
-                onClick={() => setPhase("quiz")}
+                onClick={() => {
+                  setPhase("quiz");
+                  setSubmitWarning(null);
+                }}
                 className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 font-semibold text-white hover:bg-slate-700"
               >
                 Start diagnostic
@@ -363,7 +380,7 @@ export function DiagnosticQuizClient({
               Get started
             </p>
             <h2 className="mt-2 text-xl font-bold">
-              Start studying your priority units today.
+              Unlock your personalised practice plan.
             </h2>
             <p className="mt-2 leading-7 text-slate-300">
               Access all 195+ NSW maths lessons, save your progress and track
@@ -461,13 +478,14 @@ export function DiagnosticQuizClient({
             <button
               type="button"
               onClick={() => {
-                setQuestionIndex(0);
                 setAnswers({});
-                setSelectedAnswer(null);
                 setPhase("intro");
                 setSaved(false);
                 setSaveError(null);
                 setIsLoggedIn(null);
+                setSubmitWarning(null);
+                completedTrackedRef.current = false;
+                answeredTrackedRef.current = new Set();
                 saveAttemptedRef.current = false;
               }}
               className="rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
@@ -482,89 +500,113 @@ export function DiagnosticQuizClient({
   }
 
   // ── Quiz phase ───────────────────────────────────────────────────────────────
-  const currentQuestion = questions[questionIndex];
-  const progressPercent = ((questionIndex + 1) / totalQuestions) * 100;
+  const answeredCount = questions.filter((q) => answers[q.id]).length;
+  const progressPercent = (answeredCount / totalQuestions) * 100;
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
+    <main className="min-h-screen bg-slate-50 px-4 pb-28 pt-6 text-slate-900 sm:py-10">
       <div className="mx-auto max-w-2xl space-y-6">
         {/* Header */}
-        <div className="rounded-2xl bg-white p-5 shadow-sm">
-          <div className="flex items-center justify-between text-sm text-slate-600">
+        <div className="sticky top-0 z-20 rounded-b-2xl bg-white/95 p-5 shadow-sm backdrop-blur sm:rounded-2xl">
+          <div className="flex flex-col gap-1 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
             <span className="font-medium">{yearLevelTitle}</span>
             <span>
-              Question {questionIndex + 1} of {totalQuestions}
+              {answeredCount} of {totalQuestions} answered
             </span>
           </div>
-          <p className="mt-1 text-xs font-medium text-slate-500">
-            {estimatedTimeRemaining(questionIndex, totalQuestions)}
-          </p>
           <p className="mt-1 text-xs text-slate-500">
             About {estimatedDiagnosticMinutes(totalQuestions)} minutes &middot; {totalQuestions} multiple-choice questions
           </p>
 
-          {/* Progress bar */}
           <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
             <div
               className="h-full rounded-full bg-slate-900 transition-all duration-300"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
-          {questionIndex === 9 && (
-            <p className="mt-3 rounded-xl bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-700">
-              Halfway there — 10 questions to go.
+        </div>
+
+        <div className="space-y-5">
+          {questions.map((question, questionIndex) => (
+            <section
+              key={question.id}
+              ref={(node) => {
+                questionRefs.current[question.id] = node;
+              }}
+              className={`space-y-5 overflow-hidden rounded-2xl bg-white p-5 shadow-sm sm:p-6 ${
+                submitWarning && !answers[question.id]
+                  ? "ring-2 ring-red-300"
+                  : ""
+              }`}
+            >
+              <div className="flex flex-col gap-1">
+                <p className="text-sm font-semibold text-slate-500">
+                  Question {questionIndex + 1} of {totalQuestions}
+                </p>
+                <p className="overflow-x-auto text-lg font-semibold leading-relaxed">
+                  <MathText text={question.prompt} />
+                </p>
+              </div>
+
+              {question.latex && (
+                <div className="overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+                  <BlockMath math={question.latex} />
+                </div>
+              )}
+
+              <div className="space-y-3">
+                {question.choices.map((choice) => {
+                  const isSelected = answers[question.id] === choice.label;
+                  return (
+                    <button
+                      key={choice.label}
+                      type="button"
+                      onClick={() => handleAnswer(question, choice.label, questionIndex)}
+                      className={`flex w-full min-w-0 items-start gap-3 rounded-xl border px-4 py-3 text-left text-sm transition ${
+                        isSelected
+                          ? "border-slate-900 bg-slate-900 text-white"
+                          : "border-slate-200 bg-white text-slate-800 hover:border-slate-400 hover:bg-slate-50"
+                      }`}
+                      aria-pressed={isSelected}
+                    >
+                      <span className="mt-0.5 shrink-0 font-semibold">{choice.label}.</span>
+                      <span className="min-w-0 overflow-x-auto">
+                        <MathText text={choice.text} />
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+          ))}
+        </div>
+
+        <div className="rounded-2xl bg-white p-5 shadow-sm">
+          {submitWarning && (
+            <p className="mb-3 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">
+              {submitWarning}
             </p>
           )}
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className="w-full rounded-xl bg-slate-900 px-6 py-4 font-semibold text-white hover:bg-slate-700"
+          >
+            See my results
+          </button>
         </div>
-
-        {/* Question card */}
-        <div className="space-y-5 rounded-2xl bg-white p-6 shadow-sm">
-          <p className="text-lg font-semibold leading-relaxed">
-            <MathText text={currentQuestion.prompt} />
-          </p>
-
-          {currentQuestion.latex && (
-            <div className="overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
-              <BlockMath math={currentQuestion.latex} />
-            </div>
-          )}
-
-          <div className="space-y-3">
-            {currentQuestion.choices.map((choice) => {
-              const isSelected = selectedAnswer === choice.label;
-              return (
-                <button
-                  key={choice.label}
-                  type="button"
-                  onClick={() => setSelectedAnswer(choice.label)}
-                  className={`flex w-full items-start gap-3 rounded-xl border px-4 py-3 text-left text-sm transition ${
-                    isSelected
-                      ? "border-slate-900 bg-slate-900 text-white"
-                      : "border-slate-200 bg-white text-slate-800 hover:border-slate-400 hover:bg-slate-50"
-                  }`}
-                >
-                  <span className="mt-0.5 font-semibold">{choice.label}.</span>
-                  <span>
-                    <MathText text={choice.text} />
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={handleNext}
-              disabled={!selectedAnswer}
-              className="rounded-xl bg-slate-900 px-6 py-3 font-semibold text-white hover:bg-slate-700 disabled:opacity-40"
-            >
-              {questionIndex + 1 === totalQuestions
-                ? "See results"
-                : "Next question →"}
-            </button>
-          </div>
-        </div>
+      </div>
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 px-4 py-3 shadow-lg backdrop-blur sm:hidden">
+        {submitWarning && (
+          <p className="mb-2 text-xs font-semibold text-red-700">{submitWarning}</p>
+        )}
+        <button
+          type="button"
+          onClick={handleSubmit}
+          className="w-full rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white"
+        >
+          See my results
+        </button>
       </div>
     </main>
   );
