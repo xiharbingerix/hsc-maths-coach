@@ -1590,6 +1590,30 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Rearrange practical formulae using inverse operations, including cost, area, circumference and temperature formulae.",
           },
           {
+            slug: "solving-linear-equations",
+            title: "Solving Linear Equations",
+            description:
+              "Use inverse operations to solve one-step, two-step and bracket equations, including equations with unknowns on both sides, in practical contexts.",
+          },
+          {
+            slug: "nonlinear-models-context",
+            title: "Non-linear Models in Context",
+            description:
+              "Evaluate non-linear formulas involving squares and square roots, and recognise when a relationship is quadratic rather than linear.",
+          },
+          {
+            slug: "simultaneous-equations-context",
+            title: "Simultaneous Equations",
+            description:
+              "Set up and solve pairs of practical linear equations to find where two models give the same output, such as equal-cost or break-even situations.",
+          },
+          {
+            slug: "inequalities-in-context",
+            title: "Inequalities in Context",
+            description:
+              "Read, set up and solve linear inequalities using correct notation, and interpret solutions as maximum or minimum values in practical constraint problems.",
+          },
+          {
             slug: "formulae-equations-exam-practice",
             title: "Formulae and Equations Exam Practice",
             description:
