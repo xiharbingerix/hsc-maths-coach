@@ -75,6 +75,7 @@ const SUPPORTED_COURSE_SLUGS = [
   "year-10-mathematics-advanced",
   "year-11-standard",
   "year-11-advanced",
+  "year-11-extension",
   "year-12-standard-2",
   "year-12-standard-1",
   "year-12-extension-1",

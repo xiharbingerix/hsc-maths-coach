@@ -20,7 +20,7 @@
 | Year 10 Mathematics Core | 10 trimmed | ~40 | 12 topics / 76 subtopics | 🔄 In progress |
 | Year 11 Standard | 9 | 58 | 9 topics / 63 subtopics (2026) | 🔄 Depth pass in progress (+5 remaining) |
 | Year 11 Advanced | 8 | 54 | 11 topics / 90 subtopics (2026) | ✅ Available |
-| Year 11 Extension | 2 of 5 | 10 | 5 topics / 30 subtopics (2026) | 🔄 In progress |
+| Year 11 Extension | 5 of 5 | 25 | 5 topics / 30 subtopics (2026) | ✅ Available |
 | Year 12 Standard 1 | 5 | 18 | 7 topics / 29 subtopics | 🔄 In progress |
 | Year 12 Standard 2 | 5 | 22 | 10 topics / 59 subtopics | ✅ Available |
 | Year 12 Advanced | 12 | 86 | 11 topics / 64 subtopics | ✅ Available |
@@ -246,18 +246,18 @@ Class Maths 2026: 11 topics / 90 subtopics.
 
 ---
 
-## Year 11 Extension 🔄
+## Year 11 Extension ✅
 
-`year-11-extension` — `in_progress`. Override file: `lib/lessons/year11Extension/`.
+`year-11-extension` — `available`. Override file: `lib/lessons/year11Extension/`.
 Class Maths 2026: 5 topics / 30 subtopics.
 
-- [ ] Further Work with Functions (0 lessons — empty unit)
-- [ ] Polynomials (0 lessons — empty unit)
-- [ ] Further Trigonometry (0 lessons — empty unit)
+- [x] Further Work with Functions (5/~5) ✅
+- [x] Polynomials (5/~5) ✅
+- [x] Further Trigonometry (5/~5) ✅
 - [x] Permutations and Combinations (5 lessons)
 - [x] The Binomial Theorem (5 lessons)
 
-**Next:** author `further-functions`, `polynomials`, `further-trigonometry` units.
+**Progress (2026-06-14):** Further Work with Functions, Polynomials, and Further Trigonometry authored (+15 lessons); Year 11 Extension now has 25 lessons across all 5 planned units.
 
 ---
 
@@ -380,11 +380,10 @@ Courses that need a depth pass before they match Class Maths granularity:
 
 ## Priority Order
 
-1. **Year 11 Extension** — author the 3 empty units (Further Functions, Polynomials, Further Trig)
-2. **Year 12 Extension 2 depth** — calculus + mechanics + proof gaps
-3. **Year 12 Standard 2 depth** — 5 units covering only half the Class Maths topics
-4. **Year 11 Advanced gaps** — equations/inequations, coordinate geometry units
-5. **Year 12 Standard 1** — add missing 2 topics, promote to available
-6. **Year 9 / Year 10 variants** — promote Advanced and Core to available
-7. **Year 8 depth** — 4 missing units vs Class Maths 14-topic target (ratios/rates, index laws, etc.)
-8. **Year 7** — new course, not yet started
+1. **Year 12 Extension 2 depth** — calculus + mechanics + proof gaps
+2. **Year 12 Standard 2 depth** — 5 units covering only half the Class Maths topics
+3. **Year 11 Advanced gaps** — equations/inequations, coordinate geometry units
+4. **Year 12 Standard 1** — add missing 2 topics, promote to available
+5. **Year 9 / Year 10 variants** — promote Advanced and Core to available
+6. **Year 8 depth** — 4 missing units vs Class Maths 14-topic target (ratios/rates, index laws, etc.)
+7. **Year 7** — new course, not yet started

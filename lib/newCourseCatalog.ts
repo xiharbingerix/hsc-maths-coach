@@ -52,7 +52,10 @@ import {
 } from "./lessons/year11Advanced";
 import {
   year11ExtensionBinomialTheoremLessonOverride,
+  year11ExtensionFurtherFunctionsLessonOverride,
+  year11ExtensionFurtherTrigonometryLessonOverride,
   year11ExtensionPermutationsCombinationsLessonOverride,
+  year11ExtensionPolynomialsLessonOverride,
 } from "./lessons/year11Extension";
 import {
   year12Extension1InverseTrigLessonOverride,
@@ -270,6 +273,9 @@ export function buildLesson(
     year12Extension2CalculusLessonOverride(course, unit, lesson) ??
     year12Extension2MechanicsLessonOverride(course, unit, lesson) ??
     year12Extension2ProofLessonOverride(course, unit, lesson) ??
+    year11ExtensionFurtherFunctionsLessonOverride(course, unit, lesson) ??
+    year11ExtensionPolynomialsLessonOverride(course, unit, lesson) ??
+    year11ExtensionFurtherTrigonometryLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
     year8NumberOperationsLessonOverride(course, unit, lesson) ??
@@ -1844,6 +1850,24 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Use text grids, coordinates, map scales and simple compass directions to describe location without drawing maps.",
           },
           {
+            slug: "compass-bearings-navigation",
+            title: "Compass Bearings and Navigation",
+            description:
+              "Read true bearings using three-digit notation measured clockwise from north, identify key compass points as bearings, and calculate back bearings.",
+          },
+          {
+            slug: "speed-distance-time",
+            title: "Speed, Distance and Time",
+            description:
+              "Apply D = S × T to find distance, speed or time, convert between minutes and decimal hours, and calculate average speed for multi-leg journeys.",
+          },
+          {
+            slug: "latitude-longitude-global-location",
+            title: "Latitude, Longitude and Global Location",
+            description:
+              "Read GPS coordinates as (latitude, longitude), identify hemispheres, estimate north-south distances using 111 km per degree, and connect longitude to UTC offsets.",
+          },
+          {
             slug: "time-location-exam-practice",
             title: "Time and Location Exam Practice",
             description:
@@ -2014,11 +2038,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 11 Mathematics Extension",
     yearLevel: "Year 11",
     courseType: "Mathematics Extension",
-    status: "in_progress",
+    status: "available",
     description:
-      "Year 11 Mathematics Extension is partly available, with 2 of 5 planned topics currently available.",
+      "Year 11 Mathematics Extension is available across all 5 planned topics, with focused lessons for functions, polynomials, trigonometry, combinatorics, and binomial theorem.",
     positioning:
-      "2 of 5 planned topics currently available. Permutations and Combinations and The Binomial Theorem are active. Further Work with Functions, Polynomials and Further Trigonometry are coming soon.",
+      "All 5 planned topics are available, covering Further Work with Functions, Polynomials, Further Trigonometry, Permutations and Combinations, and The Binomial Theorem.",
     units: [
       {
         slug: "further-functions",
@@ -2027,7 +2051,38 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Planned Extension functions work, including deeper function notation, transformations, and graph interpretation.",
         syllabusArea: "Functions",
         focus: "Further work with functions",
-        lessons: [],
+        lessons: [
+          {
+            slug: "inverse-functions",
+            title: "Inverse Functions",
+            description:
+              "Find inverse functions, test one-to-one behaviour, and connect domains and ranges.",
+          },
+          {
+            slug: "parametric-equations",
+            title: "Parametric Equations",
+            description:
+              "Convert simple parametric equations to Cartesian form and interpret restricted paths.",
+          },
+          {
+            slug: "polynomial-division-remainder-functions",
+            title: "Polynomial Division and Remainders",
+            description:
+              "Use polynomial division and the remainder theorem as tools for analysing functions.",
+          },
+          {
+            slug: "odd-even-functions-symmetry",
+            title: "Odd and Even Functions",
+            description:
+              "Classify odd and even functions using algebraic tests and graph symmetry.",
+          },
+          {
+            slug: "absolute-value-functions",
+            title: "Absolute Value Functions",
+            description:
+              "Graph, solve, and interpret equations and inequalities involving absolute value functions.",
+          },
+        ],
       },
       {
         slug: "polynomials",
@@ -2036,7 +2091,38 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Planned polynomial skills for Extension study, including algebraic structure, factors, roots, and graph features.",
         syllabusArea: "Polynomials",
         focus: "Polynomials",
-        lessons: [],
+        lessons: [
+          {
+            slug: "polynomial-terminology",
+            title: "Polynomial Terminology",
+            description:
+              "Use polynomial vocabulary including degree, coefficients, leading term, and constant term.",
+          },
+          {
+            slug: "polynomial-division-remainder-theorem",
+            title: "Polynomial Division and the Remainder Theorem",
+            description:
+              "Divide polynomials and use P(a) to find remainders efficiently.",
+          },
+          {
+            slug: "factor-theorem-factorisation",
+            title: "Factor Theorem and Factorisation",
+            description:
+              "Use the factor theorem to identify linear factors and fully factorise simple cubics.",
+          },
+          {
+            slug: "roots-and-coefficients",
+            title: "Roots and Coefficients",
+            description:
+              "Use relationships between roots and coefficients for quadratics and cubics.",
+          },
+          {
+            slug: "polynomial-graphs",
+            title: "Polynomial Graphs",
+            description:
+              "Sketch polynomial graphs from degree, leading coefficient, roots, and multiplicities.",
+          },
+        ],
       },
       {
         slug: "further-trigonometry",
@@ -2045,7 +2131,38 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Planned Extension trigonometry support, including identities, equations, and exact-value fluency.",
         syllabusArea: "Trigonometry",
         focus: "Further trigonometry",
-        lessons: [],
+        lessons: [
+          {
+            slug: "reciprocal-trigonometric-functions",
+            title: "Reciprocal Trigonometric Functions",
+            description:
+              "Define secant, cosecant and cotangent, and evaluate exact reciprocal trigonometric values.",
+          },
+          {
+            slug: "compound-angle-formulae",
+            title: "Compound Angle Formulae",
+            description:
+              "Apply compound angle formulae for sine, cosine, and tangent.",
+          },
+          {
+            slug: "double-angle-formulae",
+            title: "Double Angle Formulae",
+            description:
+              "Use double angle formulae for sine, cosine, and tangent, including alternate cosine forms.",
+          },
+          {
+            slug: "t-formula-subsidiary-angle",
+            title: "t-Formula and Subsidiary Angle Method",
+            description:
+              "Use the t-formula and subsidiary angle method to rewrite trigonometric expressions.",
+          },
+          {
+            slug: "inverse-trigonometric-functions",
+            title: "Inverse Trigonometric Functions",
+            description:
+              "Use inverse trigonometric functions, principal ranges, and simple inverse trig equations.",
+          },
+        ],
       },
       {
         slug: "permutations-combinations",
