@@ -41,6 +41,42 @@ function applicationsMeasurementFeedback(prompt: string, latex: string, answer: 
   if (context.includes("kj") || context.includes("energy")) {
     return `Energy labels are usually per serve or per item. Multiply the energy amount by the number of serves/items to get the total energy: ${answer}.`;
   }
+  if (context.includes("hectare") || context.includes(" ha") || context.includes("composite") || context.includes("l-shape") || context.includes("paddock") || context.includes("cut-out") || context.includes("irregular")) {
+    if (context.includes("hectare") || context.includes(" ha")) {
+      return `Convert between m² and hectares using 1 ha = 10,000 m². To go from m² to ha, divide by 10,000; to go from ha to m², multiply by 10,000. The answer is ${answer}.`;
+    }
+    return `Split the composite shape into standard rectangles or triangles, find each area separately, then add or subtract as required. That gives ${answer}.`;
+  }
+  if (context.includes("density") || context.includes("d=m") || context.includes("d = m") || context.includes("g/cm") || context.includes("kg/m")) {
+    if (context.includes("find its volume") || context.includes("find the volume") || context.includes("v = m")) {
+      return `Rearrange D = M/V to find volume: V = M/D. Divide mass by density to get ${answer}.`;
+    }
+    if (context.includes("find the mass") || context.includes("find its mass") || context.includes("m = d")) {
+      return `Rearrange D = M/V to find mass: M = D × V. Multiply density by volume to get ${answer}.`;
+    }
+    return `Density is mass divided by volume: D = M/V. Divide mass by volume and keep the unit (g/cm³ or kg/m³) to get ${answer}.`;
+  }
+  if (context.includes("l/100") || context.includes("litres per 100") || context.includes("fuel")) {
+    return `Fuel consumption uses L per 100 km. Fuel used = (distance ÷ 100) × rate. For the rate: rate = (fuel ÷ distance) × 100. Here that gives ${answer}.`;
+  }
+  if (context.includes("population density") || context.includes("people per") || context.includes("people/km") || context.includes("people in")) {
+    return `Population density = number of people ÷ area in km². Divide and keep the unit "people/km²" to get ${answer}.`;
+  }
+  if (context.includes("concentration") || context.includes("g/l") || context.includes("mg/l") || context.includes("dissolved")) {
+    return `Concentration = mass ÷ volume. Convert the volume to litres first if needed, then divide mass (g or mg) by volume (L) to get ${answer}.`;
+  }
+  if (context.includes("scale") || context.includes("1:") || context.includes("plan") || context.includes("model car") || context.includes("map") || context.includes("drawing length") || context.includes("real length")) {
+    if (context.includes("area") && (context.includes("real area") || context.includes("plan area") || context.includes("drawing area"))) {
+      return `Areas scale by the square of the scale factor. If scale is 1:n, then real area = drawing area × n². For this question that gives ${answer}.`;
+    }
+    if (context.includes("drawing") || context.includes("plan")) {
+      if (context.includes("real") || context.includes("actual") || context.includes("what is the real")) {
+        return `To find the real length, multiply the drawing length by the scale factor n (from scale 1:n). That gives ${answer}.`;
+      }
+      return `To find the drawing length, divide the real length by the scale factor n (from scale 1:n). That gives ${answer}.`;
+    }
+    return `Use the scale 1:n by multiplying drawing lengths by n to get real lengths, or dividing real lengths by n to get drawing lengths. The answer is ${answer}.`;
+  }
   if (context.includes("mass")) {
     return `Use the mass unit that fits the context, then apply the conversion factor if needed. The practical mass is ${answer}.`;
   }
@@ -163,6 +199,112 @@ function measurementWorkedExamples(slug: string, title: string): WorkedExample[]
           { explanation: "The result is in cents." },
         ],
         finalAnswerLatex: "54\\text{ cents}",
+      },
+    ];
+  }
+
+  if (slug === "composite-shapes-land-measurement") {
+    return [
+      {
+        title: "Area of an L-shaped floor plan",
+        questionLatex:
+          "\\text{An L-shaped room has outer dimensions }8\\text{ m}\\times 5\\text{ m. A rectangular corner }3\\text{ m}\\times 2\\text{ m is cut away. Find the floor area.}",
+        steps: [
+          { explanation: "Find the area of the outer rectangle.", latex: "8\\times 5=40\\text{ m}^2" },
+          { explanation: "Find the area of the cut-away corner.", latex: "3\\times 2=6\\text{ m}^2" },
+          { explanation: "Subtract the corner from the outer rectangle.", latex: "40-6=34\\text{ m}^2" },
+        ],
+        finalAnswerLatex: "34\\text{ m}^2",
+      },
+      {
+        title: "Converting between m² and hectares",
+        questionLatex:
+          "\\text{A paddock has area }35{,}000\\text{ m}^2.\\text{ Convert this to hectares.}",
+        steps: [
+          { explanation: "Recall the conversion factor.", latex: "1\\text{ ha}=10{,}000\\text{ m}^2" },
+          { explanation: "Divide by 10,000.", latex: "35{,}000\\div 10{,}000=3.5\\text{ ha}" },
+        ],
+        finalAnswerLatex: "3.5\\text{ ha}",
+      },
+      {
+        title: "Perimeter of a rectangular paddock for fencing",
+        questionLatex:
+          "\\text{A paddock is }45\\text{ m}\\times 30\\text{ m.\\;What length of fencing is needed?}",
+        steps: [
+          { explanation: "Fencing covers the perimeter of the paddock.", latex: "P=2(l+w)=2(45+30)" },
+          { explanation: "Calculate.", latex: "2\\times 75=150\\text{ m}" },
+        ],
+        finalAnswerLatex: "150\\text{ m}",
+      },
+    ];
+  }
+
+  if (slug === "density-concentration-practical-rates") {
+    return [
+      {
+        title: "Finding density from mass and volume",
+        questionLatex:
+          "\\text{A metal block has mass }600\\text{ g and volume }200\\text{ cm}^3.\\text{ Find its density.}",
+        steps: [
+          { explanation: "Write the density formula.", latex: "D=\\frac{M}{V}" },
+          { explanation: "Substitute values.", latex: "D=\\frac{600}{200}=3\\text{ g/cm}^3" },
+        ],
+        finalAnswerLatex: "3\\text{ g/cm}^3",
+      },
+      {
+        title: "Fuel consumption over a journey",
+        questionLatex:
+          "\\text{A car uses fuel at }7.5\\text{ L/100 km.\\;How much fuel is used over }450\\text{ km?}",
+        steps: [
+          { explanation: "Fuel used = (distance ÷ 100) × rate.", latex: "\\text{fuel}=\\frac{450}{100}\\times 7.5" },
+          { explanation: "Calculate.", latex: "4.5\\times 7.5=33.75\\text{ L}" },
+        ],
+        finalAnswerLatex: "33.75\\text{ L}",
+      },
+      {
+        title: "Population density",
+        questionLatex:
+          "\\text{A suburb has }12{,}000\\text{ people living in an area of }4\\text{ km}^2.\\text{ Find the population density.}",
+        steps: [
+          { explanation: "Population density = people ÷ area.", latex: "\\text{density}=\\frac{12{,}000}{4}" },
+          { explanation: "Calculate.", latex: "=3{,}000\\text{ people/km}^2" },
+        ],
+        finalAnswerLatex: "3{,}000\\text{ people/km}^2",
+      },
+    ];
+  }
+
+  if (slug === "scale-drawings-models") {
+    return [
+      {
+        title: "Finding real length from a scale plan",
+        questionLatex:
+          "\\text{A building plan uses scale }1{:}100.\\text{ A wall measures }4.5\\text{ cm on the plan. Find its real length.}",
+        steps: [
+          { explanation: "Real length = drawing length × scale factor.", latex: "\\text{real}=4.5\\times 100=450\\text{ cm}" },
+          { explanation: "Convert to metres.", latex: "450\\div 100=4.5\\text{ m}" },
+        ],
+        finalAnswerLatex: "4.5\\text{ m}",
+      },
+      {
+        title: "Finding drawing length from real length",
+        questionLatex:
+          "\\text{A room is }6\\text{ m long.\\;The scale is }1{:}50.\\text{ What is the length on the plan?}",
+        steps: [
+          { explanation: "Convert real length to centimetres.", latex: "6\\text{ m}=600\\text{ cm}" },
+          { explanation: "Drawing length = real length ÷ scale factor.", latex: "600\\div 50=12\\text{ cm}" },
+        ],
+        finalAnswerLatex: "12\\text{ cm}",
+      },
+      {
+        title: "Map distance using scale",
+        questionLatex:
+          "\\text{A map uses scale }1{:}25{,}000.\\text{ Two points are }8\\text{ cm apart on the map.\\;Find the real distance.}",
+        steps: [
+          { explanation: "Real distance = map distance × scale factor.", latex: "8\\times 25{,}000=200{,}000\\text{ cm}" },
+          { explanation: "Convert to km.", latex: "200{,}000\\div 100{,}000=2\\text{ km}" },
+        ],
+        finalAnswerLatex: "2\\text{ km}",
       },
     ];
   }
@@ -411,6 +553,280 @@ export function year11StandardApplicationsMeasurementLessonOverride(
         measurementAnswer("measure-energy-m8", "A washing machine uses 1.4 kWh at 32 cents per kWh. What is the cost in cents?", "\\text{usage}=1.4\\text{ kWh},\\quad \\text{rate}=32\\text{ c/kWh}", "44.8 cents", ["44.8", "44.80", "44.8c", "44.8 cents"]),
         financeChoice("measure-energy-m9", "A result of 300 tonnes for a school lunch sandwich is:", "D", ["Reasonable", "A capacity", "An area", "Not reasonable"], "A sandwich mass would be in grams, not tonnes."),
         measurementAnswer("measure-energy-m10", "A recipe uses 250 g of pasta for each person. How many grams are needed for 6 people?", "\\text{pasta per person}=250\\text{ g},\\quad \\text{people}=6", "1500 g", ["1500", "1,500", "1500g"]),
+      ],
+    };
+  }
+
+  if (lesson.slug === "composite-shapes-land-measurement") {
+    return {
+      ...base,
+      description:
+        "Find areas of L-shapes and other composite figures by splitting into rectangles and triangles, and convert between square metres and hectares for land measurement.",
+      learningIntention:
+        "Calculate areas of composite shapes involving rectangles and triangles, and convert between m² and ha.",
+      successCriteria: [
+        "Split composite shapes into rectangles or triangles and find each part's area.",
+        "Add or subtract areas to find the total for L-shapes and similar figures.",
+        "Convert between square metres and hectares using 1 ha = 10,000 m².",
+        "Find the perimeter of composite figures for fencing problems.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A composite shape is made by joining or removing standard shapes such as rectangles and triangles. Split the shape into parts, find each area, then add or subtract as needed.",
+          "For an L-shaped region, two approaches work: treat it as a large rectangle minus the cut-out corner, or split it into two separate rectangles and add them.",
+          "Land area in Australia is commonly measured in hectares. One hectare equals 10,000 square metres. To convert from m² to ha, divide by 10,000.",
+          "Perimeter is used for fencing and border strips. Count only the outer edges of the composite shape — not any interior dividing lines.",
+        ],
+        latexBlocks: [
+          "A_{\\text{composite}} = A_1 + A_2 \\;(\\text{or}\\; A_1 - A_{\\text{cut-out}})",
+          "1\\text{ ha} = 10{,}000\\text{ m}^2 \\qquad 1\\text{ km}^2 = 100\\text{ ha}",
+        ],
+      },
+      guidedPractice: [
+        financeChoice("measure-comp-g1", "The area of an L-shaped region is best found by:", "B", [
+          "Measuring around the outside only",
+          "Splitting into rectangles or subtracting a corner from the outer rectangle",
+          "Multiplying all side lengths together",
+          "Using the triangle area formula",
+        ], "Split into standard shapes or subtract the cut-out corner from the full rectangle."),
+        measurementAnswer("measure-comp-g2", "An L-shaped room has outer dimensions 8 m × 5 m. A rectangular corner 3 m × 2 m is cut away. Find the floor area.", "A = 8\\times 5 - 3\\times 2", "34 m^2", ["34", "34m^2", "34 m2", "34 m²"]),
+        financeChoice("measure-comp-g3", "1 hectare equals:", "C", [
+          "100 m²",
+          "1000 m²",
+          "10,000 m²",
+          "100,000 m²",
+        ], "1 ha = 10,000 m²."),
+        measurementAnswer("measure-comp-g4", "A paddock has area 24,000 m². Convert this to hectares.", "\\text{ha} = 24{,}000 \\div 10{,}000", "2.4 ha", ["2.4", "2.4ha", "2.4 ha"]),
+      ],
+      independentPractice: [
+        measurementAnswer("measure-comp-i1", "A composite shape is made of two rectangles joined together: 10 m × 6 m and 5 m × 4 m. Find the total area.", "A = 10\\times 6 + 5\\times 4", "80 m^2", ["80", "80m^2", "80 m2", "80 m²"]),
+        measurementAnswer("measure-comp-i2", "A triangular garden bed has base 6 m and height 4 m. Find its area.", "A = \\tfrac{1}{2}\\times 6\\times 4", "12 m^2", ["12", "12m^2", "12 m2", "12 m²"]),
+        measurementAnswer("measure-comp-i3", "A farm has area 35,000 m². Convert this to hectares.", "\\text{ha} = 35{,}000 \\div 10{,}000", "3.5 ha", ["3.5", "3.5ha", "3.5 ha"]),
+        financeChoice("measure-comp-i4", "A rectangular paddock is 45 m × 30 m. What length of fencing is needed?", "C", [
+          "1350 m",
+          "135 m",
+          "150 m",
+          "75 m",
+        ], "Perimeter = 2(45 + 30) = 2 × 75 = 150 m."),
+        measurementAnswer("measure-comp-i5", "An L-shaped garden is made by joining rectangle A (12 m × 3 m) and rectangle B (5 m × 2 m). Find the total area.", "A = 12\\times 3 + 5\\times 2", "46 m^2", ["46", "46m^2", "46 m2", "46 m²"]),
+      ],
+      commonMistakes: [
+        { mistake: "Counting an interior line as part of the perimeter.", fix: "Trace only the outer boundary of the composite shape. A line dividing two sections of the shape is not part of the perimeter." },
+        { mistake: "Dividing by 100 instead of 10,000 when converting m² to ha.", fix: "1 ha = 10,000 m², not 100 m². Divide the m² value by 10,000 to get hectares." },
+        { mistake: "Forgetting to subtract the cut-out in an L-shape.", fix: "If a corner has been removed from a rectangle, start with the outer rectangle area and subtract the missing piece." },
+        { mistake: "Adding the cut-out area instead of subtracting it.", fix: "Identify whether each piece is added (included in the shape) or removed (cut out). Remove means subtract." },
+      ],
+      masteryQuiz: [
+        financeChoice("measure-comp-m1", "To find the area of an L-shape with a cut-out corner, you should:", "B", [
+          "Add all four side lengths",
+          "Find the outer rectangle area then subtract the cut-out area",
+          "Multiply the two longest sides",
+          "Use the circle formula",
+        ], "Large rectangle minus the cut-out corner gives the composite area."),
+        measurementAnswer("measure-comp-m2", "An L-shaped floor plan has outer dimensions 7 m × 4 m with a 2 m × 2 m corner cut away. Find the area.", "A = 7\\times 4 - 2\\times 2", "24 m^2", ["24", "24m^2", "24 m2", "24 m²"]),
+        measurementAnswer("measure-comp-m3", "A composite shape has two rectangles: 9 m × 5 m and 4 m × 3 m. Find the total area.", "A = 9\\times 5 + 4\\times 3", "57 m^2", ["57", "57m^2", "57 m2", "57 m²"]),
+        measurementAnswer("measure-comp-m4", "Convert 4.8 ha to m².", "\\text{m}^2 = 4.8\\times 10{,}000", "48000 m^2", ["48000", "48,000", "48000m^2", "48000 m2", "48,000 m²"]),
+        financeChoice("measure-comp-m5", "1 km² equals how many hectares?", "B", [
+          "10 ha",
+          "100 ha",
+          "1000 ha",
+          "10,000 ha",
+        ], "1 km² = 1,000,000 m². Divide by 10,000 to get 100 ha."),
+        measurementAnswer("measure-comp-m6", "A rectangular paddock is 45 m × 30 m. What length of fencing is needed for the perimeter?", "P = 2(45 + 30)", "150 m", ["150", "150m"]),
+        measurementAnswer("measure-comp-m7", "A block of land has area 60,000 m². Convert this to hectares.", "\\text{ha} = 60{,}000 \\div 10{,}000", "6 ha", ["6", "6ha", "6 ha"]),
+        measurementAnswer("measure-comp-m8", "A composite shape has a rectangle 5 m × 3 m with a triangle attached (base 5 m, height 2 m). Find the total area.", "A = 5\\times 3 + \\tfrac{1}{2}\\times 5\\times 2", "20 m^2", ["20", "20m^2", "20 m2", "20 m²"]),
+        measurementAnswer("measure-comp-m9", "Convert 3 ha to m².", "\\text{m}^2 = 3\\times 10{,}000", "30000 m^2", ["30000", "30,000", "30000m^2", "30000 m2", "30,000 m²"]),
+        financeChoice("measure-comp-m10", "The best method to find the area of an irregular L-shaped paddock is:", "B", [
+          "Measure the perimeter only",
+          "Split into standard rectangles and triangles and add the areas",
+          "Count the number of corners",
+          "Multiply length by width and divide by 2",
+        ], "Composite areas are found by splitting into standard shapes and adding (or subtracting) each part."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "density-concentration-practical-rates") {
+    return {
+      ...base,
+      description:
+        "Apply D = M/V for density, calculate fuel consumption in L/100 km, population density in people per km², and concentration in g/L.",
+      learningIntention:
+        "Apply density D = M/V and practical rate formulas including fuel consumption, population density and concentration.",
+      successCriteria: [
+        "Use D = M/V to find density, mass or volume.",
+        "Calculate fuel used from distance and consumption rate.",
+        "Find population density in people per km².",
+        "Calculate concentration in g/L from mass and volume.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Density measures how much mass occupies a given volume. A high-density material like iron has more mass per cm³ than a low-density material like foam. The formula is D = M/V.",
+          "Rearrange the formula triangle: M = D × V (to find mass) and V = M/D (to find volume). Always include the unit: g/cm³ or kg/m³.",
+          "Fuel consumption measures litres used per 100 km. Fuel used (L) = (distance ÷ 100) × rate. To find the rate from a trip: rate = (fuel used ÷ distance) × 100.",
+          "Population density and concentration follow the same rate-per-unit pattern. Population density = people ÷ km². Concentration = mass (g) ÷ volume (L).",
+        ],
+        latexBlocks: [
+          "D=\\frac{M}{V}\\qquad M=D\\times V\\qquad V=\\frac{M}{D}",
+          "\\text{fuel used (L)}=\\frac{\\text{distance (km)}}{100}\\times\\text{rate (L/100 km)}",
+          "\\text{population density}=\\frac{\\text{people}}{\\text{area (km}^2)}\\qquad\\text{concentration}=\\frac{\\text{mass (g)}}{\\text{volume (L)}}",
+        ],
+      },
+      guidedPractice: [
+        financeChoice("measure-dens-g1", "The formula for density is:", "B", [
+          "D = V × M",
+          "D = M/V",
+          "D = M + V",
+          "D = V/M",
+        ], "Density = mass divided by volume: D = M/V."),
+        measurementAnswer("measure-dens-g2", "A metal sample has mass 600 g and volume 200 cm³. Find the density.", "D=\\frac{600}{200}", "3 g/cm^3", ["3", "3g/cm3", "3 g/cm3", "3 g/cm³"]),
+        measurementAnswer("measure-dens-g3", "A material has density 2.5 g/cm³ and volume 400 cm³. Find the mass.", "M=2.5\\times 400", "1000 g", ["1000", "1000g", "1 kg", "1000 g"]),
+        financeChoice("measure-dens-g4", "A car uses fuel at 7.5 L/100 km. How much fuel is used over 200 km?", "C", [
+          "7.5 L",
+          "75 L",
+          "15 L",
+          "150 L",
+        ], "Fuel = (200 ÷ 100) × 7.5 = 2 × 7.5 = 15 L."),
+      ],
+      independentPractice: [
+        measurementAnswer("measure-dens-i1", "A material has density 8 g/cm³ and mass 480 g. Find its volume.", "V=\\frac{480}{8}", "60 cm^3", ["60", "60cm3", "60 cm3", "60 cm³"]),
+        measurementAnswer("measure-dens-i2", "A suburb has 12,000 people living in an area of 4 km². Find the population density.", "\\text{density}=\\frac{12{,}000}{4}", "3000 people/km^2", ["3000", "3,000", "3000 per km2", "3000 people/km2", "3000 people per km²"]),
+        measurementAnswer("measure-dens-i3", "A car uses 45 L of fuel over 600 km. Find the fuel consumption rate in L/100 km.", "\\text{rate}=\\frac{45}{600}\\times 100", "7.5 L/100 km", ["7.5", "7.5 L/100km", "7.5 L/100 km"]),
+        financeChoice("measure-dens-i4", "A solution has 2 g dissolved in 250 mL. Find the concentration in g/L.", "A", [
+          "8 g/L",
+          "0.5 g/L",
+          "2 g/L",
+          "4 g/L",
+        ], "250 mL = 0.25 L. Concentration = 2 ÷ 0.25 = 8 g/L."),
+        measurementAnswer("measure-dens-i5", "A vehicle travels 300 km in 4 hours. What is its average speed in km/h?", "\\text{speed}=\\frac{300}{4}", "75 km/h", ["75", "75km/h", "75 km/h"]),
+      ],
+      commonMistakes: [
+        { mistake: "Dividing volume by mass instead of mass by volume.", fix: "Density = M/V: the mass is on top of the fraction. Think: a small iron block is heavier than foam of the same size — density = how much mass per unit volume." },
+        { mistake: "Multiplying distance directly by the fuel rate instead of dividing by 100 first.", fix: "The rate is per 100 km. Divide the distance by 100 first to get the number of 100-km intervals, then multiply by the rate." },
+        { mistake: "Forgetting to convert mL to L before finding concentration.", fix: "Concentration is in g/L. Convert mL to L by dividing by 1000 (e.g. 250 mL = 0.25 L) before dividing mass by volume." },
+        { mistake: "Thinking a higher L/100 km rate is better for fuel efficiency.", fix: "Higher L/100 km means more fuel used per 100 km — that is less efficient. A lower number means the car travels farther on the same fuel." },
+      ],
+      masteryQuiz: [
+        financeChoice("measure-dens-m1", "If density is 3 g/cm³ and volume is 150 cm³, what is the mass?", "C", [
+          "50 g",
+          "0.02 g",
+          "450 g",
+          "153 g",
+        ], "M = D × V = 3 × 150 = 450 g."),
+        measurementAnswer("measure-dens-m2", "A rock has mass 450 g and volume 150 cm³. Find the density.", "D=\\frac{450}{150}", "3 g/cm^3", ["3", "3g/cm3", "3 g/cm3", "3 g/cm³"]),
+        measurementAnswer("measure-dens-m3", "A piece of steel has density 7.8 g/cm³ and volume 200 cm³. Find the mass.", "M=7.8\\times 200", "1560 g", ["1560", "1560g", "1,560 g", "1560 g"]),
+        measurementAnswer("measure-dens-m4", "A substance has density 3 g/cm³ and mass 900 g. Find its volume.", "V=\\frac{900}{3}", "300 cm^3", ["300", "300cm3", "300 cm3", "300 cm³"]),
+        financeChoice("measure-dens-m5", "Which unit is used for density?", "B", [
+          "cm³ per gram",
+          "g/cm³ or kg/m³",
+          "g/L",
+          "km/h",
+        ], "Density units combine mass and volume: g/cm³ (grams per cubic centimetre) or kg/m³ (kilograms per cubic metre)."),
+        measurementAnswer("measure-dens-m6", "A car uses fuel at 7.5 L/100 km. How much fuel is needed for a 450 km journey?", "\\text{fuel}=\\frac{450}{100}\\times 7.5", "33.75 L", ["33.75", "33.75L", "33.75 L"]),
+        measurementAnswer("measure-dens-m7", "A city has 24,000 people living in an area of 6 km². Find the population density.", "\\text{density}=\\frac{24{,}000}{6}", "4000 people/km^2", ["4000", "4,000", "4000 per km2", "4000 people/km2", "4000 people per km²"]),
+        measurementAnswer("measure-dens-m8", "A solution has 5 g dissolved in 2 L. Find the concentration in g/L.", "\\text{concentration}=\\frac{5}{2}", "2.5 g/L", ["2.5", "2.5 g/L", "2.5g/L"]),
+        financeChoice("measure-dens-m9", "Car A uses 8.0 L/100 km. Car B uses 6.5 L/100 km. Which is more fuel-efficient?", "B", [
+          "Car A, because it has a higher number",
+          "Car B, because it uses less fuel per 100 km",
+          "They are equally efficient",
+          "Car A, because more L means more power",
+        ], "Lower L/100 km means less fuel used for the same distance — Car B is more fuel-efficient."),
+        measurementAnswer("measure-dens-m10", "A material has mass 250 g and volume 50 cm³. Find the density.", "D=\\frac{250}{50}", "5 g/cm^3", ["5", "5g/cm3", "5 g/cm3", "5 g/cm³"]),
+      ],
+    };
+  }
+
+  if (lesson.slug === "scale-drawings-models") {
+    return {
+      ...base,
+      description:
+        "Interpret scale 1:n to find real lengths from drawings and drawing lengths from real measurements, and apply the squared scale factor for areas.",
+      learningIntention:
+        "Use a scale factor to convert between drawing lengths and real lengths, and apply the squared scale factor for area problems.",
+      successCriteria: [
+        "Multiply drawing length by the scale factor to find the real length.",
+        "Divide real length by the scale factor to find the drawing length.",
+        "Convert cm to m or km when working with building plans or maps.",
+        "Multiply drawing area by n² to find real area.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A scale drawing represents a real object with all lengths in the same proportion. A scale of 1:100 means every 1 cm on the drawing represents 100 cm (1 m) in reality.",
+          "To find a real length, multiply the drawing length by the scale factor n. To find a drawing length, divide the real length by n. Convert units (cm → m or km) at the end if needed.",
+          "Areas scale by the square of the scale factor. If the scale is 1:100, then 1 cm² on the drawing represents 100² = 10,000 cm² (= 1 m²) in reality.",
+          "Building plans commonly use scales of 1:50 or 1:100. Maps use larger scale factors like 1:25,000 or 1:50,000, so remember to convert cm to m or km in the answer.",
+        ],
+        latexBlocks: [
+          "\\text{real length} = \\text{drawing length} \\times n",
+          "\\text{drawing length} = \\text{real length} \\div n",
+          "\\text{real area} = \\text{drawing area} \\times n^2",
+        ],
+      },
+      guidedPractice: [
+        financeChoice("measure-scale-g1", "A scale of 1:100 means:", "A", [
+          "Every 1 cm on the drawing represents 100 cm in reality",
+          "The drawing is 100 times larger than reality",
+          "Every 100 cm on the drawing represents 1 cm in reality",
+          "The area is divided by 100",
+        ], "Scale 1:n means 1 drawing unit represents n real units."),
+        measurementAnswer("measure-scale-g2", "A building plan uses scale 1:100. A wall is 4.5 cm on the plan. What is the real length in cm?", "\\text{real}=4.5\\times 100", "450 cm", ["450", "450cm"]),
+        measurementAnswer("measure-scale-g3", "A room is 6 m long (= 600 cm). The plan uses scale 1:50. What is the length on the plan in cm?", "\\text{drawing}=600\\div 50", "12 cm", ["12", "12cm"]),
+        financeChoice("measure-scale-g4", "A map has scale 1:25,000. Two points are 8 cm apart. What is the real distance?", "B", [
+          "200 m",
+          "2 km",
+          "20 km",
+          "200 km",
+        ], "8 × 25,000 = 200,000 cm = 2,000 m = 2 km."),
+      ],
+      independentPractice: [
+        measurementAnswer("measure-scale-i1", "A scale drawing uses 1:200. A wall on the drawing is 3.5 cm. What is the real length in m?", "\\text{real}=3.5\\times 200=700\\text{ cm}", "7 m", ["7", "7m"]),
+        measurementAnswer("measure-scale-i2", "A model car uses scale 1:20. The real car is 4 m long (= 400 cm). How long is the model in cm?", "\\text{model}=400\\div 20", "20 cm", ["20", "20cm"]),
+        financeChoice("measure-scale-i3", "A plan uses scale 1:100. A room on the plan has area 6 cm². What is the real area?", "B", [
+          "600 cm²",
+          "6 m²",
+          "60 m²",
+          "600 m²",
+        ], "Real area = 6 × 100² = 6 × 10,000 = 60,000 cm² = 6 m²."),
+        measurementAnswer("measure-scale-i4", "A scale drawing uses 1:500. A line on the drawing is 2.4 cm. What is the real length in m?", "\\text{real}=2.4\\times 500=1200\\text{ cm}", "12 m", ["12", "12m"]),
+        measurementAnswer("measure-scale-i5", "A room is 3.5 m long (= 350 cm). The plan uses 1:100. What is the length on the plan in cm?", "\\text{drawing}=350\\div 100", "3.5 cm", ["3.5", "3.5cm"]),
+      ],
+      commonMistakes: [
+        { mistake: "Dividing when finding real length instead of multiplying.", fix: "Real lengths are larger than drawing lengths (for normal scale drawings). Multiply drawing length × n to get the real length." },
+        { mistake: "Forgetting to convert cm to m or km after calculating real lengths.", fix: "If the drawing is in cm and the scale gives cm, divide by 100 for m or by 100,000 for km." },
+        { mistake: "Squaring the scale factor for a length problem.", fix: "The squared factor applies only to areas. For a single length, multiply (or divide) by n — not n²." },
+        { mistake: "Omitting the unit in the answer.", fix: "Always write the unit (cm, m, or km) so the answer is clear and unambiguous." },
+      ],
+      masteryQuiz: [
+        financeChoice("measure-scale-m1", "In a scale of 1:n, n represents:", "A", [
+          "How many real units correspond to 1 unit on the drawing",
+          "How many drawing units fit into 1 real unit",
+          "The total area of the plan",
+          "The number of pages in the plan",
+        ], "1:n means 1 drawing unit equals n real units."),
+        measurementAnswer("measure-scale-m2", "Scale 1:50. A wall on the plan is 8 cm. What is the real length in m?", "\\text{real}=8\\times 50=400\\text{ cm}", "4 m", ["4", "4m"]),
+        measurementAnswer("measure-scale-m3", "Scale 1:100. A corridor is 12 m long (= 1200 cm). What is the length on the plan in cm?", "\\text{drawing}=1200\\div 100", "12 cm", ["12", "12cm"]),
+        financeChoice("measure-scale-m4", "To find the drawing length from the real length:", "C", [
+          "Multiply the real length by n",
+          "Multiply the real length by n²",
+          "Divide the real length by n",
+          "Add n to the real length",
+        ], "Drawing length = real length ÷ n."),
+        measurementAnswer("measure-scale-m5", "A map uses scale 1:50,000. Two landmarks are 3 cm apart. What is the real distance in km?", "\\text{real}=3\\times 50{,}000=150{,}000\\text{ cm}=1500\\text{ m}", "1.5 km", ["1.5", "1.5km"]),
+        measurementAnswer("measure-scale-m6", "A model uses scale 1:25. A real object is 75 cm long. What is the model length in cm?", "\\text{model}=75\\div 25", "3 cm", ["3", "3cm"]),
+        financeChoice("measure-scale-m7", "Why do areas scale by n² in a scale drawing?", "B", [
+          "Because n is always a large number",
+          "Because area has two length dimensions and each scales by n",
+          "Because area is measured in square centimetres",
+          "Because the drawing paper stretches",
+        ], "Area = length × width. Both dimensions scale by n, so area scales by n × n = n²."),
+        measurementAnswer("measure-scale-m8", "Scale 1:100. A room on the plan is 4 cm × 3 cm. What is the real area in m²?", "\\text{real area}=4\\times 3\\times 100^2\\div 10{,}000", "12 m^2", ["12", "12m^2", "12 m2", "12 m²"]),
+        measurementAnswer("measure-scale-m9", "Scale 1:200. A line on the drawing is 5.5 cm. What is the real length in m?", "\\text{real}=5.5\\times 200=1100\\text{ cm}", "11 m", ["11", "11m"]),
+        financeChoice("measure-scale-m10", "A lounge room has real area 24 m². The plan uses scale 1:100. What is the area on the plan?", "A", [
+          "24 cm²",
+          "240 cm²",
+          "2400 cm²",
+          "2.4 cm²",
+        ], "24 m² = 240,000 cm². Divide by 100² = 10,000. Plan area = 240,000 ÷ 10,000 = 24 cm²."),
       ],
     };
   }

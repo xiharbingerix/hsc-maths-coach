@@ -1792,6 +1792,24 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Use mass, food energy labels, kilojoules, electricity use in kWh, and practical reasonableness checks.",
           },
           {
+            slug: "composite-shapes-land-measurement",
+            title: "Composite Shapes and Land Measurement",
+            description:
+              "Find areas of L-shapes and other composite figures by splitting into rectangles and triangles, and convert between square metres and hectares for land measurement.",
+          },
+          {
+            slug: "density-concentration-practical-rates",
+            title: "Density, Concentration and Practical Rates",
+            description:
+              "Apply D = M/V for density, calculate fuel consumption in L/100 km, population density in people per km², and concentration in g/L.",
+          },
+          {
+            slug: "scale-drawings-models",
+            title: "Scale Drawings and Models",
+            description:
+              "Interpret scale 1:n to find real lengths from drawings and drawing lengths from real measurements, and apply the squared scale factor for areas.",
+          },
+          {
             slug: "applications-measurement-exam-practice",
             title: "Applications of Measurement Exam Practice",
             description:

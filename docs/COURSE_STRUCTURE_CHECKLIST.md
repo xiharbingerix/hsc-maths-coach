@@ -18,7 +18,7 @@
 | Year 10 Mathematics | 10 | ~56 | — | ✅ Available |
 | Year 10 Mathematics Advanced | 10 | ~56 | 16 topics / 128 subtopics | 🔄 In progress |
 | Year 10 Mathematics Core | 10 trimmed | ~40 | 12 topics / 76 subtopics | 🔄 In progress |
-| Year 11 Standard | 9 | 55 | 9 topics / 63 subtopics (2026) | 🔄 Depth pass in progress (+8 remaining) |
+| Year 11 Standard | 9 | 58 | 9 topics / 63 subtopics (2026) | 🔄 Depth pass in progress (+5 remaining) |
 | Year 11 Advanced | 8 | 54 | 11 topics / 90 subtopics (2026) | ✅ Available |
 | Year 11 Extension | 2 of 5 | 10 | 5 topics / 30 subtopics (2026) | 🔄 In progress |
 | Year 12 Standard 1 | 5 | 18 | 7 topics / 29 subtopics | 🔄 In progress |
@@ -165,15 +165,15 @@ Depth pass completed 2026-06-14.
 - [ ] **Credit Cards and Consumer Finance** — credit card interest, minimum payments, buy-now-pay-later, late fees, annual fees
 - [ ] **GST, Discounts and Consumer Arithmetic** — calculating GST (10%), pre/post-GST prices, percentage discounts, best-buy and unit pricing
 
-### Applications of Measurement (4 / ~7)
+### Applications of Measurement (7 / ~7) ✅
 
 - [x] Units, Accuracy and Measurement Error
 - [x] Area, Surface Area and Volume
 - [x] Energy, Mass and Practical Measurement
 - [x] Applications of Measurement Exam Practice
-- [ ] **Composite Shapes and Land Measurement** — irregular/composite shapes, combining standard shapes, land and garden area problems
-- [ ] **Density, Concentration and Practical Rates** — density (mass/volume), fuel consumption, population density, concentration, unit-rate reasoning
-- [ ] **Scale Drawings and Models** — scale factor, interpreting plans and maps, enlargement/reduction, construction contexts
+- [x] **Composite Shapes and Land Measurement** — irregular/composite shapes, combining standard shapes, land and garden area problems
+- [x] **Density, Concentration and Practical Rates** — density (mass/volume), fuel consumption, population density, concentration, unit-rate reasoning
+- [x] **Scale Drawings and Models** — scale factor, interpreting plans and maps, enlargement/reduction, construction contexts
 
 ### Time and Location (4 / ~7)
 
@@ -218,8 +218,8 @@ Depth pass completed 2026-06-14.
 ---
 
 **Depth pass summary (2026-06-14):** 28 lessons to author across all 9 units to reach Class Maths parity.
-**Progress (2026-06-14):** Formulas+Equations complete (+4). Linear Relationships complete (+4). Earning Money complete (+2). Data Analysis complete (+4). Networks complete (+3). Probability complete (+3). 8 lessons remaining.
-Authoring priority: Measurement (3) > Time/Location (3) > Managing Money (2).
+**Progress (2026-06-14):** Formulas+Equations ✅ (+4). Linear Relationships ✅ (+4). Earning Money ✅ (+2). Data Analysis ✅ (+4). Networks ✅ (+3). Probability ✅ (+3). Measurement ✅ (+3). 5 lessons remaining.
+Authoring priority: Time/Location (3) > Managing Money (2).
 
 ---
 
