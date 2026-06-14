@@ -518,6 +518,16 @@ export function DiagnosticQuizClient({
             About {estimatedDiagnosticMinutes(totalQuestions)} minutes &middot; {totalQuestions} multiple-choice questions
           </p>
 
+          {submitWarning && (
+            <p
+              role="alert"
+              aria-live="assertive"
+              className="mt-2 rounded-xl bg-red-50 px-3 py-2 text-xs font-semibold text-red-800"
+            >
+              {submitWarning}
+            </p>
+          )}
+
           <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
             <div
               className="h-full rounded-full bg-slate-900 transition-all duration-300"
@@ -583,7 +593,11 @@ export function DiagnosticQuizClient({
 
         <div className="rounded-2xl bg-white p-5 shadow-sm">
           {submitWarning && (
-            <p className="mb-3 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">
+            <p
+              role="alert"
+              aria-live="assertive"
+              className="mb-3 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-800"
+            >
               {submitWarning}
             </p>
           )}
@@ -598,7 +612,13 @@ export function DiagnosticQuizClient({
       </div>
       <div className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 px-4 py-3 shadow-lg backdrop-blur sm:hidden">
         {submitWarning && (
-          <p className="mb-2 text-xs font-semibold text-red-700">{submitWarning}</p>
+          <p
+            role="alert"
+            aria-live="assertive"
+            className="mb-2 text-xs font-semibold text-red-700"
+          >
+            {submitWarning}
+          </p>
         )}
         <button
           type="button"
