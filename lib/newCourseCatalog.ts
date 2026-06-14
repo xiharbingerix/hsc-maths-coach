@@ -484,6 +484,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Convert times between Australian and international time zones using UTC offsets, handle midnight crossings and day changes, and understand the International Date Line.",
           },
           {
+            slug: "ambiguous-case-sine-rule",
+            title: "The Ambiguous Case of the Sine Rule",
+            description:
+              "Recognise when SSA information produces one or two valid triangles, compute both possible angles using B₂ = 180° − B₁, and test validity with A + B < 180°.",
+          },
+          {
             slug: "practical-rates-ratios-exam-practice",
             title: "Practical Rates and Ratios Exam Practice",
             description:
@@ -544,6 +550,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Annuities and Regular Payments",
             description:
               "Use recurrence and table methods for regular deposits, future value, annuities, and repayment schedules.",
+          },
+          {
+            slug: "present-value-annuities",
+            title: "Present Value of Annuities",
+            description:
+              "Use the present value formula to find loan repayments from a lump-sum amount, calculate total interest paid, and compare loan options with different terms.",
           },
           {
             slug: "comparing-investments-risk-return",

@@ -600,6 +600,267 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
   masteryPassMark: 0.8,
 };
 
+// Lesson 3: Range and Time of Flight
+
+const projectileRangeFlight: Partial<ExplicitLesson> = {
+  description:
+    "Find the time of flight and horizontal range of a projectile by solving y(t) = 0 for the landing time, then substituting into x(t).",
+  learningIntention:
+    "Solve y(t) = 0 to find when a projectile lands, then calculate the horizontal range using x at that time.",
+  successCriteria: [
+    "Solve y(t) = Vt·sinθ − ½gt² = 0 to find the time of flight T.",
+    "Discard the t = 0 solution and keep the positive landing time.",
+    "Substitute T into x(t) to find the horizontal range.",
+    "State the range formula R = V²sin(2θ)/g for equal launch and landing heights.",
+  ],
+  teaching: {
+    paragraphs: [
+      "The time of flight is the time the projectile spends in the air before landing at the same height it was launched from. We find this by setting y(t) = 0 and solving — but y(t) = 0 has two solutions: t = 0 (the moment of launch) and the positive landing time T.",
+      "Factor out t from y(t) = Vt·sinθ − ½gt² = t(V·sinθ − ½gt) = 0 to find T = 2V·sinθ/g. Notice that T = 2 × t_max, so the projectile spends equal time rising and falling.",
+      "Once T is found, the horizontal range R is R = x(T) = VT·cosθ. Substituting T = 2V·sinθ/g gives the compact formula R = V²sin(2θ)/g, which shows the range is maximised when θ = 45°.",
+      "This formula only applies when the projectile lands at the same height it was launched. For launch from a cliff or other height differences, solve y(t) = 0 directly from the equations.",
+    ],
+    latexBlocks: [
+      "y(t) = 0 \\;\\Rightarrow\\; t\\left(V\\sin\\theta - \\tfrac{g}{2}t\\right) = 0 \\;\\Rightarrow\\; T = \\frac{2V\\sin\\theta}{g}",
+      "R = x(T) = VT\\cos\\theta = \\frac{V^2\\sin 2\\theta}{g}",
+      "T = 2\\,t_{\\max}\\quad\\text{(equal time rising and falling)}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Find time of flight",
+      questionLatex:
+        "\\text{A projectile has } y(t) = 15t - 5t^2.\\text{ Find the time of flight.}",
+      steps: [
+        {
+          explanation: "Set y(t) = 0 and factor.",
+          latex: "15t - 5t^2 = 5t(3 - t) = 0 \\;\\Rightarrow\\; t = 0 \\text{ or } t = 3",
+        },
+        {
+          explanation: "Discard t = 0 (launch). The landing time is t = 3 s.",
+          latex: "T = 3 \\text{ s}",
+        },
+      ],
+      finalAnswerLatex: "T = 3 \\text{ s}",
+    },
+    {
+      title: "Find the horizontal range",
+      questionLatex:
+        "\\text{Using } x(t) = 20t \\text{ and } T = 3 \\text{ s from above, find the range.}",
+      steps: [
+        {
+          explanation: "Substitute T = 3 into x(t).",
+          latex: "R = x(3) = 20 \\times 3 = 60 \\text{ m}",
+        },
+      ],
+      finalAnswerLatex: "R = 60 \\text{ m}",
+    },
+    {
+      title: "Use the range formula",
+      questionLatex:
+        "\\text{A projectile is launched at } V = 50 \\text{ m/s with } \\cos\\theta = \\tfrac{3}{5},\\; \\sin\\theta = \\tfrac{4}{5}.\\text{ Find the range. Use } g = 10.",
+      steps: [
+        {
+          explanation: "Apply the formula R = V²sin(2θ)/g, using sin(2θ) = 2sinθcosθ.",
+          latex: "\\sin 2\\theta = 2 \\cdot \\frac{4}{5} \\cdot \\frac{3}{5} = \\frac{24}{25}",
+        },
+        {
+          explanation: "Substitute into the range formula.",
+          latex: "R = \\frac{50^2 \\times \\frac{24}{25}}{10} = \\frac{2500 \\times 0.96}{10} = 240 \\text{ m}",
+        },
+      ],
+      finalAnswerLatex: "R = 240 \\text{ m}",
+    },
+  ],
+  guidedPractice: [
+    projChoice(
+      "y12e1-proj-rf-g1",
+      "To find the time of flight, which equation should be solved?",
+      "C",
+      [
+        "$x(t) = 0$",
+        "$\\dot{y}(t) = 0$",
+        "$y(t) = 0$",
+        "$\\dot{x}(t) = 0$",
+      ],
+      "The projectile lands when y(t) = 0 (returns to launch height). Setting y-dot = 0 gives the time of maximum height, not landing."
+    ),
+    projTyped(
+      "y12e1-proj-rf-g2",
+      "A projectile has $y(t) = 20t - 5t^2$. Find the time of flight.",
+      "5t(4 - t) = 0 \\Rightarrow t = 0 \\text{ or } t = 4",
+      "4",
+      ["4 s"],
+      "y(t) = 5t(4 − t) = 0 gives t = 0 (launch) or t = 4 (landing). Time of flight = 4 s.",
+      "Factor y(t) = 0 and take the positive non-zero solution."
+    ),
+    projTyped(
+      "y12e1-proj-rf-g3",
+      "A projectile has $x(t) = 30t$ and lands at $T = 4$ s. Find the range.",
+      "R = x(4) = 30 \\times 4",
+      "120",
+      ["120 m"],
+      "R = 30 × 4 = 120 m."
+    ),
+    projChoice(
+      "y12e1-proj-rf-g4",
+      "For a projectile that lands at the same height it was launched, what is the relationship between time of flight $T$ and time of maximum height $t_{\\max}$?",
+      "B",
+      [
+        "$T = t_{\\max}$",
+        "$T = 2\\,t_{\\max}$",
+        "$T = t_{\\max}/2$",
+        "$T = t_{\\max}^2$",
+      ],
+      "The projectile spends equal time rising and falling, so T = 2 × t_max."
+    ),
+  ],
+  independentPractice: [
+    projTyped(
+      "y12e1-proj-rf-i1",
+      "A projectile has $y(t) = 30t - 5t^2$. Find the time of flight.",
+      "5t(6 - t) = 0",
+      "6",
+      ["6 s"],
+      "y(t) = 5t(6 − t) = 0 gives t = 0 or t = 6. Time of flight = 6 s."
+    ),
+    projTyped(
+      "y12e1-proj-rf-i2",
+      "A projectile has $x(t) = 20t$ and $y(t) = 15t - 5t^2$. Find the horizontal range.",
+      "y(t) = 5t(3-t) = 0 \\Rightarrow T = 3;\\quad R = 20(3)",
+      "60",
+      ["60 m"],
+      "T = 3 s (from y = 0). R = x(3) = 20 × 3 = 60 m."
+    ),
+    projTyped(
+      "y12e1-proj-rf-i3",
+      "A projectile has $y(t) = 40t - 5t^2$. If $x(t) = 30t$, find the range.",
+      "y(t) = 5t(8-t) = 0 \\Rightarrow T = 8;\\quad R = 30(8)",
+      "240",
+      ["240 m"],
+      "T = 8 s (from 40t − 5t² = 0). R = 30 × 8 = 240 m."
+    ),
+    projChoice(
+      "y12e1-proj-rf-i4",
+      "At what launch angle is the horizontal range maximised for a projectile (fixed $V$)?",
+      "B",
+      ["$30^\\circ$", "$45^\\circ$", "$60^\\circ$", "$90^\\circ$"],
+      "R = V²sin(2θ)/g is maximised when sin(2θ) = 1, i.e. θ = 45°."
+    ),
+    projTyped(
+      "y12e1-proj-rf-i5",
+      "A projectile is launched at $V = 25$ m/s with $\\sin\\theta = \\frac{3}{5}$ and $\\cos\\theta = \\frac{4}{5}$. Find the time of flight. Use $g = 10$.",
+      "T = \\frac{2V\\sin\\theta}{g} = \\frac{2 \\times 15}{10}",
+      "3",
+      ["3 s"],
+      "T = 2V·sinθ/g = 2 × 25 × (3/5) / 10 = 30/10 = 3 s."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Using t = 0 as the time of flight.",
+      fix: "y(t) = 0 has two solutions: t = 0 (launch) and t = T (landing). Always take the positive non-zero solution.",
+    },
+    {
+      mistake: "Finding time of maximum height instead of time of flight.",
+      fix: "Set y(t) = 0 for time of flight. Set y-dot(t) = 0 for time of maximum height — these are different calculations.",
+    },
+    {
+      mistake: "Substituting T into y(t) instead of x(t) to find the range.",
+      fix: "Range is horizontal distance: R = x(T) = VT·cosθ. At landing, y(T) = 0 by definition.",
+    },
+    {
+      mistake: "Using the range formula R = V²sin(2θ)/g when launch and landing heights differ.",
+      fix: "The range formula only applies for equal launch and landing heights. Otherwise, solve y(t) = 0 directly from the equations.",
+    },
+  ],
+  masteryQuiz: [
+    projTyped(
+      "y12e1-proj-rf-m1",
+      "A projectile has $y(t) = 25t - 5t^2$. Find the time of flight.",
+      "5t(5-t) = 0",
+      "5",
+      ["5 s"],
+      "y = 5t(5 − t) = 0 gives t = 5 s."
+    ),
+    projTyped(
+      "y12e1-proj-rf-m2",
+      "A projectile has $x(t) = 20t$ and lands at $T = 5$ s. Find the range.",
+      "R = 20 \\times 5",
+      "100",
+      ["100 m"],
+      "R = 20 × 5 = 100 m."
+    ),
+    projTyped(
+      "y12e1-proj-rf-m3",
+      "A projectile has $y(t) = 40t - 5t^2$ and $x(t) = 30t$. Find the horizontal range.",
+      "5t(8-t)=0 \\Rightarrow T=8;\\quad R=30(8)",
+      "240",
+      ["240 m"],
+      "T = 8 s. R = 30 × 8 = 240 m."
+    ),
+    projChoice(
+      "y12e1-proj-rf-m4",
+      "A projectile reaches maximum height at $t = 2$ s. What is its time of flight (landing at same height)?",
+      "C",
+      ["$1$ s", "$3$ s", "$4$ s", "$6$ s"],
+      "Time of flight = 2 × t_max = 2 × 2 = 4 s."
+    ),
+    projTyped(
+      "y12e1-proj-rf-m5",
+      "A projectile is launched at $V = 50$ m/s with $\\sin\\theta = \\frac{3}{5}$. Find the time of flight. Use $g = 10$.",
+      "T = \\frac{2 \\times 50 \\times 3/5}{10} = \\frac{60}{10}",
+      "6",
+      ["6 s"],
+      "T = 2 × 30/10 = 6 s."
+    ),
+    projTyped(
+      "y12e1-proj-rf-m6",
+      "A projectile is launched at $V = 50$ m/s with $\\cos\\theta = \\frac{4}{5}$ and $T = 6$ s. Find the range.",
+      "R = V\\cos\\theta \\cdot T = 40 \\times 6",
+      "240",
+      ["240 m"],
+      "Horizontal velocity = 50 × 4/5 = 40 m/s. R = 40 × 6 = 240 m."
+    ),
+    projChoice(
+      "y12e1-proj-rf-m7",
+      "At what launch angle is the range of a projectile maximised (for fixed $V$)?",
+      "B",
+      ["$30^\\circ$", "$45^\\circ$", "$60^\\circ$", "$90^\\circ$"],
+      "R = V²sin(2θ)/g is maximised when sin(2θ) = 1, i.e. 2θ = 90°, so θ = 45°."
+    ),
+    projTyped(
+      "y12e1-proj-rf-m8",
+      "A projectile has $y(t) = 15t - 5t^2$ and $x(t) = 20t$. Find the range.",
+      "5t(3-t)=0 \\Rightarrow T=3;\\quad R=20(3)",
+      "60",
+      ["60 m"],
+      "T = 3 s. R = 20 × 3 = 60 m."
+    ),
+    projChoice(
+      "y12e1-proj-rf-m9",
+      "Why are there two solutions when solving $y(t) = 0$ for a projectile?",
+      "A",
+      [
+        "One is the launch time ($t = 0$) and the other is the landing time",
+        "One is maximum height and the other is landing",
+        "Both solutions are the landing time",
+        "One solution is negative and therefore invalid",
+      ],
+      "y(t) = t(V·sinθ − ½gt) = 0 gives t = 0 (launch) and the positive T (landing). We keep T."
+    ),
+    projTyped(
+      "y12e1-proj-rf-m10",
+      "A projectile is launched with vertical component $V\\sin\\theta = 20$ m/s and horizontal component $V\\cos\\theta = 15$ m/s. Find the range. Use $g = 10$.",
+      "T = \\frac{2 \\times 20}{10} = 4;\\quad R = 15 \\times 4",
+      "60",
+      ["60 m"],
+      "T = 2 × 20/10 = 4 s. R = 15 × 4 = 60 m."
+    ),
+  ],
+  masteryPassMark: 0.8,
+};
+
 export function year12Extension1ProjectileMotionLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -622,6 +883,13 @@ export function year12Extension1ProjectileMotionLessonOverride(
         id: "projectile-max-height",
         slug: "projectile-max-height",
         title: "Maximum Height and Time",
+      };
+    case "projectile-range-flight":
+      return {
+        ...projectileRangeFlight,
+        id: "projectile-range-flight",
+        slug: "projectile-range-flight",
+        title: "Range and Time of Flight",
       };
     default:
       return undefined;

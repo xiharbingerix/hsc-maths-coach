@@ -591,6 +591,271 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
   masteryPassMark: 0.8,
 };
 
+// ─── Lesson 3: Analysing Motion — Direction Changes and Total Distance ────────
+
+const kinematicsMotionAnalysis: Partial<ExplicitLesson> = {
+  description:
+    "Identify when a particle changes direction by finding where v(t) = 0 and the sign of v changes. Calculate total distance by summing distances over each sub-interval.",
+  learningIntention:
+    "Determine when a particle changes direction and compute total distance travelled, distinguishing it from net displacement.",
+  successCriteria: [
+    "Solve v(t) = 0 to find candidate times for direction changes.",
+    "Check that the sign of v actually changes at those times.",
+    "Calculate displacement over each sub-interval using x(t) or integration.",
+    "Sum the absolute values of sub-interval displacements to find total distance.",
+  ],
+  teaching: {
+    paragraphs: [
+      "A particle changes direction when its velocity is zero AND the sign of v changes from positive to negative (or vice versa). Finding v(t) = 0 gives the candidate times, but you must verify the sign change — if v touches zero but doesn't cross, the particle just slows momentarily without reversing.",
+      "Net displacement (how far the particle has moved from start to finish) is simply x(end) − x(start). But total distance is always greater than or equal to |net displacement| because it counts every metre travelled, regardless of direction.",
+      "To find total distance: split the time interval at every direction-change time. In each sub-interval the particle moves in one direction, so evaluate x at the endpoints of each sub-interval, take |Δx| for that sub-interval, then add them all.",
+      "A common trap is to assume that integrating v(t) from start to end gives total distance. It does not — it gives net displacement (positive and negative areas cancel). To get total distance, integrate |v(t)|, which means splitting at sign changes and handling each piece separately.",
+    ],
+    latexBlocks: [
+      "\\text{Direction change at } t=c \\iff v(c)=0 \\text{ and } v \\text{ changes sign at } t=c",
+      "\\text{Net displacement} = x(b) - x(a)",
+      "\\text{Total distance} = \\sum_i |x(t_{i+1}) - x(t_i)|",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Find when the particle changes direction",
+      questionLatex:
+        "\\text{A particle has displacement } x(t) = t^2 - 6t + 5 \\text{ m, } 0 \\le t \\le 8. \\text{ When does it change direction?}",
+      steps: [
+        {
+          explanation: "Differentiate to get velocity.",
+          latex: "v(t) = 2t - 6",
+        },
+        {
+          explanation: "Set v = 0 and check sign change.",
+          latex: "2t - 6 = 0 \\Rightarrow t = 3",
+        },
+        {
+          explanation: "v < 0 for t < 3 and v > 0 for t > 3, so the particle changes direction at t = 3.",
+          latex: "v(2) = -2 < 0,\\quad v(4) = 2 > 0",
+        },
+      ],
+      finalAnswerLatex: "\\text{Direction changes at } t = 3 \\text{ s}",
+    },
+    {
+      title: "Calculate total distance",
+      questionLatex:
+        "\\text{For } x(t) = t^2 - 6t + 5 \\text{ on } [0,8], \\text{ find the total distance.}",
+      steps: [
+        {
+          explanation: "Evaluate x at the endpoints and the direction-change time t = 3.",
+          latex: "x(0) = 5,\\quad x(3) = 9 - 18 + 5 = -4,\\quad x(8) = 64 - 48 + 5 = 21",
+        },
+        {
+          explanation: "Distance on [0,3] = |x(3) − x(0)| = |−4 − 5| = 9.",
+          latex: "|{-4} - 5| = 9",
+        },
+        {
+          explanation: "Distance on [3,8] = |x(8) − x(3)| = |21 − (−4)| = 25.",
+          latex: "|21 - ({-4})| = 25",
+        },
+        {
+          explanation: "Total distance = 9 + 25 = 34 m.",
+          latex: "\\text{Total distance} = 9 + 25 = 34 \\text{ m}",
+        },
+      ],
+      finalAnswerLatex: "34 \\text{ m}",
+    },
+    {
+      title: "Net displacement vs total distance",
+      questionLatex:
+        "\\text{For the same particle above, find the net displacement from } t=0 \\text{ to } t=8.",
+      steps: [
+        {
+          explanation: "Net displacement = x(8) − x(0).",
+          latex: "x(8) - x(0) = 21 - 5 = 16 \\text{ m}",
+        },
+      ],
+      finalAnswerLatex: "\\text{Net displacement} = 16 \\text{ m (compare: total distance} = 34 \\text{ m)}",
+    },
+  ],
+  guidedPractice: [
+    kinChoice(
+      "y12e1-kin-ma-g1",
+      "A particle has $v(t) = t^2 - 9$. At which time does the particle change direction (for $t \\ge 0$)?",
+      "C",
+      ["$t = 0$", "$t = 1$", "$t = 3$", "$t = 9$"],
+      "v = 0 when t² = 9, so t = 3. For t < 3, v < 0; for t > 3, v > 0. The sign changes at t = 3."
+    ),
+    kinChoice(
+      "y12e1-kin-ma-g2",
+      "A particle moves with $v(t) = (t-2)(t-5)$ for $0 \\le t \\le 7$. In which interval is the particle moving in the negative direction?",
+      "B",
+      ["$0 < t < 2$", "$2 < t < 5$", "$5 < t < 7$", "$0 < t < 5$"],
+      "v = (t−2)(t−5) < 0 when one factor is positive and the other negative, i.e. 2 < t < 5."
+    ),
+    kinTyped(
+      "y12e1-kin-ma-g3",
+      "A particle has $x(t) = t^2 - 4t$ on $[0, 5]$. The velocity is zero at $t = 2$. Find the total distance.",
+      "x(0) = 0,\\quad x(2) = 4-8 = -4,\\quad x(5) = 25-20 = 5",
+      "13",
+      ["13 m"],
+      "Distance on [0,2] = |−4 − 0| = 4. Distance on [2,5] = |5 − (−4)| = 9. Total = 4 + 9 = 13 m."
+    ),
+    kinTyped(
+      "y12e1-kin-ma-g4",
+      "For the same particle above ($x(t) = t^2 - 4t$), find the net displacement from $t=0$ to $t=5$.",
+      "x(5) - x(0)",
+      "5",
+      ["5 m"],
+      "Net displacement = x(5) − x(0) = 5 − 0 = 5 m."
+    ),
+  ],
+  independentPractice: [
+    kinChoice(
+      "y12e1-kin-ma-i1",
+      "A particle has velocity $v(t) = 2t - 8$. At what time does the particle change direction?",
+      "C",
+      ["$t = 2$", "$t = 6$", "$t = 4$", "$t = 8$"],
+      "v = 0 at t = 4. v < 0 for t < 4 and v > 0 for t > 4 — sign changes, so direction changes at t = 4."
+    ),
+    kinTyped(
+      "y12e1-kin-ma-i2",
+      "A particle has $x(t) = t^2 - 8t + 12$ on $[0, 6]$. Find the total distance. (Hint: $v = 0$ at $t = 4$.)",
+      "x(0) = 12,\\quad x(4) = 16-32+12 = -4,\\quad x(6) = 36-48+12 = 0",
+      "20",
+      ["20 m"],
+      "Distance [0,4] = |−4 − 12| = 16. Distance [4,6] = |0 − (−4)| = 4. Total = 20 m."
+    ),
+    kinTyped(
+      "y12e1-kin-ma-i3",
+      "For the particle above ($x(t) = t^2 - 8t + 12$ on $[0,6]$), find the net displacement.",
+      "x(6) - x(0) = 0 - 12",
+      "-12",
+      ["−12 m", "-12 m"],
+      "Net displacement = x(6) − x(0) = 0 − 12 = −12 m."
+    ),
+    kinChoice(
+      "y12e1-kin-ma-i4",
+      "Which statement is always true?",
+      "B",
+      [
+        "Total distance equals net displacement",
+        "Total distance is greater than or equal to |net displacement|",
+        "Net displacement is always positive",
+        "Total distance equals the integral of $v(t)$",
+      ],
+      "Total distance ≥ |net displacement| because distance counts every metre regardless of direction. The integral of v(t) gives net displacement, not total distance."
+    ),
+    kinTyped(
+      "y12e1-kin-ma-i5",
+      "A particle has $x(t) = t^3 - 3t^2$ on $[0, 3]$. The velocity is zero at $t = 0$ and $t = 2$. Find the total distance.",
+      "x(0) = 0,\\quad x(2) = 8-12 = -4,\\quad x(3) = 27-27 = 0",
+      "8",
+      ["8 m"],
+      "Distance [0,2] = |−4 − 0| = 4. Distance [2,3] = |0 − (−4)| = 4. Total = 8 m."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Using v(t) = 0 as the only criterion for direction change.",
+      fix: "The particle only changes direction if the sign of v actually changes at that time. Check values either side of the zero.",
+    },
+    {
+      mistake: "Confusing total distance with net displacement.",
+      fix: "Net displacement = x(end) − x(start). Total distance = sum of |Δx| over each sub-interval where the particle moves in one direction.",
+    },
+    {
+      mistake: "Computing ∫v dt over the whole interval and calling it total distance.",
+      fix: "∫v dt gives net displacement (positive and negative areas cancel). Split at direction-change times and add up absolute distances instead.",
+    },
+    {
+      mistake: "Missing a direction change inside the interval.",
+      fix: "Always solve v(t) = 0 first and check whether those times fall within the given interval. Then split accordingly.",
+    },
+  ],
+  masteryQuiz: [
+    kinChoice(
+      "y12e1-kin-ma-m1",
+      "A particle has $v(t) = t^2 - 4t + 3 = (t-1)(t-3)$. On $[0, 4]$, at what times does the particle change direction?",
+      "B",
+      ["$t = 1$ only", "$t = 1$ and $t = 3$", "$t = 3$ only", "$t = 0$ and $t = 4$"],
+      "v = 0 at t = 1 and t = 3. The sign changes at each: v > 0 on (0,1), v < 0 on (1,3), v > 0 on (3,4)."
+    ),
+    kinTyped(
+      "y12e1-kin-ma-m2",
+      "A particle has $x(t) = t^2 - 2t$ on $[0, 3]$. The velocity is zero at $t = 1$. Find the total distance.",
+      "x(0)=0,\\quad x(1)=-1,\\quad x(3)=3",
+      "5",
+      ["5 m"],
+      "Distance [0,1] = |−1 − 0| = 1. Distance [1,3] = |3 − (−1)| = 4. Total = 5 m."
+    ),
+    kinTyped(
+      "y12e1-kin-ma-m3",
+      "For the particle above ($x(t) = t^2 - 2t$ on $[0,3]$), find the net displacement.",
+      "x(3) - x(0) = 3 - 0",
+      "3",
+      ["3 m"],
+      "Net displacement = x(3) − x(0) = 3 − 0 = 3 m."
+    ),
+    kinChoice(
+      "y12e1-kin-ma-m4",
+      "A particle has velocity $v(t) = (t - 2)^2$. Does the particle change direction at $t = 2$?",
+      "D",
+      ["Yes, because $v(2) = 0$", "Yes, because the velocity reaches a minimum", "Cannot be determined", "No, because the sign of $v$ does not change"],
+      "(t−2)² ≥ 0 for all t, so v never becomes negative. It touches zero at t = 2 but the sign doesn't change — no direction change."
+    ),
+    kinTyped(
+      "y12e1-kin-ma-m5",
+      "A particle has $x(t) = t^3 - 6t^2 + 9t$ on $[0, 4]$. Velocity is zero at $t = 1$ and $t = 3$. Find $x$ at those times and $t = 4$.",
+      "x(1) = 1-6+9 = 4,\\quad x(3) = 27-54+27 = 0,\\quad x(4) = 64-96+36 = 4",
+      "4",
+      ["x(4) = 4 m"],
+      "x(1) = 4, x(3) = 0, x(4) = 4."
+    ),
+    kinTyped(
+      "y12e1-kin-ma-m6",
+      "Using $x(0) = 0$, $x(1) = 4$, $x(3) = 0$, $x(4) = 4$ from the particle above, find the total distance on $[0,4]$.",
+      "|4-0| + |0-4| + |4-0|",
+      "12",
+      ["12 m"],
+      "Distance [0,1] = 4, [1,3] = 4, [3,4] = 4. Total = 12 m."
+    ),
+    kinChoice(
+      "y12e1-kin-ma-m7",
+      "A particle starts at $x = 5$ and has net displacement $-3$ m over 10 seconds. Where is the particle after 10 seconds?",
+      "A",
+      ["$x = 2$", "$x = 8$", "$x = 3$", "$x = -5$"],
+      "Final position = 5 + (−3) = 2 m."
+    ),
+    kinTyped(
+      "y12e1-kin-ma-m8",
+      "A particle has $v(t) = 3t^2 - 12t$ on $[0, 5]$. Velocity is zero at $t = 0$ and $t = 4$. Given $x(0)=10$, $x(4)=-22$, $x(5)=-17$, find the total distance.",
+      "|{-22}-10| + |{-17}-({-22})|",
+      "37",
+      ["37 m"],
+      "Distance [0,4] = |−22 − 10| = 32. Distance [4,5] = |−17 − (−22)| = 5. Total = 37 m."
+    ),
+    kinChoice(
+      "y12e1-kin-ma-m9",
+      "Which integral expression correctly gives the TOTAL DISTANCE for a particle with $v(t) = t - 3$ on $[0, 6]$?",
+      "C",
+      [
+        "$\\int_0^6 (t-3)\\,dt$",
+        "$\\left|\\int_0^6 (t-3)\\,dt\\right|$",
+        "$\\int_0^3 (3-t)\\,dt + \\int_3^6 (t-3)\\,dt$",
+        "$\\int_0^6 (t-3)^2\\,dt$",
+      ],
+      "Split at t = 3 where v = 0. On [0,3] v < 0 so distance = ∫(3−t)dt; on [3,6] v > 0 so distance = ∫(t−3)dt."
+    ),
+    kinTyped(
+      "y12e1-kin-ma-m10",
+      "A particle has $x(t) = t^2 - 6t$ on $[0, 8]$. Given $v = 0$ at $t = 3$ and $x(0) = 0$, $x(3) = -9$, $x(8) = 16$, find the total distance.",
+      "|{-9} - 0| + |16 - ({-9})|",
+      "34",
+      ["34 m"],
+      "Distance [0,3] = 9. Distance [3,8] = 25. Total = 34 m."
+    ),
+  ],
+  masteryPassMark: 0.8,
+};
+
 export function year12Extension1KinematicsLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -613,6 +878,13 @@ export function year12Extension1KinematicsLessonOverride(
         id: "kinematics-displacement-from-velocity",
         slug: "kinematics-displacement-from-velocity",
         title: "Displacement from Velocity by Integration",
+      };
+    case "kinematics-motion-analysis":
+      return {
+        ...kinematicsMotionAnalysis,
+        id: "kinematics-motion-analysis",
+        slug: "kinematics-motion-analysis",
+        title: "Analysing Motion: Direction Changes and Total Distance",
       };
     default:
       return undefined;

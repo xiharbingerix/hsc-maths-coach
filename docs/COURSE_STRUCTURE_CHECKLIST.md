@@ -2,7 +2,7 @@
 
 > Target: match Class Mathematics NSW structure (17 pathways, ~172 topics, ~1,204 subtopics).
 > Source audit: CLASS_MATHEMATICS_NSW_STRUCTURE_REPORT.md
-> Last updated: 2026-06-14 (session 3 — Ext 2 / Std 2 / Adv depth passes complete)
+> Last updated: 2026-06-15 (session 4 — Ext 1 batch 3: kinematics motion analysis + projectile range/flight)
 
 ---
 
@@ -28,7 +28,7 @@
 | Year 12 Standard 1 | 18 (5 units) | 7 / 29 | 5 / 7 (71%) | ~62% | ✅ Full |
 | Year 12 Standard 2 | 31 (6 units) | 10 / 59 | 6 / 10 (60%) | ~53% | ✅ Full |
 | Year 12 Advanced | 91 (13 units) | 11 / 64 | 13 / 11 (118%) | ~142% | ✅ Full |
-| Year 12 Extension 1 | 26 (8 units) | 7 / 28 | 8 / 8 (100%) | ~93% | ✅ Full |
+| Year 12 Extension 1 | 28 (8 units) | 7 / 28 | 8 / 8 (100%) | ~100% | ✅ Full |
 | Year 12 Extension 2 | 25 (5 units) | 5 / 40 | 5 / 5 (100%) | ~63% | ✅ Full |
 
 ---
@@ -352,15 +352,18 @@ Class Maths: 7 topics / 28 subtopics.
 
 **Batch 1 complete (2026-06-15):** 2 new units added — Kinematics and Projectile Motion. 24 lessons / 406 seeded questions.
 **Batch 2 complete (2026-06-15):** 26 lessons / 444 seeded questions.
+**Batch 3 complete (2026-06-15):** 28 lessons / 482 seeded questions.
 
 - [x] Rates of Change and Kinematics (`kinematics` unit) — lesson 1: velocity and acceleration from displacement
 - [x] Rates of Change and Kinematics (`kinematics` unit) — lesson 2: displacement from velocity by integration
+- [x] Rates of Change and Kinematics (`kinematics` unit) — lesson 3: analysing motion, direction changes and total distance
 - [x] Projectile Motion (`projectile-motion` unit) — lesson 1: setting up projectile equations
 - [x] Projectile Motion (`projectile-motion` unit) — lesson 2: maximum height and time
+- [x] Projectile Motion (`projectile-motion` unit) — lesson 3: range and time of flight
 
-**Remaining lessons to author (2 per unit):**
-- [ ] Kinematics: full motion analysis (distance vs displacement, direction changes), exam practice
-- [ ] Projectile Motion: range and time of flight, exam practice
+**Remaining lessons to author (1 per unit — exam practice):**
+- [ ] Kinematics: exam practice (mixed HSC-style problems)
+- [ ] Projectile Motion: exam practice (mixed HSC-style problems)
 
 ---
 
@@ -392,7 +395,7 @@ Nova average lessons per unit: ~4–5.
 | Year 12 Advanced | 91 (13 units) | ~64 subtopics | ✅ Depth pass complete (exceeds) |
 | Year 12 Extension 2 | 25 (5 units) | ~40 subtopics | ✅ Depth pass complete |
 | Year 12 Standard 1 | 18 (5 units) | ~29 subtopics | 🔄 Missing ~2 topics |
-| Year 12 Extension 1 | 26 (8 units) | ~28 subtopics | 🔄 Batch 2 done — 4 lessons remaining (kinematics × 2, projectile × 2) |
+| Year 12 Extension 1 | 28 (8 units) | ~28 subtopics | 🔄 Batch 3 done — 2 lessons remaining (exam practice × 2) |
 | Year 11 Advanced | 54 (8 units) | ~90 subtopics | 🔄 Missing equations/inequations, coord geometry, trig phase 3 |
 | Year 9 / Year 10 variants | — | — | 🔄 Promote Advanced + Core to available |
 | Year 8 | 59 (10 units) | ~111 subtopics | 🔄 4 units missing vs Class Maths |
@@ -405,7 +408,7 @@ Nova average lessons per unit: ~4–5.
 1. ~~**Year 12 Extension 2 depth**~~ ✅ Complete — 25 lessons, 481 questions
 2. ~~**Year 12 Standard 2 depth**~~ ✅ Complete — 31 lessons, 589 questions
 3. ~~**Year 12 Advanced depth**~~ ✅ Complete — 91 lessons, 1715 questions (Probability unit added)
-4. **Year 12 Extension 1 depth** — 2 missing topics (Rates of Change + Projectile Motion); 22 lessons → ~28–30
+4. **Year 12 Extension 1 depth** — 28 lessons / 482 questions; 2 exam-practice lessons remaining (batch 4)
 5. **Year 12 Standard 1** — add missing ~2 topics (likely Networks + further Measurement); promote to `available`
 6. **Year 11 Advanced gaps** — equations/inequations unit, coordinate geometry unit, trig identities phase 3
 7. **Year 9 / Year 10 variants** — promote Advanced and Core to `available`
