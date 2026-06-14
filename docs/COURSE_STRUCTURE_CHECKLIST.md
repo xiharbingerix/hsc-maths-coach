@@ -751,31 +751,229 @@ Class Maths: 11 topics / 64 subtopics. **Nova: 13 units / 91 lessons — exceeds
 
 ---
 
-## Year 12 Extension 1 ✅
+## Year 12 Extension 1 🔄 Gaps identified
 
 `year-12-extension-1` — `available`. Override file: `lib/lessons/year12Extension1/`.
-Class Maths: 7 topics / 28 subtopics.
+**Standard:** NSW Mathematics Extension 1 11–12 Syllabus (2024), Year 12 content.
+Six focus areas, outcomes ME1-12-01 to ME1-12-06. Implementation from 2026; first HSC 2027.
+Source: [curriculum.nsw.edu.au — Yr12 Ext1](https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-extension-1-11-12-2024/content/year-12/fa0cde2f55?show=advice%2Cexample)
 
-- [x] Proof by Mathematical Induction (3 lessons)
-- [x] Introduction to Vectors (4 lessons)
-- [x] Inverse Trigonometric Functions (3 lessons)
-- [x] Further Calculus Skills (4 lessons)
-- [x] Further Applications of Calculus (4 lessons)
-- [x] The Binomial Distribution (4 lessons)
+---
 
-**Batch 1 complete (2026-06-15):** 2 new units added — Kinematics and Projectile Motion. 24 lessons / 406 seeded questions.
-**Batch 2 complete (2026-06-15):** 26 lessons / 444 seeded questions.
-**Batch 3 complete (2026-06-15):** 28 lessons / 482 seeded questions.
-**Batch 4 complete (2026-06-15):** 30 lessons / 520 seeded questions. ✅ COMPLETE.
+### ME1-12-01 · Proof by Mathematical Induction
 
-- [x] Rates of Change and Kinematics (`kinematics` unit) — lesson 1: velocity and acceleration from displacement
-- [x] Rates of Change and Kinematics (`kinematics` unit) — lesson 2: displacement from velocity by integration
-- [x] Rates of Change and Kinematics (`kinematics` unit) — lesson 3: analysing motion, direction changes and total distance
-- [x] Rates of Change and Kinematics (`kinematics` unit) — lesson 4: kinematics exam practice
-- [x] Projectile Motion (`projectile-motion` unit) — lesson 1: setting up projectile equations
-- [x] Projectile Motion (`projectile-motion` unit) — lesson 2: maximum height and time
-- [x] Projectile Motion (`projectile-motion` unit) — lesson 3: range and time of flight
-- [x] Projectile Motion (`projectile-motion` unit) — lesson 4: projectile exam practice
+**Prior knowledge (revision lesson basis):** Algebraic manipulation (index laws, surds, factorisation, factorials), sigma notation (Adv Yr12 Sequences and series), combinations C(n,r) (Ext1 Yr11 Permutations and combinations).
+
+#### Content dot points
+- [x] Examine the nature of inductive proof: statement to prove, base case, inductive step → `proof-introduction-induction`
+- [x] Prove results for sums using mathematical induction → `proof-induction-sums`
+- [x] Prove divisibility results using mathematical induction → `proof-induction-divisibility`
+- [x] Identify errors in false proofs by induction (only one of the two steps holds) → `proof-induction-errors`
+
+#### Current lessons (unit: `proof-induction`) — 3 lessons, 57Q ✅ content complete
+#### Required new lessons
+- [ ] **`proof-induction-revision`** — Algebraic manipulation, sigma notation, factorial arithmetic, C(n,r). Activates prior knowledge.
+
+---
+
+### ME1-12-02 · Introduction to Vectors
+
+**Prior knowledge (revision lesson basis):** Trigonometry (sine, cosine, bearings), Cartesian coordinate geometry, parametric equations (Ext1 Yr11 Further work with functions), straight-line kinematics concepts.
+
+#### Content dot points
+
+**Vector representation and notation**
+- [x] Define a vector as a quantity with both magnitude and direction → `vectors-intro`
+- [x] Associate vectors with directed line segments; recognise multiple representations → `vectors-intro`
+- [x] Identify and use notation for 2D and 3D vectors (column, bold, i/j/k) → `vectors-intro`
+- [ ] **Define position vectors in 2D and 3D** → ⚠️ needs explicit treatment
+
+**Vector operations**
+- [x] Represent a vector algebraically and graphically in 2D and 3D → `vectors-operations`
+- [x] Scalar multiplication in component form → `vectors-operations`
+- [x] Parallel vector condition λ**a** = **b** → `vectors-operations`
+- [x] Identify i, j, k as perpendicular unit vectors → `vectors-operations`
+- [x] Add and subtract vectors (algebraically + triangle/parallelogram law) → `vectors-operations`
+- [x] Calculate magnitude |**v**| for 2D and 3D → `vectors-operations`
+- [x] Find unit vectors in 2D and 3D → `vectors-operations`
+
+**Dot product and projection**
+- [x] Define scalar product **a**·**b** = |**a**||**b**|cosθ → `vectors-dot-product`
+- [x] Use dot product to find angles between vectors → `vectors-dot-product`
+- [ ] **Define and calculate projection of **a** onto **b**: proj_b(**a**) = ((**a**·**b**)/|**b**|²)**b**** → ❌ MISSING
+- [ ] **Prove the projection formula; find perpendicular component** → ❌ MISSING
+
+**Vectors and motion in 2D (projectile motion)**
+- [ ] **Describe position of a moving point using a vector function of time r(t)** → ❌ MISSING
+- [ ] **Differentiate vector functions to find velocity and acceleration vectors** → ❌ MISSING
+- [ ] **Describe projectile path using parametric equations (horizontal and vertical displacement vectors)** → ⚠️ Partial — `projectile-motion` unit uses calculus approach only; vector/parametric form required by syllabus missing
+- [ ] **Determine time of flight, max height, range, instantaneous velocity, impact velocity** → ⚠️ Partial — calculus approach covered; impact velocity and unknown-angle problems missing
+- [ ] **Solve projectile problems where initial velocity and/or angle of projection are unknown** → ❌ MISSING
+
+#### Current lessons (unit: `vectors`) — 4 lessons, 76Q ⚠️ ~60% coverage
+Plus: `kinematics` unit (4 lessons, 76Q) — Year 11 content retained as prior-knowledge revision entry point
+Plus: `projectile-motion` unit (4 lessons, 76Q) — calculus approach; useful scaffolding but not the vector/parametric treatment required here
+
+#### Structural note
+The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equations and displacement vectors**, not as a standalone calculus topic. The `kinematics` unit (v = dx/dt, direction changes, total distance) is primarily **Year 11 Extension 1** content — valuable as a revision unit. The `projectile-motion` unit (calculus approach) should be supplemented with new vector-based lessons.
+
+#### Required new lessons
+- [ ] **`vectors-revision`** — Trig ratios and bearings, Cartesian coordinates, parametric equations. Activates prior knowledge before vector notation.
+- [ ] **`vectors-projection`** — Scalar and vector projection; proof of projection formula; perpendicular component; geometric problems.
+- [ ] **`vectors-motion-2d`** — Position, velocity, acceleration as vector functions of time; differentiate **r**(t).
+- [ ] **`vectors-projectile-parametric`** — Projectile motion in vector form; time of flight, max height, range, impact velocity; unknown launch speed or angle.
+
+---
+
+### ME1-12-03 · Inverse Trigonometric Functions
+
+**Prior knowledge (revision lesson basis):** Trig graphs and identities (including sum/difference and double-angle), inverse function concept (domain restriction, reflection y = x), function transformations (Ext1 Yr11 Further work with functions and Further trigonometry).
+
+#### Content dot points
+
+**Definitions and graphs**
+- [x] Graph sin, cos, tan; recognise failure of horizontal line test → `inverse-trig-intro`
+- [x] Examine domain restrictions to obtain inverse functions → `inverse-trig-intro`
+- [x] Define sin⁻¹(x), cos⁻¹(x), tan⁻¹(x); determine domains and ranges → `inverse-trig-intro`
+- [x] Sketch graphs of sin⁻¹(x), cos⁻¹(x), tan⁻¹(x) → `inverse-trig-intro`
+- [ ] **Apply complementary angle identity sin⁻¹(x) + cos⁻¹(x) = π/2** → ⚠️ needs explicit coverage
+- [ ] **Evaluate composite expressions such as sin(cos⁻¹(x)) and tan(sin⁻¹(x))** → ⚠️ needs explicit coverage
+
+**Calculus**
+- [x] Differentiate sin⁻¹(f(x)), cos⁻¹(f(x)), tan⁻¹(f(x)) → `inverse-trig-differentiation`
+- [x] Differentiate composite functions involving inverse trig → `inverse-trig-differentiation`
+- [x] Recognise and apply standard integrals (∫1/√(a²−x²)dx = sin⁻¹(x/a)+C etc.) → `inverse-trig-integration`
+- [x] Evaluate definite integrals involving inverse trig → `inverse-trig-integration`
+
+#### Current lessons (unit: `inverse-trig`) — 3 lessons, 57Q ⚠️ ~75% coverage
+#### Required new lessons
+- [ ] **`inverse-trig-revision`** — Trig graphs, inverse function concept, domain restrictions, trig identities.
+- [ ] **`inverse-trig-properties`** — Complementary angle identities; evaluating composite expressions; identities provable with calculus.
+
+---
+
+### ME1-12-04 · Further Calculus Skills
+
+**Prior knowledge (revision lesson basis):** Chain/product/quotient rules, trig identities (double angle formulae for sin²x and cos²x), u-substitution concept, parametric equations, inverse functions.
+
+#### Content dot points
+
+**Further derivatives**
+- [x] Derivative of parametrically defined function: dy/dx = (dy/dt)/(dx/dt) → `further-calculus-parametric`
+- [x] Derivative of inverse function: [f⁻¹]'(x) = 1/f'(f⁻¹(x)) → `further-calculus-inverse`
+- [x] Solve problems involving derivatives of inverse functions (including inverse trig) → `further-calculus-inverse`
+
+**Integration techniques**
+- [x] Integration by substitution — indefinite integrals → `further-calculus-substitution`
+- [x] Integration by substitution — definite integrals (change limits) → `further-calculus-substitution`
+- [x] Integrals ∫1/√(a²−x²)dx and ∫1/(a²+x²)dx → `further-calculus-substitution`
+- [x] Integrals of sin²(x) and cos²(x) via double-angle formulae → `further-calculus-trig-integration`
+
+#### Current lessons (unit: `further-calculus`) — 4 lessons, 76Q ✅ content complete
+#### Required new lessons
+- [ ] **`further-calculus-revision`** — Chain/product/quotient rules, trig identities (double angle), basic substitution. Entry check before substitution and parametric content.
+
+---
+
+### ME1-12-05 · Further Applications of Calculus
+
+**Prior knowledge (revision lesson basis):** Polynomial factorisation and graphing, product rule, chain rule, definite integration, rates of change interpretation.
+
+#### Content dot points
+
+**Multiplicity of zeroes of polynomial functions**
+- [ ] **Prove: zero of multiplicity k of P(x) → zero of multiplicity k−1 of P'(x) (via product rule)** → ❌ MISSING
+- [ ] **Use the result to determine multiplicity and solve polynomial problems** → ❌ MISSING
+- [ ] **Graph polynomials in factored form: turning points, points of inflection, end behaviour** → ❌ MISSING
+
+**Further rates of change**
+- [x] Develop models where rate of change of a composition → apply chain rule → `calculus-applications-related-rates`
+- [x] Solve related rates problems (area, surface area, volume) → `calculus-applications-related-rates`
+- [ ] **Model and graph situations where dQ/dt = k(Q−A) (rate proportional to difference from fixed value)** → ❌ MISSING
+- [ ] **Solve dQ/dt = k(Q−A): Newton's Law of Cooling, logistic/carrying-capacity models; justify conclusions** → ❌ MISSING
+
+**Areas and volumes**
+- [ ] **Calculate areas of regions between curves** → ❌ MISSING
+- [ ] **Describe a solid of revolution formed by rotating an arc about x-axis or y-axis** → ❌ MISSING
+- [ ] **Calculate volume of revolution about x-axis or y-axis** → ❌ MISSING
+- [ ] **Calculate volume of revolution between two curves about x-axis or y-axis** → ❌ MISSING
+
+**Differential equations**
+- [x] Define a differential equation and its order → `calculus-applications-differential-equations`
+- [x] Solve dy/dx = f(x) → `calculus-applications-differential-equations`
+- [x] Solve dy/dx = g(y) → `calculus-applications-differential-equations`
+- [x] Recognise and solve dy/dx = ky (exponential growth and decay) → `calculus-applications-differential-equations`
+- [x] Solve dy/dx = g(y) by separation of variables → `calculus-applications-differential-equations`
+- [ ] **Graph solutions using graphing applications; examine behaviour using slope fields** → ❌ MISSING
+
+#### Current lessons (unit: `calculus-applications`) — 4 lessons, 76Q ❌ ~45% coverage
+#### Required new lessons
+- [ ] **`calculus-applications-revision`** — Polynomial factorisation and sketching, chain rule fluency, area under curve. Prior knowledge activation.
+- [ ] **`calculus-applications-polynomial-zeroes`** — Multiplicity of zeroes; product-rule proof; graphing polynomials with repeated roots.
+- [ ] **`calculus-applications-newton-cooling`** — dQ/dt = k(Q−A); Newton's Law of Cooling; logistic/carrying-capacity models; solve and justify in context.
+- [ ] **`calculus-applications-volumes`** — Areas between curves; solids of revolution; volumes rotating about x/y-axis; between two curves.
+- [ ] **`calculus-applications-slope-fields`** — Slope fields for first-order DEs; sketch and interpret solution curves; long-run behaviour.
+
+---
+
+### ME1-12-06 · The Binomial Distribution and Sampling Distribution of the Mean
+
+**Prior knowledge (revision lesson basis):** Probability rules (addition, multiplication, conditional probability, complement), combinations C(n,r), discrete random variables and expected value (Adv Yr11/12 Probability). Revision should confirm probability and C(n,r) fluency before Bernoulli content.
+
+#### Content dot points
+
+**Bernoulli distributions**
+- [x] Define a Bernoulli random variable for success/failure situations → `binomial-intro`
+- [x] Model a Bernoulli trial: X where P(X=1)=p, P(X=0)=1−p → `binomial-intro`
+- [x] Define a Bernoulli distribution as a discrete probability distribution → `binomial-intro`
+
+**Binomial distributions**
+- [x] Use X ~ B(n,p); recognise C(n,k) as number of ways k successes occur in n trials → `binomial-calculations`
+- [x] Apply P(X=k) = C(n,k)·pᵏ·(1−p)^(n−k) → `binomial-calculations`
+- [x] Calculate expected frequencies → `binomial-calculations`
+- [x] Apply E(X)=np and Var(X)=np(1−p) → `binomial-calculations`
+- [x] Solve practical binomial problems with/without digital tools (excluding normal approximation) → `binomial-exam-practice`
+
+**Sampling distribution of the mean and CLT**
+- [ ] **Define statistical population and sample** → ❌ MISSING
+- [ ] **Define sample mean x̄ and sample variance s²** → ❌ MISSING
+- [ ] **Examine distribution of sample means from population with mean μ, variance σ²** → ❌ MISSING
+- [ ] **Examine effect of sample size n on variance of sample means (Var(x̄) = σ²/n)** → ❌ MISSING
+- [ ] **Apply central limit theorem: estimate P(x̄ within given bounds)** → ❌ MISSING
+
+#### Current lessons (unit: `binomial-distribution`) — 4 lessons, 76Q ❌ ~50% coverage (entire CLT sub-strand missing)
+#### Required new lessons
+- [ ] **`binomial-revision`** — Probability rules, C(n,r), discrete random variables. Prior knowledge activation.
+- [ ] **`sampling-distribution-mean`** — Population vs sample; distribution of x̄; Var(x̄) = σ²/n; effect of increasing sample size.
+- [ ] **`central-limit-theorem`** — State CLT; calculate P(x̄ within bounds); interpret in real-world context.
+
+---
+
+### Overall Gap Summary
+
+| Focus area | Outcome | Nova lessons | Dot-point coverage | What is missing |
+|---|---|---|---|---|
+| Proof by Mathematical Induction | ME1-12-01 | 3 (57Q) | ✅ ~100% | Revision lesson only |
+| Introduction to Vectors | ME1-12-02 | 4+8 (228Q total) | ⚠️ ~60% | Projection, vector motion 2D, projectile via vectors |
+| Inverse Trigonometric Functions | ME1-12-03 | 3 (57Q) | ⚠️ ~75% | Properties/identities lesson, revision lesson |
+| Further Calculus Skills | ME1-12-04 | 4 (76Q) | ✅ ~100% | Revision lesson only |
+| Further Applications of Calculus | ME1-12-05 | 4 (76Q) | ❌ ~45% | Polynomial zeroes, Newton cooling, volumes, slope fields |
+| Binomial Distribution + Sampling | ME1-12-06 | 4 (76Q) | ❌ ~50% | Entire sampling distribution + CLT sub-strand |
+
+**Current:** 30 lessons (8 units) / 520Q
+**New lessons to meet syllabus fully:** ~18 (6 revision + 4 vectors/proj + 5 further-applications + 3 CLT/sampling)
+**Target:** ~48 lessons
+
+### Priority order
+1. **Sampling distribution of mean + CLT** (2 lessons) — entire sub-strand of ME1-12-06 absent
+2. **Volumes of revolution** (1 lesson) — high HSC weighting in ME1-12-05
+3. **Polynomial zeroes** (1 lesson) — ME1-12-05 unique content
+4. **Newton's Law of Cooling** (1 lesson) — completes ME1-12-05 rates strand
+5. **Vector projection** (1 lesson) — completes dot-product strand of ME1-12-02
+6. **Vector motion + projectile (parametric)** (2 lessons) — syllabus requires vector approach to projectile
+7. **Slope fields** (1 lesson) — completes ME1-12-05 differential equations
+8. **Inverse trig properties** (1 lesson) — identities, composite expressions
+9. **Revision lessons** (6 lessons, one per focus area) — prior knowledge activation per syllabus teaching advice
 
 ---
 
