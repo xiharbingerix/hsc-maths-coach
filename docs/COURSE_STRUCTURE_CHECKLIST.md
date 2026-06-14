@@ -279,40 +279,444 @@ Class Maths: 7 topics / 29 subtopics.
 
 ---
 
-## Year 12 Standard 2 🔄 Breadth pass in progress
+## Year 12 Standard 2 🔄 Syllabus alignment in progress
 
 `year-12-standard-2` — `available`. Override file: `lib/lessons/year12Standard2/`.
-Class Maths: 10 topics / 59 subtopics. Nova: 6 units / 35 lessons (↑ from 31).
 
-- [x] Algebraic Relationships (7 lessons — linear-inequalities-modelling, working-with-formulae-substitution)
-- [x] Trigonometry, Ratios and Rates (7 lessons — **+2 breadth pass 2026-06-15**)
-  - [x] sine-rule-cosine-rule-area-triangle
-  - [x] non-right-angled-trigonometry
-  - [x] ratios-rates-unit-conversions
-  - [x] **bearings-navigation-problems** ← NEW (MS-M6 NSW syllabus gap)
-  - [x] **time-zones-conversions** ← NEW (MS-M7 NSW syllabus gap)
-  - [x] **ambiguous-case-sine-rule** ← NEW (MS-M6 NSW syllabus gap)
-  - [x] practical-rates-ratios-exam-practice
-- [x] Surface Area and Volume (3 lessons)
-- [x] Investments, Loans and Annuities (7 lessons — **+1 breadth pass 2026-06-15**)
-  - [x] investment-compound-interest
-  - [x] depreciation-loans
-  - [x] annuities-regular-payments
-  - [x] **present-value-annuities** ← NEW (MS-F5 NSW syllabus gap)
-  - [x] comparing-investments-risk-return
-  - [x] credit-cards-consumer-decisions
-  - [x] financial-decision-making-exam-practice
-- [x] Bivariate Data and Normal Distribution (6 lessons)
-- [x] Networks and Critical Path Analysis (5 lessons)
+**Reference:** NSW Mathematics Standard 11–12 Syllabus (2024). Teaching begins Term 4 2026. First HSC 2027.
+URL: https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-standard-11-12-2024/content/year-12-tba2/
 
-**Depth pass complete 2026-06-14:** +7 lessons. **Breadth pass 2026-06-15:** +4 lessons (bearings, time zones, ambiguous case, PV annuities).
-Seed total: 665 questions (35 lessons × 19 questions).
+**Objective:** Every NSW syllabus content dot point must be addressed by at least one Nova lesson. Each topic must also have a revision lesson drawing on the "Prior knowledge, skills and understanding" teaching advice to activate Year 11 prerequisites before new content begins.
 
-**Remaining NSW syllabus gaps (priority order):**
-- [x] ~~Ambiguous case of sine rule (MS-M6)~~ ✅ 2026-06-15
-- [x] ~~Present value of annuities (MS-F5)~~ ✅ 2026-06-15
-- [ ] Straight-line (flat-rate) depreciation (MS-F4)
-- [ ] Residual plots and interpolation vs extrapolation (MS-S4)
+**Current state:** 35 lessons across 6 Nova units. Several existing lessons cover Year 11 content (not Year 12) and some new syllabus topics are entirely unaddressed. Structural realignment required.
+
+---
+
+### Syllabus structure — 10 topics
+
+| # | NSW Topic | Outcome | Nova lessons | Coverage |
+|---|---|---|---|---|
+| 1 | Algebraic relationships | MST-12-S2-01 | 7 (partial overlap) | ⚠️ Partial |
+| 2 | Investment and loans | MST-12-S2-02 | 3 | ⚠️ Partial — shares missing |
+| 3 | Annuities | MST-12-S2-03 | 2 | ⚠️ Partial — interest factor tables missing |
+| 4 | Trigonometry | MST-12-S2-04 | 4 | ⚠️ Partial — radians, elevation/depression gap |
+| 5 | Ratios and rates | MST-12-S2-05 | 1 | ⚠️ Partial — energy, site plans, rainfall missing |
+| 6 | Network flow | MST-12-S2-06 | 2 | ✅ Adequate |
+| 7 | Critical path analysis | MST-12-S2-07 | 1 | ⚠️ Partial — Gantt charts, dummy activities missing |
+| 8 | Bivariate data analysis | MST-12-S2-08 | 3 | ✅ Adequate |
+| 9 | Relative frequency and probability | MST-12-S2-09 | 1 | ❌ Significant gaps |
+| 10 | The normal distribution | MST-12-S2-10 | 1 | ⚠️ Partial |
+
+---
+
+### ⚠️ Content in Nova NOT in the new Year 12 syllabus
+
+These lessons exist but address Year 11 Standard content or are explicitly excluded from the 2024 Year 12 Standard 2 syllabus. They should be retained for prior-knowledge revision lessons but not counted as Year 12 coverage:
+
+| Lesson slug | Issue |
+|---|---|
+| `surface-area-prisms-cylinders`, `volume-prisms-cylinders-spheres`, `composite-solids-practical` | Entire unit — not a Year 12 Standard 2 topic (Year 11 Measurement) |
+| `time-zones-conversions` | Not in Year 12 Standard 2 syllabus |
+| `ambiguous-case-sine-rule` | **Explicitly excluded** from new syllabus dot point |
+| `linear-relationships-modelling`, `linear-inequalities-modelling`, `working-with-formulae-substitution` | Year 11 prior knowledge — suitable for revision lesson only |
+| `shortest-paths-minimum-spanning-trees` | Not in Year 12 Standard 2 Networks syllabus |
+
+---
+
+### 1. Algebraic Relationships — MST-12-S2-01
+
+**Prior knowledge (revision lesson basis):** Linear equations and their graphs; substitution into formulas; solving equations with one unknown; plotting points from tables; straight-line gradients and intercepts (all Year 11).
+
+#### Focus areas and dot points
+
+**Simultaneous linear equations**
+- [x] Graph two equations and identify the solution (with and without graphing applications) → `simultaneous-equations-context`
+- [x] Solve a pair of simultaneous linear equations using graphical and algebraic methods → `simultaneous-equations-context`
+- [x] Develop a pair of simultaneous linear equations to model a practical situation → `simultaneous-equations-context`
+- [x] Solve practical problems involving simultaneous linear equations → `simultaneous-equations-context`
+- [x] Use break-even analysis to model cost and revenue relationships → `simultaneous-equations-context`
+- [x] Identify the break-even point and solve related problems → `simultaneous-equations-context`
+
+**Exponential relationships**
+- [x] Represent exponential relationships in multiple forms (equation, table, ordered pairs, graph) → `exponential-inverse-variation`
+- [x] Graph y=aˣ and y=a⁻ˣ where a>0 → `exponential-inverse-variation`
+- [x] Construct and analyse y=kaˣ and y=ka⁻ˣ for growth/decay → `exponential-inverse-variation`
+- [x] Interpret the meaning of parameters in context → `exponential-inverse-variation`
+- [ ] **Explain limitations of exponential models** → needs explicit treatment in lesson
+
+**Quadratic relationships**
+- [x] Represent quadratic relationships in multiple forms → `quadratic-models`
+- [x] Recognise parabolic shape, axis of symmetry, vertex → `quadratic-models`
+- [x] Graph y=ax²+bx+c using graphing applications → `quadratic-models`
+- [x] Identify x-intercepts and y-intercept → `quadratic-models`
+- [x] Determine axis of symmetry and vertex using midpoint of x-intercepts → `quadratic-models`
+- [x] Analyse graph to solve practical problems → `quadratic-models`
+- [x] Interpret meaning of intercepts and vertex in context → `quadratic-models`
+- [ ] **Explain limitations of quadratic models** → needs explicit treatment in lesson
+
+**Reciprocal relationships**
+- [ ] **Recognise inverse variation as y=k/x** → currently bundled into `exponential-inverse-variation` but under-developed
+- [ ] **Identify the hyperbolic shape of a reciprocal graph** → partial
+- [ ] **Graph y=k/x with and without graphing applications** → partial
+- [ ] **Construct a reciprocal model to analyse inverse variation** → partial
+- [ ] **Solve inverse variation problems graphically or algebraically** → partial
+- [ ] **Explain limitations of reciprocal models** → missing
+
+#### Current Nova lessons
+- `linear-relationships-modelling` — Year 11 prior knowledge (revision use only)
+- `quadratic-models` ✅
+- `exponential-inverse-variation` ✅ exponential; ⚠️ reciprocal under-developed
+- `simultaneous-equations-context` ✅
+- `linear-inequalities-modelling` — Year 11 prior knowledge (revision use only)
+- `working-with-formulae-substitution` — Year 11 prior knowledge (revision use only)
+- `algebraic-relationships-exam-practice` ✅
+
+#### Required new lessons
+- [ ] **`algebraic-relationships-revision`** — Activates prior knowledge: solving linear equations, substitution, plotting from tables, straight-line graphs. Bridge to Year 12 non-linear content.
+- [ ] **`reciprocal-relationships`** — Dedicated lesson on y=k/x; hyperbolic shape; construct and solve inverse variation problems; state limitations. (Split from `exponential-inverse-variation`.)
+- [ ] Update `exponential-inverse-variation` and `quadratic-models` to include explicit **model limitations** sections.
+
+---
+
+### 2. Investment and Loans — MST-12-S2-02
+
+**Prior knowledge (revision lesson basis):** Percentage calculations; finding percentage of a quantity; expressing one quantity as a percentage of another; percentage increase/decrease; simple interest concept (Year 11 Managing Money / Earning Money).
+
+#### Focus areas and dot points
+
+**Investment**
+- [x] Calculate simple interest using I=Prn → `investment-compound-interest` ⚠️ (may need explicit lesson)
+- [x] Solve compound interest problems using FV=PV(1+r)ⁿ → `investment-compound-interest`
+- [x] Examine effects of varying rates and terms → `investment-compound-interest`
+- [x] Compare simple and compound interest growth → `investment-compound-interest` ⚠️ (comparison needs explicit dot point)
+- [ ] **Analyse share investments including dividends and brokerage fees** → ❌ ENTIRELY MISSING
+
+**Depreciation**
+- [x] Straight-line depreciation: S=V₀−Dn → `depreciation-loans` ⚠️ (formula present but not explicitly named)
+- [x] Declining balance: S=V₀(1−r)ⁿ → `depreciation-loans` ✅
+- [ ] **Compare straight-line and declining balance methods numerically and graphically** → ❌ MISSING
+
+**Loans**
+- [x] Understand reducing balance loans → `depreciation-loans`
+- [x] Model repayment schedules → `depreciation-loans`
+- [x] Calculate monthly payments and total amounts → `depreciation-loans`, `present-value-annuities`
+- [x] Examine effects of changing repayment frequency or making additional payments → partial in `depreciation-loans`
+
+**Credit cards**
+- [x] Explain credit cards as reducing balance loans → `credit-cards-consumer-decisions`
+- [x] Compare interest rates with other borrowing types → `credit-cards-consumer-decisions`
+- [x] Identify associated fees → `credit-cards-consumer-decisions`
+- [x] Interpret statements → `credit-cards-consumer-decisions`
+- [x] Calculate compound interest on purchases → `credit-cards-consumer-decisions`
+
+#### Current Nova lessons
+- `investment-compound-interest` ✅ compound interest; ⚠️ simple interest needs strengthening
+- `depreciation-loans` ✅ declining balance; ⚠️ straight-line needs explicit formula and comparison
+- `credit-cards-consumer-decisions` ✅
+
+#### Required new lessons
+- [ ] **`investment-loans-revision`** — Activates prior knowledge: percentages, simple interest I=Prt, finding unknowns; contrast simple vs compound growth as a bridge to Year 12 FV=PV(1+r)ⁿ.
+- [ ] **`shares-dividends-brokerage`** — Dividend calculation, dividend yield, brokerage fees, buying/selling shares, capital gain vs loss. (**Entirely missing** — new syllabus dot point.)
+- [ ] **`straight-line-vs-declining-depreciation`** — Explicit S=V₀−Dn vs S=V₀(1−r)ⁿ; tabular and graphical comparison; when each model is appropriate.
+
+---
+
+### 3. Annuities — MST-12-S2-03
+
+**Prior knowledge (revision lesson basis):** Compound interest FV=PV(1+r)ⁿ; recurrence relations for savings and loans; building balance tables period by period (Year 11 Managing Money and Year 12 Investment and Loans).
+
+#### Focus areas and dot points
+
+- [x] Identify an annuity as regular deposits with compounding (FV) OR withdrawals from a lump sum (PV) → `annuities-regular-payments`, `present-value-annuities`
+- [x] Model an annuity in tabular form for up to 4 time periods → `annuities-regular-payments`
+- [ ] **Use a spreadsheet to model an annuity** → ❌ MISSING
+- [ ] **Using a table of interest factors, calculate FV or PV of an annuity** → ❌ MISSING (Nova uses formula; syllabus requires table approach)
+- [ ] **Using a table of interest factors, determine the contribution amount required for a target FV** → ❌ MISSING
+- [ ] **Using a table of interest factors, determine the single sum for a target ordinary annuity FV** → ❌ MISSING
+- [ ] **Examine effect of varying amount, payment, rate and duration using digital tools** → ❌ MISSING
+- [x] Solve annuity problems involving financial decisions regarding investments and savings → `annuities-regular-payments`, `present-value-annuities`
+- [ ] **Solve retirement planning problems** → ❌ MISSING
+
+#### Current Nova lessons
+- `annuities-regular-payments` ✅ tabular/recurrence; ❌ no interest factor tables
+- `present-value-annuities` ✅ PV formula; ❌ no table approach
+
+#### Required new lessons
+- [ ] **`annuities-revision`** — Activates prior knowledge: FV=PV(1+r)ⁿ, recurrence relations B_{n+1}=r·Bₙ+d, reading balance tables.
+- [ ] **`annuity-interest-factor-tables`** — Using published FV and PV interest factor tables; finding FV, PV, required contributions and initial lump sums from tables; comparing results to formula approach.
+- [ ] **`retirement-annuity-planning`** — Long-term annuity scenarios: saving for retirement, pension drawdown, comparing saving strategies; digital tool exploration of parameter effects.
+
+---
+
+### 4. Trigonometry — MST-12-S2-04
+
+**Prior knowledge (revision lesson basis):** SOH CAH TOA for right-angled triangles; Pythagoras' theorem; finding unknown sides and angles; labelling triangles (opposite, adjacent, hypotenuse) — Year 11 Standard.
+
+#### Focus areas and dot points
+
+**Right-angled trigonometry**
+- [ ] **Apply trig ratios to right-angled triangles in both degrees AND radians** → ❌ Radians entirely absent from Nova
+
+**Sine rule — sides**
+- [x] Apply a/sin A = b/sin B = c/sin C to find unknown sides → `sine-rule-cosine-rule-area-triangle`
+
+**Sine rule — angles (excluding ambiguous case)**
+- [x] Apply sin A/a = sin B/b to find unknown angles (non-ambiguous) → `sine-rule-cosine-rule-area-triangle` ⚠️ (ambiguous case lesson exists but is EXCLUDED from new syllabus)
+- [x] Apply sine rule for obtuse angles when the unknown is obtuse → `non-right-angled-trigonometry`
+
+**Cosine rule**
+- [x] Apply c²=a²+b²−2ab cos C to find unknown sides → `sine-rule-cosine-rule-area-triangle`
+- [x] Apply cos C=(a²+b²−c²)/2ab to find unknown angles → `sine-rule-cosine-rule-area-triangle`
+
+**Area formula**
+- [x] Apply A=½ab sin C → `sine-rule-cosine-rule-area-triangle`
+
+**Practical applications**
+- [ ] **Identify and interpret angles of elevation and depression** → ❌ No dedicated lesson
+- [x] Construct and interpret compass bearings; solve related problems → `bearings-navigation-problems`
+- [x] Solve practical problems combining bearings and non-right-angled trig → `bearings-navigation-problems`, `non-right-angled-trigonometry`
+
+#### Current Nova lessons
+- `sine-rule-cosine-rule-area-triangle` ✅
+- `non-right-angled-trigonometry` ✅
+- `bearings-navigation-problems` ✅
+- `ambiguous-case-sine-rule` ⚠️ EXCLUDED from new syllabus — keep for interest but not counted
+- `time-zones-conversions` — not a trigonometry lesson; not in new syllabus
+
+#### Required new lessons
+- [ ] **`trigonometry-revision`** — SOH CAH TOA, Pythagoras, right-triangle labelling; bridge to sine/cosine rules. Cover finding sides and angles in right-angled triangles as the launch pad.
+- [ ] **`right-angled-trig-radians`** — Introduce radian measure; convert between degrees and radians; apply SOH CAH TOA and trig ratios using radians; practise in both units. (**New syllabus requirement** not previously in Standard 2.)
+- [ ] **`elevation-depression-applications`** — Angles of elevation and depression; draw diagrams from word problems; solve using right-angled and non-right-angled trig; combine with bearings in practical contexts.
+
+---
+
+### 5. Ratios and Rates — MST-12-S2-05
+
+**Prior knowledge (revision lesson basis):** Fractions and their relationship to ratios; unit conversions; rates of pay (Year 11 Standard); interpreting graphs.
+
+#### Focus areas and dot points
+
+**Ratios**
+- [x] Recognise ratios and explain relationship with fractions → `ratios-rates-unit-conversions`
+- [x] Express ratio in simplest form; determine ratio of two quantities → `ratios-rates-unit-conversions`
+- [x] Divide a quantity in a given ratio → `ratios-rates-unit-conversions`
+- [x] Solve practical problems using the unitary method → `ratios-rates-unit-conversions`
+- [x] Explain relationship between ratios and map scales → `ratios-rates-unit-conversions`
+- [ ] **Construct scale drawings with and without digital tools** → ⚠️ partial (scales covered but construction not explicit)
+- [ ] **Estimate and compare quantities, costs using scale drawings and building plans** → ❌ MISSING
+- [ ] **Calculate perimeter or area from site plans, aerial photographs, radial surveys** → ❌ MISSING
+- [ ] **Calculate volume of rainfall V=Ah from site plan or map** → ❌ MISSING
+
+**Rates**
+- [x] Explain difference between ratios and rates → `ratios-rates-unit-conversions`
+- [x] Represent and convert unit rates → `ratios-rates-unit-conversions`
+- [x] Compare unit rates to determine best value → `ratios-rates-unit-conversions`
+- [x] Use rates to solve problems in practical contexts → `ratios-rates-unit-conversions`
+- [x] Interpret and analyse distance/time graphs (speed, distance, time) → `ratios-rates-unit-conversions`
+- [x] Examine fuel consumption to compare vehicle efficiency → `ratios-rates-unit-conversions`
+- [ ] **Recognise and convert between watts (W) and kilowatts (kW): 1000 W=1 kW** → ❌ MISSING
+- [ ] **Apply units of energy to calculate consumption and solve household energy problems** → ❌ MISSING
+
+#### Current Nova lessons
+- `ratios-rates-unit-conversions` ✅ ratios, rates, speed, scale, fuel
+
+#### Required new lessons
+- [ ] **`ratios-rates-revision`** — Activates prior knowledge: fractions↔ratios, unit conversions (cm→m→km), basic rate problems from Year 11.
+- [ ] **`scale-drawings-site-plans`** — Construct and read scale drawings; use building plans and site plans; calculate actual distances, perimeters and areas; apply to aerial photographs and radial surveys.
+- [ ] **`rainfall-volume-calculations`** — Calculate V=Ah for rainfall over a catchment; read depth from maps; combine with area from scale drawings; real-world water storage contexts.
+- [ ] **`energy-consumption-watts-kilowatts`** — Watts and kilowatts (1000 W=1 kW); kilowatt-hours; read electricity bills; calculate household energy costs; compare appliance consumption.
+
+---
+
+### 6. Network Flow — MST-12-S2-06
+
+**Prior knowledge (revision lesson basis):** Network terminology (vertices, edges, directed graphs, weighted edges); reading and constructing network diagrams from edge lists — covered in existing `network-concepts-terminology`.
+
+#### Focus areas and dot points
+
+- [x] Define network flow terminology (source, sink, capacity, flow, cut) → `network-flow-capacity-cuts`
+- [x] Convert table to weighted directed diagram → `network-concepts-terminology`, `network-flow-capacity-cuts`
+- [x] Calculate flow capacity using max-flow min-cut method → `network-flow-capacity-cuts`
+- [x] Solve small-scale network flow problems → `network-flow-capacity-cuts`
+- [x] Examine impact of increasing/reducing capacity of an arc → `network-flow-capacity-cuts`
+- [x] Explain whether flow capacity is sufficient to meet demand → `network-flow-capacity-cuts`
+
+#### Current Nova lessons
+- `network-concepts-terminology` ✅ — also serves as the revision lesson for this topic
+- `network-flow-capacity-cuts` ✅
+- `shortest-paths-minimum-spanning-trees` — ⚠️ NOT in the new Year 12 Standard 2 syllabus
+
+#### Required new lessons
+- [ ] **`network-flow-revision`** — Activate prior knowledge: vertices, edges, directed/weighted networks, reading diagrams. Bridge to flow-specific concepts (source, sink, capacity).
+- Note: `shortest-paths-minimum-spanning-trees` should be reviewed — likely Year 11 Networks content; retain but flag as outside Year 12 scope.
+
+---
+
+### 7. Critical Path Analysis — MST-12-S2-07
+
+**Prior knowledge (revision lesson basis):** Network diagrams; reading precedence tables; understanding that activities have dependencies and durations (basic project sequencing).
+
+#### Focus areas and dot points
+
+- [x] Construct network diagram from precedence table (up to 10 activities) → `critical-path-analysis`
+- [ ] **Construct network diagram including dummy activities** → ❌ MISSING
+- [x] Explain the term "critical path" → `critical-path-analysis`
+- [x] Apply EST and LST → `critical-path-analysis`
+- [ ] **Apply EFT (earliest finish time) and LFT (latest finish time) explicitly** → ⚠️ partial — EST/LST present, EFT/LFT labels may not be explicit
+- [x] Calculate float to identify critical and non-critical activities → `critical-path-analysis`
+- [x] Locate critical path(s) for the project → `critical-path-analysis`
+- [x] Determine minimum completion time → `critical-path-analysis`
+- [ ] **Construct a Gantt chart from a network diagram indicating the critical path** → ❌ MISSING
+- [x] Examine impact of duration changes on completion time → `critical-path-analysis`
+- [ ] **Use a spreadsheet to model a project with precedence tables** → ❌ MISSING
+
+#### Current Nova lessons
+- `critical-path-analysis` ✅ core CPA; ❌ dummy activities; ❌ Gantt charts; ❌ spreadsheet
+
+#### Required new lessons
+- [ ] **`critical-path-revision`** — Activate prior knowledge: reading precedence tables, activity sequencing, basic network diagrams. Bridge to forward/backward pass.
+- [ ] **`gantt-charts-dummy-activities`** — Introduce dummy activities and when they are needed; construct full network with dummies; build Gantt charts from network diagrams showing critical path; interpret Gantt charts for project scheduling.
+
+---
+
+### 8. Bivariate Data Analysis — MST-12-S2-08
+
+**Prior knowledge (revision lesson basis):** Single-variable statistics: mean, median, mode, range, quartiles, IQR, standard deviation; reading and interpreting graphs (Year 11 Standard).
+
+#### Focus areas and dot points
+
+- [x] Distinguish 1-variable from 2-variable data and explain when each is needed → `bivariate-data-scatterplots`
+- [x] Explain association vs causal relationship → `correlation-association`
+- [x] Identify independent and dependent variables → `bivariate-data-scatterplots`
+- [x] Analyse relationships between independent and dependent variables → `bivariate-data-scatterplots`
+- [x] Represent bivariate dataset using scatter plot → `bivariate-data-scatterplots`
+- [x] Create line of best fit by eye and with digital tools → `bivariate-data-scatterplots`
+- [x] Describe form as linear or non-linear → `bivariate-data-scatterplots`
+- [x] Describe strength and direction (strong/moderate/weak, positive/negative) → `correlation-association`
+- [x] Determine and interpret gradient and y-intercept of the LOBF → `regression-prediction-residuals`
+- [x] Calculate and interpret Pearson's r using scientific calculator → `correlation-association`
+- [x] Determine least-squares regression line using scientific calculator → `regression-prediction-residuals`
+- [x] Use spreadsheet to construct scatter plot and least-squares line → ⚠️ partial (digital tools referenced but spreadsheet steps not explicit)
+- [x] Make predictions; recognise interpolation/extrapolation limitations → `regression-prediction-residuals`
+
+#### Current Nova lessons
+- `bivariate-data-scatterplots` ✅
+- `correlation-association` ✅
+- `regression-prediction-residuals` ✅
+
+#### Required new lessons
+- [ ] **`bivariate-data-revision`** — Activate prior knowledge: mean, median, mode, standard deviation, reading graphs, interpreting data displays. Bridge to two-variable analysis.
+
+---
+
+### 9. Relative Frequency and Probability — MST-12-S2-09
+
+**Prior knowledge (revision lesson basis):** Basic probability language (likely/unlikely/certain/impossible); listing outcomes of simple events; fractions and percentages as probabilities (Year 11 Standard or earlier).
+
+#### Focus areas and dot points
+
+- [x] Recognise probability range 0–1 as fractions, decimals, percentages → `relative-frequency-probability`
+- [x] Identify sample space as set of all possible outcomes → `relative-frequency-probability`
+- [x] Express P(event) = favourable outcomes / total outcomes → `relative-frequency-probability`
+- [x] Apply complement rule: P(not A) = 1 − P(A) → `relative-frequency-probability`
+- [ ] **Construct and use diagrams and tables for multistage events** → ⚠️ two-way tables present; tree diagrams for multistage may be absent
+- [ ] **Determine P(A and B) = P(A) × P(B) for independent events** → ❌ MISSING
+- [x] Use relative frequency as a probability estimate → `relative-frequency-probability`
+- [x] Recognise that more trials produce relative frequencies closer to theoretical → `relative-frequency-probability`
+- [ ] **Calculate expected frequency using np** → ❌ MISSING
+- [x] Construct and interpret two-way tables and contingency tables → `relative-frequency-probability` ⚠️ (partial)
+- [ ] **Examine how statistics and probabilities influence decisions** → ❌ MISSING
+
+#### Current Nova lessons
+- `relative-frequency-probability` ✅ basic probability; ❌ multistage; ❌ independence; ❌ expected frequency
+
+#### Required new lessons
+- [ ] **`probability-revision`** — Activate prior knowledge: listing outcomes, simple probability fractions, equally likely events, basic sample spaces from Year 11.
+- [ ] **`multistage-events-independence`** — Tree diagrams and tables for two-stage events; P(A and B) = P(A) × P(B); independent vs dependent events; practical contexts (with/without replacement).
+- [ ] **`expected-frequency-contingency-tables`** — Expected frequency E=np; contingency/two-way tables; reading and completing tables; using probability to evaluate claims and decisions.
+
+---
+
+### 10. The Normal Distribution — MST-12-S2-10
+
+**Prior knowledge (revision lesson basis):** Mean, median, mode; standard deviation; data distributions and shape; recognising skewed vs symmetric data (Year 11 Standard statistical analysis).
+
+#### Focus areas and dot points
+
+- [x] Recognise that normally distributed data is represented by a bell-shaped curve → `normal-distribution-z-scores`
+- [x] Explain that mean, median and mode are approximately equal for normal data → `normal-distribution-z-scores`
+- [x] Describe z-score as number of standard deviations above/below mean → `normal-distribution-z-scores`
+- [x] Recognise z-score set has mean 0 and SD 1 → `normal-distribution-z-scores`
+- [x] Calculate z = (x−μ)/σ → `normal-distribution-z-scores`
+- [x] Use z-scores to compare scores from different datasets → `normal-distribution-z-scores` ⚠️ (cross-dataset comparison may need strengthening)
+- [x] Apply empirical rule (68%/95%/99.7%) → `normal-distribution-z-scores`
+- [x] Calculate probabilities using z-scores and empirical rule → `normal-distribution-z-scores`
+- [ ] **Represent probabilities by shading areas under the normal curve** → ⚠️ partially covered; needs dedicated visual practice
+- [x] Use z-scores to identify probabilities of events less/more extreme than a given event → `normal-distribution-z-scores`
+- [x] Use z-scores to make judgements about outcomes → `normal-distribution-z-scores`
+
+#### Current Nova lessons
+- `normal-distribution-z-scores` ✅ core content; ⚠️ shading areas and cross-dataset comparison need reinforcement
+
+#### Required new lessons
+- [ ] **`normal-distribution-revision`** — Activate prior knowledge: mean, median, mode, standard deviation, data shape and spread. Bridge to the normal curve and why it matters.
+
+---
+
+### Implementation plan — required new lessons (priority order)
+
+**Priority 1 — Entirely missing content (new syllabus dot points not addressed at all)**
+
+| # | Lesson | Topic | Notes |
+|---|---|---|---|
+| 1 | `shares-dividends-brokerage` | Investment and loans | Dividend yield, brokerage, capital gain |
+| 2 | `right-angled-trig-radians` | Trigonometry | Radians new in 2024 syllabus |
+| 3 | `annuity-interest-factor-tables` | Annuities | Tables of interest factors required by syllabus |
+| 4 | `multistage-events-independence` | Probability | P(A∩B), tree diagrams |
+| 5 | `expected-frequency-contingency-tables` | Probability | E=np, contingency tables |
+| 6 | `gantt-charts-dummy-activities` | Critical path | Gantt charts and dummy activities |
+| 7 | `energy-consumption-watts-kilowatts` | Ratios and rates | Watts/kW, household energy |
+| 8 | `straight-line-vs-declining-depreciation` | Investment and loans | S=V₀−Dn vs S=V₀(1−r)ⁿ comparison |
+
+**Priority 2 — Significant gaps in existing coverage**
+
+| # | Lesson | Topic | Notes |
+|---|---|---|---|
+| 9 | `elevation-depression-applications` | Trigonometry | Elevation/depression not in any current lesson |
+| 10 | `scale-drawings-site-plans` | Ratios and rates | Building plans, perimeter/area from scale |
+| 11 | `rainfall-volume-calculations` | Ratios and rates | V=Ah over catchment areas |
+| 12 | `retirement-annuity-planning` | Annuities | Retirement savings scenarios |
+| 13 | `reciprocal-relationships` | Algebraic relationships | Dedicated y=k/x lesson |
+
+**Priority 3 — Revision lessons (one per topic, builds prior knowledge bridge)**
+
+| # | Lesson slug | Prior knowledge activated |
+|---|---|---|
+| 14 | `algebraic-relationships-revision` | Linear equations, substitution, plotting |
+| 15 | `investment-loans-revision` | Percentages, simple interest, I=Prt |
+| 16 | `annuities-revision` | FV=PV(1+r)ⁿ, recurrence relations |
+| 17 | `trigonometry-revision` | SOH CAH TOA, Pythagoras, right triangles |
+| 18 | `ratios-rates-revision` | Fractions↔ratios, basic rates |
+| 19 | `network-flow-revision` | Vertices, edges, directed/weighted graphs |
+| 20 | `critical-path-revision` | Precedence tables, activity sequences |
+| 21 | `bivariate-data-revision` | Mean, median, mode, SD, data graphs |
+| 22 | `probability-revision` | Listing outcomes, simple probability |
+| 23 | `normal-distribution-revision` | Mean, SD, data shape and spread |
+
+**Total new lessons required: 23**
+**Current lessons: 35** (several reclassified as revision/Year 11 material)
+**Target: ~48 lessons** mapped to all 10 NSW syllabus topics with full dot-point coverage
+
+---
+
+### Seed totals
+- Current: 665 questions (35 lessons)
+- After new build: ~912 questions (48 lessons × 19 questions)
+
+### Notes on existing lessons to reclassify
+- `surface-area-prisms-cylinders`, `volume-prisms-cylinders-spheres`, `composite-solids-practical` → move to `year-11-standard` course or retain as supplementary review
+- `ambiguous-case-sine-rule` → flag as excluded from 2024 syllabus in lesson metadata
+- `time-zones-conversions` → flag as not in Year 12 scope; retain as bonus content
 
 ---
 
