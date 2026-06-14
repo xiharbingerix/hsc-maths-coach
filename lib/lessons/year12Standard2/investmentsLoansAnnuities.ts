@@ -7,6 +7,18 @@ import {
 } from "../questionHelpers";
 
 function financeFeedback(prompt: string, latex: string, answer: string) {
+  if (prompt.includes("FV factor") || prompt.includes("future value") && prompt.includes("factor")) {
+    return `FV = M × FV factor. Multiply the regular payment by the factor from the table to get ${answer}.`;
+  }
+  if ((prompt.includes("PV factor") || prompt.includes("lump sum")) && prompt.includes("factor")) {
+    return `PV = M × PV factor, so M = PV ÷ PV factor (or PV = M × factor). Apply the correct direction to get ${answer}.`;
+  }
+  if (prompt.includes("monthly deposit") && prompt.includes("factor")) {
+    return `Target FV = M × FV factor, so M = FV ÷ FV factor. Divide the target by the table factor to get the required monthly deposit, ${answer}.`;
+  }
+  if (prompt.includes("monthly repayment") && prompt.includes("PV factor")) {
+    return `M = loan ÷ PV factor. Divide the loan amount by the factor from the table to get the monthly repayment, ${answer}.`;
+  }
   if (prompt.includes("dividend yield")) {
     return `Dividend yield = (dividend per share ÷ market price) × 100%. Divide the annual dividend by the share price, then multiply by 100 to get ${answer}.`;
   }
@@ -465,6 +477,260 @@ export function year12Standard2FinanceLessonOverride(
         financeChoice("y12s2-ann-m8", "Which recurrence matches a savings account that earns 0.5% interest each month and then receives a 200 dollar deposit?", "B", ["S_{n+1}=0.995S_n+200", "S_{n+1}=1.005S_n+200", "S_{n+1}=1.005S_n-200", "S_{n+1}=200S_n+1.005"], "Interest increases the balance first, and the deposit is added."),
         moneyAnswer("y12s2-ann-m9", "A savings recurrence is shown. If the next balance is 1411.03 dollars, find the previous balance to the nearest cent.", "S_{n+1}=1.005S_n+200", "1205.00", ["1205", "$1205", "$1205.00", "1,205.00", "$1,205.00", "1205.01", "$1205.01"]),
         financeChoice("y12s2-ann-m10", "Plan A deposits 100 dollars monthly. Plan B deposits 120 dollars monthly but charges a 15 dollar monthly fee. What should be compared?", "D", ["Only the larger deposit", "Only the first month", "Only the interest symbol", "Final balances after deposits, interest, and fees"], "A fair comparison includes the regular deposits, interest, fees, and term."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "annuity-interest-factor-tables") {
+    return {
+      ...base,
+      description:
+        "Use tables of FV and PV interest factors to calculate future values, present values, and required regular contributions for savings and loan annuities.",
+      learningIntention:
+        "Apply interest factor tables to find FV and PV annuity values and to determine the regular payment needed to meet a financial target.",
+      successCriteria: [
+        "Explain what an FV interest factor represents and how to read it from a table.",
+        "Calculate FV of a savings annuity as regular payment × FV factor.",
+        "Calculate PV of a loan annuity as regular payment × PV factor.",
+        "Find the required regular contribution by dividing the target FV by the FV factor.",
+        "Find the monthly repayment by dividing the loan amount by the PV factor.",
+      ],
+      teaching: {
+        paragraphs: [
+          "An interest factor table pre-calculates the value of a bracket of the annuity formula for common combinations of periodic interest rate r and number of periods n. Instead of evaluating the full formula, you look up the factor and multiply (or divide) by the regular payment.",
+          "The FV interest factor is (((1+r)^n − 1) ÷ r). FV of an annuity = regular payment M × FV factor. This answers the question: if I deposit M every period for n periods at rate r, how much will I accumulate?",
+          "The PV interest factor is ((1 − (1+r)^(−n)) ÷ r). PV of an annuity = regular payment M × PV factor. This answers the question: what lump sum today is equivalent to receiving M every period for n periods?",
+          "To find the required payment M given a target, reverse the process: divide the target FV by the FV factor, or divide the loan PV by the PV factor. This gives the equal periodic payment needed.",
+        ],
+        latexBlocks: [
+          "\\text{FV} = M \\times \\underbrace{\\dfrac{(1+r)^n-1}{r}}_{\\text{FV factor}}",
+          "\\text{PV} = M \\times \\underbrace{\\dfrac{1-(1+r)^{-n}}{r}}_{\\text{PV factor}}",
+          "M = \\dfrac{\\text{target FV}}{\\text{FV factor}} \\quad \\text{or} \\quad M = \\dfrac{\\text{loan PV}}{\\text{PV factor}}",
+          "\\text{Period rate } r = \\dfrac{\\text{annual rate}}{12}\\quad(\\text{for monthly periods})",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "FV of a savings annuity using a table",
+          questionLatex:
+            "\\text{Kai deposits }\\$200\\text{ per month for 12 months at 1\\% per month. FV factor (1\\%, 12) = 12.683. Find the FV.}",
+          steps: [
+            {
+              explanation: "Identify the period rate, number of periods, and payment.",
+              latex: "r=1\\%,\\quad n=12,\\quad M=\\$200",
+            },
+            {
+              explanation: "Read the FV factor from the table.",
+              latex: "\\text{FV factor}=12.683",
+            },
+            {
+              explanation: "Multiply payment by factor.",
+              latex: "\\text{FV}=200\\times12.683=\\$2536.60",
+            },
+          ],
+        },
+        {
+          title: "Monthly repayment using the PV factor",
+          questionLatex:
+            "\\text{A }\\$8000\\text{ loan at 0.5\\% per month over 12 months has PV factor 11.619. Find the monthly repayment.}",
+          steps: [
+            {
+              explanation: "The loan amount equals M × PV factor, so M = PV ÷ PV factor.",
+              latex: "M = \\dfrac{8000}{11.619}",
+            },
+            {
+              explanation: "Divide to find the monthly repayment.",
+              latex: "M \\approx \\$688.52",
+            },
+          ],
+        },
+        {
+          title: "Required monthly deposit to reach a savings goal",
+          questionLatex:
+            "\\text{Zara wants }\\$5000\\text{ in 24 months. Rate 0.5\\% per month. FV factor (0.5\\%, 24) = 25.432. Find her monthly deposit.}",
+          steps: [
+            {
+              explanation: "Target FV = M × FV factor, so M = FV ÷ FV factor.",
+              latex: "M = \\dfrac{5000}{25.432}",
+            },
+            {
+              explanation: "Divide to find the required monthly deposit.",
+              latex: "M \\approx \\$196.65",
+            },
+          ],
+        },
+      ],
+      guidedPractice: [
+        financeChoice(
+          "y12s2-ift-g1",
+          "Kai deposits $200/month for 12 months at 1%/month. FV factor = 12.683. What is the FV?",
+          "B",
+          ["$2400.00", "$2536.60", "$2683.00", "$1268.30"],
+          "FV = 200 × 12.683 = $2536.60."
+        ),
+        financeChoice(
+          "y12s2-ift-g2",
+          "To find FV of a savings annuity using an interest factor table, you:",
+          "B",
+          [
+            "Add the factor to the payment",
+            "Multiply the regular payment by the FV factor",
+            "Divide the factor by n",
+            "Multiply the FV factor by the interest rate",
+          ],
+          "FV = M × FV factor. The factor pre-calculates the compound-growth bracket of the formula."
+        ),
+        financeChoice(
+          "y12s2-ift-g3",
+          "PV factor for 0.5%/month, 12 months is 11.619. Monthly repayment on an $8000 loan?",
+          "A",
+          ["$688.52", "$1161.90", "$666.67", "$92,952"],
+          "M = PV ÷ PV factor = 8000 ÷ 11.619 ≈ $688.52."
+        ),
+        financeChoice(
+          "y12s2-ift-g4",
+          "To find the monthly contribution needed to reach a target FV using a table, you:",
+          "B",
+          [
+            "Multiply FV by FV factor",
+            "Divide FV by FV factor",
+            "Add FV to FV factor",
+            "Subtract n from FV factor",
+          ],
+          "M = target FV ÷ FV factor. This reverses the FV = M × factor relationship."
+        ),
+      ],
+      independentPractice: [
+        moneyAnswer(
+          "y12s2-ift-i1",
+          "Zara deposits $150/month for 24 months at 0.5%/month. FV factor = 25.432. Find the future value.",
+          "\\text{FV}=150\\times25.432",
+          "3814.80",
+          ["$3814.80", "3814.8", "$3814.8"]
+        ),
+        financeChoice(
+          "y12s2-ift-i2",
+          "A $5000 loan at 0.5%/month for 12 months has PV factor 11.619. Monthly repayment?",
+          "B",
+          ["$581.00", "$430.33", "$416.67", "$5000.00"],
+          "M = 5000 ÷ 11.619 ≈ $430.33."
+        ),
+        moneyAnswer(
+          "y12s2-ift-i3",
+          "Monthly deposit to accumulate $10,000 in 12 months at 1%/month. FV factor = 12.683. Find M.",
+          "M = 10000 \\div 12.683",
+          "788.48",
+          ["$788.48", "788.5", "$788.5"]
+        ),
+        financeChoice(
+          "y12s2-ift-i4",
+          "PV factor for 0.5%/month, 24 months is 22.563. Monthly repayments on a $12,000 loan?",
+          "C",
+          ["$270,756", "$500.00", "$531.83", "$1128.15"],
+          "M = 12000 ÷ 22.563 ≈ $531.83."
+        ),
+        financeChoice(
+          "y12s2-ift-i5",
+          "FV factor for 1%/month, 24 months = 26.973. Monthly payment to reach $8000?",
+          "C",
+          ["$215,784", "$333.33", "$296.60", "$26.97"],
+          "M = 8000 ÷ 26.973 ≈ $296.60."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Using the PV factor table when the question is about savings accumulation (FV).",
+          fix: "FV factor is for savings building up over time. PV factor is for loans or lump-sum equivalents. Check whether the question starts with a lump sum (PV) or regular deposits building to a total (FV).",
+        },
+        {
+          mistake: "Multiplying PV by the factor when trying to find the payment.",
+          fix: "PV = M × PV factor, so M = PV ÷ PV factor. When finding the payment, divide — not multiply.",
+        },
+        {
+          mistake: "Using the annual rate instead of the period rate to look up the factor.",
+          fix: "Tables use the per-period rate. For monthly compounding, divide the annual rate by 12. Use n = number of months, r = monthly rate when reading the table.",
+        },
+        {
+          mistake: "Confusing n (number of periods) with years.",
+          fix: "If periods are months, n = number of months (e.g., 2 years = 24 months). Match n and r to the same period.",
+        },
+      ],
+      masteryQuiz: [
+        financeChoice(
+          "y12s2-ift-m1",
+          "Lucas deposits $400/month for 12 months at 1%/month. FV factor = 12.683. FV?",
+          "B",
+          ["$4800.00", "$5073.20", "$1268.30", "$12,683.00"],
+          "FV = 400 × 12.683 = $5073.20."
+        ),
+        moneyAnswer(
+          "y12s2-ift-m2",
+          "Monthly deposit to accumulate $6000 in 12 months at 0.5%/month. FV factor = 12.336. Find M.",
+          "M = 6000 \\div 12.336",
+          "486.38",
+          ["$486.38", "486.4", "$486.4"]
+        ),
+        financeChoice(
+          "y12s2-ift-m3",
+          "Monthly deposit to reach $15,000 in 24 months at 0.5%/month. FV factor = 25.432. M = ?",
+          "C",
+          ["$625.00", "$381,480", "$589.81", "$625.81"],
+          "M = 15000 ÷ 25.432 ≈ $589.81."
+        ),
+        moneyAnswer(
+          "y12s2-ift-m4",
+          "Loan $6000 at 0.5%/month for 12 months. PV factor = 11.619. Monthly repayment?",
+          "M = 6000 \\div 11.619",
+          "516.40",
+          ["$516.40", "516.4", "$516.4"]
+        ),
+        financeChoice(
+          "y12s2-ift-m5",
+          "$15,000 loan at 1%/month over 12 months. PV factor = 11.255. Monthly repayment?",
+          "C",
+          ["$1250.00", "$1125.50", "$1332.74", "$168,825"],
+          "M = 15000 ÷ 11.255 ≈ $1332.74."
+        ),
+        financeChoice(
+          "y12s2-ift-m6",
+          "If the PV factor is larger, the monthly repayment on the same loan is:",
+          "B",
+          ["Larger", "Smaller", "Unchanged", "Equal to the interest rate"],
+          "M = PV ÷ PV factor. A larger denominator gives a smaller M."
+        ),
+        moneyAnswer(
+          "y12s2-ift-m7",
+          "FV factor (1%/month, 24 months) = 26.973. Monthly deposit to accumulate $20,000?",
+          "M = 20000 \\div 26.973",
+          "741.48",
+          ["$741.48", "741.5", "$741.5"]
+        ),
+        financeChoice(
+          "y12s2-ift-m8",
+          "Monthly withdrawals of $500 for 24 months at 0.5%/month. PV factor = 22.563. Lump sum needed today?",
+          "B",
+          ["$12,000.00", "$11,281.50", "$10,000.00", "$22,563.00"],
+          "PV = 500 × 22.563 = $11,281.50."
+        ),
+        financeChoice(
+          "y12s2-ift-m9",
+          "The key difference between FV and PV annuity factor tables is:",
+          "A",
+          [
+            "FV factors are for savings building up; PV factors are for loans or lump-sum equivalents",
+            "FV tables use higher rates than PV tables",
+            "PV factors are always larger than FV factors",
+            "They give identical results",
+          ],
+          "FV factors apply when regular payments build up a future balance. PV factors apply when a lump sum today is equivalent to a series of payments."
+        ),
+        moneyAnswer(
+          "y12s2-ift-m10",
+          "A retiree needs $2000/month for 12 months from a lump sum at 1%/month. PV factor = 11.255. Lump sum required?",
+          "\\text{PV}=2000\\times11.255",
+          "22510",
+          ["$22,510", "22510.00", "$22510"]
+        ),
       ],
     };
   }

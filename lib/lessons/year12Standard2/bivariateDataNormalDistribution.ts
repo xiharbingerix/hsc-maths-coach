@@ -8,6 +8,12 @@ import {
 function statisticsFeedback(prompt: string, answer: string) {
   const lowerPrompt = prompt.toLowerCase();
 
+  if (lowerPrompt.includes("p(a and b)") || lowerPrompt.includes("p(a) × p(b)") || (lowerPrompt.includes("independent") && lowerPrompt.includes("find p"))) {
+    return `For independent events, use P(A and B) = P(A) × P(B). Multiply the two individual probabilities to get ${answer}.`;
+  }
+  if (lowerPrompt.includes("p(red then") || lowerPrompt.includes("p(odd then") || lowerPrompt.includes("p(a and b") || (lowerPrompt.includes("find p") && lowerPrompt.includes("decimal"))) {
+    return `Multiply the probability of the first event by the probability of the second. If the events are independent (with replacement), both probabilities stay the same. Multiplying gives ${answer}.`;
+  }
   if (lowerPrompt.includes("residual")) {
     return `A residual is the gap left after using the regression line: actual minus predicted. Keep that order so the sign shows whether the actual value is above or below the prediction; here the residual is ${answer}.`;
   }
@@ -712,6 +718,243 @@ export function year12Standard2StatisticsLessonOverride(
         financeChoice("y12s2-relfreq-m8", "In P(A | B), which total should be used in the denominator?", "D", ["all outcomes always", "only group A", "the largest cell", "the total in group B"], "Given B restricts the sample space to group B."),
         financeShortAnswer("y12s2-relfreq-m9", "A factory tests 400 bulbs and 10 fail. Estimate the failure probability.", "\\frac{10}{400}", "0.025", ["2.5%", "1/40"]),
         financeChoice("y12s2-relfreq-m10", "If relative frequency is 0.72, what percentage is this?", "B", ["7.2%", "72%", "0.72%", "720%"], "Multiply the decimal by 100 to convert to a percentage."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "multistage-events-independence") {
+    return {
+      ...base,
+      description:
+        "Use tree diagrams and tables for two-stage events, apply P(A and B) = P(A) × P(B) for independent events, and distinguish with- and without-replacement scenarios.",
+      learningIntention:
+        "Determine probabilities of two-stage events using diagrams and tables, and apply the multiplication rule for independent events.",
+      successCriteria: [
+        "Construct and read tree diagrams and two-way tables for two-stage events.",
+        "Identify whether events are independent (with replacement) or dependent (without replacement).",
+        "Apply P(A and B) = P(A) × P(B) when A and B are independent.",
+        "Count favourable outcomes in a sample space table to find probabilities.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A multistage event is built from two or more separate trials. To find the probability of a particular sequence, count all the ways that sequence can occur and divide by the total outcomes. A tree diagram lists every branch; a two-way table maps outcomes of one trial against the other.",
+          "Two events A and B are independent if the result of A has no effect on the probability of B. Sampling with replacement restores the original set, making draws independent. Sampling without replacement changes the set and creates dependence.",
+          "For independent events, the multiplication rule applies: P(A and B) = P(A) × P(B). Multiply the individual probabilities along each branch of the tree. This rule only holds for independent events — when events are dependent, the conditional probability changes after the first draw.",
+          "A two-way sample space table is useful when both trials have the same outcomes (e.g., two dice, two spins). List outcomes of the first trial on one axis and the second trial on the other. Each cell represents one equally likely outcome. Count the cells that match your event.",
+        ],
+        latexBlocks: [
+          "P(A\\text{ and }B)=P(A)\\times P(B)\\quad\\text{(independent events only)}",
+          "\\text{Sample space size (two trials)} = n_1 \\times n_2",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Tree diagram for two coin flips",
+          questionLatex:
+            "\\text{A fair coin is flipped twice. Find P(HH) and P(exactly one head) using a tree diagram.}",
+          steps: [
+            {
+              explanation: "List all outcomes: HH, HT, TH, TT — each with probability 0.5 × 0.5 = 0.25.",
+              latex:
+                "P(HH)=P(H)\\times P(H)=0.5\\times0.5=0.25",
+            },
+            {
+              explanation: "Two branches give exactly one head (HT and TH).",
+              latex:
+                "P(\\text{exactly one head})=P(HT)+P(TH)=0.25+0.25=0.50",
+            },
+          ],
+        },
+        {
+          title: "Multiplication rule for independent events",
+          questionLatex:
+            "\\text{P(A) = 0.4 and P(B) = 0.3. A and B are independent. Find P(A and B).}",
+          steps: [
+            {
+              explanation: "Apply the multiplication rule for independent events.",
+              latex: "P(A\\text{ and }B)=P(A)\\times P(B)=0.4\\times0.3=0.12",
+            },
+          ],
+        },
+        {
+          title: "Sample space table for two dice",
+          questionLatex:
+            "\\text{A spinner with outcomes \\{1, 2, 3\\} is spun twice. Find P(sum = 4) using a table.}",
+          steps: [
+            {
+              explanation: "Create a 3 × 3 table — total 9 equally likely outcomes.",
+              latex:
+                "\\text{Outcomes summing to 4: (1,3), (2,2), (3,1) — three cells}",
+            },
+            {
+              explanation: "Divide favourable outcomes by total outcomes.",
+              latex:
+                "P(\\text{sum}=4)=\\dfrac{3}{9}=\\dfrac{1}{3}",
+            },
+          ],
+        },
+      ],
+      guidedPractice: [
+        financeChoice(
+          "y12s2-msi-g1",
+          "A bag has 3 red and 2 blue balls. A ball is drawn and replaced, then a second ball is drawn. These events are:",
+          "B",
+          ["Dependent", "Independent", "Mutually exclusive", "Complementary"],
+          "Replacing the ball restores the bag, so the second draw is unaffected by the first — independent events."
+        ),
+        financeChoice(
+          "y12s2-msi-g2",
+          "P(A) = 0.4, P(B) = 0.3. A and B are independent. P(A and B) = ?",
+          "C",
+          ["0.7", "0.1", "0.12", "0.012"],
+          "P(A and B) = 0.4 × 0.3 = 0.12."
+        ),
+        financeChoice(
+          "y12s2-msi-g3",
+          "A fair coin is tossed twice. P(HH) = ?",
+          "B",
+          ["0.5", "0.25", "0.125", "1"],
+          "P(H) × P(H) = 0.5 × 0.5 = 0.25."
+        ),
+        financeChoice(
+          "y12s2-msi-g4",
+          "A spinner with outcomes {1, 2, 3, 4} is spun twice. Total outcomes in the sample space?",
+          "D",
+          ["4", "8", "12", "16"],
+          "4 × 4 = 16 equally likely outcomes in the 4 × 4 table."
+        ),
+      ],
+      independentPractice: [
+        financeChoice(
+          "y12s2-msi-i1",
+          "P(rolling a 6) = 1/6. Two fair dice are rolled. P(two 6s) = ?",
+          "C",
+          ["2/6", "1/12", "1/36", "1/6"],
+          "P(6) × P(6) = 1/6 × 1/6 = 1/36."
+        ),
+        financeShortAnswer(
+          "y12s2-msi-i2",
+          "A bag has 5 red and 5 blue balls. A ball is drawn and replaced, then another is drawn. Find P(red then blue) as a decimal.",
+          "P(R)\\times P(B)=\\dfrac{5}{10}\\times\\dfrac{5}{10}",
+          "0.25",
+          ["0.25"]
+        ),
+        financeChoice(
+          "y12s2-msi-i3",
+          "A fair coin is tossed and a fair die is rolled. P(Heads and 4) = ?",
+          "B",
+          ["1/6", "1/12", "1/4", "1/2"],
+          "P(H) × P(4) = 1/2 × 1/6 = 1/12."
+        ),
+        financeShortAnswer(
+          "y12s2-msi-i4",
+          "P(A) = 0.6, P(B) = 0.7. A and B are independent. Find P(A and B).",
+          "P(A)\\times P(B)=0.6\\times0.7",
+          "0.42",
+          ["0.42"]
+        ),
+        financeChoice(
+          "y12s2-msi-i5",
+          "A card is drawn from a deck without replacement, then a second card is drawn. These events are:",
+          "B",
+          ["Independent", "Dependent", "Mutually exclusive", "Complementary"],
+          "Without replacement, the deck changes after the first draw, affecting the probability of the second — dependent events."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Adding probabilities instead of multiplying for AND events.",
+          fix: "P(A and B) = P(A) × P(B) for independent events. Addition applies to OR events (mutually exclusive): P(A or B) = P(A) + P(B).",
+        },
+        {
+          mistake: "Applying the multiplication rule when events are dependent (without replacement).",
+          fix: "P(A and B) = P(A) × P(B) only holds for independent events. If sampling without replacement, the second probability changes after the first draw.",
+        },
+        {
+          mistake: "Forgetting to list all outcomes in the sample space table.",
+          fix: "A two-way table must include every combination. For a 4 × 4 spinner table, there are 16 cells — not 8 or 4.",
+        },
+        {
+          mistake: "Reading P(exactly one head) as 0.5 and concluding only one branch covers it.",
+          fix: "There are two branches giving exactly one head (HT and TH), each with probability 0.25. Add them: P = 0.25 + 0.25 = 0.50.",
+        },
+      ],
+      masteryQuiz: [
+        financeChoice(
+          "y12s2-msi-m1",
+          "A spinner {1, 2, 3} is spun twice. P(sum = 4)?",
+          "C",
+          ["1/9", "2/9", "1/3", "4/9"],
+          "Outcomes summing to 4: (1,3),(2,2),(3,1) = 3 of 9. P = 3/9 = 1/3."
+        ),
+        financeShortAnswer(
+          "y12s2-msi-m2",
+          "P(A) = 0.3, P(B) = 0.5. A and B are independent. Find P(A and B).",
+          "P(A)\\times P(B)=0.3\\times0.5",
+          "0.15",
+          ["0.15"]
+        ),
+        financeChoice(
+          "y12s2-msi-m3",
+          "A bag has 4 red, 3 blue, 3 green balls (10 total). With replacement, P(red then green)?",
+          "B",
+          ["0.07", "0.12", "0.4", "7/10"],
+          "P(R) × P(G) = 4/10 × 3/10 = 12/100 = 0.12."
+        ),
+        financeShortAnswer(
+          "y12s2-msi-m4",
+          "A fair die is rolled twice. Find P(odd then even) as a decimal.",
+          "P(\\text{odd})\\times P(\\text{even})=\\tfrac{1}{2}\\times\\tfrac{1}{2}",
+          "0.25",
+          ["0.25"]
+        ),
+        financeChoice(
+          "y12s2-msi-m5",
+          "Two events A and B are independent when:",
+          "B",
+          [
+            "P(A and B) = P(A) + P(B)",
+            "P(A and B) = P(A) × P(B)",
+            "P(A) = P(B)",
+            "P(A and B) = 0",
+          ],
+          "Independence means the product rule holds: P(A and B) = P(A) × P(B)."
+        ),
+        financeChoice(
+          "y12s2-msi-m6",
+          "A spinner {1,2,3,4} is spun twice. P(first result > second result)?",
+          "C",
+          ["1/4", "5/16", "3/8", "1/2"],
+          "Favourable outcomes: (2,1),(3,1),(3,2),(4,1),(4,2),(4,3) = 6 of 16. P = 6/16 = 3/8."
+        ),
+        financeShortAnswer(
+          "y12s2-msi-m7",
+          "P(A) = 0.8, P(B) = 0.25. A and B are independent. Find P(A and B).",
+          "0.8\\times0.25",
+          "0.2",
+          ["0.20", "0.2"]
+        ),
+        financeChoice(
+          "y12s2-msi-m8",
+          "Bag A has 3 red and 2 blue. Bag B has 1 red and 4 blue. One ball drawn from each. P(both red)?",
+          "B",
+          ["4/5", "3/25", "4/25", "1/10"],
+          "P(R from A) × P(R from B) = 3/5 × 1/5 = 3/25."
+        ),
+        financeChoice(
+          "y12s2-msi-m9",
+          "A tree diagram for two coin flips has how many terminal branches showing exactly one head?",
+          "B",
+          ["1", "2", "3", "4"],
+          "HT and TH are the two branches with exactly one head, each with probability 0.25."
+        ),
+        financeShortAnswer(
+          "y12s2-msi-m10",
+          "P(A) = 0.45, P(B) = 0.6. A and B are independent. Find P(A and B) to 2 decimal places.",
+          "0.45\\times0.6",
+          "0.27",
+          ["0.27"]
+        ),
       ],
     };
   }

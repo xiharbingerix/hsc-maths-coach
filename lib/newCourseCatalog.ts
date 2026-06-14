@@ -570,6 +570,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Use the present value formula to find loan repayments from a lump-sum amount, calculate total interest paid, and compare loan options with different terms.",
           },
           {
+            slug: "annuity-interest-factor-tables",
+            title: "Annuities Using Interest Factor Tables",
+            description:
+              "Use tables of FV and PV interest factors to calculate future values, present values, and required regular contributions for savings and loan annuities.",
+          },
+          {
             slug: "comparing-investments-risk-return",
             title: "Comparing Investments and the Effect of Inflation",
             description:
@@ -626,6 +632,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Relative Frequency and Probability",
             description:
               "Use relative frequency, experimental probability, simulations, and two-way tables to estimate and interpret probabilities.",
+          },
+          {
+            slug: "multistage-events-independence",
+            title: "Multistage Events and Independence",
+            description:
+              "Use tree diagrams and tables for two-stage events, apply P(A and B) = P(A) × P(B) for independent events, and distinguish with- and without-replacement scenarios.",
           },
           {
             slug: "statistical-analysis-exam-practice",

@@ -27,7 +27,7 @@
 | Year 11 Advanced | 54 (8 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 11 Extension 1 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 12 Standard 1 | 18 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
-| Year 12 Standard 2 | 37 (6 units) | 6 focus areas | ~65% — detail below | 0 | 🔄 Gaps identified |
+| Year 12 Standard 2 | 39 (6 units) | 6 focus areas | ~65% — detail below | 0 | 🔄 Gaps identified |
 | Year 12 Advanced | 91 (13 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 12 Extension 1 | 30 (8 units) | 6 focus areas (ME1-12-01–06) | ~55% — detail below | 0 | 🔄 Gaps identified |
 | Year 12 Extension 2 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
@@ -672,8 +672,8 @@ These lessons exist but address Year 11 Standard content or are explicitly exclu
 |---|---|---|---|
 | 1 | `shares-dividends-brokerage` | Investment and loans | Dividend yield, brokerage, capital gain | ✅ 2026-06-15 |
 | 2 | `right-angled-trig-radians` | Trigonometry | Radians new in 2024 syllabus | ✅ 2026-06-15 |
-| 3 | `annuity-interest-factor-tables` | Annuities | Tables of interest factors required by syllabus |
-| 4 | `multistage-events-independence` | Probability | P(A∩B), tree diagrams |
+| 3 | `annuity-interest-factor-tables` | Annuities | Tables of interest factors required by syllabus | ✅ 2026-06-15 |
+| 4 | `multistage-events-independence` | Probability | P(A∩B), tree diagrams | ✅ 2026-06-15 |
 | 5 | `expected-frequency-contingency-tables` | Probability | E=np, contingency tables |
 | 6 | `gantt-charts-dummy-activities` | Critical path | Gantt charts and dummy activities |
 | 7 | `energy-consumption-watts-kilowatts` | Ratios and rates | Watts/kW, household energy |
