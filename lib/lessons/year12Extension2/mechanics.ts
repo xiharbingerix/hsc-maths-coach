@@ -937,6 +937,574 @@ const circularMotionLesson: Partial<ExplicitLesson> = {
   ],
 };
 
+// ─── Lesson 4: Resisted Motion ────────────────────────────────────────────────
+
+const resistedMotionLesson: Partial<ExplicitLesson> = {
+  description:
+    "Model horizontal resisted motion with ma = −kv and vertical resisted motion with ma = mg − kv, find terminal velocity, and solve the separable ODE to obtain v(t).",
+  learningIntention:
+    "Write equations of motion for horizontal and vertical resisted motion, find terminal velocity, and solve the separable ODE for velocity as a function of time.",
+  successCriteria: [
+    "Write the equation of motion for horizontal resisted motion: m(dv/dt) = −kv.",
+    "Write the equation of motion for vertical resisted motion: m(dv/dt) = mg − kv.",
+    "Find terminal velocity by setting dv/dt = 0.",
+    "Solve the separable ODE for v(t) using separation of variables.",
+  ],
+  teaching: {
+    paragraphs: [
+      "In resisted horizontal motion, the only force is the resistance: ma = −kv (k > 0). The negative sign means resistance opposes the direction of motion. This gives dv/dt = −(k/m)v, which separates to dv/v = −(k/m)dt.",
+      "In resisted vertical motion under gravity, two forces act: gravity mg downward and resistance kv upward (taking downward as positive). The equation is m(dv/dt) = mg − kv.",
+      "Terminal velocity is reached when acceleration = 0, so dv/dt = 0. For vertical motion: mg − kv_T = 0, giving v_T = mg/k.",
+      "To solve m(dv/dt) = mg − kv, separate variables: dv/(mg − kv) = dt/m. Integrate: −(1/k)ln|mg − kv| = t/m + C. Apply initial conditions to find C, then solve for v.",
+    ],
+    latexBlocks: [
+      "\\text{Horizontal: }m\\frac{dv}{dt}=-kv\\implies v=v_0 e^{-kt/m}",
+      "\\text{Vertical: }m\\frac{dv}{dt}=mg-kv",
+      "\\text{Terminal velocity: }v_T=\\frac{mg}{k}\\;(\\text{set }dv/dt=0)",
+      "\\int\\frac{dv}{mg-kv}=\\int\\frac{dt}{m}\\implies -\\frac{1}{k}\\ln|mg-kv|=\\frac{t}{m}+C",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Solve horizontal resisted motion",
+      questionLatex:
+        "m\\frac{dv}{dt}=-kv,\\;v(0)=v_0.\\;\\text{Find }v(t).",
+      steps: [
+        {
+          explanation: "Separate variables.",
+          latex: "\\frac{dv}{v}=-\\frac{k}{m}\\,dt",
+        },
+        {
+          explanation: "Integrate both sides.",
+          latex: "\\ln|v|=-\\frac{k}{m}t+C_1",
+        },
+        {
+          explanation: "Exponentiate and apply v(0) = v₀.",
+          latex: "v=v_0\\,e^{-kt/m}",
+        },
+      ],
+      finalAnswerLatex: "v(t)=v_0\\,e^{-kt/m}",
+    },
+    {
+      title: "Find terminal velocity for vertical resisted motion",
+      questionLatex:
+        "m\\frac{dv}{dt}=mg-kv.\\;\\text{Find }v_T.",
+      steps: [
+        {
+          explanation: "At terminal velocity, acceleration is zero.",
+          latex: "0=mg-kv_T",
+        },
+        {
+          explanation: "Solve for v_T.",
+          latex: "v_T=\\frac{mg}{k}",
+        },
+      ],
+      finalAnswerLatex: "v_T=\\frac{mg}{k}",
+    },
+  ],
+  guidedPractice: [
+    mechChoice(
+      "y12e2-resist-g1",
+      "For horizontal resisted motion $m\\frac{dv}{dt}=-kv$, the resistance force acts:",
+      "A",
+      [
+        "Opposite to the direction of motion",
+        "In the same direction as motion",
+        "Perpendicular to motion",
+        "Only when v > 0",
+      ],
+      "The negative sign means the force opposes motion. This is the defining feature of resistance (drag).",
+      "Check the sign of −kv relative to v."
+    ),
+    mechTyped(
+      "y12e2-resist-g2",
+      "For horizontal resisted motion $m\\frac{dv}{dt}=-kv$, separate variables to obtain $\\frac{dv}{v}=\\square\\,dt$.",
+      "\\frac{dv}{v}=\\square\\,dt",
+      "-k/m",
+      ["-(k/m)", "−k/m"],
+      "Divide both sides by mv: dv/v = −(k/m) dt.",
+      "Divide both sides of the ODE by mv."
+    ),
+    mechTyped(
+      "y12e2-resist-g3",
+      "For vertical resisted motion $m\\frac{dv}{dt}=mg-kv$, find the terminal velocity $v_T$.",
+      "0=mg-kv_T",
+      "mg/k",
+      ["m·g/k"],
+      "Set dv/dt = 0: 0 = mg − kv_T, so v_T = mg/k.",
+      "Set the acceleration to zero and solve for v."
+    ),
+    mechChoice(
+      "y12e2-resist-g4",
+      "The solution to $\\frac{dv}{dt}=-\\frac{k}{m}v$ with $v(0)=v_0$ is:",
+      "A",
+      [
+        "$v=v_0 e^{-kt/m}$",
+        "$v=v_0-\\frac{k}{m}t$",
+        "$v=v_0\\cos(kt/m)$",
+        "$v=v_0+kt/m$",
+      ],
+      "Separating and integrating dv/v = −(k/m)dt gives ln v = −(k/m)t + C, so v = v₀e^{−kt/m}.",
+      "Solve the separable ODE, apply the initial condition."
+    ),
+  ],
+  independentPractice: [
+    mechTyped(
+      "y12e2-resist-i1",
+      "Integrate $\\displaystyle\\int\\frac{dv}{v}$ to obtain $\\ln|v|+C$. What is the result after exponentiating?",
+      "\\ln|v|=-\\frac{k}{m}t+C_1",
+      "v=Ae^{-kt/m}",
+      ["A·e^{-kt/m}", "v₀e^{-kt/m}"],
+      "Exponentiate: |v| = e^{C₁}·e^{−kt/m}. Write A = ±e^{C₁}: v = Ae^{−kt/m}.",
+      "Exponentiate both sides and absorb the constant."
+    ),
+    mechTyped(
+      "y12e2-resist-i2",
+      "For $v=v_0 e^{-kt/m}$, find $\\lim_{t\\to\\infty}v$.",
+      "\\lim_{t\\to\\infty}v_0 e^{-kt/m}",
+      "0",
+      [],
+      "As t → ∞, e^{−kt/m} → 0, so v → 0. The particle decelerates to rest (horizontal case).",
+      "Evaluate the exponential as t → ∞."
+    ),
+    mechChoice(
+      "y12e2-resist-i3",
+      "For vertical resisted motion $m\\frac{dv}{dt}=mg-kv$, which separation is correct?",
+      "B",
+      [
+        "$\\dfrac{dv}{v}=\\dfrac{mg-k}{m}\\,dt$",
+        "$\\dfrac{dv}{mg-kv}=\\dfrac{dt}{m}$",
+        "$dv=(mg-kv)\\,dt$",
+        "$\\dfrac{dv}{mg}=\\dfrac{dt}{kv}$",
+      ],
+      "Divide both sides by m(mg−kv): dv/(mg−kv) = dt/m.",
+      "Isolate dv on the left and dt on the right."
+    ),
+    mechTyped(
+      "y12e2-resist-i4",
+      "Integrate the left side: $\\displaystyle\\int\\frac{dv}{mg-kv}$.",
+      "\\int\\frac{dv}{mg-kv}",
+      "-ln|mg-kv|/k",
+      ["-(1/k)ln|mg-kv|+C", "-\\frac{1}{k}\\ln|mg-kv|+C"],
+      "Let u = mg − kv, du = −k dv. So ∫dv/(mg−kv) = (−1/k)ln|mg−kv| + C.",
+      "Substitute u = mg − kv to integrate."
+    ),
+    mechTyped(
+      "y12e2-resist-i5",
+      "For $v=\\frac{mg}{k}(1-e^{-kt/m})$, verify that as $t\\to\\infty$, $v$ approaches the terminal velocity.",
+      "\\lim_{t\\to\\infty}\\frac{mg}{k}(1-e^{-kt/m})",
+      "mg/k",
+      ["m·g/k"],
+      "As t → ∞, e^{−kt/m} → 0, so v → mg/k = v_T. ✓",
+      "Evaluate the limit of the exponential term."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Writing the resistance force in the wrong direction.",
+      fix: "Resistance always opposes motion. If downward is positive and the particle moves down, resistance acts upward, so it appears as −kv in the equation.",
+    },
+    {
+      mistake: "Integrating 1/(mg−kv) as ln|mg−kv|.",
+      fix: "There is a chain rule factor: ∫dv/(mg−kv) = −(1/k)ln|mg−kv| + C. The factor 1/k comes from the −k on v.",
+    },
+    {
+      mistake: "Forgetting to apply the initial condition to find the constant.",
+      fix: "After integrating, substitute the initial values (t=0, v=v₀) to determine the arbitrary constant C.",
+    },
+    {
+      mistake: "Claiming terminal velocity is reached in finite time.",
+      fix: "The solution involves e^{−kt/m}, which never reaches zero in finite time. Terminal velocity is a limit as t → ∞.",
+    },
+  ],
+  masteryQuiz: [
+    mechChoice(
+      "y12e2-resist-m1",
+      "The equation of motion for horizontal resisted motion is:",
+      "A",
+      [
+        "$m\\frac{dv}{dt}=-kv$",
+        "$m\\frac{dv}{dt}=kv$",
+        "$m\\frac{dv}{dt}=mg-kv$",
+        "$m\\frac{dv}{dt}=-mg$",
+      ],
+      "Horizontal resisted motion has only the resistance force −kv acting. (No gravity component in horizontal direction.)"
+    ),
+    mechTyped(
+      "y12e2-resist-m2",
+      "For $m\\frac{dv}{dt}=-kv$ with $v(0)=20$ m/s, $k/m=0.1$, find $v(10)$.",
+      "v=20e^{-0.1\\times10}",
+      "20e^{-1}",
+      ["20/e", "20·e^{−1}"],
+      "v(10) = 20·e^{−0.1×10} = 20e^{−1} ≈ 7.36 m/s.",
+      "Substitute into v = v₀e^{−kt/m} with k/m = 0.1, t = 10."
+    ),
+    mechTyped(
+      "y12e2-resist-m3",
+      "Find the terminal velocity for $m=2$ kg, $g=10$ m/s², $k=5$ N·s/m.",
+      "v_T=\\frac{mg}{k}",
+      "4",
+      ["4 m/s"],
+      "v_T = mg/k = 2×10/5 = 4 m/s.",
+      "Apply v_T = mg/k."
+    ),
+    mechChoice(
+      "y12e2-resist-m4",
+      "Terminal velocity occurs when:",
+      "C",
+      [
+        "Velocity is maximum",
+        "Displacement is maximum",
+        "Acceleration is zero",
+        "Time approaches zero",
+      ],
+      "At terminal velocity, dv/dt = 0 so acceleration is zero and the forces are balanced."
+    ),
+    mechTyped(
+      "y12e2-resist-m5",
+      "Separate variables in $m\\frac{dv}{dt}=mg-kv$ to get $\\frac{dv}{mg-kv}=\\square$.",
+      "m\\frac{dv}{dt}=mg-kv",
+      "dt/m",
+      ["(1/m)dt"],
+      "Divide both sides by m(mg−kv): dv/(mg−kv) = dt/m.",
+      "Divide both sides by m(mg−kv)."
+    ),
+    mechChoice(
+      "y12e2-resist-m6",
+      "The integral $\\displaystyle\\int\\frac{dv}{mg-kv}$ equals:",
+      "B",
+      [
+        "$\\ln|mg-kv|+C$",
+        "$-\\dfrac{1}{k}\\ln|mg-kv|+C$",
+        "$\\dfrac{1}{k}\\ln|mg-kv|+C$",
+        "$-k\\ln|mg-kv|+C$",
+      ],
+      "Let u = mg−kv, du = −k dv. The integral becomes −(1/k)∫du/u = −(1/k)ln|u| + C.",
+      "Use the substitution u = mg−kv and identify the factor from the chain rule."
+    ),
+    mechTyped(
+      "y12e2-resist-m7",
+      "For horizontal motion with $v(0)=v_0$, as $t\\to\\infty$ the particle's speed approaches:",
+      "v_0 e^{-kt/m}\\to\\;?\\;\\text{as }t\\to\\infty",
+      "0",
+      [],
+      "v = v₀e^{−kt/m} → 0 as t → ∞. The particle gradually slows to rest.",
+      "Evaluate the limit of the exponential."
+    ),
+    mechChoice(
+      "y12e2-resist-m8",
+      "Which expression is the solution for $v(t)$ in vertical resisted motion starting from rest?",
+      "A",
+      [
+        "$v=\\dfrac{mg}{k}\\left(1-e^{-kt/m}\\right)$",
+        "$v=\\dfrac{mg}{k}\\,e^{-kt/m}$",
+        "$v=mg\\,t/k$",
+        "$v=v_0\\,e^{-kt/m}$",
+      ],
+      "Starting from rest (v₀=0), solving m dv/dt = mg − kv gives v = (mg/k)(1−e^{−kt/m})."
+    ),
+    mechTyped(
+      "y12e2-resist-m9",
+      "For vertical motion $v=\\frac{mg}{k}(1-e^{-kt/m})$, type the value of $v$ at $t=0$.",
+      "v(0)=\\frac{mg}{k}(1-e^{0})",
+      "0",
+      [],
+      "v(0) = (mg/k)(1−1) = 0. The particle starts from rest.",
+      "Substitute t = 0 and evaluate."
+    ),
+    mechChoice(
+      "y12e2-resist-m10",
+      "Resistance forces in these models are proportional to:",
+      "A",
+      ["Velocity", "Displacement", "Time", "Acceleration"],
+      "Both −kv (horizontal) and kv (in the vertical equation) show resistance proportional to velocity."
+    ),
+  ],
+};
+
+// ─── Lesson 5: Projectile Motion with Air Resistance ──────────────────────────
+
+const projectileMotionResistanceLesson: Partial<ExplicitLesson> = {
+  description:
+    "Analyse two-dimensional projectile motion with air resistance by solving decoupled horizontal and vertical ODEs, express velocity components as functions of time, and find terminal speed.",
+  learningIntention:
+    "Write and solve the decoupled ODEs for horizontal and vertical motion of a projectile with linear air resistance.",
+  successCriteria: [
+    "Write the horizontal equation of motion: m(ẍ) = −kẋ.",
+    "Write the vertical equation of motion: m(ÿ) = −mg − kẏ (taking up as positive).",
+    "Solve each ODE separately to find ẋ(t) and ẏ(t).",
+    "Identify that the horizontal speed decays exponentially while the vertical approaches terminal speed.",
+  ],
+  teaching: {
+    paragraphs: [
+      "In 2D projectile motion with linear air resistance, the horizontal and vertical equations are independent (decoupled). Each can be solved separately.",
+      "Taking rightward and upward as positive: horizontal: mẍ = −kẋ; vertical: mÿ = −mg − kẏ. The resistance force −kẋ or −kẏ always opposes the respective velocity component.",
+      "Horizontal: ẍ = −(k/m)ẋ. This is the same form as horizontal resisted motion. Solution: ẋ = ẋ₀e^{−kt/m}.",
+      "Vertical: ÿ = −g − (k/m)ẏ. This can be rewritten as dẏ/dt = −(k/m)(ẏ + mg/k). Let w = ẏ + mg/k, then dw/dt = −(k/m)w, giving w = w₀e^{−kt/m}. Terminal speed (downward) is mg/k.",
+    ],
+    latexBlocks: [
+      "\\text{Horizontal: }m\\ddot{x}=-k\\dot{x}\\implies \\dot{x}=\\dot{x}_0\\,e^{-kt/m}",
+      "\\text{Vertical (up positive): }m\\ddot{y}=-mg-k\\dot{y}",
+      "\\dot{y}=\\left(\\dot{y}_0+\\frac{mg}{k}\\right)e^{-kt/m}-\\frac{mg}{k}",
+      "\\text{Terminal speed: }|\\dot{y}|\\to\\frac{mg}{k}\\text{ as }t\\to\\infty",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Solve the horizontal ODE",
+      questionLatex:
+        "m\\ddot{x}=-k\\dot{x},\\;\\dot{x}(0)=u\\cos\\theta.\\;\\text{Find }\\dot{x}(t).",
+      steps: [
+        {
+          explanation: "This is the same as horizontal resisted motion.",
+          latex: "\\frac{d\\dot{x}}{dt}=-\\frac{k}{m}\\dot{x}",
+        },
+        {
+          explanation: "Separate and integrate.",
+          latex: "\\dot{x}=u\\cos\\theta\\cdot e^{-kt/m}",
+        },
+      ],
+      finalAnswerLatex: "\\dot{x}(t)=u\\cos\\theta\\cdot e^{-kt/m}",
+    },
+    {
+      title: "Find terminal speed from the vertical equation",
+      questionLatex:
+        "m\\ddot{y}=-mg-k\\dot{y}\\;(\\text{up positive}).\\;\\text{Find the terminal speed.}",
+      steps: [
+        {
+          explanation: "At terminal speed, vertical acceleration is zero.",
+          latex: "0=-mg-k\\dot{y}_T\\implies \\dot{y}_T=-\\frac{mg}{k}",
+        },
+        {
+          explanation: "The negative sign means downward. Terminal speed is mg/k.",
+          latex: "\\text{Terminal speed}=\\frac{mg}{k}",
+        },
+      ],
+      finalAnswerLatex: "\\text{Terminal speed}=\\frac{mg}{k}\\;(\\text{downward})",
+    },
+  ],
+  guidedPractice: [
+    mechChoice(
+      "y12e2-proj-g1",
+      "In 2D projectile motion with air resistance, the horizontal and vertical equations are:",
+      "A",
+      [
+        "Independent (decoupled)",
+        "Coupled and must be solved together",
+        "Identical",
+        "Both equal to zero",
+      ],
+      "With linear resistance, the horizontal and vertical components are decoupled — each involves only its own velocity component.",
+      "Check whether ẋ appears in the vertical equation or vice versa."
+    ),
+    mechTyped(
+      "y12e2-proj-g2",
+      "Write the horizontal equation of motion with resistance $k$ (up and right positive).",
+      "m\\ddot{x}=\\,?",
+      "m*x''=-k*x'",
+      ["-k·ẋ", "m(d²x/dt²) = -k(dx/dt)"],
+      "mẍ = −kẋ. The only horizontal force is the horizontal resistance −kẋ.",
+      "The resistance opposes horizontal velocity ẋ."
+    ),
+    mechChoice(
+      "y12e2-proj-g3",
+      "The horizontal velocity $\\dot{x}(t)=u\\cos\\theta\\cdot e^{-kt/m}$ shows that horizontal speed:",
+      "B",
+      [
+        "Increases without bound",
+        "Decays exponentially to zero",
+        "Oscillates",
+        "Stays constant",
+      ],
+      "The exponential e^{−kt/m} → 0 as t → ∞, so horizontal speed decreases to zero.",
+      "Evaluate the limit of the exponential as t → ∞."
+    ),
+    mechTyped(
+      "y12e2-proj-g4",
+      "At terminal speed in vertical resisted motion (up positive), $\\ddot{y}=0$. What is $\\dot{y}_T$?",
+      "0=-mg-k\\dot{y}_T",
+      "-mg/k",
+      ["−mg/k"],
+      "0 = −mg − kẏ_T, so ẏ_T = −mg/k. Negative means downward.",
+      "Set ÿ = 0 and solve for ẏ_T."
+    ),
+  ],
+  independentPractice: [
+    mechTyped(
+      "y12e2-proj-i1",
+      "For the horizontal equation $\\dot{x}(t)=u\\cos\\theta\\cdot e^{-kt/m}$, find $\\dot{x}$ at $t=0$.",
+      "\\dot{x}(0)=u\\cos\\theta\\cdot e^{0}",
+      "u*cos(theta)",
+      ["u cos θ", "u·cos(θ)"],
+      "e^0 = 1, so ẋ(0) = u cos θ. This is the initial horizontal velocity.",
+      "Substitute t = 0 into the solution."
+    ),
+    mechChoice(
+      "y12e2-proj-i2",
+      "The vertical equation $m\\ddot{y}=-mg-k\\dot{y}$ can be rewritten as $\\frac{d\\dot{y}}{dt}=-\\frac{k}{m}\\left(\\dot{y}+\\frac{mg}{k}\\right)$. If $w=\\dot{y}+\\frac{mg}{k}$, then $\\frac{dw}{dt}=$",
+      "A",
+      [
+        "$-\\dfrac{k}{m}w$",
+        "$mg-kw$",
+        "$-mg$",
+        "$\\dfrac{k}{m}w$",
+      ],
+      "dw/dt = dẏ/dt = −(k/m)(ẏ + mg/k) = −(k/m)w.",
+      "Substitute w = ẏ + mg/k into the vertical ODE."
+    ),
+    mechTyped(
+      "y12e2-proj-i3",
+      "Solve $\\frac{dw}{dt}=-\\frac{k}{m}w$ with $w(0)=w_0$ to find $w(t)$.",
+      "\\frac{dw}{dt}=-\\frac{k}{m}w,\\;w(0)=w_0",
+      "w0*e^{-kt/m}",
+      ["w₀e^{−kt/m}", "w_0·e^{-kt/m}"],
+      "This is the same form as horizontal resisted motion: w = w₀e^{−kt/m}.",
+      "Apply the standard result for first-order linear ODEs."
+    ),
+    mechTyped(
+      "y12e2-proj-i4",
+      "Given $w=\\dot{y}+\\frac{mg}{k}$ and $w(t)=w_0 e^{-kt/m}$, write $\\dot{y}(t)$.",
+      "\\dot{y}=w-\\frac{mg}{k}",
+      "w0*e^{-kt/m} - mg/k",
+      ["w₀e^{−kt/m} − mg/k"],
+      "ẏ = w − mg/k = w₀e^{−kt/m} − mg/k.",
+      "Substitute w(t) and rearrange for ẏ."
+    ),
+    mechTyped(
+      "y12e2-proj-i5",
+      "If $\\dot{y}(0)=u\\sin\\theta$ (upward launch), find $w_0=\\dot{y}(0)+\\frac{mg}{k}$.",
+      "w_0=\\dot{y}(0)+\\frac{mg}{k}",
+      "u*sin(theta)+mg/k",
+      ["u sin θ + mg/k", "u·sin(θ) + mg/k"],
+      "w₀ = u sin θ + mg/k.",
+      "Substitute ẏ(0) = u sin θ."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Using the same sign convention inconsistently.",
+      fix: "Fix a sign convention at the start (e.g., upward and rightward positive) and keep it throughout both equations.",
+    },
+    {
+      mistake: "Applying vertical terminal velocity to horizontal motion.",
+      fix: "Horizontal speed decays to zero (no gravity horizontally). Only vertical motion has a non-zero terminal speed mg/k.",
+    },
+    {
+      mistake: "Forgetting the substitution w = ẏ + mg/k when solving the vertical ODE.",
+      fix: "The substitution w = ẏ + mg/k transforms the vertical ODE into the standard form dw/dt = −(k/m)w, which has the exponential solution.",
+    },
+    {
+      mistake: "Confusing ẏ_T = −mg/k with the terminal speed.",
+      fix: "ẏ_T = −mg/k is the terminal velocity (negative means downward). The terminal speed is |ẏ_T| = mg/k, always positive.",
+    },
+  ],
+  masteryQuiz: [
+    mechChoice(
+      "y12e2-proj-m1",
+      "In 2D projectile motion with linear air resistance, the horizontal equation is:",
+      "A",
+      [
+        "$m\\ddot{x}=-k\\dot{x}$",
+        "$m\\ddot{x}=-mg$",
+        "$m\\ddot{x}=k\\dot{x}$",
+        "$m\\ddot{x}=-k\\dot{x}-mg$",
+      ],
+      "Horizontally, only resistance acts: mẍ = −kẋ. There is no vertical force component horizontally."
+    ),
+    mechChoice(
+      "y12e2-proj-m2",
+      "The vertical equation of motion (up positive) with air resistance is:",
+      "B",
+      [
+        "$m\\ddot{y}=-k\\dot{y}$",
+        "$m\\ddot{y}=-mg-k\\dot{y}$",
+        "$m\\ddot{y}=mg-k\\dot{y}$",
+        "$m\\ddot{y}=-mg+k\\dot{y}$",
+      ],
+      "With up positive: gravity acts downward (−mg) and resistance opposes ẏ (−kẏ). So mÿ = −mg − kẏ.",
+      "Both forces (gravity and resistance) are in the downward direction when the particle moves up."
+    ),
+    mechTyped(
+      "y12e2-proj-m3",
+      "For horizontal velocity $\\dot{x}=u\\cos\\theta\\cdot e^{-kt/m}$, as $t\\to\\infty$:",
+      "\\lim_{t\\to\\infty}\\dot{x}",
+      "0",
+      [],
+      "e^{−kt/m} → 0, so ẋ → 0. Horizontal speed decays to zero.",
+      "Take the limit as t → ∞."
+    ),
+    mechTyped(
+      "y12e2-proj-m4",
+      "If $\\dot{y}(t)=\\left(u\\sin\\theta+\\frac{mg}{k}\\right)e^{-kt/m}-\\frac{mg}{k}$, find $\\dot{y}(0)$.",
+      "\\dot{y}(0)=\\left(u\\sin\\theta+\\frac{mg}{k}\\right)-\\frac{mg}{k}",
+      "u*sin(theta)",
+      ["u sin θ", "u·sin(θ)"],
+      "ẏ(0) = u sin θ + mg/k − mg/k = u sin θ. ✓",
+      "Substitute t = 0 and simplify."
+    ),
+    mechChoice(
+      "y12e2-proj-m5",
+      "Terminal downward speed in vertical resisted motion equals:",
+      "A",
+      ["$mg/k$", "$mk/g$", "$gk/m$", "$m/(gk)$"],
+      "At terminal speed: |ẏ_T| = mg/k."
+    ),
+    mechChoice(
+      "y12e2-proj-m6",
+      "The substitution $w=\\dot{y}+mg/k$ is used because:",
+      "C",
+      [
+        "It removes gravity from the problem",
+        "It converts a 2nd order ODE to 1st order",
+        "It transforms the vertical ODE into the separable form $dw/dt=-\\frac{k}{m}w$",
+        "It eliminates the constant of integration",
+      ],
+      "The substitution converts mÿ = −mg − kẏ into dw/dt = −(k/m)w, which has a clean exponential solution.",
+      "Check what form the equation takes after the substitution."
+    ),
+    mechTyped(
+      "y12e2-proj-m7",
+      "Solve $\\frac{dw}{dt}=-\\frac{k}{m}w$ to find $w(t)$ in terms of $w_0$.",
+      "\\frac{dw}{w}=-\\frac{k}{m}\\,dt",
+      "w0*e^{-kt/m}",
+      ["w₀e^{−kt/m}", "w_0 e^{-kt/m}"],
+      "Separate and integrate: ln w = −(k/m)t + C₁, so w = w₀e^{−kt/m}.",
+      "Apply the standard first-order linear ODE result."
+    ),
+    mechTyped(
+      "y12e2-proj-m8",
+      "Given $w(t)=w_0 e^{-kt/m}$ and $w=\\dot{y}+mg/k$, what does $\\dot{y}(t)$ approach as $t\\to\\infty$?",
+      "\\lim_{t\\to\\infty}\\left(w_0 e^{-kt/m}-\\frac{mg}{k}\\right)",
+      "-mg/k",
+      ["−mg/k"],
+      "As t → ∞, e^{−kt/m} → 0, so ẏ → 0 − mg/k = −mg/k. Downward at terminal speed mg/k.",
+      "Take the limit as t → ∞."
+    ),
+    mechChoice(
+      "y12e2-proj-m9",
+      "Which statement about a projectile with air resistance versus without is TRUE?",
+      "B",
+      [
+        "The trajectory is longer with air resistance",
+        "The maximum height and range are both reduced by air resistance",
+        "Air resistance has no effect on horizontal motion",
+        "The particle reaches the same maximum height",
+      ],
+      "Air resistance acts against the motion, reducing both horizontal range and vertical reach compared to the no-resistance case.",
+      "Think about how resistance affects both the horizontal and vertical components."
+    ),
+    mechTyped(
+      "y12e2-proj-m10",
+      "For horizontal motion $\\dot{x}=v_0 e^{-t}$ (with $k/m=1$, $v_0=10$), find $\\dot{x}$ at $t=\\ln2$.",
+      "\\dot{x}(\\ln2)=10e^{-\\ln2}",
+      "5",
+      [],
+      "e^{−ln2} = 1/2. ẋ = 10 × 1/2 = 5.",
+      "Substitute t = ln2 and simplify e^{−ln2}."
+    ),
+  ],
+};
+
 // ─── Export ───────────────────────────────────────────────────────────────────
 
 export function year12Extension2MechanicsLessonOverride(
@@ -956,6 +1524,10 @@ export function year12Extension2MechanicsLessonOverride(
       return { ...base, ...shmExtendedLesson };
     case "circular-motion-uniform":
       return { ...base, ...circularMotionLesson };
+    case "resisted-motion":
+      return { ...base, ...resistedMotionLesson };
+    case "projectile-motion-resistance":
+      return { ...base, ...projectileMotionResistanceLesson };
     default:
       return undefined;
   }

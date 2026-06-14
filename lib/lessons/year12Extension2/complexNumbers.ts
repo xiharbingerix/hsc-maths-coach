@@ -1021,6 +1021,538 @@ const polarFormDeMoivre: Partial<ExplicitLesson> = {
   ],
 };
 
+// ─── Lesson 5: Roots of Unity ─────────────────────────────────────────────────
+
+const rootsOfUnity: Partial<ExplicitLesson> = {
+  description:
+    "Find all nth roots of unity using De Moivre's theorem, plot them on the Argand diagram as equally-spaced points on the unit circle, and prove their sum is zero.",
+  learningIntention:
+    "Express the nth roots of unity in polar form, describe their Argand diagram arrangement, and use the sum-of-roots property.",
+  successCriteria: [
+    "Write the nth roots of unity as cis(2πk/n) for k = 0, 1, …, n−1.",
+    "State that they lie at equal angular intervals of 2π/n on the unit circle.",
+    "Verify that their sum equals zero using the geometric series formula.",
+    "Identify the primitive nth root of unity ω = cis(2π/n).",
+  ],
+  teaching: {
+    paragraphs: [
+      "The nth roots of unity are the n solutions to z^n = 1. They lie equally spaced on the unit circle |z| = 1 in the Argand plane, starting at z = 1.",
+      "The general formula is z_k = cis(2πk/n) for k = 0, 1, 2, …, n−1. The angular gap between consecutive roots is 2π/n radians (or 360°/n).",
+      "The primitive nth root is ω = cis(2π/n). All other roots are powers: ω², ω³, …, ω^{n−1}, ω^n = 1.",
+      "The sum of all nth roots of unity is zero. Algebraically this follows from the geometric series 1 + ω + ω² + … + ω^{n−1} = (ω^n − 1)/(ω − 1) = 0 for ω ≠ 1.",
+    ],
+    latexBlocks: [
+      "z^n=1\\implies z_k=\\operatorname{cis}\\!\\left(\\frac{2\\pi k}{n}\\right),\\quad k=0,1,\\ldots,n-1",
+      "\\omega=\\operatorname{cis}\\!\\left(\\frac{2\\pi}{n}\\right)\\;(\\text{primitive }n\\text{th root})",
+      "1+\\omega+\\omega^2+\\cdots+\\omega^{n-1}=0",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Find the cube roots of unity",
+      questionLatex: "\\text{Find all solutions to }z^3=1.",
+      steps: [
+        {
+          explanation: "Apply the formula with n = 3.",
+          latex:
+            "z_k=\\operatorname{cis}\\!\\left(\\frac{2\\pi k}{3}\\right),\\;k=0,1,2",
+        },
+        {
+          explanation: "List the three roots.",
+          latex:
+            "z_0=1,\\quad z_1=\\operatorname{cis}\\frac{2\\pi}{3},\\quad z_2=\\operatorname{cis}\\frac{4\\pi}{3}",
+        },
+        {
+          explanation: "They lie on the unit circle at 0°, 120° and 240°.",
+          latex:
+            "\\text{Angular spacing }=\\frac{360^\\circ}{3}=120^\\circ",
+        },
+      ],
+      finalAnswerLatex:
+        "z=1,\\;\\operatorname{cis}120^\\circ,\\;\\operatorname{cis}240^\\circ",
+    },
+    {
+      title: "Verify the sum of cube roots of unity is zero",
+      questionLatex:
+        "\\text{Show }1+\\omega+\\omega^2=0\\text{ where }\\omega=\\operatorname{cis}\\frac{2\\pi}{3}.",
+      steps: [
+        {
+          explanation: "Use the geometric series formula.",
+          latex:
+            "1+\\omega+\\omega^2=\\frac{\\omega^3-1}{\\omega-1}=\\frac{1-1}{\\omega-1}=0\\quad(\\omega\\ne1)",
+        },
+      ],
+      finalAnswerLatex: "1+\\omega+\\omega^2=0",
+    },
+  ],
+  guidedPractice: [
+    cxTyped(
+      "cx5-g1",
+      "Write the formula for the $k$-th $n$th root of unity.",
+      "z_k=\\operatorname{cis}\\!\\left(?\\right)",
+      "2πk/n",
+      ["2*pi*k/n", "2\\pi k/n"],
+      "z_k = cis(2πk/n). The angle for the k-th root is 2πk/n radians.",
+      "The roots are equally spaced at intervals of 2π/n."
+    ),
+    cxTyped(
+      "cx5-g2",
+      "How many 4th roots of unity are there?",
+      "z^4=1",
+      "4",
+      [],
+      "z^n = 1 always has exactly n solutions in ℂ, so z^4 = 1 has 4 roots.",
+      "The degree equals the number of roots."
+    ),
+    cxTyped(
+      "cx5-g3",
+      "State the angular spacing (in degrees) between 6th roots of unity.",
+      "\\frac{360^\\circ}{n},\\;n=6",
+      "60",
+      ["60°"],
+      "360°/6 = 60°. Six roots are equally spaced at 60° apart.",
+      "Divide 360° by n."
+    ),
+    cxChoice(
+      "cx5-g4",
+      "The sum $1+\\omega+\\omega^2+\\cdots+\\omega^{n-1}$ equals:",
+      "B",
+      ["$n$", "$0$", "$\\omega^n$", "$1$"],
+      "The sum of all nth roots of unity is zero for n ≥ 2.",
+      "Apply the geometric series result."
+    ),
+  ],
+  independentPractice: [
+    cxTyped(
+      "cx5-i1",
+      "Find the argument (in degrees) of $z_2$ among the cube roots of unity.",
+      "z_2=\\operatorname{cis}\\frac{2\\pi\\cdot2}{3}",
+      "240",
+      ["240°"],
+      "Argument = 2π × 2/3 radians = 4π/3 = 240°.",
+      "Use the formula 2πk/n with k=2 and n=3, then convert to degrees."
+    ),
+    cxTyped(
+      "cx5-i2",
+      "If $\\omega=\\operatorname{cis}\\frac{2\\pi}{4}=\\operatorname{cis}90^\\circ$, write $\\omega$ in Cartesian form.",
+      "\\omega=\\operatorname{cis}90^\\circ=\\cos90^\\circ+i\\sin90^\\circ",
+      "i",
+      ["0+i", "0 + i"],
+      "cos90° = 0, sin90° = 1. So ω = 0 + i = i.",
+      "Evaluate cos and sin at 90°."
+    ),
+    cxTyped(
+      "cx5-i3",
+      "For the 4th roots of unity, list how many roots lie on the real axis.",
+      "z^4=1,\\text{ real axis: }\\operatorname{Im}(z)=0",
+      "2",
+      [],
+      "The 4th roots are 1, i, −1, −i. Two of these (1 and −1) are real.",
+      "Check which of the 4 roots have zero imaginary part."
+    ),
+    cxChoice(
+      "cx5-i4",
+      "The nth roots of unity all satisfy $|z| =$",
+      "A",
+      ["$1$", "$n$", "$2\\pi/n$", "$0$"],
+      "Every root of unity has modulus 1 since they lie on the unit circle.",
+      "Apply |cis θ| = 1."
+    ),
+    cxTyped(
+      "cx5-i5",
+      "For the 5th roots of unity $z_0,z_1,\\ldots,z_4$, compute $z_0+z_1+z_2+z_3+z_4$.",
+      "\\sum_{k=0}^{4}\\operatorname{cis}\\frac{2\\pi k}{5}",
+      "0",
+      [],
+      "The sum of all nth roots of unity is zero for n ≥ 2.",
+      "Apply the standard result for the sum of roots of unity."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Including z = cis(2π) as a separate root.",
+      fix: "cis(2π) = cis(0) = 1, so it is the same as z₀. Use k = 0, 1, …, n−1 exactly.",
+    },
+    {
+      mistake: "Confusing the number of roots with the degree.",
+      fix: "z^n = 1 has exactly n complex solutions. The degree n gives the count directly.",
+    },
+    {
+      mistake: "Forgetting that roots of unity have modulus 1.",
+      fix: "|cis θ| = 1 always. All nth roots of unity lie on the unit circle.",
+    },
+    {
+      mistake: "Thinking the sum being zero is a coincidence.",
+      fix: "It follows from the geometric series formula and is always true for n ≥ 2.",
+    },
+  ],
+  masteryQuiz: [
+    cxTyped(
+      "cx5-m1",
+      "Write $z_1$ (i.e. $k=1$) among the cube roots of unity as a cis expression.",
+      "z_1=\\operatorname{cis}\\frac{2\\pi\\cdot1}{3}",
+      "cis(2π/3)",
+      ["cis 2π/3", "cis(120°)"],
+      "z₁ = cis(2π/3). This is the primitive cube root of unity ω.",
+      "Apply the formula with k=1, n=3."
+    ),
+    cxChoice(
+      "cx5-m2",
+      "The 6th roots of unity are equally spaced on the unit circle. The angular spacing is:",
+      "B",
+      ["$30^\\circ$", "$60^\\circ$", "$90^\\circ$", "$120^\\circ$"],
+      "360°/6 = 60°. Each consecutive root is 60° apart.",
+      "Divide 360° by n = 6."
+    ),
+    cxTyped(
+      "cx5-m3",
+      "How many 8th roots of unity lie on the real axis?",
+      "z^8=1",
+      "2",
+      [],
+      "The 8th roots are at 0°, 45°, 90°, 135°, 180°, 225°, 270°, 315°. Only 0° (z=1) and 180° (z=−1) are real.",
+      "Count roots with argument 0° or 180°."
+    ),
+    cxChoice(
+      "cx5-m4",
+      "If $\\omega$ is a primitive $n$th root of unity, then $\\omega^n =$",
+      "A",
+      ["$1$", "$0$", "$\\omega$", "$-1$"],
+      "By definition ω satisfies ω^n = 1.",
+      "Apply the definition of nth root of unity."
+    ),
+    cxTyped(
+      "cx5-m5",
+      "Find the product of all cube roots of unity.",
+      "z_0\\cdot z_1\\cdot z_2=1\\cdot\\operatorname{cis}120^\\circ\\cdot\\operatorname{cis}240^\\circ",
+      "1",
+      [],
+      "Moduli: 1×1×1 = 1. Arguments: 0+120°+240° = 360° = 0°. Product = cis(0°) = 1.",
+      "Multiply moduli and add arguments."
+    ),
+    cxTyped(
+      "cx5-m6",
+      "For the 5th roots of unity, type the argument of $z_3$ in degrees.",
+      "z_3=\\operatorname{cis}\\frac{2\\pi\\cdot3}{5}",
+      "216",
+      ["216°"],
+      "2π × 3/5 radians = 216°.",
+      "Multiply 360°/5 = 72° by k = 3."
+    ),
+    cxChoice(
+      "cx5-m7",
+      "Which statement about the $n$th roots of unity is FALSE?",
+      "C",
+      [
+        "They all have modulus 1",
+        "They are equally spaced on the unit circle",
+        "Their product is always 0",
+        "Their sum is 0 for $n\\ge2$",
+      ],
+      "Their product is 1 (not 0): moduli product = 1, and argument sum = 2π(0+1+…+(n−1))/n = π(n−1) which is a multiple of 2π only at limits. In fact the product of all nth roots equals (−1)^{n+1} but is never 0."
+    ),
+    cxTyped(
+      "cx5-m8",
+      "The primitive 4th root of unity is $\\omega=\\operatorname{cis}90^\\circ$. Write $\\omega^2$ in exact Cartesian form.",
+      "\\omega^2=(\\operatorname{cis}90^\\circ)^2=\\operatorname{cis}180^\\circ",
+      "-1",
+      ["−1"],
+      "cis(180°) = cos180° + i sin180° = −1 + 0i = −1.",
+      "Apply De Moivre: double the argument."
+    ),
+    cxChoice(
+      "cx5-m9",
+      "Which value of $k$ gives the same root as $k=n$ in the formula $\\operatorname{cis}(2\\pi k/n)$?",
+      "A",
+      ["$k=0$", "$k=n+1$", "$k=n-1$", "$k=2$"],
+      "cis(2πn/n) = cis(2π) = cis(0) = 1 = z₀. So k = n gives the same root as k = 0.",
+      "cis(2π) = cis(0)."
+    ),
+    cxTyped(
+      "cx5-m10",
+      "If $\\omega^3=1$ and $\\omega\\ne1$, simplify $1+\\omega+\\omega^2$.",
+      "1+\\omega+\\omega^2",
+      "0",
+      [],
+      "The sum of all cube roots of unity is zero: 1 + ω + ω² = 0.",
+      "Apply the sum-of-roots-of-unity result."
+    ),
+  ],
+  masteryPassMark: 0.8,
+};
+
+// ─── Lesson 6: Complex Polynomials ────────────────────────────────────────────
+
+const complexPolynomials: Partial<ExplicitLesson> = {
+  description:
+    "Apply the conjugate root theorem to real polynomials, find complex roots in conjugate pairs, and factorise real polynomials over ℂ into linear and irreducible quadratic factors.",
+  learningIntention:
+    "Use the conjugate root theorem to find all complex roots of a real polynomial and factorise completely over ℂ.",
+  successCriteria: [
+    "State the conjugate root theorem: if a + bi is a root of a real polynomial, so is a − bi.",
+    "Find the remaining roots of a real polynomial given one complex root.",
+    "Form the quadratic factor (z − (a+bi))(z − (a−bi)) = z² − 2az + (a²+b²).",
+    "Factorise a real polynomial completely over ℂ.",
+  ],
+  teaching: {
+    paragraphs: [
+      "The Conjugate Root Theorem: if P(z) is a polynomial with real coefficients and a + bi (b ≠ 0) is a root, then its conjugate a − bi is also a root.",
+      "Each pair of conjugate roots (a + bi) and (a − bi) multiplies to give a real quadratic factor z² − 2az + (a² + b²), which is irreducible over ℝ.",
+      "A degree-n real polynomial with at least one non-real root always has its non-real roots in conjugate pairs, so the number of non-real roots is even.",
+      "To factorise completely over ℂ: find all roots (using the conjugate theorem to generate pairs from one known root), then write P(z) = a(z − z₁)(z − z₂)···(z − zₙ).",
+    ],
+    latexBlocks: [
+      "P(z)\\text{ real coefficients: }a+bi\\text{ root}\\implies a-bi\\text{ root}",
+      "(z-(a+bi))(z-(a-bi))=z^2-2az+(a^2+b^2)",
+      "P(z)=a_n(z-z_1)(z-z_2)\\cdots(z-z_n)\\quad(z_i\\in\\mathbb{C})",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Find all roots given one complex root",
+      questionLatex:
+        "P(z)=z^3-2z^2+4z-8\\text{ has root }2i.\\text{ Find all roots.}",
+      steps: [
+        {
+          explanation: "Since P has real coefficients and 2i is a root, −2i is also a root.",
+          latex: "\\text{Roots include }2i\\text{ and }-2i",
+        },
+        {
+          explanation: "The quadratic factor for these two roots is:",
+          latex: "(z-2i)(z+2i)=z^2+4",
+        },
+        {
+          explanation: "Divide P(z) by z² + 4 to find the remaining factor.",
+          latex: "z^3-2z^2+4z-8 = (z^2+4)(z-2)",
+        },
+        {
+          explanation: "The third root is z = 2.",
+          latex: "\\text{All roots: }z=2i,\\;-2i,\\;2",
+        },
+      ],
+      finalAnswerLatex: "z=2i,\\;-2i,\\;2",
+    },
+    {
+      title: "Form and use an irreducible quadratic factor",
+      questionLatex:
+        "P(z)=z^3+z^2+z+1.\\text{ Given }z=i\\text{ is a root, factorise fully over }\\mathbb{C}.",
+      steps: [
+        {
+          explanation: "Conjugate root: −i is also a root. Form the quadratic.",
+          latex: "(z-i)(z+i)=z^2+1",
+        },
+        {
+          explanation: "Divide P(z) by z² + 1.",
+          latex: "z^3+z^2+z+1=(z^2+1)(z+1)",
+        },
+        {
+          explanation: "Write in fully factorised form over ℂ.",
+          latex: "P(z)=(z-i)(z+i)(z+1)",
+        },
+      ],
+      finalAnswerLatex: "P(z)=(z-i)(z+i)(z+1)",
+    },
+  ],
+  guidedPractice: [
+    cxChoice(
+      "cx6-g1",
+      "If $P(z)$ has real coefficients and $3-2i$ is a root, which other value is also a root?",
+      "A",
+      ["$3+2i$", "$-3+2i$", "$-3-2i$", "$2-3i$"],
+      "The conjugate root theorem gives 3 + 2i as a root whenever 3 − 2i is a root of a real polynomial.",
+      "Take the complex conjugate: negate the imaginary part."
+    ),
+    cxTyped(
+      "cx6-g2",
+      "Write the quadratic factor for the conjugate pair $z=1+i$ and $z=1-i$.",
+      "(z-(1+i))(z-(1-i))",
+      "z^2-2z+2",
+      ["z² - 2z + 2"],
+      "(z−(1+i))(z−(1−i)) = z² − 2z + (1²+1²) = z² − 2z + 2.",
+      "Use (z − (a+bi))(z − (a−bi)) = z² − 2az + (a² + b²) with a=1, b=1."
+    ),
+    cxTyped(
+      "cx6-g3",
+      "For $(z-(a+bi))(z-(a-bi))$, the constant term is $a^2+\\square$.",
+      "(z-(a+bi))(z-(a-bi))=z^2-2az+(a^2+b^2)",
+      "b^2",
+      ["b²"],
+      "Expanding gives z² − 2az + a² + b². The constant term is a² + b².",
+      "Expand the brackets, noting i² = −1."
+    ),
+    cxChoice(
+      "cx6-g4",
+      "A degree-4 real polynomial with no real roots must have how many complex conjugate pairs?",
+      "B",
+      ["1 pair", "2 pairs", "4 pairs", "3 pairs"],
+      "With degree 4 and no real roots, all 4 roots are non-real and come in 2 conjugate pairs.",
+      "Non-real roots of a real polynomial come in conjugate pairs."
+    ),
+  ],
+  independentPractice: [
+    cxTyped(
+      "cx6-i1",
+      "A real polynomial has root $2+3i$. Write its conjugate root.",
+      "\\overline{2+3i}",
+      "2-3i",
+      ["2 - 3i"],
+      "The conjugate of 2+3i is 2−3i.",
+      "Negate the imaginary part."
+    ),
+    cxTyped(
+      "cx6-i2",
+      "Form the real quadratic factor for the root pair $z=2\\pm i$.",
+      "(z-(2+i))(z-(2-i))",
+      "z^2-4z+5",
+      ["z² - 4z + 5"],
+      "a = 2, b = 1. Quadratic = z² − 4z + (4+1) = z² − 4z + 5.",
+      "Apply z² − 2az + (a² + b²)."
+    ),
+    cxChoice(
+      "cx6-i3",
+      "$P(z)=z^4+4$ can be factorised using the roots $1\\pm i$ and $-1\\pm i$. How many linear factors does it have over $\\mathbb{C}$?",
+      "B",
+      ["2", "4", "1", "3"],
+      "A degree-4 polynomial has exactly 4 linear factors over ℂ.",
+      "Over ℂ, every real polynomial of degree n splits into exactly n linear factors."
+    ),
+    cxTyped(
+      "cx6-i4",
+      "Given $P(z)=z^3-3z^2+4z-2$ has root $1+i$, write the quadratic factor from both complex roots.",
+      "(z-(1+i))(z-(1-i))",
+      "z^2-2z+2",
+      ["z² - 2z + 2"],
+      "Conjugate pair 1+i and 1−i: quadratic = z² − 2z + (1+1) = z² − 2z + 2.",
+      "Use z² − 2az + (a² + b²) with a=1, b=1."
+    ),
+    cxTyped(
+      "cx6-i5",
+      "Divide $P(z)=z^3-3z^2+4z-2$ by $z^2-2z+2$ to find the real linear factor.",
+      "\\frac{z^3-3z^2+4z-2}{z^2-2z+2}",
+      "z-1",
+      ["(z-1)"],
+      "Polynomial division: z³−3z²+4z−2 = (z²−2z+2)(z−1). The linear factor is z−1.",
+      "Do polynomial long division."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Forgetting to include the conjugate root.",
+      fix: "Every non-real root of a real polynomial has a conjugate partner. Always list both.",
+    },
+    {
+      mistake: "Writing (z − (a+bi))(z − (a−bi)) = z² − (a+bi)².",
+      fix: "The correct expansion is z² − 2az + (a² + b²). Verify by expanding carefully.",
+    },
+    {
+      mistake: "Confusing 'factorise over ℂ' with 'factorise over ℝ'.",
+      fix: "Over ℂ: all factors are linear. Over ℝ: non-real roots pair into real quadratics.",
+    },
+    {
+      mistake: "Claiming a real polynomial can have an odd number of non-real roots.",
+      fix: "Non-real roots of real polynomials always come in conjugate pairs, so the count is even.",
+    },
+  ],
+  masteryQuiz: [
+    cxChoice(
+      "cx6-m1",
+      "For a real polynomial, if $5-3i$ is a root, which must also be a root?",
+      "B",
+      ["$-5-3i$", "$5+3i$", "$-5+3i$", "$3+5i$"],
+      "The conjugate root theorem gives 5 + 3i whenever 5 − 3i is a root of a real polynomial.",
+      "Negate only the imaginary part."
+    ),
+    cxTyped(
+      "cx6-m2",
+      "Write the irreducible quadratic factor for roots $z=3\\pm 2i$.",
+      "(z-(3+2i))(z-(3-2i))",
+      "z^2-6z+13",
+      ["z² - 6z + 13"],
+      "a = 3, b = 2. Quadratic = z² − 6z + (9+4) = z² − 6z + 13.",
+      "Apply z² − 2az + (a² + b²)."
+    ),
+    cxTyped(
+      "cx6-m3",
+      "For $P(z)=z^3-2z^2+4z-8$ with roots $\\pm2i$ and $2$, write the fully factorised form over $\\mathbb{C}$.",
+      "P(z)=(z-2i)(z+2i)(z-2)",
+      "(z-2i)(z+2i)(z-2)",
+      ["(z − 2i)(z + 2i)(z − 2)"],
+      "P(z) = (z−2i)(z+2i)(z−2).",
+      "Write one linear factor per root."
+    ),
+    cxChoice(
+      "cx6-m4",
+      "A degree-5 real polynomial has exactly two non-real roots. How many real roots does it have (counting multiplicity)?",
+      "C",
+      ["2", "4", "3", "5"],
+      "Degree 5 total. Two non-real roots come as one conjugate pair. Remaining 5−2 = 3 roots must be real.",
+      "Total degree = real roots + conjugate pairs × 2."
+    ),
+    cxTyped(
+      "cx6-m5",
+      "The constant term in $z^2-2az+(a^2+b^2)$ when $a=4,b=3$ is:",
+      "a^2+b^2,\\;a=4,\\;b=3",
+      "25",
+      [],
+      "4² + 3² = 16 + 9 = 25.",
+      "Apply a² + b²."
+    ),
+    cxChoice(
+      "cx6-m6",
+      "For a real polynomial $P(z)$, which factorisation is correct over $\\mathbb{C}$?",
+      "A",
+      [
+        "All factors are linear: $P(z)=a_n(z-z_1)\\cdots(z-z_n)$",
+        "All factors are quadratic",
+        "Factors alternate between linear and quadratic",
+        "Only factors with real roots appear",
+      ],
+      "Over ℂ every polynomial of degree n splits into exactly n linear factors (fundamental theorem of algebra)."
+    ),
+    cxTyped(
+      "cx6-m7",
+      "A degree-3 real polynomial has one real root $r$ and complex root $a+bi$. How many distinct roots are there in total?",
+      "\\text{degree 3 real polynomial}",
+      "3",
+      [],
+      "One real root r, plus conjugate pair a+bi and a−bi: total 3 roots.",
+      "Count r plus both members of the conjugate pair."
+    ),
+    cxChoice(
+      "cx6-m8",
+      "Which polynomial has roots $i,-i,2$?",
+      "C",
+      [
+        "$z^3+z^2+z+2$",
+        "$z^3-2z^2+z-2$",
+        "$z^3-2z^2+z-2$",
+        "$z^3+z^2-z-2$",
+      ],
+      "(z−i)(z+i)(z−2) = (z²+1)(z−2) = z³−2z²+z−2.",
+      "Multiply (z−i)(z+i) first, then multiply by (z−2)."
+    ),
+    cxTyped(
+      "cx6-m9",
+      "If $z=1-2i$ is a root of a real polynomial, write the corresponding real quadratic factor.",
+      "(z-(1-2i))(z-(1+2i))",
+      "z^2-2z+5",
+      ["z² - 2z + 5"],
+      "a = 1, b = 2. Quadratic = z² − 2z + (1+4) = z² − 2z + 5.",
+      "Apply z² − 2az + (a² + b²)."
+    ),
+    cxTyped(
+      "cx6-m10",
+      "A real polynomial $P$ has $2+i$ as a root and degree 3. Given $P(z)=(z^2-4z+5)(z-r)$, find $r$ if $P(0)=-10$.",
+      "P(0)=(5)(-r)=-10",
+      "2",
+      [],
+      "P(0) = (0−4×0+5)(0−r) = 5×(−r) = −10. So r = 2.",
+      "Substitute z = 0 and solve for r."
+    ),
+  ],
+  masteryPassMark: 0.8,
+};
+
 // ─── Lesson builder ───────────────────────────────────────────────────────────
 
 function cx2Lesson(
@@ -1065,6 +1597,10 @@ export function year12Extension2ComplexNumbersLessonOverride(
       return cx2Lesson("argand-diagram-geometry", "Argand Diagram and Geometry", argandDiagramGeometry);
     case "polar-form-de-moivre":
       return cx2Lesson("polar-form-de-moivre", "Polar Form and De Moivre's Theorem", polarFormDeMoivre);
+    case "roots-of-unity":
+      return cx2Lesson("roots-of-unity", "Roots of Unity", rootsOfUnity);
+    case "complex-polynomials":
+      return cx2Lesson("complex-polynomials", "Complex Polynomials", complexPolynomials);
     default:
       return undefined;
   }

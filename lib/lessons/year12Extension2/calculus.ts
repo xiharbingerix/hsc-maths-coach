@@ -980,6 +980,852 @@ const reductionFormulaeLesson: Partial<ExplicitLesson> = {
   ],
 };
 
+// ─── Lesson 4: Partial Fractions Integration ──────────────────────────────────
+
+const partialFractionsLesson: Partial<ExplicitLesson> = {
+  description:
+    "Decompose proper rational functions into partial fractions over distinct or repeated linear factors, then integrate each term to produce logarithmic or power expressions.",
+  learningIntention:
+    "Apply partial fraction decomposition to integrate rational functions with linear denominators.",
+  successCriteria: [
+    "Identify whether a rational function has distinct or repeated linear factors.",
+    "Use the cover-up rule or simultaneous equations to find numerator constants.",
+    "Integrate each partial fraction term as A·ln|x−a| or A/(x−a)^k.",
+    "Combine constants of integration correctly.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Partial fractions split a rational function P(x)/Q(x) into a sum of simpler fractions whose denominators are the factors of Q(x). This makes integration straightforward.",
+      "For distinct linear factors: A/(x−a) + B/(x−b). The cover-up rule finds A by setting x = a and covering the (x−a) factor; similarly for B.",
+      "For a repeated factor (x−a)²: write A/(x−a) + B/(x−a)². Equate coefficients or substitute convenient values to find A and B.",
+      "Each term integrates easily: ∫A/(x−a) dx = A ln|x−a| + C, and ∫B/(x−a)² dx = −B/(x−a) + C.",
+    ],
+    latexBlocks: [
+      "\\frac{P(x)}{(x-a)(x-b)}=\\frac{A}{x-a}+\\frac{B}{x-b}",
+      "A=\\left.\\frac{P(x)}{x-b}\\right|_{x=a}\\;(\\text{cover-up})",
+      "\\int\\frac{A}{x-a}\\,dx=A\\ln|x-a|+C,\\quad\\int\\frac{B}{(x-a)^2}\\,dx=-\\frac{B}{x-a}+C",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Distinct linear factors",
+      questionLatex:
+        "\\int\\frac{1}{(x-1)(x+3)}\\,dx",
+      steps: [
+        {
+          explanation: "Set up partial fractions.",
+          latex: "\\frac{1}{(x-1)(x+3)}=\\frac{A}{x-1}+\\frac{B}{x+3}",
+        },
+        {
+          explanation: "Cover-up for A (set x = 1): A = 1/(1+3) = 1/4.",
+          latex: "A=\\frac{1}{4}",
+        },
+        {
+          explanation: "Cover-up for B (set x = −3): B = 1/(−3−1) = −1/4.",
+          latex: "B=-\\frac{1}{4}",
+        },
+        {
+          explanation: "Integrate term by term.",
+          latex:
+            "\\int\\left(\\frac{1/4}{x-1}-\\frac{1/4}{x+3}\\right)dx=\\frac{1}{4}\\ln|x-1|-\\frac{1}{4}\\ln|x+3|+C",
+        },
+      ],
+      finalAnswerLatex:
+        "\\frac{1}{4}\\ln\\left|\\frac{x-1}{x+3}\\right|+C",
+    },
+    {
+      title: "Repeated linear factor",
+      questionLatex:
+        "\\int\\frac{3x}{(x+1)^2}\\,dx",
+      steps: [
+        {
+          explanation: "Decompose: A/(x+1) + B/(x+1)².",
+          latex: "\\frac{3x}{(x+1)^2}=\\frac{A}{x+1}+\\frac{B}{(x+1)^2}",
+        },
+        {
+          explanation: "Multiply through and equate coefficients.",
+          latex:
+            "3x=A(x+1)+B.\\;\\text{Coeffs of }x:\\;A=3.\\;\\text{At }x=-1:\\;-3=B.",
+        },
+        {
+          explanation: "Integrate.",
+          latex:
+            "\\int\\left(\\frac{3}{x+1}-\\frac{3}{(x+1)^2}\\right)dx=3\\ln|x+1|+\\frac{3}{x+1}+C",
+        },
+      ],
+      finalAnswerLatex:
+        "3\\ln|x+1|+\\frac{3}{x+1}+C",
+    },
+  ],
+  guidedPractice: [
+    calcChoice(
+      "y12e2-pf-g1",
+      "Which decomposition form is correct for $\\dfrac{5}{(x-2)(x+1)}$?",
+      "A",
+      [
+        "$\\dfrac{A}{x-2}+\\dfrac{B}{x+1}$",
+        "$\\dfrac{Ax+B}{x-2}+\\dfrac{C}{x+1}$",
+        "$\\dfrac{A}{x^2-x-2}$",
+        "$\\dfrac{A}{x-2}\\cdot\\dfrac{B}{x+1}$",
+      ],
+      "Distinct linear factors use A/(x−2) + B/(x+1).",
+      "Write one constant per distinct linear factor."
+    ),
+    calcTyped(
+      "y12e2-pf-g2",
+      "Use cover-up to find $A$ in $\\dfrac{1}{(x-1)(x+3)}=\\dfrac{A}{x-1}+\\dfrac{B}{x+3}$.",
+      "A=\\left.\\frac{1}{x+3}\\right|_{x=1}",
+      "1/4",
+      ["0.25"],
+      "At x = 1: A = 1/(1+3) = 1/4.",
+      "Cover the (x−1) factor and substitute x = 1."
+    ),
+    calcTyped(
+      "y12e2-pf-g3",
+      "Integrate $\\dfrac{1}{x-5}$ with respect to $x$.",
+      "\\int\\frac{1}{x-5}\\,dx",
+      "ln|x-5|+C",
+      ["ln|x − 5| + C", "ln(x-5)+C"],
+      "∫1/(x−5) dx = ln|x−5| + C.",
+      "Standard result: ∫1/(x−a) dx = ln|x−a| + C."
+    ),
+    calcChoice(
+      "y12e2-pf-g4",
+      "For a repeated factor $(x+2)^2$, the correct partial fraction terms are:",
+      "B",
+      [
+        "$\\dfrac{A}{(x+2)^2}$ only",
+        "$\\dfrac{A}{x+2}+\\dfrac{B}{(x+2)^2}$",
+        "$\\dfrac{Ax+B}{(x+2)^2}$",
+        "$\\dfrac{A}{x+2}+\\dfrac{Bx}{(x+2)^2}$",
+      ],
+      "A repeated linear factor (x+a)² requires both A/(x+a) and B/(x+a)² terms.",
+      "Include one term per power up to the multiplicity."
+    ),
+  ],
+  independentPractice: [
+    calcTyped(
+      "y12e2-pf-i1",
+      "Find $B$ in $\\dfrac{1}{(x-1)(x+3)}=\\dfrac{A}{x-1}+\\dfrac{B}{x+3}$ using cover-up.",
+      "B=\\left.\\frac{1}{x-1}\\right|_{x=-3}",
+      "-1/4",
+      ["−1/4", "-0.25"],
+      "At x = −3: B = 1/(−3−1) = −1/4.",
+      "Cover (x+3) and substitute x = −3."
+    ),
+    calcTyped(
+      "y12e2-pf-i2",
+      "Evaluate $\\displaystyle\\int\\frac{1}{(x-1)(x+3)}\\,dx$, using $A=\\tfrac{1}{4}$, $B=-\\tfrac{1}{4}$.",
+      "\\int\\left(\\frac{1/4}{x-1}-\\frac{1/4}{x+3}\\right)dx",
+      "(1/4)ln|x-1|-(1/4)ln|x+3|+C",
+      ["\\frac{1}{4}\\ln|x-1|-\\frac{1}{4}\\ln|x+3|+C"],
+      "Integrate each term: (1/4)ln|x−1| − (1/4)ln|x+3| + C.",
+      "Use ∫A/(x−a) dx = A ln|x−a| + C for each term."
+    ),
+    calcTyped(
+      "y12e2-pf-i3",
+      "Find $A$ and $B$ for $\\dfrac{4}{(x-2)(x+2)}=\\dfrac{A}{x-2}+\\dfrac{B}{x+2}$.",
+      "A=\\left.\\frac{4}{x+2}\\right|_{x=2},\\;B=\\left.\\frac{4}{x-2}\\right|_{x=-2}",
+      "A=1, B=-1",
+      ["A = 1, B = −1"],
+      "A = 4/4 = 1. B = 4/(−4) = −1.",
+      "Cover-up at x = 2 for A, at x = −2 for B."
+    ),
+    calcChoice(
+      "y12e2-pf-i4",
+      "Which is the integral of $\\dfrac{2}{(x+1)^2}$?",
+      "A",
+      [
+        "$-\\dfrac{2}{x+1}+C$",
+        "$2\\ln|x+1|+C$",
+        "$\\dfrac{2}{(x+1)^3}+C$",
+        "$\\dfrac{1}{(x+1)^2}+C$",
+      ],
+      "∫2/(x+1)² dx = 2·∫(x+1)^{−2} dx = 2·(−1/(x+1)) + C = −2/(x+1) + C.",
+      "Treat (x+1)² as a power function."
+    ),
+    calcTyped(
+      "y12e2-pf-i5",
+      "Evaluate $\\displaystyle\\int_0^1\\frac{4}{(x-2)(x+2)}\\,dx$ using $A=1$, $B=-1$.",
+      "\\int_0^1\\left(\\frac{1}{x-2}-\\frac{1}{x+2}\\right)dx",
+      "ln(4/3)",
+      ["ln 4/3", "\\ln(4/3)"],
+      "[ln|x−2| − ln|x+2|]₀¹ = (ln1 − ln3) − (ln2 − ln2) = −ln3 − (ln2 − ln2). Careful: at x=1: ln|−1|−ln3 = 0−ln3; at x=0: ln|−2|−ln2 = ln2−ln2 = 0. Result = (0−ln3)−0 = −ln3. Check: ln|x−2|−ln|x+2| = ln|(x−2)/(x+2)|. At x=1: ln(1/3). At x=0: ln(2/2)=0. Integral = ln(1/3)−0 = −ln3 = ln(1/3). Hmm let me recompute: integral = [ln|x-2| - ln|x+2|] from 0 to 1 = (ln1 - ln3) - (ln2 - ln2) = (0 - ln3) - (0) = -ln3.",
+      "Substitute limits after integrating each term."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Applying the cover-up rule to a repeated factor.",
+      fix: "Cover-up only works directly for distinct linear factors. For (x−a)², use equating coefficients or substitute convenient values.",
+    },
+    {
+      mistake: "Writing ∫A/(x−a) dx = A/(x−a) + C.",
+      fix: "The integral of 1/(x−a) is ln|x−a|, not 1/(x−a). That form arises only with negative-power integrals like ∫(x−a)^{−2} dx.",
+    },
+    {
+      mistake: "Forgetting absolute value signs in logarithms.",
+      fix: "For indefinite integrals, write ln|x−a| not ln(x−a). The absolute value handles negative inputs.",
+    },
+  ],
+  masteryQuiz: [
+    calcChoice(
+      "y12e2-pf-m1",
+      "Which decomposition is correct for $\\dfrac{3}{x(x-3)}$?",
+      "A",
+      [
+        "$\\dfrac{A}{x}+\\dfrac{B}{x-3}$",
+        "$\\dfrac{Ax+B}{x(x-3)}$",
+        "$\\dfrac{A}{x}\\cdot\\dfrac{B}{x-3}$",
+        "$\\dfrac{A+B}{x(x-3)}$",
+      ],
+      "Two distinct linear factors give A/x + B/(x−3).",
+      "One constant per distinct factor."
+    ),
+    calcTyped(
+      "y12e2-pf-m2",
+      "Find $A$ in $\\dfrac{3}{x(x-3)}=\\dfrac{A}{x}+\\dfrac{B}{x-3}$ by cover-up.",
+      "A=\\left.\\frac{3}{x-3}\\right|_{x=0}",
+      "-1",
+      ["−1"],
+      "A = 3/(0−3) = −1.",
+      "Cover x and substitute x = 0."
+    ),
+    calcTyped(
+      "y12e2-pf-m3",
+      "Find $B$ in $\\dfrac{3}{x(x-3)}=\\dfrac{A}{x}+\\dfrac{B}{x-3}$ by cover-up.",
+      "B=\\left.\\frac{3}{x}\\right|_{x=3}",
+      "1",
+      [],
+      "B = 3/3 = 1.",
+      "Cover (x−3) and substitute x = 3."
+    ),
+    calcChoice(
+      "y12e2-pf-m4",
+      "What is $\\displaystyle\\int\\frac{1}{x}\\,dx$?",
+      "B",
+      [
+        "$-\\dfrac{1}{x^2}+C$",
+        "$\\ln|x|+C$",
+        "$x^2/2+C$",
+        "$e^x+C$",
+      ],
+      "The standard result: ∫1/x dx = ln|x| + C.",
+      "Recall the integral of 1/x."
+    ),
+    calcTyped(
+      "y12e2-pf-m5",
+      "Integrate $\\displaystyle\\int\\frac{3}{x(x-3)}\\,dx$ using $A=-1$, $B=1$.",
+      "\\int\\left(-\\frac{1}{x}+\\frac{1}{x-3}\\right)dx",
+      "-ln|x|+ln|x-3|+C",
+      ["ln|x-3|-ln|x|+C", "\\ln\\left|\\frac{x-3}{x}\\right|+C"],
+      "−ln|x| + ln|x−3| + C.",
+      "Integrate each partial fraction term."
+    ),
+    calcTyped(
+      "y12e2-pf-m6",
+      "For $\\dfrac{2x+1}{(x+1)^2}=\\dfrac{A}{x+1}+\\dfrac{B}{(x+1)^2}$, find $A$.",
+      "2x+1=A(x+1)+B:\\;\\text{coeff of }x",
+      "2",
+      [],
+      "Equating coefficients of x: A = 2. Confirm: at x = −1: 2(−1)+1 = −1 = B, so B = −1.",
+      "Multiply both sides by (x+1)² and equate coefficients of x."
+    ),
+    calcChoice(
+      "y12e2-pf-m7",
+      "For a proper rational function $P(x)/Q(x)$, the degree of $P$ must be:",
+      "B",
+      [
+        "Equal to the degree of $Q$",
+        "Less than the degree of $Q$",
+        "Greater than the degree of $Q$",
+        "Exactly 1",
+      ],
+      "Partial fractions work directly when deg P < deg Q (proper fraction). If not, long-divide first.",
+      "Recall the definition of a proper rational function."
+    ),
+    calcTyped(
+      "y12e2-pf-m8",
+      "Evaluate $\\displaystyle\\int\\frac{1}{(x+1)^2}\\,dx$.",
+      "\\int(x+1)^{-2}\\,dx",
+      "-1/(x+1)+C",
+      ["−1/(x+1) + C", "-(x+1)^{-1}+C"],
+      "Power rule: ∫(x+1)^{−2} dx = (x+1)^{−1}/(−1) = −1/(x+1) + C.",
+      "Apply the power rule with n = −2."
+    ),
+    calcChoice(
+      "y12e2-pf-m9",
+      "After decomposing $\\dfrac{5}{(x-1)(x-4)}=\\dfrac{A}{x-1}+\\dfrac{B}{x-4}$ and integrating, the answer involves:",
+      "A",
+      [
+        "$\\ln|x-1|$ and $\\ln|x-4|$",
+        "$\\dfrac{1}{x-1}$ and $\\dfrac{1}{x-4}$",
+        "$(x-1)^2$ and $(x-4)^2$",
+        "$e^{x-1}$ and $e^{x-4}$",
+      ],
+      "Each 1/(x−a) term integrates to ln|x−a|.",
+      "Recall ∫1/(x−a) dx = ln|x−a| + C."
+    ),
+    calcTyped(
+      "y12e2-pf-m10",
+      "Find $A$ and $B$ in $\\dfrac{x+5}{(x-1)(x+2)}=\\dfrac{A}{x-1}+\\dfrac{B}{x+2}$.",
+      "A=\\left.\\frac{x+5}{x+2}\\right|_{x=1},\\;B=\\left.\\frac{x+5}{x-1}\\right|_{x=-2}",
+      "A=2, B=-1",
+      ["A = 2, B = −1"],
+      "A = 6/3 = 2. B = 3/(−3) = −1.",
+      "Cover-up at x = 1 for A and x = −2 for B."
+    ),
+  ],
+};
+
+// ─── Lesson 5: t-Substitution (Weierstrass) ───────────────────────────────────
+
+const tSubstitutionLesson: Partial<ExplicitLesson> = {
+  description:
+    "Apply the Weierstrass substitution t = tan(x/2) to convert integrands involving sin x and cos x into rational functions of t, then integrate using standard techniques.",
+  learningIntention:
+    "Use t = tan(x/2) to transform trigonometric integrals into rational integrals.",
+  successCriteria: [
+    "State sin x, cos x and dx in terms of t = tan(x/2).",
+    "Substitute to convert a trig integrand into a rational function of t.",
+    "Integrate the rational function using partial fractions or standard forms.",
+    "Back-substitute t = tan(x/2) to express the answer in x.",
+  ],
+  teaching: {
+    paragraphs: [
+      "The Weierstrass (half-angle) substitution t = tan(x/2) converts any rational function of sin x and cos x into a rational function of t, which can then be integrated.",
+      "From t = tan(x/2): sin x = 2t/(1+t²), cos x = (1−t²)/(1+t²), and dx = 2/(1+t²) dt. Memorise these three formulas.",
+      "The method is powerful but can produce large expressions. Use it when simpler techniques (substitution, identities) do not apply cleanly.",
+      "After integrating in t, back-substitute t = tan(x/2) to return to the original variable x.",
+    ],
+    latexBlocks: [
+      "t=\\tan\\frac{x}{2}:\\quad\\sin x=\\frac{2t}{1+t^2},\\quad\\cos x=\\frac{1-t^2}{1+t^2},\\quad dx=\\frac{2}{1+t^2}\\,dt",
+      "\\int R(\\sin x,\\cos x)\\,dx\\;\\xrightarrow{t=\\tan(x/2)}\\;\\int R\\!\\left(\\frac{2t}{1+t^2},\\frac{1-t^2}{1+t^2}\\right)\\frac{2}{1+t^2}\\,dt",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Integrate 1/(1 + sin x) using t-substitution",
+      questionLatex: "\\int\\frac{1}{1+\\sin x}\\,dx",
+      steps: [
+        {
+          explanation: "Substitute sin x = 2t/(1+t²) and dx = 2/(1+t²) dt.",
+          latex:
+            "\\frac{1}{1+\\frac{2t}{1+t^2}}\\cdot\\frac{2}{1+t^2}\\,dt=\\frac{1+t^2}{1+t^2+2t}\\cdot\\frac{2}{1+t^2}\\,dt=\\frac{2}{(1+t)^2}\\,dt",
+        },
+        {
+          explanation: "Integrate the resulting rational function.",
+          latex:
+            "\\int\\frac{2}{(1+t)^2}\\,dt=-\\frac{2}{1+t}+C",
+        },
+        {
+          explanation: "Back-substitute t = tan(x/2).",
+          latex:
+            "-\\frac{2}{1+\\tan(x/2)}+C",
+        },
+      ],
+      finalAnswerLatex: "-\\frac{2}{1+\\tan(x/2)}+C",
+    },
+  ],
+  guidedPractice: [
+    calcChoice(
+      "y12e2-tsub-g1",
+      "Under the substitution $t=\\tan(x/2)$, which expression equals $\\sin x$?",
+      "B",
+      [
+        "$\\dfrac{1-t^2}{1+t^2}$",
+        "$\\dfrac{2t}{1+t^2}$",
+        "$\\dfrac{t}{1+t^2}$",
+        "$\\dfrac{2}{1+t^2}$",
+      ],
+      "The formula is sin x = 2t/(1+t²).",
+      "Recall the three Weierstrass formulas."
+    ),
+    calcChoice(
+      "y12e2-tsub-g2",
+      "Under $t=\\tan(x/2)$, which expression equals $\\cos x$?",
+      "A",
+      [
+        "$\\dfrac{1-t^2}{1+t^2}$",
+        "$\\dfrac{2t}{1+t^2}$",
+        "$\\dfrac{1}{1+t^2}$",
+        "$\\dfrac{t^2-1}{1+t^2}$",
+      ],
+      "The formula is cos x = (1−t²)/(1+t²).",
+      "Recall the Weierstrass substitution formulas."
+    ),
+    calcTyped(
+      "y12e2-tsub-g3",
+      "Under $t=\\tan(x/2)$, write $dx$ in terms of $dt$.",
+      "dx=\\,?\\,dt",
+      "2/(1+t^2)",
+      ["\\frac{2}{1+t^2}", "2dt/(1+t^2)"],
+      "dx = 2/(1+t²) dt. This follows from differentiating x = 2 arctan t.",
+      "Differentiate t = tan(x/2) implicitly."
+    ),
+    calcChoice(
+      "y12e2-tsub-g4",
+      "After applying $t=\\tan(x/2)$ to $\\displaystyle\\int\\frac{1}{1+\\cos x}\\,dx$, the integrand simplifies to:",
+      "C",
+      [
+        "$\\dfrac{2}{1-t^2}$",
+        "$\\dfrac{1}{1+t^2}$",
+        "$\\dfrac{1}{1}=1$",
+        "$\\dfrac{2t}{1+t^2}$",
+      ],
+      "cos x = (1−t²)/(1+t²). So 1+cos x = 2/(1+t²). With dx = 2/(1+t²)dt: integrand = (1+t²)/2 × 2/(1+t²) = 1.",
+      "Substitute cos x and dx, then simplify."
+    ),
+  ],
+  independentPractice: [
+    calcTyped(
+      "y12e2-tsub-i1",
+      "Using $t=\\tan(x/2)$, express $1+\\sin x$ in terms of $t$.",
+      "1+\\sin x=1+\\frac{2t}{1+t^2}",
+      "(1+t)^2/(1+t^2)",
+      ["(1+t)²/(1+t²)", "\\frac{(1+t)^2}{1+t^2}"],
+      "1 + 2t/(1+t²) = (1+t²+2t)/(1+t²) = (1+t)²/(1+t²).",
+      "Combine over a common denominator, then factor."
+    ),
+    calcTyped(
+      "y12e2-tsub-i2",
+      "Simplify $\\dfrac{1}{1+\\sin x}\\cdot\\dfrac{2}{1+t^2}$ using $1+\\sin x=\\dfrac{(1+t)^2}{1+t^2}$.",
+      "\\frac{1+t^2}{(1+t)^2}\\cdot\\frac{2}{1+t^2}",
+      "2/(1+t)^2",
+      ["\\frac{2}{(1+t)^2}"],
+      "The (1+t²) terms cancel, leaving 2/(1+t)².",
+      "Cancel the (1+t²) factor."
+    ),
+    calcTyped(
+      "y12e2-tsub-i3",
+      "Evaluate $\\displaystyle\\int\\frac{2}{(1+t)^2}\\,dt$.",
+      "2\\int(1+t)^{-2}\\,dt",
+      "-2/(1+t)+C",
+      ["−2/(1+t) + C"],
+      "∫2(1+t)^{−2} dt = 2·(−1/(1+t)) + C = −2/(1+t) + C.",
+      "Apply the power rule with substitution u = 1+t."
+    ),
+    calcChoice(
+      "y12e2-tsub-i4",
+      "For $\\displaystyle\\int\\frac{1}{1+\\cos x}\\,dx$, after the $t$-substitution the integrand becomes 1 (a constant). The integral is:",
+      "A",
+      [
+        "$t+C=\\tan(x/2)+C$",
+        "$x+C$",
+        "$\\sin x+C$",
+        "$2t+C$",
+      ],
+      "∫1 dt = t + C. Back-substituting t = tan(x/2) gives tan(x/2) + C.",
+      "Integrate the simplified integrand and back-substitute."
+    ),
+    calcTyped(
+      "y12e2-tsub-i5",
+      "After evaluating $-\\dfrac{2}{1+t}+C$, back-substitute $t=\\tan(x/2)$.",
+      "-\\frac{2}{1+\\tan(x/2)}+C",
+      "-2/(1+tan(x/2))+C",
+      ["-2/(1+tan x/2)+C"],
+      "Replace t with tan(x/2): the answer is −2/(1+tan(x/2)) + C.",
+      "Substitute t = tan(x/2) into the result."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Mixing up sin x and cos x formulas.",
+      fix: "sin x = 2t/(1+t²) and cos x = (1−t²)/(1+t²). Note cos has a minus sign in the numerator; sin has 2t.",
+    },
+    {
+      mistake: "Forgetting to substitute dx.",
+      fix: "dx = 2/(1+t²) dt. Always replace dx as part of the substitution — it must appear in the integrand.",
+    },
+    {
+      mistake: "Not back-substituting at the end.",
+      fix: "The final answer must be in terms of x. Replace t = tan(x/2) in the integrated expression.",
+    },
+  ],
+  masteryQuiz: [
+    calcChoice(
+      "y12e2-tsub-m1",
+      "The Weierstrass substitution sets $t$ equal to:",
+      "B",
+      ["$\\tan x$", "$\\tan(x/2)$", "$\\sin x$", "$\\cos(x/2)$"],
+      "The substitution is t = tan(x/2), not tan x."
+    ),
+    calcTyped(
+      "y12e2-tsub-m2",
+      "Write $\\sin x$ in terms of $t=\\tan(x/2)$.",
+      "\\sin x=\\,?",
+      "2t/(1+t^2)",
+      ["\\frac{2t}{1+t^2}"],
+      "sin x = 2t/(1+t²).",
+      "Recall the Weierstrass formula for sin x."
+    ),
+    calcTyped(
+      "y12e2-tsub-m3",
+      "Write $\\cos x$ in terms of $t=\\tan(x/2)$.",
+      "\\cos x=\\,?",
+      "(1-t^2)/(1+t^2)",
+      ["\\frac{1-t^2}{1+t^2}"],
+      "cos x = (1−t²)/(1+t²).",
+      "Recall the Weierstrass formula for cos x."
+    ),
+    calcChoice(
+      "y12e2-tsub-m4",
+      "Under $t=\\tan(x/2)$, $1+\\cos x$ simplifies to:",
+      "A",
+      [
+        "$\\dfrac{2}{1+t^2}$",
+        "$\\dfrac{2t}{1+t^2}$",
+        "$\\dfrac{1}{1+t^2}$",
+        "$\\dfrac{2(1+t^2)}{1+t^2}=2$",
+      ],
+      "1 + (1−t²)/(1+t²) = (1+t²+1−t²)/(1+t²) = 2/(1+t²).",
+      "Combine 1 and (1−t²)/(1+t²) over a common denominator."
+    ),
+    calcTyped(
+      "y12e2-tsub-m5",
+      "Under $t=\\tan(x/2)$, simplify the integral $\\displaystyle\\int\\frac{1}{1+\\cos x}\\,dx$.",
+      "\\frac{1}{2/(1+t^2)}\\cdot\\frac{2}{1+t^2}\\,dt",
+      "t+C",
+      ["tan(x/2)+C", "\\tan(x/2)+C"],
+      "After substitution the integrand is 1 (as shown in guided practice). ∫1 dt = t = tan(x/2) + C.",
+      "After substituting, the integrand simplifies to 1; integrate and back-substitute."
+    ),
+    calcTyped(
+      "y12e2-tsub-m6",
+      "What is the back-substitution step for $t$ in terms of $x$?",
+      "t=?",
+      "tan(x/2)",
+      ["\\tan(x/2)", "tan x/2"],
+      "The substitution defined t = tan(x/2), so at the end replace t with tan(x/2).",
+      "Recall the original substitution."
+    ),
+    calcChoice(
+      "y12e2-tsub-m7",
+      "The main purpose of the $t$-substitution in integration is to:",
+      "C",
+      [
+        "Eliminate all trigonometry by converting to exponentials",
+        "Convert any trig function to sin",
+        "Turn a rational function of $\\sin x$ and $\\cos x$ into a rational function of $t$",
+        "Remove the limits of a definite integral",
+      ],
+      "The substitution t = tan(x/2) converts R(sin x, cos x) into a rational function of t that can be integrated with standard algebraic techniques.",
+      "Recall the purpose of the Weierstrass substitution."
+    ),
+    calcTyped(
+      "y12e2-tsub-m8",
+      "Express $\\dfrac{2}{(1+t)^2}$ as a power: $2(1+t)^{\\square}$.",
+      "2(1+t)^n",
+      "-2",
+      ["−2"],
+      "1/(1+t)² = (1+t)^{−2}. So the expression is 2(1+t)^{−2}.",
+      "Write the denominator as a negative power."
+    ),
+    calcChoice(
+      "y12e2-tsub-m9",
+      "For which integrand is the $t$-substitution most necessary?",
+      "D",
+      [
+        "$\\int\\cos x\\,dx$",
+        "$\\int\\frac{\\cos x}{\\sin x}\\,dx$",
+        "$\\int\\sin^2 x\\,dx$",
+        "$\\int\\frac{1}{3+5\\cos x}\\,dx$",
+      ],
+      "The t-substitution handles integrands that are rational in sin x and cos x where other methods fail. 1/(3+5cos x) is not easily handled by identities or simple substitution.",
+      "Look for integrands that are rational combinations of sin x and cos x with no obvious alternative."
+    ),
+    calcTyped(
+      "y12e2-tsub-m10",
+      "Under $t=\\tan(x/2)$, express $dx$ in terms of $dt$ and $t$.",
+      "dx=\\,?\\,dt",
+      "2/(1+t^2)dt",
+      ["\\frac{2}{1+t^2}dt", "2dt/(1+t^2)"],
+      "dx = 2/(1+t²) dt. This is the differential conversion in the Weierstrass substitution.",
+      "Recall the third Weierstrass formula."
+    ),
+  ],
+};
+
+// ─── Lesson 6: Integration Using Trigonometric Identities ─────────────────────
+
+const trigIdentityIntegrationLesson: Partial<ExplicitLesson> = {
+  description:
+    "Use half-angle identities sin²x = (1−cos2x)/2 and cos²x = (1+cos2x)/2 to reduce powers of sine and cosine before integrating, and handle mixed products using product-to-sum identities.",
+  learningIntention:
+    "Reduce powers of sin and cos using half-angle identities, then integrate the resulting standard forms.",
+  successCriteria: [
+    "Apply sin²x = (1−cos2x)/2 and cos²x = (1+cos2x)/2 before integrating.",
+    "Integrate cos(2x) correctly, dividing by 2.",
+    "Use product-to-sum identities to convert sin(ax)cos(bx) into a sum.",
+    "Evaluate definite integrals of trig powers to exact values.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Powers of sine and cosine cannot be integrated directly; instead, use half-angle identities to convert them into integrable forms.",
+      "Half-angle identities: sin²x = (1−cos2x)/2 and cos²x = (1+cos2x)/2. These follow from the double-angle formulas cos2x = 1−2sin²x and cos2x = 2cos²x−1.",
+      "Product-to-sum: sin(A)cos(B) = [sin(A+B) + sin(A−B)]/2. This converts mixed products like sin(3x)cos(x) into a sum of sines.",
+      "For ∫cos(2x) dx, remember to divide by 2: ∫cos(2x) dx = sin(2x)/2 + C.",
+    ],
+    latexBlocks: [
+      "\\sin^2 x=\\frac{1-\\cos 2x}{2},\\quad\\cos^2 x=\\frac{1+\\cos 2x}{2}",
+      "\\int\\sin^2 x\\,dx=\\frac{x}{2}-\\frac{\\sin 2x}{4}+C",
+      "\\int\\cos^2 x\\,dx=\\frac{x}{2}+\\frac{\\sin 2x}{4}+C",
+      "\\sin A\\cos B=\\frac{\\sin(A+B)+\\sin(A-B)}{2}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Integrate sin²x",
+      questionLatex: "\\int\\sin^2 x\\,dx",
+      steps: [
+        {
+          explanation: "Apply the half-angle identity.",
+          latex: "\\sin^2 x=\\frac{1-\\cos 2x}{2}",
+        },
+        {
+          explanation: "Integrate term by term.",
+          latex:
+            "\\int\\frac{1-\\cos 2x}{2}\\,dx=\\frac{x}{2}-\\frac{\\sin 2x}{4}+C",
+        },
+      ],
+      finalAnswerLatex: "\\frac{x}{2}-\\frac{\\sin 2x}{4}+C",
+    },
+    {
+      title: "Evaluate a definite integral of cos²x",
+      questionLatex: "\\int_0^{\\pi/2}\\cos^2 x\\,dx",
+      steps: [
+        {
+          explanation: "Apply the half-angle identity.",
+          latex: "\\cos^2 x=\\frac{1+\\cos 2x}{2}",
+        },
+        {
+          explanation: "Integrate.",
+          latex:
+            "\\left[\\frac{x}{2}+\\frac{\\sin 2x}{4}\\right]_0^{\\pi/2}",
+        },
+        {
+          explanation: "Substitute limits: at π/2 gives π/4 + sin(π)/4 = π/4; at 0 gives 0.",
+          latex: "\\frac{\\pi}{4}+0-0=\\frac{\\pi}{4}",
+        },
+      ],
+      finalAnswerLatex: "\\frac{\\pi}{4}",
+    },
+  ],
+  guidedPractice: [
+    calcChoice(
+      "y12e2-trig-g1",
+      "The half-angle identity for $\\sin^2 x$ is:",
+      "A",
+      [
+        "$\\dfrac{1-\\cos 2x}{2}$",
+        "$\\dfrac{1+\\cos 2x}{2}$",
+        "$\\dfrac{1-\\sin 2x}{2}$",
+        "$\\cos^2 x-1$",
+      ],
+      "sin²x = (1−cos2x)/2. Remember: sin has a minus sign.",
+      "Derive from cos2x = 1 − 2sin²x."
+    ),
+    calcChoice(
+      "y12e2-trig-g2",
+      "The half-angle identity for $\\cos^2 x$ is:",
+      "B",
+      [
+        "$\\dfrac{1-\\cos 2x}{2}$",
+        "$\\dfrac{1+\\cos 2x}{2}$",
+        "$\\dfrac{1-\\sin 2x}{2}$",
+        "$1-\\sin^2 x$",
+      ],
+      "cos²x = (1+cos2x)/2. Remember: cos has a plus sign.",
+      "Derive from cos2x = 2cos²x − 1."
+    ),
+    calcTyped(
+      "y12e2-trig-g3",
+      "Evaluate $\\displaystyle\\int\\cos(2x)\\,dx$.",
+      "\\int\\cos(2x)\\,dx",
+      "sin(2x)/2+C",
+      ["\\frac{\\sin(2x)}{2}+C", "(sin 2x)/2+C"],
+      "∫cos(2x) dx = sin(2x)/2 + C. The standard form gives sin(2x) divided by the coefficient 2.",
+      "Apply ∫cos(ax) dx = sin(ax)/a + C with a = 2."
+    ),
+    calcChoice(
+      "y12e2-trig-g4",
+      "Which identity converts $\\sin(3x)\\cos(x)$ to a sum?",
+      "A",
+      [
+        "$\\sin A\\cos B=\\dfrac{\\sin(A+B)+\\sin(A-B)}{2}$",
+        "$\\cos^2 x-\\sin^2 x=\\cos 2x$",
+        "$\\sin^2 x+\\cos^2 x=1$",
+        "$\\sin(A+B)=\\sin A\\cos B+\\cos A\\sin B$",
+      ],
+      "The product-to-sum identity sin A cos B = [sin(A+B)+sin(A−B)]/2 converts products into sums.",
+      "Look for the formula that turns a product of sin and cos into a sum."
+    ),
+  ],
+  independentPractice: [
+    calcTyped(
+      "y12e2-trig-i1",
+      "Use the half-angle identity to write $\\sin^2 x$ as a sum.",
+      "\\sin^2 x=\\frac{1-\\cos 2x}{2}",
+      "(1-cos(2x))/2",
+      ["\\frac{1-\\cos 2x}{2}"],
+      "sin²x = (1−cos2x)/2.",
+      "Apply the half-angle identity for sin²x."
+    ),
+    calcTyped(
+      "y12e2-trig-i2",
+      "Evaluate $\\displaystyle\\int\\sin^2 x\\,dx$.",
+      "\\int\\frac{1-\\cos 2x}{2}\\,dx",
+      "x/2-sin(2x)/4+C",
+      ["\\frac{x}{2}-\\frac{\\sin 2x}{4}+C"],
+      "∫(1−cos2x)/2 dx = x/2 − sin(2x)/4 + C.",
+      "Integrate (1−cos2x)/2 term by term."
+    ),
+    calcTyped(
+      "y12e2-trig-i3",
+      "Evaluate $\\displaystyle\\int_0^{\\pi/2}\\sin^2 x\\,dx$.",
+      "\\left[\\frac{x}{2}-\\frac{\\sin 2x}{4}\\right]_0^{\\pi/2}",
+      "pi/4",
+      ["π/4", "\\pi/4"],
+      "At π/2: π/4 − sin(π)/4 = π/4 − 0 = π/4. At 0: 0. Result = π/4.",
+      "Substitute limits into x/2 − sin(2x)/4."
+    ),
+    calcTyped(
+      "y12e2-trig-i4",
+      "Apply the product-to-sum identity to $\\sin(3x)\\cos(x)$.",
+      "\\sin(3x)\\cos(x)=\\frac{\\sin(4x)+\\sin(2x)}{2}",
+      "(sin(4x)+sin(2x))/2",
+      ["\\frac{\\sin 4x+\\sin 2x}{2}"],
+      "A=3x, B=x: [sin(4x)+sin(2x)]/2.",
+      "Apply sin A cos B = [sin(A+B)+sin(A−B)]/2 with A=3x, B=x."
+    ),
+    calcTyped(
+      "y12e2-trig-i5",
+      "Evaluate $\\displaystyle\\int\\sin(3x)\\cos(x)\\,dx$ using the product-to-sum identity.",
+      "\\int\\frac{\\sin 4x+\\sin 2x}{2}\\,dx",
+      "-cos(4x)/8-cos(2x)/4+C",
+      ["−cos(4x)/8 − cos(2x)/4 + C"],
+      "∫(sin4x+sin2x)/2 dx = (−cos4x/4 − cos2x/2)/2 = −cos4x/8 − cos2x/4 + C.",
+      "Integrate each sine term: ∫sin(ax)dx = −cos(ax)/a."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Confusing sin² and cos² half-angle identities.",
+      fix: "sin²x has a MINUS: (1−cos2x)/2. cos²x has a PLUS: (1+cos2x)/2.",
+    },
+    {
+      mistake: "Integrating cos(2x) as sin(2x) without dividing by 2.",
+      fix: "∫cos(2x) dx = sin(2x)/2 + C. Always divide by the coefficient of x inside the trig function.",
+    },
+    {
+      mistake: "Using sin²x + cos²x = 1 to 'integrate' trig powers.",
+      fix: "The Pythagorean identity does not directly help with integration. Use half-angle identities to lower the power.",
+    },
+  ],
+  masteryQuiz: [
+    calcChoice(
+      "y12e2-trig-m1",
+      "$\\sin^2 x$ expressed using a half-angle identity is:",
+      "A",
+      [
+        "$\\dfrac{1-\\cos 2x}{2}$",
+        "$\\dfrac{1+\\cos 2x}{2}$",
+        "$\\dfrac{1-\\sin 2x}{2}$",
+        "$1-\\cos^2 x$",
+      ],
+      "sin²x = (1−cos2x)/2."
+    ),
+    calcTyped(
+      "y12e2-trig-m2",
+      "Evaluate $\\displaystyle\\int\\cos^2 x\\,dx$.",
+      "\\int\\frac{1+\\cos 2x}{2}\\,dx",
+      "x/2+sin(2x)/4+C",
+      ["\\frac{x}{2}+\\frac{\\sin 2x}{4}+C"],
+      "∫(1+cos2x)/2 dx = x/2 + sin(2x)/4 + C.",
+      "Apply the half-angle identity for cos²x, then integrate."
+    ),
+    calcTyped(
+      "y12e2-trig-m3",
+      "Evaluate $\\displaystyle\\int_0^{\\pi/2}\\cos^2 x\\,dx$.",
+      "\\left[\\frac{x}{2}+\\frac{\\sin 2x}{4}\\right]_0^{\\pi/2}",
+      "pi/4",
+      ["π/4", "\\pi/4"],
+      "At π/2: π/4 + sin(π)/4 = π/4 + 0 = π/4. At 0: 0. Result = π/4.",
+      "Substitute limits into x/2 + sin(2x)/4."
+    ),
+    calcChoice(
+      "y12e2-trig-m4",
+      "The correct integral of $\\cos(4x)$ is:",
+      "A",
+      [
+        "$\\dfrac{\\sin(4x)}{4}+C$",
+        "$\\sin(4x)+C$",
+        "$4\\sin(4x)+C$",
+        "$-\\sin(4x)/4+C$",
+      ],
+      "∫cos(4x) dx = sin(4x)/4 + C.",
+      "Apply ∫cos(ax) dx = sin(ax)/a + C with a = 4."
+    ),
+    calcTyped(
+      "y12e2-trig-m5",
+      "Apply product-to-sum to $\\sin(2x)\\cos(x)$.",
+      "\\sin(2x)\\cos(x)=\\frac{\\sin(3x)+\\sin(x)}{2}",
+      "(sin(3x)+sin(x))/2",
+      ["\\frac{\\sin 3x+\\sin x}{2}"],
+      "A=2x, B=x: [sin(3x)+sin(x)]/2.",
+      "Apply sin A cos B = [sin(A+B)+sin(A−B)]/2."
+    ),
+    calcTyped(
+      "y12e2-trig-m6",
+      "Evaluate $\\displaystyle\\int\\sin(2x)\\cos(x)\\,dx$.",
+      "\\int\\frac{\\sin 3x+\\sin x}{2}\\,dx",
+      "-cos(3x)/6-cos(x)/2+C",
+      ["−cos(3x)/6 − cos(x)/2 + C"],
+      "∫(sin3x+sinx)/2 dx = (−cos3x/3 − cosx)/2 = −cos3x/6 − cosx/2 + C.",
+      "Integrate each term using ∫sin(ax) dx = −cos(ax)/a."
+    ),
+    calcChoice(
+      "y12e2-trig-m7",
+      "Both $\\displaystyle\\int_0^{\\pi/2}\\sin^2 x\\,dx$ and $\\displaystyle\\int_0^{\\pi/2}\\cos^2 x\\,dx$ equal:",
+      "B",
+      ["$0$", "$\\dfrac{\\pi}{4}$", "$\\dfrac{\\pi}{2}$", "$1$"],
+      "By symmetry and half-angle integration, both equal π/4.",
+      "Both integrals use the same method with identical limits and yield π/4."
+    ),
+    calcTyped(
+      "y12e2-trig-m8",
+      "Write $\\cos^2 x$ using a half-angle identity.",
+      "\\cos^2 x=\\frac{1+\\cos 2x}{2}",
+      "(1+cos(2x))/2",
+      ["\\frac{1+\\cos 2x}{2}"],
+      "cos²x = (1+cos2x)/2.",
+      "Derive from cos2x = 2cos²x − 1."
+    ),
+    calcChoice(
+      "y12e2-trig-m9",
+      "Which step is needed before integrating $\\sin^3 x$?",
+      "D",
+      [
+        "Apply $\\sin^3 x=(\\sin^2 x)\\sin x$, then use $\\sin^2 x=1-\\cos^2 x$",
+        "Use the half-angle identity directly",
+        "Differentiate $\\cos x$",
+        "Both A steps: $\\sin^3 x=\\sin x(1-\\cos^2 x)$, then substitute $u=\\cos x$",
+      ],
+      "Write sin³x = sinx(1−cos²x), set u = cosx, du = −sinx dx. This is not a half-angle identity approach but a substitution approach for odd powers.",
+      "Odd powers of sin use a different method: write sin^{2k+1}x = (1−cos²x)^k sinx and substitute."
+    ),
+    calcTyped(
+      "y12e2-trig-m10",
+      "Evaluate $\\displaystyle\\int_0^\\pi\\sin^2 x\\,dx$.",
+      "\\left[\\frac{x}{2}-\\frac{\\sin 2x}{4}\\right]_0^\\pi",
+      "pi/2",
+      ["π/2", "\\pi/2"],
+      "At π: π/2 − sin(2π)/4 = π/2 − 0 = π/2. At 0: 0. Result = π/2.",
+      "Substitute limits 0 and π into x/2 − sin(2x)/4."
+    ),
+  ],
+};
+
 // ─── Export ───────────────────────────────────────────────────────────────────
 
 export function year12Extension2CalculusLessonOverride(
@@ -999,6 +1845,12 @@ export function year12Extension2CalculusLessonOverride(
       return { ...base, ...integrationByPartsLesson };
     case "reduction-formulae-introduction":
       return { ...base, ...reductionFormulaeLesson };
+    case "partial-fractions-integration":
+      return { ...base, ...partialFractionsLesson };
+    case "t-substitution-weierstrass":
+      return { ...base, ...tSubstitutionLesson };
+    case "trig-identity-integration":
+      return { ...base, ...trigIdentityIntegrationLesson };
     default:
       return undefined;
   }

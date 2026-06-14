@@ -917,6 +917,302 @@ const inequalitiesLesson: Partial<ExplicitLesson> = {
   ],
 };
 
+// ─── Lesson 4: Proof by Mathematical Induction ───────────────────────────────
+
+const inductionLesson: Partial<ExplicitLesson> = {
+  description:
+    "Prove divisibility, inequality and summation results by induction: verify the base case, state the inductive hypothesis, and complete the algebraic step that closes the argument.",
+  learningIntention:
+    "Apply the three-part structure of mathematical induction (base case, hypothesis, inductive step) to divisibility and summation proofs, and complete exact checkpoints at each stage.",
+  successCriteria: [
+    "Verify the base case by direct substitution.",
+    "Write the correct inductive hypothesis P(k).",
+    "Complete the algebraic manipulation that proves P(k+1) from P(k).",
+    "State the conclusion that the result holds for all positive integers n.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Mathematical induction proves a statement P(n) for all integers n ≥ 1 in three steps. First, verify P(1) directly. Second, assume P(k) is true for some integer k ≥ 1. Third, prove P(k+1) follows from P(k).",
+      "For summation proofs, the key step is writing the (k+1)-th partial sum as the k-th partial sum plus the next term, then using the hypothesis to simplify.",
+      "For divisibility proofs of the form 'n divides f(n)', express f(k+1) in terms of f(k), extract the inductive hypothesis, and show the remainder is also divisible.",
+      "The conclusion must state that by mathematical induction, P(n) holds for all positive integers n (or whatever domain was specified).",
+    ],
+    latexBlocks: [
+      "\\textbf{Step 1:}\\;P(1)\\text{ is verified directly.}",
+      "\\textbf{Step 2:}\\;\\text{Assume }P(k):\\;f(k)=\\text{[formula in }k\\text{]}",
+      "\\textbf{Step 3:}\\;\\text{Prove }P(k+1):\\;f(k+1)=f(k)+a_{k+1}=\\ldots",
+      "\\text{By induction, }P(n)\\text{ holds for all integers }n\\ge1.",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Summation by induction",
+      questionLatex:
+        "\\text{Prove }1+2+3+\\cdots+n=\\frac{n(n+1)}{2}\\text{ for all }n\\ge1.",
+      steps: [
+        {
+          explanation: "Base case n = 1.",
+          latex: "\\text{LHS}=1,\\quad \\text{RHS}=\\frac{1\\cdot2}{2}=1.\\;\\checkmark",
+        },
+        {
+          explanation: "Assume true for n = k: inductive hypothesis.",
+          latex: "1+2+\\cdots+k=\\frac{k(k+1)}{2}",
+        },
+        {
+          explanation: "Prove for n = k+1: write the (k+1)-th sum as hypothesis plus next term.",
+          latex:
+            "1+2+\\cdots+k+(k+1)=\\frac{k(k+1)}{2}+(k+1)=\\frac{(k+1)(k+2)}{2}",
+        },
+        {
+          explanation: "This matches the formula with n = k+1.",
+          latex:
+            "\\frac{(k+1)((k+1)+1)}{2}=\\frac{(k+1)(k+2)}{2}\\;\\checkmark",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{By induction, }1+2+\\cdots+n=\\frac{n(n+1)}{2}\\text{ for all }n\\ge1.",
+    },
+    {
+      title: "Divisibility by induction",
+      questionLatex:
+        "\\text{Prove }3\\mid (4^n-1)\\text{ for all }n\\ge1.",
+      steps: [
+        {
+          explanation: "Base case n = 1: 4¹ − 1 = 3, which is divisible by 3.",
+          latex: "4^1-1=3=3\\times1.\\;\\checkmark",
+        },
+        {
+          explanation: "Assume 3 divides 4^k − 1, so 4^k = 3m + 1 for some integer m.",
+          latex: "4^k - 1 = 3m \\implies 4^k = 3m+1",
+        },
+        {
+          explanation: "Write 4^{k+1} − 1 using the hypothesis.",
+          latex:
+            "4^{k+1}-1=4\\cdot4^k-1=4(3m+1)-1=12m+3=3(4m+1)",
+        },
+        {
+          explanation: "Since 3(4m+1) is divisible by 3, P(k+1) holds.",
+          latex: "3\\mid(4^{k+1}-1).\\;\\checkmark",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{By induction, }3\\mid(4^n-1)\\text{ for all }n\\ge1.",
+    },
+  ],
+  guidedPractice: [
+    proofTyped(
+      "y12e2-proof-ind-g1",
+      "For the statement $1+2+\\cdots+n=\\frac{n(n+1)}{2}$, what is the LHS when $n=1$?",
+      "P(1):\\;1+2+\\cdots+1",
+      "1",
+      [],
+      "When n = 1 there is only one term: LHS = 1. RHS = 1(2)/2 = 1. ✓",
+      "Substitute n = 1 directly."
+    ),
+    proofChoice(
+      "y12e2-proof-ind-g2",
+      "In an induction proof for $n\\ge1$, the inductive hypothesis assumes the statement is true for:",
+      "B",
+      ["All integers", "Some fixed integer $k\\ge1$", "All primes", "The case $n=k+1$ only"],
+      "The hypothesis assumes P(k) for a fixed but arbitrary k ≥ 1. The goal is to prove P(k+1) from P(k)."
+    ),
+    proofTyped(
+      "y12e2-proof-ind-g3",
+      "For the sum proof, what term is added to the $k$-th partial sum to obtain the $(k+1)$-th sum?",
+      "S_{k+1}=S_k + a_{k+1}",
+      "k+1",
+      ["(k+1)"],
+      "The (k+1)-th term is k+1. So S_{k+1} = S_k + (k+1).",
+      "Identify the next term in the sequence 1, 2, 3, …"
+    ),
+    proofChoice(
+      "y12e2-proof-ind-g4",
+      "After the inductive step is complete, the final conclusion must state the result holds:",
+      "C",
+      [
+        "For $n=k$ only",
+        "For one arbitrary $k$",
+        "For all integers $n\\ge1$",
+        "For all real $n$",
+      ],
+      "The conclusion closes the induction: the result holds for all integers n ≥ 1 (or the domain stated)."
+    ),
+  ],
+  independentPractice: [
+    proofTyped(
+      "y12e2-proof-ind-i1",
+      "For $P(n):\\;3\\mid(4^n-1)$, verify the base case by computing $4^1-1$.",
+      "4^1-1=\\,?",
+      "3",
+      [],
+      "4¹ − 1 = 3. Since 3 divides 3, P(1) holds.",
+      "Substitute n = 1 and check divisibility by 3."
+    ),
+    proofTyped(
+      "y12e2-proof-ind-i2",
+      "Inductive hypothesis: $4^k=3m+1$ for some integer $m$. Write $4^{k+1}$ in terms of $m$.",
+      "4^{k+1}=4\\cdot4^k",
+      "12m+4",
+      ["4(3m+1)"],
+      "4^{k+1} = 4 × (3m+1) = 12m + 4.",
+      "Multiply 4^k = 3m+1 by 4."
+    ),
+    proofChoice(
+      "y12e2-proof-ind-i3",
+      "After finding $4^{k+1}-1=12m+3=3(4m+1)$, what has been shown?",
+      "A",
+      [
+        "$3\\mid(4^{k+1}-1)$, so $P(k+1)$ holds",
+        "$4^{k+1}$ is prime",
+        "The formula is only valid for small $m$",
+        "The base case fails",
+      ],
+      "Expressing 4^{k+1}−1 as 3(4m+1) shows it is divisible by 3, confirming P(k+1)."
+    ),
+    proofTyped(
+      "y12e2-proof-ind-i4",
+      "For the sum $S_n=\\frac{n(n+1)}{2}$, write $S_{k+1}$ by adding the next term to $S_k$.",
+      "S_{k+1}=S_k+(k+1)=\\frac{k(k+1)}{2}+(k+1)",
+      "(k+1)(k+2)/2",
+      ["\\frac{(k+1)(k+2)}{2}"],
+      "Factoring: (k+1)(k/2 + 1) = (k+1)(k+2)/2.",
+      "Factor out (k+1) from the two terms."
+    ),
+    proofChoice(
+      "y12e2-proof-ind-i5",
+      "In a divisibility induction, expressing $f(k+1)$ as $f(k)+g(k)$ is useful because:",
+      "B",
+      [
+        "It avoids using the inductive hypothesis",
+        "The hypothesis gives divisibility of $f(k)$, so divisibility of $f(k+1)$ follows if $g(k)$ is also divisible",
+        "It shows $f$ is always positive",
+        "It replaces the base case",
+      ],
+      "The inductive hypothesis controls f(k). If g(k) shares the same divisor, then f(k+1) = f(k) + g(k) is divisible too."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Proving the base case after the inductive step.",
+      fix: "Always verify P(1) first. If P(1) fails the whole proof collapses, so check it before investing effort in the step.",
+    },
+    {
+      mistake: "Using P(k+1) inside the inductive step (circular reasoning).",
+      fix: "The hypothesis is P(k). The goal is P(k+1). Derive P(k+1) from P(k) — never assume P(k+1) to prove P(k+1).",
+    },
+    {
+      mistake: "Forgetting to add the (k+1)-th term in a summation proof.",
+      fix: "S_{k+1} = S_k + a_{k+1}. Write out the extra term explicitly before applying the hypothesis.",
+    },
+    {
+      mistake: "Stating the wrong domain in the conclusion.",
+      fix: "Match the domain to the question: 'for all integers n ≥ 1' or 'for all positive integers n'. Check the base case matches too.",
+    },
+  ],
+  masteryQuiz: [
+    proofTyped(
+      "y12e2-proof-ind-m1",
+      "For $P(1)$ in the sum $1+2+\\cdots+n=\\frac{n(n+1)}{2}$, type the RHS value.",
+      "\\frac{1\\cdot2}{2}",
+      "1",
+      [],
+      "RHS = 1 × 2 / 2 = 1. LHS = 1. Base case holds.",
+      "Substitute n = 1 into the formula n(n+1)/2."
+    ),
+    proofChoice(
+      "y12e2-proof-ind-m2",
+      "The inductive hypothesis for $3\\mid(4^n-1)$ states:",
+      "A",
+      [
+        "$3\\mid(4^k-1)$ for some integer $k\\ge1$",
+        "$3\\mid(4^{k+1}-1)$",
+        "$4^k=3$ for all $k$",
+        "$k$ is divisible by 3",
+      ],
+      "The hypothesis assumes P(k): 3 divides 4^k − 1. The step proves P(k+1)."
+    ),
+    proofTyped(
+      "y12e2-proof-ind-m3",
+      "If $4^k-1=3m$, compute $4^{k+1}-1-4(4^k-1)$.",
+      "4^{k+1}-1-4(4^k-1)",
+      "3",
+      [],
+      "4^{k+1} − 1 − 4(4^k − 1) = 4·4^k − 1 − 4·4^k + 4 = 3.",
+      "Expand and simplify; the 4·4^k terms cancel."
+    ),
+    proofChoice(
+      "y12e2-proof-ind-m4",
+      "For the sum $1^2+2^2+\\cdots+n^2=\\frac{n(n+1)(2n+1)}{6}$, the base case LHS at $n=1$ is:",
+      "A",
+      ["1", "6", "3", "2"],
+      "LHS = 1² = 1. RHS = 1×2×3/6 = 1. ✓"
+    ),
+    proofTyped(
+      "y12e2-proof-ind-m5",
+      "Write $\\frac{k(k+1)}{2}+(k+1)$ as a single fraction.",
+      "\\frac{k(k+1)}{2}+(k+1)",
+      "(k+1)(k+2)/2",
+      ["\\frac{(k+1)(k+2)}{2}"],
+      "Factor out (k+1): (k+1)(k/2+1) = (k+1)(k+2)/2.",
+      "Factor (k+1) from both terms."
+    ),
+    proofChoice(
+      "y12e2-proof-ind-m6",
+      "After proving the inductive step for all k ≥ 1, what additional assumption is needed for the conclusion?",
+      "D",
+      [
+        "That k is even",
+        "That k > 100",
+        "That the formula has been verified by a computer",
+        "None — the base case and step are sufficient",
+      ],
+      "Base case + inductive step is all that is needed. No extra assumption is required for the conclusion."
+    ),
+    proofTyped(
+      "y12e2-proof-ind-m7",
+      "For $P(n):\\;5\\mid(6^n-1)$, compute $6^1-1$.",
+      "6^1-1",
+      "5",
+      [],
+      "6¹ − 1 = 5. Since 5 divides 5, P(1) holds.",
+      "Substitute n = 1."
+    ),
+    proofChoice(
+      "y12e2-proof-ind-m8",
+      "Which expression proves P(k+1) for $5\\mid(6^n-1)$ given $6^k-1=5m$?",
+      "B",
+      [
+        "$6^{k+1}-1=5^{k+1}$",
+        "$6^{k+1}-1=6(5m+1)-1=30m+5=5(6m+1)$",
+        "$6^{k+1}=6^k+1$",
+        "$6^{k+1}-1=6m+5$",
+      ],
+      "Write 6^{k+1} = 6·6^k = 6(5m+1), so 6^{k+1} − 1 = 30m + 5 = 5(6m+1). Divisible by 5."
+    ),
+    proofTyped(
+      "y12e2-proof-ind-m9",
+      "For $\\sum_{r=1}^n r = \\frac{n(n+1)}{2}$, type the $(k+1)$-th term of the sum.",
+      "a_{k+1}",
+      "k+1",
+      ["(k+1)"],
+      "The sequence is 1, 2, 3, …, k, k+1. The (k+1)-th term is k+1.",
+      "Identify the term added when moving from n=k to n=k+1."
+    ),
+    proofChoice(
+      "y12e2-proof-ind-m10",
+      "Mathematical induction proves a statement P(n) is true:",
+      "B",
+      [
+        "For one specific value $n=k$",
+        "For all integers $n\\ge1$ (or the specified domain)",
+        "Only when $n$ is prime",
+        "Only for $n$ in the base case",
+      ],
+      "Induction establishes the result for every integer in the specified domain, not just one value."
+    ),
+  ],
+};
+
 export function year12Extension2ProofLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -934,6 +1230,8 @@ export function year12Extension2ProofLessonOverride(
       return { ...base, ...contrapositiveLesson };
     case "inequalities-algebraic-proof":
       return { ...base, ...inequalitiesLesson };
+    case "proof-by-mathematical-induction":
+      return { ...base, ...inductionLesson };
     default:
       return undefined;
   }

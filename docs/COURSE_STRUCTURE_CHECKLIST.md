@@ -25,7 +25,7 @@
 | Year 12 Standard 2 | 5 | 24 | 10 topics / 59 subtopics | ✅ Available |
 | Year 12 Advanced | 12 | 86 | 11 topics / 64 subtopics | ✅ Available |
 | Year 12 Extension 1 | 6 | 22 | 7 topics / 28 subtopics | ✅ Available |
-| Year 12 Extension 2 | 5 | 17 | 5 topics / 40 subtopics | 🔄 In progress |
+| Year 12 Extension 2 | 5 | 25 | 5 topics / 40 subtopics | ✅ Depth pass complete |
 
 ---
 
@@ -340,25 +340,19 @@ Class Maths: 7 topics / 28 subtopics.
 
 ---
 
-## Year 12 Extension 2 🔄
+## Year 12 Extension 2 ✅ Depth pass complete
 
 `year-12-extension-2` — `in_progress`. Override file: `lib/lessons/year12Extension2/`.
-Class Maths: 5 topics / 40 subtopics. Nova: 5 units / 17 lessons.
+Class Maths: 5 topics / 40 subtopics. Nova: 5 units / 25 lessons (+8 from depth pass).
 
-- [x] Proof (3 lessons: contradiction, contrapositive, algebraic inequalities)
-  - [ ] Add: Proof by Mathematical Induction (Extension 2 level)
+- [x] Proof (4 lessons: contradiction, contrapositive, algebraic inequalities, **mathematical induction** ✅)
 - [x] Vectors in Three Dimensions (4 lessons)
-- [x] Complex Numbers (4 lessons: arithmetic, modulus/argument, Argand, polar/De Moivre)
-  - [ ] Roots of unity (placeholder checkpoint — needs a real lesson)
-  - [ ] Complex polynomials (placeholder checkpoint — needs a real lesson)
-- [x] Calculus (3 lessons: method selection, integration by parts, reduction formulae)
-  - [ ] Add: partial fractions integration
-  - [ ] Add: t-substitution (Weierstrass)
-  - [ ] Add: trigonometric identity integration (sin²/cos² reduction)
-  - [ ] Add: volumes of revolution (planned later phase)
-- [x] Mechanics (3 lessons: rectilinear motion, SHM, uniform circular motion)
-  - [ ] Add: resisted motion (horizontal + vertical)
-  - [ ] Add: projectile motion with resistance
+- [x] Complex Numbers (6 lessons: arithmetic, modulus/argument, Argand, polar/De Moivre, **roots of unity** ✅, **complex polynomials** ✅)
+- [x] Calculus (6 lessons: method selection, IBP, reduction formulae, **partial fractions** ✅, **t-substitution** ✅, **trig identity integration** ✅)
+  - [ ] Volumes of revolution (planned later phase)
+- [x] Mechanics (5 lessons: rectilinear, SHM, circular, **resisted motion** ✅, **projectile with resistance** ✅)
+
+**Depth pass: +8 lessons authored. 481 questions seeded. ✅ COMPLETE.**
 
 ---
 
@@ -375,13 +369,13 @@ Courses that need a depth pass before they match Class Maths granularity:
 | Year 12 Standard 2 | 4.8 | ~6 | +1–2 per unit |
 | Year 12 Standard 1 | 3.6 | ~4 | ~+1 per unit |
 | Year 12 Extension 1 | 3.7 | ~4 | ~+1 per unit |
-| Year 12 Extension 2 | 3.4 | ~8 | +5 per unit |
+| Year 12 Extension 2 | 5.0 | ~8 | ✅ Depth pass complete |
 
 ---
 
 ## Priority Order
 
-1. **Year 12 Extension 2 depth** — calculus + mechanics + proof gaps
+1. ~~**Year 12 Extension 2 depth**~~ ✅ Complete — 25 lessons, 481 questions
 2. **Year 12 Standard 2 depth** — 5 units covering only half the Class Maths topics
 3. **Year 11 Advanced gaps** — equations/inequations, coordinate geometry units
 4. **Year 12 Standard 1** — add missing 2 topics, promote to available

@@ -2524,6 +2524,31 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               },
             ],
           },
+          {
+            slug: "proof-by-mathematical-induction",
+            title: "Proof by Mathematical Induction",
+            description:
+              "Prove divisibility, inequality and summation statements using strong induction: verify the base case, write a clear inductive hypothesis, and complete the algebraic step that closes the argument.",
+            stableSkillId: "y12e2-proof-proof-by-mathematical-induction",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-proof-ind-base-case",
+                label: "Verify the base case for a proof by mathematical induction",
+              },
+              {
+                stableCheckpointId: "y12e2-proof-ind-hypothesis",
+                label: "State the inductive hypothesis P(k) correctly",
+              },
+              {
+                stableCheckpointId: "y12e2-proof-ind-algebraic-step",
+                label: "Complete the algebraic step connecting P(k) to P(k+1)",
+              },
+              {
+                stableCheckpointId: "y12e2-proof-ind-conclusion",
+                label: "State the correct conclusion after the inductive step is complete",
+              },
+            ],
+          },
         ],
       },
       {
@@ -2623,13 +2648,47 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                 label: "Use De Moivre's theorem to raise complex numbers to powers",
                 legacySlugs: ["polar-form-de-moivre"],
               },
+            ],
+          },
+          {
+            slug: "roots-of-unity",
+            title: "Roots of Unity",
+            description:
+              "Find all nth roots of unity using De Moivre's theorem, plot them on the Argand diagram as equally-spaced points on the unit circle, and prove their sum is zero.",
+            stableSkillId: "y12e2-cn-roots-of-unity",
+            skillCheckpoints: [
               {
-                stableCheckpointId: "y12e2-cn-roots-of-unity",
-                label: "Recognise roots-of-unity as a future Skill Map v2 slot",
+                stableCheckpointId: "y12e2-cn-rou-formula",
+                label: "State the nth roots of unity using cis(2πk/n) for k = 0, 1, …, n−1",
               },
               {
-                stableCheckpointId: "y12e2-cn-complex-polynomials",
-                label: "Recognise complex-polynomial connections as a future Skill Map v2 slot",
+                stableCheckpointId: "y12e2-cn-rou-argand-geometry",
+                label: "Describe the Argand diagram arrangement of nth roots of unity",
+              },
+              {
+                stableCheckpointId: "y12e2-cn-rou-sum-zero",
+                label: "Prove or verify that the sum of all nth roots of unity equals zero",
+              },
+            ],
+          },
+          {
+            slug: "complex-polynomials",
+            title: "Complex Polynomials",
+            description:
+              "Apply the conjugate root theorem to real polynomials, find complex roots in conjugate pairs, and factorise real polynomials over ℂ into linear and irreducible quadratic factors.",
+            stableSkillId: "y12e2-cn-complex-polynomials",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-cn-poly-conjugate-root-theorem",
+                label: "Apply the conjugate root theorem: if a+bi is a root, then a−bi is also a root",
+              },
+              {
+                stableCheckpointId: "y12e2-cn-poly-find-complex-roots",
+                label: "Find complex roots of a real polynomial given one complex root",
+              },
+              {
+                stableCheckpointId: "y12e2-cn-poly-factorise-over-complex",
+                label: "Factorise a real polynomial into linear and irreducible quadratic factors over ℂ",
               },
             ],
           },
@@ -2718,6 +2777,69 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               },
             ],
           },
+          {
+            slug: "partial-fractions-integration",
+            title: "Partial Fractions Integration",
+            description:
+              "Decompose proper rational functions into partial fractions over distinct or repeated linear factors, then integrate each term to produce logarithmic or power expressions.",
+            stableSkillId: "y12e2-calc-partial-fractions-integration",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-calc-pf-cover-up",
+                label: "Use the cover-up rule to find numerators of partial fractions over distinct linear factors",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-pf-repeated-factor",
+                label: "Handle repeated linear factors by including A/(x−a) and B/(x−a)² terms",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-pf-integrate",
+                label: "Integrate each partial fraction term and combine to give the final answer",
+              },
+            ],
+          },
+          {
+            slug: "t-substitution-weierstrass",
+            title: "t-Substitution (Weierstrass)",
+            description:
+              "Apply the Weierstrass substitution t = tan(x/2) to convert integrands involving sin x and cos x into rational functions of t, then integrate using standard techniques.",
+            stableSkillId: "y12e2-calc-t-substitution-weierstrass",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-calc-tsub-formulas",
+                label: "State sin x, cos x, and dx in terms of t = tan(x/2)",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-tsub-convert",
+                label: "Convert a trig integrand into a rational function using the t-substitution",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-tsub-integrate",
+                label: "Integrate the resulting rational function and back-substitute",
+              },
+            ],
+          },
+          {
+            slug: "trig-identity-integration",
+            title: "Integration Using Trigonometric Identities",
+            description:
+              "Use half-angle identities sin²x = (1−cos2x)/2 and cos²x = (1+cos2x)/2 to reduce powers of sine and cosine before integrating, and handle mixed products using product-to-sum identities.",
+            stableSkillId: "y12e2-calc-trig-identity-integration",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-calc-trig-half-angle",
+                label: "Apply the half-angle identity to reduce sin²x or cos²x before integrating",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-trig-product-to-sum",
+                label: "Use product-to-sum identities to convert sin(ax)cos(bx) into a sum",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-trig-definite-exact",
+                label: "Evaluate definite integrals of trig powers to exact values",
+              },
+            ],
+          },
         ],
       },
       {
@@ -2800,6 +2922,48 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               {
                 stableCheckpointId: "y12e2-mech-circ-period-frequency",
                 label: "Use T = 2π/ω to find period and angular velocity",
+              },
+            ],
+          },
+          {
+            slug: "resisted-motion",
+            title: "Resisted Motion",
+            description:
+              "Model horizontal resisted motion with ma = −kv and vertical resisted motion under gravity with ma = mg − kv, find terminal velocity, and solve the separable ODE for v(t) and x(t).",
+            stableSkillId: "y12e2-mech-resisted-motion",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-mech-resist-equation-of-motion",
+                label: "Write the equation of motion for horizontal and vertical resisted motion",
+              },
+              {
+                stableCheckpointId: "y12e2-mech-resist-terminal-velocity",
+                label: "Find terminal velocity by setting the net force to zero",
+              },
+              {
+                stableCheckpointId: "y12e2-mech-resist-solve-ode",
+                label: "Solve the separable ODE to find v(t) and x(t) for resisted motion",
+              },
+            ],
+          },
+          {
+            slug: "projectile-motion-resistance",
+            title: "Projectile Motion with Air Resistance",
+            description:
+              "Analyse two-dimensional projectile motion with air resistance by solving decoupled horizontal and vertical ODEs, express velocity components as functions of time, and find the terminal speed in each direction.",
+            stableSkillId: "y12e2-mech-projectile-motion-resistance",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-mech-proj-decouple-odes",
+                label: "Write decoupled horizontal and vertical equations of motion with air resistance",
+              },
+              {
+                stableCheckpointId: "y12e2-mech-proj-solve-horizontal",
+                label: "Solve the horizontal ODE to find x-component of velocity and displacement",
+              },
+              {
+                stableCheckpointId: "y12e2-mech-proj-solve-vertical",
+                label: "Solve the vertical ODE to find y-component of velocity and displacement",
               },
             ],
           },
