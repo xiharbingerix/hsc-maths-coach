@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { courseCatalogue, totalActiveLessonCount } from "../lib/courseUnits";
 import { SubscribeCTA } from "./components/SubscribeCTA";
 import { PageViewTracker } from "./components/PageViewTracker";
 
@@ -10,7 +11,7 @@ const steps = [
   {
     title: "Choose a lesson",
     description:
-      "Pick from Year 9, 10, 11 or 12 topics across Mathematics, Standard, Advanced and Extension pathways.",
+      "Pick from available Year 8, 9, 10, 11 or 12 topics across Mathematics, Standard, Advanced and Extension pathways.",
   },
   {
     title: "Work through clear explanation",
@@ -29,19 +30,28 @@ const steps = [
   },
 ];
 
-const coursePills = [
-  "Year 9 Mathematics - 53 lessons",
-  "Year 10 Mathematics · 53 lessons",
-  "Year 12 Advanced · 89 lessons",
-  "Year 11 Advanced",
-  "Year 11 Standard",
-  "Year 11 Extension",
-  "Year 12 Standard 2",
+const featuredCourseSlugs = [
+  "year-8-mathematics",
+  "year-9-mathematics",
+  "year-10-mathematics",
+  "year-11-advanced",
+  "year-11-standard",
+  "year-12-standard-2",
+  "year-12-advanced",
 ];
 
+const coursePills = featuredCourseSlugs.flatMap((slug) => {
+  const course = courseCatalogue.find((item) => item.courseSlug === slug);
+  return course
+    ? [`${course.courseTitle} - ${course.activeLessonCount} lessons`]
+    : [];
+});
+
 const pricingFeatures = [
-  "Available Year 9, 10, 11 and 12 maths pathways",
-  "Structured lessons — learn, practise, check mastery",
+  "Available NSW maths pathways from Year 8 to HSC",
+  "Structured lessons - learn, practise, check mastery",
+  "Full lessons, worked examples, guided practice and independent practice",
+  "Mastery quizzes, saved progress and course pathways",
   "Instant access after payment when logged in",
   "Cancel any time from your account",
 ];
@@ -65,7 +75,7 @@ const commonQuestions = [
   {
     question: "Is this live tutoring?",
     answer:
-      "No. Nova Maths is self-guided — you work at your own pace without a scheduled session. Weekly tutoring with online access is available separately at $75/week.",
+      "No. Nova Maths is self-guided online learning, so students work at their own pace without a scheduled session. Joshua's tutoring spots are currently full.",
   },
   {
     question: "Do I need the diagnostic first?",
@@ -80,7 +90,7 @@ const commonQuestions = [
   {
     question: "What year levels are covered?",
     answer:
-      "Year 9 Mathematics has 53 lessons across 8 units. Year 10 Mathematics has 53 lessons across 10 units. Year 12 Advanced has 89 lessons across 12 units. Year 11 Advanced, Year 11 Extension, Year 11 Standard and Year 12 Standard 2 are also available.",
+      `Nova Maths currently has ${totalActiveLessonCount} active lessons across available Year 8 to HSC pathways. Year 7 is available as a free preview lesson only, not a full course yet.`,
   },
 ];
 
@@ -167,7 +177,7 @@ export default function Home() {
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-12">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold text-slate-500">
-              NSW maths &middot; Year 9 to Year 12
+              NSW secondary maths &middot; Year 8 to HSC
             </p>
 
             <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
@@ -175,10 +185,10 @@ export default function Home() {
             </h1>
 
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              195+ lessons built for the NSW curriculum &mdash; from Year 9 to
-              HSC. Worked examples, practice questions, and a mastery quiz in
-              every lesson so students know exactly what they understand and
-              what needs work.
+              {totalActiveLessonCount} active lessons built for the NSW
+              curriculum - from Year 8 to HSC. Worked examples, guided
+              practice, independent practice, and mastery quizzes help students
+              see exactly what they understand and what needs work.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -186,7 +196,7 @@ export default function Home() {
                 Start your 7-day free trial
               </SubscribeCTA>
               <SecondaryLink href="/free-year-7-algebra">
-                Try free algebra lesson
+                Try Year 7 preview
               </SecondaryLink>
             </div>
 
@@ -218,7 +228,8 @@ export default function Home() {
             </h2>
             <p className="mt-3 text-lg leading-8 text-slate-600">
               Try a complete Year 7 algebra lesson with explanation, worked
-              examples, practice questions and answers. No signup required.
+              examples, practice questions and answers. Year 7 is a free
+              preview only, not a full course yet. No signup required.
             </p>
           </div>
 
@@ -341,15 +352,13 @@ export default function Home() {
             <div className="max-w-2xl">
               <SectionLabel>What&apos;s available</SectionLabel>
               <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-                Year 12 Advanced includes 89 lessons across 12 units.
+                {totalActiveLessonCount} active lessons across Year 8 to HSC.
               </h2>
               <p className="mt-3 leading-7 text-slate-600">
-                Year 9 Mathematics is fully available with 53 lessons across 8
-                units. Year 10 Mathematics is also fully available with 53
-                lessons across 10 units. Year 12 Advanced remains the most
-                complete senior pathway with 89 lessons. Year 11 Advanced, Year
-                11 Extension, Year 11 Standard and Year 12 Standard 2 are also
-                available.
+                Nova Maths is broader than HSC. The current catalogue includes
+                active Year 8, 9, 10, 11 and 12 pathways, with HSC courses
+                highlighted because exam urgency is high. Year 7 is available
+                as a free preview lesson only.
               </p>
             </div>
             <SecondaryLink href="/course">View all courses</SecondaryLink>

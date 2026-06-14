@@ -4,6 +4,7 @@ import katex from "katex";
 import React, { type ReactNode } from "react";
 import { SubscribeCTA } from "../components/SubscribeCTA";
 import { PageViewTracker } from "../components/PageViewTracker";
+import { totalActiveLessonCount } from "../../lib/courseUnits";
 
 export const metadata: Metadata = {
   title: "Free Year 7 Algebra Lesson | Nova Maths",
@@ -386,8 +387,10 @@ export default function FreeYear7AlgebraPage() {
           </h2>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
             Your trial gives you a structured pathway through NSW maths from
-            Year 9 to HSC: clear explanations, worked examples, guided
-            practice, independent practice, mastery quizzes and saved progress.
+            Year 8 to HSC: {totalActiveLessonCount} active lessons with clear
+            explanations, worked examples, guided practice, independent
+            practice, mastery quizzes and saved progress. Year 7 is currently a
+            free preview lesson only.
           </p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <SubscribeCTA href="/checkout?offer=online-learning">

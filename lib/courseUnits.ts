@@ -118,7 +118,10 @@ export const year12AdvancedCourse: CourseCatalogueItem = {
   courseType: "Mathematics Advanced",
   href: "/course/year-12-advanced",
   description:
-    "Year 12 Mathematics Advanced now includes 86 active lessons across functions, trigonometry, exponential and logarithmic functions, calculus, statistics, sequences, series and financial mathematics. Ongoing refinements and visual supports are being added.",
+    `Year 12 Mathematics Advanced now includes ${courseUnits.reduce(
+      (total, unit) => total + unit.activeLessonCount,
+      0
+    )} active lessons across functions, trigonometry, exponential and logarithmic functions, calculus, statistics, sequences, series and financial mathematics. Ongoing refinements and visual supports are being added.`,
   unitCount: courseUnits.length,
   activeLessonCount: courseUnits.reduce(
     (total, unit) => total + unit.activeLessonCount,
@@ -151,6 +154,11 @@ export const courseCatalogue: CourseCatalogueItem[] = [
   year12AdvancedCourse,
   ...newCourseCatalogueItems,
 ];
+
+export const totalActiveLessonCount = courseCatalogue.reduce(
+  (total, course) => total + course.activeLessonCount,
+  0
+);
 
 export function getCourseCatalogueItem(slug: NewCourseSlug) {
   return newCourseCatalogueItems.find((course) => course.courseSlug === slug);

@@ -1378,6 +1378,62 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             ],
           },
           {
+            slug: "trig-equations-advanced",
+            title: "Advanced Trigonometric Equations",
+            stableSkillId: "y11adv-trig-id-trig-equations-advanced",
+            legacySlugs: ["trigonometric-equations", "trig-equations-basic"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-id-eq-advanced-identity-first",
+                label: "Use a Pythagorean identity to rewrite an equation before solving",
+                legacySlugs: ["trigonometric-equations"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-eq-advanced-factorise",
+                label: "Factorise a trigonometric equation and apply the zero-product rule",
+                legacySlugs: ["trigonometric-equations"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-eq-advanced-squared-values",
+                label: "Solve equations involving sin^2 x, cos^2 x, or tan^2 x over a finite domain",
+                legacySlugs: ["trigonometric-equations"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-eq-advanced-complete-solution-set",
+                label: "Select every solution in the stated interval without adding general solution notation",
+                legacySlugs: ["trigonometric-equations"],
+              },
+            ],
+          },
+          {
+            slug: "trig-identities-proof-strategies",
+            title: "Trigonometric Identity Proof Strategies",
+            stableSkillId: "y11adv-trig-id-proof-strategies",
+            legacySlugs: ["trigonometric-identities", "related-angle-identities"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-id-proof-choose-side",
+                label: "Choose the side of an identity that is easier to simplify",
+                legacySlugs: ["trigonometric-identities"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-proof-sin-cos",
+                label: "Rewrite tangent expressions in sine and cosine form",
+                legacySlugs: ["trigonometric-identities"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-proof-pythagorean",
+                label: "Use Pythagorean identity rearrangements inside an identity proof",
+                legacySlugs: ["trigonometric-identities"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-proof-algebra-structure",
+                label: "Recognise useful algebraic structures such as difference of squares and cancellation",
+                legacySlugs: ["trigonometric-identities"],
+              },
+            ],
+          },
+          {
             slug: "trigonometric-identities-equations-exam-practice",
             title: "Trigonometric Identities and Equations Exam Practice",
             stableSkillId: "y11adv-trig-id-exam-practice",
@@ -3283,7 +3339,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 8 Mathematics",
     yearLevel: "Year 8",
     courseType: "Mathematics",
-    status: "in_progress",
+    status: "available",
     description:
       "Build Stage 4 foundations across number, algebra, geometry, measurement and statistics â€” the essential groundwork for Year 9 and 10 Mathematics.",
     positioning:
@@ -3482,6 +3538,24 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Compare two data sets using median, mean and range, and interpret differences in centre and spread.",
           },
+          {
+            slug: "stem-and-leaf-plots",
+            title: "Stem-and-Leaf Plots",
+            description:
+              "Read and construct ordered stem-and-leaf plots, find the median and range from ordered leaves, and compare two groups using a back-to-back display.",
+          },
+          {
+            slug: "quartiles-and-iqr",
+            title: "Quartiles and Interquartile Range",
+            description:
+              "Find Q1, Q2 and Q3 by splitting an ordered data set, calculate IQR = Q3 − Q1, and use it to compare the spread of two groups.",
+          },
+          {
+            slug: "outliers-and-interpretation",
+            title: "Outliers and Data Interpretation",
+            description:
+              "Identify outliers, explain how they affect the mean but not the median, and choose the appropriate measure of centre.",
+          },
         ],
       },
       {
@@ -3510,6 +3584,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Two-Step Chance Experiments",
             description:
               "List all outcomes of two-step experiments using arrays and tree diagrams, and calculate combined probabilities.",
+          },
+          {
+            slug: "relative-frequency",
+            title: "Relative Frequency",
+            description:
+              "Calculate relative frequency from experimental results and explain how it approaches theoretical probability as trials increase.",
+          },
+          {
+            slug: "expected-outcomes",
+            title: "Expected Outcomes",
+            description:
+              "Use expected count = P(event) × n to predict how many times an event will occur in a repeated experiment.",
           },
         ],
       },

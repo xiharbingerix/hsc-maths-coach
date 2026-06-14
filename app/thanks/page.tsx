@@ -4,7 +4,7 @@ const nextSteps = [
   "Your diagnostic submission has been received.",
   "Reports are reviewed before being sent.",
   "If you requested a report or study plan, Joshua will follow up.",
-  "You can also register interest in online learning access, weekly tutoring, or create an account.",
+  "You can start the online learning trial or create an account when you are ready.",
 ];
 
 function PrimaryLink({
@@ -90,9 +90,6 @@ export default function ThanksPage() {
                 </SecondaryLink>
                 <SecondaryLink href="/checkout?offer=online-learning">
                   Start your 7-day free trial
-                </SecondaryLink>
-                <SecondaryLink href="/enquire?offer=weekly-tutoring">
-                  Enquire about tutoring
                 </SecondaryLink>
                 <SecondaryLink href="/signup">Create account</SecondaryLink>
                 <SecondaryLink href="/course">

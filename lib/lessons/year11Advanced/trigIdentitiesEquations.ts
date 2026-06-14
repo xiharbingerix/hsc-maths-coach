@@ -435,6 +435,196 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
     };
   }
 
+  if (lesson.slug === "trig-equations-advanced") {
+    return {
+      ...base,
+      description:
+        "Solve exam-style trigonometric equations that need an identity, factorising, or zero-product reasoning before using exact finite-domain solutions.",
+      learningIntention:
+        "Learn how to recognise the algebraic move needed before solving a trigonometric equation, then list all solutions in the stated Year 11 Advanced domain.",
+      successCriteria: [
+        "Use Pythagorean identities to rewrite an equation before solving.",
+        "Factorise simple trigonometric equations and apply the zero-product rule.",
+        "Solve equations involving sin^2 x, cos^2 x, or tan x after reducing to a basic equation.",
+        "Choose complete solution sets in 0 <= x <= 2pi or 0 degrees <= x <= 360 degrees.",
+        "Identify common exam errors such as losing a factor or giving only one branch of solutions.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Some trigonometric equations are not ready for ASTC immediately. First decide whether the equation needs an identity, factorising, or both.",
+          "If an equation contains both sin^2 x and cos^2 x, try the Pythagorean identity sin^2 x + cos^2 x = 1.",
+          "If an equation is a product, use the zero-product rule. For example, sin x(2sin x - 1) = 0 gives sin x = 0 or sin x = 1/2.",
+          "If the equation is quadratic in one trig function, factorise it like an algebraic quadratic, then solve each trig equation.",
+          "The final step is still a finite-domain check: include every solution in the stated interval and no others.",
+        ],
+        latexBlocks: [
+          "\\sin^2x+\\cos^2x=1",
+          "\\sin x(2\\sin x-1)=0\\Rightarrow \\sin x=0\\text{ or }\\sin x=\\frac12",
+          "2\\cos^2x-\cos x-1=0\\Rightarrow (2\\cos x+1)(\\cos x-1)=0",
+          "0\\le x\\le2\\pi",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Use an identity before solving",
+          questionLatex: "1-\\cos^2x=\\frac14,\\quad 0\\le x\\le2\\pi",
+          steps: [
+            { explanation: "Recognise the rearranged Pythagorean identity.", latex: "1-\\cos^2x=\\sin^2x" },
+            { explanation: "The equation becomes sin squared equals one quarter.", latex: "\\sin^2x=\\frac14" },
+            { explanation: "So sin x can be positive or negative one half.", latex: "\\sin x=\\frac12\\text{ or }\\sin x=-\\frac12" },
+            { explanation: "List all four solutions in the interval.", latex: "x=\\frac{\\pi}{6},\\frac{5\\pi}{6},\\frac{7\\pi}{6},\\frac{11\\pi}{6}" },
+          ],
+          finalAnswerLatex: "x=\\frac{\\pi}{6},\\frac{5\\pi}{6},\\frac{7\\pi}{6},\\frac{11\\pi}{6}",
+        },
+        {
+          title: "Factorise a product equation",
+          questionLatex: "\\sin x(2\\sin x-1)=0,\\quad 0\\le x\\le2\\pi",
+          steps: [
+            { explanation: "Use the zero-product rule.", latex: "\\sin x=0\\quad\\text{or}\\quad2\\sin x-1=0" },
+            { explanation: "Solve each basic trigonometric equation.", latex: "\\sin x=0\\quad\\text{or}\\quad\\sin x=\\frac12" },
+            { explanation: "Collect all solutions in the interval.", latex: "x=0,\\frac{\\pi}{6},\\frac{5\\pi}{6},\\pi,2\\pi" },
+          ],
+          finalAnswerLatex: "x=0,\\frac{\\pi}{6},\\frac{5\\pi}{6},\\pi,2\\pi",
+        },
+        {
+          title: "Factorise a quadratic trig equation",
+          questionLatex: "2\\cos^2x-\\cos x-1=0,\\quad0\\le x\\le2\\pi",
+          steps: [
+            { explanation: "Treat cos x like the variable in a quadratic.", latex: "(2\\cos x+1)(\\cos x-1)=0" },
+            { explanation: "Use the zero-product rule.", latex: "\\cos x=-\\frac12\\quad\\text{or}\\quad\\cos x=1" },
+            { explanation: "Solve both equations in the interval.", latex: "x=\\frac{2\\pi}{3},\\frac{4\\pi}{3},0,2\\pi" },
+          ],
+          finalAnswerLatex: "x=0,\\frac{2\\pi}{3},\\frac{4\\pi}{3},2\\pi",
+        },
+      ],
+      guidedPractice: [
+        conceptChoice("y11adv-trigeq-adv-g1", "Choose the useful first step.", "B", ["Take the square root of both sides immediately", "Replace $1-\\cos^2x$ with $\\sin^2x$", "Divide both sides by $\\cos x$", "Use tangent period"], "The left side matches the rearranged Pythagorean identity, so the equation becomes sin squared x equals one quarter.", "1-\\cos^2x=\\frac14"),
+        exactAnswer("y11adv-trigeq-adv-g2", "Factorise the trig expression.", "2\\sin^2x-\\sin x", "sinx(2sinx-1)", "Take out the common factor sin x. This gives sin x times the bracket 2sin x - 1.", ["sin x(2sin x-1)", "\\sin x(2\\sin x-1)", "sinx(2sinx - 1)"], "Look for the common trigonometric factor first."),
+        conceptChoice("y11adv-trigeq-adv-g3", "Choose the complete solution set.", "C", ["$x=\\frac{\\pi}{6},\\frac{5\\pi}{6}$", "$x=0,\\pi,2\\pi$", "$x=0,\\frac{\\pi}{6},\\frac{5\\pi}{6},\\pi,2\\pi$", "$x=\\frac{7\\pi}{6},\\frac{11\\pi}{6}$"], "The factors give sin x = 0 or sin x = 1/2, so collect both sets of solutions.", "\\sin x(2\\sin x-1)=0,\\quad0\\le x\\le2\\pi"),
+        exactAnswer("y11adv-trigeq-adv-g4", "Solve the squared equation. Enter the smaller solution.", "\\cos^2x=\\frac14,\\quad0\\le x\\le2\\pi", "pi/3", "Cos squared equals one quarter, so cos x = 1/2 or -1/2. The smallest solution is pi/3.", piVariants("pi/3")),
+      ],
+      independentPractice: [
+        exactAnswer("y11adv-trigeq-adv-i1", "Use an identity first. Enter the smaller solution.", "1-\\cos^2x=\\frac14,\\quad0\\le x\\le2\\pi", "pi/6", "Use 1 - cos squared x = sin squared x. Then sin squared x = 1/4, so the smallest solution is pi/6.", piVariants("pi/6")),
+        conceptChoice("y11adv-trigeq-adv-i2", "Choose the complete solution set.", "D", ["$x=\\frac{\\pi}{3},\\frac{5\\pi}{3}$", "$x=0,2\\pi$", "$x=\\frac{2\\pi}{3},\\frac{4\\pi}{3}$", "$x=0,\\frac{2\\pi}{3},\\frac{4\\pi}{3},2\\pi$"], "Factorising gives cos x = 1 or cos x = -1/2, so include 0, 2pi, 2pi/3, and 4pi/3.", "2\\cos^2x-\\cos x-1=0"),
+        exactAnswer("y11adv-trigeq-adv-i3", "Find the positive trig value after factorising.", "2\\sin^2x-\\sin x=0", "1/2", "Factorise to sin x(2sin x - 1) = 0. The non-zero branch gives sin x = 1/2.", ["0.5"]),
+        conceptChoice("y11adv-trigeq-adv-i4", "Choose the solution pair from the non-zero branch.", "B", ["$x=\\frac{\\pi}{3},\\frac{5\\pi}{3}$", "$x=\\frac{\\pi}{6},\\frac{5\\pi}{6}$", "$x=\\frac{7\\pi}{6},\\frac{11\\pi}{6}$", "$x=0,\\pi$"], "The non-zero branch is sin x = 1/2, so sine is positive in quadrants I and II.", "2\\sin^2x-\\sin x=0"),
+        exactAnswer("y11adv-trigeq-adv-i5", "Solve in degrees. Enter the larger solution.", "\\tan x(\\tan x-1)=0,\\quad0^\\circ\\le x\\le360^\\circ", "225", "The factors give tan x = 0 or tan x = 1. The tan x = 1 branch gives 45 and 225 degrees; the larger of those is 225.", ["225 degrees", "225deg"]),
+      ],
+      commonMistakes: [
+        { mistake: "Taking the square root and keeping only the positive branch.", fix: "If sin^2 x = 1/4 or cos^2 x = 1/4, use both positive and negative values." },
+        { mistake: "Dividing by a trig factor that could be zero.", fix: "Factorise and use the zero-product rule instead, so zero solutions are not lost." },
+        { mistake: "Solving the first factor but ignoring the second.", fix: "Every factor equal to zero gives a branch of solutions." },
+        { mistake: "Adding general solution notation in a finite-domain question.", fix: "List only the values in the stated interval." },
+      ],
+      masteryQuiz: [
+        conceptChoice("y11adv-trigeq-adv-m1", "Choose the equation after using the Pythagorean identity.", "A", ["$\\sin^2x=\\frac34$", "$\\cos^2x=\\frac34$", "$\\sin x=\\frac34$", "$\\tan^2x=\\frac34$"], "Use 1 - cos squared x = sin squared x, so the equation becomes sin squared x equals three quarters.", "1-\\cos^2x=\\frac34"),
+        exactAnswer("y11adv-trigeq-adv-m2", "Find the reference angle after simplifying.", "\\sin^2x=\\frac34", "pi/3", "If sin squared x is three quarters, then sin x = plus or minus sqrt(3)/2, whose reference angle is pi/3.", piVariants("pi/3")),
+        conceptChoice("y11adv-trigeq-adv-m3", "Choose the complete solution set.", "C", ["$x=\\frac{\\pi}{3},\\frac{2\\pi}{3}$", "$x=\\frac{4\\pi}{3},\\frac{5\\pi}{3}$", "$x=\\frac{\\pi}{3},\\frac{2\\pi}{3},\\frac{4\\pi}{3},\\frac{5\\pi}{3}$", "$x=0,\\pi,2\\pi$"], "Both positive and negative sine values are allowed, so all four quadrants with reference angle pi/3 are included.", "\\sin^2x=\\frac34,\\quad0\\le x\\le2\\pi"),
+        exactAnswer("y11adv-trigeq-adv-m4", "Factorise the trig quadratic.", "\\tan^2x-\\tan x", "tanx(tanx-1)", "Take out the common factor tan x, leaving tan x - 1 in the bracket.", ["tan x(tan x-1)", "\\tan x(\\tan x-1)", "tanx(tanx - 1)"]),
+        conceptChoice("y11adv-trigeq-adv-m5", "Choose the complete solution set.", "A", ["$x=0,\\frac{\\pi}{4},\\pi,\\frac{5\\pi}{4},2\\pi$", "$x=\\frac{\\pi}{4},\\frac{5\\pi}{4}$", "$x=0,\\pi,2\\pi$", "$x=\\frac{3\\pi}{4},\\frac{7\\pi}{4}$"], "The factors give tan x = 0 and tan x = 1, so include both branches in the closed interval.", "\\tan^2x-\\tan x=0,\\quad0\\le x\\le2\\pi"),
+        exactAnswer("y11adv-trigeq-adv-m6", "Find the excluded branch from this factorisation.", "\\cos x(2\\cos x+1)=0", "-1/2", "The second factor gives 2cos x + 1 = 0, so cos x = -1/2.", ["-0.5"]),
+        conceptChoice("y11adv-trigeq-adv-m7", "Which option identifies the lost-solution error?", "D", ["The domain should be written in degrees", "The reference angle is impossible", "The equation has no solutions", "Dividing by cos x loses the branch cos x = 0"], "If a factor might be zero, dividing by it can remove valid solutions. Use the zero-product rule instead.", "\\cos x(\\sin x-1)=0"),
+        exactAnswer("y11adv-trigeq-adv-m8", "Solve in degrees. Enter the smallest solution.", "\\cos x(2\\cos x+1)=0,\\quad0^\\circ\\le x\\le360^\\circ", "90", "The factors give cos x = 0 or cos x = -1/2. The smallest solution is 90 degrees.", ["90 degrees", "90deg"]),
+        exactAnswer("y11adv-trigeq-adv-m9", "Solve in radians. Enter the largest solution.", "\\cos x(2\\cos x+1)=0,\\quad0\\le x\\le2\\pi", "3pi/2", "The solutions are pi/2, 3pi/2, 2pi/3, and 4pi/3. The largest is 3pi/2.", piVariants("3pi/2")),
+        conceptChoice("y11adv-trigeq-adv-m10", "Choose the HSC-style next step.", "B", ["Set $\\sin x+\\cos x=0$", "Expand or factor so each branch can be solved", "Use only tangent period", "Replace every trig function with 1"], "Exam equations often need an algebraic step before ASTC. Factorising or rewriting creates basic trig equations that can be solved.", "\\text{Advanced trig equation strategy}"),
+      ],
+    };
+  }
+
+  if (lesson.slug === "trig-identities-proof-strategies") {
+    return {
+      ...base,
+      description:
+        "Build marking-safe proof strategy for trigonometric identities by selecting valid first steps, simplifying one side, and recognising useful algebraic structures.",
+      learningIntention:
+        "Learn how identity proofs are planned: choose one side, rewrite in sine and cosine where useful, apply Pythagorean identities, and simplify carefully.",
+      successCriteria: [
+        "Choose the side of an identity that is easier to simplify.",
+        "Convert tangent expressions into sine and cosine when that reveals cancellation.",
+        "Use Pythagorean identities to replace 1 - sin^2 x or 1 - cos^2 x.",
+        "Recognise common algebraic structures such as a difference of squares or common denominator.",
+        "Answer proof-strategy questions with MCQ or short simplified expressions, not free-text proof paragraphs.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A trigonometric identity proof usually works best when you simplify one side until it matches the other side.",
+          "Start with the more complicated side. Fractions, tangent, or a difference of squares usually signal the useful side to transform.",
+          "Converting tangent to sin x over cos x often reveals cancellation or a common denominator.",
+          "The Pythagorean identity and its rearrangements are the main replacements: 1 - sin^2 x = cos^2 x and 1 - cos^2 x = sin^2 x.",
+          "In this app, marked questions focus on proof decisions and intermediate simplified forms. Full typed proof marking is intentionally avoided.",
+        ],
+        latexBlocks: [
+          "\\tan x=\\frac{\\sin x}{\\cos x}",
+          "\\sin^2x+\\cos^2x=1",
+          "1-\\sin^2x=\\cos^2x,\\quad1-\\cos^2x=\\sin^2x",
+          "(1-\\sin x)(1+\\sin x)=1-\\sin^2x",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Simplify the more complicated side",
+          questionLatex: "\\tan x\\cos x=\\sin x",
+          steps: [
+            { explanation: "Start with the side containing tangent.", latex: "\\tan x\\cos x" },
+            { explanation: "Rewrite tangent as sine over cosine.", latex: "\\frac{\\sin x}{\\cos x}\\cos x" },
+            { explanation: "Cancel the cosine factor where it is defined.", latex: "\\sin x" },
+          ],
+          finalAnswerLatex: "\\tan x\\cos x=\\sin x",
+        },
+        {
+          title: "Use a Pythagorean rearrangement",
+          questionLatex: "\\frac{1-\\sin^2x}{\\cos x}=\\cos x",
+          steps: [
+            { explanation: "Start with the numerator because it matches a rearranged Pythagorean identity.", latex: "1-\\sin^2x=\\cos^2x" },
+            { explanation: "Substitute the identity into the fraction.", latex: "\\frac{\\cos^2x}{\\cos x}" },
+            { explanation: "Cancel one factor of cosine where it is defined.", latex: "\\cos x" },
+          ],
+          finalAnswerLatex: "\\cos x",
+        },
+        {
+          title: "Recognise a difference of squares",
+          questionLatex: "(1-\\sin x)(1+\\sin x)",
+          steps: [
+            { explanation: "Use the algebra pattern (a - b)(a + b) = a squared minus b squared.", latex: "(1-\\sin x)(1+\\sin x)=1-\\sin^2x" },
+            { explanation: "Use the Pythagorean rearrangement.", latex: "1-\\sin^2x=\\cos^2x" },
+          ],
+          finalAnswerLatex: "\\cos^2x",
+        },
+      ],
+      guidedPractice: [
+        conceptChoice("y11adv-trigproof-g1", "Choose the better side to simplify first.", "B", ["The right side, because it is already a single term", "The left side, because it contains tangent", "Both sides must be expanded immediately", "Neither side can be changed"], "The side with tangent is more complicated, and rewriting tangent as sine over cosine creates cancellation.", "\\tan x\\cos x=\\sin x"),
+        exactAnswer("y11adv-trigproof-g2", "Rewrite tangent in terms of sine and cosine.", "\\tan x", "sinx/cosx", "The quotient identity is tan x = sin x divided by cos x.", ["sin(x)/cos(x)", "\\sin x/\\cos x", "\\frac{\\sin x}{\\cos x}"]),
+        exactAnswer("y11adv-trigproof-g3", "Simplify the expression.", "\\tan x\\cos x", "sinx", "Rewrite tangent as sin x over cos x, then cancel the cos x factor to leave sin x.", trigExpressionVariants("sinx")),
+        conceptChoice("y11adv-trigproof-g4", "Choose the identity that simplifies the numerator.", "A", ["$1-\\sin^2x=\\cos^2x$", "$1+\\sin^2x=\\cos^2x$", "$\\tan x=\\cos x/\\sin x$", "$\\sin x=1-\\cos x$"], "The numerator 1 - sin squared x is a rearranged Pythagorean identity equal to cos squared x.", "\\frac{1-\\sin^2x}{\\cos x}"),
+      ],
+      independentPractice: [
+        exactAnswer("y11adv-trigproof-i1", "Simplify the numerator.", "1-\\cos^2x", "sin^2x", "Use the rearranged Pythagorean identity 1 - cos squared x = sin squared x.", ["sin^2(x)", "\\sin^2x", "\\sin^2(x)"]),
+        exactAnswer("y11adv-trigproof-i2", "Simplify the expression.", "\\frac{1-\\cos^2x}{\\sin x}", "sinx", "Replace the numerator with sin squared x, then cancel one factor of sin x.", trigExpressionVariants("sinx")),
+        conceptChoice("y11adv-trigproof-i3", "Choose the algebra pattern.", "C", ["Common denominator", "Completing the square", "Difference of squares", "Null factor law"], "The product (1 - sin x)(1 + sin x) has the form (a - b)(a + b), a difference of squares.", "(1-\\sin x)(1+\\sin x)"),
+        exactAnswer("y11adv-trigproof-i4", "Simplify the expression.", "(1-\\cos x)(1+\\cos x)", "sin^2x", "The product is 1 - cos squared x, which equals sin squared x by the Pythagorean identity.", ["sin^2(x)", "\\sin^2x", "\\sin^2(x)"]),
+        conceptChoice("y11adv-trigproof-i5", "Choose the valid first rewrite.", "D", ["Replace $\\sin x$ with $\\cos x$", "Set the expression equal to zero", "Cancel the 1 terms", "Rewrite $\\tan x$ as $\\frac{\\sin x}{\\cos x}$"], "When tangent appears in an identity task, rewriting it as sine over cosine is usually the safe first move.", "\\tan x\\sin x"),
+      ],
+      commonMistakes: [
+        { mistake: "Changing both sides at once without a target.", fix: "Start from the more complicated side and simplify until it matches the other side." },
+        { mistake: "Inventing identities such as 1 + sin^2 x = cos^2 x.", fix: "Use only valid Pythagorean rearrangements." },
+        { mistake: "Cancelling across addition or subtraction.", fix: "Cancel common factors only after factorising or rewriting as multiplication." },
+        { mistake: "Typing a full proof into a short-answer box.", fix: "Answer the specific marked step: identity choice, simplified form, or strategy selection." },
+      ],
+      masteryQuiz: [
+        conceptChoice("y11adv-trigproof-m1", "Choose the best first step.", "A", ["Rewrite all tangent terms using sine and cosine", "Replace sine with one", "Use tangent period", "Take a square root"], "The expression contains tangent and cotangent-style structure, so sine/cosine form is the safest first step.", "\\tan x\\cos x"),
+        exactAnswer("y11adv-trigproof-m2", "Simplify the expression.", "\\frac{\\sin x}{\\cos x}\\cos x", "sinx", "The cos x factor cancels with the denominator where cos x is not zero, leaving sin x.", trigExpressionVariants("sinx")),
+        exactAnswer("y11adv-trigproof-m3", "Simplify the expression.", "\\frac{\\cos^2x}{\\cos x}", "cosx", "Cancel one factor of cos x from the numerator and denominator to get cos x.", trigExpressionVariants("cosx")),
+        conceptChoice("y11adv-trigproof-m4", "Choose the expression equivalent to $1-\\sin^2x$.", "C", ["$\\sin^2x$", "$\\tan x$", "$\\cos^2x$", "$1+\\cos^2x$"], "Rearrange sin squared x plus cos squared x equals one to get 1 - sin squared x equals cos squared x.", "1-\\sin^2x"),
+        exactAnswer("y11adv-trigproof-m5", "Simplify the expression.", "\\frac{1-\\sin^2x}{\\cos x}", "cosx", "Replace 1 - sin squared x with cos squared x, then cancel one factor of cos x.", trigExpressionVariants("cosx")),
+        conceptChoice("y11adv-trigproof-m6", "Choose the invalid proof step.", "B", ["$\\tan x=\\frac{\\sin x}{\\cos x}$", "$1+\\sin^2x=\\cos^2x$", "$1-\\cos^2x=\\sin^2x$", "$(1-\\sin x)(1+\\sin x)=1-\\sin^2x$"], "The statement 1 + sin squared x = cos squared x is not a valid Pythagorean rearrangement.", "\\text{Identity steps}"),
+        exactAnswer("y11adv-trigproof-m7", "Simplify the expression.", "(1-\\sin x)(1+\\sin x)", "cos^2x", "Use difference of squares to get 1 - sin squared x, then use the Pythagorean identity to get cos squared x.", ["cos^2(x)", "\\cos^2x", "\\cos^2(x)"]),
+        conceptChoice("y11adv-trigproof-m8", "Choose the missing middle expression.", "D", ["$\\sin x$", "$\\tan x$", "$1+\\sin^2x$", "$\\frac{\\cos^2x}{\\cos x}$"], "After replacing 1 - sin squared x with cos squared x, the fraction becomes cos squared x over cos x.", "\\frac{1-\\sin^2x}{\\cos x}=\\Box=\\cos x"),
+        exactAnswer("y11adv-trigproof-m9", "Simplify the expression.", "\\frac{\\sin^2x}{\\sin x}", "sinx", "Cancel one factor of sin x from sin squared x over sin x, where sin x is not zero.", trigExpressionVariants("sinx")),
+        conceptChoice("y11adv-trigproof-m10", "Which strategy is most appropriate for this identity task?", "A", ["Start with the left side and use the difference of squares", "Start with the right side and use tangent period", "Substitute x = 0 only", "Differentiate both sides"], "The left side has the factor pattern (1 - cos x)(1 + cos x), so difference of squares leads to 1 - cos squared x.", "(1-\\cos x)(1+\\cos x)=\\sin^2x"),
+      ],
+    };
+  }
+
   if (lesson.slug === "trigonometric-equations") {
     return {
       ...base,

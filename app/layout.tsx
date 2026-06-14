@@ -9,11 +9,11 @@ export const metadata: Metadata = {
     template: "%s | Nova Maths",
   },
   description:
-    "Structured online maths lessons for NSW Year 9, 10, 11 and 12 students.",
+    "Structured online maths lessons for NSW secondary students from Year 8 to HSC.",
   openGraph: {
     title: "Nova Maths",
     description:
-      "Structured online maths lessons for NSW Year 9, 10, 11 and 12 students.",
+      "Structured online maths lessons for NSW secondary students from Year 8 to HSC.",
     url: "https://www.novamaths.com.au",
     siteName: "Nova Maths",
     type: "website",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Nova Maths",
     description:
-      "Structured online maths lessons for NSW Year 9, 10, 11 and 12 students.",
+      "Structured online maths lessons for NSW secondary students from Year 8 to HSC.",
     images: ["https://www.novamaths.com.au/brand/nova-maths-og.png"],
   },
   icons: {

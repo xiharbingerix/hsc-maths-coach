@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { courseCatalogue } from "../../lib/courseUnits";
+import { courseCatalogue, totalActiveLessonCount } from "../../lib/courseUnits";
 import type { CoursePathwayStatus } from "../../lib/courseTypes";
 import { SubscribeCTA } from "../components/SubscribeCTA";
 import { OnlineLearningHeroActions } from "./OnlineLearningHeroActions";
@@ -38,7 +38,7 @@ const included = [
   {
     title: "Staged lessons",
     description:
-      "Current lesson flow: Learn -> Guided Practice -> Independent Practice -> Mastery Quiz. Video lessons can be added later without changing the written pathway.",
+      "Each lesson moves from Learn to Guided Practice, Independent Practice and a Mastery Quiz, so students know what to do next.",
   },
   {
     title: "Targeted course units",
@@ -58,14 +58,14 @@ const included = [
   {
     title: "NSW mathematics pathways",
     description:
-      "Built around skills students need across the available Year 9, 10, 11 and 12 maths course pathways.",
+      "Built around skills students need across the available Year 8 to HSC maths course pathways.",
   },
 ];
 
 const audience = [
   "Students unsure where to start",
   "Students preparing for trials or the HSC",
-  "Students who need structure between tutoring or school lessons",
+  "Students who need structure between school lessons",
   "Families looking for a lower-cost support option",
 ];
 
@@ -79,7 +79,7 @@ const lessonActions = [
 
 const accessSteps = [
   "Create an account from the signup page.",
-  "Start your 7-day free trial — then $19/month after the trial.",
+  "Start your 7-day free trial - then $19/month after the trial.",
   "Access activates automatically after payment.",
   "Cancel any time from your account.",
 ];
@@ -119,11 +119,13 @@ export default function OnlineLearningPage() {
               NSW maths &middot; Online learning
             </p>
             <h1 className="mt-4 text-4xl font-bold tracking-tight md:text-5xl">
-              Online lessons for available Year 9, 10, 11 and 12 maths pathways.
+              Self-serve NSW maths lessons from Year 8 to HSC.
             </h1>
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Structured online learning for students who want targeted
-              maths revision without committing to weekly tutoring.
+              Structured online learning for students who want targeted maths
+              support without live tutoring. HSC pathways are highlighted
+              because the urgency is high, but Nova Maths is broader than Year
+              12.
             </p>
             <OnlineLearningHeroActions />
             <p className="mt-2 text-sm text-slate-500">
@@ -160,14 +162,13 @@ export default function OnlineLearningPage() {
             <div>
               <SectionLabel>Current pathways</SectionLabel>
               <h2 className="mt-3 text-3xl font-bold tracking-tight">
-                Year 9 to Year 12 maths pathways.
+                {totalActiveLessonCount} active lessons across Year 8 to HSC.
               </h2>
               <p className="mt-3 max-w-2xl leading-7 text-slate-600">
-                Year 9 Mathematics is fully available with 53 lessons across 8
-                units. Year 10 Mathematics is fully available with 53 lessons
-                across 10 units. Year 12 Advanced remains the main diagnostic
-                pathway. Year 11 Advanced, Year 11 Standard, Year 11 Extension
-                and Year 12 Standard 2 are also available.
+                Choose the pathway that matches the student's current course.
+                HSC diagnostic and revision routes are prominent because exam
+                pressure is higher, while Year 8, 9, 10 and Year 11 courses are
+                also available. Year 7 is currently a free preview lesson only.
               </p>
             </div>
             <SecondaryLink href="/course">View all courses</SecondaryLink>
@@ -255,10 +256,7 @@ export default function OnlineLearningPage() {
               Start your 7-day free trial
             </SubscribeCTA>
             <SecondaryLink href="/free-year-7-algebra">
-              Try free algebra lesson
-            </SecondaryLink>
-            <SecondaryLink href="/enquire?offer=online-learning">
-              Register interest
+              Try Year 7 preview
             </SecondaryLink>
             <SecondaryLink href="/signup">Create account</SecondaryLink>
             <SecondaryLink href="/diagnostic?offer=online-learning">
@@ -270,21 +268,19 @@ export default function OnlineLearningPage() {
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
             <div>
-              <SectionLabel>Live support option</SectionLabel>
+              <SectionLabel>Tutoring availability</SectionLabel>
               <h2 className="mt-3 text-3xl font-bold tracking-tight">
-                Weekly Tutoring + Online Learning
+                Live tutoring spots are currently full.
               </h2>
               <p className="mt-3 max-w-2xl leading-7 text-slate-600">
-                Students wanting live support can enquire about Weekly Tutoring
-                + Online Learning for $75/week. This combines weekly individual
-                support with access to the online learning package. Support
-                across available maths pathways is subject to
-                availability.
+                Nova Maths is designed to stand on its own as self-serve online
+                learning. Existing tutoring students receive access for free,
+                but Joshua is not taking new weekly tutoring students right now.
               </p>
             </div>
-            <SecondaryLink href="/enquire?offer=weekly-tutoring">
-              Enquire about tutoring
-            </SecondaryLink>
+            <SubscribeCTA href="/checkout?offer=online-learning">
+              Start your 7-day free trial
+            </SubscribeCTA>
           </div>
         </section>
 
@@ -297,7 +293,7 @@ export default function OnlineLearningPage() {
               Start your 7-day free trial
             </SubscribeCTA>
             <SecondaryLink href="/free-year-7-algebra">
-              Try free algebra lesson
+              Try Year 7 preview
             </SecondaryLink>
             <SecondaryLink href="/signup">Create account</SecondaryLink>
             <SecondaryLink href="/diagnostic?offer=online-learning">

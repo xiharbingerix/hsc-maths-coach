@@ -1534,15 +1534,1254 @@ const twoStepChanceExperiments: LessonContent = {
   ],
 };
 
+// ── Lesson 7: Stem-and-Leaf Plots ────────────────────────────────────────────
+
+const stemAndLeafPlots: LessonContent = {
+  description:
+    "Read and construct ordered stem-and-leaf plots, find the median and range from ordered leaves, and read key values from a back-to-back display.",
+  learningIntention:
+    "Organise numerical data in a stem-and-leaf plot and use the ordered leaves to find the median and range.",
+  successCriteria: [
+    "Split a two-digit number into its stem (tens digit) and leaf (units digit).",
+    "Construct an ordered stem-and-leaf plot from a list of values.",
+    "Count all leaves to find the total number of data values.",
+    "Find the median and range directly from an ordered stem-and-leaf plot.",
+  ],
+  teaching: {
+    paragraphs: [
+      "A stem-and-leaf plot organises numbers by splitting each value into a stem and a leaf. For two-digit numbers, the stem is the tens digit and the leaf is the units digit. For example, 34 has stem 3 and leaf 4. Values sharing the same tens digit all appear on the same row.",
+      "To build the plot, list the stems in order down the left side. Write each leaf next to its stem in the order the values appear, then redraw with leaves sorted smallest to largest — this ordered version makes every other calculation easy.",
+      "Once the plot is ordered, the range is the last leaf on the largest stem minus the first leaf on the smallest stem. The median is the middle leaf when you count from the top. For an even number of values, average the two middle leaves.",
+      "A back-to-back stem-and-leaf plot places two groups on either side of a shared stem. The right-side group is read left to right as usual. The left-side group is read right to left — away from the stem — so the leaf closest to the stem is the smallest value in that row.",
+    ],
+    latexBlocks: [
+      "\\text{e.g. } 47 \\Rightarrow \\text{stem } 4,\\; \\text{leaf } 7",
+      "\\text{Range} = \\text{largest value} - \\text{smallest value}",
+      "\\text{Median: count all leaves, find the middle position (or average two middle leaves for even count).}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Find the range from an ordered stem-and-leaf plot",
+      questionLatex:
+        "\\text{Ordered plot — } 2\\mid 4\\;8,\\quad 3\\mid 1\\;5\\;9,\\quad 4\\mid 2.\\text{ Find the range.}",
+      steps: [
+        {
+          explanation: "The smallest value is the first leaf on the smallest stem.",
+          latex: "\\text{Smallest} = 24",
+        },
+        {
+          explanation: "The largest value is the last leaf on the largest stem.",
+          latex: "\\text{Largest} = 42",
+        },
+        {
+          explanation: "Subtract to find the range.",
+          latex: "\\text{Range} = 42 - 24 = 18",
+        },
+      ],
+      finalAnswerLatex: "\\text{Range} = 18",
+    } as WorkedExample,
+    {
+      title: "Find the median from an ordered stem-and-leaf plot",
+      questionLatex:
+        "\\text{Ordered plot — } 1\\mid 2\\;5\\;7,\\quad 2\\mid 0\\;3\\;8,\\quad 3\\mid 1\\;6.\\text{ Find the median (8 values).}",
+      steps: [
+        {
+          explanation: "8 values means average the 4th and 5th values.",
+          latex: "\\text{Values in order: } 12,\\;15,\\;17,\\;20,\\;23,\\;28,\\;31,\\;36",
+        },
+        {
+          explanation: "The 4th value is 20 and the 5th is 23.",
+          latex: "\\text{Median} = \\frac{20 + 23}{2} = 21.5",
+        },
+      ],
+      finalAnswerLatex: "\\text{Median} = 21.5",
+    } as WorkedExample,
+    {
+      title: "Identify stems needed for a data set",
+      questionLatex:
+        "\\text{Data: } 32,\\;41,\\;35,\\;28,\\;43,\\;30.\\text{ How many stems are needed?}",
+      steps: [
+        {
+          explanation: "Identify each tens digit to form the stems.",
+          latex: "\\text{Tens digits: } 2\\text{ (28)},\\; 3\\text{ (32, 35, 30)},\\; 4\\text{ (41, 43)}",
+        },
+        {
+          explanation: "Three distinct stems are needed.",
+          latex: "\\text{Stems: } 2,\\; 3,\\; 4",
+        },
+      ],
+      finalAnswerLatex: "\\text{3 stems are needed.}",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-dat-stm-g1",
+      "For the value 47, what is the stem and what is the leaf (using tens as stems)?",
+      "B",
+      ["Stem 7, leaf 4", "Stem 4, leaf 7", "Stem 47, leaf 0", "Stem 0, leaf 47"],
+      "For two-digit numbers, the stem is the tens digit and the leaf is the units digit. 47 has stem 4 and leaf 7."
+    ),
+    answer(
+      "y8-dat-stm-g2",
+      "Ordered plot — 2 | 3 5 8, 3 | 1 4 9. How many data values are there in total?",
+      "\\text{Count all leaves: } 3 + 3",
+      "6",
+      "Stem 2 has 3 leaves (23, 25, 28). Stem 3 has 3 leaves (31, 34, 39). Total = 6 values."
+    ),
+    answer(
+      "y8-dat-stm-g3",
+      "Ordered plot — 1 | 3 6 9, 2 | 0 4. What is the range?",
+      "\\text{Range} = 24 - 13",
+      "11",
+      "Smallest value = 13 (stem 1, leaf 3). Largest value = 24 (stem 2, leaf 4). Range = 24 − 13 = 11."
+    ),
+    choice(
+      "y8-dat-stm-g4",
+      "An ordered stem-and-leaf plot has 7 values. Which position gives the median?",
+      "B",
+      ["3rd value", "4th value", "5th value", "Average of 3rd and 4th"],
+      "For an odd number of values, the median is the exact middle. With 7 values, the middle position is (7 + 1) ÷ 2 = 4th value."
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y8-dat-stm-i1",
+      "Ordered plot — 1 | 2 5 7, 2 | 0 3 8, 3 | 1 6. How many data values are there in total?",
+      "\\text{Count all leaves: } 3 + 3 + 2",
+      "8",
+      "Stem 1: 3 leaves. Stem 2: 3 leaves. Stem 3: 2 leaves. Total = 8 values."
+    ),
+    answer(
+      "y8-dat-stm-i2",
+      "Ordered plot — 1 | 2 5 7, 2 | 0 3 8, 3 | 1 6 (8 values). What is the median?",
+      "\\text{Average 4th and 5th: } \\frac{20 + 23}{2}",
+      "21.5",
+      "Values in order: 12, 15, 17, 20, 23, 28, 31, 36. 4th = 20, 5th = 23. Median = (20 + 23) ÷ 2 = 21.5."
+    ),
+    answer(
+      "y8-dat-stm-i3",
+      "Ordered plot — 2 | 4 8, 3 | 1 5 9, 4 | 2. What is the range?",
+      "\\text{Range} = 42 - 24",
+      "18",
+      "Smallest value = 24, largest value = 42. Range = 42 − 24 = 18."
+    ),
+    answer(
+      "y8-dat-stm-i4",
+      "Ordered plot — 3 | 2 4 7, 4 | 1 3 8. How many values are greater than 40?",
+      "\\text{Values with stem 4: } 41,\\; 43,\\; 48",
+      "3",
+      "All values with stem 4 are greater than 40: 41, 43, 48. There are 3 such values."
+    ),
+    choice(
+      "y8-dat-stm-i5",
+      "Ordered plot — 1 | 3 6, 2 | 4 4 9, 3 | 0 8. What is the mode?",
+      "B",
+      ["13", "24", "29", "30"],
+      "The mode is the value that appears most often. The leaf 4 appears twice on stem 2, giving value 24 twice. All other values appear once. Mode = 24."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Writing the leaf as the tens digit and the stem as the units digit.",
+      fix: "The stem is always the tens digit (left) and the leaf is the units digit (right). For 47: stem = 4, leaf = 7.",
+    },
+    {
+      mistake: "Forgetting to sort the leaves before finding the median.",
+      fix: "Always use the ordered version of the plot (leaves sorted smallest to largest on each row) before locating the median.",
+    },
+    {
+      mistake: "Counting stems instead of leaves when finding the total number of values.",
+      fix: "Each leaf represents one data value. Count every leaf across all stems to find the total count.",
+    },
+    {
+      mistake: "Reading the left-side leaves of a back-to-back plot in the wrong direction.",
+      fix: "Left-side leaves are read away from the stem (right to left). The digit closest to the stem is the smallest value in that row.",
+    },
+  ],
+  masteryQuiz: [
+    answer(
+      "y8-dat-stm-m1",
+      "For the value 63, what is the leaf (using tens as stems)?",
+      "63 \\Rightarrow \\text{stem } 6,\\; \\text{leaf } ?",
+      "3",
+      "Stem = 6 (tens digit), leaf = 3 (units digit)."
+    ),
+    answer(
+      "y8-dat-stm-m2",
+      "Ordered plot — 2 | 1 3 5, 3 | 0 2 7, 4 | 4. What is the range?",
+      "\\text{Range} = 44 - 21",
+      "23",
+      "Smallest value = 21, largest = 44. Range = 44 − 21 = 23."
+    ),
+    choice(
+      "y8-dat-stm-m3",
+      "Ordered plot — 1 | 4 6 9, 2 | 1 3 5, 3 | 0 2 8. How many values are there in total?",
+      "C",
+      ["6", "8", "9", "10"],
+      "Count all leaves: 3 (stem 1) + 3 (stem 2) + 3 (stem 3) = 9 values."
+    ),
+    answer(
+      "y8-dat-stm-m4",
+      "Ordered plot — 1 | 4 6 9, 2 | 1 3 5, 3 | 0 2 8 (9 values). What is the median?",
+      "\\text{Middle (5th) value}",
+      "23",
+      "9 values → median is the 5th. In order: 14, 16, 19, 21, 23, 25, 30, 32, 38. The 5th value is 23."
+    ),
+    answer(
+      "y8-dat-stm-m5",
+      "Data: 32, 41, 35, 28, 43, 30. How many stems are needed for a stem-and-leaf plot?",
+      "\\text{Distinct tens digits: } 2,\\; 3,\\; 4",
+      "3",
+      "Tens digits present: 2 (for 28), 3 (for 30, 32, 35), 4 (for 41, 43). Three stems are needed."
+    ),
+    choice(
+      "y8-dat-stm-m6",
+      "Ordered plot — 2 | 1 3 5, 3 | 0 2 7 9 (7 values). What is the median?",
+      "B",
+      ["25", "30", "32", "37"],
+      "7 values → median is the 4th. In order: 21, 23, 25, 30, 32, 37, 39. The 4th value is 30."
+    ),
+    answer(
+      "y8-dat-stm-m7",
+      "Ordered plot — 4 | 2 5 8, 5 | 1 3, 6 | 0 4 7 (8 values). Find the median.",
+      "\\text{Average 4th and 5th values}",
+      "52",
+      "Values: 42, 45, 48, 51, 53, 60, 64, 67. 4th = 51, 5th = 53. Median = (51 + 53) ÷ 2 = 52."
+    ),
+    answer(
+      "y8-dat-stm-m8",
+      "Ordered plot — 4 | 2 5 8, 5 | 1 3, 6 | 0 4 7. What is the range?",
+      "\\text{Range} = 67 - 42",
+      "25",
+      "Smallest value = 42, largest = 67. Range = 67 − 42 = 25."
+    ),
+    choice(
+      "y8-dat-stm-m9",
+      "Ordered plot — 3 | 2 2 6 8, 4 | 1 5 9. What is the mode?",
+      "A",
+      ["32", "36", "38", "41"],
+      "The leaf 2 appears twice on stem 3, giving value 32 twice. All other values appear once. Mode = 32."
+    ),
+    answer(
+      "y8-dat-stm-m10",
+      "Ordered plot — 2 | 0 4 8, 3 | 2 6 (5 values). Find the mean.",
+      "\\frac{20 + 24 + 28 + 32 + 36}{5}",
+      "28",
+      "Values: 20, 24, 28, 32, 36. Sum = 140. Mean = 140 ÷ 5 = 28."
+    ),
+  ],
+};
+
+// ── Lesson 8: Quartiles and Interquartile Range ───────────────────────────────
+
+const quartilesAndIQR: LessonContent = {
+  description:
+    "Find the three quartiles and the interquartile range of an ordered data set, and use the IQR to compare the spread of two groups.",
+  learningIntention:
+    "Locate Q1, Q2 (median) and Q3 in an ordered data set and calculate the interquartile range as Q3 − Q1.",
+  successCriteria: [
+    "Sort a data set and identify Q2 as the median.",
+    "Split the data into a lower half and upper half, excluding the median for odd-count sets.",
+    "Find Q1 as the median of the lower half and Q3 as the median of the upper half.",
+    "Calculate IQR = Q3 − Q1 and use it to compare the spread of two groups.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Quartiles split an ordered data set into four equal parts. The three quartile values are Q1 (lower quartile), Q2 (the median), and Q3 (upper quartile). Together they describe not just the middle of the data but how the whole set is distributed.",
+      "To find quartiles, first sort the data from smallest to largest and locate Q2 (the median). Then split the data into a lower half and an upper half. For odd-count sets, exclude the median itself from both halves. Q1 is the median of the lower half and Q3 is the median of the upper half.",
+      "The interquartile range (IQR) = Q3 − Q1. It measures the spread of the middle 50% of the data. A small IQR means the central values are clustered closely together; a large IQR means they are more spread out. The IQR is more resistant to outliers than the full range.",
+      "A common mistake is including the median in both halves when the count is odd. If there are 7 values, the median is the 4th value — the lower half is values 1–3 and the upper half is values 5–7. The 4th value is used as Q2 only.",
+    ],
+    latexBlocks: [
+      "\\text{IQR} = Q_3 - Q_1",
+      "\\text{Odd count: exclude the median from both halves.}",
+      "\\text{Even count: split exactly in half — no value is excluded.}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Find quartiles for an odd-count data set",
+      questionLatex:
+        "\\text{Data: } 3,\\; 5,\\; 8,\\; 11,\\; 14,\\; 17,\\; 20.\\text{ Find Q1, Q2, Q3, and IQR.}",
+      steps: [
+        {
+          explanation: "The data is already sorted. Q2 is the middle (4th) value.",
+          latex: "Q_2 = 11",
+        },
+        {
+          explanation: "Lower half (values 1–3): 3, 5, 8. Q1 is the median of this half.",
+          latex: "Q_1 = 5",
+        },
+        {
+          explanation: "Upper half (values 5–7): 14, 17, 20. Q3 is the median of this half.",
+          latex: "Q_3 = 17",
+        },
+        {
+          explanation: "Calculate the IQR.",
+          latex: "\\text{IQR} = 17 - 5 = 12",
+        },
+      ],
+      finalAnswerLatex: "Q_1 = 5,\\quad Q_2 = 11,\\quad Q_3 = 17,\\quad \\text{IQR} = 12",
+    } as WorkedExample,
+    {
+      title: "Find quartiles for an even-count data set",
+      questionLatex:
+        "\\text{Data: } 4,\\; 7,\\; 10,\\; 13,\\; 16,\\; 19.\\text{ Find Q1, Q3, and IQR.}",
+      steps: [
+        {
+          explanation: "6 values split evenly: lower half is 4, 7, 10; upper half is 13, 16, 19.",
+          latex: "Q_2 = \\frac{10 + 13}{2} = 11.5",
+        },
+        {
+          explanation: "Q1 is the median of the lower half (4, 7, 10).",
+          latex: "Q_1 = 7",
+        },
+        {
+          explanation: "Q3 is the median of the upper half (13, 16, 19).",
+          latex: "Q_3 = 16,\\quad \\text{IQR} = 16 - 7 = 9",
+        },
+      ],
+      finalAnswerLatex: "Q_1 = 7,\\quad Q_3 = 16,\\quad \\text{IQR} = 9",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-dat-qrt-g1",
+      "Which quartile is the same as the median of the whole data set?",
+      "B",
+      ["Q1", "Q2", "Q3", "IQR"],
+      "Q2 is always the median — the middle value of the full sorted data set."
+    ),
+    answer(
+      "y8-dat-qrt-g2",
+      "Sorted data: 2, 4, 6, 8, 10. Find Q2 (the median).",
+      "\\text{Middle value of } 5",
+      "6",
+      "5 values → median is the 3rd value. Sorted: 2, 4, 6, 8, 10. Q2 = 6."
+    ),
+    answer(
+      "y8-dat-qrt-g3",
+      "Sorted data: 2, 4, 6, 8, 10. Q2 = 6. The lower half (excluding Q2) is 2, 4. Find Q1.",
+      "Q_1 = \\frac{2 + 4}{2}",
+      "3",
+      "Lower half: 2, 4 (two values). Q1 = (2 + 4) ÷ 2 = 3."
+    ),
+    answer(
+      "y8-dat-qrt-g4",
+      "Q1 = 3, Q3 = 9. Find the IQR.",
+      "\\text{IQR} = Q_3 - Q_1 = 9 - 3",
+      "6",
+      "IQR = Q3 − Q1 = 9 − 3 = 6."
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y8-dat-qrt-i1",
+      "Sorted data: 1, 3, 5, 7, 9, 11. Find Q2 (the median).",
+      "Q_2 = \\frac{5 + 7}{2}",
+      "6",
+      "6 values → median is the average of 3rd and 4th values: (5 + 7) ÷ 2 = 6."
+    ),
+    answer(
+      "y8-dat-qrt-i2",
+      "Sorted data: 1, 3, 5, 7, 9, 11. The lower half is 1, 3, 5. Find Q1.",
+      "Q_1 = \\text{median of } 1,\\; 3,\\; 5",
+      "3",
+      "Lower half: 1, 3, 5. The middle value is 3. Q1 = 3."
+    ),
+    answer(
+      "y8-dat-qrt-i3",
+      "Sorted data: 1, 3, 5, 7, 9, 11. Q1 = 3, Q3 = 9. Find the IQR.",
+      "\\text{IQR} = 9 - 3",
+      "6",
+      "IQR = Q3 − Q1 = 9 − 3 = 6."
+    ),
+    choice(
+      "y8-dat-qrt-i4",
+      "Group A: IQR = 4. Group B: IQR = 14. Which group has more consistent middle values?",
+      "A",
+      [
+        "Group A — smaller IQR means the central values are clustered more closely.",
+        "Group B — larger IQR means more data is covered.",
+        "Both groups — IQR does not measure consistency.",
+        "Cannot be determined without the medians.",
+      ],
+      "A smaller IQR means the middle 50% of values are clustered closely together. Group A's IQR of 4 indicates more consistent central values than Group B's IQR of 14."
+    ),
+    answer(
+      "y8-dat-qrt-i5",
+      "Sorted data: 4, 8, 12, 16, 20, 24, 28 (7 values). Find the IQR.",
+      "Q_1 = 8,\\; Q_3 = 24,\\; \\text{IQR} = Q_3 - Q_1",
+      "16",
+      "Q2 = 16 (4th value). Lower half: 4, 8, 12 → Q1 = 8. Upper half: 20, 24, 28 → Q3 = 24. IQR = 24 − 8 = 16."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Including the median in both halves when the count is odd.",
+      fix: "For an odd number of values, the median is excluded from both the lower and upper halves before finding Q1 and Q3.",
+    },
+    {
+      mistake: "Calculating IQR as Q1 − Q3 instead of Q3 − Q1.",
+      fix: "IQR = Q3 − Q1. Since Q3 is always larger than Q1, the IQR is always a positive value.",
+    },
+    {
+      mistake: "Forgetting to sort the data before finding quartiles.",
+      fix: "Quartiles are positions in an ordered list. Sort the data smallest to largest first — quartiles from an unsorted list are meaningless.",
+    },
+    {
+      mistake: "Confusing the IQR with the range.",
+      fix: "Range = largest − smallest (covers all data). IQR = Q3 − Q1 (covers only the middle 50%). The IQR is less affected by extreme values.",
+    },
+  ],
+  masteryQuiz: [
+    answer(
+      "y8-dat-qrt-m1",
+      "Sorted data: 5, 10, 15, 20, 25. Find Q2.",
+      "\\text{Middle (3rd) value}",
+      "15",
+      "5 values → median is the 3rd value: 15. Q2 = 15."
+    ),
+    answer(
+      "y8-dat-qrt-m2",
+      "Sorted data: 5, 10, 15, 20, 25. Q2 = 15. Lower half: 5, 10. Find Q1.",
+      "Q_1 = \\frac{5 + 10}{2}",
+      "7.5",
+      "Lower half (excluding Q2): 5, 10. Q1 = (5 + 10) ÷ 2 = 7.5."
+    ),
+    answer(
+      "y8-dat-qrt-m3",
+      "Sorted data: 5, 10, 15, 20, 25. Upper half: 20, 25. Find Q3.",
+      "Q_3 = \\frac{20 + 25}{2}",
+      "22.5",
+      "Upper half (excluding Q2): 20, 25. Q3 = (20 + 25) ÷ 2 = 22.5."
+    ),
+    answer(
+      "y8-dat-qrt-m4",
+      "Q1 = 7.5, Q3 = 22.5. Find the IQR.",
+      "\\text{IQR} = 22.5 - 7.5",
+      "15",
+      "IQR = Q3 − Q1 = 22.5 − 7.5 = 15."
+    ),
+    choice(
+      "y8-dat-qrt-m5",
+      "What does the IQR measure?",
+      "B",
+      [
+        "The total spread from smallest to largest value.",
+        "The spread of the middle 50% of the data.",
+        "The distance between Q1 and Q2 only.",
+        "The average distance from the mean.",
+      ],
+      "IQR = Q3 − Q1 covers the range of the middle 50% of the data — the values between the lower and upper quartiles."
+    ),
+    answer(
+      "y8-dat-qrt-m6",
+      "Sorted data: 2, 6, 8, 14, 18, 22 (6 values). Find the IQR.",
+      "Q_1 = 6,\\; Q_3 = 18,\\; \\text{IQR} = 18 - 6",
+      "12",
+      "Lower half: 2, 6, 8 → Q1 = 6. Upper half: 14, 18, 22 → Q3 = 18. IQR = 18 − 6 = 12."
+    ),
+    answer(
+      "y8-dat-qrt-m7",
+      "Sorted data: 3, 7, 11, 15, 19, 23, 27 (7 values). Find the IQR.",
+      "Q_1 = 7,\\; Q_3 = 23,\\; \\text{IQR} = 23 - 7",
+      "16",
+      "Q2 = 15 (4th). Lower half: 3, 7, 11 → Q1 = 7. Upper half: 19, 23, 27 → Q3 = 23. IQR = 23 − 7 = 16."
+    ),
+    choice(
+      "y8-dat-qrt-m8",
+      "Group A: IQR = 6. Group B: IQR = 20. Same median for both. Which statement is correct?",
+      "C",
+      [
+        "Group A has a higher typical value.",
+        "Group B is more consistent.",
+        "Group A's middle values are more tightly clustered.",
+        "Group B has a smaller range.",
+      ],
+      "Same median means the same typical value. Group A's smaller IQR (6) means its central values are more tightly clustered than Group B's (IQR = 20)."
+    ),
+    answer(
+      "y8-dat-qrt-m9",
+      "Sorted data: 10, 14, 18, 22, 26, 30, 34, 38 (8 values). Find the IQR.",
+      "Q_1 = 16,\\; Q_3 = 32,\\; \\text{IQR} = 32 - 16",
+      "16",
+      "Lower half: 10, 14, 18, 22 → Q1 = (14 + 18) ÷ 2 = 16. Upper half: 26, 30, 34, 38 → Q3 = (30 + 34) ÷ 2 = 32. IQR = 32 − 16 = 16."
+    ),
+    answer(
+      "y8-dat-qrt-m10",
+      "Q1 = 12 and IQR = 8. Find Q3.",
+      "Q_3 = Q_1 + \\text{IQR} = 12 + 8",
+      "20",
+      "IQR = Q3 − Q1, so Q3 = Q1 + IQR = 12 + 8 = 20."
+    ),
+  ],
+};
+
+// ── Lesson 9: Outliers and Data Interpretation ────────────────────────────────
+
+const outliersAndInterpretation: LessonContent = {
+  description:
+    "Identify outliers in a data set, explain how outliers affect the mean and median differently, and choose the appropriate measure of centre.",
+  learningIntention:
+    "Recognise outliers, describe their effect on the mean and median, and choose the better measure of centre when outliers are present.",
+  successCriteria: [
+    "Identify an outlier as a value that is much larger or smaller than the rest of the data.",
+    "Calculate how much an outlier shifts the mean compared to the dataset without it.",
+    "Explain why the median is largely unaffected by a single outlier.",
+    "Choose median over mean as the better measure of centre when outliers are present.",
+  ],
+  teaching: {
+    paragraphs: [
+      "An outlier is a data value that sits far away from the rest of the data — either much larger or much smaller. For example, in the set 3, 5, 6, 7, 8 all values are close together, but in 3, 5, 6, 7, 58 the value 58 is an outlier.",
+      "Outliers pull the mean toward them significantly because the mean depends on the sum of every value. Adding a very large outlier raises the sum — and therefore the mean — by a large amount. The mean of 3, 5, 6, 7, 9 is 6, but the mean of 3, 5, 6, 7, 59 is 16. One value changed the mean by 10.",
+      "The median is resistant to outliers because it depends only on the position of the middle value, not its exact size. Replacing the largest value with a much bigger number does not change which value sits in the middle. The median of both 3, 5, 6, 7, 9 and 3, 5, 6, 7, 59 is 6.",
+      "When reporting a typical value for data that contains an outlier, use the median — it gives a more representative picture of where most values sit. The mean alone can be misleading because a single extreme value skews it away from the bulk of the data.",
+    ],
+    latexBlocks: [
+      "\\text{Mean depends on every value — one outlier can shift it significantly.}",
+      "\\text{Median depends on position only — one outlier rarely changes it.}",
+      "\\text{Use the median when outliers are present.}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Show how an outlier changes the mean",
+      questionLatex:
+        "\\text{Data A: } 3,\\;5,\\;6,\\;7,\\;9.\\quad \\text{Data B: } 3,\\;5,\\;6,\\;7,\\;59.\\text{ Compare the means.}",
+      steps: [
+        {
+          explanation: "Find the mean of Data A (no outlier).",
+          latex: "\\text{Mean A} = \\frac{3+5+6+7+9}{5} = \\frac{30}{5} = 6",
+        },
+        {
+          explanation: "Find the mean of Data B (59 is an outlier).",
+          latex: "\\text{Mean B} = \\frac{3+5+6+7+59}{5} = \\frac{80}{5} = 16",
+        },
+        {
+          explanation: "The outlier shifted the mean by 10, far above the bulk of the data.",
+          latex: "16 - 6 = 10",
+        },
+      ],
+      finalAnswerLatex: "\\text{Mean rose from 6 to 16 — the outlier shifted it by 10.}",
+    } as WorkedExample,
+    {
+      title: "Show that the median is stable",
+      questionLatex:
+        "\\text{Data A: } 3,\\;5,\\;6,\\;7,\\;9.\\quad \\text{Data B: } 3,\\;5,\\;6,\\;7,\\;59.\\text{ Compare the medians.}",
+      steps: [
+        {
+          explanation: "For both sets, 5 values means the median is the 3rd value.",
+          latex: "\\text{Median A} = 6,\\quad \\text{Median B} = 6",
+        },
+        {
+          explanation: "Replacing 9 with 59 does not change which value sits in position 3.",
+          latex: "\\text{Both medians are } 6.",
+        },
+      ],
+      finalAnswerLatex: "\\text{Median is unchanged — use it when outliers are present.}",
+    } as WorkedExample,
+    {
+      title: "Choose the better measure of centre",
+      questionLatex:
+        "\\text{House prices on a street (\\$000s): } 400,\\;420,\\;410,\\;390,\\;1200.\\text{ Which measure is better?}",
+      steps: [
+        {
+          explanation: "The value 1200 is much larger than the others — it is an outlier.",
+          latex: "\\text{Mean} = \\frac{400+420+410+390+1200}{5} = \\frac{2820}{5} = 564",
+        },
+        {
+          explanation: "The median is the 3rd value of the sorted set.",
+          latex: "\\text{Sorted: } 390,\\;400,\\;410,\\;420,\\;1200.\\quad \\text{Median} = 410",
+        },
+        {
+          explanation: "The median of 410 better represents the typical street price than the mean of 564.",
+          latex: "\\text{Use the median.}",
+        },
+      ],
+      finalAnswerLatex: "\\text{Median (\\$410k) is the better measure — it is not distorted by the outlier.}",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-dat-out-g1",
+      "Which value is an outlier in this set: 5, 6, 7, 8, 55?",
+      "D",
+      ["5", "6", "7", "55"],
+      "55 is far larger than all other values (5–8). An outlier is a value that sits well away from the rest of the data."
+    ),
+    answer(
+      "y8-dat-out-g2",
+      "Data: 3, 5, 6, 7, 9. Find the mean.",
+      "\\text{Mean} = \\frac{3+5+6+7+9}{5}",
+      "6",
+      "Sum = 3 + 5 + 6 + 7 + 9 = 30. Mean = 30 ÷ 5 = 6."
+    ),
+    answer(
+      "y8-dat-out-g3",
+      "Data: 3, 5, 6, 7, 99. Find the median.",
+      "\\text{Sorted: } 3,\\;5,\\;6,\\;7,\\;99",
+      "6",
+      "Sorted: 3, 5, 6, 7, 99. 5 values → median is the 3rd value = 6. The outlier 99 does not change the median."
+    ),
+    choice(
+      "y8-dat-out-g4",
+      "A data set contains one very large outlier. Which measure of centre should you use to represent the typical value?",
+      "B",
+      ["Mean — it uses every value.", "Median — it is not distorted by the outlier.", "Range — it shows the full spread.", "Mode — it appears most often."],
+      "The median is resistant to outliers because it depends on the middle position, not the sum of all values. Use the median when an outlier is present."
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y8-dat-out-i1",
+      "Data: 4, 6, 8, 10, 12. Find the mean.",
+      "\\text{Mean} = \\frac{4+6+8+10+12}{5}",
+      "8",
+      "Sum = 4 + 6 + 8 + 10 + 12 = 40. Mean = 40 ÷ 5 = 8."
+    ),
+    answer(
+      "y8-dat-out-i2",
+      "Data: 4, 6, 8, 10, 72. Find the median.",
+      "\\text{Sorted: } 4,\\;6,\\;8,\\;10,\\;72",
+      "8",
+      "Sorted: 4, 6, 8, 10, 72. 5 values → median is the 3rd value = 8. The outlier 72 does not shift the median."
+    ),
+    answer(
+      "y8-dat-out-i3",
+      "Data: 4, 6, 8, 10, 72. Find the mean.",
+      "\\text{Mean} = \\frac{4+6+8+10+72}{5}",
+      "20",
+      "Sum = 4 + 6 + 8 + 10 + 72 = 100. Mean = 100 ÷ 5 = 20."
+    ),
+    choice(
+      "y8-dat-out-i4",
+      "The mean without an outlier is 8, and the mean with the outlier is 20. By how much did the outlier raise the mean?",
+      "C",
+      ["8", "10", "12", "20"],
+      "20 − 8 = 12. The outlier raised the mean by 12."
+    ),
+    answer(
+      "y8-dat-out-i5",
+      "Data: 10, 11, 12, 13, 14. The outlier value 60 is added. What is the new range?",
+      "\\text{Range} = 60 - 10",
+      "50",
+      "New largest value = 60, smallest = 10. New range = 60 − 10 = 50."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Saying the median changes when an outlier is added to either end of the sorted data.",
+      fix: "Adding one value to the end of an ordered list shifts all positions by half a step. Recalculate the median position using the new count — the median may shift by one position but will not jump to the outlier's value.",
+    },
+    {
+      mistake: "Using the mean to describe a typical value when the data contains an outlier.",
+      fix: "A single outlier can pull the mean far from the bulk of the data. Use the median to represent the typical value when an outlier is present.",
+    },
+    {
+      mistake: "Identifying the largest value in a set as an outlier even when it is close to the others.",
+      fix: "An outlier must be substantially separated from the rest of the data. A value of 12 in the set 5, 7, 8, 9, 12 is not an outlier — it is just the maximum.",
+    },
+    {
+      mistake: "Forgetting that an outlier also dramatically increases the range.",
+      fix: "Range = largest − smallest. A very large or very small outlier becomes one of the endpoints, so the range increases significantly even when the bulk of the data is unchanged.",
+    },
+  ],
+  masteryQuiz: [
+    answer(
+      "y8-dat-out-m1",
+      "Data: 5, 7, 8, 9, 11. Find the mean.",
+      "\\text{Mean} = \\frac{5+7+8+9+11}{5}",
+      "8",
+      "Sum = 5 + 7 + 8 + 9 + 11 = 40. Mean = 40 ÷ 5 = 8."
+    ),
+    answer(
+      "y8-dat-out-m2",
+      "Data: 5, 7, 8, 9, 51. Find the mean.",
+      "\\text{Mean} = \\frac{5+7+8+9+51}{5}",
+      "16",
+      "Sum = 5 + 7 + 8 + 9 + 51 = 80. Mean = 80 ÷ 5 = 16."
+    ),
+    answer(
+      "y8-dat-out-m3",
+      "Data: 5, 7, 8, 9, 51. Find the median.",
+      "\\text{Sorted: } 5,\\;7,\\;8,\\;9,\\;51",
+      "8",
+      "5 values → median is the 3rd value = 8. The outlier 51 does not change the median."
+    ),
+    choice(
+      "y8-dat-out-m4",
+      "Mean without outlier = 8, mean with outlier = 16. By how much did the outlier raise the mean?",
+      "B",
+      ["6", "8", "10", "16"],
+      "16 − 8 = 8. The outlier raised the mean by 8."
+    ),
+    answer(
+      "y8-dat-out-m5",
+      "Data: 2, 4, 6, 8, 10. The outlier 60 is added. Find the new mean.",
+      "\\text{Mean} = \\frac{2+4+6+8+10+60}{6}",
+      "15",
+      "Sum = 2 + 4 + 6 + 8 + 10 + 60 = 90. Mean = 90 ÷ 6 = 15."
+    ),
+    answer(
+      "y8-dat-out-m6",
+      "Data: 2, 4, 6, 8, 10. The outlier 60 is added (6 values). Find the new median.",
+      "\\text{Sorted: } 2,\\;4,\\;6,\\;8,\\;10,\\;60",
+      "7",
+      "6 values → median = average of 3rd and 4th values = (6 + 8) ÷ 2 = 7."
+    ),
+    answer(
+      "y8-dat-out-m7",
+      "Data: 2, 4, 6, 8, 10. The outlier 60 is added. Find the new range.",
+      "\\text{Range} = 60 - 2",
+      "58",
+      "New largest = 60, smallest = 2. New range = 60 − 2 = 58. Original range was 10 − 2 = 8."
+    ),
+    choice(
+      "y8-dat-out-m8",
+      "A real estate agent reports the mean house price on a street as $850 000. There are 5 houses with prices $400k, $420k, $410k, $390k and $2.6 million. Why might median be more useful here?",
+      "A",
+      [
+        "The $2.6 million house is an outlier that pulls the mean far above what most houses cost.",
+        "The mean is always less reliable than the median.",
+        "The median equals $850 000 in this case.",
+        "House prices cannot be averaged.",
+      ],
+      "The $2.6 million house is an outlier. It raises the mean significantly above the typical price of the other four houses ($390k–$420k). The median of the sorted set gives a better picture of what a typical house on that street costs."
+    ),
+    choice(
+      "y8-dat-out-m9",
+      "Which statistic is most resistant to the effect of a single extreme outlier?",
+      "B",
+      ["Mean", "Median", "Range", "Sum"],
+      "The median depends on the middle position, not the actual values. A single extreme outlier at either end does not change which value sits in the middle. The mean, range and sum all change when any value changes."
+    ),
+    answer(
+      "y8-dat-out-m10",
+      "Data: 10, 20, 30, 40, 50 (mean = 30). An outlier of 120 is added. By how much does the mean increase?",
+      "\\text{New mean} = \\frac{10+20+30+40+50+120}{6} = \\frac{270}{6} = 45",
+      "15",
+      "Sum with outlier = 10 + 20 + 30 + 40 + 50 + 120 = 270. New mean = 270 ÷ 6 = 45. Increase = 45 − 30 = 15."
+    ),
+  ],
+};
+
+// ── Lesson 10: Relative Frequency ────────────────────────────────────────────
+
+const relativeFrequency: LessonContent = {
+  description:
+    "Calculate relative frequency from experimental results, express it as a fraction, decimal, and percentage, and explain how it approaches theoretical probability as the number of trials increases.",
+  learningIntention:
+    "Calculate relative frequency from experimental data and compare it to theoretical probability.",
+  successCriteria: [
+    "Calculate relative frequency as frequency ÷ total trials.",
+    "Express relative frequency as a fraction, decimal, and percentage.",
+    "Explain why relative frequency varies between experiments even with the same theoretical probability.",
+    "Describe how relative frequency approaches theoretical probability as the number of trials increases.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Relative frequency is the proportion of times an event actually occurs in an experiment. If you roll a die 60 times and get a 6 twelve times, the relative frequency of rolling a 6 is 12 ÷ 60 = 0.2. This is calculated from real data, unlike theoretical probability which is based on equally likely outcomes.",
+      "Theoretical probability is the value you would expect from reasoning — for a fair die, the theoretical probability of rolling a 6 is 1 ÷ 6 ≈ 0.167. The relative frequency of 0.2 is close but not identical to 0.167, because chance produces natural variation in short experiments.",
+      "The Law of Large Numbers tells us that as the number of trials increases, relative frequency gets closer and closer to theoretical probability. With 600 rolls you would expect to get a 6 about 100 times, giving a relative frequency of 100 ÷ 600 ≈ 0.167 — much closer than the 60-roll experiment. More trials means more reliable relative frequency.",
+      "You can also express relative frequency as a percentage: multiply the decimal by 100. A relative frequency of 0.2 = 20%, meaning the event occurred in 20% of all trials. The sum of relative frequencies for all possible outcomes in an experiment always equals 1 (or 100%).",
+    ],
+    latexBlocks: [
+      "\\text{Relative frequency} = \\frac{\\text{frequency of the event}}{\\text{total number of trials}}",
+      "\\text{e.g. event occurred 12 times in 60 trials: } \\frac{12}{60} = 0.2 = 20\\%",
+      "\\text{As trials} \\to \\infty,\\; \\text{relative frequency} \\to \\text{theoretical probability}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Calculate relative frequency from a tally",
+      questionLatex:
+        "\\text{A coin is flipped 80 times. Heads appears 44 times. Find the relative frequency of heads.}",
+      steps: [
+        {
+          explanation: "Relative frequency = frequency ÷ total trials.",
+          latex: "\\text{Relative frequency} = \\frac{44}{80}",
+        },
+        {
+          explanation: "Simplify and convert to a decimal.",
+          latex: "\\frac{44}{80} = \\frac{11}{20} = 0.55",
+        },
+        {
+          explanation: "Convert to a percentage.",
+          latex: "0.55 \\times 100 = 55\\%",
+        },
+      ],
+      finalAnswerLatex: "\\text{Relative frequency of heads} = \\frac{11}{20} = 0.55 = 55\\%",
+    } as WorkedExample,
+    {
+      title: "Compare relative frequency to theoretical probability",
+      questionLatex:
+        "\\text{A die is rolled 120 times. Getting a 3 occurs 24 times. Compare relative frequency to theoretical probability.}",
+      steps: [
+        {
+          explanation: "Calculate the relative frequency from the experiment.",
+          latex: "\\text{Relative frequency} = \\frac{24}{120} = 0.2",
+        },
+        {
+          explanation: "State the theoretical probability for a fair die.",
+          latex: "P(3) = \\frac{1}{6} \\approx 0.167",
+        },
+        {
+          explanation: "Compare the two values.",
+          latex: "0.2 > 0.167\\text{ — slightly higher than expected by chance.}",
+        },
+      ],
+      finalAnswerLatex: "\\text{Relative frequency } 0.2 \\text{ vs theoretical } \\tfrac{1}{6} \\approx 0.167",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-pro-rel-g1",
+      "What is the correct formula for relative frequency?",
+      "B",
+      [
+        "number of outcomes ÷ number of trials",
+        "frequency of the event ÷ total number of trials",
+        "total number of trials ÷ frequency of the event",
+        "number of outcomes ÷ number of favourable outcomes",
+      ],
+      "Relative frequency = frequency of the event ÷ total number of trials. It measures the proportion of trials where the event occurred."
+    ),
+    answer(
+      "y8-pro-rel-g2",
+      "A spinner is spun 50 times. Blue appears 10 times. Find the relative frequency of blue as a decimal.",
+      "\\text{Relative frequency} = \\frac{10}{50}",
+      "0.2",
+      "Relative frequency = 10 ÷ 50 = 0.2."
+    ),
+    answer(
+      "y8-pro-rel-g3",
+      "A spinner is spun 50 times. Blue appears 10 times. Express the relative frequency of blue as a percentage.",
+      "0.2 \\times 100",
+      "20",
+      "Relative frequency as decimal = 0.2. As a percentage: 0.2 × 100 = 20%."
+    ),
+    choice(
+      "y8-pro-rel-g4",
+      "A coin is flipped 20 times and heads appears 12 times. As the coin is flipped many more times, what should happen to the relative frequency of heads?",
+      "C",
+      [
+        "It stays fixed at 12/20 = 0.6.",
+        "It keeps increasing toward 1.",
+        "It moves closer to the theoretical probability of 0.5.",
+        "It becomes unpredictable.",
+      ],
+      "The Law of Large Numbers: as the number of trials increases, relative frequency approaches the theoretical probability. For a fair coin, theoretical P(heads) = 0.5."
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y8-pro-rel-i1",
+      "A die is rolled 60 times. The number 4 appears 9 times. Find the relative frequency of rolling a 4 as a fraction in simplest form.",
+      "\\frac{9}{60}",
+      "3/20",
+      "9 ÷ 60 = 3/20. Both 9 and 60 are divisible by 3.",
+      ["3/20", "0.15", "15%"]
+    ),
+    answer(
+      "y8-pro-rel-i2",
+      "A bag contains red, blue, and green marbles. From 40 draws (with replacement): red=16, blue=14, green=10. What is the relative frequency of green?",
+      "\\frac{10}{40}",
+      "0.25",
+      "Relative frequency of green = 10 ÷ 40 = 0.25."
+    ),
+    answer(
+      "y8-pro-rel-i3",
+      "The relative frequency of red is 16/40 = 0.4 and the relative frequency of blue is 14/40 = 0.35. What must the sum of relative frequencies of red, blue, and green equal?",
+      "0.4 + 0.35 + 0.25",
+      "1",
+      "The relative frequencies of all outcomes must sum to 1. 0.4 + 0.35 + 0.25 = 1."
+    ),
+    answer(
+      "y8-pro-rel-i4",
+      "A die is rolled 600 times. The number 6 appears 112 times. What is the relative frequency of 6 as a decimal? Round to 2 decimal places.",
+      "\\frac{112}{600}",
+      "0.19",
+      "112 ÷ 600 = 0.1867... ≈ 0.19 (rounded to 2 decimal places).",
+      ["0.19", "0.187", "0.1867"]
+    ),
+    choice(
+      "y8-pro-rel-i5",
+      "Experiment A: coin flipped 10 times, heads 6 times (relative frequency = 0.6). Experiment B: coin flipped 1000 times, heads 503 times (relative frequency = 0.503). Which relative frequency is more likely to be close to the theoretical probability?",
+      "B",
+      [
+        "Experiment A — fewer trials so less variation.",
+        "Experiment B — more trials produce more reliable relative frequencies.",
+        "Both are equally reliable.",
+        "Neither can be compared to theoretical probability.",
+      ],
+      "More trials produce more reliable estimates. Experiment B has 1000 trials vs only 10, so its relative frequency of 0.503 is much closer to the theoretical 0.5 than Experiment A's 0.6."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Dividing total trials by frequency instead of frequency by total trials.",
+      fix: "Relative frequency = frequency ÷ total. Always divide the specific event count by the total number of trials, not the other way around.",
+    },
+    {
+      mistake: "Assuming relative frequency must exactly equal theoretical probability.",
+      fix: "Relative frequency is an experimental result — it naturally varies due to chance. It only approaches theoretical probability with a very large number of trials.",
+    },
+    {
+      mistake: "Thinking relative frequencies can sum to more than 1.",
+      fix: "The relative frequencies of all possible outcomes in an experiment must sum exactly to 1 (100%). This is a useful check: if your values don't sum to 1, recalculate.",
+    },
+    {
+      mistake: "Expressing relative frequency as a percentage but forgetting to multiply by 100.",
+      fix: "To convert from decimal to percentage: multiply by 100. Relative frequency 0.35 as a percentage is 35%, not 0.35%.",
+    },
+  ],
+  masteryQuiz: [
+    answer(
+      "y8-pro-rel-m1",
+      "A spinner is spun 40 times. Red appears 8 times. Find the relative frequency of red as a decimal.",
+      "\\frac{8}{40}",
+      "0.2",
+      "Relative frequency = 8 ÷ 40 = 0.2."
+    ),
+    answer(
+      "y8-pro-rel-m2",
+      "A spinner is spun 40 times. Red appears 8 times. Express the relative frequency of red as a percentage.",
+      "0.2 \\times 100",
+      "20",
+      "0.2 × 100 = 20%."
+    ),
+    answer(
+      "y8-pro-rel-m3",
+      "A coin is flipped 200 times. Tails appears 94 times. Find the relative frequency of tails as a decimal.",
+      "\\frac{94}{200}",
+      "0.47",
+      "Relative frequency = 94 ÷ 200 = 0.47."
+    ),
+    choice(
+      "y8-pro-rel-m4",
+      "Theoretical P(tails) = 0.5, and the relative frequency from 200 flips is 0.47. What is the most likely reason they differ?",
+      "B",
+      [
+        "The coin is biased.",
+        "Natural variation — random outcomes cause small differences in short experiments.",
+        "The formula was applied incorrectly.",
+        "Theoretical probability only applies to dice, not coins.",
+      ],
+      "Natural variation always causes relative frequency to differ slightly from theoretical probability in a finite experiment. The coin is not necessarily biased — 200 flips is still a moderate sample."
+    ),
+    answer(
+      "y8-pro-rel-m5",
+      "A die is rolled 90 times. Results: 1→12, 2→18, 3→15, 4→10, 5→20, 6→15. Find the relative frequency of rolling a 5.",
+      "\\frac{20}{90}",
+      "2/9",
+      "Relative frequency = 20 ÷ 90 = 2/9 ≈ 0.222.",
+      ["2/9", "0.222", "0.22"]
+    ),
+    answer(
+      "y8-pro-rel-m6",
+      "The sum of all relative frequencies in an experiment must equal what value?",
+      "\\text{sum} = ?",
+      "1",
+      "All possible outcomes cover every trial. Their relative frequencies must sum to 1 (or 100%)."
+    ),
+    answer(
+      "y8-pro-rel-m7",
+      "In an experiment, P(red) = 0.3 and P(blue) = 0.45. What is the relative frequency of neither red nor blue?",
+      "1 - 0.3 - 0.45",
+      "0.25",
+      "All relative frequencies sum to 1. P(other) = 1 − 0.3 − 0.45 = 0.25."
+    ),
+    choice(
+      "y8-pro-rel-m8",
+      "A biased coin is flipped many times. P(heads) = 0.65. After 1000 flips, which is the most likely relative frequency of heads?",
+      "C",
+      ["0.50", "0.60", "0.65", "0.70"],
+      "With many trials, relative frequency converges to theoretical probability. P(heads) = 0.65 means the relative frequency should be close to 0.65 after 1000 flips."
+    ),
+    answer(
+      "y8-pro-rel-m9",
+      "A student rolls a die 30 times and gets a 2 exactly 5 times. What is the relative frequency of 2 as a percentage?",
+      "\\frac{5}{30} \\times 100",
+      "16.67",
+      "Relative frequency = 5 ÷ 30 = 1/6 ≈ 0.1667. As percentage: ≈ 16.67%.",
+      ["16.67", "16.7", "16.667"]
+    ),
+    answer(
+      "y8-pro-rel-m10",
+      "In 300 trials, an event has a relative frequency of 0.4. How many times did the event occur?",
+      "0.4 \\times 300",
+      "120",
+      "Frequency = relative frequency × total trials = 0.4 × 300 = 120."
+    ),
+  ],
+};
+
+// ── Lesson 11: Expected Outcomes ──────────────────────────────────────────────
+
+const expectedOutcomes: LessonContent = {
+  description:
+    "Calculate the expected number of times an event will occur in a given number of trials using expected count = probability × number of trials.",
+  learningIntention:
+    "Use probability to predict the expected number of outcomes in a repeated experiment.",
+  successCriteria: [
+    "Use the formula expected count = P(event) × n to find expected outcomes.",
+    "Explain that expected count is a prediction, not an exact guarantee.",
+    "Calculate how many times an event is expected to occur in a given number of trials.",
+    "Identify whether a result is consistent with a theoretical probability.",
+  ],
+  teaching: {
+    paragraphs: [
+      "If you flip a fair coin 100 times, you would expect about 50 heads. This is not a guarantee — you might get 47 or 53 — but 50 is the expected value based on the theoretical probability. The expected count formula is: expected count = P(event) × number of trials.",
+      "For example, the probability of rolling a 6 on a fair die is 1/6. If you roll the die 120 times, the expected number of 6s is (1/6) × 120 = 20. Again, this is a prediction based on probability — in practice you might get 18 or 23, especially with a smaller number of trials.",
+      "The expected count is sometimes called a long-run prediction. With more trials, the actual count is likely to be closer (as a proportion) to the expected count. With very few trials, the actual result may differ noticeably from the expected value.",
+      "Expected count lets you check whether an experiment is consistent with a fair model. If you rolled a die 600 times and got a 6 only 50 times (expected: 100), that large gap would suggest the die might be biased. If you got 95, the small gap is probably just natural variation.",
+    ],
+    latexBlocks: [
+      "\\text{Expected count} = P(\\text{event}) \\times n",
+      "\\text{e.g. } P(6) = \\frac{1}{6},\\; n = 120 \\Rightarrow \\text{Expected count} = \\frac{1}{6} \\times 120 = 20",
+      "\\text{Expected count is a prediction — actual results will vary.}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Calculate expected count for a coin flip",
+      questionLatex:
+        "\\text{P(heads) = 0.5. The coin is flipped 200 times. How many heads are expected?}",
+      steps: [
+        {
+          explanation: "Apply the expected count formula.",
+          latex: "\\text{Expected count} = P(\\text{heads}) \\times n",
+        },
+        {
+          explanation: "Substitute the values.",
+          latex: "= 0.5 \\times 200 = 100",
+        },
+      ],
+      finalAnswerLatex: "\\text{Expected count of heads} = 100",
+    } as WorkedExample,
+    {
+      title: "Calculate expected count for a die roll",
+      questionLatex:
+        "\\text{A fair die is rolled 90 times. How many times is an even number expected?}",
+      steps: [
+        {
+          explanation: "Find the theoretical probability of an even number.",
+          latex: "P(\\text{even}) = \\frac{3}{6} = \\frac{1}{2}",
+        },
+        {
+          explanation: "Apply the expected count formula.",
+          latex: "\\text{Expected count} = \\frac{1}{2} \\times 90 = 45",
+        },
+      ],
+      finalAnswerLatex: "\\text{Expected even numbers} = 45",
+    } as WorkedExample,
+    {
+      title: "Find the number of trials from expected count",
+      questionLatex:
+        "\\text{P(event) = 0.4. The event is expected to occur 36 times. How many trials were there?}",
+      steps: [
+        {
+          explanation: "Rearrange the formula to find n.",
+          latex: "n = \\frac{\\text{expected count}}{P(\\text{event})} = \\frac{36}{0.4}",
+        },
+        {
+          explanation: "Calculate.",
+          latex: "n = 90",
+        },
+      ],
+      finalAnswerLatex: "n = 90 \\text{ trials}",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-pro-exp-g1",
+      "The formula for expected count is…",
+      "C",
+      [
+        "n ÷ P(event)",
+        "P(event) + n",
+        "P(event) × n",
+        "n ÷ outcomes",
+      ],
+      "Expected count = P(event) × n, where n is the total number of trials."
+    ),
+    answer(
+      "y8-pro-exp-g2",
+      "P(heads) = 0.5. A coin is flipped 100 times. Find the expected number of heads.",
+      "\\text{Expected} = 0.5 \\times 100",
+      "50",
+      "Expected count = P(heads) × n = 0.5 × 100 = 50."
+    ),
+    answer(
+      "y8-pro-exp-g3",
+      "P(rolling a 6) = 1/6. A die is rolled 120 times. Find the expected number of 6s.",
+      "\\text{Expected} = \\frac{1}{6} \\times 120",
+      "20",
+      "Expected count = (1/6) × 120 = 20."
+    ),
+    answer(
+      "y8-pro-exp-g4",
+      "P(event) = 0.4 and the event is expected to occur 36 times. How many trials were there?",
+      "n = \\frac{36}{0.4}",
+      "90",
+      "Rearrange: n = expected count ÷ P(event) = 36 ÷ 0.4 = 90."
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y8-pro-exp-i1",
+      "A spinner has 4 equal sections: red, blue, green, yellow. It is spun 80 times. How many times is red expected to appear?",
+      "P(\\text{red}) = \\frac{1}{4},\\; \\text{Expected} = \\frac{1}{4} \\times 80",
+      "20",
+      "P(red) = 1/4. Expected count = (1/4) × 80 = 20."
+    ),
+    answer(
+      "y8-pro-exp-i2",
+      "A bag has 3 red and 7 blue marbles. A marble is drawn and replaced 50 times. How many times is a red marble expected?",
+      "P(\\text{red}) = \\frac{3}{10},\\; \\text{Expected} = \\frac{3}{10} \\times 50",
+      "15",
+      "P(red) = 3/10. Expected count = (3/10) × 50 = 15."
+    ),
+    answer(
+      "y8-pro-exp-i3",
+      "P(rain on any given day) = 0.3. How many rainy days are expected in 30 days?",
+      "\\text{Expected} = 0.3 \\times 30",
+      "9",
+      "Expected rainy days = 0.3 × 30 = 9."
+    ),
+    answer(
+      "y8-pro-exp-i4",
+      "A die is rolled and getting a number less than 3 is recorded. If 48 such outcomes are expected, how many times was the die rolled?",
+      "P(< 3) = \\frac{2}{6} = \\frac{1}{3},\\; n = \\frac{48}{1/3}",
+      "144",
+      "P(< 3) = 2/6 = 1/3. n = 48 ÷ (1/3) = 48 × 3 = 144."
+    ),
+    choice(
+      "y8-pro-exp-i5",
+      "P(event) = 0.25 and you run 60 trials. You actually get 10 outcomes. What does this tell you?",
+      "B",
+      [
+        "The experiment is definitely not fair — too few outcomes.",
+        "The result is lower than expected (expected = 15) but could be due to natural variation.",
+        "Expected count and actual count must always match.",
+        "The probability formula was applied incorrectly.",
+      ],
+      "Expected count = 0.25 × 60 = 15. Getting 10 is below the expected value, but with only 60 trials this could easily be due to natural variation — not necessarily evidence of bias."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Treating expected count as a guaranteed outcome.",
+      fix: "Expected count is a theoretical prediction, not a certainty. Actual results will vary due to random chance, especially in shorter experiments.",
+    },
+    {
+      mistake: "Dividing n by P(event) instead of multiplying.",
+      fix: "Expected count = P(event) × n. To find n from expected count, rearrange: n = expected count ÷ P(event).",
+    },
+    {
+      mistake: "Using relative frequency as the probability without converting it first.",
+      fix: "Make sure P(event) is expressed as a decimal or fraction before multiplying. A relative frequency of 40% must be converted to 0.4 first.",
+    },
+    {
+      mistake: "Concluding bias whenever the actual count differs from expected.",
+      fix: "Small differences between actual and expected count are normal variation. Only a large, consistent gap over many trials would suggest bias.",
+    },
+  ],
+  masteryQuiz: [
+    answer(
+      "y8-pro-exp-m1",
+      "P(event) = 0.6. The event is run 50 times. Find the expected count.",
+      "0.6 \\times 50",
+      "30",
+      "Expected count = 0.6 × 50 = 30."
+    ),
+    answer(
+      "y8-pro-exp-m2",
+      "A die is rolled 300 times. How many times is rolling a 1 expected?",
+      "P(1) = \\frac{1}{6},\\; \\frac{1}{6} \\times 300",
+      "50",
+      "P(1) = 1/6. Expected count = (1/6) × 300 = 50."
+    ),
+    answer(
+      "y8-pro-exp-m3",
+      "P(event) = 0.2. The event is expected to occur 14 times. How many trials were there?",
+      "n = \\frac{14}{0.2}",
+      "70",
+      "n = 14 ÷ 0.2 = 70."
+    ),
+    choice(
+      "y8-pro-exp-m4",
+      "A fair coin is flipped 40 times. What is the expected number of tails?",
+      "B",
+      ["10", "20", "30", "40"],
+      "P(tails) = 0.5. Expected count = 0.5 × 40 = 20."
+    ),
+    answer(
+      "y8-pro-exp-m5",
+      "A spinner has 5 equal sections. It is spun 150 times. How many times is any one section expected to appear?",
+      "P = \\frac{1}{5},\\; \\frac{1}{5} \\times 150",
+      "30",
+      "P(one section) = 1/5. Expected count = (1/5) × 150 = 30."
+    ),
+    answer(
+      "y8-pro-exp-m6",
+      "A bag has 4 red and 6 blue marbles. It is drawn from (with replacement) 200 times. How many times is a blue marble expected?",
+      "P(\\text{blue}) = \\frac{6}{10} = 0.6,\\; 0.6 \\times 200",
+      "120",
+      "P(blue) = 6/10 = 0.6. Expected count = 0.6 × 200 = 120."
+    ),
+    answer(
+      "y8-pro-exp-m7",
+      "P(event) = 0.4. The event is expected to occur 36 times. How many trials were there?",
+      "n = \\frac{36}{0.4}",
+      "90",
+      "n = 36 ÷ 0.4 = 90 trials."
+    ),
+    choice(
+      "y8-pro-exp-m8",
+      "A die is rolled 60 times and a 3 appears 5 times. Expected count = 10. What is the best explanation for the difference?",
+      "B",
+      [
+        "The die is definitely biased.",
+        "Natural variation — 60 trials is a small sample and results vary by chance.",
+        "The formula was applied incorrectly.",
+        "You should have rolled the die more slowly.",
+      ],
+      "With only 60 trials, getting 5 when 10 are expected is unusual but possible due to natural variation. You would need a much larger sample and repeated testing to conclude bias."
+    ),
+    answer(
+      "y8-pro-exp-m9",
+      "The probability of a seed germinating is 0.75. A gardener plants 80 seeds. How many are expected to germinate?",
+      "0.75 \\times 80",
+      "60",
+      "Expected count = P(germinate) × n = 0.75 × 80 = 60."
+    ),
+    answer(
+      "y8-pro-exp-m10",
+      "In 500 trials, an event is expected to occur 200 times. What is the probability of the event?",
+      "P = \\frac{200}{500}",
+      "0.4",
+      "Rearrange: P(event) = expected count ÷ n = 200 ÷ 500 = 0.4."
+    ),
+  ],
+};
+
 // ── Lesson map and export ─────────────────────────────────────────────────────
 
 const lessons: Record<string, LessonContent> = {
   "collecting-and-displaying-data":   collectingAndDisplayingData,
   "mean-median-mode-range":           meanMedianModeRange,
   "comparing-data-displays":          comparingDataDisplays,
+  "stem-and-leaf-plots":              stemAndLeafPlots,
+  "quartiles-and-iqr":                quartilesAndIQR,
+  "outliers-and-interpretation":      outliersAndInterpretation,
   "probability-language-and-scale":   probabilityLanguageAndScale,
   "simple-probability":               simpleProbability,
   "two-step-chance-experiments":      twoStepChanceExperiments,
+  "relative-frequency":               relativeFrequency,
+  "expected-outcomes":                expectedOutcomes,
 };
 
 export function year8StatisticsProbabilityLessonOverride(

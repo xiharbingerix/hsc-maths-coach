@@ -7,7 +7,7 @@ const offers = [
     title: "Online Learning Access",
     subtitle: "$19/month",
     description:
-      "Structured online lessons, practice, and mastery checks across available course pathways.",
+      "Self-serve access is available through the 7-day free trial checkout. Use this form only if you need help before starting.",
   },
   {
     id: "diagnostic-report",
@@ -25,10 +25,10 @@ const offers = [
   },
   {
     id: "weekly-tutoring",
-    title: "Weekly Tutoring + Online Learning",
-    subtitle: "$75/week",
+    title: "Weekly Tutoring",
+    subtitle: "Currently full",
     description:
-      "Weekly tutoring support plus access to the available online learning course pathways.",
+      "Joshua is not taking new weekly tutoring students right now. Existing tutoring students receive online learning access for free.",
   },
 ];
 
@@ -48,13 +48,13 @@ export default async function EnquirePage({
             Nova Maths
           </p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight">
-            Register interest
+            Enquiries and report requests
           </h1>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
-            Choose the option you are interested in and leave a few details.
-            No payment is taken on this page. Your enquiry is saved even if you
-            do not complete the Year 12 Mathematics Advanced diagnostic today.
-            Joshua will follow up with next steps.
+            For Nova Maths online learning, the fastest path is the 7-day free
+            trial checkout. Use this form for diagnostic reports, study plans,
+            or questions that need a manual reply. Joshua's tutoring spots are
+            currently full.
           </p>
         </header>
 
