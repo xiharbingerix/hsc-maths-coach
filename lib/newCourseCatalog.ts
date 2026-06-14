@@ -642,6 +642,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Use tree diagrams and tables for two-stage events, apply P(A and B) = P(A) × P(B) for independent events, and distinguish with- and without-replacement scenarios.",
           },
           {
+            slug: "expected-frequency-contingency-tables",
+            title: "Expected Frequency and Contingency Tables",
+            description:
+              "Calculate expected frequency using E = np, read and complete contingency tables, find probabilities from cell counts, and use probability to evaluate decisions.",
+          },
+          {
             slug: "statistical-analysis-exam-practice",
             title: "Statistical Analysis Exam Practice",
             description:
@@ -680,6 +686,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Critical Path Analysis",
             description:
               "Use activity tables to find earliest times, critical paths, project completion time, float, and delay effects.",
+          },
+          {
+            slug: "gantt-charts-dummy-activities",
+            title: "Gantt Charts and Dummy Activities",
+            description:
+              "Construct Gantt charts from network diagrams, identify the critical path on a Gantt chart, and use dummy activities to model shared precedence constraints.",
           },
           {
             slug: "networks-exam-practice",

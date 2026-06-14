@@ -8,6 +8,12 @@ import {
 function statisticsFeedback(prompt: string, answer: string) {
   const lowerPrompt = prompt.toLowerCase();
 
+  if (lowerPrompt.includes("expected frequency") || lowerPrompt.includes("expected number") || (lowerPrompt.includes("e = np") || lowerPrompt.includes("e=np"))) {
+    return `Expected frequency E = n × p. Multiply the number of trials by the probability to get ${answer}.`;
+  }
+  if (lowerPrompt.includes("contingency") || (lowerPrompt.includes("table") && (lowerPrompt.includes("p(") || lowerPrompt.includes("probability")))) {
+    return `Read the relevant cell from the table and divide by the grand total (all respondents) to find the probability. This gives ${answer}.`;
+  }
   if (lowerPrompt.includes("p(a and b)") || lowerPrompt.includes("p(a) × p(b)") || (lowerPrompt.includes("independent") && lowerPrompt.includes("find p"))) {
     return `For independent events, use P(A and B) = P(A) × P(B). Multiply the two individual probabilities to get ${answer}.`;
   }
@@ -718,6 +724,240 @@ export function year12Standard2StatisticsLessonOverride(
         financeChoice("y12s2-relfreq-m8", "In P(A | B), which total should be used in the denominator?", "D", ["all outcomes always", "only group A", "the largest cell", "the total in group B"], "Given B restricts the sample space to group B."),
         financeShortAnswer("y12s2-relfreq-m9", "A factory tests 400 bulbs and 10 fail. Estimate the failure probability.", "\\frac{10}{400}", "0.025", ["2.5%", "1/40"]),
         financeChoice("y12s2-relfreq-m10", "If relative frequency is 0.72, what percentage is this?", "B", ["7.2%", "72%", "0.72%", "720%"], "Multiply the decimal by 100 to convert to a percentage."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "expected-frequency-contingency-tables") {
+    return {
+      ...base,
+      description:
+        "Calculate expected frequency using E = np, read and complete contingency tables, find probabilities from cell counts, and use probability to evaluate decisions.",
+      learningIntention:
+        "Apply E = np to predict how often an event will occur, and read contingency tables to find probabilities and inform decisions.",
+      successCriteria: [
+        "Calculate expected frequency using E = n × p.",
+        "Recover the probability from an expected frequency using p = E ÷ n.",
+        "Read a two-way contingency table to identify row, column, and cell counts.",
+        "Calculate probability as cell count ÷ grand total.",
+        "Use a probability or expected frequency to justify a practical decision.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Expected frequency answers the question: if I repeat an experiment n times and the probability of the event is p, how many times do I expect the event to occur? The formula is simply E = n × p. Expected frequency is a count, not a probability — it can be greater than 1.",
+          "A contingency table (also called a two-way table) organises data by two categorical variables. Rows represent one category, columns represent another. Each interior cell shows the count of outcomes in both categories. The rightmost column and bottom row show the row and column totals (marginals); the bottom-right cell is the grand total.",
+          "To find a probability from a contingency table, identify the relevant cell count and divide by the grand total. For example, P(Female and Sport) = (Female ∩ Sport count) ÷ grand total. To find a row-only or column-only probability, use the corresponding marginal total ÷ grand total.",
+          "Expected frequency and probability link together: if a survey shows 75 out of 100 people play sport (p = 0.75), then in a group of 400 we expect E = 400 × 0.75 = 300 people to play sport. This kind of reasoning is used to predict outcomes and inform decisions such as resource allocation.",
+        ],
+        latexBlocks: [
+          "E = n \\times p \\qquad p = \\dfrac{E}{n}",
+          "P(\\text{event}) = \\dfrac{\\text{cell count}}{\\text{grand total}}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Calculate expected frequency",
+          questionLatex:
+            "\\text{A fair die is rolled 120 times. How many times is a 6 expected to appear?}",
+          steps: [
+            {
+              explanation: "Identify n and p.",
+              latex: "n = 120,\\quad p = \\tfrac{1}{6}",
+            },
+            {
+              explanation: "Apply E = np.",
+              latex: "E = 120 \\times \\tfrac{1}{6} = 20\\text{ times}",
+            },
+          ],
+        },
+        {
+          title: "Read probabilities from a contingency table",
+          questionLatex:
+            "\\text{Survey: } \\begin{array}{|l|c|c|c|}\\hline & \\text{Sport} & \\text{No Sport} & \\text{Total}\\\\\\hline \\text{Male} & 45 & 15 & 60 \\\\\\hline \\text{Female} & 30 & 10 & 40 \\\\\\hline \\text{Total} & 75 & 25 & 100 \\\\\\hline\\end{array}\\text{Find P(Female) and P(Male and Sport).}",
+          steps: [
+            {
+              explanation: "P(Female) uses the Female marginal total ÷ grand total.",
+              latex: "P(\\text{Female}) = \\dfrac{40}{100} = 0.4",
+            },
+            {
+              explanation: "P(Male and Sport) uses the cell at Male ∩ Sport.",
+              latex: "P(\\text{Male and Sport}) = \\dfrac{45}{100} = 0.45",
+            },
+          ],
+        },
+        {
+          title: "Use expected frequency to support a decision",
+          questionLatex:
+            "\\text{P(defect) = 0.04. A factory produces 2500 items. How many defects are expected? Should an inspector check every item?}",
+          steps: [
+            {
+              explanation: "Calculate expected frequency.",
+              latex: "E = 2500 \\times 0.04 = 100\\text{ defects}",
+            },
+            {
+              explanation: "Interpret the result to inform a decision.",
+              latex:
+                "\\text{100 expected defects out of 2500 is a 4\\% rate — random sampling may be adequate rather than checking every item.}",
+            },
+          ],
+        },
+      ],
+      guidedPractice: [
+        financeChoice(
+          "y12s2-eft-g1",
+          "A fair die is rolled 120 times. Expected frequency of rolling a 6?",
+          "C",
+          ["6", "12", "20", "30"],
+          "E = 120 × 1/6 = 20."
+        ),
+        financeChoice(
+          "y12s2-eft-g2",
+          "Survey (Sport table above): how many people were surveyed in total?",
+          "D",
+          ["45", "75", "60", "100"],
+          "The grand total in the bottom-right cell is 100."
+        ),
+        financeChoice(
+          "y12s2-eft-g3",
+          "From the sport survey: P(Female) = ?",
+          "B",
+          ["0.30", "0.40", "0.60", "30"],
+          "P(Female) = 40 ÷ 100 = 0.40."
+        ),
+        financeChoice(
+          "y12s2-eft-g4",
+          "From the sport survey: P(Male and Sport) = ?",
+          "C",
+          ["0.30", "0.60", "0.45", "0.75"],
+          "P(Male ∩ Sport) = 45 ÷ 100 = 0.45."
+        ),
+      ],
+      independentPractice: [
+        financeChoice(
+          "y12s2-eft-i1",
+          "A spinner lands on red 25% of the time. In 400 spins, expected frequency of red?",
+          "C",
+          ["25", "40", "100", "400"],
+          "E = 400 × 0.25 = 100."
+        ),
+        financeShortAnswer(
+          "y12s2-eft-i2",
+          "P(defect) = 0.04. A factory produces 2500 items. Expected number of defects?",
+          "E = 2500 \\times 0.04",
+          "100",
+          ["100 defects"]
+        ),
+        financeChoice(
+          "y12s2-eft-i3",
+          "Pass/Fail survey: Year 11 passed 72, failed 18 (total 90). Year 12 passed 40, failed 10 (total 50). Grand total 140. P(Fail) = ?",
+          "C",
+          ["0.18", "0.28", "0.20", "0.50"],
+          "P(Fail) = 28 ÷ 140 = 0.20."
+        ),
+        financeChoice(
+          "y12s2-eft-i4",
+          "From the Pass/Fail survey: how many Year 11 students passed?",
+          "C",
+          ["18", "40", "72", "90"],
+          "The Year 11 / Pass cell shows 72."
+        ),
+        financeShortAnswer(
+          "y12s2-eft-i5",
+          "From the Pass/Fail survey (grand total 140): P(Year 12 and Pass) as a decimal to 2 decimal places.",
+          "P = 40 \\div 140",
+          "0.29",
+          ["0.286", "0.2857"]
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Dividing by the row total instead of the grand total when finding a probability.",
+          fix: "All probabilities from a contingency table are cell count ÷ grand total. The row and column totals are used only for marginal probabilities (e.g., P(Female) = female row total ÷ grand total).",
+        },
+        {
+          mistake: "Confusing expected frequency with probability.",
+          fix: "Expected frequency E = np is a count (e.g., 100 defects). Probability p is a proportion between 0 and 1 (e.g., 0.04). They are related but distinct.",
+        },
+        {
+          mistake: "Using E = np to find expected frequency and reporting a decimal as the answer.",
+          fix: "E = np gives the expected number of times. Round to a sensible whole number in context — you cannot have 2.5 defective items, so report E ≈ 3 rather than 2.5.",
+        },
+        {
+          mistake: "Reading the wrong cell from a two-way table.",
+          fix: "Cross the row (one variable) with the column (other variable) to find the correct cell. Check the row header and column header match the category you need.",
+        },
+      ],
+      masteryQuiz: [
+        financeChoice(
+          "y12s2-eft-m1",
+          "The formula for expected frequency is:",
+          "B",
+          ["E = p ÷ n", "E = n × p", "E = n + p", "E = n ÷ p"],
+          "E = np. Multiply the number of trials by the probability."
+        ),
+        financeShortAnswer(
+          "y12s2-eft-m2",
+          "P(A) = 0.35. Experiment repeated 200 times. Expected frequency of A?",
+          "E = 200 \\times 0.35",
+          "70",
+          ["70 times"]
+        ),
+        financeChoice(
+          "y12s2-eft-m3",
+          "From the sport survey: how many females play sport?",
+          "C",
+          ["10", "25", "30", "40"],
+          "The Female / Sport cell shows 30."
+        ),
+        financeShortAnswer(
+          "y12s2-eft-m4",
+          "From the Pass/Fail survey (grand total 140): P(Year 11 and Fail) as a decimal to 2 decimal places.",
+          "P = 18 \\div 140",
+          "0.13",
+          ["0.129", "0.1286"]
+        ),
+        financeChoice(
+          "y12s2-eft-m5",
+          "Expected frequency of an event is 15 out of 60 trials. Probability of the event?",
+          "B",
+          ["0.15", "0.25", "0.40", "15/6"],
+          "p = E ÷ n = 15 ÷ 60 = 0.25."
+        ),
+        financeChoice(
+          "y12s2-eft-m6",
+          "From the sport survey: P(No Sport) = ?",
+          "C",
+          ["0.10", "0.15", "0.25", "0.75"],
+          "P(No Sport) = 25 ÷ 100 = 0.25."
+        ),
+        financeChoice(
+          "y12s2-eft-m7",
+          "P(success) = 0.6 from a survey. Expected frequency in 500 future trials?",
+          "C",
+          ["60", "150", "300", "600"],
+          "E = 500 × 0.6 = 300."
+        ),
+        financeShortAnswer(
+          "y12s2-eft-m8",
+          "From the Pass/Fail survey (grand total 140): P(Pass) as a decimal.",
+          "P = 112 \\div 140",
+          "0.8",
+          ["0.80"]
+        ),
+        financeChoice(
+          "y12s2-eft-m9",
+          "In a contingency table, individual cell probabilities are found by dividing the cell count by:",
+          "B",
+          ["The row total", "The grand total", "The column total", "The number of rows"],
+          "All probabilities use the grand total as the denominator."
+        ),
+        financeChoice(
+          "y12s2-eft-m10",
+          "P(defect) = 0.02. Factory inspects 3000 items. Expected defects?",
+          "C",
+          ["2", "20", "60", "200"],
+          "E = 3000 × 0.02 = 60 expected defects."
+        ),
       ],
     };
   }

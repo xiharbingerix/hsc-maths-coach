@@ -40,7 +40,16 @@ function networkFeedback(prompt: string, answer: string) {
   ) {
     return `For an MST total, add the selected connector edges once each. Those edges already form the minimum cycle-free connection, so their combined weight is ${answer}.`;
   }
-  if (lowerPrompt.includes("earliest finish")) {
+  if (lowerPrompt.includes("dummy activity") || lowerPrompt.includes("dummy arrow")) {
+    return `A dummy activity has zero duration and is shown as a dashed arrow. It carries a precedence constraint — it tells the network that a preceding activity must finish before the next one can start, without adding any time. The answer is ${answer}.`;
+  }
+  if (lowerPrompt.includes("gantt") || lowerPrompt.includes("bar chart")) {
+    return `On a Gantt chart each activity is a horizontal bar. The bar starts at the EST and extends for the activity's duration. Critical activities have no gap after them; non-critical activities may have a dashed extension showing their float. The answer is ${answer}.`;
+  }
+  if (lowerPrompt.includes("lft") || lowerPrompt.includes("latest finish")) {
+    return `Latest finish time (LFT) is the latest an activity can end without delaying the project. It equals the minimum of the LSTs of all successor activities. Here LFT = ${answer}.`;
+  }
+  if (lowerPrompt.includes("eft") || lowerPrompt.includes("earliest finish")) {
     return `Earliest finish means the activity's earliest start plus its duration. Add those two times to get ${answer}.`;
   }
   if (lowerPrompt.includes("earliest start")) {
@@ -686,6 +695,286 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer("y12s2-flow-m8", "An arc has capacity 30 and flow 22. Find the unused capacity.", "30-22", "8"),
         labelledChoice("y12s2-flow-m9", "When calculating a cut capacity, which arcs are added?", "A", ["Forward arcs crossing from source side to sink side", "All arcs in the network", "Only loops", "Only the shortest path"], "A cut capacity adds the forward crossing arcs."),
         shortAnswer("y12s2-flow-m10", "A cut capacity is 18. What is the largest possible total flow across that cut?", "\\text{cut capacity}=18", "18"),
+      ],
+    };
+  }
+
+  if (lesson.slug === "gantt-charts-dummy-activities") {
+    return {
+      ...base,
+      description:
+        "Construct Gantt charts from network diagrams, identify the critical path on a Gantt chart, and use dummy activities to model shared precedence constraints.",
+      learningIntention:
+        "Build a Gantt chart from a precedence table, read critical and non-critical activities from it, and recognise when a dummy activity is needed in a network.",
+      successCriteria: [
+        "Identify EST, EFT, LST and LFT for each activity using the forward and backward pass.",
+        "Construct a Gantt chart by placing each activity's bar from its EST for its duration.",
+        "Identify critical path activities as those with zero float on the Gantt chart.",
+        "Recognise that a dummy activity (dashed arrow, zero duration) is needed when two activities share some but not all predecessors.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A Gantt chart is a horizontal bar chart where each row is an activity and the horizontal axis is time. Every bar starts at the activity's EST and extends for the duration of the activity. Critical activities sit one after another with no gap; non-critical activities may start later than their EST by up to their float time.",
+          "To build a Gantt chart: complete the forward pass to find EST and EFT for each activity, then the backward pass to find LST and LFT. Float = LST − EST. Place each bar starting at EST. Shade critical activities (float = 0) differently from non-critical ones. Float can be shown as a dashed extension after the bar.",
+          "A dummy activity is needed in an Activity-on-Arc (AOA) network when two activities share some but not all predecessors. For example, if Activity C depends on A only, but Activity D depends on both A and B, a dummy (dashed arrow, zero duration) runs from the end of B to the node where D starts. This forces D to wait for B without making C depend on B.",
+          "Project Alpha: activities A(2), B(4), C(3), D(2), E(5), F(1). Precedences: C after A; D after B; E after C and D; F after E. Critical path = B → D → E → F = 4+2+5+1 = 12 days. Float: A=1, B=0, C=1, D=0, E=0, F=0.",
+        ],
+        latexBlocks: [
+          "\\text{EFT} = \\text{EST} + \\text{duration}",
+          "\\text{LFT} = \\min(\\text{LST of successors})",
+          "\\text{Float} = \\text{LST} - \\text{EST} = \\text{LFT} - \\text{EFT}",
+          "\\text{Critical path: all activities with Float} = 0",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Forward and backward pass for Project Alpha",
+          questionLatex:
+            "\\text{Project Alpha: A(2), B(4), C(3 after A), D(2 after B), E(5 after C and D), F(1 after E). Find EST, EFT, LST, LFT and float for each activity.}",
+          steps: [
+            {
+              explanation: "Forward pass — find EST and EFT.",
+              latex:
+                "A:\\;0\\to2,\\quad B:\\;0\\to4,\\quad C:\\;2\\to5,\\quad D:\\;4\\to6,\\quad E:\\;6\\to11,\\quad F:\\;11\\to12",
+            },
+            {
+              explanation: "Backward pass from project end (12) — find LFT and LST.",
+              latex:
+                "F:\\;\\text{LFT}=12,\\;\\text{LST}=11\\quad D:\\;\\text{LFT}=6,\\;\\text{LST}=4\\quad E:\\;\\text{LFT}=11,\\;\\text{LST}=6",
+            },
+            {
+              explanation: "Floats: B, D, E, F have float 0 (critical). A and C have float 1.",
+              latex:
+                "\\text{Critical path: }B\\to D\\to E\\to F\\quad(\\text{duration }=12\\text{ days})",
+            },
+          ],
+        },
+        {
+          title: "Reading a Gantt chart",
+          questionLatex:
+            "\\text{Using Project Alpha, draw the Gantt chart and identify which activities have float.}",
+          steps: [
+            {
+              explanation: "Place each bar at its EST, extending for its duration.",
+              latex:
+                "A:\\;\\text{days }0\\text{–}2\\;(+1\\text{ float}),\\quad B:\\;\\text{days }0\\text{–}4,\\quad C:\\;\\text{days }2\\text{–}5\\;(+1\\text{ float})",
+            },
+            {
+              explanation: "Critical activities (float = 0) have no dashed extension: B, D, E, F.",
+              latex:
+                "D:\\;\\text{days }4\\text{–}6,\\quad E:\\;\\text{days }6\\text{–}11,\\quad F:\\;\\text{days }11\\text{–}12",
+            },
+          ],
+        },
+        {
+          title: "When is a dummy activity needed?",
+          questionLatex:
+            "\\text{Activity C depends on A only. Activity D depends on A and B. Explain why a dummy is needed and where it goes.}",
+          steps: [
+            {
+              explanation: "Without a dummy, B would need its own path to D's start node. But if A and B both finish at the same node, C would incorrectly depend on B.",
+              latex:
+                "\\text{Solution: draw A}\\to\\text{Node 2}\\to\\text{C, and draw B}\\to\\text{Node 3.}",
+            },
+            {
+              explanation: "Add a dummy (dashed, zero duration) from Node 2 to Node 3. D starts at Node 3, requiring both A (via dummy) and B.",
+              latex:
+                "\\text{Dummy: Node 2}\\xrightarrow{0}\\text{Node 3},\\quad D\\text{ starts at Node 3}",
+            },
+          ],
+        },
+      ],
+      guidedPractice: [
+        labelledChoice(
+          "y12s2-gcd-g1",
+          "What is a dummy activity in a critical path network?",
+          "B",
+          [
+            "An activity with negative float",
+            "A dashed arrow with zero duration that carries a precedence constraint",
+            "The last activity in the project",
+            "An activity that runs in parallel with the critical path",
+          ],
+          "A dummy is a dashed arrow of zero duration used to show that one activity must wait for another without adding any time to the project."
+        ),
+        shortAnswer(
+          "y12s2-gcd-g2",
+          "Project Alpha: A(2), B(4), C(3 after A), D(2 after B), E(5 after C and D), F(1 after E). Find the minimum project completion time in days.",
+          "\\text{Critical path: }B\\to D\\to E\\to F=4+2+5+1",
+          "12",
+          ["12 days"]
+        ),
+        labelledChoice(
+          "y12s2-gcd-g3",
+          "Project Alpha: which activities are on the critical path?",
+          "B",
+          [
+            "A, C, E, F",
+            "B, D, E, F",
+            "A, B, D, F",
+            "All activities",
+          ],
+          "Critical path = B→D→E→F (float = 0 for each). A and C both have float = 1."
+        ),
+        shortAnswer(
+          "y12s2-gcd-g4",
+          "Project Alpha: find the float for Activity C (EST=2, LST=3).",
+          "\\text{Float}=\\text{LST}-\\text{EST}=3-2",
+          "1",
+          ["1 day"]
+        ),
+      ],
+      independentPractice: [
+        labelledChoice(
+          "y12s2-gcd-i1",
+          "A dummy activity is shown in a network diagram as:",
+          "C",
+          [
+            "A solid arrow",
+            "A rectangular box",
+            "A dashed arrow with duration 0",
+            "A dotted node",
+          ],
+          "Dummy activities are always drawn as dashed arrows with zero duration to distinguish them from real activities."
+        ),
+        shortAnswer(
+          "y12s2-gcd-i2",
+          "Project Alpha: find EFT for Activity E (EST=6, duration=5 days).",
+          "\\text{EFT}=6+5",
+          "11",
+          ["11 days"]
+        ),
+        labelledChoice(
+          "y12s2-gcd-i3",
+          "In a Gantt chart, the horizontal axis represents:",
+          "B",
+          ["Activity names", "Time", "Cost", "Probability"],
+          "The horizontal axis is time. Each bar starts at the EST of the activity."
+        ),
+        labelledChoice(
+          "y12s2-gcd-i4",
+          "Project Alpha — Activity C has EST=2 and duration 3. On the Gantt chart, C's bar spans:",
+          "B",
+          ["Days 0 to 3", "Days 2 to 5", "Days 3 to 6", "Days 2 to 3"],
+          "Bar starts at EST (day 2) and extends for 3 days: days 2 to 5."
+        ),
+        shortAnswer(
+          "y12s2-gcd-i5",
+          "Project Alpha: find LST for Activity A (LFT=3, duration=2 days).",
+          "\\text{LST}=\\text{LFT}-\\text{duration}=3-2",
+          "1",
+          ["1 day", "Day 1"]
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Starting a Gantt bar at time 0 for every activity.",
+          fix: "Each bar starts at the activity's EST, not always at 0. Activities that depend on others start after their predecessors finish.",
+        },
+        {
+          mistake: "Thinking a dummy activity adds time to the project.",
+          fix: "A dummy has zero duration — it adds no time. It only enforces a precedence constraint. The project length comes from real activities only.",
+        },
+        {
+          mistake: "Confusing EFT with LFT when calculating float.",
+          fix: "Float = LST − EST = LFT − EFT. EFT is the earliest an activity can finish; LFT is the latest it can finish. Float uses the difference, not either value alone.",
+        },
+        {
+          mistake: "Adding a dummy whenever there is a parallel path, even when not needed.",
+          fix: "A dummy is only needed when two activities share some but not all predecessors, creating a precedence clash. If two activities simply start at the same node independently, no dummy is required.",
+        },
+      ],
+      masteryQuiz: [
+        labelledChoice(
+          "y12s2-gcd-m1",
+          "On a Gantt chart, critical path activities are those that:",
+          "B",
+          [
+            "Have the longest individual duration",
+            "Have zero float and must start at their EST",
+            "Always appear at the top of the chart",
+            "Are drawn as dashed bars",
+          ],
+          "Critical activities have zero float — any delay cascades directly to the project end date."
+        ),
+        shortAnswer(
+          "y12s2-gcd-m2",
+          "Project Alpha: find LFT for Activity D (LST of F=11, LST of E=6, D feeds E).",
+          "\\text{LFT(D)}=\\text{LST(E)}=6",
+          "6",
+          ["6 days", "Day 6"]
+        ),
+        labelledChoice(
+          "y12s2-gcd-m3",
+          "Project Alpha: which activities have float greater than 0?",
+          "A",
+          ["A and C only", "B and D only", "E and F only", "All activities"],
+          "A has float=1, C has float=1. B, D, E, F are critical (float=0)."
+        ),
+        labelledChoice(
+          "y12s2-gcd-m4",
+          "A dummy is needed when Activity X depends on A and B, but Activity Y depends on A only. The dummy runs:",
+          "B",
+          [
+            "From A's end node to B's end node",
+            "From B's end node to X's start node, showing B is required for X but not Y",
+            "From X to Y directly",
+            "From the start node to both A and B",
+          ],
+          "The dummy carries B's completion into X's start while Y branches off at A's end node independently."
+        ),
+        shortAnswer(
+          "y12s2-gcd-m5",
+          "Project Alpha: find EST for Activity E (EFT of C=5, EFT of D=6).",
+          "\\text{EST(E)}=\\max(5,6)=6",
+          "6",
+          ["6 days", "Day 6"]
+        ),
+        labelledChoice(
+          "y12s2-gcd-m6",
+          "If Activity B in Project Alpha increases from 4 to 5 days, the minimum project completion time becomes:",
+          "B",
+          ["12 days", "13 days", "14 days", "15 days"],
+          "B→D→E→F = 5+2+5+1 = 13 days. The critical path length increases by 1."
+        ),
+        labelledChoice(
+          "y12s2-gcd-m7",
+          "On a Gantt chart, float for a non-critical activity is shown as:",
+          "B",
+          [
+            "A longer solid bar",
+            "A dashed extension after the solid bar",
+            "A separate row above the activity",
+            "A shorter bar",
+          ],
+          "The solid bar shows the activity duration. The dashed extension shows how much later the activity could start (float)."
+        ),
+        shortAnswer(
+          "y12s2-gcd-m8",
+          "Project Alpha: if Activity E is reduced to 3 days (was 5), find the new minimum completion time.",
+          "B\\to D\\to E\\to F=4+2+3+1",
+          "10",
+          ["10 days"]
+        ),
+        labelledChoice(
+          "y12s2-gcd-m9",
+          "Project Alpha: which activities must be complete before E can start?",
+          "C",
+          ["A only", "B only", "Both C and D", "F only"],
+          "E depends on C and D. C needs A; D needs B. So both C and D must be done before E starts."
+        ),
+        labelledChoice(
+          "y12s2-gcd-m10",
+          "The primary purpose of a Gantt chart in project management is to:",
+          "B",
+          [
+            "Calculate the project cost",
+            "Show the schedule of activities and their timing visually",
+            "Replace the network diagram entirely",
+            "Identify the probability of project completion",
+          ],
+          "A Gantt chart is a scheduling tool — it shows when each activity starts and ends, making it easy to see the critical path and resource needs at a glance."
+        ),
       ],
     };
   }
