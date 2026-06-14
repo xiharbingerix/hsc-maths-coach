@@ -1,24 +1,25 @@
 # Year 12 Extension 2 Proof Skill Map v2 Plan
 
 Created: June 2026
+Phase 1 implemented: June 2026
 
 ---
 
 ## 1. Current Scaffold State
 
-`year-12-extension-2` is registered in `lib/newCourseCatalog.ts` with status `coming_soon`. The `proof` unit (line ~1825) is the **only unit with zero lessons** and the **only unit with no override file**.
+`year-12-extension-2` is registered in `lib/newCourseCatalog.ts` with status `in_progress`. The `proof` unit now has Phase 1 lesson seeds and a dedicated override file.
 
 | Field | Value |
 |---|---|
 | Unit slug | `proof` |
 | Unit title | Proof |
 | Unit description (catalog) | Planned Extension 2 proof work including advanced induction, contradiction, contrapositive reasoning and inequality proofs. |
-| Lessons | **Empty** — `lessons: []` |
-| Override file | None — no `proof.ts` in `lib/lessons/year12Extension2/` |
-| Override wired in `buildLesson` | No |
-| Export in `index.ts` | No |
-| Questions in bank | 0 |
-| Skill Map v2 metadata | None |
+| Lessons | 3 active lessons (Phase 1) |
+| Override file | `lib/lessons/year12Extension2/proof.ts` |
+| Override wired in `buildLesson` | Yes |
+| Export in `index.ts` | Yes |
+| Questions in bank | 57 Proof questions in dry-run seed output |
+| Skill Map v2 metadata | `stableSkillId` + checkpoints on all 3 Phase 1 lessons |
 
 The unit slug `proof` is distinct from the Extension 1 unit `proof-induction`. No slug collision exists.
 
@@ -158,9 +159,9 @@ This is a first real Proof release, not complete Extension 2 Proof coverage. Six
 
 ---
 
-## 4. Recommended Phase 1 Chunk
+## 4. Phase 1 Chunk
 
-Implement these three lessons first:
+Implemented these three lessons first:
 
 1. `proof-by-contradiction`
 2. `proof-by-contrapositive`
@@ -176,7 +177,7 @@ Implement these three lessons first:
 
 Phase 2 adds: `advanced-mathematical-induction`, `divisibility-integer-proof`, `proof-exam-practice`.
 
-**Phase 1 question counts:** 4 guided + 5 independent + 10 mastery = 19 per lesson × 3 = **57 questions**. Optional `multiPartPractice` on `proof-by-contradiction` and `inequalities-algebraic-proof` where every part is MCQ or exact numeric.
+**Phase 1 question counts:** 4 guided + 5 independent + 10 mastery = 19 per lesson x 3 = **57 questions**. No optional `multiPartPractice` was added in Phase 1.
 
 **Stable IDs for Phase 1:**
 
@@ -239,7 +240,7 @@ Proof carries the highest auto-marking risk of any Extension 2 unit because the 
 
 ## 8. Course Status Recommendation
 
-**Change `year-12-extension-2` from `coming_soon` to `in_progress` after Proof Phase 1 lands.**
+**Completed:** `year-12-extension-2` changed from `coming_soon` to `in_progress` after Proof Phase 1 landed.
 
 Rationale: once Proof Phase 1 is complete, every NSW Extension 2 topic area will have at least some real lesson content for the first time. The Proof unit has been the sole completely empty topic, making `coming_soon` the only honest description. With three Proof lessons added:
 

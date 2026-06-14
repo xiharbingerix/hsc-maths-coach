@@ -1,22 +1,22 @@
 # Year 12 Mathematics Extension 2 HSC Status
 
-Audited: June 2026 · Calculus Phase 1 added: June 2026 · Mechanics Phase 1 added: June 2026
+Audited: June 2026 · Calculus Phase 1 added: June 2026 · Mechanics Phase 1 added: June 2026 · Proof Phase 1 added: June 2026
 
 ## 1. Course Registration
 
 | Field | Value |
 |---|---|
 | Slug | `year-12-extension-2` |
-| Status | `coming_soon` |
+| Status | `in_progress` |
 | App routes | `/course/year-12-extension-2` scaffolded |
-| Unit routes | Active for complex-numbers, vectors-3d, calculus (Phase 1), and mechanics (Phase 1) |
-| Lesson routes | Active for 14 lessons across four units |
+| Unit routes | Active for proof (Phase 1), complex-numbers, vectors-3d, calculus (Phase 1), and mechanics (Phase 1) |
+| Lesson routes | Active for 17 lessons across five units |
 | Diagnostic | Not added |
-| Question bank | 272 questions across all active units (dry-run verified June 2026) |
-| Lesson files | `complexNumbers.ts` (4 lessons), `vectors3D.ts` (4 lessons), `calculus.ts` (3 lessons), `mechanics.ts` (3 lessons) |
-| Skill Map v2 | Catalogue metadata on Complex Numbers + all 3 Calculus Phase 1 lessons + all 3 Mechanics Phase 1 lessons |
+| Question bank | 329 questions across all active units (dry-run verified June 2026) |
+| Lesson files | `complexNumbers.ts` (4 lessons), `vectors3D.ts` (4 lessons), `calculus.ts` (3 lessons), `mechanics.ts` (3 lessons), `proof.ts` (3 lessons) |
+| Skill Map v2 | Catalogue metadata on Complex Numbers + all 3 Calculus Phase 1 lessons + all 3 Mechanics Phase 1 lessons + all 3 Proof Phase 1 lessons |
 
-Extension 2 has real lessons in Complex Numbers, Vectors in 3D, Calculus Phase 1, and Mechanics Phase 1. Course status remains `coming_soon` — Proof still has no content, and both Calculus and Mechanics are partial.
+Extension 2 has real lessons in all five NSW topic areas: Proof Phase 1, Complex Numbers, Vectors in 3D, Calculus Phase 1, and Mechanics Phase 1. Course status is now `in_progress`; it is not yet `available` because Proof, Calculus and Mechanics remain partial.
 
 ## 2. Registered NSW Topic Areas
 
@@ -24,7 +24,7 @@ The scaffold registers the five NSW Mathematics Extension 2 Year 12 topic areas:
 
 | Unit slug | Unit title | Status |
 |---|---|---|
-| `proof` | Proof | Planned only |
+| `proof` | Proof | **3 lessons active (Phase 1)** |
 | `vectors-3d` | Vectors in Three Dimensions | **4 lessons active** |
 | `complex-numbers` | Complex Numbers | **4 lessons active** |
 | `calculus` | Calculus | **3 lessons active (Phase 1)** |
@@ -58,11 +58,21 @@ The scaffold registers the five NSW Mathematics Extension 2 Year 12 topic areas:
 
 Phase 2 planned: `partial-fractions-rational-integrals`, `volumes-solids-of-revolution`, `calculus-exam-practice`.
 
+### Proof lessons (Phase 1)
+
+| Lesson slug | Title | Multi-part | Skill Map v2 metadata |
+|---|---|---|---|
+| `proof-by-contradiction` | Proof by Contradiction | No | `stableSkillId` + 4 checkpoints |
+| `proof-by-contrapositive` | Proof by Contrapositive | No | `stableSkillId` + 4 checkpoints |
+| `inequalities-algebraic-proof` | Inequalities and Algebraic Proof | No | `stableSkillId` + 4 checkpoints |
+
+Phase 2 planned: `advanced-mathematical-induction`, `divisibility-integer-proof`, `proof-exam-practice`.
+
 ## 3. Coverage Still Missing
 
 | Topic | Current coverage |
 |---|---|
-| Proof: advanced induction, contradiction, contrapositive, inequalities | None |
+| Proof: advanced induction, contradiction, contrapositive, inequalities | **Contradiction, contrapositive and algebraic inequalities (Phase 1)** |
 | 3D vectors: component form, magnitude, dot product, angle, lines | **4 lessons — core HSC skills covered** |
 | 3D vectors: cross product, planes, skew lines, distance from point to line | Not yet |
 | Complex numbers: arithmetic, modulus/arg, Argand diagram, polar form, De Moivre | **4 lessons — core HSC skills covered** |
@@ -83,19 +93,19 @@ Minimum recommendation before adding a diagnostic:
 
 ## 5. Skill Map v2 Phase 1a Position
 
-Complex Numbers now carries catalogue-only Skill Map v2 metadata:
+Complex Numbers, Calculus Phase 1, Mechanics Phase 1, and Proof Phase 1 now carry catalogue-only Skill Map v2 metadata:
 
-- stable skill IDs on the four existing lesson seeds
-- legacy slug arrays pointing back to current public lesson slugs
-- checkpoint labels for planned finer-grained Complex Numbers slots
+- stable skill IDs on active lesson seeds
+- legacy slug arrays where current public lesson slugs need explicit mapping
+- checkpoint labels for planned finer-grained Skill Map v2 slots
 
 This does not change public URLs, lesson rendering, worksheet generation, mastery writes, or Continue Learning. The metadata is consumed by audit tooling and dry-run reporting only until a later migration adds nullable database columns such as `questions.skill_id` or `mastery_events.checkpoint_id`.
 
 ## 6. Question Bank Position
 
-`scripts/seed-question-bank.ts --course year-12-extension-2 --dry-run` is supported. With the current active lessons it prepares approved Complex Numbers and Vectors in Three Dimensions questions and performs no writes in dry-run mode.
+`scripts/seed-question-bank.ts --course year-12-extension-2 --dry-run` is supported. With the current active lessons it prepares 329 approved rows and performs no writes in dry-run mode.
 
-Question seeding currently prepares approved rows for the active Complex Numbers and Vectors in Three Dimensions lessons. It must continue to skip generated catalogue fallback content for empty Proof, Calculus and Mechanics units.
+Question seeding currently prepares approved rows for the active Proof, Complex Numbers, Vectors in Three Dimensions, Calculus and Mechanics lessons. Proof Phase 1 contributes 57 rows: 19 each for `proof-by-contradiction`, `proof-by-contrapositive`, and `inequalities-algebraic-proof`.
 
 ## 7. Known Product Gaps Before Real Extension 2 Lessons
 
@@ -111,7 +121,7 @@ Question seeding currently prepares approved rows for the active Complex Numbers
 ## 8. Recommended Implementation Order
 
 1. Complex Numbers fundamentals: arithmetic, modulus, argument and polar form.
-2. Proof: contradiction, contrapositive and inequality proof patterns.
+2. Proof: contradiction, contrapositive and inequality proof patterns. **Complete for Phase 1.**
 3. Vectors in Three Dimensions: component operations and scalar product.
 4. Calculus: integration by parts and partial fractions before volumes.
 5. Mechanics: defer until multi-part question support is ready.

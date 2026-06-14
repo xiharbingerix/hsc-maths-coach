@@ -66,6 +66,7 @@ import {
   year12Extension2CalculusLessonOverride,
   year12Extension2ComplexNumbersLessonOverride,
   year12Extension2MechanicsLessonOverride,
+  year12Extension2ProofLessonOverride,
   year12Extension2Vectors3DLessonOverride,
 } from "./lessons/year12Extension2";
 
@@ -262,6 +263,7 @@ export function buildLesson(
     year12Extension2Vectors3DLessonOverride(course, unit, lesson) ??
     year12Extension2CalculusLessonOverride(course, unit, lesson) ??
     year12Extension2MechanicsLessonOverride(course, unit, lesson) ??
+    year12Extension2ProofLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
     year8NumberOperationsLessonOverride(course, unit, lesson) ??
@@ -1815,20 +1817,111 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 12 Mathematics Extension 2",
     yearLevel: "Year 12",
     courseType: "Mathematics Extension 2",
-    status: "coming_soon",
+    status: "in_progress",
     description:
-      "Year 12 Mathematics Extension 2 scaffold covering the planned NSW HSC topic areas. Lessons are not active yet.",
+      "Year 12 Mathematics Extension 2 pathway with active Phase 1 content across Proof, Vectors in Three Dimensions, Complex Numbers, Calculus and Mechanics.",
     positioning:
-      "A planned Year 12 Mathematics Extension 2 pathway for NSW HSC students. The public outline lists the intended units only; real lessons, diagnostics and question-bank content will be added after authored content passes the Nova Maths question standard.",
+      "An in-progress Year 12 Mathematics Extension 2 pathway for NSW HSC students. Every NSW Extension 2 topic area now has active authored content, with later phases planned for fuller exam coverage.",
     units: [
       {
         slug: "proof",
         title: "Proof",
         description:
-          "Planned Extension 2 proof work including advanced induction, contradiction, contrapositive reasoning and inequality proofs.",
+          "Extension 2 proof work beginning with contradiction, contrapositive reasoning and algebraic inequality proofs. Advanced induction and exam practice are planned for later phases.",
         syllabusArea: "Proof",
         focus: "Advanced proof techniques",
-        lessons: [],
+        lessons: [
+          {
+            slug: "proof-by-contradiction",
+            title: "Proof by Contradiction",
+            description:
+              "Assume the negation of a statement, derive a logical or arithmetic contradiction, and identify the conclusion safely through structured proof checkpoints.",
+            stableSkillId: "y12e2-proof-proof-by-contradiction",
+            legacySlugs: ["proof-by-contradiction"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-proof-contradiction-negation-assumption",
+                label: "State the assumption that begins a proof by contradiction",
+                legacySlugs: ["proof-by-contradiction"],
+              },
+              {
+                stableCheckpointId: "y12e2-proof-contradiction-key-consequence",
+                label: "Derive the key consequence that creates a contradiction",
+                legacySlugs: ["proof-by-contradiction"],
+              },
+              {
+                stableCheckpointId: "y12e2-proof-contradiction-property-violated",
+                label: "Identify which property or condition is violated",
+                legacySlugs: ["proof-by-contradiction"],
+              },
+              {
+                stableCheckpointId: "y12e2-proof-contradiction-conclusion",
+                label: "Select the correct conclusion after a contradiction is reached",
+                legacySlugs: ["proof-by-contradiction"],
+              },
+            ],
+          },
+          {
+            slug: "proof-by-contrapositive",
+            title: "Proof by Contrapositive",
+            description:
+              "Convert P implies Q into not Q implies not P, choose when contrapositive reasoning is efficient, and complete exact parity and divisibility steps.",
+            stableSkillId: "y12e2-proof-proof-by-contrapositive",
+            legacySlugs: ["proof-by-contrapositive"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-proof-contrapositive-form",
+                label: "Form the contrapositive not Q implies not P from a conditional statement",
+                legacySlugs: ["proof-by-contrapositive"],
+              },
+              {
+                stableCheckpointId: "y12e2-proof-contrapositive-method-selection",
+                label: "Identify when contrapositive proof is simpler than direct proof",
+                legacySlugs: ["proof-by-contrapositive"],
+              },
+              {
+                stableCheckpointId: "y12e2-proof-contrapositive-algebra-step",
+                label: "Complete a contrapositive argument with a correct algebraic step",
+                legacySlugs: ["proof-by-contrapositive"],
+              },
+              {
+                stableCheckpointId: "y12e2-proof-contrapositive-link-original",
+                label: "Link the proven contrapositive back to the original conditional",
+                legacySlugs: ["proof-by-contrapositive"],
+              },
+            ],
+          },
+          {
+            slug: "inequalities-algebraic-proof",
+            title: "Inequalities and Algebraic Proof",
+            description:
+              "Use completing the square, discriminant conditions and non-negative forms to establish inequalities with exact equality conditions.",
+            stableSkillId: "y12e2-proof-inequalities-algebraic-proof",
+            legacySlugs: ["inequalities-algebraic-proof"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-proof-ineq-perfect-square-expand",
+                label: "Expand and simplify a perfect-square expression used in an inequality",
+                legacySlugs: ["inequalities-algebraic-proof"],
+              },
+              {
+                stableCheckpointId: "y12e2-proof-ineq-nonnegative-square",
+                label: "Use a non-negative square to support an algebraic inequality",
+                legacySlugs: ["inequalities-algebraic-proof"],
+              },
+              {
+                stableCheckpointId: "y12e2-proof-ineq-discriminant-condition",
+                label: "Use discriminant conditions to test whether a quadratic is always non-negative",
+                legacySlugs: ["inequalities-algebraic-proof"],
+              },
+              {
+                stableCheckpointId: "y12e2-proof-ineq-equality-condition",
+                label: "Find the equality condition in an algebraic inequality",
+                legacySlugs: ["inequalities-algebraic-proof"],
+              },
+            ],
+          },
+        ],
       },
       {
         slug: "vectors-3d",
