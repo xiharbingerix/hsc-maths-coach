@@ -1922,6 +1922,30 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Interpret practical data, identify outliers, and choose cautious conclusions using mean or median.",
           },
           {
+            slug: "grouped-data-frequency-tables",
+            title: "Grouped Data and Frequency Tables",
+            description:
+              "Read grouped frequency tables, identify the modal class, and estimate the mean using class midpoints.",
+          },
+          {
+            slug: "box-plots-five-number-summary",
+            title: "Box Plots and the Five-Number Summary",
+            description:
+              "Find Q1, median, Q3, IQR and fences, identify outliers by the IQR rule, and compare two distributions using box plots.",
+          },
+          {
+            slug: "stem-leaf-plots",
+            title: "Stem-and-Leaf Plots",
+            description:
+              "Read and interpret stem-and-leaf plots, find the median, and compare two datasets using back-to-back stem-and-leaf plots.",
+          },
+          {
+            slug: "time-series-trend-lines",
+            title: "Time Series and Trend Lines",
+            description:
+              "Plot and read time series data, describe trends as increasing, decreasing or fluctuating, and make cautious predictions.",
+          },
+          {
             slug: "data-analysis-exam-practice",
             title: "Data Analysis Exam Practice",
             description:

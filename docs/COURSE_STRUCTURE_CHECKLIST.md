@@ -18,7 +18,7 @@
 | Year 10 Mathematics | 10 | ~56 | — | ✅ Available |
 | Year 10 Mathematics Advanced | 10 | ~56 | 16 topics / 128 subtopics | 🔄 In progress |
 | Year 10 Mathematics Core | 10 trimmed | ~40 | 12 topics / 76 subtopics | 🔄 In progress |
-| Year 11 Standard | 9 | 35 | 9 topics / 63 subtopics (2026) | 🔄 Depth pass needed (+28 lessons) |
+| Year 11 Standard | 9 | 49 | 9 topics / 63 subtopics (2026) | 🔄 Depth pass in progress (+14 remaining) |
 | Year 11 Advanced | 8 | 54 | 11 topics / 90 subtopics (2026) | ✅ Available |
 | Year 11 Extension | 2 of 5 | 10 | 5 topics / 30 subtopics (2026) | 🔄 In progress |
 | Year 12 Standard 1 | 5 | 18 | 7 topics / 29 subtopics | 🔄 In progress |
@@ -205,21 +205,21 @@ Depth pass completed 2026-06-14.
 - [ ] **Conditional Probability** — restricted sample space, P(A|B) from tables or Venn diagrams, dependent vs independent events intro
 - [ ] **Tree Diagrams** — multi-stage probability, listing all branches, combined event probabilities without replacement
 
-### Data Analysis (3 / ~7)
+### Data Analysis (7 / ~7) ✅
 
 - [x] Data Displays and Summary Statistics
 - [x] Interpreting Data and Outliers
 - [x] Data Analysis Exam Practice
-- [ ] **Grouped Data and Frequency Tables** — class intervals, constructing histograms, modal class, frequency polygons, estimating mean from grouped data
-- [ ] **Box Plots and the Five-Number Summary** — Q1, Q2, Q3, IQR, whiskers, identifying outliers by IQR rule, comparing two distributions
-- [ ] **Stem-and-Leaf Plots** — back-to-back stem-and-leaf, reading and comparing two datasets, median from stem-and-leaf
-- [ ] **Time Series and Trend Lines** — plotting data over time, describing trends, making cautious predictions
+- [x] **Grouped Data and Frequency Tables** — class intervals, modal class, frequency polygons, estimating mean from grouped data
+- [x] **Box Plots and the Five-Number Summary** — Q1, Q2, Q3, IQR, whiskers, identifying outliers by IQR rule, comparing two distributions
+- [x] **Stem-and-Leaf Plots** — back-to-back stem-and-leaf, reading and comparing two datasets, median from stem-and-leaf
+- [x] **Time Series and Trend Lines** — plotting data over time, describing trends, making cautious predictions
 
 ---
 
 **Depth pass summary (2026-06-14):** 28 lessons to author across all 9 units to reach Class Maths parity.
-**Progress (2026-06-14):** Formulas+Equations complete (+4). Linear Relationships complete (+4). Earning Money complete (+2). 18 lessons remaining.
-Authoring priority: Data Analysis (4 missing) > Networks (3) > Probability (3) > Measurement (3) > Time/Location (3) > Managing Money (2).
+**Progress (2026-06-14):** Formulas+Equations complete (+4). Linear Relationships complete (+4). Earning Money complete (+2). Data Analysis complete (+4). 14 lessons remaining.
+Authoring priority: Networks (3) > Probability (3) > Measurement (3) > Time/Location (3) > Managing Money (2).
 
 ---
 

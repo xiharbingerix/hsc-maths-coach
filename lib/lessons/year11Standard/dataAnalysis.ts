@@ -63,6 +63,22 @@ function dataAnalysisFeedback(prompt: string, latex: string, answer: string): st
     return `First identify which statistic the question asks for, then use the data values in the context. Keep the unit or label attached so the result is ${answer}.`;
   }
 
+  if (context.includes("modal class") || (context.includes("class interval") && context.includes("frequency")) || context.includes("grouped frequency") || context.includes("midpoint") && context.includes("class")) {
+    return `For grouped data, the modal class has the highest frequency. To estimate the mean, multiply each midpoint by its frequency, add those products, then divide by the total frequency. The result is ${answer}.`;
+  }
+
+  if (context.includes("iqr") || context.includes("quartile") || context.includes("box plot") || context.includes("five-number") || context.includes("whisker") || context.includes("fence")) {
+    return `The IQR is Q3 minus Q1 and measures the spread of the middle 50% of data. Fences extend 1.5 × IQR beyond Q1 and Q3 — values outside those fences are outliers. The answer is ${answer}.`;
+  }
+
+  if ((context.includes("stem") && context.includes("leaf")) || context.includes("back-to-back")) {
+    return `In a stem-and-leaf plot, combine the stem and leaf to read each value. The median is the middle value after the data is ordered. In back-to-back plots, compare medians and ranges to describe differences between groups. The result is ${answer}.`;
+  }
+
+  if (context.includes("trend") || context.includes("time series") || context.includes("monthly") && context.includes("predict")) {
+    return `For a time series, describe whether the overall pattern is increasing, decreasing or fluctuating. Predictions from a trend line should be described as cautious because the trend may not continue. The answer is ${answer}.`;
+  }
+
   return `Start by deciding whether the question asks for centre, spread, a frequency, or a practical interpretation. Use the matching data rule carefully to get ${answer}.`;
 }
 
@@ -145,6 +161,111 @@ function dataAnalysisWorkedExamples(slug: string, title: string): WorkedExample[
           { explanation: "The median better describes a typical delivery time when the outlier is not typical." },
         ],
         finalAnswerLatex: "\\text{Use the median.}",
+      },
+    ];
+  }
+
+  if (slug === "grouped-data-frequency-tables") {
+    return [
+      {
+        title: "Identifying the modal class",
+        questionLatex:
+          "\\begin{array}{c|c}\\text{Class}&\\text{Freq}\\\\0\\text{–}9&2\\\\10\\text{–}19&5\\\\20\\text{–}29&8\\\\30\\text{–}39&5\\end{array}",
+        steps: [
+          { explanation: "The modal class is the one with the highest frequency." },
+          { explanation: "Compare frequencies: 2, 5, 8, 5. The highest is 8, which belongs to the 20–29 class.", latex: "\\text{Modal class} = 20\\text{–}29" },
+        ],
+        finalAnswerLatex: "\\text{Modal class: }20\\text{–}29",
+      },
+      {
+        title: "Estimating the mean from grouped data",
+        questionLatex:
+          "\\begin{array}{c|c|c|c}\\text{Class}&\\text{Freq}(f)&\\text{Midpoint}(m)&f\\times m\\\\0\\text{–}9&2&4.5&9\\\\10\\text{–}19&5&14.5&72.5\\\\20\\text{–}29&8&24.5&196\\\\30\\text{–}39&5&34.5&172.5\\end{array}",
+        steps: [
+          { explanation: "The midpoint of each class represents the typical value for that group.", latex: "\\text{e.g. midpoint of }10\\text{–}19 = \\frac{10+19}{2} = 14.5" },
+          { explanation: "Multiply each midpoint by its frequency and sum the products.", latex: "\\sum f\\times m = 9+72.5+196+172.5 = 450" },
+          { explanation: "Divide by the total frequency to estimate the mean.", latex: "\\bar{x} \\approx \\frac{450}{20} = 22.5" },
+        ],
+        finalAnswerLatex: "\\text{Estimated mean} \\approx 22.5",
+      },
+    ];
+  }
+
+  if (slug === "box-plots-five-number-summary") {
+    return [
+      {
+        title: "Finding the five-number summary",
+        questionLatex:
+          "\\text{Ordered data: }3,\\ 7,\\ 8,\\ 10,\\ 12,\\ 14,\\ 15,\\ 18,\\ 20,\\ 25",
+        steps: [
+          { explanation: "The median Q2 is the average of the 5th and 6th values (n = 10).", latex: "Q_2 = \\frac{12+14}{2} = 13" },
+          { explanation: "Q1 is the median of the lower half: {3, 7, 8, 10, 12}.", latex: "Q_1 = 8" },
+          { explanation: "Q3 is the median of the upper half: {14, 15, 18, 20, 25}.", latex: "Q_3 = 18" },
+          { explanation: "IQR = Q3 − Q1.", latex: "\\text{IQR} = 18 - 8 = 10" },
+        ],
+        finalAnswerLatex: "\\text{Min }3,\\ Q_1\\ 8,\\ Q_2\\ 13,\\ Q_3\\ 18,\\ \\text{Max }25",
+      },
+      {
+        title: "Checking for outliers using the IQR rule",
+        questionLatex:
+          "Q_1 = 8,\\quad Q_3 = 18,\\quad \\text{IQR} = 10",
+        steps: [
+          { explanation: "Lower fence = Q1 − 1.5 × IQR.", latex: "8 - 1.5\\times10 = 8 - 15 = -7" },
+          { explanation: "Upper fence = Q3 + 1.5 × IQR.", latex: "18 + 1.5\\times10 = 18 + 15 = 33" },
+          { explanation: "Any value below −7 or above 33 is an outlier. Min = 3 and max = 25 are both within range, so there are no outliers.", latex: "-7 < 3 \\leq 25 < 33" },
+        ],
+        finalAnswerLatex: "\\text{No outliers}",
+      },
+    ];
+  }
+
+  if (slug === "stem-leaf-plots") {
+    return [
+      {
+        title: "Reading a stem-and-leaf plot and finding the median",
+        questionLatex:
+          "\\begin{array}{r|l}\\text{Stem}&\\text{Leaf}\\\\1&2\\quad5\\quad8\\\\2&0\\quad3\\quad6\\quad7\\\\3&1\\quad4\\quad9\\end{array}",
+        steps: [
+          { explanation: "List all data values in order by reading stems and leaves.", latex: "12,15,18,20,23,26,27,31,34,39\\quad(n=10)" },
+          { explanation: "The median of 10 values is the average of the 5th and 6th.", latex: "Q_2 = \\frac{23+26}{2} = 24.5" },
+        ],
+        finalAnswerLatex: "\\text{Median} = 24.5",
+      },
+      {
+        title: "Comparing two groups in a back-to-back plot",
+        questionLatex:
+          "\\begin{array}{r|c|l}\\text{Group A}&\\text{Stem}&\\text{Group B}\\\\8\\quad5\\quad2&1&3\\quad7\\\\8\\quad5&2&1\\quad5\\quad8\\\\&3&3\\end{array}",
+        steps: [
+          { explanation: "Read Group A values right-to-left from the stem: 12, 15, 18, 25, 28. Median = 18.", latex: "\\text{Group A median} = 18" },
+          { explanation: "Read Group B values left-to-right: 13, 17, 21, 25, 28, 33. Median = (25+28)/2 = 26.5.", latex: "\\text{Group B median} = 26.5" },
+          { explanation: "Group B's higher median means Group B values are typically larger than Group A." },
+        ],
+        finalAnswerLatex: "\\text{Group B typically higher}",
+      },
+    ];
+  }
+
+  if (slug === "time-series-trend-lines") {
+    return [
+      {
+        title: "Describing a time series trend",
+        questionLatex:
+          "\\text{Monthly sales (Jan–Jun): }40,\\ 45,\\ 42,\\ 50,\\ 55,\\ 58",
+        steps: [
+          { explanation: "Plot the values against time (Jan = 1, Feb = 2, etc.) and look at the overall pattern.", latex: "\\text{Values: }40\\to45\\to42\\to50\\to55\\to58" },
+          { explanation: "Despite one dip in March (42), the overall direction is upward.", latex: "\\text{Trend: increasing}" },
+        ],
+        finalAnswerLatex: "\\text{Overall increasing trend}",
+      },
+      {
+        title: "Making a cautious prediction",
+        questionLatex:
+          "\\text{Trend line predicts July sales of 62. Assess this prediction.}",
+        steps: [
+          { explanation: "The trend line extends the increasing pattern into July.", latex: "\\text{Prediction: }62" },
+          { explanation: "Predictions beyond the data range are uncertain — new competitors, seasons or economic changes could alter the trend.", latex: "\\text{Describe as a cautious estimate only.}" },
+        ],
+        finalAnswerLatex: "\\text{62 is a reasonable estimate but the trend may not continue.}",
       },
     ];
   }
@@ -304,6 +425,441 @@ export function year11StandardDataAnalysisLessonOverride(
         dataAnswer("data-outlier-m8", "Customer ratings are 4, 4, 5, 5, 5 and 1. Which value is unusually low?", "4,\\ 4,\\ 5,\\ 5,\\ 5,\\ 1", "1", ["rating 1", "1 star"]),
         financeChoice("data-outlier-m9", "When an outlier is present, range can become:", "B", ["Smaller always", "Much larger", "The median", "A category"], "Range uses highest and lowest values."),
         financeChoice("data-outlier-m10", "For skewed travel-time data, the best typical value is often:", "C", ["Highest value", "Range", "Median", "Total"], "Median is useful for skewed data."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "grouped-data-frequency-tables") {
+    return {
+      ...base,
+      description:
+        "Read grouped frequency tables, identify the modal class, and estimate the mean using class midpoints.",
+      learningIntention:
+        "Summarise grouped data by identifying the modal class and estimating the mean from a grouped frequency table.",
+      successCriteria: [
+        "Identify the modal class as the class interval with the highest frequency.",
+        "Find the midpoint of a class interval.",
+        "Multiply each midpoint by its frequency and sum to find Σ(f × m).",
+        "Estimate the mean by dividing Σ(f × m) by the total frequency.",
+      ],
+      teaching: {
+        paragraphs: [
+          "When data are grouped into class intervals such as 10–19 or 20–29, we cannot see exact values — only how many fall in each class. This is called a grouped frequency table.",
+          "The modal class is the class interval with the highest frequency. It is the most common class, but it is not a single value like an ordinary mode.",
+          "To estimate the mean, assume all values in a class are equal to the midpoint of that class. The midpoint of 10–19 is (10 + 19) ÷ 2 = 14.5. Multiply each midpoint by its class frequency, sum those products, then divide by the total frequency.",
+          "This gives an estimate, not an exact mean, because we do not know the exact value of each individual data point within each class.",
+        ],
+        latexBlocks: [
+          "\\text{midpoint} = \\frac{\\text{lower boundary} + \\text{upper boundary}}{2}",
+          "\\text{estimated mean} = \\frac{\\sum f \\times m}{\\sum f}",
+        ],
+      },
+      guidedPractice: [
+        financeChoice(
+          "data-group-g1",
+          "In a grouped frequency table, a class interval such as '20–29' means:",
+          "B",
+          ["Only the value 20 is included", "Values from 20 up to and including 29", "Only the value 29 is included", "Values less than 20"],
+          "A class interval covers all values between and including both boundaries.",
+        ),
+        dataAnswer("data-group-g2", "A frequency table has intervals 0–9, 10–19, 20–29, 30–39 with frequencies 2, 5, 8, 5. Find the total number of data values.", "2+5+8+5", "20", ["20 values"]),
+        dataAnswer("data-group-g3", "Using that frequency table, which is the modal class?", "\\text{Frequencies: }2,\\ 5,\\ 8,\\ 5\\text{ for intervals }0\\text{–}9,\\ 10\\text{–}19,\\ 20\\text{–}29,\\ 30\\text{–}39", "20–29", ["20-29", "20 to 29", "the 20–29 class"]),
+        dataAnswer("data-group-g4", "Find the midpoint of the class interval 10–19.", "\\frac{10+19}{2}", "14.5", ["14.5"]),
+      ],
+      independentPractice: [
+        dataAnswer("data-group-i1", "Using intervals 0–9, 10–19, 20–29, 30–39 with frequencies 2, 5, 8, 5 and midpoints 4.5, 14.5, 24.5, 34.5, find f × m for the class 20–29.", "8 \\times 24.5", "196", ["196"]),
+        dataAnswer("data-group-i2", "Find the total Σ(f × m) for all four classes: (2×4.5) + (5×14.5) + (8×24.5) + (5×34.5).", "9 + 72.5 + 196 + 172.5", "450", ["450"]),
+        dataAnswer("data-group-i3", "Estimate the mean using Σ(f × m) = 450 and total frequency = 20.", "\\frac{450}{20}", "22.5", ["22.5"]),
+        financeChoice(
+          "data-group-i4",
+          "A frequency polygon is drawn by:",
+          "A",
+          ["Plotting class midpoints against frequencies and joining the points with straight lines", "Drawing one bar per class with no gaps", "Plotting individual raw data values against time", "Drawing a pie sector for each class"],
+          "A frequency polygon joins the midpoints of each class plotted against their frequencies.",
+        ),
+        dataAnswer("data-group-i5", "A frequency table has intervals 0–4, 5–9, 10–14 with frequencies 3, 10, 7. What is the modal class?", "\\text{Frequencies: }3,\\ 10,\\ 7", "5–9", ["5-9", "5 to 9", "the 5–9 class"]),
+      ],
+      commonMistakes: [
+        { mistake: "Identifying the modal class as the class with the largest midpoint, not the highest frequency.", fix: "The modal class has the highest frequency. Check the frequency column, not the interval boundaries." },
+        { mistake: "Forgetting to divide by total frequency when estimating the mean — giving 450 instead of 22.5.", fix: "Estimated mean = Σ(f × m) ÷ Σf. Always divide the sum of products by the total number of data values." },
+        { mistake: "Using the class boundaries (10 and 19) rather than their average (14.5) as the midpoint.", fix: "Midpoint = (lower + upper) ÷ 2. For 10–19, midpoint = (10 + 19) ÷ 2 = 14.5." },
+        { mistake: "Using the class frequency as the estimate for each data value instead of the midpoint.", fix: "Multiply the midpoint (not the frequency) by the frequency: f × m, then sum all products." },
+      ],
+      masteryQuiz: [
+        financeChoice(
+          "data-group-m1",
+          "In a grouped frequency table, the modal class is:",
+          "B",
+          ["The class with the smallest frequency", "The class with the highest frequency", "The class with the largest midpoint", "The class in the middle of the table"],
+          "The modal class is the most common class — it has the highest frequency.",
+        ),
+        dataAnswer("data-group-m2", "A table has intervals 10–19, 20–29, 30–39, 40–49 with frequencies 4, 8, 12, 6. Find the modal class.", "\\text{Frequencies: }4,\\ 8,\\ 12,\\ 6", "30–39", ["30-39", "30 to 39", "the 30–39 class"]),
+        dataAnswer("data-group-m3", "Find the total number of data values for that table.", "4+8+12+6", "30", ["30 values"]),
+        dataAnswer("data-group-m4", "Find the midpoint of the class interval 20–29.", "\\frac{20+29}{2}", "24.5", ["24.5"]),
+        dataAnswer("data-group-m5", "Find f × m for the class 30–39 (frequency 12, midpoint 34.5).", "12 \\times 34.5", "414", ["414"]),
+        dataAnswer("data-group-m6", "The sum of all f × m values is 935. Total frequency is 30. Estimate the mean to 1 decimal place.", "\\frac{935}{30}", "31.2", ["31.17", "31.2"]),
+        financeChoice(
+          "data-group-m7",
+          "Why do we use midpoints to estimate the mean from grouped data?",
+          "B",
+          ["Because all values in a class equal the lower boundary", "Because midpoints represent the best estimate for each value in the class when exact values are unknown", "Because the class total is always equal to the midpoint", "Because grouped data has no variability"],
+          "Without knowing exact values, the midpoint is the best single estimate for all data in that class.",
+        ),
+        dataAnswer("data-group-m8", "A table has intervals 0–4, 5–9, 10–14, 15–19 with frequencies 2, 6, 10, 2. Find the modal class.", "\\text{Frequencies: }2,\\ 6,\\ 10,\\ 2", "10–14", ["10-14", "10 to 14", "the 10–14 class"]),
+        financeChoice(
+          "data-group-m9",
+          "A frequency polygon joins which set of points?",
+          "B",
+          ["Class boundaries plotted against cumulative frequency", "Class midpoints plotted against frequency", "Raw data values plotted against time", "Class upper endpoints only"],
+          "A frequency polygon uses midpoints on the x-axis and frequencies on the y-axis.",
+        ),
+        dataAnswer("data-group-m10", "Intervals 5–9, 10–14, 15–19 have frequencies 3, 7, 5. Estimate the mean using midpoints 7, 12, 17.", "\\frac{3\\times7 + 7\\times12 + 5\\times17}{15} = \\frac{190}{15}", "12.7", ["12.67", "12.7"]),
+      ],
+    };
+  }
+
+  if (lesson.slug === "box-plots-five-number-summary") {
+    return {
+      ...base,
+      description:
+        "Find Q1, median, Q3, IQR and fences, identify outliers by the IQR rule, and compare two distributions using box plots.",
+      learningIntention:
+        "Construct and interpret a five-number summary and use IQR to identify outliers and compare distributions.",
+      successCriteria: [
+        "Find the minimum, Q1, median (Q2), Q3 and maximum from ordered data.",
+        "Calculate IQR = Q3 − Q1.",
+        "Calculate lower and upper fences using the 1.5 × IQR rule.",
+        "Identify values outside the fences as outliers, and compare two box plots using medians and IQR.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The five-number summary — minimum, Q1, median (Q2), Q3, and maximum — describes both the centre and spread of a dataset. A box plot displays all five values visually.",
+          "Q1 is the median of the lower half of data, and Q3 is the median of the upper half. The IQR (interquartile range) = Q3 − Q1 measures the spread of the middle 50% of values, making it resistant to outliers.",
+          "The IQR rule identifies outliers: a value is an outlier if it lies more than 1.5 × IQR below Q1 or above Q3. The fences are: lower fence = Q1 − 1.5 × IQR; upper fence = Q3 + 1.5 × IQR.",
+          "When comparing two box plots, compare medians for typical values and IQR for spread. A higher median means the group typically scored higher; a larger IQR means more variability in the middle half of the data.",
+        ],
+        latexBlocks: [
+          "\\text{IQR} = Q_3 - Q_1",
+          "\\text{Lower fence} = Q_1 - 1.5 \\times \\text{IQR}",
+          "\\text{Upper fence} = Q_3 + 1.5 \\times \\text{IQR}",
+        ],
+      },
+      guidedPractice: [
+        financeChoice(
+          "data-box-g1",
+          "Which five values make up the five-number summary?",
+          "B",
+          ["Mean, mode, range, max, min", "Min, Q1, median, Q3, max", "Min, mean, mode, Q3, max", "Mean, Q1, Q2, Q3, range"],
+          "The five-number summary is: minimum, Q1, median (Q2), Q3, maximum.",
+        ),
+        dataAnswer("data-box-g2", "Ordered data: 3, 7, 8, 10, 12, 14, 15, 18, 20, 25 (n = 10). Find the median Q2.", "Q_2 = \\frac{12+14}{2}", "13", ["13"]),
+        dataAnswer("data-box-g3", "Using Q1 = 8 and Q3 = 18, find the IQR.", "Q_3 - Q_1 = 18 - 8", "10", ["10"]),
+        dataAnswer("data-box-g4", "Find the upper fence: Q3 + 1.5 × IQR = 18 + 1.5 × 10.", "18 + 15", "33", ["33"]),
+      ],
+      independentPractice: [
+        dataAnswer("data-box-i1", "Ordered lower half: 3, 7, 8, 10, 12. Find Q1 (the median of this group).", "\\text{middle of }\\{3,\\ 7,\\ 8,\\ 10,\\ 12\\}", "8", ["8"]),
+        dataAnswer("data-box-i2", "Ordered upper half: 14, 15, 18, 20, 25. Find Q3 (the median of this group).", "\\text{middle of }\\{14,\\ 15,\\ 18,\\ 20,\\ 25\\}", "18", ["18"]),
+        financeChoice(
+          "data-box-i3",
+          "Lower fence = Q1 − 1.5 × IQR = 8 − 15 = −7. Is the minimum value of 3 an outlier?",
+          "B",
+          ["Yes — 3 is less than −7", "No — 3 is greater than −7, so it is within the fence", "Yes — 3 is the smallest value", "Cannot determine without more data"],
+          "3 > −7, so the minimum is within the lower fence and is not an outlier.",
+        ),
+        financeChoice(
+          "data-box-i4",
+          "Two box plots are compared. Group A has median 14 and Group B has median 20. Which group typically scored higher?",
+          "B",
+          ["Group A", "Group B", "Both the same", "Cannot tell from medians alone"],
+          "A higher median means Group B's typical value is higher.",
+        ),
+        financeChoice(
+          "data-box-i5",
+          "Group A has IQR = 6 and Group B has IQR = 12. Which group shows more spread in the middle 50% of scores?",
+          "B",
+          ["Group A — smaller IQR means more spread", "Group B — larger IQR means more spread", "Neither group has any spread", "IQR does not measure spread"],
+          "A larger IQR means the middle 50% of data is more spread out.",
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Splitting data into halves incorrectly for Q1 and Q3 when n is even.", fix: "For 10 values, the lower half is the first 5 values and the upper half is the last 5. Q1 and Q3 are their respective medians." },
+        { mistake: "Applying the 1.5 × IQR rule to all values, not just those outside the fences.", fix: "Only values below the lower fence or above the upper fence are outliers. Check each extreme value against the fence." },
+        { mistake: "Subtracting IQR from Q3 or adding IQR to Q1 when calculating fences.", fix: "Lower fence = Q1 − 1.5 × IQR (subtract from Q1). Upper fence = Q3 + 1.5 × IQR (add to Q3)." },
+        { mistake: "Stating that a larger IQR means the data has a higher median.", fix: "IQR measures spread of the middle 50%, not the centre. Compare medians for typical values and IQR for variability." },
+      ],
+      masteryQuiz: [
+        dataAnswer("data-box-m1", "Ordered data: 5, 9, 11, 13, 15, 17, 19, 22 (n = 8). Find the median Q2.", "Q_2 = \\frac{13+15}{2}", "14", ["14"]),
+        dataAnswer("data-box-m2", "Lower half: 5, 9, 11, 13. Find Q1.", "Q_1 = \\frac{9+11}{2}", "10", ["10"]),
+        dataAnswer("data-box-m3", "Upper half: 15, 17, 19, 22. Find Q3.", "Q_3 = \\frac{17+19}{2}", "18", ["18"]),
+        dataAnswer("data-box-m4", "Find the IQR using Q1 = 10 and Q3 = 18.", "18 - 10", "8", ["8"]),
+        financeChoice(
+          "data-box-m5",
+          "The IQR measures:",
+          "B",
+          ["The range of all data values", "The spread of the middle 50% of data", "The mean of Q1 and Q3", "The distance from the minimum to the median"],
+          "IQR = Q3 − Q1 covers the spread of the central half of the data.",
+        ),
+        dataAnswer("data-box-m6", "Find the upper fence: Q3 + 1.5 × IQR = 18 + 1.5 × 8.", "18 + 12", "30", ["30"]),
+        dataAnswer("data-box-m7", "Find the lower fence: Q1 − 1.5 × IQR = 10 − 1.5 × 8.", "10 - 12", "-2", ["−2", "-2"]),
+        financeChoice(
+          "data-box-m8",
+          "A value is an outlier by the IQR rule if it is:",
+          "C",
+          ["Less than Q1", "Greater than Q3", "More than 1.5 × IQR below Q1 or above Q3", "Equal to the median"],
+          "Only values outside the fences (Q1 − 1.5×IQR or Q3 + 1.5×IQR) are outliers.",
+        ),
+        financeChoice(
+          "data-box-m9",
+          "The maximum value is 22. The upper fence is 30. Is 22 an outlier?",
+          "B",
+          ["Yes — 22 is the maximum", "No — 22 < 30, so it is within the fence", "Yes — it is above Q3", "Cannot determine"],
+          "22 < 30 (upper fence), so 22 is within the fence and is not an outlier.",
+        ),
+        financeChoice(
+          "data-box-m10",
+          "Comparing two box plots, the medians tell you about:",
+          "B",
+          ["The total range of each group", "The typical value in each group", "The spread only, not the centre", "The outliers only"],
+          "Comparing medians tells you which group typically has higher or lower values.",
+        ),
+      ],
+    };
+  }
+
+  if (lesson.slug === "stem-leaf-plots") {
+    return {
+      ...base,
+      description:
+        "Read and interpret stem-and-leaf plots, find the median, and compare two datasets using back-to-back stem-and-leaf plots.",
+      learningIntention:
+        "Extract data values and statistics from stem-and-leaf plots, including back-to-back plots for comparing two groups.",
+      successCriteria: [
+        "Read individual data values from a stem-and-leaf plot.",
+        "Count values and find the median from a stem-and-leaf plot.",
+        "Read both groups from a back-to-back stem-and-leaf plot.",
+        "Compare medians and ranges from a back-to-back plot.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A stem-and-leaf plot organises numerical data by splitting each value into a stem (the leading digits) and a leaf (the last digit). For example, stem 2 and leaf 6 gives the value 26.",
+          "The values are already in order in a stem-and-leaf plot, making it easy to find the median. Count the total number of values, find the middle position, then read the value directly from the plot.",
+          "A back-to-back stem-and-leaf plot shows two groups sharing the same stem column. One group's leaves go to the left, read right-to-left from the stem; the other group's leaves go to the right, read left-to-right. This allows direct comparison of the two distributions.",
+          "When comparing two groups in a back-to-back plot, compare medians to describe typical values and compare ranges (or IQR) to describe spread. State differences in context.",
+        ],
+        latexBlocks: [
+          "\\text{stem }2,\\text{ leaf }6 \\Rightarrow \\text{value} = 26",
+          "\\text{median} = \\text{middle value after ordering}",
+        ],
+      },
+      guidedPractice: [
+        financeChoice(
+          "data-stem-g1",
+          "In a stem-and-leaf plot, if stem = 3 and leaf = 5, the data value is:",
+          "A",
+          ["35", "53", "3.5", "8"],
+          "Combine stem and leaf: 3|5 = 35.",
+        ),
+        dataAnswer("data-stem-g2", "A plot has stem 1 with leaves 2, 5, 8 and stem 2 with leaves 0, 3, 6, 7. How many data values are there in total?", "3 + 4", "7", ["7 values"]),
+        dataAnswer("data-stem-g3", "The 7 values in order are: 12, 15, 18, 20, 23, 26, 27. Find the median.", "\\text{4th value of 7}", "20", ["20"]),
+        financeChoice(
+          "data-stem-g4",
+          "In a back-to-back stem-and-leaf plot:",
+          "A",
+          ["Both groups share the same central stem column", "Each group has a separate stem column on opposite sides", "Only one group's data is shown at a time", "Stems are listed in columns rather than rows"],
+          "The stem is shared in the centre; Group A's leaves go left and Group B's go right.",
+        ),
+      ],
+      independentPractice: [
+        dataAnswer("data-stem-i1", "A back-to-back plot shows Group A leaves 8, 5, 2 on stem 1 (reading right-to-left: 12, 15, 18) and leaves 8, 5 on stem 2 (25, 28). What is Group A's largest value?", "\\text{Group A values: }12,15,18,25,28", "28", ["28"]),
+        dataAnswer("data-stem-i2", "Group A data in order: 12, 15, 18, 25, 28. Find the median.", "\\text{3rd of 5 values}", "18", ["18"]),
+        dataAnswer("data-stem-i3", "Group B data in order: 13, 17, 21, 25, 28, 33. Find the median.", "\\frac{25+28}{2}", "26.5", ["26.5"]),
+        financeChoice(
+          "data-stem-i4",
+          "Comparing Group A (median 18) and Group B (median 26.5), which is most accurate?",
+          "B",
+          ["Group A typically scored higher than Group B", "Group B typically scored higher than Group A", "Both groups have identical distributions", "Medians cannot be compared in back-to-back plots"],
+          "Group B's higher median means Group B values are typically larger.",
+        ),
+        dataAnswer("data-stem-i5", "Group A data: 12, 15, 18, 25, 28. Find the range.", "28 - 12", "16", ["16"]),
+      ],
+      commonMistakes: [
+        { mistake: "Reading Group A leaves left-to-right instead of right-to-left in a back-to-back plot.", fix: "Group A (left side) is read from the stem outward — right to left. 8, 5, 2 on stem 1 gives values 12, 15, 18 (not 82, 51, 21)." },
+        { mistake: "Forgetting to count both stems' leaves when finding the total number of data values.", fix: "Count every leaf in the plot — not just one stem. Add up all leaves across all stems." },
+        { mistake: "Confusing stem 2, leaf 3 with the value 2.3 or 23 without checking the context.", fix: "For two-digit numbers, stem is the tens digit and leaf is the units digit: 2|3 = 23." },
+        { mistake: "Comparing the two groups by looking at individual leaf values rather than medians and ranges.", fix: "Summarise each group with its median (typical value) and range (spread) before making a comparison statement." },
+      ],
+      masteryQuiz: [
+        financeChoice(
+          "data-stem-m1",
+          "In a stem-and-leaf plot, stem 2 with leaves 2, 5, 8 represents which values?",
+          "B",
+          ["2, 5, 8", "22, 25, 28", "2.2, 2.5, 2.8", "225 and 28"],
+          "Combine stem 2 with each leaf: 22, 25, 28.",
+        ),
+        dataAnswer("data-stem-m2", "A plot has stems 1, 2, 3, 4 with 3, 3, 3, 1 leaves respectively. How many data values are there?", "3+3+3+1", "10", ["10 values"]),
+        dataAnswer("data-stem-m3", "Data values in order: 14, 16, 19, 22, 25, 28, 30, 33, 37, 41 (n = 10). Find the median.", "\\frac{25+28}{2}", "26.5", ["26.5"]),
+        dataAnswer("data-stem-m4", "Find the range of that dataset (min 14, max 41).", "41 - 14", "27", ["27"]),
+        financeChoice(
+          "data-stem-m5",
+          "The main advantage of a stem-and-leaf plot over a simple list of values is:",
+          "A",
+          ["It displays data in numerical order and allows the shape of the distribution to be seen", "It hides individual data values", "It is only useful for data values below 10", "It calculates the mean automatically"],
+          "Stem-and-leaf plots preserve individual values while also showing the overall shape of the distribution.",
+        ),
+        financeChoice(
+          "data-stem-m6",
+          "A back-to-back plot shows Group A leaves 4, 7, 9 (read right-to-left) on stem 1. What are those Group A values?",
+          "B",
+          ["1, 4, 7, 9", "14, 17, 19", "41, 71, 91", "4, 7, 9"],
+          "Read left from stem 1: leaves 4, 7, 9 give values 14, 17, 19.",
+        ),
+        dataAnswer("data-stem-m7", "Group A data in order: 14, 17, 19, 23, 28, 32. Find the median.", "\\frac{19+23}{2}", "21", ["21"]),
+        dataAnswer("data-stem-m8", "Group B data in order: 12, 16, 21, 25, 29, 30, 34, 38. Find the median.", "\\frac{25+29}{2}", "27", ["27"]),
+        financeChoice(
+          "data-stem-m9",
+          "Comparing Group A (median 21) and Group B (median 27), which conclusion is most appropriate?",
+          "B",
+          ["Group A has higher typical values than Group B", "Group B has higher typical values than Group A", "Both groups are identical", "Medians cannot be compared in back-to-back plots"],
+          "Group B's higher median indicates Group B values are typically larger.",
+        ),
+        dataAnswer("data-stem-m10", "Group A data: 14, 17, 19, 23, 28, 32. Find the range.", "32 - 14", "18", ["18"]),
+      ],
+    };
+  }
+
+  if (lesson.slug === "time-series-trend-lines") {
+    return {
+      ...base,
+      description:
+        "Plot and read time series data, describe trends as increasing, decreasing or fluctuating, and make cautious predictions.",
+      learningIntention:
+        "Describe trends in time series data and make cautious predictions while acknowledging limitations.",
+      successCriteria: [
+        "Read values from a time series graph or table.",
+        "Describe the overall trend as increasing, decreasing, fluctuating or seasonal.",
+        "Calculate an average rate of change between two time points.",
+        "Make a prediction from a trend and explain why it may be unreliable.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A time series records how a quantity changes over time. Time goes on the horizontal axis and the measured variable goes on the vertical axis. Points are joined with line segments to show the pattern.",
+          "When describing a time series, focus on the overall trend rather than individual fluctuations. Common descriptions are: increasing (generally rising), decreasing (generally falling), fluctuating (no clear direction), or seasonal (repeating pattern over cycles).",
+          "A trend line can be drawn through the data to summarise the overall direction. The gradient of the trend line is the average rate of change. You can use it to make predictions — but only cautiously, because the trend may not continue.",
+          "Predictions based on a trend line are extrapolations — they go beyond the observed data. Changes in season, competition, economy or behaviour can cause the real value to differ significantly from the prediction.",
+        ],
+        latexBlocks: [
+          "\\text{average rate of change} = \\frac{\\text{change in value}}{\\text{change in time}}",
+          "\\text{prediction} = \\text{last known value} + (\\text{rate} \\times \\text{extra time periods})",
+        ],
+      },
+      guidedPractice: [
+        financeChoice(
+          "data-time-g1",
+          "In a time series graph, time is placed on the x-axis. This means time is the:",
+          "B",
+          ["Dependent variable", "Independent variable", "Mean of the data", "Range of the data"],
+          "Time is the independent variable — it is what we measure the other quantity against.",
+        ),
+        financeChoice(
+          "data-time-g2",
+          "Monthly sales (Jan–Jun): 40, 45, 42, 50, 55, 58. The overall trend is:",
+          "A",
+          ["Increasing — sales are generally rising despite one dip", "Decreasing — sales are falling overall", "Stable — no change over time", "Random with no trend"],
+          "Despite a dip in March, the overall direction from 40 to 58 is increasing.",
+        ),
+        financeChoice(
+          "data-time-g3",
+          "A trend line predicts July sales of 62. One reason this prediction may be unreliable is:",
+          "B",
+          ["Predictions are always exact if the trend line is drawn correctly", "The trend may not continue — seasonal changes or competition could alter sales", "January data is incorrectly recorded", "62 is too large a number to be a valid prediction"],
+          "Predictions beyond the data range are uncertain — real conditions may change.",
+        ),
+        dataAnswer("data-time-g4", "Sales were 42 in March (month 3) and 55 in May (month 5). Find the average rate of increase per month.", "\\frac{55-42}{5-3} = \\frac{13}{2}", "6.5", ["6.5 per month"]),
+      ],
+      independentPractice: [
+        financeChoice(
+          "data-time-i1",
+          "Weekly café customers: 80, 85, 90, 88, 95. The overall trend is:",
+          "B",
+          ["Decreasing — customer numbers are falling", "Increasing — customer numbers are generally rising", "Perfectly constant from week to week", "Cannot be determined from 5 data points"],
+          "The overall direction from 80 to 95 is increasing despite one dip.",
+        ),
+        dataAnswer("data-time-i2", "A trend line predicts Week 6 customers as 100. Find the increase from Week 1 (80) to this prediction.", "100 - 80", "20", ["20 customers", "20"]),
+        financeChoice(
+          "data-time-i3",
+          "Annual rainfall (mm): 600, 580, 620, 560, 590. This time series is best described as:",
+          "C",
+          ["Strongly increasing", "Strongly decreasing", "Fluctuating with no clear overall trend", "Constant at 590 mm"],
+          "The values alternate up and down without a consistent direction.",
+        ),
+        financeChoice(
+          "data-time-i4",
+          "Monthly temperatures: Jan 22, Feb 25, Mar 28, Apr 26, May 20, Jun 16, Jul 14°C. The pattern is best described as:",
+          "B",
+          ["Constant throughout the year", "Increasing then decreasing — a seasonal pattern", "Decreasing then increasing — a U-shape", "No change from month to month"],
+          "Temperatures rise into summer (Jan–Mar) and fall towards winter (Apr–Jul) — a seasonal pattern.",
+        ),
+        financeChoice(
+          "data-time-i5",
+          "A trend line predicts sales of 200 in 3 months. Actual sales turn out to be 185. The prediction was:",
+          "B",
+          ["Exactly correct", "Too high by 15", "Too low by 15", "Impossible to evaluate"],
+          "Predicted 200, actual 185: 200 − 185 = 15 too high.",
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Describing a trend based on one or two data points rather than the overall pattern.", fix: "Look at the general direction from the first point to the last. A single dip or spike does not change an overall increasing trend." },
+        { mistake: "Stating a prediction as certain rather than cautious.", fix: "Predictions from trend lines are estimates. Always use language like 'approximately' or 'based on the trend' to acknowledge uncertainty." },
+        { mistake: "Describing the range of values as the 'trend'.", fix: "Trend describes the direction of change over time (increasing, decreasing, fluctuating), not the numerical range." },
+        { mistake: "Using the rate of change between just two points to make long-term predictions as if they were exact.", fix: "The average rate of change gives an estimate, but real data rarely follows a perfectly constant rate over a long period." },
+      ],
+      masteryQuiz: [
+        financeChoice(
+          "data-time-m1",
+          "Monthly revenue ($000s): 12, 15, 14, 17, 18, 20. The overall trend is:",
+          "B",
+          ["Revenue is generally decreasing over time", "Revenue is generally increasing over time", "Revenue is perfectly stable", "Revenue fluctuates randomly with no trend"],
+          "The overall direction from 12 to 20 over 6 months is increasing.",
+        ),
+        dataAnswer("data-time-m2", "Find the average monthly increase from month 1 (revenue $12k) to month 6 (revenue $20k).", "\\frac{20-12}{6-1} = \\frac{8}{5}", "1.6", ["1.6 per month", "$1.6k per month"]),
+        financeChoice(
+          "data-time-m3",
+          "Using the average rate of $1.6k per month, a prediction for month 7 would be approximately:",
+          "A",
+          ["20 + 1.6 = $21.6k", "20 + 6 = $26k", "20 + 0.16 = $20.16k", "12 + 20 = $32k"],
+          "Add one more period's average increase to the last known value: 20 + 1.6 = 21.6.",
+        ),
+        dataAnswer("data-time-m4", "Website visits per day: Mon 200, Tue 210, Wed 195, Thu 220, Fri 230. Find the range of daily visits.", "230 - 195", "35", ["35 visits", "35"]),
+        financeChoice(
+          "data-time-m5",
+          "A decreasing trend in a time series means:",
+          "B",
+          ["Each value is exactly smaller than the previous one", "The overall pattern shows a decline over time, though individual values may occasionally rise", "All data values are negative", "The time axis must be reversed"],
+          "A decreasing trend is about the overall direction, not every single step.",
+        ),
+        financeChoice(
+          "data-time-m6",
+          "Annual rainfall: 450, 420, 460, 430, 410, 390 mm. The trend is:",
+          "B",
+          ["Increasing overall", "Decreasing overall", "Stable with no trend", "A repeating seasonal pattern"],
+          "Despite one rise to 460, the overall direction from 450 to 390 is decreasing.",
+        ),
+        financeChoice(
+          "data-time-m7",
+          "A trend line predicts rainfall of 370 mm next year. One reason this may be unreliable is:",
+          "B",
+          ["Any prediction from 6 data points is always wrong", "Rainfall is affected by climate events not captured in the past 6-year trend", "The trend line must always be horizontal", "370 mm is an impossible rainfall amount"],
+          "Climate variability means the trend may change — extrapolation is always uncertain.",
+        ),
+        dataAnswer("data-time-m8", "Daily temperatures for a week: 18, 20, 22, 21, 24, 26, 23. Find the mean temperature.", "\\frac{18+20+22+21+24+26+23}{7} = \\frac{154}{7}", "22", ["22°C", "22 degrees"]),
+        dataAnswer("data-time-m9", "Find the range of that week's temperatures (max 26, min 18).", "26 - 18", "8", ["8°C", "8 degrees"]),
+        financeChoice(
+          "data-time-m10",
+          "A cautious conclusion from an increasing time series trend is:",
+          "B",
+          ["The increase will definitely continue forever based on past data", "Based on past data, an increase appears likely, but the trend may not continue", "Only decreasing trends can generate valid predictions", "Time series data cannot be used to support any predictions"],
+          "Predictions should acknowledge that real conditions may change.",
+        ),
       ],
     };
   }
