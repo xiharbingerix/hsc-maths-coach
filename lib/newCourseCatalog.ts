@@ -454,6 +454,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus: "Trigonometry, ratios and rates",
         lessons: [
           {
+            slug: "right-angled-trig-radians",
+            title: "Right-Angled Trigonometry and Radians",
+            description:
+              "Convert between degrees and radians, apply SOH CAH TOA using radian angles, and solve practical right-triangle problems in both units.",
+          },
+          {
             slug: "sine-rule-cosine-rule-area-triangle",
             title: "Sine Rule, Cosine Rule and Area of a Triangle",
             description:
@@ -538,6 +544,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Investment and Compound Interest",
             description:
               "Calculate compound investment balances, interest earned, growth factors, and net returns after fees.",
+          },
+          {
+            slug: "shares-dividends-brokerage",
+            title: "Shares, Dividends and Brokerage",
+            description:
+              "Calculate total dividends, dividend yield, brokerage fees on buying and selling shares, capital gain or loss, and total return from a share investment.",
           },
           {
             slug: "depreciation-loans",

@@ -1,35 +1,36 @@
 # Nova Maths — Course Structure Checklist
 
-> Target: match Class Mathematics NSW structure (17 pathways, ~172 topics, ~1,204 subtopics).
-> Source audit: CLASS_MATHEMATICS_NSW_STRUCTURE_REPORT.md
-> Last updated: 2026-06-15 (session 4 — Ext 1depth pass COMPLETE: 30 lessons, 520 questions)
+> **Objective:** High-quality lessons and question content across the entire NSW syllabus, mapped to syllabus sections with sufficient lessons to cover all skills and content in the Content section. Each lesson: 19 questions, worked examples, Feynman teaching, and common mistakes. Each focus area: one revision lesson activating the prior knowledge stated in the syllabus teaching advice, plus content lessons per dot-point group.
+> **Standard:** NSW syllabuses (2024 versions, implementation from 2026). Source of truth: [curriculum.nsw.edu.au](https://curriculum.nsw.edu.au).
+> Last updated: 2026-06-15 — Ext 1 syllabus audit complete; objective standard adopted.
 
 ---
 
 ## Quick Status
 
-> **Depth** — quality of individual lessons that exist: ✅ Full (19Q + worked examples + teaching + common mistakes) | ⬜ None
-> **Topic breadth** — Nova units covered out of NSW curriculum topics (Class Mathematics is the reference implementation of the NSW syllabus).
-> **Subtopic breadth** — % of Class Maths subtopics that have a Nova lesson. Raw % understates real coverage because Nova lessons are ~2× longer than a Class Maths subtopic.
+> **Depth** — ✅ Full (19Q + worked examples + Feynman teaching + common mistakes) | ⬜ None
+> **Syllabus coverage** — % of syllabus dot-point groups with at least one Nova lesson. Target: 100%.
+> **Revision lessons** — one lesson per focus area activating prior knowledge from the syllabus teaching advice. Target: one per focus area.
+> Courses not yet audited against the 2024 syllabus are marked "audit pending" — lesson counts are known but gap analysis is not complete.
 
-| Course | Nova lessons | NSW curriculum (topics / subtopics) | Topic breadth | Subtopic breadth | Depth |
+| Course | Nova lessons | Syllabus focus areas | Dot-point coverage | Revision lessons | Status |
 |---|---|---|---|---|---|
-| Year 7 Mathematics | 0 | 13 / 117 | 0 / 13 (0%) | 0% | ⬜ None |
-| Year 8 Mathematics | 59 (10 units) | 14 / 111 | 10 / 14 (71%) | ~53% | ✅ Full |
-| Year 9 Mathematics | 53 (8 units) | 13 / 82 | 8 / 13 (62%) | ~65% | ✅ Full |
-| Year 9 Mathematics Advanced | 53 (8 units) | 14 / 109 | 8 / 14 (57%) | ~49% | ✅ Full |
-| Year 9 Mathematics Core | ~40 (8 trimmed) | 13 / 82 | 8 / 13 (62%) | ~49% | ✅ Full |
-| Year 10 Mathematics | ~56 (10 units) | — / — | — | — | ✅ Full |
-| Year 10 Mathematics Advanced | ~56 (10 units) | 16 / 128 | 10 / 16 (63%) | ~44% | ✅ Full |
-| Year 10 Mathematics Core | ~40 (10 trimmed) | 12 / 76 | 10 / 12 (83%) | ~53% | ✅ Full |
-| Year 11 Standard | 63 (9 units) | 9 / 63 | 9 / 9 (100%) | ~100% | ✅ Full |
-| Year 11 Advanced | 54 (8 units) | 11 / 90 | 8 / 11 (73%) | ~60% | ✅ Full |
-| Year 11 Extension | 25 (5 units) | 5 / 30 | 5 / 5 (100%) | ~83% | ✅ Full |
-| Year 12 Standard 1 | 18 (5 units) | 7 / 29 | 5 / 7 (71%) | ~62% | ✅ Full |
-| Year 12 Standard 2 | 35 (6 units) | 10 / 59 | 6 / 10 (60%) | ~59% | ✅ Full |
-| Year 12 Advanced | 91 (13 units) | 11 / 64 | 13 / 11 (118%) | ~142% | ✅ Full |
-| Year 12 Extension 1 | 30 (8 units) | 7 / 28 | 8 / 8 (100%) | ~100% | ✅ Full |
-| Year 12 Extension 2 | 25 (5 units) | 5 / 40 | 5 / 5 (100%) | ~63% | ✅ Full |
+| Year 7 Mathematics | 0 | — | 0% | 0 | ⬜ Not started |
+| Year 8 Mathematics | 59 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 9 Mathematics | 53 (8 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 9 Mathematics Advanced | 53 (8 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 9 Mathematics Core | ~40 (8 trimmed) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 10 Mathematics | ~56 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 10 Mathematics Advanced | ~56 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 10 Mathematics Core | ~40 (10 trimmed) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 11 Standard | 63 (9 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 11 Advanced | 54 (8 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 11 Extension 1 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 12 Standard 1 | 18 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 12 Standard 2 | 37 (6 units) | 6 focus areas | ~65% — detail below | 0 | 🔄 Gaps identified |
+| Year 12 Advanced | 91 (13 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 12 Extension 1 | 30 (8 units) | 6 focus areas (ME1-12-01–06) | ~55% — detail below | 0 | 🔄 Gaps identified |
+| Year 12 Extension 2 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 
 ---
 
@@ -669,8 +670,8 @@ These lessons exist but address Year 11 Standard content or are explicitly exclu
 
 | # | Lesson | Topic | Notes |
 |---|---|---|---|
-| 1 | `shares-dividends-brokerage` | Investment and loans | Dividend yield, brokerage, capital gain |
-| 2 | `right-angled-trig-radians` | Trigonometry | Radians new in 2024 syllabus |
+| 1 | `shares-dividends-brokerage` | Investment and loans | Dividend yield, brokerage, capital gain | ✅ 2026-06-15 |
+| 2 | `right-angled-trig-radians` | Trigonometry | Radians new in 2024 syllabus | ✅ 2026-06-15 |
 | 3 | `annuity-interest-factor-tables` | Annuities | Tables of interest factors required by syllabus |
 | 4 | `multistage-events-independence` | Probability | P(A∩B), tree diagrams |
 | 5 | `expected-frequency-contingency-tables` | Probability | E=np, contingency tables |

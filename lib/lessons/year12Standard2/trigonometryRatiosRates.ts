@@ -26,6 +26,12 @@ function measurementFeedback(prompt: string, answer: string) {
   if (lowerPrompt.includes("what time") && (lowerPrompt.includes("sydney") || lowerPrompt.includes("london") || lowerPrompt.includes("tokyo") || lowerPrompt.includes("dubai") || lowerPrompt.includes("perth") || lowerPrompt.includes("brisbane") || lowerPrompt.includes("new york") || lowerPrompt.includes("los angeles"))) {
     return `Find the offset difference between the two cities and add or subtract as appropriate. A positive UTC offset is ahead; a negative offset is behind. This gives ${answer}.`;
   }
+  if (lowerPrompt.includes("convert") && lowerPrompt.includes("radian")) {
+    return `Multiply degrees by π/180 to get radians (or radians by 180/π to get degrees). Working through the conversion gives ${answer}.`;
+  }
+  if ((lowerPrompt.includes("rad mode") || lowerPrompt.includes("rad)")) && (lowerPrompt.includes("find") || lowerPrompt.includes("height") || lowerPrompt.includes("hypotenuse") || lowerPrompt.includes("opposite") || lowerPrompt.includes("side"))) {
+    return `Set your calculator to RAD mode, then apply the appropriate trig ratio (sin, cos, or tan). Working through the calculation gives ${answer}.`;
+  }
   if (lowerPrompt.includes("find sin b") || lowerPrompt.includes("calculate sin b")) {
     return `Rearrange the sine rule: sin B = b × sin A ÷ a. Substitute the given values and calculate to get ${answer}.`;
   }
@@ -1381,6 +1387,247 @@ export function year12Standard2TrigRatesLessonOverride(
           "3{:}00\\text{ pm} - 5\\text{ h}",
           "10:00 am",
           ["10am", "10:00am"]
+        ),
+      ],
+    };
+  }
+
+  if (lesson.slug === "right-angled-trig-radians") {
+    return {
+      ...base,
+      description:
+        "Convert between degrees and radians, apply SOH CAH TOA using radian angles, and solve practical right-triangle problems in both units.",
+      learningIntention:
+        "Use radian measure with right-angled trigonometry: convert between degrees and radians and apply SOH CAH TOA to find sides and angles with the calculator in RAD mode.",
+      successCriteria: [
+        "Convert angles between degrees and radians using π rad = 180°.",
+        "Recognise common radian values: π/6 = 30°, π/4 = 45°, π/3 = 60°, π/2 = 90°.",
+        "Set a scientific calculator to RAD mode and evaluate trig ratios of radian angles.",
+        "Apply SOH CAH TOA to find unknown sides in right-angled triangles when angles are given in radians.",
+        "Find an unknown angle in radians using inverse trig functions.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Angles can be measured in degrees or radians. A full turn is 360° in degrees and 2π radians. The conversion is exact: π radians equals 180 degrees. To convert from degrees to radians, multiply by π/180. To convert from radians to degrees, multiply by 180/π.",
+          "Common radian values are worth recognising: π/6 = 30°, π/4 = 45°, π/3 = 60°, π/2 = 90°, π = 180°. These appear frequently in exam questions. Decimals such as 0.5236 (π/6) and 1.0472 (π/3) are their approximate equivalents.",
+          "When an angle is given in radians, switch your calculator to RAD mode before evaluating any trig ratio. In DEG mode the calculator interprets the number as degrees, producing a completely wrong answer.",
+          "SOH CAH TOA still applies for right-angled triangles regardless of whether the angle is in degrees or radians. Identify opposite, adjacent, and hypotenuse, then apply sin = opp/hyp, cos = adj/hyp, or tan = opp/adj. Use the inverse trig functions (sin⁻¹, cos⁻¹, tan⁻¹) in RAD mode to find an unknown angle — the result will be in radians.",
+        ],
+        latexBlocks: [
+          "\\theta_{\\text{rad}} = \\theta_{\\deg} \\times \\dfrac{\\pi}{180}, \\qquad \\theta_{\\deg} = \\theta_{\\text{rad}} \\times \\dfrac{180}{\\pi}",
+          "\\sin\\theta = \\dfrac{\\text{opp}}{\\text{hyp}},\\quad \\cos\\theta = \\dfrac{\\text{adj}}{\\text{hyp}},\\quad \\tan\\theta = \\dfrac{\\text{opp}}{\\text{adj}}",
+          "\\frac{\\pi}{6}=30^\\circ,\\quad\\frac{\\pi}{4}=45^\\circ,\\quad\\frac{\\pi}{3}=60^\\circ,\\quad\\frac{\\pi}{2}=90^\\circ",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Convert between degrees and radians",
+          questionLatex:
+            "\\text{(a) Convert }60^\\circ\\text{ to radians. (b) Convert }\\frac{\\pi}{4}\\text{ radians to degrees.}",
+          steps: [
+            {
+              explanation: "Multiply degrees by π/180 to get radians.",
+              latex:
+                "60 \\times \\dfrac{\\pi}{180} = \\dfrac{60\\pi}{180} = \\dfrac{\\pi}{3} \\approx 1.0472\\text{ rad}",
+            },
+            {
+              explanation: "Multiply radians by 180/π to get degrees.",
+              latex:
+                "\\dfrac{\\pi}{4} \\times \\dfrac{180}{\\pi} = \\dfrac{180}{4} = 45^\\circ",
+            },
+          ],
+        },
+        {
+          title: "Find an unknown side using radians",
+          questionLatex:
+            "\\text{A right-angled triangle has hypotenuse 10 m and angle }\\theta = \\frac{\\pi}{3}\\text{ rad. Find the side opposite to }\\theta.",
+          steps: [
+            {
+              explanation: "Identify the ratio: sin = opp / hyp.",
+              latex: "\\sin\\!\\left(\\tfrac{\\pi}{3}\\right) = \\dfrac{\\text{opp}}{10}",
+            },
+            {
+              explanation: "Use RAD mode: sin(π/3) = √3/2 ≈ 0.8660.",
+              latex: "\\text{opp} = 10 \\times 0.8660 \\approx 8.66\\text{ m}",
+            },
+          ],
+        },
+        {
+          title: "Apply tan in RAD mode to find a height",
+          questionLatex:
+            "\\text{A ramp makes an angle of 0.3 rad with the horizontal. The horizontal distance is 8 m. Find the height of the ramp.}",
+          steps: [
+            {
+              explanation: "Identify opposite (height) and adjacent (horizontal). Use tan.",
+              latex: "\\tan(0.3) = \\dfrac{h}{8}",
+            },
+            {
+              explanation: "In RAD mode, tan(0.3) ≈ 0.3093.",
+              latex: "h = 8 \\times 0.3093 \\approx 2.47\\text{ m}",
+            },
+          ],
+        },
+      ],
+      guidedPractice: [
+        practicalChoice(
+          "y12s2-rad-g1",
+          "180° converted to radians equals:",
+          "B",
+          ["π/2", "π", "2π", "π/4"],
+          "π rad = 180°, so 180° = π rad."
+        ),
+        practicalChoice(
+          "y12s2-rad-g2",
+          "Convert 60° to radians.",
+          "C",
+          ["π/6", "π/4", "π/3", "π/2"],
+          "60 × π/180 = π/3."
+        ),
+        practicalChoice(
+          "y12s2-rad-g3",
+          "A right triangle has hypotenuse 10 m and angle θ = π/3. The side opposite θ is approximately:",
+          "B",
+          ["5.00 m", "8.66 m", "10.00 m", "17.32 m"],
+          "opp = 10 × sin(π/3) = 10 × √3/2 ≈ 8.66 m."
+        ),
+        practicalChoice(
+          "y12s2-rad-g4",
+          "Convert π/4 radians to degrees.",
+          "B",
+          ["30°", "45°", "60°", "90°"],
+          "π/4 × 180/π = 45°."
+        ),
+      ],
+      independentPractice: [
+        practicalChoice(
+          "y12s2-rad-i1",
+          "Convert 1.2 rad to degrees (to 1 decimal place).",
+          "C",
+          ["45.0°", "60.0°", "68.8°", "75.0°"],
+          "1.2 × 180/π ≈ 68.8°."
+        ),
+        measurementAnswer(
+          "y12s2-rad-i2",
+          "In a right-angled triangle, angle θ = 0.8 rad and the adjacent side is 5 m. Find the opposite side to 2 decimal places.",
+          "\\tan(0.8) = \\dfrac{\\text{opp}}{5}\\quad(\\text{RAD mode})",
+          "5.15 m",
+          ["5.15", "5.15m", "5.15 m"]
+        ),
+        practicalChoice(
+          "y12s2-rad-i3",
+          "A ladder of length 6 m makes an angle of π/3 rad with the ground. How high up the wall does it reach?",
+          "B",
+          ["3.00 m", "5.20 m", "6.93 m", "10.39 m"],
+          "height = 6 × sin(π/3) = 6 × √3/2 ≈ 5.20 m."
+        ),
+        measurementAnswer(
+          "y12s2-rad-i4",
+          "Convert 135° to radians (to 2 decimal places).",
+          "135 \\times \\dfrac{\\pi}{180}",
+          "2.36 rad",
+          ["2.36", "2.36 rad", "2.36 radians"]
+        ),
+        practicalChoice(
+          "y12s2-rad-i5",
+          "When angles are given in radians, the correct calculator setting is:",
+          "B",
+          ["DEG mode", "RAD mode", "GRAD mode", "It makes no difference"],
+          "RAD mode tells the calculator that the angle is in radians, not degrees."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Using DEG mode when the angle is in radians.",
+          fix: "Switch your calculator to RAD mode. In DEG mode, sin(π/3) ≈ sin(1.047) interpreted as degrees gives the wrong answer.",
+        },
+        {
+          mistake: "Converting radians to degrees before entering into the calculator.",
+          fix: "No conversion is needed if the calculator is already in RAD mode. Enter the radian value directly.",
+        },
+        {
+          mistake: "Mixing up opposite and adjacent when writing the ratio.",
+          fix: "Always label the triangle first (H = hypotenuse, O = opposite the given angle, A = adjacent), then choose SOH, CAH, or TOA to match the known and unknown sides.",
+        },
+        {
+          mistake: "Writing π/3 ≈ 60 when the question expects radians.",
+          fix: "π/3 ≈ 1.0472 radians. Only convert to degrees (60°) if the question or context requires degrees. Keep the answer in radians unless told otherwise.",
+        },
+      ],
+      masteryQuiz: [
+        practicalChoice(
+          "y12s2-rad-m1",
+          "π/2 radians equals:",
+          "C",
+          ["45°", "60°", "90°", "180°"],
+          "π/2 × 180/π = 90°."
+        ),
+        measurementAnswer(
+          "y12s2-rad-m2",
+          "Convert 30° to radians (to 4 decimal places).",
+          "30 \\times \\dfrac{\\pi}{180} = \\dfrac{\\pi}{6}",
+          "0.5236 rad",
+          ["0.5236", "0.5236 rad", "0.524"]
+        ),
+        practicalChoice(
+          "y12s2-rad-m3",
+          "A right triangle has hypotenuse 12 m and angle θ = π/4 rad. The adjacent side is approximately:",
+          "B",
+          ["6.00 m", "8.49 m", "12.00 m", "16.97 m"],
+          "adj = 12 × cos(π/4) = 12 × √2/2 ≈ 8.49 m."
+        ),
+        measurementAnswer(
+          "y12s2-rad-m4",
+          "A ramp makes an angle of 0.3 rad with the horizontal over a horizontal distance of 8 m. Find the height to 2 decimal places.",
+          "h = 8 \\times \\tan(0.3)\\quad(\\text{RAD mode})",
+          "2.47 m",
+          ["2.47", "2.47 m", "2.47m"]
+        ),
+        practicalChoice(
+          "y12s2-rad-m5",
+          "A right triangle has hypotenuse 15 m and angle θ = 1.1 rad. The side opposite θ is approximately:",
+          "B",
+          ["10.24 m", "13.37 m", "15.00 m", "16.84 m"],
+          "opp = 15 × sin(1.1) ≈ 15 × 0.8912 ≈ 13.37 m."
+        ),
+        measurementAnswer(
+          "y12s2-rad-m6",
+          "Convert 2.5 radians to degrees (to 1 decimal place).",
+          "2.5 \\times \\dfrac{180}{\\pi}",
+          "143.2°",
+          ["143.2", "143.2 degrees", "143.2°"]
+        ),
+        practicalChoice(
+          "y12s2-rad-m7",
+          "A right triangle has angle A = π/6. The hypotenuse is 20 m. The side adjacent to A is approximately:",
+          "B",
+          ["10.00 m", "17.32 m", "20.00 m", "34.64 m"],
+          "adj = 20 × cos(π/6) = 20 × √3/2 ≈ 17.32 m."
+        ),
+        measurementAnswer(
+          "y12s2-rad-m8",
+          "In a right-angled triangle, the opposite side is 7.5 m and angle θ = 1.0 rad. Find the hypotenuse to 2 decimal places.",
+          "\\sin(1.0) = \\dfrac{7.5}{h} \\implies h = \\dfrac{7.5}{\\sin(1.0)}",
+          "8.91 m",
+          ["8.91", "8.91 m", "8.91m"]
+        ),
+        practicalChoice(
+          "y12s2-rad-m9",
+          "Using RAD mode, sin(π/6) equals:",
+          "C",
+          ["0.8660", "0.5774", "0.5", "1"],
+          "sin(π/6) = sin(30°) = 0.5."
+        ),
+        practicalChoice(
+          "y12s2-rad-m10",
+          "A right triangle has angle 0.6 rad and the opposite side is 4 m. Which equation finds the hypotenuse h?",
+          "B",
+          [
+            "h = 4 × sin(0.6)",
+            "h = 4 ÷ sin(0.6)",
+            "h = 4 × tan(0.6)",
+            "h = 4 × cos(0.6)",
+          ],
+          "sin(0.6) = 4/h → h = 4 ÷ sin(0.6)."
         ),
       ],
     };

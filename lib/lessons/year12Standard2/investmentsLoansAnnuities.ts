@@ -7,6 +7,21 @@ import {
 } from "../questionHelpers";
 
 function financeFeedback(prompt: string, latex: string, answer: string) {
+  if (prompt.includes("dividend yield")) {
+    return `Dividend yield = (dividend per share ÷ market price) × 100%. Divide the annual dividend by the share price, then multiply by 100 to get ${answer}.`;
+  }
+  if (prompt.includes("total purchase cost") || (prompt.includes("brokerage") && prompt.includes("buy"))) {
+    return `Total purchase cost = (shares × price) + brokerage. Calculate the base value first, then add the brokerage amount to get ${answer}.`;
+  }
+  if (prompt.includes("net proceeds") || (prompt.includes("brokerage") && prompt.includes("sell"))) {
+    return `Net proceeds = (shares × sale price) − brokerage. Calculate the gross sale value first, then subtract brokerage to get ${answer}.`;
+  }
+  if (prompt.includes("capital gain") || prompt.includes("capital loss")) {
+    return `Capital gain/loss = net proceeds − total purchase cost. Subtract the full buy cost from the net sale proceeds to get ${answer}.`;
+  }
+  if (prompt.includes("total dividends") || (prompt.includes("dividend") && prompt.includes("year"))) {
+    return `Total dividends = shares × dividend per share × number of years. Multiply through to get ${answer}.`;
+  }
   if (prompt.includes("interest earned")) {
     return `Interest earned is the extra money added, not the whole balance. Subtract the original amount from the final balance to get ${answer}.`;
   }
@@ -646,6 +661,277 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer("y12s2-credit-m8", "A 240 dollar purchase on BNPL: 4 instalments of 60 dollars. What is the total paid?", "4\\times60", "240", ["$240"]),
         financeChoice("y12s2-credit-m9", "Comparing credit card and BNPL for the same purchase, the key advantage of BNPL (when paid on time) is:", "B", ["Higher interest", "No interest charged", "Longer interest-free period", "Lower purchase price"], "BNPL typically charges no interest if payments are made on time."),
         financeChoice("y12s2-credit-m10", "If you save 200 dollars per month for 4 months earning 3% p.a., you avoid credit card interest of 18% p.a. Saving first is better because:", "A", ["You earn interest instead of paying it", "You delay the purchase indefinitely", "You pay less each month", "Credit cards always charge more than 18%"], "Saving earns interest; credit cards charge it. Saving first is financially better."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "shares-dividends-brokerage") {
+    return {
+      ...base,
+      description:
+        "Calculate total dividends, dividend yield, brokerage fees, capital gain or loss, and total return from a share investment.",
+      learningIntention:
+        "Analyse a share investment by calculating dividends, dividend yield, brokerage costs, capital gain or loss, and total return.",
+      successCriteria: [
+        "Calculate total annual dividends as number of shares × dividend per share.",
+        "Find dividend yield = (dividend per share ÷ market price) × 100%.",
+        "Calculate total purchase cost and net sale proceeds including brokerage.",
+        "Determine capital gain or capital loss from a share transaction.",
+        "Calculate total return combining dividends and capital gain.",
+      ],
+      teaching: {
+        paragraphs: [
+          "When you buy shares in a company, you become a part-owner and may receive a regular payment called a dividend. The total annual dividend is simply the number of shares you own multiplied by the dividend paid per share each year.",
+          "Dividend yield expresses the annual dividend as a percentage of the share's current market price. A higher yield means a better income return relative to the price paid. Use the formula: dividend yield = (dividend per share ÷ market price) × 100%.",
+          "Brokerage is the fee charged by a stockbroker every time you buy or sell shares. It is usually a percentage of the transaction value. Brokerage on a purchase increases your total cost; brokerage on a sale reduces your net proceeds.",
+          "Capital gain occurs when you sell shares for more than you paid (net of brokerage). Capital loss occurs when you sell for less. Total return from a share investment combines any capital gain and the dividends received over the holding period.",
+        ],
+        latexBlocks: [
+          "\\text{Total dividend} = \\text{shares} \\times \\text{dividend per share}",
+          "\\text{Dividend yield} = \\dfrac{\\text{dividend per share}}{\\text{market price}} \\times 100\\%",
+          "\\text{Total purchase cost} = \\text{shares} \\times \\text{price} + \\text{brokerage}",
+          "\\text{Capital gain/loss} = \\text{net proceeds} - \\text{total purchase cost}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Calculate total dividends and dividend yield",
+          questionLatex:
+            "\\text{Mei owns 500 shares in a company priced at }\\$3.20\\text{. The annual dividend is }\\$0.16\\text{ per share. Find the total annual dividend and dividend yield.}",
+          steps: [
+            {
+              explanation: "Calculate the total annual dividend.",
+              latex: "\\text{Total dividend} = 500 \\times 0.16 = \\$80.00",
+            },
+            {
+              explanation: "Calculate the dividend yield.",
+              latex:
+                "\\text{Yield} = \\dfrac{0.16}{3.20} \\times 100\\% = 5\\%",
+            },
+          ],
+        },
+        {
+          title: "Calculate total cost of buying shares",
+          questionLatex:
+            "\\text{Jake buys 200 shares at }\\$4.50\\text{ each. Brokerage is 0.5\\% of the transaction value. Find the total purchase cost.}",
+          steps: [
+            {
+              explanation: "Find the base purchase value.",
+              latex: "\\text{Value} = 200 \\times 4.50 = \\$900.00",
+            },
+            {
+              explanation: "Calculate brokerage on the purchase.",
+              latex: "\\text{Brokerage} = 900 \\times 0.005 = \\$4.50",
+            },
+            {
+              explanation: "Add brokerage to get the total cost.",
+              latex: "\\text{Total cost} = 900 + 4.50 = \\$904.50",
+            },
+          ],
+        },
+        {
+          title: "Calculate net proceeds and capital gain",
+          questionLatex:
+            "\\text{Jake later sells his 200 shares at }\\$5.10\\text{ each with 0.5\\% brokerage. His purchase cost was }\\$904.50\\text{. Find his capital gain.}",
+          steps: [
+            {
+              explanation: "Find the gross sale value.",
+              latex: "\\text{Gross proceeds} = 200 \\times 5.10 = \\$1020.00",
+            },
+            {
+              explanation: "Deduct brokerage from sale proceeds.",
+              latex:
+                "\\text{Brokerage} = 1020 \\times 0.005 = \\$5.10 \\implies \\text{Net proceeds} = 1020 - 5.10 = \\$1014.90",
+            },
+            {
+              explanation: "Capital gain = net proceeds − total purchase cost.",
+              latex:
+                "\\text{Capital gain} = 1014.90 - 904.50 = \\$110.40",
+            },
+          ],
+        },
+      ],
+      guidedPractice: [
+        financeChoice(
+          "y12s2-sdb-g1",
+          "300 shares pay an annual dividend of $0.24 per share. Total annual dividend?",
+          "B",
+          ["$24.00", "$72.00", "$240.00", "$0.24"],
+          "Total dividend = 300 × $0.24 = $72.00."
+        ),
+        financeChoice(
+          "y12s2-sdb-g2",
+          "A share is priced at $4.00 and pays a dividend of $0.20 per share. Dividend yield?",
+          "C",
+          ["20%", "0.05%", "5%", "0.5%"],
+          "Yield = 0.20 ÷ 4.00 × 100% = 5%."
+        ),
+        financeChoice(
+          "y12s2-sdb-g3",
+          "100 shares are bought at $5.00 each. Brokerage is 1%. Total purchase cost?",
+          "C",
+          ["$500.00", "$510.00", "$505.00", "$501.00"],
+          "Value = 100 × $5 = $500. Brokerage = $500 × 0.01 = $5. Total = $505."
+        ),
+        financeChoice(
+          "y12s2-sdb-g4",
+          "Brokerage in a share transaction is best described as:",
+          "B",
+          [
+            "The dividend paid by the company",
+            "A fee charged by the broker for buying or selling shares",
+            "The profit from selling shares",
+            "Tax on share income",
+          ],
+          "Brokerage is the broker's service fee, charged as a percentage of the transaction value."
+        ),
+      ],
+      independentPractice: [
+        financeChoice(
+          "y12s2-sdb-i1",
+          "You own 150 shares that pay $0.30 dividend per share per year. Total annual dividend?",
+          "B",
+          ["$300.00", "$45.00", "$4.50", "$150.00"],
+          "Total = 150 × $0.30 = $45.00."
+        ),
+        moneyAnswer(
+          "y12s2-sdb-i2",
+          "A share is priced at $6.00 and pays an annual dividend of $0.18 per share. Find the dividend yield as a percentage.",
+          "\\text{Yield} = \\dfrac{0.18}{6.00} \\times 100\\%",
+          "3%",
+          ["3", "3.0", "3.00"]
+        ),
+        financeChoice(
+          "y12s2-sdb-i3",
+          "You buy 200 shares at $2.50 and sell them at $3.50. Ignoring brokerage, what is the capital gain?",
+          "C",
+          ["$100", "$350", "$200", "$250"],
+          "Capital gain = 200 × ($3.50 − $2.50) = 200 × $1.00 = $200."
+        ),
+        moneyAnswer(
+          "y12s2-sdb-i4",
+          "You buy 400 shares at $3.00 each. Brokerage is 0.5%. Find the total purchase cost.",
+          "\\text{Value}=400\\times3.00=\\$1200,\\quad\\text{brokerage}=1200\\times0.005=\\$6",
+          "1206",
+          ["$1206", "1206.00", "$1206.00"]
+        ),
+        financeChoice(
+          "y12s2-sdb-i5",
+          "You sell 500 shares at $4.00 each with 0.5% brokerage. Net proceeds?",
+          "B",
+          ["$2000.00", "$1990.00", "$2010.00", "$1980.00"],
+          "Gross = $2000. Brokerage = $10. Net proceeds = $2000 − $10 = $1990."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Confusing dividend with dividend yield.",
+          fix: "Dividend is the dollar amount per share. Dividend yield is dividend ÷ price × 100%. They are related but different — one is dollars, the other is a percentage.",
+        },
+        {
+          mistake: "Forgetting to subtract brokerage from sale proceeds.",
+          fix: "Brokerage is charged on both buying and selling. Deduct brokerage from the gross sale value to get net proceeds before calculating capital gain.",
+        },
+        {
+          mistake: "Calculating capital gain as selling price − buying price per share (ignoring brokerage in total cost).",
+          fix: "Capital gain = net proceeds (after brokerage) − total purchase cost (including brokerage). Both transactions must include brokerage to get the true profit.",
+        },
+        {
+          mistake: "Using price per share instead of total transaction value when calculating brokerage.",
+          fix: "Brokerage is a percentage of the total transaction value (shares × price), not the price per share. Multiply the number of shares by the price first.",
+        },
+      ],
+      masteryQuiz: [
+        financeChoice(
+          "y12s2-sdb-m1",
+          "250 shares pay $0.40 dividend per share per year. Total annual dividend?",
+          "C",
+          ["$40.00", "$250.00", "$100.00", "$400.00"],
+          "Total = 250 × $0.40 = $100."
+        ),
+        moneyAnswer(
+          "y12s2-sdb-m2",
+          "Share price $8.00, annual dividend $0.32 per share. Find the dividend yield.",
+          "\\text{Yield} = \\dfrac{0.32}{8.00} \\times 100\\%",
+          "4%",
+          ["4", "4.0", "4.00"]
+        ),
+        financeChoice(
+          "y12s2-sdb-m3",
+          "Share A: price $5.00, dividend $0.20. Share B: price $10.00, dividend $0.35. Which has the higher dividend yield?",
+          "A",
+          [
+            "Share A at 4%",
+            "Share B at 3.5%",
+            "They are equal",
+            "Cannot determine without the number of shares",
+          ],
+          "Yield A = 0.20÷5.00×100%=4%. Yield B = 0.35÷10.00×100%=3.5%. Share A is higher."
+        ),
+        moneyAnswer(
+          "y12s2-sdb-m4",
+          "Buy 500 shares at $3.20 each, brokerage 0.5%. Find the total purchase cost.",
+          "\\text{Value}=500\\times3.20=\\$1600,\\quad\\text{brokerage}=1600\\times0.005=\\$8",
+          "1608",
+          ["$1608", "1608.00", "$1608.00"]
+        ),
+        moneyAnswer(
+          "y12s2-sdb-m5",
+          "Sell 500 shares at $3.80 each, brokerage 0.5%. Find the net proceeds.",
+          "\\text{Gross}=500\\times3.80=\\$1900,\\quad\\text{brokerage}=1900\\times0.005=\\$9.50",
+          "1890.50",
+          ["$1890.50", "1890.5", "$1890.5"]
+        ),
+        moneyAnswer(
+          "y12s2-sdb-m6",
+          "Using the purchase cost of $1608 and net proceeds of $1890.50, find the capital gain.",
+          "\\text{Capital gain}=1890.50-1608",
+          "282.50",
+          ["$282.50", "282.5", "$282.5"]
+        ),
+        financeChoice(
+          "y12s2-sdb-m7",
+          "Total return from a share investment is best calculated as:",
+          "C",
+          [
+            "Capital gain only",
+            "Total dividends only",
+            "Capital gain + total dividends − total brokerage paid",
+            "Selling price − buying price",
+          ],
+          "Total return combines the price change (capital gain/loss) and income received (dividends), net of all costs."
+        ),
+        moneyAnswer(
+          "y12s2-sdb-m8",
+          "500 shares are held for 2 years. Dividend is $0.16 per share per year. Total dividends received over 2 years?",
+          "\\text{Total dividends}=500\\times0.16\\times2",
+          "160",
+          ["$160", "160.00", "$160.00"]
+        ),
+        financeChoice(
+          "y12s2-sdb-m9",
+          "Brokerage is typically charged:",
+          "C",
+          [
+            "Only when buying shares",
+            "Only when selling shares",
+            "On both buying and selling transactions",
+            "Never on ASX-listed companies",
+          ],
+          "Most brokers charge a fee on every transaction — both purchases and sales."
+        ),
+        financeChoice(
+          "y12s2-sdb-m10",
+          "You buy 300 shares at $5.50 (brokerage $10) and sell at $4.80 (brokerage $10). Capital outcome?",
+          "B",
+          [
+            "Capital gain of $230",
+            "Capital loss of $230",
+            "Capital gain of $90",
+            "Capital loss of $90",
+          ],
+          "Cost = 300×$5.50+$10=$1660. Proceeds = 300×$4.80−$10=$1430. Loss = $1430−$1660 = −$230."
+        ),
       ],
     };
   }
