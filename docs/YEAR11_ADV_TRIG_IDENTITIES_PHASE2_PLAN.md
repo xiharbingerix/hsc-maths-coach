@@ -1,10 +1,39 @@
 # Year 11 Advanced Trig Identities and Equations Phase 2 Plan
 
 Created: 2026-06-14
-Status: planning only
+Status: Phase 2 chunk implemented 2026-06-14
 Course: `year-11-advanced`
 Unit: `trigonometric-identities-equations`
 Source: `lib/lessons/year11Advanced/trigIdentitiesEquations.ts`
+
+## Implementation Status - 2026-06-14
+
+Implemented in this chunk:
+
+| Slug | Title | Standard questions | Visual payloads | Multi-part |
+|---|---|---:|---|---|
+| `related-angle-identities` | Related-Angle Identities | 19 | `UnitCircleDiagram` on worked examples and one mastery item | None |
+| `trig-equations-basic` | Basic Trigonometric Equations | 19 | `UnitCircleDiagram` on sine/cosine worked examples | None |
+
+Catalogue metadata added for:
+
+- `trigonometric-equations`
+- `trigonometric-identities`
+- `related-angle-identities`
+- `trig-equations-basic`
+- `trigonometric-identities-equations-exam-practice`
+
+`trig-equations-general-solutions` was intentionally not implemented in this chunk.
+
+Validation snapshot:
+
+| Check | Result |
+|---|---|
+| `npx.cmd tsc --noEmit` | Clean |
+| `npm.cmd run build` | Clean |
+| `npm.cmd run audit:lessons` | PASS, 0 fail-level issues; new lessons have 0 warnings |
+| `npx.cmd tsx scripts/seed-question-bank.ts --course year-11-advanced --dry-run` | 999 prepared questions; new lessons seed 19 each; no Supabase writes |
+| `git diff --check` | Clean; LF/CRLF working-copy notices only |
 
 ## 1. Current Unit And Lesson State
 

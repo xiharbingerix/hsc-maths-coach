@@ -105,6 +105,70 @@ function formulaAnswer(
   return { ...q, explanation };
 }
 
+function exactAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  explanation: string,
+  acceptedAnswers: string[] = [],
+  hint = "Use the related angle, exact value, or stated interval before entering the final value."
+) {
+  const q = baseFormulaAnswer(id, prompt, latex, answer, [...numericFormatVariants(answer), ...acceptedAnswers]);
+  return { ...q, hint, explanation };
+}
+
+function conceptChoice(
+  id: string,
+  prompt: string,
+  answer: "A" | "B" | "C" | "D",
+  choices: [string, string, string, string],
+  explanation: string,
+  latex = "\\text{Select A, B, C, or D.}",
+  hint = "Use the quadrant sign, identity rule, or stated interval to eliminate the distractors."
+) {
+  const q = practicalChoice(id, prompt, answer, choices, explanation, latex);
+  return { ...q, hint };
+}
+
+function piVariants(answer: string): string[] {
+  const latexPi = answer.replace(/pi/g, "\\pi");
+  const unicodePi = answer.replace(/pi/g, "\u03c0");
+  return Array.from(new Set([latexPi, unicodePi]));
+}
+
+function trigExpressionVariants(answer: string): string[] {
+  const sign = answer.startsWith("-") ? "-" : "";
+  const body = sign ? answer.slice(1) : answer;
+  const match = body.match(/^(sin|cos|tan)x$/);
+  if (!match) return [];
+  const fn = match[1];
+  return [
+    `${sign}${fn}(x)`,
+    `${sign}\\${fn}x`,
+    `${sign}\\${fn} x`,
+    `${sign}\\${fn}(x)`,
+  ];
+}
+
+function solutionSetVariants(values: string[]): string[] {
+  const plain = values.join(",");
+  const spaced = values.join(", ");
+  const latex = values.map((value) => value.replace(/pi/g, "\\pi")).join(", ");
+  const unicode = values.map((value) => value.replace(/pi/g, "\u03c0")).join(", ");
+  return [
+    spaced,
+    `{${plain}}`,
+    `{${spaced}}`,
+    `x=${spaced}`,
+    `x = ${spaced}`,
+    latex,
+    `{${latex}}`,
+    unicode,
+    `{${unicode}}`,
+  ];
+}
+
 export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -120,6 +184,256 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
   const base = {
     masteryPassMark: 0.8,
   };
+
+  if (lesson.slug === "related-angle-identities") {
+    const q2Sin: import("../types").UnitCircleDiagram = {
+      description: "Unit circle showing pi - theta in quadrant II with sine positive and cosine negative.",
+      angleRadians: "pi - theta",
+      quadrant: 2,
+      referenceAngle: "theta",
+      terminalPoint: { x: "-cos(theta)", y: "sin(theta)", label: "(-cos theta, sin theta)" },
+      symmetryPoints: [{ x: "cos(theta)", y: "sin(theta)", label: "Q1 related point" }],
+      highlightRadius: true,
+      showReferenceTriangle: true,
+      notes: ["Reflecting a Q1 angle across the y-axis keeps sine the same and changes the sign of cosine."],
+    };
+    const q3Sin: import("../types").UnitCircleDiagram = {
+      description: "Unit circle showing pi + theta in quadrant III with sine and cosine both negative.",
+      angleRadians: "pi + theta",
+      quadrant: 3,
+      referenceAngle: "theta",
+      terminalPoint: { x: "-cos(theta)", y: "-sin(theta)", label: "(-cos theta, -sin theta)" },
+      symmetryPoints: [{ x: "cos(theta)", y: "sin(theta)", label: "Q1 related point" }],
+      highlightRadius: true,
+      showReferenceTriangle: true,
+      notes: ["Moving to quadrant III changes the signs of both sine and cosine, while tangent stays positive."],
+    };
+    const q4Sin: import("../types").UnitCircleDiagram = {
+      description: "Unit circle showing 2pi - theta in quadrant IV with sine negative and cosine positive.",
+      angleRadians: "2pi - theta",
+      quadrant: 4,
+      referenceAngle: "theta",
+      terminalPoint: { x: "cos(theta)", y: "-sin(theta)", label: "(cos theta, -sin theta)" },
+      symmetryPoints: [{ x: "cos(theta)", y: "sin(theta)", label: "Q1 related point" }],
+      highlightRadius: true,
+      showReferenceTriangle: true,
+      notes: ["Reflecting a Q1 angle across the x-axis keeps cosine the same and changes the sign of sine."],
+    };
+
+    return {
+      ...base,
+      description:
+        "Use related-angle identities for pi - theta, pi + theta, and 2pi - theta to simplify expressions and evaluate exact trigonometric values.",
+      learningIntention:
+        "Learn how unit-circle symmetry gives related-angle identities for sine, cosine, and tangent, then use those identities without writing free-text proofs.",
+      successCriteria: [
+        "Choose the correct related-angle identity in quadrant II.",
+        "Choose the correct related-angle identity in quadrants III and IV.",
+        "Simplify a related-angle expression to a short sine, cosine, or tangent expression.",
+        "Evaluate exact trigonometric values using a related-angle identity.",
+        "Use MCQ or short canonical answers instead of proof-style responses.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Related-angle identities come from reflecting a first-quadrant reference angle around the unit circle.",
+          "For pi - theta in quadrant II, sine stays positive, cosine changes sign, and tangent changes sign.",
+          "For pi + theta in quadrant III, sine and cosine are negative, so tangent is positive.",
+          "For 2pi - theta in quadrant IV, cosine stays positive, sine changes sign, and tangent changes sign.",
+          "In this lesson you choose identities, simplify short expressions, and evaluate exact values. You do not need to type proof working.",
+        ],
+        latexBlocks: [
+          "\\sin(\\pi-\\theta)=\\sin\\theta,\\quad \\cos(\\pi-\\theta)=-\\cos\\theta,\\quad \\tan(\\pi-\\theta)=-\\tan\\theta",
+          "\\sin(\\pi+\\theta)=-\\sin\\theta,\\quad \\cos(\\pi+\\theta)=-\\cos\\theta,\\quad \\tan(\\pi+\\theta)=\\tan\\theta",
+          "\\sin(2\\pi-\\theta)=-\\sin\\theta,\\quad \\cos(2\\pi-\\theta)=\\cos\\theta,\\quad \\tan(2\\pi-\\theta)=-\\tan\\theta",
+          "\\text{Q2: sine positive};\\quad \\text{Q3: tangent positive};\\quad \\text{Q4: cosine positive}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Use a quadrant II related angle",
+          questionLatex: "\\sin(\\pi-\\theta),\\quad \\cos(\\pi-\\theta)",
+          unitCircleDiagram: q2Sin,
+          steps: [
+            { explanation: "The angle pi - theta lies in quadrant II when theta is acute.", latex: "\\pi-\\theta\\in\\text{Q2}" },
+            { explanation: "Sine is positive in quadrant II, so the y-coordinate stays the same.", latex: "\\sin(\\pi-\\theta)=\\sin\\theta" },
+            { explanation: "Cosine is negative in quadrant II, so the x-coordinate changes sign.", latex: "\\cos(\\pi-\\theta)=-\\cos\\theta" },
+          ],
+          finalAnswerLatex: "\\sin(\\pi-\\theta)=\\sin\\theta,\\quad \\cos(\\pi-\\theta)=-\\cos\\theta",
+        },
+        {
+          title: "Simplify a quadrant III expression",
+          questionLatex: "\\tan(\\pi+\\theta)",
+          unitCircleDiagram: q3Sin,
+          steps: [
+            { explanation: "The angle pi + theta lies in quadrant III.", latex: "\\pi+\\theta\\in\\text{Q3}" },
+            { explanation: "Both sine and cosine are negative in quadrant III.", latex: "\\frac{-\\sin\\theta}{-\\cos\\theta}=\\frac{\\sin\\theta}{\\cos\\theta}" },
+            { explanation: "The ratio is positive tangent.", latex: "\\tan(\\pi+\\theta)=\\tan\\theta" },
+          ],
+          finalAnswerLatex: "\\tan\\theta",
+        },
+        {
+          title: "Evaluate an exact related angle",
+          questionLatex: "\\cos\\left(\\frac{7\\pi}{6}\\right)",
+          steps: [
+            { explanation: "Write 7pi/6 as pi + pi/6.", latex: "\\frac{7\\pi}{6}=\\pi+\\frac{\\pi}{6}" },
+            { explanation: "Use the quadrant III cosine identity.", latex: "\\cos(\\pi+\\theta)=-\\cos\\theta" },
+            { explanation: "Substitute theta = pi/6 and use cos(pi/6) = sqrt(3)/2.", latex: "\\cos\\frac{7\\pi}{6}=-\\cos\\frac{\\pi}{6}=-\\frac{\\sqrt3}{2}" },
+          ],
+          finalAnswerLatex: "-\\frac{\\sqrt3}{2}",
+        },
+      ],
+      guidedPractice: [
+        conceptChoice("y11adv-relang-g1", "Choose the correct related-angle identity.", "A", ["$\\sin(\\pi-\\theta)=\\sin\\theta$", "$\\sin(\\pi-\\theta)=-\\sin\\theta$", "$\\sin(\\pi-\\theta)=\\cos\\theta$", "$\\sin(\\pi-\\theta)=-\\cos\\theta$"], "In quadrant II, sine stays positive and keeps the same reference-angle value.", "\\sin(\\pi-\\theta)"),
+        exactAnswer("y11adv-relang-g2", "Simplify the related-angle expression.", "\\cos(\\pi-\\theta)", "-cosx", "The angle pi - theta is in quadrant II, where cosine is negative, so cos(pi - x) = -cos x.", trigExpressionVariants("-cosx")),
+        exactAnswer("y11adv-relang-g3", "Evaluate using a related-angle identity.", "\\sin\\left(\\frac{5\\pi}{6}\\right)", "1/2", "Since 5pi/6 = pi - pi/6, sin(5pi/6) = sin(pi/6) = 1/2.", ["0.5"]),
+        conceptChoice("y11adv-relang-g4", "Choose the correct tangent identity.", "C", ["$\\tan(\\pi+\\theta)=-\\tan\\theta$", "$\\tan(\\pi+\\theta)=\\sin\\theta$", "$\\tan(\\pi+\\theta)=\\tan\\theta$", "$\\tan(\\pi+\\theta)=\\cos\\theta$"], "In quadrant III, sine and cosine are both negative, so their ratio tangent is positive.", "\\tan(\\pi+\\theta)"),
+      ],
+      independentPractice: [
+        exactAnswer("y11adv-relang-i1", "Simplify the related-angle expression.", "\\sin(\\pi+\\theta)", "-sinx", "The angle pi + theta is in quadrant III, where sine is negative, so sin(pi + x) = -sin x.", trigExpressionVariants("-sinx")),
+        exactAnswer("y11adv-relang-i2", "Simplify the related-angle expression.", "\\cos(2\\pi-\\theta)", "cosx", "The angle 2pi - theta is in quadrant IV, where cosine is positive, so cos(2pi - x) = cos x.", trigExpressionVariants("cosx")),
+        exactAnswer("y11adv-relang-i3", "Evaluate using a related-angle identity.", "\\cos\\left(\\frac{7\\pi}{6}\\right)", "-sqrt(3)/2", "Since 7pi/6 = pi + pi/6, cos(7pi/6) = -cos(pi/6) = -sqrt(3)/2.", ["-\\sqrt{3}/2", "-√3/2"]),
+        conceptChoice("y11adv-relang-i4", "Which identity has a positive right-hand side?", "D", ["$\\tan(\\pi-\\theta)=-\\tan\\theta$", "$\\sin(\\pi+\\theta)=-\\sin\\theta$", "$\\cos(\\pi+\\theta)=-\\cos\\theta$", "$\\cos(2\\pi-\\theta)=\\cos\\theta$"], "Cosine is positive in quadrant IV, so cos(2pi - theta) keeps the positive cosine value.", "\\text{Related-angle signs}"),
+        exactAnswer("y11adv-relang-i5", "Evaluate using a related-angle identity.", "\\tan\\left(\\frac{3\\pi}{4}\\right)", "-1", "Since 3pi/4 = pi - pi/4, tan(3pi/4) = -tan(pi/4) = -1.", ["−1"]),
+      ],
+      commonMistakes: [
+        { mistake: "Changing every related angle to a negative value.", fix: "Use the quadrant sign: sine is positive in Q2, tangent is positive in Q3, cosine is positive in Q4." },
+        { mistake: "Treating tangent like sine in quadrant III.", fix: "Tangent is sin divided by cos, so it is positive when both sin and cos are negative." },
+        { mistake: "Typing a long proof into a marked answer.", fix: "Use the selected identity or the short expression requested." },
+        { mistake: "Forgetting the reference angle.", fix: "First rewrite the angle as pi - theta, pi + theta, or 2pi - theta." },
+      ],
+      masteryQuiz: [
+        exactAnswer("y11adv-relang-m1", "Simplify the related-angle expression.", "\\tan(\\pi-\\theta)", "-tanx", "The angle pi - theta is in quadrant II. Tangent is negative there, so tan(pi - x) = -tan x.", trigExpressionVariants("-tanx")),
+        exactAnswer("y11adv-relang-m2", "Simplify the related-angle expression.", "\\cos(\\pi+\\theta)", "-cosx", "The angle pi + theta is in quadrant III. Cosine is negative there, so cos(pi + x) = -cos x.", trigExpressionVariants("-cosx")),
+        exactAnswer("y11adv-relang-m3", "Simplify the related-angle expression.", "\\sin(2\\pi-\\theta)", "-sinx", "The angle 2pi - theta is in quadrant IV. Sine is negative there, so sin(2pi - x) = -sin x.", trigExpressionVariants("-sinx")),
+        exactAnswer("y11adv-relang-m4", "Evaluate using a related-angle identity.", "\\sin\\left(\\frac{4\\pi}{3}\\right)", "-sqrt(3)/2", "Since 4pi/3 = pi + pi/3, sin(4pi/3) = -sin(pi/3) = -sqrt(3)/2.", ["-\\sqrt{3}/2", "-√3/2"]),
+        {
+          ...conceptChoice("y11adv-relang-m5", "Choose the identity that matches quadrant IV symmetry.", "B", ["$\\sin(2\\pi-\\theta)=\\sin\\theta$", "$\\sin(2\\pi-\\theta)=-\\sin\\theta$", "$\\cos(2\\pi-\\theta)=-\\cos\\theta$", "$\\tan(2\\pi-\\theta)=\\tan\\theta$"], "In quadrant IV, sine is negative while cosine is positive, so sin(2pi - theta) = -sin theta.", "\\sin(2\\pi-\\theta)"),
+          unitCircleDiagram: q4Sin,
+        },
+        conceptChoice("y11adv-relang-m6", "A student writes $\\tan(\\pi+\\theta)=-\\tan\\theta$. Identify the error.", "C", ["Tangent is undefined in quadrant III", "The reference angle should be doubled", "Tangent is positive in quadrant III", "Sine is positive in quadrant III"], "In quadrant III, sine and cosine are both negative, so tangent is positive.", "\\tan(\\pi+\\theta)"),
+        exactAnswer("y11adv-relang-m7", "Evaluate using a related-angle identity.", "\\cos\\left(\\frac{5\\pi}{6}\\right)", "-sqrt(3)/2", "Since 5pi/6 = pi - pi/6, cos(5pi/6) = -cos(pi/6) = -sqrt(3)/2.", ["-\\sqrt{3}/2", "-√3/2"]),
+        exactAnswer("y11adv-relang-m8", "Evaluate using a related-angle identity.", "\\tan\\left(\\frac{7\\pi}{6}\\right)", "1/sqrt(3)", "Since 7pi/6 = pi + pi/6, tan(7pi/6) = tan(pi/6) = 1/sqrt(3).", ["sqrt(3)/3", "\\sqrt{3}/3", "√3/3"]),
+        conceptChoice("y11adv-relang-m9", "Choose the expression equivalent to $\\sin(\\pi+\\theta)+\\sin\\theta$.", "A", ["$0$", "$2\\sin\\theta$", "$-2\\sin\\theta$", "$\\cos\\theta$"], "Use sin(pi + theta) = -sin theta, so the two terms cancel to zero.", "\\sin(\\pi+\\theta)+\\sin\\theta"),
+        exactAnswer("y11adv-relang-m10", "Simplify the related-angle expression.", "\\tan(2\\pi-\\theta)", "-tanx", "The angle 2pi - theta is in quadrant IV, where tangent is negative, so tan(2pi - x) = -tan x.", trigExpressionVariants("-tanx")),
+      ],
+    };
+  }
+
+  if (lesson.slug === "trig-equations-basic") {
+    const sineHalf: import("../types").UnitCircleDiagram = {
+      description: "Unit circle showing the two solutions for sin x = 1/2 in the interval from 0 to 2pi.",
+      angleRadians: "pi/6 and 5pi/6",
+      quadrant: 1,
+      referenceAngle: "pi/6",
+      terminalPoint: { x: "sqrt(3)/2", y: "1/2", label: "sin x = 1/2" },
+      symmetryPoints: [{ x: "-sqrt(3)/2", y: "1/2", label: "5pi/6" }],
+      notes: ["Sine is positive in quadrants I and II."],
+    };
+    const cosineNegative: import("../types").UnitCircleDiagram = {
+      description: "Unit circle showing the two solutions for cos x = -1/2 in the interval from 0 to 2pi.",
+      angleRadians: "2pi/3 and 4pi/3",
+      quadrant: 2,
+      referenceAngle: "pi/3",
+      terminalPoint: { x: "-1/2", y: "sqrt(3)/2", label: "2pi/3" },
+      symmetryPoints: [{ x: "-1/2", y: "-sqrt(3)/2", label: "4pi/3" }],
+      notes: ["Cosine is negative in quadrants II and III."],
+    };
+
+    return {
+      ...base,
+      description:
+        "Solve basic sine, cosine, and tangent equations on finite radian or degree intervals using exact special angles and quadrant signs.",
+      learningIntention:
+        "Learn how to solve basic trigonometric equations on a stated finite interval by finding the reference angle and selecting all valid solutions.",
+      successCriteria: [
+        "Solve equations of the form sin x = a, cos x = a, and tan x = a.",
+        "Use exact special angles to find the reference angle.",
+        "Select all solutions in 0 <= x <= 2pi or 0 degrees <= x <= 360 degrees.",
+        "Use tangent's period pi when choosing tangent solutions.",
+        "Use MCQ or controlled exact-value answers for solution pairs.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A trigonometric equation asks for the angle values that make a statement true in the given interval.",
+          "First find the reference angle using exact values such as sin(pi/6) = 1/2, cos(pi/3) = 1/2, and tan(pi/4) = 1.",
+          "Then use the sign of the right-hand side to choose the quadrants. For example, sin x = 1/2 has solutions in quadrants I and II.",
+          "Always check the interval. In this lesson, solution sets are finite: usually 0 <= x <= 2pi or 0 degrees <= x <= 360 degrees.",
+          "Tangent repeats every pi, so its two solutions in 0 <= x <= 2pi are one pi apart.",
+        ],
+        latexBlocks: [
+          "\\sin x=\\frac12\\quad\\Rightarrow\\quad x=\\frac{\\pi}{6},\\frac{5\\pi}{6}\\quad(0\\le x\\le2\\pi)",
+          "\\cos x=-\\frac12\\quad\\Rightarrow\\quad x=\\frac{2\\pi}{3},\\frac{4\\pi}{3}\\quad(0\\le x\\le2\\pi)",
+          "\\tan x=1\\quad\\Rightarrow\\quad x=\\frac{\\pi}{4},\\frac{5\\pi}{4}\\quad(0\\le x\\le2\\pi)",
+          "\\text{Degree interval: }0^\\circ\\le x\\le360^\\circ",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Solve a sine equation",
+          questionLatex: "\\sin x=\\frac12,\\quad 0\\le x\\le2\\pi",
+          unitCircleDiagram: sineHalf,
+          steps: [
+            { explanation: "The reference angle is pi/6 because sin(pi/6) = 1/2.", latex: "\\alpha=\\frac{\\pi}{6}" },
+            { explanation: "Sine is positive in quadrants I and II.", latex: "\\text{Q1 and Q2}" },
+            { explanation: "Write both solutions in the interval.", latex: "x=\\frac{\\pi}{6},\\quad x=\\pi-\\frac{\\pi}{6}=\\frac{5\\pi}{6}" },
+          ],
+          finalAnswerLatex: "x=\\frac{\\pi}{6},\\frac{5\\pi}{6}",
+        },
+        {
+          title: "Solve a cosine equation",
+          questionLatex: "\\cos x=-\\frac12,\\quad 0\\le x\\le2\\pi",
+          unitCircleDiagram: cosineNegative,
+          steps: [
+            { explanation: "The reference angle is pi/3 because cos(pi/3) = 1/2.", latex: "\\alpha=\\frac{\\pi}{3}" },
+            { explanation: "Cosine is negative in quadrants II and III.", latex: "\\text{Q2 and Q3}" },
+            { explanation: "Use pi - alpha and pi + alpha.", latex: "x=\\frac{2\\pi}{3},\\quad x=\\frac{4\\pi}{3}" },
+          ],
+          finalAnswerLatex: "x=\\frac{2\\pi}{3},\\frac{4\\pi}{3}",
+        },
+        {
+          title: "Solve a tangent equation",
+          questionLatex: "\\tan x=-1,\\quad 0\\le x\\le2\\pi",
+          steps: [
+            { explanation: "The reference angle is pi/4 because tan(pi/4) = 1.", latex: "\\alpha=\\frac{\\pi}{4}" },
+            { explanation: "Tangent is negative in quadrants II and IV.", latex: "\\text{Q2 and Q4}" },
+            { explanation: "Use pi - alpha and 2pi - alpha.", latex: "x=\\frac{3\\pi}{4},\\quad x=\\frac{7\\pi}{4}" },
+          ],
+          finalAnswerLatex: "x=\\frac{3\\pi}{4},\\frac{7\\pi}{4}",
+        },
+      ],
+      guidedPractice: [
+        exactAnswer("y11adv-trigeq-basic-g1", "Find the reference angle.", "\\sin x=\\frac12", "pi/6", "The special angle with sine equal to 1/2 is pi/6, so the reference angle is pi/6.", piVariants("pi/6")),
+        conceptChoice("y11adv-trigeq-basic-g2", "Choose the solution pair.", "B", ["$x=\\frac{\\pi}{3},\\frac{5\\pi}{3}$", "$x=\\frac{\\pi}{6},\\frac{5\\pi}{6}$", "$x=\\frac{7\\pi}{6},\\frac{11\\pi}{6}$", "$x=\\frac{\\pi}{2},\\frac{3\\pi}{2}$"], "Sine is positive in quadrants I and II, so the solutions are pi/6 and 5pi/6.", "\\sin x=\\frac12,\\quad 0\\le x\\le2\\pi"),
+        exactAnswer("y11adv-trigeq-basic-g3", "Find the smaller solution.", "\\cos x=\\frac12,\\quad 0\\le x\\le2\\pi", "pi/3", "Cosine is positive in quadrants I and IV. The smaller solution is the reference angle pi/3.", piVariants("pi/3")),
+        conceptChoice("y11adv-trigeq-basic-g4", "Choose the correct period for tangent equations.", "A", ["$\\pi$", "$2\\pi$", "$\\frac{\\pi}{2}$", "$4\\pi$"], "Tangent repeats every pi, so the next tangent solution is one pi after the first.", "\\tan x=a"),
+      ],
+      independentPractice: [
+        exactAnswer("y11adv-trigeq-basic-i1", "Find the larger solution.", "\\cos x=\\frac12,\\quad 0\\le x\\le2\\pi", "5pi/3", "Cosine is positive in quadrants I and IV, so the larger solution is 2pi - pi/3 = 5pi/3.", piVariants("5pi/3")),
+        conceptChoice("y11adv-trigeq-basic-i2", "Choose the solution pair.", "C", ["$x=\\frac{\\pi}{6},\\frac{5\\pi}{6}$", "$x=\\frac{\\pi}{3},\\frac{5\\pi}{3}$", "$x=\\frac{2\\pi}{3},\\frac{4\\pi}{3}$", "$x=\\frac{3\\pi}{4},\\frac{5\\pi}{4}$"], "Cosine is negative in quadrants II and III, with reference angle pi/3.", "\\cos x=-\\frac12,\\quad 0\\le x\\le2\\pi"),
+        exactAnswer("y11adv-trigeq-basic-i3", "Find the smaller solution.", "\\tan x=-1,\\quad 0\\le x\\le2\\pi", "3pi/4", "Tangent is negative in quadrants II and IV. The smaller solution is pi - pi/4 = 3pi/4.", piVariants("3pi/4")),
+        exactAnswer("y11adv-trigeq-basic-i4", "Solve in degrees. Enter the smaller solution.", "\\sin x=\\frac12,\\quad 0^\\circ\\le x\\le360^\\circ", "30", "The reference angle is 30 degrees and sine is positive in quadrants I and II, so the smaller solution is 30.", ["30 degrees", "30deg"]),
+        exactAnswer("y11adv-trigeq-basic-i5", "Enter both solutions as a comma-separated set.", "\\sin x=\\frac12,\\quad 0\\le x\\le2\\pi", "pi/6,5pi/6", "Sine is positive in quadrants I and II, so the solution set is pi/6 and 5pi/6.", solutionSetVariants(["pi/6", "5pi/6"])),
+      ],
+      commonMistakes: [
+        { mistake: "Giving only the reference angle.", fix: "Use quadrant signs to find every solution in the stated interval." },
+        { mistake: "Using 2pi spacing for tangent solution pairs.", fix: "Tangent repeats every pi, so the second solution is one pi later." },
+        { mistake: "Ignoring degree versus radian intervals.", fix: "Match the format of the interval: radians for pi intervals, degrees for 0 to 360 degrees." },
+        { mistake: "Including values outside the interval.", fix: "Check each candidate against the stated lower and upper bounds." },
+      ],
+      masteryQuiz: [
+        exactAnswer("y11adv-trigeq-basic-m1", "Find the reference angle.", "\\cos x=-\\frac12", "pi/3", "The reference angle uses the positive exact value cos(pi/3) = 1/2, so the reference angle is pi/3.", piVariants("pi/3")),
+        exactAnswer("y11adv-trigeq-basic-m2", "Find the smaller solution.", "\\sin x=-\\frac12,\\quad 0\\le x\\le2\\pi", "7pi/6", "Sine is negative in quadrants III and IV, so the smaller solution is pi + pi/6 = 7pi/6.", piVariants("7pi/6")),
+        exactAnswer("y11adv-trigeq-basic-m3", "Find the larger solution.", "\\sin x=-\\frac12,\\quad 0\\le x\\le2\\pi", "11pi/6", "Sine is negative in quadrants III and IV, so the larger solution is 2pi - pi/6 = 11pi/6.", piVariants("11pi/6")),
+        conceptChoice("y11adv-trigeq-basic-m4", "Choose the solution pair.", "D", ["$x=\\frac{\\pi}{4},\\frac{5\\pi}{4}$", "$x=\\frac{\\pi}{4},\\frac{3\\pi}{4}$", "$x=\\frac{3\\pi}{4},\\frac{5\\pi}{4}$", "$x=\\frac{3\\pi}{4},\\frac{7\\pi}{4}$"], "Tangent is negative in quadrants II and IV, so tan x = -1 gives 3pi/4 and 7pi/4.", "\\tan x=-1,\\quad 0\\le x\\le2\\pi"),
+        exactAnswer("y11adv-trigeq-basic-m5", "Find the only solution in the interval.", "\\cos x=-1,\\quad 0\\le x\\le2\\pi", "pi", "Cosine equals -1 at the leftmost point of the unit circle, which occurs at x = pi.", piVariants("pi")),
+        exactAnswer("y11adv-trigeq-basic-m6", "Solve in degrees. Enter the larger solution.", "\\cos x=-\\frac12,\\quad 0^\\circ\\le x\\le360^\\circ", "240", "The reference angle is 60 degrees and cosine is negative in quadrants II and III, giving 120 and 240 degrees.", ["240 degrees", "240deg"]),
+        conceptChoice("y11adv-trigeq-basic-m7", "Which option identifies the error?", "B", ["The reference angle should be 90 degrees", "There should be two sine solutions in the interval", "Sine is never positive", "The interval should be ignored"], "For sin x = 1/2 from 0 to 360 degrees, sine is positive in quadrants I and II, so there are two solutions.", "\\sin x=\\frac12,\\quad 0^\\circ\\le x\\le360^\\circ"),
+        exactAnswer("y11adv-trigeq-basic-m8", "Find the smaller solution.", "\\tan x=1,\\quad 0\\le x\\le2\\pi", "pi/4", "Tangent is positive in quadrants I and III. The smaller solution is the reference angle pi/4.", piVariants("pi/4")),
+        exactAnswer("y11adv-trigeq-basic-m9", "Find the larger solution.", "\\tan x=1,\\quad 0\\le x\\le2\\pi", "5pi/4", "Tangent is positive in quadrants I and III. The larger solution is pi/4 + pi = 5pi/4.", piVariants("5pi/4")),
+        conceptChoice("y11adv-trigeq-basic-m10", "Choose the complete solution set.", "A", ["$x=0,\\pi,2\\pi$", "$x=\\frac{\\pi}{2},\\frac{3\\pi}{2}$", "$x=0,\\pi$", "$x=\\pi,2\\pi$"], "Sine is zero on the x-axis, so in the closed interval 0 to 2pi the solutions are 0, pi, and 2pi.", "\\sin x=0,\\quad 0\\le x\\le2\\pi"),
+      ],
+    };
+  }
 
   if (lesson.slug === "trigonometric-equations") {
     return {

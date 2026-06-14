@@ -1265,9 +1265,146 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Trigonometric functions",
         focus: "Trigonometric identities and equations",
         lessons: [
-          { slug: "trigonometric-equations", title: "Trigonometric Equations" },
-          { slug: "trigonometric-identities", title: "Trigonometric Identities" },
-          { slug: "trigonometric-identities-equations-exam-practice", title: "Trigonometric Identities and Equations Exam Practice" },
+          {
+            slug: "trigonometric-equations",
+            title: "Trigonometric Equations",
+            stableSkillId: "y11adv-trig-id-trigonometric-equations",
+            legacySlugs: ["trigonometric-equations"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-id-equations-isolate-function",
+                label: "Isolate sine, cosine, or tangent before solving a trigonometric equation",
+                legacySlugs: ["trigonometric-equations"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-equations-reference-angle",
+                label: "Find a reference angle from an exact trigonometric value",
+                legacySlugs: ["trigonometric-equations"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-equations-quadrant-solutions",
+                label: "Use quadrant signs to select solutions in a stated radian interval",
+                legacySlugs: ["trigonometric-equations"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-equations-tangent-period",
+                label: "Use period pi for tangent equations and period 2pi for sine and cosine equations",
+                legacySlugs: ["trigonometric-equations"],
+              },
+            ],
+          },
+          {
+            slug: "trigonometric-identities",
+            title: "Trigonometric Identities",
+            stableSkillId: "y11adv-trig-id-trigonometric-identities",
+            legacySlugs: ["trigonometric-identities"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-id-identities-pythagorean",
+                label: "Use sin^2 x + cos^2 x = 1 to simplify expressions",
+                legacySlugs: ["trigonometric-identities"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-identities-rearrangements",
+                label: "Use rearrangements of the Pythagorean identity",
+                legacySlugs: ["trigonometric-identities"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-identities-quotient",
+                label: "Use tan x = sin x / cos x where cos x is not zero",
+                legacySlugs: ["trigonometric-identities"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-identities-valid-rewrite",
+                label: "Choose a valid identity rewrite without entering proof working",
+                legacySlugs: ["trigonometric-identities"],
+              },
+            ],
+          },
+          {
+            slug: "related-angle-identities",
+            title: "Related-Angle Identities",
+            stableSkillId: "y11adv-trig-id-related-angle-identities",
+            legacySlugs: ["trigonometric-identities"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-id-related-q2-symmetry",
+                label: "Choose the correct sine, cosine, or tangent identity for pi minus theta",
+                legacySlugs: ["trigonometric-identities"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-related-q3-q4-symmetry",
+                label: "Choose the correct sign for pi plus theta and 2pi minus theta identities",
+                legacySlugs: ["trigonometric-identities"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-related-simplify",
+                label: "Simplify a related-angle expression to one trigonometric function of theta",
+                legacySlugs: ["trigonometric-identities"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-related-exact-values",
+                label: "Evaluate exact trigonometric values using related-angle identities",
+                legacySlugs: ["trigonometric-identities"],
+              },
+            ],
+          },
+          {
+            slug: "trig-equations-basic",
+            title: "Basic Trigonometric Equations",
+            stableSkillId: "y11adv-trig-id-trig-equations-basic",
+            legacySlugs: ["trigonometric-equations"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-id-eq-basic-reference-angle",
+                label: "Find the reference angle from an exact sine, cosine, or tangent value",
+                legacySlugs: ["trigonometric-equations"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-eq-basic-radian-solutions",
+                label: "Solve sine, cosine, and tangent equations in 0 <= x <= 2pi",
+                legacySlugs: ["trigonometric-equations"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-eq-basic-degree-solutions",
+                label: "Solve sine and cosine equations in 0 degrees <= x <= 360 degrees",
+                legacySlugs: ["trigonometric-equations"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-eq-basic-solution-pairs",
+                label: "Select or enter finite-interval solution pairs in marking-safe formats",
+                legacySlugs: ["trigonometric-equations"],
+              },
+            ],
+          },
+          {
+            slug: "trigonometric-identities-equations-exam-practice",
+            title: "Trigonometric Identities and Equations Exam Practice",
+            stableSkillId: "y11adv-trig-id-exam-practice",
+            legacySlugs: ["trigonometric-identities-equations-exam-practice"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-id-exam-isolate-and-solve",
+                label: "Apply isolation, reference angles, and quadrant signs in mixed equation questions",
+                legacySlugs: ["trigonometric-identities-equations-exam-practice"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-exam-identity-simplify",
+                label: "Apply Pythagorean and quotient identities in mixed simplification questions",
+                legacySlugs: ["trigonometric-identities-equations-exam-practice"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-exam-solution-pair-choice",
+                label: "Choose complete finite-interval solution sets without fragile typed proof working",
+                legacySlugs: ["trigonometric-identities-equations-exam-practice"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-exam-method-selection",
+                label: "Select whether a mixed question requires equation solving or identity rewriting",
+                legacySlugs: ["trigonometric-identities-equations-exam-practice"],
+              },
+            ],
+          },
         ],
       },
       {
