@@ -2,13 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { courseCatalogue } from "../../lib/courseUnits";
-import { HscTrialCTAButton, FreeLessonCTAButton, DiagnosticCTALink } from "./HscMathsCTAs";
+import {
+  HscDiagnosticCTAButton,
+  HscTrialCTAButton,
+  FreeLessonCTAButton,
+} from "./HscMathsCTAs";
 import { PageViewTracker } from "../components/PageViewTracker";
 
 export const metadata: Metadata = {
   title: "HSC Maths Online Lessons | Nova Maths",
   description:
-    "Structured NSW HSC maths lessons, practice and mastery quizzes for Year 12 students. Start with a 7-day free trial, then study at your own pace for $19/month.",
+    "Structured NSW HSC maths lessons, practice and mastery quizzes for Year 12 students. Start with a free diagnostic, then study at your own pace for $19/month.",
 };
 
 const included = [
@@ -119,9 +123,9 @@ export default function HscMathsPage() {
             </Link>
             {/* CTA visible on sm+ only — mobile uses the fixed bottom bar */}
             <div className="hidden sm:block">
-              <HscTrialCTAButton>
-                Start your 7-day free trial
-              </HscTrialCTAButton>
+              <HscDiagnosticCTAButton>
+                Start free diagnostic
+              </HscDiagnosticCTAButton>
             </div>
           </div>
         </div>
@@ -140,35 +144,36 @@ export default function HscMathsPage() {
               Stop guessing what to revise for HSC maths.
             </h1>
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              A structured Year 12 pathway with worked examples, guided practice,
+              Find your weakest HSC topics in under 10 minutes, then use a
+              structured Year 12 pathway with worked examples, guided practice,
               mastery quizzes and progress saved to your dashboard.
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <HscTrialCTAButton className="w-full sm:w-auto">
+              <HscDiagnosticCTAButton className="inline-flex w-full items-center justify-center rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 sm:w-auto">
+                Start a free HSC diagnostic
+              </HscDiagnosticCTAButton>
+              <HscTrialCTAButton className="w-full border border-slate-300 bg-white text-slate-950 hover:bg-slate-50 sm:w-auto">
                 Start your 7-day free trial
               </HscTrialCTAButton>
-              <FreeLessonCTAButton className="inline-flex w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 sm:w-auto">
-                Preview a free HSC lesson
-              </FreeLessonCTAButton>
             </div>
 
             <p className="mt-3 text-sm font-medium text-slate-600">
-              No charge today &middot; Then $19/month &middot; Cancel anytime
+              Diagnostic is free. Trial: No charge today &middot; Then $19/month &middot; Cancel anytime
             </p>
             <p className="mt-1 text-sm text-slate-500">
-              Built for NSW HSC Advanced and Standard 2
+              Get a personalised practice path for NSW HSC Advanced and Standard 2.
             </p>
 
             <div className="mt-6 rounded-3xl border border-slate-200 bg-slate-50 p-4 sm:p-5">
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                7-day free trial offer
+                Free diagnostic first
               </p>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 {([
-                  "7-day free trial",
-                  "Then $19/month",
-                  "Cancel anytime",
+                  "Under 10 minutes",
+                  "Find weakest topics",
+                  "Personalised practice path",
                   "Built for NSW HSC Advanced and Standard 2",
                 ] as const).map((item) => (
                   <div key={item} className="min-w-0 rounded-2xl bg-white p-3 text-sm text-slate-700 shadow-sm">
@@ -180,7 +185,7 @@ export default function HscMathsPage() {
 
             <div className="mt-6 rounded-3xl border border-slate-200 bg-slate-50 p-6">
               <p className="text-sm font-semibold text-slate-900">
-                See what you get before starting your trial.
+                See the lesson experience before starting your trial.
               </p>
               <ul className="mt-4 space-y-3 text-sm text-slate-600">
                 <li>Preview a sample HSC lesson to feel how the course works.</li>
@@ -299,11 +304,11 @@ export default function HscMathsPage() {
           </div>
         </section>
 
-        {/* Diagnostic sits here as tertiary — below primary and secondary CTAs */}
+        {/* Free lesson stays available below the diagnostic-first hero. */}
         <section className="rounded-3xl border border-emerald-100 bg-emerald-50 p-8 shadow-sm md:p-10">
           <SectionLabel>Try before you subscribe</SectionLabel>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-            Not ready to subscribe yet?
+            Want to preview a lesson too?
           </h2>
           <p className="mt-3 max-w-xl leading-7 text-slate-700">
             Open a complete Year 12 Advanced lesson with worked examples,
@@ -314,9 +319,6 @@ export default function HscMathsPage() {
               Try one full HSC lesson free
             </FreeLessonCTAButton>
             <p className="text-sm text-slate-600">No signup needed.</p>
-          </div>
-          <div className="mt-4">
-            <DiagnosticCTALink />
           </div>
         </section>
 
@@ -363,8 +365,11 @@ export default function HscMathsPage() {
             Maths starts with a 7-day free trial, then is $19/month, with
             access to all available Year 9&ndash;12 maths pathways.
           </p>
-          <div className="mt-7">
-            <HscTrialCTAButton>
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <HscDiagnosticCTAButton>
+              Start a free HSC diagnostic
+            </HscDiagnosticCTAButton>
+            <HscTrialCTAButton className="border border-slate-300 bg-white text-slate-950 hover:bg-slate-50">
               Start your 7-day free trial
             </HscTrialCTAButton>
           </div>
@@ -411,7 +416,10 @@ export default function HscMathsPage() {
             Give HSC maths a clear study path.
           </h2>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <HscTrialCTAButton className="bg-white text-slate-950 hover:bg-slate-100">
+            <HscDiagnosticCTAButton className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 shadow-sm transition hover:bg-slate-100">
+              Start a free HSC diagnostic
+            </HscDiagnosticCTAButton>
+            <HscTrialCTAButton className="border border-slate-600 bg-slate-950 text-white hover:bg-slate-800">
               Start your 7-day free trial
             </HscTrialCTAButton>
             <Link
@@ -437,10 +445,15 @@ export default function HscMathsPage() {
       </div>
 
       {/* Fixed bottom bar — mobile only (sm+ uses the sticky header CTA) */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white p-4 sm:hidden">
-        <HscTrialCTAButton className="w-full">
-          Start your 7-day free trial
-        </HscTrialCTAButton>
+      <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white p-3 sm:hidden">
+        <div className="grid grid-cols-1 gap-2">
+          <HscDiagnosticCTAButton className="inline-flex w-full items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800">
+            Start free diagnostic
+          </HscDiagnosticCTAButton>
+          <HscTrialCTAButton className="w-full border border-slate-300 bg-white py-2.5 text-slate-950 hover:bg-slate-50">
+            Start your 7-day free trial
+          </HscTrialCTAButton>
+        </div>
       </div>
     </main>
   );

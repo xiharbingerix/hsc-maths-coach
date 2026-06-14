@@ -7,7 +7,6 @@ import {
   trackSubscribeClicked,
   trackCheckoutStarted,
   trackPreviewHscLessonClicked,
-  trackDiagnosticStarted,
 } from "../../lib/analytics";
 import {
   clientTrackEvent,
@@ -112,14 +111,30 @@ export function FreeLessonCTAButton({
   );
 }
 
-export function DiagnosticCTALink() {
+export function HscDiagnosticCTAButton({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
     <Link
       href="/diagnostic/select"
-      onClick={() => trackDiagnosticStarted("hsc-maths")}
-      className="text-sm font-semibold text-slate-700 underline decoration-slate-400 underline-offset-2 hover:text-slate-900"
+      onClick={() => {
+        preserveMarketingParams();
+        clientTrackEvent("diagnostic_cta_clicked", {
+          source: "hsc-maths",
+          destination: "/diagnostic/select",
+          ...getMarketingParamsFromUrl(),
+        });
+      }}
+      className={
+        className ??
+        "inline-flex items-center justify-center rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+      }
     >
-      Start free diagnostic &rarr;
+      {children}
     </Link>
   );
 }

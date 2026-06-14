@@ -318,6 +318,7 @@ export default async function AdminAnalyticsPage({
       .from("analytics_events")
       .select("event_name, user_id, anonymous_id, metadata, created_at")
       .in("event_name", [
+        "diagnostic_cta_clicked",
         "diagnostic_started",
         "diagnostic_question_answered",
         "diagnostic_completed",
@@ -331,6 +332,9 @@ export default async function AdminAnalyticsPage({
     .select("event_name, metadata")
     .in("event_name", [
       "hsc_maths_viewed",
+      "diagnostic_cta_clicked",
+      "diagnostic_started",
+      "diagnostic_completed",
       "trial_cta_clicked",
       "checkout_started",
       "checkout_redirected_to_stripe",
@@ -412,6 +416,7 @@ export default async function AdminAnalyticsPage({
 
   const homepageViews = count("homepage_viewed");
   const hscMathsViews = count("hsc_maths_viewed");
+  const diagnosticCtaClicks = count("diagnostic_cta_clicked");
   const diagnosticStarts = count("diagnostic_started");
   const diagnosticCompletions = count("diagnostic_completed");
   const trialCtaClicks = count("trial_cta_clicked");
@@ -433,6 +438,7 @@ export default async function AdminAnalyticsPage({
   const totalUniqueIdentities = allIdentities.size;
   const uniqueHomepageViews = unique("homepage_viewed");
   const uniqueHscMathsViews = unique("hsc_maths_viewed");
+  const uniqueDiagnosticCtaClicks = unique("diagnostic_cta_clicked");
   const uniqueTrialCtaClicks = unique("trial_cta_clicked");
   const uniqueCheckoutStarts = unique("checkout_started");
   const uniqueCheckoutForms = unique("checkout_form_submitted");
@@ -446,9 +452,12 @@ export default async function AdminAnalyticsPage({
   const funnelSteps = [
     { label: "Homepage viewed",       event: "homepage_viewed",               total: homepageViews,             uniq: uniqueHomepageViews },
     { label: "HSC maths viewed",      event: "hsc_maths_viewed",              total: hscMathsViews,             uniq: uniqueHscMathsViews },
+    { label: "Diagnostic CTA clicked", event: "diagnostic_cta_clicked",       total: diagnosticCtaClicks,       uniq: uniqueDiagnosticCtaClicks },
+    { label: "Diagnostic started",    event: "diagnostic_started",            total: diagnosticStarts,          uniq: uniqueDiagnosticStarts },
+    { label: "Diagnostic completed",  event: "diagnostic_completed",          total: diagnosticCompletions,     uniq: uniqueDiagnosticCompletions },
     { label: "Trial CTA clicked",     event: "trial_cta_clicked",             total: trialCtaClicks,            uniq: uniqueTrialCtaClicks },
     { label: "Checkout started",      event: "checkout_started",              total: checkoutStarts,            uniq: uniqueCheckoutStarts },
-    { label: "Checkout form submitted", event: "checkout_form_submitted",     total: checkoutFormSubmissions,   uniq: uniqueCheckoutForms },
+    { label: "Checkout form submitted (legacy/manual checkout)", event: "checkout_form_submitted", total: checkoutFormSubmissions, uniq: uniqueCheckoutForms },
     { label: "Redirected to Stripe",  event: "checkout_redirected_to_stripe", total: checkoutRedirectsToStripe, uniq: uniqueStripeRedirects },
     { label: "Trial started",         event: "trial_started",                 total: trialStarts,               uniq: uniqueTrialStarts },
   ];
@@ -731,7 +740,10 @@ export default async function AdminAnalyticsPage({
     campaign: string;
     isTest: boolean;
     viewed: number;
-    cta: number;
+    diagnosticCta: number;
+    diagnosticStarted: number;
+    diagnosticCompleted: number;
+    trialCta: number;
     checkout: number;
     stripe: number;
     payment: number;
@@ -755,24 +767,38 @@ export default async function AdminAnalyticsPage({
       adsCampaignMap.set(key, {
         campaign: campaign ?? "(none)",
         isTest,
-        viewed: 0, cta: 0, checkout: 0, stripe: 0,
+        viewed: 0,
+        diagnosticCta: 0,
+        diagnosticStarted: 0,
+        diagnosticCompleted: 0,
+        trialCta: 0,
+        checkout: 0,
+        stripe: 0,
         payment: 0, trial: 0, dashboard: 0, lesson: 0,
       });
     }
     const cr = adsCampaignMap.get(key)!;
     const ev = r.event_name;
-    if (ev === "hsc_maths_viewed")                  cr.viewed++;
-    else if (ev === "trial_cta_clicked")             cr.cta++;
-    else if (ev === "checkout_started")              cr.checkout++;
-    else if (ev === "checkout_redirected_to_stripe") cr.stripe++;
-    else if (ev === "payment_success")               cr.payment++;
-    else if (ev === "trial_started")                 cr.trial++;
-    else if (ev === "dashboard_viewed")              cr.dashboard++;
-    else if (ev === "lesson_started")                cr.lesson++;
+    if (ev === "hsc_maths_viewed")                       cr.viewed++;
+    else if (ev === "diagnostic_cta_clicked")             cr.diagnosticCta++;
+    else if (ev === "diagnostic_started")                 cr.diagnosticStarted++;
+    else if (ev === "diagnostic_completed")               cr.diagnosticCompleted++;
+    else if (ev === "trial_cta_clicked")                  cr.trialCta++;
+    else if (ev === "checkout_started")                   cr.checkout++;
+    else if (ev === "checkout_redirected_to_stripe")      cr.stripe++;
+    else if (ev === "payment_success")                    cr.payment++;
+    else if (ev === "trial_started")                      cr.trial++;
+    else if (ev === "dashboard_viewed")                   cr.dashboard++;
+    else if (ev === "lesson_started")                     cr.lesson++;
   }
 
   const adsFunnelRows = [...adsCampaignMap.values()].sort((a, b) => {
     if (a.isTest !== b.isTest) return Number(a.isTest) - Number(b.isTest);
+    const aActivity =
+      a.diagnosticCta + a.diagnosticStarted + a.trialCta + a.checkout + a.trial;
+    const bActivity =
+      b.diagnosticCta + b.diagnosticStarted + b.trialCta + b.checkout + b.trial;
+    if (aActivity !== bActivity) return bActivity - aActivity;
     return a.campaign.localeCompare(b.campaign);
   });
 
@@ -1311,24 +1337,25 @@ export default async function AdminAnalyticsPage({
           </h2>
           <p className="mt-1 text-xs text-slate-500">
             Large figure = rate by total events. Smaller figure = rate by
-            unique identities.
+            unique identities. Direct Stripe flow bypasses the checkout form,
+            so checkout form submissions are not a required funnel step.
           </p>
           <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
             <RateCard
-              label="HSC maths → CTA"
-              numerator={trialCtaClicks}
+              label="HSC maths to diagnostic CTA"
+              numerator={diagnosticCtaClicks}
               denominator={hscMathsViews}
-              uniqueNumerator={uniqueTrialCtaClicks}
+              uniqueNumerator={uniqueDiagnosticCtaClicks}
               uniqueDenominator={uniqueHscMathsViews}
-              description={`${trialCtaClicks} CTA clicks / ${hscMathsViews} HSC views`}
+              description={`${diagnosticCtaClicks} diagnostic CTA clicks / ${hscMathsViews} HSC views`}
             />
             <RateCard
-              label="CTA → checkout"
-              numerator={checkoutStarts}
-              denominator={trialCtaClicks}
-              uniqueNumerator={uniqueCheckoutStarts}
-              uniqueDenominator={uniqueTrialCtaClicks}
-              description={`${checkoutStarts} checkout starts / ${trialCtaClicks} CTA clicks`}
+              label="Diagnostic CTA to start"
+              numerator={diagnosticStarts}
+              denominator={diagnosticCtaClicks}
+              uniqueNumerator={uniqueDiagnosticStarts}
+              uniqueDenominator={uniqueDiagnosticCtaClicks}
+              description={`${diagnosticStarts} diagnostic starts / ${diagnosticCtaClicks} diagnostic CTA clicks`}
             />
             <RateCard
               label="Diagnostic completion"
@@ -1339,12 +1366,12 @@ export default async function AdminAnalyticsPage({
               description={`${diagnosticCompletions} completed / ${diagnosticStarts} started`}
             />
             <RateCard
-              label="Checkout form → Stripe"
-              numerator={checkoutRedirectsToStripe}
-              denominator={checkoutFormSubmissions}
-              uniqueNumerator={uniqueStripeRedirects}
-              uniqueDenominator={uniqueCheckoutForms}
-              description={`${checkoutRedirectsToStripe} redirects / ${checkoutFormSubmissions} forms`}
+              label="Trial CTA to checkout"
+              numerator={checkoutStarts}
+              denominator={trialCtaClicks}
+              uniqueNumerator={uniqueCheckoutStarts}
+              uniqueDenominator={uniqueTrialCtaClicks}
+              description={`${checkoutStarts} checkout starts / ${trialCtaClicks} trial CTA clicks`}
             />
             <RateCard
               label="Stripe → trial"
@@ -1371,7 +1398,11 @@ export default async function AdminAnalyticsPage({
             <code className="font-mono">utm_campaign = test_hsc_trial</code> or{" "}
             <code className="font-mono">gclid</code> starting with{" "}
             <code className="font-mono">TEST</code> are marked as test and
-            sorted last.
+            sorted last; exclude those rows from campaign decisions. Direct Stripe flow:{" "}
+            <code className="font-mono">checkout_form_submitted</code> may be 0
+            and is not treated as a required step in this table.{" "}
+            <code className="font-mono">payment_success</code> means verified
+            success-page tracking after checkout-session verification.
           </p>
 
           {adsFunnelError && !tableNotReady ? (
@@ -1389,15 +1420,18 @@ export default async function AdminAnalyticsPage({
                   <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                     <th className="px-3 py-2 text-left">Campaign</th>
                     <th className="px-3 py-2 text-right" title="hsc_maths_viewed">Viewed</th>
-                    <th className="px-3 py-2 text-right" title="trial_cta_clicked">CTA</th>
+                    <th className="px-3 py-2 text-right" title="diagnostic_cta_clicked">Diag CTA</th>
+                    <th className="px-3 py-2 text-right" title="diagnostic_started">Diag start</th>
+                    <th className="px-3 py-2 text-right" title="diagnostic_completed">Diag done</th>
+                    <th className="px-3 py-2 text-right" title="trial_cta_clicked">Trial CTA</th>
                     <th className="px-3 py-2 text-right" title="checkout_started">Checkout</th>
                     <th className="px-3 py-2 text-right" title="checkout_redirected_to_stripe">→Stripe</th>
-                    <th className="px-3 py-2 text-right" title="payment_success">Payment</th>
+                    <th className="px-3 py-2 text-right" title="payment_success">Verified payment</th>
                     <th className="px-3 py-2 text-right" title="trial_started">Trial</th>
                     <th className="px-3 py-2 text-right" title="dashboard_viewed">Dashboard</th>
                     <th className="px-3 py-2 text-right" title="lesson_started">Lesson</th>
-                    <th className="px-3 py-2 text-right">View→CTA</th>
-                    <th className="px-3 py-2 text-right">CTA→Checkout</th>
+                    <th className="px-3 py-2 text-right">View to diag CTA</th>
+                    <th className="px-3 py-2 text-right">Trial CTA to checkout</th>
                     <th className="px-3 py-2 text-right">Checkout→Trial</th>
                     <th className="px-3 py-2 text-right">Trial→Lesson</th>
                   </tr>
@@ -1417,15 +1451,18 @@ export default async function AdminAnalyticsPage({
                         )}
                       </td>
                       <td className="px-3 py-2 text-right tabular-nums">{row.viewed}</td>
-                      <td className="px-3 py-2 text-right tabular-nums">{row.cta}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{row.diagnosticCta}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{row.diagnosticStarted}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{row.diagnosticCompleted}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{row.trialCta}</td>
                       <td className="px-3 py-2 text-right tabular-nums">{row.checkout}</td>
                       <td className="px-3 py-2 text-right tabular-nums">{row.stripe}</td>
                       <td className="px-3 py-2 text-right tabular-nums">{row.payment}</td>
                       <td className="px-3 py-2 text-right tabular-nums">{row.trial}</td>
                       <td className="px-3 py-2 text-right tabular-nums">{row.dashboard}</td>
                       <td className="px-3 py-2 text-right tabular-nums">{row.lesson}</td>
-                      <td className="px-3 py-2 text-right text-slate-500">{pct(row.cta, row.viewed)}</td>
-                      <td className="px-3 py-2 text-right text-slate-500">{pct(row.checkout, row.cta)}</td>
+                      <td className="px-3 py-2 text-right text-slate-500">{pct(row.diagnosticCta, row.viewed)}</td>
+                      <td className="px-3 py-2 text-right text-slate-500">{pct(row.checkout, row.trialCta)}</td>
                       <td className="px-3 py-2 text-right text-slate-500">{pct(row.trial, row.checkout)}</td>
                       <td className="px-3 py-2 text-right text-slate-500">{pct(row.lesson, row.trial)}</td>
                     </tr>
