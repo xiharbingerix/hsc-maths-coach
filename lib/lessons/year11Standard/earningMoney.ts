@@ -42,6 +42,30 @@ function earningMoneyFeedback(prompt: string, answer: string) {
   if (prompt.includes("ordinary pay") || prompt.includes("hours") || prompt.includes("hourly")) {
     return `Hourly pay means a rate is earned once for each hour worked. Multiply hours by the hourly rate to get ${answer} dollars.`;
   }
+  if (prompt.includes("superannuation") || prompt.includes("super contribution") || prompt.includes("employer super")) {
+    return `Superannuation is 11% of ordinary earnings. Convert 11% to 0.11 and multiply by the earnings amount to get ${answer} dollars.`;
+  }
+  if (prompt.includes("leave loading")) {
+    return `Leave loading is an additional 17.5% on the annual leave pay. Convert 17.5% to 0.175 and multiply by the leave pay to get ${answer} dollars.`;
+  }
+  if (prompt.includes("annual leave pay") || prompt.includes("leave pay for")) {
+    return `Annual leave pay is the ordinary weekly rate multiplied by the number of weeks of leave taken. Multiply to get ${answer} dollars.`;
+  }
+  if (prompt.includes("total annual leave") || (prompt.includes("leave") && prompt.includes("loading") && prompt.includes("total"))) {
+    return `Total annual leave pay is the leave pay plus 17.5% loading. Add both amounts to get ${answer} dollars.`;
+  }
+  if (prompt.includes("Youth Allowance") || prompt.includes("youth allowance")) {
+    if (prompt.includes("reduction") || prompt.includes("reduce")) {
+      return `The payment reduces by 50 cents for each dollar earned above the income-free area. Multiply the excess income by 0.50 to get the ${answer} dollar reduction.`;
+    }
+    if (prompt.includes("total fortnightly") || prompt.includes("total income")) {
+      return `Add the reduced Youth Allowance payment and the earned income to find total fortnightly income of ${answer} dollars.`;
+    }
+    return `Youth Allowance is a fortnightly payment for eligible young people. Use the given rate and income-free area to get ${answer}.`;
+  }
+  if (prompt.includes("Family Tax Benefit") || prompt.includes("fortnightly") && prompt.includes("benefit")) {
+    return `Multiply the fortnightly benefit rate by 26 to find the annual amount of ${answer} dollars.`;
+  }
   return `Keep the units and pay period consistent, then combine only the amounts requested. The calculation gives ${answer} dollars.`;
 }
 
@@ -185,6 +209,58 @@ function earningMoneyWorkedExamples(slug: string, title: string): WorkedExample[
           { explanation: "Subtract both from gross pay.", latex: "760-118-12=630" },
         ],
         finalAnswerLatex: "\\text{Net pay }=\\$630",
+      },
+    ];
+  }
+
+  if (slug === "leave-entitlements-superannuation") {
+    return [
+      {
+        title: "Annual leave pay with leave loading",
+        questionLatex:
+          "\\text{An employee earns }\\$1000\\text{ per week. Find total annual leave pay including 17.5\\% loading (4 weeks leave).}",
+        steps: [
+          { explanation: "Calculate leave pay for 4 weeks at the ordinary weekly rate.", latex: "\\text{Leave pay} = 4 \\times 1000 = 4000" },
+          { explanation: "Calculate leave loading at 17.5% of the leave pay.", latex: "\\text{Loading} = 0.175 \\times 4000 = 700" },
+          { explanation: "Add the leave pay and loading to find the total.", latex: "\\text{Total} = 4000 + 700 = 4700" },
+        ],
+        finalAnswerLatex: "\\$4700",
+      },
+      {
+        title: "Employer superannuation contribution",
+        questionLatex:
+          "\\text{An employee earns }\\$800\\text{ per week. Find the weekly employer super contribution at 11\\%.}",
+        steps: [
+          { explanation: "Convert the super rate to a decimal.", latex: "11\\% = 0.11" },
+          { explanation: "Multiply ordinary earnings by 0.11.", latex: "0.11 \\times 800 = 88" },
+        ],
+        finalAnswerLatex: "\\$88\\text{ per week}",
+      },
+    ];
+  }
+
+  if (slug === "government-benefits-allowances") {
+    return [
+      {
+        title: "Full Youth Allowance (income below threshold)",
+        questionLatex:
+          "\\text{Base rate }\\$630\\text{/fortnight. Income-free area }\\$620.\\text{ Student earns }\\$400\\text{/fortnight. Find payment.}",
+        steps: [
+          { explanation: "Check whether earned income is below the income-free area.", latex: "400 < 620 \\Rightarrow \\text{full payment applies}" },
+          { explanation: "The full base rate is paid with no reduction.", latex: "\\text{Payment} = \\$630" },
+        ],
+        finalAnswerLatex: "\\$630\\text{/fortnight (no reduction)}",
+      },
+      {
+        title: "Reduced Youth Allowance (income above threshold)",
+        questionLatex:
+          "\\text{Base rate }\\$630\\text{/fortnight. Income-free area }\\$620.\\text{ Student earns }\\$800\\text{/fortnight.}",
+        steps: [
+          { explanation: "Find income above the income-free area.", latex: "800 - 620 = 180" },
+          { explanation: "Reduction is 50 cents per dollar above the threshold.", latex: "0.50 \\times 180 = 90" },
+          { explanation: "Subtract reduction from the base rate.", latex: "630 - 90 = 540" },
+        ],
+        finalAnswerLatex: "\\$540\\text{/fortnight}",
       },
     ];
   }
@@ -498,6 +574,198 @@ export function year11StandardEarningMoneyLessonOverride(
         moneyAnswer("earn-tax-m8", "A payslip shows net pay of 540 dollars after 60 dollars of deductions. What was the gross pay?", "\\text{net pay}=\\$540,\\quad \\text{deductions}=\\$60", "600", ["$600", "600.00", "$600.00"]),
         financeChoice("earn-tax-m9", "Which item increases gross earnings rather than reducing pay?", "D", ["Tax withheld", "Union fee", "Insurance deduction", "Allowance"], "An allowance is added to earnings."),
         moneyAnswer("earn-tax-m10", "A fortnightly payslip shows gross pay of 1200 dollars and total deductions of 275 dollars. What is the net pay?", "\\text{gross pay}=\\$1200,\\quad \\text{deductions}=\\$275", "925", ["$925", "925.00", "$925.00"]),
+      ],
+    };
+  }
+
+  if (lesson.slug === "leave-entitlements-superannuation") {
+    return {
+      ...base,
+      description:
+        "Calculate annual leave pay, leave loading at 17.5%, and employer superannuation contributions at 11% of ordinary earnings.",
+      learningIntention:
+        "Calculate annual leave entitlement including leave loading, and determine employer superannuation contributions.",
+      successCriteria: [
+        "Calculate annual leave pay as 4 weeks at the ordinary weekly rate.",
+        "Calculate leave loading at 17.5% of annual leave pay.",
+        "Find total annual leave pay by adding leave pay and loading.",
+        "Calculate employer superannuation contributions at 11% of ordinary earnings.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Full-time employees in Australia are entitled to 4 weeks of paid annual leave per year. The leave pay is calculated at the ordinary weekly rate for each week of leave taken.",
+          "Leave loading is an extra 17.5% payment added on top of the annual leave pay. It was introduced to compensate for penalty rates and overtime that employees miss out on while on leave.",
+          "To calculate leave loading, multiply the annual leave pay by 0.175. The total annual leave payment is the leave pay plus the loading.",
+          "Superannuation (super) is compulsory retirement savings. Employers must contribute approximately 11% of an employee's ordinary earnings into a super fund. This is paid on top of wages — the employee still receives their full pay.",
+        ],
+        latexBlocks: [
+          "\\text{Annual leave pay} = 4 \\times \\text{weekly rate}",
+          "\\text{Leave loading} = 0.175 \\times \\text{annual leave pay}",
+          "\\text{Super contribution} = 0.11 \\times \\text{ordinary earnings}",
+        ],
+      },
+      guidedPractice: [
+        moneyAnswer("earn-leave-g1", "An employee earns $800 per week. Calculate their annual leave pay for 4 weeks.", "4 \\times 800", "3200", ["$3200", "3,200", "$3,200"]),
+        financeChoice(
+          "earn-leave-g2",
+          "Leave loading of 17.5% is calculated on:",
+          "B",
+          ["Annual salary", "Annual leave pay", "Net pay", "Tax withheld"],
+          "Leave loading is 17.5% of the annual leave pay, not the full annual salary.",
+        ),
+        moneyAnswer("earn-leave-g3", "Calculate leave loading of 17.5% on annual leave pay of $3200.", "0.175 \\times 3200", "560", ["$560", "560.00", "$560.00"]),
+        moneyAnswer("earn-leave-g4", "Find total annual leave pay including 17.5% loading: leave pay $3200 plus loading $560.", "3200 + 560", "3760", ["$3760", "3,760", "$3,760"]),
+      ],
+      independentPractice: [
+        moneyAnswer("earn-leave-i1", "An employee earns $1200 per week. Calculate their annual leave pay for 4 weeks.", "4 \\times 1200", "4800", ["$4800", "4,800", "$4,800"]),
+        moneyAnswer("earn-leave-i2", "Calculate leave loading of 17.5% on annual leave pay of $4800.", "0.175 \\times 4800", "840", ["$840", "840.00", "$840.00"]),
+        moneyAnswer("earn-leave-i3", "Find total annual leave pay including 17.5% loading for an employee earning $1200 per week (4 weeks leave).", "4800 + 840", "5640", ["$5640", "5,640", "$5,640"]),
+        moneyAnswer("earn-leave-i4", "An employee's annual salary is $52,000. Calculate the employer's superannuation contribution at 11%.", "0.11 \\times 52000", "5720", ["$5720", "5,720", "$5,720"]),
+        financeChoice(
+          "earn-leave-i5",
+          "Superannuation is paid by:",
+          "C",
+          ["The employee only from their wages", "The government tax office", "The employer on top of the employee's wages", "The bank"],
+          "Super is an employer obligation paid on top of wages, not deducted from the employee's pay.",
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Calculating leave loading on the annual salary instead of the annual leave pay.", fix: "Leave loading is 17.5% of the leave pay only (4 weeks of pay), not the full year's salary." },
+        { mistake: "Treating superannuation as a deduction from the employee's pay.", fix: "Super is an employer contribution paid on top of wages. The employee's net pay is not reduced by super." },
+        { mistake: "Multiplying 17.5 by the leave pay instead of 0.175.", fix: "Convert 17.5% to a decimal first: 17.5% = 0.175. Then multiply by leave pay." },
+        { mistake: "Calculating annual super on weekly pay without first finding the annual earnings.", fix: "Multiply annual earnings by 0.11. If only weekly pay is given, multiply weekly pay × 52 first, then apply 11%." },
+      ],
+      masteryQuiz: [
+        moneyAnswer("earn-leave-m1", "An employee earns $950 per week. Calculate their annual leave pay for 4 weeks.", "4 \\times 950", "3800", ["$3800", "3,800", "$3,800"]),
+        moneyAnswer("earn-leave-m2", "Calculate leave loading of 17.5% on annual leave pay of $3800.", "0.175 \\times 3800", "665", ["$665", "665.00", "$665.00"]),
+        moneyAnswer("earn-leave-m3", "Find total annual leave pay including loading: leave pay $3800 plus loading $665.", "3800 + 665", "4465", ["$4465", "4,465", "$4,465"]),
+        financeChoice(
+          "earn-leave-m4",
+          "The superannuation guarantee rate is approximately:",
+          "C",
+          ["5%", "17.5%", "11%", "25%"],
+          "The super guarantee rate is approximately 11% of ordinary earnings.",
+        ),
+        moneyAnswer("earn-leave-m5", "An employee earns $640 per week. Calculate the weekly employer super contribution at 11%.", "0.11 \\times 640", "70.4", ["$70.40", "70.40", "$70.4"]),
+        financeChoice(
+          "earn-leave-m6",
+          "Leave loading of 17.5% exists because:",
+          "B",
+          ["It is optional for employees", "It compensates for overtime and penalty rates not earned during leave", "It reduces the employee's tax bill", "It is the same as superannuation"],
+          "Leave loading compensates workers for missing out on overtime and penalty rates while on annual leave.",
+        ),
+        moneyAnswer("earn-leave-m7", "An employee's gross annual income is $65,000. Calculate the annual super contribution at 11%.", "0.11 \\times 65000", "7150", ["$7150", "7,150", "$7,150"]),
+        moneyAnswer("earn-leave-m8", "An employee earns $750 per week. What is their annual leave pay for 4 weeks?", "4 \\times 750", "3000", ["$3000", "3,000", "$3,000"]),
+        moneyAnswer("earn-leave-m9", "Calculate leave loading of 17.5% on annual leave pay of $3000.", "0.175 \\times 3000", "525", ["$525", "525.00", "$525.00"]),
+        moneyAnswer("earn-leave-m10", "Find total annual leave pay including 17.5% loading: leave pay $3000 plus loading $525.", "3000 + 525", "3525", ["$3525", "3,525", "$3,525"]),
+      ],
+    };
+  }
+
+  if (lesson.slug === "government-benefits-allowances") {
+    return {
+      ...base,
+      description:
+        "Identify Youth Allowance, Family Tax Benefit and Centrelink payments, calculate benefit amounts, and apply income-free area means testing.",
+      learningIntention:
+        "Interpret government benefit structures and calculate Youth Allowance payments using income-free area means testing.",
+      successCriteria: [
+        "Identify the purpose of Youth Allowance, Family Tax Benefit and Centrelink payments.",
+        "Determine whether earned income is above or below the income-free area.",
+        "Calculate the payment reduction when income exceeds the income-free area.",
+        "Calculate the reduced Youth Allowance and total fortnightly income.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The Australian government provides financial support to people who need it. Youth Allowance helps young people aged 16–24 who are studying, training or looking for work. Family Tax Benefit supports families with dependent children. These payments are managed through Centrelink.",
+          "Government payments often use means testing — the amount paid depends on the recipient's income and sometimes their assets. A higher income may mean a lower payment.",
+          "Youth Allowance has an income-free area: a fortnightly amount the recipient can earn without any reduction to their payment. Once income exceeds this threshold, the payment is reduced by 50 cents for every dollar above the threshold.",
+          "To find the reduced payment: calculate how much income exceeds the income-free area, multiply that excess by 0.50 to find the reduction, then subtract the reduction from the base rate. Add the reduced payment to earned income for total fortnightly income.",
+        ],
+        latexBlocks: [
+          "\\text{Excess income} = \\text{earned income} - \\text{income-free area}",
+          "\\text{Payment reduction} = 0.50 \\times \\text{excess income}",
+          "\\text{Reduced payment} = \\text{base rate} - \\text{payment reduction}",
+        ],
+      },
+      guidedPractice: [
+        financeChoice(
+          "earn-govt-g1",
+          "Youth Allowance is a payment designed for:",
+          "B",
+          ["Retirees aged over 65", "Young people who are studying or job-seeking", "Employers paying wages", "Those earning over $100,000"],
+          "Youth Allowance supports eligible young people aged 16–24 who are studying, training or looking for work.",
+        ),
+        financeChoice(
+          "earn-govt-g2",
+          "A student earns $400 per fortnight. The income-free area is $620. Does the full Youth Allowance apply?",
+          "A",
+          ["Yes — income is below the threshold so no reduction applies", "No — income is above the threshold", "Only half the payment applies", "Cannot be determined without the base rate"],
+          "$400 < $620, so all income is within the income-free area and the full base rate is paid.",
+        ),
+        moneyAnswer("earn-govt-g3", "A student receives Youth Allowance of $630 per fortnight and earns $400 per fortnight from part-time work. Find their total fortnightly income.", "630 + 400", "1030", ["$1030", "1,030", "$1,030"]),
+        financeChoice(
+          "earn-govt-g4",
+          "Means testing means:",
+          "B",
+          ["Payments increase as income rises", "Payments may reduce as income or assets increase", "Only assets are considered, not income", "Payments never change regardless of earnings"],
+          "Means testing targets payments at those with lower incomes — as income rises beyond a threshold, the payment is progressively reduced.",
+        ),
+      ],
+      independentPractice: [
+        moneyAnswer("earn-govt-i1", "Youth Allowance base rate is $630 per fortnight. Income-free area is $620. A student earns $800 per fortnight. Find the amount of income above the threshold.", "800 - 620", "180", ["$180", "180"]),
+        moneyAnswer("earn-govt-i2", "Using the income $180 above threshold, calculate the payment reduction at 50 cents per dollar.", "0.50 \\times 180", "90", ["$90", "90.00"]),
+        moneyAnswer("earn-govt-i3", "Calculate the reduced Youth Allowance: base rate $630 minus reduction $90.", "630 - 90", "540", ["$540", "540.00", "$540.00"]),
+        moneyAnswer("earn-govt-i4", "Find total fortnightly income: earned income $800 plus reduced Youth Allowance $540.", "800 + 540", "1340", ["$1340", "1,340", "$1,340"]),
+        financeChoice(
+          "earn-govt-i5",
+          "Family Tax Benefit is designed to help:",
+          "C",
+          ["Employers pay wages", "Young people with study costs only", "Families with dependent children", "Businesses with their tax obligations"],
+          "Family Tax Benefit is a government payment supporting families with the costs of raising children.",
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Subtracting the income-free area from the base rate instead of from the earned income.", fix: "The income-free area is compared to earned income, not to the benefit rate. Excess income = earned income − income-free area." },
+        { mistake: "Applying the 50 cent reduction to all earned income, not just the amount above the threshold.", fix: "Only income above the income-free area causes a reduction: reduction = 0.50 × (earned income − income-free area)." },
+        { mistake: "Adding the reduction to the base rate instead of subtracting it.", fix: "The reduction lowers the payment: reduced payment = base rate − reduction. A higher income means a lower payment." },
+        { mistake: "Forgetting to add the earned income when finding total fortnightly income.", fix: "Total income = Youth Allowance (reduced) + earned income from work. Both sources count." },
+      ],
+      masteryQuiz: [
+        financeChoice(
+          "earn-govt-m1",
+          "Which payment helps young people who are studying or looking for work?",
+          "B",
+          ["Family Tax Benefit", "Youth Allowance", "Age Pension", "Employer superannuation"],
+          "Youth Allowance supports eligible young people aged 16–24 in education, training or job seeking.",
+        ),
+        moneyAnswer("earn-govt-m2", "Youth Allowance base rate is $648 per fortnight. Income-free area is $620. A student earns $900 per fortnight. Find the income above the threshold.", "900 - 620", "280", ["$280", "280"]),
+        moneyAnswer("earn-govt-m3", "Calculate the payment reduction: $280 above threshold at 50 cents per dollar.", "0.50 \\times 280", "140", ["$140", "140.00", "$140.00"]),
+        moneyAnswer("earn-govt-m4", "Calculate the reduced Youth Allowance: base rate $648 minus reduction $140.", "648 - 140", "508", ["$508", "508.00", "$508.00"]),
+        moneyAnswer("earn-govt-m5", "Find total fortnightly income: earned income $900 plus reduced Youth Allowance $508.", "900 + 508", "1408", ["$1408", "1,408", "$1,408"]),
+        financeChoice(
+          "earn-govt-m6",
+          "An income-free area means:",
+          "C",
+          ["All income in Australia is tax-free up to this amount", "The payment stops completely at this income level", "The payment is not reduced until earned income exceeds this amount", "No government payments are available if income is below this level"],
+          "The income-free area is the threshold below which earned income does not reduce the payment.",
+        ),
+        moneyAnswer("earn-govt-m7", "A family receives $150 per fortnight in Family Tax Benefit. How much is this per year (26 fortnights)?", "150 \\times 26", "3900", ["$3900", "3,900", "$3,900"]),
+        financeChoice(
+          "earn-govt-m8",
+          "Which person is most likely eligible for Youth Allowance?",
+          "B",
+          ["A 45-year-old full-time executive", "A 19-year-old studying full-time at TAFE", "A business owner earning $200,000 per year", "A 65-year-old retiree"],
+          "Youth Allowance targets eligible young people aged 16–24 in study, training or job seeking.",
+        ),
+        moneyAnswer("earn-govt-m9", "A student receives $600 per fortnight in benefits and earns $380 from part-time work. What is their total fortnightly income?", "600 + 380", "980", ["$980", "980.00", "$980.00"]),
+        financeChoice(
+          "earn-govt-m10",
+          "Means testing ensures government payments are targeted at:",
+          "B",
+          ["All Australians equally regardless of income", "Those who have greater financial need", "Only employers and businesses", "Only people with zero income"],
+          "Means testing directs support to those most in need by reducing payments as income rises.",
+        ),
       ],
     };
   }

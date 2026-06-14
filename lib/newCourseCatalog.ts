@@ -1706,6 +1706,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Calculate net pay from tax withheld and deductions.",
           },
           {
+            slug: "leave-entitlements-superannuation",
+            title: "Leave Entitlements and Superannuation",
+            description:
+              "Calculate annual leave pay, leave loading at 17.5%, and employer superannuation contributions at 11% of ordinary earnings.",
+          },
+          {
+            slug: "government-benefits-allowances",
+            title: "Government Benefits and Allowances",
+            description:
+              "Identify Youth Allowance, Family Tax Benefit and Centrelink payments, calculate benefit amounts, and apply income-free area means testing.",
+          },
+          {
             slug: "earning-money-exam-practice",
             title: "Earning Money Exam Practice",
             description:

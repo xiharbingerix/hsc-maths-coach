@@ -122,7 +122,7 @@ Advanced: skill map IDs namespaced `y10a-`. Core: trimmed + `y10c-`.
 ## Year 11 Standard 🔄
 
 `year-11-standard` — `available`. Override file: `lib/lessons/year11Standard/`.
-Class Maths 2026: 9 topics / 63 subtopics. Nova: 9 units / 43 lessons. Gap: **20 lessons** across all units.
+Class Maths 2026: 9 topics / 63 subtopics. Nova: 9 units / 45 lessons. Gap: **18 lessons** across all units.
 Depth pass completed 2026-06-14.
 
 ### Formulas and Equations (7 / ~7) ✅
@@ -145,15 +145,15 @@ Depth pass completed 2026-06-14.
 - [x] **Break-even Analysis** — comparing two linear models, finding intersection, cost vs revenue contexts
 - [x] **Practical Limitations of Linear Models** — domain restrictions, extrapolation warnings, realistic ranges
 
-### Earning Money (5 / ~7)
+### Earning Money (7 / ~7) ✅
 
 - [x] Wages, Salaries and Payslips
 - [x] Overtime, Penalty Rates and Allowances
 - [x] Commission and Piecework
 - [x] Tax, Deductions and Net Pay
 - [x] Earning Money Exam Practice
-- [ ] **Leave Entitlements and Superannuation** — annual leave, sick leave loading, super guarantee (~11%), calculating employer contributions
-- [ ] **Government Benefits and Allowances** — Youth Allowance, Centrelink payments, family payments, means testing basics
+- [x] **Leave Entitlements and Superannuation** — annual leave, leave loading at 17.5%, super guarantee at 11%, calculating employer contributions
+- [x] **Government Benefits and Allowances** — Youth Allowance, Centrelink payments, Family Tax Benefit, means testing with income-free area
 
 ### Managing Money (5 / ~7)
 
@@ -218,8 +218,8 @@ Depth pass completed 2026-06-14.
 ---
 
 **Depth pass summary (2026-06-14):** 28 lessons to author across all 9 units to reach Class Maths parity.
-**Progress (2026-06-14):** Formulas+Equations complete (+4). Linear Relationships complete (+4). 20 lessons remaining.
-Authoring priority: Data Analysis (4 missing) > Networks (3) > Probability (3) > Measurement (3) > Time/Location (3) > Managing Money (2) > Earning Money (2).
+**Progress (2026-06-14):** Formulas+Equations complete (+4). Linear Relationships complete (+4). Earning Money complete (+2). 18 lessons remaining.
+Authoring priority: Data Analysis (4 missing) > Networks (3) > Probability (3) > Measurement (3) > Time/Location (3) > Managing Money (2).
 
 ---
 
