@@ -65,6 +65,8 @@ import {
   year12Extension1FurtherCalculusLessonOverride,
   year12Extension1BinomialDistributionLessonOverride,
   year12Extension1CalculusApplicationsLessonOverride,
+  year12Extension1KinematicsLessonOverride,
+  year12Extension1ProjectileMotionLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
@@ -270,6 +272,8 @@ export function buildLesson(
     year12Extension1FurtherCalculusLessonOverride(course, unit, lesson) ??
     year12Extension1CalculusApplicationsLessonOverride(course, unit, lesson) ??
     year12Extension1BinomialDistributionLessonOverride(course, unit, lesson) ??
+    year12Extension1KinematicsLessonOverride(course, unit, lesson) ??
+    year12Extension1ProjectileMotionLessonOverride(course, unit, lesson) ??
     year12Extension2ComplexNumbersLessonOverride(course, unit, lesson) ??
     year12Extension2Vectors3DLessonOverride(course, unit, lesson) ??
     year12Extension2CalculusLessonOverride(course, unit, lesson) ??
@@ -2477,6 +2481,28 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "binomial-probabilities", title: "Binomial Probabilities" },
           { slug: "mean-and-variance", title: "Mean and Variance" },
           { slug: "binomial-exam-practice", title: "Binomial Exam Practice" },
+        ],
+      },
+      {
+        slug: "kinematics",
+        title: "Rates of Change and Kinematics",
+        description:
+          "Use calculus to analyse straight-line motion: find velocity and acceleration by differentiation, and displacement by integration.",
+        syllabusArea: "Calculus",
+        focus: "Kinematics and rates of change",
+        lessons: [
+          { slug: "kinematics-velocity-acceleration", title: "Velocity and Acceleration from Displacement" },
+        ],
+      },
+      {
+        slug: "projectile-motion",
+        title: "Projectile Motion",
+        description:
+          "Analyse two-dimensional motion under gravity by resolving into independent horizontal and vertical components.",
+        syllabusArea: "Calculus",
+        focus: "Projectile motion",
+        lessons: [
+          { slug: "projectile-equations-setup", title: "Setting Up Projectile Equations" },
         ],
       },
     ],
