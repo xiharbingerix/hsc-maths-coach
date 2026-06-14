@@ -2,7 +2,7 @@
 
 > Target: match Class Mathematics NSW structure (17 pathways, ~172 topics, ~1,204 subtopics).
 > Source audit: CLASS_MATHEMATICS_NSW_STRUCTURE_REPORT.md
-> Last updated: 2026-06-15 (session 4 — Ext 1 batch 3: kinematics motion analysis + projectile range/flight)
+> Last updated: 2026-06-15 (session 4 — Ext 1depth pass COMPLETE: 30 lessons, 520 questions)
 
 ---
 
@@ -415,7 +415,7 @@ Nova average lessons per unit: ~4–5.
 1. ~~**Year 12 Extension 2 depth**~~ ✅ Complete — 25 lessons, 481 questions
 2. ~~**Year 12 Standard 2 depth**~~ ✅ Complete — 35 lessons (breadth pass ongoing), 665 questions
 3. ~~**Year 12 Advanced depth**~~ ✅ Complete — 91 lessons, 1715 questions (Probability unit added)
-4. **Year 12 Extension 1 depth** — 28 lessons / 482 questions; 2 exam-practice lessons remaining (batch 4)
+4. ~~**Year 12 Extension 1 depth**~~ ✅ Complete — 30 lessons, 520 questions (8 units, 100% topic breadth)
 5. **Year 12 Standard 1** — add missing ~2 topics (likely Networks + further Measurement); promote to `available`
 6. **Year 11 Advanced gaps** — equations/inequations unit, coordinate geometry unit, trig identities phase 3
 7. **Year 9 / Year 10 variants** — promote Advanced and Core to `available`
