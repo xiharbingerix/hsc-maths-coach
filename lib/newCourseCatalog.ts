@@ -70,6 +70,7 @@ import {
   year12Extension1SamplingDistributionLessonOverride,
   year12Extension1AreasVolumesLessonOverride,
   year12Extension1PolynomialZeroesLessonOverride,
+  year12Extension1NewtonCoolingLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
@@ -280,6 +281,7 @@ export function buildLesson(
     year12Extension1SamplingDistributionLessonOverride(course, unit, lesson) ??
     year12Extension1AreasVolumesLessonOverride(course, unit, lesson) ??
     year12Extension1PolynomialZeroesLessonOverride(course, unit, lesson) ??
+    year12Extension1NewtonCoolingLessonOverride(course, unit, lesson) ??
     year12Extension2ComplexNumbersLessonOverride(course, unit, lesson) ??
     year12Extension2Vectors3DLessonOverride(course, unit, lesson) ??
     year12Extension2CalculusLessonOverride(course, unit, lesson) ??
@@ -502,6 +504,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Interpret architectural scale drawings, calculate actual dimensions from scaled measurements, and find perimeter and area from site plans.",
           },
           {
+            slug: "rainfall-volume-calculations",
+            title: "Rainfall and Volume Calculations",
+            description:
+              "Apply V = Ah to calculate the volume of water collected from rainfall over a catchment area, converting between mm, cm, m and litres.",
+          },
+          {
             slug: "bearings-navigation-problems",
             title: "Bearings and Navigation Problems",
             description:
@@ -604,6 +612,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Annuities Using Interest Factor Tables",
             description:
               "Use tables of FV and PV interest factors to calculate future values, present values, and required regular contributions for savings and loan annuities.",
+          },
+          {
+            slug: "retirement-annuity-planning",
+            title: "Retirement and Annuity Planning",
+            description:
+              "Use future value and present value annuity reasoning to plan long-term savings goals, superannuation scenarios, and retirement income streams.",
           },
           {
             slug: "comparing-investments-risk-return",
@@ -2556,6 +2570,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Multiplicity of Zeroes of Polynomial Functions",
             description:
               "Define the multiplicity of a zero, prove the derivative result, and sketch polynomials in factored form by reading crossing, touch, and inflection behaviour at each zero.",
+          },
+          {
+            slug: "calculus-applications-newton-cooling",
+            title: "Newton's Law of Cooling and Limited Growth",
+            description:
+              "Solve dQ/dt = k(Q − A) by separation of variables to obtain Q(t) = A + Ce^(kt), apply it to Newton's Law of Cooling and population models approaching a carrying capacity, and justify long-run conclusions in context.",
           },
         ],
       },

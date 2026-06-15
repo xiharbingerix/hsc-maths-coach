@@ -1695,6 +1695,249 @@ export function year12Standard2TrigRatesLessonOverride(
     };
   }
 
+  if (lesson.slug === "rainfall-volume-calculations") {
+    return {
+      ...base,
+      description:
+        "Apply V = Ah to calculate water collected from rainfall over a catchment area, and convert between units of depth (mm, cm, m) and volume (m³, litres, kL).",
+      learningIntention:
+        "Use the formula V = Ah to find the volume of water collected from rainfall and solve practical water-storage problems.",
+      successCriteria: [
+        "State the formula V = Ah and identify A as area and h as rainfall depth.",
+        "Convert rainfall depth between millimetres, centimetres, and metres.",
+        "Calculate volume of water collected in m³ and convert to litres or kilolitres.",
+        "Solve practical problems involving tank capacity and overflow.",
+      ],
+      teaching: {
+        paragraphs: [
+          "When rain falls on a flat surface (roof, paddock, dam catchment), all the water from that surface is collected. The volume collected is V = Ah, where A is the horizontal catchment area in m² and h is the depth of rainfall in metres.",
+          "Rainfall depth is usually reported in millimetres. Always convert to metres before using V = Ah: divide mm by 1000. For example, 25 mm of rain = 0.025 m.",
+          "Volume from V = Ah is in cubic metres (m³). Convert to litres using 1 m³ = 1000 litres, and to kilolitres using 1 kL = 1000 L = 1 m³.",
+          "Practical questions may involve a tank that overflows. If the tank has capacity C litres and volume collected is V litres, then overflow occurs when V > C. The amount stored is min(V, C).",
+        ],
+        latexBlocks: [
+          "V = A \\times h\\quad(\\text{A in m}^2,\\; h\\text{ in m},\\; V\\text{ in m}^3)",
+          "1\\text{ mm} = 0.001\\text{ m}\\quad 1\\text{ m}^3 = 1000\\text{ L} = 1\\text{ kL}",
+          "\\text{Volume collected (L)} = A\\text{ (m}^2\\text{)} \\times h\\text{ (mm)} \\times 1",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Calculate volume collected from a roof",
+          questionLatex:
+            "\\text{A roof has a horizontal area of 120 m}^2\\text{. Rainfall is 35 mm. Find the volume of water collected in litres.}",
+          steps: [
+            {
+              explanation: "Convert rainfall depth to metres.",
+              latex: "h = 35\\text{ mm} = 0.035\\text{ m}",
+            },
+            {
+              explanation: "Apply V = Ah.",
+              latex: "V = 120 \\times 0.035 = 4.2\\text{ m}^3",
+            },
+            {
+              explanation: "Convert to litres.",
+              latex: "V = 4.2 \\times 1000 = 4200\\text{ L}",
+            },
+          ],
+          finalAnswerLatex: "V = 4200\\text{ L}",
+        },
+        {
+          title: "Find the catchment area required",
+          questionLatex:
+            "\\text{A water tank needs 3000 L from a single 20 mm rainfall event. What catchment area is required?}",
+          steps: [
+            {
+              explanation: "Convert target volume to m³ and rainfall to m.",
+              latex: "V = 3000\\text{ L} = 3\\text{ m}^3,\\quad h = 20\\text{ mm} = 0.020\\text{ m}",
+            },
+            {
+              explanation: "Rearrange V = Ah to find A.",
+              latex: "A = \\dfrac{V}{h} = \\dfrac{3}{0.020} = 150\\text{ m}^2",
+            },
+          ],
+          finalAnswerLatex: "A = 150\\text{ m}^2",
+        },
+        {
+          title: "Determine tank overflow",
+          questionLatex:
+            "\\text{A paddock of 800 m}^2\\text{ receives 60 mm of rain. The collection tank holds 40 kL. How much water is collected, and does the tank overflow?}",
+          steps: [
+            {
+              explanation: "Find volume collected.",
+              latex:
+                "V = 800 \\times 0.060 = 48\\text{ m}^3 = 48\\text{ kL}",
+            },
+            {
+              explanation: "Compare with tank capacity.",
+              latex:
+                "48\\text{ kL} > 40\\text{ kL}\\implies\\text{Tank overflows.}\\quad\\text{Overflow} = 48 - 40 = 8\\text{ kL}",
+            },
+          ],
+          finalAnswerLatex:
+            "48\\text{ kL collected; tank overflows by }8\\text{ kL}",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice(
+          "y12s2-rvc-g1",
+          "A roof area of 80 m² collects water from 25 mm of rain. Volume collected = ?",
+          "C",
+          ["200 L", "1000 L", "2000 L", "8000 L"],
+          "V = 80 × 0.025 = 2 m³ = 2000 L."
+        ),
+        measurementAnswer(
+          "y12s2-rvc-g2",
+          "Convert 45 mm of rainfall to metres.",
+          "45 \\div 1000",
+          "0.045 m",
+          ["0.045", "0.045 m"]
+        ),
+        practicalChoice(
+          "y12s2-rvc-g3",
+          "V = Ah gives volume in m³ when A is in m² and h is in metres. To convert this to litres, multiply by:",
+          "C",
+          ["10", "100", "1000", "10000"],
+          "1 m³ = 1000 litres."
+        ),
+        measurementAnswer(
+          "y12s2-rvc-g4",
+          "A roof of area 150 m² receives 30 mm of rainfall. Find the volume in litres.",
+          "V = 150 \\times 0.030 = 4.5\\text{ m}^3",
+          "4500 L",
+          ["4500", "4500 L", "4500 litres"]
+        ),
+      ],
+      independentPractice: [
+        measurementAnswer(
+          "y12s2-rvc-i1",
+          "A catchment area of 200 m² receives 18 mm of rain. Find the volume collected in litres.",
+          "V = 200 \\times 0.018",
+          "3600 L",
+          ["3600", "3600 L"]
+        ),
+        practicalChoice(
+          "y12s2-rvc-i2",
+          "A tank needs to collect 6000 L from a 30 mm event. What catchment area is required?",
+          "C",
+          ["50 m²", "150 m²", "200 m²", "600 m²"],
+          "A = V/h = 6 m³ ÷ 0.030 = 200 m²."
+        ),
+        measurementAnswer(
+          "y12s2-rvc-i3",
+          "A roof of 90 m² collects water from 50 mm of rainfall. Find the volume in kL.",
+          "V = 90 \\times 0.050 = 4.5\\text{ m}^3",
+          "4.5 kL",
+          ["4.5", "4.5 kL"]
+        ),
+        practicalChoice(
+          "y12s2-rvc-i4",
+          "A paddock of 500 m² receives 80 mm of rain. The tank holds 35 kL. Does it overflow?",
+          "B",
+          ["No — 40 kL collected, which is less than 35 kL", "Yes — 40 kL collected exceeds the 35 kL tank", "No — the tank holds exactly 40 kL", "Cannot tell without the tank dimensions"],
+          "V = 500 × 0.080 = 40 m³ = 40 kL. Tank capacity = 35 kL. 40 > 35, so it overflows."
+        ),
+        measurementAnswer(
+          "y12s2-rvc-i5",
+          "Rainfall is 12 mm over a 600 m² catchment. How many kL of water is collected?",
+          "V = 600 \\times 0.012 = 7.2\\text{ m}^3",
+          "7.2 kL",
+          ["7.2", "7.2 kL"]
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Using rainfall depth in millimetres directly in V = Ah without converting to metres.",
+          fix: "Always divide mm by 1000 to get metres before applying V = Ah. Using 25 instead of 0.025 gives an answer 1000 times too large.",
+        },
+        {
+          mistake: "Confusing m³ and litres.",
+          fix: "1 m³ = 1000 L = 1 kL. After finding V in m³, multiply by 1000 to get litres. Do not leave the answer in m³ if the question asks for litres.",
+        },
+        {
+          mistake: "Using the roof's sloped surface area instead of its horizontal catchment area.",
+          fix: "Rainfall is measured vertically. The catchment area A is always the horizontal projection of the roof — the area seen from directly above.",
+        },
+        {
+          mistake: "Forgetting to check tank overflow by comparing volume collected with tank capacity.",
+          fix: "If the volume collected exceeds tank capacity, the tank overflows. Always compare V_collected with V_tank and report overflow = V_collected − V_tank.",
+        },
+      ],
+      masteryQuiz: [
+        practicalChoice(
+          "y12s2-rvc-m1",
+          "V = Ah gives the volume of water collected when A is in m² and h is in metres. The unit of V is:",
+          "B",
+          ["m²", "m³", "litres", "mm"],
+          "m² × m = m³."
+        ),
+        measurementAnswer(
+          "y12s2-rvc-m2",
+          "A 100 m² roof collects water from 40 mm of rain. Volume in litres?",
+          "V = 100 \\times 0.040 = 4\\text{ m}^3",
+          "4000 L",
+          ["4000", "4000 L"]
+        ),
+        practicalChoice(
+          "y12s2-rvc-m3",
+          "What catchment area is needed to collect 5000 L from a 25 mm rainfall?",
+          "C",
+          ["50 m²", "125 m²", "200 m²", "500 m²"],
+          "A = 5 m³ ÷ 0.025 = 200 m²."
+        ),
+        measurementAnswer(
+          "y12s2-rvc-m4",
+          "A farm dam has a catchment area of 1500 m². Rainfall is 22 mm. Volume collected in kL?",
+          "V = 1500 \\times 0.022",
+          "33 kL",
+          ["33", "33 kL"]
+        ),
+        practicalChoice(
+          "y12s2-rvc-m5",
+          "A 250 m² catchment collects water from 48 mm of rainfall. Volume collected ≈ ?",
+          "C",
+          ["1200 L", "8333 L", "12000 L", "120000 L"],
+          "V = 250 × 0.048 = 12 m³ = 12000 L."
+        ),
+        measurementAnswer(
+          "y12s2-rvc-m6",
+          "A roof of 180 m² catches 55 mm of rain. The tank capacity is 8 kL. How much water overflows?",
+          "V = 180 \\times 0.055 = 9.9\\text{ kL}\\quad\\text{Overflow} = 9.9 - 8",
+          "1.9 kL",
+          ["1.9", "1.9 kL"]
+        ),
+        practicalChoice(
+          "y12s2-rvc-m7",
+          "1 kL equals:",
+          "C",
+          ["1 L", "100 L", "1000 L", "10000 L"],
+          "kL = kilolitre. 1 kL = 1000 L = 1 m³."
+        ),
+        measurementAnswer(
+          "y12s2-rvc-m8",
+          "A carpark of 3000 m² receives 15 mm of rain. Volume of runoff in m³?",
+          "V = 3000 \\times 0.015",
+          "45 m³",
+          ["45", "45 m³"]
+        ),
+        practicalChoice(
+          "y12s2-rvc-m9",
+          "A roof collects 7.2 kL of water. Rainfall was 60 mm. What is the catchment area?",
+          "B",
+          ["43.2 m²", "120 m²", "432 m²", "720 m²"],
+          "A = 7.2 m³ ÷ 0.060 = 120 m²."
+        ),
+        practicalChoice(
+          "y12s2-rvc-m10",
+          "Two tanks each hold 10 kL. A 400 m² catchment receives 60 mm of rain. Combined, can both tanks be filled?",
+          "B",
+          ["No — only 24 kL is collected, which fills both 10 kL tanks with 4 kL overflow", "Yes — 24 kL collected fills both 10 kL tanks with 4 kL overflow", "No — only 24 L is collected", "Yes — 2400 L fills both tanks"],
+          "V = 400 × 0.060 = 24 m³ = 24 kL. Two tanks = 20 kL total. 24 kL > 20 kL, so yes, both fill and 4 kL overflows."
+        ),
+      ],
+    };
+  }
+
   if (lesson.slug === "bearings-navigation-problems") {
     return {
       ...base,

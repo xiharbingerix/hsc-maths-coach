@@ -988,6 +988,258 @@ export function year12Standard2FinanceLessonOverride(
     };
   }
 
+  if (lesson.slug === "retirement-annuity-planning") {
+    return {
+      ...base,
+      description:
+        "Apply future value and present value annuity reasoning to plan long-term superannuation savings, calculate retirement lump sums, and determine sustainable income streams.",
+      learningIntention:
+        "Use FV and PV annuity formulas with interest factor tables to plan for retirement savings and income in multi-step scenarios.",
+      successCriteria: [
+        "Calculate the future value of regular superannuation contributions using FV = M × FV factor.",
+        "Determine the regular contribution required to reach a retirement savings target.",
+        "Calculate the annual income a retirement lump sum can sustain using PV annuity reasoning.",
+        "Interpret and compare two retirement saving strategies over different time horizons.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Retirement planning applies the same annuity formulas used for savings and loans, but over longer time horizons (often 20–40 years). Superannuation is the most common vehicle: regular contributions are made each month or year and grow with compound interest.",
+          "To find how much a lump sum a person accumulates: FV = M × FV factor(r, n), where M is the regular contribution, r is the period interest rate, and n is the number of periods. Starting earlier dramatically increases FV because of the extra compounding periods.",
+          "When retired, a person draws a regular income from their lump sum. This is a present value (PV) annuity problem: the lump sum equals M × PV factor(r, n), where M is the annual income drawn and n is the number of years in retirement. Rearranging: M = lump sum ÷ PV factor.",
+          "In exam questions, you may need to chain two calculations: first find the FV accumulated during working life, then use that FV as the PV to find the annual income available in retirement. Always check which formula applies to each stage.",
+        ],
+        latexBlocks: [
+          "\\text{FV} = M \\times \\text{FV factor}(r, n)\\quad\\text{(accumulation phase)}",
+          "M = \\dfrac{\\text{Target FV}}{\\text{FV factor}}\\quad\\text{(required contribution)}",
+          "\\text{PV} = M_{\\text{income}} \\times \\text{PV factor}(r, n)\\implies M_{\\text{income}} = \\dfrac{\\text{lump sum}}{\\text{PV factor}}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Calculate a retirement lump sum",
+          questionLatex:
+            "\\text{Maya contributes }\\$500\\text{ per month to superannuation for 24 months at 0.5\\%/month. FV factor (0.5\\%, 24) = 25.432. Find the accumulated lump sum.}",
+          steps: [
+            {
+              explanation: "Apply FV = M × FV factor.",
+              latex: "\\text{FV} = 500 \\times 25.432 = \\$12\\,716.00",
+            },
+          ],
+          finalAnswerLatex: "\\text{FV} = \\$12\\,716.00",
+        },
+        {
+          title: "Find the monthly contribution to meet a savings goal",
+          questionLatex:
+            "\\text{Dan wants }\\$20\\,000\\text{ in super after 24 months at 0.5\\%/month. FV factor (0.5\\%, 24) = 25.432. Find the required monthly contribution.}",
+          steps: [
+            {
+              explanation: "Rearrange FV = M × factor to find M.",
+              latex: "M = \\dfrac{\\text{Target FV}}{\\text{FV factor}} = \\dfrac{20\\,000}{25.432}",
+            },
+            {
+              explanation: "Divide.",
+              latex: "M \\approx \\$786.77\\text{ per month}",
+            },
+          ],
+          finalAnswerLatex: "M \\approx \\$786.77\\text{ per month}",
+        },
+        {
+          title: "Find the sustainable annual income from a retirement lump sum",
+          questionLatex:
+            "\\text{A retiree has }\\$300\\,000\\text{ in super. PV factor (0.5\\%/month, 24 months) = 22.563. Find the monthly income the retiree can draw for 24 months.}",
+          steps: [
+            {
+              explanation: "Rearrange PV = M × PV factor to find M.",
+              latex: "M = \\dfrac{\\text{PV}}{\\text{PV factor}} = \\dfrac{300\\,000}{22.563}",
+            },
+            {
+              explanation: "Divide.",
+              latex: "M \\approx \\$13\\,296.03\\text{ per month}",
+            },
+          ],
+          finalAnswerLatex: "M \\approx \\$13\\,296.03\\text{ per month}",
+        },
+      ],
+      guidedPractice: [
+        financeChoice(
+          "y12s2-rap-g1",
+          "Maya contributes $500/month for 24 months at 0.5%/month. FV factor = 25.432. Lump sum = ?",
+          "B",
+          ["$12 716.00", "$12 716.00", "$500", "$25 432"],
+          "FV = 500 × 25.432 = $12 716.00."
+        ),
+        financeChoice(
+          "y12s2-rap-g2",
+          "To find the monthly contribution needed to reach a target retirement sum, you:",
+          "B",
+          [
+            "Multiply target by FV factor",
+            "Divide target by FV factor",
+            "Multiply target by PV factor",
+            "Add the FV factor to the target",
+          ],
+          "M = Target FV ÷ FV factor."
+        ),
+        moneyAnswer(
+          "y12s2-rap-g3",
+          "A retiree has $150 000. PV factor (0.5%/month, 12 months) = 11.619. Find the monthly income they can draw for 12 months.",
+          "M = \\dfrac{150\\,000}{11.619}",
+          "12910.75",
+          ["$12 910.75", "12910.75", "$12910.75"]
+        ),
+        financeChoice(
+          "y12s2-rap-g4",
+          "During the accumulation phase of superannuation, the formula used is:",
+          "A",
+          ["FV = M × FV factor", "PV = M × PV factor", "FV = PV × (1 + r)ⁿ", "M = PV × r"],
+          "The accumulation phase uses FV = M × FV factor, since regular contributions build toward a lump sum."
+        ),
+      ],
+      independentPractice: [
+        moneyAnswer(
+          "y12s2-rap-i1",
+          "Sam contributes $300/month for 12 months at 1%/month. FV factor (1%, 12) = 12.683. Find the accumulated FV.",
+          "\\text{FV} = 300 \\times 12.683",
+          "3804.90",
+          ["$3 804.90", "3804.9", "$3804.90"]
+        ),
+        financeChoice(
+          "y12s2-rap-i2",
+          "A retirement target is $50 000 in 24 months at 0.5%/month. FV factor = 25.432. Monthly contribution needed ≈ ?",
+          "C",
+          ["$500.00", "$1 271.60", "$1 966.85", "$2 089.30"],
+          "M = 50 000 ÷ 25.432 ≈ $1 966.85."
+        ),
+        moneyAnswer(
+          "y12s2-rap-i3",
+          "A retiree has $200 000. PV factor (1%/month, 12 months) = 11.255. Find the monthly income for 12 months.",
+          "M = \\dfrac{200\\,000}{11.255}",
+          "17769.43",
+          ["$17 769.43", "17769.43"]
+        ),
+        financeChoice(
+          "y12s2-rap-i4",
+          "The present value annuity formula is used in retirement planning to:",
+          "B",
+          [
+            "Find how much contributions grow over time",
+            "Find the income that can be drawn from a lump sum over a fixed period",
+            "Calculate depreciation of superannuation assets",
+            "Determine the interest rate on a savings account",
+          ],
+          "PV = M × PV factor, so M = PV ÷ PV factor gives the periodic income."
+        ),
+        financeChoice(
+          "y12s2-rap-i5",
+          "Two workers each retire with $250 000. Worker A draws income for 12 months (PV factor 11.255 at 1%/month); Worker B for 24 months (PV factor 21.243 at 1%/month). Who gets the larger monthly income?",
+          "A",
+          ["Worker A ($22 214/month)", "Worker B ($11 769/month)", "They receive equal monthly income", "Cannot tell without knowing the interest rate"],
+          "A: 250 000 ÷ 11.255 ≈ $22 214. B: 250 000 ÷ 21.243 ≈ $11 768. A has fewer months so gets more per month."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Using PV factor for the accumulation phase instead of FV factor.",
+          fix: "Accumulation (building a lump sum from contributions) uses FV = M × FV factor. The PV factor is for the drawdown phase (finding income from a lump sum) or for loan repayments.",
+        },
+        {
+          mistake: "Multiplying by the factor when you should divide (or vice versa).",
+          fix: "FV = M × factor means: to find M, divide FV by the factor. PV = M × factor means: to find M, divide PV by the factor. To find FV or PV, multiply M by the factor.",
+        },
+        {
+          mistake: "Using the wrong factor for the wrong time period.",
+          fix: "Check that r and n in the factor table match your scenario. Monthly contributions at 0.5%/month for 24 months uses factor(0.5%, 24). Do not use an annual factor for a monthly scenario.",
+        },
+        {
+          mistake: "Forgetting that the income phase is a PV problem, not an FV problem.",
+          fix: "When a lump sum funds regular withdrawals, the lump sum is a present value today paying M per period. Use M = PV ÷ PV factor — the same structure as a loan repayment.",
+        },
+      ],
+      masteryQuiz: [
+        moneyAnswer(
+          "y12s2-rap-m1",
+          "Monthly contributions of $400 for 12 months at 1%/month. FV factor = 12.683. Find FV.",
+          "\\text{FV} = 400 \\times 12.683",
+          "5073.20",
+          ["$5 073.20", "5073.20", "$5073.20"]
+        ),
+        financeChoice(
+          "y12s2-rap-m2",
+          "A target retirement balance of $30 000 is needed in 12 months at 1%/month. FV factor = 12.683. Monthly contribution ≈ ?",
+          "C",
+          ["$1 268.30", "$1 804.40", "$2 365.80", "$30 000"],
+          "M = 30 000 ÷ 12.683 ≈ $2 365.80."
+        ),
+        moneyAnswer(
+          "y12s2-rap-m3",
+          "A retiree has $180 000. PV factor (0.5%/month, 24 months) = 22.563. Monthly income for 24 months?",
+          "M = \\dfrac{180\\,000}{22.563}",
+          "7977.54",
+          ["$7 977.54", "7977.54", "$7977.54"]
+        ),
+        financeChoice(
+          "y12s2-rap-m4",
+          "Longer drawdown period means:",
+          "B",
+          [
+            "Higher monthly income from the same lump sum",
+            "Lower monthly income from the same lump sum",
+            "No change to monthly income",
+            "The lump sum grows larger",
+          ],
+          "A larger PV factor (more months) means M = PV ÷ PV factor is smaller — more periods share the lump sum."
+        ),
+        moneyAnswer(
+          "y12s2-rap-m5",
+          "$250 000 lump sum, PV factor (1%/month, 24 months) = 21.243. Monthly income?",
+          "M = \\dfrac{250\\,000}{21.243}",
+          "11769.37",
+          ["$11 769.37", "11769.37", "11769"]
+        ),
+        financeChoice(
+          "y12s2-rap-m6",
+          "Which statement about superannuation is correct?",
+          "B",
+          [
+            "Superannuation uses the straight-line formula to grow",
+            "Regular super contributions grow with compound interest to build a retirement lump sum",
+            "The PV formula is used to calculate super contributions during working life",
+            "Super contributions are a one-off lump-sum investment",
+          ],
+          "Super uses FV annuity logic: regular contributions compound over the working years."
+        ),
+        moneyAnswer(
+          "y12s2-rap-m7",
+          "Monthly contributions of $600 for 24 months at 0.5%/month. FV factor (0.5%, 24) = 25.432. FV = ?",
+          "\\text{FV} = 600 \\times 25.432",
+          "15259.20",
+          ["$15 259.20", "15259.20", "$15259.20"]
+        ),
+        financeChoice(
+          "y12s2-rap-m8",
+          "A retiree needs $3000/month income. PV factor (0.5%/month, 12 months) = 11.619. Required lump sum ≈ ?",
+          "C",
+          ["$3 000", "$11 619", "$34 857", "$120 000"],
+          "PV = M × PV factor = 3000 × 11.619 = $34 857."
+        ),
+        financeChoice(
+          "y12s2-rap-m9",
+          "Two people each contribute for 12 months. Person X pays $500/month; Person Y pays $800/month. Both earn 1%/month and FV factor = 12.683. Who accumulates more?",
+          "B",
+          ["Person X", "Person Y", "They accumulate the same", "Cannot tell"],
+          "Y: 800 × 12.683 = $10 146.40 vs X: 500 × 12.683 = $6 341.50. Y accumulates more."
+        ),
+        financeChoice(
+          "y12s2-rap-m10",
+          "A retired teacher has $400 000. They draw income monthly for 24 months at 0.5%/month. PV factor = 22.563. Monthly income ≈ ?",
+          "C",
+          ["$8 000", "$15 000", "$17 727", "$22 563"],
+          "M = 400 000 ÷ 22.563 ≈ $17 727."
+        ),
+      ],
+    };
+  }
+
   if (lesson.slug === "comparing-investments-risk-return") {
     return {
       ...base,
