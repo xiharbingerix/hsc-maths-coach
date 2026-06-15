@@ -71,6 +71,7 @@ import {
   year12Extension1AreasVolumesLessonOverride,
   year12Extension1PolynomialZeroesLessonOverride,
   year12Extension1NewtonCoolingLessonOverride,
+  year12Extension1VectorsProjectionLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
@@ -282,6 +283,7 @@ export function buildLesson(
     year12Extension1AreasVolumesLessonOverride(course, unit, lesson) ??
     year12Extension1PolynomialZeroesLessonOverride(course, unit, lesson) ??
     year12Extension1NewtonCoolingLessonOverride(course, unit, lesson) ??
+    year12Extension1VectorsProjectionLessonOverride(course, unit, lesson) ??
     year12Extension2ComplexNumbersLessonOverride(course, unit, lesson) ??
     year12Extension2Vectors3DLessonOverride(course, unit, lesson) ??
     year12Extension2CalculusLessonOverride(course, unit, lesson) ??
@@ -409,6 +411,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Algebra",
         focus: "Algebraic relationships",
         lessons: [
+          {
+            slug: "algebraic-relationships-revision",
+            title: "Algebraic Relationships Revision",
+            description:
+              "Consolidate Year 11 skills: solving linear equations, substituting into formulas, gradient and y-intercept, and plotting from tables — preparation for Year 12 non-linear content.",
+          },
           {
             slug: "linear-relationships-modelling",
             title: "Linear Relationships and Modelling",
@@ -577,6 +585,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Financial Mathematics",
         focus: "Investments, loans and annuities",
         lessons: [
+          {
+            slug: "investment-loans-revision",
+            title: "Investment and Loans Revision",
+            description:
+              "Consolidate Year 11 percentage and interest skills: finding percentage of a quantity, percentage increase/decrease, and simple interest I = Prn — preparation for compound interest and depreciation.",
+          },
           {
             slug: "investment-compound-interest",
             title: "Investment and Compound Interest",
@@ -2508,6 +2522,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Vector Projections and Applications",
             description:
               "Calculate scalar and vector projections and apply them to force, velocity and displacement contexts.",
+          },
+          {
+            slug: "vectors-projection",
+            title: "Proof of the Projection Formula and Perpendicular Component",
+            description:
+              "Derive the projection formula from the perpendicularity condition, find the perpendicular component of a vector, verify the decomposition using the dot product, and write the full parallel + perpendicular decomposition.",
           },
         ],
       },

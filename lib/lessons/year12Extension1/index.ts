@@ -10,3 +10,4 @@ export * from "./samplingDistribution";
 export * from "./areasVolumes";
 export * from "./polynomialZeroes";
 export * from "./newtonCooling";
+export * from "./vectorsProjection";
