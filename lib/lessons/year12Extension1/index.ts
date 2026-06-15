@@ -11,3 +11,4 @@ export * from "./areasVolumes";
 export * from "./polynomialZeroes";
 export * from "./newtonCooling";
 export * from "./vectorsProjection";
+export * from "./vectorsMotion";

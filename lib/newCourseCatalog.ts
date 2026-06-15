@@ -72,6 +72,7 @@ import {
   year12Extension1PolynomialZeroesLessonOverride,
   year12Extension1NewtonCoolingLessonOverride,
   year12Extension1VectorsProjectionLessonOverride,
+  year12Extension1VectorsMotionLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
@@ -284,6 +285,7 @@ export function buildLesson(
     year12Extension1PolynomialZeroesLessonOverride(course, unit, lesson) ??
     year12Extension1NewtonCoolingLessonOverride(course, unit, lesson) ??
     year12Extension1VectorsProjectionLessonOverride(course, unit, lesson) ??
+    year12Extension1VectorsMotionLessonOverride(course, unit, lesson) ??
     year12Extension2ComplexNumbersLessonOverride(course, unit, lesson) ??
     year12Extension2Vectors3DLessonOverride(course, unit, lesson) ??
     year12Extension2CalculusLessonOverride(course, unit, lesson) ??
@@ -476,6 +478,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus: "Trigonometry, ratios and rates",
         lessons: [
           {
+            slug: "trigonometry-revision",
+            title: "Trigonometry Revision",
+            description:
+              "Activate Year 11 right-triangle skills: label hypotenuse, opposite and adjacent sides, apply Pythagoras' theorem, and use SOH CAH TOA — foundation for right-angled and non-right-angled trigonometry.",
+          },
+          {
             slug: "right-angled-trig-radians",
             title: "Right-Angled Trigonometry and Radians",
             description:
@@ -614,6 +622,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Straight-Line vs Declining Balance Depreciation",
             description:
               "Apply S = V₀ − Dn for straight-line depreciation and S = V₀(1−r)ⁿ for declining balance depreciation, and compare both methods for the same asset.",
+          },
+          {
+            slug: "annuities-revision",
+            title: "Annuities Revision",
+            description:
+              "Consolidate Year 12 compound-interest foundations: apply A = P(1+r)ⁿ, work through recurrence relations for savings and loans, and read balance tables — preparation for future-value and present-value annuity lessons.",
           },
           {
             slug: "annuities-regular-payments",
@@ -2528,6 +2542,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Proof of the Projection Formula and Perpendicular Component",
             description:
               "Derive the projection formula from the perpendicularity condition, find the perpendicular component of a vector, verify the decomposition using the dot product, and write the full parallel + perpendicular decomposition.",
+          },
+          {
+            slug: "vectors-motion-2d",
+            title: "Vector Functions of Time: Position, Velocity and Acceleration",
+            description:
+              "Represent the position of a moving point as r(t) = (x(t), y(t)), differentiate to find the velocity and acceleration vectors, compute speed |v(t)|, and find position from velocity by integration.",
+          },
+          {
+            slug: "vectors-projectile-parametric",
+            title: "Projectile Motion in Vector and Parametric Form",
+            description:
+              "Model projectile motion as r(t) = (Vcosθ·t, Vsinθ·t − ½gt²), find velocity by differentiation, determine time of flight, maximum height, range, and impact velocity, and solve problems where launch speed or angle is unknown.",
           },
         ],
       },

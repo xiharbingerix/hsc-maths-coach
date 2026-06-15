@@ -804,13 +804,13 @@ Source: [curriculum.nsw.edu.au — Yr12 Ext1](https://curriculum.nsw.edu.au/lear
 - [x] **Prove the projection formula; find perpendicular component** → `vectors-projection`
 
 **Vectors and motion in 2D (projectile motion)**
-- [ ] **Describe position of a moving point using a vector function of time r(t)** → ❌ MISSING
-- [ ] **Differentiate vector functions to find velocity and acceleration vectors** → ❌ MISSING
-- [ ] **Describe projectile path using parametric equations (horizontal and vertical displacement vectors)** → ⚠️ Partial — `projectile-motion` unit uses calculus approach only; vector/parametric form required by syllabus missing
-- [ ] **Determine time of flight, max height, range, instantaneous velocity, impact velocity** → ⚠️ Partial — calculus approach covered; impact velocity and unknown-angle problems missing
-- [ ] **Solve projectile problems where initial velocity and/or angle of projection are unknown** → ❌ MISSING
+- [x] **Describe position of a moving point using a vector function of time r(t)** → `vectors-motion-2d`
+- [x] **Differentiate vector functions to find velocity and acceleration vectors** → `vectors-motion-2d`
+- [x] **Describe projectile path using parametric equations (horizontal and vertical displacement vectors)** → `vectors-projectile-parametric`
+- [x] **Determine time of flight, max height, range, instantaneous velocity, impact velocity** → `vectors-projectile-parametric`
+- [x] **Solve projectile problems where initial velocity and/or angle of projection are unknown** → `vectors-projectile-parametric`
 
-#### Current lessons (unit: `vectors`) — 5 lessons, 95Q ⚠️ ~65% coverage
+#### Current lessons (unit: `vectors`) — 7 lessons, 133Q ✅ ~100% coverage
 Plus: `kinematics` unit (4 lessons, 76Q) — Year 11 content retained as prior-knowledge revision entry point
 Plus: `projectile-motion` unit (4 lessons, 76Q) — calculus approach; useful scaffolding but not the vector/parametric treatment required here
 
@@ -820,8 +820,8 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 #### Required new lessons
 - [ ] **`vectors-revision`** — Trig ratios and bearings, Cartesian coordinates, parametric equations. Activates prior knowledge before vector notation.
 - [x] **`vectors-projection`** — Proof of projection formula from perpendicularity condition; perpendicular component a⊥ = a − proj_b(a); full decomposition. ✅ Added 2026-06-15
-- [ ] **`vectors-motion-2d`** — Position, velocity, acceleration as vector functions of time; differentiate **r**(t).
-- [ ] **`vectors-projectile-parametric`** — Projectile motion in vector form; time of flight, max height, range, impact velocity; unknown launch speed or angle.
+- [x] **`vectors-motion-2d`** — Position, velocity, acceleration as vector functions of time; differentiate **r**(t). ✅ Added 2026-06-15
+- [x] **`vectors-projectile-parametric`** — Projectile motion in vector form; time of flight, max height, range, impact velocity; unknown launch speed or angle. ✅ Added 2026-06-15
 
 ---
 
@@ -953,14 +953,14 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 | Focus area | Outcome | Nova lessons | Dot-point coverage | What is missing |
 |---|---|---|---|---|
 | Proof by Mathematical Induction | ME1-12-01 | 3 (57Q) | ✅ ~100% | Revision lesson only |
-| Introduction to Vectors | ME1-12-02 | 5+8 (247Q total) | ⚠️ ~65% | Vector motion 2D, projectile via vectors |
+| Introduction to Vectors | ME1-12-02 | 7+8 (285Q total) | ✅ ~100% | Revision lesson only |
 | Inverse Trigonometric Functions | ME1-12-03 | 3 (57Q) | ⚠️ ~75% | Properties/identities lesson, revision lesson |
 | Further Calculus Skills | ME1-12-04 | 4 (76Q) | ✅ ~100% | Revision lesson only |
 | Further Applications of Calculus | ME1-12-05 | 9 (172Q) | ⚠️ ~90% | Slope fields, revision lesson |
 | Binomial Distribution + Sampling | ME1-12-06 | 6 (114Q) | ✅ ~100% | Revision lesson only |
 
-**Current:** 38 lessons (9 units) / 672Q
-**New lessons to meet syllabus fully:** ~10 (6 revision + 3 vectors/proj + 1 slope fields + 1 inverse-trig-properties)
+**Current:** 40 lessons (9 units) / 710Q
+**New lessons to meet syllabus fully:** ~8 (6 revision + 1 slope fields + 1 inverse-trig-properties)
 **Target:** ~48 lessons
 
 ### Priority order
@@ -969,7 +969,7 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 3. ~~Polynomial zeroes~~ ✅ Done 2026-06-15
 4. ~~Newton's Law of Cooling~~ ✅ Done 2026-06-15
 5. ~~Vector projection~~ ✅ Done 2026-06-15
-6. **Vector motion + projectile (parametric)** (2 lessons) — syllabus requires vector approach to projectile
+6. ~~Vector motion + projectile (parametric)~~ ✅ Done 2026-06-15
 7. **Slope fields** (1 lesson) — completes ME1-12-05 differential equations
 8. **Inverse trig properties** (1 lesson) — identities, composite expressions
 9. **Revision lessons** (6 lessons, one per focus area) — prior knowledge activation per syllabus teaching advice
