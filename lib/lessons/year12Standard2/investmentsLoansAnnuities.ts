@@ -856,6 +856,245 @@ export function year12Standard2FinanceLessonOverride(
     };
   }
 
+  if (lesson.slug === "annuities-revision") {
+    return {
+      ...base,
+      description:
+        "Consolidate compound-interest and recurrence-relation skills before studying annuities: apply A = P(1+r)ⁿ, use Sₙ₊₁ = Sₙ × r + d for savings, and Bₙ₊₁ = Bₙ × r − M for loans.",
+      learningIntention:
+        "Recall and apply compound-interest calculations and balance-table recurrence relations — the foundation for future-value and present-value annuity analysis.",
+      successCriteria: [
+        "Apply A = P(1+r)ⁿ to calculate a compounded balance after n periods.",
+        "Interpret r and n correctly for monthly and quarterly compounding.",
+        "Use the savings recurrence Sₙ₊₁ = Sₙ × (1+r) + d to step through a balance table.",
+        "Use the loan recurrence Bₙ₊₁ = Bₙ × (1+r) − M to step through a balance table.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Compound interest: A = P(1+r)ⁿ, where P is the principal, r is the interest rate per period (as a decimal), and n is the number of periods. For monthly compounding at 6% p.a., r = 0.06 ÷ 12 = 0.005 per month.",
+          "A savings balance table uses the recurrence Sₙ₊₁ = Sₙ × (1+r) + d, where r is the per-period rate and d is the regular deposit added at the end of each period. Each row: multiply the current balance by the growth factor, then add the deposit.",
+          "A loan balance table uses the recurrence Bₙ₊₁ = Bₙ × (1+r) − M, where M is the regular repayment. Each row: multiply the current debt by the growth factor, then subtract the repayment. The loan is fully repaid when Bₙ reaches $0.",
+          "Reading a table: the 'balance' column at the end of each row is the starting point for the next calculation. The interest column shows how much interest was charged (or earned) in that period — it is the previous balance multiplied by r.",
+        ],
+        latexBlocks: [
+          "A = P(1+r)^n\\quad (r\\text{ per period, }n\\text{ periods})",
+          "S_{n+1} = S_n \\times (1+r) + d\\quad(\\text{savings with regular deposit})",
+          "B_{n+1} = B_n \\times (1+r) - M\\quad(\\text{loan with regular repayment})",
+          "\\text{Monthly rate: }r = \\frac{\\text{annual rate}}{12}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Compound interest: final balance",
+          questionLatex:
+            "\\$6000 is invested at 4.8\\% p.a. compounded monthly for 2 years. Find the final balance (to the nearest cent).",
+          steps: [
+            {
+              explanation: "Monthly rate r = 4.8% ÷ 12 = 0.4% = 0.004. Number of periods n = 2 × 12 = 24.",
+              latex: "r = \\frac{0.048}{12} = 0.004,\\quad n = 24",
+            },
+            {
+              explanation: "Apply A = P(1+r)ⁿ.",
+              latex: "A = 6000 \\times (1.004)^{24} \\approx 6000 \\times 1.10003 \\approx \\$6600.20",
+            },
+          ],
+          finalAnswerLatex: "A \\approx \\$6600.20",
+        },
+        {
+          title: "Savings balance table",
+          questionLatex:
+            "Hannah starts with \\$0 and deposits \\$200 at the end of each month into an account earning 3\\% p.a. compounded monthly. Build a 3-row balance table.",
+          steps: [
+            {
+              explanation: "Monthly rate r = 0.03 ÷ 12 = 0.0025. Initial balance S₀ = 0.",
+              latex: "r = 0.0025,\\quad d = 200",
+            },
+            {
+              explanation: "Row 1: S₁ = 0 × 1.0025 + 200 = $200.00. Row 2: S₂ = 200 × 1.0025 + 200 = $400.50. Row 3: S₃ = 400.50 × 1.0025 + 200 = $601.50 (approx).",
+              latex:
+                "S_1 = \\$200.00,\\quad S_2 = \\$400.50,\\quad S_3 \\approx \\$601.50",
+            },
+          ],
+          finalAnswerLatex: "S_3 \\approx \\$601.50",
+        },
+        {
+          title: "Loan balance table",
+          questionLatex:
+            "A loan of \\$5000 charges 6\\% p.a. compounded monthly. Monthly repayment is \\$430. Show the first 3 rows of the balance table.",
+          steps: [
+            {
+              explanation: "Monthly rate r = 0.06 ÷ 12 = 0.005. Initial balance B₀ = $5000.",
+              latex: "r = 0.005,\\quad M = 430",
+            },
+            {
+              explanation: "B₁ = 5000 × 1.005 − 430 = 5025 − 430 = $4595. B₂ = 4595 × 1.005 − 430 ≈ $4162.98. B₃ ≈ 4162.98 × 1.005 − 430 ≈ $3733.79.",
+              latex:
+                "B_1 = \\$4595.00,\\quad B_2 \\approx \\$4162.98,\\quad B_3 \\approx \\$3733.79",
+            },
+          ],
+          finalAnswerLatex: "B_3 \\approx \\$3733.79",
+        },
+      ],
+      guidedPractice: [
+        moneyAnswer(
+          "y12s2-anr-g1",
+          "Find the final balance when $4000 is invested at 3.6% p.a. compounded monthly for 1 year (to the nearest cent).",
+          "A = 4000 \\times (1 + 0.003)^{12}",
+          "$4146.28",
+          ["4146.28", "4146.27"]
+        ),
+        financeShortAnswer(
+          "y12s2-anr-g2",
+          "For an investment at 4.8% p.a. compounded quarterly, what is the per-period rate (as a decimal)?",
+          "r = \\frac{0.048}{4}",
+          "0.012",
+          ["1.2%", "0.0120"]
+        ),
+        moneyAnswer(
+          "y12s2-anr-g3",
+          "Savings recurrence: S₀ = $0, r = 0.005, d = $300. Find S₁ and S₂.",
+          "S_1 = 0 \\times 1.005 + 300 = 300;\\quad S_2 = 300 \\times 1.005 + 300",
+          "$601.50",
+          ["601.5", "601.50"]
+        ),
+        moneyAnswer(
+          "y12s2-anr-g4",
+          "Loan recurrence: B₀ = $3000, r = 0.01, M = $200. Find B₁.",
+          "B_1 = 3000 \\times 1.01 - 200",
+          "$2830",
+          ["2830", "2830.00"]
+        ),
+      ],
+      independentPractice: [
+        moneyAnswer(
+          "y12s2-anr-i1",
+          "Find the final balance when $9000 is invested at 6% p.a. compounded monthly for 3 years.",
+          "A = 9000 \\times (1.005)^{36}",
+          "$10 773.55",
+          ["10773.55", "$10,773.55", "10773.5"]
+        ),
+        financeShortAnswer(
+          "y12s2-anr-i2",
+          "A loan charges 9.6% p.a. compounded monthly. What is the monthly interest rate as a decimal?",
+          "r = \\frac{0.096}{12}",
+          "0.008",
+          ["0.8%"]
+        ),
+        moneyAnswer(
+          "y12s2-anr-i3",
+          "Savings: S₀ = $500, monthly rate = 0.003, deposit = $150. Find S₂.",
+          "S_1 = 500 \\times 1.003 + 150 = 651.50;\\quad S_2 = 651.50 \\times 1.003 + 150",
+          "$803.45",
+          ["803.45", "803.44"]
+        ),
+        moneyAnswer(
+          "y12s2-anr-i4",
+          "Loan: B₀ = $10 000, monthly rate = 0.005, repayment = $450. Find B₁.",
+          "B_1 = 10000 \\times 1.005 - 450",
+          "$9600",
+          ["9600", "9600.00"]
+        ),
+        financeChoice(
+          "y12s2-anr-i5",
+          "$2000 at 4% p.a. compounded annually for 3 years gives A =",
+          "C",
+          ["$2240.00", "$2248.00", "$2249.73", "$2400.00"],
+          "A = 2000 × (1.04)³ = 2000 × 1.124864 ≈ $2249.73."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Using the annual rate r directly instead of dividing by the number of compounding periods per year.",
+          fix: "Always convert to a per-period rate. For 6% p.a. compounded monthly: r = 0.06 ÷ 12 = 0.005 per month. The number of periods n also changes: 3 years monthly = 36 periods.",
+        },
+        {
+          mistake: "In a savings recurrence, adding the deposit before multiplying by the growth factor.",
+          fix: "The correct order is: multiply the current balance by (1+r) first (apply interest), then add the deposit. Sₙ₊₁ = Sₙ × (1+r) + d, not (Sₙ + d) × (1+r).",
+        },
+        {
+          mistake: "In a loan recurrence, multiplying the balance after subtracting the repayment.",
+          fix: "Apply interest to the current debt first, then subtract the repayment. Bₙ₊₁ = Bₙ × (1+r) − M. The interest is calculated on what is owed at the start of the period.",
+        },
+        {
+          mistake: "Using n = number of years instead of n = total number of compounding periods.",
+          fix: "For monthly compounding over 2 years: n = 2 × 12 = 24 periods. For quarterly over 5 years: n = 5 × 4 = 20 periods. Always match n to the compounding frequency.",
+        },
+      ],
+      masteryQuiz: [
+        moneyAnswer(
+          "y12s2-anr-m1",
+          "Find the final balance when $3000 is invested at 4.8% p.a. compounded monthly for 2 years.",
+          "A = 3000 \\times (1.004)^{24}",
+          "$3300.06",
+          ["3300.06", "3300.05"]
+        ),
+        financeShortAnswer(
+          "y12s2-anr-m2",
+          "An investment earns 7.2% p.a. compounded quarterly. What is the quarterly rate (decimal)?",
+          "r = \\frac{0.072}{4}",
+          "0.018",
+          ["1.8%"]
+        ),
+        moneyAnswer(
+          "y12s2-anr-m3",
+          "Savings: S₀ = $0, r = 0.005, d = $500. Find S₃.",
+          "S_1=500,\\;S_2=502.50+500=1002.50,\\;S_3=1002.50\\times1.005+500",
+          "$1507.51",
+          ["1507.51", "1507.5"]
+        ),
+        moneyAnswer(
+          "y12s2-anr-m4",
+          "Loan: B₀ = $8000, monthly rate = 0.008, repayment = $350. Find B₂.",
+          "B_1=8000\\times1.008-350=7714;\\;B_2=7714\\times1.008-350",
+          "$7426.71",
+          ["7426.71", "7426.7"]
+        ),
+        financeChoice(
+          "y12s2-anr-m5",
+          "$5000 at 6% p.a. compounded monthly for 1 year. Final balance ≈",
+          "B",
+          ["$5300.00", "$5308.39", "$5300.30", "$5360.00"],
+          "A = 5000 × (1.005)¹² ≈ 5000 × 1.0616778 ≈ $5308.39."
+        ),
+        moneyAnswer(
+          "y12s2-anr-m6",
+          "Find the interest earned when $7500 compounds at 3.6% p.a. monthly for 18 months.",
+          "A = 7500 \\times (1.003)^{18} \\approx 7914.28;\\quad I = A - P",
+          "$414.28",
+          ["414.28", "414.27"]
+        ),
+        financeShortAnswer(
+          "y12s2-anr-m7",
+          "Savings recurrence: S₀ = $200, r = 0.004, d = $250. Find S₁.",
+          "S_1 = 200 \\times 1.004 + 250",
+          "$450.80",
+          ["450.80", "450.8"]
+        ),
+        financeChoice(
+          "y12s2-anr-m8",
+          "The correct savings recurrence (rate r per period, deposit d) is:",
+          "A",
+          ["Sₙ₊₁ = Sₙ(1+r) + d", "Sₙ₊₁ = (Sₙ + d)(1+r)", "Sₙ₊₁ = Sₙ + d", "Sₙ₊₁ = Sₙ(1+r) − d"],
+          "Apply interest to the existing balance first, then add the deposit."
+        ),
+        moneyAnswer(
+          "y12s2-anr-m9",
+          "Loan: B₀ = $15 000, monthly rate = 0.006, repayment = $600. Find B₁.",
+          "B_1 = 15000 \\times 1.006 - 600",
+          "$14 490",
+          ["14490", "14490.00"]
+        ),
+        financeChoice(
+          "y12s2-anr-m10",
+          "The number of compounding periods for 4% p.a. compounded quarterly over 3 years is:",
+          "C",
+          ["4", "3", "12", "36"],
+          "Quarterly means 4 periods per year. Over 3 years: n = 3 × 4 = 12 periods."
+        ),
+      ],
+    };
+  }
+
   if (lesson.slug === "annuities-regular-payments") {
     return {
       ...base,

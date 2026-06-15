@@ -259,7 +259,7 @@ export function year12Standard2TrigRatesLessonOverride(
       ],
       guidedPractice: [
         {
-          ...practicalChoice("y12s2-trig-g1", "A triangular park has two known sides and the included angle. Which rule is most appropriate for the third side?", "B", ["Sine rule", "Cosine rule", "Right-angle tangent only", "Ratio sharing"], "Two sides and the included angle match the cosine rule."),
+          ...practicalChoice("y12s2-trv-g1", "A triangular park has two known sides and the included angle. Which rule is most appropriate for the third side?", "B", ["Sine rule", "Cosine rule", "Right-angle tangent only", "Ratio sharing"], "Two sides and the included angle match the cosine rule."),
           triangleDiagram: {
             description:
               "Triangle with two known sides meeting at the included angle and the third side labelled x.",
@@ -279,7 +279,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...practicalChoice("y12s2-trig-g2", "A drone problem gives one side with its opposite angle and asks for another side. Which rule is most appropriate?", "A", ["Sine rule", "Cosine rule", "Speed formula", "Unit conversion"], "A matching side-angle pair points to the sine rule."),
+          ...practicalChoice("y12s2-trv-g2", "A drone problem gives one side with its opposite angle and asks for another side. Which rule is most appropriate?", "A", ["Sine rule", "Cosine rule", "Speed formula", "Unit conversion"], "A matching side-angle pair points to the sine rule."),
           triangleDiagram: {
             description:
               "Triangle showing a known side opposite a known angle and another side labelled x opposite another angle.",
@@ -299,7 +299,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-trig-g3", "A triangular field has sides 30 m and 40 m with included angle 60 degrees. Use the cosine rule to find the third side to 1 decimal place.", "c^2=a^2+b^2-2ab\\cos C", "36.1 m", ["36.1", "36.1m"]),
+          ...measurementAnswer("y12s2-trv-g3", "A triangular field has sides 30 m and 40 m with included angle 60 degrees. Use the cosine rule to find the third side to 1 decimal place.", "c^2=a^2+b^2-2ab\\cos C", "36.1 m", ["36.1", "36.1m"]),
           triangleDiagram: {
             description:
               "Triangle with sides AC 30 metres and BC 40 metres, included angle C 60 degrees, and third side AB labelled x.",
@@ -318,11 +318,11 @@ export function year12Standard2TrigRatesLessonOverride(
             },
           },
         },
-        practicalChoice("y12s2-trig-g4", "A student uses right-angle trigonometry in a triangle with angles 42, 58 and 80 degrees. What is the issue?", "C", ["The answer must be in kilometres", "The triangle is impossible", "There is no right angle", "The ratio must be simplified"], "Right-angle trigonometry needs a 90-degree angle."),
+        practicalChoice("y12s2-trv-g4", "A student uses right-angle trigonometry in a triangle with angles 42, 58 and 80 degrees. What is the issue?", "C", ["The answer must be in kilometres", "The triangle is impossible", "There is no right angle", "The ratio must be simplified"], "Right-angle trigonometry needs a 90-degree angle."),
       ],
       independentPractice: [
         {
-          ...practicalChoice("y12s2-trig-i1", "A boat survey gives side 120 m opposite 42 degrees and asks for a side opposite 58 degrees. Which rule should be used?", "A", ["Sine rule", "Cosine rule", "Pythagoras only", "Fuel consumption"], "A known opposite side-angle pair is available."),
+          ...practicalChoice("y12s2-trv-i1", "A boat survey gives side 120 m opposite 42 degrees and asks for a side opposite 58 degrees. Which rule should be used?", "A", ["Sine rule", "Cosine rule", "Pythagoras only", "Fuel consumption"], "A known opposite side-angle pair is available."),
           triangleDiagram: {
             description:
               "Triangle with side BC 120 metres opposite angle A 42 degrees, and side AC labelled x opposite angle B 58 degrees.",
@@ -342,7 +342,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-trig-i2", "A triangular paddock has sides 55 m and 70 m with included angle 40 degrees. Find the third side to 1 decimal place.", "\\text{Given: }a=55,\\quad b=70,\\quad C=40^\\circ", "45.0 m", ["45", "45.0", "45 m", "45.0m"]),
+          ...measurementAnswer("y12s2-trv-i2", "A triangular paddock has sides 55 m and 70 m with included angle 40 degrees. Find the third side to 1 decimal place.", "\\text{Given: }a=55,\\quad b=70,\\quad C=40^\\circ", "45.0 m", ["45", "45.0", "45 m", "45.0m"]),
           triangleDiagram: {
             description:
               "Triangle with sides AC 55 metres and BC 70 metres, included angle C 40 degrees, and third side AB labelled x.",
@@ -362,7 +362,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-trig-i3", "A tower guide rope forms a triangle where 90 m is opposite 35 degrees. Find the side opposite 48 degrees to 1 decimal place.", "\\text{Given: }A=35^\\circ,\\quad B=48^\\circ,\\quad a=90", "116.6 m", ["116.6", "116.6m"]),
+          ...measurementAnswer("y12s2-trv-i3", "A tower guide rope forms a triangle where 90 m is opposite 35 degrees. Find the side opposite 48 degrees to 1 decimal place.", "\\text{Given: }A=35^\\circ,\\quad B=48^\\circ,\\quad a=90", "116.6 m", ["116.6", "116.6m"]),
           triangleDiagram: {
             description:
               "Triangle with side BC 90 metres opposite angle A 35 degrees, and side AC labelled x opposite angle B 48 degrees.",
@@ -381,8 +381,8 @@ export function year12Standard2TrigRatesLessonOverride(
             },
           },
         },
-        practicalChoice("y12s2-trig-i4", "In a triangle, the largest angle should be opposite:", "D", ["The shortest side", "The first side listed", "The included angle only", "The longest side"], "The largest side is opposite the largest angle."),
-        practicalChoice("y12s2-trig-i5", "A non-right-angled triangle has all three sides known and an angle is required. Which rule is most appropriate?", "B", ["Sine rule first", "Cosine rule", "Speed formula", "Area formula only"], "Cosine rule can find an angle from three sides."),
+        practicalChoice("y12s2-trv-i4", "In a triangle, the largest angle should be opposite:", "D", ["The shortest side", "The first side listed", "The included angle only", "The longest side"], "The largest side is opposite the largest angle."),
+        practicalChoice("y12s2-trv-i5", "A non-right-angled triangle has all three sides known and an angle is required. Which rule is most appropriate?", "B", ["Sine rule first", "Cosine rule", "Speed formula", "Area formula only"], "Cosine rule can find an angle from three sides."),
       ],
       commonMistakes: [
         { mistake: "Using right-angled trigonometry when there is no right angle.", fix: "Check for a 90-degree angle before using SOH-CAH-TOA." },
@@ -391,10 +391,10 @@ export function year12Standard2TrigRatesLessonOverride(
         { mistake: "Accepting an unreasonable side length.", fix: "Check that the largest side is opposite the largest angle and units make sense." },
       ],
       masteryQuiz: [
-        practicalChoice("y12s2-trig-m1", "A triangle has sides 48 m and 62 m with included angle 37 degrees. Which rule finds the third side?", "B", ["Sine rule", "Cosine rule", "Right-angle tangent", "Average speed"], "Two sides and included angle use cosine rule."),
-        practicalChoice("y12s2-trig-m2", "A known side is paired with its opposite angle, and another side is required. Use:", "A", ["Sine rule", "Cosine rule", "Area formula", "Scale factor"], "This is a sine rule setup."),
+        practicalChoice("y12s2-trv-m1", "A triangle has sides 48 m and 62 m with included angle 37 degrees. Which rule finds the third side?", "B", ["Sine rule", "Cosine rule", "Right-angle tangent", "Average speed"], "Two sides and included angle use cosine rule."),
+        practicalChoice("y12s2-trv-m2", "A known side is paired with its opposite angle, and another side is required. Use:", "A", ["Sine rule", "Cosine rule", "Area formula", "Scale factor"], "This is a sine rule setup."),
         {
-          ...measurementAnswer("y12s2-trig-m3", "A triangular park has sides 20 m and 25 m with included angle 60 degrees. Find the third side to 1 decimal place.", "a=20\\text{ m},\\quad b=25\\text{ m},\\quad C=60°", "22.9 m", ["22.9", "22.9m"]),
+          ...measurementAnswer("y12s2-trv-m3", "A triangular park has sides 20 m and 25 m with included angle 60 degrees. Find the third side to 1 decimal place.", "a=20\\text{ m},\\quad b=25\\text{ m},\\quad C=60°", "22.9 m", ["22.9", "22.9m"]),
           triangleDiagram: {
             description:
               "Triangle with sides AC 20 metres and BC 25 metres, included angle C 60 degrees, and third side AB labelled x.",
@@ -414,7 +414,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-trig-m4", "A survey triangle has side 70 m opposite 40 degrees. Find the side opposite 55 degrees to 1 decimal place.", "a=70\\text{ m},\\quad A=40°,\\quad B=55°", "89.2 m", ["89.2", "89.2m"]),
+          ...measurementAnswer("y12s2-trv-m4", "A survey triangle has side 70 m opposite 40 degrees. Find the side opposite 55 degrees to 1 decimal place.", "a=70\\text{ m},\\quad A=40°,\\quad B=55°", "89.2 m", ["89.2", "89.2m"]),
           triangleDiagram: {
             description:
               "Triangle with side BC 70 metres opposite angle A 40 degrees, and side AC labelled x opposite angle B 55 degrees.",
@@ -433,10 +433,10 @@ export function year12Standard2TrigRatesLessonOverride(
             },
           },
         },
-        practicalChoice("y12s2-trig-m5", "A triangle has angles 50, 60 and 70 degrees. Right-angled trigonometry is:", "C", ["Appropriate because there are angles", "Always exact", "Not appropriate because there is no 90-degree angle", "The same as ratio sharing"], "There is no right angle."),
-        practicalChoice("y12s2-trig-m6", "A cosine-rule side question needs:", "D", ["A frequency table", "A matching side-angle pair only", "A speed and time", "Two sides and the included angle"], "Cosine rule fits two sides and included angle."),
+        practicalChoice("y12s2-trv-m5", "A triangle has angles 50, 60 and 70 degrees. Right-angled trigonometry is:", "C", ["Appropriate because there are angles", "Always exact", "Not appropriate because there is no 90-degree angle", "The same as ratio sharing"], "There is no right angle."),
+        practicalChoice("y12s2-trv-m6", "A cosine-rule side question needs:", "D", ["A frequency table", "A matching side-angle pair only", "A speed and time", "Two sides and the included angle"], "Cosine rule fits two sides and included angle."),
         {
-          ...measurementAnswer("y12s2-trig-m7", "A drone triangle has 100 m opposite 30 degrees. Find the side opposite 45 degrees to 1 decimal place.", "a=100\\text{ m},\\quad A=30°,\\quad B=45°", "141.4 m", ["141.4", "141.4m"]),
+          ...measurementAnswer("y12s2-trv-m7", "A drone triangle has 100 m opposite 30 degrees. Find the side opposite 45 degrees to 1 decimal place.", "a=100\\text{ m},\\quad A=30°,\\quad B=45°", "141.4 m", ["141.4", "141.4m"]),
           triangleDiagram: {
             description:
               "Triangle with side BC 100 metres opposite angle A 30 degrees, and side AC labelled x opposite angle B 45 degrees.",
@@ -455,9 +455,9 @@ export function year12Standard2TrigRatesLessonOverride(
             },
           },
         },
-        practicalChoice("y12s2-trig-m8", "A side answer of -12 m in a triangle distance problem is:", "A", ["Unreasonable", "Always correct", "A bearing", "A ratio"], "Distances cannot be negative."),
-        practicalChoice("y12s2-trig-m9", "A triangle has all three sides known and an angle is required. Use:", "B", ["Sine rule only", "Cosine rule", "Flow rate", "Map scale"], "Cosine rule can find an angle from three sides."),
-        practicalChoice("y12s2-trig-m10", "Before choosing a trig rule, first identify:", "C", ["The student's name", "The calculator brand", "Known sides and angles", "The currency"], "Rule choice depends on the given sides and angles."),
+        practicalChoice("y12s2-trv-m8", "A side answer of -12 m in a triangle distance problem is:", "A", ["Unreasonable", "Always correct", "A bearing", "A ratio"], "Distances cannot be negative."),
+        practicalChoice("y12s2-trv-m9", "A triangle has all three sides known and an angle is required. Use:", "B", ["Sine rule only", "Cosine rule", "Flow rate", "Map scale"], "Cosine rule can find an angle from three sides."),
+        practicalChoice("y12s2-trv-m10", "Before choosing a trig rule, first identify:", "C", ["The student's name", "The calculator brand", "Known sides and angles", "The currency"], "Rule choice depends on the given sides and angles."),
       ],
     };
   }
@@ -2406,6 +2406,272 @@ export function year12Standard2TrigRatesLessonOverride(
           "3{:}00\\text{ pm} - 5\\text{ h}",
           "10:00 am",
           ["10am", "10:00am"]
+        ),
+      ],
+    };
+  }
+
+  if (lesson.slug === "trigonometry-revision") {
+    return {
+      ...base,
+      description:
+        "Activate Year 11 right-triangle skills: label hypotenuse, opposite and adjacent sides relative to a given angle, apply Pythagoras' theorem, and use SOH CAH TOA to find unknown sides and angles.",
+      learningIntention:
+        "Recall and apply the Year 11 right-triangle toolkit — Pythagoras and SOH CAH TOA — so the Year 12 trig work on radians, non-right-angled triangles and bearings builds on a solid base.",
+      successCriteria: [
+        "Label the hypotenuse, opposite and adjacent sides of a right triangle relative to a named angle.",
+        "Apply Pythagoras' theorem to find an unknown side.",
+        "Use sin θ, cos θ and tan θ to find an unknown side in a right triangle.",
+        "Use inverse trig (sin⁻¹, cos⁻¹, tan⁻¹) to find an unknown angle in a right triangle.",
+      ],
+      teaching: {
+        paragraphs: [
+          "In a right triangle, the hypotenuse is always the longest side — opposite the right angle. Opposite and adjacent are named relative to the angle you are working with (θ). The side across from θ is opposite; the side next to θ (that is not the hypotenuse) is adjacent.",
+          "SOH CAH TOA is the memory aid for the three basic trig ratios: sin θ = Opposite ÷ Hypotenuse, cos θ = Adjacent ÷ Hypotenuse, tan θ = Opposite ÷ Adjacent. To choose which one to use, decide which two of the three sides (opposite, adjacent, hypotenuse) are involved in the question.",
+          "To find a missing side: identify the ratio involving the known side and the unknown, substitute the angle, and solve with a calculator. For example, if the opposite side is unknown and the hypotenuse is 12 m and θ = 35°: sin 35° = opp ÷ 12, so opp = 12 sin 35° ≈ 6.88 m.",
+          "To find a missing angle: take the ratio (opp ÷ hyp, adj ÷ hyp, or opp ÷ adj) and apply the inverse function. sin⁻¹(0.6) = 36.87° (to 2 decimal places). Always check your calculator is in DEGREE mode for these problems.",
+          "Pythagoras' theorem: a² + b² = c², where c is the hypotenuse. Use it when you have two sides and need the third, and no angle (other than 90°) is involved.",
+        ],
+        latexBlocks: [
+          "\\sin\\theta = \\frac{\\text{Opp}}{\\text{Hyp}},\\quad \\cos\\theta = \\frac{\\text{Adj}}{\\text{Hyp}},\\quad \\tan\\theta = \\frac{\\text{Opp}}{\\text{Adj}}",
+          "a^2 + b^2 = c^2\\quad(c = \\text{hypotenuse})",
+          "\\text{Unknown side: } \\text{side} = \\text{Hyp} \\times \\sin\\theta\\text{ (or }\\cos\\theta\\text{ or }\\tan\\theta\\text{ as appropriate)}",
+          "\\text{Unknown angle: } \\theta = \\sin^{-1}\\!\\left(\\frac{\\text{Opp}}{\\text{Hyp}}\\right)\\text{ etc.}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Find an unknown side using SOH CAH TOA",
+          questionLatex:
+            "\\text{A right triangle has hypotenuse 15 m and angle }\\theta = 42^\\circ. Find the side opposite }\\theta.",
+          steps: [
+            {
+              explanation: "Opposite and hypotenuse are involved → use sin θ.",
+              latex: "\\sin 42^\\circ = \\frac{\\text{opp}}{15}",
+            },
+            {
+              explanation: "Solve for opp.",
+              latex: "\\text{opp} = 15 \\times \\sin 42^\\circ \\approx 15 \\times 0.6691 \\approx 10.04\\text{ m}",
+            },
+          ],
+          finalAnswerLatex: "\\text{opp} \\approx 10.04\\text{ m}",
+          triangleDiagram: {
+            vertices: {
+              A: { x: 0, y: 0, label: "A" },
+              B: { x: 4, y: 0, label: "B" },
+              C: { x: 4, y: 3.6, label: "C" },
+            },
+            rightAngleAt: "B",
+            angleLabels: { A: "42°" },
+            sideLabels: {
+              AB: "",
+              BC: "opp",
+              AC: "15 m",
+            },
+          },
+        },
+        {
+          title: "Find an unknown angle using inverse trig",
+          questionLatex:
+            "\\text{A ladder 5.8 m long leans against a wall. The base is 2.1 m from the wall. Find the angle the ladder makes with the ground.}",
+          steps: [
+            {
+              explanation: "The ground (adjacent) = 2.1 m, ladder (hypotenuse) = 5.8 m → use cos θ.",
+              latex: "\\cos\\theta = \\frac{2.1}{5.8}",
+            },
+            {
+              explanation: "Apply cos⁻¹.",
+              latex: "\\theta = \\cos^{-1}\\!\\left(\\frac{2.1}{5.8}\\right) \\approx 68.8^\\circ",
+            },
+          ],
+          finalAnswerLatex: "\\theta \\approx 68.8^\\circ",
+          triangleDiagram: {
+            vertices: {
+              A: { x: 0, y: 0, label: "A" },
+              B: { x: 3, y: 0, label: "B" },
+              C: { x: 3, y: 4.5, label: "C" },
+            },
+            rightAngleAt: "B",
+            angleLabels: { A: "θ" },
+            sideLabels: {
+              AB: "2.1 m",
+              BC: "wall",
+              AC: "5.8 m",
+            },
+          },
+        },
+        {
+          title: "Find an unknown side using Pythagoras",
+          questionLatex:
+            "\\text{A right triangle has legs 6 cm and 8 cm. Find the hypotenuse.}",
+          steps: [
+            {
+              explanation: "Apply Pythagoras: c² = a² + b².",
+              latex: "c^2 = 6^2 + 8^2 = 36 + 64 = 100",
+            },
+            {
+              explanation: "Take the square root.",
+              latex: "c = \\sqrt{100} = 10\\text{ cm}",
+            },
+          ],
+          finalAnswerLatex: "c = 10\\text{ cm}",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice(
+          "y12s2-rtv-g1",
+          "In a right triangle with angle θ, the side across from θ is called the:",
+          "B",
+          ["Adjacent", "Opposite", "Hypotenuse", "Base"],
+          "The side across from (opposite) the named angle θ is called the opposite side."
+        ),
+        measurementAnswer(
+          "y12s2-rtv-g2",
+          "A right triangle has hypotenuse 10 m and angle 30°. Find the opposite side (to 2 d.p.).",
+          "\\text{opp} = 10 \\times \\sin 30^\\circ",
+          "5.00 m",
+          ["5", "5.0", "5.00"]
+        ),
+        measurementAnswer(
+          "y12s2-rtv-g3",
+          "A right triangle has adjacent 8 cm and hypotenuse 10 cm. Find angle θ (to 1 d.p.).",
+          "\\theta = \\cos^{-1}\\!\\left(\\frac{8}{10}\\right)",
+          "36.9°",
+          ["36.87°", "36.87", "36.9"]
+        ),
+        measurementAnswer(
+          "y12s2-rtv-g4",
+          "A right triangle has legs 5 m and 12 m. Find the hypotenuse.",
+          "c = \\sqrt{5^2 + 12^2} = \\sqrt{169}",
+          "13 m",
+          ["13"]
+        ),
+      ],
+      independentPractice: [
+        practicalChoice(
+          "y12s2-rtv-i1",
+          "To find the adjacent side when the hypotenuse and angle θ are known, use:",
+          "B",
+          ["sin θ × hyp", "cos θ × hyp", "tan θ × hyp", "hyp ÷ sin θ"],
+          "cos θ = adj ÷ hyp, so adj = cos θ × hyp."
+        ),
+        measurementAnswer(
+          "y12s2-rtv-i2",
+          "Right triangle: angle = 55°, hypotenuse = 20 m. Find the opposite side (to 2 d.p.).",
+          "\\text{opp} = 20 \\times \\sin 55^\\circ",
+          "16.38 m",
+          ["16.38", "16.4 m", "16.4"]
+        ),
+        measurementAnswer(
+          "y12s2-rtv-i3",
+          "Right triangle: opposite = 7 m, adjacent = 7 m. Find angle θ (to 1 d.p.).",
+          "\\theta = \\tan^{-1}\\!\\left(\\frac{7}{7}\\right) = \\tan^{-1}(1)",
+          "45.0°",
+          ["45°", "45"]
+        ),
+        measurementAnswer(
+          "y12s2-rtv-i4",
+          "A right triangle has hypotenuse 13 cm and one leg 5 cm. Find the other leg.",
+          "b = \\sqrt{13^2 - 5^2} = \\sqrt{144}",
+          "12 cm",
+          ["12"]
+        ),
+        practicalChoice(
+          "y12s2-rtv-i5",
+          "A roof has a horizontal run of 6 m and rises 2.5 m. Which ratio gives the roof angle?",
+          "C",
+          ["sin θ = 2.5 ÷ 6", "cos θ = 2.5 ÷ 6", "tan θ = 2.5 ÷ 6", "tan θ = 6 ÷ 2.5"],
+          "tan θ = opposite ÷ adjacent = rise ÷ run = 2.5 ÷ 6."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Using sin θ when opposite and adjacent are involved (no hypotenuse).",
+          fix: "If neither side is the hypotenuse, use tan θ = opp ÷ adj. Only use sin and cos when the hypotenuse is one of the two sides in the question.",
+        },
+        {
+          mistake: "Labelling 'opposite' and 'adjacent' relative to the right angle, not the named angle θ.",
+          fix: "Opposite and adjacent are always defined relative to the angle you are working with (θ), not the right angle. The right angle tells you which side is the hypotenuse.",
+        },
+        {
+          mistake: "Finding the angle with sin⁻¹(opp ÷ hyp) but the calculator is in RADIAN mode.",
+          fix: "For all right-triangle angle problems in Standard 2, the answer is in degrees. Set your calculator to DEGREE mode before using sin⁻¹, cos⁻¹, or tan⁻¹.",
+        },
+        {
+          mistake: "Adding 3² + 4² = 7 (adding the squares incorrectly) instead of 9 + 16 = 25.",
+          fix: "Square each leg separately first, then add. 3² = 9 and 4² = 16, so 3² + 4² = 25, and c = √25 = 5. Never add the bases before squaring.",
+        },
+      ],
+      masteryQuiz: [
+        practicalChoice(
+          "y12s2-rtv-m1",
+          "The hypotenuse in a right triangle is:",
+          "C",
+          ["Always the shortest side", "Always opposite the largest acute angle", "Always opposite the right angle", "Adjacent to the largest angle"],
+          "The hypotenuse is the longest side and is always opposite the 90° angle."
+        ),
+        measurementAnswer(
+          "y12s2-rtv-m2",
+          "Right triangle: hypotenuse = 25 m, angle = 37°. Find the adjacent side (to 2 d.p.).",
+          "\\text{adj} = 25 \\times \\cos 37^\\circ",
+          "19.97 m",
+          ["19.97", "19.98 m", "19.98"]
+        ),
+        measurementAnswer(
+          "y12s2-rtv-m3",
+          "Right triangle: adjacent = 9 m, angle = 40°. Find the opposite side (to 2 d.p.).",
+          "\\text{opp} = 9 \\times \\tan 40^\\circ",
+          "7.55 m",
+          ["7.55", "7.6 m"]
+        ),
+        measurementAnswer(
+          "y12s2-rtv-m4",
+          "Right triangle: opposite = 5 m, hypotenuse = 13 m. Find angle θ (to 1 d.p.).",
+          "\\theta = \\sin^{-1}\\!\\left(\\frac{5}{13}\\right)",
+          "22.6°",
+          ["22.62°", "22.62"]
+        ),
+        measurementAnswer(
+          "y12s2-rtv-m5",
+          "A right triangle has legs 9 cm and 40 cm. Find the hypotenuse.",
+          "c = \\sqrt{9^2 + 40^2} = \\sqrt{81 + 1600} = \\sqrt{1681}",
+          "41 cm",
+          ["41"]
+        ),
+        practicalChoice(
+          "y12s2-rtv-m6",
+          "Right triangle: opposite = 6, hypotenuse = 10. Angle θ =",
+          "B",
+          ["30°", "36.87°", "53.13°", "45°"],
+          "sin⁻¹(6 ÷ 10) = sin⁻¹(0.6) ≈ 36.87°."
+        ),
+        measurementAnswer(
+          "y12s2-rtv-m7",
+          "Right triangle: angle = 60°, adjacent = 5 m. Find the opposite side (to 2 d.p.).",
+          "\\text{opp} = 5 \\times \\tan 60^\\circ",
+          "8.66 m",
+          ["8.66"]
+        ),
+        practicalChoice(
+          "y12s2-rtv-m8",
+          "A triangle has sides 7, 24, and 25. Is it a right triangle?",
+          "A",
+          ["Yes, because 7² + 24² = 25²", "No, because 7 + 24 ≠ 25", "Yes, because all sides are whole numbers", "No, because none are equal"],
+          "49 + 576 = 625 = 25². Pythagoras holds, so it is a right triangle."
+        ),
+        measurementAnswer(
+          "y12s2-rtv-m9",
+          "Right triangle: opposite = 12 m, adjacent = 5 m. Find angle θ (to 1 d.p.).",
+          "\\theta = \\tan^{-1}\\!\\left(\\frac{12}{5}\\right)",
+          "67.4°",
+          ["67.38°", "67.4"]
+        ),
+        practicalChoice(
+          "y12s2-rtv-m10",
+          "A right triangle has hyp = 17 m and opp = 8 m. The adjacent side is:",
+          "C",
+          ["9 m", "12 m", "15 m", "25 m"],
+          "adj = √(17² − 8²) = √(289 − 64) = √225 = 15 m."
         ),
       ],
     };
