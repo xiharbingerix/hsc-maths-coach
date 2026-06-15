@@ -1531,6 +1531,124 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
     };
   }
 
+  if (lesson.slug === "quadratic-inequalities") {
+    return {
+      ...base,
+      description:
+        "Solve quadratic inequalities by factorising to find roots, then using the parabola's sign to determine where the expression is positive or negative.",
+      learningIntention:
+        "Use the graph of a quadratic to identify where it is positive or negative, and express the solution to a quadratic inequality using correct notation.",
+      successCriteria: [
+        "Find the roots of a quadratic expression by factorisation.",
+        "State that an upward parabola is negative between its roots and positive outside them.",
+        "Solve and express the solution to a quadratic inequality such as ax² + bx + c < 0 or > 0.",
+        "Identify the integer solutions in the solution set of a quadratic inequality.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A quadratic inequality asks: for which values of x is the quadratic expression positive, negative, zero, or a mixture? The key is first to find the roots of f(x), then read the sign from the parabola.",
+          "For an upward-opening parabola y = (x − a)(x − b) with a < b: the parabola dips below the x-axis between the roots. So f(x) < 0 for a < x < b, and f(x) > 0 for x < a or x > b.",
+          "To solve a quadratic inequality: (1) rearrange so one side is 0; (2) factorise to find the roots; (3) reason about the parabola sign; (4) write the solution. For ≤ or ≥, include the roots.",
+          "Check by substituting a value inside the claimed solution set. If the value makes the inequality true, the solution is correct.",
+        ],
+        latexBlocks: [
+          "(x-a)(x-b) < 0 \\Rightarrow a < x < b \\quad (\\text{between the roots})",
+          "(x-a)(x-b) > 0 \\Rightarrow x < a \\text{ or } x > b \\quad (\\text{outside the roots})",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Solve a quadratic inequality (< 0)",
+          questionLatex: "\\text{Solve } x^2 - 5x + 6 < 0",
+          steps: [
+            { explanation: "Factorise to find the roots.", latex: "x^2-5x+6=(x-2)(x-3)" },
+            { explanation: "Roots at x = 2 and x = 3.", latex: "x=2 \\text{ or } x=3" },
+            { explanation: "Upward parabola is negative between its roots.", latex: "x^2-5x+6 < 0 \\text{ for } 2 < x < 3" },
+          ],
+          finalAnswerLatex: "2 < x < 3",
+        },
+        {
+          title: "Solve a quadratic inequality (> 0)",
+          questionLatex: "\\text{Solve } x^2 - 5x + 6 > 0",
+          steps: [
+            { explanation: "Same roots: x = 2 and x = 3.", latex: "(x-2)(x-3) > 0" },
+            { explanation: "Upward parabola is positive outside its roots.", latex: "x < 2 \\text{ or } x > 3" },
+          ],
+          finalAnswerLatex: "x < 2 \\text{ or } x > 3",
+        },
+        {
+          title: "Find integers in the solution set",
+          questionLatex: "\\text{Find all integers satisfying } x^2 - 5x + 4 < 0",
+          steps: [
+            { explanation: "Factorise: roots at x = 1 and x = 4.", latex: "(x-1)(x-4) < 0" },
+            { explanation: "Solution: 1 < x < 4.", latex: "1 < x < 4" },
+            { explanation: "Integers strictly between 1 and 4.", latex: "x \\in \\{2,\\,3\\}" },
+          ],
+          finalAnswerLatex: "x \\in \\{2,\\,3\\}",
+        },
+      ],
+      guidedPractice: [
+        qa("y11adv-qi-g1", "Solve $x^2-5x+6=0$. Enter the smaller root.", "x^2-5x+6=(x-2)(x-3)=0", "2", "Factorise as (x−2)(x−3)=0.", "x²−5x+6=(x−2)(x−3). Roots: x=2 and x=3. Smaller = 2."),
+        qa("y11adv-qi-g2", "Solve $x^2-5x+6=0$. Enter the larger root.", "x^2-5x+6=(x-2)(x-3)=0", "3", "Roots are x=2 and x=3.", "Larger root = 3."),
+        practicalChoice("y11adv-qi-g3", "Which values of $x$ satisfy $x^2-5x+6<0$?", "B", ["$x<2$ or $x>3$", "$2<x<3$", "$x<3$", "$x>2$"], "The upward parabola is below zero between its roots. So the solution is 2 < x < 3.", "x^2-5x+6<0"),
+        practicalChoice("y11adv-qi-g4", "Which values of $x$ satisfy $x^2-5x+6>0$?", "A", ["$x<2$ or $x>3$", "$2<x<3$", "$x>3$ only", "$x<2$ only"], "The upward parabola is above zero outside its roots. So the solution is x < 2 or x > 3.", "x^2-5x+6>0"),
+      ],
+      independentPractice: [
+        qa("y11adv-qi-i1", "Solve $x^2-4x+3=0$. Enter the smaller root.", "x^2-4x+3=(x-1)(x-3)=0", "1", "Factorise: (x−1)(x−3)=0.", "x²−4x+3=(x−1)(x−3). Roots: 1 and 3. Smaller = 1."),
+        qa("y11adv-qi-i2", "Solve $x^2-4x+3=0$. Enter the larger root.", "x^2-4x+3=(x-1)(x-3)=0", "3", "The roots are x=1 and x=3.", "Larger root = 3."),
+        practicalChoice("y11adv-qi-i3", "Solve $(x-1)(x-3)<0$.", "B", ["$x<1$ or $x>3$", "$1<x<3$", "$x>1$", "$x<3$"], "Negative between the roots 1 and 3. Solution: 1 < x < 3.", "(x-1)(x-3)<0"),
+        practicalChoice("y11adv-qi-i4", "Solve $x(x-4)\\geq 0$.", "D", ["$0\\leq x\\leq 4$", "$x>4$", "$0<x<4$", "$x\\leq 0$ or $x\\geq 4$"], "Roots at 0 and 4. The upward parabola is non-negative on or outside the roots: x ≤ 0 or x ≥ 4.", "x(x-4)\\geq 0"),
+        qa("y11adv-qi-i5", "Find the largest integer satisfying $x^2-5x+4<0$.", "(x-1)(x-4)<0 \\Rightarrow 1<x<4", "3", "Solution is 1 < x < 4. Integers strictly inside: 2 and 3.", "1 < x < 4. Integers: 2 and 3. Largest = 3."),
+      ],
+      commonMistakes: [
+        { mistake: "Writing x < 2 or x < 3 instead of 2 < x < 3 for (x−2)(x−3) < 0.", fix: "The parabola is negative between the roots, not to the left of both. The correct solution is 2 < x < 3." },
+        { mistake: "Forgetting to rearrange so one side is zero before factorising.", fix: "Always rewrite as f(x) > 0 or f(x) < 0 first. For example, x² > 3x becomes x²−3x > 0 = x(x−3) > 0." },
+        { mistake: "Reversing the direction — writing outside the roots when the expression should be negative.", fix: "Draw a quick sketch. The upward parabola is below zero between the roots (for < 0) and above zero outside them (for > 0)." },
+        { mistake: "Including endpoints when strict inequality (< or >) is used.", fix: "Strict inequalities exclude roots. Non-strict (≤ ≥) include them. Always check the inequality symbol." },
+      ],
+      masteryQuiz: [
+        qa("y11adv-qi-m1", "Solve $x^2+x-6=0$. Enter the smaller root.", "x^2+x-6=(x+3)(x-2)=0", "-3", "Factorise: (x+3)(x−2)=0. Roots: −3 and 2.", "Smaller root = −3.", ["-3", "−3"]),
+        qa("y11adv-qi-m2", "Solve $x^2+x-6=0$. Enter the larger root.", "x^2+x-6=(x+3)(x-2)=0", "2", "Roots are −3 and 2.", "Larger root = 2."),
+        practicalChoice("y11adv-qi-m3", "Solve $(x+3)(x-2)>0$.", "A", ["$x<-3$ or $x>2$", "$-3<x<2$", "$x>2$", "$x<-3$"], "Positive outside the roots at −3 and 2. Solution: x < −3 or x > 2.", "(x+3)(x-2)>0"),
+        practicalChoice("y11adv-qi-m4", "Solve $x^2+x-6<0$.", "B", ["$x<-3$ or $x>2$", "$-3<x<2$", "$x>-3$", "$x<2$"], "Negative between the roots at −3 and 2. Solution: −3 < x < 2.", "x^2+x-6<0"),
+        qa("y11adv-qi-m5", "Solve $x^2-9=0$. Enter the smaller root.", "x^2-9=(x-3)(x+3)=0", "-3", "Difference of two squares: (x−3)(x+3)=0. Roots: 3 and −3.", "Smaller root = −3.", ["-3", "−3"]),
+        practicalChoice("y11adv-qi-m6", "Solve $x^2\\leq 9$.", "C", ["$x\\leq 3$", "$x\\geq -3$", "$-3\\leq x\\leq 3$", "$x\\leq -3$ or $x\\geq 3$"], "x²−9≤0. Roots ±3. Non-strict inequality: between and including roots → −3 ≤ x ≤ 3.", "x^2\\leq 9"),
+        qa("y11adv-qi-m7", "Solve $x^2-7x+6=0$. Enter the larger root.", "x^2-7x+6=(x-1)(x-6)=0", "6", "Factorise: (x−1)(x−6)=0. Roots 1 and 6.", "Larger root = 6."),
+        practicalChoice("y11adv-qi-m8", "Solve $(x-2)^2>0$.", "B", ["All real $x$", "$x\\neq 2$", "$x>2$", "$x<2$"], "(x−2)²=0 only at x=2 and is positive everywhere else. Solution: all x except x=2.", "(x-2)^2>0"),
+        practicalChoice("y11adv-qi-m9", "Solve $x^2+2x\\leq 0$.", "D", ["$x\\leq 0$", "$x\\geq -2$", "$x\\leq -2$ or $x\\geq 0$", "$-2\\leq x\\leq 0$"], "x(x+2)≤0. Roots 0 and −2. Non-strict, between and including: −2 ≤ x ≤ 0.", "x^2+2x\\leq 0"),
+        qa("y11adv-qi-m10", "Find the largest integer satisfying $x^2-7x+6\\leq 0$.", "(x-1)(x-6)\\leq 0 \\Rightarrow 1\\leq x\\leq 6", "6", "Solution is 1 ≤ x ≤ 6. Largest integer = 6.", "1 ≤ x ≤ 6. Integers: 1, 2, 3, 4, 5, 6. Largest = 6."),
+      ],
+      multiPartPractice: [
+        {
+          id: "y11adv-qi-mp1",
+          prompt: "Let $f(x) = x^2 - 7x + 10$.",
+          latex: "f(x) = x^2 - 7x + 10",
+          answer: "2",
+          hint: "Factorise f(x) to find the roots, then use the parabola sign for the inequality. Check f(3) to verify.",
+          explanation: "(a) Smaller root = 2. (b) Larger root = 5. (c) f(3) = 9−21+10 = −2, confirming 3 is in the solution 2 < x < 5.",
+          parts: [
+            { key: "a", label: "(a)", prompt: "Find the smaller root of $f(x)=0$.", marks: 2, answer: "2", hint: "Factorise: (x−2)(x−5)=0.", explanation: "x²−7x+10=(x−2)(x−5). Roots: 2 and 5. Smaller = 2." },
+            { key: "b", label: "(b)", prompt: "Find the larger root of $f(x)=0$.", marks: 1, answer: "5", hint: "The other factor gives x=5.", explanation: "Larger root = 5." },
+            { key: "c", label: "(c)", prompt: "Evaluate $f(3)$.", marks: 1, answer: "-2", acceptedAnswers: ["-2", "−2"], hint: "Substitute x=3: f(3)=9−21+10.", explanation: "f(3)=9−21+10=−2. Since f(3)<0 and 2<3<5, this confirms the solution to f(x)<0 is 2<x<5." },
+          ],
+        },
+        {
+          id: "y11adv-qi-mp2",
+          prompt: "Let $g(x) = x^2 - 2x - 3$.",
+          latex: "g(x) = x^2 - 2x - 3",
+          answer: "-1",
+          hint: "Factorise g(x). The roots tell you where the parabola crosses zero. Then read the parabola sign.",
+          explanation: "(a) Smaller root = −1. (b) Larger root = 3. (c) g(1) = 1−2−3 = −4, confirming 1 is in the solution −1 < x < 3.",
+          parts: [
+            { key: "a", label: "(a)", prompt: "Find the smaller root of $g(x)=0$.", marks: 2, answer: "-1", acceptedAnswers: ["-1", "−1"], hint: "Factorise: (x−3)(x+1)=0.", explanation: "g(x)=(x−3)(x+1). Roots: −1 and 3. Smaller = −1." },
+            { key: "b", label: "(b)", prompt: "Find the larger root of $g(x)=0$.", marks: 1, answer: "3", hint: "x−3=0 gives x=3.", explanation: "Larger root = 3." },
+            { key: "c", label: "(c)", prompt: "Evaluate $g(1)$.", marks: 1, answer: "-4", acceptedAnswers: ["-4", "−4"], hint: "Substitute x=1: g(1)=1−2−3.", explanation: "g(1)=1−2−3=−4. Since g(1)<0 and −1<1<3, this confirms the solution to g(x)<0 is −1<x<3." },
+          ],
+        },
+      ],
+    };
+  }
+
   if (lesson.slug === "composite-functions") {
     return {
       ...base,

@@ -1303,6 +1303,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Rewrite quadratics in vertex form a(x − h)² + k; identify the vertex and axis of symmetry; solve quadratic equations by completing the square.",
           },
           {
+            slug: "quadratic-inequalities",
+            title: "Quadratic Inequalities",
+            description:
+              "Solve quadratic inequalities by finding roots and using the parabola's sign above and below the x-axis; express solutions using interval notation.",
+          },
+          {
             slug: "working-with-functions-exam-practice",
             title: "Working with Functions Exam Practice",
             description:
@@ -1635,6 +1641,24 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                 legacySlugs: ["unit-circle-trigonometric-graphs"],
               },
             ],
+          },
+          {
+            slug: "right-angle-trig-applications",
+            title: "Right-Angle Trigonometry — Applications",
+            description:
+              "Apply SOH CAH TOA to multi-step 2D problems; interpret and calculate angles of elevation and depression; read and write true bearings and compass bearings.",
+          },
+          {
+            slug: "sine-rule-cosine-rule",
+            title: "Sine Rule, Cosine Rule and Area Formula",
+            description:
+              "Apply the sine rule a/sinA = b/sinB and cosine rule a² = b² + c² − 2bc cosA to non-right-angled triangles; use Area = ½ab sinC; choose the correct rule for a given triangle.",
+          },
+          {
+            slug: "ambiguous-case-sine-rule",
+            title: "The Ambiguous Case of the Sine Rule",
+            description:
+              "Determine how many triangles exist given SSA information; identify the ambiguous case condition bsinA < a < b; find both possible triangles when the ambiguous case applies.",
           },
           { slug: "trigonometry-measure-angles-exam-practice", title: "Trigonometry and Measure of Angles Exam Practice" },
         ],

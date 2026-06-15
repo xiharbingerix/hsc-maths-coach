@@ -1,4 +1,4 @@
-import type { ExplicitLesson } from "../differentialCalculus";
+import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import { practicalChoice, formulaAnswer as baseFormulaAnswer } from "../questionHelpers";
 
@@ -2750,6 +2750,370 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         {
           ...formulaAnswer("y11adv-shift-m10", "State the maximum value of y.", "y=2\\sin\\!\\left(\\frac{\\pi x}{3}+\\frac{\\pi}{6}\\right)+1", "3", []),
           hint: "Maximum = d + |a| = 1 + 2.",
+        },
+      ],
+    };
+  }
+
+  // ── Helper for new applied lessons (inline explanation, no lookup table) ──
+  function qa(
+    id: string, prompt: string, latex: string, answer: string,
+    hint: string, explanation: string, acceptedAnswers: string[] = []
+  ): PracticeQuestion {
+    return {
+      id, prompt, latex, answer,
+      acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+      hint, explanation,
+    };
+  }
+
+  // ── Right-angle trig applications ─────────────────────────────────────────
+  if (lesson.slug === "right-angle-trig-applications") {
+    return {
+      ...base,
+      description:
+        "Apply SOH CAH TOA to multi-step 2D problems; interpret and calculate angles of elevation and depression; read and write true bearings and compass bearings.",
+      learningIntention:
+        "Use right-angle trigonometry to solve practical problems involving heights, distances, angles of elevation and depression, and compass directions.",
+      successCriteria: [
+        "Apply sin, cos, and tan to find unknown sides and angles in right-angled triangles.",
+        "Identify angles of elevation and depression and set up the correct right-triangle diagram.",
+        "Convert between true bearings (three-figure) and compass bearings.",
+        "Find the back bearing of a given true bearing.",
+      ],
+      teaching: {
+        paragraphs: [
+          "SOH CAH TOA: sin θ = opp/hyp, cos θ = adj/hyp, tan θ = opp/adj. Given any angle and one side of a right triangle, you can find the remaining sides. Given two sides, you can find the angle using inverse trig.",
+          "The angle of elevation is the angle measured upward from horizontal to an object above. The angle of depression is the angle measured downward from horizontal to an object below. Both form a right angle with the vertical, so the same SOH CAH TOA rules apply.",
+          "A true bearing is measured clockwise from north and written with three digits: 000° (North), 090° (East), 180° (South), 270° (West). N45°E in compass notation equals a true bearing of 045°.",
+          "The back bearing is the bearing of the return journey. Add or subtract 180°: if the forward bearing is less than 180°, add 180°; if it is 180° or more, subtract 180°.",
+        ],
+        latexBlocks: [
+          "\\sin\\theta = \\frac{\\text{opp}}{\\text{hyp}}, \\quad \\cos\\theta = \\frac{\\text{adj}}{\\text{hyp}}, \\quad \\tan\\theta = \\frac{\\text{opp}}{\\text{adj}}",
+          "\\text{Back bearing} = \\text{forward bearing} \\pm 180^\\circ",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Find height using angle of elevation",
+          questionLatex: "\\text{A ladder 14 m long makes 30° with the ground. Find the height reached.}",
+          steps: [
+            { explanation: "Identify opp (height h) and hyp (14 m). Use sin.", latex: "\\sin 30^\\circ = \\frac{h}{14}" },
+            { explanation: "Substitute sin 30° = ½.", latex: "h = 14 \\times \\tfrac{1}{2} = 7 \\text{ m}" },
+          ],
+          finalAnswerLatex: "h = 7 \\text{ m}",
+        },
+        {
+          title: "Find horizontal distance using angle of depression",
+          questionLatex: "\\text{From a 25 m cliff, angle of depression to a boat is 45°. Find horizontal distance.}",
+          steps: [
+            { explanation: "The depression angle equals the elevation angle from the boat. tan 45° = height / distance.", latex: "\\tan 45^\\circ = \\frac{25}{d}" },
+            { explanation: "tan 45° = 1, so d = 25.", latex: "d = 25 \\text{ m}" },
+          ],
+          finalAnswerLatex: "d = 25 \\text{ m}",
+        },
+        {
+          title: "Find back bearing",
+          questionLatex: "\\text{A ship sails on a bearing of 110°. Find the back bearing.}",
+          steps: [
+            { explanation: "110° < 180°, so add 180°.", latex: "110^\\circ + 180^\\circ = 290^\\circ" },
+          ],
+          finalAnswerLatex: "\\text{Back bearing} = 290^\\circ",
+        },
+      ],
+      guidedPractice: [
+        qa("y11adv-rat-g1", "A ladder 14 m long leans against a wall at 30° to the ground. Find the height it reaches.", "\\sin 30^\\circ = h/14", "7", "sin 30° = ½. So h = 14 × ½.", "h = 14 sin 30° = 14 × ½ = 7 m."),
+        practicalChoice("y11adv-rat-g2", "An angle measured downward from horizontal to an object below is called:", "C", ["angle of elevation", "azimuth", "angle of depression", "bearing"], "Elevation is upward; depression is downward. Both measured from horizontal."),
+        qa("y11adv-rat-g3", "A pole 20 m tall stands 20 m from an observer on flat ground. Find the angle of elevation (in degrees).", "\\tan\\theta = 20/20 = 1", "45", "tan θ = opp/adj = 20/20 = 1. arctan 1 = 45°.", "tan θ = 20/20 = 1. θ = 45°."),
+        qa("y11adv-rat-g4", "State the true bearing of due South.", "", "180", "South is directly opposite North. Starting from 000° (North), rotating 180° clockwise reaches South.", "Due South = 180°."),
+      ],
+      independentPractice: [
+        qa("y11adv-rat-i1", "A rope 20 m long is attached to a stake and pulled taut at 30° above horizontal. How high above the ground is the other end?", "\\sin 30^\\circ = h/20", "10", "sin 30° = ½. h = 20 × ½.", "h = 20 sin 30° = 10 m."),
+        qa("y11adv-rat-i2", "From the top of a 25 m cliff, the angle of depression to a boat is 45°. Find the horizontal distance from the cliff base to the boat.", "\\tan 45^\\circ = 25/d", "25", "tan 45° = 1, so d = 25/1 = 25 m.", "tan 45° = 25/d → d = 25 m."),
+        qa("y11adv-rat-i3", "A rope is tied from the top of an 18 m wall to the ground. The rope makes 30° with the vertical wall. Find the rope length.", "\\sin 30^\\circ = 18/L \\Rightarrow L = 18/\\sin 30^\\circ", "36", "sin 30° = 18/L → L = 18 / (1/2) = 36 m.", "L = 18 / sin 30° = 18 / 0.5 = 36 m."),
+        qa("y11adv-rat-i4", "A ship sails on a bearing of 110°. What is its back bearing?", "110^\\circ + 180^\\circ", "290", "110° < 180°, so add 180°: 110 + 180 = 290°.", "Back bearing = 110° + 180° = 290°."),
+        practicalChoice("y11adv-rat-i5", "The compass bearing SE corresponds to which true bearing?", "B", ["045°", "135°", "225°", "315°"], "SE is halfway between S (180°) and E (90°). True bearing = 90 + 45 = 135°."),
+      ],
+      commonMistakes: [
+        { mistake: "Using sin when cos is needed — forgetting which side is opposite and which is adjacent.", fix: "Label the triangle first: identify the angle, then label opposite (across from angle) and adjacent (next to angle, not hypotenuse)." },
+        { mistake: "Confusing angle of elevation with angle of depression.", fix: "Elevation is measured upward from horizontal; depression is downward. Both use the same right-triangle setup — draw a diagram." },
+        { mistake: "Writing bearings without three digits (e.g., 45° instead of 045°).", fix: "True bearings are always three digits: pad with leading zeros as needed. 45° → 045°." },
+        { mistake: "Subtracting 180° from a bearing less than 180° to find the back bearing.", fix: "If the bearing is less than 180°, ADD 180°. If it is 180° or more, subtract 180°. Always check the result is between 000° and 360°." },
+      ],
+      masteryQuiz: [
+        qa("y11adv-rat-m1", "A kite is attached to a 100 m string making 30° with the ground. How high is the kite?", "\\sin 30^\\circ = h/100", "50", "h = 100 × sin 30° = 100 × ½.", "h = 100 × ½ = 50 m."),
+        qa("y11adv-rat-m2", "A flagpole's shadow and height are both 12 m. Find the angle of elevation of the sun (in degrees).", "\\tan\\theta = 12/12 = 1", "45", "tan θ = opp/adj = 12/12 = 1. arctan 1 = 45°.", "tan θ = 1 → θ = 45°."),
+        practicalChoice("y11adv-rat-m3", "From 30 m away, the angle of elevation to a rooftop is 60°. Which value is closest to the height?", "D", ["17 m", "26 m", "30 m", "52 m"], "h = 30 tan 60° = 30√3 ≈ 51.96 m ≈ 52 m.", "h = 30\\tan 60^\\circ = 30\\sqrt{3} \\approx 52 \\text{ m}"),
+        qa("y11adv-rat-m4", "A ship sails on a bearing of 350°. What is its back bearing?", "350^\\circ - 180^\\circ", "170", "350° ≥ 180°, so subtract 180°: 350 − 180 = 170°.", "Back bearing = 350° − 180° = 170°."),
+        qa("y11adv-rat-m5", "A rope runs from the top of a 12 m building to the ground at 30° to the vertical. Find the rope length.", "\\sin 30^\\circ = 12/L \\Rightarrow L = 24", "24", "sin 30° = 12/L → L = 12 / sin 30° = 12 / 0.5.", "L = 12 / 0.5 = 24 m."),
+        practicalChoice("y11adv-rat-m6", "The angle of elevation is measured:", "B", ["downward from horizontal", "upward from horizontal", "clockwise from north", "from the top of an object"], "Elevation is upward from horizontal to the observed object."),
+        qa("y11adv-rat-m7", "State the true bearing of the compass direction N60°W.", "360^\\circ - 60^\\circ", "300", "N60°W means 60° west of north. Rotate 360° − 60° = 300° clockwise from north.", "True bearing = 360° − 60° = 300°."),
+        practicalChoice("y11adv-rat-m8", "A 60 m rope makes 30° with the ground. What is the vertical height?", "B", ["25 m", "30 m", "40 m", "52 m"], "h = 60 sin 30° = 60 × ½ = 30 m.", "h = 60\\sin 30^\\circ = 30 \\text{ m}"),
+        qa("y11adv-rat-m9", "A ship sails on a bearing of 220°. What is its back bearing?", "220^\\circ - 180^\\circ", "40", "220° ≥ 180°, so subtract: 220 − 180 = 40°.", "Back bearing = 220° − 180° = 40°."),
+        practicalChoice("y11adv-rat-m10", "A rope of length 24 m makes 30° with the ground. What is the vertical height?", "A", ["12 m", "6 m", "24 m", "20 m"], "h = 24 sin 30° = 24 × ½ = 12 m.", "h = 24\\sin 30^\\circ = 12 \\text{ m}"),
+      ],
+      multiPartPractice: [
+        {
+          id: "y11adv-rat-mp1",
+          prompt: "A ladder 20 m long leans against a vertical wall, making an angle of 30° with the ground.",
+          latex: "\\text{Ladder length} = 20\\text{ m}, \\quad \\theta = 30^\\circ",
+          answer: "10",
+          hint: "Use sin for the height (opp/hyp) and cos for the base (adj/hyp). For part (c) change the angle to 45°.",
+          explanation: "(a) h = 20 sin 30° = 10 m. (b) base = 20 cos 30° = 10√3 ≈ 17.3 m. (c) h at 45° = 20 sin 45° = 10√2 ≈ 14.1 m.",
+          parts: [
+            { key: "a", label: "(a)", prompt: "Find the height the ladder reaches up the wall.", marks: 1, answer: "10", hint: "sin 30° = h/20.", explanation: "h = 20 sin 30° = 20 × ½ = 10 m." },
+            { key: "b", label: "(b)", prompt: "Find the horizontal distance from the wall to the base of the ladder (to the nearest metre).", marks: 2, answer: "17", acceptedAnswers: ["17", "17.3", "10√3", "17.32"], hint: "cos 30° = base/20. cos 30° = √3/2.", explanation: "base = 20 cos 30° = 20 × (√3/2) = 10√3 ≈ 17.3 m. To nearest metre: 17 m." },
+            { key: "c", label: "(c)", prompt: "If the angle is changed to 45° (same 20 m ladder), find the new height to the nearest metre.", marks: 1, answer: "14", acceptedAnswers: ["14", "14.1", "10√2", "14.14"], hint: "sin 45° = 1/√2.", explanation: "h = 20 sin 45° = 20/√2 = 10√2 ≈ 14.1 m. To nearest metre: 14 m." },
+          ],
+        },
+        {
+          id: "y11adv-rat-mp2",
+          prompt: "A ship sails 5 km due North from port, then 5 km due East.",
+          latex: "\\text{North: 5 km, East: 5 km}",
+          answer: "7.07",
+          hint: "The path forms a right angle. Use Pythagoras for (a). The bearing from port heads NE, so it is 045°. The back bearing is 045° + 180°.",
+          explanation: "(a) distance = √(5²+5²) = 5√2 ≈ 7.07 km. (b) bearing = 045°. (c) back bearing = 225°.",
+          parts: [
+            { key: "a", label: "(a)", prompt: "Find the straight-line distance from port to the ship (to 2 decimal places).", marks: 1, answer: "7.07", acceptedAnswers: ["7.07", "7.1", "5√2", "7"], hint: "Use Pythagoras: d = √(5²+5²).", explanation: "d = √(25+25) = √50 = 5√2 ≈ 7.07 km." },
+            { key: "b", label: "(b)", prompt: "State the true bearing from port to the ship.", marks: 1, answer: "045", acceptedAnswers: ["045", "45"], hint: "The ship is equal distances N and E — halfway between N and E.", explanation: "Equal N and E displacements → bearing is NE = 045°." },
+            { key: "c", label: "(c)", prompt: "State the back bearing from the ship to port.", marks: 1, answer: "225", hint: "045° + 180° = 225°.", explanation: "Back bearing = 045° + 180° = 225°." },
+          ],
+        },
+      ],
+    };
+  }
+
+  // ── Sine rule, cosine rule and area formula ───────────────────────────────
+  if (lesson.slug === "sine-rule-cosine-rule") {
+    return {
+      ...base,
+      description:
+        "Apply the sine rule and cosine rule to non-right-angled triangles; use the area formula Area = ½ab sinC; choose the correct rule for a given triangle.",
+      learningIntention:
+        "Select and apply the sine rule, cosine rule, or area formula to find unknown sides, angles, and areas of non-right-angled triangles.",
+      successCriteria: [
+        "State and apply the sine rule a/sinA = b/sinB = c/sinC to find unknown sides or angles.",
+        "State and apply the cosine rule a² = b² + c² − 2bc cosA to find unknown sides or angles.",
+        "Calculate the area of a triangle using Area = ½ab sinC.",
+        "Choose the appropriate rule given AAS, ASS, SAS, or SSS information.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The sine rule connects each side to the sine of its opposite angle: a/sinA = b/sinB = c/sinC. Use it when you know two angles and a side (AAS), or two sides and a non-included angle (ASS).",
+          "The cosine rule connects three sides and one angle: a² = b² + c² − 2bc cosA. Use it when you know two sides and the included angle (SAS) or all three sides (SSS). When A = 90°, cos 90° = 0 and the rule reduces to Pythagoras.",
+          "The area formula Area = ½ab sinC uses two sides and their included angle. It replaces base × height / 2 when the perpendicular height is not given directly.",
+          "Decision guide: AAS → sine rule. SSS or SAS → cosine rule. Two sides + included angle + want area → area formula. Two sides + non-included angle → sine rule (but watch for the ambiguous case).",
+        ],
+        latexBlocks: [
+          "\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C} \\quad \\text{(sine rule)}",
+          "a^2 = b^2 + c^2 - 2bc\\cos A \\quad \\text{(cosine rule)}",
+          "\\text{Area} = \\tfrac{1}{2}ab\\sin C",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Sine rule — find a side (AAS)",
+          questionLatex: "A=30^\\circ,\\; B=90^\\circ,\\; a=10.\\quad\\text{Find }b.",
+          steps: [
+            { explanation: "Set up the sine rule for sides a and b.", latex: "\\frac{b}{\\sin B} = \\frac{a}{\\sin A}" },
+            { explanation: "Substitute and solve.", latex: "b = \\frac{10 \\times \\sin 90^\\circ}{\\sin 30^\\circ} = \\frac{10 \\times 1}{\\tfrac{1}{2}} = 20" },
+          ],
+          finalAnswerLatex: "b = 20",
+        },
+        {
+          title: "Area formula — two sides and included angle",
+          questionLatex: "a=10,\\; b=6,\\; C=30^\\circ.\\quad\\text{Find the area.}",
+          steps: [
+            { explanation: "Apply the area formula with the included angle C.", latex: "\\text{Area} = \\tfrac{1}{2}(10)(6)\\sin 30^\\circ" },
+            { explanation: "sin 30° = ½.", latex: "= 30 \\times \\tfrac{1}{2} = 15 \\text{ sq units}" },
+          ],
+          finalAnswerLatex: "\\text{Area} = 15",
+        },
+        {
+          title: "Cosine rule — find a side (SAS with right angle)",
+          questionLatex: "b=3,\\; c=4,\\; A=90^\\circ.\\quad\\text{Find }a.",
+          steps: [
+            { explanation: "Apply the cosine rule. cos 90° = 0.", latex: "a^2 = 9 + 16 - 2(3)(4)\\cos 90^\\circ = 25 - 0 = 25" },
+            { explanation: "Take the positive square root.", latex: "a = 5" },
+          ],
+          finalAnswerLatex: "a = 5",
+        },
+      ],
+      guidedPractice: [
+        qa("y11adv-nra-g1", "$a=6$, $b=4$, $C=30°$. Find the area of the triangle.", "\\text{Area}=\\tfrac{1}{2}(6)(4)\\sin 30^\\circ", "6", "Area = ½ × 6 × 4 × sin 30°. sin 30° = ½.", "Area = ½(6)(4)(½) = 6 sq units."),
+        practicalChoice("y11adv-nra-g2", "You know two angles and one side (AAS). Which rule should you use to find the remaining sides?", "A", ["Sine rule", "Cosine rule", "Area formula", "Pythagoras"], "The sine rule a/sinA = b/sinB works directly with AAS information."),
+        qa("y11adv-nra-g3", "In a triangle, $A=30°$, $B=90°$, $a=10$. Find side $b$ using the sine rule.", "b = \\frac{a\\sin B}{\\sin A} = \\frac{10\\times 1}{\\tfrac{1}{2}}", "20", "b = a sinB/sinA = 10×1÷(1/2) = 20.", "b = 10 × sin 90°/sin 30° = 10/(½) = 20."),
+        practicalChoice("y11adv-nra-g4", "You know two sides and the angle between them (SAS). Which rule gives the third side?", "B", ["Sine rule", "Cosine rule", "Area formula", "Pythagoras"], "The cosine rule a² = b² + c² − 2bc cosA is designed for SAS situations."),
+      ],
+      independentPractice: [
+        qa("y11adv-nra-i1", "$a=8$, $b=8$, $C=90°$. Find the area.", "\\text{Area}=\\tfrac{1}{2}(8)(8)\\sin 90^\\circ", "32", "sin 90° = 1. Area = ½ × 8 × 8 × 1.", "Area = ½(8)(8)(1) = 32 sq units."),
+        qa("y11adv-nra-i2", "In a triangle, $A=30°$, $B=90°$, $a=12$. Find $b$.", "b = \\frac{12\\sin 90^\\circ}{\\sin 30^\\circ}", "24", "b = 12 × 1 ÷ ½ = 24.", "b = 12/sin 30° × sin 90° = 12/0.5 = 24."),
+        practicalChoice("y11adv-nra-i3", "In triangle with $b=4$, $c=4$, $A=60°$, apply the cosine rule to find $a$. Which is correct?", "B", ["$a=8$", "$a=4$", "$a=2$", "$a=6$"], "a² = 16+16 − 2(16)(½) = 32−16 = 16. a = 4. Equilateral when b=c=a=4 and A=60°.", "a^2=b^2+c^2-2bc\\cos A"),
+        qa("y11adv-nra-i4", "$a=10$, $b=6$, $C=30°$. Find the area.", "\\text{Area}=\\tfrac{1}{2}(10)(6)\\sin 30^\\circ", "15", "Area = ½ × 10 × 6 × ½.", "Area = ½(10)(6)(½) = 15 sq units."),
+        practicalChoice("y11adv-nra-i5", "All three sides are known (SSS). Which rule can find an angle?", "B", ["Sine rule (directly)", "Cosine rule (rearranged)", "Area formula", "Pythagoras"], "Rearrange the cosine rule: cosA = (b²+c²−a²)/(2bc) to find any angle from three sides."),
+      ],
+      commonMistakes: [
+        { mistake: "Using the sine rule when the SAS case requires the cosine rule.", fix: "If the angle given is between the two known sides, use the cosine rule. The sine rule needs an opposite angle-side pair." },
+        { mistake: "Forgetting sin 90° = 1, making the cosine rule calculation harder than it needs to be.", fix: "When A = 90°, the cosine rule reduces to Pythagoras. Use a² = b² + c² directly." },
+        { mistake: "Confusing the included angle with a non-included angle in the area formula.", fix: "Area = ½ab sinC requires C to be the angle between sides a and b — the included angle." },
+        { mistake: "Setting up a/sinA = b/sinB with the wrong pair (side opposite a different angle).", fix: "Each side is always paired with the sine of its opposite angle. Label the triangle clearly before substituting." },
+      ],
+      masteryQuiz: [
+        qa("y11adv-nra-m1", "$a=8$, $b=6$, $C=30°$. Find the area.", "\\text{Area}=\\tfrac{1}{2}(8)(6)\\sin 30^\\circ", "12", "Area = ½ × 8 × 6 × ½.", "Area = ½(8)(6)(½) = 12 sq units."),
+        qa("y11adv-nra-m2", "$b=3$, $c=4$, $A=90°$. Find $a$ using the cosine rule.", "a^2=9+16-0=25", "5", "cos 90° = 0. a² = 9+16 = 25. a = 5.", "a = 5 (Pythagorean triple)."),
+        qa("y11adv-nra-m3", "In triangle with $A=B=30°$, $a=8$. Find $b$ (the side opposite $B=30°$).", "\\frac{b}{\\sin B}=\\frac{a}{\\sin A}\\Rightarrow b=a", "8", "A = B, so a = b (isosceles triangle).", "Since A = B = 30°, the triangle is isosceles and a = b = 8."),
+        practicalChoice("y11adv-nra-m4", "$A=60°$, $B=90°$, $a=9$. Which value of $b$ is closest?", "B", ["9 m", "10 m", "18 m", "12 m"], "b = 9/sin60° × sin90° = 9/(√3/2) = 18/√3 = 6√3 ≈ 10.4 m.", "b \\approx 10 \\text{ m}"),
+        qa("y11adv-nra-m5", "$a=5$, $b=5$, $C=90°$. Find the area.", "\\text{Area}=\\tfrac{1}{2}(5)(5)\\sin 90^\\circ", "12.5", "Area = ½ × 5 × 5 × 1 = 12.5.", "Area = 12.5 sq units."),
+        qa("y11adv-nra-m6", "$b=5$, $c=5$, $A=60°$. Use the cosine rule to find $a$.", "a^2=25+25-2(25)(\\tfrac{1}{2})=25", "5", "a² = 50 − 25 = 25. a = 5. Equilateral triangle.", "a = 5 (equilateral: all sides equal when b=c and A=60°)."),
+        practicalChoice("y11adv-nra-m7", "$A=B=45°$, $C=90°$, $a=8$. Use the sine rule to find the hypotenuse $c$. Which is closest?", "B", ["8 m", "11 m", "16 m", "4 m"], "c = a sinC/sinA = 8×1/(1/√2) = 8√2 ≈ 11.3 m.", "c = 8\\sqrt{2} \\approx 11 \\text{ m}"),
+        qa("y11adv-nra-m8", "$a=12$, $b=8$, $C=30°$. Find the area.", "\\text{Area}=\\tfrac{1}{2}(12)(8)\\sin 30^\\circ", "24", "Area = ½ × 12 × 8 × ½.", "Area = ½(12)(8)(½) = 24 sq units."),
+        qa("y11adv-nra-m9", "$A=30°$, $B=90°$, $a=6$. Find $b$ using the sine rule.", "b=a\\sin B/\\sin A=6/(\\tfrac{1}{2})\\times 1", "12", "b = 6/sin30° × sin90° = 6/(½) = 12.", "b = 12."),
+        practicalChoice("y11adv-nra-m10", "Three sides are given and you need an angle. Which rule should you use?", "B", ["Sine rule applied directly", "Cosine rule rearranged", "Area formula", "Pythagoras alone"], "Rearranging the cosine rule gives cosA = (b²+c²−a²)/(2bc), finding any angle from SSS."),
+      ],
+      multiPartPractice: [
+        {
+          id: "y11adv-nra-mp1",
+          prompt: "In triangle $ABC$, $a=6$, $b=8$, $C=90°$.",
+          latex: "a=6,\\; b=8,\\; C=90^\\circ",
+          answer: "24",
+          hint: "For (a) use the area formula. For (b) the cosine rule with cos 90°=0 reduces to Pythagoras. For (c) the sine rule gives sinA = a/c.",
+          explanation: "(a) Area = ½(6)(8)(1) = 24. (b) c² = 36+64 = 100, c = 10. (c) sinA = 6/10 = 0.6.",
+          parts: [
+            { key: "a", label: "(a)", prompt: "Find the area of the triangle.", marks: 1, answer: "24", hint: "Area = ½ab sinC. sin 90° = 1.", explanation: "Area = ½(6)(8)(1) = 24 sq units." },
+            { key: "b", label: "(b)", prompt: "Find side $c$ using the cosine rule.", marks: 2, answer: "10", hint: "a² = b² + c² − 2bc cosA with A=90°. cos 90° = 0.", explanation: "c² = 6²+8²−0 = 100. c = 10." },
+            { key: "c", label: "(c)", prompt: "Using the sine rule, find $\\sin A$ as a decimal.", marks: 1, answer: "0.6", hint: "sinA/a = sinC/c = 1/10.", explanation: "sinA = a sinC/c = 6×1/10 = 0.6." },
+          ],
+        },
+        {
+          id: "y11adv-nra-mp2",
+          prompt: "In triangle $ABC$, $A=30°$, $B=90°$, $a=8$.",
+          latex: "A=30^\\circ,\\; B=90^\\circ,\\; a=8",
+          answer: "60",
+          hint: "Angles sum to 180°. Use the sine rule to find b. For area, use the two legs at the right angle.",
+          explanation: "(a) C = 60°. (b) b = 16. (c) Area ≈ 55 sq units (32√3).",
+          parts: [
+            { key: "a", label: "(a)", prompt: "Find angle $C$.", marks: 1, answer: "60", hint: "A + B + C = 180°. 30 + 90 + C = 180.", explanation: "C = 180 − 30 − 90 = 60°." },
+            { key: "b", label: "(b)", prompt: "Find side $b$ (the hypotenuse) using the sine rule.", marks: 2, answer: "16", hint: "b/sinB = a/sinA. sin 90°=1, sin 30°=½.", explanation: "b = a sinB/sinA = 8×1/(½) = 16." },
+            { key: "c", label: "(c)", prompt: "Find the area to the nearest square unit.", marks: 1, answer: "55", acceptedAnswers: ["55", "56", "32√3", "55.4"], hint: "Area = ½ab sinC. C=60°, a=8, b=16.", explanation: "Area = ½(8)(16)sin60° = 64×(√3/2) = 32√3 ≈ 55.4 ≈ 55 sq units." },
+          ],
+        },
+      ],
+    };
+  }
+
+  // ── Ambiguous case of the sine rule ──────────────────────────────────────
+  if (lesson.slug === "ambiguous-case-sine-rule") {
+    return {
+      ...base,
+      description:
+        "Determine how many triangles exist given SSA; identify the ambiguous case condition bsinA < a < b; find both triangles when the ambiguous case applies.",
+      learningIntention:
+        "Apply a systematic test to SSA information to determine whether 0, 1, or 2 triangles are possible, and find both solutions when two triangles exist.",
+      successCriteria: [
+        "Compute the threshold bsinA and compare it with a to determine the number of triangles.",
+        "State the four conditions: a < bsinA → 0; a = bsinA → 1; bsinA < a < b → 2; a ≥ b → 1.",
+        "Find both values of angle B when the ambiguous case applies using B₂ = 180° − B₁.",
+        "Verify the second triangle by confirming A + B₂ < 180°.",
+      ],
+      teaching: {
+        paragraphs: [
+          "When you are given two sides a, b and the non-included angle A (SSA), the triangle may not be unique. The side a must 'swing' from the end of b to meet the base — how many positions are possible depends on the length of a relative to b and the perpendicular height bsinA.",
+          "The four cases (A acute, a opposite A, b the other given side): if a < bsinA — the side a is too short to reach the base — no triangle exists. If a = bsinA exactly — one right triangle. If bsinA < a < b — two triangles (the ambiguous case). If a ≥ b — one triangle.",
+          "In the ambiguous case, use the sine rule to find sinB = bsinA/a. This gives one value B₁ = arcsin(bsinA/a). The second solution is B₂ = 180° − B₁. Both give valid triangles provided A + B₂ < 180°.",
+          "Always check the second triangle: if A + B₂ ≥ 180°, the second triangle is impossible and only one solution exists.",
+        ],
+        latexBlocks: [
+          "\\text{Threshold: } b\\sin A",
+          "a < b\\sin A \\Rightarrow 0 \\text{ triangles}; \\quad a = b\\sin A \\Rightarrow 1; \\quad b\\sin A < a < b \\Rightarrow 2; \\quad a \\geq b \\Rightarrow 1",
+          "\\sin B = \\frac{b\\sin A}{a}, \\quad B_2 = 180^\\circ - B_1",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "No triangle (a too short)",
+          questionLatex: "A=30^\\circ,\\; b=8,\\; a=3.\\quad\\text{How many triangles?}",
+          steps: [
+            { explanation: "Find the threshold.", latex: "b\\sin A = 8\\sin 30^\\circ = 8 \\times \\tfrac{1}{2} = 4" },
+            { explanation: "Compare: a = 3 < 4 = bsinA.", latex: "a < b\\sin A \\Rightarrow 0 \\text{ triangles}" },
+          ],
+          finalAnswerLatex: "0 \\text{ triangles possible}",
+        },
+        {
+          title: "Two triangles (ambiguous case)",
+          questionLatex: "A=30^\\circ,\\; b=8,\\; a=6.\\quad\\text{How many triangles?}",
+          steps: [
+            { explanation: "Threshold: bsinA = 4.", latex: "b\\sin A = 4" },
+            { explanation: "Check: bsinA < a < b, i.e. 4 < 6 < 8.", latex: "\\Rightarrow 2 \\text{ triangles}" },
+            { explanation: "In the second triangle, B₂ = 180° − B₁.", latex: "B_2 = 180^\\circ - B_1" },
+          ],
+          finalAnswerLatex: "2 \\text{ triangles possible}",
+        },
+        {
+          title: "One triangle (a > b)",
+          questionLatex: "A=30^\\circ,\\; b=8,\\; a=10.\\quad\\text{How many triangles?}",
+          steps: [
+            { explanation: "Since a = 10 > b = 8, the side is long enough to guarantee one solution.", latex: "a \\geq b \\Rightarrow 1 \\text{ triangle}" },
+          ],
+          finalAnswerLatex: "1 \\text{ triangle}",
+        },
+      ],
+      guidedPractice: [
+        qa("y11adv-amb-g1", "$A=30°$, $b=8$, $a=4$. Compute $b\\sin A$.", "b\\sin A = 8\\times\\tfrac{1}{2}", "4", "bsinA = 8 × sin30° = 8 × ½ = 4.", "b sinA = 8 × 0.5 = 4."),
+        qa("y11adv-amb-g2", "$A=30°$, $b=8$, $a=3$. Since $a=3 < b\\sin A=4$, how many triangles exist?", "a < b\\sin A \\Rightarrow", "0", "a < threshold → no triangle possible.", "0 triangles: a is too short to reach the base."),
+        qa("y11adv-amb-g3", "$A=30°$, $b=8$, $a=6$. Since $b\\sin A=4 < 6 < 8=b$, how many triangles exist?", "b\\sin A < a < b \\Rightarrow", "2", "Ambiguous case: a is between threshold and b.", "2 triangles: this is the ambiguous case."),
+        qa("y11adv-amb-g4", "$A=30°$, $b=8$, $a=10$. Since $a=10 > b=8$, how many triangles exist?", "a > b \\Rightarrow", "1", "a > b means the swing can only reach in one direction.", "1 triangle: a exceeds b so only one position is possible."),
+      ],
+      independentPractice: [
+        qa("y11adv-amb-i1", "$A=30°$, $b=12$, $a=6$. How many triangles? (Threshold $b\\sin A = 6$.)", "b\\sin A = 6,\\; a = b\\sin A \\Rightarrow", "1", "a = bsinA exactly → one right-angled triangle.", "1 triangle: a equals the threshold, giving exactly one (right-angled) triangle."),
+        qa("y11adv-amb-i2", "$A=30°$, $b=12$, $a=4$. How many triangles?", "b\\sin A=6,\\; a=4 < 6 \\Rightarrow", "0", "a < threshold → no triangle.", "0 triangles: a < bsinA."),
+        qa("y11adv-amb-i3", "$A=30°$, $b=12$, $a=8$. How many triangles?", "b\\sin A=6,\\; 6<8<12 \\Rightarrow", "2", "Threshold=6, a=8, b=12. Ambiguous case.", "2 triangles: bsinA < a < b."),
+        qa("y11adv-amb-i4", "$A=30°$, $b=12$, $a=15$. How many triangles?", "a=15 > b=12 \\Rightarrow", "1", "a > b → one triangle.", "1 triangle: a exceeds b."),
+        qa("y11adv-amb-i5", "In the ambiguous case, $B_1 = 50°$. Find $B_2$.", "B_2 = 180^\\circ - 50^\\circ", "130", "B₂ = 180° − B₁ = 180 − 50.", "B₂ = 130°."),
+      ],
+      commonMistakes: [
+        { mistake: "Comparing a with b only, without computing bsinA first.", fix: "Always find the threshold bsinA before deciding. The comparison is a vs bsinA AND a vs b — both conditions are needed." },
+        { mistake: "Assuming one triangle whenever a < b.", fix: "If a < b but a > bsinA, there are two triangles (ambiguous case). The threshold bsinA, not b itself, is the critical comparison." },
+        { mistake: "Forgetting to check whether the second triangle is valid after finding B₂.", fix: "Check A + B₂ < 180°. If the sum reaches or exceeds 180°, the second triangle is impossible." },
+        { mistake: "Only reporting one answer in the ambiguous case.", fix: "When bsinA < a < b, always report both triangles. State B₁ and B₂ = 180° − B₁, and find the corresponding angles C and sides c for each." },
+      ],
+      masteryQuiz: [
+        qa("y11adv-amb-m1", "$A=30°$, $b=20$, $a=10$. Compute $b\\sin A$ then state the number of triangles.", "b\\sin A=10,\\; a=b\\sin A \\Rightarrow", "1", "bsinA = 20×½ = 10 = a → exactly one right-angled triangle.", "1 triangle."),
+        qa("y11adv-amb-m2", "$A=30°$, $b=20$, $a=8$. How many triangles?", "b\\sin A=10,\\; a=8<10 \\Rightarrow", "0", "a=8 < bsinA=10 → no triangle.", "0 triangles."),
+        qa("y11adv-amb-m3", "$A=30°$, $b=20$, $a=15$. How many triangles?", "b\\sin A=10,\\; 10<15<20 \\Rightarrow", "2", "10 < 15 < 20 → ambiguous case.", "2 triangles."),
+        qa("y11adv-amb-m4", "$A=30°$, $b=20$, $a=22$. How many triangles?", "a=22 > b=20 \\Rightarrow", "1", "a > b → one triangle.", "1 triangle."),
+        qa("y11adv-amb-m5", "$A=60°$, $b=8$, $a=7$. How many triangles? (Threshold $\\approx 6.93$.)", "b\\sin A=4\\sqrt{3}\\approx 6.93,\\; 6.93 < 7 < 8 \\Rightarrow", "2", "bsinA = 8sin60° = 4√3 ≈ 6.93. a=7 is between threshold and b.", "2 triangles: bsinA < a < b."),
+        qa("y11adv-amb-m6", "$A=60°$, $b=8$, $a=5$. How many triangles?", "b\\sin A\\approx 6.93,\\; a=5 < 6.93 \\Rightarrow", "0", "a=5 < bsinA≈6.93 → no triangle.", "0 triangles."),
+        qa("y11adv-amb-m7", "$A=60°$, $b=8$, $a=9$. How many triangles?", "a=9 > b=8 \\Rightarrow", "1", "a > b → one triangle.", "1 triangle."),
+        qa("y11adv-amb-m8", "$A=60°$, $b=10$, $a=9$. How many triangles? (Threshold $\\approx 8.66$.)", "b\\sin A=5\\sqrt{3}\\approx 8.66,\\; 8.66 < 9 < 10 \\Rightarrow", "2", "bsinA = 10sin60° = 5√3 ≈ 8.66. a=9 is between threshold and b.", "2 triangles: ambiguous case."),
+        qa("y11adv-amb-m9", "In the ambiguous case with $B_1=40°$, find $B_2$.", "B_2 = 180^\\circ - 40^\\circ", "140", "B₂ = 180° − 40° = 140°.", "B₂ = 140°."),
+        practicalChoice("y11adv-amb-m10", "The ambiguous case arises only when:", "B", ["angle A is obtuse", "A is acute, a < b, and a > b sinA", "a > b and A is acute", "all three sides are known"], "The two-triangle case requires A to be acute, the given side a to be shorter than b but longer than the threshold bsinA.", ""),
+      ],
+      multiPartPractice: [
+        {
+          id: "y11adv-amb-mp1",
+          prompt: "In triangle $ABC$, $A=30°$, $b=10$, $a=7$.",
+          latex: "A=30^\\circ,\\; b=10,\\; a=7",
+          answer: "5",
+          hint: "First find bsinA. Compare a with bsinA and b to count triangles. Then use the sine rule to find sinB.",
+          explanation: "(a) bsinA = 5. (b) 5 < 7 < 10, so 2 triangles. (c) sinB = 5/7 ≈ 0.71.",
+          parts: [
+            { key: "a", label: "(a)", prompt: "Calculate $b\\sin A$.", marks: 1, answer: "5", hint: "b sinA = 10 × sin 30° = 10 × ½.", explanation: "b sinA = 10 × ½ = 5." },
+            { key: "b", label: "(b)", prompt: "How many triangles are possible?", marks: 1, answer: "2", hint: "Compare a=7 with bsinA=5 and b=10.", explanation: "5 < 7 < 10, so bsinA < a < b → 2 triangles (ambiguous case)." },
+            { key: "c", label: "(c)", prompt: "Find $\\sin B$ to 2 decimal places.", marks: 1, answer: "0.71", acceptedAnswers: ["0.71", "0.714", "5/7"], hint: "sinB = bsinA/a = 5/7.", explanation: "sinB = 5/7 ≈ 0.71." },
+          ],
+        },
+        {
+          id: "y11adv-amb-mp2",
+          prompt: "In triangle $ABC$, $A=30°$, $b=10$, $a=5$.",
+          latex: "A=30^\\circ,\\; b=10,\\; a=5",
+          answer: "5",
+          hint: "Find bsinA and compare with a. If a = bsinA, what angle does B take? Then find C.",
+          explanation: "(a) bsinA = 5. (b) a = bsinA → 1 triangle (right angle at B). (c) C = 60°.",
+          parts: [
+            { key: "a", label: "(a)", prompt: "Calculate $b\\sin A$.", marks: 1, answer: "5", hint: "b sinA = 10 × sin 30°.", explanation: "b sinA = 10 × ½ = 5." },
+            { key: "b", label: "(b)", prompt: "How many triangles are possible?", marks: 1, answer: "1", hint: "Compare a with bsinA.", explanation: "a = 5 = bsinA = 5. Exactly one triangle with a right angle at B." },
+            { key: "c", label: "(c)", prompt: "Since $B=90°$, find angle $C$.", marks: 1, answer: "60", hint: "A + B + C = 180°.", explanation: "C = 180° − 30° − 90° = 60°." },
+          ],
         },
       ],
     };
