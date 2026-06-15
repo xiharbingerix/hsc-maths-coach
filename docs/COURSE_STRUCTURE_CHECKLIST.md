@@ -889,8 +889,8 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 **Further rates of change**
 - [x] Develop models where rate of change of a composition → apply chain rule → `calculus-applications-related-rates`
 - [x] Solve related rates problems (area, surface area, volume) → `calculus-applications-related-rates`
-- [ ] **Model and graph situations where dQ/dt = k(Q−A) (rate proportional to difference from fixed value)** → ❌ MISSING
-- [ ] **Solve dQ/dt = k(Q−A): Newton's Law of Cooling, logistic/carrying-capacity models; justify conclusions** → ❌ MISSING
+- [x] **Model and graph situations where dQ/dt = k(Q−A) (rate proportional to difference from fixed value)** → `calculus-applications-newton-cooling`
+- [x] **Solve dQ/dt = k(Q−A): Newton's Law of Cooling, logistic/carrying-capacity models; justify conclusions** → `calculus-applications-newton-cooling`
 
 **Areas and volumes**
 - [x] **Calculate areas of regions between curves** → `calculus-applications-volumes`
@@ -906,11 +906,11 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 - [x] Solve dy/dx = g(y) by separation of variables → `calculus-applications-differential-equations`
 - [ ] **Graph solutions using graphing applications; examine behaviour using slope fields** → ❌ MISSING
 
-#### Current lessons (unit: `calculus-applications`) — 6 lessons, 115Q ⚠️ ~80% coverage
+#### Current lessons (unit: `calculus-applications`) — 9 lessons, 172Q ⚠️ ~90% coverage
 #### Required new lessons
 - [ ] **`calculus-applications-revision`** — Polynomial factorisation and sketching, chain rule fluency, area under curve. Prior knowledge activation.
 - [x] **`calculus-applications-polynomial-zeroes`** — Multiplicity of zeroes; product-rule proof; graphing polynomials with repeated roots. ✅ Added 2026-06-15
-- [ ] **`calculus-applications-newton-cooling`** — dQ/dt = k(Q−A); Newton's Law of Cooling; logistic/carrying-capacity models; solve and justify in context.
+- [x] **`calculus-applications-newton-cooling`** — dQ/dt = k(Q−A); Newton's Law of Cooling; logistic/carrying-capacity models; solve and justify in context. ✅ Added 2026-06-15
 - [x] **`calculus-applications-volumes`** — Areas between curves; solids of revolution; volumes rotating about x/y-axis; between two curves. ✅ Added 2026-06-15
 - [ ] **`calculus-applications-slope-fields`** — Slope fields for first-order DEs; sketch and interpret solution curves; long-run behaviour.
 
@@ -956,19 +956,18 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 | Introduction to Vectors | ME1-12-02 | 4+8 (228Q total) | ⚠️ ~60% | Projection, vector motion 2D, projectile via vectors |
 | Inverse Trigonometric Functions | ME1-12-03 | 3 (57Q) | ⚠️ ~75% | Properties/identities lesson, revision lesson |
 | Further Calculus Skills | ME1-12-04 | 4 (76Q) | ✅ ~100% | Revision lesson only |
-| Further Applications of Calculus | ME1-12-05 | 6 (115Q) | ⚠️ ~80% | Newton cooling, slope fields |
+| Further Applications of Calculus | ME1-12-05 | 9 (172Q) | ⚠️ ~90% | Slope fields, revision lesson |
 | Binomial Distribution + Sampling | ME1-12-06 | 6 (114Q) | ✅ ~100% | Revision lesson only |
 
-**Current:** 34 lessons (9 units) / 596Q
-**New lessons to meet syllabus fully:** ~14 (6 revision + 4 vectors/proj + 3 further-applications + 1 inverse-trig-properties)
+**Current:** 37 lessons (9 units) / 653Q
+**New lessons to meet syllabus fully:** ~11 (6 revision + 4 vectors/proj + 1 slope fields + 1 inverse-trig-properties)
 **Target:** ~48 lessons
 
 ### Priority order
 1. ~~Sampling distribution of mean + CLT~~ ✅ Done 2026-06-15
 2. ~~Volumes of revolution~~ ✅ Done 2026-06-15
 3. ~~Polynomial zeroes~~ ✅ Done 2026-06-15
-4. **Newton's Law of Cooling** (1 lesson) — completes ME1-12-05 rates strand
-4. **Newton's Law of Cooling** (1 lesson) — completes ME1-12-05 rates strand
+4. ~~Newton's Law of Cooling~~ ✅ Done 2026-06-15
 5. **Vector projection** (1 lesson) — completes dot-product strand of ME1-12-02
 6. **Vector motion + projectile (parametric)** (2 lessons) — syllabus requires vector approach to projectile
 7. **Slope fields** (1 lesson) — completes ME1-12-05 differential equations
