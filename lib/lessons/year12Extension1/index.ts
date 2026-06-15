@@ -14,3 +14,6 @@ export * from "./vectorsProjection";
 export * from "./vectorsMotion";
 export * from "./slopeFields";
 export * from "./inverseTrigProperties";
+export * from "./proofInductionRevision";
+export * from "./inverseTrigRevision";
+export * from "./binomialRevision";

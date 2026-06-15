@@ -75,6 +75,9 @@ import {
   year12Extension1VectorsMotionLessonOverride,
   year12Extension1SlopeFieldsLessonOverride,
   year12Extension1InverseTrigPropertiesLessonOverride,
+  year12Extension1ProofInductionRevisionLessonOverride,
+  year12Extension1InverseTrigRevisionLessonOverride,
+  year12Extension1BinomialRevisionLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
@@ -290,6 +293,9 @@ export function buildLesson(
     year12Extension1VectorsMotionLessonOverride(course, unit, lesson) ??
     year12Extension1SlopeFieldsLessonOverride(course, unit, lesson) ??
     year12Extension1InverseTrigPropertiesLessonOverride(course, unit, lesson) ??
+    year12Extension1ProofInductionRevisionLessonOverride(course, unit, lesson) ??
+    year12Extension1InverseTrigRevisionLessonOverride(course, unit, lesson) ??
+    year12Extension1BinomialRevisionLessonOverride(course, unit, lesson) ??
     year12Extension2ComplexNumbersLessonOverride(course, unit, lesson) ??
     year12Extension2Vectors3DLessonOverride(course, unit, lesson) ??
     year12Extension2CalculusLessonOverride(course, unit, lesson) ??
@@ -1873,6 +1879,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Practise mixed formula and equation questions involving substitution, rearranging, units and reasonableness.",
           },
+          {
+            slug: "bac-formulas-medication-dosage",
+            title: "BAC Formulas and Medication Dosage",
+            description:
+              "Apply the BAC formulas for males and females, calculate time for BAC to reach zero, identify limitations, and use Fried's, Young's and Clark's formulas to calculate medication doses.",
+          },
+          {
+            slug: "formulas-equations-revision",
+            title: "Formulas and Equations Revision",
+            description:
+              "Activate Year 10 prior knowledge: inverse operations, substituting into expressions, solving linear equations and representing word problems algebraically.",
+          },
         ],
       },
       {
@@ -1924,6 +1942,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Linear Relationships Exam Practice",
             description:
               "Practise mixed linear relationship questions using tables, rules, graph features, direct variation and practical limitations.",
+          },
+          {
+            slug: "linear-relationships-revision",
+            title: "Linear Relationships Revision",
+            description:
+              "Activate Year 10 prior knowledge: plotting points on the Cartesian plane, identifying gradient, reading and interpreting straight-line graphs, and completing tables of values.",
           },
         ],
       },
@@ -1977,6 +2001,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Practise mixed earning-money exam questions using rosters and payslips.",
           },
+          {
+            slug: "medicare-levy-tax-tables",
+            title: "Medicare Levy and Tax Tables",
+            description:
+              "Calculate the Medicare levy from taxable income, apply PAYG tax tables to find tax withheld, and determine whether a tax return results in a refund or a further payment.",
+          },
+          {
+            slug: "earning-money-revision",
+            title: "Earning Money Revision",
+            description:
+              "Activate Year 10 prior knowledge: converting between percentages, fractions and decimals; calculating percentages of quantities; money calculations; converting between time periods.",
+          },
         ],
       },
       {
@@ -2028,6 +2064,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Managing Money Exam Practice",
             description:
               "Practise mixed managing-money exam questions using budgets, savings goals, simple interest, fees and financial comparisons.",
+          },
+          {
+            slug: "vehicle-costs-buying-running",
+            title: "Vehicle Costs: Buying and Running",
+            description:
+              "Calculate vehicle purchase costs including deposit, loan repayments, registration and insurance, then analyse ongoing running costs such as fuel, servicing and tyres to find the true cost of ownership.",
+          },
+          {
+            slug: "managing-money-revision",
+            title: "Managing Money Revision",
+            description:
+              "Activate Year 10 prior knowledge: percentage increase and decrease; calculating discounts and markups; reading household bills; basic consumer arithmetic.",
           },
         ],
       },
@@ -2081,6 +2129,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Practise mixed measurement questions involving units, accuracy, error, area, volume, capacity, energy, mass and electricity use.",
           },
+          {
+            slug: "trapezoidal-rule-land-area",
+            title: "Trapezoidal Rule for Irregular Areas",
+            description:
+              "Apply the Trapezoidal rule to estimate the area of irregular blocks, paddocks and cross-sections by dividing shapes into trapezoids using equally spaced offset measurements.",
+          },
+          {
+            slug: "applications-measurement-revision",
+            title: "Applications of Measurement Revision",
+            description:
+              "Activate Year 10 prior knowledge: converting between metric units of length, area and volume; calculating perimeter and area of rectangles and triangles; practical measurement contexts.",
+          },
         ],
       },
       {
@@ -2133,6 +2193,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Practise mixed time and location questions using timetables, UTC offsets, date changes, grid references and map scales.",
           },
+          {
+            slug: "time-location-revision",
+            title: "Time and Location Revision",
+            description:
+              "Activate Year 10 prior knowledge: converting between units of time; reading 12-hour and 24-hour clocks; calculating elapsed time from timetables; basic map and grid reference reading.",
+          },
         ],
       },
       {
@@ -2184,6 +2250,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Network Applications Exam Practice",
             description:
               "Practise mixed network applications involving construction, directed and weighted networks, shortest paths and MST decisions.",
+          },
+          {
+            slug: "networks-revision",
+            title: "Networks Revision",
+            description:
+              "Activate Year 10 prior knowledge: reading tables and maps; identifying connections between locations; understanding what graphs and diagrams represent; basic counting of routes.",
           },
         ],
       },
@@ -2288,6 +2360,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Data Analysis Exam Practice",
             description:
               "Practise mixed data questions using tables, summary statistics, graph interpretation, outliers and cautious conclusions.",
+          },
+          {
+            slug: "data-collection-sampling-methods",
+            title: "Data Collection and Sampling Methods",
+            description:
+              "Pose statistical questions, apply questionnaire design principles, compare sampling methods (systematic, self-selected, random, stratified), evaluate representativeness, and consider privacy and ethics.",
+          },
+          {
+            slug: "data-analysis-revision",
+            title: "Data Analysis Revision",
+            description:
+              "Activate Year 10 prior knowledge: reading column graphs, dot plots and pictographs; calculating mean, median, mode and range from raw data; understanding data types.",
           },
         ],
       },
@@ -2543,6 +2627,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Use induction to prove inequalities and choose the correct base case for the stated range.",
           },
+          {
+            slug: "proof-induction-revision",
+            title: "Prior Knowledge Revision: Induction",
+            description:
+              "Activate prior knowledge for proof by induction: evaluate sigma notation sums using standard formulas, compute combinations C(n,r), apply Pascal's identity, and factor exponential expressions of the form A^(k+1) ± A^k.",
+          },
         ],
       },
       {
@@ -2629,6 +2719,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Prove sin⁻¹(x) + cos⁻¹(x) = π/2, apply it to find unknown inverse trig values, and evaluate composite expressions such as sin(cos⁻¹(x)) using the Pythagorean identity.",
           },
+          {
+            slug: "inverse-trig-revision",
+            title: "Prior Knowledge Revision: Inverse Trig",
+            description:
+              "Activate prior knowledge for inverse trigonometric functions: exact trig values at standard angles, the ASTC quadrant sign rule, and the compound angle and double angle identities.",
+          },
         ],
       },
       {
@@ -2695,6 +2791,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "binomial-probabilities", title: "Binomial Probabilities" },
           { slug: "mean-and-variance", title: "Mean and Variance" },
           { slug: "binomial-exam-practice", title: "Binomial Exam Practice" },
+          {
+            slug: "binomial-revision",
+            title: "Prior Knowledge Revision: Probability and Combinations",
+            description:
+              "Activate prior knowledge for the Binomial Distribution: probability rules (complement, addition, multiplication), combinations C(n,r), and expected value of a discrete random variable.",
+          },
         ],
       },
       {
