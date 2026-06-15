@@ -1376,6 +1376,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               },
             ],
           },
+          {
+            slug: "circles-completing-the-square",
+            title: "Circles and Completing the Square",
+            description: "Recognise (x−h)²+(y−k)²=r² as a circle with centre (h,k) and radius r; write equations from given features; complete the square to convert general form.",
+          },
           { slug: "graph-transformations-exam-practice", title: "Graph Transformations Exam Practice" },
         ],
       },

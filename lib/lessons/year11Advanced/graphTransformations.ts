@@ -100,6 +100,20 @@ const GRAPH_TRANSFORM_EXPLANATIONS: Record<string, string> = {
   "y11adv-gt-poly-m7":
     "Set the denominator to zero: x − 6 = 0 gives x = 6. Division by zero is undefined, so x = 6 is excluded from the domain.",
 
+  // ── Circles ───────────────────────────────────────────────────────────────
+  "y11adv-gt-circles-g2":
+    "The right-hand side of (x−h)²+(y−k)²=r² gives r²=16, so the radius r=√16=4.",
+  "y11adv-gt-circles-i2":
+    "The right-hand side gives r²=9, so the radius r=√9=3.",
+  "y11adv-gt-circles-m2":
+    "The right-hand side gives r²=49, so the radius r=√49=7.",
+  "y11adv-gt-circles-m5":
+    "Completing the square: (x−3)²−9+(y+1)²−1=6, so (x−3)²+(y+1)²=16. The radius r=√16=4.",
+  "y11adv-gt-circles-m6":
+    "The bracket x−7 means h=7, so the centre x-coordinate is 7 (positive — the minus sign inside gives a positive shift).",
+  "y11adv-gt-circles-m8":
+    "Complete the square: (x+4)²−16+(y−1)²−1=8, so (x+4)²+(y−1)²=25. Thus r²=25.",
+
   // ── Exam practice ─────────────────────────────────────────────────────────
   "y11adv-gt-exam-g2":
     "Compare with vertex form y = (x − h)² + k. The bracket x + 4 equals x − (−4), so h = −4. With k = −6 the vertex is (−4, −6).",
@@ -720,6 +734,350 @@ export function year11AdvancedGraphTransformationsLessonOverride(
         formulaAnswer("y11adv-gt-exam-m8", "Find the excluded y-value in the range of the reciprocal graph.", "y=\\frac{1}{x+1}-3", "-3", ["y=-3"]),
         practicalChoice("y11adv-gt-exam-m9", "Which equation matches the graph description?", "C", ["y = (x + 2)^2 + 3", "y = -(x - 2)^2 - 3", "y = -(x + 2)^2 + 3", "y = (x - 2)^2 + 3"], "Vertex (-2,3) gives x + 2 and +3; opening downward gives a negative outside.", "\\text{Quadratic with vertex }(-2,3)\\text{ opening downward.}"),
         practicalChoice("y11adv-gt-exam-m10", "A transformed reciprocal graph has the displayed asymptotes. Which equation is possible?", "D", ["y = 1/(x - 1) + 4", "y = 1/(x + 4) - 1", "y = 1/(x - 4) - 1", "y = 1/(x + 1) + 4"], "x = -1 gives x + 1 in the denominator; y = 4 gives +4 outside.", "x=-1,\\quad y=4"),
+      ],
+    };
+  }
+
+  if (lesson.slug === "circles-completing-the-square") {
+    return {
+      ...base,
+      description:
+        "Recognise (x−h)²+(y−k)²=r² as a circle with centre (h,k) and radius r; write equations from given features; complete the square to convert general form.",
+      learningIntention:
+        "Learn how to read and write circle equations in centre-radius form, and convert general-form circle equations by completing the square.",
+      successCriteria: [
+        "Identify the centre and radius from (x−h)²+(y−k)²=r².",
+        "Write the equation of a circle given its centre and radius.",
+        "Complete the square for x² + bx to obtain (x + b/2)² − (b/2)².",
+        "Convert x²+y²+Dx+Ey+F=0 to centre-radius form by completing the square.",
+        "Explain why a circle fails the vertical line test and is not a function.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A circle with centre (h, k) and radius r satisfies the distance formula: every point on the circle is exactly r units from (h, k). Squaring the distance formula gives the centre-radius equation.",
+          "Reading features directly: in (x−h)²+(y−k)²=r², the centre is the pair (h, k) — take care with signs. The number h is whatever makes the bracket zero, so (x+3)² has h=−3, not h=3. The radius is √(r²).",
+          "Writing an equation: choose h and k to match the centre, choose r² to match the square of the radius, then assemble (x−h)²+(y−k)²=r².",
+          "Completing the square converts general form. For x²+Dx, add (D/2)² inside the bracket: x²+Dx=(x+D/2)²−(D/2)². Add the same amounts to both sides of the equation to keep it balanced.",
+          "A circle is not a function. A vertical line through the interior crosses it at two points, failing the vertical line test. Circles are relations, not functions.",
+        ],
+        latexBlocks: [
+          "(x-h)^2+(y-k)^2=r^2\\quad\\text{centre }(h,k),\\text{ radius }r",
+          "x^2+Dx=\\left(x+\\frac{D}{2}\\right)^2-\\left(\\frac{D}{2}\\right)^2",
+          "x^2+y^2+Dx+Ey+F=0\\;\\Longrightarrow\\;\\text{complete the square for }x\\text{ and }y",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Read centre and radius from centre-radius form",
+          questionLatex: "(x-4)^2+(y+1)^2=25",
+          steps: [
+            { explanation: "The bracket x−4 gives h=4 (the value that makes it zero).", latex: "h=4" },
+            { explanation: "The bracket y+1 equals y−(−1), so k=−1.", latex: "k=-1" },
+            { explanation: "The right-hand side gives r²=25, so take the square root.", latex: "r=\\sqrt{25}=5" },
+          ],
+          finalAnswerLatex: "\\text{Centre }(4,-1),\\text{ radius }5.",
+        },
+        {
+          title: "Write the equation of a circle",
+          questionLatex: "\\text{Centre }(-2,3),\\text{ radius }4",
+          steps: [
+            { explanation: "Use h=−2 and k=3 in the template.", latex: "(x-(-2))^2+(y-3)^2=r^2" },
+            { explanation: "Simplify the x bracket and substitute r²=16.", latex: "(x+2)^2+(y-3)^2=16" },
+          ],
+          finalAnswerLatex: "(x+2)^2+(y-3)^2=16",
+        },
+        {
+          title: "Complete the square to find centre and radius",
+          questionLatex: "x^2+y^2-6x+4y-3=0",
+          steps: [
+            { explanation: "Group the x and y terms and move the constant to the right.", latex: "x^2-6x+y^2+4y=3" },
+            { explanation: "Complete the square for x: add (−6/2)²=9 to both sides.", latex: "(x-3)^2-9+y^2+4y=3" },
+            { explanation: "Complete the square for y: add (4/2)²=4 to both sides.", latex: "(x-3)^2+(y+2)^2-9-4=3" },
+            { explanation: "Collect constants on the right.", latex: "(x-3)^2+(y+2)^2=16" },
+          ],
+          finalAnswerLatex: "\\text{Centre }(3,-2),\\text{ radius }4.",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice(
+          "y11adv-gt-circles-g1",
+          "Which coordinates give the centre of the displayed circle?",
+          "C",
+          ["$(-3,-1)$", "$(-3,1)$", "$(3,1)$", "$(3,-1)$"],
+          "The bracket x−3 gives h=3 and y−1 gives k=1; the centre is (3,1).",
+          "(x-3)^2+(y-1)^2=16"
+        ),
+        formulaAnswer(
+          "y11adv-gt-circles-g2",
+          "Find the radius of the displayed circle.",
+          "(x-3)^2+(y-1)^2=16",
+          "4"
+        ),
+        practicalChoice(
+          "y11adv-gt-circles-g3",
+          "Which equation gives a circle with the displayed centre?",
+          "B",
+          [
+            "$(x+2)^2+(y-5)^2=r^2$",
+            "$(x-2)^2+(y+5)^2=r^2$",
+            "$(x-2)^2+(y-5)^2=r^2$",
+            "$(x+2)^2+(y+5)^2=r^2$",
+          ],
+          "Centre (2,−5) means h=2 (use x−2) and k=−5 (use y+5).",
+          "\\text{centre }(2,-5)"
+        ),
+        practicalChoice(
+          "y11adv-gt-circles-g4",
+          "Which equation gives a circle centred at the origin with the displayed radius?",
+          "A",
+          ["$x^2+y^2=36$", "$x^2+y^2=6$", "$(x-6)^2+y^2=36$", "$x^2+y^2=12$"],
+          "Centre (0,0) makes h=k=0; radius 6 gives r²=36.",
+          "\\text{radius }6"
+        ),
+      ],
+      independentPractice: [
+        practicalChoice(
+          "y11adv-gt-circles-i1",
+          "Which coordinates give the centre of the displayed circle?",
+          "D",
+          ["$(4,2)$", "$(4,-2)$", "$(-4,-2)$", "$(-4,2)$"],
+          "x+4 means h=−4 and y−2 means k=2; the centre is (−4,2).",
+          "(x+4)^2+(y-2)^2=9"
+        ),
+        formulaAnswer(
+          "y11adv-gt-circles-i2",
+          "Find the radius of the displayed circle.",
+          "(x+4)^2+(y-2)^2=9",
+          "3"
+        ),
+        practicalChoice(
+          "y11adv-gt-circles-i3",
+          "After completing the square, which is the correct centre-radius form?",
+          "C",
+          [
+            "$(x-2)^2+(y+3)^2=4$",
+            "$(x+2)^2+(y-3)^2=16$",
+            "$(x-2)^2+(y+3)^2=16$",
+            "$(x-4)^2+(y+6)^2=16$",
+          ],
+          "x²−4x completes to (x−2)²−4; y²+6y completes to (y+3)²−9; the right side becomes 3+4+9=16.",
+          "x^2+y^2-4x+6y-3=0"
+        ),
+        practicalChoice(
+          "y11adv-gt-circles-i4",
+          "Which equation matches a circle with the displayed centre and radius?",
+          "D",
+          [
+            "$(x-3)^2+(y-1)^2=25$",
+            "$(x+3)^2+(y-1)^2=25$",
+            "$(x-3)^2+(y+1)^2=5$",
+            "$(x-3)^2+(y+1)^2=25$",
+          ],
+          "Centre (3,−1) gives h=3 and k=−1; radius 5 gives r²=25.",
+          "\\text{centre }(3,-1),\\text{ radius }5"
+        ),
+        practicalChoice(
+          "y11adv-gt-circles-i5",
+          "Which statement correctly explains why a circle is NOT a function?",
+          "A",
+          [
+            "It fails the vertical line test — a vertical line can cross it at two points",
+            "It has no x-intercepts",
+            "It is defined by two variables",
+            "It has no y-intercept",
+          ],
+          "A function must pass the vertical line test; a vertical line through a circle's interior hits it at two points.",
+          "(x-2)^2+(y-1)^2=9"
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Treating (x+a)²+(y+b)²=r² as centre (a,b).", fix: "The centre is (−a,−b); the bracket x+a equals x−(−a), so h=−a." },
+        { mistake: "Using r instead of r² in the equation.", fix: "The right-hand side of the equation is r², not r. Write 25, not 5, for a circle of radius 5." },
+        { mistake: "Forgetting to add the completing-the-square constant to both sides.", fix: "Whatever you add inside the bracket on the left must also be added to the right to keep the equation balanced." },
+        { mistake: "Calling a circle a function.", fix: "A circle fails the vertical line test; it is a relation, not a function." },
+      ],
+      masteryQuiz: [
+        practicalChoice(
+          "y11adv-gt-circles-m1",
+          "Which coordinates give the centre of the displayed circle?",
+          "B",
+          ["$(5,2)$", "$(5,-2)$", "$(-5,2)$", "$(-5,-2)$"],
+          "x−5 gives h=5 and y+2 gives k=−2; centre is (5,−2).",
+          "(x-5)^2+(y+2)^2=49"
+        ),
+        formulaAnswer(
+          "y11adv-gt-circles-m2",
+          "Find the radius of the displayed circle.",
+          "(x-5)^2+(y+2)^2=49",
+          "7"
+        ),
+        practicalChoice(
+          "y11adv-gt-circles-m3",
+          "Which equation gives a circle with the displayed centre and radius?",
+          "C",
+          [
+            "$(x-1)^2+(y-3)^2=16$",
+            "$(x+1)^2+(y+3)^2=16$",
+            "$(x+1)^2+(y-3)^2=16$",
+            "$(x+1)^2+(y-3)^2=4$",
+          ],
+          "Centre (−1,3) means h=−1 (use x+1) and k=3; radius 4 gives r²=16.",
+          "\\text{centre }(-1,3),\\text{ radius }4"
+        ),
+        practicalChoice(
+          "y11adv-gt-circles-m4",
+          "Which is the correct centre-radius form after completing the square?",
+          "A",
+          [
+            "$(x-1)^2+(y-4)^2=16$",
+            "$(x-2)^2+(y-8)^2=1$",
+            "$(x-1)^2+(y-4)^2=1$",
+            "$(x+1)^2+(y+4)^2=16$",
+          ],
+          "x²−2x completes to (x−1)²−1; y²−8y completes to (y−4)²−16; right side becomes −1+1+16=16.",
+          "x^2+y^2-2x-8y+1=0"
+        ),
+        formulaAnswer(
+          "y11adv-gt-circles-m5",
+          "Find the radius of the circle after completing the square.",
+          "x^2+y^2-6x+2y-6=0",
+          "4"
+        ),
+        formulaAnswer(
+          "y11adv-gt-circles-m6",
+          "Find the x-coordinate of the centre of the displayed circle.",
+          "(x-7)^2+(y+3)^2=25",
+          "7"
+        ),
+        practicalChoice(
+          "y11adv-gt-circles-m7",
+          "Which option correctly identifies the student's error?",
+          "B",
+          [
+            "The radius is 4, not 2",
+            "The centre is $(-5,3)$; the bracket $x+5$ means $h=-5$",
+            "The y-coordinate $-3$ is correct",
+            "The equation is not a circle",
+          ],
+          "x+5 means h=−5, so the centre x-coordinate is −5, not 5.",
+          "\\text{Student says centre of }(x+5)^2+(y-3)^2=4\\text{ is }(5,-3)."
+        ),
+        formulaAnswer(
+          "y11adv-gt-circles-m8",
+          "Find the value of r² after completing the square.",
+          "x^2+y^2+8x-2y-8=0",
+          "25"
+        ),
+        practicalChoice(
+          "y11adv-gt-circles-m9",
+          "Which circle has radius 5?",
+          "C",
+          [
+            "$(x-2)^2+(y+1)^2=5$",
+            "$(x-2)^2+(y+1)^2=10$",
+            "$(x-2)^2+(y+1)^2=25$",
+            "$(x-2)^2+(y+1)^2=50$",
+          ],
+          "Radius 5 means r²=25; the right-hand side must be 25.",
+          "\\text{radius }5"
+        ),
+        practicalChoice(
+          "y11adv-gt-circles-m10",
+          "Which statement about the displayed circle is correct?",
+          "C",
+          [
+            "Centre $(1,2)$ and radius $9$",
+            "Centre $(-1,2)$ and radius $3$",
+            "Centre $(1,-2)$ and radius $3$",
+            "Centre $(1,-2)$ and radius $9$",
+          ],
+          "x−1 gives h=1; y+2 gives k=−2; r²=9 gives r=3.",
+          "(x-1)^2+(y+2)^2=9"
+        ),
+      ],
+      multiPartPractice: [
+        {
+          id: "y11adv-gt-circles-mp1",
+          prompt: "Identify the centre and radius of the circle (x − 2)² + (y − 3)² = 36.",
+          latex: "(x-2)^2+(y-3)^2=36",
+          answer: "2",
+          hint: "In (x−h)²+(y−k)²=r², the centre is (h,k) and the radius is √(r²).",
+          explanation:
+            "(a) x−2 gives h=2; centre x-coordinate is 2. (b) y−3 gives k=3; centre y-coordinate is 3. (c) r²=36, so r=6.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "State the x-coordinate of the centre.",
+              latex: "(x-2)^2",
+              marks: 1,
+              answer: "2",
+              hint: "The bracket x−h equals zero when x=h.",
+              explanation: "x−2=0 when x=2, so the centre x-coordinate is 2.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "State the y-coordinate of the centre.",
+              latex: "(y-3)^2",
+              marks: 1,
+              answer: "3",
+              hint: "The bracket y−k equals zero when y=k.",
+              explanation: "y−3=0 when y=3, so the centre y-coordinate is 3.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "Find the radius.",
+              latex: "r^2=36",
+              marks: 1,
+              answer: "6",
+              hint: "Take the square root of the right-hand side.",
+              explanation: "r²=36, so r=√36=6.",
+            },
+          ],
+        },
+        {
+          id: "y11adv-gt-circles-mp2",
+          prompt: "Complete the square to find the centre-radius form of x² + y² − 4x + 2y − 4 = 0.",
+          latex: "x^2+y^2-4x+2y-4=0",
+          answer: "4",
+          hint: "Group x terms and y terms. For each group, add (half the coefficient)² to both sides.",
+          explanation:
+            "(a) (−4/2)²=4 is added. (b) (2/2)²=1 is added. (c) r²=4+4+1=9, giving (x−2)²+(y+1)²=9.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "What constant is added to complete the square for x² − 4x?",
+              latex: "x^2-4x+\\,?",
+              marks: 1,
+              answer: "4",
+              hint: "Use (coefficient of x ÷ 2)².",
+              explanation: "Half of −4 is −2; (−2)²=4. Adding 4 gives (x−2)²−4.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "What constant is added to complete the square for y² + 2y?",
+              latex: "y^2+2y+\\,?",
+              marks: 1,
+              answer: "1",
+              hint: "Use (coefficient of y ÷ 2)².",
+              explanation: "Half of 2 is 1; 1²=1. Adding 1 gives (y+1)²−1.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "Find r² in the final centre-radius form (x − 2)² + (y + 1)² = r².",
+              latex: "(x-2)^2+(y+1)^2=r^2",
+              marks: 2,
+              answer: "9",
+              hint: "Add the right-hand side constant (4) and the two completing-the-square constants (4 and 1).",
+              explanation: "r²=4+4+1=9. The circle has centre (2,−1) and radius 3.",
+            },
+          ],
+        },
       ],
     };
   }
