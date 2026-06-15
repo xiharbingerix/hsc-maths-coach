@@ -6,3 +6,5 @@ export { year9PrismsAndCylindersLessonOverride } from "./prismsAndCylinders";
 export { year9MakingPredictionsLessonOverride } from "./makingPredictions";
 export { year9MakingDecisionsLessonOverride } from "./makingDecisions";
 export { year9GeometricalRepresentationsLessonOverride } from "./geometricalRepresentations";
+export { year9AlgebraicTechniquesLessonOverride } from "./algebraicTechniques";
+export { year9EquationsLessonOverride } from "./equations";

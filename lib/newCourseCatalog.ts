@@ -94,7 +94,7 @@ import {
   year12Extension1CalculusApplicationsRevisionLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
-import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
+import { year9AlgebraicTechniquesLessonOverride, year9ConstantRatesOfChangeLessonOverride, year9EquationsLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride } from "./lessons/year8";
 import {
   year12Extension2CalculusLessonOverride,
@@ -351,6 +351,8 @@ export function buildLesson(
     year9MakingPredictionsLessonOverride(course, unit, lesson) ??
     year9MakingDecisionsLessonOverride(course, unit, lesson) ??
     year9GeometricalRepresentationsLessonOverride(course, unit, lesson) ??
+    year9AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
+    year9EquationsLessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
     year10TrigonometryLessonOverride(course, unit, lesson) ??
@@ -3808,6 +3810,34 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "numerical-negative-indices", title: "Numerical Negative Indices" },
           { slug: "scientific-notation", title: "Scientific Notation" },
           { slug: "magnitude-and-rounding", title: "Magnitude and Rounding" },
+        ],
+      },
+      {
+        slug: "algebraic-techniques",
+        title: "Algebraic Techniques",
+        description:
+          "Apply the four operations to algebraic fractions with numerical denominators, expand expressions using the distributive law including negative coefficients, and expand binomial products.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Build algebraic fluency with fractions and expansion as a foundation for equations, linear relationships and senior algebra.",
+        lessons: [
+          { slug: "algebraic-fractions-add-subtract", title: "Adding and Subtracting Algebraic Fractions" },
+          { slug: "algebraic-fractions-multiply-divide", title: "Multiplying and Dividing Algebraic Fractions" },
+          { slug: "expanding-expressions", title: "Expanding Algebraic Expressions" },
+        ],
+      },
+      {
+        slug: "equations",
+        title: "Equations",
+        description:
+          "Solve linear equations of up to three steps, including equations with the variable on both sides and equations containing one algebraic fraction.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Develop equation-solving fluency needed for Year 10 simultaneous equations, quadratics and modelling.",
+        lessons: [
+          { slug: "linear-equations-two-step", title: "Solving Two-Step Equations" },
+          { slug: "linear-equations-three-step", title: "Solving Three-Step Equations" },
+          { slug: "equations-with-fractions", title: "Equations with Algebraic Fractions" },
         ],
       },
       {

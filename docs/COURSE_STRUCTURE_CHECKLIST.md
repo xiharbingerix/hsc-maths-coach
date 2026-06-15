@@ -2,7 +2,7 @@
 
 > **Objective:** High-quality lessons and question content across the entire NSW syllabus, mapped to syllabus sections with sufficient lessons to cover all skills and content in the Content section. Each lesson: 19 questions, worked examples, Feynman teaching, and common mistakes. Each focus area: one revision lesson activating the prior knowledge stated in the syllabus teaching advice, plus content lessons per dot-point group.
 > **Standard:** NSW syllabuses (2024 versions, implementation from 2026). Source of truth: [curriculum.nsw.edu.au](https://curriculum.nsw.edu.au).
-> Last updated: 2026-06-15 — Year 12 Standard 1 fully complete: credit-cards-and-loans lesson added (MST-12-S1-03 gap closed); 8 new full-depth lesson overrides written (algebraic-relationships-exam-practice, linear-relationships-modelling, quadratic-models, simultaneous-equations-context, ratios-rates-unit-conversions, investment-compound-interest, depreciation-loans, credit-cards-and-loans); 6 thin lessons upgraded from 7Q to 19Q each (right-angle-trigonometry, data-displays-summary-statistics, probability-and-chance, statistics-exam-practice, measurement-area-volume, scale-drawings-and-plans); course now 23 lessons / 5 units. All 7 topics fully covered at 19Q depth. Earlier same date: Year 11 Advanced: Sequences and Series removed; 10 new Working with Functions lessons completing FA1; 3 new Trigonometry lessons completing FA2; reciprocal trig ratios completing FA3; product rule and quotient rule completing FA4; graphing-exponential-logarithmic-functions completing FA5; circles-completing-the-square completing FA6; sets-venn-diagrams and conditional-probability-independence completing FA7. Year 12 Advanced fully audited (91 lessons, 1726 questions). Year 12 Standard 2 fully complete (58 lessons, 1106 questions). Year 12 Extension 1 fully complete (48 lessons, 862 questions). Year 11 Standard fully complete (76 lessons, 1444 questions).
+> Last updated: 2026-06-15 — Year 9 Core audited against NSW 2022 syllabus: 2 missing units (Numbers of any magnitude, Algebraic techniques A), 7 units with content needing rename/split/restructure; action items documented. Earlier same date: Year 12 Standard 1 fully complete: credit-cards-and-loans lesson added (MST-12-S1-03 gap closed); 8 new full-depth lesson overrides written (algebraic-relationships-exam-practice, linear-relationships-modelling, quadratic-models, simultaneous-equations-context, ratios-rates-unit-conversions, investment-compound-interest, depreciation-loans, credit-cards-and-loans); 6 thin lessons upgraded from 7Q to 19Q each (right-angle-trigonometry, data-displays-summary-statistics, probability-and-chance, statistics-exam-practice, measurement-area-volume, scale-drawings-and-plans); course now 23 lessons / 5 units. All 7 topics fully covered at 19Q depth. Earlier same date: Year 11 Advanced: Sequences and Series removed; 10 new Working with Functions lessons completing FA1; 3 new Trigonometry lessons completing FA2; reciprocal trig ratios completing FA3; product rule and quotient rule completing FA4; graphing-exponential-logarithmic-functions completing FA5; circles-completing-the-square completing FA6; sets-venn-diagrams and conditional-probability-independence completing FA7. Year 12 Advanced fully audited (91 lessons, 1726 questions). Year 12 Standard 2 fully complete (58 lessons, 1106 questions). Year 12 Extension 1 fully complete (48 lessons, 862 questions). Year 11 Standard fully complete (76 lessons, 1444 questions).
 
 ---
 
@@ -17,9 +17,9 @@
 |---|---|---|---|---|---|
 | Year 7 Mathematics | 0 | — | 0% | 0 | ⬜ Not started |
 | Year 8 Mathematics | 59 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
-| Year 9 Mathematics | 53 (8 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
-| Year 9 Mathematics Advanced | 53 (8 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
-| Year 9 Mathematics Core | ~40 (8 trimmed) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 9 Mathematics | 53 (8 units) | — | audit pending | 0 | ⚠️ Unit headings don't match NSW 2022; audit pending |
+| Year 9 Mathematics Advanced | 53 (8 units) | — | audit pending | 0 | ⚠️ Unit headings don't match NSW 2022; audit pending |
+| Year 9 Mathematics Core | ~40 (8 units) | 9 NSW focus areas | ⚠️ 7/9 partial; 2 missing | 0 | 🔄 Audited 2026-06-15 — restructuring required (see below) |
 | Year 10 Mathematics | ~56 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 10 Mathematics Advanced | ~56 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 10 Mathematics Core | ~40 (10 trimmed) | — | audit pending | 0 | ✅ Full depth; audit pending |
@@ -74,27 +74,220 @@ Class Maths: 14 topics / 111 subtopics. Nova: 10 units / 59 lessons.
 
 ---
 
-## Year 9 Mathematics ✅ / Variants 🔄
+## Year 9 Mathematics — Full audit against NSW 2022 syllabus (2026-06-15)
 
-Base course: `year-9-mathematics` — `available`. Override file: `lib/lessons/year9/`.
-Advanced and Core variants share the same override functions with prefixed question IDs.
+`year-9-mathematics` (base), `year-9-mathematics-core`, `year-9-mathematics-advanced` — all `in_progress`.
+Override file: `lib/lessons/year9/`. **Unit headings do NOT match NSW 2022 focus area names.**
 
-### Units (base + Advanced)
+NSW 2022 structure is Stage-based (not year-based) but the scope-and-sequence places these units in Year 9.
+Sources: scope-and-sequence images provided 2026-06-15.
 
-- [x] Geometrical Representations (5 lessons)
-- [x] Working with Triangles (8 lessons) — Advanced full, Core trimmed to Pythagoras + basic trig
-- [x] Prisms and Cylinders (7 lessons)
-- [x] Index Laws (7 lessons)
-- [x] Financial Mathematics (7 lessons)
-- [x] Constant Rates of Change (7 lessons)
-- [x] Making Predictions / Probability (6 lessons)
-- [x] Making Decisions / Statistics (6 lessons)
+---
 
-### Variants
+### NSW 2022 Year 9 — complete unit map (Core + Advanced)
 
-- [x] `year-9-mathematics-advanced` — in_progress, shares base units
-- [x] `year-9-mathematics-core` — in_progress, trimmed working-with-triangles lessons
-- [ ] Promote Advanced and Core to `available`
+| # | NSW Unit heading | Focus area(s) | Outcome(s) | Pathway | Nova file | Status |
+|---|---|---|---|---|---|---|
+| 1 | Earning and making money | Financial mathematics A | MA5-FIN-C-01 | Core | `financialMathematics.ts` (7 lessons) | ⚠️ Content ✅ — unit rename needed |
+| 2 | Numbers of any magnitude | Numbers of any magnitude | MA5-MAG-C-01 | Core | Part of `indexLaws.ts` (lessons 6–7) | ⚠️ Content partial — needs own unit |
+| 3 | Algebraic techniques | Algebraic techniques A | MA5-ALG-C-01 | Core | — | ❌ **Missing entirely** |
+| 4 | Equations | Equations A + Equations B | MA5-EQU-C-01 (A), MA5-EQU-P-01 (B) | A=Core; B=Path | — | ❌ **Missing entirely** |
+| 5 | Indices | Indices A | MA5-IND-C-01 | Core | `indexLaws.ts` (lessons 1–5) | ⚠️ Content ✅ — unit rename + trim needed |
+| 6 | Linear relationships | Linear relationships A, B, C (Adv) | MA5-LIN-C-01, MA5-LIN-C-02, MA5-LIN-P-01 | A+B=Core; C=Adv Path | `constantRatesOfChange.ts` (partial, mixed with rates content) | ⚠️ Content partial — mixed unit, needs restructure |
+| 7 | Variation and rates of change | Variation A (Stn+Adv), Variation B (Adv) | MA5-RAT-P-01 (A), MA5-RAT-P-02 (B) | Path (Standard + Adv) | `constantRatesOfChange.ts` (partial) | ⚠️ Mixed with Linear relationships — needs extraction |
+| 8 | Linear simultaneous equations | Equations C (Adv) | MA5-EQU-P-02 | Advanced only | — | ❌ Missing |
+| 9 | Properties of geometrical figures | Properties of geometrical figures A | MA5-GEO-C-01 | Core | `geometricalRepresentations.ts` lessons 1–3 | ⚠️ Content ✅ (lessons 1–3 only); lessons 4–5 out of scope |
+| 10 | Trigonometry | Trigonometry A + B | MA5-TRG-C-01 (A), MA5-TRG-C-02 (B) | Both Core | `workingWithTriangles.ts` (trig portion, 7 lessons via core overrides) | ⚠️ Trig A ✅ in Core; Trig B (bearings/elevation) missing from Core |
+| 11 | Probability | Probability A + B (Adv) | MA5-PRO-C-01 (A), MA5-PRO-P-01 (B) | A=Core; B=Adv Path | `makingPredictions.ts` (6 lessons) | ⚠️ Prob A ✅ — unit rename needed; Prob B missing |
+| 12 | Area, surface area and volume | Area and surface area A + Volume A | MA5-ARE-C-01, MA5-VOL-C-01 | Core | `prismsAndCylinders.ts` (7 lessons) | ⚠️ Content ✅ — unit rename needed (single combined unit) |
+| 13 | Data analysis | Data analysis A | MA5-DAT-C-01 | Core | `makingDecisions.ts` (6 lessons) | ⚠️ Content ✅ — unit rename needed |
+
+---
+
+### NSW focus area descriptions (from scope-and-sequence images)
+
+| Focus area | Description |
+|---|---|
+| Financial mathematics A | solves financial problems involving simple interest, earning money and spending money |
+| Numbers of any magnitude | solves measurement problems by using scientific notation to represent numbers and rounding to a given number of significant figures |
+| Algebraic techniques A | simplifies algebraic fractions with numerical denominators and expands algebraic expressions |
+| Equations A | solves linear equations of up to 3 steps, limited to one algebraic fraction |
+| Equations B (Path) | solves monic quadratic equations, linear inequalities and cubic equations of the form ax³ = k |
+| Indices A | simplifies algebraic expressions involving positive-integer and zero indices, and establishes the meaning of negative indices for numerical bases |
+| Linear relationships A | determines the midpoint, gradient and length of an interval, and graphs linear relationships with and without digital tools |
+| Linear relationships B | graphs and interprets linear relationships using the gradient/slope-intercept form |
+| Linear relationships C (Adv) | describes and applies transformations, the midpoint, gradient/slope and distance formulas, and equations of lines to solve problems |
+| Variation and rates of change A (Stn+Adv) | solves problems involving ratios and rates, and analyses distance-time graphs |
+| Variation and rates of change B (Adv) | solves problems involving ratios and rates, and analyses distance-time graphs |
+| Equations C / Linear simultaneous equations (Adv) | solves linear equations of more than 3 steps, monic and non-monic quadratic equations, and linear simultaneous equations. Note: exclude study of complex linear, quadratic and simple cubic equations at this point |
+| Properties of geometrical figures A | identifies and applies the properties of similar figures and scale drawings to solve problems |
+| Trigonometry A | applies trigonometric ratios to solve right-angled triangle problems |
+| Trigonometry B | applies trigonometry to solve problems, including bearings and angles of elevation and depression |
+| Probability A | solves problems involving probabilities in multistage chance experiments and simulations |
+| Probability B (Adv) | solves problems involving Venn diagrams, 2-way tables and conditional probability |
+| Area and surface area A | solves problems involving the surface area of right prisms and practical problems involving the area of composite shapes and solids |
+| Volume A | solves problems involving the volume of composite solids consisting of right prisms and cylinders |
+| Data analysis A | compares and analyses datasets using summary statistics and graphical representations |
+
+---
+
+### Year 9 Core — dot-point coverage
+
+#### ✅ Earning and making money (MA5-FIN-C-01) — `financialMathematics.ts` 7 lessons
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Wages: hourly rate, penalty rates (overtime, weekends, public holidays) | Gross pay + Penalty rates | ✅ |
+| Non-wage income: commission, piece work, royalties | Commission and piecework | ✅ |
+| Weekly/fortnightly/monthly/yearly earnings (1 year = 52 weeks) | Within gross pay lesson | ✅ |
+| Leave loading | Penalty rates lesson | ✅ check |
+| PAYG tax using tables/calculators | Net earnings and tax | ✅ |
+| Net earnings after deductions and taxation | Net earnings and tax | ✅ |
+| Simple interest I = Prn | Simple interest | ✅ |
+| Buying on terms: deposit + repayments | Payment plans | ✅ |
+| Buy now pay later schemes | Payment plans | ⚠️ check explicit coverage |
+| Short-term loans: compare borrowing costs | Payment plans | ⚠️ may need dedicated lesson |
+
+#### ⚠️ Numbers of any magnitude (MA5-MAG-C-01) — lessons 6–7 of `indexLaws.ts`
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Scientific notation (standard form): write and convert | `indexLaws.ts` lesson 6 | ✅ content exists but in wrong unit |
+| Significant figures: round to n sig figs | `indexLaws.ts` lesson 7 | ✅ content exists but in wrong unit |
+| Solve measurement problems using standard form and sig figs | `indexLaws.ts` lesson 7 | ⚠️ application focus may need strengthening |
+
+#### ❌ Algebraic techniques (MA5-ALG-C-01) — MISSING ENTIRELY
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Simplify algebraic fractions with numerical denominators (add, subtract, multiply, divide) | — | ❌ |
+| Expand algebraic expressions (single bracket; binomial products) | — | ❌ |
+
+#### ❌ Equations A (MA5-EQU-C-01) — MISSING ENTIRELY
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Solve linear equations up to 3 steps | — | ❌ |
+| Solve equations with one algebraic fraction | — | ❌ |
+
+#### ✅ Indices (MA5-IND-C-01) — `indexLaws.ts` lessons 1–5
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Index notation: base, exponent, evaluate | Lesson 1 | ✅ |
+| Multiply / divide powers with same base | Lesson 2 | ✅ |
+| Power of a power law | Lesson 3 | ✅ |
+| Zero index law | Lesson 4 | ✅ |
+| Negative indices for numerical bases | Lesson 5 | ✅ |
+| Algebraic (variable) bases for positive-integer indices | Lessons 1–3 | ⚠️ check lessons use variable bases |
+
+#### ⚠️ Linear relationships A (MA5-LIN-C-01) — partial in `constantRatesOfChange.ts`
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Midpoint of an interval | `workingWithTriangles.ts` (midpoint lesson) | ✅ exists — wrong unit |
+| Gradient (rise ÷ run) | `constantRatesOfChange.ts` lesson 3 + `workingWithTriangles.ts` | ✅ exists — mixed across files |
+| Length of an interval (distance formula) | `workingWithTriangles.ts` (distance lesson) | ✅ exists — wrong unit |
+| Graph linear relationships (with/without digital tools) | `constantRatesOfChange.ts` lessons 2, 4 | ✅ exists |
+
+#### ⚠️ Linear relationships B (MA5-LIN-C-02) — partial in `constantRatesOfChange.ts`
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Graph using gradient/slope-intercept form y = mx + b | `constantRatesOfChange.ts` lesson 4 | ✅ exists |
+| Interpret gradient and y-intercept in context | `constantRatesOfChange.ts` lesson 4 | ⚠️ check depth |
+| Parallel, horizontal, vertical lines | `constantRatesOfChange.ts` lesson 5 | ✅ exists |
+
+#### ✅ Properties of geometrical figures A (MA5-GEO-C-01) — `geometricalRepresentations.ts` lessons 1–3
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Properties of similar figures (matching sides, angles, scale factor) | Lesson 1 | ✅ |
+| Scale factors: enlargement and reduction | Lesson 2 | ✅ |
+| Scale drawings: map scale, plan scale, convert lengths | Lesson 3 | ✅ |
+| Plans/nets lesson | Lesson 4 | ❌ Out of scope — exclude from Core |
+| Networks lesson | Lesson 5 | ❌ Out of scope — exclude from Core |
+
+#### ✅ Trigonometry A (MA5-TRG-C-01) — `workingWithTriangles.ts` Core override (7 lessons)
+All 7 Core trig lessons are implemented per `docs/YEAR9_CORE_TRIG_AUTHORING_PLAN.md`.
+
+#### ❌ Trigonometry B (MA5-TRG-C-02) — MISSING FROM CORE
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Bearings (true bearings, compass bearings) | — | ❌ Missing from Core |
+| Angles of elevation and depression | — | ❌ Missing from Core (excluded from Core override per authoring plan but is Core outcome) |
+
+**Note:** `docs/YEAR9_CORE_TRIG_AUTHORING_PLAN.md` explicitly excludes elevation/depression from Year 9 Core, but MA5-TRG-C-02 is a Core outcome. This may need resolution — Trig B lessons could be scoped to Year 10 Core under Trigonometry A/B there.
+
+#### ✅ Probability A (MA5-PRO-C-01) — `makingPredictions.ts` 6 lessons
+All 6 lessons ✅ — unit rename to "Probability" needed.
+
+#### ✅ Area, surface area and volume (MA5-ARE-C-01, MA5-VOL-C-01) — `prismsAndCylinders.ts` 7 lessons
+All 7 lessons ✅ — unit rename to "Area, surface area and volume" needed. (NSW treats as a single combined unit.)
+
+#### ✅ Data analysis A (MA5-DAT-C-01) — `makingDecisions.ts` 6 lessons
+All 6 lessons ✅ — unit rename to "Data analysis" needed.
+
+---
+
+### Year 9 Advanced — additional units beyond Core
+
+| NSW Unit | Focus area | Outcome | Nova file | Status |
+|---|---|---|---|---|
+| Equations B | Equations B | MA5-EQU-P-01 | — | ❌ Missing — monic quadratic, linear inequalities, cubic ax³=k |
+| Linear relationships (C Adv path) | Linear relationships C | MA5-LIN-P-01 | Part of `workingWithTriangles.ts` (midpoint/distance) + `constantRatesOfChange.ts` | ⚠️ Partial — equations of lines, transformations missing |
+| Variation and rates of change | Variation A + B | MA5-RAT-P-01, MA5-RAT-P-02 | `constantRatesOfChange.ts` (partial) | ⚠️ Distance-time graphs ✅; ratio/rate depth may be thin |
+| Linear simultaneous equations | Equations C (Adv) | MA5-EQU-P-02 | — | ❌ Missing — simultaneous equations, monic/non-monic quadratics |
+| Probability B | Probability B | MA5-PRO-P-01 | — | ❌ Missing — Venn diagrams, 2-way tables, conditional probability |
+
+---
+
+### Action items — Year 9 Core (priority order)
+
+#### New content needed
+- [ ] **NEW UNIT**: "Algebraic techniques" — `lib/lessons/year9/algebraicTechniques.ts`
+  - [ ] Lesson 1: Algebraic fractions with numerical denominators (add, subtract: x/3 + x/4 etc.)
+  - [ ] Lesson 2: Multiplying and dividing algebraic fractions
+  - [ ] Lesson 3: Expanding algebraic expressions (single bracket, binomial products)
+  - Each lesson: 4 guided + 5 independent + 10 mastery = 19 questions. ID prefix: `y9c-alg-*`
+- [ ] **NEW UNIT**: "Equations" — `lib/lessons/year9/equations.ts`
+  - [ ] Lesson 1: Solving linear equations (2-step)
+  - [ ] Lesson 2: Solving linear equations (3-step)
+  - [ ] Lesson 3: Solving equations with one algebraic fraction
+  - Each lesson: 19 questions. ID prefix: `y9c-equ-*`
+- [ ] **EXTEND**: Trigonometry B (MA5-TRG-C-02) — bearings and angles of elevation/depression
+  - Resolve scope question: is Trig B Year 9 or Year 10 Core?
+
+#### Renames (catalog changes only)
+- [ ] "Geometrical Representations" → **"Properties of geometrical figures"** (trim lessons 4–5 from Core)
+- [ ] "Working with Triangles" → **"Trigonometry"** (Core: trig lessons only)
+- [ ] "Prisms and Cylinders" → **"Area, surface area and volume"**
+- [ ] "Index Laws" → **"Indices"** (Core: trim to lessons 1–5; lesson 6–7 → Numbers of any magnitude)
+- [ ] "Financial Mathematics" → **"Earning and making money"**
+- [ ] "Constant Rates of Change" → **"Linear relationships"** (Core: focus on A+B; rates content → Variation unit)
+- [ ] "Making Predictions / Probability" → **"Probability"**
+- [ ] "Making Decisions / Statistics" → **"Data analysis"**
+
+#### Content restructuring (in catalog or new lesson files)
+- [ ] "Numbers of any magnitude": extract lessons 6–7 from `indexLaws.ts` or add to catalog as separate unit pointing at same slug overrides
+- [ ] "Linear relationships A": midpoint + distance lessons currently in `workingWithTriangles.ts` — consolidate into linear relationships unit
+- [ ] "Linear relationships B": gradient/slope-intercept content from `constantRatesOfChange.ts`
+- [ ] "Variation and rates of change": extract distance-time graph + ratio/rate lessons from `constantRatesOfChange.ts`
+
+#### Advanced-specific new content
+- [ ] **NEW**: Equations B lessons (MA5-EQU-P-01) — monic quadratic, linear inequalities, cubic ax³=k
+- [ ] **NEW**: Linear simultaneous equations (MA5-EQU-P-02)
+- [ ] **NEW**: Probability B (MA5-PRO-P-01) — Venn diagrams, 2-way tables, conditional probability
+- [ ] **EXTEND**: Linear relationships C (MA5-LIN-P-01) — equations of lines, transformations
+
+---
+
+## Year 9 Mathematics (Base) — legacy unit names for reference
+
+Current base (`year-9-mathematics`) units and their NSW 2022 mappings:
+
+| Legacy unit name | NSW 2022 unit heading | Action |
+|---|---|---|
+| Geometrical Representations | Properties of geometrical figures | Rename + trim |
+| Working with Triangles | Trigonometry | Rename + restructure |
+| Prisms and Cylinders | Area, surface area and volume | Rename |
+| Index Laws | Indices + Numbers of any magnitude | Rename + split |
+| Financial Mathematics | Earning and making money | Rename |
+| Constant Rates of Change | Linear relationships + Variation and rates of change | Split into two units |
+| Making Predictions / Probability | Probability | Rename |
+| Making Decisions / Statistics | Data analysis | Rename |
 
 ---
 
@@ -453,7 +646,8 @@ Nova average lessons per unit: ~4–5.
 | Year 12 Standard 1 | 23 (5 units) | 7 NSW topics | ✅ Complete — all gaps closed 2026-06-15 (23 lessons, all 19Q) |
 | Year 12 Extension 1 | 30 (8 units) | ~28 subtopics | ✅ Depth pass complete — 520 questions seeded |
 | Year 11 Advanced | 65 (7 units) | 7 NSW focus areas | 🔄 FA1–FA4 ✅ complete 2026-06-15; ~4 lessons still needed (FA6, FA7) |
-| Year 9 / Year 10 variants | — | — | 🔄 Promote Advanced + Core to available |
+| Year 9 Core | ~40 (8 units) | 9 NSW focus areas | 🔄 Audited 2026-06-15 — 2 units missing (Numbers of any magnitude, Algebraic techniques); renames + splits needed; Constant Rates of Change and Making Decisions not in Year 9 Core scope |
+| Year 9 / Year 10 variants | — | — | 🔄 Promote Advanced + Core to available after restructuring |
 | Year 8 | 59 (10 units) | ~111 subtopics | 🔄 4 units missing vs Class Maths |
 | Year 7 | 0 | ~117 subtopics | ⬜ Not started |
 
