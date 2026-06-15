@@ -143,6 +143,244 @@ export function year12Standard2FinanceLessonOverride(
     masteryPassMark: 0.8,
   };
 
+  if (lesson.slug === "investment-loans-revision") {
+    return {
+      ...base,
+      description:
+        "Consolidate Year 11 percentage skills: find a percentage of a quantity, express one quantity as a percentage of another, apply percentage increase/decrease, and calculate simple interest using I = Prn.",
+      learningIntention:
+        "Activate Year 11 percentage and simple interest skills required for Year 12 financial mathematics — the foundation for compound interest, depreciation, and loans.",
+      successCriteria: [
+        "Calculate a given percentage of a quantity.",
+        "Express one quantity as a percentage of another and convert between percentage and decimal.",
+        "Apply percentage increase and decrease to an original value.",
+        "Use I = Prn to calculate simple interest, and find the final balance A = P + I.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A percentage is a fraction out of 100. To find p% of a quantity, convert the percentage to a decimal (divide by 100) and multiply: p% of Q = (p ÷ 100) × Q. For example, 12% of $450 = 0.12 × 450 = $54.",
+          "To express A as a percentage of B: divide A by B, then multiply by 100. For example, $36 out of $240 = (36 ÷ 240) × 100 = 15%.",
+          "Percentage increase: new value = original × (1 + rate). Percentage decrease: new value = original × (1 − rate). For example, $500 increased by 8% = 500 × 1.08 = $540. $500 decreased by 15% = 500 × 0.85 = $425.",
+          "Simple interest uses the formula I = Prn, where P = principal (starting amount), r = annual interest rate as a decimal, n = time in years. The final balance A = P + I. Unlike compound interest, simple interest is always calculated on the original principal only.",
+        ],
+        latexBlocks: [
+          "p\\%\\text{ of }Q = \\frac{p}{100} \\times Q",
+          "\\text{Express }A\\text{ as a \\% of }B = \\frac{A}{B} \\times 100",
+          "\\text{Increase: }\\text{new} = P \\times (1 + r),\\quad \\text{Decrease: }\\text{new} = P \\times (1 - r)",
+          "I = Prn,\\quad A = P + I",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Percentage of a quantity and expressing as a percentage",
+          questionLatex:
+            "\\text{(a) Find 18\\% of \\$2500. (b) A jumper was originally \\$80, now \\$68. What percentage discount is this?}",
+          steps: [
+            {
+              explanation: "(a) Convert 18% to a decimal and multiply.",
+              latex: "0.18 \\times 2500 = \\$450",
+            },
+            {
+              explanation: "(b) Discount = $80 − $68 = $12. Express $12 as % of $80.",
+              latex:
+                "\\frac{12}{80} \\times 100 = 15\\%",
+            },
+          ],
+          finalAnswerLatex: "\\$450;\\quad 15\\%\\text{ discount}",
+        },
+        {
+          title: "Percentage increase and decrease",
+          questionLatex:
+            "\\text{(a) A salary of \\$58\\,000 increases by 4.5\\%. Find the new salary. (b) A phone worth \\$1200 depreciates by 25\\%. Find its new value.}",
+          steps: [
+            {
+              explanation: "(a) New salary = 58 000 × (1 + 0.045).",
+              latex: "58\\,000 \\times 1.045 = \\$60\\,610",
+            },
+            {
+              explanation: "(b) New value = 1200 × (1 − 0.25).",
+              latex: "1200 \\times 0.75 = \\$900",
+            },
+          ],
+          finalAnswerLatex: "\\$60\\,610;\\quad \\$900",
+        },
+        {
+          title: "Simple interest",
+          questionLatex:
+            "\\$8000 is invested at 4.5\\% p.a. simple interest for 3 years. Find (a) the interest earned and (b) the final balance.",
+          steps: [
+            {
+              explanation: "P = 8000, r = 0.045, n = 3. Apply I = Prn.",
+              latex: "I = 8000 \\times 0.045 \\times 3 = \\$1080",
+            },
+            {
+              explanation: "Final balance A = P + I.",
+              latex: "A = 8000 + 1080 = \\$9080",
+            },
+          ],
+          finalAnswerLatex: "I = \\$1080;\\quad A = \\$9080",
+        },
+      ],
+      guidedPractice: [
+        moneyAnswer(
+          "y12s2-ilr-g1",
+          "Find 15% of $3200.",
+          "0.15 \\times 3200",
+          "$480",
+          ["480"]
+        ),
+        financeShortAnswer(
+          "y12s2-ilr-g2",
+          "A laptop costs $1500. It is discounted by 20%. What is the new price?",
+          "1500 \\times 0.80",
+          "$1200",
+          ["1200"]
+        ),
+        financeShortAnswer(
+          "y12s2-ilr-g3",
+          "Express $45 as a percentage of $180.",
+          "\\frac{45}{180} \\times 100",
+          "25%",
+          ["25"]
+        ),
+        moneyAnswer(
+          "y12s2-ilr-g4",
+          "Find the simple interest on $5000 at 3% p.a. for 4 years.",
+          "I = 5000 \\times 0.03 \\times 4",
+          "$600",
+          ["600"]
+        ),
+      ],
+      independentPractice: [
+        financeShortAnswer(
+          "y12s2-ilr-i1",
+          "Find 7.5% of $4800.",
+          "0.075 \\times 4800",
+          "$360",
+          ["360"]
+        ),
+        moneyAnswer(
+          "y12s2-ilr-i2",
+          "A rent of $520/week increases by 5%. What is the new weekly rent?",
+          "520 \\times 1.05",
+          "$546",
+          ["546"]
+        ),
+        financeShortAnswer(
+          "y12s2-ilr-i3",
+          "Express $90 as a percentage of $360.",
+          "\\frac{90}{360} \\times 100",
+          "25%",
+          ["25"]
+        ),
+        moneyAnswer(
+          "y12s2-ilr-i4",
+          "Find the final balance after $7000 earns simple interest at 5% p.a. for 2 years.",
+          "I = 7000 \\times 0.05 \\times 2 = 700;\\quad A = 7000 + 700",
+          "$7700",
+          ["7700"]
+        ),
+        financeChoice(
+          "y12s2-ilr-i5",
+          "A TV worth $800 decreases by 30%. Its new value is:",
+          "B",
+          ["$560", "$560", "$240", "$1040"],
+          "800 × 0.70 = $560."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Calculating percentage increase by adding the percentage number directly: $500 + 8% = $508.",
+          fix: "Convert the percentage to a decimal first. 8% of $500 = 0.08 × 500 = $40, so the new amount = $500 + $40 = $540 (or 500 × 1.08 = $540).",
+        },
+        {
+          mistake: "Using the wrong base when expressing one quantity as a percentage of another.",
+          fix: "Always divide by the original or reference quantity, not the new one. 'What percentage of $80 is $68?' → 68 ÷ 80 × 100 = 85%, not 68 ÷ 68 × 100.",
+        },
+        {
+          mistake: "In simple interest, recalculating interest on the growing balance each year instead of the original principal.",
+          fix: "Simple interest is always calculated on P (the original amount). I = Prn uses P once — not an updated balance. Only compound interest recalculates each period.",
+        },
+        {
+          mistake: "Confusing A (final balance) with I (interest earned) — reporting $1080 as the answer when asked for the final balance.",
+          fix: "I = Prn gives just the interest. The final balance is A = P + I. Check what the question asks for — interest earned, or total amount at the end.",
+        },
+      ],
+      masteryQuiz: [
+        financeShortAnswer(
+          "y12s2-ilr-m1",
+          "Find 12% of $6500.",
+          "0.12 \\times 6500",
+          "$780",
+          ["780"]
+        ),
+        moneyAnswer(
+          "y12s2-ilr-m2",
+          "A price of $250 increases by 6%. Find the new price.",
+          "250 \\times 1.06",
+          "$265",
+          ["265"]
+        ),
+        financeShortAnswer(
+          "y12s2-ilr-m3",
+          "Express $36 as a percentage of $150.",
+          "\\frac{36}{150} \\times 100",
+          "24%",
+          ["24"]
+        ),
+        moneyAnswer(
+          "y12s2-ilr-m4",
+          "Find the simple interest on $12 000 at 4% p.a. for 5 years.",
+          "I = 12000 \\times 0.04 \\times 5",
+          "$2400",
+          ["2400"]
+        ),
+        financeShortAnswer(
+          "y12s2-ilr-m5",
+          "A car worth $24 000 falls in value by 18%. Find its new value.",
+          "24000 \\times 0.82",
+          "$19 680",
+          ["19680", "$19,680"]
+        ),
+        moneyAnswer(
+          "y12s2-ilr-m6",
+          "Find the final balance when $10 000 earns 3.5% p.a. simple interest for 4 years.",
+          "I = 10000 \\times 0.035 \\times 4 = 1400;\\quad A = 10000 + 1400",
+          "$11 400",
+          ["11400", "$11,400"]
+        ),
+        financeChoice(
+          "y12s2-ilr-m7",
+          "A jacket originally $180 is discounted by 25%. The sale price is:",
+          "C",
+          ["$45", "$155", "$135", "$145"],
+          "180 × 0.75 = $135."
+        ),
+        financeShortAnswer(
+          "y12s2-ilr-m8",
+          "Express $120 as a percentage of $800.",
+          "\\frac{120}{800} \\times 100",
+          "15%",
+          ["15"]
+        ),
+        moneyAnswer(
+          "y12s2-ilr-m9",
+          "An investment of $4000 earns $480 simple interest over 3 years. What annual rate was used?",
+          "480 = 4000 \\times r \\times 3 \\implies r = \\frac{480}{12000}",
+          "4%",
+          ["4", "0.04"]
+        ),
+        financeChoice(
+          "y12s2-ilr-m10",
+          "Which formula gives the final balance under simple interest?",
+          "B",
+          ["A = P(1 + r)^n", "A = P + Prn", "A = Prn", "A = P ÷ (1 + rn)"],
+          "A = P + I = P + Prn = P(1 + rn)."
+        ),
+      ],
+    };
+  }
+
   if (lesson.slug === "investment-compound-interest") {
     return {
       ...base,

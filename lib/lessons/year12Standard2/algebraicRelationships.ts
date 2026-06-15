@@ -231,6 +231,245 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
     masteryPassMark: 0.8,
   };
 
+  if (lesson.slug === "algebraic-relationships-revision") {
+    return {
+      ...base,
+      description:
+        "Consolidate Year 11 linear algebra: solve one- and two-step equations, substitute into formulas, identify gradient and y-intercept, and plot straight-line graphs from tables.",
+      learningIntention:
+        "Activate Year 11 linear algebra skills needed for Year 12 algebraic relationships — solving equations, substitution, and interpreting straight-line graphs.",
+      successCriteria: [
+        "Solve one- and two-step linear equations for an unknown.",
+        "Substitute a given value into a formula and evaluate the result.",
+        "Identify the gradient m and y-intercept b in y = mx + b and interpret them in context.",
+        "Build a table of values for a linear rule and identify the relationship as linear.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A linear equation can be solved by performing the same operation on both sides until the unknown is isolated. For two-step equations, undo addition/subtraction first, then multiplication/division.",
+          "Substitution means replacing a variable with a known value to find an unknown. If y = 3x − 2 and x = 4, substitute to get y = 3(4) − 2 = 10. This skill is essential in every Year 12 topic — from exponential models to finance formulas.",
+          "The equation y = mx + b describes a straight line. m is the gradient (rate of change — how much y changes when x increases by 1). b is the y-intercept (the value of y when x = 0). A positive m means the line rises; negative m means it falls.",
+          "To check whether a relationship is linear, build a table of values and check that y changes by a constant amount each time x increases by 1 (constant first differences). Linear tables show equal jumps in y.",
+        ],
+        latexBlocks: [
+          "y = mx + b\\quad(m = \\text{gradient},\\;b = y\\text{-intercept})",
+          "\\text{gradient} = \\dfrac{\\text{rise}}{\\text{run}} = \\dfrac{y_2 - y_1}{x_2 - x_1}",
+          "\\text{Substitute: replace }x\\text{ with a number, then evaluate.}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Solve a linear equation and substitute",
+          questionLatex:
+            "\\text{(a) Solve }3x - 7 = 14\\text{. (b) Substitute the answer into }y = 2x - 3.",
+          steps: [
+            {
+              explanation: "(a) Add 7 to both sides, then divide by 3.",
+              latex:
+                "3x = 21 \\implies x = 7",
+            },
+            {
+              explanation: "(b) Substitute x = 7.",
+              latex: "y = 2(7) - 3 = 14 - 3 = 11",
+            },
+          ],
+          finalAnswerLatex: "x = 7;\\quad y = 11",
+        },
+        {
+          title: "Gradient, y-intercept and x-intercept",
+          questionLatex:
+            "\\text{For }y = -2x + 6\\text{, state the gradient and y-intercept. Then find the x-intercept.}",
+          steps: [
+            {
+              explanation: "Compare with y = mx + b: gradient m = −2, y-intercept b = 6.",
+              latex: "m = -2,\\quad b = 6",
+            },
+            {
+              explanation: "Set y = 0 to find the x-intercept.",
+              latex: "0 = -2x + 6 \\implies 2x = 6 \\implies x = 3",
+            },
+          ],
+          finalAnswerLatex:
+            "m = -2,\\;b = 6;\\quad x\\text{-intercept} = 3",
+        },
+        {
+          title: "Build a table and identify a linear rule",
+          questionLatex:
+            "\\text{A phone plan costs }\\$5\\text{ per month plus }\\$0.20\\text{ per minute. Build a table for }m = 0, 5, 10, 15\\text{ min and identify the rule.}",
+          steps: [
+            {
+              explanation: "Cost C = 5 + 0.20m. Substitute each value.",
+              latex:
+                "m=0\\Rightarrow C=5,\\quad m=5\\Rightarrow C=6,\\quad m=10\\Rightarrow C=7,\\quad m=15\\Rightarrow C=8",
+            },
+            {
+              explanation: "Each extra 5 minutes adds $1 → constant increase → linear relationship.",
+              latex: "C = 0.20m + 5",
+            },
+          ],
+          finalAnswerLatex: "C = 0.20m + 5",
+        },
+      ],
+      guidedPractice: [
+        algebraChoice(
+          "y12s2-alr-g1",
+          "Solve 4x − 3 = 13.",
+          "C",
+          ["x = 2.5", "x = 3", "x = 4", "x = 10"],
+          "4x = 16 → x = 4."
+        ),
+        algebraAnswer(
+          "y12s2-alr-g2",
+          "y = 3x − 5. Find y when x = 4.",
+          "y = 3(4) - 5",
+          "7",
+          "y = 12 − 5 = 7."
+        ),
+        algebraChoice(
+          "y12s2-alr-g3",
+          "For y = −3x + 5, the gradient is:",
+          "A",
+          ["−3", "5", "3", "−5"],
+          "In y = mx + b, m is the gradient. Here m = −3."
+        ),
+        algebraAnswer(
+          "y12s2-alr-g4",
+          "y = 4x + 1. Find x when y = 13.",
+          "13 = 4x + 1 \\implies 4x = 12",
+          "3",
+          "4x = 12 → x = 3."
+        ),
+      ],
+      independentPractice: [
+        algebraChoice(
+          "y12s2-alr-i1",
+          "Solve 2x + 9 = 21.",
+          "C",
+          ["x = 5", "x = 6", "x = 6", "x = 15"],
+          "2x = 12 → x = 6."
+        ),
+        algebraAnswer(
+          "y12s2-alr-i2",
+          "y = −2x + 10. Find x when y = 0.",
+          "0 = -2x + 10 \\implies 2x = 10",
+          "5",
+          "2x = 10 → x = 5 (the x-intercept)."
+        ),
+        algebraChoice(
+          "y12s2-alr-i3",
+          "A table of values: x = 0, 1, 2, 3 gives y = 3, 7, 11, 15. The rule is:",
+          "B",
+          ["y = 3x", "y = 4x + 3", "y = 3x + 4", "y = 7x"],
+          "Each increase of 1 in x gives +4 in y (gradient 4). y-intercept = 3. Rule: y = 4x + 3."
+        ),
+        algebraAnswer(
+          "y12s2-alr-i4",
+          "y = 5x − 8. Find y when x = 3.",
+          "y = 5(3) - 8",
+          "7",
+          "y = 15 − 8 = 7."
+        ),
+        algebraChoice(
+          "y12s2-alr-i5",
+          "The y-intercept of y = 6x − 4 is:",
+          "B",
+          ["6", "−4", "4", "−6"],
+          "In y = mx + b, b = −4 is the y-intercept."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Solving 3x − 7 = 14 by subtracting 7 from both sides first.",
+          fix: "The equation has −7 on the left. To undo subtraction, add 7 to both sides: 3x = 14 + 7 = 21, then x = 7.",
+        },
+        {
+          mistake: "Reading m (gradient) as the y-intercept in y = mx + b.",
+          fix: "In y = mx + b, m (the coefficient of x) is the gradient. b (the constant term added, not multiplied) is the y-intercept. In y = −3x + 5: gradient = −3, y-intercept = 5.",
+        },
+        {
+          mistake: "Substituting incorrectly — replacing x with a number but forgetting the multiplication.",
+          fix: "y = 2x − 3 with x = 4 means y = 2 × 4 − 3, not y = 24 − 3. Always use a multiplication sign or brackets when substituting.",
+        },
+        {
+          mistake: "Concluding a table is linear without checking all first differences are equal.",
+          fix: "Check every consecutive pair: y₁−y₀, y₂−y₁, y₃−y₂ must all be equal. If even one difference differs, the relationship is not linear.",
+        },
+      ],
+      masteryQuiz: [
+        algebraChoice(
+          "y12s2-alr-m1",
+          "Solve 5x + 3 = 28.",
+          "C",
+          ["x = 3", "x = 4", "x = 5", "x = 6"],
+          "5x = 25 → x = 5."
+        ),
+        algebraAnswer(
+          "y12s2-alr-m2",
+          "y = 3x + 2. Find y when x = 5.",
+          "y = 3(5) + 2",
+          "17",
+          "y = 15 + 2 = 17."
+        ),
+        algebraChoice(
+          "y12s2-alr-m3",
+          "The gradient of y = 4x − 9 is:",
+          "A",
+          ["4", "−9", "9", "−4"],
+          "m = 4 in y = 4x − 9."
+        ),
+        algebraAnswer(
+          "y12s2-alr-m4",
+          "y = −x + 12. Find x when y = 4.",
+          "4 = -x + 12 \\implies x = 8",
+          "8",
+          "x = 12 − 4 = 8."
+        ),
+        algebraChoice(
+          "y12s2-alr-m5",
+          "A taxi charges $3 flag fall plus $2/km. Cost for 7 km = ?",
+          "C",
+          ["$7", "$14", "$17", "$21"],
+          "C = 3 + 2(7) = 3 + 14 = $17."
+        ),
+        algebraAnswer(
+          "y12s2-alr-m6",
+          "Solve 2(x − 3) = 10.",
+          "2x - 6 = 10 \\implies 2x = 16",
+          "8",
+          "2x = 16 → x = 8."
+        ),
+        algebraChoice(
+          "y12s2-alr-m7",
+          "Table: x=0,1,2,3 → y=10,7,4,1. The gradient is:",
+          "B",
+          ["3", "−3", "10", "−10"],
+          "y decreases by 3 each time x increases by 1: gradient = −3."
+        ),
+        algebraAnswer(
+          "y12s2-alr-m8",
+          "y = 2x + 7. Find y when x = 0.",
+          "y = 2(0) + 7",
+          "7",
+          "y = 7. This is the y-intercept."
+        ),
+        algebraChoice(
+          "y12s2-alr-m9",
+          "Which equation has y-intercept 4 and gradient −1?",
+          "B",
+          ["y = 4x − 1", "y = −x + 4", "y = x − 4", "y = −4x + 1"],
+          "y = −x + 4 has m = −1 and b = 4."
+        ),
+        algebraChoice(
+          "y12s2-alr-m10",
+          "y = 3x − 6 crosses the x-axis at:",
+          "B",
+          ["x = 3", "x = 2", "x = −2", "x = 6"],
+          "0 = 3x − 6 → 3x = 6 → x = 2."
+        ),
+      ],
+    };
+  }
+
   if (lesson.slug === "linear-relationships-modelling") {
     return {
       ...base,
