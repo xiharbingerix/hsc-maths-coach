@@ -2653,9 +2653,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     courseType: "Mathematics Extension 1",
     status: "available",
     description:
-      "Year 12 Mathematics Extension 1 with all 6 units active: proof by mathematical induction, vectors, inverse trigonometric functions, further calculus, calculus applications, and the binomial distribution.",
+      "Year 12 Mathematics Extension 1 aligned to the NSW 2024 syllabus: all 6 ME1-12 focus areas — Proof by Mathematical Induction, Introduction to Vectors, Inverse Trigonometric Functions, Further Calculus Skills, Further Applications of Calculus, and The Binomial Distribution and Sampling Distribution of the Mean.",
     positioning:
-      "A complete Year 12 Mathematics Extension 1 pathway covering all 6 units against the NSW Mathematics Extension 1 11-12 syllabus: Proof by Mathematical Induction, Vectors, Inverse Trigonometric Functions, Further Calculus Skills, Further Applications of Calculus, and The Binomial Distribution.",
+      "A complete Year 12 Mathematics Extension 1 pathway aligned directly to the NSW Mathematics Extension 1 2024 syllabus (ME1-12-01 through ME1-12-06): Proof by Mathematical Induction, Introduction to Vectors, Inverse Trigonometric Functions, Further Calculus Skills, Further Applications of Calculus, and The Binomial Distribution and Sampling Distribution of the Mean.",
     units: [
       {
         slug: "proof-induction",
@@ -2855,60 +2855,16 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       },
       {
         slug: "binomial-distribution",
-        title: "The Binomial Distribution",
+        title: "The Binomial Distribution and Sampling Distribution of the Mean",
         description:
-          "Planned probability support for binomial random variables and distribution calculations.",
-        syllabusArea: "Probability",
-        focus: "The binomial distribution",
+          "Bernoulli trials, the binomial distribution B(n,p), expected value and variance, the sampling distribution of the sample mean x̄, and the Central Limit Theorem — covering ME1-12-06 in full.",
+        syllabusArea: "Statistical Analysis",
+        focus: "The binomial distribution and sampling distribution of the mean",
         lessons: [
           { slug: "bernoulli-trials", title: "Bernoulli Trials" },
           { slug: "binomial-probabilities", title: "Binomial Probabilities" },
           { slug: "mean-and-variance", title: "Mean and Variance" },
           { slug: "binomial-exam-practice", title: "Binomial Exam Practice" },
-          {
-            slug: "binomial-revision",
-            title: "Prior Knowledge Revision: Probability and Combinations",
-            description:
-              "Activate prior knowledge for the Binomial Distribution: probability rules (complement, addition, multiplication), combinations C(n,r), and expected value of a discrete random variable.",
-          },
-        ],
-      },
-      {
-        slug: "kinematics",
-        title: "Rates of Change and Kinematics",
-        description:
-          "Use calculus to analyse straight-line motion: find velocity and acceleration by differentiation, and displacement by integration.",
-        syllabusArea: "Calculus",
-        focus: "Kinematics and rates of change",
-        lessons: [
-          { slug: "kinematics-velocity-acceleration", title: "Velocity and Acceleration from Displacement" },
-          { slug: "kinematics-displacement-from-velocity", title: "Displacement from Velocity by Integration" },
-          { slug: "kinematics-motion-analysis", title: "Analysing Motion: Direction Changes and Total Distance" },
-          { slug: "kinematics-exam-practice", title: "Kinematics Exam Practice" },
-        ],
-      },
-      {
-        slug: "projectile-motion",
-        title: "Projectile Motion",
-        description:
-          "Analyse two-dimensional motion under gravity by resolving into independent horizontal and vertical components.",
-        syllabusArea: "Calculus",
-        focus: "Projectile motion",
-        lessons: [
-          { slug: "projectile-equations-setup", title: "Setting Up Projectile Equations" },
-          { slug: "projectile-max-height", title: "Maximum Height and Time" },
-          { slug: "projectile-range-flight", title: "Range and Time of Flight" },
-          { slug: "projectile-exam-practice", title: "Projectile Motion Exam Practice" },
-        ],
-      },
-      {
-        slug: "sampling-distribution",
-        title: "Sampling Distribution of the Mean",
-        description:
-          "Understand the distribution of sample means, apply the formula Var(x̄) = σ²/n, and use the Central Limit Theorem to estimate probabilities about x̄.",
-        syllabusArea: "Probability",
-        focus: "The binomial distribution and sampling distribution of the mean",
-        lessons: [
           {
             slug: "sampling-distribution-mean",
             title: "Distribution of the Sample Mean",
@@ -2921,6 +2877,40 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "State the CLT, convert x̄ to z-scores, and calculate probabilities about sample means using normal distribution values.",
           },
+          {
+            slug: "binomial-revision",
+            title: "Prior Knowledge Revision: Probability and Combinations",
+            description:
+              "Activate prior knowledge for the Binomial Distribution: probability rules (complement, addition, multiplication), combinations C(n,r), and expected value of a discrete random variable.",
+          },
+        ],
+      },
+      {
+        slug: "kinematics",
+        title: "Rates of Change and Kinematics (Year 11 Ext 1)",
+        description:
+          "Year 11 Extension 1 content (ME1-11): use calculus to analyse straight-line motion — find velocity and acceleration by differentiation, and displacement by integration. Retained as a scaffolding entry point for students who need to build fluency before the Year 12 vector and calculus units.",
+        syllabusArea: "Calculus",
+        focus: "Kinematics and rates of change",
+        lessons: [
+          { slug: "kinematics-velocity-acceleration", title: "Velocity and Acceleration from Displacement" },
+          { slug: "kinematics-displacement-from-velocity", title: "Displacement from Velocity by Integration" },
+          { slug: "kinematics-motion-analysis", title: "Analysing Motion: Direction Changes and Total Distance" },
+          { slug: "kinematics-exam-practice", title: "Kinematics Exam Practice" },
+        ],
+      },
+      {
+        slug: "projectile-motion",
+        title: "Projectile Motion — Calculus Approach (Supplementary)",
+        description:
+          "Supplementary unit: analyses projectile motion by resolving into horizontal and vertical components using calculus. Note — the 2024 NSW Ext 1 syllabus (ME1-12-02) treats projectile motion via vectors and parametric equations; that syllabus-aligned treatment is in the Introduction to Vectors unit (vectors-projectile-parametric). This unit provides an alternative calculus-based approach useful for consolidation.",
+        syllabusArea: "Calculus",
+        focus: "Projectile motion",
+        lessons: [
+          { slug: "projectile-equations-setup", title: "Setting Up Projectile Equations" },
+          { slug: "projectile-max-height", title: "Maximum Height and Time" },
+          { slug: "projectile-range-flight", title: "Range and Time of Flight" },
+          { slug: "projectile-exam-practice", title: "Projectile Motion Exam Practice" },
         ],
       },
     ],
