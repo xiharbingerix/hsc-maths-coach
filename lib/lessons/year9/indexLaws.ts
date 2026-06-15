@@ -129,12 +129,12 @@ const multiplyingDividing: LessonContent = {
   successCriteria: ["Add exponents when multiplying powers with the same base.", "Subtract exponents when dividing powers with the same base.", "Recognise when bases are not the same.", "Distinguish index laws from ordinary addition and subtraction."],
   teaching: {
     paragraphs: [
-      "When powers with the same base are multiplied, combine the repeated factors by adding the exponents.",
+      "When powers with the same base are multiplied, combine the repeated factors by adding the exponents. The base can be a number or a variable — the law works the same way.",
       "When powers with the same base are divided, cancel matching factors by subtracting the exponents. For now, division examples keep a positive exponent in the result.",
       "The base must stay the same. The law does not allow unlike bases to be combined.",
       "These rules are about multiplication and division of powers, not addition or subtraction of powers.",
     ],
-    latexBlocks: ["a^m\\times a^n=a^{m+n}", "\\frac{a^m}{a^n}=a^{m-n}\\quad(m>n)", "2^3\\times2^4=2^7", "\\frac{5^6}{5^2}=5^4"],
+    latexBlocks: ["a^m\\times a^n=a^{m+n}", "\\frac{a^m}{a^n}=a^{m-n}\\quad(m>n)", "2^3\\times2^4=2^7", "x^2\\times x^3=x^5", "\\frac{5^6}{5^2}=5^4", "\\frac{a^6}{a^2}=a^4"],
   },
   workedExamples: [
     { title: "Multiply powers with the same base", questionLatex: "\\text{Simplify }2^3\\times2^4.", steps: [{ explanation: "The bases match, so add the exponents.", latex: "2^3\\times2^4=2^{3+4}=2^7" }], finalAnswerLatex: "2^7" },
@@ -142,8 +142,8 @@ const multiplyingDividing: LessonContent = {
     { title: "Check whether the law applies", questionLatex: "\\text{Can }2^3\\times5^4\\text{ be simplified by adding exponents?}", steps: [{ explanation: "The bases are different, so the same-base law does not apply.", latex: "2\\ne5" }], finalAnswerLatex: "\\text{No}" },
   ],
   guidedPractice: [
-    choice("y9-ind-md-g1", "Choose the correct simplification.", "B", ["$3^7$", "$3^9$", "$6^9$", "$3^{20}$"], "The bases match, so add 4 and 5.", "3^4\\times3^5"),
-    choice("y9-ind-md-g2", "Choose the correct simplification.", "C", ["$7^8$", "$7^5$", "$7^6$", "$1^6$"], "The bases match, so subtract 2 from 8.", "7^8\\div7^2"),
+    choice("y9-ind-md-g1", "Simplify the expression. Write your answer as a single power.", "B", ["$x^{20}$", "$x^9$", "$2x^9$", "$x^5$"], "The bases match, so add the exponents: 4 + 5 = 9.", "x^4\\times x^5"),
+    choice("y9-ind-md-g2", "Simplify the expression. Write your answer as a single power.", "C", ["$a^8$", "$a^5$", "$a^6$", "$1^6$"], "The bases match, so subtract the exponents: 8 − 2 = 6.", "a^8\\div a^2"),
     choice("y9-ind-md-g3", "Which product can be simplified by adding exponents?", "A", ["$4^3\\times4^5$", "$4^3+4^5$", "$4^3\\times5^4$", "$3^4\\times5^4$"], "Only the first expression multiplies powers with the same base."),
     choice("y9-ind-md-g4", "Which statement is correct?", "D", ["$2^3\\times2^4=4^7$", "$5^8\\div5^3=5^{11}$", "$3^2+3^4=3^6$", "$6^7\\div6^2=6^5$"], "Division with the same base uses exponent subtraction."),
   ],
@@ -164,10 +164,10 @@ const multiplyingDividing: LessonContent = {
     choice("y9-ind-md-m1", "Simplify.", "A", ["$2^8$", "$4^8$", "$2^2$", "$2^{15}$"], "Add the exponents.", "2^3\\times2^5"),
     choice("y9-ind-md-m2", "Simplify.", "B", ["$4^{10}$", "$4^4$", "$4^6$", "$1^4$"], "Subtract 3 from 7.", "4^7\\div4^3"),
     choice("y9-ind-md-m3", "Which law is used?", "C", ["Multiply the bases", "Multiply the exponents", "Add the exponents", "Subtract the bases"], "Multiplication of same-base powers uses exponent addition.", "9^2\\times9^6"),
-    choice("y9-ind-md-m4", "Simplify.", "D", ["$7^3$", "$7^{18}$", "$14^9$", "$7^9$"], "Add 4 and 5.", "7^4\\times7^5"),
+    choice("y9-ind-md-m4", "Simplify.", "D", ["$n^3$", "$n^{18}$", "$2n^9$", "$n^9$"], "Add the exponents: 4 + 5 = 9.", "n^4\\times n^5"),
     answer("y9-ind-md-m5", "Evaluate.", "2^6\\div2^4", "4", "Subtract exponents to get 2^2."),
     choice("y9-ind-md-m6", "Which expression cannot use a same-base index law?", "B", ["$5^8\\div5^3$", "$3^4\\times7^2$", "$10^2\\times10^5$", "$6^9\\div6^4$"], "The second expression has different bases."),
-    choice("y9-ind-md-m7", "Simplify.", "A", ["$3^8$", "$3^{18}$", "$9^8$", "$3^2$"], "Add 5 and 3.", "3^5\\times3^3"),
+    choice("y9-ind-md-m7", "Simplify.", "A", ["$p^8$", "$p^{18}$", "$2p^8$", "$p^2$"], "Add the exponents: 5 + 3 = 8.", "p^5\\times p^3"),
     choice("y9-ind-md-m8", "A student writes 8^9 divided by 8^4 as 8^13. What is the correction?", "C", ["Change the base to 1", "Multiply the exponents", "Subtract the exponents to get $8^5$", "Add the bases to get $16^5$"], "Division of same-base powers uses exponent subtraction.", "8^9\\div8^4"),
     choice("y9-ind-md-m9", "Simplify the expression.", "D", ["$2^9$", "$2^{11}$", "$4^{11}$", "$2^5$"], "Combine the exponents: 6 + 3 - 4 = 5.", "2^6\\times2^3\\div2^4"),
     choice("y9-ind-md-m10", "Simplify the expression.", "D", ["$10^4$", "$10^{10}$", "$20^8$", "$10^8$"], "Combine exponents: 7 + 5 - 4 = 8.", "10^7\\times10^5\\div10^4"),
@@ -180,12 +180,12 @@ const powerOfPower: LessonContent = {
   successCriteria: ["Multiply exponents when a power is raised to another power.", "Keep the base unchanged.", "Distinguish a power of a power from a product of powers.", "Evaluate simple numerical examples."],
   teaching: {
     paragraphs: [
-      "A power of a power means that an indexed number is itself raised to another exponent.",
+      "A power of a power means that an indexed expression is itself raised to another exponent. The base can be a number or a variable — the law works the same way.",
       "The repeated groups combine by multiplying the exponents. The base stays unchanged.",
       "This is different from multiplying separate powers with the same base, where the exponents are added.",
       "Brackets matter because they show that the whole first power is raised again.",
     ],
-    latexBlocks: ["(a^m)^n=a^{mn}", "(2^3)^2=2^{3\\times2}=2^6", "a^m\\times a^n=a^{m+n}\\quad\\text{but}\\quad(a^m)^n=a^{mn}"],
+    latexBlocks: ["(a^m)^n=a^{mn}", "(2^3)^2=2^{3\\times2}=2^6", "(x^3)^2=x^{3\\times2}=x^6", "a^m\\times a^n=a^{m+n}\\quad\\text{but}\\quad(a^m)^n=a^{mn}"],
   },
   workedExamples: [
     { title: "Simplify a power of a power", questionLatex: "\\text{Simplify }(2^3)^2.", steps: [{ explanation: "Multiply the exponents.", latex: "(2^3)^2=2^{3\\times2}=2^6" }], finalAnswerLatex: "2^6" },
@@ -193,10 +193,10 @@ const powerOfPower: LessonContent = {
     { title: "Compare two index laws", questionLatex: "\\text{Compare }3^2\\times3^4\\text{ and }(3^2)^4.", steps: [{ explanation: "For the product, add exponents.", latex: "3^2\\times3^4=3^6" }, { explanation: "For the power of a power, multiply exponents.", latex: "(3^2)^4=3^8" }], finalAnswerLatex: "3^6\\text{ and }3^8" },
   ],
   guidedPractice: [
-    choice("y9-ind-pp-g1", "Simplify.", "A", ["$5^6$", "$5^5$", "$10^6$", "$5^9$"], "Multiply 2 and 3.", "(5^2)^3"),
+    choice("y9-ind-pp-g1", "Simplify the expression. Write your answer as a single power.", "A", ["$x^6$", "$x^5$", "$2x^6$", "$x^9$"], "Multiply the exponents: 2 × 3 = 6.", "(x^2)^3"),
     choice("y9-ind-pp-g2", "Simplify.", "D", ["$2^9$", "$4^{10}$", "$2^{25}$", "$2^{10}$"], "Multiply 5 and 2.", "(2^5)^2"),
     choice("y9-ind-pp-g3", "Which statement is correct?", "B", ["$(7^3)^2=7^5$", "$(7^3)^2=7^6$", "$(7^3)^2=14^6$", "$(7^3)^2=7^9$"], "A power of a power multiplies exponents."),
-    answer("y9-ind-pp-g4", "Evaluate.", "(3^2)^2", "81", "The expression simplifies to 3^4, which is 81."),
+    choice("y9-ind-pp-g4", "Simplify the expression. Write your answer as a single power.", "C", ["$a^{10}$", "$a^2$", "$a^8$", "$a^{12}$"], "Multiply the exponents: 4 × 2 = 8.", "(a^4)^2"),
   ],
   independentPractice: [
     choice("y9-ind-pp-i1", "Simplify.", "D", ["$4^4$", "$8^8$", "$4^{10}$", "$4^8$"], "Multiply 4 and 2.", "(4^4)^2"),
@@ -212,11 +212,11 @@ const powerOfPower: LessonContent = {
     { mistake: "Confusing a product of powers with a power of a power.", fix: "Separate powers multiplied together use addition; nested powers use multiplication." },
   ],
   masteryQuiz: [
-    choice("y9-ind-pp-m1", "Simplify.", "B", ["$3^5$", "$3^6$", "$6^6$", "$3^9$"], "Multiply 2 and 3.", "(3^2)^3"),
+    choice("y9-ind-pp-m1", "Simplify.", "B", ["$x^5$", "$x^6$", "$2x^6$", "$x^9$"], "Multiply the exponents: 2 × 3 = 6.", "(x^2)^3"),
     choice("y9-ind-pp-m2", "Simplify.", "A", ["$10^{10}$", "$10^7$", "$20^{10}$", "$10^{25}$"], "Multiply 5 and 2.", "(10^5)^2"),
     choice("y9-ind-pp-m3", "Which law applies?", "D", ["Subtract exponents", "Add bases", "Add exponents", "Multiply exponents"], "Nested powers use exponent multiplication.", "(4^3)^6"),
     answer("y9-ind-pp-m4", "Evaluate.", "(2^3)^2", "64", "This is 2^6."),
-    choice("y9-ind-pp-m5", "Simplify.", "C", ["$7^3$", "$7^7$", "$7^{12}$", "$28^{12}$"], "Multiply 4 and 3.", "(7^4)^3"),
+    choice("y9-ind-pp-m5", "Simplify.", "C", ["$m^3$", "$m^7$", "$m^{12}$", "$4m^{12}$"], "Multiply the exponents: 4 × 3 = 12.", "(m^4)^3"),
     choice("y9-ind-pp-m6", "Which expression has the larger value?", "B", ["$2^3\\times2^2$", "$(2^3)^2$", "They are equal", "Neither can be simplified"], "The first is 2^5 and the second is 2^6."),
     choice("y9-ind-pp-m7", "A student writes (5^2)^4 = 5^6. What is the correction?", "A", ["$5^8$", "$5^2$", "$20^8$", "$5^{16}$"], "Multiply 2 by 4."),
     choice("y9-ind-pp-m8", "Simplify.", "D", ["$3^7$", "$3^9$", "$3^{24}$", "$3^{10}$"], "First multiply 2 and 4 to get 8, then add 2 to get 10.", "(3^2)^4\\times3^2"),
@@ -231,12 +231,12 @@ const zeroIndex: LessonContent = {
   successCriteria: ["Evaluate a non-zero number raised to zero.", "Explain the rule using division of equal powers.", "Distinguish a zero exponent from a zero base.", "Avoid treating 0^0 as an ordinary zero-index example."],
   teaching: {
     paragraphs: [
-      "Any non-zero base raised to the power zero equals 1.",
+      "Any non-zero base raised to the power zero equals 1. This applies to both numerical and variable bases: for example, x^0 = 1 for any non-zero value of x.",
       "The rule fits the division law: dividing a power by itself gives 1, while subtracting equal exponents gives an exponent of zero.",
       "A zero exponent is not the same as a zero base. For example, 7^0 is 1, while 0^7 is 0.",
       "The expression 0^0 is not used as an ordinary application of this rule.",
     ],
-    latexBlocks: ["a^0=1\\quad(a\\ne0)", "\\frac{a^3}{a^3}=a^{3-3}=a^0=1", "7^0=1\\quad\\text{but}\\quad0^7=0"],
+    latexBlocks: ["a^0=1\\quad(a\\ne0)", "x^0=1\\quad(x\\ne0)", "\\frac{a^3}{a^3}=a^{3-3}=a^0=1", "7^0=1\\quad\\text{but}\\quad0^7=0"],
   },
   workedExamples: [
     { title: "Evaluate a zero index", questionLatex: "\\text{Evaluate }7^0.", steps: [{ explanation: "The non-zero base has exponent zero.", latex: "7^0=1" }], finalAnswerLatex: "1" },
@@ -244,13 +244,13 @@ const zeroIndex: LessonContent = {
     { title: "Distinguish exponent and base", questionLatex: "\\text{Compare }0^4\\text{ and }4^0.", steps: [{ explanation: "Zero multiplied four times is zero.", latex: "0^4=0" }, { explanation: "A non-zero base to exponent zero is one.", latex: "4^0=1" }], finalAnswerLatex: "0^4=0,\\quad4^0=1" },
   ],
   guidedPractice: [
-    answer("y9-ind-zero-g1", "Evaluate.", "9^0", "1", "Any non-zero base to exponent zero equals 1."),
+    answer("y9-ind-zero-g1", "Simplify the expression, where x is a non-zero variable.", "x^0", "1", "Any non-zero base to exponent zero equals 1, whether the base is a number or a variable."),
     answer("y9-ind-zero-g2", "Evaluate.", "100^0", "1", "The base is non-zero."),
     choice("y9-ind-zero-g3", "Which statement is correct?", "C", ["$6^0=0$", "$0^6=1$", "$6^0=1$", "$6^0=6$"], "A non-zero base to exponent zero equals 1."),
     choice("y9-ind-zero-g4", "Which expression is not treated as an ordinary zero-index example?", "D", ["$8^0$", "$12^0$", "$1000^0$", "$0^0$"], "The usual zero-index rule is stated for non-zero bases."),
   ],
   independentPractice: [
-    answer("y9-ind-zero-i1", "Evaluate.", "34^0", "1", "The base is non-zero."),
+    answer("y9-ind-zero-i1", "Simplify the expression, where k is a non-zero variable.", "k^0", "1", "The zero-index law applies to variable bases: k^0 = 1 for any non-zero k."),
     answer("y9-ind-zero-i2", "Evaluate.", "0^5", "0", "Five factors of zero multiply to zero."),
     choice("y9-ind-zero-i3", "Simplify.", "A", ["$3^0=1$", "$3^0=0$", "$3^0=3$", "$3^0=9$"], "Subtracting equal exponents gives zero.", "3^7\\div3^7"),
     choice("y9-ind-zero-i4", "Which pair has different values?", "B", ["$5^0$ and $12^0$", "$0^5$ and $5^0$", "$8^0$ and $2^0$", "$100^0$ and $9^0$"], "0^5 is zero, while 5^0 is one."),
@@ -263,7 +263,7 @@ const zeroIndex: LessonContent = {
     { mistake: "Forgetting the link to division.", fix: "Use a^n divided by a^n = 1 to explain why the exponent-zero result is 1." },
   ],
   masteryQuiz: [
-    answer("y9-ind-zero-m1", "Evaluate.", "4^0", "1", "The base is non-zero."),
+    answer("y9-ind-zero-m1", "Simplify the expression, where t is a non-zero variable.", "t^0", "1", "The zero-index law applies to variable bases: t^0 = 1 for any non-zero t."),
     answer("y9-ind-zero-m2", "Evaluate.", "250^0", "1", "The base is non-zero."),
     choice("y9-ind-zero-m3", "Which statement is correct?", "A", ["$12^0=1$", "$12^0=0$", "$0^{12}=1$", "$12^0=12$"], "A non-zero base raised to zero is one."),
     answer("y9-ind-zero-m4", "Evaluate.", "0^8", "0", "Multiplying factors of zero gives zero."),
