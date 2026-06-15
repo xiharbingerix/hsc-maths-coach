@@ -521,10 +521,11 @@ export function year12Standard2TrigRatesLessonOverride(
           triangleDiagram: {
             description:
               "Right-angled triangle. Top of cliff D at top-left, base of cliff E at bottom-left (right angle), boat F at bottom-right. Height DE = 60 m, horizontal EF = d. Angle at F = 18° (angle of elevation from F to D = angle of depression from D to F).",
-            vertices: { D: { x: 60, y: 40 }, E: { x: 60, y: 240 }, F: { x: 380, y: 240 } },
-            rightAngleAt: "E",
-            angleLabels: { F: "18°" },
-            sideLabels: { DE: "60 m", EF: "d = ?" },
+            vertices: { A: { x: 60, y: 40 }, B: { x: 60, y: 240 }, C: { x: 380, y: 240 } },
+            vertexLabels: { A: "D", B: "E", C: "F" },
+            rightAngleAt: "B",
+            angleLabels: { C: "18°" },
+            sideLabels: { AB: "60 m", BC: "d = ?" },
           },
           steps: [
             {
@@ -546,10 +547,11 @@ export function year12Standard2TrigRatesLessonOverride(
           triangleDiagram: {
             description:
               "Right-angled triangle. Observer A at bottom-left, point B directly below drone at bottom-right (right angle), drone D at top-right. Horizontal AB = 80 m, height BD = h, hypotenuse AD = distance. Angle of elevation at A = 48°.",
-            vertices: { A: { x: 60, y: 240 }, B: { x: 380, y: 240 }, D: { x: 380, y: 40 } },
+            vertices: { A: { x: 60, y: 240 }, B: { x: 380, y: 240 }, C: { x: 380, y: 40 } },
+            vertexLabels: { C: "D" },
             rightAngleAt: "B",
             angleLabels: { A: "48°" },
-            sideLabels: { AB: "80 m", BD: "h = ?", AD: "dist = ?" },
+            sideLabels: { AB: "80 m", BC: "h = ?", AC: "dist = ?" },
           },
           steps: [
             {
@@ -2697,10 +2699,11 @@ export function year12Standard2TrigRatesLessonOverride(
           ],
           finalAnswerLatex: "\\text{opp} \\approx 10.04\\text{ m}",
           triangleDiagram: {
+            description: "Right-angled triangle. A at bottom-left, B at bottom-right (right angle), C at top-right. Angle at A = 42°. Hypotenuse AC = 15 m, opposite BC = opp.",
             vertices: {
-              A: { x: 0, y: 0, label: "A" },
-              B: { x: 4, y: 0, label: "B" },
-              C: { x: 4, y: 3.6, label: "C" },
+              A: { x: 0, y: 0 },
+              B: { x: 4, y: 0 },
+              C: { x: 4, y: 3.6 },
             },
             rightAngleAt: "B",
             angleLabels: { A: "42°" },
@@ -2727,10 +2730,11 @@ export function year12Standard2TrigRatesLessonOverride(
           ],
           finalAnswerLatex: "\\theta \\approx 68.8^\\circ",
           triangleDiagram: {
+            description: "Right-angled triangle. A at bottom-left, B at bottom-right (right angle), C at top-right. Angle at A = θ. Adjacent AB = 2.1 m, hypotenuse AC = 5.8 m.",
             vertices: {
-              A: { x: 0, y: 0, label: "A" },
-              B: { x: 3, y: 0, label: "B" },
-              C: { x: 3, y: 4.5, label: "C" },
+              A: { x: 0, y: 0 },
+              B: { x: 3, y: 0 },
+              C: { x: 3, y: 4.5 },
             },
             rightAngleAt: "B",
             angleLabels: { A: "θ" },
