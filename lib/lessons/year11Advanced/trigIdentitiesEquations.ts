@@ -929,6 +929,238 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
     };
   }
 
+  if (lesson.slug === "reciprocal-trig-ratios") {
+    return {
+      ...base,
+      description:
+        "Define sec θ = 1/cos θ, csc θ = 1/sin θ, and cot θ = cos θ/sin θ; evaluate exact values at special angles; use the Pythagorean identities sec²θ = 1 + tan²θ and csc²θ = 1 + cot²θ.",
+      learningIntention:
+        "Learn the three reciprocal trigonometric ratios, their exact values at 30°, 45°, and 60°, and the two Pythagorean identities that extend from sin²θ + cos²θ = 1.",
+      successCriteria: [
+        "State the definitions sec θ = 1/cos θ, csc θ = 1/sin θ, and cot θ = cos θ/sin θ.",
+        "Evaluate sec, csc, and cot exactly at 0°, 30°, 45°, 60°, 90°, and 180°.",
+        "Identify where sec and csc are undefined.",
+        "Apply the identity sec²θ = 1 + tan²θ.",
+        "Apply the identity csc²θ = 1 + cot²θ.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The three reciprocal ratios each flip one of the three primary ratios.",
+          "Secant (sec) is the reciprocal of cosine: sec θ = 1/cos θ. It is undefined where cos θ = 0, for example at 90°.",
+          "Cosecant (csc) is the reciprocal of sine: csc θ = 1/sin θ. It is undefined where sin θ = 0, for example at 0° and 180°.",
+          "Cotangent (cot) is the reciprocal of tangent: cot θ = cos θ/sin θ. It is undefined where sin θ = 0.",
+          "Dividing both sides of sin²θ + cos²θ = 1 by cos²θ gives sec²θ = 1 + tan²θ.",
+          "Dividing both sides of sin²θ + cos²θ = 1 by sin²θ gives csc²θ = 1 + cot²θ.",
+          "Exact values at 30°, 45°, and 60° follow directly from the special-angle triangles and the reciprocal definitions.",
+        ],
+        latexBlocks: [
+          "\\sec\\theta=\\frac{1}{\\cos\\theta},\\quad \\csc\\theta=\\frac{1}{\\sin\\theta},\\quad \\cot\\theta=\\frac{\\cos\\theta}{\\sin\\theta}",
+          "\\sec^2\\theta=1+\\tan^2\\theta",
+          "\\csc^2\\theta=1+\\cot^2\\theta",
+          "\\sec(60°)=2,\\quad \\csc(30°)=2,\\quad \\cot(45°)=1",
+          "\\sec(45°)=\\csc(45°)=\\sqrt{2}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Evaluate sec at a special angle",
+          questionLatex: "\\sec(60°)",
+          steps: [
+            { explanation: "Apply the definition sec θ = 1/cos θ.", latex: "\\sec(60°)=\\frac{1}{\\cos(60°)}" },
+            { explanation: "Recall cos(60°) = 1/2 from the 30-60-90 triangle.", latex: "\\cos(60°)=\\frac{1}{2}" },
+            { explanation: "Divide 1 by 1/2.", latex: "\\sec(60°)=1\\div\\frac{1}{2}=2" },
+          ],
+          finalAnswerLatex: "\\sec(60°)=2",
+        },
+        {
+          title: "Verify sec²θ = 1 + tan²θ at θ = 60°",
+          questionLatex: "\\sec^2(60°)=1+\\tan^2(60°)",
+          steps: [
+            { explanation: "Find sec(60°) = 2, so sec²(60°) = 4.", latex: "\\sec^2(60°)=4" },
+            { explanation: "Find tan(60°) = √3, so tan²(60°) = 3.", latex: "\\tan^2(60°)=(\\sqrt{3})^2=3" },
+            { explanation: "Check: 1 + 3 = 4 = sec²(60°). The identity holds.", latex: "1+\\tan^2(60°)=1+3=4\\checkmark" },
+          ],
+          finalAnswerLatex: "1+\\tan^2(60°)=4=\\sec^2(60°)\\checkmark",
+        },
+        {
+          title: "Evaluate csc and cot at 30°",
+          questionLatex: "\\csc(30°),\\quad \\cot(30°)",
+          steps: [
+            { explanation: "csc(30°) = 1/sin(30°). Use sin(30°) = 1/2.", latex: "\\csc(30°)=\\frac{1}{1/2}=2" },
+            { explanation: "cot(30°) = cos(30°)/sin(30°). Use cos(30°) = √3/2 and sin(30°) = 1/2.", latex: "\\cot(30°)=\\frac{\\sqrt{3}/2}{1/2}=\\sqrt{3}" },
+          ],
+          finalAnswerLatex: "\\csc(30°)=2,\\quad \\cot(30°)=\\sqrt{3}",
+        },
+      ],
+      guidedPractice: [
+        conceptChoice(
+          "y11adv-sec-g1",
+          "Choose the correct definition of sec θ.",
+          "B",
+          ["$\\dfrac{1}{\\sin\\theta}$", "$\\dfrac{1}{\\cos\\theta}$", "$\\dfrac{1}{\\tan\\theta}$", "$\\dfrac{\\cos\\theta}{\\sin\\theta}$"],
+          "Secant is the reciprocal of cosine. Choice A defines csc, C defines cot by one form, and D also defines cot.",
+          "\\sec\\theta=\\Box"
+        ),
+        exactAnswer("y11adv-sec-g2", "Evaluate the exact value.", "\\sec(60°)", "2",
+          "sec(60°) = 1/cos(60°) = 1/(1/2) = 2.", [], "Use sec θ = 1/cos θ, then substitute the exact value of cos(60°)."),
+        exactAnswer("y11adv-sec-g3", "Evaluate the exact value.", "\\csc(30°)", "2",
+          "csc(30°) = 1/sin(30°) = 1/(1/2) = 2.", [], "Use csc θ = 1/sin θ, then substitute the exact value of sin(30°)."),
+        exactAnswer("y11adv-sec-g4", "Evaluate the exact value.", "\\cot(45°)", "1",
+          "cot(45°) = 1/tan(45°) = 1/1 = 1.", [], "Use cot θ = 1/tan θ, then substitute tan(45°) = 1."),
+      ],
+      independentPractice: [
+        exactAnswer("y11adv-sec-i1", "Evaluate the exact value.", "\\csc(90°)", "1",
+          "csc(90°) = 1/sin(90°) = 1/1 = 1.", [], "Use csc θ = 1/sin θ, then sin(90°) = 1."),
+        exactAnswer("y11adv-sec-i2", "Evaluate the exact value.", "\\sec(180°)", "-1",
+          "sec(180°) = 1/cos(180°) = 1/(−1) = −1.", ["-1", "−1"], "Use sec θ = 1/cos θ, then cos(180°) = −1."),
+        exactAnswer("y11adv-sec-i3", "Evaluate the exact value.", "\\sec^2(60°)", "4",
+          "sec(60°) = 2, so sec²(60°) = 4.", [], "Find sec(60°) first, then square it."),
+        exactAnswer("y11adv-sec-i4", "Evaluate the expression.", "1+\\tan^2(60°)", "4",
+          "tan(60°) = √3, so tan²(60°) = 3, and 1 + 3 = 4.", [], "Use tan(60°) = √3, square it, then add 1."),
+        conceptChoice(
+          "y11adv-sec-i5",
+          "Complete the Pythagorean identity.",
+          "C",
+          ["$\\cot^2\\theta$", "$\\sin^2\\theta$", "$\\tan^2\\theta$", "$\\cos^2\\theta$"],
+          "Dividing sin²θ + cos²θ = 1 through by cos²θ gives 1/cos²θ = 1 + sin²θ/cos²θ, which is sec²θ = 1 + tan²θ.",
+          "\\sec^2\\theta=1+\\Box"
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Writing sec θ = 1/sin θ (confusing sec with csc).", fix: "Sec is the reciprocal of cosine, not sine. Memory aid: sec and cos share the letter c; csc and sin share the letter s." },
+        { mistake: "Writing sec(90°) = 0 because cos(90°) = 0.", fix: "cos(90°) = 0 makes sec(90°) = 1/0, which is undefined — not zero." },
+        { mistake: "Writing cot θ = sin θ/cos θ instead of cos θ/sin θ.", fix: "Cotangent flips the tangent ratio: cot θ = cos θ/sin θ. It is not the same as tangent." },
+        { mistake: "Using the wrong sign in the identity: sec²θ = 1 − tan²θ.", fix: "The identity has a plus sign: sec²θ = 1 + tan²θ. It comes from dividing sin²θ + cos²θ = 1 by cos²θ." },
+      ],
+      masteryQuiz: [
+        exactAnswer("y11adv-sec-m1", "Evaluate the exact value.", "\\csc^2(30°)", "4",
+          "csc(30°) = 2, so csc²(30°) = 4.", [], "Find csc(30°) first, then square it."),
+        exactAnswer("y11adv-sec-m2", "Evaluate the expression.", "1+\\cot^2(30°)", "4",
+          "cot(30°) = √3, so cot²(30°) = 3, and 1 + 3 = 4. This confirms csc²(30°) = 1 + cot²(30°).", [], "Use cot(30°) = √3, square it, then add 1."),
+        conceptChoice(
+          "y11adv-sec-m3",
+          "Which value is undefined?",
+          "D",
+          ["$\\sec(0°)$", "$\\csc(90°)$", "$\\cot(45°)$", "$\\sec(90°)$"],
+          "cos(90°) = 0, so sec(90°) = 1/0 is undefined. The other three are all defined.",
+          "\\text{Undefined values}"
+        ),
+        exactAnswer("y11adv-sec-m4", "Evaluate the exact value.", "\\csc(45°)", "sqrt(2)",
+          "csc(45°) = 1/sin(45°) = 1/(1/√2) = √2.",
+          ["√2", "\\sqrt{2}", "\\sqrt2"],
+          "Use csc θ = 1/sin θ, then sin(45°) = 1/√2."),
+        exactAnswer("y11adv-sec-m5", "Evaluate the expression.", "\\sec^2\\theta-\\tan^2\\theta", "1",
+          "sec²θ = 1 + tan²θ rearranges to sec²θ − tan²θ = 1.", [], "Rearrange the identity sec²θ = 1 + tan²θ by subtracting tan²θ from both sides."),
+        exactAnswer("y11adv-sec-m6", "Evaluate the expression.", "\\csc^2\\theta-\\cot^2\\theta", "1",
+          "csc²θ = 1 + cot²θ rearranges to csc²θ − cot²θ = 1.", [], "Rearrange the identity csc²θ = 1 + cot²θ by subtracting cot²θ from both sides."),
+        exactAnswer("y11adv-sec-m7", "Evaluate the exact value.", "\\sec(0°)", "1",
+          "sec(0°) = 1/cos(0°) = 1/1 = 1.", [], "Use sec θ = 1/cos θ, then cos(0°) = 1."),
+        conceptChoice(
+          "y11adv-sec-m8",
+          "Choose the correct definition of cot θ.",
+          "C",
+          ["$\\dfrac{\\sin\\theta}{\\cos\\theta}$", "$\\dfrac{1}{\\cos\\theta}$", "$\\dfrac{\\cos\\theta}{\\sin\\theta}$", "$\\dfrac{1}{\\sin\\theta}$"],
+          "cot θ = cos θ/sin θ. Choice A is tan, B is sec, D is csc.",
+          "\\cot\\theta=\\Box"
+        ),
+        exactAnswer("y11adv-sec-m9", "Evaluate the exact value.", "\\sec^2(45°)", "2",
+          "sec(45°) = 1/cos(45°) = 1/(1/√2) = √2, so sec²(45°) = (√2)² = 2.", [], "Find sec(45°) = √2 first, then square it."),
+        conceptChoice(
+          "y11adv-sec-m10",
+          "Which ratio is the reciprocal of sine?",
+          "C",
+          ["$\\sec\\theta$", "$\\cot\\theta$", "$\\csc\\theta$", "$\\tan\\theta$"],
+          "cosecant csc θ = 1/sin θ, so it is the reciprocal of sine. Sec is the reciprocal of cos; cot is the reciprocal of tan.",
+          "\\text{Reciprocal of }\\sin\\theta"
+        ),
+      ],
+      multiPartPractice: [
+        {
+          id: "y11adv-sec-mp1",
+          prompt: "Use θ = 60° to verify the identity sec²θ = 1 + tan²θ.",
+          latex: "\\sec^2(60°)=1+\\tan^2(60°)",
+          answer: "2",
+          hint: "Find sec(60°) and tan(60°) using their exact values, then check both sides equal 4.",
+          explanation: "(a) sec(60°) = 2. (b) tan(60°) = √3. (c) 1 + (√3)² = 1 + 3 = 4 = sec²(60°). The identity holds.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "Find sec(60°).",
+              latex: "\\sec(60°)",
+              marks: 1,
+              answer: "2",
+              hint: "sec(60°) = 1/cos(60°) = 1/(1/2).",
+              explanation: "cos(60°) = 1/2, so sec(60°) = 1 ÷ (1/2) = 2.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "Find tan(60°).",
+              latex: "\\tan(60°)",
+              marks: 1,
+              answer: "sqrt(3)",
+              acceptedAnswers: ["√3", "\\sqrt{3}", "\\sqrt3"],
+              hint: "tan(60°) = sin(60°)/cos(60°) = (√3/2)/(1/2).",
+              explanation: "From the 30-60-90 triangle: tan(60°) = √3.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "Evaluate 1 + tan²(60°) and confirm it equals sec²(60°).",
+              latex: "1+\\tan^2(60°)",
+              marks: 2,
+              answer: "4",
+              hint: "Square your answer from part (b), then add 1.",
+              explanation: "tan²(60°) = (√3)² = 3, so 1 + 3 = 4 = sec²(60°). The identity sec²θ = 1 + tan²θ is verified.",
+            },
+          ],
+        },
+        {
+          id: "y11adv-sec-mp2",
+          prompt: "Use θ = 30° to verify the identity csc²θ = 1 + cot²θ.",
+          latex: "\\csc^2(30°)=1+\\cot^2(30°)",
+          answer: "2",
+          hint: "Find csc(30°) and cot(30°) from the special-angle triangles, then check both sides equal 4.",
+          explanation: "(a) csc(30°) = 2. (b) cot(30°) = √3. (c) csc²(30°) − cot²(30°) = 4 − 3 = 1, confirming csc²θ = 1 + cot²θ.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "Find csc(30°).",
+              latex: "\\csc(30°)",
+              marks: 1,
+              answer: "2",
+              hint: "csc(30°) = 1/sin(30°) = 1/(1/2).",
+              explanation: "sin(30°) = 1/2, so csc(30°) = 1 ÷ (1/2) = 2.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "Find cot(30°).",
+              latex: "\\cot(30°)",
+              marks: 1,
+              answer: "sqrt(3)",
+              acceptedAnswers: ["√3", "\\sqrt{3}", "\\sqrt3"],
+              hint: "cot(30°) = cos(30°)/sin(30°) = (√3/2)/(1/2).",
+              explanation: "cos(30°) = √3/2 and sin(30°) = 1/2, so cot(30°) = √3.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "Find csc²(30°) − cot²(30°).",
+              latex: "\\csc^2(30°)-\\cot^2(30°)",
+              marks: 2,
+              answer: "1",
+              hint: "Square your answers from parts (a) and (b), then subtract.",
+              explanation: "csc²(30°) = 4 and cot²(30°) = 3, so 4 − 3 = 1. This confirms csc²θ − cot²θ = 1 (equivalently csc²θ = 1 + cot²θ).",
+            },
+          ],
+        },
+      ],
+    };
+  }
+
   return null;
 }
 

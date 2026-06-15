@@ -1840,6 +1840,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             ],
           },
           {
+            slug: "reciprocal-trig-ratios",
+            title: "Reciprocal Trigonometric Ratios",
+            description:
+              "Define sec θ = 1/cos θ, csc θ = 1/sin θ, and cot θ = cos θ/sin θ; evaluate exact values at special angles; use the Pythagorean identities sec²θ = 1 + tan²θ and csc²θ = 1 + cot²θ.",
+          },
+          {
             slug: "trigonometric-identities-equations-exam-practice",
             title: "Trigonometric Identities and Equations Exam Practice",
             stableSkillId: "y11adv-trig-id-exam-practice",
