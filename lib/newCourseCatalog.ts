@@ -428,6 +428,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Recognise and evaluate exponential growth and decay models and inverse variation models, and identify each type from tables, equations, and contexts.",
           },
           {
+            slug: "reciprocal-relationships",
+            title: "Reciprocal Relationships",
+            description:
+              "Recognise and sketch y = k/x as a rectangular hyperbola, identify its asymptotes and branches, find k from a given point, and solve practical inverse variation problems.",
+          },
+          {
             slug: "simultaneous-equations-context",
             title: "Simultaneous Equations in Context",
             description:

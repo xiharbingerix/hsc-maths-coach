@@ -205,6 +205,15 @@ const inverseVariationGraph = curveGraph(
   [[{ x: 1, y: 24 }, { x: 2, y: 12 }, { x: 3, y: 8 }, { x: 4, y: 6 }, { x: 6, y: 4 }, { x: 8, y: 3 }]],
   { xMin: 0, xMax: 9, yMin: 0, yMax: 26, xStep: 1, yStep: 5 }
 );
+const reciprocalGraph = curveGraph(
+  "Rectangular hyperbola y = 12/x. Branch in Q1 (positive x): as x increases y decreases toward 0. Branch in Q3 (negative x): as x decreases y approaches 0 from below. Asymptotes: x = 0 and y = 0.",
+  [
+    [{ x: 1, y: 12 }, { x: 2, y: 6 }, { x: 3, y: 4 }, { x: 4, y: 3 }, { x: 6, y: 2 }, { x: 12, y: 1 }],
+    [{ x: -1, y: -12 }, { x: -2, y: -6 }, { x: -3, y: -4 }, { x: -4, y: -3 }, { x: -6, y: -2 }, { x: -12, y: -1 }],
+  ],
+  { xMin: -13, xMax: 13, yMin: -13, yMax: 13, xStep: 2, yStep: 2 }
+);
+
 export function year12Standard2AlgebraicRelationshipsLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -428,6 +437,255 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         algebraAnswer("y12s2-quad-m10", "For R = -2p^2 + 40p, find the maximum revenue.", "R(10)=200", "200", "The downward-opening graph has its maximum at the vertex p = 10. Substituting gives maximum revenue 200.", ["$200", "200 dollars"]),
       ],
       masteryPassMark: 0.8,
+    };
+  }
+
+  if (lesson.slug === "reciprocal-relationships") {
+    return {
+      ...base,
+      description:
+        "Recognise y = k/x as a rectangular hyperbola, find k from a given point, evaluate and solve, and apply reciprocal relationships to practical inverse variation problems.",
+      learningIntention:
+        "Identify and use the reciprocal function y = k/x: sketch its shape, find k, evaluate y for given x, solve for x given y, and interpret practical inverse variation.",
+      successCriteria: [
+        "Recognise y = k/x as a rectangular hyperbola with asymptotes at x = 0 and y = 0.",
+        "Determine whether branches lie in Q1/Q3 (k > 0) or Q2/Q4 (k < 0).",
+        "Find k from a given point using k = x × y.",
+        "Evaluate y for a given x, or solve for x given y, using y = k/x.",
+        "Interpret a practical inverse variation relationship using the reciprocal model.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The function y = k/x is called a rectangular hyperbola. It has two branches, one in each pair of opposite quadrants. The constant k determines which pair: if k > 0, the branches are in Q1 (x > 0, y > 0) and Q3 (x < 0, y < 0); if k < 0, the branches are in Q2 and Q4.",
+          "Both axes are asymptotes. The graph approaches but never touches the x-axis (y = 0) or the y-axis (x = 0). As x gets very large, y gets very close to 0 but never reaches it.",
+          "The key identity is xy = k. Every point on the curve satisfies this constant product. Given one point (x₁, y₁) on the curve, find k by computing k = x₁ × y₁. Use k to find any other (x, y) pair: y = k/x or x = k/y.",
+          "Practical inverse variation arises when one quantity increases as another decreases in proportion. Classic examples: workers and time for a fixed job; speed and travel time for a fixed distance; pressure and volume of a gas.",
+        ],
+        latexBlocks: [
+          "y = \\dfrac{k}{x},\\quad xy = k",
+          "k = x_1 \\times y_1\\quad\\text{(from any point on the curve)}",
+          "\\text{Asymptotes: }x = 0\\text{ (y-axis) and }y = 0\\text{ (x-axis)}",
+          "\\text{k > 0: branches in Q1 and Q3}\\quad\\text{k < 0: branches in Q2 and Q4}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Build and evaluate a reciprocal table",
+          questionLatex:
+            "y = \\dfrac{12}{x}\\text{. (a) Complete the table for }x = 1, 2, 3, 4, 6\\text{. (b) State the asymptotes.}",
+          cartesianGraph: reciprocalGraph,
+          steps: [
+            {
+              explanation: "Substitute each x-value into y = 12/x.",
+              latex:
+                "x=1\\Rightarrow y=12,\\quad x=2\\Rightarrow y=6,\\quad x=3\\Rightarrow y=4,\\quad x=4\\Rightarrow y=3,\\quad x=6\\Rightarrow y=2",
+            },
+            {
+              explanation: "State the asymptotes.",
+              latex: "\\text{Asymptotes: }x=0\\text{ and }y=0.\\quad y\\to 0\\text{ as }x\\to\\infty.",
+            },
+          ],
+          finalAnswerLatex:
+            "y: 12, 6, 4, 3, 2;\\quad\\text{Asymptotes: }x=0,\\;y=0",
+        },
+        {
+          title: "Find k from a given point",
+          questionLatex:
+            "\\text{A rectangular hyperbola passes through }(3, 8)\\text{. Find k and the equation. Then find y when }x = 6.",
+          steps: [
+            {
+              explanation: "Use k = x × y with the given point.",
+              latex: "k = 3 \\times 8 = 24\\implies y = \\dfrac{24}{x}",
+            },
+            {
+              explanation: "Substitute x = 6.",
+              latex: "y = \\dfrac{24}{6} = 4",
+            },
+          ],
+          finalAnswerLatex:
+            "k = 24;\\quad y = \\dfrac{24}{x};\\quad y = 4\\text{ when }x = 6",
+        },
+        {
+          title: "Practical reciprocal: workers and hours",
+          questionLatex:
+            "\\text{A job requires 24 worker-hours. n workers each work }h = \\tfrac{24}{n}\\text{ hours. (a) Find h when }n = 6\\text{. (b) How many workers are needed so each works at most 3 hours?}",
+          steps: [
+            {
+              explanation: "(a) Substitute n = 6.",
+              latex: "h = \\dfrac{24}{6} = 4\\text{ hours}",
+            },
+            {
+              explanation: "(b) h ≤ 3 means 24/n ≤ 3, so n ≥ 24/3 = 8.",
+              latex: "n \\geq 8\\implies\\text{at least 8 workers are needed}",
+            },
+          ],
+          finalAnswerLatex:
+            "\\text{(a) }h = 4\\text{ hours};\\quad\\text{(b) at least 8 workers}",
+        },
+      ],
+      guidedPractice: [
+        algebraChoice(
+          "y12s2-rec-g1",
+          "The function y = k/x is best described as:",
+          "B",
+          [
+            "A straight line through the origin",
+            "A rectangular hyperbola with two branches",
+            "A parabola opening upward",
+            "An exponential growth curve",
+          ],
+          "y = k/x is a rectangular hyperbola — two smooth curves that never touch either axis.",
+          reciprocalGraph
+        ),
+        algebraAnswer(
+          "y12s2-rec-g2",
+          "For y = 6/x, find y when x = 3.",
+          "y = 6 \\div 3",
+          "2",
+          "Substitute x = 3: y = 6/3 = 2."
+        ),
+        algebraChoice(
+          "y12s2-rec-g3",
+          "A hyperbola passes through (2, 10). The value of k is:",
+          "D",
+          ["2", "5", "12", "20"],
+          "k = x × y = 2 × 10 = 20."
+        ),
+        algebraAnswer(
+          "y12s2-rec-g4",
+          "y = 20/x. Find x when y = 5.",
+          "x = 20 \\div 5",
+          "4",
+          "Rearrange: x = k/y = 20/5 = 4."
+        ),
+      ],
+      independentPractice: [
+        algebraChoice(
+          "y12s2-rec-i1",
+          "y = 12/x. Find y when x = 4.",
+          "B",
+          ["6", "3", "48", "16"],
+          "y = 12/4 = 3."
+        ),
+        algebraAnswer(
+          "y12s2-rec-i2",
+          "A rectangular hyperbola passes through (3, 8). Find k.",
+          "k = x \\times y = 3 \\times 8",
+          "24",
+          "k = xy = 3 × 8 = 24."
+        ),
+        algebraChoice(
+          "y12s2-rec-i3",
+          "y = −6/x has branches in which quadrants?",
+          "B",
+          ["Q1 and Q3", "Q2 and Q4", "Q1 and Q4", "All four quadrants"],
+          "k = −6 < 0, so branches are in Q2 (x < 0, y > 0) and Q4 (x > 0, y < 0)."
+        ),
+        algebraAnswer(
+          "y12s2-rec-i4",
+          "y = 30/x. Find x when y = 6.",
+          "x = 30 \\div 6",
+          "5",
+          "x = k/y = 30/6 = 5."
+        ),
+        algebraChoice(
+          "y12s2-rec-i5",
+          "For y = k/x with k > 0 and x > 0, as x increases, y:",
+          "B",
+          ["Increases toward infinity", "Decreases toward 0", "Stays constant at k", "Becomes negative"],
+          "For k > 0 and increasing x, y = k/x decreases toward 0 (the x-axis asymptote)."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Treating y = k/x as a straight line.",
+          fix: "y = k/x is a rectangular hyperbola — a curve with two branches, not a line. Only y = kx (no division) gives a straight line through the origin.",
+        },
+        {
+          mistake: "Thinking the curve can touch or cross the axes.",
+          fix: "Both axes are asymptotes. The curve gets closer and closer to both x = 0 and y = 0 but never reaches them. There is no x- or y-intercept.",
+        },
+        {
+          mistake: "Forgetting to consider negative x and y values when sketching.",
+          fix: "y = k/x has two branches. For k > 0, branch 2 is in Q3 where both x and y are negative. A complete sketch must show both branches.",
+        },
+        {
+          mistake: "Rearranging y = k/x incorrectly to solve for x.",
+          fix: "Starting from y = k/x, multiply both sides by x: xy = k, then divide both sides by y: x = k/y. Do not subtract or add k.",
+        },
+      ],
+      masteryQuiz: [
+        algebraChoice(
+          "y12s2-rec-m1",
+          "The asymptotes of y = k/x are:",
+          "B",
+          ["x = k and y = k", "x = 0 and y = 0", "x = 1 and y = 1", "y = x and y = −x"],
+          "y = k/x approaches both axes but never touches them — asymptotes are x = 0 and y = 0."
+        ),
+        algebraAnswer(
+          "y12s2-rec-m2",
+          "y = 8/x. Find y when x = 2.",
+          "y = 8 \\div 2",
+          "4",
+          "y = 8/2 = 4."
+        ),
+        algebraChoice(
+          "y12s2-rec-m3",
+          "A hyperbola passes through (4, 6). Its equation is:",
+          "C",
+          ["y = 1.5x", "y = 4x", "y = 24/x", "y = 6/x"],
+          "k = 4 × 6 = 24, so y = 24/x."
+        ),
+        algebraAnswer(
+          "y12s2-rec-m4",
+          "y = 24/x. Find y when x = 8.",
+          "y = 24 \\div 8",
+          "3",
+          "y = 24/8 = 3."
+        ),
+        algebraChoice(
+          "y12s2-rec-m5",
+          "y = k/x with k < 0. Where are the branches?",
+          "B",
+          ["Q1 and Q3", "Q2 and Q4", "Q1 and Q2", "Q3 and Q4"],
+          "k < 0: for x > 0, y = k/x < 0 (Q4); for x < 0, y = k/x > 0 (Q2). Branches in Q2 and Q4."
+        ),
+        algebraAnswer(
+          "y12s2-rec-m6",
+          "A rectangular hyperbola passes through (5, 4). Find x when y = 10.",
+          "k = 5 \\times 4 = 20\\implies x = 20 \\div 10",
+          "2",
+          "k = 20. x = k/y = 20/10 = 2."
+        ),
+        algebraChoice(
+          "y12s2-rec-m7",
+          "6 workers complete a job in 4 hours. If 8 workers share the job, each worker takes:",
+          "B",
+          ["4 hours", "3 hours", "6 hours", "2 hours"],
+          "Total = 6 × 4 = 24 worker-hours. 8 workers: h = 24/8 = 3 hours."
+        ),
+        algebraAnswer(
+          "y12s2-rec-m8",
+          "y = 15/x. Find x when y = 3.",
+          "x = 15 \\div 3",
+          "5",
+          "x = k/y = 15/3 = 5."
+        ),
+        algebraChoice(
+          "y12s2-rec-m9",
+          "Which x-value makes y undefined in y = k/x?",
+          "A",
+          ["x = 0", "x = k", "x = 1", "x = −k"],
+          "Division by zero is undefined. y = k/0 is undefined, so x = 0 is excluded."
+        ),
+        algebraChoice(
+          "y12s2-rec-m10",
+          "As x → ∞, y = 12/x:",
+          "C",
+          ["Approaches 12", "Approaches ∞", "Approaches 0", "Becomes undefined"],
+          "As x gets very large, 12/x gets very small — approaches 0 (the x-axis asymptote)."
+        ),
+      ],
     };
   }
 
