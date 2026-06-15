@@ -78,6 +78,9 @@ import {
   year12Extension1ProofInductionRevisionLessonOverride,
   year12Extension1InverseTrigRevisionLessonOverride,
   year12Extension1BinomialRevisionLessonOverride,
+  year12Extension1VectorsRevisionLessonOverride,
+  year12Extension1FurtherCalculusRevisionLessonOverride,
+  year12Extension1CalculusApplicationsRevisionLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
@@ -296,6 +299,9 @@ export function buildLesson(
     year12Extension1ProofInductionRevisionLessonOverride(course, unit, lesson) ??
     year12Extension1InverseTrigRevisionLessonOverride(course, unit, lesson) ??
     year12Extension1BinomialRevisionLessonOverride(course, unit, lesson) ??
+    year12Extension1VectorsRevisionLessonOverride(course, unit, lesson) ??
+    year12Extension1FurtherCalculusRevisionLessonOverride(course, unit, lesson) ??
+    year12Extension1CalculusApplicationsRevisionLessonOverride(course, unit, lesson) ??
     year12Extension2ComplexNumbersLessonOverride(course, unit, lesson) ??
     year12Extension2Vectors3DLessonOverride(course, unit, lesson) ??
     year12Extension2CalculusLessonOverride(course, unit, lesson) ??
@@ -2735,6 +2741,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Model projectile motion as r(t) = (Vcosθ·t, Vsinθ·t − ½gt²), find velocity by differentiation, determine time of flight, maximum height, range, and impact velocity, and solve problems where launch speed or angle is unknown.",
           },
+          {
+            slug: "vectors-revision",
+            title: "Prior Knowledge Revision: Scalars, Vectors and Distance",
+            description:
+              "Activate prior knowledge for vectors: distinguish scalar and vector quantities, find vector magnitude using Pythagoras, apply the distance formula, and resolve a vector into components using bearings.",
+          },
         ],
       },
       {
@@ -2789,6 +2801,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "simple-substitution", title: "Substitution for Linear Inner Functions" },
           { slug: "integration-by-parts", title: "Introduction to Integration by Parts" },
           { slug: "further-calculus-exam-practice", title: "Further Calculus Exam Practice" },
+          {
+            slug: "further-calculus-revision",
+            title: "Prior Knowledge Revision: Differentiation and Substitution",
+            description:
+              "Activate prior knowledge for Further Calculus: the chain, product, and quotient rules; power-reduction identities for sin²x and cos²x; and integration by substitution.",
+          },
         ],
       },
       {
@@ -2826,6 +2844,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Slope Fields and Solution Curves",
             description:
               "Construct and read slope fields for dy/dx = f(x, y), sketch solution curves by following the direction field, identify stable and unstable equilibria, and describe long-run behaviour of solutions.",
+          },
+          {
+            slug: "calculus-applications-revision",
+            title: "Prior Knowledge Revision: Integration and Separable DEs",
+            description:
+              "Activate prior knowledge for Further Applications of Calculus: standard indefinite integrals, the Fundamental Theorem of Calculus for definite integrals, and separation of variables for first-order differential equations.",
           },
         ],
       },

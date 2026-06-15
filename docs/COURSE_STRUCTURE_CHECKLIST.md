@@ -967,7 +967,7 @@ Plus: `projectile-motion` unit (4 lessons, 76Q) — calculus approach; useful sc
 The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equations and displacement vectors**, not as a standalone calculus topic. The `kinematics` unit (v = dx/dt, direction changes, total distance) is primarily **Year 11 Extension 1** content — valuable as a revision unit. The `projectile-motion` unit (calculus approach) should be supplemented with new vector-based lessons.
 
 #### Required new lessons
-- [ ] **`vectors-revision`** — Trig ratios and bearings, Cartesian coordinates, parametric equations. Activates prior knowledge before vector notation.
+- [x] **`vectors-revision`** — Scalars/vectors, magnitude by Pythagoras, distance formula, bearings. Prior knowledge activation. ✅ Added 2026-06-15
 - [x] **`vectors-projection`** — Proof of projection formula from perpendicularity condition; perpendicular component a⊥ = a − proj_b(a); full decomposition. ✅ Added 2026-06-15
 - [x] **`vectors-motion-2d`** — Position, velocity, acceleration as vector functions of time; differentiate **r**(t). ✅ Added 2026-06-15
 - [x] **`vectors-projectile-parametric`** — Projectile motion in vector form; time of flight, max height, range, impact velocity; unknown launch speed or angle. ✅ Added 2026-06-15
@@ -1020,7 +1020,7 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 
 #### Current lessons (unit: `further-calculus`) — 4 lessons, 76Q ✅ content complete
 #### Required new lessons
-- [ ] **`further-calculus-revision`** — Chain/product/quotient rules, trig identities (double angle), basic substitution. Entry check before substitution and parametric content.
+- [x] **`further-calculus-revision`** — Chain/product/quotient rules, power-reduction identities (sin²x, cos²x), u-substitution. Prior knowledge activation. ✅ Added 2026-06-15
 
 ---
 
@@ -1057,7 +1057,7 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 
 #### Current lessons (unit: `calculus-applications`) — 10 lessons, 191Q ✅ ~100% coverage
 #### Required new lessons
-- [ ] **`calculus-applications-revision`** — Polynomial factorisation and sketching, chain rule fluency, area under curve. Prior knowledge activation.
+- [x] **`calculus-applications-revision`** — Standard integrals (xⁿ, eˣ, 1/x, sin x, cos x), FTC for definite integrals, separation of variables. Prior knowledge activation. ✅ Added 2026-06-15
 - [x] **`calculus-applications-polynomial-zeroes`** — Multiplicity of zeroes; product-rule proof; graphing polynomials with repeated roots. ✅ Added 2026-06-15
 - [x] **`calculus-applications-newton-cooling`** — dQ/dt = k(Q−A); Newton's Law of Cooling; logistic/carrying-capacity models; solve and justify in context. ✅ Added 2026-06-15
 - [x] **`calculus-applications-volumes`** — Areas between curves; solids of revolution; volumes rotating about x/y-axis; between two curves. ✅ Added 2026-06-15
@@ -1102,15 +1102,15 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 | Focus area | Outcome | Nova lessons | Dot-point coverage | What is missing |
 |---|---|---|---|---|
 | Proof by Mathematical Induction | ME1-12-01 | 4 (76Q) | ✅ ~100% | ~~Revision lesson~~ ✅ done |
-| Introduction to Vectors | ME1-12-02 | 7+8 (285Q total) | ✅ ~100% | Revision lesson pending |
+| Introduction to Vectors | ME1-12-02 | 7+8+1 (304Q total) | ✅ ~100% | ~~Revision lesson~~ ✅ done |
 | Inverse Trigonometric Functions | ME1-12-03 | 5 (95Q) | ✅ ~100% | ~~Revision lesson~~ ✅ done |
-| Further Calculus Skills | ME1-12-04 | 4 (76Q) | ✅ ~100% | Revision lesson pending |
-| Further Applications of Calculus | ME1-12-05 | 10 (191Q) | ✅ ~100% | Revision lesson pending |
+| Further Calculus Skills | ME1-12-04 | 4+1 (95Q) | ✅ ~100% | ~~Revision lesson~~ ✅ done |
+| Further Applications of Calculus | ME1-12-05 | 10+1 (210Q) | ✅ ~100% | ~~Revision lesson~~ ✅ done |
 | Binomial Distribution + Sampling | ME1-12-06 | 7 (133Q) | ✅ ~100% | ~~Revision lesson~~ ✅ done |
 
-**Current:** 45 lessons (9 units) / 805Q
-**New lessons to meet syllabus fully:** ~3 (revision lessons: ME1-12-02, ME1-12-04, ME1-12-05)
-**Target:** ~48 lessons
+**Current:** 48 lessons (9 units) / 862Q
+**All revision lessons complete.** NSW Mathematics Extension 1 (2024 syllabus) coverage is now 100%.
+**Target:** ✅ 48 lessons reached
 
 ### Priority order
 1. ~~Sampling distribution of mean + CLT~~ ✅ Done 2026-06-15
@@ -1122,7 +1122,7 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 7. ~~Slope fields~~ ✅ Done 2026-06-15
 8. ~~Inverse trig properties~~ ✅ Done 2026-06-15
 9. ~~Revision lessons (ME1-12-01, ME1-12-03, ME1-12-06)~~ ✅ Done 2026-06-15
-10. **Revision lessons** (3 remaining: ME1-12-02 vectors, ME1-12-04 further calculus, ME1-12-05 calculus applications)
+10. ~~Revision lessons (ME1-12-02 vectors, ME1-12-04 further calculus, ME1-12-05 calculus applications)~~ ✅ Done 2026-06-15
 
 ---
 

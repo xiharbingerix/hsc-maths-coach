@@ -17,3 +17,6 @@ export * from "./inverseTrigProperties";
 export * from "./proofInductionRevision";
 export * from "./inverseTrigRevision";
 export * from "./binomialRevision";
+export * from "./vectorsRevision";
+export * from "./furtherCalculusRevision";
+export * from "./calculusApplicationsRevision";
