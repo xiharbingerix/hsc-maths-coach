@@ -608,5 +608,324 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
     };
   }
 
+  if (lesson.slug === "graphing-exponential-logarithmic-functions") {
+    return {
+      ...base,
+      description:
+        "Sketch and interpret y=aˣ and y=logₐx, identify their key features, and recognise y=eˣ and y=lnx as reflections in y=x.",
+      learningIntention:
+        "Learn the shape, intercepts, asymptotes, and domain of exponential and logarithmic graphs, and understand that y=eˣ and y=lnx are inverse functions reflected in y=x.",
+      successCriteria: [
+        "State the y-intercept, horizontal asymptote, domain, and range of y=aˣ.",
+        "State the x-intercept, vertical asymptote, domain, and range of y=logₐx.",
+        "Evaluate y=aˣ at given x-values.",
+        "Evaluate y=logₐx at given x-values by inspection.",
+        "Recognise e≈2.718 as the base of the natural exponential and natural logarithm.",
+        "Explain why y=eˣ and y=lnx are reflections in y=x.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The graph of y=aˣ (with a>1) rises steeply to the right and flattens toward the x-axis on the left. It always passes through (0,1) because any valid base raised to zero equals 1. The horizontal asymptote is y=0.",
+          "The graph of y=logₐx is the mirror image of y=aˣ reflected in the diagonal line y=x. It always passes through (1,0) because logₐ1=0. Its domain is x>0 only, and the vertical asymptote is x=0.",
+          "Inverse functions undo each other and their graphs are reflections in y=x. Because logₐ(aˣ)=x and aˡᵒᵍᵃˣ=x, the graphs y=aˣ and y=logₐx are reflections of each other in the line y=x.",
+          "Euler's number e (approximately 2.718) is the special base where the natural exponential function y=eˣ is its own gradient function. The natural logarithm y=lnx means y=logₑx, and y=eˣ and y=lnx are reflections of each other in y=x.",
+        ],
+        latexBlocks: [
+          "y=a^x:\\quad \\text{y-int }(0,1),\\quad \\text{asymptote }y=0,\\quad \\text{domain all reals}",
+          "y=\\log_a x:\\quad \\text{x-int }(1,0),\\quad \\text{asymptote }x=0,\\quad \\text{domain }x>0",
+          "y=a^x\\text{ and }y=\\log_a x\\text{ are reflections in }y=x",
+          "e\\approx 2.718,\\quad \\ln x=\\log_e x",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "State the key features of y=2ˣ",
+          questionLatex: "y=2^x",
+          steps: [
+            { explanation: "Find the y-intercept by setting x=0.", latex: "y=2^0=1\\quad\\Rightarrow\\quad (0,1)" },
+            { explanation: "The base is greater than 1, so the graph is increasing.", latex: "2>1\\Rightarrow\\text{increasing}" },
+            { explanation: "The graph approaches y=0 but never crosses it.", latex: "\\text{horizontal asymptote: }y=0" },
+            { explanation: "State the domain and range.", latex: "\\text{domain: all reals},\\quad \\text{range: }y>0" },
+          ],
+          finalAnswerLatex:
+            "\\text{y-intercept }(0,1),\\;\\text{asymptote }y=0,\\;\\text{domain all reals},\\;\\text{range }y>0.",
+        },
+        {
+          title: "State the key features of y=log₂x",
+          questionLatex: "y=\\log_2 x",
+          steps: [
+            { explanation: "Find the x-intercept by setting y=0.", latex: "\\log_2 x=0\\Rightarrow x=2^0=1\\quad\\Rightarrow\\quad (1,0)" },
+            { explanation: "The domain is restricted to positive inputs.", latex: "\\text{domain: }x>0" },
+            { explanation: "The graph has a vertical asymptote at x=0.", latex: "\\text{vertical asymptote: }x=0" },
+            { explanation: "The range is all real numbers.", latex: "\\text{range: all reals}" },
+          ],
+          finalAnswerLatex:
+            "\\text{x-intercept }(1,0),\\;\\text{asymptote }x=0,\\;\\text{domain }x>0,\\;\\text{range all reals.}",
+        },
+        {
+          title: "Explain why y=eˣ and y=lnx are reflections in y=x",
+          questionLatex: "y=e^x\\text{ and }y=\\ln x",
+          steps: [
+            { explanation: "Two functions are inverses when each undoes the other.", latex: "\\ln(e^x)=x\\quad\\text{and}\\quad e^{\\ln x}=x" },
+            { explanation: "Inverse functions swap the roles of x and y.", latex: "(a,b)\\text{ on }y=e^x\\Rightarrow (b,a)\\text{ on }y=\\ln x" },
+            { explanation: "Swapping coordinates is the same as reflecting in y=x.", latex: "\\text{Reflection line: }y=x" },
+          ],
+          finalAnswerLatex:
+            "y=e^x\\text{ and }y=\\ln x\\text{ are reflections in }y=x\\text{ because they are inverse functions.}",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice(
+          "y11adv-exp-graph-g1",
+          "Which line is the horizontal asymptote of the displayed exponential function?",
+          "A",
+          ["$y=0$", "$y=3$", "$x=0$", "$x=3$"],
+          "As x decreases without bound, 3^x approaches 0 but never reaches it.",
+          "y=3^x"
+        ),
+        formulaAnswer(
+          "y11adv-exp-graph-g2",
+          "Evaluate the exponential function at the given input.",
+          "y=2^x,\\quad x=0",
+          "1"
+        ),
+        practicalChoice(
+          "y11adv-exp-graph-g3",
+          "Which line is the vertical asymptote of the displayed logarithmic function?",
+          "C",
+          ["$y=0$", "$x=2$", "$x=0$", "$y=2$"],
+          "The domain of log₂x is x>0; the graph approaches but never reaches x=0.",
+          "y=\\log_2 x"
+        ),
+        practicalChoice(
+          "y11adv-exp-graph-g4",
+          "Which line is the axis of reflection between the displayed inverse pair?",
+          "B",
+          ["$y=0$", "$y=x$", "$x=0$", "$y=-x$"],
+          "Inverse functions swap x and y coordinates, which is a reflection in y=x.",
+          "y=e^x\\text{ and }y=\\ln x"
+        ),
+      ],
+      independentPractice: [
+        formulaAnswer(
+          "y11adv-exp-graph-i1",
+          "Evaluate the exponential function at the given input.",
+          "y=2^x,\\quad x=3",
+          "8"
+        ),
+        practicalChoice(
+          "y11adv-exp-graph-i2",
+          "Which point is the x-intercept of the displayed logarithmic function?",
+          "D",
+          ["$(0,1)$", "$(5,0)$", "$(0,5)$", "$(1,0)$"],
+          "Setting y=0 gives log₅x=0, so x=1; the x-intercept is (1,0).",
+          "y=\\log_5 x"
+        ),
+        practicalChoice(
+          "y11adv-exp-graph-i3",
+          "Which describes the domain of the displayed logarithmic function?",
+          "B",
+          ["All real numbers", "$x>0$", "$x\\geq0$", "$x>1$"],
+          "The input to a logarithm must be positive, so the domain is x>0.",
+          "y=\\log_2 x"
+        ),
+        formulaAnswer(
+          "y11adv-exp-graph-i4",
+          "Evaluate the exponential function at the given input.",
+          "y=e^x,\\quad x=0",
+          "1"
+        ),
+        practicalChoice(
+          "y11adv-exp-graph-i5",
+          "Which describes the range of the displayed exponential function?",
+          "C",
+          ["All real numbers", "$y\\geq1$", "$y>0$", "$y\\geq0$"],
+          "An exponential with positive base is always positive; the output is never zero or negative.",
+          "y=2^x"
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Thinking y=aˣ has an x-intercept.", fix: "The graph of y=aˣ never touches the x-axis; y=0 is the horizontal asymptote, not an intercept." },
+        { mistake: "Applying logarithm rules to negative or zero inputs.", fix: "The domain of y=logₐx is x>0 only; the function is undefined at x=0 and for negative x." },
+        { mistake: "Confusing which asymptote belongs to which function.", fix: "y=aˣ has a horizontal asymptote (y=0); y=logₐx has a vertical asymptote (x=0)." },
+        { mistake: "Treating e as just a calculator decimal.", fix: "e is an exact mathematical constant (the base where d/dx(eˣ)=eˣ); use e in exact answers rather than the decimal 2.718." },
+      ],
+      masteryQuiz: [
+        formulaAnswer(
+          "y11adv-exp-graph-m1",
+          "Evaluate the exponential function at the given input.",
+          "y=2^x,\\quad x=4",
+          "16"
+        ),
+        practicalChoice(
+          "y11adv-exp-graph-m2",
+          "Which point is the y-intercept of the displayed exponential function?",
+          "A",
+          ["$(0,1)$", "$(1,0)$", "$(0,5)$", "$(5,0)$"],
+          "Setting x=0 gives 5⁰=1, so the y-intercept is (0,1).",
+          "y=5^x"
+        ),
+        practicalChoice(
+          "y11adv-exp-graph-m3",
+          "Which line is the horizontal asymptote of the displayed exponential function?",
+          "B",
+          ["$y=4$", "$y=0$", "$x=0$", "$x=4$"],
+          "As x decreases without bound, 4^x approaches 0 but never reaches it.",
+          "y=4^x"
+        ),
+        practicalChoice(
+          "y11adv-exp-graph-m4",
+          "Which point is the x-intercept of the displayed logarithmic function?",
+          "C",
+          ["$(0,1)$", "$(3,0)$", "$(1,0)$", "$(0,3)$"],
+          "log₃1=0 since 3⁰=1, so the graph passes through (1,0).",
+          "y=\\log_3 x"
+        ),
+        practicalChoice(
+          "y11adv-exp-graph-m5",
+          "Which describes the range of the displayed logarithmic function?",
+          "A",
+          ["All real numbers", "$y>0$", "$y\\geq0$", "$y\\geq1$"],
+          "As x grows or approaches 0 from the right, log₂x takes any real value — positive, negative, or zero.",
+          "y=\\log_2 x"
+        ),
+        formulaAnswer(
+          "y11adv-exp-graph-m6",
+          "Evaluate the exponential function at the given input.",
+          "y=2^x,\\quad x=5",
+          "32"
+        ),
+        practicalChoice(
+          "y11adv-exp-graph-m7",
+          "Which value best approximates the special constant e?",
+          "D",
+          ["2.314", "3.142", "1.618", "2.718"],
+          "Euler's number e ≈ 2.718 is the base of the natural exponential and natural logarithm.",
+          "e\\approx?"
+        ),
+        practicalChoice(
+          "y11adv-exp-graph-m8",
+          "Which transformation maps y=eˣ onto y=lnx?",
+          "B",
+          ["Reflection in $y=0$", "Reflection in $y=x$", "Rotation by 90°", "Reflection in $x=0$"],
+          "Inverse functions swap x and y coordinates, which is geometrically a reflection in the line y=x.",
+          "y=e^x\\longleftrightarrow y=\\ln x"
+        ),
+        practicalChoice(
+          "y11adv-exp-graph-m9",
+          "Which statement about the displayed function is TRUE?",
+          "C",
+          [
+            "The domain is all real numbers",
+            "The y-intercept is $(0,1)$",
+            "$y=\\ln x$ is the inverse of $y=e^x$",
+            "The horizontal asymptote is $y=0$",
+          ],
+          "ln x = logₑx and eˣ are inverses: each undoes the other.",
+          "y=\\ln x"
+        ),
+        practicalChoice(
+          "y11adv-exp-graph-m10",
+          "Which statement about the displayed function is FALSE?",
+          "D",
+          [
+            "The graph passes through $(1,0)$",
+            "The vertical asymptote is $x=0$",
+            "The function is increasing for $x>0$",
+            "The domain includes all real numbers",
+          ],
+          "The domain of log₂x is x>0 only; it is undefined for x≤0.",
+          "y=\\log_2 x"
+        ),
+      ],
+      multiPartPractice: [
+        {
+          id: "y11adv-exp-graph-mp1",
+          prompt: "Identify key features of the graph of y = 2^x.",
+          latex: "y=2^x",
+          answer: "1",
+          hint: "Find the y-intercept by setting x=0, state the horizontal asymptote, then evaluate at x=3.",
+          explanation:
+            "(a) 2⁰=1, so the y-intercept is 1. (b) The graph approaches y=0 as x→−∞; the horizontal asymptote is y=0. (c) 2³=8.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "Find the y-value of the y-intercept.",
+              latex: "y=2^x\\text{ at }x=0",
+              marks: 1,
+              answer: "1",
+              hint: "Set x=0 and evaluate 2^0.",
+              explanation: "2⁰=1, so the y-intercept is (0,1) and the y-value is 1.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "State the equation of the horizontal asymptote.",
+              latex: "y=2^x\\text{ as }x\\to-\\infty",
+              marks: 1,
+              answer: "y=0",
+              acceptedAnswers: ["0", "y = 0"],
+              hint: "What line does the graph approach but never cross as x becomes very negative?",
+              explanation: "As x→−∞, 2ˣ→0 but never reaches it; the horizontal asymptote is y=0.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "Evaluate y when x = 3.",
+              latex: "y=2^3",
+              marks: 1,
+              answer: "8",
+              hint: "Substitute x=3 and evaluate 2³.",
+              explanation: "2³ = 2×2×2 = 8.",
+            },
+          ],
+        },
+        {
+          id: "y11adv-exp-graph-mp2",
+          prompt: "Identify key features of the graph of y = log₂x.",
+          latex: "y=\\log_2 x",
+          answer: "1",
+          hint: "Find the x-intercept by setting y=0, state the vertical asymptote, then evaluate at x=8.",
+          explanation:
+            "(a) log₂1=0, so the x-intercept x-value is 1. (b) The graph approaches x=0 from the right but never reaches it; the vertical asymptote is x=0. (c) 2³=8, so log₂8=3.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "Find the x-value of the x-intercept.",
+              latex: "\\log_2 x=0",
+              marks: 1,
+              answer: "1",
+              hint: "Set y=0 and ask: 2 to what power gives 1?",
+              explanation: "2⁰=1, so log₂1=0 and the x-intercept is at x=1.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "State the equation of the vertical asymptote.",
+              latex: "y=\\log_2 x\\text{ as }x\\to0^+",
+              marks: 1,
+              answer: "x=0",
+              acceptedAnswers: ["0", "x = 0"],
+              hint: "The domain is x>0; what line can the graph never reach?",
+              explanation: "log₂x is undefined at x=0; the graph has a vertical asymptote at x=0.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "Evaluate y = log₂8.",
+              latex: "\\log_2 8",
+              marks: 1,
+              answer: "3",
+              hint: "Ask: 2 to what power gives 8?",
+              explanation: "2³=8, so log₂8=3.",
+            },
+          ],
+        },
+      ],
+    };
+  }
+
   return null;
 }

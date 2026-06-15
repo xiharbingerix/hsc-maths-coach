@@ -2,7 +2,7 @@
 
 > **Objective:** High-quality lessons and question content across the entire NSW syllabus, mapped to syllabus sections with sufficient lessons to cover all skills and content in the Content section. Each lesson: 19 questions, worked examples, Feynman teaching, and common mistakes. Each focus area: one revision lesson activating the prior knowledge stated in the syllabus teaching advice, plus content lessons per dot-point group.
 > **Standard:** NSW syllabuses (2024 versions, implementation from 2026). Source of truth: [curriculum.nsw.edu.au](https://curriculum.nsw.edu.au).
-> Last updated: 2026-06-15 — Year 11 Advanced: Sequences and Series removed; 10 new Working with Functions lessons completing FA1; 3 new Trigonometry lessons completing FA2; reciprocal trig ratios completing FA3; product rule and quotient rule completing FA4; course now 65 lessons / 7 units. Remaining gaps: FA6 (circles completing-the-square), FA7 (sets/Venn, conditional probability). Year 12 Standard 1 audited (22 total, 76 new questions, 1 credit-card gap). Year 12 Advanced fully audited (91 lessons, 1726 questions, all 14 focus areas). Year 12 Standard 2 fully complete (58 lessons, 1106 questions). Year 12 Extension 1 fully complete (48 lessons, 862 questions). Year 11 Standard fully complete (76 lessons, 1444 questions).
+> Last updated: 2026-06-15 — Year 11 Advanced: Sequences and Series removed; 10 new Working with Functions lessons completing FA1; 3 new Trigonometry lessons completing FA2; reciprocal trig ratios completing FA3; product rule and quotient rule completing FA4; graphing-exponential-logarithmic-functions completing FA5; course now 66 lessons / 7 units. Remaining gaps: FA6 (circles completing-the-square), FA7 (sets/Venn, conditional probability). Year 12 Standard 1 audited (22 total, 76 new questions, 1 credit-card gap). Year 12 Advanced fully audited (91 lessons, 1726 questions, all 14 focus areas). Year 12 Standard 2 fully complete (58 lessons, 1106 questions). Year 12 Extension 1 fully complete (48 lessons, 862 questions). Year 11 Standard fully complete (76 lessons, 1444 questions).
 
 ---
 
@@ -24,7 +24,7 @@
 | Year 10 Mathematics Advanced | ~56 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 10 Mathematics Core | ~40 (10 trimmed) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 11 Standard | 76 (8 units) | 8 focus areas | ✅ 100% | 8 | ✅ Complete — audited 2026-06-15 (1444 questions) |
-| Year 11 Advanced | 65 (7 units) | 7 focus areas (MAV-11-01–10) | 🔄 ~95% — FA1 ✅ FA2 ✅ FA3 ✅ FA4 ✅ complete; gaps in FA6, FA7 | 0 | 🔄 Audited 2026-06-15; FA1–FA4 now complete |
+| Year 11 Advanced | 66 (7 units) | 7 focus areas (MAV-11-01–10) | 🔄 ~97% — FA1 ✅ FA2 ✅ FA3 ✅ FA4 ✅ FA5 ✅ complete; gaps in FA6, FA7 | 0 | 🔄 Audited 2026-06-15; FA1–FA5 now complete |
 | Year 11 Extension 1 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 12 Standard 1 | 22 (5 units) | 7 topics | ✅ 7/7 (credit card gap noted) | 0 | 🔄 Audited 2026-06-15; 1 gap remains (credit cards) |
 | Year 12 Standard 2 | 58 (6 units) | 10 topics | ✅ 100% | 10 | ✅ Complete — audited 2026-06-15 (1106 questions) |
@@ -155,7 +155,7 @@ Unit headings all match NSW 2024 focus area names exactly.
 | 2 | Trigonometry and measure of angles (`trigonometry-measure-angles`) | MAV-11-04 | 15 | ✅ Complete — right-angle apps, sine/cosine rules, ambiguous case added 2026-06-15 |
 | 3 | Trigonometric identities and equations (`trigonometric-identities-equations`) | MAV-11-05 | 8 | ✅ Complete — reciprocal trig ratios added 2026-06-15 |
 | 4 | Introduction to differentiation (`introduction-differentiation`) | MAV-11-06 | 11 | ✅ Complete — product rule and quotient rule added 2026-06-15 |
-| 5 | Exponential and logarithmic functions (`exponential-logarithmic-functions`) | MAV-11-07, MAV-11-08 | 5 | ⚠️ Possibly partial — Euler's number e, log graphing may need review |
+| 5 | Exponential and logarithmic functions (`exponential-logarithmic-functions`) | MAV-11-07, MAV-11-08 | 6 | ✅ Complete — graphing lesson added 2026-06-15 |
 | 6 | Graph transformations (`graph-transformations`) | MAV-11-03 | 5 | ⚠️ Partial — circles (x-h)²+(y-k)²=r² missing |
 | 7 | Probability and data (`probability-data`) | MAV-11-09, MAV-11-10 | 5 | ⚠️ Partial — conditional probability, sets/Venn algebra missing |
 
@@ -238,25 +238,25 @@ NSW content vs Nova:
 
 ---
 
-### FA5 — Exponential and logarithmic functions (5 lessons)
+### FA5 — Exponential and logarithmic functions (6 lessons ✅ Complete)
 
 NSW content vs Nova:
 
 | NSW content | Nova lesson(s) | Status |
 |---|---|---|
-| Graph y=aˣ, behavior, asymptote, y-intercept, domain, range | `index-laws-exponential-functions` | ✅ |
-| Euler's number e — gradient of tangent at x-intercept, property d/dx(eˣ)=eˣ | `index-laws-exponential-functions` (unclear) | ⚠️ Euler's number e may not be explicitly covered |
+| Graph y=aˣ, behavior, asymptote, y-intercept, domain, range | `index-laws-exponential-functions`, `graphing-exponential-logarithmic-functions` | ✅ |
+| Euler's number e — natural base, e≈2.718, y=eˣ and y=lnx | `graphing-exponential-logarithmic-functions` | ✅ Added 2026-06-15 |
 | Logarithm definition, natural logarithm ln x | `logarithms-logarithm-laws` | ✅ |
 | Equivalence aˣ=y ↔ logₐy=x | `logarithms-logarithm-laws` | ✅ |
 | Log laws (product, quotient, power) and derivation from index laws | `logarithms-logarithm-laws` | ✅ |
 | Change of base rule | `logarithms-logarithm-laws` | ✅ |
 | Solving exponential and logarithmic equations | `solving-exponential-logarithmic-equations` | ✅ |
 | Applications and modelling (growth/decay) | `exponential-logarithmic-modelling` | ✅ |
-| Graph y=logₐx; y=eˣ and y=lnx as reflections in y=x | `exponential-logarithmic-modelling` (partial) | ⚠️ Graphing logarithmic functions and reflection in y=x may need a dedicated lesson |
+| Graph y=logₐx; y=eˣ and y=lnx as reflections in y=x | `graphing-exponential-logarithmic-functions` | ✅ Added 2026-06-15 |
 
-**Action items (Exponential and logarithmic functions):**
-- [ ] Verify `index-laws-exponential-functions` explicitly covers Euler's number e and the gradient property
-- [ ] Verify logarithmic graphing (y=logₐx) and reflection in y=x are covered; add lesson if not
+**Action items (Exponential and logarithmic functions):** ✅ Complete
+- [x] Verify `index-laws-exponential-functions` explicitly covers Euler's number e and the gradient property → added `graphing-exponential-logarithmic-functions` lesson with full e coverage
+- [x] Verify logarithmic graphing (y=logₐx) and reflection in y=x are covered → added `graphing-exponential-logarithmic-functions` lesson
 
 ---
 

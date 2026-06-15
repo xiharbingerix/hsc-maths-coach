@@ -1886,6 +1886,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "index-laws-exponential-functions", title: "Index Laws and Exponential Functions" },
           { slug: "logarithms-logarithm-laws", title: "Logarithms and Logarithm Laws" },
           { slug: "solving-exponential-logarithmic-equations", title: "Solving Exponential and Logarithmic Equations" },
+          {
+            slug: "graphing-exponential-logarithmic-functions",
+            title: "Graphing Exponential and Logarithmic Functions",
+            description: "Sketch y=aˣ and y=logₐx, identify intercepts and asymptotes, recognise e as the natural base, and explain why y=eˣ and y=lnx are reflections in y=x.",
+          },
           { slug: "exponential-logarithmic-modelling", title: "Exponential and Logarithmic Modelling" },
           { slug: "exponential-logarithmic-functions-exam-practice", title: "Exponential and Logarithmic Functions Exam Practice" },
         ],
