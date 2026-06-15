@@ -29,6 +29,7 @@ import { TwoWayTableView } from "./components/TwoWayTableView";
 import { UnitCircleDiagramView } from "./components/UnitCircleDiagramView";
 import { Vector3DDiagramView } from "./components/Vector3DDiagramView";
 import { VennDiagramView } from "./components/VennDiagramView";
+import { PolynomialCurveView } from "./components/PolynomialCurveView";
 import { markTypedAnswer } from "../../lib/answerMarking";
 import { MathAnswerInput } from "../components/MathAnswerInput";
 import { HintLadder } from "./components/HintLadder";
@@ -331,6 +332,9 @@ function MultiPartPracticeCard({
           <TwoWayTableView diagram={question.twoWayTableDiagram} />
         )}
         {question.vennDiagram && <VennDiagramView diagram={question.vennDiagram} />}
+        {question.polynomialCurveDiagram && (
+          <PolynomialCurveView diagram={question.polynomialCurveDiagram} />
+        )}
       </div>
 
       <div className="space-y-4">
@@ -485,6 +489,9 @@ function MultiPartQuizQuestion({
           <TwoWayTableView diagram={question.twoWayTableDiagram} />
         )}
         {question.vennDiagram && <VennDiagramView diagram={question.vennDiagram} />}
+        {question.polynomialCurveDiagram && (
+          <PolynomialCurveView diagram={question.polynomialCurveDiagram} />
+        )}
       </div>
 
       <div className="space-y-4">
@@ -890,6 +897,9 @@ function PracticeCard({
           <TwoWayTableView diagram={question.twoWayTableDiagram} />
         )}
         {question.vennDiagram && <VennDiagramView diagram={question.vennDiagram} />}
+        {question.polynomialCurveDiagram && (
+          <PolynomialCurveView diagram={question.polynomialCurveDiagram} />
+        )}
       </div>
 
       {question.choices ? (
@@ -1184,6 +1194,9 @@ function QuizQuestion({
           <TwoWayTableView diagram={question.twoWayTableDiagram} />
         )}
         {question.vennDiagram && <VennDiagramView diagram={question.vennDiagram} />}
+        {question.polynomialCurveDiagram && (
+          <PolynomialCurveView diagram={question.polynomialCurveDiagram} />
+        )}
       </div>
 
       {question.choices ? (
@@ -2139,6 +2152,9 @@ export function LessonRenderer({
                 )}
                 {example.vennDiagram && (
                   <VennDiagramView diagram={example.vennDiagram} />
+                )}
+                {example.polynomialCurveDiagram && (
+                  <PolynomialCurveView diagram={example.polynomialCurveDiagram} />
                 )}
 
                 <div className="space-y-3">

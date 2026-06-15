@@ -87,6 +87,18 @@ const samplingDistributionMean: Partial<ExplicitLesson> = {
         },
       ],
       finalAnswerLatex: "E(\\bar{x})=50,\\quad \\operatorname{Var}(\\bar{x})=4,\\quad \\text{SE}=2",
+      normalDistributionDiagram: {
+        description:
+          "Bell curve showing the sampling distribution of x̄. The curve is centred at μ = 50 with standard error SE = 2, so the bulk of sample means fall between 44 and 56.",
+        mean: 50,
+        standardDeviation: 2,
+        xMin: 42,
+        xMax: 58,
+        showStandardDeviationLabels: true,
+        shadedBands: [
+          { standardDeviations: 1, color: "blue", label: "68% of sample means within 1 SE of μ" },
+        ],
+      },
     },
     {
       title: "Effect of increasing sample size on Var(x̄)",
@@ -323,6 +335,17 @@ const centralLimitTheorem: Partial<ExplicitLesson> = {
         },
       ],
       finalAnswerLatex: "P(\\bar{x}>102) = 0.1587",
+      normalDistributionDiagram: {
+        description:
+          "Sampling distribution of x̄ centred at μ = 100 with SE = 2. The shaded band shows the central 68% region (μ ± 1 SE = 98 to 102). The right tail beyond x̄ = 102 (z = 1) represents P(x̄ > 102) = 0.1587.",
+        mean: 100,
+        standardDeviation: 2,
+        xMin: 93,
+        xMax: 107,
+        showStandardDeviationLabels: true,
+        shadedBands: [{ standardDeviations: 1, color: "blue", label: "P(x̄ < 102) = 0.8413 (shaded)" }],
+        markers: [{ value: 102, label: "x̄ = 102, z = 1" }],
+      },
     },
     {
       title: "Find P(a < x̄ < b) using symmetry",
@@ -343,6 +366,16 @@ const centralLimitTheorem: Partial<ExplicitLesson> = {
         },
       ],
       finalAnswerLatex: "P(48<\\bar{x}<52) = 0.6826",
+      normalDistributionDiagram: {
+        description:
+          "Sampling distribution of x̄ centred at μ = 50 with SE = 2. The shaded band shows P(48 < x̄ < 52) = P(−1 < Z < 1) = 0.6826 — the probability that the sample mean falls within 1 SE of the population mean.",
+        mean: 50,
+        standardDeviation: 2,
+        xMin: 43,
+        xMax: 57,
+        showStandardDeviationLabels: true,
+        shadedBands: [{ standardDeviations: 1, color: "green", label: "P(48 < x̄ < 52) = 0.6826" }],
+      },
     },
   ],
   guidedPractice: [

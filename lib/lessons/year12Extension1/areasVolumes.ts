@@ -93,6 +93,30 @@ const areasAndVolumes: Partial<ExplicitLesson> = {
         },
       ],
       finalAnswerLatex: "A = \\dfrac{9}{2}\\text{ square units}",
+      cartesianGraph: {
+        description:
+          "The line y = x + 2 and the parabola y = x² intersect at x = −1 and x = 2. The shaded region between the curves represents the enclosed area of 9/2 square units.",
+        xMin: -2,
+        xMax: 3,
+        yMin: -1,
+        yMax: 6,
+        xStep: 1,
+        yStep: 1,
+        showGrid: true,
+        lines: [{ kind: "linear", m: 1, b: 2, label: "y = x + 2" }],
+        parabolas: [{ kind: "quadratic", a: 1, b: 0, c: 0, label: "y = x²" }],
+        shadedRegions: [
+          {
+            kind: "between-functions",
+            xMin: -1,
+            xMax: 2,
+            top: { functionType: "line", line: { m: 1, b: 2 } },
+            bottom: { functionType: "quadratic", quadratic: { a: 1, b: 0, c: 0 } },
+            color: "blue",
+            description: "Shaded region between y = x + 2 (top) and y = x² (bottom) from x = −1 to x = 2.",
+          },
+        ],
+      },
     },
     {
       title: "Volume rotating y = √x about the x-axis",

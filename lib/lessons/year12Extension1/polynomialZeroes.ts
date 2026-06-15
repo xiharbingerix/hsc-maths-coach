@@ -89,6 +89,23 @@ const polynomialZeroes: Partial<ExplicitLesson> = {
       ],
       finalAnswerLatex:
         "\\text{Touches at }x=-2,\\text{ crosses at }x=1,\\text{ stationary inflection at }x=3.",
+      polynomialCurveDiagram: {
+        description:
+          "Graph of P(x) = (x+2)²(x−1)(x−3)³. The curve touches the x-axis at x = −2 (even multiplicity 2, red dot), crosses with a non-zero gradient at x = 1 (simple zero, open circle), and has a stationary point of inflection at x = 3 (odd multiplicity 3, amber dot). Both ends rise to +∞ (degree 6, positive leading coefficient).",
+        roots: [
+          { value: -2, multiplicity: 2 },
+          { value: 1, multiplicity: 1 },
+          { value: 3, multiplicity: 3 },
+        ],
+        leadingCoefficient: 1,
+        xMin: -3.5,
+        xMax: 4.5,
+        yMin: -20,
+        yMax: 30,
+        xStep: 1,
+        yStep: 10,
+        label: "P(x) = (x+2)²(x−1)(x−3)³",
+      },
     },
     {
       title: "Prove P′(a) = 0 when a is a double zero",
@@ -110,6 +127,22 @@ const polynomialZeroes: Partial<ExplicitLesson> = {
       ],
       finalAnswerLatex:
         "P'(2)=0\\text{ (double zero → stationary point)}\\quad P'(-1)=9\\ne 0\\text{ (simple zero → crossing)}",
+      polynomialCurveDiagram: {
+        description:
+          "Graph of P(x) = (x−2)²(x+1). The curve touches the x-axis at x = 2 (double zero, red dot) confirming P′(2) = 0, and crosses with a non-zero gradient at x = −1 (simple zero, open circle) confirming P′(−1) ≠ 0.",
+        roots: [
+          { value: -1, multiplicity: 1 },
+          { value: 2, multiplicity: 2 },
+        ],
+        leadingCoefficient: 1,
+        xMin: -2.5,
+        xMax: 3.5,
+        yMin: -5,
+        yMax: 10,
+        xStep: 1,
+        yStep: 2,
+        label: "P(x) = (x−2)²(x+1)",
+      },
     },
   ],
   guidedPractice: [
@@ -140,18 +173,36 @@ const polynomialZeroes: Partial<ExplicitLesson> = {
       [],
       "x = 3 has multiplicity 2 in P, so it has multiplicity 2 − 1 = 1 in P′."
     ),
-    pzChoice(
-      "y12e1-pz-g4",
-      "P(x) = x²(x − 4)³. Which description correctly matches the graph at x = 0?",
-      "A",
-      [
-        "Touches the x-axis and turns (even multiplicity).",
-        "Crosses the x-axis with a non-zero gradient.",
-        "Has a stationary point of inflection.",
-        "Does not touch the x-axis.",
-      ],
-      "x = 0 has multiplicity 2 (even), so the graph touches the axis there and turns back."
-    ),
+    {
+      ...pzChoice(
+        "y12e1-pz-g4",
+        "P(x) = x²(x − 4)³. Which description correctly matches the graph at x = 0?",
+        "A",
+        [
+          "Touches the x-axis and turns (even multiplicity).",
+          "Crosses the x-axis with a non-zero gradient.",
+          "Has a stationary point of inflection.",
+          "Does not touch the x-axis.",
+        ],
+        "x = 0 has multiplicity 2 (even), so the graph touches the axis there and turns back."
+      ),
+      polynomialCurveDiagram: {
+        description:
+          "Graph of P(x) = x²(x−4)³. The red dot at x = 0 shows the curve touching the x-axis (multiplicity 2, even). The amber dot at x = 4 shows a stationary point of inflection (multiplicity 3, odd ≥ 3). Both ends fall to −∞ (degree 5, positive leading coefficient: as x → −∞, P → −∞; as x → +∞, P → +∞).",
+        roots: [
+          { value: 0, multiplicity: 2 },
+          { value: 4, multiplicity: 3 },
+        ],
+        leadingCoefficient: 1,
+        xMin: -1.5,
+        xMax: 5.5,
+        yMin: -30,
+        yMax: 20,
+        xStep: 1,
+        yStep: 10,
+        label: "P(x) = x²(x−4)³",
+      },
+    },
   ],
   independentPractice: [
     pzChoice(

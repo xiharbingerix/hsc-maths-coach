@@ -336,3 +336,22 @@ export type ProbabilityTreeDiagram = {
   branches: ProbabilityTreeBranch[];
   highlightedPaths?: string[][];
 };
+
+export type PolynomialRoot = {
+  value: number;
+  multiplicity: 1 | 2 | 3 | 4;
+};
+
+export type PolynomialCurveDiagram = {
+  description: string;
+  /** P(x) = leadingCoefficient * ∏(x − root.value)^root.multiplicity */
+  roots: PolynomialRoot[];
+  leadingCoefficient?: number;
+  xMin?: number;
+  xMax?: number;
+  yMin?: number;
+  yMax?: number;
+  xStep?: number;
+  yStep?: number;
+  label?: string;
+};

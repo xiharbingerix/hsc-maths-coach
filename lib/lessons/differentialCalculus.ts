@@ -4,6 +4,7 @@ import type {
   CartesianGraph,
   NetworkDiagram,
   NormalDistributionDiagram,
+  PolynomialCurveDiagram,
   ProbabilityTreeDiagram,
   TrigGraphDiagram,
   TrapezoidalRuleDiagram,
@@ -44,6 +45,7 @@ export type PracticeQuestion = {
   probabilityTreeDiagram?: ProbabilityTreeDiagram;
   twoWayTableDiagram?: TwoWayTableDiagram;
   vennDiagram?: VennDiagram;
+  polynomialCurveDiagram?: PolynomialCurveDiagram;
   solutionDiagram?: NetworkDiagram;
   answer: string;
   acceptedAnswers?: string[];
@@ -85,6 +87,7 @@ export type WorkedExample = {
   probabilityTreeDiagram?: ProbabilityTreeDiagram;
   twoWayTableDiagram?: TwoWayTableDiagram;
   vennDiagram?: VennDiagram;
+  polynomialCurveDiagram?: PolynomialCurveDiagram;
   steps: WorkedExampleStep[];
   finalAnswerLatex: string;
 };
