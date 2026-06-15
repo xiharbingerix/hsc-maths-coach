@@ -882,9 +882,9 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 #### Content dot points
 
 **Multiplicity of zeroes of polynomial functions**
-- [ ] **Prove: zero of multiplicity k of P(x) → zero of multiplicity k−1 of P'(x) (via product rule)** → ❌ MISSING
-- [ ] **Use the result to determine multiplicity and solve polynomial problems** → ❌ MISSING
-- [ ] **Graph polynomials in factored form: turning points, points of inflection, end behaviour** → ❌ MISSING
+- [x] **Prove: zero of multiplicity k of P(x) → zero of multiplicity k−1 of P'(x) (via product rule)** → `calculus-applications-polynomial-zeroes`
+- [x] **Use the result to determine multiplicity and solve polynomial problems** → `calculus-applications-polynomial-zeroes`
+- [x] **Graph polynomials in factored form: turning points, points of inflection, end behaviour** → `calculus-applications-polynomial-zeroes`
 
 **Further rates of change**
 - [x] Develop models where rate of change of a composition → apply chain rule → `calculus-applications-related-rates`
@@ -906,10 +906,10 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 - [x] Solve dy/dx = g(y) by separation of variables → `calculus-applications-differential-equations`
 - [ ] **Graph solutions using graphing applications; examine behaviour using slope fields** → ❌ MISSING
 
-#### Current lessons (unit: `calculus-applications`) — 5 lessons, 96Q ⚠️ ~65% coverage
+#### Current lessons (unit: `calculus-applications`) — 6 lessons, 115Q ⚠️ ~80% coverage
 #### Required new lessons
 - [ ] **`calculus-applications-revision`** — Polynomial factorisation and sketching, chain rule fluency, area under curve. Prior knowledge activation.
-- [ ] **`calculus-applications-polynomial-zeroes`** — Multiplicity of zeroes; product-rule proof; graphing polynomials with repeated roots.
+- [x] **`calculus-applications-polynomial-zeroes`** — Multiplicity of zeroes; product-rule proof; graphing polynomials with repeated roots. ✅ Added 2026-06-15
 - [ ] **`calculus-applications-newton-cooling`** — dQ/dt = k(Q−A); Newton's Law of Cooling; logistic/carrying-capacity models; solve and justify in context.
 - [x] **`calculus-applications-volumes`** — Areas between curves; solids of revolution; volumes rotating about x/y-axis; between two curves. ✅ Added 2026-06-15
 - [ ] **`calculus-applications-slope-fields`** — Slope fields for first-order DEs; sketch and interpret solution curves; long-run behaviour.
@@ -956,17 +956,18 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 | Introduction to Vectors | ME1-12-02 | 4+8 (228Q total) | ⚠️ ~60% | Projection, vector motion 2D, projectile via vectors |
 | Inverse Trigonometric Functions | ME1-12-03 | 3 (57Q) | ⚠️ ~75% | Properties/identities lesson, revision lesson |
 | Further Calculus Skills | ME1-12-04 | 4 (76Q) | ✅ ~100% | Revision lesson only |
-| Further Applications of Calculus | ME1-12-05 | 5 (96Q) | ⚠️ ~65% | Polynomial zeroes, Newton cooling, slope fields |
+| Further Applications of Calculus | ME1-12-05 | 6 (115Q) | ⚠️ ~80% | Newton cooling, slope fields |
 | Binomial Distribution + Sampling | ME1-12-06 | 6 (114Q) | ✅ ~100% | Revision lesson only |
 
-**Current:** 33 lessons (9 units) / 577Q
-**New lessons to meet syllabus fully:** ~15 (6 revision + 4 vectors/proj + 4 further-applications + 1 inverse-trig-properties)
+**Current:** 34 lessons (9 units) / 596Q
+**New lessons to meet syllabus fully:** ~14 (6 revision + 4 vectors/proj + 3 further-applications + 1 inverse-trig-properties)
 **Target:** ~48 lessons
 
 ### Priority order
 1. ~~Sampling distribution of mean + CLT~~ ✅ Done 2026-06-15
 2. ~~Volumes of revolution~~ ✅ Done 2026-06-15
-3. **Polynomial zeroes** (1 lesson) — ME1-12-05 unique content
+3. ~~Polynomial zeroes~~ ✅ Done 2026-06-15
+4. **Newton's Law of Cooling** (1 lesson) — completes ME1-12-05 rates strand
 4. **Newton's Law of Cooling** (1 lesson) — completes ME1-12-05 rates strand
 5. **Vector projection** (1 lesson) — completes dot-product strand of ME1-12-02
 6. **Vector motion + projectile (parametric)** (2 lessons) — syllabus requires vector approach to projectile

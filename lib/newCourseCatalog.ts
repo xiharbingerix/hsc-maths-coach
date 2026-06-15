@@ -69,6 +69,7 @@ import {
   year12Extension1ProjectileMotionLessonOverride,
   year12Extension1SamplingDistributionLessonOverride,
   year12Extension1AreasVolumesLessonOverride,
+  year12Extension1PolynomialZeroesLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
@@ -278,6 +279,7 @@ export function buildLesson(
     year12Extension1ProjectileMotionLessonOverride(course, unit, lesson) ??
     year12Extension1SamplingDistributionLessonOverride(course, unit, lesson) ??
     year12Extension1AreasVolumesLessonOverride(course, unit, lesson) ??
+    year12Extension1PolynomialZeroesLessonOverride(course, unit, lesson) ??
     year12Extension2ComplexNumbersLessonOverride(course, unit, lesson) ??
     year12Extension2Vectors3DLessonOverride(course, unit, lesson) ??
     year12Extension2CalculusLessonOverride(course, unit, lesson) ??
@@ -2524,6 +2526,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Areas Between Curves and Volumes of Revolution",
             description:
               "Calculate areas enclosed between two curves and volumes of solids formed by rotating a region about the x-axis or y-axis.",
+          },
+          {
+            slug: "calculus-applications-polynomial-zeroes",
+            title: "Multiplicity of Zeroes of Polynomial Functions",
+            description:
+              "Define the multiplicity of a zero, prove the derivative result, and sketch polynomials in factored form by reading crossing, touch, and inflection behaviour at each zero.",
           },
         ],
       },
