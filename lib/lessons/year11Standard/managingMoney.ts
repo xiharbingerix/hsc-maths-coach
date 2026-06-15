@@ -350,7 +350,7 @@ export function year11StandardManagingMoneyLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
-  if (course.slug !== "year-11-standard" || unit.slug !== "managing-money") {
+  if (course.slug !== "year-11-standard" || unit.slug !== "money-and-financial-mathematics") {
     return null;
   }
 

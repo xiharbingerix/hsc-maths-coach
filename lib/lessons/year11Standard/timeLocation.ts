@@ -353,7 +353,7 @@ export function year11StandardTimeLocationLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
-  if (course.slug !== "year-11-standard" || unit.slug !== "time-location") {
+  if (course.slug !== "year-11-standard" || unit.slug !== "working-with-time") {
     return null;
   }
 

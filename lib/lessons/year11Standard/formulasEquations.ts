@@ -335,7 +335,7 @@ export function year11StandardFormulasEquationsLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
-  if (course.slug !== "year-11-standard" || unit.slug !== "formulas-equations") {
+  if (course.slug !== "year-11-standard" || unit.slug !== "formulae-equations") {
     return null;
   }
 

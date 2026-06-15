@@ -342,7 +342,7 @@ export function year11StandardApplicationsMeasurementLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-11-standard" ||
-    unit.slug !== "applications-measurement"
+    unit.slug !== "applications-of-measurement"
   ) {
     return null;
   }

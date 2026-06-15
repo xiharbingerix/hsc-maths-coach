@@ -915,7 +915,7 @@ export function year11StandardNetworksLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-11-standard" ||
-    unit.slug !== "networks-paths-trees"
+    unit.slug !== "networks-and-paths"
   ) {
     return null;
   }

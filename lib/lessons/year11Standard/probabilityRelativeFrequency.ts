@@ -460,7 +460,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-11-standard" ||
-    unit.slug !== "probability-relative-frequency"
+    unit.slug !== "relative-frequency-and-probability"
   ) {
     return null;
   }

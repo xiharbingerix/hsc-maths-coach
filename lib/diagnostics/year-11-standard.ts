@@ -5,9 +5,9 @@ export const diagnosticData: DiagnosticData = {
 
   units: [
     {
-      slug: "formulas-equations",
-      title: "Formulas and Equations",
-      startHref: "/course/year-11-standard/formulas-equations",
+      slug: "formulae-equations",
+      title: "Formulae and Equations",
+      startHref: "/course/year-11-standard/formulae-equations",
     },
     {
       slug: "linear-relationships",
@@ -15,47 +15,42 @@ export const diagnosticData: DiagnosticData = {
       startHref: "/course/year-11-standard/linear-relationships",
     },
     {
-      slug: "earning-money",
-      title: "Earning Money",
-      startHref: "/course/year-11-standard/earning-money",
+      slug: "money-and-financial-mathematics",
+      title: "Money and Financial Mathematics",
+      startHref: "/course/year-11-standard/money-and-financial-mathematics",
     },
     {
-      slug: "managing-money",
-      title: "Managing Money",
-      startHref: "/course/year-11-standard/managing-money",
-    },
-    {
-      slug: "applications-measurement",
+      slug: "applications-of-measurement",
       title: "Applications of Measurement",
-      startHref: "/course/year-11-standard/applications-measurement",
+      startHref: "/course/year-11-standard/applications-of-measurement",
     },
     {
-      slug: "time-location",
-      title: "Time and Location",
-      startHref: "/course/year-11-standard/time-location",
+      slug: "working-with-time",
+      title: "Working with Time",
+      startHref: "/course/year-11-standard/working-with-time",
     },
     {
-      slug: "networks-paths-trees",
-      title: "Networks, Paths and Trees",
-      startHref: "/course/year-11-standard/networks-paths-trees",
-    },
-    {
-      slug: "probability-relative-frequency",
-      title: "Probability and Relative Frequency",
-      startHref: "/course/year-11-standard/probability-relative-frequency",
+      slug: "networks-and-paths",
+      title: "Networks and Paths",
+      startHref: "/course/year-11-standard/networks-and-paths",
     },
     {
       slug: "data-analysis",
       title: "Data Analysis",
       startHref: "/course/year-11-standard/data-analysis",
     },
+    {
+      slug: "relative-frequency-and-probability",
+      title: "Relative Frequency and Probability",
+      startHref: "/course/year-11-standard/relative-frequency-and-probability",
+    },
   ],
 
   questions: [
-    // ── Formulas and Equations (2 questions) ──────────────────────────────────
+    // ── Formulae and Equations (2 questions) ──────────────────────────────────
     {
       id: "y11std-fe1",
-      unitSlug: "formulas-equations",
+      unitSlug: "formulae-equations",
       prompt: "Substitute $x = 3$ into $y = 2x^2 - 5$. Find $y$.",
       latex: "y = 2x^2 - 5",
       choices: [
@@ -69,7 +64,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y11std-fe2",
-      unitSlug: "formulas-equations",
+      unitSlug: "formulae-equations",
       prompt: "Make $r$ the subject of $A = \\pi r^2$.",
       latex: "A = \\pi r^2",
       choices: [
@@ -113,10 +108,10 @@ export const diagnosticData: DiagnosticData = {
         "A linear relationship has the form $y = mx + b$. Only $y = 2x + 1$ fits this pattern.",
     },
 
-    // ── Earning Money (2 questions) ───────────────────────────────────────────
+    // ── Money and Financial Mathematics (4 questions) ─────────────────────────
     {
       id: "y11std-em1",
-      unitSlug: "earning-money",
+      unitSlug: "money-and-financial-mathematics",
       prompt:
         "Sarah earns \\$18 per hour and works $35$ hours. Her weekly gross pay is:",
       choices: [
@@ -130,7 +125,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y11std-em2",
-      unitSlug: "earning-money",
+      unitSlug: "money-and-financial-mathematics",
       prompt:
         "Overtime is paid at time-and-a-half. If the regular rate is \\$20/hr, the overtime rate is:",
       choices: [
@@ -142,11 +137,9 @@ export const diagnosticData: DiagnosticData = {
       correctAnswer: "C",
       explanation: "$\\$20 \\times 1.5 = \\$30$/hr.",
     },
-
-    // ── Managing Money (2 questions) ──────────────────────────────────────────
     {
       id: "y11std-mm1",
-      unitSlug: "managing-money",
+      unitSlug: "money-and-financial-mathematics",
       prompt:
         "Weekly income is \\$900. Weekly expenses are \\$680. The surplus is:",
       choices: [
@@ -160,7 +153,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y11std-mm2",
-      unitSlug: "managing-money",
+      unitSlug: "money-and-financial-mathematics",
       prompt: "A phone plan costs \\$45 per month. The annual cost is:",
       choices: [
         { label: "A", text: "\\$480" },
@@ -175,7 +168,7 @@ export const diagnosticData: DiagnosticData = {
     // ── Applications of Measurement (3 questions) ─────────────────────────────
     {
       id: "y11std-am1",
-      unitSlug: "applications-measurement",
+      unitSlug: "applications-of-measurement",
       prompt:
         "A fence is measured as $85$ m to the nearest metre. The maximum possible error is:",
       choices: [
@@ -190,7 +183,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y11std-am2",
-      unitSlug: "applications-measurement",
+      unitSlug: "applications-of-measurement",
       prompt: "Convert $2.5$ km to metres.",
       choices: [
         { label: "A", text: "$25$ m" },
@@ -203,7 +196,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y11std-am3",
-      unitSlug: "applications-measurement",
+      unitSlug: "applications-of-measurement",
       prompt: "The area of a rectangle $8$ cm $\\times$ $5$ cm is:",
       choices: [
         { label: "A", text: "$26$ cm$^2$" },
@@ -215,10 +208,10 @@ export const diagnosticData: DiagnosticData = {
       explanation: "$A = 8 \\times 5 = 40$ cm$^2$.",
     },
 
-    // ── Time and Location (2 questions) ───────────────────────────────────────
+    // ── Working with Time (2 questions) ───────────────────────────────────────
     {
       id: "y11std-tl1",
-      unitSlug: "time-location",
+      unitSlug: "working-with-time",
       prompt:
         "A train leaves at 9:45 am and arrives at 1:20 pm. The journey takes:",
       choices: [
@@ -233,7 +226,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y11std-tl2",
-      unitSlug: "time-location",
+      unitSlug: "working-with-time",
       prompt:
         "Sydney is UTC+11. London is UTC+0. When it is 3:00 pm in Sydney, the time in London is:",
       choices: [
@@ -247,10 +240,10 @@ export const diagnosticData: DiagnosticData = {
         "Sydney is $11$ hours ahead: $3{:}00$ pm $- 11$ hours $= 4{:}00$ am in London.",
     },
 
-    // ── Networks, Paths and Trees (2 questions) ───────────────────────────────
+    // ── Networks and Paths (2 questions) ─────────────────────────────────────
     {
       id: "y11std-np1",
-      unitSlug: "networks-paths-trees",
+      unitSlug: "networks-and-paths",
       prompt:
         "The minimum number of edges needed to connect $5$ vertices without forming a cycle (a spanning tree) is:",
       choices: [
@@ -265,7 +258,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y11std-np2",
-      unitSlug: "networks-paths-trees",
+      unitSlug: "networks-and-paths",
       prompt: "In a network diagram, the degree of a vertex is:",
       choices: [
         { label: "A", text: "The number of edges connected to it" },
@@ -276,37 +269,6 @@ export const diagnosticData: DiagnosticData = {
       correctAnswer: "A",
       explanation:
         "The degree of a vertex is the number of edges that connect to it.",
-    },
-
-    // ── Probability and Relative Frequency (2 questions) ──────────────────────
-    {
-      id: "y11std-pr1",
-      unitSlug: "probability-relative-frequency",
-      prompt:
-        "A spinner has $8$ equal sections, $3$ of which are red. In $200$ spins, the expected number of red results is:",
-      choices: [
-        { label: "A", text: "$50$" },
-        { label: "B", text: "$60$" },
-        { label: "C", text: "$75$" },
-        { label: "D", text: "$80$" },
-      ],
-      correctAnswer: "C",
-      explanation:
-        "$200 \\times \\dfrac{3}{8} = 75$.",
-    },
-    {
-      id: "y11std-pr2",
-      unitSlug: "probability-relative-frequency",
-      prompt: "$P(\\text{not } A) = 0.3$. Therefore $P(A) =$",
-      choices: [
-        { label: "A", text: "$0.3$" },
-        { label: "B", text: "$0.6$" },
-        { label: "C", text: "$0.7$" },
-        { label: "D", text: "$1.3$" },
-      ],
-      correctAnswer: "C",
-      explanation:
-        "$P(A) = 1 - P(\\text{not } A) = 1 - 0.3 = 0.7$.",
     },
 
     // ── Data Analysis (3 questions) ───────────────────────────────────────────
@@ -353,6 +315,37 @@ export const diagnosticData: DiagnosticData = {
       correctAnswer: "D",
       explanation:
         "In a frequency histogram, the height of each bar shows the frequency (count) of data values in that class interval.",
+    },
+
+    // ── Relative Frequency and Probability (2 questions) ─────────────────────
+    {
+      id: "y11std-pr1",
+      unitSlug: "relative-frequency-and-probability",
+      prompt:
+        "A spinner has $8$ equal sections, $3$ of which are red. In $200$ spins, the expected number of red results is:",
+      choices: [
+        { label: "A", text: "$50$" },
+        { label: "B", text: "$60$" },
+        { label: "C", text: "$75$" },
+        { label: "D", text: "$80$" },
+      ],
+      correctAnswer: "C",
+      explanation:
+        "$200 \\times \\dfrac{3}{8} = 75$.",
+    },
+    {
+      id: "y11std-pr2",
+      unitSlug: "relative-frequency-and-probability",
+      prompt: "$P(\\text{not } A) = 0.3$. Therefore $P(A) =$",
+      choices: [
+        { label: "A", text: "$0.3$" },
+        { label: "B", text: "$0.6$" },
+        { label: "C", text: "$0.7$" },
+        { label: "D", text: "$1.3$" },
+      ],
+      correctAnswer: "C",
+      explanation:
+        "$P(A) = 1 - P(\\text{not } A) = 1 - 0.3 = 0.7$.",
     },
   ],
 };
