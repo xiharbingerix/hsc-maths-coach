@@ -1886,12 +1886,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       "Practical Year 11 Mathematics Standard support for students building skills for Standard 1 or Standard 2.",
     units: [
       {
-        slug: "formulas-equations",
-        title: "Formulas and Equations",
+        slug: "formulae-equations",
+        title: "Formulae and Equations",
         description:
           "Substitution into practical formulae, contextual equations, changing the subject, units and reasonableness.",
         syllabusArea: "Algebra",
-        focus: "Formulas and equations",
+        focus: "Formulae and equations",
         lessons: [
           {
             slug: "substitution-formulae-equations",
@@ -2008,12 +2008,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
-        slug: "earning-money",
-        title: "Earning Money",
+        slug: "money-and-financial-mathematics",
+        title: "Money and Financial Mathematics",
         description:
-          "Wages, salaries, payslips, overtime, penalty rates, allowances, commission, piecework, tax, deductions, and net pay.",
+          "Wages, salaries, payslips, overtime, penalty rates, allowances, commission, piecework, tax, deductions, budgets, cash flow, savings goals, simple interest, fees, discounts and practical financial decisions.",
         syllabusArea: "Financial Mathematics",
-        focus: "Earning money",
+        focus: "Money and financial mathematics",
         lessons: [
           {
             slug: "wages-salaries-payslips",
@@ -2069,16 +2069,6 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Activate Year 10 prior knowledge: converting between percentages, fractions and decimals; calculating percentages of quantities; money calculations; converting between time periods.",
           },
-        ],
-      },
-      {
-        slug: "managing-money",
-        title: "Managing Money",
-        description:
-          "Budgets, cash flow, savings goals, simple interest, fees, discounts, and practical financial decisions.",
-        syllabusArea: "Financial Mathematics",
-        focus: "Managing money",
-        lessons: [
           {
             slug: "budgets-cash-flow",
             title: "Budgets and Cash Flow",
@@ -2136,7 +2126,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
-        slug: "applications-measurement",
+        slug: "applications-of-measurement",
         title: "Applications of Measurement",
         description:
           "Units, accuracy, measurement error, area, surface area, volume, capacity, energy, mass and practical measurement applications.",
@@ -2200,12 +2190,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
-        slug: "time-location",
-        title: "Time and Location",
+        slug: "working-with-time",
+        title: "Working with Time",
         description:
           "Timetables, elapsed time, UTC offsets, Australian and international time zones, date changes, grid references and map scales.",
         syllabusArea: "Measurement",
-        focus: "Time and location",
+        focus: "Working with time",
         lessons: [
           {
             slug: "time-calculations-timetables",
@@ -2258,12 +2248,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
-        slug: "networks-paths-trees",
-        title: "Networks, Paths and Trees",
+        slug: "networks-and-paths",
+        title: "Networks and Paths",
         description:
           "Network diagrams, edge lists, paths, trails, circuits, connectivity, trees, and minimum spanning trees.",
         syllabusArea: "Networks",
-        focus: "Networks, paths and trees",
+        focus: "Networks and paths",
         lessons: [
           {
             slug: "network-diagrams-terminology",
@@ -2312,58 +2302,6 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Networks Revision",
             description:
               "Activate Year 10 prior knowledge: reading tables and maps; identifying connections between locations; understanding what graphs and diagrams represent; basic counting of routes.",
-          },
-        ],
-      },
-      {
-        slug: "probability-relative-frequency",
-        title: "Probability and Relative Frequency",
-        description:
-          "Sample spaces, probability scales, complements, relative frequency, experimental probability and two-way table probabilities.",
-        syllabusArea: "Statistical Analysis",
-        focus: "Probability and relative frequency",
-        lessons: [
-          {
-            slug: "outcomes-sample-space-probability",
-            title: "Outcomes, Sample Space and Probability",
-            description:
-              "Use sample spaces, events, favourable outcomes, probability scales and complements in practical probability contexts.",
-          },
-          {
-            slug: "relative-frequency-experimental-probability",
-            title: "Relative Frequency and Experimental Probability",
-            description:
-              "Calculate relative frequency from trial data and compare experimental results with theoretical probability.",
-          },
-          {
-            slug: "two-way-tables-probability",
-            title: "Two-Way Tables and Probability",
-            description:
-              "Read two-way tables, row and column totals, and simple table probabilities from practical data.",
-          },
-          {
-            slug: "venn-diagrams",
-            title: "Venn Diagrams",
-            description:
-              "Use two-circle Venn diagrams to count elements in the intersection, union and complement of two sets, and calculate probabilities from each region.",
-          },
-          {
-            slug: "conditional-probability",
-            title: "Conditional Probability",
-            description:
-              "Find P(A|B) by restricting the sample space to the given event B, using two-way tables and Venn diagrams to identify the correct denominator.",
-          },
-          {
-            slug: "tree-diagrams",
-            title: "Tree Diagrams",
-            description:
-              "Construct tree diagrams for multi-stage probability problems, multiply along branches and add separate paths to find combined event probabilities with and without replacement.",
-          },
-          {
-            slug: "probability-exam-practice",
-            title: "Probability Exam Practice",
-            description:
-              "Practise mixed probability questions involving sample spaces, complements, relative frequency and two-way tables.",
           },
         ],
       },
@@ -2428,6 +2366,58 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Data Analysis Revision",
             description:
               "Activate Year 10 prior knowledge: reading column graphs, dot plots and pictographs; calculating mean, median, mode and range from raw data; understanding data types.",
+          },
+        ],
+      },
+      {
+        slug: "relative-frequency-and-probability",
+        title: "Relative Frequency and Probability",
+        description:
+          "Sample spaces, probability scales, complements, relative frequency, experimental probability and two-way table probabilities.",
+        syllabusArea: "Statistical Analysis",
+        focus: "Relative frequency and probability",
+        lessons: [
+          {
+            slug: "outcomes-sample-space-probability",
+            title: "Outcomes, Sample Space and Probability",
+            description:
+              "Use sample spaces, events, favourable outcomes, probability scales and complements in practical probability contexts.",
+          },
+          {
+            slug: "relative-frequency-experimental-probability",
+            title: "Relative Frequency and Experimental Probability",
+            description:
+              "Calculate relative frequency from trial data and compare experimental results with theoretical probability.",
+          },
+          {
+            slug: "two-way-tables-probability",
+            title: "Two-Way Tables and Probability",
+            description:
+              "Read two-way tables, row and column totals, and simple table probabilities from practical data.",
+          },
+          {
+            slug: "venn-diagrams",
+            title: "Venn Diagrams",
+            description:
+              "Use two-circle Venn diagrams to count elements in the intersection, union and complement of two sets, and calculate probabilities from each region.",
+          },
+          {
+            slug: "conditional-probability",
+            title: "Conditional Probability",
+            description:
+              "Find P(A|B) by restricting the sample space to the given event B, using two-way tables and Venn diagrams to identify the correct denominator.",
+          },
+          {
+            slug: "tree-diagrams",
+            title: "Tree Diagrams",
+            description:
+              "Construct tree diagrams for multi-stage probability problems, multiply along branches and add separate paths to find combined event probabilities with and without replacement.",
+          },
+          {
+            slug: "probability-exam-practice",
+            title: "Probability Exam Practice",
+            description:
+              "Practise mixed probability questions involving sample spaces, complements, relative frequency and two-way tables.",
           },
         ],
       },
@@ -2916,7 +2906,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "proof",
         title: "Proof",
         description:
-          "Extension 2 proof work beginning with contradiction, contrapositive reasoning and algebraic inequality proofs. Advanced induction and exam practice are planned for later phases.",
+          "Extension 2 proof techniques covering proof by contradiction, proof by contrapositive, algebraic inequality proofs, and proof by mathematical induction.",
         syllabusArea: "Proof",
         focus: "Advanced proof techniques",
         lessons: [
@@ -3042,7 +3032,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         title: "Vectors in Three Dimensions",
         description:
           "3D vector operations, dot product and angles, equations of lines, and applied exam-style vector problems.",
-        syllabusArea: "Vectors",
+        syllabusArea: "Vectors in Three Dimensions",
         focus: "Vectors in three dimensions",
         lessons: [
           { slug: "vectors-and-points-3d", title: "Vectors and Points in 3D" },
@@ -3055,7 +3045,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "complex-numbers",
         title: "Complex Numbers",
         description:
-          "Complex number arithmetic, modulus-argument form, Argand diagram geometry and polar form with De Moivre's theorem.",
+          "Complex number arithmetic, modulus-argument form, Argand diagram geometry, polar form with De Moivre's theorem, roots of unity, and complex polynomials.",
         syllabusArea: "Complex Numbers",
         focus: "Complex numbers and the Argand diagram",
         lessons: [
@@ -3184,7 +3174,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "calculus",
         title: "Calculus",
         description:
-          "Extension 2 integration techniques including method selection, integration by parts, and reduction formulae. Volumes and differential equations will be added in later phases.",
+          "Extension 2 integration techniques: method selection, integration by parts, reduction formulae, partial fractions, t-substitution (Weierstrass), and trigonometric identities. Volumes of revolution and differential equations are not yet included.",
         syllabusArea: "Calculus",
         focus: "Further calculus methods and applications",
         lessons: [
@@ -3332,7 +3322,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "mechanics",
         title: "Mechanics",
         description:
-          "Extension 2 mechanics using calculus: rectilinear motion, simple harmonic motion, and uniform circular motion. Resisted motion and projectile applications are planned for Phase 2.",
+          "Extension 2 mechanics using calculus: rectilinear motion, simple harmonic motion, uniform circular motion, resisted motion, and projectile motion with air resistance.",
         syllabusArea: "Mechanics",
         focus: "Mechanics modelling and motion",
         lessons: [
