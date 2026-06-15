@@ -1161,6 +1161,372 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
     };
   }
 
+  if (lesson.slug === "complementary-angle-identities") {
+    return {
+      ...base,
+      description:
+        "Use sin(π/2−θ)=cosθ, cos(π/2−θ)=sinθ, and tan(π/2−θ)=cotθ to simplify expressions and evaluate exact values.",
+      learningIntention:
+        "Learn the complementary-angle identities and apply them to simplify trig expressions and evaluate exact values at special angles.",
+      successCriteria: [
+        "State sin(π/2−θ)=cosθ, cos(π/2−θ)=sinθ, and tan(π/2−θ)=cotθ from memory.",
+        "Rewrite a complementary expression as a single trig function of θ.",
+        "Evaluate exact values using a complementary identity and a known special-angle value.",
+        "Simplify compound expressions involving complementary substitution.",
+        "Distinguish complementary identities from supplementary related-angle identities.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Two angles are complementary when they sum to 90° (or π/2 radians). In a right-angled triangle, the two acute angles are always complementary: the opposite side for one angle is the adjacent side for the other.",
+          "That swapped perspective gives the co-function identities: sin(π/2 − θ) = cos θ and cos(π/2 − θ) = sin θ. The co- prefix in cosine, cotangent, and cosecant literally means complement.",
+          "For tangent: tan(π/2 − θ) = sin(π/2 − θ)/cos(π/2 − θ) = cos θ/sin θ = cot θ. Complementary arguments swap the numerator and denominator of the tangent ratio.",
+          "These identities do not change signs — unlike the supplementary identities for π − θ, the complementary identities only swap function names.",
+          "Use the identities to evaluate angles that are easier as a complement. For example, sin(π/2 − π/3) = cos(π/3) = 1/2.",
+        ],
+        latexBlocks: [
+          "\\sin\\!\\left(\\frac{\\pi}{2}-\\theta\\right)=\\cos\\theta,\\quad \\cos\\!\\left(\\frac{\\pi}{2}-\\theta\\right)=\\sin\\theta",
+          "\\tan\\!\\left(\\frac{\\pi}{2}-\\theta\\right)=\\cot\\theta",
+          "\\sin(90°-\\theta)=\\cos\\theta,\\quad \\cos(90°-\\theta)=\\sin\\theta",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Simplify using the complementary identity",
+          questionLatex: "\\sin\\!\\left(\\frac{\\pi}{2}-x\\right)",
+          steps: [
+            { explanation: "Identify this as a complementary-angle form.", latex: "\\frac{\\pi}{2}-x\\text{ is the complement of }x" },
+            { explanation: "Apply the identity: sine of a complement equals cosine.", latex: "\\sin\\!\\left(\\frac{\\pi}{2}-x\\right)=\\cos x" },
+          ],
+          finalAnswerLatex: "\\cos x",
+        },
+        {
+          title: "Evaluate an exact value using a complementary identity",
+          questionLatex: "\\sin\\!\\left(\\frac{\\pi}{2}-\\frac{\\pi}{3}\\right)",
+          steps: [
+            { explanation: "Apply the complementary sine identity.", latex: "\\sin\\!\\left(\\frac{\\pi}{2}-\\frac{\\pi}{3}\\right)=\\cos\\frac{\\pi}{3}" },
+            { explanation: "Recall the exact value of cos(π/3).", latex: "\\cos\\frac{\\pi}{3}=\\frac{1}{2}" },
+          ],
+          finalAnswerLatex: "\\frac{1}{2}",
+        },
+        {
+          title: "Simplify a compound complementary expression",
+          questionLatex: "\\sin\\!\\left(\\frac{\\pi}{2}-x\\right)\\cdot\\cos x+\\cos\\!\\left(\\frac{\\pi}{2}-x\\right)\\cdot\\sin x",
+          steps: [
+            { explanation: "Apply both complementary identities.", latex: "\\cos x\\cdot\\cos x+\\sin x\\cdot\\sin x" },
+            { explanation: "Recognise the Pythagorean identity.", latex: "\\cos^2 x+\\sin^2 x=1" },
+          ],
+          finalAnswerLatex: "1",
+        },
+      ],
+      guidedPractice: [
+        conceptChoice(
+          "y11adv-cai-g1",
+          "Which identity correctly gives the displayed expression?",
+          "A",
+          [
+            "$\\cos\\theta$",
+            "$\\sin\\theta$",
+            "$-\\cos\\theta$",
+            "$-\\sin\\theta$",
+          ],
+          "Complementary angles swap function names only — no sign change. sin(π/2 − θ) = cos θ.",
+          "\\sin\\!\\left(\\frac{\\pi}{2}-\\theta\\right)"
+        ),
+        exactAnswer(
+          "y11adv-cai-g2",
+          "Simplify the complementary expression.",
+          "\\cos\\!\\left(\\frac{\\pi}{2}-x\\right)",
+          "sinx",
+          "cos(π/2 − x) = sin x. The complement of x swaps cosine to sine, with no sign change.",
+          trigExpressionVariants("sinx"),
+          "Apply cos(π/2 − θ) = sin θ directly."
+        ),
+        exactAnswer(
+          "y11adv-cai-g3",
+          "Evaluate using a complementary identity.",
+          "\\sin\\!\\left(\\frac{\\pi}{2}-\\frac{\\pi}{3}\\right)",
+          "1/2",
+          "sin(π/2 − π/3) = cos(π/3) = 1/2.",
+          [],
+          "Apply sin(π/2 − θ) = cos θ, then recall cos(π/3)."
+        ),
+        conceptChoice(
+          "y11adv-cai-g4",
+          "Which expression equals the displayed complementary tangent?",
+          "B",
+          [
+            "$\\tan\\theta$",
+            "$\\cot\\theta$",
+            "$-\\tan\\theta$",
+            "$\\sec\\theta$",
+          ],
+          "tan(π/2 − θ) = sin(π/2 − θ)/cos(π/2 − θ) = cos θ/sin θ = cot θ.",
+          "\\tan\\!\\left(\\frac{\\pi}{2}-\\theta\\right)"
+        ),
+      ],
+      independentPractice: [
+        exactAnswer(
+          "y11adv-cai-i1",
+          "Simplify the complementary expression.",
+          "\\sin\\!\\left(\\frac{\\pi}{2}-x\\right)",
+          "cosx",
+          "sin(π/2 − x) = cos x. The complement swaps sine to cosine.",
+          trigExpressionVariants("cosx"),
+          "Apply sin(π/2 − θ) = cos θ directly."
+        ),
+        conceptChoice(
+          "y11adv-cai-i2",
+          "Which identity is correct for the displayed expression?",
+          "C",
+          [
+            "$\\cos\\theta$",
+            "$-\\sin\\theta$",
+            "$\\sin\\theta$",
+            "$\\tan\\theta$",
+          ],
+          "cos(90° − θ) = sin θ — the complement swaps function names, no sign change.",
+          "\\cos(90°-\\theta)"
+        ),
+        exactAnswer(
+          "y11adv-cai-i3",
+          "Evaluate using a complementary identity.",
+          "\\cos(90°-30°)",
+          "1/2",
+          "cos(90° − 30°) = sin(30°) = 1/2.",
+          [],
+          "Apply cos(90° − θ) = sin θ, then recall sin(30°)."
+        ),
+        conceptChoice(
+          "y11adv-cai-i4",
+          "Which expression correctly simplifies the displayed product?",
+          "B",
+          [
+            "$\\cos x\\cdot\\sin x$",
+            "$\\sin x$",
+            "$\\cos^2 x$",
+            "$\\tan x$",
+          ],
+          "sin(π/2 − x) = cos x, so the product becomes cos x · tan x = cos x · sin x/cos x = sin x.",
+          "\\sin\\!\\left(\\frac{\\pi}{2}-x\\right)\\cdot\\tan x"
+        ),
+        exactAnswer(
+          "y11adv-cai-i5",
+          "Evaluate using a complementary identity.",
+          "\\sin\\!\\left(\\frac{\\pi}{2}-\\frac{\\pi}{6}\\right)",
+          "sqrt(3)/2",
+          "sin(π/2 − π/6) = cos(π/6) = √3/2.",
+          ["√3/2", "\\sqrt{3}/2", "\\frac{\\sqrt{3}}{2}", "(sqrt(3))/2"],
+          "Apply sin(π/2 − θ) = cos θ, then recall cos(π/6)."
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Writing sin(π/2 − θ) = sin θ.", fix: "The complement swaps function names: sin(π/2 − θ) = cos θ, not sin θ." },
+        { mistake: "Adding a negative sign, e.g. sin(π/2 − θ) = −cos θ.", fix: "Complementary identities do not change signs; only the function name swaps. Sign changes occur in supplementary (π − θ) identities." },
+        { mistake: "Confusing complementary (sum to 90°) with supplementary (sum to 180°).", fix: "Complementary angles sum to π/2; supplementary angles sum to π. The complementary identities use π/2 − θ, not π − θ." },
+        { mistake: "Applying the identity only in degrees and not radians.", fix: "sin(π/2 − θ) = cos θ and sin(90° − θ) = cos θ are the same identity in different units." },
+      ],
+      masteryQuiz: [
+        conceptChoice(
+          "y11adv-cai-m1",
+          "Which expression equals the displayed complementary sine?",
+          "D",
+          [
+            "$-\\sin\\theta$",
+            "$\\sin\\theta$",
+            "$-\\cos\\theta$",
+            "$\\cos\\theta$",
+          ],
+          "sin(π/2 − θ) = cos θ. No sign change; only the function name swaps.",
+          "\\sin\\!\\left(\\frac{\\pi}{2}-\\theta\\right)"
+        ),
+        exactAnswer(
+          "y11adv-cai-m2",
+          "Simplify the complementary expression.",
+          "\\cos\\!\\left(\\frac{\\pi}{2}-x\\right)",
+          "sinx",
+          "cos(π/2 − x) = sin x. The complement swaps cosine to sine.",
+          trigExpressionVariants("sinx"),
+          "Apply cos(π/2 − θ) = sin θ directly."
+        ),
+        conceptChoice(
+          "y11adv-cai-m3",
+          "Which option correctly evaluates the displayed expression?",
+          "C",
+          [
+            "$\\frac{1}{2}$",
+            "$1$",
+            "$\\frac{\\sqrt{3}}{2}$",
+            "$\\frac{\\sqrt{2}}{2}$",
+          ],
+          "cos(π/2 − π/3) = sin(π/3) = √3/2.",
+          "\\cos\\!\\left(\\frac{\\pi}{2}-\\frac{\\pi}{3}\\right)"
+        ),
+        exactAnswer(
+          "y11adv-cai-m4",
+          "Evaluate using a complementary identity.",
+          "\\sin(90°-60°)",
+          "1/2",
+          "sin(90° − 60°) = cos(60°) = 1/2.",
+          [],
+          "Apply sin(90° − θ) = cos θ, then recall cos(60°)."
+        ),
+        conceptChoice(
+          "y11adv-cai-m5",
+          "Which reason correctly explains why tan(π/2 − θ) = cot θ?",
+          "B",
+          [
+            "Tangent and cotangent are always equal",
+            "The complement swaps sine and cosine in the ratio, inverting the tangent",
+            "Both are positive in quadrant I",
+            "$\\pi/2$ is the period of tangent",
+          ],
+          "tan = sin/cos; the complement turns it into cos/sin = cot θ.",
+          "\\tan\\!\\left(\\frac{\\pi}{2}-\\theta\\right)=\\cot\\theta"
+        ),
+        exactAnswer(
+          "y11adv-cai-m6",
+          "Simplify the complementary expression.",
+          "\\sin\\!\\left(\\frac{\\pi}{2}-x\\right)",
+          "cosx",
+          "sin(π/2 − x) = cos x. This is the first complementary identity.",
+          trigExpressionVariants("cosx"),
+          "Apply sin(π/2 − θ) = cos θ directly."
+        ),
+        conceptChoice(
+          "y11adv-cai-m7",
+          "Which expression correctly simplifies the displayed quotient?",
+          "B",
+          [
+            "$\\tan x$",
+            "$\\cot x$",
+            "$\\sec x$",
+            "$1$",
+          ],
+          "sin(π/2 − x) = cos x, so the quotient is cos x/sin x = cot x.",
+          "\\frac{\\sin(\\pi/2-x)}{\\sin x}"
+        ),
+        exactAnswer(
+          "y11adv-cai-m8",
+          "Evaluate using a complementary identity.",
+          "\\sin\\!\\left(\\frac{\\pi}{2}-\\frac{\\pi}{4}\\right)",
+          "sqrt(2)/2",
+          "sin(π/2 − π/4) = cos(π/4) = √2/2.",
+          ["√2/2", "\\sqrt{2}/2", "\\frac{\\sqrt{2}}{2}", "(sqrt(2))/2"],
+          "Apply sin(π/2 − θ) = cos θ, then recall cos(π/4)."
+        ),
+        conceptChoice(
+          "y11adv-cai-m9",
+          "A student writes sin(π/2 − x) = sin x. Which option identifies the error?",
+          "A",
+          [
+            "$\\sin(\\pi/2-x)=\\cos x$, not $\\sin x$",
+            "The expression should equal $-\\cos x$",
+            "Complementary identities apply only in degrees",
+            "The identity only holds at $x=\\pi/6$",
+          ],
+          "The complementary identity swaps sine to cosine, not sine to sine.",
+          "\\sin(\\pi/2-x)=\\sin x\\quad(\\text{student's claim})"
+        ),
+        exactAnswer(
+          "y11adv-cai-m10",
+          "Evaluate using a complementary identity.",
+          "\\cos\\!\\left(\\frac{\\pi}{2}-\\frac{\\pi}{6}\\right)",
+          "1/2",
+          "cos(π/2 − π/6) = sin(π/6) = 1/2.",
+          [],
+          "Apply cos(π/2 − θ) = sin θ, then recall sin(π/6)."
+        ),
+      ],
+      multiPartPractice: [
+        {
+          id: "y11adv-cai-mp1",
+          prompt: "Apply both complementary identities to simplify the expression sin(π/2 − x)·cos x + cos(π/2 − x)·sin x.",
+          latex: "\\sin\\!\\left(\\frac{\\pi}{2}-x\\right)\\cos x+\\cos\\!\\left(\\frac{\\pi}{2}-x\\right)\\sin x",
+          answer: "1",
+          hint: "Simplify each complementary expression first, then recognise the resulting identity.",
+          explanation:
+            "(a) sin(π/2 − x) = cos x. (b) cos(π/2 − x) = sin x. (c) The expression becomes cos²x + sin²x = 1.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "Simplify sin(π/2 − x).",
+              latex: "\\sin\\!\\left(\\frac{\\pi}{2}-x\\right)",
+              marks: 1,
+              answer: "cosx",
+              acceptedAnswers: ["cos(x)", "\\cosx", "\\cos x", "\\cos(x)"],
+              hint: "Apply the first complementary identity.",
+              explanation: "sin(π/2 − x) = cos x.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "Simplify cos(π/2 − x).",
+              latex: "\\cos\\!\\left(\\frac{\\pi}{2}-x\\right)",
+              marks: 1,
+              answer: "sinx",
+              acceptedAnswers: ["sin(x)", "\\sinx", "\\sin x", "\\sin(x)"],
+              hint: "Apply the second complementary identity.",
+              explanation: "cos(π/2 − x) = sin x.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "Substitute and simplify the full expression.",
+              latex: "\\cos x\\cdot\\cos x+\\sin x\\cdot\\sin x",
+              marks: 2,
+              answer: "1",
+              hint: "Recognise cos²x + sin²x as the Pythagorean identity.",
+              explanation: "cos²x + sin²x = 1 by the Pythagorean identity.",
+            },
+          ],
+        },
+        {
+          id: "y11adv-cai-mp2",
+          prompt: "Use θ = π/3 to verify the complementary identities.",
+          latex: "\\theta=\\frac{\\pi}{3}",
+          answer: "1/2",
+          hint: "Substitute θ = π/3 into each identity and evaluate using exact values.",
+          explanation:
+            "(a) sin(π/2 − π/3) = cos(π/3) = 1/2. (b) cos(π/2 − π/3) = sin(π/3) = √3/2. (c) (1/2)² + (√3/2)² = 1/4 + 3/4 = 1, confirming sin²(π/3) + cos²(π/3) = 1.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "Evaluate sin(π/2 − π/3) using the complementary identity.",
+              latex: "\\sin\\!\\left(\\frac{\\pi}{2}-\\frac{\\pi}{3}\\right)",
+              marks: 1,
+              answer: "1/2",
+              hint: "Apply sin(π/2 − θ) = cos θ with θ = π/3.",
+              explanation: "sin(π/2 − π/3) = cos(π/3) = 1/2.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "Evaluate cos(π/2 − π/3) using the complementary identity.",
+              latex: "\\cos\\!\\left(\\frac{\\pi}{2}-\\frac{\\pi}{3}\\right)",
+              marks: 1,
+              answer: "sqrt(3)/2",
+              acceptedAnswers: ["√3/2", "\\sqrt{3}/2", "\\frac{\\sqrt{3}}{2}", "(sqrt(3))/2"],
+              hint: "Apply cos(π/2 − θ) = sin θ with θ = π/3.",
+              explanation: "cos(π/2 − π/3) = sin(π/3) = √3/2.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "Find sin²(π/3) + cos²(π/3) using your answers from (a) and (b).",
+              latex: "\\sin^2\\!\\left(\\frac{\\pi}{3}\\right)+\\cos^2\\!\\left(\\frac{\\pi}{3}\\right)",
+              marks: 2,
+              answer: "1",
+              hint: "Square the values from parts (a) and (b) and add.",
+              explanation: "(√3/2)² + (1/2)² = 3/4 + 1/4 = 1. The Pythagorean identity is confirmed.",
+            },
+          ],
+        },
+      ],
+    };
+  }
+
   return null;
 }
 

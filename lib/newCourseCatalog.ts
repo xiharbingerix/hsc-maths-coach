@@ -1761,6 +1761,34 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             ],
           },
           {
+            slug: "complementary-angle-identities",
+            title: "Complementary Angle Identities",
+            stableSkillId: "y11adv-trig-id-complementary-angle-identities",
+            legacySlugs: ["related-angle-identities"],
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y11adv-trig-id-comp-state-identities",
+                label: "State sin(pi/2 minus theta) = cos theta, cos(pi/2 minus theta) = sin theta, and tan(pi/2 minus theta) = cot theta",
+                legacySlugs: ["related-angle-identities"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-comp-simplify",
+                label: "Rewrite a complementary expression as a single trigonometric function of theta",
+                legacySlugs: ["related-angle-identities"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-comp-exact-values",
+                label: "Evaluate exact values using a complementary identity and a special angle",
+                legacySlugs: ["related-angle-identities"],
+              },
+              {
+                stableCheckpointId: "y11adv-trig-id-comp-compound",
+                label: "Simplify compound expressions by applying complementary identities then the Pythagorean identity",
+                legacySlugs: ["related-angle-identities"],
+              },
+            ],
+          },
+          {
             slug: "trig-equations-basic",
             title: "Basic Trigonometric Equations",
             stableSkillId: "y11adv-trig-id-trig-equations-basic",
