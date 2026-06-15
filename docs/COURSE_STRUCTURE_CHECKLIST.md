@@ -2,7 +2,7 @@
 
 > **Objective:** High-quality lessons and question content across the entire NSW syllabus, mapped to syllabus sections with sufficient lessons to cover all skills and content in the Content section. Each lesson: 19 questions, worked examples, Feynman teaching, and common mistakes. Each focus area: one revision lesson activating the prior knowledge stated in the syllabus teaching advice, plus content lessons per dot-point group.
 > **Standard:** NSW syllabuses (2024 versions, implementation from 2026). Source of truth: [curriculum.nsw.edu.au](https://curriculum.nsw.edu.au).
-> Last updated: 2026-06-15 — Ext 1 syllabus audit complete; objective standard adopted.
+> Last updated: 2026-06-15 — Ext 1 syllabus audit complete; objective standard adopted. Year 12 Standard 2 Priority 1–3 build complete (23 lessons, 1102 questions).
 
 ---
 
@@ -27,7 +27,7 @@
 | Year 11 Advanced | 54 (8 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 11 Extension 1 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 12 Standard 1 | 18 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
-| Year 12 Standard 2 | 41 (6 units) | 6 focus areas | ~70% — detail below | 0 | 🔄 Gaps identified |
+| Year 12 Standard 2 | 58 (6 units) | 10 topics | ~95% — detail below | 10 | ✅ Priority 1–3 complete |
 | Year 12 Advanced | 91 (13 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 12 Extension 1 | 30 (8 units) | 6 focus areas (ME1-12-01–06) | ~55% — detail below | 0 | 🔄 Gaps identified |
 | Year 12 Extension 2 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
@@ -280,7 +280,7 @@ Class Maths: 7 topics / 29 subtopics.
 
 ---
 
-## Year 12 Standard 2 🔄 Syllabus alignment in progress
+## Year 12 Standard 2 ✅ Priority 1–3 complete (2026-06-15)
 
 `year-12-standard-2` — `available`. Override file: `lib/lessons/year12Standard2/`.
 
@@ -289,7 +289,7 @@ URL: https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-standa
 
 **Objective:** Every NSW syllabus content dot point must be addressed by at least one Nova lesson. Each topic must also have a revision lesson drawing on the "Prior knowledge, skills and understanding" teaching advice to activate Year 11 prerequisites before new content begins.
 
-**Current state:** 35 lessons across 6 Nova units. Several existing lessons cover Year 11 content (not Year 12) and some new syllabus topics are entirely unaddressed. Structural realignment required.
+**Current state (2026-06-15):** 58 lessons across 6 Nova units (+ 3 legacy surface-area/volume units not in scope). All 23 planned lessons built: 6 Priority 1 (entirely missing content), 7 Priority 2 (significant coverage gaps), 10 Priority 3 (revision lessons). Total question bank: 1102 questions.
 
 ---
 
@@ -297,16 +297,16 @@ URL: https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-standa
 
 | # | NSW Topic | Outcome | Nova lessons | Coverage |
 |---|---|---|---|---|
-| 1 | Algebraic relationships | MST-12-S2-01 | 7 (partial overlap) | ⚠️ Partial |
-| 2 | Investment and loans | MST-12-S2-02 | 3 | ⚠️ Partial — shares missing |
-| 3 | Annuities | MST-12-S2-03 | 2 | ⚠️ Partial — interest factor tables missing |
-| 4 | Trigonometry | MST-12-S2-04 | 4 | ⚠️ Partial — radians, elevation/depression gap |
-| 5 | Ratios and rates | MST-12-S2-05 | 1 | ⚠️ Partial — energy, site plans, rainfall missing |
-| 6 | Network flow | MST-12-S2-06 | 2 | ✅ Adequate |
-| 7 | Critical path analysis | MST-12-S2-07 | 1 | ⚠️ Partial — Gantt charts, dummy activities missing |
-| 8 | Bivariate data analysis | MST-12-S2-08 | 3 | ✅ Adequate |
-| 9 | Relative frequency and probability | MST-12-S2-09 | 1 | ❌ Significant gaps |
-| 10 | The normal distribution | MST-12-S2-10 | 1 | ⚠️ Partial |
+| 1 | Algebraic relationships | MST-12-S2-01 | 9 | ✅ Full (incl. revision + reciprocal) |
+| 2 | Investment and loans | MST-12-S2-02 | 7 | ✅ Full (incl. revision + shares + depreciation) |
+| 3 | Annuities | MST-12-S2-03 | 5 | ✅ Full (incl. revision + factor tables + retirement) |
+| 4 | Trigonometry | MST-12-S2-04 | 8 | ✅ Full (incl. revision + radians + elevation/depression) |
+| 5 | Ratios and rates | MST-12-S2-05 | 7 | ✅ Full (incl. revision + energy + site plans + rainfall) |
+| 6 | Network flow | MST-12-S2-06 | 4 | ✅ Full (incl. revision) |
+| 7 | Critical path analysis | MST-12-S2-07 | 3 | ✅ Full (incl. revision + Gantt/dummy) |
+| 8 | Bivariate data analysis | MST-12-S2-08 | 4 | ✅ Full (incl. revision) |
+| 9 | Relative frequency and probability | MST-12-S2-09 | 5 | ✅ Full (incl. revision + multistage + expected freq) |
+| 10 | The normal distribution | MST-12-S2-10 | 3 | ✅ Full (incl. revision) |
 
 ---
 
@@ -373,8 +373,8 @@ These lessons exist but address Year 11 Standard content or are explicitly exclu
 - `algebraic-relationships-exam-practice` ✅
 
 #### Required new lessons
-- [ ] **`algebraic-relationships-revision`** — Activates prior knowledge: solving linear equations, substitution, plotting from tables, straight-line graphs. Bridge to Year 12 non-linear content.
-- [ ] **`reciprocal-relationships`** — Dedicated lesson on y=k/x; hyperbolic shape; construct and solve inverse variation problems; state limitations. (Split from `exponential-inverse-variation`.)
+- [x] **`algebraic-relationships-revision`** ✅ 2026-06-15 — Linear equations, substitution, gradient/y-intercept, tables of values.
+- [x] **`reciprocal-relationships`** ✅ 2026-06-15 — y=k/x; hyperbolic shape; Q1/Q3 vs Q2/Q4; inverse variation problems; CartesianGraph diagram.
 - [ ] Update `exponential-inverse-variation` and `quadratic-models` to include explicit **model limitations** sections.
 
 ---
@@ -416,9 +416,9 @@ These lessons exist but address Year 11 Standard content or are explicitly exclu
 - `credit-cards-consumer-decisions` ✅
 
 #### Required new lessons
-- [ ] **`investment-loans-revision`** — Activates prior knowledge: percentages, simple interest I=Prt, finding unknowns; contrast simple vs compound growth as a bridge to Year 12 FV=PV(1+r)ⁿ.
-- [ ] **`shares-dividends-brokerage`** — Dividend calculation, dividend yield, brokerage fees, buying/selling shares, capital gain vs loss. (**Entirely missing** — new syllabus dot point.)
-- [ ] **`straight-line-vs-declining-depreciation`** — Explicit S=V₀−Dn vs S=V₀(1−r)ⁿ; tabular and graphical comparison; when each model is appropriate.
+- [x] **`investment-loans-revision`** ✅ 2026-06-15 — Percentages, simple interest I=Prn, A=P+I, % increase/decrease.
+- [x] **`shares-dividends-brokerage`** ✅ 2026-06-15 — Dividend yield, brokerage, capital gain/loss, total return.
+- [x] **`straight-line-vs-declining-depreciation`** ✅ 2026-06-15 — S=V₀−Dn vs S=V₀(1−r)ⁿ; tabular comparison; crossover point.
 
 ---
 
@@ -443,9 +443,9 @@ These lessons exist but address Year 11 Standard content or are explicitly exclu
 - `present-value-annuities` ✅ PV formula; ❌ no table approach
 
 #### Required new lessons
-- [ ] **`annuities-revision`** — Activates prior knowledge: FV=PV(1+r)ⁿ, recurrence relations B_{n+1}=r·Bₙ+d, reading balance tables.
-- [ ] **`annuity-interest-factor-tables`** — Using published FV and PV interest factor tables; finding FV, PV, required contributions and initial lump sums from tables; comparing results to formula approach.
-- [ ] **`retirement-annuity-planning`** — Long-term annuity scenarios: saving for retirement, pension drawdown, comparing saving strategies; digital tool exploration of parameter effects.
+- [x] **`annuities-revision`** ✅ 2026-06-15 — A=P(1+r)ⁿ, savings/loan recurrence relations, balance table reading.
+- [x] **`annuity-interest-factor-tables`** ✅ 2026-06-15 — FV and PV interest factor tables; finding FV, PV, required contributions.
+- [x] **`retirement-annuity-planning`** ✅ 2026-06-15 — Long-term FV/PV annuity scenarios; superannuation and income streams.
 
 ---
 
@@ -485,9 +485,9 @@ These lessons exist but address Year 11 Standard content or are explicitly exclu
 - `time-zones-conversions` — not a trigonometry lesson; not in new syllabus
 
 #### Required new lessons
-- [ ] **`trigonometry-revision`** — SOH CAH TOA, Pythagoras, right-triangle labelling; bridge to sine/cosine rules. Cover finding sides and angles in right-angled triangles as the launch pad.
-- [ ] **`right-angled-trig-radians`** — Introduce radian measure; convert between degrees and radians; apply SOH CAH TOA and trig ratios using radians; practise in both units. (**New syllabus requirement** not previously in Standard 2.)
-- [ ] **`elevation-depression-applications`** — Angles of elevation and depression; draw diagrams from word problems; solve using right-angled and non-right-angled trig; combine with bearings in practical contexts.
+- [x] **`trigonometry-revision`** ✅ 2026-06-15 — SOH CAH TOA, Pythagoras, hyp/opp/adj labelling; triangleDiagram on WE1 and WE2.
+- [x] **`right-angled-trig-radians`** ✅ 2026-06-15 — Radian measure, degree↔radian conversion, SOH CAH TOA in radians.
+- [x] **`elevation-depression-applications`** ✅ 2026-06-15 — Elevation/depression angles, right-triangle diagrams, practical problems.
 
 ---
 
@@ -522,10 +522,10 @@ These lessons exist but address Year 11 Standard content or are explicitly exclu
 - `ratios-rates-unit-conversions` ✅ ratios, rates, speed, scale, fuel
 
 #### Required new lessons
-- [ ] **`ratios-rates-revision`** — Activates prior knowledge: fractions↔ratios, unit conversions (cm→m→km), basic rate problems from Year 11.
-- [ ] **`scale-drawings-site-plans`** — Construct and read scale drawings; use building plans and site plans; calculate actual distances, perimeters and areas; apply to aerial photographs and radial surveys.
-- [ ] **`rainfall-volume-calculations`** — Calculate V=Ah for rainfall over a catchment; read depth from maps; combine with area from scale drawings; real-world water storage contexts.
-- [ ] **`energy-consumption-watts-kilowatts`** — Watts and kilowatts (1000 W=1 kW); kilowatt-hours; read electricity bills; calculate household energy costs; compare appliance consumption.
+- [x] **`ratios-rates-revision`** ✅ 2026-06-15 — Simplify ratios, share in ratio, metric conversions, basic speed/cost rates.
+- [x] **`scale-drawings-site-plans`** ✅ 2026-06-15 — Scale drawings; actual↔plan conversions; perimeter and area from site plans.
+- [x] **`rainfall-volume-calculations`** ✅ 2026-06-15 — V=Ah for rainfall; mm→m conversion; m³↔L; tank overflow.
+- [x] **`energy-consumption-watts-kilowatts`** ✅ 2026-06-15 — W↔kW, kWh, electricity tariff, appliance cost calculations.
 
 ---
 
@@ -548,7 +548,7 @@ These lessons exist but address Year 11 Standard content or are explicitly exclu
 - `shortest-paths-minimum-spanning-trees` — ⚠️ NOT in the new Year 12 Standard 2 syllabus
 
 #### Required new lessons
-- [ ] **`network-flow-revision`** — Activate prior knowledge: vertices, edges, directed/weighted networks, reading diagrams. Bridge to flow-specific concepts (source, sink, capacity).
+- [x] **`network-flow-revision`** ✅ 2026-06-15 — Vertices, edges, degree, directed/weighted networks, paths and circuits; NetworkDiagram on all 3 WEs.
 - Note: `shortest-paths-minimum-spanning-trees` should be reviewed — likely Year 11 Networks content; retain but flag as outside Year 12 scope.
 
 ---
@@ -575,8 +575,8 @@ These lessons exist but address Year 11 Standard content or are explicitly exclu
 - `critical-path-analysis` ✅ core CPA; ❌ dummy activities; ❌ Gantt charts; ❌ spreadsheet
 
 #### Required new lessons
-- [ ] **`critical-path-revision`** — Activate prior knowledge: reading precedence tables, activity sequencing, basic network diagrams. Bridge to forward/backward pass.
-- [ ] **`gantt-charts-dummy-activities`** — Introduce dummy activities and when they are needed; construct full network with dummies; build Gantt charts from network diagrams showing critical path; interpret Gantt charts for project scheduling.
+- [x] **`critical-path-revision`** ✅ 2026-06-15 — Precedence tables, valid activity sequences, path totals, critical path, float.
+- [x] **`gantt-charts-dummy-activities`** ✅ 2026-06-15 — Dummy activities, AON and AOA networks; Gantt charts with critical path; NetworkDiagram on WE1 and WE3.
 
 ---
 
@@ -606,7 +606,7 @@ These lessons exist but address Year 11 Standard content or are explicitly exclu
 - `regression-prediction-residuals` ✅
 
 #### Required new lessons
-- [ ] **`bivariate-data-revision`** — Activate prior knowledge: mean, median, mode, standard deviation, reading graphs, interpreting data displays. Bridge to two-variable analysis.
+- [x] **`bivariate-data-revision`** ✅ 2026-06-15 — Mean, median, mode, range, frequency tables, distribution shape, SD interpretation.
 
 ---
 
@@ -632,9 +632,9 @@ These lessons exist but address Year 11 Standard content or are explicitly exclu
 - `relative-frequency-probability` ✅ basic probability; ❌ multistage; ❌ independence; ❌ expected frequency
 
 #### Required new lessons
-- [ ] **`probability-revision`** — Activate prior knowledge: listing outcomes, simple probability fractions, equally likely events, basic sample spaces from Year 11.
-- [ ] **`multistage-events-independence`** — Tree diagrams and tables for two-stage events; P(A and B) = P(A) × P(B); independent vs dependent events; practical contexts (with/without replacement).
-- [ ] **`expected-frequency-contingency-tables`** — Expected frequency E=np; contingency/two-way tables; reading and completing tables; using probability to evaluate claims and decisions.
+- [x] **`probability-revision`** ✅ 2026-06-15 — Sample spaces, P(A)=favourable/total, fraction/decimal/%, complement rule P(A')=1−P(A).
+- [x] **`multistage-events-independence`** ✅ 2026-06-15 — Tree diagrams, P(A and B)=P(A)×P(B), with/without replacement; probabilityTreeDiagram on WE1.
+- [x] **`expected-frequency-contingency-tables`** ✅ 2026-06-15 — E=np; contingency tables; cell probabilities; twoWayTableDiagram on WE2.
 
 ---
 
@@ -660,7 +660,7 @@ These lessons exist but address Year 11 Standard content or are explicitly exclu
 - `normal-distribution-z-scores` ✅ core content; ⚠️ shading areas and cross-dataset comparison need reinforcement
 
 #### Required new lessons
-- [ ] **`normal-distribution-revision`** — Activate prior knowledge: mean, median, mode, standard deviation, data shape and spread. Bridge to the normal curve and why it matters.
+- [x] **`normal-distribution-revision`** ✅ 2026-06-15 — Mean and SD recap, bell-curve shape, empirical rule 68/95/99.7%, SD intervals above/below mean.
 
 ---
 
@@ -676,43 +676,44 @@ These lessons exist but address Year 11 Standard content or are explicitly exclu
 | 4 | `multistage-events-independence` | Probability | P(A∩B), tree diagrams | ✅ 2026-06-15 |
 | 5 | `expected-frequency-contingency-tables` | Probability | E=np, contingency tables | ✅ 2026-06-15 |
 | 6 | `gantt-charts-dummy-activities` | Critical path | Gantt charts and dummy activities | ✅ 2026-06-15 |
-| 7 | `energy-consumption-watts-kilowatts` | Ratios and rates | Watts/kW, household energy |
-| 8 | `straight-line-vs-declining-depreciation` | Investment and loans | S=V₀−Dn vs S=V₀(1−r)ⁿ comparison |
+| 7 | `energy-consumption-watts-kilowatts` | Ratios and rates | Watts/kW, household energy | ✅ 2026-06-15 |
+| 8 | `straight-line-vs-declining-depreciation` | Investment and loans | S=V₀−Dn vs S=V₀(1−r)ⁿ comparison | ✅ 2026-06-15 |
 
 **Priority 2 — Significant gaps in existing coverage**
 
-| # | Lesson | Topic | Notes |
-|---|---|---|---|
-| 9 | `elevation-depression-applications` | Trigonometry | Elevation/depression not in any current lesson |
-| 10 | `scale-drawings-site-plans` | Ratios and rates | Building plans, perimeter/area from scale |
-| 11 | `rainfall-volume-calculations` | Ratios and rates | V=Ah over catchment areas |
-| 12 | `retirement-annuity-planning` | Annuities | Retirement savings scenarios |
-| 13 | `reciprocal-relationships` | Algebraic relationships | Dedicated y=k/x lesson |
+| # | Lesson | Topic | Notes | Status |
+|---|---|---|---|---|
+| 9 | `elevation-depression-applications` | Trigonometry | Elevation/depression not in any current lesson | ✅ 2026-06-15 |
+| 10 | `scale-drawings-site-plans` | Ratios and rates | Building plans, perimeter/area from scale | ✅ 2026-06-15 |
+| 11 | `rainfall-volume-calculations` | Ratios and rates | V=Ah over catchment areas | ✅ 2026-06-15 |
+| 12 | `retirement-annuity-planning` | Annuities | Retirement savings scenarios | ✅ 2026-06-15 |
+| 13 | `reciprocal-relationships` | Algebraic relationships | Dedicated y=k/x lesson | ✅ 2026-06-15 |
 
 **Priority 3 — Revision lessons (one per topic, builds prior knowledge bridge)**
 
-| # | Lesson slug | Prior knowledge activated |
-|---|---|---|
-| 14 | `algebraic-relationships-revision` | Linear equations, substitution, plotting |
-| 15 | `investment-loans-revision` | Percentages, simple interest, I=Prt |
-| 16 | `annuities-revision` | FV=PV(1+r)ⁿ, recurrence relations |
-| 17 | `trigonometry-revision` | SOH CAH TOA, Pythagoras, right triangles |
-| 18 | `ratios-rates-revision` | Fractions↔ratios, basic rates |
-| 19 | `network-flow-revision` | Vertices, edges, directed/weighted graphs |
-| 20 | `critical-path-revision` | Precedence tables, activity sequences |
-| 21 | `bivariate-data-revision` | Mean, median, mode, SD, data graphs |
-| 22 | `probability-revision` | Listing outcomes, simple probability |
-| 23 | `normal-distribution-revision` | Mean, SD, data shape and spread |
+| # | Lesson slug | Prior knowledge activated | Status |
+|---|---|---|---|
+| 14 | `algebraic-relationships-revision` | Linear equations, substitution, plotting | ✅ 2026-06-15 |
+| 15 | `investment-loans-revision` | Percentages, simple interest, I=Prt | ✅ 2026-06-15 |
+| 16 | `annuities-revision` | FV=PV(1+r)ⁿ, recurrence relations | ✅ 2026-06-15 |
+| 17 | `trigonometry-revision` | SOH CAH TOA, Pythagoras, right triangles | ✅ 2026-06-15 |
+| 18 | `ratios-rates-revision` | Fractions↔ratios, basic rates | ✅ 2026-06-15 |
+| 19 | `network-flow-revision` | Vertices, edges, directed/weighted graphs | ✅ 2026-06-15 |
+| 20 | `critical-path-revision` | Precedence tables, activity sequences | ✅ 2026-06-15 |
+| 21 | `bivariate-data-revision` | Mean, median, mode, SD, data graphs | ✅ 2026-06-15 |
+| 22 | `probability-revision` | Listing outcomes, simple probability | ✅ 2026-06-15 |
+| 23 | `normal-distribution-revision` | Mean, SD, data shape and spread | ✅ 2026-06-15 |
 
-**Total new lessons required: 23**
-**Current lessons: 35** (several reclassified as revision/Year 11 material)
-**Target: ~48 lessons** mapped to all 10 NSW syllabus topics with full dot-point coverage
+**Total new lessons built: 23 / 23** ✅
+**Total lessons: 58** (35 original + 23 new; several original lessons reclassified as revision/Year 11 material)
+**Question bank: 1102 questions** (58 lessons × 19 questions)
 
 ---
 
 ### Seed totals
-- Current: 665 questions (35 lessons)
-- After new build: ~912 questions (48 lessons × 19 questions)
+- 2026-06-15: **1102 questions** (58 lessons × 19 questions)
+- Previous baseline: 665 questions (35 lessons)
+- Growth: +437 questions across 23 new lessons
 
 ### Notes on existing lessons to reclassify
 - `surface-area-prisms-cylinders`, `volume-prisms-cylinders-spheres`, `composite-solids-practical` → move to `year-11-standard` course or retain as supplementary review
