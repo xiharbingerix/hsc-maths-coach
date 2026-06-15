@@ -238,8 +238,8 @@ export function NewCourseOverviewPage({
                   Start your 7-day free trial
                 </ButtonLink>
               ) : (
-                <ButtonLink href="/enquire?offer=online-learning" variant="primary">
-                  Register interest
+                <ButtonLink href="/online-learning" variant="primary">
+                  View online learning
                 </ButtonLink>
               )}
               <ButtonLink href="/signup">Create account</ButtonLink>
@@ -368,8 +368,8 @@ export function NewCourseUnitPage({
               <ButtonLink href="/online-learning">
                 Learn about online learning
               </ButtonLink>
-              <ButtonLink href="/enquire?offer=online-learning" variant="primary">
-                Register interest
+              <ButtonLink href="/checkout?offer=online-learning" variant="primary">
+                Start your 7-day free trial
               </ButtonLink>
               <ButtonLink href="/signup">Create account</ButtonLink>
               <ButtonLink href="/login">Log in</ButtonLink>

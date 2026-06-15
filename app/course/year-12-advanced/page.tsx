@@ -27,7 +27,8 @@ export default function Year12AdvancedPage() {
           </p>
 
           <p className="mt-4 max-w-3xl rounded-2xl border border-amber-200 bg-amber-50 p-4 leading-7 text-amber-900">
-            Year 12 Mathematics Advanced now includes 89 active lessons across
+            Year 12 Mathematics Advanced now includes{" "}
+            {year12AdvancedCourse.activeLessonCount} active lessons across
             functions, trigonometry, exponential and logarithmic functions,
             calculus, statistics, sequences, series and financial mathematics.
             Ongoing refinements and visual supports are being added.

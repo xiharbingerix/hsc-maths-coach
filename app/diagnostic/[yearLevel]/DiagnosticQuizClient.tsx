@@ -382,11 +382,12 @@ export function DiagnosticQuizClient({
               Get started
             </p>
             <h2 className="mt-2 text-xl font-bold">
-              Unlock your personalised practice plan.
+              Start your trial to unlock the lessons recommended by your results.
             </h2>
             <p className="mt-2 leading-7 text-slate-300">
-              Access all 195+ NSW maths lessons, save your progress and track
-              mastery across every unit.
+              Your trial unlocks full lessons, worked examples, guided
+              practice, independent practice, mastery quizzes, saved progress
+              and course pathways.
             </p>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
               <SubscribeCTA

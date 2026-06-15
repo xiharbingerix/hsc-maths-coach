@@ -4,6 +4,7 @@ import katex from "katex";
 import React, { type ReactNode } from "react";
 import { SubscribeCTA } from "../components/SubscribeCTA";
 import { PageViewTracker } from "../components/PageViewTracker";
+import { totalActiveLessonCount } from "../../lib/courseUnits";
 import { areaUnderCurveLesson } from "../../lib/lessons/integralCalculus";
 
 export const metadata: Metadata = {
@@ -334,16 +335,16 @@ export default function SampleHscLessonPage() {
         <section className="rounded-3xl border border-slate-200 bg-slate-100/80 p-6 shadow-sm md:p-8">
           <SectionLabel>What&apos;s included</SectionLabel>
           <h2 className="mt-3 text-2xl font-bold tracking-tight">
-            This is one lesson out of 195+.
+            This is one lesson out of {totalActiveLessonCount} active lessons.
           </h2>
           <p className="mt-4 leading-7 text-slate-600">
-            Your trial unlocks every available NSW maths lesson from Year 9 to
-            HSC &mdash; worked examples, practice questions and mastery quizzes
-            &mdash; with saved progress across all devices.
+            Your trial unlocks every available NSW maths lesson from Year 8 to
+            HSC - worked examples, guided practice, independent practice and
+            mastery quizzes - with saved progress across all devices.
           </p>
           <ul className="mt-5 space-y-2">
             {[
-              "195+ lessons across Year 9, 10, 11 and 12 maths pathways",
+              `${totalActiveLessonCount} active lessons across Year 8 to HSC pathways`,
               "Worked examples before every practice section",
               "Guided and independent practice questions",
               "Mastery quizzes with saved progress",

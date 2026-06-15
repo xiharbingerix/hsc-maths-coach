@@ -223,10 +223,10 @@ export default function IntegralCalculusModulePage() {
                 Log in
               </Link>
               <Link
-                href="/enquire?offer=online-learning"
+                href="/checkout?offer=online-learning"
                 className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
               >
-                Register interest
+                Start your 7-day free trial
               </Link>
               <Link
                 href="/dashboard"

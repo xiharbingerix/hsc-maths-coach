@@ -27,7 +27,7 @@ const gateContent: Record<
 > = {
   "logged-out": {
     title: "Start your 7-day free trial",
-    text: "Create your account and start checkout in one step. Your trial unlocks online learning and saves progress across devices.",
+    text: "Start your trial to unlock full lessons, worked examples, guided practice, independent practice, mastery quizzes, saved progress and course pathways.",
     primaryHref: "/checkout?offer=online-learning",
     primaryLabel: "Start your 7-day free trial",
     secondaryHref: "/login?next=%2Fcheckout%3Foffer%3Donline-learning",
@@ -35,7 +35,7 @@ const gateContent: Record<
   },
   pending: {
     title: "Start your 7-day free trial",
-    text: "Your account is ready. Start your free trial to activate online learning access.",
+    text: "Your account is ready. Start your free trial to unlock full lessons, worked examples, guided practice, independent practice, mastery quizzes, saved progress and course pathways.",
     primaryHref: "/checkout?offer=online-learning",
     primaryLabel: "Start your 7-day free trial",
     secondaryHref: "/dashboard",
@@ -43,7 +43,7 @@ const gateContent: Record<
   },
   revoked: {
     title: "Online learning access is not currently active",
-    text: "This account does not currently have active online learning access.",
+    text: "This account does not currently have active online learning access. Resubscribe to unlock full lessons, worked examples, guided practice, independent practice, mastery quizzes, saved progress and course pathways.",
     primaryHref: "/checkout?offer=online-learning",
     primaryLabel: "Resubscribe — $19/month",
     secondaryHref: "/dashboard",
@@ -51,7 +51,7 @@ const gateContent: Record<
   },
   none: {
     title: "Online learning access is not set up yet",
-    text: "Your account exists. Start your free trial to activate online learning access.",
+    text: "Your account exists. Start your free trial to unlock full lessons, worked examples, guided practice, independent practice, mastery quizzes, saved progress and course pathways.",
     primaryHref: "/checkout?offer=online-learning",
     primaryLabel: "Start your 7-day free trial",
     secondaryHref: "/signup",
@@ -178,14 +178,6 @@ export function AccessGate({ children }: AccessGateProps) {
           <AccessButton href={content.secondaryHref} variant="secondary">
             {content.secondaryLabel}
           </AccessButton>
-          {gateState === "logged-out" ? (
-            <AccessButton
-              href="/enquire?offer=online-learning"
-              variant="secondary"
-            >
-              Register interest
-            </AccessButton>
-          ) : null}
           <AccessButton href="/course" variant="secondary">
             Back to course
           </AccessButton>

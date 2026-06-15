@@ -62,7 +62,7 @@ const FAQs = [
   {
     question: "Which Year 12 courses are included?",
     answer:
-      "Your subscription includes the available Year 12 Mathematics Advanced and Mathematics Standard 2 pathways, as well as the other available Year 9 to Year 12 maths pathways.",
+      "Your subscription includes the available Year 12 Mathematics Advanced and Mathematics Standard 2 pathways, as well as the other available Year 8 to HSC maths pathways.",
   },
   {
     question: "Is this for struggling students?",

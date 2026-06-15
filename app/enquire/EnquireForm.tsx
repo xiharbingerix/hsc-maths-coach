@@ -21,23 +21,25 @@ const offerLabels: Record<string, string> = {
   "online-learning": "Online Learning Access",
   "diagnostic-report": "Diagnostic PDF Report",
   "study-plan": "Diagnostic + 30-Day Plan",
-  "weekly-tutoring": "Weekly Tutoring + Online Learning",
+  "weekly-tutoring": "Weekly Tutoring",
 };
 
 const offerHelperText: Record<string, string> = {
   "online-learning":
-    "Register interest in the available online learning course pathways.",
+    "Online learning is self-serve. Start the 7-day free trial when you are ready, or submit this form if you need help first.",
   "diagnostic-report":
     "Request a parent-friendly PDF report after completing the diagnostic. Reports are manually reviewed before being sent.",
   "study-plan":
     "Request a diagnostic report plus a focused month of revision priorities based on the student's results.",
   "weekly-tutoring":
-    "Enquire about weekly individual tutoring support that includes access to the online learning package.",
+    "Joshua's weekly tutoring spots are currently full. You can still ask to be contacted if availability changes.",
 };
 
 const successFollowUpText: Record<string, string> = {
+  "online-learning":
+    "If you are ready to begin, continue to checkout to start the 7-day free trial.",
   "weekly-tutoring":
-    "Joshua will follow up about availability, timing, and online learning access.",
+    "Joshua will only follow up if a tutoring spot becomes available or there is another suitable next step.",
 };
 
 export function EnquireForm({ offers, initialOffer }: EnquireFormProps) {
@@ -114,7 +116,7 @@ export function EnquireForm({ offers, initialOffer }: EnquireFormProps) {
           <h3 className="font-semibold text-slate-950">Next steps</h3>
           <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700">
             <li>Complete the diagnostic if you have not already.</li>
-            <li>Create an account if you want online learning access.</li>
+            <li>Start the 7-day free trial if you want online learning access.</li>
             <li>
               {successFollowUpText[offerSelected] ??
                 "Joshua will follow up about report or support options."}
@@ -209,7 +211,7 @@ export function EnquireForm({ offers, initialOffer }: EnquireFormProps) {
           </p>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
             No payment is taken through this form. Joshua will follow up with
-            next steps.
+            next steps if a manual reply is needed.
           </p>
         </div>
 
