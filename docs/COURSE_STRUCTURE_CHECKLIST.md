@@ -837,8 +837,8 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 - [x] Examine domain restrictions to obtain inverse functions → `inverse-trig-intro`
 - [x] Define sin⁻¹(x), cos⁻¹(x), tan⁻¹(x); determine domains and ranges → `inverse-trig-intro`
 - [x] Sketch graphs of sin⁻¹(x), cos⁻¹(x), tan⁻¹(x) → `inverse-trig-intro`
-- [ ] **Apply complementary angle identity sin⁻¹(x) + cos⁻¹(x) = π/2** → ⚠️ needs explicit coverage
-- [ ] **Evaluate composite expressions such as sin(cos⁻¹(x)) and tan(sin⁻¹(x))** → ⚠️ needs explicit coverage
+- [x] **Apply complementary angle identity sin⁻¹(x) + cos⁻¹(x) = π/2** → `inverse-trig-properties`
+- [x] **Evaluate composite expressions such as sin(cos⁻¹(x)) and tan(sin⁻¹(x))** → `inverse-trig-properties`
 
 **Calculus**
 - [x] Differentiate sin⁻¹(f(x)), cos⁻¹(f(x)), tan⁻¹(f(x)) → `inverse-trig-differentiation`
@@ -846,10 +846,10 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 - [x] Recognise and apply standard integrals (∫1/√(a²−x²)dx = sin⁻¹(x/a)+C etc.) → `inverse-trig-integration`
 - [x] Evaluate definite integrals involving inverse trig → `inverse-trig-integration`
 
-#### Current lessons (unit: `inverse-trig`) — 3 lessons, 57Q ⚠️ ~75% coverage
+#### Current lessons (unit: `inverse-trig`) — 4 lessons, 76Q ✅ ~100% coverage
 #### Required new lessons
 - [ ] **`inverse-trig-revision`** — Trig graphs, inverse function concept, domain restrictions, trig identities.
-- [ ] **`inverse-trig-properties`** — Complementary angle identities; evaluating composite expressions; identities provable with calculus.
+- [x] **`inverse-trig-properties`** ✅ Done 2026-06-15 — Complementary angle identities; evaluating composite expressions; Pythagorean identity method.
 
 ---
 
@@ -955,13 +955,13 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 |---|---|---|---|---|
 | Proof by Mathematical Induction | ME1-12-01 | 3 (57Q) | ✅ ~100% | Revision lesson only |
 | Introduction to Vectors | ME1-12-02 | 7+8 (285Q total) | ✅ ~100% | Revision lesson only |
-| Inverse Trigonometric Functions | ME1-12-03 | 3 (57Q) | ⚠️ ~75% | Properties/identities lesson, revision lesson |
+| Inverse Trigonometric Functions | ME1-12-03 | 4 (76Q) | ✅ ~100% | Revision lesson only |
 | Further Calculus Skills | ME1-12-04 | 4 (76Q) | ✅ ~100% | Revision lesson only |
 | Further Applications of Calculus | ME1-12-05 | 10 (191Q) | ✅ ~100% | Revision lesson only |
 | Binomial Distribution + Sampling | ME1-12-06 | 6 (114Q) | ✅ ~100% | Revision lesson only |
 
-**Current:** 41 lessons (9 units) / 729Q
-**New lessons to meet syllabus fully:** ~7 (6 revision + 1 inverse-trig-properties)
+**Current:** 42 lessons (9 units) / 748Q
+**New lessons to meet syllabus fully:** ~6 (revision lessons only)
 **Target:** ~48 lessons
 
 ### Priority order
@@ -972,7 +972,7 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 5. ~~Vector projection~~ ✅ Done 2026-06-15
 6. ~~Vector motion + projectile (parametric)~~ ✅ Done 2026-06-15
 7. ~~Slope fields~~ ✅ Done 2026-06-15
-8. **Inverse trig properties** (1 lesson) — identities, composite expressions
+8. ~~Inverse trig properties~~ ✅ Done 2026-06-15
 9. **Revision lessons** (6 lessons, one per focus area) — prior knowledge activation per syllabus teaching advice
 
 ---

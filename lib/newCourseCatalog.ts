@@ -74,6 +74,7 @@ import {
   year12Extension1VectorsProjectionLessonOverride,
   year12Extension1VectorsMotionLessonOverride,
   year12Extension1SlopeFieldsLessonOverride,
+  year12Extension1InverseTrigPropertiesLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
@@ -288,6 +289,7 @@ export function buildLesson(
     year12Extension1VectorsProjectionLessonOverride(course, unit, lesson) ??
     year12Extension1VectorsMotionLessonOverride(course, unit, lesson) ??
     year12Extension1SlopeFieldsLessonOverride(course, unit, lesson) ??
+    year12Extension1InverseTrigPropertiesLessonOverride(course, unit, lesson) ??
     year12Extension2ComplexNumbersLessonOverride(course, unit, lesson) ??
     year12Extension2Vectors3DLessonOverride(course, unit, lesson) ??
     year12Extension2CalculusLessonOverride(course, unit, lesson) ??
@@ -2620,6 +2622,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Differentiating Inverse Trig Functions",
             description:
               "Differentiate inverse trigonometric functions, apply the chain rule and recognise basic inverse-trig integrals.",
+          },
+          {
+            slug: "inverse-trig-properties",
+            title: "Inverse Trig Identities and Composite Expressions",
+            description:
+              "Prove sin⁻¹(x) + cos⁻¹(x) = π/2, apply it to find unknown inverse trig values, and evaluate composite expressions such as sin(cos⁻¹(x)) using the Pythagorean identity.",
           },
         ],
       },

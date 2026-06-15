@@ -13,3 +13,4 @@ export * from "./newtonCooling";
 export * from "./vectorsProjection";
 export * from "./vectorsMotion";
 export * from "./slopeFields";
+export * from "./inverseTrigProperties";
