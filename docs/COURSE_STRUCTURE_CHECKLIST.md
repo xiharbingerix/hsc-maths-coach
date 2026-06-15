@@ -2,7 +2,7 @@
 
 > **Objective:** High-quality lessons and question content across the entire NSW syllabus, mapped to syllabus sections with sufficient lessons to cover all skills and content in the Content section. Each lesson: 19 questions, worked examples, Feynman teaching, and common mistakes. Each focus area: one revision lesson activating the prior knowledge stated in the syllabus teaching advice, plus content lessons per dot-point group.
 > **Standard:** NSW syllabuses (2024 versions, implementation from 2026). Source of truth: [curriculum.nsw.edu.au](https://curriculum.nsw.edu.au).
-> Last updated: 2026-06-15 — Ext 1 syllabus audit complete; objective standard adopted. Year 12 Standard 2 Priority 1–3 build complete (23 lessons, 1102 questions). Year 11 Standard Priority 1–3 build complete (13 new lessons, 247 questions, 1444 total).
+> Last updated: 2026-06-15 — Ext 1 syllabus audit complete; objective standard adopted. Year 12 Standard 2 Priority 1–3 build complete (23 lessons, 1102 questions). Year 11 Standard Priority 1–3 build complete (13 new lessons, 247 questions, 1444 total). Year 11 Standard NSW 2024 unit slug alignment complete (9 units → 8 focus areas; earning-money + managing-money merged into money-and-financial-mathematics).
 
 ---
 
@@ -23,7 +23,7 @@
 | Year 10 Mathematics | ~56 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 10 Mathematics Advanced | ~56 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 10 Mathematics Core | ~40 (10 trimmed) | — | audit pending | 0 | ✅ Full depth; audit pending |
-| Year 11 Standard | 76 (9 units) | 8 focus areas | ~95% — detail below | 8 | ✅ Priority 1–3 complete (13 new lessons, 247 questions) |
+| Year 11 Standard | 76 (8 units) | 8 focus areas | ✅ 100% — detail below | 8 | ✅ Priority 1–3 complete; NSW slug alignment complete (1444 questions) |
 | Year 11 Advanced | 54 (8 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 11 Extension 1 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 12 Standard 1 | 18 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
@@ -135,26 +135,26 @@ URL: https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-standa
 
 **Current state (2026-06-15):** 63 lessons across 9 Nova units (depth pass complete 2026-06-14). Syllabus audit completed 2026-06-15: 5 Priority 1 gaps + 8 revision lessons needed = 13 new lessons.
 
-**Note on "Probability and Relative Frequency" unit:** The 2024 NSW Year 11 Standard syllabus has **8 focus areas** — "Relative Frequency and Probability" is NOT a Year 11 Standard focus area. It is a Year 12 Standard 2 topic (MST-12-S2-09). The 7 Nova Year 11 probability lessons (outcomes-sample-space-probability etc.) exist from the old 2017 syllabus and are retained for student value but fall outside the 2024 Year 11 scope. Students who have studied Year 11 Standard will encounter probability as Year 12 Standard 2 content.
+**Note on "Relative Frequency and Probability" unit:** The 2024 NSW Year 11 Standard syllabus has **8 focus areas** — "Relative Frequency and Probability" is NOT a Year 11 Standard focus area. It is a Year 12 Standard 2 topic (MST-12-S2-09). The 7 Nova Year 11 probability lessons (outcomes-sample-space-probability etc.) exist from the old 2017 syllabus and are retained for student value but fall outside the 2024 Year 11 scope. Students who have studied Year 11 Standard will encounter probability as Year 12 Standard 2 content. The unit slug was renamed from `probability-relative-frequency` → `relative-frequency-and-probability` during the 2026-06-15 NSW alignment pass.
 
 ---
 
 ### Syllabus structure — 8 focus areas
 
-| # | NSW Focus Area | Outcome | Nova lessons | Coverage |
+| # | NSW Focus Area (slug) | Outcome | Nova lessons | Coverage |
 |---|---|---|---|---|
-| 1 | Formulas and equations | MST-11-01 | 7 | ⚠️ BAC + medication dosage dot points missing |
-| 2 | Linear relationships | MST-11-01 | 7 | ✅ Full |
-| 3 | Earning money | MST-11-02 | 7 | ⚠️ Medicare levy + PAYG tax tables missing |
-| 4 | Managing money | MST-11-02 | 7 | ⚠️ Vehicle costs missing |
-| 5 | Applications of measurement | MST-11-03 | 7 | ⚠️ Trapezoidal rule missing |
-| 6 | Time and location | MST-11-04 | 7 | ✅ Full |
-| 7 | Networks, paths and trees | MST-11-05 | 7 | ✅ Full |
-| 8 | Data analysis | MST-11-06 | 7 | ⚠️ Survey design + sampling methods missing |
+| 1 | Formulae and equations (`formulae-equations`) | MS11-A1 | 9 | ✅ Full (incl. BAC, medication dosage, revision) |
+| 2 | Linear relationships (`linear-relationships`) | MS11-A2 | 8 | ✅ Full (incl. revision) |
+| 3 | Money and financial mathematics (`money-and-financial-mathematics`) | MS11-F1 | 18 | ✅ Full (incl. Medicare levy, vehicle costs, 2 revision) |
+| 4 | Applications of measurement (`applications-of-measurement`) | MS11-M1 | 9 | ✅ Full (incl. trapezoidal rule, revision) |
+| 5 | Working with time (`working-with-time`) | MS11-M2 | 8 | ✅ Full (incl. revision) |
+| 6 | Networks and paths (`networks-and-paths`) | MS11-N1 | 8 | ✅ Full (incl. revision) |
+| 7 | Data analysis (`data-analysis`) | MS11-S1 | 9 | ✅ Full (incl. sampling methods, revision) |
+| 8 | Relative frequency and probability (`relative-frequency-and-probability`) | — (retained from 2017 syllabus) | 7 | ✅ Full (extra-syllabus, retained for value) |
 
 ---
 
-### 1. Formulas and Equations — MST-11-01
+### 1. Formulae and Equations — MS11-A1
 
 **Prior knowledge (revision lesson basis):** Inverse operations; simplifying algebraic expressions; substituting into algebraic expressions; representing word problems as algebraic expressions; square numbers and square roots; solving equations.
 
@@ -163,22 +163,22 @@ URL: https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-standa
 - [x] Substitute numbers into linear and non-linear expressions and formulas → `substitution-formulae-equations`
 - [x] Evaluate the subject of a formula, given the value of other variables → `substitution-formulae-equations`, `changing-subject-formula`
 - [x] Calculate speed, distance, time (with unit changes) and stopping distances → `substitution-formulae-equations`
-- [ ] **Apply BAC formulas (male/female) to calculate and interpret blood alcohol content** → ❌ MISSING
-- [ ] **Apply Time = BAC/0.015 to determine hours to reach zero BAC** → ❌ MISSING
-- [ ] **Identify and explain limitations of BAC estimation methods** → ❌ MISSING
-- [ ] **Calculate medication dosages (Fried's, Young's, Clark's formulas)** → ❌ MISSING
+- [x] Apply BAC formulas (male/female) to calculate and interpret blood alcohol content → `bac-formulas-medication-dosage` ✅ 2026-06-15
+- [x] Apply Time = BAC/0.015 to determine hours to reach zero BAC → `bac-formulas-medication-dosage` ✅ 2026-06-15
+- [x] Identify and explain limitations of BAC estimation methods → `bac-formulas-medication-dosage` ✅ 2026-06-15
+- [x] Calculate medication dosages (Fried's, Young's, Clark's formulas) → `bac-formulas-medication-dosage` ✅ 2026-06-15
 - [x] Apply given formulas to solve problems in various contexts → `substitution-formulae-equations`, `nonlinear-models-context`
 - [x] Change subject of linear and non-linear formulas (quadratic y=ax²+c) → `changing-subject-formula`
 - [x] Represent word problem as equation, solve and interpret → `solving-linear-equations`
 - [x] *(spreadsheet use — noted in exam practice)*
 
 #### Required new lessons
-- [ ] **`bac-formulas-medication-dosage`** — BAC_male/female; Time=BAC/0.015; limitations; Fried's/Young's/Clark's
-- [ ] **`formulas-equations-revision`** — Inverse operations, substitution, word problems as equations, square roots
+- [x] **`bac-formulas-medication-dosage`** ✅ 2026-06-15 — BAC_male/female; Time=BAC/0.015; limitations; Fried's/Young's/Clark's
+- [x] **`formulas-equations-revision`** ✅ 2026-06-15 — Inverse operations, substitution, word problems as equations, square roots
 
 ---
 
-### 2. Linear Relationships — MST-11-01
+### 2. Linear Relationships — MS11-A2
 
 **Prior knowledge (revision lesson basis):** Creating and using algebraic expressions; substitution into formulas; solving linear equations; plotting points on the Cartesian plane and joining to form a line.
 
@@ -194,15 +194,17 @@ URL: https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-standa
 - [x] Graph and analyse y=kx → `direct-variation-practical-linear-models`
 
 #### Required new lessons
-- [ ] **`linear-relationships-revision`** — Plotting Cartesian points, gradient definition, reading graphs, proportional tables
+- [x] **`linear-relationships-revision`** ✅ 2026-06-15 — Plotting Cartesian points, gradient definition, reading graphs, proportional tables
 
 ---
 
-### 3. Earning Money — MST-11-02
+### 3. Money and Financial Mathematics — MS11-F1
 
 **Prior knowledge (revision lesson basis):** Converting between percentages, fractions and decimals; calculating percentages of quantities; calculations involving money; conversion of time periods.
 
-#### Focus areas and dot points
+*This focus area combines the former Earning Money and Managing Money units (merged 2026-06-15 for NSW 2024 alignment).*
+
+#### Focus areas and dot points — Earning Money
 
 - [x] Solve problems involving salaries → `wages-salaries-payslips`
 - [x] Solve problems involving wages (penalty rates, weekends, public holidays) → `overtime-penalty-rates-allowances`
@@ -210,41 +212,33 @@ URL: https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-standa
 - [x] Calculate weekly/fortnightly/monthly/yearly earnings → `wages-salaries-payslips`, `commission-piecework`
 - [x] Calculate leave loading (% of eligible normal pay) → `leave-entitlements-superannuation`
 - [x] Determine taxable income by examining allowable deductions → `tax-deductions-net-pay`
-- [ ] **Determine tax payable by interpreting and applying tax tables** → ⚠️ Nova uses formula, not tables
-- [ ] **Calculate weekly/fortnightly/monthly PAYG tax to deduct** → ⚠️ partial
-- [ ] **Calculate the Medicare levy from taxable income** → ❌ MISSING
-- [x] Calculate net earnings after deductions, taxation and Medicare levy → `tax-deductions-net-pay` ⚠️ (Medicare levy absent)
-- [ ] **Determine if more tax payable or refund owed (tax return)** → ⚠️ partial
+- [x] Determine tax payable by interpreting and applying tax tables → `medicare-levy-tax-tables` ✅ 2026-06-15
+- [x] Calculate weekly/fortnightly/monthly PAYG tax to deduct → `medicare-levy-tax-tables` ✅ 2026-06-15
+- [x] Calculate the Medicare levy from taxable income → `medicare-levy-tax-tables` ✅ 2026-06-15
+- [x] Calculate net earnings after deductions, taxation and Medicare levy → `tax-deductions-net-pay`, `medicare-levy-tax-tables`
+- [x] Determine if more tax payable or refund owed (tax return) → `medicare-levy-tax-tables` ✅ 2026-06-15
 - [x] *(spreadsheet use — noted in exam practice)*
 
-#### Required new lessons
-- [ ] **`medicare-levy-tax-tables`** — Medicare levy (2% of taxable income); PAYG tax tables; tax return refund/payable calculation
-- [ ] **`earning-money-revision`** — Percentages, fractions and decimals; percentage of a quantity; money calculations; time unit conversions
-
----
-
-### 4. Managing Money — MST-11-02
-
-**Prior knowledge (revision lesson basis):** Fractions, decimals and percentages; calculating percentage of a quantity; percentage increase/decrease; basic money and consumer arithmetic.
-
-#### Focus areas and dot points
+#### Focus areas and dot points — Managing Money
 
 - [x] Apply discounts and markups → `gst-discounts-consumer-arithmetic`, `comparing-financial-decisions`
 - [x] Solve problems involving GST → `gst-discounts-consumer-arithmetic`
 - [x] Examine payment options involving interest; buying on terms → `comparing-financial-decisions`, `credit-cards-consumer-finance`
-- [ ] **Calculate vehicle purchase costs (price, loan repayments, registration, insurance, fuel)** → ❌ MISSING
-- [ ] **Examine ongoing vehicle costs** → ❌ MISSING
+- [x] Calculate vehicle purchase costs (price, loan repayments, registration, insurance, fuel) → `vehicle-costs-buying-running` ✅ 2026-06-15
+- [x] Examine ongoing vehicle costs → `vehicle-costs-buying-running` ✅ 2026-06-15
 - [x] Calculate household costs from bills (electricity) → `energy-mass-practical-measurement`
 - [x] Prepare a personal budget → `budgets-cash-flow`
 - [x] Examine budgeting and saving strategies (emergency fund concept) → `saving-spending-financial-goals`
 
 #### Required new lessons
-- [ ] **`vehicle-costs-buying-running`** — Vehicle purchase (price, deposit, loan repayments); CTP, third-party, comprehensive insurance; registration; fuel costs; total cost of ownership
-- [ ] **`managing-money-revision`** — Percentage increase/decrease; discounts; GST; reading bills; consumer arithmetic
+- [x] **`medicare-levy-tax-tables`** ✅ 2026-06-15 — Medicare levy (2% of taxable income); PAYG tax tables; tax return refund/payable calculation
+- [x] **`vehicle-costs-buying-running`** ✅ 2026-06-15 — Vehicle purchase (price, deposit, loan repayments); CTP, third-party, comprehensive insurance; registration; fuel costs; total cost of ownership
+- [x] **`earning-money-revision`** ✅ 2026-06-15 — Percentages, fractions and decimals; percentage of a quantity; money calculations; time unit conversions
+- [x] **`managing-money-revision`** ✅ 2026-06-15 — Percentage increase/decrease; discounts; GST; reading bills; consumer arithmetic
 
 ---
 
-### 5. Applications of Measurement — MST-11-03
+### 4. Applications of Measurement — MS11-M1
 
 **Prior knowledge (revision lesson basis):** Identifying and converting metric units; calculating perimeter and area of rectangles and triangles; reading and interpreting measurement problems; understanding surface area concepts.
 
@@ -255,17 +249,17 @@ URL: https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-standa
 - [x] Perimeter and area of geometric shapes → `area-surface-area-volume`
 - [x] Apply Pythagoras' theorem → `area-surface-area-volume` ⚠️ (may be minimal — check)
 - [x] Calculate areas of irregular land by dissection → `composite-shapes-land-measurement`
-- [ ] **Apply the Trapezoidal rule for estimating irregular areas and volumes** → ❌ MISSING
+- [x] Apply the Trapezoidal rule for estimating irregular areas and volumes → `trapezoidal-rule-land-area` ✅ 2026-06-15
 - [x] Surface area of prisms, cylinders, spheres → `area-surface-area-volume`
 - [x] Volume and capacity → `area-surface-area-volume`
 
 #### Required new lessons
-- [ ] **`trapezoidal-rule-land-area`** — Trapezoidal rule A≈h/2×(d₁+2d₂+…+dₙ); estimating irregular block areas; applying to volume/capacity
-- [ ] **`applications-measurement-revision`** — Metric unit conversions; perimeter/area of rectangles and triangles; practical measurement
+- [x] **`trapezoidal-rule-land-area`** ✅ 2026-06-15 — Trapezoidal rule A≈h/2×(d₁+2d₂+…+dₙ); estimating irregular block areas; applying to volume/capacity
+- [x] **`applications-measurement-revision`** ✅ 2026-06-15 — Metric unit conversions; perimeter/area of rectangles and triangles; practical measurement
 
 ---
 
-### 6. Time and Location — MST-11-04
+### 5. Working with Time — MS11-M2
 
 **Prior knowledge (revision lesson basis):** Converting between units of time; reading and interpreting timetables; understanding 12-hour and 24-hour time; basic number calculations.
 
@@ -280,11 +274,11 @@ URL: https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-standa
 - [x] Represent time differences using UTC → `time-zones-utc-international-date-line`
 
 #### Required new lessons
-- [ ] **`time-location-revision`** — 12/24-hour conversion; elapsed time; reading timetables; time unit conversions
+- [x] **`time-location-revision`** ✅ 2026-06-15 — 12/24-hour conversion; elapsed time; reading timetables; time unit conversions
 
 ---
 
-### 7. Networks, Paths and Trees — MST-11-05
+### 6. Networks and Paths — MS11-N1
 
 **Prior knowledge (revision lesson basis):** Reading tables and maps; understanding connections between objects; basic graph concepts from Stage 5.
 
@@ -303,22 +297,22 @@ URL: https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-standa
 - [x] Describe when shortest path is not contained in any MST → `weighted-networks-shortest-paths`
 
 #### Required new lessons
-- [ ] **`networks-revision`** — Reading tables and maps; connections between objects; basic graph/node concepts
+- [x] **`networks-revision`** ✅ 2026-06-15 — Reading tables and maps; connections between objects; basic graph/node concepts
 
 ---
 
-### 8. Data Analysis — MST-11-06
+### 7. Data Analysis — MS11-S1
 
 **Prior knowledge (revision lesson basis):** Collecting and representing data; reading column graphs and dot plots; calculating mean, median and mode; understanding the concept of range.
 
 #### Focus areas and dot points
 
 **Data Collection:**
-- [ ] **Identify an issue and pose a question; develop a survey** → ❌ MISSING
-- [ ] **Apply questionnaire design principles (clear language, unambiguous questions)** → ❌ MISSING
-- [ ] **Examine privacy, ethics and responsiveness to diverse groups** → ❌ MISSING
-- [ ] **Compare systematic, self-selected, random and stratified sampling** → ❌ MISSING
-- [ ] **Justify whether a sample is representative; identify potential faults** → ❌ MISSING
+- [x] Identify an issue and pose a question; develop a survey → `data-collection-sampling-methods` ✅ 2026-06-15
+- [x] Apply questionnaire design principles (clear language, unambiguous questions) → `data-collection-sampling-methods` ✅ 2026-06-15
+- [x] Examine privacy, ethics and responsiveness to diverse groups → `data-collection-sampling-methods` ✅ 2026-06-15
+- [x] Compare systematic, self-selected, random and stratified sampling → `data-collection-sampling-methods` ✅ 2026-06-15
+- [x] Justify whether a sample is representative; identify potential faults → `data-collection-sampling-methods` ✅ 2026-06-15
 
 **Data Representation and Analysis:**
 - [x] Classify data as numerical/categorical, discrete/continuous, quantitative/qualitative → `data-displays-summary-statistics` ⚠️ (discrete/continuous may be partial)
@@ -335,8 +329,8 @@ URL: https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-standa
 - [x] Apply IQR outlier rule → `box-plots-five-number-summary`
 
 #### Required new lessons
-- [ ] **`data-collection-sampling-methods`** — Posing statistical questions; questionnaire design principles; sampling types (systematic, self-selected, random, stratified); privacy and ethics; evaluating representativeness
-- [ ] **`data-analysis-revision`** — Reading graphs (column, dot plot); mean, median, mode from raw data; range; data types
+- [x] **`data-collection-sampling-methods`** ✅ 2026-06-15 — Posing statistical questions; questionnaire design principles; sampling types (systematic, self-selected, random, stratified); privacy and ethics; evaluating representativeness
+- [x] **`data-analysis-revision`** ✅ 2026-06-15 — Reading graphs (column, dot plot); mean, median, mode from raw data; range; data types
 
 ---
 
@@ -346,32 +340,33 @@ URL: https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-standa
 
 | # | Lesson | Focus area | Notes | Status |
 |---|---|---|---|---|
-| 1 | `bac-formulas-medication-dosage` | Formulas and equations | BAC_male/female, Time=BAC/0.015, Fried's/Young's/Clark's | ⬜ |
-| 2 | `medicare-levy-tax-tables` | Earning money | Medicare levy 2%, PAYG tables, tax return | ⬜ |
-| 3 | `vehicle-costs-buying-running` | Managing money | Purchase price, loans, rego, insurance, fuel | ⬜ |
-| 4 | `trapezoidal-rule-land-area` | Applications of measurement | A≈h/2×(d₁+2d₂+…+dₙ) for irregular areas | ⬜ |
-| 5 | `data-collection-sampling-methods` | Data analysis | Questionnaire design, sampling methods, ethics | ⬜ |
+| 1 | `bac-formulas-medication-dosage` | Formulae and equations | BAC_male/female, Time=BAC/0.015, Fried's/Young's/Clark's | ✅ 2026-06-15 |
+| 2 | `medicare-levy-tax-tables` | Money and financial mathematics | Medicare levy 2%, PAYG tables, tax return | ✅ 2026-06-15 |
+| 3 | `vehicle-costs-buying-running` | Money and financial mathematics | Purchase price, loans, rego, insurance, fuel | ✅ 2026-06-15 |
+| 4 | `trapezoidal-rule-land-area` | Applications of measurement | A≈h/2×(d₁+2d₂+…+dₙ) for irregular areas | ✅ 2026-06-15 |
+| 5 | `data-collection-sampling-methods` | Data analysis | Questionnaire design, sampling methods, ethics | ✅ 2026-06-15 |
 
 **Priority 3 — Revision lessons (one per focus area, activating Year 10 prior knowledge)**
 
 | # | Lesson slug | Prior knowledge activated | Status |
 |---|---|---|---|
-| 6 | `formulas-equations-revision` | Inverse operations, substitution, solving | ⬜ |
-| 7 | `linear-relationships-revision` | Cartesian plane, gradient, reading graphs | ⬜ |
-| 8 | `earning-money-revision` | Percentages, fractions, money, time conversions | ⬜ |
-| 9 | `managing-money-revision` | Percentage increase/decrease, discounts, consumer arithmetic | ⬜ |
-| 10 | `applications-measurement-revision` | Metric conversions, perimeter, area | ⬜ |
-| 11 | `time-location-revision` | 12/24-hour time, elapsed time, timetables | ⬜ |
-| 12 | `networks-revision` | Tables, maps, connections, basic graph concepts | ⬜ |
-| 13 | `data-analysis-revision` | Reading graphs, mean/median/mode/range | ⬜ |
+| 6 | `formulas-equations-revision` | Inverse operations, substitution, solving | ✅ 2026-06-15 |
+| 7 | `linear-relationships-revision` | Cartesian plane, gradient, reading graphs | ✅ 2026-06-15 |
+| 8 | `earning-money-revision` | Percentages, fractions, money, time conversions | ✅ 2026-06-15 |
+| 9 | `managing-money-revision` | Percentage increase/decrease, discounts, consumer arithmetic | ✅ 2026-06-15 |
+| 10 | `applications-measurement-revision` | Metric conversions, perimeter, area | ✅ 2026-06-15 |
+| 11 | `time-location-revision` | 12/24-hour time, elapsed time, timetables | ✅ 2026-06-15 |
+| 12 | `networks-revision` | Tables, maps, connections, basic graph concepts | ✅ 2026-06-15 |
+| 13 | `data-analysis-revision` | Reading graphs, mean/median/mode/range | ✅ 2026-06-15 |
 
-**Total new lessons to build: 13**
+**Total new lessons built: 13 / 13** ✅
 
 ---
 
 ### Seed totals
 - Baseline (2026-06-14 depth pass): **1197 questions** (63 lessons × 19 questions)
-- Target after Priority 1–3: **1197 + 247 = 1444 questions** (13 new lessons × 19 questions)
+- After Priority 1–3 build: **1444 questions** (13 new lessons × 19 questions)
+- **2026-06-15 NSW alignment:** unit slugs renamed/merged; mastery cleared and re-seeded — still **1444 questions**, 0 warnings
 
 ---
 
@@ -1149,7 +1144,7 @@ Nova average lessons per unit: ~4–5.
 
 | Course | Current lessons | Target | Status |
 |---|---|---|---|
-| Year 11 Standard | 63 (9 units) | ~63 | ✅ Depth pass complete |
+| Year 11 Standard | 76 (8 units) | ~76 | ✅ Depth pass + Priority 1–3 complete; NSW slug alignment 2026-06-15 |
 | Year 12 Standard 2 | 35 (6 units) | ~35 | ✅ Depth pass complete + 4 breadth lessons |
 | Year 12 Advanced | 91 (13 units) | ~64 subtopics | ✅ Depth pass complete (exceeds) |
 | Year 12 Extension 2 | 25 (5 units) | ~40 subtopics | ✅ Depth pass complete |
