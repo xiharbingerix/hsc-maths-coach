@@ -731,6 +731,31 @@ export function year12Standard2NetworksLessonOverride(
           title: "Forward and backward pass for Project Alpha",
           questionLatex:
             "\\text{Project Alpha: A(2), B(4), C(3 after A), D(2 after B), E(5 after C and D), F(1 after E). Find EST, EFT, LST, LFT and float for each activity.}",
+          diagram: {
+            description:
+              "Project Alpha AON network. Critical path B→D→E→F is highlighted. A and C are non-critical (float = 1 each).",
+            vertices: [
+              { id: "S", label: "Start", x: 40, y: 120 },
+              { id: "A", label: "A(2)", x: 160, y: 60 },
+              { id: "B", label: "B(4)", x: 160, y: 180, highlighted: true },
+              { id: "C", label: "C(3)", x: 280, y: 60 },
+              { id: "D", label: "D(2)", x: 280, y: 180, highlighted: true },
+              { id: "E", label: "E(5)", x: 400, y: 120, highlighted: true },
+              { id: "F", label: "F(1)", x: 520, y: 120, highlighted: true },
+              { id: "End", label: "End", x: 640, y: 120 },
+            ],
+            edges: [
+              { from: "S", to: "A", directed: true },
+              { from: "S", to: "B", directed: true, highlighted: true },
+              { from: "A", to: "C", directed: true },
+              { from: "B", to: "D", directed: true, highlighted: true },
+              { from: "C", to: "E", directed: true },
+              { from: "D", to: "E", directed: true, highlighted: true },
+              { from: "E", to: "F", directed: true, highlighted: true },
+              { from: "F", to: "End", directed: true, highlighted: true },
+            ],
+            highlightedVertices: ["B", "D", "E", "F"],
+          },
           steps: [
             {
               explanation: "Forward pass — find EST and EFT.",
@@ -748,6 +773,8 @@ export function year12Standard2NetworksLessonOverride(
                 "\\text{Critical path: }B\\to D\\to E\\to F\\quad(\\text{duration }=12\\text{ days})",
             },
           ],
+          finalAnswerLatex:
+            "\\text{Critical path: }B\\to D\\to E\\to F=12\\text{ days. Float: }A=C=1,\\;B=D=E=F=0.",
         },
         {
           title: "Reading a Gantt chart",
@@ -765,11 +792,31 @@ export function year12Standard2NetworksLessonOverride(
                 "D:\\;\\text{days }4\\text{–}6,\\quad E:\\;\\text{days }6\\text{–}11,\\quad F:\\;\\text{days }11\\text{–}12",
             },
           ],
+          finalAnswerLatex:
+            "\\text{Activities with float: A (float 1), C (float 1). Critical (float 0): B, D, E, F.}",
         },
         {
           title: "When is a dummy activity needed?",
           questionLatex:
             "\\text{Activity C depends on A only. Activity D depends on A and B. Explain why a dummy is needed and where it goes.}",
+          diagram: {
+            description:
+              "AOA network showing dummy activity. A: Node 1→Node 2. B: Node 1→Node 3. Dummy (dashed, zero duration): Node 2→Node 3. C: Node 2→Node 4. D: Node 3→Node 5. D requires both A (via dummy) and B.",
+            vertices: [
+              { id: "N1", label: "1", x: 60, y: 150 },
+              { id: "N2", label: "2", x: 220, y: 70 },
+              { id: "N3", label: "3", x: 220, y: 230 },
+              { id: "N4", label: "4", x: 380, y: 70 },
+              { id: "N5", label: "5", x: 380, y: 230 },
+            ],
+            edges: [
+              { from: "N1", to: "N2", weight: "A", directed: true },
+              { from: "N1", to: "N3", weight: "B", directed: true },
+              { from: "N2", to: "N3", weight: "dummy", directed: true, dashed: true },
+              { from: "N2", to: "N4", weight: "C", directed: true },
+              { from: "N3", to: "N5", weight: "D", directed: true },
+            ],
+          },
           steps: [
             {
               explanation: "Without a dummy, B would need its own path to D's start node. But if A and B both finish at the same node, C would incorrectly depend on B.",
@@ -782,6 +829,8 @@ export function year12Standard2NetworksLessonOverride(
                 "\\text{Dummy: Node 2}\\xrightarrow{0}\\text{Node 3},\\quad D\\text{ starts at Node 3}",
             },
           ],
+          finalAnswerLatex:
+            "\\text{Dummy: Node 2}\\xrightarrow{\\text{duration}=0}\\text{Node 3 ensures D waits for A and B, without forcing C to depend on B.}",
         },
       ],
       guidedPractice: [

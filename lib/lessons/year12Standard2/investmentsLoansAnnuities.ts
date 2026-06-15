@@ -368,6 +368,256 @@ export function year12Standard2FinanceLessonOverride(
     };
   }
 
+  if (lesson.slug === "straight-line-vs-declining-depreciation") {
+    return {
+      ...base,
+      description:
+        "Apply the straight-line formula S = V₀ − Dn and the declining balance formula S = V₀(1−r)ⁿ to model asset depreciation, and compare both methods for the same asset.",
+      learningIntention:
+        "Calculate depreciated asset values using both straight-line and declining balance methods, and compare the two formulas.",
+      successCriteria: [
+        "Apply S = V₀ − Dn to calculate the value of an asset after n years using straight-line depreciation.",
+        "Apply S = V₀(1−r)ⁿ to calculate the value of an asset after n years using declining balance depreciation.",
+        "Identify D as the fixed annual amount and r as the annual rate in the respective formulas.",
+        "Compare the two methods for the same asset and state which gives the higher value after n years.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Straight-line depreciation reduces the value of an asset by a fixed dollar amount D each year. The formula is S = V₀ − Dn, where V₀ is the initial value, D is the annual depreciation amount, and n is the number of years. Each year the graph of value drops by exactly the same amount — a straight line.",
+          "Declining balance (or diminishing value) depreciation reduces the value by a fixed percentage r each year. The formula is S = V₀(1−r)ⁿ. The decay factor (1−r) is applied repeatedly. Because the reduction is a percentage of the current value, the dollar amount decreases each year — but the asset value never reaches exactly zero.",
+          "Under straight-line, the asset loses the same dollar amount every year. Under declining balance, it loses more value early on and less value later. This means for the same asset, declining balance gives a lower value in the early years but a higher value in the later years compared to straight-line.",
+          "To compare: calculate S using each formula for the same n, then state which is higher. In exam questions, you may be asked to find the value after a given number of years, or to find how many years until the value falls below a threshold.",
+        ],
+        latexBlocks: [
+          "\\text{Straight-line: }S = V_0 - Dn",
+          "\\text{Declining balance: }S = V_0(1-r)^n",
+          "\\text{Decay factor} = 1 - r\\quad(\\text{e.g., }r=20\\%\\Rightarrow\\text{factor}=0.80)",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Straight-line depreciation",
+          questionLatex:
+            "\\text{A laptop costs }\\$3200\\text{ and depreciates by }\\$640\\text{ per year. Find its value after 3 years.}",
+          steps: [
+            {
+              explanation: "Identify V₀, D, and n.",
+              latex: "V_0=\\$3200,\\quad D=\\$640,\\quad n=3",
+            },
+            {
+              explanation: "Apply S = V₀ − Dn.",
+              latex: "S = 3200 - 640 \\times 3 = 3200 - 1920 = \\$1280",
+            },
+          ],
+          finalAnswerLatex: "S = \\$1280",
+        },
+        {
+          title: "Declining balance depreciation",
+          questionLatex:
+            "\\text{A car costs }\\$25000\\text{ and depreciates at }15\\%\\text{ p.a. using declining balance. Find its value after 4 years.}",
+          steps: [
+            {
+              explanation: "Identify V₀, r, and n. Decay factor = 1 − 0.15 = 0.85.",
+              latex: "V_0=\\$25000,\\quad r=15\\%,\\quad 1-r=0.85,\\quad n=4",
+            },
+            {
+              explanation: "Apply S = V₀(1−r)ⁿ.",
+              latex:
+                "S = 25000 \\times (0.85)^4 = 25000 \\times 0.5220 \\approx \\$13050.16",
+            },
+          ],
+          finalAnswerLatex: "S \\approx \\$13050.16",
+        },
+        {
+          title: "Compare both methods",
+          questionLatex:
+            "\\text{An asset costs }\\$10000\\text{. Method 1: straight-line, }D=\\$1500\\text{/yr. Method 2: declining balance at }20\\%\\text{ p.a. Find the value after 3 years using each method.}",
+          steps: [
+            {
+              explanation: "Straight-line after 3 years.",
+              latex: "S_{\\text{SL}} = 10000 - 1500 \\times 3 = \\$5500",
+            },
+            {
+              explanation: "Declining balance after 3 years.",
+              latex:
+                "S_{\\text{DB}} = 10000 \\times (0.80)^3 = 10000 \\times 0.512 = \\$5120",
+            },
+            {
+              explanation: "Compare: straight-line gives the higher value after 3 years.",
+              latex: "\\$5500 > \\$5120",
+            },
+          ],
+          finalAnswerLatex:
+            "\\text{SL: }\\$5500;\\quad\\text{DB: }\\$5120;\\quad\\text{Straight-line gives the higher value after 3 years.}",
+        },
+      ],
+      guidedPractice: [
+        financeChoice(
+          "y12s2-sld-g1",
+          "In the formula S = V₀ − Dn, what does D represent?",
+          "B",
+          [
+            "The depreciation rate as a decimal",
+            "The fixed annual depreciation amount in dollars",
+            "The number of years",
+            "The salvage value",
+          ],
+          "D is the constant dollar amount subtracted each year in straight-line depreciation."
+        ),
+        moneyAnswer(
+          "y12s2-sld-g2",
+          "A laptop costing $2000 depreciates by $400 per year using straight-line. Find its value after 4 years.",
+          "S = V_0 - Dn = 2000 - 400 \\times 4",
+          "600"
+        ),
+        financeChoice(
+          "y12s2-sld-g3",
+          "A declining balance depreciation rate is 20%. What is the decay factor?",
+          "C",
+          ["0.20", "1.20", "0.80", "0.02"],
+          "Decay factor = 1 − 0.20 = 0.80."
+        ),
+        moneyAnswer(
+          "y12s2-sld-g4",
+          "An asset worth $6000 depreciates at 10% p.a. using declining balance. Find its value after 2 years.",
+          "S = 6000 \\times (0.90)^2 = 6000 \\times 0.81",
+          "4860"
+        ),
+      ],
+      independentPractice: [
+        moneyAnswer(
+          "y12s2-sld-i1",
+          "An asset costing $5000 depreciates by $800 per year (straight-line). Find its value after 3 years.",
+          "S = 5000 - 800 \\times 3",
+          "2600"
+        ),
+        moneyAnswer(
+          "y12s2-sld-i2",
+          "A machine costing $8000 depreciates at 12% p.a. (declining balance). Find its value after 2 years.",
+          "S = 8000 \\times (0.88)^2 = 8000 \\times 0.7744",
+          "6195.20",
+          ["$6195.20", "6195.2"]
+        ),
+        financeChoice(
+          "y12s2-sld-i3",
+          "A printer costing $12000 depreciates by $2000 per year (straight-line). Value after 5 years?",
+          "C",
+          ["$0", "$10000", "$2000", "$4000"],
+          "S = 12000 − 2000 × 5 = $2000."
+        ),
+        moneyAnswer(
+          "y12s2-sld-i4",
+          "A car costing $15000 depreciates at 20% p.a. (declining balance). Find its value after 3 years.",
+          "S = 15000 \\times (0.80)^3 = 15000 \\times 0.512",
+          "7680"
+        ),
+        financeChoice(
+          "y12s2-sld-i5",
+          "For the same $10000 asset compared in WE3 (SL D=$1500; DB r=20%): after 3 years, which method gives the higher value?",
+          "A",
+          ["Straight-line ($5500)", "Declining balance ($5120)", "They are equal", "Cannot tell"],
+          "SL: $5500 > DB: $5120 after 3 years."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Treating D in straight-line as a percentage rate instead of a dollar amount.",
+          fix: "In S = V₀ − Dn, D is a fixed dollar amount (e.g., $640). If you are given a percentage, convert it to a dollar amount first: D = V₀ × rate.",
+        },
+        {
+          mistake: "Applying the straight-line formula when the question specifies declining balance, or vice versa.",
+          fix: "Read the question carefully. If the depreciation is a fixed dollar amount per year, use S = V₀ − Dn. If it is a percentage of the current value each year, use S = V₀(1−r)ⁿ.",
+        },
+        {
+          mistake: "Using the rate r instead of the decay factor (1−r) in the declining balance formula.",
+          fix: "The formula is S = V₀(1−r)ⁿ. For r = 15%, the decay factor is 0.85, not 0.15. Using 0.15 instead of 0.85 gives a result far too small.",
+        },
+        {
+          mistake: "Confusing which method gives a higher or lower value.",
+          fix: "Declining balance depreciates faster in early years (larger percentage drops early on). For the same asset over the same period, straight-line typically gives a higher remaining value in the early years. Always calculate both and compare numerically.",
+        },
+      ],
+      masteryQuiz: [
+        financeChoice(
+          "y12s2-sld-m1",
+          "In S = V₀(1−r)ⁿ, what does r represent?",
+          "B",
+          [
+            "The fixed annual depreciation amount",
+            "The annual depreciation rate as a decimal",
+            "The number of years",
+            "The salvage value",
+          ],
+          "r is the depreciation rate per period expressed as a decimal (e.g., 15% → r = 0.15)."
+        ),
+        moneyAnswer(
+          "y12s2-sld-m2",
+          "An asset costing $4000 depreciates by $500 per year (straight-line). Value after 3 years?",
+          "S = 4000 - 500 \\times 3",
+          "2500"
+        ),
+        financeChoice(
+          "y12s2-sld-m3",
+          "A machine costing $10000 depreciates at 15% p.a. (declining balance). Value after 2 years?",
+          "C",
+          ["$7000", "$7250", "$7225", "$8500"],
+          "S = 10000 × 0.85² = 10000 × 0.7225 = $7225."
+        ),
+        moneyAnswer(
+          "y12s2-sld-m4",
+          "An asset costing $3000 depreciates by $400 per year (straight-line). Value after 5 years?",
+          "S = 3000 - 400 \\times 5",
+          "1000"
+        ),
+        financeChoice(
+          "y12s2-sld-m5",
+          "A car costing $20000 depreciates at 25% p.a. (declining balance). Value after 3 years?",
+          "C",
+          ["$11250", "$5000", "$8437.50", "$15000"],
+          "S = 20000 × 0.75³ = 20000 × 0.421875 = $8437.50."
+        ),
+        financeShortAnswer(
+          "y12s2-sld-m6",
+          "What is the decay factor for a 30% declining balance depreciation rate?",
+          "1 - 0.30",
+          "0.7",
+          ["0.70"]
+        ),
+        moneyAnswer(
+          "y12s2-sld-m7",
+          "A $6000 machine depreciates by $750 per year (straight-line). Value after 6 years?",
+          "S = 6000 - 750 \\times 6",
+          "1500"
+        ),
+        moneyAnswer(
+          "y12s2-sld-m8",
+          "A laptop costing $12000 depreciates at 20% p.a. (declining balance). Value after 2 years?",
+          "S = 12000 \\times (0.80)^2 = 12000 \\times 0.64",
+          "7680"
+        ),
+        financeChoice(
+          "y12s2-sld-m9",
+          "Under straight-line depreciation, the value of an asset decreases by:",
+          "A",
+          [
+            "A constant dollar amount each year",
+            "A constant percentage of its current value",
+            "More each year as the asset ages",
+            "A random amount each year",
+          ],
+          "Straight-line: fixed dollar amount D is subtracted every year."
+        ),
+        financeChoice(
+          "y12s2-sld-m10",
+          "For an $8000 asset: SL at D=$1200/yr vs DB at r=18% after 3 years. Which method gives the higher value?",
+          "B",
+          ["Straight-line ($4400)", "Declining balance (≈$4411)", "They are equal", "Cannot tell without the tariff"],
+          "SL: 8000 − 3600 = $4400. DB: 8000 × 0.82³ ≈ $4410.94. Declining balance is slightly higher."
+        ),
+      ],
+    };
+  }
+
   if (lesson.slug === "annuities-regular-payments") {
     return {
       ...base,
@@ -528,6 +778,7 @@ export function year12Standard2FinanceLessonOverride(
               latex: "\\text{FV}=200\\times12.683=\\$2536.60",
             },
           ],
+          finalAnswerLatex: "\\text{FV} = \\$2536.60",
         },
         {
           title: "Monthly repayment using the PV factor",
@@ -543,6 +794,7 @@ export function year12Standard2FinanceLessonOverride(
               latex: "M \\approx \\$688.52",
             },
           ],
+          finalAnswerLatex: "M \\approx \\$688.52\\text{ per month}",
         },
         {
           title: "Required monthly deposit to reach a savings goal",
@@ -558,6 +810,7 @@ export function year12Standard2FinanceLessonOverride(
               latex: "M \\approx \\$196.65",
             },
           ],
+          finalAnswerLatex: "M \\approx \\$196.65\\text{ per month}",
         },
       ],
       guidedPractice: [
@@ -975,6 +1228,8 @@ export function year12Standard2FinanceLessonOverride(
                 "\\text{Yield} = \\dfrac{0.16}{3.20} \\times 100\\% = 5\\%",
             },
           ],
+          finalAnswerLatex:
+            "\\text{Total dividend} = \\$80.00;\\quad \\text{Dividend yield} = 5\\%",
         },
         {
           title: "Calculate total cost of buying shares",
@@ -994,6 +1249,7 @@ export function year12Standard2FinanceLessonOverride(
               latex: "\\text{Total cost} = 900 + 4.50 = \\$904.50",
             },
           ],
+          finalAnswerLatex: "\\text{Total purchase cost} = \\$904.50",
         },
         {
           title: "Calculate net proceeds and capital gain",
@@ -1015,6 +1271,7 @@ export function year12Standard2FinanceLessonOverride(
                 "\\text{Capital gain} = 1014.90 - 904.50 = \\$110.40",
             },
           ],
+          finalAnswerLatex: "\\text{Capital gain} = \\$110.40",
         },
       ],
       guidedPractice: [

@@ -769,11 +769,26 @@ export function year12Standard2StatisticsLessonOverride(
               latex: "E = 120 \\times \\tfrac{1}{6} = 20\\text{ times}",
             },
           ],
+          finalAnswerLatex: "E = 20\\text{ times}",
         },
         {
           title: "Read probabilities from a contingency table",
           questionLatex:
             "\\text{Survey: } \\begin{array}{|l|c|c|c|}\\hline & \\text{Sport} & \\text{No Sport} & \\text{Total}\\\\\\hline \\text{Male} & 45 & 15 & 60 \\\\\\hline \\text{Female} & 30 & 10 & 40 \\\\\\hline \\text{Total} & 75 & 25 & 100 \\\\\\hline\\end{array}\\text{Find P(Female) and P(Male and Sport).}",
+          twoWayTableDiagram: {
+            description:
+              "Sport survey contingency table. Rows: Male, Female. Columns: Sport, No Sport. Values: Male/Sport=45, Male/No Sport=15, Female/Sport=30, Female/No Sport=10.",
+            rowLabels: ["Male", "Female"],
+            columnLabels: ["Sport", "No Sport"],
+            values: [
+              [45, 15],
+              [30, 10],
+            ],
+            rowTotals: [60, 40],
+            columnTotals: [75, 25],
+            grandTotal: 100,
+            highlight: { kind: "cell", rowIndex: 0, columnIndex: 0, label: "Male ∩ Sport" },
+          },
           steps: [
             {
               explanation: "P(Female) uses the Female marginal total ÷ grand total.",
@@ -784,6 +799,8 @@ export function year12Standard2StatisticsLessonOverride(
               latex: "P(\\text{Male and Sport}) = \\dfrac{45}{100} = 0.45",
             },
           ],
+          finalAnswerLatex:
+            "P(\\text{Female}) = 0.4;\\quad P(\\text{Male and Sport}) = 0.45",
         },
         {
           title: "Use expected frequency to support a decision",
@@ -800,6 +817,8 @@ export function year12Standard2StatisticsLessonOverride(
                 "\\text{100 expected defects out of 2500 is a 4\\% rate — random sampling may be adequate rather than checking every item.}",
             },
           ],
+          finalAnswerLatex:
+            "E = 100\\text{ defects expected; random sampling is likely adequate.}",
         },
       ],
       guidedPractice: [
@@ -992,6 +1011,33 @@ export function year12Standard2StatisticsLessonOverride(
           title: "Tree diagram for two coin flips",
           questionLatex:
             "\\text{A fair coin is flipped twice. Find P(HH) and P(exactly one head) using a tree diagram.}",
+          probabilityTreeDiagram: {
+            description:
+              "Two-stage probability tree for two coin flips. Each branch is H or T with probability 1/2. Four equally likely outcomes: HH, HT, TH, TT. HH path is highlighted.",
+            rootLabel: "Start",
+            stages: ["Flip 1", "Flip 2"],
+            branches: [
+              {
+                id: "H1",
+                label: "H",
+                probability: "1/2",
+                children: [
+                  { id: "H1H2", label: "H", probability: "1/2" },
+                  { id: "H1T2", label: "T", probability: "1/2" },
+                ],
+              },
+              {
+                id: "T1",
+                label: "T",
+                probability: "1/2",
+                children: [
+                  { id: "T1H2", label: "H", probability: "1/2" },
+                  { id: "T1T2", label: "T", probability: "1/2" },
+                ],
+              },
+            ],
+            highlightedPaths: [["H1", "H1H2"]],
+          },
           steps: [
             {
               explanation: "List all outcomes: HH, HT, TH, TT — each with probability 0.5 × 0.5 = 0.25.",
@@ -1004,6 +1050,8 @@ export function year12Standard2StatisticsLessonOverride(
                 "P(\\text{exactly one head})=P(HT)+P(TH)=0.25+0.25=0.50",
             },
           ],
+          finalAnswerLatex:
+            "P(HH)=0.25;\\quad P(\\text{exactly one head})=0.50",
         },
         {
           title: "Multiplication rule for independent events",
@@ -1015,11 +1063,24 @@ export function year12Standard2StatisticsLessonOverride(
               latex: "P(A\\text{ and }B)=P(A)\\times P(B)=0.4\\times0.3=0.12",
             },
           ],
+          finalAnswerLatex: "P(A\\text{ and }B)=0.12",
         },
         {
-          title: "Sample space table for two dice",
+          title: "Sample space table for two spinners",
           questionLatex:
             "\\text{A spinner with outcomes \\{1, 2, 3\\} is spun twice. Find P(sum = 4) using a table.}",
+          twoWayTableDiagram: {
+            description:
+              "3×3 sample space table showing all sums when a {1,2,3} spinner is spun twice. Cells showing sum = 4 are (row 1, col 3), (row 2, col 2), (row 3, col 1). One highlighted cell shown.",
+            rowLabels: ["Spin 1 = 1", "Spin 1 = 2", "Spin 1 = 3"],
+            columnLabels: ["Spin 2 = 1", "Spin 2 = 2", "Spin 2 = 3"],
+            values: [
+              [2, 3, 4],
+              [3, 4, 5],
+              [4, 5, 6],
+            ],
+            highlight: { kind: "cell", rowIndex: 0, columnIndex: 2, label: "sum = 4" },
+          },
           steps: [
             {
               explanation: "Create a 3 × 3 table — total 9 equally likely outcomes.",
@@ -1032,6 +1093,7 @@ export function year12Standard2StatisticsLessonOverride(
                 "P(\\text{sum}=4)=\\dfrac{3}{9}=\\dfrac{1}{3}",
             },
           ],
+          finalAnswerLatex: "P(\\text{sum}=4)=\\dfrac{3}{9}=\\dfrac{1}{3}",
         },
       ],
       guidedPractice: [

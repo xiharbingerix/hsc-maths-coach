@@ -919,6 +919,250 @@ export function year12Standard2TrigRatesLessonOverride(
     };
   }
 
+  if (lesson.slug === "energy-consumption-watts-kilowatts") {
+    return {
+      ...base,
+      description:
+        "Convert between watts and kilowatts, calculate energy used in kilowatt-hours, and find the cost of running household appliances using an electricity tariff.",
+      learningIntention:
+        "Apply the relationships between watts, kilowatts, kilowatt-hours and electricity cost to analyse household energy consumption.",
+      successCriteria: [
+        "Convert power between watts (W) and kilowatts (kW) by dividing or multiplying by 1000.",
+        "Calculate energy consumed in kilowatt-hours using Energy (kWh) = Power (kW) × Time (h).",
+        "Find the cost of running an appliance using Cost = Power (kW) × Time (h) × Tariff ($/kWh).",
+        "Compare the energy cost of different appliances over a day or month.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Power measures the rate at which an appliance uses energy. It is measured in watts (W) or kilowatts (kW). Since 1 kW = 1000 W, convert by dividing watts by 1000 to get kilowatts. For example, a 2400 W oven is a 2.4 kW oven.",
+          "Energy is power × time. When power is in kilowatts and time is in hours, the result is in kilowatt-hours (kWh). Electricity bills are based on kWh consumed. For example, running a 2.4 kW oven for 2.5 hours uses 2.4 × 2.5 = 6 kWh of energy.",
+          "Electricity costs money at a rate called the tariff, measured in dollars per kilowatt-hour ($/kWh). To find the cost: Cost ($) = Power (kW) × Time (h) × Tariff ($/kWh). Equivalently, Cost = kWh used × tariff.",
+          "To find the monthly cost of an appliance, calculate the daily energy use first, then multiply by the number of days. Always convert power to kW and time to hours before calculating.",
+        ],
+        latexBlocks: [
+          "1\\text{ kW} = 1000\\text{ W}\\qquad \\text{Power (kW)} = \\dfrac{\\text{Power (W)}}{1000}",
+          "\\text{Energy (kWh)} = \\text{Power (kW)} \\times \\text{Time (h)}",
+          "\\text{Cost (\\$)} = \\text{Power (kW)} \\times \\text{Time (h)} \\times \\text{Tariff (\\$/kWh)}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Convert watts to kilowatts and calculate kWh",
+          questionLatex:
+            "\\text{A 2400 W electric oven is used for 2.5 hours. (a) Convert 2400 W to kilowatts. (b) Find the energy consumed in kWh.}",
+          steps: [
+            {
+              explanation: "Divide watts by 1000 to get kilowatts.",
+              latex: "\\text{Power} = \\dfrac{2400}{1000} = 2.4\\text{ kW}",
+            },
+            {
+              explanation: "Energy = Power (kW) × Time (h).",
+              latex: "E = 2.4\\text{ kW} \\times 2.5\\text{ h} = 6\\text{ kWh}",
+            },
+          ],
+          finalAnswerLatex: "2.4\\text{ kW};\\quad E = 6\\text{ kWh}",
+        },
+        {
+          title: "Calculate the cost of running an appliance",
+          questionLatex:
+            "\\text{The oven from Example 1 uses 6 kWh. The electricity tariff is }\\$0.30\\text{ per kWh. Find the cost of using the oven.}",
+          steps: [
+            {
+              explanation: "Cost = kWh × tariff.",
+              latex: "\\text{Cost} = 6\\text{ kWh} \\times \\$0.30/\\text{kWh}",
+            },
+            {
+              explanation: "Multiply.",
+              latex: "\\text{Cost} = \\$1.80",
+            },
+          ],
+          finalAnswerLatex: "\\text{Cost} = \\$1.80",
+        },
+        {
+          title: "Compare monthly energy costs of two appliances",
+          questionLatex:
+            "\\text{A 1500 W heater runs 4 h/day and a 100 W TV runs 5 h/day. Tariff is }\\$0.28\\text{/kWh. Find the monthly cost of each over 30 days and the total.}",
+          steps: [
+            {
+              explanation: "Heater: convert W to kW, then find monthly kWh.",
+              latex:
+                "1.5\\text{ kW} \\times 4\\text{ h} \\times 30\\text{ days} = 180\\text{ kWh}",
+            },
+            {
+              explanation: "TV: convert W to kW, find monthly kWh.",
+              latex:
+                "0.1\\text{ kW} \\times 5\\text{ h} \\times 30\\text{ days} = 15\\text{ kWh}",
+            },
+            {
+              explanation: "Find each cost and total.",
+              latex:
+                "\\text{Heater: }180\\times0.28=\\$50.40\\quad\\text{TV: }15\\times0.28=\\$4.20\\quad\\text{Total: }\\$54.60",
+            },
+          ],
+          finalAnswerLatex:
+            "\\text{Heater: }\\$50.40,\\quad\\text{TV: }\\$4.20,\\quad\\text{Total: }\\$54.60",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice(
+          "y12s2-eco-g1",
+          "2500 W is equal to how many kilowatts?",
+          "C",
+          ["0.25 kW", "25 kW", "2.5 kW", "250 kW"],
+          "Divide by 1000: 2500 ÷ 1000 = 2.5 kW."
+        ),
+        practicalChoice(
+          "y12s2-eco-g2",
+          "A 3 kW air conditioner runs for 4 hours. How many kWh of energy does it use?",
+          "C",
+          ["3 kWh", "7 kWh", "12 kWh", "43.2 kWh"],
+          "Energy = 3 kW × 4 h = 12 kWh."
+        ),
+        practicalChoice(
+          "y12s2-eco-g3",
+          "An appliance uses 5 kWh of energy. The tariff is $0.30/kWh. What is the cost?",
+          "B",
+          ["$0.30", "$1.50", "$5.30", "$15.00"],
+          "Cost = 5 × $0.30 = $1.50."
+        ),
+        practicalChoice(
+          "y12s2-eco-g4",
+          "A 1500 W heater runs for 2 hours. How many kWh does it use?",
+          "B",
+          ["1.5 kWh", "3 kWh", "30 kWh", "1500 kWh"],
+          "1500 W = 1.5 kW. Energy = 1.5 × 2 = 3 kWh."
+        ),
+      ],
+      independentPractice: [
+        practicalChoice(
+          "y12s2-eco-i1",
+          "Convert 750 W to kilowatts.",
+          "A",
+          ["0.75 kW", "7.5 kW", "75 kW", "750 kW"],
+          "750 ÷ 1000 = 0.75 kW."
+        ),
+        measurementAnswer(
+          "y12s2-eco-i2",
+          "A 1800 W iron is used for 1.5 hours. Find the energy consumed in kWh.",
+          "1800\\text{ W} = 1.8\\text{ kW}\\quad E = 1.8 \\times 1.5",
+          "2.7 kWh",
+          ["2.7", "2.7 kWh"]
+        ),
+        practicalChoice(
+          "y12s2-eco-i3",
+          "An appliance uses 10 kWh. Electricity costs $0.28/kWh. Find the cost.",
+          "C",
+          ["$0.28", "$1.28", "$2.80", "$28.00"],
+          "Cost = 10 × $0.28 = $2.80."
+        ),
+        measurementAnswer(
+          "y12s2-eco-i4",
+          "A 2 kW appliance runs for 3 hours. The tariff is $0.30/kWh. Find the total cost.",
+          "\\text{Cost} = 2 \\times 3 \\times 0.30",
+          "$1.80",
+          ["1.80", "$1.80", "1.8"]
+        ),
+        practicalChoice(
+          "y12s2-eco-i5",
+          "A 100 W light bulb is left on for 10 hours. How many kWh does it use?",
+          "B",
+          ["0.1 kWh", "1 kWh", "10 kWh", "100 kWh"],
+          "0.1 kW × 10 h = 1 kWh."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Using watts instead of kilowatts in the energy or cost formula.",
+          fix: "Always convert to kW first: divide watts by 1000. The formula is Power (kW) × Time (h) × Tariff ($/kWh). Using 2400 W instead of 2.4 kW gives an answer 1000 times too large.",
+        },
+        {
+          mistake: "Confusing power (kW) with energy (kWh).",
+          fix: "Power (kW) is the rate of energy use — it doesn't change with time. Energy (kWh) = Power × Time. A 2 kW appliance always draws 2 kW; after 3 hours it has used 6 kWh of energy.",
+        },
+        {
+          mistake: "Using minutes instead of hours for time.",
+          fix: "The kWh formula requires time in hours. Convert minutes to hours by dividing by 60. For example, 90 minutes = 1.5 hours.",
+        },
+        {
+          mistake: "Multiplying the tariff by watts rather than kWh.",
+          fix: "The tariff is in $/kWh. Multiply it by the energy consumed in kWh: Cost = kWh × tariff. The kWh figure already accounts for both the power and the time.",
+        },
+      ],
+      masteryQuiz: [
+        practicalChoice(
+          "y12s2-eco-m1",
+          "3000 W is equal to:",
+          "B",
+          ["0.3 kW", "3 kW", "30 kW", "300 kW"],
+          "3000 ÷ 1000 = 3 kW."
+        ),
+        measurementAnswer(
+          "y12s2-eco-m2",
+          "A 2.5 kW appliance runs for 4 hours. Find the energy consumed in kWh.",
+          "E = 2.5 \\times 4",
+          "10 kWh",
+          ["10", "10 kWh"]
+        ),
+        practicalChoice(
+          "y12s2-eco-m3",
+          "An appliance uses 8 kWh. The tariff is $0.25/kWh. Cost = ?",
+          "C",
+          ["$0.25", "$0.80", "$2.00", "$8.25"],
+          "Cost = 8 × $0.25 = $2.00."
+        ),
+        measurementAnswer(
+          "y12s2-eco-m4",
+          "A 800 W heater runs for 2.5 hours. Find the kWh consumed.",
+          "0.8\\text{ kW} \\times 2.5\\text{ h}",
+          "2 kWh",
+          ["2", "2 kWh", "2.0"]
+        ),
+        practicalChoice(
+          "y12s2-eco-m5",
+          "A 1200 W hair dryer is used for 30 minutes. Tariff = $0.30/kWh. Cost = ?",
+          "C",
+          ["$0.36", "$5.40", "$0.18", "$1.80"],
+          "1.2 kW × 0.5 h × $0.30 = $0.18."
+        ),
+        measurementAnswer(
+          "y12s2-eco-m6",
+          "A 500 W lamp runs 3 hours/day for 30 days. Tariff is $0.28/kWh. Find the monthly cost.",
+          "0.5 \\times 3 \\times 30 = 45\\text{ kWh};\\quad 45 \\times 0.28",
+          "$12.60",
+          ["12.60", "$12.60", "12.6"]
+        ),
+        practicalChoice(
+          "y12s2-eco-m7",
+          "Which uses more energy: a 2000 W appliance for 2 hours, or a 500 W appliance for 8 hours?",
+          "C",
+          ["The 2000 W appliance", "The 500 W appliance", "They use the same energy", "Cannot tell without the tariff"],
+          "2000 W × 2 h = 4000 Wh = 4 kWh. 500 W × 8 h = 4000 Wh = 4 kWh. Same energy."
+        ),
+        measurementAnswer(
+          "y12s2-eco-m8",
+          "A 600 W fridge runs 18 hours per day. How many kWh does it consume in one day?",
+          "0.6\\text{ kW} \\times 18\\text{ h}",
+          "10.8 kWh",
+          ["10.8", "10.8 kWh"]
+        ),
+        practicalChoice(
+          "y12s2-eco-m9",
+          "A 0.6 kW fridge runs 20 hours at $0.30/kWh. Daily cost = ?",
+          "C",
+          ["$0.60", "$1.80", "$3.60", "$6.00"],
+          "0.6 × 20 × 0.30 = $3.60."
+        ),
+        practicalChoice(
+          "y12s2-eco-m10",
+          "A household uses 350 kWh in a month. Tariff is $0.28/kWh. Monthly electricity bill = ?",
+          "D",
+          ["$35.00", "$68.60", "$87.50", "$98.00"],
+          "Cost = 350 × $0.28 = $98.00."
+        ),
+      ],
+    };
+  }
+
   if (lesson.slug === "bearings-navigation-problems") {
     return {
       ...base,
@@ -1436,11 +1680,21 @@ export function year12Standard2TrigRatesLessonOverride(
                 "\\dfrac{\\pi}{4} \\times \\dfrac{180}{\\pi} = \\dfrac{180}{4} = 45^\\circ",
             },
           ],
+          finalAnswerLatex:
+            "60^\\circ = \\dfrac{\\pi}{3}\\text{ rad};\\quad \\dfrac{\\pi}{4}\\text{ rad} = 45^\\circ",
         },
         {
           title: "Find an unknown side using radians",
           questionLatex:
             "\\text{A right-angled triangle has hypotenuse 10 m and angle }\\theta = \\frac{\\pi}{3}\\text{ rad. Find the side opposite to }\\theta.",
+          triangleDiagram: {
+            description:
+              "Right-angled triangle: angle θ = π/3 at vertex A (top left), right angle at C (bottom left), vertex B at bottom right. Hypotenuse AB = 10 m, opposite side BC = ?",
+            vertices: { A: { x: 80, y: 40 }, C: { x: 80, y: 230 }, B: { x: 330, y: 230 } },
+            rightAngleAt: "C",
+            angleLabels: { A: "π/3" },
+            sideLabels: { AB: "10 m", BC: "opp = ?" },
+          },
           steps: [
             {
               explanation: "Identify the ratio: sin = opp / hyp.",
@@ -1451,11 +1705,20 @@ export function year12Standard2TrigRatesLessonOverride(
               latex: "\\text{opp} = 10 \\times 0.8660 \\approx 8.66\\text{ m}",
             },
           ],
+          finalAnswerLatex: "\\text{opp} \\approx 8.66\\text{ m}",
         },
         {
           title: "Apply tan in RAD mode to find a height",
           questionLatex:
             "\\text{A ramp makes an angle of 0.3 rad with the horizontal. The horizontal distance is 8 m. Find the height of the ramp.}",
+          triangleDiagram: {
+            description:
+              "Right-angled triangle: angle 0.3 rad at vertex A (bottom left), right angle at B (bottom right), vertex C at top right. Adjacent AB = 8 m (horizontal), opposite BC = h (height of ramp).",
+            vertices: { A: { x: 60, y: 240 }, B: { x: 360, y: 240 }, C: { x: 360, y: 60 } },
+            rightAngleAt: "B",
+            angleLabels: { A: "0.3 rad" },
+            sideLabels: { AB: "8 m", BC: "h = ?" },
+          },
           steps: [
             {
               explanation: "Identify opposite (height) and adjacent (horizontal). Use tan.",
@@ -1466,6 +1729,7 @@ export function year12Standard2TrigRatesLessonOverride(
               latex: "h = 8 \\times 0.3093 \\approx 2.47\\text{ m}",
             },
           ],
+          finalAnswerLatex: "h \\approx 2.47\\text{ m}",
         },
       ],
       guidedPractice: [

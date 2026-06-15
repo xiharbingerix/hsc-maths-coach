@@ -484,6 +484,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Use ratios, sharing, rates, speed, fuel use, flow rates, map scales, and practical unit conversions.",
           },
           {
+            slug: "energy-consumption-watts-kilowatts",
+            title: "Energy Consumption: Watts and Kilowatts",
+            description:
+              "Convert between watts and kilowatts, calculate kilowatt-hours used by appliances, and find the cost of electricity from a tariff rate.",
+          },
+          {
             slug: "bearings-navigation-problems",
             title: "Bearings and Navigation Problems",
             description:
@@ -562,6 +568,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Depreciation and Loans",
             description:
               "Model asset depreciation and loan balances using decay factors, repayments, and recurrence relations.",
+          },
+          {
+            slug: "straight-line-vs-declining-depreciation",
+            title: "Straight-Line vs Declining Balance Depreciation",
+            description:
+              "Apply S = V₀ − Dn for straight-line depreciation and S = V₀(1−r)ⁿ for declining balance depreciation, and compare both methods for the same asset.",
           },
           {
             slug: "annuities-regular-payments",
