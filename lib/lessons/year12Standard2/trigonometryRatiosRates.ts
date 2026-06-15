@@ -1093,6 +1093,247 @@ export function year12Standard2TrigRatesLessonOverride(
     };
   }
 
+  if (lesson.slug === "ratios-rates-revision") {
+    return {
+      ...base,
+      description:
+        "Consolidate Year 11 ratio and rate skills: simplify ratios, divide quantities in a given ratio, convert between common metric units, and calculate basic rates — preparation for speed, fuel, scale and flow problems.",
+      learningIntention:
+        "Recall and apply Year 11 ratio and rate skills so that Year 12 Measurement problems with ratios, rates, speed, fuel consumption, map scales and flow rates can be solved fluently.",
+      successCriteria: [
+        "Simplify a ratio to its simplest form and convert between ratio and fraction.",
+        "Divide a quantity into a given ratio.",
+        "Convert between common metric length, mass and capacity units.",
+        "Calculate a basic rate (e.g. speed, cost per item) using rate = quantity ÷ time (or other divisor).",
+      ],
+      teaching: {
+        paragraphs: [
+          "A ratio compares two quantities of the same kind. To simplify, divide both parts by their HCF. For example, 15:25 = 3:5. A ratio a:b can also be written as the fraction a/(a+b) for the first part of the total.",
+          "To divide a quantity in the ratio a:b, find the value of one part (total ÷ (a+b)), then multiply by a and b. For example, share $240 in the ratio 3:5: one part = $240 ÷ 8 = $30; shares are 3×$30 = $90 and 5×$30 = $150.",
+          "Metric conversions: Length — 1 km = 1000 m, 1 m = 100 cm, 1 cm = 10 mm. Mass — 1 t = 1000 kg, 1 kg = 1000 g. Capacity — 1 kL = 1000 L, 1 L = 1000 mL. Time — 1 h = 60 min, 1 min = 60 s.",
+          "A rate compares two quantities with different units. To calculate a rate, divide the first quantity by the second. Speed = distance ÷ time; cost rate = total cost ÷ number of items. Always state the units of the result (km/h, $/kg, L/100 km).",
+        ],
+        latexBlocks: [
+          "\\text{Simplify ratio: divide both by HCF. E.g. }12:16 = 3:4",
+          "\\text{Share in ratio }a:b: \\text{ one part} = \\frac{\\text{total}}{a+b}",
+          "\\text{Rate} = \\frac{\\text{quantity}}{\\text{time (or divisor)}}",
+          "\\text{Speed: }v = \\frac{d}{t},\\quad d = vt,\\quad t = \\frac{d}{v}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Simplify and share in a ratio",
+          questionLatex:
+            "\\text{(a) Simplify 24:36. (b) Share \\$420 in the ratio 2:5.}",
+          steps: [
+            {
+              explanation: "(a) HCF of 24 and 36 = 12. Divide both by 12.",
+              latex: "24:36 = 2:3",
+            },
+            {
+              explanation: "(b) Total parts = 2+5 = 7. One part = $420 ÷ 7 = $60.",
+              latex: "2 \\times \\$60 = \\$120,\\quad 5 \\times \\$60 = \\$300",
+            },
+          ],
+          finalAnswerLatex: "2:3;\\quad \\$120 \\text{ and } \\$300",
+        },
+        {
+          title: "Metric unit conversion",
+          questionLatex:
+            "\\text{Convert (a) 3.5 km to metres, (b) 450 cm to metres, (c) 2.8 L to mL.}",
+          steps: [
+            {
+              explanation: "(a) 1 km = 1000 m → multiply.",
+              latex: "3.5 \\times 1000 = 3500\\text{ m}",
+            },
+            {
+              explanation: "(b) 1 m = 100 cm → divide.",
+              latex: "450 \\div 100 = 4.5\\text{ m}",
+            },
+            {
+              explanation: "(c) 1 L = 1000 mL → multiply.",
+              latex: "2.8 \\times 1000 = 2800\\text{ mL}",
+            },
+          ],
+          finalAnswerLatex: "3500\\text{ m};\\quad 4.5\\text{ m};\\quad 2800\\text{ mL}",
+        },
+        {
+          title: "Calculate a rate",
+          questionLatex:
+            "\\text{(a) A car travels 270 km in 3 h. Find its average speed. (b) 5 kg of flour costs \\$8.50. Find the cost per kg.}",
+          steps: [
+            {
+              explanation: "(a) Speed = distance ÷ time.",
+              latex: "v = 270 \\div 3 = 90\\text{ km/h}",
+            },
+            {
+              explanation: "(b) Rate = total cost ÷ quantity.",
+              latex: "\\$8.50 \\div 5 = \\$1.70\\text{ per kg}",
+            },
+          ],
+          finalAnswerLatex: "90\\text{ km/h};\\quad \\$1.70\\text{ per kg}",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice(
+          "y12s2-rrv-g1",
+          "Simplify the ratio 18:30.",
+          "C",
+          ["6:10", "3:6", "3:5", "2:3"],
+          "HCF of 18 and 30 = 6. 18÷6 = 3, 30÷6 = 5. Simplified ratio = 3:5."
+        ),
+        measurementAnswer(
+          "y12s2-rrv-g2",
+          "Share $360 in the ratio 1:3.",
+          "\\text{one part} = 360 \\div 4 = 90",
+          "$90 and $270",
+          ["90 and 270", "$90 and $270"]
+        ),
+        measurementAnswer(
+          "y12s2-rrv-g3",
+          "Convert 4.2 km to metres.",
+          "4.2 \\times 1000",
+          "4200 m",
+          ["4200", "4,200 m"]
+        ),
+        measurementAnswer(
+          "y12s2-rrv-g4",
+          "A train travels 300 km in 2.5 hours. Find its average speed.",
+          "v = 300 \\div 2.5",
+          "120 km/h",
+          ["120", "120km/h"]
+        ),
+      ],
+      independentPractice: [
+        practicalChoice(
+          "y12s2-rrv-i1",
+          "A recipe uses flour and sugar in the ratio 4:1. If 500 g is made, how much flour is used?",
+          "C",
+          ["125 g", "250 g", "400 g", "100 g"],
+          "One part = 500 ÷ 5 = 100 g. Flour = 4 × 100 = 400 g."
+        ),
+        measurementAnswer(
+          "y12s2-rrv-i2",
+          "Convert 750 mL to litres.",
+          "750 \\div 1000",
+          "0.75 L",
+          ["0.75", "0.750 L"]
+        ),
+        measurementAnswer(
+          "y12s2-rrv-i3",
+          "A cyclist covers 45 km in 1.5 hours. Find the average speed.",
+          "v = 45 \\div 1.5",
+          "30 km/h",
+          ["30", "30km/h"]
+        ),
+        measurementAnswer(
+          "y12s2-rrv-i4",
+          "Share $500 in the ratio 3:2.",
+          "\\text{one part} = 500 \\div 5 = 100",
+          "$300 and $200",
+          ["300 and 200", "300 and 200"]
+        ),
+        practicalChoice(
+          "y12s2-rrv-i5",
+          "3.5 m equals:",
+          "B",
+          ["35 cm", "350 cm", "3500 mm", "Both B and C"],
+          "1 m = 100 cm so 3.5 m = 350 cm. Also 3.5 m = 3500 mm. Both B and C are correct."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Adding the ratio numbers instead of finding the total number of parts: share $240 in 3:5 by trying $240 ÷ 3 and $240 ÷ 5 separately.",
+          fix: "The total number of parts is 3+5 = 8. One part = $240 ÷ 8 = $30. Then shares = 3×$30 = $90 and 5×$30 = $150. Always add the ratio parts first.",
+        },
+        {
+          mistake: "Multiplying when converting from a smaller unit to a larger unit (e.g. 750 mL × 1000 = 750 000 L).",
+          fix: "To convert from a smaller unit to a larger unit, divide. 750 mL ÷ 1000 = 0.75 L. Check: a litre is bigger than a millilitre, so the number should get smaller.",
+        },
+        {
+          mistake: "Calculating speed as time ÷ distance instead of distance ÷ time.",
+          fix: "Speed = distance ÷ time (v = d/t). If a car travels 200 km in 2.5 hours: v = 200 ÷ 2.5 = 80 km/h. Think of speed as 'how far in one hour' — divide the distance by the number of hours.",
+        },
+        {
+          mistake: "Forgetting to convert time to the same unit before calculating speed (e.g. 1 h 30 min used as 1.3 h).",
+          fix: "30 min = 30/60 = 0.5 h, so 1 h 30 min = 1.5 h (not 1.3 h). Always convert minutes to a decimal fraction of an hour before dividing.",
+        },
+      ],
+      masteryQuiz: [
+        practicalChoice(
+          "y12s2-rrv-m1",
+          "Simplify 28:42.",
+          "B",
+          ["14:21", "2:3", "4:6", "7:10"],
+          "HCF = 14. 28÷14 = 2, 42÷14 = 3. Simplified = 2:3."
+        ),
+        measurementAnswer(
+          "y12s2-rrv-m2",
+          "Share $700 in the ratio 3:4.",
+          "\\text{one part} = 700 \\div 7 = 100",
+          "$300 and $400",
+          ["300 and 400"]
+        ),
+        measurementAnswer(
+          "y12s2-rrv-m3",
+          "Convert 2500 m to kilometres.",
+          "2500 \\div 1000",
+          "2.5 km",
+          ["2.5"]
+        ),
+        measurementAnswer(
+          "y12s2-rrv-m4",
+          "A car travels 180 km in 2 h 30 min. Find its average speed.",
+          "t = 2.5\\text{ h};\\quad v = 180 \\div 2.5",
+          "72 km/h",
+          ["72", "72km/h"]
+        ),
+        practicalChoice(
+          "y12s2-rrv-m5",
+          "Paint is mixed in the ratio 1:4 (pigment:white). For 600 mL total, how much white is used?",
+          "C",
+          ["100 mL", "150 mL", "480 mL", "120 mL"],
+          "One part = 600 ÷ 5 = 120 mL. White = 4 × 120 = 480 mL."
+        ),
+        measurementAnswer(
+          "y12s2-rrv-m6",
+          "Convert 3.2 kg to grams.",
+          "3.2 \\times 1000",
+          "3200 g",
+          ["3200"]
+        ),
+        measurementAnswer(
+          "y12s2-rrv-m7",
+          "A cyclist rides 54 km in 1 h 30 min. Find the average speed.",
+          "t = 1.5\\text{ h};\\quad v = 54 \\div 1.5",
+          "36 km/h",
+          ["36", "36km/h"]
+        ),
+        practicalChoice(
+          "y12s2-rrv-m8",
+          "Share $480 in the ratio 5:3. The smaller share is:",
+          "B",
+          ["$200", "$180", "$240", "$160"],
+          "One part = 480 ÷ 8 = $60. Smaller = 3 × $60 = $180."
+        ),
+        measurementAnswer(
+          "y12s2-rrv-m9",
+          "Convert 8500 mL to litres.",
+          "8500 \\div 1000",
+          "8.5 L",
+          ["8.5"]
+        ),
+        practicalChoice(
+          "y12s2-rrv-m10",
+          "6 apples cost $4.20. The rate (cost per apple) is:",
+          "B",
+          ["$0.60", "$0.70", "$0.42", "$1.43"],
+          "$4.20 ÷ 6 = $0.70 per apple."
+        ),
+      ],
+    };
+  }
+
   if (lesson.slug === "ratios-rates-unit-conversions") {
     return {
       ...base,

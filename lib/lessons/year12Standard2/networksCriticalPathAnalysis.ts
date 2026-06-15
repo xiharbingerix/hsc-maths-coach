@@ -210,6 +210,289 @@ export function year12Standard2NetworksLessonOverride(
     masteryPassMark: 0.8,
   };
 
+  if (lesson.slug === "network-flow-revision") {
+    return {
+      ...base,
+      description:
+        "Activate Year 11 network foundations: identify and count vertices and edges, find vertex degrees, interpret directed and weighted networks, and identify paths and circuits — preparation for flow, shortest path and spanning tree lessons.",
+      learningIntention:
+        "Recall key network vocabulary and skills from Year 11 so that Year 12 flow capacity, shortest path and critical path problems can be approached with confidence.",
+      successCriteria: [
+        "Identify vertices and edges from a network diagram and count them.",
+        "Find the degree of a vertex by counting its incident edges.",
+        "Distinguish directed (one-way) from undirected networks and read edge weights.",
+        "Identify a path (no repeated vertices) and a circuit (path returning to the start) in a network.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A network (graph) consists of vertices (points or nodes) and edges (connections between pairs of vertices). Vertices are usually labelled with letters; edges are the lines between them. A network with n vertices and e edges has both properties easy to count directly from the diagram.",
+          "The degree of a vertex is the number of edges that meet at that vertex. In an undirected network, each edge contributes 1 to the degree of each of its two endpoints. The sum of all vertex degrees always equals twice the number of edges (the Handshaking Lemma).",
+          "In a directed network (digraph), each edge has an arrow showing the allowed direction of travel. In a weighted network, each edge carries a number (weight) representing distance, cost, time, or capacity. A network can be both directed and weighted.",
+          "A path is a route through the network that visits each vertex at most once. A circuit (or cycle) is a path that starts and ends at the same vertex, passing through other vertices without repeating. Euler paths and circuits visit every edge exactly once; Hamiltonian paths and circuits visit every vertex exactly once.",
+        ],
+        latexBlocks: [
+          "\\text{Sum of degrees} = 2 \\times \\text{number of edges}",
+          "\\text{Degree of vertex } v = \\text{number of edges incident to } v",
+          "\\text{Path: no vertex repeated. Circuit: path returning to start.}",
+          "\\text{Weighted edge total (route): sum edge weights along the chosen path.}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Count vertices, edges and find degrees",
+          questionLatex:
+            "\\text{A network has edges: A-B, A-C, B-C, B-D, C-D, D-E. How many vertices and edges? Find the degree of vertex B.}",
+          steps: [
+            {
+              explanation: "List the distinct vertex labels: A, B, C, D, E → 5 vertices. Count the edges listed → 6 edges.",
+              latex: "\\text{vertices} = 5,\\quad \\text{edges} = 6",
+            },
+            {
+              explanation: "Edges at B: A-B, B-C, B-D → degree of B = 3.",
+              latex: "\\deg(B) = 3",
+            },
+          ],
+          finalAnswerLatex: "5\\text{ vertices, }6\\text{ edges};\\quad \\deg(B) = 3",
+          diagram: {
+            description: "Network with vertices A, B, C, D, E. Edges: A-B, A-C, B-C, B-D, C-D, D-E.",
+            vertices: [
+              { id: "A", label: "A", x: 0, y: 2 },
+              { id: "B", label: "B", x: 2, y: 3 },
+              { id: "C", label: "C", x: 2, y: 1 },
+              { id: "D", label: "D", x: 4, y: 2 },
+              { id: "E", label: "E", x: 6, y: 2 },
+            ],
+            edges: [
+              { from: "A", to: "B", directed: false },
+              { from: "A", to: "C", directed: false },
+              { from: "B", to: "C", directed: false },
+              { from: "B", to: "D", directed: false },
+              { from: "C", to: "D", directed: false },
+              { from: "D", to: "E", directed: false },
+            ],
+          },
+        },
+        {
+          title: "Weighted network — find a route total",
+          questionLatex:
+            "\\text{A weighted network has edges A-B (4), B-C (6), A-C (8), B-D (3), C-D (5). Find the weight of route A→B→D.}",
+          steps: [
+            {
+              explanation: "The route A→B→D uses edges A-B and B-D.",
+              latex: "\\text{Weight} = 4 + 3 = 7",
+            },
+          ],
+          finalAnswerLatex: "\\text{Route total} = 7",
+          diagram: {
+            description: "Weighted network: A-B (4), B-C (6), A-C (8), B-D (3), C-D (5).",
+            vertices: [
+              { id: "A", label: "A", x: 0, y: 2 },
+              { id: "B", label: "B", x: 3, y: 3.5 },
+              { id: "C", label: "C", x: 3, y: 0.5 },
+              { id: "D", label: "D", x: 6, y: 2 },
+            ],
+            edges: [
+              { from: "A", to: "B", weight: 4, directed: false, highlighted: true },
+              { from: "B", to: "C", weight: 6, directed: false },
+              { from: "A", to: "C", weight: 8, directed: false },
+              { from: "B", to: "D", weight: 3, directed: false, highlighted: true },
+              { from: "C", to: "D", weight: 5, directed: false },
+            ],
+          },
+        },
+        {
+          title: "Directed network — identify valid paths",
+          questionLatex:
+            "\\text{A directed network has edges A→B, A→C, B→D, C→B, C→D. List all paths from A to D.}",
+          steps: [
+            {
+              explanation: "From A: can go to B or C. From B: can go to D. From C: can go to B or D.",
+              latex: "\\text{Path 1: }A \\to B \\to D",
+            },
+            {
+              explanation: "Path 2: A → C → D. Path 3: A → C → B → D.",
+              latex: "\\text{Path 2: }A \\to C \\to D,\\quad \\text{Path 3: }A \\to C \\to B \\to D",
+            },
+          ],
+          finalAnswerLatex: "A \\to B \\to D;\\quad A \\to C \\to D;\\quad A \\to C \\to B \\to D",
+          diagram: {
+            description: "Directed network: A→B, A→C, B→D, C→B, C→D.",
+            vertices: [
+              { id: "A", label: "A", x: 0, y: 2 },
+              { id: "B", label: "B", x: 3, y: 3.5 },
+              { id: "C", label: "C", x: 3, y: 0.5 },
+              { id: "D", label: "D", x: 6, y: 2 },
+            ],
+            edges: [
+              { from: "A", to: "B", directed: true },
+              { from: "A", to: "C", directed: true },
+              { from: "B", to: "D", directed: true },
+              { from: "C", to: "B", directed: true },
+              { from: "C", to: "D", directed: true },
+            ],
+          },
+        },
+      ],
+      guidedPractice: [
+        labelledChoice(
+          "y12s2-nfr-g1",
+          "A network has edges P-Q, P-R, Q-R, Q-S. How many vertices does it have?",
+          "B",
+          ["3", "4", "5", "6"],
+          "Distinct vertices: P, Q, R, S → 4 vertices."
+        ),
+        shortAnswer(
+          "y12s2-nfr-g2",
+          "A network has edges A-B, A-C, A-D, B-C. What is the degree of vertex A?",
+          "\\text{Edges at A: A-B, A-C, A-D}",
+          "3",
+          ["3.0"]
+        ),
+        labelledChoice(
+          "y12s2-nfr-g3",
+          "A weighted network has A-B (5), B-C (3), A-C (9). Find the total weight of path A→B→C.",
+          "B",
+          ["9", "8", "17", "3"],
+          "5 + 3 = 8."
+        ),
+        labelledChoice(
+          "y12s2-nfr-g4",
+          "In a directed network, edge A→B means:",
+          "A",
+          ["Travel from A to B only", "Travel from B to A only", "Travel either way", "No travel allowed"],
+          "An arrow shows the permitted direction only — from A to B."
+        ),
+      ],
+      independentPractice: [
+        shortAnswer(
+          "y12s2-nfr-i1",
+          "A network has edges: X-Y, X-Z, Y-Z, Y-W, Z-W. How many edges are there?",
+          "\\text{Count the listed edges}",
+          "5",
+          ["5.0"]
+        ),
+        labelledChoice(
+          "y12s2-nfr-i2",
+          "A network has 5 vertices with degrees 2, 3, 2, 4, 3. How many edges does it have?",
+          "C",
+          ["5", "6", "7", "14"],
+          "Sum of degrees = 2+3+2+4+3 = 14. Edges = 14 ÷ 2 = 7."
+        ),
+        shortAnswer(
+          "y12s2-nfr-i3",
+          "Weighted network: A-B (6), B-C (4), B-D (7), A-D (10). Find the total weight of path A→B→D.",
+          "6 + 7",
+          "13",
+          ["13.0"]
+        ),
+        labelledChoice(
+          "y12s2-nfr-i4",
+          "A circuit in a network is a path that:",
+          "B",
+          ["Visits every vertex once", "Starts and ends at the same vertex", "Uses every edge exactly once", "Passes through no vertex more than twice"],
+          "A circuit returns to its starting vertex."
+        ),
+        labelledChoice(
+          "y12s2-nfr-i5",
+          "The degree of a vertex equals the number of:",
+          "A",
+          ["Edges incident to that vertex", "Vertices adjacent to it minus 1", "Other vertices in the network", "Loops at that vertex only"],
+          "Degree = number of edges touching the vertex (each undirected edge counts once)."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Counting vertices as the number of edges instead of the number of distinct labelled points.",
+          fix: "Vertices are the labelled dots (nodes) in the network. Edges are the lines connecting them. List each distinct label once: P, Q, R, S gives 4 vertices, regardless of how many connections they have.",
+        },
+        {
+          mistake: "Finding the degree of vertex A by counting how many other vertices connect to it instead of counting the edges.",
+          fix: "Each undirected edge contributes 1 to the degree of each of its two endpoints. Count the edges directly touching vertex A — one count per edge regardless of where it goes.",
+        },
+        {
+          mistake: "Adding all edge weights in the network when asked for the weight of a specific path.",
+          fix: "A path total uses only the edges on that particular route, not all edges in the network. Identify the route (e.g. A→B→D) and add only those edge weights.",
+        },
+        {
+          mistake: "Treating a directed edge A→B as allowing travel in both directions.",
+          fix: "A directed edge (arrow) allows travel only in the direction of the arrow. A→B means you can go from A to B, not B to A. To travel both ways you need two separate arrows (A→B and B→A).",
+        },
+      ],
+      masteryQuiz: [
+        shortAnswer(
+          "y12s2-nfr-m1",
+          "Network edges: A-B, A-C, B-D, C-D, D-E. How many vertices?",
+          "\\text{Distinct labels: A, B, C, D, E}",
+          "5",
+          ["5.0"]
+        ),
+        shortAnswer(
+          "y12s2-nfr-m2",
+          "Network edges: A-B, A-C, B-C, B-D, C-D. What is the degree of vertex C?",
+          "\\text{Edges at C: A-C, B-C, C-D}",
+          "3",
+          ["3.0"]
+        ),
+        labelledChoice(
+          "y12s2-nfr-m3",
+          "A network has 4 vertices with degrees 2, 3, 3, 2. How many edges does it have?",
+          "C",
+          ["4", "4", "5", "10"],
+          "Sum = 10. Edges = 10 ÷ 2 = 5."
+        ),
+        shortAnswer(
+          "y12s2-nfr-m4",
+          "Weighted network: A-B (3), B-C (5), A-C (6), C-D (4). Find path total A→B→C→D.",
+          "3 + 5 + 4",
+          "12",
+          ["12.0"]
+        ),
+        labelledChoice(
+          "y12s2-nfr-m5",
+          "A directed network has edges A→B, A→C, C→B, B→D. Which path from A to D is valid?",
+          "C",
+          ["A→C→D", "A→B→C→D", "A→C→B→D", "A→D"],
+          "A→C (valid), C→B (valid), B→D (valid). Path A→C→B→D is valid."
+        ),
+        shortAnswer(
+          "y12s2-nfr-m6",
+          "A network has 7 edges. What is the sum of all vertex degrees?",
+          "\\text{Sum} = 2 \\times 7",
+          "14",
+          ["14.0"]
+        ),
+        labelledChoice(
+          "y12s2-nfr-m7",
+          "A path visits each vertex:",
+          "B",
+          ["At least once", "At most once", "Exactly twice", "An even number of times"],
+          "A path does not repeat any vertex."
+        ),
+        shortAnswer(
+          "y12s2-nfr-m8",
+          "Network edges: P-Q (8), Q-R (5), P-R (11), R-S (3). Find path total P→Q→R→S.",
+          "8 + 5 + 3",
+          "16",
+          ["16.0"]
+        ),
+        labelledChoice(
+          "y12s2-nfr-m9",
+          "A vertex with degree 0 is called:",
+          "B",
+          ["A bridge", "An isolated vertex", "A leaf", "A loop"],
+          "A degree-0 vertex has no edges — it is isolated."
+        ),
+        labelledChoice(
+          "y12s2-nfr-m10",
+          "Which statement about a circuit is correct?",
+          "A",
+          ["It starts and ends at the same vertex", "It visits every edge exactly once", "It must pass through every vertex", "It cannot use directed edges"],
+          "A circuit returns to its starting vertex; other properties belong to Euler/Hamiltonian circuits specifically."
+        ),
+      ],
+    };
+  }
+
   if (lesson.slug === "network-concepts-terminology") {
     return {
       ...base,

@@ -508,6 +508,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Choose sine rule or cosine rule for practical non-right-angled triangle problems in surveying and navigation contexts.",
           },
           {
+            slug: "ratios-rates-revision",
+            title: "Ratios and Rates Revision",
+            description:
+              "Consolidate Year 11 ratio and rate skills: simplify ratios, divide quantities in a given ratio, convert between common units, and calculate basic rates — preparation for speed, fuel consumption, map scales and flow-rate problems.",
+          },
+          {
             slug: "ratios-rates-unit-conversions",
             title: "Ratios, Rates and Unit Conversions",
             description:
@@ -739,6 +745,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Networks",
         focus: "Networks and critical path analysis",
         lessons: [
+          {
+            slug: "network-flow-revision",
+            title: "Network Flow Revision",
+            description:
+              "Activate Year 11 network foundations: identify vertices, edges, degree sequences, directed and weighted networks, adjacency matrices, and paths — preparation for flow capacity, shortest path and spanning tree lessons.",
+          },
           {
             slug: "network-concepts-terminology",
             title: "Network Concepts and Terminology",
