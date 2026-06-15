@@ -2,7 +2,7 @@
 
 > **Objective:** High-quality lessons and question content across the entire NSW syllabus, mapped to syllabus sections with sufficient lessons to cover all skills and content in the Content section. Each lesson: 19 questions, worked examples, Feynman teaching, and common mistakes. Each focus area: one revision lesson activating the prior knowledge stated in the syllabus teaching advice, plus content lessons per dot-point group.
 > **Standard:** NSW syllabuses (2024 versions, implementation from 2026). Source of truth: [curriculum.nsw.edu.au](https://curriculum.nsw.edu.au).
-> Last updated: 2026-06-15 — Year 11 Advanced: Sequences and Series removed; 10 new Working with Functions lessons completing FA1; 3 new Trigonometry lessons completing FA2; reciprocal trig ratios completing FA3; product rule and quotient rule completing FA4; graphing-exponential-logarithmic-functions completing FA5; circles-completing-the-square completing FA6; sets-venn-diagrams and conditional-probability-independence completing FA7; course now 69 lessons / 7 units. All 7 focus areas complete — full syllabus coverage achieved. Year 12 Standard 1 audited (22 total, 76 new questions, 1 credit-card gap). Year 12 Advanced fully audited (91 lessons, 1726 questions, all 14 focus areas). Year 12 Standard 2 fully complete (58 lessons, 1106 questions). Year 12 Extension 1 fully complete (48 lessons, 862 questions). Year 11 Standard fully complete (76 lessons, 1444 questions).
+> Last updated: 2026-06-15 — Year 12 Standard 1 fully complete: credit-cards-and-loans lesson added (MST-12-S1-03 gap closed); 8 new full-depth lesson overrides written (algebraic-relationships-exam-practice, linear-relationships-modelling, quadratic-models, simultaneous-equations-context, ratios-rates-unit-conversions, investment-compound-interest, depreciation-loans, credit-cards-and-loans); 6 thin lessons upgraded from 7Q to 19Q each (right-angle-trigonometry, data-displays-summary-statistics, probability-and-chance, statistics-exam-practice, measurement-area-volume, scale-drawings-and-plans); course now 23 lessons / 5 units. All 7 topics fully covered at 19Q depth. Earlier same date: Year 11 Advanced: Sequences and Series removed; 10 new Working with Functions lessons completing FA1; 3 new Trigonometry lessons completing FA2; reciprocal trig ratios completing FA3; product rule and quotient rule completing FA4; graphing-exponential-logarithmic-functions completing FA5; circles-completing-the-square completing FA6; sets-venn-diagrams and conditional-probability-independence completing FA7. Year 12 Advanced fully audited (91 lessons, 1726 questions). Year 12 Standard 2 fully complete (58 lessons, 1106 questions). Year 12 Extension 1 fully complete (48 lessons, 862 questions). Year 11 Standard fully complete (76 lessons, 1444 questions).
 
 ---
 
@@ -24,9 +24,9 @@
 | Year 10 Mathematics Advanced | ~56 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 10 Mathematics Core | ~40 (10 trimmed) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 11 Standard | 76 (8 units) | 8 focus areas | ✅ 100% | 8 | ✅ Complete — audited 2026-06-15 (1444 questions) |
-| Year 11 Advanced | 69 (7 units) | 7 focus areas (MAV-11-01–10) | ✅ 100% — FA1 ✅ FA2 ✅ FA3 ✅ FA4 ✅ FA5 ✅ FA6 ✅ FA7 ✅ all complete | 0 | ✅ Fully audited 2026-06-15; all 7 focus areas complete |
+| Year 11 Advanced | 70 (7 units) | 7 focus areas (MAV-11-01–10) | ✅ 100% — FA1 ✅ FA2 ✅ FA3 ✅ FA4 ✅ FA5 ✅ FA6 ✅ FA7 ✅ all complete | 0 | ✅ Fully audited 2026-06-15; all 7 focus areas complete |
 | Year 11 Extension 1 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
-| Year 12 Standard 1 | 22 (5 units) | 7 topics | ✅ 7/7 (credit card gap noted) | 0 | 🔄 Audited 2026-06-15; 1 gap remains (credit cards) |
+| Year 12 Standard 1 | 23 (5 units) | 7 topics | ✅ 7/7 | 0 | ✅ Complete — all gaps closed 2026-06-15 |
 | Year 12 Standard 2 | 58 (6 units) | 10 topics | ✅ 100% | 10 | ✅ Complete — audited 2026-06-15 (1106 questions) |
 | Year 12 Advanced | 91 (13 units) | 14 focus areas (MA-F1–S3) | ✅ 100% | 0 | ✅ Complete — audited 2026-06-15 (1726 questions) |
 | Year 12 Extension 1 | 30 (8 units) | 6 focus areas (ME1-12-01–06) | ✅ 100% | 0 | ✅ Complete — audited 2026-06-15 (862 questions) |
@@ -145,7 +145,7 @@ Advanced: skill map IDs namespaced `y10a-`. Core: trimmed + `y10c-`.
 ## Year 11 Advanced 🔄 Audited against NSW 2024 syllabus (2026-06-15)
 
 `year-11-advanced` — `available`. Override file: `lib/lessons/year11Advanced/`.
-**65 lessons / 7 units — all in-scope.** Sequences and Series unit removed (2026-06-15). 10 new Working with Functions lessons (incl. quadratic inequalities) complete FA1. 3 new Trigonometry lessons complete FA2. Reciprocal trig ratios completes FA3. Product rule and quotient rule lessons complete FA4. Audited dot-by-dot against the NSW Mathematics Advanced 11–12 Syllabus (2024) Year 11 content. First HSC 2027.
+**70 lessons / 7 units — all in-scope.** Sequences and Series unit removed (2026-06-15). 10 new Working with Functions lessons (incl. quadratic inequalities) complete FA1. 3 new Trigonometry lessons complete FA2. Reciprocal trig ratios and complementary angle identities complete FA3. Product rule and quotient rule lessons complete FA4. Audited dot-by-dot against the NSW Mathematics Advanced 11–12 Syllabus (2024) Year 11 content. First HSC 2027.
 
 Unit headings all match NSW 2024 focus area names exactly.
 
@@ -153,7 +153,7 @@ Unit headings all match NSW 2024 focus area names exactly.
 |---|---|---|---|---|
 | 1 | Working with functions (`working-with-functions`) | MAV-11-01, MAV-11-02 | 16 | ✅ Complete — quadratic inequalities added 2026-06-15 |
 | 2 | Trigonometry and measure of angles (`trigonometry-measure-angles`) | MAV-11-04 | 15 | ✅ Complete — right-angle apps, sine/cosine rules, ambiguous case added 2026-06-15 |
-| 3 | Trigonometric identities and equations (`trigonometric-identities-equations`) | MAV-11-05 | 8 | ✅ Complete — reciprocal trig ratios added 2026-06-15 |
+| 3 | Trigonometric identities and equations (`trigonometric-identities-equations`) | MAV-11-05 | 9 | ✅ Complete — reciprocal trig ratios + complementary angle identities added 2026-06-15 |
 | 4 | Introduction to differentiation (`introduction-differentiation`) | MAV-11-06 | 11 | ✅ Complete — product rule and quotient rule added 2026-06-15 |
 | 5 | Exponential and logarithmic functions (`exponential-logarithmic-functions`) | MAV-11-07, MAV-11-08 | 6 | ✅ Complete — graphing lesson added 2026-06-15 |
 | 6 | Graph transformations (`graph-transformations`) | MAV-11-03 | 6 | ✅ Complete — circles lesson added 2026-06-15 |
@@ -199,7 +199,7 @@ NSW sub-sections vs Nova:
 
 ---
 
-### FA3 — Trigonometric identities and equations (8 lessons) ✅ Complete
+### FA3 — Trigonometric identities and equations (9 lessons) ✅ Complete
 
 NSW content vs Nova:
 
@@ -207,7 +207,8 @@ NSW content vs Nova:
 |---|---|---|
 | Reciprocal ratios sec, csc, cot — definitions and exact values at π/6, π/4, π/3 | `reciprocal-trig-ratios` ✨ new | ✅ |
 | Quotient identities tanθ=sinθ/cosθ, cotθ=cosθ/sinθ | `trigonometric-identities` | ✅ |
-| Complementary angle identities (sin(π/2-θ)=cosθ, etc.) | `related-angle-identities` | ⚠️ Covers (π−θ), (π+θ), (2π−θ); (π/2−θ) complementary identities unclear |
+| Complementary angle identities sin(π/2−θ)=cosθ, cos(π/2−θ)=sinθ, tan(π/2−θ)=cotθ | `complementary-angle-identities` ✨ new | ✅ |
+| Related-angle identities (π−θ), (π+θ), (2π−θ) | `related-angle-identities` | ✅ |
 | Pythagorean identity and variants | `trigonometric-identities` | ✅ |
 | Solving trig equations on restricted domains (degrees or radians) | `trig-equations-basic`, `trig-equations-advanced` | ✅ |
 | Equations reducing to quadratic equations | `trig-equations-advanced` | ✅ |
@@ -318,36 +319,32 @@ Class Maths 2026: 5 topics / 30 subtopics.
 
 ---
 
-## Year 12 Standard 1 🔄 Audited against NSW 2024 syllabus (2026-06-15)
+## Year 12 Standard 1 ✅ Complete — Audited against NSW 2024 syllabus (2026-06-15)
 
 `year-12-standard-1` — `in_progress`. Override file: `lib/lessons/year12Standard1.ts`.
-**22 lessons.** Audited dot-by-dot against NSW Mathematics Standard 11–12 Syllabus (2024). First HSC 2027.
+**23 lessons / 5 units.** All 7 NSW 2024 MST-12-S1 topics fully covered at 19Q depth. Audited dot-by-dot against NSW Mathematics Standard 11–12 Syllabus (2024). First HSC 2027.
 
 | # | NSW Topic | Outcome | Lessons | Status |
 |---|---|---|---|---|
-| 1 | Algebraic relationships | MST-12-S1-01 | 5 | ✅ linear models, quadratic models, direct variation, simultaneous equations, exam practice |
-| 2 | Investment | MST-12-S1-02 | 1 | ✅ simple and compound interest, comparing investment strategies |
-| 3 | Depreciation and loans | MST-12-S1-03 | 1 | ⚠️ straight-line and declining-balance depreciation, reducing-balance loans; credit card content not yet covered |
-| 4 | Right-angled triangles | MST-12-S1-04 | 3 | ✅ SOH-CAH-TOA, elevation/depression, bearings (added 2026-06-15) |
-| 5 | Ratios and rates | MST-12-S1-05 | 2 | ✅ ratios, unit conversions, speed, fuel consumption, flow rate, pay |
-| 6 | Bivariate data analysis | MST-12-S1-06 | 2 | ✅ scatter plots + form/strength/direction (added 2026-06-15); line of best fit + interpolation/extrapolation (added 2026-06-15) |
-| 7 | Relative frequency and probability | MST-12-S1-07 | 3 | ✅ probability formula, two-stage trees; complementary events + relative frequency + expected frequency (added 2026-06-15) |
+| 1 | Algebraic relationships | MST-12-S1-01 | 5 | ✅ linear models, quadratic models, direct variation, simultaneous equations, exam practice — all 19Q |
+| 2 | Investment | MST-12-S1-02 | 1 | ✅ simple/compound interest, comparing investment strategies (19Q) |
+| 3 | Depreciation and loans | MST-12-S1-03 | 2 | ✅ straight-line + declining-balance depreciation, reducing-balance loans (19Q); credit cards — A=P(1+r/365)ⁿ, fees, min repayments, comparison with personal loans (19Q added 2026-06-15) |
+| 4 | Right-angled triangles | MST-12-S1-04 | 3 | ✅ SOH-CAH-TOA (19Q), elevation/depression, bearings (added 2026-06-15, 19Q each) |
+| 5 | Ratios and rates | MST-12-S1-05 | 2 | ✅ ratios/unit conversions (19Q), speed/fuel/flow/pay (19Q) |
+| 6 | Bivariate data analysis | MST-12-S1-06 | 2 | ✅ scatter plots + form/strength/direction (19Q); line of best fit + interpolation/extrapolation (19Q) |
+| 7 | Relative frequency and probability | MST-12-S1-07 | 3 | ✅ probability formula + two-stage trees (19Q); complementary events + relative frequency + expected frequency (19Q) |
 
-**New lessons added in this audit pass (2026-06-15):**
-- `bearings-and-compass` — true bearings (3-figure), compass bearings, conversions, back bearings, trig components (19 Q)
-- `bivariate-data-scatter-plots` — univariate vs bivariate, independent/dependent variables, scatter plots, form/strength/direction, correlation vs causation (19 Q)
-- `line-of-best-fit-predictions` — line of best fit by eye, gradient/y-intercept, interpolation, extrapolation limitations (19 Q)
-- `relative-frequency-expected-value` — complementary events P(not A) = 1 − P(A), relative frequency as estimate, expected frequency np (19 Q)
+**Lessons added (2026-06-15 audit pass 1):**
+- `bearings-and-compass`, `bivariate-data-scatter-plots`, `line-of-best-fit-predictions`, `relative-frequency-expected-value` — 4 new breadth lessons (19Q each)
 
-**Legacy lessons retained (outside NSW 2024 Standard 1 scope):**
-- `measurement-area-volume` — area, perimeter, surface area, volume (Year 11 Measurement; not in MST-12-S1)
-- `scale-drawings-and-plans` — scale and similarity (not in MST-12-S1)
-- `data-displays-summary-statistics` — mean/median/range (Year 11 content; not in MST-12-S1)
-- `right-angle-trigonometry` (in `measurement-geometry` unit) — duplicate; relevant trig content is in `right-angle-trig-applications` + `bearings-and-compass`
+**Lessons added (2026-06-15 audit pass 2 — depth + gap completion):**
+- `credit-cards-and-loans` — closes MST-12-S1-03 credit card gap (19Q)
+- Full 19Q overrides written for: `algebraic-relationships-exam-practice`, `linear-relationships-modelling`, `quadratic-models`, `simultaneous-equations-context`, `ratios-rates-unit-conversions`, `investment-compound-interest`, `depreciation-loans`
+- 6 legacy thin lessons upgraded from 7Q → 19Q: `right-angle-trigonometry`, `data-displays-summary-statistics`, `probability-and-chance`, `statistics-exam-practice`, `measurement-area-volume`, `scale-drawings-and-plans`
 
-**Remaining gap:**
-- [ ] Credit card content (MST-12-S1-03): interest-free periods, minimum repayments — not yet in `depreciation-loans`
-- [ ] Promote to `available` once credit card content is added
+**Legacy lessons retained (outside NSW 2024 Standard 1 scope; now at 19Q):**
+- `measurement-area-volume`, `scale-drawings-and-plans`, `data-displays-summary-statistics` — Year 11 content; not in MST-12-S1 but useful for revision
+- `right-angle-trigonometry` (in `measurement-geometry` unit) — duplicates trig content in `right-angle-trig-applications`; retained for completeness
 
 ---
 
@@ -453,7 +450,7 @@ Nova average lessons per unit: ~4–5.
 | Year 12 Standard 2 | 35 (6 units) | ~35 | ✅ Depth pass complete + 4 breadth lessons |
 | Year 12 Advanced | 91 (13 units) | ~64 subtopics | ✅ Depth pass complete + audited 2026-06-15 |
 | Year 12 Extension 2 | 25 (5 units) | ~40 subtopics | ✅ Depth pass complete |
-| Year 12 Standard 1 | 22 (5 units) | 7 NSW topics | ✅ Audited 2026-06-15; 1 minor gap (credit cards) |
+| Year 12 Standard 1 | 23 (5 units) | 7 NSW topics | ✅ Complete — all gaps closed 2026-06-15 (23 lessons, all 19Q) |
 | Year 12 Extension 1 | 30 (8 units) | ~28 subtopics | ✅ Depth pass complete — 520 questions seeded |
 | Year 11 Advanced | 65 (7 units) | 7 NSW focus areas | 🔄 FA1–FA4 ✅ complete 2026-06-15; ~4 lessons still needed (FA6, FA7) |
 | Year 9 / Year 10 variants | — | — | 🔄 Promote Advanced + Core to available |
@@ -468,7 +465,7 @@ Nova average lessons per unit: ~4–5.
 2. ~~**Year 12 Standard 2 depth**~~ ✅ Complete — 35 lessons (breadth pass ongoing), 665 questions
 3. ~~**Year 12 Advanced depth**~~ ✅ Complete — 91 lessons, 1715 questions (Probability unit added)
 4. ~~**Year 12 Extension 1 depth**~~ ✅ Complete — 30 lessons, 520 questions (8 units, 100% topic breadth)
-5. **Year 12 Standard 1** — audited 2026-06-15; 4 lessons added (bivariate data, bearings, relative frequency); 1 gap remains (credit card content in MST-12-S1-03); promote to `available` after adding credit cards
+5. ~~**Year 12 Standard 1**~~ ✅ Complete — 23 lessons, all 7 topics at 19Q depth; credit-cards-and-loans added 2026-06-15; promote to `available`
 6. **Year 11 Advanced gaps** — ✅ FA1–FA4 complete (16 new lessons 2026-06-15); remaining ~4 lessons needed: circles completing-the-square (FA6); sets/Venn diagrams, conditional probability (FA7)
 7. **Year 9 / Year 10 variants** — promote Advanced and Core to `available`
 8. **Year 8 depth** — 4 missing units vs Class Maths 14-topic target (ratios/rates, index laws, algebraic fractions, additional data)
