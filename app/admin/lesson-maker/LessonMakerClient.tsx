@@ -155,7 +155,9 @@ function QuestionCard({
             trapezoidalRuleDiagram={question.trapezoidalRuleDiagram}
             boxPlotDiagram={question.boxPlotDiagram}
             normalDistributionDiagram={question.normalDistributionDiagram}
+            polynomialCurveDiagram={question.polynomialCurveDiagram}
             probabilityTreeDiagram={question.probabilityTreeDiagram}
+            slopeFieldDiagram={question.slopeFieldDiagram}
             twoWayTableDiagram={question.twoWayTableDiagram}
             vennDiagram={question.vennDiagram}
           />
@@ -303,7 +305,9 @@ function SectionCard({
               trapezoidalRuleDiagram={section.example.trapezoidalRuleDiagram}
               boxPlotDiagram={section.example.boxPlotDiagram}
               normalDistributionDiagram={section.example.normalDistributionDiagram}
+              polynomialCurveDiagram={section.example.polynomialCurveDiagram}
               probabilityTreeDiagram={section.example.probabilityTreeDiagram}
+              slopeFieldDiagram={section.example.slopeFieldDiagram}
               twoWayTableDiagram={section.example.twoWayTableDiagram}
               vennDiagram={section.example.vennDiagram}
             />

@@ -9,7 +9,9 @@ import type {
   CartesianGraph,
   NetworkDiagram,
   NormalDistributionDiagram,
+  PolynomialCurveDiagram,
   ProbabilityTreeDiagram,
+  SlopeFieldDiagram,
   TrigGraphDiagram,
   TrapezoidalRuleDiagram,
   TriangleDiagram,
@@ -43,7 +45,9 @@ export interface TutorQuestion {
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
   boxPlotDiagram?: BoxPlotDiagram;
   normalDistributionDiagram?: NormalDistributionDiagram;
+  polynomialCurveDiagram?: PolynomialCurveDiagram;
   probabilityTreeDiagram?: ProbabilityTreeDiagram;
+  slopeFieldDiagram?: SlopeFieldDiagram;
   twoWayTableDiagram?: TwoWayTableDiagram;
   vennDiagram?: VennDiagram;
 }
@@ -63,7 +67,9 @@ export interface TutorWorkedExample {
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
   boxPlotDiagram?: BoxPlotDiagram;
   normalDistributionDiagram?: NormalDistributionDiagram;
+  polynomialCurveDiagram?: PolynomialCurveDiagram;
   probabilityTreeDiagram?: ProbabilityTreeDiagram;
+  slopeFieldDiagram?: SlopeFieldDiagram;
   twoWayTableDiagram?: TwoWayTableDiagram;
   vennDiagram?: VennDiagram;
 }
@@ -210,7 +216,9 @@ function toTutorQuestion(q: PracticeQuestion): TutorQuestion {
     trapezoidalRuleDiagram: q.trapezoidalRuleDiagram,
     boxPlotDiagram: q.boxPlotDiagram,
     normalDistributionDiagram: q.normalDistributionDiagram,
+    polynomialCurveDiagram: q.polynomialCurveDiagram,
     probabilityTreeDiagram: q.probabilityTreeDiagram,
+    slopeFieldDiagram: q.slopeFieldDiagram,
     twoWayTableDiagram: q.twoWayTableDiagram,
     vennDiagram: q.vennDiagram,
   };
@@ -232,7 +240,9 @@ function toTutorWorkedExample(ex: WorkedExample): TutorWorkedExample {
     trapezoidalRuleDiagram: ex.trapezoidalRuleDiagram,
     boxPlotDiagram: ex.boxPlotDiagram,
     normalDistributionDiagram: ex.normalDistributionDiagram,
+    polynomialCurveDiagram: ex.polynomialCurveDiagram,
     probabilityTreeDiagram: ex.probabilityTreeDiagram,
+    slopeFieldDiagram: ex.slopeFieldDiagram,
     twoWayTableDiagram: ex.twoWayTableDiagram,
     vennDiagram: ex.vennDiagram,
   };

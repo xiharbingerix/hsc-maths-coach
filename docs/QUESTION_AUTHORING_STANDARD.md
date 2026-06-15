@@ -48,6 +48,8 @@ type PracticeQuestion = {
 
 ### Multi-part question design
 
+**You MUST use multi-part questions whenever a question has a shared stem with 2–4 dependent parts.** Do not bury multi-part structure inside a single unstructured `answer` field. Multi-part infrastructure is production-ready and supports marks-weighted partial credit — use it.
+
 Multi-part questions live in the optional `multiPartPractice` array on a lesson — separate from the standard 4+5+10 sections. They are seeded at **D5** (exam-style) and not counted against the standard lesson-section counts. See also [PRACTICE_QUESTION_STANDARD.md](./PRACTICE_QUESTION_STANDARD.md) for placement rules.
 
 #### Taxonomy
@@ -226,7 +228,7 @@ type PracticeQuestionPart = {
   acceptedAnswers?: string[];
   hint?: string;
   explanation: string;
-  working?: string[];
+  working?: string[];   // Optional: KaTeX lines shown as a worked solution panel
 };
 ```
 
@@ -641,23 +643,55 @@ choice(
 
 ## Visual payloads
 
-Use visual payloads when the question asks the student to read from, reason with, or inspect a diagram. Keep the prompt self-contained and use the payload as the visual stimulus.
+**You MUST attach a visual payload whenever a question involves a diagram, graph, table, network, tree, plotted point, slope field, or geometric figure.** Do not describe a visual in words when a renderer exists that can show it. Keep the prompt self-contained and use the payload as the visual stimulus.
 
-Currently supported payload fields:
+If no existing renderer covers the required diagram type, build a new `*View` component in `app/course/components/`, add the corresponding type to `lib/lessons/types.ts`, and wire it into `app/components/VisualPayloadRenderer.tsx` before authoring the question.
 
-- `cartesianGraph`
-- `triangleDiagram`
-- `boxPlotDiagram`
-- `normalDistributionDiagram`
-- `probabilityTreeDiagram`
-- `twoWayTableDiagram`
-- `vennDiagram`
-- `diagram` / `networkDiagram`
-- `trapezoidalRuleDiagram`
-- `argandDiagram`
-- `vector3DDiagram`
-- `unitCircleDiagram`
-- `trigGraphDiagram`
+### Available renderers
+
+| Payload field | Renderer | Use for |
+|---|---|---|
+| `cartesianGraph` | `CartesianGraphView` | Coordinate graphs, functions, loci, calculus graph reading |
+| `triangleDiagram` | `TriangleDiagramView` | Labelled triangles, side lengths, angles |
+| `boxPlotDiagram` | `BoxPlotView` | Box-and-whisker plots, five-number summary |
+| `normalDistributionDiagram` | `NormalDistributionView` | Normal curves, shaded regions, z-scores |
+| `probabilityTreeDiagram` | `ProbabilityTreeView` | Multi-stage probability trees |
+| `twoWayTableDiagram` | `TwoWayTableView` | Two-way frequency / probability tables |
+| `vennDiagram` | `VennDiagramView` | Two- or three-set Venn diagrams |
+| `diagram` / `networkDiagram` | `NetworkDiagramView` | Graphs, networks, critical paths |
+| `trapezoidalRuleDiagram` | `TrapezoidalRuleView` | Trapezoid strips under a curve |
+| `argandDiagram` | `ArgandDiagramView` | Complex number plots, modulus circles, loci (Ext 2) |
+| `vector3DDiagram` | `Vector3DDiagramView` | 3D vectors, labelled points, direction lines (Ext 2) |
+| `unitCircleDiagram` | `UnitCircleDiagramView` | Unit circle, terminal points, reference angles |
+| `trigGraphDiagram` | `TrigGraphDiagramView` | Sine / cosine / tangent graphs with key points and asymptotes |
+| `polynomialCurveDiagram` | `PolynomialCurveView` | Polynomial curve sketching — roots, turning points, end behaviour |
+| `slopeFieldDiagram` | `SlopeFieldView` | Slope fields for differential equations (Ext 2) |
+
+### The `description` field
+
+Every visual payload type has a required `description: string` field. **Write it as an accessibility label** — specific enough that a student who cannot see the diagram understands what it shows. Treat it like alt-text for an image.
+
+| Too vague | Specific |
+|---|---|
+| `"Diagram."` | `"Right triangle with sides 3, 4, and hypotenuse 5. The right angle is at vertex B."` |
+| `"Graph."` | `"Cartesian graph showing y = 2x + 1 crossing the y-axis at (0, 1) and passing through (2, 5)."` |
+| `"Slope field."` | `"Slope field for dy/dx = y. Segments are horizontal at y = 0 and tilt upward above it; two solution curves diverge from y = 0."` |
+
+The `description` also appears in audit output and is the first thing a content author sees when reviewing a question — make it informative.
+
+### Diagram-first design
+
+For inherently visual topics (geometry, trig graphs, slope fields, probability trees, polynomial curves), **choose the diagram first** and design the question around what the student reads from it. Do not add a diagram as an afterthought to a question that was already self-contained in text.
+
+Steps for diagram-first authoring:
+1. Decide what the student must visually read or reason about.
+2. Construct the diagram payload with the specific values needed.
+3. Write the prompt so it refers to the diagram ("Using the diagram above…", "From the graph…", "The network below shows…").
+4. Ensure the answer is a specific value the student reads from or computes using the diagram — not a general rule.
+
+### Multi-part questions + visual payloads
+
+When a multi-part question needs a visual, attach the payload to the **top-level question object** — not to individual parts. Parts refer to the shared visual using phrases like "Using the diagram above" or "From the graph in part (a)". Do not duplicate the payload on each part.
 
 ### ArgandDiagram
 
@@ -741,6 +775,47 @@ trigGraphDiagram: {
     { x: "pi", label: "period pi" },
   ],
   notes: ["Tangent repeats every pi radians."],
+}
+```
+
+### PolynomialCurveDiagram
+
+Use `polynomialCurveDiagram` for polynomial curve sketching — roots with multiplicity, leading coefficient, key points, and end behaviour.
+
+```typescript
+polynomialCurveDiagram: {
+  description: "Cubic y = (x+1)(x-2)^2 showing a touch at x=2.",
+  roots: [
+    { value: -1, multiplicity: 1 },
+    { value: 2, multiplicity: 2 },
+  ],
+  leadingCoefficient: 1,
+  xMin: -3,
+  xMax: 4,
+  yMin: -5,
+  yMax: 10,
+  keyPoints: [
+    { x: -1, y: 0, label: "(-1, 0)" },
+    { x: 2, y: 0, label: "(2, 0) touch" },
+    { x: 0, y: 4, label: "y-int (0, 4)" },
+  ],
+}
+```
+
+### SlopeFieldDiagram
+
+Use `slopeFieldDiagram` for Extension 2 differential equations: slope fields showing the gradient pattern and optional solution curves through initial conditions.
+
+```typescript
+slopeFieldDiagram: {
+  description: "Slope field for dy/dx = x with solution curve through (0, 1).",
+  de: { kind: "linear", a: 1, b: 0, c: 0 },
+  xMin: -3,
+  xMax: 3,
+  yMin: -4,
+  yMax: 4,
+  gridStep: 0.75,
+  solutionCurves: [{ x0: 0, y0: 1, label: "y = x²/2 + 1" }],
 }
 ```
 

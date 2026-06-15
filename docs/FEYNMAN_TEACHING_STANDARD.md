@@ -175,6 +175,14 @@ Aim for 2–4 blocks. Do not include `$...$` wrappers — the field is rendered 
 
 ---
 
+## Visual support in teaching sections
+
+Teaching paragraphs and worked examples can reference diagrams, but the teaching section itself does not embed `VisualPayloadRenderer` payloads — those live on individual questions. When a concept is inherently visual (graphs, geometry, probability trees, slope fields), the **worked example** is the right place to anchor the visual reasoning: reference the diagram in `questionLatex` and describe what the student should read from it in the step `explanation`.
+
+Write teaching paragraphs as if the student has the relevant diagram in front of them. Use concrete spatial language: "the curve crosses", "the triangle has", "the field shows", "the tree branches into". Never describe a graph or diagram in abstract symbol form alone when spatial description would be clearer.
+
+---
+
 ## NSW exam connection
 
 A single direct sentence linking the concept to exam context:

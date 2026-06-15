@@ -6,7 +6,9 @@ import type {
   CartesianGraph,
   NetworkDiagram,
   NormalDistributionDiagram,
+  PolynomialCurveDiagram,
   ProbabilityTreeDiagram,
+  SlopeFieldDiagram,
   TrigGraphDiagram,
   TrapezoidalRuleDiagram,
   TriangleDiagram,
@@ -21,7 +23,9 @@ import { TriangleDiagramView } from "../course/components/TriangleDiagramView";
 import { BoxPlotView } from "../course/components/BoxPlotView";
 import { TwoWayTableView } from "../course/components/TwoWayTableView";
 import { NormalDistributionView } from "../course/components/NormalDistributionView";
+import { PolynomialCurveView } from "../course/components/PolynomialCurveView";
 import { ProbabilityTreeView } from "../course/components/ProbabilityTreeView";
+import { SlopeFieldView } from "../course/components/SlopeFieldView";
 import { VennDiagramView } from "../course/components/VennDiagramView";
 import { NetworkDiagramView } from "../course/components/NetworkDiagramView";
 import { TrapezoidalRuleView } from "../course/components/TrapezoidalRuleView";
@@ -40,7 +44,9 @@ interface Props {
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
   boxPlotDiagram?: BoxPlotDiagram;
   normalDistributionDiagram?: NormalDistributionDiagram;
+  polynomialCurveDiagram?: PolynomialCurveDiagram;
   probabilityTreeDiagram?: ProbabilityTreeDiagram;
+  slopeFieldDiagram?: SlopeFieldDiagram;
   twoWayTableDiagram?: TwoWayTableDiagram;
   vennDiagram?: VennDiagram;
 }
@@ -56,7 +62,9 @@ export function VisualPayloadRenderer({
   trapezoidalRuleDiagram,
   boxPlotDiagram,
   normalDistributionDiagram,
+  polynomialCurveDiagram,
   probabilityTreeDiagram,
+  slopeFieldDiagram,
   twoWayTableDiagram,
   vennDiagram,
 }: Props) {
@@ -71,7 +79,9 @@ export function VisualPayloadRenderer({
     trapezoidalRuleDiagram ||
     boxPlotDiagram ||
     normalDistributionDiagram ||
+    polynomialCurveDiagram ||
     probabilityTreeDiagram ||
+    slopeFieldDiagram ||
     twoWayTableDiagram ||
     vennDiagram;
 
@@ -98,6 +108,10 @@ export function VisualPayloadRenderer({
       {trapezoidalRuleDiagram && (
         <TrapezoidalRuleView diagram={trapezoidalRuleDiagram} />
       )}
+      {polynomialCurveDiagram && (
+        <PolynomialCurveView diagram={polynomialCurveDiagram} />
+      )}
+      {slopeFieldDiagram && <SlopeFieldView diagram={slopeFieldDiagram} />}
     </div>
   );
 }

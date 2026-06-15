@@ -141,20 +141,51 @@ Skip it for simple questions where the prompt is self-contained (e.g. "Find y wh
 
 ## Visual payload guidance
 
-Attach a visual payload when the question says or implies that the student should use a diagram, graph, table, network, tree, or plotted point.
+**You MUST attach a visual payload whenever a question involves a diagram, graph, table, network, tree, plotted point, slope field, or geometric figure.** Do not describe a visual in words when a renderer exists that can show it.
 
-- Use `cartesianGraph` for coordinate graphs, functions, loci in the Cartesian plane, and calculus graph reading.
-- Use `argandDiagram` for Extension 2 complex numbers: plotted complex points, conjugate reflection, vectors from the origin, modulus circles, and simple loci.
-- Use `vector3DDiagram` for Extension 2 vectors in space: labelled points, arrows, and schematic vector lines.
-- Use the existing statistical, probability, network, triangle, and trapezoidal payloads for their specific domains.
+If no existing renderer covers the required diagram type, build one: add a `*View` component in `app/course/components/`, the type in `lib/lessons/types.ts`, and wire it into `app/components/VisualPayloadRenderer.tsx` before authoring the question.
+
+### Full renderer catalogue
+
+| Payload field | Use for |
+|---|---|
+| `cartesianGraph` | Coordinate graphs, functions, loci, calculus graph reading |
+| `triangleDiagram` | Labelled triangles, side lengths, angles |
+| `boxPlotDiagram` | Box-and-whisker plots, five-number summary |
+| `normalDistributionDiagram` | Normal curves, shaded regions, z-scores |
+| `probabilityTreeDiagram` | Multi-stage probability trees |
+| `twoWayTableDiagram` | Two-way frequency / probability tables |
+| `vennDiagram` | Two- or three-set Venn diagrams |
+| `diagram` / `networkDiagram` | Graphs, networks, critical paths |
+| `trapezoidalRuleDiagram` | Trapezoid strips under a curve |
+| `argandDiagram` | Complex number plots, modulus circles, loci (Ext 2) |
+| `vector3DDiagram` | 3D vectors, labelled points, direction lines (Ext 2) |
+| `unitCircleDiagram` | Unit circle, terminal points, reference angles |
+| `trigGraphDiagram` | Sine / cosine / tangent graphs with key points and asymptotes |
+| `polynomialCurveDiagram` | Polynomial curve sketching — roots, turning points, end behaviour |
+| `slopeFieldDiagram` | Slope fields for differential equations (Ext 2) |
 
 Visual payloads support student understanding, but answers must still be auto-markable unless the question is explicitly for teacher-led discussion.
+
+### The `description` field
+
+Every visual payload has a required `description: string`. Write it as a specific accessibility label — not `"Diagram."` but a sentence describing what it actually shows (labels, values, key features). See [QUESTION_AUTHORING_STANDARD.md](./QUESTION_AUTHORING_STANDARD.md) for examples.
+
+### Diagram-first design
+
+For visual topics, choose the diagram first and write the question around what the student reads from it. Do not add a diagram as an afterthought to a text-first question.
+
+### Multi-part questions + visual payloads
+
+Attach the visual payload to the top-level question only. Part prompts should refer to it with "Using the diagram above…" or "From the graph…". Never duplicate the payload per-part.
 
 ---
 
 ## Multi-part practice (`multiPartPractice`)
 
 **Purpose:** exam-rehearsal. Multi-part questions replicate the structure of HSC Section II items — a shared stem, 2–4 dependent parts, and a marks-based mark scheme. They sit outside the 19-question lesson count and are never required for lesson completion.
+
+**You MUST use the `multiPartPractice` array whenever a question is structurally multi-part** (shared stem, 2–4 dependent parts). The multi-part system is production-ready and supports marks-weighted partial credit. Never collapse a multi-part question into a single unstructured `answer` field.
 
 ### Placement
 
@@ -171,6 +202,7 @@ Do not put a question here because it is hard. Put it here because it is **struc
 - Total marks per question: 4–6. Distribute as: (a) 1–2 marks, (b) 1–2 marks, (c) 2–3 marks.
 - Prefer specific numeric outputs over full equations. Equations have too many equivalent forms; exact matching will produce false negatives.
 - Each part needs its own `hint` and `explanation`. The top-level `hint` and `explanation` are the post-submission summary across all parts.
+- The optional `working?: string[]` field on each part holds KaTeX lines that are rendered as a worked solution panel after submission. Use it for multi-step calculations where the explanation prose alone is not enough to show the working clearly. Each element should be one line of KaTeX (no `$` delimiters).
 
 ### What belongs here
 
