@@ -3039,6 +3039,56 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "dot-product-and-angle", title: "Dot Product and Angle" },
           { slug: "equations-of-lines-3d", title: "Equations of Lines in 3D" },
           { slug: "vector-applications-exam-practice", title: "Vector Applications and Exam Practice" },
+          {
+            slug: "vector-curves-circles-spheres",
+            title: "Vector Equations of Curves, Circles and Spheres",
+            description:
+              "Represent parametric curves as vector equations, recognise the vector forms of circles and spheres, and convert between vector and Cartesian forms.",
+            stableSkillId: "y12e2-v3-vector-curves-circles-spheres",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-v3-curves-parametric-vector",
+                label: "Write a parametric curve as a vector equation r(t) = (x(t), y(t))",
+              },
+              {
+                stableCheckpointId: "y12e2-v3-curves-circle-origin",
+                label: "Recognise |r| = R as the vector equation of a circle centred at the origin",
+              },
+              {
+                stableCheckpointId: "y12e2-v3-curves-circle-centre",
+                label: "Recognise |r − a| = R as the vector equation of a circle centred at a",
+              },
+              {
+                stableCheckpointId: "y12e2-v3-curves-cartesian-from-vector",
+                label: "Find the Cartesian equation of a circle or sphere from its vector form",
+              },
+            ],
+          },
+          {
+            slug: "geometric-proofs-vectors",
+            title: "Geometric Proofs Using Vectors",
+            description:
+              "Use dot product identities — including a·a = |a|², distributivity, and the Cauchy–Schwarz inequality — to prove geometric results about triangles and quadrilaterals.",
+            stableSkillId: "y12e2-v3-geometric-proofs-vectors",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-v3-proofs-dot-self",
+                label: "Apply a·a = |a|² to simplify vector expressions",
+              },
+              {
+                stableCheckpointId: "y12e2-v3-proofs-distributivity",
+                label: "Use dot product distributivity to expand vector expressions in proofs",
+              },
+              {
+                stableCheckpointId: "y12e2-v3-proofs-cauchy-schwarz",
+                label: "State and apply the Cauchy–Schwarz inequality |a·b| ≤ |a||b|",
+              },
+              {
+                stableCheckpointId: "y12e2-v3-proofs-geometric",
+                label: "Use vectors to prove a geometric result (perpendicularity, midpoint, collinearity)",
+              },
+            ],
+          },
         ],
       },
       {
@@ -3174,7 +3224,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "calculus",
         title: "Calculus",
         description:
-          "Extension 2 integration techniques: method selection, integration by parts, reduction formulae, partial fractions, t-substitution (Weierstrass), and trigonometric identities. Volumes of revolution and differential equations are not yet included.",
+          "Extension 2 integration techniques: method selection, integration by parts, reduction formulae, partial fractions, t-substitution (Weierstrass), trigonometric identities, completing the square, and partial fractions with irreducible quadratic factors.",
         syllabusArea: "Calculus",
         focus: "Further calculus methods and applications",
         lessons: [
@@ -3316,16 +3366,91 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               },
             ],
           },
+          {
+            slug: "completing-square-integration",
+            title: "Integration by Completing the Square",
+            description:
+              "Complete the square on a quadratic denominator and use the standard arctan form ∫dx/(x²+a²) = (1/a)arctan(x/a)+C to evaluate integrals of rational functions.",
+            stableSkillId: "y12e2-calc-completing-square-integration",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-calc-csq-complete",
+                label: "Complete the square on a quadratic expression ax² + bx + c",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-csq-standard-form",
+                label: "Apply ∫dx/(x²+a²) = (1/a)arctan(x/a)+C",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-csq-shifted",
+                label: "Integrate ∫dx/((x+h)²+k²) by substituting u = x+h",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-csq-definite",
+                label: "Evaluate definite integrals involving arctan using exact values",
+              },
+            ],
+          },
+          {
+            slug: "partial-fractions-quadratic",
+            title: "Partial Fractions with Quadratic Factors",
+            description:
+              "Decompose rational functions containing irreducible quadratic factors into partial fractions, and use polynomial long division when the degree of the numerator is not less than the degree of the denominator.",
+            stableSkillId: "y12e2-calc-partial-fractions-quadratic",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-calc-pfq-identify",
+                label: "Identify irreducible quadratic factors (discriminant < 0)",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-pfq-setup",
+                label: "Set up (Ax+B)/(x²+bx+c) in the partial fraction decomposition",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-pfq-long-division",
+                label: "Perform polynomial long division when deg(numerator) ≥ deg(denominator)",
+              },
+              {
+                stableCheckpointId: "y12e2-calc-pfq-integrate",
+                label: "Integrate the decomposed form using log and arctan standard results",
+              },
+            ],
+          },
         ],
       },
       {
         slug: "mechanics",
         title: "Mechanics",
         description:
-          "Extension 2 mechanics using calculus: rectilinear motion, simple harmonic motion, uniform circular motion, resisted motion, and projectile motion with air resistance.",
+          "Extension 2 mechanics using calculus: Newton's laws and force resolution, rectilinear motion, simple harmonic motion, uniform circular motion, resisted motion, and projectile motion with air resistance.",
         syllabusArea: "Mechanics",
         focus: "Mechanics modelling and motion",
         lessons: [
+          {
+            slug: "forces-inclined-planes",
+            title: "Forces and Motion on Inclined Planes",
+            description:
+              "Apply Newton's three laws of motion and F = ma to model forces as vectors, resolve weight into components along and perpendicular to a smooth inclined plane, and analyse simple pulley systems.",
+            stableSkillId: "y12e2-mech-forces-inclined-planes",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12e2-mech-forces-newtons-laws",
+                label: "State Newton's three laws of motion and apply F = ma",
+              },
+              {
+                stableCheckpointId: "y12e2-mech-forces-resolve-components",
+                label: "Resolve weight mg into components along and perpendicular to an inclined plane",
+              },
+              {
+                stableCheckpointId: "y12e2-mech-forces-incline-acceleration",
+                label: "Find the acceleration of a body on a smooth inclined plane",
+              },
+              {
+                stableCheckpointId: "y12e2-mech-forces-pulley",
+                label: "Find the acceleration and tension in a simple smooth pulley system",
+              },
+            ],
+          },
           {
             slug: "rectilinear-motion-calculus",
             title: "Rectilinear Motion with Calculus",

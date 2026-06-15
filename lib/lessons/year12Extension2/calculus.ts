@@ -1826,6 +1826,489 @@ const trigIdentityIntegrationLesson: Partial<ExplicitLesson> = {
   ],
 };
 
+// ─── Lesson 7: Integration by Completing the Square ──────────────────────────
+
+const completingSquareIntegrationLesson: Partial<ExplicitLesson> = {
+  description:
+    "Complete the square on a quadratic denominator and use the standard arctan form ∫dx/(x²+a²) = (1/a)arctan(x/a)+C to evaluate integrals of rational functions.",
+  learningIntention:
+    "Reduce quadratic denominators to standard arctan form by completing the square.",
+  successCriteria: [
+    "Complete the square on x² + bx + c to write it as (x + h)² + k².",
+    "Apply the standard form ∫dx/(x² + a²) = (1/a)arctan(x/a) + C.",
+    "Integrate ∫dx/((x + h)² + k²) using the substitution u = x + h.",
+    "Evaluate definite integrals involving arctan using exact values.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Many rational integrands have a quadratic denominator that doesn't factor over ℝ. The technique: complete the square on the denominator to reach a standard arctan form.",
+      "Completing the square: x² + bx + c = (x + b/2)² + (c − b²/4). The second term must be positive for the quadratic to be irreducible.",
+      "Standard form: ∫dx/(x² + a²) = (1/a)arctan(x/a) + C. Memorise this result.",
+      "For a shifted denominator (x + h)² + k², substitute u = x + h, du = dx: ∫dx/((x+h)²+k²) = ∫du/(u²+k²) = (1/k)arctan(u/k) + C = (1/k)arctan((x+h)/k) + C.",
+      "If the numerator contains a linear term such as (2x + b), split it into a multiple of the derivative of the denominator plus a constant, then integrate using log and arctan.",
+    ],
+    latexBlocks: [
+      "x^2+bx+c=\\left(x+\\frac{b}{2}\\right)^2+\\left(c-\\frac{b^2}{4}\\right)",
+      "\\int\\frac{dx}{x^2+a^2}=\\frac{1}{a}\\arctan\\frac{x}{a}+C",
+      "\\int\\frac{dx}{(x+h)^2+k^2}=\\frac{1}{k}\\arctan\\frac{x+h}{k}+C",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Integrate using the standard arctan form",
+      questionLatex: "\\int\\frac{dx}{x^2+9}",
+      steps: [
+        { explanation: "The denominator is already x² + a² with a² = 9, a = 3.", latex: "\\int\\frac{dx}{x^2+3^2}" },
+        { explanation: "Apply the standard form.", latex: "=\\frac{1}{3}\\arctan\\frac{x}{3}+C" },
+      ],
+      finalAnswerLatex: "\\frac{1}{3}\\arctan\\frac{x}{3}+C",
+    },
+    {
+      title: "Complete the square then integrate",
+      questionLatex: "\\int\\frac{dx}{x^2+4x+5}",
+      steps: [
+        { explanation: "Complete the square: x²+4x+5 = (x+2)²+1.", latex: "(x+2)^2+1" },
+        { explanation: "Apply the standard form with h = 2, k = 1.", latex: "\\int\\frac{dx}{(x+2)^2+1}=\\arctan(x+2)+C" },
+      ],
+      finalAnswerLatex: "\\arctan(x+2)+C",
+    },
+  ],
+  guidedPractice: [
+    calcChoice(
+      "y12e2-csq-g1",
+      "Complete the square: x² + 4x + 5 = ?",
+      "A",
+      [
+        "$(x+2)^2+1$",
+        "$(x+2)^2-1$",
+        "$(x+4)^2+5$",
+        "$(x+2)^2+5$",
+      ],
+      "x² + 4x + 5 = (x+2)² − 4 + 5 = (x+2)² + 1.",
+      "Add and subtract (b/2)² = 4 inside."
+    ),
+    calcTyped(
+      "y12e2-csq-g2",
+      "Evaluate $\\displaystyle\\int\\frac{dx}{x^2+4}$.",
+      "\\int\\frac{dx}{x^2+2^2}",
+      "(1/2)arctan(x/2)+C",
+      ["\\frac{1}{2}\\arctan\\frac{x}{2}+C"],
+      "a = 2: ∫dx/(x²+4) = (1/2)arctan(x/2) + C.",
+      "Identify a² = 4, so a = 2. Apply ∫dx/(x²+a²) = (1/a)arctan(x/a)+C."
+    ),
+    calcTyped(
+      "y12e2-csq-g3",
+      "Complete the square on $x^2+6x+10$.",
+      "x^2+6x+10",
+      "(x+3)^2+1",
+      ["(x+3)²+1"],
+      "x² + 6x + 10 = (x+3)² − 9 + 10 = (x+3)² + 1.",
+      "Half of 6 is 3; subtract 3² = 9, then add 10."
+    ),
+    calcChoice(
+      "y12e2-csq-g4",
+      "$\\displaystyle\\int\\frac{dx}{x^2+9}$ equals:",
+      "A",
+      [
+        "$\\dfrac{1}{3}\\arctan\\dfrac{x}{3}+C$",
+        "$\\arctan(3x)+C$",
+        "$3\\arctan(x/3)+C$",
+        "$\\ln(x^2+9)+C$",
+      ],
+      "a = 3: (1/3)arctan(x/3) + C.",
+      "Identify a = 3 and apply the standard formula."
+    ),
+  ],
+  independentPractice: [
+    calcTyped(
+      "y12e2-csq-i1",
+      "Evaluate $\\displaystyle\\int\\frac{dx}{x^2+1}$.",
+      "\\int\\frac{dx}{x^2+1^2}",
+      "arctan(x)+C",
+      ["\\arctan x+C"],
+      "a = 1: arctan(x) + C.",
+      "Apply the standard form with a = 1."
+    ),
+    calcTyped(
+      "y12e2-csq-i2",
+      "Complete the square on $x^2-2x+5$, then integrate $\\displaystyle\\int\\frac{dx}{x^2-2x+5}$.",
+      "x^2-2x+5=(x-1)^2+4",
+      "(1/2)arctan((x-1)/2)+C",
+      ["\\frac{1}{2}\\arctan\\frac{x-1}{2}+C"],
+      "x²−2x+5 = (x−1)²+4. Then (1/2)arctan((x−1)/2)+C.",
+      "Complete the square first: x²−2x+5 = (x−1)²+4."
+    ),
+    calcTyped(
+      "y12e2-csq-i3",
+      "Evaluate $\\displaystyle\\int\\frac{dx}{x^2+6x+10}$.",
+      "x^2+6x+10=(x+3)^2+1",
+      "arctan(x+3)+C",
+      ["\\arctan(x+3)+C"],
+      "x²+6x+10 = (x+3)²+1. Integral = arctan(x+3)+C.",
+      "Complete the square: x²+6x+10 = (x+3)²+1. Then k=1."
+    ),
+    calcTyped(
+      "y12e2-csq-i4",
+      "Evaluate $\\displaystyle\\int\\frac{dx}{(x+3)^2+4}$.",
+      "\\int\\frac{du}{u^2+4},\\; u=x+3",
+      "(1/2)arctan((x+3)/2)+C",
+      ["\\frac{1}{2}\\arctan\\frac{x+3}{2}+C"],
+      "u = x+3, k = 2: (1/2)arctan((x+3)/2)+C.",
+      "Substitute u = x+3, so the integral becomes ∫du/(u²+4)."
+    ),
+    calcChoice(
+      "y12e2-csq-i5",
+      "To integrate $\\displaystyle\\int\\frac{dx}{(x+2)^2+9}$, the first substitution is:",
+      "A",
+      ["$u = x+2$", "$u = x^2+9$", "$u = \\tan x$", "$u = (x+2)^2$"],
+      "Substitute u = x+2, du = dx. The integral becomes ∫du/(u²+9) = (1/3)arctan(u/3)+C.",
+      "Shift to remove the linear term inside the square."
+    ),
+  ],
+  masteryQuiz: [
+    calcTyped(
+      "y12e2-csq-m1",
+      "Evaluate $\\displaystyle\\int\\frac{dx}{x^2+4}$.",
+      "\\int\\frac{dx}{x^2+2^2}",
+      "(1/2)arctan(x/2)+C",
+      ["\\frac{1}{2}\\arctan\\frac{x}{2}+C"],
+      "a = 2: (1/2)arctan(x/2)+C."
+    ),
+    calcTyped(
+      "y12e2-csq-m2",
+      "Complete the square on $x^2+4x+7$.",
+      "x^2+4x+7",
+      "(x+2)^2+3",
+      ["(x+2)²+3"],
+      "(x+2)² − 4 + 7 = (x+2)² + 3."
+    ),
+    calcChoice(
+      "y12e2-csq-m3",
+      "$\\displaystyle\\int\\frac{du}{u^2+a^2}$ equals:",
+      "A",
+      [
+        "$\\dfrac{1}{a}\\arctan\\dfrac{u}{a}+C$",
+        "$a\\arctan(au)+C$",
+        "$\\dfrac{1}{a^2}\\arctan u+C$",
+        "$\\ln(u^2+a^2)+C$",
+      ],
+      "Standard result: ∫du/(u²+a²) = (1/a)arctan(u/a)+C.",
+      "This is the standard arctan integral formula."
+    ),
+    calcTyped(
+      "y12e2-csq-m4",
+      "Evaluate $\\displaystyle\\int\\frac{dx}{x^2-4x+5}$.",
+      "x^2-4x+5=(x-2)^2+1",
+      "arctan(x-2)+C",
+      ["\\arctan(x-2)+C"],
+      "x²−4x+5 = (x−2)²+1. Integral = arctan(x−2)+C."
+    ),
+    calcTyped(
+      "y12e2-csq-m5",
+      "Evaluate $\\displaystyle\\int\\frac{dx}{x^2+2x+2}$.",
+      "x^2+2x+2=(x+1)^2+1",
+      "arctan(x+1)+C",
+      ["\\arctan(x+1)+C"],
+      "(x+1)²+1. Integral = arctan(x+1)+C."
+    ),
+    calcChoice(
+      "y12e2-csq-m6",
+      "To integrate $\\displaystyle\\int\\frac{dx}{x^2+6x+13}$, the first step is:",
+      "B",
+      [
+        "Substitute $u=x^2+6x+13$",
+        "Complete the square: $x^2+6x+13=(x+3)^2+4$",
+        "Use partial fractions",
+        "Differentiate the denominator",
+      ],
+      "Complete the square first: x²+6x+13 = (x+3)²+4. Then apply the standard arctan form.",
+      "The denominator is a shifted, irreducible quadratic — complete the square."
+    ),
+    calcTyped(
+      "y12e2-csq-m7",
+      "Evaluate $\\displaystyle\\int_0^1\\frac{dx}{x^2+1}$.",
+      "\\left[\\arctan x\\right]_0^1",
+      "pi/4",
+      ["π/4", "\\pi/4"],
+      "[arctan x]₀¹ = arctan(1) − arctan(0) = π/4 − 0 = π/4."
+    ),
+    calcTyped(
+      "y12e2-csq-m8",
+      "Evaluate $\\displaystyle\\int\\frac{dx}{x^2+4x+8}$.",
+      "x^2+4x+8=(x+2)^2+4",
+      "(1/2)arctan((x+2)/2)+C",
+      ["\\frac{1}{2}\\arctan\\frac{x+2}{2}+C"],
+      "(x+2)²+4. k=2: (1/2)arctan((x+2)/2)+C."
+    ),
+    calcChoice(
+      "y12e2-csq-m9",
+      "$\\displaystyle\\int\\frac{dx}{x^2+a^2}$:",
+      "A",
+      [
+        "$\\dfrac{1}{a}\\arctan\\dfrac{x}{a}+C$",
+        "$\\arctan(ax)+C$",
+        "$\\dfrac{1}{2a}\\ln(x^2+a^2)+C$",
+        "$\\dfrac{x}{a^2}+C$",
+      ],
+      "Standard arctan form: (1/a)arctan(x/a)+C.",
+      "Recall the standard arctan integral."
+    ),
+    calcTyped(
+      "y12e2-csq-m10",
+      "Evaluate $\\displaystyle\\int\\frac{dx}{4x^2+1}$. (Hint: write as $\\int\\frac{dx}{(2x)^2+1}$ and use substitution $u=2x$.)",
+      "u=2x,\\;du=2\\,dx:\\quad\\tfrac{1}{2}\\int\\frac{du}{u^2+1}",
+      "(1/2)arctan(2x)+C",
+      ["\\frac{1}{2}\\arctan(2x)+C"],
+      "u = 2x, du = 2dx. (1/2)∫du/(u²+1) = (1/2)arctan(2x)+C.",
+      "Factor 4 from the denominator or substitute u = 2x."
+    ),
+  ],
+};
+
+// ─── Lesson 8: Partial Fractions with Quadratic Factors ───────────────────────
+
+const partialFractionsQuadraticLesson: Partial<ExplicitLesson> = {
+  description:
+    "Decompose rational functions containing irreducible quadratic factors into partial fractions, and use polynomial long division when the degree of the numerator is not less than the degree of the denominator.",
+  learningIntention:
+    "Extend partial fraction decomposition to irreducible quadratic factors, and handle improper rational functions using long division.",
+  successCriteria: [
+    "Identify an irreducible quadratic factor (discriminant b² − 4ac < 0).",
+    "Set up the partial fraction form (Ax + B)/(x² + bx + c) for each irreducible quadratic factor.",
+    "Find coefficients by equating numerators and solving the system.",
+    "Perform polynomial long division when deg(numerator) ≥ deg(denominator).",
+    "Integrate the decomposed form using log and arctan standard results.",
+  ],
+  teaching: {
+    paragraphs: [
+      "An irreducible quadratic ax² + bx + c has discriminant b² − 4ac < 0 and cannot be factored into real linear factors. For each such factor in the denominator, the partial fraction contribution has the form (Ax + B)/(ax² + bx + c).",
+      "Setting up: for a denominator like x(x² + 1), the decomposition is A/x + (Bx + C)/(x² + 1). Multiply through by the full denominator, then substitute convenient values of x or equate coefficients to find A, B, C.",
+      "Integrating (Ax + B)/(x² + k²): split the numerator into a multiple of the derivative of the denominator plus a remainder. The derivative of x² + k² is 2x, so write Ax + B = (A/2)(2x) + B. This gives (A/2)·∫2x/(x²+k²)dx + B∫dx/(x²+k²) = (A/2)ln(x²+k²) + (B/k)arctan(x/k) + C.",
+      "Improper fractions: if deg(numerator) ≥ deg(denominator), perform polynomial long division first to write the integrand as a polynomial plus a proper rational function, then decompose the remainder.",
+    ],
+    latexBlocks: [
+      "\\frac{P(x)}{x(x^2+k^2)}=\\frac{A}{x}+\\frac{Bx+C}{x^2+k^2}",
+      "\\int\\frac{Ax+B}{x^2+k^2}\\,dx=\\frac{A}{2}\\ln(x^2+k^2)+\\frac{B}{k}\\arctan\\frac{x}{k}+C",
+      "\\text{If }\\deg P\\geq\\deg Q:\\quad\\frac{P(x)}{Q(x)}=\\text{quotient}+\\frac{\\text{remainder}}{Q(x)}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Partial fractions with an irreducible quadratic",
+      questionLatex: "\\text{Decompose }\\frac{1}{x(x^2+1)}.",
+      steps: [
+        { explanation: "Set up: A/x + (Bx+C)/(x²+1).", latex: "\\frac{1}{x(x^2+1)}=\\frac{A}{x}+\\frac{Bx+C}{x^2+1}" },
+        { explanation: "Multiply through by x(x²+1).", latex: "1=A(x^2+1)+(Bx+C)x" },
+        { explanation: "Substitute x = 0: 1 = A(1) → A = 1.", latex: "A=1" },
+        { explanation: "Expand and compare coefficients of x²: 0 = A + B → B = −1.", latex: "B=-1" },
+        { explanation: "Compare coefficients of x: 0 = C.", latex: "C=0" },
+      ],
+      finalAnswerLatex: "\\frac{1}{x}-\\frac{x}{x^2+1}",
+    },
+    {
+      title: "Long division before integrating",
+      questionLatex: "\\int\\frac{x^2}{x+1}\\,dx",
+      steps: [
+        { explanation: "Divide: x² ÷ (x+1) = x − 1 remainder 1.", latex: "\\frac{x^2}{x+1}=x-1+\\frac{1}{x+1}" },
+        { explanation: "Integrate each term.", latex: "\\int\\!\\left(x-1+\\frac{1}{x+1}\\right)dx=\\frac{x^2}{2}-x+\\ln|x+1|+C" },
+      ],
+      finalAnswerLatex: "\\frac{x^2}{2}-x+\\ln|x+1|+C",
+    },
+  ],
+  guidedPractice: [
+    calcChoice(
+      "y12e2-pfq-g1",
+      "Which of the following is an irreducible quadratic?",
+      "C",
+      [
+        "$x^2-4$ (factors as $(x-2)(x+2)$)",
+        "$x^2-1$ (factors as $(x-1)(x+1)$)",
+        "$x^2+1$ (discriminant $-4 < 0$)",
+        "$x^2+3x+2$ (factors as $(x+1)(x+2)$)",
+      ],
+      "x² + 1 has discriminant 0 − 4 = −4 < 0: it does not factor over ℝ.",
+      "Check discriminant b² − 4ac. Negative means irreducible."
+    ),
+    calcChoice(
+      "y12e2-pfq-g2",
+      "For $\\dfrac{2}{x(x^2+1)}$, the correct partial fraction form is:",
+      "A",
+      [
+        "$\\dfrac{A}{x}+\\dfrac{Bx+C}{x^2+1}$",
+        "$\\dfrac{A}{x}+\\dfrac{B}{x^2+1}$",
+        "$\\dfrac{A}{x}+\\dfrac{B}{x}+\\dfrac{C}{x^2+1}$",
+        "$\\dfrac{Ax+B}{x(x^2+1)}$",
+      ],
+      "For an irreducible quadratic factor, use (Bx+C) in the numerator.",
+      "An irreducible quadratic factor x²+1 requires a linear numerator Bx+C."
+    ),
+    calcTyped(
+      "y12e2-pfq-g3",
+      "For $\\dfrac{1}{x(x^2+1)}=\\dfrac{A}{x}+\\dfrac{Bx+C}{x^2+1}$, multiply through by $x(x^2+1)$ and set $x=0$ to find $A$.",
+      "1=A(x^2+1)+(Bx+C)x,\\;x=0",
+      "1",
+      [],
+      "At x = 0: 1 = A(1) → A = 1.",
+      "Substitute x = 0 to isolate A."
+    ),
+    calcTyped(
+      "y12e2-pfq-g4",
+      "Perform polynomial long division: divide $x^2+1$ by $x+1$.",
+      "x^2+1=(x+1)(\\,?\\,)+\\text{remainder}",
+      "x-1 remainder 2",
+      ["quotient x-1, remainder 2", "x-1 r 2"],
+      "x²+1 = (x+1)(x−1) + 2. Quotient: x−1, remainder: 2.",
+      "Divide: x² ÷ x = x. Subtract x(x+1) = x²+x. Remainder: −x+1. Then −x ÷ x = −1. Subtract −1(x+1) = −x−1. Remainder: 2."
+    ),
+  ],
+  independentPractice: [
+    calcTyped(
+      "y12e2-pfq-i1",
+      "From $\\dfrac{1}{x(x^2+1)}=\\dfrac{1}{x}+\\dfrac{Bx+C}{x^2+1}$, use the coefficient of $x^2$ to find $B$.",
+      "0=A+B=1+B",
+      "-1",
+      [],
+      "Coefficient of x²: 0 = A + B = 1 + B → B = −1.",
+      "Expand 1 = A(x²+1) + (Bx+C)x and compare the x² coefficients."
+    ),
+    calcTyped(
+      "y12e2-pfq-i2",
+      "Given $\\dfrac{1}{x(x^2+1)}=\\dfrac{1}{x}-\\dfrac{x}{x^2+1}$, evaluate $\\displaystyle\\int\\frac{1}{x(x^2+1)}\\,dx$.",
+      "\\int\\!\\left(\\frac{1}{x}-\\frac{x}{x^2+1}\\right)dx",
+      "ln|x|-(1/2)ln(x^2+1)+C",
+      ["\\ln|x|-\\tfrac{1}{2}\\ln(x^2+1)+C"],
+      "∫1/x dx = ln|x|. ∫x/(x²+1) dx = (1/2)ln(x²+1). Result: ln|x| − (1/2)ln(x²+1) + C.",
+      "∫x/(x²+1)dx: let u = x²+1, du = 2x dx → (1/2)∫du/u = (1/2)ln(x²+1)."
+    ),
+    calcTyped(
+      "y12e2-pfq-i3",
+      "Evaluate $\\displaystyle\\int\\frac{1}{x^2+1}\\,dx$.",
+      "\\int\\frac{dx}{x^2+1}",
+      "arctan(x)+C",
+      ["\\arctan x+C"],
+      "Standard result: arctan(x) + C."
+    ),
+    calcChoice(
+      "y12e2-pfq-i4",
+      "After long division, $\\dfrac{x^3+x}{x^2+1}$ equals:",
+      "A",
+      [
+        "$x$ (since $x^3+x = x(x^2+1)$, so the remainder is 0)",
+        "$x^2+1$",
+        "$x-1+\\dfrac{2}{x^2+1}$",
+        "$x^2$",
+      ],
+      "x³+x = x(x²+1) exactly, so x³+x ÷ (x²+1) = x with no remainder.",
+      "Check: x × (x²+1) = x³+x. The division is exact."
+    ),
+    calcTyped(
+      "y12e2-pfq-i5",
+      "Divide $x^2$ by $(x+1)$ using long division.",
+      "x^2=(x+1)(\\,?\\,)+\\text{remainder}",
+      "x-1 remainder 1",
+      ["quotient x-1, remainder 1"],
+      "x² = (x+1)(x−1) + 1. Quotient x−1, remainder 1.",
+      "x² ÷ x = x. Subtract x(x+1). Then: −x ÷ x = −1. Subtract −(x+1). Remainder: 1."
+    ),
+  ],
+  masteryQuiz: [
+    calcChoice(
+      "y12e2-pfq-m1",
+      "An irreducible quadratic factor has discriminant:",
+      "B",
+      ["Greater than zero", "Less than zero", "Equal to zero", "Equal to one"],
+      "Discriminant b²−4ac < 0 means no real roots — the quadratic is irreducible over ℝ.",
+      "Irreducible over ℝ means the discriminant is negative."
+    ),
+    calcTyped(
+      "y12e2-pfq-m2",
+      "For $\\dfrac{x+2}{x(x^2+1)}=\\dfrac{A}{x}+\\dfrac{Bx+C}{x^2+1}$, find $A$ by substituting $x=0$.",
+      "x=0:\\;x+2=A(x^2+1)",
+      "2",
+      [],
+      "At x=0: 0+2 = A(1) → A = 2.",
+      "Multiply both sides by x(x²+1) then set x=0."
+    ),
+    calcTyped(
+      "y12e2-pfq-m3",
+      "Evaluate $\\displaystyle\\int\\frac{x}{x^2+1}\\,dx$.",
+      "\\int\\frac{x}{x^2+1}\\,dx",
+      "(1/2)ln(x^2+1)+C",
+      ["\\tfrac{1}{2}\\ln(x^2+1)+C"],
+      "Let u = x²+1, du = 2x dx. (1/2)∫du/u = (1/2)ln(x²+1)+C."
+    ),
+    calcChoice(
+      "y12e2-pfq-m4",
+      "$\\displaystyle\\int\\frac{Ax+B}{x^2+k^2}\\,dx$ can be split into:",
+      "A",
+      [
+        "A log term from $Ax/(x^2+k^2)$ and an arctan term from $B/(x^2+k^2)$",
+        "Two arctan terms",
+        "Two log terms",
+        "A power term and a log term",
+      ],
+      "∫Ax/(x²+k²) dx = (A/2)ln(x²+k²). ∫B/(x²+k²) dx = (B/k)arctan(x/k).",
+      "Split the numerator: Ax integrates via log, B integrates via arctan."
+    ),
+    calcTyped(
+      "y12e2-pfq-m5",
+      "Integrate $\\displaystyle\\int\\frac{x}{x^2+4}\\,dx$.",
+      "\\int\\frac{x}{x^2+4}\\,dx",
+      "(1/2)ln(x^2+4)+C",
+      ["\\tfrac{1}{2}\\ln(x^2+4)+C"],
+      "Let u = x²+4, du = 2x dx. (1/2)ln(x²+4)+C."
+    ),
+    calcTyped(
+      "y12e2-pfq-m6",
+      "Long divide: $\\dfrac{x^2+2x}{x+1}$. Write as quotient + remainder/(x+1).",
+      "x^2+2x=(x+1)(\\,?\\,)+\\text{rem}",
+      "x+1 remainder -1",
+      ["x+1, remainder -1", "quotient x+1, remainder -1"],
+      "x²+2x = (x+1)(x+1) − 1. Quotient: x+1, remainder: −1.",
+      "Divide: x²+2x ÷ (x+1). First term: x. Subtract x(x+1)=x²+x. Remainder: x. Next: x÷x=1. Subtract 1(x+1)=x+1. Remainder: −1."
+    ),
+    calcChoice(
+      "y12e2-pfq-m7",
+      "After long division, $\\dfrac{x^2}{x+1} = x-1+\\dfrac{\\square}{x+1}$. What goes in the box?",
+      "A",
+      ["1", "2", "x", "0"],
+      "x² = (x+1)(x−1) + 1. So x²/(x+1) = x−1 + 1/(x+1).",
+      "Long divide: x²÷(x+1). The remainder when x²=(x+1)(x-1)+1 is 1."
+    ),
+    calcTyped(
+      "y12e2-pfq-m8",
+      "Evaluate $\\displaystyle\\int\\frac{x^2+1}{x-1}\\,dx$ (long divide first).",
+      "\\frac{x^2+1}{x-1}=x+1+\\frac{2}{x-1}",
+      "x^2/2+x+2ln|x-1|+C",
+      ["\\frac{x^2}{2}+x+2\\ln|x-1|+C"],
+      "x²+1 = (x−1)(x+1)+2. Integrate: x²/2+x+2ln|x−1|+C.",
+      "Divide x²+1 by (x−1): quotient x+1, remainder 2."
+    ),
+    calcTyped(
+      "y12e2-pfq-m9",
+      "Given $\\dfrac{1}{(x-1)(x^2+1)}=\\dfrac{A}{x-1}+\\dfrac{Bx+C}{x^2+1}$, find $A$.",
+      "x=1:\\;1=A(1^2+1)",
+      "1/2",
+      ["0.5"],
+      "At x=1: 1 = A(2) → A = 1/2.",
+      "Substitute x = 1 to find A."
+    ),
+    calcChoice(
+      "y12e2-pfq-m10",
+      "$\\displaystyle\\int\\frac{Ax+B}{x^2+a^2}\\,dx$ — the arctan part comes from:",
+      "B",
+      [
+        "The $Ax$ in the numerator",
+        "The constant $B$ in the numerator",
+        "The $a^2$ in the denominator",
+        "Long division",
+      ],
+      "∫B/(x²+a²) dx = (B/a)arctan(x/a)+C. The constant B in the numerator produces the arctan term.",
+      "Split the numerator: ∫Ax/(x²+a²) → log; ∫B/(x²+a²) → arctan."
+    ),
+  ],
+};
+
 // ─── Export ───────────────────────────────────────────────────────────────────
 
 export function year12Extension2CalculusLessonOverride(
@@ -1851,6 +2334,10 @@ export function year12Extension2CalculusLessonOverride(
       return { ...base, ...tSubstitutionLesson };
     case "trig-identity-integration":
       return { ...base, ...trigIdentityIntegrationLesson };
+    case "completing-square-integration":
+      return { ...base, ...completingSquareIntegrationLesson };
+    case "partial-fractions-quadratic":
+      return { ...base, ...partialFractionsQuadraticLesson };
     default:
       return undefined;
   }

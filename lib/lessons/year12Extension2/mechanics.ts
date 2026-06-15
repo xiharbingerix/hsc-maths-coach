@@ -1505,6 +1505,243 @@ const projectileMotionResistanceLesson: Partial<ExplicitLesson> = {
   ],
 };
 
+// ─── Lesson 6: Forces and Motion on Inclined Planes ──────────────────────────
+
+const forcesInclinedPlanesLesson: Partial<ExplicitLesson> = {
+  description:
+    "Apply Newton's three laws of motion and F = ma to model forces as vectors, resolve weight into components along and perpendicular to a smooth inclined plane, and analyse simple pulley systems.",
+  learningIntention:
+    "Use Newton's laws and component resolution to find acceleration and tension in inclined plane and pulley problems.",
+  successCriteria: [
+    "State Newton's three laws of motion and apply F = ma to find acceleration.",
+    "Identify all forces acting on a body (weight mg, normal reaction N, tension T).",
+    "Resolve the weight component along a smooth incline as mg sinθ and perpendicular as mg cosθ.",
+    "Find the acceleration of a body on a smooth inclined plane.",
+    "Find the acceleration and tension in a simple smooth pulley system using Newton's 2nd law for each body.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Newton's laws of motion: (1) A body remains at rest or moves at constant velocity unless a net force acts on it. (2) The net force equals mass times acceleration: F = ma. (3) Every action has an equal and opposite reaction.",
+      "Forces are vector quantities. On a body of mass m, the weight mg acts vertically downward; the normal reaction N acts perpendicular to the surface; tension T acts along a string.",
+      "Resolving on an inclined plane at angle θ: the weight mg resolves into mg sinθ along the slope (down) and mg cosθ perpendicular to the slope. On a smooth (frictionless) surface, N = mg cosθ and the net force along the slope is mg sinθ, giving acceleration a = g sinθ.",
+      "Pulley system: two masses M > m connected over a smooth pulley by a light inextensible string. Applying F = ma to each mass separately: Mg − T = Ma and T − mg = ma. Adding: (M − m)g = (M + m)a, so a = (M − m)g/(M + m). Tension: T = 2Mmg/(M + m).",
+    ],
+    latexBlocks: [
+      "F = ma\\quad\\text{(Newton's 2nd law)}",
+      "\\text{Inclined plane (smooth):}\\quad a=g\\sin\\theta,\\quad N=mg\\cos\\theta",
+      "\\text{Pulley (}M>m\\text{)}:\\quad a=\\frac{(M-m)g}{M+m},\\quad T=\\frac{2Mmg}{M+m}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Acceleration on a smooth inclined plane",
+      questionLatex: "\\text{A 4 kg block is on a smooth plane inclined at }30°.\\text{ Find the acceleration down the slope.}",
+      steps: [
+        { explanation: "The net force along the slope is the component of weight along the slope.", latex: "F=mg\\sin30°=4\\times10\\times\\tfrac{1}{2}=20\\text{ N}" },
+        { explanation: "Apply F = ma.", latex: "a=\\frac{F}{m}=\\frac{20}{4}=5\\text{ m/s}^2" },
+      ],
+      finalAnswerLatex: "a = 5\\text{ m/s}^2\\text{ down the slope}",
+    },
+    {
+      title: "Smooth pulley — acceleration and tension",
+      questionLatex: "\\text{Masses }M=6\\text{ kg and }m=4\\text{ kg are connected over a smooth pulley. Find }a\\text{ and }T.\\text{ (Use }g=10.)",
+      steps: [
+        { explanation: "Apply Newton's 2nd law to each mass.", latex: "6g-T=6a\\quad\\text{and}\\quad T-4g=4a" },
+        { explanation: "Add the equations.", latex: "2g=10a\\implies a=2\\text{ m/s}^2" },
+        { explanation: "Find tension from the second equation.", latex: "T=4(a+g)=4(2+10)=48\\text{ N}" },
+      ],
+      finalAnswerLatex: "a=2\\text{ m/s}^2,\\quad T=48\\text{ N}",
+    },
+  ],
+  guidedPractice: [
+    mechChoice(
+      "y12e2-fip-g1",
+      "Newton's 2nd law states:",
+      "A",
+      ["F = ma", "F = m/a", "F = v/t", "a = m/F"],
+      "Newton's 2nd law: the net force equals mass times acceleration, F = ma.",
+      "Recall Newton's second law."
+    ),
+    mechTyped(
+      "y12e2-fip-g2",
+      "A net force of 30 N acts on a 5 kg mass. Find the acceleration.",
+      "F=ma,\\quad F=30\\text{ N},\\;m=5\\text{ kg}",
+      "6",
+      [],
+      "a = F/m = 30/5 = 6 m/s².",
+      "Rearrange F = ma to a = F/m."
+    ),
+    mechChoice(
+      "y12e2-fip-g3",
+      "On a smooth inclined plane at angle θ, the component of weight along the slope (directed down the slope) is:",
+      "A",
+      ["mg sinθ", "mg cosθ", "mg tanθ", "mg"],
+      "The component of weight along the slope is mg sinθ. The component perpendicular to the slope is mg cosθ.",
+      "Draw a right triangle with the weight vector and resolve parallel and perpendicular to the slope."
+    ),
+    mechTyped(
+      "y12e2-fip-g4",
+      "Find the normal reaction N for a 10 kg block on a smooth plane inclined at 30°. Use g = 10.",
+      "N=mg\\cos30°",
+      "50*sqrt(3)",
+      ["50√3", "86.6", "50\\sqrt{3}"],
+      "N = mg cos30° = 10×10×(√3/2) = 50√3 ≈ 86.6 N.",
+      "The normal reaction balances the perpendicular component of weight: N = mg cosθ."
+    ),
+  ],
+  independentPractice: [
+    mechTyped(
+      "y12e2-fip-i1",
+      "A 3 kg block is released from rest on a smooth incline at 30°. Find its acceleration (g = 10).",
+      "a=g\\sin30°",
+      "5",
+      [],
+      "a = g sin30° = 10×0.5 = 5 m/s².",
+      "Net force along slope = mg sinθ. Apply F = ma: a = g sinθ."
+    ),
+    mechTyped(
+      "y12e2-fip-i2",
+      "A 5 kg block sits on a smooth plane at 45°. Find N (normal reaction). Use g = 10.",
+      "N=mg\\cos45°",
+      "25*sqrt(2)",
+      ["25√2", "35.4"],
+      "N = 5×10×cos45° = 50×(1/√2) = 25√2 ≈ 35.4 N.",
+      "N = mg cos45°."
+    ),
+    mechChoice(
+      "y12e2-fip-i3",
+      "For two masses M > m connected over a smooth pulley, the acceleration is:",
+      "A",
+      [
+        "$\\dfrac{(M-m)g}{M+m}$",
+        "$\\dfrac{(M+m)g}{M-m}$",
+        "$\\dfrac{Mg}{M+m}$",
+        "$\\dfrac{mg}{M+m}$",
+      ],
+      "Adding Newton's 2nd law equations for both masses: (M−m)g = (M+m)a, so a = (M−m)g/(M+m).",
+      "Write F=ma for each mass and add the equations."
+    ),
+    mechTyped(
+      "y12e2-fip-i4",
+      "Masses M = 8 kg and m = 2 kg are connected over a smooth pulley (g = 10). Find the acceleration.",
+      "a=\\frac{(M-m)g}{M+m}=\\frac{6\\times10}{10}",
+      "6",
+      [],
+      "a = (8−2)×10/(8+2) = 60/10 = 6 m/s².",
+      "Apply a = (M−m)g/(M+m)."
+    ),
+    mechTyped(
+      "y12e2-fip-i5",
+      "For M = 8 kg, m = 2 kg over a smooth pulley with a = 6 m/s², find the tension T in the string. (Use m·a = T − mg with g = 10.)",
+      "T=m(a+g)=2(6+10)",
+      "32",
+      [],
+      "T = m(a+g) = 2×(6+10) = 2×16 = 32 N.",
+      "Apply F = ma to the lighter mass: T − mg = ma → T = m(a+g)."
+    ),
+  ],
+  masteryQuiz: [
+    mechChoice(
+      "y12e2-fip-m1",
+      "Newton's 3rd law states:",
+      "A",
+      [
+        "Every action has an equal and opposite reaction",
+        "F = ma",
+        "A body moves at constant velocity if no net force acts",
+        "Force equals momentum divided by time",
+      ],
+      "Newton's 3rd law: for every action there is an equal and opposite reaction.",
+      "Recall the statement of Newton's 3rd law."
+    ),
+    mechTyped(
+      "y12e2-fip-m2",
+      "A force of 42 N acts on a 6 kg mass. Find the acceleration.",
+      "a=F/m",
+      "7",
+      [],
+      "a = 42/6 = 7 m/s²."
+    ),
+    mechChoice(
+      "y12e2-fip-m3",
+      "On a smooth inclined plane, which forces act on the block?",
+      "A",
+      [
+        "Weight mg downward and normal reaction N perpendicular to the surface",
+        "Weight mg along the slope and N upward",
+        "Only weight mg",
+        "Weight mg and friction up the slope",
+      ],
+      "On a smooth (frictionless) inclined plane: weight mg acts vertically downward and normal reaction N acts perpendicular to the surface. No friction.",
+      "Smooth means frictionless. Identify all forces on the block."
+    ),
+    mechTyped(
+      "y12e2-fip-m4",
+      "A 2 kg block is on a smooth plane at 60°. Find the acceleration down the slope (g = 10).",
+      "a=g\\sin60°",
+      "5*sqrt(3)",
+      ["5√3", "8.66"],
+      "a = g sin60° = 10×(√3/2) = 5√3 ≈ 8.66 m/s².",
+      "a = g sinθ for a smooth inclined plane."
+    ),
+    mechTyped(
+      "y12e2-fip-m5",
+      "Masses M = 7 kg and m = 3 kg over a smooth pulley (g = 10). Find acceleration.",
+      "a=\\frac{(7-3)\\times10}{7+3}",
+      "4",
+      [],
+      "a = (4×10)/10 = 4 m/s²."
+    ),
+    mechTyped(
+      "y12e2-fip-m6",
+      "For M = 7 kg, m = 3 kg, a = 4 m/s² (g = 10). Find tension T using the lighter mass.",
+      "T=m(a+g)=3(4+10)",
+      "42",
+      [],
+      "T = 3×(4+10) = 3×14 = 42 N.",
+      "Apply F=ma to the lighter mass: T−mg = ma → T = m(a+g)."
+    ),
+    mechChoice(
+      "y12e2-fip-m7",
+      "On a smooth horizontal surface, a horizontal force F acts on mass m. The normal reaction N equals:",
+      "B",
+      ["$F$", "$mg$", "$\\sqrt{F^2+(mg)^2}$", "$F/m$"],
+      "On a horizontal surface, the normal reaction N balances gravity: N = mg. The horizontal force F causes horizontal acceleration; it does not affect N.",
+      "Resolve vertically: N − mg = 0 (no vertical acceleration on a horizontal surface)."
+    ),
+    mechTyped(
+      "y12e2-fip-m8",
+      "A block is on a smooth incline at angle θ = sin⁻¹(3/5). Find its acceleration (g = 10).",
+      "a=g\\sin\\theta=10\\times\\frac{3}{5}",
+      "6",
+      [],
+      "sinθ = 3/5. a = 10×(3/5) = 6 m/s²."
+    ),
+    mechTyped(
+      "y12e2-fip-m9",
+      "Two masses 5 kg and 5 kg are connected over a smooth pulley. Find the acceleration.",
+      "a=\\frac{(5-5)g}{5+5}",
+      "0",
+      [],
+      "a = 0×g/10 = 0. Equal masses → no acceleration; the system is in equilibrium.",
+      "Apply a = (M−m)g/(M+m). When M = m, numerator is zero."
+    ),
+    mechChoice(
+      "y12e2-fip-m10",
+      "Increasing θ (the angle of a smooth incline) while keeping mass constant:",
+      "A",
+      [
+        "Increases the acceleration (since a = g sinθ increases with θ)",
+        "Decreases the acceleration",
+        "Has no effect on acceleration",
+        "Increases N and decreases acceleration",
+      ],
+      "a = g sinθ. As θ increases from 0° to 90°, sinθ increases from 0 to 1, so acceleration increases.",
+      "Recall a = g sinθ and consider how sinθ changes with θ."
+    ),
+  ],
+};
+
 // ─── Export ───────────────────────────────────────────────────────────────────
 
 export function year12Extension2MechanicsLessonOverride(
@@ -1518,6 +1755,8 @@ export function year12Extension2MechanicsLessonOverride(
   const base = { masteryPassMark: 0.8 };
 
   switch (lesson.slug) {
+    case "forces-inclined-planes":
+      return { ...base, ...forcesInclinedPlanesLesson };
     case "rectilinear-motion-calculus":
       return { ...base, ...rectilinearMotionLesson };
     case "simple-harmonic-motion-extended":

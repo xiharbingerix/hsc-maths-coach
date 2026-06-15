@@ -1080,6 +1080,437 @@ const vectorApplicationsExamPractice: Partial<ExplicitLesson> = {
   ],
 };
 
+// ─── Lesson 5: Vector Equations of Curves, Circles and Spheres ───────────────
+
+const vectorCurvesCirclesSpheres: Partial<ExplicitLesson> = {
+  description:
+    "Represent parametric curves as vector equations, recognise the vector forms of circles and spheres, and convert between vector and Cartesian forms.",
+  learningIntention:
+    "Write and interpret vector equations for parametric curves, circles and spheres, and convert to Cartesian form.",
+  successCriteria: [
+    "Write a parametric curve as a vector equation r(t) = (x(t), y(t)).",
+    "Recognise |r| = R as the vector equation of a circle of radius R centred at the origin.",
+    "Recognise |r − a| = R as the vector equation of a circle of radius R centred at the point with position vector a.",
+    "Find the Cartesian equation of a circle from its vector form.",
+    "Recognise |r − a| = R in three dimensions as the equation of a sphere.",
+  ],
+  teaching: {
+    paragraphs: [
+      "A parametric curve in 2D is described by a vector equation r(t) = (x(t), y(t)), where t is a parameter. Each value of t produces one point on the curve. For example, r(t) = (cos t, sin t) traces the unit circle as t varies from 0 to 2π.",
+      "The vector equation |r| = R describes the set of all points at distance R from the origin: this is the circle of radius R centred at the origin. In Cartesian form: x² + y² = R².",
+      "Shifting the centre: |r − a| = R is the circle of radius R centred at the point with position vector a = (a₁, a₂). Squaring: (x − a₁)² + (y − a₂)² = R². This is the standard Cartesian circle equation.",
+      "In three dimensions, |r − a| = R describes all points at distance R from a = (a₁, a₂, a₃): a sphere. Its Cartesian form is (x − a₁)² + (y − a₂)² + (z − a₃)² = R².",
+      "To convert from vector to Cartesian form: write r = (x, y), substitute, square both sides, and expand. To convert from Cartesian to vector form: read off the centre as a and the radius as R.",
+    ],
+    latexBlocks: [
+      "\\mathbf{r}(t)=(x(t),\\,y(t))\\quad \\text{parametric vector curve}",
+      "|\\mathbf{r}|=R\\;\\Longleftrightarrow\\; x^2+y^2=R^2\\quad\\text{(circle, centre O)}",
+      "|\\mathbf{r}-\\mathbf{a}|=R\\;\\Longleftrightarrow\\;(x-a_1)^2+(y-a_2)^2=R^2\\quad\\text{(circle, centre }\\mathbf{a}\\text{)}",
+      "|\\mathbf{r}-\\mathbf{a}|=R\\;\\Longleftrightarrow\\;(x-a_1)^2+(y-a_2)^2+(z-a_3)^2=R^2\\quad\\text{(sphere)}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Cartesian equation from vector form",
+      questionLatex: "\\text{Find the Cartesian equation of the circle }|\\mathbf{r}-(1,2)|=3.",
+      steps: [
+        { explanation: "Write r = (x, y) and substitute into |r − a| = R.", latex: "|(x-1,\\,y-2)|=3" },
+        { explanation: "Square both sides.", latex: "(x-1)^2+(y-2)^2=9" },
+      ],
+      finalAnswerLatex: "(x-1)^2+(y-2)^2=9",
+    },
+    {
+      title: "Vector equation from Cartesian form",
+      questionLatex: "\\text{Write the vector equation of the circle }(x+2)^2+(y-3)^2=25.",
+      steps: [
+        { explanation: "Read off centre: a = (−2, 3), radius R = 5.", latex: "\\mathbf{a}=(-2,3),\\quad R=5" },
+        { explanation: "Write the vector equation.", latex: "|\\mathbf{r}-(-2,3)|=5" },
+      ],
+      finalAnswerLatex: "|\\mathbf{r}-(-2,3)|=5",
+    },
+  ],
+  guidedPractice: [
+    v3Choice(
+      "v3c-g1",
+      "The vector equation |r| = 4 represents which curve?",
+      "A",
+      ["A circle of radius 4 centred at the origin", "A circle of radius 16 centred at the origin", "A sphere of radius 4", "A line at distance 4 from the origin"],
+      "|r| = 4 means all points at distance 4 from the origin — a circle of radius 4 centred at O.",
+      "Recall: |r| = R is the circle centred at the origin."
+    ),
+    v3Typed(
+      "v3c-g2",
+      "Find the Cartesian equation of the circle |r − (3, 0)| = 5.",
+      "|(x-3,\\,y)|=5",
+      "(x-3)^2+y^2=25",
+      ["(x-3)²+y²=25"],
+      "Square: (x−3)² + y² = 25.",
+      "Set r = (x,y), subtract the centre, then square."
+    ),
+    v3Choice(
+      "v3c-g3",
+      "The vector equation |r − (1, 2, 3)| = R in 3D represents:",
+      "A",
+      ["A sphere of radius R centred at (1, 2, 3)", "A circle of radius R in the xy-plane", "A line through (1, 2, 3)", "A plane through (1, 2, 3)"],
+      "In 3D, |r − a| = R is the set of all points at distance R from a: a sphere.",
+      "In 3D the locus |r − a| = R is always a sphere."
+    ),
+    v3Typed(
+      "v3c-g4",
+      "The curve r(t) = (3cos t, 3sin t). Find its Cartesian equation.",
+      "x=3\\cos t,\\; y=3\\sin t\\;\\Rightarrow\\; x^2+y^2=?",
+      "x^2+y^2=9",
+      ["x²+y²=9"],
+      "x² + y² = 9cos²t + 9sin²t = 9.",
+      "Use cos²t + sin²t = 1."
+    ),
+  ],
+  independentPractice: [
+    v3Typed(
+      "v3c-i1",
+      "Find the Cartesian equation of the circle |r − (2, −1)| = 3.",
+      "(x-2)^2+(y+1)^2=?",
+      "(x-2)^2+(y+1)^2=9",
+      ["(x-2)²+(y+1)²=9"],
+      "(x−2)² + (y+1)² = 9."
+    ),
+    v3Typed(
+      "v3c-i2",
+      "Write the vector equation of the circle x² + y² = 36.",
+      "|\\mathbf{r}|=?",
+      "|r|=6",
+      ["| r | = 6"],
+      "x² + y² = 36 is a circle of radius 6 centred at O. Vector form: |r| = 6.",
+      "Read off the radius as √36 = 6 and centre at the origin."
+    ),
+    v3Typed(
+      "v3c-i3",
+      "A sphere has vector equation |r − (0, 1, 2)| = 4. State its radius.",
+      "|\\mathbf{r}-(0,1,2)|=4",
+      "4",
+      [],
+      "The radius R appears on the right-hand side: R = 4."
+    ),
+    v3Choice(
+      "v3c-i4",
+      "Which parametric vector equation traces the unit circle?",
+      "A",
+      ["r(t) = (cos t, sin t)", "r(t) = (t, t²)", "r(t) = (t, 1)", "r(t) = (sin t, sin t)"],
+      "r(t) = (cos t, sin t) satisfies x² + y² = cos²t + sin²t = 1: the unit circle.",
+      "Check which choice satisfies x² + y² = 1."
+    ),
+    v3Typed(
+      "v3c-i5",
+      "Find the Cartesian equation of the sphere |r − (1, 0, 0)| = 2.",
+      "(x-1)^2+y^2+z^2=?",
+      "(x-1)^2+y^2+z^2=4",
+      ["(x-1)²+y²+z²=4"],
+      "Square: (x−1)² + y² + z² = 4."
+    ),
+  ],
+  masteryQuiz: [
+    v3Choice(
+      "v3c-m1",
+      "|r − a| = R describes:",
+      "A",
+      ["A circle (2D) or sphere (3D) of radius R centred at a", "A line passing through a", "A circle of radius |a|", "All points closer than R to a"],
+      "|r − a| = R is the set of all points exactly R from a: a circle in 2D, a sphere in 3D.",
+      "Distance = R from a fixed point defines a circle or sphere."
+    ),
+    v3Typed(
+      "v3c-m2",
+      "State the radius of the circle |r − (3, 4)| = 7.",
+      "|\\mathbf{r}-(3,4)|=7",
+      "7",
+      [],
+      "The radius R appears on the right-hand side: R = 7."
+    ),
+    v3Typed(
+      "v3c-m3",
+      "Find the Cartesian equation of |r| = 5.",
+      "|\\mathbf{r}|=5",
+      "x^2+y^2=25",
+      ["x²+y²=25"],
+      "|r| = 5 → x² + y² = 25."
+    ),
+    v3Choice(
+      "v3c-m4",
+      "r(t) = (2cos t, 2sin t). The Cartesian equation is:",
+      "A",
+      ["x² + y² = 4", "x² + y² = 2", "x + y = 2", "x² − y² = 4"],
+      "x = 2cos t, y = 2sin t → x² + y² = 4cos²t + 4sin²t = 4.",
+      "Use cos²t + sin²t = 1."
+    ),
+    v3Typed(
+      "v3c-m5",
+      "Find the Cartesian equation of |r − (2, 3)| = √5.",
+      "(x-2)^2+(y-3)^2=?",
+      "(x-2)^2+(y-3)^2=5",
+      ["(x-2)²+(y-3)²=5"],
+      "Square: (x−2)² + (y−3)² = 5."
+    ),
+    v3Typed(
+      "v3c-m6",
+      "Write the vector equation of (x+1)² + y² = 16.",
+      "|\\mathbf{r}-\\mathbf{a}|=R",
+      "|r-(-1,0)|=4",
+      ["| r - (-1,0) | = 4"],
+      "Centre (−1, 0), radius 4. Vector form: |r − (−1, 0)| = 4."
+    ),
+    v3Typed(
+      "v3c-m7",
+      "State the centre of the sphere |r − (2, −1, 3)| = 6.",
+      "|\\mathbf{r}-(2,-1,3)|=6",
+      "(2, -1, 3)",
+      ["(2,-1,3)"],
+      "The centre has position vector a = (2, −1, 3)."
+    ),
+    v3Choice(
+      "v3c-m8",
+      "The vector form |r − a| = R is equivalent to which Cartesian equation (2D, a = (h,k))?",
+      "A",
+      ["(x−h)²+(y−k)²=R²", "(x+h)²+(y+k)²=R²", "x²+y²=R²−|a|²", "(x−h)+(y−k)=R"],
+      "Squaring |r − a| = R gives (x−h)² + (y−k)² = R².",
+      "Square both sides of |r − a| = R."
+    ),
+    v3Typed(
+      "v3c-m9",
+      "r(t) = (t, t²). Eliminate t to find the Cartesian equation.",
+      "x=t,\\; y=t^2",
+      "y=x^2",
+      ["y = x²"],
+      "From x = t: t = x. Substitute: y = x².",
+      "Express t in terms of x from the first component."
+    ),
+    v3Typed(
+      "v3c-m10",
+      "A sphere is centred at (1, 2, 3) with radius 5. Write its Cartesian equation.",
+      "(x-1)^2+(y-2)^2+(z-3)^2=?",
+      "(x-1)^2+(y-2)^2+(z-3)^2=25",
+      ["(x-1)²+(y-2)²+(z-3)²=25"],
+      "Centre (1,2,3), R = 5, so R² = 25."
+    ),
+  ],
+  masteryPassMark: 0.8,
+};
+
+// ─── Lesson 6: Geometric Proofs Using Vectors ────────────────────────────────
+
+const geometricProofsVectors: Partial<ExplicitLesson> = {
+  description:
+    "Use dot product identities — including a·a = |a|², distributivity, and the Cauchy–Schwarz inequality — to prove geometric results about triangles and quadrilaterals.",
+  learningIntention:
+    "Apply dot product properties to prove geometric results algebraically using vectors.",
+  successCriteria: [
+    "Apply a·a = |a|² to simplify vector expressions.",
+    "Use dot product distributivity a·(b + c) = a·b + a·c to expand vector expressions.",
+    "State the Cauchy–Schwarz inequality |a·b| ≤ |a||b| and verify it for given vectors.",
+    "Prove that the diagonals of a rhombus are perpendicular using vectors.",
+    "Prove a geometric result involving altitudes or midpoints using dot products.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Key identity: a·a = |a|². Since a·a = a₁² + a₂² + a₃² = |a|², dotting a vector with itself gives its squared magnitude. This is used constantly in vector proofs.",
+      "Distributivity: a·(b + c) = a·b + a·c. Combined with commutativity a·b = b·a, this lets us expand products like (a + b)·(a − b) = a·a − b·b = |a|² − |b|².",
+      "Cauchy–Schwarz inequality: for any two vectors, |a·b| ≤ |a||b|. This follows directly from |cos θ| ≤ 1 in the dot product formula a·b = |a||b|cos θ. Equality holds when a and b are parallel.",
+      "Geometric proofs strategy: represent geometric points as position vectors, express the relevant lines or distances using vector operations, then use dot products to verify perpendicularity, collinearity, or length conditions.",
+      "Example — diagonals of a rhombus: a rhombus has sides a and b with |a| = |b|. Diagonals are (a + b) and (a − b). Then (a + b)·(a − b) = a·a − b·b = |a|² − |b|² = 0, so the diagonals are perpendicular.",
+    ],
+    latexBlocks: [
+      "\\mathbf{a}\\cdot\\mathbf{a}=|\\mathbf{a}|^2",
+      "\\mathbf{a}\\cdot(\\mathbf{b}+\\mathbf{c})=\\mathbf{a}\\cdot\\mathbf{b}+\\mathbf{a}\\cdot\\mathbf{c}",
+      "(\\mathbf{a}+\\mathbf{b})\\cdot(\\mathbf{a}-\\mathbf{b})=|\\mathbf{a}|^2-|\\mathbf{b}|^2",
+      "|\\mathbf{a}\\cdot\\mathbf{b}|\\leq|\\mathbf{a}||\\mathbf{b}|\\quad\\text{(Cauchy–Schwarz)}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Expand using distributivity",
+      questionLatex: "\\text{Expand }(\\mathbf{a}+\\mathbf{b})\\cdot(\\mathbf{a}+\\mathbf{b}).",
+      steps: [
+        { explanation: "Apply distributivity twice.", latex: "=\\mathbf{a}\\cdot\\mathbf{a}+\\mathbf{a}\\cdot\\mathbf{b}+\\mathbf{b}\\cdot\\mathbf{a}+\\mathbf{b}\\cdot\\mathbf{b}" },
+        { explanation: "Use commutativity a·b = b·a and a·a = |a|².", latex: "=|\\mathbf{a}|^2+2\\mathbf{a}\\cdot\\mathbf{b}+|\\mathbf{b}|^2" },
+      ],
+      finalAnswerLatex: "|\\mathbf{a}|^2+2\\mathbf{a}\\cdot\\mathbf{b}+|\\mathbf{b}|^2",
+    },
+    {
+      title: "Diagonals of a rhombus are perpendicular",
+      questionLatex: "\\text{A rhombus has adjacent sides }\\mathbf{a}\\text{ and }\\mathbf{b}\\text{ with }|\\mathbf{a}|=|\\mathbf{b}|.\\text{ Prove the diagonals are perpendicular.}",
+      steps: [
+        { explanation: "The diagonals are a + b and a − b.", latex: "\\text{diag}_1=\\mathbf{a}+\\mathbf{b},\\quad\\text{diag}_2=\\mathbf{a}-\\mathbf{b}" },
+        { explanation: "Compute their dot product using the difference-of-squares identity.", latex: "(\\mathbf{a}+\\mathbf{b})\\cdot(\\mathbf{a}-\\mathbf{b})=|\\mathbf{a}|^2-|\\mathbf{b}|^2" },
+        { explanation: "Since |a| = |b| for a rhombus, the result is zero.", latex: "=|\\mathbf{a}|^2-|\\mathbf{a}|^2=0" },
+        { explanation: "A zero dot product means the diagonals are perpendicular.", latex: "\\therefore\\text{ diagonals are perpendicular}\\quad\\square" },
+      ],
+      finalAnswerLatex: "(\\mathbf{a}+\\mathbf{b})\\cdot(\\mathbf{a}-\\mathbf{b})=0",
+    },
+  ],
+  guidedPractice: [
+    v3Choice(
+      "v3p-g1",
+      "a·a equals:",
+      "A",
+      ["| a |²", "| a |", "2a", "a²"],
+      "The dot product of a vector with itself equals its squared magnitude: a·a = |a|².",
+      "Recall: a·a = a₁² + a₂² + a₃² = |a|²."
+    ),
+    v3Typed(
+      "v3p-g2",
+      "Let a = (3, 4). Find a·a. Confirm it equals |a|².",
+      "\\mathbf{a}\\cdot\\mathbf{a}=3^2+4^2",
+      "25",
+      [],
+      "a·a = 9 + 16 = 25. Also |a| = √(9+16) = 5, so |a|² = 25. ✓",
+      "Compute a·a = 3²+4², then verify |a|² = (√25)² = 25."
+    ),
+    v3Choice(
+      "v3p-g3",
+      "By Cauchy–Schwarz, |a·b| ≤ …",
+      "A",
+      ["| a || b |", "| a | + | b |", "| a − b |", "| a |² + | b |²"],
+      "The Cauchy–Schwarz inequality states |a·b| ≤ |a||b|.",
+      "Recall the Cauchy–Schwarz inequality."
+    ),
+    v3Typed(
+      "v3p-g4",
+      "Verify Cauchy–Schwarz for a = (1, 2) and b = (3, 4). Find |a·b|, |a| and |b|.",
+      "|\\mathbf{a}\\cdot\\mathbf{b}|\\leq|\\mathbf{a}||\\mathbf{b}|",
+      "11<=5*sqrt(5)",
+      ["11 ≤ 5√5"],
+      "a·b = 3+8=11. |a|=√5, |b|=√25=5. |a||b|=5√5≈11.18. So 11 ≤ 5√5 ✓.",
+      "Compute a·b, |a|, |b|, then check |a·b| ≤ |a||b|."
+    ),
+  ],
+  independentPractice: [
+    v3Typed(
+      "v3p-i1",
+      "Expand (a + b)·(a + b) using distributivity. Express in terms of |a|², |b|², and a·b.",
+      "(\\mathbf{a}+\\mathbf{b})\\cdot(\\mathbf{a}+\\mathbf{b})",
+      "|a|^2+2(a·b)+|b|^2",
+      ["|a|²+2a·b+|b|²"],
+      "|a|² + 2(a·b) + |b|².",
+      "Expand: a·a + a·b + b·a + b·b = |a|² + 2(a·b) + |b|²."
+    ),
+    v3Typed(
+      "v3p-i2",
+      "Let a = (2, 0) and b = (0, 3). Verify Cauchy–Schwarz: find |a·b|, |a||b|.",
+      "|\\mathbf{a}\\cdot\\mathbf{b}|\\leq|\\mathbf{a}||\\mathbf{b}|",
+      "0<=6",
+      ["0 ≤ 6"],
+      "a·b = 0. |a| = 2, |b| = 3. |a||b| = 6. 0 ≤ 6 ✓. Equality fails: a and b are perpendicular, not parallel."
+    ),
+    v3Typed(
+      "v3p-i3",
+      "A rhombus has |a| = |b| = 5. Compute (a + b)·(a − b).",
+      "(\\mathbf{a}+\\mathbf{b})\\cdot(\\mathbf{a}-\\mathbf{b})=|\\mathbf{a}|^2-|\\mathbf{b}|^2",
+      "0",
+      [],
+      "|a|² − |b|² = 25 − 25 = 0. The diagonals are perpendicular."
+    ),
+    v3Choice(
+      "v3p-i4",
+      "Cauchy–Schwarz: equality |a·b| = |a||b| holds when…",
+      "A",
+      ["a and b are parallel (one is a scalar multiple of the other)", "a and b are perpendicular", "a = b", "|a| = |b|"],
+      "a·b = |a||b|cos θ. |cos θ| = 1 iff θ = 0° or 180°, which means a = λb for some scalar λ.",
+      "Consider when |cos θ| = 1."
+    ),
+    v3Typed(
+      "v3p-i5",
+      "Let a = (1, 2, 2). Find a·a and hence |a|.",
+      "\\mathbf{a}\\cdot\\mathbf{a}=1+4+4",
+      "3",
+      [],
+      "a·a = 1+4+4 = 9. |a| = √9 = 3.",
+      "Find a·a, then |a| = √(a·a)."
+    ),
+  ],
+  masteryQuiz: [
+    v3Typed(
+      "v3p-m1",
+      "Let a = (2, 2, 1). Find a·a.",
+      "\\mathbf{a}\\cdot\\mathbf{a}",
+      "9",
+      [],
+      "4 + 4 + 1 = 9."
+    ),
+    v3Choice(
+      "v3p-m2",
+      "The distributive law for dot products states:",
+      "A",
+      ["a·(b + c) = a·b + a·c", "a·(b + c) = a·b · a·c", "(a + b)·c = a·c + b", "a·b + c = (a + c)·b"],
+      "Dot product distributes over addition: a·(b + c) = a·b + a·c.",
+      "The dot product distributes over vector addition."
+    ),
+    v3Typed(
+      "v3p-m3",
+      "Let a = (3, 0) and b = (0, 4). Find |a·b|, then find |a||b|. Is Cauchy–Schwarz satisfied?",
+      "|\\mathbf{a}\\cdot\\mathbf{b}|\\leq|\\mathbf{a}||\\mathbf{b}|",
+      "0<=12",
+      ["0 ≤ 12"],
+      "a·b = 0. |a| = 3, |b| = 4. |a||b| = 12. 0 ≤ 12 ✓."
+    ),
+    v3Typed(
+      "v3p-m4",
+      "Expand (a + b)·(a − b) using distributivity.",
+      "(\\mathbf{a}+\\mathbf{b})\\cdot(\\mathbf{a}-\\mathbf{b})",
+      "|a|^2-|b|^2",
+      ["|a|²−|b|²"],
+      "= a·a − a·b + b·a − b·b = |a|² − |b|²."
+    ),
+    v3Typed(
+      "v3p-m5",
+      "A rhombus has adjacent sides with |a| = |b| = 4. Compute (a + b)·(a − b).",
+      "|\\mathbf{a}|^2-|\\mathbf{b}|^2",
+      "0",
+      [],
+      "16 − 16 = 0. Diagonals perpendicular."
+    ),
+    v3Choice(
+      "v3p-m6",
+      "(a + b)·(a − b) = 0 implies:",
+      "A",
+      ["| a | = | b |", "a = b", "a · b = 0", "| a | = | b |²"],
+      "(a+b)·(a−b) = |a|²−|b|² = 0 iff |a| = |b|: the two vectors have equal magnitude.",
+      "Expand using the difference of squares identity."
+    ),
+    v3Typed(
+      "v3p-m7",
+      "Let a = (2, 2, 1) and b = (2, 2, −4). Find a·b.",
+      "\\mathbf{a}\\cdot\\mathbf{b}",
+      "0",
+      [],
+      "4 + 4 − 4 = 0. a and b are perpendicular."
+    ),
+    v3Typed(
+      "v3p-m8",
+      "a·a = 49. Find |a|.",
+      "|\\mathbf{a}|=\\sqrt{\\mathbf{a}\\cdot\\mathbf{a}}",
+      "7",
+      [],
+      "|a| = √49 = 7."
+    ),
+    v3Choice(
+      "v3p-m9",
+      "Which step correctly starts a vector proof that three points A, B, C are collinear?",
+      "A",
+      ["Show AB = λ AC for some scalar λ", "Show AB · AC = 0", "Show |AB| = |AC|", "Show AB + AC = 0"],
+      "Three points are collinear iff one displacement vector is a scalar multiple of another.",
+      "Collinearity means the direction vectors are parallel."
+    ),
+    v3Typed(
+      "v3p-m10",
+      "A parallelogram has sides a and b with a·b = 0. What does this imply about the shape?",
+      "\\mathbf{a}\\cdot\\mathbf{b}=0",
+      "rectangle",
+      ["Rectangle", "a rectangle"],
+      "a·b = 0 means a ⊥ b. A parallelogram with perpendicular adjacent sides is a rectangle.",
+      "What does a ⊥ b mean for the shape of a parallelogram?"
+    ),
+  ],
+  masteryPassMark: 0.8,
+};
+
 // ─── Lesson builder ───────────────────────────────────────────────────────────
 
 function v3Lesson(
@@ -1094,7 +1525,7 @@ function v3Lesson(
     moduleSlug: "vectors-3d",
     moduleTitle: "Vectors in Three Dimensions",
     courseTitle: "Year 12 Mathematics Extension 2",
-    syllabusArea: "Vectors",
+    syllabusArea: "Vectors in Three Dimensions",
     focus: "Vectors in three dimensions",
     status: "active",
     video: { title, url: "/videos/placeholder-lesson.mp4" },
@@ -1121,6 +1552,10 @@ export function year12Extension2Vectors3DLessonOverride(
       return v3Lesson("equations-of-lines-3d", "Equations of Lines in 3D", equationsOfLines3D);
     case "vector-applications-exam-practice":
       return v3Lesson("vector-applications-exam-practice", "Vector Applications and Exam Practice", vectorApplicationsExamPractice);
+    case "vector-curves-circles-spheres":
+      return v3Lesson("vector-curves-circles-spheres", "Vector Equations of Curves, Circles and Spheres", vectorCurvesCirclesSpheres);
+    case "geometric-proofs-vectors":
+      return v3Lesson("geometric-proofs-vectors", "Geometric Proofs Using Vectors", geometricProofsVectors);
     default:
       return undefined;
   }
