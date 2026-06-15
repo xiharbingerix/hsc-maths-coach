@@ -66,6 +66,7 @@ type ImportOptions = {
 };
 
 const SUPPORTED_COURSE_SLUGS = [
+  "year-7-mathematics",
   "year-12-advanced",
   "year-8-mathematics",
   "year-9-mathematics",
