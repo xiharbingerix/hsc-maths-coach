@@ -2,7 +2,7 @@
 
 > **Objective:** High-quality lessons and question content across the entire NSW syllabus, mapped to syllabus sections with sufficient lessons to cover all skills and content in the Content section. Each lesson: 19 questions, worked examples, Feynman teaching, and common mistakes. Each focus area: one revision lesson activating the prior knowledge stated in the syllabus teaching advice, plus content lessons per dot-point group.
 > **Standard:** NSW syllabuses (2024 versions, implementation from 2026). Source of truth: [curriculum.nsw.edu.au](https://curriculum.nsw.edu.au).
-> Last updated: 2026-06-15 — Year 9 Core audited against NSW 2022 syllabus: 2 missing units (Numbers of any magnitude, Algebraic techniques A), 7 units with content needing rename/split/restructure; action items documented. Earlier same date: Year 12 Standard 1 fully complete: credit-cards-and-loans lesson added (MST-12-S1-03 gap closed); 8 new full-depth lesson overrides written (algebraic-relationships-exam-practice, linear-relationships-modelling, quadratic-models, simultaneous-equations-context, ratios-rates-unit-conversions, investment-compound-interest, depreciation-loans, credit-cards-and-loans); 6 thin lessons upgraded from 7Q to 19Q each (right-angle-trigonometry, data-displays-summary-statistics, probability-and-chance, statistics-exam-practice, measurement-area-volume, scale-drawings-and-plans); course now 23 lessons / 5 units. All 7 topics fully covered at 19Q depth. Earlier same date: Year 11 Advanced: Sequences and Series removed; 10 new Working with Functions lessons completing FA1; 3 new Trigonometry lessons completing FA2; reciprocal trig ratios completing FA3; product rule and quotient rule completing FA4; graphing-exponential-logarithmic-functions completing FA5; circles-completing-the-square completing FA6; sets-venn-diagrams and conditional-probability-independence completing FA7. Year 12 Advanced fully audited (91 lessons, 1726 questions). Year 12 Standard 2 fully complete (58 lessons, 1106 questions). Year 12 Extension 1 fully complete (48 lessons, 862 questions). Year 11 Standard fully complete (76 lessons, 1444 questions).
+> Last updated: 2026-06-16 — Year 9 Core: Algebraic Techniques (MA5-ALG-C-01, 3 lessons), Equations A (MA5-EQU-C-01, 3 lessons), and Trigonometry B (MA5-TRG-C-02, 2 lessons: elevation/depression + bearings) added; all 9 Core focus areas now have lesson content; 1197 questions seeded. Earlier: Year 9 Core audited against NSW 2022 syllabus: 2 missing units (Numbers of any magnitude, Algebraic techniques A), 7 units with content needing rename/split/restructure; action items documented. Earlier same date: Year 12 Standard 1 fully complete: credit-cards-and-loans lesson added (MST-12-S1-03 gap closed); 8 new full-depth lesson overrides written (algebraic-relationships-exam-practice, linear-relationships-modelling, quadratic-models, simultaneous-equations-context, ratios-rates-unit-conversions, investment-compound-interest, depreciation-loans, credit-cards-and-loans); 6 thin lessons upgraded from 7Q to 19Q each (right-angle-trigonometry, data-displays-summary-statistics, probability-and-chance, statistics-exam-practice, measurement-area-volume, scale-drawings-and-plans); course now 23 lessons / 5 units. All 7 topics fully covered at 19Q depth. Earlier same date: Year 11 Advanced: Sequences and Series removed; 10 new Working with Functions lessons completing FA1; 3 new Trigonometry lessons completing FA2; reciprocal trig ratios completing FA3; product rule and quotient rule completing FA4; graphing-exponential-logarithmic-functions completing FA5; circles-completing-the-square completing FA6; sets-venn-diagrams and conditional-probability-independence completing FA7. Year 12 Advanced fully audited (91 lessons, 1726 questions). Year 12 Standard 2 fully complete (58 lessons, 1106 questions). Year 12 Extension 1 fully complete (48 lessons, 862 questions). Year 11 Standard fully complete (76 lessons, 1444 questions).
 
 ---
 
@@ -19,7 +19,7 @@
 | Year 8 Mathematics | 59 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 9 Mathematics | 53 (8 units) | — | audit pending | 0 | ⚠️ Unit headings don't match NSW 2022; audit pending |
 | Year 9 Mathematics Advanced | 53 (8 units) | — | audit pending | 0 | ⚠️ Unit headings don't match NSW 2022; audit pending |
-| Year 9 Mathematics Core | ~40 (8 units) | 9 NSW focus areas | ⚠️ 7/9 partial; 2 missing | 0 | 🔄 Audited 2026-06-15 — restructuring required (see below) |
+| Year 9 Mathematics Core | ~63 (10 units) | 9 NSW focus areas | ✅ 9/9 content present; renames pending | 0 | 🔄 Audited 2026-06-15 — Alg Tech + Equations + Trig B added 2026-06-16; renames pending |
 | Year 10 Mathematics | ~56 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 10 Mathematics Advanced | ~56 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 10 Mathematics Core | ~40 (10 trimmed) | — | audit pending | 0 | ✅ Full depth; audit pending |
@@ -90,14 +90,14 @@ Sources: scope-and-sequence images provided 2026-06-15.
 |---|---|---|---|---|---|---|
 | 1 | Earning and making money | Financial mathematics A | MA5-FIN-C-01 | Core | `financialMathematics.ts` (7 lessons) | ⚠️ Content ✅ — unit rename needed |
 | 2 | Numbers of any magnitude | Numbers of any magnitude | MA5-MAG-C-01 | Core | Part of `indexLaws.ts` (lessons 6–7) | ⚠️ Content partial — needs own unit |
-| 3 | Algebraic techniques | Algebraic techniques A | MA5-ALG-C-01 | Core | — | ❌ **Missing entirely** |
-| 4 | Equations | Equations A + Equations B | MA5-EQU-C-01 (A), MA5-EQU-P-01 (B) | A=Core; B=Path | — | ❌ **Missing entirely** |
+| 3 | Algebraic techniques | Algebraic techniques A | MA5-ALG-C-01 | Core | `algebraicTechniques.ts` (3 lessons) | ✅ Added 2026-06-16 — fractions add/sub, multiply/divide, expanding |
+| 4 | Equations | Equations A + Equations B | MA5-EQU-C-01 (A), MA5-EQU-P-01 (B) | A=Core; B=Path | `equations.ts` (3 lessons) / — | ✅ A added 2026-06-16 — 2-step, 3-step, fractions; ❌ Equations B still missing |
 | 5 | Indices | Indices A | MA5-IND-C-01 | Core | `indexLaws.ts` (lessons 1–5) | ⚠️ Content ✅ — unit rename + trim needed |
 | 6 | Linear relationships | Linear relationships A, B, C (Adv) | MA5-LIN-C-01, MA5-LIN-C-02, MA5-LIN-P-01 | A+B=Core; C=Adv Path | `constantRatesOfChange.ts` (partial, mixed with rates content) | ⚠️ Content partial — mixed unit, needs restructure |
 | 7 | Variation and rates of change | Variation A (Stn+Adv), Variation B (Adv) | MA5-RAT-P-01 (A), MA5-RAT-P-02 (B) | Path (Standard + Adv) | `constantRatesOfChange.ts` (partial) | ⚠️ Mixed with Linear relationships — needs extraction |
 | 8 | Linear simultaneous equations | Equations C (Adv) | MA5-EQU-P-02 | Advanced only | — | ❌ Missing |
 | 9 | Properties of geometrical figures | Properties of geometrical figures A | MA5-GEO-C-01 | Core | `geometricalRepresentations.ts` lessons 1–3 | ⚠️ Content ✅ (lessons 1–3 only); lessons 4–5 out of scope |
-| 10 | Trigonometry | Trigonometry A + B | MA5-TRG-C-01 (A), MA5-TRG-C-02 (B) | Both Core | `workingWithTriangles.ts` (trig portion, 7 lessons via core overrides) | ⚠️ Trig A ✅ in Core; Trig B (bearings/elevation) missing from Core |
+| 10 | Trigonometry | Trigonometry A + B | MA5-TRG-C-01 (A), MA5-TRG-C-02 (B) | Both Core | `workingWithTriangles.ts` (12 Core lessons) | ✅ Trig A (10 lessons) + Trig B (elevation/depression + bearings) added 2026-06-16 |
 | 11 | Probability | Probability A + B (Adv) | MA5-PRO-C-01 (A), MA5-PRO-P-01 (B) | A=Core; B=Adv Path | `makingPredictions.ts` (6 lessons) | ⚠️ Prob A ✅ — unit rename needed; Prob B missing |
 | 12 | Area, surface area and volume | Area and surface area A + Volume A | MA5-ARE-C-01, MA5-VOL-C-01 | Core | `prismsAndCylinders.ts` (7 lessons) | ⚠️ Content ✅ — unit rename needed (single combined unit) |
 | 13 | Data analysis | Data analysis A | MA5-DAT-C-01 | Core | `makingDecisions.ts` (6 lessons) | ⚠️ Content ✅ — unit rename needed |
@@ -154,17 +154,18 @@ Sources: scope-and-sequence images provided 2026-06-15.
 | Significant figures: round to n sig figs | `indexLaws.ts` lesson 7 | ✅ content exists but in wrong unit |
 | Solve measurement problems using standard form and sig figs | `indexLaws.ts` lesson 7 | ⚠️ application focus may need strengthening |
 
-#### ❌ Algebraic techniques (MA5-ALG-C-01) — MISSING ENTIRELY
+#### ✅ Algebraic techniques (MA5-ALG-C-01) — `algebraicTechniques.ts` 3 lessons (added 2026-06-16)
 | NSW content | Nova lesson | Status |
 |---|---|---|
-| Simplify algebraic fractions with numerical denominators (add, subtract, multiply, divide) | — | ❌ |
-| Expand algebraic expressions (single bracket; binomial products) | — | ❌ |
+| Simplify algebraic fractions with numerical denominators (add, subtract) | `algebraic-fractions-add-subtract` | ✅ |
+| Multiply and divide algebraic fractions | `algebraic-fractions-multiply-divide` | ✅ |
+| Expand algebraic expressions (single bracket; binomial products) | `expanding-expressions` | ✅ |
 
-#### ❌ Equations A (MA5-EQU-C-01) — MISSING ENTIRELY
+#### ✅ Equations A (MA5-EQU-C-01) — `equations.ts` 3 lessons (added 2026-06-16)
 | NSW content | Nova lesson | Status |
 |---|---|---|
-| Solve linear equations up to 3 steps | — | ❌ |
-| Solve equations with one algebraic fraction | — | ❌ |
+| Solve linear equations up to 3 steps | `linear-equations-two-step`, `linear-equations-three-step` | ✅ |
+| Solve equations with one algebraic fraction | `equations-with-fractions` | ✅ |
 
 #### ✅ Indices (MA5-IND-C-01) — `indexLaws.ts` lessons 1–5
 | NSW content | Nova lesson | Status |
@@ -203,13 +204,11 @@ Sources: scope-and-sequence images provided 2026-06-15.
 #### ✅ Trigonometry A (MA5-TRG-C-01) — `workingWithTriangles.ts` Core override (7 lessons)
 All 7 Core trig lessons are implemented per `docs/YEAR9_CORE_TRIG_AUTHORING_PLAN.md`.
 
-#### ❌ Trigonometry B (MA5-TRG-C-02) — MISSING FROM CORE
+#### ✅ Trigonometry B (MA5-TRG-C-02) — `workingWithTriangles.ts` 2 Core lessons (added 2026-06-16)
 | NSW content | Nova lesson | Status |
 |---|---|---|
-| Bearings (true bearings, compass bearings) | — | ❌ Missing from Core |
-| Angles of elevation and depression | — | ❌ Missing from Core (excluded from Core override per authoring plan but is Core outcome) |
-
-**Note:** `docs/YEAR9_CORE_TRIG_AUTHORING_PLAN.md` explicitly excludes elevation/depression from Year 9 Core, but MA5-TRG-C-02 is a Core outcome. This may need resolution — Trig B lessons could be scoped to Year 10 Core under Trigonometry A/B there.
+| Angles of elevation and depression | `trig-elevation-depression` | ✅ |
+| Bearings (true bearings, compass bearings) | `trig-bearings` | ✅ |
 
 #### ✅ Probability A (MA5-PRO-C-01) — `makingPredictions.ts` 6 lessons
 All 6 lessons ✅ — unit rename to "Probability" needed.
@@ -237,18 +236,15 @@ All 6 lessons ✅ — unit rename to "Data analysis" needed.
 ### Action items — Year 9 Core (priority order)
 
 #### New content needed
-- [ ] **NEW UNIT**: "Algebraic techniques" — `lib/lessons/year9/algebraicTechniques.ts`
-  - [ ] Lesson 1: Algebraic fractions with numerical denominators (add, subtract: x/3 + x/4 etc.)
-  - [ ] Lesson 2: Multiplying and dividing algebraic fractions
-  - [ ] Lesson 3: Expanding algebraic expressions (single bracket, binomial products)
-  - Each lesson: 4 guided + 5 independent + 10 mastery = 19 questions. ID prefix: `y9c-alg-*`
-- [ ] **NEW UNIT**: "Equations" — `lib/lessons/year9/equations.ts`
-  - [ ] Lesson 1: Solving linear equations (2-step)
-  - [ ] Lesson 2: Solving linear equations (3-step)
-  - [ ] Lesson 3: Solving equations with one algebraic fraction
-  - Each lesson: 19 questions. ID prefix: `y9c-equ-*`
-- [ ] **EXTEND**: Trigonometry B (MA5-TRG-C-02) — bearings and angles of elevation/depression
-  - Resolve scope question: is Trig B Year 9 or Year 10 Core?
+- [x] **NEW UNIT**: "Algebraic techniques" — `lib/lessons/year9/algebraicTechniques.ts` ✅ 2026-06-16
+  - [x] Lesson 1: Algebraic fractions with numerical denominators (add, subtract)
+  - [x] Lesson 2: Multiplying and dividing algebraic fractions
+  - [x] Lesson 3: Expanding algebraic expressions (single bracket, binomial products)
+- [x] **NEW UNIT**: "Equations" — `lib/lessons/year9/equations.ts` ✅ 2026-06-16
+  - [x] Lesson 1: Solving linear equations (2-step)
+  - [x] Lesson 2: Solving linear equations (3-step)
+  - [x] Lesson 3: Solving equations with one algebraic fraction
+- [x] **EXTEND**: Trigonometry B (MA5-TRG-C-02) ✅ 2026-06-16 — `trig-elevation-depression` and `trig-bearings` added to Core `workingWithTriangles.ts`
 
 #### Renames (catalog changes only)
 - [ ] "Geometrical Representations" → **"Properties of geometrical figures"** (trim lessons 4–5 from Core)
@@ -646,7 +642,7 @@ Nova average lessons per unit: ~4–5.
 | Year 12 Standard 1 | 23 (5 units) | 7 NSW topics | ✅ Complete — all gaps closed 2026-06-15 (23 lessons, all 19Q) |
 | Year 12 Extension 1 | 30 (8 units) | ~28 subtopics | ✅ Depth pass complete — 520 questions seeded |
 | Year 11 Advanced | 65 (7 units) | 7 NSW focus areas | 🔄 FA1–FA4 ✅ complete 2026-06-15; ~4 lessons still needed (FA6, FA7) |
-| Year 9 Core | ~40 (8 units) | 9 NSW focus areas | 🔄 Audited 2026-06-15 — 2 units missing (Numbers of any magnitude, Algebraic techniques); renames + splits needed; Constant Rates of Change and Making Decisions not in Year 9 Core scope |
+| Year 9 Core | ~63 (10 units) | 9 NSW focus areas | 🔄 Alg Tech + Equations + Trig B added 2026-06-16; all 9 focus areas have content now; unit renames + Numbers of any magnitude split still needed |
 | Year 9 / Year 10 variants | — | — | 🔄 Promote Advanced + Core to available after restructuring |
 | Year 8 | 59 (10 units) | ~111 subtopics | 🔄 4 units missing vs Class Maths |
 | Year 7 | 0 | ~117 subtopics | ⬜ Not started |
