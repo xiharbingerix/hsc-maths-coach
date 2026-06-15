@@ -893,10 +893,10 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 - [ ] **Solve dQ/dt = k(Q−A): Newton's Law of Cooling, logistic/carrying-capacity models; justify conclusions** → ❌ MISSING
 
 **Areas and volumes**
-- [ ] **Calculate areas of regions between curves** → ❌ MISSING
-- [ ] **Describe a solid of revolution formed by rotating an arc about x-axis or y-axis** → ❌ MISSING
-- [ ] **Calculate volume of revolution about x-axis or y-axis** → ❌ MISSING
-- [ ] **Calculate volume of revolution between two curves about x-axis or y-axis** → ❌ MISSING
+- [x] **Calculate areas of regions between curves** → `calculus-applications-volumes`
+- [x] **Describe a solid of revolution formed by rotating an arc about x-axis or y-axis** → `calculus-applications-volumes`
+- [x] **Calculate volume of revolution about x-axis or y-axis** → `calculus-applications-volumes`
+- [x] **Calculate volume of revolution between two curves about x-axis or y-axis** → `calculus-applications-volumes`
 
 **Differential equations**
 - [x] Define a differential equation and its order → `calculus-applications-differential-equations`
@@ -906,12 +906,12 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 - [x] Solve dy/dx = g(y) by separation of variables → `calculus-applications-differential-equations`
 - [ ] **Graph solutions using graphing applications; examine behaviour using slope fields** → ❌ MISSING
 
-#### Current lessons (unit: `calculus-applications`) — 4 lessons, 76Q ❌ ~45% coverage
+#### Current lessons (unit: `calculus-applications`) — 5 lessons, 96Q ⚠️ ~65% coverage
 #### Required new lessons
 - [ ] **`calculus-applications-revision`** — Polynomial factorisation and sketching, chain rule fluency, area under curve. Prior knowledge activation.
 - [ ] **`calculus-applications-polynomial-zeroes`** — Multiplicity of zeroes; product-rule proof; graphing polynomials with repeated roots.
 - [ ] **`calculus-applications-newton-cooling`** — dQ/dt = k(Q−A); Newton's Law of Cooling; logistic/carrying-capacity models; solve and justify in context.
-- [ ] **`calculus-applications-volumes`** — Areas between curves; solids of revolution; volumes rotating about x/y-axis; between two curves.
+- [x] **`calculus-applications-volumes`** — Areas between curves; solids of revolution; volumes rotating about x/y-axis; between two curves. ✅ Added 2026-06-15
 - [ ] **`calculus-applications-slope-fields`** — Slope fields for first-order DEs; sketch and interpret solution curves; long-run behaviour.
 
 ---
@@ -956,16 +956,16 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 | Introduction to Vectors | ME1-12-02 | 4+8 (228Q total) | ⚠️ ~60% | Projection, vector motion 2D, projectile via vectors |
 | Inverse Trigonometric Functions | ME1-12-03 | 3 (57Q) | ⚠️ ~75% | Properties/identities lesson, revision lesson |
 | Further Calculus Skills | ME1-12-04 | 4 (76Q) | ✅ ~100% | Revision lesson only |
-| Further Applications of Calculus | ME1-12-05 | 4 (76Q) | ❌ ~45% | Polynomial zeroes, Newton cooling, volumes, slope fields |
+| Further Applications of Calculus | ME1-12-05 | 5 (96Q) | ⚠️ ~65% | Polynomial zeroes, Newton cooling, slope fields |
 | Binomial Distribution + Sampling | ME1-12-06 | 6 (114Q) | ✅ ~100% | Revision lesson only |
 
-**Current:** 32 lessons (9 units) / 558Q
-**New lessons to meet syllabus fully:** ~16 (6 revision + 4 vectors/proj + 5 further-applications + 1 inverse-trig-properties)
+**Current:** 33 lessons (9 units) / 577Q
+**New lessons to meet syllabus fully:** ~15 (6 revision + 4 vectors/proj + 4 further-applications + 1 inverse-trig-properties)
 **Target:** ~48 lessons
 
 ### Priority order
-1. **Sampling distribution of mean + CLT** (2 lessons) — entire sub-strand of ME1-12-06 absent
-2. **Volumes of revolution** (1 lesson) — high HSC weighting in ME1-12-05
+1. ~~Sampling distribution of mean + CLT~~ ✅ Done 2026-06-15
+2. ~~Volumes of revolution~~ ✅ Done 2026-06-15
 3. **Polynomial zeroes** (1 lesson) — ME1-12-05 unique content
 4. **Newton's Law of Cooling** (1 lesson) — completes ME1-12-05 rates strand
 5. **Vector projection** (1 lesson) — completes dot-product strand of ME1-12-02

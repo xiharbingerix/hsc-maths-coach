@@ -7,3 +7,4 @@ export * from "./calculusApplications";
 export * from "./kinematics";
 export * from "./projectileMotion";
 export * from "./samplingDistribution";
+export * from "./areasVolumes";

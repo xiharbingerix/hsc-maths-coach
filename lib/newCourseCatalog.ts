@@ -68,6 +68,7 @@ import {
   year12Extension1KinematicsLessonOverride,
   year12Extension1ProjectileMotionLessonOverride,
   year12Extension1SamplingDistributionLessonOverride,
+  year12Extension1AreasVolumesLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
@@ -276,6 +277,7 @@ export function buildLesson(
     year12Extension1KinematicsLessonOverride(course, unit, lesson) ??
     year12Extension1ProjectileMotionLessonOverride(course, unit, lesson) ??
     year12Extension1SamplingDistributionLessonOverride(course, unit, lesson) ??
+    year12Extension1AreasVolumesLessonOverride(course, unit, lesson) ??
     year12Extension2ComplexNumbersLessonOverride(course, unit, lesson) ??
     year12Extension2Vectors3DLessonOverride(course, unit, lesson) ??
     year12Extension2CalculusLessonOverride(course, unit, lesson) ??
@@ -2517,6 +2519,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "newtons-law-cooling-growth-decay", title: "Exponential Growth and Decay" },
           { slug: "simple-harmonic-motion-intro", title: "Simple Harmonic Motion" },
           { slug: "calculus-applications-exam-practice", title: "Calculus Applications Exam Practice" },
+          {
+            slug: "calculus-applications-volumes",
+            title: "Areas Between Curves and Volumes of Revolution",
+            description:
+              "Calculate areas enclosed between two curves and volumes of solids formed by rotating a region about the x-axis or y-axis.",
+          },
         ],
       },
       {
