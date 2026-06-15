@@ -462,6 +462,286 @@ export function year12Standard2TrigRatesLessonOverride(
     };
   }
 
+  if (lesson.slug === "elevation-depression-applications") {
+    return {
+      ...base,
+      description:
+        "Identify angles of elevation and depression, draw labelled right-angled triangles, and apply SOH CAH TOA to find heights and horizontal distances in practical problems.",
+      learningIntention:
+        "Use angles of elevation and depression with right-angled trigonometry to solve practical height and distance problems.",
+      successCriteria: [
+        "Distinguish between angle of elevation (looking up from horizontal) and angle of depression (looking down from horizontal).",
+        "Draw and label a right-angled triangle from a worded problem involving elevation or depression.",
+        "Apply tan, sin, or cos to find unknown heights and horizontal distances.",
+        "Solve multi-step problems that involve both a height and a straight-line distance.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The angle of elevation is the angle measured upward from the horizontal to the line of sight when looking at an object above. The angle of depression is measured downward from the horizontal when looking at an object below. Both angles are always measured from the horizontal, never from the vertical.",
+          "A key fact: the angle of elevation from point A to point B equals the angle of depression from point B to point A. These are equal alternate angles formed by parallel horizontal lines cut by the same line of sight.",
+          "To solve these problems, draw a right-angled triangle. Mark the given angle, the known side, and the unknown side. Then identify the correct trig ratio: tan = opp/adj is most common when the right angle is at the base, since you typically know a horizontal distance (adjacent) and want a height (opposite), or vice versa.",
+          "In multi-step problems you may need to find both the height and the straight-line distance (hypotenuse). Once you have the height from tan, use sin or cos (or Pythagoras) to find the hypotenuse.",
+        ],
+        latexBlocks: [
+          "\\tan(\\theta) = \\dfrac{\\text{height}}{\\text{horizontal distance}}",
+          "\\text{height} = \\text{horizontal distance} \\times \\tan(\\theta)",
+          "\\text{horizontal distance} = \\dfrac{\\text{height}}{\\tan(\\theta)}",
+          "\\text{Angle of elevation from A to B} = \\text{Angle of depression from B to A}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Angle of elevation: find the height",
+          questionLatex:
+            "\\text{From a point 40 m from the base of a building, the angle of elevation to the top is }32°\\text{. Find the height of the building.}",
+          triangleDiagram: {
+            description:
+              "Right-angled triangle. Observer A at bottom-left, base of building B at bottom-right (right angle), top of building C at top-right. Horizontal AB = 40 m, height BC = h. Angle of elevation at A = 32°.",
+            vertices: { A: { x: 60, y: 240 }, B: { x: 380, y: 240 }, C: { x: 380, y: 60 } },
+            rightAngleAt: "B",
+            angleLabels: { A: "32°" },
+            sideLabels: { AB: "40 m", BC: "h = ?" },
+          },
+          steps: [
+            {
+              explanation: "Identify the ratio: opposite (height) over adjacent (horizontal). Use tan.",
+              latex: "\\tan(32°) = \\dfrac{h}{40}",
+            },
+            {
+              explanation: "Multiply both sides by 40.",
+              latex: "h = 40 \\times \\tan(32°) \\approx 40 \\times 0.6249 \\approx 25.0\\text{ m}",
+            },
+          ],
+          finalAnswerLatex: "h \\approx 25.0\\text{ m}",
+        },
+        {
+          title: "Angle of depression: find the horizontal distance",
+          questionLatex:
+            "\\text{From the top of a 60 m cliff, a boat is observed at an angle of depression of }18°\\text{. Find the horizontal distance from the base of the cliff to the boat.}",
+          triangleDiagram: {
+            description:
+              "Right-angled triangle. Top of cliff D at top-left, base of cliff E at bottom-left (right angle), boat F at bottom-right. Height DE = 60 m, horizontal EF = d. Angle at F = 18° (angle of elevation from F to D = angle of depression from D to F).",
+            vertices: { D: { x: 60, y: 40 }, E: { x: 60, y: 240 }, F: { x: 380, y: 240 } },
+            rightAngleAt: "E",
+            angleLabels: { F: "18°" },
+            sideLabels: { DE: "60 m", EF: "d = ?" },
+          },
+          steps: [
+            {
+              explanation: "Angle of depression from cliff top = angle of elevation from boat = 18°. In the right triangle, angle at F = 18°. Opposite = DE = 60 m, adjacent = EF = d.",
+              latex: "\\tan(18°) = \\dfrac{60}{d}",
+            },
+            {
+              explanation: "Rearrange to find d.",
+              latex:
+                "d = \\dfrac{60}{\\tan(18°)} \\approx \\dfrac{60}{0.3249} \\approx 184.7\\text{ m}",
+            },
+          ],
+          finalAnswerLatex: "d \\approx 184.7\\text{ m}",
+        },
+        {
+          title: "Multi-step: height and straight-line distance",
+          questionLatex:
+            "\\text{A drone is observed from point A at an angle of elevation of }48°\\text{. Point A is 80 m horizontally from the point directly below the drone. Find (a) the height of the drone and (b) the straight-line distance from A to the drone.}",
+          triangleDiagram: {
+            description:
+              "Right-angled triangle. Observer A at bottom-left, point B directly below drone at bottom-right (right angle), drone D at top-right. Horizontal AB = 80 m, height BD = h, hypotenuse AD = distance. Angle of elevation at A = 48°.",
+            vertices: { A: { x: 60, y: 240 }, B: { x: 380, y: 240 }, D: { x: 380, y: 40 } },
+            rightAngleAt: "B",
+            angleLabels: { A: "48°" },
+            sideLabels: { AB: "80 m", BD: "h = ?", AD: "dist = ?" },
+          },
+          steps: [
+            {
+              explanation: "(a) Use tan to find the height.",
+              latex:
+                "h = 80 \\times \\tan(48°) \\approx 80 \\times 1.1106 \\approx 88.8\\text{ m}",
+            },
+            {
+              explanation: "(b) Use cos to find the straight-line distance AD.",
+              latex:
+                "\\cos(48°) = \\dfrac{80}{AD} \\implies AD = \\dfrac{80}{\\cos(48°)} \\approx \\dfrac{80}{0.6691} \\approx 119.6\\text{ m}",
+            },
+          ],
+          finalAnswerLatex:
+            "\\text{(a) }h \\approx 88.8\\text{ m};\\quad\\text{(b) }AD \\approx 119.6\\text{ m}",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice(
+          "y12s2-eld-g1",
+          "The angle of elevation is measured:",
+          "B",
+          [
+            "Downward from the vertical",
+            "Upward from the horizontal to a line of sight above",
+            "From the top of an object to the ground",
+            "Between two horizontal lines",
+          ],
+          "Angle of elevation = angle measured upward from horizontal to a line of sight to an object above you."
+        ),
+        practicalChoice(
+          "y12s2-eld-g2",
+          "From 30 m away, the angle of elevation to the top of a tree is 35°. Which equation finds the height h?",
+          "C",
+          [
+            "h = 30 ÷ sin(35°)",
+            "h = 30 × cos(35°)",
+            "h = 30 × tan(35°)",
+            "h = 30 ÷ tan(35°)",
+          ],
+          "tan(35°) = h/30, so h = 30 × tan(35°)."
+        ),
+        practicalChoice(
+          "y12s2-eld-g3",
+          "From 60 m away, the angle of elevation to a flagpole top is 52°. Height ≈ ?",
+          "C",
+          ["38.4 m", "49.3 m", "76.8 m", "93.6 m"],
+          "h = 60 × tan(52°) ≈ 60 × 1.2799 ≈ 76.8 m."
+        ),
+        measurementAnswer(
+          "y12s2-eld-g4",
+          "A person stands 25 m from a tree. The angle of elevation to the top is 38°. Find the height of the tree to 2 decimal places.",
+          "h = 25 \\times \\tan(38°)",
+          "19.53 m",
+          ["19.53", "19.53 m"]
+        ),
+      ],
+      independentPractice: [
+        practicalChoice(
+          "y12s2-eld-i1",
+          "From 45 m away, the angle of elevation to a tower top is 40°. Height ≈ ?",
+          "B",
+          ["28.9 m", "37.8 m", "52.2 m", "69.6 m"],
+          "h = 45 × tan(40°) ≈ 45 × 0.8391 ≈ 37.8 m."
+        ),
+        measurementAnswer(
+          "y12s2-eld-i2",
+          "From the top of an 80 m cliff, the angle of depression to a boat is 22°. Find the horizontal distance to 1 decimal place.",
+          "d = \\dfrac{80}{\\tan(22°)}",
+          "198.0 m",
+          ["198.0", "198", "198.0 m"]
+        ),
+        practicalChoice(
+          "y12s2-eld-i3",
+          "The angle of depression from a 40 m tower to a point 55 m away (horizontal) is approximately:",
+          "B",
+          ["55.0°", "36.0°", "49.1°", "26.9°"],
+          "arctan(40/55) ≈ arctan(0.7273) ≈ 36.0°."
+        ),
+        measurementAnswer(
+          "y12s2-eld-i4",
+          "A drone is observed from 100 m away at an elevation angle of 35°. Find the height of the drone to 2 decimal places.",
+          "h = 100 \\times \\tan(35°)",
+          "70.02 m",
+          ["70.02", "70.02 m", "70.0 m"]
+        ),
+        practicalChoice(
+          "y12s2-eld-i5",
+          "The angle of elevation from a boat to the top of a cliff equals the angle of depression from the cliff top to the boat because:",
+          "C",
+          [
+            "They are vertically opposite angles",
+            "The cliff is always at 45°",
+            "They are equal alternate angles with parallel horizontal lines",
+            "All triangles are right-angled",
+          ],
+          "The two horizontal lines (at the observer and at the cliff top) are parallel, making the elevation and depression angles alternate angles — and therefore equal."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Measuring the angle from the vertical instead of the horizontal.",
+          fix: "Elevation and depression angles are always from the horizontal. If the problem says 32° elevation, the angle in your right triangle at the base is 32°, not (90° − 32°) = 58°.",
+        },
+        {
+          mistake: "Setting up tan = height/horizontal when the unknown is in the denominator, then not rearranging.",
+          fix: "If tan(θ) = 60/d, rearrange to d = 60/tan(θ) before calculating. Don't multiply 60 × tan(θ) — that gives the wrong quantity.",
+        },
+        {
+          mistake: "Confusing which side is opposite and which is adjacent.",
+          fix: "The opposite side is always across from the angle. For elevation/depression: the height (vertical side) is opposite the angle at the observer's position; the horizontal distance is adjacent.",
+        },
+        {
+          mistake: "Using the wrong trig ratio for the straight-line (hypotenuse) distance.",
+          fix: "Once you have the height h and horizontal d, the hypotenuse = d ÷ cos(θ) or h ÷ sin(θ) — or use Pythagoras: √(d² + h²). All three give the same result.",
+        },
+      ],
+      masteryQuiz: [
+        practicalChoice(
+          "y12s2-eld-m1",
+          "From 30 m away, elevation 45° to a tree top. Height = ?",
+          "C",
+          ["15.0 m", "21.2 m", "30.0 m", "42.4 m"],
+          "tan(45°) = 1, so h = 30 × 1 = 30 m."
+        ),
+        measurementAnswer(
+          "y12s2-eld-m2",
+          "From 50 m away, angle of elevation 28°. Height of tower to 2 decimal places?",
+          "h = 50 \\times \\tan(28°)",
+          "26.60 m",
+          ["26.60", "26.60 m", "26.6 m"]
+        ),
+        practicalChoice(
+          "y12s2-eld-m3",
+          "From a 70 m cliff, angle of depression to a boat is 15°. Horizontal distance ≈ ?",
+          "C",
+          ["18.7 m", "72.5 m", "261.2 m", "373.2 m"],
+          "d = 70/tan(15°) ≈ 70/0.2679 ≈ 261.2 m."
+        ),
+        measurementAnswer(
+          "y12s2-eld-m4",
+          "From 100 m away, angle of elevation 62°. Height to 2 decimal places?",
+          "h = 100 \\times \\tan(62°)",
+          "188.07 m",
+          ["188.07", "188.07 m"]
+        ),
+        practicalChoice(
+          "y12s2-eld-m5",
+          "From the top of a 45 m cliff, angle of depression to a car is 20°. Horizontal distance ≈ ?",
+          "C",
+          ["16.4 m", "41.0 m", "123.6 m", "131.9 m"],
+          "d = 45/tan(20°) ≈ 45/0.3640 ≈ 123.6 m."
+        ),
+        measurementAnswer(
+          "y12s2-eld-m6",
+          "From 120 m away, angle of elevation 31° to a tower. Height to 2 decimal places?",
+          "h = 120 \\times \\tan(31°)",
+          "72.15 m",
+          ["72.15", "72.15 m"]
+        ),
+        practicalChoice(
+          "y12s2-eld-m7",
+          "Observer is 60 m from the base of a tower. Elevation angle = 40°. Straight-line distance from observer to top of tower ≈ ?",
+          "B",
+          ["38.6 m", "78.3 m", "92.6 m", "50.4 m"],
+          "d = 60/cos(40°) ≈ 60/0.766 ≈ 78.3 m."
+        ),
+        measurementAnswer(
+          "y12s2-eld-m8",
+          "From the top of an 85 m cliff, the angle of depression to a marker is 32°. Find the horizontal distance to 2 decimal places.",
+          "d = \\dfrac{85}{\\tan(32°)}",
+          "136.02 m",
+          ["136.02", "136.02 m"]
+        ),
+        practicalChoice(
+          "y12s2-eld-m9",
+          "From 25 m away, elevation 55° to a flagpole. Height ≈ ?",
+          "C",
+          ["14.3 m", "17.7 m", "35.7 m", "43.3 m"],
+          "h = 25 × tan(55°) ≈ 25 × 1.4281 ≈ 35.7 m."
+        ),
+        practicalChoice(
+          "y12s2-eld-m10",
+          "If someone observes an object at 35° angle of depression, the angle of elevation from the object back to the observer is:",
+          "B",
+          ["55°", "35°", "90°", "145°"],
+          "Angles of elevation and depression between two points are always equal (alternate angles with parallel horizontals)."
+        ),
+      ],
+    };
+  }
+
   if (lesson.slug === "sine-rule-cosine-rule-area-triangle") {
     return {
       ...base,
@@ -1158,6 +1438,258 @@ export function year12Standard2TrigRatesLessonOverride(
           "D",
           ["$35.00", "$68.60", "$87.50", "$98.00"],
           "Cost = 350 × $0.28 = $98.00."
+        ),
+      ],
+    };
+  }
+
+  if (lesson.slug === "scale-drawings-site-plans") {
+    return {
+      ...base,
+      description:
+        "Interpret scale drawings and site plans, calculate actual dimensions from scaled measurements, and find perimeter and area from architectural plans.",
+      learningIntention:
+        "Use a scale ratio to convert between plan measurements and real dimensions, then calculate perimeter and area from scaled plans.",
+      successCriteria: [
+        "Interpret a scale ratio (e.g., 1:100) and explain what it means.",
+        "Convert a plan measurement to an actual length by multiplying by the scale factor.",
+        "Convert an actual length to a plan measurement by dividing by the scale factor.",
+        "Calculate the perimeter and area of a room or land parcel from its scaled plan dimensions.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A scale drawing represents a real object at a reduced (or enlarged) size. The scale ratio compares plan distance to actual distance. A scale of 1:100 means 1 cm on the plan equals 100 cm (1 m) in reality. A scale of 1:200 means 1 cm on the plan equals 200 cm (2 m) in reality.",
+          "To find the actual length from a plan measurement: actual length = plan measurement × scale factor. For example, on a 1:50 plan, a wall that measures 6 cm is 6 × 50 = 300 cm = 3 m long in real life.",
+          "To find a plan measurement from an actual length: plan measurement = actual length ÷ scale factor. If a room is 4.5 m long and the scale is 1:100, the room appears as 4.5 m ÷ 100 = 0.045 m = 4.5 cm on the plan.",
+          "Once you have the actual dimensions, calculate perimeter and area using the standard formulas. For a rectangle: perimeter = 2(l + w), area = l × w. Remember to convert all measurements to the same unit before calculating.",
+        ],
+        latexBlocks: [
+          "\\text{Actual length} = \\text{plan measurement} \\times \\text{scale factor}",
+          "\\text{Plan measurement} = \\dfrac{\\text{actual length}}{\\text{scale factor}}",
+          "\\text{Perimeter} = 2(l + w),\\quad \\text{Area} = l \\times w",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Read actual dimensions from a scale plan",
+          questionLatex:
+            "\\text{A room on a 1:100 plan measures 4.5 cm × 3.2 cm. Find the actual dimensions of the room in metres.}",
+          steps: [
+            {
+              explanation: "Scale 1:100 means 1 cm on plan = 100 cm = 1 m actual.",
+              latex: "\\text{Scale factor} = 100",
+            },
+            {
+              explanation: "Multiply each plan dimension by 100 to get actual dimensions in cm, then convert to m.",
+              latex:
+                "\\text{Length} = 4.5 \\times 100 = 450\\text{ cm} = 4.5\\text{ m}\\quad\\text{Width} = 3.2 \\times 100 = 320\\text{ cm} = 3.2\\text{ m}",
+            },
+          ],
+          finalAnswerLatex:
+            "\\text{Actual dimensions: }4.5\\text{ m} \\times 3.2\\text{ m}",
+        },
+        {
+          title: "Find perimeter from a site plan",
+          questionLatex:
+            "\\text{A rectangular block of land on a 1:200 plan measures 5.5 cm × 8 cm. Find the actual perimeter of the block.}",
+          steps: [
+            {
+              explanation: "Find actual dimensions: multiply plan measurements by 200.",
+              latex:
+                "\\text{Length} = 5.5 \\times 200 = 1100\\text{ cm} = 11\\text{ m}\\quad\\text{Width} = 8 \\times 200 = 1600\\text{ cm} = 16\\text{ m}",
+            },
+            {
+              explanation: "Calculate perimeter.",
+              latex:
+                "P = 2(11 + 16) = 2 \\times 27 = 54\\text{ m}",
+            },
+          ],
+          finalAnswerLatex: "P = 54\\text{ m}",
+        },
+        {
+          title: "Compare floor areas from a 1:50 plan",
+          questionLatex:
+            "\\text{On a 1:50 plan: living room measures 6 cm × 8 cm, bedroom measures 4 cm × 5.5 cm. Find the actual floor area of each room and the combined area.}",
+          steps: [
+            {
+              explanation: "Living room actual dimensions: multiply by 50.",
+              latex:
+                "6 \\times 50 = 300\\text{ cm} = 3\\text{ m},\\quad 8 \\times 50 = 400\\text{ cm} = 4\\text{ m}\\quad\\Rightarrow\\text{Area} = 3 \\times 4 = 12\\text{ m}^2",
+            },
+            {
+              explanation: "Bedroom actual dimensions.",
+              latex:
+                "4 \\times 50 = 200\\text{ cm} = 2\\text{ m},\\quad 5.5 \\times 50 = 275\\text{ cm} = 2.75\\text{ m}\\quad\\Rightarrow\\text{Area} = 2 \\times 2.75 = 5.5\\text{ m}^2",
+            },
+            {
+              explanation: "Combined area.",
+              latex: "12 + 5.5 = 17.5\\text{ m}^2",
+            },
+          ],
+          finalAnswerLatex:
+            "\\text{Living room: }12\\text{ m}^2;\\quad\\text{Bedroom: }5.5\\text{ m}^2;\\quad\\text{Total: }17.5\\text{ m}^2",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice(
+          "y12s2-sdp-g1",
+          "A scale of 1:100 means:",
+          "B",
+          [
+            "1 m on the plan = 100 m in reality",
+            "1 cm on the plan = 100 cm in reality",
+            "100 cm on the plan = 1 m in reality",
+            "The plan is 100 times larger than reality",
+          ],
+          "1:100 means every 1 cm on the plan represents 100 cm (= 1 m) in real life."
+        ),
+        measurementAnswer(
+          "y12s2-sdp-g2",
+          "A wall measures 4.5 cm on a 1:100 plan. What is the actual length of the wall in metres?",
+          "\\text{Actual} = 4.5 \\times 100 = 450\\text{ cm}",
+          "4.5 m",
+          ["4.5", "4.5 m", "4.50 m"]
+        ),
+        practicalChoice(
+          "y12s2-sdp-g3",
+          "A room is 5 m long. On a 1:50 plan, how long will it appear?",
+          "B",
+          ["5 cm", "10 cm", "25 cm", "50 cm"],
+          "Plan length = 500 cm ÷ 50 = 10 cm."
+        ),
+        measurementAnswer(
+          "y12s2-sdp-g4",
+          "A rectangular room on a 1:100 plan measures 3.8 cm × 5.2 cm. Find the actual area of the room in m².",
+          "\\text{Actual: }3.8\\text{ m} \\times 5.2\\text{ m}",
+          "19.76 m²",
+          ["19.76", "19.76 m²", "19.76 m2"]
+        ),
+      ],
+      independentPractice: [
+        measurementAnswer(
+          "y12s2-sdp-i1",
+          "A corridor measures 7.5 cm on a 1:100 plan. Find the actual length in metres.",
+          "\\text{Actual} = 7.5 \\times 100 = 750\\text{ cm}",
+          "7.5 m",
+          ["7.5", "7.5 m"]
+        ),
+        practicalChoice(
+          "y12s2-sdp-i2",
+          "A block of land on a 1:500 plan is 4 cm × 6 cm. What is the actual perimeter?",
+          "C",
+          ["50 m", "80 m", "100 m", "200 m"],
+          "Actual: 20 m × 30 m. Perimeter = 2(20+30) = 100 m."
+        ),
+        measurementAnswer(
+          "y12s2-sdp-i3",
+          "On a 1:200 plan, a garden measures 3 cm × 4.5 cm. Find the actual area in m².",
+          "\\text{Actual: }6\\text{ m} \\times 9\\text{ m}",
+          "54 m²",
+          ["54", "54 m²", "54 m2"]
+        ),
+        practicalChoice(
+          "y12s2-sdp-i4",
+          "A house wall is 8.4 m long. On a 1:100 plan, how many centimetres does this appear as?",
+          "B",
+          ["0.84 cm", "8.4 cm", "84 cm", "840 cm"],
+          "Plan length = 840 cm ÷ 100 = 8.4 cm."
+        ),
+        measurementAnswer(
+          "y12s2-sdp-i5",
+          "A 1:50 plan shows a room that is 6 cm × 4 cm. Find the actual floor area in m².",
+          "\\text{Actual: }3\\text{ m} \\times 2\\text{ m}",
+          "6 m²",
+          ["6", "6 m²", "6.0"]
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Multiplying the scale factor by the wrong unit.",
+          fix: "If plan measurements are in centimetres and the scale is 1:100, the actual length is in centimetres (then convert to metres). 4.5 cm × 100 = 450 cm = 4.5 m — not 4.5 × 100 metres.",
+        },
+        {
+          mistake: "Dividing instead of multiplying to find actual length (or vice versa).",
+          fix: "Actual length = plan measurement × scale factor (bigger). Plan measurement = actual length ÷ scale factor (smaller). The plan is always smaller than reality for typical architectural scales.",
+        },
+        {
+          mistake: "Finding area by squaring only one dimension instead of multiplying length × width.",
+          fix: "Area = length × width. Both dimensions must be converted to actual size first. Do not calculate area from the plan measurements and then scale — the scaling error compounds.",
+        },
+        {
+          mistake: "Confusing perimeter and area units.",
+          fix: "Perimeter is in linear units (m). Area is in square units (m²). If the room is 3 m × 4 m, the perimeter is 2(3+4) = 14 m and the area is 12 m² — not 12 m.",
+        },
+      ],
+      masteryQuiz: [
+        practicalChoice(
+          "y12s2-sdp-m1",
+          "A scale of 1:200 means 1 cm on the plan equals how many metres in reality?",
+          "B",
+          ["0.2 m", "2 m", "20 m", "200 m"],
+          "1 cm × 200 = 200 cm = 2 m."
+        ),
+        measurementAnswer(
+          "y12s2-sdp-m2",
+          "A wall measures 6.5 cm on a 1:200 plan. Actual length in metres?",
+          "6.5 \\times 200 = 1300\\text{ cm}",
+          "13 m",
+          ["13", "13 m", "13.0 m"]
+        ),
+        practicalChoice(
+          "y12s2-sdp-m3",
+          "A room is 6 m × 4.5 m. On a 1:50 plan, what are the plan dimensions?",
+          "C",
+          ["6 cm × 4.5 cm", "3 cm × 2.25 cm", "12 cm × 9 cm", "60 cm × 45 cm"],
+          "600 ÷ 50 = 12 cm and 450 ÷ 50 = 9 cm."
+        ),
+        measurementAnswer(
+          "y12s2-sdp-m4",
+          "A rectangular land parcel on a 1:500 plan is 3.2 cm × 5 cm. Find the actual perimeter in metres.",
+          "\\text{Actual: }16\\text{ m} \\times 25\\text{ m}\\quad P=2(16+25)",
+          "82 m",
+          ["82", "82 m"]
+        ),
+        practicalChoice(
+          "y12s2-sdp-m5",
+          "A 1:100 plan shows a room 4 cm × 3.5 cm. Floor area = ?",
+          "C",
+          ["14 m²", "1.4 m²", "14 m", "140 m²"],
+          "Actual: 4 m × 3.5 m = 14 m²."
+        ),
+        measurementAnswer(
+          "y12s2-sdp-m6",
+          "A bedroom is 3.6 m wide. On a 1:100 plan, how many centimetres wide does it appear?",
+          "360\\text{ cm} \\div 100",
+          "3.6 cm",
+          ["3.6", "3.6 cm"]
+        ),
+        practicalChoice(
+          "y12s2-sdp-m7",
+          "A kitchen on a 1:50 plan is 5 cm × 6 cm. Actual area?",
+          "D",
+          ["30 m²", "75 m²", "1500 m²", "7.5 m²"],
+          "Actual: 2.5 m × 3 m = 7.5 m²."
+        ),
+        measurementAnswer(
+          "y12s2-sdp-m8",
+          "On a 1:200 plan, two rooms measure 4 cm × 3 cm and 3.5 cm × 2.5 cm. Find the total actual floor area in m².",
+          "\\text{Room 1: }8\\times6=48\\text{ m}^2\\quad\\text{Room 2: }7\\times5=35\\text{ m}^2",
+          "83 m²",
+          ["83", "83 m²"]
+        ),
+        practicalChoice(
+          "y12s2-sdp-m9",
+          "On a 1:100 plan, a room appears 5.5 cm × 4.2 cm. Perimeter of the actual room?",
+          "B",
+          ["9.7 m", "19.4 m", "23.1 m²", "55 m"],
+          "Actual: 5.5 m × 4.2 m. Perimeter = 2(5.5+4.2) = 2 × 9.7 = 19.4 m."
+        ),
+        practicalChoice(
+          "y12s2-sdp-m10",
+          "A backyard on a 1:100 plan is 12 cm long. A fence runs along the entire length on one side. Actual fence length?",
+          "C",
+          ["1.2 m", "120 cm", "12 m", "120 m"],
+          "12 cm × 100 = 1200 cm = 12 m."
         ),
       ],
     };

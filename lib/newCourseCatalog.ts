@@ -466,6 +466,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Convert between degrees and radians, apply SOH CAH TOA using radian angles, and solve practical right-triangle problems in both units.",
           },
           {
+            slug: "elevation-depression-applications",
+            title: "Angles of Elevation and Depression",
+            description:
+              "Identify angles of elevation and depression, draw right-angled diagrams, and apply SOH CAH TOA to find heights and distances in practical contexts.",
+          },
+          {
             slug: "sine-rule-cosine-rule-area-triangle",
             title: "Sine Rule, Cosine Rule and Area of a Triangle",
             description:
@@ -488,6 +494,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Energy Consumption: Watts and Kilowatts",
             description:
               "Convert between watts and kilowatts, calculate kilowatt-hours used by appliances, and find the cost of electricity from a tariff rate.",
+          },
+          {
+            slug: "scale-drawings-site-plans",
+            title: "Scale Drawings and Site Plans",
+            description:
+              "Interpret architectural scale drawings, calculate actual dimensions from scaled measurements, and find perimeter and area from site plans.",
           },
           {
             slug: "bearings-navigation-problems",
