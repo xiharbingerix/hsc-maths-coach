@@ -1138,5 +1138,277 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
     };
   }
 
+  if (lesson.slug === "product-rule") {
+    return {
+      ...base,
+      description:
+        "Differentiate products of two functions using the product rule dy/dx = u'v + uv'; identify when the rule is needed and evaluate derivatives at given x-values.",
+      learningIntention:
+        "Learn to apply the product rule to differentiate expressions of the form y = f(x)·g(x), distinguishing this from expanding before differentiating.",
+      successCriteria: [
+        "State the product rule: d/dx(uv) = u'v + uv'.",
+        "Identify u and v correctly in a product expression.",
+        "Differentiate each factor, then combine using the product rule.",
+        "Evaluate a product-rule derivative at a given x-value.",
+        "Recognise when the product rule is needed versus when expanding is simpler.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The product rule applies when you need to differentiate a function that is written as a product of two separate functions.",
+          "Name the first factor u and the second v. The rule states: the derivative of their product is u' times v, plus u times v'.",
+          "Compute u' and v' first, then substitute into the formula u'v + uv'.",
+          "Always check: could you expand the product first and then use the power rule? If yes, both methods give the same answer. The product rule is essential when at least one factor is not a simple polynomial, such as a trigonometric or exponential function.",
+          "Evaluate by substituting the given x-value after finding the derivative expression.",
+        ],
+        latexBlocks: [
+          "\\frac{d}{dx}(uv)=u'v+uv'",
+          "\\text{Example: }y=x^2(x+3),\\quad u=x^2,\\;u'=2x,\\quad v=x+3,\\;v'=1",
+          "\\frac{dy}{dx}=2x(x+3)+x^2\\cdot 1=2x^2+6x+x^2=3x^2+6x",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Apply the product rule to y = x²(x + 3)",
+          questionLatex: "y=x^2(x+3)",
+          steps: [
+            { explanation: "Let u = x² and v = x + 3.", latex: "u=x^2,\\quad v=x+3" },
+            { explanation: "Differentiate each factor.", latex: "u'=2x,\\quad v'=1" },
+            { explanation: "Apply the product rule u'v + uv'.", latex: "\\frac{dy}{dx}=2x(x+3)+x^2\\cdot 1" },
+            { explanation: "Expand and simplify.", latex: "=2x^2+6x+x^2=3x^2+6x" },
+          ],
+          finalAnswerLatex: "\\frac{dy}{dx}=3x^2+6x",
+        },
+        {
+          title: "Evaluate the product-rule derivative at a point",
+          questionLatex: "y=x^2(x+3),\\quad\\text{find }\\frac{dy}{dx}\\text{ at }x=1",
+          steps: [
+            { explanation: "From the previous example, dy/dx = 3x² + 6x.", latex: "\\frac{dy}{dx}=3x^2+6x" },
+            { explanation: "Substitute x = 1.", latex: "3(1)^2+6(1)=3+6=9" },
+          ],
+          finalAnswerLatex: "9",
+        },
+        {
+          title: "Apply the product rule to y = x(x + 2)",
+          questionLatex: "y=x(x+2)",
+          steps: [
+            { explanation: "Let u = x and v = x + 2.", latex: "u=x,\\quad v=x+2" },
+            { explanation: "Differentiate each factor.", latex: "u'=1,\\quad v'=1" },
+            { explanation: "Apply u'v + uv'.", latex: "\\frac{dy}{dx}=1\\cdot(x+2)+x\\cdot1=x+2+x=2x+2" },
+          ],
+          finalAnswerLatex: "\\frac{dy}{dx}=2x+2",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice("y11adv-pr-g1", "Choose the correct product rule formula.", "B",
+          ["$\\dfrac{d}{dx}(uv)=u'v'$", "$\\dfrac{d}{dx}(uv)=u'v+uv'$", "$\\dfrac{d}{dx}(uv)=u+v$", "$\\dfrac{d}{dx}(uv)=u'v-uv'$"],
+          "The product rule is: derivative of the first times the second, plus the first times derivative of the second.",
+          "\\frac{d}{dx}(uv)"),
+        formulaAnswer("y11adv-pr-g2", "For the product rule applied to y = x²(x+3), find u' when u = x².", "u=x^2,\\quad u'=\\Box", "2x"),
+        formulaAnswer("y11adv-pr-g3", "For the product rule applied to y = x²(x+3), find v' when v = x+3.", "v=x+3,\\quad v'=\\Box", "1"),
+        practicalChoice("y11adv-pr-g4", "Choose the simplified derivative of y = x²(x+3).", "A",
+          ["$3x^2+6x$", "$2x(x+3)$ only", "$x^2+6x$", "$3x^2-6x$"],
+          "Using u'v + uv' = 2x(x+3) + x² = 2x²+6x+x² = 3x²+6x.",
+          "y=x^2(x+3)"),
+      ],
+      independentPractice: [
+        formulaAnswer("y11adv-pr-i1", "Find u' when u = x³.", "u=x^3,\\quad u'=\\Box", "3x^2", ["3x²"]),
+        formulaAnswer("y11adv-pr-i2", "Find v' when v = 2x-5.", "v=2x-5,\\quad v'=\\Box", "2"),
+        formulaAnswer("y11adv-pr-i3", "Evaluate the derivative of y = x(x+2) at x = 0.", "y=x(x+2),\\quad \\frac{dy}{dx}\\text{ at }x=0", "2"),
+        formulaAnswer("y11adv-pr-i4", "Evaluate the derivative of y = x(x+2) at x = 3.", "y=x(x+2),\\quad \\frac{dy}{dx}\\text{ at }x=3", "8"),
+        practicalChoice("y11adv-pr-i5", "Which function requires the product rule (cannot be simplified by expanding first)?", "C",
+          ["$y=x^3+2x$", "$y=(x+1)^2$", "$y=x^2\\sin x$", "$y=x(x+3)$"],
+          "When one factor is not a polynomial (such as sin x), the product cannot be expanded and the product rule is essential.",
+          "\\text{Product rule needed?}"),
+      ],
+      commonMistakes: [
+        { mistake: "Writing d/dx(uv) = u'v' (multiplying the two derivatives).", fix: "The product rule is u'v + uv'. Multiply each derivative by the other original factor." },
+        { mistake: "Forgetting to include both terms u'v and uv'.", fix: "There are always two terms in the product rule. Check both are present before simplifying." },
+        { mistake: "Swapping which derivative goes with which factor.", fix: "u' is always paired with v (the original second factor), and uv' pairs u (original first factor) with v'." },
+        { mistake: "Differentiating u and v at the same time without labelling.", fix: "Write u and v explicitly, then write u' and v' before applying the formula." },
+      ],
+      masteryQuiz: [
+        formulaAnswer("y11adv-pr-m1", "Evaluate the derivative of y = x²(x-1) at x = 2.", "y=x^2(x-1),\\quad \\frac{dy}{dx}=3x^2-2x,\\quad x=2", "8"),
+        formulaAnswer("y11adv-pr-m2", "Evaluate the derivative of y = 3x(x+1) at x = 0.", "y=3x(x+1),\\quad \\frac{dy}{dx}=6x+3,\\quad x=0", "3"),
+        formulaAnswer("y11adv-pr-m3", "Evaluate the derivative of y = 3x(x+1) at x = 1.", "y=3x(x+1),\\quad \\frac{dy}{dx}=6x+3,\\quad x=1", "9"),
+        formulaAnswer("y11adv-pr-m4", "Evaluate the derivative of y = x(x²-1) at x = 1.", "y=x(x^2-1),\\quad \\frac{dy}{dx}=3x^2-1,\\quad x=1", "2"),
+        formulaAnswer("y11adv-pr-m5", "Evaluate the derivative of y = x²(2x-3) at x = 1.", "y=x^2(2x-3),\\quad \\frac{dy}{dx}=6x^2-6x,\\quad x=1", "0"),
+        formulaAnswer("y11adv-pr-m6", "Evaluate the derivative of y = x(x+4) at x = 3.", "y=x(x+4),\\quad \\frac{dy}{dx}=2x+4,\\quad x=3", "10"),
+        practicalChoice("y11adv-pr-m7", "A student differentiates y = x(x+3) and gets dy/dx = x+3. What is the error?", "C",
+          ["The derivative of x is wrong", "The product rule formula is u'v'", "The second term uv' = x·1 was omitted", "The brackets should have been expanded first"],
+          "The product rule needs both u'v and uv'. Here uv' = x·1 = x was omitted, so the answer should be (x+3)+x = 2x+3.",
+          "y=x(x+3)"),
+        formulaAnswer("y11adv-pr-m8", "Evaluate the derivative of y = x(x-2) at x = 4.", "y=x(x-2),\\quad \\frac{dy}{dx}=2x-2,\\quad x=4", "6"),
+        formulaAnswer("y11adv-pr-m9", "Evaluate the derivative of y = x²(x+1) at x = 2.", "y=x^2(x+1),\\quad \\frac{dy}{dx}=3x^2+2x,\\quad x=2", "16"),
+        practicalChoice("y11adv-pr-m10", "Which shows the correct first step for y = x(x²+1)?", "D",
+          ["$u=x^2+1,\\;v=x$", "$\\frac{dy}{dx}=1\\cdot2x$", "$\\frac{dy}{dx}=x'\\cdot(x^2+1)'$", "$u'v+uv'=1\\cdot(x^2+1)+x\\cdot2x$"],
+          "u=x, u'=1, v=x²+1, v'=2x. So u'v+uv' = (x²+1)+2x² = 3x²+1.",
+          "y=x(x^2+1)"),
+      ],
+      multiPartPractice: [
+        {
+          id: "y11adv-pr-mp1",
+          prompt: "Apply the product rule to y = x²(x + 3).",
+          latex: "y=x^2(x+3)",
+          answer: "2x",
+          hint: "Label u and v, differentiate each, then apply u'v + uv'.",
+          explanation: "(a) u'=2x. (b) v'=1. (c) dy/dx=3x²+6x; at x=1 the value is 9.",
+          parts: [
+            { key: "a", label: "(a)", prompt: "Find u' when u = x².", latex: "u=x^2", marks: 1, answer: "2x", hint: "Use the power rule on x².", explanation: "d/dx(x²) = 2x." },
+            { key: "b", label: "(b)", prompt: "Find v' when v = x + 3.", latex: "v=x+3", marks: 1, answer: "1", hint: "Differentiate x+3 term by term.", explanation: "d/dx(x+3) = 1." },
+            { key: "c", label: "(c)", prompt: "Evaluate dy/dx at x = 1. The derivative is dy/dx = 3x² + 6x.", latex: "\\frac{dy}{dx}=3x^2+6x,\\quad x=1", marks: 2, answer: "9", hint: "Substitute x=1 into 3(1)²+6(1).", explanation: "3(1)+6(1) = 3+6 = 9." },
+          ],
+        },
+        {
+          id: "y11adv-pr-mp2",
+          prompt: "Apply the product rule to y = x(x² − 1).",
+          latex: "y=x(x^2-1)",
+          answer: "1",
+          hint: "u=x, v=x²-1. Find u', v', apply u'v+uv', then evaluate at x=2.",
+          explanation: "(a) u'=1. (b) v'=2x. (c) dy/dx=3x²-1; at x=2 the value is 11.",
+          parts: [
+            { key: "a", label: "(a)", prompt: "Find u' when u = x.", latex: "u=x", marks: 1, answer: "1", hint: "d/dx(x) = 1.", explanation: "The derivative of x is 1." },
+            { key: "b", label: "(b)", prompt: "Find v' when v = x² − 1.", latex: "v=x^2-1", marks: 1, answer: "2x", hint: "Differentiate x²-1 term by term.", explanation: "d/dx(x²-1) = 2x." },
+            { key: "c", label: "(c)", prompt: "Evaluate dy/dx at x = 2. The derivative is dy/dx = 3x² − 1.", latex: "\\frac{dy}{dx}=3x^2-1,\\quad x=2", marks: 2, answer: "11", hint: "Substitute x=2: 3(4)-1.", explanation: "3(2²)-1 = 12-1 = 11." },
+          ],
+        },
+      ],
+    };
+  }
+
+  if (lesson.slug === "quotient-rule") {
+    return {
+      ...base,
+      description:
+        "Differentiate quotients of two functions using the quotient rule dy/dx = (u'v − uv')/v²; identify when the rule is needed and evaluate derivatives at given x-values.",
+      learningIntention:
+        "Learn to apply the quotient rule to differentiate expressions of the form y = f(x)/g(x), including evaluating the resulting derivative at specific x-values.",
+      successCriteria: [
+        "State the quotient rule: d/dx(u/v) = (u'v − uv')/v².",
+        "Identify u and v in a rational function.",
+        "Differentiate each part, then combine using the quotient rule.",
+        "Evaluate a quotient-rule derivative at a given x-value.",
+        "Recognise when the expression can be simplified before applying the rule.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The quotient rule applies when you need to differentiate a fraction whose numerator and denominator are both functions of x.",
+          "Name the numerator u and the denominator v. The rule is: u prime times v, minus u times v prime, all divided by v squared.",
+          "The order in the numerator matters: it is u'v − uv' (not uv' − u'v). The denominator is always v².",
+          "Check if the fraction can be simplified by cancellation before applying the rule. If it simplifies to a polynomial, use the power rule instead.",
+          "Evaluate by substituting the given x-value into the derivative expression.",
+        ],
+        latexBlocks: [
+          "\\frac{d}{dx}\\!\\left(\\frac{u}{v}\\right)=\\frac{u'v-uv'}{v^2}",
+          "\\text{Example: }y=\\frac{x+1}{x},\\quad u=x+1,\\;u'=1,\\quad v=x,\\;v'=1",
+          "\\frac{dy}{dx}=\\frac{1\\cdot x-(x+1)\\cdot1}{x^2}=\\frac{-1}{x^2}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Apply the quotient rule to y = (x+1)/x",
+          questionLatex: "y=\\frac{x+1}{x}",
+          steps: [
+            { explanation: "Let u = x+1 and v = x.", latex: "u=x+1,\\quad v=x" },
+            { explanation: "Differentiate each part.", latex: "u'=1,\\quad v'=1" },
+            { explanation: "Apply the quotient rule.", latex: "\\frac{dy}{dx}=\\frac{1\\cdot x-(x+1)\\cdot1}{x^2}" },
+            { explanation: "Simplify the numerator.", latex: "=\\frac{x-x-1}{x^2}=-\\frac{1}{x^2}" },
+          ],
+          finalAnswerLatex: "\\frac{dy}{dx}=-\\frac{1}{x^2}",
+        },
+        {
+          title: "Evaluate the quotient-rule derivative at a point",
+          questionLatex: "y=\\frac{x+1}{x},\\quad\\text{find }\\frac{dy}{dx}\\text{ at }x=1",
+          steps: [
+            { explanation: "From the previous example, dy/dx = −1/x².", latex: "\\frac{dy}{dx}=-\\frac{1}{x^2}" },
+            { explanation: "Substitute x = 1.", latex: "-\\frac{1}{1^2}=-1" },
+          ],
+          finalAnswerLatex: "-1",
+        },
+        {
+          title: "Apply the quotient rule to y = (x+3)/(x−1)",
+          questionLatex: "y=\\frac{x+3}{x-1}",
+          steps: [
+            { explanation: "Let u = x+3 and v = x-1.", latex: "u=x+3,\\quad v=x-1" },
+            { explanation: "Differentiate each part.", latex: "u'=1,\\quad v'=1" },
+            { explanation: "Apply the quotient rule.", latex: "\\frac{dy}{dx}=\\frac{1\\cdot(x-1)-(x+3)\\cdot1}{(x-1)^2}" },
+            { explanation: "Simplify the numerator.", latex: "=\\frac{x-1-x-3}{(x-1)^2}=-\\frac{4}{(x-1)^2}" },
+          ],
+          finalAnswerLatex: "\\frac{dy}{dx}=-\\frac{4}{(x-1)^2}",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice("y11adv-qr-g1", "Choose the correct quotient rule formula.", "C",
+          ["$\\dfrac{u'}{v'}$", "$\\dfrac{u'v'}{v^2}$", "$\\dfrac{u'v-uv'}{v^2}$", "$\\dfrac{uv'-u'v}{v^2}$"],
+          "The quotient rule is (u'v − uv') ÷ v². The order in the numerator matters: u'v first, then subtract uv'.",
+          "\\frac{d}{dx}\\!\\left(\\frac{u}{v}\\right)"),
+        formulaAnswer("y11adv-qr-g2", "For y = (x+1)/x, find u' when u = x+1.", "u=x+1,\\quad u'=\\Box", "1"),
+        formulaAnswer("y11adv-qr-g3", "For y = (x+1)/x, find v' when v = x.", "v=x,\\quad v'=\\Box", "1"),
+        formulaAnswer("y11adv-qr-g4", "Evaluate dy/dx = −1/x² at x = 1.", "\\frac{dy}{dx}=-\\frac{1}{x^2},\\quad x=1", "-1", ["−1"]),
+      ],
+      independentPractice: [
+        formulaAnswer("y11adv-qr-i1", "For y = (x²+4)/x, find u' when u = x²+4.", "u=x^2+4,\\quad u'=\\Box", "2x"),
+        formulaAnswer("y11adv-qr-i2", "For y = (x²+4)/x, find v' when v = x.", "v=x,\\quad v'=\\Box", "1"),
+        formulaAnswer("y11adv-qr-i3", "Evaluate d/dx[(x²+4)/x] at x = 1. The derivative is (x²−4)/x².", "\\frac{d}{dx}\\!\\left[\\frac{x^2+4}{x}\\right]=\\frac{x^2-4}{x^2},\\quad x=1", "-3", ["−3"]),
+        formulaAnswer("y11adv-qr-i4", "Evaluate d/dx[(x²+4)/x] at x = 2.", "\\frac{d}{dx}\\!\\left[\\frac{x^2+4}{x}\\right]=\\frac{x^2-4}{x^2},\\quad x=2", "0"),
+        practicalChoice("y11adv-qr-i5", "For y = (x+3)/(x−1), what does v² equal in the denominator of the quotient rule?", "B",
+          ["$(x+3)^2$", "$(x-1)^2$", "$x^2$", "$(x+3)(x-1)$"],
+          "v is the denominator x−1, so v² = (x−1)².",
+          "y=\\frac{x+3}{x-1}"),
+      ],
+      commonMistakes: [
+        { mistake: "Reversing the numerator to uv' − u'v instead of u'v − uv'.", fix: "Memorise the order: u'v comes first, then subtract uv'. A wrong sign here reverses the sign of the whole derivative." },
+        { mistake: "Writing v instead of v² in the denominator.", fix: "The quotient rule always divides by v squared, not v." },
+        { mistake: "Applying the quotient rule when the fraction simplifies first.", fix: "Try cancelling or splitting the fraction before using the rule. For example, (x²+x)/x = x+1, which needs only the power rule." },
+        { mistake: "Forgetting that v' may require the chain rule when v is composite.", fix: "If v = (x+1)², then v' = 2(x+1), not 1." },
+      ],
+      masteryQuiz: [
+        formulaAnswer("y11adv-qr-m1", "Evaluate the derivative of y = (x+3)/(x−1) at x = 2. The derivative is −4/(x−1)².", "y=\\frac{x+3}{x-1},\\quad \\frac{dy}{dx}=-\\frac{4}{(x-1)^2},\\quad x=2", "-4", ["−4"]),
+        formulaAnswer("y11adv-qr-m2", "Evaluate the derivative of y = x/(x+1) at x = 0. The derivative is 1/(x+1)².", "y=\\frac{x}{x+1},\\quad \\frac{dy}{dx}=\\frac{1}{(x+1)^2},\\quad x=0", "1"),
+        formulaAnswer("y11adv-qr-m3", "For y = (2x+3)/(x+1), find u' when u = 2x+3.", "u=2x+3,\\quad u'=\\Box", "2"),
+        formulaAnswer("y11adv-qr-m4", "Evaluate the derivative of y = (2x+3)/(x+1) at x = 0. The derivative is −1/(x+1)².", "y=\\frac{2x+3}{x+1},\\quad \\frac{dy}{dx}=-\\frac{1}{(x+1)^2},\\quad x=0", "-1", ["−1"]),
+        formulaAnswer("y11adv-qr-m5", "Evaluate the derivative of y = (x+3)/(x−1) at x = 3.", "y=\\frac{x+3}{x-1},\\quad \\frac{dy}{dx}=-\\frac{4}{(x-1)^2},\\quad x=3", "-1", ["−1"]),
+        formulaAnswer("y11adv-qr-m6", "Evaluate the derivative of y = x²/(x−1) at x = 2. The derivative is (x²−2x)/(x−1)².", "y=\\frac{x^2}{x-1},\\quad \\frac{dy}{dx}=\\frac{x^2-2x}{(x-1)^2},\\quad x=2", "0"),
+        practicalChoice("y11adv-qr-m7", "A student differentiates y = (x+2)/(x−1) and gets dy/dx = 1/(x−1)². What was the error?", "B",
+          ["The denominator should be (x−1) not (x−1)²", "The term −uv' = −(x+2)·1 was omitted from the numerator", "u' should be zero", "The quotient rule does not apply here"],
+          "The quotient-rule numerator needs u'v − uv'. The student only kept u'v = (x−1) and dropped −uv' = −(x+2).",
+          "y=\\frac{x+2}{x-1}"),
+        formulaAnswer("y11adv-qr-m8", "Evaluate the derivative of y = (x+1)/x at x = 1.", "y=\\frac{x+1}{x},\\quad \\frac{dy}{dx}=-\\frac{1}{x^2},\\quad x=1", "-1", ["−1"]),
+        practicalChoice("y11adv-qr-m9", "Which function can be differentiated without the quotient rule by simplifying first?", "A",
+          ["$y=\\dfrac{x^2+3x}{x}$", "$y=\\dfrac{x+1}{x+2}$", "$y=\\dfrac{x^2}{x+1}$", "$y=\\dfrac{\\sin x}{x}$"],
+          "(x²+3x)/x simplifies to x+3, a polynomial that needs only the power rule.",
+          "\\text{Simplify first?}"),
+        formulaAnswer("y11adv-qr-m10", "Evaluate the derivative of y = (x+2)/(x−1) at x = 2. The derivative is −3/(x−1)².", "y=\\frac{x+2}{x-1},\\quad \\frac{dy}{dx}=-\\frac{3}{(x-1)^2},\\quad x=2", "-3", ["−3"]),
+      ],
+      multiPartPractice: [
+        {
+          id: "y11adv-qr-mp1",
+          prompt: "Apply the quotient rule to y = (x² + 4)/x.",
+          latex: "y=\\frac{x^2+4}{x}",
+          answer: "2x",
+          hint: "u=x²+4, v=x. Find u' and v', apply (u'v−uv')/v², then evaluate at x=1.",
+          explanation: "(a) u'=2x. (b) v'=1. (c) dy/dx=(x²−4)/x²; at x=1 the value is −3.",
+          parts: [
+            { key: "a", label: "(a)", prompt: "Find u' when u = x² + 4.", latex: "u=x^2+4", marks: 1, answer: "2x", hint: "Differentiate x²+4 term by term.", explanation: "d/dx(x²+4) = 2x." },
+            { key: "b", label: "(b)", prompt: "Find v' when v = x.", latex: "v=x", marks: 1, answer: "1", hint: "d/dx(x) = 1.", explanation: "The derivative of x is 1." },
+            { key: "c", label: "(c)", prompt: "Evaluate dy/dx at x = 1. The derivative is dy/dx = (x² − 4)/x².", latex: "\\frac{dy}{dx}=\\frac{x^2-4}{x^2},\\quad x=1", marks: 2, answer: "-3", acceptedAnswers: ["-3", "−3"], hint: "Substitute x=1: (1−4)/1.", explanation: "(1²-4)/1² = −3." },
+          ],
+        },
+        {
+          id: "y11adv-qr-mp2",
+          prompt: "Apply the quotient rule to y = (x + 3)/(x − 1).",
+          latex: "y=\\frac{x+3}{x-1}",
+          answer: "1",
+          hint: "u=x+3, v=x−1. Find u' and v', apply (u'v−uv')/v², then evaluate at x=2.",
+          explanation: "(a) u'=1. (b) v'=1. (c) dy/dx=−4/(x−1)²; at x=2 the value is −4.",
+          parts: [
+            { key: "a", label: "(a)", prompt: "Find u' when u = x + 3.", latex: "u=x+3", marks: 1, answer: "1", hint: "d/dx(x+3) = 1.", explanation: "The derivative of x+3 is 1." },
+            { key: "b", label: "(b)", prompt: "Find v' when v = x − 1.", latex: "v=x-1", marks: 1, answer: "1", hint: "d/dx(x−1) = 1.", explanation: "The derivative of x−1 is 1." },
+            { key: "c", label: "(c)", prompt: "Evaluate dy/dx at x = 2. The derivative is dy/dx = −4/(x − 1)².", latex: "\\frac{dy}{dx}=-\\frac{4}{(x-1)^2},\\quad x=2", marks: 2, answer: "-4", acceptedAnswers: ["-4", "−4"], hint: "Substitute x=2: −4/(2−1)².", explanation: "−4/(1)² = −4." },
+          ],
+        },
+      ],
+    };
+  }
+
   return null;
 }

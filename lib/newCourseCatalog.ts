@@ -1902,6 +1902,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "derivatives-first-principles", title: "Derivatives from First Principles" },
           { slug: "differentiating-polynomial-functions", title: "Differentiating Polynomial Functions" },
           {
+            slug: "product-rule",
+            title: "The Product Rule",
+            description:
+              "Differentiate products of two functions using d/dx(uv) = u'v + uv'; identify when the product rule is needed versus expanding first.",
+          },
+          {
+            slug: "quotient-rule",
+            title: "The Quotient Rule",
+            description:
+              "Differentiate quotients using d/dx(u/v) = (u'v − uv')/v²; evaluate rational-function derivatives at given x-values.",
+          },
+          {
             slug: "chain-rule-basics",
             title: "The Chain Rule",
             description: "Differentiate composite polynomial functions of the form (ax+b)^n and (ax²+bx+c)^n using the chain rule.",
