@@ -186,7 +186,7 @@ const interceptForm: LessonContent = {
   description: "Use y = mx + b to read gradients, y-intercepts and simple line values.",
   learningIntention: "Interpret and use gradient-intercept form for straight lines.",
   successCriteria: ["Identify m as gradient.", "Identify b as y-intercept.", "Substitute an x-value.", "Match simple equations and graphs."],
-  teaching: { paragraphs: ["Straight lines can be written in gradient-intercept form.", "The coefficient m tells us the gradient. The constant b tells us where the line crosses the y-axis.", "To sketch a line, mark the y-intercept and use the gradient to find another point.", "To find an output, substitute the x-value into the equation."], latexBlocks: ["y=mx+b", "m=\\text{gradient}", "b=\\text{y-intercept}"] },
+  teaching: { paragraphs: ["Straight lines can be written in gradient-intercept form.", "The coefficient m tells us the gradient. The constant b tells us where the line crosses the y-axis.", "To sketch a line, mark the y-intercept and use the gradient to find another point.", "To find an output, substitute the x-value into the equation.", "The gradient of y = mx + b gives the rate of change — how much y increases for every 1-unit increase in x. The y-intercept gives the starting value when x = 0. In a real-world model, always interpret both values using the units and context given."], latexBlocks: ["y=mx+b", "m=\\text{gradient}", "b=\\text{y-intercept}"] },
   workedExamples: [
     { title: "Read m and b", questionLatex: "\\text{State the gradient and y-intercept of }y=3x-2.", steps: [{ explanation: "Compare with y = mx + b.", latex: "m=3,\\quad b=-2" }], finalAnswerLatex: "m=3,\\quad b=-2" },
     { title: "Evaluate a line", questionLatex: "\\text{Find y when }x=4\\text{ for }y=2x+1.", steps: [{ explanation: "Substitute x = 4.", latex: "y=2(4)+1=9" }], finalAnswerLatex: "9" },
@@ -194,13 +194,13 @@ const interceptForm: LessonContent = {
   ],
   guidedPractice: [
     answer("y9-rate-form-g1", "State the gradient.", "y=4x+3", "4", "The coefficient of x is the gradient.", ["m=4"]),
-    answer("y9-rate-form-g2", "State the y-intercept.", "y=2x-5", "-5", "The constant term is the y-intercept.", ["b=-5"]),
-    answer("y9-rate-form-g3", "Find y when x = 3.", "y=2x+4", "10", "Substitute 3."),
+    choice("y9-rate-form-g2", "A plumber charges a $50 call-out fee plus $30 per hour. Which equation models the total cost C after h hours?", "C", ["$C=30h$", "$C=50h+30$", "$C=30h+50$", "$C=80h$"], "The y-intercept 50 is the fixed call-out fee; the gradient 30 is the hourly rate.", "\\text{Identify the initial value and rate.}"),
+    answer("y9-rate-form-g3", "A phone plan is modelled by C = 4t + 20, where t is the number of minutes used. The gradient is 4. What does this represent?", "\\text{Interpret the gradient in context.}", "cost per minute", "The gradient is the rate of change — the cost increases by $4 for each additional minute.", ["$4 per minute", "4 dollars per minute", "$4/min"]),
     choice("y9-rate-form-g4", "Which equation has gradient 3 and y-intercept 1?", "C", ["$y=x+3$", "$y=3+x$", "$y=3x+1$", "$y=-3x+1$"], "Use y = mx + b."),
   ],
   independentPractice: [
-    answer("y9-rate-form-i1", "State the gradient.", "y=-2x+6", "-2", "Read the coefficient.", ["m=-2"]),
-    answer("y9-rate-form-i2", "State the y-intercept.", "y=5x+7", "7", "Read the constant term.", ["b=7"]),
+    answer("y9-rate-form-i1", "A taxi fare is modelled by F = 2.5d + 3.5, where d is distance in km. What is the flag-fall (initial charge) before any distance is travelled?", "\\text{Identify the y-intercept in context.}", "3.5", "The y-intercept 3.5 is the fixed charge when d = 0 — before any distance is travelled.", ["$3.50", "3.50", "$3.5"]),
+    choice("y9-rate-form-i2", "An electrician charges a $40 call-out fee and $25 per hour. The cost equation is C = 25h + 40. What does the y-intercept represent?", "A", ["The fixed call-out fee of $40", "The hourly rate of $25", "The total cost after 40 hours", "The number of hours worked"], "The y-intercept is the initial value — the charge when h = 0, which is the call-out fee."),
     answer("y9-rate-form-i3", "Find y when x = -1.", "y=3x+2", "-1", "Substitute -1."),
     choice("y9-rate-form-i4", "Which equation represents a horizontal line crossing y = 4?", "B", ["$x=4$", "$y=4$", "$y=4x$", "$y=x+4$"], "A horizontal line has constant y."),
     choice("y9-rate-form-i5", "Which equation has negative gradient and positive y-intercept?", "D", ["$y=2x-3$", "$y=2x+3$", "$y=-2x-3$", "$y=-2x+3$"], "The x-coefficient is negative and constant is positive."),
