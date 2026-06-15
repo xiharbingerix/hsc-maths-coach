@@ -8,3 +8,8 @@ export { year9MakingDecisionsLessonOverride } from "./makingDecisions";
 export { year9GeometricalRepresentationsLessonOverride } from "./geometricalRepresentations";
 export { year9AlgebraicTechniquesLessonOverride } from "./algebraicTechniques";
 export { year9EquationsLessonOverride } from "./equations";
+export { year9EquationsBLessonOverride } from "./equationsB";
+export { year9VariationRatesLessonOverride } from "./variationRates";
+export { year9SimultaneousEquationsLessonOverride } from "./simultaneousEquations";
+export { year9ProbabilityBLessonOverride } from "./probabilityB";
+export { year9LinearRelationshipsCLessonOverride } from "./linearRelationshipsC";

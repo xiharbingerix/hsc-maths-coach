@@ -94,8 +94,9 @@ import {
   year12Extension1CalculusApplicationsRevisionLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
-import { year9AlgebraicTechniquesLessonOverride, year9ConstantRatesOfChangeLessonOverride, year9EquationsLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
+import { year9AlgebraicTechniquesLessonOverride, year9ConstantRatesOfChangeLessonOverride, year9EquationsLessonOverride, year9EquationsBLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9LinearRelationshipsCLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9ProbabilityBLessonOverride, year9SimultaneousEquationsLessonOverride, year9VariationRatesLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride } from "./lessons/year8";
+import { year7IntegersLessonOverride, year7FractionsLessonOverride, year7AlgebraicTechniquesLessonOverride, year7PercentagesLessonOverride, year7EquationsLessonOverride, year7IndicesLessonOverride, year7PerimeterLessonOverride, year7AreaLessonOverride, year7AnglesLessonOverride, year7DataLessonOverride } from "./lessons/year7";
 import {
   year12Extension2CalculusLessonOverride,
   year12Extension2ComplexNumbersLessonOverride,
@@ -334,6 +335,16 @@ export function buildLesson(
     year11ExtensionFurtherTrigonometryLessonOverride(course, unit, lesson) ??
     year11ExtensionPermutationsCombinationsLessonOverride(course, unit, lesson) ??
     year11ExtensionBinomialTheoremLessonOverride(course, unit, lesson) ??
+    year7IntegersLessonOverride(course, unit, lesson) ??
+    year7FractionsLessonOverride(course, unit, lesson) ??
+    year7AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
+    year7PercentagesLessonOverride(course, unit, lesson) ??
+    year7EquationsLessonOverride(course, unit, lesson) ??
+    year7IndicesLessonOverride(course, unit, lesson) ??
+    year7PerimeterLessonOverride(course, unit, lesson) ??
+    year7AreaLessonOverride(course, unit, lesson) ??
+    year7AnglesLessonOverride(course, unit, lesson) ??
+    year7DataLessonOverride(course, unit, lesson) ??
     year8NumberOperationsLessonOverride(course, unit, lesson) ??
     year8VolumeSurfaceAreaLessonOverride(course, unit, lesson) ??
     year8AlgebraFoundationsLessonOverride(course, unit, lesson) ??
@@ -353,6 +364,11 @@ export function buildLesson(
     year9GeometricalRepresentationsLessonOverride(course, unit, lesson) ??
     year9AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year9EquationsLessonOverride(course, unit, lesson) ??
+    year9EquationsBLessonOverride(course, unit, lesson) ??
+    year9VariationRatesLessonOverride(course, unit, lesson) ??
+    year9SimultaneousEquationsLessonOverride(course, unit, lesson) ??
+    year9ProbabilityBLessonOverride(course, unit, lesson) ??
+    year9LinearRelationshipsCLessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
     year10TrigonometryLessonOverride(course, unit, lesson) ??
@@ -4927,6 +4943,96 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     return [u];
   });
 
+  const year9AdvancedUnits: CourseUnitSeed[] = [
+    ...year9Base.units.flatMap((u) => {
+      if (u.slug === "financial-mathematics") {
+        return [{ ...u, title: "Earning and Making Money" }];
+      }
+      if (u.slug === "constant-rates-of-change") {
+        // distance-time-graphs belongs in the variation-rates Advanced unit
+        return [{ ...u, title: "Linear Relationships", lessons: u.lessons.filter((l) => l.slug !== "distance-time-graphs") }];
+      }
+      if (u.slug === "prisms-and-cylinders") {
+        return [{ ...u, title: "Area, Surface Area and Volume" }];
+      }
+      if (u.slug === "making-predictions") {
+        return [{ ...u, title: "Probability" }];
+      }
+      if (u.slug === "making-decisions") {
+        return [{ ...u, title: "Data Analysis" }];
+      }
+      if (u.slug === "working-with-triangles") {
+        return [{ ...u, title: "Trigonometry" }];
+      }
+      if (u.slug === "index-laws") {
+        return [{ ...u, title: "Indices" }];
+      }
+      if (u.slug === "geometrical-representations") {
+        return [{ ...u, title: "Properties of Geometrical Figures" }];
+      }
+      return [u];
+    }),
+    {
+      slug: "equations-b",
+      title: "Quadratic and Cubic Equations",
+      description: "Solve monic quadratic equations by factorising, linear inequalities, and cubic equations of the form ax³ = k.",
+      syllabusArea: "Number and Algebra",
+      focus: "Develop fluency solving a broader range of equations including quadratics, inequalities and cubics.",
+      lessons: [
+        { slug: "quadratic-equations-factorise", title: "Solving Monic Quadratic Equations by Factorising" },
+        { slug: "linear-inequalities", title: "Solving Linear Inequalities" },
+        { slug: "cubic-equations", title: "Solving Cubic Equations of the Form ax³ = k" },
+      ],
+    },
+    {
+      slug: "variation-rates",
+      title: "Variation and Rates",
+      description: "Solve problems involving ratios and rates, analyse distance-time graphs, and recognise direct variation.",
+      syllabusArea: "Number and Algebra",
+      focus: "Apply proportional reasoning and rate concepts to interpret and solve real-world problems.",
+      lessons: [
+        { slug: "ratios-and-rates", title: "Ratios and Rates" },
+        { slug: "distance-time-graphs", title: "Distance-Time Graphs" },
+        { slug: "direct-variation", title: "Direct Variation" },
+      ],
+    },
+    {
+      slug: "simultaneous-equations",
+      title: "Simultaneous Equations",
+      description: "Solve linear simultaneous equations graphically and algebraically using substitution and elimination methods.",
+      syllabusArea: "Number and Algebra",
+      focus: "Choose efficient algebraic methods to solve systems of two linear equations.",
+      lessons: [
+        { slug: "simultaneous-equations-graphical", title: "Solving Simultaneous Equations Graphically" },
+        { slug: "simultaneous-equations-substitution", title: "Solving Simultaneous Equations by Substitution" },
+        { slug: "simultaneous-equations-elimination", title: "Solving Simultaneous Equations by Elimination" },
+      ],
+    },
+    {
+      slug: "probability-b",
+      title: "Probability B",
+      description: "Solve probability problems using Venn diagrams, two-way tables and conditional probability.",
+      syllabusArea: "Probability and Statistics",
+      focus: "Extend probability to multi-event scenarios using set notation, tables and conditional reasoning.",
+      lessons: [
+        { slug: "venn-diagrams", title: "Venn Diagrams and Set Notation" },
+        { slug: "two-way-tables", title: "Two-Way Tables" },
+        { slug: "conditional-probability", title: "Conditional Probability" },
+      ],
+    },
+    {
+      slug: "linear-relationships-c",
+      title: "Linear Relationships C",
+      description: "Find equations of lines in multiple forms and identify parallel and perpendicular lines.",
+      syllabusArea: "Number and Algebra",
+      focus: "Apply gradient and equation concepts to describe, compare and find equations of lines in context.",
+      lessons: [
+        { slug: "equations-of-lines", title: "Equations of Lines" },
+        { slug: "parallel-perpendicular-lines", title: "Parallel and Perpendicular Lines" },
+      ],
+    },
+  ];
+
   // Year 10 Core trims:
   //   non-linear-relationships â†’ parabolas + circles only (no exponential / hyperbola)
   //   trigonometry             â†’ right-angled only (no sine/cosine rule, area, bearings)
@@ -4980,10 +5086,10 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       courseType: "Mathematics Advanced",
       status: "in_progress",
       description:
-        "Stage 5.2/5.3 Year 9 Mathematics for students on the Advanced pathway. Includes full trigonometry, coordinate geometry and extended algebra.",
+        "Stage 5.2/5.3 Year 9 Mathematics for students on the Advanced pathway. Includes full trigonometry, coordinate geometry, extended algebra, simultaneous equations, Venn diagrams and conditional probability.",
       positioning:
-        "Advanced Stage 5 pathway. Covers all Year 9 content including trigonometric ratios, right-triangle applications, midpoint, distance and gradient foundations.",
-      units: year9Base.units,
+        "Advanced Stage 5 pathway. Extends base Year 9 content with quadratic and cubic equations, simultaneous equations, variation and rates, Probability B, and linear relationships C.",
+      units: year9AdvancedUnits,
     },
     {
       slug: "year-9-mathematics-core",
