@@ -23,8 +23,16 @@ import {
 import {
   year12Standard1BearingsAndCompassLessonOverride,
   year12Standard1BivariateDataScatterPlotsLessonOverride,
+  year12Standard1CreditCardsAndLoansLessonOverride,
   year12Standard1DataDisplaysSummaryStatisticsLessonOverride,
+  year12Standard1DepreciationAndLoansLessonOverride,
   year12Standard1FinancialPlanningRepaymentLessonOverride,
+  year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride,
+  year12Standard1InvestmentCompoundInterestLessonOverride,
+  year12Standard1LinearRelationshipsModellingLessonOverride,
+  year12Standard1QuadraticModelsLessonOverride,
+  year12Standard1RatiosRatesUnitConversionsLessonOverride,
+  year12Standard1SimultaneousEquationsContextLessonOverride,
   year12Standard1LinearAndDirectVariationLessonOverride,
   year12Standard1LineOfBestFitPredictionsLessonOverride,
   year12Standard1MeasurementAreaVolumeLessonOverride,
@@ -273,6 +281,14 @@ export function buildLesson(
     year12Standard1RelativeFrequencyExpectedValueLessonOverride(course, unit, lesson) ??
     year12Standard1StatisticsExamPracticeLessonOverride(course, unit, lesson) ??
     year12Standard1LinearAndDirectVariationLessonOverride(course, unit, lesson) ??
+    year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(course, unit, lesson) ??
+    year12Standard1LinearRelationshipsModellingLessonOverride(course, unit, lesson) ??
+    year12Standard1QuadraticModelsLessonOverride(course, unit, lesson) ??
+    year12Standard1SimultaneousEquationsContextLessonOverride(course, unit, lesson) ??
+    year12Standard1RatiosRatesUnitConversionsLessonOverride(course, unit, lesson) ??
+    year12Standard1InvestmentCompoundInterestLessonOverride(course, unit, lesson) ??
+    year12Standard1DepreciationAndLoansLessonOverride(course, unit, lesson) ??
+    year12Standard1CreditCardsAndLoansLessonOverride(course, unit, lesson) ??
     year12Standard1FinancialPlanningRepaymentLessonOverride(course, unit, lesson) ??
     year12Standard2NetworksLessonOverride(course, unit, lesson) ??
     year12Standard2FinanceLessonOverride(course, unit, lesson) ??
@@ -1055,7 +1071,13 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             slug: "depreciation-loans",
             title: "Depreciation and Loans",
             description:
-              "Model asset depreciation and loan balances using decay factors, repayments, and recurrence relations.",
+              "Model asset depreciation using straight-line and declining balance methods, complete reducing balance loan tables, and compare loan types.",
+          },
+          {
+            slug: "credit-cards-and-loans",
+            title: "Credit Cards and Loans",
+            description:
+              "Understand credit cards as reducing balance loans, compare interest rates with other loan types, interpret statements, and calculate compound interest on outstanding balances.",
           },
           {
             slug: "annuities-regular-payments",
