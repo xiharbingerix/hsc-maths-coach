@@ -107,9 +107,9 @@ export function year12Standard2TrigRatesLessonOverride(
   const isStandard2 = course.slug === "year-12-standard-2";
   const isStandard1 = course.slug === "year-12-standard-1";
 
-  if ((!isStandard2 && !isStandard1) || unit.slug !== "trigonometry-ratios-rates") {
-    return null;
-  }
+  if (!isStandard2 && !isStandard1) return null;
+  if (isStandard2 && unit.slug !== "trigonometry" && unit.slug !== "ratios-rates") return null;
+  if (isStandard1 && unit.slug !== "trigonometry-ratios-rates") return null;
 
   const base = {
     masteryPassMark: 0.8,

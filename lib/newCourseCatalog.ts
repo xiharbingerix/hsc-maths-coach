@@ -480,12 +480,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
-        slug: "trigonometry-ratios-rates",
-        title: "Trigonometry, Ratios and Rates",
+        slug: "trigonometry",
+        title: "Trigonometry",
         description:
-          "Non-right-angled trigonometry, sine and cosine rules, triangular area, ratios, rates, scale, speed, and practical conversions.",
+          "Right-angled trigonometry and radians, angles of elevation and depression, sine and cosine rules, triangular area, and non-right-angled triangle problems.",
         syllabusArea: "Measurement",
-        focus: "Trigonometry, ratios and rates",
+        focus: "Trigonometry",
         lessons: [
           {
             slug: "trigonometry-revision",
@@ -517,6 +517,22 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Choose sine rule or cosine rule for practical non-right-angled triangle problems in surveying and navigation contexts.",
           },
+          {
+            slug: "ambiguous-case-sine-rule",
+            title: "The Ambiguous Case of the Sine Rule",
+            description:
+              "Recognise when SSA information produces one or two valid triangles, compute both possible angles using B₂ = 180° − B₁, and test validity with A + B < 180°.",
+          },
+        ],
+      },
+      {
+        slug: "ratios-rates",
+        title: "Rates and Ratios",
+        description:
+          "Ratios, rates, unit conversions, energy consumption, scale drawings, rainfall calculations, bearings, time zones, and practical measurement problems.",
+        syllabusArea: "Measurement",
+        focus: "Rates and ratios",
+        lessons: [
           {
             slug: "ratios-rates-revision",
             title: "Ratios and Rates Revision",
@@ -560,12 +576,6 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Convert times between Australian and international time zones using UTC offsets, handle midnight crossings and day changes, and understand the International Date Line.",
           },
           {
-            slug: "ambiguous-case-sine-rule",
-            title: "The Ambiguous Case of the Sine Rule",
-            description:
-              "Recognise when SSA information produces one or two valid triangles, compute both possible angles using B₂ = 180° − B₁, and test validity with A + B < 180°.",
-          },
-          {
             slug: "practical-rates-ratios-exam-practice",
             title: "Practical Rates and Ratios Exam Practice",
             description:
@@ -602,12 +612,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
-        slug: "investments-loans-annuities",
-        title: "Investments, Loans and Annuities",
+        slug: "investment-loans",
+        title: "Investment and Loans",
         description:
-          "Compound investments, depreciation, loan recurrences, annuities, regular payments, fees, and financial decisions.",
+          "Compound interest, growth and decay factors, shares and dividends, asset depreciation, and loan recurrences.",
         syllabusArea: "Financial Mathematics",
-        focus: "Investments, loans and annuities",
+        focus: "Investment and loans",
         lessons: [
           {
             slug: "investment-loans-revision",
@@ -639,6 +649,16 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Apply S = V₀ − Dn for straight-line depreciation and S = V₀(1−r)ⁿ for declining balance depreciation, and compare both methods for the same asset.",
           },
+        ],
+      },
+      {
+        slug: "annuities",
+        title: "Annuities",
+        description:
+          "Future value and present value annuities, regular payment schedules, interest factor tables, retirement planning, and financial decision-making.",
+        syllabusArea: "Financial Mathematics",
+        focus: "Annuities",
+        lessons: [
           {
             slug: "annuities-revision",
             title: "Annuities Revision",
@@ -690,12 +710,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
-        slug: "bivariate-data-normal-distribution",
-        title: "Bivariate Data and Normal Distribution",
+        slug: "bivariate-data",
+        title: "Bivariate Data Analysis",
         description:
-          "Bivariate data, scatterplots, correlation, regression, residuals, z-scores, normal distribution, and exam-style statistics practice.",
+          "Scatterplots, direction and strength of association, correlation, regression equations, predictions, and residuals.",
         syllabusArea: "Statistical Analysis",
-        focus: "Bivariate data and normal distribution",
+        focus: "Bivariate data analysis",
         lessons: [
           {
             slug: "bivariate-data-revision",
@@ -721,18 +741,16 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Use regression equations to make predictions, interpret slope, and calculate residuals as actual minus predicted values.",
           },
-          {
-            slug: "normal-distribution-revision",
-            title: "Normal Distribution Revision",
-            description:
-              "Consolidate Year 12 Standard 2 statistics foundations before the normal distribution: review mean and standard deviation, interpret spread, and recall the shape of a symmetric bell-curve distribution — preparation for z-scores and the empirical rule.",
-          },
-          {
-            slug: "normal-distribution-z-scores",
-            title: "Normal Distribution and Z-Scores",
-            description:
-              "Calculate and interpret z-scores, standard deviations from the mean, and empirical-rule percentages.",
-          },
+        ],
+      },
+      {
+        slug: "probability",
+        title: "Relative Frequency and Probability",
+        description:
+          "Experimental and theoretical probability, relative frequency, two-way tables, multistage events, independence, and contingency tables.",
+        syllabusArea: "Statistical Analysis",
+        focus: "Relative frequency and probability",
+        lessons: [
           {
             slug: "probability-revision",
             title: "Probability Revision",
@@ -757,6 +775,28 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Calculate expected frequency using E = np, read and complete contingency tables, find probabilities from cell counts, and use probability to evaluate decisions.",
           },
+        ],
+      },
+      {
+        slug: "normal-distribution",
+        title: "The Normal Distribution",
+        description:
+          "Bell-curve shape, z-scores, empirical rule 68/95/99.7%, standardised values, and statistical analysis exam practice.",
+        syllabusArea: "Statistical Analysis",
+        focus: "The normal distribution",
+        lessons: [
+          {
+            slug: "normal-distribution-revision",
+            title: "Normal Distribution Revision",
+            description:
+              "Consolidate Year 12 Standard 2 statistics foundations before the normal distribution: review mean and standard deviation, interpret spread, and recall the shape of a symmetric bell-curve distribution — preparation for z-scores and the empirical rule.",
+          },
+          {
+            slug: "normal-distribution-z-scores",
+            title: "Normal Distribution and Z-Scores",
+            description:
+              "Calculate and interpret z-scores, standard deviations from the mean, and empirical-rule percentages.",
+          },
           {
             slug: "statistical-analysis-exam-practice",
             title: "Statistical Analysis Exam Practice",
@@ -766,12 +806,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
-        slug: "networks-critical-path-analysis",
-        title: "Networks and Critical Path Analysis",
+        slug: "network-flow",
+        title: "Network Flow",
         description:
-          "Weighted and directed networks, shortest paths, minimum spanning trees, project scheduling, and critical path analysis.",
+          "Vertices, edges, degrees, directed and weighted networks, shortest paths, minimum spanning trees, and flow capacity problems.",
         syllabusArea: "Networks",
-        focus: "Networks and critical path analysis",
+        focus: "Network flow",
         lessons: [
           {
             slug: "network-flow-revision",
@@ -797,6 +837,16 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Interpret directed flow networks, capacities, bottlenecks, feasible flow, cuts, and maximum-flow limits in practical contexts.",
           },
+        ],
+      },
+      {
+        slug: "critical-path-analysis",
+        title: "Critical Path Analysis",
+        description:
+          "Precedence tables, earliest start times, critical paths, project completion time, float, Gantt charts, and dummy activities.",
+        syllabusArea: "Networks",
+        focus: "Critical path analysis",
+        lessons: [
           {
             slug: "critical-path-revision",
             title: "Critical Path Revision",

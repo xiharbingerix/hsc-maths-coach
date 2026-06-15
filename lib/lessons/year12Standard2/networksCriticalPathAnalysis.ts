@@ -201,7 +201,7 @@ export function year12Standard2NetworksLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-2" ||
-    unit.slug !== "networks-critical-path-analysis"
+    (unit.slug !== "network-flow" && unit.slug !== "critical-path-analysis")
   ) {
     return null;
   }

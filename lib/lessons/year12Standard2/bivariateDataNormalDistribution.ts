@@ -74,7 +74,7 @@ export function year12Standard2StatisticsLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-2" ||
-    unit.slug !== "bivariate-data-normal-distribution"
+    (unit.slug !== "bivariate-data" && unit.slug !== "probability" && unit.slug !== "normal-distribution")
   ) {
     return null;
   }
