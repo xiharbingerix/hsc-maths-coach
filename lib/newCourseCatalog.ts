@@ -4908,7 +4908,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       return [{ ...u, title: "Earning and Making Money" }];
     }
     if (u.slug === "constant-rates-of-change") {
-      return [{ ...u, title: "Linear Relationships" }];
+      // distance-time-graphs is Variation A (MA5-RAT-P-01) — PATH only, not Core
+      return [{ ...u, title: "Linear Relationships", lessons: u.lessons.filter((l) => l.slug !== "distance-time-graphs") }];
     }
     if (u.slug === "prisms-and-cylinders") {
       return [{ ...u, title: "Area, Surface Area and Volume" }];
@@ -4920,7 +4921,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       return [{ ...u, title: "Data Analysis" }];
     }
     if (u.slug === "geometrical-representations") {
-      return [{ ...u, title: "Properties of Geometrical Figures" }];
+      // geometric-representations (plans/nets) and networks-introduction are not in MA5-GEO-C-01 Core scope
+      return [{ ...u, title: "Properties of Geometrical Figures", lessons: u.lessons.filter((l) => ["similar-figures", "ratio-scale-factors", "scale-drawings"].includes(l.slug)) }];
     }
     return [u];
   });
