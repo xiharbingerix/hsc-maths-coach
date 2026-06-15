@@ -5,6 +5,7 @@ import type {
   NetworkDiagram,
   NormalDistributionDiagram,
   PolynomialCurveDiagram,
+  SlopeFieldDiagram,
   ProbabilityTreeDiagram,
   TrigGraphDiagram,
   TrapezoidalRuleDiagram,
@@ -46,6 +47,7 @@ export type PracticeQuestion = {
   twoWayTableDiagram?: TwoWayTableDiagram;
   vennDiagram?: VennDiagram;
   polynomialCurveDiagram?: PolynomialCurveDiagram;
+  slopeFieldDiagram?: SlopeFieldDiagram;
   solutionDiagram?: NetworkDiagram;
   answer: string;
   acceptedAnswers?: string[];
@@ -88,6 +90,7 @@ export type WorkedExample = {
   twoWayTableDiagram?: TwoWayTableDiagram;
   vennDiagram?: VennDiagram;
   polynomialCurveDiagram?: PolynomialCurveDiagram;
+  slopeFieldDiagram?: SlopeFieldDiagram;
   steps: WorkedExampleStep[];
   finalAnswerLatex: string;
 };

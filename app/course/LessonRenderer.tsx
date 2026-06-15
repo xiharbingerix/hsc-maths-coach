@@ -30,6 +30,7 @@ import { UnitCircleDiagramView } from "./components/UnitCircleDiagramView";
 import { Vector3DDiagramView } from "./components/Vector3DDiagramView";
 import { VennDiagramView } from "./components/VennDiagramView";
 import { PolynomialCurveView } from "./components/PolynomialCurveView";
+import { SlopeFieldView } from "./components/SlopeFieldView";
 import { markTypedAnswer } from "../../lib/answerMarking";
 import { MathAnswerInput } from "../components/MathAnswerInput";
 import { HintLadder } from "./components/HintLadder";
@@ -335,6 +336,9 @@ function MultiPartPracticeCard({
         {question.polynomialCurveDiagram && (
           <PolynomialCurveView diagram={question.polynomialCurveDiagram} />
         )}
+        {question.slopeFieldDiagram && (
+          <SlopeFieldView diagram={question.slopeFieldDiagram} />
+        )}
       </div>
 
       <div className="space-y-4">
@@ -491,6 +495,9 @@ function MultiPartQuizQuestion({
         {question.vennDiagram && <VennDiagramView diagram={question.vennDiagram} />}
         {question.polynomialCurveDiagram && (
           <PolynomialCurveView diagram={question.polynomialCurveDiagram} />
+        )}
+        {question.slopeFieldDiagram && (
+          <SlopeFieldView diagram={question.slopeFieldDiagram} />
         )}
       </div>
 
@@ -900,6 +907,9 @@ function PracticeCard({
         {question.polynomialCurveDiagram && (
           <PolynomialCurveView diagram={question.polynomialCurveDiagram} />
         )}
+        {question.slopeFieldDiagram && (
+          <SlopeFieldView diagram={question.slopeFieldDiagram} />
+        )}
       </div>
 
       {question.choices ? (
@@ -1196,6 +1206,9 @@ function QuizQuestion({
         {question.vennDiagram && <VennDiagramView diagram={question.vennDiagram} />}
         {question.polynomialCurveDiagram && (
           <PolynomialCurveView diagram={question.polynomialCurveDiagram} />
+        )}
+        {question.slopeFieldDiagram && (
+          <SlopeFieldView diagram={question.slopeFieldDiagram} />
         )}
       </div>
 
@@ -2155,6 +2168,9 @@ export function LessonRenderer({
                 )}
                 {example.polynomialCurveDiagram && (
                   <PolynomialCurveView diagram={example.polynomialCurveDiagram} />
+                )}
+                {example.slopeFieldDiagram && (
+                  <SlopeFieldView diagram={example.slopeFieldDiagram} />
                 )}
 
                 <div className="space-y-3">

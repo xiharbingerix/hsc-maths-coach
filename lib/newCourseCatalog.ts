@@ -714,10 +714,22 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Use regression equations to make predictions, interpret slope, and calculate residuals as actual minus predicted values.",
           },
           {
+            slug: "normal-distribution-revision",
+            title: "Normal Distribution Revision",
+            description:
+              "Consolidate Year 12 Standard 2 statistics foundations before the normal distribution: review mean and standard deviation, interpret spread, and recall the shape of a symmetric bell-curve distribution — preparation for z-scores and the empirical rule.",
+          },
+          {
             slug: "normal-distribution-z-scores",
             title: "Normal Distribution and Z-Scores",
             description:
               "Calculate and interpret z-scores, standard deviations from the mean, and empirical-rule percentages.",
+          },
+          {
+            slug: "probability-revision",
+            title: "Probability Revision",
+            description:
+              "Consolidate Year 11 probability foundations: list sample spaces, express probability as a fraction/decimal/percentage, apply the complementary rule P(A') = 1 − P(A), and find theoretical probability — preparation for multistage events and tree diagrams.",
           },
           {
             slug: "relative-frequency-probability",
@@ -2654,6 +2666,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Newton's Law of Cooling and Limited Growth",
             description:
               "Solve dQ/dt = k(Q − A) by separation of variables to obtain Q(t) = A + Ce^(kt), apply it to Newton's Law of Cooling and population models approaching a carrying capacity, and justify long-run conclusions in context.",
+          },
+          {
+            slug: "calculus-applications-slope-fields",
+            title: "Slope Fields and Solution Curves",
+            description:
+              "Construct and read slope fields for dy/dx = f(x, y), sketch solution curves by following the direction field, identify stable and unstable equilibria, and describe long-run behaviour of solutions.",
           },
         ],
       },

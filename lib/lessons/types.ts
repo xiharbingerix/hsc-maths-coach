@@ -337,6 +337,28 @@ export type ProbabilityTreeDiagram = {
   highlightedPaths?: string[][];
 };
 
+/** Discriminated union describing dy/dx = f(x, y) for slope-field diagrams */
+export type SlopeFieldDE =
+  | { kind: "linear"; a?: number; b?: number; c?: number }  // dy/dx = a·x + b·y + c
+  | { kind: "x-squared"; k?: number };                      // dy/dx = k·x²
+
+export type SlopeFieldDiagram = {
+  description: string;
+  de: SlopeFieldDE;
+  xMin?: number;
+  xMax?: number;
+  yMin?: number;
+  yMax?: number;
+  /** Spacing between arrow centres (in data units, default 0.5) */
+  gridSpacing?: number;
+  /** Solution curves traced by RK4 from these initial conditions */
+  solutionCurves?: Array<{ x0: number; y0: number; label?: string }>;
+  /** Draws a dashed red horizontal line at this y value */
+  equilibriumY?: number;
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+};
+
 export type PolynomialRoot = {
   value: number;
   multiplicity: 1 | 2 | 3 | 4;

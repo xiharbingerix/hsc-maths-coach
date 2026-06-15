@@ -904,15 +904,15 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 - [x] Solve dy/dx = g(y) → `calculus-applications-differential-equations`
 - [x] Recognise and solve dy/dx = ky (exponential growth and decay) → `calculus-applications-differential-equations`
 - [x] Solve dy/dx = g(y) by separation of variables → `calculus-applications-differential-equations`
-- [ ] **Graph solutions using graphing applications; examine behaviour using slope fields** → ❌ MISSING
+- [x] **Graph solutions using graphing applications; examine behaviour using slope fields** → `calculus-applications-slope-fields`
 
-#### Current lessons (unit: `calculus-applications`) — 9 lessons, 172Q ⚠️ ~90% coverage
+#### Current lessons (unit: `calculus-applications`) — 10 lessons, 191Q ✅ ~100% coverage
 #### Required new lessons
 - [ ] **`calculus-applications-revision`** — Polynomial factorisation and sketching, chain rule fluency, area under curve. Prior knowledge activation.
 - [x] **`calculus-applications-polynomial-zeroes`** — Multiplicity of zeroes; product-rule proof; graphing polynomials with repeated roots. ✅ Added 2026-06-15
 - [x] **`calculus-applications-newton-cooling`** — dQ/dt = k(Q−A); Newton's Law of Cooling; logistic/carrying-capacity models; solve and justify in context. ✅ Added 2026-06-15
 - [x] **`calculus-applications-volumes`** — Areas between curves; solids of revolution; volumes rotating about x/y-axis; between two curves. ✅ Added 2026-06-15
-- [ ] **`calculus-applications-slope-fields`** — Slope fields for first-order DEs; sketch and interpret solution curves; long-run behaviour.
+- [x] **`calculus-applications-slope-fields`** — Slope fields; reading slopes from dy/dx = f(x,y); sketching solution curves; stable/unstable equilibria; long-run behaviour. ✅ Added 2026-06-15
 
 ---
 
@@ -956,11 +956,11 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 | Introduction to Vectors | ME1-12-02 | 7+8 (285Q total) | ✅ ~100% | Revision lesson only |
 | Inverse Trigonometric Functions | ME1-12-03 | 3 (57Q) | ⚠️ ~75% | Properties/identities lesson, revision lesson |
 | Further Calculus Skills | ME1-12-04 | 4 (76Q) | ✅ ~100% | Revision lesson only |
-| Further Applications of Calculus | ME1-12-05 | 9 (172Q) | ⚠️ ~90% | Slope fields, revision lesson |
+| Further Applications of Calculus | ME1-12-05 | 10 (191Q) | ✅ ~100% | Revision lesson only |
 | Binomial Distribution + Sampling | ME1-12-06 | 6 (114Q) | ✅ ~100% | Revision lesson only |
 
-**Current:** 40 lessons (9 units) / 710Q
-**New lessons to meet syllabus fully:** ~8 (6 revision + 1 slope fields + 1 inverse-trig-properties)
+**Current:** 41 lessons (9 units) / 729Q
+**New lessons to meet syllabus fully:** ~7 (6 revision + 1 inverse-trig-properties)
 **Target:** ~48 lessons
 
 ### Priority order
@@ -970,7 +970,7 @@ The 2024 syllabus treats projectile motion under ME1-12-02 via **parametric equa
 4. ~~Newton's Law of Cooling~~ ✅ Done 2026-06-15
 5. ~~Vector projection~~ ✅ Done 2026-06-15
 6. ~~Vector motion + projectile (parametric)~~ ✅ Done 2026-06-15
-7. **Slope fields** (1 lesson) — completes ME1-12-05 differential equations
+7. ~~Slope fields~~ ✅ Done 2026-06-15
 8. **Inverse trig properties** (1 lesson) — identities, composite expressions
 9. **Revision lessons** (6 lessons, one per focus area) — prior knowledge activation per syllabus teaching advice
 
