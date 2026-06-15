@@ -1985,6 +1985,16 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         lessons: [
           { slug: "data-displays-summary-statistics", title: "Data Displays and Summary Statistics" },
           { slug: "probability-relative-frequency", title: "Probability and Relative Frequency" },
+          {
+            slug: "sets-venn-diagrams",
+            title: "Sets and Venn Diagrams",
+            description: "Use set notation and Venn diagrams; apply n(A∪B)=n(A)+n(B)−n(A∩B) and P(A∪B)=P(A)+P(B)−P(A∩B); recognise mutually exclusive events.",
+          },
+          {
+            slug: "conditional-probability-independence",
+            title: "Conditional Probability and Independence",
+            description: "Calculate P(A|B)=P(A∩B)/P(B) from tables and formulas; apply the multiplication rule; test independence using P(A|B)=P(A).",
+          },
           { slug: "discrete-random-variables", title: "Discrete Random Variables" },
           { slug: "expected-value-standard-deviation", title: "Expected Value and Standard Deviation" },
           { slug: "probability-data-exam-practice", title: "Probability and Data Exam Practice" },

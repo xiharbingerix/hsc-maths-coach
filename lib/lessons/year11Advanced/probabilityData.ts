@@ -143,6 +143,24 @@ function probabilityDataFeedback(
   if (prompt.includes("standard deviation")) {
     return `Standard deviation is the square root of the variance, so it returns the spread to the original units. The result is ${answer}.`;
   }
+  if (prompt.includes("addition formula") && !prompt.includes("P(A∩B)") && !prompt.includes("find P(A∩B)")) {
+    return `Apply the addition formula: n(A∪B)=n(A)+n(B)−n(A∩B) or P(A∪B)=P(A)+P(B)−P(A∩B). Substitute the given values and simplify to get ${answer}.`;
+  }
+  if ((prompt.includes("addition formula") && (prompt.includes("P(A∩B)") || prompt.includes("find P(A∩B)"))) || (prompt.includes("rearrange") && prompt.includes("addition"))) {
+    return `Rearrange the addition rule: P(A∩B)=P(A)+P(B)−P(A∪B). Substitute the given values and simplify to get ${answer}.`;
+  }
+  if (prompt.includes("outside A∪B") || prompt.includes("A'∩B'") || prompt.includes("outside the union")) {
+    return `Elements outside A∪B form its complement. Subtract n(A∪B) from n(ξ) to get ${answer}.`;
+  }
+  if (prompt.includes("conditional probability") || prompt.includes("given they") || prompt.includes("given B")) {
+    return `Conditional probability restricts the sample space. Divide the joint probability by the given event's probability: P(A|B)=P(A∩B)/P(B), giving ${answer}.`;
+  }
+  if (prompt.includes("multiplication rule")) {
+    return `The multiplication rule: P(A∩B)=P(A|B)·P(B). Multiply or divide the given values to find the unknown, giving ${answer}.`;
+  }
+  if (prompt.includes("total probability")) {
+    return `The law of total probability: P(A)=P(A∩B)+P(A∩B'). Add the two joint probabilities to get ${answer}.`;
+  }
   if (id.includes("-prob-")) {
     return `List all possible outcomes, then count the outcomes that match the event. Probability is favourable outcomes divided by total outcomes, which gives ${answer}.`;
   }
@@ -818,6 +836,645 @@ export function year11AdvancedProbabilityDataLessonOverride(
         practicalChoice("y11adv-pd-exam-m8", "Decide why the displayed probability distribution is invalid.", "A", ["The probabilities add to less than 1", "The probabilities add to exactly 1", "The values are not all positive", "The random variable has too few values"], "The probabilities add to 0.9, not 1.", "\\begin{array}{c|ccc}x&0&1&2\\\\ \\hline P(X=x)&0.2&0.3&0.4\\end{array}"),
         dataAnswer("y11adv-pd-exam-m9", "Find the standard deviation using the displayed moments.", "E(X)=3,\\quad E(X^2)=13", "2"),
         practicalChoice("y11adv-pd-exam-m10", "Choose the best judgement about the game from the expected winnings.", "D", ["The game is fair", "The player must win every time", "The probabilities are invalid", "The game is unfavourable to the player"], "A negative expected winning is unfavourable to the player in the long run.", "E(\\text{winnings})=-0.40"),
+      ],
+    };
+  }
+
+  if (lesson.slug === "sets-venn-diagrams") {
+    return {
+      ...base,
+      description:
+        "Use formal set notation and Venn diagrams; apply n(A∪B)=n(A)+n(B)−n(A∩B) and P(A∪B)=P(A)+P(B)−P(A∩B).",
+      learningIntention:
+        "Learn set notation, how to read and use Venn diagrams, and how the addition formula connects set counts and probabilities.",
+      successCriteria: [
+        "Use set notation: ∈, ∉, ∅, ξ, A', A∩B, A∪B, A⊆B.",
+        "Read counts from each region of a Venn diagram.",
+        "Apply n(A∪B)=n(A)+n(B)−n(A∩B) to find union counts.",
+        "Find n(A'∩B') as the complement of A∪B.",
+        "Apply P(A∪B)=P(A)+P(B)−P(A∩B) to find union probabilities.",
+        "Recognise that mutually exclusive events have P(A∩B)=0.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Set notation gives a precise language for collections of outcomes. The symbol ∈ means 'is an element of'; A' is the complement of A (everything in ξ not in A); A∩B is the intersection (both); A∪B is the union (at least one).",
+          "A Venn diagram splits the universal set ξ into up to four regions: A only, B only, A∩B (both), and neither. Counts in each region must add up to n(ξ).",
+          "The addition formula n(A∪B)=n(A)+n(B)−n(A∩B) corrects for double-counting: elements in A∩B are included in both n(A) and n(B), so they are subtracted once.",
+          "Mutually exclusive events share no outcomes: A∩B=∅ and P(A∩B)=0. The addition formula simplifies to P(A∪B)=P(A)+P(B) in that case.",
+          "The complement of A∪B contains elements outside both A and B. It equals A'∩B' and has count n(ξ)−n(A∪B).",
+        ],
+        latexBlocks: [
+          "n(A\\cup B)=n(A)+n(B)-n(A\\cap B)",
+          "P(A\\cup B)=P(A)+P(B)-P(A\\cap B)",
+          "A\\cap B=\\emptyset\\Rightarrow P(A\\cup B)=P(A)+P(B)\\quad(\\text{mutually exclusive})",
+          "n((A\\cup B)')=n(\\xi)-n(A\\cup B)",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Use the addition formula to find n(A∪B)",
+          questionLatex: "n(\\xi)=40,\\quad n(A)=20,\\quad n(B)=15,\\quad n(A\\cap B)=8",
+          steps: [
+            { explanation: "Apply the addition formula.", latex: "n(A\\cup B)=n(A)+n(B)-n(A\\cap B)" },
+            { explanation: "Substitute the given values.", latex: "n(A\\cup B)=20+15-8=27" },
+            { explanation: "Find elements in neither set.", latex: "n((A\\cup B)')=40-27=13" },
+          ],
+          finalAnswerLatex: "n(A\\cup B)=27,\\quad n(A'\\cap B')=13.",
+        },
+        {
+          title: "Find P(A∪B) using the addition rule",
+          questionLatex: "P(A)=0.6,\\quad P(B)=0.4,\\quad P(A\\cap B)=0.15",
+          steps: [
+            { explanation: "Write the probability addition rule.", latex: "P(A\\cup B)=P(A)+P(B)-P(A\\cap B)" },
+            { explanation: "Substitute.", latex: "P(A\\cup B)=0.6+0.4-0.15=0.85" },
+          ],
+          finalAnswerLatex: "P(A\\cup B)=0.85",
+        },
+        {
+          title: "Mutually exclusive events",
+          questionLatex: "P(A)=0.3,\\quad P(B)=0.4,\\quad A\\cap B=\\emptyset",
+          steps: [
+            { explanation: "Mutually exclusive events have no overlap.", latex: "P(A\\cap B)=0" },
+            { explanation: "The union formula simplifies.", latex: "P(A\\cup B)=0.3+0.4-0=0.7" },
+          ],
+          finalAnswerLatex: "P(A\\cup B)=0.7",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice(
+          "y11adv-pd-sets-g1",
+          "Which symbol means 'is an element of'?",
+          "B",
+          ["$\\cup$", "$\\in$", "$\\cap$", "$\\subset$"],
+          "The symbol ∈ is read as 'belongs to' or 'is an element of' a set."
+        ),
+        dataAnswer(
+          "y11adv-pd-sets-g2",
+          "Find the number of elements in A∪B using the addition formula.",
+          "n(\\xi)=20,\\quad n(A)=8,\\quad n(B)=6,\\quad n(A\\cap B)=3",
+          "11"
+        ),
+        dataAnswer(
+          "y11adv-pd-sets-g3",
+          "Find the number of elements outside A∪B.",
+          "n(\\xi)=20,\\quad n(A\\cup B)=11",
+          "9"
+        ),
+        dataAnswer(
+          "y11adv-pd-sets-g4",
+          "Find the union probability P(A∪B).",
+          "P(A)=0.5,\\quad P(B)=0.4,\\quad P(A\\cap B)=0.1",
+          "0.8",
+          ["4/5", "80%"]
+        ),
+      ],
+      independentPractice: [
+        practicalChoice(
+          "y11adv-pd-sets-i1",
+          "Which statement correctly describes A'?",
+          "D",
+          ["$A\\cap B$", "$A\\cup B$", "The empty set", "The set of elements in $\\xi$ but not in $A$"],
+          "A' (A complement) contains every element of the universal set that does not belong to A.",
+          "A'"
+        ),
+        dataAnswer(
+          "y11adv-pd-sets-i2",
+          "Find the number of elements in A∪B using the addition formula.",
+          "n(A)=10,\\quad n(B)=7,\\quad n(A\\cap B)=3",
+          "14"
+        ),
+        dataAnswer(
+          "y11adv-pd-sets-i3",
+          "Find the number of elements outside A∪B.",
+          "n(\\xi)=30,\\quad n(A\\cup B)=14",
+          "16"
+        ),
+        practicalChoice(
+          "y11adv-pd-sets-i4",
+          "Which is P(A∪B) for the displayed mutually exclusive events?",
+          "B",
+          ["$0.12$", "$0.7$", "$0.88$", "$1.0$"],
+          "Mutually exclusive events have P(A∩B)=0, so P(A∪B)=P(A)+P(B)=0.7.",
+          "P(A)=0.3,\\quad P(B)=0.4,\\quad A\\cap B=\\emptyset"
+        ),
+        dataAnswer(
+          "y11adv-pd-sets-i5",
+          "Find the union probability P(A∪B).",
+          "P(A)=0.6,\\quad P(B)=0.5,\\quad P(A\\cap B)=0.2",
+          "0.9",
+          ["9/10", "90%"]
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Adding n(A) and n(B) without subtracting the overlap.", fix: "Elements in A∩B are counted in both n(A) and n(B); subtract n(A∩B) once to avoid double-counting." },
+        { mistake: "Thinking mutually exclusive means A∪B=∅.", fix: "Mutually exclusive means A∩B=∅ (no shared elements), not that the union is empty." },
+        { mistake: "Confusing A' with B' or with A∩B.", fix: "A' is everything in ξ outside A; it includes B-only elements and the neither region." },
+        { mistake: "Using n(ξ)−n(A)−n(B) to find the complement of A∪B.", fix: "Find n(A∪B) first using the addition formula, then subtract from n(ξ)." },
+      ],
+      masteryQuiz: [
+        practicalChoice(
+          "y11adv-pd-sets-m1",
+          "Which region of the Venn diagram represents elements in A but not B?",
+          "A",
+          ["$A\\cap B'$", "$A\\cap B$", "$A'\\cap B$", "$A'\\cap B'$"],
+          "A∩B' is the region inside A and outside B — the 'A only' region.",
+          "\\text{Venn diagram of }A\\text{ and }B"
+        ),
+        dataAnswer(
+          "y11adv-pd-sets-m2",
+          "Find the number of elements in A∪B using the addition formula.",
+          "n(A)=12,\\quad n(B)=8,\\quad n(A\\cap B)=4",
+          "16"
+        ),
+        dataAnswer(
+          "y11adv-pd-sets-m3",
+          "Find n(A∪B) from the Venn diagram regions.",
+          "n(A\\text{ only})=5,\\quad n(A\\cap B)=3,\\quad n(B\\text{ only})=7",
+          "15"
+        ),
+        practicalChoice(
+          "y11adv-pd-sets-m4",
+          "Which condition means A and B are mutually exclusive?",
+          "C",
+          ["$A=B$", "$A\\subset B$", "$A\\cap B=\\emptyset$", "$A\\cup B=\\xi$"],
+          "Mutually exclusive events share no outcomes; their intersection is the empty set.",
+          "A\\text{ and }B\\text{ mutually exclusive}"
+        ),
+        dataAnswer(
+          "y11adv-pd-sets-m5",
+          "Use the addition formula to find P(A∩B).",
+          "P(A\\cup B)=0.8,\\quad P(A)=0.5,\\quad P(B)=0.6",
+          "0.3",
+          ["3/10", "30%"]
+        ),
+        dataAnswer(
+          "y11adv-pd-sets-m6",
+          "Find the number of elements outside A∪B.",
+          "n(\\xi)=25,\\quad n(A\\cup B)=18",
+          "7"
+        ),
+        practicalChoice(
+          "y11adv-pd-sets-m7",
+          "Which Venn diagram region represents elements in neither A nor B?",
+          "D",
+          ["$A\\cap B$", "$A\\cup B$", "$A\\cap B'$", "$A'\\cap B'$"],
+          "Elements in neither A nor B are in the complement of A∪B, which equals A'∩B'.",
+          "\\text{Venn diagram of }A\\text{ and }B"
+        ),
+        dataAnswer(
+          "y11adv-pd-sets-m8",
+          "Find the union probability P(A∪B).",
+          "P(A)=0.35,\\quad P(B)=0.45,\\quad P(A\\cap B)=0.15",
+          "0.65",
+          ["13/20", "65%"]
+        ),
+        practicalChoice(
+          "y11adv-pd-sets-m9",
+          "Which option correctly identifies the student's error?",
+          "B",
+          [
+            "The intersection should be added twice",
+            "The intersection must be subtracted: $n(A\\cup B)=12+8-4=16$",
+            "The formula should use multiplication",
+            "$n(A\\cup B)$ cannot be less than $n(A)$",
+          ],
+          "The addition rule subtracts the overlap once to avoid counting it twice.",
+          "n(A)=12,\\quad n(B)=8,\\quad n(A\\cap B)=4,\\quad \\text{student claims }n(A\\cup B)=20"
+        ),
+        dataAnswer(
+          "y11adv-pd-sets-m10",
+          "Find n(A'∩B') using the complement of A∪B.",
+          "n(A)=15,\\quad n(B)=10,\\quad n(A\\cap B)=6,\\quad n(\\xi)=28",
+          "9"
+        ),
+      ],
+      multiPartPractice: [
+        {
+          id: "y11adv-pd-sets-mp1",
+          prompt: "Use the Venn diagram information to answer the following.",
+          latex: "n(\\xi)=30,\\quad n(A)=18,\\quad n(B)=12,\\quad n(A\\cap B)=7",
+          answer: "23",
+          hint: "Apply n(A∪B)=n(A)+n(B)−n(A∩B), then find the complement and probability.",
+          explanation:
+            "(a) n(A∪B)=18+12−7=23. (b) n(A'∩B')=30−23=7. (c) P(A∪B)=23/30.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "Find n(A∪B).",
+              latex: "n(A\\cup B)=n(A)+n(B)-n(A\\cap B)",
+              marks: 1,
+              answer: "23",
+              hint: "Substitute into the addition formula and simplify.",
+              explanation: "n(A∪B)=18+12−7=23.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "Find n(A'∩B').",
+              latex: "n(\\xi)=30,\\quad n(A\\cup B)=23",
+              marks: 1,
+              answer: "7",
+              hint: "Subtract n(A∪B) from n(ξ).",
+              explanation: "n(A'∩B')=n(ξ)−n(A∪B)=30−23=7.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "Find P(A∪B) as an exact fraction.",
+              latex: "P(A\\cup B)=\\frac{n(A\\cup B)}{n(\\xi)}",
+              marks: 1,
+              answer: "23/30",
+              hint: "Divide the count n(A∪B) by n(ξ).",
+              explanation: "P(A∪B)=23/30.",
+            },
+          ],
+        },
+        {
+          id: "y11adv-pd-sets-mp2",
+          prompt: "Use the probability information to answer the following.",
+          latex: "P(A)=0.5,\\quad P(B)=0.4,\\quad P(A\\cap B)=0.1",
+          answer: "0.8",
+          hint: "Apply the addition rule, then use the complement rule for A and for A∪B.",
+          explanation:
+            "(a) P(A∪B)=0.5+0.4−0.1=0.8. (b) P(A')=1−0.5=0.5. (c) P((A∪B)')=1−0.8=0.2.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "Find P(A∪B).",
+              latex: "P(A\\cup B)=P(A)+P(B)-P(A\\cap B)",
+              marks: 1,
+              answer: "0.8",
+              acceptedAnswers: ["4/5", "80%"],
+              hint: "Substitute into the addition rule.",
+              explanation: "P(A∪B)=0.5+0.4−0.1=0.8.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "Find P(A').",
+              latex: "P(A')=1-P(A)",
+              marks: 1,
+              answer: "0.5",
+              acceptedAnswers: ["1/2", "50%"],
+              hint: "Subtract P(A) from 1.",
+              explanation: "P(A')=1−0.5=0.5.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "Find P((A∪B)').",
+              latex: "P((A\\cup B)')=1-P(A\\cup B)",
+              marks: 1,
+              answer: "0.2",
+              acceptedAnswers: ["1/5", "20%"],
+              hint: "Subtract P(A∪B) from 1.",
+              explanation: "P((A∪B)')=1−0.8=0.2.",
+            },
+          ],
+        },
+      ],
+    };
+  }
+
+  if (lesson.slug === "conditional-probability-independence") {
+    const practiceTable =
+      "\\begin{array}{c|cc|c}&\\text{Win}&\\text{Lose}&\\text{Total}\\\\ \\hline \\text{Practice}&12&8&20\\\\ \\text{No practice}&4&16&20\\\\ \\hline \\text{Total}&16&24&40\\end{array}";
+    const yearTable =
+      "\\begin{array}{c|cc|c}&\\text{Online}&\\text{In-person}&\\text{Total}\\\\ \\hline \\text{Year 11}&18&22&40\\\\ \\text{Year 12}&12&18&30\\\\ \\hline \\text{Total}&30&40&70\\end{array}";
+    return {
+      ...base,
+      description:
+        "Calculate P(A|B) from tables and formulas; apply the multiplication rule P(A∩B)=P(A|B)P(B); test independence using P(A|B)=P(A).",
+      learningIntention:
+        "Learn conditional probability, the multiplication rule, and the formal test for independence.",
+      successCriteria: [
+        "Calculate P(A|B)=P(A∩B)/P(B) from given probabilities.",
+        "Read conditional probabilities from two-way tables by restricting to the given row or column.",
+        "Apply the multiplication rule P(A∩B)=P(A|B)·P(B).",
+        "Test independence by checking P(A|B)=P(A) or equivalently P(A∩B)=P(A)·P(B).",
+        "Explain why conditioning restricts the sample space.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A conditional probability P(A|B) answers: given that B has occurred, what is the probability of A? Knowing B restricts the sample space to B's outcomes only.",
+          "The formula P(A|B)=P(A∩B)/P(B) divides the joint probability by the probability of the condition. The denominator P(B) rescales so that probabilities within B sum to 1.",
+          "In a two-way table, conditioning on a row (or column) means using that row's total as the denominator. For P(A|Year 11), restrict to the Year 11 row and read from its total.",
+          "The multiplication rule rearranges the conditional formula: P(A∩B)=P(A|B)·P(B). It is used to find joint probabilities when conditional and marginal probabilities are known.",
+          "Events A and B are independent when knowing B gives no new information about A: P(A|B)=P(A). An equivalent test is P(A∩B)=P(A)·P(B).",
+        ],
+        latexBlocks: [
+          "P(A|B)=\\frac{P(A\\cap B)}{P(B)}",
+          "P(A\\cap B)=P(A|B)\\cdot P(B)\\quad(\\text{multiplication rule})",
+          "A,B\\text{ independent}\\iff P(A|B)=P(A)\\iff P(A\\cap B)=P(A)\\cdot P(B)",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Calculate P(A|B) from probabilities",
+          questionLatex: "P(A\\cap B)=0.12,\\quad P(B)=0.4",
+          steps: [
+            { explanation: "Write the conditional probability formula.", latex: "P(A|B)=\\frac{P(A\\cap B)}{P(B)}" },
+            { explanation: "Substitute the given values.", latex: "P(A|B)=\\frac{0.12}{0.4}=0.3" },
+          ],
+          finalAnswerLatex: "P(A|B)=0.3",
+        },
+        {
+          title: "Apply the multiplication rule",
+          questionLatex: "P(A|B)=0.6,\\quad P(B)=0.5",
+          steps: [
+            { explanation: "Write the multiplication rule.", latex: "P(A\\cap B)=P(A|B)\\cdot P(B)" },
+            { explanation: "Substitute and calculate.", latex: "P(A\\cap B)=0.6\\times0.5=0.3" },
+          ],
+          finalAnswerLatex: "P(A\\cap B)=0.3",
+        },
+        {
+          title: "Read conditional probability from a two-way table",
+          questionLatex:
+            "\\begin{array}{c|cc|c}&\\text{Pass}&\\text{Fail}&\\text{Total}\\\\ \\hline \\text{Tutored}&15&5&20\\\\ \\text{Not tutored}&5&25&30\\\\ \\hline \\text{Total}&20&30&50\\end{array}",
+          steps: [
+            { explanation: "Condition on Tutored: restrict to the Tutored row.", latex: "\\text{Tutored row total}=20" },
+            { explanation: "The number who passed and were tutored is 15.", latex: "P(\\text{Pass}|\\text{Tutored})=\\frac{15}{20}=\\frac{3}{4}" },
+          ],
+          finalAnswerLatex: "P(\\text{Pass}|\\text{Tutored})=\\tfrac{3}{4}=0.75",
+        },
+      ],
+      guidedPractice: [
+        practicalChoice(
+          "y11adv-pd-cond-g1",
+          "Which formula correctly defines P(A|B)?",
+          "C",
+          [
+            "$P(A)\\cdot P(B)$",
+            "$P(A)+P(B)-P(A\\cap B)$",
+            "$\\dfrac{P(A\\cap B)}{P(B)}$",
+            "$\\dfrac{P(B)}{P(A\\cap B)}$",
+          ],
+          "P(A|B) divides the joint probability by the probability of the given condition.",
+          "P(A|B)"
+        ),
+        dataAnswer(
+          "y11adv-pd-cond-g2",
+          "Find the conditional probability of A given B.",
+          "P(A\\cap B)=0.3,\\quad P(B)=0.5",
+          "0.6",
+          ["3/5", "60%"]
+        ),
+        dataAnswer(
+          "y11adv-pd-cond-g3",
+          "Use the multiplication rule to find P(A∩B).",
+          "P(A|B)=0.4,\\quad P(B)=0.5",
+          "0.2",
+          ["1/5", "20%"]
+        ),
+        practicalChoice(
+          "y11adv-pd-cond-g4",
+          "Which condition means events A and B are independent?",
+          "A",
+          [
+            "$P(A|B)=P(A)$",
+            "$P(A|B)=0$",
+            "$P(A\\cap B)=1$",
+            "$P(A|B)=P(B)$",
+          ],
+          "Independence means knowing B gives no information about A; the conditional probability equals the unconditional.",
+          "\\text{Independence condition}"
+        ),
+      ],
+      independentPractice: [
+        practicalChoice(
+          "y11adv-pd-cond-i1",
+          "From the two-way table, which is P(Win | Practice)?",
+          "B",
+          ["$12/40$", "$12/20$", "$16/40$", "$4/20$"],
+          "Conditioning on Practice restricts to the Practice row (total 20); 12 of those won.",
+          practiceTable
+        ),
+        dataAnswer(
+          "y11adv-pd-cond-i2",
+          "Use the multiplication rule to find P(A∩B).",
+          "P(A|B)=0.3,\\quad P(B)=0.4",
+          "0.12",
+          ["3/25", "12%"]
+        ),
+        dataAnswer(
+          "y11adv-pd-cond-i3",
+          "Find the conditional probability of A given B.",
+          "P(A\\cap B)=0.6,\\quad P(B)=0.8",
+          "0.75",
+          ["3/4", "75%"]
+        ),
+        practicalChoice(
+          "y11adv-pd-cond-i4",
+          "Are A and B independent? Use the displayed probabilities to check.",
+          "A",
+          [
+            "Yes, because $P(A\\cap B)=P(A)\\cdot P(B)$",
+            "Yes, because $P(A|B)=P(B)$",
+            "No, because $P(A)\\ne P(B)$",
+            "No, because $P(A\\cap B)=0$",
+          ],
+          "P(A)·P(B)=0.4×0.5=0.2=P(A∩B), confirming independence.",
+          "P(A)=0.4,\\quad P(B)=0.5,\\quad P(A\\cap B)=0.2"
+        ),
+        practicalChoice(
+          "y11adv-pd-cond-i5",
+          "From the two-way table, which is P(Practice | Win)?",
+          "D",
+          ["$12/40$", "$16/40$", "$12/20$", "$12/16$"],
+          "Conditioning on Win restricts to the Win column (total 16); 12 of those Practiced.",
+          practiceTable
+        ),
+      ],
+      commonMistakes: [
+        { mistake: "Using the full sample size instead of the conditional total.", fix: "P(A|B) uses P(B) as the denominator, not 1; in a table, use the row or column total of the given condition." },
+        { mistake: "Confusing P(A|B) with P(B|A).", fix: "The given event is the denominator; P(A|B) and P(B|A) are usually different." },
+        { mistake: "Claiming independence because P(A)=P(B).", fix: "Equal probabilities do not mean independence; the test is P(A∩B)=P(A)·P(B) or P(A|B)=P(A)." },
+        { mistake: "Applying the multiplication rule to non-independent events using P(A)·P(B).", fix: "P(A∩B)=P(A)·P(B) only holds for independent events; use P(A|B)·P(B) in general." },
+      ],
+      masteryQuiz: [
+        dataAnswer(
+          "y11adv-pd-cond-m1",
+          "Find the conditional probability of A given B.",
+          "P(A\\cap B)=0.12,\\quad P(B)=0.4",
+          "0.3",
+          ["3/10", "30%"]
+        ),
+        dataAnswer(
+          "y11adv-pd-cond-m2",
+          "Use the multiplication rule to find P(A∩B).",
+          "P(A|B)=0.6,\\quad P(B)=0.5",
+          "0.3",
+          ["3/10", "30%"]
+        ),
+        practicalChoice(
+          "y11adv-pd-cond-m3",
+          "From the two-way table, which is P(Online | Year 11)?",
+          "B",
+          ["$18/70$", "$18/40$", "$30/70$", "$18/30$"],
+          "Conditioning on Year 11 restricts to the Year 11 row (total 40); 18 of those chose Online.",
+          yearTable
+        ),
+        practicalChoice(
+          "y11adv-pd-cond-m4",
+          "Are A and B independent? Use the displayed probabilities to check.",
+          "A",
+          [
+            "Yes, because $P(A\\cap B)=P(A)\\cdot P(B)$",
+            "Yes, because $P(A)=P(B)$",
+            "No, because $P(A)\\ne P(B)$",
+            "No, because $P(A\\cap B)=0$",
+          ],
+          "P(A)·P(B)=0.3×0.5=0.15=P(A∩B), confirming independence.",
+          "P(A)=0.3,\\quad P(B)=0.5,\\quad P(A\\cap B)=0.15"
+        ),
+        dataAnswer(
+          "y11adv-pd-cond-m5",
+          "Find the conditional probability of A given B.",
+          "P(A\\cap B)=0.15,\\quad P(B)=0.5",
+          "0.3",
+          ["3/10", "30%"]
+        ),
+        dataAnswer(
+          "y11adv-pd-cond-m6",
+          "Use the multiplication rule to find P(A∩B).",
+          "P(A|B)=0.7,\\quad P(B)=0.3",
+          "0.21",
+          ["21/100", "21%"]
+        ),
+        practicalChoice(
+          "y11adv-pd-cond-m7",
+          "What does conditioning on event B mean?",
+          "B",
+          [
+            "B is certain to occur",
+            "The sample space is restricted to B; probability is recalculated within B",
+            "A and B must be independent",
+            "B is subtracted from the total probability",
+          ],
+          "Conditioning on B treats B as the new universe; only outcomes within B are considered.",
+          "P(A|B)"
+        ),
+        dataAnswer(
+          "y11adv-pd-cond-m8",
+          "Use the multiplication rule to find P(B).",
+          "P(A\\cap B)=0.24,\\quad P(A|B)=0.6",
+          "0.4",
+          ["2/5", "40%"]
+        ),
+        practicalChoice(
+          "y11adv-pd-cond-m9",
+          "From the two-way table, which is P(Year 12 | Online)?",
+          "C",
+          ["$12/70$", "$30/70$", "$12/30$", "$18/30$"],
+          "Conditioning on Online restricts to the Online column (total 30); 12 of those were Year 12.",
+          yearTable
+        ),
+        practicalChoice(
+          "y11adv-pd-cond-m10",
+          "Are A and B independent? Use the displayed probabilities to check.",
+          "B",
+          [
+            "Yes, because $P(A\\cap B)=P(A)\\cdot P(B)$",
+            "No, because $P(A\\cap B)\\ne P(A)\\cdot P(B)$",
+            "Yes, because $P(A)=P(B|A)$",
+            "No, because $P(A)=0$",
+          ],
+          "P(A)·P(B)=0.6×0.5=0.30≠0.25=P(A∩B), so A and B are NOT independent.",
+          "P(A)=0.6,\\quad P(B)=0.5,\\quad P(A\\cap B)=0.25"
+        ),
+      ],
+      multiPartPractice: [
+        {
+          id: "y11adv-pd-cond-mp1",
+          prompt: "Use the two-way table to answer questions about conditional probability.",
+          latex: practiceTable,
+          answer: "3/5",
+          hint: "For each conditional probability, identify the row or column total that acts as the restricted sample space.",
+          explanation:
+            "(a) P(Win|Practice)=12/20=3/5. (b) P(Win)=16/40=2/5. (c) P(Win∩Practice)=12/40=3/10. Since 3/10≠(2/5)×(1/2)=1/5, the events are not independent.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "Find P(Win | Practice).",
+              latex: "\\text{restrict to the Practice row}",
+              marks: 1,
+              answer: "3/5",
+              acceptedAnswers: ["0.6", "60%", "12/20"],
+              hint: "Use the Practice row total (20) as the denominator.",
+              explanation: "P(Win|Practice)=12/20=3/5.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "Find P(Win) using the table totals.",
+              latex: "P(\\text{Win})=\\frac{\\text{total wins}}{\\text{grand total}}",
+              marks: 1,
+              answer: "2/5",
+              acceptedAnswers: ["0.4", "40%", "16/40"],
+              hint: "Use the Win column total and the grand total.",
+              explanation: "P(Win)=16/40=2/5.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "Find P(Win ∩ Practice).",
+              latex: "P(\\text{Win}\\cap\\text{Practice})=\\frac{12}{40}",
+              marks: 2,
+              answer: "3/10",
+              acceptedAnswers: ["0.3", "30%", "12/40"],
+              hint: "Divide the cell count (12) by the grand total (40).",
+              explanation:
+                "P(Win∩Practice)=12/40=3/10. Since P(Win)·P(Practice)=(2/5)·(1/2)=1/5≠3/10, Win and Practice are not independent.",
+            },
+          ],
+        },
+        {
+          id: "y11adv-pd-cond-mp2",
+          prompt: "Use the multiplication rule and the law of total probability.",
+          latex: "P(A|B)=0.6,\\quad P(B)=0.5,\\quad P(A\\cap B')=0.1",
+          answer: "0.3",
+          hint: "Use the multiplication rule for part (a), the complement rule for part (b), and add the two joint probabilities for part (c).",
+          explanation:
+            "(a) P(A∩B)=0.6×0.5=0.3. (b) P(B')=1−0.5=0.5. (c) P(A)=P(A∩B)+P(A∩B')=0.3+0.1=0.4.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "Find P(A∩B) using the multiplication rule.",
+              latex: "P(A\\cap B)=P(A|B)\\cdot P(B)",
+              marks: 1,
+              answer: "0.3",
+              acceptedAnswers: ["3/10", "30%"],
+              hint: "Multiply P(A|B) by P(B).",
+              explanation: "P(A∩B)=0.6×0.5=0.3.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "Find P(B').",
+              latex: "P(B')=1-P(B)",
+              marks: 1,
+              answer: "0.5",
+              acceptedAnswers: ["1/2", "50%"],
+              hint: "Use the complement rule.",
+              explanation: "P(B')=1−0.5=0.5.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "Find P(A) using the law of total probability.",
+              latex: "P(A)=P(A\\cap B)+P(A\\cap B')",
+              marks: 2,
+              answer: "0.4",
+              acceptedAnswers: ["2/5", "40%"],
+              hint: "Add P(A∩B) from part (a) and the given P(A∩B').",
+              explanation: "P(A)=P(A∩B)+P(A∩B')=0.3+0.1=0.4.",
+            },
+          ],
+        },
       ],
     };
   }

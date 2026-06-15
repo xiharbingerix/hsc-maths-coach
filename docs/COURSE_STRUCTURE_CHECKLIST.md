@@ -2,7 +2,7 @@
 
 > **Objective:** High-quality lessons and question content across the entire NSW syllabus, mapped to syllabus sections with sufficient lessons to cover all skills and content in the Content section. Each lesson: 19 questions, worked examples, Feynman teaching, and common mistakes. Each focus area: one revision lesson activating the prior knowledge stated in the syllabus teaching advice, plus content lessons per dot-point group.
 > **Standard:** NSW syllabuses (2024 versions, implementation from 2026). Source of truth: [curriculum.nsw.edu.au](https://curriculum.nsw.edu.au).
-> Last updated: 2026-06-15 — Year 11 Advanced: Sequences and Series removed; 10 new Working with Functions lessons completing FA1; 3 new Trigonometry lessons completing FA2; reciprocal trig ratios completing FA3; product rule and quotient rule completing FA4; graphing-exponential-logarithmic-functions completing FA5; circles-completing-the-square completing FA6; course now 67 lessons / 7 units. Remaining gap: FA7 (sets/Venn, conditional probability). Year 12 Standard 1 audited (22 total, 76 new questions, 1 credit-card gap). Year 12 Advanced fully audited (91 lessons, 1726 questions, all 14 focus areas). Year 12 Standard 2 fully complete (58 lessons, 1106 questions). Year 12 Extension 1 fully complete (48 lessons, 862 questions). Year 11 Standard fully complete (76 lessons, 1444 questions).
+> Last updated: 2026-06-15 — Year 11 Advanced: Sequences and Series removed; 10 new Working with Functions lessons completing FA1; 3 new Trigonometry lessons completing FA2; reciprocal trig ratios completing FA3; product rule and quotient rule completing FA4; graphing-exponential-logarithmic-functions completing FA5; circles-completing-the-square completing FA6; sets-venn-diagrams and conditional-probability-independence completing FA7; course now 69 lessons / 7 units. All 7 focus areas complete — full syllabus coverage achieved. Year 12 Standard 1 audited (22 total, 76 new questions, 1 credit-card gap). Year 12 Advanced fully audited (91 lessons, 1726 questions, all 14 focus areas). Year 12 Standard 2 fully complete (58 lessons, 1106 questions). Year 12 Extension 1 fully complete (48 lessons, 862 questions). Year 11 Standard fully complete (76 lessons, 1444 questions).
 
 ---
 
@@ -24,7 +24,7 @@
 | Year 10 Mathematics Advanced | ~56 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 10 Mathematics Core | ~40 (10 trimmed) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 11 Standard | 76 (8 units) | 8 focus areas | ✅ 100% | 8 | ✅ Complete — audited 2026-06-15 (1444 questions) |
-| Year 11 Advanced | 67 (7 units) | 7 focus areas (MAV-11-01–10) | 🔄 ~99% — FA1 ✅ FA2 ✅ FA3 ✅ FA4 ✅ FA5 ✅ FA6 ✅ complete; gap in FA7 | 0 | 🔄 Audited 2026-06-15; FA1–FA6 now complete |
+| Year 11 Advanced | 69 (7 units) | 7 focus areas (MAV-11-01–10) | ✅ 100% — FA1 ✅ FA2 ✅ FA3 ✅ FA4 ✅ FA5 ✅ FA6 ✅ FA7 ✅ all complete | 0 | ✅ Fully audited 2026-06-15; all 7 focus areas complete |
 | Year 11 Extension 1 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 12 Standard 1 | 22 (5 units) | 7 topics | ✅ 7/7 (credit card gap noted) | 0 | 🔄 Audited 2026-06-15; 1 gap remains (credit cards) |
 | Year 12 Standard 2 | 58 (6 units) | 10 topics | ✅ 100% | 10 | ✅ Complete — audited 2026-06-15 (1106 questions) |
@@ -157,7 +157,7 @@ Unit headings all match NSW 2024 focus area names exactly.
 | 4 | Introduction to differentiation (`introduction-differentiation`) | MAV-11-06 | 11 | ✅ Complete — product rule and quotient rule added 2026-06-15 |
 | 5 | Exponential and logarithmic functions (`exponential-logarithmic-functions`) | MAV-11-07, MAV-11-08 | 6 | ✅ Complete — graphing lesson added 2026-06-15 |
 | 6 | Graph transformations (`graph-transformations`) | MAV-11-03 | 6 | ✅ Complete — circles lesson added 2026-06-15 |
-| 7 | Probability and data (`probability-data`) | MAV-11-09, MAV-11-10 | 5 | ⚠️ Partial — conditional probability, sets/Venn algebra missing |
+| 7 | Probability and data (`probability-data`) | MAV-11-09, MAV-11-10 | 7 | ✅ Complete — sets/Venn and conditional probability lessons added 2026-06-15 |
 
 ---
 
@@ -279,22 +279,21 @@ NSW content vs Nova:
 
 ---
 
-### FA7 — Probability and data (5 lessons)
+### FA7 — Probability and data (7 lessons ✅ Complete)
 
 NSW content vs Nova:
 
 | NSW content | Nova lesson(s) | Status |
 |---|---|---|
-| Sets and set notation (elements, empty set, complement, subset, intersection, union, disjoint, Venn diagrams, n(A∪B)) | `probability-relative-frequency` (partial) | ⚠️ Formal set notation and n(A∪B) rule may not be covered |
+| Sets and set notation (elements, empty set, complement, subset, intersection, union, disjoint, Venn diagrams, n(A∪B)) | `sets-venn-diagrams` | ✅ Added 2026-06-15 |
 | Probability (experiments, outcomes, equally likely, complement, intersection, union, P(A∪B) rule, arrays, trees) | `probability-relative-frequency` | ✅ |
-| Conditional probability (P(A\|B), restrict sample space, two-way tables, multiplication rule, independence P(A\|B)=P(A)) | None | ❌ Missing |
+| Conditional probability (P(A\|B), restrict sample space, two-way tables, multiplication rule, independence P(A\|B)=P(A)) | `conditional-probability-independence` | ✅ Added 2026-06-15 |
 | Data (random variables, discrete vs continuous, frequency tables, cumulative frequency, histograms, mode/median, relative frequency as probability estimate) | `data-displays-summary-statistics`, `discrete-random-variables` | ✅ |
-| Expected value E(X) and standard deviation | `expected-value-standard-deviation` | ⚠️ E(X) and Var(X) are Year 12 Advanced content (MA-S1/MA-S3), not Year 11 |
+| Expected value E(X) and standard deviation | `expected-value-standard-deviation` | ✅ (note: E(X) and Var(X) are Year 12 scope but lesson retained) |
 
-**Lessons to add (Probability and data):**
-- [ ] Sets and Venn Diagrams — formal set notation, Venn diagrams, n(A∪B)=n(A)+n(B)-n(A∩B), P(A∪B) rule (NSW: Sets and set notation + Probability)
-- [ ] Conditional Probability and Independence — P(A\|B), restrict sample space, two-way tables, P(A∩B)=P(A\|B)P(B), independence (NSW: Conditional probability)
-- [ ] Consider moving `expected-value-standard-deviation` to Year 12 Advanced scope note
+**Lessons added (Probability and data):** ✅ Complete
+- [x] `sets-venn-diagrams` — set notation, Venn diagrams, n(A∪B), P(A∪B), mutually exclusive events (2026-06-15)
+- [x] `conditional-probability-independence` — P(A|B), two-way tables, multiplication rule, independence test (2026-06-15)
 
 ---
 
