@@ -2830,3 +2830,1346 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
     ],
   };
 }
+
+// ─── Bivariate Data and Scatter Plots ────────────────────────────────────────
+
+function bivChoice(
+  id: string,
+  prompt: string,
+  answer: "A" | "B" | "C" | "D",
+  choices: [string, string, string, string],
+  hint: string,
+  explanation: string
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex: "\\text{Select A, B, C, or D.}",
+    choices: ["A", "B", "C", "D"].map((label, index) => ({
+      label,
+      text: choices[index],
+    })),
+    answer,
+    hint,
+    explanation,
+  };
+}
+
+export function year12Standard1BivariateDataScatterPlotsLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed
+): Partial<ExplicitLesson> | null {
+  if (
+    course.slug !== "year-12-standard-1" ||
+    unit.slug !== "statistics-and-data" ||
+    lesson.slug !== "bivariate-data-scatter-plots"
+  ) {
+    return null;
+  }
+
+  return {
+    description:
+      "Distinguish univariate and bivariate data, identify independent and dependent variables, create scatter plots, and describe associations by form, strength and direction.",
+    learningIntention:
+      "Plot and interpret scatter plots to describe the association between two variables.",
+    successCriteria: [
+      "Distinguish between univariate data (one variable) and bivariate data (two variables).",
+      "Identify the independent variable (x-axis) and the dependent variable (y-axis).",
+      "Describe the association between two variables in terms of form, strength and direction.",
+      "Explain why correlation between two variables does not prove that one causes the other.",
+    ],
+    teaching: {
+      paragraphs: [
+        "Univariate data records one measurement per person or object, such as a list of heights. Bivariate data records two measurements per person, such as height and shoe size, so we can explore whether the two variables are related.",
+        "The independent variable (placed on the x-axis) is the variable we choose or control. The dependent variable (placed on the y-axis) is the outcome we measure. For example, study time is independent and test score is dependent.",
+        "On a scatter plot each data point is plotted as a coordinate (x, y). We describe the pattern in three ways: form (linear if the points follow a straight line, non-linear if they curve), direction (positive if y increases as x increases, negative if y decreases as x increases), and strength (strong if the points are tightly clustered, weak if they are widely scattered).",
+        "Correlation describes the pattern we observe in data. It does not prove causation — that one variable directly causes the other to change. A third variable may drive both, or the association may be coincidental.",
+      ],
+      latexBlocks: [
+        "\\text{Positive: as }x \\uparrow, y \\uparrow",
+        "\\text{Negative: as }x \\uparrow, y \\downarrow",
+      ],
+    },
+    workedExamples: [
+      {
+        title: "Identify variables and classify the data",
+        questionLatex:
+          "\\text{A researcher records the daily hours of exercise and resting heart rate for 20 participants. Identify the variables and state whether the data is univariate or bivariate.}",
+        steps: [
+          {
+            explanation:
+              "Two values are recorded for each participant: hours of exercise and resting heart rate. Data with two variables per subject is bivariate.",
+          },
+          {
+            explanation:
+              "Hours of exercise is the factor being varied — it is the independent variable (x-axis). Resting heart rate is the outcome being measured — it is the dependent variable (y-axis).",
+          },
+        ],
+        finalAnswerLatex:
+          "\\text{Bivariate. Independent: exercise hours (x). Dependent: resting heart rate (y).}",
+      },
+      {
+        title: "Describe the association from a scatter plot description",
+        questionLatex:
+          "\\text{A scatter plot of study hours (x) vs test score (y) shows points following a roughly straight upward trend, clustered fairly closely around the line. Describe the association.}",
+        steps: [
+          {
+            explanation:
+              "Form: the points follow a roughly straight line, so the form is linear.",
+          },
+          {
+            explanation:
+              "Direction: as study hours increase, test scores increase. The direction is positive.",
+          },
+          {
+            explanation:
+              "Strength: the points are fairly closely clustered. The strength is strong.",
+          },
+        ],
+        finalAnswerLatex:
+          "\\text{Strong positive linear association.}",
+      },
+    ],
+    guidedPractice: [
+      bivChoice(
+        "y12s1-biv-g1",
+        "A data set records only the ages of 30 students. What type of data is this?",
+        "A",
+        [
+          "Univariate — only one variable is recorded per student.",
+          "Bivariate — two variables are recorded per student.",
+          "Categorical — the values are categories.",
+          "Continuous — the values can take any value.",
+        ],
+        "Count how many different pieces of information are recorded per person.",
+        "Only one variable (age) is recorded per student. This is univariate data."
+      ),
+      bivChoice(
+        "y12s1-biv-g2",
+        "A study measures the number of hours of sleep and the reaction time for each participant. Which is the dependent variable?",
+        "B",
+        [
+          "Hours of sleep — it is the variable being controlled.",
+          "Reaction time — it is the outcome being measured.",
+          "Number of participants — it counts people, not a measurement.",
+          "The length of the study — it is fixed by the researcher.",
+        ],
+        "The dependent variable is the outcome we measure, which depends on the other variable.",
+        "Reaction time is the outcome being measured. Hours of sleep is the factor being varied, so it is the independent variable. Reaction time is the dependent variable."
+      ),
+      bivChoice(
+        "y12s1-biv-g3",
+        "A scatter plot shows that as outdoor temperature increases, the number of hot drinks sold decreases. What is the direction of this association?",
+        "B",
+        [
+          "Positive — both variables increase together.",
+          "Negative — as temperature increases, hot drinks sold decreases.",
+          "No association — the variables are unrelated.",
+          "Non-linear — the relationship is curved.",
+        ],
+        "Direction is positive when both variables move in the same direction, negative when they move in opposite directions.",
+        "As temperature increases, hot drinks sold decreases — they move in opposite directions. The association is negative."
+      ),
+      bivChoice(
+        "y12s1-biv-g4",
+        "A scatter plot shows points scattered widely in every direction with no visible trend. What word best describes the strength of this association?",
+        "C",
+        [
+          "Strong — the trend is very clear.",
+          "Moderate — there is some visible trend.",
+          "Weak — there is no clear pattern.",
+          "Linear — the points follow a straight line.",
+        ],
+        "Strength describes how closely the points cluster around a pattern.",
+        "With points scattered in all directions and no visible trend, there is little or no association. The strength is weak (or there is no association)."
+      ),
+    ],
+    independentPractice: [
+      bivChoice(
+        "y12s1-biv-i1",
+        "A researcher notices that cities with more libraries have higher literacy rates and concludes that libraries cause higher literacy. What is wrong with this conclusion?",
+        "B",
+        [
+          "Nothing — a strong positive correlation always proves causation.",
+          "Correlation does not imply causation — a third factor such as education funding may drive both.",
+          "The conclusion is correct because the association is positive.",
+          "Libraries are the dependent variable so causation cannot apply.",
+        ],
+        "Think about whether the correlation alone is enough to prove that one variable causes the other.",
+        "A positive correlation between libraries and literacy does not prove libraries cause higher literacy. Education funding, for example, may increase both. Correlation does not imply causation."
+      ),
+      bivChoice(
+        "y12s1-biv-i2",
+        "A scatter plot of car age (x-axis, years) vs resale value (y-axis, $) shows a downward-sloping linear pattern with points close to the line. Which description fits best?",
+        "A",
+        [
+          "Strong negative linear association.",
+          "Strong positive linear association.",
+          "Weak negative linear association.",
+          "Non-linear association.",
+        ],
+        "Consider direction (do both increase, or does one decrease?), strength (how close to the line?), and form (straight or curved?).",
+        "Points slope downward (negative direction), are closely clustered (strong), and follow a straight line (linear). Best description: strong negative linear association."
+      ),
+      bivChoice(
+        "y12s1-biv-i3",
+        "Which pair of variables would most likely show a positive association?",
+        "C",
+        [
+          "Car speed and fuel efficiency.",
+          "Hours of TV watched and school grades.",
+          "Height of a person and their weight.",
+          "Amount of rain and number of sunny days.",
+        ],
+        "A positive association means both variables tend to increase together.",
+        "Taller people tend to weigh more — as height increases, weight tends to increase. This is a positive association. The other pairs show negative or no clear association."
+      ),
+      bivChoice(
+        "y12s1-biv-i4",
+        "A scatter plot shows points following a U-shaped curved pattern. What word best describes the form of the association?",
+        "B",
+        [
+          "Linear — the points follow a straight line.",
+          "Non-linear — the points follow a curved pattern.",
+          "No association — the points are random.",
+          "Positive — the variables increase together.",
+        ],
+        "Form describes the overall shape of the point pattern.",
+        "A U-shaped pattern is curved, not straight. The form of the association is non-linear."
+      ),
+      bivChoice(
+        "y12s1-biv-i5",
+        "A data set records the number of absences and the final exam mark for 50 students. Which variable should be placed on the x-axis of a scatter plot?",
+        "A",
+        [
+          "Number of absences — it is the independent variable that may influence exam marks.",
+          "Final exam mark — it is the independent variable.",
+          "Number of students — it is the independent variable.",
+          "Either variable can go on the x-axis.",
+        ],
+        "The independent variable (the one that influences the other) goes on the x-axis.",
+        "The number of absences is likely to influence the exam mark, so it is the independent variable and belongs on the x-axis. Exam mark is the dependent variable and goes on the y-axis."
+      ),
+    ],
+    commonMistakes: [
+      {
+        mistake: "Confusing form and strength — calling a weak association 'non-linear'.",
+        fix: "Form (straight or curved) and strength (tightly or loosely clustered) are separate features. Both must be described.",
+      },
+      {
+        mistake: "Concluding that a strong correlation proves causation.",
+        fix: "Correlation shows that two variables change together. Causation requires evidence that one directly produces a change in the other. A third variable may explain both.",
+      },
+      {
+        mistake: "Placing the dependent variable on the x-axis.",
+        fix: "The independent variable (the one we control or that drives the other) always goes on the x-axis; the dependent variable goes on the y-axis.",
+      },
+    ],
+    masteryQuiz: [
+      bivChoice(
+        "y12s1-biv-m1",
+        "A study records the shoe size and hair colour of 100 people. How many variables are recorded per person?",
+        "B",
+        ["One.", "Two.", "Three.", "Four."],
+        "Count the number of different pieces of information recorded per person.",
+        "Shoe size and hair colour are two separate variables recorded for each person. This is bivariate data with two variables."
+      ),
+      bivChoice(
+        "y12s1-biv-m2",
+        "In a plant growth study, a researcher changes the amount of fertiliser and records plant height after 4 weeks. Which is the independent variable?",
+        "A",
+        [
+          "Amount of fertiliser.",
+          "Plant height.",
+          "Number of weeks.",
+          "Number of plants.",
+        ],
+        "The independent variable is the one the researcher controls or changes.",
+        "The researcher controls the amount of fertiliser — this is the independent variable. Plant height is the outcome (dependent variable)."
+      ),
+      bivChoice(
+        "y12s1-biv-m3",
+        "A scatter plot shows points widely scattered with no visible pattern. What does this tell us?",
+        "D",
+        [
+          "Strong positive association.",
+          "Strong negative association.",
+          "Weak positive association.",
+          "Little or no association between the variables.",
+        ],
+        "Strength is determined by how closely points cluster around a pattern.",
+        "Widely scattered points with no visible pattern indicate little or no association between the variables."
+      ),
+      bivChoice(
+        "y12s1-biv-m4",
+        "A scatter plot of temperature (x) and ice cream sales (y) shows points clustered closely around an upward-sloping straight line. Which description is most accurate?",
+        "A",
+        [
+          "Strong positive linear association.",
+          "Weak positive linear association.",
+          "Strong negative linear association.",
+          "No association.",
+        ],
+        "Consider direction, strength, and form separately.",
+        "Points slope upward (positive direction), are closely clustered (strong), around a straight line (linear). This is a strong positive linear association."
+      ),
+      bivChoice(
+        "y12s1-biv-m5",
+        "Ice cream sales and drowning incidents both increase in summer. A student concludes that eating ice cream causes drowning. What is the error?",
+        "C",
+        [
+          "The association is negative, not positive.",
+          "Drowning incidents are the independent variable.",
+          "Correlation does not imply causation — hot weather drives both variables.",
+          "The data is univariate, not bivariate.",
+        ],
+        "Think about what else could explain both variables increasing at the same time.",
+        "Hot weather causes both ice cream sales and drowning incidents to increase. Correlation between ice cream sales and drowning does not mean one causes the other."
+      ),
+      bivChoice(
+        "y12s1-biv-m6",
+        "Which word describes the form of an association when scatter plot points follow a curved pattern?",
+        "B",
+        ["Linear.", "Non-linear.", "Positive.", "Strong."],
+        "Form is about shape: straight or curved.",
+        "A curved pattern means the association is non-linear. Linear, positive, and strong describe different features."
+      ),
+      bivChoice(
+        "y12s1-biv-m7",
+        "A data set records hours studied and test scores. As study hours increase, test scores increase. What is the direction of the association?",
+        "A",
+        [
+          "Positive — both variables increase together.",
+          "Negative — the variables move in opposite directions.",
+          "No association — the variables are unrelated.",
+          "Non-linear — the relationship is curved.",
+        ],
+        "Direction is positive when both variables increase together.",
+        "Both study hours and test scores increase together. The direction of the association is positive."
+      ),
+      bivChoice(
+        "y12s1-biv-m8",
+        "A researcher notices that towns with more storks also have higher birth rates. Which statement is most reasonable?",
+        "B",
+        [
+          "Storks cause babies to be born.",
+          "A third variable such as rural area size likely explains both observations.",
+          "Birth rates cause storks to appear.",
+          "There must be a strong non-linear association.",
+        ],
+        "Consider whether a third variable could explain both trends without either one causing the other.",
+        "Larger, more rural areas have more storks and higher birth rates. The third variable (rural area) explains both. This is a classic example of spurious correlation — correlation does not imply causation."
+      ),
+      bivChoice(
+        "y12s1-biv-m9",
+        "Two scatter plots show the same data from different studies. Plot A has points clustered tightly around a trend line. Plot B has points loosely scattered around a trend line. Which shows a stronger association?",
+        "A",
+        [
+          "Plot A — points are more tightly clustered around the trend.",
+          "Plot B — points are more loosely scattered.",
+          "Both have the same strength.",
+          "Strength cannot be compared without knowing the gradient.",
+        ],
+        "Strength is determined by how closely points cluster around the trend.",
+        "The more tightly points cluster around the line, the stronger the association. Plot A has more tightly clustered points, so it shows a stronger association."
+      ),
+      bivChoice(
+        "y12s1-biv-m10",
+        "A scatter plot of speed (km/h) and stopping distance (m) shows a curved upward pattern. Which description fits best?",
+        "C",
+        [
+          "Strong positive linear association.",
+          "Weak positive linear association.",
+          "Positive non-linear association.",
+          "Negative linear association.",
+        ],
+        "Consider direction (both increase?), form (straight or curved?), and strength separately.",
+        "Stopping distance increases as speed increases (positive direction) but the pattern is curved (non-linear form). This is a positive non-linear association."
+      ),
+    ],
+  };
+}
+
+// ─── Line of Best Fit and Predictions ────────────────────────────────────────
+
+function lobfChoice(
+  id: string,
+  prompt: string,
+  answer: "A" | "B" | "C" | "D",
+  choices: [string, string, string, string],
+  hint: string,
+  explanation: string
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex: "\\text{Select A, B, C, or D.}",
+    choices: ["A", "B", "C", "D"].map((label, index) => ({
+      label,
+      text: choices[index],
+    })),
+    answer,
+    hint,
+    explanation,
+  };
+}
+
+function lobfAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[],
+  hint: string,
+  explanation: string
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers: [answer, ...acceptedAnswers],
+    hint,
+    explanation,
+  };
+}
+
+export function year12Standard1LineOfBestFitPredictionsLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed
+): Partial<ExplicitLesson> | null {
+  if (
+    course.slug !== "year-12-standard-1" ||
+    unit.slug !== "statistics-and-data" ||
+    lesson.slug !== "line-of-best-fit-predictions"
+  ) {
+    return null;
+  }
+
+  return {
+    description:
+      "Draw a line of best fit by eye, find its gradient and y-intercept, and use interpolation and extrapolation to make predictions.",
+    learningIntention:
+      "Use a line of best fit to summarise bivariate data and make predictions with appropriate caveats.",
+    successCriteria: [
+      "Draw a line of best fit by eye so that roughly equal numbers of data points lie on each side.",
+      "Calculate the gradient of a line of best fit using two identified points on the line.",
+      "Use the line of best fit to predict a y-value by interpolation (within the data range).",
+      "Recognise that extrapolation (outside the data range) gives less reliable predictions.",
+    ],
+    teaching: {
+      paragraphs: [
+        "A line of best fit is a straight line drawn through the scatter of data points so that roughly equal numbers of points lie on either side of the line. It summarises the overall linear trend of the bivariate data.",
+        "Find the gradient by choosing two clearly identified points on the line: m = (y₂ − y₁) / (x₂ − x₁). Find the y-intercept by identifying where the line crosses the y-axis, or by substituting a known point into y = mx + b and solving for b.",
+        "Interpolation means predicting a y-value for an x-value that falls inside the range of the original data. This is more reliable because the model was built using data in that range.",
+        "Extrapolation means predicting a y-value for an x-value outside the data range. This is less reliable because the linear trend may not continue beyond the observed data.",
+      ],
+      latexBlocks: [
+        "m = \\frac{y_2 - y_1}{x_2 - x_1}",
+        "\\hat{y} = mx + b",
+      ],
+    },
+    workedExamples: [
+      {
+        title: "Find the gradient and equation of a line of best fit",
+        questionLatex:
+          "\\text{A line of best fit passes through the points }(2, 10)\\text{ and }(8, 28).\\text{ Find the gradient and the equation.}",
+        steps: [
+          {
+            explanation: "Use the gradient formula with the two given points.",
+            latex: "m = \\frac{28 - 10}{8 - 2} = \\frac{18}{6} = 3",
+          },
+          {
+            explanation: "Substitute one point into y = mx + b to find the y-intercept.",
+            latex: "10 = 3(2) + b \\implies b = 4",
+          },
+          {
+            explanation: "Write the equation of the line of best fit.",
+            latex: "\\hat{y} = 3x + 4",
+          },
+        ],
+        finalAnswerLatex: "\\hat{y} = 3x + 4",
+      },
+      {
+        title: "Interpolation and extrapolation",
+        questionLatex:
+          "\\text{A line of best fit is }\\hat{y} = 3x + 4\\text{ for data with }x \\in [2, 8].\\text{ Predict y when }x = 5\\text{ and when }x = 12.",
+        steps: [
+          {
+            explanation:
+              "For x = 5 (inside the data range 2 to 8), use interpolation.",
+            latex: "\\hat{y} = 3(5) + 4 = 19",
+          },
+          {
+            explanation:
+              "For x = 12 (outside the data range), use extrapolation. This prediction is less reliable.",
+            latex: "\\hat{y} = 3(12) + 4 = 40",
+          },
+          {
+            explanation:
+              "State the reliability: the prediction at x = 5 is reliable (interpolation); the prediction at x = 12 is less reliable (extrapolation).",
+          },
+        ],
+        finalAnswerLatex:
+          "x=5: \\hat{y}=19\\text{ (reliable)}\\quad x=12: \\hat{y}=40\\text{ (less reliable)}",
+      },
+    ],
+    guidedPractice: [
+      lobfAnswer(
+        "y12s1-lobf-g1",
+        "A line of best fit passes through the points (1, 5) and (5, 13). Find the gradient.",
+        "m = \\frac{13 - 5}{5 - 1}",
+        "2",
+        ["2.0"],
+        "Use m = (y₂ − y₁) / (x₂ − x₁).",
+        "m = (13 − 5) / (5 − 1) = 8 / 4 = 2."
+      ),
+      lobfAnswer(
+        "y12s1-lobf-g2",
+        "A line of best fit has equation ŷ = 2x + 3. Predict the y-value when x = 6.",
+        "\\hat{y} = 2(6) + 3",
+        "15",
+        ["15.0"],
+        "Substitute x = 6 into the equation.",
+        "ŷ = 2(6) + 3 = 12 + 3 = 15."
+      ),
+      lobfChoice(
+        "y12s1-lobf-g3",
+        "A model was built using data for x values from 5 to 20. A prediction is made at x = 15. What is this type of prediction called?",
+        "A",
+        [
+          "Interpolation — x = 15 is within the data range.",
+          "Extrapolation — x = 15 is outside the data range.",
+          "Gradient — it measures the rate of change.",
+          "Y-intercept — it is the starting value.",
+        ],
+        "Interpolation: inside the data range. Extrapolation: outside the data range.",
+        "x = 15 falls within the data range of 5 to 20. Predicting within the data range is called interpolation."
+      ),
+      lobfChoice(
+        "y12s1-lobf-g4",
+        "A line of best fit passes through the points (0, 4) and (10, 24). What is the y-intercept?",
+        "B",
+        ["10", "4", "24", "2"],
+        "The y-intercept is the y-value when x = 0.",
+        "When x = 0, y = 4. The y-intercept is 4."
+      ),
+    ],
+    independentPractice: [
+      lobfAnswer(
+        "y12s1-lobf-i1",
+        "A line of best fit passes through (0, 6) and (4, 18). Find the gradient.",
+        "m = \\frac{18 - 6}{4 - 0}",
+        "3",
+        ["3.0"],
+        "m = (y₂ − y₁) / (x₂ − x₁).",
+        "m = (18 − 6) / (4 − 0) = 12 / 4 = 3."
+      ),
+      lobfAnswer(
+        "y12s1-lobf-i2",
+        "A line of best fit has equation ŷ = 4x − 2. The data was collected for x values between 3 and 12. Predict y when x = 7.",
+        "\\hat{y} = 4(7) - 2",
+        "26",
+        ["26.0"],
+        "Substitute x = 7 into the equation. Check whether x = 7 is in the data range first.",
+        "ŷ = 4(7) − 2 = 28 − 2 = 26. Since 7 is between 3 and 12, this is interpolation."
+      ),
+      lobfChoice(
+        "y12s1-lobf-i3",
+        "A model was built using data for x from 2 to 15. A researcher predicts y at x = 25. Which statement is true?",
+        "B",
+        [
+          "This is interpolation and is reliable.",
+          "This is extrapolation and may not be reliable.",
+          "This prediction is always accurate for linear models.",
+          "The gradient cannot be used outside the data range.",
+        ],
+        "Is x = 25 inside or outside the data range?",
+        "x = 25 is outside the data range of 2 to 15. This is extrapolation. The linear trend may not continue past x = 15, so the prediction may not be reliable."
+      ),
+      lobfChoice(
+        "y12s1-lobf-i4",
+        "A line of best fit passes through (2, 8) and (6, 16). Which equation matches this line?",
+        "A",
+        [
+          "$\\hat{y} = 2x + 4$",
+          "$\\hat{y} = 4x + 2$",
+          "$\\hat{y} = 2x + 2$",
+          "$\\hat{y} = 4x - 2$",
+        ],
+        "Find the gradient first using the two given points, then use one point to find the y-intercept.",
+        "m = (16 − 8) / (6 − 2) = 8/4 = 2. Using (2, 8): 8 = 2(2) + b → b = 4. Equation: ŷ = 2x + 4."
+      ),
+      lobfAnswer(
+        "y12s1-lobf-i5",
+        "A line of best fit has equation ŷ = 1.5x + 5. The data range is x = 0 to x = 10. Predict y when x = 8.",
+        "\\hat{y} = 1.5(8) + 5",
+        "17",
+        ["17.0"],
+        "Substitute x = 8 into the equation.",
+        "ŷ = 1.5 × 8 + 5 = 12 + 5 = 17."
+      ),
+    ],
+    commonMistakes: [
+      {
+        mistake: "Drawing the line through as many points as possible rather than balancing points on both sides.",
+        fix: "A line of best fit should have roughly equal numbers of data points on each side — it is not a connect-the-dots line.",
+      },
+      {
+        mistake: "Using the wrong point when finding the y-intercept via b = y − mx.",
+        fix: "After finding the gradient, substitute any clearly identified point (x₁, y₁) into y = mx + b and solve for b.",
+      },
+      {
+        mistake: "Treating an extrapolated prediction as reliable without any qualification.",
+        fix: "Always state that extrapolated predictions are less reliable because the trend may not continue outside the data range.",
+      },
+    ],
+    masteryQuiz: [
+      lobfAnswer(
+        "y12s1-lobf-m1",
+        "A line of best fit passes through (1, 3) and (7, 15). Find the gradient.",
+        "m = \\frac{15 - 3}{7 - 1}",
+        "2",
+        ["2.0"],
+        "m = (y₂ − y₁) / (x₂ − x₁).",
+        "m = (15 − 3) / (7 − 1) = 12 / 6 = 2."
+      ),
+      lobfAnswer(
+        "y12s1-lobf-m2",
+        "A line of best fit has equation ŷ = 3x + 1. Predict y when x = 5.",
+        "\\hat{y} = 3(5) + 1",
+        "16",
+        ["16.0"],
+        "Substitute x = 5 into ŷ = 3x + 1.",
+        "ŷ = 3(5) + 1 = 15 + 1 = 16."
+      ),
+      lobfChoice(
+        "y12s1-lobf-m3",
+        "Data was collected for x from 10 to 50. A prediction is made at x = 30. What type of prediction is this?",
+        "A",
+        [
+          "Interpolation — x = 30 is within the data range.",
+          "Extrapolation — x = 30 is outside the data range.",
+          "A gradient calculation.",
+          "A y-intercept calculation.",
+        ],
+        "Is x = 30 inside the range 10 to 50?",
+        "x = 30 falls within the data range 10 to 50. This is interpolation."
+      ),
+      lobfChoice(
+        "y12s1-lobf-m4",
+        "Which statement correctly describes the reliability of interpolation versus extrapolation?",
+        "B",
+        [
+          "Extrapolation is more reliable because it extends the model further.",
+          "Interpolation is more reliable because the prediction is within the observed data range.",
+          "Both are equally reliable for a linear model.",
+          "Neither interpolation nor extrapolation produces useful predictions.",
+        ],
+        "Consider where the x-value falls relative to the original data.",
+        "Interpolation uses x-values within the data range, where the model was built. This is more reliable. Extrapolation assumes the trend continues beyond the data, which may not hold."
+      ),
+      lobfAnswer(
+        "y12s1-lobf-m5",
+        "A line of best fit passes through (0, 2) and (5, 12). What is the gradient?",
+        "m = \\frac{12 - 2}{5 - 0}",
+        "2",
+        ["2.0"],
+        "m = (y₂ − y₁) / (x₂ − x₁).",
+        "m = (12 − 2) / (5 − 0) = 10 / 5 = 2."
+      ),
+      lobfAnswer(
+        "y12s1-lobf-m6",
+        "A line of best fit has equation ŷ = 0.5x + 10. Predict y when x = 20.",
+        "\\hat{y} = 0.5(20) + 10",
+        "20",
+        ["20.0"],
+        "Substitute x = 20 into ŷ = 0.5x + 10.",
+        "ŷ = 0.5 × 20 + 10 = 10 + 10 = 20."
+      ),
+      lobfChoice(
+        "y12s1-lobf-m7",
+        "A student uses a model built from data with x from 0 to 8 to predict y when x = 15. What should the student say about this prediction?",
+        "C",
+        [
+          "The prediction is reliable because the model is linear.",
+          "The prediction is reliable because a larger x produces a larger y.",
+          "The prediction may not be reliable because x = 15 is outside the data range (extrapolation).",
+          "The prediction is impossible to make.",
+        ],
+        "Is x = 15 inside or outside the data range?",
+        "x = 15 is outside the data range of 0 to 8. This is extrapolation. The prediction should be qualified as less reliable because the linear trend may not continue that far."
+      ),
+      lobfAnswer(
+        "y12s1-lobf-m8",
+        "A line of best fit passes through (3, 11) and (9, 23). What is the y-intercept?",
+        "m = \\frac{23-11}{9-3} = 2,\\quad b = 11 - 2(3)",
+        "5",
+        ["5.0", "b = 5"],
+        "Find the gradient first, then substitute one point into y = mx + b and solve for b.",
+        "m = (23 − 11) / (9 − 3) = 12/6 = 2. Using (3, 11): 11 = 2(3) + b → b = 11 − 6 = 5."
+      ),
+      lobfChoice(
+        "y12s1-lobf-m9",
+        "The gradient of a line of best fit for hours worked (x) and pay earned in dollars (y) is 18. What does this gradient represent in context?",
+        "A",
+        [
+          "Pay increases by $18 for each additional hour worked.",
+          "A worker needs 18 hours to earn $1.",
+          "The y-intercept of the earnings model is $18.",
+          "Working 18 hours results in zero pay.",
+        ],
+        "Gradient is the rate of change: for every 1 unit increase in x, y increases by m.",
+        "The gradient of 18 means that for each additional hour worked, pay increases by $18. This is the hourly rate."
+      ),
+      lobfChoice(
+        "y12s1-lobf-m10",
+        "A student draws a line through only the leftmost and rightmost data points on the scatter plot. What is the problem with this approach?",
+        "B",
+        [
+          "The gradient formula cannot be applied to those points.",
+          "The line passes through extreme end-points only, not through the overall middle of the data.",
+          "Both end-points must have the same y-value.",
+          "Extrapolation is required to draw any line of best fit.",
+        ],
+        "A line of best fit should pass through the middle of the scatter of all points.",
+        "A line of best fit should have roughly equal numbers of points on either side of the line — it represents the overall trend. Forcing the line through only the extreme end-points ignores the middle of the data and does not minimise distances from all points."
+      ),
+    ],
+  };
+}
+
+// ─── Bearings and Compass Directions ─────────────────────────────────────────
+
+function bearChoice(
+  id: string,
+  prompt: string,
+  answer: "A" | "B" | "C" | "D",
+  choices: [string, string, string, string],
+  hint: string,
+  explanation: string
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex: "\\text{Select A, B, C, or D.}",
+    choices: ["A", "B", "C", "D"].map((label, index) => ({
+      label,
+      text: choices[index],
+    })),
+    answer,
+    hint,
+    explanation,
+  };
+}
+
+function bearAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[],
+  hint: string,
+  explanation: string
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers: [answer, ...acceptedAnswers],
+    hint,
+    explanation,
+  };
+}
+
+export function year12Standard1BearingsAndCompassLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed
+): Partial<ExplicitLesson> | null {
+  if (
+    course.slug !== "year-12-standard-1" ||
+    unit.slug !== "trigonometry-ratios-rates" ||
+    lesson.slug !== "bearings-and-compass"
+  ) {
+    return null;
+  }
+
+  return {
+    description:
+      "Convert between true bearings and compass bearings, find back bearings, and solve practical direction problems using right-angle trigonometry.",
+    learningIntention:
+      "Use true bearings and compass bearings to describe directions and solve practical navigation problems.",
+    successCriteria: [
+      "State a direction as a true bearing (three-figure clockwise from north).",
+      "Convert a compass bearing such as N35°E or S60°W into a true bearing.",
+      "Find the back bearing of a given direction by adding or subtracting 180°.",
+      "Use right-angle trigonometry to find a distance or component in a bearing problem.",
+    ],
+    teaching: {
+      paragraphs: [
+        "A true bearing is measured clockwise from due north and is always written as three digits. Due north is 000°, due east is 090°, due south is 180°, and due west is 270°. Bearings are sometimes written with a T suffix, for example 045°T for NE.",
+        "A compass bearing uses cardinal directions and an angle to describe direction. For example, N35°E means 35° measured from north towards east. S60°W means 60° measured from south towards west.",
+        "Converting compass bearings to true bearings: N35°E → 035°T (angle from north going east); S60°E → 180° − 60° = 120°T; S40°W → 180° + 40° = 220°T; N70°W → 360° − 70° = 290°T.",
+        "The back bearing (return direction) is the bearing from the destination back to the start. If the original bearing is less than 180°, add 180°. If the original is 180° or more, subtract 180°.",
+      ],
+      latexBlocks: [
+        "\\text{N}x°\\text{E} \\to x°\\text{T}",
+        "\\text{S}x°\\text{E} \\to (180-x)°\\text{T}",
+        "\\text{S}x°\\text{W} \\to (180+x)°\\text{T}",
+        "\\text{N}x°\\text{W} \\to (360-x)°\\text{T}",
+        "\\text{back bearing} = \\text{original} \\pm 180°",
+      ],
+    },
+    workedExamples: [
+      {
+        title: "Convert a compass bearing to a true bearing",
+        questionLatex:
+          "\\text{Convert the compass bearing S65°W to a true bearing.}",
+        steps: [
+          {
+            explanation:
+              "S65°W means 65° west of due south. South is 180°. Moving west from south means adding (going clockwise from south).",
+            latex: "180° + 65° = 245°",
+          },
+          {
+            explanation:
+              "Always write a true bearing with three digits.",
+          },
+        ],
+        finalAnswerLatex: "245°\\text{T}",
+      },
+      {
+        title: "Find a back bearing",
+        questionLatex:
+          "\\text{A ship travels on a bearing of 070°T. Find the back bearing for the return journey.}",
+        steps: [
+          {
+            explanation:
+              "The bearing 070° is less than 180°, so add 180° to find the back bearing.",
+            latex: "070° + 180° = 250°",
+          },
+          {
+            explanation:
+              "The result is less than 360°, so the back bearing is 250°T.",
+          },
+        ],
+        finalAnswerLatex: "250°\\text{T}",
+      },
+    ],
+    guidedPractice: [
+      bearChoice(
+        "y12s1-bear-g1",
+        "What is the true bearing of due east?",
+        "B",
+        ["000°T", "090°T", "180°T", "270°T"],
+        "True bearings start at 000° for north and increase clockwise to 360°.",
+        "Due east is 90° clockwise from north. The true bearing is 090°T."
+      ),
+      bearAnswer(
+        "y12s1-bear-g2",
+        "Convert the compass bearing N40°E to a true bearing.",
+        "\\text{N}40°\\text{E} \\to 040°\\text{T}",
+        "040",
+        ["040°", "040°T", "40", "40°", "40°T"],
+        "N40°E means 40° from north towards east. North is 000°.",
+        "N40°E is 40° clockwise from north. True bearing = 040°T."
+      ),
+      bearAnswer(
+        "y12s1-bear-g3",
+        "A plane travels on a bearing of 130°T. Find the back bearing for the return trip.",
+        "130° + 180°",
+        "310",
+        ["310°", "310°T"],
+        "The original bearing is less than 180°, so add 180°.",
+        "130° + 180° = 310°. The back bearing is 310°T."
+      ),
+      bearChoice(
+        "y12s1-bear-g4",
+        "Which true bearing matches the compass bearing S30°W?",
+        "C",
+        ["030°T", "150°T", "210°T", "330°T"],
+        "S30°W means 30° past south going towards west. South is 180°. Add 30°.",
+        "S30°W: start at south (180°), go 30° clockwise towards west: 180° + 30° = 210°T."
+      ),
+    ],
+    independentPractice: [
+      bearAnswer(
+        "y12s1-bear-i1",
+        "Convert the compass bearing N55°W to a true bearing.",
+        "360° - 55°",
+        "305",
+        ["305°", "305°T"],
+        "N55°W is 55° west of north. North is 000°/360°. Going anticlockwise from north (west direction) means subtracting from 360°.",
+        "N55°W: 360° − 55° = 305°T."
+      ),
+      bearChoice(
+        "y12s1-bear-i2",
+        "A hiker walks on a bearing of 200°T. What is the back bearing for the return journey?",
+        "A",
+        ["020°T", "200°T", "220°T", "160°T"],
+        "The original bearing (200°) is ≥ 180°, so subtract 180°.",
+        "200° − 180° = 020°T. The return journey is on a bearing of 020°T."
+      ),
+      bearAnswer(
+        "y12s1-bear-i3",
+        "A boat travels due north for 12 km then due east for 9 km. Find the straight-line distance from start to finish to 1 decimal place.",
+        "d = \\sqrt{12^2 + 9^2}",
+        "15",
+        ["15 km", "15.0", "15.0 km"],
+        "The path forms a right triangle. Use Pythagoras: d² = 12² + 9².",
+        "d = √(144 + 81) = √225 = 15 km."
+      ),
+      bearChoice(
+        "y12s1-bear-i4",
+        "Which compass bearing matches the true bearing 340°T?",
+        "D",
+        ["S20°W", "N20°E", "S20°E", "N20°W"],
+        "340° is in the NW quadrant. Find how many degrees it is from north going west: 360° − 340° = 20°.",
+        "360° − 340° = 20°. The direction is 20° west of north. Compass bearing: N20°W."
+      ),
+      bearAnswer(
+        "y12s1-bear-i5",
+        "From point A, point B is on a bearing of 070°T and 8 km away. Find how far east of A the point B is, to 1 decimal place.",
+        "\\text{east} = 8 \\times \\sin 70°",
+        "7.5",
+        ["7.5 km"],
+        "The angle from north is 70°. The eastward component = d × sin(bearing).",
+        "East = 8 × sin(70°) = 8 × 0.9397 ≈ 7.5 km."
+      ),
+    ],
+    commonMistakes: [
+      {
+        mistake: "Writing a true bearing with fewer than three digits, such as 45° instead of 045°.",
+        fix: "True bearings always have three digits. Write 045°T, not 45°T.",
+      },
+      {
+        mistake: "Adding 180° to a bearing that is already over 180°, giving a result over 360°.",
+        fix: "If the original bearing is 180° or more, subtract 180° instead of adding it. Check: back bearing must be between 000° and 360°.",
+      },
+      {
+        mistake: "Confusing NxE and SxW conversions — for example, treating N60°E the same as N30°E.",
+        fix: "Read the angle carefully. N60°E means 60° from north towards east. Compute the true bearing directly: N60°E → 060°T.",
+      },
+    ],
+    masteryQuiz: [
+      bearAnswer(
+        "y12s1-bear-m1",
+        "State the true bearing of due south.",
+        "\\text{Due south is halfway clockwise from north}",
+        "180",
+        ["180°", "180°T"],
+        "Due south is directly opposite north — half a full rotation clockwise.",
+        "Due south is 180° clockwise from north. True bearing = 180°T."
+      ),
+      bearAnswer(
+        "y12s1-bear-m2",
+        "Convert the compass bearing S75°E to a true bearing.",
+        "180° - 75°",
+        "105",
+        ["105°", "105°T"],
+        "S75°E means 75° towards east from south. South is 180°. Moving towards east from south means going anticlockwise (subtracting).",
+        "South is 180°. Going 75° towards east (anticlockwise): 180° − 75° = 105°T."
+      ),
+      bearAnswer(
+        "y12s1-bear-m3",
+        "A pilot flies on a bearing of 315°T. What is the back bearing?",
+        "315° - 180°",
+        "135",
+        ["135°", "135°T"],
+        "The original bearing (315°) is ≥ 180°, so subtract 180°.",
+        "315° − 180° = 135°T. The back bearing is 135°T."
+      ),
+      bearChoice(
+        "y12s1-bear-m4",
+        "Which of the following is the correct true bearing for N45°W?",
+        "D",
+        ["045°T", "135°T", "225°T", "315°T"],
+        "N45°W is 45° west of north. Going anticlockwise from 360°.",
+        "N45°W: 360° − 45° = 315°T."
+      ),
+      bearAnswer(
+        "y12s1-bear-m5",
+        "A hiker starts at P, walks on a bearing of 035°T for 6 km to reach Q. Find the northward distance PQ to 1 decimal place.",
+        "\\text{north} = 6 \\times \\cos 35°",
+        "4.9",
+        ["4.9 km"],
+        "The northward component = d × cos(bearing). The bearing 35° is measured from north.",
+        "North = 6 × cos(35°) = 6 × 0.8192 ≈ 4.9 km."
+      ),
+      bearAnswer(
+        "y12s1-bear-m6",
+        "Convert the true bearing 225°T to a compass bearing.",
+        "225° - 180° = 45°\\text{ past south towards west}",
+        "S45°W",
+        ["south 45 degrees west", "s45w"],
+        "225° is between south (180°) and west (270°). Find how far past south: 225° − 180° = 45°.",
+        "225° − 180° = 45°. The bearing is 45° past south towards west. Compass bearing = S45°W."
+      ),
+      bearAnswer(
+        "y12s1-bear-m7",
+        "A boat sails on a bearing of 280°T for 10 km. Find how far north of its starting position it has moved, to 1 decimal place.",
+        "\\text{north} = 10 \\times \\cos(360° - 280°) = 10 \\cos 80°",
+        "1.7",
+        ["1.7 km"],
+        "280°T is 80° west of north (360° − 280° = 80°). The northward component = d × cos(80°).",
+        "The angle from north is 360° − 280° = 80°. North = 10 × cos(80°) = 10 × 0.1736 ≈ 1.7 km north."
+      ),
+      bearChoice(
+        "y12s1-bear-m8",
+        "Town B is on a bearing of 048°T from Town A. What is the bearing of Town A from Town B?",
+        "C",
+        ["048°T", "138°T", "228°T", "312°T"],
+        "The back bearing is original + 180° (since 048° < 180°).",
+        "Back bearing = 048° + 180° = 228°T. Town A is on a bearing of 228°T from Town B."
+      ),
+      bearAnswer(
+        "y12s1-bear-m9",
+        "A boat sails due east (090°T) for 8 km, then turns and sails due north (000°T) for 6 km. Find the straight-line distance from start to finish.",
+        "d = \\sqrt{8^2 + 6^2}",
+        "10",
+        ["10 km", "10.0", "10.0 km"],
+        "The two legs of the journey are perpendicular (east then north). Use Pythagoras.",
+        "d = √(64 + 36) = √100 = 10 km."
+      ),
+      bearChoice(
+        "y12s1-bear-m10",
+        "Which statement about true bearings is correct?",
+        "A",
+        [
+          "True bearings are measured clockwise from north and written as three digits.",
+          "True bearings are measured anticlockwise from south.",
+          "True bearings use letters like N, S, E and W.",
+          "True bearings range from 0° to 180°.",
+        ],
+        "Recall the definition of a true bearing.",
+        "True bearings are measured clockwise from due north and always written with three digits (000° to 360°). Compass bearings use N, S, E, W notation."
+      ),
+    ],
+  };
+}
+
+// ─── Relative Frequency and Expected Value ────────────────────────────────────
+
+function freqChoice(
+  id: string,
+  prompt: string,
+  answer: "A" | "B" | "C" | "D",
+  choices: [string, string, string, string],
+  hint: string,
+  explanation: string
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex: "\\text{Select A, B, C, or D.}",
+    choices: ["A", "B", "C", "D"].map((label, index) => ({
+      label,
+      text: choices[index],
+    })),
+    answer,
+    hint,
+    explanation,
+  };
+}
+
+function freqAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[],
+  hint: string,
+  explanation: string
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers: [answer, ...acceptedAnswers],
+    hint,
+    explanation,
+  };
+}
+
+export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed
+): Partial<ExplicitLesson> | null {
+  if (
+    course.slug !== "year-12-standard-1" ||
+    unit.slug !== "statistics-and-data" ||
+    lesson.slug !== "relative-frequency-expected-value"
+  ) {
+    return null;
+  }
+
+  return {
+    description:
+      "Use complementary events P(not A) = 1 − P(A), estimate probability from relative frequency, and calculate expected frequency np.",
+    learningIntention:
+      "Apply complementary events, relative frequency, and expected frequency to practical probability problems.",
+    successCriteria: [
+      "Use P(not A) = 1 − P(A) to find the probability of the complement of an event.",
+      "Calculate the relative frequency of an event from a data set.",
+      "Use relative frequency as an estimate of theoretical probability.",
+      "Calculate the expected frequency of an event in n trials using expected frequency = np.",
+    ],
+    teaching: {
+      paragraphs: [
+        "The complement of event A is the event that A does NOT occur. The probabilities of A and its complement must add to 1, so P(not A) = 1 − P(A). For example, if P(rain) = 0.3, then P(no rain) = 1 − 0.3 = 0.7.",
+        "Relative frequency is calculated from actual data: relative frequency = frequency / total observations. For example, if 40 out of 200 people prefer coffee, relative frequency = 40/200 = 0.2.",
+        "Relative frequency provides an estimate of the theoretical probability of an event. The more trials performed, the closer the relative frequency gets to the true probability.",
+        "Expected frequency predicts how many times an event will occur in n trials: expected frequency = np, where p is the probability of the event. For example, if P(heads) = 0.5 and a coin is flipped 80 times, expected frequency of heads = 80 × 0.5 = 40.",
+      ],
+      latexBlocks: [
+        "P(\\text{not }A) = 1 - P(A)",
+        "\\text{relative frequency} = \\frac{\\text{frequency}}{\\text{total observations}}",
+        "\\text{expected frequency} = n \\times p",
+      ],
+    },
+    workedExamples: [
+      {
+        title: "Find a complementary probability",
+        questionLatex:
+          "\\text{The probability that a student passes a test is 0.72. Find the probability that the student does not pass.}",
+        steps: [
+          {
+            explanation:
+              "The complement of 'passes' is 'does not pass'. Use P(not A) = 1 − P(A).",
+            latex: "P(\\text{not pass}) = 1 - 0.72",
+          },
+          {
+            explanation: "Evaluate.",
+            latex: "P(\\text{not pass}) = 0.28",
+          },
+        ],
+        finalAnswerLatex: "P(\\text{not pass}) = 0.28",
+      },
+      {
+        title: "Use relative frequency and find expected frequency",
+        questionLatex:
+          "\\text{A spinner was spun 200 times. It landed on blue 50 times. Find the relative frequency of blue and the expected frequency of blue in 500 spins.}",
+        steps: [
+          {
+            explanation: "Find the relative frequency from the data.",
+            latex:
+              "\\text{relative frequency} = \\frac{50}{200} = 0.25",
+          },
+          {
+            explanation:
+              "Use relative frequency as an estimate of the probability of blue: P(blue) ≈ 0.25.",
+          },
+          {
+            explanation:
+              "Expected frequency in 500 spins = n × p = 500 × 0.25.",
+            latex: "500 \\times 0.25 = 125",
+          },
+        ],
+        finalAnswerLatex:
+          "\\text{Relative frequency} = 0.25,\\quad \\text{expected frequency} = 125",
+      },
+    ],
+    guidedPractice: [
+      freqAnswer(
+        "y12s1-rfreq-g1",
+        "The probability of rolling a 6 on a fair die is 1/6. Find the probability of not rolling a 6.",
+        "P(\\text{not 6}) = 1 - \\frac{1}{6}",
+        "5/6",
+        ["0.8333", "0.833", "5 out of 6"],
+        "Use P(not A) = 1 − P(A).",
+        "P(not 6) = 1 − 1/6 = 5/6."
+      ),
+      freqAnswer(
+        "y12s1-rfreq-g2",
+        "A bag of 20 marbles contains 4 red marbles. Find the relative frequency of selecting a red marble.",
+        "\\text{relative frequency} = \\frac{4}{20}",
+        "0.2",
+        ["1/5", "20%", "4/20"],
+        "Relative frequency = frequency / total observations.",
+        "Relative frequency = 4/20 = 0.2."
+      ),
+      freqAnswer(
+        "y12s1-rfreq-g3",
+        "A spinner lands on green with probability 0.3. In 200 spins, what is the expected frequency of landing on green?",
+        "200 \\times 0.3",
+        "60",
+        ["60 times"],
+        "Expected frequency = n × p.",
+        "Expected frequency = 200 × 0.3 = 60."
+      ),
+      freqChoice(
+        "y12s1-rfreq-g4",
+        "In 50 surveys, 15 people chose chocolate ice cream. Which value best estimates the probability that the next person chosen at random will pick chocolate?",
+        "B",
+        [
+          "0.50",
+          "0.30",
+          "0.15",
+          "15",
+        ],
+        "Use relative frequency as an estimate of probability.",
+        "Relative frequency = 15/50 = 0.30. This estimates the probability that the next person picks chocolate."
+      ),
+    ],
+    independentPractice: [
+      freqAnswer(
+        "y12s1-rfreq-i1",
+        "The probability of it raining tomorrow is 0.45. Find the probability that it does not rain.",
+        "P(\\text{no rain}) = 1 - 0.45",
+        "0.55",
+        ["55%", "55/100"],
+        "P(not A) = 1 − P(A).",
+        "P(no rain) = 1 − 0.45 = 0.55."
+      ),
+      freqAnswer(
+        "y12s1-rfreq-i2",
+        "A factory produces 500 items. 25 are defective. Find the relative frequency of a defective item.",
+        "\\text{relative frequency} = \\frac{25}{500}",
+        "0.05",
+        ["1/20", "5%", "25/500"],
+        "Relative frequency = frequency / total.",
+        "Relative frequency = 25/500 = 0.05."
+      ),
+      freqAnswer(
+        "y12s1-rfreq-i3",
+        "The probability that a bus is on time is 0.8. In 150 bus trips, what is the expected number of on-time buses?",
+        "150 \\times 0.8",
+        "120",
+        ["120 buses", "120 trips"],
+        "Expected frequency = n × p.",
+        "Expected frequency = 150 × 0.8 = 120."
+      ),
+      freqChoice(
+        "y12s1-rfreq-i4",
+        "A student flips a coin 100 times and records 48 heads. As the number of flips increases, what should the relative frequency of heads approach?",
+        "B",
+        [
+          "0.48, because that is what the experiment showed.",
+          "0.5, because the theoretical probability of heads is 0.5.",
+          "1.0, because eventually heads always wins.",
+          "0.0, because relative frequency approaches zero.",
+        ],
+        "Consider what the long-run relative frequency converges to.",
+        "For a fair coin, P(heads) = 0.5. As the number of flips increases, the relative frequency of heads approaches the theoretical probability of 0.5."
+      ),
+      freqAnswer(
+        "y12s1-rfreq-i5",
+        "A survey of 80 students found that 32 prefer sport to art. Find the probability that a randomly selected student prefers sport, using relative frequency as an estimate.",
+        "\\frac{32}{80}",
+        "0.4",
+        ["2/5", "40%", "32/80"],
+        "Estimate probability using relative frequency = frequency / total.",
+        "P(sport) ≈ 32/80 = 0.4."
+      ),
+    ],
+    commonMistakes: [
+      {
+        mistake: "Writing P(not A) = 1 + P(A) instead of 1 − P(A).",
+        fix: "The complement formula subtracts: P(not A) = 1 − P(A). The two probabilities must sum to 1.",
+      },
+      {
+        mistake: "Confusing relative frequency with expected frequency.",
+        fix: "Relative frequency = frequency / total (a proportion). Expected frequency = n × p (a count of how many times we expect the event to occur).",
+      },
+      {
+        mistake: "Using relative frequency from a small sample as if it is exact.",
+        fix: "Relative frequency is an estimate of the true probability. More trials give a better estimate, but it is still an estimate and may differ from the theoretical value.",
+      },
+    ],
+    masteryQuiz: [
+      freqAnswer(
+        "y12s1-rfreq-m1",
+        "The probability of drawing a heart from a standard deck is 1/4. Find the probability of not drawing a heart.",
+        "P(\\text{not heart}) = 1 - \\frac{1}{4}",
+        "3/4",
+        ["0.75", "75%"],
+        "P(not A) = 1 − P(A).",
+        "P(not heart) = 1 − 1/4 = 3/4."
+      ),
+      freqAnswer(
+        "y12s1-rfreq-m2",
+        "A bag has 3 blue, 5 red and 2 green counters. Find the relative frequency of a green counter being selected.",
+        "\\text{relative frequency} = \\frac{2}{10}",
+        "0.2",
+        ["1/5", "20%", "2/10"],
+        "Relative frequency = frequency / total. Total = 3 + 5 + 2 = 10.",
+        "Relative frequency = 2/10 = 0.2."
+      ),
+      freqAnswer(
+        "y12s1-rfreq-m3",
+        "A biased die shows a 4 with probability 0.15. In 400 rolls, find the expected frequency of rolling a 4.",
+        "400 \\times 0.15",
+        "60",
+        ["60 times"],
+        "Expected frequency = n × p.",
+        "Expected frequency = 400 × 0.15 = 60."
+      ),
+      freqChoice(
+        "y12s1-rfreq-m4",
+        "P(A) = 0.6. Which of the following is P(not A)?",
+        "B",
+        ["0.6", "0.4", "1.6", "0.06"],
+        "P(not A) = 1 − P(A).",
+        "P(not A) = 1 − 0.6 = 0.4."
+      ),
+      freqAnswer(
+        "y12s1-rfreq-m5",
+        "A survey of 250 shoppers found that 75 bought a coffee. Use relative frequency to estimate the probability that the next shopper buys a coffee.",
+        "\\frac{75}{250}",
+        "0.3",
+        ["3/10", "30%"],
+        "P ≈ relative frequency = 75/250.",
+        "Relative frequency = 75/250 = 0.3. Estimated probability ≈ 0.3."
+      ),
+      freqAnswer(
+        "y12s1-rfreq-m6",
+        "A game gives a prize with probability 0.04. Mia plays the game 300 times. How many prizes should she expect to win?",
+        "300 \\times 0.04",
+        "12",
+        ["12 prizes", "12 times"],
+        "Expected frequency = n × p.",
+        "Expected frequency = 300 × 0.04 = 12."
+      ),
+      freqChoice(
+        "y12s1-rfreq-m7",
+        "In 60 tosses of a fair coin, tails appeared 28 times. What is the relative frequency of tails?",
+        "A",
+        ["28/60 ≈ 0.467", "32/60 ≈ 0.533", "0.5", "28"],
+        "Relative frequency = frequency / total tosses.",
+        "Relative frequency of tails = 28/60 ≈ 0.467. This is close to, but not exactly equal to, the theoretical probability of 0.5."
+      ),
+      freqAnswer(
+        "y12s1-rfreq-m8",
+        "P(event B) = 0.35. Find P(not B).",
+        "P(\\text{not }B) = 1 - 0.35",
+        "0.65",
+        ["65%", "65/100"],
+        "P(not B) = 1 − P(B).",
+        "P(not B) = 1 − 0.35 = 0.65."
+      ),
+      freqAnswer(
+        "y12s1-rfreq-m9",
+        "A spinner has P(red) = 0.25 and P(blue) = 0.35. Find P(not red and not blue).",
+        "P(\\text{not red and not blue}) = 1 - (0.25 + 0.35)",
+        "0.4",
+        ["40%", "2/5"],
+        "The probability of red or blue is 0.25 + 0.35 = 0.60. The complement of (red or blue) is neither.",
+        "P(red or blue) = 0.25 + 0.35 = 0.60. P(neither) = 1 − 0.60 = 0.40."
+      ),
+      freqChoice(
+        "y12s1-rfreq-m10",
+        "A die is rolled 600 times. P(even) = 0.5. Which is the best estimate for the expected frequency of rolling an even number?",
+        "C",
+        ["100", "200", "300", "600"],
+        "Expected frequency = n × p.",
+        "Expected frequency = 600 × 0.5 = 300."
+      ),
+    ],
+  };
+}

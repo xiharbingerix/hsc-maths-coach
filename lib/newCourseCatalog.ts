@@ -21,11 +21,15 @@ import {
   year11StandardTimeLocationLessonOverride,
 } from "./lessons/year11Standard";
 import {
+  year12Standard1BearingsAndCompassLessonOverride,
+  year12Standard1BivariateDataScatterPlotsLessonOverride,
   year12Standard1DataDisplaysSummaryStatisticsLessonOverride,
   year12Standard1FinancialPlanningRepaymentLessonOverride,
   year12Standard1LinearAndDirectVariationLessonOverride,
+  year12Standard1LineOfBestFitPredictionsLessonOverride,
   year12Standard1MeasurementAreaVolumeLessonOverride,
   year12Standard1ProbabilityAndChanceLessonOverride,
+  year12Standard1RelativeFrequencyExpectedValueLessonOverride,
   year12Standard1RightAngleTrigApplicationsLessonOverride,
   year12Standard1RightAngleTrigonometryLessonOverride,
   year12Standard1RatesPracticalProblemsLessonOverride,
@@ -261,8 +265,12 @@ export function buildLesson(
     year12Standard1TrigRatesExamPracticeLessonOverride(course, unit, lesson) ??
     year12Standard1MeasurementAreaVolumeLessonOverride(course, unit, lesson) ??
     year12Standard1ScaleDrawingsAndPlansLessonOverride(course, unit, lesson) ??
+    year12Standard1BearingsAndCompassLessonOverride(course, unit, lesson) ??
     year12Standard1DataDisplaysSummaryStatisticsLessonOverride(course, unit, lesson) ??
     year12Standard1ProbabilityAndChanceLessonOverride(course, unit, lesson) ??
+    year12Standard1BivariateDataScatterPlotsLessonOverride(course, unit, lesson) ??
+    year12Standard1LineOfBestFitPredictionsLessonOverride(course, unit, lesson) ??
+    year12Standard1RelativeFrequencyExpectedValueLessonOverride(course, unit, lesson) ??
     year12Standard1StatisticsExamPracticeLessonOverride(course, unit, lesson) ??
     year12Standard1LinearAndDirectVariationLessonOverride(course, unit, lesson) ??
     year12Standard1FinancialPlanningRepaymentLessonOverride(course, unit, lesson) ??
@@ -972,6 +980,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             ],
           },
           {
+            slug: "bearings-and-compass",
+            title: "Bearings and Compass Directions",
+            description:
+              "Convert between true bearings and compass bearings, find back bearings, and solve practical direction problems using right-angle trigonometry.",
+          },
+          {
             slug: "rates-practical-problems",
             title: "Rates in Practical Contexts",
             description:
@@ -1070,6 +1084,24 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Probability and Chance",
             description:
               "Use probability language, tables, and simple chance models to solve practical problems.",
+          },
+          {
+            slug: "bivariate-data-scatter-plots",
+            title: "Bivariate Data and Scatter Plots",
+            description:
+              "Distinguish univariate and bivariate data, identify independent and dependent variables, create scatter plots, and describe associations by form, strength and direction.",
+          },
+          {
+            slug: "line-of-best-fit-predictions",
+            title: "Line of Best Fit and Predictions",
+            description:
+              "Draw a line of best fit by eye, find its gradient and y-intercept, and use interpolation and extrapolation to make predictions.",
+          },
+          {
+            slug: "relative-frequency-expected-value",
+            title: "Relative Frequency and Expected Value",
+            description:
+              "Use complementary events P(not A) = 1 − P(A), estimate probability from relative frequency, and calculate expected frequency np.",
           },
           {
             slug: "statistics-exam-practice",

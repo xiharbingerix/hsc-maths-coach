@@ -2,7 +2,7 @@
 
 > **Objective:** High-quality lessons and question content across the entire NSW syllabus, mapped to syllabus sections with sufficient lessons to cover all skills and content in the Content section. Each lesson: 19 questions, worked examples, Feynman teaching, and common mistakes. Each focus area: one revision lesson activating the prior knowledge stated in the syllabus teaching advice, plus content lessons per dot-point group.
 > **Standard:** NSW syllabuses (2024 versions, implementation from 2026). Source of truth: [curriculum.nsw.edu.au](https://curriculum.nsw.edu.au).
-> Last updated: 2026-06-15 — Year 12 Advanced fully audited against NSW 2024 syllabus (91 lessons, 1726 questions, all 14 focus areas). Ext 1 syllabus audit complete; objective standard adopted. Year 12 Standard 2 fully complete — audited dot-by-dot against NSW 2024 syllabus (58 lessons, 1106 questions, all 10 topics). Year 12 Extension 1 fully complete — audited dot-by-dot against NSW 2024 syllabus (48 lessons, 862 questions, all 6 focus areas). Year 11 Standard fully complete — audited dot-by-dot against NSW 2024 syllabus (76 lessons, 1444 questions, all 8 focus areas). NSW 2024 unit slug alignment complete (9 units → 8 focus areas; earning-money + managing-money merged into money-and-financial-mathematics).
+> Last updated: 2026-06-15 — Year 12 Standard 1 audited dot-by-dot against NSW 2024 syllabus; 4 new lessons added (22 total, 76 new questions). Year 12 Advanced fully audited (91 lessons, 1726 questions, all 14 focus areas). Year 12 Standard 2 fully complete (58 lessons, 1106 questions, all 10 topics). Year 12 Extension 1 fully complete (48 lessons, 862 questions, all 6 focus areas). Year 11 Standard fully complete (76 lessons, 1444 questions, all 8 focus areas).
 
 ---
 
@@ -26,7 +26,7 @@
 | Year 11 Standard | 76 (8 units) | 8 focus areas | ✅ 100% | 8 | ✅ Complete — audited 2026-06-15 (1444 questions) |
 | Year 11 Advanced | 54 (8 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 11 Extension 1 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
-| Year 12 Standard 1 | 18 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 12 Standard 1 | 22 (5 units) | 7 topics | ✅ 7/7 (credit card gap noted) | 0 | 🔄 Audited 2026-06-15; 1 gap remains (credit cards) |
 | Year 12 Standard 2 | 58 (6 units) | 10 topics | ✅ 100% | 10 | ✅ Complete — audited 2026-06-15 (1106 questions) |
 | Year 12 Advanced | 91 (13 units) | 14 focus areas (MA-F1–S3) | ✅ 100% | 0 | ✅ Complete — audited 2026-06-15 (1726 questions) |
 | Year 12 Extension 1 | 30 (8 units) | 6 focus areas (ME1-12-01–06) | ✅ 100% | 0 | ✅ Complete — audited 2026-06-15 (862 questions) |
@@ -180,18 +180,36 @@ Class Maths 2026: 5 topics / 30 subtopics.
 
 ---
 
-## Year 12 Standard 1 🔄
+## Year 12 Standard 1 🔄 Audited against NSW 2024 syllabus (2026-06-15)
 
 `year-12-standard-1` — `in_progress`. Override file: `lib/lessons/year12Standard1.ts`.
-Class Maths: 7 topics / 29 subtopics.
+**22 lessons.** Audited dot-by-dot against NSW Mathematics Standard 11–12 Syllabus (2024). First HSC 2027.
 
-- [x] Algebraic Relationships (5 lessons)
-- [x] Rates, Ratios and Measurement (4 lessons — trig + rates + exam practice)
-- [x] Investments, Loans and Annuities (3 lessons)
-- [x] Statistics and Data (3 lessons)
-- [x] Measurement and Geometry (3 lessons)
-- [ ] Two missing topics vs Class Maths 7-topic target (likely Networks and/or further Measurement)
-- [ ] Promote to `available`
+| # | NSW Topic | Outcome | Lessons | Status |
+|---|---|---|---|---|
+| 1 | Algebraic relationships | MST-12-S1-01 | 5 | ✅ linear models, quadratic models, direct variation, simultaneous equations, exam practice |
+| 2 | Investment | MST-12-S1-02 | 1 | ✅ simple and compound interest, comparing investment strategies |
+| 3 | Depreciation and loans | MST-12-S1-03 | 1 | ⚠️ straight-line and declining-balance depreciation, reducing-balance loans; credit card content not yet covered |
+| 4 | Right-angled triangles | MST-12-S1-04 | 3 | ✅ SOH-CAH-TOA, elevation/depression, bearings (added 2026-06-15) |
+| 5 | Ratios and rates | MST-12-S1-05 | 2 | ✅ ratios, unit conversions, speed, fuel consumption, flow rate, pay |
+| 6 | Bivariate data analysis | MST-12-S1-06 | 2 | ✅ scatter plots + form/strength/direction (added 2026-06-15); line of best fit + interpolation/extrapolation (added 2026-06-15) |
+| 7 | Relative frequency and probability | MST-12-S1-07 | 3 | ✅ probability formula, two-stage trees; complementary events + relative frequency + expected frequency (added 2026-06-15) |
+
+**New lessons added in this audit pass (2026-06-15):**
+- `bearings-and-compass` — true bearings (3-figure), compass bearings, conversions, back bearings, trig components (19 Q)
+- `bivariate-data-scatter-plots` — univariate vs bivariate, independent/dependent variables, scatter plots, form/strength/direction, correlation vs causation (19 Q)
+- `line-of-best-fit-predictions` — line of best fit by eye, gradient/y-intercept, interpolation, extrapolation limitations (19 Q)
+- `relative-frequency-expected-value` — complementary events P(not A) = 1 − P(A), relative frequency as estimate, expected frequency np (19 Q)
+
+**Legacy lessons retained (outside NSW 2024 Standard 1 scope):**
+- `measurement-area-volume` — area, perimeter, surface area, volume (Year 11 Measurement; not in MST-12-S1)
+- `scale-drawings-and-plans` — scale and similarity (not in MST-12-S1)
+- `data-displays-summary-statistics` — mean/median/range (Year 11 content; not in MST-12-S1)
+- `right-angle-trigonometry` (in `measurement-geometry` unit) — duplicate; relevant trig content is in `right-angle-trig-applications` + `bearings-and-compass`
+
+**Remaining gap:**
+- [ ] Credit card content (MST-12-S1-03): interest-free periods, minimum repayments — not yet in `depreciation-loans`
+- [ ] Promote to `available` once credit card content is added
 
 ---
 
@@ -297,7 +315,7 @@ Nova average lessons per unit: ~4–5.
 | Year 12 Standard 2 | 35 (6 units) | ~35 | ✅ Depth pass complete + 4 breadth lessons |
 | Year 12 Advanced | 91 (13 units) | ~64 subtopics | ✅ Depth pass complete + audited 2026-06-15 |
 | Year 12 Extension 2 | 25 (5 units) | ~40 subtopics | ✅ Depth pass complete |
-| Year 12 Standard 1 | 18 (5 units) | ~29 subtopics | 🔄 Missing ~2 topics |
+| Year 12 Standard 1 | 22 (5 units) | 7 NSW topics | ✅ Audited 2026-06-15; 1 minor gap (credit cards) |
 | Year 12 Extension 1 | 30 (8 units) | ~28 subtopics | ✅ Depth pass complete — 520 questions seeded |
 | Year 11 Advanced | 54 (8 units) | ~90 subtopics | 🔄 Missing equations/inequations, coord geometry, trig phase 3 |
 | Year 9 / Year 10 variants | — | — | 🔄 Promote Advanced + Core to available |
@@ -312,7 +330,7 @@ Nova average lessons per unit: ~4–5.
 2. ~~**Year 12 Standard 2 depth**~~ ✅ Complete — 35 lessons (breadth pass ongoing), 665 questions
 3. ~~**Year 12 Advanced depth**~~ ✅ Complete — 91 lessons, 1715 questions (Probability unit added)
 4. ~~**Year 12 Extension 1 depth**~~ ✅ Complete — 30 lessons, 520 questions (8 units, 100% topic breadth)
-5. **Year 12 Standard 1** — add missing ~2 topics (likely Networks + further Measurement); promote to `available`
+5. **Year 12 Standard 1** — audited 2026-06-15; 4 lessons added (bivariate data, bearings, relative frequency); 1 gap remains (credit card content in MST-12-S1-03); promote to `available` after adding credit cards
 6. **Year 11 Advanced gaps** — equations/inequations unit, coordinate geometry unit, trig identities phase 3
 7. **Year 9 / Year 10 variants** — promote Advanced and Core to `available`
 8. **Year 8 depth** — 4 missing units vs Class Maths 14-topic target (ratios/rates, index laws, algebraic fractions, additional data)
