@@ -2,7 +2,7 @@
 
 > **Objective:** High-quality lessons and question content across the entire NSW syllabus, mapped to syllabus sections with sufficient lessons to cover all skills and content in the Content section. Each lesson: 19 questions, worked examples, Feynman teaching, and common mistakes. Each focus area: one revision lesson activating the prior knowledge stated in the syllabus teaching advice, plus content lessons per dot-point group.
 > **Standard:** NSW syllabuses (2024 versions, implementation from 2026). Source of truth: [curriculum.nsw.edu.au](https://curriculum.nsw.edu.au).
-> Last updated: 2026-06-15 — Year 11 Advanced: Sequences and Series unit removed (out-of-scope); 7 new Working with Functions lessons written (algebraic techniques, quadratic discriminant, linear functions, constructing/using functions, direct/inverse variation, circles/semicircles, piecewise functions) bringing FA1 to ~90% coverage; course now 56 lessons / 7 units. Year 11 Advanced audited dot-by-dot against NSW 2024 syllabus; unit headings all match; remaining gaps in FA2 (applied trig), FA3 (reciprocal trig), FA4 (product/quotient rules), FA6 (circles general form), FA7 (conditional probability). Year 12 Standard 1 audited (22 total, 76 new questions, 1 credit-card gap). Year 12 Advanced fully audited (91 lessons, 1726 questions, all 14 focus areas). Year 12 Standard 2 fully complete (58 lessons, 1106 questions). Year 12 Extension 1 fully complete (48 lessons, 862 questions). Year 11 Standard fully complete (76 lessons, 1444 questions).
+> Last updated: 2026-06-15 — Year 11 Advanced: Sequences and Series unit removed (out-of-scope); 9 new Working with Functions lessons written (algebraic techniques, quadratic discriminant, linear functions, constructing/using functions, direct/inverse variation, circles/semicircles, piecewise functions, composite functions, completing the square) bringing FA1 to ~95% coverage; course now 58 lessons / 7 units; transformations-composite-functions deprecated in Graph Transformations unit. Year 11 Advanced audited dot-by-dot against NSW 2024 syllabus; unit headings all match; remaining gaps in FA2 (applied trig), FA3 (reciprocal trig), FA4 (product/quotient rules), FA6 (circles general form), FA7 (conditional probability). Year 12 Standard 1 audited (22 total, 76 new questions, 1 credit-card gap). Year 12 Advanced fully audited (91 lessons, 1726 questions, all 14 focus areas). Year 12 Standard 2 fully complete (58 lessons, 1106 questions). Year 12 Extension 1 fully complete (48 lessons, 862 questions). Year 11 Standard fully complete (76 lessons, 1444 questions).
 
 ---
 
@@ -24,7 +24,7 @@
 | Year 10 Mathematics Advanced | ~56 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 10 Mathematics Core | ~40 (10 trimmed) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 11 Standard | 76 (8 units) | 8 focus areas | ✅ 100% | 8 | ✅ Complete — audited 2026-06-15 (1444 questions) |
-| Year 11 Advanced | 56 (7 units) | 7 focus areas (MAV-11-01–10) | 🔄 ~75% — FA1 complete; gaps in FA2, FA3, FA4, FA6, FA7 | 0 | 🔄 Audited 2026-06-15; Sequences/Series removed; 7 new FA1 lessons added |
+| Year 11 Advanced | 58 (7 units) | 7 focus areas (MAV-11-01–10) | 🔄 ~75% — FA1 ~95% complete; gaps in FA2, FA3, FA4, FA6, FA7 | 0 | 🔄 Audited 2026-06-15; Sequences/Series removed; 9 new FA1 lessons added |
 | Year 11 Extension 1 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 12 Standard 1 | 22 (5 units) | 7 topics | ✅ 7/7 (credit card gap noted) | 0 | 🔄 Audited 2026-06-15; 1 gap remains (credit cards) |
 | Year 12 Standard 2 | 58 (6 units) | 10 topics | ✅ 100% | 10 | ✅ Complete — audited 2026-06-15 (1106 questions) |
@@ -145,13 +145,13 @@ Advanced: skill map IDs namespaced `y10a-`. Core: trimmed + `y10c-`.
 ## Year 11 Advanced 🔄 Audited against NSW 2024 syllabus (2026-06-15)
 
 `year-11-advanced` — `available`. Override file: `lib/lessons/year11Advanced/`.
-**56 lessons / 7 units — all in-scope.** Sequences and Series unit removed (2026-06-15) as it belongs in Year 12 Advanced MA-M1. 7 new Working with Functions lessons added (2026-06-15) bringing FA1 to near-complete coverage. Audited dot-by-dot against the NSW Mathematics Advanced 11–12 Syllabus (2024) Year 11 content. First HSC 2027.
+**58 lessons / 7 units — all in-scope.** Sequences and Series unit removed (2026-06-15) as it belongs in Year 12 Advanced MA-M1. 9 new Working with Functions lessons added (2026-06-15) bringing FA1 to ~95% coverage; composite functions moved from Graph Transformations unit (old lesson deprecated). Audited dot-by-dot against the NSW Mathematics Advanced 11–12 Syllabus (2024) Year 11 content. First HSC 2027.
 
 Unit headings all match NSW 2024 focus area names exactly.
 
 | # | NSW Focus Area (slug) | Outcome | Nova Lessons | Coverage |
 |---|---|---|---|---|
-| 1 | Working with functions (`working-with-functions`) | MAV-11-01, MAV-11-02 | 13 | ✅ ~90% — 7 new lessons added 2026-06-15; small gaps (completing the square, quadratic inequalities, composite functions) |
+| 1 | Working with functions (`working-with-functions`) | MAV-11-01, MAV-11-02 | 15 | ✅ ~95% — 9 new lessons added 2026-06-15; small gap (quadratic inequalities) |
 | 2 | Trigonometry and measure of angles (`trigonometry-measure-angles`) | MAV-11-04 | 12 | ⚠️ Partial — radians/unit circle complete; applied trig missing |
 | 3 | Trigonometric identities and equations (`trigonometric-identities-equations`) | MAV-11-05 | 7 | ⚠️ Partial — sec/csc/cot missing |
 | 4 | Introduction to differentiation (`introduction-differentiation`) | MAV-11-06 | 9 | ⚠️ Partial — product rule, quotient rule, kinematics missing |
@@ -161,7 +161,7 @@ Unit headings all match NSW 2024 focus area names exactly.
 
 ---
 
-### FA1 — Working with functions (13 lessons) ✅ ~90%
+### FA1 — Working with functions (15 lessons) ✅ ~95%
 
 NSW sub-sections vs Nova (updated 2026-06-15):
 
@@ -171,19 +171,18 @@ NSW sub-sections vs Nova (updated 2026-06-15):
 | Quadratic equations and discriminant | `quadratic-equations-discriminant` ✨ new | ✅ |
 | Introduction to functions and relations (function notation, VLT, domain, range, zeros) | `function-notation-domain-range` | ✅ |
 | Linear functions (gradient forms, intercepts, parallel/perpendicular, linear inequalities) | `linear-functions` ✨ new | ✅ |
-| Quadratic and cubic functions (vertex, axis, completing the square, quadratic inequalities) | `linear-quadratic-cubic-functions` | ⚠️ Completing the square, quadratic inequalities still thin |
+| Quadratic and cubic functions (vertex, axis, completing the square, quadratic inequalities) | `linear-quadratic-cubic-functions`, `completing-the-square` ✨ new | ⚠️ Quadratic inequalities still missing |
 | Reciprocal functions (y=k/x, asymptotes) | `polynomial-reciprocal-functions` | ✅ |
 | Constructing and using functions (linear/quadratic models, simultaneous equations, break-even) | `constructing-using-functions` ✨ new | ✅ |
 | Direct and inverse variation (y=kx, y=k/x, find k, solve) | `direct-inverse-variation` ✨ new | ✅ |
 | Circles and semicircles (x²+y²=r², graph, semicircles y=±√(r²-x²)) | `circles-semicircles` ✨ new | ✅ |
 | Properties of functions (domain/range, even/odd) | `odd-even-functions` | ✅ |
-| Composite functions f∘g | `transformations-composite-functions` (in Graph Transformations unit) | ⚠️ In wrong unit — belongs here per NSW syllabus |
+| Composite functions f∘g | `composite-functions` ✨ new | ✅ Moved to this unit; old lesson deprecated |
 | Piecewise-defined functions (interpret, graph, continuity, discontinuity) | `piecewise-defined-functions` ✨ new | ✅ |
 | Absolute value functions (definition, graph y=\|x\|, y=\|f(x)\|, solve \|x\|=c) | `absolute-value-functions` | ✅ |
 
 **Remaining gaps (Working with functions):**
-- [ ] Completing the square and quadratic inequalities in `linear-quadratic-cubic-functions`
-- [ ] Move composite functions into this unit (currently in `graph-transformations`)
+- [ ] Quadratic inequalities (dedicated lesson or extension of `linear-quadratic-cubic-functions`)
 
 ---
 
@@ -465,7 +464,7 @@ Nova average lessons per unit: ~4–5.
 | Year 12 Extension 2 | 25 (5 units) | ~40 subtopics | ✅ Depth pass complete |
 | Year 12 Standard 1 | 22 (5 units) | 7 NSW topics | ✅ Audited 2026-06-15; 1 minor gap (credit cards) |
 | Year 12 Extension 1 | 30 (8 units) | ~28 subtopics | ✅ Depth pass complete — 520 questions seeded |
-| Year 11 Advanced | 56 (7 units) | 7 NSW focus areas | 🔄 Sequences/Series removed; 7 new FA1 lessons added 2026-06-15; ~11 lessons still missing (FA2, FA3, FA4, FA6, FA7) |
+| Year 11 Advanced | 58 (7 units) | 7 NSW focus areas | 🔄 Sequences/Series removed; 9 new FA1 lessons added 2026-06-15; ~11 lessons still missing (FA2, FA3, FA4, FA6, FA7) |
 | Year 9 / Year 10 variants | — | — | 🔄 Promote Advanced + Core to available |
 | Year 8 | 59 (10 units) | ~111 subtopics | 🔄 4 units missing vs Class Maths |
 | Year 7 | 0 | ~117 subtopics | ⬜ Not started |
@@ -479,7 +478,7 @@ Nova average lessons per unit: ~4–5.
 3. ~~**Year 12 Advanced depth**~~ ✅ Complete — 91 lessons, 1715 questions (Probability unit added)
 4. ~~**Year 12 Extension 1 depth**~~ ✅ Complete — 30 lessons, 520 questions (8 units, 100% topic breadth)
 5. **Year 12 Standard 1** — audited 2026-06-15; 4 lessons added (bivariate data, bearings, relative frequency); 1 gap remains (credit card content in MST-12-S1-03); promote to `available` after adding credit cards
-6. **Year 11 Advanced gaps** — ✅ FA1 done (7 new lessons 2026-06-15); remaining ~11 lessons needed: right-angle trig applications, bearings, sine/cosine rules, area formula, ambiguous case (FA2); reciprocal trig ratios sec/csc/cot (FA3); product rule, quotient rule (FA4); circles completing-the-square (FA6); sets/Venn diagrams, conditional probability (FA7)
+6. **Year 11 Advanced gaps** — ✅ FA1 done (9 new lessons 2026-06-15; composite functions and completing the square added); remaining ~11 lessons needed: right-angle trig applications, bearings, sine/cosine rules, area formula, ambiguous case (FA2); reciprocal trig ratios sec/csc/cot (FA3); product rule, quotient rule (FA4); circles completing-the-square (FA6); sets/Venn diagrams, conditional probability (FA7)
 7. **Year 9 / Year 10 variants** — promote Advanced and Core to `available`
 8. **Year 8 depth** — 4 missing units vs Class Maths 14-topic target (ratios/rates, index laws, algebraic fractions, additional data)
 9. **Year 7** — new course, not yet started

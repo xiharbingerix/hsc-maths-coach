@@ -1531,6 +1531,393 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
     };
   }
 
+  if (lesson.slug === "composite-functions") {
+    return {
+      ...base,
+      description:
+        "Form and evaluate composite functions f∘g; distinguish f(g(x)) from g(f(x)); find the domain of a composite function.",
+      learningIntention:
+        "Apply and interpret composite function notation, evaluate composites step by step, and determine when composition is defined.",
+      successCriteria: [
+        "Evaluate (f∘g)(a) by first computing g(a) then applying f to the result.",
+        "Distinguish (f∘g)(x) from (g∘f)(x) and give an example where they differ.",
+        "Write the rule for (f∘g)(x) as an algebraic expression.",
+        "State the domain of f∘g by identifying which inputs are valid for both g and then f.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A composite function applies two functions in sequence. The notation (f∘g)(x) — read as 'f of g of x' — means: substitute x into g first, then substitute the result into f. The right-hand function always goes first.",
+          "To evaluate (f∘g)(2): find g(2) to get a number, then put that number into f. For example, if g(2) = 5 and f(5) = 13, then (f∘g)(2) = 13. Never apply f first — that gives (g∘f) instead.",
+          "To write the algebraic rule for (f∘g)(x), substitute the entire expression g(x) in place of every x in the formula for f. For example, if f(x) = x² + 1 and g(x) = 2x − 3, then (f∘g)(x) = (2x − 3)² + 1 = 4x² − 12x + 10.",
+          "The domain of f∘g is more restrictive than either function alone: the input x must be valid for g, and the output g(x) must also be valid for f. For example, if f(x) = √x and g(x) = x − 4, then f∘g requires x − 4 ≥ 0, giving domain x ≥ 4.",
+        ],
+        latexBlocks: [
+          "(f \\circ g)(x) = f(g(x)) \\quad \\text{— apply } g \\text{ first, then } f",
+          "\\text{Domain of } f \\circ g: \\{x \\in \\operatorname{dom}(g) : g(x) \\in \\operatorname{dom}(f)\\}",
+          "f \\circ g \\neq g \\circ f \\text{ in general}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Evaluate a composite function from given values",
+          questionLatex: "g(1)=2,\\quad f(2)=5.\\quad \\text{Find }(f\\circ g)(1).",
+          steps: [
+            {
+              explanation: "Apply g first: substitute x = 1 into g.",
+              latex: "g(1) = 2",
+            },
+            {
+              explanation: "Use the output of g as the input to f.",
+              latex: "f(g(1)) = f(2) = 5",
+            },
+          ],
+          finalAnswerLatex: "(f\\circ g)(1) = 5",
+        },
+        {
+          title: "Write the algebraic rule for a composite function",
+          questionLatex: "f(x)=x^2+1,\\quad g(x)=2x-3.\\quad \\text{Find }(f\\circ g)(x).",
+          steps: [
+            {
+              explanation: "Replace every x in f(x) with the expression g(x) = 2x − 3.",
+              latex: "(f\\circ g)(x) = (2x-3)^2 + 1",
+            },
+            {
+              explanation: "Expand (2x − 3)² = 4x² − 12x + 9, then add 1.",
+              latex: "4x^2 - 12x + 9 + 1 = 4x^2 - 12x + 10",
+            },
+          ],
+          finalAnswerLatex: "(f\\circ g)(x) = 4x^2 - 12x + 10",
+        },
+        {
+          title: "Show that f∘g ≠ g∘f",
+          questionLatex: "f(x)=x+2,\\quad g(x)=3x.\\quad \\text{Find }(f\\circ g)(x)\\text{ and }(g\\circ f)(x).",
+          steps: [
+            {
+              explanation: "For (f∘g)(x): apply g first, then f.",
+              latex: "(f\\circ g)(x) = f(3x) = 3x + 2",
+            },
+            {
+              explanation: "For (g∘f)(x): apply f first, then g.",
+              latex: "(g\\circ f)(x) = g(x+2) = 3(x+2) = 3x + 6",
+            },
+            {
+              explanation: "The two expressions differ, confirming f∘g ≠ g∘f.",
+            },
+          ],
+          finalAnswerLatex: "(f\\circ g)(x)=3x+2\\neq (g\\circ f)(x)=3x+6",
+        },
+      ],
+      guidedPractice: [
+        qa("y11adv-comp-g1", "Evaluate the inner function first. $f(x)=x^2+1$, $g(x)=2x-3$. Find $g(2)$.", "g(2) = 2(2)-3", "1", "Substitute x = 2 into g(x) = 2x − 3.", "g(2) = 2(2) − 3 = 4 − 3 = 1."),
+        qa("y11adv-comp-g2", "Now find $(f\\circ g)(2)$ using $g(2)=1$ and $f(x)=x^2+1$.", "f(g(2)) = f(1) = 1^2+1", "2", "Substitute x = 1 into f(x) = x² + 1.", "f(1) = 1² + 1 = 2. So (f∘g)(2) = 2."),
+        practicalChoice("y11adv-comp-g3", "The notation $(f\\circ g)(x)$ means:", "C", ["Apply $f$ first, then $g$", "Multiply $f(x)$ and $g(x)$", "Apply $g$ first, then $f$", "Add $f(x)$ and $g(x)$"], "f∘g means f of g of x — the right-hand function g is applied first, then f is applied to the result."),
+        qa("y11adv-comp-g4", "$f(x)=2x+5$, $g(x)=x-3$. Evaluate $(f\\circ g)(4)$.", "g(4)=1,\\quad f(1)=2(1)+5", "7", "g(4) = 4 − 3 = 1. Then f(1) = 2(1) + 5.", "g(4) = 1. f(g(4)) = f(1) = 2 + 5 = 7."),
+      ],
+      independentPractice: [
+        qa("y11adv-comp-i1", "$f(x)=x^2$, $g(x)=x+1$. Evaluate $(f\\circ g)(3)$.", "g(3)=4,\\quad f(4)=4^2", "16", "g(3) = 4, then f(4) = 4².", "g(3) = 4. f(4) = 16. So (f∘g)(3) = 16."),
+        qa("y11adv-comp-i2", "$f(x)=x^2$, $g(x)=x+1$. Evaluate $(g\\circ f)(3)$.", "f(3)=9,\\quad g(9)=9+1", "10", "f(3) = 9, then g(9) = 9 + 1.", "f(3) = 9. g(9) = 10. So (g∘f)(3) = 10."),
+        practicalChoice("y11adv-comp-i3", "$f(x)=x^2$, $g(x)=x+1$. From your answers above, $(f\\circ g)(3)=16$ and $(g\\circ f)(3)=10$. What does this show?", "B", ["$f\\circ g$ always equals $g\\circ f$", "Composition is generally not commutative — order matters", "Composite functions always give equal results", "The inner function always gives a larger output"], "The two compositions give different values (16 ≠ 10), confirming that order matters in composition."),
+        qa("y11adv-comp-i4", "$f(x)=3x-1$, $g(x)=x^2$. Evaluate $(f\\circ g)(2)$.", "g(2)=4,\\quad f(4)=3(4)-1", "11", "g(2) = 4, then f(4) = 12 − 1.", "g(2) = 4. f(4) = 3(4) − 1 = 11."),
+        qa("y11adv-comp-i5", "$f(x)=\\sqrt{x}$, $g(x)=x-4$. What is the minimum $x$-value in the domain of $f\\circ g$?", "x - 4 \\ge 0 \\Rightarrow x \\ge 4", "4", "For f(g(x)) = √(x−4) to be defined, x − 4 ≥ 0.", "f∘g = √(x−4). The square root requires x − 4 ≥ 0, so x ≥ 4. Minimum x is 4."),
+      ],
+      commonMistakes: [
+        { mistake: "Evaluating f first and then g when computing (f∘g)(x).", fix: "For (f∘g)(x), always apply g first (the right-hand function). Then apply f to the output." },
+        { mistake: "Confusing (f∘g)(x) with f(x) × g(x).", fix: "The ∘ symbol means composition — substituting g(x) into f — not multiplication." },
+        { mistake: "Assuming (f∘g)(x) always equals (g∘f)(x).", fix: "Composition is generally not commutative. Always check both orders if asked." },
+        { mistake: "Ignoring domain restrictions when composing functions.", fix: "The domain of f∘g requires x to be valid for g AND g(x) to be valid for f. Check both conditions." },
+      ],
+      masteryQuiz: [
+        qa("y11adv-comp-m1", "$f(x)=x+3$, $g(x)=2x$. Evaluate $(f\\circ g)(5)$.", "g(5)=10,\\quad f(10)=10+3", "13", "g(5) = 10, then f(10) = 13.", "g(5) = 10. f(10) = 13."),
+        qa("y11adv-comp-m2", "$f(x)=x+3$, $g(x)=2x$. Evaluate $(g\\circ f)(5)$.", "f(5)=8,\\quad g(8)=2(8)", "16", "f(5) = 8, then g(8) = 16.", "f(5) = 8. g(8) = 16."),
+        practicalChoice("y11adv-comp-m3", "Is it always true that $(f\\circ g)(x) = (g\\circ f)(x)$?", "B", ["Yes — composition is commutative", "No — the two orders generally differ", "Yes — only when both functions are linear", "No — only when one function is a constant"], "Composition is not commutative in general. (f∘g)(5) = 13 ≠ 16 = (g∘f)(5) for the functions above."),
+        qa("y11adv-comp-m4", "$f(x)=x^2-1$, $g(x)=x+2$. Evaluate $(f\\circ g)(1)$.", "g(1)=3,\\quad f(3)=9-1", "8", "g(1) = 3, then f(3) = 9 − 1.", "g(1) = 3. f(3) = 8."),
+        qa("y11adv-comp-m5", "$f(x)=x^2-1$, $g(x)=x+2$. Evaluate $(g\\circ f)(1)$.", "f(1)=0,\\quad g(0)=0+2", "2", "f(1) = 0, then g(0) = 2.", "f(1) = 0. g(0) = 2."),
+        qa("y11adv-comp-m6", "$f(x)=2x$, $g(x)=x+4$. Write $(f\\circ g)(x)$ in simplest form. Enter the constant term.", "f(g(x)) = 2(x+4) = 2x+8", "8", "f(x+4) = 2(x+4) = 2x + 8. Constant term is 8.", "(f∘g)(x) = 2(x+4) = 2x + 8. The constant term is 8."),
+        qa("y11adv-comp-m7", "$f(x)=x^2$, $g(x)=3x$. Write $(g\\circ f)(x)$ in simplest form. Enter the coefficient of $x^2$.", "g(f(x)) = 3x^2", "3", "g(x²) = 3x². The coefficient is 3.", "(g∘f)(x) = g(x²) = 3x². Coefficient of x² is 3."),
+        practicalChoice("y11adv-comp-m8", "$f(x)=\\frac{1}{x}$, $g(x)=x-1$. The domain of $f\\circ g$ excludes which value?", "B", ["$x=0$", "$x=1$", "$x=-1$", "$x=2$"], "f(g(x)) = 1/(x−1). The denominator is zero when x − 1 = 0, i.e. x = 1. So x = 1 is excluded."),
+        qa("y11adv-comp-m9", "$f(x)=\\sqrt{x}$, $g(x)=4-x$. What is the largest $x$-value in the domain of $f\\circ g$?", "4-x \\ge 0 \\Rightarrow x \\le 4", "4", "Need 4 − x ≥ 0, so x ≤ 4. Largest x is 4.", "f∘g = √(4−x). Need 4 − x ≥ 0 → x ≤ 4. Largest x-value is 4."),
+        qa("y11adv-comp-m10", "$f(x)=x+2$, $g(x)=x-2$. Find the constant term of $(f\\circ g)(x)$.", "f(g(x)) = f(x-2) = (x-2)+2 = x", "0", "f(x−2) = (x−2) + 2 = x. Constant term is 0.", "(f∘g)(x) = (x−2) + 2 = x. The constant term is 0."),
+      ],
+      multiPartPractice: [
+        {
+          id: "y11adv-comp-mp1",
+          prompt: "Let $f(x) = x^2 + 1$ and $g(x) = 2x - 3$.",
+          latex: "f(x) = x^2 + 1, \\quad g(x) = 2x - 3",
+          answer: "10",
+          hint: "For (a): substitute g(x) into f and expand. For (b): substitute x = 2 step by step. For (c): substitute x = 2 into g first.",
+          explanation: "(a) (f∘g)(x) = (2x−3)² + 1 = 4x² − 12x + 10. Constant = 10. (b) g(2) = 1, f(1) = 2. (c) f(2) = 5, g(5) = 7.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "Find the constant term of $(f\\circ g)(x)$ when fully expanded.",
+              marks: 2,
+              answer: "10",
+              hint: "Substitute g(x) = 2x − 3 for x in f(x) = x² + 1, then expand.",
+              explanation: "(f∘g)(x) = (2x−3)² + 1 = 4x² − 12x + 9 + 1 = 4x² − 12x + 10. Constant term = 10.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "Evaluate $(f\\circ g)(2)$.",
+              marks: 1,
+              answer: "2",
+              hint: "g(2) = 1. Then find f(1).",
+              explanation: "g(2) = 2(2) − 3 = 1. f(1) = 1² + 1 = 2.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "Evaluate $(g\\circ f)(2)$.",
+              marks: 1,
+              answer: "7",
+              hint: "f(2) = 5. Then find g(5).",
+              explanation: "f(2) = 4 + 1 = 5. g(5) = 2(5) − 3 = 7.",
+            },
+          ],
+        },
+        {
+          id: "y11adv-comp-mp2",
+          prompt: "Let $f(x) = \\sqrt{x}$ and $g(x) = x - 9$.",
+          latex: "f(x) = \\sqrt{x}, \\quad g(x) = x - 9",
+          answer: "9",
+          hint: "For (a): the square root requires x − 9 ≥ 0. For (b) and (c): substitute the x-value and simplify.",
+          explanation: "(a) Domain: x ≥ 9. (b) (f∘g)(25) = √16 = 4. (c) (f∘g)(13) = √4 = 2.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "State the minimum $x$-value in the domain of $f\\circ g$.",
+              marks: 1,
+              answer: "9",
+              hint: "For f(g(x)) = √(x−9) to be defined, x − 9 must be non-negative.",
+              explanation: "x − 9 ≥ 0 → x ≥ 9. Minimum x-value is 9.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "Evaluate $(f\\circ g)(25)$.",
+              marks: 1,
+              answer: "4",
+              hint: "g(25) = 16. Then find √16.",
+              explanation: "g(25) = 16. f(16) = √16 = 4.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "Evaluate $(f\\circ g)(13)$.",
+              marks: 1,
+              answer: "2",
+              hint: "g(13) = 4. Then find √4.",
+              explanation: "g(13) = 4. f(4) = √4 = 2.",
+            },
+          ],
+        },
+      ],
+    };
+  }
+
+  if (lesson.slug === "completing-the-square") {
+    return {
+      ...base,
+      description:
+        "Rewrite quadratics in vertex form a(x − h)² + k; identify vertex and axis of symmetry; solve quadratic equations by completing the square.",
+      learningIntention:
+        "Complete the square to write any quadratic in vertex form and use this form to identify key features and solve equations.",
+      successCriteria: [
+        "Complete the square for x² + bx + c to write it as (x + h)² + k.",
+        "Complete the square for ax² + bx + c with a ≠ 1 by first factoring out a.",
+        "Read the vertex (h, k) and axis of symmetry x = h directly from vertex form.",
+        "Solve a quadratic equation using the completed-square form.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Any quadratic ax² + bx + c can be rewritten in vertex form a(x − h)² + k. This form is useful because the vertex (h, k) and axis of symmetry x = h are immediately visible — no differentiation needed.",
+          "The key step is to complete the square. For x² + bx, add and subtract (b/2)² to create a perfect square trinomial: x² + bx = (x + b/2)² − (b/2)². For example, x² + 6x = (x + 3)² − 9.",
+          "When a ≠ 1, factor out a from the first two terms before completing the square. For 2x² − 8x + 3: factor to get 2(x² − 4x) + 3. Complete the square inside the bracket: 2[(x−2)² − 4] + 3 = 2(x−2)² − 5.",
+          "To solve a quadratic by completing the square: write it in the form (x − h)² = c, then take the square root of both sides: x − h = ±√c, giving x = h ± √c. This method always works, even when the quadratic does not factorise over the integers.",
+        ],
+        latexBlocks: [
+          "x^2 + bx = \\left(x + \\frac{b}{2}\\right)^2 - \\left(\\frac{b}{2}\\right)^2",
+          "ax^2 + bx + c = a(x-h)^2 + k, \\quad h = -\\frac{b}{2a}, \\quad k = c - \\frac{b^2}{4a}",
+          "\\text{Vertex: }(h,\\,k), \\quad \\text{Axis of symmetry: } x = h",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Complete the square for a monic quadratic",
+          questionLatex: "\\text{Write } x^2 + 6x + 5 \\text{ in the form }(x+h)^2 + k.",
+          steps: [
+            {
+              explanation: "Take half the coefficient of x: (6/2)² = 9. Add and subtract 9.",
+              latex: "x^2 + 6x + 5 = (x^2 + 6x + 9) - 9 + 5",
+            },
+            {
+              explanation: "The trinomial x² + 6x + 9 is the perfect square (x+3)².",
+              latex: "(x+3)^2 - 4",
+            },
+          ],
+          finalAnswerLatex: "(x+3)^2 - 4, \\quad \\text{vertex }(-3,\\,-4)",
+        },
+        {
+          title: "Complete the square when a ≠ 1",
+          questionLatex: "\\text{Write } 2x^2 - 8x + 3 \\text{ in the form }a(x-h)^2 + k.",
+          steps: [
+            {
+              explanation: "Factor 2 from the first two terms.",
+              latex: "2(x^2 - 4x) + 3",
+            },
+            {
+              explanation: "Complete the square inside the bracket: (4/2)² = 4.",
+              latex: "2[(x-2)^2 - 4] + 3",
+            },
+            {
+              explanation: "Expand the factor of 2 and simplify.",
+              latex: "2(x-2)^2 - 8 + 3 = 2(x-2)^2 - 5",
+            },
+          ],
+          finalAnswerLatex: "2(x-2)^2 - 5, \\quad \\text{vertex }(2,\\,-5)",
+        },
+        {
+          title: "Solve a quadratic by completing the square",
+          questionLatex: "\\text{Solve } x^2 + 4x - 3 = 0",
+          steps: [
+            {
+              explanation: "Complete the square: (4/2)² = 4. Add and subtract 4.",
+              latex: "(x+2)^2 - 4 - 3 = 0",
+            },
+            {
+              explanation: "Isolate the perfect square.",
+              latex: "(x+2)^2 = 7",
+            },
+            {
+              explanation: "Take the square root of both sides.",
+              latex: "x + 2 = \\pm\\sqrt{7}",
+            },
+            {
+              explanation: "Solve for x.",
+              latex: "x = -2 \\pm \\sqrt{7}",
+            },
+          ],
+          finalAnswerLatex: "x = -2 + \\sqrt{7} \\quad \\text{or} \\quad x = -2 - \\sqrt{7}",
+        },
+      ],
+      guidedPractice: [
+        qa("y11adv-cts-g1", "Complete the square for $x^2 + 4x + 1$. Find $k$ in $(x+2)^2 + k$.", "x^2 + 4x + 1 = (x+2)^2 + k", "-3", "Expand (x+2)² = x² + 4x + 4. Then k = 1 − 4.", "(x+2)² = x² + 4x + 4. So k = 1 − 4 = −3.", ["-3", "−3"]),
+        qa("y11adv-cts-g2", "For $x^2 - 10x + 20 = (x-h)^2 + k$, find $h$.", "x^2 - 10x + 20 = (x-h)^2 + k", "5", "h = half the coefficient of x (with sign): −10/2 = −5, so h = 5.", "Half of −10 is −5, so we write (x−5)². Here h = 5."),
+        practicalChoice("y11adv-cts-g3", "The vertex form $a(x-h)^2 + k$ directly reveals which features?", "C", ["The x-intercepts", "The y-intercept only", "The vertex and axis of symmetry", "The leading coefficient only"], "Reading off h and k gives the vertex (h, k) and axis x = h without any further calculation."),
+        qa("y11adv-cts-g4", "Find the x-coordinate of the vertex of $f(x) = x^2 + 4x - 3$.", "f(x) = (x+2)^2 - 7,\\quad \\text{vertex at }x=?", "-2", "Complete the square: (x+2)² − 7. Vertex x-coordinate is −2.", "f(x) = (x+2)² − 4 − 3 = (x+2)² − 7. Vertex is (−2, −7). x-coordinate = −2.", ["-2", "−2"]),
+      ],
+      independentPractice: [
+        qa("y11adv-cts-i1", "Find $k$ for $x^2 + 2x + 5 = (x+1)^2 + k$.", "x^2 + 2x + 5 = (x+1)^2 + k", "4", "Expand (x+1)² = x²+2x+1. Then k = 5 − 1.", "k = 5 − 1 = 4."),
+        qa("y11adv-cts-i2", "Find the y-coordinate of the vertex of $f(x) = x^2 - 6x + 2$.", "f(x) = (x-3)^2 - 9 + 2 = (x-3)^2 - 7", "-7", "Complete the square: (x−3)² − 7. Vertex y-coordinate is −7.", "f(x) = (x−3)² − 9 + 2 = (x−3)² − 7. Vertex y-coordinate = −7.", ["-7", "−7"]),
+        qa("y11adv-cts-i3", "Solve $x^2 + 2x - 8 = 0$ by completing the square. Enter the positive root.", "(x+1)^2 = 9,\\quad x = -1 \\pm 3", "2", "(x+1)² − 1 − 8 = 0 → (x+1)² = 9 → x = −1 ± 3.", "(x+1)² = 9 → x = −1 + 3 = 2 or x = −1 − 3 = −4. Positive root = 2."),
+        practicalChoice("y11adv-cts-i4", "The axis of symmetry of $f(x) = a(x-h)^2 + k$ is:", "A", ["$x = h$", "$x = k$", "$x = -h$", "$x = -k$"], "The axis of symmetry is the vertical line through the vertex. The vertex is (h, k), so the axis is x = h."),
+        qa("y11adv-cts-i5", "Find $k$ for $3x^2 - 12x + 7 = 3(x-2)^2 + k$.", "3(x-2)^2 = 3x^2-12x+12,\\quad k=7-12", "-5", "3(x−2)² = 3x² − 12x + 12. So k = 7 − 12.", "3(x−2)² = 3x² − 12x + 12. k = 7 − 12 = −5.", ["-5", "−5"]),
+      ],
+      commonMistakes: [
+        { mistake: "Adding (b/2)² without subtracting it, changing the value of the expression.", fix: "Always add and subtract (b/2)² — or equivalently, complete the square and then adjust the constant to compensate." },
+        { mistake: "Reading h as positive when the vertex form is (x + h)² + k, giving the wrong vertex sign.", fix: "The form is (x − h)², so if you see (x + 3)², that means x − (−3)², giving vertex x = −3, not x = 3." },
+        { mistake: "Forgetting to multiply (b/2)² by a when a ≠ 1.", fix: "When factoring out a before completing the square, the adjustment inside the bracket is then multiplied by a when redistributed: a[(x−h)² − c] = a(x−h)² − ac." },
+        { mistake: "Only taking the positive square root when solving (x−h)² = c.", fix: "Taking the square root gives ±√c. Both solutions must be considered: x = h + √c and x = h − √c." },
+      ],
+      masteryQuiz: [
+        qa("y11adv-cts-m1", "Find $k$ for $x^2 + 8x + 7 = (x+4)^2 + k$.", "x^2+8x+7=(x+4)^2+k", "-9", "Expand (x+4)² = x²+8x+16. k = 7 − 16.", "k = 7 − 16 = −9.", ["-9", "−9"]),
+        qa("y11adv-cts-m2", "State the x-coordinate of the vertex of $f(x) = (x-5)^2 + 3$.", "f(x)=(x-5)^2+3,\\quad \\text{vertex at }(h,k)", "5", "Read h directly: (x − h)² with h = 5.", "Vertex form (x−5)² + 3: h = 5, k = 3. Vertex x-coordinate = 5."),
+        qa("y11adv-cts-m3", "Solve $x^2 - 6x - 7 = 0$ by completing the square. Enter the larger root.", "(x-3)^2 = 16,\\quad x = 3 \\pm 4", "7", "(x−3)² − 9 − 7 = 0 → (x−3)² = 16 → x = 7 or x = −1.", "(x−3)² = 16 → x = 3 + 4 = 7 or x = 3 − 4 = −1. Larger root = 7."),
+        practicalChoice("y11adv-cts-m4", "In the form $a(x-h)^2 + k$ with $a < 0$, the parabola:", "B", ["Opens upward (minimum at vertex)", "Opens downward (maximum at vertex)", "Has no vertex", "Has two axes of symmetry"], "When a < 0 the squared term is always ≤ 0, so the vertex gives the maximum value of f."),
+        qa("y11adv-cts-m5", "Find $k$ for $2x^2 + 4x + 9 = 2(x+1)^2 + k$.", "2(x+1)^2 = 2x^2+4x+2,\\quad k=9-2", "7", "2(x+1)² = 2x²+4x+2. k = 9 − 2.", "k = 9 − 2 = 7."),
+        qa("y11adv-cts-m6", "Find the y-coordinate of the vertex of $f(x) = 3x^2 - 6x + 1$.", "3x^2-6x+1=3(x-1)^2-2,\\quad \\text{vertex }y=?", "-2", "3(x−1)² = 3x²−6x+3. k = 1 − 3 = −2.", "3x²−6x+1 = 3(x−1)² − 3 + 1 = 3(x−1)² − 2. Vertex y-coordinate = −2.", ["-2", "−2"]),
+        practicalChoice("y11adv-cts-m7", "Which method is guaranteed to solve any quadratic equation?", "C", ["Factorisation over the integers", "Inspection only", "Completing the square", "Using the axis of symmetry only"], "Completing the square always works because every quadratic can be written in vertex form, and then (x−h)² = c can always be solved (with real solutions when c ≥ 0)."),
+        qa("y11adv-cts-m8", "Solve $y = (x-3)^2 - 16 = 0$. Enter the smaller root.", "(x-3)^2=16,\\quad x=3\\pm 4", "-1", "(x−3) = ±4 → x = 7 or x = −1. Smaller root = −1.", "x = 3 − 4 = −1 or x = 3 + 4 = 7. Smaller root = −1.", ["-1", "−1"]),
+        qa("y11adv-cts-m9", "Find $h$ for $4x^2 - 24x + 11 = 4(x-h)^2 + k$.", "h = \\frac{24}{2 \\times 4} = 3", "3", "h = coefficient of x ÷ (2a) = 24 ÷ 8 = 3.", "Factoring: 4(x² − 6x) + 11. Half of −6 is −3, so (x−3)². h = 3."),
+        practicalChoice("y11adv-cts-m10", "The vertex form $a(x-h)^2 + k$ is useful for graphing because:", "A", ["It gives the vertex and axis of symmetry directly without calculus", "It shows the x-intercepts directly", "It always has integer coefficients", "It is the only form that shows the y-intercept"], "Reading (h, k) from vertex form gives the vertex and therefore the axis of symmetry — all without differentiation."),
+      ],
+      multiPartPractice: [
+        {
+          id: "y11adv-cts-mp1",
+          prompt: "Let $f(x) = x^2 + 6x + 5$.",
+          latex: "f(x) = x^2 + 6x + 5",
+          answer: "-4",
+          hint: "Complete the square by adding and subtracting (6/2)² = 9. The vertex is at (−3, −4). For (c), set f(x) = 0 and use the vertex form.",
+          explanation: "(a) k = 5 − 9 = −4. (b) Vertex x = −3. (c) (x+3)² = 4 → x = −3 ± 2, roots −1 and −5. Larger = −1.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "Complete the square to write $f(x) = (x+3)^2 + k$. Find $k$.",
+              latex: "f(x) = (x+3)^2 + k",
+              marks: 2,
+              answer: "-4",
+              acceptedAnswers: ["-4", "−4"],
+              hint: "Expand (x+3)² = x²+6x+9. Then k = 5 − 9.",
+              explanation: "(x+3)² = x²+6x+9. So f(x) = (x+3)² − 9 + 5 = (x+3)² − 4. k = −4.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "State the x-coordinate of the vertex.",
+              marks: 1,
+              answer: "-3",
+              acceptedAnswers: ["-3", "−3"],
+              hint: "The vertex is at (h, k) where the form is (x − h)².",
+              explanation: "f(x) = (x+3)² − 4 = (x−(−3))² − 4. Vertex x = −3.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "Solve $f(x) = 0$ using the completed-square form. Enter the larger root.",
+              marks: 2,
+              answer: "-1",
+              acceptedAnswers: ["-1", "−1"],
+              hint: "(x+3)² = 4 → x + 3 = ±2.",
+              explanation: "(x+3)² − 4 = 0 → (x+3)² = 4 → x = −3 ± 2. Roots: −1 and −5. Larger = −1.",
+            },
+          ],
+        },
+        {
+          id: "y11adv-cts-mp2",
+          prompt: "Let $g(x) = 2x^2 - 8x + 3$.",
+          latex: "g(x) = 2x^2 - 8x + 3",
+          answer: "2",
+          hint: "Factor 2 from the first two terms. Complete the square inside the bracket. For (c), look at the sign of a.",
+          explanation: "(a) h = 2 (since 8/(2×2) = 2). (b) 2(x−2)² = 2x²−8x+8, so k = 3 − 8 = −5. (c) a = 2 > 0, so minimum.",
+          parts: [
+            {
+              key: "a",
+              label: "(a)",
+              prompt: "Write $g(x) = 2(x-h)^2 + k$. Find $h$.",
+              marks: 1,
+              answer: "2",
+              hint: "Factor out 2: g(x) = 2(x² − 4x) + 3. Half of 4 is 2.",
+              explanation: "2(x² − 4x) + 3 = 2[(x−2)² − 4] + 3. So h = 2.",
+            },
+            {
+              key: "b",
+              label: "(b)",
+              prompt: "Find $k$.",
+              marks: 2,
+              answer: "-5",
+              acceptedAnswers: ["-5", "−5"],
+              hint: "Expand 2[(x−2)² − 4] = 2(x−2)² − 8. Then add 3.",
+              explanation: "g(x) = 2(x−2)² − 8 + 3 = 2(x−2)² − 5. k = −5.",
+            },
+            {
+              key: "c",
+              label: "(c)",
+              prompt: "Does the vertex give a minimum or maximum value of $g(x)$?",
+              marks: 1,
+              answer: "minimum",
+              acceptedAnswers: ["minimum", "min"],
+              hint: "Look at the sign of a in a(x−h)² + k.",
+              explanation: "a = 2 > 0, so the parabola opens upward and the vertex is a minimum.",
+            },
+          ],
+        },
+      ],
+    };
+  }
+
   return null;
 }
 

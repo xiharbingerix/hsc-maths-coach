@@ -1291,6 +1291,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Interpret and graph piecewise-defined functions; determine domain, range and continuity; test for even or odd symmetry in piecewise rules.",
           },
           {
+            slug: "composite-functions",
+            title: "Composite Functions",
+            description:
+              "Form and evaluate composite functions f∘g; distinguish (f∘g)(x) from (g∘f)(x); determine the domain of composite functions.",
+          },
+          {
+            slug: "completing-the-square",
+            title: "Completing the Square",
+            description:
+              "Rewrite quadratics in vertex form a(x − h)² + k; identify the vertex and axis of symmetry; solve quadratic equations by completing the square.",
+          },
+          {
             slug: "working-with-functions-exam-practice",
             title: "Working with Functions Exam Practice",
             description:
@@ -1306,7 +1318,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Functions",
         focus: "Graph transformations",
         lessons: [
-          { slug: "transformations-composite-functions", title: "Transformations and Composite Functions" },
+          { slug: "transformations-composite-functions", title: "Transformations and Composite Functions", seedQuestions: false, showInCourseNav: false },
           { slug: "transformations-polynomial-reciprocal-graphs", title: "Transformations of Polynomial and Reciprocal Graphs" },
           {
             slug: "function-translations-general",
