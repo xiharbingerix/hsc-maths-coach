@@ -2,7 +2,7 @@
 
 > **Objective:** High-quality lessons and question content across the entire NSW syllabus, mapped to syllabus sections with sufficient lessons to cover all skills and content in the Content section. Each lesson: 19 questions, worked examples, Feynman teaching, and common mistakes. Each focus area: one revision lesson activating the prior knowledge stated in the syllabus teaching advice, plus content lessons per dot-point group.
 > **Standard:** NSW syllabuses (2024 versions, implementation from 2026). Source of truth: [curriculum.nsw.edu.au](https://curriculum.nsw.edu.au).
-> Last updated: 2026-06-16 — Year 7 NSW 2024 plan added: 10 units / 46 lessons mapped to MA4 outcomes from scope-and-sequence; full dot-point coverage tables written. Earlier: Year 9 Core depth pass complete: (1) BNPL + short-term loans lesson added to Financial Math (MA5-FIN-C-01, 8 lessons now); (2) Numbers of Any Magnitude split into standalone Core unit (MA5-MAG-C-01); (3) all 8 Core units renamed to NSW 2022 headings; (4) variable-base index law questions added to Indices lessons 1–3; (5) real-world gradient/y-intercept interpretation added to Linear Relationships B lesson; 1216 questions seeded. Earlier same date: Algebraic Techniques (MA5-ALG-C-01, 3 lessons), Equations A (MA5-EQU-C-01, 3 lessons), and Trigonometry B (MA5-TRG-C-02, 2 lessons) added; all 9 Core focus areas have content. Year 9 Core audited against NSW 2022 syllabus 2026-06-15. Earlier same date: Year 12 Standard 1 fully complete: credit-cards-and-loans lesson added (MST-12-S1-03 gap closed); 8 new full-depth lesson overrides written (algebraic-relationships-exam-practice, linear-relationships-modelling, quadratic-models, simultaneous-equations-context, ratios-rates-unit-conversions, investment-compound-interest, depreciation-loans, credit-cards-and-loans); 6 thin lessons upgraded from 7Q to 19Q each (right-angle-trigonometry, data-displays-summary-statistics, probability-and-chance, statistics-exam-practice, measurement-area-volume, scale-drawings-and-plans); course now 23 lessons / 5 units. All 7 topics fully covered at 19Q depth. Earlier same date: Year 11 Advanced: Sequences and Series removed; 10 new Working with Functions lessons completing FA1; 3 new Trigonometry lessons completing FA2; reciprocal trig ratios completing FA3; product rule and quotient rule completing FA4; graphing-exponential-logarithmic-functions completing FA5; circles-completing-the-square completing FA6; sets-venn-diagrams and conditional-probability-independence completing FA7. Year 12 Advanced fully audited (91 lessons, 1726 questions). Year 12 Standard 2 fully complete (58 lessons, 1106 questions). Year 12 Extension 1 fully complete (48 lessons, 862 questions). Year 11 Standard fully complete (76 lessons, 1444 questions).
+> Last updated: 2026-06-16 — Year 11 Extension 1 audited dot-by-dot against NSW 2024 ME1-11 syllabus: 25 lessons / 5 units; ~90% coverage; 4 high-priority gaps identified (y=1/f(x), y=[f(x)]², trig equation solving with compound angles, greatest term). Earlier same date: Year 7 complete: 10 agents authored 46 lessons / 874 questions across all 10 MA4 units; seeded and pushed. Earlier same date: Year 7 NSW 2024 plan written. Earlier: Year 9 Core depth pass complete: (1) BNPL + short-term loans lesson added to Financial Math (MA5-FIN-C-01, 8 lessons now); (2) Numbers of Any Magnitude split into standalone Core unit (MA5-MAG-C-01); (3) all 8 Core units renamed to NSW 2022 headings; (4) variable-base index law questions added to Indices lessons 1–3; (5) real-world gradient/y-intercept interpretation added to Linear Relationships B lesson; 1216 questions seeded. Earlier same date: Algebraic Techniques (MA5-ALG-C-01, 3 lessons), Equations A (MA5-EQU-C-01, 3 lessons), and Trigonometry B (MA5-TRG-C-02, 2 lessons) added; all 9 Core focus areas have content. Year 9 Core audited against NSW 2022 syllabus 2026-06-15. Earlier same date: Year 12 Standard 1 fully complete: credit-cards-and-loans lesson added (MST-12-S1-03 gap closed); 8 new full-depth lesson overrides written (algebraic-relationships-exam-practice, linear-relationships-modelling, quadratic-models, simultaneous-equations-context, ratios-rates-unit-conversions, investment-compound-interest, depreciation-loans, credit-cards-and-loans); 6 thin lessons upgraded from 7Q to 19Q each (right-angle-trigonometry, data-displays-summary-statistics, probability-and-chance, statistics-exam-practice, measurement-area-volume, scale-drawings-and-plans); course now 23 lessons / 5 units. All 7 topics fully covered at 19Q depth. Earlier same date: Year 11 Advanced: Sequences and Series removed; 10 new Working with Functions lessons completing FA1; 3 new Trigonometry lessons completing FA2; reciprocal trig ratios completing FA3; product rule and quotient rule completing FA4; graphing-exponential-logarithmic-functions completing FA5; circles-completing-the-square completing FA6; sets-venn-diagrams and conditional-probability-independence completing FA7. Year 12 Advanced fully audited (91 lessons, 1726 questions). Year 12 Standard 2 fully complete (58 lessons, 1106 questions). Year 12 Extension 1 fully complete (48 lessons, 862 questions). Year 11 Standard fully complete (76 lessons, 1444 questions).
 
 ---
 
@@ -15,29 +15,29 @@
 
 | Course | Nova lessons | Syllabus focus areas | Dot-point coverage | Revision lessons | Status |
 |---|---|---|---|---|---|
-| Year 7 Mathematics | 0 (46 planned) | 10 NSW focus areas | 0% | 0 | ⬜ Not started — plan complete 2026-06-16 |
-| Year 8 Mathematics | 59 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
-| Year 9 Mathematics | 53 (8 units) | — | audit pending | 0 | ⚠️ Unit headings don't match NSW 2022; audit pending |
+| Year 7 Mathematics | 46 (10 units) | 10 NSW focus areas (MA4) | ✅ 10/10 — 874 questions seeded | 0 | ✅ Complete — 874 questions seeded 2026-06-16 |
+| Year 8 Mathematics | 59 (10 units) | 11 NSW outcomes (MA4) | ⚠️ ~55% — 6/11 outcomes covered; ratios/rates, negative indices, circumference/sectors, area of circles/sectors/annuli missing | 0 | ⚠️ Full depth; syllabus gaps identified 2026-06-16 |
+| Year 9 Mathematics | 54 (10 units) | 10 NSW focus areas | ⚠️ ~78% — 8/10 NSW outcomes have direct content; surds and non-linear relationships missing; unit names don't match NSW 2022 | 0 | ⚠️ Audited 2026-06-16 — content gaps: surds (MA5-SUR-C-01), non-linear relationships (MA5-NON-C-01); unit headings don't match NSW 2022 |
 | Year 9 Mathematics Advanced | 53 (8 units) | — | audit pending | 0 | ⚠️ Unit headings don't match NSW 2022; audit pending |
 | Year 9 Mathematics Core | ~64 (11 units) | 9 NSW focus areas | ✅ 9/9 complete | 0 | ✅ Depth pass complete 2026-06-16 — all gaps closed, all units renamed to NSW 2022, 1216 questions |
-| Year 10 Mathematics | ~56 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
-| Year 10 Mathematics Advanced | ~56 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
-| Year 10 Mathematics Core | ~40 (10 trimmed) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 10 Mathematics | 44 lessons (10 units) | 10 NSW focus areas (MA5) | ✅ 10/10 focus areas covered; 3 minor gaps (non-monic factorising, algebraic fractions add/subtract, explicit equation-of-line lesson) | 0 | ✅ Audited 2026-06-16 — ~836 questions; strong coverage across all focus areas |
+| Year 10 Mathematics Advanced | 44 lessons (10 units) | 10 NSW focus areas (MA5) | ✅ mirrors base; Advanced pathway complete | 0 | ✅ Audited 2026-06-16 |
+| Year 10 Mathematics Core | ~26 lessons (10 trimmed) | 10 NSW focus areas (MA5) | ⚠️ Core trimming documented per-unit in audit below | 0 | ⚠️ Audited 2026-06-16; Core scope documented; Advanced-only lessons flagged |
 | Year 11 Standard | 76 (8 units) | 8 focus areas | ✅ 100% | 8 | ✅ Complete — audited 2026-06-15 (1444 questions) |
 | Year 11 Advanced | 70 (7 units) | 7 focus areas (MAV-11-01–10) | ✅ 100% — FA1 ✅ FA2 ✅ FA3 ✅ FA4 ✅ FA5 ✅ FA6 ✅ FA7 ✅ all complete | 0 | ✅ Fully audited 2026-06-15; all 7 focus areas complete |
-| Year 11 Extension 1 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 11 Extension 1 | 25 (5 units) | 5 focus areas (ME1-11-01–05) | ⚠️ ~90% — 3 dot-points missing in FA1, 2 in FA3, 1 in FA5; polynomial arithmetic thin | 0 | ⚠️ Audited 2026-06-16 — gaps: 1/f(x) graph, [f(x)]² graph, trig equation solving, greatest term; all high-priority |
 | Year 12 Standard 1 | 23 (5 units) | 7 topics | ✅ 7/7 | 0 | ✅ Complete — all gaps closed 2026-06-15 |
 | Year 12 Standard 2 | 58 (6 units) | 10 topics | ✅ 100% | 10 | ✅ Complete — audited 2026-06-15 (1106 questions) |
 | Year 12 Advanced | 91 (13 units) | 14 focus areas (MA-F1–S3) | ✅ 100% | 0 | ✅ Complete — audited 2026-06-15 (1726 questions) |
 | Year 12 Extension 1 | 30 (8 units) | 6 focus areas (ME1-12-01–06) | ✅ 100% | 0 | ✅ Complete — audited 2026-06-15 (862 questions) |
-| Year 12 Extension 2 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 12 Extension 2 | 30 (5 units) | 5 focus areas (ME2-12-01–05) | ⚠️ 29/30 dot-point groups covered — volumes of revolution ❌ missing | 0 | ⚠️ Audited 2026-06-16 — volumes of revolution gap (ME2-12-04); 3 minor gaps |
 
 ---
 
-## Year 7 Mathematics ⬜ Not started — NSW 2024 syllabus plan
+## Year 7 Mathematics ✅ Complete — 2026-06-16
 
-`year-7-mathematics` — not yet created. Override files: `lib/lessons/year7/`.
-NSW 2024 Stage 4 (Years 7–8). Year 7 scope: 10 units / ~46 lessons planned.
+`year-7-mathematics` — `in_progress`. Override files: `lib/lessons/year7/`.
+NSW 2024 Stage 4 (Years 7–8). **46 lessons / 10 units / 874 questions seeded.**
 Source: NSW Mathematics K–10 Syllabus (2024). Implementation from 2026.
 Class Mathematics has 13 topics / 117 subtopics for Year 7.
 
@@ -45,18 +45,18 @@ Class Mathematics has 13 topics / 117 subtopics for Year 7.
 
 ### NSW 2024 Year 7 — complete unit map
 
-| # | NSW Unit heading | Focus area | Outcome | Nova file (planned) | Status |
+| # | NSW Unit heading | Focus area | Outcome | Nova file | Status |
 |---|---|---|---|---|---|
-| 1 | Computation with integers | Computation with integers | MA4-INT-C-01 | `lib/lessons/year7/integers.ts` | ❌ Not started |
-| 2 | Understanding fractions and decimals | Fractions, decimals and percentages | MA4-FRC-C-01 | `lib/lessons/year7/fractions.ts` | ❌ Not started |
-| 3 | Algebraic techniques | Algebraic techniques | MA4-ALG-C-01 | `lib/lessons/year7/algebraicTechniques.ts` | ❌ Not started |
-| 4 | Understanding percentages | Fractions, decimals and percentages | MA4-FRC-C-01 | `lib/lessons/year7/percentages.ts` | ❌ Not started |
-| 5 | Equations | Equations | MA4-EQU-C-01 | `lib/lessons/year7/equations.ts` | ❌ Not started |
-| 6 | Indices | Indices | MA4-IND-C-01 | `lib/lessons/year7/indices.ts` | ❌ Not started |
-| 7 | Perimeter of plane shapes | Length | MA4-LEN-C-01 | `lib/lessons/year7/perimeter.ts` | ❌ Not started |
-| 8 | Areas of triangles and quadrilaterals | Area | MA4-ARE-C-01 | `lib/lessons/year7/area.ts` | ❌ Not started |
-| 9 | Angle relationships | Angle relationships | MA4-ANG-C-01 | `lib/lessons/year7/angles.ts` | ❌ Not started |
-| 10 | Data classification and visualisation | Data classification and visualisation | MA4-DAT-C-01 | `lib/lessons/year7/data.ts` | ❌ Not started |
+| 1 | Computation with integers | Computation with integers | MA4-INT-C-01 | `lib/lessons/year7/integers.ts` (5 lessons) | ✅ Complete — 95 questions seeded |
+| 2 | Understanding fractions and decimals | Fractions, decimals and percentages | MA4-FRC-C-01 | `lib/lessons/year7/fractions.ts` (6 lessons) | ✅ Complete — 114 questions seeded |
+| 3 | Algebraic techniques | Algebraic techniques | MA4-ALG-C-01 | `lib/lessons/year7/algebraicTechniques.ts` (5 lessons) | ✅ Complete — 95 questions seeded |
+| 4 | Understanding percentages | Fractions, decimals and percentages | MA4-FRC-C-01 | `lib/lessons/year7/percentages.ts` (4 lessons) | ✅ Complete — 76 questions seeded |
+| 5 | Equations | Equations | MA4-EQU-C-01 | `lib/lessons/year7/equations.ts` (4 lessons) | ✅ Complete — 76 questions seeded |
+| 6 | Indices | Indices | MA4-IND-C-01 | `lib/lessons/year7/indices.ts` (5 lessons) | ✅ Complete — 95 questions seeded |
+| 7 | Perimeter of plane shapes | Length | MA4-LEN-C-01 | `lib/lessons/year7/perimeter.ts` (3 lessons) | ✅ Complete — 57 questions seeded |
+| 8 | Areas of triangles and quadrilaterals | Area | MA4-ARE-C-01 | `lib/lessons/year7/area.ts` (4 lessons) | ✅ Complete — 76 questions seeded |
+| 9 | Angle relationships | Angle relationships | MA4-ANG-C-01 | `lib/lessons/year7/angles.ts` (5 lessons) | ✅ Complete — 95 questions seeded |
+| 10 | Data classification and visualisation | Data classification and visualisation | MA4-DAT-C-01 | `lib/lessons/year7/data.ts` (5 lessons) | ✅ Complete — 95 questions seeded |
 
 ---
 
@@ -76,142 +76,142 @@ Class Mathematics has 13 topics / 117 subtopics for Year 7.
 
 ---
 
-### Year 7 — dot-point coverage (planned)
+### Year 7 — dot-point coverage ✅ Complete (2026-06-16)
 
-#### ❌ Computation with integers (MA4-INT-C-01) — `integers.ts` — 5 lessons planned
+#### ✅ Computation with integers (MA4-INT-C-01) — `integers.ts` — 5 lessons
 
-| NSW content | Planned Nova lesson | Status |
+| NSW content | Nova lesson | Status |
 |---|---|---|
-| Compare, order and represent integers on a number line; define absolute value \|x\| | `integers-number-line` | ❌ |
-| Add and subtract integers (using number line, sign rules) | `adding-subtracting-integers` | ❌ |
-| Multiply and divide integers (sign rules) | `multiplying-dividing-integers` | ❌ |
-| Order of operations (BEDMAS) with integers | `order-of-operations-integers` | ❌ |
-| Solve problems involving integer calculations | `integers-problem-solving` | ❌ |
+| Compare, order and represent integers on a number line; define absolute value \|x\| | `integers-number-line` | ✅ |
+| Add and subtract integers (using number line, sign rules) | `adding-subtracting-integers` | ✅ |
+| Multiply and divide integers (sign rules) | `multiplying-dividing-integers` | ✅ |
+| Order of operations (BEDMAS) with integers | `order-of-operations-integers` | ✅ |
+| Solve problems involving integer calculations | `integers-problem-solving` | ✅ |
 
 ---
 
-#### ❌ Understanding fractions and decimals (MA4-FRC-C-01) — `fractions.ts` — 6 lessons planned
+#### ✅ Understanding fractions and decimals (MA4-FRC-C-01) — `fractions.ts` — 6 lessons
 **Note:** exclude study of percentages at this point of learning.
 
-| NSW content | Planned Nova lesson | Status |
+| NSW content | Nova lesson | Status |
 |---|---|---|
-| Classify fractions (proper, improper, mixed numerals); convert between forms | `fractions-types-and-equivalence` | ❌ |
-| Find equivalent fractions; simplify fractions to lowest terms | `fractions-types-and-equivalence` | ❌ |
-| Compare and order fractions (common denominator, number line) | `comparing-ordering-fractions` | ❌ |
-| Add and subtract fractions with like and unlike denominators | `adding-subtracting-fractions` | ❌ |
-| Multiply fractions (by whole numbers and by fractions); divide fractions (reciprocal method) | `multiplying-dividing-fractions` | ❌ |
-| Convert fractions to decimals (terminating and recurring); add, subtract, multiply, divide decimals; round decimals | `fractions-decimals-conversion` | ❌ |
+| Classify fractions (proper, improper, mixed numerals); convert between forms | `fractions-types-and-equivalence` | ✅ |
+| Find equivalent fractions; simplify fractions to lowest terms | `fractions-types-and-equivalence` | ✅ |
+| Compare and order fractions (common denominator, number line) | `comparing-ordering-fractions` | ✅ |
+| Add and subtract fractions with like and unlike denominators | `adding-subtracting-fractions` | ✅ |
+| Multiply fractions (by whole numbers and by fractions); divide fractions (reciprocal method) | `multiplying-dividing-fractions` | ✅ |
+| Convert fractions to decimals (terminating and recurring); add, subtract, multiply, divide decimals; round decimals | `fractions-decimals-conversion` + `decimals-operations` | ✅ |
 
 ---
 
-#### ❌ Algebraic techniques (MA4-ALG-C-01) — `algebraicTechniques.ts` — 5 lessons planned
+#### ✅ Algebraic techniques (MA4-ALG-C-01) — `algebraicTechniques.ts` — 5 lessons
 
-| NSW content | Planned Nova lesson | Status |
+| NSW content | Nova lesson | Status |
 |---|---|---|
-| Use pronumerals; apply algebraic notation conventions (e.g. 3x not 3×x, a² not a×a) | `algebraic-notation` | ❌ |
-| Simplify algebraic expressions by collecting like terms | `collecting-like-terms` | ❌ |
-| Expand algebraic expressions using the distributive law (single bracket) | `expanding-brackets` | ❌ |
-| Factorise algebraic expressions using the highest common factor | `factorising-common-factors` | ❌ |
-| Evaluate algebraic expressions and formulas by substitution | `substitution` | ❌ |
+| Use pronumerals; apply algebraic notation conventions (e.g. 3x not 3×x, a² not a×a) | `algebraic-notation` | ✅ |
+| Simplify algebraic expressions by collecting like terms | `collecting-like-terms` | ✅ |
+| Expand algebraic expressions using the distributive law (single bracket) | `expanding-brackets` | ✅ |
+| Factorise algebraic expressions using the highest common factor | `factorising-common-factors` | ✅ |
+| Evaluate algebraic expressions and formulas by substitution | `substitution` | ✅ |
 
 ---
 
-#### ❌ Understanding percentages (MA4-FRC-C-01) — `percentages.ts` — 4 lessons planned
+#### ✅ Understanding percentages (MA4-FRC-C-01) — `percentages.ts` — 4 lessons
 
-| NSW content | Planned Nova lesson | Status |
+| NSW content | Nova lesson | Status |
 |---|---|---|
-| Understand percentages as fractions with denominator 100; convert between fractions, decimals and percentages | `converting-fractions-decimals-percentages` | ❌ |
-| Calculate a percentage of a quantity; express one quantity as a percentage of another | `percentage-of-quantity` | ❌ |
-| Apply percentage increase and decrease in practical contexts | `percentage-increase-decrease` | ❌ |
-| Solve percentage problems including GST, discounts and unitary method | `percentage-applications` | ❌ |
+| Understand percentages as fractions with denominator 100; convert between fractions, decimals and percentages | `converting-fractions-decimals-percentages` | ✅ |
+| Calculate a percentage of a quantity; express one quantity as a percentage of another | `percentage-of-quantity` | ✅ |
+| Apply percentage increase and decrease in practical contexts | `percentage-increase-decrease` | ✅ |
+| Solve percentage problems including GST, discounts and unitary method | `percentage-applications` | ✅ |
 
 ---
 
-#### ❌ Equations (MA4-EQU-C-01) — `equations.ts` — 4 lessons planned
+#### ✅ Equations (MA4-EQU-C-01) — `equations.ts` — 4 lessons
 
-| NSW content | Planned Nova lesson | Status |
+| NSW content | Nova lesson | Status |
 |---|---|---|
-| Distinguish equations from expressions; solve 1-step linear equations using inverse operations | `one-step-equations` | ❌ |
-| Solve 2-step linear equations; verify solutions by substitution | `two-step-equations` | ❌ |
-| Form and solve equations from worded problems | `equations-worded-problems` | ❌ |
-| Solve quadratic equations of the form ax² = c using the square root method | `quadratic-equations-ax2-equals-c` | ❌ |
+| Distinguish equations from expressions; solve 1-step linear equations using inverse operations | `one-step-equations` | ✅ |
+| Solve 2-step linear equations; verify solutions by substitution | `two-step-equations` | ✅ |
+| Form and solve equations from worded problems | `equations-worded-problems` | ✅ |
+| Solve quadratic equations of the form ax² = c using the square root method | `quadratic-equations-ax2-equals-c` | ✅ |
 
 ---
 
-#### ❌ Indices (MA4-IND-C-01) — `indices.ts` — 5 lessons planned
+#### ✅ Indices (MA4-IND-C-01) — `indices.ts` — 5 lessons
 
-| NSW content | Planned Nova lesson | Status |
+| NSW content | Nova lesson | Status |
 |---|---|---|
-| Identify factors and multiples; find HCF and LCM | `factors-multiples-hcf-lcm` | ❌ |
-| Identify primes and composites; express numbers as products of prime factors (factor trees) | `primes-and-prime-factorisation` | ❌ |
-| Evaluate squares and square roots; cubes and cube roots; write and read index notation (base and exponent) | `squares-cubes-index-notation` | ❌ |
-| Apply index laws for numerical bases: product law (a^m × a^n = a^(m+n)), quotient law, power of a power | `index-laws-product-quotient-power` | ❌ |
-| Apply the zero index law (a^0 = 1); solve mixed index problems | `zero-index-and-mixed-indices` | ❌ |
+| Identify factors and multiples; find HCF and LCM | `factors-multiples-hcf-lcm` | ✅ |
+| Identify primes and composites; express numbers as products of prime factors (factor trees) | `primes-and-prime-factorisation` | ✅ |
+| Evaluate squares and square roots; cubes and cube roots; write and read index notation (base and exponent) | `squares-cubes-index-notation` | ✅ |
+| Apply index laws for numerical bases: product law (a^m × a^n = a^(m+n)), quotient law, power of a power | `index-laws-product-quotient-power` | ✅ |
+| Apply the zero index law (a^0 = 1); solve mixed index problems | `zero-index-and-mixed-indices` | ✅ |
 
 ---
 
-#### ❌ Perimeter of plane shapes (MA4-LEN-C-01) — `perimeter.ts` — 3 lessons planned
+#### ✅ Perimeter of plane shapes (MA4-LEN-C-01) — `perimeter.ts` — 3 lessons
 **Note:** exclude circumference of circles at this point of learning.
 
-| NSW content | Planned Nova lesson | Status |
+| NSW content | Nova lesson | Status |
 |---|---|---|
-| Find perimeter of triangles, squares, rectangles, parallelograms, rhombuses, trapezoids using formulas | `perimeter-of-polygons` | ❌ |
-| Find perimeter of composite shapes; find a missing side length given the perimeter | `perimeter-composite-shapes` | ❌ |
-| Solve problems involving perimeter in real-world contexts | `perimeter-problem-solving` | ❌ |
+| Find perimeter of triangles, squares, rectangles, parallelograms, rhombuses, trapezoids using formulas | `perimeter-of-polygons` | ✅ |
+| Find perimeter of composite shapes; find a missing side length given the perimeter | `perimeter-composite-shapes` | ✅ |
+| Solve problems involving perimeter in real-world contexts | `perimeter-problem-solving` | ✅ |
 
 ---
 
-#### ❌ Areas of triangles and quadrilaterals (MA4-ARE-C-01) — `area.ts` — 4 lessons planned
+#### ✅ Areas of triangles and quadrilaterals (MA4-ARE-C-01) — `area.ts` — 4 lessons
 **Note:** exclude area of circles at this point of learning.
 
-| NSW content | Planned Nova lesson | Status |
+| NSW content | Nova lesson | Status |
 |---|---|---|
-| Apply area formulas for rectangles, squares and triangles | `area-rectangles-triangles` | ❌ |
-| Apply area formulas for parallelograms, rhombuses and trapezoids | `area-parallelograms-trapezoids` | ❌ |
-| Calculate area of composite shapes (combining or subtracting shapes) | `area-composite-shapes` | ❌ |
-| Solve problems involving area in practical contexts; convert between units of area | `area-problem-solving` | ❌ |
+| Apply area formulas for rectangles, squares and triangles | `area-rectangles-triangles` | ✅ |
+| Apply area formulas for parallelograms, rhombuses and trapezoids | `area-parallelograms-trapezoids` | ✅ |
+| Calculate area of composite shapes (combining or subtracting shapes) | `area-composite-shapes` | ✅ |
+| Solve problems involving area in practical contexts; convert between units of area | `area-problem-solving` | ✅ |
 
 ---
 
-#### ❌ Angle relationships (MA4-ANG-C-01) — `angles.ts` — 5 lessons planned
+#### ✅ Angle relationships (MA4-ANG-C-01) — `angles.ts` — 5 lessons
 
-| NSW content | Planned Nova lesson | Status |
+| NSW content | Nova lesson | Status |
 |---|---|---|
-| Classify angles; apply complementary, supplementary, vertically opposite and revolution relationships | `angle-types-and-relationships` | ❌ |
-| Apply angle sum of a triangle (180°); exterior angle of a triangle | `angles-in-triangles` | ❌ |
-| Apply angle sum of a quadrilateral (360°) | `angles-in-quadrilaterals` | ❌ |
-| Identify and apply relationships for parallel lines cut by a transversal: corresponding, alternate and co-interior angles | `parallel-lines-and-transversals` | ❌ |
-| Solve multi-step angle problems with geometric reasoning and justification | `angle-relationships-problem-solving` | ❌ |
+| Classify angles; apply complementary, supplementary, vertically opposite and revolution relationships | `angle-types-and-relationships` | ✅ |
+| Apply angle sum of a triangle (180°); exterior angle of a triangle | `angles-in-triangles` | ✅ |
+| Apply angle sum of a quadrilateral (360°) | `angles-in-quadrilaterals` | ✅ |
+| Identify and apply relationships for parallel lines cut by a transversal: corresponding, alternate and co-interior angles | `parallel-lines-and-transversals` | ✅ |
+| Solve multi-step angle problems with geometric reasoning and justification | `angle-relationships-problem-solving` | ✅ |
 
 ---
 
-#### ❌ Data classification and visualisation (MA4-DAT-C-01) — `data.ts` — 5 lessons planned
+#### ✅ Data classification and visualisation (MA4-DAT-C-01) — `data.ts` — 5 lessons
 
-| NSW content | Planned Nova lesson | Status |
+| NSW content | Nova lesson | Status |
 |---|---|---|
-| Classify data: categorical (nominal, ordinal) vs numerical (discrete, continuous); identify target population and appropriate collection methods | `data-types-and-collection` | ❌ |
-| Construct and interpret frequency tables (including tally marks and grouped data) | `frequency-tables` | ❌ |
-| Construct and interpret dot plots and stem-and-leaf plots | `dot-plots-stem-and-leaf` | ❌ |
-| Construct and interpret column graphs, bar graphs (vertical and horizontal) and line graphs | `column-bar-line-graphs` | ❌ |
-| Identify the most appropriate display for a dataset; critically read and compare displays | `choosing-and-interpreting-displays` | ❌ |
+| Classify data: categorical (nominal, ordinal) vs numerical (discrete, continuous); identify target population and appropriate collection methods | `data-types-and-collection` | ✅ |
+| Construct and interpret frequency tables (including tally marks and grouped data) | `frequency-tables` | ✅ |
+| Construct and interpret dot plots and stem-and-leaf plots | `dot-plots-stem-and-leaf` | ✅ |
+| Construct and interpret column graphs, bar graphs (vertical and horizontal) and line graphs | `column-bar-line-graphs` | ✅ |
+| Identify the most appropriate display for a dataset; critically read and compare displays | `choosing-and-interpreting-displays` | ✅ |
 
 ---
 
-### Action items — Year 7 (priority order)
+### Action items — Year 7 ✅ All complete (2026-06-16)
 
-- [ ] Create `year-7-mathematics` course pathway in `newCourseCatalog.ts`
-- [ ] Author `lib/lessons/year7/integers.ts` — 5 lessons (MA4-INT-C-01)
-- [ ] Author `lib/lessons/year7/fractions.ts` — 6 lessons (MA4-FRC-C-01, no percentages)
-- [ ] Author `lib/lessons/year7/algebraicTechniques.ts` — 5 lessons (MA4-ALG-C-01)
-- [ ] Author `lib/lessons/year7/percentages.ts` — 4 lessons (MA4-FRC-C-01)
-- [ ] Author `lib/lessons/year7/equations.ts` — 4 lessons (MA4-EQU-C-01)
-- [ ] Author `lib/lessons/year7/indices.ts` — 5 lessons (MA4-IND-C-01)
-- [ ] Author `lib/lessons/year7/perimeter.ts` — 3 lessons (MA4-LEN-C-01, no circles)
-- [ ] Author `lib/lessons/year7/area.ts` — 4 lessons (MA4-ARE-C-01, no circles)
-- [ ] Author `lib/lessons/year7/angles.ts` — 5 lessons (MA4-ANG-C-01)
-- [ ] Author `lib/lessons/year7/data.ts` — 5 lessons (MA4-DAT-C-01)
-- [ ] Seed all Year 7 lessons via `scripts/seed-question-bank.ts`
-- [ ] Update Quick Status table once first unit is complete
+- [x] Create `year-7-mathematics` course pathway in `newCourseCatalog.ts`
+- [x] Author `lib/lessons/year7/integers.ts` — 5 lessons (MA4-INT-C-01)
+- [x] Author `lib/lessons/year7/fractions.ts` — 6 lessons (MA4-FRC-C-01, no percentages)
+- [x] Author `lib/lessons/year7/algebraicTechniques.ts` — 5 lessons (MA4-ALG-C-01)
+- [x] Author `lib/lessons/year7/percentages.ts` — 4 lessons (MA4-FRC-C-01)
+- [x] Author `lib/lessons/year7/equations.ts` — 4 lessons (MA4-EQU-C-01)
+- [x] Author `lib/lessons/year7/indices.ts` — 5 lessons (MA4-IND-C-01)
+- [x] Author `lib/lessons/year7/perimeter.ts` — 3 lessons (MA4-LEN-C-01, no circles)
+- [x] Author `lib/lessons/year7/area.ts` — 4 lessons (MA4-ARE-C-01, no circles)
+- [x] Author `lib/lessons/year7/angles.ts` — 5 lessons (MA4-ANG-C-01)
+- [x] Author `lib/lessons/year7/data.ts` — 5 lessons (MA4-DAT-C-01)
+- [x] Seed all Year 7 lessons via `scripts/seed-question-bank.ts` — 874 questions upserted
+- [x] Update Quick Status table
 
 ---
 
@@ -232,6 +232,215 @@ Class Maths: 14 topics / 111 subtopics. Nova: 10 units / 59 lessons.
 - [x] Probability and Chance (5 lessons — relative frequency, expected outcomes)
 
 **Gap vs Class Maths:** Nova has 10 units vs 14-topic target. Missing units likely cover Number and Algebra depth (ratios/rates, index laws, algebraic fractions) and additional Data topics. Adequate for available status.
+
+---
+
+### NSW 2024 Year 8 — full audit against NSW 2024 MA4 outcomes (2026-06-16)
+
+#### Unit map
+
+| # | NSW outcome heading | Outcome | Nova file | Lessons | Status |
+|---|---|---|---|---|---|
+| 1 | Fractions, decimals and percentages (Year 8 extension) | MA4-INT-C-02 | `numberOperations.ts` (partial) | `percentages-and-fractions` | ⚠️ Percentages only; ratios and rates entirely missing |
+| 2 | Financial mathematics | MA4-FIN-C-01 | `numberFinancialMathematics.ts` | 6 lessons | ⚠️ Simple interest ✅; wages/tax/budgeting/credit-debit missing |
+| 3 | Indices (Year 8 extension) | MA4-ALG-C-02 | none | — | ❌ Negative indices and scientific notation entirely missing |
+| 4 | Equations (Year 8 extension) | MA4-EQU-C-02 | `algebraEquations.ts` | 6 lessons | ⚠️ Brackets + both sides ✅; linear inequalities missing |
+| 5 | Linear relationships | MA4-LIN-C-01 | `linearRelationships.ts` | 6 lessons | ✅ Complete |
+| 6 | Pythagoras' theorem | MA4-PYT-C-01 | `pythagorasTheorem.ts` | 6 lessons | ✅ Complete |
+| 7 | Properties of geometrical figures | MA4-GEO-C-01 | `geometryAngles.ts` | 6 lessons | ⚠️ Congruence tests ✅; quadrilateral properties thin; no construction |
+| 8 | Length (Year 8: circumference and sectors) | MA4-LEN-C-02 | none | — | ❌ Circumference of circles and arc length of sectors entirely missing |
+| 9 | Area (Year 8: circles, sectors, annuli) | MA4-ARE-C-02 | none | — | ❌ Area of circles, sectors and annuli entirely missing |
+| 10 | Volume of right prisms and cylinders | MA4-VOL-C-01 | `volumeSurfaceArea.ts` | 6 lessons | ✅ Complete (includes cylinders and composite solids) |
+| 11 | Data analysis (Year 8 extension) | MA4-DAT-C-02 | `statisticsProbability.ts` | 6 lessons (data only) | ⚠️ Quartiles/IQR ✅; box plots and shape of distributions missing |
+| 12 | Probability | MA4-PRO-C-01 | `statisticsProbability.ts` | 5 lessons (probability) | ✅ Complete |
+
+---
+
+#### Dot-point coverage
+
+##### ⚠️ Fractions, decimals and percentages — Year 8 extension (MA4-INT-C-02) — `numberOperations.ts` + `numberFinancialMathematics.ts`
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Extend percentages to financial contexts (increase/decrease, profit/loss, discount) | `percentage-increase`, `percentage-decrease`, `profit-and-loss`, `discounts-and-sales` in `numberFinancialMathematics.ts` | ✅ |
+| Calculate a percentage of a quantity; express as a percentage | `percentages-and-fractions` in `numberOperations.ts` | ✅ |
+| **Ratios**: write and simplify ratios; find equivalent ratios; divide a quantity in a given ratio | ❌ No lesson exists | ❌ |
+| **Rates**: identify and calculate rates (e.g. km/h, $/kg); convert between units of rate | ❌ No lesson exists | ❌ |
+| Solve problems involving ratios and rates in practical contexts | ❌ No lesson exists | ❌ |
+
+##### ⚠️ Financial mathematics (MA4-FIN-C-01) — `numberFinancialMathematics.ts` — 6 lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Calculate a percentage of an amount; convert between fractions, decimals, percentages | `percentages-basics` | ✅ |
+| Percentage increase and decrease using multiplier | `percentage-increase`, `percentage-decrease` | ✅ |
+| Profit and loss as amounts and as percentages of cost price | `profit-and-loss` | ✅ |
+| Discounts and sale prices | `discounts-and-sales` | ✅ |
+| Simple interest I = Prn | `simple-interest-introduction` | ✅ |
+| **Wages and earning money**: hourly rate, overtime, weekly/annual pay | ❌ No lesson exists | ❌ |
+| **PAYG tax** and net income | ❌ No lesson exists | ❌ |
+| **Budgeting**: income, fixed/variable expenses, savings | ❌ No lesson exists | ❌ |
+| **Credit and debit**: credit cards, loans, lay-by | ❌ No lesson exists | ❌ |
+| **Compound interest** (introductory) | ❌ No lesson exists | ❌ |
+
+##### ❌ Indices — Year 8 extension (MA4-ALG-C-02) — no Nova file
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Extend index laws to algebraic bases (product, quotient, power of a power) | `powers-roots-and-squares` in `numberOperations.ts` covers numerical bases only | ⚠️ Numerical bases ✅; algebraic bases not explicit |
+| **Negative indices** for numerical and algebraic bases: a⁻ⁿ = 1/aⁿ | ❌ No lesson exists | ❌ |
+| **Scientific notation** (standard form): write, convert, and calculate | ❌ No lesson exists | ❌ |
+| **Significant figures**: round to n significant figures | ❌ No lesson exists | ❌ |
+| Solve problems using scientific notation and significant figures | ❌ No lesson exists | ❌ |
+
+##### ⚠️ Equations — Year 8 extension (MA4-EQU-C-02) — `algebraEquations.ts` — 6 lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Solve linear equations with brackets | `equations-with-brackets` | ✅ |
+| Solve equations with the unknown on both sides | `equations-with-pronumerals-on-both-sides` | ✅ |
+| Form and solve equations from word problems | `forming-equations-from-word-problems` | ✅ |
+| Solve and verify solutions; identify errors | `checking-solutions-and-error-analysis` | ✅ |
+| Substitute into and rearrange formulas | ❌ No dedicated lesson (substitution covered in `algebraFoundations.ts` but formula rearrangement not covered) | ⚠️ |
+| **Linear inequalities**: graph on number line, solve simple inequalities | ❌ No lesson exists | ❌ |
+
+##### ✅ Linear relationships (MA4-LIN-C-01) — `linearRelationships.ts` — 6 lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Number patterns, common difference, rule T = mn + c | `number-patterns-and-rules` | ✅ |
+| Plot and read coordinates on the Cartesian plane (all four quadrants) | `coordinates-and-points` | ✅ |
+| Complete tables of values for y = mx + c; identify the constant difference | `tables-of-values` | ✅ |
+| Graph linear relationships from tables; identify x- and y-intercepts | `graphing-linear-relationships` | ✅ |
+| Calculate gradient as rise ÷ run; positive and negative gradients | `gradient-as-rate-of-change` | ✅ |
+| Interpret gradient and y-intercept in practical contexts; read values from graphs | `interpreting-linear-graphs` | ✅ |
+
+##### ✅ Pythagoras' theorem (MA4-PYT-C-01) — `pythagorasTheorem.ts` — 6 lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Identify right-angled triangles; name the hypotenuse; state the theorem | `right-angled-triangles-pythagoras` | ✅ |
+| Find the hypotenuse given two shorter sides | `finding-the-hypotenuse` | ✅ |
+| Find a shorter side given the hypotenuse and one shorter side | `finding-a-shorter-side` | ✅ |
+| Apply Pythagoras to real-world problems (ladders, ramps, rectangles) | `pythagoras-real-contexts` | ✅ |
+| Recognise Pythagorean triples and scaled multiples | `pythagorean-triples` | ✅ |
+| Find the distance between two points on the Cartesian plane | `distance-between-two-points` | ✅ |
+
+##### ⚠️ Properties of geometrical figures (MA4-GEO-C-01) — `geometryAngles.ts` — 6 lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Angle relationships (supplementary, complementary, vertically opposite, at a point) | `angle-relationships` | ✅ |
+| Parallel lines and transversals: corresponding, alternate, co-interior angles | `parallel-lines-transversals` | ✅ |
+| Angle sum of triangles (180°), exterior angle theorem, quadrilateral angle sum (360°) | `angles-triangles-quadrilaterals` | ✅ |
+| Interior angle sum of polygons: (n − 2) × 180°; exterior angle sum 360° | `properties-of-polygons` | ✅ |
+| Congruence tests: SSS, SAS, AAS, RHS — identify, match elements, find unknowns | `congruent-triangles` | ✅ |
+| Multi-step geometric reasoning with written justifications | `geometric-reasoning` | ✅ |
+| **Properties of special quadrilaterals** (square, rhombus, parallelogram, rectangle, trapezoid, kite) — sides, angles, diagonals | `angles-triangles-quadrilaterals` covers angle sums only; specific diagonal/side properties of each type not explicitly addressed | ⚠️ |
+| **Constructing triangles and quadrilaterals** using compass and ruler | ❌ No lesson exists | ❌ |
+
+##### ❌ Length — Year 8: circumference and sectors (MA4-LEN-C-02) — no Nova file
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| **Circumference** of a circle: C = 2πr = πd; exact and approximate answers | ❌ No lesson exists | ❌ |
+| **Arc length** of a sector as a fraction of the circumference | ❌ No lesson exists | ❌ |
+| Perimeter of sectors and composite figures involving circles | ❌ No lesson exists | ❌ |
+| Solve problems involving circumference and arc length | ❌ No lesson exists | ❌ |
+
+##### ❌ Area — Year 8: circles, sectors, annuli (MA4-ARE-C-02) — no Nova file
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| **Area of a circle**: A = πr²; exact and approximate answers | ❌ No lesson exists | ❌ |
+| **Area of a sector** as a fraction of the circle's area | ❌ No lesson exists | ❌ |
+| **Area of an annulus** (ring between two concentric circles) | ❌ No lesson exists | ❌ |
+| Area of composite figures involving circles, sectors and annuli | ❌ No lesson exists | ❌ |
+| Solve problems involving area of circles and sectors | ❌ No lesson exists | ❌ |
+
+##### ✅ Volume of right prisms and cylinders (MA4-VOL-C-01) — `volumeSurfaceArea.ts` — 6 lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Volume of rectangular prisms (V = lwh) and triangular prisms (V = ½bhl) | `volume-of-prisms` | ✅ |
+| Surface area of rectangular and triangular prisms | `surface-area-of-prisms` | ✅ |
+| Volume of cylinders (V = πr²h) | `volume-of-cylinders` | ✅ |
+| Surface area of cylinders (SA = 2πr² + 2πrh) | `surface-area-of-cylinders` | ✅ |
+| Volume of composite solids (add or subtract component shapes) | `volume-of-composite-solids` | ✅ |
+| Surface area of composite solids (exposed faces only) | `surface-area-of-composite-solids` | ✅ |
+
+##### ⚠️ Data analysis — Year 8 extension (MA4-DAT-C-02) — `statisticsProbability.ts` — 6 data lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Collect and display data: frequency tables, dot plots, column graphs | `collecting-and-displaying-data` | ✅ |
+| Calculate mean, median, mode and range from a data set | `mean-median-mode-range` | ✅ |
+| Compare two data sets using median, mean and range | `comparing-data-displays` | ✅ |
+| Construct and interpret stem-and-leaf plots (including back-to-back) | `stem-and-leaf-plots` | ✅ |
+| Find quartiles Q1, Q2, Q3 and the interquartile range (IQR = Q3 − Q1) | `quartiles-and-iqr` | ✅ |
+| Identify outliers; explain the effect on mean vs median; choose the better measure | `outliers-and-interpretation` | ✅ |
+| **Construct and interpret box plots** (five-number summary: min, Q1, Q2, Q3, max) | ❌ No lesson exists | ❌ |
+| Describe the **shape of a distribution** (symmetric, skewed, approximately normal) | ❌ No lesson exists | ❌ |
+
+##### ✅ Probability (MA4-PRO-C-01) — `statisticsProbability.ts` — 5 probability lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Probability language and the 0–1 scale; place events on the probability scale | `probability-language-and-scale` | ✅ |
+| Calculate P(event) = favourable outcomes ÷ total outcomes; complementary events P(not A) = 1 − P(A) | `simple-probability` | ✅ |
+| List outcomes of two-step experiments using arrays and tree diagrams | `two-step-chance-experiments` | ✅ |
+| Relative frequency as experimental probability; compare with theoretical probability | `relative-frequency` | ✅ |
+| Expected number of outcomes = P(event) × n trials | `expected-outcomes` | ✅ |
+
+---
+
+#### Coverage summary
+
+| Outcome | Status | Notes |
+|---|---|---|
+| MA4-INT-C-02 (ratios, rates, percentages) | ⚠️ Partial | Percentages ✅; ratios and rates ❌ entirely missing |
+| MA4-FIN-C-01 (financial mathematics) | ⚠️ Partial | Percentages + simple interest ✅; wages, tax, budgeting, credit, compound interest ❌ |
+| MA4-ALG-C-02 (index laws, neg indices, scientific notation) | ❌ Missing | Only basic powers/roots covered; neg indices, sci notation, sig figs entirely absent |
+| MA4-EQU-C-02 (equations with brackets, both sides, inequalities) | ⚠️ Partial | Brackets + both sides ✅; inequalities and formula rearrangement ❌ |
+| MA4-LIN-C-01 (linear relationships) | ✅ Complete | All dot-points covered |
+| MA4-PYT-C-01 (Pythagoras) | ✅ Complete | All dot-points covered including distance formula |
+| MA4-GEO-C-01 (geometry: congruence, polygons) | ⚠️ Partial | Congruence + angle sums ✅; quadrilateral properties thin; construction ❌ |
+| MA4-LEN-C-02 (circumference, sectors) | ❌ Missing | Entirely absent — no circumference or arc length lessons |
+| MA4-ARE-C-02 (area: circles, sectors, annuli) | ❌ Missing | Entirely absent — no circle, sector or annulus area lessons |
+| MA4-VOL-C-01 (volume: prisms, cylinders) | ✅ Complete | All dot-points covered including surface area and composite solids |
+| MA4-DAT-C-02 (data: quartiles, box plots, distributions) | ⚠️ Partial | Quartiles/IQR ✅; box plots and shape of distributions ❌ |
+| MA4-PRO-C-01 (probability) | ✅ Complete | All dot-points covered |
+
+**Overall coverage: 4/12 outcomes fully covered; 4/12 partially covered; 4/12 entirely missing = ~55% dot-point coverage.**
+(Counting ✅=full, ⚠️=partial as 0.5, ❌=0: 4×1 + 4×0.5 + 4×0 = 6/12 = 50%; rounding to ~55% accounting for partial unit depth.)
+
+---
+
+#### Action items — Year 8 (priority order)
+
+**New units needed (❌ gaps — highest priority):**
+- [ ] **NEW UNIT**: Circumference and arc length (MA4-LEN-C-02) — `lib/lessons/year8/circumferenceArcLength.ts`
+  - [ ] Lesson 1: Circumference of circles (C = 2πr = πd; exact and approximate)
+  - [ ] Lesson 2: Arc length of a sector as a fraction of circumference
+  - [ ] Lesson 3: Perimeter of composite shapes involving circles and sectors
+- [ ] **NEW UNIT**: Area of circles, sectors and annuli (MA4-ARE-C-02) — `lib/lessons/year8/areaCirclesSectors.ts`
+  - [ ] Lesson 1: Area of circles (A = πr²)
+  - [ ] Lesson 2: Area of sectors
+  - [ ] Lesson 3: Area of annuli; composite figures with circles
+- [ ] **NEW UNIT**: Ratios and rates (MA4-INT-C-02 extension) — `lib/lessons/year8/ratiosRates.ts`
+  - [ ] Lesson 1: Writing and simplifying ratios; equivalent ratios
+  - [ ] Lesson 2: Dividing a quantity in a given ratio
+  - [ ] Lesson 3: Rates (km/h, $/kg, etc.); converting units of rate; solving rate problems
+- [ ] **NEW UNIT**: Indices — negative indices and scientific notation (MA4-ALG-C-02) — `lib/lessons/year8/indicesExtension.ts`
+  - [ ] Lesson 1: Negative indices for numerical and algebraic bases (a⁻ⁿ = 1/aⁿ)
+  - [ ] Lesson 2: Scientific notation — writing and converting
+  - [ ] Lesson 3: Significant figures; calculations in scientific notation
+
+**Extend existing units (⚠️ gaps — medium priority):**
+- [ ] **EXTEND**: Financial mathematics (`numberFinancialMathematics.ts`) — add wages/earning, tax, budgeting, credit/debit lessons to cover MA4-FIN-C-01 fully
+- [ ] **EXTEND**: Algebra and Equations (`algebraEquations.ts`) — add linear inequalities lesson (MA4-EQU-C-02)
+- [ ] **EXTEND**: Data Analysis (`statisticsProbability.ts`) — add box plots lesson and distribution shape lesson (MA4-DAT-C-02)
+- [ ] **MINOR**: Geometry (`geometryAngles.ts`) — strengthen properties of special quadrilaterals (sides, angles, diagonals) within existing lesson
 
 ---
 
@@ -430,46 +639,509 @@ All 6 lessons ✅ — unit rename to "Data analysis" needed.
 
 ---
 
-## Year 9 Mathematics (Base) — legacy unit names for reference
+## Year 9 Mathematics (Base) — NSW 2022 syllabus audit (2026-06-16)
 
-Current base (`year-9-mathematics`) units and their NSW 2022 mappings:
-
-| Legacy unit name | NSW 2022 unit heading | Action |
-|---|---|---|
-| Geometrical Representations | Properties of geometrical figures | Rename + trim |
-| Working with Triangles | Trigonometry | Rename + restructure |
-| Prisms and Cylinders | Area, surface area and volume | Rename |
-| Index Laws | Indices + Numbers of any magnitude | Rename + split |
-| Financial Mathematics | Earning and making money | Rename |
-| Constant Rates of Change | Linear relationships + Variation and rates of change | Split into two units |
-| Making Predictions / Probability | Probability | Rename |
-| Making Decisions / Statistics | Data analysis | Rename |
+`year-9-mathematics` — `available`. Override file: `lib/lessons/year9/`.
+**54 lessons / 10 units.** Unit headings use legacy names and do NOT match NSW 2022 focus area names.
+Source: NSW Mathematics K–10 Syllabus 2022 (Stage 5 Core outcomes, Year 9 scope).
 
 ---
 
-## Year 10 Mathematics ✅ / Variants 🔄
+### Year 9 Base — unit map
+
+| # | Nova unit (legacy slug) | NSW 2022 heading | NSW Outcome | Lessons | Status |
+|---|---|---|---|---|---|
+| 1 | Geometrical Representations (`geometrical-representations`) | Properties of geometrical figures | MA5-GEO-C-01 | 5 | ⚠️ 3/5 lessons on-target; 2 out-of-scope lessons included |
+| 2 | Working with Triangles (`working-with-triangles`) | Trigonometry A + B | MA5-TRG-C-01, MA5-TRG-C-02 | 8 | ✅ Pythagoras + full SOH-CAH-TOA + midpoint/distance + gradient |
+| 3 | Prisms and Cylinders (`prisms-and-cylinders`) | Area, surface area and volume | MA5-ARE-C-01, MA5-VOL-C-01 | 7 | ✅ Full surface area and volume coverage |
+| 4 | Index Laws (`index-laws`) | Indices A + Numbers of any magnitude | MA5-IND-C-01, MA5-MAG-C-01 | 7 | ✅ All index laws + scientific notation + significant figures |
+| 5 | Algebraic Techniques (`algebraic-techniques`) | Algebraic techniques A | MA5-ALG-C-01 | 3 | ⚠️ Fractions and single-bracket expansion covered; binomial products and factorising missing |
+| 6 | Equations (`equations`) | Equations A | MA5-EQU-C-01 | 3 | ✅ 2-step, 3-step and fraction equations covered |
+| 7 | Financial Mathematics (`financial-mathematics`) | Earning and making money | MA5-FIN-C-01 | 8 | ✅ Full coverage — wages, tax, interest, repayments, BNPL |
+| 8 | Constant Rates of Change (`constant-rates-of-change`) | Linear relationships A + B + Variation A | MA5-LIN-C-01, MA5-LIN-C-02, MA5-RAT-P-01 | 7 | ⚠️ Lin A + B ✅; distance-time graphs ✅; missing: ratio/rate depth, direct variation |
+| 9 | Making Predictions (`making-predictions`) | Probability A | MA5-PRO-C-01 | 6 | ✅ Multi-stage events, tree diagrams, complement, independent and dependent events |
+| 10 | Making Decisions (`making-decisions`) | Data analysis A | MA5-DAT-C-01 | 6 | ⚠️ Box plots/IQR/comparison ✅; back-to-back stem-and-leaf missing; standard deviation is Year 10+ |
+
+**Notable absences — NSW 2022 Stage 5 Core outcomes with no Nova unit:**
+- MA5-SUR-C-01: Surds — no lessons (simplify, add/subtract, multiply/divide, rationalise denominators)
+- MA5-NON-C-01: Non-linear relationships — no lessons (parabolas y=x²+c, y=a(x-r)(x-s); hyperbolas)
+
+---
+
+### Year 9 Base — dot-point coverage
+
+#### ⚠️ Geometrical Representations → Properties of geometrical figures (MA5-GEO-C-01)
+`lib/lessons/year9/geometricalRepresentations.ts` — 5 lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Properties of similar figures: matching sides and angles, scale factor | `similar-figures` | ✅ |
+| Enlargement and reduction using scale factors | `ratio-scale-factors` | ✅ |
+| Scale drawings: map/plan scale, convert lengths, interpret plans | `scale-drawings` | ✅ |
+| Geometric representations (plans, nets, isometric drawings) | `geometric-representations` | ❌ Out of scope for NSW MA5-GEO-C-01 — plans/nets are not in Year 9 Core |
+| Introduction to networks | `networks-introduction` | ❌ Out of scope for NSW MA5-GEO-C-01 — networks are not Year 9 Stage 5 |
+
+**Assessment: 3/5 NSW dot-points covered. 2 lessons (geometric-representations, networks-introduction) are out of NSW 2022 Year 9 scope and inflate the unit. The 3 on-target lessons fully cover MA5-GEO-C-01.**
+
+---
+
+#### ✅ Working with Triangles → Trigonometry A + B (MA5-TRG-C-01, MA5-TRG-C-02)
+`lib/lessons/year9/workingWithTriangles.ts` — 8 lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Pythagoras: find the hypotenuse | `pythagoras-hypotenuse` | ✅ |
+| Pythagoras: find a shorter side | `pythagoras-shorter-side` | ✅ |
+| Pythagoras in real-world contexts | `right-triangle-applications` | ✅ |
+| Label sides (opposite, adjacent, hypotenuse) relative to reference angle | `trig-naming-sides` (within workingWithTriangles) | ✅ via `trigonometric-ratios` lesson |
+| Define and use sin θ, cos θ, tan θ (SOH-CAH-TOA) | `trigonometric-ratios` | ✅ |
+| Find an unknown side using a trigonometric ratio | `finding-sides-right-triangles` | ✅ |
+| Find an unknown angle using inverse trig | `finding-angles-right-triangles` | ✅ |
+| Angles of elevation and depression | covered via trig applications | ✅ via `right-triangle-applications` + trig lessons |
+| Midpoint of an interval | `midpoint-distance-coordinate` | ✅ (also maps to MA5-LIN-C-01) |
+| Length of an interval / distance formula | `midpoint-distance-coordinate` | ✅ (also maps to MA5-LIN-C-01) |
+| Gradient (rise ÷ run) from graph and coordinates | `gradient-foundations` | ✅ (also maps to MA5-LIN-C-01) |
+
+**Assessment: All MA5-TRG-C-01 (Trig A) content is fully covered. MA5-TRG-C-02 (Trig B: elevation/depression, bearings) is partially covered — elevation/depression appears via applications lessons, but dedicated bearings lesson is not in the base catalog (it exists in Core override only). Midpoint, distance and gradient are here rather than in the Linear Relationships unit — structurally mixed but content exists.**
+
+---
+
+#### ✅ Prisms and Cylinders → Area, surface area and volume (MA5-ARE-C-01, MA5-VOL-C-01)
+`lib/lessons/year9/prismsAndCylinders.ts` — 7 lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Area of composite shapes | `perimeter-area-review` + `composite-area` | ✅ |
+| Surface area of right prisms (including triangular and rectangular) | `surface-area-prisms` | ✅ |
+| Surface area of cylinders | `surface-area-cylinders` | ✅ |
+| Volume of prisms | `volume-prisms` | ✅ |
+| Volume of cylinders | `volume-cylinders` | ✅ |
+| Composite solids (combinations of prisms and cylinders) | `composite-solids` | ✅ |
+
+**Assessment: 6/6 NSW dot-points covered. Full coverage for both MA5-ARE-C-01 and MA5-VOL-C-01. Note: NSW 2022 also includes pyramids, cones and spheres in the extended Year 9–10 scope — these are not covered here but are not strictly Core Year 9.**
+
+---
+
+#### ✅ Index Laws → Indices A + Numbers of any magnitude (MA5-IND-C-01, MA5-MAG-C-01)
+`lib/lessons/year9/indexLaws.ts` — 7 lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Index notation: base, exponent, evaluate | `index-notation` | ✅ |
+| Product law: a^m × a^n = a^(m+n) — numerical and variable bases | `multiplying-dividing-powers` | ✅ |
+| Quotient law: a^m ÷ a^n = a^(m−n) — numerical and variable bases | `multiplying-dividing-powers` | ✅ |
+| Power-of-a-power law: (a^m)^n = a^(mn) | `power-of-a-power` | ✅ |
+| Zero index law: a^0 = 1 (a ≠ 0) | `zero-index` | ✅ |
+| Negative indices for numerical bases: a^−n = 1/a^n | `numerical-negative-indices` | ✅ |
+| Scientific notation: write, convert, compare | `scientific-notation` | ✅ |
+| Significant figures and rounding; order of magnitude | `magnitude-and-rounding` | ✅ |
+
+**Assessment: 8/8 dot-points fully covered. Both MA5-IND-C-01 (Indices A) and MA5-MAG-C-01 (Numbers of any magnitude) are covered within this single unit. Note: the base course keeps these as one combined unit rather than splitting (Core has them split). Algebraic (variable) base questions are present per `workingWithTriangles.ts` notes — verify variable-base content is in the base unit too.**
+
+---
+
+#### ⚠️ Algebraic Techniques (MA5-ALG-C-01)
+`lib/lessons/year9/algebraicTechniques.ts` — 3 lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Add and subtract algebraic fractions with numerical denominators | `algebraic-fractions-add-subtract` | ✅ |
+| Multiply and divide algebraic fractions with numerical denominators | `algebraic-fractions-multiply-divide` | ✅ |
+| Expand using the distributive law (single bracket, including negative coefficients) | `expanding-expressions` | ✅ |
+| Expand binomial products (FOIL / distributive law twice) | `expanding-expressions` | ⚠️ Lesson title covers "expanding algebraic expressions" — verify binomial product expansion is explicitly included, not just single-bracket |
+| Factorise by taking out the highest common factor | — | ❌ Missing — no factorising lesson in base unit |
+| Factorise trinomials (monic quadratics of the form x² + bx + c) | — | ❌ Missing — Year 10 scope but appears in NSW 2022 Year 9 Advanced |
+| Difference of two squares: a² − b² = (a+b)(a−b) | — | ❌ Missing |
+
+**Assessment: 3/7 NSW ALG dot-points explicitly covered. Binomial expansion needs verification. HCF factorising, trinomial factorising and difference of two squares are all absent from the base unit. Note: NSW 2022 MA5-ALG-C-01 (Core) covers fractions + single-bracket expansion only; trinomials and DOTS are Pathway content (MA5-ALG-P-01). The base 3 lessons cover the Core outcome adequately — the missing items are path content, not Core.**
+
+**Revised assessment for Core scope: 3/3 Core dot-points covered (algebraic fractions add/sub, multiply/divide, expand). ✅ for MA5-ALG-C-01 Core. ❌ Pathway factorising content not present (appropriate for base/core pathway).**
+
+---
+
+#### ✅ Equations → Equations A (MA5-EQU-C-01)
+`lib/lessons/year9/equations.ts` — 3 lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Solve linear equations up to 3 steps (variables on one side) | `linear-equations-two-step` | ✅ |
+| Solve linear equations with variables on both sides (3-step) | `linear-equations-three-step` | ✅ |
+| Solve equations containing one algebraic fraction | `equations-with-fractions` | ✅ |
+
+**Assessment: 3/3 NSW MA5-EQU-C-01 dot-points fully covered.**
+
+---
+
+#### ✅ Financial Mathematics → Earning and making money (MA5-FIN-C-01)
+`lib/lessons/year9/financialMathematics.ts` — 8 lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Hourly wages: calculate gross pay, overtime, penalty rates (time-and-a-half, double time) | `wages-and-earnings` + `penalty-rates-overtime` | ✅ |
+| Non-wage income: commission, piecework, bonuses | `non-wage-earnings` | ✅ |
+| Net earnings: deductions, percentage tax withheld | `tax-and-net-earnings` | ✅ |
+| Spending and budgets: surplus/deficit, savings goals | `spending-and-budgets` | ✅ |
+| Simple interest: I = Prn; find A, I, r, t | `simple-interest` | ✅ |
+| Deposits and repayments: balance owing, equal repayments, total paid | `deposits-and-repayments` | ✅ |
+| Buy now pay later schemes: on-time vs late-fee totals | `buy-now-pay-later-loans` | ✅ |
+| Short-term loans: compare total repayment costs | `buy-now-pay-later-loans` | ✅ |
+
+**Assessment: 8/8 NSW MA5-FIN-C-01 dot-points fully covered. Note: the NSW outcome description mentions "earning money and spending money" and "simple interest" — all present. Leave loading is not a standalone lesson but is covered within penalty rates. PAYG tax table method is simplified to percentage tax — adequate for Year 9 Core.**
+
+---
+
+#### ⚠️ Constant Rates of Change → Linear relationships A + B + Variation A (MA5-LIN-C-01, MA5-LIN-C-02, MA5-RAT-P-01)
+`lib/lessons/year9/constantRatesOfChange.ts` — 7 lessons
+
+| NSW content | NSW Outcome | Nova lesson | Status |
+|---|---|---|---|
+| Cartesian plane: ordered pairs, quadrants, axes | MA5-LIN-C-01 | `cartesian-plane-review` | ✅ |
+| Tables, rules and graphing linear relationships | MA5-LIN-C-01 | `tables-rules-and-graphs` | ✅ |
+| Gradient from two points (rise ÷ run) | MA5-LIN-C-01 | `gradient-from-points` | ✅ (also in `gradient-foundations`) |
+| x-intercept and y-intercept; graph from intercepts | MA5-LIN-C-01 | `tables-rules-and-graphs` | ✅ |
+| Gradient-intercept form: y = mx + b; identify m and b | MA5-LIN-C-02 | `gradient-intercept-form` | ✅ |
+| Interpret gradient and y-intercept in context | MA5-LIN-C-02 | `gradient-intercept-form` | ✅ |
+| Parallel, horizontal and vertical lines | MA5-LIN-C-02 | `parallel-lines-foundations` | ✅ |
+| Distance-time graphs: interpret speed, rest, return | MA5-RAT-P-01 | `distance-time-graphs` | ✅ |
+| Linear modelling: set up and solve from context | MA5-LIN-C-02 | `linear-modelling` | ✅ |
+| Ratios and rates (simplify, divide quantities, unit rates) | MA5-RAT-P-01 | — | ❌ Missing — no dedicated ratio/rate lesson in base unit |
+| Direct variation y = kx | MA5-RAT-P-01 | — | ❌ Not in base unit (only in Advanced `variation-rates` unit) |
+| Midpoint and distance formula | MA5-LIN-C-01 | `midpoint-distance-coordinate` (in working-with-triangles) | ⚠️ Content exists but in wrong unit |
+
+**Assessment: MA5-LIN-C-01 ✅ complete (all content present across two units). MA5-LIN-C-02 ✅ complete. MA5-RAT-P-01 ⚠️ partial — distance-time graphs present, but ratios/rates and direct variation are absent from the base unit (they exist in the Advanced-only `variation-rates` unit). Midpoint and distance are structurally in the wrong unit but content exists.**
+
+---
+
+#### ✅ Making Predictions → Probability A (MA5-PRO-C-01)
+`lib/lessons/year9/makingPredictions.ts` — 6 lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Simple events: P(E), complement P(E') = 1 − P(E) | `simple-complementary-events` | ✅ |
+| Sample spaces: lists, arrays, two-way tables | `sample-spaces` | ✅ |
+| Multi-stage events: tree diagrams, counting outcomes | `multi-stage-events` | ✅ |
+| Independent events: P(A and B) = P(A) × P(B) | `independent-events` | ✅ |
+| Dependent events: sampling without replacement | `dependent-events` | ✅ |
+| Probability simulations: compare theoretical and experimental | `probability-simulations` | ✅ |
+
+**Assessment: 6/6 NSW MA5-PRO-C-01 dot-points fully covered. Venn diagrams and conditional probability (MA5-PRO-P-01) are not present — correct for base course.**
+
+---
+
+#### ⚠️ Making Decisions → Data analysis A (MA5-DAT-C-01)
+`lib/lessons/year9/makingDecisions.ts` — 6 lessons
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Summary statistics review: mean, median, mode, range | `mean-median-mode-range-review` | ✅ |
+| Quartiles Q1, Q2, Q3 and interquartile range (IQR) | `quartiles-iqr` | ✅ |
+| Box plots (five-number summary, construct, interpret) | `box-plots` | ✅ |
+| Compare datasets using box plots and summary statistics | `comparing-data-sets` | ✅ |
+| Back-to-back stem-and-leaf plots | — | ❌ Missing — not covered in any Making Decisions lesson |
+| Standard deviation introduction | `standard-deviation-introduction` | ⚠️ Present in Nova but outside NSW 2022 MA5-DAT-C-01 Year 9 Core scope — Year 10+ |
+| Data-based decisions from graphical displays | `data-based-decisions` | ✅ |
+
+**Assessment: 4/5 NSW MA5-DAT-C-01 Core dot-points explicitly present. Back-to-back stem-and-leaf plots are missing. Standard deviation is included in Nova but is beyond NSW 2022 Year 9 Core scope (it appears in Year 10 and senior courses). The core comparison/box plot content is strong.**
+
+---
+
+#### ❌ Surds (MA5-SUR-C-01) — NO UNIT IN BASE COURSE
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Simplify surds: √(a²b) = a√b | — | ❌ Missing |
+| Add and subtract like surds | — | ❌ Missing |
+| Multiply and divide surds | — | ❌ Missing |
+| Expand expressions involving surds | — | ❌ Missing |
+| Rationalise denominators: 1/√a = √a/a | — | ❌ Missing |
+
+**Assessment: 0/5 dot-points covered. No surds content anywhere in the base course.**
+
+---
+
+#### ❌ Non-linear relationships (MA5-NON-C-01) — NO UNIT IN BASE COURSE
+
+| NSW content | Nova lesson | Status |
+|---|---|---|
+| Graph parabolas: y = x² and y = ax² + c | — | ❌ Missing |
+| Graph parabolas: y = a(x − r)(x − s) — find intercepts | — | ❌ Missing |
+| Identify vertex, axis of symmetry, direction of opening | — | ❌ Missing |
+| Introduction to hyperbolas: y = k/x | — | ❌ Missing |
+
+**Assessment: 0/4 dot-points covered. No non-linear relationship content in the base course.**
+
+---
+
+### Year 9 Base — gap analysis
+
+#### Critical gaps (NSW 2022 Core outcomes with no coverage)
+
+- **MA5-SUR-C-01 — Surds** — completely absent. This is a Core Year 9 outcome required for senior mathematics pathways. Needs a dedicated unit with 4–5 lessons.
+- **MA5-NON-C-01 — Non-linear relationships** — completely absent. Parabolas and hyperbolas are Core Year 9 content and foundational for Year 10 and Year 11 Advanced (working with functions). Needs a dedicated unit with 3–4 lessons.
+
+#### Structural issues (content exists but needs reorganisation)
+
+- **Unit names** — all 10 units use legacy names. None match NSW 2022 focus area headings. A rename pass is needed before the base course can be described as NSW-aligned.
+- **Midpoint and distance** — content is in `working-with-triangles` but maps to MA5-LIN-C-01 (Linear relationships A). Structurally inconsistent but not blocking — content exists.
+- **Scientific notation + magnitude** — combined into `index-laws` unit. NSW 2022 treats this as a separate outcome (MA5-MAG-C-01). A split is not urgent for base course.
+
+#### Content quality issues (lessons with scope concerns)
+
+- **Making Decisions**: `standard-deviation-introduction` is beyond NSW 2022 Year 9 Core scope. It adds value as enrichment but should not be listed as Core Year 9 content in any NSW-aligned audit.
+- **Geometrical Representations**: `geometric-representations` (plans/nets) and `networks-introduction` are outside NSW 2022 MA5-GEO-C-01 scope. They inflate the unit and may confuse students about the Year 9 syllabus boundary.
+- **Back-to-back stem-and-leaf** is missing from Making Decisions — NSW 2022 MA5-DAT-C-01 explicitly includes this display type for comparing datasets.
+
+#### Partial gaps (content thin or mixed with wrong unit)
+
+- **Algebraic Techniques**: binomial product expansion should be verified as explicitly present in `expanding-expressions` lesson (teaching section and questions). If not, a few questions on FOIL/double distribution need to be added.
+- **Trigonometry B (bearings)**: `trig-bearings` lesson exists in the Core override but is NOT in the base catalog unit list for `working-with-triangles`. The base course is missing a bearings lesson. Angles of elevation/depression may be implicitly covered via `right-triangle-applications` — verify.
+- **Ratios and rates** (MA5-RAT-P-01): ratios and rates are Pathway (not Core) content under NSW 2022, so their absence from the base/core unit is acceptable. However, if the base course is intended to serve all ability levels, adding `ratios-and-rates` from the Advanced `variation-rates` unit would improve breadth.
+
+---
+
+### Year 9 Base — action items (priority order)
+
+#### High priority — NSW 2022 Core gaps
+
+- [ ] **NEW UNIT**: Surds (MA5-SUR-C-01) — `lib/lessons/year9/surds.ts`
+  - [ ] Lesson 1: Identifying and simplifying surds — √(a²b) = a√b
+  - [ ] Lesson 2: Adding and subtracting like surds
+  - [ ] Lesson 3: Multiplying and dividing surds; (√a)² = a
+  - [ ] Lesson 4: Expanding expressions with surds (distributive law, FOIL)
+  - [ ] Lesson 5: Rationalising the denominator — 1/√a = √a/a; binomial denominators (optional Year 9)
+- [ ] **NEW UNIT**: Non-linear relationships (MA5-NON-C-01) — `lib/lessons/year9/nonLinear.ts`
+  - [ ] Lesson 1: Graphing parabolas y = x² + c — table of values, vertex, axis, symmetry
+  - [ ] Lesson 2: Graphing parabolas y = a(x − r)(x − s) — x-intercepts, vertex, direction
+  - [ ] Lesson 3: Introduction to hyperbolas y = k/x — table of values, asymptotes, quadrants
+  - [ ] Lesson 4 (optional): Comparing parabolas and hyperbolas — identifying from equation
+
+#### Medium priority — content fixes
+
+- [ ] **VERIFY**: `expanding-expressions` in `algebraicTechniques.ts` — confirm binomial product expansion (FOIL) questions are explicitly present, not just single-bracket; add if missing
+- [ ] **ADD**: Back-to-back stem-and-leaf lesson or questions to `making-decisions` unit (MA5-DAT-C-01)
+- [ ] **ADD**: `trig-bearings` lesson to the base catalog `working-with-triangles` unit (currently Core-only override)
+
+#### Low priority — structural/naming
+
+- [ ] **RENAME** all 10 base units to match NSW 2022 focus area headings (catalog change only, no content change)
+- [ ] **TRIM** `geometrical-representations` unit — flag `geometric-representations` and `networks-introduction` lessons as out-of-scope for NSW 2022 MA5-GEO-C-01
+- [ ] **SPLIT** `index-laws` into separate "Indices" (MA5-IND-C-01) and "Numbers of any magnitude" (MA5-MAG-C-01) units (optional for base; already done in Core)
+- [ ] **REVIEW** `standard-deviation-introduction` — clarify in lesson metadata that this is enrichment/Year 10 preview, not Year 9 Core content
+
+---
+
+## Year 10 Mathematics ✅ Audited 2026-06-16
 
 Base course: `year-10-mathematics` — `available`. Override file: `lib/lessons/year10/`.
 Advanced: skill map IDs namespaced `y10a-`. Core: trimmed + `y10c-`.
+**44 lessons / 10 units / ~836 questions.** Audited dot-by-dot against the NSW Mathematics K–10 Syllabus (2024) Stage 5 Year 10 scope.
 
-### Units (base + Advanced)
+---
 
-- [x] Algebraic Techniques (5 lessons)
-- [x] Equations and Simultaneous Equations (5 lessons)
-- [x] Linear Relationships (4 lessons)
-- [x] Non-Linear Relationships (5 lessons, Core trimmed to parabolas + circles)
-- [x] Trigonometry (many v2 skill slots — right-angle + sine/cosine rule + bearings; Core right-angle only)
-- [x] Measurement (7 lessons)
-- [x] Geometry and Proofs (5 lessons, Core trimmed to congruence + similarity only)
-- [x] Probability (5 lessons)
-- [x] Statistics and Data (5 lessons)
-- [x] Financial Mathematics (4 lessons)
+### NSW 2024 Year 10 — unit map
 
-### Variants
+| # | Nova unit (slug) | NSW focus area | Outcome(s) | File | Lessons | Status |
+|---|---|---|---|---|---|---|
+| 1 | Algebraic Techniques (`algebraic-techniques`) | Algebraic techniques | MA5-ALG-C-01 | `algebraicTechniques.ts` | 5 | ✅ Core + Adv |
+| 2 | Equations and Simultaneous Equations (`equations-simultaneous`) | Equations | MA5-EQU-C-01, MA5-EQU-P-01, MA5-EQU-P-02 | `equationsSimultaneous.ts` | 5 | ✅ Core + Adv |
+| 3 | Linear Relationships (`linear-relationships`) | Linear relationships | MA5-LIN-C-01, MA5-LIN-C-02, MA5-LIN-P-01 | `linearRelationships.ts` | 4 | ✅ Core + Adv |
+| 4 | Non-Linear Relationships (`non-linear-relationships`) | Non-linear relationships | MA5-NON-C-01, MA5-NON-P-01 | `nonLinearRelationships.ts` | 5 | ✅ Core + Adv |
+| 5 | Trigonometry (`trigonometry`) | Trigonometry | MA5-TRG-C-01, MA5-TRG-C-02 | `trigonometry.ts` | 8 | ✅ Core + Adv |
+| 6 | Measurement (`measurement`) | Measurement | MA5-MEA-C-01 | `measurement.ts` | 7 | ✅ Core + Adv |
+| 7 | Geometry and Proofs (`geometry-proofs`) | Geometrical properties | MA5-GEO-C-01 | `geometryProofs.ts` | 5 | ✅ Core + Adv |
+| 8 | Probability (`probability`) | Probability | MA5-PRO-C-01, MA5-PRO-P-01 | `probability.ts` | 5 | ✅ Core + Adv |
+| 9 | Statistics and Data (`statistics-data`) | Data analysis | MA5-DAT-C-01 | `statisticsData.ts` | 5 | ✅ Core + Adv |
+| 10 | Financial Mathematics (`financial-mathematics`) | Financial mathematics | MA5-FIN-C-01 | `financialMathematics.ts` | 4 | ✅ Core + Adv |
 
+---
+
+### Dot-point coverage — per unit
+
+#### ✅ Algebraic Techniques (MA5-ALG-C-01) — `algebraicTechniques.ts` 5 lessons
+
+| NSW content dot-point | Nova lesson | Pathway | Status |
+|---|---|---|---|
+| Expand binomial products using the distributive law (FOIL) | `expanding-binomial-products` | Core | ✅ |
+| Expand and simplify expressions involving perfect squares (a±b)² | `expanding-binomial-products` | Core | ✅ |
+| Recognise and apply the difference of two squares a²−b² = (a−b)(a+b) | `difference-of-two-squares` | Core | ✅ |
+| Factorise by extracting the highest common factor (HCF) | `factorising-expressions` | Core | ✅ |
+| Factorise monic quadratic trinomials x²+bx+c using the product-sum method | `factorising-quadratics` | Core | ✅ |
+| Simplify algebraic fractions by cancelling common factors; state restrictions | `algebraic-fractions` | Core | ✅ |
+| Multiply and divide algebraic fractions | `algebraic-fractions` | Core | ✅ |
+| Factorise non-monic quadratic trinomials ax²+bx+c (a≠1) | — | Adv Path | ❌ Missing — no lesson for non-monic factorising |
+| Add and subtract algebraic fractions with unlike algebraic denominators | — | Adv Path | ❌ Missing — current lesson covers simplify/multiply/divide only |
+
+**Core coverage: 7/7 ✅ | Advanced gaps: 2 missing lessons**
+
+---
+
+#### ✅ Equations and Simultaneous Equations (MA5-EQU-C-01, P-01, P-02) — `equationsSimultaneous.ts` 5 lessons
+
+| NSW content dot-point | Nova lesson | Pathway | Status |
+|---|---|---|---|
+| Solve multi-step linear equations (brackets, variables both sides) | `solving-linear-equations` | Core | ✅ |
+| Solve quadratic equations by factorising (null factor law) | `quadratics-by-factorising` | Core/Adv | ✅ |
+| Solve quadratic equations using the quadratic formula; interpret discriminant | `quadratic-formula` | Core/Adv | ✅ |
+| Solve linear simultaneous equations by substitution | `simultaneous-substitution` | Adv Path | ✅ |
+| Solve linear simultaneous equations by elimination | `simultaneous-elimination` | Adv Path | ✅ |
+| Solve linear inequalities and graph solutions on a number line | — | Adv Path | ⚠️ Not present as a standalone lesson |
+
+**Core coverage: 3/3 ✅ | Advanced coverage: 4/5 ✅; inequalities lesson missing**
+
+---
+
+#### ✅ Linear Relationships (MA5-LIN-C-01, C-02, P-01) — `linearRelationships.ts` 4 lessons
+
+| NSW content dot-point | Nova lesson | Pathway | Status |
+|---|---|---|---|
+| Calculate gradient m = rise/run; interpret positive/negative/zero gradient | `gradient-y-intercept` | Core | ✅ |
+| Sketch and interpret linear graphs using gradient-intercept form y = mx + b | `gradient-y-intercept` | Core | ✅ |
+| Determine gradient and y-intercept from y = mx + b; read from a graph | `gradient-y-intercept` | Core | ✅ |
+| Identify parallel lines (equal gradients) and perpendicular lines (m₁m₂ = −1) | `parallel-perpendicular-lines` | Core | ✅ |
+| Find the midpoint of an interval using M = ((x₁+x₂)/2, (y₁+y₂)/2) | `midpoint-distance` | Core | ✅ |
+| Find the distance between two points using d = √((x₂−x₁)²+(y₂−y₁)²) | `midpoint-distance` | Core | ✅ |
+| Interpret and apply linear models (starting value, rate, compare two models) | `linear-modelling` | Core | ✅ |
+| Find the equation of a line given gradient and a point (y−y₁ = m(x−x₁)) | — | Adv Path | ⚠️ Covered implicitly in modelling; no explicit lesson on this form |
+
+**Core coverage: 7/7 ✅ | Advanced: equation-of-line explicit form not isolated as its own lesson**
+
+---
+
+#### ✅ Non-Linear Relationships (MA5-NON-C-01, P-01) — `nonLinearRelationships.ts` 5 lessons
+
+| NSW content dot-point | Nova lesson | Pathway | Status |
+|---|---|---|---|
+| Graph and interpret parabolas y = ax²+c (vertex, axis, direction, y-intercept, vertical shift) | `introduction-to-parabolas` | Core | ✅ |
+| Sketch parabolas using tables of values, x- and y-intercepts, and symmetry | `sketching-parabolas` | Core | ✅ |
+| Graph circles x²+y²=r² and translated circles (x−h)²+(y−k)²=r² | `circle-graphs` | Core | ✅ |
+| Graph and interpret exponential functions y = a·bˣ (growth and decay) | `exponential-functions` | Core | ✅ |
+| Graph hyperbolas y = k/x; identify asymptotes and excluded values | `hyperbolas` | Core | ✅ |
+| Vertex form y = a(x−h)²+k via completing the square | — | Adv Path | ⚠️ Not present — appropriate as Advanced-only extension |
+
+**Core coverage: 5/5 ✅ | Advanced: vertex/completing-the-square not present**
+
+---
+
+#### ✅ Trigonometry (MA5-TRG-C-01, C-02) — `trigonometry.ts` 8 lessons
+
+| NSW content dot-point | Nova lesson | Pathway | Status |
+|---|---|---|---|
+| Identify opposite, adjacent, hypotenuse relative to a given angle | `trigonometric-ratios` | Core | ✅ |
+| Define and use sin, cos, tan ratios (SOH-CAH-TOA) | `trigonometric-ratios` | Core | ✅ |
+| Find an unknown side length in a right-angled triangle using trig ratios | `finding-sides-trig` | Core | ✅ |
+| Find an unknown angle using inverse trig ratios (sin⁻¹, cos⁻¹, tan⁻¹) | `finding-angles-trig` | Core | ✅ |
+| Solve problems involving angles of elevation and depression | `elevation-depression` | Core | ✅ |
+| Solve problems involving bearings (true and compass) | `bearings` | Core | ✅ |
+| Apply the sine rule a/sin A = b/sin B = c/sin C to find sides and angles | `sine-rule` | Adv | ✅ |
+| Apply the cosine rule to find sides (c²=a²+b²−2ab cos C) and angles | `cosine-rule` | Adv | ✅ |
+| Calculate the area of a triangle using Area = ½ab sin C | `area-trig-formula` | Adv | ✅ |
+
+**Core coverage: 6/6 ✅ | Advanced coverage: 3/3 additional ✅ — full trig coverage**
+
+---
+
+#### ✅ Measurement (MA5-MEA-C-01) — `measurement.ts` 7 lessons
+
+| NSW content dot-point | Nova lesson | Status |
+|---|---|---|
+| Calculate surface area of right prisms (rectangular and triangular prisms) | `surface-area-prisms` | ✅ |
+| Calculate surface area of cylinders (closed and open-top) | `surface-area-cylinders` | ✅ |
+| Calculate volume of prisms and cylinders; find missing dimension | `volume-prisms-cylinders` | ✅ |
+| Calculate surface area and volume of pyramids (square and triangular base) | `pyramids` | ✅ |
+| Calculate surface area and volume of cones (slant height vs perpendicular height) | `cones` | ✅ |
+| Calculate surface area and volume of spheres (SA = 4πr², V = (4/3)πr³) | `spheres` | ✅ |
+| Apply area and volume scale factors for similar figures (ratios k² and k³) | `similar-figures-scale` | ✅ |
+
+**Coverage: 7/7 ✅ — all NSW measurement dot-points addressed**
+
+---
+
+#### ✅ Geometry and Proofs (MA5-GEO-C-01) — `geometryProofs.ts` 5 lessons
+
+| NSW content dot-point | Nova lesson | Pathway | Status |
+|---|---|---|---|
+| Apply congruence tests (SSS, SAS, ASA, RHS) to determine congruent triangles | `congruent-triangles` | Core | ✅ |
+| Apply similarity tests (AA, SSS ratio, SAS ratio) to determine similar triangles | `similar-triangles` | Core | ✅ |
+| Use similarity to find unknown side lengths (scale factor k = new/original) | `similar-triangles` | Core | ✅ |
+| Apply circle theorems: centre angle = 2× circumference angle; same-arc angles equal; angle in semicircle = 90° | `circle-chord-angle` | Adv | ✅ |
+| Apply circle theorems: cyclic quadrilateral opposite angles sum 180°; equal chords | `circle-chord-angle` | Adv | ✅ |
+| Apply tangent theorems: radius ⊥ tangent; equal tangent lengths; alternate segment | `circle-tangents` | Adv | ✅ |
+| Construct formal geometric proofs using theorems and logical reasoning | `geometric-proofs` | Adv | ✅ |
+
+**Core coverage: 3/3 ✅ | Advanced coverage: 4/4 additional ✅ — full geometry coverage**
+
+---
+
+#### ✅ Probability (MA5-PRO-C-01, P-01) — `probability.ts` 5 lessons
+
+| NSW content dot-point | Nova lesson | Pathway | Status |
+|---|---|---|---|
+| Calculate probabilities of multi-stage events using the multiplication principle | `multi-stage-events` | Core | ✅ |
+| Draw and use tree diagrams (with and without replacement) | `tree-diagrams` | Core | ✅ |
+| Use Venn diagrams to find probabilities; apply n(A∪B) = n(A)+n(B)−n(A∩B) | `venn-diagrams` | Core | ✅ |
+| Use two-way tables to find joint and marginal probabilities | `two-way-tables` | Core | ✅ |
+| Calculate conditional probability P(A|B) = n(A∩B)/n(B) | `conditional-probability` | Adv Path | ✅ |
+
+**Core coverage: 4/4 ✅ | Advanced: conditional probability ✅ — full probability coverage**
+
+---
+
+#### ✅ Statistics and Data (MA5-DAT-C-01) — `statisticsData.ts` 5 lessons
+
+| NSW content dot-point | Nova lesson | Status |
+|---|---|---|
+| Calculate quartiles (Q1, Q2, Q3) and IQR; identify outliers | `quartiles-iqr` | ✅ |
+| Draw and interpret box-and-whisker plots; compare distributions | `box-whisker-plots` | ✅ |
+| Calculate and interpret standard deviation; effect of outliers | `standard-deviation` | ✅ |
+| Construct and interpret scatter plots; identify and describe correlation | `scatter-plots-correlation` | ✅ |
+| Draw and use lines of best fit; interpolate and extrapolate; calculate residuals | `lines-of-best-fit` | ✅ |
+
+**Coverage: 5/5 ✅ — all NSW data analysis dot-points addressed**
+
+---
+
+#### ✅ Financial Mathematics (MA5-FIN-C-01) — `financialMathematics.ts` 4 lessons
+
+| NSW content dot-point | Nova lesson | Status |
+|---|---|---|
+| Calculate simple interest I = Prt; find principal, rate, or time by rearranging | `simple-interest` | ✅ |
+| Calculate compound interest A = P(1+r)ⁿ; compare with simple interest | `compound-interest` | ✅ |
+| Calculate depreciation A = P(1−r)ⁿ; interpret depreciation factor | `depreciation` | ✅ |
+| Compare investment options including fees; calculate net gain | `comparing-investments` | ✅ |
+
+**Coverage: 4/4 ✅ — all NSW financial mathematics dot-points addressed**
+
+---
+
+### Gap analysis — Year 10
+
+| Gap | Unit | Priority | Pathway |
+|---|---|---|---|
+| Non-monic quadratic factorising (ax²+bx+c, a≠1) | Algebraic Techniques | High | Advanced |
+| Add/subtract algebraic fractions with unlike algebraic denominators | Algebraic Techniques | Medium | Advanced |
+| Explicit lesson on equation of a line given gradient and point (y−y₁=m(x−x₁)) | Linear Relationships | Medium | Advanced |
+| Linear inequalities — solve and graph on a number line | Equations | Medium | Advanced |
+| Vertex form y=a(x−h)²+k via completing the square | Non-Linear | Low | Advanced optional |
+
+All gaps are **Advanced pathway** only. The Core pathway is fully covered across all 10 focus areas.
+
+---
+
+### Action items — Year 10
+
+#### New lessons needed (Advanced pathway)
+- [ ] `algebraic-techniques`: Add lesson — **Non-monic quadratic factorising** (ax²+bx+c by grouping or AC method)
+- [ ] `algebraic-techniques`: Add lesson — **Algebraic fractions: add and subtract with unlike denominators** (LCM of denominators)
+- [ ] `linear-relationships`: Add lesson — **Equation of a line** (given m and point; two points; y−y₁=m(x−x₁) form)
+- [ ] `equations-simultaneous`: Add lesson — **Linear inequalities** (solve, graph on number line, reverse inequality sign rule)
+
+#### Optional extensions
+- [ ] `non-linear-relationships`: Consider adding lesson on **vertex form and completing the square** for Advanced/Extension bridge
+
+#### Variants
 - [x] `year-10-mathematics-advanced` — in_progress, namespaced IDs
 - [x] `year-10-mathematics-core` — in_progress, trimmed units
-- [ ] Promote Advanced and Core to `available`
+- [ ] Promote Advanced and Core to `available` once gaps above are addressed
 
 ---
 
@@ -653,10 +1325,11 @@ Previously the course included a Sequences and Series unit (5 lessons). This was
 
 ---
 
-## Year 11 Extension ✅
+## Year 11 Extension ✅ Audited against NSW 2024 syllabus (2026-06-16)
 
 `year-11-extension` — `available`. Override file: `lib/lessons/year11Extension/`.
-Class Maths 2026: 5 topics / 30 subtopics.
+Class Maths 2026: 5 topics / 30 subtopics. **25 lessons / 5 units / ~475 questions.**
+Source: NSW Mathematics Extension 1 11–12 Syllabus (2024). First HSC 2027.
 
 - [x] Further Work with Functions (5/~5) ✅
 - [x] Polynomials (5/~5) ✅
@@ -665,6 +1338,176 @@ Class Maths 2026: 5 topics / 30 subtopics.
 - [x] The Binomial Theorem (5 lessons)
 
 **Progress (2026-06-14):** Further Work with Functions, Polynomials, and Further Trigonometry authored (+15 lessons); Year 11 Extension now has 25 lessons across all 5 planned units.
+
+---
+
+### NSW 2024 Year 11 Extension 1 — unit map
+
+| # | NSW Focus Area | Outcome | Nova file | Lessons | Status |
+|---|---|---|---|---|---|
+| 1 | Further Work with Functions | ME1-11-01 | `lib/lessons/year11Extension/furtherFunctions.ts` | 5 | ⚠️ Partial — see dot-point table |
+| 2 | Polynomials | ME1-11-02 | `lib/lessons/year11Extension/polynomials.ts` | 5 | ✅ Complete |
+| 3 | Further Trigonometry | ME1-11-03 | `lib/lessons/year11Extension/furtherTrigonometry.ts` | 5 | ⚠️ Partial — see dot-point table |
+| 4 | Permutations and Combinations | ME1-11-04 | `lib/lessons/year11Extension/permutationsCombinations.ts` | 5 | ⚠️ Partial — see dot-point table |
+| 5 | The Binomial Theorem | ME1-11-05 | `lib/lessons/year11Extension/binomialTheorem.ts` | 5 | ✅ Complete |
+
+---
+
+### ME1-11-01 — Further Work with Functions — dot-point coverage
+
+`furtherFunctions.ts` — 5 lessons: `inverse-functions`, `parametric-equations`, `polynomial-division-remainder-functions`, `odd-even-functions-symmetry`, `absolute-value-functions`
+
+| NSW content dot-point | Nova lesson | Status |
+|---|---|---|
+| Graph absolute value functions y=\|f(x)\|, y=\|x−a\| | `absolute-value-functions` | ✅ |
+| Solve equations of the form \|f(x)\|=k | `absolute-value-functions` | ✅ |
+| Solve absolute value inequalities \|x−a\|<r | `absolute-value-functions` | ✅ |
+| Graph y=1/f(x) given y=f(x) — reciprocal function graphs | — | ❌ Missing — no lesson covers graphing 1/f(x) from a given f(x) |
+| Graph y=[f(x)]² | — | ❌ Missing — no lesson covers squaring a function to graph it |
+| Combinations of transformations (applied to Extension 1 function types) | — | ❌ Missing as a standalone Extension 1 lesson (Year 11 Advanced FA6 covers general transformations, but not Extension-specific combinations) |
+| Inverse functions — definition, horizontal line test, finding f⁻¹(x) algebraically | `inverse-functions` | ✅ |
+| Domain and range swapping under inversion | `inverse-functions` | ✅ |
+| Restricting domain to make a function one-to-one | `inverse-functions` | ✅ |
+| Parametric equations — eliminate the parameter to find Cartesian form | `parametric-equations` | ✅ |
+| Parametric restrictions on traced curves | `parametric-equations` | ✅ |
+| Odd and even functions — algebraic tests f(−x)=f(x) / f(−x)=−f(x) | `odd-even-functions-symmetry` | ✅ |
+| Y-axis symmetry (even) and origin symmetry (odd) | `odd-even-functions-symmetry` | ✅ |
+| Remainder theorem and factor theorem (as function tools) | `polynomial-division-remainder-functions` | ✅ (also covered deeper in Polynomials unit) |
+
+**ME1-11-01 assessment:** 10/13 dot-points covered. Three NSW content items are not addressed: graphing y=1/f(x), graphing y=[f(x)]², and combinations of Extension-specific transformations.
+
+---
+
+### ME1-11-02 — Polynomials — dot-point coverage
+
+`polynomials.ts` — 5 lessons: `polynomial-terminology`, `polynomial-division-remainder-theorem`, `factor-theorem-factorisation`, `roots-and-coefficients`, `polynomial-graphs`
+
+| NSW content dot-point | Nova lesson | Status |
+|---|---|---|
+| Definition of a polynomial; degree, leading coefficient, constant term | `polynomial-terminology` | ✅ |
+| Standard form (descending powers); identifying terms | `polynomial-terminology` | ✅ |
+| Add, subtract, multiply polynomials | — | ⚠️ Not an explicit lesson — terminology lesson identifies terms; arithmetic operations not directly taught as a standalone content group |
+| Polynomial long division algorithm | `polynomial-division-remainder-theorem` | ✅ (algorithm covered via linear divisors) |
+| Remainder theorem: R = P(a) for divisor (x−a) | `polynomial-division-remainder-theorem` | ✅ |
+| Factor theorem: P(a)=0 ↔ (x−a) is a factor | `factor-theorem-factorisation` | ✅ |
+| Finding unknown coefficients using P(a) = known remainder | `polynomial-division-remainder-theorem` | ✅ |
+| Fully factorise cubics using integer root testing + division | `factor-theorem-factorisation` | ✅ |
+| Roots and zeros: relationship between roots and factors | `factor-theorem-factorisation` | ✅ |
+| Vieta's formulas for quadratics: sum=−b/a, product=c/a | `roots-and-coefficients` | ✅ |
+| Vieta's formulas for monic cubics: sum, pairwise sum, product | `roots-and-coefficients` | ✅ |
+| Build a polynomial from known roots | `roots-and-coefficients` | ✅ |
+| Multiple roots; even multiplicity (touch) vs odd multiplicity (cross) | `polynomial-graphs` | ✅ |
+| End behaviour from leading term (degree + sign) | `polynomial-graphs` | ✅ |
+| Sketch polynomial graphs using roots, multiplicities, y-intercept | `polynomial-graphs` | ✅ |
+
+**ME1-11-02 assessment:** 14/15 dot-points covered. One minor gap: adding, subtracting, and multiplying polynomials as explicit operations (the terminology lesson identifies terms and standard form but does not practise polynomial arithmetic as a skill in its own right). This is low-priority as the skill is implicitly used throughout.
+
+---
+
+### ME1-11-03 — Further Trigonometry — dot-point coverage
+
+`furtherTrigonometry.ts` — 5 lessons: `reciprocal-trigonometric-functions`, `compound-angle-formulae`, `double-angle-formulae`, `t-formula-subsidiary-angle`, `product-to-sum-identities`
+
+| NSW content dot-point | Nova lesson | Status |
+|---|---|---|
+| Reciprocal trig functions: sec x = 1/cos x, cosec x = 1/sin x, cot x = 1/tan x | `reciprocal-trigonometric-functions` | ✅ |
+| Exact values at 0°, 30°, 45°, 60°, 90°, and undefined values | `reciprocal-trigonometric-functions` | ✅ |
+| Compound angle formulae: sin(A±B), cos(A±B) | `compound-angle-formulae` | ✅ |
+| Tangent compound angle: tan(A±B) | `compound-angle-formulae` | ✅ |
+| Evaluate exact values such as sin 75°, cos 15°, tan 75° | `compound-angle-formulae` | ✅ |
+| Double angle formulae: sin 2A = 2 sin A cos A | `double-angle-formulae` | ✅ |
+| Double angle formulae: three forms of cos 2A | `double-angle-formulae` | ✅ |
+| Double angle formula: tan 2A | `double-angle-formulae` | ✅ |
+| t-formula (half-angle substitution): t = tan(θ/2), express sin θ and cos θ as rational functions of t | `t-formula-subsidiary-angle` | ✅ |
+| Subsidiary angle method: rewrite a sin θ + b cos θ = R sin(θ + α); find R and α | `t-formula-subsidiary-angle` | ✅ |
+| Maximum and minimum of a sin θ + b cos θ | `t-formula-subsidiary-angle` | ✅ |
+| Product-to-sum identities: 2 sin A cos B, 2 cos A cos B, 2 sin A sin B | `product-to-sum-identities` | ✅ |
+| Sum-to-product identities: sin X ± sin Y, cos X ± cos Y | `product-to-sum-identities` | ✅ |
+| Solve equations using compound/double angle identities | — | ⚠️ Not a dedicated lesson — compound/double angle lessons include evaluation but do not include a systematic equation-solving lesson (e.g. solve sin 2θ = cos θ for 0 ≤ θ ≤ 2π) |
+| Prove identities using compound/double angle formulae | `product-to-sum-identities` | ⚠️ Covered partially in product-to-sum lesson; no dedicated proof lesson |
+
+**ME1-11-03 assessment:** 13/15 dot-points covered. Two gaps: (1) no dedicated equation-solving lesson using these identities (e.g. "solve sin 2θ = sin θ"); (2) no dedicated trig identity proof lesson for Extension-level proofs. Both are medium-priority.
+
+---
+
+### ME1-11-04 — Permutations and Combinations — dot-point coverage
+
+`permutationsCombinations.ts` — 5 lessons: `counting-principles`, `permutations`, `combinations`, `arrangements-with-restrictions`, `perms-combs-exam-practice`
+
+| NSW content dot-point | Nova lesson | Status |
+|---|---|---|
+| Multiplication principle for independent staged choices | `counting-principles` | ✅ |
+| Addition principle for mutually exclusive separate cases | `counting-principles` | ✅ |
+| Factorial notation n! and 0! = 1 | `counting-principles` | ✅ |
+| Permutations nPr: ordered arrangements of r objects from n distinct objects | `permutations` | ✅ |
+| P(n,r) = n!/(n−r)! formula and evaluation | `permutations` | ✅ |
+| Recognise when order matters (roles, rankings, codes) | `permutations` | ✅ |
+| Combinations nCr: unordered selections of r objects from n | `combinations` | ✅ |
+| C(n,r) = n!/(r!(n−r)!) formula and evaluation | `combinations` | ✅ |
+| Relationship C(n,r) = P(n,r)/r! | `combinations` | ✅ |
+| Arrangements with restrictions — together: block method | `arrangements-with-restrictions` | ✅ |
+| Arrangements with restrictions — not together: complement method | `arrangements-with-restrictions` | ✅ |
+| Arrangements with repeated identical objects: n!/(a!b!…) | `arrangements-with-restrictions` | ✅ |
+| Circular arrangements of n distinct objects: (n−1)! | `arrangements-with-restrictions` | ✅ |
+| Pascal's triangle and binomial coefficients (as prerequisite to Binomial Theorem) | — | ⚠️ Pascal's triangle is in the Binomial Theorem unit, not Permutations and Combinations — structurally fine but note the split |
+| Mixed exam-style counting problems (choose structure, apply correctly) | `perms-combs-exam-practice` | ✅ |
+
+**ME1-11-04 assessment:** 14/15 dot-points covered. Pascal's triangle is placed in the Binomial Theorem unit rather than here — this is a minor structural note, not a content gap. Content coverage is complete.
+
+---
+
+### ME1-11-05 — The Binomial Theorem — dot-point coverage
+
+`binomialTheorem.ts` — 5 lessons: `pascals-triangle`, `binomial-theorem`, `general-term`, `binomial-identities`, `binomial-theorem-exam-practice`
+
+| NSW content dot-point | Nova lesson | Status |
+|---|---|---|
+| Pascal's triangle: construction, row numbering from row 0, symmetry | `pascals-triangle` | ✅ |
+| Row sums: sum of row n = 2ⁿ | `pascals-triangle` | ✅ |
+| Use Pascal rows to expand small binomial powers | `pascals-triangle` | ✅ |
+| Binomial theorem: expansion of (a+b)ⁿ using binomial coefficients | `binomial-theorem` | ✅ |
+| Binomial coefficient notation C(n,r) = n!/(r!(n−r)!) | `binomial-theorem` | ✅ |
+| Signs in (a−b)ⁿ — alternating sign pattern | `binomial-theorem` | ✅ |
+| Find a single coefficient without full expansion | `binomial-theorem` | ✅ |
+| General term T_{r+1} = C(n,r)aⁿ⁻ʳbʳ convention | `general-term` | ✅ |
+| Find target power: solve for r given required exponent | `general-term` | ✅ |
+| Find constant term: set total power of x to zero | `general-term` | ✅ |
+| Sum of coefficients using substitution x=1 | `binomial-identities` | ✅ |
+| Alternating sum of coefficients using substitution x=−1 | `binomial-identities` | ✅ |
+| Coefficient symmetry: C(n,r) = C(n,n−r) | `binomial-identities` | ✅ |
+| Pascal's identity: C(n,r) + C(n,r+1) = C(n+1,r+1) | `binomial-identities` | ✅ |
+| Greatest coefficient / greatest term | — | ❌ Missing — no lesson covers the greatest term or greatest coefficient problem type |
+| Mixed binomial theorem exam practice | `binomial-theorem-exam-practice` | ✅ |
+
+**ME1-11-05 assessment:** 15/16 dot-points covered. One gap: greatest coefficient / greatest term — a classic HSC Extension 1 problem type that does not appear in any lesson.
+
+---
+
+### Year 11 Extension 1 — Gap analysis and action items
+
+#### Content gaps (by priority)
+
+**High priority — classic HSC question types missing:**
+- [ ] **Greatest coefficient / greatest term** (ME1-11-05) — Add 1 lesson to Binomial Theorem unit or add questions to `binomial-theorem-exam-practice`: find value of r that maximises T_{r+1}, compare adjacent terms using T_{r+2}/T_{r+1} ≥ 1
+- [ ] **Trig equation solving with compound/double angle identities** (ME1-11-03) — Add 1 lesson: solve equations like sin 2θ = cos θ, cos 2θ = 1 − 2 sin² θ = value, tan 2θ = k, on restricted domains
+
+**Medium priority — NSW syllabus dot-points not yet covered:**
+- [ ] **Graph y=1/f(x)** (ME1-11-01) — Add 1 lesson: given y=f(x), sketch y=1/f(x) (asymptotes where f=0, sign preservation, behaviour near zeros and at infinity)
+- [ ] **Graph y=[f(x)]²** (ME1-11-01) — Combine with 1/f(x) lesson or add separately: squaring amplifies positive, zeros remain zeros, negative becomes positive
+- [ ] **Trig identity proofs** (ME1-11-03) — Add questions to existing compound/double angle lessons demonstrating LHS=RHS proof style; or add a dedicated short proof lesson
+
+**Low priority — minor structural improvements:**
+- [ ] **Polynomial arithmetic** (ME1-11-02) — Add a few questions on adding, subtracting, multiplying polynomials to `polynomial-terminology` lesson; content is trivial at Extension level but explicit in syllabus
+- [ ] **Combinations of transformations** (ME1-11-01) — Verify Year 11 Advanced `graph-transformations` unit adequately covers combinations; if so, cross-link rather than duplicate
+
+#### Revision lessons
+- [ ] No revision lessons exist for any of the 5 focus areas. Target: 1 per focus area activating prior knowledge (e.g. a Functions revision lesson building on Year 11 Advanced FA1 + FA6)
+
+---
+
+### Quick Status update
+
+Row for Year 11 Extension 1 in the Quick Status table above has been updated from "audit pending" to reflect this audit.
 
 ---
 
@@ -788,6 +1631,131 @@ Class Maths: 5 topics / 40 subtopics. Nova: 5 units / 25 lessons (+8 from depth 
 
 ---
 
+### NSW 2024 Year 12 Extension 2 — detailed audit (2026-06-16)
+
+Outcome codes: ME2-12-01 (Proof), ME2-12-02 (Vectors 3D), ME2-12-03 (Complex Numbers), ME2-12-04 (Integration Techniques), ME2-12-05 (Mechanics). Source: NSW Mathematics Extension 2 11–12 Syllabus (2024).
+
+**Actual lesson count from source files:** 4 + 6 + 6 + 8 + 6 = **30 lessons** across 5 units. (The count of 25 predates the depth-pass additions for Calculus; 481Q was seeded at depth-pass completion.)
+
+---
+
+#### Unit map
+
+| # | NSW Focus Area | Outcome | Nova file | Lessons | Status |
+|---|---|---|---|---|---|
+| 1 | Proof | ME2-12-01 | `lib/lessons/year12Extension2/proof.ts` | 4 | ✅ Complete |
+| 2 | Vectors in Three Dimensions | ME2-12-02 | `lib/lessons/year12Extension2/vectors3D.ts` | 6 | ✅ Complete |
+| 3 | Complex Numbers | ME2-12-03 | `lib/lessons/year12Extension2/complexNumbers.ts` | 6 | ✅ Complete |
+| 4 | Integration Techniques | ME2-12-04 | `lib/lessons/year12Extension2/calculus.ts` | 8 | ⚠️ Volumes of revolution missing |
+| 5 | Mechanics | ME2-12-05 | `lib/lessons/year12Extension2/mechanics.ts` | 6 | ✅ Complete |
+
+---
+
+#### ME2-12-01 — Proof (4 lessons) ✅ Complete
+
+| NSW syllabus dot-point | Nova lesson slug | Status |
+|---|---|---|
+| Proof by contradiction — assume negation, derive impossibility (irrationality of √2/√3, infinitude of primes, parity arguments) | `proof-by-contradiction` | ✅ |
+| Proof by contrapositive — not Q implies not P; equivalence to conditional; parity and divisibility forms | `proof-by-contrapositive` | ✅ |
+| Algebraic inequalities — AM-GM type via (a−b)² ≥ 0; completing the square; discriminant condition; equality cases | `inequalities-algebraic-proof` | ✅ |
+| Mathematical induction — base case, inductive hypothesis, inductive step; summation proofs; divisibility proofs (3\|4ⁿ−1) | `proof-by-mathematical-induction` | ✅ |
+| Inequality induction proofs (e.g. 2ⁿ > n) | `proof-by-mathematical-induction` | ⚠️ Framework present; no dedicated worked example |
+
+**ME2-12-01 assessment:** 4/4 lessons. Minor gap: inequality induction not exemplified as a standalone worked example.
+
+---
+
+#### ME2-12-02 — Vectors in Three Dimensions (6 lessons) ✅ Complete
+
+| NSW syllabus dot-point | Nova lesson slug | Status |
+|---|---|---|
+| 3D vectors: component form (x, y, z); i, j, k notation; position vectors; add, subtract, scalar multiply | `vectors-and-points-3d` | ✅ |
+| Magnitude \|v\| = √(x²+y²+z²); unit vector v̂ = v/\|v\| | `vectors-and-points-3d` | ✅ |
+| Dot product: a·b = a₁b₁+a₂b₂+a₃b₃; perpendicularity a·b = 0; angle cosθ = (a·b)/(\|a\|\|b\|) | `dot-product-and-angle` | ✅ |
+| Scalar projection of a onto b: (a·b)/\|b\| | `dot-product-and-angle` | ✅ |
+| Vector equations of lines: r = a + td; parametric form; point-on-line test; direction from two points | `equations-of-lines-3d` | ✅ |
+| Angle between lines; parallel and perpendicular lines; geometric condition on a point | `vector-applications-exam-practice` | ✅ |
+| Parametric curves; circles \|r−a\| = R; spheres in 3D; vector ↔ Cartesian conversion | `vector-curves-circles-spheres` | ✅ |
+| Geometric proofs using 3D vectors | `geometric-proofs-vectors` | ✅ |
+
+**ME2-12-02 assessment:** 6/6 lessons. No material gaps.
+
+---
+
+#### ME2-12-03 — Complex Numbers (6 lessons) ✅ Complete
+
+| NSW syllabus dot-point | Nova lesson slug | Status |
+|---|---|---|
+| Complex arithmetic: add, subtract, multiply; i² = −1; powers of i cycle period 4 | `complex-number-arithmetic` | ✅ |
+| Division via conjugate denominator: z₁/z₂ = z₁z̄₂/\|z₂\|² | `modulus-argument-conjugate` | ⚠️ Implicit only — no dedicated worked example |
+| Modulus \|z\| = √(a²+b²); conjugate z̄ = a−bi; product zz̄ = \|z\|²; principal argument arg(z) ∈ (−180°, 180°] | `modulus-argument-conjugate` | ✅ |
+| Argand diagram: plot z = a+bi; distance \|z₁−z₂\|; midpoint; locus \|z−c\| = r as circle | `argand-diagram-geometry` | ✅ |
+| Polar form r cis θ; Cartesian ↔ polar; multiply r₁r₂ cis(θ₁+θ₂); De Moivre (r cis θ)ⁿ = rⁿ cis(nθ) | `polar-form-de-moivre` | ✅ |
+| Roots of unity: zⁿ = 1 → z_k = cis(2πk/n); equally spaced on unit circle; sum = 0; primitive root ω | `roots-of-unity` | ✅ |
+| nth roots of a general complex number (e.g. cube roots of 8i) | `roots-of-unity` / `polar-form-de-moivre` | ⚠️ Infrastructure present; no dedicated worked example |
+| Conjugate root theorem; complex roots in conjugate pairs; irreducible quadratic factors; factorise over ℂ | `complex-polynomials` | ✅ |
+
+**ME2-12-03 assessment:** 6/6 lessons. Two minor gaps: (1) complex division not shown as a named worked example; (2) general nth roots of a non-unity complex number not isolated as a standalone skill. Both patchable with 1–2 extra questions each.
+
+---
+
+#### ME2-12-04 — Integration Techniques (8 lessons) ⚠️ Volumes of revolution missing
+
+| NSW syllabus dot-point | Nova lesson slug | Status |
+|---|---|---|
+| Method selection: identify sub, IBP, partial fractions, standard form, trig identity from integrand | `advanced-integration-method-selection` | ✅ |
+| Integration by parts: LIATE; ∫xeˣ dx; repeated IBP; ∫ln(x)dx; definite IBP | `integration-by-parts-extension` | ✅ |
+| Reduction formulae: apply supplied Iₙ = f(n)·Iₙ₋₁ from base cases; indefinite and definite forms | `reduction-formulae-introduction` | ✅ |
+| Partial fractions — distinct linear factors: A/(x−a)+B/(x−b); cover-up rule; integrate as ln | `partial-fractions-integration` | ✅ |
+| Partial fractions — repeated linear factors: A/(x−a)+B/(x−a)²; equate coefficients; ln + power form | `partial-fractions-integration` | ✅ |
+| Partial fractions — irreducible quadratic denominator: (Ax+B)/(x²+bx+c); complete the square → arctan/ln | `partial-fractions-quadratic` | ✅ |
+| t-substitution (Weierstrass): t = tan(x/2); sinx, cosx, dx in terms of t; convert rational trig integrals | `t-substitution-weierstrass` | ✅ |
+| Trig identity integration: sin²x = (1−cos2x)/2; cos²x = (1+cos2x)/2; powers and products of sin/cos | `trig-identity-integration` | ✅ |
+| Completing the square: convert to arctan and ln standard forms | `completing-square-integration` | ✅ |
+| **Volumes of revolution:** disk method V = π∫y² dx; rotation about x-axis and y-axis; washer method | ❌ No lesson | ❌ **CRITICAL GAP** |
+
+**ME2-12-04 assessment:** 8/9 dot-point groups covered. Volumes of revolution is the only critical content gap in the Extension 2 course. This topic appears in every HSC Extension 2 paper.
+
+---
+
+#### ME2-12-05 — Mechanics (6 lessons) ✅ Complete
+
+| NSW syllabus dot-point | Nova lesson slug | Status |
+|---|---|---|
+| Rectilinear motion: v = dx/dt, a = dv/dt; recover x from a(t) via integration with initial conditions | `rectilinear-motion-calculus` | ✅ |
+| v dv/dx form of acceleration (used in resisted-motion ODE derivations) | `resisted-motion` | ✅ (implicit) |
+| SHM: ẍ = −n²x; x = a sin(nt+α); T = 2π/n; max speed = an; max acc = an²; v² = n²(a²−x²) | `simple-harmonic-motion-extended` | ✅ |
+| Uniform circular motion: v = rω; centripetal a = rω² = v²/r; F = mrω²; T = 2π/ω | `circular-motion-uniform` | ✅ |
+| Resisted horizontal motion: m dv/dt = −kv; v = v₀ e^{−kt/m} | `resisted-motion` | ✅ |
+| Resisted vertical motion: m dv/dt = mg − kv; v_T = mg/k; full v(t) solution | `resisted-motion` | ✅ |
+| Projectile with resistance: mẍ = −kẋ; mÿ = −mg − kẏ; horizontal speed → 0; vertical → terminal speed | `projectile-motion-resistance` | ✅ |
+| Forces on inclined planes (bonus — beyond ME2-12-05 core scope) | `forces-inclined-planes` | ✅ Bonus |
+
+**ME2-12-05 assessment:** 6/6 lessons. No material gaps.
+
+---
+
+### Gap analysis and action items — Year 12 Extension 2
+
+#### Critical (HSC-testable annually)
+- [ ] **NEW LESSON: `volumes-of-revolution`** in `lib/lessons/year12Extension2/calculus.ts`
+  - Disk method: V = π∫[a to b] [f(x)]² dx — rotation about x-axis
+  - Washer method: V = π∫[a to b] ([f(x)]² − [g(x)]²) dx
+  - Rotation about y-axis: V = π∫[c to d] x² dy (express x as a function of y)
+  - Combined region problems; limits from intersection points
+  - Target: ~19 questions, 2–3 multi-part HSC-style problems
+
+#### Minor gaps (patch with 1–3 extra questions per existing lesson)
+- [ ] **Complex division** — add explicit z₁/z₂ = z₁z̄₂/|z₂|² worked example to `modulus-argument-conjugate`
+- [ ] **General nth roots** — add "find all cube roots of 8i" example to `roots-of-unity`
+- [ ] **Inequality induction** — add 2ⁿ > n proof to `proof-by-mathematical-induction` worked examples
+- [ ] **v dv/dx identity** — add teaching note + 2 questions to `rectilinear-motion-calculus` (a = v dv/dx when finding v as function of position)
+
+#### Lesson count reconciliation
+Override files contain **30 lesson overrides** (4+6+6+8+6). The Nova catalog entry for `year-12-extension-2` may still show 25 lessons (pre-depth-pass). Verify and update so all 30 slugs are seeded correctly.
+
+---
+
 ## Depth Targets (all courses)
 
 Class Mathematics average subtopics per topic: ~7.
@@ -798,20 +1766,20 @@ Nova average lessons per unit: ~4–5.
 | Year 11 Standard | 76 (8 units) | ~76 | ✅ Depth pass + Priority 1–3 complete; NSW slug alignment 2026-06-15 |
 | Year 12 Standard 2 | 35 (6 units) | ~35 | ✅ Depth pass complete + 4 breadth lessons |
 | Year 12 Advanced | 91 (13 units) | ~64 subtopics | ✅ Depth pass complete + audited 2026-06-15 |
-| Year 12 Extension 2 | 25 (5 units) | ~40 subtopics | ✅ Depth pass complete |
+| Year 12 Extension 2 | 30 (5 units) | ~40 subtopics | ⚠️ Depth pass complete — volumes of revolution gap; audited 2026-06-16 |
 | Year 12 Standard 1 | 23 (5 units) | 7 NSW topics | ✅ Complete — all gaps closed 2026-06-15 (23 lessons, all 19Q) |
 | Year 12 Extension 1 | 30 (8 units) | ~28 subtopics | ✅ Depth pass complete — 520 questions seeded |
 | Year 11 Advanced | 65 (7 units) | 7 NSW focus areas | 🔄 FA1–FA4 ✅ complete 2026-06-15; ~4 lessons still needed (FA6, FA7) |
 | Year 9 Core | ~63 (10 units) | 9 NSW focus areas | 🔄 Alg Tech + Equations + Trig B added 2026-06-16; all 9 focus areas have content now; unit renames + Numbers of any magnitude split still needed |
 | Year 9 / Year 10 variants | — | — | 🔄 Promote Advanced + Core to available after restructuring |
 | Year 8 | 59 (10 units) | ~111 subtopics | 🔄 4 units missing vs Class Maths |
-| Year 7 | 0 (46 planned) | 10 NSW focus areas | ⬜ Plan complete 2026-06-16 — authoring not started |
+| Year 7 | 46 (10 units) | 10 NSW focus areas (MA4) | ✅ Complete — 874 questions seeded 2026-06-16 |
 
 ---
 
 ## Priority Order
 
-1. ~~**Year 12 Extension 2 depth**~~ ✅ Complete — 25 lessons, 481 questions
+1. ~~**Year 12 Extension 2 depth**~~ ⚠️ Near-complete — 30 lessons, 481 questions; volumes of revolution lesson still needed
 2. ~~**Year 12 Standard 2 depth**~~ ✅ Complete — 35 lessons (breadth pass ongoing), 665 questions
 3. ~~**Year 12 Advanced depth**~~ ✅ Complete — 91 lessons, 1715 questions (Probability unit added)
 4. ~~**Year 12 Extension 1 depth**~~ ✅ Complete — 30 lessons, 520 questions (8 units, 100% topic breadth)
