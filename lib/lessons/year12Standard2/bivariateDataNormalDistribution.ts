@@ -738,6 +738,240 @@ export function year12Standard2StatisticsLessonOverride(
     };
   }
 
+  if (lesson.slug === "normal-distribution-revision") {
+    return {
+      ...base,
+      description:
+        "Consolidate mean and standard deviation skills before the normal distribution: calculate mean, interpret SD as spread, identify the symmetric bell-curve shape, and apply the 68–95–99.7 rule intuitively — preparation for z-scores.",
+      learningIntention:
+        "Recall and apply mean, standard deviation and distribution shape skills so that z-score calculations and the empirical rule can be understood conceptually, not just procedurally.",
+      successCriteria: [
+        "Calculate the mean of a data set and recognise that standard deviation measures spread around the mean.",
+        "Identify a symmetric, bell-shaped distribution from a histogram or description.",
+        "State that in a normal distribution approximately 68%, 95% and 99.7% of data falls within 1, 2, and 3 standard deviations of the mean.",
+        "Identify what it means for a value to be '1 SD above the mean' or '2 SDs below the mean'.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The mean (x̄) is the balance point of a data set. Standard deviation (SD or σ) measures how far, on average, each value is from the mean. A small SD means values are clustered near the mean; a large SD means values are more widely scattered.",
+          "The normal distribution is a symmetric, bell-shaped curve. The mean, median and mode are all equal and sit at the centre. Most data is near the mean; very few values are in the extreme tails.",
+          "The empirical rule (68–95–99.7 rule): In a normal distribution, approximately 68% of data falls within 1 SD of the mean, approximately 95% falls within 2 SDs, and approximately 99.7% falls within 3 SDs. These percentages refer to the middle portion of the bell curve.",
+          "A value that is '1 SD above the mean' sits at x̄ + 1σ. A value '2 SDs below the mean' sits at x̄ − 2σ. These are the upper and lower bounds used in the empirical rule. Calculating where a specific value sits in SD-units is called finding a z-score (the next lesson).",
+        ],
+        latexBlocks: [
+          "\\bar{x} = \\frac{\\sum x}{n}\\quad(\\text{mean})\\;; \\quad \\sigma = \\text{SD (measure of spread)}",
+          "\\text{68\\% within }(\\bar{x}-\\sigma,\\;\\bar{x}+\\sigma)",
+          "\\text{95\\% within }(\\bar{x}-2\\sigma,\\;\\bar{x}+2\\sigma)",
+          "\\text{99.7\\% within }(\\bar{x}-3\\sigma,\\;\\bar{x}+3\\sigma)",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Identify mean and SD from a normal distribution",
+          questionLatex:
+            "\\text{A normal distribution has mean 70 and SD 8. Find the values that are 1 SD and 2 SDs either side of the mean.}",
+          steps: [
+            {
+              explanation: "1 SD: lower = 70 − 8 = 62; upper = 70 + 8 = 78.",
+              latex: "\\bar{x} \\pm \\sigma: \\quad 62\\text{ to }78",
+            },
+            {
+              explanation: "2 SD: lower = 70 − 16 = 54; upper = 70 + 16 = 86.",
+              latex: "\\bar{x} \\pm 2\\sigma: \\quad 54\\text{ to }86",
+            },
+          ],
+          finalAnswerLatex:
+            "1\\text{ SD: }62\\text{ to }78;\\quad 2\\text{ SD: }54\\text{ to }86",
+        },
+        {
+          title: "Apply the empirical rule",
+          questionLatex:
+            "\\text{Exam scores are normally distributed: mean = 65, SD = 10. Approximately what percentage of students scored between 55 and 75?}",
+          steps: [
+            {
+              explanation: "55 = 65 − 10 (1 SD below mean). 75 = 65 + 10 (1 SD above mean).",
+              latex: "55 = \\bar{x} - \\sigma,\\quad 75 = \\bar{x} + \\sigma",
+            },
+            {
+              explanation: "The empirical rule: approx 68% of data falls within 1 SD of the mean.",
+              latex: "\\approx 68\\%",
+            },
+          ],
+          finalAnswerLatex: "\\approx 68\\%",
+        },
+        {
+          title: "Find the data range for a given SD interval",
+          questionLatex:
+            "\\text{Heights are normally distributed: mean = 170 cm, SD = 6 cm. Find the interval covering approximately 95\\% of heights.}",
+          steps: [
+            {
+              explanation: "95% corresponds to mean ± 2 SD.",
+              latex: "\\bar{x} - 2\\sigma = 170 - 12 = 158\\text{ cm};\\quad \\bar{x} + 2\\sigma = 170 + 12 = 182\\text{ cm}",
+            },
+          ],
+          finalAnswerLatex: "158\\text{ cm to }182\\text{ cm (approx 95\\% of heights)}",
+        },
+      ],
+      guidedPractice: [
+        financeShortAnswer(
+          "y12s2-ndr-g1",
+          "A normal distribution has mean 50 and SD 5. Find the upper boundary for the 1 SD interval.",
+          "50 + 5",
+          "55",
+          ["55.0"]
+        ),
+        financeShortAnswer(
+          "y12s2-ndr-g2",
+          "Normal distribution: mean = 100, SD = 15. Find the value 2 SDs below the mean.",
+          "100 - 2(15)",
+          "70",
+          ["70.0"]
+        ),
+        financeChoice(
+          "y12s2-ndr-g3",
+          "In a normal distribution, approximately what percentage of data falls within 2 SDs of the mean?",
+          "B",
+          ["68%", "95%", "99.7%", "50%"],
+          "The empirical rule: 68% within 1 SD, 95% within 2 SDs, 99.7% within 3 SDs."
+        ),
+        financeShortAnswer(
+          "y12s2-ndr-g4",
+          "Normal distribution: mean = 30, SD = 4. Find the lower bound of the 1 SD interval.",
+          "30 - 4",
+          "26",
+          ["26.0"]
+        ),
+      ],
+      independentPractice: [
+        financeChoice(
+          "y12s2-ndr-i1",
+          "A normal distribution is best described as:",
+          "B",
+          ["Skewed right with a long tail", "Symmetric and bell-shaped", "Skewed left", "Rectangular (uniform)"],
+          "A normal distribution is symmetric and bell-shaped, with most data near the mean."
+        ),
+        financeShortAnswer(
+          "y12s2-ndr-i2",
+          "Exam scores: mean = 72, SD = 6. Find the interval covering approximately 68% of scores.",
+          "72 \\pm 6",
+          "66 to 78",
+          ["66-78", "66 to 78"]
+        ),
+        financeShortAnswer(
+          "y12s2-ndr-i3",
+          "Heights: mean = 165 cm, SD = 7 cm. Find the value 3 SDs above the mean.",
+          "165 + 3(7)",
+          "186 cm",
+          ["186", "186cm"]
+        ),
+        financeChoice(
+          "y12s2-ndr-i4",
+          "A score of 85 in a distribution with mean 80 and SD 5 is:",
+          "B",
+          ["1 SD below the mean", "1 SD above the mean", "2 SDs above the mean", "At the mean"],
+          "85 − 80 = 5 = 1 × SD → 1 SD above the mean."
+        ),
+        financeShortAnswer(
+          "y12s2-ndr-i5",
+          "Normal distribution: mean = 50, SD = 8. Find the range covering approximately 95% of data.",
+          "50 \\pm 2(8) = 50 \\pm 16",
+          "34 to 66",
+          ["34-66", "34 to 66"]
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Using 68% for the 2 SD interval and 95% for the 1 SD interval (swapping the percentages).",
+          fix: "The order is: 1 SD → 68%, 2 SD → 95%, 3 SD → 99.7%. A useful memory: the percentages get bigger as the SD count grows. The widest interval (3 SDs) holds almost all (99.7%) of the data.",
+        },
+        {
+          mistake: "Calculating mean ± 2 SD as mean − 2 + SD instead of mean − 2×SD.",
+          fix: "The interval is x̄ ± 2σ. If mean = 50 and SD = 8: lower = 50 − 2×8 = 50 − 16 = 34; upper = 50 + 16 = 66. Always multiply the SD by the SD-count first.",
+        },
+        {
+          mistake: "Assuming the empirical rule gives exact percentages, not approximations.",
+          fix: "The 68–95–99.7 rule gives approximations for a normal distribution. In HSC questions, answers using these percentages are accepted — but only for data that is approximately normally distributed.",
+        },
+        {
+          mistake: "Confusing 'SD above/below the mean' with 'the value of the SD'.",
+          fix: "'1 SD above the mean' means a value equal to x̄ + 1σ. If mean = 70 and SD = 8, then '1 SD above the mean' is the value 78, not the number 8. The SD is used as a unit of distance from the mean.",
+        },
+      ],
+      masteryQuiz: [
+        financeShortAnswer(
+          "y12s2-ndr-m1",
+          "Normal distribution: mean = 60, SD = 5. Find the value 1 SD above the mean.",
+          "60 + 5",
+          "65",
+          ["65.0"]
+        ),
+        financeChoice(
+          "y12s2-ndr-m2",
+          "In a normal distribution, approximately what percentage of data is within 3 SDs of the mean?",
+          "C",
+          ["68%", "95%", "99.7%", "100%"],
+          "The empirical rule: 99.7% of data lies within 3 standard deviations of the mean."
+        ),
+        financeShortAnswer(
+          "y12s2-ndr-m3",
+          "Normal distribution: mean = 200, SD = 20. Find the upper value for the 2 SD interval.",
+          "200 + 2(20)",
+          "240",
+          ["240.0"]
+        ),
+        financeShortAnswer(
+          "y12s2-ndr-m4",
+          "Normal distribution: mean = 100, SD = 10. Find the range covering 99.7% of data.",
+          "100 \\pm 3(10) = 100 \\pm 30",
+          "70 to 130",
+          ["70-130", "70 to 130"]
+        ),
+        financeChoice(
+          "y12s2-ndr-m5",
+          "A value 2 SDs below a mean of 80 (SD = 6) is:",
+          "B",
+          ["74", "68", "92", "60"],
+          "80 − 2×6 = 80 − 12 = 68."
+        ),
+        financeShortAnswer(
+          "y12s2-ndr-m6",
+          "Heights: mean = 175 cm, SD = 5 cm. Approximately 68% of heights lie between:",
+          "175 \\pm 5",
+          "170 cm and 180 cm",
+          ["170 to 180", "170 and 180", "170-180"]
+        ),
+        financeChoice(
+          "y12s2-ndr-m7",
+          "A normal distribution with large SD (compared to another with same mean, smaller SD) is:",
+          "A",
+          ["More spread out", "Less spread out", "Taller (higher peak)", "Skewed"],
+          "Larger SD = greater spread. The bell curve is wider and flatter."
+        ),
+        financeShortAnswer(
+          "y12s2-ndr-m8",
+          "Normal distribution: mean = 40, SD = 3. Find the lower bound of the 95% interval.",
+          "40 - 2(3)",
+          "34",
+          ["34.0"]
+        ),
+        financeChoice(
+          "y12s2-ndr-m9",
+          "A score of 90 in a distribution with mean 90 is:",
+          "D",
+          ["1 SD above the mean", "1 SD below the mean", "2 SDs above the mean", "At the mean"],
+          "90 = mean → 0 SDs from the mean → at the mean."
+        ),
+        financeShortAnswer(
+          "y12s2-ndr-m10",
+          "Normal distribution: mean = 55, SD = 4. Find the interval for approximately 95% of data.",
+          "55 \\pm 2(4) = 55 \\pm 8",
+          "47 to 63",
+          ["47-63", "47 to 63"]
+        ),
+      ],
+    };
+  }
+
   if (lesson.slug === "normal-distribution-z-scores") {
     return {
       ...base,
@@ -874,6 +1108,235 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer("y12s2-normal-m8", "Scores are normal with mean 70 and standard deviation 6. Find the interval within 1 standard deviation. Enter the lower value.", "\\mu=70,\\quad \\sigma=6,\\quad k=1", "64"),
         financeShortAnswer("y12s2-normal-m9", "Scores are normal with mean 70 and standard deviation 6. Find the upper value within 2 standard deviations.", "\\mu=70,\\quad \\sigma=6,\\quad k=2", "82"),
         financeChoice("y12s2-normal-m10", "A normal-distribution answer using the empirical rule should usually be described as:", "A", ["Approximate", "A proof of causation", "A residual", "A regression slope"], "Empirical-rule percentages are approximate."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "probability-revision") {
+    return {
+      ...base,
+      description:
+        "Consolidate Year 11 probability foundations: list sample spaces using tables or lists, express probability as a fraction, decimal or percentage, apply P(A') = 1 − P(A), and calculate theoretical probability — preparation for tree diagrams and multistage events.",
+      learningIntention:
+        "Recall and apply Year 11 probability skills so that relative frequency, tree diagrams, independence and contingency tables can be approached with confidence.",
+      successCriteria: [
+        "List all outcomes in a sample space using a systematic list or table.",
+        "Calculate theoretical probability as P(A) = (number of favourable outcomes) ÷ (total outcomes).",
+        "Convert probability between fraction, decimal and percentage forms.",
+        "Apply the complement rule: P(A') = 1 − P(A).",
+      ],
+      teaching: {
+        paragraphs: [
+          "A sample space is the set of all possible outcomes of an experiment. For a single die, the sample space is {1, 2, 3, 4, 5, 6}. For two coins, the sample space is {HH, HT, TH, TT}. Listing all outcomes systematically (e.g. using a table) ensures nothing is missed.",
+          "Theoretical probability: P(A) = (number of outcomes in A) ÷ (total number of equally likely outcomes). Probability is always between 0 (impossible) and 1 (certain). A probability of 0.5 = 50% means the event is equally likely to occur or not.",
+          "Convert freely between fractions, decimals and percentages: 3/4 = 0.75 = 75%. In probability calculations, fractions are often clearest — but exam questions may ask for decimal answers to a specified number of places.",
+          "The complement rule: P(A') = 1 − P(A), where A' ('A complement' or 'not A') is the event that A does not occur. If P(rain) = 0.3, then P(no rain) = 1 − 0.3 = 0.7. This is especially useful when the complement is easier to calculate than the event itself.",
+        ],
+        latexBlocks: [
+          "P(A) = \\frac{\\text{number of favourable outcomes}}{\\text{total number of equally likely outcomes}}",
+          "0 \\le P(A) \\le 1",
+          "P(A') = 1 - P(A)",
+          "P(A) + P(A') = 1",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "List a sample space and find probability",
+          questionLatex:
+            "\\text{A bag contains 3 red, 2 blue and 1 green marble. One marble is drawn at random. Find P(blue).}",
+          steps: [
+            {
+              explanation: "Total outcomes = 3 + 2 + 1 = 6. Favourable (blue) = 2.",
+              latex: "P(\\text{blue}) = \\frac{2}{6} = \\frac{1}{3}",
+            },
+          ],
+          finalAnswerLatex: "P(\\text{blue}) = \\frac{1}{3} \\approx 0.333",
+        },
+        {
+          title: "Apply the complement rule",
+          questionLatex:
+            "\\text{The probability of selecting a defective item is 0.08. Find the probability of selecting a non-defective item.}",
+          steps: [
+            {
+              explanation: "Apply P(A') = 1 − P(A).",
+              latex: "P(\\text{non-defective}) = 1 - 0.08 = 0.92",
+            },
+          ],
+          finalAnswerLatex: "P(\\text{non-defective}) = 0.92",
+        },
+        {
+          title: "Sample space for two events",
+          questionLatex:
+            "\\text{A coin is tossed and a die is rolled. List the sample space and find P(Head and even number).}",
+          steps: [
+            {
+              explanation: "Sample space: H1, H2, H3, H4, H5, H6, T1, T2, T3, T4, T5, T6 → 12 outcomes.",
+              latex: "\\text{Total outcomes} = 2 \\times 6 = 12",
+            },
+            {
+              explanation: "Head AND even: H2, H4, H6 → 3 favourable outcomes.",
+              latex: "P(H \\text{ and even}) = \\frac{3}{12} = \\frac{1}{4}",
+            },
+          ],
+          finalAnswerLatex: "P(H\\text{ and even}) = \\frac{1}{4} = 0.25",
+        },
+      ],
+      guidedPractice: [
+        financeChoice(
+          "y12s2-prv-g1",
+          "A fair die is rolled. P(rolling a 3) =",
+          "B",
+          ["1/3", "1/6", "3/6", "1/2"],
+          "1 favourable outcome (rolling 3) out of 6 equally likely outcomes: P = 1/6."
+        ),
+        financeShortAnswer(
+          "y12s2-prv-g2",
+          "P(A) = 0.35. Find P(A').",
+          "P(A') = 1 - 0.35",
+          "0.65",
+          ["0.650", "65%"]
+        ),
+        financeChoice(
+          "y12s2-prv-g3",
+          "A bag has 5 red, 3 blue, 2 green marbles. P(green) =",
+          "C",
+          ["2/5", "3/10", "1/5", "2/3"],
+          "2 green out of 10 total: P = 2/10 = 1/5."
+        ),
+        financeShortAnswer(
+          "y12s2-prv-g4",
+          "P(winning) = 3/8. Express as a percentage.",
+          "\\frac{3}{8} \\times 100",
+          "37.5%",
+          ["37.5", "37.50%"]
+        ),
+      ],
+      independentPractice: [
+        financeChoice(
+          "y12s2-prv-i1",
+          "A fair coin is tossed. P(tails) =",
+          "B",
+          ["1/4", "1/2", "3/4", "1"],
+          "1 favourable outcome out of 2 equally likely outcomes: P = 1/2."
+        ),
+        financeShortAnswer(
+          "y12s2-prv-i2",
+          "P(not raining) = 0.72. Find P(raining).",
+          "P(\\text{rain}) = 1 - 0.72",
+          "0.28",
+          ["0.280", "28%"]
+        ),
+        financeShortAnswer(
+          "y12s2-prv-i3",
+          "A box has 4 white, 6 black, 2 yellow balls. Find P(black) as a decimal.",
+          "\\frac{6}{12}",
+          "0.5",
+          ["0.50", "1/2", "50%"]
+        ),
+        financeChoice(
+          "y12s2-prv-i4",
+          "Two coins are tossed. How many outcomes are in the sample space?",
+          "B",
+          ["2", "4", "8", "6"],
+          "HH, HT, TH, TT → 4 outcomes."
+        ),
+        financeShortAnswer(
+          "y12s2-prv-i5",
+          "A die is rolled. Find P(number > 4).",
+          "\\text{Outcomes > 4: 5, 6}",
+          "1/3",
+          ["2/6", "0.333", "0.33"]
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Writing P(A') = P(A) − 1 (subtracting from P(A) instead of subtracting P(A) from 1).",
+          fix: "The complement rule is P(A') = 1 − P(A), not P(A) − 1. If P(A) = 0.3, then P(A') = 1 − 0.3 = 0.7. The sum P(A) + P(A') must always equal 1.",
+        },
+        {
+          mistake: "Counting outcomes incorrectly by forgetting to count all possibilities (e.g. missing TH when listing two-coin outcomes).",
+          fix: "Use a systematic grid (table) when listing two-event sample spaces. For coin × coin: rows are H, T for coin 1; columns are H, T for coin 2 → HH, HT, TH, TT. A table ensures no outcome is skipped.",
+        },
+        {
+          mistake: "Using P(A) > 1 by dividing favourable outcomes by outcomes in A instead of total outcomes.",
+          fix: "Probability is always ≤ 1. Divide by the TOTAL number of outcomes in the sample space. If there are 6 total outcomes and 2 are favourable, P = 2/6 = 1/3 — not 2/2 = 1.",
+        },
+        {
+          mistake: "Confusing 'probability of A' with 'odds of A' (e.g. saying P(roll 3) = 1:5 instead of 1/6).",
+          fix: "Probability is always expressed as a fraction, decimal or percentage between 0 and 1. Odds (like 1:5) is a different measure. In this course, always give probability as P(A) = fraction/decimal between 0 and 1.",
+        },
+      ],
+      masteryQuiz: [
+        financeShortAnswer(
+          "y12s2-prv-m1",
+          "A fair die is rolled. Find P(even number).",
+          "\\text{Even: 2, 4, 6 → 3 out of 6}",
+          "1/2",
+          ["3/6", "0.5", "50%"]
+        ),
+        financeShortAnswer(
+          "y12s2-prv-m2",
+          "P(passing) = 0.85. Find P(not passing).",
+          "1 - 0.85",
+          "0.15",
+          ["0.150", "15%"]
+        ),
+        financeChoice(
+          "y12s2-prv-m3",
+          "A bag has 2 red, 3 blue, 5 green balls. P(red) =",
+          "A",
+          ["1/5", "2/3", "3/10", "1/4"],
+          "2 red out of 10 total: 2/10 = 1/5."
+        ),
+        financeShortAnswer(
+          "y12s2-prv-m4",
+          "P(winning a prize) = 1/8. Express as a percentage.",
+          "\\frac{1}{8} \\times 100",
+          "12.5%",
+          ["12.5", "12.50%"]
+        ),
+        financeChoice(
+          "y12s2-prv-m5",
+          "A spinner has sections numbered 1–8 (equal size). P(number ≥ 6) =",
+          "C",
+          ["1/4", "3/4", "3/8", "5/8"],
+          "Numbers ≥ 6: {6, 7, 8} → 3 out of 8: P = 3/8."
+        ),
+        financeShortAnswer(
+          "y12s2-prv-m6",
+          "Two dice are rolled. How many total outcomes are in the sample space?",
+          "6 \\times 6",
+          "36",
+          ["36.0"]
+        ),
+        financeChoice(
+          "y12s2-prv-m7",
+          "P(A') = 0.4. Find P(A).",
+          "B",
+          ["0.4", "0.6", "1.4", "0.04"],
+          "P(A) = 1 − P(A') = 1 − 0.4 = 0.6."
+        ),
+        financeShortAnswer(
+          "y12s2-prv-m8",
+          "Letters in MATHS are written on cards. Find P(selecting a vowel).",
+          "\\text{Vowels: A → 1 out of 5}",
+          "1/5",
+          ["0.2", "20%"]
+        ),
+        financeChoice(
+          "y12s2-prv-m9",
+          "A card is drawn from a standard 52-card deck. P(heart) =",
+          "B",
+          ["1/52", "1/4", "13/52", "4/52"],
+          "There are 13 hearts out of 52 cards: 13/52 = 1/4."
+        ),
+        financeShortAnswer(
+          "y12s2-prv-m10",
+          "P(A) = 2/5. Find P(A') as a decimal.",
+          "1 - \\frac{2}{5} = \\frac{3}{5}",
+          "0.6",
+          ["3/5", "0.60", "60%"]
+        ),
       ],
     };
   }
