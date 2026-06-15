@@ -187,6 +187,7 @@ export const derivativeAsRateOfChangeLesson: ExplicitLesson = {
       "\\frac{f(b)-f(a)}{b-a}",
       "\\text{instantaneous rate of change}=f'(a)",
       "f'(x)>0 \\Rightarrow \\text{increasing}, \\quad f'(x)<0 \\Rightarrow \\text{decreasing}, \\quad f'(x)=0 \\Rightarrow \\text{momentarily not changing}",
+      "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}",
     ],
   },
 
@@ -504,6 +505,36 @@ export const derivativeAsRateOfChangeLesson: ExplicitLesson = {
       hint: "Use $\\frac{30-10}{5-1}$.",
       explanation:
         "$\\frac{30-10}{5-1}=5$, so the average speed is $5$ metres per second.",
+    },
+    {
+      id: "roc-mastery-fp1",
+      prompt: "Using first principles, which expression does $\\frac{f(a+h)-f(a)}{h}$ simplify to (before taking the limit)?",
+      latex: "f(x)=x^2",
+      answer: "B",
+      choices: [
+        { label: "A", text: "$2a$" },
+        { label: "B", text: "$2a+h$" },
+        { label: "C", text: "$2ah$" },
+        { label: "D", text: "$a^2+h$" },
+      ],
+      hint: "Expand $(a+h)^2$ and cancel $a^2$.",
+      explanation:
+        "$(a+h)^2-a^2=2ah+h^2$. Dividing by $h$ gives $2a+h$. As $h\\to 0$, this gives $f'(a)=2a$.",
+    },
+    {
+      id: "roc-mastery-fp2",
+      prompt: "Using first principles, find $f'(3)$ for $f(x)=x^2$.",
+      latex: "f'(3)=\\lim_{h\\to 0}\\frac{(3+h)^2-9}{h}",
+      answer: "C",
+      choices: [
+        { label: "A", text: "$3$" },
+        { label: "B", text: "$9$" },
+        { label: "C", text: "$6$" },
+        { label: "D", text: "$3+h$" },
+      ],
+      hint: "Expand $(3+h)^2$, subtract $9$, divide by $h$, then let $h\\to 0$.",
+      explanation:
+        "$\\frac{(3+h)^2-9}{h}=\\frac{9+6h+h^2-9}{h}=\\frac{6h+h^2}{h}=6+h$. As $h\\to 0$, $f'(3)=6$.",
     },
   ],
 

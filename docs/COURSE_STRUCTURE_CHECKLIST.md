@@ -2,7 +2,7 @@
 
 > **Objective:** High-quality lessons and question content across the entire NSW syllabus, mapped to syllabus sections with sufficient lessons to cover all skills and content in the Content section. Each lesson: 19 questions, worked examples, Feynman teaching, and common mistakes. Each focus area: one revision lesson activating the prior knowledge stated in the syllabus teaching advice, plus content lessons per dot-point group.
 > **Standard:** NSW syllabuses (2024 versions, implementation from 2026). Source of truth: [curriculum.nsw.edu.au](https://curriculum.nsw.edu.au).
-> Last updated: 2026-06-15 — Ext 1 syllabus audit complete; objective standard adopted. Year 12 Standard 2 fully complete — audited dot-by-dot against NSW 2024 syllabus (58 lessons, 1106 questions, all 10 topics). Year 12 Extension 1 fully complete — audited dot-by-dot against NSW 2024 syllabus (48 lessons, 862 questions, all 6 focus areas). Year 11 Standard fully complete — audited dot-by-dot against NSW 2024 syllabus (76 lessons, 1444 questions, all 8 focus areas). NSW 2024 unit slug alignment complete (9 units → 8 focus areas; earning-money + managing-money merged into money-and-financial-mathematics).
+> Last updated: 2026-06-15 — Year 12 Advanced fully audited against NSW 2024 syllabus (91 lessons, 1726 questions, all 14 focus areas). Ext 1 syllabus audit complete; objective standard adopted. Year 12 Standard 2 fully complete — audited dot-by-dot against NSW 2024 syllabus (58 lessons, 1106 questions, all 10 topics). Year 12 Extension 1 fully complete — audited dot-by-dot against NSW 2024 syllabus (48 lessons, 862 questions, all 6 focus areas). Year 11 Standard fully complete — audited dot-by-dot against NSW 2024 syllabus (76 lessons, 1444 questions, all 8 focus areas). NSW 2024 unit slug alignment complete (9 units → 8 focus areas; earning-money + managing-money merged into money-and-financial-mathematics).
 
 ---
 
@@ -28,7 +28,7 @@
 | Year 11 Extension 1 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 12 Standard 1 | 18 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 12 Standard 2 | 58 (6 units) | 10 topics | ✅ 100% | 10 | ✅ Complete — audited 2026-06-15 (1106 questions) |
-| Year 12 Advanced | 91 (13 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 12 Advanced | 91 (13 units) | 14 focus areas (MA-F1–S3) | ✅ 100% | 0 | ✅ Complete — audited 2026-06-15 (1726 questions) |
 | Year 12 Extension 1 | 30 (8 units) | 6 focus areas (ME1-12-01–06) | ✅ 100% | 0 | ✅ Complete — audited 2026-06-15 (862 questions) |
 | Year 12 Extension 2 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 
@@ -217,33 +217,37 @@ Class Maths: 7 topics / 29 subtopics.
 
 ---
 
-## Year 12 Advanced ✅ Depth pass complete
+## Year 12 Advanced ✅ Complete — Audited against NSW 2024 syllabus (2026-06-15)
 
-`year-12-advanced` — `available`. Status: **available**. Lesson files: `lib/lessons/*.ts` (legacy top-level format, not in a subdirectory).
-Catalogue: `lib/courseUnits.ts` + `lib/year12AdvancedRoutes.ts` (separate from `newCourseCatalog.ts`).
-Class Maths: 11 topics / 64 subtopics. **Nova: 13 units / 91 lessons — exceeds target.**
+`year-12-advanced` — `available`. Lesson files: `lib/lessons/*.ts` (legacy `ExplicitLesson[]` format).
+**91 lessons / 1726 questions.** All NSW 2024 MA focus areas fully addressed. Audited dot-by-dot against the NSW Mathematics Advanced 11–12 Syllabus (2024). First HSC 2027.
 
-- [x] Differential Calculus (12 lessons) — `lib/lessons/differentialCalculus.ts`
-- [x] Differentiation Techniques (5 lessons) — `lib/lessons/differentiationTechniques.ts`
-- [x] Applications of Differentiation (6 lessons) — `lib/lessons/applicationsDifferentiation.ts`
-- [x] Integral Calculus (10 lessons) — `lib/lessons/integralCalculus.ts`
-- [x] Further Integral Calculus (6 lessons) — `lib/lessons/furtherIntegralCalculus.ts`
-- [x] Functions and Graphing Techniques (11 lessons) — `lib/lessons/functionsGraphingTechniques.ts`
-- [x] Trigonometric Functions and Graphs (7 lessons) — `lib/lessons/trigonometricFunctionsGraphs.ts`
-- [x] Further Trigonometry (5 lessons) — `lib/lessons/furtherTrigonometry.ts`
-- [x] Exponential and Logarithmic Functions (5 lessons) — `lib/lessons/exponentialLogarithmicFunctions.ts`
-- [x] Sequences, Series and Financial Mathematics (5 lessons) — `lib/lessons/sequencesSeriesFinancialMaths.ts`
-- [x] Financial Mathematics (6 lessons) — `lib/lessons/financialMathematics.ts`
-- [x] Statistical Analysis (8 lessons) — `lib/lessons/statisticalAnalysis.ts`
-- [x] Probability (4 lessons — NEW) — `lib/lessons/probability.ts`
-  - probability-basics-venn-diagrams: axioms, complement, addition rule, Venn diagrams
-  - conditional-probability-tree-diagrams: P(A|B), tree diagrams, without-replacement
-  - independence-multiplication-rule: P(A∩B)=P(A)P(B), with/without replacement
-  - probability-exam-practice: two-way tables, mixed HSC practice
+| # | NSW Topic | Outcome | Lessons | Status |
+|---|---|---|---|---|
+| 1 | Functions: Working with Functions | MA-F1 | 4 | ✅ incl. domain/range, intercepts, graphical solving, modelling |
+| 2 | Functions: Graphing Techniques | MA-F2 | 7 | ✅ incl. transformations, absolute value, inverse, composite functions |
+| 3 | Trigonometry: Measure of Angles | MA-T1 | 1 | ✅ radians, exact values, unit circle |
+| 4 | Trigonometry: Functions and Identities | MA-T2 | 9 | ✅ incl. graphs, transformations, Pythagorean identity, compound/double angle |
+| 5 | Trigonometry: Equations | MA-T3 | 2 | ✅ incl. general solutions and identity-based equations |
+| 6 | Calculus: Intro to Differentiation | MA-C1 | 3 | ✅ incl. first principles (limit definition), power rule, rate of change |
+| 7 | Calculus: Differential Calculus | MA-C2 | 6 | ✅ incl. chain/product/quotient rules, standard derivs (trig/exp/log/a^x), tangents |
+| 8 | Calculus: Applications of Differentiation | MA-C3 | 9 | ✅ incl. stationary points, concavity, curve sketching, optimisation, kinematics |
+| 9 | Calculus: Integral Calculus | MA-C4 | 16 | ✅ incl. standard integrals, definite integrals, area, trapezoidal rule |
+| 10 | Exponential and Logarithmic Functions | MA-E1 | 5 | ✅ incl. log laws, e and ln, solving equations, growth/decay modelling |
+| 11 | Statistics: Probability and Discrete Distributions | MA-S1 | 4 | ✅ incl. Venn diagrams, conditional probability, independence, two-way tables |
+| 12 | Statistics: Descriptive and Bivariate | MA-S2 | 5 | ✅ incl. spread, box plots, correlation, regression, residuals |
+| 13 | Statistics: Random Variables | MA-S3 | 3 | ✅ incl. z-scores, normal distribution, Var(X) and SD(X) |
+| 14 | Financial Mathematics | MA-M1 | 11 | ✅ incl. sequences/series, limiting sums, compound interest, annuities, loans |
 
-**Note:** This course uses a legacy lesson format (`ExplicitLesson[]` arrays, not the `buildLesson` override pattern). Seeding is handled via `year12AdvancedLessonSets` in `seed-question-bank.ts`. Routing is via `year12AdvancedRoutes.ts`, not the new course catalog.
+**Gaps filled in this audit pass (2026-06-15):**
+- Added first-principles limit formula and 2 MCQ questions → `rate-of-change` lesson (MA-C1)
+- Added `d/dx(a^x) = a^x ln a` formula and 2 MCQ questions → `standard-derivatives` lesson (MA-C2)
+- Added 3 composite function questions `f(g(x))` → `modelling-with-functions` lesson (MA-F2)
+- Added `Var(X)` and `σ(X)` formulas and 3 questions → `random-variables` lesson (MA-S3)
 
-**Depth pass complete 2026-06-14:** Added Probability unit (MA-P1) — the only missing syllabus strand. 91 lessons / 1715 seeded questions total.
+**Note:** Legacy `ExplicitLesson[]` format — not using the `buildLesson` override pattern.
+Seeded via `year12AdvancedLessonSets` in `scripts/seed-question-bank.ts`.
+Routing via `lib/year12AdvancedRoutes.ts` (separate from `newCourseCatalog.ts`).
 
 ---
 
@@ -291,7 +295,7 @@ Nova average lessons per unit: ~4–5.
 |---|---|---|---|
 | Year 11 Standard | 76 (8 units) | ~76 | ✅ Depth pass + Priority 1–3 complete; NSW slug alignment 2026-06-15 |
 | Year 12 Standard 2 | 35 (6 units) | ~35 | ✅ Depth pass complete + 4 breadth lessons |
-| Year 12 Advanced | 91 (13 units) | ~64 subtopics | ✅ Depth pass complete (exceeds) |
+| Year 12 Advanced | 91 (13 units) | ~64 subtopics | ✅ Depth pass complete + audited 2026-06-15 |
 | Year 12 Extension 2 | 25 (5 units) | ~40 subtopics | ✅ Depth pass complete |
 | Year 12 Standard 1 | 18 (5 units) | ~29 subtopics | 🔄 Missing ~2 topics |
 | Year 12 Extension 1 | 30 (8 units) | ~28 subtopics | ✅ Depth pass complete — 520 questions seeded |

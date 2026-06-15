@@ -1950,6 +1950,8 @@ export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
       "\\sum P(X=x)=1",
       "E(X)=\\sum xP(X=x)",
       "E(X)=x_1p_1+x_2p_2+\\cdots+x_np_n",
+      "\\text{Var}(X)=E(X^2)-[E(X)]^2",
+      "\\sigma(X)=\\sqrt{\\text{Var}(X)}",
     ],
   },
   workedExamples: [
@@ -2220,6 +2222,41 @@ export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
       acceptedAnswers: ["5.0", "5.00", "$5", "\\$5"],
       hint: "Use $0(0.3)+5(0.4)+10(0.3)$.",
       explanation: "$E(X)=5$.",
+    },
+    {
+      id: "rv-mastery-var1",
+      prompt: "Using $\\text{Var}(X)=E(X^2)-[E(X)]^2$, find $\\text{Var}(X)$.",
+      latex: "X:0,1\\quad P(X=x):0.5,0.5",
+      answer: "0.25",
+      acceptedAnswers: ["1/4", ".25"],
+      hint: "First find $E(X)$ and $E(X^2)$, then subtract.",
+      explanation:
+        "$E(X)=0(0.5)+1(0.5)=0.5$. $E(X^2)=0^2(0.5)+1^2(0.5)=0.5$. $\\text{Var}(X)=0.5-0.25=0.25$.",
+    },
+    {
+      id: "rv-mastery-var2",
+      prompt: "Find $E(X^2)$ for the distribution.",
+      latex: "X:1,3\\quad P(X=x):0.5,0.5",
+      answer: "5",
+      acceptedAnswers: ["5.0"],
+      hint: "Square each $x$ value before weighting: $1^2(0.5)+3^2(0.5)$.",
+      explanation:
+        "$E(X^2)=1^2(0.5)+3^2(0.5)=0.5+4.5=5$.",
+    },
+    {
+      id: "rv-mastery-var3",
+      prompt: "Choose the correct formula for standard deviation of a discrete random variable.",
+      latex: "\\text{Var}(X)=E(X^2)-[E(X)]^2",
+      answer: "C",
+      choices: [
+        { label: "A", text: "$\\text{Var}(X)$" },
+        { label: "B", text: "$[E(X)]^2$" },
+        { label: "C", text: "$\\sqrt{\\text{Var}(X)}$" },
+        { label: "D", text: "$E(X)$" },
+      ],
+      hint: "Standard deviation is the square root of variance.",
+      explanation:
+        "Standard deviation $\\sigma(X)=\\sqrt{\\text{Var}(X)}$. It measures spread in the same units as $X$.",
     },
   ],
   masteryPassMark: 0.8,

@@ -2444,6 +2444,41 @@ export const modellingWithFunctionsLesson: ExplicitLesson = {
       hint: "Good modelling starts by reading the context.",
       explanation: "Identify the variables, domain, and requested feature before calculating.",
     },
+    {
+      id: "model-composite-m1",
+      prompt: "If $f(x)=x^2$ and $g(x)=x+3$, find $f(g(1))$.",
+      latex: "f(g(1))=f(1+3)=f(4)",
+      answer: "16",
+      acceptedAnswers: [],
+      hint: "First find $g(1)$, then apply $f$ to that result.",
+      explanation:
+        "$g(1)=1+3=4$. Then $f(g(1))=f(4)=4^2=16$.",
+    },
+    {
+      id: "model-composite-m2",
+      prompt: "If $f(x)=2x-1$ and $g(x)=x^2$, find $f(g(3))$.",
+      latex: "g(3)=3^2=9",
+      answer: "17",
+      acceptedAnswers: [],
+      hint: "Evaluate $g(3)$ first, then substitute into $f$.",
+      explanation:
+        "$g(3)=9$. Then $f(g(3))=2(9)-1=17$.",
+    },
+    {
+      id: "model-composite-m3",
+      prompt: "Choose the expression for $f(g(x))$ when $f(x)=x^2$ and $g(x)=3x+1$.",
+      latex: "f(g(x))=f(3x+1)",
+      answer: "B",
+      choices: [
+        { label: "A", text: "$3x^2+1$" },
+        { label: "B", text: "$(3x+1)^2$" },
+        { label: "C", text: "$9x^2+1$" },
+        { label: "D", text: "$6x^2+1$" },
+      ],
+      hint: "Substitute $g(x)$ into $f$: replace $x$ in $f$ with $3x+1$.",
+      explanation:
+        "$f(g(x))=f(3x+1)=(3x+1)^2$. The output of $g$ becomes the input of $f$.",
+    },
   ],
 
   masteryPassMark: 0.8,

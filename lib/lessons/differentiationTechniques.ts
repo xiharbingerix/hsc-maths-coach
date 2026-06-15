@@ -115,6 +115,7 @@ export const standardDerivativesLesson = lesson(
       "\\frac{d}{dx}(\\tan x)=\\sec^2 x",
       "\\frac{d}{dx}(e^x)=e^x",
       "\\frac{d}{dx}(\\ln x)=\\frac{1}{x}",
+      "\\frac{d}{dx}(a^x)=a^x\\ln a",
     ],
   },
   [
@@ -177,6 +178,8 @@ export const standardDerivativesLesson = lesson(
     numeric("diff-tech-std-m8", "Find f'(0).", "f(x)=5\\cos x-3\\sin x", "-3"),
     choice("diff-tech-std-m9", "Choose the derivative of the full expression.", "y=3e^x-2\\cos x+\\tan x", "B", ["$3e^x-2\\sin x+\\sec^2 x$", "$3e^x+2\\sin x+\\sec^2 x$", "$3e^x+2\\cos x+\\tan x$", "$e^x+2\\sin x+\\sec^2 x$"], "The -2cos x term differentiates to +2sin x."),
     choice("diff-tech-std-m10", "Choose the value of f'(1).", "f(x)=e^x+\\ln x", "A", ["$e+1$", "$e$", "$1$", "$2e$"], "The derivative is e^x + 1/x, so f'(1) = e + 1."),
+    choice("diff-tech-std-ax1", "Choose the derivative of $2^x$.", "y=2^x", "C", ["$x\\cdot 2^{x-1}$", "$2^x$", "$2^x\\ln 2$", "$\\frac{2^x}{\\ln 2}$"], "Use $\\frac{d}{dx}(a^x)=a^x\\ln a$ with $a=2$. The power rule does not apply when the variable is the exponent.", "Use the rule $\\frac{d}{dx}(a^x)=a^x\\ln a$."),
+    choice("diff-tech-std-ax2", "Choose the derivative of $5^x$.", "y=5^x", "A", ["$5^x\\ln 5$", "$5x^4$", "$5^x$", "$\\ln 5$"], "Apply $\\frac{d}{dx}(a^x)=a^x\\ln a$ with $a=5$ to get $5^x\\ln 5$.", "Use the rule $\\frac{d}{dx}(a^x)=a^x\\ln a$."),
   ]
 );
 

@@ -502,6 +502,50 @@ export const exponentialGrowthDecayModellingLesson = expLesson(
   ]
 );
 
+// MA-E1: rate of change in exponential growth/decay models (NSW dot-point: apply calculus to interpret instantaneous rate of change in exponential contexts)
+exponentialGrowthDecayModellingLesson.multiPartPractice = [
+  {
+    id: "exp-model-mp1",
+    prompt: "A population grows according to the model below, where $t$ is time in years.",
+    latex: "P=500e^{0.04t}",
+    answer: "500",
+    hint: "Differentiate using the chain rule: $\\frac{d}{dt}[e^{kt}]=ke^{kt}$. Evaluate at each given time after differentiating.",
+    explanation: "Part (a): $P=500e^0=500$. Part (b): $\\frac{dP}{dt}=20e^{0.04t}$; at $t=0$ this equals $20$. Part (c): At $t=10$, $\\frac{dP}{dt}=20e^{0.4}\\approx30$ per year.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Find the initial population.",
+        marks: 1,
+        answer: "500",
+        acceptedAnswers: [],
+        hint: "Substitute $t=0$ into the model.",
+        explanation: "$P=500e^0=500$.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "Find $\\dfrac{dP}{dt}$ when $t=0$.",
+        marks: 2,
+        answer: "20",
+        acceptedAnswers: [],
+        hint: "Use the chain rule: $\\frac{dP}{dt}=500\\times0.04\\,e^{0.04t}$.",
+        explanation: "$\\frac{dP}{dt}=20e^{0.04t}$. At $t=0$: $\\frac{dP}{dt}=20$ people per year.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "Find $\\dfrac{dP}{dt}$ when $t=10$. Give your answer to the nearest whole number.",
+        marks: 2,
+        answer: "30",
+        acceptedAnswers: ["29", "30"],
+        hint: "Substitute $t=10$ into $\\frac{dP}{dt}=20e^{0.04t}$.",
+        explanation: "$\\frac{dP}{dt}=20e^{0.4}\\approx29.8$, which rounds to $30$ people per year.",
+      },
+    ],
+  },
+];
+
 export const exponentialLogarithmicExamPracticeLesson = expLesson(
   "exponential-logarithmic-exam-practice",
   "Exponential and Logarithmic Functions Exam Practice",
