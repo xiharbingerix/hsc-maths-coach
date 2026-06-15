@@ -1,4 +1,4 @@
-import type {
+﻿import type {
   ExplicitLesson,
   LessonOutlineItem,
 } from "./differentialCalculus";
@@ -6,8 +6,8 @@ import type {
 export const radiansExactValuesUnitCircleLesson: ExplicitLesson = {
   id: "radians-exact-values-unit-circle",
   slug: "radians-exact-values-unit-circle",
-  moduleSlug: "trigonometric-functions-graphs",
-  moduleTitle: "Trigonometric Functions and Graphs",
+  moduleSlug: "ma-t1-trigonometry-and-measure-of-angles",
+  moduleTitle: "Trigonometry and Measure of Angles",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Radians, Exact Values, and the Unit Circle",
   description:
@@ -345,8 +345,8 @@ export const radiansExactValuesUnitCircleLesson: ExplicitLesson = {
 export const graphsSineCosineTangentLesson: ExplicitLesson = {
   id: "graphs-sine-cosine-tangent",
   slug: "graphs-sine-cosine-tangent",
-  moduleSlug: "trigonometric-functions-graphs",
-  moduleTitle: "Trigonometric Functions and Graphs",
+  moduleSlug: "ma-t2-trigonometric-functions-and-identities",
+  moduleTitle: "Trigonometric Functions and Identities",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Graphs of Sine, Cosine, and Tangent",
   description:
@@ -729,8 +729,8 @@ export const graphsSineCosineTangentLesson: ExplicitLesson = {
 export const amplitudePeriodPhaseVerticalShiftLesson: ExplicitLesson = {
   id: "amplitude-period-phase-vertical-shift",
   slug: "amplitude-period-phase-vertical-shift",
-  moduleSlug: "trigonometric-functions-graphs",
-  moduleTitle: "Trigonometric Functions and Graphs",
+  moduleSlug: "ma-t2-trigonometric-functions-and-identities",
+  moduleTitle: "Trigonometric Functions and Identities",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Amplitude, Period, Phase Shift, and Vertical Shift",
   description:
@@ -1067,8 +1067,8 @@ export const amplitudePeriodPhaseVerticalShiftLesson: ExplicitLesson = {
 export const trigonometricEquationsLesson: ExplicitLesson = {
   id: "trigonometric-equations",
   slug: "trigonometric-equations",
-  moduleSlug: "trigonometric-functions-graphs",
-  moduleTitle: "Trigonometric Functions and Graphs",
+  moduleSlug: "ma-t2-trigonometric-functions-and-identities",
+  moduleTitle: "Trigonometric Functions and Identities",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Trigonometric Equations",
   description:
@@ -1378,8 +1378,8 @@ export const trigonometricEquationsLesson: ExplicitLesson = {
 export const trigonometricIdentitiesSimplificationLesson: ExplicitLesson = {
   id: "trigonometric-identities-simplification",
   slug: "trigonometric-identities-simplification",
-  moduleSlug: "trigonometric-functions-graphs",
-  moduleTitle: "Trigonometric Functions and Graphs",
+  moduleSlug: "ma-t2-trigonometric-functions-and-identities",
+  moduleTitle: "Trigonometric Functions and Identities",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Trigonometric Identities and Simplification",
   description:
@@ -1713,8 +1713,8 @@ export const trigonometricIdentitiesSimplificationLesson: ExplicitLesson = {
 export const modellingPeriodicPhenomenaLesson: ExplicitLesson = {
   id: "modelling-periodic-phenomena",
   slug: "modelling-periodic-phenomena",
-  moduleSlug: "trigonometric-functions-graphs",
-  moduleTitle: "Trigonometric Functions and Graphs",
+  moduleSlug: "ma-t2-trigonometric-functions-and-identities",
+  moduleTitle: "Trigonometric Functions and Identities",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Modelling Periodic Phenomena",
   description:
@@ -2041,8 +2041,8 @@ export const modellingPeriodicPhenomenaLesson: ExplicitLesson = {
 export const mixedTrigonometricFunctionsExamPracticeLesson: ExplicitLesson = {
   id: "mixed-trigonometric-functions-exam-practice",
   slug: "mixed-trigonometric-functions-exam-practice",
-  moduleSlug: "trigonometric-functions-graphs",
-  moduleTitle: "Trigonometric Functions and Graphs",
+  moduleSlug: "ma-t2-trigonometric-functions-and-identities",
+  moduleTitle: "Trigonometric Functions and Identities",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Mixed Trigonometric Functions Exam Practice",
   description:

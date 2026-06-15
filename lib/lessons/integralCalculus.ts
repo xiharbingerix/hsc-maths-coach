@@ -1,4 +1,4 @@
-import type {
+﻿import type {
   ExplicitLesson,
   LessonOutlineItem,
   PracticeQuestion,
@@ -7,7 +7,7 @@ import type {
 export const antidifferentiationReversePowerRuleLesson: ExplicitLesson = {
   id: "antidifferentiation-reverse-power-rule",
   slug: "antidifferentiation-reverse-power-rule",
-  moduleSlug: "integral-calculus",
+  moduleSlug: "ma-c4-integral-calculus",
   moduleTitle: "Integral Calculus",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Antidifferentiation and the Reverse Power Rule",
@@ -360,7 +360,7 @@ export const antidifferentiationReversePowerRuleLesson: ExplicitLesson = {
 export const indefiniteIntegralsConstantOfIntegrationLesson: ExplicitLesson = {
   id: "indefinite-integrals-constant-of-integration",
   slug: "indefinite-integrals-constant-of-integration",
-  moduleSlug: "integral-calculus",
+  moduleSlug: "ma-c4-integral-calculus",
   moduleTitle: "Integral Calculus",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Indefinite Integrals and the Constant of Integration",
@@ -721,7 +721,7 @@ export const indefiniteIntegralsConstantOfIntegrationLesson: ExplicitLesson = {
 export const initialConditionsParticularPrimitiveLesson: ExplicitLesson = {
   id: "initial-conditions-particular-primitive",
   slug: "initial-conditions-particular-primitive",
-  moduleSlug: "integral-calculus",
+  moduleSlug: "ma-c4-integral-calculus",
   moduleTitle: "Integral Calculus",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Initial Conditions and Finding the Particular Primitive",
@@ -1049,7 +1049,7 @@ export const initialConditionsParticularPrimitiveLesson: ExplicitLesson = {
 export const definiteIntegralsFundamentalTheoremLesson: ExplicitLesson = {
   id: "definite-integrals-fundamental-theorem",
   slug: "definite-integrals-fundamental-theorem",
-  moduleSlug: "integral-calculus",
+  moduleSlug: "ma-c4-integral-calculus",
   moduleTitle: "Integral Calculus",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Definite Integrals and the Fundamental Theorem of Calculus",
@@ -1353,7 +1353,7 @@ export const definiteIntegralsFundamentalTheoremLesson: ExplicitLesson = {
 export const signedAreaTotalAreaLesson: ExplicitLesson = {
   id: "signed-area-total-area",
   slug: "signed-area-total-area",
-  moduleSlug: "integral-calculus",
+  moduleSlug: "ma-c4-integral-calculus",
   moduleTitle: "Integral Calculus",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Signed Area and Total Area",
@@ -1723,7 +1723,7 @@ export const signedAreaTotalAreaLesson: ExplicitLesson = {
 export const areaUnderCurveLesson: ExplicitLesson = {
   id: "area-under-a-curve",
   slug: "area-under-a-curve",
-  moduleSlug: "integral-calculus",
+  moduleSlug: "ma-c4-integral-calculus",
   moduleTitle: "Integral Calculus",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Area Under a Curve",
@@ -2064,7 +2064,7 @@ export const areaUnderCurveLesson: ExplicitLesson = {
 export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
   id: "trapezoidal-rule-area-approximation",
   slug: "trapezoidal-rule-area-approximation",
-  moduleSlug: "integral-calculus",
+  moduleSlug: "ma-c4-integral-calculus",
   moduleTitle: "Integral Calculus",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "The Trapezoidal Rule and Area Approximation",
@@ -2379,7 +2379,7 @@ export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
 export const areaBetweenTwoCurvesLesson: ExplicitLesson = {
   id: "area-between-two-curves",
   slug: "area-between-two-curves",
-  moduleSlug: "integral-calculus",
+  moduleSlug: "ma-c4-integral-calculus",
   moduleTitle: "Integral Calculus",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Area Between Two Curves",
@@ -2735,7 +2735,7 @@ export const areaBetweenTwoCurvesLesson: ExplicitLesson = {
 export const applicationsTotalChangeMotionLesson: ExplicitLesson = {
   id: "applications-total-change-motion",
   slug: "applications-total-change-motion",
-  moduleSlug: "integral-calculus",
+  moduleSlug: "ma-c4-integral-calculus",
   moduleTitle: "Integral Calculus",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Applications of Integration: Total Change and Motion",
@@ -3050,7 +3050,7 @@ export const applicationsTotalChangeMotionLesson: ExplicitLesson = {
 export const mixedIntegralCalculusExamPracticeLesson: ExplicitLesson = {
   id: "mixed-integral-calculus-exam-practice",
   slug: "mixed-integral-calculus-exam-practice",
-  moduleSlug: "integral-calculus",
+  moduleSlug: "ma-c4-integral-calculus",
   moduleTitle: "Integral Calculus",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Mixed Integral Calculus Exam Practice",

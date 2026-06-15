@@ -91,21 +91,29 @@ const PLACEHOLDER_PATTERNS = [
   /sample question/i,
 ];
 
-const year12AdvancedLessonSets: Record<string, ExplicitLesson[]> = {
-  "differential-calculus": differentialCalculusLessons,
-  "differentiation-techniques": differentiationTechniquesLessons,
-  "applications-differentiation": applicationsDifferentiationLessons,
-  "integral-calculus": integralCalculusLessons,
-  "further-integral-calculus": furtherIntegralCalculusLessons,
-  "functions-graphing-techniques": functionsGraphingTechniquesLessons,
-  "trigonometric-functions-graphs": trigonometricFunctionsGraphsLessons,
-  "further-trigonometry": furtherTrigonometryLessons,
-  "exponential-logarithmic-functions": exponentialLogarithmicFunctionsLessons,
-  "sequences-series-financial-maths": sequencesSeriesFinancialMathsLessons,
-  "financial-mathematics": financialMathematicsLessons,
-  "statistical-analysis": statisticalAnalysisLessons,
-  "probability": probabilityLessons,
-};
+const allYear12AdvancedLessons: ExplicitLesson[] = [
+  ...functionsGraphingTechniquesLessons,
+  ...trigonometricFunctionsGraphsLessons,
+  ...furtherTrigonometryLessons,
+  ...differentialCalculusLessons,
+  ...differentiationTechniquesLessons,
+  ...applicationsDifferentiationLessons,
+  ...integralCalculusLessons,
+  ...furtherIntegralCalculusLessons,
+  ...exponentialLogarithmicFunctionsLessons,
+  ...probabilityLessons,
+  ...statisticalAnalysisLessons,
+  ...sequencesSeriesFinancialMathsLessons,
+  ...financialMathematicsLessons,
+];
+
+const year12AdvancedLessonSets: Record<string, ExplicitLesson[]> = {};
+for (const lesson of allYear12AdvancedLessons) {
+  if (!year12AdvancedLessonSets[lesson.moduleSlug]) {
+    year12AdvancedLessonSets[lesson.moduleSlug] = [];
+  }
+  year12AdvancedLessonSets[lesson.moduleSlug].push(lesson);
+}
 
 function unitSlugFromHref(href: string) {
   return href.split("/").filter(Boolean).at(-1) ?? href;

@@ -1,4 +1,4 @@
-import type {
+﻿import type {
   ExplicitLesson,
   LessonOutlineItem,
   PracticeQuestion,
@@ -63,8 +63,8 @@ function probLesson(
   return {
     id,
     slug: id,
-    moduleSlug: "probability",
-    moduleTitle: "Probability",
+    moduleSlug: "ma-s1-probability-and-discrete-probability-distributions",
+    moduleTitle: "Probability and Discrete Probability Distributions",
     courseTitle: "Year 12 Mathematics Advanced",
     title,
     description,

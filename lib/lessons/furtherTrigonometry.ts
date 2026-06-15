@@ -1,4 +1,4 @@
-import type {
+﻿import type {
   ExplicitLesson,
   LessonOutlineItem,
   PracticeQuestion,
@@ -64,8 +64,8 @@ function furtherTrigLesson(
   return {
     id,
     slug: id,
-    moduleSlug: "further-trigonometry",
-    moduleTitle: "Further Trigonometry",
+    moduleSlug: "ma-t2-trigonometric-functions-and-identities",
+    moduleTitle: "Trigonometric Functions and Identities",
     courseTitle: "Year 12 Mathematics Advanced",
     title,
     description,
@@ -537,6 +537,11 @@ export const furtherTrigonometryExamPracticeLesson = furtherTrigLesson(
     trigChoice("ftrig-exam-m10", "Which chain of reasoning is strongest?", "\\sin105^\\circ", "A", ["Use $60^\\circ+45^\\circ$ with the sine sum formula and quadrant II sign", "Use $90^\\circ+15^\\circ$ and write sine as a sum", "Use $105^\\circ=45^\\circ-60^\\circ$ with no sign check", "Use the tangent double-angle formula"], "This uses known angles, the correct formula and the correct quadrant sign."),
   ]
 );
+
+furtherTrigEquationsIdentitiesLesson.moduleSlug = "ma-t3-trigonometric-equations";
+furtherTrigEquationsIdentitiesLesson.moduleTitle = "Trigonometric Equations";
+furtherTrigonometryExamPracticeLesson.moduleSlug = "ma-t3-trigonometric-equations";
+furtherTrigonometryExamPracticeLesson.moduleTitle = "Trigonometric Equations";
 
 export const furtherTrigonometryLessons = [
   compoundAngleFormulasLesson,

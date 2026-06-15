@@ -5,55 +5,42 @@ import type {
 import { courseUnits } from "./courseUnits";
 import {
   applicationsDifferentiationLessons,
-  applicationsDifferentiationOutline,
 } from "./lessons/applicationsDifferentiation";
 import {
   differentialCalculusLessons,
-  differentialCalculusOutline,
 } from "./lessons/differentialCalculus";
 import {
   differentiationTechniquesLessons,
-  differentiationTechniquesOutline,
 } from "./lessons/differentiationTechniques";
 import {
   exponentialLogarithmicFunctionsLessons,
-  exponentialLogarithmicFunctionsOutline,
 } from "./lessons/exponentialLogarithmicFunctions";
 import {
   financialMathematicsLessons,
-  financialMathematicsOutline,
 } from "./lessons/financialMathematics";
 import {
   functionsGraphingTechniquesLessons,
-  functionsGraphingTechniquesOutline,
 } from "./lessons/functionsGraphingTechniques";
 import {
   furtherIntegralCalculusLessons,
-  furtherIntegralCalculusOutline,
 } from "./lessons/furtherIntegralCalculus";
 import {
   furtherTrigonometryLessons,
-  furtherTrigonometryOutline,
 } from "./lessons/furtherTrigonometry";
 import {
   integralCalculusLessons,
-  integralCalculusOutline,
 } from "./lessons/integralCalculus";
 import {
   sequencesSeriesFinancialMathsLessons,
-  sequencesSeriesFinancialMathsOutline,
 } from "./lessons/sequencesSeriesFinancialMaths";
 import {
   statisticalAnalysisLessons,
-  statisticalAnalysisOutline,
 } from "./lessons/statisticalAnalysis";
 import {
   probabilityLessons,
-  probabilityOutline,
 } from "./lessons/probability";
 import {
   trigonometricFunctionsGraphsLessons,
-  trigonometricFunctionsGraphsOutline,
 } from "./lessons/trigonometricFunctionsGraphs";
 
 export type Year12AdvancedRouteUnit = {
@@ -67,81 +54,35 @@ export type Year12AdvancedRouteUnit = {
   lessons: ExplicitLesson[];
 };
 
-const lessonContentByUnitSlug = new Map<
-  string,
-  { outline: LessonOutlineItem[]; lessons: ExplicitLesson[] }
->([
-  [
-    "differential-calculus",
-    { outline: differentialCalculusOutline, lessons: differentialCalculusLessons },
-  ],
-  [
-    "differentiation-techniques",
-    {
-      outline: differentiationTechniquesOutline,
-      lessons: differentiationTechniquesLessons,
-    },
-  ],
-  [
-    "applications-differentiation",
-    {
-      outline: applicationsDifferentiationOutline,
-      lessons: applicationsDifferentiationLessons,
-    },
-  ],
-  ["integral-calculus", { outline: integralCalculusOutline, lessons: integralCalculusLessons }],
-  [
-    "further-integral-calculus",
-    {
-      outline: furtherIntegralCalculusOutline,
-      lessons: furtherIntegralCalculusLessons,
-    },
-  ],
-  [
-    "functions-graphing-techniques",
-    {
-      outline: functionsGraphingTechniquesOutline,
-      lessons: functionsGraphingTechniquesLessons,
-    },
-  ],
-  [
-    "trigonometric-functions-graphs",
-    {
-      outline: trigonometricFunctionsGraphsOutline,
-      lessons: trigonometricFunctionsGraphsLessons,
-    },
-  ],
-  [
-    "further-trigonometry",
-    { outline: furtherTrigonometryOutline, lessons: furtherTrigonometryLessons },
-  ],
-  [
-    "exponential-logarithmic-functions",
-    {
-      outline: exponentialLogarithmicFunctionsOutline,
-      lessons: exponentialLogarithmicFunctionsLessons,
-    },
-  ],
-  [
-    "sequences-series-financial-maths",
-    {
-      outline: sequencesSeriesFinancialMathsOutline,
-      lessons: sequencesSeriesFinancialMathsLessons,
-    },
-  ],
-  [
-    "financial-mathematics",
-    { outline: financialMathematicsOutline, lessons: financialMathematicsLessons },
-  ],
-  [
-    "statistical-analysis",
-    { outline: statisticalAnalysisOutline, lessons: statisticalAnalysisLessons },
-  ],
-  [
-    "probability",
-    { outline: probabilityOutline, lessons: probabilityLessons },
-  ],
-]);
+const allAdvancedLessons: ExplicitLesson[] = [
+  ...differentialCalculusLessons,
+  ...differentiationTechniquesLessons,
+  ...applicationsDifferentiationLessons,
+  ...integralCalculusLessons,
+  ...furtherIntegralCalculusLessons,
+  ...functionsGraphingTechniquesLessons,
+  ...trigonometricFunctionsGraphsLessons,
+  ...furtherTrigonometryLessons,
+  ...exponentialLogarithmicFunctionsLessons,
+  ...sequencesSeriesFinancialMathsLessons,
+  ...financialMathematicsLessons,
+  ...statisticalAnalysisLessons,
+  ...probabilityLessons,
+];
+
+function lessonsBySlug(slug: string): ExplicitLesson[] {
+  return allAdvancedLessons.filter((l) => l.moduleSlug === slug);
+}
+
+function buildOutline(lessons: ExplicitLesson[]): LessonOutlineItem[] {
+  return lessons.map((l) => ({
+    id: l.id,
+    slug: l.slug,
+    title: l.title,
+    description: l.description,
+    status: l.status,
+  }));
+}
 
 export function year12AdvancedNestedUnitHref(unitSlug: string) {
   return `/course/year-12-advanced/${unitSlug}`;
@@ -157,9 +98,9 @@ export function year12AdvancedNestedLessonHref(
 export const year12AdvancedRouteUnits: Year12AdvancedRouteUnit[] =
   courseUnits.flatMap((unit) => {
     const slug = unit.href.replace("/course/", "");
-    const content = lessonContentByUnitSlug.get(slug);
+    const lessons = lessonsBySlug(slug);
 
-    if (!content) {
+    if (lessons.length === 0) {
       return [];
     }
 
@@ -171,8 +112,8 @@ export const year12AdvancedRouteUnits: Year12AdvancedRouteUnit[] =
         activeLessonCount: unit.activeLessonCount,
         legacyHref: unit.href,
         nestedHref: year12AdvancedNestedUnitHref(slug),
-        outline: content.outline,
-        lessons: content.lessons,
+        outline: buildOutline(lessons),
+        lessons,
       },
     ];
   });

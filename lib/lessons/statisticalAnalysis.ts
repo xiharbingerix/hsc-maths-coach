@@ -1,4 +1,4 @@
-import type {
+﻿import type {
   ExplicitLesson,
   LessonOutlineItem,
 } from "./differentialCalculus";
@@ -6,8 +6,8 @@ import type {
 export const dataDisplaysMeasuresOfCentreLesson: ExplicitLesson = {
   id: "data-displays-measures-of-centre",
   slug: "data-displays-measures-of-centre",
-  moduleSlug: "statistical-analysis",
-  moduleTitle: "Statistical Analysis",
+  moduleSlug: "ma-s2-descriptive-statistics-and-bivariate-data",
+  moduleTitle: "Descriptive Statistics and Bivariate Data Analysis",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Data Displays and Measures of Centre",
   description: "Read simple data displays and choose useful measures of centre, including mean, median, and mode.",
@@ -87,8 +87,8 @@ export const dataDisplaysMeasuresOfCentreLesson: ExplicitLesson = {
 export const spreadIqrBoxPlotsOutliersLesson: ExplicitLesson = {
   id: "spread-iqr-box-plots-outliers",
   slug: "spread-iqr-box-plots-outliers",
-  moduleSlug: "statistical-analysis",
-  moduleTitle: "Statistical Analysis",
+  moduleSlug: "ma-s2-descriptive-statistics-and-bivariate-data",
+  moduleTitle: "Descriptive Statistics and Bivariate Data Analysis",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Spread, IQR, Box Plots and Outliers",
   description: "Interpret range, quartiles, IQR, five-number summaries, box plots, and the effect of outliers on spread.",
@@ -168,8 +168,8 @@ export const spreadIqrBoxPlotsOutliersLesson: ExplicitLesson = {
 export const standardDeviationZScoresStandardisedValuesLesson: ExplicitLesson = {
   id: "standard-deviation-z-scores-standardised-values",
   slug: "standard-deviation-z-scores-standardised-values",
-  moduleSlug: "statistical-analysis",
-  moduleTitle: "Statistical Analysis",
+  moduleSlug: "ma-s2-descriptive-statistics-and-bivariate-data",
+  moduleTitle: "Descriptive Statistics and Bivariate Data Analysis",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Standard Deviation, Z-Scores, and Standardised Values",
   description:
@@ -507,8 +507,8 @@ export const standardDeviationZScoresStandardisedValuesLesson: ExplicitLesson = 
 export const correlationLeastSquaresRegressionLesson: ExplicitLesson = {
   id: "correlation-least-squares-regression",
   slug: "correlation-least-squares-regression",
-  moduleSlug: "statistical-analysis",
-  moduleTitle: "Statistical Analysis",
+  moduleSlug: "ma-s2-descriptive-statistics-and-bivariate-data",
+  moduleTitle: "Descriptive Statistics and Bivariate Data Analysis",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Correlation and Least-Squares Regression",
   description:
@@ -865,8 +865,8 @@ export const correlationLeastSquaresRegressionLesson: ExplicitLesson = {
 export const interpretingAssociationResidualsLesson: ExplicitLesson = {
   id: "interpreting-association-residuals",
   slug: "interpreting-association-residuals",
-  moduleSlug: "statistical-analysis",
-  moduleTitle: "Statistical Analysis",
+  moduleSlug: "ma-s2-descriptive-statistics-and-bivariate-data",
+  moduleTitle: "Descriptive Statistics and Bivariate Data Analysis",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Interpreting Association and Residuals",
   description:
@@ -1224,8 +1224,8 @@ export const interpretingAssociationResidualsLesson: ExplicitLesson = {
 export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
   id: "normal-distribution-empirical-rule",
   slug: "normal-distribution-empirical-rule",
-  moduleSlug: "statistical-analysis",
-  moduleTitle: "Statistical Analysis",
+  moduleSlug: "ma-s3-random-variables",
+  moduleTitle: "Random Variables",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Normal Distribution and Empirical Rule",
   description:
@@ -1587,8 +1587,8 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
 export const mixedStatisticalAnalysisExamPracticeLesson: ExplicitLesson = {
   id: "mixed-statistical-analysis-exam-practice",
   slug: "mixed-statistical-analysis-exam-practice",
-  moduleSlug: "statistical-analysis",
-  moduleTitle: "Statistical Analysis",
+  moduleSlug: "ma-s3-random-variables",
+  moduleTitle: "Random Variables",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Mixed Statistical Analysis Exam Practice",
   description:
@@ -1916,8 +1916,8 @@ export const mixedStatisticalAnalysisExamPracticeLesson: ExplicitLesson = {
 export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
   id: "random-variables-probability-distributions",
   slug: "random-variables-probability-distributions",
-  moduleSlug: "statistical-analysis",
-  moduleTitle: "Statistical Analysis",
+  moduleSlug: "ma-s3-random-variables",
+  moduleTitle: "Random Variables",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Random Variables and Probability Distributions",
   description:

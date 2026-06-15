@@ -1,18 +1,6 @@
-import { courseCatalogue, courseUnits } from "./courseUnits";
+import { courseCatalogue } from "./courseUnits";
 import { isVisibleCourseLesson, newCoursePathways } from "./newCourseCatalog";
-import { year12AdvancedNestedLessonHref } from "./year12AdvancedRoutes";
-import { applicationsDifferentiationOutline } from "./lessons/applicationsDifferentiation";
-import { differentialCalculusOutline } from "./lessons/differentialCalculus";
-import { differentiationTechniquesOutline } from "./lessons/differentiationTechniques";
-import { exponentialLogarithmicFunctionsOutline } from "./lessons/exponentialLogarithmicFunctions";
-import { financialMathematicsOutline } from "./lessons/financialMathematics";
-import { functionsGraphingTechniquesOutline } from "./lessons/functionsGraphingTechniques";
-import { furtherIntegralCalculusOutline } from "./lessons/furtherIntegralCalculus";
-import { furtherTrigonometryOutline } from "./lessons/furtherTrigonometry";
-import { integralCalculusOutline } from "./lessons/integralCalculus";
-import { sequencesSeriesFinancialMathsOutline } from "./lessons/sequencesSeriesFinancialMaths";
-import { statisticalAnalysisOutline } from "./lessons/statisticalAnalysis";
-import { trigonometricFunctionsGraphsOutline } from "./lessons/trigonometricFunctionsGraphs";
+import { year12AdvancedNestedLessonHref, year12AdvancedRouteUnits } from "./year12AdvancedRoutes";
 import type { LessonProgressRecord } from "./lessonProgress";
 
 export type CourseLessonTarget = {
@@ -30,40 +18,19 @@ export type ContinueLearningTarget = CourseLessonTarget & {
   lastScore?: number | null;
 };
 
-const year12AdvancedOutlines = new Map([
-  ["differential-calculus", differentialCalculusOutline],
-  ["differentiation-techniques", differentiationTechniquesOutline],
-  ["applications-differentiation", applicationsDifferentiationOutline],
-  ["integral-calculus", integralCalculusOutline],
-  ["further-integral-calculus", furtherIntegralCalculusOutline],
-  ["functions-graphing-techniques", functionsGraphingTechniquesOutline],
-  ["trigonometric-functions-graphs", trigonometricFunctionsGraphsOutline],
-  ["further-trigonometry", furtherTrigonometryOutline],
-  [
-    "exponential-logarithmic-functions",
-    exponentialLogarithmicFunctionsOutline,
-  ],
-  ["sequences-series-financial-maths", sequencesSeriesFinancialMathsOutline],
-  ["financial-mathematics", financialMathematicsOutline],
-  ["statistical-analysis", statisticalAnalysisOutline],
-]);
-
-const year12AdvancedTargets = courseUnits.flatMap((unit) => {
-  const unitSlug = unit.href.replace("/course/", "");
-  const outline = year12AdvancedOutlines.get(unitSlug) ?? [];
-
-  return outline
+const year12AdvancedTargets = year12AdvancedRouteUnits.flatMap((unit) =>
+  unit.lessons
     .filter((lesson) => lesson.status === "active")
     .map<CourseLessonTarget>((lesson) => ({
       courseSlug: "year-12-advanced",
       courseTitle: "Year 12 Mathematics Advanced",
-      unitSlug,
+      unitSlug: unit.slug,
       unitTitle: unit.title,
       lessonSlug: lesson.slug,
       lessonTitle: lesson.title,
-      href: year12AdvancedNestedLessonHref(unitSlug, lesson.slug),
-    }));
-});
+      href: year12AdvancedNestedLessonHref(unit.slug, lesson.slug),
+    }))
+);
 
 const availableCourseSlugs = new Set(
   courseCatalogue

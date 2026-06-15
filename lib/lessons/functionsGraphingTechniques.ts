@@ -1,4 +1,4 @@
-import type {
+﻿import type {
   ExplicitLesson,
   LessonOutlineItem,
 } from "./differentialCalculus";
@@ -6,8 +6,8 @@ import type {
 export const domainRangeFunctionNotationLesson: ExplicitLesson = {
   id: "domain-range-function-notation",
   slug: "domain-range-function-notation",
-  moduleSlug: "functions-graphing-techniques",
-  moduleTitle: "Functions and Graphing Techniques",
+  moduleSlug: "ma-f1-working-with-functions",
+  moduleTitle: "Working with Functions",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Domain, Range, and Function Notation",
   description:
@@ -361,8 +361,8 @@ export const domainRangeFunctionNotationLesson: ExplicitLesson = {
 export const graphTransformationsLesson: ExplicitLesson = {
   id: "graph-transformations",
   slug: "graph-transformations",
-  moduleSlug: "functions-graphing-techniques",
-  moduleTitle: "Functions and Graphing Techniques",
+  moduleSlug: "ma-f1-working-with-functions",
+  moduleTitle: "Working with Functions",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Graph Transformations",
   description:
@@ -726,8 +726,8 @@ export const graphTransformationsLesson: ExplicitLesson = {
 export const reflectionsStretchesTranslationsLesson: ExplicitLesson = {
   id: "reflections-stretches-translations",
   slug: "reflections-stretches-translations",
-  moduleSlug: "functions-graphing-techniques",
-  moduleTitle: "Functions and Graphing Techniques",
+  moduleSlug: "ma-f1-working-with-functions",
+  moduleTitle: "Working with Functions",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Reflections, Stretches, and Translations",
   description:
@@ -1085,8 +1085,8 @@ export const reflectionsStretchesTranslationsLesson: ExplicitLesson = {
 export const interceptsKeyFeaturesLesson: ExplicitLesson = {
   id: "intercepts-key-features",
   slug: "intercepts-key-features",
-  moduleSlug: "functions-graphing-techniques",
-  moduleTitle: "Functions and Graphing Techniques",
+  moduleSlug: "ma-f1-working-with-functions",
+  moduleTitle: "Working with Functions",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Intercepts and Key Features",
   description:
@@ -1428,8 +1428,8 @@ export const interceptsKeyFeaturesLesson: ExplicitLesson = {
 export const asymptotesReciprocalGraphsLesson: ExplicitLesson = {
   id: "asymptotes-reciprocal-graphs",
   slug: "asymptotes-reciprocal-graphs",
-  moduleSlug: "functions-graphing-techniques",
-  moduleTitle: "Functions and Graphing Techniques",
+  moduleSlug: "ma-f2-graphing-techniques",
+  moduleTitle: "Graphing Techniques",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Asymptotes and Reciprocal-Style Graphs",
   description:
@@ -1764,8 +1764,8 @@ export const asymptotesReciprocalGraphsLesson: ExplicitLesson = {
 export const solvingEquationsInequalitiesGraphicallyLesson: ExplicitLesson = {
   id: "solving-equations-inequalities-graphically",
   slug: "solving-equations-inequalities-graphically",
-  moduleSlug: "functions-graphing-techniques",
-  moduleTitle: "Functions and Graphing Techniques",
+  moduleSlug: "ma-f1-working-with-functions",
+  moduleTitle: "Working with Functions",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Solving Equations and Inequalities Graphically",
   description:
@@ -2119,8 +2119,8 @@ export const solvingEquationsInequalitiesGraphicallyLesson: ExplicitLesson = {
 export const modellingWithFunctionsLesson: ExplicitLesson = {
   id: "modelling-with-functions",
   slug: "modelling-with-functions",
-  moduleSlug: "functions-graphing-techniques",
-  moduleTitle: "Functions and Graphing Techniques",
+  moduleSlug: "ma-f1-working-with-functions",
+  moduleTitle: "Working with Functions",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Modelling with Functions",
   description:
@@ -2487,8 +2487,8 @@ export const modellingWithFunctionsLesson: ExplicitLesson = {
 export const mixedFunctionsGraphingExamPracticeLesson: ExplicitLesson = {
   id: "mixed-functions-graphing-exam-practice",
   slug: "mixed-functions-graphing-exam-practice",
-  moduleSlug: "functions-graphing-techniques",
-  moduleTitle: "Functions and Graphing Techniques",
+  moduleSlug: "ma-f1-working-with-functions",
+  moduleTitle: "Working with Functions",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Mixed Functions and Graphing Exam Practice",
   description:
@@ -2847,8 +2847,8 @@ export const mixedFunctionsGraphingExamPracticeLesson: ExplicitLesson = {
 export const exponentialLogarithmicGraphsLesson: ExplicitLesson = {
   id: "exponential-logarithmic-graphs",
   slug: "exponential-logarithmic-graphs",
-  moduleSlug: "functions-graphing-techniques",
-  moduleTitle: "Functions and Graphing Techniques",
+  moduleSlug: "ma-f2-graphing-techniques",
+  moduleTitle: "Graphing Techniques",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Exponential and Logarithmic Graphs in Graphing Techniques",
   description:
@@ -3182,8 +3182,8 @@ export const exponentialLogarithmicGraphsLesson: ExplicitLesson = {
 export const absoluteValueFunctionsLesson: ExplicitLesson = {
   id: "absolute-value-functions",
   slug: "absolute-value-functions",
-  moduleSlug: "functions-graphing-techniques",
-  moduleTitle: "Functions and Graphing Techniques",
+  moduleSlug: "ma-f2-graphing-techniques",
+  moduleTitle: "Graphing Techniques",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Absolute Value Functions",
   description:
@@ -3505,8 +3505,8 @@ export const absoluteValueFunctionsLesson: ExplicitLesson = {
 export const inverseFunctionsLesson: ExplicitLesson = {
   id: "inverse-functions",
   slug: "inverse-functions",
-  moduleSlug: "functions-graphing-techniques",
-  moduleTitle: "Functions and Graphing Techniques",
+  moduleSlug: "ma-f2-graphing-techniques",
+  moduleTitle: "Graphing Techniques",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Inverse Functions",
   description:

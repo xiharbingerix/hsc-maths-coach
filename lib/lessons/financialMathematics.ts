@@ -1,4 +1,4 @@
-import type {
+﻿import type {
   ExplicitLesson,
   LessonOutlineItem,
 } from "./differentialCalculus";
@@ -6,8 +6,8 @@ import type {
 export const growthFactorsCompoundInterestDepreciationLesson: ExplicitLesson = {
   id: "growth-factors-compound-interest-depreciation",
   slug: "growth-factors-compound-interest-depreciation",
-  moduleSlug: "financial-mathematics",
-  moduleTitle: "Financial Mathematics",
+  moduleSlug: "ma-m1-modelling-financial-situations",
+  moduleTitle: "Modelling Financial Situations",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Growth Factors, Compound Interest, and Depreciation",
   description:
@@ -333,8 +333,8 @@ export const growthFactorsCompoundInterestDepreciationLesson: ExplicitLesson = {
 export const recurrenceRelationsFinancialContextsLesson: ExplicitLesson = {
   id: "recurrence-relations-financial-contexts",
   slug: "recurrence-relations-financial-contexts",
-  moduleSlug: "financial-mathematics",
-  moduleTitle: "Financial Mathematics",
+  moduleSlug: "ma-m1-modelling-financial-situations",
+  moduleTitle: "Modelling Financial Situations",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Recurrence Relations in Financial Contexts",
   description:
@@ -651,8 +651,8 @@ export const recurrenceRelationsFinancialContextsLesson: ExplicitLesson = {
 export const futureValueAnnuitiesLesson: ExplicitLesson = {
   id: "future-value-annuities",
   slug: "future-value-annuities",
-  moduleSlug: "financial-mathematics",
-  moduleTitle: "Financial Mathematics",
+  moduleSlug: "ma-m1-modelling-financial-situations",
+  moduleTitle: "Modelling Financial Situations",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Future Value of Annuities",
   description:
@@ -933,8 +933,8 @@ export const futureValueAnnuitiesLesson: ExplicitLesson = {
 export const presentValueLoanRepaymentsLesson: ExplicitLesson = {
   id: "present-value-loan-repayments",
   slug: "present-value-loan-repayments",
-  moduleSlug: "financial-mathematics",
-  moduleTitle: "Financial Mathematics",
+  moduleSlug: "ma-m1-modelling-financial-situations",
+  moduleTitle: "Modelling Financial Situations",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Present Value and Loan Repayments",
   description:
@@ -1227,8 +1227,8 @@ export const presentValueLoanRepaymentsLesson: ExplicitLesson = {
 export const comparingFinancialOptionsLesson: ExplicitLesson = {
   id: "comparing-financial-options",
   slug: "comparing-financial-options",
-  moduleSlug: "financial-mathematics",
-  moduleTitle: "Financial Mathematics",
+  moduleSlug: "ma-m1-modelling-financial-situations",
+  moduleTitle: "Modelling Financial Situations",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Comparing Financial Options",
   description:
@@ -1540,8 +1540,8 @@ export const comparingFinancialOptionsLesson: ExplicitLesson = {
 export const mixedFinancialMathematicsExamPracticeLesson: ExplicitLesson = {
   id: "mixed-financial-mathematics-exam-practice",
   slug: "mixed-financial-mathematics-exam-practice",
-  moduleSlug: "financial-mathematics",
-  moduleTitle: "Financial Mathematics",
+  moduleSlug: "ma-m1-modelling-financial-situations",
+  moduleTitle: "Modelling Financial Situations",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Mixed Financial Mathematics Exam Practice",
   description:

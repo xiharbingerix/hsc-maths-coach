@@ -1,4 +1,4 @@
-import type {
+﻿import type {
   ExplicitLesson,
   LessonOutlineItem,
   PracticeQuestion,
@@ -64,8 +64,8 @@ function lesson(
   return {
     id,
     slug: id,
-    moduleSlug: "differentiation-techniques",
-    moduleTitle: "Differentiation Techniques",
+    moduleSlug: "ma-c2-differential-calculus",
+    moduleTitle: "Differential Calculus",
     courseTitle: "Year 12 Mathematics Advanced",
     title,
     description,

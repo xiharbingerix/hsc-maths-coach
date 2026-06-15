@@ -26,95 +26,102 @@ export type CourseCatalogueItem = {
 
 export const courseUnits: CourseUnitSummary[] = [
   {
-    title: "Differential Calculus",
-    href: "/course/differential-calculus",
+    title: "Working with Functions",
+    href: "/course/ma-f1-working-with-functions",
     description:
-      "Derivatives, tangent gradients, stationary points, curve sketching, optimisation, and rates of change.",
-    activeLessonCount: 12,
+      "Functions, domain and range, function notation, graph transformations, solving equations graphically, and modelling with functions.",
+    activeLessonCount: 7,
   },
   {
-    title: "Differentiation Techniques",
-    href: "/course/differentiation-techniques",
+    title: "Graphing Techniques",
+    href: "/course/ma-f2-graphing-techniques",
     description:
-      "Standard derivatives, chain rule, product rule, quotient rule, tangents, normals, rates and stationary point applications.",
+      "Reciprocal and asymptotic graphs, exponential and logarithmic graphs, absolute value functions, and inverse functions.",
+    activeLessonCount: 4,
+  },
+  {
+    title: "Trigonometry and Measure of Angles",
+    href: "/course/ma-t1-trigonometry-and-measure-of-angles",
+    description:
+      "Angle measurement in radians, the unit circle, exact trigonometric values, and arc length and sector area.",
+    activeLessonCount: 1,
+  },
+  {
+    title: "Trigonometric Functions and Identities",
+    href: "/course/ma-t2-trigonometric-functions-and-identities",
+    description:
+      "Graphs of sine, cosine, and tangent; amplitude and period transformations; Pythagorean identity; compound and double angle formulas; and modelling periodic phenomena.",
+    activeLessonCount: 9,
+  },
+  {
+    title: "Trigonometric Equations",
+    href: "/course/ma-t3-trigonometric-equations",
+    description:
+      "Solving trigonometric equations using compound and double angle formulas and identities.",
+    activeLessonCount: 2,
+  },
+  {
+    title: "Introduction to Differentiation",
+    href: "/course/ma-c1-introduction-to-differentiation",
+    description:
+      "Limits, derivatives as rates of change, differentiating polynomials using the power rule, tangents and normals, stationary points, and increasing and decreasing functions.",
+    activeLessonCount: 7,
+  },
+  {
+    title: "Differential Calculus",
+    href: "/course/ma-c2-differential-calculus",
+    description:
+      "Differentiating trigonometric, exponential, and logarithmic functions; the chain rule, product rule, and quotient rule.",
     activeLessonCount: 5,
   },
   {
     title: "Applications of Differentiation",
-    href: "/course/applications-differentiation",
+    href: "/course/ma-c3-applications-of-differentiation",
     description:
-      "Second derivative, concavity, inflection points, curve sketching, optimisation, kinematics and motion applications.",
-    activeLessonCount: 6,
-  },
-  {
-    title: "Integral Calculus",
-    href: "/course/integral-calculus",
-    description:
-      "Antidifferentiation, definite integrals, area, the Trapezoidal rule, total change, and applications.",
-    activeLessonCount: 10,
-  },
-  {
-    title: "Further Integral Calculus",
-    href: "/course/further-integral-calculus",
-    description:
-      "Standard trigonometric, exponential and logarithmic integrals, reverse chain rule, definite integrals, trapezoidal rule and area between curves.",
-    activeLessonCount: 6,
-  },
-  {
-    title: "Functions and Graphing Techniques",
-    href: "/course/functions-graphing-techniques",
-    description:
-      "Function notation, domain and range, transformations, graph features, asymptotes, exponential/logarithmic graphs, absolute value functions, inverse functions, graphical solving, and modelling.",
+      "The second derivative, concavity, inflection points, curve sketching, optimisation problems, and kinematics.",
     activeLessonCount: 11,
   },
   {
-    title: "Trigonometric Functions and Graphs",
-    href: "/course/trigonometric-functions-graphs",
+    title: "Integral Calculus",
+    href: "/course/ma-c4-integral-calculus",
     description:
-      "Radians, exact values, the unit circle, sine, cosine, tangent graphs, equations, identities, and modelling.",
-    activeLessonCount: 7,
-  },
-  {
-    title: "Further Trigonometry",
-    href: "/course/further-trigonometry",
-    description:
-      "Compound angle formulas, double angle formulas, exact values, identity simplification and further trigonometric equations.",
-    activeLessonCount: 5,
+      "Antidifferentiation, indefinite and definite integrals, the fundamental theorem of calculus, area under and between curves, the trapezoidal rule, and further integration techniques.",
+    activeLessonCount: 16,
   },
   {
     title: "Exponential and Logarithmic Functions",
-    href: "/course/exponential-logarithmic-functions",
+    href: "/course/ma-e1-exponential-and-logarithmic-functions",
     description:
-      "Logarithm laws, change of base, Euler's number, natural logarithms, equations with e and ln, and continuous growth and decay modelling.",
+      "Logarithm laws, change of base, Euler's number, natural logarithms, solving equations with e and ln, and exponential growth and decay modelling.",
     activeLessonCount: 5,
   },
   {
-    title: "Sequences, Series and Financial Mathematics",
-    href: "/course/sequences-series-financial-maths",
+    title: "Probability and Discrete Probability Distributions",
+    href: "/course/ma-s1-probability-and-discrete-probability-distributions",
     description:
-      "Arithmetic and geometric sequences and series, sigma notation, limiting sums, and financial applications involving compound interest, depreciation and annuities.",
-    activeLessonCount: 5,
-  },
-  {
-    title: "Financial Mathematics",
-    href: "/course/financial-mathematics",
-    description:
-      "Growth factors, compound interest, depreciation, recurrence relations, annuities, loans, and financial decision-making.",
-    activeLessonCount: 6,
-  },
-  {
-    title: "Statistical Analysis",
-    href: "/course/statistical-analysis",
-    description:
-      "Data displays, summary statistics, outliers, standard deviation, z-scores, correlation, regression, normal distributions, and random variables.",
-    activeLessonCount: 8,
-  },
-  {
-    title: "Probability",
-    href: "/course/probability",
-    description:
-      "Probability axioms, Venn diagrams, the addition rule, conditional probability, tree diagrams, independence, the multiplication rule, and two-way tables.",
+      "Probability axioms, Venn diagrams, conditional probability, independence, and discrete probability distributions.",
     activeLessonCount: 4,
+  },
+  {
+    title: "Descriptive Statistics and Bivariate Data Analysis",
+    href: "/course/ma-s2-descriptive-statistics-and-bivariate-data",
+    description:
+      "Data displays, measures of centre and spread, z-scores, correlation, least-squares regression, and interpreting bivariate data.",
+    activeLessonCount: 5,
+  },
+  {
+    title: "Random Variables",
+    href: "/course/ma-s3-random-variables",
+    description:
+      "The normal distribution and empirical rule, random variables, probability distributions, expected value, and variance.",
+    activeLessonCount: 3,
+  },
+  {
+    title: "Modelling Financial Situations",
+    href: "/course/ma-m1-modelling-financial-situations",
+    description:
+      "Arithmetic and geometric sequences and series, limiting sums, compound interest, depreciation, recurrence relations, annuities, loans, and financial decision-making.",
+    activeLessonCount: 11,
   },
 ];
 

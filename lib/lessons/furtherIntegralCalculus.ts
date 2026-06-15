@@ -1,4 +1,4 @@
-import type {
+﻿import type {
   ExplicitLesson,
   LessonOutlineItem,
   PracticeQuestion,
@@ -83,8 +83,8 @@ function furtherIntegralLesson(
   return {
     id,
     slug: id,
-    moduleSlug: "further-integral-calculus",
-    moduleTitle: "Further Integral Calculus",
+    moduleSlug: "ma-c4-integral-calculus",
+    moduleTitle: "Integral Calculus",
     courseTitle: "Year 12 Mathematics Advanced",
     title,
     description,

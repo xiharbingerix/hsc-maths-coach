@@ -1,4 +1,4 @@
-import type {
+﻿import type {
   ExplicitLesson,
   LessonOutlineItem,
   PracticeQuestion,
@@ -103,8 +103,8 @@ function ssLesson(
   return {
     id,
     slug: id,
-    moduleSlug: "sequences-series-financial-maths",
-    moduleTitle: "Sequences, Series and Financial Mathematics",
+    moduleSlug: "ma-m1-modelling-financial-situations",
+    moduleTitle: "Modelling Financial Situations",
     courseTitle: "Year 12 Mathematics Advanced",
     title,
     description,

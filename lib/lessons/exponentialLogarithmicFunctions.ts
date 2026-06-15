@@ -1,4 +1,4 @@
-import type {
+﻿import type {
   ExplicitLesson,
   LessonOutlineItem,
   PracticeQuestion,
@@ -64,7 +64,7 @@ function expLesson(
   return {
     id,
     slug: id,
-    moduleSlug: "exponential-logarithmic-functions",
+    moduleSlug: "ma-e1-exponential-and-logarithmic-functions",
     moduleTitle: "Exponential and Logarithmic Functions",
     courseTitle: "Year 12 Mathematics Advanced",
     title,

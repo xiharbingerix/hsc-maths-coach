@@ -1,4 +1,4 @@
-import type {
+﻿import type {
   ArgandDiagram,
   BoxPlotDiagram,
   CartesianGraph,
@@ -145,8 +145,8 @@ export type LessonOutlineItem = {
 export const derivativeAsRateOfChangeLesson: ExplicitLesson = {
   id: "rate-of-change",
   slug: "rate-of-change",
-  moduleSlug: "differential-calculus",
-  moduleTitle: "Differential Calculus",
+  moduleSlug: "ma-c1-introduction-to-differentiation",
+  moduleTitle: "Introduction to Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "The Derivative as Rate of Change",
   description:
@@ -595,8 +595,8 @@ export const derivativeAsRateOfChangeLesson: ExplicitLesson = {
 export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
   id: "differentiating-polynomial-terms",
   slug: "differentiating-polynomial-terms",
-  moduleSlug: "differential-calculus",
-  moduleTitle: "Differential Calculus",
+  moduleSlug: "ma-c1-introduction-to-differentiation",
+  moduleTitle: "Introduction to Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Differentiating Polynomial Terms",
   description:
@@ -937,8 +937,8 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
 export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
   id: "differentiating-polynomial-functions",
   slug: "differentiating-polynomial-functions",
-  moduleSlug: "differential-calculus",
-  moduleTitle: "Differential Calculus",
+  moduleSlug: "ma-c1-introduction-to-differentiation",
+  moduleTitle: "Introduction to Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Differentiating Polynomial Functions",
   description:
@@ -1285,8 +1285,8 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
 export const tangentsAndNormalsLesson: ExplicitLesson = {
   id: "tangents-and-normals",
   slug: "tangents-and-normals",
-  moduleSlug: "differential-calculus",
-  moduleTitle: "Differential Calculus",
+  moduleSlug: "ma-c1-introduction-to-differentiation",
+  moduleTitle: "Introduction to Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Tangents and Normals",
   description:
@@ -1731,8 +1731,8 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
 export const stationaryPointsLesson: ExplicitLesson = {
   id: "stationary-points",
   slug: "stationary-points",
-  moduleSlug: "differential-calculus",
-  moduleTitle: "Differential Calculus",
+  moduleSlug: "ma-c1-introduction-to-differentiation",
+  moduleTitle: "Introduction to Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Stationary Points",
   description:
@@ -2109,8 +2109,8 @@ export const stationaryPointsLesson: ExplicitLesson = {
 export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
   id: "increasing-decreasing-functions",
   slug: "increasing-decreasing-functions",
-  moduleSlug: "differential-calculus",
-  moduleTitle: "Differential Calculus",
+  moduleSlug: "ma-c1-introduction-to-differentiation",
+  moduleTitle: "Introduction to Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Increasing and Decreasing Functions",
   description:
@@ -2475,8 +2475,8 @@ export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
 export const firstDerivativeTestLesson: ExplicitLesson = {
   id: "first-derivative-test",
   slug: "first-derivative-test",
-  moduleSlug: "differential-calculus",
-  moduleTitle: "Differential Calculus",
+  moduleSlug: "ma-c1-introduction-to-differentiation",
+  moduleTitle: "Introduction to Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "First Derivative Test",
   description:
@@ -2876,8 +2876,8 @@ export const firstDerivativeTestLesson: ExplicitLesson = {
 export const secondDerivativeTestLesson: ExplicitLesson = {
   id: "second-derivative-test",
   slug: "second-derivative-test",
-  moduleSlug: "differential-calculus",
-  moduleTitle: "Differential Calculus",
+  moduleSlug: "ma-c3-applications-of-differentiation",
+  moduleTitle: "Applications of Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Second Derivative Test",
   description:
@@ -3256,8 +3256,8 @@ export const secondDerivativeTestLesson: ExplicitLesson = {
 export const curveSketchingLesson: ExplicitLesson = {
   id: "curve-sketching",
   slug: "curve-sketching",
-  moduleSlug: "differential-calculus",
-  moduleTitle: "Differential Calculus",
+  moduleSlug: "ma-c3-applications-of-differentiation",
+  moduleTitle: "Applications of Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Curve Sketching with Derivatives",
   description:
@@ -3616,8 +3616,8 @@ export const curveSketchingLesson: ExplicitLesson = {
 export const optimisationLesson: ExplicitLesson = {
   id: "optimisation",
   slug: "optimisation",
-  moduleSlug: "differential-calculus",
-  moduleTitle: "Differential Calculus",
+  moduleSlug: "ma-c3-applications-of-differentiation",
+  moduleTitle: "Applications of Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Optimisation Problems",
   description:
@@ -3928,8 +3928,8 @@ export const optimisationLesson: ExplicitLesson = {
 export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
   id: "rates-of-change-applications",
   slug: "rates-of-change-applications",
-  moduleSlug: "differential-calculus",
-  moduleTitle: "Differential Calculus",
+  moduleSlug: "ma-c3-applications-of-differentiation",
+  moduleTitle: "Applications of Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Rates of Change Applications",
   description:
@@ -4353,8 +4353,8 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
 export const mixedExamPracticeLesson: ExplicitLesson = {
   id: "mixed-exam-practice",
   slug: "mixed-exam-practice",
-  moduleSlug: "differential-calculus",
-  moduleTitle: "Differential Calculus",
+  moduleSlug: "ma-c3-applications-of-differentiation",
+  moduleTitle: "Applications of Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Mixed Differential Calculus Exam Practice",
   description:

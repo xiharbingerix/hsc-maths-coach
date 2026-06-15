@@ -1,4 +1,4 @@
-import type {
+﻿import type {
   ExplicitLesson,
   LessonOutlineItem,
   PracticeQuestion,
@@ -64,7 +64,7 @@ function applicationLesson(
   return {
     id,
     slug: id,
-    moduleSlug: "applications-differentiation",
+    moduleSlug: "ma-c3-applications-of-differentiation",
     moduleTitle: "Applications of Differentiation",
     courseTitle: "Year 12 Mathematics Advanced",
     title,
