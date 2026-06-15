@@ -901,10 +901,11 @@ export function year11StandardTimeLocationLessonOverride(
     };
   }
 
-  return {
-    ...base,
-    description:
-      "Practise mixed time and location questions using timetables, UTC offsets, date changes, grid references, map scales and coordinate descriptions.",
+  if (lesson.slug === "time-location-exam-practice") {
+    return {
+      ...base,
+      description:
+        "Practise mixed time and location questions using timetables, UTC offsets, date changes, grid references, map scales and coordinate descriptions.",
     learningIntention:
       "Apply timetable, time-zone, map scale and grid-reference skills to mixed practical exam-style contexts.",
     successCriteria: [
@@ -958,6 +959,175 @@ export function year11StandardTimeLocationLessonOverride(
       timeAnswer("time-exam-m9", "A flight leaves at 21:20 and lasts 4 h 10 min. Ignoring time zones, what is the arrival time?", "\\text{depart}=21{:}20,\\quad \\text{duration}=4\\text{ h }10\\text{ min}", "01:30", ["1:30 am", "0130", "1.30 am"]),
       financeChoice("time-exam-m10", "If Sydney is observing daylight saving as UTC+11 and Perth is UTC+8, Sydney is:", "A", ["3 hours ahead", "2 hours ahead", "3 hours behind", "The same time"], "UTC+11 is 3 hours ahead of UTC+8."),
     ],
-  };
+    };
+  }
+
+  if (lesson.slug === "time-location-revision") {
+    return {
+      ...base,
+      description:
+        "Activate Year 10 time skills: convert between 12-hour and 24-hour time, calculate elapsed time, read timetables, and convert between time units — foundations for Year 11 time-zone and scheduling work.",
+      learningIntention:
+        "Recall and apply Year 10 time-reading and calculation skills so that Year 11 UTC offsets, timetable, and travel-planning work builds on secure foundations.",
+      successCriteria: [
+        "Convert between 12-hour (am/pm) and 24-hour time.",
+        "Calculate elapsed time between two given times, including crossing midnight.",
+        "Read a timetable to find departure, arrival, and travel duration.",
+        "Convert between seconds, minutes, hours, and days.",
+      ],
+      teaching: {
+        paragraphs: [
+          "24-hour time (also called military time) runs from 0000 (midnight) to 2359. For times from 1:00 pm onward, add 12 to the hour: 3:45 pm → 1545. For am times (except 12 am = 0000), keep the hour as is and pad with a leading zero if needed: 9:20 am → 0920.",
+          "To convert from 24-hour to 12-hour time: if the hours digits are 13 or more, subtract 12 and write pm. If the hours digits are 12, write 12 pm. If the hours are 00, write 12 am. Otherwise, it is an am time (keep the hours).",
+          "Elapsed time is the duration between a start time and an end time. The simplest method is to count up: from the start time, add minutes to reach the next whole hour, then add hours, then add remaining minutes. For times crossing midnight, treat midnight as 2400 (or 0000 the next day) and calculate accordingly.",
+          "Time unit conversions: 60 seconds = 1 minute, 60 minutes = 1 hour, 24 hours = 1 day, 7 days = 1 week. To convert to smaller units multiply; to larger units divide.",
+        ],
+        latexBlocks: [
+          "\\text{pm} \\to \\text{24-hr: add 12 to hour}\\qquad \\text{am} \\to \\text{24-hr: keep hour (use 0000 for midnight)}",
+          "\\text{Elapsed time: count up from start to end, or subtract start from end}",
+          "60\\text{ s}=1\\text{ min},\\quad 60\\text{ min}=1\\text{ h},\\quad 24\\text{ h}=1\\text{ day}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Converting 12-hour to 24-hour time",
+          questionLatex: "\\text{Convert 2:45 pm to 24-hour time.}",
+          steps: [
+            {
+              explanation: "It is a pm time, so add 12 to the hours: 2 + 12 = 14.",
+              latex: "2:45\\text{ pm} \\to 1445",
+            },
+          ],
+          finalAnswerLatex: "1445",
+        },
+        {
+          title: "Elapsed time",
+          questionLatex: "\\text{A bus departs at 09:35 and arrives at 13:10. How long is the journey?}",
+          steps: [
+            {
+              explanation: "Count up from 09:35 to 13:10.",
+              latex: "09:35 \\xrightarrow{+25\\text{ min}} 10:00 \\xrightarrow{+3\\text{ h}} 13:00 \\xrightarrow{+10\\text{ min}} 13:10",
+            },
+            {
+              explanation: "Total elapsed time: 3 hours 35 minutes.",
+              latex: "3\\text{ h }35\\text{ min}",
+            },
+          ],
+          finalAnswerLatex: "3\\text{ h }35\\text{ min}",
+        },
+        {
+          title: "Time unit conversion",
+          questionLatex: "\\text{Convert 3.5 hours to minutes.}",
+          steps: [
+            {
+              explanation: "Multiply by 60 (60 minutes per hour).",
+              latex: "3.5 \\times 60 = 210 \\text{ minutes}",
+            },
+          ],
+          finalAnswerLatex: "210 \\text{ minutes}",
+        },
+      ],
+      guidedPractice: [
+        timeAnswer(
+          "y11s-tlr-g1",
+          "Convert 7:20 am to 24-hour time.",
+          "\\text{am time: keep hour, pad to 4 digits}",
+          "0720",
+          ["07:20", "7:20", "07 20"]
+        ),
+        timeAnswer(
+          "y11s-tlr-g2",
+          "Convert 1435 to 12-hour time.",
+          "14 - 12 = 2,\\quad \\text{so } 2:35\\text{ pm}",
+          "2:35 pm",
+          ["2:35pm", "02:35 pm", "2:35 PM"]
+        ),
+        timeAnswer(
+          "y11s-tlr-g3",
+          "A train departs at 08:15 and arrives at 11:45. How long is the journey?",
+          "08:15 \\to 11:45: \\text{count up }3\\text{ h }30\\text{ min}",
+          "3 h 30 min",
+          ["3:30", "3 hours 30 minutes", "3h30min"]
+        ),
+        financeChoice(
+          "y11s-tlr-g4",
+          "How many minutes are in 2.5 hours?",
+          "C",
+          ["125 min", "120 min", "150 min", "100 min"],
+          "2.5 × 60 = 150 minutes."
+        ),
+      ],
+      independentPractice: [
+        timeAnswer(
+          "y11s-tlr-i1",
+          "Convert 11:55 pm to 24-hour time.",
+          "11 + 12 = 23,\\quad \\text{so } 2355",
+          "2355",
+          ["23:55", "23 55"]
+        ),
+        timeAnswer(
+          "y11s-tlr-i2",
+          "Convert 0845 to 12-hour time.",
+          "0845 \\to 8:45\\text{ am (hours < 12)}",
+          "8:45 am",
+          ["8:45am", "08:45 am", "8:45 AM"]
+        ),
+        timeAnswer(
+          "y11s-tlr-i3",
+          "A flight departs at 22:50 and arrives at 01:30 the next day. How long is the flight?",
+          "22:50 \\to 23:00 = 10\\text{ min},\\quad 23:00 \\to 01:30 = 2\\text{ h }30\\text{ min}",
+          "2 h 40 min",
+          ["2:40", "2 hours 40 minutes", "2h40min"]
+        ),
+        timeAnswer(
+          "y11s-tlr-i4",
+          "Convert 4 hours 20 minutes to minutes.",
+          "4 \\times 60 + 20",
+          "260 minutes",
+          ["260", "260 min"]
+        ),
+        financeChoice(
+          "y11s-tlr-i5",
+          "A timetable shows a bus departs at 0735 and the journey takes 55 minutes. The arrival time is:",
+          "B",
+          ["0820", "0830", "0825", "0800"],
+          "0735 + 25 min = 0800, then + 30 min = 0830."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "For 12 pm, subtracting 12 instead of keeping 1200.",
+          fix: "12 noon is 1200 in 24-hour time. 12 pm → 1200 (do not subtract 12). 12 am (midnight) → 0000.",
+        },
+        {
+          mistake: "When adding pm conversion, adding 12 to 12 pm to get 2400.",
+          fix: "12 pm is already 1200 in 24-hour time — do not add 12 again. Only add 12 to hours from 1 pm to 11 pm.",
+        },
+        {
+          mistake: "Subtracting start time from end time when crossing midnight and getting a negative result.",
+          fix: "For overnight journeys, count up: from departure to midnight (0000 or 2400), then from midnight to arrival. Add the two parts.",
+        },
+        {
+          mistake: "Converting hours to minutes by multiplying by 100 instead of 60.",
+          fix: "There are 60 minutes in one hour, not 100. To convert hours to minutes, multiply by 60: 2.5 hours = 2.5 × 60 = 150 minutes.",
+        },
+      ],
+      masteryQuiz: [
+        timeAnswer("y11s-tlr-m1", "Convert 5:30 pm to 24-hour time.", "5 + 12 = 17,\\quad 1730", "1730", ["17:30", "17 30"]),
+        timeAnswer("y11s-tlr-m2", "Convert 1620 to 12-hour time.", "16 - 12 = 4,\\quad 4:20\\text{ pm}", "4:20 pm", ["4:20pm", "4:20 PM"]),
+        timeAnswer("y11s-tlr-m3", "A movie starts at 14:25 and lasts 1 h 45 min. When does it end?", "14:25 + 1:45", "16:10", ["1610", "4:10 pm"]),
+        financeChoice("y11s-tlr-m4", "12 midnight in 24-hour time is:", "D", ["1200", "2400 always", "1259", "0000"], "Midnight is written as 0000 (start of the day) in standard 24-hour notation."),
+        timeAnswer("y11s-tlr-m5", "How many seconds are in 3 minutes?", "3 \\times 60", "180 seconds", ["180", "180s", "180 s"]),
+        timeAnswer("y11s-tlr-m6", "A bus departs at 10:45 and the journey is 2 h 25 min. What is the arrival time?", "10:45 + 2:25 = 13:10", "13:10", ["1310", "1:10 pm"]),
+        financeChoice("y11s-tlr-m7", "Convert 180 minutes to hours.", "B", ["1.5 h", "3 h", "2 h", "18 h"], "180 ÷ 60 = 3 hours."),
+        timeAnswer("y11s-tlr-m8", "Convert 11:15 am to 24-hour time.", "\\text{am: keep hours (pad) } 1115", "1115", ["11:15", "11 15"]),
+        timeAnswer("y11s-tlr-m9", "A trip departs at 23:30 and arrives at 02:00 the next day. How long is the trip?", "23:30 \\to 24:00 = 30\\text{ min},\\quad 00:00 \\to 02:00 = 2\\text{ h}", "2 h 30 min", ["2:30", "2 hours 30 minutes", "2h30min"]),
+        financeChoice("y11s-tlr-m10", "A train timetable uses 24-hour time. A departure of 0800 is:", "A", ["8:00 am", "8:00 pm", "6:00 pm", "Midnight"], "0800 is before noon and the hours are 08, so it is 8:00 am."),
+      ],
+      masteryPassMark: 0.8,
+    };
+  }
+
+  return null;
 }
 

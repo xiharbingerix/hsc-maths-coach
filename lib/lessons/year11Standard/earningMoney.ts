@@ -770,10 +770,11 @@ export function year11StandardEarningMoneyLessonOverride(
     };
   }
 
-  return {
-    ...base,
-    description:
-      "Practise mixed earning-money questions involving payslips, overtime, commission, allowances, gross pay, and net pay.",
+  if (lesson.slug === "earning-money-exam-practice") {
+    return {
+      ...base,
+      description:
+        "Practise mixed earning-money questions involving payslips, overtime, commission, allowances, gross pay, and net pay.",
     learningIntention:
       "Apply earning-money skills to mixed practical exam-style questions.",
     successCriteria: [
@@ -825,6 +826,405 @@ export function year11StandardEarningMoneyLessonOverride(
       moneyAnswer("earn-exam-m9", "A payslip has ordinary pay of 400 dollars, overtime pay of 90 dollars, and tax withheld of 80 dollars. What is the net pay?", "\\text{ordinary}=\\$400,\\quad \\text{overtime}=\\$90,\\quad \\text{tax}=\\$80", "410", ["$410", "410.00", "$410.00"]),
       financeChoice("earn-exam-m10", "Which answer is most reasonable if gross pay is 600 dollars and deductions apply?", "D", ["700 dollars net pay", "6000 dollars net pay", "No net pay can exist", "520 dollars net pay"], "Net pay should be less than gross pay when deductions apply."),
     ],
-  };
+    };
+  }
+
+  if (lesson.slug === "medicare-levy-tax-tables") {
+    return {
+      ...base,
+      description:
+        "Calculate the Medicare levy as a percentage of taxable income, read PAYG tax withholding tables to find tax deducted from regular pay, and determine whether a tax return results in a refund or a further payment.",
+      learningIntention:
+        "Apply the Medicare levy rate and PAYG tax tables to determine tax obligations, and calculate tax refunds or payments due after lodging a tax return.",
+      successCriteria: [
+        "Calculate the Medicare levy at 2% of taxable income.",
+        "Read a simplified PAYG tax withholding table to find the tax to deduct from weekly or fortnightly pay.",
+        "Calculate total tax withheld across a year from regular pay periods.",
+        "Determine whether a tax return results in a refund or a further payment by comparing tax withheld with tax payable.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The Medicare levy is an additional charge on most Australian taxpayers, funding the public health system. The standard rate is 2% of taxable income. For example, a taxable income of $52,000 attracts a Medicare levy of $52,000 × 0.02 = $1,040. Low-income earners may qualify for a reduction or exemption.",
+          "Pay-As-You-Go (PAYG) withholding is the system by which employers deduct tax from employees' wages throughout the year. The amount withheld each pay period is determined by looking up the gross pay in a PAYG withholding tax table. These tables are published by the Australian Taxation Office (ATO) and account for the employee's pay frequency (weekly, fortnightly, monthly) and tax-free threshold claim.",
+          "At the end of the financial year (30 June), a worker lodges a tax return. The ATO calculates the total tax payable on the full year's taxable income. This is then compared with the total amount already withheld by the employer. If more was withheld than owed, the worker receives a refund. If less was withheld, the worker must pay the difference.",
+          "Key formula: Tax payable = income tax (from tax brackets) + Medicare levy. If total tax withheld > tax payable → refund (excess returned to worker). If total tax withheld < tax payable → shortfall (worker pays the difference). The net tax calculation is: net = tax payable − tax withheld (negative means refund, positive means payment owing).",
+        ],
+        latexBlocks: [
+          "\\text{Medicare levy} = 2\\% \\times \\text{taxable income}",
+          "\\text{Total tax payable} = \\text{income tax} + \\text{Medicare levy}",
+          "\\text{Refund} = \\text{tax withheld} - \\text{tax payable}\\quad (\\text{if withheld} > \\text{payable})",
+          "\\text{Payment owing} = \\text{tax payable} - \\text{tax withheld}\\quad (\\text{if payable} > \\text{withheld})",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Calculating the Medicare levy",
+          questionLatex:
+            "\\text{Priya has a taxable income of }\\$68\\,000.\\text{ Calculate her Medicare levy at 2\\%.}",
+          steps: [
+            {
+              explanation: "Convert 2% to a decimal: 2% = 0.02.",
+              latex: "\\text{Medicare levy} = 2\\% \\times \\$68\\,000",
+            },
+            {
+              explanation: "Multiply taxable income by 0.02.",
+              latex: "= 0.02 \\times 68\\,000 = \\$1\\,360",
+            },
+          ],
+          finalAnswerLatex: "\\$1\\,360",
+        },
+        {
+          title: "Reading a PAYG tax table and calculating annual tax withheld",
+          questionLatex:
+            "\\text{Sam earns }\\$1\\,200\\text{ gross per week. The PAYG weekly tax table shows }\\$214\\text{ to withhold at this income. How much tax is withheld over 52 weeks?}",
+          steps: [
+            {
+              explanation: "The PAYG table gives the weekly withholding amount: $214 per week.",
+              latex: "\\text{Weekly withholding} = \\$214",
+            },
+            {
+              explanation: "Multiply by 52 weeks to find annual tax withheld.",
+              latex: "\\text{Annual tax withheld} = 214 \\times 52 = \\$11\\,128",
+            },
+          ],
+          finalAnswerLatex: "\\$11\\,128",
+        },
+        {
+          title: "Tax return: refund or payment owing",
+          questionLatex:
+            "\\text{Jordan's total tax payable (income tax + Medicare levy) is }\\$9\\,850.\\text{ During the year, }\\$10\\,400\\text{ was withheld. Find the refund or payment owing.}",
+          steps: [
+            {
+              explanation: "Compare tax withheld with tax payable.",
+              latex: "\\text{Tax withheld} = \\$10\\,400,\\quad \\text{Tax payable} = \\$9\\,850",
+            },
+            {
+              explanation: "Tax withheld exceeds tax payable, so Jordan gets a refund.",
+              latex: "\\text{Refund} = 10\\,400 - 9\\,850 = \\$550",
+            },
+          ],
+          finalAnswerLatex: "\\$550 \\text{ refund}",
+        },
+      ],
+      guidedPractice: [
+        moneyAnswer(
+          "y11s-mel-g1",
+          "Calculate the Medicare levy on a taxable income of $45,000. Use rate = 2%.",
+          "0.02 \\times 45\\,000",
+          "900",
+          ["$900", "900.00", "$900.00"]
+        ),
+        moneyAnswer(
+          "y11s-mel-g2",
+          "A PAYG table shows $178 is withheld weekly. What is the total annual tax withheld over 52 weeks?",
+          "178 \\times 52",
+          "9256",
+          ["$9256", "9256.00", "$9,256"]
+        ),
+        financeChoice(
+          "y11s-mel-g3",
+          "A worker's tax payable is $8,200 and tax withheld was $7,800. The outcome of the tax return is:",
+          "B",
+          ["A refund of $400", "A payment of $400 owing", "A refund of $8,200", "No change"],
+          "Tax payable > tax withheld → payment of $8,200 − $7,800 = $400 is owed."
+        ),
+        moneyAnswer(
+          "y11s-mel-g4",
+          "A worker's tax payable is $11,500 and tax withheld was $12,100. Find the tax refund.",
+          "12\\,100 - 11\\,500",
+          "600",
+          ["$600", "600.00", "$600.00"]
+        ),
+      ],
+      independentPractice: [
+        moneyAnswer(
+          "y11s-mel-i1",
+          "Calculate the Medicare levy on a taxable income of $72,000.",
+          "0.02 \\times 72\\,000",
+          "1440",
+          ["$1440", "1440.00", "$1,440", "$1440.00"]
+        ),
+        moneyAnswer(
+          "y11s-mel-i2",
+          "A fortnightly PAYG table shows $395 withheld. How much is withheld over 26 fortnights?",
+          "395 \\times 26",
+          "10270",
+          ["$10270", "10270.00", "$10,270"]
+        ),
+        moneyAnswer(
+          "y11s-mel-i3",
+          "Total tax payable is $14,200 (income tax $12,760 + Medicare levy $1,440). Tax withheld was $13,500. Find the payment owing.",
+          "14\\,200 - 13\\,500",
+          "700",
+          ["$700", "700.00", "$700.00"]
+        ),
+        financeChoice(
+          "y11s-mel-i4",
+          "The Medicare levy is charged at:",
+          "B",
+          ["1% of taxable income", "2% of taxable income", "10% of taxable income", "$100 flat fee"],
+          "The standard Medicare levy rate is 2% of taxable income."
+        ),
+        moneyAnswer(
+          "y11s-mel-i5",
+          "Alex earns $850 per week gross. The PAYG table shows $132 to withhold. Calculate total tax withheld over the full year (52 weeks).",
+          "132 \\times 52",
+          "6864",
+          ["$6864", "6864.00", "$6,864"]
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Calculating the Medicare levy as 2% of gross income instead of taxable income.",
+          fix: "The Medicare levy is based on taxable income, which is gross income minus allowable deductions. Always check whether the question gives taxable income or gross income.",
+        },
+        {
+          mistake: "Concluding a refund when tax payable exceeds tax withheld.",
+          fix: "A refund occurs when tax withheld is greater than tax payable. If tax payable is larger, the worker owes the difference. Check which amount is higher before deciding.",
+        },
+        {
+          mistake: "Using 52 fortnights instead of 26 fortnights per year.",
+          fix: "There are 52 weeks per year, so there are 26 fortnights (52 ÷ 2 = 26). Multiply fortnightly withholding by 26, not 52.",
+        },
+        {
+          mistake: "Forgetting to include the Medicare levy when calculating total tax payable.",
+          fix: "Total tax payable = income tax + Medicare levy. Both amounts must be included before comparing with total tax withheld.",
+        },
+      ],
+      masteryQuiz: [
+        moneyAnswer("y11s-mel-m1", "Calculate the Medicare levy on a taxable income of $55,000.", "0.02 \\times 55\\,000", "1100", ["$1100", "1100.00", "$1,100"]),
+        moneyAnswer("y11s-mel-m2", "Calculate the Medicare levy on a taxable income of $82,000.", "0.02 \\times 82\\,000", "1640", ["$1640", "1640.00", "$1,640"]),
+        moneyAnswer("y11s-mel-m3", "A PAYG table shows $262 withheld weekly. Calculate total tax withheld over 52 weeks.", "262 \\times 52", "13624", ["$13624", "$13,624"]),
+        financeChoice(
+          "y11s-mel-m4",
+          "A worker had $9,800 withheld and their total tax payable is $9,200. The tax return outcome is:",
+          "A",
+          ["Refund of $600", "Payment of $600 owing", "Refund of $9,200", "No change needed"],
+          "Tax withheld ($9,800) > tax payable ($9,200) → refund of $600."
+        ),
+        moneyAnswer("y11s-mel-m5", "Tax payable is $12,600 and tax withheld was $11,950. Find the payment owing.", "12\\,600 - 11\\,950", "650", ["$650", "650.00", "$650.00"]),
+        financeChoice(
+          "y11s-mel-m6",
+          "PAYG withholding tables are used to find:",
+          "C",
+          ["Superannuation contributions", "Annual leave pay", "Tax deducted from each pay period", "Commission rates"],
+          "PAYG tables show how much tax an employer should deduct from each regular pay."
+        ),
+        moneyAnswer("y11s-mel-m7", "A fortnightly PAYG table shows $480 withheld. Calculate total annual tax withheld.", "480 \\times 26", "12480", ["$12480", "$12,480"]),
+        moneyAnswer(
+          "y11s-mel-m8",
+          "Income tax on $58,000 is $10,342. Medicare levy is 2%. Find total tax payable.",
+          "10\\,342 + 0.02 \\times 58\\,000 = 10\\,342 + 1\\,160",
+          "11502",
+          ["$11502", "$11,502", "11502.00"]
+        ),
+        financeChoice(
+          "y11s-mel-m9",
+          "The Medicare levy funds:",
+          "A",
+          ["Australia's public health system", "Superannuation accounts", "Centrelink payments", "Private health insurance"],
+          "The Medicare levy specifically funds Australia's public Medicare healthcare system."
+        ),
+        moneyAnswer(
+          "y11s-mel-m10",
+          "Tax withheld is $8,750 and tax payable is $9,380. Find the payment owing.",
+          "9\\,380 - 8\\,750",
+          "630",
+          ["$630", "630.00", "$630.00"]
+        ),
+      ],
+    };
+  }
+
+  if (lesson.slug === "earning-money-revision") {
+    return {
+      ...base,
+      description:
+        "Activate Year 10 skills in percentages, fractions and decimals that underpin all Year 11 earning money calculations: converting between formats, finding percentages of quantities, calculating percentage increases, and converting between time periods.",
+      learningIntention:
+        "Recall and apply Year 10 percentage and money skills so that Year 11 earning money work builds on secure number foundations.",
+      successCriteria: [
+        "Convert between percentages, fractions and decimals in both directions.",
+        "Calculate a percentage of a quantity (including money amounts).",
+        "Apply percentage increase and decrease to a base amount.",
+        "Convert between weeks, fortnights, months and years for earnings calculations.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A percentage is a fraction out of 100. To convert a percentage to a decimal, divide by 100 (move the decimal point two places left): 6% = 0.06. To convert a decimal to a percentage, multiply by 100: 0.175 = 17.5%. To convert a fraction to a percentage, divide the numerator by the denominator and multiply by 100.",
+          "To find a percentage of a quantity, convert the percentage to a decimal first, then multiply. For example, 5% of $3,200 = 0.05 × $3,200 = $160. This is used constantly in earnings contexts: commission at 5%, leave loading at 17.5%, super at 11%.",
+          "Percentage increase: new amount = original × (1 + rate). For example, a 10% increase on $500: $500 × 1.10 = $550. Percentage decrease: new amount = original × (1 − rate). For example, a 15% discount on $80: $80 × 0.85 = $68. Alternatively, find the % amount and add or subtract.",
+          "Earning amounts are often stated per week (×52 per year), per fortnight (×26 per year), or per month (×12 per year). To convert, multiply or divide by the appropriate factor. There are 52 weeks, 26 fortnights, and 12 months in one year.",
+        ],
+        latexBlocks: [
+          "\\%\\to\\text{decimal: divide by }100.\\quad 6\\%=0.06",
+          "\\%\\text{ of quantity: convert then multiply}\\quad 5\\%\\times\\$3200=0.05\\times3200=\\$160",
+          "\\text{Increase: }\\times(1+r)\\quad\\text{Decrease: }\\times(1-r)",
+          "\\text{52 weeks = 26 fortnights = 12 months = 1 year}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Converting 17.5% to a decimal and finding a percentage",
+          questionLatex:
+            "\\text{An employee is entitled to leave loading of 17.5\\% on 4 weeks' normal pay. Normal weekly pay is }\\$840.\\text{ Find the leave loading amount.}",
+          steps: [
+            {
+              explanation: "Find 4 weeks' normal pay.",
+              latex: "4 \\times 840 = \\$3\\,360",
+            },
+            {
+              explanation: "Convert 17.5% to a decimal: 17.5 ÷ 100 = 0.175.",
+              latex: "\\text{Leave loading} = 0.175 \\times 3\\,360 = \\$588",
+            },
+          ],
+          finalAnswerLatex: "\\$588",
+        },
+        {
+          title: "Percentage of a salary for superannuation",
+          questionLatex:
+            "\\text{An employer contributes 11\\% superannuation on ordinary earnings of }\\$1\\,200\\text{ per week. Find the weekly super contribution.}",
+          steps: [
+            {
+              explanation: "Convert 11% to a decimal: 0.11.",
+              latex: "\\text{Super} = 0.11 \\times 1\\,200",
+            },
+            {
+              explanation: "Multiply.",
+              latex: "= \\$132",
+            },
+          ],
+          finalAnswerLatex: "\\$132 \\text{ per week}",
+        },
+        {
+          title: "Converting between pay periods",
+          questionLatex:
+            "\\text{A fortnightly salary is }\\$3\\,400.\\text{ Find the annual salary.}",
+          steps: [
+            {
+              explanation: "There are 26 fortnights in a year.",
+              latex: "\\text{Annual} = 3\\,400 \\times 26",
+            },
+            {
+              explanation: "Multiply.",
+              latex: "= \\$88\\,400",
+            },
+          ],
+          finalAnswerLatex: "\\$88\\,400",
+        },
+      ],
+      guidedPractice: [
+        moneyAnswer(
+          "y11s-emr-g1",
+          "Find 5% of $2,800 (commission on sales).",
+          "0.05 \\times 2\\,800",
+          "140",
+          ["$140", "140.00", "$140.00"]
+        ),
+        moneyAnswer(
+          "y11s-emr-g2",
+          "A weekly wage is $950. Find the annual wage (52 weeks).",
+          "950 \\times 52",
+          "49400",
+          ["$49400", "$49,400", "49400.00"]
+        ),
+        financeChoice(
+          "y11s-emr-g3",
+          "17.5% as a decimal is:",
+          "C",
+          ["17.5", "1.75", "0.175", "0.0175"],
+          "Divide by 100: 17.5 ÷ 100 = 0.175."
+        ),
+        moneyAnswer(
+          "y11s-emr-g4",
+          "A fortnightly salary is $2,200. Find the annual salary (26 fortnights).",
+          "2\\,200 \\times 26",
+          "57200",
+          ["$57200", "$57,200"]
+        ),
+      ],
+      independentPractice: [
+        moneyAnswer(
+          "y11s-emr-i1",
+          "Find 11% of $1,400 (superannuation contribution).",
+          "0.11 \\times 1\\,400",
+          "154",
+          ["$154", "154.00", "$154.00"]
+        ),
+        moneyAnswer(
+          "y11s-emr-i2",
+          "A monthly salary is $5,500. Find the annual salary (12 months).",
+          "5\\,500 \\times 12",
+          "66000",
+          ["$66000", "$66,000"]
+        ),
+        moneyAnswer(
+          "y11s-emr-i3",
+          "Find 17.5% of $2,400 (leave loading on 3 weeks' pay at $800 per week).",
+          "0.175 \\times 2\\,400",
+          "420",
+          ["$420", "420.00", "$420.00"]
+        ),
+        financeChoice(
+          "y11s-emr-i4",
+          "An annual salary is $78,000. The monthly salary (÷12) is:",
+          "B",
+          ["$1,500", "$6,500", "$3,000", "$7,800"],
+          "78,000 ÷ 12 = $6,500 per month."
+        ),
+        moneyAnswer(
+          "y11s-emr-i5",
+          "Find 6.5% of $4,500 (commission on sales).",
+          "0.065 \\times 4\\,500",
+          "292.50",
+          ["$292.50", "292.5", "$292.5"]
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Using 17.5% as 17.5 in multiplication instead of converting to 0.175.",
+          fix: "Always divide a percentage by 100 before multiplying. 17.5% of $3,360 = 0.175 × $3,360, NOT 17.5 × $3,360.",
+        },
+        {
+          mistake: "Multiplying a fortnightly wage by 52 to find the annual amount.",
+          fix: "There are 26 fortnights in a year (52 ÷ 2 = 26). Multiply the fortnightly amount by 26, not 52.",
+        },
+        {
+          mistake: "Confusing 'percentage of a quantity' with 'percentage more than a quantity'.",
+          fix: "5% of $2,000 = $100 (the increase amount only). But a 5% increase on $2,000 = $2,000 × 1.05 = $2,100 (the new total). Check whether the question asks for the percentage amount or the final value.",
+        },
+        {
+          mistake: "Dividing annual salary by 26 to get a weekly salary.",
+          fix: "Divide by 52 for a weekly salary. Divide by 26 for a fortnightly salary. These are different pay periods.",
+        },
+      ],
+      masteryQuiz: [
+        moneyAnswer("y11s-emr-m1", "Find 6% of $3,500 (commission).", "0.06 \\times 3\\,500", "210", ["$210", "210.00"]),
+        moneyAnswer("y11s-emr-m2", "A weekly wage is $1,150. Find the annual wage.", "1\\,150 \\times 52", "59800", ["$59800", "$59,800"]),
+        moneyAnswer("y11s-emr-m3", "Find 11% of $2,000 (weekly superannuation on $2,000 earnings).", "0.11 \\times 2\\,000", "220", ["$220", "220.00"]),
+        financeChoice("y11s-emr-m4", "11% as a decimal is:", "C", ["11.0", "1.1", "0.11", "0.011"], "Divide by 100: 11 ÷ 100 = 0.11."),
+        moneyAnswer("y11s-emr-m5", "A fortnightly wage is $1,900. Find the annual wage.", "1\\,900 \\times 26", "49400", ["$49400", "$49,400"]),
+        moneyAnswer("y11s-emr-m6", "Find 17.5% of $1,680 (leave loading).", "0.175 \\times 1\\,680", "294", ["$294", "294.00"]),
+        financeChoice(
+          "y11s-emr-m7",
+          "How many months are in one year?",
+          "B",
+          ["10", "12", "26", "52"],
+          "There are 12 months in one year."
+        ),
+        moneyAnswer("y11s-emr-m8", "An annual salary is $96,000. Find the monthly salary.", "96\\,000 \\div 12", "8000", ["$8000", "$8,000"]),
+        moneyAnswer("y11s-emr-m9", "Find 4.5% of $6,000 (commission rate).", "0.045 \\times 6\\,000", "270", ["$270", "270.00"]),
+        financeChoice(
+          "y11s-emr-m10",
+          "To convert a percentage to a decimal, you should:",
+          "A",
+          ["Divide by 100", "Multiply by 100", "Divide by 10", "Add a decimal point after the digits"],
+          "Divide by 100: 6% ÷ 100 = 0.06."
+        ),
+      ],
+    };
+  }
+
+  return null;
 }
 

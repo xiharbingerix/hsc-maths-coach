@@ -1592,10 +1592,11 @@ export function year11StandardNetworksLessonOverride(
     };
   }
 
-  return {
-    ...base,
-    description:
-      "Practise mixed network applications: constructing diagrams, interpreting directed or weighted edges, shortest paths, MSTs, and practical decisions.",
+  if (lesson.slug === "network-applications-exam-practice") {
+    return {
+      ...base,
+      description:
+        "Practise mixed network applications: constructing diagrams, interpreting directed or weighted edges, shortest paths, MSTs, and practical decisions.",
     learningIntention:
       "Apply network terminology, shortest paths and minimum spanning trees to practical exam-style contexts.",
     successCriteria: [
@@ -1680,5 +1681,185 @@ export function year11StandardNetworksLessonOverride(
       },
       labelledChoice("net-app-m10", "Before solving a network application, first:", "A", ["Identify the goal of the problem", "Choose the largest edge", "Ignore weights", "Delete vertices"], "The method depends on the goal."),
     ],
-  };
+    };
+  }
+
+  if (lesson.slug === "networks-revision") {
+    return {
+      ...base,
+      description:
+        "Activate prior knowledge for network mathematics: identify vertices and edges, count degrees, recognise paths and cycles, and read simple network diagrams — foundations for Year 11 shortest-path and spanning-tree work.",
+      learningIntention:
+        "Recall the definitions and notation for network graphs so that Year 11 network applications build on secure foundations.",
+      successCriteria: [
+        "Identify vertices (nodes) and edges (connections) in a network diagram and count each.",
+        "Find the degree of a vertex by counting the edges incident to it.",
+        "Identify whether a sequence of connected vertices forms a path or a cycle.",
+        "Recognise whether a network is connected (all vertices reachable from any starting point).",
+      ],
+      teaching: {
+        paragraphs: [
+          "A network (or graph) is a set of vertices (also called nodes or points) connected by edges (also called arcs or lines). Vertices represent objects or locations; edges represent connections between them. Networks model roads, computer links, social connections, pipelines, and many other systems.",
+          "The degree of a vertex is the number of edges directly connected to it. A vertex with degree 0 is isolated (no connections). The sum of all degrees in any network equals twice the number of edges, because every edge contributes 1 to each of its two endpoints.",
+          "A path is a sequence of vertices where each consecutive pair is connected by an edge and no vertex is repeated. A cycle (or circuit) is a closed path that returns to its starting vertex. A connected network has a path between every pair of vertices — no vertex is stranded.",
+          "Weighted networks assign a numerical value (weight) to each edge, representing distance, cost, time, or capacity. Reading a weighted network means identifying the weight on each edge, not just the connection itself. Directed networks (digraphs) use arrows on edges to show one-way connections.",
+        ],
+        latexBlocks: [
+          "\\text{degree}(V) = \\text{number of edges at vertex }V",
+          "\\sum \\text{all degrees} = 2 \\times \\text{number of edges}",
+          "\\text{Path: no vertex repeated.}\\quad \\text{Cycle: starts and ends at same vertex.}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Counting vertices, edges, and degrees",
+          questionLatex:
+            "\\text{A network has vertices A, B, C, D with edges AB, AC, BC, BD. Find the degree of each vertex and the total number of edges.}",
+          steps: [
+            {
+              explanation: "Count edges at each vertex: A is in AB, AC → degree 2. B is in AB, BC, BD → degree 3. C is in AC, BC → degree 2. D is in BD → degree 1.",
+              latex: "\\deg(A)=2,\\quad\\deg(B)=3,\\quad\\deg(C)=2,\\quad\\deg(D)=1",
+            },
+            {
+              explanation: "Count edges: AB, AC, BC, BD → 4 edges. Check: sum of degrees = 2+3+2+1 = 8 = 2×4. ✓",
+              latex: "\\text{4 edges}",
+            },
+          ],
+          finalAnswerLatex: "\\deg(A)=2,\\;\\deg(B)=3,\\;\\deg(C)=2,\\;\\deg(D)=1;\\quad 4\\text{ edges}",
+        },
+        {
+          title: "Identifying a path and a cycle",
+          questionLatex:
+            "\\text{In a network with edges AB, BC, CA, CD, is A→B→C→A a cycle? Is A→B→C→D a path?}",
+          steps: [
+            {
+              explanation: "A→B→C→A returns to A and uses edges AB, BC, CA. No vertex repeated. This is a cycle.",
+              latex: "A\\to B\\to C\\to A\\text{ is a cycle}",
+            },
+            {
+              explanation: "A→B→C→D visits each vertex once and does not return to A. This is a path.",
+              latex: "A\\to B\\to C\\to D\\text{ is a path}",
+            },
+          ],
+          finalAnswerLatex: "A\\to B\\to C\\to A\\text{ is a cycle; }A\\to B\\to C\\to D\\text{ is a path}",
+        },
+        {
+          title: "Reading a weighted network",
+          questionLatex:
+            "\\text{A weighted network has edges: A–B (weight 5), B–C (weight 3), A–C (weight 9). What is the total weight of the path A→B→C?}",
+          steps: [
+            {
+              explanation: "Add the weights along the path.",
+              latex: "\\text{A}\\to\\text{B}: 5\\quad+\\quad\\text{B}\\to\\text{C}: 3",
+            },
+            {
+              explanation: "Total weight of path A→B→C.",
+              latex: "5 + 3 = 8",
+            },
+          ],
+          finalAnswerLatex: "8",
+        },
+      ],
+      guidedPractice: [
+        shortAnswer(
+          "y11s-netr-g1",
+          "A network has edges PQ, QR, RS, PS. How many edges does it have?",
+          "PQ,\\,QR,\\,RS,\\,PS",
+          "4",
+          ["4 edges"]
+        ),
+        shortAnswer(
+          "y11s-netr-g2",
+          "In a network with edges AB, AC, AD, BC, what is the degree of vertex A?",
+          "\\text{A is in: AB, AC, AD} \\Rightarrow \\deg(A)=3",
+          "3",
+          ["degree 3", "deg(A)=3"]
+        ),
+        labelledChoice(
+          "y11s-netr-g3",
+          "A network is connected if:",
+          "B",
+          ["Every vertex has degree 2", "There is a path between every pair of vertices", "It has no cycles", "All edges have the same weight"],
+          "Connected means every vertex can be reached from any other vertex."
+        ),
+        shortAnswer(
+          "y11s-netr-g4",
+          "A path A→B→C→D→B visits B twice. Is this a valid path (yes or no)?",
+          "\\text{B is repeated — not a valid path}",
+          "No",
+          ["no", "not a path", "invalid"]
+        ),
+      ],
+      independentPractice: [
+        shortAnswer(
+          "y11s-netr-i1",
+          "A network has 5 edges. What is the sum of all vertex degrees?",
+          "\\sum\\text{degrees} = 2 \\times 5",
+          "10",
+          ["10 total", "sum=10"]
+        ),
+        shortAnswer(
+          "y11s-netr-i2",
+          "Edges: AB (4), BC (7), AC (6). Find the total weight of path A→B→C.",
+          "4 + 7",
+          "11",
+          ["11 total", "weight 11"]
+        ),
+        labelledChoice(
+          "y11s-netr-i3",
+          "The degree of a vertex is:",
+          "A",
+          ["The number of edges connected to it", "The number of vertices in the network", "The weight of the shortest path", "The number of cycles"],
+          "Degree counts the edges directly attached to the vertex."
+        ),
+        shortAnswer(
+          "y11s-netr-i4",
+          "A network has vertices A, B, C, D. Edges: AB, BC, CD, DA. What is the degree of vertex B?",
+          "B\\text{ is in: AB, BC} \\Rightarrow \\deg(B)=2",
+          "2",
+          ["degree 2", "deg=2"]
+        ),
+        labelledChoice(
+          "y11s-netr-i5",
+          "A cycle in a network is a path that:",
+          "C",
+          ["Has no edges", "Visits every vertex", "Returns to its starting vertex", "Contains all the vertices exactly twice"],
+          "A cycle is a closed path — it starts and ends at the same vertex."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Counting directed edges twice when finding degree in an undirected network.",
+          fix: "In an undirected network, each edge counts once toward the degree of each of its two endpoints. Edge AB contributes 1 to deg(A) and 1 to deg(B).",
+        },
+        {
+          mistake: "Confusing a path with a cycle by forgetting that a cycle returns to the start.",
+          fix: "A path goes from one vertex to another without repeating. A cycle is a path that starts and ends at the same vertex and uses at least one edge.",
+        },
+        {
+          mistake: "Treating a network as connected when one vertex has degree 0.",
+          fix: "A vertex with degree 0 (isolated) cannot be reached from any other vertex, so the network is disconnected.",
+        },
+        {
+          mistake: "Adding all edge weights in the network when asked for the weight of a specific path.",
+          fix: "Only add the weights of the edges along the specified path. Ignore edges not on the path.",
+        },
+      ],
+      masteryQuiz: [
+        shortAnswer("y11s-netr-m1", "A network has edges AB, AC, BC, CD. How many edges?", "AB,\\,AC,\\,BC,\\,CD", "4", ["4 edges"]),
+        shortAnswer("y11s-netr-m2", "Edges: AB, AC, AD. What is deg(A)?", "AB, AC, AD \\Rightarrow 3", "3", ["degree 3"]),
+        labelledChoice("y11s-netr-m3", "A network with no path between two vertices is:", "B", ["Connected", "Disconnected", "Weighted", "Directed"], "If some vertices cannot reach others, the network is disconnected."),
+        shortAnswer("y11s-netr-m4", "A network has 6 edges. What is the sum of all degrees?", "2 \\times 6", "12", ["12 total"]),
+        labelledChoice("y11s-netr-m5", "A path differs from a cycle in that a path:", "A", ["Does not return to the start", "Must visit every vertex", "Has no weights", "Requires directed edges"], "A path ends at a different vertex; a cycle returns to the start."),
+        shortAnswer("y11s-netr-m6", "Edges: PQ(5), QR(3), PR(9). Total weight of path P→Q→R?", "5 + 3", "8", ["8 total", "weight=8"]),
+        labelledChoice("y11s-netr-m7", "In a weighted network, the weight of an edge represents:", "D", ["The degree of a vertex", "The number of paths", "Whether the network is connected", "A quantity such as distance, cost or time"], "Weights attach a numerical value such as distance or cost to an edge."),
+        shortAnswer("y11s-netr-m8", "Edges: AB, BC, CA. Vertex A has degree:", "AB\\text{ and }CA \\Rightarrow \\deg(A)=2", "2", ["degree 2"]),
+        labelledChoice("y11s-netr-m9", "A→B→C→D→A is a:", "B", ["Path only", "Cycle", "Disconnected graph", "Tree"], "It returns to A — it is a closed path (cycle)."),
+        labelledChoice("y11s-netr-m10", "The sum of all degrees in a graph with 7 edges is:", "C", ["7", "14", "14", "21"], "Sum of degrees = 2 × number of edges = 2 × 7 = 14."),
+      ],
+      masteryPassMark: 0.8,
+    };
+  }
+
+  return null;
 }

@@ -831,10 +831,11 @@ export function year11StandardApplicationsMeasurementLessonOverride(
     };
   }
 
-  return {
-    ...base,
-    description:
-      "Practise mixed measurement questions involving units, accuracy, error, area, volume, capacity, energy, mass and electricity use.",
+  if (lesson.slug === "applications-measurement-exam-practice") {
+    return {
+      ...base,
+      description:
+        "Practise mixed measurement questions involving units, accuracy, error, area, volume, capacity, energy, mass and electricity use.",
     learningIntention:
       "Apply measurement skills to mixed practical exam-style contexts.",
     successCriteria: [
@@ -887,6 +888,364 @@ export function year11StandardApplicationsMeasurementLessonOverride(
       financeChoice("measure-exam-m9", "A paint question asking how much wall is covered needs:", "C", ["Mass", "Capacity", "Area", "Kilowatt-hours"], "Paint coverage uses area."),
       financeChoice("measure-exam-m10", "A result should be checked for reasonableness because:", "A", ["Wrong conversions can make answers too large or too small", "Units never matter", "All rounded values are exact", "Area and volume are identical"], "Reasonableness catches unit and method errors."),
     ],
-  };
+    };
+  }
+
+  if (lesson.slug === "trapezoidal-rule-land-area") {
+    return {
+      ...base,
+      description:
+        "Apply the Trapezoidal Rule to estimate the area of an irregular shape using a series of equally spaced parallel offsets, with practical applications to land measurement and surveying.",
+      learningIntention:
+        "Use the Trapezoidal Rule to estimate areas bounded by irregular curves or uneven boundaries, as used in land surveying.",
+      successCriteria: [
+        "State the Trapezoidal Rule formula and identify each term: h (interval width), d_f and d_l (first and last offsets), and remaining offsets.",
+        "Apply the single-strip Trapezoidal Rule to find the area between two parallel boundaries.",
+        "Apply the multi-strip Trapezoidal Rule with equally spaced offsets to estimate an irregular area.",
+        "Interpret the formula result in context, including appropriate units (m², ha).",
+      ],
+      teaching: {
+        paragraphs: [
+          "When a boundary is irregular (not a straight line or simple curve), standard area formulas cannot be applied directly. Surveyors use offsets — perpendicular measurements from a straight baseline to the irregular boundary — to approximate the area. The Trapezoidal Rule treats each strip between two adjacent offsets as a trapezium.",
+          "For a single strip (two offsets), the area of a trapezium is: A = ½ × (d_f + d_l) × h, where d_f is the first offset, d_l is the last offset, and h is the horizontal distance between them.",
+          "For multiple equally spaced strips, the Trapezoidal Rule combines all strips: A ≈ h/2 × (d_f + d_l + 2(d₂ + d₃ + ... + d_{n-1})). Here h is the common interval between offsets, d_f is the first offset, d_l is the last offset, and all offsets in between are added together and doubled.",
+          "Units: if offsets and intervals are in metres, the area is in m². Convert to hectares where necessary: 1 hectare = 10,000 m². Always state the unit with the final answer.",
+        ],
+        latexBlocks: [
+          "\\text{Single strip: }A = \\tfrac{1}{2}(d_f + d_l) \\times h",
+          "\\text{Multi-strip: }A \\approx \\frac{h}{2}\\bigl(d_f + d_l + 2(d_2 + d_3 + \\cdots + d_{n-1})\\bigr)",
+          "1\\text{ hectare} = 10\\,000\\text{ m}^2",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Single-strip Trapezoidal Rule",
+          questionLatex:
+            "\\text{Two offsets are 12 m and 18 m. The interval is 20 m. Find the area of the strip.}",
+          steps: [
+            {
+              explanation: "Use the single-strip formula.",
+              latex: "A = \\tfrac{1}{2}(d_f + d_l) \\times h = \\tfrac{1}{2}(12 + 18) \\times 20",
+            },
+            {
+              explanation: "Calculate.",
+              latex: "A = \\tfrac{1}{2} \\times 30 \\times 20 = 300 \\text{ m}^2",
+            },
+          ],
+          finalAnswerLatex: "300 \\text{ m}^2",
+        },
+        {
+          title: "Multi-strip Trapezoidal Rule (3 intervals, 4 offsets)",
+          questionLatex:
+            "\\text{Offsets: 0, 8, 12, 6 m at equal intervals of 10 m. Estimate the area.}",
+          steps: [
+            {
+              explanation: "Identify: d_f = 0, d_l = 6, middle offsets = 8 + 12 = 20, h = 10.",
+              latex: "A \\approx \\frac{10}{2}(0 + 6 + 2 \\times 20)",
+            },
+            {
+              explanation: "Simplify inside the brackets.",
+              latex: "A \\approx 5 \\times (6 + 40) = 5 \\times 46",
+            },
+            {
+              explanation: "Calculate.",
+              latex: "A \\approx 230 \\text{ m}^2",
+            },
+          ],
+          finalAnswerLatex: "230 \\text{ m}^2",
+        },
+        {
+          title: "Multi-strip with unit conversion to hectares",
+          questionLatex:
+            "\\text{Offsets: 0, 20, 30, 25, 0 m at 40 m intervals. Find the area in hectares.}",
+          steps: [
+            {
+              explanation: "Apply the multi-strip formula: d_f = 0, d_l = 0, middle = 20+30+25 = 75, h = 40.",
+              latex: "A \\approx \\frac{40}{2}(0 + 0 + 2 \\times 75) = 20 \\times 150",
+            },
+            {
+              explanation: "Area in m².",
+              latex: "A = 3\\,000 \\text{ m}^2",
+            },
+            {
+              explanation: "Convert to hectares.",
+              latex: "3\\,000 \\div 10\\,000 = 0.3 \\text{ ha}",
+            },
+          ],
+          finalAnswerLatex: "0.3 \\text{ ha}",
+        },
+      ],
+      guidedPractice: [
+        measurementAnswer(
+          "y11s-tra-g1",
+          "Two offsets are 6 m and 10 m. The interval is 15 m. Use the single-strip formula to find the area.",
+          "A = \\tfrac{1}{2}(6+10) \\times 15",
+          "120 m²",
+          ["120", "120m2", "120 m2"]
+        ),
+        measurementAnswer(
+          "y11s-tra-g2",
+          "Offsets: 0, 14, 0 m at 8 m intervals. Estimate the area using the Trapezoidal Rule.",
+          "A \\approx \\frac{8}{2}(0 + 0 + 2 \\times 14) = 4 \\times 28",
+          "112 m²",
+          ["112", "112m2", "112 m2"]
+        ),
+        financeChoice(
+          "y11s-tra-g3",
+          "In the multi-strip Trapezoidal Rule, the first and last offsets are:",
+          "A",
+          ["Added once", "Doubled", "Ignored", "Averaged with middle offsets"],
+          "The formula adds d_f and d_l once; only the middle offsets are doubled."
+        ),
+        measurementAnswer(
+          "y11s-tra-g4",
+          "An area of 45,000 m² is how many hectares?",
+          "45\\,000 \\div 10\\,000",
+          "4.5 ha",
+          ["4.5", "4.5 hectares"]
+        ),
+      ],
+      independentPractice: [
+        measurementAnswer(
+          "y11s-tra-i1",
+          "Offsets: 5 m and 9 m at a 20 m interval. Find the area of the single strip.",
+          "A = \\tfrac{1}{2}(5+9) \\times 20",
+          "140 m²",
+          ["140", "140m2"]
+        ),
+        measurementAnswer(
+          "y11s-tra-i2",
+          "Offsets: 0, 10, 16, 10, 0 m at 12 m intervals (4 strips). Estimate the area.",
+          "A \\approx \\frac{12}{2}(0+0+2(10+16+10)) = 6 \\times 72",
+          "432 m²",
+          ["432", "432m2"]
+        ),
+        measurementAnswer(
+          "y11s-tra-i3",
+          "Offsets: 8, 12, 10 m at 15 m intervals (2 strips). Estimate the area.",
+          "A \\approx \\frac{15}{2}(8+10+2 \\times 12) = 7.5 \\times 42",
+          "315 m²",
+          ["315", "315m2"]
+        ),
+        financeChoice(
+          "y11s-tra-i4",
+          "The Trapezoidal Rule gives an estimate (not exact) because it:",
+          "C",
+          ["Uses the wrong formula", "Ignores all middle offsets", "Approximates a curved boundary with straight edges", "Only works for triangles"],
+          "Replacing a curved boundary with straight (trapezium) edges introduces a small error."
+        ),
+        measurementAnswer(
+          "y11s-tra-i5",
+          "An irregular block has area 28,000 m². Convert to hectares.",
+          "28\\,000 \\div 10\\,000",
+          "2.8 ha",
+          ["2.8", "2.8 hectares"]
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Doubling the first and last offsets in the multi-strip formula.",
+          fix: "Only the middle offsets (between the first and last) are doubled. The first offset d_f and last offset d_l are added once: A ≈ h/2 × (d_f + d_l + 2 × middle offsets).",
+        },
+        {
+          mistake: "Using h as the number of strips rather than the interval width between offsets.",
+          fix: "h is the horizontal distance between consecutive offsets (e.g. every 10 m), not the number of strips or the total distance.",
+        },
+        {
+          mistake: "Forgetting to include the first or last offset in the sum.",
+          fix: "All offsets contribute to the formula. Write them out in order and check that d_f and d_l are included exactly once.",
+        },
+        {
+          mistake: "Leaving the answer in m² when the question asks for hectares.",
+          fix: "Convert: divide by 10,000 to go from m² to ha. Always check the unit required in the question.",
+        },
+      ],
+      masteryQuiz: [
+        measurementAnswer("y11s-tra-m1", "Offsets 4 m and 16 m at 10 m interval. Single-strip area?", "A = \\tfrac{1}{2}(4+16) \\times 10", "100 m²", ["100", "100m2"]),
+        measurementAnswer("y11s-tra-m2", "Offsets: 0, 18, 0 m at 6 m intervals. Estimate the area.", "A \\approx \\frac{6}{2}(0+0+2\\times18) = 3 \\times 36", "108 m²", ["108", "108m2"]),
+        financeChoice("y11s-tra-m3", "The multi-strip Trapezoidal Rule requires:", "B", ["Only the first and last offsets", "Equally spaced offsets", "An even number of strips only", "Offsets in centimetres only"], "The formula assumes equal spacing h between offsets."),
+        measurementAnswer("y11s-tra-m4", "Offsets: 2, 8, 14, 8, 2 m at 5 m intervals. Estimate the area.", "A \\approx \\frac{5}{2}(2+2+2(8+14+8))=2.5\\times(4+60)", "160 m²", ["160", "160m2"]),
+        measurementAnswer("y11s-tra-m5", "Convert 7,500 m² to hectares.", "7\\,500 \\div 10\\,000", "0.75 ha", ["0.75", "0.75 hectares"]),
+        financeChoice("y11s-tra-m6", "Offsets 0, 5, 10, 5, 0 m — how many strips are there?", "C", ["2", "3", "4", "5"], "4 offsets create 3 intervals, so there are 3 strips — but with 5 offsets, there are 4 strips."),
+        measurementAnswer("y11s-tra-m7", "Offsets: 0, 6, 12, 6, 0 m at 10 m intervals. Estimate the area.", "A \\approx \\frac{10}{2}(0+0+2(6+12+6))=5\\times48", "240 m²", ["240", "240m2"]),
+        financeChoice("y11s-tra-m8", "The Trapezoidal Rule is used because:", "A", ["Standard formulas cannot handle irregular boundaries", "It always gives the exact area", "It only applies to triangles", "It requires no measurements"], "Standard formulas require regular shapes; the Trapezoidal Rule handles irregular ones."),
+        measurementAnswer("y11s-tra-m9", "Offsets: 10, 20, 10 m at 30 m intervals. Estimate the area.", "A \\approx \\frac{30}{2}(10+10+2\\times20)=15\\times60", "900 m²", ["900", "900m2"]),
+        financeChoice("y11s-tra-m10", "If 1 ha = 10,000 m², then 3.5 ha equals:", "B", ["3,500 m²", "35,000 m²", "350 m²", "350,000 m²"], "3.5 × 10,000 = 35,000 m²."),
+      ],
+      masteryPassMark: 0.8,
+    };
+  }
+
+  if (lesson.slug === "applications-measurement-revision") {
+    return {
+      ...base,
+      description:
+        "Activate Year 10 measurement skills: convert between metric units, calculate areas of common shapes, find volumes of prisms, and choose appropriate units — essential prior knowledge for Year 11 measurement work.",
+      learningIntention:
+        "Recall and apply Year 10 metric conversion, area, and volume skills so that Year 11 measurement and estimation work builds on secure foundations.",
+      successCriteria: [
+        "Convert between metric units of length, area, mass, and capacity using appropriate scale factors.",
+        "Calculate the area of rectangles, triangles, and circles.",
+        "Calculate the volume of rectangular prisms and cylinders.",
+        "Choose appropriate metric units and check the reasonableness of measurement answers.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Metric conversions use powers of 10. For length: 10 mm = 1 cm, 100 cm = 1 m, 1,000 m = 1 km. For mass: 1,000 g = 1 kg, 1,000 kg = 1 t. For capacity: 1,000 mL = 1 L, 1,000 L = 1 kL. To convert to a smaller unit, multiply; to a larger unit, divide.",
+          "Common area formulas: Rectangle: A = lw. Triangle: A = ½bh (b = base, h = perpendicular height). Circle: A = πr². Units for area are always squared (cm², m², km²). For area conversions: 1 m² = 10,000 cm²; 1 km² = 1,000,000 m².",
+          "Volume measures the space inside a 3D solid. For a prism (including rectangular prisms and cylinders): V = Area of base × height. Rectangular prism: V = lwh. Cylinder: V = πr²h. Units are cubed (cm³, m³). Capacity link: 1 cm³ = 1 mL, so 1,000 cm³ = 1 L.",
+          "A reasonableness check uses context: a swimming pool holds thousands of litres (not millilitres), a bedroom door is about 2 m tall (not 2 km), and a brick weighs about 2 kg (not 2 g). Always attach the correct unit and verify the size makes sense.",
+        ],
+        latexBlocks: [
+          "\\text{Rectangle: }A=lw\\qquad \\text{Triangle: }A=\\tfrac{1}{2}bh\\qquad \\text{Circle: }A=\\pi r^2",
+          "\\text{Rect prism: }V=lwh\\qquad \\text{Cylinder: }V=\\pi r^2 h",
+          "1\\text{ m}^2=10\\,000\\text{ cm}^2\\qquad 1\\text{ cm}^3=1\\text{ mL}\\qquad 1000\\text{ cm}^3=1\\text{ L}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Area of a triangle",
+          questionLatex: "\\text{Find the area of a triangle with base 12 cm and height 7 cm.}",
+          steps: [
+            {
+              explanation: "Use A = ½bh.",
+              latex: "A = \\tfrac{1}{2} \\times 12 \\times 7",
+            },
+            {
+              explanation: "Calculate.",
+              latex: "A = 42 \\text{ cm}^2",
+            },
+          ],
+          finalAnswerLatex: "42 \\text{ cm}^2",
+        },
+        {
+          title: "Volume of a cylinder",
+          questionLatex: "\\text{Find the volume of a cylinder with radius 5 cm and height 10 cm. Give your answer to 1 decimal place.}",
+          steps: [
+            {
+              explanation: "Use V = πr²h.",
+              latex: "V = \\pi \\times 5^2 \\times 10 = \\pi \\times 25 \\times 10",
+            },
+            {
+              explanation: "Calculate.",
+              latex: "V \\approx 785.4 \\text{ cm}^3",
+            },
+          ],
+          finalAnswerLatex: "785.4 \\text{ cm}^3",
+        },
+        {
+          title: "Unit conversion (area)",
+          questionLatex: "\\text{Convert 3.5 m² to cm².}",
+          steps: [
+            {
+              explanation: "1 m² = 10,000 cm², so multiply by 10,000.",
+              latex: "3.5 \\times 10\\,000 = 35\\,000 \\text{ cm}^2",
+            },
+          ],
+          finalAnswerLatex: "35\\,000 \\text{ cm}^2",
+        },
+      ],
+      guidedPractice: [
+        measurementAnswer(
+          "y11s-amr-g1",
+          "Convert 4.2 km to metres.",
+          "4.2 \\times 1\\,000",
+          "4200 m",
+          ["4200", "4,200", "4200m"]
+        ),
+        measurementAnswer(
+          "y11s-amr-g2",
+          "Find the area of a rectangle with length 8 m and width 5 m.",
+          "A = 8 \\times 5",
+          "40 m²",
+          ["40", "40m2"]
+        ),
+        measurementAnswer(
+          "y11s-amr-g3",
+          "Find the area of a circle with radius 6 cm. Round to 1 decimal place.",
+          "A = \\pi \\times 6^2 = 36\\pi",
+          "113.1 cm²",
+          ["113.1", "113.1cm2"]
+        ),
+        financeChoice(
+          "y11s-amr-g4",
+          "A rectangular prism is 4 m long, 3 m wide, 2 m high. Its volume is:",
+          "B",
+          ["9 m³", "24 m³", "18 m³", "12 m³"],
+          "V = 4 × 3 × 2 = 24 m³."
+        ),
+      ],
+      independentPractice: [
+        measurementAnswer(
+          "y11s-amr-i1",
+          "Convert 3,500 g to kilograms.",
+          "3\\,500 \\div 1\\,000",
+          "3.5 kg",
+          ["3.5", "3.5kg"]
+        ),
+        measurementAnswer(
+          "y11s-amr-i2",
+          "Find the area of a triangle with base 14 cm and perpendicular height 9 cm.",
+          "A = \\tfrac{1}{2} \\times 14 \\times 9",
+          "63 cm²",
+          ["63", "63cm2"]
+        ),
+        measurementAnswer(
+          "y11s-amr-i3",
+          "Find the volume of a rectangular prism 5 m × 3 m × 2 m.",
+          "V = 5 \\times 3 \\times 2",
+          "30 m³",
+          ["30", "30m3"]
+        ),
+        measurementAnswer(
+          "y11s-amr-i4",
+          "Convert 2.4 m² to cm².",
+          "2.4 \\times 10\\,000",
+          "24000 cm²",
+          ["24000", "24,000", "24000cm2"]
+        ),
+        financeChoice(
+          "y11s-amr-i5",
+          "A cylinder with r = 3 cm and h = 8 cm has a volume closest to:",
+          "C",
+          ["75 cm³", "150 cm³", "226 cm³", "452 cm³"],
+          "V = π × 3² × 8 = π × 72 ≈ 226.2 cm³."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "For area conversions, using the length scale factor (e.g. ×100 for m→cm) instead of the area scale factor (×10,000).",
+          fix: "Area conversions square the length factor: 1 m = 100 cm, so 1 m² = 100² = 10,000 cm². Multiply by 10,000, not 100.",
+        },
+        {
+          mistake: "Using diameter instead of radius in area or volume formulas.",
+          fix: "The formulas A = πr² and V = πr²h use radius (half the diameter). If given diameter, halve it before substituting.",
+        },
+        {
+          mistake: "Using base × height for triangle area without the ½ factor.",
+          fix: "A triangle is half a rectangle with the same base and height: A = ½ × base × height. Always include the ½.",
+        },
+        {
+          mistake: "Forgetting to cube the unit when stating volume (e.g. writing cm instead of cm³).",
+          fix: "Volume is a three-dimensional measure, so its unit is always cubed: cm³, m³, etc. Area uses squared units (cm², m²).",
+        },
+      ],
+      masteryQuiz: [
+        measurementAnswer("y11s-amr-m1", "Convert 8.5 km to metres.", "8.5 \\times 1000", "8500 m", ["8500", "8,500"]),
+        measurementAnswer("y11s-amr-m2", "Find the area of a rectangle 9 m by 6 m.", "A = 9 \\times 6", "54 m²", ["54", "54m2"]),
+        measurementAnswer("y11s-amr-m3", "Find the area of a triangle with base 10 cm and height 8 cm.", "A = \\tfrac{1}{2} \\times 10 \\times 8", "40 cm²", ["40", "40cm2"]),
+        measurementAnswer("y11s-amr-m4", "Find the area of a circle with radius 4 m. Round to 1 decimal place.", "A = \\pi \\times 16", "50.3 m²", ["50.3", "50.3m2"]),
+        measurementAnswer("y11s-amr-m5", "Find the volume of a rectangular prism 6 cm × 4 cm × 3 cm.", "V = 6 \\times 4 \\times 3", "72 cm³", ["72", "72cm3"]),
+        financeChoice("y11s-amr-m6", "1 m² equals:", "C", ["100 cm²", "1,000 cm²", "10,000 cm²", "1,000,000 cm²"], "1 m = 100 cm, so 1 m² = 100² = 10,000 cm²."),
+        measurementAnswer("y11s-amr-m7", "Convert 5,200 mL to litres.", "5200 \\div 1000", "5.2 L", ["5.2", "5.2L"]),
+        measurementAnswer("y11s-amr-m8", "A cylinder has r = 2 m and h = 5 m. Find its volume to 1 decimal place.", "V = \\pi \\times 4 \\times 5 = 20\\pi", "62.8 m³", ["62.8", "62.8m3"]),
+        financeChoice("y11s-amr-m9", "The appropriate unit for the volume of a swimming pool is:", "B", ["cm²", "kL or m³", "km²", "g"], "Swimming pools hold thousands of litres, best expressed in kL or m³."),
+        financeChoice("y11s-amr-m10", "1 cm³ is equal to:", "A", ["1 mL", "1 L", "10 mL", "100 mL"], "1 cm³ = 1 mL is the link between volume and capacity."),
+      ],
+      masteryPassMark: 0.8,
+    };
+  }
+
+  return null;
 }
 

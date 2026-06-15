@@ -848,10 +848,11 @@ export function year11StandardLinearRelationshipsLessonOverride(
     };
   }
 
-  return {
-    ...base,
-    description:
-      "Practise mixed linear relationship questions using tables, rules, graph features, direct variation and practical limitations.",
+  if (lesson.slug === "linear-relationships-exam-practice") {
+    return {
+      ...base,
+      description:
+        "Practise mixed linear relationship questions using tables, rules, graph features, direct variation and practical limitations.",
     learningIntention:
       "Apply linear relationship skills to practical exam-style contexts.",
     successCriteria: [
@@ -903,6 +904,186 @@ export function year11StandardLinearRelationshipsLessonOverride(
       financeChoice("linear-exam-m9", "A model C = 12 + 3n should be described as:", "D", ["Direct variation", "Non-linear only", "A graph through origin", "Linear with a fixed cost"], "The 12 is a fixed starting cost."),
       financeChoice("linear-exam-m10", "A reasonable conclusion from a phone plan model should:", "C", ["Ignore units", "Use negative data amounts", "Stay within the plan context", "Assume infinite usage is valid"], "Practical conclusions should stay within context."),
     ],
-  };
+    };
+  }
+
+  if (lesson.slug === "linear-relationships-revision") {
+    return {
+      ...base,
+      description:
+        "Activate Year 10 linear-algebra skills: identify gradient and y-intercept from an equation or table, calculate gradient from two points, and write the equation of a straight line — foundations for all Year 11 linear-relationships work.",
+      learningIntention:
+        "Recall and apply Year 10 linear-relationship skills so that Year 11 gradient, intercept and modelling work builds on secure foundations.",
+      successCriteria: [
+        "State the gradient and y-intercept directly from an equation in the form y = mx + b.",
+        "Calculate the gradient between two coordinate points using rise over run.",
+        "Write the equation of a line given its gradient and y-intercept.",
+        "Read a table of values and identify whether it represents a linear relationship.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A linear relationship has a constant rate of change. When graphed, it forms a straight line. The equation y = mx + b describes any non-vertical straight line: m is the gradient (how steep) and b is the y-intercept (where the line crosses the vertical axis, i.e. the value of y when x = 0).",
+          "The gradient measures steepness and direction. A positive m means the line rises from left to right; a negative m means it falls. A larger absolute value means a steeper line. To find the gradient between two points, use m = (y₂ − y₁) / (x₂ − x₁). The order of subtraction must be consistent: if you put point 2 first in the numerator, put point 2 first in the denominator.",
+          "To write the equation of a line when you know the gradient and one point, substitute the known x and y values into y = mx + b and solve for b. Once b is found, write the full equation. If you are given the gradient and y-intercept directly, substitute into y = mx + b immediately.",
+          "A table of values represents a linear relationship if the y values change by the same amount each time x increases by 1 (or any constant step). The common difference in y divided by the step in x gives the gradient m. The b value is the y value when x = 0.",
+        ],
+        latexBlocks: [
+          "y = mx + b\\quad (m=\\text{gradient},\\; b=\\text{y-intercept})",
+          "m = \\frac{y_2 - y_1}{x_2 - x_1} = \\frac{\\text{rise}}{\\text{run}}",
+          "\\text{Example: gradient } 3,\\text{ y-intercept } -4 \\Rightarrow y = 3x - 4",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Gradient between two points",
+          questionLatex:
+            "\\text{Find the gradient of the line passing through }(2,\\,1)\\text{ and }(6,\\,9).",
+          steps: [
+            {
+              explanation: "Label the points: (x₁, y₁) = (2, 1) and (x₂, y₂) = (6, 9).",
+              latex: "m = \\frac{y_2 - y_1}{x_2 - x_1} = \\frac{9 - 1}{6 - 2}",
+            },
+            {
+              explanation: "Calculate rise and run.",
+              latex: "m = \\frac{8}{4} = 2",
+            },
+          ],
+          finalAnswerLatex: "m = 2",
+        },
+        {
+          title: "Reading gradient and y-intercept from an equation",
+          questionLatex:
+            "\\text{State the gradient and y-intercept of }y = -3x + 5.",
+          steps: [
+            {
+              explanation: "Compare with y = mx + b. The coefficient of x is m and the constant is b.",
+              latex: "y = -3x + 5 \\Rightarrow m = -3,\\quad b = 5",
+            },
+          ],
+          finalAnswerLatex: "m = -3,\\quad b = 5",
+        },
+        {
+          title: "Writing the equation from gradient and a point",
+          questionLatex:
+            "\\text{A line has gradient }2\\text{ and passes through }(3,\\,7).\\text{ Find its equation.}",
+          steps: [
+            {
+              explanation: "Substitute m = 2 and the point (3, 7) into y = mx + b.",
+              latex: "7 = 2(3) + b = 6 + b",
+            },
+            {
+              explanation: "Solve for b.",
+              latex: "b = 7 - 6 = 1",
+            },
+            {
+              explanation: "Write the equation.",
+              latex: "y = 2x + 1",
+            },
+          ],
+          finalAnswerLatex: "y = 2x + 1",
+        },
+      ],
+      guidedPractice: [
+        linearAnswer(
+          "y11s-lrr-g1",
+          "Find the gradient of the line through (1, 3) and (5, 11).",
+          "m = \\frac{11-3}{5-1} = \\frac{8}{4}",
+          "2",
+          ["2.0", "m=2"]
+        ),
+        financeChoice(
+          "y11s-lrr-g2",
+          "For the equation y = 4x − 7, the y-intercept is:",
+          "B",
+          ["-4", "-7", "4", "7"],
+          "The y-intercept b is the constant term: b = −7."
+        ),
+        linearAnswer(
+          "y11s-lrr-g3",
+          "State the gradient of y = -5x + 2.",
+          "y = mx + b\\text{, compare: }m = -5",
+          "-5",
+          ["m=-5", "−5"]
+        ),
+        financeChoice(
+          "y11s-lrr-g4",
+          "A table of values has x: 0, 1, 2, 3 and y: 4, 7, 10, 13. The gradient is:",
+          "C",
+          ["4", "1", "3", "13"],
+          "y increases by 3 for each 1-unit increase in x, so gradient = 3."
+        ),
+      ],
+      independentPractice: [
+        linearAnswer(
+          "y11s-lrr-i1",
+          "Find the gradient of the line through (0, 2) and (4, 10).",
+          "m = \\frac{10-2}{4-0} = \\frac{8}{4}",
+          "2",
+          ["2.0", "m=2"]
+        ),
+        linearAnswer(
+          "y11s-lrr-i2",
+          "A line has gradient 3 and y-intercept 5. Write its equation.",
+          "y = mx + b,\\quad m=3,\\quad b=5",
+          "y = 3x + 5",
+          ["y=3x+5"]
+        ),
+        linearAnswer(
+          "y11s-lrr-i3",
+          "Find the gradient between (-2, 1) and (4, 13).",
+          "m = \\frac{13-1}{4-(-2)} = \\frac{12}{6}",
+          "2",
+          ["2.0", "m=2"]
+        ),
+        financeChoice(
+          "y11s-lrr-i4",
+          "Which equation has a negative gradient?",
+          "B",
+          ["y = 2x + 1", "y = -3x + 4", "y = 5x", "y = x + 6"],
+          "The coefficient of x in y = −3x + 4 is negative."
+        ),
+        linearAnswer(
+          "y11s-lrr-i5",
+          "A line passes through (0, −1) and has gradient 4. Write the equation.",
+          "b=-1\\text{ (y-intercept)},\\quad m=4",
+          "y = 4x - 1",
+          ["y=4x-1"]
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Swapping rise and run: writing (x₂ − x₁) in the numerator instead of (y₂ − y₁).",
+          fix: "Rise (vertical change) goes on top, run (horizontal change) goes on the bottom. m = (y₂ − y₁)/(x₂ − x₁).",
+        },
+        {
+          mistake: "Using inconsistent order — subtracting in different orders in numerator and denominator.",
+          fix: "Pick one point as 'point 2' and always subtract 'point 1' from it in both numerator and denominator. Either order works as long as it is consistent.",
+        },
+        {
+          mistake: "Confusing gradient m with y-intercept b in y = mx + b.",
+          fix: "In y = 3x + 5, the gradient is 3 (coefficient of x) and the y-intercept is 5 (constant term). 'mx' is the variable part; 'b' is the fixed number.",
+        },
+        {
+          mistake: "Reading gradient from a table by using y-values only, forgetting to divide by the x-step.",
+          fix: "Gradient = change in y ÷ change in x. If x increases by 2 and y increases by 6, the gradient is 6/2 = 3, not 6.",
+        },
+      ],
+      masteryQuiz: [
+        linearAnswer("y11s-lrr-m1", "Find the gradient of the line through (3, 5) and (7, 13).", "m = \\frac{13-5}{7-3}", "2", ["2.0", "m=2"]),
+        financeChoice("y11s-lrr-m2", "The gradient of y = -2x + 9 is:", "A", ["-2", "9", "2", "-9"], "The coefficient of x is −2."),
+        linearAnswer("y11s-lrr-m3", "State the y-intercept of y = 6x − 3.", "y = 6x - 3,\\quad b = -3", "-3", ["b=-3", "−3"]),
+        financeChoice("y11s-lrr-m4", "Which pair gives gradient = 4?", "C", ["(0,4) and (4,0)", "(1,4) and (5,4)", "(0,2) and (1,6)", "(2,8) and (0,0)"], "m = (6−2)/(1−0) = 4."),
+        linearAnswer("y11s-lrr-m5", "A line has gradient −1 and y-intercept 7. Write the equation.", "y = mx + b,\\quad m=-1,\\quad b=7", "y = -x + 7", ["y=-x+7", "y = -1x + 7"]),
+        financeChoice("y11s-lrr-m6", "A table shows x: 0,1,2 and y: 10,8,6. The gradient is:", "B", ["10", "-2", "2", "-10"], "y decreases by 2 for each 1-unit increase in x."),
+        linearAnswer("y11s-lrr-m7", "Find the gradient of the line through (−1, 4) and (3, 12).", "m = \\frac{12-4}{3-(-1)} = \\frac{8}{4}", "2", ["2.0"]),
+        financeChoice("y11s-lrr-m8", "A line with gradient 0 is:", "D", ["Vertical", "Steep", "Falling right to left", "Horizontal"], "Zero gradient means the y value does not change — a horizontal line."),
+        linearAnswer("y11s-lrr-m9", "A line passes through (0, 6) with gradient 2. State the equation.", "m=2,\\quad b=6", "y = 2x + 6", ["y=2x+6"]),
+        financeChoice("y11s-lrr-m10", "The y-intercept is the y-value when:", "A", ["x = 0", "y = 0", "gradient = 0", "x = 1"], "The y-intercept occurs at x = 0."),
+      ],
+      masteryPassMark: 0.8,
+    };
+  }
+
+  return null;
 }
 

@@ -1277,10 +1277,11 @@ export function year11StandardFormulasEquationsLessonOverride(
     };
   }
 
-  return {
-    ...base,
-    description:
-      "Practise mixed formula and equation questions involving substitution, rearranging, units and reasonableness.",
+  if (lesson.slug === "formulae-equations-exam-practice") {
+    return {
+      ...base,
+      description:
+        "Practise mixed formula and equation questions involving substitution, rearranging, units and reasonableness.",
     learningIntention:
       "Apply substitution, equation solving and changing the subject to practical exam-style contexts.",
     successCriteria: [
@@ -1332,6 +1333,471 @@ export function year11StandardFormulasEquationsLessonOverride(
       formulaAnswer("formula-exam-m9", "A fuel formula is F = 0.08d. If F = 16 L, find d.", "16=0.08d", "200 km", ["200", "200km"]),
       financeChoice("formula-exam-m10", "A practical equation answer should be rejected if it:", "C", ["Has correct units", "Matches the formula", "Is impossible in context", "Uses inverse operations"], "Context and reasonableness matter."),
     ],
-  };
+    };
+  }
+
+  if (lesson.slug === "bac-formulas-medication-dosage") {
+    return {
+      ...base,
+      description:
+        "Apply the male and female BAC formulas to calculate blood alcohol content, use Time = BAC/0.015 to find when BAC reaches zero, identify limitations of BAC estimation, and apply Fried's, Young's and Clark's formulas for medication dosage.",
+      learningIntention:
+        "Use practical medical and safety formulas to calculate BAC and medication doses, and evaluate the limitations of formula-based estimates.",
+      successCriteria: [
+        "Substitute into the BAC formula for males and females to calculate blood alcohol content.",
+        "Apply Time = BAC/0.015 to determine how many hours are needed for BAC to reach zero.",
+        "Identify at least two limitations of formulas used to estimate BAC.",
+        "Apply Fried's, Young's or Clark's formula to calculate a medication dose for a child given age or weight.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Blood alcohol content (BAC) is a measure of the concentration of alcohol in the blood, expressed as grams per 100 mL. It depends on the number of standard drinks consumed, the hours spent drinking, and the person's body weight. Because males and females metabolise alcohol differently, separate formulas are used.",
+          "The BAC formulas are: BAC_male = (10N − 7.5H) / (6.8M) and BAC_female = (10N − 7.5H) / (5.5M), where N is the number of standard drinks, H is the number of hours drinking, and M is the body mass in kilograms. A BAC of 0.05 means 0.05 g per 100 mL of blood — the legal driving limit in Australia.",
+          "Once drinking stops, the body eliminates alcohol at a roughly constant rate. The time needed for BAC to reach zero is given by Time = BAC / 0.015. This formula has significant limitations: it assumes a constant elimination rate, does not account for individual variation, food intake, medications, or health conditions. A lower BAC reading does not guarantee fitness to drive.",
+          "Medication dosage formulas adjust adult doses for children, who cannot safely receive the same dose as an adult. Fried's formula (for children 1–2 years): Dose = Age (in months) × Adult dose / 150. Young's formula (for children 1–12 years): Dose = Age (years) × Adult dose / (Age + 12). Clark's formula (based on weight): Dose = Weight (kg) × Adult dose / 70. Always use the formula specified in the question.",
+        ],
+        latexBlocks: [
+          "\\text{BAC}_\\text{male} = \\frac{10N - 7.5H}{6.8M},\\quad \\text{BAC}_\\text{female} = \\frac{10N - 7.5H}{5.5M}",
+          "\\text{Time (hours)} = \\frac{\\text{BAC}}{0.015}",
+          "\\text{Young's formula: }D = \\frac{A}{A+12} \\times \\text{Adult dose}\\quad (A=\\text{age in years})",
+          "\\text{Clark's formula: }D = \\frac{W}{70} \\times \\text{Adult dose}\\quad (W=\\text{weight in kg})",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Calculating BAC for a male",
+          questionLatex:
+            "\\text{A male weighing 80 kg consumes 4 standard drinks over 2 hours. Calculate his BAC.}",
+          steps: [
+            {
+              explanation: "Identify the values: N = 4 drinks, H = 2 hours, M = 80 kg. Use the male BAC formula.",
+              latex: "\\text{BAC}_\\text{male} = \\frac{10N - 7.5H}{6.8M}",
+            },
+            {
+              explanation: "Substitute the values into the formula.",
+              latex: "\\text{BAC} = \\frac{10(4) - 7.5(2)}{6.8(80)} = \\frac{40 - 15}{544} = \\frac{25}{544}",
+            },
+            {
+              explanation: "Calculate and round to 4 decimal places.",
+              latex: "\\text{BAC} \\approx 0.0460",
+            },
+          ],
+          finalAnswerLatex: "\\text{BAC} \\approx 0.046",
+        },
+        {
+          title: "Time to reach zero BAC",
+          questionLatex:
+            "\\text{A driver has a BAC of 0.072. How many hours must pass before the BAC reaches zero? Use Time = BAC/0.015.}",
+          steps: [
+            {
+              explanation: "Write the formula and substitute the BAC value.",
+              latex: "\\text{Time} = \\frac{\\text{BAC}}{0.015} = \\frac{0.072}{0.015}",
+            },
+            {
+              explanation: "Divide to find the time.",
+              latex: "\\text{Time} = 4.8 \\text{ hours}",
+            },
+          ],
+          finalAnswerLatex: "4.8 \\text{ hours}",
+        },
+        {
+          title: "Medication dose using Young's formula",
+          questionLatex:
+            "\\text{The adult dose of a painkiller is 500 mg. Find the dose for a 6-year-old child using Young's formula.}",
+          steps: [
+            {
+              explanation: "Young's formula: Dose = A/(A + 12) × Adult dose, where A = age in years.",
+              latex: "D = \\frac{A}{A + 12} \\times 500",
+            },
+            {
+              explanation: "Substitute A = 6.",
+              latex: "D = \\frac{6}{6 + 12} \\times 500 = \\frac{6}{18} \\times 500",
+            },
+            {
+              explanation: "Calculate the dose.",
+              latex: "D = \\frac{1}{3} \\times 500 \\approx 167 \\text{ mg}",
+            },
+          ],
+          finalAnswerLatex: "D \\approx 167 \\text{ mg}",
+        },
+      ],
+      guidedPractice: [
+        formulaAnswer(
+          "y11s-bac-g1",
+          "A female weighing 60 kg consumes 3 standard drinks over 1 hour. Calculate her BAC. Use BAC_female = (10N − 7.5H)/(5.5M).",
+          "\\text{BAC}_\\text{female} = \\frac{10(3) - 7.5(1)}{5.5(60)}",
+          "0.068",
+          ["0.0682", "0.07"]
+        ),
+        formulaAnswer(
+          "y11s-bac-g2",
+          "A person has a BAC of 0.045. How many hours must pass before their BAC reaches zero? Use Time = BAC/0.015.",
+          "\\text{Time} = \\frac{0.045}{0.015}",
+          "3",
+          ["3.0", "3 hours", "3h"]
+        ),
+        financeChoice(
+          "y11s-bac-g3",
+          "Which is a limitation of BAC formulas?",
+          "B",
+          [
+            "They use body mass",
+            "They assume a constant alcohol elimination rate for everyone",
+            "They account for meal timing",
+            "They vary by drink type",
+          ],
+          "BAC formulas assume a constant elimination rate, but individuals vary."
+        ),
+        formulaAnswer(
+          "y11s-bac-g4",
+          "The adult dose is 400 mg. Find the dose for an 8-year-old using Young's formula: D = A/(A+12) × Adult dose.",
+          "D = \\frac{8}{8+12} \\times 400 = \\frac{8}{20} \\times 400",
+          "160 mg",
+          ["160", "160mg"]
+        ),
+      ],
+      independentPractice: [
+        formulaAnswer(
+          "y11s-bac-i1",
+          "A male weighing 70 kg consumes 5 standard drinks over 3 hours. Calculate his BAC. Use BAC_male = (10N − 7.5H)/(6.8M).",
+          "\\text{BAC} = \\frac{10(5) - 7.5(3)}{6.8(70)} = \\frac{50 - 22.5}{476}",
+          "0.058",
+          ["0.0578", "0.06"]
+        ),
+        formulaAnswer(
+          "y11s-bac-i2",
+          "A person has a BAC of 0.096. How many hours until their BAC reaches zero? Use Time = BAC/0.015.",
+          "\\text{Time} = \\frac{0.096}{0.015}",
+          "6.4",
+          ["6.4 hours", "6.4h"]
+        ),
+        formulaAnswer(
+          "y11s-bac-i3",
+          "Adult dose is 600 mg. Find the dose for a child weighing 28 kg using Clark's formula: D = W/70 × Adult dose.",
+          "D = \\frac{28}{70} \\times 600",
+          "240 mg",
+          ["240", "240mg"]
+        ),
+        financeChoice(
+          "y11s-bac-i4",
+          "A person's BAC is 0.05 and they need to drive. According to Time = BAC/0.015, the minimum time to wait is:",
+          "C",
+          ["2 hours", "2.5 hours", "3.33 hours", "5 hours"],
+          "Time = 0.05/0.015 = 3.33 hours (3 hours 20 minutes)."
+        ),
+        formulaAnswer(
+          "y11s-bac-i5",
+          "A child is 18 months old. The adult dose is 150 mg. Use Fried's formula: D = Age(months)/150 × Adult dose.",
+          "D = \\frac{18}{150} \\times 150",
+          "18 mg",
+          ["18", "18mg"]
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Using the male BAC formula for a female (or vice versa).",
+          fix: "The denominator differs: use 6.8M for males and 5.5M for females. Always check the gender specified in the question before substituting.",
+        },
+        {
+          mistake: "Confusing N (standard drinks) and H (hours) in the BAC formula.",
+          fix: "N is multiplied by 10; H is multiplied by 7.5. N goes in the positive term, H in the negative term: 10N − 7.5H.",
+        },
+        {
+          mistake: "Using age in months instead of years (or vice versa) in Young's formula.",
+          fix: "Young's formula uses age in years: D = A/(A+12) × Adult dose. Fried's formula uses age in months: D = Age(months)/150 × Adult dose. Read the formula label carefully.",
+        },
+        {
+          mistake: "Concluding that a BAC below 0.05 means it is safe to drive based solely on the formula.",
+          fix: "The formula gives an estimate only. Individual variation, food intake, medications and health all affect actual BAC. A formula result below 0.05 does not guarantee fitness to drive.",
+        },
+      ],
+      masteryQuiz: [
+        formulaAnswer(
+          "y11s-bac-m1",
+          "A male weighing 90 kg consumes 6 standard drinks over 2 hours. Find his BAC. Use BAC_male = (10N − 7.5H)/(6.8M).",
+          "\\text{BAC} = \\frac{10(6) - 7.5(2)}{6.8(90)} = \\frac{60-15}{612}",
+          "0.074",
+          ["0.0735", "0.073", "0.07"]
+        ),
+        formulaAnswer(
+          "y11s-bac-m2",
+          "A female weighing 55 kg consumes 2 standard drinks over 1 hour. Find her BAC. Use BAC_female = (10N − 7.5H)/(5.5M).",
+          "\\text{BAC} = \\frac{10(2) - 7.5(1)}{5.5(55)} = \\frac{20-7.5}{302.5}",
+          "0.041",
+          ["0.0413", "0.04"]
+        ),
+        formulaAnswer(
+          "y11s-bac-m3",
+          "A person has a BAC of 0.030. How many hours until their BAC reaches zero?",
+          "\\text{Time} = \\frac{0.030}{0.015}",
+          "2",
+          ["2.0", "2 hours", "2h"]
+        ),
+        formulaAnswer(
+          "y11s-bac-m4",
+          "A person has a BAC of 0.108. How many hours until their BAC reaches zero?",
+          "\\text{Time} = \\frac{0.108}{0.015}",
+          "7.2",
+          ["7.2 hours", "7.2h"]
+        ),
+        financeChoice(
+          "y11s-bac-m5",
+          "Young's formula is most appropriate for a:",
+          "B",
+          ["6-month-old infant", "5-year-old child", "35-year-old adult", "75-year-old adult"],
+          "Young's formula applies to children aged 1–12 years."
+        ),
+        formulaAnswer(
+          "y11s-bac-m6",
+          "Adult dose is 800 mg. Find the dose for a 4-year-old using Young's formula: D = A/(A+12) × Adult dose.",
+          "D = \\frac{4}{4+12} \\times 800 = \\frac{4}{16} \\times 800",
+          "200 mg",
+          ["200", "200mg"]
+        ),
+        formulaAnswer(
+          "y11s-bac-m7",
+          "Adult dose is 500 mg. Find the dose for a child weighing 35 kg using Clark's formula: D = W/70 × Adult dose.",
+          "D = \\frac{35}{70} \\times 500",
+          "250 mg",
+          ["250", "250mg"]
+        ),
+        financeChoice(
+          "y11s-bac-m8",
+          "Which factor is NOT accounted for in the BAC formula?",
+          "C",
+          ["Number of standard drinks", "Hours of drinking", "Type of food eaten", "Body mass"],
+          "Food intake is not in the BAC formula, so the formula only gives an estimate."
+        ),
+        formulaAnswer(
+          "y11s-bac-m9",
+          "A child is 24 months old. The adult dose is 200 mg. Use Fried's formula: D = Age(months)/150 × Adult dose.",
+          "D = \\frac{24}{150} \\times 200",
+          "32 mg",
+          ["32", "32mg"]
+        ),
+        financeChoice(
+          "y11s-bac-m10",
+          "The legal BAC driving limit in Australia is:",
+          "A",
+          ["0.05", "0.08", "0.10", "0.15"],
+          "The legal limit is 0.05 g per 100 mL of blood for standard licence holders."
+        ),
+      ],
+    };
+  }
+
+  if (lesson.slug === "formulas-equations-revision") {
+    return {
+      ...base,
+      description:
+        "Activate Year 10 algebraic skills: substitute values into expressions and formulas, use inverse operations to solve linear equations, and set up equations from word problems — foundational skills for all Year 11 formula work.",
+      learningIntention:
+        "Recall and apply Year 10 algebraic techniques so that Year 11 formula substitution, rearranging and equation work builds on secure foundations.",
+      successCriteria: [
+        "Substitute a given value into an algebraic expression and evaluate the result.",
+        "Use inverse operations to solve a one-step and two-step linear equation.",
+        "Identify inverse operations: addition↔subtraction and multiplication↔division.",
+        "Represent a simple word problem as a linear equation and solve it.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Substitution means replacing a variable (a letter) with its given numerical value. Work through the arithmetic carefully after substituting, applying order of operations: brackets first, then powers, then multiplication and division, then addition and subtraction.",
+          "Inverse operations reverse an operation. Addition and subtraction are inverses of each other; multiplication and division are inverses of each other. To solve an equation, apply the inverse operation to both sides until the variable is alone.",
+          "For a two-step equation such as 3x + 5 = 20, undo the operations in reverse order: subtract 5 from both sides first (because addition was done last), then divide both sides by 3. The variable is then isolated.",
+          "Word problems describe a real situation using words. Identify the unknown, assign it a letter, translate the words into mathematical operations, and write an equation. Then solve using inverse operations and check that the answer makes sense in the original context.",
+        ],
+        latexBlocks: [
+          "\\text{Substitution: replace letter with number, then evaluate}",
+          "\\text{Inverse: }+\\leftrightarrow -,\\quad \\times\\leftrightarrow \\div",
+          "3x + 5 = 20 \\Rightarrow 3x = 15 \\Rightarrow x = 5",
+          "\\text{Word problem: name the unknown, write an equation, solve}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Substituting into an expression",
+          questionLatex:
+            "\\text{Evaluate }4x^2 - 3x + 1\\text{ when }x = 2.",
+          steps: [
+            {
+              explanation: "Replace every x with 2.",
+              latex: "4(2)^2 - 3(2) + 1",
+            },
+            {
+              explanation: "Calculate the power first: 2² = 4.",
+              latex: "4(4) - 3(2) + 1 = 16 - 6 + 1",
+            },
+            {
+              explanation: "Complete the arithmetic left to right.",
+              latex: "= 11",
+            },
+          ],
+          finalAnswerLatex: "11",
+        },
+        {
+          title: "Solving a two-step equation",
+          questionLatex: "\\text{Solve }5x - 8 = 22.",
+          steps: [
+            {
+              explanation: "Add 8 to both sides to undo the subtraction.",
+              latex: "5x = 22 + 8 = 30",
+            },
+            {
+              explanation: "Divide both sides by 5.",
+              latex: "x = 30 \\div 5 = 6",
+            },
+            {
+              explanation: "Check: 5(6) − 8 = 30 − 8 = 22. ✓",
+              latex: "5(6) - 8 = 22 \\checkmark",
+            },
+          ],
+          finalAnswerLatex: "x = 6",
+        },
+        {
+          title: "Word problem as an equation",
+          questionLatex:
+            "\\text{A plumber charges a \\$60 call-out fee plus \\$45 per hour. The total bill was \\$195. How many hours did the plumber work?}",
+          steps: [
+            {
+              explanation: "Let h = number of hours. Write the equation.",
+              latex: "60 + 45h = 195",
+            },
+            {
+              explanation: "Subtract 60 from both sides.",
+              latex: "45h = 135",
+            },
+            {
+              explanation: "Divide both sides by 45.",
+              latex: "h = 3",
+            },
+          ],
+          finalAnswerLatex: "3 \\text{ hours}",
+        },
+      ],
+      guidedPractice: [
+        formulaAnswer(
+          "y11s-fer-g1",
+          "Evaluate 3x + 7 when x = 4.",
+          "3(4) + 7",
+          "19",
+          ["19.0"]
+        ),
+        formulaAnswer(
+          "y11s-fer-g2",
+          "Solve 2x + 6 = 18.",
+          "2x = 18 - 6 = 12,\\quad x = 6",
+          "6",
+          ["6.0", "x=6"]
+        ),
+        formulaAnswer(
+          "y11s-fer-g3",
+          "Solve 4x − 3 = 17.",
+          "4x = 17 + 3 = 20,\\quad x = 5",
+          "5",
+          ["5.0", "x=5"]
+        ),
+        financeChoice(
+          "y11s-fer-g4",
+          "The inverse of multiplying by 6 is:",
+          "B",
+          ["Multiplying by 6 again", "Dividing by 6", "Subtracting 6", "Adding 6"],
+          "Multiplication and division are inverse operations."
+        ),
+      ],
+      independentPractice: [
+        formulaAnswer(
+          "y11s-fer-i1",
+          "Evaluate 2x² + 5 when x = 3.",
+          "2(3)^2 + 5 = 2(9) + 5 = 18 + 5",
+          "23",
+          ["23.0"]
+        ),
+        formulaAnswer(
+          "y11s-fer-i2",
+          "Solve 7x + 4 = 39.",
+          "7x = 35,\\quad x = 5",
+          "5",
+          ["5.0", "x=5"]
+        ),
+        formulaAnswer(
+          "y11s-fer-i3",
+          "Solve 3x − 12 = 0.",
+          "3x = 12,\\quad x = 4",
+          "4",
+          ["4.0", "x=4"]
+        ),
+        formulaAnswer(
+          "y11s-fer-i4",
+          "A taxi charges a $4 flag-fall plus $2.50 per km. The fare was $19. Find the distance.",
+          "4 + 2.5d = 19,\\quad 2.5d = 15,\\quad d = 6",
+          "6 km",
+          ["6", "6km"]
+        ),
+        financeChoice(
+          "y11s-fer-i5",
+          "To solve x/3 = 8, the correct first step is to:",
+          "C",
+          ["Subtract 3", "Divide by 3", "Multiply both sides by 3", "Add 8"],
+          "The x is being divided by 3, so multiply both sides by 3."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Evaluating 4x² as (4x)² instead of 4×(x²).",
+          fix: "The exponent applies only to x, not to the coefficient 4. Calculate x² first, then multiply by 4.",
+        },
+        {
+          mistake: "In 5x − 8 = 22, adding 8 to only one side of the equation.",
+          fix: "Whatever is done to one side must be done to the other. If you add 8 to the left side, add 8 to the right side as well: 5x = 22 + 8 = 30.",
+        },
+        {
+          mistake: "Solving the word problem without checking the answer back in the original context.",
+          fix: "After solving, substitute the answer back into the original equation or re-read the problem to check the answer makes practical sense.",
+        },
+        {
+          mistake: "Reversing the order of inverse operations — dividing before subtracting in a two-step equation.",
+          fix: "Undo operations in reverse order. In 3x + 5 = 20: the +5 was done after ×3, so undo the addition first (subtract 5), then undo the multiplication (divide by 3).",
+        },
+      ],
+      masteryQuiz: [
+        formulaAnswer("y11s-fer-m1", "Evaluate 5x − 4 when x = 3.", "5(3) - 4", "11", ["11.0"]),
+        formulaAnswer("y11s-fer-m2", "Solve 3x + 7 = 28.", "3x = 21,\\quad x = 7", "7", ["7.0", "x=7"]),
+        formulaAnswer("y11s-fer-m3", "Solve 6x − 9 = 27.", "6x = 36,\\quad x = 6", "6", ["6.0", "x=6"]),
+        formulaAnswer("y11s-fer-m4", "Evaluate x² + 3x when x = 5.", "(5)^2 + 3(5) = 25 + 15", "40", ["40.0"]),
+        financeChoice(
+          "y11s-fer-m5",
+          "To solve x + 9 = 20, you should:",
+          "A",
+          ["Subtract 9 from both sides", "Multiply both sides by 9", "Add 9 to both sides", "Divide both sides by 9"],
+          "The +9 is undone by subtracting 9 from both sides."
+        ),
+        formulaAnswer("y11s-fer-m6", "Solve x/4 = 7.", "x = 7 \\times 4", "28", ["28.0", "x=28"]),
+        formulaAnswer(
+          "y11s-fer-m7",
+          "A mobile plan costs $30 per month plus $0.10 per SMS. The monthly bill was $37. Find the number of SMSs.",
+          "30 + 0.10n = 37,\\quad 0.10n = 7,\\quad n = 70",
+          "70",
+          ["70 sms", "70 texts"]
+        ),
+        financeChoice(
+          "y11s-fer-m8",
+          "The first step to solve 2x + 5 = 13 is to:",
+          "B",
+          ["Divide both sides by 2", "Subtract 5 from both sides", "Multiply by 5", "Add 13 to both sides"],
+          "Undo the +5 first by subtracting 5 from both sides."
+        ),
+        formulaAnswer("y11s-fer-m9", "Solve 9x = 63.", "x = 63 \\div 9", "7", ["7.0", "x=7"]),
+        formulaAnswer(
+          "y11s-fer-m10",
+          "Evaluate 3x² − 2x when x = 4.",
+          "3(4)^2 - 2(4) = 3(16) - 8 = 48 - 8",
+          "40",
+          ["40.0"]
+        ),
+      ],
+    };
+  }
+
+  return null;
 }
 

@@ -864,10 +864,11 @@ export function year11StandardDataAnalysisLessonOverride(
     };
   }
 
-  return {
-    ...base,
-    description:
-      "Practise mixed data questions using tables, summary statistics, graph interpretation, outliers and cautious conclusions.",
+  if (lesson.slug === "data-analysis-exam-practice") {
+    return {
+      ...base,
+      description:
+        "Practise mixed data questions using tables, summary statistics, graph interpretation, outliers and cautious conclusions.",
     learningIntention:
       "Apply data analysis skills to practical exam-style contexts.",
     successCriteria: [
@@ -919,6 +920,371 @@ export function year11StandardDataAnalysisLessonOverride(
       dataAnswer("data-exam-m9", "Sport scores are 9, 12, 12, 15 and 17. Find the mode.", "9,\\ 12,\\ 12,\\ 15,\\ 17", "12", ["12 points"]),
       financeChoice("data-exam-m10", "A practical conclusion should be based on:", "D", ["A guess", "Only the largest number", "No context", "The data and its limitations"], "Conclusions should reflect the data carefully."),
     ],
-  };
+    };
+  }
+
+  if (lesson.slug === "data-collection-sampling-methods") {
+    return {
+      ...base,
+      description:
+        "Distinguish census from sample, identify random and stratified sampling methods, recognise sources of bias in data collection, and evaluate the suitability of survey questions — core skills for statistical investigation in NSW Mathematics Standard.",
+      learningIntention:
+        "Apply appropriate data-collection methods to a statistical investigation, identify and minimise sampling bias, and evaluate the quality of survey questions.",
+      successCriteria: [
+        "Distinguish between a census (entire population) and a sample (subset) and state an advantage of each.",
+        "Describe simple random sampling and stratified sampling, and explain when each is appropriate.",
+        "Identify potential sources of bias in sampling methods or survey questions.",
+        "Evaluate survey questions for clarity, neutrality, and the ability to generate useful data.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A census collects data from every member of a population. It is accurate but expensive and time-consuming, and may not be possible for large or inaccessible populations. A sample collects data from a representative subset. Samples are faster and cheaper but introduce the risk of not perfectly representing the population.",
+          "Simple random sampling gives every member of the population an equal chance of selection (e.g. drawing names from a hat or using a random number generator). Stratified sampling divides the population into subgroups (strata) based on a characteristic, then takes a random sample from each stratum in proportion to its size — ensuring all subgroups are represented.",
+          "Bias occurs when the method of data collection or the sample chosen does not fairly represent the population. Sources of bias include: self-selected samples (only volunteers respond), convenience samples (selecting only easy-to-reach people), leading questions (wording that nudges respondents toward a particular answer), and samples that exclude certain groups.",
+          "A good survey question is clear, uses plain language, is not leading or emotive, has a logical range of response options, and asks about one thing at a time. Poor questions combine two ideas ('Do you like sport and exercise?'), use jargon, or assume something ('How often do you watch too much TV?').",
+        ],
+        latexBlocks: [
+          "\\text{Census: whole population}\\quad \\text{Sample: representative subset}",
+          "\\text{Random sample: equal chance for all}\\quad \\text{Stratified: proportional by subgroup}",
+          "\\text{Bias: sample or method does not fairly represent the population}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Census vs sample",
+          questionLatex:
+            "\\text{A school of 1,200 students wants to find out the most popular lunch choice. Discuss the advantages of using a sample of 120 students instead of a census.}",
+          steps: [
+            {
+              explanation: "A census surveys all 1,200 students — accurate but takes longer and costs more.",
+              latex: "\\text{Census: surveys all 1,200} \\Rightarrow \\text{complete data, but slow and resource-intensive}",
+            },
+            {
+              explanation: "A sample of 120 (10%) is faster, cheaper, and still gives a useful estimate if sampled correctly.",
+              latex: "\\text{Sample of 120: faster, cheaper, still representative if well chosen}",
+            },
+          ],
+          finalAnswerLatex:
+            "\\text{Sample is faster and cheaper; census is more accurate but impractical for large groups.}",
+        },
+        {
+          title: "Stratified sampling",
+          questionLatex:
+            "\\text{A school has 400 Year 11 students and 200 Year 12 students. A stratified sample of 60 students is needed. How many from each year?}",
+          steps: [
+            {
+              explanation: "Total students = 600. Year 11 proportion = 400/600 = 2/3.",
+              latex: "\\text{Year 11: }\\frac{400}{600} \\times 60 = 40 \\text{ students}",
+            },
+            {
+              explanation: "Year 12 proportion = 200/600 = 1/3.",
+              latex: "\\text{Year 12: }\\frac{200}{600} \\times 60 = 20 \\text{ students}",
+            },
+          ],
+          finalAnswerLatex: "40 \\text{ from Year 11, }20 \\text{ from Year 12}",
+        },
+        {
+          title: "Identifying bias in a survey question",
+          questionLatex:
+            "\\text{Identify the problem with this survey question: 'Don't you agree that healthy school canteen options are important?'}",
+          steps: [
+            {
+              explanation: "The phrase 'Don't you agree' is leading — it pushes respondents to say yes.",
+              latex: "\\text{Leading question: assumes the respondent agrees}",
+            },
+            {
+              explanation:
+                "A better question: 'How important do you think healthy canteen options are? (Not important / Somewhat important / Very important)'",
+              latex: "\\text{Neutral wording with clear response options removes the bias}",
+            },
+          ],
+          finalAnswerLatex:
+            "\\text{The question is leading. Rephrase with neutral wording and clear response options.}",
+        },
+      ],
+      guidedPractice: [
+        financeChoice(
+          "y11s-dcs-g1",
+          "A survey that collects data from every person in the population is called a:",
+          "A",
+          ["Census", "Stratified sample", "Random sample", "Convenience sample"],
+          "A census collects data from the entire population."
+        ),
+        dataAnswer(
+          "y11s-dcs-g2",
+          "A company has 300 full-time and 200 part-time workers. A stratified sample of 50 is needed. How many full-time workers should be in the sample?",
+          "\\frac{300}{500} \\times 50",
+          "30",
+          ["30 full-time", "30 workers"]
+        ),
+        financeChoice(
+          "y11s-dcs-g3",
+          "Which sampling method gives every person an equal chance of being selected?",
+          "B",
+          ["Convenience sampling", "Simple random sampling", "Self-selected sampling", "Quota sampling"],
+          "Simple random sampling assigns every individual an equal probability of selection."
+        ),
+        financeChoice(
+          "y11s-dcs-g4",
+          "The question 'How many hours of wasteful screen time do you have per day?' is biased because:",
+          "C",
+          ["It asks about hours", "It includes 'per day'", "The word 'wasteful' is emotive and leading", "It is too short"],
+          "The word 'wasteful' is a loaded term that leads respondents toward a negative view of screen time."
+        ),
+      ],
+      independentPractice: [
+        financeChoice(
+          "y11s-dcs-i1",
+          "An advantage of a sample over a census is that a sample is:",
+          "A",
+          ["Faster and cheaper to collect", "Always more accurate", "Compulsory by law", "Free from all bias"],
+          "Samples are faster and cheaper; the trade-off is a small risk of not perfectly representing the population."
+        ),
+        dataAnswer(
+          "y11s-dcs-i2",
+          "A school has 480 boys and 320 girls. A stratified sample of 100 students is needed. How many boys should be in the sample?",
+          "\\frac{480}{800} \\times 100",
+          "60",
+          ["60 boys", "60 students"]
+        ),
+        financeChoice(
+          "y11s-dcs-i3",
+          "A researcher surveys only shoppers at a particular mall on a Tuesday afternoon. This is an example of:",
+          "B",
+          ["Stratified sampling", "Convenience sampling", "Random sampling", "Census"],
+          "Only people available at that time and place are surveyed — a convenience sample that may not represent the broader population."
+        ),
+        financeChoice(
+          "y11s-dcs-i4",
+          "Stratified sampling is preferred over simple random sampling when:",
+          "C",
+          ["The population is very small", "Speed is the only concern", "Distinct subgroups must all be represented", "Only one characteristic matters"],
+          "Stratified sampling ensures each subgroup (stratum) is represented proportionally."
+        ),
+        financeChoice(
+          "y11s-dcs-i5",
+          "Which survey question is the most neutral and appropriate?",
+          "D",
+          [
+            "Don't you think exercise is good for you?",
+            "How many hours do you waste watching TV?",
+            "Do you prefer healthy food, unlike junk food?",
+            "How many hours of physical activity do you do per week?",
+          ],
+          "Only option D is neutral — it asks a factual question without leading language."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Confusing 'sample size' with 'sample proportion' in stratified sampling.",
+          fix: "In stratified sampling, the number from each stratum = (stratum size / total population) × sample size. Do not just take equal numbers from each stratum unless they are equal-sized groups.",
+        },
+        {
+          mistake: "Assuming a larger sample is always unbiased.",
+          fix: "A large sample from a biased method (e.g. surveying only online users) is still biased. Sample size does not fix selection bias.",
+        },
+        {
+          mistake: "Identifying a question as biased just because it is negative in tone, rather than because it leads respondents.",
+          fix: "Bias comes from wording that pushes respondents toward a particular answer ('Don't you agree...', 'wasteful'). A negative but neutral question ('Do you dislike fast food?') is not necessarily leading.",
+        },
+        {
+          mistake: "Treating a self-selected (volunteer) sample as random.",
+          fix: "A self-selected sample only includes people who chose to respond. People with strong opinions are more likely to respond, which skews results. This is NOT a random sample.",
+        },
+      ],
+      masteryQuiz: [
+        financeChoice("y11s-dcs-m1", "A census collects data from:", "C", ["A random group", "A stratified group", "Every member of the population", "A self-selected group"], "Census = entire population."),
+        dataAnswer("y11s-dcs-m2", "A company has 240 full-time and 160 part-time staff. A stratified sample of 50 is needed. How many part-time staff are selected?", "\\frac{160}{400} \\times 50", "20", ["20 part-time", "20 staff"]),
+        financeChoice("y11s-dcs-m3", "Simple random sampling uses:", "B", ["Only volunteers", "Equal probability for every individual", "Subgroup proportions", "Every 5th person on a list"], "Every individual has an equal chance of selection."),
+        financeChoice("y11s-dcs-m4", "A survey only emailed to club members and asking about club satisfaction is likely to have:", "A", ["Self-selection bias", "Stratified accuracy", "Random error only", "No bias at all"], "Only members who choose to respond reply, skewing results toward those with strong opinions."),
+        financeChoice("y11s-dcs-m5", "Which question is least biased?", "D", ["Don't you love sport?", "How much of your day do you waste sitting?", "Isn't exercise clearly better than TV?", "How many hours per week do you exercise?"], "Option D is factual and neutral."),
+        dataAnswer("y11s-dcs-m6", "A school has 600 students: 200 Year 10, 200 Year 11, 200 Year 12. A stratified sample of 90 is needed. How many from each year?", "\\frac{200}{600} \\times 90 = 30 \\text{ per year}", "30", ["30 each", "30 per year"]),
+        financeChoice("y11s-dcs-m7", "Stratified sampling divides the population into:", "B", ["Random groups", "Subgroups (strata) based on a characteristic", "Groups of 10 only", "Alphabetical lists"], "Strata are subgroups sharing a common characteristic."),
+        financeChoice("y11s-dcs-m8", "Increasing the sample size will NOT fix bias caused by:", "C", ["Random error", "Sampling variability", "Convenience sampling", "Rounding errors"], "Bias from convenience sampling means the method excluded parts of the population — more observations from the same biased method do not fix this."),
+        financeChoice("y11s-dcs-m9", "Primary data is data that:", "A", ["You collect yourself for this investigation", "Already exists in published reports", "Is always more biased than secondary data", "Can only come from a census"], "Primary data is collected directly by the researcher for the current purpose."),
+        financeChoice("y11s-dcs-m10", "A survey question asks two things at once ('Do you like sport and healthy food?'). This problem is called:", "B", ["Leading question", "Double-barrelled question", "Closed question", "Response bias"], "A double-barrelled question asks about two things simultaneously, making responses uninterpretable."),
+      ],
+      masteryPassMark: 0.8,
+    };
+  }
+
+  if (lesson.slug === "data-analysis-revision") {
+    return {
+      ...base,
+      description:
+        "Activate Year 10 data-analysis skills: calculate mean, median, mode, and range from small datasets, identify outliers, and read basic statistical graphs — foundations for Year 11 data-display and summary-statistics work.",
+      learningIntention:
+        "Recall and apply Year 10 measures of centre and spread so that Year 11 data-analysis work builds on secure foundations.",
+      successCriteria: [
+        "Calculate the mean by summing all values and dividing by the count.",
+        "Find the median by ordering data and identifying the middle value (or average of the two middle values for even-sized datasets).",
+        "Identify the mode (most frequent value) and the range (maximum − minimum).",
+        "Recognise an outlier as a value noticeably separated from the rest of the data.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The mean is the arithmetic average: add all values, then divide by how many values there are. The mean uses every value in the dataset, so it is sensitive to outliers — one very large or very small value can shift the mean significantly.",
+          "The median is the middle value when data are arranged in order from smallest to largest. For an odd number of values, the median is the exact middle value. For an even number, the median is the average of the two middle values. The median is resistant to outliers because it depends only on position, not magnitude.",
+          "The mode is the value that appears most often. A dataset can have no mode (all values different), one mode (unimodal), or multiple modes. The range measures spread: Range = maximum − minimum. A large range indicates high variability; a small range indicates values are tightly clustered.",
+          "An outlier is a data point that is noticeably far from the rest of the data. Outliers can distort the mean significantly but have little effect on the median. When an outlier is present, the median is usually the better measure of typical value.",
+        ],
+        latexBlocks: [
+          "\\bar{x} = \\frac{\\text{sum of all values}}{\\text{number of values}}",
+          "\\text{Median: middle value of ordered data}",
+          "\\text{Range} = \\text{maximum} - \\text{minimum}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Mean, median, mode, range",
+          questionLatex:
+            "\\text{Dataset: }4,\\,7,\\,3,\\,7,\\,9.\\text{ Find the mean, median, mode, and range.}",
+          steps: [
+            {
+              explanation: "Mean: sum = 4+7+3+7+9 = 30, count = 5.",
+              latex: "\\bar{x} = 30 \\div 5 = 6",
+            },
+            {
+              explanation: "Median: order the data: 3, 4, 7, 7, 9. Middle value (3rd) is 7.",
+              latex: "\\text{Median} = 7",
+            },
+            {
+              explanation: "Mode: 7 appears twice (most often). Range: 9 − 3 = 6.",
+              latex: "\\text{Mode} = 7,\\quad \\text{Range} = 6",
+            },
+          ],
+          finalAnswerLatex: "\\bar{x}=6,\\;\\text{Median}=7,\\;\\text{Mode}=7,\\;\\text{Range}=6",
+        },
+        {
+          title: "Median with even count",
+          questionLatex:
+            "\\text{Find the median of: }2,\\,5,\\,8,\\,11,\\,14,\\,20.",
+          steps: [
+            {
+              explanation: "Data is already ordered. 6 values, so median = average of 3rd and 4th.",
+              latex: "\\text{Median} = \\frac{8 + 11}{2} = \\frac{19}{2} = 9.5",
+            },
+          ],
+          finalAnswerLatex: "9.5",
+        },
+        {
+          title: "Effect of an outlier",
+          questionLatex:
+            "\\text{Test scores: }60,\\,65,\\,70,\\,72,\\,75.\\text{ A 6th score of 2 is added. How does it affect the mean and median?}",
+          steps: [
+            {
+              explanation: "Mean without outlier: (60+65+70+72+75)/5 = 342/5 = 68.4. Mean with outlier: (342+2)/6 = 344/6 ≈ 57.3.",
+              latex: "\\bar{x}\\text{ drops from }68.4\\text{ to }57.3",
+            },
+            {
+              explanation: "Median without outlier: 70. With outlier, order: 2,60,65,70,72,75. Median = (65+70)/2 = 67.5.",
+              latex: "\\text{Median changes from }70\\text{ to }67.5",
+            },
+          ],
+          finalAnswerLatex: "\\text{Outlier drops mean from 68.4 to 57.3; median only shifts from 70 to 67.5}",
+        },
+      ],
+      guidedPractice: [
+        dataAnswer(
+          "y11s-dar-g1",
+          "Find the mean of: 5, 8, 11, 6, 10.",
+          "\\bar{x} = (5+8+11+6+10) \\div 5 = 40 \\div 5",
+          "8",
+          ["8.0", "mean=8"]
+        ),
+        dataAnswer(
+          "y11s-dar-g2",
+          "Find the median of: 3, 7, 2, 9, 5.",
+          "\\text{Order: }2,3,5,7,9\\text{ → middle value}",
+          "5",
+          ["5.0", "median=5"]
+        ),
+        dataAnswer(
+          "y11s-dar-g3",
+          "Find the range of: 12, 7, 19, 4, 15.",
+          "\\text{Range} = 19 - 4",
+          "15",
+          ["15.0", "range=15"]
+        ),
+        financeChoice(
+          "y11s-dar-g4",
+          "The mode of the dataset 4, 6, 6, 7, 8, 8, 8 is:",
+          "C",
+          ["6", "7", "8", "4"],
+          "8 appears 3 times — more than any other value."
+        ),
+      ],
+      independentPractice: [
+        dataAnswer(
+          "y11s-dar-i1",
+          "Find the mean of: 14, 18, 22, 10, 16.",
+          "\\bar{x} = (14+18+22+10+16) \\div 5 = 80 \\div 5",
+          "16",
+          ["16.0"]
+        ),
+        dataAnswer(
+          "y11s-dar-i2",
+          "Find the median of: 8, 3, 12, 5, 9, 7.",
+          "\\text{Order: }3,5,7,8,9,12\\text{; median} = (7+8)/2",
+          "7.5",
+          ["7.5", "median=7.5"]
+        ),
+        dataAnswer(
+          "y11s-dar-i3",
+          "Find the range of: 23, 41, 17, 35, 29.",
+          "41 - 17",
+          "24",
+          ["24.0"]
+        ),
+        financeChoice(
+          "y11s-dar-i4",
+          "In which dataset is the mean most affected by an outlier?",
+          "D",
+          ["10, 11, 12, 13", "5, 6, 7, 8, 9", "100, 101, 102", "2, 3, 4, 5, 100"],
+          "In option D, 100 is far from 2-5, pulling the mean up significantly."
+        ),
+        dataAnswer(
+          "y11s-dar-i5",
+          "Scores: 55, 60, 65, 70, 75. Find the median.",
+          "\\text{5 values — middle (3rd) value}",
+          "65",
+          ["65.0"]
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Finding the median without first ordering the data.",
+          fix: "Always rewrite the data in order from smallest to largest before finding the middle value. The median of 4, 1, 7 is 4 (after ordering: 1, 4, 7), not 1.",
+        },
+        {
+          mistake: "For an even number of values, picking one of the two middle values instead of averaging them.",
+          fix: "With an even count, the median is the average of the two middle values: for 3, 5, 7, 9 the median is (5+7)/2 = 6, not 5 or 7.",
+        },
+        {
+          mistake: "Dividing by 5 when there are 6 values in the dataset.",
+          fix: "Count the actual number of values carefully before dividing. The mean denominator must match the count of values, not an estimate.",
+        },
+        {
+          mistake: "Stating the range as both endpoints (e.g. 'from 3 to 19') instead of the single difference.",
+          fix: "Range is a single number: Range = maximum − minimum = 19 − 3 = 16. Do not report it as an interval.",
+        },
+      ],
+      masteryQuiz: [
+        dataAnswer("y11s-dar-m1", "Find the mean of: 6, 9, 12, 3, 15.", "\\bar{x} = 45 \\div 5", "9", ["9.0"]),
+        dataAnswer("y11s-dar-m2", "Find the median of: 11, 4, 7, 9, 2.", "\\text{Order: }2,4,7,9,11\\text{ → middle}", "7", ["7.0"]),
+        dataAnswer("y11s-dar-m3", "Find the range of: 8, 15, 3, 20, 11.", "20 - 3", "17", ["17.0"]),
+        financeChoice("y11s-dar-m4", "The mode of 5, 3, 5, 8, 3, 5, 2 is:", "B", ["3", "5", "8", "2"], "5 appears 3 times — more than any other value."),
+        dataAnswer("y11s-dar-m5", "Find the median of: 4, 8, 12, 16, 20, 24.", "(12+16)\\div 2", "14", ["14.0"]),
+        financeChoice("y11s-dar-m6", "Which measure is most affected by an outlier?", "A", ["Mean", "Median", "Mode", "Range is always the same"], "The mean uses every value; a single extreme value can shift it significantly."),
+        dataAnswer("y11s-dar-m7", "Dataset: 20, 22, 21, 19, 18. Find the mean.", "\\bar{x} = 100 \\div 5", "20", ["20.0"]),
+        financeChoice("y11s-dar-m8", "A dataset has values 3, 4, 5, 6, 50. The 50 is best described as:", "C", ["The mode", "The median", "An outlier", "The mean"], "50 is far separated from the other values — it is an outlier."),
+        dataAnswer("y11s-dar-m9", "Find the range of: 100, 45, 72, 88, 60.", "100 - 45", "55", ["55.0"]),
+        financeChoice("y11s-dar-m10", "When an outlier is present, the better measure of centre is usually:", "B", ["Mean", "Median", "Mode", "Range"], "The median is resistant to outliers; the mean is pulled toward extreme values."),
+      ],
+      masteryPassMark: 0.8,
+    };
+  }
+
+  return null;
 }
 

@@ -790,10 +790,11 @@ export function year11StandardManagingMoneyLessonOverride(
     };
   }
 
-  return {
-    ...base,
-    description:
-      "Practise mixed managing-money exam questions using budgets, savings goals, simple interest, fees and financial comparisons.",
+  if (lesson.slug === "managing-money-exam-practice") {
+    return {
+      ...base,
+      description:
+        "Practise mixed managing-money exam questions using budgets, savings goals, simple interest, fees and financial comparisons.",
     learningIntention:
       "Apply managing-money skills to mixed practical exam-style questions.",
     successCriteria: [
@@ -846,6 +847,362 @@ export function year11StandardManagingMoneyLessonOverride(
       financeChoice("manage-exam-m9", "Which answer is reasonable if income is 300 dollars and expenses are 340 dollars?", "B", ["40 dollars surplus", "40 dollars deficit", "640 dollars surplus", "No cash flow"], "Expenses exceed income by 40 dollars."),
       moneyAnswer("manage-exam-m10", "A student deposits 35 dollars each week for 6 weeks, then pays a 15 dollar account fee. What amount remains from those deposits?", "\\text{weekly deposit}=\\$35,\\quad \\text{weeks}=6,\\quad \\text{fee}=\\$15", "195"),
     ],
-  };
+    };
+  }
+
+  if (lesson.slug === "vehicle-costs-buying-running") {
+    return {
+      ...base,
+      description:
+        "Calculate the total cost of buying and running a vehicle: purchase price, stamp duty, registration, insurance, fuel consumption, servicing, and total cost of ownership over a period.",
+      learningIntention:
+        "Apply percentage, rate, and addition skills to model the full financial cost of vehicle ownership, including purchase costs, annual running costs, and resale value.",
+      successCriteria: [
+        "Calculate annual fuel cost using fuel consumption rate (L/100 km), distance, and fuel price.",
+        "List and total the key annual running costs: registration, insurance, fuel, and servicing.",
+        "Calculate stamp duty as a percentage of the purchase price.",
+        "Find the total cost of ownership over a given number of years, accounting for purchase, running costs, and resale value.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Buying a vehicle costs more than the advertised price. Stamp duty (a government tax), registration transfer, and dealer fees add to the initial outlay. Stamp duty is usually a fixed percentage of the vehicle's purchase price and varies by state.",
+          "Annual running costs include: registration (a fixed annual government fee), comprehensive insurance, fuel, regular servicing and tyres. Fuel cost depends on the vehicle's consumption rate (litres per 100 km), the annual distance driven, and the price of fuel per litre.",
+          "Fuel cost formula: Fuel cost = (distance ÷ 100) × consumption rate (L/100 km) × price per litre. For example, driving 15,000 km at 9 L/100 km with fuel at $1.90/L costs (15,000 ÷ 100) × 9 × 1.90 = $2,565.",
+          "Total cost of ownership = purchase price + total running costs (over all years) − resale value. This gives the true net cost of owning the vehicle for the period. Comparing this figure across vehicles helps make financially sound decisions.",
+        ],
+        latexBlocks: [
+          "\\text{Fuel cost} = \\frac{\\text{distance (km)}}{100} \\times \\text{consumption (L/100\\,km)} \\times \\text{price per litre}",
+          "\\text{Annual running cost} = \\text{rego} + \\text{insurance} + \\text{fuel} + \\text{servicing}",
+          "\\text{Total ownership cost} = \\text{purchase price} + \\text{total running costs} - \\text{resale value}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Annual fuel cost",
+          questionLatex:
+            "\\text{A car uses 8 L per 100 km. It is driven 12\\,000 km in a year. Fuel costs \\$1.80 per litre. Find the annual fuel cost.}",
+          steps: [
+            {
+              explanation: "Divide distance by 100 to find the number of 100-km intervals.",
+              latex: "\\frac{12\\,000}{100} = 120",
+            },
+            {
+              explanation: "Multiply by consumption rate to get litres used.",
+              latex: "120 \\times 8 = 960 \\text{ litres}",
+            },
+            {
+              explanation: "Multiply by price per litre.",
+              latex: "960 \\times 1.80 = \\$1\\,728",
+            },
+          ],
+          finalAnswerLatex: "\\$1\\,728",
+        },
+        {
+          title: "Total annual running cost",
+          questionLatex:
+            "\\text{Annual costs: registration \\$350, insurance \\$1\\,200, fuel \\$1\\,728, servicing \\$400. Find the total annual running cost.}",
+          steps: [
+            {
+              explanation: "Add all annual cost components.",
+              latex: "350 + 1\\,200 + 1\\,728 + 400 = \\$3\\,678",
+            },
+          ],
+          finalAnswerLatex: "\\$3\\,678",
+        },
+        {
+          title: "Total cost of ownership over 5 years",
+          questionLatex:
+            "\\text{Purchase price: \\$24\\,000. Annual running cost: \\$3\\,678. Resale value after 5 years: \\$9\\,000. Find the 5-year ownership cost.}",
+          steps: [
+            {
+              explanation: "Total running costs over 5 years.",
+              latex: "5 \\times 3\\,678 = \\$18\\,390",
+            },
+            {
+              explanation: "Total ownership cost = purchase + running − resale.",
+              latex: "24\\,000 + 18\\,390 - 9\\,000 = \\$33\\,390",
+            },
+          ],
+          finalAnswerLatex: "\\$33\\,390",
+        },
+      ],
+      guidedPractice: [
+        moneyAnswer(
+          "y11s-vcr-g1",
+          "A car uses 10 L per 100 km and is driven 10,000 km. Fuel costs $1.70/L. Find the annual fuel cost.",
+          "\\frac{10\\,000}{100} \\times 10 \\times 1.70",
+          "1700",
+          ["$1700", "1700.00", "$1,700"]
+        ),
+        moneyAnswer(
+          "y11s-vcr-g2",
+          "Calculate stamp duty on a $20,000 vehicle at a rate of 3%.",
+          "0.03 \\times 20\\,000",
+          "600",
+          ["$600", "600.00"]
+        ),
+        moneyAnswer(
+          "y11s-vcr-g3",
+          "Annual running costs: rego $400, insurance $900, fuel $1,700, servicing $300. Find the total annual running cost.",
+          "400 + 900 + 1\\,700 + 300",
+          "3300",
+          ["$3300", "$3,300", "3300.00"]
+        ),
+        financeChoice(
+          "y11s-vcr-g4",
+          "The total cost of ownership over 3 years for a car costing $15,000, with annual running costs of $3,000, and resale value of $8,000 is:",
+          "C",
+          ["$16,000", "$14,000", "$16,000", "$22,000"],
+          "15,000 + 3×3,000 − 8,000 = 15,000 + 9,000 − 8,000 = $16,000."
+        ),
+      ],
+      independentPractice: [
+        moneyAnswer(
+          "y11s-vcr-i1",
+          "A car uses 7 L per 100 km and is driven 14,000 km. Fuel costs $1.90/L. Find the annual fuel cost.",
+          "\\frac{14\\,000}{100} \\times 7 \\times 1.90",
+          "1862",
+          ["$1862", "1862.00", "$1,862"]
+        ),
+        moneyAnswer(
+          "y11s-vcr-i2",
+          "Calculate stamp duty on a $32,000 vehicle at 4%.",
+          "0.04 \\times 32\\,000",
+          "1280",
+          ["$1280", "1280.00", "$1,280"]
+        ),
+        moneyAnswer(
+          "y11s-vcr-i3",
+          "Annual costs: rego $420, insurance $1,100, fuel $1,862, servicing $380. Find the total.",
+          "420 + 1\\,100 + 1\\,862 + 380",
+          "3762",
+          ["$3762", "$3,762", "3762.00"]
+        ),
+        moneyAnswer(
+          "y11s-vcr-i4",
+          "A car costs $18,000 to buy. Annual running costs are $3,500. After 4 years the resale value is $7,000. Find the total ownership cost.",
+          "18\\,000 + 4 \\times 3\\,500 - 7\\,000 = 18\\,000 + 14\\,000 - 7\\,000",
+          "25000",
+          ["$25000", "$25,000", "25000.00"]
+        ),
+        financeChoice(
+          "y11s-vcr-i5",
+          "A car travels 18,000 km per year at 6 L/100 km. How many litres does it use annually?",
+          "B",
+          ["1080 L", "1080 L", "180 L", "108 L"],
+          "(18,000 ÷ 100) × 6 = 180 × 6 = 1,080 L."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Multiplying distance × consumption rate without dividing by 100 first.",
+          fix: "The consumption rate is in litres per 100 km, so divide the distance by 100 before multiplying: (distance ÷ 100) × L/100 km.",
+        },
+        {
+          mistake: "Forgetting to subtract the resale value when finding total ownership cost.",
+          fix: "Total ownership cost = purchase + running costs − resale value. The resale value reduces the net cost.",
+        },
+        {
+          mistake: "Using the purchase price instead of the full ownership cost to compare vehicles.",
+          fix: "A cheaper vehicle may have higher running costs or lower resale value. Always compare total ownership costs over the same period.",
+        },
+        {
+          mistake: "Adding stamp duty to the annual running costs instead of the purchase cost.",
+          fix: "Stamp duty is a one-off purchase cost, paid when buying the vehicle. Annual running costs are registration, insurance, fuel, and servicing.",
+        },
+      ],
+      masteryQuiz: [
+        moneyAnswer("y11s-vcr-m1", "A car uses 9 L/100 km and travels 10,000 km. Fuel is $1.80/L. Find the fuel cost.", "\\frac{10\\,000}{100} \\times 9 \\times 1.80", "1620", ["$1620", "$1,620", "1620.00"]),
+        moneyAnswer("y11s-vcr-m2", "Calculate stamp duty on a $25,000 vehicle at 3%.", "0.03 \\times 25\\,000", "750", ["$750", "750.00"]),
+        moneyAnswer("y11s-vcr-m3", "Annual rego $380, insurance $950, fuel $1,620, servicing $350. Find the total annual running cost.", "380 + 950 + 1\\,620 + 350", "3300", ["$3300", "$3,300"]),
+        moneyAnswer("y11s-vcr-m4", "Purchase $20,000, annual running $3,300, resale $6,000 after 4 years. Total ownership cost?", "20\\,000 + 4 \\times 3\\,300 - 6\\,000", "27200", ["$27200", "$27,200"]),
+        financeChoice("y11s-vcr-m5", "Fuel consumption of 8 L/100 km means:", "A", ["8 litres are used for every 100 km driven", "The car travels 8 km per litre", "8% of fuel is wasted", "The tank holds 8 litres"], "8 litres per 100 km is the standard fuel efficiency measure."),
+        moneyAnswer("y11s-vcr-m6", "A car travels 20,000 km at 6 L/100 km. Fuel is $1.85/L. Find the annual fuel cost.", "\\frac{20\\,000}{100} \\times 6 \\times 1.85", "2220", ["$2220", "$2,220"]),
+        financeChoice("y11s-vcr-m7", "Which cost is a one-off purchase expense, not an annual running cost?", "C", ["Registration", "Insurance", "Stamp duty", "Servicing"], "Stamp duty is paid once when the vehicle is purchased."),
+        moneyAnswer("y11s-vcr-m8", "A buyer pays $28,000 for a car and $840 stamp duty. What is the total purchase outlay?", "28\\,000 + 840", "28840", ["$28840", "$28,840"]),
+        moneyAnswer("y11s-vcr-m9", "Car costs $16,000. Annual running $2,800. Resale after 3 years is $5,500. Total ownership cost?", "16\\,000 + 3 \\times 2\\,800 - 5\\,500", "18900", ["$18900", "$18,900"]),
+        financeChoice("y11s-vcr-m10", "A car with lower fuel consumption will:", "B", ["Always have lower insurance", "Cost less in fuel per year for the same distance", "Have zero running costs", "Only save money in the first year"], "Less fuel used per 100 km means lower annual fuel expenditure."),
+      ],
+      masteryPassMark: 0.8,
+    };
+  }
+
+  if (lesson.slug === "managing-money-revision") {
+    return {
+      ...base,
+      description:
+        "Activate Year 10 money skills: convert between percentages and decimals, calculate percentage of a quantity, apply simple interest, and work with income and expenses — essential prior knowledge for Year 11 managing-money topics.",
+      learningIntention:
+        "Recall and apply Year 10 percentage and financial literacy skills so that Year 11 budgeting, interest, and money management work builds on secure foundations.",
+      successCriteria: [
+        "Convert a percentage to a decimal and vice versa (divide by 100 or multiply by 100).",
+        "Calculate a percentage of a quantity using the decimal form.",
+        "Apply the simple interest formula I = Prn to find interest earned or owed.",
+        "Identify whether a budget has a surplus or deficit by comparing income with expenses.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A percentage is a number out of 100. To convert a percentage to a decimal, divide by 100: 8% = 0.08. To convert a decimal back to a percentage, multiply by 100: 0.135 = 13.5%. Getting this conversion right is essential for all financial calculations involving rates.",
+          "To find a percentage of a quantity, convert the percentage to a decimal and multiply: 15% of $240 = 0.15 × 240 = $36. If the question asks for the new total after an increase, add the increase: new total = $240 + $36 = $276.",
+          "Simple interest is calculated on the original principal only. The formula is I = Prn, where P is the principal (starting amount), r is the annual interest rate as a decimal, and n is the number of years. The total amount after earning interest is A = P + I.",
+          "A budget lists income and expenses. Surplus = income − expenses, when income exceeds expenses. Deficit = expenses − income, when expenses exceed income. A balanced budget has income equal to expenses.",
+        ],
+        latexBlocks: [
+          "\\%\\to\\text{decimal}: \\div 100\\qquad \\text{decimal}\\to\\%: \\times 100",
+          "\\text{Percentage of a quantity: convert to decimal, then multiply}",
+          "I = Prn,\\quad A = P + I",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Finding a percentage of a quantity",
+          questionLatex: "\\text{Find 12\\% of \\$350.}",
+          steps: [
+            {
+              explanation: "Convert 12% to a decimal.",
+              latex: "12\\% = 0.12",
+            },
+            {
+              explanation: "Multiply by the quantity.",
+              latex: "0.12 \\times 350 = \\$42",
+            },
+          ],
+          finalAnswerLatex: "\\$42",
+        },
+        {
+          title: "Simple interest",
+          questionLatex:
+            "\\text{Calculate the simple interest on \\$5\\,000 at 4\\% per annum for 3 years.}",
+          steps: [
+            {
+              explanation: "Identify P = 5000, r = 0.04, n = 3.",
+              latex: "I = Prn = 5\\,000 \\times 0.04 \\times 3",
+            },
+            {
+              explanation: "Calculate.",
+              latex: "I = \\$600",
+            },
+          ],
+          finalAnswerLatex: "\\$600",
+        },
+        {
+          title: "Budget surplus or deficit",
+          questionLatex:
+            "\\text{Weekly income: \\$1\\,200. Weekly expenses: food \\$180, rent \\$500, transport \\$80, other \\$300. Find the weekly surplus or deficit.}",
+          steps: [
+            {
+              explanation: "Total weekly expenses.",
+              latex: "180 + 500 + 80 + 300 = \\$1\\,060",
+            },
+            {
+              explanation: "Surplus = income − expenses.",
+              latex: "1\\,200 - 1\\,060 = \\$140 \\text{ surplus}",
+            },
+          ],
+          finalAnswerLatex: "\\$140 \\text{ surplus}",
+        },
+      ],
+      guidedPractice: [
+        moneyAnswer(
+          "y11s-mmr-g1",
+          "Convert 7% to a decimal.",
+          "7 \\div 100",
+          "0.07",
+          ["0.070"]
+        ),
+        moneyAnswer(
+          "y11s-mmr-g2",
+          "Find 20% of $450.",
+          "0.20 \\times 450",
+          "90",
+          ["$90", "90.00"]
+        ),
+        moneyAnswer(
+          "y11s-mmr-g3",
+          "Calculate simple interest on $2,000 at 5% per annum for 2 years.",
+          "I = 2\\,000 \\times 0.05 \\times 2",
+          "200",
+          ["$200", "200.00"]
+        ),
+        financeChoice(
+          "y11s-mmr-g4",
+          "Weekly income is $800. Weekly expenses total $950. The outcome is:",
+          "B",
+          ["$150 surplus", "$150 deficit", "$800 surplus", "Break even"],
+          "Expenses exceed income by $950 − $800 = $150, so it is a deficit."
+        ),
+      ],
+      independentPractice: [
+        moneyAnswer(
+          "y11s-mmr-i1",
+          "Convert 3.5% to a decimal.",
+          "3.5 \\div 100",
+          "0.035",
+          ["0.0350"]
+        ),
+        moneyAnswer(
+          "y11s-mmr-i2",
+          "Find 15% of $640.",
+          "0.15 \\times 640",
+          "96",
+          ["$96", "96.00"]
+        ),
+        moneyAnswer(
+          "y11s-mmr-i3",
+          "Calculate simple interest on $3,500 at 6% per annum for 4 years.",
+          "I = 3\\,500 \\times 0.06 \\times 4",
+          "840",
+          ["$840", "840.00"]
+        ),
+        moneyAnswer(
+          "y11s-mmr-i4",
+          "Find the total amount after earning $840 simple interest on a $3,500 investment.",
+          "A = P + I = 3\\,500 + 840",
+          "4340",
+          ["$4340", "$4,340", "4340.00"]
+        ),
+        financeChoice(
+          "y11s-mmr-i5",
+          "To find 8% of a quantity, you should multiply by:",
+          "C",
+          ["8", "0.8", "0.08", "80"],
+          "8% as a decimal is 8 ÷ 100 = 0.08."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Using the percentage directly (e.g. multiplying by 8 instead of 0.08).",
+          fix: "Always convert the percentage to a decimal first by dividing by 100. 8% = 0.08, so 8% of $200 = 0.08 × 200 = $16, not 8 × 200.",
+        },
+        {
+          mistake: "In I = Prn, using the percentage rate instead of the decimal rate (e.g. r = 5 instead of r = 0.05).",
+          fix: "The r in I = Prn must be a decimal. Divide the annual percentage rate by 100: 5% per annum → r = 0.05.",
+        },
+        {
+          mistake: "Confusing surplus and deficit: subtracting income from expenses when income > expenses.",
+          fix: "If income > expenses, the result is a surplus: surplus = income − expenses. If expenses > income, it is a deficit: deficit = expenses − income.",
+        },
+        {
+          mistake: "Confusing simple interest (I = Prn) with the total amount (A = P + I).",
+          fix: "I is the interest earned or paid. A is the total, including the original principal. If the question asks for the total amount, add the interest to the principal: A = P + I.",
+        },
+      ],
+      masteryQuiz: [
+        moneyAnswer("y11s-mmr-m1", "Convert 4.5% to a decimal.", "4.5 \\div 100", "0.045", ["0.0450"]),
+        moneyAnswer("y11s-mmr-m2", "Find 25% of $360.", "0.25 \\times 360", "90", ["$90", "90.00"]),
+        moneyAnswer("y11s-mmr-m3", "Calculate simple interest on $4,000 at 3% per annum for 5 years.", "I = 4\\,000 \\times 0.03 \\times 5", "600", ["$600", "600.00"]),
+        moneyAnswer("y11s-mmr-m4", "Find the total amount after earning $600 interest on a $4,000 principal.", "A = 4\\,000 + 600", "4600", ["$4600", "$4,600"]),
+        financeChoice("y11s-mmr-m5", "Weekly income $1,100, expenses $1,350. Which is correct?", "B", ["$250 surplus", "$250 deficit", "$1,100 surplus", "No change"], "Expenses exceed income: deficit = 1350 − 1100 = $250."),
+        moneyAnswer("y11s-mmr-m6", "Convert 0.065 to a percentage.", "0.065 \\times 100", "6.5", ["6.5%", "6.50%"]),
+        moneyAnswer("y11s-mmr-m7", "Find 9% of $2,400.", "0.09 \\times 2\\,400", "216", ["$216", "216.00"]),
+        financeChoice("y11s-mmr-m8", "In the formula I = Prn, what does n represent?", "C", ["Interest rate", "Number of payments", "Number of years", "Net profit"], "n is the number of years the money is invested or borrowed."),
+        moneyAnswer("y11s-mmr-m9", "Calculate simple interest on $1,500 at 8% per annum for 2 years.", "I = 1\\,500 \\times 0.08 \\times 2", "240", ["$240", "240.00"]),
+        financeChoice("y11s-mmr-m10", "A budget surplus means:", "A", ["Income exceeds expenses", "Expenses exceed income", "Income equals expenses", "Tax is refunded"], "Surplus = income − expenses, when income > expenses."),
+      ],
+      masteryPassMark: 0.8,
+    };
+  }
+
+  return null;
 }
 
