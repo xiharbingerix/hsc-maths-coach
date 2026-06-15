@@ -2899,20 +2899,6 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "kinematics-exam-practice", title: "Kinematics Exam Practice" },
         ],
       },
-      {
-        slug: "projectile-motion",
-        title: "Projectile Motion — Calculus Approach (Supplementary)",
-        description:
-          "Supplementary unit: analyses projectile motion by resolving into horizontal and vertical components using calculus. Note — the 2024 NSW Ext 1 syllabus (ME1-12-02) treats projectile motion via vectors and parametric equations; that syllabus-aligned treatment is in the Introduction to Vectors unit (vectors-projectile-parametric). This unit provides an alternative calculus-based approach useful for consolidation.",
-        syllabusArea: "Calculus",
-        focus: "Projectile motion",
-        lessons: [
-          { slug: "projectile-equations-setup", title: "Setting Up Projectile Equations" },
-          { slug: "projectile-max-height", title: "Maximum Height and Time" },
-          { slug: "projectile-range-flight", title: "Range and Time of Flight" },
-          { slug: "projectile-exam-practice", title: "Projectile Motion Exam Practice" },
-        ],
-      },
     ],
   },
   {
