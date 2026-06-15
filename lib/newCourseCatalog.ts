@@ -441,7 +441,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     courseType: "Mathematics Standard 2",
     status: "available",
     description:
-      "Practical HSC Mathematics Standard 2 revision with lessons, guided practice, and mastery checks.",
+      "Year 12 Mathematics Standard 2 covers algebra, measurement, financial mathematics, and statistical analysis. Lessons work through non-linear modelling, trigonometry, surface area and volume, investment and loans, annuities, and data analysis — each with worked examples, guided practice questions, and a mastery quiz to check what is actually sticking before moving on.",
     positioning:
       "Practical HSC Mathematics Standard 2 revision with lessons, guided practice, and mastery checks.",
     units: [
@@ -4876,6 +4876,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     { slug: "trig-choosing-ratio", title: "Choosing the Right Ratio" },
     { slug: "trig-finding-angles", title: "Finding Unknown Angles" },
     { slug: "trig-applications", title: "Trig in Practical Contexts" },
+    { slug: "trig-elevation-depression", title: "Angles of Elevation and Depression" },
+    { slug: "trig-bearings", title: "Bearings" },
   ];
   const year9CoreUnits = year9Base.units.map((u) =>
     u.slug !== "working-with-triangles"

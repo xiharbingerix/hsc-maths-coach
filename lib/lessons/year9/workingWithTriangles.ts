@@ -3485,6 +3485,462 @@ const trigApplications: LessonContent = {
   ],
 };
 
+const trigElevationDepression: LessonContent = {
+  description: "Apply trigonometry to solve problems involving angles of elevation and depression.",
+  learningIntention: "Use right-angle trigonometry to find unknown distances and angles in elevation and depression problems.",
+  successCriteria: [
+    "Identify the angle of elevation as measured upward from the horizontal.",
+    "Identify the angle of depression as measured downward from the horizontal.",
+    "Draw and label a right triangle from an elevation or depression scenario.",
+    "Apply SOH-CAH-TOA to find an unknown side or angle.",
+    "State that the angle of elevation from A to B equals the angle of depression from B to A.",
+  ],
+  teaching: {
+    paragraphs: [
+      "The angle of elevation is the angle measured upward from the horizontal to a line of sight aimed at an object above eye level. If you look up at a flagpole from the ground, the angle between the horizontal and your line of sight is the angle of elevation.",
+      "The angle of depression is the angle measured downward from the horizontal to a line of sight aimed at an object below eye level. A lookout at the top of a cliff looking down at a boat uses the angle of depression.",
+      "In both cases, the horizontal, the vertical height, and the line of sight form a right triangle. The angle of elevation or depression is the angle at the observer's position inside that triangle. Use SOH-CAH-TOA exactly as you would for any right-triangle problem.",
+      "A useful symmetry: the angle of elevation from A looking up to B is always equal to the angle of depression from B looking down to A. They are alternate angles between the parallel horizontal lines at each point.",
+    ],
+    latexBlocks: [
+      "\\tan(\\theta)=\\frac{\\text{height}}{\\text{horizontal distance}}",
+      "\\sin(\\theta)=\\frac{\\text{height}}{\\text{line of sight}}",
+      "\\text{angle of elevation from }A = \\text{angle of depression from }B",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Find height using angle of elevation",
+      questionLatex: "\\text{A flagpole is 15 m from an observer. The angle of elevation to the top is }40^\\circ\\text{. Find the height.}",
+      steps: [
+        { explanation: "The horizontal distance is 15 m and the angle of elevation is 40°. Height is the opposite side, horizontal distance is the adjacent.", latex: "\\tan(40^\\circ)=\\frac{h}{15}" },
+        { explanation: "Rearrange to find h.", latex: "h=15\\times\\tan(40^\\circ)\\approx15\\times0.839=12.6\\text{ m}" },
+      ],
+      finalAnswerLatex: "\\text{height}\\approx12.6\\text{ m}",
+    },
+    {
+      title: "Find distance using angle of depression",
+      questionLatex: "\\text{From the top of a 60 m cliff, the angle of depression to a boat is }25^\\circ\\text{. Find the horizontal distance to the boat.}",
+      steps: [
+        { explanation: "The height is 60 m and the angle of depression is 25°. The opposite is 60 m and the unknown is the adjacent.", latex: "\\tan(25^\\circ)=\\frac{60}{d}" },
+        { explanation: "Rearrange to find d.", latex: "d=\\frac{60}{\\tan(25^\\circ)}\\approx\\frac{60}{0.466}\\approx128.7\\text{ m}" },
+      ],
+      finalAnswerLatex: "\\text{horizontal distance}\\approx128.7\\text{ m}",
+    },
+    {
+      title: "Find the angle of elevation",
+      questionLatex: "\\text{A building is 40 m tall. An observer stands 40 m from its base. Find the angle of elevation to the top.}",
+      steps: [
+        { explanation: "Opposite = 40 m (height), adjacent = 40 m (horizontal distance).", latex: "\\tan(\\theta)=\\frac{40}{40}=1" },
+        { explanation: "Apply the inverse tangent.", latex: "\\theta=\\tan^{-1}(1)=45^\\circ" },
+      ],
+      finalAnswerLatex: "\\theta=45^\\circ",
+    },
+  ],
+  guidedPractice: [
+    choice(
+      "y9c-tri-elv-g1",
+      "The angle of elevation is measured from which reference line?",
+      "B",
+      [
+        "The vertical, upward from the ground.",
+        "The horizontal, upward to the line of sight.",
+        "The horizontal, downward to the object.",
+        "The hypotenuse, measured at the base.",
+      ],
+      "Elevation angles are always measured upward from the horizontal to the line of sight."
+    ),
+    answer(
+      "y9c-tri-elv-g2",
+      "A flagpole stands 15 m from an observer. The angle of elevation to the top is 30°. Find the height of the flagpole in metres. Round to 1 decimal place.",
+      "\\tan(30^\\circ)=\\dfrac{h}{15}",
+      "8.7",
+      "h = 15 × tan(30°) ≈ 15 × 0.577 = 8.7 m.",
+      ["8.7 m"],
+      triangle("Right triangle: height h is opposite, 15 m is adjacent, angle of elevation 30° at observer.", { AC: "h", BC: "15 m" }, { B: "30°" })
+    ),
+    answer(
+      "y9c-tri-elv-g3",
+      "A building is 50 m tall. An observer stands 50 m from its base. What is the angle of elevation to the top in degrees?",
+      "\\tan(\\theta)=\\dfrac{50}{50}=1",
+      "45",
+      "tan(θ) = 50/50 = 1, so θ = tan⁻¹(1) = 45°.",
+      ["45°"]
+    ),
+    choice(
+      "y9c-tri-elv-g4",
+      "The angle of depression from the top of a cliff to a boat is 35°. What is the angle of elevation from the boat to the top of the cliff?",
+      "A",
+      ["35°", "55°", "90°", "145°"],
+      "The angle of elevation from the boat equals the angle of depression from the cliff — they are alternate angles between parallel horizontal lines."
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y9c-tri-elv-i1",
+      "An observer stands 25 m from a tree. The angle of elevation to the top of the tree is 40°. Find the height of the tree in metres. Round to 1 decimal place.",
+      "\\tan(40^\\circ)=\\dfrac{h}{25}",
+      "21.0",
+      "h = 25 × tan(40°) ≈ 25 × 0.839 = 21.0 m.",
+      ["21.0 m", "21 m", "21"],
+      triangle("Right triangle: tree height h opposite, 25 m adjacent, angle 40° at observer.", { AC: "h", BC: "25 m" }, { B: "40°" })
+    ),
+    answer(
+      "y9c-tri-elv-i2",
+      "From the top of an 80 m cliff, the angle of depression to a boat is 20°. Find the horizontal distance from the base of the cliff to the boat. Round to the nearest metre.",
+      "\\tan(20^\\circ)=\\dfrac{80}{d}",
+      "220",
+      "d = 80 ÷ tan(20°) ≈ 80 ÷ 0.364 ≈ 219.8 ≈ 220 m.",
+      ["220 m"],
+      triangle("Right triangle: cliff height 80 m opposite, horizontal distance d adjacent, angle of depression 20° at cliff top.", { AC: "80 m", BC: "d" }, { B: "20°" })
+    ),
+    answer(
+      "y9c-tri-elv-i3",
+      "A kite is flown on 80 m of string at an angle of elevation of 35°. Find the height of the kite above the ground in metres. Round to 1 decimal place.",
+      "\\sin(35^\\circ)=\\dfrac{h}{80}",
+      "45.9",
+      "h = 80 × sin(35°) ≈ 80 × 0.574 = 45.9 m.",
+      ["45.9 m"],
+      triangle("Right triangle: kite height h opposite, string 80 m is hypotenuse, elevation angle 35° at base.", { AB: "80 m", BC: "h" }, { A: "35°" })
+    ),
+    answer(
+      "y9c-tri-elv-i4",
+      "From a window 90 m above the street, the angle of depression to a point on the street is 40°. How far horizontally is the point from directly below the window? Round to the nearest metre.",
+      "\\tan(40^\\circ)=\\dfrac{90}{d}",
+      "107",
+      "d = 90 ÷ tan(40°) ≈ 90 ÷ 0.839 ≈ 107 m.",
+      ["107 m"]
+    ),
+    choice(
+      "y9c-tri-elv-i5",
+      "From a 50 m cliff, the angle of depression to a boat is 40°. Which expression gives the horizontal distance to the boat?",
+      "B",
+      [
+        "$50\\times\\tan(40^\\circ)$",
+        "$50\\div\\tan(40^\\circ)$",
+        "$50\\times\\sin(40^\\circ)$",
+        "$50\\div\\sin(40^\\circ)$",
+      ],
+      "tan(40°) = 50/d, so d = 50 ÷ tan(40°)."
+    ),
+  ],
+  commonMistakes: [
+    { mistake: "Measuring the angle from the vertical instead of the horizontal.", fix: "Elevation and depression angles are always measured from the horizontal line of sight." },
+    { mistake: "Confusing which side is opposite and which is adjacent.", fix: "The height (vertical) is always the opposite side; the horizontal distance is always the adjacent side." },
+    { mistake: "Using sin instead of tan when only the horizontal distance and height are given.", fix: "When you have opposite and adjacent (no hypotenuse), use tan." },
+    { mistake: "Thinking the angle of depression and elevation are supplementary (add to 180°).", fix: "They are equal — alternate angles between parallel horizontal lines." },
+  ],
+  masteryQuiz: [
+    answer(
+      "y9c-tri-elv-m1",
+      "A ladder 8 m long rests against a wall at an angle of elevation of 70°. How high up the wall does the ladder reach? Round to 1 decimal place.",
+      "\\sin(70^\\circ)=\\dfrac{h}{8}",
+      "7.5",
+      "h = 8 × sin(70°) ≈ 8 × 0.940 = 7.5 m.",
+      ["7.5 m"],
+      triangle("Right triangle: wall height h opposite, ladder 8 m is hypotenuse, angle 70° at base.", { AB: "8 m", BC: "h" }, { A: "70°" })
+    ),
+    answer(
+      "y9c-tri-elv-m2",
+      "A person stands 60 m from the base of a tower. The angle of elevation to the top is 28°. Find the height of the tower in metres. Round to 1 decimal place.",
+      "\\tan(28^\\circ)=\\dfrac{h}{60}",
+      "31.9",
+      "h = 60 × tan(28°) ≈ 60 × 0.532 = 31.9 m.",
+      ["31.9 m"],
+      triangle("Right triangle: tower height h opposite, 60 m adjacent, elevation angle 28°.", { AC: "h", BC: "60 m" }, { B: "28°" })
+    ),
+    choice(
+      "y9c-tri-elv-m3",
+      "From the top of a 40 m cliff, the angle of depression to a boat directly below is 45°. How far is the boat horizontally from the base of the cliff?",
+      "B",
+      ["20 m", "40 m", "57 m", "80 m"],
+      "tan(45°) = 40/d, so d = 40 ÷ tan(45°) = 40 ÷ 1 = 40 m."
+    ),
+    answer(
+      "y9c-tri-elv-m4",
+      "The angle of elevation from the ground to the top of a cliff is 25°. What is the angle of depression from the top of the cliff back to the same point on the ground?",
+      "\\text{alternate angles}",
+      "25",
+      "The angle of depression from the top equals the angle of elevation from the ground — they are alternate angles between parallel horizontal lines.",
+      ["25°"]
+    ),
+    answer(
+      "y9c-tri-elv-m5",
+      "From the top of a 45 m building, the angle of depression to a car on the street is 32°. How far is the car from the base of the building? Round to 1 decimal place.",
+      "\\tan(32^\\circ)=\\dfrac{45}{d}",
+      "72.0",
+      "d = 45 ÷ tan(32°) ≈ 45 ÷ 0.625 = 72.0 m.",
+      ["72 m", "72"],
+      triangle("Right triangle: building 45 m opposite, distance d adjacent, depression angle 32°.", { AC: "45 m", BC: "d" }, { B: "32°" })
+    ),
+    answer(
+      "y9c-tri-elv-m6",
+      "A ramp is 12 m long and inclined at 15° to the horizontal. Find the vertical height of the ramp in metres. Round to 1 decimal place.",
+      "\\sin(15^\\circ)=\\dfrac{h}{12}",
+      "3.1",
+      "h = 12 × sin(15°) ≈ 12 × 0.259 = 3.1 m.",
+      ["3.1 m"],
+      triangle("Right triangle: ramp 12 m hypotenuse, height h opposite, angle 15° at base.", { AB: "12 m", BC: "h" }, { A: "15°" })
+    ),
+    choice(
+      "y9c-tri-elv-m7",
+      "A student draws the elevation diagram and marks the angle of elevation between the vertical wall and the line of sight. What has the student done wrong?",
+      "A",
+      [
+        "The angle of elevation is measured from the horizontal, not the vertical.",
+        "The angle should be at the top of the diagram.",
+        "The line of sight should be horizontal.",
+        "The angle of elevation cannot be found without the hypotenuse.",
+      ],
+      "The angle of elevation is always measured upward from the horizontal to the line of sight."
+    ),
+    answer(
+      "y9c-tri-elv-m8",
+      "An observer stands 90 m from a building. The angle of elevation to the top is 38°. Find the height of the building in metres. Round to 1 decimal place.",
+      "\\tan(38^\\circ)=\\dfrac{h}{90}",
+      "70.3",
+      "h = 90 × tan(38°) ≈ 90 × 0.781 = 70.3 m.",
+      ["70.3 m"],
+      triangle("Right triangle: building height h opposite, 90 m adjacent, angle 38°.", { AC: "h", BC: "90 m" }, { B: "38°" })
+    ),
+    answer(
+      "y9c-tri-elv-m9",
+      "From a window 70 m above the ground, the angle of depression to a parked car is 30°. How far is the car from directly below the window? Round to 1 decimal place.",
+      "\\tan(30^\\circ)=\\dfrac{70}{d}",
+      "121.2",
+      "d = 70 ÷ tan(30°) = 70 ÷ (1/√3) = 70√3 ≈ 121.2 m.",
+      ["121.2 m", "121 m", "121"],
+      triangle("Right triangle: height 70 m opposite, distance d adjacent, depression angle 30°.", { AC: "70 m", BC: "d" }, { B: "30°" })
+    ),
+    answer(
+      "y9c-tri-elv-m10",
+      "A ramp is 20 m long and makes an angle of 12° with the horizontal. Find the horizontal run of the ramp in metres. Round to 1 decimal place.",
+      "\\cos(12^\\circ)=\\dfrac{\\text{run}}{20}",
+      "19.6",
+      "run = 20 × cos(12°) ≈ 20 × 0.978 = 19.6 m.",
+      ["19.6 m"],
+      triangle("Right triangle: ramp 20 m hypotenuse, horizontal run adjacent, angle 12° at base.", { AB: "20 m", BC: "run" }, { A: "12°" })
+    ),
+  ],
+};
+
+const trigBearings: LessonContent = {
+  description: "Use true bearings and compass bearings to describe direction, and apply trigonometry to solve bearing problems.",
+  learningIntention: "Apply right-angle trigonometry to solve problems involving true bearings and compass bearings.",
+  successCriteria: [
+    "State that a true bearing is measured clockwise from North and expressed with three digits.",
+    "Convert between compass bearings (e.g. N40°E) and true bearings (e.g. 040°).",
+    "Draw a right triangle from a bearing problem and identify its components.",
+    "Calculate north–south and east–west distances using trigonometry.",
+  ],
+  teaching: {
+    paragraphs: [
+      "A true bearing is the angle measured clockwise from North, always written using three digits. Due East is 090°, due South is 180°, due West is 270°, and due North is 360° (or 000°).",
+      "A compass bearing uses the four cardinal directions as a reference. N40°E means 'start facing North, rotate 40° toward East.' It is the same as a true bearing of 040°. S30°W means 'start facing South, rotate 30° toward West,' which equals 210°.",
+      "To solve a bearing problem, draw a diagram with North pointing up. Mark the path as the hypotenuse of a right triangle. The north–south leg and east–west leg are the other two sides. For a bearing of 030° and distance D, the northward distance is D cos(30°) and the eastward distance is D sin(30°).",
+      "The angle in the right triangle relates to the bearing. For a bearing in the NE quadrant (0° to 90°), the angle from North equals the bearing. Use sine for the east–west component and cosine for the north–south component.",
+    ],
+    latexBlocks: [
+      "\\text{North component} = D\\cos(\\theta),\\quad\\text{East component} = D\\sin(\\theta)",
+      "\\text{N40}^\\circ\\text{E} = 040^\\circ,\\quad\\text{S30}^\\circ\\text{W} = 210^\\circ",
+      "\\text{Back bearing} = \\text{forward bearing}\\pm180^\\circ",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Convert a compass bearing to a true bearing",
+      questionLatex: "\\text{Express S45}^\\circ\\text{W as a true bearing.}",
+      steps: [
+        { explanation: "S45°W starts at South (180°) and rotates 45° toward West.", latex: "180^\\circ+45^\\circ=225^\\circ" },
+      ],
+      finalAnswerLatex: "225^\\circ",
+    },
+    {
+      title: "Find north and east components from a bearing",
+      questionLatex: "\\text{A ship sails on bearing }060^\\circ\\text{ for 80 km. Find how far north and east it has moved.}",
+      steps: [
+        { explanation: "The bearing is 60° from North. Draw a right triangle with the path as hypotenuse.", latex: "\\text{North component} = 80\\cos(60^\\circ)=80\\times0.5=40\\text{ km}" },
+        { explanation: "Calculate the east component using sine.", latex: "\\text{East component} = 80\\sin(60^\\circ)\\approx80\\times0.866=69.3\\text{ km}" },
+      ],
+      finalAnswerLatex: "\\text{40 km north, 69.3 km east}",
+    },
+    {
+      title: "Find a bearing from north-south and east-west distances",
+      questionLatex: "\\text{A town is 30 km north and 30 km east of a city. Find the true bearing from the city to the town.}",
+      steps: [
+        { explanation: "The north and east distances are equal, so the path is at 45° from North.", latex: "\\tan(\\theta)=\\frac{30}{30}=1\\implies\\theta=45^\\circ" },
+        { explanation: "The direction is NE, so the bearing is 045°.", latex: "\\text{bearing}=045^\\circ" },
+      ],
+      finalAnswerLatex: "045^\\circ",
+    },
+  ],
+  guidedPractice: [
+    choice(
+      "y9c-tri-brg-g1",
+      "A true bearing is measured from North in which direction?",
+      "B",
+      ["Anti-clockwise", "Clockwise", "Toward East only", "Toward South only"],
+      "True bearings are always measured clockwise from North."
+    ),
+    answer(
+      "y9c-tri-brg-g2",
+      "Express the compass bearing N40°E as a true bearing using three digits (for example, 045).",
+      "\\text{N}40^\\circ\\text{E}",
+      "040",
+      "N40°E means 40° clockwise from North, which is the true bearing 040°.",
+      ["040°", "40", "40°"]
+    ),
+    choice(
+      "y9c-tri-brg-g3",
+      "What compass direction corresponds to a true bearing of 270°?",
+      "D",
+      ["North", "East", "South", "West"],
+      "090° = East, 180° = South, 270° = West, 360°/000° = North."
+    ),
+    answer(
+      "y9c-tri-brg-g4",
+      "Express the compass bearing S30°W as a true bearing using three digits.",
+      "\\text{S}30^\\circ\\text{W}",
+      "210",
+      "S30°W starts at South (180°) and adds 30° toward West: 180° + 30° = 210°.",
+      ["210°"]
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y9c-tri-brg-i1",
+      "A ship sails due East for 50 km. What is the true bearing of its direction of travel?",
+      "\\text{due East}",
+      "090",
+      "Due East corresponds to a true bearing of 090°.",
+      ["090°", "90", "90°"]
+    ),
+    answer(
+      "y9c-tri-brg-i2",
+      "Convert the true bearing 135° to a compass bearing (for example, S45°E).",
+      "135^\\circ",
+      "S45°E",
+      "135° is in the SE quadrant. 135° = 180° − 45°, so it is 45° from South toward East: S45°E.",
+      ["S45E", "s45e", "S 45 E"]
+    ),
+    answer(
+      "y9c-tri-brg-i3",
+      "A ship travels on bearing 030° for 60 km. How far north has it moved? Round to 1 decimal place.",
+      "\\text{North} = 60\\cos(30^\\circ)",
+      "52.0",
+      "North = 60 × cos(30°) ≈ 60 × 0.866 = 52.0 km.",
+      ["52.0 km", "52 km", "52"],
+      triangle("Right triangle: bearing path 60 km is hypotenuse, north leg AC, east leg BC, bearing angle 30° at top.", { AB: "60 km", AC: "North", BC: "East" }, { A: "30°" })
+    ),
+    choice(
+      "y9c-tri-brg-i4",
+      "A bearing of 045° points in which compass direction?",
+      "A",
+      ["NE (north-east)", "SE (south-east)", "NW (north-west)", "SW (south-west)"],
+      "045° is halfway between 000° (North) and 090° (East), so it points north-east."
+    ),
+    answer(
+      "y9c-tri-brg-i5",
+      "Express the compass bearing S70°E as a true bearing.",
+      "\\text{S}70^\\circ\\text{E}",
+      "110",
+      "S70°E starts at South (180°) and rotates 70° toward East: 180° − 70° = 110°.",
+      ["110°"]
+    ),
+  ],
+  commonMistakes: [
+    { mistake: "Adding instead of subtracting when converting S70°E to a true bearing.", fix: "For S θ°E, the true bearing = 180° − θ. For S θ°W, the true bearing = 180° + θ." },
+    { mistake: "Using sin for the north component and cos for the east component.", fix: "North = D cos(bearing angle from North), East = D sin(bearing angle from North)." },
+    { mistake: "Writing a true bearing with fewer than three digits (e.g. 45° instead of 045°).", fix: "True bearings always use three digits: 045°, not 45°." },
+    { mistake: "Confusing the back-bearing with the complement of the forward bearing.", fix: "The back bearing = forward bearing ± 180°. Add 180° if the forward bearing is less than 180°." },
+  ],
+  masteryQuiz: [
+    answer(
+      "y9c-tri-brg-m1",
+      "Convert the true bearing 315° to a compass bearing.",
+      "315^\\circ",
+      "N45°W",
+      "315° = 360° − 45°, which is 45° west of North: N45°W.",
+      ["N45W", "n45w", "N 45 W"]
+    ),
+    choice(
+      "y9c-tri-brg-m2",
+      "Which true bearing is equivalent to S25°W?",
+      "C",
+      ["025°", "155°", "205°", "335°"],
+      "S25°W: start at South (180°) and add 25° toward West → 180° + 25° = 205°."
+    ),
+    answer(
+      "y9c-tri-brg-m3",
+      "A ship sails 120 km on bearing 060°. How far east has it moved? Round to 1 decimal place.",
+      "\\text{East} = 120\\sin(60^\\circ)",
+      "103.9",
+      "East = 120 × sin(60°) ≈ 120 × 0.866 = 103.9 km.",
+      ["103.9 km"],
+      triangle("Right triangle: path 120 km hypotenuse, north leg AC, east leg BC, bearing angle 60° at top.", { AB: "120 km", AC: "North", BC: "East" }, { A: "60°" })
+    ),
+    answer(
+      "y9c-tri-brg-m4",
+      "A ship sails 120 km on bearing 060°. How far north has it moved? Round to 1 decimal place.",
+      "\\text{North} = 120\\cos(60^\\circ)",
+      "60.0",
+      "North = 120 × cos(60°) = 120 × 0.5 = 60.0 km.",
+      ["60 km", "60"]
+    ),
+    answer(
+      "y9c-tri-brg-m5",
+      "A plane travels 8 km north and 6 km east. Find the true bearing from the starting point to the finishing point. Round to the nearest degree.",
+      "\\tan(\\theta)=\\dfrac{6}{8}",
+      "37",
+      "θ = tan⁻¹(6/8) = tan⁻¹(0.75) ≈ 36.9° ≈ 37°. The direction is NE so the bearing is 037°.",
+      ["037", "037°", "37°"]
+    ),
+    choice(
+      "y9c-tri-brg-m6",
+      "What is the back-bearing (return bearing) of a bearing of 040°?",
+      "C",
+      ["040°", "140°", "220°", "310°"],
+      "Back bearing = 040° + 180° = 220°."
+    ),
+    answer(
+      "y9c-tri-brg-m7",
+      "A boat sails on bearing 330° for 80 km. How far north has it moved? Round to 1 decimal place.",
+      "\\text{North} = 80\\cos(330^\\circ)",
+      "69.3",
+      "cos(330°) = cos(360° − 30°) = cos(30°) ≈ 0.866. North = 80 × 0.866 = 69.3 km.",
+      ["69.3 km"]
+    ),
+    answer(
+      "y9c-tri-brg-m8",
+      "A ship is 50 km due south of port. A lighthouse is 50 km due east of port. Find the true bearing from the ship to the lighthouse. Round to the nearest degree.",
+      "\\tan(\\theta)=\\dfrac{50}{50}",
+      "45",
+      "From the ship, the lighthouse is 50 km north and 50 km east. tan(θ) = 50/50 = 1, so θ = 45°. Bearing = 045°.",
+      ["045", "045°", "45°"]
+    ),
+    choice(
+      "y9c-tri-brg-m9",
+      "A student says a true bearing of 270° is the same as due West. Is this correct?",
+      "A",
+      [
+        "Yes — 270° is due West.",
+        "No — 270° is due East.",
+        "No — 270° is due South.",
+        "No — 270° is NW.",
+      ],
+      "Clockwise from North: 090° = East, 180° = South, 270° = West, 360° = North. So 270° is indeed due West."
+    ),
+    answer(
+      "y9c-tri-brg-m10",
+      "A person walks on bearing 150° for 40 km. How far south have they moved? Round to 1 decimal place.",
+      "\\text{Bearing }150^\\circ\\Rightarrow\\text{South component}=40\\cos(30^\\circ)",
+      "34.6",
+      "Bearing 150° = S30°E. South component = 40 × cos(30°) ≈ 40 × 0.866 = 34.6 km.",
+      ["34.6 km"]
+    ),
+  ],
+};
+
 const lessons: Record<string, LessonContent> = {
   "pythagoras-hypotenuse": hypotenuse,
   "pythagoras-shorter-side": shorterSide,
@@ -3501,6 +3957,8 @@ const lessons: Record<string, LessonContent> = {
   "trig-choosing-ratio": trigChoosingRatio,
   "trig-finding-angles": trigFindingAngles,
   "trig-applications": trigApplications,
+  "trig-elevation-depression": trigElevationDepression,
+  "trig-bearings": trigBearings,
 };
 
 export function year9WorkingWithTrianglesLessonOverride(
