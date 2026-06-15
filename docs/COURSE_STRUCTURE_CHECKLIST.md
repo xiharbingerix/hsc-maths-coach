@@ -1,4 +1,4 @@
-# Nova Maths — Course Structure Checklist
+﻿# Nova Maths — Course Structure Checklist
 
 > **Objective:** High-quality lessons and question content across the entire NSW syllabus, mapped to syllabus sections with sufficient lessons to cover all skills and content in the Content section. Each lesson: 19 questions, worked examples, Feynman teaching, and common mistakes. Each focus area: one revision lesson activating the prior knowledge stated in the syllabus teaching advice, plus content lessons per dot-point group.
 > **Standard:** NSW syllabuses (2024 versions, implementation from 2026). Source of truth: [curriculum.nsw.edu.au](https://curriculum.nsw.edu.au).
@@ -18,7 +18,7 @@
 | Year 7 Mathematics | 46 (10 units) | 10 NSW focus areas (MA4) | ✅ 10/10 — 874 questions seeded | 0 | ✅ Complete — 874 questions seeded 2026-06-16 |
 | Year 8 Mathematics | 59 (10 units) | 11 NSW outcomes (MA4) | ⚠️ ~55% — 6/11 outcomes covered; ratios/rates, negative indices, circumference/sectors, area of circles/sectors/annuli missing | 0 | ⚠️ Full depth; syllabus gaps identified 2026-06-16 |
 | Year 9 Mathematics | 54 (10 units) | 10 NSW focus areas | ⚠️ ~78% — 8/10 NSW outcomes have direct content; surds and non-linear relationships missing; unit names don't match NSW 2022 | 0 | ⚠️ Audited 2026-06-16 — content gaps: surds (MA5-SUR-C-01), non-linear relationships (MA5-NON-C-01); unit headings don't match NSW 2022 |
-| Year 9 Mathematics Advanced | 53 (8 units) | — | audit pending | 0 | ⚠️ Unit headings don't match NSW 2022; audit pending |
+| Year 9 Mathematics Advanced | ~67 (15 units) | 5 NSW Stage 5 Path outcomes (MA5-EQU-P-01/02, MA5-RAT-P-01, MA5-PRO-P-01, MA5-LIN-P-01) | ✅ 14/15 units fully covered; 1 content gap (MA5-RAT-P-02 inverse variation); 1 structural gap (midpoint/distance in wrong unit) | 0 | ✅ Audited 2026-06-16 — Advanced-specific units all complete; 1 missing outcome (MA5-RAT-P-02), 1 structural gap (LRC) |
 | Year 9 Mathematics Core | ~64 (11 units) | 9 NSW focus areas | ✅ 9/9 complete | 0 | ✅ Depth pass complete 2026-06-16 — all gaps closed, all units renamed to NSW 2022, 1216 questions |
 | Year 10 Mathematics | 44 lessons (10 units) | 10 NSW focus areas (MA5) | ✅ 10/10 focus areas covered; 3 minor gaps (non-monic factorising, algebraic fractions add/subtract, explicit equation-of-line lesson) | 0 | ✅ Audited 2026-06-16 — ~836 questions; strong coverage across all focus areas |
 | Year 10 Mathematics Advanced | 44 lessons (10 units) | 10 NSW focus areas (MA5) | ✅ mirrors base; Advanced pathway complete | 0 | ✅ Audited 2026-06-16 |
@@ -591,21 +591,185 @@ All 6 lessons ✅ — unit rename to "Data analysis" needed.
 
 ---
 
-### Year 9 Advanced — additional units beyond Core
+### Year 9 Advanced — full audit (2026-06-16) ✅
 
-| NSW Unit | Focus area | Outcome | Nova file | Status |
-|---|---|---|---|---|
-| Equations B | Equations B | MA5-EQU-P-01 | — | ❌ Missing — monic quadratic, linear inequalities, cubic ax³=k |
-| Linear relationships (C Adv path) | Linear relationships C | MA5-LIN-P-01 | Part of `workingWithTriangles.ts` (midpoint/distance) + `constantRatesOfChange.ts` | ⚠️ Partial — equations of lines, transformations missing |
-| Variation and rates of change | Variation A + B | MA5-RAT-P-01, MA5-RAT-P-02 | `constantRatesOfChange.ts` (partial) | ⚠️ Distance-time graphs ✅; ratio/rate depth may be thin |
-| Linear simultaneous equations | Equations C (Adv) | MA5-EQU-P-02 | — | ❌ Missing — simultaneous equations, monic/non-monic quadratics |
-| Probability B | Probability B | MA5-PRO-P-01 | — | ❌ Missing — Venn diagrams, 2-way tables, conditional probability |
+**Course:** `year-9-mathematics-advanced` — `in_progress`. Shares `lib/lessons/year9/` with base Year 9. No separate `year9advanced/` folder exists.
+**Total:** 15 units (10 base units renamed + 5 Advanced-specific). Advanced-specific units add 14 lessons beyond Core.
+
+---
+
+#### Advanced unit map — complete
+
+| # | Unit title (Nova) | NSW Focus area | Outcome | Lessons | Source file | Status |
+|---|---|---|---|---|---|---|
+| 1 | Earning and Making Money | Financial mathematics A | MA5-FIN-C-01 | 8 | `financialMathematics.ts` | ✅ Inherited from Core |
+| 2 | Indices | Indices A | MA5-IND-C-01 | 7 | `indexLaws.ts` (full 7-lesson base) | ✅ Inherited |
+| 3 | Algebraic Techniques | Algebraic techniques A | MA5-ALG-C-01 | 3 | `algebraicTechniques.ts` | ✅ Inherited from Core |
+| 4 | Equations A | Equations A | MA5-EQU-C-01 | 3 | `equations.ts` | ✅ Inherited from Core |
+| 5 | Linear Relationships | Lin Rel A + B | MA5-LIN-C-01, MA5-LIN-C-02 | base lessons (distance-time filtered out) | `constantRatesOfChange.ts` | ✅ distance-time moved to Variation unit |
+| 6 | Properties of Geometrical Figures | Properties of geometrical figures A | MA5-GEO-C-01 | 3 | `geometricalRepresentations.ts` lessons 1–3 | ✅ Inherited from Core |
+| 7 | Trigonometry | Trigonometry A + B | MA5-TRG-C-01, MA5-TRG-C-02 | 12 | `workingWithTriangles.ts` (full base) | ✅ Full trig A+B |
+| 8 | Probability | Probability A | MA5-PRO-C-01 | 6 | `makingPredictions.ts` | ✅ Inherited |
+| 9 | Area, Surface Area and Volume | Area/SA A + Volume A | MA5-ARE-C-01, MA5-VOL-C-01 | 7 | `prismsAndCylinders.ts` | ✅ Inherited |
+| 10 | Data Analysis | Data analysis A | MA5-DAT-C-01 | 6 | `makingDecisions.ts` | ✅ Inherited |
+| 11 | Quadratic and Cubic Equations | Equations B | MA5-EQU-P-01 | 3 | `equationsB.ts` | ✅ Complete |
+| 12 | Variation and Rates | Variation A | MA5-RAT-P-01 | 3 | `variationRates.ts` | ✅ Complete |
+| 13 | Simultaneous Equations | Equations C (Adv) | MA5-EQU-P-02 | 3 | `simultaneousEquations.ts` | ✅ Complete |
+| 14 | Probability B | Probability B | MA5-PRO-P-01 | 3 | `probabilityB.ts` | ✅ Complete |
+| 15 | Linear Relationships C | Linear relationships C | MA5-LIN-P-01 | 2 | `linearRelationshipsC.ts` | ✅ Complete |
+
+---
+
+#### Dot-point coverage — Advanced-specific units
+
+All Core unit coverage is inherited from the Year 9 Core audit above.
+
+---
+
+##### ✅ Quadratic and Cubic Equations (MA5-EQU-P-01) — `equationsB.ts` — 3 lessons
+
+NSW: *Equations B — monic quadratic equations, linear inequalities, cubic ax³ = k*
+
+| NSW content dot-point | Nova lesson | Status |
+|---|---|---|
+| Solve monic quadratic x² + bx + c = 0 by factorising; null factor law | `quadratic-equations-factorise` | ✅ 3 worked examples, 10 mastery questions |
+| Difference of two squares x² − a² = (x−a)(x+a) | `quadratic-equations-factorise` | ✅ |
+| Rearrange quadratics to standard form before factorising | `quadratic-equations-factorise` | ✅ |
+| Repeated root (perfect square) — one distinct solution | `quadratic-equations-factorise` | ✅ |
+| Solve linear inequalities; reverse sign when dividing by a negative | `linear-inequalities` | ✅ 3 worked examples, 10 mastery questions |
+| Represent solution on a number line (open/closed circles) | `linear-inequalities` | ✅ |
+| Expand brackets before solving inequalities | `linear-inequalities` | ✅ |
+| Solve ax³ = k: isolate x³, take cube root | `cubic-equations` | ✅ |
+| Cube roots of negative numbers are real (∛(−8) = −2) | `cubic-equations` | ✅ |
+| Evaluate cube roots of perfect cubes; approximate non-perfect cubes to 2 dp | `cubic-equations` | ✅ |
+
+**Assessment: 10/10 dot-points covered. Unit complete.**
+
+---
+
+##### ✅ Variation and Rates (MA5-RAT-P-01) — `variationRates.ts` — 3 lessons
+
+NSW: *Variation A — ratios, rates, distance-time graphs*
+
+| NSW content dot-point | Nova lesson | Status |
+|---|---|---|
+| Simplify ratios by dividing by HCF | `ratios-and-rates` | ✅ |
+| Calculate unit rates (km/h, $/L, items/h) | `ratios-and-rates` | ✅ |
+| Divide a quantity in a 2-part or 3-part ratio | `ratios-and-rates` | ✅ |
+| Compare rates using unit rates (best value) | `ratios-and-rates` | ✅ |
+| Interpret distance-time graphs: gradient = speed | `distance-time-graphs` | ✅ |
+| Identify stationary periods (horizontal segments) and return journeys | `distance-time-graphs` | ✅ |
+| Calculate speed for each stage of a multi-stage journey | `distance-time-graphs` | ✅ |
+| Identify direct variation y = kx; find k from a known pair | `direct-variation` | ✅ |
+| Check a table for direct variation (constant y/x ratio) | `direct-variation` | ✅ |
+| Apply direct variation in real-world contexts | `direct-variation` | ✅ |
+
+**Assessment: 10/10 dot-points covered. Unit complete.**
+
+**Gap:** MA5-RAT-P-02 (inverse variation y = k/x) not in course — see action items.
+
+---
+
+##### ✅ Simultaneous Equations (MA5-EQU-P-02) — `simultaneousEquations.ts` — 3 lessons
+
+NSW: *Equations C (Advanced) — linear simultaneous equations*
+
+| NSW content dot-point | Nova lesson | Status |
+|---|---|---|
+| Graph two lines; intersection = solution | `simultaneous-equations-graphical` | ✅ 3 worked examples, 10 mastery questions |
+| Inconsistent systems (parallel lines — no solution) | `simultaneous-equations-graphical` | ✅ |
+| Dependent systems (same line — infinitely many solutions) | `simultaneous-equations-graphical` | ✅ |
+| Verify solution in both original equations | `simultaneous-equations-graphical` | ✅ |
+| Substitution method: isolate, substitute, back-substitute | `simultaneous-equations-substitution` | ✅ 3 worked examples, 10 mastery questions |
+| Elimination method: add/subtract to cancel one variable | `simultaneous-equations-elimination` | ✅ 3 worked examples, 10 mastery questions |
+| Multiply to match coefficients before eliminating | `simultaneous-equations-elimination` | ✅ |
+| Choose substitution vs elimination based on equation form | `simultaneous-equations-elimination` (teaching) | ✅ |
+
+**Assessment: 8/8 dot-points covered. Unit complete.**
+
+---
+
+##### ✅ Probability B (MA5-PRO-P-01) — `probabilityB.ts` — 3 lessons
+
+NSW: *Probability B — Venn diagrams, two-way tables, conditional probability*
+
+| NSW content dot-point | Nova lesson | Status |
+|---|---|---|
+| Set notation: A∪B, A∩B, A', A only | `venn-diagrams` | ✅ |
+| Two-set Venn diagrams: four regions (A only, B only, A∩B, neither) | `venn-diagrams` | ✅ |
+| P(A), P(B), P(A∩B), P(A∪B), P(A') from counts | `venn-diagrams` | ✅ |
+| Addition rule P(A∪B) = P(A) + P(B) − P(A∩B) | `venn-diagrams` | ✅ |
+| P(A only) = P(A) − P(A∩B) | `venn-diagrams` | ✅ |
+| Construct and read two-way (contingency) tables | `two-way-tables` | ✅ |
+| Joint probability: cell ÷ grand total | `two-way-tables` | ✅ |
+| Marginal probability: row/column total ÷ grand total | `two-way-tables` | ✅ |
+| Conditional probability from table: cell ÷ row (or column) total | `two-way-tables` | ✅ |
+| Independence check via table: P(A\|B) vs P(A) | `two-way-tables` | ✅ |
+| Formal formula P(A\|B) = P(A∩B) / P(B) | `conditional-probability` | ✅ |
+| Multiplication rule P(A∩B) = P(A\|B) × P(B) | `conditional-probability` | ✅ |
+| Independence: P(A\|B) = P(A) | `conditional-probability` | ✅ |
+| Sequential sampling without replacement | `conditional-probability` | ✅ |
+| Distinguish P(A\|B) from P(B\|A) | `conditional-probability` | ✅ |
+
+**Assessment: 15/15 dot-points covered. Unit complete.**
+
+---
+
+##### ✅ Linear Relationships C (MA5-LIN-P-01) — `linearRelationshipsC.ts` — 2 lessons
+
+NSW: *Linear relationships C — midpoint, gradient, distance formulas, equations of lines, parallel and perpendicular lines*
+
+| NSW content dot-point | Nova lesson | Status |
+|---|---|---|
+| Equation of a line given m and b: y = mx + b | `equations-of-lines` | ✅ |
+| Point-gradient formula y − y₁ = m(x − x₁) | `equations-of-lines` | ✅ |
+| Gradient from two points; apply point-gradient formula | `equations-of-lines` | ✅ |
+| General form ax + by + c = 0 (integer coefficients, a > 0) | `equations-of-lines` | ✅ |
+| Parallel lines: m₁ = m₂ | `parallel-perpendicular-lines` | ✅ |
+| Perpendicular lines: m₁ × m₂ = −1; negative reciprocal | `parallel-perpendicular-lines` | ✅ |
+| Equation of parallel/perpendicular line through a given point | `parallel-perpendicular-lines` | ✅ |
+| Verify perpendicularity: gradient product = −1 | `parallel-perpendicular-lines` | ✅ |
+| Midpoint formula and distance (length) formula | `workingWithTriangles.ts` (Trigonometry unit) | ⚠️ Content exists in course but housed in wrong unit |
+
+**Assessment: 8/9 content items addressed. Midpoint and distance content lives in Trigonometry unit — structural gap only, content is not missing from the course.**
+
+---
+
+#### Year 9 Advanced — gap analysis summary
+
+| Unit | NSW outcome | Coverage | Status |
+|---|---|---|---|
+| Quadratic and Cubic Equations | MA5-EQU-P-01 | 10/10 | ✅ Complete |
+| Variation and Rates | MA5-RAT-P-01 | 10/10 | ✅ Complete |
+| Simultaneous Equations | MA5-EQU-P-02 | 8/8 | ✅ Complete |
+| Probability B | MA5-PRO-P-01 | 15/15 | ✅ Complete |
+| Linear Relationships C | MA5-LIN-P-01 | 8/9 | ⚠️ Midpoint/distance in Trigonometry unit, not this unit |
+| 10 Core units (inherited) | MA5-FIN-C-01 to MA5-DAT-C-01 | per Core audit | ✅ |
+
+---
+
+#### Action items — Year 9 Advanced (priority order)
+
+**Medium priority — content gap:**
+- [ ] **MA5-RAT-P-02 (Variation B):** Add inverse variation y = k/x lesson to `variationRates.ts` — covers hyperbola shape, finding k, solving and graphing inverse proportion.
+
+**Low priority — structural:**
+- [ ] **Linear Relationships C:** Midpoint and distance formula lessons live in `workingWithTriangles.ts`. Move or cross-reference into `linear-relationships-c` unit to fully cover MA5-LIN-P-01.
+
+**Confirmed out of scope for Year 9 Advanced (Year 10 Advanced scope):**
+- Completing the square, quadratic formula, discriminant (MA5-NON-P-02)
+- Non-linear relationships: y=aˣ, y=k/x graph, x²+y²=r² (MA5-NON-P-01)
+- Bivariate data, scatter plots, correlation (MA5-DAT-P-01)
+- Fractional indices x^(m/n) (MA5-IND-P-01)
+- Algebraic fractions with pronumeral denominators (MA5-ALG-P-01)
+- Sine rule / cosine rule / area formula for non-right triangles (MA5-TRG-C-02 full)
+- Polynomials (MA5-POL-P-01)
 
 ---
 
 ### Action items — Year 9 Core (priority order)
 
-#### New content needed
+#### New content needed (all completed 2026-06-16)
 - [x] **NEW UNIT**: "Algebraic techniques" — `lib/lessons/year9/algebraicTechniques.ts` ✅ 2026-06-16
   - [x] Lesson 1: Algebraic fractions with numerical denominators (add, subtract)
   - [x] Lesson 2: Multiplying and dividing algebraic fractions
@@ -630,13 +794,6 @@ All 6 lessons ✅ — unit rename to "Data analysis" needed.
 #### Content restructuring (future — lower priority)
 - [ ] "Linear relationships": midpoint + distance lessons currently in `workingWithTriangles.ts` — consolidate into linear relationships unit (restructuring only, content already exists)
 - [ ] "Variation and rates of change": extract distance-time graph + ratio/rate lessons from `constantRatesOfChange.ts` into a separate unit
-
-#### Advanced-specific new content
-- [ ] **NEW**: Equations B lessons (MA5-EQU-P-01) — monic quadratic, linear inequalities, cubic ax³=k
-- [ ] **NEW**: Linear simultaneous equations (MA5-EQU-P-02)
-- [ ] **NEW**: Probability B (MA5-PRO-P-01) — Venn diagrams, 2-way tables, conditional probability
-- [ ] **EXTEND**: Linear relationships C (MA5-LIN-P-01) — equations of lines, transformations
-
 ---
 
 ## Year 9 Mathematics (Base) — NSW 2022 syllabus audit (2026-06-16)

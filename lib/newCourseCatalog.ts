@@ -5196,6 +5196,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       };
     }
     if (u.slug === "trigonometry") {
+      // MA5-TRG-C-01 (right-angled) + MA5-TRG-C-02 (sine/cosine rule, area, bearings) are both NSW Core outcomes
       return {
         ...u,
         lessons: u.lessons.filter((l) =>
@@ -5210,6 +5211,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             "finding-sides-tan",
             "finding-angles-inverse-trig",
             "elevation-depression-applications",
+            "sine-rule-finding-sides",
+            "sine-rule-finding-angles",
+            "cosine-rule-finding-sides",
+            "cosine-rule-finding-angles",
+            "area-of-triangle-formula",
+            "bearings-and-trigonometry",
           ].includes(l.slug)
         ),
       };
