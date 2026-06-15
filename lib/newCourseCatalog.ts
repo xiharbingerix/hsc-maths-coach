@@ -4879,11 +4879,50 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     { slug: "trig-elevation-depression", title: "Angles of Elevation and Depression" },
     { slug: "trig-bearings", title: "Bearings" },
   ];
-  const year9CoreUnits = year9Base.units.map((u) =>
-    u.slug !== "working-with-triangles"
-      ? u
-      : { ...u, lessons: year9CoreTriangleLessons }
-  );
+  const year9CoreUnits: CourseUnitSeed[] = year9Base.units.flatMap((u) => {
+    if (u.slug === "working-with-triangles") {
+      return [{ ...u, title: "Trigonometry", lessons: year9CoreTriangleLessons }];
+    }
+    if (u.slug === "index-laws") {
+      const indicesLessons = u.lessons.filter(
+        (l) => !["scientific-notation", "magnitude-and-rounding"].includes(l.slug)
+      );
+      const magnitudeLessons = u.lessons.filter(
+        (l) => ["scientific-notation", "magnitude-and-rounding"].includes(l.slug)
+      );
+      return [
+        { ...u, title: "Indices", lessons: indicesLessons },
+        {
+          slug: "numbers-of-any-magnitude",
+          title: "Numbers of Any Magnitude",
+          description:
+            "Use scientific notation to represent and compare very large and very small numbers, and round to a given number of significant figures.",
+          syllabusArea: "Number and Algebra",
+          focus: "Apply scientific notation and significant figures to solve measurement problems.",
+          lessons: magnitudeLessons,
+        },
+      ];
+    }
+    if (u.slug === "financial-mathematics") {
+      return [{ ...u, title: "Earning and Making Money" }];
+    }
+    if (u.slug === "constant-rates-of-change") {
+      return [{ ...u, title: "Linear Relationships" }];
+    }
+    if (u.slug === "prisms-and-cylinders") {
+      return [{ ...u, title: "Area, Surface Area and Volume" }];
+    }
+    if (u.slug === "making-predictions") {
+      return [{ ...u, title: "Probability" }];
+    }
+    if (u.slug === "making-decisions") {
+      return [{ ...u, title: "Data Analysis" }];
+    }
+    if (u.slug === "geometrical-representations") {
+      return [{ ...u, title: "Properties of Geometrical Figures" }];
+    }
+    return [u];
+  });
 
   // Year 10 Core trims:
   //   non-linear-relationships â†’ parabolas + circles only (no exponential / hyperbola)
