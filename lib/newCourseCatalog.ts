@@ -58,7 +58,6 @@ import {
   year11AdvancedGraphTransformationsLessonOverride,
   year11AdvancedIntroductionDifferentiationLessonOverride,
   year11AdvancedProbabilityDataLessonOverride,
-  year11AdvancedSequencesSeriesLessonOverride,
   year11AdvancedTrigIdentitiesEquationsLessonOverride,
   year11AdvancedTrigonometryMeasureLessonOverride,
   year11AdvancedWorkingFunctionsLessonOverride,
@@ -297,7 +296,6 @@ export function buildLesson(
     year12Standard2TrigRatesLessonOverride(course, unit, lesson) ??
     year12Standard2AlgebraicRelationshipsLessonOverride(course, unit, lesson) ??
     year11AdvancedWorkingFunctionsLessonOverride(course, unit, lesson) ??
-    year11AdvancedSequencesSeriesLessonOverride(course, unit, lesson) ??
     year11AdvancedProbabilityDataLessonOverride(course, unit, lesson) ??
     year11AdvancedTrigIdentitiesEquationsLessonOverride(course, unit, lesson) ??
     year11AdvancedTrigonometryMeasureLessonOverride(course, unit, lesson) ??
@@ -1251,6 +1249,48 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             ],
           },
           {
+            slug: "algebraic-techniques",
+            title: "Algebraic Techniques",
+            description:
+              "Apply index laws to positive, negative, zero and fractional indices; expand, factorise and simplify algebraic expressions; simplify algebraic fractions; expand and simplify surds; rationalise denominators of the form 1/(√a ± √b).",
+          },
+          {
+            slug: "quadratic-equations-discriminant",
+            title: "Quadratic Equations and the Discriminant",
+            description:
+              "Solve quadratic equations by factorisation, completing the square and the quadratic formula; define and evaluate the discriminant; use conditions on the discriminant to determine the nature of roots.",
+          },
+          {
+            slug: "linear-functions",
+            title: "Linear Functions",
+            description:
+              "Use gradient-intercept, general and point-gradient forms; find x- and y-intercepts; graph linear functions; identify parallel and perpendicular relationships; solve and graph linear inequalities.",
+          },
+          {
+            slug: "constructing-using-functions",
+            title: "Constructing and Using Functions",
+            description:
+              "Construct and use linear and quadratic functions as models; apply linear inequalities in context; solve simultaneous linear equations; interpret cost-revenue and break-even problems.",
+          },
+          {
+            slug: "direct-inverse-variation",
+            title: "Direct and Inverse Variation",
+            description:
+              "Model direct variation y = kx and inverse variation y = k/x; evaluate the constant of variation; use the model to find unknown values.",
+          },
+          {
+            slug: "circles-semicircles",
+            title: "Circles and Semicircles",
+            description:
+              "Derive x² + y² = r² using the distance formula; graph circles centred at the origin; identify and graph semicircles y = ±√(r² − x²).",
+          },
+          {
+            slug: "piecewise-defined-functions",
+            title: "Piecewise-Defined Functions",
+            description:
+              "Interpret and graph piecewise-defined functions; determine domain, range and continuity; test for even or odd symmetry in piecewise rules.",
+          },
+          {
             slug: "working-with-functions-exam-practice",
             title: "Working with Functions Exam Practice",
             description:
@@ -1319,46 +1359,6 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             ],
           },
           { slug: "graph-transformations-exam-practice", title: "Graph Transformations Exam Practice" },
-        ],
-      },
-      {
-        slug: "sequences-series",
-        title: "Sequences and Series",
-        description:
-          "Arithmetic and geometric sequences, arithmetic and geometric series, sigma notation, limiting sums and exam-style pattern questions.",
-        syllabusArea: "Algebra",
-        focus: "Sequences and series",
-        lessons: [
-          {
-            slug: "arithmetic-sequences",
-            title: "Arithmetic Sequences",
-            description:
-              "Use sequence notation, common differences and nth-term rules to analyse arithmetic sequences.",
-          },
-          {
-            slug: "geometric-sequences",
-            title: "Geometric Sequences",
-            description:
-              "Use common ratios and nth-term rules to recognise and solve geometric sequence problems.",
-          },
-          {
-            slug: "arithmetic-series-sigma-notation",
-            title: "Arithmetic Series and Sigma Notation",
-            description:
-              "Sum arithmetic series and interpret simple sigma notation in algebraic and contextual settings.",
-          },
-          {
-            slug: "geometric-series-limiting-sums",
-            title: "Geometric Series and Limiting Sums",
-            description:
-              "Evaluate finite geometric series and determine whether a limiting sum exists for infinite geometric series.",
-          },
-          {
-            slug: "sequences-series-exam-practice",
-            title: "Sequences and Series Exam Practice",
-            description:
-              "Practise mixed Advanced-style sequence and series questions involving arithmetic, geometric, sigma and limiting-sum ideas.",
-          },
         ],
       },
       {

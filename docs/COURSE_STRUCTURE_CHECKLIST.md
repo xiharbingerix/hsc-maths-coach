@@ -2,7 +2,7 @@
 
 > **Objective:** High-quality lessons and question content across the entire NSW syllabus, mapped to syllabus sections with sufficient lessons to cover all skills and content in the Content section. Each lesson: 19 questions, worked examples, Feynman teaching, and common mistakes. Each focus area: one revision lesson activating the prior knowledge stated in the syllabus teaching advice, plus content lessons per dot-point group.
 > **Standard:** NSW syllabuses (2024 versions, implementation from 2026). Source of truth: [curriculum.nsw.edu.au](https://curriculum.nsw.edu.au).
-> Last updated: 2026-06-15 — Year 12 Standard 1 audited dot-by-dot against NSW 2024 syllabus; 4 new lessons added (22 total, 76 new questions). Year 12 Advanced fully audited (91 lessons, 1726 questions, all 14 focus areas). Year 12 Standard 2 fully complete (58 lessons, 1106 questions, all 10 topics). Year 12 Extension 1 fully complete (48 lessons, 862 questions, all 6 focus areas). Year 11 Standard fully complete (76 lessons, 1444 questions, all 8 focus areas).
+> Last updated: 2026-06-15 — Year 11 Advanced: Sequences and Series unit removed (out-of-scope); 7 new Working with Functions lessons written (algebraic techniques, quadratic discriminant, linear functions, constructing/using functions, direct/inverse variation, circles/semicircles, piecewise functions) bringing FA1 to ~90% coverage; course now 56 lessons / 7 units. Year 11 Advanced audited dot-by-dot against NSW 2024 syllabus; unit headings all match; remaining gaps in FA2 (applied trig), FA3 (reciprocal trig), FA4 (product/quotient rules), FA6 (circles general form), FA7 (conditional probability). Year 12 Standard 1 audited (22 total, 76 new questions, 1 credit-card gap). Year 12 Advanced fully audited (91 lessons, 1726 questions, all 14 focus areas). Year 12 Standard 2 fully complete (58 lessons, 1106 questions). Year 12 Extension 1 fully complete (48 lessons, 862 questions). Year 11 Standard fully complete (76 lessons, 1444 questions).
 
 ---
 
@@ -24,7 +24,7 @@
 | Year 10 Mathematics Advanced | ~56 (10 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 10 Mathematics Core | ~40 (10 trimmed) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 11 Standard | 76 (8 units) | 8 focus areas | ✅ 100% | 8 | ✅ Complete — audited 2026-06-15 (1444 questions) |
-| Year 11 Advanced | 54 (8 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
+| Year 11 Advanced | 56 (7 units) | 7 focus areas (MAV-11-01–10) | 🔄 ~75% — FA1 complete; gaps in FA2, FA3, FA4, FA6, FA7 | 0 | 🔄 Audited 2026-06-15; Sequences/Series removed; 7 new FA1 lessons added |
 | Year 11 Extension 1 | 25 (5 units) | — | audit pending | 0 | ✅ Full depth; audit pending |
 | Year 12 Standard 1 | 22 (5 units) | 7 topics | ✅ 7/7 (credit card gap noted) | 0 | 🔄 Audited 2026-06-15; 1 gap remains (credit cards) |
 | Year 12 Standard 2 | 58 (6 units) | 10 topics | ✅ 100% | 10 | ✅ Complete — audited 2026-06-15 (1106 questions) |
@@ -142,26 +142,174 @@ Advanced: skill map IDs namespaced `y10a-`. Core: trimmed + `y10c-`.
 
 ---
 
-## Year 11 Advanced ✅
+## Year 11 Advanced 🔄 Audited against NSW 2024 syllabus (2026-06-15)
 
 `year-11-advanced` — `available`. Override file: `lib/lessons/year11Advanced/`.
-Class Maths 2026: 11 topics / 90 subtopics.
+**56 lessons / 7 units — all in-scope.** Sequences and Series unit removed (2026-06-15) as it belongs in Year 12 Advanced MA-M1. 7 new Working with Functions lessons added (2026-06-15) bringing FA1 to near-complete coverage. Audited dot-by-dot against the NSW Mathematics Advanced 11–12 Syllabus (2024) Year 11 content. First HSC 2027.
 
-- [x] Working with Functions (6 lessons) — includes absolute value, odd/even skill slots
-- [x] Graph Transformations (5 lessons) — translations + dilations/reflections skill slots
-- [x] Sequences and Series (5 lessons)
-- [x] Trigonometry and Measure of Angles (12 lessons) — full v2 skill map split complete
-- [x] Trigonometric Identities and Equations (7 lessons) — Phase 2 complete, Phase 3 in progress
-- [x] Exponential and Logarithmic Functions (5 lessons)
-- [x] Introduction to Differentiation (9 lessons) — includes chain rule, stationary points, concavity, curve sketching
-- [x] Probability and Data (5 lessons)
+Unit headings all match NSW 2024 focus area names exactly.
 
-**Gaps vs Class Maths 11-topic target:**
-- [ ] Equations and Inequations — not a separate unit in Nova; consider adding or expanding existing
-- [ ] Coordinate Geometry / Locus — not explicitly covered as a unit
+| # | NSW Focus Area (slug) | Outcome | Nova Lessons | Coverage |
+|---|---|---|---|---|
+| 1 | Working with functions (`working-with-functions`) | MAV-11-01, MAV-11-02 | 13 | ✅ ~90% — 7 new lessons added 2026-06-15; small gaps (completing the square, quadratic inequalities, composite functions) |
+| 2 | Trigonometry and measure of angles (`trigonometry-measure-angles`) | MAV-11-04 | 12 | ⚠️ Partial — radians/unit circle complete; applied trig missing |
+| 3 | Trigonometric identities and equations (`trigonometric-identities-equations`) | MAV-11-05 | 7 | ⚠️ Partial — sec/csc/cot missing |
+| 4 | Introduction to differentiation (`introduction-differentiation`) | MAV-11-06 | 9 | ⚠️ Partial — product rule, quotient rule, kinematics missing |
+| 5 | Exponential and logarithmic functions (`exponential-logarithmic-functions`) | MAV-11-07, MAV-11-08 | 5 | ⚠️ Possibly partial — Euler's number e, log graphing may need review |
+| 6 | Graph transformations (`graph-transformations`) | MAV-11-03 | 5 | ⚠️ Partial — circles (x-h)²+(y-k)²=r² missing |
+| 7 | Probability and data (`probability-data`) | MAV-11-09, MAV-11-10 | 5 | ⚠️ Partial — conditional probability, sets/Venn algebra missing |
 
-**Active work:**
-- [ ] Trig Identities Phase 3 — proof strategies + advanced equations exam practice (in progress)
+---
+
+### FA1 — Working with functions (13 lessons) ✅ ~90%
+
+NSW sub-sections vs Nova (updated 2026-06-15):
+
+| NSW sub-section | Nova lesson(s) | Status |
+|---|---|---|
+| Algebraic techniques (index laws, expand/factorise/simplify, surds, conjugate) | `algebraic-techniques` ✨ new | ✅ |
+| Quadratic equations and discriminant | `quadratic-equations-discriminant` ✨ new | ✅ |
+| Introduction to functions and relations (function notation, VLT, domain, range, zeros) | `function-notation-domain-range` | ✅ |
+| Linear functions (gradient forms, intercepts, parallel/perpendicular, linear inequalities) | `linear-functions` ✨ new | ✅ |
+| Quadratic and cubic functions (vertex, axis, completing the square, quadratic inequalities) | `linear-quadratic-cubic-functions` | ⚠️ Completing the square, quadratic inequalities still thin |
+| Reciprocal functions (y=k/x, asymptotes) | `polynomial-reciprocal-functions` | ✅ |
+| Constructing and using functions (linear/quadratic models, simultaneous equations, break-even) | `constructing-using-functions` ✨ new | ✅ |
+| Direct and inverse variation (y=kx, y=k/x, find k, solve) | `direct-inverse-variation` ✨ new | ✅ |
+| Circles and semicircles (x²+y²=r², graph, semicircles y=±√(r²-x²)) | `circles-semicircles` ✨ new | ✅ |
+| Properties of functions (domain/range, even/odd) | `odd-even-functions` | ✅ |
+| Composite functions f∘g | `transformations-composite-functions` (in Graph Transformations unit) | ⚠️ In wrong unit — belongs here per NSW syllabus |
+| Piecewise-defined functions (interpret, graph, continuity, discontinuity) | `piecewise-defined-functions` ✨ new | ✅ |
+| Absolute value functions (definition, graph y=\|x\|, y=\|f(x)\|, solve \|x\|=c) | `absolute-value-functions` | ✅ |
+
+**Remaining gaps (Working with functions):**
+- [ ] Completing the square and quadratic inequalities in `linear-quadratic-cubic-functions`
+- [ ] Move composite functions into this unit (currently in `graph-transformations`)
+
+---
+
+### FA2 — Trigonometry and measure of angles (12 active lessons)
+
+NSW sub-sections vs Nova:
+
+| NSW sub-section | Nova lesson(s) | Status |
+|---|---|---|
+| Trigonometry with acute angles (Pythagoras, exact values, right-angle triangles 2D, bearings, elevation/depression) | `exact-trig-values-special-triangles` (exact values only) | ⚠️ Right-triangle applications, bearings, elevation/depression missing |
+| Trigonometry with angles of any magnitude (unit circle, related angles, supplementary/complementary results, sine rule, cosine rule, area formula, ambiguous case) | `exact-trig-values-unit-circle`, `unit-circle-all-quadrants` (unit circle, ASTC, related angles) | ⚠️ Sine rule, cosine rule, area formula, ambiguous case all missing |
+| Radians (definition, conversion, exact values, trig graphs, arc length, sector area) | `degrees-and-radians-concept`, `converting-degrees-radians`, `converting-radians-degrees`, `exact-trig-values-unit-circle`, `unit-circle-all-quadrants`, `graphing-sin-cos-tan`, `trig-graph-amplitude-period`, `trig-graph-transformations`, `arc-length-radian-measure`, `sector-area-radian-measure` | ✅ Thoroughly covered |
+
+**Lessons to add (Trigonometry and measure of angles):**
+- [ ] Right-Angle Trigonometry Applications — SOH CAH TOA in 2D problems, angles of elevation and depression, true and compass bearings (NSW: Trigonometry with acute angles)
+- [ ] Sine Rule and Cosine Rule — proof, applying sine rule and cosine rule to non-right-angled triangles, area of triangle formula A=½ab sinC (NSW: Trigonometry with angles of any magnitude)
+- [ ] Ambiguous Case of the Sine Rule — geometric construction/graphing approach, condition for two solutions (NSW: Trigonometry with angles of any magnitude)
+
+---
+
+### FA3 — Trigonometric identities and equations (7 lessons)
+
+NSW content vs Nova:
+
+| NSW content | Nova lesson(s) | Status |
+|---|---|---|
+| Reciprocal ratios sec, csc, cot — definitions and exact values at π/6, π/4, π/3 | None | ❌ Missing |
+| Quotient identities tanθ=sinθ/cosθ, cotθ=cosθ/sinθ | `trigonometric-identities` | ✅ |
+| Complementary angle identities (sin(π/2-θ)=cosθ, etc.) | `related-angle-identities` | ⚠️ Covers (π−θ), (π+θ), (2π−θ); (π/2−θ) complementary identities unclear |
+| Pythagorean identity and variants | `trigonometric-identities` | ✅ |
+| Solving trig equations on restricted domains (degrees or radians) | `trig-equations-basic`, `trig-equations-advanced` | ✅ |
+| Equations reducing to quadratic equations | `trig-equations-advanced` | ✅ |
+| Proving identities using Pythagorean, quotient, substitution/reduction | `trig-identities-proof-strategies` | ✅ |
+
+**Lessons to add (Trigonometric identities and equations):**
+- [ ] Reciprocal Trigonometric Ratios — sec, csc, cot definitions; reciprocal identities; exact values for sec/csc/cot at π/6, π/4, π/3 and their multiples (NSW: first 5 dot-points of focus area)
+
+---
+
+### FA4 — Introduction to differentiation (9 lessons)
+
+NSW content vs Nova:
+
+| NSW sub-section | Nova lesson(s) | Status |
+|---|---|---|
+| Estimating change (average rate, secant gradient, speed, distance-time graph, instantaneous speed, tangent gradient) | `rates-of-change-gradients` | ✅ |
+| The derivative (limit definition, first principles for quadratic, notation) | `derivatives-first-principles` | ✅ |
+| Power rule, sum/multiple rules | `differentiating-polynomial-functions` | ✅ |
+| Tangents and normals, angle of inclination | `tangents-normals-applications` | ✅ |
+| Product rule | None | ❌ Missing |
+| Quotient rule | None | ❌ Missing |
+| Chain rule | `chain-rule-basics` | ✅ |
+| Graphical applications — increasing/decreasing, stationary points, sketching f'(x), cubic stationary points | `stationary-points-first-derivative-test`, `curve-sketching-calculus` | ✅ |
+| Derivative as rate of change — displacement/distance, velocity/speed, kinematics | Partially in `rates-of-change-gradients` | ⚠️ Kinematics (displacement, velocity from derivative) may not have dedicated treatment |
+| Second derivative and concavity | `second-derivative-concavity` | ⚠️ This is Year 12 Advanced content (MA-C3), not Year 11 |
+
+**Lessons to add (Introduction to differentiation):**
+- [ ] Product Rule — differentiate products of two functions; identify when product rule is needed (NSW: Calculations with the derivative)
+- [ ] Quotient Rule — differentiate quotients; identify when quotient rule is needed (NSW: Calculations with the derivative)
+- [ ] Consider moving `second-derivative-concavity` to Year 12 Advanced MA-C3 scope note
+
+---
+
+### FA5 — Exponential and logarithmic functions (5 lessons)
+
+NSW content vs Nova:
+
+| NSW content | Nova lesson(s) | Status |
+|---|---|---|
+| Graph y=aˣ, behavior, asymptote, y-intercept, domain, range | `index-laws-exponential-functions` | ✅ |
+| Euler's number e — gradient of tangent at x-intercept, property d/dx(eˣ)=eˣ | `index-laws-exponential-functions` (unclear) | ⚠️ Euler's number e may not be explicitly covered |
+| Logarithm definition, natural logarithm ln x | `logarithms-logarithm-laws` | ✅ |
+| Equivalence aˣ=y ↔ logₐy=x | `logarithms-logarithm-laws` | ✅ |
+| Log laws (product, quotient, power) and derivation from index laws | `logarithms-logarithm-laws` | ✅ |
+| Change of base rule | `logarithms-logarithm-laws` | ✅ |
+| Solving exponential and logarithmic equations | `solving-exponential-logarithmic-equations` | ✅ |
+| Applications and modelling (growth/decay) | `exponential-logarithmic-modelling` | ✅ |
+| Graph y=logₐx; y=eˣ and y=lnx as reflections in y=x | `exponential-logarithmic-modelling` (partial) | ⚠️ Graphing logarithmic functions and reflection in y=x may need a dedicated lesson |
+
+**Action items (Exponential and logarithmic functions):**
+- [ ] Verify `index-laws-exponential-functions` explicitly covers Euler's number e and the gradient property
+- [ ] Verify logarithmic graphing (y=logₐx) and reflection in y=x are covered; add lesson if not
+
+---
+
+### FA6 — Graph transformations (5 lessons)
+
+NSW content vs Nova:
+
+| NSW content | Nova lesson(s) | Status |
+|---|---|---|
+| Reflections — y=-f(x), y=f(-x) | `function-dilations-reflections` | ✅ |
+| Horizontal/vertical translations | `function-translations-general` | ✅ |
+| Horizontal/vertical dilations; enlargement/reduction | `function-dilations-reflections` | ✅ |
+| Apply to functions in scope (excl. trig) — new rule, graph, domain/range, intercepts, asymptotes | `transformations-polynomial-reciprocal-graphs` | ✅ |
+| Order of transformations matters | `graph-transformations-exam-practice` (partial) | ⚠️ May not have dedicated treatment |
+| Circles (x-h)²+(y-k)²=r² — find centre/radius, completing the square | None | ❌ Missing |
+| Composite functions f∘g | `transformations-composite-functions` | ⚠️ Composite functions belong under FA1 (Working with functions), not here |
+
+**Lessons to add (Graph transformations):**
+- [ ] Circles and Completing the Square — graph (x-h)²+(y-k)²=r², find centre and radius by completing the square, equation from graph (NSW: Graph transformations sub-section)
+
+---
+
+### FA7 — Probability and data (5 lessons)
+
+NSW content vs Nova:
+
+| NSW content | Nova lesson(s) | Status |
+|---|---|---|
+| Sets and set notation (elements, empty set, complement, subset, intersection, union, disjoint, Venn diagrams, n(A∪B)) | `probability-relative-frequency` (partial) | ⚠️ Formal set notation and n(A∪B) rule may not be covered |
+| Probability (experiments, outcomes, equally likely, complement, intersection, union, P(A∪B) rule, arrays, trees) | `probability-relative-frequency` | ✅ |
+| Conditional probability (P(A\|B), restrict sample space, two-way tables, multiplication rule, independence P(A\|B)=P(A)) | None | ❌ Missing |
+| Data (random variables, discrete vs continuous, frequency tables, cumulative frequency, histograms, mode/median, relative frequency as probability estimate) | `data-displays-summary-statistics`, `discrete-random-variables` | ✅ |
+| Expected value E(X) and standard deviation | `expected-value-standard-deviation` | ⚠️ E(X) and Var(X) are Year 12 Advanced content (MA-S1/MA-S3), not Year 11 |
+
+**Lessons to add (Probability and data):**
+- [ ] Sets and Venn Diagrams — formal set notation, Venn diagrams, n(A∪B)=n(A)+n(B)-n(A∩B), P(A∪B) rule (NSW: Sets and set notation + Probability)
+- [ ] Conditional Probability and Independence — P(A\|B), restrict sample space, two-way tables, P(A∩B)=P(A\|B)P(B), independence (NSW: Conditional probability)
+- [ ] Consider moving `expected-value-standard-deviation` to Year 12 Advanced scope note
+
+---
+
+### Out-of-scope unit
+
+Previously the course included a Sequences and Series unit (5 lessons). This was **removed on 2026-06-15** as sequences and series belong to Year 12 Advanced MA-M1 (Financial Mathematics), not Year 11 Advanced. The source file `lib/lessons/year11Advanced/sequencesSeries.ts` is retained as an archive but is no longer exported or registered in the catalog.
 
 ---
 
@@ -317,7 +465,7 @@ Nova average lessons per unit: ~4–5.
 | Year 12 Extension 2 | 25 (5 units) | ~40 subtopics | ✅ Depth pass complete |
 | Year 12 Standard 1 | 22 (5 units) | 7 NSW topics | ✅ Audited 2026-06-15; 1 minor gap (credit cards) |
 | Year 12 Extension 1 | 30 (8 units) | ~28 subtopics | ✅ Depth pass complete — 520 questions seeded |
-| Year 11 Advanced | 54 (8 units) | ~90 subtopics | 🔄 Missing equations/inequations, coord geometry, trig phase 3 |
+| Year 11 Advanced | 56 (7 units) | 7 NSW focus areas | 🔄 Sequences/Series removed; 7 new FA1 lessons added 2026-06-15; ~11 lessons still missing (FA2, FA3, FA4, FA6, FA7) |
 | Year 9 / Year 10 variants | — | — | 🔄 Promote Advanced + Core to available |
 | Year 8 | 59 (10 units) | ~111 subtopics | 🔄 4 units missing vs Class Maths |
 | Year 7 | 0 | ~117 subtopics | ⬜ Not started |
@@ -331,7 +479,7 @@ Nova average lessons per unit: ~4–5.
 3. ~~**Year 12 Advanced depth**~~ ✅ Complete — 91 lessons, 1715 questions (Probability unit added)
 4. ~~**Year 12 Extension 1 depth**~~ ✅ Complete — 30 lessons, 520 questions (8 units, 100% topic breadth)
 5. **Year 12 Standard 1** — audited 2026-06-15; 4 lessons added (bivariate data, bearings, relative frequency); 1 gap remains (credit card content in MST-12-S1-03); promote to `available` after adding credit cards
-6. **Year 11 Advanced gaps** — equations/inequations unit, coordinate geometry unit, trig identities phase 3
+6. **Year 11 Advanced gaps** — ✅ FA1 done (7 new lessons 2026-06-15); remaining ~11 lessons needed: right-angle trig applications, bearings, sine/cosine rules, area formula, ambiguous case (FA2); reciprocal trig ratios sec/csc/cot (FA3); product rule, quotient rule (FA4); circles completing-the-square (FA6); sets/Venn diagrams, conditional probability (FA7)
 7. **Year 9 / Year 10 variants** — promote Advanced and Core to `available`
 8. **Year 8 depth** — 4 missing units vs Class Maths 14-topic target (ratios/rates, index laws, algebraic fractions, additional data)
 9. **Year 7** — new course, not yet started

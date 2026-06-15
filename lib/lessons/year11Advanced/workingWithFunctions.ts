@@ -98,6 +98,26 @@ function sampledCurveGraph(
   };
 }
 
+function qa(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  hint: string,
+  explanation: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    hint,
+    explanation,
+  };
+}
+
 export function year11AdvancedWorkingFunctionsLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -771,6 +791,742 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         formulaAnswer("y11adv-func-exam-m8", "For the displayed function, enter the positive x-intercept.", "f(x)=-x^2+9,\\quad -x^2+9=0", "3", ["x=3", "(3,0)"]),
         practicalChoice("y11adv-func-exam-m9", "A table lists inputs -1, 0, 1 and outputs 2, 5, 10. Which set is the domain?", "D", ["{2,5,10}", "{-1,2,5}", "{0,5,10}", "{-1,0,1}"], "Domain is the set of input x-values."),
         practicalChoice("y11adv-func-exam-m10", "Which common error would change the value of the displayed function for the negative input?", "A", ["Writing $-3^2$ instead of $(-3)^2$", "Finding the y-intercept", "Using the range first", "Factoring the denominator"], "Brackets are needed around a negative input.", "f(x)=x^2+2x,\\quad f(-3)"),
+      ],
+    };
+  }
+
+  // ─── FA1 new lessons ────────────────────────────────────────────────────────
+
+  if (lesson.slug === "algebraic-techniques") {
+    return {
+      ...base,
+      description:
+        "Apply index laws to positive, negative, zero and fractional indices; expand and simplify algebraic expressions; simplify algebraic fractions; expand and simplify surds; rationalise denominators using conjugates.",
+      learningIntention:
+        "Use index laws, surd laws and conjugate rationalisation to simplify algebraic expressions accurately.",
+      successCriteria: [
+        "Apply the index multiplication, division and power laws to simplify expressions.",
+        "Evaluate expressions with zero, negative and fractional indices.",
+        "Expand and simplify surd expressions by identifying like surd terms.",
+        "Rationalise a denominator of the form 1/(√a ± √b) using the conjugate.",
+      ],
+      teaching: {
+        paragraphs: [
+          "Index laws tell you what happens when you multiply, divide or raise powers of the same base. The key idea is that an exponent is just counting how many times the base is multiplied. So a³ × a² = a^(3+2) = a⁵ — the five multiplications are added together.",
+          "Negative and zero indices extend the pattern. a⁰ = 1 for any non-zero base because dividing a^n by a^n gives 1. a^(−n) = 1/a^n because it reverses the multiplication: a^3 × a^(−3) = a^0 = 1, so a^(−3) = 1/a^3.",
+          "Surds are square roots that cannot be simplified to a whole number, such as √3 or √5. Like surds — those with the same number under the root — can be added or subtracted. For example, 2√3 + 5√3 = 7√3, just like 2x + 5x = 7x. Unlike surds such as √3 and √5 cannot be combined directly.",
+          "To rationalise 1/(√a + √b), multiply the numerator and denominator by the conjugate (√a − √b). The denominator becomes (√a + √b)(√a − √b) = a − b, which is rational. Expand the numerator carefully and simplify.",
+        ],
+        latexBlocks: [
+          "a^m \\cdot a^n = a^{m+n}, \\quad \\frac{a^m}{a^n} = a^{m-n}, \\quad (a^m)^n = a^{mn}",
+          "a^0 = 1, \\quad a^{-n} = \\frac{1}{a^n}, \\quad a^{1/n} = \\sqrt[n]{a}",
+          "\\frac{1}{\\sqrt{a}+\\sqrt{b}} = \\frac{\\sqrt{a}-\\sqrt{b}}{a-b} \\quad \\text{(conjugate rationalisation)}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Simplify using index laws",
+          questionLatex: "\\text{Simplify } x^5 \\cdot x^{-3}",
+          steps: [
+            {
+              explanation: "When multiplying same-base powers, add the indices.",
+              latex: "x^5 \\cdot x^{-3} = x^{5+(-3)}",
+            },
+            {
+              explanation: "Evaluate the sum of the indices.",
+              latex: "x^{5-3} = x^2",
+            },
+          ],
+          finalAnswerLatex: "x^2",
+        },
+        {
+          title: "Expand and simplify a surd product",
+          questionLatex: "\\text{Expand and simplify } (2+\\sqrt{3})(1-\\sqrt{3})",
+          steps: [
+            {
+              explanation: "Expand each pair of terms using the distributive law.",
+              latex: "2(1) + 2(-\\sqrt{3}) + \\sqrt{3}(1) + \\sqrt{3}(-\\sqrt{3})",
+            },
+            {
+              explanation: "Simplify: (√3)² = 3 and collect rational and surd terms.",
+              latex: "2 - 2\\sqrt{3} + \\sqrt{3} - 3 = -1 - \\sqrt{3}",
+            },
+          ],
+          finalAnswerLatex: "-1 - \\sqrt{3}",
+        },
+        {
+          title: "Rationalise a denominator using the conjugate",
+          questionLatex: "\\text{Simplify } \\frac{1}{1+\\sqrt{5}}",
+          steps: [
+            {
+              explanation: "Multiply numerator and denominator by the conjugate of the denominator.",
+              latex: "\\frac{1}{1+\\sqrt{5}} \\times \\frac{1-\\sqrt{5}}{1-\\sqrt{5}}",
+            },
+            {
+              explanation: "The denominator becomes (1)² − (√5)² = 1 − 5 = −4.",
+              latex: "\\frac{1-\\sqrt{5}}{-4}",
+            },
+            {
+              explanation: "Divide every term in the numerator by −4.",
+              latex: "\\frac{\\sqrt{5}-1}{4}",
+            },
+          ],
+          finalAnswerLatex: "\\frac{\\sqrt{5}-1}{4}",
+        },
+      ],
+      guidedPractice: [
+        qa("y11adv-alg-g1", "Simplify the expression using the index multiplication law.", "x^5 \\cdot x^{-3}", "x^2", "Add the indices: 5 + (−3).", "Multiplying same-base powers adds the indices: x^5 · x^{−3} = x^{5+(−3)} = x^2.", ["x^(2)"]),
+        qa("y11adv-alg-g2", "Simplify the expression using the index power law.", "(a^2)^3", "a^6", "Multiply the indices: 2 × 3.", "Raising a power to a power multiplies the indices: (a^2)^3 = a^{2×3} = a^6.", ["a^(6)"]),
+        practicalChoice("y11adv-alg-g3", "Which expression correctly simplifies $\\sqrt{12} + \\sqrt{3}$?", "C", ["$\\sqrt{15}$", "$2\\sqrt{3}$", "$3\\sqrt{3}$", "$\\sqrt{15+3}$"], "√12 = 2√3, so √12 + √3 = 2√3 + √3 = 3√3. Unlike surds cannot be combined under one root."),
+        qa("y11adv-alg-g4", "Simplify $\\sqrt{12} + \\sqrt{3}$ to the form $a\\sqrt{3}$. What is $a$?", "\\sqrt{12} + \\sqrt{3} = a\\sqrt{3}", "3", "Write √12 as a multiple of √3 first: √12 = 2√3.", "√12 = √(4×3) = 2√3. So 2√3 + √3 = 3√3. The coefficient a = 3."),
+      ],
+      independentPractice: [
+        qa("y11adv-alg-i1", "Simplify $x^0 \\cdot x^4$.", "x^0 \\cdot x^4", "x^4", "Any base to the power 0 equals 1.", "x^0 = 1, so x^0 · x^4 = 1 · x^4 = x^4.", ["x^(4)"]),
+        qa("y11adv-alg-i2", "Expand $(\\sqrt{5}+\\sqrt{3})(\\sqrt{5}-\\sqrt{3})$.", "(\\sqrt{5}+\\sqrt{3})(\\sqrt{5}-\\sqrt{3})", "2", "Use the difference of two squares: (a+b)(a−b) = a² − b².", "(√5 + √3)(√5 − √3) = (√5)² − (√3)² = 5 − 3 = 2."),
+        qa("y11adv-alg-i3", "Evaluate $8^{2/3}$.", "8^{2/3}", "4", "Write as (8^{1/3})^2 and find the cube root first.", "8^{1/3} = ∛8 = 2, so 8^{2/3} = (8^{1/3})^2 = 2^2 = 4."),
+        practicalChoice("y11adv-alg-i4", "Simplify $3\\sqrt{2} \\times 2\\sqrt{2}$.", "C", ["$5\\sqrt{2}$", "$5\\sqrt{4}$", "$12$", "$6\\sqrt{2}$"], "Multiply integer parts (3 × 2 = 6) and surd parts (√2 × √2 = 2) separately: 6 × 2 = 12."),
+        qa("y11adv-alg-i5", "Simplify $2\\sqrt{18}$ to the form $a\\sqrt{2}$. What is $a$?", "2\\sqrt{18} = a\\sqrt{2}", "6", "Write 18 = 9 × 2 to extract the perfect-square factor.", "√18 = √(9×2) = 3√2, so 2√18 = 2 × 3√2 = 6√2. The coefficient a = 6."),
+      ],
+      commonMistakes: [
+        { mistake: "Adding indices when the bases are different (e.g., x² · y³ = xy⁵).", fix: "Index laws only apply when the bases are identical. x² · y³ cannot be simplified further." },
+        { mistake: "Writing a^{−n} as −a^n instead of 1/a^n.", fix: "A negative index means the reciprocal, not a negative sign: a^{−n} = 1/a^n." },
+        { mistake: "Adding unlike surds (e.g., √3 + √5 = √8).", fix: "Surds can only be added when they have the same value under the root, like 2√3 + 5√3 = 7√3." },
+        { mistake: "Forgetting to apply the index to the coefficient in (2x³)², writing x^6 instead of 4x^6.", fix: "The index outside the bracket applies to every factor inside: (2x³)² = 2² · (x³)² = 4x^6." },
+      ],
+      masteryQuiz: [
+        qa("y11adv-alg-m1", "Simplify $x^4 \\div x^{-2}$.", "x^4 \\div x^{-2}", "x^6", "Subtract indices when dividing: 4 − (−2).", "Dividing same-base powers subtracts indices: x^4 ÷ x^{−2} = x^{4−(−2)} = x^6.", ["x^(6)"]),
+        qa("y11adv-alg-m2", "Evaluate $27^{1/3}$.", "27^{1/3}", "3", "27^{1/3} is the cube root of 27.", "27^{1/3} = ∛27 = 3, since 3³ = 27."),
+        practicalChoice("y11adv-alg-m3", "Which expression is equal to $x^{-3}$?", "B", ["$x^3$", "$\\frac{1}{x^3}$", "$-x^3$", "$\\frac{3}{x}$"], "A negative index means the reciprocal: x^{−3} = 1/x^3."),
+        qa("y11adv-alg-m4", "In the expansion $(1+\\sqrt{3})^2 = a + b\\sqrt{3}$, find $a$.", "(1+\\sqrt{3})^2 = a+b\\sqrt{3}", "4", "Expand using (p+q)² = p² + 2pq + q².", "(1+√3)² = 1 + 2√3 + (√3)² = 1 + 2√3 + 3 = 4 + 2√3. So a = 4."),
+        qa("y11adv-alg-m5", "Simplify $\\sqrt{50} - \\sqrt{8}$ to the form $a\\sqrt{2}$. What is $a$?", "\\sqrt{50} - \\sqrt{8} = a\\sqrt{2}", "3", "√50 = 5√2, √8 = 2√2.", "√50 = √(25×2) = 5√2. √8 = √(4×2) = 2√2. 5√2 − 2√2 = 3√2. Coefficient a = 3."),
+        practicalChoice("y11adv-alg-m6", "To rationalise $\\frac{1}{\\sqrt{5}-1}$, you multiply top and bottom by:", "B", ["$\\sqrt{5}-1$", "$\\sqrt{5}+1$", "$\\sqrt{5}-2$", "$\\frac{1}{\\sqrt{5}}$"], "The conjugate of (√5 − 1) is (√5 + 1). Their product is (√5)² − 1² = 4, which is rational."),
+        qa("y11adv-alg-m7", "Simplify $(2x^3)^2$.", "(2x^3)^2", "4x^6", "Apply the index to both 2 and x³: 2² = 4, (x³)² = x^6.", "(2x³)² = 2² · (x³)² = 4x^6.", ["4x^(6)"]),
+        qa("y11adv-alg-m8", "Simplify $(2\\sqrt{3})(3\\sqrt{3})$.", "(2\\sqrt{3})(3\\sqrt{3})", "18", "Multiply integer parts and surd parts separately.", "(2×3)(√3×√3) = 6 × 3 = 18."),
+        qa("y11adv-alg-m9", "Simplify $x^{1/2} \\cdot x^{3/2}$.", "x^{1/2} \\cdot x^{3/2}", "x^2", "Add fractional indices: 1/2 + 3/2 = 2.", "x^{1/2} · x^{3/2} = x^{1/2 + 3/2} = x^{4/2} = x^2.", ["x^(2)"]),
+        practicalChoice("y11adv-alg-m10", "Evaluate $16^{3/4}$.", "B", ["$4$", "$8$", "$12$", "$64$"], "16^{1/4} = ∜16 = 2 (since 2^4 = 16), so 16^{3/4} = (16^{1/4})^3 = 2^3 = 8.", "16^{3/4}"),
+      ],
+    };
+  }
+
+  if (lesson.slug === "quadratic-equations-discriminant") {
+    return {
+      ...base,
+      description:
+        "Solve quadratic equations by factorisation, completing the square and the quadratic formula; define and evaluate the discriminant; use conditions on the discriminant to determine the nature of roots.",
+      learningIntention:
+        "Solve any quadratic equation and use the discriminant to predict whether roots are real, repeated or complex without solving.",
+      successCriteria: [
+        "Solve a quadratic by factorisation when integer factors exist.",
+        "Apply the quadratic formula to solve any quadratic equation.",
+        "Calculate the discriminant Δ = b² − 4ac from the equation ax² + bx + c = 0.",
+        "Interpret Δ to state whether roots are two distinct real, one repeated, or no real solutions.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A quadratic equation is any equation that can be written as ax² + bx + c = 0. Three methods exist: factorisation (fastest when integer factors exist), completing the square (always works and reveals the vertex form), and the quadratic formula (always works and is most direct).",
+          "Factorisation: find two numbers that multiply to ac and add to b. Rewrite the middle term bx as the sum of those two numbers times x, then factor by grouping. For example, x² − 5x + 6 = 0 factors as (x−2)(x−3) = 0, giving x = 2 or x = 3.",
+          "The quadratic formula always works: x = (−b ± √(b²−4ac)) / (2a). The expression under the root, b² − 4ac, is called the discriminant and written Δ. It controls how many real solutions exist without you needing to solve completely.",
+          "If Δ > 0, the ± produces two distinct real roots. If Δ = 0, the ± vanishes and there is one repeated root x = −b/(2a). If Δ < 0, the square root is imaginary and there are no real roots.",
+        ],
+        latexBlocks: [
+          "x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}",
+          "\\Delta = b^2 - 4ac",
+          "\\Delta > 0: \\text{ two distinct real roots}, \\quad \\Delta = 0: \\text{ one repeated root}, \\quad \\Delta < 0: \\text{ no real roots}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Solve by factorisation",
+          questionLatex: "\\text{Solve } x^2 - 5x + 6 = 0",
+          steps: [
+            {
+              explanation: "Find two numbers that multiply to 6 and add to −5: they are −2 and −3.",
+              latex: "(x-2)(x-3) = 0",
+            },
+            {
+              explanation: "Set each factor equal to zero and solve.",
+              latex: "x = 2 \\quad \\text{or} \\quad x = 3",
+            },
+          ],
+          finalAnswerLatex: "x = 2 \\text{ or } x = 3",
+        },
+        {
+          title: "Evaluate the discriminant and state the nature of roots",
+          questionLatex: "\\text{Find } \\Delta \\text{ for } 2x^2 - 4x + 5 = 0",
+          steps: [
+            {
+              explanation: "Identify a = 2, b = −4, c = 5.",
+              latex: "\\Delta = (-4)^2 - 4(2)(5) = 16 - 40",
+            },
+            {
+              explanation: "Since Δ < 0, there are no real roots.",
+              latex: "\\Delta = -24",
+            },
+          ],
+          finalAnswerLatex: "\\Delta = -24 \\Rightarrow \\text{no real roots}",
+        },
+        {
+          title: "Solve using the quadratic formula",
+          questionLatex: "\\text{Solve } x^2 + 2x - 3 = 0",
+          steps: [
+            {
+              explanation: "Identify a = 1, b = 2, c = −3. Compute the discriminant.",
+              latex: "\\Delta = 4 + 12 = 16",
+            },
+            {
+              explanation: "Substitute into the formula.",
+              latex: "x = \\frac{-2 \\pm \\sqrt{16}}{2} = \\frac{-2 \\pm 4}{2}",
+            },
+            {
+              explanation: "Evaluate each sign option.",
+              latex: "x = 1 \\quad \\text{or} \\quad x = -3",
+            },
+          ],
+          finalAnswerLatex: "x = 1 \\text{ or } x = -3",
+        },
+      ],
+      guidedPractice: [
+        qa("y11adv-quad-g1", "Solve $x^2 - 7x + 12 = 0$ by factorisation. Enter the smaller root.", "x^2 - 7x + 12 = 0", "3", "Find two numbers that multiply to 12 and add to −7.", "(x−3)(x−4) = 0 gives x = 3 or x = 4. The smaller root is 3."),
+        qa("y11adv-quad-g2", "Compute the discriminant for $3x^2 - 5x + 2 = 0$.", "\\Delta = b^2 - 4ac,\\quad a=3,\\,b=-5,\\,c=2", "1", "Δ = (−5)² − 4(3)(2) = 25 − 24.", "Δ = 25 − 24 = 1."),
+        practicalChoice("y11adv-quad-g3", "What does $\\Delta = 0$ indicate about the roots of a quadratic?", "C", ["Two distinct rational roots", "Two distinct irrational roots", "One repeated root", "No real roots"], "When Δ = 0, the ± term vanishes and there is exactly one root value x = −b/(2a) — a repeated or double root."),
+        qa("y11adv-quad-g4", "Solve $x^2 - 2x - 8 = 0$ using the quadratic formula. Enter the positive root.", "x = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a},\\quad a=1,\\,b=-2,\\,c=-8", "4", "Δ = 4 + 32 = 36. Then x = (2 ± 6)/2.", "Δ = 36. x = (2 ± 6)/2 gives x = 4 or x = −2. The positive root is 4."),
+      ],
+      independentPractice: [
+        qa("y11adv-quad-i1", "Solve $x^2 + 5x + 4 = 0$ by factorisation. Enter the larger (less negative) root.", "x^2 + 5x + 4 = 0", "-1", "Find two numbers that multiply to 4 and add to 5.", "(x+1)(x+4) = 0 gives x = −1 or x = −4. The larger root is −1.", ["-1", "−1"]),
+        practicalChoice("y11adv-quad-i2", "The discriminant of $x^2 + 2x + 5 = 0$ is $\\Delta = 4 - 20 = -16$. This means:", "D", ["Two distinct rational roots", "One repeated root", "Two distinct irrational roots", "No real roots"], "Δ < 0 means the square root in the formula is imaginary — there are no real solutions."),
+        qa("y11adv-quad-i3", "Compute $\\Delta$ for $x^2 - 6x + 9 = 0$.", "\\Delta = b^2 - 4ac,\\quad a=1,\\,b=-6,\\,c=9", "0", "Δ = 36 − 36.", "Δ = (−6)² − 4(1)(9) = 36 − 36 = 0. One repeated root."),
+        qa("y11adv-quad-i4", "Solve $2x^2 + x - 3 = 0$ by factorisation. Enter the positive root.", "2x^2 + x - 3 = 0", "1", "Try (2x + a)(x + b) where ab = −3.", "(2x + 3)(x − 1) = 0 gives x = −3/2 or x = 1. The positive root is 1."),
+        practicalChoice("y11adv-quad-i5", "For the roots of a quadratic to be rational, the discriminant must be:", "C", ["Negative", "Zero only", "A perfect square and non-negative", "Any positive number"], "Rational roots require √Δ to be a whole number. Δ must be a non-negative perfect square (Δ = 0 gives a rational double root; a positive perfect square gives two rational roots)."),
+      ],
+      commonMistakes: [
+        { mistake: "Writing b² + 4ac instead of b² − 4ac for the discriminant.", fix: "The discriminant formula uses subtraction: Δ = b² − 4ac. Write out a, b, c before substituting." },
+        { mistake: "Assuming negative roots mean Δ is negative.", fix: "The sign of Δ tells you how many roots exist — not whether the roots are positive or negative." },
+        { mistake: "Writing the formula as x = (b ± √Δ)/(2a) instead of x = (−b ± √Δ)/(2a).", fix: "The quadratic formula has −b, not b. Check the sign of b before substituting." },
+        { mistake: "Concluding that a repeated root means x = 0.", fix: "A double root occurs at x = −b/(2a), which is rarely zero unless b = 0." },
+      ],
+      masteryQuiz: [
+        qa("y11adv-quad-m1", "Solve $x^2 - x - 6 = 0$ by factorisation. Enter the positive root.", "x^2 - x - 6 = 0", "3", "Find two numbers that multiply to −6 and add to −1.", "(x−3)(x+2) = 0. Roots: x = 3 or x = −2. Positive root is 3."),
+        qa("y11adv-quad-m2", "Compute $\\Delta$ for $2x^2 + 3x + 5 = 0$.", "\\Delta = b^2 - 4ac,\\quad a=2,\\,b=3,\\,c=5", "-31", "Δ = 9 − 40.", "Δ = 3² − 4(2)(5) = 9 − 40 = −31.", ["-31", "−31"]),
+        practicalChoice("y11adv-quad-m3", "A discriminant of $-31$ indicates the quadratic has:", "D", ["Two distinct rational roots", "One repeated root", "Two distinct irrational roots", "No real roots"], "Δ < 0 means no real roots — the formula would require the square root of a negative number."),
+        qa("y11adv-quad-m4", "Solve $x^2 - 4x + 4 = 0$. Enter the repeated root.", "x^2 - 4x + 4 = (x-2)^2 = 0", "2", "Δ = 0 means one repeated root.", "x² − 4x + 4 = (x−2)² = 0, giving the repeated root x = 2."),
+        qa("y11adv-quad-m5", "Solve $x^2 + 2x - 3 = 0$ using the formula. Enter the positive root.", "x = \\frac{-2 \\pm \\sqrt{4+12}}{2}", "1", "Δ = 16. Then x = (−2 ± 4)/2.", "Δ = 16. x = (−2 + 4)/2 = 1 or x = (−2 − 4)/2 = −3. Positive root is 1."),
+        practicalChoice("y11adv-quad-m6", "For $3x^2 + 2x - 1 = 0$, why are the roots rational?", "C", ["$\\Delta < 0$", "$\\Delta$ is a negative perfect square", "$\\Delta = 4 + 12 = 16$, a perfect square", "$\\Delta = 4 - 12 = -8$"], "Δ = 4 + 12 = 16 = 4². A non-negative perfect square discriminant guarantees rational roots."),
+        practicalChoice("y11adv-quad-m7", "When $\\Delta > 0$ but is not a perfect square, the roots are:", "C", ["Rational", "Equal", "Two distinct irrational real numbers", "Imaginary"], "Δ > 0 guarantees two distinct real roots. If Δ is not a perfect square, √Δ is irrational, making both roots irrational."),
+        qa("y11adv-quad-m8", "Compute $b^2 - 4ac$ for $x^2 - 6x + 9 = 0$.", "b^2 - 4ac,\\quad a=1,\\,b=-6,\\,c=9", "0", "Δ = 36 − 36.", "Δ = (−6)² − 4(1)(9) = 36 − 36 = 0."),
+        qa("y11adv-quad-m9", "Solve $x^2 - 5x = 0$ by factorisation. Enter the non-zero solution.", "x^2 - 5x = 0,\\quad x(x-5) = 0", "5", "Factor out x: x(x − 5) = 0.", "x(x − 5) = 0 gives x = 0 or x = 5. The non-zero solution is 5."),
+        practicalChoice("y11adv-quad-m10", "Which equation has no real roots?", "C", ["$x^2-4=0$", "$x^2+4x+4=0$", "$x^2+4x+5=0$", "$x^2-4x+3=0$"], "For x² + 4x + 5 = 0: Δ = 16 − 20 = −4 < 0, so no real roots. The other equations have Δ ≥ 0."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "linear-functions") {
+    return {
+      ...base,
+      description:
+        "Use gradient-intercept, general and point-gradient forms of linear equations; find x- and y-intercepts; graph linear functions; identify parallel and perpendicular relationships; solve and graph linear inequalities.",
+      learningIntention:
+        "Write, interpret and solve linear equations and inequalities, and identify parallel and perpendicular lines from their equations.",
+      successCriteria: [
+        "Read the gradient and y-intercept from gradient-intercept form y = mx + c.",
+        "Find x- and y-intercepts by substituting y = 0 and x = 0 respectively.",
+        "State whether two lines are parallel or perpendicular using their gradients.",
+        "Solve a linear inequality and correctly reverse the inequality sign when dividing by a negative.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A linear function produces a straight-line graph because equal changes in x always produce equal changes in y. The gradient m measures how much y changes for each unit increase in x. A gradient of 3 means y increases by 3 every time x increases by 1.",
+          "The three most useful equation forms are: gradient-intercept form y = mx + c (m is the gradient, c is the y-intercept), point-gradient form y − y₁ = m(x − x₁) (uses a known point and gradient), and general form ax + by + c = 0. You can convert between them algebraically.",
+          "Parallel lines have exactly the same gradient. Perpendicular lines have gradients that multiply to −1: if one line has gradient m, the perpendicular gradient is −1/m (the negative reciprocal). For example, lines with gradients 2 and −1/2 are perpendicular.",
+          "A linear inequality such as 3x − 5 > 1 is solved like an equation with one critical rule: when you multiply or divide both sides by a negative number, the inequality sign reverses. For example, −2x > 4 → x < −2.",
+        ],
+        latexBlocks: [
+          "y = mx + c, \\quad m = \\frac{y_2-y_1}{x_2-x_1}",
+          "y - y_1 = m(x - x_1) \\quad \\text{(point-gradient form)}",
+          "\\text{Perpendicular gradients: } m_1 \\times m_2 = -1",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Find gradient and y-intercept from general form",
+          questionLatex: "\\text{Find gradient and y-intercept of } 3x - 2y + 6 = 0",
+          steps: [
+            {
+              explanation: "Rearrange to gradient-intercept form by making y the subject.",
+              latex: "-2y = -3x - 6",
+            },
+            {
+              explanation: "Divide both sides by −2.",
+              latex: "y = \\frac{3}{2}x + 3",
+            },
+          ],
+          finalAnswerLatex: "m = \\tfrac{3}{2},\\quad \\text{y-intercept } (0,\\,3)",
+        },
+        {
+          title: "Write a line through a point parallel to a given line",
+          questionLatex: "\\text{Line through }(2,3)\\text{ parallel to }y=2x-1",
+          steps: [
+            {
+              explanation: "Parallel lines share the same gradient, so m = 2.",
+              latex: "m = 2",
+            },
+            {
+              explanation: "Use point-gradient form with the known point (2, 3).",
+              latex: "y - 3 = 2(x - 2)",
+            },
+            {
+              explanation: "Expand and simplify.",
+              latex: "y = 2x - 1",
+            },
+          ],
+          finalAnswerLatex: "y = 2x - 1",
+        },
+        {
+          title: "Solve a linear inequality",
+          questionLatex: "\\text{Solve } 2x - 5 > 3",
+          steps: [
+            {
+              explanation: "Add 5 to both sides.",
+              latex: "2x > 8",
+            },
+            {
+              explanation: "Divide both sides by 2 (positive, so the sign stays the same).",
+              latex: "x > 4",
+            },
+          ],
+          finalAnswerLatex: "x > 4",
+        },
+      ],
+      guidedPractice: [
+        qa("y11adv-lin-g1", "State the gradient of $y = 3x - 7$.", "y = 3x - 7", "3", "In y = mx + c, m is the gradient.", "The equation is in y = mx + c form with m = 3."),
+        qa("y11adv-lin-g2", "Find the y-intercept of $2x + y - 5 = 0$ by setting $x = 0$.", "2x + y - 5 = 0,\\quad x = 0", "5", "Set x = 0 and solve for y.", "When x = 0: 0 + y − 5 = 0, so y = 5. The y-intercept is 5."),
+        practicalChoice("y11adv-lin-g3", "A line has gradient 2. What is the gradient of a perpendicular line?", "D", ["$2$", "$-2$", "$\\frac{1}{2}$", "$-\\frac{1}{2}$"], "Perpendicular gradients multiply to −1: if m₁ = 2 then m₂ = −1/2."),
+        qa("y11adv-lin-g4", "Find the x-intercept of $y = 4x - 8$ by setting $y = 0$.", "y = 4x - 8,\\quad y = 0", "2", "Set y = 0: 4x − 8 = 0.", "0 = 4x − 8 → 4x = 8 → x = 2."),
+      ],
+      independentPractice: [
+        qa("y11adv-lin-i1", "Find the gradient of the line through $(1,\\,3)$ and $(3,\\,7)$.", "m = \\frac{7-3}{3-1}", "2", "Rise = 7 − 3 = 4. Run = 3 − 1 = 2.", "m = (7 − 3)/(3 − 1) = 4/2 = 2."),
+        qa("y11adv-lin-i2", "Solve $3x + 5 > 11$. Enter in the form $x > ...$", "3x + 5 > 11", "x>2", "Subtract 5, then divide by 3.", "3x + 5 > 11 → 3x > 6 → x > 2.", ["x > 2"]),
+        qa("y11adv-lin-i3", "State the y-intercept of $y = -3x + 9$.", "y = -3x + 9", "9", "In y = mx + c, c is the y-intercept.", "The constant term c = 9 gives the y-intercept."),
+        practicalChoice("y11adv-lin-i4", "Which line is parallel to $y = -2x + 5$?", "B", ["$y=2x+5$", "$y=-2x-3$", "$y=\\frac{1}{2}x+5$", "$y=2x-5$"], "Parallel lines have the same gradient. Only y = −2x − 3 has gradient −2, matching y = −2x + 5."),
+        qa("y11adv-lin-i5", "Find the x-intercept of $2x - 3y + 6 = 0$ by setting $y = 0$.", "2x - 3y + 6 = 0,\\quad y = 0", "-3", "Set y = 0: 2x + 6 = 0.", "When y = 0: 2x + 6 = 0 → 2x = −6 → x = −3.", ["-3", "−3"]),
+      ],
+      commonMistakes: [
+        { mistake: "Dividing by a negative in an inequality without reversing the sign.", fix: "When multiplying or dividing both sides of an inequality by a negative number, always flip the inequality sign." },
+        { mistake: "Confusing gradient m with y-intercept c in y = mx + c.", fix: "m is the coefficient of x (gradient); c is the constant term (y-intercept)." },
+        { mistake: "Using m₂ = −m₁ for perpendicular lines instead of m₂ = −1/m₁.", fix: "Perpendicular gradients are negative reciprocals: m₁ × m₂ = −1, so m₂ = −1/m₁." },
+        { mistake: "Substituting x = 0 to find the x-intercept instead of y = 0.", fix: "The x-intercept is where y = 0. Set y = 0 and solve for x. The y-intercept is where x = 0." },
+      ],
+      masteryQuiz: [
+        qa("y11adv-lin-m1", "State the gradient of $y = -5x + 2$.", "y = -5x + 2", "-5", "In y = mx + c, m is the coefficient of x.", "The gradient is the coefficient of x, which is −5.", ["-5", "−5"]),
+        qa("y11adv-lin-m2", "Find the y-intercept of $3x - y - 6 = 0$ by setting $x = 0$.", "3x - y - 6 = 0,\\quad x=0", "-6", "Set x = 0: −y − 6 = 0.", "When x = 0: −y − 6 = 0 → y = −6.", ["-6", "−6"]),
+        qa("y11adv-lin-m3", "Find the gradient of the line through $(0,\\,4)$ and $(2,\\,0)$.", "m = \\frac{0-4}{2-0}", "-2", "Rise = 0 − 4 = −4. Run = 2 − 0 = 2.", "m = (0 − 4)/(2 − 0) = −4/2 = −2.", ["-2", "−2"]),
+        practicalChoice("y11adv-lin-m4", "The gradient of a line perpendicular to $y = -3x + 1$ is:", "C", ["$-3$", "$3$", "$\\frac{1}{3}$", "$-\\frac{1}{3}$"], "m₁ × m₂ = −1. If m₁ = −3, then m₂ = −1/(−3) = 1/3."),
+        qa("y11adv-lin-m5", "Solve $5 - 2x \\le 1$. Enter in the form $x \\ge ...$", "5 - 2x \\le 1", "x>=2", "Subtract 5, then divide by −2 and reverse the sign.", "5 − 2x ≤ 1 → −2x ≤ −4 → x ≥ 2 (sign reverses when dividing by −2).", ["x >= 2", "x≥2"]),
+        qa("y11adv-lin-m6", "Find the x-intercept of $y = 2x + 6$ by setting $y = 0$.", "y = 2x + 6,\\quad y=0", "-3", "0 = 2x + 6, so 2x = −6.", "0 = 2x + 6 → 2x = −6 → x = −3.", ["-3", "−3"]),
+        practicalChoice("y11adv-lin-m7", "Which form of a linear equation uses a known point $(x_1, y_1)$ and gradient $m$?", "B", ["$y=mx+c$", "$y-y_1=m(x-x_1)$", "$ax+by+c=0$", "$y=mx$"], "The point-gradient form y − y₁ = m(x − x₁) uses a known point and gradient directly without first finding the y-intercept."),
+        qa("y11adv-lin-m8", "State the y-intercept of $y = 7 - 4x$.", "y = -4x + 7", "7", "The y-intercept is the constant term in y = mx + c form.", "Rewritten: y = −4x + 7. The y-intercept c = 7."),
+        qa("y11adv-lin-m9", "Solve $3(x-1) > 6$. Enter in the form $x > ...$", "3(x-1) > 6", "x>3", "Divide both sides by 3, then add 1.", "3(x − 1) > 6 → x − 1 > 2 → x > 3.", ["x > 3"]),
+        qa("y11adv-lin-m10", "Find the gradient of a line perpendicular to $y = \\frac{1}{3}x + 5$.", "m_1 = \\frac{1}{3},\\quad m_1 \\times m_2 = -1", "-3", "m₂ = −1/m₁ = −1/(1/3).", "m₂ = −1/(1/3) = −3.", ["-3", "−3"]),
+      ],
+    };
+  }
+
+  if (lesson.slug === "constructing-using-functions") {
+    return {
+      ...base,
+      description:
+        "Construct and use linear and quadratic functions as mathematical models; apply linear inequalities in context; solve simultaneous linear equations by substitution and elimination; interpret cost-revenue and break-even problems.",
+      learningIntention:
+        "Set up and solve linear models, simultaneous equations and break-even problems using function notation and algebraic methods.",
+      successCriteria: [
+        "Write a linear function from a word problem by identifying the rate (gradient) and fixed value (y-intercept).",
+        "Solve simultaneous linear equations by substitution and by elimination.",
+        "Set up and solve a break-even equation by equating revenue and cost functions.",
+        "Interpret the gradient and y-intercept in the context of a practical model.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A linear model links two quantities with a constant rate of change. If a cost increases by the same amount per unit, that relationship is linear: C = mn + c, where m is the cost per unit and c is the fixed cost. The gradient m is always the rate — the cost per item, the speed, the charge per hour.",
+          "Simultaneous equations arise when two conditions must hold at the same time. Substitution: rearrange one equation to make one variable the subject, then substitute into the other. Elimination: add or subtract multiples of the equations to cancel one variable.",
+          "A break-even point occurs when revenue equals cost: R = C. At this point, profit is zero. Setting R(n) = C(n) and solving gives the exact quantity where the business neither gains nor loses money.",
+          "In modelling problems, identify the input (independent variable) and the output before writing the function. Confirm the gradient and intercept make sense in context — a negative gradient for cost per item would be unrealistic.",
+        ],
+        latexBlocks: [
+          "C = mn + c \\quad \\text{(m = variable rate, c = fixed cost, n = quantity)}",
+          "\\text{Break-even: } R(n) = C(n)",
+          "\\text{Profit} = R(n) - C(n)",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Build and use a linear cost model",
+          questionLatex: "\\text{A car hire costs } \\$40 \\text{ plus } \\$0.25 \\text{ per km. Find the cost for 120 km.}",
+          steps: [
+            {
+              explanation: "Identify the fixed cost ($40) and the variable rate ($0.25 per km).",
+              latex: "C = 0.25n + 40",
+            },
+            {
+              explanation: "Substitute n = 120.",
+              latex: "C = 0.25(120) + 40 = 30 + 40 = 70",
+            },
+          ],
+          finalAnswerLatex: "C = \\$70",
+        },
+        {
+          title: "Solve simultaneous equations by elimination",
+          questionLatex: "2x + y = 7, \\quad x - y = 2",
+          steps: [
+            {
+              explanation: "Add both equations to eliminate y.",
+              latex: "3x = 9 \\Rightarrow x = 3",
+            },
+            {
+              explanation: "Substitute x = 3 into the first equation to find y.",
+              latex: "2(3) + y = 7 \\Rightarrow y = 1",
+            },
+          ],
+          finalAnswerLatex: "x = 3,\\quad y = 1",
+        },
+        {
+          title: "Find the break-even quantity",
+          questionLatex: "R = 15n,\\quad C = 8n + 210",
+          steps: [
+            {
+              explanation: "Set revenue equal to cost.",
+              latex: "15n = 8n + 210",
+            },
+            {
+              explanation: "Solve for n.",
+              latex: "7n = 210 \\Rightarrow n = 30",
+            },
+          ],
+          finalAnswerLatex: "\\text{Break-even at } n = 30",
+        },
+      ],
+      guidedPractice: [
+        qa("y11adv-model-g1", "A cost model is $C = 5n + 20$ where $n$ is the number of items. Find $C$ when $n = 8$.", "C = 5n + 20,\\quad n = 8", "60", "Substitute n = 8.", "C = 5(8) + 20 = 40 + 20 = 60."),
+        qa("y11adv-model-g2", "Solve the simultaneous equations by adding them. Enter the value of $x$.", "x + y = 10,\\quad x - y = 4", "7", "Add both equations to eliminate y: 2x = 14.", "Adding: 2x = 14 → x = 7."),
+        practicalChoice("y11adv-model-g3", "Break-even occurs when:", "B", ["Revenue is greater than cost", "Revenue equals cost", "Cost is greater than revenue", "Revenue minus cost equals 100"], "Break-even is where R = C — the business makes zero profit."),
+        qa("y11adv-model-g4", "Revenue $R = 12n$ and cost $C = 8n + 40$. Find the break-even quantity.", "12n = 8n + 40", "10", "Set R = C: 12n = 8n + 40. Solve for n.", "12n − 8n = 40 → 4n = 40 → n = 10."),
+      ],
+      independentPractice: [
+        qa("y11adv-model-i1", "Find $n$ when $C = 36$ in the model $C = 3n + 15$.", "3n + 15 = 36", "7", "Subtract 15, then divide by 3.", "3n = 21 → n = 7."),
+        qa("y11adv-model-i2", "Solve simultaneously by substitution. Enter the value of $y$.", "x + 2y = 8,\\quad x = y + 2", "2", "Substitute x = y + 2 into x + 2y = 8.", "(y + 2) + 2y = 8 → 3y = 6 → y = 2."),
+        qa("y11adv-model-i3", "Revenue $R = 20n$, cost $C = 12n + 120$. Find the profit when $n = 20$.", "P = 20n - (12n+120),\\quad n=20", "40", "P = 8n − 120. Substitute n = 20.", "P = 8(20) − 120 = 160 − 120 = 40."),
+        practicalChoice("y11adv-model-i4", "In a linear cost model $C = mn + c$, what does the y-intercept $c$ represent?", "C", ["Variable cost per unit", "Total cost for c items", "Fixed cost", "Break-even quantity"], "The y-intercept c is the cost when n = 0 — the fixed cost that applies regardless of quantity."),
+        qa("y11adv-model-i5", "Solve simultaneously. Enter the value of $x$.", "2x + 3y = 12,\\quad x = 6 - y", "6", "Substitute x = 6 − y into 2x + 3y = 12.", "2(6 − y) + 3y = 12 → 12 + y = 12 → y = 0, x = 6."),
+      ],
+      commonMistakes: [
+        { mistake: "Confusing the gradient (variable cost per unit) with the y-intercept (fixed cost) in linear models.", fix: "The gradient m tells you the rate per unit; the y-intercept c is the initial cost when zero units are produced." },
+        { mistake: "Substituting incorrectly by not replacing every instance of the variable.", fix: "Replace every occurrence of the variable being substituted. Verify by substituting both values back into both original equations." },
+        { mistake: "Setting profit to zero when finding break-even instead of setting R = C.", fix: "Break-even is where R − C = 0, which is the same as R = C. Setting them equal directly is the clearest method." },
+        { mistake: "Treating break-even as a revenue or cost value rather than a quantity.", fix: "Solving R = C gives the break-even quantity n. Substitute n back to find the break-even revenue or cost if needed." },
+      ],
+      masteryQuiz: [
+        qa("y11adv-model-m1", "A cost model is $C = 7n + 30$. Find $C$ when $n = 5$.", "C = 7n + 30,\\quad n = 5", "65", "Substitute n = 5.", "C = 7(5) + 30 = 35 + 30 = 65."),
+        qa("y11adv-model-m2", "Solve the simultaneous equations by subtraction. Enter $y$.", "x + y = 9,\\quad x - y = 3", "3", "Subtract the second from the first: 2y = 6.", "Subtracting: 2y = 6 → y = 3."),
+        qa("y11adv-model-m3", "Revenue $R = 15n$, cost $C = 9n + 48$. Find the break-even quantity.", "15n = 9n + 48", "8", "Set R = C. Solve 6n = 48.", "15n = 9n + 48 → 6n = 48 → n = 8."),
+        practicalChoice("y11adv-model-m4", "In a linear cost model $C = mn + c$, the gradient $m$ represents:", "B", ["The fixed cost", "The variable cost per unit", "The break-even point", "The total revenue"], "The gradient m is how much cost changes for each additional unit — the variable (marginal) cost per unit."),
+        qa("y11adv-model-m5", "Revenue $R = 10n$, cost $C = 4n + 60$. Find the profit when $n = 15$.", "P = R - C = 10n - (4n+60),\\quad n=15", "30", "P = 6n − 60. Substitute n = 15.", "P = 6(15) − 60 = 90 − 60 = 30."),
+        qa("y11adv-model-m6", "Solve by elimination. Enter $y$.", "3x + y = 11,\\quad 2x - y = 4", "2", "Add both equations to eliminate y: 5x = 15, x = 3.", "Adding: 5x = 15 → x = 3. Sub into 3(3) + y = 11 → y = 2."),
+        qa("y11adv-model-m7", "A plumber charges a $80 callout fee plus $45 per hour. Find the cost of a 3-hour job.", "C = 80 + 45 \\times 3", "215", "Cost = fixed fee + rate × hours.", "C = 80 + 45 × 3 = 80 + 135 = 215."),
+        practicalChoice("y11adv-model-m8", "Two straight lines with different gradients will:", "C", ["Be parallel", "Have no intersection", "Intersect at exactly one point", "Have the same y-intercept"], "Different gradients mean the lines are not parallel, so they must cross at exactly one point."),
+        qa("y11adv-model-m9", "Revenue $R = 25n$, cost $C = 15n + 80$. What is the minimum integer $n$ for profit?", "25n > 15n + 80", "9", "10n > 80 → n > 8. Smallest integer is 9.", "25n − 15n > 80 → 10n > 80 → n > 8. Smallest integer n = 9."),
+        qa("y11adv-model-m10", "Solve simultaneously. Enter $x$.", "x = 2y,\\quad x + y = 12", "8", "Substitute x = 2y into x + y = 12: 3y = 12.", "2y + y = 12 → y = 4. x = 2(4) = 8."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "direct-inverse-variation") {
+    return {
+      ...base,
+      description:
+        "Model direct variation y = kx and inverse variation y = k/x; identify the constant of variation k; use the model to find unknown values; interpret graphs of direct and inverse variation.",
+      learningIntention:
+        "Identify, set up and use direct and inverse variation relationships to find unknown values.",
+      successCriteria: [
+        "Recognise direct variation y = kx and inverse variation y = k/x from given information.",
+        "Calculate the constant of variation k from a known pair of values.",
+        "Use the model to find unknown outputs or inputs.",
+        "Distinguish between y = kx (line through origin) and a general linear function with non-zero y-intercept.",
+      ],
+      teaching: {
+        paragraphs: [
+          "In direct variation, y is always proportional to x — doubling x doubles y, halving x halves y. The relationship is y = kx, where k is the constant of variation. On a graph, y = kx is a straight line that passes through the origin.",
+          "In inverse variation, y decreases as x increases and their product is always constant. The relationship is y = k/x. On a graph, y = k/x is a hyperbola passing through quadrants I and III when k > 0 — it never passes through the origin.",
+          "To find k for direct variation, divide a known y-value by the corresponding x-value: k = y/x. For inverse variation, multiply: k = xy. Once k is known, substitute any new x or y to find the unknown.",
+          "Direct variation y = kx always passes through (0, 0). A line like y = 3x + 5 is NOT direct variation because it has a y-intercept of 5. Do not confuse a proportional relationship with a general linear function.",
+        ],
+        latexBlocks: [
+          "y = kx \\quad \\text{(direct variation — line through origin)}",
+          "y = \\frac{k}{x} \\quad \\text{(inverse variation — hyperbola)}",
+          "k = \\frac{y}{x} \\text{ for direct}, \\quad k = xy \\text{ for inverse}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Direct variation — find k and a missing value",
+          questionLatex: "y \\propto x.\\text{ When } x=4,\\, y=12.\\text{ Find } y \\text{ when } x=7.",
+          steps: [
+            {
+              explanation: "Find k by dividing the known y by the known x.",
+              latex: "k = \\frac{12}{4} = 3",
+            },
+            {
+              explanation: "Write the direct variation equation and substitute x = 7.",
+              latex: "y = 3 \\times 7 = 21",
+            },
+          ],
+          finalAnswerLatex: "y = 21",
+        },
+        {
+          title: "Inverse variation — find k and a missing value",
+          questionLatex: "y \\propto \\frac{1}{x}.\\text{ When } x=3,\\, y=8.\\text{ Find } y \\text{ when } x=6.",
+          steps: [
+            {
+              explanation: "Find k by multiplying the known x and y values.",
+              latex: "k = 3 \\times 8 = 24",
+            },
+            {
+              explanation: "Write the inverse variation equation and substitute x = 6.",
+              latex: "y = \\frac{24}{6} = 4",
+            },
+          ],
+          finalAnswerLatex: "y = 4",
+        },
+      ],
+      guidedPractice: [
+        qa("y11adv-var-g1", "If $y = kx$ and $y = 20$ when $x = 5$, find $k$.", "k = \\frac{y}{x} = \\frac{20}{5}", "4", "k = y/x.", "k = 20/5 = 4."),
+        qa("y11adv-var-g2", "If $y = k/x$ and $y = 10$ when $x = 2$, find $k$.", "k = xy = 2 \\times 10", "20", "k = xy.", "k = 2 × 10 = 20."),
+        practicalChoice("y11adv-var-g3", "The equation $y = 4x$ describes:", "B", ["Inverse variation with k = 4", "Direct variation with k = 4", "Quadratic variation", "A constant function"], "y = kx with k = 4 is direct variation. The graph is a line through the origin with gradient 4."),
+        qa("y11adv-var-g4", "Using direct variation $y = 4x$, find $y$ when $x = 6$.", "y = 4 \\times 6", "24", "Substitute x = 6 directly.", "y = 4(6) = 24."),
+      ],
+      independentPractice: [
+        qa("y11adv-var-i1", "If $y \\propto x$ and $y = 15$ when $x = 3$, find $y$ when $x = 8$.", "k = \\frac{15}{3} = 5,\\quad y = 5 \\times 8", "40", "Find k = 15/3 = 5, then y = 5 × 8.", "k = 5. y = 5 × 8 = 40."),
+        qa("y11adv-var-i2", "If $y \\propto 1/x$ and $y = 6$ when $x = 4$, find $k$.", "k = xy = 4 \\times 6", "24", "k = xy.", "k = 4 × 6 = 24."),
+        practicalChoice("y11adv-var-i3", "The graph of $y = k/x$ with $k > 0$ passes through which quadrants?", "B", ["I and II", "I and III", "II and IV", "I and IV"], "For k > 0, when x > 0 then y > 0 (quadrant I), and when x < 0 then y < 0 (quadrant III). The curve never passes through II or IV."),
+        qa("y11adv-var-i4", "If $y = k/x$ and $k = 30$, find $y$ when $x = 5$.", "y = \\frac{30}{5}", "6", "Divide k by x.", "y = 30/5 = 6."),
+        qa("y11adv-var-i5", "If $y \\propto x$ and $y = 56$ when $x = 7$, find $k$.", "k = \\frac{56}{7}", "8", "k = y/x.", "k = 56/7 = 8."),
+      ],
+      commonMistakes: [
+        { mistake: "Confusing direct variation y = kx with a general linear function y = mx + c.", fix: "Direct variation always passes through (0, 0). If there is a non-zero y-intercept, it is not direct variation." },
+        { mistake: "Computing k = x/y instead of k = y/x for direct variation.", fix: "From y = kx, isolate k by dividing both sides by x: k = y/x." },
+        { mistake: "Computing k = y/x instead of k = xy for inverse variation.", fix: "From y = k/x, multiply both sides by x: k = xy." },
+        { mistake: "Expecting the graph of y = k/x to pass through the origin.", fix: "The inverse variation curve never crosses the origin — the function is undefined at x = 0." },
+      ],
+      masteryQuiz: [
+        qa("y11adv-var-m1", "If $y = kx$ and $y = 16$ when $x = 4$, find $k$.", "k = \\frac{16}{4}", "4", "k = y/x.", "k = 16/4 = 4."),
+        qa("y11adv-var-m2", "If $y \\propto 1/x$ and $y = 4$ when $x = 5$, find $k$.", "k = xy = 5 \\times 4", "20", "k = xy.", "k = 5 × 4 = 20."),
+        practicalChoice("y11adv-var-m3", "Which equation represents inverse variation between $y$ and $x$?", "C", ["$y=5x$", "$y=5x+2$", "$y=\\frac{5}{x}$", "$y=\\frac{x^2}{5}$"], "Inverse variation has the form y = k/x. Only y = 5/x matches this structure."),
+        qa("y11adv-var-m4", "If $y = 3x$, find $y$ when $x = 11$.", "y = 3 \\times 11", "33", "Substitute x = 11.", "y = 3 × 11 = 33."),
+        qa("y11adv-var-m5", "If $y = 20/x$, find $y$ when $x = 4$.", "y = \\frac{20}{4}", "5", "Divide 20 by 4.", "y = 20/4 = 5."),
+        qa("y11adv-var-m6", "If $y \\propto x$ and $y = 42$ when $x = 6$, find $k$.", "k = \\frac{42}{6}", "7", "k = y/x.", "k = 42/6 = 7."),
+        practicalChoice("y11adv-var-m7", "The graph of $y = kx$ (direct variation) always passes through:", "B", ["$(0,\\,k)$", "$(0,\\,0)$", "$(1,\\,0)$", "$(k,\\,1)$"], "When x = 0, y = k(0) = 0, so the graph always passes through the origin."),
+        qa("y11adv-var-m8", "If $y \\propto 1/x$ and $y = 3$ when $x = 8$, find $y$ when $x = 6$.", "k = 8 \\times 3 = 24,\\quad y = \\frac{24}{6}", "4", "k = 24. Then y = 24/6.", "k = 8 × 3 = 24. y = 24/6 = 4."),
+        qa("y11adv-var-m9", "If $y \\propto x$ and $y = 3$ when $x = 12$, find $y$ when $x = 20$.", "k = \\frac{3}{12} = \\frac{1}{4},\\quad y = \\frac{1}{4} \\times 20", "5", "k = 1/4. Then y = (1/4)(20).", "k = 3/12 = 1/4. y = (1/4)(20) = 5."),
+        practicalChoice("y11adv-var-m10", "If $y$ doubles when $x$ doubles, the relationship is:", "C", ["Inverse variation", "Quadratic variation", "Direct variation", "Constant variation"], "In y = kx, doubling x doubles y — equal proportional increases define direct variation."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "circles-semicircles") {
+    return {
+      ...base,
+      description:
+        "Derive x² + y² = r² using the distance formula; graph circles centred at the origin; identify and graph upper and lower semicircles y = ±√(r² − x²); determine domain and range.",
+      learningIntention:
+        "Use the equation x² + y² = r² to describe circles and derive semicircle equations with correct domain and range.",
+      successCriteria: [
+        "Derive x² + y² = r² from the distance formula applied to a point (x, y) on a circle of radius r.",
+        "Verify whether a point lies on a circle by substituting its coordinates.",
+        "Write the equations of the upper and lower semicircles from a given circle equation.",
+        "State the domain and range of a semicircle.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A circle centred at the origin with radius r consists of all points (x, y) whose distance from (0, 0) equals r. Using the distance formula, the distance from (x, y) to the origin is √(x² + y²). Setting this equal to r and squaring both sides gives the circle equation x² + y² = r².",
+          "To check whether a point lies on the circle, substitute its coordinates into x² + y² and compare the result with r². If x² + y² = r², the point is on the circle; if it is less, the point is inside; if it is greater, the point is outside.",
+          "Rearranging the circle equation for y gives y² = r² − x², so y = ±√(r² − x²). The positive square root y = √(r² − x²) gives only the upper semicircle (y ≥ 0). The equation y = −√(r² − x²) gives only the lower semicircle (y ≤ 0). Neither equation alone is a full circle.",
+          "Both semicircles have the same domain: −r ≤ x ≤ r (the expression under the root cannot be negative). The upper semicircle has range 0 ≤ y ≤ r; the lower has range −r ≤ y ≤ 0.",
+        ],
+        latexBlocks: [
+          "x^2 + y^2 = r^2 \\quad \\text{(circle centred at origin, radius } r\\text{)}",
+          "y = \\sqrt{r^2 - x^2} \\text{ (upper semicircle)}, \\quad y = -\\sqrt{r^2 - x^2} \\text{ (lower semicircle)}",
+          "\\text{Domain: } -r \\le x \\le r, \\quad \\text{Range upper: } 0 \\le y \\le r",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Derive the circle equation and verify a point",
+          questionLatex: "\\text{Circle centre origin, radius 5. Does }(3,4)\\text{ lie on it?}",
+          steps: [
+            {
+              explanation: "The circle equation is x² + y² = r² = 25.",
+              latex: "x^2 + y^2 = 25",
+            },
+            {
+              explanation: "Substitute (3, 4) and check.",
+              latex: "3^2 + 4^2 = 9 + 16 = 25 \\checkmark",
+            },
+          ],
+          finalAnswerLatex: "\\text{Yes — }(3,4)\\text{ lies on the circle.}",
+        },
+        {
+          title: "State domain and range of a semicircle",
+          questionLatex: "y = \\sqrt{25 - x^2}",
+          steps: [
+            {
+              explanation: "The expression under the root must be non-negative: 25 − x² ≥ 0, so x² ≤ 25.",
+              latex: "-5 \\le x \\le 5",
+            },
+            {
+              explanation: "The square root is always non-negative, and its maximum is when x = 0.",
+              latex: "0 \\le y \\le 5",
+            },
+          ],
+          finalAnswerLatex: "\\text{Domain: }[-5,5],\\quad \\text{Range: }[0,5]",
+        },
+      ],
+      guidedPractice: [
+        qa("y11adv-cir-g1", "A circle centred at the origin has radius 4. What is $r^2$ in its equation $x^2 + y^2 = r^2$?", "r^2 = 4^2", "16", "Square the radius.", "r² = 4² = 16, so the equation is x² + y² = 16."),
+        practicalChoice("y11adv-cir-g2", "Does the point $(3,\\,4)$ lie on the circle $x^2 + y^2 = 25$?", "C", ["No, because $3+4 \\ne 25$", "No, because $9+4=13 \\ne 25$", "Yes, because $9+16=25$", "Yes, because $3+4=7<25$"], "Substitute: 3² + 4² = 9 + 16 = 25 = r². The point lies on the circle."),
+        practicalChoice("y11adv-cir-g3", "The graph of $y = \\sqrt{r^2 - x^2}$ represents:", "C", ["A full circle", "The lower semicircle ($y \\le 0$)", "The upper semicircle ($y \\ge 0$)", "An ellipse"], "The square root always returns a non-negative value, so y ≥ 0 — this is only the upper half."),
+        qa("y11adv-cir-g4", "For the upper semicircle $x^2 + y^2 = 36$, find $y$ when $x = 0$.", "y = \\sqrt{36 - 0^2}", "6", "y = √36.", "y = √(36 − 0) = √36 = 6."),
+      ],
+      independentPractice: [
+        qa("y11adv-cir-i1", "Find the radius of the circle $x^2 + y^2 = 49$.", "r^2 = 49,\\quad r = \\sqrt{49}", "7", "Take the positive square root of 49.", "r = √49 = 7."),
+        practicalChoice("y11adv-cir-i2", "What is the domain of $y = \\sqrt{9 - x^2}$?", "B", ["$x \\le 3$", "$-3 \\le x \\le 3$", "$x \\ge 0$", "All real numbers"], "9 − x² ≥ 0 → x² ≤ 9 → −3 ≤ x ≤ 3."),
+        qa("y11adv-cir-i3", "Upper semicircle $x^2 + y^2 = 100$. Find $y$ when $x = 6$.", "y = \\sqrt{100 - 6^2} = \\sqrt{64}", "8", "Subtract 36 from 100, then take the square root.", "y = √(100 − 36) = √64 = 8."),
+        qa("y11adv-cir-i4", "Lower semicircle: $y = -\\sqrt{25 - x^2}$. Find $y$ when $x = 3$.", "y = -\\sqrt{25 - 9} = -\\sqrt{16}", "-4", "y = −√16.", "y = −√(25 − 9) = −√16 = −4.", ["-4", "−4"]),
+        qa("y11adv-cir-i5", "A circle centred at the origin passes through $(5,\\,12)$. Find $r$.", "r^2 = 5^2 + 12^2 = 25 + 144", "13", "r² = 25 + 144 = 169. Take the square root.", "r² = 25 + 144 = 169. r = √169 = 13."),
+      ],
+      commonMistakes: [
+        { mistake: "Treating x² + y² = r² as x + y = r (confusing sum with sum of squares).", fix: "Each coordinate is squared before adding. (3, 4) on a circle of radius 5 satisfies 3² + 4² = 25, not 3 + 4 = 5." },
+        { mistake: "Saying y = √(r² − x²) represents a full circle.", fix: "The √ sign always returns a non-negative value, so this equation gives only the upper semicircle." },
+        { mistake: "Stating the domain of a semicircle as 0 ≤ x ≤ r instead of −r ≤ x ≤ r.", fix: "The semicircle exists for both positive and negative x. The domain is −r ≤ x ≤ r." },
+        { mistake: "Confusing radius r with r² when writing the equation.", fix: "The equation uses r², not r. A circle of radius 5 has equation x² + y² = 25, not x² + y² = 5." },
+      ],
+      masteryQuiz: [
+        qa("y11adv-cir-m1", "A circle has radius 3. What is $r^2$?", "r^2 = 3^2", "9", "Square the radius.", "r² = 9."),
+        practicalChoice("y11adv-cir-m2", "Which point lies on $x^2 + y^2 = 25$?", "C", ["$(3,\\,5)$", "$(4,\\,4)$", "$(3,\\,4)$", "$(5,\\,5)$"], "Check (3, 4): 3² + 4² = 9 + 16 = 25 ✓. The others give 34, 32, and 50 respectively."),
+        qa("y11adv-cir-m3", "Upper semicircle $x^2 + y^2 = 16$. Find $y$ when $x = 0$.", "y = \\sqrt{16 - 0}", "4", "y = √16.", "y = √16 = 4."),
+        qa("y11adv-cir-m4", "Find the largest $x$-value in the domain of $y = \\sqrt{36 - x^2}$.", "-6 \\le x \\le 6", "6", "Domain is −6 ≤ x ≤ 6. Largest value is 6.", "36 − x² ≥ 0 → x² ≤ 36 → −6 ≤ x ≤ 6. Largest x = 6."),
+        practicalChoice("y11adv-cir-m5", "The graph of $y = -\\sqrt{r^2 - x^2}$ is:", "C", ["Upper semicircle", "Full circle", "Lower semicircle", "Parabola"], "The negative sign gives y ≤ 0 — this is only the lower half of the circle."),
+        qa("y11adv-cir-m6", "The point $(a,\\,0)$ with $a > 0$ lies on $x^2 + y^2 = 64$. Find $a$.", "a^2 + 0 = 64", "8", "a² = 64. Take the positive root.", "a² = 64 → a = 8."),
+        qa("y11adv-cir-m7", "A circle centred at origin passes through $(6,\\,8)$. Find $r$.", "r^2 = 6^2 + 8^2 = 36 + 64", "10", "r² = 100. Take the square root.", "r² = 36 + 64 = 100. r = 10."),
+        practicalChoice("y11adv-cir-m8", "What is the range of $y = \\sqrt{25 - x^2}$?", "B", ["$-5 \\le y \\le 5$", "$0 \\le y \\le 5$", "$y \\ge 0$", "All real numbers"], "The square root is non-negative and at most 5 (when x = 0). Range: 0 ≤ y ≤ 5."),
+        qa("y11adv-cir-m9", "Does $(5,\\,5)$ lie on $x^2 + y^2 = 50$? Enter yes or no.", "5^2 + 5^2 = 25 + 25", "yes", "Check 25 + 25 against r².", "5² + 5² = 25 + 25 = 50 = r². Yes, the point lies on the circle."),
+        qa("y11adv-cir-m10", "A circle passes through $(0,\\,11)$. Find its radius.", "r^2 = 0^2 + 11^2 = 121", "11", "r² = 0 + 121 = 121.", "r² = 0² + 11² = 121. r = √121 = 11."),
+      ],
+    };
+  }
+
+  if (lesson.slug === "piecewise-defined-functions") {
+    return {
+      ...base,
+      description:
+        "Interpret and graph piecewise-defined functions; evaluate piecewise rules at specific inputs; determine domain, range and continuity; test for even or odd symmetry.",
+      learningIntention:
+        "Evaluate, interpret and classify piecewise-defined functions, including identifying continuity and symmetry.",
+      successCriteria: [
+        "Evaluate a piecewise function at a given input by selecting the correct rule.",
+        "State the domain and range of a piecewise-defined function.",
+        "Determine whether a piecewise function is continuous at a boundary point.",
+        "Test whether a piecewise function is even, odd or neither using the f(−x) test.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A piecewise-defined function uses different rules on different parts of its domain. Each rule applies only to the inputs in its specified interval. To evaluate f(a), find which interval contains a and use only that rule.",
+          "Pay careful attention to strict inequalities (< or >) versus non-strict inequalities (≤ or ≥) at boundary values. The boundary value belongs to exactly one piece — whichever uses ≤ or ≥ at that value.",
+          "A piecewise function is continuous if its pieces join without gaps or jumps. At each boundary value x = a, calculate the output from each piece: if both give the same value, the function is continuous there. If they differ, the function is discontinuous at x = a.",
+          "To test for even or odd symmetry, apply the f(−x) test to every piece. If f(−x) = f(x) for all x in the domain, the function is even. If f(−x) = −f(x) for all x, it is odd. If neither condition holds for all x, the function is neither even nor odd.",
+        ],
+        latexBlocks: [
+          "f(x) = \\begin{cases} g(x) & x < a \\\\ h(x) & x \\ge a \\end{cases}",
+          "\\text{Even: } f(-x) = f(x) \\text{ for all } x \\quad \\text{Odd: } f(-x) = -f(x) \\text{ for all } x",
+          "\\text{Continuous at } x=a \\text{ if output from each side equals } f(a)",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Evaluate a piecewise function at two inputs",
+          questionLatex: "f(x) = \\begin{cases} 2x & x < 0 \\\\ x^2+1 & x \\ge 0 \\end{cases}, \\quad f(3) \\text{ and } f(-2)",
+          steps: [
+            {
+              explanation: "For f(3): x = 3 ≥ 0, so use the rule x² + 1.",
+              latex: "f(3) = 3^2 + 1 = 10",
+            },
+            {
+              explanation: "For f(−2): x = −2 < 0, so use the rule 2x.",
+              latex: "f(-2) = 2(-2) = -4",
+            },
+          ],
+          finalAnswerLatex: "f(3) = 10, \\quad f(-2) = -4",
+        },
+        {
+          title: "Test continuity at a boundary",
+          questionLatex: "f(x) = \\begin{cases} x+4 & x < 1 \\\\ 2x+3 & x \\ge 1 \\end{cases}",
+          steps: [
+            {
+              explanation: "Evaluate the left-side rule as x approaches 1.",
+              latex: "\\lim_{x \\to 1^-} (x+4) = 1+4 = 5",
+            },
+            {
+              explanation: "Evaluate the right-side rule at x = 1.",
+              latex: "f(1) = 2(1)+3 = 5",
+            },
+            {
+              explanation: "Both sides give 5, so the function is continuous at x = 1.",
+            },
+          ],
+          finalAnswerLatex: "\\text{Continuous at }x=1 \\text{ (both sides equal 5)}",
+        },
+        {
+          title: "Test whether a piecewise function is odd",
+          questionLatex: "f(x) = \\begin{cases} x^2 & x \\ge 0 \\\\ -x^2 & x < 0 \\end{cases}",
+          steps: [
+            {
+              explanation: "Compute f(−x) using the appropriate piece for each region.",
+              latex: "f(-x) = -(-x)^2 = -x^2 \\quad (\\text{when } {-x} < 0 \\text{, i.e. } x > 0)",
+            },
+            {
+              explanation: "Compare f(−x) with −f(x). For x > 0: f(x) = x², so −f(x) = −x².",
+              latex: "f(-x) = -x^2 = -f(x) \\checkmark",
+            },
+          ],
+          finalAnswerLatex: "f \\text{ is odd}",
+        },
+      ],
+      guidedPractice: [
+        qa("y11adv-piece-g1", "Evaluate $f(3)$ for the displayed piecewise function.", "f(x) = \\begin{cases} 2x & x < 0 \\\\ x^2+1 & x \\ge 0 \\end{cases}", "10", "x = 3 ≥ 0, so use the rule x² + 1.", "Since 3 ≥ 0, use f(x) = x² + 1: f(3) = 9 + 1 = 10."),
+        qa("y11adv-piece-g2", "Evaluate $f(-2)$ for the displayed piecewise function.", "f(x) = \\begin{cases} 2x & x < 0 \\\\ x^2+1 & x \\ge 0 \\end{cases}", "-4", "x = −2 < 0, so use the rule 2x.", "Since −2 < 0, use f(x) = 2x: f(−2) = 2(−2) = −4.", ["-4", "−4"]),
+        practicalChoice("y11adv-piece-g3", "A piecewise function's pieces join without any gap or jump at the boundary. This means the function is:", "B", ["Discontinuous", "Continuous", "Undefined at the boundary", "Neither odd nor even"], "When output values from both sides of a boundary are equal, the function is continuous — its graph has no gap or jump."),
+        practicalChoice("y11adv-piece-g4", "The function $f(x) = \\begin{cases} 1/x & x < -1 \\\\ x+2 & x > 1 \\end{cases}$ is not defined for:", "D", ["$x=-1$ only", "$x=1$ only", "$x=0$ only", "$-1 \\le x \\le 1$"], "The function is only defined for x < −1 and x > 1. Every value in the closed interval [−1, 1] is excluded from the domain."),
+      ],
+      independentPractice: [
+        qa("y11adv-piece-i1", "Evaluate $f(2)$ for the displayed piecewise function.", "f(x) = \\begin{cases} x+5 & x \\le 2 \\\\ 3x-1 & x > 2 \\end{cases}", "7", "x = 2 satisfies x ≤ 2, so use x + 5.", "Since 2 ≤ 2, use f(x) = x + 5: f(2) = 2 + 5 = 7."),
+        qa("y11adv-piece-i2", "Evaluate $f(4)$ for the displayed piecewise function.", "f(x) = \\begin{cases} x+5 & x \\le 2 \\\\ 3x-1 & x > 2 \\end{cases}", "11", "x = 4 > 2, so use 3x − 1.", "Since 4 > 2, use f(x) = 3x − 1: f(4) = 12 − 1 = 11."),
+        practicalChoice("y11adv-piece-i3", "For $f(x) = \\begin{cases} x^2 & x \\ge 0 \\\\ -x^2 & x < 0 \\end{cases}$, we find $f(-x) = -f(x)$ for all $x$. The function is:", "B", ["Even", "Odd", "Neither", "Both even and odd"], "f(−x) = −f(x) is the defining condition for an odd function. The function has origin symmetry."),
+        qa("y11adv-piece-i4", "Evaluate $f(-5)$ for the displayed function.", "f(x) = \\begin{cases} 3 & x < 0 \\\\ 0 & x = 0 \\\\ -3 & x > 0 \\end{cases}", "3", "x = −5 < 0, use the rule for negative x.", "Since −5 < 0, f(−5) = 3."),
+        qa("y11adv-piece-i5", "Evaluate $f(5)$ for the displayed function.", "f(x) = \\begin{cases} x+3 & x < 2 \\\\ 7 & x \\ge 2 \\end{cases}", "7", "x = 5 ≥ 2, so use the constant rule.", "Since 5 ≥ 2, f(5) = 7."),
+      ],
+      commonMistakes: [
+        { mistake: "Using the wrong piece when a boundary value can appear in two conditions.", fix: "Only one inequality at each boundary can include equality. The boundary belongs to the piece that uses ≤ or ≥ at that value." },
+        { mistake: "Evaluating all pieces and combining or averaging the outputs.", fix: "Only one rule applies at each x-value. Find which interval contains x and apply that rule alone." },
+        { mistake: "Assuming a piecewise function is always discontinuous.", fix: "A piecewise function is continuous if outputs match at every boundary. The piecewise form does not automatically mean discontinuous." },
+        { mistake: "Applying the even/odd test to only one piece rather than checking all pieces.", fix: "f(−x) = ±f(x) must hold for every x in the domain — verify the test on both pieces and at boundary values." },
+      ],
+      masteryQuiz: [
+        qa("y11adv-piece-m1", "Evaluate $f(-3)$ for the displayed function.", "f(x) = \\begin{cases} 2x+1 & x < 0 \\\\ x-3 & x \\ge 0 \\end{cases}", "-5", "x = −3 < 0, use 2x + 1.", "f(−3) = 2(−3) + 1 = −6 + 1 = −5.", ["-5", "−5"]),
+        qa("y11adv-piece-m2", "Evaluate $f(0)$ for the displayed function.", "f(x) = \\begin{cases} 2x+1 & x < 0 \\\\ x-3 & x \\ge 0 \\end{cases}", "-3", "x = 0 ≥ 0, use x − 3.", "f(0) = 0 − 3 = −3.", ["-3", "−3"]),
+        qa("y11adv-piece-m3", "Evaluate $f(3)$ for the displayed function.", "f(x) = \\begin{cases} x^2-1 & x \\le 3 \\\\ 2x+5 & x > 3 \\end{cases}", "8", "x = 3 satisfies x ≤ 3, use x² − 1.", "f(3) = 3² − 1 = 9 − 1 = 8."),
+        qa("y11adv-piece-m4", "Evaluate $f(5)$ for the displayed function.", "f(x) = \\begin{cases} x^2-1 & x \\le 3 \\\\ 2x+5 & x > 3 \\end{cases}", "15", "x = 5 > 3, use 2x + 5.", "f(5) = 2(5) + 5 = 10 + 5 = 15."),
+        practicalChoice("y11adv-piece-m5", "The function $f(x) = x^2$ satisfies $f(-x) = x^2 = f(x)$ for all $x$. It is:", "B", ["Odd", "Even", "Neither", "Piecewise only"], "f(−x) = (−x)² = x² = f(x) for all x confirms the function is even."),
+        practicalChoice("y11adv-piece-m6", "The constant function $f(x) = 3$ for all $x$ satisfies $f(-x) = ?$", "B", ["$-3$", "$3$", "$0$", "Undefined"], "f(−x) = 3 = f(x) for all x. The constant function is even."),
+        qa("y11adv-piece-m7", "For $f(x) = \\begin{cases} x+4 & x < 1 \\\\ 2x+3 & x \\ge 1 \\end{cases}$, find the common boundary value (from each side at $x = 1$).", "\\lim_{x \\to 1^-}(x+4)=5,\\quad f(1)=2(1)+3=5", "5", "Evaluate each piece at x = 1 and compare.", "Left: 1 + 4 = 5. Right: 2(1) + 3 = 5. Both equal 5, so f is continuous at x = 1. The common value is 5."),
+        practicalChoice("y11adv-piece-m8", "Which piecewise rule is equivalent to $|x|$?", "B", ["$f(x)=\\begin{cases} -x & x \\ge 0 \\\\ x & x < 0 \\end{cases}$", "$f(x)=\\begin{cases} x & x \\ge 0 \\\\ -x & x < 0 \\end{cases}$", "$f(x)=x$ for all $x$", "$f(x)=x^2$ for all $x$"], "|x| returns x for non-negative inputs and −x for negative inputs. This matches option B."),
+        qa("y11adv-piece-m9", "Evaluate $f(-7)$ for $f(x) = \\begin{cases} x & x > 0 \\\\ -x & x < 0 \\\\ 0 & x = 0 \\end{cases}$.", "f(x) = |x|", "7", "x = −7 < 0, so f(−7) = −(−7).", "Since −7 < 0, use f(x) = −x: f(−7) = −(−7) = 7."),
+        practicalChoice("y11adv-piece-m10", "The domain of $f(x) = \\begin{cases} 1/(x-2) & x > 3 \\\\ x+1 & x \\le 1 \\end{cases}$ is:", "C", ["All real numbers", "$x \\ne 2$", "$x > 3$ or $x \\le 1$", "$1 < x < 3$"], "The function is defined only where x > 3 or x ≤ 1. The interval (1, 3] is not covered by either piece."),
       ],
     };
   }
