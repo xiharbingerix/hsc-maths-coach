@@ -3856,6 +3856,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "spending-and-budgets", title: "Spending and Budgets" },
           { slug: "simple-interest", title: "Simple Interest" },
           { slug: "deposits-and-repayments", title: "Deposits and Repayments" },
+          { slug: "buy-now-pay-later-loans", title: "Buy Now Pay Later and Short-Term Loans" },
         ],
       },
       {

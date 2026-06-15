@@ -338,6 +338,92 @@ const repayments: LessonContent = {
   ],
 };
 
+const buyNowPayLater: LessonContent = {
+  description: "Analyse buy now pay later (BNPL) schemes and compare short-term loan options using total repayment cost.",
+  learningIntention: "Evaluate BNPL schemes and short-term loans by calculating total amounts paid and identifying when fees apply.",
+  successCriteria: [
+    "Explain how a BNPL scheme works, including interest-free periods and late fees.",
+    "Calculate the total cost of a BNPL purchase when all payments are made on time.",
+    "Calculate the total cost when a late fee is charged.",
+    "Calculate total repayment and interest paid on a short-term loan.",
+    "Compare two loan options and identify the cheaper choice using total repayment.",
+  ],
+  teaching: {
+    paragraphs: [
+      "A buy now pay later (BNPL) scheme lets you take an item immediately and pay for it in equal instalments, usually fortnightly. No interest is charged if every instalment is paid on time — the total paid equals the item price. However, a fee applies for each missed or late payment, which increases the total cost above the item price.",
+      "A short-term loan charges interest on the amount borrowed. Total repayment equals the amount borrowed plus total interest. To compare two loan options, calculate the total repayment for each — the loan with the lower total repayment is the cheaper choice, even if it has a shorter term or higher instalments.",
+      "When deciding between BNPL and a short-term loan, compare the total amounts paid under each option. BNPL costs less than a loan only if every payment is made on time; a single late fee can shift the comparison. Always use the same item price as the reference point.",
+    ],
+    latexBlocks: [
+      "\\text{BNPL total (on time)} = \\text{item price}",
+      "\\text{BNPL total (with late fee)} = \\text{item price} + \\text{late fees}",
+      "\\text{total repayment} = \\text{amount borrowed} + \\text{total interest}",
+      "\\text{interest paid} = \\text{total repayment} - \\text{amount borrowed}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "BNPL total paid on time",
+      questionLatex: "\\text{A }\\$500\\text{ purchase is split into 4 fortnightly payments of }\\$125.\\text{ Find the total paid if all payments are on time.}",
+      steps: [
+        { explanation: "Multiply the number of payments by each payment amount.", latex: "4 \\times 125 = 500" },
+        { explanation: "Check: the total equals the item price, so no extra cost.", latex: "\\text{total paid} = \\$500" },
+      ],
+      finalAnswerLatex: "\\$500",
+    },
+    {
+      title: "BNPL with a late fee",
+      questionLatex: "\\text{The same }\\$500\\text{ purchase has 4 payments of }\\$125.\\text{ A }\\$10\\text{ late fee applies for one missed payment. Find the total paid.}",
+      steps: [
+        { explanation: "The base total is the item price.", latex: "4 \\times 125 = 500" },
+        { explanation: "Add the late fee.", latex: "500 + 10 = 510" },
+      ],
+      finalAnswerLatex: "\\$510",
+    },
+    {
+      title: "Short-term loan comparison",
+      questionLatex: "\\text{Loan A: borrow }\\$800,\\text{ repay }\\$960\\text{ over 6 months. Loan B: borrow }\\$800,\\text{ repay }\\$860\\text{ over 3 months. Which is cheaper?}",
+      steps: [
+        { explanation: "Find the interest paid on Loan A.", latex: "960 - 800 = 160" },
+        { explanation: "Find the interest paid on Loan B.", latex: "860 - 800 = 60" },
+        { explanation: "Compare total repayments: $960 versus $860.", latex: "\\$860 < \\$960" },
+      ],
+      finalAnswerLatex: "\\text{Loan B is cheaper by }\\$100",
+    },
+  ],
+  guidedPractice: [
+    money("y9-fin-bnp-g1", "A 400 dollar purchase is split into 4 fortnightly BNPL payments. Find the exact amount of each payment if no fee is charged.", "\\text{BNPL: }\\$400\\text{ in 4 equal payments}", "100", "Divide $400 by 4."),
+    money("y9-fin-bnp-g2", "A 600 dollar BNPL purchase is paid in 4 instalments of 150 dollars. One payment is missed and a 15 dollar late fee applies. Find the exact total paid.", "\\text{4 payments of }\\$150,\\quad \\text{late fee }\\$15", "615", "The base total is $600; add the $15 late fee."),
+    money("y9-fin-bnp-g3", "A short-term loan borrows 800 dollars and requires total repayments of 960 dollars over 6 months. Find the exact total interest paid.", "\\text{borrowed }\\$800,\\quad \\text{total repayment }\\$960", "160", "Subtract the amount borrowed from total repayment."),
+    choice("y9-fin-bnp-g4", "Loan A totals 960 dollars repaid. Loan B totals 860 dollars repaid. Both loans borrow 800 dollars. Which is the cheaper loan?", "B", ["Loan A, because it has more time", "Loan B, because the total repayment is lower", "They cost the same", "Loan A, because the repayments are spread over longer"], "Compare total repayment — lower total means less paid overall."),
+  ],
+  independentPractice: [
+    money("y9-fin-bnp-i1", "A 500 dollar purchase is split into 4 fortnightly BNPL payments of 125 dollars each. Find the exact total paid when all payments are on time.", "\\text{4 payments of }\\$125", "500", "Multiply 4 by $125; no fee means the total equals the item price."),
+    money("y9-fin-bnp-i2", "A BNPL plan splits a 720 dollar purchase into 6 fortnightly payments. Find the exact amount of each payment.", "\\text{BNPL: }\\$720\\text{ in 6 equal payments}", "120", "Divide $720 by 6."),
+    money("y9-fin-bnp-i3", "A 500 dollar BNPL purchase has 4 payments of 125 dollars. Two payments are missed and each attracts a 10 dollar late fee. Find the exact total paid.", "\\text{4 payments of }\\$125,\\quad \\text{two late fees of }\\$10\\text{ each}", "520", "The base total is $500; add two $10 fees."),
+    money("y9-fin-bnp-i4", "A short-term loan borrows 800 dollars and requires total repayments of 860 dollars over 3 months. Find the exact interest paid.", "\\text{borrowed }\\$800,\\quad \\text{total repayment }\\$860", "60", "Subtract the amount borrowed from total repayment."),
+    choice("y9-fin-bnp-i5", "A 500 dollar item can be paid by BNPL (4 payments of 125 dollars, on time) or by cash upfront. Which option costs more?", "C", ["BNPL costs more by $125", "Cash costs more by $125", "They cost the same", "BNPL costs more by $500"], "BNPL on time totals the item price — same as cash."),
+  ],
+  commonMistakes: [
+    { mistake: "Thinking BNPL always costs more than the item price.", fix: "BNPL costs exactly the item price when all payments are made on time; extra cost only applies if a late fee is charged." },
+    { mistake: "Comparing monthly repayment amounts instead of total repayment.", fix: "Use total repayment — the sum of all payments — to compare loan costs fairly." },
+    { mistake: "Forgetting to add the late fee to find the true total.", fix: "Add any late or missed-payment fees to the item price to get the actual total paid." },
+    { mistake: "Subtracting total repayment from itself to find interest.", fix: "Interest paid equals total repayment minus the original amount borrowed." },
+  ],
+  masteryQuiz: [
+    money("y9-fin-bnp-m1", "A 480 dollar purchase is split into 4 equal BNPL payments. Find the exact amount of each payment.", "\\text{BNPL: }\\$480\\text{ in 4 payments}", "120", "Divide $480 by 4."),
+    money("y9-fin-bnp-m2", "A 480 dollar BNPL purchase has 4 payments of 120 dollars each. One payment is missed and a 12 dollar late fee applies. Find the exact total paid.", "\\text{4 payments of }\\$120,\\quad \\text{late fee }\\$12", "492", "The base total is $480; add the $12 late fee."),
+    choice("y9-fin-bnp-m3", "Which statement correctly describes a BNPL scheme with no late fees?", "A", ["The total paid equals the item price", "The total paid is less than the item price", "Interest is always charged", "The fee is paid upfront"], "No fee means total paid equals the item price."),
+    money("y9-fin-bnp-m4", "A short-term loan borrows 1000 dollars and requires total repayments of 1150 dollars. Find the exact interest paid.", "\\text{borrowed }\\$1000,\\quad \\text{total repayment }\\$1150", "150", "Subtract $1000 from $1150."),
+    money("y9-fin-bnp-m5", "Loan A: borrow 600 dollars, repay 690 dollars over 4 months. Loan B: borrow 600 dollars, repay 660 dollars over 2 months. Find the exact interest paid on Loan A.", "\\text{borrowed }\\$600,\\quad \\text{Loan A total repayment }\\$690", "90", "Subtract $600 from $690."),
+    money("y9-fin-bnp-m6", "Using the same loans, find the exact interest paid on Loan B (total repayment 660 dollars on 600 dollars borrowed).", "\\text{borrowed }\\$600,\\quad \\text{Loan B total repayment }\\$660", "60", "Subtract $600 from $660."),
+    choice("y9-fin-bnp-m7", "Loan A total repayment is 690 dollars. Loan B total repayment is 660 dollars. Both borrow 600 dollars. Which loan is cheaper?", "B", ["Loan A, because it has more repayments", "Loan B, because the total repayment is lower", "They cost the same amount", "Loan A, because it lasts longer"], "Lower total repayment means less paid overall."),
+    money("y9-fin-bnp-m8", "A 360 dollar BNPL purchase is split into 6 fortnightly payments. Three payments are missed and each attracts a 10 dollar late fee. Find the exact total paid.", "\\text{6 payments of }\\$60,\\quad \\text{three late fees of }\\$10", "390", "The base total is $360; add three $10 fees."),
+    choice("y9-fin-bnp-m9", "A 500 dollar item can be paid by BNPL (4 payments of 125 dollars, but one payment is missed with a 10 dollar fee) or by cash. Which is cheaper?", "B", ["BNPL is cheaper by $10", "Cash is cheaper by $10", "They cost the same", "BNPL is cheaper by $125"], "BNPL total is $510 (one late fee); cash is $500."),
+    choice("y9-fin-bnp-m10", "Which of the following correctly calculates total interest paid on a short-term loan?", "C", ["total repayment + amount borrowed", "amount borrowed - total repayment", "total repayment - amount borrowed", "amount borrowed x number of payments"], "Interest is the extra amount paid above the original loan."),
+  ],
+};
+
 const lessons: Record<string, LessonContent> = {
   "wages-and-earnings": wages,
   "penalty-rates-overtime": penalties,
@@ -346,6 +432,7 @@ const lessons: Record<string, LessonContent> = {
   "spending-and-budgets": budgets,
   "simple-interest": simpleInterest,
   "deposits-and-repayments": repayments,
+  "buy-now-pay-later-loans": buyNowPayLater,
 };
 
 export function year9FinancialMathematicsLessonOverride(course: CoursePathwaySeed, unit: CourseUnitSeed, lesson: CourseLessonSeed): Partial<ExplicitLesson> | null {
