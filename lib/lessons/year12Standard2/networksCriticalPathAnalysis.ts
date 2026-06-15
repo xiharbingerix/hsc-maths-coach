@@ -765,6 +765,264 @@ export function year12Standard2NetworksLessonOverride(
     };
   }
 
+  if (lesson.slug === "critical-path-revision") {
+    return {
+      ...base,
+      description:
+        "Activate Year 11 network scheduling foundations: read precedence tables, identify predecessor relationships, sequence activities, and calculate path totals through an activity network.",
+      learningIntention:
+        "Recall the skills for reading precedence tables and sequencing activities so that earliest start times, float and critical path analysis can be approached systematically.",
+      successCriteria: [
+        "Read a precedence (dependency) table and identify which activities must be completed before each task begins.",
+        "List activities in a valid sequence that satisfies all precedence constraints.",
+        "Calculate the total duration of a given path through an activity network.",
+        "Identify the longest path through a simple network and explain why it controls the project duration.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A precedence table lists each activity, its duration, and the activities that must be completed before it can start (its predecessors). An activity with no predecessor can start immediately (at time 0). An activity with one or more predecessors must wait until all predecessors are finished.",
+          "To draw or check an activity network, work through the precedence table in order. Place activities with no predecessor first, then connect each activity to its predecessors. All predecessors must be complete before the next activity can start.",
+          "A path is a sequence of connected activities from start to finish. The path total (duration) is the sum of the durations of all activities on that path. The critical path is the longest path; it determines the minimum project completion time.",
+          "Float (slack) is the amount of time an activity can be delayed without delaying the project. Activities on the critical path have zero float — any delay to them delays the whole project. Activities not on the critical path have positive float.",
+        ],
+        latexBlocks: [
+          "\\text{Path total} = \\sum \\text{durations of activities on the path}",
+          "\\text{Project completion time} = \\text{length of the critical (longest) path}",
+          "\\text{Float} = \\text{latest allowable start} - \\text{earliest possible start}",
+          "\\text{Critical path: float} = 0\\text{ for every activity on it}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Read a precedence table and list valid sequences",
+          questionLatex:
+            "\\text{Activity table: A(3, none), B(2, none), C(4, A), D(3, B), E(2, C,D). List two valid activity sequences.}",
+          steps: [
+            {
+              explanation: "A and B have no predecessors → can start first. C needs A done; D needs B done; E needs both C and D done.",
+              latex: "\\text{Sequence 1: } A, B, C, D, E",
+            },
+            {
+              explanation: "A and B can run in parallel. Another valid sequence lists B before A.",
+              latex: "\\text{Sequence 2: } B, A, D, C, E",
+            },
+          ],
+          finalAnswerLatex: "A, B, C, D, E\\;\\text{(or }B, A, D, C, E\\text{)}",
+          diagram: {
+            description: "AON network: Start → A → C → E, Start → B → D → E → End.",
+            vertices: [
+              { id: "S", label: "Start", x: 0, y: 2 },
+              { id: "A", label: "A (3)", x: 2, y: 3.5 },
+              { id: "B", label: "B (2)", x: 2, y: 0.5 },
+              { id: "C", label: "C (4)", x: 4, y: 3.5 },
+              { id: "D", label: "D (3)", x: 4, y: 0.5 },
+              { id: "E", label: "E (2)", x: 6, y: 2 },
+              { id: "F", label: "End", x: 8, y: 2 },
+            ],
+            edges: [
+              { from: "S", to: "A", directed: true },
+              { from: "S", to: "B", directed: true },
+              { from: "A", to: "C", directed: true },
+              { from: "B", to: "D", directed: true },
+              { from: "C", to: "E", directed: true },
+              { from: "D", to: "E", directed: true },
+              { from: "E", to: "F", directed: true },
+            ],
+          },
+        },
+        {
+          title: "Calculate path totals",
+          questionLatex:
+            "\\text{Activity durations: A=5, B=3, C=4, D=6, E=2. Paths through the network: (i) A→C→E, (ii) A→D, (iii) B→D. Find each path total.}",
+          steps: [
+            {
+              explanation: "(i) A→C→E = 5 + 4 + 2 = 11.",
+              latex: "5 + 4 + 2 = 11",
+            },
+            {
+              explanation: "(ii) A→D = 5 + 6 = 11. (iii) B→D = 3 + 6 = 9.",
+              latex: "A \\to D = 11,\\quad B \\to D = 9",
+            },
+          ],
+          finalAnswerLatex: "A \\to C \\to E = 11,\\quad A \\to D = 11,\\quad B \\to D = 9",
+        },
+        {
+          title: "Identify the critical path",
+          questionLatex:
+            "\\text{A project has three paths: P1 = 8 days, P2 = 11 days, P3 = 9 days. What is the critical path and the project completion time?}",
+          steps: [
+            {
+              explanation: "The critical path is the longest path. P2 = 11 days is the longest.",
+              latex: "\\text{Critical path: P2},\\quad \\text{completion time} = 11\\text{ days}",
+            },
+            {
+              explanation: "P1 has float 11 − 8 = 3 days. P3 has float 11 − 9 = 2 days. Critical path has 0 float.",
+              latex: "\\text{Float(P1)} = 3,\\quad \\text{Float(P3)} = 2",
+            },
+          ],
+          finalAnswerLatex: "\\text{Critical path: P2 (11 days). P1 float}=3,\\;\\text{P3 float}=2.",
+        },
+      ],
+      guidedPractice: [
+        labelledChoice(
+          "y12s2-cpr-g1",
+          "Activity E has predecessors C and D. Activity E can start only when:",
+          "C",
+          ["C is complete", "D is complete", "Both C and D are complete", "Either C or D is complete"],
+          "All listed predecessors must be complete before an activity can begin."
+        ),
+        shortAnswer(
+          "y12s2-cpr-g2",
+          "Activity durations: A=4, B=6, C=3. Path A→C has total:",
+          "4 + 3",
+          "7",
+          ["7.0"]
+        ),
+        labelledChoice(
+          "y12s2-cpr-g3",
+          "Three paths through a project have durations 10, 14, 12 days. The project completion time is:",
+          "B",
+          ["10 days", "14 days", "12 days", "36 days"],
+          "The critical (longest) path controls the project. Duration = 14 days."
+        ),
+        shortAnswer(
+          "y12s2-cpr-g4",
+          "Activity A has no predecessors, duration 5. Activity B depends on A, duration 3. Earliest B can finish =",
+          "5 + 3",
+          "8",
+          ["8.0"]
+        ),
+      ],
+      independentPractice: [
+        labelledChoice(
+          "y12s2-cpr-i1",
+          "Which activities can start at time 0 in: A(none), B(A), C(none), D(B,C)?",
+          "C",
+          ["A only", "C only", "A and C", "A, B and C"],
+          "Activities with no predecessors can start immediately: A and C."
+        ),
+        shortAnswer(
+          "y12s2-cpr-i2",
+          "Path durations: A=3, C=7, E=2. Path total A→C→E =",
+          "3 + 7 + 2",
+          "12",
+          ["12.0"]
+        ),
+        labelledChoice(
+          "y12s2-cpr-i3",
+          "An activity is on the critical path. Its float is:",
+          "A",
+          ["0", "1", "The path total", "The project duration"],
+          "Critical path activities have zero float — any delay affects the project."
+        ),
+        shortAnswer(
+          "y12s2-cpr-i4",
+          "Paths: P1=8, P2=11, P3=7 days. Float for P1 =",
+          "11 - 8",
+          "3",
+          ["3.0", "3 days"]
+        ),
+        labelledChoice(
+          "y12s2-cpr-i5",
+          "Activity C (predecessor B, duration 5) and B ends at time 7. The earliest C can finish is:",
+          "C",
+          ["5", "7", "12", "35"],
+          "C starts at 7 (when B finishes) and takes 5, so earliest finish = 7 + 5 = 12."
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Starting an activity before all its predecessors are complete (starting E when only C is done, but D is still running).",
+          fix: "All listed predecessors must be finished before the next activity can begin. If E depends on both C and D, then E's earliest start is max(finish of C, finish of D).",
+        },
+        {
+          mistake: "Choosing the shortest path as the critical path.",
+          fix: "The critical path is the LONGEST path. It controls the project because all activities on it must be completed in sequence — any delay extends the whole project. Use the longest path total as the project completion time.",
+        },
+        {
+          mistake: "Calculating float as 'longest path − shortest path' instead of 'longest path − this path'.",
+          fix: "Float for each path = project completion time (longest path) minus the duration of that specific path. If the critical path is 14 and path P1 = 10, then float(P1) = 14 − 10 = 4 days.",
+        },
+        {
+          mistake: "Adding all activity durations in the table to get the project duration.",
+          fix: "The project duration is the length of the longest SINGLE PATH through the network, not the sum of all activities. Activities in parallel don't add to the project duration — only activities in sequence on the critical path matter.",
+        },
+      ],
+      masteryQuiz: [
+        labelledChoice(
+          "y12s2-cpr-m1",
+          "Activity G has predecessors D and E. G starts when:",
+          "C",
+          ["D finishes", "E finishes", "Both D and E finish", "G has no constraint"],
+          "All predecessors must finish before G can start."
+        ),
+        shortAnswer(
+          "y12s2-cpr-m2",
+          "Durations: A=5, B=3, D=4. Path total A→D =",
+          "5 + 4",
+          "9",
+          ["9.0"]
+        ),
+        labelledChoice(
+          "y12s2-cpr-m3",
+          "Three paths: 8, 15, 11 days. Project completion time =",
+          "B",
+          ["8 days", "15 days", "11 days", "34 days"],
+          "Longest path = 15 days = project completion time."
+        ),
+        shortAnswer(
+          "y12s2-cpr-m4",
+          "Critical path = 15 days. Path P3 = 11 days. Float for P3 =",
+          "15 - 11",
+          "4",
+          ["4.0", "4 days"]
+        ),
+        labelledChoice(
+          "y12s2-cpr-m5",
+          "Activities A (none, 4) and B (none, 6) can both start at time 0. C depends on both A and B, duration 3. Earliest finish of C =",
+          "C",
+          ["7", "10", "9", "13"],
+          "B finishes last at time 6. C starts at 6 and takes 3 → finish = 9."
+        ),
+        shortAnswer(
+          "y12s2-cpr-m6",
+          "Path P1: A(3)+C(5)+E(2) = ?",
+          "3 + 5 + 2",
+          "10",
+          ["10.0"]
+        ),
+        labelledChoice(
+          "y12s2-cpr-m7",
+          "On the critical path, if one activity is delayed by 2 days, the project completion:",
+          "B",
+          ["Is unaffected", "Is delayed by 2 days", "Is shortened by 2 days", "Depends on other paths"],
+          "Critical path activities have zero float, so any delay extends the project by the same amount."
+        ),
+        shortAnswer(
+          "y12s2-cpr-m8",
+          "Project has 4 activities with durations 5, 3, 4, 6. Path total for all 4 in sequence =",
+          "5 + 3 + 4 + 6",
+          "18",
+          ["18.0"]
+        ),
+        labelledChoice(
+          "y12s2-cpr-m9",
+          "Paths: P1=9, P2=13, P3=11 days. Which activity has zero float?",
+          "B",
+          ["P1 activities", "P2 activities", "P3 activities", "All activities"],
+          "Zero float belongs to activities on the critical (longest) path: P2 = 13 days."
+        ),
+        labelledChoice(
+          "y12s2-cpr-m10",
+          "A project must be completed in 12 days. Critical path currently = 15 days. Float of critical path =",
+          "A",
+          ["0", "3", "−3", "12"],
+          "Critical path always has float = 0. The project cannot meet the deadline without shortening the critical path."
+        ),
+      ],
+    };
+  }
+
   if (lesson.slug === "critical-path-analysis") {
     return {
       ...base,

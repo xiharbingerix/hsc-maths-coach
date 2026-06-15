@@ -73,6 +73,7 @@ import {
   year12Extension1NewtonCoolingLessonOverride,
   year12Extension1VectorsProjectionLessonOverride,
   year12Extension1VectorsMotionLessonOverride,
+  year12Extension1SlopeFieldsLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9ConstantRatesOfChangeLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
@@ -286,6 +287,7 @@ export function buildLesson(
     year12Extension1NewtonCoolingLessonOverride(course, unit, lesson) ??
     year12Extension1VectorsProjectionLessonOverride(course, unit, lesson) ??
     year12Extension1VectorsMotionLessonOverride(course, unit, lesson) ??
+    year12Extension1SlopeFieldsLessonOverride(course, unit, lesson) ??
     year12Extension2ComplexNumbersLessonOverride(course, unit, lesson) ??
     year12Extension2Vectors3DLessonOverride(course, unit, lesson) ??
     year12Extension2CalculusLessonOverride(course, unit, lesson) ??
@@ -688,6 +690,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus: "Bivariate data and normal distribution",
         lessons: [
           {
+            slug: "bivariate-data-revision",
+            title: "Bivariate Data Revision",
+            description:
+              "Consolidate Year 11 univariate data skills: calculate mean, median, mode, range and standard deviation, read dot plots and histograms, and interpret data spread — preparation for scatterplot, correlation and regression lessons.",
+          },
+          {
             slug: "bivariate-data-scatterplots",
             title: "Bivariate Data and Scatterplots",
             description:
@@ -768,6 +776,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Network Flow, Capacity and Cuts",
             description:
               "Interpret directed flow networks, capacities, bottlenecks, feasible flow, cuts, and maximum-flow limits in practical contexts.",
+          },
+          {
+            slug: "critical-path-revision",
+            title: "Critical Path Revision",
+            description:
+              "Activate Year 11 network scheduling foundations: read precedence tables, identify predecessor relationships, sequence activities, and calculate simple path totals — preparation for earliest start, float and critical path analysis.",
           },
           {
             slug: "critical-path-analysis",

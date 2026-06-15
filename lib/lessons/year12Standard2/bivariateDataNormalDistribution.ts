@@ -83,6 +83,248 @@ export function year12Standard2StatisticsLessonOverride(
     masteryPassMark: 0.8,
   };
 
+  if (lesson.slug === "bivariate-data-revision") {
+    return {
+      ...base,
+      description:
+        "Consolidate Year 11 univariate data skills: calculate mean, median, mode and range from a data set, read dot plots and histograms, and interpret the shape and spread of a distribution — preparation for scatterplots, correlation and z-scores.",
+      learningIntention:
+        "Recall and apply Year 11 data summary and display skills so that Year 12 bivariate data, regression and normal distribution work builds on solid statistical foundations.",
+      successCriteria: [
+        "Calculate the mean, median, mode and range of a small data set.",
+        "Read a frequency table, dot plot or histogram to extract data values or frequencies.",
+        "Describe a distribution's shape (symmetric, skewed left, skewed right) and identify any outliers.",
+        "Interpret standard deviation as a measure of spread — larger SD means values are more spread out from the mean.",
+      ],
+      teaching: {
+        paragraphs: [
+          "The mean is the arithmetic average: add all values, divide by how many there are. The median is the middle value when data is ordered (or the average of the two middle values for even-sized sets). The mode is the most frequently occurring value. The range = maximum − minimum.",
+          "A frequency table or dot plot shows how often each value occurs. To find the median from a dot plot, count inward from both ends until you reach the middle. To find the mean from a frequency table: multiply each value by its frequency, add all products, then divide by the total frequency.",
+          "Distribution shape: a symmetric distribution has a roughly mirror-image appearance around the centre; the mean ≈ median. A right-skewed (positively skewed) distribution has a long tail to the right; mean > median. A left-skewed distribution has a tail to the left; mean < median. Outliers are values that sit far from the rest of the data.",
+          "Standard deviation (SD) measures how spread out the values are around the mean. A small SD means data is clustered close to the mean; a large SD means data is widely spread. You do not need to calculate SD from scratch — you will read it from a calculator or table. The key skill is interpreting what it means in context.",
+        ],
+        latexBlocks: [
+          "\\bar{x} = \\frac{\\sum x}{n}\\quad(\\text{mean: sum all values, divide by count})",
+          "\\text{Median: middle value of ordered data}",
+          "\\text{Range} = \\max - \\min",
+          "\\text{Standard deviation: large SD} \\Rightarrow \\text{data more spread out}",
+        ],
+      },
+      workedExamples: [
+        {
+          title: "Calculate mean, median, mode and range",
+          questionLatex:
+            "\\text{Data: 5, 8, 3, 8, 6, 4, 8, 7. Find the mean, median, mode and range.}",
+          steps: [
+            {
+              explanation: "Order the data: 3, 4, 5, 6, 7, 8, 8, 8. Mean = sum ÷ 8.",
+              latex: "\\bar{x} = \\frac{3+4+5+6+7+8+8+8}{8} = \\frac{49}{8} = 6.125",
+            },
+            {
+              explanation: "Median: 8 values → average of 4th and 5th (6 and 7) = 6.5.",
+              latex: "\\text{Median} = \\frac{6+7}{2} = 6.5",
+            },
+            {
+              explanation: "Mode = 8 (appears 3 times). Range = 8 − 3 = 5.",
+              latex: "\\text{Mode} = 8,\\quad \\text{Range} = 5",
+            },
+          ],
+          finalAnswerLatex:
+            "\\bar{x} = 6.125,\\;\\text{Median} = 6.5,\\;\\text{Mode} = 8,\\;\\text{Range} = 5",
+        },
+        {
+          title: "Mean from a frequency table",
+          questionLatex:
+            "\\text{Score | Frequency: } 1:3,\\;2:5,\\;3:4,\\;4:2,\\;5:1\\text{. Find the mean score.}",
+          steps: [
+            {
+              explanation: "Multiply each score by its frequency and sum: 1×3+2×5+3×4+4×2+5×1 = 3+10+12+8+5 = 38.",
+              latex: "\\sum fx = 1(3)+2(5)+3(4)+4(2)+5(1) = 38",
+            },
+            {
+              explanation: "Total frequency = 3+5+4+2+1 = 15. Mean = 38 ÷ 15.",
+              latex: "\\bar{x} = \\frac{38}{15} \\approx 2.53",
+            },
+          ],
+          finalAnswerLatex: "\\bar{x} \\approx 2.53",
+        },
+        {
+          title: "Interpret shape and spread",
+          questionLatex:
+            "\\text{Two classes sat the same test. Class A: mean = 65, SD = 5. Class B: mean = 65, SD = 18. Interpret the difference.}",
+          steps: [
+            {
+              explanation: "Both classes have the same mean (65), so average performance is equal.",
+              latex: "\\bar{x}_A = \\bar{x}_B = 65",
+            },
+            {
+              explanation: "Class A has SD = 5 (scores clustered near 65). Class B has SD = 18 (scores much more spread out — some much higher, some much lower).",
+              latex: "\\text{SD}_A = 5 \\ll \\text{SD}_B = 18",
+            },
+          ],
+          finalAnswerLatex: "\\text{Same mean; Class B more spread out (larger SD)}",
+        },
+      ],
+      guidedPractice: [
+        financeShortAnswer(
+          "y12s2-bdr-g1",
+          "Data: 2, 5, 3, 7, 3. Find the mean.",
+          "\\bar{x} = (2+5+3+7+3) \\div 5",
+          "4",
+          ["4.0"]
+        ),
+        financeShortAnswer(
+          "y12s2-bdr-g2",
+          "Data (ordered): 4, 6, 7, 9, 11. Find the median.",
+          "\\text{Middle value of 5 values}",
+          "7",
+          ["7.0"]
+        ),
+        financeChoice(
+          "y12s2-bdr-g3",
+          "Data: 3, 5, 5, 7, 9, 9, 9. The mode is:",
+          "C",
+          ["5", "7", "9", "6"],
+          "9 appears 3 times — the most frequent value."
+        ),
+        financeShortAnswer(
+          "y12s2-bdr-g4",
+          "Data: 12, 15, 8, 20, 10. Find the range.",
+          "\\max - \\min = 20 - 8",
+          "12",
+          ["12.0"]
+        ),
+      ],
+      independentPractice: [
+        financeShortAnswer(
+          "y12s2-bdr-i1",
+          "Data: 6, 8, 4, 10, 2. Find the mean.",
+          "(6+8+4+10+2) \\div 5",
+          "6",
+          ["6.0"]
+        ),
+        financeShortAnswer(
+          "y12s2-bdr-i2",
+          "Data (ordered): 3, 5, 8, 10. Find the median.",
+          "\\frac{5+8}{2}",
+          "6.5",
+          ["6.50"]
+        ),
+        financeChoice(
+          "y12s2-bdr-i3",
+          "A distribution has mean = 70 and median = 60. The distribution is most likely:",
+          "B",
+          ["Symmetric", "Right-skewed (positive skew)", "Left-skewed (negative skew)", "Uniform"],
+          "Mean > median → tail to the right → right-skewed (positive skew)."
+        ),
+        financeChoice(
+          "y12s2-bdr-i4",
+          "Two data sets have the same mean. Set A has SD = 2, Set B has SD = 10. Which is more spread out?",
+          "B",
+          ["Set A", "Set B", "Both equally", "Cannot tell"],
+          "Larger SD = more spread. Set B (SD = 10) is more spread out."
+        ),
+        financeShortAnswer(
+          "y12s2-bdr-i5",
+          "Score | Frequency: 1:2, 2:3, 3:1. Find the mean score (to 1 d.p.).",
+          "\\frac{1(2)+2(3)+3(1)}{6} = \\frac{11}{6}",
+          "1.8",
+          ["1.83", "1.83...", "11/6"]
+        ),
+      ],
+      commonMistakes: [
+        {
+          mistake: "Finding the median before ordering the data, taking the middle of the original list.",
+          fix: "Always order data from smallest to largest before finding the median. The median is the middle of the ORDERED data set, not the original order.",
+        },
+        {
+          mistake: "Confusing mean and median — using the median when asked for the mean, or vice versa.",
+          fix: "Mean = (sum of all values) ÷ count. Median = middle value when ordered. Each is a measure of centre but they can differ, especially with outliers. Check which one the question asks for.",
+        },
+        {
+          mistake: "Finding the range as max + min instead of max − min.",
+          fix: "Range = maximum value MINUS minimum value. The range measures the total spread from smallest to largest. For data 8, 15: range = 15 − 8 = 7, not 23.",
+        },
+        {
+          mistake: "Concluding that a larger SD is always 'better' or 'worse' without context.",
+          fix: "SD measures spread, not quality. Whether a large or small SD is better depends on the situation. In exam scores, lower SD might mean a more consistent class. Always interpret SD in context.",
+        },
+      ],
+      masteryQuiz: [
+        financeShortAnswer(
+          "y12s2-bdr-m1",
+          "Data: 9, 3, 6, 12, 5, 7. Find the mean.",
+          "(9+3+6+12+5+7) \\div 6",
+          "7",
+          ["7.0"]
+        ),
+        financeShortAnswer(
+          "y12s2-bdr-m2",
+          "Data (ordered): 4, 7, 9, 12, 15. Find the median.",
+          "\\text{Middle of 5 values}",
+          "9",
+          ["9.0"]
+        ),
+        financeShortAnswer(
+          "y12s2-bdr-m3",
+          "Data: 5, 8, 3, 11, 3. Find the range.",
+          "11 - 3",
+          "8",
+          ["8.0"]
+        ),
+        financeChoice(
+          "y12s2-bdr-m4",
+          "Data: 2, 4, 4, 6, 9. The mode is:",
+          "B",
+          ["2", "4", "5", "9"],
+          "4 appears twice — more than any other value."
+        ),
+        financeShortAnswer(
+          "y12s2-bdr-m5",
+          "Data (ordered): 1, 3, 5, 7. Find the median.",
+          "\\frac{3+5}{2}",
+          "4",
+          ["4.0"]
+        ),
+        financeChoice(
+          "y12s2-bdr-m6",
+          "A distribution has mean = 50 and median = 55. The shape is most likely:",
+          "A",
+          ["Left-skewed (negative skew)", "Right-skewed (positive skew)", "Symmetric", "Uniform"],
+          "Mean < median → tail to the left → left-skewed (negative skew)."
+        ),
+        financeShortAnswer(
+          "y12s2-bdr-m7",
+          "Score | Freq: 2:4, 3:3, 4:2, 5:1. Find the mean (to 2 d.p.).",
+          "\\frac{2(4)+3(3)+4(2)+5(1)}{10} = \\frac{28}{10}",
+          "2.80",
+          ["2.8", "2.80"]
+        ),
+        financeChoice(
+          "y12s2-bdr-m8",
+          "Standard deviation of 0 means:",
+          "C",
+          ["The mean is 0", "All values are negative", "All values are identical", "The data is skewed"],
+          "If SD = 0, there is no spread — all values equal the mean (are identical)."
+        ),
+        financeShortAnswer(
+          "y12s2-bdr-m9",
+          "Data: 10, 20, 30, 40, 50. Find the mean.",
+          "(10+20+30+40+50) \\div 5",
+          "30",
+          ["30.0"]
+        ),
+        financeChoice(
+          "y12s2-bdr-m10",
+          "Data: 2, 3, 5, 5, 6, 100. The outlier is 100. Removing it will most affect:",
+          "A",
+          ["The mean", "The median", "The mode", "The range equally with the mean"],
+          "The mean is most affected by extreme values (outliers). The median is resistant to outliers."
+        ),
+      ],
+    };
+  }
+
   if (lesson.slug === "bivariate-data-scatterplots") {
     return {
       ...base,
