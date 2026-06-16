@@ -4897,6 +4897,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "properties-of-polygons",          title: "Properties of Polygons" },
           { slug: "congruent-triangles",             title: "Congruent Triangles" },
           { slug: "geometric-reasoning",             title: "Geometric Reasoning" },
+          { slug: "quadrilateral-properties",        title: "Properties of Special Quadrilaterals" },
         ],
       },
       {
@@ -4963,6 +4964,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           },
           { slug: "box-plots",                      title: "Box Plots" },
           { slug: "comparing-data-with-box-plots",  title: "Comparing Data with Box Plots" },
+          { slug: "shape-of-distributions",         title: "Shape of Distributions" },
         ],
       },
       {

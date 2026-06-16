@@ -3307,6 +3307,293 @@ const comparingDataWithBoxPlots: LessonContent = {
   ],
 };
 
+// ── Lesson 14: Shape of Distributions ────────────────────────────────────────
+
+const shapeOfDistributions: LessonContent = {
+  description:
+    "Describe the shape of a data distribution as symmetric, positively skewed, negatively skewed, or bimodal, and choose the appropriate measure of centre based on shape.",
+  learningIntention:
+    "Identify the shape of a distribution from dot plots, stem-and-leaf plots, histograms, and box plots, and explain which measure of centre best represents skewed data.",
+  successCriteria: [
+    "Describe a distribution as symmetric, positively skewed, negatively skewed, or bimodal.",
+    "Recognise that a symmetric distribution has mean ≈ median.",
+    "Explain that in a positively skewed distribution a few high values pull the mean above the median.",
+    "Explain that in a negatively skewed distribution a few low values pull the mean below the median.",
+    "Identify bimodal distributions as having two peaks, suggesting two groups in the data.",
+    "Read shape from a box plot by comparing whisker and box lengths on each side.",
+    "Choose median for skewed data and mean for symmetric data as the better measure of centre.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Many students believe that 'average' always means the mean — the sum divided by the count. This is one of the most common misconceptions in statistics. In reality there are three measures of centre: mean, median, and mode. The mean is only the best choice when the data is roughly symmetric. When a distribution is skewed, the mean is pulled toward the long tail and away from where most values actually sit. In those cases the median gives a far more honest picture of what is typical.",
+      "A symmetric distribution has roughly equal tails on both sides. Imagine folding the histogram down the middle — both halves would look about the same. In a symmetric distribution the mean and median are approximately equal, so either can be used. Test scores that cluster around 70 out of 100, with similar numbers of students above and below, form a roughly symmetric distribution.",
+      "A positively skewed (right-skewed) distribution has a long tail stretching to the right. Most values are bunched at the low end, but a few very high values drag the mean upward. The mean ends up above the median. Income data in most countries is a classic real-world example: most people earn moderate salaries, but a small number of very high earners pull the mean income well above what a typical person actually earns. Reporting the mean salary can make things sound far better than they are for the majority — the median is the honest choice.",
+      "A negatively skewed (left-skewed) distribution has a long tail stretching to the left. Most values are bunched at the high end, but a few very low values drag the mean downward. The mean ends up below the median. Age at retirement is an example: most people retire in their 60s, but some retire very early — pulling the mean retirement age slightly lower. If students score mostly high marks on a test but a few score very low, the mark distribution is negatively skewed.",
+      "A bimodal distribution has two clear peaks, which often signals two distinct groups in the data. For example, if a class contains both Year 7 and Year 10 students, a histogram of heights would likely show two peaks — one for each age group. Neither a single mean nor a single median captures the two-group structure, so describing the shape is essential. On a dot plot, bimodal means two clusters of dots separated by a gap.",
+    ],
+    latexBlocks: [
+      "\\text{Symmetric: mean} \\approx \\text{median}",
+      "\\text{Positively skewed (right): mean} > \\text{median — long tail to the right}",
+      "\\text{Negatively skewed (left): mean} < \\text{median — long tail to the left}",
+      "\\text{Box plot: longer whisker/box section on one side} \\Rightarrow \\text{skew in that direction}",
+      "\\text{Use median for skewed data; use mean for symmetric data.}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Identify shape from a data set description",
+      questionLatex:
+        "\\text{Data: } 2,\\;3,\\;4,\\;4,\\;5,\\;5,\\;5,\\;6,\\;6,\\;30.\\text{ Describe the shape and choose the better measure of centre.}",
+      steps: [
+        {
+          explanation: "Most values sit between 2 and 6, but 30 is a very high outlier pulling the tail to the right.",
+          latex: "\\text{Long tail to the right} \\Rightarrow \\text{positively skewed}",
+        },
+        {
+          explanation: "Calculate the mean and median to confirm.",
+          latex: "\\text{Sum} = 2+3+4+4+5+5+5+6+6+30 = 70,\\quad \\text{Mean} = \\frac{70}{10} = 7",
+        },
+        {
+          explanation: "Sort and find the median (average of 5th and 6th values).",
+          latex: "\\text{Sorted: } 2,3,4,4,5,5,5,6,6,30.\\quad \\text{Median} = \\frac{5+5}{2} = 5",
+        },
+        {
+          explanation: "Mean (7) > Median (5), confirming positive skew. The median of 5 better represents the typical value.",
+          latex: "\\text{Mean}=7 > \\text{Median}=5 \\Rightarrow \\text{use the median}",
+        },
+      ],
+      finalAnswerLatex: "\\text{Positively skewed; median (5) is the better measure of centre.}",
+    } as WorkedExample,
+    {
+      title: "Read shape from a box plot",
+      questionLatex:
+        "\\text{Box plot: Min}=10,\\; Q_1=12,\\; \\text{Median}=14,\\; Q_3=22,\\; \\text{Max}=40.\\text{ Describe the shape.}",
+      steps: [
+        {
+          explanation: "Compare the two halves of the box.",
+          latex: "\\text{Left half: }14-12=2.\\quad \\text{Right half: }22-14=8.",
+        },
+        {
+          explanation: "Compare the two whiskers.",
+          latex: "\\text{Left whisker: }12-10=2.\\quad \\text{Right whisker: }40-22=18.",
+        },
+        {
+          explanation: "The right side is much longer — the data is positively skewed (skewed right).",
+          latex: "\\text{Long tail to the right} \\Rightarrow \\text{positively skewed}",
+        },
+      ],
+      finalAnswerLatex: "\\text{The distribution is positively skewed (skewed right).}",
+    } as WorkedExample,
+    {
+      title: "Compare mean and median to determine skew",
+      questionLatex:
+        "\\text{A data set has mean} = 42 \\text{ and median} = 50.\\text{ State the shape and the better measure of centre.}",
+      steps: [
+        {
+          explanation: "When mean < median, a few very low values are pulling the mean downward.",
+          latex: "\\text{Mean}=42 < \\text{Median}=50 \\Rightarrow \\text{negatively skewed}",
+        },
+        {
+          explanation: "For skewed data, the median is the better measure of centre.",
+          latex: "\\text{Use the median (50) — it is not distorted by the low outliers.}",
+        },
+      ],
+      finalAnswerLatex: "\\text{Negatively skewed; use the median (50).}",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-dat-shp-g1",
+      "Which statement best describes a symmetric distribution?",
+      "B",
+      [
+        "It has a long tail to the right and mean > median.",
+        "It has roughly equal tails on both sides and mean ≈ median.",
+        "It has two peaks with a gap in the middle.",
+        "It has a long tail to the left and mean < median.",
+      ],
+      "A symmetric distribution has roughly equal tails on both sides. Because neither tail is longer, the mean and median are approximately equal."
+    ),
+    answer(
+      "y8-dat-shp-g2",
+      "Data set: 5, 6, 6, 7, 7, 7, 8, 8, 20. The value 20 creates a long tail to the right. State whether the distribution is symmetric, positively skewed, or negatively skewed.",
+      "\\text{Long tail to the right}",
+      "positively skewed",
+      "Most values cluster between 5 and 8, but 20 creates a long right tail. This is a positively skewed (right-skewed) distribution.",
+      ["positive skew", "right skewed", "skewed right", "right-skewed"]
+    ),
+    answer(
+      "y8-dat-shp-g3",
+      "A stem-and-leaf plot shows most leaves on the high stems (7, 8, 9) with a few leaves on the low stem (2). State the shape of the distribution.",
+      "\\text{Most values are high; a few very low values pull the tail left.}",
+      "negatively skewed",
+      "When most values are high and a few very low values stretch the tail to the left, the distribution is negatively skewed (left-skewed).",
+      ["negative skew", "left skewed", "skewed left", "left-skewed"]
+    ),
+    answer(
+      "y8-dat-shp-g4",
+      "A data set has mean = 55 and median = 70. Explain whether you would use the mean or the median to report the typical value, and why.",
+      "\\text{Mean}=55 < \\text{Median}=70",
+      "median",
+      "Mean < Median indicates negatively skewed data — a few very low values are pulling the mean down. The median (70) sits closer to where most values lie and gives a more honest picture of the typical value.",
+      ["the median", "use median"]
+    ),
+  ],
+  independentPractice: [
+    choice(
+      "y8-dat-shp-i1",
+      "A box plot has its median line very close to Q3, and a much longer left whisker than right whisker. How would you describe the shape?",
+      "C",
+      [
+        "Symmetric",
+        "Positively skewed",
+        "Negatively skewed",
+        "Bimodal",
+      ],
+      "When the median is close to Q3 and the left whisker is long, the data has a long left tail — this is negatively skewed (left-skewed)."
+    ),
+    answer(
+      "y8-dat-shp-i2",
+      "Data: 12, 14, 14, 15, 15, 15, 16, 16, 17. Calculate the mean and the median. State the shape of the distribution.",
+      "\\text{Mean} = \\frac{12+14+14+15+15+15+16+16+17}{9}",
+      "symmetric",
+      "Sum = 134. Mean = 134 ÷ 9 ≈ 14.9. Sorted: 12,14,14,15,15,15,16,16,17. Median (5th value) = 15. Mean ≈ median, so the distribution is approximately symmetric.",
+      ["approximately symmetric", "roughly symmetric"]
+    ),
+    answer(
+      "y8-dat-shp-i3",
+      "Distribution A has mean = 30 and median = 30. Distribution B has mean = 45 and median = 32. For which distribution is the mean a less reliable measure of centre?",
+      "\\text{Mean} \\gg \\text{Median in Distribution B}",
+      "Distribution B",
+      "In Distribution A the mean equals the median — the data is symmetric and the mean is reliable. In Distribution B the mean (45) is much higher than the median (32), suggesting positive skew with high outliers pulling the mean up. The mean is a less reliable measure of centre for Distribution B.",
+      ["B", "distribution b"]
+    ),
+    answer(
+      "y8-dat-shp-i4",
+      "A histogram shows two peaks: one cluster of values between 20 and 30, and a second cluster between 60 and 70, with very few values in between. What shape is this distribution?",
+      "\\text{Two peaks separated by a gap}",
+      "bimodal",
+      "Two distinct peaks separated by a gap indicate a bimodal distribution. This often means there are two distinct groups within the data."
+    ),
+    answer(
+      "y8-dat-shp-i5",
+      "Data: 3, 5, 6, 7, 8, 9, 9, 10, 10, 10. Calculate the mean and the median, then state the shape of the distribution.",
+      "\\text{Mean} = \\frac{3+5+6+7+8+9+9+10+10+10}{10}",
+      "negatively skewed",
+      "Sum = 3+5+6+7+8+9+9+10+10+10 = 77. Mean = 77 ÷ 10 = 7.7. Sorted (already in order): the 5th value is 8 and the 6th is 9, so Median = (8+9) ÷ 2 = 8.5. Mean (7.7) < Median (8.5): the single low value 3 drags the mean below the median, creating a slight long tail to the left. The distribution is negatively skewed.",
+      ["negative skew", "slightly negatively skewed", "left skewed"]
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Assuming 'average' always means the mean and using it regardless of skew.",
+      fix: "When data is skewed, the mean is pulled toward the tail and away from most values. Report the median for skewed distributions — it sits closer to where the bulk of the data actually lies.",
+    },
+    {
+      mistake: "Confusing positive skew with negative skew by looking at where the bulk of the data is rather than the tail.",
+      fix: "Skew is named after the direction of the long tail, not where the data is bunched. Positively skewed = long tail to the right. Negatively skewed = long tail to the left.",
+    },
+    {
+      mistake: "Reading a box plot with a long right whisker as negatively skewed.",
+      fix: "A long right whisker means the data stretches further to the right — that is positively skewed. A long left whisker indicates negative skew.",
+    },
+    {
+      mistake: "Treating a bimodal distribution as symmetric because the two peaks are at similar heights.",
+      fix: "Bimodal means two distinct peaks, not symmetric. A symmetric distribution has one central peak. Bimodal data often reflects two separate groups and requires separate analysis.",
+    },
+  ],
+  masteryQuiz: [
+    choice(
+      "y8-dat-shp-m1",
+      "A dot plot shows values clustered in two separate groups: one around 10 and another around 50, with no values between 20 and 40. What shape is this distribution?",
+      "D",
+      [
+        "Symmetric",
+        "Positively skewed",
+        "Negatively skewed",
+        "Bimodal",
+      ],
+      "Two distinct clusters separated by a gap describe a bimodal distribution — it has two peaks rather than one."
+    ),
+    choice(
+      "y8-dat-shp-m2",
+      "Annual salaries at a company are: most employees earn between $50 000 and $80 000, but the CEO earns $2 000 000. Which measure should be reported as the 'typical' salary?",
+      "B",
+      [
+        "The mean — it uses every salary.",
+        "The median — it is not pulled upward by the CEO's salary.",
+        "The mode — it appears most often.",
+        "The range — it shows the full spread.",
+      ],
+      "The CEO's salary is a high outlier that pulls the mean well above what most employees earn. The median sits in the middle of the ordered list and is not distorted by that extreme value — it gives a truer picture of what a typical employee earns."
+    ),
+    answer(
+      "y8-dat-shp-m3",
+      "Data: 1, 2, 3, 4, 5, 6, 7, 8, 9 (9 values). Find the mean and the median. State whether the distribution is symmetric, positively skewed, or negatively skewed.",
+      "\\text{Mean} = \\frac{1+2+3+4+5+6+7+8+9}{9} = \\frac{45}{9} = 5",
+      "symmetric",
+      "Mean = 45 ÷ 9 = 5. Median = 5th value = 5. Mean = Median = 5, so the distribution is symmetric.",
+      ["approximately symmetric", "roughly symmetric"]
+    ),
+    answer(
+      "y8-dat-shp-m4",
+      "Box plot: Min = 10, Q1 = 11, Median = 12, Q3 = 20, Max = 40. State the shape of the distribution.",
+      "\\text{Left half of box: }12-11=1.\\quad \\text{Right half: }20-12=8.\\quad \\text{Right whisker: }40-20=20.",
+      "positively skewed",
+      "The right half of the box (8) is much larger than the left half (1), and the right whisker (20) is much longer than the left whisker (1). The data has a long tail to the right — positively skewed.",
+      ["positive skew", "right skewed", "skewed right", "right-skewed"]
+    ),
+    answer(
+      "y8-dat-shp-m5",
+      "A data set has mean = 18 and median = 25. State the direction of skew and identify whether the mean or median is the better measure of centre.",
+      "\\text{Mean}=18 < \\text{Median}=25",
+      "negatively skewed; median",
+      "Mean < Median indicates a few very low values are pulling the mean below the median — negative (left) skew. The median (25) is less affected by those low values and better represents the typical value.",
+      ["negative skew, median", "left skewed, median", "negatively skewed, use median"]
+    ),
+    answer(
+      "y8-dat-shp-m6",
+      "Stem-and-leaf plot: 1 | 2 3, 2 | 1 4 6 8, 3 | 0 2 5 7 9, 4 | 1 3. Describe the shape of the distribution.",
+      "\\text{Most values in the 20s and 30s with a short tail on each side}",
+      "approximately symmetric",
+      "The bulk of the data sits in the 20s and 30s, with similar short tails in the 10s and 40s. The distribution is roughly bell-shaped and approximately symmetric.",
+      ["symmetric", "roughly symmetric"]
+    ),
+    answer(
+      "y8-dat-shp-m7",
+      "A class of 20 students sits a very easy test. Most students score between 85 and 100, but two students score 30 and 35. Will the mean be above or below the median? What shape is the distribution?",
+      "\\text{Two very low scores pull mean downward}",
+      "mean below median; negatively skewed",
+      "The two low scores (30, 35) drag the mean downward while the median remains among the cluster of high scores. Mean < Median confirms negative (left) skew.",
+      ["mean is below median, negatively skewed", "negative skew", "left-skewed"]
+    ),
+    answer(
+      "y8-dat-shp-m8",
+      "Data: 50, 52, 54, 55, 55, 56, 57, 58, 59, 100. Calculate the mean and the median. By how much does the mean exceed the median, and what shape is the distribution?",
+      "\\text{Sum} = 50+52+54+55+55+56+57+58+59+100 = 596",
+      "mean exceeds median by 4.1; positively skewed",
+      "Sum = 596. Mean = 596 ÷ 10 = 59.6. Sorted median = average of 5th and 6th values = (55+56) ÷ 2 = 55.5. Mean (59.6) − Median (55.5) = 4.1. The high outlier 100 pulls the mean above the median — positively skewed.",
+      ["positively skewed", "right skewed", "mean > median, positive skew"]
+    ),
+    answer(
+      "y8-dat-shp-m9",
+      "Box plot A: Min=5, Q1=6, Median=7, Q3=14, Max=30. Box plot B: Min=5, Q1=18, Median=24, Q3=26, Max=30. Which box plot shows negative skew?",
+      "\\text{Box plot B: median closer to Q3, longer left whisker}",
+      "Box plot B",
+      "Box plot B has the median (24) sitting close to Q3 (26) and a much longer left section (Q1=18 to Min=5 spans 13 units) versus the right whisker (30−26=4 units). This indicates a long left tail — negative skew. Box plot A has the median close to Q1 and a long right tail — positive skew.",
+      ["B", "plot B", "box plot b"]
+    ),
+    answer(
+      "y8-dat-shp-m10",
+      "A survey records the number of hours per week students spend on social media. The results are: mean = 14 hours, median = 9 hours. A student argues that the typical student uses social media for 14 hours per week. Explain the error and state the correct typical value to report.",
+      "\\text{Mean}=14 > \\text{Median}=9 \\Rightarrow \\text{positively skewed}",
+      "The median (9 hours) is the correct typical value",
+      "Mean (14) > Median (9) indicates a positively skewed distribution — a few students who spend very many hours online are pulling the mean upward. The median of 9 hours better represents the typical student because it sits in the middle of the ordered data and is not distorted by those extreme values.",
+      ["median is 9", "use the median (9)", "median 9 hours"]
+    ),
+  ],
+};
+
 // ── Lesson map and export ─────────────────────────────────────────────────────
 
 const lessons: Record<string, LessonContent> = {
@@ -3323,6 +3610,7 @@ const lessons: Record<string, LessonContent> = {
   "expected-outcomes":                expectedOutcomes,
   "box-plots":                        boxPlots,
   "comparing-data-with-box-plots":    comparingDataWithBoxPlots,
+  "shape-of-distributions":           shapeOfDistributions,
 };
 
 export function year8StatisticsProbabilityLessonOverride(

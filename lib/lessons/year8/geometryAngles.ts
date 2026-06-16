@@ -1716,6 +1716,291 @@ const geometricReasoning: LessonContent = {
   ],
 };
 
+// ── Lesson 7: Properties of Special Quadrilaterals ───────────────────────────
+
+const quadrilateralProperties: LessonContent = {
+  description:
+    "Identify and apply the side, angle, and diagonal properties of parallelograms, rectangles, rhombuses, squares, trapezoids, and kites to find unknown angles and side lengths.",
+  learningIntention:
+    "Use the properties of special quadrilaterals to find unknown angles and sides, and to justify conclusions with a geometric reason.",
+  successCriteria: [
+    "State the side, angle, and diagonal properties of each special quadrilateral.",
+    "Use opposite-angle and co-interior-angle properties of a parallelogram to find unknown angles.",
+    "Apply the equal-diagonal property of a rectangle and the perpendicular-diagonal property of a rhombus.",
+    "Identify a quadrilateral from a given list of properties.",
+    "Write a brief geometric justification for each step.",
+  ],
+  teaching: {
+    paragraphs: [
+      "A parallelogram has two pairs of opposite sides that are equal and parallel. Opposite angles are equal, and co-interior angles (between the parallel sides) are supplementary — they add to 180°. The diagonals bisect each other, meaning they cut each other exactly in half.",
+      "A rectangle is a parallelogram with all four angles equal to 90°. Its diagonals are equal in length and also bisect each other. A rhombus is a parallelogram with all four sides equal. Its diagonals bisect each other at right angles (90°) and each diagonal bisects the vertex angles at the corners it touches.",
+      "A square combines the properties of both a rectangle and a rhombus: all sides equal, all angles 90°, diagonals equal, perpendicular, and bisecting each vertex angle. A common misconception is to treat these shapes as unrelated — in fact, a square IS a rectangle, and a square IS a rhombus, but a rhombus is NOT always a square.",
+      "A trapezoid (or trapezium) has exactly one pair of parallel sides. The co-interior angles between those parallel sides are supplementary. A kite has two pairs of adjacent sides that are equal. One diagonal bisects the other at 90°, and the longer diagonal bisects the two vertex angles it connects.",
+      "When finding an unknown angle or side, name the shape, state the property that applies, then calculate. For example: 'Opposite angles of a parallelogram are equal, so x = 70°.' Always match the property to the specific shape — not every quadrilateral has every property.",
+    ],
+    latexBlocks: [
+      "\\text{Parallelogram: opposite angles equal; co-interior angles supplementary}",
+      "\\text{Rectangle: all angles } 90^\\circ\\text{; diagonals equal and bisect each other}",
+      "\\text{Rhombus: all sides equal; diagonals bisect at } 90^\\circ\\text{; diagonals bisect vertex angles}",
+      "\\text{Square: all sides equal; all angles } 90^\\circ\\text{; diagonals equal, perpendicular, bisect vertex angles}",
+      "\\text{Trapezoid: one pair of parallel sides; co-interior angles supplementary}",
+      "\\text{Kite: two pairs of adjacent equal sides; one diagonal bisects the other at } 90^\\circ",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Find an unknown angle in a parallelogram",
+      questionLatex:
+        "\\text{In parallelogram }ABCD,\\text{ angle }A = 112^\\circ.\\text{ Find angles }B,\\;C,\\text{ and }D.",
+      steps: [
+        {
+          explanation: "Opposite angles of a parallelogram are equal.",
+          latex: "\\angle C = \\angle A = 112^\\circ",
+        },
+        {
+          explanation: "Co-interior angles between parallel sides are supplementary.",
+          latex: "\\angle B + \\angle A = 180^\\circ \\Rightarrow \\angle B = 180 - 112 = 68^\\circ",
+        },
+        {
+          explanation: "Opposite angles are equal.",
+          latex: "\\angle D = \\angle B = 68^\\circ",
+        },
+      ],
+      finalAnswerLatex:
+        "\\angle B = 68^\\circ,\\quad \\angle C = 112^\\circ,\\quad \\angle D = 68^\\circ",
+    } as WorkedExample,
+    {
+      title: "Find an angle using rhombus diagonal properties",
+      questionLatex:
+        "\\text{In rhombus }PQRS,\\text{ diagonal }PR\\text{ bisects angle }P.\\text{ If }\\angle QPR = 34^\\circ,\\text{ find }\\angle PQR.",
+      steps: [
+        {
+          explanation:
+            "The diagonal of a rhombus bisects the vertex angle, so the full angle at P is twice 34°.",
+          latex: "\\angle QPR = 34^\\circ \\Rightarrow \\angle QPS = 2 \\times 34 = 68^\\circ",
+        },
+        {
+          explanation: "Co-interior angles between parallel sides are supplementary.",
+          latex: "\\angle PQR + \\angle QPS = 180^\\circ",
+        },
+        {
+          explanation: "Subtract.",
+          latex: "\\angle PQR = 180 - 68 = 112^\\circ",
+        },
+      ],
+      finalAnswerLatex: "112^\\circ",
+    } as WorkedExample,
+    {
+      title: "Identify a shape from its properties",
+      questionLatex:
+        "\\text{A quadrilateral has all sides equal, all angles }90^\\circ\\text{, and diagonals that bisect each other at }90^\\circ.\\text{ What shape is it?}",
+      steps: [
+        {
+          explanation: "All sides equal AND all angles 90° → it satisfies both rhombus and rectangle definitions.",
+          latex: "\\text{all sides equal + all angles }90^\\circ",
+        },
+        {
+          explanation: "A shape that is both a rhombus and a rectangle is a square.",
+          latex: "\\text{square}",
+        },
+      ],
+      finalAnswerLatex: "\\text{Square}",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-geo-qprop-g1",
+      "Which quadrilateral has ALL sides equal AND all angles 90°?",
+      "D",
+      [
+        "Rectangle",
+        "Rhombus",
+        "Parallelogram",
+        "Square",
+      ],
+      "A square has all four sides equal (like a rhombus) and all four angles equal to 90° (like a rectangle). No other quadrilateral satisfies both conditions simultaneously."
+    ),
+    answer(
+      "y8-geo-qprop-g2",
+      "In parallelogram ABCD, angle A = 74°. Find angle C in degrees.",
+      "\\text{opposite angles of a parallelogram are equal}",
+      "74",
+      "Opposite angles of a parallelogram are equal. Angle C = angle A = 74°.",
+      ["74°"]
+    ),
+    answer(
+      "y8-geo-qprop-g3",
+      "A rhombus has a side length of 9 cm. Find the length of the other three sides in cm.",
+      "\\text{all sides of a rhombus are equal}",
+      "9",
+      "All four sides of a rhombus are equal. Every side is 9 cm.",
+      ["9 cm"]
+    ),
+    answer(
+      "y8-geo-qprop-g4",
+      "State TWO properties of a rectangle's diagonals. Write your answer as: 'The diagonals are [property 1] and [property 2].'",
+      "\\text{rectangle diagonal properties}",
+      "equal and bisect each other",
+      "The diagonals of a rectangle are equal in length and bisect each other (each diagonal cuts the other in half).",
+      ["equal length and bisect each other", "equal and bisect", "bisect each other and are equal"]
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y8-geo-qprop-i1",
+      "In a trapezoid, one co-interior angle between the parallel sides is 118°. Find the other co-interior angle in degrees.",
+      "118 + x = 180",
+      "62",
+      "Co-interior angles between parallel sides are supplementary. x = 180 − 118 = 62°.",
+      ["62°"]
+    ),
+    answer(
+      "y8-geo-qprop-i2",
+      "A quadrilateral has opposite sides equal and parallel, opposite angles equal, and diagonals that bisect each other — but the angles are NOT all 90° and the sides are NOT all equal. What is the shape?",
+      "\\text{identify from properties}",
+      "parallelogram",
+      "These are exactly the properties of a parallelogram (not a rectangle or rhombus, since angles are not 90° and sides are not all equal).",
+      ["a parallelogram"]
+    ),
+    choice(
+      "y8-geo-qprop-i3",
+      "Which property is present in a rhombus but NOT necessarily in a rectangle?",
+      "B",
+      [
+        "Diagonals bisect each other",
+        "Diagonals intersect at 90°",
+        "All angles are 90°",
+        "Opposite sides are parallel",
+      ],
+      "The diagonals of a rhombus bisect each other at 90° (perpendicularly). A rectangle's diagonals bisect each other but are NOT perpendicular unless it is also a square."
+    ),
+    answer(
+      "y8-geo-qprop-i4",
+      "In a kite, the longer diagonal bisects one pair of vertex angles. Each bisected angle is 38°. Find the full vertex angle in degrees.",
+      "2 \\times 38",
+      "76",
+      "The longer diagonal of a kite bisects the vertex angle, so the full angle is 2 × 38° = 76°.",
+      ["76°"]
+    ),
+    answer(
+      "y8-geo-qprop-i5",
+      "Parallelogram ABCD has angle A = (3x + 10)° and angle B = (2x + 20)°. Find x, then find angle A in degrees. Enter angle A.",
+      "(3x+10) + (2x+20) = 180",
+      "100",
+      "Co-interior angles between parallel sides are supplementary: (3x + 10) + (2x + 20) = 180, so 5x + 30 = 180, giving x = 30. Angle A = 3(30) + 10 = 100°.",
+      ["100°"]
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Assuming a rhombus has all angles equal to 90°.",
+      fix: "A rhombus has all sides equal, but angles are only 90° in the special case where it is also a square. In general, a rhombus has two pairs of equal opposite angles that are NOT right angles.",
+    },
+    {
+      mistake: "Thinking a square is not a rectangle or not a rhombus.",
+      fix: "A square satisfies every property of both a rectangle and a rhombus. A square IS a rectangle, and a square IS a rhombus — but a rectangle or rhombus is not automatically a square.",
+    },
+    {
+      mistake: "Applying diagonal properties from one shape to a different shape (e.g. saying a parallelogram's diagonals are equal).",
+      fix: "Parallelogram diagonals bisect each other but are NOT necessarily equal. Equal diagonals are a property of rectangles (and squares), not parallelograms in general.",
+    },
+    {
+      mistake: "Confusing adjacent sides with opposite sides when using kite properties.",
+      fix: "A kite has two pairs of ADJACENT (next-to-each-other) equal sides, not opposite equal sides. That distinguishes it from a parallelogram.",
+    },
+  ],
+  masteryQuiz: [
+    choice(
+      "y8-geo-qprop-m1",
+      "Which of the following statements about a rhombus is TRUE?",
+      "C",
+      [
+        "All angles are always 90°",
+        "Diagonals are always equal in length",
+        "All sides are equal and opposite sides are parallel",
+        "It has exactly one pair of parallel sides",
+      ],
+      "A rhombus has all four sides equal and both pairs of opposite sides parallel. Its angles are NOT always 90° and its diagonals are NOT always equal in length."
+    ),
+    choice(
+      "y8-geo-qprop-m2",
+      "In a rhombus, the diagonal bisects the vertex angle into two equal parts of 41° each. What is the full vertex angle?",
+      "B",
+      [
+        "41°",
+        "82°",
+        "49°",
+        "138°",
+      ],
+      "The diagonal of a rhombus bisects the vertex angle, so the full angle is 2 × 41° = 82°."
+    ),
+    answer(
+      "y8-geo-qprop-m3",
+      "In parallelogram WXYZ, angle W = 63°. Find angle X in degrees.",
+      "\\angle W + \\angle X = 180",
+      "117",
+      "Co-interior angles between parallel sides are supplementary. Angle X = 180 − 63 = 117°.",
+      ["117°"]
+    ),
+    answer(
+      "y8-geo-qprop-m4",
+      "A rectangle has a diagonal of length 13 cm. What is the length of the other diagonal in cm?",
+      "\\text{diagonals of a rectangle are equal}",
+      "13",
+      "The diagonals of a rectangle are equal in length. The other diagonal is also 13 cm.",
+      ["13 cm"]
+    ),
+    answer(
+      "y8-geo-qprop-m5",
+      "In rhombus ABCD, the diagonals intersect at point O. State the size of angle AOB in degrees.",
+      "\\text{diagonals of a rhombus bisect at } 90^\\circ",
+      "90",
+      "The diagonals of a rhombus bisect each other at right angles. Angle AOB = 90°.",
+      ["90°"]
+    ),
+    answer(
+      "y8-geo-qprop-m6",
+      "In trapezoid PQRS, PQ is parallel to SR. Angle P = 71°. Find angle S in degrees. Give the geometric reason.",
+      "\\angle P + \\angle S = 180",
+      "109",
+      "Angle P and angle S are co-interior angles between the parallel sides PQ and SR, so they are supplementary. Angle S = 180 − 71 = 109°.",
+      ["109°"]
+    ),
+    answer(
+      "y8-geo-qprop-m7",
+      "A quadrilateral has two pairs of adjacent equal sides and one diagonal that bisects the other at 90°. Name the shape.",
+      "\\text{identify from properties}",
+      "kite",
+      "Two pairs of adjacent equal sides and one diagonal bisecting the other at 90° are defining properties of a kite.",
+      ["a kite"]
+    ),
+    answer(
+      "y8-geo-qprop-m8",
+      "In parallelogram ABCD, angle A = (4x − 10)° and angle C = (2x + 30)°. Find x, then find angle A in degrees. Enter angle A.",
+      "4x - 10 = 2x + 30",
+      "70",
+      "Opposite angles of a parallelogram are equal: 4x − 10 = 2x + 30, so 2x = 40, giving x = 20. Angle A = 4(20) − 10 = 80 − 10 = 70°.",
+      ["70°"]
+    ),
+    answer(
+      "y8-geo-qprop-m9",
+      "In rectangle KLMN, the diagonals intersect at point O. KM = 18 cm. Find the length OK in cm.",
+      "OK = \\frac{1}{2} \\times KM",
+      "9",
+      "The diagonals of a rectangle bisect each other. OK = ½ × KM = ½ × 18 = 9 cm.",
+      ["9 cm"]
+    ),
+    answer(
+      "y8-geo-qprop-m10",
+      "A quadrilateral has all angles equal to 90° but the sides are not all equal. Which shape is it, and justify using one diagonal property.",
+      "\\text{all angles }90^\\circ\\text{; diagonals equal and bisect each other}",
+      "rectangle",
+      "All four angles are 90°, which defines a rectangle. A rectangle's diagonals are equal in length and bisect each other — confirming this property distinguishes it from a general parallelogram.",
+      ["a rectangle", "Rectangle"]
+    ),
+  ],
+};
+
 // ── Lesson map and export ─────────────────────────────────────────────────────
 
 const lessons: Record<string, LessonContent> = {
@@ -1725,6 +2010,7 @@ const lessons: Record<string, LessonContent> = {
   "properties-of-polygons":           propertiesOfPolygons,
   "congruent-triangles":              congruentTriangles,
   "geometric-reasoning":              geometricReasoning,
+  "quadrilateral-properties":         quadrilateralProperties,
 };
 
 export function year8GeometryAnglesLessonOverride(
