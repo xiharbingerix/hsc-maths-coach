@@ -10,6 +10,7 @@ import type {
   DotPlotDiagram,
   HistogramDiagram,
   NetworkDiagram,
+  NetDiagram,
   NormalDistributionDiagram,
   NumberLineDiagram,
   PieChartDiagram,
@@ -35,6 +36,7 @@ import { BarChartView } from "../course/components/BarChartView";
 import { CartesianGraphView } from "../course/components/CartesianGraphView";
 import { DotPlotView } from "../course/components/DotPlotView";
 import { HistogramView } from "../course/components/HistogramView";
+import { NetView } from "../course/components/NetView";
 import { NetworkDiagramView } from "../course/components/NetworkDiagramView";
 import { NormalDistributionView } from "../course/components/NormalDistributionView";
 import { NumberLineView } from "../course/components/NumberLineView";
@@ -102,6 +104,7 @@ export const DIAGRAM_COMPONENTS: Record<DiagramType, DiagramComponent> = {
   sectorDiagram: (d) => <SectorView diagram={d as unknown as SectorDiagram} />,
   pieChartDiagram: (d) => <PieChartView diagram={d as unknown as PieChartDiagram} />,
   solid3DDiagram: (d) => <Solid3DView diagram={d as unknown as Solid3DDiagram} />,
+  netDiagram: (d) => <NetView diagram={d as unknown as NetDiagram} />,
 };
 
 /**

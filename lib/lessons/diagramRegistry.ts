@@ -5,6 +5,7 @@ import type {
   CartesianGraph,
   DotPlotDiagram,
   HistogramDiagram,
+  NetDiagram,
   NetworkDiagram,
   NormalDistributionDiagram,
   NumberLineDiagram,
@@ -68,6 +69,7 @@ export const DIAGRAM_SPECS = [
   { type: "sectorDiagram", field: "sectorDiagram" },
   { type: "pieChartDiagram", field: "pieChartDiagram" },
   { type: "solid3DDiagram", field: "solid3DDiagram" },
+  { type: "netDiagram", field: "netDiagram" },
 ] as const;
 
 /** Serialized `diagram_data.type` discriminator for a registered payload. */
@@ -107,6 +109,7 @@ export type DiagramFields = {
   sectorDiagram?: SectorDiagram;
   pieChartDiagram?: PieChartDiagram;
   solid3DDiagram?: Solid3DDiagram;
+  netDiagram?: NetDiagram;
 };
 
 /**

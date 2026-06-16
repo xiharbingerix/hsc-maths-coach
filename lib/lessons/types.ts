@@ -614,6 +614,32 @@ export type Solid3DDiagram = {
   color?: StatChartColor;
 };
 
+export type NetKind =
+  | "cube"
+  | "rectangularPrism"
+  | "cylinder"
+  | "cone"
+  | "squarePyramid"
+  | "triangularPrism";
+
+/**
+ * The 2D net (unfolded faces) of a solid, for surface-area work. Only the
+ * labels relevant to `solid` are used.
+ */
+export type NetDiagram = {
+  description: string;
+  solid: NetKind;
+  labels?: {
+    length?: string;
+    width?: string;
+    height?: string;
+    radius?: string;
+    slant?: string;
+    base?: string;
+  };
+  color?: StatChartColor;
+};
+
 /**
  * A circle sector (wedge) for arc-length / sector-area / radian problems. The
  * sector starts on the positive x-axis and sweeps anticlockwise by
