@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { StudentNav } from "../components/StudentNav";
+import { StreakCard } from "./StreakCard";
 import type { User } from "@supabase/supabase-js";
 import { courseCatalogue } from "../../lib/courseUnits";
 import { getContinueLearningTarget } from "../../lib/courseLessonTargets";
@@ -719,6 +720,12 @@ export default function DashboardPage() {
     topicLabelMap,
     subtopicLabelMap,
   );
+  const streakActivity: Array<string | null | undefined> = [
+    ...Object.values(lessonProgress).map((r) => r.updatedAt),
+    ...masteryHistoryRows.map((r) => r.created_at),
+    ...recentAttempts.map((a) => a.completed_at),
+    ...recentAttempts.map((a) => a.started_at),
+  ];
   const firstOpenWorksheet =
     assignedWorksheets.find((ws) => !latestAttemptByWorksheet.get(ws.id)?.completed_at) ??
     assignedWorksheets[0] ??
@@ -897,6 +904,13 @@ export default function DashboardPage() {
             </button>
           </div>
         </header>
+
+        {!isOnboardingMode && (
+          <StreakCard
+            activityTimestamps={streakActivity}
+            continueHref={recommendedLessonHref}
+          />
+        )}
 
         {/* ── Onboarding focus (active user, no progress yet) ───────────────── */}
         {isOnboardingMode ? (
