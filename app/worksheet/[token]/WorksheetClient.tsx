@@ -5,72 +5,14 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { BlockMath } from "react-katex";
 import { MathAnswerInput } from "../../components/MathAnswerInput";
 import { MathText } from "../../components/MathText";
-import { ArgandDiagramView } from "../../course/components/ArgandDiagramView";
-import { BoxPlotView } from "../../course/components/BoxPlotView";
-import { CartesianGraphView } from "../../course/components/CartesianGraphView";
-import { NetworkDiagramView } from "../../course/components/NetworkDiagramView";
-import { NormalDistributionView } from "../../course/components/NormalDistributionView";
-import { ProbabilityTreeView } from "../../course/components/ProbabilityTreeView";
-import { TrapezoidalRuleView } from "../../course/components/TrapezoidalRuleView";
-import { TrigGraphDiagramView } from "../../course/components/TrigGraphDiagramView";
-import { TriangleDiagramView } from "../../course/components/TriangleDiagramView";
-import { TwoWayTableView } from "../../course/components/TwoWayTableView";
-import { UnitCircleDiagramView } from "../../course/components/UnitCircleDiagramView";
-import { Vector3DDiagramView } from "../../course/components/Vector3DDiagramView";
-import { VennDiagramView } from "../../course/components/VennDiagramView";
 import { supabase } from "../../../lib/supabaseClient";
-import type {
-  ArgandDiagram,
-  BoxPlotDiagram,
-  CartesianGraph,
-  NetworkDiagram,
-  NormalDistributionDiagram,
-  ProbabilityTreeDiagram,
-  TrigGraphDiagram,
-  TrapezoidalRuleDiagram,
-  TriangleDiagram,
-  TwoWayTableDiagram,
-  UnitCircleDiagram,
-  Vector3DDiagram,
-  VennDiagram,
-} from "../../../lib/lessons/types";
+import { renderDiagramData } from "../../components/diagramRegistry";
 import type { WorksheetQuestion } from "./page";
 
 // ── Diagram renderer ───────────────────────────────────────────────────────────
 
 function DiagramRenderer({ data }: { data: Record<string, unknown> | null }) {
-  if (!data) return null;
-  const { type, ...rest } = data;
-  switch (type) {
-    case "cartesianGraph":
-      return <CartesianGraphView graph={rest as CartesianGraph} />;
-    case "unitCircleDiagram":
-      return <UnitCircleDiagramView diagram={rest as UnitCircleDiagram} />;
-    case "trigGraphDiagram":
-      return <TrigGraphDiagramView diagram={rest as TrigGraphDiagram} />;
-    case "argandDiagram":
-      return <ArgandDiagramView diagram={rest as ArgandDiagram} />;
-    case "vector3DDiagram":
-      return <Vector3DDiagramView diagram={rest as Vector3DDiagram} />;
-    case "triangleDiagram":
-      return <TriangleDiagramView diagram={rest as TriangleDiagram} />;
-    case "trapezoidalRuleDiagram":
-      return <TrapezoidalRuleView diagram={rest as TrapezoidalRuleDiagram} />;
-    case "boxPlotDiagram":
-      return <BoxPlotView diagram={rest as BoxPlotDiagram} />;
-    case "normalDistributionDiagram":
-      return <NormalDistributionView diagram={rest as NormalDistributionDiagram} />;
-    case "probabilityTreeDiagram":
-      return <ProbabilityTreeView diagram={rest as ProbabilityTreeDiagram} />;
-    case "twoWayTableDiagram":
-      return <TwoWayTableView diagram={rest as TwoWayTableDiagram} />;
-    case "vennDiagram":
-      return <VennDiagramView diagram={rest as VennDiagram} />;
-    case "networkDiagram":
-      return <NetworkDiagramView diagram={rest as NetworkDiagram} />;
-    default:
-      return null;
-  }
+  return renderDiagramData(data);
 }
 
 // ── Types ─────────────────────────────────────────────────────────────────────

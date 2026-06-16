@@ -144,23 +144,7 @@ function QuestionCard({
           )}
 
           {/* Visual payload */}
-          <VisualPayloadRenderer
-            diagram={question.diagram}
-            triangleDiagram={question.triangleDiagram}
-            cartesianGraph={question.cartesianGraph}
-            unitCircleDiagram={question.unitCircleDiagram}
-            trigGraphDiagram={question.trigGraphDiagram}
-            argandDiagram={question.argandDiagram}
-            vector3DDiagram={question.vector3DDiagram}
-            trapezoidalRuleDiagram={question.trapezoidalRuleDiagram}
-            boxPlotDiagram={question.boxPlotDiagram}
-            normalDistributionDiagram={question.normalDistributionDiagram}
-            polynomialCurveDiagram={question.polynomialCurveDiagram}
-            probabilityTreeDiagram={question.probabilityTreeDiagram}
-            slopeFieldDiagram={question.slopeFieldDiagram}
-            twoWayTableDiagram={question.twoWayTableDiagram}
-            vennDiagram={question.vennDiagram}
-          />
+          <VisualPayloadRenderer {...question} />
 
           {/* MCQ choices */}
           {question.isMultipleChoice && question.choices && (
@@ -294,23 +278,7 @@ function SectionCard({
             <div className="overflow-x-auto rounded-xl bg-slate-50 px-4 py-3">
               <BlockMath math={section.example.questionLatex} />
             </div>
-            <VisualPayloadRenderer
-              diagram={section.example.diagram}
-              triangleDiagram={section.example.triangleDiagram}
-              cartesianGraph={section.example.cartesianGraph}
-              unitCircleDiagram={section.example.unitCircleDiagram}
-              trigGraphDiagram={section.example.trigGraphDiagram}
-              argandDiagram={section.example.argandDiagram}
-              vector3DDiagram={section.example.vector3DDiagram}
-              trapezoidalRuleDiagram={section.example.trapezoidalRuleDiagram}
-              boxPlotDiagram={section.example.boxPlotDiagram}
-              normalDistributionDiagram={section.example.normalDistributionDiagram}
-              polynomialCurveDiagram={section.example.polynomialCurveDiagram}
-              probabilityTreeDiagram={section.example.probabilityTreeDiagram}
-              slopeFieldDiagram={section.example.slopeFieldDiagram}
-              twoWayTableDiagram={section.example.twoWayTableDiagram}
-              vennDiagram={section.example.vennDiagram}
-            />
+            <VisualPayloadRenderer {...section.example} />
             <div className="space-y-2">
               {section.example.steps.map((step, i) => (
                 <div

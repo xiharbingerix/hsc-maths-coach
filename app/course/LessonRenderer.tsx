@@ -16,21 +16,7 @@ import type {
   PracticeQuestion,
   PracticeQuestionPart,
 } from "../../lib/lessons/differentialCalculus";
-import { ArgandDiagramView } from "./components/ArgandDiagramView";
-import { NetworkDiagramView } from "./components/NetworkDiagramView";
-import { TriangleDiagramView } from "./components/TriangleDiagramView";
-import { CartesianGraphView } from "./components/CartesianGraphView";
-import { TrapezoidalRuleView } from "./components/TrapezoidalRuleView";
-import { BoxPlotView } from "./components/BoxPlotView";
-import { NormalDistributionView } from "./components/NormalDistributionView";
-import { ProbabilityTreeView } from "./components/ProbabilityTreeView";
-import { TrigGraphDiagramView } from "./components/TrigGraphDiagramView";
-import { TwoWayTableView } from "./components/TwoWayTableView";
-import { UnitCircleDiagramView } from "./components/UnitCircleDiagramView";
-import { Vector3DDiagramView } from "./components/Vector3DDiagramView";
-import { VennDiagramView } from "./components/VennDiagramView";
-import { PolynomialCurveView } from "./components/PolynomialCurveView";
-import { SlopeFieldView } from "./components/SlopeFieldView";
+import { VisualPayloadRenderer } from "../components/VisualPayloadRenderer";
 import { markTypedAnswer } from "../../lib/answerMarking";
 import { MathAnswerInput } from "../components/MathAnswerInput";
 import { HintLadder } from "./components/HintLadder";
@@ -300,45 +286,7 @@ function MultiPartPracticeCard({
             <BlockMath math={question.latex} />
           </div>
         )}
-        {question.diagram && <NetworkDiagramView diagram={question.diagram} />}
-        {question.triangleDiagram && (
-          <TriangleDiagramView diagram={question.triangleDiagram} />
-        )}
-        {question.cartesianGraph && (
-          <CartesianGraphView graph={question.cartesianGraph} />
-        )}
-        {question.unitCircleDiagram && (
-          <UnitCircleDiagramView diagram={question.unitCircleDiagram} />
-        )}
-        {question.trigGraphDiagram && (
-          <TrigGraphDiagramView diagram={question.trigGraphDiagram} />
-        )}
-        {question.argandDiagram && (
-          <ArgandDiagramView diagram={question.argandDiagram} />
-        )}
-        {question.vector3DDiagram && (
-          <Vector3DDiagramView diagram={question.vector3DDiagram} />
-        )}
-        {question.trapezoidalRuleDiagram && (
-          <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
-        )}
-        {question.boxPlotDiagram && <BoxPlotView diagram={question.boxPlotDiagram} />}
-        {question.normalDistributionDiagram && (
-          <NormalDistributionView diagram={question.normalDistributionDiagram} />
-        )}
-        {question.probabilityTreeDiagram && (
-          <ProbabilityTreeView diagram={question.probabilityTreeDiagram} />
-        )}
-        {question.twoWayTableDiagram && (
-          <TwoWayTableView diagram={question.twoWayTableDiagram} />
-        )}
-        {question.vennDiagram && <VennDiagramView diagram={question.vennDiagram} />}
-        {question.polynomialCurveDiagram && (
-          <PolynomialCurveView diagram={question.polynomialCurveDiagram} />
-        )}
-        {question.slopeFieldDiagram && (
-          <SlopeFieldView diagram={question.slopeFieldDiagram} />
-        )}
+        <VisualPayloadRenderer {...question} />
       </div>
 
       <div className="space-y-4">
@@ -460,45 +408,7 @@ function MultiPartQuizQuestion({
             <BlockMath math={question.latex} />
           </div>
         )}
-        {question.diagram && <NetworkDiagramView diagram={question.diagram} />}
-        {question.triangleDiagram && (
-          <TriangleDiagramView diagram={question.triangleDiagram} />
-        )}
-        {question.cartesianGraph && (
-          <CartesianGraphView graph={question.cartesianGraph} />
-        )}
-        {question.unitCircleDiagram && (
-          <UnitCircleDiagramView diagram={question.unitCircleDiagram} />
-        )}
-        {question.trigGraphDiagram && (
-          <TrigGraphDiagramView diagram={question.trigGraphDiagram} />
-        )}
-        {question.argandDiagram && (
-          <ArgandDiagramView diagram={question.argandDiagram} />
-        )}
-        {question.vector3DDiagram && (
-          <Vector3DDiagramView diagram={question.vector3DDiagram} />
-        )}
-        {question.trapezoidalRuleDiagram && (
-          <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
-        )}
-        {question.boxPlotDiagram && <BoxPlotView diagram={question.boxPlotDiagram} />}
-        {question.normalDistributionDiagram && (
-          <NormalDistributionView diagram={question.normalDistributionDiagram} />
-        )}
-        {question.probabilityTreeDiagram && (
-          <ProbabilityTreeView diagram={question.probabilityTreeDiagram} />
-        )}
-        {question.twoWayTableDiagram && (
-          <TwoWayTableView diagram={question.twoWayTableDiagram} />
-        )}
-        {question.vennDiagram && <VennDiagramView diagram={question.vennDiagram} />}
-        {question.polynomialCurveDiagram && (
-          <PolynomialCurveView diagram={question.polynomialCurveDiagram} />
-        )}
-        {question.slopeFieldDiagram && (
-          <SlopeFieldView diagram={question.slopeFieldDiagram} />
-        )}
+        <VisualPayloadRenderer {...question} />
       </div>
 
       <div className="space-y-4">
@@ -869,47 +779,7 @@ function PracticeCard({
           <BlockMath math={question.latex} />
         </div>
 
-        {question.diagram && <NetworkDiagramView diagram={question.diagram} />}
-        {question.triangleDiagram && (
-          <TriangleDiagramView diagram={question.triangleDiagram} />
-        )}
-        {question.cartesianGraph && (
-          <CartesianGraphView graph={question.cartesianGraph} />
-        )}
-        {question.unitCircleDiagram && (
-          <UnitCircleDiagramView diagram={question.unitCircleDiagram} />
-        )}
-        {question.trigGraphDiagram && (
-          <TrigGraphDiagramView diagram={question.trigGraphDiagram} />
-        )}
-        {question.argandDiagram && (
-          <ArgandDiagramView diagram={question.argandDiagram} />
-        )}
-        {question.vector3DDiagram && (
-          <Vector3DDiagramView diagram={question.vector3DDiagram} />
-        )}
-        {question.trapezoidalRuleDiagram && (
-          <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
-        )}
-        {question.boxPlotDiagram && (
-          <BoxPlotView diagram={question.boxPlotDiagram} />
-        )}
-        {question.normalDistributionDiagram && (
-          <NormalDistributionView diagram={question.normalDistributionDiagram} />
-        )}
-        {question.probabilityTreeDiagram && (
-          <ProbabilityTreeView diagram={question.probabilityTreeDiagram} />
-        )}
-        {question.twoWayTableDiagram && (
-          <TwoWayTableView diagram={question.twoWayTableDiagram} />
-        )}
-        {question.vennDiagram && <VennDiagramView diagram={question.vennDiagram} />}
-        {question.polynomialCurveDiagram && (
-          <PolynomialCurveView diagram={question.polynomialCurveDiagram} />
-        )}
-        {question.slopeFieldDiagram && (
-          <SlopeFieldView diagram={question.slopeFieldDiagram} />
-        )}
+        <VisualPayloadRenderer {...question} />
       </div>
 
       {question.choices ? (
@@ -1169,47 +1039,7 @@ function QuizQuestion({
           <BlockMath math={question.latex} />
         </div>
 
-        {question.diagram && <NetworkDiagramView diagram={question.diagram} />}
-        {question.triangleDiagram && (
-          <TriangleDiagramView diagram={question.triangleDiagram} />
-        )}
-        {question.cartesianGraph && (
-          <CartesianGraphView graph={question.cartesianGraph} />
-        )}
-        {question.unitCircleDiagram && (
-          <UnitCircleDiagramView diagram={question.unitCircleDiagram} />
-        )}
-        {question.trigGraphDiagram && (
-          <TrigGraphDiagramView diagram={question.trigGraphDiagram} />
-        )}
-        {question.argandDiagram && (
-          <ArgandDiagramView diagram={question.argandDiagram} />
-        )}
-        {question.vector3DDiagram && (
-          <Vector3DDiagramView diagram={question.vector3DDiagram} />
-        )}
-        {question.trapezoidalRuleDiagram && (
-          <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
-        )}
-        {question.boxPlotDiagram && (
-          <BoxPlotView diagram={question.boxPlotDiagram} />
-        )}
-        {question.normalDistributionDiagram && (
-          <NormalDistributionView diagram={question.normalDistributionDiagram} />
-        )}
-        {question.probabilityTreeDiagram && (
-          <ProbabilityTreeView diagram={question.probabilityTreeDiagram} />
-        )}
-        {question.twoWayTableDiagram && (
-          <TwoWayTableView diagram={question.twoWayTableDiagram} />
-        )}
-        {question.vennDiagram && <VennDiagramView diagram={question.vennDiagram} />}
-        {question.polynomialCurveDiagram && (
-          <PolynomialCurveView diagram={question.polynomialCurveDiagram} />
-        )}
-        {question.slopeFieldDiagram && (
-          <SlopeFieldView diagram={question.slopeFieldDiagram} />
-        )}
+        <VisualPayloadRenderer {...question} />
       </div>
 
       {question.choices ? (
@@ -1332,45 +1162,7 @@ function MasteryResultPanel({
                         <BlockMath math={question.latex} />
                       </div>
                     )}
-                    {question.diagram && (
-                      <NetworkDiagramView diagram={question.diagram} />
-                    )}
-                    {question.triangleDiagram && (
-                      <TriangleDiagramView diagram={question.triangleDiagram} />
-                    )}
-                    {question.cartesianGraph && (
-                      <CartesianGraphView graph={question.cartesianGraph} />
-                    )}
-                    {question.unitCircleDiagram && (
-                      <UnitCircleDiagramView diagram={question.unitCircleDiagram} />
-                    )}
-                    {question.trigGraphDiagram && (
-                      <TrigGraphDiagramView diagram={question.trigGraphDiagram} />
-                    )}
-                    {question.argandDiagram && (
-                      <ArgandDiagramView diagram={question.argandDiagram} />
-                    )}
-                    {question.vector3DDiagram && (
-                      <Vector3DDiagramView diagram={question.vector3DDiagram} />
-                    )}
-                    {question.trapezoidalRuleDiagram && (
-                      <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
-                    )}
-                    {question.boxPlotDiagram && (
-                      <BoxPlotView diagram={question.boxPlotDiagram} />
-                    )}
-                    {question.normalDistributionDiagram && (
-                      <NormalDistributionView diagram={question.normalDistributionDiagram} />
-                    )}
-                    {question.probabilityTreeDiagram && (
-                      <ProbabilityTreeView diagram={question.probabilityTreeDiagram} />
-                    )}
-                    {question.twoWayTableDiagram && (
-                      <TwoWayTableView diagram={question.twoWayTableDiagram} />
-                    )}
-                    {question.vennDiagram && (
-                      <VennDiagramView diagram={question.vennDiagram} />
-                    )}
+                    <VisualPayloadRenderer {...question} />
                   </div>
 
                   {hasQuestionParts(question) ? (
@@ -1469,45 +1261,7 @@ function MasteryResultPanel({
                     <BlockMath math={question.latex} />
                   </div>
                 )}
-                {question.diagram && (
-                  <NetworkDiagramView diagram={question.diagram} />
-                )}
-                {question.triangleDiagram && (
-                  <TriangleDiagramView diagram={question.triangleDiagram} />
-                )}
-                {question.cartesianGraph && (
-                  <CartesianGraphView graph={question.cartesianGraph} />
-                )}
-                {question.unitCircleDiagram && (
-                  <UnitCircleDiagramView diagram={question.unitCircleDiagram} />
-                )}
-                {question.trigGraphDiagram && (
-                  <TrigGraphDiagramView diagram={question.trigGraphDiagram} />
-                )}
-                {question.argandDiagram && (
-                  <ArgandDiagramView diagram={question.argandDiagram} />
-                )}
-                {question.vector3DDiagram && (
-                  <Vector3DDiagramView diagram={question.vector3DDiagram} />
-                )}
-                {question.trapezoidalRuleDiagram && (
-                  <TrapezoidalRuleView diagram={question.trapezoidalRuleDiagram} />
-                )}
-                {question.boxPlotDiagram && (
-                  <BoxPlotView diagram={question.boxPlotDiagram} />
-                )}
-                {question.normalDistributionDiagram && (
-                  <NormalDistributionView diagram={question.normalDistributionDiagram} />
-                )}
-                {question.probabilityTreeDiagram && (
-                  <ProbabilityTreeView diagram={question.probabilityTreeDiagram} />
-                )}
-                {question.twoWayTableDiagram && (
-                  <TwoWayTableView diagram={question.twoWayTableDiagram} />
-                )}
-                {question.vennDiagram && (
-                  <VennDiagramView diagram={question.vennDiagram} />
-                )}
+                <VisualPayloadRenderer {...question} />
               </div>
 
               {hasQuestionParts(question) ? (
@@ -2129,49 +1883,7 @@ export function LessonRenderer({
                   <BlockMath math={example.questionLatex} />
                 </div>
 
-                {example.diagram && <NetworkDiagramView diagram={example.diagram} />}
-                {example.triangleDiagram && (
-                  <TriangleDiagramView diagram={example.triangleDiagram} />
-                )}
-                {example.cartesianGraph && (
-                  <CartesianGraphView graph={example.cartesianGraph} />
-                )}
-                {example.unitCircleDiagram && (
-                  <UnitCircleDiagramView diagram={example.unitCircleDiagram} />
-                )}
-                {example.trigGraphDiagram && (
-                  <TrigGraphDiagramView diagram={example.trigGraphDiagram} />
-                )}
-                {example.argandDiagram && (
-                  <ArgandDiagramView diagram={example.argandDiagram} />
-                )}
-                {example.vector3DDiagram && (
-                  <Vector3DDiagramView diagram={example.vector3DDiagram} />
-                )}
-                {example.trapezoidalRuleDiagram && (
-                  <TrapezoidalRuleView diagram={example.trapezoidalRuleDiagram} />
-                )}
-                {example.boxPlotDiagram && (
-                  <BoxPlotView diagram={example.boxPlotDiagram} />
-                )}
-                {example.normalDistributionDiagram && (
-                  <NormalDistributionView diagram={example.normalDistributionDiagram} />
-                )}
-                {example.probabilityTreeDiagram && (
-                  <ProbabilityTreeView diagram={example.probabilityTreeDiagram} />
-                )}
-                {example.twoWayTableDiagram && (
-                  <TwoWayTableView diagram={example.twoWayTableDiagram} />
-                )}
-                {example.vennDiagram && (
-                  <VennDiagramView diagram={example.vennDiagram} />
-                )}
-                {example.polynomialCurveDiagram && (
-                  <PolynomialCurveView diagram={example.polynomialCurveDiagram} />
-                )}
-                {example.slopeFieldDiagram && (
-                  <SlopeFieldView diagram={example.slopeFieldDiagram} />
-                )}
+                <VisualPayloadRenderer {...example} />
 
                 <div className="space-y-3">
                   {example.steps.map((step, index) => (

@@ -11,11 +11,7 @@ import type {
   PracticeQuestion,
   WorkedExample,
 } from "../lib/lessons/differentialCalculus";
-import type {
-  CartesianGraph,
-  NetworkDiagram,
-  TriangleDiagram,
-} from "../lib/lessons/types";
+import { DIAGRAM_SPECS } from "../lib/lessons/diagramRegistry";
 import * as year9Exports from "../lib/lessons/year9";
 import * as year10Exports from "../lib/lessons/year10";
 
@@ -114,21 +110,10 @@ function visualItems(lesson: ExplicitLesson) {
 }
 
 function hasItemVisualPayload(item: WorkedExample | PracticeQuestion) {
+  const fields = item as unknown as Record<string, unknown>;
   return Boolean(
-    item.diagram ||
-      ("solutionDiagram" in item && item.solutionDiagram) ||
-      item.triangleDiagram ||
-      item.cartesianGraph ||
-      item.unitCircleDiagram ||
-      item.trigGraphDiagram ||
-      item.argandDiagram ||
-      item.vector3DDiagram ||
-      item.trapezoidalRuleDiagram ||
-      item.boxPlotDiagram ||
-      item.normalDistributionDiagram ||
-      item.probabilityTreeDiagram ||
-      item.twoWayTableDiagram ||
-      item.vennDiagram
+    ("solutionDiagram" in item && item.solutionDiagram) ||
+      DIAGRAM_SPECS.some((spec) => fields[spec.field])
   );
 }
 

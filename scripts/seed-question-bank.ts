@@ -19,6 +19,7 @@ import { sequencesSeriesFinancialMathsLessons } from "../lib/lessons/sequencesSe
 import { statisticalAnalysisLessons } from "../lib/lessons/statisticalAnalysis";
 import { trigonometricFunctionsGraphsLessons } from "../lib/lessons/trigonometricFunctionsGraphs";
 import { probabilityLessons } from "../lib/lessons/probability";
+import { extractDiagramData } from "../lib/lessons/diagramRegistry";
 
 type PracticeSection = "guidedPractice" | "independentPractice" | "masteryQuiz" | "multiPartPractice";
 
@@ -243,23 +244,6 @@ export function inferDifficulty(
   }
 
   return 3;
-}
-
-function extractDiagramData(q: PracticeQuestion): Record<string, unknown> | null {
-  if (q.cartesianGraph)            return { type: "cartesianGraph",            ...q.cartesianGraph };
-  if (q.unitCircleDiagram)         return { type: "unitCircleDiagram",         ...q.unitCircleDiagram };
-  if (q.trigGraphDiagram)          return { type: "trigGraphDiagram",          ...q.trigGraphDiagram };
-  if (q.argandDiagram)             return { type: "argandDiagram",             ...q.argandDiagram };
-  if (q.vector3DDiagram)           return { type: "vector3DDiagram",           ...q.vector3DDiagram };
-  if (q.triangleDiagram)           return { type: "triangleDiagram",           ...q.triangleDiagram };
-  if (q.trapezoidalRuleDiagram)    return { type: "trapezoidalRuleDiagram",    ...q.trapezoidalRuleDiagram };
-  if (q.boxPlotDiagram)            return { type: "boxPlotDiagram",            ...q.boxPlotDiagram };
-  if (q.normalDistributionDiagram) return { type: "normalDistributionDiagram", ...q.normalDistributionDiagram };
-  if (q.probabilityTreeDiagram)    return { type: "probabilityTreeDiagram",    ...q.probabilityTreeDiagram };
-  if (q.twoWayTableDiagram)        return { type: "twoWayTableDiagram",        ...q.twoWayTableDiagram };
-  if (q.vennDiagram)               return { type: "vennDiagram",               ...q.vennDiagram };
-  if (q.diagram)                   return { type: "networkDiagram",            ...q.diagram };
-  return null;
 }
 
 export function mapPracticeQuestionToQuestionRow(
