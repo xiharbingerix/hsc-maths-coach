@@ -2,21 +2,13 @@
 
 import * as React from "react";
 import type { HistogramDiagram } from "../../../lib/lessons/types";
+import { axisTicks, mathLabel } from "./plotUtils";
 
 const width = 440;
 const height = 300;
 const padding = { top: 18, right: 20, bottom: 54, left: 48 };
 const plotWidth = width - padding.left - padding.right;
 const plotHeight = height - padding.top - padding.bottom;
-
-function axisTicks(max: number, step?: number) {
-  const safeMax = max > 0 ? max : 1;
-  const s = step && step > 0 ? step : Math.max(1, Math.ceil(safeMax / 5));
-  const ticks: number[] = [];
-  for (let v = 0; v <= safeMax + s / 1000; v += s) ticks.push(Number(v.toFixed(10)));
-  if (ticks[ticks.length - 1] < safeMax) ticks.push(ticks[ticks.length - 1] + s);
-  return { ticks, axisMax: ticks[ticks.length - 1] };
-}
 
 /** Running totals [a, a+b, a+b+c, …] without mutating outer state. */
 function cumulativeSums(values: number[]): number[] {
@@ -89,7 +81,7 @@ export function HistogramView({
                 stroke="#ffffff"
                 strokeWidth={1}
               />
-              <text x={padding.left + slot * i + slot / 2} y={padding.top + plotHeight + 16} textAnchor="middle" className="fill-slate-700 text-xs">{bin.label}</text>
+              <text x={padding.left + slot * i + slot / 2} y={padding.top + plotHeight + 16} textAnchor="middle" className="fill-slate-700 text-xs">{mathLabel(bin.label)}</text>
             </g>
           );
         })}
@@ -105,7 +97,7 @@ export function HistogramView({
 
         <text x={14} y={padding.top - 6} className="fill-slate-800 text-xs font-semibold">{freqLabel}</text>
         {diagram.axisLabel && (
-          <text x={padding.left + plotWidth / 2} y={height - 4} textAnchor="middle" className="fill-slate-800 text-xs font-semibold">{diagram.axisLabel}</text>
+          <text x={padding.left + plotWidth / 2} y={height - 4} textAnchor="middle" className="fill-slate-800 text-xs font-semibold">{mathLabel(diagram.axisLabel)}</text>
         )}
       </svg>
     </div>

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import type { DotPlotDiagram } from "../../../lib/lessons/types";
+import { formatTick, mathLabel, ticksBetween } from "./plotUtils";
 
 const width = 440;
 const marginX = 30;
@@ -9,20 +10,6 @@ const topPadding = 16;
 const dotRadius = 4.5;
 const dotGap = 12;
 const plotWidth = width - 2 * marginX;
-
-function ticksBetween(min: number, max: number, step: number) {
-  if (step <= 0 || max <= min) return [];
-  const first = Math.ceil(min / step) * step;
-  const values: number[] = [];
-  for (let v = first; v <= max + step / 1000; v += step) {
-    values.push(Number(v.toFixed(10)));
-  }
-  return values;
-}
-
-function formatTick(value: number) {
-  return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
-}
 
 /** Resolve `values`/`counts` into one ordered list of {value, count}. */
 function resolveCounts(diagram: DotPlotDiagram): { value: number; count: number }[] {
@@ -114,7 +101,7 @@ export function DotPlotView({
             textAnchor="end"
             className="fill-slate-800 text-sm font-semibold"
           >
-            {diagram.axisLabel}
+            {mathLabel(diagram.axisLabel)}
           </text>
         )}
       </svg>

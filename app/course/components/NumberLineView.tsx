@@ -5,6 +5,7 @@ import type {
   NumberLineColor,
   NumberLineDiagram,
 } from "../../../lib/lessons/types";
+import { formatTick, mathLabel, ticksBetween } from "./plotUtils";
 
 const colorHex: Record<NumberLineColor, string> = {
   blue: "#2563eb",
@@ -18,20 +19,6 @@ const height = 104;
 const marginX = 30;
 const axisY = 60;
 const plotWidth = width - 2 * marginX;
-
-function ticksBetween(min: number, max: number, step: number) {
-  if (step <= 0 || max <= min) return [];
-  const first = Math.ceil(min / step) * step;
-  const values: number[] = [];
-  for (let v = first; v <= max + step / 1000; v += step) {
-    values.push(Number(v.toFixed(10)));
-  }
-  return values;
-}
-
-function formatTick(value: number) {
-  return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
-}
 
 export function NumberLineView({
   diagram,
@@ -165,7 +152,7 @@ export function NumberLineView({
                   strokeWidth={4}
                   paintOrder="stroke"
                 >
-                  {interval.label}
+                  {mathLabel(interval.label)}
                 </text>
               )}
             </g>
@@ -176,7 +163,7 @@ export function NumberLineView({
         {diagram.points?.map((point, index) => {
           const stroke = colorHex[point.color ?? "blue"];
           const x = clampX(toX(point.value));
-          const label = point.label ?? formatTick(point.value);
+          const label = point.label ? mathLabel(point.label) : formatTick(point.value);
           return (
             <g key={`point-${index}`}>
               <circle
@@ -211,7 +198,7 @@ export function NumberLineView({
             textAnchor="end"
             className="fill-slate-800 text-sm font-semibold"
           >
-            {diagram.axisLabel}
+            {mathLabel(diagram.axisLabel)}
           </text>
         )}
       </svg>

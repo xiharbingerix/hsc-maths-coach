@@ -121,14 +121,19 @@ export function SlopeFieldView({ diagram }: { diagram: SlopeFieldDiagram }) {
   const yTicks: number[] = [];
   for (let y = Math.ceil(yMin); y <= Math.floor(yMax); y++) yTicks.push(y);
 
-  const clipId = `sf-clip-${xMin}-${yMin}`;
+  const reactId = React.useId();
+  const titleId = `${reactId}-title`;
+  const clipId = `${reactId}-clip`;
 
   return (
     <svg
+      role="img"
+      aria-labelledby={titleId}
       width={W} height={H}
       viewBox={`0 0 ${W} ${H}`}
       style={{ maxWidth: "100%", display: "block", margin: "12px auto" }}
     >
+      <title id={titleId}>{diagram.description}</title>
       <defs>
         <clipPath id={clipId}>
           <rect x={PAD.left} y={PAD.top} width={PW} height={PH} />

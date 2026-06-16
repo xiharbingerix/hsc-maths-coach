@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import type { BarChartDiagram, StatChartColor } from "../../../lib/lessons/types";
+import { axisTicks, mathLabel } from "./plotUtils";
 
 const statColorHex: Record<StatChartColor, string> = {
   blue: "#2563eb",
@@ -14,16 +15,6 @@ const statColorHex: Record<StatChartColor, string> = {
 
 const width = 440;
 const height = 300;
-
-/** Tick values [0, step, …, >= max] and the axis max (last tick). */
-function axisTicks(max: number, step?: number) {
-  const safeMax = max > 0 ? max : 1;
-  const s = step && step > 0 ? step : Math.max(1, Math.ceil(safeMax / 5));
-  const ticks: number[] = [];
-  for (let v = 0; v <= safeMax + s / 1000; v += s) ticks.push(Number(v.toFixed(10)));
-  if (ticks[ticks.length - 1] < safeMax) ticks.push(ticks[ticks.length - 1] + s);
-  return { ticks, axisMax: ticks[ticks.length - 1] };
-}
 
 export function BarChartView({
   diagram,
@@ -92,7 +83,7 @@ export function BarChartView({
             return (
               <g key={`bar-${i}`}>
                 <rect x={padding.left} y={y} width={Math.max(w, 0)} height={barThickness} fill={fill} rx={2} />
-                <text x={padding.left - 8} y={y + barThickness / 2} textAnchor="end" dominantBaseline="central" className="fill-slate-700 text-xs">{bar.label}</text>
+                <text x={padding.left - 8} y={y + barThickness / 2} textAnchor="end" dominantBaseline="central" className="fill-slate-700 text-xs">{mathLabel(bar.label)}</text>
               </g>
             );
           }
@@ -101,7 +92,7 @@ export function BarChartView({
           return (
             <g key={`bar-${i}`}>
               <rect x={x} y={padding.top + plotHeight - h} width={barThickness} height={Math.max(h, 0)} fill={fill} rx={2} />
-              <text x={x + barThickness / 2} y={padding.top + plotHeight + 16} textAnchor="middle" className="fill-slate-700 text-xs">{bar.label}</text>
+              <text x={x + barThickness / 2} y={padding.top + plotHeight + 16} textAnchor="middle" className="fill-slate-700 text-xs">{mathLabel(bar.label)}</text>
             </g>
           );
         })}
@@ -114,7 +105,7 @@ export function BarChartView({
             textAnchor={horizontal ? "middle" : "start"}
             className="fill-slate-800 text-xs font-semibold"
           >
-            {diagram.valueAxisLabel}
+            {mathLabel(diagram.valueAxisLabel)}
           </text>
         )}
         {diagram.categoryAxisLabel && (
@@ -124,7 +115,7 @@ export function BarChartView({
             textAnchor={horizontal ? "start" : "middle"}
             className="fill-slate-800 text-xs font-semibold"
           >
-            {diagram.categoryAxisLabel}
+            {mathLabel(diagram.categoryAxisLabel)}
           </text>
         )}
       </svg>

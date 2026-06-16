@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import type { StepGraphDiagram } from "../../../lib/lessons/types";
+import { formatTick, mathLabel, ticksBetween } from "./plotUtils";
 
 const width = 420;
 const height = 300;
@@ -9,18 +10,6 @@ const padding = { top: 20, right: 24, bottom: 44, left: 52 };
 const plotWidth = width - padding.left - padding.right;
 const plotHeight = height - padding.top - padding.bottom;
 const ACCENT = "#0f766e";
-
-function ticksBetween(min: number, max: number, step: number) {
-  if (step <= 0 || max <= min) return [];
-  const first = Math.ceil(min / step) * step;
-  const out: number[] = [];
-  for (let v = first; v <= max + step / 1000; v += step) out.push(Number(v.toFixed(10)));
-  return out;
-}
-
-function formatTick(value: number) {
-  return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
-}
 
 export function StepGraphView({
   diagram,
@@ -97,8 +86,8 @@ export function StepGraphView({
           );
         })}
 
-        <text x={padding.left + plotWidth} y={height - 6} textAnchor="end" className="fill-slate-800 text-sm font-semibold">{diagram.xAxisLabel ?? "x"}</text>
-        <text x={14} y={padding.top - 6} className="fill-slate-800 text-sm font-semibold">{diagram.yAxisLabel ?? "y"}</text>
+        <text x={padding.left + plotWidth} y={height - 6} textAnchor="end" className="fill-slate-800 text-sm font-semibold">{mathLabel(diagram.xAxisLabel ?? "x")}</text>
+        <text x={14} y={padding.top - 6} className="fill-slate-800 text-sm font-semibold">{mathLabel(diagram.yAxisLabel ?? "y")}</text>
       </svg>
     </div>
   );

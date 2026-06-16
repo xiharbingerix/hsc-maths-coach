@@ -2,24 +2,13 @@
 
 import * as React from "react";
 import type { ScatterPlotDiagram, ScatterPoint } from "../../../lib/lessons/types";
+import { formatTick, mathLabel, ticksBetween } from "./plotUtils";
 
 const width = 440;
 const height = 320;
 const padding = { top: 20, right: 24, bottom: 44, left: 48 };
 const plotWidth = width - padding.left - padding.right;
 const plotHeight = height - padding.top - padding.bottom;
-
-function ticksBetween(min: number, max: number, step: number) {
-  if (step <= 0 || max <= min) return [];
-  const first = Math.ceil(min / step) * step;
-  const values: number[] = [];
-  for (let v = first; v <= max + step / 1000; v += step) values.push(Number(v.toFixed(10)));
-  return values;
-}
-
-function formatTick(value: number) {
-  return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
-}
 
 /** Least-squares regression line through the points, or null if undefined. */
 function leastSquares(points: ScatterPoint[]): { m: number; b: number } | null {
@@ -145,12 +134,12 @@ export function ScatterPlotView({
 
         {diagram.correlationLabel && (
           <text x={padding.left + plotWidth - 6} y={padding.top + 14} textAnchor="end" className="fill-blue-700 text-xs font-semibold" stroke="#ffffff" strokeWidth={4} paintOrder="stroke">
-            {diagram.correlationLabel}
+            {mathLabel(diagram.correlationLabel)}
           </text>
         )}
 
-        <text x={padding.left + plotWidth} y={height - 6} textAnchor="end" className="fill-slate-800 text-sm font-semibold">{diagram.xAxisLabel ?? "x"}</text>
-        <text x={14} y={padding.top - 6} className="fill-slate-800 text-sm font-semibold">{diagram.yAxisLabel ?? "y"}</text>
+        <text x={padding.left + plotWidth} y={height - 6} textAnchor="end" className="fill-slate-800 text-sm font-semibold">{mathLabel(diagram.xAxisLabel ?? "x")}</text>
+        <text x={14} y={padding.top - 6} className="fill-slate-800 text-sm font-semibold">{mathLabel(diagram.yAxisLabel ?? "y")}</text>
       </svg>
     </div>
   );
