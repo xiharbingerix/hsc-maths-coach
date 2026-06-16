@@ -39,10 +39,13 @@ type PracticeQuestion = {
   acceptedAnswers: string[];  // Alternate accepted forms ([] is fine)
   hint:            string;    // One next-step hint
   explanation:     string;    // Step-by-step worked solution
-  choices?: { label: string; text: string }[];  // MCQ only
+  choices?: Choice[];         // MCQ only — a Choice may also carry a diagram (see Visual payloads)
   parts?: PracticeQuestionPart[];               // HSC Section II-style parts only
+  // …plus any visual payload field (cartesianGraph, numberLineDiagram, …) — see Visual payloads
 };
 ```
+
+> Any of the visual payload fields documented under [Visual payloads](#visual-payloads) may be set on a `PracticeQuestion` (and on a `WorkedExample`). They are carried through the whole pipeline — lesson display, worksheets, admin preview, and seed-to-database — automatically.
 
 > Lesson TypeScript questions do not carry `question_type`, `difficulty`, or `course_slug`. Those are inferred by `seed-question-bank.ts`.
 
@@ -198,7 +201,7 @@ type QuestionBatchRecord = {
   question_type:        "conceptual" | "procedural"; // See table below
   prompt:               string;
   latex?:               string | null;
-  choices?:             { label: string; text: string }[] | null;
+  choices?:             { label: string; text: string }[] | null;  // each choice may also carry diagram fields
   question_parts?:      QuestionPart[] | null;
   answer:               string;
   accepted_answers:     string[];                    // [] is valid
@@ -643,29 +646,96 @@ choice(
 
 ## Visual payloads
 
-**You MUST attach a visual payload whenever a question involves a diagram, graph, table, network, tree, plotted point, slope field, or geometric figure.** Do not describe a visual in words when a renderer exists that can show it. Keep the prompt self-contained and use the payload as the visual stimulus.
+**You MUST attach a visual payload whenever a question (or worked example) involves a diagram, graph, plot, table, number line, geometric figure, or solid.** Never describe a visual in words, fake it in LaTeX, or spell a plot out as text when a renderer exists for it. Keep the prompt self-contained and let the payload carry the visual stimulus.
 
-If no existing renderer covers the required diagram type, build a new `*View` component in `app/course/components/`, add the corresponding type to `lib/lessons/types.ts`, and wire it into `app/components/VisualPayloadRenderer.tsx` before authoring the question.
+There are **28 renderers**, dispatched through one registry. The authoritative schema for every payload field is **`lib/lessons/types.ts`**; the registry is **`lib/lessons/diagramRegistry.ts`** (payload types) + **`app/components/diagramRegistry.tsx`** (renderers). Any of these fields may be set on a `PracticeQuestion`, a `WorkedExample`, or an MCQ `Choice`.
 
 ### Available renderers
 
-| Payload field | Renderer | Use for |
+**Coordinate graphs & functions**
+
+| Payload field | Use for |
+|---|---|
+| `cartesianGraph` | Coordinate graphs — lines, parabolas, circles, sinusoids, and (via `curves`) exponential, logarithmic, reciprocal/hyperbola, absolute-value, square-root and cubic functions |
+| `numberLineDiagram` | Integers, inequalities, absolute value, intervals — points (open/closed) and shaded rays |
+| `stepGraphDiagram` | Step / piecewise-constant graphs — tariffs, postage, tax brackets |
+| `polynomialCurveDiagram` | Polynomial sketching — roots with multiplicity, end behaviour |
+| `unitCircleDiagram` | Unit circle — terminal points, reference angles, quadrant signs |
+| `trigGraphDiagram` | sin / cos / tan graphs — symbolic radian ticks, asymptotes, period markers |
+| `slopeFieldDiagram` | Slope fields for differential equations (Ext 2) |
+| `trapezoidalRuleDiagram` | Trapezoidal strips under a curve |
+
+**Statistics & probability**
+
+| Payload field | Use for |
+|---|---|
+| `dotPlotDiagram` | Dot plots over a number line |
+| `stemAndLeafDiagram` | Stem-and-leaf plots (including back-to-back) |
+| `barChartDiagram` | Column / bar graphs for categorical data (vertical or horizontal) |
+| `histogramDiagram` | Grouped continuous data; optional frequency polygon / cumulative ogive |
+| `scatterPlotDiagram` | Bivariate scatter + line of best fit + correlation |
+| `boxPlotDiagram` | Box-and-whisker plots, five-number summary |
+| `normalDistributionDiagram` | Normal curves, shaded regions, z-scores |
+| `pieChartDiagram` | Categorical proportions as a pie |
+| `probabilityTreeDiagram` | Multi-stage probability trees |
+| `twoWayTableDiagram` | Two-way frequency / probability tables |
+| `vennDiagram` | Two- or three-set Venn diagrams |
+
+**Geometry & measurement**
+
+| Payload field | Use for |
+|---|---|
+| `triangleDiagram` | Labelled triangles — sides, angles, right-angle marks |
+| `planeShapeDiagram` | Any polygon / quadrilateral / composite shape — side & angle labels, right-angle marks, equal-length ticks, parallel chevrons |
+| `sectorDiagram` | Circle sector — arc length, sector area, radians |
+| `solid3DDiagram` | 3D solids (prism, cube, cylinder, cone, pyramid, sphere) for volume / surface area |
+| `netDiagram` | 2D nets of solids for surface area |
+| `bearingsDiagram` | Compass bearings — true bearings, multiple rays from an origin |
+
+**Other**
+
+| Payload field | Use for |
+|---|---|
+| `diagram` (`networkDiagram`) | Graphs, networks, critical paths |
+| `argandDiagram` | Complex-number plots, modulus circles, loci (Ext 2) |
+| `vector3DDiagram` | 3D vectors, points, direction lines (Ext 2) |
+
+### Use the right renderer — never fake a visual
+
+If a question refers to a visual, it must ship the matching payload. The lesson auditor flags **"visual required, no payload"** — do not satisfy it by rewording the prompt. In particular:
+
+| Content | Use | Do NOT |
 |---|---|---|
-| `cartesianGraph` | `CartesianGraphView` | Coordinate graphs, functions, loci, calculus graph reading |
-| `triangleDiagram` | `TriangleDiagramView` | Labelled triangles, side lengths, angles |
-| `boxPlotDiagram` | `BoxPlotView` | Box-and-whisker plots, five-number summary |
-| `normalDistributionDiagram` | `NormalDistributionView` | Normal curves, shaded regions, z-scores |
-| `probabilityTreeDiagram` | `ProbabilityTreeView` | Multi-stage probability trees |
-| `twoWayTableDiagram` | `TwoWayTableView` | Two-way frequency / probability tables |
-| `vennDiagram` | `VennDiagramView` | Two- or three-set Venn diagrams |
-| `diagram` / `networkDiagram` | `NetworkDiagramView` | Graphs, networks, critical paths |
-| `trapezoidalRuleDiagram` | `TrapezoidalRuleView` | Trapezoid strips under a curve |
-| `argandDiagram` | `ArgandDiagramView` | Complex number plots, modulus circles, loci (Ext 2) |
-| `vector3DDiagram` | `Vector3DDiagramView` | 3D vectors, labelled points, direction lines (Ext 2) |
-| `unitCircleDiagram` | `UnitCircleDiagramView` | Unit circle, terminal points, reference angles |
-| `trigGraphDiagram` | `TrigGraphDiagramView` | Sine / cosine / tangent graphs with key points and asymptotes |
-| `polynomialCurveDiagram` | `PolynomialCurveView` | Polynomial curve sketching — roots, turning points, end behaviour |
-| `slopeFieldDiagram` | `SlopeFieldView` | Slope fields for differential equations (Ext 2) |
+| Inequality / interval on a line | `numberLineDiagram` | LaTeX arrows/circles like `\circ\!\!\longrightarrow` |
+| Dot plot | `dotPlotDiagram` | dots typed as text |
+| Stem-and-leaf | `stemAndLeafDiagram` | the plot written as inline LaTeX rows |
+| Column / bar graph | `barChartDiagram` | a frequency table standing in for the graph |
+| Histogram | `histogramDiagram` | a bar chart with gaps between bars |
+| Scatter / line of best fit | `scatterPlotDiagram` | a list of coordinate pairs |
+| exp / log / hyperbola / abs / √ / cubic graph | `cartesianGraph` `curves` | omitting the graph because "Cartesian only does lines" |
+| Polygon / composite area figure | `planeShapeDiagram` | a stretched `triangleDiagram`, or no figure |
+| Arc length / sector area | `sectorDiagram` | a full circle with the wedge only described |
+| Prism / cylinder / cone / pyramid / sphere | `solid3DDiagram` | a single 2D face standing in for the solid |
+| Net for surface area | `netDiagram` | listing face dimensions in prose |
+| Bearings | `bearingsDiagram` | a triangle approximating the compass |
+
+If genuinely no renderer fits, add one via the registry **before** authoring: define the type in `lib/lessons/types.ts`, register it in `lib/lessons/diagramRegistry.ts` (`DIAGRAM_SPECS` + `DiagramFields`) and `app/components/diagramRegistry.tsx` (`DIAGRAM_COMPONENTS`), and create the `*View` component. The `Record<DiagramType, …>` typing makes a missing renderer a compile error, and every surface (lessons, worksheets, admin preview, seed, audit) picks it up automatically — no other wiring.
+
+### Diagrams as MCQ answers
+
+An MCQ `Choice` is `{ label, text } & DiagramFields`, so any option can carry its own diagram (rendered beneath the text). Use this for "Which graph/diagram matches …?" items: give A–D the same payload type with different values, and keep `text` short or empty.
+
+```typescript
+choices: [
+  { label: "A", text: "", cartesianGraph: { description: "Parabola opening up, vertex (0,0).", parabolas: [{ kind: "quadratic", a: 1, b: 0, c: 0 }] } },
+  { label: "B", text: "", cartesianGraph: { description: "Parabola opening down, vertex (0,0).", parabolas: [{ kind: "quadratic", a: -1, b: 0, c: 0 }] } },
+  // C, D …
+]
+```
+
+### Labels are typeset automatically
+
+Renderer text labels run through `mathLabel`, so write `x^2`, `pi`, `theta`, `<=`, `>=`, `sqrt`, `+-` and they render as x², π, θ, ≤, ≥, √, ±. Do not pre-convert to Unicode.
 
 ### The `description` field
 
@@ -816,6 +886,74 @@ slopeFieldDiagram: {
   yMax: 4,
   gridStep: 0.75,
   solutionCurves: [{ x0: 0, y0: 1, label: "y = x²/2 + 1" }],
+}
+```
+
+### Examples — newer renderers
+
+Compact examples for the most-used new payloads. See `lib/lessons/types.ts` for the full field list of every type (including `dotPlotDiagram`, `barChartDiagram`, `pieChartDiagram`, `netDiagram`, `stepGraphDiagram`, which follow the same shape).
+
+```typescript
+// Inequality on a number line: -2 ≤ x < 3
+numberLineDiagram: {
+  description: "Number line showing -2 ≤ x < 3: closed circle at -2, open circle at 3, segment shaded between.",
+  min: -5, max: 5,
+  intervals: [{ from: -2, to: 3, toOpen: true }],
+}
+
+// Stem-and-leaf
+stemAndLeafDiagram: {
+  description: "Stem-and-leaf plot of test scores from 12 to 36.",
+  keyText: "3 | 7 = 37",
+  rows: [{ stem: 1, leaves: [2, 3, 5] }, { stem: 2, leaves: [1, 4, 4, 8] }, { stem: 3, leaves: [0, 6] }],
+}
+
+// Histogram with frequency polygon
+histogramDiagram: {
+  description: "Histogram of times (s) in 10-wide classes from 0 to 40.",
+  axisLabel: "Time (s)",
+  bins: [{ label: "0–10", frequency: 3 }, { label: "10–20", frequency: 8 }, { label: "20–30", frequency: 6 }, { label: "30–40", frequency: 2 }],
+  showFrequencyPolygon: true,
+}
+
+// Scatter with auto line of best fit
+scatterPlotDiagram: {
+  description: "Scatter of hours studied vs mark with a positive trend.",
+  xAxisLabel: "Hours", yAxisLabel: "Mark",
+  points: [{ x: 1, y: 52 }, { x: 2, y: 60 }, { x: 3, y: 67 }, { x: 4, y: 78 }],
+  lineOfBestFit: "auto",
+  correlationLabel: "r = 0.99",
+}
+
+// Composite plane shape (L-shape) with side labels and a right angle
+planeShapeDiagram: {
+  description: "L-shaped figure with sides 6, 4, 2, 2 cm and right angles at each corner.",
+  vertices: [
+    { x: 0, y: 0, rightAngle: true }, { x: 6, y: 0, rightAngle: true },
+    { x: 6, y: 2, rightAngle: true }, { x: 2, y: 2, rightAngle: true },
+    { x: 2, y: 4, rightAngle: true }, { x: 0, y: 4, rightAngle: true },
+  ],
+  edges: [{ label: "6 cm" }, { label: "2 cm" }, {}, {}, {}, { label: "4 cm" }],
+}
+
+// Sector for arc length / area
+sectorDiagram: {
+  description: "Sector of radius 6 cm subtending 60° at the centre.",
+  angleDegrees: 60, radiusLabel: "6 cm", angleLabel: "60°", arcLabel: "l",
+}
+
+// 3D solid for volume / surface area
+solid3DDiagram: {
+  description: "Cylinder of radius 4 cm and height 10 cm.",
+  solid: "cylinder",
+  labels: { radius: "4 cm", height: "10 cm" },
+}
+
+// Bearings
+bearingsDiagram: {
+  description: "B is on a bearing of 060° from A; C is on a bearing of 150° from A.",
+  originLabel: "A",
+  rays: [{ bearing: 60, label: "B", showAngle: true }, { bearing: 150, label: "C", showAngle: true }],
 }
 ```
 

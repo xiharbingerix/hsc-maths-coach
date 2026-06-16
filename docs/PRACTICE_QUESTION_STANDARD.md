@@ -141,31 +141,11 @@ Skip it for simple questions where the prompt is self-contained (e.g. "Find y wh
 
 ## Visual payload guidance
 
-**You MUST attach a visual payload whenever a question involves a diagram, graph, table, network, tree, plotted point, slope field, or geometric figure.** Do not describe a visual in words when a renderer exists that can show it.
+**You MUST attach a visual payload whenever a question involves a diagram, graph, plot, table, number line, geometric figure, or solid.** Never describe a visual in words, fake it in LaTeX, or spell a plot out as text when a renderer exists for it.
 
-If no existing renderer covers the required diagram type, build one: add a `*View` component in `app/course/components/`, the type in `lib/lessons/types.ts`, and wire it into `app/components/VisualPayloadRenderer.tsx` before authoring the question.
+There are **28 renderers** covering number lines, every common statistics display (dot/stem/bar/histogram/scatter/box/pie), plane shapes, sectors, 3D solids, nets, bearings, step graphs, and the full function/coordinate set. The single source of truth — the full catalogue, the content→renderer map ("use the right renderer, never fake it"), MCQ-diagram answers, and how to add a new renderer via the registry — is **[QUESTION_AUTHORING_STANDARD.md → Visual payloads](./QUESTION_AUTHORING_STANDARD.md#visual-payloads)**. The schema for every field is `lib/lessons/types.ts`.
 
-### Full renderer catalogue
-
-| Payload field | Use for |
-|---|---|
-| `cartesianGraph` | Coordinate graphs, functions, loci, calculus graph reading |
-| `triangleDiagram` | Labelled triangles, side lengths, angles |
-| `boxPlotDiagram` | Box-and-whisker plots, five-number summary |
-| `normalDistributionDiagram` | Normal curves, shaded regions, z-scores |
-| `probabilityTreeDiagram` | Multi-stage probability trees |
-| `twoWayTableDiagram` | Two-way frequency / probability tables |
-| `vennDiagram` | Two- or three-set Venn diagrams |
-| `diagram` / `networkDiagram` | Graphs, networks, critical paths |
-| `trapezoidalRuleDiagram` | Trapezoid strips under a curve |
-| `argandDiagram` | Complex number plots, modulus circles, loci (Ext 2) |
-| `vector3DDiagram` | 3D vectors, labelled points, direction lines (Ext 2) |
-| `unitCircleDiagram` | Unit circle, terminal points, reference angles |
-| `trigGraphDiagram` | Sine / cosine / tangent graphs with key points and asymptotes |
-| `polynomialCurveDiagram` | Polynomial curve sketching — roots, turning points, end behaviour |
-| `slopeFieldDiagram` | Slope fields for differential equations (Ext 2) |
-
-Visual payloads support student understanding, but answers must still be auto-markable unless the question is explicitly for teacher-led discussion.
+The lesson auditor flags **"visual required, no payload"**; fix it by adding the payload, not by rewording the prompt. Visual payloads support student understanding, but answers must still be auto-markable unless the question is explicitly for teacher-led discussion.
 
 ### The `description` field
 
