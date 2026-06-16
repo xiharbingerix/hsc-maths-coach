@@ -6,12 +6,14 @@ import type {
   ArgandDiagram,
   BoxPlotDiagram,
   CartesianGraph,
+  DotPlotDiagram,
   NetworkDiagram,
   NormalDistributionDiagram,
   NumberLineDiagram,
   PolynomialCurveDiagram,
   ProbabilityTreeDiagram,
   SlopeFieldDiagram,
+  StemAndLeafDiagram,
   TrapezoidalRuleDiagram,
   TriangleDiagram,
   TrigGraphDiagram,
@@ -23,12 +25,14 @@ import type {
 import { ArgandDiagramView } from "../course/components/ArgandDiagramView";
 import { BoxPlotView } from "../course/components/BoxPlotView";
 import { CartesianGraphView } from "../course/components/CartesianGraphView";
+import { DotPlotView } from "../course/components/DotPlotView";
 import { NetworkDiagramView } from "../course/components/NetworkDiagramView";
 import { NormalDistributionView } from "../course/components/NormalDistributionView";
 import { NumberLineView } from "../course/components/NumberLineView";
 import { PolynomialCurveView } from "../course/components/PolynomialCurveView";
 import { ProbabilityTreeView } from "../course/components/ProbabilityTreeView";
 import { SlopeFieldView } from "../course/components/SlopeFieldView";
+import { StemAndLeafView } from "../course/components/StemAndLeafView";
 import { TrapezoidalRuleView } from "../course/components/TrapezoidalRuleView";
 import { TriangleDiagramView } from "../course/components/TriangleDiagramView";
 import { TrigGraphDiagramView } from "../course/components/TrigGraphDiagramView";
@@ -73,6 +77,10 @@ export const DIAGRAM_COMPONENTS: Record<DiagramType, DiagramComponent> = {
   ),
   slopeFieldDiagram: (d) => <SlopeFieldView diagram={d as unknown as SlopeFieldDiagram} />,
   numberLineDiagram: (d) => <NumberLineView diagram={d as unknown as NumberLineDiagram} />,
+  dotPlotDiagram: (d) => <DotPlotView diagram={d as unknown as DotPlotDiagram} />,
+  stemAndLeafDiagram: (d) => (
+    <StemAndLeafView diagram={d as unknown as StemAndLeafDiagram} />
+  ),
 };
 
 /**

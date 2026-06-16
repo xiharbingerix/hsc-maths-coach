@@ -2,12 +2,14 @@ import type {
   ArgandDiagram,
   BoxPlotDiagram,
   CartesianGraph,
+  DotPlotDiagram,
   NetworkDiagram,
   NormalDistributionDiagram,
   NumberLineDiagram,
   PolynomialCurveDiagram,
   ProbabilityTreeDiagram,
   SlopeFieldDiagram,
+  StemAndLeafDiagram,
   TrapezoidalRuleDiagram,
   TriangleDiagram,
   TrigGraphDiagram,
@@ -50,6 +52,8 @@ export const DIAGRAM_SPECS = [
   { type: "polynomialCurveDiagram", field: "polynomialCurveDiagram" },
   { type: "slopeFieldDiagram", field: "slopeFieldDiagram" },
   { type: "numberLineDiagram", field: "numberLineDiagram" },
+  { type: "dotPlotDiagram", field: "dotPlotDiagram" },
+  { type: "stemAndLeafDiagram", field: "stemAndLeafDiagram" },
 ] as const;
 
 /** Serialized `diagram_data.type` discriminator for a registered payload. */
@@ -80,6 +84,8 @@ export type DiagramFields = {
   polynomialCurveDiagram?: PolynomialCurveDiagram;
   slopeFieldDiagram?: SlopeFieldDiagram;
   numberLineDiagram?: NumberLineDiagram;
+  dotPlotDiagram?: DotPlotDiagram;
+  stemAndLeafDiagram?: StemAndLeafDiagram;
 };
 
 /**

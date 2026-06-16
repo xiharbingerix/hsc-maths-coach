@@ -459,3 +459,41 @@ export type NumberLineDiagram = {
   /** Axis label drawn at the right end (e.g. "x"). */
   axisLabel?: string;
 };
+
+/**
+ * A dot plot: stacked dots above a number line. Supply either raw `values`
+ * (the renderer tallies repeats) or pre-counted `counts`.
+ */
+export type DotPlotDiagram = {
+  description: string;
+  min: number;
+  max: number;
+  /** Tick spacing; defaults to 1. */
+  step?: number;
+  values?: number[];
+  counts?: { value: number; count: number }[];
+  axisLabel?: string;
+};
+
+export type StemAndLeafRow = {
+  stem: number | string;
+  /** Leaves for the (right-hand) group, e.g. [2, 3, 5] for 32, 33, 35. */
+  leaves: number[];
+  /** Left-hand group's leaves for a back-to-back plot (read outward from stem). */
+  leftLeaves?: number[];
+};
+
+/**
+ * A stem-and-leaf plot rendered as an aligned table. Provide `leftLeaves` on
+ * rows and both labels for a back-to-back comparison of two datasets.
+ */
+export type StemAndLeafDiagram = {
+  description: string;
+  rows: StemAndLeafRow[];
+  /** Reading key, e.g. "3 | 7 = 37". */
+  keyText: string;
+  /** Column heading for the left group (back-to-back only). */
+  leftLabel?: string;
+  /** Column heading for the right/only group. */
+  rightLabel?: string;
+};
