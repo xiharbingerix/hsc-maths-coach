@@ -21,6 +21,11 @@ const statusCopy: Record<
     classes: "bg-slate-200 text-slate-700",
     cta: "View outline",
   },
+  hidden: {
+    label: "Coming soon",
+    classes: "bg-slate-200 text-slate-700",
+    cta: "View outline",
+  },
 };
 
 function courseStatusLabel(courseSlug: string, status: CoursePathwayStatus) {
