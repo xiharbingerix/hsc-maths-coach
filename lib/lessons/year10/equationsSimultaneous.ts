@@ -664,6 +664,127 @@ const simultaneousEliminationMastery: PracticeQuestion[] = [
     "\\text{Which pair gives }x=3\\text{ by elimination?}"),
 ];
 
+// ─── Lesson 6: Linear Inequalities ───────────────────────────────────────────
+
+function ineqAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  const normalised = answer.replace(/\s+/g, "");
+  const variants = [answer, normalised];
+  // Accept >= and <= as alternatives to ≥ and ≤
+  const asciiVariant = answer.replace("≥", ">=").replace("≤", "<=").replace(" ", "");
+  variants.push(asciiVariant);
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers: Array.from(new Set([...variants, ...acceptedAnswers])),
+    hint: "Solve like a linear equation, but reverse the inequality sign if you multiply or divide both sides by a negative number.",
+    explanation: `Apply inverse operations step by step. Remember to flip the inequality sign when dividing by a negative. The solution is ${answer}.`,
+  };
+}
+
+const linearInequalitiesWorkedExamples: WorkedExample[] = [
+  {
+    title: "Solving a two-step inequality — no sign reversal",
+    questionLatex: "\\text{Solve }2x+3<11.",
+    steps: [
+      { explanation: "Subtract 3 from both sides.", latex: "2x<8" },
+      { explanation: "Divide both sides by 2. The sign stays the same because 2 is positive.", latex: "x<4" },
+    ],
+    finalAnswerLatex: "x<4",
+  },
+  {
+    title: "Dividing by a negative — sign reversal",
+    questionLatex: "\\text{Solve }-3x\\ge 9.",
+    steps: [
+      { explanation: "Divide both sides by −3. The inequality sign reverses because we divide by a negative.", latex: "x\\le\\frac{9}{-3}=-3" },
+    ],
+    finalAnswerLatex: "x\\le -3",
+  },
+  {
+    title: "Collecting terms first, then dealing with a negative coefficient",
+    questionLatex: "\\text{Solve }4-2x>-2.",
+    steps: [
+      { explanation: "Subtract 4 from both sides.", latex: "-2x>-6" },
+      { explanation: "Divide both sides by −2. Reverse the sign.", latex: "x<3" },
+    ],
+    finalAnswerLatex: "x<3",
+  },
+];
+
+const linearInequalitiesGuided: PracticeQuestion[] = [
+  eqChoice("ineq-g1", "Which is the correct solution to 2x + 3 < 11?", "A",
+    ["$x<4$", "$x>4$", "$x\\le4$", "$x<8$"],
+    "Subtract 3: 2x < 8. Divide by 2 (positive — no sign change): x < 4.",
+    "2x+3<11"),
+  eqChoice("ineq-g2", "When solving an inequality, in which situation must the inequality sign be reversed?", "B",
+    ["When adding a positive number to both sides", "When multiplying or dividing both sides by a negative number", "When subtracting a variable term from both sides", "When the solution is a negative number"],
+    "The inequality sign must be reversed only when multiplying or dividing both sides by a negative number."),
+  ineqAnswer("ineq-g3", "Solve −4x > 20. Write your answer (e.g. x < −5).", "-4x>20", "x < -5", ["x<-5"]),
+  eqChoice("ineq-g4", "Which is the correct solution to 3x − 2 ≥ 7?", "A",
+    ["$x\\ge3$", "$x\\le3$", "$x>3$", "$x\\ge9$"],
+    "Add 2: 3x ≥ 9. Divide by 3 (positive — no sign change): x ≥ 3.",
+    "3x-2\\ge7"),
+];
+
+const linearInequalitiesIndependent: PracticeQuestion[] = [
+  ineqAnswer("ineq-i1", "Solve 2x + 5 ≤ 13. Write your answer.", "2x+5\\le13", "x ≤ 4", ["x≤4", "x<=4"]),
+  eqChoice("ineq-i2", "Which correctly solves −5x < 15?", "C",
+    ["$x<-3$", "$x<3$", "$x>-3$", "$x>3$"],
+    "Divide by −5. Because −5 is negative, the sign reverses from < to >. Result: x > −3.",
+    "-5x<15"),
+  eqChoice("ineq-i3", "Which is the correct solution to 4 − 3x > −2?", "A",
+    ["$x<2$", "$x>2$", "$x<-2$", "$x<-6$"],
+    "Subtract 4: −3x > −6. Divide by −3 (reverse sign): x < 2.",
+    "4-3x>-2"),
+  ineqAnswer("ineq-i4", "Solve 3x + 4 > 13. Write your answer.", "3x+4>13", "x > 3", ["x>3"]),
+  eqChoice("ineq-i5", "Which describes the number-line graph of x < 2?", "A",
+    ["Open circle at 2 with the arrow pointing to the left", "Closed circle at 2 with the arrow pointing to the left", "Open circle at 2 with the arrow pointing to the right", "Closed circle at 0 with the arrow pointing to the right"],
+    "x < 2 excludes the value 2 (open circle) and includes all values less than 2 (arrow pointing left)."),
+];
+
+const linearInequalitiesMistakes = [
+  { mistake: "Forgetting to reverse the inequality sign when dividing by a negative, e.g. writing −2x > 8 → x > −4 instead of x < −4.", fix: "Whenever you multiply or divide both sides by a negative number, immediately reverse the inequality sign. Add a note like 'dividing by −2, sign flips' in your working." },
+  { mistake: "Using a closed circle on the number line for a strict inequality (< or >).", fix: "Strict inequalities (< and >) use an open circle because the endpoint is not included. Closed circles are for ≤ and ≥, where the endpoint is included." },
+  { mistake: "Solving an inequality and getting the correct number but writing the wrong direction of the inequality, e.g. writing x > 5 instead of x < 5.", fix: "After solving, substitute a test value to verify. If x = 0 satisfies the original inequality, the solution set must contain 0. Check which side of your answer 0 falls on." },
+  { mistake: "Moving a variable term to the other side without changing its sign.", fix: "When a term crosses the inequality sign, its sign changes — just as in equations. For 3 − x > 1, subtract 3: −x > −2, then divide by −1 and reverse: x < 2." },
+];
+
+const linearInequalitiesMastery: PracticeQuestion[] = [
+  eqChoice("ineq-m1", "Which is the correct solution to 3x − 1 < 8?", "A",
+    ["$x<3$", "$x<3.67$", "$x<9$", "$x<7$"],
+    "Add 1: 3x < 9. Divide by 3: x < 3.",
+    "3x-1<8"),
+  ineqAnswer("ineq-m2", "Solve 5x + 2 ≥ 17. Write your answer.", "5x+2\\ge17", "x ≥ 3", ["x≥3", "x>=3"]),
+  eqChoice("ineq-m3", "Which is the correct solution to −2x ≤ 8?", "A",
+    ["$x\\ge-4$", "$x\\le-4$", "$x\\ge4$", "$x\\le4$"],
+    "Divide both sides by −2. Reverse the sign: x ≥ 8/(−2) = −4.",
+    "-2x\\le8"),
+  ineqAnswer("ineq-m4", "Solve 4 − x > 9. Write your answer.", "4-x>9", "x < -5", ["x<-5"]),
+  eqChoice("ineq-m5", "A student solves −3x > 6 and writes x > −2. What went wrong?", "A",
+    ["Dividing by −3 requires reversing the inequality — the correct answer is x < −2", "The answer is correct", "They should subtract 3 first, not divide", "The inequality should become an equation before solving"],
+    "Dividing by a negative number reverses the inequality. −3x > 6 → x < 6/(−3) = −2."),
+  ineqAnswer("ineq-m6", "Solve 2(x + 1) ≤ 12. Write your answer.", "2(x+1)\\le12", "x ≤ 5", ["x≤5", "x<=5"]),
+  eqChoice("ineq-m7", "Which describes the correct number-line graph of x ≥ −1?", "A",
+    ["Closed circle at −1, arrow pointing to the right", "Open circle at −1, arrow pointing to the right", "Closed circle at −1, arrow pointing to the left", "Closed circle at 1, arrow pointing to the right"],
+    "x ≥ −1 includes −1 (closed circle) and all values greater than −1 (arrow pointing right)."),
+  ineqAnswer("ineq-m8", "Solve 5 − 3x < −1. Write your answer.", "5-3x<-1", "x > 2", ["x>2"]),
+  eqChoice("ineq-m9", "Which is the correct solution to 2x − 3 > x + 4?", "A",
+    ["$x>7$", "$x>1$", "$x<7$", "$x<1$"],
+    "Subtract x from both sides: x − 3 > 4. Add 3: x > 7.",
+    "2x-3>x+4"),
+  eqChoice("ineq-m10", "Which inequality has x ≤ 3 as its solution?", "B",
+    ["$2x+1\\ge7$", "$-x-1\\ge-4$", "$3x>9$", "$x+2<3$"],
+    "Option B: −x − 1 ≥ −4 → −x ≥ −3 → x ≤ 3 (reverse sign when dividing by −1) ✓. Option A gives x ≥ 3, C gives x > 3, D gives x < 1.",
+    "\\text{Which has solution }x\\le3?"),
+];
+
 // ─── Main override function ───────────────────────────────────────────────────
 
 export function year10EquationsSimultaneousLessonOverride(
@@ -798,6 +919,38 @@ export function year10EquationsSimultaneousLessonOverride(
       independentPractice: simultaneousSubstitutionIndependent,
       commonMistakes: simultaneousSubstitutionMistakes,
       masteryQuiz: simultaneousSubstitutionMastery,
+      masteryPassMark: 0.8,
+    };
+  }
+
+  if (lesson.slug === "linear-inequalities") {
+    return {
+      description: "Solve linear inequalities, represent solutions on a number line, and apply the sign-reversal rule when dividing by a negative.",
+      learningIntention: "Solve linear inequalities and represent their solution sets correctly on a number line.",
+      successCriteria: [
+        "Apply inverse operations to isolate the variable in a linear inequality.",
+        "Reverse the inequality sign when multiplying or dividing by a negative number.",
+        "Represent the solution on a number line using open (< or >) or closed (≤ or ≥) circles.",
+        "Verify a solution by substituting a test value from the solution set.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A linear inequality is solved using the same inverse operations as a linear equation, with one extra rule.",
+          "When you multiply or divide both sides by a negative number, the direction of the inequality sign reverses. For example, −2x > 6 becomes x < −3.",
+          "The solution is a range of values. Represent it on a number line with an open circle (○) for strict inequalities < or >, and a closed circle (●) for ≤ or ≥.",
+          "Check by substituting a test value from your solution set back into the original inequality.",
+        ],
+        latexBlocks: [
+          "\\text{Solving like an equation — but FLIP the sign when }\\div\\text{ or }\\times\\text{ by a negative}",
+          "\\text{e.g. }-3x\\ge9\\implies x\\le-3\\quad\\text{(sign reversed)}",
+          "\\text{Number line: }\\circ\\text{ for }<\\text{ or }>\\;\\quad \\bullet\\text{ for }\\le\\text{ or }\\ge",
+        ],
+      },
+      workedExamples: linearInequalitiesWorkedExamples,
+      guidedPractice: linearInequalitiesGuided,
+      independentPractice: linearInequalitiesIndependent,
+      commonMistakes: linearInequalitiesMistakes,
+      masteryQuiz: linearInequalitiesMastery,
       masteryPassMark: 0.8,
     };
   }
