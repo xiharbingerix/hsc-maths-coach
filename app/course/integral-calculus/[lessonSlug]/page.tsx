@@ -1,21 +1,19 @@
-import { LessonRenderer } from "../../LessonRenderer";
+import { notFound, permanentRedirect } from "next/navigation";
 import { integralCalculusLessons } from "../../../../lib/lessons/integralCalculus";
 
-export default async function IntegralCalculusLessonPage({
+// Legacy standalone route retired — redirects to the canonical Year 12
+// Advanced nested lesson. Canonical routing lives in lib/year12AdvancedRoutes.ts.
+export default async function Page({
   params,
 }: {
   params: Promise<{ lessonSlug: string }>;
 }) {
   const { lessonSlug } = await params;
-
-  return (
-    <LessonRenderer
-      courseSlug="year-12-advanced"
-      unitSlug="integral-calculus"
-      lessonSlug={lessonSlug}
-      lessons={integralCalculusLessons}
-      backHref="/course/integral-calculus"
-      backLabel="Back to Integral Calculus"
-    />
+  const lesson = integralCalculusLessons.find((l) => l.slug === lessonSlug);
+  if (!lesson) {
+    notFound();
+  }
+  permanentRedirect(
+    `/course/year-12-advanced/${lesson.moduleSlug}/${lesson.slug}`
   );
 }
