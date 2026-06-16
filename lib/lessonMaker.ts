@@ -3,30 +3,14 @@ import type {
   PracticeQuestion,
   WorkedExample,
 } from "./lessons/differentialCalculus";
-import type {
-  ArgandDiagram,
-  BoxPlotDiagram,
-  CartesianGraph,
-  NetworkDiagram,
-  NormalDistributionDiagram,
-  PolynomialCurveDiagram,
-  ProbabilityTreeDiagram,
-  SlopeFieldDiagram,
-  TrigGraphDiagram,
-  TrapezoidalRuleDiagram,
-  TriangleDiagram,
-  TwoWayTableDiagram,
-  UnitCircleDiagram,
-  Vector3DDiagram,
-  VennDiagram,
-} from "./lessons/types";
+import { pickDiagramFields, type DiagramFields } from "./lessons/diagramRegistry";
 
 export type LessonLength = 30 | 45 | 60;
 export type StudentLevel = "struggling" | "on-level" | "extension";
 
 // ── Serialisable output types (returned from server action) ──────────────────
 
-export interface TutorQuestion {
+export interface TutorQuestion extends DiagramFields {
   id: string;
   prompt: string;
   displayLatex: string;
@@ -35,43 +19,13 @@ export interface TutorQuestion {
   answer: string;
   hint?: string;
   explanation?: string;
-  diagram?: NetworkDiagram;
-  triangleDiagram?: TriangleDiagram;
-  cartesianGraph?: CartesianGraph;
-  unitCircleDiagram?: UnitCircleDiagram;
-  trigGraphDiagram?: TrigGraphDiagram;
-  argandDiagram?: ArgandDiagram;
-  vector3DDiagram?: Vector3DDiagram;
-  trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
-  boxPlotDiagram?: BoxPlotDiagram;
-  normalDistributionDiagram?: NormalDistributionDiagram;
-  polynomialCurveDiagram?: PolynomialCurveDiagram;
-  probabilityTreeDiagram?: ProbabilityTreeDiagram;
-  slopeFieldDiagram?: SlopeFieldDiagram;
-  twoWayTableDiagram?: TwoWayTableDiagram;
-  vennDiagram?: VennDiagram;
 }
 
-export interface TutorWorkedExample {
+export interface TutorWorkedExample extends DiagramFields {
   title: string;
   questionLatex: string;
   steps: { explanation: string; latex?: string }[];
   finalAnswerLatex: string;
-  diagram?: NetworkDiagram;
-  triangleDiagram?: TriangleDiagram;
-  cartesianGraph?: CartesianGraph;
-  unitCircleDiagram?: UnitCircleDiagram;
-  trigGraphDiagram?: TrigGraphDiagram;
-  argandDiagram?: ArgandDiagram;
-  vector3DDiagram?: Vector3DDiagram;
-  trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
-  boxPlotDiagram?: BoxPlotDiagram;
-  normalDistributionDiagram?: NormalDistributionDiagram;
-  polynomialCurveDiagram?: PolynomialCurveDiagram;
-  probabilityTreeDiagram?: ProbabilityTreeDiagram;
-  slopeFieldDiagram?: SlopeFieldDiagram;
-  twoWayTableDiagram?: TwoWayTableDiagram;
-  vennDiagram?: VennDiagram;
 }
 
 export interface TutorMisconception {
@@ -206,21 +160,7 @@ function toTutorQuestion(q: PracticeQuestion): TutorQuestion {
     answer: q.answer,
     hint: q.hint,
     explanation: q.explanation,
-    diagram: q.diagram,
-    triangleDiagram: q.triangleDiagram,
-    cartesianGraph: q.cartesianGraph,
-    unitCircleDiagram: q.unitCircleDiagram,
-    trigGraphDiagram: q.trigGraphDiagram,
-    argandDiagram: q.argandDiagram,
-    vector3DDiagram: q.vector3DDiagram,
-    trapezoidalRuleDiagram: q.trapezoidalRuleDiagram,
-    boxPlotDiagram: q.boxPlotDiagram,
-    normalDistributionDiagram: q.normalDistributionDiagram,
-    polynomialCurveDiagram: q.polynomialCurveDiagram,
-    probabilityTreeDiagram: q.probabilityTreeDiagram,
-    slopeFieldDiagram: q.slopeFieldDiagram,
-    twoWayTableDiagram: q.twoWayTableDiagram,
-    vennDiagram: q.vennDiagram,
+    ...pickDiagramFields(q),
   };
 }
 
@@ -230,21 +170,7 @@ function toTutorWorkedExample(ex: WorkedExample): TutorWorkedExample {
     questionLatex: ex.questionLatex,
     steps: ex.steps.map((s) => ({ explanation: s.explanation, latex: s.latex })),
     finalAnswerLatex: ex.finalAnswerLatex,
-    diagram: ex.diagram,
-    triangleDiagram: ex.triangleDiagram,
-    cartesianGraph: ex.cartesianGraph,
-    unitCircleDiagram: ex.unitCircleDiagram,
-    trigGraphDiagram: ex.trigGraphDiagram,
-    argandDiagram: ex.argandDiagram,
-    vector3DDiagram: ex.vector3DDiagram,
-    trapezoidalRuleDiagram: ex.trapezoidalRuleDiagram,
-    boxPlotDiagram: ex.boxPlotDiagram,
-    normalDistributionDiagram: ex.normalDistributionDiagram,
-    polynomialCurveDiagram: ex.polynomialCurveDiagram,
-    probabilityTreeDiagram: ex.probabilityTreeDiagram,
-    slopeFieldDiagram: ex.slopeFieldDiagram,
-    twoWayTableDiagram: ex.twoWayTableDiagram,
-    vennDiagram: ex.vennDiagram,
+    ...pickDiagramFields(ex),
   };
 }
 

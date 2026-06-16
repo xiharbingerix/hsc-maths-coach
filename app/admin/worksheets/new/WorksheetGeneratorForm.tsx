@@ -3,34 +3,9 @@
 import { useState } from "react";
 import { BlockMath } from "react-katex";
 import { MathText } from "../../../components/MathText";
-import { ArgandDiagramView } from "../../../course/components/ArgandDiagramView";
-import { BoxPlotView } from "../../../course/components/BoxPlotView";
-import { CartesianGraphView } from "../../../course/components/CartesianGraphView";
-import { NetworkDiagramView } from "../../../course/components/NetworkDiagramView";
-import { NormalDistributionView } from "../../../course/components/NormalDistributionView";
-import { ProbabilityTreeView } from "../../../course/components/ProbabilityTreeView";
-import { TrapezoidalRuleView } from "../../../course/components/TrapezoidalRuleView";
-import { TrigGraphDiagramView } from "../../../course/components/TrigGraphDiagramView";
-import { TriangleDiagramView } from "../../../course/components/TriangleDiagramView";
-import { TwoWayTableView } from "../../../course/components/TwoWayTableView";
-import { UnitCircleDiagramView } from "../../../course/components/UnitCircleDiagramView";
-import { Vector3DDiagramView } from "../../../course/components/Vector3DDiagramView";
-import { VennDiagramView } from "../../../course/components/VennDiagramView";
-import type {
-  ArgandDiagram,
-  BoxPlotDiagram,
-  CartesianGraph,
-  NetworkDiagram,
-  NormalDistributionDiagram,
-  ProbabilityTreeDiagram,
-  TrigGraphDiagram,
-  TrapezoidalRuleDiagram,
-  TriangleDiagram,
-  TwoWayTableDiagram,
-  UnitCircleDiagram,
-  Vector3DDiagram,
-  VennDiagram,
-} from "../../../../lib/lessons/types";
+import { renderDiagramData } from "../../../components/diagramRegistry";
+import { VisualPayloadRenderer } from "../../../components/VisualPayloadRenderer";
+import type { Choice } from "../../../../lib/lessons/diagramRegistry";
 
 type CourseTopicEntry = {
   courseSlug: string;
@@ -59,7 +34,7 @@ type PreviewQuestion = {
   difficulty: number;
   prompt: string;
   latex: string | null;
-  choices: { label: string; text: string }[] | null;
+  choices: Choice[] | null;
   parts: {
     key: string;
     label: string;
@@ -108,37 +83,11 @@ function displaySlug(slug: string) {
 
 function DiagramPreview({ data }: { data: Record<string, unknown> | null }) {
   if (!data) return null;
-  const { type, ...rest } = data;
+  const diagram = renderDiagramData(data);
 
   return (
     <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-3">
-      {type === "cartesianGraph" ? (
-        <CartesianGraphView graph={rest as CartesianGraph} />
-      ) : type === "unitCircleDiagram" ? (
-        <UnitCircleDiagramView diagram={rest as UnitCircleDiagram} />
-      ) : type === "trigGraphDiagram" ? (
-        <TrigGraphDiagramView diagram={rest as TrigGraphDiagram} />
-      ) : type === "argandDiagram" ? (
-        <ArgandDiagramView diagram={rest as ArgandDiagram} />
-      ) : type === "vector3DDiagram" ? (
-        <Vector3DDiagramView diagram={rest as Vector3DDiagram} />
-      ) : type === "triangleDiagram" ? (
-        <TriangleDiagramView diagram={rest as TriangleDiagram} />
-      ) : type === "trapezoidalRuleDiagram" ? (
-        <TrapezoidalRuleView diagram={rest as TrapezoidalRuleDiagram} />
-      ) : type === "boxPlotDiagram" ? (
-        <BoxPlotView diagram={rest as BoxPlotDiagram} />
-      ) : type === "normalDistributionDiagram" ? (
-        <NormalDistributionView diagram={rest as NormalDistributionDiagram} />
-      ) : type === "probabilityTreeDiagram" ? (
-        <ProbabilityTreeView diagram={rest as ProbabilityTreeDiagram} />
-      ) : type === "twoWayTableDiagram" ? (
-        <TwoWayTableView diagram={rest as TwoWayTableDiagram} />
-      ) : type === "vennDiagram" ? (
-        <VennDiagramView diagram={rest as VennDiagram} />
-      ) : type === "networkDiagram" ? (
-        <NetworkDiagramView diagram={rest as NetworkDiagram} />
-      ) : (
+      {diagram ?? (
         <p className="text-sm text-slate-500">
           Diagram data is present, but this preview does not recognise its type.
         </p>
@@ -593,6 +542,7 @@ export function WorksheetGeneratorForm({
                       >
                         <span className="font-semibold">{choice.label}.</span>{" "}
                         <MathText text={choice.text} />
+                        <VisualPayloadRenderer {...choice} />
                       </div>
                     ))}
                   </div>

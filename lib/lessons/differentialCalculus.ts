@@ -1,20 +1,5 @@
-﻿import type {
-  ArgandDiagram,
-  BoxPlotDiagram,
-  CartesianGraph,
-  NetworkDiagram,
-  NormalDistributionDiagram,
-  PolynomialCurveDiagram,
-  SlopeFieldDiagram,
-  ProbabilityTreeDiagram,
-  TrigGraphDiagram,
-  TrapezoidalRuleDiagram,
-  TriangleDiagram,
-  TwoWayTableDiagram,
-  UnitCircleDiagram,
-  Vector3DDiagram,
-  VennDiagram,
-} from "./types";
+﻿import type { NetworkDiagram } from "./types";
+import type { Choice, DiagramFields } from "./diagramRegistry";
 
 export type PracticeQuestionPart = {
   key: string;
@@ -33,28 +18,10 @@ export type PracticeQuestion = {
   id: string;
   prompt: string;
   latex: string;
-  diagram?: NetworkDiagram;
-  triangleDiagram?: TriangleDiagram;
-  cartesianGraph?: CartesianGraph;
-  unitCircleDiagram?: UnitCircleDiagram;
-  trigGraphDiagram?: TrigGraphDiagram;
-  argandDiagram?: ArgandDiagram;
-  vector3DDiagram?: Vector3DDiagram;
-  trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
-  boxPlotDiagram?: BoxPlotDiagram;
-  normalDistributionDiagram?: NormalDistributionDiagram;
-  probabilityTreeDiagram?: ProbabilityTreeDiagram;
-  twoWayTableDiagram?: TwoWayTableDiagram;
-  vennDiagram?: VennDiagram;
-  polynomialCurveDiagram?: PolynomialCurveDiagram;
-  slopeFieldDiagram?: SlopeFieldDiagram;
   solutionDiagram?: NetworkDiagram;
   answer: string;
   acceptedAnswers?: string[];
-  choices?: {
-    label: string;
-    text: string;
-  }[];
+  choices?: Choice[];
   hint?: string;
   explanation?: string;
   parts?: PracticeQuestionPart[];
@@ -66,7 +33,7 @@ export type PracticeQuestion = {
     hint?: string;
     explanation: string;
   }>;
-};
+} & DiagramFields;
 
 export type WorkedExampleStep = {
   explanation: string;
@@ -76,24 +43,9 @@ export type WorkedExampleStep = {
 export type WorkedExample = {
   title: string;
   questionLatex: string;
-  diagram?: NetworkDiagram;
-  triangleDiagram?: TriangleDiagram;
-  cartesianGraph?: CartesianGraph;
-  unitCircleDiagram?: UnitCircleDiagram;
-  trigGraphDiagram?: TrigGraphDiagram;
-  argandDiagram?: ArgandDiagram;
-  vector3DDiagram?: Vector3DDiagram;
-  trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
-  boxPlotDiagram?: BoxPlotDiagram;
-  normalDistributionDiagram?: NormalDistributionDiagram;
-  probabilityTreeDiagram?: ProbabilityTreeDiagram;
-  twoWayTableDiagram?: TwoWayTableDiagram;
-  vennDiagram?: VennDiagram;
-  polynomialCurveDiagram?: PolynomialCurveDiagram;
-  slopeFieldDiagram?: SlopeFieldDiagram;
   steps: WorkedExampleStep[];
   finalAnswerLatex: string;
-};
+} & DiagramFields;
 
 export type ExplicitLesson = {
   id: string;

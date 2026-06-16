@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import * as path from "path";
+import type { Choice } from "../lib/lessons/diagramRegistry";
 import {
   loadQuestionBatchFile,
   validateQuestionBatch,
@@ -17,7 +18,7 @@ type QuestionRow = {
   question_type: "conceptual" | "procedural";
   prompt: string;
   latex: string | null;
-  choices: { label: string; text: string }[] | null;
+  choices: Choice[] | null;
   question_parts: QuestionBatchRecord["question_parts"] | null;
   answer: string;
   accepted_answers: string[];

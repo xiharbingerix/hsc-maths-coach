@@ -2,11 +2,14 @@
 
 import * as React from "react";
 import type {
+  CartesianCurve,
+  CartesianCurveColor,
   CartesianFunction,
   CartesianGraph,
   CartesianPoint,
   ShadedRegionColor,
 } from "../../../lib/lessons/types";
+import { formatTick, mathLabel, ticksBetween } from "./plotUtils";
 
 const shadedRegionFill: Record<ShadedRegionColor, string> = {
   blue: "#0ea5e9",
@@ -15,27 +18,21 @@ const shadedRegionFill: Record<ShadedRegionColor, string> = {
   amber: "#f59e0b",
 };
 
+const curveColorHex: Record<CartesianCurveColor, string> = {
+  blue: "#2563eb",
+  violet: "#7c3aed",
+  teal: "#0d9488",
+  pink: "#db2777",
+  amber: "#d97706",
+  green: "#059669",
+  red: "#dc2626",
+};
+
 const width = 420;
 const height = 320;
 const padding = { top: 24, right: 30, bottom: 38, left: 46 };
 const plotWidth = width - padding.left - padding.right;
 const plotHeight = height - padding.top - padding.bottom;
-
-function valuesBetween(min: number, max: number, step: number) {
-  if (step <= 0) return [];
-  const first = Math.ceil(min / step) * step;
-  const values: number[] = [];
-
-  for (let value = first; value <= max + step / 1000; value += step) {
-    values.push(Number(value.toFixed(10)));
-  }
-
-  return values;
-}
-
-function formatTick(value: number) {
-  return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
-}
 
 function lineBounds(
   m: number,
@@ -155,6 +152,102 @@ function sinusoidalPath(
     .join(" ");
 }
 
+function evaluateCurve(curve: CartesianCurve, x: number): number | null {
+  switch (curve.kind) {
+    case "exponential": {
+      const base = curve.base ?? Math.E;
+      const a = curve.a ?? 1;
+      const b = curve.b ?? 1;
+      const c = curve.c ?? 0;
+      const d = curve.d ?? 0;
+      if (base <= 0) return null;
+      return a * Math.pow(base, b * (x - c)) + d;
+    }
+    case "logarithmic": {
+      const base = curve.base ?? Math.E;
+      const a = curve.a ?? 1;
+      const c = curve.c ?? 0;
+      const d = curve.d ?? 0;
+      const arg = x - c;
+      if (arg <= 0 || base <= 0 || base === 1) return null;
+      return a * (Math.log(arg) / Math.log(base)) + d;
+    }
+    case "reciprocal": {
+      const a = curve.a ?? 1;
+      const h = curve.h ?? 0;
+      const k = curve.k ?? 0;
+      if (Math.abs(x - h) < 1e-6) return null;
+      return a / (x - h) + k;
+    }
+    case "absolute": {
+      const a = curve.a ?? 1;
+      const h = curve.h ?? 0;
+      const k = curve.k ?? 0;
+      return a * Math.abs(x - h) + k;
+    }
+    case "squareRoot": {
+      const a = curve.a ?? 1;
+      const h = curve.h ?? 0;
+      const k = curve.k ?? 0;
+      if (x - h < 0) return null;
+      return a * Math.sqrt(x - h) + k;
+    }
+    case "cubic": {
+      const a = curve.a ?? 1;
+      const b = curve.b ?? 0;
+      const c = curve.c ?? 0;
+      const d = curve.d ?? 0;
+      return a * x * x * x + b * x * x + c * x + d;
+    }
+    default:
+      return null;
+  }
+}
+
+function curvePath(
+  curve: CartesianCurve,
+  bounds: { xMin: number; xMax: number; yMin: number; yMax: number },
+  toSvg: (point: CartesianPoint) => CartesianPoint
+): { d: string; labelPoint: CartesianPoint | null } {
+  const { xMin, xMax, yMin, yMax } = bounds;
+  const start = Math.max(xMin, curve.xMin ?? xMin);
+  const end = Math.min(xMax, curve.xMax ?? xMax);
+  if (!Number.isFinite(start) || !Number.isFinite(end) || start >= end) {
+    return { d: "", labelPoint: null };
+  }
+
+  const ySpan = yMax - yMin;
+  const samples = 400;
+  let previousY: number | null = null;
+  let previousWasVisible = false;
+  let labelPoint: CartesianPoint | null = null;
+  const commands: string[] = [];
+
+  for (let index = 0; index <= samples; index += 1) {
+    const x = start + ((end - start) * index) / samples;
+    const y = evaluateCurve(curve, x);
+    const finite = y !== null && Number.isFinite(y);
+    const jumped =
+      finite && previousY !== null && Math.abs((y as number) - previousY) > ySpan * 0.8;
+    const inRange =
+      finite && (y as number) >= yMin - ySpan * 0.05 && (y as number) <= yMax + ySpan * 0.05;
+    previousY = finite ? (y as number) : null;
+
+    if (!inRange) {
+      previousWasVisible = false;
+      continue;
+    }
+    if (jumped) previousWasVisible = false;
+
+    const svgPoint = toSvg({ x, y: y as number });
+    commands.push(`${previousWasVisible ? "L" : "M"} ${svgPoint.x} ${svgPoint.y}`);
+    previousWasVisible = true;
+    labelPoint = svgPoint;
+  }
+
+  return { d: commands.join(" "), labelPoint };
+}
+
 export function CartesianGraphView({
   graph,
   className,
@@ -172,8 +265,8 @@ export function CartesianGraphView({
   const yMax = graph.yMax ?? 5;
   const xStep = graph.xStep ?? 1;
   const yStep = graph.yStep ?? 1;
-  const xTicks = valuesBetween(xMin, xMax, xStep);
-  const yTicks = valuesBetween(yMin, yMax, yStep);
+  const xTicks = ticksBetween(xMin, xMax, xStep);
+  const yTicks = ticksBetween(yMin, yMax, yStep);
   const xAxisY = yMin <= 0 && yMax >= 0 ? 0 : yMin;
   const yAxisX = xMin <= 0 && xMax >= 0 ? 0 : xMin;
   const showGrid = graph.showGrid ?? true;
@@ -427,6 +520,23 @@ export function CartesianGraphView({
               />
             );
           })}
+
+          {graph.curves?.map((curve, index) => {
+            const { d } = curvePath(curve, { xMin, xMax, yMin, yMax }, toSvg);
+            if (!d) return null;
+            return (
+              <path
+                key={`curve-${index}`}
+                d={d}
+                fill="none"
+                stroke={curveColorHex[curve.color ?? "teal"]}
+                strokeWidth={3}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeDasharray={curve.dashed ? "6 4" : undefined}
+              />
+            );
+          })}
         </g>
 
         {xTicks.map((value) => {
@@ -464,10 +574,10 @@ export function CartesianGraphView({
         {showAxisLabels && (
           <>
             <text x={padding.left + plotWidth} y={height - 8} textAnchor="end" className="fill-slate-800 text-sm font-semibold">
-              {graph.xAxisLabel ?? "x"}
+              {mathLabel(graph.xAxisLabel ?? "x")}
             </text>
             <text x={14} y={padding.top + 2} className="fill-slate-800 text-sm font-semibold">
-              {graph.yAxisLabel ?? "y"}
+              {mathLabel(graph.yAxisLabel ?? "y")}
             </text>
           </>
         )}
@@ -479,7 +589,7 @@ export function CartesianGraphView({
               <circle cx={svgPoint.x} cy={svgPoint.y} r={4.5} fill="#0f766e" stroke="#ffffff" strokeWidth={2} />
               {point.label && (
                 <text x={svgPoint.x + 8} y={svgPoint.y - 9} className="fill-slate-800 text-xs font-semibold" stroke="#ffffff" strokeWidth={4} paintOrder="stroke">
-                  {point.label}
+                  {mathLabel(point.label)}
                 </text>
               )}
             </g>
@@ -492,30 +602,50 @@ export function CartesianGraphView({
           const to = toSvg(segment.to);
           return (
             <text key={`segment-label-${index}`} x={(from.x + to.x) / 2 + 8} y={(from.y + to.y) / 2 - 8} className="fill-teal-800 text-xs font-semibold" stroke="#ffffff" strokeWidth={4} paintOrder="stroke">
-              {segment.label}
+              {mathLabel(segment.label)}
             </text>
           );
         })}
         {graph.lines?.map((line, index) => line.label ? (
           <text key={`line-label-${index}`} x={padding.left + plotWidth - 8} y={padding.top + 16 + index * 16} textAnchor="end" className="fill-blue-700 text-xs font-semibold" stroke="#ffffff" strokeWidth={4} paintOrder="stroke">
-            {line.label}
+            {mathLabel(line.label)}
           </text>
         ) : null)}
         {graph.parabolas?.map((parabola, index) => parabola.label ? (
           <text key={`parabola-label-${index}`} x={padding.left + 8} y={padding.top + 16 + index * 16} className="fill-violet-700 text-xs font-semibold" stroke="#ffffff" strokeWidth={4} paintOrder="stroke">
-            {parabola.label}
+            {mathLabel(parabola.label)}
           </text>
         ) : null)}
         {graph.circles?.map((circle, index) => circle.label ? (
           <text key={`circle-label-${index}`} x={toSvg({ x: circle.h + circle.r, y: circle.k }).x + 6} y={toSvg({ x: circle.h + circle.r, y: circle.k }).y - 6} className="fill-amber-700 text-xs font-semibold" stroke="#ffffff" strokeWidth={4} paintOrder="stroke">
-            {circle.label}
+            {mathLabel(circle.label)}
           </text>
         ) : null)}
         {graph.sinusoidals?.map((curve, index) => curve.label ? (
           <text key={`sinusoidal-label-${index}`} x={padding.left + plotWidth - 8} y={padding.top + 16 + index * 16} textAnchor="end" className="fill-pink-700 text-xs font-semibold" stroke="#ffffff" strokeWidth={4} paintOrder="stroke">
-            {curve.label}
+            {mathLabel(curve.label)}
           </text>
         ) : null)}
+        {graph.curves?.map((curve, index) => {
+          if (!curve.label) return null;
+          const { labelPoint } = curvePath(curve, { xMin, xMax, yMin, yMax }, toSvg);
+          if (!labelPoint) return null;
+          return (
+            <text
+              key={`curve-label-${index}`}
+              x={Math.min(labelPoint.x + 6, padding.left + plotWidth - 4)}
+              y={Math.max(labelPoint.y - 6, padding.top + 10)}
+              textAnchor="end"
+              className="text-xs font-semibold"
+              fill={curveColorHex[curve.color ?? "teal"]}
+              stroke="#ffffff"
+              strokeWidth={4}
+              paintOrder="stroke"
+            >
+              {mathLabel(curve.label)}
+            </text>
+          );
+        })}
       </svg>
     </div>
   );
