@@ -89,6 +89,25 @@ grading) and client (lesson practice, via `/api/cas/equiv`) only ever call CAS
 *after* the local marker says "wrong", and fall back to the local result on any
 timeout or error.
 
+### AI Tutor — optional
+
+Powers the button-only AI help on practice questions ("Explain it another way",
+"Show the steps"), which re-present a question's existing worked solution via
+Claude (Haiku 4.5, structured/bounded output). **Off unless both are set** — the
+endpoint returns 503 and the buttons hide themselves, so the app ships safely
+without it.
+
+| Variable | Purpose |
+| --- | --- |
+| `ANTHROPIC_API_KEY` | Server-only Anthropic API key used by `/api/tutor`. |
+| `TUTOR_ENABLED` | Set to `true` to turn the feature on. Any other value (or unset) = off. |
+
+The endpoint requires a signed-in user, applies a best-effort per-user rate
+limit, and never accepts free-text questions — buttons only. Cost is roughly a
+fraction of a cent per click at Haiku pricing; see the cost notes when planning
+rollout. Kill switch: set `TUTOR_ENABLED` to anything other than `true` and
+redeploy.
+
 ### Optional Analytics And Marketing
 
 | Variable | Purpose |
