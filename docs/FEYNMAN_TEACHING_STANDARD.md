@@ -105,8 +105,11 @@ type WorkedExample = {
     latex?:        string;   // One line of working in KaTeX (optional)
   }[];
   finalAnswerLatex: string;  // Clear statement of the final answer
+  // …plus any visual payload field (cartesianGraph, sectorDiagram, …) — see below
 };
 ```
+
+A `WorkedExample` carries the **same visual payload fields as a `PracticeQuestion`** (it extends `DiagramFields`). When a worked example is about a diagram, attach the matching payload — see [QUESTION_AUTHORING_STANDARD.md → Visual payloads](./QUESTION_AUTHORING_STANDARD.md#visual-payloads) for the full renderer catalogue.
 
 ### Rules
 
@@ -177,9 +180,9 @@ Aim for 2–4 blocks. Do not include `$...$` wrappers — the field is rendered 
 
 ## Visual support in teaching sections
 
-Teaching paragraphs and worked examples can reference diagrams, but the teaching section itself does not embed `VisualPayloadRenderer` payloads — those live on individual questions. When a concept is inherently visual (graphs, geometry, probability trees, slope fields), the **worked example** is the right place to anchor the visual reasoning: reference the diagram in `questionLatex` and describe what the student should read from it in the step `explanation`.
+When a concept is inherently visual (graphs, geometry, statistics displays, probability trees, slope fields), the **worked example** is the right place to anchor the visual reasoning. A `WorkedExample` accepts the same visual payloads as a question, so **attach the diagram to the worked example itself** — set the matching payload field (e.g. `cartesianGraph`, `planeShapeDiagram`, `histogramDiagram`), refer to it in `questionLatex` ("From the graph…"), and describe what the student reads from it in the step `explanation`. Do not fake the diagram in LaTeX or describe a plot in words when a renderer exists — the same "use the right renderer, never fake a visual" rule from the question standard applies here.
 
-Write teaching paragraphs as if the student has the relevant diagram in front of them. Use concrete spatial language: "the curve crosses", "the triangle has", "the field shows", "the tree branches into". Never describe a graph or diagram in abstract symbol form alone when spatial description would be clearer.
+The `teaching.paragraphs` / `teaching.latexBlocks` fields are text-only and do not take payloads; when the teaching prose needs a picture, carry it on the worked example. Write paragraphs as if the student has that diagram in front of them — use concrete spatial language: "the curve crosses", "the triangle has", "the histogram peaks at", "the tree branches into". Never describe a graph or diagram in abstract symbol form alone when spatial description would be clearer.
 
 ---
 

@@ -20,9 +20,9 @@
 | Year 9 Mathematics | 54 (10 units) | 10 NSW focus areas | ⚠️ ~78% — 8/10 NSW outcomes have direct content; surds and non-linear relationships missing; unit names don't match NSW 2022 | 0 | ⚠️ Audited 2026-06-16 — content gaps: surds (MA5-SUR-C-01), non-linear relationships (MA5-NON-C-01); unit headings don't match NSW 2022 |
 | Year 9 Mathematics Advanced | ~67 (15 units) | 5 NSW Stage 5 Path outcomes (MA5-EQU-P-01/02, MA5-RAT-P-01, MA5-PRO-P-01, MA5-LIN-P-01) | ✅ 14/15 units fully covered; 1 content gap (MA5-RAT-P-02 inverse variation); 1 structural gap (midpoint/distance in wrong unit) | 0 | ✅ Audited 2026-06-16 — Advanced-specific units all complete; 1 missing outcome (MA5-RAT-P-02), 1 structural gap (LRC) |
 | Year 9 Mathematics Core | ~64 (11 units) | 9 NSW focus areas | ✅ 9/9 complete | 0 | ✅ Depth pass complete 2026-06-16 — all gaps closed, all units renamed to NSW 2022, 1216 questions |
-| Year 10 Mathematics | 44 lessons (10 units) | 10 NSW focus areas (MA5) | ✅ 10/10 focus areas covered; 3 minor gaps (non-monic factorising, algebraic fractions add/subtract, explicit equation-of-line lesson) | 0 | ✅ Audited 2026-06-16 — ~836 questions; strong coverage across all focus areas |
-| Year 10 Mathematics Advanced | 44 lessons (10 units) | 10 NSW focus areas (MA5) | ✅ mirrors base; Advanced pathway complete | 0 | ✅ Audited 2026-06-16 |
-| Year 10 Mathematics Core | ~35 lessons (trimmed) | 10 NSW focus areas (MA5) | ✅ Core trim applied 2026-06-16 — Adv Path lessons excluded; MA5-TRG-C-02 (sine/cosine rule) correctly included as Core | 0 | ✅ Core trim complete 2026-06-16 — algebraic-fractions, quadratic-formula, exponential, hyperbola, conditional-probability excluded; trig fully included |
+| Year 10 Mathematics | 48 lessons (10 units) | 10 NSW focus areas (MA5) | ✅ 10/10 focus areas covered; all gaps closed 2026-06-16 | 0 | ✅ Complete 2026-06-16 — ~912 questions; all NSW dot-points covered |
+| Year 10 Mathematics Advanced | 48 lessons (10 units) | 10 NSW focus areas (MA5) | ✅ mirrors base; all 4 Path-only lessons added 2026-06-16 | 0 | ✅ Complete 2026-06-16 — non-monic factorising, alg-fractions add/subtract, equation-of-a-line, linear-inequalities all added |
+| Year 10 Mathematics Core | ~35 lessons (trimmed) | 10 NSW focus areas (MA5) | ✅ Core trim applied 2026-06-16 — Adv Path lessons excluded; MA5-TRG-C-02 (sine/cosine rule) correctly included as Core | 0 | ✅ Core trim complete 2026-06-16 — algebraic-fractions, non-monic-quadratic-factorising, algebraic-fractions-add-subtract, quadratic-formula, linear-inequalities, equation-of-a-line, exponential, hyperbola, conditional-probability excluded; trig fully included |
 | Year 11 Standard | 76 (8 units) | 8 focus areas | ✅ 100% | 8 | ✅ Complete — audited 2026-06-15 (1444 questions) |
 | Year 11 Advanced | 70 (7 units) | 7 focus areas (MAV-11-01–10) | ✅ 100% — FA1 ✅ FA2 ✅ FA3 ✅ FA4 ✅ FA5 ✅ FA6 ✅ FA7 ✅ all complete | 0 | ✅ Fully audited 2026-06-15; all 7 focus areas complete |
 | Year 11 Extension 1 | 28 (5 units) | 5 focus areas (ME1-11-01–05) | ✅ ~97% — 3 new lessons added 2026-06-16; 532 questions | 0 | ✅ Fixed 2026-06-16 — +reciprocal/squared graphs, +trig equation solving, +greatest term; 28 lessons / 532Q |
@@ -1079,11 +1079,11 @@ Source: NSW Mathematics K–10 Syllabus 2022 (Stage 5 Core outcomes, Year 9 scop
 
 ---
 
-## Year 10 Mathematics ✅ Audited 2026-06-16
+## Year 10 Mathematics ✅ Complete 2026-06-16
 
 Base course: `year-10-mathematics` — `available`. Override file: `lib/lessons/year10/`.
 Advanced: skill map IDs namespaced `y10a-`. Core: trimmed + `y10c-`.
-**44 lessons / 10 units / ~836 questions.** Audited dot-by-dot against the NSW Mathematics K–10 Syllabus (2024) Stage 5 Year 10 scope.
+**48 lessons / 10 units / ~912 questions.** All NSW dot-points covered; 4 Advanced Path lessons added 2026-06-16 (non-monic-quadratic-factorising, algebraic-fractions-add-subtract, equation-of-a-line, linear-inequalities).
 
 ---
 
@@ -1091,9 +1091,9 @@ Advanced: skill map IDs namespaced `y10a-`. Core: trimmed + `y10c-`.
 
 | # | Nova unit (slug) | NSW focus area | Outcome(s) | File | Lessons | Status |
 |---|---|---|---|---|---|---|
-| 1 | Algebraic Techniques (`algebraic-techniques`) | Algebraic techniques | MA5-ALG-C-01 | `algebraicTechniques.ts` | 5 | ✅ Core + Adv |
-| 2 | Equations and Simultaneous Equations (`equations-simultaneous`) | Equations | MA5-EQU-C-01, MA5-EQU-P-01, MA5-EQU-P-02 | `equationsSimultaneous.ts` | 5 | ✅ Core + Adv |
-| 3 | Linear Relationships (`linear-relationships`) | Linear relationships | MA5-LIN-C-01, MA5-LIN-C-02, MA5-LIN-P-01 | `linearRelationships.ts` | 4 | ✅ Core + Adv |
+| 1 | Algebraic Techniques (`algebraic-techniques`) | Algebraic techniques | MA5-ALG-C-01, MA5-ALG-P-01 | `algebraicTechniques.ts` | 7 | ✅ Core (5) + Adv (+non-monic + alg-frac-add-subtract) |
+| 2 | Equations and Simultaneous Equations (`equations-simultaneous`) | Equations | MA5-EQU-C-01, MA5-EQU-P-01, MA5-EQU-P-02 | `equationsSimultaneous.ts` | 6 | ✅ Core (4, excl quadratic-formula + linear-inequalities) + Adv (+2) |
+| 3 | Linear Relationships (`linear-relationships`) | Linear relationships | MA5-LIN-C-01, MA5-LIN-C-02, MA5-LIN-P-01 | `linearRelationships.ts` | 5 | ✅ Core (4, excl equation-of-a-line) + Adv (+equation-of-a-line) |
 | 4 | Non-Linear Relationships (`non-linear-relationships`) | Non-linear relationships | MA5-NON-C-01, MA5-NON-P-01 | `nonLinearRelationships.ts` | 5 | ✅ Core (3 lessons: parabolas+circles) + Adv (5 lessons, incl. exp+hyperbola) |
 | 5 | Trigonometry (`trigonometry`) | Trigonometry | MA5-TRG-C-01, MA5-TRG-C-02 | `trigonometry.ts` | 8 | ✅ Core (all 9 dot-points: TRG-C-01+C-02) + Adv (same) |
 | 6 | Measurement (`measurement`) | Measurement | MA5-MEA-C-01 | `measurement.ts` | 7 | ✅ Core + Adv |
@@ -1117,10 +1117,10 @@ Advanced: skill map IDs namespaced `y10a-`. Core: trimmed + `y10c-`.
 | Factorise monic quadratic trinomials x²+bx+c using the product-sum method | `factorising-quadratics` | Core | ✅ |
 | Simplify algebraic fractions by cancelling common factors; state restrictions | `algebraic-fractions` | **Adv Path only** | ✅ (excluded from Core trim — MA5-ALG-P-01) |
 | Multiply and divide algebraic fractions | `algebraic-fractions` | **Adv Path only** | ✅ (excluded from Core trim — MA5-ALG-P-01) |
-| Factorise non-monic quadratic trinomials ax²+bx+c (a≠1) | — | Adv Path | ❌ Missing — no lesson for non-monic factorising |
-| Add and subtract algebraic fractions with unlike algebraic denominators | — | Adv Path | ❌ Missing — current lesson covers simplify/multiply/divide only |
+| Factorise non-monic quadratic trinomials ax²+bx+c (a≠1) | `non-monic-quadratic-factorising` | Adv Path | ✅ Added 2026-06-16 — AC method, 19Q |
+| Add and subtract algebraic fractions with unlike algebraic denominators | `algebraic-fractions-add-subtract` | Adv Path | ✅ Added 2026-06-16 — LCM method, 19Q |
 
-**Core coverage: 5/5 ✅ | Advanced: +algebraic fractions (Adv Path only, excluded from Core) + 2 missing lessons**
+**Core coverage: 5/5 ✅ | Advanced: 7/7 ✅ all dot-points covered**
 
 ---
 
@@ -1133,9 +1133,9 @@ Advanced: skill map IDs namespaced `y10a-`. Core: trimmed + `y10c-`.
 | Solve quadratic equations using the quadratic formula; interpret discriminant | `quadratic-formula` | **Adv Path only** | ✅ (excluded from Core trim — MA5-EQU-P-02) |
 | Solve linear simultaneous equations by substitution | `simultaneous-substitution` | Adv Path | ✅ |
 | Solve linear simultaneous equations by elimination | `simultaneous-elimination` | Adv Path | ✅ |
-| Solve linear inequalities and graph solutions on a number line | — | Adv Path | ⚠️ Not present as a standalone lesson |
+| Solve linear inequalities and graph solutions on a number line | `linear-inequalities` | Adv Path | ✅ Added 2026-06-16 — sign-reversal rule, number-line representation, 19Q |
 
-**Core coverage: 2/2 ✅ | Advanced: +quadratic formula (Adv Path only, excluded from Core) + simultaneous ✅ + inequalities missing**
+**Core coverage: 2/2 ✅ | Advanced: 6/6 ✅ all dot-points covered**
 
 ---
 
@@ -1150,9 +1150,9 @@ Advanced: skill map IDs namespaced `y10a-`. Core: trimmed + `y10c-`.
 | Find the midpoint of an interval using M = ((x₁+x₂)/2, (y₁+y₂)/2) | `midpoint-distance` | Core | ✅ |
 | Find the distance between two points using d = √((x₂−x₁)²+(y₂−y₁)²) | `midpoint-distance` | Core | ✅ |
 | Interpret and apply linear models (starting value, rate, compare two models) | `linear-modelling` | Core | ✅ |
-| Find the equation of a line given gradient and a point (y−y₁ = m(x−x₁)) | — | Adv Path | ⚠️ Covered implicitly in modelling; no explicit lesson on this form |
+| Find the equation of a line given gradient and a point (y−y₁ = m(x−x₁)) | `equation-of-a-line` | Adv Path | ✅ Added 2026-06-16 — point-slope form, two-point method, 19Q |
 
-**Core coverage: 7/7 ✅ | Advanced: equation-of-line explicit form not isolated as its own lesson**
+**Core coverage: 7/7 ✅ | Advanced: 8/8 ✅ all dot-points covered**
 
 ---
 

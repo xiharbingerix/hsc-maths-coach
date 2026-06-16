@@ -117,6 +117,31 @@ const tests: TestCase[] = [
   { name: "clock 12:30 am = 00:30", userAnswer: "12:30 am", correctAnswer: "00:30", expected: true },
   { name: "clock no meridiem does not convert", userAnswer: "2:30", correctAnswer: "14:30", expected: false },
   { name: "clock wrong time does not match", userAnswer: "3:30 pm", correctAnswer: "14:30", expected: false },
+
+  // ── Pi constant: π / \pi / ASCII "pi" equivalence ─────────────────────────
+  { name: "ascii pi matches unicode pi", userAnswer: "72pi", correctAnswer: "72π", expected: true },
+  { name: "latex pi matches unicode pi", userAnswer: "72\\pi", correctAnswer: "72π", expected: true },
+  { name: "spaced ascii pi matches unicode pi", userAnswer: "200 pi", correctAnswer: "200π", expected: true },
+  { name: "ascii pi matches latex pi", userAnswer: "200pi", correctAnswer: "200\\pi", expected: true },
+  { name: "wrong pi coefficient stays wrong", userAnswer: "73pi", correctAnswer: "72π", expected: false },
+  { name: "pi substring not created inside words", userAnswer: "pizza", correctAnswer: "pi", expected: false },
+
+  // ── Inequalities: ≤ / ≥ / \leq / \geq / ASCII equivalence ─────────────────
+  { name: "ascii <= matches unicode ≤", userAnswer: "x<=4", correctAnswer: "x≤4", expected: true },
+  { name: "ascii >= matches unicode ≥", userAnswer: "x >= -2", correctAnswer: "x≥-2", expected: true },
+  { name: "latex \\leq matches unicode ≤", userAnswer: "x<=4", correctAnswer: "x\\leq4", expected: true },
+  { name: "latex \\le matches unicode ≤", userAnswer: "x<=4", correctAnswer: "x\\le 4", expected: true },
+  { name: "latex \\geq matches unicode ≥", userAnswer: "x>=2", correctAnswer: "x\\geq2", expected: true },
+  { name: "strict < does not match ≤", userAnswer: "x<4", correctAnswer: "x≤4", expected: false },
+  { name: "wrong inequality bound stays wrong", userAnswer: "x<=5", correctAnswer: "x≤4", expected: false },
+
+  // ── Secondary LaTeX tokens in stored algebraic answers ────────────────────
+  { name: "ascii -cos x + C matches latex", userAnswer: "-cos x + C", correctAnswer: "-\\cos x + C", expected: true },
+  { name: "ascii sin x + C matches latex", userAnswer: "sin x + C", correctAnswer: "\\sin x + C", expected: true },
+  { name: "ascii ln x + C matches latex", userAnswer: "ln x + C", correctAnswer: "\\ln x + C", expected: true },
+  { name: "latex \\left \\right brackets stripped", userAnswer: "2(x+1)", correctAnswer: "2\\left(x+1\\right)", expected: true },
+  { name: "latex \\times treated as *", userAnswer: "3*x", correctAnswer: "3\\times x", expected: true },
+  { name: "wrong trig antiderivative stays wrong", userAnswer: "sin x + C", correctAnswer: "-\\cos x + C", expected: false },
 ];
 
 let failures = 0;

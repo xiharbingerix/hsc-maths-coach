@@ -4006,6 +4006,18 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Simplify algebraic fractions by cancelling common factors, state restrictions, and multiply or divide simple algebraic fractions.",
           },
+          {
+            slug: "non-monic-quadratic-factorising",
+            title: "Non-Monic Quadratic Factorising",
+            description:
+              "Factorise non-monic quadratic trinomials of the form ax² + bx + c (a ≠ 1) using the AC method.",
+          },
+          {
+            slug: "algebraic-fractions-add-subtract",
+            title: "Algebraic Fractions: Add and Subtract",
+            description:
+              "Add and subtract algebraic fractions with unlike denominators by finding the LCM and rewriting each fraction.",
+          },
         ],
       },
       {
@@ -4046,6 +4058,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Solve pairs of simultaneous equations by adding or subtracting equations to eliminate one variable.",
           },
+          {
+            slug: "linear-inequalities",
+            title: "Linear Inequalities",
+            description:
+              "Solve linear inequalities, represent solutions on a number line, and apply the sign-reversal rule when dividing by a negative.",
+          },
         ],
       },
       {
@@ -4079,6 +4097,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Linear Modelling and Applications",
             description:
               "Use linear models to interpret starting values, rates, predictions and comparisons.",
+          },
+          {
+            slug: "equation-of-a-line",
+            title: "Equation of a Line",
+            description:
+              "Find the equation of a straight line given its gradient and a point, or given two points on the line.",
           },
         ],
       },
@@ -5281,18 +5305,25 @@ export const newCoursePathways: CoursePathwaySeed[] = [
   //   trigonometry             â†’ right-angled only (no sine/cosine rule, area, bearings)
   //   geometry-proofs          â†’ congruence + similarity only (no circle geometry / proofs)
   const year10CoreTrimmedUnits = year10Base.units.map((u) => {
-    // MA5-ALG-P-01 (Path): algebraic fractions excluded from Core
+    // MA5-ALG-P-01 (Path): algebraic fractions + non-monic quadratics excluded from Core
     if (u.slug === "algebraic-techniques") {
       return {
         ...u,
-        lessons: u.lessons.filter((l) => l.slug !== "algebraic-fractions"),
+        lessons: u.lessons.filter((l) => !["algebraic-fractions", "non-monic-quadratic-factorising", "algebraic-fractions-add-subtract"].includes(l.slug)),
       };
     }
-    // MA5-EQU-P-02 (Path): quadratic formula excluded from Core
+    // MA5-EQU-P-01/P-02 (Path): quadratic formula + linear inequalities excluded from Core
     if (u.slug === "equations-simultaneous") {
       return {
         ...u,
-        lessons: u.lessons.filter((l) => l.slug !== "quadratic-formula"),
+        lessons: u.lessons.filter((l) => !["quadratic-formula", "linear-inequalities"].includes(l.slug)),
+      };
+    }
+    // MA5-LIN-P-01 (Path): equation-of-a-line excluded from Core
+    if (u.slug === "linear-relationships") {
+      return {
+        ...u,
+        lessons: u.lessons.filter((l) => l.slug !== "equation-of-a-line"),
       };
     }
     // MA5-PRO-P-01 (Path): conditional probability excluded from Core

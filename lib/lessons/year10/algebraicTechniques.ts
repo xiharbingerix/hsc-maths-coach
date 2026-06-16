@@ -675,6 +675,221 @@ const algebraicFractionsMastery: PracticeQuestion[] = [
     "\\frac{x^2+5x}{5x}"),
 ];
 
+// ─── Lesson 6: Non-Monic Quadratic Factorising ───────────────────────────────
+
+const nonMonicQuadraticWorkedExamples: WorkedExample[] = [
+  {
+    title: "Factorising using the AC method",
+    questionLatex: "\\text{Factorise }2x^2+7x+3.",
+    steps: [
+      { explanation: "Identify a = 2, b = 7, c = 3. Multiply a × c.", latex: "ac=2\\times3=6" },
+      { explanation: "Find two numbers that multiply to 6 and add to 7: 1 and 6.", latex: "1\\times6=6,\\quad1+6=7" },
+      { explanation: "Split the middle term 7x using those two numbers.", latex: "2x^2+x+6x+3" },
+      { explanation: "Group the four terms in pairs and factorise each group.", latex: "x(2x+1)+3(2x+1)" },
+      { explanation: "The bracket (2x + 1) appears in both groups — extract it.", latex: "(x+3)(2x+1)" },
+    ],
+    finalAnswerLatex: "(x+3)(2x+1)",
+  },
+  {
+    title: "Factorising with a positive constant — both numbers negative",
+    questionLatex: "\\text{Factorise }3x^2-10x+8.",
+    steps: [
+      { explanation: "a = 3, b = −10, c = 8. Multiply a × c.", latex: "ac=3\\times8=24" },
+      { explanation: "Need product 24, sum −10: −4 and −6.", latex: "(-4)\\times(-6)=24,\\quad-4+(-6)=-10" },
+      { explanation: "Split −10x as −4x − 6x.", latex: "3x^2-4x-6x+8" },
+      { explanation: "Group and factorise each pair.", latex: "x(3x-4)-2(3x-4)" },
+      { explanation: "Extract the common bracket.", latex: "(x-2)(3x-4)" },
+    ],
+    finalAnswerLatex: "(x-2)(3x-4)",
+  },
+  {
+    title: "Factorising with a negative constant — opposite-sign numbers",
+    questionLatex: "\\text{Factorise }6x^2+x-2.",
+    steps: [
+      { explanation: "a = 6, b = 1, c = −2. Multiply a × c.", latex: "ac=6\\times(-2)=-12" },
+      { explanation: "Need product −12, sum 1: 4 and −3.", latex: "4\\times(-3)=-12,\\quad4+(-3)=1" },
+      { explanation: "Split x as 4x − 3x.", latex: "6x^2+4x-3x-2" },
+      { explanation: "Group and factorise each pair.", latex: "2x(3x+2)-1(3x+2)" },
+      { explanation: "Extract the common bracket.", latex: "(2x-1)(3x+2)" },
+    ],
+    finalAnswerLatex: "(2x-1)(3x+2)",
+  },
+];
+
+const nonMonicQuadraticGuided: PracticeQuestion[] = [
+  algChoice("nmq-g1", "For 2x² + 7x + 3, which pair of numbers has the correct product and sum for the AC method?", "A",
+    ["Product 6, sum 7: the pair 1 and 6", "Product 6, sum 7: the pair 2 and 3", "Product 7, sum 6: the pair 1 and 6", "Product 6, sum 7: the pair −1 and −6"],
+    "ac = 2 × 3 = 6. We need two numbers multiplying to 6 and adding to 7. The pair 1 and 6 satisfies 1 × 6 = 6 and 1 + 6 = 7.",
+    "2x^2+7x+3"),
+  algChoice("nmq-g2", "Which is the correct factorisation of 2x² + 7x + 3?", "A",
+    ["$(x+3)(2x+1)$", "$(x+1)(2x+3)$", "$(x+7)(2x+1)$", "$(x+3)(x+1)$"],
+    "Split 7x as x + 6x: 2x²+x+6x+3 = x(2x+1)+3(2x+1) = (x+3)(2x+1). Check by expanding.",
+    "2x^2+7x+3"),
+  algAnswer("nmq-g3", "For 3x² + 8x + 4, the factorisation starts as (3x + 2)(□). What goes in the box?", "3x^2+8x+4=(3x+2)(\\,\\square\\,)", "x + 2", ["x+2"]),
+  algChoice("nmq-g4", "Which is the correct factorisation of 3x² − 8x + 4?", "A",
+    ["$(3x-2)(x-2)$", "$(3x+2)(x-2)$", "$(3x-4)(x-1)$", "$(3x-2)(x+2)$"],
+    "ac = 12. Need product 12, sum −8: −2 and −6. Split: 3x²−2x−6x+4 = x(3x−2)−2(3x−2) = (x−2)(3x−2).",
+    "3x^2-8x+4"),
+];
+
+const nonMonicQuadraticIndependent: PracticeQuestion[] = [
+  algChoice("nmq-i1", "Which is the correct factorisation of 2x² + 9x + 4?", "A",
+    ["$(2x+1)(x+4)$", "$(2x+4)(x+1)$", "$(2x+2)(x+2)$", "$(2x+9)(x+1)$"],
+    "ac = 8. Need product 8, sum 9: 1 and 8. Split: 2x²+x+8x+4 = x(2x+1)+4(2x+1) = (2x+1)(x+4).",
+    "2x^2+9x+4"),
+  algAnswer("nmq-i2", "For 5x² − 7x + 2, calculate the product ac.", "5x^2-7x+2\\;\\Rightarrow\\;ac", "10", ["10"]),
+  algChoice("nmq-i3", "Which is the correct factorisation of 4x² − 8x + 3?", "B",
+    ["$(4x-1)(x-3)$", "$(2x-1)(2x-3)$", "$(4x-3)(x-1)$", "$(2x-3)^2$"],
+    "ac = 12. Need product 12, sum −8: −2 and −6. Split: 4x²−2x−6x+3 = 2x(2x−1)−3(2x−1) = (2x−3)(2x−1).",
+    "4x^2-8x+3"),
+  algAnswer("nmq-i4", "For 6x² + 7x + 2, the AC method uses numbers whose product is 12 and sum is 7. Give both numbers.", "6x^2+7x+2\\;\\Rightarrow\\;p\\times q=12,\\;p+q=7", "3 and 4", ["3,4", "4 and 3", "4,3"]),
+  algChoice("nmq-i5", "Which is the correct factorisation of 2x² − 5x − 3?", "A",
+    ["$(2x+1)(x-3)$", "$(2x-1)(x+3)$", "$(2x+3)(x-1)$", "$(2x-3)(x+1)$"],
+    "ac = −6. Need product −6, sum −5: 1 and −6. Split: 2x²+x−6x−3 = x(2x+1)−3(2x+1) = (2x+1)(x−3).",
+    "2x^2-5x-3"),
+];
+
+const nonMonicQuadraticMistakes = [
+  { mistake: "Choosing numbers that multiply to b and add to ac instead of multiplying to ac and adding to b.", fix: "The pair must satisfy p × q = ac (outer product) and p + q = b (middle coefficient). Double-check which condition each number satisfies." },
+  { mistake: "Splitting the middle term correctly but grouping the four terms the wrong way.", fix: "Either grouping of the four terms produces the same answer. After grouping, both groups must share a common bracket. If not, swap the split terms and try the other grouping." },
+  { mistake: "Writing one factor without a common bracket from grouping, e.g. x(2x+1) + 3(2x+1) = (2x+1)(x+3) but writing (x+3) only.", fix: "Extract the whole shared bracket as one factor. The second factor comes from the coefficients outside: x + 3 here." },
+  { mistake: "Forgetting to verify by expanding.", fix: "Always multiply out the two factors and confirm the result matches the original expression." },
+];
+
+const nonMonicQuadraticMastery: PracticeQuestion[] = [
+  algChoice("nmq-m1", "Which is the correct factorisation of 2x² + 5x + 2?", "A",
+    ["$(2x+1)(x+2)$", "$(2x+2)(x+1)$", "$(2x+5)(x+1)$", "$(x+2)(x+2)$"],
+    "ac = 4. Need product 4, sum 5: 1 and 4. Split: 2x²+x+4x+2 = x(2x+1)+2(2x+1) = (2x+1)(x+2).",
+    "2x^2+5x+2"),
+  algChoice("nmq-m2", "Which is the correct factorisation of 3x² + 5x − 2?", "A",
+    ["$(3x-1)(x+2)$", "$(3x+1)(x-2)$", "$(3x+2)(x-1)$", "$(3x-2)(x+1)$"],
+    "ac = −6. Need product −6, sum 5: 6 and −1. Split: 3x²+6x−x−2 = 3x(x+2)−1(x+2) = (3x−1)(x+2).",
+    "3x^2+5x-2"),
+  algAnswer("nmq-m3", "Factorise 2x² − x − 3. Give the complete factorisation.", "2x^2-x-3", "(2x-3)(x+1)", ["(x+1)(2x-3)", "(2x - 3)(x + 1)", "(x + 1)(2x - 3)"]),
+  algChoice("nmq-m4", "Which is the correct factorisation of 4x² − 11x + 6?", "A",
+    ["$(4x-3)(x-2)$", "$(2x-3)(2x-2)$", "$(4x-6)(x-1)$", "$(4x-2)(x-3)$"],
+    "ac = 24. Need product 24, sum −11: −3 and −8. Split: 4x²−3x−8x+6 = x(4x−3)−2(4x−3) = (x−2)(4x−3).",
+    "4x^2-11x+6"),
+  algAnswer("nmq-m5", "Factorise 5x² + 13x + 6. Give the complete factorisation.", "5x^2+13x+6", "(5x+3)(x+2)", ["(x+2)(5x+3)", "(5x + 3)(x + 2)", "(x + 2)(5x + 3)"]),
+  algChoice("nmq-m6", "Which is the correct factorisation of 6x² − 7x − 3?", "A",
+    ["$(3x+1)(2x-3)$", "$(3x-1)(2x+3)$", "$(6x+1)(x-3)$", "$(3x-3)(2x+1)$"],
+    "ac = −18. Need product −18, sum −7: 2 and −9. Split: 6x²+2x−9x−3 = 2x(3x+1)−3(3x+1) = (2x−3)(3x+1).",
+    "6x^2-7x-3"),
+  algAnswer("nmq-m7", "For 3x² − 2x − 8, ac = −24. Find the two numbers whose product is −24 and sum is −2. What is the larger number?", "3x^2-2x-8\\;\\Rightarrow\\;ac=-24,\\;p+q=-2", "4", ["4"]),
+  algChoice("nmq-m8", "A student factorises 2x² + 3x + 1 as (2x − 1)(x − 1). What is wrong?", "A",
+    ["Expanding gives 2x²−3x+1, not 2x²+3x+1 — the signs inside both brackets are wrong", "The answer is correct", "The HCF must be removed first", "The AC method only applies when a and c share the same sign"],
+    "Expanding (2x−1)(x−1) = 2x²−2x−x+1 = 2x²−3x+1. The middle sign is wrong. The correct factorisation is (2x+1)(x+1).",
+    "2x^2+3x+1"),
+  algAnswer("nmq-m9", "Factorise 4x² − 4x + 1. Give the complete factorisation.", "4x^2-4x+1", "(2x-1)^2", ["(2x-1)²", "(2x - 1)^2", "(2x - 1)²"]),
+  algChoice("nmq-m10", "Which expression CANNOT be factorised over the integers using the AC method?", "B",
+    ["$2x^2+5x+3$", "$3x^2+7x+3$", "$2x^2-x-6$", "$4x^2-4x-3$"],
+    "For 3x²+7x+3: ac = 9. The integer pairs giving product 9 are (1, 9) with sum 10 and (3, 3) with sum 6 — neither gives 7.",
+    "\\text{Identify the unfactorisable expression}"),
+];
+
+// ─── Lesson 7: Adding and Subtracting Algebraic Fractions ────────────────────
+
+const algFracAddSubWorkedExamples: WorkedExample[] = [
+  {
+    title: "Adding fractions with a number and algebraic denominator",
+    questionLatex: "\\text{Simplify }\\frac{1}{3}+\\frac{2}{x}.",
+    steps: [
+      { explanation: "The LCM of 3 and x is 3x — each denominator multiplies to form it.", latex: "\\text{LCM}=3x" },
+      { explanation: "Rewrite each fraction with denominator 3x.", latex: "\\frac{1}{3}=\\frac{x}{3x},\\qquad\\frac{2}{x}=\\frac{6}{3x}" },
+      { explanation: "Add the numerators over the common denominator.", latex: "\\frac{x+6}{3x}" },
+    ],
+    finalAnswerLatex: "\\frac{x+6}{3x}",
+  },
+  {
+    title: "Subtracting fractions with linear algebraic denominators",
+    questionLatex: "\\text{Simplify }\\frac{5}{x+1}-\\frac{2}{x}.",
+    steps: [
+      { explanation: "The LCM of (x + 1) and x is x(x + 1).", latex: "\\text{LCM}=x(x+1)" },
+      { explanation: "Rewrite each fraction with the common denominator.", latex: "\\frac{5x}{x(x+1)}-\\frac{2(x+1)}{x(x+1)}" },
+      { explanation: "Subtract the numerators. Expand and collect like terms.", latex: "\\frac{5x-2(x+1)}{x(x+1)}=\\frac{5x-2x-2}{x(x+1)}=\\frac{3x-2}{x(x+1)}" },
+    ],
+    finalAnswerLatex: "\\frac{3x-2}{x(x+1)}",
+  },
+  {
+    title: "Adding fractions with two linear denominators",
+    questionLatex: "\\text{Simplify }\\frac{3}{x-2}+\\frac{1}{x+1}.",
+    steps: [
+      { explanation: "The LCM of (x − 2) and (x + 1) is their product.", latex: "\\text{LCM}=(x-2)(x+1)" },
+      { explanation: "Rewrite each fraction.", latex: "\\frac{3(x+1)}{(x-2)(x+1)}+\\frac{1\\cdot(x-2)}{(x-2)(x+1)}" },
+      { explanation: "Add the numerators and collect like terms.", latex: "\\frac{3(x+1)+(x-2)}{(x-2)(x+1)}=\\frac{3x+3+x-2}{(x-2)(x+1)}=\\frac{4x+1}{(x-2)(x+1)}" },
+    ],
+    finalAnswerLatex: "\\frac{4x+1}{(x-2)(x+1)}",
+  },
+];
+
+const algFracAddSubGuided: PracticeQuestion[] = [
+  algChoice("afas-g1", "Which is the LCM of 4 and x?", "B",
+    ["$4$", "$4x$", "$x$", "$4+x$"],
+    "The LCM is the smallest expression divisible by both 4 and x. Neither 4 nor x alone divides both, so LCM = 4x.",
+    "\\text{LCM of }4\\text{ and }x"),
+  algChoice("afas-g2", "To rewrite 3/x with denominator 5x, which numerator is correct?", "A",
+    ["$15$", "$3$", "$5$", "$5x$"],
+    "Multiply numerator and denominator by 5: (3 × 5)/(x × 5) = 15/(5x). The numerator becomes 15.",
+    "\\frac{3}{x}=\\frac{?}{5x}"),
+  algAnswer("afas-g3", "Simplify 1/4 + 1/x. What is the numerator of the simplified fraction over 4x?", "\\frac{1}{4}+\\frac{1}{x}=\\frac{?}{4x}", "x + 4", ["x+4"]),
+  algChoice("afas-g4", "Which is the correct simplification of 2/x − 1/3?", "B",
+    ["$\\frac{2-x}{3x}$", "$\\frac{6-x}{3x}$", "$\\frac{2-3}{3x}$", "$\\frac{6+x}{3x}$"],
+    "LCM = 3x. Rewrite: 6/(3x) − x/(3x) = (6 − x)/(3x). Numerator of first term: 2 × 3 = 6.",
+    "\\frac{2}{x}-\\frac{1}{3}"),
+];
+
+const algFracAddSubIndependent: PracticeQuestion[] = [
+  algAnswer("afas-i1", "Simplify 1/2 + 5/x. What is the numerator of the result over 2x?", "\\frac{1}{2}+\\frac{5}{x}=\\frac{?}{2x}", "x + 10", ["x+10"]),
+  algChoice("afas-i2", "Which is the LCM of x and (x + 2)?", "B",
+    ["$x+2$", "$x(x+2)$", "$x^2+2$", "$2x$"],
+    "x and (x + 2) share no common factor, so their LCM is their product x(x + 2).",
+    "\\text{LCM of }x\\text{ and }(x+2)"),
+  algAnswer("afas-i3", "Simplify 3/x + 2/(x+1). What is the numerator of the result over x(x+1)?", "\\frac{3}{x}+\\frac{2}{x+1}=\\frac{?}{x(x+1)}", "5x + 3", ["5x+3"]),
+  algChoice("afas-i4", "Which is the correct simplification of 1/x − 1/(x+1)?", "A",
+    ["$\\frac{1}{x(x+1)}$", "$\\frac{-1}{x(x+1)}$", "$\\frac{2x+1}{x(x+1)}$", "$\\frac{x}{x+1}$"],
+    "LCM = x(x+1). Rewrite: (x+1)/(x(x+1)) − x/(x(x+1)) = (x+1−x)/(x(x+1)) = 1/(x(x+1)).",
+    "\\frac{1}{x}-\\frac{1}{x+1}"),
+  algChoice("afas-i5", "Which is the correct simplification of 4/(x−1) + 1/x?", "A",
+    ["$\\frac{5x-1}{x(x-1)}$", "$\\frac{5x+1}{x(x-1)}$", "$\\frac{5}{x(x-1)}$", "$\\frac{4x-1}{x(x-1)}$"],
+    "LCM = x(x−1). Rewrite: 4x/(x(x−1)) + (x−1)/(x(x−1)) = (4x+x−1)/(x(x−1)) = (5x−1)/(x(x−1)).",
+    "\\frac{4}{x-1}+\\frac{1}{x}"),
+];
+
+const algFracAddSubMistakes = [
+  { mistake: "Adding numerators and denominators separately, e.g. writing 1/2 + 1/3 = 2/5.", fix: "Only numerators are added — never denominators. Find the LCM, rewrite both fractions with that denominator, then add the numerators only." },
+  { mistake: "Forgetting to multiply the numerator when changing the denominator.", fix: "Multiplying the denominator by a factor requires the same multiplication in the numerator. For 1/x → 3/(3x), numerator becomes 1 × 3 = 3." },
+  { mistake: "Not distributing the negative sign when subtracting, e.g. writing 5/(x+1) − 2/x as (5x − 2)/(x(x+1)) instead of (5x − 2(x+1))/(x(x+1)).", fix: "The entire numerator of the second fraction is subtracted. Expand any brackets: 5x − 2(x+1) = 5x − 2x − 2 = 3x − 2." },
+  { mistake: "Using a common denominator that is not the LCM, leading to unnecessarily complex fractions.", fix: "Use the LCM of the denominators. For 1/4 and 1/x, the LCM is 4x — not 4x² or any larger expression." },
+];
+
+const algFracAddSubMastery: PracticeQuestion[] = [
+  algAnswer("afas-m1", "What is the LCM of 3 and x?", "\\text{LCM of }3\\text{ and }x", "3x", ["3x"]),
+  algAnswer("afas-m2", "Simplify 2/3 + 1/x. What is the numerator of the result over 3x?", "\\frac{2}{3}+\\frac{1}{x}=\\frac{?}{3x}", "2x + 3", ["2x+3"]),
+  algChoice("afas-m3", "Which is the correct simplification of 1/x + 2/(x+3)?", "B",
+    ["$\\frac{3x+3}{x(x+3)}$", "$\\frac{3(x+1)}{x(x+3)}$", "$\\frac{x+3}{x(x+3)}$", "$\\frac{3}{x(x+3)}$"],
+    "LCM = x(x+3). Rewrite: (x+3)/(x(x+3)) + 2x/(x(x+3)) = (3x+3)/(x(x+3)) = 3(x+1)/(x(x+3)).",
+    "\\frac{1}{x}+\\frac{2}{x+3}"),
+  algAnswer("afas-m4", "Simplify 5/(x−1) − 2/x. What is the numerator of the result over x(x−1)?", "\\frac{5}{x-1}-\\frac{2}{x}=\\frac{?}{x(x-1)}", "3x + 2", ["3x+2"]),
+  algChoice("afas-m5", "Which is the correct simplification of 3/x + 4/(x−2)?", "B",
+    ["$\\frac{3x+4}{x(x-2)}$", "$\\frac{7x-6}{x(x-2)}$", "$\\frac{7x+6}{x(x-2)}$", "$\\frac{7}{x(x-2)}$"],
+    "LCM = x(x−2). Rewrite: 3(x−2)/(x(x−2)) + 4x/(x(x−2)) = (3x−6+4x)/(x(x−2)) = (7x−6)/(x(x−2)).",
+    "\\frac{3}{x}+\\frac{4}{x-2}"),
+  algAnswer("afas-m6", "Simplify 2/(x+1) + 3/(x−1). What is the numerator of the result over (x+1)(x−1)?", "\\frac{2}{x+1}+\\frac{3}{x-1}=\\frac{?}{(x+1)(x-1)}", "5x + 1", ["5x+1"]),
+  algChoice("afas-m7", "Which is the correct simplification of 4/(x+2) − 1/(x−1)?", "A",
+    ["$\\frac{3(x-2)}{(x+2)(x-1)}$", "$\\frac{3x-2}{(x+2)(x-1)}$", "$\\frac{3x-6}{(x+2)(x-1)}$", "$\\frac{3(x+2)}{(x+2)(x-1)}$"],
+    "LCM = (x+2)(x−1). Rewrite: 4(x−1) − (x+2) = 4x−4−x−2 = 3x−6 = 3(x−2). Result: 3(x−2)/((x+2)(x−1)).",
+    "\\frac{4}{x+2}-\\frac{1}{x-1}"),
+  algAnswer("afas-m8", "Simplify 1/(x+3) + 2/(x−1). What is the numerator of the result over (x+3)(x−1)?", "\\frac{1}{x+3}+\\frac{2}{x-1}=\\frac{?}{(x+3)(x-1)}", "3x + 5", ["3x+5"]),
+  algChoice("afas-m9", "A student simplifies 1/x + 1/(x+1) as 2/(2x+1). What is wrong?", "A",
+    ["The denominators cannot be added — the LCM is x(x+1), not 2x+1", "The answer is correct", "The numerator should be 2x+1 not 2", "The student used the wrong sign"],
+    "The LCM of x and (x+1) is x(x+1). Correct result: (x+1+x)/(x(x+1)) = (2x+1)/(x(x+1)), not 2/(2x+1).",
+    "\\frac{1}{x}+\\frac{1}{x+1}"),
+  algChoice("afas-m10", "Which is the correct simplification of 3/(x−4) + 2/(x+1)?", "B",
+    ["$\\frac{5x-3}{(x-4)(x+1)}$", "$\\frac{5(x-1)}{(x-4)(x+1)}$", "$\\frac{5x-5}{(x-4)(x+1)}$", "$\\frac{5x+1}{(x-4)(x+1)}$"],
+    "LCM = (x−4)(x+1). Numerator: 3(x+1)+2(x−4) = 3x+3+2x−8 = 5x−5 = 5(x−1). Result: 5(x−1)/((x−4)(x+1)).",
+    "\\frac{3}{x-4}+\\frac{2}{x+1}"),
+];
+
 // ─── Main override function ───────────────────────────────────────────────────
 
 export function year10AlgebraicTechniquesLessonOverride(
@@ -807,6 +1022,70 @@ export function year10AlgebraicTechniquesLessonOverride(
       independentPractice: dotsIndependent,
       commonMistakes: dotsMistakes,
       masteryQuiz: dotsMastery,
+      masteryPassMark: 0.8,
+    };
+  }
+
+  if (lesson.slug === "non-monic-quadratic-factorising") {
+    return {
+      description: "Factorise non-monic quadratic trinomials of the form ax² + bx + c (a ≠ 1) using the AC method.",
+      learningIntention: "Apply the AC method to factorise non-monic quadratics by splitting the middle term and grouping.",
+      successCriteria: [
+        "Calculate the product ac and find a pair of numbers with that product and sum b.",
+        "Rewrite the middle term bx using the two numbers found.",
+        "Group the four terms in pairs and factorise each group.",
+        "Extract the common bracket to write the final factorised form.",
+      ],
+      teaching: {
+        paragraphs: [
+          "A non-monic quadratic has the form ax² + bx + c where a ≠ 1. The product-sum method used for monic quadratics no longer works directly.",
+          "The AC method: multiply a and c to get the product ac. Find two numbers p and q such that p × q = ac and p + q = b.",
+          "Rewrite bx as px + qx. Then group the four terms in pairs and factorise each group. A common bracket will appear.",
+          "Extract the common bracket as one factor and write the remaining terms as the second factor.",
+        ],
+        latexBlocks: [
+          "\\text{Find }p,q:\\quad p\\times q=ac,\\quad p+q=b",
+          "ax^2+px+qx+c\\;\\longrightarrow\\;(\\text{group and factorise})\\;\\longrightarrow\\;(\\text{common bracket})(\\cdots)",
+          "\\text{e.g. }2x^2+7x+3:\\;ac=6,\\;1+6=7\\;\\Rightarrow\\;(x+3)(2x+1)",
+        ],
+      },
+      workedExamples: nonMonicQuadraticWorkedExamples,
+      guidedPractice: nonMonicQuadraticGuided,
+      independentPractice: nonMonicQuadraticIndependent,
+      commonMistakes: nonMonicQuadraticMistakes,
+      masteryQuiz: nonMonicQuadraticMastery,
+      masteryPassMark: 0.8,
+    };
+  }
+
+  if (lesson.slug === "algebraic-fractions-add-subtract") {
+    return {
+      description: "Add and subtract algebraic fractions with unlike denominators by finding the LCM and rewriting each fraction.",
+      learningIntention: "Add and subtract algebraic fractions by identifying the lowest common multiple of the denominators.",
+      successCriteria: [
+        "Find the LCM of algebraic and numerical denominators.",
+        "Rewrite each fraction with the LCM as the common denominator.",
+        "Add or subtract the numerators over the common denominator.",
+        "Expand and collect like terms in the numerator, and simplify the result where possible.",
+      ],
+      teaching: {
+        paragraphs: [
+          "To add or subtract algebraic fractions, a common denominator is needed — just as with ordinary numerical fractions.",
+          "Find the LCM of the denominators. For unlike algebraic expressions with no shared factors, the LCM is their product.",
+          "Rewrite each fraction by multiplying its numerator and denominator by whatever is needed to reach the LCM.",
+          "Add or subtract the numerators. When subtracting, distribute the negative sign across the entire numerator of the second fraction.",
+        ],
+        latexBlocks: [
+          "\\frac{a}{b}+\\frac{c}{d}=\\frac{ad+bc}{bd}\\quad\\text{(when }b,d\\text{ share no common factor)}",
+          "\\text{e.g. }\\frac{1}{3}+\\frac{2}{x}=\\frac{x}{3x}+\\frac{6}{3x}=\\frac{x+6}{3x}",
+          "\\text{e.g. }\\frac{5}{x+1}-\\frac{2}{x}=\\frac{5x-2(x+1)}{x(x+1)}=\\frac{3x-2}{x(x+1)}",
+        ],
+      },
+      workedExamples: algFracAddSubWorkedExamples,
+      guidedPractice: algFracAddSubGuided,
+      independentPractice: algFracAddSubIndependent,
+      commonMistakes: algFracAddSubMistakes,
+      masteryQuiz: algFracAddSubMastery,
       masteryPassMark: 0.8,
     };
   }
