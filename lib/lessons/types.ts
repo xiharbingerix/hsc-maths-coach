@@ -587,6 +587,33 @@ export type PlaneShapeDiagram = {
   showVertexDots?: boolean;
 };
 
+export type Solid3DKind =
+  | "rectangularPrism"
+  | "cube"
+  | "cylinder"
+  | "cone"
+  | "squarePyramid"
+  | "triangularPrism"
+  | "sphere";
+
+/**
+ * A common 3D solid drawn in oblique projection with dashed hidden edges, for
+ * volume / surface-area work. Only the labels relevant to `solid` are used.
+ */
+export type Solid3DDiagram = {
+  description: string;
+  solid: Solid3DKind;
+  labels?: {
+    length?: string;
+    width?: string;
+    height?: string;
+    radius?: string;
+    slant?: string;
+    base?: string;
+  };
+  color?: StatChartColor;
+};
+
 /**
  * A circle sector (wedge) for arc-length / sector-area / radian problems. The
  * sector starts on the positive x-axis and sweeps anticlockwise by

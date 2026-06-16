@@ -15,6 +15,7 @@ import type {
   ScatterPlotDiagram,
   SectorDiagram,
   SlopeFieldDiagram,
+  Solid3DDiagram,
   StemAndLeafDiagram,
   TrapezoidalRuleDiagram,
   TriangleDiagram,
@@ -66,6 +67,7 @@ export const DIAGRAM_SPECS = [
   { type: "planeShapeDiagram", field: "planeShapeDiagram" },
   { type: "sectorDiagram", field: "sectorDiagram" },
   { type: "pieChartDiagram", field: "pieChartDiagram" },
+  { type: "solid3DDiagram", field: "solid3DDiagram" },
 ] as const;
 
 /** Serialized `diagram_data.type` discriminator for a registered payload. */
@@ -104,6 +106,7 @@ export type DiagramFields = {
   planeShapeDiagram?: PlaneShapeDiagram;
   sectorDiagram?: SectorDiagram;
   pieChartDiagram?: PieChartDiagram;
+  solid3DDiagram?: Solid3DDiagram;
 };
 
 /**

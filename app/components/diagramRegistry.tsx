@@ -19,6 +19,7 @@ import type {
   ScatterPlotDiagram,
   SectorDiagram,
   SlopeFieldDiagram,
+  Solid3DDiagram,
   StemAndLeafDiagram,
   TrapezoidalRuleDiagram,
   TriangleDiagram,
@@ -44,6 +45,7 @@ import { ProbabilityTreeView } from "../course/components/ProbabilityTreeView";
 import { ScatterPlotView } from "../course/components/ScatterPlotView";
 import { SectorView } from "../course/components/SectorView";
 import { SlopeFieldView } from "../course/components/SlopeFieldView";
+import { Solid3DView } from "../course/components/Solid3DView";
 import { StemAndLeafView } from "../course/components/StemAndLeafView";
 import { TrapezoidalRuleView } from "../course/components/TrapezoidalRuleView";
 import { TriangleDiagramView } from "../course/components/TriangleDiagramView";
@@ -99,6 +101,7 @@ export const DIAGRAM_COMPONENTS: Record<DiagramType, DiagramComponent> = {
   planeShapeDiagram: (d) => <PlaneShapeView diagram={d as unknown as PlaneShapeDiagram} />,
   sectorDiagram: (d) => <SectorView diagram={d as unknown as SectorDiagram} />,
   pieChartDiagram: (d) => <PieChartView diagram={d as unknown as PieChartDiagram} />,
+  solid3DDiagram: (d) => <Solid3DView diagram={d as unknown as Solid3DDiagram} />,
 };
 
 /**
