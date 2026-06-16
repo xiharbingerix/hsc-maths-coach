@@ -614,6 +614,55 @@ export type Solid3DDiagram = {
   color?: StatChartColor;
 };
 
+export type BearingRay = {
+  /** Bearing in degrees, clockwise from North (0–360). */
+  bearing: number;
+  /** Endpoint label (e.g. "B"). */
+  label?: string;
+  /** Relative ray length (0–1 of the available radius); defaults to 1. */
+  length?: number;
+  /** Draw the bearing arc from North to this ray, annotated with the value. */
+  showAngle?: boolean;
+};
+
+/**
+ * A compass/bearings diagram: rays from a common origin at true bearings
+ * (clockwise from North), for navigation and bearing problems.
+ */
+export type BearingsDiagram = {
+  description: string;
+  originLabel?: string;
+  rays: BearingRay[];
+  color?: StatChartColor;
+};
+
+export type StepSegment = {
+  xStart: number;
+  xEnd: number;
+  y: number;
+  /** Filled dot at the left end (default true). */
+  closedStart?: boolean;
+  /** Filled dot at the right end (default false — open). */
+  closedEnd?: boolean;
+};
+
+/**
+ * A step graph (piecewise-constant function with open/closed endpoints), for
+ * parking/postage tariffs, tax brackets and similar. Bounds default to the data.
+ */
+export type StepGraphDiagram = {
+  description: string;
+  segments: StepSegment[];
+  xMin?: number;
+  xMax?: number;
+  yMin?: number;
+  yMax?: number;
+  xStep?: number;
+  yStep?: number;
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+};
+
 export type NetKind =
   | "cube"
   | "rectangularPrism"

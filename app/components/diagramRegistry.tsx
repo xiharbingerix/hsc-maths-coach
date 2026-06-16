@@ -5,6 +5,7 @@ import type { DiagramType } from "../../lib/lessons/diagramRegistry";
 import type {
   ArgandDiagram,
   BarChartDiagram,
+  BearingsDiagram,
   BoxPlotDiagram,
   CartesianGraph,
   DotPlotDiagram,
@@ -22,6 +23,7 @@ import type {
   SlopeFieldDiagram,
   Solid3DDiagram,
   StemAndLeafDiagram,
+  StepGraphDiagram,
   TrapezoidalRuleDiagram,
   TriangleDiagram,
   TrigGraphDiagram,
@@ -33,6 +35,7 @@ import type {
 import { ArgandDiagramView } from "../course/components/ArgandDiagramView";
 import { BoxPlotView } from "../course/components/BoxPlotView";
 import { BarChartView } from "../course/components/BarChartView";
+import { BearingsView } from "../course/components/BearingsView";
 import { CartesianGraphView } from "../course/components/CartesianGraphView";
 import { DotPlotView } from "../course/components/DotPlotView";
 import { HistogramView } from "../course/components/HistogramView";
@@ -49,6 +52,7 @@ import { SectorView } from "../course/components/SectorView";
 import { SlopeFieldView } from "../course/components/SlopeFieldView";
 import { Solid3DView } from "../course/components/Solid3DView";
 import { StemAndLeafView } from "../course/components/StemAndLeafView";
+import { StepGraphView } from "../course/components/StepGraphView";
 import { TrapezoidalRuleView } from "../course/components/TrapezoidalRuleView";
 import { TriangleDiagramView } from "../course/components/TriangleDiagramView";
 import { TrigGraphDiagramView } from "../course/components/TrigGraphDiagramView";
@@ -105,6 +109,8 @@ export const DIAGRAM_COMPONENTS: Record<DiagramType, DiagramComponent> = {
   pieChartDiagram: (d) => <PieChartView diagram={d as unknown as PieChartDiagram} />,
   solid3DDiagram: (d) => <Solid3DView diagram={d as unknown as Solid3DDiagram} />,
   netDiagram: (d) => <NetView diagram={d as unknown as NetDiagram} />,
+  bearingsDiagram: (d) => <BearingsView diagram={d as unknown as BearingsDiagram} />,
+  stepGraphDiagram: (d) => <StepGraphView diagram={d as unknown as StepGraphDiagram} />,
 };
 
 /**

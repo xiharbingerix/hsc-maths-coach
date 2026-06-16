@@ -1,6 +1,7 @@
 import type {
   ArgandDiagram,
   BarChartDiagram,
+  BearingsDiagram,
   BoxPlotDiagram,
   CartesianGraph,
   DotPlotDiagram,
@@ -18,6 +19,7 @@ import type {
   SlopeFieldDiagram,
   Solid3DDiagram,
   StemAndLeafDiagram,
+  StepGraphDiagram,
   TrapezoidalRuleDiagram,
   TriangleDiagram,
   TrigGraphDiagram,
@@ -70,6 +72,8 @@ export const DIAGRAM_SPECS = [
   { type: "pieChartDiagram", field: "pieChartDiagram" },
   { type: "solid3DDiagram", field: "solid3DDiagram" },
   { type: "netDiagram", field: "netDiagram" },
+  { type: "bearingsDiagram", field: "bearingsDiagram" },
+  { type: "stepGraphDiagram", field: "stepGraphDiagram" },
 ] as const;
 
 /** Serialized `diagram_data.type` discriminator for a registered payload. */
@@ -110,6 +114,8 @@ export type DiagramFields = {
   pieChartDiagram?: PieChartDiagram;
   solid3DDiagram?: Solid3DDiagram;
   netDiagram?: NetDiagram;
+  bearingsDiagram?: BearingsDiagram;
+  stepGraphDiagram?: StepGraphDiagram;
 };
 
 /**
