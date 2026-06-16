@@ -189,6 +189,46 @@ export type CartesianShadedRegion =
       description?: string;
     };
 
+export type CartesianCurveColor =
+  | "blue"
+  | "violet"
+  | "teal"
+  | "pink"
+  | "amber"
+  | "green"
+  | "red";
+
+type CartesianCurveBase = {
+  /** Restrict the plotted x-domain (intersected with the graph bounds). */
+  xMin?: number;
+  xMax?: number;
+  label?: string;
+  color?: CartesianCurveColor;
+  dashed?: boolean;
+};
+
+/**
+ * Non-polynomial / higher-order function families for the standard plane,
+ * sampled and clipped by `CartesianGraphView`. Complements the dedicated
+ * `lines`, `parabolas`, `circles` and `sinusoidals` fields.
+ *
+ * - exponential: y = a·base^(b(x − c)) + d   (base defaults to e)
+ * - logarithmic: y = a·log_base(x − c) + d    (domain x > c; base defaults to e)
+ * - reciprocal:  y = a/(x − h) + k            (asymptotes x = h, y = k)
+ * - absolute:    y = a·|x − h| + k
+ * - squareRoot:  y = a·√(x − h) + k           (domain x ≥ h)
+ * - cubic:       y = a·x³ + b·x² + c·x + d
+ */
+export type CartesianCurve = CartesianCurveBase &
+  (
+    | { kind: "exponential"; a?: number; b?: number; c?: number; d?: number; base?: number }
+    | { kind: "logarithmic"; a?: number; c?: number; d?: number; base?: number }
+    | { kind: "reciprocal"; a?: number; h?: number; k?: number }
+    | { kind: "absolute"; a?: number; h?: number; k?: number }
+    | { kind: "squareRoot"; a?: number; h?: number; k?: number }
+    | { kind: "cubic"; a?: number; b?: number; c?: number; d?: number }
+  );
+
 export type CartesianGraph = {
   description: string;
   xMin?: number;
@@ -241,6 +281,7 @@ export type CartesianGraph = {
     label?: string;
     description?: string;
   }[];
+  curves?: CartesianCurve[];
   shadedRegions?: CartesianShadedRegion[];
 };
 
