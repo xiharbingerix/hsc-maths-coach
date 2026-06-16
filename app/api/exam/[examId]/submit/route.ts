@@ -53,5 +53,23 @@ export async function POST(
   }
 
   const result = await scoreExam(paper, safeAnswers);
+
+  // Persist the attempt (graceful — never block the result if the table isn't
+  // applied yet or the insert fails).
+  try {
+    await supabaseAdmin.from("exam_attempts").insert({
+      user_id: userId,
+      exam_id: examId,
+      course_slug: paper.courseSlug,
+      marks_earned: result.marksEarned,
+      marks_available: result.marksAvailable,
+      percentage: result.percentage,
+      band: result.band,
+      topic_breakdown: result.topicBreakdown,
+    });
+  } catch (error) {
+    console.error("[exam/submit] could not save attempt", error);
+  }
+
   return NextResponse.json(result);
 }
