@@ -164,10 +164,36 @@ export const newCourseCatalogueItems: CourseCatalogueItem[] =
     })),
   }));
 
-export const courseCatalogue: CourseCatalogueItem[] = [
+// Visual order of the public course catalogue, youngest to oldest year level.
+// Slugs omitted here are hidden from the catalogue. The generic
+// `year-9-mathematics` / `year-10-mathematics` pathways are intentionally
+// excluded — they exist only as the base for the derived core/advanced
+// variants (see newCourseCatalog.ts) and are not shown directly.
+const catalogueOrder = [
+  "year-7-mathematics",
+  "year-8-mathematics",
+  "year-9-mathematics-core",
+  "year-9-mathematics-advanced",
+  "year-10-mathematics-core",
+  "year-10-mathematics-advanced",
+  "year-11-standard",
+  "year-11-advanced",
+  "year-11-extension",
+  "year-12-standard-1",
+  "year-12-standard-2",
+  "year-12-advanced",
+  "year-12-extension-1",
+  "year-12-extension-2",
+];
+
+const allCatalogueItems: CourseCatalogueItem[] = [
   year12AdvancedCourse,
   ...newCourseCatalogueItems,
 ];
+
+export const courseCatalogue: CourseCatalogueItem[] = catalogueOrder
+  .map((slug) => allCatalogueItems.find((course) => course.courseSlug === slug))
+  .filter((course): course is CourseCatalogueItem => course !== undefined);
 
 export const totalActiveLessonCount = courseCatalogue.reduce(
   (total, course) => total + course.activeLessonCount,
