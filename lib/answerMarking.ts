@@ -24,6 +24,36 @@ function normaliseText(value: string) {
     .replace(/\^\((\d+)\)/g, "^$1")
     .toLowerCase()
     .trim()
+    // --- Bridge Unicode/LaTeX maths glyphs to canonical ASCII (catalog audit P2) ---
+    // Pi constant: π (U+03C0; also covers Π since toLowerCase ran above) and the
+    // LaTeX macro \pi both canonicalise to "pi". Only the glyph/macro is mapped —
+    // never the bare substring "pi" — so words like "pizza" are untouched.
+    .replace(/π/g, "pi")
+    .replace(/\\pi/g, "pi")
+    // Strip LaTeX delimiter/spacing macros first so they cannot collide with the
+    // inequality mappings below (e.g. "\left" must not feed the "\le" rule).
+    .replace(/\\left/g, "")
+    .replace(/\\right/g, "")
+    .replace(/\\[,!]/g, "")
+    // Inequalities: Unicode and LaTeX forms -> ASCII. The optional "q" absorbs the
+    // longer macro (\leq/\geq) in a single pass; "\left"/"\right" are gone already.
+    .replace(/≤/g, "<=")
+    .replace(/\\le(?:q)?/g, "<=")
+    .replace(/≥/g, ">=")
+    .replace(/\\ge(?:q)?/g, ">=")
+    // Trig/log macros appear only in stored answers, never in student typing.
+    .replace(/\\sin/g, "sin")
+    .replace(/\\cos/g, "cos")
+    .replace(/\\tan/g, "tan")
+    .replace(/\\ln/g, "ln")
+    .replace(/\\log/g, "log")
+    // Multiplication dots -> "*", consistently applied to both sides.
+    .replace(/\\cdot/g, "*")
+    .replace(/\\times/g, "*")
+    // TODO: \frac{a}{b} -> a/b structural rewriting is intentionally out of scope —
+    // brittle with nested braces and prone to false positives. \frac{...}
+    // antiderivatives still rely on per-question acceptedAnswers; a structural/CAS
+    // comparator is the real fix.
     .replace(/\blocal\s+max\b/g, "local maximum")
     .replace(/\blocal\s+min\b/g, "local minimum")
     .replace(/\bmax\b/g, "maximum")
