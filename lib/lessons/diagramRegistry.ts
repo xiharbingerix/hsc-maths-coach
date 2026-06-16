@@ -1,8 +1,10 @@
 import type {
   ArgandDiagram,
+  BarChartDiagram,
   BoxPlotDiagram,
   CartesianGraph,
   DotPlotDiagram,
+  HistogramDiagram,
   NetworkDiagram,
   NormalDistributionDiagram,
   NumberLineDiagram,
@@ -54,6 +56,8 @@ export const DIAGRAM_SPECS = [
   { type: "numberLineDiagram", field: "numberLineDiagram" },
   { type: "dotPlotDiagram", field: "dotPlotDiagram" },
   { type: "stemAndLeafDiagram", field: "stemAndLeafDiagram" },
+  { type: "barChartDiagram", field: "barChartDiagram" },
+  { type: "histogramDiagram", field: "histogramDiagram" },
 ] as const;
 
 /** Serialized `diagram_data.type` discriminator for a registered payload. */
@@ -86,6 +90,8 @@ export type DiagramFields = {
   numberLineDiagram?: NumberLineDiagram;
   dotPlotDiagram?: DotPlotDiagram;
   stemAndLeafDiagram?: StemAndLeafDiagram;
+  barChartDiagram?: BarChartDiagram;
+  histogramDiagram?: HistogramDiagram;
 };
 
 /**

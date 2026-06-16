@@ -497,3 +497,49 @@ export type StemAndLeafDiagram = {
   /** Column heading for the right/only group. */
   rightLabel?: string;
 };
+
+export type StatChartColor = "blue" | "teal" | "violet" | "amber" | "green" | "red";
+
+export type BarChartBar = {
+  label: string;
+  value: number;
+  color?: StatChartColor;
+};
+
+/**
+ * A column/bar graph for categorical data (bars separated by gaps). Use
+ * `orientation: "horizontal"` for long category labels.
+ */
+export type BarChartDiagram = {
+  description: string;
+  bars: BarChartBar[];
+  orientation?: "vertical" | "horizontal";
+  /** Label for the numeric axis (e.g. "Frequency"). */
+  valueAxisLabel?: string;
+  /** Label for the category axis. */
+  categoryAxisLabel?: string;
+  valueMax?: number;
+  valueStep?: number;
+};
+
+export type HistogramBin = {
+  /** Class-interval label, e.g. "10–20" (or the midpoint). */
+  label: string;
+  frequency: number;
+};
+
+/**
+ * A histogram for grouped continuous data (adjacent bars). Optionally overlay a
+ * frequency polygon, or set `cumulative` to plot a cumulative-frequency
+ * histogram — with the polygon overlay this gives an ogive.
+ */
+export type HistogramDiagram = {
+  description: string;
+  bins: HistogramBin[];
+  axisLabel?: string;
+  frequencyAxisLabel?: string;
+  valueMax?: number;
+  valueStep?: number;
+  showFrequencyPolygon?: boolean;
+  cumulative?: boolean;
+};

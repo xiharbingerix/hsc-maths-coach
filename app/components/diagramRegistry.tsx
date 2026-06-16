@@ -4,9 +4,11 @@ import type { ReactElement } from "react";
 import type { DiagramType } from "../../lib/lessons/diagramRegistry";
 import type {
   ArgandDiagram,
+  BarChartDiagram,
   BoxPlotDiagram,
   CartesianGraph,
   DotPlotDiagram,
+  HistogramDiagram,
   NetworkDiagram,
   NormalDistributionDiagram,
   NumberLineDiagram,
@@ -24,8 +26,10 @@ import type {
 } from "../../lib/lessons/types";
 import { ArgandDiagramView } from "../course/components/ArgandDiagramView";
 import { BoxPlotView } from "../course/components/BoxPlotView";
+import { BarChartView } from "../course/components/BarChartView";
 import { CartesianGraphView } from "../course/components/CartesianGraphView";
 import { DotPlotView } from "../course/components/DotPlotView";
+import { HistogramView } from "../course/components/HistogramView";
 import { NetworkDiagramView } from "../course/components/NetworkDiagramView";
 import { NormalDistributionView } from "../course/components/NormalDistributionView";
 import { NumberLineView } from "../course/components/NumberLineView";
@@ -81,6 +85,8 @@ export const DIAGRAM_COMPONENTS: Record<DiagramType, DiagramComponent> = {
   stemAndLeafDiagram: (d) => (
     <StemAndLeafView diagram={d as unknown as StemAndLeafDiagram} />
   ),
+  barChartDiagram: (d) => <BarChartView diagram={d as unknown as BarChartDiagram} />,
+  histogramDiagram: (d) => <HistogramView diagram={d as unknown as HistogramDiagram} />,
 };
 
 /**
