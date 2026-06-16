@@ -1,4 +1,5 @@
 import { supabaseAdmin } from "./supabaseAdmin";
+import { pickDiagramFields, type Choice } from "./lessons/diagramRegistry";
 
 export type DifficultyLevel = 1 | 2 | 3 | 4 | 5;
 export type DifficultyPreset = "catch-up" | "standard" | "push-forward";
@@ -13,7 +14,7 @@ export type WorksheetQuestionPreview = {
   difficulty: number;
   prompt: string;
   latex: string | null;
-  choices: { label: string; text: string }[] | null;
+  choices: Choice[] | null;
   parts: unknown[] | null;
   answer: string;
   diagramData: Record<string, unknown> | null;
@@ -87,9 +88,7 @@ export function scalePreset(
   );
 }
 
-function normaliseChoices(
-  value: unknown
-): { label: string; text: string }[] | null {
+function normaliseChoices(value: unknown): Choice[] | null {
   if (!Array.isArray(value) || value.length === 0) return null;
 
   return value.map((item) => {
@@ -97,6 +96,7 @@ function normaliseChoices(
     return {
       label: String(choice.label ?? ""),
       text: String(choice.text ?? ""),
+      ...pickDiagramFields(choice),
     };
   });
 }

@@ -80,6 +80,17 @@ export type DiagramFields = {
 };
 
 /**
+ * A multiple-choice option. Beyond its text, a choice may carry any diagram
+ * payload (rendered beneath the text), so MCQ answers can be diagrams — e.g.
+ * "which graph matches y = x²?" with four `cartesianGraph` options. Persisted
+ * inside the `questions.choices` JSON column alongside `label`/`text`.
+ */
+export type Choice = {
+  label: string;
+  text: string;
+} & DiagramFields;
+
+/**
  * Serialise the first diagram present on a question / worked example into the
  * `{ type, ...fields }` shape stored in `questions.diagram_data`. Returns `null`
  * when the item carries no diagram payload.
@@ -94,4 +105,19 @@ export function extractDiagramData(
     }
   }
   return null;
+}
+
+/**
+ * Copy only the diagram fields from a source object (a choice, raw JSON, etc.),
+ * dropping everything else. Used by the choice normalisers so MCQ option
+ * diagrams survive the round-trip through `questions.choices`.
+ */
+export function pickDiagramFields(
+  source: Partial<Record<DiagramField, unknown>>
+): DiagramFields {
+  const out: Record<string, unknown> = {};
+  for (const spec of DIAGRAM_SPECS) {
+    if (source[spec.field]) out[spec.field] = source[spec.field];
+  }
+  return out as DiagramFields;
 }

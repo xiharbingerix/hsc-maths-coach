@@ -19,7 +19,7 @@ import { sequencesSeriesFinancialMathsLessons } from "../lib/lessons/sequencesSe
 import { statisticalAnalysisLessons } from "../lib/lessons/statisticalAnalysis";
 import { trigonometricFunctionsGraphsLessons } from "../lib/lessons/trigonometricFunctionsGraphs";
 import { probabilityLessons } from "../lib/lessons/probability";
-import { extractDiagramData } from "../lib/lessons/diagramRegistry";
+import { extractDiagramData, pickDiagramFields, type Choice } from "../lib/lessons/diagramRegistry";
 
 type PracticeSection = "guidedPractice" | "independentPractice" | "masteryQuiz" | "multiPartPractice";
 
@@ -33,7 +33,7 @@ type QuestionRow = {
   question_type: "conceptual" | "procedural";
   prompt: string;
   latex: string | null;
-  choices: { label: string; text: string }[] | null;
+  choices: Choice[] | null;
   question_parts: Array<Record<string, unknown>> | null;
   answer: string;
   accepted_answers: string[];
@@ -186,6 +186,7 @@ export function normaliseChoices(question: PracticeQuestion) {
   return question.choices.map((choice) => ({
     label: choice.label,
     text: choice.text,
+    ...pickDiagramFields(choice),
   }));
 }
 

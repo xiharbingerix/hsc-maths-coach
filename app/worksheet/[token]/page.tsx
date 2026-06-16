@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { supabaseAdmin } from "../../../lib/supabaseAdmin";
+import { pickDiagramFields, type Choice } from "../../../lib/lessons/diagramRegistry";
 import { WorksheetClient } from "./WorksheetClient";
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export type WorksheetQuestion = {
   position: number;
   prompt: string;
   latex: string | null;
-  choices: Array<{ label: string; text: string }> | null;
+  choices: Choice[] | null;
   parts: WorksheetQuestionPart[] | null;
   diagramData: Record<string, unknown> | null;
 };
@@ -27,11 +28,15 @@ export type WorksheetQuestionPart = {
   marks: number;
 };
 
-function safeChoices(value: unknown): Array<{ label: string; text: string }> | null {
+function safeChoices(value: unknown): Choice[] | null {
   if (!Array.isArray(value) || value.length === 0) return null;
   return value.map((item: unknown) => {
     const obj = item as Record<string, unknown>;
-    return { label: String(obj?.label ?? ""), text: String(obj?.text ?? "") };
+    return {
+      label: String(obj?.label ?? ""),
+      text: String(obj?.text ?? ""),
+      ...pickDiagramFields(obj),
+    };
   });
 }
 

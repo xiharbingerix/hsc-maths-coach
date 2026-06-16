@@ -556,6 +556,7 @@ function ChoiceButtons({
             >
               <span className="font-semibold">{choice.label}.</span>{" "}
               <MathText text={choice.text} />
+              <VisualPayloadRenderer {...choice} />
             </button>
           );
         })}

@@ -15,6 +15,7 @@
   Vector3DDiagram,
   VennDiagram,
 } from "./types";
+import type { Choice } from "./diagramRegistry";
 
 export type PracticeQuestionPart = {
   key: string;
@@ -51,10 +52,7 @@ export type PracticeQuestion = {
   solutionDiagram?: NetworkDiagram;
   answer: string;
   acceptedAnswers?: string[];
-  choices?: {
-    label: string;
-    text: string;
-  }[];
+  choices?: Choice[];
   hint?: string;
   explanation?: string;
   parts?: PracticeQuestionPart[];

@@ -4,6 +4,8 @@ import { useState } from "react";
 import { BlockMath } from "react-katex";
 import { MathText } from "../../../components/MathText";
 import { renderDiagramData } from "../../../components/diagramRegistry";
+import { VisualPayloadRenderer } from "../../../components/VisualPayloadRenderer";
+import type { Choice } from "../../../../lib/lessons/diagramRegistry";
 
 type CourseTopicEntry = {
   courseSlug: string;
@@ -32,7 +34,7 @@ type PreviewQuestion = {
   difficulty: number;
   prompt: string;
   latex: string | null;
-  choices: { label: string; text: string }[] | null;
+  choices: Choice[] | null;
   parts: {
     key: string;
     label: string;
@@ -540,6 +542,7 @@ export function WorksheetGeneratorForm({
                       >
                         <span className="font-semibold">{choice.label}.</span>{" "}
                         <MathText text={choice.text} />
+                        <VisualPayloadRenderer {...choice} />
                       </div>
                     ))}
                   </div>

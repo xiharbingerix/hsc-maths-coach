@@ -7,6 +7,7 @@ import { MathAnswerInput } from "../../components/MathAnswerInput";
 import { MathText } from "../../components/MathText";
 import { supabase } from "../../../lib/supabaseClient";
 import { renderDiagramData } from "../../components/diagramRegistry";
+import { VisualPayloadRenderer } from "../../components/VisualPayloadRenderer";
 import type { WorksheetQuestion } from "./page";
 
 // ── Diagram renderer ───────────────────────────────────────────────────────────
@@ -733,6 +734,7 @@ export function WorksheetClient({
                   >
                     <span className="mr-3 font-bold">{choice.label}.</span>
                     <MathText text={choice.text} />
+                    <VisualPayloadRenderer {...choice} />
                   </button>
                 );
               })}
