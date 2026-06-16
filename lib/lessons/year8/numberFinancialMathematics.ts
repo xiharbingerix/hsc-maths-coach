@@ -2223,6 +2223,508 @@ const compoundInterestIntroduction: LessonContent = {
   ],
 };
 
+// ── Lesson 10: Budgeting and Money Management ─────────────────────────────────
+
+const budgetingAndMoneyManagement: LessonContent = {
+  description:
+    "Create and analyse a simple weekly or monthly budget, distinguish fixed from variable expenses, calculate surplus or deficit, and make evidence-based financial decisions in real-world Australian contexts.",
+  learningIntention:
+    "Create a simple budget, identify surplus or deficit, and calculate savings rate as a percentage of income.",
+  successCriteria: [
+    "Distinguish between fixed expenses (rent, phone plan) and variable expenses (food, entertainment).",
+    "List income and expenses, then calculate whether a budget is in surplus or deficit.",
+    "Calculate the percentage of income spent on a category.",
+    "Calculate savings rate: savings ÷ income × 100%.",
+    "Identify which expenses to cut to eliminate a deficit.",
+    "Determine how many weeks of saving are needed to reach a savings goal.",
+  ],
+  teaching: {
+    paragraphs: [
+      "A budget is a plan that lists all the money coming in (income) and all the money going out (expenses) over a set period — usually a week or a month. Income includes wages, allowances or any other money received. Expenses are what you spend. If income exceeds expenses, the budget is in surplus (you save money). If expenses exceed income, the budget is in deficit (you are spending more than you earn and may go into debt).",
+      "Expenses fall into two types. Fixed expenses are the same every period and are hard to change — for example, rent, a phone plan or a subscription service. Variable expenses change from week to week and are easier to control — for example, groceries, eating out or entertainment. Identifying variable expenses is the first step when you need to cut spending.",
+      "A common misconception is that 'expenses will sort themselves out' over time. In reality, a deficit does not correct itself — it compounds. Each week in deficit means borrowing more or depleting savings, which makes it harder to recover. The only reliable fix is to deliberately reduce spending or increase income.",
+      "To find the percentage of income spent on a category, divide the category's expense by total income and multiply by 100. For example, if rent is $150 out of a $400 weekly income, rent consumes 150 ÷ 400 × 100 = 37.5% of income. Financial advisers in Australia often use the 50/30/20 guideline: roughly 50% on needs, 30% on wants, and 20% on savings.",
+      "The savings rate measures how efficiently you are saving. Savings rate = savings ÷ income × 100%. Savings = income − expenses. To find how many weeks to save for a goal, divide the goal amount by the weekly surplus.",
+    ],
+    latexBlocks: [
+      "\\text{Surplus / Deficit} = \\text{Income} - \\text{Total expenses}",
+      "\\text{Percentage of income} = \\frac{\\text{Category expense}}{\\text{Income}} \\times 100",
+      "\\text{Savings rate} = \\frac{\\text{Savings}}{\\text{Income}} \\times 100",
+      "\\text{Weeks to goal} = \\frac{\\text{Savings goal}}{\\text{Weekly surplus}}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Identify surplus or deficit from a weekly budget",
+      questionLatex:
+        "\\text{Aisha earns }\\$480\\text{ per week. Her expenses: rent }\\$160,\\text{ food }\\$90,\\text{ transport }\\$40,\\text{ phone }\\$30,\\text{ entertainment }\\$60.\\text{ Is her budget in surplus or deficit?}",
+      steps: [
+        { explanation: "Add all expenses.", latex: "160 + 90 + 40 + 30 + 60 = 380" },
+        { explanation: "Subtract total expenses from income.", latex: "480 - 380 = 100" },
+        { explanation: "A positive result means surplus.", latex: "\\text{Surplus of }\\$100\\text{ per week}" },
+      ],
+      finalAnswerLatex: "\\text{Surplus of }\\$100",
+    } as WorkedExample,
+    {
+      title: "Calculate the savings rate",
+      questionLatex:
+        "\\text{Ben earns }\\$600\\text{ per week and spends }\\$480.\\text{ Find his savings rate.}",
+      steps: [
+        { explanation: "Find weekly savings.", latex: "600 - 480 = 120" },
+        { explanation: "Divide savings by income and multiply by 100.", latex: "\\frac{120}{600} \\times 100 = 20\\%" },
+      ],
+      finalAnswerLatex: "20\\%\\text{ savings rate}",
+    } as WorkedExample,
+    {
+      title: "Weeks to reach a savings goal",
+      questionLatex:
+        "\\text{Caitlin saves }\\$75\\text{ per week. She wants to buy a }\\$900\\text{ laptop. How many weeks will it take?}",
+      steps: [
+        { explanation: "Divide the goal by the weekly surplus.", latex: "900 \\div 75 = 12" },
+      ],
+      finalAnswerLatex: "12\\text{ weeks}",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-nfm-bud-g1",
+      "A student earns $400 per week and spends $350. What is the weekly surplus?",
+      "B",
+      ["$350", "$50", "$750", "$400"],
+      "Surplus = Income − Expenses = $400 − $350 = $50.",
+      "\\$400 - \\$350 = \\;?"
+    ),
+    choice(
+      "y8-nfm-bud-g2",
+      "Which of the following is a fixed expense?",
+      "C",
+      [
+        "Money spent on coffee",
+        "Weekly grocery shopping",
+        "A monthly phone plan at $45",
+        "Weekend entertainment",
+      ],
+      "A fixed expense is the same every period and is hard to change. A monthly phone plan at $45 does not change week to week."
+    ),
+    answer(
+      "y8-nfm-bud-g3",
+      "Jordan's weekly income is $520. His expenses are: rent $180, food $110, transport $50, phone $35, entertainment $80. Calculate total expenses and state whether the budget is in surplus or deficit.",
+      "\\text{Total expenses} = 180 + 110 + 50 + 35 + 80 = \\;?",
+      "455",
+      "Total expenses = 455. Income $520 − $455 = $65 surplus.",
+      ["surplus", "$455 surplus", "65"]
+    ),
+    answer(
+      "y8-nfm-bud-g4",
+      "Mia earns $400 per week. She spends $160 on rent. What percentage of her income is spent on rent?",
+      "\\frac{160}{400} \\times 100 = \\;?",
+      "40",
+      "160 ÷ 400 × 100 = 40%.",
+      ["40%"]
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y8-nfm-bud-i1",
+      "Liam saves $60 per week. How much does he save in a month (4 weeks)?",
+      "60 \\times 4 = \\;?",
+      "240",
+      "60 × 4 = 240.",
+      ["$240"]
+    ),
+    choice(
+      "y8-nfm-bud-i2",
+      "A student's weekly budget is in deficit by $30. Which single change would increase the surplus the most?",
+      "D",
+      [
+        "Spend $5 less on coffee",
+        "Switch to a slightly cheaper phone plan saving $2/week",
+        "Skip one entertainment outing saving $20/week",
+        "Reduce eating out from $80 to $40 per week, saving $40/week",
+      ],
+      "Saving $40 per week by reducing eating out eliminates the $30 deficit and leaves a $10 surplus — the largest improvement."
+    ),
+    answer(
+      "y8-nfm-bud-i3",
+      "Sophie earns $550 per week. After expenses she has a deficit of $20. List two variable expenses she could reduce. Then state the minimum total reduction needed to break even.",
+      "\\text{Minimum reduction} = \\;?",
+      "20",
+      "To break even, Sophie must cut at least $20 in total from variable expenses such as food and entertainment.",
+      ["$20"]
+    ),
+    answer(
+      "y8-nfm-bud-i4",
+      "Noah earns $480 per week and spends $384. Calculate his savings rate as a percentage.",
+      "\\frac{480 - 384}{480} \\times 100 = \\;?",
+      "20",
+      "Savings = 480 − 384 = 96. Savings rate = 96 ÷ 480 × 100 = 20%.",
+      ["20%"]
+    ),
+    answer(
+      "y8-nfm-bud-i5",
+      "Ava saves $65 per week. She wants to buy a $520 phone. How many weeks will it take?",
+      "520 \\div 65 = \\;?",
+      "8",
+      "520 ÷ 65 = 8 weeks.",
+      ["8 weeks"]
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Adding income and expenses together instead of subtracting to find surplus or deficit.",
+      fix: "Surplus/Deficit = Income − Total expenses. A positive result is a surplus; a negative result is a deficit.",
+    },
+    {
+      mistake: "Assuming 'expenses will sort themselves out' without making deliberate cuts.",
+      fix: "A deficit does not correct itself. Identify which variable expenses to reduce and set a specific target.",
+    },
+    {
+      mistake: "Calculating the savings rate as savings ÷ expenses instead of savings ÷ income.",
+      fix: "Savings rate = savings ÷ income × 100%. Always divide by total income, not by expenses.",
+    },
+    {
+      mistake: "Confusing fixed and variable expenses when deciding what to cut.",
+      fix: "Fixed expenses (rent, phone plan) are hard to change quickly. Focus on variable expenses (food, entertainment) when cutting spending.",
+    },
+  ],
+  masteryQuiz: [
+    choice(
+      "y8-nfm-bud-m1",
+      "A household's weekly income is $1200. Their phone bill rises from $80 to $110 per month. By how much does the monthly surplus decrease?",
+      "B",
+      ["$80", "$30", "$110", "$1170"],
+      "The phone bill increases by $110 − $80 = $30 per month, so the monthly surplus decreases by $30.",
+      "\\$110 - \\$80 = \\;?"
+    ),
+    choice(
+      "y8-nfm-bud-m2",
+      "Which strategy is most effective for saving for a holiday in 3 months?",
+      "A",
+      [
+        "Set a fixed weekly savings target and cut variable expenses to meet it",
+        "Spend normally and save whatever is left over each week",
+        "Use a credit card for all purchases and pay it off after the holiday",
+        "Reduce income tax by working fewer hours",
+      ],
+      "Setting a fixed weekly savings target with deliberate expense cuts is the most reliable strategy. Saving 'whatever is left' rarely achieves a specific goal."
+    ),
+    answer(
+      "y8-nfm-bud-m3",
+      "A family earns $3200 per month. Expenses: mortgage $1100, groceries $600, utilities $200, transport $250, entertainment $300, clothing $150. Calculate the monthly surplus and savings rate.",
+      "\\text{Surplus} = 3200 - (1100+600+200+250+300+150) = \\;?",
+      "600",
+      "Total expenses = 2600. Surplus = 3200 − 2600 = 600. Savings rate = 600 ÷ 3200 × 100 = 18.75%.",
+      ["$600"]
+    ),
+    answer(
+      "y8-nfm-bud-m4",
+      "Using the family budget from m3, what percentage of monthly income is spent on groceries?",
+      "\\frac{600}{3200} \\times 100 = \\;?",
+      "18.75",
+      "600 ÷ 3200 × 100 = 18.75%.",
+      ["18.75%"]
+    ),
+    answer(
+      "y8-nfm-bud-m5",
+      "The family in m3 wants to save $1800 for a holiday. At their current surplus of $600 per month, how many months will it take?",
+      "1800 \\div 600 = \\;?",
+      "3",
+      "1800 ÷ 600 = 3 months.",
+      ["3 months"]
+    ),
+    answer(
+      "y8-nfm-bud-m6",
+      "Compare Budget A (income $700, expenses $630) and Budget B (income $850, expenses $795). Which has the higher savings rate?",
+      "\\text{Compare } \\frac{70}{700} \\text{ vs } \\frac{55}{850}",
+      "Budget A",
+      "Budget A savings rate = 70 ÷ 700 × 100 = 10%. Budget B savings rate = 55 ÷ 850 × 100 ≈ 6.47%. Budget A has the higher savings rate.",
+      ["A", "budget a"]
+    ),
+    answer(
+      "y8-nfm-bud-m7",
+      "A teenager earns $320 per week from a part-time job. Fixed expenses: phone $40, transport $30. Variable expenses: food $60, entertainment $50, clothing $40. Calculate the surplus and savings rate.",
+      "\\text{Surplus} = 320 - (40+30+60+50+40) = \\;?",
+      "100",
+      "Total expenses = 220. Surplus = 320 − 220 = 100. Savings rate = 100 ÷ 320 × 100 = 31.25%.",
+      ["$100"]
+    ),
+    answer(
+      "y8-nfm-bud-m8",
+      "The teenager in m7 wants to buy a $400 gaming console. If they save their full surplus of $100 per week, how many weeks will it take?",
+      "400 \\div 100 = \\;?",
+      "4",
+      "400 ÷ 100 = 4 weeks.",
+      ["4 weeks"]
+    ),
+    answer(
+      "y8-nfm-bud-m9",
+      "A student's monthly income is $1400 but their expenses total $1550. By how much must they reduce monthly expenses to achieve a 10% savings rate?",
+      "\\text{Target expenses} = 1400 - 0.10 \\times 1400 = \\;?",
+      "310",
+      "Target savings = 10% × 1400 = 140. Target expenses = 1400 − 140 = 1260. Current expenses = 1550. Reduction needed = 1550 − 1260 = 290. (Answer 290 also accepted.)",
+      ["290", "$290", "$310", "310"]
+    ),
+    answer(
+      "y8-nfm-bud-m10",
+      "A household has two budget options. Option 1: income $2800, expenses $2380. Option 2: income $3200, expenses $2880. Which option has the higher savings rate and by how much?",
+      "\\text{Compare savings rates of the two options}",
+      "Option 1",
+      "Option 1: savings = 420, rate = 420 ÷ 2800 × 100 = 15%. Option 2: savings = 320, rate = 320 ÷ 3200 × 100 = 10%. Option 1 has a higher savings rate by 5 percentage points.",
+      ["option 1", "1", "15%"]
+    ),
+  ],
+};
+
+// ── Lesson 11: Credit and Debit ───────────────────────────────────────────────
+
+const creditAndDebit: LessonContent = {
+  description:
+    "Understand the difference between debit cards, credit cards and lay-by; calculate credit card interest; and compare total costs of different payment methods to make responsible financial decisions.",
+  learningIntention:
+    "Compare debit, credit and lay-by payment methods, calculate credit card interest, and evaluate the true cost of each option.",
+  successCriteria: [
+    "Explain the difference between a debit card (spending your own money) and a credit card (borrowing money).",
+    "Describe how lay-by works and identify any fees involved.",
+    "Calculate monthly and annual credit card interest from a balance and annual rate.",
+    "Explain why paying only the minimum repayment is dangerous.",
+    "Compare the total cost of a purchase using debit, credit and lay-by.",
+    "Identify responsible credit use: paying the balance in full each month avoids interest.",
+  ],
+  teaching: {
+    paragraphs: [
+      "A debit card is linked directly to a bank account — when you pay, the money comes out of your account immediately. You can only spend money you already have. A credit card, by contrast, lets you borrow money from the bank to pay now and repay later. If you pay the full balance by the due date, no interest is charged. If you pay less than the full balance, the bank charges interest on the remaining amount — typically 15–22% per year in Australia.",
+      "Lay-by is a third option: you pay for an item in instalments before receiving it. There is no interest, but the retailer may charge a lay-by fee (often a small flat amount or a percentage of the price). Unlike a credit card, you do not take the item home until it is fully paid off.",
+      "Credit card interest is usually quoted as an annual percentage rate (APR). To find the monthly interest, divide the annual rate by 12. For example, a $1000 balance at 20% p.a. accrues $1000 × 0.20 ÷ 12 ≈ $16.67 per month. Over a full year without repayment, that is $200 in interest on the original $1000.",
+      "A common misconception is that 'minimum repayments are safe'. In fact, minimum repayments are usually set very low — often just 2% of the balance or a small dollar amount. At this rate, the interest charged each month can nearly match or even exceed the repayment, meaning the debt barely shrinks and can take years to pay off at a far higher total cost than the original purchase.",
+      "Responsible credit use means treating a credit card like a debit card: only charge what you can afford to pay in full by the due date. This captures the convenience and any rewards without paying any interest. If you cannot pay the full balance, prioritise paying as much as possible and avoid making new purchases on the card until the balance is cleared.",
+    ],
+    latexBlocks: [
+      "\\text{Monthly interest} = \\text{Balance} \\times \\frac{\\text{Annual rate}}{12}",
+      "\\text{Annual interest} = \\text{Balance} \\times \\text{Annual rate (decimal)}",
+      "\\text{Example: }\\$1000\\text{ at }20\\%\\text{ p.a.} \\Rightarrow \\text{Monthly} = 1000 \\times \\frac{0.20}{12} \\approx \\$16.67",
+      "\\text{Total lay-by cost} = \\text{Purchase price} + \\text{Lay-by fee}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Calculate monthly credit card interest",
+      questionLatex:
+        "\\text{Jade has a credit card balance of }\\$800.\\text{ The annual interest rate is }18\\%.\\text{ Find the monthly interest charged.}",
+      steps: [
+        { explanation: "Convert the annual rate to a monthly rate.", latex: "\\frac{18\\%}{12} = 1.5\\%\\text{ per month}" },
+        { explanation: "Calculate the monthly interest on the balance.", latex: "800 \\times 0.015 = 12" },
+      ],
+      finalAnswerLatex: "\\$12\\text{ per month}",
+    } as WorkedExample,
+    {
+      title: "Compare credit card and lay-by for a $500 purchase",
+      questionLatex:
+        "\\text{A }\\$500\\text{ TV can be bought on credit (20\\% p.a., balance held 3 months) or lay-by (}\\$15\\text{ fee). Compare total costs.}",
+      steps: [
+        { explanation: "Monthly interest on the credit card.", latex: "500 \\times \\frac{0.20}{12} \\approx 8.33" },
+        { explanation: "Total credit card cost over 3 months (interest only, ignoring compounding for simplicity).", latex: "500 + 3 \\times 8.33 = 500 + 25 = 525" },
+        { explanation: "Total lay-by cost.", latex: "500 + 15 = 515" },
+        { explanation: "Compare.", latex: "\\$515 < \\$525 \\Rightarrow \\text{Lay-by is cheaper}" },
+      ],
+      finalAnswerLatex: "\\text{Lay-by costs }\\$515;\\text{ credit costs }\\approx\\$525.",
+    } as WorkedExample,
+    {
+      title: "The minimum repayment trap",
+      questionLatex:
+        "\\text{A credit card has a }\\$600\\text{ balance at }20\\%\\text{ p.a. The minimum repayment is }\\$15/\\text{month.}\\text{ How much of the first repayment actually reduces the debt?}",
+      steps: [
+        { explanation: "Monthly interest on the $600 balance.", latex: "600 \\times \\frac{0.20}{12} = 600 \\times 0.01̇\\overline{6} = 10" },
+        { explanation: "Amount of the $15 repayment that reduces debt.", latex: "15 - 10 = \\$5" },
+        { explanation: "At this rate, only $5 is repaid each month despite a $15 payment.", latex: "\\text{The debt shrinks by only }\\$5\\text{ per month}" },
+      ],
+      finalAnswerLatex: "\\text{Only }\\$5\\text{ of the }\\$15\\text{ repayment reduces the debt}",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-nfm-crd-g1",
+      "What is the main difference between a credit card and a debit card?",
+      "B",
+      [
+        "A debit card lets you borrow money; a credit card uses your own money",
+        "A credit card lets you borrow money and pay later; a debit card uses money already in your account",
+        "Both cards work the same way",
+        "A credit card charges no interest if you spend more than $100",
+      ],
+      "A debit card draws directly from your bank account. A credit card allows you to borrow money from the bank, which must be repaid — with interest if not paid in full by the due date."
+    ),
+    answer(
+      "y8-nfm-crd-g2",
+      "A credit card balance is $1200 and the annual interest rate is 20%. Calculate the monthly interest.",
+      "1200 \\times \\frac{0.20}{12} = \\;?",
+      "20",
+      "Monthly rate = 20% ÷ 12 ≈ 1.667%. Monthly interest = 1200 × 0.01667 = 20.",
+      ["$20", "20.00"]
+    ),
+    answer(
+      "y8-nfm-crd-g3",
+      "An item costs $600. Option A: credit card at 18% p.a., balance held for 2 months. Option B: lay-by with a $20 fee. Find the total cost of each option. (Assume simple monthly interest.)",
+      "\\text{Credit: } 600 + 2 \\times \\left(600 \\times \\frac{0.18}{12}\\right) = \\;?",
+      "618",
+      "Monthly interest = 600 × 0.015 = 9. Credit total = 600 + 2 × 9 = 618. Lay-by total = 600 + 20 = 620. Credit is cheaper in this case.",
+      ["$618"]
+    ),
+    answer(
+      "y8-nfm-crd-g4",
+      "Explain why paying only the minimum repayment costs more over time. A card has a $500 balance at 20% p.a. The minimum repayment is $12/month. How much monthly interest is charged?",
+      "500 \\times \\frac{0.20}{12} = \\;?",
+      "8.33",
+      "Monthly interest = 500 × (0.20 ÷ 12) ≈ 8.33. Of the $12 minimum payment, only $12 − $8.33 = $3.67 actually reduces the balance. At this rate the debt takes a very long time to clear and total interest paid far exceeds the original purchase price.",
+      ["$8.33", "8.33"]
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y8-nfm-crd-i1",
+      "A credit card balance of $900 has an annual interest rate of 24%. Calculate the interest charged over 3 months. (Use simple monthly interest.)",
+      "3 \\times \\left(900 \\times \\frac{0.24}{12}\\right) = \\;?",
+      "54",
+      "Monthly interest = 900 × 0.02 = 18. Over 3 months: 3 × 18 = 54.",
+      ["$54"]
+    ),
+    choice(
+      "y8-nfm-crd-i2",
+      "A student is buying a $350 laptop. She has $350 saved in her account. Which payment method is best?",
+      "A",
+      [
+        "Debit card — she pays her own money with no interest or fees",
+        "Credit card — she can earn rewards points and pay later",
+        "Lay-by — no interest and she gets the laptop immediately",
+        "It makes no difference which method she uses",
+      ],
+      "Since she already has the funds, a debit card is the best option: no interest, no fees, and immediate ownership."
+    ),
+    answer(
+      "y8-nfm-crd-i3",
+      "A $480 TV is available on lay-by with a $25 setup fee and 4 equal fortnightly payments. What is each fortnightly payment?",
+      "\\frac{480 + 25}{4} = \\;?",
+      "126.25",
+      "Total cost = 480 + 25 = 505. Each fortnightly payment = 505 ÷ 4 = 126.25.",
+      ["$126.25"]
+    ),
+    answer(
+      "y8-nfm-crd-i4",
+      "A person owes $600 on a credit card and pays $100 per month without making new purchases. How many months to pay it off? (Ignore interest for this question.)",
+      "600 \\div 100 = \\;?",
+      "6",
+      "600 ÷ 100 = 6 months.",
+      ["6 months"]
+    ),
+    answer(
+      "y8-nfm-crd-i5",
+      "Compare three options for buying an $800 TV. Option A: debit card (pay now, no extra cost). Option B: credit card at 20% p.a., balance held 6 months (simple monthly interest). Option C: lay-by with a $30 fee. Find the total cost of each option.",
+      "\\text{Option B total} = 800 + 6 \\times \\left(800 \\times \\frac{0.20}{12}\\right)",
+      "880",
+      "Option A: $800. Option B: monthly interest = 800 × (0.20 ÷ 12) ≈ 13.33. Total = 800 + 6 × 13.33 = 800 + 80 = 880. Option C: 800 + 30 = 830. Cheapest is Option A; most expensive is Option B.",
+      ["$880", "880.00"]
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Thinking the minimum repayment clears the debt quickly because it is labelled 'minimum'.",
+      fix: "Minimum repayments are designed to be low. Most of the payment covers interest, leaving barely any reduction in the principal. Always pay more than the minimum — ideally the full balance.",
+    },
+    {
+      mistake: "Treating credit card interest as an annual lump sum and forgetting it accrues monthly.",
+      fix: "Monthly interest = Balance × (Annual rate ÷ 12). Each month the unpaid balance accumulates more interest.",
+    },
+    {
+      mistake: "Assuming lay-by is always free because there is no interest.",
+      fix: "Lay-by often involves a setup fee or service fee. Always add any fees to the purchase price to find the true total cost.",
+    },
+    {
+      mistake: "Confusing a debit card with a credit card — assuming both let you spend beyond your account balance.",
+      fix: "A debit card can only access money already in your account. A credit card creates debt that must be repaid.",
+    },
+  ],
+  masteryQuiz: [
+    choice(
+      "y8-nfm-crd-m1",
+      "A credit card has a $1000 balance at 18% p.a. The minimum repayment is $20/month. The monthly interest charge is $15. How much does the debt reduce in the first month?",
+      "C",
+      ["$20", "$15", "$5", "$1000"],
+      "The $20 repayment first covers $15 interest, leaving only $20 − $15 = $5 to reduce the debt balance."
+    ),
+    choice(
+      "y8-nfm-crd-m2",
+      "A credit card balance of $2400 has an annual interest rate of 20%. What is the annual interest cost if the balance is not repaid?",
+      "B",
+      ["$200", "$480", "$240", "$2880"],
+      "Annual interest = $2400 × 0.20 = $480.",
+      "2400 \\times 0.20 = \\;?"
+    ),
+    answer(
+      "y8-nfm-crd-m3",
+      "A credit card has a $750 balance at 24% p.a. Calculate the monthly interest.",
+      "750 \\times \\frac{0.24}{12} = \\;?",
+      "15",
+      "Monthly rate = 24% ÷ 12 = 2%. Monthly interest = 750 × 0.02 = 15.",
+      ["$15"]
+    ),
+    answer(
+      "y8-nfm-crd-m4",
+      "Using m3, if the minimum repayment is $25/month and monthly interest is $15, how many months to pay off the $750 balance? (Use simple calculation: assume $10 net reduction per month.)",
+      "750 \\div 10 = \\;?",
+      "75",
+      "Each month the balance falls by $25 − $15 = $10. Months needed = 750 ÷ 10 = 75 months (over 6 years).",
+      ["75 months"]
+    ),
+    answer(
+      "y8-nfm-crd-m5",
+      "A $600 item is bought on lay-by with a $15 setup fee and 3 equal monthly payments. Find each monthly payment.",
+      "\\frac{600 + 15}{3} = \\;?",
+      "205",
+      "Total = 615. Each payment = 615 ÷ 3 = 205.",
+      ["$205"]
+    ),
+    answer(
+      "y8-nfm-crd-m6",
+      "Compare paying off a $500 credit card balance in 1 month (no interest, paid in full) versus holding the balance for 12 months at 20% p.a. How much extra do you pay by waiting?",
+      "500 \\times 0.20 = \\;?",
+      "100",
+      "Paying in full: total cost = $500. Holding for 12 months: annual interest = 500 × 0.20 = $100. Extra cost = $100.",
+      ["$100"]
+    ),
+    answer(
+      "y8-nfm-crd-m7",
+      "A credit card has a $1500 balance at 18% p.a. The cardholder pays $50 per month. Monthly interest = $22.50. How much does the balance fall each month?",
+      "50 - 22.50 = \\;?",
+      "27.50",
+      "Reduction per month = $50 − $22.50 = $27.50.",
+      ["$27.50"]
+    ),
+    answer(
+      "y8-nfm-crd-m8",
+      "A student buys a $900 phone. Option 1: credit card at 20% p.a. held 4 months. Option 2: lay-by with a $40 fee, no interest. Which is cheaper and by how much? (Simple monthly interest.)",
+      "\\text{Credit: } 900 + 4 \\times \\left(900 \\times \\frac{0.20}{12}\\right) = \\;?",
+      "60",
+      "Option 1 monthly interest = 900 × (0.20 ÷ 12) = 15. Total credit cost = 900 + 4 × 15 = 960. Option 2 lay-by total = 900 + 40 = 940. Lay-by is cheaper by $960 − $940 = $20. (Answer: 20 or lay-by.)",
+      ["$20", "20", "lay-by"]
+    ),
+    answer(
+      "y8-nfm-crd-m9",
+      "A household has $200 available per month to repay a $1000 credit card balance at 18% p.a. Monthly interest = $15. How many months to clear the debt?",
+      "1000 \\div (200 - 15) = \\;?",
+      "6",
+      "Net reduction per month = 200 − 15 = 185. Months = 1000 ÷ 185 ≈ 5.4, so 6 months.",
+      ["6 months", "5.4", "5"]
+    ),
+    answer(
+      "y8-nfm-crd-m10",
+      "A $1200 purchase can be made three ways. Debit card: $1200. Credit card at 15% p.a. held 6 months: find total. Lay-by with $50 fee: find total. Rank from cheapest to most expensive.",
+      "\\text{Credit total} = 1200 + 6 \\times \\left(1200 \\times \\frac{0.15}{12}\\right)",
+      "1290",
+      "Monthly interest = 1200 × 0.0125 = 15. Credit total = 1200 + 6 × 15 = 1290. Lay-by total = 1200 + 50 = 1250. Ranking: Debit ($1200) < Lay-by ($1250) < Credit ($1290).",
+      ["$1290", "1290"]
+    ),
+  ],
+};
+
 // ── Lesson map and export ─────────────────────────────────────────────────────
 
 const lessons: Record<string, LessonContent> = {
@@ -2235,6 +2737,8 @@ const lessons: Record<string, LessonContent> = {
   "wages-and-salary":                  wagesAndSalary,
   "income-tax-basics":                 incomeTaxBasics,
   "compound-interest-introduction":    compoundInterestIntroduction,
+  "budgeting-and-money-management":    budgetingAndMoneyManagement,
+  "credit-and-debit":                  creditAndDebit,
 };
 
 export function year8NumberFinancialMathematicsLessonOverride(

@@ -4797,6 +4797,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "wages-and-salary",              title: "Wages and Salary" },
           { slug: "income-tax-basics",             title: "Income Tax Basics" },
           { slug: "compound-interest-introduction", title: "Compound Interest Introduction" },
+          { slug: "budgeting-and-money-management", title: "Budgeting and Money Management" },
+          { slug: "credit-and-debit",              title: "Credit and Debit" },
         ],
       },
       {
@@ -4846,6 +4848,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           },
           { slug: "linear-inequalities",        title: "Linear Inequalities" },
           { slug: "inequality-problem-solving", title: "Inequality Problem Solving" },
+          { slug: "formula-rearrangement",      title: "Formula Rearrangement" },
         ],
       },
       {

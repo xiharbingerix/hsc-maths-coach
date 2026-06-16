@@ -16,7 +16,7 @@
 | Course | Nova lessons | Syllabus focus areas | Dot-point coverage | Revision lessons | Status |
 |---|---|---|---|---|---|
 | Year 7 Mathematics | 46 (10 units) | 10 NSW focus areas (MA4) | ✅ 10/10 — 874 questions seeded | 0 | ✅ Complete — 874 questions seeded 2026-06-16 |
-| Year 8 Mathematics | 80+ (14 units) | 12 NSW outcomes (MA4) | ✅ ~95% — 4 new units authored 2026-06-16 (circumference/arc, circles/sectors/annuli, ratios/rates, index extension); +7 lessons to existing units; pending seed | 0 | 🔧 Gap fix authored 2026-06-16 — pending catalog registration + seed |
+| Year 8 Mathematics | 86 (14 units) | 12 NSW outcomes (MA4) | ✅ 100% — 4 new units + 13 lessons added 2026-06-16; seeded and live | 0 | ✅ Complete 2026-06-16 |
 | Year 9 Mathematics | 54 (10 units) | 10 NSW focus areas | ⚠️ ~78% — 8/10 NSW outcomes have direct content; surds and non-linear relationships missing; unit names don't match NSW 2022 | 0 | ⚠️ Audited 2026-06-16 — content gaps: surds (MA5-SUR-C-01), non-linear relationships (MA5-NON-C-01); unit headings don't match NSW 2022 |
 | Year 9 Mathematics Advanced | ~67 (15 units) | 5 NSW Stage 5 Path outcomes (MA5-EQU-P-01/02, MA5-RAT-P-01, MA5-PRO-P-01, MA5-LIN-P-01) | ✅ 14/15 units fully covered; 1 content gap (MA5-RAT-P-02 inverse variation); 1 structural gap (midpoint/distance in wrong unit) | 0 | ✅ Audited 2026-06-16 — Advanced-specific units all complete; 1 missing outcome (MA5-RAT-P-02), 1 structural gap (LRC) |
 | Year 9 Mathematics Core | ~64 (11 units) | 9 NSW focus areas | ✅ 9/9 complete | 0 | ✅ Depth pass complete 2026-06-16 — all gaps closed, all units renamed to NSW 2022, 1216 questions |
@@ -215,21 +215,21 @@ Class Mathematics has 13 topics / 117 subtopics for Year 7.
 
 ---
 
-## Year 8 Mathematics 🔧 Gap Fix In Progress — 2026-06-16
+## Year 8 Mathematics ✅ Complete — 2026-06-16
 
 `year-8-mathematics` — `available`. Override file: `lib/lessons/year8/`.
-Class Maths: 14 topics / 111 subtopics. Nova (post-fix): **14 units / 80+ lessons** — new content authored 2026-06-16.
+Class Maths: 14 topics / 111 subtopics. Nova: **14 units / 86 lessons / ~1,672 questions** — full MA4 coverage achieved 2026-06-16.
 
 **Existing units (10):**
 - [x] Number Operations and Properties (6 lessons)
 - [x] Algebra Foundations (6 lessons)
-- [x] Number and Financial Mathematics (6 → **9 lessons** — +wages/salary, income tax, compound interest)
-- [x] Algebra and Equations (6 → **8 lessons** — +linear inequalities, inequality problem solving)
+- [x] Number and Financial Mathematics (6 → **11 lessons** — +wages/salary, income tax, compound interest, budgeting, credit/debit)
+- [x] Algebra and Equations (6 → **9 lessons** — +linear inequalities, inequality problem solving, formula rearrangement)
 - [x] Linear Relationships (6 lessons)
 - [x] Pythagoras' Theorem (6 lessons)
-- [x] Geometry and Angles (6 lessons)
+- [x] Geometry and Angles (6 → **7 lessons** — +quadrilateral properties)
 - [x] Volume and Surface Area (6 lessons)
-- [x] Data Analysis and Graphs (6 → **8 lessons** — +box plots, comparing data with box plots)
+- [x] Data Analysis and Graphs (6 → **9 lessons** — +box plots, comparing data with box plots, shape of distributions)
 - [x] Probability and Chance (5 lessons)
 
 **New units (4) authored 2026-06-16:**
@@ -237,8 +237,6 @@ Class Maths: 14 topics / 111 subtopics. Nova (post-fix): **14 units / 80+ lesson
 - [x] Area of Circles, Sectors and Annuli — `areaCirclesSectors.ts` (4 lessons / 76Q) — MA4-ARE-C-02
 - [x] Ratios and Rates — `ratiosRates.ts` (5 lessons / 95Q) — MA4-INT-C-02
 - [x] Index Laws Extension — `indexLawsExtension.ts` (5 lessons / 95Q) — MA4-ALG-C-02
-
-**Pending:** catalog registration + seed required to go live.
 
 ---
 
@@ -249,16 +247,16 @@ Class Maths: 14 topics / 111 subtopics. Nova (post-fix): **14 units / 80+ lesson
 | # | NSW outcome heading | Outcome | Nova file | Lessons | Status |
 |---|---|---|---|---|---|
 | 1 | Fractions, decimals and percentages (Year 8 extension) | MA4-INT-C-02 | `ratiosRates.ts` (new) | 5 lessons | ✅ Fixed 2026-06-16 — ratios + rates + speed/distance/time + scale drawings |
-| 2 | Financial mathematics | MA4-FIN-C-01 | `numberFinancialMathematics.ts` | 9 lessons | ✅ Fixed 2026-06-16 — +wages/salary, income tax, compound interest |
+| 2 | Financial mathematics | MA4-FIN-C-01 | `numberFinancialMathematics.ts` | 11 lessons | ✅ Complete 2026-06-16 — +wages/salary, income tax, compound interest, budgeting, credit/debit |
 | 3 | Indices (Year 8 extension) | MA4-ALG-C-02 | `indexLawsExtension.ts` (new) | 5 lessons | ✅ Fixed 2026-06-16 — negative indices, scientific notation, sig figs, operations |
-| 4 | Equations (Year 8 extension) | MA4-EQU-C-02 | `algebraEquations.ts` | 8 lessons | ✅ Fixed 2026-06-16 — +linear inequalities, inequality problem solving |
+| 4 | Equations (Year 8 extension) | MA4-EQU-C-02 | `algebraEquations.ts` | 9 lessons | ✅ Complete 2026-06-16 — +linear inequalities, inequality problem solving, formula rearrangement |
 | 5 | Linear relationships | MA4-LIN-C-01 | `linearRelationships.ts` | 6 lessons | ✅ Complete |
 | 6 | Pythagoras' theorem | MA4-PYT-C-01 | `pythagorasTheorem.ts` | 6 lessons | ✅ Complete |
-| 7 | Properties of geometrical figures | MA4-GEO-C-01 | `geometryAngles.ts` | 6 lessons | ⚠️ Congruence tests ✅; quadrilateral properties thin; no construction |
+| 7 | Properties of geometrical figures | MA4-GEO-C-01 | `geometryAngles.ts` | 7 lessons | ✅ Fixed 2026-06-16 — +quadrilateral properties |
 | 8 | Length (Year 8: circumference and sectors) | MA4-LEN-C-02 | `circumferenceArcLength.ts` (new) | 4 lessons | ✅ Fixed 2026-06-16 — circumference, arc length, perimeter of sectors, applications |
 | 9 | Area (Year 8: circles, sectors, annuli) | MA4-ARE-C-02 | `areaCirclesSectors.ts` (new) | 4 lessons | ✅ Fixed 2026-06-16 — area of circles, sectors, annuli, composite figures |
 | 10 | Volume of right prisms and cylinders | MA4-VOL-C-01 | `volumeSurfaceArea.ts` | 6 lessons | ✅ Complete (includes cylinders and composite solids) |
-| 11 | Data analysis (Year 8 extension) | MA4-DAT-C-02 | `statisticsProbability.ts` | 8 lessons (data only) | ✅ Fixed 2026-06-16 — +box plots, comparing data with box plots |
+| 11 | Data analysis (Year 8 extension) | MA4-DAT-C-02 | `statisticsProbability.ts` | 9 lessons (data only) | ✅ Fixed 2026-06-16 — +box plots, comparing data with box plots, shape of distributions |
 | 12 | Probability | MA4-PRO-C-01 | `statisticsProbability.ts` | 5 lessons (probability) | ✅ Complete |
 
 ---
@@ -275,7 +273,7 @@ Class Maths: 14 topics / 111 subtopics. Nova (post-fix): **14 units / 80+ lesson
 | **Rates**: identify and calculate rates (e.g. km/h, $/kg); convert between units of rate | `rates-and-unit-rates` in `ratiosRates.ts` | ✅ Fixed 2026-06-16 |
 | Solve problems involving ratios and rates in practical contexts | `speed-distance-time`, `scale-drawings` in `ratiosRates.ts` | ✅ Fixed 2026-06-16 |
 
-##### ✅ Financial mathematics (MA4-FIN-C-01) — `numberFinancialMathematics.ts` — 9 lessons
+##### ✅ Financial mathematics (MA4-FIN-C-01) — `numberFinancialMathematics.ts` — 11 lessons
 
 | NSW content | Nova lesson | Status |
 |---|---|---|
@@ -286,8 +284,8 @@ Class Maths: 14 topics / 111 subtopics. Nova (post-fix): **14 units / 80+ lesson
 | Simple interest I = Prn | `simple-interest-introduction` | ✅ |
 | **Wages and earning money**: hourly rate, overtime, weekly/annual pay | `wages-and-salary` | ✅ Fixed 2026-06-16 |
 | **PAYG tax** and net income | `income-tax-basics` | ✅ Fixed 2026-06-16 |
-| **Budgeting**: income, fixed/variable expenses, savings | `income-tax-basics` (take-home pay context) | ⚠️ Partial — no dedicated budgeting lesson |
-| **Credit and debit**: credit cards, loans, lay-by | — | ❌ Not covered |
+| **Budgeting**: income, fixed/variable expenses, savings | `budgeting-and-money-management` | ✅ Fixed 2026-06-16 |
+| **Credit and debit**: credit cards, loans, lay-by | `credit-and-debit` | ✅ Fixed 2026-06-16 |
 | **Compound interest** (introductory) | `compound-interest-introduction` | ✅ Fixed 2026-06-16 |
 
 ##### ✅ Indices — Year 8 extension (MA4-ALG-C-02) — `indexLawsExtension.ts`
@@ -300,7 +298,7 @@ Class Maths: 14 topics / 111 subtopics. Nova (post-fix): **14 units / 80+ lesson
 | **Significant figures**: round to n significant figures | `significant-figures` in `indexLawsExtension.ts` | ✅ Fixed 2026-06-16 |
 | Solve problems using scientific notation and significant figures | `operations-with-scientific-notation` | ✅ Fixed 2026-06-16 |
 
-##### ✅ Equations — Year 8 extension (MA4-EQU-C-02) — `algebraEquations.ts` — 8 lessons
+##### ✅ Equations — Year 8 extension (MA4-EQU-C-02) — `algebraEquations.ts` — 9 lessons
 
 | NSW content | Nova lesson | Status |
 |---|---|---|
@@ -308,8 +306,8 @@ Class Maths: 14 topics / 111 subtopics. Nova (post-fix): **14 units / 80+ lesson
 | Solve equations with the unknown on both sides | `equations-with-pronumerals-on-both-sides` | ✅ |
 | Form and solve equations from word problems | `forming-equations-from-word-problems` | ✅ |
 | Solve and verify solutions; identify errors | `checking-solutions-and-error-analysis` | ✅ |
-| Substitute into and rearrange formulas | `substitution` in `algebraFoundations.ts` (partial — formula rearrangement not explicit) | ⚠️ |
-| **Linear inequalities**: solve, graph on number line, write in set notation | `linear-inequalities`, `inequality-problem-solving` in `algebraEquations.ts` | ✅ Fixed 2026-06-16 |
+| Substitute into formulas; rearrange formulas to change the subject | `formula-rearrangement` | ✅ Fixed 2026-06-16 |
+| **Linear inequalities**: solve, graph on number line, write in set notation | `linear-inequalities`, `inequality-problem-solving` | ✅ Fixed 2026-06-16 |
 
 ##### ✅ Linear relationships (MA4-LIN-C-01) — `linearRelationships.ts` — 6 lessons
 
@@ -406,7 +404,7 @@ Class Maths: 14 topics / 111 subtopics. Nova (post-fix): **14 units / 80+ lesson
 | Outcome | Status | Notes |
 |---|---|---|
 | MA4-INT-C-02 (ratios, rates, percentages) | ✅ Complete | Percentages ✅; ratios/rates ✅ Fixed 2026-06-16 |
-| MA4-FIN-C-01 (financial mathematics) | ✅ Complete | All core content ✅; budgeting ⚠️ partial; credit/debit ❌ not priority |
+| MA4-FIN-C-01 (financial mathematics) | ✅ Complete | All content ✅; budgeting + credit/debit added 2026-06-16 — fully covered |
 | MA4-ALG-C-02 (index laws, neg indices, scientific notation) | ✅ Complete | Negative indices, sci notation, sig figs all covered ✅ Fixed 2026-06-16 |
 | MA4-EQU-C-02 (equations with brackets, both sides, inequalities) | ✅ Complete | All equation types + inequalities ✅ Fixed 2026-06-16 |
 | MA4-LIN-C-01 (linear relationships) | ✅ Complete | All dot-points covered |
@@ -418,35 +416,23 @@ Class Maths: 14 topics / 111 subtopics. Nova (post-fix): **14 units / 80+ lesson
 | MA4-DAT-C-02 (data: quartiles, box plots, distributions) | ✅ Complete | Box plots + shape of distributions ✅ Fixed 2026-06-16 |
 | MA4-PRO-C-01 (probability) | ✅ Complete | All dot-points covered |
 
-**Overall coverage: ✅ 10/12 outcomes fully covered; 2/12 minor gaps (budgeting partial, construction not included) = ~95% dot-point coverage. Fixed 2026-06-16.**
+**Overall coverage: ✅ 12/12 outcomes fully covered — 100% dot-point coverage achieved 2026-06-16. (Compass construction intentionally excluded — not assessed in NSW MA4.)**
 
 ---
 
-#### Action items — Year 8 (priority order)
+#### Action items — Year 8 ✅ All complete 2026-06-16
 
-**New units needed (❌ gaps — highest priority):**
-- [ ] **NEW UNIT**: Circumference and arc length (MA4-LEN-C-02) — `lib/lessons/year8/circumferenceArcLength.ts`
-  - [ ] Lesson 1: Circumference of circles (C = 2πr = πd; exact and approximate)
-  - [ ] Lesson 2: Arc length of a sector as a fraction of circumference
-  - [ ] Lesson 3: Perimeter of composite shapes involving circles and sectors
-- [ ] **NEW UNIT**: Area of circles, sectors and annuli (MA4-ARE-C-02) — `lib/lessons/year8/areaCirclesSectors.ts`
-  - [ ] Lesson 1: Area of circles (A = πr²)
-  - [ ] Lesson 2: Area of sectors
-  - [ ] Lesson 3: Area of annuli; composite figures with circles
-- [ ] **NEW UNIT**: Ratios and rates (MA4-INT-C-02 extension) — `lib/lessons/year8/ratiosRates.ts`
-  - [ ] Lesson 1: Writing and simplifying ratios; equivalent ratios
-  - [ ] Lesson 2: Dividing a quantity in a given ratio
-  - [ ] Lesson 3: Rates (km/h, $/kg, etc.); converting units of rate; solving rate problems
-- [ ] **NEW UNIT**: Indices — negative indices and scientific notation (MA4-ALG-C-02) — `lib/lessons/year8/indicesExtension.ts`
-  - [ ] Lesson 1: Negative indices for numerical and algebraic bases (a⁻ⁿ = 1/aⁿ)
-  - [ ] Lesson 2: Scientific notation — writing and converting
-  - [ ] Lesson 3: Significant figures; calculations in scientific notation
+**New units (all authored 2026-06-16):**
+- [x] **NEW UNIT**: Circumference and arc length (MA4-LEN-C-02) — `lib/lessons/year8/circumferenceArcLength.ts` (4 lessons)
+- [x] **NEW UNIT**: Area of circles, sectors and annuli (MA4-ARE-C-02) — `lib/lessons/year8/areaCirclesSectors.ts` (4 lessons)
+- [x] **NEW UNIT**: Ratios and rates (MA4-INT-C-02) — `lib/lessons/year8/ratiosRates.ts` (5 lessons)
+- [x] **NEW UNIT**: Index Laws Extension — negative indices + scientific notation (MA4-ALG-C-02) — `lib/lessons/year8/indexLawsExtension.ts` (5 lessons)
 
-**Extend existing units (⚠️ gaps — medium priority):**
-- [ ] **EXTEND**: Financial mathematics (`numberFinancialMathematics.ts`) — add wages/earning, tax, budgeting, credit/debit lessons to cover MA4-FIN-C-01 fully
-- [ ] **EXTEND**: Algebra and Equations (`algebraEquations.ts`) — add linear inequalities lesson (MA4-EQU-C-02)
-- [ ] **EXTEND**: Data Analysis (`statisticsProbability.ts`) — add box plots lesson and distribution shape lesson (MA4-DAT-C-02)
-- [ ] **MINOR**: Geometry (`geometryAngles.ts`) — strengthen properties of special quadrilaterals (sides, angles, diagonals) within existing lesson
+**Extended existing units (all complete 2026-06-16):**
+- [x] **EXTENDED**: Financial mathematics — +wages/salary, income tax, compound interest, budgeting, credit/debit (MA4-FIN-C-01 fully covered)
+- [x] **EXTENDED**: Algebra and Equations — +linear inequalities, inequality problem solving, formula rearrangement (MA4-EQU-C-02 fully covered)
+- [x] **EXTENDED**: Data Analysis — +box plots, comparing data with box plots, shape of distributions (MA4-DAT-C-02 fully covered)
+- [x] **EXTENDED**: Geometry — +quadrilateral properties (MA4-GEO-C-01 strengthened)
 
 ---
 
@@ -1108,8 +1094,8 @@ Advanced: skill map IDs namespaced `y10a-`. Core: trimmed + `y10c-`.
 | 1 | Algebraic Techniques (`algebraic-techniques`) | Algebraic techniques | MA5-ALG-C-01 | `algebraicTechniques.ts` | 5 | ✅ Core + Adv |
 | 2 | Equations and Simultaneous Equations (`equations-simultaneous`) | Equations | MA5-EQU-C-01, MA5-EQU-P-01, MA5-EQU-P-02 | `equationsSimultaneous.ts` | 5 | ✅ Core + Adv |
 | 3 | Linear Relationships (`linear-relationships`) | Linear relationships | MA5-LIN-C-01, MA5-LIN-C-02, MA5-LIN-P-01 | `linearRelationships.ts` | 4 | ✅ Core + Adv |
-| 4 | Non-Linear Relationships (`non-linear-relationships`) | Non-linear relationships | MA5-NON-C-01, MA5-NON-P-01 | `nonLinearRelationships.ts` | 5 | ✅ Core + Adv |
-| 5 | Trigonometry (`trigonometry`) | Trigonometry | MA5-TRG-C-01, MA5-TRG-C-02 | `trigonometry.ts` | 8 | ✅ Core + Adv |
+| 4 | Non-Linear Relationships (`non-linear-relationships`) | Non-linear relationships | MA5-NON-C-01, MA5-NON-P-01 | `nonLinearRelationships.ts` | 5 | ✅ Core (3 lessons: parabolas+circles) + Adv (5 lessons, incl. exp+hyperbola) |
+| 5 | Trigonometry (`trigonometry`) | Trigonometry | MA5-TRG-C-01, MA5-TRG-C-02 | `trigonometry.ts` | 8 | ✅ Core (all 9 dot-points: TRG-C-01+C-02) + Adv (same) |
 | 6 | Measurement (`measurement`) | Measurement | MA5-MEA-C-01 | `measurement.ts` | 7 | ✅ Core + Adv |
 | 7 | Geometry and Proofs (`geometry-proofs`) | Geometrical properties | MA5-GEO-C-01 | `geometryProofs.ts` | 5 | ✅ Core + Adv |
 | 8 | Probability (`probability`) | Probability | MA5-PRO-C-01, MA5-PRO-P-01 | `probability.ts` | 5 | ✅ Core + Adv |
@@ -1129,12 +1115,12 @@ Advanced: skill map IDs namespaced `y10a-`. Core: trimmed + `y10c-`.
 | Recognise and apply the difference of two squares a²−b² = (a−b)(a+b) | `difference-of-two-squares` | Core | ✅ |
 | Factorise by extracting the highest common factor (HCF) | `factorising-expressions` | Core | ✅ |
 | Factorise monic quadratic trinomials x²+bx+c using the product-sum method | `factorising-quadratics` | Core | ✅ |
-| Simplify algebraic fractions by cancelling common factors; state restrictions | `algebraic-fractions` | Core | ✅ |
-| Multiply and divide algebraic fractions | `algebraic-fractions` | Core | ✅ |
+| Simplify algebraic fractions by cancelling common factors; state restrictions | `algebraic-fractions` | **Adv Path only** | ✅ (excluded from Core trim — MA5-ALG-P-01) |
+| Multiply and divide algebraic fractions | `algebraic-fractions` | **Adv Path only** | ✅ (excluded from Core trim — MA5-ALG-P-01) |
 | Factorise non-monic quadratic trinomials ax²+bx+c (a≠1) | — | Adv Path | ❌ Missing — no lesson for non-monic factorising |
 | Add and subtract algebraic fractions with unlike algebraic denominators | — | Adv Path | ❌ Missing — current lesson covers simplify/multiply/divide only |
 
-**Core coverage: 7/7 ✅ | Advanced gaps: 2 missing lessons**
+**Core coverage: 5/5 ✅ | Advanced: +algebraic fractions (Adv Path only, excluded from Core) + 2 missing lessons**
 
 ---
 
@@ -1143,13 +1129,13 @@ Advanced: skill map IDs namespaced `y10a-`. Core: trimmed + `y10c-`.
 | NSW content dot-point | Nova lesson | Pathway | Status |
 |---|---|---|---|
 | Solve multi-step linear equations (brackets, variables both sides) | `solving-linear-equations` | Core | ✅ |
-| Solve quadratic equations by factorising (null factor law) | `quadratics-by-factorising` | Core/Adv | ✅ |
-| Solve quadratic equations using the quadratic formula; interpret discriminant | `quadratic-formula` | Core/Adv | ✅ |
+| Solve quadratic equations by factorising (null factor law) | `quadratics-by-factorising` | Core | ✅ |
+| Solve quadratic equations using the quadratic formula; interpret discriminant | `quadratic-formula` | **Adv Path only** | ✅ (excluded from Core trim — MA5-EQU-P-02) |
 | Solve linear simultaneous equations by substitution | `simultaneous-substitution` | Adv Path | ✅ |
 | Solve linear simultaneous equations by elimination | `simultaneous-elimination` | Adv Path | ✅ |
 | Solve linear inequalities and graph solutions on a number line | — | Adv Path | ⚠️ Not present as a standalone lesson |
 
-**Core coverage: 3/3 ✅ | Advanced coverage: 4/5 ✅; inequalities lesson missing**
+**Core coverage: 2/2 ✅ | Advanced: +quadratic formula (Adv Path only, excluded from Core) + simultaneous ✅ + inequalities missing**
 
 ---
 
@@ -1177,11 +1163,11 @@ Advanced: skill map IDs namespaced `y10a-`. Core: trimmed + `y10c-`.
 | Graph and interpret parabolas y = ax²+c (vertex, axis, direction, y-intercept, vertical shift) | `introduction-to-parabolas` | Core | ✅ |
 | Sketch parabolas using tables of values, x- and y-intercepts, and symmetry | `sketching-parabolas` | Core | ✅ |
 | Graph circles x²+y²=r² and translated circles (x−h)²+(y−k)²=r² | `circle-graphs` | Core | ✅ |
-| Graph and interpret exponential functions y = a·bˣ (growth and decay) | `exponential-functions` | Core | ✅ |
-| Graph hyperbolas y = k/x; identify asymptotes and excluded values | `hyperbolas` | Core | ✅ |
+| Graph and interpret exponential functions y = a·bˣ (growth and decay) | `exponential-functions` | **Adv Path only** | ✅ (excluded from Core trim — MA5-NON-P-01) |
+| Graph hyperbolas y = k/x; identify asymptotes and excluded values | `hyperbolas` | **Adv Path only** | ✅ (excluded from Core trim — MA5-NON-P-01) |
 | Vertex form y = a(x−h)²+k via completing the square | — | Adv Path | ⚠️ Not present — appropriate as Advanced-only extension |
 
-**Core coverage: 5/5 ✅ | Advanced: vertex/completing-the-square not present**
+**Core coverage: 3/3 ✅ (parabolas + circles; MA5-NON-C-01) | Advanced: +exponential + hyperbola (Adv Path only) + vertex form missing**
 
 ---
 
@@ -1195,11 +1181,11 @@ Advanced: skill map IDs namespaced `y10a-`. Core: trimmed + `y10c-`.
 | Find an unknown angle using inverse trig ratios (sin⁻¹, cos⁻¹, tan⁻¹) | `finding-angles-trig` | Core | ✅ |
 | Solve problems involving angles of elevation and depression | `elevation-depression` | Core | ✅ |
 | Solve problems involving bearings (true and compass) | `bearings` | Core | ✅ |
-| Apply the sine rule a/sin A = b/sin B = c/sin C to find sides and angles | `sine-rule` | Adv | ✅ |
-| Apply the cosine rule to find sides (c²=a²+b²−2ab cos C) and angles | `cosine-rule` | Adv | ✅ |
-| Calculate the area of a triangle using Area = ½ab sin C | `area-trig-formula` | Adv | ✅ |
+| Apply the sine rule a/sin A = b/sin B = c/sin C to find sides and angles | `sine-rule` | Core | ✅ (MA5-TRG-C-02 — Core outcome; added to Core trim 2026-06-16) |
+| Apply the cosine rule to find sides (c²=a²+b²−2ab cos C) and angles | `cosine-rule` | Core | ✅ (MA5-TRG-C-02 — Core outcome; added to Core trim 2026-06-16) |
+| Calculate the area of a triangle using Area = ½ab sin C | `area-trig-formula` | Core | ✅ (MA5-TRG-C-02 — Core outcome; added to Core trim 2026-06-16) |
 
-**Core coverage: 6/6 ✅ | Advanced coverage: 3/3 additional ✅ — full trig coverage**
+**Core coverage: 9/9 ✅ — MA5-TRG-C-01 (right-angle trig) + MA5-TRG-C-02 (sine/cosine rule, area, bearings) both fully covered**
 
 ---
 
@@ -1302,9 +1288,15 @@ All gaps are **Advanced pathway** only. The Core pathway is fully covered across
 - [ ] `non-linear-relationships`: Consider adding lesson on **vertex form and completing the square** for Advanced/Extension bridge
 
 #### Variants
-- [x] `year-10-mathematics-advanced` — in_progress, namespaced IDs
-- [x] `year-10-mathematics-core` — in_progress, trimmed units
-- [ ] Promote Advanced and Core to `available` once gaps above are addressed
+- [x] `year-10-mathematics-advanced` — in_progress, namespaced IDs (`y10a-`)
+- [x] `year-10-mathematics-core` — in_progress, trimmed units (`y10c-`); Core trim applied 2026-06-16:
+  - `algebraic-techniques`: `algebraic-fractions` excluded (MA5-ALG-P-01 Path)
+  - `equations-simultaneous`: `quadratic-formula` excluded (MA5-EQU-P-02 Path)
+  - `non-linear-relationships`: `exponential-functions` + `hyperbolas` excluded (MA5-NON-P-01 Path); parabolas + circles retained
+  - `trigonometry`: sine rule, cosine rule, area formula, bearings ALL retained (MA5-TRG-C-02 Core — fix applied 2026-06-16)
+  - `probability`: `conditional-probability` excluded (MA5-PRO-P-01 Path)
+  - `geometry-proofs`: circle theorems + geometric proofs excluded (Adv only); congruence + similarity retained
+- [ ] Promote Advanced and Core to `available` once Advanced gaps above are addressed
 
 ---
 

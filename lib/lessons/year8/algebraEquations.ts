@@ -2365,6 +2365,292 @@ const inequalityProblemSolving: LessonContent = {
   ],
 };
 
+// ── Lesson 9: Formula Rearrangement ──────────────────────────────────────────
+
+const formulaRearrangement: LessonContent = {
+  description:
+    "Change the subject of a formula by isolating a specified variable using inverse operations, including formulas with fractions and square roots.",
+  learningIntention:
+    "Rearrange formulas to make a different variable the subject, using the same inverse-operation strategy as solving equations.",
+  successCriteria: [
+    "Explain what it means for a variable to be the 'subject' of a formula.",
+    "Change the subject of simple formulas using one or two inverse operations.",
+    "Change the subject of formulas involving fractions.",
+    "Change the subject of formulas involving squares, taking the positive square root when the context requires it.",
+    "Use a rearranged formula to evaluate an unknown given numerical values.",
+  ],
+  teaching: {
+    paragraphs: [
+      "A formula is an equation that expresses one variable in terms of others. The variable on its own on one side is called the subject. In A = lb, A is the subject. Changing the subject means rearranging so a different variable is isolated — for example, making b the subject gives b = A/l. The technique is identical to solving an equation: apply inverse operations to both sides until the target variable stands alone.",
+      "The key misconception to name and dismiss is this: students sometimes think changing the subject is a different skill from solving equations. It is not. In v = u + at, making t the subject means treating t as the unknown and every other letter as a known constant. Subtract u from both sides (v − u = at), then divide by a (t = (v − u)/a). The steps are the same inverse-operation sequence used in any two-step equation.",
+      "Formulas involving a square require one extra step: taking the square root. In A = πr², divide both sides by π to get r² = A/π, then take the positive square root to get r = √(A/π). Do not stop after dividing — the variable is still trapped under the square. In physical contexts (radius, speed, length) the subject must be positive, so take only the positive root.",
+      "Formulas involving fractions are handled by multiplying both sides by the denominator first. In I = V/R, multiplying both sides by R gives IR = V, then dividing by I gives R = V/I. As always, perform the same operation to both sides and the balance is maintained.",
+      "Real-world formulas follow the same rules. Speed: s = d/t → t = d/s. Temperature: C = 5/9(F − 32) → rearrange to find F. Simple interest: I = Prn → r = I/(Pn). In each case, identify the target variable, plan the inverse operations needed to isolate it, and execute them step by step.",
+  ],
+    latexBlocks: [
+      "A = lb \\Rightarrow b = \\dfrac{A}{l}",
+      "v = u + at \\Rightarrow t = \\dfrac{v - u}{a}",
+      "A = \\pi r^2 \\Rightarrow r = \\sqrt{\\dfrac{A}{\\pi}}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Two-step formula rearrangement",
+      questionLatex: "\\text{Make }t\\text{ the subject of }v = u + at.",
+      steps: [
+        {
+          explanation: "Subtract u from both sides to isolate the term containing t.",
+          latex: "v - u = at",
+        },
+        {
+          explanation: "Divide both sides by a.",
+          latex: "t = \\dfrac{v - u}{a}",
+        },
+      ],
+      finalAnswerLatex: "t = \\dfrac{v - u}{a}",
+    } as WorkedExample,
+    {
+      title: "Formula with a square root",
+      questionLatex: "\\text{Make }r\\text{ the subject of }A = \\pi r^2.",
+      steps: [
+        {
+          explanation: "Divide both sides by π to isolate r².",
+          latex: "\\dfrac{A}{\\pi} = r^2",
+        },
+        {
+          explanation: "Take the positive square root of both sides (radius must be positive).",
+          latex: "r = \\sqrt{\\dfrac{A}{\\pi}}",
+        },
+      ],
+      finalAnswerLatex: "r = \\sqrt{\\dfrac{A}{\\pi}}",
+    } as WorkedExample,
+    {
+      title: "Formula involving a fraction",
+      questionLatex: "\\text{Make }R\\text{ the subject of }I = \\dfrac{V}{R}.",
+      steps: [
+        {
+          explanation: "Multiply both sides by R to remove R from the denominator.",
+          latex: "IR = V",
+        },
+        {
+          explanation: "Divide both sides by I to isolate R.",
+          latex: "R = \\dfrac{V}{I}",
+        },
+      ],
+      finalAnswerLatex: "R = \\dfrac{V}{I}",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-aeq-frm-g1",
+      "To make b the subject of a = b/c, which step is correct?",
+      "B",
+      [
+        "Divide both sides by c",
+        "Multiply both sides by c",
+        "Subtract c from both sides",
+        "Square both sides",
+      ],
+      "b is divided by c, so multiply both sides by c: a × c = b, giving b = ac.",
+      "What operation is being applied to b in b/c? Use the inverse."
+    ),
+    answer(
+      "y8-aeq-frm-g2",
+      "Make x the subject of y = 3x + 7.",
+      "y = 3x + 7,\\quad x = \\;?",
+      "(y - 7) / 3",
+      "Subtract 7 from both sides: y − 7 = 3x. Divide by 3: x = (y − 7)/3.",
+      "Undo the +7 first (subtract 7), then undo the ×3 (divide by 3).",
+      ["(y-7)/3", "\\frac{y-7}{3}"]
+    ),
+    answer(
+      "y8-aeq-frm-g3",
+      "Make r the subject of A = πr². Take the positive root only.",
+      "A = \\pi r^2,\\quad r = \\;?",
+      "sqrt(A/pi)",
+      "Divide both sides by π: A/π = r². Take the positive square root: r = √(A/π).",
+      "Divide both sides by π first to isolate r², then take the positive square root.",
+      ["√(A/π)", "\\sqrt{A/\\pi}", "sqrt(A / pi)"]
+    ),
+    answer(
+      "y8-aeq-frm-g4",
+      "Using t = (v − u)/a, find t when v = 25, u = 5, and a = 4.",
+      "t = \\dfrac{v - u}{a},\\quad v = 25,\\ u = 5,\\ a = 4",
+      "5",
+      "t = (25 − 5)/4 = 20/4 = 5.",
+      "Substitute the values into the rearranged formula and evaluate step by step.",
+      ["t = 5"]
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y8-aeq-frm-i1",
+      "Make u the subject of v = u + at.",
+      "v = u + at,\\quad u = \\;?",
+      "v - at",
+      "Subtract at from both sides: u = v − at.",
+      "at is added to u, so subtract at from both sides.",
+      ["v-at", "v - at"]
+    ),
+    choice(
+      "y8-aeq-frm-i2",
+      "A student rearranges A = ½bh to make h the subject and writes h = A/b. What is the error?",
+      "C",
+      [
+        "The student should have divided by b first",
+        "The student should have squared both sides",
+        "The student forgot to multiply by 2; the correct answer is h = 2A/b",
+        "There is no error; h = A/b is correct",
+      ],
+      "Multiply both sides by 2 first: 2A = bh. Then divide by b: h = 2A/b. The factor of ½ means a factor of 2 appears when rearranging.",
+      "Start from A = ½bh. What must you do to remove the ½?"
+    ),
+    answer(
+      "y8-aeq-frm-i3",
+      "Make h the subject of A = ½bh.",
+      "A = \\tfrac{1}{2}bh,\\quad h = \\;?",
+      "2A / b",
+      "Multiply both sides by 2: 2A = bh. Divide both sides by b: h = 2A/b.",
+      "Multiply both sides by 2 to clear the fraction, then divide by b.",
+      ["2A/b", "\\frac{2A}{b}"]
+    ),
+    answer(
+      "y8-aeq-frm-i4",
+      "Make R the subject of I = V/R.",
+      "I = \\dfrac{V}{R},\\quad R = \\;?",
+      "V / I",
+      "Multiply both sides by R: IR = V. Divide both sides by I: R = V/I.",
+      "Multiply both sides by R first to get R out of the denominator, then divide by I.",
+      ["V/I", "\\frac{V}{I}"]
+    ),
+    answer(
+      "y8-aeq-frm-i5",
+      "Using s = d/t rearranged to t = d/s, find the time to travel 240 km at a speed of 80 km/h.",
+      "t = \\dfrac{d}{s},\\quad d = 240,\\ s = 80",
+      "3",
+      "t = 240/80 = 3 hours.",
+      "Substitute d = 240 and s = 80 into t = d/s and evaluate.",
+      ["t = 3", "3 hours"]
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Stopping after moving a term without fully isolating the subject: rearranging v = u + at for t as v − u = at and leaving the answer as at instead of dividing by a.",
+      fix: "Keep going until the target variable is completely alone. After v − u = at, divide both sides by a to get t = (v − u)/a.",
+    },
+    {
+      mistake: "Forgetting to take the square root after isolating a squared variable: writing r² = A/π as the final answer when making r the subject of A = πr².",
+      fix: "Once r² is isolated, take the positive square root of both sides: r = √(A/π). The subject must be r, not r².",
+    },
+    {
+      mistake: "Confusing the formula for the area of a triangle: rearranging A = ½bh as h = A/b by ignoring the ½.",
+      fix: "Multiply both sides by 2 first to clear the fraction: 2A = bh. Then divide by b to get h = 2A/b.",
+    },
+  ],
+  masteryQuiz: [
+    choice(
+      "y8-aeq-frm-m1",
+      "Make a the subject of v² = u² + 2as.",
+      "B",
+      [
+        "$a = \\dfrac{v^2 + u^2}{2s}$",
+        "$a = \\dfrac{v^2 - u^2}{2s}$",
+        "$a = \\dfrac{v^2 - u^2}{s}$",
+        "$a = 2s(v^2 - u^2)$",
+      ],
+      "Subtract u²: v² − u² = 2as. Divide by 2s: a = (v² − u²)/(2s).",
+      "Subtract u² from both sides first, then divide by 2s.",
+      "v^2 = u^2 + 2as,\\quad a = \\;?"
+    ),
+    choice(
+      "y8-aeq-frm-m2",
+      "The temperature formula is C = \\frac{5}{9}(F - 32). Make F the subject.",
+      "A",
+      [
+        "$F = \\dfrac{9C}{5} + 32$",
+        "$F = \\dfrac{9C + 32}{5}$",
+        "$F = \\dfrac{5C}{9} + 32$",
+        "$F = \\dfrac{9(C + 32)}{5}$",
+      ],
+      "Multiply both sides by 9/5: (9/5)C = F − 32. Add 32: F = 9C/5 + 32.",
+      "Multiply both sides by 9/5 to remove the fraction, then add 32.",
+      "C = \\dfrac{5}{9}(F - 32),\\quad F = \\;?"
+    ),
+    answer(
+      "y8-aeq-frm-m3",
+      "Make b the subject of A = lb.",
+      "A = lb,\\quad b = \\;?",
+      "A / l",
+      "Divide both sides by l: b = A/l.",
+      "l is multiplied by b, so divide both sides by l.",
+      ["A/l", "\\frac{A}{l}"]
+    ),
+    answer(
+      "y8-aeq-frm-m4",
+      "Make t the subject of s = d/t.",
+      "s = \\dfrac{d}{t},\\quad t = \\;?",
+      "d / s",
+      "Multiply both sides by t: st = d. Divide by s: t = d/s.",
+      "Multiply both sides by t to remove it from the denominator, then divide by s.",
+      ["d/s", "\\frac{d}{s}"]
+    ),
+    answer(
+      "y8-aeq-frm-m5",
+      "Make s the subject of v² = u² + 2as.",
+      "v^2 = u^2 + 2as,\\quad s = \\;?",
+      "(v^2 - u^2) / (2a)",
+      "Subtract u²: v² − u² = 2as. Divide by 2a: s = (v² − u²)/(2a).",
+      "Subtract u² from both sides, then divide by 2a.",
+      ["(v²-u²)/(2a)", "\\frac{v^2-u^2}{2a}"]
+    ),
+    answer(
+      "y8-aeq-frm-m6",
+      "Make r the subject of I = Prn (simple interest). P, n are constants.",
+      "I = Prn,\\quad r = \\;?",
+      "I / (Pn)",
+      "Divide both sides by Pn: r = I/(Pn).",
+      "r is multiplied by P and n, so divide both sides by Pn.",
+      ["I/(Pn)", "\\frac{I}{Pn}"]
+    ),
+    answer(
+      "y8-aeq-frm-m7",
+      "Make x the subject of y = 5x − 3.",
+      "y = 5x - 3,\\quad x = \\;?",
+      "(y + 3) / 5",
+      "Add 3 to both sides: y + 3 = 5x. Divide by 5: x = (y + 3)/5.",
+      "Add 3 to both sides first, then divide by 5.",
+      ["(y+3)/5", "\\frac{y+3}{5}"]
+    ),
+    answer(
+      "y8-aeq-frm-m8",
+      "Using the formula r = I/(Pn), find the rate r when I = 360, P = 1500, n = 4.",
+      "r = \\dfrac{I}{Pn},\\quad I = 360,\\ P = 1500,\\ n = 4",
+      "0.06",
+      "r = 360/(1500 × 4) = 360/6000 = 0.06.",
+      "Multiply P and n first, then divide I by that product.",
+      ["6/100", "6%", "0.06"]
+    ),
+    answer(
+      "y8-aeq-frm-m9",
+      "Make u the subject of v² = u² + 2as. Take the positive root only.",
+      "v^2 = u^2 + 2as,\\quad u = \\;?",
+      "sqrt(v^2 - 2as)",
+      "Subtract 2as from both sides: u² = v² − 2as. Take the positive square root: u = √(v² − 2as).",
+      "Subtract 2as from both sides to isolate u², then take the positive square root.",
+      ["√(v²-2as)", "\\sqrt{v^2-2as}", "sqrt(v^2-2as)"]
+    ),
+    answer(
+      "y8-aeq-frm-m10",
+      "A rectangle has area A = lb. The area is 54 cm² and the length is 9 cm. Use the rearranged formula b = A/l to find the width.",
+      "b = \\dfrac{A}{l},\\quad A = 54,\\ l = 9",
+      "6",
+      "b = 54/9 = 6 cm.",
+      "Substitute A = 54 and l = 9 into b = A/l.",
+      ["b = 6", "6 cm"]
+    ),
+  ],
+};
+
 // ── Lesson map and export ─────────────────────────────────────────────────────
 
 const lessons: Record<string, LessonContent> = {
@@ -2376,6 +2662,7 @@ const lessons: Record<string, LessonContent> = {
   "checking-solutions-and-error-analysis":    checkingSolutionsErrorAnalysis,
   "linear-inequalities":                      linearInequalities,
   "inequality-problem-solving":               inequalityProblemSolving,
+  "formula-rearrangement":                    formulaRearrangement,
 };
 
 export function year8AlgebraEquationsLessonOverride(
