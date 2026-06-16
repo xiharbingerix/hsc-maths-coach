@@ -5384,7 +5384,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     {
       slug: "year-9-mathematics-advanced",
       title: "Year 9 Mathematics Advanced",
-      yearLevel: "9",
+      yearLevel: "Year 9",
       courseType: "Mathematics Advanced",
       status: "in_progress",
       description:
@@ -5396,7 +5396,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     {
       slug: "year-9-mathematics-core",
       title: "Year 9 Mathematics Core",
-      yearLevel: "9",
+      yearLevel: "Year 9",
       courseType: "Mathematics Core",
       status: "in_progress",
       description:
@@ -5408,7 +5408,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     {
       slug: "year-10-mathematics-advanced",
       title: "Year 10 Mathematics Advanced",
-      yearLevel: "10",
+      yearLevel: "Year 10",
       courseType: "Mathematics Advanced",
       status: "in_progress",
       description:
@@ -5420,7 +5420,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     {
       slug: "year-10-mathematics-core",
       title: "Year 10 Mathematics Core",
-      yearLevel: "10",
+      yearLevel: "Year 10",
       courseType: "Mathematics Core",
       status: "in_progress",
       description:
