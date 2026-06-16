@@ -5,6 +5,12 @@ import {
   tangentsAndNormalsChallenge,
   stationaryPointsChallenge,
 } from "./year12AdvancedDifferentialCalculus";
+import {
+  areaBetweenCurvesChallenge,
+  trigonometricEquationsChallenge,
+  futureValueAnnuitiesChallenge,
+  normalDistributionChallenge,
+} from "./year12AdvancedMore";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -20,6 +26,10 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
     differentiatingPolynomialFunctionsChallenge,
   "tangents-and-normals": tangentsAndNormalsChallenge,
   "stationary-points": stationaryPointsChallenge,
+  "area-between-two-curves": areaBetweenCurvesChallenge,
+  "trigonometric-equations": trigonometricEquationsChallenge,
+  "future-value-annuities": futureValueAnnuitiesChallenge,
+  "normal-distribution-empirical-rule": normalDistributionChallenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {
