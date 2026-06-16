@@ -30,7 +30,7 @@
 | Year 12 Standard 2 | 58 (6 units) | 10 topics | ✅ 100% | 10 | ✅ Complete — audited 2026-06-15 (1106 questions) |
 | Year 12 Advanced | 91 (13 units) | 14 focus areas (MA-F1–S3) | ✅ 100% | 0 | ✅ Complete — audited 2026-06-15 (1726 questions) |
 | Year 12 Extension 1 | 30 (8 units) | 6 focus areas (ME1-12-01–06) | ✅ 100% | 0 | ✅ Complete — audited 2026-06-15 (862 questions) |
-| Year 12 Extension 2 | 30 (5 units) | 5 focus areas (ME2-12-01–05) | ⚠️ 29/30 dot-point groups covered — volumes of revolution ❌ missing | 0 | ⚠️ Audited 2026-06-16 — volumes of revolution gap (ME2-12-04); 3 minor gaps |
+| Year 12 Extension 2 | 31 (5 units) | 5 focus areas (ME2-12-01–05) | ✅ 30/30 dot-point groups covered — volumes of revolution added 2026-06-16; 597 questions | 0 | ✅ Complete 2026-06-16 — +volumes-of-revolution; +complex division, nth roots, inequality induction, v dv/dx patches |
 
 ---
 
@@ -1800,7 +1800,7 @@ Outcome codes: ME2-12-01 (Proof), ME2-12-02 (Vectors 3D), ME2-12-03 (Complex Num
 | 1 | Proof | ME2-12-01 | `lib/lessons/year12Extension2/proof.ts` | 4 | ✅ Complete |
 | 2 | Vectors in Three Dimensions | ME2-12-02 | `lib/lessons/year12Extension2/vectors3D.ts` | 6 | ✅ Complete |
 | 3 | Complex Numbers | ME2-12-03 | `lib/lessons/year12Extension2/complexNumbers.ts` | 6 | ✅ Complete |
-| 4 | Integration Techniques | ME2-12-04 | `lib/lessons/year12Extension2/calculus.ts` | 8 | ⚠️ Volumes of revolution missing |
+| 4 | Integration Techniques | ME2-12-04 | `lib/lessons/year12Extension2/calculus.ts` | 9 | ✅ Complete — +volumes-of-revolution 2026-06-16 |
 | 5 | Mechanics | ME2-12-05 | `lib/lessons/year12Extension2/mechanics.ts` | 6 | ✅ Complete |
 
 ---
@@ -1866,9 +1866,9 @@ Outcome codes: ME2-12-01 (Proof), ME2-12-02 (Vectors 3D), ME2-12-03 (Complex Num
 | t-substitution (Weierstrass): t = tan(x/2); sinx, cosx, dx in terms of t; convert rational trig integrals | `t-substitution-weierstrass` | ✅ |
 | Trig identity integration: sin²x = (1−cos2x)/2; cos²x = (1+cos2x)/2; powers and products of sin/cos | `trig-identity-integration` | ✅ |
 | Completing the square: convert to arctan and ln standard forms | `completing-square-integration` | ✅ |
-| **Volumes of revolution:** disk method V = π∫y² dx; rotation about x-axis and y-axis; washer method | ❌ No lesson | ❌ **CRITICAL GAP** |
+| **Volumes of revolution:** disk method V = π∫y² dx; rotation about x-axis and y-axis; washer method | `volumes-of-revolution` | ✅ Fixed 2026-06-16 |
 
-**ME2-12-04 assessment:** 8/9 dot-point groups covered. Volumes of revolution is the only critical content gap in the Extension 2 course. This topic appears in every HSC Extension 2 paper.
+**ME2-12-04 assessment:** 9/9 dot-point groups covered ✅ Complete 2026-06-16.
 
 ---
 
@@ -1891,19 +1891,13 @@ Outcome codes: ME2-12-01 (Proof), ME2-12-02 (Vectors 3D), ME2-12-03 (Complex Num
 
 ### Gap analysis and action items — Year 12 Extension 2
 
-#### Critical (HSC-testable annually)
-- [ ] **NEW LESSON: `volumes-of-revolution`** in `lib/lessons/year12Extension2/calculus.ts`
-  - Disk method: V = π∫[a to b] [f(x)]² dx — rotation about x-axis
-  - Washer method: V = π∫[a to b] ([f(x)]² − [g(x)]²) dx
-  - Rotation about y-axis: V = π∫[c to d] x² dy (express x as a function of y)
-  - Combined region problems; limits from intersection points
-  - Target: ~19 questions, 2–3 multi-part HSC-style problems
+#### All gaps closed 2026-06-16 ✅
 
-#### Minor gaps (patch with 1–3 extra questions per existing lesson)
-- [ ] **Complex division** — add explicit z₁/z₂ = z₁z̄₂/|z₂|² worked example to `modulus-argument-conjugate`
-- [ ] **General nth roots** — add "find all cube roots of 8i" example to `roots-of-unity`
-- [ ] **Inequality induction** — add 2ⁿ > n proof to `proof-by-mathematical-induction` worked examples
-- [ ] **v dv/dx identity** — add teaching note + 2 questions to `rectilinear-motion-calculus` (a = v dv/dx when finding v as function of position)
+- [x] **`volumes-of-revolution`** — disk/washer/y-axis methods; 19Q; added to `calculus.ts`
+- [x] **Complex division** — worked example added to `modulus-argument-conjugate`
+- [x] **General nth roots** — "cube roots of 8i" example added to `roots-of-unity`
+- [x] **Inequality induction** — 2ⁿ > n proof added to `proof-by-mathematical-induction`
+- [x] **v dv/dx identity** — teaching note + 2 mastery questions added to `rectilinear-motion-calculus`
 
 #### Lesson count reconciliation
 Override files contain **30 lesson overrides** (4+6+6+8+6). The Nova catalog entry for `year-12-extension-2` may still show 25 lessons (pre-depth-pass). Verify and update so all 30 slugs are seeded correctly.
@@ -1920,7 +1914,7 @@ Nova average lessons per unit: ~4–5.
 | Year 11 Standard | 76 (8 units) | ~76 | ✅ Depth pass + Priority 1–3 complete; NSW slug alignment 2026-06-15 |
 | Year 12 Standard 2 | 35 (6 units) | ~35 | ✅ Depth pass complete + 4 breadth lessons |
 | Year 12 Advanced | 91 (13 units) | ~64 subtopics | ✅ Depth pass complete + audited 2026-06-15 |
-| Year 12 Extension 2 | 30 (5 units) | ~40 subtopics | ⚠️ Depth pass complete — volumes of revolution gap; audited 2026-06-16 |
+| Year 12 Extension 2 | 31 (5 units) | ~40 subtopics | ✅ Complete 2026-06-16 — 597 questions; all 30 dot-point groups covered |
 | Year 12 Standard 1 | 23 (5 units) | 7 NSW topics | ✅ Complete — all gaps closed 2026-06-15 (23 lessons, all 19Q) |
 | Year 12 Extension 1 | 30 (8 units) | ~28 subtopics | ✅ Depth pass complete — 520 questions seeded |
 | Year 11 Advanced | 65 (7 units) | 7 NSW focus areas | 🔄 FA1–FA4 ✅ complete 2026-06-15; ~4 lessons still needed (FA6, FA7) |

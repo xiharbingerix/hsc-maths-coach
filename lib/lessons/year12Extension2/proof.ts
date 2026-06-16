@@ -998,6 +998,18 @@ const inductionLesson: Partial<ExplicitLesson> = {
       finalAnswerLatex:
         "\\text{By induction, }3\\mid(4^n-1)\\text{ for all }n\\ge1.",
     },
+    {
+      title: "Inequality induction: prove 2ⁿ > n for all n ≥ 1",
+      questionLatex: "\\text{Prove } 2^n > n \\text{ for all integers } n \\geq 1.",
+      steps: [
+        { explanation: "Base case n = 1: LHS = 2¹ = 2 > 1 = RHS. ✓", latex: "2^1 = 2 > 1" },
+        { explanation: "Assume true for n = k: assume 2ᵏ > k.", latex: "2^k > k" },
+        { explanation: "Show true for n = k+1: need to show 2^{k+1} > k+1.", latex: "2^{k+1} = 2 \\cdot 2^k > 2k \\quad (\\text{using assumption})" },
+        { explanation: "Since k ≥ 1, we have 2k = k + k ≥ k + 1.", latex: "2k \\geq k+1 \\quad \\Rightarrow \\quad 2^{k+1} > k+1" },
+        { explanation: "The inductive step holds. By the principle of mathematical induction, 2ⁿ > n for all n ≥ 1. □", latex: "\\therefore\\; 2^n > n \\text{ for all } n\\geq 1." },
+      ],
+      finalAnswerLatex: "2^n > n \\text{ for all } n \\geq 1 \\quad \\text{(proved by induction)}",
+    },
   ],
   guidedPractice: [
     proofTyped(
