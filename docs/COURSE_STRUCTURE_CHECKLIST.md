@@ -25,7 +25,7 @@
 | Year 10 Mathematics Core | ~35 lessons (trimmed) | 10 NSW focus areas (MA5) | ✅ Core trim applied 2026-06-16 — Adv Path lessons excluded; MA5-TRG-C-02 (sine/cosine rule) correctly included as Core | 0 | ✅ Core trim complete 2026-06-16 — algebraic-fractions, quadratic-formula, exponential, hyperbola, conditional-probability excluded; trig fully included |
 | Year 11 Standard | 76 (8 units) | 8 focus areas | ✅ 100% | 8 | ✅ Complete — audited 2026-06-15 (1444 questions) |
 | Year 11 Advanced | 70 (7 units) | 7 focus areas (MAV-11-01–10) | ✅ 100% — FA1 ✅ FA2 ✅ FA3 ✅ FA4 ✅ FA5 ✅ FA6 ✅ FA7 ✅ all complete | 0 | ✅ Fully audited 2026-06-15; all 7 focus areas complete |
-| Year 11 Extension 1 | 25 (5 units) | 5 focus areas (ME1-11-01–05) | ⚠️ ~90% — 3 dot-points missing in FA1, 2 in FA3, 1 in FA5; polynomial arithmetic thin | 0 | ⚠️ Audited 2026-06-16 — gaps: 1/f(x) graph, [f(x)]² graph, trig equation solving, greatest term; all high-priority |
+| Year 11 Extension 1 | 28 (5 units) | 5 focus areas (ME1-11-01–05) | ✅ ~97% — 3 new lessons added 2026-06-16; 532 questions | 0 | ✅ Fixed 2026-06-16 — +reciprocal/squared graphs, +trig equation solving, +greatest term; 28 lessons / 532Q |
 | Year 12 Standard 1 | 23 (5 units) | 7 topics | ✅ 7/7 | 0 | ✅ Complete — all gaps closed 2026-06-15 |
 | Year 12 Standard 2 | 58 (6 units) | 10 topics | ✅ 100% | 10 | ✅ Complete — audited 2026-06-15 (1106 questions) |
 | Year 12 Advanced | 91 (13 units) | 14 focus areas (MA-F1–S3) | ✅ 100% | 0 | ✅ Complete — audited 2026-06-15 (1726 questions) |
@@ -1500,11 +1500,11 @@ Source: NSW Mathematics Extension 1 11–12 Syllabus (2024). First HSC 2027.
 
 | # | NSW Focus Area | Outcome | Nova file | Lessons | Status |
 |---|---|---|---|---|---|
-| 1 | Further Work with Functions | ME1-11-01 | `lib/lessons/year11Extension/furtherFunctions.ts` | 5 | ⚠️ Partial — see dot-point table |
+| 1 | Further Work with Functions | ME1-11-01 | `lib/lessons/year11Extension/furtherFunctions.ts` | 6 | ✅ 12/13 — +reciprocal-and-squared-function-graphs 2026-06-16 |
 | 2 | Polynomials | ME1-11-02 | `lib/lessons/year11Extension/polynomials.ts` | 5 | ✅ Complete |
-| 3 | Further Trigonometry | ME1-11-03 | `lib/lessons/year11Extension/furtherTrigonometry.ts` | 5 | ⚠️ Partial — see dot-point table |
-| 4 | Permutations and Combinations | ME1-11-04 | `lib/lessons/year11Extension/permutationsCombinations.ts` | 5 | ⚠️ Partial — see dot-point table |
-| 5 | The Binomial Theorem | ME1-11-05 | `lib/lessons/year11Extension/binomialTheorem.ts` | 5 | ✅ Complete |
+| 3 | Further Trigonometry | ME1-11-03 | `lib/lessons/year11Extension/furtherTrigonometry.ts` | 6 | ✅ 14/15 — +trig-equation-solving 2026-06-16 |
+| 4 | Permutations and Combinations | ME1-11-04 | `lib/lessons/year11Extension/permutationsCombinations.ts` | 5 | ✅ Complete |
+| 5 | The Binomial Theorem | ME1-11-05 | `lib/lessons/year11Extension/binomialTheorem.ts` | 6 | ✅ 16/16 — +greatest-term-binomial 2026-06-16 |
 
 ---
 
@@ -1517,9 +1517,9 @@ Source: NSW Mathematics Extension 1 11–12 Syllabus (2024). First HSC 2027.
 | Graph absolute value functions y=\|f(x)\|, y=\|x−a\| | `absolute-value-functions` | ✅ |
 | Solve equations of the form \|f(x)\|=k | `absolute-value-functions` | ✅ |
 | Solve absolute value inequalities \|x−a\|<r | `absolute-value-functions` | ✅ |
-| Graph y=1/f(x) given y=f(x) — reciprocal function graphs | — | ❌ Missing — no lesson covers graphing 1/f(x) from a given f(x) |
-| Graph y=[f(x)]² | — | ❌ Missing — no lesson covers squaring a function to graph it |
-| Combinations of transformations (applied to Extension 1 function types) | — | ❌ Missing as a standalone Extension 1 lesson (Year 11 Advanced FA6 covers general transformations, but not Extension-specific combinations) |
+| Graph y=1/f(x) given y=f(x) — reciprocal function graphs | `reciprocal-and-squared-function-graphs` | ✅ Fixed 2026-06-16 |
+| Graph y=[f(x)]² | `reciprocal-and-squared-function-graphs` | ✅ Fixed 2026-06-16 |
+| Combinations of transformations (applied to Extension 1 function types) | — | ⚠️ Not a standalone lesson — Year 11 Advanced FA6 covers general transformations; acceptable as cross-reference |
 | Inverse functions — definition, horizontal line test, finding f⁻¹(x) algebraically | `inverse-functions` | ✅ |
 | Domain and range swapping under inversion | `inverse-functions` | ✅ |
 | Restricting domain to make a function one-to-one | `inverse-functions` | ✅ |
@@ -1529,7 +1529,7 @@ Source: NSW Mathematics Extension 1 11–12 Syllabus (2024). First HSC 2027.
 | Y-axis symmetry (even) and origin symmetry (odd) | `odd-even-functions-symmetry` | ✅ |
 | Remainder theorem and factor theorem (as function tools) | `polynomial-division-remainder-functions` | ✅ (also covered deeper in Polynomials unit) |
 
-**ME1-11-01 assessment:** 10/13 dot-points covered. Three NSW content items are not addressed: graphing y=1/f(x), graphing y=[f(x)]², and combinations of Extension-specific transformations.
+**ME1-11-01 assessment:** 12/13 dot-points covered. Fixed 2026-06-16: 1/f(x) and [f(x)]² now covered in `reciprocal-and-squared-function-graphs`. One minor gap remains: combinations of Extension-specific transformations (acceptable as cross-reference to Year 11 Advanced).
 
 ---
 
@@ -1578,10 +1578,10 @@ Source: NSW Mathematics Extension 1 11–12 Syllabus (2024). First HSC 2027.
 | Maximum and minimum of a sin θ + b cos θ | `t-formula-subsidiary-angle` | ✅ |
 | Product-to-sum identities: 2 sin A cos B, 2 cos A cos B, 2 sin A sin B | `product-to-sum-identities` | ✅ |
 | Sum-to-product identities: sin X ± sin Y, cos X ± cos Y | `product-to-sum-identities` | ✅ |
-| Solve equations using compound/double angle identities | — | ⚠️ Not a dedicated lesson — compound/double angle lessons include evaluation but do not include a systematic equation-solving lesson (e.g. solve sin 2θ = cos θ for 0 ≤ θ ≤ 2π) |
+| Solve equations using compound/double angle identities | `trig-equation-solving` | ✅ Fixed 2026-06-16 |
 | Prove identities using compound/double angle formulae | `product-to-sum-identities` | ⚠️ Covered partially in product-to-sum lesson; no dedicated proof lesson |
 
-**ME1-11-03 assessment:** 13/15 dot-points covered. Two gaps: (1) no dedicated equation-solving lesson using these identities (e.g. "solve sin 2θ = sin θ"); (2) no dedicated trig identity proof lesson for Extension-level proofs. Both are medium-priority.
+**ME1-11-03 assessment:** 14/15 dot-points covered. Fixed 2026-06-16: equation solving added in `trig-equation-solving`. One remaining gap: no dedicated identity-proof lesson (low priority).
 
 ---
 
@@ -1631,10 +1631,10 @@ Source: NSW Mathematics Extension 1 11–12 Syllabus (2024). First HSC 2027.
 | Alternating sum of coefficients using substitution x=−1 | `binomial-identities` | ✅ |
 | Coefficient symmetry: C(n,r) = C(n,n−r) | `binomial-identities` | ✅ |
 | Pascal's identity: C(n,r) + C(n,r+1) = C(n+1,r+1) | `binomial-identities` | ✅ |
-| Greatest coefficient / greatest term | — | ❌ Missing — no lesson covers the greatest term or greatest coefficient problem type |
+| Greatest coefficient / greatest term | `greatest-term-binomial` | ✅ Fixed 2026-06-16 |
 | Mixed binomial theorem exam practice | `binomial-theorem-exam-practice` | ✅ |
 
-**ME1-11-05 assessment:** 15/16 dot-points covered. One gap: greatest coefficient / greatest term — a classic HSC Extension 1 problem type that does not appear in any lesson.
+**ME1-11-05 assessment:** 16/16 dot-points covered ✅ Fixed 2026-06-16: greatest term / greatest coefficient added in `greatest-term-binomial`.
 
 ---
 
@@ -1642,18 +1642,17 @@ Source: NSW Mathematics Extension 1 11–12 Syllabus (2024). First HSC 2027.
 
 #### Content gaps (by priority)
 
-**High priority — classic HSC question types missing:**
-- [ ] **Greatest coefficient / greatest term** (ME1-11-05) — Add 1 lesson to Binomial Theorem unit or add questions to `binomial-theorem-exam-practice`: find value of r that maximises T_{r+1}, compare adjacent terms using T_{r+2}/T_{r+1} ≥ 1
-- [ ] **Trig equation solving with compound/double angle identities** (ME1-11-03) — Add 1 lesson: solve equations like sin 2θ = cos θ, cos 2θ = 1 − 2 sin² θ = value, tan 2θ = k, on restricted domains
+**High priority — fixed 2026-06-16:**
+- [x] **Greatest coefficient / greatest term** (ME1-11-05) — `greatest-term-binomial` lesson added; adjacent-term ratio method, 19Q
+- [x] **Trig equation solving with compound/double angle identities** (ME1-11-03) — `trig-equation-solving` lesson added; factorisation + quadratic substitution, 19Q
 
-**Medium priority — NSW syllabus dot-points not yet covered:**
-- [ ] **Graph y=1/f(x)** (ME1-11-01) — Add 1 lesson: given y=f(x), sketch y=1/f(x) (asymptotes where f=0, sign preservation, behaviour near zeros and at infinity)
-- [ ] **Graph y=[f(x)]²** (ME1-11-01) — Combine with 1/f(x) lesson or add separately: squaring amplifies positive, zeros remain zeros, negative becomes positive
-- [ ] **Trig identity proofs** (ME1-11-03) — Add questions to existing compound/double angle lessons demonstrating LHS=RHS proof style; or add a dedicated short proof lesson
+**Medium priority — fixed 2026-06-16:**
+- [x] **Graph y=1/f(x) and y=[f(x)]²** (ME1-11-01) — `reciprocal-and-squared-function-graphs` lesson added; asymptotes, invariant points, sign rules, 19Q
 
-**Low priority — minor structural improvements:**
-- [ ] **Polynomial arithmetic** (ME1-11-02) — Add a few questions on adding, subtracting, multiplying polynomials to `polynomial-terminology` lesson; content is trivial at Extension level but explicit in syllabus
-- [ ] **Combinations of transformations** (ME1-11-01) — Verify Year 11 Advanced `graph-transformations` unit adequately covers combinations; if so, cross-link rather than duplicate
+**Remaining low priority:**
+- [ ] **Trig identity proofs** (ME1-11-03) — No dedicated proof lesson; product-to-sum lesson covers partially
+- [ ] **Polynomial arithmetic** (ME1-11-02) — Add/subtract/multiply polynomials not explicit; low priority at Extension level
+- [ ] **Combinations of transformations** (ME1-11-01) — Cross-reference Year 11 Advanced FA6; not a gap requiring new content
 
 #### Revision lessons
 - [ ] No revision lessons exist for any of the 5 focus areas. Target: 1 per focus area activating prior knowledge (e.g. a Functions revision lesson building on Year 11 Advanced FA1 + FA6)

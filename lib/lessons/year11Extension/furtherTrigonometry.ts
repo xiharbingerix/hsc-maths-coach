@@ -492,6 +492,249 @@ function productSumLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
   };
 }
 
+const trigEquationSolvingExamples: WorkedExample[] = [
+  {
+    title: "Solve sin 2θ = sin θ for 0 ≤ θ ≤ 2π",
+    questionLatex: "\\sin2\\theta=\\sin\\theta,\\quad 0\\le\\theta\\le2\\pi",
+    steps: [
+      { explanation: "Apply the sine double angle formula.", latex: "2\\sin\\theta\\cos\\theta=\\sin\\theta" },
+      { explanation: "Bring all terms to one side.", latex: "2\\sin\\theta\\cos\\theta-\\sin\\theta=0" },
+      { explanation: "Factorise by taking out sin θ.", latex: "\\sin\\theta(2\\cos\\theta-1)=0" },
+      { explanation: "Set each factor to zero.", latex: "\\sin\\theta=0\\quad\\text{or}\\quad\\cos\\theta=\\tfrac12" },
+      { explanation: "Solve sin θ = 0 on [0, 2π].", latex: "\\theta=0,\\,\\pi,\\,2\\pi" },
+      { explanation: "Solve cos θ = 1/2 on [0, 2π].", latex: "\\theta=\\frac{\\pi}{3},\\,\\frac{5\\pi}{3}" },
+    ],
+    finalAnswerLatex: "\\theta=0,\\,\\frac{\\pi}{3},\\,\\pi,\\,\\frac{5\\pi}{3},\\,2\\pi\\quad(5\\text{ solutions})",
+  },
+  {
+    title: "Solve cos 2θ + cos θ = 0 for 0° ≤ θ ≤ 360°",
+    questionLatex: "\\cos2\\theta+\\cos\\theta=0,\\quad 0^\\circ\\le\\theta\\le360^\\circ",
+    steps: [
+      { explanation: "Use the cosine double angle form that produces a quadratic in cos θ.", latex: "\\cos2\\theta=2\\cos^2\\theta-1" },
+      { explanation: "Substitute into the equation.", latex: "2\\cos^2\\theta-1+\\cos\\theta=0" },
+      { explanation: "Rearrange as a quadratic in cos θ.", latex: "2\\cos^2\\theta+\\cos\\theta-1=0" },
+      { explanation: "Factorise the quadratic.", latex: "(2\\cos\\theta-1)(\\cos\\theta+1)=0" },
+      { explanation: "Solve each factor.", latex: "\\cos\\theta=\\tfrac12\\;\\Rightarrow\\;\\theta=60^\\circ,300^\\circ\\qquad\\cos\\theta=-1\\;\\Rightarrow\\;\\theta=180^\\circ" },
+    ],
+    finalAnswerLatex: "\\theta=60^\\circ,\\,180^\\circ,\\,300^\\circ\\quad(3\\text{ solutions})",
+  },
+  {
+    title: "Solve sin 2θ = cos θ for 0 ≤ θ ≤ 2π — why you cannot divide by cos θ",
+    questionLatex: "\\sin2\\theta=\\cos\\theta,\\quad 0\\le\\theta\\le2\\pi",
+    steps: [
+      { explanation: "Apply the sine double angle formula.", latex: "2\\sin\\theta\\cos\\theta=\\cos\\theta" },
+      { explanation: "Bring all terms to one side — do not divide by cos θ.", latex: "2\\sin\\theta\\cos\\theta-\\cos\\theta=0" },
+      { explanation: "Factorise by taking out cos θ.", latex: "\\cos\\theta(2\\sin\\theta-1)=0" },
+      { explanation: "Solve cos θ = 0. Dividing by cos θ would lose these solutions.", latex: "\\theta=\\frac{\\pi}{2},\\,\\frac{3\\pi}{2}" },
+      { explanation: "Solve 2 sin θ − 1 = 0.", latex: "\\sin\\theta=\\tfrac12\\;\\Rightarrow\\;\\theta=\\frac{\\pi}{6},\\,\\frac{5\\pi}{6}" },
+    ],
+    finalAnswerLatex: "\\theta=\\frac{\\pi}{6},\\,\\frac{\\pi}{2},\\,\\frac{5\\pi}{6},\\,\\frac{3\\pi}{2}\\quad(4\\text{ solutions})",
+  },
+];
+
+function trigEquationSolvingLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
+  return {
+    ...lessonBase(lesson, "Solve trigonometric equations using compound and double angle identities.", "Solving trig equations using compound and double angle identities"),
+    learningIntention: "Use double angle and compound angle identities to reduce trig equations to single-angle form, then solve within a given domain.",
+    successCriteria: [
+      "Replace sin 2θ, cos 2θ, or tan 2A with the appropriate identity to reduce to a single angle.",
+      "Factorise after substitution to find all solutions — never divide both sides by a trig function.",
+      "Form and solve a quadratic in sin θ or cos θ when the identity produces a squared term.",
+      "Adjust the domain correctly when a doubled angle is introduced.",
+      "List all solutions within the specified domain, including boundary values.",
+    ],
+    teaching: {
+      paragraphs: [
+        "When a trig equation contains a double angle such as sin 2θ or cos 2θ, the first step is to replace it with the appropriate identity. For sin 2θ use 2 sin θ cos θ; for cos 2θ choose the form that matches the other terms — use 1 − 2sin²θ when the equation also involves sin θ, or 2cos²θ − 1 when it involves cos θ.",
+        "After substituting, the equation usually factors or becomes a quadratic in a single trig function. Always bring all terms to one side and factorise rather than dividing through by a trig expression. Dividing by sin θ or cos θ loses any solutions where that factor is zero — a very common error that removes valid answers.",
+        "When the equation involves a quadratic in sin θ or cos θ, apply standard factorisation or the quadratic formula. Remember that |sin θ| ≤ 1 and |cos θ| ≤ 1, so discard any factor value outside that range.",
+        "Domain handling is critical. If the equation is cos 2θ = something, find 2θ in the doubled domain first, then halve to get θ. For example, if θ ∈ [0°, 360°] then 2θ ∈ [0°, 720°] and you must find all solutions for 2θ in that wider range before dividing by 2.",
+        "For compound angle equations such as sin(θ + π/6) = cos θ, expand the left side using the sine addition formula, collect like terms, and solve. These often reduce to a linear or factorable equation once the compound part is opened out.",
+      ],
+      latexBlocks: [
+        "\\sin2\\theta=2\\sin\\theta\\cos\\theta",
+        "\\cos2\\theta=2\\cos^2\\theta-1=1-2\\sin^2\\theta=\\cos^2\\theta-\\sin^2\\theta",
+        "\\tan2A=\\frac{2\\tan A}{1-\\tan^2A}",
+        "\\text{Factorise, do not divide: }\\sin\\theta(2\\cos\\theta-1)=0",
+      ],
+    },
+    workedExamples: trigEquationSolvingExamples,
+    guidedPractice: [
+      choice(
+        "y11ext-ft-eqs-g1",
+        "The equation sin 2θ = sin θ is rewritten as sin θ(2 cos θ − 1) = 0. Which single step achieved this?",
+        "A",
+        [
+          "Used sin 2θ = 2 sin θ cos θ and then factorised",
+          "Used a cos 2θ identity",
+          "Divided both sides by sin θ",
+          "Used the product-to-sum formula",
+        ],
+        "Replacing sin 2θ with 2 sin θ cos θ gives 2 sin θ cos θ − sin θ = 0, which factorises to sin θ(2 cos θ − 1) = 0.",
+      ),
+      countAnswer(
+        "y11ext-ft-eqs-g2",
+        "How many solutions does sin 2θ = 0 have for 0 ≤ θ ≤ 2π (include both endpoints)?",
+        "\\sin2\\theta=0,\\quad 0\\le\\theta\\le2\\pi",
+        "5",
+        "2θ ranges over [0, 4π], so sin 2θ = 0 when 2θ = 0, π, 2π, 3π, 4π giving θ = 0, π/2, π, 3π/2, 2π — five solutions.",
+      ),
+      countAnswer(
+        "y11ext-ft-eqs-g3",
+        "How many solutions does cos 2θ = cos θ have for 0° ≤ θ ≤ 360°? Use cos 2θ = 2cos²θ − 1.",
+        "\\cos2\\theta=\\cos\\theta,\\quad 0^\\circ\\le\\theta\\le360^\\circ",
+        "4",
+        "2cos²θ − 1 = cos θ → 2cos²θ − cos θ − 1 = 0 → (2cos θ + 1)(cos θ − 1) = 0 → cos θ = 1 or cos θ = −1/2 → θ = 0°, 120°, 240°, 360°.",
+      ),
+      choice(
+        "y11ext-ft-eqs-g4",
+        "Which substitution converts cos 2θ + 3 cos θ + 2 = 0 directly into a quadratic in cos θ?",
+        "B",
+        [
+          "cos 2θ = 1 − 2sin²θ",
+          "cos 2θ = 2cos²θ − 1",
+          "cos 2θ = cos²θ − sin²θ",
+          "cos 2θ = −cos θ",
+        ],
+        "Using cos 2θ = 2cos²θ − 1 gives 2cos²θ + 3cos θ + 1 = 0, a quadratic in cos θ with no sine terms.",
+      ),
+    ],
+    independentPractice: [
+      countAnswer(
+        "y11ext-ft-eqs-i1",
+        "How many solutions does sin 2θ = sin θ have for 0 ≤ θ ≤ 2π (include both endpoints)?",
+        "\\sin2\\theta=\\sin\\theta,\\quad 0\\le\\theta\\le2\\pi",
+        "5",
+        "sin θ(2 cos θ − 1) = 0 → sin θ = 0 (θ = 0, π, 2π) or cos θ = 1/2 (θ = π/3, 5π/3) — five solutions.",
+      ),
+      countAnswer(
+        "y11ext-ft-eqs-i2",
+        "How many solutions does cos 2θ + cos θ = 0 have for 0° ≤ θ ≤ 360°?",
+        "\\cos2\\theta+\\cos\\theta=0,\\quad 0^\\circ\\le\\theta\\le360^\\circ",
+        "3",
+        "Use cos 2θ = 2cos²θ − 1: 2cos²θ + cos θ − 1 = 0 → (2cos θ − 1)(cos θ + 1) = 0 → θ = 60°, 180°, 300°.",
+      ),
+      choice(
+        "y11ext-ft-eqs-i3",
+        "Solving sin 2θ = cos θ, a student divides both sides by cos θ to get 2 sin θ = 1. What is the error?",
+        "C",
+        [
+          "The double angle formula was applied incorrectly",
+          "The domain was not adjusted for the double angle",
+          "Dividing by cos θ loses solutions where cos θ = 0",
+          "The equation cannot be solved algebraically",
+        ],
+        "Dividing by cos θ assumes cos θ ≠ 0, but cos θ = 0 gives valid solutions θ = π/2 and 3π/2 that are lost.",
+      ),
+      countAnswer(
+        "y11ext-ft-eqs-i4",
+        "How many solutions does sin 2θ = cos θ have for 0 ≤ θ ≤ 2π?",
+        "\\sin2\\theta=\\cos\\theta,\\quad 0\\le\\theta\\le2\\pi",
+        "4",
+        "cos θ(2 sin θ − 1) = 0 → cos θ = 0 (θ = π/2, 3π/2) or sin θ = 1/2 (θ = π/6, 5π/6) — four solutions.",
+      ),
+      countAnswer(
+        "y11ext-ft-eqs-i5",
+        "How many solutions does cos 2θ + sin θ = 0 have for 0° ≤ θ ≤ 360°?",
+        "\\cos2\\theta+\\sin\\theta=0,\\quad 0^\\circ\\le\\theta\\le360^\\circ",
+        "3",
+        "Use cos 2θ = 1 − 2sin²θ: 1 − 2sin²θ + sin θ = 0 → 2sin²θ − sin θ − 1 = 0 → (2sin θ + 1)(sin θ − 1) = 0 → θ = 90°, 210°, 330°.",
+      ),
+    ],
+    commonMistakes: [
+      {
+        mistake: "Dividing both sides by sin θ or cos θ to simplify.",
+        fix: "Always factorise instead. Dividing by a trig function loses all solutions where that function equals zero.",
+      },
+      {
+        mistake: "Using the wrong form of cos 2θ.",
+        fix: "Match the form to the other terms: use 1 − 2sin²θ when sin θ appears elsewhere; use 2cos²θ − 1 when cos θ appears elsewhere.",
+      },
+      {
+        mistake: "Forgetting to widen the domain before solving a doubled-angle equation.",
+        fix: "If θ ∈ [0°, 360°] and the equation is in 2θ, solve for 2θ ∈ [0°, 720°] first, then halve all solutions.",
+      },
+    ],
+    masteryQuiz: [
+      choice(
+        "y11ext-ft-eqs-m1",
+        "How many solutions does sin 2θ = 0 have on 0 ≤ θ < 2π (excluding 2π)?",
+        "C",
+        ["2", "3", "4", "5"],
+        "2θ ∈ [0, 4π), so sin 2θ = 0 when 2θ = 0, π, 2π, 3π giving θ = 0, π/2, π, 3π/2 — four solutions.",
+      ),
+      choice(
+        "y11ext-ft-eqs-m2",
+        "Solving cos 2θ = sin²θ, which form of cos 2θ leads most directly to a quadratic in sin θ?",
+        "C",
+        [
+          "cos²θ − sin²θ",
+          "2cos²θ − 1",
+          "1 − 2sin²θ",
+          "It doesn't matter which form is used",
+        ],
+        "Using 1 − 2sin²θ gives 1 − 2sin²θ = sin²θ → 3sin²θ = 1, a quadratic in sin θ with no cos θ.",
+      ),
+      countAnswer(
+        "y11ext-ft-eqs-m3",
+        "How many solutions does 2 sin 2θ = √3 have for 0° ≤ θ ≤ 360°?",
+        "2\\sin2\\theta=\\sqrt3,\\quad 0^\\circ\\le\\theta\\le360^\\circ",
+        "4",
+        "sin 2θ = √3/2; 2θ ∈ [0°, 720°] gives 2θ = 60°, 120°, 420°, 480° → θ = 30°, 60°, 210°, 240°.",
+      ),
+      countAnswer(
+        "y11ext-ft-eqs-m4",
+        "How many solutions does cos 2θ = sin²θ have for 0° ≤ θ ≤ 360°?",
+        "\\cos2\\theta=\\sin^2\\theta,\\quad 0^\\circ\\le\\theta\\le360^\\circ",
+        "4",
+        "1 − 2sin²θ = sin²θ → 3sin²θ = 1 → sin θ = ±1/√3; each gives two angles in [0°, 360°].",
+      ),
+      countAnswer(
+        "y11ext-ft-eqs-m5",
+        "How many solutions does sin 2θ − cos θ = 0 have for 0 ≤ θ ≤ 2π?",
+        "\\sin2\\theta-\\cos\\theta=0,\\quad 0\\le\\theta\\le2\\pi",
+        "4",
+        "2 sin θ cos θ − cos θ = 0 → cos θ(2 sin θ − 1) = 0 → θ = π/2, 3π/2, π/6, 5π/6.",
+      ),
+      countAnswer(
+        "y11ext-ft-eqs-m6",
+        "How many solutions does cos 2θ + sin θ = 0 have for 0° ≤ θ ≤ 360°?",
+        "\\cos2\\theta+\\sin\\theta=0,\\quad 0^\\circ\\le\\theta\\le360^\\circ",
+        "3",
+        "1 − 2sin²θ + sin θ = 0 → (2sin θ + 1)(sin θ − 1) = 0 → θ = 90°, 210°, 330°.",
+      ),
+      countAnswer(
+        "y11ext-ft-eqs-m7",
+        "How many solutions does cos 2θ + 3 cos θ + 2 = 0 have for 0° ≤ θ ≤ 360°?",
+        "\\cos2\\theta+3\\cos\\theta+2=0,\\quad 0^\\circ\\le\\theta\\le360^\\circ",
+        "3",
+        "2cos²θ + 3cos θ + 1 = 0 → (2cos θ + 1)(cos θ + 1) = 0 → cos θ = −1/2 (120°, 240°) or cos θ = −1 (180°).",
+      ),
+      countAnswer(
+        "y11ext-ft-eqs-m8",
+        "How many solutions does sin 2θ + 2 sin θ = 0 have for 0° ≤ θ ≤ 360°?",
+        "\\sin2\\theta+2\\sin\\theta=0,\\quad 0^\\circ\\le\\theta\\le360^\\circ",
+        "3",
+        "2 sin θ cos θ + 2 sin θ = 0 → 2 sin θ(cos θ + 1) = 0 → sin θ = 0 (0°, 180°, 360°) or cos θ = −1 (180°) — distinct solutions: 0°, 180°, 360°.",
+      ),
+      countAnswer(
+        "y11ext-ft-eqs-m9",
+        "How many solutions does cos 2θ = cos θ have for 0 ≤ θ ≤ 2π?",
+        "\\cos2\\theta=\\cos\\theta,\\quad 0\\le\\theta\\le2\\pi",
+        "4",
+        "2cos²θ − 1 = cos θ → (2cos θ + 1)(cos θ − 1) = 0 → θ = 0, 2π/3, 4π/3, 2π.",
+      ),
+      countAnswer(
+        "y11ext-ft-eqs-m10",
+        "How many solutions does cos 2θ − sin θ = 1 have for 0° ≤ θ ≤ 360°?",
+        "\\cos2\\theta-\\sin\\theta=1,\\quad 0^\\circ\\le\\theta\\le360^\\circ",
+        "5",
+        "1 − 2sin²θ − sin θ − 1 = 0 → sin θ(2sin θ + 1) = 0 → sin θ = 0 (0°, 180°, 360°) or sin θ = −1/2 (210°, 330°).",
+      ),
+    ],
+  };
+}
+
 export function year11ExtensionFurtherTrigonometryLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -519,6 +762,10 @@ export function year11ExtensionFurtherTrigonometryLessonOverride(
 
   if (lesson.slug === "product-to-sum-identities") {
     return productSumLesson(lesson);
+  }
+
+  if (lesson.slug === "trig-equation-solving") {
+    return trigEquationSolvingLesson(lesson);
   }
 
   return null;
