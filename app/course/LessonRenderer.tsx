@@ -22,6 +22,7 @@ import { looksSymbolic } from "../../lib/cas/looksSymbolic";
 import { MathAnswerInput } from "../components/MathAnswerInput";
 import { HintLadder } from "./components/HintLadder";
 import { TutorPanel } from "./components/TutorPanel";
+import { getChallengeQuestions } from "../../lib/challenges";
 import {
   getUserCourseProgress,
   upsertLessonProgress,
@@ -1733,6 +1734,8 @@ export function LessonRenderer({
       casCorrectIds[question.id]
   ).length;
 
+  const challengeQuestions = getChallengeQuestions(lessonSlug);
+
   function saveMasteryState(nextState: MasteryState) {
     const storedState = {
       ...nextState,
@@ -2277,6 +2280,35 @@ export function LessonRenderer({
             nextLabel={nextLabel}
             backHref={backHref}
           />
+        )}
+
+        {masteryState.passed && challengeQuestions.length > 0 && (
+          <section className="space-y-4">
+            <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-5">
+              <p className="text-xs font-semibold uppercase tracking-wide text-indigo-600">
+                Challenge unlocked
+              </p>
+              <h2 className="mt-1 text-xl font-bold text-slate-900">
+                Level 6 challenge
+              </h2>
+              <p className="mt-1 text-sm text-slate-700">
+                Optional, harder problems that combine skills — the kind that
+                stretch you toward a Band 6. These don&rsquo;t affect your lesson
+                result.
+              </p>
+            </div>
+            {challengeQuestions.map((q, i) => (
+              <PracticeCard
+                key={q.id}
+                question={q}
+                index={i}
+                courseSlug={courseSlug}
+                unitSlug={unitSlug}
+                lessonSlug={lessonSlug}
+                section="independent-practice"
+              />
+            ))}
+          </section>
         )}
       </section>
     );
