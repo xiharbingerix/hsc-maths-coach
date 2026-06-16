@@ -108,6 +108,37 @@ fraction of a cent per click at Haiku pricing; see the cost notes when planning
 rollout. Kill switch: set `TUTOR_ENABLED` to anything other than `true` and
 redeploy.
 
+### Weekly Progress Digest — optional
+
+Sends students a weekly summary email (streak, lessons passed, exam results,
+focus topic). **Off by default and safe**: real sends require `DIGEST_ENABLED=true`,
+and the cron is auth-gated by `CRON_SECRET` (reused). Without the flag the cron
+returns `{skipped}` and sends nothing.
+
+| Variable | Purpose |
+| --- | --- |
+| `DIGEST_ENABLED` | Set to `true` to allow real sends. Any other value = preview-only / off. |
+| `RESEND_API_KEY` | Reused — the digest sends via Resend. |
+| `CRON_SECRET` | Reused — authorises the cron route. |
+
+The cron `/api/cron/send-weekly-digest` runs daily (`vercel.json`) but only sends
+on **Sunday (UTC)**; it caps at 200 sends/run and skips students with no activity
+that week.
+
+**Preview before enabling (no emails sent):**
+
+```
+curl -H "Authorization: Bearer $CRON_SECRET" \
+  "https://www.novamaths.com.au/api/cron/send-weekly-digest?dryRun=1"
+```
+
+Returns the candidate count, how many would be sent, and a few rendered samples.
+`?force=1` (with `DIGEST_ENABLED=true`) sends immediately regardless of weekday.
+
+**Migration:** apply `lib/supabase-migrations/021_exam_attempts.sql` (also powers
+the exam results shown in the digest and on the exam list). Until applied, exam
+attempts simply aren't recorded — nothing breaks.
+
 ### Optional Analytics And Marketing
 
 | Variable | Purpose |

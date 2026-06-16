@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { listExamPapers } from "../../lib/exams";
+import { RecentResults } from "./RecentResults";
 
 export const metadata: Metadata = {
   title: "Practice Exams | Nova Maths",
@@ -24,6 +25,8 @@ export default function ExamListPage() {
             short list of the topics to revise first.
           </p>
         </header>
+
+        <RecentResults />
 
         {papers.length === 0 ? (
           <p className="text-slate-600">No practice exams are available yet.</p>
