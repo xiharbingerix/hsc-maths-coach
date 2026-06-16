@@ -232,44 +232,48 @@ async function casCheckClient(
 
 /**
  * Ask the CAS service which locally-rejected quiz answers are actually
- * equivalent forms. Returns a map of questionId -> true for upgrades. Only
- * single typed answers are checked (MCQ, multi-part and multi-step questions
- * keep their existing local marking). Any failure leaves the answer as-is.
+ * equivalent forms. Returns a map of questionId -> true for upgrades.
+ *
+ * Covers single typed answers and multi-part questions (the latter pass only if
+ * EVERY part is correct via local marking or CAS). MCQ is skipped; multi-step is
+ * already CAS-checked per step during interaction, so by submit its value is
+ * either already correct or genuinely skipped. Any failure leaves the answer
+ * as locally marked.
  */
 async function resolveQuizCasOverrides(
   questions: PracticeQuestion[],
   answers: Record<string, string>
 ): Promise<Record<string, boolean>> {
   const overrides: Record<string, boolean> = {};
-  const candidates = questions.filter((question) => {
-    const value = (answers[question.id] ?? "").trim();
-    if (!value) return false;
-    if (question.choices) return false;
-    if (hasQuestionParts(question) || (question.steps?.length ?? 0) > 0) {
-      return false;
-    }
-    if (isCorrectAnswer(question, value)) return false;
-    return looksSymbolic(value, question.answer);
-  });
 
   await Promise.all(
-    candidates.map(async (question) => {
-      try {
-        const res = await fetch("/api/cas/equiv", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            student: answers[question.id],
-            correctAnswer: question.answer,
-            acceptedAnswers: question.acceptedAnswers ?? [],
-          }),
-        });
-        if (res.ok) {
-          const verdict = await res.json();
-          if (verdict.equivalent) overrides[question.id] = true;
-        }
-      } catch {
-        // Leave as locally-marked incorrect on any failure.
+    questions.map(async (question) => {
+      const value = (answers[question.id] ?? "").trim();
+      if (!value) return;
+      if (isCorrectAnswer(question, value)) return; // already correct locally
+
+      // Multi-part: correct only if every part passes (local or CAS).
+      if (hasQuestionParts(question)) {
+        const parts = questionParts(question);
+        const partAnswers = parsePartAnswers(value);
+        const checks = await Promise.all(
+          parts.map(async (part) => {
+            const pa = (partAnswers[part.key] ?? "").trim();
+            if (!pa) return false;
+            if (isCorrectPart(part, pa)) return true;
+            return casCheckClient(pa, part.answer, partAcceptedAnswers(part));
+          })
+        );
+        if (checks.every(Boolean)) overrides[question.id] = true;
+        return;
+      }
+
+      // MCQ and multi-step are not single-typed-answer upgradeable here.
+      if (question.choices || (question.steps?.length ?? 0) > 0) return;
+
+      // Single typed answer.
+      if (await casCheckClient(value, question.answer, question.acceptedAnswers ?? [])) {
+        overrides[question.id] = true;
       }
     })
   );
@@ -320,6 +324,7 @@ function MultiPartPracticeCard({
   const parts = questionParts(question);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [results, setResults] = useState<Record<string, "correct" | "incorrect">>({});
+  const [checkingParts, setCheckingParts] = useState<Record<string, boolean>>({});
   const allAnsweredCorrectly =
     parts.length > 0 && parts.every((part) => results[part.key] === "correct");
   const checkedParts = parts.filter((part) => results[part.key]);
@@ -338,12 +343,28 @@ function MultiPartPracticeCard({
     });
   }
 
-  function checkPart(part: PracticeQuestionPart) {
+  async function checkPart(part: PracticeQuestionPart) {
     const answer = answers[part.key] ?? "";
     if (!answer.trim()) return;
+    if (isCorrectPart(part, answer)) {
+      setResults((current) => ({ ...current, [part.key]: "correct" }));
+      return;
+    }
+    // Tier 1: accept an equivalent form for this part before marking it wrong.
+    setCheckingParts((current) => ({ ...current, [part.key]: true }));
+    const casOk = await casCheckClient(
+      answer,
+      part.answer,
+      partAcceptedAnswers(part)
+    );
+    setCheckingParts((current) => {
+      const next = { ...current };
+      delete next[part.key];
+      return next;
+    });
     setResults((current) => ({
       ...current,
-      [part.key]: isCorrectPart(part, answer) ? "correct" : "incorrect",
+      [part.key]: casOk ? "correct" : "incorrect",
     }));
   }
 
@@ -390,10 +411,10 @@ function MultiPartPracticeCard({
               <button
                 type="button"
                 onClick={() => checkPart(part)}
-                disabled={!answers[part.key]?.trim()}
+                disabled={!answers[part.key]?.trim() || checkingParts[part.key]}
                 className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-40"
               >
-                Check {part.label}
+                {checkingParts[part.key] ? "Checking…" : `Check ${part.label}`}
               </button>
               {result && (
                 <div
