@@ -2650,6 +2650,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Graph, solve, and interpret equations and inequalities involving absolute value functions.",
           },
+          {
+            slug: "reciprocal-and-squared-function-graphs",
+            title: "Reciprocal and Squared Function Graphs",
+            description:
+              "Given a graph of y = f(x), sketch y = 1/f(x) using asymptotes and invariant points, and y = [f(x)]² using sign and magnitude rules.",
+          },
         ],
       },
       {
@@ -2730,6 +2736,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Use product-to-sum, sum-to-product, and identity reasoning in further trigonometry.",
           },
+          {
+            slug: "trig-equation-solving",
+            title: "Solving Trig Equations with Double and Compound Angles",
+            description:
+              "Solve equations such as sin 2θ = sin θ and cos 2θ + cos θ = 0 using double angle and compound angle substitutions.",
+          },
         ],
       },
       {
@@ -2809,6 +2821,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "The Binomial Theorem Exam Practice",
             description:
               "Practise mixed Extension binomial theorem questions involving coefficients, terms, signs, and identities.",
+          },
+          {
+            slug: "greatest-term-binomial",
+            title: "Greatest Term in a Binomial Expansion",
+            description:
+              "Find the greatest term or greatest coefficient in a binomial expansion using the adjacent-term ratio method.",
           },
         ],
       },

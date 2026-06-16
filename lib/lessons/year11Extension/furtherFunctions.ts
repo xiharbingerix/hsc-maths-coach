@@ -489,6 +489,283 @@ function absoluteLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
   };
 }
 
+const reciprocalSquaredExamples: WorkedExample[] = [
+  {
+    title: "How to sketch y = 1/f(x) from y = f(x)",
+    questionLatex: "\\text{Given a graph of }y=f(x)\\text{, sketch }y=\\tfrac{1}{f(x)}.",
+    steps: [
+      {
+        explanation: "Step 1: Mark vertical asymptotes. Wherever f(x) = 0, draw a vertical asymptote on the sketch of 1/f(x).",
+        latex: "f(x)=0\\Rightarrow \\text{vertical asymptote in }\\tfrac{1}{f(x)}",
+      },
+      {
+        explanation: "Step 2: Mark invariant points. Where f(x) = 1 or f(x) = −1, the reciprocal equals the original, so plot those points as fixed.",
+        latex: "f(x)=1\\Rightarrow\\tfrac{1}{f(x)}=1,\\qquad f(x)=-1\\Rightarrow\\tfrac{1}{f(x)}=-1",
+      },
+      {
+        explanation: "Step 3: Determine sign. 1/f(x) is positive where f is positive and negative where f is negative.",
+        latex: "\\operatorname{sign}\\!\\left(\\tfrac{1}{f(x)}\\right)=\\operatorname{sign}(f(x))",
+      },
+      {
+        explanation: "Step 4: Apply the magnitude rule. Large |f(x)| produces small |1/f(x)| and vice versa. Where f→±∞, 1/f→0.",
+        latex: "|f(x)|\\to\\infty\\Rightarrow\\tfrac{1}{f(x)}\\to 0",
+      },
+      {
+        explanation: "Step 5: Identify local extrema. A local maximum of f at y = k > 0 becomes a local minimum of 1/f at y = 1/k.",
+        latex: "f\\text{ has local max }k>0\\Rightarrow\\tfrac{1}{f}\\text{ has local min }\\tfrac{1}{k}",
+      },
+    ],
+    finalAnswerLatex: "\\tfrac{1}{f(x)}\\text{ is sketched using asymptotes, invariant points, sign, and magnitude.}",
+  },
+  {
+    title: "How to sketch y = [f(x)]² from y = f(x)",
+    questionLatex: "\\text{Given a graph of }y=f(x)\\text{, sketch }y=[f(x)]^2.",
+    steps: [
+      {
+        explanation: "Step 1: The graph of [f(x)]² is always on or above the x-axis because squares are non-negative.",
+        latex: "[f(x)]^2\\ge 0\\text{ for all }x",
+      },
+      {
+        explanation: "Step 2: Mark zeros. Wherever f(x) = 0, [f(x)]² = 0 as well. The curve touches the x-axis there and bounces back up.",
+        latex: "f(x)=0\\Rightarrow [f(x)]^2=0\\text{ (touching zero)}",
+      },
+      {
+        explanation: "Step 3: Apply the magnitude rule. Where |f(x)| > 1 the square is larger; where 0 < |f(x)| < 1 the square is smaller.",
+        latex: "|f(x)|>1\\Rightarrow [f(x)]^2>|f(x)|,\\qquad |f(x)|<1\\Rightarrow [f(x)]^2<|f(x)|",
+      },
+      {
+        explanation: "Step 4: Negative parts of f become positive. Reflect any portion of f that lies below the x-axis upward, then square its magnitude.",
+        latex: "f(x)<0\\Rightarrow [f(x)]^2=[{|f(x)|}]^2>0",
+      },
+    ],
+    finalAnswerLatex: "[f(x)]^2\\text{ lies above the x-axis, touching it at zeros of }f\\text{ and squaring all magnitudes.}",
+  },
+  {
+    title: "Evaluate 1/f(x) and [f(x)]² at specific points",
+    questionLatex: "f(0)=2,\\quad f(1)=0,\\quad f(2)=-1",
+    steps: [
+      {
+        explanation: "At x = 0: f(0) = 2, so 1/f(0) = 1/2 and [f(0)]² = 4.",
+        latex: "\\tfrac{1}{f(0)}=\\tfrac{1}{2},\\qquad [f(0)]^2=4",
+      },
+      {
+        explanation: "At x = 1: f(1) = 0, so 1/f(1) is undefined (vertical asymptote) and [f(1)]² = 0.",
+        latex: "\\tfrac{1}{f(1)}\\text{ undefined},\\qquad [f(1)]^2=0",
+      },
+      {
+        explanation: "At x = 2: f(2) = −1, so 1/f(2) = −1 (invariant point) and [f(2)]² = 1.",
+        latex: "\\tfrac{1}{f(2)}=-1,\\qquad [f(2)]^2=1",
+      },
+    ],
+    finalAnswerLatex: "x=0:\\;\\tfrac{1}{2},\\;4\\qquad x=1:\\;\\text{undef},\\;0\\qquad x=2:\\;-1,\\;1",
+  },
+];
+
+function reciprocalSquaredLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
+  return {
+    ...lessonBase(
+      lesson,
+      "Sketch y = 1/f(x) and y = [f(x)]² from a given graph of y = f(x) using key graphical rules.",
+      "Reciprocal and squared function graphs"
+    ),
+    learningIntention:
+      "Use graphical reasoning to sketch y = 1/f(x) and y = [f(x)]² from a known graph of y = f(x).",
+    successCriteria: [
+      "Identify vertical asymptotes of y = 1/f(x) at the zeros of f.",
+      "Locate invariant points where f(x) = 1 or f(x) = −1.",
+      "Apply magnitude and sign rules to sketch y = 1/f(x).",
+      "Recognise that y = [f(x)]² is always non-negative and touches zero where f does.",
+      "Describe the squaring effect on large and small values of |f(x)|.",
+    ],
+    teaching: {
+      paragraphs: [
+        "When a graph of y = f(x) is given, two derived graphs are frequently examined in NSW Extension 1: y = 1/f(x) and y = [f(x)]². Neither requires an explicit formula — both are constructed purely from graphical features of the original.",
+        "For y = 1/f(x), the most important rule is that every zero of f produces a vertical asymptote, because division by zero is undefined. Conversely, where f grows without bound, 1/f approaches zero, creating a horizontal approach to y = 0. The sign of 1/f(x) always matches the sign of f(x). Two special points — called invariant points — occur where f(x) = 1 or f(x) = −1, because 1/1 = 1 and 1/(−1) = −1, so the reciprocal graph passes through those exact points on the original curve.",
+        "A common misconception is that y = 1/f(x) is simply a reflection of y = f(x). This is incorrect: the transformation is a reciprocal, not a flip. Students who make this error will place the graph on the wrong side of the x-axis or miss the asymptotes entirely. Always return to the definition: the y-value of the reciprocal graph at each x equals one divided by the y-value of the original.",
+        "For y = [f(x)]², the key insight is that squaring can never produce a negative output, so the entire graph lies on or above the x-axis. Zeros of f remain zeros of [f(x)]², but the curve merely touches the axis there rather than crossing it, producing a local minimum of zero with zero gradient — a 'bounce'. Where |f(x)| > 1 the squared graph is stretched away from the axis, and where 0 < |f(x)| < 1 it is compressed toward the axis. Negative portions of f are folded upward before squaring, so a local minimum of f at y = −k becomes a local maximum of [f(x)]² at y = k².",
+        "Practising both transformations on the same sketch is an effective study strategy: draw f, then reason about asymptotes and invariant points for 1/f on one side, and about zeros, bounces, and squaring effects for [f]² on the other side.",
+      ],
+      latexBlocks: [
+        "f(x)=0\\Rightarrow\\text{vertical asymptote in }\\tfrac{1}{f(x)}",
+        "f(x)=\\pm1\\Rightarrow\\text{invariant point: }\\tfrac{1}{f(x)}=\\pm1",
+        "[f(x)]^2\\ge0\\text{ for all }x",
+        "f(x)=0\\Rightarrow[f(x)]^2=0\\text{ (touches x-axis)}",
+        "f\\text{ local min at }y=k<0\\Rightarrow[f]^2\\text{ local max at }y=k^2",
+      ],
+    },
+    workedExamples: reciprocalSquaredExamples,
+    guidedPractice: [
+      choice(
+        "y11ext-ff-rsg-g1",
+        "The graph of y = f(x) has a zero at x = 3. On the graph of y = 1/f(x), what occurs at x = 3?",
+        "B",
+        ["A zero", "A vertical asymptote", "An invariant point", "A local maximum"],
+        "Because f(3) = 0, division by f(3) is undefined, so x = 3 is a vertical asymptote of y = 1/f(x).",
+        "\\text{What happens at a zero of }f\\text{ on }y=\\tfrac{1}{f(x)}?"
+      ),
+      choice(
+        "y11ext-ff-rsg-g2",
+        "The graph of y = f(x) passes through (2, 1). Which statement about y = 1/f(x) is correct at x = 2?",
+        "B",
+        ["It has a zero", "It has the value 1", "It has a vertical asymptote", "It has the value 0"],
+        "Since f(2) = 1, we get 1/f(2) = 1/1 = 1. This is an invariant point where the reciprocal curve passes through the original.",
+        "\\text{What is }\\tfrac{1}{f(2)}\\text{ when }f(2)=1?"
+      ),
+      countAnswer(
+        "y11ext-ff-rsg-g3",
+        "f(x) has zeros at x = 1 and x = 4. How many vertical asymptotes does y = 1/f(x) have from these zeros?",
+        "f(x)=0\\text{ at }x=1\\text{ and }x=4",
+        "2",
+        "Each zero of f produces one vertical asymptote in 1/f(x). Two zeros give two vertical asymptotes."
+      ),
+      choice(
+        "y11ext-ff-rsg-g4",
+        "The graph of y = f(x) is negative on the interval (a, b). On this interval, y = [f(x)]² is:",
+        "C",
+        ["Negative", "Zero", "Positive", "Undefined"],
+        "Squaring any non-zero real number gives a positive result, so [f(x)]² > 0 wherever f(x) ≠ 0.",
+        "\\text{What is the sign of }[f(x)]^2\\text{ when }f(x)<0?"
+      ),
+    ],
+    independentPractice: [
+      countAnswer(
+        "y11ext-ff-rsg-i1",
+        "f(x) has exactly three zeros and no vertical asymptotes. How many vertical asymptotes does y = 1/f(x) have?",
+        "f\\text{ has exactly 3 zeros}",
+        "3",
+        "Each zero of f becomes a vertical asymptote of 1/f(x). Three zeros produce three asymptotes."
+      ),
+      choice(
+        "y11ext-ff-rsg-i2",
+        "Where f(x) = 2, what is the value of 1/f(x)?",
+        "B",
+        ["−2", "0.5", "2", "4"],
+        "1/f(x) = 1/2 = 0.5 when f(x) = 2.",
+        "\\tfrac{1}{f(x)}\\text{ when }f(x)=2"
+      ),
+      countAnswer(
+        "y11ext-ff-rsg-i3",
+        "The graph of y = f(x) has a local maximum value of 4. What is the local minimum value of y = 1/f(x) near that point? Give a decimal.",
+        "f\\text{ has local max }4",
+        "0.25",
+        "A local maximum of f at y = 4 > 0 produces a local minimum of 1/f at y = 1/4 = 0.25.",
+        ["1/4"]
+      ),
+      choice(
+        "y11ext-ff-rsg-i4",
+        "Where does y = [f(x)]² equal zero?",
+        "B",
+        ["Where f(x) < 0", "Only where f(x) = 0", "Where f(x) = ±1", "Where f(x) → ∞"],
+        "[f(x)]² = 0 only when f(x) = 0 because a square equals zero only when its base equals zero.",
+        "[f(x)]^2=0\\text{ when?}"
+      ),
+      countAnswer(
+        "y11ext-ff-rsg-i5",
+        "y = f(x) has the value 0.5 at a certain point. What is [f(x)]² at that point?",
+        "f(x)=0.5",
+        "0.25",
+        "[0.5]² = 0.25. Because |f(x)| < 1, the square is smaller than the original value."
+      ),
+    ],
+    commonMistakes: [
+      {
+        mistake: "Treating y = 1/f(x) as a reflection of y = f(x).",
+        fix: "The reciprocal transformation is not a flip. Calculate 1/(y-value) at each x — this changes magnitude and may shift the curve to the other side of y = 0 only where f is negative.",
+      },
+      {
+        mistake: "Forgetting invariant points at f(x) = 1 and f(x) = −1.",
+        fix: "Mark these on the original graph first. The reciprocal curve must pass through those exact points, providing reliable anchor values for the sketch.",
+      },
+      {
+        mistake: "Assuming [f(x)]² can be negative or can cross the x-axis.",
+        fix: "Squares are always non-negative. The graph of [f(x)]² only touches zero where f has a zero and lies strictly above the x-axis everywhere else.",
+      },
+    ],
+    masteryQuiz: [
+      choice(
+        "y11ext-ff-rsg-m1",
+        "f(x) has a local minimum at y = −3. On the graph of y = [f(x)]², this point becomes:",
+        "C",
+        ["A local minimum at y = −9", "A local minimum at y = 3", "A local maximum at y = 9", "A zero"],
+        "Squaring −3 gives 9. Because the negative portion of f is folded upward, that local minimum of f at y = −3 becomes a local maximum of [f(x)]² at y = 9.",
+        "f\\text{ local min at }y=-3\\Rightarrow [f]^2\\text{ at that point}?"
+      ),
+      choice(
+        "y11ext-ff-rsg-m2",
+        "On an interval where 0 < f(x) < 1, which comparison is correct?",
+        "C",
+        ["[f(x)]² > f(x)", "[f(x)]² = f(x)", "[f(x)]² < f(x)", "1/f(x) < 1"],
+        "When 0 < f(x) < 1, squaring makes the value smaller: for example, (0.5)² = 0.25 < 0.5.",
+        "0<f(x)<1\\Rightarrow [f(x)]^2\\text{ vs }f(x)?"
+      ),
+      countAnswer(
+        "y11ext-ff-rsg-m3",
+        "f(x) has 2 zeros and 1 vertical asymptote. How many vertical asymptotes does y = 1/f(x) have from the zeros of f?",
+        "f\\text{ has 2 zeros}",
+        "2",
+        "Each zero of f contributes one vertical asymptote to 1/f. The existing vertical asymptote of f is a separate feature."
+      ),
+      choice(
+        "y11ext-ff-rsg-m4",
+        "A graph of y = 1/f(x) has a vertical asymptote at x = a. What does this tell you about f(x)?",
+        "B",
+        ["f(a) is undefined", "f(a) = 0", "f(a) = 1", "f(a) is a local maximum"],
+        "A vertical asymptote in 1/f at x = a means f(a) = 0, because that causes division by zero.",
+        "\\text{Vertical asymptote of }\\tfrac{1}{f}\\Rightarrow f(a)=?"
+      ),
+      countAnswer(
+        "y11ext-ff-rsg-m5",
+        "f(x) passes through (0, −4). What is [f(0)]²?",
+        "f(0)=-4",
+        "16",
+        "[f(0)]² = (−4)² = 16."
+      ),
+      countAnswer(
+        "y11ext-ff-rsg-m6",
+        "f(x) passes through (3, −1). What is 1/f(3)?",
+        "f(3)=-1",
+        "-1",
+        "1/f(3) = 1/(−1) = −1. This is an invariant point at y = −1."
+      ),
+      choice(
+        "y11ext-ff-rsg-m7",
+        "Near a zero of f(x), the graph of [f(x)]² behaves like:",
+        "B",
+        ["Crosses the x-axis like f(x) does", "Touches the x-axis and bounces", "Has a vertical asymptote", "Goes to infinity"],
+        "Because [f(x)]² ≥ 0, the graph cannot cross the x-axis. At a zero of f it touches the axis with zero gradient and curves back upward.",
+        "[f(x)]^2\\text{ near a zero of }f"
+      ),
+      countAnswer(
+        "y11ext-ff-rsg-m8",
+        "If the maximum value of f(x) on an interval is 5, what is the maximum value of [f(x)]² on the same interval?",
+        "\\max f=5",
+        "25",
+        "[f(x)]² is maximised when |f(x)| is maximised. (5)² = 25."
+      ),
+      choice(
+        "y11ext-ff-rsg-m9",
+        "A student says '1/f(x) always has more features than f(x).' Which counterexample best challenges this claim?",
+        "C",
+        [
+          "f(x) = x (no zeros on a bounded interval)",
+          "f(x) = x² (zero at 0 adds one asymptote)",
+          "f(x) = sin x (infinitely many zeros add infinitely many asymptotes)",
+          "All are counterexamples",
+        ],
+        "f(x) = sin x has infinitely many zeros, so 1/f(x) has infinitely many vertical asymptotes, demonstrating the most dramatic growth in complexity. This is the clearest illustration that zeros of f can create abundant new features.",
+        "\\text{Which }f\\text{ shows the most dramatic increase in features for }\\tfrac{1}{f}?"
+      ),
+      countAnswer(
+        "y11ext-ff-rsg-m10",
+        "f(x) takes values 3 at x=1, −2 at x=2, 0 at x=3, and 1 at x=4. How many invariant points for y = 1/f(x) are among these four x-values?",
+        "f(1)=3,\\;f(2)=-2,\\;f(3)=0,\\;f(4)=1",
+        "1",
+        "Invariant points occur where f(x) = 1 or f(x) = −1. Only x = 4 satisfies this (f(4) = 1). At x = 3 the function is zero, which gives an asymptote, not an invariant point."
+      ),
+    ],
+  };
+}
+
 export function year11ExtensionFurtherFunctionsLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -516,6 +793,10 @@ export function year11ExtensionFurtherFunctionsLessonOverride(
 
   if (lesson.slug === "absolute-value-functions") {
     return absoluteLesson(lesson);
+  }
+
+  if (lesson.slug === "reciprocal-and-squared-function-graphs") {
+    return reciprocalSquaredLesson(lesson);
   }
 
   return null;

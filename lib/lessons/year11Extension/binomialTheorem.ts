@@ -556,6 +556,236 @@ function identitiesLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
   };
 }
 
+const greatestTermExamples: WorkedExample[] = [
+  {
+    title: "Greatest coefficient in (1+x)^8",
+    questionLatex: "\\text{Find the greatest coefficient in }(1+x)^8.",
+    steps: [
+      { explanation: "Write the general term.", latex: "T_{r+1}=\\binom{8}{r}x^r" },
+      { explanation: "Form the ratio of consecutive terms.", latex: "\\frac{T_{r+2}}{T_{r+1}}=\\frac{\\binom{8}{r+1}}{\\binom{8}{r}}=\\frac{8-r}{r+1}" },
+      { explanation: "Set the ratio at least 1 and solve.", latex: "\\frac{8-r}{r+1}\\geq 1\\implies 8-r\\geq r+1\\implies r\\leq 3.5" },
+      { explanation: "The ratio is at least 1 for r=0,1,2,3, meaning terms are still increasing up to T_5. At r=4 the ratio drops below 1, so T_5 is the last increase.", latex: "r=4\\text{ gives the greatest term: }T_5=\\binom{8}{4}=70" },
+    ],
+    finalAnswerLatex: "70",
+  },
+  {
+    title: "Greatest term in (2+3)^6",
+    questionLatex: "\\text{Find the greatest term in the expansion of }(2+3)^6,\\text{ i.e. }T_{r+1}=\\binom{6}{r}2^{6-r}3^r.",
+    steps: [
+      { explanation: "Form the ratio of consecutive terms.", latex: "\\frac{T_{r+2}}{T_{r+1}}=\\frac{6-r}{r+1}\\cdot\\frac{3}{2}=\\frac{3(6-r)}{2(r+1)}" },
+      { explanation: "Set the ratio at least 1 and solve.", latex: "\\frac{3(6-r)}{2(r+1)}\\geq 1\\implies 18-3r\\geq 2r+2\\implies r\\leq 3.2" },
+      { explanation: "The ratio is at least 1 for r=0,1,2,3. At r=4, ratio drops below 1. Greatest term is T_5.", latex: "T_5=\\binom{6}{4}\\cdot2^2\\cdot3^4=15\\cdot4\\cdot81=4860" },
+    ],
+    finalAnswerLatex: "4860",
+  },
+  {
+    title: "Two terms tie for greatest",
+    questionLatex: "\\text{Find the greatest coefficient in }(1+x)^9.",
+    steps: [
+      { explanation: "Form the ratio.", latex: "\\frac{T_{r+2}}{T_{r+1}}=\\frac{9-r}{r+1}" },
+      { explanation: "Set the ratio at least 1.", latex: "\\frac{9-r}{r+1}\\geq 1\\implies 9-r\\geq r+1\\implies r\\leq 4" },
+      { explanation: "At r=4 the ratio equals exactly 1, meaning T_5 = T_6. Both tie for greatest.", latex: "T_5=\\binom{9}{4}=126,\\quad T_6=\\binom{9}{5}=126" },
+      { explanation: "When the boundary is an integer, two consecutive terms are equal and both are greatest.", latex: "\\text{Greatest coefficient}=126" },
+    ],
+    finalAnswerLatex: "126",
+  },
+];
+
+function greatestTermLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
+  return {
+    ...lessonBase(
+      lesson,
+      "Use the ratio method to find the greatest term or greatest coefficient in a binomial expansion.",
+      "Greatest coefficient and greatest term"
+    ),
+    learningIntention:
+      "Apply the ratio method to locate the greatest term or greatest coefficient in a binomial expansion, including cases where two terms tie.",
+    successCriteria: [
+      "Form the ratio T_{r+2}/T_{r+1} and simplify it in terms of r.",
+      "Set the ratio at least 1 and solve for r.",
+      "Identify the value of r that gives the greatest term.",
+      "Calculate the value of the greatest term.",
+      "Recognise when two consecutive terms tie for greatest.",
+      "Distinguish between greatest term and greatest coefficient.",
+    ],
+    teaching: {
+      paragraphs: [
+        "The terms of a binomial expansion first increase and then decrease. To find the greatest term, compare adjacent terms using a ratio.",
+        "Form the ratio $T_{r+2}/T_{r+1}$ and simplify. This ratio is a fraction in $r$. When it is at least 1, the sequence is still increasing.",
+        "Set the ratio at least 1 and solve for $r$. The solution has the form $r \\leq k$ for some threshold $k$. The ratio is at least 1 for all integer $r$ up to $\\lfloor k \\rfloor$, so terms increase up to $T_{\\lfloor k \\rfloor + 2}$, which is the greatest term.",
+        "If the threshold $k$ is itself an integer, the ratio equals exactly 1 at $r = k$, meaning $T_{k+1} = T_{k+2}$. Two consecutive terms tie for greatest.",
+        "The greatest coefficient refers to the largest binomial coefficient $\\binom{n}{r}$. Use the same method with $a = b = 1$. The greatest term refers to the largest numerical value in the full expansion with specific values of $a$ and $b$.",
+      ],
+      latexBlocks: [
+        "T_{r+1}=\\binom{n}{r}a^{n-r}b^r",
+        "\\frac{T_{r+2}}{T_{r+1}}=\\frac{n-r}{r+1}\\cdot\\frac{b}{a}",
+        "\\text{Set }\\frac{T_{r+2}}{T_{r+1}}\\geq 1,\\text{ solve for }r\\leq k",
+        "\\text{Greatest term: }T_{\\lfloor k\\rfloor+2}\\quad(\\text{or two tied terms if }k\\in\\mathbb{Z})",
+      ],
+    },
+    workedExamples: greatestTermExamples,
+    guidedPractice: [
+      choice(
+        "y11ext-bt-grt-g1",
+        "The ratio T_{r+2}/T_{r+1} for a binomial expansion simplifies to r ≤ 2.5. Which term is the greatest?",
+        "C",
+        ["T₂", "T₃", "T₄", "T₅"],
+        "r ≤ 2.5 means the ratio is at least 1 for r = 0, 1, 2, so terms increase up to T₄. At r = 3 the ratio drops below 1 and T₅ < T₄. The greatest term is T₄.",
+        "\\frac{T_{r+2}}{T_{r+1}}\\geq 1\\implies r\\leq 2.5"
+      ),
+      choice(
+        "y11ext-bt-grt-g2",
+        "Write the simplified ratio T_{r+2}/T_{r+1} for the expansion of (1+x)^5.",
+        "B",
+        ["\\dfrac{r+1}{5-r}", "\\dfrac{5-r}{r+1}", "\\dfrac{5-r}{r}", "\\dfrac{6-r}{r+1}"],
+        "T_{r+2}/T_{r+1} = C(5,r+1)/C(5,r) = (5-r)/(r+1).",
+        "(1+x)^5"
+      ),
+      intAnswer(
+        "y11ext-bt-grt-g3",
+        "Find the value of r that gives the greatest term in (1+x)^8.",
+        "(1+x)^8",
+        "4",
+        "Ratio: (8-r)/(r+1) ≥ 1 → r ≤ 3.5. Terms increase up to T₅, which is T_{r+1} at r = 4. The value of r is 4."
+      ),
+      intAnswer(
+        "y11ext-bt-grt-g4",
+        "Find the value of the greatest term in (1+2x)^6, treating each term as C(6,r)·2^r (evaluated at x=1).",
+        "T_{r+1}=\\binom{6}{r}2^r",
+        "240",
+        "Ratio: 2(6-r)/(r+1) ≥ 1 → 12 − 2r ≥ r + 1 → r ≤ 11/3 ≈ 3.67. Greatest term at r = 4: C(6,4)·2⁴ = 15·16 = 240."
+      ),
+    ],
+    independentPractice: [
+      intAnswer(
+        "y11ext-bt-grt-i1",
+        "Find the greatest coefficient in (1+x)^7.",
+        "(1+x)^7",
+        "35",
+        "Ratio: (7-r)/(r+1) ≥ 1 → r ≤ 3. At r = 3 the ratio equals exactly 1, so C(7,3) = C(7,4) = 35 and two terms tie. The greatest coefficient is 35."
+      ),
+      intAnswer(
+        "y11ext-bt-grt-i2",
+        "Find the greatest coefficient in (1+x)^9.",
+        "(1+x)^9",
+        "126",
+        "Ratio: (9-r)/(r+1) ≥ 1 → r ≤ 4. At r = 4 the ratio equals exactly 1, so C(9,4) = C(9,5) = 126 and two terms tie. The greatest coefficient is 126."
+      ),
+      choice(
+        "y11ext-bt-grt-i3",
+        "Which value of n gives exactly one greatest coefficient in (1+x)^n?",
+        "B",
+        ["n=7", "n=8", "n=9", "n=11"],
+        "When n is even the middle term at r = n/2 is the unique greatest. For n = 8 (even), the unique greatest is C(8,4) = 70. Odd n always produces two tied greatest coefficients.",
+        "\\text{Select A, B, C, or D.}"
+      ),
+      intAnswer(
+        "y11ext-bt-grt-i4",
+        "Find the value of the greatest term in (2+3x)^5 at x=1, where T_{r+1} = C(5,r)·2^{5-r}·3^r.",
+        "T_{r+1}=\\binom{5}{r}\\cdot2^{5-r}\\cdot3^r",
+        "1080",
+        "Ratio: 3(5-r)/(2(r+1)) ≥ 1 → 15 − 3r ≥ 2r + 2 → r ≤ 2.6. Greatest term at r = 3: C(5,3)·2²·3³ = 10·4·27 = 1080."
+      ),
+      intAnswer(
+        "y11ext-bt-grt-i5",
+        "Find the value of the greatest term in the expansion (1+2)^5, where T_{r+1} = C(5,r)·2^r.",
+        "T_{r+1}=\\binom{5}{r}\\cdot2^r",
+        "80",
+        "Ratio: 2(5-r)/(r+1) ≥ 1 → 10 − 2r ≥ r + 1 → r ≤ 3. At r = 3 the ratio equals exactly 1, so T₄ = C(5,3)·8 = 80 and T₅ = C(5,4)·16 = 80 tie. Greatest term value is 80."
+      ),
+    ],
+    commonMistakes: [
+      {
+        mistake: "Using the last r satisfying the inequality as the r-value for the greatest term in T_{r+1}.",
+        fix: "If the inequality gives r ≤ k with floor(k) = m, the ratio at r = m is still ≥ 1, meaning T_{m+2} > T_{m+1}. The greatest term is T_{m+2}, corresponding to r = m+1 in T_{r+1}.",
+      },
+      {
+        mistake: "Forgetting to include the values of a and b when finding the greatest term value.",
+        fix: "The ratio must include the factor b/a. For the greatest coefficient, set a = b = 1; otherwise use the actual values.",
+      },
+      {
+        mistake: "Assuming only one term can be greatest.",
+        fix: "When the threshold k is a whole number, the ratio at r = k equals exactly 1 and two consecutive terms tie for greatest.",
+      },
+    ],
+    masteryQuiz: [
+      choice(
+        "y11ext-bt-grt-m1",
+        "T_{r+2}/T_{r+1} ≥ 1 simplifies to r ≤ 2 for a binomial expansion. Which term is the greatest?",
+        "C",
+        ["T₂", "T₃", "T₄", "T₅"],
+        "At r = 2 the ratio equals exactly 1, so T₄ = T₃ and both tie for greatest. At r = 3 the ratio drops below 1, so T₅ < T₄. T₄ is among the greatest terms (tied with T₃).",
+        "\\frac{T_{r+2}}{T_{r+1}}\\geq 1\\implies r\\leq 2"
+      ),
+      choice(
+        "y11ext-bt-grt-m2",
+        "In (1+x)^9, the greatest coefficient appears in which two terms?",
+        "B",
+        ["T₄ and T₅", "T₅ and T₆", "T₆ and T₇", "T₄ and T₆"],
+        "Ratio: (9-r)/(r+1) ≥ 1 → r ≤ 4. At r = 4 ratio = 1, so T₅ = T₆ = C(9,4) = C(9,5) = 126. The greatest coefficient appears in T₅ and T₆.",
+        "(1+x)^9"
+      ),
+      intAnswer(
+        "y11ext-bt-grt-m3",
+        "Find the greatest coefficient in (1+x)^{11}.",
+        "(1+x)^{11}",
+        "462",
+        "Ratio: (11-r)/(r+1) ≥ 1 → r ≤ 5. At r = 5 ratio = 1, so C(11,5) = C(11,6) = 462. Two terms tie; greatest coefficient is 462."
+      ),
+      intAnswer(
+        "y11ext-bt-grt-m4",
+        "Find the value of the greatest term in (3+2)^4, where T_{r+1} = C(4,r)·3^{4-r}·2^r.",
+        "T_{r+1}=\\binom{4}{r}\\cdot3^{4-r}\\cdot2^r",
+        "216",
+        "Ratio: 2(4-r)/(3(r+1)) ≥ 1 → 8 − 2r ≥ 3r + 3 → r ≤ 1. At r = 1 ratio = 2·3/(3·2) = 1, so T₂ = C(4,1)·3³·2 = 216 and T₃ = C(4,2)·3²·4 = 216 tie. Greatest term is 216."
+      ),
+      intAnswer(
+        "y11ext-bt-grt-m5",
+        "Find the greatest coefficient in (1+x)^{12}.",
+        "(1+x)^{12}",
+        "924",
+        "Ratio: (12-r)/(r+1) ≥ 1 → r ≤ 5.5. floor(5.5) = 5, so greatest term at r = 6: C(12,6) = 924. Unique maximum since 5.5 is not an integer."
+      ),
+      intAnswer(
+        "y11ext-bt-grt-m6",
+        "Find the value of r that gives the greatest term in (x+2)^8, where T_{r+1} = C(8,r)·2^r (at x=1).",
+        "T_{r+1}=\\binom{8}{r}\\cdot2^r",
+        "5",
+        "Ratio: 2(8-r)/(r+1) ≥ 1 → 16 − 2r ≥ r + 1 → r ≤ 5. At r = 5 ratio = 2·3/6 = 1, so T₆ = T₇. r = 5 gives the last term at which the ratio first reaches 1. Both r = 5 and r = 6 give equal greatest terms."
+      ),
+      choice(
+        "y11ext-bt-grt-m7",
+        "A student claims the greatest term always occurs at the middle value of r. Is this correct?",
+        "D",
+        ["Yes, always", "Only when a = b", "Only when n is even", "No — the values of a and b shift the position of the greatest term"],
+        "The ratio includes b/a. Unless a = b = 1, the position of the greatest term depends on the relative sizes of a and b, not just n.",
+        "\\text{Select A, B, C, or D.}"
+      ),
+      intAnswer(
+        "y11ext-bt-grt-m8",
+        "Find the value of the greatest term in (1+3)^5, where T_{r+1} = C(5,r)·3^r.",
+        "T_{r+1}=\\binom{5}{r}\\cdot3^r",
+        "405",
+        "Ratio: 3(5-r)/(r+1) ≥ 1 → 15 − 3r ≥ r + 1 → r ≤ 3.5. floor(3.5) = 3, so terms are still increasing at r = 3 (ratio = 1.5 ≥ 1). Greatest term is at r = 4: C(5,4)·3⁴ = 5·81 = 405."
+      ),
+      intAnswer(
+        "y11ext-bt-grt-m9",
+        "Find the value of the greatest term in (2+1)^{10}, where T_{r+1} = C(10,r)·2^{10-r}.",
+        "T_{r+1}=\\binom{10}{r}\\cdot2^{10-r}",
+        "15360",
+        "Ratio: (10-r)/(2(r+1)) ≥ 1 → 10 − r ≥ 2r + 2 → r ≤ 8/3 ≈ 2.67. floor(2.67) = 2, so terms are still increasing at r = 2 (ratio = 8/6 > 1). Greatest term is at r = 3: C(10,3)·2⁷ = 120·128 = 15360."
+      ),
+      intAnswer(
+        "y11ext-bt-grt-m10",
+        "Find n if the greatest coefficient in (1+x)^n is C(n,4) = 70.",
+        "\\binom{n}{4}=70",
+        "8",
+        "C(n,4) = 70 → n!/(4!(n-4)!) = 70. Try n = 8: C(8,4) = 70 ✓. For n = 8 (even), the unique greatest coefficient is C(8,4) = 70. So n = 8."
+      ),
+    ],
+  };
+}
+
 function examPracticeLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
   return {
     ...lessonBase(
@@ -664,6 +894,10 @@ export function year11ExtensionBinomialTheoremLessonOverride(
 
   if (lesson.slug === "binomial-theorem-exam-practice") {
     return examPracticeLesson(lesson);
+  }
+
+  if (lesson.slug === "greatest-term-binomial") {
+    return greatestTermLesson(lesson);
   }
 
   return null;
