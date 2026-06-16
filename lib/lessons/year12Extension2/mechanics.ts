@@ -69,11 +69,13 @@ const rectilinearMotionLesson: Partial<ExplicitLesson> = {
       "The sign of velocity indicates direction. If v > 0 the particle moves in the positive direction; if v < 0 it moves in the negative direction. Speed is the magnitude |v|, always non-negative.",
       "When acceleration is known as a function of t, integrate to find velocity: v = ∫a dt + C. Use the initial condition v(0) to find C. Then integrate again to find displacement: x = ∫v dt + C₂, using x(0).",
       "A particle is momentarily at rest when v = 0. This does not mean it stops permanently — it may still have non-zero acceleration and immediately reverse or continue.",
+      "When acceleration is expressed as a function of position rather than time, use the chain-rule identity a = v dv/dx. This rewrites Newton's second law as m·v dv/dx = F(x), which is separable. It is particularly useful in resisted motion problems where the resistance depends on velocity and you need velocity as a function of position.",
     ],
     latexBlocks: [
       "v = \\frac{dx}{dt},\\quad a = \\frac{dv}{dt} = \\frac{d^2x}{dt^2}",
       "\\text{Speed} = |v|\\quad(\\text{always }\\geq 0)",
       "\\text{If }a(t)\\text{ known: }v = \\int a\\,dt + C_1,\\quad x = \\int v\\,dt + C_2",
+      "a = v\\,\\frac{dv}{dx}",
     ],
   },
   workedExamples: [
@@ -347,6 +349,28 @@ const rectilinearMotionLesson: Partial<ExplicitLesson> = {
       ],
       "Increasing velocity means dv/dt > 0, so acceleration is positive. This applies even when v itself is negative — the particle is slowing its negative motion.",
       "Acceleration is the rate of change of velocity: a = dv/dt."
+    ),
+    mechChoice(
+      "y12e2-rect-m11",
+      "Which identity allows acceleration to be written as a function of position?",
+      "B",
+      [
+        "a = dv/dt",
+        "a = v dv/dx",
+        "a = d²x/dt²",
+        "a = dx/dt",
+      ],
+      "By the chain rule: a = dv/dt = (dv/dx)(dx/dt) = v dv/dx.",
+      "Apply the chain rule to express dv/dt in terms of dv/dx."
+    ),
+    mechTyped(
+      "y12e2-rect-m12",
+      "A particle has acceleration $a = 2x$. Using $a = v\\,dv/dx$, find $v^2$ when $x = 3$, given $v = 0$ when $x = 0$.",
+      "v\\,\\frac{dv}{dx} = 2x",
+      "18",
+      [],
+      "v dv/dx = 2x → ∫v dv = ∫2x dx → v²/2 = x² + C. At x=0, v=0 → C=0. So v² = 2x². At x=3: v² = 18.",
+      "Separate variables: v dv = 2x dx and integrate both sides."
     ),
   ],
 };

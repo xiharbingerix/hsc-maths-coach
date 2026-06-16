@@ -2309,6 +2309,298 @@ const partialFractionsQuadraticLesson: Partial<ExplicitLesson> = {
   ],
 };
 
+// ─── Lesson 9: Volumes of Revolution ─────────────────────────────────────────
+
+const volumesOfRevolutionLesson: Partial<ExplicitLesson> = {
+  description:
+    "Calculate volumes of solids of revolution by rotating regions about the x-axis or y-axis, using the disk method and washer method.",
+  learningIntention:
+    "Apply the disk and washer methods to find exact volumes of solids formed by rotating curves about coordinate axes.",
+  successCriteria: [
+    "Set up V = π∫[f(x)]² dx for rotation about the x-axis.",
+    "Apply the washer method V = π∫([f(x)]² − [g(x)]²) dx for regions between two curves.",
+    "Convert to x as a function of y and integrate with respect to y for rotation about the y-axis.",
+    "Identify correct limits of integration from intercepts or intersection points.",
+    "Avoid the common errors of forgetting to square, forgetting π, or squaring the difference instead of subtracting the squares.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Imagine slicing the solid of revolution into thin disks of thickness δx. Each disk at position x has radius f(x), so its volume is approximately δV ≈ π[f(x)]² δx. Summing infinitely many such slices and letting δx → 0 gives the definite integral for the total volume.",
+      "Disk method (rotation about the x-axis): V = π∫[a to b] [f(x)]² dx. The limits a and b are the x-values bounding the region. Note that π is a constant factor sitting outside the integral — it is not part of the integrand.",
+      "Washer method: when the region is bounded by an outer curve f(x) and an inner curve g(x), each thin slice is a disk with a hole (a washer). The volume is V = π∫[a to b] ([f(x)]² − [g(x)]²) dx. Find the limits from the intersection points of the two curves.",
+      "Rotation about the y-axis: slice horizontally instead. Express x as a function of y (rearrange y = f(x) to get x = g(y)), use y-values as limits, and integrate V = π∫[c to d] [x(y)]² dy.",
+      "Common errors: integrating f(x) instead of [f(x)]² (forgetting to square); omitting the π factor entirely; and — especially with the washer method — computing π∫(f − g)² dx (squaring the difference) instead of the correct π∫(f² − g²) dx (difference of squares).",
+    ],
+    latexBlocks: [
+      "V = \\pi\\int_a^b [f(x)]^2\\,dx",
+      "V = \\pi\\int_a^b \\left([f(x)]^2 - [g(x)]^2\\right)dx",
+      "V = \\pi\\int_c^d [x(y)]^2\\,dy",
+      "\\delta V \\approx \\pi [f(x)]^2\\,\\delta x",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Rotate y = x² about the x-axis from x = 0 to x = 2",
+      questionLatex: "V=\\pi\\int_0^2 (x^2)^2\\,dx",
+      steps: [
+        {
+          explanation: "Square the function: [f(x)]² = (x²)² = x⁴.",
+          latex: "V=\\pi\\int_0^2 x^4\\,dx",
+        },
+        {
+          explanation: "Integrate using the power rule.",
+          latex: "V=\\pi\\left[\\frac{x^5}{5}\\right]_0^2=\\pi\\cdot\\frac{32}{5}",
+        },
+      ],
+      finalAnswerLatex: "\\frac{32\\pi}{5}",
+    },
+    {
+      title: "Washer method: region between y = √x and y = x, rotated about x-axis",
+      questionLatex: "V=\\pi\\int_0^1\\left[(\\sqrt{x})^2-x^2\\right]dx",
+      steps: [
+        {
+          explanation: "Find intersections: √x = x gives x = 0 and x = 1. On (0,1), √x > x so f(x) = √x is outer, g(x) = x is inner.",
+          latex: "\\text{Limits: }x=0\\text{ to }x=1",
+        },
+        {
+          explanation: "Set up the washer integral: [f(x)]² − [g(x)]² = x − x².",
+          latex: "V=\\pi\\int_0^1(x-x^2)\\,dx",
+        },
+        {
+          explanation: "Integrate and evaluate.",
+          latex: "V=\\pi\\left[\\frac{x^2}{2}-\\frac{x^3}{3}\\right]_0^1=\\pi\\left(\\frac{1}{2}-\\frac{1}{3}\\right)=\\frac{\\pi}{6}",
+        },
+      ],
+      finalAnswerLatex: "\\frac{\\pi}{6}",
+    },
+    {
+      title: "Rotate y = x² about the y-axis from y = 0 to y = 4",
+      questionLatex: "V=\\pi\\int_0^4 x^2\\,dy,\\quad x^2=y",
+      steps: [
+        {
+          explanation: "Express x² in terms of y: from y = x², we get x² = y.",
+          latex: "V=\\pi\\int_0^4 y\\,dy",
+        },
+        {
+          explanation: "Integrate with respect to y.",
+          latex: "V=\\pi\\left[\\frac{y^2}{2}\\right]_0^4=\\pi\\cdot\\frac{16}{2}=8\\pi",
+        },
+      ],
+      finalAnswerLatex: "8\\pi",
+    },
+  ],
+  guidedPractice: [
+    calcChoice(
+      "y12e2-vor-g1",
+      "What formula gives the volume when $y = f(x)$ is rotated about the $x$-axis from $x = a$ to $x = b$?",
+      "A",
+      [
+        "$\\pi\\displaystyle\\int_a^b [f(x)]^2\\,dx$",
+        "$\\displaystyle\\int_a^b [f(x)]^2\\,dx$",
+        "$2\\pi\\displaystyle\\int_a^b f(x)\\,dx$",
+        "$\\pi\\displaystyle\\int_a^b f(x)\\,dx$",
+      ],
+      "The disk method gives V = π∫[f(x)]² dx. The π factor is essential and sits outside the integral.",
+      "Recall the disk method formula: square the function, multiply by π, integrate."
+    ),
+    calcTyped(
+      "y12e2-vor-g2",
+      "Rotate $y = 3$ about the $x$-axis from $x = 0$ to $x = 4$. Find the exact volume.",
+      "V=\\pi\\int_0^4 3^2\\,dx",
+      "36pi",
+      [],
+      "V = π∫₀⁴ 9 dx = π[9x]₀⁴ = 36π.",
+      "Square the constant function first, then integrate."
+    ),
+    calcTyped(
+      "y12e2-vor-g3",
+      "Rotate $y = x$ about the $x$-axis from $x = 0$ to $x = 3$. Find the exact volume.",
+      "V=\\pi\\int_0^3 x^2\\,dx",
+      "9pi",
+      [],
+      "V = π∫₀³ x² dx = π[x³/3]₀³ = π(27/3) = 9π.",
+      "Square f(x) = x to get x², then integrate."
+    ),
+    calcChoice(
+      "y12e2-vor-g4",
+      "When rotating a region about the $y$-axis, which variable should the integral be in?",
+      "B",
+      ["$x$", "$y$", "Either $x$ or $y$", "$t$ (parametric)"],
+      "Rotating about the y-axis requires slicing horizontally, expressing x as a function of y, and integrating with respect to y.",
+      "The axis of rotation determines the integration variable: y-axis → integrate in y."
+    ),
+  ],
+  independentPractice: [
+    calcTyped(
+      "y12e2-vor-i1",
+      "Rotate $y = \\sqrt{x}$ about the $x$-axis from $x = 1$ to $x = 4$. Find the exact volume.",
+      "V=\\pi\\int_1^4 x\\,dx",
+      "15pi/2",
+      [],
+      "V = π∫₁⁴ (√x)² dx = π∫₁⁴ x dx = π[x²/2]₁⁴ = π(8 − 1/2) = 15π/2.",
+      "Square √x to get x, then integrate from 1 to 4."
+    ),
+    calcTyped(
+      "y12e2-vor-i2",
+      "Rotate $y = 2x$ about the $x$-axis from $x = 0$ to $x = 1$. Find the exact volume.",
+      "V=\\pi\\int_0^1 (2x)^2\\,dx",
+      "4pi/3",
+      [],
+      "V = π∫₀¹ 4x² dx = 4π[x³/3]₀¹ = 4π/3.",
+      "Square 2x to get 4x², then integrate."
+    ),
+    calcChoice(
+      "y12e2-vor-i3",
+      "For the washer method, which expression gives the volume when $f(x)$ is the outer curve and $g(x)$ is the inner curve?",
+      "C",
+      [
+        "$\\pi\\displaystyle\\int(f(x)-g(x))^2\\,dx$",
+        "$\\pi\\displaystyle\\int f(x)g(x)\\,dx$",
+        "$\\pi\\displaystyle\\int\\left([f(x)]^2-[g(x)]^2\\right)dx$",
+        "$\\pi\\displaystyle\\int(f(x)-g(x))\\,dx$",
+      ],
+      "The washer volume is π∫([f(x)]² − [g(x)]²) dx — subtract the squares, not square the difference.",
+      "Each washer has area π(outer²) − π(inner²). Do not square the difference."
+    ),
+    calcTyped(
+      "y12e2-vor-i4",
+      "Rotate $y = x^2$ about the $y$-axis from $y = 0$ to $y = 1$. Find the exact volume.",
+      "V=\\pi\\int_0^1 y\\,dy,\\quad x=\\sqrt{y}",
+      "pi/2",
+      [],
+      "From y = x², x² = y. V = π∫₀¹ y dy = π[y²/2]₀¹ = π/2.",
+      "Express x² = y, then integrate with respect to y from 0 to 1."
+    ),
+    calcTyped(
+      "y12e2-vor-i5",
+      "The region between $y = x$ and $y = x^2$ for $0 \\le x \\le 1$ is rotated about the $x$-axis. Find the exact volume.",
+      "V=\\pi\\int_0^1(x^2-x^4)\\,dx",
+      "2pi/15",
+      [],
+      "Outer: y = x, inner: y = x². V = π∫₀¹(x² − x⁴) dx = π[x³/3 − x⁵/5]₀¹ = π(1/3 − 1/5) = 2π/15.",
+      "Outer radius is x (larger on [0,1]), inner is x². Subtract squares and integrate."
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Integrating f(x) instead of [f(x)]².",
+      fix: "Always square the radius function before integrating. The disk volume formula requires [f(x)]², not f(x).",
+    },
+    {
+      mistake: "Omitting the π factor.",
+      fix: "π is a constant in V = π∫[f(x)]² dx. It cannot be dropped — it comes from the area of each circular cross-section.",
+    },
+    {
+      mistake: "Using π∫(f(x) − g(x))² dx for the washer method instead of π∫([f(x)]² − [g(x)]²) dx.",
+      fix: "Subtract the squares of the radii, not square the difference. The washer area is π(R² − r²) where R is outer and r is inner.",
+    },
+  ],
+  masteryQuiz: [
+    calcChoice(
+      "y12e2-vor-m1",
+      "Why is the $\\pi$ factor placed outside the integral in $V = \\pi\\displaystyle\\int[f(x)]^2\\,dx$?",
+      "A",
+      [
+        "It is a constant factor and can be factored out of the integral",
+        "It represents the angle of rotation",
+        "It only applies when rotating about the $x$-axis",
+        "It is an approximation of 3.14...",
+      ],
+      "π is a constant and can be factored out of any integral. It arises from the area of a circle (πr²) and applies to both x-axis and y-axis rotations.",
+      "Recall why constants can be moved outside integrals."
+    ),
+    calcTyped(
+      "y12e2-vor-m2",
+      "Rotate $y = x^3$ about the $x$-axis from $x = 0$ to $x = 1$. Find the exact volume.",
+      "V=\\pi\\int_0^1 x^6\\,dx",
+      "pi/7",
+      [],
+      "V = π∫₀¹ x⁶ dx = π[x⁷/7]₀¹ = π/7.",
+      "Square x³ to get x⁶, then integrate."
+    ),
+    calcTyped(
+      "y12e2-vor-m3",
+      "Rotate $y = 1/x$ about the $x$-axis from $x = 1$ to $x = 3$. Find the exact volume.",
+      "V=\\pi\\int_1^3 \\frac{1}{x^2}\\,dx",
+      "2pi/3",
+      [],
+      "V = π∫₁³ x⁻² dx = π[−1/x]₁³ = π(−1/3 − (−1)) = π(2/3) = 2π/3.",
+      "Square 1/x to get 1/x², then use the power rule."
+    ),
+    calcChoice(
+      "y12e2-vor-m4",
+      "The region bounded by $y = x$ and $y = x^2$ is rotated about the $x$-axis. Which correctly identifies the outer and inner radii?",
+      "B",
+      [
+        "Outer: $x^2$; inner: $x$",
+        "Outer: $x$; inner: $x^2$ for $0 \\le x \\le 1$",
+        "Outer: $x^2$; inner: $0$",
+        "There is no washer — only a disk",
+      ],
+      "On 0 ≤ x ≤ 1, the line y = x lies above the parabola y = x². So y = x is the outer radius and y = x² is the inner radius.",
+      "Check which curve is further from the x-axis on the interval [0,1]."
+    ),
+    calcTyped(
+      "y12e2-vor-m5",
+      "Rotate $y = \\sqrt{4-x^2}$ about the $x$-axis from $x = 0$ to $x = 2$. Find the exact volume.",
+      "V=\\pi\\int_0^2(4-x^2)\\,dx",
+      "16pi/3",
+      [],
+      "V = π∫₀²(4−x²) dx = π[4x − x³/3]₀² = π(8 − 8/3) = π(16/3) = 16π/3.",
+      "Square √(4−x²) to get 4−x², then integrate."
+    ),
+    calcTyped(
+      "y12e2-vor-m6",
+      "Rotate $y = e^x$ about the $x$-axis from $x = 0$ to $x = 1$. Find the exact volume.",
+      "V=\\pi\\int_0^1 e^{2x}\\,dx",
+      "pi*(e^2-1)/2",
+      ["(pi/2)*(e^2-1)", "pi(e^2-1)/2"],
+      "V = π∫₀¹ e^{2x} dx = π[e^{2x}/2]₀¹ = π(e²/2 − 1/2) = π(e²−1)/2.",
+      "Square eˣ to get e^{2x}, then integrate: ∫e^{2x} dx = e^{2x}/2."
+    ),
+    calcTyped(
+      "y12e2-vor-m7",
+      "Rotate $y = \\sin x$ about the $x$-axis from $x = 0$ to $x = \\pi$. Find the exact volume.",
+      "V=\\pi\\int_0^\\pi\\sin^2 x\\,dx",
+      "pi^2/2",
+      [],
+      "V = π∫₀π sin²x dx = π∫₀π(1−cos2x)/2 dx = π[x/2 − sin2x/4]₀π = π(π/2) = π²/2.",
+      "Use sin²x = (1−cos2x)/2 to reduce the power before integrating."
+    ),
+    calcTyped(
+      "y12e2-vor-m8",
+      "Rotate $y = x$ about the $y$-axis from $y = 0$ to $y = 2$. Find the exact volume.",
+      "V=\\pi\\int_0^2 y^2\\,dy,\\quad x=y",
+      "8pi/3",
+      [],
+      "From y = x, x = y so x² = y². V = π∫₀² y² dy = π[y³/3]₀² = 8π/3.",
+      "Express x in terms of y: x = y. Then integrate [x(y)]² = y² from y=0 to y=2."
+    ),
+    calcChoice(
+      "y12e2-vor-m9",
+      "A student rotates $y = x^2$ about the $x$-axis from $x = 0$ to $x = 2$ and gets $V = \\pi\\displaystyle\\int_0^2 x^2\\,dx = \\frac{8\\pi}{3}$. What is the error?",
+      "C",
+      [
+        "The limits are wrong",
+        "The $\\pi$ factor is missing",
+        "The function should be squared: $[f(x)]^2 = x^4$ not $x^2$",
+        "There is no error",
+      ],
+      "The disk formula requires [f(x)]². Here f(x) = x², so [f(x)]² = x⁴, not x². The correct integral is π∫₀² x⁴ dx = 32π/5.",
+      "Always square f(x) before integrating — the student integrated f(x) = x² instead of [f(x)]² = x⁴."
+    ),
+    calcTyped(
+      "y12e2-vor-m10",
+      "The region between $y = \\sqrt{x}$ and $y = x/2$ (intersecting at $x = 0$ and $x = 4$) is rotated about the $x$-axis. Find the exact volume.",
+      "V=\\pi\\int_0^4\\left(x-\\frac{x^2}{4}\\right)dx",
+      "8pi/3",
+      [],
+      "Outer: √x (since √x > x/2 for 0 < x < 4). Outer² = x, inner² = x²/4. V = π∫₀⁴(x − x²/4) dx = π[x²/2 − x³/12]₀⁴ = π(8 − 64/12) = π(8 − 16/3) = 8π/3.",
+      "Check which curve is larger on (0,4), set up outer² − inner², then integrate."
+    ),
+  ],
+};
+
 // ─── Export ───────────────────────────────────────────────────────────────────
 
 export function year12Extension2CalculusLessonOverride(
@@ -2338,6 +2630,8 @@ export function year12Extension2CalculusLessonOverride(
       return { ...base, ...completingSquareIntegrationLesson };
     case "partial-fractions-quadratic":
       return { ...base, ...partialFractionsQuadraticLesson };
+    case "volumes-of-revolution":
+      return { ...base, ...volumesOfRevolutionLesson };
     default:
       return undefined;
   }

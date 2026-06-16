@@ -3588,6 +3588,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             ],
           },
           {
+            slug: "volumes-of-revolution",
+            title: "Volumes of Revolution",
+            description:
+              "Use the disk and washer methods to find volumes formed by rotating regions about the x-axis and y-axis: V = π∫[f(x)]² dx and V = π∫([f(x)]²−[g(x)]²) dx.",
+          },
+          {
             slug: "partial-fractions-quadratic",
             title: "Partial Fractions with Quadratic Factors",
             description:
