@@ -14,6 +14,7 @@ import type {
   NumberLineDiagram,
   PolynomialCurveDiagram,
   ProbabilityTreeDiagram,
+  ScatterPlotDiagram,
   SlopeFieldDiagram,
   StemAndLeafDiagram,
   TrapezoidalRuleDiagram,
@@ -35,6 +36,7 @@ import { NormalDistributionView } from "../course/components/NormalDistributionV
 import { NumberLineView } from "../course/components/NumberLineView";
 import { PolynomialCurveView } from "../course/components/PolynomialCurveView";
 import { ProbabilityTreeView } from "../course/components/ProbabilityTreeView";
+import { ScatterPlotView } from "../course/components/ScatterPlotView";
 import { SlopeFieldView } from "../course/components/SlopeFieldView";
 import { StemAndLeafView } from "../course/components/StemAndLeafView";
 import { TrapezoidalRuleView } from "../course/components/TrapezoidalRuleView";
@@ -87,6 +89,7 @@ export const DIAGRAM_COMPONENTS: Record<DiagramType, DiagramComponent> = {
   ),
   barChartDiagram: (d) => <BarChartView diagram={d as unknown as BarChartDiagram} />,
   histogramDiagram: (d) => <HistogramView diagram={d as unknown as HistogramDiagram} />,
+  scatterPlotDiagram: (d) => <ScatterPlotView diagram={d as unknown as ScatterPlotDiagram} />,
 };
 
 /**

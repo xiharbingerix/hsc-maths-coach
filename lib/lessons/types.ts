@@ -543,3 +543,26 @@ export type HistogramDiagram = {
   showFrequencyPolygon?: boolean;
   cumulative?: boolean;
 };
+
+export type ScatterPoint = { x: number; y: number; label?: string };
+
+/**
+ * A scatter plot for bivariate data. `lineOfBestFit: "auto"` computes the
+ * least-squares regression line from the points; pass `{ m, b }` to draw an
+ * explicit line. Bounds default to the data range (with margin) when omitted.
+ */
+export type ScatterPlotDiagram = {
+  description: string;
+  points: ScatterPoint[];
+  xMin?: number;
+  xMax?: number;
+  yMin?: number;
+  yMax?: number;
+  xStep?: number;
+  yStep?: number;
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+  lineOfBestFit?: "auto" | { m: number; b: number };
+  /** Optional annotation, e.g. "r = 0.85". */
+  correlationLabel?: string;
+};

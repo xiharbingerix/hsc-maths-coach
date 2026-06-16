@@ -10,6 +10,7 @@ import type {
   NumberLineDiagram,
   PolynomialCurveDiagram,
   ProbabilityTreeDiagram,
+  ScatterPlotDiagram,
   SlopeFieldDiagram,
   StemAndLeafDiagram,
   TrapezoidalRuleDiagram,
@@ -58,6 +59,7 @@ export const DIAGRAM_SPECS = [
   { type: "stemAndLeafDiagram", field: "stemAndLeafDiagram" },
   { type: "barChartDiagram", field: "barChartDiagram" },
   { type: "histogramDiagram", field: "histogramDiagram" },
+  { type: "scatterPlotDiagram", field: "scatterPlotDiagram" },
 ] as const;
 
 /** Serialized `diagram_data.type` discriminator for a registered payload. */
@@ -92,6 +94,7 @@ export type DiagramFields = {
   stemAndLeafDiagram?: StemAndLeafDiagram;
   barChartDiagram?: BarChartDiagram;
   histogramDiagram?: HistogramDiagram;
+  scatterPlotDiagram?: ScatterPlotDiagram;
 };
 
 /**
