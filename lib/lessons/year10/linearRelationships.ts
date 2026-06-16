@@ -312,6 +312,89 @@ const modellingMastery: PracticeQuestion[] = [
   linearChoice("y10-linear-model-m10", "A gym charges 25 dollars to join and 12 dollars per week. Which statement about the graph is correct?", "B", ["It crosses the y-axis at 12 and has gradient 25", "It crosses the y-axis at 25 and has gradient 12", "It is horizontal at 25", "It has negative gradient"], "The join fee is the intercept and the weekly cost is the gradient."),
 ];
 
+// ─── Lesson 5: Equation of a Line ────────────────────────────────────────────
+
+const equationOfLineWorked: WorkedExample[] = [
+  {
+    title: "Find the equation given gradient and a point",
+    questionLatex: "\\text{Find the equation of the line with gradient }3\\text{ passing through }(2,7).",
+    steps: [
+      { explanation: "Use the point-slope form.", latex: "y-y_1=m(x-x_1)" },
+      { explanation: "Substitute m = 3, x₁ = 2, y₁ = 7.", latex: "y-7=3(x-2)" },
+      { explanation: "Expand and simplify.", latex: "y=3x-6+7=3x+1" },
+    ],
+    finalAnswerLatex: "y=3x+1",
+  },
+  {
+    title: "Find the equation given two points",
+    questionLatex: "\\text{Find the equation of the line through }(1,4)\\text{ and }(3,10).",
+    steps: [
+      { explanation: "Find the gradient using rise over run.", latex: "m=\\frac{10-4}{3-1}=\\frac{6}{2}=3" },
+      { explanation: "Substitute m = 3 and either point into y − y₁ = m(x − x₁).", latex: "y-4=3(x-1)" },
+      { explanation: "Expand and simplify.", latex: "y=3x-3+4=3x+1" },
+    ],
+    finalAnswerLatex: "y=3x+1",
+  },
+  {
+    title: "Find the equation using y = mx + b with substitution",
+    questionLatex: "\\text{Find the equation of the line with gradient }−2\\text{ through }(4,1).",
+    steps: [
+      { explanation: "Start with y = mx + b and substitute the gradient.", latex: "y=-2x+b" },
+      { explanation: "Substitute the point (4, 1) to find b.", latex: "1=-2(4)+b\\implies 1=-8+b\\implies b=9" },
+      { explanation: "Write the equation.", latex: "y=-2x+9" },
+    ],
+    finalAnswerLatex: "y=-2x+9",
+  },
+];
+
+const equationOfLineGuided: PracticeQuestion[] = [
+  linearChoice("y10-eol-g1", "Which is the point-slope form for gradient 3 through the point (2, 7)?", "A",
+    ["$y-7=3(x-2)$", "$y-2=3(x-7)$", "$y+7=3(x-2)$", "$y-7=3(x+2)$"],
+    "Point-slope form is y − y₁ = m(x − x₁). With m = 3, x₁ = 2, y₁ = 7: y − 7 = 3(x − 2)."),
+  linearAnswer("y10-eol-g2", "The line through (4, 3) has gradient 2. Its equation is y = 2x + b. Find b.", "m=2,\\quad(4,3)", "-5", "Substitute: 3 = 2(4) + b → 3 = 8 + b → b = −5.", ["b=-5"]),
+  linearChoice("y10-eol-g3", "Which equation represents the line through (0, 5) and (2, 11)?", "A",
+    ["$y=3x+5$", "$y=2x+5$", "$y=3x-5$", "$y=6x+5$"],
+    "Gradient: (11−5)/(2−0) = 3. The line passes through (0, 5) so b = 5. Equation: y = 3x + 5."),
+  linearAnswer("y10-eol-g4", "Find the gradient of the line through (2, 5) and (6, 13).", "(2,5)\\text{ and }(6,13)", "2", "Rise = 8, run = 4. Gradient = 8 ÷ 4 = 2.", ["m=2"]),
+];
+
+const equationOfLineIndependent: PracticeQuestion[] = [
+  linearChoice("y10-eol-i1", "Which equation has gradient −2 and passes through (3, 1)?", "A",
+    ["$y=-2x+7$", "$y=2x-7$", "$y=-2x-7$", "$y=-2x+1$"],
+    "y − 1 = −2(x − 3) → y = −2x + 6 + 1 = −2x + 7."),
+  linearAnswer("y10-eol-i2", "Find the y-intercept of the line with gradient 3 through (2, 8).", "m=3,\\quad(2,8)", "2", "8 = 3(2) + b → b = 2.", ["b=2"]),
+  linearChoice("y10-eol-i3", "Which equation passes through (1, 3) and (3, 9)?", "A",
+    ["$y=3x$", "$y=3x+3$", "$y=2x+1$", "$y=3x-3$"],
+    "Gradient = (9−3)/(3−1) = 3. y − 3 = 3(x − 1) → y = 3x. Check: (1, 3) and (3, 9) both satisfy y = 3x ✓."),
+  linearAnswer("y10-eol-i4", "Find the gradient of the line through (−2, 1) and (4, 13).", "(-2,1)\\text{ and }(4,13)", "2", "Rise = 12, run = 6. Gradient = 12 ÷ 6 = 2.", ["m=2"]),
+  linearChoice("y10-eol-i5", "Which equation passes through (0, −4) and (2, 0)?", "A",
+    ["$y=2x-4$", "$y=2x+4$", "$y=-2x-4$", "$y=4x-4$"],
+    "Gradient = (0−(−4))/(2−0) = 2. y-intercept is −4. Equation: y = 2x − 4."),
+];
+
+const equationOfLineMastery: PracticeQuestion[] = [
+  linearChoice("y10-eol-m1", "Which equation has gradient −1 and passes through (3, 5)?", "A",
+    ["$y=-x+8$", "$y=-x-8$", "$y=x+8$", "$y=-x+2$"],
+    "y − 5 = −1(x − 3) → y = −x + 3 + 5 = −x + 8."),
+  linearAnswer("y10-eol-m2", "Find the y-intercept of the line with gradient 4 through (2, 11).", "m=4,\\quad(2,11)", "3", "11 = 4(2) + b → b = 3.", ["b=3"]),
+  linearChoice("y10-eol-m3", "Which equation passes through (3, 2) and (6, 5)?", "A",
+    ["$y=x-1$", "$y=x+1$", "$y=2x-1$", "$y=x+3$"],
+    "Gradient = (5−2)/(6−3) = 1. y − 2 = 1(x − 3) → y = x − 1. Check: (3, 2) → 3−1=2 ✓, (6, 5) → 6−1=5 ✓."),
+  linearAnswer("y10-eol-m4", "Find the gradient of the line through (5, 1) and (1, 9).", "(5,1)\\text{ and }(1,9)", "-2", "Rise = 9−1 = 8, run = 1−5 = −4. Gradient = 8/(−4) = −2.", ["m=-2"]),
+  linearChoice("y10-eol-m5", "Which equation has gradient 0 and passes through (2, 5)?", "A",
+    ["$y=5$", "$x=2$", "$y=0$", "$y=2x+5$"],
+    "A horizontal line through (2, 5) has equation y = 5. Gradient 0 means the y-value is constant."),
+  linearAnswer("y10-eol-m6", "Find the gradient of the line through (−1, 4) and (3, 8).", "(-1,4)\\text{ and }(3,8)", "1", "Rise = 4, run = 4. Gradient = 4 ÷ 4 = 1.", ["m=1"]),
+  linearChoice("y10-eol-m7", "Which equation passes through (1, −2) and (4, 7)?", "A",
+    ["$y=3x-5$", "$y=3x+5$", "$y=3x-2$", "$y=9x-5$"],
+    "Gradient = (7−(−2))/(4−1) = 9/3 = 3. y − (−2) = 3(x − 1) → y = 3x − 3 − 2 → wait, y + 2 = 3(x−1) → y = 3x−3−2... Actually: y+2=3(x-1) → y=3x-3-2=3x-5."),
+  linearAnswer("y10-eol-m8", "A line passes through (0, 6) and (3, 0). Find its gradient.", "(0,6)\\text{ and }(3,0)", "-2", "Rise = 0−6 = −6, run = 3−0 = 3. Gradient = −6 ÷ 3 = −2.", ["m=-2"]),
+  linearChoice("y10-eol-m9", "Which equation passes through (−2, 3) with gradient 2?", "A",
+    ["$y=2x+7$", "$y=2x-7$", "$y=2x+3$", "$y=2x-1$"],
+    "y − 3 = 2(x − (−2)) → y − 3 = 2x + 4 → y = 2x + 7."),
+  linearAnswer("y10-eol-m10", "The line through (1, 5) and (3, 11) has equation y = mx + b. Find b.", "(1,5)\\text{ and }(3,11)", "2", "Gradient = (11−5)/(3−1) = 3. Then 5 = 3(1) + b → b = 2.", ["b=2"]),
+];
+
 function mistakes(topic: string) {
   return {
     gradient: [
@@ -331,6 +414,12 @@ function mistakes(topic: string) {
       { mistake: "Using the gradient formula when distance is required.", fix: "Distance uses Pythagoras with the horizontal and vertical changes." },
       { mistake: "Losing a negative coordinate.", fix: "Keep brackets around negative values when substituting." },
       { mistake: "Typing a midpoint as one number.", fix: "A midpoint is a coordinate pair." },
+    ],
+    equationOfLine: [
+      { mistake: "Computing the gradient as (x₂ − x₁)/(y₂ − y₁) instead of (y₂ − y₁)/(x₂ − x₁).", fix: "Gradient is rise over run: vertical change divided by horizontal change. Rise = y₂ − y₁ and run = x₂ − x₁." },
+      { mistake: "Substituting the wrong point when finding b, e.g. using the x-value from one point and the y-value from another.", fix: "Use a single coordinate pair consistently: substitute both x and y values from the same point." },
+      { mistake: "Confusing the point-slope form by writing y + y₁ = m(x + x₁) with positive signs.", fix: "Point-slope form uses subtraction: y − y₁ = m(x − x₁). If the point is (3, 7), write y − 7 = m(x − 3)." },
+      { mistake: "Forgetting to verify the equation with both given points after finding it.", fix: "Substitute both points into the equation. If a point does not satisfy it, recheck the gradient or the value of b." },
     ],
     modelling: [
       { mistake: "Treating the starting fee as the hourly rate.", fix: "The constant term is the starting value. The coefficient of the input is the rate." },
@@ -357,6 +446,9 @@ export function year10LinearRelationshipsLessonOverride(
   };
   if (lesson.slug === "midpoint-distance") return {
     ...base, description: "Calculate midpoints and distances between coordinate pairs using averages and Pythagoras.", learningIntention: "Use coordinate formulas to describe the position and length of a line segment.", successCriteria: ["Find a midpoint by averaging coordinates.", "Calculate horizontal and vertical changes.", "Use the distance formula.", "Solve simple missing-endpoint questions."], teaching: { paragraphs: ["A midpoint lies halfway between two endpoints.", "To find a midpoint, average the two x-coordinates and average the two y-coordinates.", "The distance formula comes from Pythagoras' theorem. Horizontal and vertical changes form the legs of a right triangle.", "Keep negative coordinates inside brackets when substituting."], latexBlocks: ["M=\\left(\\frac{x_1+x_2}{2},\\frac{y_1+y_2}{2}\\right)", "d=\\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}"] }, workedExamples: midpointWorked, guidedPractice: midpointGuided, independentPractice: midpointIndependent, commonMistakes: mistakes("midpoint"), masteryQuiz: midpointMastery,
+  };
+  if (lesson.slug === "equation-of-a-line") return {
+    ...base, description: "Find the equation of a straight line given its gradient and a point, or two points on the line.", learningIntention: "Use the point-slope form and y = mx + b to find the equation of a straight line.", successCriteria: ["Apply the point-slope form y − y₁ = m(x − x₁) given gradient and a point.", "Find the gradient from two coordinate pairs, then determine the equation.", "Identify b by substituting a known point into y = mx + b.", "Verify the equation by checking that both given points satisfy it."], teaching: { paragraphs: ["The point-slope form gives the equation of any non-vertical line from its gradient m and one point (x₁, y₁): y − y₁ = m(x − x₁).", "Given two points, first calculate the gradient using rise over run. Then substitute the gradient and either point into the point-slope form.", "An equivalent approach: write y = mx + b, substitute the known point, and solve for b.", "Always verify: substitute both given points and confirm both sides match."], latexBlocks: ["y-y_1=m(x-x_1)\\quad\\text{(point-slope form)}", "m=\\frac{y_2-y_1}{x_2-x_1}\\quad\\text{(gradient from two points)}", "\\text{e.g. }m=3,\\;(2,7):\\quad y-7=3(x-2)\\implies y=3x+1"] }, workedExamples: equationOfLineWorked, guidedPractice: equationOfLineGuided, independentPractice: equationOfLineIndependent, commonMistakes: mistakes("equationOfLine"), masteryQuiz: equationOfLineMastery,
   };
   if (lesson.slug === "linear-modelling") return {
     ...base, description: "Use linear models to interpret starting values, rates, predictions and comparisons.", learningIntention: "Apply y = mx + b to practical cost and rate situations.", successCriteria: ["Interpret a starting value and rate.", "Substitute an input to make a prediction.", "Reverse a linear model to find an input.", "Compare two linear models and interpret a crossing point."], teaching: { paragraphs: ["A linear model combines a starting value with a constant rate of change.", "In a cost model, the constant term can represent a starting fee and the coefficient can represent a rate per hour, week or kilometre.", "Substitute an input to make a prediction. Reverse the substitution when the output is known and the input is required.", "When two linear models cross, they have the same output at that input."], latexBlocks: ["y=mx+b", "\\text{output}=\\text{starting value}+\\text{rate}\\times\\text{input}"] }, workedExamples: modellingWorked, guidedPractice: modellingGuided, independentPractice: modellingIndependent, commonMistakes: mistakes("modelling"), masteryQuiz: modellingMastery,
