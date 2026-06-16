@@ -1,21 +1,21 @@
-import { LessonRenderer } from "../../LessonRenderer";
+import { notFound, permanentRedirect } from "next/navigation";
 import { differentiationTechniquesLessons } from "../../../../lib/lessons/differentiationTechniques";
 
-export default async function DifferentiationTechniquesLessonPage({
+// Legacy standalone route retired — redirects to the canonical Year 12
+// Advanced nested lesson. Canonical routing lives in lib/year12AdvancedRoutes.ts.
+export default async function Page({
   params,
 }: {
   params: Promise<{ lessonSlug: string }>;
 }) {
   const { lessonSlug } = await params;
-
-  return (
-    <LessonRenderer
-      courseSlug="year-12-advanced"
-      unitSlug="differentiation-techniques"
-      lessonSlug={lessonSlug}
-      lessons={differentiationTechniquesLessons}
-      backHref="/course/differentiation-techniques"
-      backLabel="Back to Differentiation Techniques"
-    />
+  const lesson = differentiationTechniquesLessons.find(
+    (l) => l.slug === lessonSlug
+  );
+  if (!lesson) {
+    notFound();
+  }
+  permanentRedirect(
+    `/course/year-12-advanced/${lesson.moduleSlug}/${lesson.slug}`
   );
 }

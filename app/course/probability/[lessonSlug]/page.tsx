@@ -1,21 +1,19 @@
-import { LessonRenderer } from "../../LessonRenderer";
+import { notFound, permanentRedirect } from "next/navigation";
 import { probabilityLessons } from "../../../../lib/lessons/probability";
 
-export default async function ProbabilityLessonPage({
+// Legacy standalone route retired — redirects to the canonical Year 12
+// Advanced nested lesson. Canonical routing lives in lib/year12AdvancedRoutes.ts.
+export default async function Page({
   params,
 }: {
   params: Promise<{ lessonSlug: string }>;
 }) {
   const { lessonSlug } = await params;
-
-  return (
-    <LessonRenderer
-      courseSlug="year-12-advanced"
-      unitSlug="probability"
-      lessonSlug={lessonSlug}
-      lessons={probabilityLessons}
-      backHref="/course/probability"
-      backLabel="Back to Probability"
-    />
+  const lesson = probabilityLessons.find((l) => l.slug === lessonSlug);
+  if (!lesson) {
+    notFound();
+  }
+  permanentRedirect(
+    `/course/year-12-advanced/${lesson.moduleSlug}/${lesson.slug}`
   );
 }

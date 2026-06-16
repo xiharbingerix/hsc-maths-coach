@@ -1,21 +1,19 @@
-import { LessonRenderer } from "../../LessonRenderer";
+import { notFound, permanentRedirect } from "next/navigation";
 import { furtherTrigonometryLessons } from "../../../../lib/lessons/furtherTrigonometry";
 
-export default async function FurtherTrigonometryLessonPage({
+// Legacy standalone route retired — redirects to the canonical Year 12
+// Advanced nested lesson. Canonical routing lives in lib/year12AdvancedRoutes.ts.
+export default async function Page({
   params,
 }: {
   params: Promise<{ lessonSlug: string }>;
 }) {
   const { lessonSlug } = await params;
-
-  return (
-    <LessonRenderer
-      courseSlug="year-12-advanced"
-      unitSlug="further-trigonometry"
-      lessonSlug={lessonSlug}
-      lessons={furtherTrigonometryLessons}
-      backHref="/course/further-trigonometry"
-      backLabel="Back to Further Trigonometry"
-    />
+  const lesson = furtherTrigonometryLessons.find((l) => l.slug === lessonSlug);
+  if (!lesson) {
+    notFound();
+  }
+  permanentRedirect(
+    `/course/year-12-advanced/${lesson.moduleSlug}/${lesson.slug}`
   );
 }

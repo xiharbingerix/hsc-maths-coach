@@ -1,21 +1,21 @@
-import { LessonRenderer } from "../../LessonRenderer";
+import { notFound, permanentRedirect } from "next/navigation";
 import { sequencesSeriesFinancialMathsLessons } from "../../../../lib/lessons/sequencesSeriesFinancialMaths";
 
-export default async function SequencesSeriesFinancialMathsLessonPage({
+// Legacy standalone route retired — redirects to the canonical Year 12
+// Advanced nested lesson. Canonical routing lives in lib/year12AdvancedRoutes.ts.
+export default async function Page({
   params,
 }: {
   params: Promise<{ lessonSlug: string }>;
 }) {
   const { lessonSlug } = await params;
-
-  return (
-    <LessonRenderer
-      courseSlug="year-12-advanced"
-      unitSlug="sequences-series-financial-maths"
-      lessonSlug={lessonSlug}
-      lessons={sequencesSeriesFinancialMathsLessons}
-      backHref="/course/sequences-series-financial-maths"
-      backLabel="Back to Sequences, Series and Financial Mathematics"
-    />
+  const lesson = sequencesSeriesFinancialMathsLessons.find(
+    (l) => l.slug === lessonSlug
+  );
+  if (!lesson) {
+    notFound();
+  }
+  permanentRedirect(
+    `/course/year-12-advanced/${lesson.moduleSlug}/${lesson.slug}`
   );
 }
