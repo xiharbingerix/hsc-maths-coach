@@ -2192,9 +2192,9 @@ const compoundInterestIntroduction: LessonContent = {
       "y8-nfm-cmp-m7",
       "$6000 is invested at 3% compound interest per year for 4 years. Find the total amount.",
       "A = 6000 \\times (1.03)^4 = \\;?",
-      "6752.19",
+      "6753.05",
       "(1.03)^4 = 1.12550881. A = 6000 × 1.12550881 ≈ 6753.05. (Accept 6752–6754.)",
-      ["$6752.19", "6752.19", "6753.05", "$6753.05", "6753"]
+      ["6753.05", "$6753.05", "6753"]
     ),
     answer(
       "y8-nfm-cmp-m8",
@@ -2460,9 +2460,9 @@ const budgetingAndMoneyManagement: LessonContent = {
       "y8-nfm-bud-m9",
       "A student's monthly income is $1400 but their expenses total $1550. By how much must they reduce monthly expenses to achieve a 10% savings rate?",
       "\\text{Target expenses} = 1400 - 0.10 \\times 1400 = \\;?",
-      "310",
+      "290",
       "Target savings = 10% × 1400 = 140. Target expenses = 1400 − 140 = 1260. Current expenses = 1550. Reduction needed = 1550 − 1260 = 290. (Answer 290 also accepted.)",
-      ["290", "$290", "$310", "310"]
+      ["290", "$290"]
     ),
     answer(
       "y8-nfm-bud-m10",

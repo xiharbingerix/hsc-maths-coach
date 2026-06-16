@@ -681,8 +681,8 @@ export function year12Standard2TrigRatesLessonOverride(
           "y12s2-eld-m2",
           "From 50 m away, angle of elevation 28°. Height of tower to 2 decimal places?",
           "h = 50 \\times \\tan(28°)",
-          "26.60 m",
-          ["26.60", "26.60 m", "26.6 m"]
+          "26.59 m",
+          ["26.59", "26.59 m", "26.6 m"]
         ),
         practicalChoice(
           "y12s2-eld-m3",
@@ -709,8 +709,8 @@ export function year12Standard2TrigRatesLessonOverride(
           "y12s2-eld-m6",
           "From 120 m away, angle of elevation 31° to a tower. Height to 2 decimal places?",
           "h = 120 \\times \\tan(31°)",
-          "72.15 m",
-          ["72.15", "72.15 m"]
+          "72.10 m",
+          ["72.10", "72.10 m"]
         ),
         practicalChoice(
           "y12s2-eld-m7",
@@ -723,8 +723,8 @@ export function year12Standard2TrigRatesLessonOverride(
           "y12s2-eld-m8",
           "From the top of an 85 m cliff, the angle of depression to a marker is 32°. Find the horizontal distance to 2 decimal places.",
           "d = \\dfrac{85}{\\tan(32°)}",
-          "136.02 m",
-          ["136.02", "136.02 m"]
+          "136.03 m",
+          ["136.03", "136.03 m"]
         ),
         practicalChoice(
           "y12s2-eld-m9",
@@ -896,7 +896,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-sca-g2", "A triangular park has sides 48 m and 62 m with included angle 37 degrees. Find its area to the nearest square metre.", "A=\\frac{1}{2}ab\\sin C", "895 m^2", ["895", "895m^2", "895 m2"]),
+          ...measurementAnswer("y12s2-sca-g2", "A triangular park has sides 48 m and 62 m with included angle 37 degrees. Find its area to the nearest square metre.", "A=\\frac{1}{2}ab\\sin C", "896 m^2", ["896", "896m^2", "896 m2"]),
           triangleDiagram: {
             description:
               "Triangle with sides AB 48 metres and AC 62 metres and included angle A 37 degrees for an area calculation.",
@@ -935,7 +935,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-sca-g4", "A field has sides 35 m and 50 m with included angle 60 degrees. Find the third side to 1 decimal place.", "c^2=a^2+b^2-2ab\\cos C", "43.6 m", ["43.6", "43.6m"]),
+          ...measurementAnswer("y12s2-sca-g4", "A field has sides 35 m and 50 m with included angle 60 degrees. Find the third side to 1 decimal place.", "c^2=a^2+b^2-2ab\\cos C", "44.4 m", ["44.4", "44.4m"]),
           triangleDiagram: {
             description:
               "Triangle with sides AC 35 metres and BC 50 metres, included angle C 60 degrees, and third side AB labelled x.",
@@ -977,7 +977,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-sca-i2", "A triangular lot has sides 80 m and 95 m with included angle 52 degrees. Find the third side to 1 decimal place.", "\\text{Given: }a=80,\\quad b=95,\\quad C=52^\\circ", "75.8 m", ["75.8", "75.8m"]),
+          ...measurementAnswer("y12s2-sca-i2", "A triangular lot has sides 80 m and 95 m with included angle 52 degrees. Find the third side to 1 decimal place.", "\\text{Given: }a=80,\\quad b=95,\\quad C=52^\\circ", "77.9 m", ["77.9", "77.9m"]),
           triangleDiagram: {
             description:
               "Triangle with sides AC 80 metres and BC 95 metres, included angle C 52 degrees, and third side AB labelled x.",
@@ -1027,7 +1027,7 @@ export function year12Standard2TrigRatesLessonOverride(
       masteryQuiz: [
         measurementAnswer("y12s2-sca-m1", "A triangle has side 40 m opposite 30 degrees. Find the side opposite 45 degrees to 1 decimal place.", "a=40\\text{ m},\\quad A=30°,\\quad B=45°", "56.6 m", ["56.6", "56.6m"]),
         {
-          ...measurementAnswer("y12s2-sca-m2", "A triangular field has sides 25 m and 40 m with included angle 50 degrees. Find the third side to 1 decimal place.", "a=25\\text{ m},\\quad b=40\\text{ m},\\quad C=50°", "31.2 m", ["31.2", "31.2m"]),
+          ...measurementAnswer("y12s2-sca-m2", "A triangular field has sides 25 m and 40 m with included angle 50 degrees. Find the third side to 1 decimal place.", "a=25\\text{ m},\\quad b=40\\text{ m},\\quad C=50°", "30.7 m", ["30.7", "30.7m"]),
           triangleDiagram: {
             description:
               "Triangle with sides AC 25 metres and BC 40 metres, included angle C 50 degrees, and third side AB labelled x.",
@@ -1238,7 +1238,7 @@ export function year12Standard2TrigRatesLessonOverride(
         practicalChoice(
           "y12s2-rrv-i5",
           "3.5 m equals:",
-          "B",
+          "D",
           ["35 cm", "350 cm", "3500 mm", "Both B and C"],
           "1 m = 100 cm so 3.5 m = 350 cm. Also 3.5 m = 3500 mm. Both B and C are correct."
         ),
@@ -3628,7 +3628,7 @@ export function year12Standard2TrigRatesLessonOverride(
     ],
     independentPractice: [
       {
-        ...measurementAnswer("y12s2-rate-exam-i1", "A triangular park has sides 35 m and 50 m with included angle 60 degrees. Find the third side to 1 decimal place.", "\\text{Given: }a=35,\\quad b=50,\\quad C=60^\\circ", "43.6 m", ["43.6", "43.6m"]),
+        ...measurementAnswer("y12s2-rate-exam-i1", "A triangular park has sides 35 m and 50 m with included angle 60 degrees. Find the third side to 1 decimal place.", "\\text{Given: }a=35,\\quad b=50,\\quad C=60^\\circ", "44.4 m", ["44.4", "44.4m"]),
         triangleDiagram: {
           description:
             "Triangle with sides AC 35 metres and BC 50 metres, included angle C 60 degrees, and third side AB labelled x.",

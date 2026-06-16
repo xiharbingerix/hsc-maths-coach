@@ -116,7 +116,7 @@ export function year12Standard2MeasurementSAVLessonOverride(
       ],
       independentPractice: [
         measurementAnswer("y12s2-sa-i1", "Find the TSA of a rectangular prism: l = 10 cm, w = 6 cm, h = 4 cm.", "TSA=2(lw+lh+wh)", "248 cm^2", ["248", "248cm²"]),
-        measurementAnswer("y12s2-sa-i2", "Find the TSA of a closed cylinder with r = 7 cm, h = 15 cm. Give your answer to 1 decimal place.", "TSA=2\\pi r^2+2\\pi rh", "971.0 cm^2", ["971", "971.0", "970.9 cm^2", "971.0cm²"]),
+        measurementAnswer("y12s2-sa-i2", "Find the TSA of a closed cylinder with r = 7 cm, h = 15 cm. Give your answer to 1 decimal place.", "TSA=2\\pi r^2+2\\pi rh", "967.6 cm^2", ["967.6", "967.6 cm2", "967.6cm²"]),
         measurementAnswer("y12s2-sa-i3", "A triangular prism has equilateral triangular faces with base 6 cm and height 5.2 cm. The prism length is 10 cm. Find the TSA.", "TSA=2\\times\\frac{1}{2}(6)(5.2)+3\\times(6\\times10)", "211.2 cm^2", ["211.2", "211.2 cm2"]),
         practicalChoice("y12s2-sa-i4", "A cylindrical can with r = 5 and h = 20. Which formula gives the TSA?", "A", ["2π(5)² + 2π(5)(20)", "π(5)² + 2π(5)(20)", "2π(5)(20)", "2π(25)² + 2π(5)(20)"], "Closed cylinder: two circles plus curved surface."),
         measurementAnswer("y12s2-sa-i5", "Find the TSA of a cube with side length 9 cm.", "TSA=6s^2=6\\times81", "486 cm^2", ["486", "486cm²"]),
@@ -307,7 +307,7 @@ export function year12Standard2MeasurementSAVLessonOverride(
         measurementAnswer("y12s2-comp-i2", "A cylindrical water tank with r = 1.2 m and h = 2 m. Find the capacity in kilolitres (1 m³ = 1 kL) to 2 decimal places.", "V=\\pi(1.44)(2)=2.88\\pi", "9.05 kL", ["9.05", "9.05kL"]),
         measurementAnswer("y12s2-comp-i3", "A concrete step is a prism with a right-angle cross-section: two 'treads' each 30 × 15 cm and risers 15 cm tall. The step is 1.2 m (120 cm) wide. Find the volume of concrete needed.", "V=A_{\\text{cross}}\\times120=(30\\times15+30\\times15)\\times120", "108000 cm^3", ["108000", "108000cm³"]),
         practicalChoice("y12s2-comp-i4", "Paint covers 8 m² per litre. A warehouse wall (10 m × 4 m) has a square window (2 m × 2 m). How many litres are needed to paint the wall?", "B", ["5 L", "4.5 L", "36 L", "4 L"], "Area = 10×4 − 2×2 = 40 − 4 = 36 m². Litres = 36/8 = 4.5 L."),
-        measurementAnswer("y12s2-comp-i5", "A hemisphere (half sphere, r = 5 cm) sits on top of a cylinder (r = 5, h = 10 cm). Find the total volume to 1 decimal place.", "V=\\frac{1}{2}\\cdot\\frac{4}{3}\\pi(125)+\\pi(25)(10)", "916.3 cm^3", ["916.3", "916.3cm³"]),
+        measurementAnswer("y12s2-comp-i5", "A hemisphere (half sphere, r = 5 cm) sits on top of a cylinder (r = 5, h = 10 cm). Find the total volume to 1 decimal place.", "V=\\frac{1}{2}\\cdot\\frac{4}{3}\\pi(125)+\\pi(25)(10)", "1047.2 cm^3", ["1047.2", "1047.2cm³"]),
       ],
       commonMistakes: [
         { mistake: "Adding all faces of both solids for surface area without removing the joined face.", fix: "Subtract 2 × joined face area (once from each solid) from the total before adding." },
@@ -322,10 +322,10 @@ export function year12Standard2MeasurementSAVLessonOverride(
         practicalChoice("y12s2-comp-m4", "When a cylinder is drilled out of a rectangular block, the remaining volume is:", "A", ["Block volume minus cylinder volume", "Block volume plus cylinder volume", "Cylinder volume only", "The average of the two volumes"], "Remove the drilled portion: subtract the cylinder volume."),
         measurementAnswer("y12s2-comp-m5", "A hemisphere with r = 9 cm. Find its volume to 1 decimal place.", "V=\\frac{1}{2}\\cdot\\frac{4}{3}\\pi(729)=\\frac{2}{3}\\pi(729)", "1526.8 cm^3", ["1526.8", "1526.8cm³"]),
         measurementAnswer("y12s2-comp-m6", "A fish tank is a rectangular prism: 80 × 40 × 50 cm. It is 3/4 full. Find the volume of water in litres.", "V=80\\times40\\times50\\times0.75=120000", "120 L", ["120", "120L"]),
-        practicalChoice("y12s2-comp-m7", "Two equal cylinders are stacked (r = 4, h = 5 each). The total volume is:", "C", ["160π", "40π", "80π × 2 = 160π — so A and C are both 160π", "40π × 2 = 80π"], "Each cylinder: π(16)(5) = 80π. Two cylinders: 160π."),
+        practicalChoice("y12s2-comp-m7", "Two equal cylinders are stacked (r = 4, h = 5 each). The total volume is:", "A", ["160π", "40π", "320π", "40π × 2 = 80π"], "Each cylinder: π(16)(5) = 80π. Two cylinders: 160π."),
         measurementAnswer("y12s2-comp-m8", "A ramp is a triangular prism: right-triangle cross-section with legs 1.2 m and 0.5 m, length 3 m. Find volume in m³.", "V=\\frac{1}{2}(1.2)(0.5)\\times3", "0.9 m^3", ["0.9", "0.9m³"]),
         measurementAnswer("y12s2-comp-m9", "A pool is 12 m long, 6 m wide and 2 m deep. Find the capacity in kilolitres (1 m³ = 1 kL).", "V=12\\times6\\times2", "144 kL", ["144", "144kL"]),
-        practicalChoice("y12s2-comp-m10", "Paint covers 10 m² per litre. A cylindrical column has r = 0.3 m and h = 4 m. How many litres of paint to the nearest 0.1 L?", "B", ["0.8 L", "0.8 L", "7.5 L", "2.4 L"], "Curved surface = 2πrh = 2π(0.3)(4) ≈ 7.54 m². But only the curved surface is painted: 7.54/10 ≈ 0.8 L."),
+        practicalChoice("y12s2-comp-m10", "Paint covers 10 m² per litre. A cylindrical column has r = 0.3 m and h = 4 m. How many litres of paint to the nearest 0.1 L?", "B", ["1.6 L", "0.8 L", "7.5 L", "2.4 L"], "Curved surface = 2πrh = 2π(0.3)(4) ≈ 7.54 m². But only the curved surface is painted: 7.54/10 ≈ 0.8 L."),
       ],
     };
   }

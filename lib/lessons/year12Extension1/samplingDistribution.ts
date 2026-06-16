@@ -169,7 +169,7 @@ const samplingDistributionMean: Partial<ExplicitLesson> = {
       "y12e1-samp-i2",
       "A population has μ = 80 and σ² = 64. What is Var(x̄) for samples of size n = 16?",
       "C",
-      ["8", "4", "4", "64"],
+      ["8", "16", "4", "64"],
       "Var(x̄) = σ²/n = 64/16 = 4."
     ),
     sdTyped(

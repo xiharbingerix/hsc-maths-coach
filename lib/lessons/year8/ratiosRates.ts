@@ -1017,7 +1017,7 @@ const speedDistanceTime: LessonContent = {
       "y8-rtr-sdt-m10",
       "A rally car completes three stages: 80 km in 40 min, 120 km in 1 h, and 60 km in 30 min. A rest stop of 15 min occurs between each stage. Find the average speed over the entire event, including rest stops. Round to 1 decimal place.",
       "\\text{Average speed} = \\;?",
-      "96.0",
+      "104.0",
       "Total distance $= 80 + 120 + 60 = 260$ km. Stage times: $\\frac{40}{60} + 1 + \\frac{30}{60} = 2$ h. Rest stops: $2 \\times \\frac{15}{60} = 0.5$ h. Total time $= 2.5$ h. Average speed $= 260 \\div 2.5 = 104$ km/h — wait, recalculate: $2 \\times 0.25 = 0.5$ h rest, total $2.5$ h, $260 \\div 2.5 = 104$ km/h. Rounding: $104.0$ km/h.",
       "Add up all stage times and rest times separately, then divide total distance by total time.",
       ["104", "104.0"],

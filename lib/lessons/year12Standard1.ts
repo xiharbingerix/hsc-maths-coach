@@ -7278,14 +7278,14 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
             explanation:
               "Calculate the amount after 30 days using A = P(1 + r_d)ⁿ.",
             latex:
-              "A = 2000 \\times (1.000548)^{30} \\approx 2000 \\times 1.01644 \\approx 2032.88",
+              "A = 2000 \\times (1.000548)^{30} \\approx 2000 \\times 1.016561 \\approx 2033.12",
           },
           {
             explanation: "Interest charged = A − P.",
-            latex: "\\text{Interest} = 2032.88 - 2000 = 32.88",
+            latex: "\\text{Interest} = 2033.12 - 2000 = 33.12",
           },
         ],
-        finalAnswerLatex: "\\text{Interest} \\approx \\$32.88",
+        finalAnswerLatex: "\\text{Interest} \\approx \\$33.12",
       },
       {
         title: "Interpret a credit card statement: minimum payment",
@@ -7316,10 +7316,10 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
         "y12s1-cc-g1",
         "A credit card has an annual interest rate of 21% p.a. A purchase of $500 is not paid for 30 days. Calculate the interest charged. (Give your answer to 2 decimal places.)",
         "A = 500 \\times \\left(1 + \\frac{0.21}{365}\\right)^{30}",
-        "8.58",
-        ["$8.58", "8.58 dollars"],
+        "8.70",
+        ["$8.70", "8.70 dollars"],
         "r_d = 0.21/365 ≈ 0.000575. A = 500 × (1.000575)³⁰. Interest = A − 500.",
-        "r_d = 0.21/365 ≈ 0.000575. A = 500 × (1.000575)³⁰ ≈ 500 × 1.01716 ≈ 508.58. Interest = 8.58."
+        "r_d = 0.21/365 ≈ 0.000575. A = 500 × (1.000575)³⁰ ≈ 500 × 1.017405 ≈ 508.70. Interest = 8.70."
       ),
       ccChoice(
         "y12s1-cc-g2",
@@ -7362,10 +7362,10 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
         "y12s1-cc-i1",
         "An outstanding credit card balance of $1500 accrues interest at 18% p.a. for 15 days. Calculate the interest charged to 2 decimal places.",
         "A = 1500 \\times \\left(1 + \\frac{0.18}{365}\\right)^{15}",
-        "11.11",
-        ["$11.11", "11.11 dollars"],
+        "11.13",
+        ["$11.13", "11.13 dollars"],
         "r_d = 0.18/365 ≈ 0.000493. A = 1500 × (1.000493)¹⁵. Interest = A − 1500.",
-        "r_d ≈ 0.000493. A = 1500 × (1.000493)¹⁵ ≈ 1500 × 1.007407 ≈ 1511.11. Interest = 11.11."
+        "r_d ≈ 0.000493. A = 1500 × (1.000493)¹⁵ ≈ 1500 × 1.007423 ≈ 1511.13. Interest = 11.13."
       ),
       ccChoice(
         "y12s1-cc-i2",
@@ -7384,10 +7384,10 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
         "y12s1-cc-i3",
         "A credit card charges a daily interest rate of 0.05%. Calculate the interest charged on a $3000 outstanding balance for 25 days. (To 2 decimal places.)",
         "A = 3000 \\times (1.0005)^{25}",
-        "37.74",
-        ["$37.74", "37.74 dollars"],
+        "37.73",
+        ["$37.73", "37.73 dollars"],
         "A = 3000 × (1.0005)²⁵. Interest = A − 3000.",
-        "A = 3000 × (1.0005)²⁵ ≈ 3000 × 1.01258 ≈ 3037.74. Interest = 37.74."
+        "A = 3000 × (1.0005)²⁵ ≈ 3000 × 1.012575 ≈ 3037.73. Interest = 37.73."
       ),
       ccChoice(
         "y12s1-cc-i4",
@@ -7438,10 +7438,10 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
         "y12s1-cc-m1",
         "A credit card balance of $2500 accrues interest at 20% p.a. for 20 days. Calculate the interest charged to 2 decimal places.",
         "A = 2500 \\times \\left(1 + \\frac{0.20}{365}\\right)^{20}",
-        "27.33",
-        ["$27.33", "27.33 dollars"],
+        "27.54",
+        ["$27.54", "27.54 dollars"],
         "r_d = 0.20/365 ≈ 0.000548. A = 2500 × (1.000548)²⁰. Interest = A − 2500.",
-        "r_d ≈ 0.000548. A ≈ 2500 × 1.010934 ≈ 2527.33. Interest = 27.33."
+        "r_d ≈ 0.000548. A ≈ 2500 × 1.011016 ≈ 2527.54. Interest = 27.54."
       ),
       ccChoice(
         "y12s1-cc-m2",
@@ -7482,10 +7482,10 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
         "y12s1-cc-m5",
         "A credit card charges a daily rate of 0.06%. Find the interest charged on a balance of $800 over 10 days. (To 2 decimal places.)",
         "A = 800 \\times (1.0006)^{10}",
-        "4.82",
-        ["$4.82", "4.82 dollars"],
+        "4.81",
+        ["$4.81", "4.81 dollars"],
         "A = 800 × (1.0006)¹⁰. Interest = A − 800.",
-        "A = 800 × (1.0006)¹⁰ ≈ 800 × 1.006018 ≈ 804.82. Interest = 4.82."
+        "A = 800 × (1.0006)¹⁰ ≈ 800 × 1.006016 ≈ 804.81. Interest = 4.81."
       ),
       ccChoice(
         "y12s1-cc-m6",
@@ -7522,10 +7522,10 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
         "y12s1-cc-m9",
         "An outstanding balance of $1000 accrues interest at 19% p.a. for 365 days. Use A = P(1 + r/365)³⁶⁵ to find the total amount owed. (To 2 decimal places.)",
         "A = 1000 \\times \\left(1 + \\frac{0.19}{365}\\right)^{365}",
-        "1209.49",
-        ["$1209.49", "1209.49 dollars"],
+        "1209.19",
+        ["$1209.19", "1209.19 dollars"],
         "Substitute P = 1000, r = 0.19, n = 365 into A = P(1 + r/365)ⁿ.",
-        "A = 1000 × (1 + 0.19/365)³⁶⁵ ≈ 1000 × 1.20949 ≈ 1209.49."
+        "A = 1000 × (1 + 0.19/365)³⁶⁵ ≈ 1000 × 1.209190 ≈ 1209.19."
       ),
       ccChoice(
         "y12s1-cc-m10",

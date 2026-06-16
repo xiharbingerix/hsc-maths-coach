@@ -816,7 +816,7 @@ const perimeterOfSectors: LessonContent = {
       "y8-cal-sec-m8",
       "A running track has two straight sections of 100 m and two semicircular ends each with radius 20 m. What is the total perimeter? Use $\\pi \\approx 3.14$.",
       "B",
-      ["$325.6$ m", "$325.6$ m", "$325.7$ m", "$400$ m"],
+      ["$251.2$ m", "$325.6$ m", "$325.7$ m", "$400$ m"],
       "Two semicircles make one full circle: $C = 2\\pi \\times 20 = 125.6$ m. Two straights: $200$ m. Total $= 325.6$ m.",
       "Two semicircles of the same radius combine to make one full circle.",
     ),

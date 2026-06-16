@@ -1547,7 +1547,7 @@ const complexPolynomials: Partial<ExplicitLesson> = {
       "C",
       [
         "$z^3+z^2+z+2$",
-        "$z^3-2z^2+z-2$",
+        "$z^3+2z^2+z+2$",
         "$z^3-2z^2+z-2$",
         "$z^3+z^2-z-2$",
       ],

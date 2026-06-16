@@ -3980,6 +3980,7 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
       prompt: "Identify the rate function:",
       latex: "s(t)=3t^2+2t",
       answer: "s'(t)",
+      acceptedAnswers: ["ds/dt", "6t+2", "6t + 2"],
       hint: "The derivative gives the instantaneous rate of change.",
       explanation: "The rate function is $s'(t)$.",
     },
@@ -4443,6 +4444,7 @@ export const mixedExamPracticeLesson: ExplicitLesson = {
       latex:
         "\\text{A question asks for the gradient of the curve }y=x^2+3x\\text{ at }x=2.",
       answer: "derivative",
+      acceptedAnswers: ["differentiation", "differentiate", "differentiating"],
       hint: "Gradient of a curve at a point comes from the derivative.",
       explanation:
         "The skill needed is differentiation, because the derivative gives the tangent gradient at a point.",

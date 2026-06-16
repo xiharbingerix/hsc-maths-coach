@@ -1148,9 +1148,9 @@ const partialFractionsLesson: Partial<ExplicitLesson> = {
       "y12e2-pf-i5",
       "Evaluate $\\displaystyle\\int_0^1\\frac{4}{(x-2)(x+2)}\\,dx$ using $A=1$, $B=-1$.",
       "\\int_0^1\\left(\\frac{1}{x-2}-\\frac{1}{x+2}\\right)dx",
-      "ln(4/3)",
-      ["ln 4/3", "\\ln(4/3)"],
-      "[ln|x−2| − ln|x+2|]₀¹ = (ln1 − ln3) − (ln2 − ln2) = −ln3 − (ln2 − ln2). Careful: at x=1: ln|−1|−ln3 = 0−ln3; at x=0: ln|−2|−ln2 = ln2−ln2 = 0. Result = (0−ln3)−0 = −ln3. Check: ln|x−2|−ln|x+2| = ln|(x−2)/(x+2)|. At x=1: ln(1/3). At x=0: ln(2/2)=0. Integral = ln(1/3)−0 = −ln3 = ln(1/3). Hmm let me recompute: integral = [ln|x-2| - ln|x+2|] from 0 to 1 = (ln1 - ln3) - (ln2 - ln2) = (0 - ln3) - (0) = -ln3.",
+      "-ln3",
+      ["-ln 3", "-ln(3)", "ln(1/3)", "\\ln(1/3)", "-\\ln 3"],
+      "[ln|x−2| − ln|x+2|]₀¹ = (ln1 − ln3) − (ln2 − ln2) = (0 − ln3) − 0 = −ln3 = ln(1/3). The integrand is negative on [0,1], consistent with a negative result.",
       "Substitute limits after integrating each term."
     ),
   ],

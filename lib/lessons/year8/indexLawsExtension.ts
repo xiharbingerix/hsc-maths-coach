@@ -1351,7 +1351,7 @@ const operationsWithScientificNotation: LessonContent = {
       "y8-ile-ops-m10",
       "The mass of Jupiter is $1.898 \\times 10^{27}$ kg and the mass of Saturn is $5.683 \\times 10^{26}$ kg. Find the combined mass in scientific notation (round coefficient to 3 sig figs).",
       "(1.898 \\times 10^{27}) + (5.683 \\times 10^{26}) = \\;?",
-      "2.466 × 10^27",
+      "2.47 × 10^27",
       "$5.683 \\times 10^{26} = 0.5683 \\times 10^{27}$. Sum: $(1.898 + 0.5683) \\times 10^{27} = 2.4663 \\times 10^{27} \\approx 2.47 \\times 10^{27}$.",
       "Match exponents, add coefficients, then round as required.",
       ["2.47 × 10^27", "2.47 * 10^27"],

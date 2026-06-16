@@ -301,8 +301,8 @@ const trigIntegrals: Partial<ExplicitLesson> = {
       "y12e1-fcalc-trig-m7",
       "Which definite integral equals 1?",
       "C",
-      ["\\int_0^{\\pi/4} \\cos x\\,dx", "\\int_0^{\\pi/4} \\sin x\\,dx", "\\int_0^{\\pi/2} \\cos x\\,dx", "\\int_0^{\\pi/2} \\sin x\\,dx"],
-      "The integral of cos x from 0 to pi/2 is 1."
+      ["\\int_0^{\\pi/4} \\cos x\\,dx", "\\int_0^{\\pi/4} \\sin x\\,dx", "\\int_0^{\\pi/2} \\cos x\\,dx", "\\int_0^{\\pi} \\sin x\\,dx"],
+      "The integral of cos x from 0 to pi/2 is sin(pi/2) - sin(0) = 1."
     ),
     fcalcChoice(
       "y12e1-fcalc-trig-m8",
@@ -913,10 +913,10 @@ const examPractice: Partial<ExplicitLesson> = {
     fcalcTyped(
       "y12e1-fcalc-exam-g2",
       "Evaluate the definite integral.",
-      "\\int_0^{\\pi/2} \\sec^2 x\\,dx",
+      "\\int_0^{\\pi/4} \\sec^2 x\\,dx",
       "1",
       ["1.0"],
-      "The antiderivative of sec^2 x is tan x, and tan(pi/2) is infinite, but the standard evaluation from 0 approaches 1."
+      "The antiderivative of sec^2 x is tan x. Evaluating from 0 to pi/4: tan(pi/4) - tan(0) = 1 - 0 = 1."
     ),
     fcalcTyped(
       "y12e1-fcalc-exam-g3",

@@ -972,8 +972,8 @@ const kinematicsExamPractice: Partial<ExplicitLesson> = {
       "y12e1-kin-ep-i2",
       "A particle has $x(t) = t^2 - 6t + 8$ on $[0,5]$. Velocity is zero at $t = 3$. Find the total distance.",
       "x(0)=8,\\; x(3)=-1,\\; x(5)=3",
-      "12",
-      ["12 m"],
+      "13",
+      ["13 m"],
       "Distance [0,3] = |−1 − 8| = 9. Distance [3,5] = |3 − (−1)| = 4. Total = 13 m."
     ),
     kinChoice(

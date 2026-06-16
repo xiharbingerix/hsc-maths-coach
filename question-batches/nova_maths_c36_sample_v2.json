@@ -401,7 +401,11 @@
       "2, 3",
       "2 and 3",
       "t=2 and t=3",
-      "t = 2 and t = 3"
+      "t = 2 and t = 3",
+      "3, 2",
+      "3 and 2",
+      "t=3 and t=2",
+      "t = 3 and t = 2"
     ],
     "hint": "Set v(t) = 0 and solve the quadratic.",
     "explanation": "The particle is momentarily at rest when v(t) = 0. Solve t^2 - 5t + 6 = 0, which factorises as (t - 2)(t - 3) = 0. Therefore t = 2 seconds and t = 3 seconds.",

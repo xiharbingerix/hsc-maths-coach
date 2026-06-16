@@ -345,7 +345,7 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
           "y12s2-alr-i1",
           "Solve 2x + 9 = 21.",
           "C",
-          ["x = 5", "x = 6", "x = 6", "x = 15"],
+          ["x = 5", "x = 7", "x = 6", "x = 15"],
           "2x = 12 → x = 6."
         ),
         algebraAnswer(

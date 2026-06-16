@@ -249,7 +249,7 @@ const polynomialZeroes: Partial<ExplicitLesson> = {
       "y12e1-pz-i5",
       "The leading term of P(x) = −2(x − 1)²(x + 3) is:",
       "D",
-      ["−2x²", "−2x³", "2x³", "−2x³"],
+      ["−2x²", "−2x⁴", "2x³", "−2x³"],
       "Expand the leading terms: (−2)(x²)(x) = −2x³. The polynomial is degree 3 with a negative leading coefficient."
     ),
   ],
@@ -284,9 +284,9 @@ const polynomialZeroes: Partial<ExplicitLesson> = {
     pzChoice(
       "y12e1-pz-m4",
       "For P(x) = (x − 3)²(x + 1)³, the y-intercept is:",
-      "A",
+      "B",
       ["−9", "9", "−27", "27"],
-      "P(0) = (0 − 3)²(0 + 1)³ = 9 · 1 = 9. Wait — (−3)² = 9 and (1)³ = 1, so P(0) = 9."
+      "P(0) = (0 − 3)²(0 + 1)³ = 9 · 1 = 9, so the y-intercept is 9."
     ),
     pzTyped(
       "y12e1-pz-m5",

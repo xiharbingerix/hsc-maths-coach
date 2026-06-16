@@ -506,8 +506,8 @@ const parallelPerpendicularLines: LessonContent = {
       "lrc-ppl-m1",
       "Which pair of gradients describes perpendicular lines?",
       "C",
-      ["$3$ and $3$", "$2$ and $-2$", "$5$ and $-\\dfrac{1}{5}$", "$-3$ and $\\dfrac{1}{3}$"],
-      "Perpendicular gradients multiply to −1. 5 × (−1/5) = −1 ✓. Note that option D also satisfies the condition, but option C is the intended answer here."
+      ["$3$ and $3$", "$2$ and $-2$", "$5$ and $-\\dfrac{1}{5}$", "$-3$ and $-\\dfrac{1}{3}$"],
+      "Perpendicular gradients multiply to −1. 5 × (−1/5) = −1 ✓. Option D gives (−3)(−1/3) = +1, not −1, so it is not perpendicular."
     ),
     answer(
       "lrc-ppl-m2",

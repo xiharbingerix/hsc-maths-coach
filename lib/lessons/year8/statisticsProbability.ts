@@ -3290,11 +3290,11 @@ const comparingDataWithBoxPlots: LessonContent = {
     ),
     answer(
       "y8-dat-cmpbxp-m9",
-      "Group A: Min = 10, Q1 = 20, Median = 30, Q3 = 40, Max = 50. Group B: Min = 10, Q1 = 15, Median = 20, Q3 = 35, Max = 50. Which group has the larger IQR?",
-      "\\text{IQR A}=40-20,\\quad \\text{IQR B}=35-15",
+      "Group A: Min = 10, Q1 = 20, Median = 30, Q3 = 45, Max = 50. Group B: Min = 10, Q1 = 15, Median = 20, Q3 = 35, Max = 50. Which group has the larger IQR?",
+      "\\text{IQR A}=45-20,\\quad \\text{IQR B}=35-15",
       "Group A",
-      "IQR A = 40 − 20 = 20. IQR B = 35 − 15 = 20. Both IQRs are equal at 20.",
-      ["equal", "same", "both 20", "Group A", "A"]
+      "IQR A = 45 − 20 = 25. IQR B = 35 − 15 = 20. Group A has the larger IQR.",
+      ["Group A", "A", "group a"]
     ),
     answer(
       "y8-dat-cmpbxp-m10",
