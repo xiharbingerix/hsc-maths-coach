@@ -206,6 +206,31 @@ function formatPercent(score: number) {
 }
 
 /**
+ * Tier-1 CAS check for a single typed answer from the browser. Returns true only
+ * if the CAS service confirms equivalence. Skips the call for empty or plainly-
+ * numeric answers, and returns false on any failure (caller keeps "incorrect").
+ */
+async function casCheckClient(
+  student: string,
+  correctAnswer: string,
+  acceptedAnswers: string[]
+): Promise<boolean> {
+  if (!student.trim() || !looksSymbolic(student, correctAnswer)) return false;
+  try {
+    const res = await fetch("/api/cas/equiv", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ student, correctAnswer, acceptedAnswers }),
+    });
+    if (!res.ok) return false;
+    const verdict = await res.json();
+    return verdict.equivalent === true;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Ask the CAS service which locally-rejected quiz answers are actually
  * equivalent forms. Returns a map of questionId -> true for upgrades. Only
  * single typed answers are checked (MCQ, multi-part and multi-step questions
@@ -638,6 +663,7 @@ function PracticeCard({
   const [stepAnswer, setStepAnswer] = useState("");
   const [stepResult, setStepResult] = useState<"correct" | "incorrect" | null>(null);
   const [stepAttempts, setStepAttempts] = useState(0);
+  const [stepChecking, setStepChecking] = useState(false);
   const [anyStepSkipped, setAnyStepSkipped] = useState(false);
   const [showStepHint, setShowStepHint] = useState(false);
   const [stepsDone, setStepsDone] = useState(false);
@@ -682,14 +708,26 @@ function PracticeCard({
 
     const step = allSteps[stepIndex];
 
-    function checkStepAnswer() {
-      const correct = markTypedAnswer({
+    async function checkStepAnswer() {
+      const local = markTypedAnswer({
         userAnswer: stepAnswer,
         correctAnswer: step.answer,
         acceptedAnswers: step.acceptedAnswers ?? [],
       }).correct;
-      setStepResult(correct ? "correct" : "incorrect");
-      if (!correct) setStepAttempts((a) => a + 1);
+      if (local) {
+        setStepResult("correct");
+        return;
+      }
+      // Tier 1: equivalent forms (e.g. factored/reordered) before marking wrong.
+      setStepChecking(true);
+      const casOk = await casCheckClient(
+        stepAnswer,
+        step.answer,
+        step.acceptedAnswers ?? []
+      );
+      setStepChecking(false);
+      setStepResult(casOk ? "correct" : "incorrect");
+      if (!casOk) setStepAttempts((a) => a + 1);
     }
 
     function advanceStep(skipped: boolean) {
@@ -749,10 +787,10 @@ function PracticeCard({
           <button
             type="button"
             onClick={checkStepAnswer}
-            disabled={stepResult === "correct"}
+            disabled={stepResult === "correct" || stepChecking}
             className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-50"
           >
-            Check answer
+            {stepChecking ? "Checking…" : "Check answer"}
           </button>
           {step.hint && (
             <button
@@ -936,6 +974,7 @@ function QuizQuestion({
   const [stepAnswer, setStepAnswer] = useState("");
   const [stepResult, setStepResult] = useState<"correct" | "incorrect" | null>(null);
   const [stepAttempts, setStepAttempts] = useState(0);
+  const [stepChecking, setStepChecking] = useState(false);
   const [anyStepSkipped, setAnyStepSkipped] = useState(false);
   const [showStepHint, setShowStepHint] = useState(false);
 
@@ -989,14 +1028,26 @@ function QuizQuestion({
 
     const step = allSteps[stepIndex];
 
-    function checkStepAnswer() {
-      const correct = markTypedAnswer({
+    async function checkStepAnswer() {
+      const local = markTypedAnswer({
         userAnswer: stepAnswer,
         correctAnswer: step.answer,
         acceptedAnswers: step.acceptedAnswers ?? [],
       }).correct;
-      setStepResult(correct ? "correct" : "incorrect");
-      if (!correct) setStepAttempts((a) => a + 1);
+      if (local) {
+        setStepResult("correct");
+        return;
+      }
+      // Tier 1: equivalent forms (e.g. factored/reordered) before marking wrong.
+      setStepChecking(true);
+      const casOk = await casCheckClient(
+        stepAnswer,
+        step.answer,
+        step.acceptedAnswers ?? []
+      );
+      setStepChecking(false);
+      setStepResult(casOk ? "correct" : "incorrect");
+      if (!casOk) setStepAttempts((a) => a + 1);
     }
 
     function advanceStep(skipped: boolean) {
@@ -1047,10 +1098,10 @@ function QuizQuestion({
           <button
             type="button"
             onClick={checkStepAnswer}
-            disabled={stepResult === "correct"}
+            disabled={stepResult === "correct" || stepChecking}
             className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-50"
           >
-            Check answer
+            {stepChecking ? "Checking…" : "Check answer"}
           </button>
           {step.hint && (
             <button
