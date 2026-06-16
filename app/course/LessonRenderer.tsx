@@ -21,6 +21,7 @@ import { markTypedAnswer } from "../../lib/answerMarking";
 import { looksSymbolic } from "../../lib/cas/looksSymbolic";
 import { MathAnswerInput } from "../components/MathAnswerInput";
 import { HintLadder } from "./components/HintLadder";
+import { TutorPanel } from "./components/TutorPanel";
 import {
   getUserCourseProgress,
   upsertLessonProgress,
@@ -975,6 +976,8 @@ function PracticeCard({
         lessonSlug={lessonSlug}
         section={section}
       />
+
+      <TutorPanel question={question} />
     </div>
   );
 }
