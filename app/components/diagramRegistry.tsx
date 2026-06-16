@@ -12,10 +12,12 @@ import type {
   NetworkDiagram,
   NormalDistributionDiagram,
   NumberLineDiagram,
+  PieChartDiagram,
   PlaneShapeDiagram,
   PolynomialCurveDiagram,
   ProbabilityTreeDiagram,
   ScatterPlotDiagram,
+  SectorDiagram,
   SlopeFieldDiagram,
   StemAndLeafDiagram,
   TrapezoidalRuleDiagram,
@@ -35,10 +37,12 @@ import { HistogramView } from "../course/components/HistogramView";
 import { NetworkDiagramView } from "../course/components/NetworkDiagramView";
 import { NormalDistributionView } from "../course/components/NormalDistributionView";
 import { NumberLineView } from "../course/components/NumberLineView";
+import { PieChartView } from "../course/components/PieChartView";
 import { PlaneShapeView } from "../course/components/PlaneShapeView";
 import { PolynomialCurveView } from "../course/components/PolynomialCurveView";
 import { ProbabilityTreeView } from "../course/components/ProbabilityTreeView";
 import { ScatterPlotView } from "../course/components/ScatterPlotView";
+import { SectorView } from "../course/components/SectorView";
 import { SlopeFieldView } from "../course/components/SlopeFieldView";
 import { StemAndLeafView } from "../course/components/StemAndLeafView";
 import { TrapezoidalRuleView } from "../course/components/TrapezoidalRuleView";
@@ -93,6 +97,8 @@ export const DIAGRAM_COMPONENTS: Record<DiagramType, DiagramComponent> = {
   histogramDiagram: (d) => <HistogramView diagram={d as unknown as HistogramDiagram} />,
   scatterPlotDiagram: (d) => <ScatterPlotView diagram={d as unknown as ScatterPlotDiagram} />,
   planeShapeDiagram: (d) => <PlaneShapeView diagram={d as unknown as PlaneShapeDiagram} />,
+  sectorDiagram: (d) => <SectorView diagram={d as unknown as SectorDiagram} />,
+  pieChartDiagram: (d) => <PieChartView diagram={d as unknown as PieChartDiagram} />,
 };
 
 /**

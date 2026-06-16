@@ -587,6 +587,38 @@ export type PlaneShapeDiagram = {
   showVertexDots?: boolean;
 };
 
+/**
+ * A circle sector (wedge) for arc-length / sector-area / radian problems. The
+ * sector starts on the positive x-axis and sweeps anticlockwise by
+ * `angleDegrees`.
+ */
+export type SectorDiagram = {
+  description: string;
+  angleDegrees: number;
+  /** Label on a radius (e.g. "r" or "6 cm"). */
+  radiusLabel?: string;
+  /** Label inside the wedge near the centre (e.g. "60°" or "θ"). */
+  angleLabel?: string;
+  /** Label on the arc (e.g. "l" or the arc length). */
+  arcLabel?: string;
+  /** Faintly complete the circle to show the sector in context. */
+  showFullCircle?: boolean;
+  color?: StatChartColor;
+};
+
+export type PieSlice = {
+  label: string;
+  value: number;
+  color?: StatChartColor;
+};
+
+/** A pie chart of categorical proportions; slice angles are value/total·360°. */
+export type PieChartDiagram = {
+  description: string;
+  slices: PieSlice[];
+  showPercentages?: boolean;
+};
+
 export type ScatterPoint = { x: number; y: number; label?: string };
 
 /**

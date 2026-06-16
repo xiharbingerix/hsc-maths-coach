@@ -8,10 +8,12 @@ import type {
   NetworkDiagram,
   NormalDistributionDiagram,
   NumberLineDiagram,
+  PieChartDiagram,
   PlaneShapeDiagram,
   PolynomialCurveDiagram,
   ProbabilityTreeDiagram,
   ScatterPlotDiagram,
+  SectorDiagram,
   SlopeFieldDiagram,
   StemAndLeafDiagram,
   TrapezoidalRuleDiagram,
@@ -62,6 +64,8 @@ export const DIAGRAM_SPECS = [
   { type: "histogramDiagram", field: "histogramDiagram" },
   { type: "scatterPlotDiagram", field: "scatterPlotDiagram" },
   { type: "planeShapeDiagram", field: "planeShapeDiagram" },
+  { type: "sectorDiagram", field: "sectorDiagram" },
+  { type: "pieChartDiagram", field: "pieChartDiagram" },
 ] as const;
 
 /** Serialized `diagram_data.type` discriminator for a registered payload. */
@@ -98,6 +102,8 @@ export type DiagramFields = {
   histogramDiagram?: HistogramDiagram;
   scatterPlotDiagram?: ScatterPlotDiagram;
   planeShapeDiagram?: PlaneShapeDiagram;
+  sectorDiagram?: SectorDiagram;
+  pieChartDiagram?: PieChartDiagram;
 };
 
 /**
