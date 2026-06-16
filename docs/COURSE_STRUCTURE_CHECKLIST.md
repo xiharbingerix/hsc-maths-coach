@@ -1917,7 +1917,7 @@ Nova average lessons per unit: ~4–5.
 | Year 12 Extension 2 | 31 (5 units) | ~40 subtopics | ✅ Complete 2026-06-16 — 597 questions; all 30 dot-point groups covered |
 | Year 12 Standard 1 | 23 (5 units) | 7 NSW topics | ✅ Complete — all gaps closed 2026-06-15 (23 lessons, all 19Q) |
 | Year 12 Extension 1 | 30 (8 units) | ~28 subtopics | ✅ Depth pass complete — 520 questions seeded |
-| Year 11 Advanced | 65 (7 units) | 7 NSW focus areas | 🔄 FA1–FA4 ✅ complete 2026-06-15; ~4 lessons still needed (FA6, FA7) |
+| Year 11 Advanced | 70 (7 units) | 7 NSW focus areas | ✅ All 7 focus areas complete — FA6 (6 lessons) + FA7 (15 lessons) done |
 | Year 9 Core | ~63 (10 units) | 9 NSW focus areas | 🔄 Alg Tech + Equations + Trig B added 2026-06-16; all 9 focus areas have content now; unit renames + Numbers of any magnitude split still needed |
 | Year 9 / Year 10 variants | — | — | 🔄 Promote Advanced + Core to available after restructuring |
 | Year 8 | 59 (10 units) | ~111 subtopics | 🔄 4 units missing vs Class Maths |
