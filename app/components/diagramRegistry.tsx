@@ -8,6 +8,7 @@ import type {
   CartesianGraph,
   NetworkDiagram,
   NormalDistributionDiagram,
+  NumberLineDiagram,
   PolynomialCurveDiagram,
   ProbabilityTreeDiagram,
   SlopeFieldDiagram,
@@ -24,6 +25,7 @@ import { BoxPlotView } from "../course/components/BoxPlotView";
 import { CartesianGraphView } from "../course/components/CartesianGraphView";
 import { NetworkDiagramView } from "../course/components/NetworkDiagramView";
 import { NormalDistributionView } from "../course/components/NormalDistributionView";
+import { NumberLineView } from "../course/components/NumberLineView";
 import { PolynomialCurveView } from "../course/components/PolynomialCurveView";
 import { ProbabilityTreeView } from "../course/components/ProbabilityTreeView";
 import { SlopeFieldView } from "../course/components/SlopeFieldView";
@@ -70,6 +72,7 @@ export const DIAGRAM_COMPONENTS: Record<DiagramType, DiagramComponent> = {
     <PolynomialCurveView diagram={d as unknown as PolynomialCurveDiagram} />
   ),
   slopeFieldDiagram: (d) => <SlopeFieldView diagram={d as unknown as SlopeFieldDiagram} />,
+  numberLineDiagram: (d) => <NumberLineView diagram={d as unknown as NumberLineDiagram} />,
 };
 
 /**

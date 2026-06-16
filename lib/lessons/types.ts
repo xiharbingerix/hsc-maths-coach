@@ -377,3 +377,44 @@ export type PolynomialCurveDiagram = {
   yStep?: number;
   label?: string;
 };
+
+export type NumberLineColor = "blue" | "red" | "green" | "amber";
+
+/** A single marked value on a number line (e.g. an integer, or an endpoint). */
+export type NumberLinePoint = {
+  value: number;
+  /** Label drawn above the point; defaults to the value. Pass "" to hide. */
+  label?: string;
+  /** Open (hollow) circle for strict endpoints; closed (filled) by default. */
+  open?: boolean;
+  color?: NumberLineColor;
+};
+
+/**
+ * A shaded ray or segment, used for inequalities and intervals. Use the string
+ * sentinels for unbounded ends, which render as an arrow to the axis edge:
+ * `x > 4` → `{ from: 4, to: "inf", fromOpen: true }`;
+ * `-2 ≤ x < 3` → `{ from: -2, to: 3, toOpen: true }`.
+ */
+export type NumberLineInterval = {
+  from: number | "-inf";
+  to: number | "inf";
+  /** Open endpoint at `from` (strict). Ignored when `from` is "-inf". */
+  fromOpen?: boolean;
+  /** Open endpoint at `to` (strict). Ignored when `to` is "inf". */
+  toOpen?: boolean;
+  color?: NumberLineColor;
+  label?: string;
+};
+
+export type NumberLineDiagram = {
+  description: string;
+  min: number;
+  max: number;
+  /** Tick spacing; defaults to 1. */
+  step?: number;
+  points?: NumberLinePoint[];
+  intervals?: NumberLineInterval[];
+  /** Axis label drawn at the right end (e.g. "x"). */
+  axisLabel?: string;
+};

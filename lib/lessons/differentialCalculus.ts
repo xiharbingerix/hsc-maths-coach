@@ -4,6 +4,7 @@
   CartesianGraph,
   NetworkDiagram,
   NormalDistributionDiagram,
+  NumberLineDiagram,
   PolynomialCurveDiagram,
   SlopeFieldDiagram,
   ProbabilityTreeDiagram,
@@ -49,6 +50,7 @@ export type PracticeQuestion = {
   vennDiagram?: VennDiagram;
   polynomialCurveDiagram?: PolynomialCurveDiagram;
   slopeFieldDiagram?: SlopeFieldDiagram;
+  numberLineDiagram?: NumberLineDiagram;
   solutionDiagram?: NetworkDiagram;
   answer: string;
   acceptedAnswers?: string[];
@@ -89,6 +91,7 @@ export type WorkedExample = {
   vennDiagram?: VennDiagram;
   polynomialCurveDiagram?: PolynomialCurveDiagram;
   slopeFieldDiagram?: SlopeFieldDiagram;
+  numberLineDiagram?: NumberLineDiagram;
   steps: WorkedExampleStep[];
   finalAnswerLatex: string;
 };

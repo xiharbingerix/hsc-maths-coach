@@ -9,6 +9,7 @@ import type {
   CartesianGraph,
   NetworkDiagram,
   NormalDistributionDiagram,
+  NumberLineDiagram,
   PolynomialCurveDiagram,
   ProbabilityTreeDiagram,
   SlopeFieldDiagram,
@@ -48,6 +49,7 @@ export interface TutorQuestion {
   polynomialCurveDiagram?: PolynomialCurveDiagram;
   probabilityTreeDiagram?: ProbabilityTreeDiagram;
   slopeFieldDiagram?: SlopeFieldDiagram;
+  numberLineDiagram?: NumberLineDiagram;
   twoWayTableDiagram?: TwoWayTableDiagram;
   vennDiagram?: VennDiagram;
 }
@@ -70,6 +72,7 @@ export interface TutorWorkedExample {
   polynomialCurveDiagram?: PolynomialCurveDiagram;
   probabilityTreeDiagram?: ProbabilityTreeDiagram;
   slopeFieldDiagram?: SlopeFieldDiagram;
+  numberLineDiagram?: NumberLineDiagram;
   twoWayTableDiagram?: TwoWayTableDiagram;
   vennDiagram?: VennDiagram;
 }
@@ -219,6 +222,7 @@ function toTutorQuestion(q: PracticeQuestion): TutorQuestion {
     polynomialCurveDiagram: q.polynomialCurveDiagram,
     probabilityTreeDiagram: q.probabilityTreeDiagram,
     slopeFieldDiagram: q.slopeFieldDiagram,
+    numberLineDiagram: q.numberLineDiagram,
     twoWayTableDiagram: q.twoWayTableDiagram,
     vennDiagram: q.vennDiagram,
   };
@@ -243,6 +247,7 @@ function toTutorWorkedExample(ex: WorkedExample): TutorWorkedExample {
     polynomialCurveDiagram: ex.polynomialCurveDiagram,
     probabilityTreeDiagram: ex.probabilityTreeDiagram,
     slopeFieldDiagram: ex.slopeFieldDiagram,
+    numberLineDiagram: ex.numberLineDiagram,
     twoWayTableDiagram: ex.twoWayTableDiagram,
     vennDiagram: ex.vennDiagram,
   };

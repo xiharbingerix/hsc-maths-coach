@@ -4,6 +4,7 @@ import type {
   CartesianGraph,
   NetworkDiagram,
   NormalDistributionDiagram,
+  NumberLineDiagram,
   PolynomialCurveDiagram,
   ProbabilityTreeDiagram,
   SlopeFieldDiagram,
@@ -48,6 +49,7 @@ export const DIAGRAM_SPECS = [
   { type: "networkDiagram", field: "diagram" },
   { type: "polynomialCurveDiagram", field: "polynomialCurveDiagram" },
   { type: "slopeFieldDiagram", field: "slopeFieldDiagram" },
+  { type: "numberLineDiagram", field: "numberLineDiagram" },
 ] as const;
 
 /** Serialized `diagram_data.type` discriminator for a registered payload. */
@@ -77,6 +79,7 @@ export type DiagramFields = {
   vennDiagram?: VennDiagram;
   polynomialCurveDiagram?: PolynomialCurveDiagram;
   slopeFieldDiagram?: SlopeFieldDiagram;
+  numberLineDiagram?: NumberLineDiagram;
 };
 
 /**
