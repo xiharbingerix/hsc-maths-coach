@@ -7,3 +7,7 @@ export { year8StatisticsProbabilityLessonOverride } from "./statisticsProbabilit
 export { year8AlgebraEquationsLessonOverride } from "./algebraEquations";
 export { year8NumberOperationsLessonOverride } from "./numberOperations";
 export { year8VolumeSurfaceAreaLessonOverride } from "./volumeSurfaceArea";
+export { year8CircumferenceArcLengthLessonOverride } from "./circumferenceArcLength";
+export { year8AreaCirclesSectorsLessonOverride } from "./areaCirclesSectors";
+export { year8RatiosRatesLessonOverride } from "./ratiosRates";
+export { year8IndexLawsExtensionLessonOverride } from "./indexLawsExtension";

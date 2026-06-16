@@ -95,7 +95,7 @@ import {
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9AlgebraicTechniquesLessonOverride, year9ConstantRatesOfChangeLessonOverride, year9EquationsLessonOverride, year9EquationsBLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9LinearRelationshipsCLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9ProbabilityBLessonOverride, year9SimultaneousEquationsLessonOverride, year9VariationRatesLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
-import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride } from "./lessons/year8";
+import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride, year8CircumferenceArcLengthLessonOverride, year8AreaCirclesSectorsLessonOverride, year8RatiosRatesLessonOverride, year8IndexLawsExtensionLessonOverride } from "./lessons/year8";
 import { year7IntegersLessonOverride, year7FractionsLessonOverride, year7AlgebraicTechniquesLessonOverride, year7PercentagesLessonOverride, year7EquationsLessonOverride, year7IndicesLessonOverride, year7PerimeterLessonOverride, year7AreaLessonOverride, year7AnglesLessonOverride, year7DataLessonOverride } from "./lessons/year7";
 import {
   year12Extension2CalculusLessonOverride,
@@ -354,6 +354,10 @@ export function buildLesson(
     year8GeometryAnglesLessonOverride(course, unit, lesson) ??
     year8LinearRelationshipsLessonOverride(course, unit, lesson) ??
     year8StatisticsProbabilityLessonOverride(course, unit, lesson) ??
+    year8CircumferenceArcLengthLessonOverride(course, unit, lesson) ??
+    year8AreaCirclesSectorsLessonOverride(course, unit, lesson) ??
+    year8RatiosRatesLessonOverride(course, unit, lesson) ??
+    year8IndexLawsExtensionLessonOverride(course, unit, lesson) ??
     year9IndexLawsLessonOverride(course, unit, lesson) ??
     year9FinancialMathematicsLessonOverride(course, unit, lesson) ??
     year9ConstantRatesOfChangeLessonOverride(course, unit, lesson) ??
@@ -3751,7 +3755,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 9 Mathematics",
     yearLevel: "9",
     courseType: "standard",
-    status: "available",
+    status: "hidden",
     description:
       "Build the Stage 5 foundations for Year 10 Mathematics through geometry, trigonometry, algebra, measurement, finance, probability and statistics.",
     positioning:
@@ -4790,6 +4794,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "profit-and-loss",               title: "Profit and Loss" },
           { slug: "discounts-and-sales",           title: "Discounts and Sales" },
           { slug: "simple-interest-introduction",  title: "Simple Interest Introduction" },
+          { slug: "wages-and-salary",              title: "Wages and Salary" },
+          { slug: "income-tax-basics",             title: "Income Tax Basics" },
+          { slug: "compound-interest-introduction", title: "Compound Interest Introduction" },
         ],
       },
       {
@@ -4837,6 +4844,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Verify solutions by substitution, identify errors in incorrect working, and practise mixed equation types.",
           },
+          { slug: "linear-inequalities",        title: "Linear Inequalities" },
+          { slug: "inequality-problem-solving", title: "Inequality Problem Solving" },
         ],
       },
       {
@@ -4952,6 +4961,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Identify outliers, explain how they affect the mean but not the median, and choose the appropriate measure of centre.",
           },
+          { slug: "box-plots",                      title: "Box Plots" },
+          { slug: "comparing-data-with-box-plots",  title: "Comparing Data with Box Plots" },
         ],
       },
       {
@@ -4993,6 +5004,60 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Use expected count = P(event) × n to predict how many times an event will occur in a repeated experiment.",
           },
+        ],
+      },
+      {
+        slug: "circumference-and-arc-length",
+        title: "Circumference and Arc Length",
+        description: "Calculate the circumference of circles and the arc length of sectors using C = πd and l = (θ/360) × 2πr.",
+        syllabusArea: "Measurement and Space",
+        focus: "MA4-LEN-C-02 — circles and sectors are tested in every Stage 4 exam.",
+        lessons: [
+          { slug: "circumference-of-circles", title: "Circumference of Circles" },
+          { slug: "arc-length",               title: "Arc Length" },
+          { slug: "perimeter-of-sectors",     title: "Perimeter of Sectors" },
+          { slug: "circumference-applications", title: "Circumference Applications" },
+        ],
+      },
+      {
+        slug: "area-circles-sectors",
+        title: "Area of Circles, Sectors and Annuli",
+        description: "Find areas using A = πr², sector and annulus formulas, and composite figures involving circular parts.",
+        syllabusArea: "Measurement and Space",
+        focus: "MA4-ARE-C-02 — circles and annuli complete the Stage 4 area toolkit.",
+        lessons: [
+          { slug: "area-of-circles",             title: "Area of Circles" },
+          { slug: "area-of-sectors",             title: "Area of Sectors" },
+          { slug: "area-of-annuli",              title: "Area of Annuli" },
+          { slug: "composite-areas-with-circles", title: "Composite Areas with Circles" },
+        ],
+      },
+      {
+        slug: "ratios-and-rates",
+        title: "Ratios and Rates",
+        description: "Simplify and apply ratios, divide quantities, work with unit rates and speed-distance-time, and read scale drawings.",
+        syllabusArea: "Number and Algebra",
+        focus: "MA4-INT-C-02 — ratios and rates complete the Stage 4 number content.",
+        lessons: [
+          { slug: "introduction-to-ratios",       title: "Introduction to Ratios" },
+          { slug: "dividing-quantities-in-ratio", title: "Dividing Quantities in Ratio" },
+          { slug: "rates-and-unit-rates",         title: "Rates and Unit Rates" },
+          { slug: "speed-distance-time",          title: "Speed, Distance and Time" },
+          { slug: "scale-drawings",               title: "Scale Drawings" },
+        ],
+      },
+      {
+        slug: "index-laws-extension",
+        title: "Index Laws Extension",
+        description: "Apply negative indices, write numbers in scientific notation, round to significant figures, and operate with scientific notation.",
+        syllabusArea: "Number and Algebra",
+        focus: "MA4-ALG-C-02 — extends Year 7 index laws to negative exponents and scientific notation.",
+        lessons: [
+          { slug: "negative-indices",                  title: "Negative Indices" },
+          { slug: "scientific-notation-large-numbers", title: "Scientific Notation: Large Numbers" },
+          { slug: "scientific-notation-small-numbers", title: "Scientific Notation: Small Numbers" },
+          { slug: "significant-figures",               title: "Significant Figures" },
+          { slug: "operations-with-scientific-notation", title: "Operations with Scientific Notation" },
         ],
       },
     ],
@@ -5187,6 +5252,27 @@ export const newCoursePathways: CoursePathwaySeed[] = [
   //   trigonometry             â†’ right-angled only (no sine/cosine rule, area, bearings)
   //   geometry-proofs          â†’ congruence + similarity only (no circle geometry / proofs)
   const year10CoreTrimmedUnits = year10Base.units.map((u) => {
+    // MA5-ALG-P-01 (Path): algebraic fractions excluded from Core
+    if (u.slug === "algebraic-techniques") {
+      return {
+        ...u,
+        lessons: u.lessons.filter((l) => l.slug !== "algebraic-fractions"),
+      };
+    }
+    // MA5-EQU-P-02 (Path): quadratic formula excluded from Core
+    if (u.slug === "equations-simultaneous") {
+      return {
+        ...u,
+        lessons: u.lessons.filter((l) => l.slug !== "quadratic-formula"),
+      };
+    }
+    // MA5-PRO-P-01 (Path): conditional probability excluded from Core
+    if (u.slug === "probability") {
+      return {
+        ...u,
+        lessons: u.lessons.filter((l) => l.slug !== "conditional-probability"),
+      };
+    }
     if (u.slug === "non-linear-relationships") {
       return {
         ...u,

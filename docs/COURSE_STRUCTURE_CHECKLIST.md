@@ -16,7 +16,7 @@
 | Course | Nova lessons | Syllabus focus areas | Dot-point coverage | Revision lessons | Status |
 |---|---|---|---|---|---|
 | Year 7 Mathematics | 46 (10 units) | 10 NSW focus areas (MA4) | ✅ 10/10 — 874 questions seeded | 0 | ✅ Complete — 874 questions seeded 2026-06-16 |
-| Year 8 Mathematics | 59 (10 units) | 11 NSW outcomes (MA4) | ⚠️ ~55% — 6/11 outcomes covered; ratios/rates, negative indices, circumference/sectors, area of circles/sectors/annuli missing | 0 | ⚠️ Full depth; syllabus gaps identified 2026-06-16 |
+| Year 8 Mathematics | 80+ (14 units) | 12 NSW outcomes (MA4) | ✅ ~95% — 4 new units authored 2026-06-16 (circumference/arc, circles/sectors/annuli, ratios/rates, index extension); +7 lessons to existing units; pending seed | 0 | 🔧 Gap fix authored 2026-06-16 — pending catalog registration + seed |
 | Year 9 Mathematics | 54 (10 units) | 10 NSW focus areas | ⚠️ ~78% — 8/10 NSW outcomes have direct content; surds and non-linear relationships missing; unit names don't match NSW 2022 | 0 | ⚠️ Audited 2026-06-16 — content gaps: surds (MA5-SUR-C-01), non-linear relationships (MA5-NON-C-01); unit headings don't match NSW 2022 |
 | Year 9 Mathematics Advanced | ~67 (15 units) | 5 NSW Stage 5 Path outcomes (MA5-EQU-P-01/02, MA5-RAT-P-01, MA5-PRO-P-01, MA5-LIN-P-01) | ✅ 14/15 units fully covered; 1 content gap (MA5-RAT-P-02 inverse variation); 1 structural gap (midpoint/distance in wrong unit) | 0 | ✅ Audited 2026-06-16 — Advanced-specific units all complete; 1 missing outcome (MA5-RAT-P-02), 1 structural gap (LRC) |
 | Year 9 Mathematics Core | ~64 (11 units) | 9 NSW focus areas | ✅ 9/9 complete | 0 | ✅ Depth pass complete 2026-06-16 — all gaps closed, all units renamed to NSW 2022, 1216 questions |
@@ -215,23 +215,30 @@ Class Mathematics has 13 topics / 117 subtopics for Year 7.
 
 ---
 
-## Year 8 Mathematics ✅
+## Year 8 Mathematics 🔧 Gap Fix In Progress — 2026-06-16
 
 `year-8-mathematics` — `available`. Override file: `lib/lessons/year8/`.
-Class Maths: 14 topics / 111 subtopics. Nova: 10 units / 59 lessons.
+Class Maths: 14 topics / 111 subtopics. Nova (post-fix): **14 units / 80+ lessons** — new content authored 2026-06-16.
 
+**Existing units (10):**
 - [x] Number Operations and Properties (6 lessons)
 - [x] Algebra Foundations (6 lessons)
-- [x] Number and Financial Mathematics (6 lessons)
-- [x] Algebra and Equations (6 lessons)
+- [x] Number and Financial Mathematics (6 → **9 lessons** — +wages/salary, income tax, compound interest)
+- [x] Algebra and Equations (6 → **8 lessons** — +linear inequalities, inequality problem solving)
 - [x] Linear Relationships (6 lessons)
 - [x] Pythagoras' Theorem (6 lessons)
 - [x] Geometry and Angles (6 lessons)
 - [x] Volume and Surface Area (6 lessons)
-- [x] Data Analysis and Graphs (6 lessons — stem-and-leaf, quartiles/IQR, outliers)
-- [x] Probability and Chance (5 lessons — relative frequency, expected outcomes)
+- [x] Data Analysis and Graphs (6 → **8 lessons** — +box plots, comparing data with box plots)
+- [x] Probability and Chance (5 lessons)
 
-**Gap vs Class Maths:** Nova has 10 units vs 14-topic target. Missing units likely cover Number and Algebra depth (ratios/rates, index laws, algebraic fractions) and additional Data topics. Adequate for available status.
+**New units (4) authored 2026-06-16:**
+- [x] Circumference and Arc Length — `circumferenceArcLength.ts` (4 lessons / 76Q) — MA4-LEN-C-02
+- [x] Area of Circles, Sectors and Annuli — `areaCirclesSectors.ts` (4 lessons / 76Q) — MA4-ARE-C-02
+- [x] Ratios and Rates — `ratiosRates.ts` (5 lessons / 95Q) — MA4-INT-C-02
+- [x] Index Laws Extension — `indexLawsExtension.ts` (5 lessons / 95Q) — MA4-ALG-C-02
+
+**Pending:** catalog registration + seed required to go live.
 
 ---
 
@@ -241,17 +248,17 @@ Class Maths: 14 topics / 111 subtopics. Nova: 10 units / 59 lessons.
 
 | # | NSW outcome heading | Outcome | Nova file | Lessons | Status |
 |---|---|---|---|---|---|
-| 1 | Fractions, decimals and percentages (Year 8 extension) | MA4-INT-C-02 | `numberOperations.ts` (partial) | `percentages-and-fractions` | ⚠️ Percentages only; ratios and rates entirely missing |
-| 2 | Financial mathematics | MA4-FIN-C-01 | `numberFinancialMathematics.ts` | 6 lessons | ⚠️ Simple interest ✅; wages/tax/budgeting/credit-debit missing |
-| 3 | Indices (Year 8 extension) | MA4-ALG-C-02 | none | — | ❌ Negative indices and scientific notation entirely missing |
-| 4 | Equations (Year 8 extension) | MA4-EQU-C-02 | `algebraEquations.ts` | 6 lessons | ⚠️ Brackets + both sides ✅; linear inequalities missing |
+| 1 | Fractions, decimals and percentages (Year 8 extension) | MA4-INT-C-02 | `ratiosRates.ts` (new) | 5 lessons | ✅ Fixed 2026-06-16 — ratios + rates + speed/distance/time + scale drawings |
+| 2 | Financial mathematics | MA4-FIN-C-01 | `numberFinancialMathematics.ts` | 9 lessons | ✅ Fixed 2026-06-16 — +wages/salary, income tax, compound interest |
+| 3 | Indices (Year 8 extension) | MA4-ALG-C-02 | `indexLawsExtension.ts` (new) | 5 lessons | ✅ Fixed 2026-06-16 — negative indices, scientific notation, sig figs, operations |
+| 4 | Equations (Year 8 extension) | MA4-EQU-C-02 | `algebraEquations.ts` | 8 lessons | ✅ Fixed 2026-06-16 — +linear inequalities, inequality problem solving |
 | 5 | Linear relationships | MA4-LIN-C-01 | `linearRelationships.ts` | 6 lessons | ✅ Complete |
 | 6 | Pythagoras' theorem | MA4-PYT-C-01 | `pythagorasTheorem.ts` | 6 lessons | ✅ Complete |
 | 7 | Properties of geometrical figures | MA4-GEO-C-01 | `geometryAngles.ts` | 6 lessons | ⚠️ Congruence tests ✅; quadrilateral properties thin; no construction |
-| 8 | Length (Year 8: circumference and sectors) | MA4-LEN-C-02 | none | — | ❌ Circumference of circles and arc length of sectors entirely missing |
-| 9 | Area (Year 8: circles, sectors, annuli) | MA4-ARE-C-02 | none | — | ❌ Area of circles, sectors and annuli entirely missing |
+| 8 | Length (Year 8: circumference and sectors) | MA4-LEN-C-02 | `circumferenceArcLength.ts` (new) | 4 lessons | ✅ Fixed 2026-06-16 — circumference, arc length, perimeter of sectors, applications |
+| 9 | Area (Year 8: circles, sectors, annuli) | MA4-ARE-C-02 | `areaCirclesSectors.ts` (new) | 4 lessons | ✅ Fixed 2026-06-16 — area of circles, sectors, annuli, composite figures |
 | 10 | Volume of right prisms and cylinders | MA4-VOL-C-01 | `volumeSurfaceArea.ts` | 6 lessons | ✅ Complete (includes cylinders and composite solids) |
-| 11 | Data analysis (Year 8 extension) | MA4-DAT-C-02 | `statisticsProbability.ts` | 6 lessons (data only) | ⚠️ Quartiles/IQR ✅; box plots and shape of distributions missing |
+| 11 | Data analysis (Year 8 extension) | MA4-DAT-C-02 | `statisticsProbability.ts` | 8 lessons (data only) | ✅ Fixed 2026-06-16 — +box plots, comparing data with box plots |
 | 12 | Probability | MA4-PRO-C-01 | `statisticsProbability.ts` | 5 lessons (probability) | ✅ Complete |
 
 ---

@@ -1495,15 +1495,746 @@ const simpleInterestIntroduction: LessonContent = {
   ],
 };
 
+// ── Lesson 7: Wages and Salary ────────────────────────────────────────────────
+
+const wagesAndSalary: LessonContent = {
+  description:
+    "Calculate gross pay from salary and hourly wages, including overtime at time-and-a-half and double time, in Australian employment contexts.",
+  learningIntention:
+    "Calculate gross pay from an annual salary or an hourly wage, including overtime rates.",
+  successCriteria: [
+    "Distinguish between a salary (fixed annual amount) and wages (hourly rate).",
+    "Convert an annual salary to a weekly, fortnightly or monthly amount.",
+    "Calculate regular gross pay from hours worked at a standard hourly rate.",
+    "Calculate overtime pay at time-and-a-half (1.5×) and double time (2×).",
+    "Find total gross pay when regular and overtime hours are combined.",
+  ],
+  teaching: {
+    paragraphs: [
+      "In Australia, employees are paid in one of two main ways. A salary is a fixed annual amount paid regardless of exact hours worked — for example, a teacher might earn $75 000 per year. Wages are paid by the hour, so the total depends on how many hours are worked. Casual workers often receive a higher hourly rate to compensate for the lack of paid leave.",
+      "To convert an annual salary to other pay periods, divide by the appropriate number: 52 for weekly pay, 26 for fortnightly pay (every two weeks), or 12 for monthly pay. For example, a $52 000 annual salary gives a weekly pay of $52 000 ÷ 52 = $1000.",
+      "Gross pay is the total earned before any tax or deductions. For hourly workers, gross pay = hours worked × hourly rate. Award rates in Australia set minimum pay — most casual and part-time workers are paid at least the award rate.",
+      "Overtime pay applies when employees work beyond standard hours (usually 38 hours per week in Australia). Time-and-a-half means 1.5 times the regular rate. Double time means 2 times the regular rate. A common mistake is to apply the overtime multiplier to the total hours rather than only the extra hours.",
+      "To find total gross pay, calculate regular pay and overtime pay separately, then add them together.",
+    ],
+    latexBlocks: [
+      "\\text{Weekly salary} = \\frac{\\text{Annual salary}}{52}",
+      "\\text{Gross pay} = \\text{hours} \\times \\text{hourly rate}",
+      "\\text{Time-and-a-half rate} = 1.5 \\times \\text{regular rate}",
+      "\\text{Double time rate} = 2 \\times \\text{regular rate}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Convert annual salary to weekly pay",
+      questionLatex: "\\text{Priya earns an annual salary of }\\$68\\,900.\\text{ Find her weekly pay.}",
+      steps: [
+        { explanation: "Divide the annual salary by 52 weeks.", latex: "68\\,900 \\div 52 = 1325" },
+      ],
+      finalAnswerLatex: "\\$1325\\text{ per week}",
+    } as WorkedExample,
+    {
+      title: "Calculate gross pay with overtime",
+      questionLatex: "\\text{Jake earns }\\$22\\text{ per hour. He works 38 regular hours and 4 hours at time-and-a-half. Find his gross pay.}",
+      steps: [
+        { explanation: "Calculate regular pay.", latex: "38 \\times 22 = 836" },
+        { explanation: "Find the time-and-a-half rate.", latex: "1.5 \\times 22 = 33" },
+        { explanation: "Calculate overtime pay.", latex: "4 \\times 33 = 132" },
+        { explanation: "Add regular and overtime pay.", latex: "836 + 132 = 968" },
+      ],
+      finalAnswerLatex: "\\$968",
+    } as WorkedExample,
+    {
+      title: "Fortnightly pay from annual salary",
+      questionLatex: "\\text{A nurse earns }\\$89\\,700\\text{ per year. Find her fortnightly pay.}",
+      steps: [
+        { explanation: "Divide by 26 fortnights in a year.", latex: "89\\,700 \\div 26 = 3450" },
+      ],
+      finalAnswerLatex: "\\$3450\\text{ per fortnight}",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-nfm-wag-g1",
+      "Which statement correctly describes the difference between a salary and wages?",
+      "B",
+      [
+        "A salary is paid hourly; wages are paid annually",
+        "A salary is a fixed annual amount; wages are paid per hour worked",
+        "Both salary and wages mean the same thing",
+        "Wages are always higher than a salary",
+      ],
+      "A salary is a fixed yearly amount. Wages depend on the number of hours worked."
+    ),
+    answer(
+      "y8-nfm-wag-g2",
+      "An employee earns an annual salary of $52 000. Find the weekly pay.",
+      "\\$52\\,000 \\div 52 = \\;?",
+      "1000",
+      "52 000 ÷ 52 = 1000.",
+      ["$1000", "1000.00"]
+    ),
+    answer(
+      "y8-nfm-wag-g3",
+      "Lena earns $18 per hour and works 35 hours in a week. Find her gross pay.",
+      "35 \\times 18 = \\;?",
+      "630",
+      "35 × 18 = 630.",
+      ["$630"]
+    ),
+    answer(
+      "y8-nfm-wag-g4",
+      "Tom earns $20 per hour. What is his time-and-a-half rate?",
+      "1.5 \\times 20 = \\;?",
+      "30",
+      "1.5 × 20 = 30.",
+      ["$30"]
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y8-nfm-wag-i1",
+      "A teacher earns an annual salary of $78 000. Find the monthly pay.",
+      "\\$78\\,000 \\div 12 = \\;?",
+      "6500",
+      "78 000 ÷ 12 = 6500.",
+      ["$6500"]
+    ),
+    answer(
+      "y8-nfm-wag-i2",
+      "An annual salary of $62 400 is paid fortnightly. Find the fortnightly pay.",
+      "\\$62\\,400 \\div 26 = \\;?",
+      "2400",
+      "62 400 ÷ 26 = 2400.",
+      ["$2400"]
+    ),
+    answer(
+      "y8-nfm-wag-i3",
+      "Mia earns $24 per hour. She works 38 regular hours and 3 hours at double time. Find her gross pay.",
+      "\\text{Gross pay} = 38 \\times 24 + 3 \\times (2 \\times 24) = \\;?",
+      "1056",
+      "Regular pay: 38 × 24 = 912. Double time rate: 2 × 24 = 48. Overtime pay: 3 × 48 = 144. Total: 912 + 144 = 1056.",
+      ["$1056"]
+    ),
+    answer(
+      "y8-nfm-wag-i4",
+      "Ben earns $16 per hour and works 40 hours. He is paid time-and-a-half for the 2 hours beyond 38 hours. Find his gross pay.",
+      "\\text{Gross pay} = 38 \\times 16 + 2 \\times (1.5 \\times 16) = \\;?",
+      "656",
+      "Regular pay: 38 × 16 = 608. Overtime rate: 1.5 × 16 = 24. Overtime pay: 2 × 24 = 48. Total: 608 + 48 = 656.",
+      ["$656"]
+    ),
+    choice(
+      "y8-nfm-wag-i5",
+      "Sophie earns $25 per hour. She works 38 regular hours and 2 hours at time-and-a-half. What is her gross pay?",
+      "C",
+      ["$950", "$987.50", "$1025", "$1050"],
+      "Regular pay: 38 × 25 = 950. Time-and-a-half rate: 1.5 × 25 = 37.50. Overtime pay: 2 × 37.50 = 75. Total: 950 + 75 = $1025.",
+      "38 \\times 25 + 2 \\times (1.5 \\times 25) = \\;?"
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Applying the overtime multiplier to all hours: e.g. 40 hours × (1.5 × $20) = $1200 instead of only applying it to the extra hours.",
+      fix: "Calculate regular pay for standard hours and overtime pay separately for only the extra hours, then add.",
+    },
+    {
+      mistake: "Dividing by the wrong number to convert annual salary: dividing by 26 when finding weekly pay.",
+      fix: "Divide by 52 for weekly pay, by 26 for fortnightly pay, and by 12 for monthly pay.",
+    },
+    {
+      mistake: "Confusing time-and-a-half (×1.5) with double time (×2).",
+      fix: "Time-and-a-half means 1.5 times the regular rate. Double time means 2 times the regular rate.",
+    },
+  ],
+  masteryQuiz: [
+    choice(
+      "y8-nfm-wag-m1",
+      "How many fortnights are in one year?",
+      "B",
+      ["12", "26", "52", "24"],
+      "A fortnight is two weeks. 52 weeks ÷ 2 = 26 fortnights."
+    ),
+    choice(
+      "y8-nfm-wag-m2",
+      "An employee earns $54 600 per year. Which calculation gives the weekly pay?",
+      "A",
+      ["54 600 ÷ 52", "54 600 ÷ 26", "54 600 ÷ 12", "54 600 × 52"],
+      "Divide annual salary by 52 to find weekly pay."
+    ),
+    answer(
+      "y8-nfm-wag-m3",
+      "A librarian earns $67 600 per year. Find the weekly pay.",
+      "\\$67\\,600 \\div 52 = \\;?",
+      "1300",
+      "67 600 ÷ 52 = 1300.",
+      ["$1300"]
+    ),
+    answer(
+      "y8-nfm-wag-m4",
+      "Ryan earns $21 per hour and works 38 hours in a week. Find his gross pay.",
+      "38 \\times 21 = \\;?",
+      "798",
+      "38 × 21 = 798.",
+      ["$798"]
+    ),
+    answer(
+      "y8-nfm-wag-m5",
+      "Eva earns $28 per hour. What is her double time rate?",
+      "2 \\times 28 = \\;?",
+      "56",
+      "2 × 28 = 56.",
+      ["$56"]
+    ),
+    answer(
+      "y8-nfm-wag-m6",
+      "An annual salary of $93 600 is paid fortnightly. Find the fortnightly pay.",
+      "\\$93\\,600 \\div 26 = \\;?",
+      "3600",
+      "93 600 ÷ 26 = 3600.",
+      ["$3600"]
+    ),
+    answer(
+      "y8-nfm-wag-m7",
+      "Zara earns $19 per hour. She works 38 regular hours and 5 hours at time-and-a-half. Find her gross pay.",
+      "38 \\times 19 + 5 \\times (1.5 \\times 19) = \\;?",
+      "864.50",
+      "Regular pay: 38 × 19 = 722. Overtime rate: 1.5 × 19 = 28.50. Overtime pay: 5 × 28.50 = 142.50. Total: 722 + 142.50 = 864.50.",
+      ["$864.50"]
+    ),
+    answer(
+      "y8-nfm-wag-m8",
+      "James earns $32 per hour. He works 38 regular hours and 4 hours at double time. Find his gross pay.",
+      "38 \\times 32 + 4 \\times (2 \\times 32) = \\;?",
+      "1472",
+      "Regular pay: 38 × 32 = 1216. Double time rate: 2 × 32 = 64. Overtime pay: 4 × 64 = 256. Total: 1216 + 256 = 1472.",
+      ["$1472"]
+    ),
+    answer(
+      "y8-nfm-wag-m9",
+      "A graduate earns an annual salary of $57 200. Find the monthly pay.",
+      "\\$57\\,200 \\div 12 = \\;?",
+      "4766.67",
+      "57 200 ÷ 12 ≈ 4766.67.",
+      ["$4766.67", "4766.67"]
+    ),
+    answer(
+      "y8-nfm-wag-m10",
+      "Chloe works 38 hours at $26 per hour and 3 hours at time-and-a-half. Her colleague Liam works 41 hours all at $26 per hour. Who earns more and by how much?",
+      "\\text{Compare Chloe vs Liam gross pay}",
+      "Chloe by 19.50",
+      "Chloe: Regular 38 × 26 = 988. Overtime rate 1.5 × 26 = 39. Overtime pay 3 × 39 = 117. Chloe total = 988 + 117 = 1105. Liam: 41 × 26 = 1066. Chloe earns 1105 − 1066 = $19.50 more.",
+      ["chloe by $19.50", "$19.50 more", "19.50"]
+    ),
+  ],
+};
+
+// ── Lesson 8: Income Tax Basics ───────────────────────────────────────────────
+
+const incomeTaxBasics: LessonContent = {
+  description:
+    "Understand gross versus net income, calculate simple flat-rate tax, apply the Medicare levy, and find take-home pay after deductions, including GST calculations.",
+  learningIntention:
+    "Calculate take-home pay after applying a flat-rate income tax and Medicare levy, and find GST-inclusive and GST-exclusive prices.",
+  successCriteria: [
+    "Distinguish between gross income and net income.",
+    "Calculate tax at a flat percentage rate.",
+    "Calculate the Medicare levy at 2% of gross income.",
+    "Find take-home pay by subtracting tax and the Medicare levy from gross income.",
+    "Add 10% GST to a price and find the original price when GST is included.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Gross income is the total amount earned before any deductions. Net income (take-home pay) is what you actually receive after deductions such as income tax and the Medicare levy. The phrase 'your pay before tax' means gross income.",
+      "In Australia, income tax is collected through a system called PAYG (Pay As You Go) withholding. Employers calculate the tax owed on each pay and send it directly to the Australian Tax Office (ATO) before paying the employee. At the end of the financial year, employees lodge a tax return to check whether they paid the right amount.",
+      "For Year 8, we use a simple flat-rate model: tax = gross income × tax rate. In reality, Australia uses progressive tax brackets (higher income earns a higher rate), but the flat-rate model builds the core skill of calculating a percentage deduction.",
+      "The Medicare levy is an additional 2% of gross income that most Australian residents pay. It funds the public health system. Take-home pay = gross income − income tax − Medicare levy.",
+      "GST (Goods and Services Tax) is a 10% tax added to most goods and services in Australia. To find the GST-inclusive price, multiply by 1.10. To find the original price when the GST-inclusive price is known, divide by 1.10. A common mistake is to find 10% of the final price rather than the original price when working backwards.",
+    ],
+    latexBlocks: [
+      "\\text{Income tax} = \\text{gross income} \\times \\text{tax rate}",
+      "\\text{Medicare levy} = \\text{gross income} \\times 0.02",
+      "\\text{Take-home pay} = \\text{gross income} - \\text{income tax} - \\text{Medicare levy}",
+      "\\text{GST-inclusive price} = \\text{original price} \\times 1.10",
+      "\\text{Original price} = \\frac{\\text{GST-inclusive price}}{1.10}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Calculate take-home pay",
+      questionLatex: "\\text{Maya earns }\\$800\\text{ gross per week. She pays 20\\% income tax and the 2\\% Medicare levy. Find her take-home pay.}",
+      steps: [
+        { explanation: "Calculate income tax.", latex: "0.20 \\times 800 = 160" },
+        { explanation: "Calculate Medicare levy.", latex: "0.02 \\times 800 = 16" },
+        { explanation: "Subtract both deductions from gross income.", latex: "800 - 160 - 16 = 624" },
+      ],
+      finalAnswerLatex: "\\$624\\text{ per week}",
+    } as WorkedExample,
+    {
+      title: "Add GST to a price",
+      questionLatex: "\\text{A textbook has a pre-GST price of }\\$45.\\text{ Find the GST-inclusive price.}",
+      steps: [
+        { explanation: "Multiply by 1.10 to add 10% GST.", latex: "45 \\times 1.10 = 49.50" },
+      ],
+      finalAnswerLatex: "\\$49.50",
+    } as WorkedExample,
+    {
+      title: "Find the original price from a GST-inclusive price",
+      questionLatex: "\\text{A tool kit costs }\\$132\\text{ including GST. Find the pre-GST price.}",
+      steps: [
+        { explanation: "Divide by 1.10 to remove GST.", latex: "132 \\div 1.10 = 120" },
+      ],
+      finalAnswerLatex: "\\$120",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-nfm-tax-g1",
+      "Which best describes 'gross income'?",
+      "C",
+      [
+        "Income after tax has been deducted",
+        "Income tax paid to the government",
+        "Total income earned before any deductions",
+        "Income minus the Medicare levy only",
+      ],
+      "Gross income is the total earned before any deductions such as tax or the Medicare levy."
+    ),
+    answer(
+      "y8-nfm-tax-g2",
+      "Alex earns $600 gross per week. He pays income tax at 20%. Calculate his income tax.",
+      "0.20 \\times 600 = \\;?",
+      "120",
+      "0.20 × 600 = 120.",
+      ["$120"]
+    ),
+    answer(
+      "y8-nfm-tax-g3",
+      "Sam's gross weekly pay is $500. Calculate the Medicare levy (2% of gross income).",
+      "0.02 \\times 500 = \\;?",
+      "10",
+      "0.02 × 500 = 10.",
+      ["$10"]
+    ),
+    answer(
+      "y8-nfm-tax-g4",
+      "A camera has a pre-GST price of $200. Find the GST-inclusive price.",
+      "200 \\times 1.10 = \\;?",
+      "220",
+      "200 × 1.10 = 220.",
+      ["$220"]
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y8-nfm-tax-i1",
+      "Zoe earns $750 gross per week. She pays 18% income tax and 2% Medicare levy. Find her take-home pay.",
+      "750 - (0.18 \\times 750) - (0.02 \\times 750) = \\;?",
+      "600",
+      "Tax: 0.18 × 750 = 135. Medicare levy: 0.02 × 750 = 15. Take-home: 750 − 135 − 15 = 600.",
+      ["$600"]
+    ),
+    answer(
+      "y8-nfm-tax-i2",
+      "A jacket costs $110 excluding GST. Find the GST-inclusive price.",
+      "110 \\times 1.10 = \\;?",
+      "121",
+      "110 × 1.10 = 121.",
+      ["$121"]
+    ),
+    choice(
+      "y8-nfm-tax-i3",
+      "A phone costs $385 including GST. What is the pre-GST price?",
+      "B",
+      ["$346.50", "$350", "$38.50", "$423.50"],
+      "Divide by 1.10: 385 ÷ 1.10 = $350.",
+      "385 \\div 1.10 = \\;?"
+    ),
+    answer(
+      "y8-nfm-tax-i4",
+      "An employee earns $1200 gross per fortnight. She pays 22% income tax and the 2% Medicare levy. Find her take-home pay.",
+      "1200 - (0.22 \\times 1200) - (0.02 \\times 1200) = \\;?",
+      "912",
+      "Tax: 0.22 × 1200 = 264. Medicare levy: 0.02 × 1200 = 24. Take-home: 1200 − 264 − 24 = 912.",
+      ["$912"]
+    ),
+    answer(
+      "y8-nfm-tax-i5",
+      "The GST-inclusive price of a bike is $660. Find the pre-GST price.",
+      "660 \\div 1.10 = \\;?",
+      "600",
+      "660 ÷ 1.10 = 600.",
+      ["$600"]
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Subtracting the tax rate from gross income directly: $800 − 20 = $780 instead of deducting 20% of $800.",
+      fix: "Calculate the dollar amount of tax first: 0.20 × 800 = $160, then subtract: $800 − $160 = $640.",
+    },
+    {
+      mistake: "Forgetting to deduct the Medicare levy in addition to income tax.",
+      fix: "Take-home pay = gross income − income tax − Medicare levy. Both deductions apply.",
+    },
+    {
+      mistake: "Finding 10% of the GST-inclusive price to reverse GST instead of dividing by 1.10.",
+      fix: "To find the pre-GST price, divide the GST-inclusive price by 1.10, not by 1 + 10% of the final price.",
+    },
+  ],
+  masteryQuiz: [
+    choice(
+      "y8-nfm-tax-m1",
+      "What is PAYG withholding?",
+      "A",
+      [
+        "When employers deduct income tax from pay before it reaches the employee",
+        "When the employee pays tax directly to the ATO each week",
+        "A government payment made to low-income workers",
+        "A type of superannuation contribution",
+      ],
+      "PAYG (Pay As You Go) withholding means the employer deducts tax and sends it to the ATO before paying the employee."
+    ),
+    choice(
+      "y8-nfm-tax-m2",
+      "What percentage is the Medicare levy in Australia?",
+      "B",
+      ["1%", "2%", "5%", "10%"],
+      "The Medicare levy is 2% of gross income."
+    ),
+    answer(
+      "y8-nfm-tax-m3",
+      "Kai earns $900 gross per week. He pays 25% income tax. Calculate his income tax.",
+      "0.25 \\times 900 = \\;?",
+      "225",
+      "0.25 × 900 = 225.",
+      ["$225"]
+    ),
+    answer(
+      "y8-nfm-tax-m4",
+      "Kai (from the previous question) also pays the 2% Medicare levy. Find his take-home pay.",
+      "900 - 225 - (0.02 \\times 900) = \\;?",
+      "657",
+      "Medicare levy: 0.02 × 900 = 18. Take-home: 900 − 225 − 18 = 657.",
+      ["$657"]
+    ),
+    answer(
+      "y8-nfm-tax-m5",
+      "A laptop has a pre-GST price of $850. Find the GST-inclusive price.",
+      "850 \\times 1.10 = \\;?",
+      "935",
+      "850 × 1.10 = 935.",
+      ["$935"]
+    ),
+    answer(
+      "y8-nfm-tax-m6",
+      "A service costs $242 including GST. Find the pre-GST price.",
+      "242 \\div 1.10 = \\;?",
+      "220",
+      "242 ÷ 1.10 = 220.",
+      ["$220"]
+    ),
+    answer(
+      "y8-nfm-tax-m7",
+      "Ava earns $2600 gross per month. She pays 19% income tax and 2% Medicare levy. Find her monthly take-home pay.",
+      "2600 - (0.19 \\times 2600) - (0.02 \\times 2600) = \\;?",
+      "2054",
+      "Tax: 0.19 × 2600 = 494. Medicare levy: 0.02 × 2600 = 52. Take-home: 2600 − 494 − 52 = 2054.",
+      ["$2054"]
+    ),
+    answer(
+      "y8-nfm-tax-m8",
+      "The GST-inclusive price of a surfboard is $594. Find the pre-GST price.",
+      "594 \\div 1.10 = \\;?",
+      "540",
+      "594 ÷ 1.10 = 540.",
+      ["$540"]
+    ),
+    answer(
+      "y8-nfm-tax-m9",
+      "Luca's gross annual salary is $62 400. After 21% income tax and 2% Medicare levy, find his annual take-home pay.",
+      "62400 - (0.21 \\times 62400) - (0.02 \\times 62400) = \\;?",
+      "48048",
+      "Tax: 0.21 × 62400 = 13104. Medicare levy: 0.02 × 62400 = 1248. Take-home: 62400 − 13104 − 1248 = 48048.",
+      ["$48048", "48,048"]
+    ),
+    answer(
+      "y8-nfm-tax-m10",
+      "A tradesperson quotes a job at $550 plus GST. The client expected to pay $605 in total. Is the client's expectation correct?",
+      "550 \\times 1.10 = \\;?",
+      "605",
+      "GST-inclusive price: 550 × 1.10 = 605. Yes, the client's expectation is correct.",
+      ["yes", "correct", "yes, correct", "605"]
+    ),
+  ],
+};
+
+// ── Lesson 9: Compound Interest Introduction ──────────────────────────────────
+
+const compoundInterestIntroduction: LessonContent = {
+  description:
+    "Understand how compound interest grows faster than simple interest, apply the formula A = P(1 + r)^n, and compare savings over multiple years in Australian contexts.",
+  learningIntention:
+    "Calculate compound interest using A = P(1 + r)^n and compare it with simple interest over the same period.",
+  successCriteria: [
+    "Explain why compound interest earns more than simple interest over time.",
+    "Identify P (principal), r (annual rate as a decimal) and n (number of years) from a problem.",
+    "Apply the formula A = P(1 + r)^n to find the total amount.",
+    "Calculate compound interest earned as I = A − P.",
+    "Compare the final amounts under simple interest and compound interest.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Simple interest is calculated only on the original principal every year. Compound interest is calculated on the principal plus all the interest that has already been earned — often described as 'interest on interest'. Because the balance grows each year, compound interest produces a larger final amount than simple interest at the same rate over the same period.",
+      "The compound interest formula is $A = P(1 + r)^n$, where $A$ is the total amount (principal plus interest), $P$ is the principal, $r$ is the annual interest rate written as a decimal, and $n$ is the number of years. For example, $3000 invested at 5% per year for 4 years: $r = 0.05$, so $A = 3000 \\times (1.05)^4$.",
+      "To find the interest earned, subtract the principal: $I = A - P$. A common mistake is to report $A$ as the interest rather than the total amount — always check what the question asks for.",
+      "The power $n$ in the formula represents repeated multiplication. For $n = 3$ years at rate $r$, the balance is multiplied by $(1 + r)$ three times in sequence. This is why compound growth is sometimes called 'exponential growth': it accelerates over time rather than growing by the same fixed dollar amount each year.",
+      "In Australian banking, savings accounts, term deposits and home loan balances all use compound interest. The difference between simple and compound interest is small over one or two years, but grows significantly over longer periods — which is why starting to save early matters so much.",
+    ],
+    latexBlocks: [
+      "A = P(1 + r)^n",
+      "I = A - P",
+      "\\text{Example: }P = \\$3000,\\;r = 0.05,\\;n = 4:\\quad A = 3000 \\times (1.05)^4",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Find the total amount under compound interest",
+      questionLatex: "\\text{Invest }\\$2000\\text{ at }4\\%\\text{ per year compounded annually for 3 years. Find the total amount.}",
+      steps: [
+        { explanation: "Identify the values. P = 2000, r = 0.04, n = 3.", latex: "r = 4\\% = 0.04" },
+        { explanation: "Substitute into the formula.", latex: "A = 2000 \\times (1.04)^3" },
+        { explanation: "Calculate (1.04)^3.", latex: "(1.04)^3 = 1.124864" },
+        { explanation: "Multiply to find A.", latex: "A = 2000 \\times 1.124864 = 2249.73" },
+      ],
+      finalAnswerLatex: "A \\approx \\$2249.73",
+    } as WorkedExample,
+    {
+      title: "Calculate compound interest earned",
+      questionLatex: "\\text{Find the interest earned when }\\$5000\\text{ is invested at }6\\%\\text{ per year for 2 years.}",
+      steps: [
+        { explanation: "P = 5000, r = 0.06, n = 2.", latex: "A = 5000 \\times (1.06)^2" },
+        { explanation: "Calculate (1.06)^2.", latex: "(1.06)^2 = 1.1236" },
+        { explanation: "Find total amount.", latex: "A = 5000 \\times 1.1236 = 5618" },
+        { explanation: "Subtract principal to find interest.", latex: "I = 5618 - 5000 = 618" },
+      ],
+      finalAnswerLatex: "\\$618",
+    } as WorkedExample,
+    {
+      title: "Compare simple interest and compound interest",
+      questionLatex: "\\text{Compare }\\$1000\\text{ at }5\\%\\text{ over 3 years under simple interest and compound interest.}",
+      steps: [
+        { explanation: "Simple interest.", latex: "I_{\\text{simple}} = \\frac{1000 \\times 5 \\times 3}{100} = \\$150" },
+        { explanation: "Total under simple interest.", latex: "A_{\\text{simple}} = 1000 + 150 = \\$1150" },
+        { explanation: "Compound interest: A = 1000 × (1.05)^3.", latex: "(1.05)^3 = 1.157625" },
+        { explanation: "Total under compound interest.", latex: "A_{\\text{compound}} = 1000 \\times 1.157625 = \\$1157.63" },
+        { explanation: "Compare.", latex: "\\$1157.63 > \\$1150 \\Rightarrow \\text{compound interest earns more}" },
+      ],
+      finalAnswerLatex: "\\text{Compound interest gives }\\$7.63\\text{ more}",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-nfm-cmp-g1",
+      "In the formula A = P(1 + r)^n, what does r represent?",
+      "C",
+      [
+        "The number of years",
+        "The total amount at the end",
+        "The annual interest rate as a decimal",
+        "The interest earned",
+      ],
+      "r is the annual interest rate written as a decimal. For example, 5% becomes r = 0.05."
+    ),
+    answer(
+      "y8-nfm-cmp-g2",
+      "Find the total amount when $1000 is invested at 5% per year compounded annually for 2 years.",
+      "A = 1000 \\times (1.05)^2 = \\;?",
+      "1102.50",
+      "(1.05)^2 = 1.1025. A = 1000 × 1.1025 = 1102.50.",
+      ["$1102.50", "1102.5"]
+    ),
+    answer(
+      "y8-nfm-cmp-g3",
+      "$500 is invested at 4% compound interest for 1 year. Find the total amount.",
+      "A = 500 \\times (1.04)^1 = \\;?",
+      "520",
+      "A = 500 × 1.04 = 520.",
+      ["$520"]
+    ),
+    answer(
+      "y8-nfm-cmp-g4",
+      "Using the result from the previous question, find the compound interest earned on $500 at 4% for 1 year.",
+      "I = 520 - 500 = \\;?",
+      "20",
+      "I = A − P = 520 − 500 = 20.",
+      ["$20"]
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y8-nfm-cmp-i1",
+      "Find the total amount when $3000 is invested at 3% compound interest per year for 2 years.",
+      "A = 3000 \\times (1.03)^2 = \\;?",
+      "3182.70",
+      "(1.03)^2 = 1.0609. A = 3000 × 1.0609 = 3182.70.",
+      ["$3182.70", "3182.7"]
+    ),
+    answer(
+      "y8-nfm-cmp-i2",
+      "Find the compound interest earned when $2000 is invested at 5% per year for 3 years.",
+      "I = 2000 \\times (1.05)^3 - 2000 = \\;?",
+      "315.25",
+      "(1.05)^3 = 1.157625. A = 2000 × 1.157625 = 2315.25. I = 2315.25 − 2000 = 315.25.",
+      ["$315.25", "315.25"]
+    ),
+    choice(
+      "y8-nfm-cmp-i3",
+      "$4000 is invested at 6% per year. After 2 years, which gives a higher total amount?",
+      "A",
+      [
+        "Compound interest: A = 4000 × (1.06)^2 = $4494.40",
+        "Simple interest: A = 4000 + (4000 × 6 × 2 ÷ 100) = $4480",
+        "Both give the same total",
+        "Simple interest always gives a higher total",
+      ],
+      "Compound: 4000 × (1.06)^2 = 4000 × 1.1236 = $4494.40. Simple: 4000 + 480 = $4480. Compound interest gives more.",
+      "\\text{Compare simple vs compound on }\\$4000\\text{ at }6\\%\\text{ for 2 years}"
+    ),
+    answer(
+      "y8-nfm-cmp-i4",
+      "$1500 is invested at 10% per year compounded annually for 3 years. Find the total amount.",
+      "A = 1500 \\times (1.10)^3 = \\;?",
+      "1996.50",
+      "(1.10)^3 = 1.331. A = 1500 × 1.331 = 1996.50.",
+      ["$1996.50", "1996.5"]
+    ),
+    answer(
+      "y8-nfm-cmp-i5",
+      "$800 is invested at 2% compound interest per year for 4 years. Find the interest earned.",
+      "I = 800 \\times (1.02)^4 - 800 = \\;?",
+      "65.94",
+      "(1.02)^4 = 1.08243216. A = 800 × 1.08243216 ≈ 865.95. I = 865.95 − 800 = 65.95. (Accept answers in the range 65.94–65.95.)",
+      ["$65.94", "65.95", "$65.95"]
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Reporting A as the interest earned rather than the total amount: confusing A = P(1+r)^n with the interest I.",
+      fix: "A is the total amount. To find interest, subtract the principal: I = A − P.",
+    },
+    {
+      mistake: "Using the percentage directly as r instead of the decimal: substituting r = 5 instead of r = 0.05.",
+      fix: "Convert the percentage to a decimal before substituting: 5% → r = 0.05.",
+    },
+    {
+      mistake: "Adding interest to the principal only once (simple interest method) instead of applying (1 + r)^n.",
+      fix: "Compound interest requires raising (1 + r) to the power n. Use the formula A = P(1 + r)^n.",
+    },
+  ],
+  masteryQuiz: [
+    choice(
+      "y8-nfm-cmp-m1",
+      "Which statement correctly explains why compound interest earns more than simple interest?",
+      "B",
+      [
+        "The interest rate is higher for compound interest",
+        "Compound interest earns interest on both the principal and the previously earned interest",
+        "Compound interest is calculated over a shorter time period",
+        "Simple interest applies to loans; compound interest applies to savings only",
+      ],
+      "Compound interest earns 'interest on interest'. Each year, interest is calculated on the growing balance, not just the original principal."
+    ),
+    choice(
+      "y8-nfm-cmp-m2",
+      "In A = P(1 + r)^n, which correctly represents P = $2000 at r = 3% for n = 4 years?",
+      "C",
+      [
+        "A = 2000 × (1 + 3)^4",
+        "A = 2000 × (0.03)^4",
+        "A = 2000 × (1.03)^4",
+        "A = 2000 × 1.03 × 4",
+      ],
+      "r = 3% = 0.03, so (1 + r) = 1.03. The formula becomes A = 2000 × (1.03)^4."
+    ),
+    answer(
+      "y8-nfm-cmp-m3",
+      "Find the total amount when $500 is invested at 6% compound interest per year for 2 years.",
+      "A = 500 \\times (1.06)^2 = \\;?",
+      "561.80",
+      "(1.06)^2 = 1.1236. A = 500 × 1.1236 = 561.80.",
+      ["$561.80", "561.8"]
+    ),
+    answer(
+      "y8-nfm-cmp-m4",
+      "Find the compound interest earned on $1000 at 4% per year for 3 years.",
+      "I = 1000 \\times (1.04)^3 - 1000 = \\;?",
+      "124.86",
+      "(1.04)^3 = 1.124864. A = 1000 × 1.124864 = 1124.86. I = 1124.86 − 1000 = 124.86.",
+      ["$124.86", "124.86"]
+    ),
+    answer(
+      "y8-nfm-cmp-m5",
+      "$2500 is invested at 5% per year compounded annually for 2 years. Find the total amount.",
+      "A = 2500 \\times (1.05)^2 = \\;?",
+      "2756.25",
+      "(1.05)^2 = 1.1025. A = 2500 × 1.1025 = 2756.25.",
+      ["$2756.25"]
+    ),
+    answer(
+      "y8-nfm-cmp-m6",
+      "$6000 is invested at 3% simple interest for 4 years. Find the total amount.",
+      "A = 6000 + \\frac{6000 \\times 3 \\times 4}{100} = \\;?",
+      "6720",
+      "I = (6000 × 3 × 4) ÷ 100 = 720. A = 6000 + 720 = 6720.",
+      ["$6720"]
+    ),
+    answer(
+      "y8-nfm-cmp-m7",
+      "$6000 is invested at 3% compound interest per year for 4 years. Find the total amount.",
+      "A = 6000 \\times (1.03)^4 = \\;?",
+      "6752.19",
+      "(1.03)^4 = 1.12550881. A = 6000 × 1.12550881 ≈ 6753.05. (Accept 6752–6754.)",
+      ["$6752.19", "6752.19", "6753.05", "$6753.05", "6753"]
+    ),
+    answer(
+      "y8-nfm-cmp-m8",
+      "Using questions m6 and m7, by how much more does compound interest earn over 4 years on $6000 at 3%?",
+      "\\text{Compound total} - \\text{Simple total}",
+      "33.05",
+      "Compound total ≈ 6753.05. Simple total = 6720. Difference: 6753.05 − 6720 = 33.05.",
+      ["$33.05", "33.05", "33.19", "$33.19"]
+    ),
+    answer(
+      "y8-nfm-cmp-m9",
+      "$10 000 is invested at 8% compound interest per year for 3 years. Find the total amount.",
+      "A = 10000 \\times (1.08)^3 = \\;?",
+      "12597.12",
+      "(1.08)^3 = 1.259712. A = 10000 × 1.259712 = 12597.12.",
+      ["$12597.12", "12597.12", "12597"]
+    ),
+    answer(
+      "y8-nfm-cmp-m10",
+      "Ella invests $4000 at 5% compound interest per year. Ben invests $4000 at 5% simple interest. Both invest for 3 years. How much more does Ella have at the end?",
+      "4000 \\times (1.05)^3 - \\left(4000 + \\frac{4000 \\times 5 \\times 3}{100}\\right) = \\;?",
+      "30.50",
+      "Compound: (1.05)^3 = 1.157625; A = 4000 × 1.157625 = 4630.50. Simple: I = (4000 × 5 × 3) ÷ 100 = 600; A = 4600. Difference: 4630.50 − 4600 = 30.50.",
+      ["$30.50", "30.50"]
+    ),
+  ],
+};
+
 // ── Lesson map and export ─────────────────────────────────────────────────────
 
 const lessons: Record<string, LessonContent> = {
-  "percentages-basics":            percentagesBasics,
-  "percentage-increase":           percentageIncrease,
-  "percentage-decrease":           percentageDecrease,
-  "profit-and-loss":               profitAndLoss,
-  "discounts-and-sales":           discountsAndSales,
-  "simple-interest-introduction":  simpleInterestIntroduction,
+  "percentages-basics":                percentagesBasics,
+  "percentage-increase":               percentageIncrease,
+  "percentage-decrease":               percentageDecrease,
+  "profit-and-loss":                   profitAndLoss,
+  "discounts-and-sales":               discountsAndSales,
+  "simple-interest-introduction":      simpleInterestIntroduction,
+  "wages-and-salary":                  wagesAndSalary,
+  "income-tax-basics":                 incomeTaxBasics,
+  "compound-interest-introduction":    compoundInterestIntroduction,
 };
 
 export function year8NumberFinancialMathematicsLessonOverride(

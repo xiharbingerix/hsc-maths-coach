@@ -1786,6 +1786,585 @@ const checkingSolutionsErrorAnalysis: LessonContent = {
   ],
 };
 
+// ── Lesson 7: Linear Inequalities ────────────────────────────────────────────
+
+const linearInequalities: LessonContent = {
+  description:
+    "Understand inequality notation, solve one- and two-step linear inequalities, and represent solutions on a number line and in set notation.",
+  learningIntention:
+    "Solve linear inequalities using inverse operations, including reversing the inequality sign when multiplying or dividing by a negative number.",
+  successCriteria: [
+    "Interpret inequality symbols $<$, $>$, $\\leq$, $\\geq$ and use them correctly.",
+    "Solve one-step and two-step linear inequalities using inverse operations.",
+    "Reverse the inequality sign when multiplying or dividing both sides by a negative number.",
+    "Represent solutions on a number line using open circles (strict) and closed circles (inclusive).",
+    "Write solutions using inequality notation and set notation.",
+  ],
+  teaching: {
+    paragraphs: [
+      "An inequality is like an equation, but instead of an equals sign it uses $<$ (less than), $>$ (greater than), $\\leq$ (less than or equal to), or $\\geq$ (greater than or equal to). For example, $x > 3$ means x can be any value greater than 3 — there are infinitely many solutions.",
+      "You solve inequalities almost exactly like equations: apply inverse operations to isolate the variable. For $x + 5 > 11$, subtract 5 from both sides to get $x > 6$. For $2x \\leq 14$, divide both sides by 2 to get $x \\leq 7$.",
+      "There is one critical difference from equations: when you multiply or divide both sides by a negative number, the inequality sign reverses. This is because the number line flips. For example, if $-2x < 6$, dividing by $-2$ gives $x > -3$ — the $<$ becomes $>$. This is the most common error students make with inequalities.",
+      "On a number line, a strict inequality ($<$ or $>$) is shown with an open circle at the boundary value, and the arrow extends in the correct direction. An inclusive inequality ($\\leq$ or $\\geq$) uses a closed (filled) circle. In set notation, $\\{x : x > 3\\}$ means the set of all $x$ values greater than 3.",
+      "To check a solution, substitute a test value from your answer region into the original inequality. If it satisfies the inequality, your answer is correct.",
+    ],
+    latexBlocks: [
+      "x + 5 > 11 \\Rightarrow x > 6",
+      "\\dfrac{x}{3} \\leq 4 \\Rightarrow x \\leq 12",
+      "-2x < 6 \\Rightarrow x > -3 \\quad (\\text{sign reverses when dividing by } -2)",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Solve a one-step inequality",
+      questionLatex: "\\text{Solve }x - 4 \\geq 3.",
+      steps: [
+        {
+          explanation: "Add 4 to both sides to isolate x.",
+          latex: "x - 4 + 4 \\geq 3 + 4",
+        },
+        {
+          explanation: "Simplify.",
+          latex: "x \\geq 7",
+        },
+        {
+          explanation: "On a number line, place a closed circle at 7 and shade to the right.",
+          latex: "\\{x : x \\geq 7\\}",
+        },
+      ],
+      finalAnswerLatex: "x \\geq 7",
+    } as WorkedExample,
+    {
+      title: "Solve a two-step inequality",
+      questionLatex: "\\text{Solve }3x + 2 < 14.",
+      steps: [
+        {
+          explanation: "Subtract 2 from both sides.",
+          latex: "3x < 12",
+        },
+        {
+          explanation: "Divide both sides by 3 (positive — sign stays the same).",
+          latex: "x < 4",
+        },
+      ],
+      finalAnswerLatex: "x < 4",
+    } as WorkedExample,
+    {
+      title: "Dividing by a negative — sign reverses",
+      questionLatex: "\\text{Solve }-4x \\leq 20.",
+      steps: [
+        {
+          explanation: "Divide both sides by $-4$. Because we divide by a negative, reverse the inequality sign.",
+          latex: "\\dfrac{-4x}{-4} \\geq \\dfrac{20}{-4}",
+        },
+        {
+          explanation: "Simplify.",
+          latex: "x \\geq -5",
+        },
+      ],
+      finalAnswerLatex: "x \\geq -5",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-aeq-ine-g1",
+      "Which inequality symbol means 'greater than or equal to'?",
+      "C",
+      [
+        "$<$",
+        "$>$",
+        "$\\geq$",
+        "$\\leq$",
+      ],
+      "$\\geq$ means 'greater than or equal to'. A closed circle on a number line indicates the boundary value is included.",
+      "Think about which symbol includes the boundary value and points upward (greater)."
+    ),
+    answer(
+      "y8-aeq-ine-g2",
+      "Solve x + 6 > 10.",
+      "x + 6 > 10,\\quad x > \\;?",
+      "4",
+      "Subtract 6 from both sides: x > 10 − 6, so x > 4.",
+      "Subtract 6 from both sides to isolate x.",
+      ["x > 4"]
+    ),
+    answer(
+      "y8-aeq-ine-g3",
+      "Solve 2x ≤ 16.",
+      "2x \\leq 16,\\quad x \\leq \\;?",
+      "8",
+      "Divide both sides by 2 (positive, so sign stays): x ≤ 8.",
+      "Divide both sides by 2. The sign stays the same because 2 is positive.",
+      ["x ≤ 8", "x\\leq 8"]
+    ),
+    answer(
+      "y8-aeq-ine-g4",
+      "Solve 3x − 4 ≥ 11.",
+      "3x - 4 \\geq 11,\\quad x \\geq \\;?",
+      "5",
+      "Add 4 to both sides: 3x ≥ 15. Divide by 3: x ≥ 5.",
+      "Add 4 to both sides first, then divide by 3.",
+      ["x ≥ 5", "x\\geq 5"]
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y8-aeq-ine-i1",
+      "Solve x − 9 < 2.",
+      "x - 9 < 2,\\quad x < \\;?",
+      "11",
+      "Add 9 to both sides: x < 2 + 9 = 11.",
+      "Add 9 to both sides to isolate x.",
+      ["x < 11"]
+    ),
+    answer(
+      "y8-aeq-ine-i2",
+      "Solve 5x > 30.",
+      "5x > 30,\\quad x > \\;?",
+      "6",
+      "Divide both sides by 5: x > 30 ÷ 5 = 6.",
+      "Divide both sides by 5. The sign stays the same because 5 is positive.",
+      ["x > 6"]
+    ),
+    answer(
+      "y8-aeq-ine-i3",
+      "Solve 4x + 3 ≤ 19.",
+      "4x + 3 \\leq 19,\\quad x \\leq \\;?",
+      "4",
+      "Subtract 3 from both sides: 4x ≤ 16. Divide by 4: x ≤ 4.",
+      "Subtract 3 first, then divide by 4.",
+      ["x ≤ 4", "x\\leq 4"]
+    ),
+    choice(
+      "y8-aeq-ine-i4",
+      "Solve −3x < 12.",
+      "B",
+      [
+        "$x < -4$",
+        "$x > -4$",
+        "$x < 4$",
+        "$x > 4$",
+      ],
+      "Divide both sides by −3. Dividing by a negative reverses the sign: x > 12 ÷ (−3) = −4.",
+      "Dividing by a negative number reverses the inequality sign.",
+      "-3x < 12,\\quad x = \\;?"
+    ),
+    answer(
+      "y8-aeq-ine-i5",
+      "Solve 2x − 7 ≥ 1.",
+      "2x - 7 \\geq 1,\\quad x \\geq \\;?",
+      "4",
+      "Add 7 to both sides: 2x ≥ 8. Divide by 2: x ≥ 4.",
+      "Add 7 to both sides first, then divide by 2.",
+      ["x ≥ 4", "x\\geq 4"]
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Forgetting to reverse the inequality sign when multiplying or dividing by a negative: solving −2x > 8 as x > −4.",
+      fix: "When you divide both sides by −2, the sign flips: −2x > 8 becomes x < −4.",
+    },
+    {
+      mistake: "Using an open circle on the number line for ≤ or ≥ (inclusive inequalities).",
+      fix: "Open circles are for strict inequalities (< and >). Closed (filled) circles are for ≤ and ≥, because the boundary value is included.",
+    },
+    {
+      mistake: "Treating an inequality exactly like an equation and writing a single value as the answer: 'x = 6' instead of 'x > 6'.",
+      fix: "An inequality has infinitely many solutions. Always write the solution as an inequality, for example x > 6, not just the boundary value.",
+    },
+  ],
+  masteryQuiz: [
+    choice(
+      "y8-aeq-ine-m1",
+      "Which number line description matches the solution x < 5?",
+      "A",
+      [
+        "Open circle at 5, arrow pointing left",
+        "Closed circle at 5, arrow pointing left",
+        "Open circle at 5, arrow pointing right",
+        "Closed circle at 5, arrow pointing right",
+      ],
+      "x < 5 is a strict inequality (open circle) and means all values less than 5 (arrow pointing left).",
+      "Is 5 included? Which direction is 'less than' on the number line?"
+    ),
+    choice(
+      "y8-aeq-ine-m2",
+      "Solve −x > 4.",
+      "B",
+      [
+        "$x > -4$",
+        "$x < -4$",
+        "$x > 4$",
+        "$x < 4$",
+      ],
+      "Multiply both sides by −1 (or divide by −1); the sign reverses: x < −4.",
+      "Multiplying or dividing by a negative number reverses the inequality sign.",
+      "-x > 4,\\quad x = \\;?"
+    ),
+    answer(
+      "y8-aeq-ine-m3",
+      "Solve x + 11 ≥ 20.",
+      "x + 11 \\geq 20,\\quad x \\geq \\;?",
+      "9",
+      "Subtract 11 from both sides: x ≥ 20 − 11 = 9.",
+      "Subtract 11 from both sides.",
+      ["x ≥ 9", "x\\geq 9"]
+    ),
+    answer(
+      "y8-aeq-ine-m4",
+      "Solve 6x < 42.",
+      "6x < 42,\\quad x < \\;?",
+      "7",
+      "Divide both sides by 6: x < 42 ÷ 6 = 7.",
+      "Divide both sides by 6. The sign stays the same.",
+      ["x < 7"]
+    ),
+    answer(
+      "y8-aeq-ine-m5",
+      "Solve 5x − 3 > 17.",
+      "5x - 3 > 17,\\quad x > \\;?",
+      "4",
+      "Add 3 to both sides: 5x > 20. Divide by 5: x > 4.",
+      "Add 3 to both sides first, then divide by 5.",
+      ["x > 4"]
+    ),
+    answer(
+      "y8-aeq-ine-m6",
+      "Solve −2x ≥ 10.",
+      "-2x \\geq 10,\\quad x \\leq \\;?",
+      "-5",
+      "Divide both sides by −2 and reverse the sign: x ≤ 10 ÷ (−2) = −5.",
+      "Dividing by a negative reverses the sign — ≥ becomes ≤.",
+      ["x ≤ -5", "x\\leq -5"]
+    ),
+    answer(
+      "y8-aeq-ine-m7",
+      "Solve 4x + 6 ≤ 26.",
+      "4x + 6 \\leq 26,\\quad x \\leq \\;?",
+      "5",
+      "Subtract 6: 4x ≤ 20. Divide by 4: x ≤ 5.",
+      "Subtract 6 from both sides first, then divide by 4.",
+      ["x ≤ 5", "x\\leq 5"]
+    ),
+    answer(
+      "y8-aeq-ine-m8",
+      "Solve 7 − x < 3.",
+      "7 - x < 3,\\quad x > \\;?",
+      "4",
+      "Subtract 7 from both sides: −x < −4. Multiply both sides by −1 and reverse the sign: x > 4.",
+      "After subtracting 7, you will have −x on the left. Multiplying by −1 reverses the sign.",
+      ["x > 4"]
+    ),
+    answer(
+      "y8-aeq-ine-m9",
+      "Solve 3x + 9 > 3.",
+      "3x + 9 > 3,\\quad x > \\;?",
+      "-2",
+      "Subtract 9: 3x > −6. Divide by 3: x > −2.",
+      "Subtract 9 from both sides first, then divide by 3.",
+      ["x > -2"]
+    ),
+    answer(
+      "y8-aeq-ine-m10",
+      "Solve 2x − 5 ≥ −1.",
+      "2x - 5 \\geq -1,\\quad x \\geq \\;?",
+      "2",
+      "Add 5 to both sides: 2x ≥ 4. Divide by 2: x ≥ 2.",
+      "Add 5 to both sides first, then divide by 2.",
+      ["x ≥ 2", "x\\geq 2"]
+    ),
+  ],
+};
+
+// ── Lesson 8: Inequality Problem Solving ─────────────────────────────────────
+
+const inequalityProblemSolving: LessonContent = {
+  description:
+    "Form and solve inequalities from real-world word problems, work with compound inequalities, and check whether values satisfy an inequality.",
+  learningIntention:
+    "Translate word problems into inequalities, solve them including compound inequalities, and interpret solutions in context.",
+  successCriteria: [
+    "Identify inequality language in word problems (at least, at most, no more than, exceeds).",
+    "Write and solve a linear inequality from a word problem.",
+    "Determine whether a given value satisfies an inequality by substituting.",
+    "Solve and graph compound inequalities of the form $a < x \\leq b$.",
+    "Interpret inequality solutions in real contexts such as minimum cost or maximum capacity.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Many real situations involve a range of acceptable values rather than a single answer. Words like 'at least' mean $\\geq$, 'at most' and 'no more than' mean $\\leq$, 'exceeds' means $>$, and 'fewer than' means $<$. Identifying these key words is the first step in forming an inequality.",
+      "Once you have identified the inequality, define a variable and write the inequality just as you would write an equation — then solve using inverse operations, remembering to reverse the sign if you multiply or divide by a negative number. Always interpret the answer in context: if x represents the number of items sold, x must also be a whole number.",
+      "To check whether a specific value satisfies an inequality, substitute it in. For example, does $x = 5$ satisfy $3x - 2 > 10$? Substituting: $3(5) - 2 = 13 > 10$. Yes, it does.",
+      "A compound inequality has two boundary conditions, for example $-2 < x \\leq 5$. This means x is greater than $-2$ AND at most 5. You can solve a compound inequality by performing the same operation on all three parts simultaneously: for $1 < 2x + 3 \\leq 11$, subtract 3 from all parts to get $-2 < 2x \\leq 8$, then divide by 2 to get $-1 < x \\leq 4$.",
+      "On a number line, a compound inequality is represented by a segment — an open or closed circle at each end, with the region between them shaded.",
+    ],
+    latexBlocks: [
+      "\\text{'at least 5'} \\rightarrow x \\geq 5,\\quad \\text{'at most 10'} \\rightarrow x \\leq 10",
+      "1 < 2x + 3 \\leq 11 \\Rightarrow -2 < 2x \\leq 8 \\Rightarrow -1 < x \\leq 4",
+      "\\text{Check } x = 3 \\text{ in } 4x - 1 > 10:\\quad 4(3) - 1 = 11 > 10 \\checkmark",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Form and solve an inequality from a word problem",
+      questionLatex: "\\text{A taxi charges a base fee of }\\$3\\text{ plus }\\$2\\text{ per kilometre. Find the maximum distance if the fare must stay below }\\$15.",
+      steps: [
+        {
+          explanation: "Let d = distance in kilometres. Write the inequality for the fare.",
+          latex: "3 + 2d < 15",
+        },
+        {
+          explanation: "Subtract 3 from both sides.",
+          latex: "2d < 12",
+        },
+        {
+          explanation: "Divide both sides by 2.",
+          latex: "d < 6",
+        },
+      ],
+      finalAnswerLatex: "\\text{The distance must be less than 6 km.}",
+    } as WorkedExample,
+    {
+      title: "Check whether a value satisfies an inequality",
+      questionLatex: "\\text{Does }x = 4\\text{ satisfy }2x + 3 \\leq 11?",
+      steps: [
+        {
+          explanation: "Substitute x = 4 into the left side.",
+          latex: "2(4) + 3 = 11",
+        },
+        {
+          explanation: "Check whether 11 ≤ 11.",
+          latex: "11 \\leq 11 \\checkmark",
+        },
+      ],
+      finalAnswerLatex: "\\text{Yes, }x = 4\\text{ satisfies the inequality.}",
+    } as WorkedExample,
+    {
+      title: "Solve a compound inequality",
+      questionLatex: "\\text{Solve }-1 < 3x - 4 \\leq 8.",
+      steps: [
+        {
+          explanation: "Add 4 to all three parts.",
+          latex: "3 < 3x \\leq 12",
+        },
+        {
+          explanation: "Divide all three parts by 3.",
+          latex: "1 < x \\leq 4",
+        },
+      ],
+      finalAnswerLatex: "1 < x \\leq 4",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-aeq-ips-g1",
+      "Which inequality represents 'a number x is at most 12'?",
+      "C",
+      [
+        "$x > 12$",
+        "$x \\geq 12$",
+        "$x \\leq 12$",
+        "$x < 12$",
+      ],
+      "'At most 12' means x cannot exceed 12, so x ≤ 12.",
+      "Think about whether 12 itself is allowed, and whether the values below or above are included."
+    ),
+    answer(
+      "y8-aeq-ips-g2",
+      "Does x = 5 satisfy 3x − 2 > 10? Write YES or NO.",
+      "\\text{Substitute }x = 5\\text{ into }3x - 2 > 10.",
+      "YES",
+      "3(5) − 2 = 13. Is 13 > 10? Yes.",
+      "Replace x with 5 and evaluate the left side, then compare with 10.",
+      ["yes", "Yes"]
+    ),
+    answer(
+      "y8-aeq-ips-g3",
+      "A hall can hold at most 150 people. There are already 87 people inside. Write and solve an inequality for the number of additional people, n, that can enter.",
+      "87 + n \\leq 150,\\quad n \\leq \\;?",
+      "63",
+      "87 + n ≤ 150. Subtract 87 from both sides: n ≤ 63.",
+      "Write 87 + n ≤ 150, then subtract 87 from both sides.",
+      ["n ≤ 63", "n\\leq 63"]
+    ),
+    answer(
+      "y8-aeq-ips-g4",
+      "Solve the compound inequality −2 < x + 3 ≤ 7.",
+      "-2 < x + 3 \\leq 7,\\quad \\text{find the range of }x.",
+      "-5 < x ≤ 4",
+      "Subtract 3 from all parts: −2 − 3 < x ≤ 7 − 3, giving −5 < x ≤ 4.",
+      "Subtract 3 from every part of the compound inequality.",
+      ["-5 < x \\leq 4", "−5 < x ≤ 4"]
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y8-aeq-ips-i1",
+      "Does x = −3 satisfy −2x ≤ 5? Write YES or NO.",
+      "\\text{Substitute }x = -3\\text{ into }-2x \\leq 5.",
+      "YES",
+      "−2(−3) = 6. Is 6 ≤ 5? No — wait, that gives 6 ≤ 5 which is false. Correct: −2(−3) = 6 and 6 > 5, so x = −3 does NOT satisfy the inequality.",
+      "Replace x with −3: −2 × (−3) = 6. Then check whether 6 ≤ 5.",
+      ["NO", "No", "no"]
+    ),
+    answer(
+      "y8-aeq-ips-i2",
+      "A student needs at least 65 marks to pass a test worth 80 marks. She has already scored 48 marks on the first part. Find the minimum marks m she must score on the second part.",
+      "48 + m \\geq 65,\\quad m \\geq \\;?",
+      "17",
+      "48 + m ≥ 65. Subtract 48: m ≥ 17.",
+      "Write 48 + m ≥ 65, then subtract 48 from both sides.",
+      ["m ≥ 17", "m\\geq 17"]
+    ),
+    answer(
+      "y8-aeq-ips-i3",
+      "Solve the compound inequality 0 ≤ 2x − 4 < 10.",
+      "0 \\leq 2x - 4 < 10,\\quad \\text{find the range of }x.",
+      "2 ≤ x < 7",
+      "Add 4 to all parts: 4 ≤ 2x < 14. Divide by 2: 2 ≤ x < 7.",
+      "Add 4 to all three parts first, then divide by 2.",
+      ["2 ≤ x < 7", "2 \\leq x < 7"]
+    ),
+    choice(
+      "y8-aeq-ips-i4",
+      "A speed limit sign reads 'maximum 60 km/h'. Which inequality represents all legal speeds s?",
+      "B",
+      [
+        "$s < 60$",
+        "$s \\leq 60$",
+        "$s > 60$",
+        "$s \\geq 60$",
+      ],
+      "A maximum speed of 60 km/h means you can travel at 60 km/h or below: s ≤ 60.",
+      "Does 'maximum 60' include exactly 60 km/h?"
+    ),
+    answer(
+      "y8-aeq-ips-i5",
+      "A plumber charges $50 call-out fee plus $40 per hour. Find the maximum number of hours h he can work if the total cost must not exceed $250.",
+      "50 + 40h \\leq 250,\\quad h \\leq \\;?",
+      "5",
+      "50 + 40h ≤ 250. Subtract 50: 40h ≤ 200. Divide by 40: h ≤ 5.",
+      "Write 50 + 40h ≤ 250, subtract 50, then divide by 40.",
+      ["h ≤ 5", "h\\leq 5"]
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Confusing 'at least' with 'at most': writing x ≤ 5 when the problem says 'at least 5'.",
+      fix: "'At least 5' means x cannot go below 5, so x ≥ 5. 'At most 5' means x cannot exceed 5, so x ≤ 5.",
+    },
+    {
+      mistake: "Forgetting to reverse the inequality sign when multiplying or dividing by a negative in a compound inequality.",
+      fix: "When you multiply or divide all parts of a compound inequality by a negative number, reverse both inequality symbols. For example, $-2 < -x \\leq 4$ becomes $-4 \\leq x < 2$ after multiplying by $-1$.",
+    },
+    {
+      mistake: "Giving only the boundary value as the answer to a compound inequality: writing 'x = 4' instead of '1 < x ≤ 4'.",
+      fix: "A compound inequality defines a range. Write both boundaries and the correct symbols, for example $1 < x \\leq 4$.",
+    },
+  ],
+  masteryQuiz: [
+    choice(
+      "y8-aeq-ips-m1",
+      "A lift has a maximum capacity of 8 people. There are currently 5 people in the lift. Which inequality gives the number of additional people p who can enter?",
+      "B",
+      [
+        "$5 + p < 8$",
+        "$5 + p \\leq 8$",
+        "$5 + p > 8$",
+        "$p \\leq 3$",
+      ],
+      "The total must not exceed the maximum of 8: 5 + p ≤ 8, which gives p ≤ 3.",
+      "Write an inequality for the total number of people and use the maximum capacity."
+    ),
+    choice(
+      "y8-aeq-ips-m2",
+      "Solve −5x > 20.",
+      "A",
+      [
+        "$x < -4$",
+        "$x > -4$",
+        "$x < 4$",
+        "$x > 4$",
+      ],
+      "Divide both sides by −5 and reverse the sign: x < 20 ÷ (−5) = −4.",
+      "Dividing by a negative reverses the inequality sign.",
+      "-5x > 20,\\quad x = \\;?"
+    ),
+    answer(
+      "y8-aeq-ips-m3",
+      "Does x = 6 satisfy 4x − 5 ≥ 19? Write YES or NO.",
+      "\\text{Substitute }x = 6\\text{ into }4x - 5 \\geq 19.",
+      "YES",
+      "4(6) − 5 = 24 − 5 = 19. Is 19 ≥ 19? Yes.",
+      "Replace x with 6 and evaluate the left side, then compare with 19.",
+      ["yes", "Yes"]
+    ),
+    answer(
+      "y8-aeq-ips-m4",
+      "A phone plan costs $20 per month plus $0.10 per text message. Find the maximum number of texts t you can send if your budget is $35 per month.",
+      "20 + 0.10t \\leq 35,\\quad t \\leq \\;?",
+      "150",
+      "20 + 0.10t ≤ 35. Subtract 20: 0.10t ≤ 15. Divide by 0.10: t ≤ 150.",
+      "Write 20 + 0.10t ≤ 35, subtract 20, then divide by 0.10.",
+      ["t ≤ 150", "t\\leq 150"]
+    ),
+    answer(
+      "y8-aeq-ips-m5",
+      "Solve the compound inequality 3 ≤ 2x − 1 < 9.",
+      "3 \\leq 2x - 1 < 9,\\quad \\text{find the range of }x.",
+      "2 ≤ x < 5",
+      "Add 1 to all parts: 4 ≤ 2x < 10. Divide by 2: 2 ≤ x < 5.",
+      "Add 1 to all three parts, then divide everything by 2.",
+      ["2 ≤ x < 5", "2 \\leq x < 5"]
+    ),
+    answer(
+      "y8-aeq-ips-m6",
+      "A driver must travel at least 180 km in 3 hours. Write and solve an inequality for the minimum average speed s in km/h.",
+      "3s \\geq 180,\\quad s \\geq \\;?",
+      "60",
+      "3s ≥ 180. Divide by 3: s ≥ 60.",
+      "Write 3s ≥ 180, then divide both sides by 3.",
+      ["s ≥ 60", "s\\geq 60"]
+    ),
+    answer(
+      "y8-aeq-ips-m7",
+      "Does x = 0 satisfy −3x + 6 > 0? Write YES or NO.",
+      "\\text{Substitute }x = 0\\text{ into }-3x + 6 > 0.",
+      "YES",
+      "−3(0) + 6 = 6. Is 6 > 0? Yes.",
+      "Replace x with 0 and evaluate the left side.",
+      ["yes", "Yes"]
+    ),
+    answer(
+      "y8-aeq-ips-m8",
+      "A school hall has 400 seats. At least 320 must be filled for the event to proceed. Write and solve an inequality for the number of empty seats e.",
+      "400 - e \\geq 320,\\quad e \\leq \\;?",
+      "80",
+      "400 − e ≥ 320. Subtract 400 from both sides: −e ≥ −80. Multiply by −1 and reverse: e ≤ 80.",
+      "Write 400 − e ≥ 320, then subtract 400 and remember to reverse the sign when multiplying by −1.",
+      ["e ≤ 80", "e\\leq 80"]
+    ),
+    answer(
+      "y8-aeq-ips-m9",
+      "Solve the compound inequality −6 < 3x + 6 ≤ 15.",
+      "-6 < 3x + 6 \\leq 15,\\quad \\text{find the range of }x.",
+      "-4 < x ≤ 3",
+      "Subtract 6 from all parts: −12 < 3x ≤ 9. Divide by 3: −4 < x ≤ 3.",
+      "Subtract 6 from all three parts, then divide by 3.",
+      ["-4 < x ≤ 3", "-4 < x \\leq 3"]
+    ),
+    answer(
+      "y8-aeq-ips-m10",
+      "A ticket costs $12. A group wants to spend less than $100 on tickets. Find the maximum number of tickets n the group can buy.",
+      "12n < 100,\\quad n < \\;?",
+      "8",
+      "12n < 100. Divide by 12: n < 8.33... Since n must be a whole number, n ≤ 8.",
+      "Write 12n < 100, divide by 12, then consider that the number of tickets must be a whole number.",
+      ["8", "n ≤ 8", "n\\leq 8"]
+    ),
+  ],
+};
+
 // ── Lesson map and export ─────────────────────────────────────────────────────
 
 const lessons: Record<string, LessonContent> = {
@@ -1795,6 +2374,8 @@ const lessons: Record<string, LessonContent> = {
   "equations-with-pronumerals-on-both-sides": equationsPronumeralsBothSides,
   "forming-equations-from-word-problems":     formingEquationsWordProblems,
   "checking-solutions-and-error-analysis":    checkingSolutionsErrorAnalysis,
+  "linear-inequalities":                      linearInequalities,
+  "inequality-problem-solving":               inequalityProblemSolving,
 };
 
 export function year8AlgebraEquationsLessonOverride(

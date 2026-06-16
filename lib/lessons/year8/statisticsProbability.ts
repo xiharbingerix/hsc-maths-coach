@@ -2768,6 +2768,545 @@ const expectedOutcomes: LessonContent = {
   ],
 };
 
+// ── Lesson 12: Box Plots ──────────────────────────────────────────────────────
+
+const boxPlots: LessonContent = {
+  description:
+    "Find the five-number summary of an ordered data set, draw a box plot, and read the median, quartiles, IQR and shape from a box plot display.",
+  learningIntention:
+    "Construct a box plot from the five-number summary and use it to describe the centre, spread and shape of a data set.",
+  successCriteria: [
+    "State the five-number summary: minimum, Q1, median (Q2), Q3, and maximum.",
+    "Draw a box plot on a number line using the five-number summary.",
+    "Read Q1, Q3, median and IQR directly from a box plot.",
+    "Describe the shape of a distribution (symmetric or skewed) from a box plot.",
+  ],
+  teaching: {
+    paragraphs: [
+      "A box plot (also called a box-and-whisker plot) displays a data set using five key values called the five-number summary: the minimum, the lower quartile $Q_1$, the median $Q_2$, the upper quartile $Q_3$, and the maximum. These five values give a compact picture of where the data sits and how spread out it is.",
+      "To draw a box plot, first sort the data and calculate all five values. Then draw a number line, mark the five values, draw a rectangular box from $Q_1$ to $Q_3$, place a vertical line inside the box at the median, and extend horizontal lines (whiskers) from the box out to the minimum and maximum. The IQR is the width of the box: $\\text{IQR} = Q_3 - Q_1$.",
+      "A box plot reveals the shape of the data. When the median line sits in the centre of the box and both whiskers are roughly equal in length, the distribution is symmetric. When the median is pushed toward one end of the box, or one whisker is much longer, the distribution is skewed — skewed right if the longer tail extends to the right, skewed left if it extends to the left.",
+      "A common mistake is thinking that a wider box means there are more data values in that section. The box always contains exactly the middle 50% of the data regardless of its width. A wide box simply means those central values are more spread out, not that there are more of them.",
+    ],
+    latexBlocks: [
+      "\\text{Five-number summary: Min},\\; Q_1,\\; Q_2\\text{ (Median)},\\; Q_3,\\; \\text{Max}",
+      "\\text{IQR} = Q_3 - Q_1",
+      "\\text{Box plot: whisker}\\!\\mid\\!\\boxed{\\;Q_1\\;|\\;\\text{Med}\\;|\\;Q_3\\;}\\!\\mid\\!\\text{whisker}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Find the five-number summary",
+      questionLatex:
+        "\\text{Data: } 3,\\; 7,\\; 10,\\; 12,\\; 15,\\; 18,\\; 22.\\text{ Find the five-number summary.}",
+      steps: [
+        {
+          explanation: "The data is already sorted. Identify the minimum and maximum.",
+          latex: "\\text{Min} = 3,\\quad \\text{Max} = 22",
+        },
+        {
+          explanation: "Q2 (median) is the middle value — the 4th of 7.",
+          latex: "Q_2 = 12",
+        },
+        {
+          explanation: "Lower half (excluding median): 3, 7, 10. Q1 is the median of this half.",
+          latex: "Q_1 = 7",
+        },
+        {
+          explanation: "Upper half (excluding median): 15, 18, 22. Q3 is the median of this half.",
+          latex: "Q_3 = 18,\\quad \\text{IQR} = 18 - 7 = 11",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{Min}=3,\\; Q_1=7,\\; Q_2=12,\\; Q_3=18,\\; \\text{Max}=22,\\; \\text{IQR}=11",
+    } as WorkedExample,
+    {
+      title: "Read values from a box plot",
+      questionLatex:
+        "\\text{A box plot has: left whisker at 5, box from 10 to 20, median line at 14, right whisker at 28. Find the IQR and range.}",
+      steps: [
+        {
+          explanation: "Read Q1 and Q3 from the box edges.",
+          latex: "Q_1 = 10,\\quad Q_3 = 20",
+        },
+        {
+          explanation: "Calculate the IQR.",
+          latex: "\\text{IQR} = Q_3 - Q_1 = 20 - 10 = 10",
+        },
+        {
+          explanation: "The range spans from the left whisker to the right whisker.",
+          latex: "\\text{Range} = 28 - 5 = 23",
+        },
+      ],
+      finalAnswerLatex: "\\text{IQR} = 10,\\quad \\text{Range} = 23",
+    } as WorkedExample,
+    {
+      title: "Describe the shape from a box plot",
+      questionLatex:
+        "\\text{Box plot: Min}=2,\\; Q_1=6,\\; \\text{Median}=8,\\; Q_3=12,\\; \\text{Max}=24.\\text{ Describe the shape.}",
+      steps: [
+        {
+          explanation: "Check whether the median sits centrally in the box.",
+          latex: "\\text{Left half of box: } 8-6=2.\\quad \\text{Right half of box: } 12-8=4.",
+        },
+        {
+          explanation: "Check whether the whiskers are equal in length.",
+          latex: "\\text{Left whisker: } 6-2=4.\\quad \\text{Right whisker: } 24-12=12.",
+        },
+        {
+          explanation: "The median is closer to Q1 and the right whisker is much longer — the data is skewed right.",
+          latex: "\\text{Longer tail to the right} \\Rightarrow \\text{skewed right}",
+        },
+      ],
+      finalAnswerLatex: "\\text{The distribution is skewed right (positively skewed).}",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-dat-bxp-g1",
+      "Which of the following is NOT part of the five-number summary?",
+      "C",
+      [
+        "Minimum",
+        "Q3 (upper quartile)",
+        "Mean",
+        "Median",
+      ],
+      "The five-number summary consists of: minimum, Q1, median (Q2), Q3, and maximum. The mean is not part of it."
+    ),
+    answer(
+      "y8-dat-bxp-g2",
+      "Sorted data: 4, 8, 11, 15, 19. Find the five-number summary median (Q2).",
+      "\\text{Middle (3rd) value of 5}",
+      "11",
+      "5 values → the median is the 3rd value: 11."
+    ),
+    answer(
+      "y8-dat-bxp-g3",
+      "A box plot has its box drawn from 8 to 20. What is the IQR?",
+      "\\text{IQR} = Q_3 - Q_1 = 20 - 8",
+      "12",
+      "The left edge of the box is Q1 = 8 and the right edge is Q3 = 20. IQR = 20 − 8 = 12."
+    ),
+    answer(
+      "y8-dat-bxp-g4",
+      "A box plot shows: Min = 5, Q1 = 9, Median = 13, Q3 = 17, Max = 21. What is the range?",
+      "\\text{Range} = \\text{Max} - \\text{Min} = 21 - 5",
+      "16",
+      "Range = maximum − minimum = 21 − 5 = 16."
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y8-dat-bxp-i1",
+      "Sorted data: 2, 5, 9, 13, 17, 21, 25. Find Q1 (the median of the lower half, excluding the overall median).",
+      "\\text{Lower half: } 2,\\; 5,\\; 9",
+      "5",
+      "Overall median (4th value) = 13. Lower half: 2, 5, 9. The median of the lower half is the middle value = 5. Q1 = 5."
+    ),
+    answer(
+      "y8-dat-bxp-i2",
+      "Sorted data: 2, 5, 9, 13, 17, 21, 25. Find Q3 (the median of the upper half, excluding the overall median).",
+      "\\text{Upper half: } 17,\\; 21,\\; 25",
+      "21",
+      "Upper half (excluding median 13): 17, 21, 25. The median of the upper half is 21. Q3 = 21."
+    ),
+    answer(
+      "y8-dat-bxp-i3",
+      "A box plot shows: Q1 = 5 and Q3 = 21. Find the IQR.",
+      "\\text{IQR} = 21 - 5",
+      "16",
+      "IQR = Q3 − Q1 = 21 − 5 = 16."
+    ),
+    choice(
+      "y8-dat-bxp-i4",
+      "A box plot has the median line sitting very close to Q1, and a long right whisker. How would you describe the shape?",
+      "B",
+      [
+        "Symmetric",
+        "Skewed right",
+        "Skewed left",
+        "Bimodal",
+      ],
+      "When the median is close to Q1 (the lower edge of the box) and the right whisker is long, most values are bunched at the lower end with a long tail stretching right — this is a right (positive) skew."
+    ),
+    answer(
+      "y8-dat-bxp-i5",
+      "A box plot has: Min = 10, Q1 = 14, Median = 18, Q3 = 22, Max = 26. Find the IQR and the range.",
+      "\\text{IQR} = 22 - 14,\\quad \\text{Range} = 26 - 10",
+      "8 and 16",
+      "IQR = Q3 − Q1 = 22 − 14 = 8. Range = Max − Min = 26 − 10 = 16.",
+      ["IQR = 8, Range = 16", "IQR=8 Range=16"]
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Thinking a wider box means more data values are in that section.",
+      fix: "The box always represents the middle 50% of the data — the same number of values regardless of box width. A wider box means those values are more spread out, not that there are more of them.",
+    },
+    {
+      mistake: "Confusing the box width (IQR) with the total range.",
+      fix: "The IQR = Q3 − Q1 is the width of the box only. The range = maximum − minimum includes the whiskers as well. The IQR is always less than or equal to the range.",
+    },
+    {
+      mistake: "Including the median in both halves when computing Q1 and Q3 from an odd-count data set.",
+      fix: "For an odd number of values, exclude the median from both the lower and upper halves before finding Q1 and Q3.",
+    },
+  ],
+  masteryQuiz: [
+    choice(
+      "y8-dat-bxp-m1",
+      "A box plot has: Min = 3, Q1 = 7, Median = 11, Q3 = 16, Max = 20. What is the IQR?",
+      "B",
+      ["8", "9", "13", "17"],
+      "IQR = Q3 − Q1 = 16 − 7 = 9."
+    ),
+    choice(
+      "y8-dat-bxp-m2",
+      "A box plot has Min = 3 and Max = 23. What is the range?",
+      "C",
+      ["9", "16", "20", "26"],
+      "Range = Max − Min = 23 − 3 = 20."
+    ),
+    answer(
+      "y8-dat-bxp-m3",
+      "Sorted data: 6, 10, 14, 18, 22. Find Q1.",
+      "\\text{Lower half (excl. median 14): }6,\\;10",
+      "8",
+      "Median is the 3rd value = 14. Lower half: 6, 10. Q1 = (6 + 10) ÷ 2 = 8."
+    ),
+    answer(
+      "y8-dat-bxp-m4",
+      "Sorted data: 6, 10, 14, 18, 22. Find Q3.",
+      "\\text{Upper half (excl. median 14): }18,\\;22",
+      "20",
+      "Upper half: 18, 22. Q3 = (18 + 22) ÷ 2 = 20."
+    ),
+    answer(
+      "y8-dat-bxp-m5",
+      "Q1 = 8, Q3 = 20. Find the IQR.",
+      "\\text{IQR} = 20 - 8",
+      "12",
+      "IQR = Q3 − Q1 = 20 − 8 = 12."
+    ),
+    answer(
+      "y8-dat-bxp-m6",
+      "A box plot shows: Min = 2, Q1 = 6, Median = 10, Q3 = 14, Max = 30. What is the length of the right whisker?",
+      "30 - 14",
+      "16",
+      "The right whisker extends from Q3 to the maximum: 30 − 14 = 16."
+    ),
+    answer(
+      "y8-dat-bxp-m7",
+      "A box plot shows: Min = 2, Q1 = 6, Median = 10, Q3 = 14, Max = 30. What is the length of the left whisker?",
+      "6 - 2",
+      "4",
+      "The left whisker extends from the minimum to Q1: 6 − 2 = 4."
+    ),
+    answer(
+      "y8-dat-bxp-m8",
+      "Sorted data: 5, 8, 11, 14, 17, 20, 23, 26 (8 values). Find Q1.",
+      "\\text{Lower half: }5,\\;8,\\;11,\\;14 \\Rightarrow Q_1 = \\frac{8+11}{2}",
+      "9.5",
+      "8 values split evenly: lower half is 5, 8, 11, 14. Q1 = (8 + 11) ÷ 2 = 9.5."
+    ),
+    answer(
+      "y8-dat-bxp-m9",
+      "Sorted data: 5, 8, 11, 14, 17, 20, 23, 26 (8 values). Find Q3.",
+      "\\text{Upper half: }17,\\;20,\\;23,\\;26 \\Rightarrow Q_3 = \\frac{20+23}{2}",
+      "21.5",
+      "Upper half: 17, 20, 23, 26. Q3 = (20 + 23) ÷ 2 = 21.5."
+    ),
+    answer(
+      "y8-dat-bxp-m10",
+      "A box plot has: Q1 = 9.5, Q3 = 21.5. Calculate the IQR.",
+      "\\text{IQR} = 21.5 - 9.5",
+      "12",
+      "IQR = Q3 − Q1 = 21.5 − 9.5 = 12."
+    ),
+  ],
+};
+
+// ── Lesson 13: Comparing Data with Box Plots ──────────────────────────────────
+
+const comparingDataWithBoxPlots: LessonContent = {
+  description:
+    "Draw and interpret side-by-side box plots, compare medians, IQRs and shape between two data sets, and write conclusions using statistical language.",
+  learningIntention:
+    "Compare two data sets using side-by-side box plots by analysing differences in centre, spread and shape.",
+  successCriteria: [
+    "Read the median and IQR from each box plot in a side-by-side display.",
+    "Identify which data set has a higher centre (median) or greater spread (IQR and range).",
+    "Describe the shape of each box plot (symmetric, skewed right, skewed left).",
+    "Write a comparative statement that refers to centre, spread, and context.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Side-by-side box plots place two box plots on the same number line, making it easy to compare two groups at a glance. Each box plot still shows the same five-number summary (minimum, $Q_1$, median, $Q_3$, maximum), but by aligning them you can instantly see which group has a higher typical value or more spread.",
+      "When comparing centre, look at the median lines inside each box. The group whose median line sits further to the right has a higher typical value. When comparing spread, look at the box widths (IQR) and the total span from whisker to whisker (range). A wider box or longer whiskers means more variability in that group.",
+      "Shape also matters. A box plot with the median line near its centre and roughly equal whiskers is symmetric. If the median sits close to $Q_1$ and the right whisker is long, the data is skewed right — most values are low but a few are very high. If the median sits close to $Q_3$ and the left whisker is long, the data is skewed left.",
+      "A common mistake is saying one group is 'better' simply because its IQR is larger. A larger IQR means more variability, not better performance. Always link your comparison to context: 'Class A has a higher median mark, suggesting it performed better on average, but its larger IQR indicates more variability in scores.'",
+    ],
+    latexBlocks: [
+      "\\text{Compare centre: which median is larger?}",
+      "\\text{Compare spread: which IQR (box width) or range is larger?}",
+      "\\text{Skewed right: median closer to } Q_1,\\; \\text{long right whisker.}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Compare medians and IQRs",
+      questionLatex:
+        "\\text{Group A: Min=10, } Q_1=15,\\text{ Med}=22,\\; Q_3=28,\\text{ Max}=35.\\quad \\text{Group B: Min=8, }Q_1=18,\\text{ Med}=26,\\; Q_3=30,\\text{ Max}=34.",
+      steps: [
+        {
+          explanation: "Compare medians.",
+          latex: "\\text{Median A}=22,\\quad \\text{Median B}=26 \\Rightarrow \\text{Group B has a higher centre.}",
+        },
+        {
+          explanation: "Compare IQRs (box widths).",
+          latex: "\\text{IQR A}=28-15=13,\\quad \\text{IQR B}=30-18=12 \\Rightarrow \\text{Group A is slightly more spread.}",
+        },
+        {
+          explanation: "Write a comparative conclusion.",
+          latex: "\\text{Group B has a higher typical value; the spreads are similar.}",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{Group B: higher median (26 vs 22); similar spread (IQR 12 vs 13).}",
+    } as WorkedExample,
+    {
+      title: "Describe shape from a side-by-side display",
+      questionLatex:
+        "\\text{Class X: Min=40, }Q_1=55,\\text{ Med}=57,\\; Q_3=70,\\text{ Max}=90.\\quad \\text{Class Y: Min=40, }Q_1=52,\\text{ Med}=68,\\; Q_3=72,\\text{ Max}=80.",
+      steps: [
+        {
+          explanation: "Check Class X: median (57) is close to Q1 (55); right whisker 90−70=20, left whisker 55−40=15. Slightly right-skewed.",
+          latex: "\\text{Class X: median near } Q_1 \\Rightarrow \\text{right-skewed}",
+        },
+        {
+          explanation: "Check Class Y: median (68) close to Q3 (72); left whisker 52−40=12, right whisker 80−72=8. Slightly left-skewed.",
+          latex: "\\text{Class Y: median near } Q_3 \\Rightarrow \\text{left-skewed}",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{Class X is right-skewed; Class Y is left-skewed.}",
+    } as WorkedExample,
+    {
+      title: "Write a complete comparison",
+      questionLatex:
+        "\\text{Compare two groups using their box plots. Group P: Med}=30,\\text{ IQR}=8.\\quad \\text{Group Q: Med}=22,\\text{ IQR}=14.",
+      steps: [
+        {
+          explanation: "State which group has the higher centre.",
+          latex: "\\text{Group P has a higher median (30 vs 22).}",
+        },
+        {
+          explanation: "State which group has greater spread.",
+          latex: "\\text{Group Q has a larger IQR (14 vs 8) — more variability.}",
+        },
+        {
+          explanation: "Link to context.",
+          latex: "\\text{Group P typically scores higher; Group Q is less consistent.}",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{Group P: higher median. Group Q: greater spread. Group P performs better and more consistently.}",
+    } as WorkedExample,
+  ],
+  guidedPractice: [
+    choice(
+      "y8-dat-cmpbxp-g1",
+      "Two box plots are drawn on the same axis. Which feature tells you which group has the higher typical value?",
+      "B",
+      [
+        "The length of the left whisker",
+        "The position of the median line in each box",
+        "The total width of the number line",
+        "The height of each box",
+      ],
+      "The median line inside each box shows the typical value (centre) for that group. The group with the median line further to the right has the higher typical value."
+    ),
+    answer(
+      "y8-dat-cmpbxp-g2",
+      "Group A box plot: Q1 = 12, Q3 = 24. Group B box plot: Q1 = 10, Q3 = 28. Which group has the larger IQR?",
+      "\\text{IQR A}=24-12,\\quad \\text{IQR B}=28-10",
+      "Group B",
+      "IQR A = 24 − 12 = 12. IQR B = 28 − 10 = 18. Group B has the larger IQR (18 > 12), so it has more variability.",
+      ["B", "group b"]
+    ),
+    answer(
+      "y8-dat-cmpbxp-g3",
+      "Group A has median = 18. Group B has median = 25. Which group has the higher typical value?",
+      "\\text{Compare: } 18 \\text{ vs } 25",
+      "Group B",
+      "The median represents the typical value. Group B's median (25) is higher than Group A's (18), so Group B has the higher typical value.",
+      ["B", "group b"]
+    ),
+    choice(
+      "y8-dat-cmpbxp-g4",
+      "A box plot for Class A has the median very close to Q3, and a long left whisker. How would you describe its shape?",
+      "C",
+      [
+        "Symmetric",
+        "Skewed right",
+        "Skewed left",
+        "Cannot be determined",
+      ],
+      "When the median sits close to Q3 (the top of the box) and the left whisker is long, the data has a long tail stretching to the left — this is a left (negative) skew."
+    ),
+  ],
+  independentPractice: [
+    answer(
+      "y8-dat-cmpbxp-i1",
+      "Group X: Q1 = 14, Q3 = 26. Group Y: Q1 = 10, Q3 = 20. Find the IQR of each group.",
+      "\\text{IQR X}=26-14,\\quad \\text{IQR Y}=20-10",
+      "IQR X = 12, IQR Y = 10",
+      "IQR X = 26 − 14 = 12. IQR Y = 20 − 10 = 10.",
+      ["X=12 Y=10", "12 and 10"]
+    ),
+    answer(
+      "y8-dat-cmpbxp-i2",
+      "Group X: Min = 5, Max = 35. Group Y: Min = 8, Max = 28. Which group has the larger range?",
+      "\\text{Range X}=35-5,\\quad \\text{Range Y}=28-8",
+      "Group X",
+      "Range X = 35 − 5 = 30. Range Y = 28 − 8 = 20. Group X has the larger range (30 > 20).",
+      ["X", "group x"]
+    ),
+    answer(
+      "y8-dat-cmpbxp-i3",
+      "Group X has median = 20. Group Y has median = 20. Group X has IQR = 12 and Group Y has IQR = 6. Which group is more consistent?",
+      "\\text{Smaller IQR} \\Rightarrow \\text{more consistent}",
+      "Group Y",
+      "Both groups have the same typical value (median = 20). Group Y's IQR (6) is smaller than Group X's (12), so Group Y's central values are clustered more tightly — it is more consistent.",
+      ["Y", "group y"]
+    ),
+    choice(
+      "y8-dat-cmpbxp-i4",
+      "Side-by-side box plots show Group P with median 35 and Group Q with median 28. Both have IQR = 10. Which statement is best?",
+      "A",
+      [
+        "Group P has a higher typical value; both groups have similar spread.",
+        "Group Q has a higher typical value; Group P is more spread out.",
+        "Both groups have the same typical value and the same spread.",
+        "Group P is more variable because its median is higher.",
+      ],
+      "Group P's median (35) is higher, so it has the higher typical value. Equal IQRs mean similar spread. A higher median does not mean more variability."
+    ),
+    answer(
+      "y8-dat-cmpbxp-i5",
+      "Group A: Min=4, Q1=10, Median=18, Q3=22, Max=28. Group B: Min=4, Q1=8, Median=12, Q3=24, Max=28. Which group has the larger IQR?",
+      "\\text{IQR A}=22-10,\\quad \\text{IQR B}=24-8",
+      "Group B",
+      "IQR A = 22 − 10 = 12. IQR B = 24 − 8 = 16. Group B has the larger IQR (16 > 12).",
+      ["B", "group b"]
+    ),
+  ],
+  commonMistakes: [
+    {
+      mistake: "Saying a group with a larger IQR performs better.",
+      fix: "A larger IQR means more spread (variability), not better performance. Compare medians to judge which group has a higher typical value.",
+    },
+    {
+      mistake: "Confusing the box width with the number of data values in that section.",
+      fix: "Each quarter of a box plot contains the same number of data values (approximately 25%). A wider section means those values are more spread out, not more numerous.",
+    },
+    {
+      mistake: "Writing a comparison without linking statistics to the context.",
+      fix: "Always name the context in your conclusion. Instead of 'Group A has a higher median', write 'Class A has a higher median mark, suggesting it performed better on the test on average'.",
+    },
+  ],
+  masteryQuiz: [
+    choice(
+      "y8-dat-cmpbxp-m1",
+      "Group A: median = 40. Group B: median = 55. Which statement is correct?",
+      "B",
+      [
+        "Group A has a higher typical value.",
+        "Group B has a higher typical value.",
+        "Both groups have the same typical value.",
+        "The median cannot be compared between groups.",
+      ],
+      "Median represents the typical value. Group B's median (55) is higher than Group A's (40), so Group B has the higher typical value."
+    ),
+    choice(
+      "y8-dat-cmpbxp-m2",
+      "Group P: IQR = 6. Group Q: IQR = 18. Same median. Which statement is correct?",
+      "A",
+      [
+        "Group P is more consistent because it has a smaller IQR.",
+        "Group Q is more consistent because it has a larger IQR.",
+        "Both groups have the same consistency because their medians are equal.",
+        "Group Q performs better because its spread is larger.",
+      ],
+      "A smaller IQR means the central values are more tightly clustered. Group P's IQR of 6 indicates more consistent data than Group Q's IQR of 18."
+    ),
+    answer(
+      "y8-dat-cmpbxp-m3",
+      "Group A: Q1 = 15, Q3 = 35. Group B: Q1 = 20, Q3 = 32. Find the IQR for each group.",
+      "\\text{IQR A}=35-15,\\quad \\text{IQR B}=32-20",
+      "IQR A = 20, IQR B = 12",
+      "IQR A = 35 − 15 = 20. IQR B = 32 − 20 = 12.",
+      ["A=20 B=12", "20 and 12"]
+    ),
+    answer(
+      "y8-dat-cmpbxp-m4",
+      "Group A: Min = 5, Max = 45. Group B: Min = 10, Max = 40. Find the range of each group.",
+      "\\text{Range A}=45-5,\\quad \\text{Range B}=40-10",
+      "Range A = 40, Range B = 30",
+      "Range A = 45 − 5 = 40. Range B = 40 − 10 = 30.",
+      ["A=40 B=30", "40 and 30"]
+    ),
+    answer(
+      "y8-dat-cmpbxp-m5",
+      "Two groups both have IQR = 10. Group X has median = 30 and Group Y has median = 45. Which group has a higher typical value and by how much?",
+      "45 - 30",
+      "Group Y by 15",
+      "Group Y's median (45) is higher than Group X's (30). The difference is 45 − 30 = 15.",
+      ["Y by 15", "group y, 15"]
+    ),
+    answer(
+      "y8-dat-cmpbxp-m6",
+      "Group A box plot: Q1 = 10, Median = 18, Q3 = 22. Is Group A's distribution symmetric, skewed left, or skewed right? The left half of the box = Median − Q1 and the right half = Q3 − Median.",
+      "\\text{Left half: }18-10=8,\\quad \\text{Right half: }22-18=4",
+      "Skewed left",
+      "The left half of the box (8) is larger than the right half (4). The median sits closer to Q3, meaning more data is compressed toward the upper end. The distribution is skewed left.",
+      ["left", "left-skewed", "negatively skewed"]
+    ),
+    answer(
+      "y8-dat-cmpbxp-m7",
+      "Group B box plot: Q1 = 14, Median = 16, Q3 = 24. The left half of the box = Median − Q1 and the right half = Q3 − Median. Is Group B symmetric, skewed left, or skewed right?",
+      "\\text{Left half: }16-14=2,\\quad \\text{Right half: }24-16=8",
+      "Skewed right",
+      "The right half of the box (8) is much larger than the left half (2). The median sits very close to Q1, indicating more data bunched at lower values with a long right tail. The distribution is skewed right.",
+      ["right", "right-skewed", "positively skewed"]
+    ),
+    answer(
+      "y8-dat-cmpbxp-m8",
+      "Group A: median = 50, IQR = 20. Group B: median = 38, IQR = 20. By how much is Group A's median higher than Group B's?",
+      "50 - 38",
+      "12",
+      "The difference in medians = 50 − 38 = 12. Group A's typical value is 12 units higher."
+    ),
+    answer(
+      "y8-dat-cmpbxp-m9",
+      "Group A: Min = 10, Q1 = 20, Median = 30, Q3 = 40, Max = 50. Group B: Min = 10, Q1 = 15, Median = 20, Q3 = 35, Max = 50. Which group has the larger IQR?",
+      "\\text{IQR A}=40-20,\\quad \\text{IQR B}=35-15",
+      "Group A",
+      "IQR A = 40 − 20 = 20. IQR B = 35 − 15 = 20. Both IQRs are equal at 20.",
+      ["equal", "same", "both 20", "Group A", "A"]
+    ),
+    answer(
+      "y8-dat-cmpbxp-m10",
+      "Group A: Min = 10, Q1 = 20, Median = 30, Q3 = 40, Max = 50. Group B: Min = 10, Q1 = 15, Median = 20, Q3 = 35, Max = 50. Which group has the higher median and by how much?",
+      "30 - 20",
+      "Group A by 10",
+      "Median A = 30, Median B = 20. Group A's median is higher by 30 − 20 = 10.",
+      ["A by 10", "group a, 10"]
+    ),
+  ],
+};
+
 // ── Lesson map and export ─────────────────────────────────────────────────────
 
 const lessons: Record<string, LessonContent> = {
@@ -2782,6 +3321,8 @@ const lessons: Record<string, LessonContent> = {
   "two-step-chance-experiments":      twoStepChanceExperiments,
   "relative-frequency":               relativeFrequency,
   "expected-outcomes":                expectedOutcomes,
+  "box-plots":                        boxPlots,
+  "comparing-data-with-box-plots":    comparingDataWithBoxPlots,
 };
 
 export function year8StatisticsProbabilityLessonOverride(

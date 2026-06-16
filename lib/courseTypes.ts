@@ -15,7 +15,7 @@ export type NewCourseSlug =
   | "year-10-mathematics-advanced"
   | "year-7-mathematics";
 
-export type CoursePathwayStatus = "available" | "in_progress" | "coming_soon";
+export type CoursePathwayStatus = "available" | "in_progress" | "coming_soon" | "hidden";
 
 export type SkillCheckpointSeed = {
   stableCheckpointId: string;
