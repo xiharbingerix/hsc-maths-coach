@@ -12,6 +12,7 @@ import type {
   NetworkDiagram,
   NormalDistributionDiagram,
   NumberLineDiagram,
+  PlaneShapeDiagram,
   PolynomialCurveDiagram,
   ProbabilityTreeDiagram,
   ScatterPlotDiagram,
@@ -34,6 +35,7 @@ import { HistogramView } from "../course/components/HistogramView";
 import { NetworkDiagramView } from "../course/components/NetworkDiagramView";
 import { NormalDistributionView } from "../course/components/NormalDistributionView";
 import { NumberLineView } from "../course/components/NumberLineView";
+import { PlaneShapeView } from "../course/components/PlaneShapeView";
 import { PolynomialCurveView } from "../course/components/PolynomialCurveView";
 import { ProbabilityTreeView } from "../course/components/ProbabilityTreeView";
 import { ScatterPlotView } from "../course/components/ScatterPlotView";
@@ -90,6 +92,7 @@ export const DIAGRAM_COMPONENTS: Record<DiagramType, DiagramComponent> = {
   barChartDiagram: (d) => <BarChartView diagram={d as unknown as BarChartDiagram} />,
   histogramDiagram: (d) => <HistogramView diagram={d as unknown as HistogramDiagram} />,
   scatterPlotDiagram: (d) => <ScatterPlotView diagram={d as unknown as ScatterPlotDiagram} />,
+  planeShapeDiagram: (d) => <PlaneShapeView diagram={d as unknown as PlaneShapeDiagram} />,
 };
 
 /**

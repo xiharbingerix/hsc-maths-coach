@@ -544,6 +544,49 @@ export type HistogramDiagram = {
   cumulative?: boolean;
 };
 
+export type PlaneShapeColor =
+  | "blue"
+  | "teal"
+  | "violet"
+  | "amber"
+  | "green"
+  | "red"
+  | "none";
+
+export type PlaneShapeVertex = {
+  x: number;
+  y: number;
+  /** Vertex label (e.g. "A"), drawn just outside the shape. */
+  label?: string;
+  /** Interior-angle label (e.g. "60°" or "x"), drawn inside with an arc. */
+  angleLabel?: string;
+  /** Draw a right-angle square at this vertex. */
+  rightAngle?: boolean;
+};
+
+/** Marks for the edge from vertex i to vertex i+1 (parallel array to vertices). */
+export type PlaneShapeEdge = {
+  label?: string;
+  /** Equal-length tick marks (0–3). */
+  ticks?: number;
+  /** Parallel-marking chevrons (0–2). */
+  arrows?: number;
+};
+
+/**
+ * A polygon (triangle, quadrilateral, pentagon, composite/L-shape, …) given by
+ * ordered vertices in natural coordinates (y-up; the renderer auto-fits and
+ * flips). Supports side labels, interior-angle arcs, right-angle marks,
+ * equal-length ticks and parallel chevrons — for area/perimeter and geometry.
+ */
+export type PlaneShapeDiagram = {
+  description: string;
+  vertices: PlaneShapeVertex[];
+  edges?: PlaneShapeEdge[];
+  fill?: PlaneShapeColor;
+  showVertexDots?: boolean;
+};
+
 export type ScatterPoint = { x: number; y: number; label?: string };
 
 /**

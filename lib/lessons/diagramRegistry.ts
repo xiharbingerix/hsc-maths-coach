@@ -8,6 +8,7 @@ import type {
   NetworkDiagram,
   NormalDistributionDiagram,
   NumberLineDiagram,
+  PlaneShapeDiagram,
   PolynomialCurveDiagram,
   ProbabilityTreeDiagram,
   ScatterPlotDiagram,
@@ -60,6 +61,7 @@ export const DIAGRAM_SPECS = [
   { type: "barChartDiagram", field: "barChartDiagram" },
   { type: "histogramDiagram", field: "histogramDiagram" },
   { type: "scatterPlotDiagram", field: "scatterPlotDiagram" },
+  { type: "planeShapeDiagram", field: "planeShapeDiagram" },
 ] as const;
 
 /** Serialized `diagram_data.type` discriminator for a registered payload. */
@@ -95,6 +97,7 @@ export type DiagramFields = {
   barChartDiagram?: BarChartDiagram;
   histogramDiagram?: HistogramDiagram;
   scatterPlotDiagram?: ScatterPlotDiagram;
+  planeShapeDiagram?: PlaneShapeDiagram;
 };
 
 /**
