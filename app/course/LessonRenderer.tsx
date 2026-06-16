@@ -18,6 +18,7 @@ import type {
 } from "../../lib/lessons/differentialCalculus";
 import { VisualPayloadRenderer } from "../components/VisualPayloadRenderer";
 import { markTypedAnswer } from "../../lib/answerMarking";
+import { looksSymbolic } from "../../lib/cas/looksSymbolic";
 import { MathAnswerInput } from "../components/MathAnswerInput";
 import { HintLadder } from "./components/HintLadder";
 import {
@@ -202,6 +203,53 @@ function isCorrectAnswer(question: PracticeQuestion, value: string) {
 
 function formatPercent(score: number) {
   return `${Math.round(score * 100)}%`;
+}
+
+/**
+ * Ask the CAS service which locally-rejected quiz answers are actually
+ * equivalent forms. Returns a map of questionId -> true for upgrades. Only
+ * single typed answers are checked (MCQ, multi-part and multi-step questions
+ * keep their existing local marking). Any failure leaves the answer as-is.
+ */
+async function resolveQuizCasOverrides(
+  questions: PracticeQuestion[],
+  answers: Record<string, string>
+): Promise<Record<string, boolean>> {
+  const overrides: Record<string, boolean> = {};
+  const candidates = questions.filter((question) => {
+    const value = (answers[question.id] ?? "").trim();
+    if (!value) return false;
+    if (question.choices) return false;
+    if (hasQuestionParts(question) || (question.steps?.length ?? 0) > 0) {
+      return false;
+    }
+    if (isCorrectAnswer(question, value)) return false;
+    return looksSymbolic(value, question.answer);
+  });
+
+  await Promise.all(
+    candidates.map(async (question) => {
+      try {
+        const res = await fetch("/api/cas/equiv", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            student: answers[question.id],
+            correctAnswer: question.answer,
+            acceptedAnswers: question.acceptedAnswers ?? [],
+          }),
+        });
+        if (res.ok) {
+          const verdict = await res.json();
+          if (verdict.equivalent) overrides[question.id] = true;
+        }
+      } catch {
+        // Leave as locally-marked incorrect on any failure.
+      }
+    })
+  );
+
+  return overrides;
 }
 
 function choiceAnswerText(question: PracticeQuestion, answer: string) {
@@ -583,6 +631,7 @@ function PracticeCard({
   // Single-step state
   const [answer, setAnswer] = useState("");
   const [result, setResult] = useState<"correct" | "incorrect" | null>(null);
+  const [checking, setChecking] = useState(false);
 
   // Multi-step state (all hooks called unconditionally)
   const [stepIndex, setStepIndex] = useState(0);
@@ -761,8 +810,39 @@ function PracticeCard({
     );
   }
 
-  function checkAnswer() {
-    setResult(isCorrectAnswer(question, answer) ? "correct" : "incorrect");
+  async function checkAnswer() {
+    if (isCorrectAnswer(question, answer)) {
+      setResult("correct");
+      return;
+    }
+    // MCQ, empty, or plainly-numeric answers can't be rescued by symbolic CAS.
+    if (
+      question.choices ||
+      !answer.trim() ||
+      !looksSymbolic(answer, question.answer)
+    ) {
+      setResult("incorrect");
+      return;
+    }
+    // Tier 1: ask the CAS service whether this is an equivalent form.
+    setChecking(true);
+    try {
+      const res = await fetch("/api/cas/equiv", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          student: answer,
+          correctAnswer: question.answer,
+          acceptedAnswers: question.acceptedAnswers ?? [],
+        }),
+      });
+      const verdict = res.ok ? await res.json() : { equivalent: false };
+      setResult(verdict.equivalent ? "correct" : "incorrect");
+    } catch {
+      setResult("incorrect");
+    } finally {
+      setChecking(false);
+    }
   }
 
   return (
@@ -810,9 +890,10 @@ function PracticeCard({
         <button
           type="button"
           onClick={checkAnswer}
-          className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+          disabled={checking}
+          className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-50"
         >
-          Check answer
+          {checking ? "Checking…" : "Check answer"}
         </button>
       </div>
 
@@ -1065,6 +1146,7 @@ function MasteryResultPanel({
   passMark,
   questions,
   answers,
+  casCorrectIds,
   onTryAgain,
   onReviewLesson,
   nextHref,
@@ -1076,6 +1158,7 @@ function MasteryResultPanel({
   passMark: number;
   questions: PracticeQuestion[];
   answers: Record<string, string>;
+  casCorrectIds: Record<string, boolean>;
   onTryAgain: () => void;
   onReviewLesson: () => void;
   nextHref?: string;
@@ -1088,7 +1171,9 @@ function MasteryResultPanel({
   const incorrectQuestions = questions
     .map((question, index) => ({ question, quizIndex: index }))
     .filter(
-      ({ question }) => !isCorrectAnswer(question, answers[question.id] ?? "")
+      ({ question }) =>
+        !isCorrectAnswer(question, answers[question.id] ?? "") &&
+        !casCorrectIds[question.id]
     );
 
   const [reviewOpen, setReviewOpen] = useState(false);
@@ -1358,6 +1443,10 @@ export function LessonRenderer({
   const [videoLoadFailed, setVideoLoadFailed] = useState(false);
   const [quizAnswers, setQuizAnswers] = useState<Record<string, string>>({});
   const [quizSubmitted, setQuizSubmitted] = useState(false);
+  // Question ids the CAS service upgraded to correct at submit time (equivalent
+  // forms the local marker rejected). Resets on retry.
+  const [casCorrectIds, setCasCorrectIds] = useState<Record<string, boolean>>({});
+  const [quizChecking, setQuizChecking] = useState(false);
   const [masteryState, setMasteryState] = useState<MasteryState>({
     passed: false,
     mustCompleteLesson: false,
@@ -1527,6 +1616,7 @@ export function LessonRenderer({
     setVideoEnded(false);
     setVideoLoadFailed(false);
     setQuizAnswers({});
+    setCasCorrectIds({});
     setQuizSubmitted(false);
     masteryStartedRef.current = null;
   }, [firstCurrentLessonStage, lessonSlug]);
@@ -1562,10 +1652,11 @@ export function LessonRenderer({
   const activeStageIndex = currentLessonStages.findIndex(
     (stage) => stage.id === activeStage
   );
-  const quizCorrectCount = currentLesson.masteryQuiz.filter((question) =>
-    isCorrectAnswer(question, quizAnswers[question.id] ?? "")
+  const quizCorrectCount = currentLesson.masteryQuiz.filter(
+    (question) =>
+      isCorrectAnswer(question, quizAnswers[question.id] ?? "") ||
+      casCorrectIds[question.id]
   ).length;
-  const quizScore = quizCorrectCount / currentLesson.masteryQuiz.length;
 
   function saveMasteryState(nextState: MasteryState) {
     const storedState = {
@@ -1643,29 +1734,52 @@ export function LessonRenderer({
     }
   }
 
-  function submitQuiz() {
+  async function submitQuiz() {
+    // Tier 1: ask CAS about locally-rejected typed answers before scoring, so
+    // equivalent forms count toward mastery. Falls back to local marks on any
+    // failure (and is a no-op when the CAS service is not configured).
+    setQuizChecking(true);
+    let overrides: Record<string, boolean> = {};
+    try {
+      overrides = await resolveQuizCasOverrides(
+        currentLesson.masteryQuiz,
+        quizAnswers
+      );
+    } catch {
+      overrides = {};
+    }
+    setCasCorrectIds(overrides);
+    setQuizChecking(false);
+
+    const isCorrectWithCas = (question: PracticeQuestion) =>
+      isCorrectAnswer(question, quizAnswers[question.id] ?? "") ||
+      Boolean(overrides[question.id]);
+    const correctCount =
+      currentLesson.masteryQuiz.filter(isCorrectWithCas).length;
+    const score = correctCount / currentLesson.masteryQuiz.length;
+
     setQuizSubmitted(true);
     trackMasteryCompleted(
       currentLesson.courseTitle,
       currentLesson.moduleTitle,
       currentLesson.title,
-      quizScore >= currentLesson.masteryPassMark,
-      quizScore
+      score >= currentLesson.masteryPassMark,
+      score
     );
 
-    if (quizScore >= currentLesson.masteryPassMark) {
+    if (score >= currentLesson.masteryPassMark) {
       saveMasteryState({
         passed: true,
         mustCompleteLesson: false,
         completedStages: currentLessonStages.map((stage) => stage.id),
-        lastScore: quizScore,
+        lastScore: score,
       });
     } else {
       saveMasteryState({
         passed: false,
         mustCompleteLesson: false,
         completedStages: masteryState.completedStages,
-        lastScore: quizScore,
+        lastScore: score,
       });
     }
 
@@ -1674,16 +1788,16 @@ export function LessonRenderer({
       ...(courseSlug ? { courseSlug } : {}),
       ...(unitSlug ? { topicSlug: unitSlug } : {}),
       lessonSlug,
-      score: Math.round(quizScore * 100),
+      score: Math.round(score * 100),
       questionCount: currentLesson.masteryQuiz.length,
-      correct: quizCorrectCount,
+      correct: correctCount,
     });
-    if (quizScore >= currentLesson.masteryPassMark) {
+    if (score >= currentLesson.masteryPassMark) {
       clientTrackEvent("lesson_mastery_passed", {
         ...(courseSlug ? { courseSlug } : {}),
         ...(unitSlug ? { topicSlug: unitSlug } : {}),
         lessonSlug,
-        score: Math.round(quizScore * 100),
+        score: Math.round(score * 100),
         questionCount: currentLesson.masteryQuiz.length,
       });
     }
@@ -1701,7 +1815,9 @@ export function LessonRenderer({
           const events = capturedQuestions.map((q) => ({
             questionId: q.id,
             difficulty: 4,
-            isCorrect: isCorrectAnswer(q, capturedAnswers[q.id] ?? ""),
+            isCorrect:
+              isCorrectAnswer(q, capturedAnswers[q.id] ?? "") ||
+              Boolean(overrides[q.id]),
           }));
           await fetch("/api/mastery/lesson", {
             method: "POST",
@@ -1727,6 +1843,7 @@ export function LessonRenderer({
   function retryQuiz() {
     masteryRecordedRef.current = false;
     setQuizAnswers({});
+    setCasCorrectIds({});
     setQuizSubmitted(false);
     setActiveStage("mastery-quiz");
   }
@@ -2065,9 +2182,10 @@ export function LessonRenderer({
         <button
           type="button"
           onClick={submitQuiz}
-          className="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
+          disabled={quizChecking}
+          className="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700 disabled:opacity-50"
         >
-          Submit quiz
+          {quizChecking ? "Checking…" : "Submit quiz"}
         </button>
 
         {quizSubmitted && (
@@ -2077,6 +2195,7 @@ export function LessonRenderer({
             passMark={currentLesson.masteryPassMark}
             questions={currentLesson.masteryQuiz}
             answers={quizAnswers}
+            casCorrectIds={casCorrectIds}
             onTryAgain={retryQuiz}
             onReviewLesson={reviewLesson}
             nextHref={nextHref}

@@ -11,7 +11,7 @@ type ScalarAnswer = {
 export type MarkTypedAnswerResult = {
   correct: boolean;
   normalisedUserAnswer: string;
-  matchedBy: "exact" | "accepted" | "normalised";
+  matchedBy: "exact" | "accepted" | "normalised" | "cas";
 };
 
 function normaliseText(value: string) {

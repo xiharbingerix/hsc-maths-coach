@@ -69,6 +69,26 @@ learning, and have not already received the automated signup recovery email.
 Vercel Hobby projects only support daily cron schedules. If the project is moved
 to Vercel Pro, the schedule can be increased to every 30 minutes.
 
+### Symbolic Answer Marking (CAS) — optional
+
+These enable Tier-1 CAS marking (see `cas-service/`), which accepts
+mathematically-equivalent-but-differently-written answers (`2(x+3)` = `2x+6`).
+**If `CAS_SERVICE_URL` is unset, the feature is completely inert** and marking
+behaves exactly as before — so the app can ship without these configured.
+
+| Variable | Purpose |
+| --- | --- |
+| `CAS_SERVICE_URL` | Base URL of the deployed `cas-service` (e.g. `https://nova-cas.fly.dev`). Unset = CAS disabled. |
+| `CAS_SHARED_SECRET` | Server-only secret sent as `X-CAS-Secret`; must match the value set on the CAS service. |
+| `CAS_MARKING_ENABLED` | Optional kill switch. Set to `false` to force-disable even when `CAS_SERVICE_URL` is present. |
+
+The CAS service is a separate Python deployment (its own host — Fly/Render/Cloud
+Run/Vercel project), not part of this Next.js app. Prefer an always-warm
+instance to avoid cold-start latency on the marking path. Both server (worksheet
+grading) and client (lesson practice, via `/api/cas/equiv`) only ever call CAS
+*after* the local marker says "wrong", and fall back to the local result on any
+timeout or error.
+
 ### Optional Analytics And Marketing
 
 | Variable | Purpose |

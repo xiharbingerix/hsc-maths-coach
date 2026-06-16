@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "../../../../../lib/supabaseAdmin";
-import { markTypedAnswer } from "../../../../../lib/answerMarking";
+import { markAnswerWithCas } from "../../../../../lib/cas/markAnswerWithCas";
 
 export const runtime = "nodejs";
 
@@ -191,9 +191,9 @@ export async function POST(
       );
     }
 
-    partResults = parts.map((part) => {
+    partResults = await Promise.all(parts.map(async (part) => {
       const studentAnswer = String(partAnswers[part.key] ?? "").trim();
-      const result = markTypedAnswer({
+      const result = await markAnswerWithCas({
         userAnswer: studentAnswer,
         correctAnswer: part.answer,
         acceptedAnswers: part.acceptedAnswers ?? part.accepted_answers ?? [],
@@ -212,7 +212,7 @@ export async function POST(
         correctAnswer: part.answer,
         explanation: part.explanation,
       };
-    });
+    }));
 
     if (partResults.some((part) => !part.studentAnswer)) {
       return NextResponse.json(
@@ -266,8 +266,8 @@ export async function POST(
     percentage = marksEarned;
     scoreState = isCorrect ? "correct" : "incorrect";
   } else if (parts.length === 0) {
-    // Typed: use semantic marking
-    const result = markTypedAnswer({
+    // Typed: local fast-path, then CAS equivalence (symbolic) if needed.
+    const result = await markAnswerWithCas({
       userAnswer: trimmedAnswer,
       correctAnswer: String(question.answer ?? ""),
       acceptedAnswers: Array.isArray(question.accepted_answers)
