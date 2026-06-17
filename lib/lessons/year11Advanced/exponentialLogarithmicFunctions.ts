@@ -107,7 +107,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "An exponent records repeated multiplication. In 3^4, the base 3 is the factor being repeated and the exponent 4 tells you how many copies to multiply.",
+          "An exponent records repeated multiplication. In $3^4$, the base 3 is the factor being repeated and the exponent 4 tells you how many copies to multiply.",
           "Index laws are bookkeeping rules for that repetition. With the same base, multiplying joins the repeated factors, dividing removes factors, and raising a power to a power repeats the repetition.",
           "A zero index gives 1 for any non-zero base because all matching factors have cancelled. A negative index means the factors belong in the denominator, so it creates a reciprocal rather than a negative value.",
           "Fractional indices connect powers and roots. An exponent of one half asks for a square root because squaring that result returns the original value.",
@@ -213,7 +213,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A logarithm answers one question: what exponent do I need? For example, log base 2 of 8 is 3 because 2^3 = 8.",
+          "A logarithm answers one question: what exponent do I need? For example, log base 2 of 8 is 3 because $2^3 = 8$.",
           "Exponentials and logarithms undo each other. Converting between the two forms is useful because one form often makes the hidden exponent easier to see.",
           "Log laws are index laws translated into logarithm language. Products become sums, quotients become differences, and powers move to the front as multipliers.",
           "There is no general law saying log(a + b) = log a + log b. Addition inside a logarithm does not represent repeated multiplication.",
@@ -680,7 +680,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
           "Which line is the horizontal asymptote of the displayed exponential function?",
           "A",
           ["$y=0$", "$y=3$", "$x=0$", "$x=3$"],
-          "As x decreases without bound, 3^x approaches 0 but never reaches it.",
+          "As $x$ decreases without bound, $3^x$ approaches 0 but never reaches it.",
           "y=3^x"
         ),
         formulaAnswer(
@@ -770,7 +770,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
           "Which line is the horizontal asymptote of the displayed exponential function?",
           "B",
           ["$y=4$", "$y=0$", "$x=0$", "$x=4$"],
-          "As x decreases without bound, 4^x approaches 0 but never reaches it.",
+          "As $x$ decreases without bound, $4^x$ approaches 0 but never reaches it.",
           "y=4^x"
         ),
         practicalChoice(

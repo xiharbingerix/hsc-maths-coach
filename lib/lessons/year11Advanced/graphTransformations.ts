@@ -524,8 +524,8 @@ export function year11AdvancedGraphTransformationsLessonOverride(
       teaching: {
         paragraphs: [
           "Transformed polynomial and reciprocal graphs are often tested through their key features rather than by drawing the whole graph.",
-          "A quadratic in the form y = (x - h)^2 + k has vertex (h, k). This is a direct way to read the movement from y = x^2.",
-          "Cubic graphs can be shifted and reflected using the same transformation ideas as y = f(x). For example, y = -(x - 2)^3 shifts right 2 and reflects in the x-axis.",
+          "A quadratic in the form $y = (x - h)^2 + k$ has vertex $(h, k)$. This is a direct way to read the movement from $y = x^2$.",
+          "Cubic graphs can be shifted and reflected using the same transformation ideas as $y = f(x)$. For example, $y = -(x - 2)^3$ shifts right 2 and reflects in the x-axis.",
           "A reciprocal graph in the form y = 1/(x - h) + k has vertical asymptote x = h and horizontal asymptote y = k.",
           "Domain and range can change when a transformation moves an asymptote or vertex. For reciprocal graphs, the excluded x-value and y-value come from the asymptotes.",
         ],
@@ -619,7 +619,7 @@ export function year11AdvancedGraphTransformationsLessonOverride(
         formulaAnswer("y11adv-gt-poly-m5", "Find the horizontal asymptote of the transformed reciprocal graph.", "y=\\frac{2}{x-1}+4", "y=4", ["4"]),
         practicalChoice("y11adv-gt-poly-m6", "Which description matches the displayed quadratic?", "D", ["Left 3, down 2, opens upward", "Right 3, up 2, opens upward", "Left 3, up 2, opens downward", "Right 3, up 2, opens downward"], "x - 3 shifts right 3, +2 shifts up 2, and the negative reflects downward.", "y=-(x-3)^2+2"),
         formulaAnswer("y11adv-gt-poly-m7", "Find the excluded x-value in the domain.", "y=\\frac{1}{x-6}-2", "6", ["x=6"]),
-        practicalChoice("y11adv-gt-poly-m8", "Which graph feature moves from the origin to the displayed point?", "B", ["The y-intercept of every graph", "The vertex of y = x^2", "The vertical asymptote", "The horizontal asymptote"], "A transformed quadratic y = (x - h)^2 + k moves the vertex to (h,k).", "y=(x+5)^2-1,\\quad (-5,-1)"),
+        practicalChoice("y11adv-gt-poly-m8", "Which graph feature moves from the origin to the displayed point?", "B", ["The y-intercept of every graph", "The vertex of y = x^2", "The vertical asymptote", "The horizontal asymptote"], "A transformed quadratic $y = (x - h)^2 + k$ moves the vertex to $(h,k)$.", "y=(x+5)^2-1,\\quad (-5,-1)"),
         practicalChoice("y11adv-gt-poly-m9", "Which equation shows a cubic shifted left 1 and reflected in the x-axis?", "A", ["y = -(x + 1)^3", "y = (x - 1)^3", "y = (-x + 1)^3", "y = (x + 1)^3"], "Left 1 uses x + 1, and reflection in the x-axis puts a negative outside.", "\\text{Transform }y=x^3."),
         practicalChoice("y11adv-gt-poly-m10", "A student says the vertical asymptote is x = 3. Which option identifies the error?", "C", ["The horizontal asymptote is x = 3", "The graph has no asymptotes", "The vertical asymptote is x = -3", "The vertex is (3, 2)"], "The denominator x + 3 is zero at x = -3.", "y=\\frac{1}{x+3}+2"),
       ],

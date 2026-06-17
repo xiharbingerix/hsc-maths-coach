@@ -812,8 +812,8 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Index laws tell you what happens when you multiply, divide or raise powers of the same base. The key idea is that an exponent is just counting how many times the base is multiplied. So a³ × a² = a^(3+2) = a⁵ — the five multiplications are added together.",
-          "Negative and zero indices extend the pattern. a⁰ = 1 for any non-zero base because dividing a^n by a^n gives 1. a^(−n) = 1/a^n because it reverses the multiplication: a^3 × a^(−3) = a^0 = 1, so a^(−3) = 1/a^3.",
+          "Index laws tell you what happens when you multiply, divide or raise powers of the same base. The key idea is that an exponent is just counting how many times the base is multiplied. So $a^3 × a^2 = a^{3+2} = a^5$ — the five multiplications are added together.",
+          "Negative and zero indices extend the pattern. $a^0 = 1$ for any non-zero base because dividing $a^n$ by $a^n$ gives 1. $a^{−n} = 1/a^n$ because it reverses the multiplication: $a^3 × a^{−3} = a^0 = 1$, so $a^{−3} = 1/a^3$.",
           "Surds are square roots that cannot be simplified to a whole number, such as √3 or √5. Like surds — those with the same number under the root — can be added or subtracted. For example, 2√3 + 5√3 = 7√3, just like 2x + 5x = 7x. Unlike surds such as √3 and √5 cannot be combined directly.",
           "To rationalise 1/(√a + √b), multiply the numerator and denominator by the conjugate (√a − √b). The denominator becomes (√a + √b)(√a − √b) = a − b, which is rational. Expand the numerator carefully and simplify.",
         ],
@@ -875,15 +875,15 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         },
       ],
       guidedPractice: [
-        qa("y11adv-alg-g1", "Simplify the expression using the index multiplication law.", "x^5 \\cdot x^{-3}", "x^2", "Add the indices: 5 + (−3).", "Multiplying same-base powers adds the indices: x^5 · x^{−3} = x^{5+(−3)} = x^2.", ["x^(2)"]),
-        qa("y11adv-alg-g2", "Simplify the expression using the index power law.", "(a^2)^3", "a^6", "Multiply the indices: 2 × 3.", "Raising a power to a power multiplies the indices: (a^2)^3 = a^{2×3} = a^6.", ["a^(6)"]),
+        qa("y11adv-alg-g1", "Simplify the expression using the index multiplication law.", "x^5 \\cdot x^{-3}", "x^2", "Add the indices: 5 + (−3).", "Multiplying same-base powers adds the indices: $x^5 · x^{−3} = x^{5+(−3)} = x^2$.", ["x^(2)"]),
+        qa("y11adv-alg-g2", "Simplify the expression using the index power law.", "(a^2)^3", "a^6", "Multiply the indices: 2 × 3.", "Raising a power to a power multiplies the indices: $(a^2)^3 = a^{2×3} = a^6$.", ["a^(6)"]),
         practicalChoice("y11adv-alg-g3", "Which expression correctly simplifies $\\sqrt{12} + \\sqrt{3}$?", "C", ["$\\sqrt{15}$", "$2\\sqrt{3}$", "$3\\sqrt{3}$", "$\\sqrt{15+3}$"], "√12 = 2√3, so √12 + √3 = 2√3 + √3 = 3√3. Unlike surds cannot be combined under one root."),
         qa("y11adv-alg-g4", "Simplify $\\sqrt{12} + \\sqrt{3}$ to the form $a\\sqrt{3}$. What is $a$?", "\\sqrt{12} + \\sqrt{3} = a\\sqrt{3}", "3", "Write √12 as a multiple of √3 first: √12 = 2√3.", "√12 = √(4×3) = 2√3. So 2√3 + √3 = 3√3. The coefficient a = 3."),
       ],
       independentPractice: [
         qa("y11adv-alg-i1", "Simplify $x^0 \\cdot x^4$.", "x^0 \\cdot x^4", "x^4", "Any base to the power 0 equals 1.", "x^0 = 1, so x^0 · x^4 = 1 · x^4 = x^4.", ["x^(4)"]),
         qa("y11adv-alg-i2", "Expand $(\\sqrt{5}+\\sqrt{3})(\\sqrt{5}-\\sqrt{3})$.", "(\\sqrt{5}+\\sqrt{3})(\\sqrt{5}-\\sqrt{3})", "2", "Use the difference of two squares: (a+b)(a−b) = a² − b².", "(√5 + √3)(√5 − √3) = (√5)² − (√3)² = 5 − 3 = 2."),
-        qa("y11adv-alg-i3", "Evaluate $8^{2/3}$.", "8^{2/3}", "4", "Write as (8^{1/3})^2 and find the cube root first.", "8^{1/3} = ∛8 = 2, so 8^{2/3} = (8^{1/3})^2 = 2^2 = 4."),
+        qa("y11adv-alg-i3", "Evaluate $8^{2/3}$.", "8^{2/3}", "4", "Write as $(8^{1/3})^2$ and find the cube root first.", "$8^{1/3}$ = ∛8 = 2, so $8^{2/3} = (8^{1/3})^2 = 2^2 = 4$."),
         practicalChoice("y11adv-alg-i4", "Simplify $3\\sqrt{2} \\times 2\\sqrt{2}$.", "C", ["$5\\sqrt{2}$", "$5\\sqrt{4}$", "$12$", "$6\\sqrt{2}$"], "Multiply integer parts (3 × 2 = 6) and surd parts (√2 × √2 = 2) separately: 6 × 2 = 12."),
         qa("y11adv-alg-i5", "Simplify $2\\sqrt{18}$ to the form $a\\sqrt{2}$. What is $a$?", "2\\sqrt{18} = a\\sqrt{2}", "6", "Write 18 = 9 × 2 to extract the perfect-square factor.", "√18 = √(9×2) = 3√2, so 2√18 = 2 × 3√2 = 6√2. The coefficient a = 6."),
       ],
@@ -894,9 +894,9 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Forgetting to apply the index to the coefficient in (2x³)², writing x^6 instead of 4x^6.", fix: "The index outside the bracket applies to every factor inside: (2x³)² = 2² · (x³)² = 4x^6." },
       ],
       masteryQuiz: [
-        qa("y11adv-alg-m1", "Simplify $x^4 \\div x^{-2}$.", "x^4 \\div x^{-2}", "x^6", "Subtract indices when dividing: 4 − (−2).", "Dividing same-base powers subtracts indices: x^4 ÷ x^{−2} = x^{4−(−2)} = x^6.", ["x^(6)"]),
-        qa("y11adv-alg-m2", "Evaluate $27^{1/3}$.", "27^{1/3}", "3", "27^{1/3} is the cube root of 27.", "27^{1/3} = ∛27 = 3, since 3³ = 27."),
-        practicalChoice("y11adv-alg-m3", "Which expression is equal to $x^{-3}$?", "B", ["$x^3$", "$\\frac{1}{x^3}$", "$-x^3$", "$\\frac{3}{x}$"], "A negative index means the reciprocal: x^{−3} = 1/x^3."),
+        qa("y11adv-alg-m1", "Simplify $x^4 \\div x^{-2}$.", "x^4 \\div x^{-2}", "x^6", "Subtract indices when dividing: 4 − (−2).", "Dividing same-base powers subtracts indices: $x^4 ÷ x^{−2} = x^{4−(−2)} = x^6$.", ["x^(6)"]),
+        qa("y11adv-alg-m2", "Evaluate $27^{1/3}$.", "27^{1/3}", "3", "$27^{1/3}$ is the cube root of 27.", "$27^{1/3}$ = ∛27 = 3, since 3³ = 27."),
+        practicalChoice("y11adv-alg-m3", "Which expression is equal to $x^{-3}$?", "B", ["$x^3$", "$\\frac{1}{x^3}$", "$-x^3$", "$\\frac{3}{x}$"], "A negative index means the reciprocal: $x^{−3} = 1/x^3$."),
         qa("y11adv-alg-m4", "In the expansion $(1+\\sqrt{3})^2 = a + b\\sqrt{3}$, find $a$.", "(1+\\sqrt{3})^2 = a+b\\sqrt{3}", "4", "Expand using (p+q)² = p² + 2pq + q².", "(1+√3)² = 1 + 2√3 + (√3)² = 1 + 2√3 + 3 = 4 + 2√3. So a = 4."),
         qa("y11adv-alg-m5", "Simplify $\\sqrt{50} - \\sqrt{8}$ to the form $a\\sqrt{2}$. What is $a$?", "\\sqrt{50} - \\sqrt{8} = a\\sqrt{2}", "3", "√50 = 5√2, √8 = 2√2.", "√50 = √(25×2) = 5√2. √8 = √(4×2) = 2√2. 5√2 − 2√2 = 3√2. Coefficient a = 3."),
         practicalChoice("y11adv-alg-m6", "To rationalise $\\frac{1}{\\sqrt{5}-1}$, you multiply top and bottom by:", "B", ["$\\sqrt{5}-1$", "$\\sqrt{5}+1$", "$\\sqrt{5}-2$", "$\\frac{1}{\\sqrt{5}}$"], "The conjugate of (√5 − 1) is (√5 + 1). Their product is (√5)² − 1² = 4, which is rational."),

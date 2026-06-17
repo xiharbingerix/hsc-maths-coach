@@ -599,7 +599,7 @@ export function year11AdvancedProbabilityDataLessonOverride(
       teaching: {
         paragraphs: [
           "Expected value is the long-run average you would expect after many repetitions. More likely outcomes should influence that average more strongly, which is why each value is multiplied by its probability.",
-          "Variance measures how spread out the results are around that long-run average. The shortcut E(X^2) - [E(X)]^2 compares the weighted square values with the square of the mean.",
+          "Variance measures how spread out the results are around that long-run average. The shortcut $E(X^2) - [E(X)]^2$ compares the weighted square values with the square of the mean.",
           "Standard deviation is the square root of variance. Taking the square root brings the spread back into the same units as the original random variable.",
           "For games of chance, expected winnings describe the long-run balance, not what must happen on one play. Zero is fair, a positive result favours the player, and a negative result does not.",
         ],
