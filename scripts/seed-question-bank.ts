@@ -20,8 +20,15 @@ import { statisticalAnalysisLessons } from "../lib/lessons/statisticalAnalysis";
 import { trigonometricFunctionsGraphsLessons } from "../lib/lessons/trigonometricFunctionsGraphs";
 import { probabilityLessons } from "../lib/lessons/probability";
 import { extractDiagramData, pickDiagramFields, type Choice } from "../lib/lessons/diagramRegistry";
+import { getChallengeQuestions } from "../lib/challenges";
 
-type PracticeSection = "guidedPractice" | "independentPractice" | "masteryQuiz" | "multiPartPractice";
+type PracticeSection =
+  | "guidedPractice"
+  | "independentPractice"
+  | "masteryQuiz"
+  | "masteryQuizPool"
+  | "multiPartPractice"
+  | "challenge";
 
 type QuestionRow = {
   source_id: string;
@@ -218,6 +225,16 @@ export function inferDifficulty(
 ) {
   const prompt = `${question.prompt} ${question.latex}`.toLowerCase();
 
+  // Respect an explicitly authored difficulty (mastery-quiz pools carry one).
+  if (typeof question.difficulty === "number") {
+    return question.difficulty;
+  }
+
+  // Level-6 challenge questions are the hardest tier.
+  if (section === "challenge") {
+    return 5;
+  }
+
   // Multi-part questions are always D5 — HSC Section II exam style.
   if (section === "multiPartPractice") {
     return 5;
@@ -287,6 +304,15 @@ function questionSections(lesson: ExplicitLesson) {
   ];
   if (lesson.multiPartPractice && lesson.multiPartPractice.length > 0) {
     sections.push(["multiPartPractice", lesson.multiPartPractice]);
+  }
+  // The larger difficulty-tagged mastery pool (when a lesson has one).
+  if (lesson.masteryQuizPool && lesson.masteryQuizPool.length > 0) {
+    sections.push(["masteryQuizPool", lesson.masteryQuizPool]);
+  }
+  // Level-6 challenge questions registered against this lesson's slug.
+  const challengeQuestions = getChallengeQuestions(lesson.slug);
+  if (challengeQuestions.length > 0) {
+    sections.push(["challenge", challengeQuestions]);
   }
   return sections;
 }
