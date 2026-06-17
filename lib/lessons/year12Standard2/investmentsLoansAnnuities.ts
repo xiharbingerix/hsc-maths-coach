@@ -1226,8 +1226,8 @@ export function year12Standard2FinanceLessonOverride(
       teaching: {
         paragraphs: [
           "An interest factor table pre-calculates the value of a bracket of the annuity formula for common combinations of periodic interest rate r and number of periods n. Instead of evaluating the full formula, you look up the factor and multiply (or divide) by the regular payment.",
-          "The FV interest factor is (((1+r)^n − 1) ÷ r). FV of an annuity = regular payment M × FV factor. This answers the question: if I deposit M every period for n periods at rate r, how much will I accumulate?",
-          "The PV interest factor is ((1 − (1+r)^(−n)) ÷ r). PV of an annuity = regular payment M × PV factor. This answers the question: what lump sum today is equivalent to receiving M every period for n periods?",
+          "The FV interest factor is $(((1+r)^n − 1) ÷ r)$. FV of an annuity = regular payment M × FV factor. This answers the question: if I deposit M every period for n periods at rate r, how much will I accumulate?",
+          "The PV interest factor is $((1 − (1+r)^{−n}) ÷ r)$. PV of an annuity = regular payment M × PV factor. This answers the question: what lump sum today is equivalent to receiving M every period for n periods?",
           "To find the required payment M given a target, reverse the process: divide the target FV by the FV factor, or divide the loan PV by the PV factor. This gives the equal periodic payment needed.",
         ],
         latexBlocks: [
@@ -2198,7 +2198,7 @@ export function year12Standard2FinanceLessonOverride(
         "Apply the PV annuity formula to find monthly repayments and total interest for a loan, and explain the trade-off between loan term, repayment size, and total interest.",
       successCriteria: [
         "Explain the difference between a present value annuity (loan) and a future value annuity (savings).",
-        "Calculate the monthly repayment using M = P × r / (1 − (1+r)^(−n)).",
+        "Calculate the monthly repayment using $M = P × r / (1 − (1+r)^{−n})$.",
         "Find the total interest paid as M × n − P.",
         "Compare two loan options and explain the effect of a longer term.",
       ],
@@ -2412,7 +2412,7 @@ export function year12Standard2FinanceLessonOverride(
             "M = P / n",
             "M = P × r × n",
           ],
-          "M = Pr / (1 − (1+r)^(−n)) is the standard loan repayment formula."
+          "$M = Pr / (1 − (1+r)^{−n})$ is the standard loan repayment formula."
         ),
         moneyAnswer(
           "y12s2-pv-m3",
@@ -2468,11 +2468,11 @@ export function year12Standard2FinanceLessonOverride(
         ),
         financeChoice(
           "y12s2-pv-m9",
-          "To rearrange P = M × (1 − (1+r)^(−n)) / r to make M the subject, the correct step is:",
+          "To rearrange $P = M × (1 − (1+r)^{−n}) / r$ to make $M$ the subject, the correct step is:",
           "B",
           [
-            "Divide both sides by (1 − (1+r)^(−n)) only",
-            "Multiply both sides by r, then divide by (1 − (1+r)^(−n))",
+            "Divide both sides by $(1 − (1+r)^{−n})$ only",
+            "Multiply both sides by $r$, then divide by $(1 − (1+r)^{−n})$",
             "Subtract r from both sides first",
             "Multiply both sides by n",
           ],
