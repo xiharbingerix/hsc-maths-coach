@@ -12,8 +12,8 @@ type TutorResult =
   | { mode: "steps"; steps: string[] };
 
 const LABELS: Record<Mode, string> = {
-  rephrase: "Explain it another way",
-  steps: "Show the steps",
+  rephrase: "Give me a hint",
+  steps: "How do I approach this?",
 };
 
 /**
@@ -116,7 +116,7 @@ export function TutorPanel({ question }: { question: PracticeQuestion }) {
             </ol>
           )}
           <p className="mt-2 text-xs text-indigo-700/70">
-            AI-generated from this lesson&rsquo;s worked solution.
+            AI hint, grounded in this lesson — it won&rsquo;t give you the answer.
           </p>
         </div>
       )}

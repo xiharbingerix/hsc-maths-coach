@@ -1992,7 +1992,7 @@ export const stationaryPointsLesson: ExplicitLesson = {
       id: "stationary-mastery-10",
       prompt:
         "Choose the correct statement about where stationary points occur.",
-      latex: "f'(x)=0",
+      latex: "\\text{Select the correct statement.}",
       answer: "B",
       choices: [
         { label: "A", text: "stationary points occur where $f(x)=0$" },
