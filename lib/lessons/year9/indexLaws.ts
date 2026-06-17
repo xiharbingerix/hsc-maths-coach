@@ -79,7 +79,7 @@ const indexNotation: LessonContent = {
   teaching: {
     paragraphs: [
       "Index notation is a short way to write repeated multiplication. The base is the number being multiplied, and the exponent tells us how many factors of that base are used.",
-      "In 3^4, the base is 3 and the exponent is 4. This means four factors of 3, not 3 multiplied by 4.",
+      "In $3^4$, the base is 3 and the exponent is 4. This means four factors of 3, not 3 multiplied by 4.",
       "A power with exponent 2 is called a square. A power with exponent 3 is called a cube.",
       "Powers of 10 are especially useful: the exponent tells us the number of zeros after 1 for positive whole-number exponents.",
     ],
@@ -100,7 +100,7 @@ const indexNotation: LessonContent = {
     answer("y9-ind-not-i1", "Evaluate the power.", "3^4", "81", "Four factors of 3 multiply to 81."),
     answer("y9-ind-not-i2", "Evaluate the cube.", "5^3", "125", "Three factors of 5 multiply to 125."),
     answer("y9-ind-not-i3", "Evaluate the power of 10.", "10^7", "10000000", "A positive exponent of 7 gives 1 followed by seven zeros."),
-    choice("y9-ind-not-i4", "Which index notation represents the repeated multiplication shown?", "B", ["$4^6$", "$6^4$", "$6\\times4$", "$24^1$"], "There are four factors of 6, so the notation is 6^4.", "6\\times6\\times6\\times6"),
+    choice("y9-ind-not-i4", "Which index notation represents the repeated multiplication shown?", "B", ["$4^6$", "$6^4$", "$6\\times4$", "$24^1$"], "There are four factors of 6, so the notation is $6^4$.", "6\\times6\\times6\\times6"),
     choice("y9-ind-not-i5", "Which statement is correct?", "D", ["$2^5=2\\times5$", "$8^2=8+8$", "$3^3=3\\times3$", "$4^3=4\\times4\\times4$"], "An exponent of 3 means three factors of the base."),
   ],
   commonMistakes: [
@@ -117,9 +117,9 @@ const indexNotation: LessonContent = {
     answer("y9-ind-not-m5", "Evaluate.", "6^2", "36", "Six squared is 6 x 6."),
     answer("y9-ind-not-m6", "Evaluate.", "2^7", "128", "Seven factors of 2 multiply to 128."),
     choice("y9-ind-not-m7", "Which power has value 64?", "B", ["$4^2$", "$4^3$", "$8^3$", "$2^5$"], "4 x 4 x 4 equals 64."),
-    choice("y9-ind-not-m8", "A student writes 7^3 = 21. What did they do?", "C", ["Added three factors of 7 correctly", "Used the wrong base", "Multiplied the base by the exponent instead of using repeated multiplication", "Evaluated the cube correctly"], "The student calculated 7 x 3 instead of 7 x 7 x 7.", "7^3=21"),
+    choice("y9-ind-not-m8", "A student writes $7^3 = 21$. What did they do?", "C", ["Added three factors of 7 correctly", "Used the wrong base", "Multiplied the base by the exponent instead of using repeated multiplication", "Evaluated the cube correctly"], "The student calculated 7 x 3 instead of 7 x 7 x 7.", "7^3=21"),
     answer("y9-ind-not-m9", "How many factors of 3 are used?", "3^8", "8", "The exponent gives the number of factors."),
-    choice("y9-ind-not-m10", "Which value is greatest?", "D", ["$2^5$", "$3^3$", "$5^2$", "$10^2$"], "The values are 32, 27, 25 and 100, so 10^2 is greatest."),
+    choice("y9-ind-not-m10", "Which value is greatest?", "D", ["$2^5$", "$3^3$", "$5^2$", "$10^2$"], "The values are 32, 27, 25 and 100, so $10^2$ is greatest."),
   ],
 };
 
@@ -151,7 +151,7 @@ const multiplyingDividing: LessonContent = {
     choice("y9-ind-md-i1", "Simplify.", "A", ["$2^{11}$", "$4^{11}$", "$2^3$", "$2^{28}$"], "Add 7 and 4.", "2^7\\times2^4"),
     choice("y9-ind-md-i2", "Simplify.", "B", ["$10^{12}$", "$10^6$", "$10^3$", "$1^6$"], "Subtract 3 from 9.", "10^9\\div10^3"),
     choice("y9-ind-md-i3", "Which step is invalid?", "C", ["$8^2\\times8^5=8^7$", "$3^9\\div3^4=3^5$", "$2^4\\times5^3=10^7$", "$6^3\\times6^2=6^5$"], "Unlike bases cannot be combined by adding exponents."),
-    answer("y9-ind-md-i4", "Evaluate the simplified value.", "3^5\\div3^3", "9", "Subtract the exponents to get 3^2, which equals 9."),
+    answer("y9-ind-md-i4", "Evaluate the simplified value.", "3^5\\div3^3", "9", "Subtract the exponents to get $3^2$, which equals 9."),
     choice("y9-ind-md-i5", "Simplify.", "D", ["$5^2$", "$5^8$", "$25^8$", "$5^{14}$"], "Add 6 and 8.", "5^6\\times5^8"),
   ],
   commonMistakes: [
@@ -165,10 +165,10 @@ const multiplyingDividing: LessonContent = {
     choice("y9-ind-md-m2", "Simplify.", "B", ["$4^{10}$", "$4^4$", "$4^6$", "$1^4$"], "Subtract 3 from 7.", "4^7\\div4^3"),
     choice("y9-ind-md-m3", "Which law is used?", "C", ["Multiply the bases", "Multiply the exponents", "Add the exponents", "Subtract the bases"], "Multiplication of same-base powers uses exponent addition.", "9^2\\times9^6"),
     choice("y9-ind-md-m4", "Simplify.", "D", ["$n^3$", "$n^{18}$", "$2n^9$", "$n^9$"], "Add the exponents: 4 + 5 = 9.", "n^4\\times n^5"),
-    answer("y9-ind-md-m5", "Evaluate.", "2^6\\div2^4", "4", "Subtract exponents to get 2^2."),
+    answer("y9-ind-md-m5", "Evaluate.", "2^6\\div2^4", "4", "Subtract exponents to get $2^2$."),
     choice("y9-ind-md-m6", "Which expression cannot use a same-base index law?", "B", ["$5^8\\div5^3$", "$3^4\\times7^2$", "$10^2\\times10^5$", "$6^9\\div6^4$"], "The second expression has different bases."),
     choice("y9-ind-md-m7", "Simplify.", "A", ["$p^8$", "$p^{18}$", "$2p^8$", "$p^2$"], "Add the exponents: 5 + 3 = 8.", "p^5\\times p^3"),
-    choice("y9-ind-md-m8", "A student writes 8^9 divided by 8^4 as 8^13. What is the correction?", "C", ["Change the base to 1", "Multiply the exponents", "Subtract the exponents to get $8^5$", "Add the bases to get $16^5$"], "Division of same-base powers uses exponent subtraction.", "8^9\\div8^4"),
+    choice("y9-ind-md-m8", "A student writes $8^9$ divided by $8^4$ as $8^{13}$. What is the correction?", "C", ["Change the base to 1", "Multiply the exponents", "Subtract the exponents to get $8^5$", "Add the bases to get $16^5$"], "Division of same-base powers uses exponent subtraction.", "8^9\\div8^4"),
     choice("y9-ind-md-m9", "Simplify the expression.", "D", ["$2^9$", "$2^{11}$", "$4^{11}$", "$2^5$"], "Combine the exponents: 6 + 3 - 4 = 5.", "2^6\\times2^3\\div2^4"),
     choice("y9-ind-md-m10", "Simplify the expression.", "D", ["$10^4$", "$10^{10}$", "$20^8$", "$10^8$"], "Combine exponents: 7 + 5 - 4 = 8.", "10^7\\times10^5\\div10^4"),
   ],
@@ -201,9 +201,9 @@ const powerOfPower: LessonContent = {
   independentPractice: [
     choice("y9-ind-pp-i1", "Simplify.", "D", ["$4^4$", "$8^8$", "$4^{10}$", "$4^8$"], "Multiply 4 and 2.", "(4^4)^2"),
     choice("y9-ind-pp-i2", "Simplify.", "A", ["$10^{12}$", "$10^7$", "$30^4$", "$10^{64}$"], "Multiply 3 and 4.", "(10^3)^4"),
-    choice("y9-ind-pp-i3", "Which expression simplifies to 6^10?", "C", ["$6^5+6^5$", "$(6^2)^4$", "$(6^5)^2$", "$6^{12}\\div6^4$"], "The power of a power gives exponent 5 x 2 = 10.", "\\text{Choose the power-of-a-power expression.}"),
+    choice("y9-ind-pp-i3", "Which expression simplifies to $6^{10}$?", "C", ["$6^5+6^5$", "$(6^2)^4$", "$(6^5)^2$", "$6^{12}\\div6^4$"], "The power of a power gives exponent 5 x 2 = 10.", "\\text{Choose the power-of-a-power expression.}"),
     choice("y9-ind-pp-i4", "Which rule should be used first?", "B", ["Subtract the exponents", "Multiply the exponents", "Add the bases", "Multiply the bases"], "The brackets show a power raised to another power.", "(8^3)^5"),
-    answer("y9-ind-pp-i5", "Evaluate.", "(2^2)^3", "64", "The expression simplifies to 2^6, which is 64."),
+    answer("y9-ind-pp-i5", "Evaluate.", "(2^2)^3", "64", "The expression simplifies to $2^6$, which is 64."),
   ],
   commonMistakes: [
     { mistake: "Adding exponents for a power of a power.", fix: "Brackets indicate repeated groups, so multiply the exponents." },
@@ -217,11 +217,11 @@ const powerOfPower: LessonContent = {
     choice("y9-ind-pp-m3", "Which law applies?", "D", ["Subtract exponents", "Add bases", "Add exponents", "Multiply exponents"], "Nested powers use exponent multiplication.", "(4^3)^6"),
     answer("y9-ind-pp-m4", "Evaluate.", "(2^3)^2", "64", "This is 2^6."),
     choice("y9-ind-pp-m5", "Simplify.", "C", ["$m^3$", "$m^7$", "$m^{12}$", "$4m^{12}$"], "Multiply the exponents: 4 × 3 = 12.", "(m^4)^3"),
-    choice("y9-ind-pp-m6", "Which expression has the larger value?", "B", ["$2^3\\times2^2$", "$(2^3)^2$", "They are equal", "Neither can be simplified"], "The first is 2^5 and the second is 2^6."),
-    choice("y9-ind-pp-m7", "A student writes (5^2)^4 = 5^6. What is the correction?", "A", ["$5^8$", "$5^2$", "$20^8$", "$5^{16}$"], "Multiply 2 by 4."),
+    choice("y9-ind-pp-m6", "Which expression has the larger value?", "B", ["$2^3\\times2^2$", "$(2^3)^2$", "They are equal", "Neither can be simplified"], "The first is $2^5$ and the second is $2^6$."),
+    choice("y9-ind-pp-m7", "A student writes $(5^2)^4 = 5^6$. What is the correction?", "A", ["$5^8$", "$5^2$", "$20^8$", "$5^{16}$"], "Multiply 2 by 4."),
     choice("y9-ind-pp-m8", "Simplify.", "D", ["$3^7$", "$3^9$", "$3^{24}$", "$3^{10}$"], "First multiply 2 and 4 to get 8, then add 2 to get 10.", "(3^2)^4\\times3^2"),
     choice("y9-ind-pp-m9", "Simplify.", "C", ["$2^5$", "$2^{24}$", "$2^8$", "$4^8$"], "Multiply 6 and 2 to get 12, then subtract 4 to get 8.", "(2^6)^2\\div2^4"),
-    choice("y9-ind-pp-m10", "Which pair has equal values?", "B", ["$(5^2)^3$ and $5^5$", "$(4^3)^2$ and $4^6$", "$(2^4)^2$ and $2^6$", "$(10^2)^3$ and $10^5$"], "Both expressions in option B equal 4^6."),
+    choice("y9-ind-pp-m10", "Which pair has equal values?", "B", ["$(5^2)^3$ and $5^5$", "$(4^3)^2$ and $4^6$", "$(2^4)^2$ and $2^6$", "$(10^2)^3$ and $10^5$"], "Both expressions in option B equal $4^6$."),
   ],
 };
 
@@ -233,8 +233,8 @@ const zeroIndex: LessonContent = {
     paragraphs: [
       "Any non-zero base raised to the power zero equals 1. This applies to both numerical and variable bases: for example, x^0 = 1 for any non-zero value of x.",
       "The rule fits the division law: dividing a power by itself gives 1, while subtracting equal exponents gives an exponent of zero.",
-      "A zero exponent is not the same as a zero base. For example, 7^0 is 1, while 0^7 is 0.",
-      "The expression 0^0 is not used as an ordinary application of this rule.",
+      "A zero exponent is not the same as a zero base. For example, $7^0$ is 1, while $0^7$ is 0.",
+      "The expression $0^0$ is not used as an ordinary application of this rule.",
     ],
     latexBlocks: ["a^0=1\\quad(a\\ne0)", "x^0=1\\quad(x\\ne0)", "\\frac{a^3}{a^3}=a^{3-3}=a^0=1", "7^0=1\\quad\\text{but}\\quad0^7=0"],
   },
@@ -270,7 +270,7 @@ const zeroIndex: LessonContent = {
     choice("y9-ind-zero-m5", "Simplify.", "B", ["$6^1$", "$6^0$", "$0^6$", "$1^6$"], "Subtract equal exponents.", "6^9\\div6^9"),
     choice("y9-ind-zero-m6", "Which expression has value 0?", "C", ["$7^0$", "$100^0$", "$0^7$", "$1^0$"], "A positive power of zero equals zero."),
     choice("y9-ind-zero-m7", "Which base restriction belongs with a^0 = 1?", "D", ["$a=0$", "$a<0$", "$a=1$", "$a\\ne0$"], "The ordinary zero-index rule uses a non-zero base."),
-    choice("y9-ind-zero-m8", "A student says 15^0 = 0 because there are no factors. What is the best correction?", "B", ["The answer is 15", "The division pattern gives $15^0=1$", "The exponent should become 15", "Zero powers are never used"], "Equal powers divide to one and produce exponent zero."),
+    choice("y9-ind-zero-m8", "A student says $15^0 = 0$ because there are no factors. What is the best correction?", "B", ["The answer is 15", "The division pattern gives $15^0=1$", "The exponent should become 15", "Zero powers are never used"], "Equal powers divide to one and produce exponent zero."),
     choice("y9-ind-zero-m9", "Simplify.", "A", ["$2^0=1$", "$2^2=4$", "$2^5=32$", "$0^2=0$"], "Combine exponents: 7 - 4 - 3 = 0.", "2^7\\div2^4\\div2^3"),
     choice("y9-ind-zero-m10", "Which comparison is correct?", "C", ["$0^5=5^0$", "$0^5>5^0$", "$0^5<5^0$", "$0^5$ and $5^0$ are both undefined"], "0^5 = 0 and 5^0 = 1."),
   ],
@@ -283,8 +283,8 @@ const negativeIndices: LessonContent = {
   teaching: {
     paragraphs: [
       "A negative exponent tells us to take the reciprocal of the corresponding positive power.",
-      "For example, 2^-3 means 1 divided by 2^3. It does not mean a negative answer.",
-      "Negative powers of 10 connect neatly to decimal place value: 10^-1 is one tenth and 10^-2 is one hundredth.",
+      "For example, $2^{-3}$ means 1 divided by $2^3$. It does not mean a negative answer.",
+      "Negative powers of 10 connect neatly to decimal place value: $10^{-1}$ is one tenth and $10^{-2}$ is one hundredth.",
       "This lesson uses numerical bases only. Algebraic negative indices come later.",
     ],
     latexBlocks: ["a^{-n}=\\frac{1}{a^n}\\quad(a\\ne0)", "2^{-3}=\\frac{1}{2^3}=\\frac{1}{8}", "10^{-1}=0.1,\\quad10^{-2}=0.01,\\quad10^{-3}=0.001"],
@@ -295,7 +295,7 @@ const negativeIndices: LessonContent = {
     { title: "Evaluate a reciprocal power", questionLatex: "\\text{Evaluate }5^{-2}.", steps: [{ explanation: "Write the reciprocal.", latex: "5^{-2}=\\frac{1}{5^2}" }, { explanation: "Evaluate the square.", latex: "\\frac{1}{25}=0.04" }], finalAnswerLatex: "\\frac{1}{25}=0.04" },
   ],
   guidedPractice: [
-    choice("y9-ind-neg-g1", "Choose the correct value.", "B", ["$-8$", "$\\frac{1}{8}$", "$\\frac{1}{6}$", "$8$"], "Use the reciprocal of 2^3.", "2^{-3}"),
+    choice("y9-ind-neg-g1", "Choose the correct value.", "B", ["$-8$", "$\\frac{1}{8}$", "$\\frac{1}{6}$", "$8$"], "Use the reciprocal of $2^3$.", "2^{-3}"),
     answer("y9-ind-neg-g2", "Write the value as a decimal.", "10^{-1}", "0.1", "10^-1 is one tenth.", ["1/10"]),
     answer("y9-ind-neg-g3", "Write the value as a decimal.", "10^{-3}", "0.001", "10^-3 is one thousandth.", ["1/1000"]),
     choice("y9-ind-neg-g4", "Choose the correct reciprocal form.", "D", ["$-\\frac{1}{4}$", "$\\frac{1}{6}$", "$-4$", "$\\frac{1}{4}$"], "Use 1 divided by 4.", "4^{-1}"),
@@ -303,7 +303,7 @@ const negativeIndices: LessonContent = {
   independentPractice: [
     choice("y9-ind-neg-i1", "Choose the correct value.", "A", ["$\\frac{1}{9}$", "$-9$", "$\\frac{1}{6}$", "$9$"], "Use 1 divided by 3^2.", "3^{-2}"),
     answer("y9-ind-neg-i2", "Write the value as a decimal.", "10^{-4}", "0.0001", "10^-4 is one ten-thousandth.", ["1/10000"]),
-    choice("y9-ind-neg-i3", "Which statement is correct?", "C", ["$5^{-2}=-25$", "$5^{-2}=25$", "$5^{-2}=\\frac{1}{25}$", "$5^{-2}=\\frac{1}{10}$"], "Use the reciprocal of 5^2."),
+    choice("y9-ind-neg-i3", "Which statement is correct?", "C", ["$5^{-2}=-25$", "$5^{-2}=25$", "$5^{-2}=\\frac{1}{25}$", "$5^{-2}=\\frac{1}{10}$"], "Use the reciprocal of $5^2$."),
     answer("y9-ind-neg-i4", "Write the value as a decimal.", "2^{-2}", "0.25", "2^-2 is 1/4, which is 0.25.", ["1/4", "0.250"]),
     choice("y9-ind-neg-i5", "Which value is greatest?", "B", ["$10^{-3}$", "$10^{-1}$", "$10^{-4}$", "$10^{-2}$"], "One tenth is larger than one hundredth, one thousandth and one ten-thousandth."),
   ],
@@ -314,14 +314,14 @@ const negativeIndices: LessonContent = {
     { mistake: "Applying algebraic negative-index rules too early.", fix: "Keep this lesson numerical and focus on reciprocal meaning." },
   ],
   masteryQuiz: [
-    choice("y9-ind-neg-m1", "Choose the correct value.", "A", ["$\\frac{1}{4}$", "$-4$", "$4$", "$\\frac{1}{2}$"], "Use the reciprocal of 2^2.", "2^{-2}"),
+    choice("y9-ind-neg-m1", "Choose the correct value.", "A", ["$\\frac{1}{4}$", "$-4$", "$4$", "$\\frac{1}{2}$"], "Use the reciprocal of $2^2$.", "2^{-2}"),
     answer("y9-ind-neg-m2", "Write the value as a decimal.", "10^{-2}", "0.01", "10^-2 is one hundredth.", ["1/100"]),
-    choice("y9-ind-neg-m3", "Choose the correct value.", "D", ["$-27$", "$\\frac{1}{9}$", "$27$", "$\\frac{1}{27}$"], "Use the reciprocal of 3^3.", "3^{-3}"),
+    choice("y9-ind-neg-m3", "Choose the correct value.", "D", ["$-27$", "$\\frac{1}{9}$", "$27$", "$\\frac{1}{27}$"], "Use the reciprocal of $3^3$.", "3^{-3}"),
     answer("y9-ind-neg-m4", "Write the value as a decimal.", "10^{-5}", "0.00001", "10^-5 is one hundred-thousandth.", ["1/100000"]),
     choice("y9-ind-neg-m5", "Which statement is correct?", "B", ["$6^{-1}=-6$", "$6^{-1}=\\frac{1}{6}$", "$6^{-1}=0$", "$6^{-1}=6$"], "An exponent of -1 gives the reciprocal."),
     answer("y9-ind-neg-m6", "Write the value as a decimal.", "4^{-1}", "0.25", "4^-1 is one quarter.", ["1/4", "0.250"]),
     choice("y9-ind-neg-m7", "Which value is smallest?", "C", ["$10^{-2}$", "$10^{-4}$", "$10^{-5}$", "$10^{-3}$"], "10^-5 is one hundred-thousandth."),
-    choice("y9-ind-neg-m8", "A student writes 10^-3 = -1000. What is the correction?", "D", ["$-0.001$", "$1000$", "$0.003$", "$0.001$"], "A negative exponent gives the reciprocal: 1/1000."),
+    choice("y9-ind-neg-m8", "A student writes $10^{-3} = -1000$. What is the correction?", "D", ["$-0.001$", "$1000$", "$0.003$", "$0.001$"], "A negative exponent gives the reciprocal: 1/1000."),
     choice("y9-ind-neg-m9", "Which pair has equal values?", "A", ["$5^{-2}$ and $0.04$", "$2^{-3}$ and $0.25$", "$10^{-3}$ and $0.01$", "$4^{-1}$ and $0.4$"], "5^-2 = 1/25 = 0.04."),
     choice("y9-ind-neg-m10", "Arrange the values from smallest to largest.", "C", ["$10^{-1},10^{-2},10^{-3}$", "$10^{-2},10^{-1},10^{-3}$", "$10^{-3},10^{-2},10^{-1}$", "$10^{-3},10^{-1},10^{-2}$"], "0.001 < 0.01 < 0.1."),
   ],
@@ -330,7 +330,7 @@ const negativeIndices: LessonContent = {
 const scientificNotation: LessonContent = {
   description: "Write large and small numbers in scientific notation and convert them back to ordinary form.",
   learningIntention: "Use scientific notation to represent, convert and compare very large and very small numbers.",
-  successCriteria: ["Write numbers in the form a x 10^n where 1 <= a < 10.", "Convert large numbers to and from scientific notation.", "Convert small decimals to and from scientific notation.", "Use the sign of the exponent to interpret magnitude."],
+  successCriteria: ["Write numbers in the form a × $10^n$ where 1 ≤ a < 10.", "Convert large numbers to and from scientific notation.", "Convert small decimals to and from scientific notation.", "Use the sign of the exponent to interpret magnitude."],
   teaching: {
     paragraphs: [
       "Scientific notation writes a number as a value from 1 up to but not including 10, multiplied by a power of 10.",
@@ -372,7 +372,7 @@ const scientificNotation: LessonContent = {
     choice("y9-ind-sci-m5", "Which is valid scientific notation?", "A", ["$9.2\\times10^6$", "$92\\times10^5$", "$0.92\\times10^7$", "$9200000\\times10^0$"], "The first factor must be at least 1 and less than 10."),
     choice("y9-ind-sci-m6", "Which number is smallest?", "D", ["$4\\times10^{-2}$", "$7\\times10^{-3}$", "$9\\times10^{-4}$", "$2\\times10^{-5}$"], "The most negative exponent gives the smallest magnitude here."),
     answer("y9-ind-sci-m7", "Write the number in scientific notation.", "3040000", "3.04 x 10^6", "Move six places left and retain the zero in 3.04.", ["3.04x10^6", "3.04 * 10^6", "3.04×10^6"]),
-    choice("y9-ind-sci-m8", "A student writes 0.00082 as 8.2 x 10^4. What must change?", "B", ["The first factor should be 82", "The exponent should be -4", "The exponent should be -3", "The first factor should be 0.82"], "Small decimals use a negative exponent; the decimal moves four places."),
+    choice("y9-ind-sci-m8", "A student writes 0.00082 as 8.2 × $10^4$. What must change?", "B", ["The first factor should be 82", "The exponent should be -4", "The exponent should be -3", "The first factor should be 0.82"], "Small decimals use a negative exponent; the decimal moves four places."),
     answer("y9-ind-sci-m9", "Write the number in ordinary notation.", "7.05\\times10^5", "705000", "Move five places right and preserve the zero in 7.05.", ["705,000"]),
     choice("y9-ind-sci-m10", "Which number lies between 0.004 and 0.005?", "C", ["$4.8\\times10^{-2}$", "$3.9\\times10^{-3}$", "$4.8\\times10^{-3}$", "$5.1\\times10^{-3}$"], "4.8 x 10^-3 is 0.0048."),
   ],
@@ -421,11 +421,11 @@ const magnitudeRounding: LessonContent = {
     choice("y9-ind-round-m3", "What is the order of magnitude?", "A", ["$10^7$", "$10^6$", "$10^{-7}$", "$10^8$"], "The exponent gives the scale.", "2.6\\times10^7"),
     answer("y9-ind-round-m4", "Round to 3 decimal places.", "0.90456", "0.905", "The fourth decimal digit is 5, so round up."),
     answer("y9-ind-round-m5", "Round to 3 significant figures.", "0.006438", "0.00644", "Start counting at 6. The next digit after 4 is 8."),
-    choice("y9-ind-round-m6", "Which number rounds to 4.7 x 10^4 to 2 significant figures?", "B", ["$46100$", "$46800$", "$47500$", "$45900$"], "46800 rounds to 47000."),
+    choice("y9-ind-round-m6", "Which number rounds to 4.7 × $10^4$ to 2 significant figures?", "B", ["$46100$", "$46800$", "$47500$", "$45900$"], "46800 rounds to 47000."),
     choice("y9-ind-round-m7", "Which is the best quick estimate?", "D", ["$10^4$", "$10^5$", "$10^7$", "$10^6$"], "Round to (4 x 10^3)(3 x 10^2) = 12 x 10^5, close to 10^6.", "(4.1\\times10^3)(2.8\\times10^2)"),
     choice("y9-ind-round-m8", "A calculator gives 0.0004796. Which value is this to 2 significant figures?", "A", ["$0.00048$", "$0.00047$", "$0.000479$", "$0.0048$"], "The first two significant digits are 4 and 7; the next digit is 9, so round up."),
     answer("y9-ind-round-m9", "Round to 3 significant figures.", "7.996\\times10^5", "8.00 x 10^5", "Rounding 7.996 to three significant figures gives 8.00.", ["8x10^5", "8.0x10^5", "8.00x10^5", "800000"]),
-    choice("y9-ind-round-m10", "A measured value is about 6 x 10^-4. Which result is unreasonable for a nearby estimate?", "C", ["$5.8\\times10^{-4}$", "$6.2\\times10^{-4}$", "$6.1\\times10^4$", "$0.00059$"], "6.1 x 10^4 is many orders of magnitude larger."),
+    choice("y9-ind-round-m10", "A measured value is about 6 × $10^{-4}$. Which result is unreasonable for a nearby estimate?", "C", ["$5.8\\times10^{-4}$", "$6.2\\times10^{-4}$", "$6.1\\times10^4$", "$0.00059$"], "6.1 × $10^4$ is many orders of magnitude larger."),
   ],
 };
 
