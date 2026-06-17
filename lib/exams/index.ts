@@ -49,6 +49,11 @@ export function getExamPaper(id: string): ExamPaper | null {
   return PAPERS.find((p) => p.id === id) ?? null;
 }
 
+/** All exam papers (server-side; includes answers). Used by the question-bank seeder. */
+export function getAllExamPapers(): ExamPaper[] {
+  return PAPERS;
+}
+
 // ── Client-safe view (no answers/explanations) ───────────────────────────────
 // What the browser receives while sitting the exam. Answers, accepted answers
 // and explanations are stripped — they stay server-side until submission.

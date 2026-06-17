@@ -73,7 +73,7 @@ const PRESETS = [
   {
     id: "harder",
     label: "Harder",
-    description: "Skips Levels 1 & 2 - Level 3 and up only",
+    description: "Skips Levels 1 & 2 - Level 3 to 6, incl. D6 challenge/exam",
   },
 ] as const;
 

@@ -5,7 +5,7 @@ loadEnvConfig(process.cwd());
 import { createClient } from "@supabase/supabase-js";
 import {
   SUPPORTED_COURSE_SLUGS,
-  collectQuestionsFromCourses,
+  collectAllQuestions,
 } from "./seed-question-bank";
 
 /**
@@ -37,7 +37,7 @@ async function main() {
   const supported = new Set<string>(SUPPORTED_COURSE_SLUGS);
 
   // 1. Source_ids the current seed would produce (the valid set).
-  const { rows } = collectQuestionsFromCourses([...SUPPORTED_COURSE_SLUGS]);
+  const { rows } = collectAllQuestions([...SUPPORTED_COURSE_SLUGS]);
   const validSourceIds = new Set(rows.map((row) => row.source_id));
   console.log(`Current catalog produces ${validSourceIds.size} valid source_ids.`);
 

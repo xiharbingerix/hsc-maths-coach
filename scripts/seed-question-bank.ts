@@ -26,6 +26,8 @@ import { trigonometricFunctionsGraphsLessons } from "../lib/lessons/trigonometri
 import { probabilityLessons } from "../lib/lessons/probability";
 import { extractDiagramData, pickDiagramFields, type Choice } from "../lib/lessons/diagramRegistry";
 import { getChallengeQuestions } from "../lib/challenges";
+import { getAllExamPapers } from "../lib/exams";
+import { examQuestions } from "../lib/exams/types";
 
 type PracticeSection =
   | "guidedPractice"
@@ -237,12 +239,12 @@ export function inferDifficulty(
 
   // Level-6 challenge questions are the hardest tier.
   if (section === "challenge") {
-    return 5;
+    return 6;
   }
 
-  // Multi-part questions are always D5 — HSC Section II exam style.
+  // Multi-part questions are HSC Section II / synoptic exam style → D6.
   if (section === "multiPartPractice") {
-    return 5;
+    return 6;
   }
 
   if (section === "guidedPractice") {
@@ -488,6 +490,80 @@ export function collectQuestionsFromCourses(courseSlugs: string[]) {
   return { rows, warnings };
 }
 
+function clampDifficulty(value: number): number {
+  if (!Number.isFinite(value)) return 6;
+  return Math.max(1, Math.min(6, Math.round(value)));
+}
+
+function yearLevelFromCourseSlug(courseSlug: string): string {
+  const match = courseSlug.match(/^year-(\d+)/);
+  return match ? `Year ${match[1]}` : "";
+}
+
+// Map the exam-readiness tier (lib/exams) into the question bank under a dedicated
+// "exam-practice" topic per course. These are synoptic D6 items; they keep their
+// authored difficulty (1–6) and so flow into the harder worksheet presets.
+export function collectExamQuestions() {
+  const rows: QuestionRow[] = [];
+  const warnings: ImportWarning[] = [];
+
+  for (const paper of getAllExamPapers()) {
+    for (const question of examQuestions(paper)) {
+      const hasParts = Array.isArray(question.parts) && question.parts.length > 0;
+      const pseudo: PracticeQuestion = {
+        id: question.id,
+        prompt: question.prompt,
+        latex: question.latex ?? "",
+        difficulty: clampDifficulty(question.difficulty),
+        answer: question.answer ?? (hasParts ? "See parts below." : ""),
+        acceptedAnswers: question.acceptedAnswers,
+        choices: question.choices as PracticeQuestion["choices"],
+        parts: question.parts as PracticeQuestion["parts"],
+        explanation: question.explanation,
+      };
+
+      const sourceId = `exam/${paper.id}/${question.id}`;
+      if (!isRealQuestion(pseudo)) {
+        warnings.push({ sourceId, reason: "Skipped incomplete exam question." });
+        continue;
+      }
+
+      const row = mapPracticeQuestionToQuestionRow(pseudo, {
+        topicSlug: "exam-practice",
+        subtopicSlug: question.topicSlug,
+        yearLevel: yearLevelFromCourseSlug(paper.courseSlug),
+        courseSlug: paper.courseSlug,
+        syllabusRef: question.topicTitle,
+      });
+      row.source_id = sourceId;
+      rows.push(row);
+    }
+  }
+
+  return { rows, warnings };
+}
+
+// Everything the current catalog should produce: lesson practice (+ pools +
+// challenges) plus the exam tier. Used by both the seeder and the prune tool so
+// they always agree on what is valid.
+export function collectAllQuestions(courseSlugs: string[]) {
+  const base = collectQuestionsFromCourses(courseSlugs);
+  const exam = collectExamQuestions();
+  const courseSet = new Set(courseSlugs);
+  const seen = new Set(base.rows.map((row) => row.source_id));
+  const rows = [...base.rows];
+  const warnings = [...base.warnings, ...exam.warnings];
+
+  for (const row of exam.rows) {
+    if (!courseSet.has(row.course_slug)) continue;
+    if (seen.has(row.source_id)) continue;
+    seen.add(row.source_id);
+    rows.push(row);
+  }
+
+  return { rows, warnings };
+}
+
 function groupCourseCounts(rows: QuestionRow[]) {
   const counts = new Map<string, number>();
 
@@ -609,7 +685,7 @@ async function upsertQuestions(rows: QuestionRow[]) {
 
 async function main() {
   const options = parseArgs(process.argv.slice(2));
-  const { rows, warnings } = collectQuestionsFromCourses(options.courseSlugs);
+  const { rows, warnings } = collectAllQuestions(options.courseSlugs);
 
   printSummary(rows, warnings, options.dryRun);
 
