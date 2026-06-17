@@ -78,7 +78,7 @@ type ImportOptions = {
   dryRun: boolean;
 };
 
-const SUPPORTED_COURSE_SLUGS = [
+export const SUPPORTED_COURSE_SLUGS = [
   "year-7-mathematics",
   "year-12-advanced",
   "year-8-mathematics",
@@ -459,7 +459,7 @@ function collectQuestionsFromYear12Advanced() {
   return { course: year12AdvancedCourse, rows, warnings };
 }
 
-function collectQuestionsFromCourses(courseSlugs: string[]) {
+export function collectQuestionsFromCourses(courseSlugs: string[]) {
   const rows: QuestionRow[] = [];
   const warnings: ImportWarning[] = [];
   const seenSourceIds = new Map<string, string>();
@@ -624,7 +624,11 @@ async function main() {
   console.log(`Question bank seed complete. Upserted ${upsertedCount} question(s).`);
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.message : error);
-  process.exit(1);
-});
+// Only run the seed when this file is the entry point — allows other scripts
+// (e.g. prune-question-bank) to import the collectors without triggering a seed.
+if (process.argv[1] && process.argv[1].includes("seed-question-bank")) {
+  main().catch((error) => {
+    console.error(error instanceof Error ? error.message : error);
+    process.exit(1);
+  });
+}
