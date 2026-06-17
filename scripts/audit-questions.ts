@@ -175,6 +175,52 @@ function walk(dir: string): string[] {
   return out;
 }
 
+// Many lessons build questions with helper functions (choice(...), intAnswer(...))
+// that take prompt/choice/explanation as positional STRING ARGS — FIELD_RE only
+// matches `key: "value"`, so those never get scanned. This walks every string
+// literal and flags ones that render raw maths AND read as prose (prompts /
+// explanations) or begin with a bare LaTeX fraction (unwrapped choice text).
+// Pure-maths positional latex args (no prose, not fraction-led) are left alone,
+// and acceptedAnswers arrays (compared, not rendered) are skipped.
+const OBJECT_FIELD_BEFORE_RE =
+  /\b(prompt|latex|text|hint|explanation|id|slug|moduleSlug|moduleTitle|courseTitle|courseSlug|topicSlug|topicTitle|title|description|focus|url|mistake|fix|learningIntention|successCriteria|questionLatex|finalAnswerLatex|name|key|label|remediationHref)\s*:\s*$/;
+// "Prose" = three consecutive plain words — i.e. an English sentence, which a
+// prompt/explanation has but a latex field does not (latex puts words in \text{}).
+const PROSE_RE = /[A-Za-z]{3,}\s+[A-Za-z]{2,}\s+[A-Za-z]{2,}/;
+// Strip latex text wrappers so their inner words don't read as prose.
+const TEXT_WRAP_RE = /\\(text|operatorname|mathrm|mathbf|mathit|mbox)\{[^{}]*\}/g;
+const STRING_LITERAL_RE = /"((?:[^"\\]|\\.)*)"/g;
+
+// Raw maths indicators (the things that render literally without $...$).
+const RAW_MATH_RE = /\^|[A-Za-z0-9]_[A-Za-z0-9{]|\\(dfrac|frac|tfrac|sqrt|binom|sum|int|sin|cos|tan|log|ln|cdot|times|div|pi|theta|alpha|beta|le|ge|leq|geq|neq|approx|infty|pm)\b/;
+
+function scanHelperStrings(content: string, file: string, findings: string[]) {
+  let m: RegExpExecArray | null;
+  STRING_LITERAL_RE.lastIndex = 0;
+  while ((m = STRING_LITERAL_RE.exec(content))) {
+    const value = decode(m[0]);
+    if (value === null || value.length < 3) continue;
+    // The broken case is raw maths with NO $...$ at all. Strings that use math
+    // mode are assumed handled (and object-field ones are covered by FIELD_RE).
+    if (value.includes("$")) continue;
+    if (!RAW_MATH_RE.test(value)) continue;
+    // Must read as prose OUTSIDE any \text{} wrapper — i.e. a prompt/explanation
+    // with unwrapped maths, not a pure-maths latex arg/field.
+    if (!PROSE_RE.test(value.replace(TEXT_WRAP_RE, " "))) continue;
+    const before = content.slice(Math.max(0, m.index - 120), m.index);
+    if (OBJECT_FIELD_BEFORE_RE.test(before.slice(-60))) continue; // FIELD_RE handles
+    const acceptedAt = before.lastIndexOf("accepted");
+    if (acceptedAt !== -1 && !before.slice(acceptedAt).includes("]")) continue;
+    // Accurate check (auto-wrap aware): only flag maths that survives MathText's
+    // auto-wrapper, so x^2 / e^x (which render fine) are not reported.
+    const issues = checkMathTextField(value);
+    if (issues.length === 0) continue;
+    findings.push(
+      `${file}:${lineOf(content, m.index)} — [${issues[0]} (helper-arg)] — ${JSON.stringify(value.slice(0, 80))}`
+    );
+  }
+}
+
 // All three hold MathText/BlockMath-rendered question content: lesson catalog,
 // the Level-6 challenge layer, and the timed exam papers (whose MCQ choice text
 // also renders via MathText, so math there needs $...$ too).
@@ -198,6 +244,7 @@ for (const file of files) {
     }
   }
   checkSelfReveal(content, file, findings);
+  scanHelperStrings(content, file, findings);
 }
 
 const byType = (t: string) => findings.filter((f) => f.includes(t)).length;
