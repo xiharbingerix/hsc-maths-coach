@@ -31,7 +31,7 @@ export const antidifferentiationReversePowerRuleLesson: ExplicitLesson = {
     "Use the reverse power rule for powers of x where the power is not -1.",
     "Increase the power by one, then divide by the new power.",
     "Check an antiderivative by differentiating it.",
-    "Recognise that the reverse power rule in this lesson does not apply to x^{-1}.",
+    "Recognise that the reverse power rule in this lesson does not apply to $x^{-1}$.",
   ],
 
   teaching: {
@@ -41,7 +41,7 @@ export const antidifferentiationReversePowerRuleLesson: ExplicitLesson = {
       "If differentiating a function gives a derivative, antidifferentiating works backwards from the derivative to a possible original function.",
       "For a power of x, the reverse power rule says to increase the power by one, then divide by the new power.",
       "You can check an antiderivative by differentiating it. If you get the original expression, your antiderivative is correct.",
-      "This first lesson avoids the special case of x^{-1}. That case belongs with logarithmic integration later.",
+      "This first lesson avoids the special case of $x^{-1}$. That case belongs with logarithmic integration later.",
     ],
     latexBlocks: [
       "\\frac{d}{dx}\\left(x^4\\right)=4x^3 \\quad \\Rightarrow \\quad \\int 4x^3\\,dx=x^4",
