@@ -23,6 +23,7 @@ import { MathAnswerInput } from "../components/MathAnswerInput";
 import { HintLadder } from "./components/HintLadder";
 import { TutorPanel } from "./components/TutorPanel";
 import { getChallengeQuestions } from "../../lib/challenges";
+import { buildMasteryQuiz } from "../../lib/mastery/buildMasteryQuiz";
 import {
   getUserCourseProgress,
   upsertLessonProgress,
@@ -1519,6 +1520,11 @@ export function LessonRenderer({
   const [videoLoadFailed, setVideoLoadFailed] = useState(false);
   const [quizAnswers, setQuizAnswers] = useState<Record<string, string>>({});
   const [quizSubmitted, setQuizSubmitted] = useState(false);
+  // Seed for the per-attempt mastery-quiz draw (when a lesson has a question
+  // pool). A fresh seed on each lesson load / retry re-rolls the selection.
+  const [quizAttemptSeed, setQuizAttemptSeed] = useState<number>(() =>
+    Math.floor(Math.random() * 0x7fffffff)
+  );
   // Question ids the CAS service upgraded to correct at submit time (equivalent
   // forms the local marker rejected). Resets on retry.
   const [casCorrectIds, setCasCorrectIds] = useState<Record<string, boolean>>({});
@@ -1532,6 +1538,13 @@ export function LessonRenderer({
   const lesson = useMemo(
     () => lessons.find((item) => item.slug === lessonSlug),
     [lessons, lessonSlug]
+  );
+  // The questions for this mastery attempt. With a pool this is a fresh
+  // difficulty-ramped draw (re-rolled when quizAttemptSeed changes); without a
+  // pool it's the lesson's fixed masteryQuiz.
+  const activeQuiz = useMemo(
+    () => (lesson ? buildMasteryQuiz(lesson, { seed: quizAttemptSeed }) : []),
+    [lesson, quizAttemptSeed]
   );
   const currentLessonStages = useMemo(() => {
     const shouldShowWatchStage =
@@ -1694,6 +1707,7 @@ export function LessonRenderer({
     setQuizAnswers({});
     setCasCorrectIds({});
     setQuizSubmitted(false);
+    setQuizAttemptSeed(Math.floor(Math.random() * 0x7fffffff));
     masteryStartedRef.current = null;
   }, [firstCurrentLessonStage, lessonSlug]);
 
@@ -1728,7 +1742,7 @@ export function LessonRenderer({
   const activeStageIndex = currentLessonStages.findIndex(
     (stage) => stage.id === activeStage
   );
-  const quizCorrectCount = currentLesson.masteryQuiz.filter(
+  const quizCorrectCount = activeQuiz.filter(
     (question) =>
       isCorrectAnswer(question, quizAnswers[question.id] ?? "") ||
       casCorrectIds[question.id]
@@ -1820,7 +1834,7 @@ export function LessonRenderer({
     let overrides: Record<string, boolean> = {};
     try {
       overrides = await resolveQuizCasOverrides(
-        currentLesson.masteryQuiz,
+        activeQuiz,
         quizAnswers
       );
     } catch {
@@ -1833,8 +1847,8 @@ export function LessonRenderer({
       isCorrectAnswer(question, quizAnswers[question.id] ?? "") ||
       Boolean(overrides[question.id]);
     const correctCount =
-      currentLesson.masteryQuiz.filter(isCorrectWithCas).length;
-    const score = correctCount / currentLesson.masteryQuiz.length;
+      activeQuiz.filter(isCorrectWithCas).length;
+    const score = correctCount / activeQuiz.length;
 
     setQuizSubmitted(true);
     trackMasteryCompleted(
@@ -1867,7 +1881,7 @@ export function LessonRenderer({
       ...(unitSlug ? { topicSlug: unitSlug } : {}),
       lessonSlug,
       score: Math.round(score * 100),
-      questionCount: currentLesson.masteryQuiz.length,
+      questionCount: activeQuiz.length,
       correct: correctCount,
     });
     if (score >= currentLesson.masteryPassMark) {
@@ -1876,7 +1890,7 @@ export function LessonRenderer({
         ...(unitSlug ? { topicSlug: unitSlug } : {}),
         lessonSlug,
         score: Math.round(score * 100),
-        questionCount: currentLesson.masteryQuiz.length,
+        questionCount: activeQuiz.length,
       });
     }
 
@@ -1884,7 +1898,7 @@ export function LessonRenderer({
     if (courseSlug && unitSlug && !masteryRecordedRef.current) {
       masteryRecordedRef.current = true;
       const capturedAnswers = { ...quizAnswers };
-      const capturedQuestions = currentLesson.masteryQuiz;
+      const capturedQuestions = activeQuiz;
       void (async () => {
         try {
           const { data } = await supabase.auth.getSession();
@@ -1923,6 +1937,7 @@ export function LessonRenderer({
     setQuizAnswers({});
     setCasCorrectIds({});
     setQuizSubmitted(false);
+    setQuizAttemptSeed(Math.floor(Math.random() * 0x7fffffff));
     setActiveStage("mastery-quiz");
   }
 
@@ -2241,7 +2256,7 @@ export function LessonRenderer({
           </div>
         )}
 
-        {currentLesson.masteryQuiz.map((question, index) => (
+        {activeQuiz.map((question, index) => (
           <QuizQuestion
             key={question.id}
             question={question}
@@ -2269,9 +2284,9 @@ export function LessonRenderer({
         {quizSubmitted && (
           <MasteryResultPanel
             correctCount={quizCorrectCount}
-            totalQuestions={currentLesson.masteryQuiz.length}
+            totalQuestions={activeQuiz.length}
             passMark={currentLesson.masteryPassMark}
-            questions={currentLesson.masteryQuiz}
+            questions={activeQuiz}
             answers={quizAnswers}
             casCorrectIds={casCorrectIds}
             onTryAgain={retryQuiz}

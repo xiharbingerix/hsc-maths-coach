@@ -12,6 +12,7 @@
     "audit:questions": "tsx scripts/audit-questions.ts",
     "seed:question-bank": "tsx scripts/seed-question-bank.ts",
     "test:answer-marking": "tsx scripts/test-answer-marking.ts",
+    "test:mastery": "tsx scripts/test-mastery-quiz.ts",
     "generate-slides": "tsx scripts/generate-trapezoidal-rule-slides.ts"
   },
   "dependencies": {
