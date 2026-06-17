@@ -49,7 +49,7 @@ const newtonCooling: Partial<ExplicitLesson> = {
   learningIntention:
     "Solve dQ/dt = k(Q − A) to obtain Q(t) = A + Ce^(kt), identify the equilibrium value A, and use initial and boundary conditions to solve Newton's Cooling and carrying-capacity problems.",
   successCriteria: [
-    "Solve dQ/dt = k(Q − A) by substituting u = Q − A and separating variables to obtain Q(t) = A + Ce^(kt).",
+    "Solve $dQ/dt = k(Q − A)$ by substituting $u = Q − A$ and separating variables to obtain $Q(t) = A + Ce^{kt}$.",
     "Identify A as the long-run equilibrium: as t → ∞, Q → A when k < 0.",
     "Find C from the initial condition Q(0) = Q₀: C = Q₀ − A.",
     "Use a second data point to determine k, then answer questions about future values or time.",
@@ -58,9 +58,9 @@ const newtonCooling: Partial<ExplicitLesson> = {
   teaching: {
     paragraphs: [
       "Many physical processes change at a rate proportional to how far they are from a fixed value. Newton's Law of Cooling is the classic example: an object cools faster when it is much hotter than the surroundings. Mathematically, dT/dt = k(T − S), where S is the surrounding temperature and k < 0 (negative because temperature decreases toward S).",
-      "The general equation is dQ/dt = k(Q − A). To solve it, substitute u = Q − A so that du/dt = dQ/dt = ku. This is simple exponential growth/decay, giving u(t) = Ce^(kt). Substituting back: Q(t) = A + Ce^(kt). The initial condition Q(0) = Q₀ gives C = Q₀ − A.",
-      "The fixed value A is the equilibrium: when k < 0, the exponential term e^(kt) → 0 as t → ∞, so Q(t) → A. For Newton's Cooling, the object eventually reaches the surrounding temperature S. For a population model dP/dt = k(P − M) with k < 0 and P < M, the population grows and approaches the carrying capacity M.",
-      "To find k from a data point Q(t₁) = Q₁: substitute t = t₁ and solve for e^(kt₁) = (Q₁ − A)/(Q₀ − A), then k = (1/t₁)ln((Q₁ − A)/(Q₀ − A)). Once k is found, predict any future Q value or find when Q reaches a given level.",
+      "The general equation is $dQ/dt = k(Q − A)$. To solve it, substitute $u = Q − A$ so that $du/dt = dQ/dt = ku$. This is simple exponential growth/decay, giving $u(t) = Ce^{kt}$. Substituting back: $Q(t) = A + Ce^{kt}$. The initial condition $Q(0) = Q_0$ gives $C = Q_0 − A$.",
+      "The fixed value $A$ is the equilibrium: when $k < 0$, the exponential term $e^{kt}$ → 0 as $t$ → ∞, so $Q(t)$ → A. For Newton's Cooling, the object eventually reaches the surrounding temperature $S$. For a population model $dP/dt = k(P − M)$ with $k < 0$ and $P < M$, the population grows and approaches the carrying capacity $M$.",
+      "To find $k$ from a data point $Q(t_1) = Q_1$: substitute $t = t_1$ and solve for $e^{kt_1} = (Q_1 − A)/(Q_0 − A)$, then $k = (1/t_1)ln((Q_1 − A)/(Q_0 − A))$. Once $k$ is found, predict any future $Q$ value or find when $Q$ reaches a given level.",
     ],
     latexBlocks: [
       "\\frac{dQ}{dt} = k(Q-A) \\;\\Rightarrow\\; Q(t) = A + Ce^{kt},\\quad C = Q_0 - A",
@@ -171,7 +171,7 @@ const newtonCooling: Partial<ExplicitLesson> = {
     ),
     ncTyped(
       "y12e1-nc-g3",
-      "T(t) = 20 + 60e^(kt) and T(5) = 50. Find the value of e^(5k).",
+      "$T(t) = 20 + 60e^{kt}$ and $T(5) = 50$. Find the value of $e^{5k}$.",
       "50 = 20 + 60\\,e^{5k}",
       "1/2",
       ["0.5"],
@@ -182,7 +182,7 @@ const newtonCooling: Partial<ExplicitLesson> = {
       "A population model satisfies dP/dt = k(P − 1000) with k < 0 and P₀ = 200. As t → ∞, P approaches:",
       "B",
       ["0", "1000", "200", "∞"],
-      "With k < 0, e^(kt) → 0 as t → ∞, so P(t) = 1000 + Ce^(kt) → 1000. The population approaches the equilibrium A = 1000."
+      "With $k < 0$, $e^{kt}$ → 0 as $t$ → ∞, so $P(t) = 1000 + Ce^{kt}$ → 1000. The population approaches the equilibrium $A = 1000$."
     ),
   ],
   independentPractice: [
@@ -196,7 +196,7 @@ const newtonCooling: Partial<ExplicitLesson> = {
     ),
     ncChoice(
       "y12e1-nc-i2",
-      "For Q(t) = A + Ce^(kt) with k < 0, the long-run limit lim_{t→∞} Q(t) is:",
+      "For $Q(t) = A + Ce^{kt}$ with $k < 0$, the long-run limit of $Q(t)$ as $t$ → ∞ is:",
       "A",
       ["A", "C", "A + C", "0"],
       "As t → ∞, e^(kt) → 0 since k < 0, so Q(t) → A + 0 = A."
@@ -223,7 +223,7 @@ const newtonCooling: Partial<ExplicitLesson> = {
     ),
     ncTyped(
       "y12e1-nc-i5",
-      "P(t) = 800 − 600e^(kt) and P(6) = 500. Find the value of e^(6k).",
+      "$P(t) = 800 − 600e^{kt}$ and $P(6) = 500$. Find the value of $e^{6k}$.",
       "500 = 800 - 600\\,e^{6k}",
       "1/2",
       ["0.5"],
@@ -253,10 +253,10 @@ const newtonCooling: Partial<ExplicitLesson> = {
     ),
     ncChoice(
       "y12e1-nc-m3",
-      "In Q(t) = A + Ce^(kt), the equilibrium value that Q approaches (for k < 0) is:",
+      "In $Q(t) = A + Ce^{kt}$, the equilibrium value that $Q$ approaches (for $k < 0$) is:",
       "A",
       ["A", "C", "k", "A + C"],
-      "As t → ∞ with k < 0, e^(kt) → 0, so Q → A. The equilibrium is A, not the initial condition."
+      "As $t$ → ∞ with $k < 0$, $e^{kt}$ → 0, so $Q$ → A. The equilibrium is $A$, not the initial condition."
     ),
     ncTyped(
       "y12e1-nc-m4",
