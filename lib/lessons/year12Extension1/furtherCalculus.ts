@@ -204,7 +204,7 @@ const trigIntegrals: Partial<ExplicitLesson> = {
       "\\int_{0}^{\\pi/4} \\sec^2 x\\,dx",
       "1",
       ["1.0"],
-      "The antiderivative of sec^2 x is tan x, and tan(\\pi/4) - tan(0) = 1."
+      "The antiderivative of $\\sec^2 x$ is $\\tan x$, and $\\tan(\\pi/4) - \\tan(0) = 1$."
     ),
     fcalcChoice(
       "y12e1-fcalc-trig-i3",
@@ -336,7 +336,7 @@ const substitutionIntegrals: Partial<ExplicitLesson> = {
     "Recognise when a linear inner function requires a scaling factor in the antiderivative.",
   successCriteria: [
     "Apply the reverse chain rule for cos(ax+b) and sin(ax+b).",
-    "Integrate e^{ax+b} with the correct factor of 1/a.",
+    "Integrate $e^{ax+b}$ with the correct factor of $1/a$.",
     "Integrate 1/(ax+b) using a logarithmic antiderivative.",
     "Keep track of the inner derivative when the inside is a linear expression.",
   ],
@@ -416,7 +416,7 @@ const substitutionIntegrals: Partial<ExplicitLesson> = {
     ),
     fcalcChoice(
       "y12e1-fcalc-sub-g4",
-      "What is the best first step for integrating e^{5x+2}?",
+      "What is the best first step for integrating $e^{5x+2}$?",
       "A",
       [
         "Divide by 5 after integrating e^{5x+2}",
@@ -550,7 +550,7 @@ const substitutionIntegrals: Partial<ExplicitLesson> = {
     ),
     fcalcChoice(
       "y12e1-fcalc-sub-m6",
-      "Which is the correct factor for e^{3x+1}?",
+      "Which is the correct factor for $e^{3x+1}$?",
       "C",
       ["1", "3", "$1/3", "$3x+1$"],
       "Use 1/3 because the inner derivative is 3."
@@ -591,7 +591,7 @@ const substitutionIntegrals: Partial<ExplicitLesson> = {
       "Which integral is a simple substitution case?",
       "B",
       ["\\int x^2\\,dx", "\\int e^{2x}\\,dx", "\\int \\ln x\\,dx", "\\int x e^x\\,dx"],
-      "e^{2x} is a linear exponential and uses the reverse chain rule."
+      "$e^{2x}$ is a linear exponential and uses the reverse chain rule."
     ),
   ],
   masteryPassMark: 0.8,
@@ -905,7 +905,7 @@ const examPractice: Partial<ExplicitLesson> = {
   guidedPractice: [
     fcalcChoice(
       "y12e1-fcalc-exam-g1",
-      "Which method is best for \\int x e^x\\,dx?",
+      "Which method is best for $\\int x e^x\\,dx$?",
       "B",
       ["Reverse chain rule", "Integration by parts", "Partial fractions", "Trapezoidal rule"],
       "x e^x is a product of x and e^x, so integration by parts is appropriate."
@@ -928,7 +928,7 @@ const examPractice: Partial<ExplicitLesson> = {
     ),
     fcalcChoice(
       "y12e1-fcalc-exam-g4",
-      "Which method is best for \\int \\frac{\\sin x}{\\cos x}\\,dx?",
+      "Which method is best for $\\int \\frac{\\sin x}{\\cos x}\\,dx$?",
       "A",
       ["Substitution with u=cos x", "Integration by parts", "Partial fractions", "Standard trig antiderivative"],
       "Use substitution because the integrand is in the form u'/u."
@@ -953,7 +953,7 @@ const examPractice: Partial<ExplicitLesson> = {
     ),
     fcalcChoice(
       "y12e1-fcalc-exam-i3",
-      "Which method is best for \\int \\ln x\\,dx?",
+      "Which method is best for $\\int \\ln x\\,dx$?",
       "D",
       ["Reverse chain rule", "Standard trig integral", "Partial fractions", "Integration by parts"],
       "ln x has no simple antiderivative, so use integration by parts."
@@ -967,7 +967,7 @@ const examPractice: Partial<ExplicitLesson> = {
     ),
     fcalcChoice(
       "y12e1-fcalc-exam-i5",
-      "What is the first step for \\int x \\sin x\\,dx?",
+      "What is the first step for $\\int x \\sin x\\,dx$?",
       "B",
       ["Use a direct antiderivative for sin x", "Choose integration by parts", "Use a logarithmic identity", "Rewrite sin x as cos x"],
       "x sin x is a product needing integration by parts."
@@ -994,7 +994,7 @@ const examPractice: Partial<ExplicitLesson> = {
   masteryQuiz: [
     fcalcChoice(
       "y12e1-fcalc-exam-m1",
-      "Which method is best for \\int x e^x\\,dx?",
+      "Which method is best for $\\int x e^x\\,dx$?",
       "B",
       ["Reverse chain rule", "Integration by parts", "Partial fractions", "Substitution"],
       "This is a product of x and e^x, so use parts."
@@ -1027,11 +1027,11 @@ const examPractice: Partial<ExplicitLesson> = {
       "\\int_0^1 e^{2x}\\,dx",
       "\\frac12(e^2-1)",
       ["0.5(e^2-1)", "(e^2-1)/2"],
-      "The antiderivative is 1/2 e^{2x}, evaluated from 0 to 1."
+      "The antiderivative is 1/2 $e^{2x}$, evaluated from 0 to 1."
     ),
     fcalcChoice(
       "y12e1-fcalc-exam-m6",
-      "Which rule applies to \\int x \\ln x\\,dx?",
+      "Which rule applies to $\\int x \\ln x\\,dx$?",
       "D",
       ["Reverse chain rule", "Standard trig integral", "Partial fractions", "Integration by parts"],
       "ln x has no simple antiderivative, so parts is appropriate."
@@ -1048,7 +1048,7 @@ const examPractice: Partial<ExplicitLesson> = {
       "Which expression is a standard substitution integral?",
       "D",
       ["\\int x\\,dx", "\\int x e^x\\,dx", "\\int x\\ln x\\,dx", "\\int e^{3x}\\,dx"],
-      "e^{3x} is a standard substitution case."
+      "$e^{3x}$ is a standard substitution case."
     ),
     fcalcChoice(
       "y12e1-fcalc-exam-m9",
