@@ -41,6 +41,11 @@ import {
   summaryStatsChallenge,
   depreciationChallenge,
 } from "./year12Standard1";
+import {
+  complexArithmeticChallenge,
+  modulusArgumentChallenge,
+  polarDeMoivreChallenge,
+} from "./year12Extension2";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -84,6 +89,10 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "right-angle-trig-applications": rightAngleTrigAppliedChallenge,
   "data-displays-summary-statistics": summaryStatsChallenge,
   "depreciation-loans": depreciationChallenge,
+  // Year 12 Extension 2
+  "complex-number-arithmetic": complexArithmeticChallenge,
+  "modulus-argument-conjugate": modulusArgumentChallenge,
+  "polar-form-de-moivre": polarDeMoivreChallenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {

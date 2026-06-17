@@ -80,7 +80,11 @@ export function questionMarks(q: ExamQuestion): number {
 // Approximate HSC alignment. Exam % → band; this is a study signal, not an
 // official mark. Extension courses use the E-band scale.
 
-const EXTENSION_SLUGS = new Set(["year-11-extension", "year-12-extension-1"]);
+const EXTENSION_SLUGS = new Set([
+  "year-11-extension",
+  "year-12-extension-1",
+  "year-12-extension-2",
+]);
 
 export type ExamBand = {
   band: string;
