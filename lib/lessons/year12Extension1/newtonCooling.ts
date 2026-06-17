@@ -17,7 +17,7 @@ function ncChoice(
       text,
     })),
     answer,
-    hint: "Write Q(t) = A + Ce^(kt) first, then substitute the given values.",
+    hint: "Write $Q(t) = A + Ce^{kt}$ first, then substitute the given values.",
     explanation,
   };
 }
@@ -36,7 +36,7 @@ function ncTyped(
     latex,
     answer,
     acceptedAnswers,
-    hint: "Use Q(t) = A + Ce^(kt). Find C from the initial condition, then substitute the given t.",
+    hint: "Use $Q(t) = A + Ce^{kt}$. Find C from the initial condition, then substitute the given t.",
     explanation,
   };
 }
@@ -79,11 +79,11 @@ const newtonCooling: Partial<ExplicitLesson> = {
           latex: "T(t) = 20 + (80-20)e^{kt} = 20 + 60e^{kt}",
         },
         {
-          explanation: "Substitute the data point T(5) = 50 to find e^(5k).",
+          explanation: "Substitute the data point $T(5) = 50$ to find $e^{5k}$.",
           latex: "50 = 20 + 60e^{5k} \\;\\Rightarrow\\; e^{5k} = \\frac{30}{60} = \\frac{1}{2}",
         },
         {
-          explanation: "Use e^(10k) = (e^(5k))² to find T(10).",
+          explanation: "Use $e^{10k} = (e^{5k})^2$ to find T(10).",
           latex: "T(10) = 20 + 60\\left(e^{5k}\\right)^2 = 20 + 60\\cdot\\frac{1}{4} = 20+15 = 35",
         },
       ],
@@ -118,11 +118,11 @@ const newtonCooling: Partial<ExplicitLesson> = {
           latex: "P(t) = 500 + (100-500)e^{kt} = 500 - 400e^{kt}",
         },
         {
-          explanation: "Substitute P(4) = 300 to find e^(4k).",
+          explanation: "Substitute $P(4) = 300$ to find $e^{4k}$.",
           latex: "300 = 500 - 400e^{4k} \\;\\Rightarrow\\; e^{4k} = \\frac{200}{400} = \\frac{1}{2}",
         },
         {
-          explanation: "Use e^(8k) = (e^(4k))² to find P(8).",
+          explanation: "Use $e^{8k} = (e^{4k})^2$ to find P(8).",
           latex: "P(8) = 500 - 400\\left(\\frac{1}{2}\\right)^2 = 500 - 100 = 400",
         },
       ],

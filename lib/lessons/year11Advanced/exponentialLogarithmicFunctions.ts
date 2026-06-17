@@ -841,7 +841,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
       multiPartPractice: [
         {
           id: "y11adv-exp-graph-mp1",
-          prompt: "Identify key features of the graph of y = 2^x.",
+          prompt: "Identify key features of the graph of $y = 2^x$.",
           latex: "y=2^x",
           answer: "1",
           hint: "Find the y-intercept by setting x=0, state the horizontal asymptote, then evaluate at x=3.",
@@ -855,7 +855,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
               latex: "y=2^x\\text{ at }x=0",
               marks: 1,
               answer: "1",
-              hint: "Set x=0 and evaluate 2^0.",
+              hint: "Set x=0 and evaluate $2^0$.",
               explanation: "2⁰=1, so the y-intercept is (0,1) and the y-value is 1.",
             },
             {

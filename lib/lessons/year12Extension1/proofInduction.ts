@@ -139,7 +139,7 @@ const introToMathematicalInduction: Partial<ExplicitLesson> = {
         },
         {
           explanation:
-            "The k + 1 case adds the new final term, (k + 1)^2.",
+            "The k + 1 case adds the new final term, $(k + 1)^2$.",
           latex:
             "\\sum_{r=1}^{k+1}r^2=\\frac{k(k+1)(2k+1)}{6}+(k+1)^2",
         },

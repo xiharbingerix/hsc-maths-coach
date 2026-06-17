@@ -2027,7 +2027,7 @@ export const solvingEquationsInequalitiesGraphicallyLesson: ExplicitLesson = {
     {
       id: "graphsolve-mastery-4",
       prompt: "Choose where $f(x)>g(x)$.",
-      latex: "\\text{Intersections at }x=2,6; \\quad f\\text{ is above }g\\text{ for }2<x<6.",
+      latex: "\\text{Curves intersect at }x=2\\text{ and }x=6.",
       answer: "A",
       choices: [
         { label: "A", text: "$2<x<6$" },
@@ -2228,7 +2228,7 @@ export const modellingWithFunctionsLesson: ExplicitLesson = {
     {
       id: "model-guided-2",
       prompt: "Choose the output quantity.",
-      latex: "C(x)=4x+30 \\quad \\text{models cost in dollars for }x\\text{ items.}",
+      latex: "C(x)=4x+30 \\quad \\text{for }x\\text{ items.}",
       answer: "B",
       choices: [
         { label: "A", text: "number of items" },

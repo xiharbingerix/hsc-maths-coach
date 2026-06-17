@@ -2003,7 +2003,7 @@ const compoundInterestIntroduction: LessonContent = {
       steps: [
         { explanation: "Identify the values. P = 2000, r = 0.04, n = 3.", latex: "r = 4\\% = 0.04" },
         { explanation: "Substitute into the formula.", latex: "A = 2000 \\times (1.04)^3" },
-        { explanation: "Calculate (1.04)^3.", latex: "(1.04)^3 = 1.124864" },
+        { explanation: "Calculate $(1.04)^3$.", latex: "(1.04)^3 = 1.124864" },
         { explanation: "Multiply to find A.", latex: "A = 2000 \\times 1.124864 = 2249.73" },
       ],
       finalAnswerLatex: "A \\approx \\$2249.73",
@@ -2013,7 +2013,7 @@ const compoundInterestIntroduction: LessonContent = {
       questionLatex: "\\text{Find the interest earned when }\\$5000\\text{ is invested at }6\\%\\text{ per year for 2 years.}",
       steps: [
         { explanation: "P = 5000, r = 0.06, n = 2.", latex: "A = 5000 \\times (1.06)^2" },
-        { explanation: "Calculate (1.06)^2.", latex: "(1.06)^2 = 1.1236" },
+        { explanation: "Calculate $(1.06)^2$.", latex: "(1.06)^2 = 1.1236" },
         { explanation: "Find total amount.", latex: "A = 5000 \\times 1.1236 = 5618" },
         { explanation: "Subtract principal to find interest.", latex: "I = 5618 - 5000 = 618" },
       ],
@@ -2025,7 +2025,7 @@ const compoundInterestIntroduction: LessonContent = {
       steps: [
         { explanation: "Simple interest.", latex: "I_{\\text{simple}} = \\frac{1000 \\times 5 \\times 3}{100} = \\$150" },
         { explanation: "Total under simple interest.", latex: "A_{\\text{simple}} = 1000 + 150 = \\$1150" },
-        { explanation: "Compound interest: A = 1000 × (1.05)^3.", latex: "(1.05)^3 = 1.157625" },
+        { explanation: "Compound interest: A = 1000 × $(1.05)^3$.", latex: "(1.05)^3 = 1.157625" },
         { explanation: "Total under compound interest.", latex: "A_{\\text{compound}} = 1000 \\times 1.157625 = \\$1157.63" },
         { explanation: "Compare.", latex: "\\$1157.63 > \\$1150 \\Rightarrow \\text{compound interest earns more}" },
       ],

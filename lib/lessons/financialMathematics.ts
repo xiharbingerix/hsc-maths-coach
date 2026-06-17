@@ -547,7 +547,7 @@ export const recurrenceRelationsFinancialContextsLesson: ExplicitLesson = {
   masteryQuiz: [
     {
       id: "recurrence-mastery-1",
-      prompt: "A balance starts at $2500 and follows $S_{n+1}=1.03S_n+150$. Find $S_1$.",
+      prompt: "A balance starts at 2500 dollars and follows $S_{n+1}=1.03S_n+150$. Find $S_1$.",
       latex: "S_0=2500,\\quad S_{n+1}=1.03S_n+150",
       answer: "2725",
       acceptedAnswers: ["2725.00", "$2725", "$2,725", "$2725.00", "$2,725.00"],
@@ -1204,7 +1204,7 @@ export const presentValueLoanRepaymentsLesson: ExplicitLesson = {
       answer: "9700",
       acceptedAnswers: ["9700.00", "$9700", "$9,700", "$9700.00", "$9,700.00"],
       hint: "Apply interest to the current loan balance, then subtract the repayment.",
-      explanation: "The loan first grows by 1%: $1.01(10000)=10100$. After the $400 repayment, $L_1=9700$.",
+      explanation: "The loan first grows by 1%: $1.01(10000)=10100$. After the repayment of 400 dollars, $L_1=9700$.",
     },
     {
       id: "loan-mastery-10",

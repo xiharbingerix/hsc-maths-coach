@@ -982,11 +982,11 @@ const inductionLesson: Partial<ExplicitLesson> = {
           latex: "4^1-1=3=3\\times1.\\;\\checkmark",
         },
         {
-          explanation: "Assume 3 divides 4^k − 1, so 4^k = 3m + 1 for some integer m.",
+          explanation: "Assume 3 divides $4^k − 1$, so $4^k = 3m + 1$ for some integer m.",
           latex: "4^k - 1 = 3m \\implies 4^k = 3m+1",
         },
         {
-          explanation: "Write 4^{k+1} − 1 using the hypothesis.",
+          explanation: "Write $4^{k+1} − 1$ using the hypothesis.",
           latex:
             "4^{k+1}-1=4\\cdot4^k-1=4(3m+1)-1=12m+3=3(4m+1)",
         },
@@ -1004,7 +1004,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
       steps: [
         { explanation: "Base case n = 1: LHS = 2¹ = 2 > 1 = RHS. ✓", latex: "2^1 = 2 > 1" },
         { explanation: "Assume true for n = k: assume 2ᵏ > k.", latex: "2^k > k" },
-        { explanation: "Show true for n = k+1: need to show 2^{k+1} > k+1.", latex: "2^{k+1} = 2 \\cdot 2^k > 2k \\quad (\\text{using assumption})" },
+        { explanation: "Show true for n = k+1: need to show $2^{k+1} > k+1$.", latex: "2^{k+1} = 2 \\cdot 2^k > 2k \\quad (\\text{using assumption})" },
         { explanation: "Since k ≥ 1, we have 2k = k + k ≥ k + 1.", latex: "2k \\geq k+1 \\quad \\Rightarrow \\quad 2^{k+1} > k+1" },
         { explanation: "The inductive step holds. By the principle of mathematical induction, 2ⁿ > n for all n ≥ 1. □", latex: "\\therefore\\; 2^n > n \\text{ for all } n\\geq 1." },
       ],
