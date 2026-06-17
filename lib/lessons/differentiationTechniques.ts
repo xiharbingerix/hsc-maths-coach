@@ -498,7 +498,7 @@ export const differentiationTechniquesExamPracticeLesson = lesson(
       title: "Evaluate a mixed derivative",
       questionLatex: "f(x)=e^{2x}+x\\ln x.\\quad \\text{Find }f'(0)\\text{ for the first term only and }f'(1)\\text{ for the product term.}",
       steps: [
-        { explanation: "The derivative of e^(2x) is 2e^(2x), so its value at 0 is 2.", latex: "2e^0=2" },
+        { explanation: "The derivative of $e^{2x}$ is $2e^{2x}$, so its value at 0 is 2.", latex: "2e^0=2" },
         { explanation: "The derivative of x ln x is ln x + 1, so its value at 1 is 1.", latex: "\\ln 1+1=1" },
       ],
       finalAnswerLatex: "\\text{Values }2\\text{ and }1",

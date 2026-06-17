@@ -291,7 +291,7 @@ const negativeIndices: LessonContent = {
   },
   workedExamples: [
     { title: "Write a reciprocal", questionLatex: "\\text{Evaluate }2^{-3}.", steps: [{ explanation: "Use the reciprocal of the matching positive power.", latex: "2^{-3}=\\frac{1}{2^3}" }, { explanation: "Evaluate the denominator.", latex: "\\frac{1}{2^3}=\\frac{1}{8}" }], finalAnswerLatex: "\\frac{1}{8}" },
-    { title: "Convert a negative power of 10", questionLatex: "\\text{Write }10^{-2}\\text{ as a decimal.}", steps: [{ explanation: "10^-2 is one hundredth.", latex: "10^{-2}=\\frac{1}{100}=0.01" }], finalAnswerLatex: "0.01" },
+    { title: "Convert a negative power of 10", questionLatex: "\\text{Write }10^{-2}\\text{ as a decimal.}", steps: [{ explanation: "$10^{-2}$ is one hundredth.", latex: "10^{-2}=\\frac{1}{100}=0.01" }], finalAnswerLatex: "0.01" },
     { title: "Evaluate a reciprocal power", questionLatex: "\\text{Evaluate }5^{-2}.", steps: [{ explanation: "Write the reciprocal.", latex: "5^{-2}=\\frac{1}{5^2}" }, { explanation: "Evaluate the square.", latex: "\\frac{1}{25}=0.04" }], finalAnswerLatex: "\\frac{1}{25}=0.04" },
   ],
   guidedPractice: [

@@ -108,7 +108,7 @@ const relatedRates: Partial<ExplicitLesson> = {
           latex: "2x\\,\\frac{dx}{dt} + 2y\\,\\frac{dy}{dt} = 0",
         },
         {
-          explanation: "When x = 3: y = \\sqrt{25-9} = 4. Substitute x = 3, y = 4, dx/dt = 1.",
+          explanation: "When x = 3: $y = \\sqrt{25-9} = 4$. Substitute x = 3, y = 4, $dx/dt = 1$.",
           latex: "2(3)(1) + 2(4)\\,\\frac{dy}{dt} = 0 \\;\\Rightarrow\\; \\frac{dy}{dt} = -\\tfrac{3}{4}\\text{ m/s}",
         },
       ],
@@ -434,7 +434,7 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
           latex: "50 = 200\\,e^{8k} \\;\\Rightarrow\\; e^{8k} = \\tfrac{1}{4} \\;\\Rightarrow\\; k = -\\tfrac{\\ln 2}{4}",
         },
         {
-          explanation: "The half-life is the time for N to halve: t_{1/2} = ln2 / |k|.",
+          explanation: "The half-life is the time for N to halve: $t_{1/2} = \\ln 2 / |k|$.",
           latex: "t_{1/2} = \\frac{\\ln 2}{\\ln 2/4} = 4\\text{ years}",
         },
       ],
@@ -454,7 +454,7 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
           latex: "50 = 20 + 60\\,e^{5k} \\;\\Rightarrow\\; e^{5k} = \\tfrac{1}{2} \\;\\Rightarrow\\; k = -\\tfrac{\\ln 2}{5}",
         },
         {
-          explanation: "Evaluate T(10) using (e^{5k})^2 = (1/2)^2 = 1/4.",
+          explanation: "Evaluate T(10) using $(e^{5k})^2 = (1/2)^2 = 1/4$.",
           latex: "T(10) = 20 + 60\\cdot\\tfrac{1}{4} = 20 + 15 = 35^\\circ\\text{C}",
         },
       ],
@@ -993,7 +993,7 @@ const calcAppsExamPractice: Partial<ExplicitLesson> = {
           latex: "\\frac{dV}{dt} = \\frac{\\pi h^2}{4}\\,\\frac{dh}{dt}",
         },
         {
-          explanation: "Substitute dV/dt = \\pi and h = 2.",
+          explanation: "Substitute $dV/dt = \\pi$ and h = 2.",
           latex: "\\pi = \\frac{\\pi(4)}{4}\\,\\frac{dh}{dt} = \\pi\\,\\frac{dh}{dt} \\;\\Rightarrow\\; dh/dt = 1\\text{ m/min}",
         },
       ],
@@ -1009,7 +1009,7 @@ const calcAppsExamPractice: Partial<ExplicitLesson> = {
           latex: "2000 = 1000\\,e^{5k} \\;\\Rightarrow\\; e^{5k} = 2",
         },
         {
-          explanation: "Evaluate N(10) using (e^{5k})^2 = 4.",
+          explanation: "Evaluate N(10) using $(e^{5k})^2 = 4$.",
           latex: "N(10) = 1000\\,e^{10k} = 1000 \\times (e^{5k})^2 = 1000 \\times 4 = 4000",
         },
       ],

@@ -4854,7 +4854,7 @@ export function year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(
           },
           {
             explanation:
-              "At 90 km (less than 100 km): C_A = 0.30(90) + 20 = $47. C_B = 0.50(90) = $45. Company B is cheaper.",
+              "At 90 km (less than 100 km): $C_A = 0.30(90) + 20 = 47$ dollars. $C_B = 0.50(90) = 45$ dollars. Company B is cheaper.",
             latex:
               "C_A = \\$47,\\quad C_B = \\$45 \\Rightarrow \\text{B is cheaper at 90 km}",
           },

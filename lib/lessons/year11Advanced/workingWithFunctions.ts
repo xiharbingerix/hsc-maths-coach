@@ -721,7 +721,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
             },
             {
               explanation:
-                "The common wrong answer comes from treating (-2)^2 as -4.",
+                "The common wrong answer comes from treating $(-2)^2$ as -4.",
               latex: "8+6+1=15",
             },
           ],

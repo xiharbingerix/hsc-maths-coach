@@ -1100,7 +1100,7 @@ const rootsOfUnity: Partial<ExplicitLesson> = {
       questionLatex: "z^3 = 8i",
       steps: [
         { explanation: "Write 8i in polar form. |8i| = 8, arg(8i) = π/2.", latex: "8i = 8\\operatorname{cis}\\frac{\\pi}{2}" },
-        { explanation: "Apply De Moivre: z_k = 8^{1/3} cis((π/2 + 2πk)/3) for k = 0, 1, 2.", latex: "z_k = 2\\operatorname{cis}\\!\\left(\\frac{\\pi/2+2\\pi k}{3}\\right)" },
+        { explanation: "Apply De Moivre: $z_k = 8^{1/3}\\,\\text{cis}((\\pi/2 + 2\\pi k)/3)$ for k = 0, 1, 2.", latex: "z_k = 2\\operatorname{cis}\\!\\left(\\frac{\\pi/2+2\\pi k}{3}\\right)" },
         { explanation: "k=0: z₀ = 2 cis(π/6)", latex: "z_0 = 2\\operatorname{cis}\\frac{\\pi}{6} = \\sqrt{3}+i" },
         { explanation: "k=1: z₁ = 2 cis(π/6 + 2π/3) = 2 cis(5π/6)", latex: "z_1 = 2\\operatorname{cis}\\frac{5\\pi}{6} = -\\sqrt{3}+i" },
         { explanation: "k=2: z₂ = 2 cis(π/6 + 4π/3) = 2 cis(3π/2)", latex: "z_2 = 2\\operatorname{cis}\\frac{3\\pi}{2} = -2i" },
