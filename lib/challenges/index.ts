@@ -26,6 +26,11 @@ import {
   completingSquareChallenge,
   surdsIndicesChallenge,
 } from "./year11Advanced";
+import {
+  simpleInterestChallenge,
+  speedDistanceTimeChallenge,
+  fiveNumberSummaryChallenge,
+} from "./year11Standard";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -57,6 +62,10 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "quadratic-equations-discriminant": discriminantChallenge,
   "completing-the-square": completingSquareChallenge,
   "algebraic-techniques": surdsIndicesChallenge,
+  // Year 11 Standard
+  "simple-interest": simpleInterestChallenge,
+  "speed-distance-time": speedDistanceTimeChallenge,
+  "box-plots-five-number-summary": fiveNumberSummaryChallenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {

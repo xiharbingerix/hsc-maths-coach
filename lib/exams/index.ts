@@ -3,6 +3,7 @@ import { year12AdvancedPaper1 } from "./year12AdvancedPaper1";
 import { year12Extension1Paper1 } from "./year12Extension1Paper1";
 import { year12Standard2Paper1 } from "./year12Standard2Paper1";
 import { year11AdvancedPaper1 } from "./year11AdvancedPaper1";
+import { year11StandardPaper1 } from "./year11StandardPaper1";
 
 export * from "./types";
 
@@ -11,6 +12,7 @@ const PAPERS: ExamPaper[] = [
   year12Extension1Paper1,
   year12Standard2Paper1,
   year11AdvancedPaper1,
+  year11StandardPaper1,
 ];
 
 export type ExamSummary = {
