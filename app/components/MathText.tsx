@@ -56,11 +56,21 @@ function preprocess(input: string): string {
 
     // $ sign
     if (input[i] === "$") {
-      // Currency: $ immediately followed by a digit → plain text
+      // Currency vs maths. A $ before a digit is usually currency
+      // ("$200 is invested at 5%"). But when the number is immediately followed
+      // by a maths token — a variable, bracket, or operator like ^ — the $ is
+      // opening a maths span, e.g. "$21x^2$". Treat those as maths so the
+      // currency rule doesn't split the span (which would render "x^2" raw).
       if (i + 1 < input.length && /\d/.test(input[i + 1])) {
-        out.push("$");
-        i++;
-        continue;
+        let k = i + 1;
+        while (k < input.length && /[\d.,]/.test(input[k])) k++;
+        const isMathCoefficient = /[A-Za-z^_(){}+\-*/<>=\\|]/.test(input[k] ?? "");
+        if (!isMathCoefficient) {
+          out.push("$");
+          i++;
+          continue;
+        }
+        // else: fall through and treat this $ as the start of a maths span
       }
 
       // Otherwise look for a closing $
