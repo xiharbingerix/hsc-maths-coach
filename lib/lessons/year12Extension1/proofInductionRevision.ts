@@ -54,7 +54,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
   learningIntention:
     "Evaluate sigma notation sums using ∑k and ∑k² formulas, compute C(n,r) using the factorial definition, apply Pascal's identity, and factor expressions that arise in algebraic inductive steps.",
   successCriteria: [
-    "Evaluate ∑_{k=1}^{n} k and ∑_{k=1}^{n} k² using the standard closed-form formulas.",
+    "Evaluate $\\sum_{k=1}^{n} k$ and $\\sum_{k=1}^{n} k^2$ using the standard closed-form formulas.",
     "Compute C(n,r) using n! / (r!(n−r)!).",
     "State and apply Pascal's identity: C(n,r) + C(n,r+1) = C(n+1,r+1).",
     "Factor A^(k+1) ± A^k to expose a multiple of A^k.",
@@ -147,12 +147,12 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     // g4 — typed
     answer(
       "y12e1-pir-g4",
-      "Factor 3^(k+1) + 3^k and write the result as A × 3^k. Find A.",
+      "Factor $3^{k+1} + 3^k$ and write the result as $A × 3^k$. Find $A$.",
       "3^{k+1}+3^k=3\\cdot3^k+3^k",
       "4",
       "3^(k+1) + 3^k = 3·3^k + 3^k = (3+1)·3^k = 4·3^k. So A = 4.",
       ["4"],
-      "Write 3^(k+1) as 3 × 3^k, then factor 3^k from both terms."
+      "Write $3^{k+1}$ as 3 × $3^k$, then factor $3^k$ from both terms."
     ),
   ],
   independentPractice: [
@@ -179,12 +179,12 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     // i3 — typed, D2
     answer(
       "y12e1-pir-i3",
-      "Factor 5^(k+2) − 5^k and write the result as A × 5^k. Find A.",
+      "Factor $5^{k+2} − 5^k$ and write the result as $A × 5^k$. Find $A$.",
       "5^{k+2}-5^k=5^2\\cdot5^k-5^k",
       "24",
       "5^(k+2) − 5^k = 25·5^k − 5^k = (25−1)·5^k = 24·5^k. So A = 24.",
       ["24"],
-      "Write 5^(k+2) = 5² × 5^k = 25 × 5^k, then factor out 5^k."
+      "Write $5^{k+2} = 5^2 × 5^k = 25 × 5^k$, then factor out $5^k$."
     ),
     // i4 — MCQ, D3
     choice(
@@ -237,7 +237,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     // m4 — typed, D3
     answer(
       "y12e1-pir-m4",
-      "Factor 7^(k+1) − 7^k. Write the result as A × 7^k. Find A.",
+      "Factor $7^{k+1} − 7^k$. Write the result as $A × 7^k$. Find $A$.",
       "7^{k+1}-7^k=7\\cdot7^k-7^k",
       "6",
       "7^(k+1) − 7^k = 7·7^k − 7^k = (7−1)·7^k = 6·7^k. So A = 6.",
@@ -255,7 +255,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     // m6 — typed, D4
     answer(
       "y12e1-pir-m6",
-      "Factor 4^(k+2) − 4^k. Write the result as A × 4^k. Find A.",
+      "Factor $4^{k+2} − 4^k$. Write the result as $A × 4^k$. Find $A$.",
       "4^{k+2}-4^k=4^2\\cdot4^k-4^k",
       "15",
       "4^(k+2) − 4^k = 16·4^k − 4^k = (16−1)·4^k = 15·4^k. So A = 15.",
