@@ -1,5 +1,10 @@
+import { loadEnvConfig } from "@next/env";
 import { createClient } from "@supabase/supabase-js";
 import { courseUnits, year12AdvancedCourse } from "../lib/courseUnits";
+
+// Load .env.local (and friends) so SUPABASE credentials are available when run
+// directly via tsx, matching the other scripts in this folder.
+loadEnvConfig(process.cwd());
 import {
   getNewCourse,
   getNewCourseUnitLessons,
