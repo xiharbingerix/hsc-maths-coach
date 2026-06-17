@@ -853,7 +853,7 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
     },
     {
       id: "mastery-9",
-      prompt: "Choose the correct derivative: A: $5x^4$, B: $-5x^4$, C: $-x^4$.",
+      prompt: "Choose the correct derivative.",
       latex: "\\frac{d}{dx}\\left(-x^5\\right)",
       answer: "B",
       choices: [
@@ -3354,7 +3354,7 @@ export const curveSketchingLesson: ExplicitLesson = {
     },
     {
       id: "curve-guided-4",
-      prompt: "Choose the correct classification. A: minimum, B: maximum, C: neither.",
+      prompt: "Choose the correct classification.",
       latex: "f'(x)=2x-5",
       answer: "A",
       choices: [
