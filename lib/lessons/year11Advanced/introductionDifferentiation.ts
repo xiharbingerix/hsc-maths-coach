@@ -627,13 +627,13 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
         formulaAnswer("y11adv-curve-g1", "For f(x)=x^3-3x, find the local maximum coordinate.", "f'(x)=3x^2-3", "(-1,2)", ["(-1, 2)"]),
         formulaAnswer("y11adv-curve-g2", "For f(x)=x^3-3x, state the interval where the function is decreasing.", "f'(x)=3(x-1)(x+1)", "-1 < x < 1", ["(-1, 1)"]),
         practicalChoice("y11adv-curve-g3", "Which feature is confirmed when f''(x) changes sign at x=0?", "C", ["Local maximum", "Local minimum", "Point of inflection", "Vertical tangent"], "A sign change in f'' confirms a point of inflection.", "f''(x)=6x"),
-        formulaAnswer("y11adv-curve-g4", "For y=(x-2)^2-1, give the local minimum coordinate.", "y=(x-2)^2-1", "(2,-1)", ["(2, -1)"]),
+        formulaAnswer("y11adv-curve-g4", "For $y=(x-2)^2-1$, give the local minimum coordinate.", "y=(x-2)^2-1", "(2,-1)", ["(2, -1)"]),
       ],
       independentPractice: [
         formulaAnswer("y11adv-curve-i1", "For f(x)=x^3-3x, state one interval where the function is increasing for x>0.", "f'(x)=3(x-1)(x+1)", "x > 1", ["x>1", "(1, infinity)", "(1, \\infty)"]),
         formulaAnswer("y11adv-curve-i2", "For f(x)=x^3-3x, state the concavity for x<0.", "f''(x)=6x", "concave down", ["downward concavity"]),
         practicalChoice("y11adv-curve-i3", "A cubic has a local maximum at (-1,2), a local minimum at (1,-2), and f'' changes sign at x=0. Which feature belongs at x=0?", "B", ["Another local maximum", "A point of inflection", "An x-intercept only", "A vertical asymptote"], "The sign change in f'' gives an inflection point.", "\\text{Feature summary}"),
-        formulaAnswer("y11adv-curve-i4", "For y=(x-2)^2-1, find the x-values of the intercepts. Give answers in ascending order, separated by a comma.", "0=(x-2)^2-1", "1, 3", ["x=1,3", "1 and 3", "x=1 and x=3"]),
+        formulaAnswer("y11adv-curve-i4", "For $y=(x-2)^2-1$, find the x-values of the intercepts. Give answers in ascending order, separated by a comma.", "0=(x-2)^2-1", "1, 3", ["x=1,3", "1 and 3", "x=1 and x=3"]),
         practicalChoice("y11adv-curve-i5", "Which sequence is a sensible curve-sketching workflow?", "A", ["Intercepts, stationary points, derivative intervals, concavity", "Normal equation, area, volume, probability", "Only substitute x=0", "Only draw a shape from memory"], "A calculus sketch is built from exact features and interval information.", "\\text{Curve sketching workflow}"),
       ],
       commonMistakes: [
@@ -651,7 +651,7 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
         practicalChoice("y11adv-curve-m6", "For f'(x)=3(x-2)(x+1), which interval is increasing?", "D", ["$-1<x<2$ only", "$x<2$ only", "$x>-1$ only", "$x<-1$ or $x>2$"], "The product is positive outside the two roots.", "f'(x)=3(x-2)(x+1)"),
         formulaAnswer("y11adv-curve-m7", "For f(x)=x^3-3x, find the x-coordinate of the point of inflection.", "f''(x)=6x", "0", ["x=0"]),
         practicalChoice("y11adv-curve-m8", "Which graph feature is most directly found by solving f'(x)=0?", "B", ["x-intercepts", "Stationary points", "y-intercept", "Domain"], "Stationary points occur where the derivative is zero.", "f'(x)=0"),
-        formulaAnswer("y11adv-curve-m9", "For y=(x-2)^2-1, state the range feature from the local minimum.", "\\text{local minimum at }(2,-1)", "y >= -1", ["y>=-1", "y \\ge -1", "minimum y=-1", "minimum value -1"]),
+        formulaAnswer("y11adv-curve-m9", "For $y=(x-2)^2-1$, state the range feature from the local minimum.", "\\text{local minimum at }(2,-1)", "y >= -1", ["y>=-1", "y \\ge -1", "minimum y=-1", "minimum value -1"]),
         practicalChoice("y11adv-curve-m10", "A curve is increasing, then decreasing, then increasing again. What feature pattern does this suggest?", "C", ["Only one inflection point", "No stationary points", "A local maximum followed by a local minimum", "A vertical asymptote"], "The change from increasing to decreasing gives a local maximum; decreasing to increasing gives a local minimum.", "\\text{Sign of }f'\\text{: }+,-,+"),
       ],
     };
@@ -829,17 +829,17 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
       learningIntention:
         "Learn how the chain rule extends differentiation to composite functions by identifying the inner and outer functions.",
       successCriteria: [
-        "Identify the inner and outer function in a composite expression such as (ax + b)^n.",
+        "Identify the inner and outer function in a composite expression such as $(ax + b)^n$.",
         "Apply dy/dx = (dy/du)(du/dx) to differentiate (ax + b)^n.",
-        "Differentiate (ax² + bx + c)^n using the chain rule.",
+        "Differentiate $(ax^2 + bx + c)^n$ using the chain rule.",
         "Evaluate a chain-rule derivative at a given x-value to find the gradient.",
       ],
       teaching: {
         paragraphs: [
-          "A composite function is a function inside another function. For example, y = (2x + 3)^4 has an outer function u^4 and an inner function u = 2x + 3.",
+          "A composite function is a function inside another function. For example, $y = (2x + 3)^4$ has an outer function $u^4$ and an inner function $u = 2x + 3$.",
           "The chain rule says: to differentiate a composite, multiply the outer derivative by the inner derivative. In symbols, dy/dx = (dy/du)(du/dx).",
-          "For (ax + b)^n, the outer derivative is n(ax + b)^(n−1) and the inner derivative is a. The result is na(ax + b)^(n−1).",
-          "For (ax² + bx + c)^n, the inner derivative is more complex: it is the derivative of the expression inside. Differentiate the bracket first, then multiply.",
+          "For $(ax + b)^n$, the outer derivative is $n(ax + b)^{n−1}$ and the inner derivative is $a$. The result is $na(ax + b)^{n−1}$.",
+          "For $(ax^2 + bx + c)^n$, the inner derivative is more complex: it is the derivative of the expression inside. Differentiate the bracket first, then multiply.",
           "After finding the derivative function, you can substitute any x-value to find the gradient of the curve at that point.",
         ],
         latexBlocks: [
@@ -882,16 +882,16 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
         },
       ],
       guidedPractice: [
-        practicalChoice("y11adv-chain-g1", "For y = (5x+2)^3, identify the inner function u.", "A", ["$u=5x+2$", "$u=x^3$", "$u=5x$", "$u=3x$"], "The inner function is the expression inside the bracket.", "y=(5x+2)^3"),
+        practicalChoice("y11adv-chain-g1", "For $y = (5x+2)^3$, identify the inner function $u$.", "A", ["$u=5x+2$", "$u=x^3$", "$u=5x$", "$u=3x$"], "The inner function is the expression inside the bracket.", "y=(5x+2)^3"),
         formulaAnswer("y11adv-chain-g2", "Differentiate using the chain rule.", "(4x-1)^3", "12(4x-1)^2", ["12(4x-1)^2"]),
         formulaAnswer("y11adv-chain-g3", "Differentiate using the chain rule.", "(x^2+2)^2", "4x(x^2+2)", ["4x(x^2+2)", "4x(x^2 + 2)"]),
-        practicalChoice("y11adv-chain-g4", "Which is the correct derivative of y = (3x+1)^4?", "B", ["$4(3x+1)^3$", "$12(3x+1)^3$", "$3(3x+1)^3$", "$4(3x+1)^4$"], "The inner derivative is 3; multiply by the outer derivative 4(3x+1)^3 to get 12(3x+1)^3.", "y=(3x+1)^4"),
+        practicalChoice("y11adv-chain-g4", "Which is the correct derivative of $y = (3x+1)^4$?", "B", ["$4(3x+1)^3$", "$12(3x+1)^3$", "$3(3x+1)^3$", "$4(3x+1)^4$"], "The inner derivative is 3; multiply by the outer derivative $4(3x+1)^3$ to get $12(3x+1)^3$.", "y=(3x+1)^4"),
       ],
       independentPractice: [
         formulaAnswer("y11adv-chain-i1", "Differentiate using the chain rule.", "(2x+5)^4", "8(2x+5)^3", ["8(2x+5)^3"]),
         formulaAnswer("y11adv-chain-i2", "Differentiate using the chain rule.", "(x^2-3)^3", "6x(x^2-3)^2", ["6x(x^2-3)^2", "6x(x^2 - 3)^2"]),
         formulaAnswer("y11adv-chain-i3", "Find the gradient at the given x-value using the chain rule.", "y=(x+2)^3,\\quad x=-1", "3", ["gradient = 3", "m=3"]),
-        practicalChoice("y11adv-chain-i4", "A student writes the derivative of y = (5x-2)^3 as 3(5x-2)^2. What is missing?", "A", ["The inner derivative (factor of 5) was not multiplied in", "The power should be 2, not 3", "The sign should be negative", "The coefficient 3 is wrong"], "The chain rule requires multiplying by the inner derivative, which is 5 here.", "y=(5x-2)^3"),
+        practicalChoice("y11adv-chain-i4", "A student writes the derivative of $y = (5x-2)^3$ as $3(5x-2)^2$. What is missing?", "A", ["The inner derivative (factor of 5) was not multiplied in", "The power should be 2, not 3", "The sign should be negative", "The coefficient 3 is wrong"], "The chain rule requires multiplying by the inner derivative, which is 5 here.", "y=(5x-2)^3"),
         formulaAnswer("y11adv-chain-i5", "Differentiate using the chain rule.", "(3x^2-1)^2", "12x(3x^2-1)", ["12x(3x^2-1)", "12x(3x^2 - 1)"]),
       ],
       commonMistakes: [
@@ -904,13 +904,13 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
         formulaAnswer("y11adv-chain-m1", "Differentiate using the chain rule.", "(3x+2)^5", "15(3x+2)^4", ["15(3x+2)^4"]),
         formulaAnswer("y11adv-chain-m2", "Differentiate using the chain rule.", "(x^2+1)^4", "8x(x^2+1)^3", ["8x(x^2+1)^3", "8x(x^2 + 1)^3"]),
         formulaAnswer("y11adv-chain-m3", "Find the gradient at the given x-value using the chain rule.", "y=(2x-1)^3,\\quad x=1", "6", ["m=6", "gradient=6"]),
-        practicalChoice("y11adv-chain-m4", "Which is the correct derivative of y = (5x-3)^4?", "C", ["$4(5x-3)^3$", "$5(5x-3)^3$", "$20(5x-3)^3$", "$20(5x-3)^4$"], "Inner derivative is 5; outer derivative is 4(5x-3)^3; product is 20(5x-3)^3.", "y=(5x-3)^4"),
+        practicalChoice("y11adv-chain-m4", "Which is the correct derivative of $y = (5x-3)^4$?", "C", ["$4(5x-3)^3$", "$5(5x-3)^3$", "$20(5x-3)^3$", "$20(5x-3)^4$"], "Inner derivative is 5; outer derivative is $4(5x-3)^3$; product is $20(5x-3)^3$.", "y=(5x-3)^4"),
         formulaAnswer("y11adv-chain-m5", "Differentiate using the chain rule.", "(2x+7)^3", "6(2x+7)^2", ["6(2x+7)^2"]),
         formulaAnswer("y11adv-chain-m6", "Differentiate using the chain rule.", "(x^2-1)^3", "6x(x^2-1)^2", ["6x(x^2-1)^2", "6x(x^2 - 1)^2"]),
-        practicalChoice("y11adv-chain-m7", "A student writes the derivative of y = (2x+1)^3 as 3(2x+1)^2. Which step is incomplete?", "B", ["The exponent should remain as 3", "The inner derivative (factor of 2) was not multiplied in", "The coefficient 3 is incorrect", "The base should be squared"], "Chain rule requires multiplying by the inner derivative, which is 2 for u = 2x+1.", "y=(2x+1)^3"),
+        practicalChoice("y11adv-chain-m7", "A student writes the derivative of $y = (2x+1)^3$ as $3(2x+1)^2$. Which step is incomplete?", "B", ["The exponent should remain as 3", "The inner derivative (factor of 2) was not multiplied in", "The coefficient 3 is incorrect", "The base should be squared"], "Chain rule requires multiplying by the inner derivative, which is 2 for u = 2x+1.", "y=(2x+1)^3"),
         formulaAnswer("y11adv-chain-m8", "Find the gradient at the given x-value using the chain rule.", "y=(x^2+4)^2,\\quad x=1", "20", ["gradient=20", "m=20"]),
         formulaAnswer("y11adv-chain-m9", "Differentiate using the chain rule.", "(2x^2+3)^3", "12x(2x^2+3)^2", ["12x(2x^2+3)^2", "12x(2x^2 + 3)^2"]),
-        practicalChoice("y11adv-chain-m10", "For y = (3x-1)^4, dy/dx = 0 at x = 1/3. What does this mean about the tangent there?", "C", ["The tangent is vertical", "The function is undefined at x = 1/3", "The tangent is horizontal", "The function is constant everywhere"], "A zero derivative means the tangent is horizontal at that point.", "y=(3x-1)^4"),
+        practicalChoice("y11adv-chain-m10", "For $y = (3x-1)^4$, $dy/dx = 0$ at $x = 1/3$. What does this mean about the tangent there?", "C", ["The tangent is vertical", "The function is undefined at x = 1/3", "The tangent is horizontal", "The function is constant everywhere"], "A zero derivative means the tangent is horizontal at that point.", "y=(3x-1)^4"),
       ],
     };
   }
