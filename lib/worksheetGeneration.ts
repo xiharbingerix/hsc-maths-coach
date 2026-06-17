@@ -2,7 +2,11 @@ import { supabaseAdmin } from "./supabaseAdmin";
 import { pickDiagramFields, type Choice } from "./lessons/diagramRegistry";
 
 export type DifficultyLevel = 1 | 2 | 3 | 4 | 5;
-export type DifficultyPreset = "catch-up" | "standard" | "push-forward";
+export type DifficultyPreset =
+  | "catch-up"
+  | "standard"
+  | "push-forward"
+  | "harder";
 type DifficultyDist = Record<DifficultyLevel, number>;
 
 export type WorksheetQuestionPreview = {
@@ -45,6 +49,8 @@ export const WORKSHEET_PRESETS: Record<DifficultyPreset, DifficultyDist> = {
   "catch-up": { 1: 3, 2: 4, 3: 2, 4: 1, 5: 0 },
   standard: { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 },
   "push-forward": { 1: 0, 2: 2, 3: 3, 4: 3, 5: 2 },
+  // Skips Levels 1 & 2 entirely — only Level 3 and up, weighted to the hardest.
+  harder: { 1: 0, 2: 0, 3: 2, 4: 4, 5: 4 },
 };
 
 function hasQuestionParts(row: Pick<RawQuestionRow, "question_parts">) {

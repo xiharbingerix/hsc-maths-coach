@@ -70,6 +70,11 @@ const PRESETS = [
     label: "Push-forward",
     description: "Weighted to harder questions - challenging session",
   },
+  {
+    id: "harder",
+    label: "Harder",
+    description: "Skips Levels 1 & 2 - Level 3 and up only",
+  },
 ] as const;
 
 const QUESTION_COUNTS = [5, 8, 10, 12, 15, 20];
@@ -154,9 +159,9 @@ export function WorksheetGeneratorForm({
   const [selectedSubtopics, setSelectedSubtopics] = useState<string[]>(
     resolvedInitialSubtopics
   );
-  const [preset, setPreset] = useState<"catch-up" | "standard" | "push-forward">(
-    "standard"
-  );
+  const [preset, setPreset] = useState<
+    "catch-up" | "standard" | "push-forward" | "harder"
+  >("standard");
   const [totalQuestions, setTotalQuestions] = useState(10);
   const [includeMultiPart, setIncludeMultiPart] = useState(false);
   const [status, setStatus] = useState<
@@ -809,7 +814,7 @@ export function WorksheetGeneratorForm({
         <legend className="text-sm font-medium text-slate-800">
           Difficulty
         </legend>
-        <div className="grid gap-2 sm:grid-cols-3">
+        <div className="grid gap-2 sm:grid-cols-2">
           {PRESETS.map((item) => (
             <label
               key={item.id}
