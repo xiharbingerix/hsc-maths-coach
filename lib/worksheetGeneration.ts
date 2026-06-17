@@ -49,9 +49,9 @@ export const WORKSHEET_PRESETS: Record<DifficultyPreset, DifficultyDist> = {
   "catch-up": { 1: 3, 2: 4, 3: 2, 4: 1, 5: 0, 6: 0 },
   standard: { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1, 6: 0 },
   "push-forward": { 1: 0, 2: 2, 3: 3, 4: 3, 5: 2, 6: 1 },
-  // Skips Levels 1 & 2 entirely — only Level 3 and up, weighted to the hardest
-  // (incl. the D6 challenge / multi-part / exam tier).
-  harder: { 1: 0, 2: 0, 3: 2, 4: 3, 5: 3, 6: 3 },
+  // Skips Levels 1 & 2; weighted upward so 4 < 5 < 6 (most questions are the
+  // hardest D6 challenge / multi-part / exam tier), with a little Level 3.
+  harder: { 1: 0, 2: 0, 3: 1, 4: 2, 5: 3, 6: 4 },
 };
 
 function hasQuestionParts(row: Pick<RawQuestionRow, "question_parts">) {
