@@ -179,7 +179,13 @@ npm.cmd run check:env
 npx.cmd tsc --noEmit
 npm.cmd run build
 npm.cmd run audit:lessons
+npm.cmd run audit:questions
 ```
+
+`audit:questions` scans the lesson catalog for LaTeX rendering defects (maths that
+renders literally, broken LaTeX) and self-revealing MCQs. Treat its
+`UNFORMATTED-MATH`/`BROKEN-LATEX` findings as blocking; `SELF-REVEAL` is heuristic
+(known false positives) — review rather than auto-fix.
 
 ## Post-Deploy Smoke Checklist
 
