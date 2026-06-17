@@ -31,6 +31,16 @@ import {
   speedDistanceTimeChallenge,
   fiveNumberSummaryChallenge,
 } from "./year11Standard";
+import {
+  combinationsChallenge,
+  rootsCoefficientsChallenge,
+  doubleAngleChallenge,
+} from "./year11Extension1";
+import {
+  rightAngleTrigAppliedChallenge,
+  summaryStatsChallenge,
+  depreciationChallenge,
+} from "./year12Standard1";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -66,6 +76,14 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "simple-interest": simpleInterestChallenge,
   "speed-distance-time": speedDistanceTimeChallenge,
   "box-plots-five-number-summary": fiveNumberSummaryChallenge,
+  // Year 11 Extension
+  combinations: combinationsChallenge,
+  "roots-and-coefficients": rootsCoefficientsChallenge,
+  "double-angle-formulae": doubleAngleChallenge,
+  // Year 12 Standard 1 (shared slugs add depth to Standard 2 / Year 11 too)
+  "right-angle-trig-applications": rightAngleTrigAppliedChallenge,
+  "data-displays-summary-statistics": summaryStatsChallenge,
+  "depreciation-loans": depreciationChallenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {
