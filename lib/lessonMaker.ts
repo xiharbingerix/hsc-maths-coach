@@ -147,14 +147,16 @@ export function detectPlaceholderLesson(lesson: ExplicitLesson): string | null {
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-const GENERIC_MCQ_LATEX = "\\text{Select A, B, C, or D.}";
+// Generic MCQ placeholder formulas (several phrasings exist) carry no
+// information once the choices are shown — strip them from the display.
+const GENERIC_MCQ_LATEX_RE = /^\\text\{\s*Select\s+A,?\s*B,?\s*C,?\s*(or\s+)?D\.?\s*\}$/i;
 
 function toTutorQuestion(q: PracticeQuestion): TutorQuestion {
   return {
     id: q.id,
     prompt: q.prompt,
     // Suppress the generic MCQ placeholder formula — it adds no information when choices are shown
-    displayLatex: q.latex === GENERIC_MCQ_LATEX ? "" : q.latex,
+    displayLatex: GENERIC_MCQ_LATEX_RE.test(q.latex) ? "" : q.latex,
     isMultipleChoice: !!q.choices,
     choices: q.choices,
     answer: q.answer,
