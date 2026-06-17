@@ -647,15 +647,15 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
       guidedPractice: [
         algebraChoice("y12s2-quad-g1", "Which equation is quadratic?", "C", ["y=4x+7", "y=30/x", "y=2x^2-5x+1", "y=5(1.2)^x"], "A quadratic equation contains a squared variable. Here x squared is the feature that separates the quadratic model from linear, inverse variation, and exponential models."),
         algebraChoice("y12s2-quad-g2", "The graph of R = -2p^2 + 40p is shown. What does its vertex represent?", "B", ["The starting revenue", "The maximum revenue", "A constant rate of change", "The minimum price"], "The graph opens downwards, so its turning point is the highest output. In this context the vertex represents the maximum revenue.", revenueParabola),
-        algebraAnswer("y12s2-quad-g3", "For C = 3(x - 4)^2 + 120, state the value of x that gives the minimum cost.", "x=4", "4", "The squared part is smallest when it equals zero. Set x - 4 = 0, so the minimum occurs at x = 4.", ["x=4"]),
+        algebraAnswer("y12s2-quad-g3", "For $C = 3(x - 4)^2 + 120$, state the value of $x$ that gives the minimum cost.", "x=4", "4", "The squared part is smallest when it equals zero. Set x - 4 = 0, so the minimum occurs at x = 4.", ["x=4"]),
         algebraAnswer("y12s2-quad-g4", "For h = -5t^2 + 20t + 1.5, find the height when t = 0.", "h(0)=1.5", "1.5", "At t = 0 the squared and linear terms both disappear. The remaining constant, 1.5, is the initial height.", ["1.5 m", "1.5m"]),
       ],
       independentPractice: [
         algebraChoice("y12s2-quad-i1", "Which graph shape belongs to a quadratic model?", "D", ["A straight line", "A circle", "A hyperbola", "A parabola"], "A quadratic graph is a parabola. It bends smoothly and has one turning point."),
-        algebraAnswer("y12s2-quad-i2", "For y = 2(x - 3)^2 + 5, state the minimum value of y.", "y_{\\min}=5", "5", "The squared part is never negative, so its smallest value is zero. The graph therefore cannot go below 5.", ["y=5"]),
+        algebraAnswer("y12s2-quad-i2", "For $y = 2(x - 3)^2 + 5$, state the minimum value of $y$.", "y_{\\min}=5", "5", "The squared part is never negative, so its smallest value is zero. The graph therefore cannot go below 5.", ["y=5"]),
         algebraAnswer("y12s2-quad-i3", "For R = -p^2 + 12p, find R when p = 4.", "R(4)=-4^2+12(4)", "32", "The question asks for an output at a given input. Substitute p = 4 carefully: -(4 squared) + 48 = 32."),
         algebraChoice("y12s2-quad-i4", "A model for height gives t = -1 and t = 5 when the object is on the ground. Which time is meaningful after launch?", "C", ["Both times", "Neither time", "t = 5 only", "t = -1 only"], "The algebra can produce two roots, but the context decides which one is useful. A negative time is before launch, so keep t = 5 seconds."),
-        algebraAnswer("y12s2-quad-i5", "For P = -3(x - 6)^2 + 150, state the maximum value of P.", "P_{\\max}=150", "150", "The negative coefficient makes the graph open downwards. The squared part is zero at the vertex, leaving the maximum output 150."),
+        algebraAnswer("y12s2-quad-i5", "For $P = -3(x - 6)^2 + 150$, state the maximum value of $P$.", "P_{\\max}=150", "150", "The negative coefficient makes the graph open downwards. The squared part is zero at the vertex, leaving the maximum output 150."),
       ],
       commonMistakes: [
         { mistake: "Treating a quadratic graph as if it has a constant gradient.", fix: "A straight line has a constant gradient. A parabola bends, so its rate of change varies as the input changes." },
@@ -666,12 +666,12 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
       masteryQuiz: [
         algebraChoice("y12s2-quad-m1", "Which feature proves that y = -4x^2 + 7x + 3 is quadratic?", "A", ["The x squared term", "The constant term", "The negative sign", "The number 7"], "A squared variable is the defining feature of a quadratic equation."),
         algebraAnswer("y12s2-quad-m2", "For h = -5t^2 + 20t + 1.5, state the maximum height.", "h=-5t^2+20t+1.5", "21.5", "The graph opens downwards, so the maximum occurs at the vertex. The axis of symmetry is t = 2, and substituting gives h = 21.5 metres.", ["21.5 m", "21.5m"], heightParabola),
-        algebraAnswer("y12s2-quad-m3", "For y = (x - 7)^2 + 4, state the vertex as a coordinate.", "y=(x-7)^2+4", "(7,4)", "In vertex form, the squared bracket is zero when x = 7, and the remaining value is y = 4. So the vertex is (7, 4).", ["7,4", "7, 4", "(7, 4)"]),
+        algebraAnswer("y12s2-quad-m3", "For $y = (x - 7)^2 + 4$, state the vertex as a coordinate.", "y=(x-7)^2+4", "(7,4)", "In vertex form, the squared bracket is zero when x = 7, and the remaining value is y = 4. So the vertex is (7, 4).", ["7,4", "7, 4", "(7, 4)"]),
         algebraChoice("y12s2-quad-m4", "A parabola opens upwards. What type of turning point does it have?", "B", ["Maximum", "Minimum", "Intercept only", "Constant gradient"], "An upward-opening parabola falls towards its turning point and rises after it, so the vertex is a minimum."),
-        algebraAnswer("y12s2-quad-m5", "For C = 2(x - 5)^2 + 90, find the minimum cost.", "C_{\\min}=90", "90", "The squared part reaches its smallest value, zero, at x = 5. The model then leaves the minimum cost 90.", ["$90"]),
+        algebraAnswer("y12s2-quad-m5", "For $C = 2(x - 5)^2 + 90$, find the minimum cost.", "C_{\\min}=90", "90", "The squared part reaches its smallest value, zero, at x = 5. The model then leaves the minimum cost 90.", ["$90"]),
         algebraAnswer("y12s2-quad-m6", "For y = -x^2 + 10x, find y when x = 3.", "y(3)=-3^2+10(3)", "21", "Substitute x = 3 into both terms. The negative applies after squaring: -9 + 30 = 21."),
         algebraChoice("y12s2-quad-m7", "A quadratic profit model has roots x = 2 and x = 9. What do the roots represent?", "D", ["Maximum profits", "Constant rates", "Minimum costs", "Break-even inputs"], "At a root the output is zero. For a profit model, zero profit means break-even."),
-        algebraAnswer("y12s2-quad-m8", "For P = -4(x - 8)^2 + 300, state the input that gives maximum profit.", "x=8", "8", "The negative coefficient makes the vertex a maximum. Vertex form shows that the squared bracket is zero at x = 8.", ["x=8"]),
+        algebraAnswer("y12s2-quad-m8", "For $P = -4(x - 8)^2 + 300$, state the input that gives maximum profit.", "x=8", "8", "The negative coefficient makes the vertex a maximum. Vertex form shows that the squared bracket is zero at x = 8.", ["x=8"]),
         algebraChoice("y12s2-quad-m9", "A height model produces a root t = -0.4. Why is it usually rejected?", "C", ["Quadratics cannot have negative roots", "The graph must open upwards", "It represents a time before launch", "It is not an intercept"], "The root can be algebraically correct. It is rejected because negative time is outside the practical situation after launch."),
         algebraAnswer("y12s2-quad-m10", "For R = -2p^2 + 40p, find the maximum revenue.", "R(10)=200", "200", "The downward-opening graph has its maximum at the vertex p = 10. Substituting gives maximum revenue 200.", ["$200", "200 dollars"]),
         algebraChoice("y12s2-quad-m11", "A quadratic model R = -0.5x^2 + 8x gives revenue in dollars where x is items sold. At x = 20 the model gives R = -40. What is the practical limitation here?", "B", ["Quadratics cannot have two intercepts", "The model gives negative revenue, which is meaningless in this context", "The coefficient of x^2 must be positive", "x cannot exceed 10"], "The formula is mathematically valid at x = 20, but a negative revenue cannot occur in reality. The domain should be restricted to values where R ≥ 0, typically 0 ≤ x ≤ 16."),
@@ -1018,8 +1018,8 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         algebraAnswer("y12s2-expinv-m8", "A value starts at 400 and decreases by 15% each year. State the decay multiplier.", "\\text{15% annual decrease}", "0.85", "A 15% decrease means 85% of the value remains each year. As a decimal multiplier, 85% is 0.85.", ["85%"]),
         algebraChoice("y12s2-expinv-m9", "For y = 60/x, why can x not equal zero?", "A", ["Division by zero is undefined", "The graph must be linear", "The product would be too large", "Zero is always negative"], "The rule requires division by x. Division by zero is undefined, so x = 0 is excluded."),
         algebraAnswer("y12s2-expinv-m10", "For V = 320(0.5)^n, find V when n = 3.", "V=320(0.5)^3", "40", "The value halves three times: 320 to 160 to 80 to 40."),
-        algebraChoice("y12s2-expinv-m11", "A model for a city's population is P = 50000 × 1.04^n where n is years from now. Why would this model become unreliable for very large n?", "C", ["The base 1.04 is less than 2", "n cannot be a large number", "Resources and space limit real population growth, so constant 4% annual growth cannot continue indefinitely", "The starting population of 50 000 is too small"], "Exponential models assume a constant percentage growth rate. In practice, limited resources, disease, migration and other factors slow growth. The model is a useful short-term approximation but overestimates population for large n."),
-        algebraChoice("y12s2-expinv-m12", "A radioactive decay model is M = 200 × 0.9^t grams. Which is the best statement about a limitation of this model?", "B", ["The formula is undefined when t is large", "For very large t the model gives values too small to physically measure", "The decay multiplier must be greater than 1", "Exponential decay models can only be used for t ≤ 10"], "Mathematically the formula works for any t ≥ 0, but the mass it predicts eventually falls below the smallest measurable quantity. At that point the model no longer has practical meaning, even though the mathematics continues to produce values."),
+        algebraChoice("y12s2-expinv-m11", "A model for a city's population is $P = 50000 × 1.04^n$ where $n$ is years from now. Why would this model become unreliable for very large $n$?", "C", ["The base 1.04 is less than 2", "n cannot be a large number", "Resources and space limit real population growth, so constant 4% annual growth cannot continue indefinitely", "The starting population of 50 000 is too small"], "Exponential models assume a constant percentage growth rate. In practice, limited resources, disease, migration and other factors slow growth. The model is a useful short-term approximation but overestimates population for large n."),
+        algebraChoice("y12s2-expinv-m12", "A radioactive decay model is $M = 200 × 0.9^t$ grams. Which is the best statement about a limitation of this model?", "B", ["The formula is undefined when t is large", "For very large t the model gives values too small to physically measure", "The decay multiplier must be greater than 1", "Exponential decay models can only be used for t ≤ 10"], "Mathematically the formula works for any t ≥ 0, but the mass it predicts eventually falls below the smallest measurable quantity. At that point the model no longer has practical meaning, even though the mathematics continues to produce values."),
       ],
       masteryPassMark: 0.8,
     };
@@ -1254,7 +1254,7 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         paragraphs: [
           "Many practical problems give you a formula and ask you to find one value when others are known. Substitute the given values and simplify.",
           "To make a variable the subject, use inverse operations: if the variable is multiplied by a number, divide both sides; if it is added, subtract both sides.",
-          "Common HSC formulas: compound interest A = P(1 + r)^n, speed S = D/T, density D = M/V, area A = lw or A = (1/2)bh, BMI = mass/height².",
+          "Common HSC formulas: compound interest $A = P(1 + r)^n$, speed S = D/T, density D = M/V, area A = lw or A = (1/2)bh, BMI = mass/height².",
           "Always include units in the final answer. The formula gives a number; the context gives the unit.",
         ],
         latexBlocks: [
@@ -1303,7 +1303,7 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         algebraAnswer("y12s2-form-i1", "Compound interest: A = P(1 + r)^n. Find A when P = 5000, r = 0.06, n = 4.", "A=5000(1.06)^4", "6312.38", "A = 5000 × 1.2625 ≈ 6312.38.", ["$6312.38", "6312.4"]),
         algebraAnswer("y12s2-form-i2", "Density D = M/V. Find M when D = 3 g/cm³ and V = 40 cm³.", "M=D\\times V=3\\times40", "120", "M = 3 × 40 = 120 g.", ["120 g"]),
         algebraAnswer("y12s2-form-i3", "Rearrange A = lw to make l the subject.", "l=\\frac{A}{w}", "l=A/w", "Divide both sides by w: l = A/w.", ["l = A/w", "A/w"]),
-        practicalChoice("y12s2-form-i4", "Using V = P(1 − r)^n for depreciation with P = 18000, r = 0.15, n = 3:", "B", ["\\$10935", "\\$11054.63", "\\$11000", "\\$15300"], "V = 18000 × (0.85)³ = 18000 × 0.614125 ≈ 11054.25 ≈ $11054."),
+        practicalChoice("y12s2-form-i4", "Using $V = P(1 − r)^n$ for depreciation with $P = 18000$, $r = 0.15$, $n = 3$:", "B", ["\\$10935", "\\$11054.63", "\\$11000", "\\$15300"], "V = 18000 × (0.85)³ = 18000 × 0.614125 ≈ 11054.25 ≈ $11054."),
         algebraAnswer("y12s2-form-i5", "Speed S = D/T. A car travels 270 km at 90 km/h. Find the time T.", "T=\\frac{270}{90}", "3", "T = 270/90 = 3 h.", ["3 h", "3 hours"]),
       ],
       commonMistakes: [
@@ -1317,12 +1317,12 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         algebraAnswer("y12s2-form-m2", "Speed formula S = D/T. Find T when S = 75 km/h and D = 225 km.", "T=\\frac{225}{75}", "3", "T = 225 ÷ 75 = 3 h.", ["3 h", "3 hours"]),
         practicalChoice("y12s2-form-m3", "Density D = M/V. To find V when D and M are known:", "B", ["V = M × D", "V = M / D", "V = D / M", "V = M + D"], "Rearrange D = M/V: V = M/D."),
         algebraAnswer("y12s2-form-m4", "Find density D when M = 90 g and V = 30 cm³.", "D=\\frac{90}{30}", "3", "D = 90/30 = 3 g/cm³.", ["3 g/cm³", "3g/cm3"]),
-        practicalChoice("y12s2-form-m5", "A = P(1 + r)^n. Which value is the principal?", "A", ["P", "A", "r", "n"], "P is the initial amount invested or borrowed."),
+        practicalChoice("y12s2-form-m5", "$A = P(1 + r)^n$. Which value is the principal?", "A", ["P", "A", "r", "n"], "P is the initial amount invested or borrowed."),
         algebraAnswer("y12s2-form-m6", "Rearrange A = (1/2)bh for b.", "b=\\frac{2A}{h}", "b=2A/h", "Multiply both sides by 2: 2A = bh. Divide by h: b = 2A/h.", ["b = 2A/h", "2A/h"]),
         algebraAnswer("y12s2-form-m7", "Depreciation V = P(1 − r)^n. P = 20000, r = 0.10, n = 2. Find V.", "V=20000(0.90)^2", "16200", "V = 20000 × 0.81 = 16200.", ["$16200", "16200.00"]),
         practicalChoice("y12s2-form-m8", "BMI = m/h². A person of mass 80 kg and height 1.6 m has BMI:", "C", ["40", "32.5", "31.25", "50"], "BMI = 80/1.6² = 80/2.56 = 31.25."),
         algebraAnswer("y12s2-form-m9", "Find S when D = 300 km and T = 2.5 h.", "S=\\frac{300}{2.5}", "120", "S = 300/2.5 = 120 km/h.", ["120 km/h"]),
-        practicalChoice("y12s2-form-m10", "A compound interest calculation gives A = 2000(1.03)^5. The interest earned is:", "B", ["The value of A", "A minus 2000", "2000 times 5 times 3 percent", "5 percent of 2000"], "Interest earned = A − P = A − 2000."),
+        practicalChoice("y12s2-form-m10", "A compound interest calculation gives $A = 2000(1.03)^5$. The interest earned is:", "B", ["The value of A", "A minus 2000", "2000 times 5 times 3 percent", "5 percent of 2000"], "Interest earned = A − P = A − 2000."),
       ],
     };
   }
