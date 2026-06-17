@@ -56,7 +56,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
   successCriteria: [
     "Recall and apply the standard indefinite integrals for xⁿ, eˣ, 1/x, sin x, and cos x.",
     "Evaluate definite integrals using the Fundamental Theorem: ∫_a^b f(x) dx = F(b) − F(a).",
-    "Separate variables to solve dy/dx = ky, obtaining y = Ce^(kx).",
+    "Separate variables to solve $dy/dx = ky$, obtaining $y = Ce^{kx}$.",
     "Apply an initial condition to find the constant C in the general solution.",
     "Solve a separable DE of the form dy/dx = f(x)·g(y).",
   ],
@@ -155,7 +155,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     // g4 — typed
     answer(
       "y12e1-car-g4",
-      "For the DE dy/dx = 3y, the general solution is y = Ce^(kx). Find k.",
+      "For the DE $dy/dx = 3y$, the general solution is $y = Ce^{kx}$. Find $k$.",
       "\\frac{dy}{dx}=3y\\implies y=Ce^{3x}",
       "3",
       "Separating variables: (1/y) dy = 3 dx → ln|y| = 3x + C₁ → y = Ce^(3x). So k = 3.",
@@ -302,7 +302,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     // m10 — typed, D5
     answer(
       "y12e1-car-m10",
-      "Evaluate ∫₀¹ 3e^(3x) dx. Leave in exact form.",
+      "Evaluate ∫₀¹ $3e^{3x}$ dx. Leave in exact form.",
       "\\int_0^1 3e^{3x}\\,dx=\\bigl[e^{3x}\\bigr]_0^1",
       "e^3-1",
       "Antiderivative of 3e^(3x) is e^(3x). [e^(3x)]₀¹ = e³ − e⁰ = e³ − 1.",
