@@ -11,6 +11,11 @@ import {
   futureValueAnnuitiesChallenge,
   normalDistributionChallenge,
 } from "./year12AdvancedMore";
+import {
+  inverseTrigChallenge,
+  vectorsChallenge,
+  inductionChallenge,
+} from "./year12Extension1";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -30,6 +35,10 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "trigonometric-equations": trigonometricEquationsChallenge,
   "future-value-annuities": futureValueAnnuitiesChallenge,
   "normal-distribution-empirical-rule": normalDistributionChallenge,
+  // Year 12 Extension 1
+  "inverse-trig": inverseTrigChallenge,
+  vectors: vectorsChallenge,
+  "intro-to-mathematical-induction": inductionChallenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {

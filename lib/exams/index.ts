@@ -1,9 +1,10 @@
 import type { ExamPaper } from "./types";
 import { year12AdvancedPaper1 } from "./year12AdvancedPaper1";
+import { year12Extension1Paper1 } from "./year12Extension1Paper1";
 
 export * from "./types";
 
-const PAPERS: ExamPaper[] = [year12AdvancedPaper1];
+const PAPERS: ExamPaper[] = [year12AdvancedPaper1, year12Extension1Paper1];
 
 export type ExamSummary = {
   id: string;
