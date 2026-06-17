@@ -72,7 +72,7 @@ export const futureValueAnnuitiesChallenge: PracticeQuestion[] = [
     id: "chal-y12a-ann-1",
     prompt:
       "$500 is invested at the end of each year for 5 years at 6% p.a. compounded annually. Find the future value, to the nearest cent.",
-    latex: "FV = 500 \\cdot \\dfrac{(1.06)^5 - 1}{0.06}",
+    latex: "",
     answer: "2818.55",
     acceptedAnswers: ["$2818.55"],
     hint: "Use the future value of an ordinary annuity: FV = PMT·((1+r)ⁿ − 1)/r.",
@@ -83,7 +83,7 @@ export const futureValueAnnuitiesChallenge: PracticeQuestion[] = [
     id: "chal-y12a-ann-2",
     prompt:
       "$1000 is invested at the end of each year for 4 years at 5% p.a. compounded annually. Find the future value, to the nearest cent.",
-    latex: "FV = 1000 \\cdot \\dfrac{(1.05)^4 - 1}{0.05}",
+    latex: "",
     answer: "4310.13",
     acceptedAnswers: ["$4310.13"],
     hint: "FV = PMT·((1+r)ⁿ − 1)/r.",
@@ -93,7 +93,7 @@ export const futureValueAnnuitiesChallenge: PracticeQuestion[] = [
     id: "chal-y12a-ann-3",
     prompt:
       "How much must be invested at the end of each year for 3 years at 8% p.a. to reach $10 000? Give the annual payment to the nearest cent.",
-    latex: "10000 = PMT \\cdot \\dfrac{(1.08)^3 - 1}{0.08}",
+    latex: "",
     answer: "3080.34",
     acceptedAnswers: ["$3080.34", "3080.35"],
     hint: "Rearrange the annuity formula for PMT = FV·r/((1+r)ⁿ − 1).",

@@ -8,7 +8,7 @@ export const simpleInterestChallenge: PracticeQuestion[] = [
     id: "chal-y11s-si-1",
     prompt:
       "How many years does it take for $4000 to earn $1000 in interest at 5% per annum simple interest?",
-    latex: "I = Prn",
+    latex: "",
     answer: "5",
     acceptedAnswers: ["5 years"],
     hint: "Rearrange I = Prn to make n the subject: n = I / (Pr).",
@@ -19,7 +19,7 @@ export const simpleInterestChallenge: PracticeQuestion[] = [
     id: "chal-y11s-si-2",
     prompt:
       "An amount invested at 6% per annum simple interest grows to $3250 after 5 years. Find the amount originally invested.",
-    latex: "A = P(1 + rn)",
+    latex: "",
     answer: "2500",
     acceptedAnswers: ["$2500", "2,500"],
     hint: "The total is P(1 + rn). Here 1 + rn = 1 + 0.06 × 5 = 1.3.",
@@ -30,7 +30,7 @@ export const simpleInterestChallenge: PracticeQuestion[] = [
     id: "chal-y11s-si-3",
     prompt:
       "What simple interest rate (per annum) is needed for $2000 to earn $360 in 3 years? Give your answer as a percentage.",
-    latex: "r = \\dfrac{I}{Pn}",
+    latex: "",
     answer: "6",
     acceptedAnswers: ["6%", "0.06"],
     hint: "Rearrange I = Prn to r = I / (Pn).",
@@ -44,7 +44,7 @@ export const speedDistanceTimeChallenge: PracticeQuestion[] = [
     id: "chal-y11s-spd-1",
     prompt:
       "A car travels 240 km in 3 hours, then a further 180 km in 2 hours. Find the average speed for the whole journey.",
-    latex: "\\text{average speed} = \\dfrac{\\text{total distance}}{\\text{total time}}",
+    latex: "",
     answer: "84",
     acceptedAnswers: ["84 km/h"],
     hint: "Use total distance ÷ total time, not the average of the two speeds.",
@@ -54,7 +54,7 @@ export const speedDistanceTimeChallenge: PracticeQuestion[] = [
   {
     id: "chal-y11s-spd-2",
     prompt: "Convert 72 km/h to metres per second.",
-    latex: "1\\text{ km/h} = \\dfrac{1000}{3600}\\text{ m/s}",
+    latex: "",
     answer: "20",
     acceptedAnswers: ["20 m/s"],
     hint: "Multiply by 1000 to get metres, then divide by 3600 to get seconds.",
@@ -65,7 +65,7 @@ export const speedDistanceTimeChallenge: PracticeQuestion[] = [
     id: "chal-y11s-spd-3",
     prompt:
       "A train travels at a constant 90 km/h. How far does it travel in 40 minutes?",
-    latex: "\\text{distance} = \\text{speed} \\times \\text{time}",
+    latex: "",
     answer: "60",
     acceptedAnswers: ["60 km"],
     hint: "Convert 40 minutes to hours (40/60) before multiplying.",
@@ -98,7 +98,7 @@ export const fiveNumberSummaryChallenge: PracticeQuestion[] = [
     id: "chal-y11s-bp-3",
     prompt:
       "A data set has Q1 = 20 and Q3 = 40. Using the 1.5 × IQR rule, is a value of 75 an outlier? Answer yes or no.",
-    latex: "\\text{upper fence} = Q_3 + 1.5 \\times \\text{IQR}",
+    latex: "",
     answer: "yes",
     acceptedAnswers: ["yes it is an outlier"],
     hint: "Find the upper fence Q3 + 1.5 × IQR and compare it with 75.",

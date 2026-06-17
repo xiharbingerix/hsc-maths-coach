@@ -58,7 +58,7 @@ export const vectorsChallenge: PracticeQuestion[] = [
     id: "chal-y12e1-vec-3",
     prompt:
       "Find the cosine of the angle between the vectors $(1,2,2)$ and $(2,2,1)$.",
-    latex: "\\cos\\theta = \\dfrac{\\mathbf{a}\\cdot\\mathbf{b}}{|\\mathbf{a}|\\,|\\mathbf{b}|}",
+    latex: "",
     answer: "8/9",
     hint: "Both vectors have magnitude 3.",
     explanation:

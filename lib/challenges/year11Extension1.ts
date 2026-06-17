@@ -8,7 +8,7 @@ export const combinationsChallenge: PracticeQuestion[] = [
     id: "chal-y11e-comb-1",
     prompt:
       "In how many ways can a committee of 3 be chosen from 8 people?",
-    latex: "\\binom{8}{3}",
+    latex: "",
     answer: "56",
     hint: "Order does not matter, so use a combination.",
     explanation: "$\\binom{8}{3} = \\dfrac{8 \\times 7 \\times 6}{3!} = 56$.",
@@ -17,7 +17,7 @@ export const combinationsChallenge: PracticeQuestion[] = [
     id: "chal-y11e-comb-2",
     prompt:
       "From 5 men and 4 women, how many committees of 3 contain exactly 2 men?",
-    latex: "\\binom{5}{2}\\binom{4}{1}",
+    latex: "",
     answer: "40",
     hint: "Choose 2 of the 5 men AND 1 of the 4 women, then multiply.",
     explanation:
@@ -26,7 +26,7 @@ export const combinationsChallenge: PracticeQuestion[] = [
   {
     id: "chal-y11e-comb-3",
     prompt: "In how many ways can 4 cards be chosen from a standard deck of 52?",
-    latex: "\\binom{52}{4}",
+    latex: "",
     answer: "270725",
     acceptedAnswers: ["270,725"],
     hint: "Order does not matter — use a single combination.",
@@ -58,7 +58,7 @@ export const rootsCoefficientsChallenge: PracticeQuestion[] = [
     id: "chal-y11e-rc-3",
     prompt:
       "For $2x^2 - 6x + 1 = 0$ with roots α and β, find $\\alpha^2 + \\beta^2$.",
-    latex: "\\alpha^2 + \\beta^2 = (\\alpha + \\beta)^2 - 2\\alpha\\beta",
+    latex: "",
     answer: "8",
     hint: "Use the identity α² + β² = (α + β)² − 2αβ.",
     explanation:
@@ -71,7 +71,7 @@ export const doubleAngleChallenge: PracticeQuestion[] = [
     id: "chal-y11e-da-1",
     prompt:
       "Given $\\sin\\theta = \\tfrac{5}{13}$ with θ acute, find $\\cos 2\\theta$.",
-    latex: "\\cos 2\\theta = 1 - 2\\sin^2\\theta",
+    latex: "",
     answer: "119/169",
     hint: "Use cos 2θ = 1 − 2sin²θ.",
     explanation:
@@ -90,7 +90,7 @@ export const doubleAngleChallenge: PracticeQuestion[] = [
     id: "chal-y11e-da-3",
     prompt:
       "θ is acute with $\\cos\\theta = \\tfrac{\\sqrt{3}}{2}$. Find the exact value of $\\sin 2\\theta$.",
-    latex: "\\sin 2\\theta = 2\\sin\\theta\\cos\\theta",
+    latex: "",
     answer: "sqrt(3)/2",
     acceptedAnswers: ["√3/2", "\\dfrac{\\sqrt{3}}{2}", "\\sqrt{3}/2"],
     hint: "Here θ = 30°, so sin θ = 1/2.",

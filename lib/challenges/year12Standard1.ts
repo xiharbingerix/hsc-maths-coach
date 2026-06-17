@@ -15,7 +15,7 @@ export const rightAngleTrigAppliedChallenge: PracticeQuestion[] = [
     id: "chal-y12s1-rt-1",
     prompt:
       "A 5 m ladder leans against a wall at 70° to the ground. How high up the wall does it reach, to 2 decimal places (m)?",
-    latex: "\\text{height} = 5\\sin 70°",
+    latex: "",
     answer: "4.70",
     acceptedAnswers: ["4.70 m", "4.7"],
     hint: "The height is opposite the 70° angle; use sine.",
@@ -25,7 +25,7 @@ export const rightAngleTrigAppliedChallenge: PracticeQuestion[] = [
     id: "chal-y12s1-rt-2",
     prompt:
       "From a point 15 m from the base of a tower, the angle of elevation to the top is measured. The tower is 20 m tall. Find the angle of elevation, to the nearest degree.",
-    latex: "\\tan\\theta = \\dfrac{20}{15}",
+    latex: "",
     answer: "53",
     acceptedAnswers: ["53°", "53 degrees"],
     hint: "Use tan θ = opposite / adjacent, then inverse tan.",
@@ -35,7 +35,7 @@ export const rightAngleTrigAppliedChallenge: PracticeQuestion[] = [
     id: "chal-y12s1-rt-3",
     prompt:
       "A ramp rises 0.8 m over a horizontal distance of 10 m. Find the angle of inclination, to the nearest degree.",
-    latex: "\\tan\\theta = \\dfrac{0.8}{10}",
+    latex: "",
     answer: "5",
     acceptedAnswers: ["5°", "5 degrees"],
     hint: "Use inverse tangent of rise over run.",
@@ -47,7 +47,7 @@ export const summaryStatsChallenge: PracticeQuestion[] = [
   {
     id: "chal-y12s1-ss-1",
     prompt: "Find the mean of: 12, 15, 18, 20, 25.",
-    latex: "\\bar{x} = \\dfrac{\\sum x}{n}",
+    latex: "",
     answer: "18",
     hint: "Add the values and divide by how many there are.",
     explanation: "$\\dfrac{12+15+18+20+25}{5} = \\dfrac{90}{5} = 18$.",
@@ -65,7 +65,7 @@ export const summaryStatsChallenge: PracticeQuestion[] = [
     id: "chal-y12s1-ss-3",
     prompt:
       "The mean of 5 numbers is 14. Four of them are 10, 12, 15 and 18. Find the fifth number.",
-    latex: "\\bar{x} = \\dfrac{\\sum x}{n}",
+    latex: "",
     answer: "15",
     hint: "The total of all five must be 5 × 14 = 70.",
     explanation:
@@ -78,7 +78,7 @@ export const depreciationChallenge: PracticeQuestion[] = [
     id: "chal-y12s1-dep-1",
     prompt:
       "Equipment costing $18 000 depreciates by a fixed $2500 each year (straight-line). Find its value after 4 years.",
-    latex: "S = V_0 - Dn",
+    latex: "",
     answer: "8000",
     acceptedAnswers: ["$8000", "8,000"],
     hint: "Subtract 4 lots of $2500 from the original value.",
@@ -88,7 +88,7 @@ export const depreciationChallenge: PracticeQuestion[] = [
     id: "chal-y12s1-dep-2",
     prompt:
       "A vehicle worth $12 000 depreciates by 20% of its value each year (declining balance). Find its value after 3 years.",
-    latex: "S = V_0(1 - r)^n",
+    latex: "",
     answer: "6144",
     acceptedAnswers: ["$6144", "6,144"],
     hint: "Each year multiply by the decay factor 0.8; do this 3 times.",

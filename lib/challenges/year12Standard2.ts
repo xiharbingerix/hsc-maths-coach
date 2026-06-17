@@ -8,7 +8,7 @@ export const compoundInterestChallenge: PracticeQuestion[] = [
     id: "chal-y12s2-ci-1",
     prompt:
       "$8000 is invested at 6% per annum compounded monthly. Find the value after 2 years, to the nearest cent.",
-    latex: "A = 8000\\left(1 + \\dfrac{0.06}{12}\\right)^{24}",
+    latex: "",
     answer: "9017.28",
     acceptedAnswers: ["$9017.28", "9017.28 dollars", "9017"],
     hint: "Compounded monthly means the rate per period is 0.06/12 and there are 12 × 2 = 24 periods.",
@@ -44,7 +44,7 @@ export const sineCosineRuleChallenge: PracticeQuestion[] = [
     id: "chal-y12s2-tri-1",
     prompt:
       "In triangle ABC, a = 12, b = 15 and angle A = 40°. Find the acute angle B, to 1 decimal place.",
-    latex: "\\dfrac{\\sin B}{b} = \\dfrac{\\sin A}{a}",
+    latex: "",
     answer: "53.5",
     acceptedAnswers: ["53.5°", "53.46", "53.4"],
     hint: "Use the sine rule: sin B = b sin A / a.",
@@ -55,7 +55,7 @@ export const sineCosineRuleChallenge: PracticeQuestion[] = [
     id: "chal-y12s2-tri-2",
     prompt:
       "Find the area of a triangle with sides 6 cm and 8 cm enclosing an angle of 65°, to 2 decimal places.",
-    latex: "A = \\tfrac{1}{2}ab\\sin C",
+    latex: "",
     answer: "21.75",
     acceptedAnswers: ["21.75 cm²", "21.8"],
     hint: "Use A = ½ab sin C with the two given sides and the included angle.",
@@ -66,7 +66,7 @@ export const sineCosineRuleChallenge: PracticeQuestion[] = [
     id: "chal-y12s2-tri-3",
     prompt:
       "A triangle has sides 5, 7 and 9. Find its largest angle, to 1 decimal place.",
-    latex: "\\cos C = \\dfrac{a^2 + b^2 - c^2}{2ab}",
+    latex: "",
     answer: "95.7",
     acceptedAnswers: ["95.7°", "95.74"],
     hint: "The largest angle is opposite the longest side (9). Use the cosine rule.",
@@ -80,7 +80,7 @@ export const zScoresChallenge: PracticeQuestion[] = [
     id: "chal-y12s2-z-1",
     prompt:
       "A test has mean 65 and standard deviation 12. A student scores 83. Find their z-score, to 1 decimal place.",
-    latex: "z = \\dfrac{x - \\mu}{\\sigma}",
+    latex: "",
     answer: "1.5",
     hint: "z = (score − mean) / standard deviation.",
     explanation: "$z = \\dfrac{83 - 65}{12} = 1.5$.",
@@ -89,7 +89,7 @@ export const zScoresChallenge: PracticeQuestion[] = [
     id: "chal-y12s2-z-2",
     prompt:
       "In Maths (mean 70, sd 10) a student scored 85; in English (mean 60, sd 8) they scored 74. In which subject did they perform relatively better?",
-    latex: "z = \\dfrac{x - \\mu}{\\sigma}",
+    latex: "",
     answer: "English",
     acceptedAnswers: ["english"],
     hint: "Compare z-scores; the higher z-score is the relatively better result.",
