@@ -627,18 +627,18 @@ function greatestTermLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
     guidedPractice: [
       choice(
         "y11ext-bt-grt-g1",
-        "The ratio T_{r+2}/T_{r+1} for a binomial expansion simplifies to r ≤ 2.5. Which term is the greatest?",
+        "For a binomial expansion the ratio $\\dfrac{T_{r+2}}{T_{r+1}}$ is at least 1 while $r \\le 2.5$. Which term is the greatest?",
         "C",
-        ["T₂", "T₃", "T₄", "T₅"],
-        "r ≤ 2.5 means the ratio is at least 1 for r = 0, 1, 2, so terms increase up to T₄. At r = 3 the ratio drops below 1 and T₅ < T₄. The greatest term is T₄.",
-        "\\frac{T_{r+2}}{T_{r+1}}\\geq 1\\implies r\\leq 2.5"
+        ["$T_2$", "$T_3$", "$T_4$", "$T_5$"],
+        "The ratio is $\\ge 1$ for $r = 0, 1, 2$, so terms increase up to $T_4$. At $r = 3$ the ratio drops below 1 and $T_5 < T_4$. The greatest term is $T_4$.",
+        "\\dfrac{T_{r+2}}{T_{r+1}} \\ge 1"
       ),
       choice(
         "y11ext-bt-grt-g2",
-        "Write the simplified ratio T_{r+2}/T_{r+1} for the expansion of (1+x)^5.",
+        "Write the simplified ratio $\\dfrac{T_{r+2}}{T_{r+1}}$ for the expansion of $(1+x)^5$.",
         "B",
-        ["\\dfrac{r+1}{5-r}", "\\dfrac{5-r}{r+1}", "\\dfrac{5-r}{r}", "\\dfrac{6-r}{r+1}"],
-        "T_{r+2}/T_{r+1} = C(5,r+1)/C(5,r) = (5-r)/(r+1).",
+        ["$\\dfrac{r+1}{5-r}$", "$\\dfrac{5-r}{r+1}$", "$\\dfrac{5-r}{r}$", "$\\dfrac{6-r}{r+1}$"],
+        "$\\dfrac{T_{r+2}}{T_{r+1}} = \\dfrac{\\binom{5}{r+1}}{\\binom{5}{r}} = \\dfrac{5-r}{r+1}$.",
         "(1+x)^5"
       ),
       intAnswer(
@@ -711,11 +711,11 @@ function greatestTermLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
     masteryQuiz: [
       choice(
         "y11ext-bt-grt-m1",
-        "T_{r+2}/T_{r+1} ≥ 1 simplifies to r ≤ 2 for a binomial expansion. Which term is the greatest?",
+        "For a binomial expansion $\\dfrac{T_{r+2}}{T_{r+1}} \\ge 1$ while $r \\le 2$. Which term is the greatest?",
         "C",
-        ["T₂", "T₃", "T₄", "T₅"],
-        "At r = 2 the ratio equals exactly 1, so T₄ = T₃ and both tie for greatest. At r = 3 the ratio drops below 1, so T₅ < T₄. T₄ is among the greatest terms (tied with T₃).",
-        "\\frac{T_{r+2}}{T_{r+1}}\\geq 1\\implies r\\leq 2"
+        ["$T_2$", "$T_3$", "$T_4$", "$T_5$"],
+        "At $r = 2$ the ratio equals exactly 1, so $T_4 = T_3$ tie for greatest. At $r = 3$ the ratio drops below 1, so $T_5 < T_4$. $T_4$ is among the greatest terms (tied with $T_3$).",
+        "\\dfrac{T_{r+2}}{T_{r+1}} \\ge 1"
       ),
       choice(
         "y11ext-bt-grt-m2",
