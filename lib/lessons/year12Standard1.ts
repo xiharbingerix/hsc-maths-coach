@@ -2316,7 +2316,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
         "Right-angle trigonometry connects an acute angle in a right triangle to the ratio of two sides. The three ratios are sine (opposite over hypotenuse), cosine (adjacent over hypotenuse) and tangent (opposite over adjacent).",
         "In an angle-of-elevation problem, the observer looks up from horizontal ground. The angle theta is at the observer, the opposite side is the vertical height, and the adjacent side is the horizontal distance.",
         "In an angle-of-depression problem, the observer looks downward from a height. The depression angle at the top equals the elevation angle from the bottom — they are alternate interior angles between parallel horizontal lines.",
-        "To find an angle from two known sides, use the inverse function: \\(\\theta = \\tan^{-1}\\!\\left(\\tfrac{\\text{opp}}{\\text{adj}}\\right)\\), or \\(\\sin^{-1}\\) or \\(\\cos^{-1}\\) as appropriate. Round angles to the nearest degree unless told otherwise.",
+        "To find an angle from two known sides, use the inverse function: $\\theta = \\tan^{-1}\\!\\left(\\tfrac{\\text{opp}}{\\text{adj}}\\right)$, or $\\sin^{-1}$ or $\\cos^{-1}$ as appropriate. Round angles to the nearest degree unless told otherwise.",
       ],
       latexBlocks: [
         "\\sin\\theta=\\frac{\\text{opposite}}{\\text{hypotenuse}},\\quad\\cos\\theta=\\frac{\\text{adjacent}}{\\text{hypotenuse}},\\quad\\tan\\theta=\\frac{\\text{opposite}}{\\text{adjacent}}",

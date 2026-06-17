@@ -348,7 +348,7 @@ const primesAndPrimeFactorisation: LessonContent = {
     ),
     answer(
       "y7-ind-pri-g2",
-      "Write 20 as a product of prime factors. Give your answer in index form (e.g. 2^2 × 5).",
+      "Write 20 as a product of prime factors. Give your answer in index form (e.g. $2^2 × 5$).",
       "20 = 4\\times5 = 2\\times2\\times5",
       "2^2*5",
       "20 = 4 × 5 = 2 × 2 × 5 = 2² × 5.",
@@ -813,7 +813,7 @@ const indexLawsProductQuotientPower: LessonContent = {
       "Which expression is equivalent to (5²)³?",
       "C",
       ["$5^5$", "$5^2+5^3$", "$5^6$", "$5^8$"],
-      "(5²)³ = 5^(2×3) = 5⁶. Multiplying the exponents gives 6."
+      "$(5^2)^3 = 5^{2×3} = 5^6$. Multiplying the exponents gives 6."
     ),
   ],
   commonMistakes: [
@@ -875,7 +875,7 @@ const indexLawsProductQuotientPower: LessonContent = {
         "They multiplied both the bases and exponents.",
         "They used the wrong law — should divide the exponents.",
       ],
-      "3⁴ × 3⁵ = 3^(4+5) = 3⁹. The base stays 3; only the exponents are added."
+      "$3^4 × 3^5 = 3^{4+5} = 3^9$. The base stays 3; only the exponents are added."
     ),
     answer(
       "y7-ind-law-m8",
@@ -914,7 +914,7 @@ const zeroIndexAndMixedIndices: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Any non-zero number raised to the power of zero equals 1. This is not a definition chosen arbitrarily — it follows directly from the quotient law. For example, 5³ ÷ 5³ = 1 (any non-zero number divided by itself is 1), and by the quotient law 5³ ÷ 5³ = 5^(3−3) = 5⁰. So 5⁰ must equal 1.",
+      "Any non-zero number raised to the power of zero equals 1. This is not a definition chosen arbitrarily — it follows directly from the quotient law. For example, $5^3 ÷ 5^3 = 1$ (any non-zero number divided by itself is 1), and by the quotient law $5^3 ÷ 5^3 = 5^{3−3} = 5^0$. So $5^0$ must equal 1.",
       "When an expression contains more than one operation, apply the index laws one step at a time. Work from left to right for operations at the same level — the same way you would with normal multiplication and division.",
       "To simplify 2³ × 2⁴ ÷ 2⁵: first apply the product law to 2³ × 2⁴ to get 2⁷, then apply the quotient law to 2⁷ ÷ 2⁵ to get 2². This keeps the working clear and reduces the chance of errors.",
       "When the question asks for an answer in index form, leave the result as a power. When it asks you to evaluate, calculate the numerical value. Check what the question is asking before you stop.",

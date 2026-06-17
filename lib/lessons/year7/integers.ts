@@ -1126,10 +1126,10 @@ const orderOfOperationsIntegers: LessonContent = {
     ),
     choice(
       "y7-int-oo-m8",
-      "Evaluate (−3)^2 and select the correct answer.",
+      "Evaluate $(−3)^2$ and select the correct answer.",
       "C",
       ["-9", "6", "9", "-6"],
-      "(-3)^2 = (-3) × (-3) = 9. Same signs give a positive result. This is different from -3^2 = -(3^2) = -9.",
+      "$(-3)^2 = (-3) × (-3) = 9$. Same signs give a positive result. This is different from $-3^2 = -(3^2) = -9$.",
       "(-3)^2"
     ),
     answer(

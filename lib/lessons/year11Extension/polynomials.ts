@@ -457,16 +457,16 @@ function graphLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
     workedExamples: graphExamples,
     guidedPractice: [
       countAnswer("poly-graph-g1", "Find the x-intercepts of P(x)=(x-2)(x+1). Give them in increasing order.", "P(x)=(x-2)(x+1)", "-1,2", "Set each factor to zero: x=-1 and x=2.", ["-1, 2"]),
-      countAnswer("poly-graph-g2", "For P(x)=(x-3)^2, does the graph touch or cross at x=3?", "(x-3)^2", "touch", "Even multiplicity roots touch the x-axis."),
+      countAnswer("poly-graph-g2", "For $P(x)=(x-3)^2$, does the graph touch or cross at $x=3$?", "(x-3)^2", "touch", "Even multiplicity roots touch the x-axis."),
       choice("poly-graph-g3", "A positive cubic has which end behaviour?", "C", ["left up, right up", "left up, right down", "left down, right up", "left down, right down"], "Positive odd degree graphs fall left and rise right."),
       choice("poly-graph-g4", "A negative quartic has which end behaviour?", "D", ["left down, right up", "left up, right down", "left up, right up", "left down, right down"], "Negative even degree graphs fall on both ends."),
     ],
     independentPractice: [
       countAnswer("poly-graph-i1", "Find the roots of P(x)=(x+4)(x-1)(x-5).", "P(x)=(x+4)(x-1)(x-5)", "-4,1,5", "Set each factor to zero.", ["-4, 1, 5"]),
-      countAnswer("poly-graph-i2", "For P(x)=(x+2)^2(x-3), at which root does the graph touch?", "P(x)=(x+2)^2(x-3)", "-2", "The repeated factor has even multiplicity at x=-2."),
+      countAnswer("poly-graph-i2", "For $P(x)=(x+2)^2(x-3)$, at which root does the graph touch?", "P(x)=(x+2)^2(x-3)", "-2", "The repeated factor has even multiplicity at x=-2."),
       countAnswer("poly-graph-i3", "For P(x)=x^3-6x^2+11x-6, how many x-intercepts are suggested by roots 1,2,3?", "\\text{roots }1,2,3", "3", "There are three distinct roots, so three x-intercepts."),
       countAnswer("poly-graph-i4", "Find the y-intercept of P(x)=(x-1)(x-2)(x-3).", "P(0)", "-6", "P(0)=(-1)(-2)(-3)=-6."),
-      choice("poly-graph-i5", "Which root is crossed for P(x)=(x-1)^2(x+2)^3?", "B", ["1", "-2", "both roots", "neither root"], "Odd multiplicity 3 at x=-2 means crossing."),
+      choice("poly-graph-i5", "Which root is crossed for $P(x)=(x-1)^2(x+2)^3$?", "B", ["1", "-2", "both roots", "neither root"], "Odd multiplicity 3 at x=-2 means crossing."),
     ],
     commonMistakes: [
       { mistake: "Assuming every root is crossed.", fix: "Even multiplicity roots touch; odd multiplicity roots cross." },
@@ -476,15 +476,15 @@ function graphLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
     ],
     masteryQuiz: [
       countAnswer("poly-graph-m1", "Find the roots of P(x)=(x-2)(x+3)(x-4).", "P(x)=(x-2)(x+3)(x-4)", "-3,2,4", "Set each factor to zero.", ["-3, 2, 4"]),
-      countAnswer("poly-graph-m2", "For P(x)=(x+1)^2(x-5), which root is touched?", "P(x)=(x+1)^2(x-5)", "-1", "The even multiplicity root is x=-1."),
+      countAnswer("poly-graph-m2", "For $P(x)=(x+1)^2(x-5)$, which root is touched?", "P(x)=(x+1)^2(x-5)", "-1", "The even multiplicity root is x=-1."),
       countAnswer("poly-graph-m3", "Find the y-intercept of P(x)=(x+1)(x-2).", "P(0)", "-2", "P(0)=1*(-2)=-2."),
-      countAnswer("poly-graph-m4", "How many distinct x-intercepts does (x-1)^2(x+2)^2 have?", "(x-1)^2(x+2)^2", "2", "The distinct roots are 1 and -2."),
+      countAnswer("poly-graph-m4", "How many distinct x-intercepts does $(x-1)^2(x+2)^2$ have?", "(x-1)^2(x+2)^2", "2", "The distinct roots are 1 and -2."),
       countAnswer("poly-graph-m5", "For P(x)=-x^4+3x^2, does the graph go up or down on the right?", "P(x)=-x^4+3x^2", "down", "The leading term is negative even degree, so the right end goes down."),
       choice("poly-graph-m6", "Which factor gives a touch at x=4?", "A", ["$(x-4)^2$", "$(x+4)$", "$(x-4)^3$", "$(x+4)^3$"], "Even multiplicity at x=4 gives a touch."),
       choice("poly-graph-m7", "Which graph behaviour belongs to a positive quartic?", "C", ["left up, right down", "left down, right up", "left up, right up", "left down, right down"], "Positive even degree rises on both ends."),
       choice("poly-graph-m8", "What does multiplicity 3 usually mean at a root?", "D", ["No intercept", "Touch only", "A y-intercept", "Cross the x-axis"], "Odd multiplicity roots cross."),
       countAnswer("poly-graph-m9", "Find the y-intercept of P(x)=2(x-1)(x+3).", "P(0)", "-6", "P(0)=2*(-1)*3=-6."),
-      countAnswer("poly-graph-m10", "For P(x)=(x-1)^4, does the graph touch or cross at x=1?", "(x-1)^4", "touch", "Multiplicity 4 is even, so the graph touches."),
+      countAnswer("poly-graph-m10", "For $P(x)=(x-1)^4$, does the graph touch or cross at $x=1$?", "(x-1)^4", "touch", "Multiplicity 4 is even, so the graph touches."),
     ],
   };
 }

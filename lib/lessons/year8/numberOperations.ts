@@ -1044,7 +1044,7 @@ const orderOfOperations: LessonContent = {
       "B",
       [
         "They forgot to include the 5 at the end.",
-        "They added first: \\((5 + 7) \\times 5 = 60\\) instead of multiplying first.",
+        "They added first: $(5 + 7) \\times 5 = 60$ instead of multiplying first.",
         "They applied BODMAS correctly.",
         "They divided instead of multiplied.",
       ],

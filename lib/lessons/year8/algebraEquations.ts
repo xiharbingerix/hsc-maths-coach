@@ -2564,7 +2564,7 @@ const formulaRearrangement: LessonContent = {
     ),
     choice(
       "y8-aeq-frm-m2",
-      "The temperature formula is C = \\frac{5}{9}(F - 32). Make F the subject.",
+      "The temperature formula is $C = \\frac{5}{9}(F - 32)$. Make $F$ the subject.",
       "A",
       [
         "$F = \\dfrac{9C}{5} + 32$",

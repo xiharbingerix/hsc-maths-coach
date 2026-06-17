@@ -430,7 +430,7 @@ export function year11StandardFormulasEquationsLessonOverride(
         ],
       },
       guidedPractice: [
-        formulaAnswer("formula-subject-g1", "The formula C = 2\\pi r gives circumference. Rearrange it to make r the subject.", "C=2\\pi r", "r = C/(2pi)", ["r=C/(2pi)", "r=C/(2\\pi)", "r = C/(2\\pi)", "r=C/2pi"]),
+        formulaAnswer("formula-subject-g1", "The formula $C = 2\\pi r$ gives circumference. Rearrange it to make $r$ the subject.", "C=2\\pi r", "r = C/(2pi)", ["r=C/(2pi)", "r=C/(2\\pi)", "r = C/(2\\pi)", "r=C/2pi"]),
         formulaAnswer("formula-subject-g2", "The triangle area formula is A = bh/2. Rearrange it to make h the subject.", "A=\\frac{bh}{2}", "h = 2A/b", ["h=2A/b", "h=(2A)/b", "h = (2A)/b"]),
         formulaAnswer("formula-subject-g3", "A hire formula is C = 35 + 12h. Rearrange it to make h the subject.", "C=35+12h", "h = (C - 35)/12", ["h=(C-35)/12", "h = (C-35)/12", "h=C-35/12"]),
         financeChoice("formula-subject-g4", "To make h the subject of C = 35 + 12h, the first inverse operation is:", "A", ["Subtract 35", "Divide by 35", "Add 12", "Square h"], "Undo the added 35 before dividing by 12."),
@@ -449,7 +449,7 @@ export function year11StandardFormulasEquationsLessonOverride(
         { mistake: "When a variable is squared, giving the result without taking the square root.", fix: "If x² = 100 and x is a positive length, then x = 10, not 100." },
       ],
       masteryQuiz: [
-        formulaAnswer("formula-subject-m1", "The circumference formula is C = 2\\pi r. Make r the subject.", "C=2\\pi r", "r = C/(2pi)", ["r=C/(2pi)", "r=C/(2\\pi)", "r = C/(2\\pi)", "r=C/2pi"]),
+        formulaAnswer("formula-subject-m1", "The circumference formula is $C = 2\\pi r$. Make $r$ the subject.", "C=2\\pi r", "r = C/(2pi)", ["r=C/(2pi)", "r=C/(2\\pi)", "r = C/(2\\pi)", "r=C/2pi"]),
         formulaAnswer("formula-subject-m2", "The triangle area formula is A = bh/2. Make b the subject.", "A=\\frac{bh}{2}", "b = 2A/h", ["b=2A/h", "b=(2A)/h", "b = (2A)/h"]),
         formulaAnswer("formula-subject-m3", "A cost formula is C = 20 + 5n. Make n the subject.", "C=20+5n", "n = (C - 20)/5", ["n=(C-20)/5", "n = (C-20)/5"]),
         formulaAnswer("formula-subject-m4", "The distance formula is d = st. Make t the subject.", "d=st", "t = d/s", ["t=d/s", "t = d ÷ s"]),

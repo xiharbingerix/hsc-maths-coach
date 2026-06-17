@@ -908,7 +908,7 @@ export function year11StandardApplicationsMeasurementLessonOverride(
         paragraphs: [
           "When a boundary is irregular (not a straight line or simple curve), standard area formulas cannot be applied directly. Surveyors use offsets — perpendicular measurements from a straight baseline to the irregular boundary — to approximate the area. The Trapezoidal Rule treats each strip between two adjacent offsets as a trapezium.",
           "For a single strip (two offsets), the area of a trapezium is: A = ½ × (d_f + d_l) × h, where d_f is the first offset, d_l is the last offset, and h is the horizontal distance between them.",
-          "For multiple equally spaced strips, the Trapezoidal Rule combines all strips: A ≈ h/2 × (d_f + d_l + 2(d₂ + d₃ + ... + d_{n-1})). Here h is the common interval between offsets, d_f is the first offset, d_l is the last offset, and all offsets in between are added together and doubled.",
+          "For multiple equally spaced strips, the Trapezoidal Rule combines all strips: $A ≈ h/2 × (d_f + d_l + 2(d_2 + d_3 + \\dots + d_{n-1}))$. Here $h$ is the common interval between offsets, $d_f$ is the first offset, $d_l$ is the last offset, and all offsets in between are added together and doubled.",
           "Units: if offsets and intervals are in metres, the area is in m². Convert to hectares where necessary: 1 hectare = 10,000 m². Always state the unit with the final answer.",
         ],
         latexBlocks: [

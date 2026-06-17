@@ -1978,7 +1978,7 @@ const compoundInterestIntroduction: LessonContent = {
   successCriteria: [
     "Explain why compound interest earns more than simple interest over time.",
     "Identify P (principal), r (annual rate as a decimal) and n (number of years) from a problem.",
-    "Apply the formula A = P(1 + r)^n to find the total amount.",
+    "Apply the formula $A = P(1 + r)^n$ to find the total amount.",
     "Calculate compound interest earned as I = A − P.",
     "Compare the final amounts under simple interest and compound interest.",
   ],
@@ -2113,7 +2113,7 @@ const compoundInterestIntroduction: LessonContent = {
       "$800 is invested at 2% compound interest per year for 4 years. Find the interest earned.",
       "I = 800 \\times (1.02)^4 - 800 = \\;?",
       "65.94",
-      "(1.02)^4 = 1.08243216. A = 800 × 1.08243216 ≈ 865.95. I = 865.95 − 800 = 65.95. (Accept answers in the range 65.94–65.95.)",
+      "$(1.02)^4 = 1.08243216$. A = 800 × 1.08243216 ≈ 865.95. I = 865.95 − 800 = 65.95. (Accept answers in the range 65.94–65.95.)",
       ["$65.94", "65.95", "$65.95"]
     ),
   ],
@@ -2154,7 +2154,7 @@ const compoundInterestIntroduction: LessonContent = {
         "A = 2000 × (1.03)^4",
         "A = 2000 × 1.03 × 4",
       ],
-      "r = 3% = 0.03, so (1 + r) = 1.03. The formula becomes A = 2000 × (1.03)^4."
+      "r = 3% = 0.03, so (1 + r) = 1.03. The formula becomes $A = 2000 × (1.03)^4$."
     ),
     answer(
       "y8-nfm-cmp-m3",
