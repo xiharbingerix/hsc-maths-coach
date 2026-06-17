@@ -988,7 +988,7 @@ export function year11AdvancedProbabilityDataLessonOverride(
         ),
         dataAnswer(
           "y11adv-pd-sets-m3",
-          "Find n(A∪B) from the Venn diagram regions.",
+          "Find n(A∪B) by adding the three separate region counts.",
           "n(A\\text{ only})=5,\\quad n(A\\cap B)=3,\\quad n(B\\text{ only})=7",
           "15"
         ),
@@ -1053,6 +1053,17 @@ export function year11AdvancedProbabilityDataLessonOverride(
           id: "y11adv-pd-sets-mp1",
           prompt: "Use the Venn diagram information to answer the following.",
           latex: "n(\\xi)=30,\\quad n(A)=18,\\quad n(B)=12,\\quad n(A\\cap B)=7",
+          vennDiagram: {
+            description:
+              "Venn diagram for 30 elements. A only is 11, the intersection of A and B is 7, B only is 5, and neither is 7.",
+            setALabel: "A",
+            setBLabel: "B",
+            aOnly: 11,
+            intersection: 7,
+            bOnly: 5,
+            neither: 7,
+            total: 30,
+          },
           answer: "23",
           hint: "Apply n(A∪B)=n(A)+n(B)−n(A∩B), then find the complement and probability.",
           explanation:
