@@ -1,5 +1,6 @@
 /**
- * Deterministic question audit (no LLM). Scans lib/lessons for:
+ * Deterministic question audit (no LLM). Scans lib/lessons, lib/challenges and
+ * lib/exams for:
  *  - UNFORMATTED-MATH: math notation in MathText-rendered fields (prompt, choice
  *    text, hint, explanation) that the MathText auto-wrapper does NOT catch, so
  *    it renders literally (e.g. "2^3", "(x+1)^2", "x^{10}", bare "\frac").
@@ -165,6 +166,7 @@ function checkSelfReveal(content: string, file: string, findings: string[]) {
 // ── walk ─────────────────────────────────────────────────────────────────────
 function walk(dir: string): string[] {
   const out: string[] = [];
+  if (!fs.existsSync(dir)) return out;
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name);
     if (e.isDirectory()) out.push(...walk(p));
@@ -173,7 +175,14 @@ function walk(dir: string): string[] {
   return out;
 }
 
-const files = walk("lib/lessons");
+// All three hold MathText/BlockMath-rendered question content: lesson catalog,
+// the Level-6 challenge layer, and the timed exam papers (whose MCQ choice text
+// also renders via MathText, so math there needs $...$ too).
+const files = [
+  ...walk("lib/lessons"),
+  ...walk("lib/challenges"),
+  ...walk("lib/exams"),
+];
 const findings: string[] = [];
 for (const file of files) {
   const content = fs.readFileSync(file, "utf8");

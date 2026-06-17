@@ -60,7 +60,7 @@ export const year12AdvancedPaper1: ExamPaper = {
         },
         {
           id: "y12a-p1-q3",
-          prompt: "Solve e^(2x) = 5 for x. Give the exact value.",
+          prompt: "Solve $e^{2x} = 5$ for x. Give the exact value.",
           latex: "e^{2x} = 5",
           marks: 2,
           difficulty: 4,
@@ -163,7 +163,7 @@ export const year12AdvancedPaper1: ExamPaper = {
         {
           id: "y12a-p1-q7",
           prompt:
-            "A population is modelled by P(t) = 500e^(0.08t), where t is in years.",
+            "A population is modelled by $P(t) = 500e^{0.08t}$, where t is in years.",
           latex: "P(t) = 500e^{0.08t}",
           marks: 5,
           difficulty: 6,
@@ -172,7 +172,7 @@ export const year12AdvancedPaper1: ExamPaper = {
           topicTitle: "Exponential growth (synoptic with calculus)",
           remediationHref: REMEDIATION,
           explanation:
-            "P(0) = 500. P'(t) = 40e^{0.08t}, so P'(10) = 40e^{0.8} ≈ 89. Set 500e^{0.08t} = 1500 → e^{0.08t} = 3 → t = (ln 3)/0.08 ≈ 13.73 years.",
+            "$P(0) = 500$. $P'(t) = 40e^{0.08t}$, so $P'(10) = 40e^{0.8} \\approx 89$. Set $500e^{0.08t} = 1500 \\Rightarrow e^{0.08t} = 3 \\Rightarrow t = (\\ln 3)/0.08 \\approx 13.73$ years.",
           parts: [
             {
               key: "a",
@@ -189,7 +189,7 @@ export const year12AdvancedPaper1: ExamPaper = {
                 "Find the rate of growth when t = 10, to the nearest whole number (people per year).",
               marks: 2,
               answer: "89",
-              explanation: "P'(t) = 40e^{0.08t}; P'(10) = 40e^{0.8} ≈ 89.",
+              explanation: "$P'(t) = 40e^{0.08t}$; $P'(10) = 40e^{0.8} \\approx 89$.",
             },
             {
               key: "c",
@@ -199,7 +199,7 @@ export const year12AdvancedPaper1: ExamPaper = {
               marks: 2,
               answer: "13.73",
               acceptedAnswers: ["13.7"],
-              explanation: "500e^{0.08t} = 1500 → t = (ln 3)/0.08 ≈ 13.73.",
+              explanation: "$500e^{0.08t} = 1500 \\Rightarrow t = (\\ln 3)/0.08 \\approx 13.73$.",
             },
           ],
         },
