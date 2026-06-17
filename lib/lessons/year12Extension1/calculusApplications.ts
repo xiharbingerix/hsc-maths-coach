@@ -63,7 +63,7 @@ const relatedRates: Partial<ExplicitLesson> = {
   teaching: {
     paragraphs: [
       "A related rate problem involves two or more quantities that both change with time. Because they are linked by a geometric formula, differentiating that formula with respect to t connects their rates.",
-      "The key tool is the chain rule. For example, if V = (4/3)\\pi r^3, then differentiating both sides with respect to t gives dV/dt = 4\\pi r^2 \\cdot (dr/dt). The factor dr/dt appears automatically from the chain rule.",
+      "The key tool is the chain rule. For example, if $V = (4/3)\\pi r^3$, then differentiating both sides with respect to $t$ gives $dV/dt = 4\\pi r^2 \\cdot (dr/dt)$. The factor $dr/dt$ appears automatically from the chain rule.",
       "The method has three steps: (1) write the equation relating the quantities; (2) differentiate both sides with respect to t; (3) substitute known values and solve for the unknown rate.",
       "Always substitute the given values after differentiating. Substituting before differentiating will produce the wrong answer because it removes the variables that carry the rate information.",
     ],
@@ -138,7 +138,7 @@ const relatedRates: Partial<ExplicitLesson> = {
   guidedPractice: [
     calcappChoice(
       "y12e1-calcapp-rates-g1",
-      "If V = (4/3)\\pi r^3, which expression gives dV/dt?",
+      "If $V = (4/3)\\pi r^3$, which expression gives $dV/dt$?",
       "A",
       [
         "$4\\pi r^2\\,dr/dt$",
@@ -146,7 +146,7 @@ const relatedRates: Partial<ExplicitLesson> = {
         "$4\\pi r\\,dr/dt$",
         "$(4\\pi/3)\\,dr/dt$",
       ],
-      "Apply the chain rule: d/dt[(4/3)\\pi r^3] = 4\\pi r^2 \\cdot dr/dt."
+      "Apply the chain rule: $d/dt[(4/3)\\pi r^3] = 4\\pi r^2 \\cdot dr/dt$."
     ),
     calcappTyped(
       "y12e1-calcapp-rates-g2",
@@ -179,7 +179,7 @@ const relatedRates: Partial<ExplicitLesson> = {
       "V = \\tfrac{4}{3}\\pi r^3,\\quad r=5,\\quad dr/dt=-1",
       "-100\\pi",
       ["-100\\pi \\text{ cm}^3/\\text{s}"],
-      "dV/dt = 4\\pi r^2 \\cdot dr/dt = 4\\pi(25)(-1) = -100\\pi\\text{ cm}^3/\\text{s}. The negative sign indicates the volume is decreasing."
+      "$dV/dt = 4\\pi r^2 \\cdot dr/dt = 4\\pi(25)(-1) = -100\\pi\\text{ cm}^3/\\text{s}$. The negative sign indicates the volume is decreasing."
     ),
     calcappTyped(
       "y12e1-calcapp-rates-i2",
@@ -206,7 +206,7 @@ const relatedRates: Partial<ExplicitLesson> = {
     ),
     calcappChoice(
       "y12e1-calcapp-rates-i5",
-      "For the area of a circle A = \\pi r^2, which related rate formula is correct?",
+      "For the area of a circle $A = \\pi r^2$, which related rate formula is correct?",
       "B",
       [
         "$dA/dt = \\pi r\\,dr/dt$",
@@ -214,7 +214,7 @@ const relatedRates: Partial<ExplicitLesson> = {
         "$dA/dt = 2\\pi r$",
         "$dA/dt = \\pi(dr/dt)^2$",
       ],
-      "Differentiating A = \\pi r^2 with respect to t gives dA/dt = 2\\pi r \\cdot dr/dt."
+      "Differentiating $A = \\pi r^2$ with respect to $t$ gives $dA/dt = 2\\pi r \\cdot dr/dt$."
     ),
   ],
   commonMistakes: [
@@ -238,7 +238,7 @@ const relatedRates: Partial<ExplicitLesson> = {
   masteryQuiz: [
     calcappChoice(
       "y12e1-calcapp-rates-m1",
-      "For V = (4/3)\\pi r^3, which expression equals dV/dt?",
+      "For $V = (4/3)\\pi r^3$, which expression equals $dV/dt$?",
       "A",
       [
         "$4\\pi r^2\\,dr/dt$",
@@ -246,7 +246,7 @@ const relatedRates: Partial<ExplicitLesson> = {
         "$(4/3)r^2\\,dr/dt$",
         "$\\pi r^2\\,dr/dt$",
       ],
-      "Chain rule applied to (4/3)\\pi r^3 gives 4\\pi r^2 \\cdot dr/dt."
+      "Chain rule applied to $(4/3)\\pi r^3$ gives $4\\pi r^2 \\cdot dr/dt$."
     ),
     calcappTyped(
       "y12e1-calcapp-rates-m2",
@@ -293,7 +293,7 @@ const relatedRates: Partial<ExplicitLesson> = {
     ),
     calcappChoice(
       "y12e1-calcapp-rates-m7",
-      "A balloon's volume grows at 10\\pi cm³/s. When r = 5 cm, dr/dt equals:",
+      "A balloon's volume grows at $10\\pi$ cm³/s. When $r = 5$ cm, $dr/dt$ equals:",
       "A",
       ["$0.1$ cm/s", "$10$ cm/s", "$0.4$ cm/s", "$2.5$ cm/s"],
       "10\\pi = 4\\pi(25)(dr/dt) \\Rightarrow dr/dt = 10/(100) = 0.1\\text{ cm/s}."
@@ -389,17 +389,17 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
   learningIntention:
     "Identify exponential growth or decay models, determine the constant k from given data, and use the model to predict future values.",
   successCriteria: [
-    "State that dN/dt = kN has the solution N = N_0 e^{kt}.",
+    "State that $dN/dt = kN$ has the solution $N = N_0 e^{kt}$.",
     "Find k by substituting a known data point and solving for k.",
     "Distinguish growth (k > 0) from decay (k < 0).",
-    "Apply Newton's Law of Cooling in the form T = S + Ae^{kt} where S is the ambient temperature.",
+    "Apply Newton's Law of Cooling in the form $T = S + Ae^{kt}$ where $S$ is the ambient temperature.",
   ],
   teaching: {
     paragraphs: [
-      "The differential equation dN/dt = kN describes any quantity whose rate of change is proportional to the current amount. Its general solution is N(t) = N_0 e^{kt}, where N_0 is the initial value and k is the growth constant.",
+      "The differential equation $dN/dt = kN$ describes any quantity whose rate of change is proportional to the current amount. Its general solution is $N(t) = N_0 e^{kt}$, where $N_0$ is the initial value and $k$ is the growth constant.",
       "When k > 0 the quantity grows (population growth, compound interest). When k < 0 it decays (radioactive decay, drug concentration). The sign of k is determined by whether the quantity increases or decreases over time.",
-      "To find k: substitute a known value at a specific time into N = N_0 e^{kt} and solve for k using logarithms.",
-      "Newton's Law of Cooling uses T(t) = S + (T_0 - S)e^{kt} where S is the surrounding (ambient) temperature and T_0 is the initial temperature of the object. Here k < 0 for a cooling object.",
+      "To find $k$: substitute a known value at a specific time into $N = N_0 e^{kt}$ and solve for $k$ using logarithms.",
+      "Newton's Law of Cooling uses $T(t) = S + (T_0 - S)e^{kt}$ where $S$ is the surrounding (ambient) temperature and $T_0$ is the initial temperature of the object. Here $k < 0$ for a cooling object.",
     ],
     latexBlocks: [
       "\\frac{dN}{dt} = kN \\;\\Rightarrow\\; N = N_0 e^{kt}",
@@ -472,7 +472,7 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
         "$N = e^{kt}$",
         "$N = N_0 k t$",
       ],
-      "Separating variables and integrating gives N = N_0 e^{kt}."
+      "Separating variables and integrating gives $N = N_0 e^{kt}$."
     ),
     calcappTyped(
       "y12e1-calcapp-expgd-g2",
@@ -500,7 +500,7 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
         "The cooling constant",
         "The amplitude of temperature change",
       ],
-      "S is the temperature the object approaches as t \\to \\infty; it is the surrounding temperature."
+      "$S$ is the temperature the object approaches as $t \\to \\infty$; it is the surrounding temperature."
     ),
   ],
   independentPractice: [
@@ -577,7 +577,7 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
         "$dN/dt = kN^2$",
         "$dN/dt = k/N$",
       ],
-      "Only dN/dt = kN gives a solution proportional to e^{kt}."
+      "Only $dN/dt = kN$ gives a solution proportional to $e^{kt}$."
     ),
     calcappTyped(
       "y12e1-calcapp-expgd-m2",
@@ -681,7 +681,7 @@ const simpleHarmonicMotion: Partial<ExplicitLesson> = {
       "Simple harmonic motion (SHM) describes oscillation about a central position. The displacement is x = a sin(nt + α) or x = a cos(nt + α), where a is the amplitude, n is the angular frequency and α is the phase.",
       "Differentiating displacement gives velocity: if x = a sin(nt + α) then v = an cos(nt + α). Differentiating again gives acceleration: ẍ = -an² sin(nt + α). Because x = a sin(nt + α), this simplifies to ẍ = -n²x.",
       "The defining property of SHM is ẍ = -n²x: acceleration is proportional to displacement and directed toward the centre. Any equation of this form describes SHM with angular frequency n.",
-      "Key features: amplitude a (maximum displacement from centre), period T = 2\\pi/n, maximum speed |v|_{max} = an (reached when the particle passes through the centre where x = 0).",
+      "Key features: amplitude $a$ (maximum displacement from centre), period $T = 2\\pi/n$, maximum speed $|v|_{max} = an$ (reached when the particle passes through the centre where $x = 0$).",
     ],
     latexBlocks: [
       "x = a\\sin(nt+\\alpha),\\quad v = an\\cos(nt+\\alpha),\\quad \\ddot x = -an^2\\sin(nt+\\alpha) = -n^2 x",
@@ -786,13 +786,13 @@ const simpleHarmonicMotion: Partial<ExplicitLesson> = {
         "$-n^2 x$",
         "$n^2 x$",
       ],
-      "\\ddot x = -an^2\\sin(nt) = -n^2 x. The acceleration is proportional to and opposite to displacement."
+      "$\\ddot x = -an^2\\sin(nt) = -n^2 x$. The acceleration is proportional to and opposite to displacement."
     ),
   ],
   independentPractice: [
     calcappTyped(
       "y12e1-calcapp-shm-i1",
-      "For x = 6 sin(\\pi t/2), find the period.",
+      "For $x = 6\\sin(\\pi t/2)$, find the period.",
       "T = \\frac{2\\pi}{n},\\quad n=\\pi/2",
       "4",
       ["4 \\text{ s}"],
@@ -875,7 +875,7 @@ const simpleHarmonicMotion: Partial<ExplicitLesson> = {
     ),
     calcappTyped(
       "y12e1-calcapp-shm-m3",
-      "For x = 2 cos(\\pi t), find the period.",
+      "For $x = 2\\cos(\\pi t)$, find the period.",
       "T = 2\\pi/n,\\quad n=\\pi",
       "2",
       ["2 \\text{ s}"],
@@ -942,7 +942,7 @@ const simpleHarmonicMotion: Partial<ExplicitLesson> = {
     ),
     calcappTyped(
       "y12e1-calcapp-shm-m10",
-      "For x = 8 sin(\\pi t/4), find the maximum speed.",
+      "For $x = 8\\sin(\\pi t/4)$, find the maximum speed.",
       "|v|_{\\max} = an,\\quad a=8,\\;n=\\pi/4",
       "2\\pi",
       ["2\\pi \\text{ m/s}"],
@@ -967,10 +967,10 @@ const calcAppsExamPractice: Partial<ExplicitLesson> = {
   ],
   teaching: {
     paragraphs: [
-      "HSC Extension 1 calculus application questions test three models: related rates (chain rule connecting two changing quantities), exponential growth/decay (N = N_0 e^{kt} from dN/dt = kN), and simple harmonic motion (ẍ = -n²x).",
+      "HSC Extension 1 calculus application questions test three models: related rates (chain rule connecting two changing quantities), exponential growth/decay ($N = N_0 e^{kt}$ from $dN/dt = kN$), and simple harmonic motion (ẍ = -n²x).",
       "Reading the problem carefully and identifying which model applies is the most important first step. Keywords: 'rate of change of volume' → related rates; 'doubles every', 'decays to', 'cools to' → exponential model; 'oscillates', 'displacement' → SHM.",
       "For related rates: write the geometric equation, differentiate with respect to t, substitute last.",
-      "For exponential models: write N = N_0 e^{kt}, find k from a data point, then evaluate or solve for time.",
+      "For exponential models: write $N = N_0 e^{kt}$, find $k$ from a data point, then evaluate or solve for time.",
     ],
     latexBlocks: [
       "\\text{Related rates: }\\frac{dV}{dt} = f'(r)\\,\\frac{dr}{dt}",
@@ -1062,11 +1062,11 @@ const calcAppsExamPractice: Partial<ExplicitLesson> = {
         "$x = a\\sin(nt)$",
         "$V = V_0 e^{kt}$",
       ],
-      "Newton's Law of Cooling gives T = S + Ae^{kt} where S is the ambient temperature."
+      "Newton's Law of Cooling gives $T = S + Ae^{kt}$ where $S$ is the ambient temperature."
     ),
     calcappTyped(
       "y12e1-calcapp-exam-g4",
-      "A population grows as N = 600 e^{0.1t}. Find dN/dt when t = 0.",
+      "A population grows as $N = 600 e^{0.1t}$. Find $dN/dt$ when $t = 0$.",
       "\\frac{dN}{dt} = 0.1 \\times 600\\,e^{0.1t},\\quad t=0",
       "60",
       ["60 \\text{ per unit time}"],
@@ -1189,7 +1189,7 @@ const calcAppsExamPractice: Partial<ExplicitLesson> = {
       "For x = 4 cos(5t), the speed at t = 0 is:",
       "A",
       ["$0$ m/s", "$20$ m/s", "$4$ m/s", "$5$ m/s"],
-      "v = -20\\sin(5t). At t = 0: v = 0, so the particle is momentarily at rest at the extreme position."
+      "$v = -20\\sin(5t)$. At $t = 0$: $v = 0$, so the particle is momentarily at rest at the extreme position."
     ),
     calcappTyped(
       "y12e1-calcapp-exam-m7",
