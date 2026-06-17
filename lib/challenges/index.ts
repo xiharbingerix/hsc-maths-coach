@@ -16,6 +16,11 @@ import {
   vectorsChallenge,
   inductionChallenge,
 } from "./year12Extension1";
+import {
+  compoundInterestChallenge,
+  sineCosineRuleChallenge,
+  zScoresChallenge,
+} from "./year12Standard2";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -39,6 +44,10 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "inverse-trig": inverseTrigChallenge,
   vectors: vectorsChallenge,
   "intro-to-mathematical-induction": inductionChallenge,
+  // Year 12 Standard 2
+  "investment-compound-interest": compoundInterestChallenge,
+  "sine-rule-cosine-rule-area-triangle": sineCosineRuleChallenge,
+  "normal-distribution-z-scores": zScoresChallenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {
