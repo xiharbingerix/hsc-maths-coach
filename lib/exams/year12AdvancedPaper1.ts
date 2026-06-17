@@ -30,10 +30,10 @@ export const year12AdvancedPaper1: ExamPaper = {
           topicTitle: "Differentiation (chain rule)",
           remediationHref: REMEDIATION,
           choices: [
-            { label: "A", text: "6(2x+1)^2" },
-            { label: "B", text: "3(2x+1)^2" },
-            { label: "C", text: "2(2x+1)^3" },
-            { label: "D", text: "6(2x+1)" },
+            { label: "A", text: "$6(2x+1)^2$" },
+            { label: "B", text: "$3(2x+1)^2$" },
+            { label: "C", text: "$2(2x+1)^3$" },
+            { label: "D", text: "$6(2x+1)$" },
           ],
           answer: "A",
           explanation:
@@ -49,10 +49,10 @@ export const year12AdvancedPaper1: ExamPaper = {
           topicTitle: "Integration of polynomials",
           remediationHref: REMEDIATION,
           choices: [
-            { label: "A", text: "2x^3 - 2x^2 + C" },
-            { label: "B", text: "12x - 4 + C" },
-            { label: "C", text: "2x^3 - 4x^2 + C" },
-            { label: "D", text: "6x^3 - 2x^2 + C" },
+            { label: "A", text: "$2x^3 - 2x^2 + C$" },
+            { label: "B", text: "$12x - 4 + C$" },
+            { label: "C", text: "$2x^3 - 4x^2 + C$" },
+            { label: "D", text: "$6x^3 - 2x^2 + C$" },
           ],
           answer: "A",
           explanation:
@@ -89,10 +89,10 @@ export const year12AdvancedPaper1: ExamPaper = {
           topicTitle: "Trigonometric functions and graphs",
           remediationHref: REMEDIATION,
           choices: [
-            { label: "A", text: "2\\pi" },
-            { label: "B", text: "\\pi" },
-            { label: "C", text: "\\pi/2" },
-            { label: "D", text: "4\\pi" },
+            { label: "A", text: "$2\\pi$" },
+            { label: "B", text: "$\\pi$" },
+            { label: "C", text: "$\\pi/2$" },
+            { label: "D", text: "$4\\pi$" },
           ],
           answer: "B",
           explanation:
