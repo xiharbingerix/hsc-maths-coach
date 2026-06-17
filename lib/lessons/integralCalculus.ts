@@ -2210,6 +2210,12 @@ export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
       answer: "48",
       hint: "Use $\\frac{2}{2}[4+2(7+9)+12]$.",
       explanation: "$T=1[4+32+12]=48$.",
+      trapezoidalRuleDiagram: {
+        description:
+          "Four function values 4, 7, 9 and 12 plotted at x = 0, 2, 4, 6 with three trapezoidal strips of width 2.",
+        xValues: [0, 2, 4, 6],
+        yValues: [4, 7, 9, 12],
+      },
     },
   ],
 
@@ -2221,6 +2227,12 @@ export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
       answer: "9",
       hint: "There is one middle value.",
       explanation: "$T=\\frac{1}{2}[3+2(4)+7]=9$.",
+      trapezoidalRuleDiagram: {
+        description:
+          "Three function values 3, 4 and 7 plotted at x = 0, 1, 2 with two trapezoidal strips of width 1.",
+        xValues: [0, 1, 2],
+        yValues: [3, 4, 7],
+      },
     },
     {
       id: "trap-ind-2",
@@ -2229,6 +2241,12 @@ export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
       answer: "3",
       hint: "$h=1$.",
       explanation: "$T=\\frac{1}{2}[0+2(1)+4]=3$.",
+      trapezoidalRuleDiagram: {
+        description:
+          "Values of y = x^2 (0, 1 and 4) plotted at x = 0, 1, 2 with two trapezoidal strips of width 1.",
+        xValues: [0, 1, 2],
+        yValues: [0, 1, 4],
+      },
     },
     {
       id: "trap-ind-3",
@@ -3237,6 +3255,12 @@ export const mixedIntegralCalculusExamPracticeLesson: ExplicitLesson = {
       answer: "9",
       hint: "Use $\\frac{1}{2}[2+2(4)+8]$.",
       explanation: "$T=9$.",
+      trapezoidalRuleDiagram: {
+        description:
+          "Three function values 2, 4 and 8 plotted at x = 0, 1, 2 with two trapezoidal strips of width 1.",
+        xValues: [0, 1, 2],
+        yValues: [2, 4, 8],
+      },
     },
     {
       id: "mixed-int-ind-5",
