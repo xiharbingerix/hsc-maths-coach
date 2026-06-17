@@ -1068,7 +1068,7 @@ const resistedMotionLesson: Partial<ExplicitLesson> = {
         "$v=v_0\\cos(kt/m)$",
         "$v=v_0+kt/m$",
       ],
-      "Separating and integrating dv/v = −(k/m)dt gives ln v = −(k/m)t + C, so v = v₀e^{−kt/m}.",
+      "Separating and integrating dv/v = −(k/m)dt gives ln v = −(k/m)t + C, so v = v₀$e^{−kt/m}$.",
       "Solve the separable ODE, apply the initial condition."
     ),
   ],
@@ -1088,7 +1088,7 @@ const resistedMotionLesson: Partial<ExplicitLesson> = {
       "\\lim_{t\\to\\infty}v_0 e^{-kt/m}",
       "0",
       [],
-      "As t → ∞, e^{−kt/m} → 0, so v → 0. The particle decelerates to rest (horizontal case).",
+      "As t → ∞, $e^{−kt/m}$ → 0, so v → 0. The particle decelerates to rest (horizontal case).",
       "Evaluate the exponential as t → ∞."
     ),
     mechChoice(
@@ -1212,7 +1212,7 @@ const resistedMotionLesson: Partial<ExplicitLesson> = {
       "v_0 e^{-kt/m}\\to\\;?\\;\\text{as }t\\to\\infty",
       "0",
       [],
-      "v = v₀e^{−kt/m} → 0 as t → ∞. The particle gradually slows to rest.",
+      "v = v₀$e^{−kt/m}$ → 0 as t → ∞. The particle gradually slows to rest.",
       "Evaluate the limit of the exponential."
     ),
     mechChoice(
@@ -1225,7 +1225,7 @@ const resistedMotionLesson: Partial<ExplicitLesson> = {
         "$v=mg\\,t/k$",
         "$v=v_0\\,e^{-kt/m}$",
       ],
-      "Starting from rest (v₀=0), solving m dv/dt = mg − kv gives v = (mg/k)(1−e^{−kt/m})."
+      "Starting from rest (v₀=0), solving m dv/dt = mg − kv gives v = (mg/k)(1−$e^{−kt/m}$)."
     ),
     mechTyped(
       "y12e2-resist-m9",
@@ -1263,8 +1263,8 @@ const projectileMotionResistanceLesson: Partial<ExplicitLesson> = {
     paragraphs: [
       "In 2D projectile motion with linear air resistance, the horizontal and vertical equations are independent (decoupled). Each can be solved separately.",
       "Taking rightward and upward as positive: horizontal: mẍ = −kẋ; vertical: mÿ = −mg − kẏ. The resistance force −kẋ or −kẏ always opposes the respective velocity component.",
-      "Horizontal: ẍ = −(k/m)ẋ. This is the same form as horizontal resisted motion. Solution: ẋ = ẋ₀e^{−kt/m}.",
-      "Vertical: ÿ = −g − (k/m)ẏ. This can be rewritten as dẏ/dt = −(k/m)(ẏ + mg/k). Let w = ẏ + mg/k, then dw/dt = −(k/m)w, giving w = w₀e^{−kt/m}. Terminal speed (downward) is mg/k.",
+      "Horizontal: ẍ = −(k/m)ẋ. This is the same form as horizontal resisted motion. Solution: ẋ = ẋ₀$e^{−kt/m}$.",
+      "Vertical: ÿ = −g − (k/m)ẏ. This can be rewritten as dẏ/dt = −(k/m)(ẏ + mg/k). Let w = ẏ + mg/k, then dw/dt = −(k/m)w, giving w = w₀$e^{−kt/m}$. Terminal speed (downward) is mg/k.",
     ],
     latexBlocks: [
       "\\text{Horizontal: }m\\ddot{x}=-k\\dot{x}\\implies \\dot{x}=\\dot{x}_0\\,e^{-kt/m}",
@@ -1340,7 +1340,7 @@ const projectileMotionResistanceLesson: Partial<ExplicitLesson> = {
         "Oscillates",
         "Stays constant",
       ],
-      "The exponential e^{−kt/m} → 0 as t → ∞, so horizontal speed decreases to zero.",
+      "The exponential $e^{−kt/m}$ → 0 as t → ∞, so horizontal speed decreases to zero.",
       "Evaluate the limit of the exponential as t → ∞."
     ),
     mechTyped(
@@ -1382,7 +1382,7 @@ const projectileMotionResistanceLesson: Partial<ExplicitLesson> = {
       "\\frac{dw}{dt}=-\\frac{k}{m}w,\\;w(0)=w_0",
       "w0*e^{-kt/m}",
       ["w₀e^{−kt/m}", "w_0·e^{-kt/m}"],
-      "This is the same form as horizontal resisted motion: w = w₀e^{−kt/m}.",
+      "This is the same form as horizontal resisted motion: w = w₀$e^{−kt/m}$.",
       "Apply the standard result for first-order linear ODEs."
     ),
     mechTyped(
@@ -1454,7 +1454,7 @@ const projectileMotionResistanceLesson: Partial<ExplicitLesson> = {
       "\\lim_{t\\to\\infty}\\dot{x}",
       "0",
       [],
-      "e^{−kt/m} → 0, so ẋ → 0. Horizontal speed decays to zero.",
+      "$e^{−kt/m}$ → 0, so ẋ → 0. Horizontal speed decays to zero.",
       "Take the limit as t → ∞."
     ),
     mechTyped(
@@ -1492,7 +1492,7 @@ const projectileMotionResistanceLesson: Partial<ExplicitLesson> = {
       "\\frac{dw}{w}=-\\frac{k}{m}\\,dt",
       "w0*e^{-kt/m}",
       ["w₀e^{−kt/m}", "w_0 e^{-kt/m}"],
-      "Separate and integrate: ln w = −(k/m)t + C₁, so w = w₀e^{−kt/m}.",
+      "Separate and integrate: ln w = −(k/m)t + C₁, so w = w₀$e^{−kt/m}$.",
       "Apply the standard first-order linear ODE result."
     ),
     mechTyped(
@@ -1501,7 +1501,7 @@ const projectileMotionResistanceLesson: Partial<ExplicitLesson> = {
       "\\lim_{t\\to\\infty}\\left(w_0 e^{-kt/m}-\\frac{mg}{k}\\right)",
       "-mg/k",
       ["−mg/k"],
-      "As t → ∞, e^{−kt/m} → 0, so ẏ → 0 − mg/k = −mg/k. Downward at terminal speed mg/k.",
+      "As t → ∞, $e^{−kt/m}$ → 0, so ẏ → 0 − mg/k = −mg/k. Downward at terminal speed mg/k.",
       "Take the limit as t → ∞."
     ),
     mechChoice(

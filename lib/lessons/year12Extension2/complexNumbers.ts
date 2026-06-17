@@ -1049,8 +1049,8 @@ const rootsOfUnity: Partial<ExplicitLesson> = {
     paragraphs: [
       "The nth roots of unity are the n solutions to z^n = 1. They lie equally spaced on the unit circle |z| = 1 in the Argand plane, starting at z = 1.",
       "The general formula is z_k = cis(2πk/n) for k = 0, 1, 2, …, n−1. The angular gap between consecutive roots is 2π/n radians (or 360°/n).",
-      "The primitive nth root is ω = cis(2π/n). All other roots are powers: ω², ω³, …, ω^{n−1}, ω^n = 1.",
-      "The sum of all nth roots of unity is zero. Algebraically this follows from the geometric series 1 + ω + ω² + … + ω^{n−1} = (ω^n − 1)/(ω − 1) = 0 for ω ≠ 1.",
+      "The primitive nth root is ω = cis(2π/n). All other roots are powers: ω², ω³, …, $ω^{n−1}$, $ω^n = 1$.",
+      "The sum of all nth roots of unity is zero. Algebraically this follows from the geometric series 1 + ω + ω² + … + $ω^{n−1} = (ω^n − 1)/(ω − 1) = 0$ for ω ≠ 1.",
     ],
     latexBlocks: [
       "z^n=1\\implies z_k=\\operatorname{cis}\\!\\left(\\frac{2\\pi k}{n}\\right),\\quad k=0,1,\\ldots,n-1",
@@ -1272,7 +1272,7 @@ const rootsOfUnity: Partial<ExplicitLesson> = {
         "Their product is always 0",
         "Their sum is 0 for $n\\ge2$",
       ],
-      "Their product is 1 (not 0): moduli product = 1, and argument sum = 2π(0+1+…+(n−1))/n = π(n−1) which is a multiple of 2π only at limits. In fact the product of all nth roots equals (−1)^{n+1} but is never 0."
+      "Their product is 1 (not 0): moduli product = 1, and argument sum = 2π(0+1+…+(n−1))/n = π(n−1) which is a multiple of 2π only at limits. In fact the product of all nth roots equals $(−1)^{n+1}$ but is never 0."
     ),
     cxTyped(
       "cx5-m8",

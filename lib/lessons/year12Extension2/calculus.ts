@@ -344,7 +344,7 @@ const methodSelectionLesson: Partial<ExplicitLesson> = {
       "\\int 2x e^{x^2}\\,dx,\\quad u=\\,?",
       "x^2",
       ["x²"],
-      "With u = x², du = 2x dx. The integral becomes ∫eᵘ du = eᵘ + C = e^(x²) + C.",
+      "With u = x², du = 2x dx. The integral becomes ∫eᵘ du = eᵘ + C = $e^{x^2}$ + C.",
       "Look for a factor proportional to the derivative of the exponent."
     ),
     calcChoice(
@@ -706,10 +706,10 @@ const reductionFormulaeLesson: Partial<ExplicitLesson> = {
   ],
   teaching: {
     paragraphs: [
-      "A reduction formula expresses Iₙ in terms of lower-index values I_{n-1} or I_{n-2}. Once a base case is known, successive values can be found by substitution.",
+      "A reduction formula expresses Iₙ in terms of lower-index values $I_{n-1}$ or $I_{n-2}$. Once a base case is known, successive values can be found by substitution.",
       "Reduction formulae are derived using integration by parts. In this lesson the formula is supplied; you focus on applying and iterating it correctly.",
-      "Two standard families appear in Extension 2 HSC: Iₙ = ∫₀¹ xⁿeˣ dx satisfies Iₙ = e − n·I_{n-1} with base case I₀ = e − 1. The sine-power family Iₙ = ∫₀^(π/2) sinⁿ(x)dx satisfies Iₙ = ((n−1)/n)·I_{n-2} with I₀ = π/2 and I₁ = 1.",
-      "For Iₙ = ((n−1)/n)·I_{n-2}, note that even-index and odd-index values form independent chains. Even values require I₀; odd values require I₁.",
+      "Two standard families appear in Extension 2 HSC: Iₙ = ∫₀¹ xⁿeˣ dx satisfies $I_n = e − n·I_{n-1}$ with base case I₀ = e − 1. The sine-power family Iₙ = ∫ sinⁿ(x) dx from 0 to π/2 satisfies $I_n = ((n−1)/n)·I_{n-2}$ with I₀ = π/2 and I₁ = 1.",
+      "For $I_n = ((n−1)/n)·I_{n-2}$, note that even-index and odd-index values form independent chains. Even values require I₀; odd values require I₁.",
     ],
     latexBlocks: [
       "I_n=\\int_0^1 x^n e^x\\,dx,\\quad I_n=e-n\\,I_{n-1},\\quad I_0=e-1",
@@ -990,7 +990,7 @@ const partialFractionsLesson: Partial<ExplicitLesson> = {
   successCriteria: [
     "Identify whether a rational function has distinct or repeated linear factors.",
     "Use the cover-up rule or simultaneous equations to find numerator constants.",
-    "Integrate each partial fraction term as A·ln|x−a| or A/(x−a)^k.",
+    "Integrate each partial fraction term as A·ln|x−a| or $A/(x−a)^k$.",
     "Combine constants of integration correctly.",
   ],
   teaching: {
@@ -1518,7 +1518,7 @@ const tSubstitutionLesson: Partial<ExplicitLesson> = {
       "2(1+t)^n",
       "-2",
       ["−2"],
-      "1/(1+t)² = (1+t)^{−2}. So the expression is 2(1+t)^{−2}.",
+      "$1/(1+t)^2 = (1+t)^{−2}$. So the expression is $2(1+t)^{−2}$.",
       "Write the denominator as a negative power."
     ),
     calcChoice(
@@ -1812,7 +1812,7 @@ const trigIdentityIntegrationLesson: Partial<ExplicitLesson> = {
         "Both A steps: $\\sin^3 x=\\sin x(1-\\cos^2 x)$, then substitute $u=\\cos x$",
       ],
       "Write sin³x = sinx(1−cos²x), set u = cosx, du = −sinx dx. This is not a half-angle identity approach but a substitution approach for odd powers.",
-      "Odd powers of sin use a different method: write sin^{2k+1}x = (1−cos²x)^k sinx and substitute."
+      "Odd powers of sin use a different method: write $sin^{2k+1}x = (1−cos^2 x)^k sin x$ and substitute."
     ),
     calcTyped(
       "y12e2-trig-m10",

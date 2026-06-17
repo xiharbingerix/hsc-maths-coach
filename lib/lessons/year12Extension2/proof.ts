@@ -226,7 +226,7 @@ const contradictionLesson: Partial<ExplicitLesson> = {
       "n^2=(2k+1)^2",
       "1",
       [],
-      "(2k+1)^2=4k^2+4k+1, so the constant term is 1.",
+      "$(2k+1)^2=4k^2+4k+1$, so the constant term is 1.",
       "Use (a+b)^2=a^2+2ab+b^2."
     ),
     proofChoice(
@@ -654,7 +654,7 @@ const inequalitiesLesson: Partial<ExplicitLesson> = {
   teaching: {
     paragraphs: [
       "Many Extension 2 inequalities are proved by moving all terms to one side and rewriting the result in a form that is clearly non-negative.",
-      "A square is always non-negative for real variables. If an expression becomes (x-a)^2 plus a positive constant, the expression is always positive.",
+      "A square is always non-negative for real variables. If an expression becomes $(x-a)^2$ plus a positive constant, the expression is always positive.",
       "For a quadratic ax^2+bx+c with a>0, a negative discriminant means the graph has no real x-intercepts and stays above the x-axis.",
       "Equality conditions matter. In square-based proofs, equality occurs when the square term is zero.",
     ],
@@ -735,7 +735,7 @@ const inequalitiesLesson: Partial<ExplicitLesson> = {
       "Which expression is always non-negative for real x?",
       "B",
       ["$x-3$", "$(x-3)^2$", "$-x^2-1$", "$1/x$"],
-      "A square such as (x-3)^2 is always at least 0 for real x.",
+      "A square such as $(x-3)^2$ is always at least 0 for real $x$.",
       "Look for a square with no negative multiplier."
     ),
     proofTyped(
@@ -752,7 +752,7 @@ const inequalitiesLesson: Partial<ExplicitLesson> = {
       "(a-b)^2=a^2-2ab+b^2",
       "-2",
       ["-2", "\u22122"],
-      "Expanding (a-b)^2 gives a^2-2ab+b^2, so the coefficient of ab is -2."
+      "Expanding $(a-b)^2$ gives $a^2-2ab+b^2$, so the coefficient of $ab$ is $-2$."
     ),
     proofTyped(
       "y12e2-proof-ineq-g4",
@@ -760,7 +760,7 @@ const inequalitiesLesson: Partial<ExplicitLesson> = {
       "(a-b)^2\\ge0",
       "b",
       ["B"],
-      "Equality occurs when (a-b)^2=0, so a-b=0 and a=b."
+      "Equality occurs when $(a-b)^2=0$, so $a-b=0$ and $a=b$."
     ),
   ],
   independentPractice: [
@@ -790,7 +790,7 @@ const inequalitiesLesson: Partial<ExplicitLesson> = {
         "Assume x is an integer",
         "Divide by x",
       ],
-      "Completing the square gives x^2-10x+26=(x-5)^2+1, which is at least 1."
+      "Completing the square gives $x^2-10x+26=(x-5)^2+1$, which is at least 1."
     ),
     proofTyped(
       "y12e2-proof-ineq-i4",
@@ -806,7 +806,7 @@ const inequalitiesLesson: Partial<ExplicitLesson> = {
       "\\Delta=b^2-4ac",
       "-24",
       ["-24", "\u221224"],
-      "Delta=4^2-4(2)(5)=16-40=-24, so the quadratic has no real roots."
+      "$Δ=4^2-4(2)(5)=16-40=-24$, so the quadratic has no real roots."
     ),
   ],
   commonMistakes: [
@@ -833,7 +833,7 @@ const inequalitiesLesson: Partial<ExplicitLesson> = {
       "Which method is most direct for $x^2+12x+40\\ge4$?",
       "C",
       ["Contrapositive", "Prime factorisation", "Completing the square", "Vector projection"],
-      "Completing the square gives x^2+12x+40=(x+6)^2+4, which is at least 4."
+      "Completing the square gives $x^2+12x+40=(x+6)^2+4$, which is at least 4."
     ),
     proofTyped(
       "y12e2-proof-ineq-m2",
@@ -884,7 +884,7 @@ const inequalitiesLesson: Partial<ExplicitLesson> = {
       "Which expression certifies $x^2-2x+2>0$?",
       "A",
       ["$(x-1)^2+1$", "$(x-1)^2-1$", "$(x+1)^2+2x$", "$x(x-2)$"],
-      "x^2-2x+2=(x-1)^2+1, which is greater than 0 for every real x."
+      "$x^2-2x+2=(x-1)^2+1$, which is greater than 0 for every real $x$."
     ),
     proofTyped(
       "y12e2-proof-ineq-m8",
@@ -1079,7 +1079,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
         "The formula is only valid for small $m$",
         "The base case fails",
       ],
-      "Expressing 4^{k+1}−1 as 3(4m+1) shows it is divisible by 3, confirming P(k+1)."
+      "Expressing $4^{k+1}−1$ as $3(4m+1)$ shows it is divisible by 3, confirming $P(k+1)$."
     ),
     proofTyped(
       "y12e2-proof-ind-i4",
@@ -1141,7 +1141,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
         "$4^k=3$ for all $k$",
         "$k$ is divisible by 3",
       ],
-      "The hypothesis assumes P(k): 3 divides 4^k − 1. The step proves P(k+1)."
+      "The hypothesis assumes $P(k)$: 3 divides $4^k − 1$. The step proves $P(k+1)$."
     ),
     proofTyped(
       "y12e2-proof-ind-m3",
@@ -1150,7 +1150,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
       "3",
       [],
       "4^{k+1} − 1 − 4(4^k − 1) = 4·4^k − 1 − 4·4^k + 4 = 3.",
-      "Expand and simplify; the 4·4^k terms cancel."
+      "Expand and simplify; the $4·4^k$ terms cancel."
     ),
     proofChoice(
       "y12e2-proof-ind-m4",
