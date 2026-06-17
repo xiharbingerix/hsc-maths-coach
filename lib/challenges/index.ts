@@ -21,6 +21,11 @@ import {
   sineCosineRuleChallenge,
   zScoresChallenge,
 } from "./year12Standard2";
+import {
+  discriminantChallenge,
+  completingSquareChallenge,
+  surdsIndicesChallenge,
+} from "./year11Advanced";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -48,6 +53,10 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "investment-compound-interest": compoundInterestChallenge,
   "sine-rule-cosine-rule-area-triangle": sineCosineRuleChallenge,
   "normal-distribution-z-scores": zScoresChallenge,
+  // Year 11 Advanced
+  "quadratic-equations-discriminant": discriminantChallenge,
+  "completing-the-square": completingSquareChallenge,
+  "algebraic-techniques": surdsIndicesChallenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {
