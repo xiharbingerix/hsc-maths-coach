@@ -9,6 +9,7 @@
     "lint": "eslint",
     "check:env": "tsx scripts/check-env.ts",
     "audit:lessons": "tsx scripts/audit-lessons.ts",
+    "audit:questions": "tsx scripts/audit-questions.ts",
     "seed:question-bank": "tsx scripts/seed-question-bank.ts",
     "test:answer-marking": "tsx scripts/test-answer-marking.ts",
     "generate-slides": "tsx scripts/generate-trapezoidal-rule-slides.ts"
