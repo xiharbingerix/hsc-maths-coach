@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { BlockMath } from "react-katex";
 import { MathText } from "../../components/MathText";
 import {
@@ -118,6 +118,8 @@ function planToText(plan: TutorLessonPlan): string {
 
 // ── Question renderer ────────────────────────────────────────────────────────
 
+// Question block — the QUESTION ONLY (no answer/hint/explanation), so it can be
+// captured as a clean image to share in Zoom.
 function QuestionCard({
   question,
   number,
@@ -157,31 +159,142 @@ function QuestionCard({
               ))}
             </ol>
           )}
-
-          {/* Answer */}
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded-md bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-800">
-              Answer: <MathText text={question.answer} />
-            </span>
-          </div>
-
-          {/* Hint */}
-          {question.hint && (
-            <p className="text-xs text-slate-500">
-              <span className="font-semibold">Hint: </span>
-              <MathText text={question.hint} />
-            </p>
-          )}
-
-          {/* Explanation */}
-          {question.explanation && (
-            <p className="text-xs text-slate-600">
-              <span className="font-semibold">Explanation: </span>
-              <MathText text={question.explanation} />
-            </p>
-          )}
         </div>
       </div>
+    </div>
+  );
+}
+
+// Answers / hints / explanations, kept SEPARATE from the question blocks so they
+// never end up in the copied question image.
+function QuestionAnswers({ questions }: { questions: TutorQuestion[] }) {
+  return (
+    <div className="space-y-2 rounded-xl border border-emerald-200 bg-emerald-50 p-4 print:border-emerald-300 print:bg-white">
+      <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">
+        Answers &amp; solutions
+      </p>
+      <ol className="space-y-2">
+        {questions.map((q, i) => (
+          <li key={q.id} className="text-sm text-slate-700">
+            <span className="font-semibold">{i + 1}. </span>
+            <span className="font-semibold text-emerald-800">Answer: </span>
+            <MathText text={q.answer} />
+            {q.hint && (
+              <span className="mt-0.5 block text-xs text-slate-500">
+                <span className="font-semibold">Hint: </span>
+                <MathText text={q.hint} />
+              </span>
+            )}
+            {q.explanation && (
+              <span className="mt-0.5 block text-xs text-slate-600">
+                <span className="font-semibold">Explanation: </span>
+                <MathText text={q.explanation} />
+              </span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+// A questions section: clean question blocks (image-copyable) with answers held
+// separately, plus a button that copies an image of just the questions.
+function QuestionsSection({ questions }: { questions: TutorQuestion[] }) {
+  const captureRef = useRef<HTMLDivElement>(null);
+  const [showAnswers, setShowAnswers] = useState(true);
+  const [imgState, setImgState] = useState<
+    "idle" | "copying" | "copied" | "downloaded" | "error"
+  >("idle");
+
+  async function copyQuestionsImage() {
+    const node = captureRef.current;
+    if (!node) return;
+    setImgState("copying");
+    try {
+      const { toBlob } = await import("html-to-image");
+      const blob = await toBlob(node, {
+        pixelRatio: 2,
+        backgroundColor: "#ffffff",
+        cacheBust: true,
+      });
+      if (!blob) throw new Error("Could not render image.");
+      // Preferred: straight to clipboard for pasting into Zoom.
+      if (navigator.clipboard && "write" in navigator.clipboard) {
+        await navigator.clipboard.write([
+          new ClipboardItem({ "image/png": blob }),
+        ]);
+        setImgState("copied");
+        setTimeout(() => setImgState("idle"), 2500);
+        return;
+      }
+      throw new Error("Clipboard image write unsupported.");
+    } catch {
+      // Fallback: download the PNG so it can still be shared.
+      try {
+        const { toPng } = await import("html-to-image");
+        const dataUrl = await toPng(node, {
+          pixelRatio: 2,
+          backgroundColor: "#ffffff",
+          cacheBust: true,
+        });
+        const link = document.createElement("a");
+        link.href = dataUrl;
+        link.download = "questions.png";
+        link.click();
+        setImgState("downloaded");
+        setTimeout(() => setImgState("idle"), 2500);
+      } catch {
+        setImgState("error");
+        setTimeout(() => setImgState("idle"), 2500);
+      }
+    }
+  }
+
+  const imgLabel =
+    imgState === "copying"
+      ? "Rendering…"
+      : imgState === "copied"
+        ? "Copied image ✓"
+        : imgState === "downloaded"
+          ? "Downloaded PNG"
+          : imgState === "error"
+            ? "Couldn’t copy"
+            : "Copy questions as image";
+
+  return (
+    <div className="space-y-3">
+      {/* Controls (never captured / printed) */}
+      <div className="flex flex-wrap items-center justify-between gap-2 print:hidden">
+        <button
+          type="button"
+          onClick={() => void copyQuestionsImage()}
+          disabled={imgState === "copying"}
+          className="rounded-lg border border-indigo-300 bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-700 hover:bg-indigo-100 disabled:opacity-60"
+          title="Copies an image of just the question blocks (no answers) for pasting into Zoom"
+        >
+          {imgLabel}
+        </button>
+        <label className="flex cursor-pointer items-center gap-2 text-xs font-semibold text-slate-600">
+          <input
+            type="checkbox"
+            checked={showAnswers}
+            onChange={(e) => setShowAnswers(e.target.checked)}
+            className="rounded border-slate-300"
+          />
+          Show answers
+        </label>
+      </div>
+
+      {/* Question blocks only — this is what gets captured. */}
+      <div ref={captureRef} className="space-y-3 bg-white p-1">
+        {questions.map((q, i) => (
+          <QuestionCard key={q.id} question={q} number={i + 1} />
+        ))}
+      </div>
+
+      {/* Answers held separately. */}
+      {showAnswers && <QuestionAnswers questions={questions} />}
     </div>
   );
 }
@@ -263,11 +376,7 @@ function SectionCard({
         )}
 
         {section.kind === "questions" && (
-          <div className="space-y-3">
-            {section.questions.map((q, i) => (
-              <QuestionCard key={q.id} question={q} number={i + 1} />
-            ))}
-          </div>
+          <QuestionsSection questions={section.questions} />
         )}
 
         {section.kind === "worked-example" && (
