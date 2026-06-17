@@ -179,7 +179,7 @@ const introToMathematicalInduction: Partial<ExplicitLesson> = {
       "After assuming the square-sum formula for k, what do you add to move to k + 1?",
       "C",
       ["k", "2k+1", "(k+1)^2", "k^2+1"],
-      "The sum of squares gains the next square term. From k to k + 1, that term is (k + 1)^2."
+      "The sum of squares gains the next square term. From $k$ to $k + 1$, that term is $(k + 1)^2$."
     ),
     inductionTyped(
       "y12e1-induction-intro-g4",

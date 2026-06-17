@@ -157,7 +157,7 @@ const binomialProbabilities: Partial<ExplicitLesson> = {
   ],
   teaching: {
     paragraphs: [
-      "The binomial formula is P(X=k)=nCk p^k q^{n-k}, where q=1-p.",
+      "The binomial formula is $P(X=k)=nCk p^k q^{n-k}$, where $q=1-p$.",
       "For at least or at most questions, use the complement to avoid adding many probabilities when possible.",
       "A calculator can compute combinations and powers quickly, but the formula tells you why the probability is correct.",
     ],
@@ -441,7 +441,7 @@ const examPractice: Partial<ExplicitLesson> = {
       "A machine has probability 0.1 of producing a faulty item. In 8 items, find P(X=1).",
       "0.3826",
       ["0.383", "0.38264"],
-      "Use the binomial formula: C(8,1) × 0.1^1 × 0.9^7 = 8 × 0.1 × 0.4783 ≈ 0.3826."
+      "Use the binomial formula: $C(8,1) × 0.1^1 × 0.9^7 = 8 × 0.1 × 0.4783 ≈ 0.3826$."
     ),
     binomialChoice(
       "y12e1-binomial-exam-g2",

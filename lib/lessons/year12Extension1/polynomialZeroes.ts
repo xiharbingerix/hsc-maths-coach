@@ -49,15 +49,15 @@ const polynomialZeroes: Partial<ExplicitLesson> = {
   learningIntention:
     "Determine the multiplicity of each zero of a polynomial, state its effect on the graph, and sketch polynomials in factored form by reading multiplicity and end behaviour.",
   successCriteria: [
-    "Define the multiplicity of a zero: if (x − a)^k is a factor of P(x) but (x − a)^(k+1) is not, then a is a zero of multiplicity k.",
+    "Define the multiplicity of a zero: if $(x − a)^k$ is a factor of $P(x)$ but $(x − a)^{k+1}$ is not, then $a$ is a zero of multiplicity $k$.",
     "State the graph behaviour at each zero: multiplicity 1 → crosses axis; even multiplicity → touches and turns; odd multiplicity ≥ 3 → stationary inflection (crosses).",
     "Prove that a zero of multiplicity k of P(x) is a zero of multiplicity k−1 of P′(x).",
     "Use multiplicity to match a polynomial's factored form to a sketch, and to determine the equation of a polynomial from a graph.",
   ],
   teaching: {
     paragraphs: [
-      "If P(x) = (x − a)^k · Q(x) where Q(a) ≠ 0, then a is a zero of multiplicity k. The exponent k tells us how 'flat' the graph is at x = a. When k = 1 the graph crosses the x-axis sharply. When k is even (2, 4, …) the graph touches the axis and bounces back. When k is odd and ≥ 3 (3, 5, …) the graph flattens out and still crosses — a stationary point of inflection.",
-      "To prove the multiplicity result: write P(x) = (x − a)^k · Q(x) and differentiate using the product rule. P′(x) = k(x − a)^(k−1) Q(x) + (x − a)^k Q′(x) = (x − a)^(k−1) [kQ(x) + (x − a)Q′(x)]. The factor in brackets does not vanish at x = a (since kQ(a) ≠ 0), so a is a zero of P′ of multiplicity exactly k − 1.",
+      "If $P(x) = (x − a)^k · Q(x)$ where $Q(a) ≠ 0$, then $a$ is a zero of multiplicity $k$. The exponent $k$ tells us how 'flat' the graph is at $x = a$. When $k = 1$ the graph crosses the x-axis sharply. When $k$ is even (2, 4, …) the graph touches the axis and bounces back. When $k$ is odd and $k ≥ 3$ (3, 5, …) the graph flattens out and still crosses — a stationary point of inflection.",
+      "To prove the multiplicity result: write $P(x) = (x − a)^k · Q(x)$ and differentiate using the product rule. $P′(x) = k(x − a)^{k−1} Q(x) + (x − a)^k Q′(x) = (x − a)^{k−1} [kQ(x) + (x − a)Q′(x)]$. The factor in brackets does not vanish at $x = a$ (since $kQ(a) ≠ 0$), so $a$ is a zero of $P′$ of multiplicity exactly $k − 1$.",
       "Consequences: a simple zero (k = 1) of P gives P′(a) ≠ 0 — no stationary point at x = a. A double zero (k = 2) gives P′(a) = 0 and P′′(a) ≠ 0 — a local turning point. A triple zero (k = 3) gives P′(a) = P′′(a) = 0 but P′′′(a) ≠ 0 — a stationary point of inflection.",
       "To sketch P(x) in factored form: (1) find all zeroes and their multiplicities from the factors; (2) determine end behaviour from the leading coefficient and degree; (3) plot the y-intercept; (4) draw, using the multiplicity rules at each zero.",
     ],
@@ -163,7 +163,7 @@ const polynomialZeroes: Partial<ExplicitLesson> = {
         "Has a stationary point of inflection.",
         "Does not reach the x-axis.",
       ],
-      "Even multiplicity means the sign of (x − a)^k does not change, so the graph touches and turns."
+      "Even multiplicity means the sign of $(x − a)^k$ does not change, so the graph touches and turns."
     ),
     pzTyped(
       "y12e1-pz-g3",
@@ -259,7 +259,7 @@ const polynomialZeroes: Partial<ExplicitLesson> = {
       "If a is a zero of multiplicity k of P(x), then a is a zero of multiplicity ____ of P′(x).",
       "B",
       ["k + 1", "k − 1", "k", "2k"],
-      "The product-rule proof shows P′(x) = (x − a)^(k−1) · [kQ(x) + (x − a)Q′(x)], giving multiplicity k − 1 in P′."
+      "The product-rule proof shows $P′(x) = (x − a)^{k−1} · [kQ(x) + (x − a)Q′(x)]$, giving multiplicity $k − 1$ in $P′$."
     ),
     pzChoice(
       "y12e1-pz-m2",
@@ -342,7 +342,7 @@ const polynomialZeroes: Partial<ExplicitLesson> = {
     ),
     pzChoice(
       "y12e1-pz-m10",
-      "Which of the following is the correct product-rule step when differentiating P(x) = (x − a)^k Q(x)?",
+      "Which of the following is the correct product-rule step when differentiating $P(x) = (x − a)^k Q(x)$?",
       "A",
       [
         "P′(x) = k(x − a)^(k−1)Q(x) + (x − a)^k Q′(x)",

@@ -141,7 +141,7 @@ const vectorsScalarsNotation: Partial<ExplicitLesson> = {
     vectorChoice("y12e1-vectors-notation-g4", "A unit vector has magnitude:", "A", ["1", "0", "The same as the original vector", "Always 10"], "Unit means one unit long."),
   ],
   independentPractice: [
-    vectorTyped("y12e1-vectors-notation-i1", "Find the magnitude of the vector.", "\\mathbf{u}=\\begin{pmatrix}5\\\\12\\end{pmatrix}", "13", ["|u|=13", "|\\mathbf{u}|=13"], "The length is sqrt(5^2 + 12^2) = 13."),
+    vectorTyped("y12e1-vectors-notation-i1", "Find the magnitude of the vector.", "\\mathbf{u}=\\begin{pmatrix}5\\\\12\\end{pmatrix}", "13", ["|u|=13", "|\\mathbf{u}|=13"], "The length is $\\sqrt{5^2 + 12^2} = 13$."),
     vectorTyped("y12e1-vectors-notation-i2", "Find the magnitude of the vector.", "\\mathbf{v}=\\begin{pmatrix}-1\\\\-1\\end{pmatrix}", "sqrt(2)", ["\\sqrt{2}", "√2"], "Both components are squared, so the negative signs do not make the length negative."),
     vectorChoice("y12e1-vectors-notation-i3", "Which notation matches $-3\\mathbf{i}+4\\mathbf{j}$?", "B", ["(3,-4)", "(-3,4)", "(4,-3)", "(-4,3)"], "The i coefficient is the first component and the j coefficient is the second."),
     vectorTyped("y12e1-vectors-notation-i4", "Find a unit vector in the direction of the vector.", "\\mathbf{a}=\\begin{pmatrix}0\\\\5\\end{pmatrix}", "(0,1)", ["(0, 1)", "0,1", "\\begin{pmatrix}0\\\\1\\end{pmatrix}"], "The magnitude is 5, so divide both components by 5."),
@@ -175,7 +175,7 @@ const vectorsScalarsNotation: Partial<ExplicitLesson> = {
     vectorTyped("y12e1-vectors-notation-m7", "Find the magnitude.", "\\begin{pmatrix}-5\\\\0\\end{pmatrix}", "5", ["|a|=5"], "The length of 5 units left is still 5."),
     vectorChoice("y12e1-vectors-notation-m8", "Which ordered pair matches $4\\mathbf{i}+9\\mathbf{j}$?", "A", ["(4,9)", "(9,4)", "(-4,9)", "(4,-9)"], "The i coefficient comes first."),
     vectorChoice("y12e1-vectors-notation-m9", "To find a unit vector, divide each component by:", "D", ["The x-component", "The y-component", "2", "The magnitude"], "Dividing by the magnitude scales the length to 1."),
-    vectorTyped("y12e1-vectors-notation-m10", "Find the magnitude.", "\\begin{pmatrix}1\\\\-2\\end{pmatrix}", "sqrt(5)", ["\\sqrt{5}", "√5"], "The length is sqrt(1^2 + (-2)^2) = sqrt(5)."),
+    vectorTyped("y12e1-vectors-notation-m10", "Find the magnitude.", "\\begin{pmatrix}1\\\\-2\\end{pmatrix}", "sqrt(5)", ["\\sqrt{5}", "√5"], "The length is $\\sqrt{1^2 + (-2)^2} = \\sqrt{5}$."),
   ],
 };
 

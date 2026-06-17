@@ -426,7 +426,7 @@ const differentiatingInverseTrig: Partial<ExplicitLesson> = {
     inverseTrigChoice("y12e1-diff-inv-m6", "Which integral equals $\\arctan x+C$?", "D", ["$\\int\\frac{1}{\\sqrt{1-x^2}}dx$", "$\\int\\sqrt{1-x^2}dx$", "$\\int\\frac{-1}{\\sqrt{1-x^2}}dx$", "$\\int\\frac{1}{1+x^2}dx$"], "This is the reverse of the arctan derivative."),
     inverseTrigChoice("y12e1-diff-inv-m7", "Which integral equals $\\arcsin x+C$?", "A", ["$\\int\\frac{1}{\\sqrt{1-x^2}}dx$", "$\\int\\frac{1}{1+x^2}dx$", "$\\int\\frac{-1}{\\sqrt{1-x^2}}dx$", "$\\int\\cos x\\,dx$"], "This is the reverse of the arcsin derivative."),
     inverseTrigTyped("y12e1-diff-inv-m8", "Differentiate.", "y=\\arccos(3x)", "-3/sqrt(1-9x^2)", ["\\frac{-3}{\\sqrt{1-9x^2}}"], "The negative arccos derivative and u' = 3 combine."),
-    inverseTrigChoice("y12e1-diff-inv-m9", "In $\\arctan(4x)$, the denominator after differentiating is:", "B", ["$1+4x^2$", "$1+16x^2$", "$1-16x^2$", "$\\sqrt{1-16x^2}$"], "The inside expression is squared: (4x)^2 = 16x^2."),
+    inverseTrigChoice("y12e1-diff-inv-m9", "In $\\arctan(4x)$, the denominator after differentiating is:", "B", ["$1+4x^2$", "$1+16x^2$", "$1-16x^2$", "$\\sqrt{1-16x^2}$"], "The inside expression is squared: $(4x)^2 = 16x^2$."),
     inverseTrigChoice("y12e1-diff-inv-m10", "Which pair is correctly matched?", "C", ["arcsin: $1/(1+x^2)$", "arctan: $-1/\\sqrt{1-x^2}$", "arccos: $-1/\\sqrt{1-x^2}$", "arctan: $\\sqrt{1-x^2}$"], "Arccos is the inverse trig derivative with the negative square-root form."),
   ],
 };
