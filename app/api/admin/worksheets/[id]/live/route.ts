@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { ADMIN_COOKIE_NAME, getAdminToken } from "../../../../../../../lib/adminAuth";
-import { supabaseAdmin } from "../../../../../../../lib/supabaseAdmin";
+import { ADMIN_COOKIE_NAME, getAdminToken } from "../../../../../../lib/adminAuth";
+import { supabaseAdmin } from "../../../../../../lib/supabaseAdmin";
 
 export const runtime = "nodejs";
 
