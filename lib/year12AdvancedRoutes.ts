@@ -7,6 +7,9 @@ import {
   applicationsDifferentiationLessons,
 } from "./lessons/applicationsDifferentiation";
 import {
+  applicationsOfCalculusGapsLessons,
+} from "./lessons/applicationsOfCalculusGaps";
+import {
   differentialCalculusLessons,
 } from "./lessons/differentialCalculus";
 import {
@@ -58,6 +61,7 @@ const allAdvancedLessons: ExplicitLesson[] = [
   ...differentialCalculusLessons,
   ...differentiationTechniquesLessons,
   ...applicationsDifferentiationLessons,
+  ...applicationsOfCalculusGapsLessons,
   ...integralCalculusLessons,
   ...furtherIntegralCalculusLessons,
   ...functionsGraphingTechniquesLessons,

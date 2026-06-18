@@ -27,11 +27,12 @@ export default function Year12AdvancedPage() {
           </p>
 
           <p className="mt-4 max-w-3xl rounded-2xl border border-amber-200 bg-amber-50 p-4 leading-7 text-amber-900">
-            Year 12 Mathematics Advanced now includes{" "}
-            {year12AdvancedCourse.activeLessonCount} active lessons across
-            functions, trigonometry, exponential and logarithmic functions,
-            calculus, statistics, sequences, series and financial mathematics.
-            Ongoing refinements and visual supports are being added.
+            Year 12 Mathematics Advanced covers the seven NSW 2024 Year-12 focus
+            areas — {year12AdvancedCourse.activeLessonCount} active lessons
+            across further graph transformations and modelling, sequences and
+            series, differential and integral calculus, applications of
+            calculus, random variables, and financial mathematics. The Year 11
+            topics are covered in the separate Year 11 Advanced course.
           </p>
 
           <div className="mt-6 grid gap-3 md:grid-cols-3">

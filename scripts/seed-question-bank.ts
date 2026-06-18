@@ -11,6 +11,7 @@ import {
 } from "../lib/newCourseCatalog";
 import { flattenSkillMapV2Nodes } from "../lib/skillMapV2";
 import { applicationsDifferentiationLessons } from "../lib/lessons/applicationsDifferentiation";
+import { applicationsOfCalculusGapsLessons } from "../lib/lessons/applicationsOfCalculusGaps";
 import type { ExplicitLesson, PracticeQuestion } from "../lib/lessons/differentialCalculus";
 import { differentialCalculusLessons } from "../lib/lessons/differentialCalculus";
 import { differentiationTechniquesLessons } from "../lib/lessons/differentiationTechniques";
@@ -114,6 +115,7 @@ const allYear12AdvancedLessons: ExplicitLesson[] = [
   ...differentialCalculusLessons,
   ...differentiationTechniquesLessons,
   ...applicationsDifferentiationLessons,
+  ...applicationsOfCalculusGapsLessons,
   ...integralCalculusLessons,
   ...furtherIntegralCalculusLessons,
   ...exponentialLogarithmicFunctionsLessons,

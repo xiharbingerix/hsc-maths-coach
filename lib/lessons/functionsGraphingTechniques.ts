@@ -361,8 +361,8 @@ export const domainRangeFunctionNotationLesson: ExplicitLesson = {
 export const graphTransformationsLesson: ExplicitLesson = {
   id: "graph-transformations",
   slug: "graph-transformations",
-  moduleSlug: "ma-f1-working-with-functions",
-  moduleTitle: "Working with Functions",
+  moduleSlug: "ma-f2-graphing-techniques",
+  moduleTitle: "Graphing Techniques",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Graph Transformations",
   description:
@@ -726,8 +726,8 @@ export const graphTransformationsLesson: ExplicitLesson = {
 export const reflectionsStretchesTranslationsLesson: ExplicitLesson = {
   id: "reflections-stretches-translations",
   slug: "reflections-stretches-translations",
-  moduleSlug: "ma-f1-working-with-functions",
-  moduleTitle: "Working with Functions",
+  moduleSlug: "ma-f2-graphing-techniques",
+  moduleTitle: "Graphing Techniques",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Reflections, Stretches, and Translations",
   description:
