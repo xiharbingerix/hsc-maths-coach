@@ -1196,3 +1196,53 @@ export const applicationsOfCalculusGapsLessons = [
   differentiabilityAndContinuityLesson,
   exponentialGrowthDecayLesson,
 ];
+
+exponentialGrowthDecayLesson.masteryQuizPool?.push(
+  {
+    id: "growthdecay-p-27",
+    prompt:
+      "A quantity satisfies $\\frac{dQ}{dt}=kQ$. It has $Q(0)=80$ and initial rate $\\frac{dQ}{dt}=12$. Find $k$.",
+    latex: "\\frac{dQ}{dt}=kQ",
+    answer: "0.15",
+    difficulty: 5,
+    acceptedAnswers: ["3/20"],
+    hint: "At $t=0$, use $12=k\\times80$.",
+    explanation:
+      "At the initial time, $Q=80$ and $dQ/dt=12$, so $12=80k$. Hence $k=12/80=0.15$.",
+  },
+  {
+    id: "growthdecay-p-28",
+    prompt:
+      "A decaying quantity satisfies $N=Ae^{kt}$. If $N(0)=500$ and $\\frac{dN}{dt}=-40$ at $t=0$, find $k$.",
+    latex: "\\frac{dN}{dt}=kN",
+    answer: "-0.08",
+    difficulty: 5,
+    acceptedAnswers: ["-2/25"],
+    hint: "Use the initial amount and the initial rate in $dN/dt=kN$.",
+    explanation:
+      "At $t=0$, $-40=k(500)$, so $k=-40/500=-0.08$. The negative sign matches decay.",
+  },
+  {
+    id: "growthdecay-p-29",
+    prompt:
+      "A population is modelled by $P=120e^{0.03t}$. Find the rate of change when $P=300$.",
+    latex: "\\frac{dP}{dt}=0.03P",
+    answer: "9",
+    difficulty: 5,
+    hint: "Use the current value $P=300$ directly in $dP/dt=kP$.",
+    explanation:
+      "The rate is proportional to the current amount, so $dP/dt=0.03(300)=9$.",
+  },
+  {
+    id: "growthdecay-p-30",
+    prompt:
+      "A medicine amount is modelled by $M=50e^{-0.4t}$. Use $e^{-1.2}\\approx0.301$ to find $M$ at $t=3$, to 2 d.p.",
+    latex: "M=50e^{-0.4t}",
+    answer: "15.05",
+    difficulty: 5,
+    acceptedAnswers: ["15.1", "15.05"],
+    hint: "At $t=3$, the exponent is $-1.2$.",
+    explanation:
+      "$M(3)=50e^{-1.2}\\approx50(0.301)=15.05$. The amount has decayed from the initial 50.",
+  },
+);

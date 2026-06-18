@@ -1053,6 +1053,164 @@ furtherIntegralCalculusExamPracticeLesson.multiPartPractice = [
   },
 ];
 
+standardIntegralsLesson.masteryQuizPool?.push(
+  {
+    id: "fint-std-p29",
+    prompt: "Choose the correct antiderivative.",
+    latex: "\\int (4e^x-3\\sin x+2\\sec^2 x)\\,dx",
+    answer: "A",
+    difficulty: 5,
+    choices: [
+      { label: "A", text: "$4e^x+3\\cos x+2\\tan x+C$" },
+      { label: "B", text: "$4e^x-3\\cos x+2\\tan x+C$" },
+      { label: "C", text: "$4e^x+3\\cos x+2\\sec x+C$" },
+      { label: "D", text: "$4xe^x+3\\cos x+2\\tan x+C$" },
+    ],
+    hint: "Integrate each standard form term by term.",
+    explanation:
+      "$\\int4e^x dx=4e^x$, $\\int-3\\sin x dx=3\\cos x$, and $\\int2\\sec^2x dx=2\\tan x$.",
+  },
+  {
+    id: "fint-std-p30",
+    prompt: "Evaluate the definite integral.",
+    latex: "\\int_0^{\\pi/4}(\\sec^2x+\\cos x)\\,dx",
+    answer: "1+sqrt2/2",
+    difficulty: 5,
+    acceptedAnswers: ["1+\\sqrt2/2", "1+sqrt(2)/2"],
+    hint: "Use antiderivative $\\tan x+\\sin x$.",
+    explanation:
+      "$[\\tan x+\\sin x]_0^{\\pi/4}=1+\\frac{\\sqrt2}{2}-0=1+\\frac{\\sqrt2}{2}$.",
+  },
+);
+
+reverseChainRuleLesson.masteryQuizPool?.push(
+  {
+    id: "fint-rcr-p29",
+    prompt: "Choose the correct antiderivative.",
+    latex: "\\int 6x(3x^2+5)^4\\,dx",
+    answer: "B",
+    difficulty: 5,
+    choices: [
+      { label: "A", text: "$(3x^2+5)^5+C$" },
+      { label: "B", text: "$\\frac{(3x^2+5)^5}{5}+C$" },
+      { label: "C", text: "$\\frac{(3x^2+5)^5}{30}+C$" },
+      { label: "D", text: "$6(3x^2+5)^5+C$" },
+    ],
+    hint: "The numerator $6x$ is exactly the derivative of the bracket.",
+    explanation:
+      "Let $u=3x^2+5$, so $du=6x\\,dx$. Then $\\int u^4du=\\frac{u^5}{5}+C$.",
+  },
+  {
+    id: "fint-rcr-p30",
+    prompt: "Evaluate the definite integral.",
+    latex: "\\int_0^1 2x(x^2+1)^3\\,dx",
+    answer: "15/4",
+    difficulty: 5,
+    acceptedAnswers: ["3.75"],
+    hint: "Use $u=x^2+1$; the limits become $1$ and $2$.",
+    explanation:
+      "With $u=x^2+1$, $du=2x\\,dx$. The integral is $\\int_1^2u^3du=[u^4/4]_1^2=(16-1)/4=15/4$.",
+  },
+);
+
+definiteIntegralsStandardFormsLesson.masteryQuizPool?.push(
+  {
+    id: "fint-defstd-p29",
+    prompt: "Evaluate the definite integral.",
+    latex: "\\int_0^{\\ln 3} e^x\\,dx",
+    answer: "2",
+    difficulty: 5,
+    hint: "Use $e^{\\ln3}=3$.",
+    explanation:
+      "$\\int_0^{\\ln3}e^x dx=[e^x]_0^{\\ln3}=3-1=2$.",
+  },
+  {
+    id: "fint-defstd-p30",
+    prompt: "Evaluate the definite integral.",
+    latex: "\\int_1^{e^2}\\frac{3}{x}\\,dx",
+    answer: "6",
+    difficulty: 5,
+    hint: "Use $\\int\\frac1x dx=\\ln x$ and $\\ln(e^2)=2$.",
+    explanation:
+      "$\\int_1^{e^2}\\frac3x dx=3[\\ln x]_1^{e^2}=3(2-0)=6$.",
+  },
+);
+
+areaBetweenCurvesExtendedLesson.masteryQuizPool?.push(
+  {
+    id: "fint-area-p29",
+    prompt: "Find the total area between $y=x^2-1$ and the x-axis from $x=-2$ to $x=2$.",
+    latex: "y=x^2-1",
+    answer: "14/3",
+    difficulty: 5,
+    acceptedAnswers: ["4.667", "4.67"],
+    hint: "Split at the intercepts $x=-1$ and $x=1$.",
+    explanation:
+      "The signed integral pieces must be made positive. The total is $2\\int_0^1(1-x^2)dx+2\\int_1^2(x^2-1)dx=4/3+10/3=14/3$.",
+  },
+  {
+    id: "fint-area-p30",
+    prompt: "Find the enclosed area between $y=3x$ and $y=x^2+2x$.",
+    latex: "y=3x,\\quad y=x^2+2x",
+    answer: "1/6",
+    difficulty: 5,
+    acceptedAnswers: ["0.167", "0.17"],
+    hint: "Find intersections first, then top minus bottom.",
+    explanation:
+      "Intersections satisfy $3x=x^2+2x$, so $x=0,1$. On $(0,1)$, $3x$ is above. Area $=\\int_0^1(3x-x^2-2x)dx=\\int_0^1(x-x^2)dx=1/6$.",
+  },
+);
+
+trapezoidalRuleLesson.masteryQuizPool?.push(
+  {
+    id: "fint-trap-p29",
+    prompt: "Use the trapezoidal rule with four subintervals.",
+    latex: "\\begin{array}{c|ccccc}x&0&0.5&1&1.5&2\\\\ y&1&1.3&2&3.1&4\\end{array}",
+    answer: "4.35",
+    difficulty: 5,
+    acceptedAnswers: ["4.350"],
+    hint: "$h=0.5$; double the three interior ordinates.",
+    explanation:
+      "$\\frac{0.5}{2}(1+2(1.3)+2(2)+2(3.1)+4)=0.25(17.4)=4.35$.",
+  },
+  {
+    id: "fint-trap-p30",
+    prompt: "A trapezoidal estimate uses $h=0.25$ and ordinates $2,2.5,3.5,5,7$. Find the estimate.",
+    latex: "\\frac h2(y_0+2y_1+2y_2+2y_3+y_4)",
+    answer: "4.875",
+    difficulty: 5,
+    acceptedAnswers: ["4.88", "4.875"],
+    hint: "Endpoints once, interior ordinates doubled.",
+    explanation:
+      "$\\frac{0.25}{2}(2+2(2.5)+2(3.5)+2(5)+7)=0.125(39)=4.875$.",
+  },
+);
+
+furtherIntegralCalculusExamPracticeLesson.masteryQuizPool?.push(
+  {
+    id: "fint-exam-p29",
+    prompt: "Evaluate the definite integral.",
+    latex: "\\int_0^1 (2e^{2x}+3x^2)\\,dx",
+    answer: "e^2",
+    difficulty: 5,
+    acceptedAnswers: ["e^2", "e^{2}"],
+    hint: "Integrate the exponential and polynomial parts separately.",
+    explanation:
+      "$\\int_0^1 2e^{2x}dx=[e^{2x}]_0^1=e^2-1$ and $\\int_0^1 3x^2dx=1$, so the total is $e^2$.",
+  },
+  {
+    id: "fint-exam-p30",
+    prompt: "Find the exact area enclosed between $y=e^x$ and $y=1$ from $x=0$ to $x=\\ln4$.",
+    latex: "\\int_0^{\\ln4}(e^x-1)\\,dx",
+    answer: "3-ln4",
+    difficulty: 5,
+    acceptedAnswers: ["3-\\ln4", "3-ln(4)"],
+    hint: "The upper curve is $e^x$ and $e^{\\ln4}=4$.",
+    explanation:
+      "$\\int_0^{\\ln4}(e^x-1)dx=[e^x-x]_0^{\\ln4}=(4-\\ln4)-1=3-\\ln4$.",
+  },
+);
+
 export const furtherIntegralCalculusLessons = [
   standardIntegralsLesson,
   reverseChainRuleLesson,

@@ -4621,6 +4621,130 @@ export const areasWithRespectToYAxisLesson: ExplicitLesson = {
   masteryPassMark: 0.8,
 };
 
+integratingExponentialsAnyBaseLesson.masteryQuizPool?.push(
+  {
+    id: "intax-p-25",
+    prompt: "Evaluate the definite integral. Use $\\ln 4\\approx1.386$; give 3 d.p.",
+    latex: "\\int_0^1 4^x\\,dx",
+    answer: "2.165",
+    difficulty: 5,
+    acceptedAnswers: ["2.16", "2.165"],
+    hint: "Use $\\int a^x\\,dx=\\frac{a^x}{\\ln a}+C$.",
+    explanation:
+      "$\\int_0^1 4^x\\,dx=\\frac{4^1-4^0}{\\ln4}=\\frac{3}{1.386}\\approx2.165$.",
+  },
+  {
+    id: "intax-p-26",
+    prompt: "Evaluate the definite integral. Use $\\ln 3\\approx1.099$; give 3 d.p.",
+    latex: "\\int_0^2 3^x\\,dx",
+    answer: "7.279",
+    difficulty: 5,
+    acceptedAnswers: ["7.28", "7.279"],
+    hint: "The antiderivative is $\\frac{3^x}{\\ln3}$.",
+    explanation:
+      "$\\int_0^2 3^x\\,dx=\\frac{9-1}{\\ln3}=\\frac{8}{1.099}\\approx7.279$.",
+  },
+  {
+    id: "intax-p-27",
+    prompt: "Choose the correct antiderivative.",
+    latex: "\\int 5\\cdot 3^{2x}\\,dx",
+    answer: "B",
+    difficulty: 5,
+    choices: [
+      { label: "A", text: "$\\frac{5\\cdot3^{2x}}{\\ln3}+C$" },
+      { label: "B", text: "$\\frac{5\\cdot3^{2x}}{2\\ln3}+C$" },
+      { label: "C", text: "$10\\cdot3^{2x}\\ln3+C$" },
+      { label: "D", text: "$\\frac{3^{2x}}{5\\ln3}+C$" },
+    ],
+    hint: "Account for the inner derivative $2$ as well as the base $3$.",
+    explanation:
+      "Since $\\frac{d}{dx}3^{2x}=2\\ln3\\cdot3^{2x}$, the antiderivative is $\\frac{5\\cdot3^{2x}}{2\\ln3}+C$.",
+  },
+  {
+    id: "intax-p-28",
+    prompt: "A student writes $\\int 2^{3x}\\,dx=\\frac{2^{3x}}{\\ln2}+C$. Which factor is missing?",
+    latex: "\\int 2^{3x}\\,dx",
+    answer: "3",
+    difficulty: 5,
+    hint: "Differentiate $2^{3x}$ and look at the inner derivative.",
+    explanation:
+      "The derivative of $2^{3x}$ is $3\\ln2\\cdot2^{3x}$, so the antiderivative must divide by $3\\ln2$. The missing factor is 3.",
+  },
+  {
+    id: "intax-p-29",
+    prompt: "Find $k$ if $F(x)=k\\,7^x$ is an antiderivative of $7^x$.",
+    latex: "F'(x)=7^x",
+    answer: "1/ln7",
+    difficulty: 5,
+    acceptedAnswers: ["1/\\ln7", "1/(ln7)", "1/(\\ln7)"],
+    hint: "Differentiate $k7^x$ and set the coefficient equal to 1.",
+    explanation:
+      "$F'(x)=k\\ln7\\cdot7^x$. For this to equal $7^x$, $k\\ln7=1$, so $k=1/\\ln7$.",
+  },
+  {
+    id: "intax-p-30",
+    prompt: "Evaluate the integral. Use $\\ln2\\approx0.693$ and give 3 d.p.",
+    latex: "\\int_1^3 2^{x-1}\\,dx",
+    answer: "4.329",
+    difficulty: 5,
+    acceptedAnswers: ["4.33", "4.329"],
+    hint: "Use $u=x-1$ or integrate $2^{x-1}$ directly with the same $\\ln2$ divisor.",
+    explanation:
+      "$\\int_1^3 2^{x-1}\\,dx=\\left[\\frac{2^{x-1}}{\\ln2}\\right]_1^3=\\frac{4-1}{0.693}\\approx4.329$.",
+  },
+);
+
+areasWithRespectToYAxisLesson.masteryQuizPool?.push(
+  {
+    id: "yaxis-p-27",
+    prompt: "Find the area between $y=5x$, the y-axis, $y=0$ and $y=10$.",
+    latex: "\\int_0^{10}\\frac{y}{5}\\,dy",
+    answer: "10",
+    difficulty: 4,
+    hint: "Rearrange to $x=y/5$ before integrating with respect to $y$.",
+    explanation:
+      "$\\int_0^{10}\\frac{y}{5}\\,dy=\\frac15\\left[\\frac{y^2}{2}\\right]_0^{10}=10$.",
+  },
+  {
+    id: "yaxis-p-28",
+    prompt: "Find the area between $y=x^4$ ($x\\ge0$), the y-axis, $y=0$ and $y=16$.",
+    latex: "\\int_0^{16}y^{1/4}\\,dy",
+    answer: "128/5",
+    difficulty: 5,
+    acceptedAnswers: ["25.6", "25.60"],
+    hint: "Use $x=y^{1/4}$ and integrate with respect to $y$.",
+    explanation:
+      "$\\int_0^{16}y^{1/4}\\,dy=\\left[\\frac45y^{5/4}\\right]_0^{16}=\\frac45(32)=\\frac{128}{5}$.",
+  },
+  {
+    id: "yaxis-p-29",
+    prompt: "The area between $y=\\ln x$, the y-axis, $y=1$ and $y=3$ equals which exponential integral?",
+    latex: "\\text{reflection in }y=x",
+    answer: "B",
+    difficulty: 5,
+    choices: [
+      { label: "A", text: "$\\int_0^3 e^x\\,dx$" },
+      { label: "B", text: "$\\int_1^3 e^x\\,dx$" },
+      { label: "C", text: "$\\int_1^3 \\ln x\\,dx$" },
+      { label: "D", text: "$\\int_0^1 e^x\\,dx$" },
+    ],
+    hint: "Reflection swaps the y-limits into x-limits for the exponential curve.",
+    explanation:
+      "The log curve reflects to \\(y=e^x\\), and the y-limits \\(1\\) to \\(3\\) become x-limits \\(1\\) to \\(3\\), so the matching area is \\(\\int_1^3 e^x\\,dx\\).",
+  },
+  {
+    id: "yaxis-p-30",
+    prompt: "Find the area between $y=\\ln x$, the y-axis, $y=0$ and $y=3$. Use \\(e^3\\approx20.086\\); give 3 d.p.",
+    latex: "\\int_0^3 e^x\\,dx",
+    answer: "19.086",
+    difficulty: 5,
+    acceptedAnswers: ["19.09", "19.086"],
+    hint: "Reflect to the exponential area from $x=0$ to $x=3$.",
+    explanation:
+      "By reflection, the area is $\\int_0^3 e^x\\,dx=[e^x]_0^3=e^3-1\\approx20.086-1=19.086$.",
+  },
+);
+
 export const integralCalculusOutline: LessonOutlineItem[] = [
   {
     id: "antidifferentiation-reverse-power-rule",

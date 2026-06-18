@@ -2193,6 +2193,90 @@ mixedFinancialMathematicsExamPracticeLesson.multiPartPractice = [
   },
 ];
 
+growthFactorsCompoundInterestDepreciationLesson.masteryQuizPool?.push(
+  {
+    id: "growth-p-29",
+    prompt:
+      "A car worth $24000 depreciates by 12% per year. Use \\(0.88^3=0.681472\\). Find its value after 3 years, to the nearest cent.",
+    latex: "A=24000(0.88)^3",
+    answer: "16355.33",
+    difficulty: 5,
+    acceptedAnswers: ["$16355.33", "$16,355.33"],
+    hint: "A 12% depreciation means a multiplier of $0.88$ each year.",
+    explanation:
+      "\\(24000(0.88)^3=24000(0.681472)=16355.328\\), so the value is $16355.33.",
+  },
+  {
+    id: "growth-p-30",
+    prompt:
+      "An investment grows from $5000 to $5788.13 over 3 years. Use \\(1.05^3=1.157625\\). Which annual growth rate was used?",
+    latex: "5000(1+r)^3=5788.13",
+    answer: "5",
+    difficulty: 5,
+    acceptedAnswers: ["5%", "0.05"],
+    hint: "Compare the multiplier with the given power.",
+    explanation:
+      "\\(5788.13/5000\\approx1.157625=1.05^3\\), so the annual multiplier is \\(1.05\\) and the rate is 5%.",
+  },
+);
+
+recurrenceRelationsFinancialContextsLesson.masteryQuizPool?.push({
+  id: "recurrence-p-30",
+  prompt:
+    "A loan follows $L_{n+1}=1.015L_n-350$ with $L_0=8000$. Find $L_2$ to the nearest cent.",
+  latex: "L_{n+1}=1.015L_n-350",
+  answer: "7402.34",
+  difficulty: 5,
+  acceptedAnswers: ["$7402.34", "$7,402.34"],
+  hint: "Compute $L_1$ first, then apply the recurrence again.",
+  explanation:
+    "$L_1=1.015(8000)-350=7770$. Then $L_2=1.015(7770)-350=7402.34$.",
+});
+
+presentValueLoanRepaymentsLesson.masteryQuizPool?.push({
+  id: "pvloan-p-30",
+  prompt:
+    "A loan balance is $18000 and repayments are $650 per month at 1% monthly interest. Find the balance after two repayments, to the nearest cent.",
+  latex: "L_{n+1}=1.01L_n-650",
+  answer: "16882.80",
+  difficulty: 5,
+  acceptedAnswers: ["$16882.80", "$16,882.80", "16882.8"],
+  hint: "Apply interest then repayment twice.",
+  explanation:
+    "$L_1=1.01(18000)-650=17530$. Then $L_2=1.01(17530)-650=16882.80$.",
+});
+
+comparingFinancialOptionsLesson.masteryQuizPool?.push({
+  id: "compare-p-30",
+  prompt:
+    "Investment A: $4000 at 4% p.a. for 5 years. Investment B: $4000 at 3.8% p.a. for 5 years plus a $60 bonus. Use \\(1.04^5=1.216653\\) and \\(1.038^5=1.205211\\). Which option is larger?",
+  latex: "\\text{Choose one}",
+  answer: "B",
+  difficulty: 5,
+  choices: [
+    { label: "A", text: "Option A" },
+    { label: "B", text: "Option B" },
+    { label: "C", text: "They are equal" },
+    { label: "D", text: "Cannot be compared" },
+  ],
+  hint: "Compute both final values over the same 5-year period.",
+  explanation:
+    "A is $4000(1.216653)=4866.61$. B is $4000(1.205211)+60=4880.84$, so Option B is larger.",
+});
+
+mixedFinancialMathematicsExamPracticeLesson.masteryQuizPool?.push({
+  id: "mixed-fin-p-30",
+  prompt:
+    "A laptop worth $3000 depreciates by 18% for 2 years, then is repaired for $250 added to its value. Use $0.82^2=0.6724$. Find the final value.",
+  latex: "3000(0.82)^2+250",
+  answer: "2267.20",
+  difficulty: 5,
+  acceptedAnswers: ["$2267.20", "$2,267.20", "2267.2"],
+  hint: "Apply depreciation first, then add the repair value.",
+  explanation:
+    "$3000(0.6724)=2017.20$. Adding $250 gives $2267.20$.",
+});
+
 export const financialMathematicsOutline: LessonOutlineItem[] = [
   {
     id: "growth-factors-compound-interest-depreciation",
