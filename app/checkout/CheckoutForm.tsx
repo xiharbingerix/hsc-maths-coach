@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { offerConfigs, type OfferSlug } from "../../lib/offers";
 import { supabase } from "../../lib/supabaseClient";
@@ -21,9 +21,28 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAlreadySubscribed, setIsAlreadySubscribed] = useState(false);
+  const checkoutActionRef = useRef<
+    "started" | "purchase_attempted" | "redirected_to_stripe"
+  >("started");
+  const exitTrackedRef = useRef(false);
 
   // True when online-learning and no logged-in user — use the new direct-to-Stripe flow.
   const isAnonymousOnlineLearning = offer.slug === "online-learning" && !user;
+
+  const trackCheckoutExit = useCallback((reason: string) => {
+    if (exitTrackedRef.current) return;
+    exitTrackedRef.current = true;
+
+    clientTrackEvent(
+      "checkout_exited",
+      {
+        offer: offerSlug,
+        reason,
+        lastAction: checkoutActionRef.current,
+      },
+      { beacon: true }
+    );
+  }, [offerSlug]);
 
   useEffect(() => {
     let tracked = false;
@@ -91,12 +110,41 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
     return () => subscription.unsubscribe();
   }, [offer.slug, offerSlug]);
 
+  useEffect(() => {
+    window.history.replaceState(
+      { ...(window.history.state ?? {}), novaCheckoutPage: true },
+      "",
+      window.location.href
+    );
+
+    const handlePageHide = () => {
+      if (checkoutActionRef.current !== "redirected_to_stripe") {
+        trackCheckoutExit("page_hidden_or_closed");
+      }
+    };
+
+    const handlePopState = () => {
+      trackCheckoutExit("browser_back_or_forward");
+    };
+
+    window.addEventListener("pagehide", handlePageHide);
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("pagehide", handlePageHide);
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [offerSlug, trackCheckoutExit]);
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setErrorMessage("");
     setIsSubmitting(true);
+    checkoutActionRef.current = "purchase_attempted";
     trackEvent("checkout_form_submitted", { offer: offer.slug });
+    trackEvent("checkout_purchase_attempted", { offer: offer.slug });
     clientTrackEvent("checkout_form_submitted", { offer: offerSlug });
+    clientTrackEvent("checkout_purchase_attempted", { offer: offerSlug });
 
     try {
       let accessToken: string | undefined;
@@ -159,6 +207,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
       }
 
       if (payload.url) {
+        checkoutActionRef.current = "redirected_to_stripe";
         clientTrackEvent(
           "checkout_redirected_to_stripe",
           { offer: offerSlug },

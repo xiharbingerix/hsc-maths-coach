@@ -140,7 +140,7 @@ export async function POST(request: Request) {
       // is absent in the webhook.
       ...(userId ? { client_reference_id: userId } : {}),
       success_url: `${siteUrl}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${siteUrl}/payment-cancelled?offer=${offer.slug}`,
+      cancel_url: `${siteUrl}/payment-cancelled?offer=${offer.slug}&session_id={CHECKOUT_SESSION_ID}`,
       metadata: {
         offer_selected: offer.slug,
         ...(parentEmail ? { parent_email: parentEmail } : {}),

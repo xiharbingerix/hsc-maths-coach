@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
+import { CheckoutFooterLinks } from "./CheckoutFooterLinks";
 import { CheckoutForm } from "./CheckoutForm";
 import { getOfferConfig, type OfferSlug } from "../../lib/offers";
 
@@ -53,17 +53,10 @@ export default async function CheckoutPage({
 
         <CheckoutForm offerSlug={offer.slug as OfferSlug} />
 
-        <footer className="flex flex-wrap gap-4 border-t border-slate-200 pt-6 text-sm">
-          <Link href="/" className="font-medium text-slate-900 hover:underline">
-            Back to homepage
-          </Link>
-          <Link
-            href={offer.enquiryHref}
-            className="font-medium text-slate-900 hover:underline"
-          >
-            Enquire instead
-          </Link>
-        </footer>
+        <CheckoutFooterLinks
+          enquiryHref={offer.enquiryHref}
+          offerSlug={offer.slug as OfferSlug}
+        />
       </section>
     </main>
   );
