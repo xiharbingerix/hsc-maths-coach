@@ -20,6 +20,8 @@ type LessonContent = Pick<
   | "independentPractice"
   | "commonMistakes"
   | "masteryQuiz"
+  | "masteryQuizPool"
+  | "multiPartPractice"
 >;
 
 // ── Helper builders ──────────────────────────────────────────────────────────
@@ -55,6 +57,50 @@ function choice(
     id,
     prompt,
     latex,
+    choices: ["A", "B", "C", "D"].map((label, i) => ({ label, text: choices[i] })),
+    answer: value,
+    hint: "Read the question carefully, then check each option against the relevant rule or formula.",
+    explanation,
+  };
+}
+
+// Pool builders: identical to `answer`/`choice` but carry a difficulty tag (1–5)
+// so the mastery-quiz selector can ramp easy→hard.
+function poolAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  value: string,
+  explanation: string,
+  difficulty: number,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    difficulty,
+    answer: value,
+    acceptedAnswers: Array.from(new Set([value, ...acceptedAnswers])),
+    hint: "Identify the key values, choose the correct method, then calculate step by step.",
+    explanation,
+  };
+}
+
+function poolChoice(
+  id: string,
+  prompt: string,
+  value: "A" | "B" | "C" | "D",
+  choices: [string, string, string, string],
+  explanation: string,
+  difficulty: number,
+  latex = "\\text{Select A, B, C or D.}"
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    difficulty,
     choices: ["A", "B", "C", "D"].map((label, i) => ({ label, text: choices[i] })),
     answer: value,
     hint: "Read the question carefully, then check each option against the relevant rule or formula.",
@@ -299,6 +345,86 @@ const percentagesBasics: LessonContent = {
       ["$9"]
     ),
   ],
+  masteryQuizPool: [
+    // ── Difficulty 1: convert and simple key percentages ─────────────────
+    poolAnswer("y8-fin-pct-p1", "Convert 40% to a decimal.", "40\\% = \\;?", "0.4", "40 ÷ 100 = 0.4.", 1, ["0.40", ".4"]),
+    poolAnswer("y8-fin-pct-p2", "Convert 90% to a decimal.", "90\\% = \\;?", "0.9", "90 ÷ 100 = 0.9.", 1, ["0.90", ".9"]),
+    poolAnswer("y8-fin-pct-p3", "Find 50% of \\(\\$48\\).", "50\\%\\text{ of }\\$48 = \\;?", "24", "0.50 × 48 = 24.", 1, ["$24", "24.00"]),
+    poolAnswer("y8-fin-pct-p4", "Find 10% of \\(\\$70\\).", "10\\%\\text{ of }\\$70 = \\;?", "7", "0.10 × 70 = 7.", 1, ["$7"]),
+    poolChoice("y8-fin-pct-p5", "Which decimal equals 25%?", "C", ["2.5", "0.025", "0.25", "25.0"], "25 ÷ 100 = 0.25.", 1, "\\text{Select the correct decimal.}"),
+    // ── Difficulty 2: standard percentage of an amount ───────────────────
+    poolAnswer("y8-fin-pct-p6", "Find 20% of \\(\\$85\\).", "20\\%\\text{ of }\\$85 = \\;?", "17", "0.20 × 85 = 17.", 2, ["$17"]),
+    poolAnswer("y8-fin-pct-p7", "Find 25% of \\(\\$160\\).", "25\\%\\text{ of }\\$160 = \\;?", "40", "0.25 × 160 = 40.", 2, ["$40"]),
+    poolAnswer("y8-fin-pct-p8", "Find 30% of \\(\\$90\\).", "30\\%\\text{ of }\\$90 = \\;?", "27", "0.30 × 90 = 27.", 2, ["$27"]),
+    poolChoice("y8-fin-pct-p9", "What is 40% of \\(\\$55\\)?", "B", ["$20", "$22", "$24", "$27.50"], "0.40 × 55 = 22.", 2, "40\\%\\text{ of }\\$55 = \\;?"),
+    poolAnswer("y8-fin-pct-p10", "Convert 12% to a decimal.", "12\\% = \\;?", "0.12", "12 ÷ 100 = 0.12.", 2, [".12"]),
+    // ── Difficulty 3: build-up method and decimal answers ────────────────
+    poolAnswer("y8-fin-pct-p11", "Find 15% of \\(\\$80\\).", "15\\%\\text{ of }\\$80 = \\;?", "12", "0.15 × 80 = 12.", 3, ["$12"]),
+    poolAnswer("y8-fin-pct-p12", "Find 35% of \\(\\$140\\).", "35\\%\\text{ of }\\$140 = \\;?", "49", "0.35 × 140 = 49.", 3, ["$49"]),
+    poolAnswer("y8-fin-pct-p13", "Find 5% of \\(\\$130\\).", "5\\%\\text{ of }\\$130 = \\;?", "6.5", "0.05 × 130 = 6.5.", 3, ["$6.50", "6.50"]),
+    poolChoice("y8-fin-pct-p14", "A meal costs \\(\\$64\\). A 10% tip is added. How much is the tip?", "A", ["$6.40", "$7.40", "$64", "$640"], "0.10 × 64 = 6.40.", 3, "10\\%\\text{ of }\\$64 = \\;?"),
+    poolAnswer("y8-fin-pct-p15", "Find 1% of \\(\\$350\\).", "1\\%\\text{ of }\\$350 = \\;?", "3.5", "0.01 × 350 = 3.5.", 3, ["$3.50", "3.50"]),
+    // ── Difficulty 4: multi-step and reverse reasoning ───────────────────
+    poolAnswer("y8-fin-pct-p16", "Find 17.5% of \\(\\$200\\).", "17.5\\%\\text{ of }\\$200 = \\;?", "35", "0.175 × 200 = 35.", 4, ["$35"]),
+    poolAnswer("y8-fin-pct-p17", "Find 12% of \\(\\$250\\).", "12\\%\\text{ of }\\$250 = \\;?", "30", "0.12 × 250 = 30.", 4, ["$30"]),
+    poolChoice("y8-fin-pct-p18", "10% of an amount is \\(\\$9\\). What is the full amount?", "C", ["$0.90", "$90", "$90 (since 100% = 10 × 10%)", "$900"], "If 10% = $9, then 100% = 10 × $9 = $90.", 4, "\\text{Find }100\\%\\text{ when }10\\% = \\$9."),
+    poolAnswer("y8-fin-pct-p19", "25% of an amount is \\(\\$15\\). Find the full amount.", "100\\% = 4 \\times 15 = \\;?", "60", "25% is one quarter, so 100% = 4 × $15 = $60.", 4, ["$60"]),
+    poolAnswer("y8-fin-pct-p20", "Find 8% of \\(\\$625\\).", "8\\%\\text{ of }\\$625 = \\;?", "50", "0.08 × 625 = 50.", 4, ["$50"]),
+    // ── Difficulty 5: harder reverse / combined ──────────────────────────
+    poolChoice("y8-fin-pct-p21", "5% of an amount is \\(\\$4\\). What is 100% of the amount?", "B", ["$20", "$80", "$8", "$400"], "If 5% = $4, then 1% = $0.80 and 100% = 100 × $0.80 = $80.", 5, "\\text{Find }100\\%\\text{ when }5\\% = \\$4."),
+    poolAnswer("y8-fin-pct-p22", "Find 37.5% of \\(\\$96\\).", "37.5\\%\\text{ of }\\$96 = \\;?", "36", "0.375 × 96 = 36.", 5, ["$36"]),
+    poolAnswer("y8-fin-pct-p23", "A book is \\(\\$45\\). Find 60% of its price, then state how much remains as a percentage.", "60\\%\\text{ of }\\$45 = \\;?", "27", "0.60 × 45 = $27; the remaining 40% is $18.", 5, ["$27"]),
+    poolAnswer("y8-fin-pct-p24", "20% of an amount is \\(\\$13\\). Find the full amount.", "100\\% = 5 \\times 13 = \\;?", "65", "20% is one fifth, so 100% = 5 × $13 = $65.", 5, ["$65"]),
+    poolAnswer("y8-fin-pct-p25", "Find 2.5% of \\(\\$480\\).", "2.5\\%\\text{ of }\\$480 = \\;?", "12", "0.025 × 480 = 12.", 5, ["$12"]),
+    poolChoice("y8-fin-pct-p26", "Which is largest: 30% of \\(\\$50\\), 20% of \\(\\$80\\), or 10% of \\(\\$140\\)?", "B", ["30% of $50", "20% of $80", "10% of $140", "All are equal"], "30% of $50 = $15; 20% of $80 = $16; 10% of $140 = $14. The largest is 20% of $80.", 5, "\\text{Compare the three values.}"),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-fin-pct-mp1",
+      prompt:
+        "A jacket has a marked price of \\(\\$240\\). Use percentages of this price to answer each part.",
+      latex: "\\text{Price} = \\$240",
+      answer: "60",
+      hint: "Convert each percentage to a decimal, then multiply by $240.",
+      explanation:
+        "Part (a): 0.25 × 240 = $60. Part (b): 0.10 × 240 = $24. Part (c): 0.05 × 240 = $12, so 15% = $24 + $12 = $36.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find 25% of \\(\\$240\\).",
+          latex: "25\\%\\text{ of }\\$240",
+          marks: 1,
+          answer: "60",
+          acceptedAnswers: ["$60"],
+          hint: "0.25 × 240.",
+          explanation: "0.25 × 240 = $60.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find 10% of \\(\\$240\\).",
+          latex: "10\\%\\text{ of }\\$240",
+          marks: 1,
+          answer: "24",
+          acceptedAnswers: ["$24"],
+          hint: "0.10 × 240.",
+          explanation: "0.10 × 240 = $24.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find 15% of \\(\\$240\\) by combining 10% and 5%.",
+          latex: "15\\%\\text{ of }\\$240",
+          marks: 2,
+          answer: "36",
+          acceptedAnswers: ["$36"],
+          hint: "10% = $24 and 5% = $12; add them.",
+          explanation: "10% = $24, 5% = $12, so 15% = $24 + $12 = $36.",
+        },
+      ],
+    },
+  ],
 };
 
 // ── Lesson 2: Percentage Increase ─────────────────────────────────────────────
@@ -536,6 +662,86 @@ const percentageIncrease: LessonContent = {
       ["$81"]
     ),
   ],
+  masteryQuizPool: [
+    // ── Difficulty 1: identify the multiplier ────────────────────────────
+    poolChoice("y8-fin-inc-p1", "What is the multiplier for a 10% increase?", "A", ["1.10", "0.90", "0.10", "1.01"], "1 + 0.10 = 1.10.", 1, "\\text{Multiplier for a }10\\%\\text{ increase}"),
+    poolChoice("y8-fin-inc-p2", "What is the multiplier for a 50% increase?", "B", ["0.50", "1.50", "1.05", "5.0"], "1 + 0.50 = 1.50.", 1, "\\text{Multiplier for a }50\\%\\text{ increase}"),
+    poolAnswer("y8-fin-inc-p3", "Increase \\(\\$80\\) by 10%.", "\\$80 \\times 1.10 = \\;?", "88", "80 × 1.10 = 88.", 1, ["$88"]),
+    poolAnswer("y8-fin-inc-p4", "Increase \\(\\$200\\) by 50%.", "\\$200 \\times 1.50 = \\;?", "300", "200 × 1.50 = 300.", 1, ["$300"]),
+    poolChoice("y8-fin-inc-p5", "What is the multiplier for a 25% increase?", "C", ["0.75", "1.025", "1.25", "0.25"], "1 + 0.25 = 1.25.", 1, "\\text{Multiplier for a }25\\%\\text{ increase}"),
+    // ── Difficulty 2: standard increase ──────────────────────────────────
+    poolAnswer("y8-fin-inc-p6", "Increase \\(\\$50\\) by 20%.", "\\$50 \\times 1.20 = \\;?", "60", "50 × 1.20 = 60.", 2, ["$60"]),
+    poolAnswer("y8-fin-inc-p7", "Increase \\(\\$120\\) by 25%.", "\\$120 \\times 1.25 = \\;?", "150", "120 × 1.25 = 150.", 2, ["$150"]),
+    poolAnswer("y8-fin-inc-p8", "A ticket costs \\(\\$30\\) and rises by 10%. Find the new price.", "\\$30 \\times 1.10 = \\;?", "33", "30 × 1.10 = 33.", 2, ["$33"]),
+    poolChoice("y8-fin-inc-p9", "A \\(\\$40\\) item rises by 5%. What is the new price?", "B", ["$45", "$42", "$44", "$2"], "40 × 1.05 = 42.", 2, "\\$40 \\times 1.05 = \\;?"),
+    poolAnswer("y8-fin-inc-p10", "Increase \\(\\$60\\) by 30%.", "\\$60 \\times 1.30 = \\;?", "78", "60 × 1.30 = 78.", 2, ["$78"]),
+    // ── Difficulty 3: decimal results and wages ──────────────────────────
+    poolAnswer("y8-fin-inc-p11", "A wage of \\(\\$24\\) per hour rises by 5%. Find the new rate.", "\\$24 \\times 1.05 = \\;?", "25.20", "24 × 1.05 = 25.20.", 3, ["$25.20"]),
+    poolAnswer("y8-fin-inc-p12", "Increase \\(\\$16\\) by 15%.", "\\$16 \\times 1.15 = \\;?", "18.40", "16 × 1.15 = 18.40.", 3, ["$18.40"]),
+    poolAnswer("y8-fin-inc-p13", "Increase \\(\\$340\\) by 12%.", "\\$340 \\times 1.12 = \\;?", "380.80", "340 × 1.12 = 380.80.", 3, ["$380.80"]),
+    poolChoice("y8-fin-inc-p14", "A rent of \\(\\$420\\) rises by 8%. What is the new rent?", "A", ["$453.60", "$33.60", "$386.40", "$428"], "420 × 1.08 = 453.60.", 3, "\\$420 \\times 1.08 = \\;?"),
+    poolAnswer("y8-fin-inc-p15", "Increase \\(\\$95\\) by 40%.", "\\$95 \\times 1.40 = \\;?", "133", "95 × 1.40 = 133.", 3, ["$133"]),
+    // ── Difficulty 4: larger / find-the-increase ─────────────────────────
+    poolAnswer("y8-fin-inc-p16", "Increase \\(\\$1250\\) by 18%.", "\\$1250 \\times 1.18 = \\;?", "1475", "1250 × 1.18 = 1475.", 4, ["$1475"]),
+    poolAnswer("y8-fin-inc-p17", "A salary of \\(\\$64000\\) rises by 3.5%. Find the new salary.", "\\$64000 \\times 1.035 = \\;?", "66240", "64000 × 1.035 = 66240.", 4, ["$66240", "66,240"]),
+    poolChoice("y8-fin-inc-p18", "A price of \\(\\$80\\) becomes \\(\\$92\\). By what percentage did it increase?", "C", ["10%", "12%", "15%", "20%"], "Increase = $12; 12 ÷ 80 × 100 = 15%.", 4, "\\text{Percentage increase from }\\$80\\text{ to }\\$92"),
+    poolAnswer("y8-fin-inc-p19", "Increase \\(\\$450\\) by 22%.", "\\$450 \\times 1.22 = \\;?", "549", "450 × 1.22 = 549.", 4, ["$549"]),
+    poolAnswer("y8-fin-inc-p20", "Increase \\(\\$28\\) by 12.5%.", "\\$28 \\times 1.125 = \\;?", "31.50", "28 × 1.125 = 31.50.", 4, ["$31.50"]),
+    // ── Difficulty 5: reverse and two-step ───────────────────────────────
+    poolChoice("y8-fin-inc-p21", "After a 20% increase a price is \\(\\$90\\). What was the original price?", "B", ["$72", "$75", "$70", "$108"], "Original × 1.20 = 90, so original = 90 ÷ 1.20 = $75.", 5, "\\text{Original price if } \\$90 = \\text{original} \\times 1.20"),
+    poolAnswer("y8-fin-inc-p22", "After a 10% increase a price is \\(\\$66\\). Find the original price.", "66 \\div 1.10 = \\;?", "60", "66 ÷ 1.10 = $60.", 5, ["$60"]),
+    poolAnswer("y8-fin-inc-p23", "Increase \\(\\$500\\) by 6%, then increase the result by 6% again. Find the final amount.", "500 \\times 1.06 \\times 1.06 = \\;?", "561.80", "500 × 1.06 = 530; 530 × 1.06 = 561.80.", 5, ["$561.80"]),
+    poolAnswer("y8-fin-inc-p24", "Increase \\(\\$144\\) by 37.5%.", "\\$144 \\times 1.375 = \\;?", "198", "144 × 1.375 = 198.", 5, ["$198"]),
+    poolChoice("y8-fin-inc-p25", "A \\(\\$250\\) item rises by 15% one year and by 20% the next. What is the final price?", "A", ["$345", "$337.50", "$320", "$300"], "250 × 1.15 = 287.50; 287.50 × 1.20 = 345.", 5, "250 \\times 1.15 \\times 1.20 = \\;?"),
+    poolAnswer("y8-fin-inc-p26", "After a 25% increase a price is \\(\\$150\\). Find the original price.", "150 \\div 1.25 = \\;?", "120", "150 ÷ 1.25 = $120.", 5, ["$120"]),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-fin-inc-mp1",
+      prompt:
+        "A bicycle is priced at \\(\\$400\\). The shop raises the price by 15%, then later raises the new price by a further 10%.",
+      latex: "\\text{Original price} = \\$400",
+      answer: "506",
+      hint: "Use the multiplier (1 + rate) for each increase in turn.",
+      explanation:
+        "Part (a): 400 × 1.15 = $460. Part (b): 460 × 1.10 = $506. Part (c): the total increase is $506 − $400 = $106.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the price after the 15% increase.",
+          latex: "\\$400 \\times 1.15",
+          marks: 1,
+          answer: "460",
+          acceptedAnswers: ["$460"],
+          hint: "Multiplier for a 15% increase is 1.15.",
+          explanation: "400 × 1.15 = $460.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find the price after the further 10% increase.",
+          latex: "\\$460 \\times 1.10",
+          marks: 2,
+          answer: "506",
+          acceptedAnswers: ["$506"],
+          hint: "Apply the 10% increase to the new $460 price.",
+          explanation: "460 × 1.10 = $506.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find the total increase in price from the original \\(\\$400\\).",
+          latex: "\\$506 - \\$400",
+          marks: 1,
+          answer: "106",
+          acceptedAnswers: ["$106"],
+          hint: "Subtract the original from the final price.",
+          explanation: "$506 − $400 = $106.",
+        },
+      ],
+    },
+  ],
 };
 
 // ── Lesson 3: Percentage Decrease ─────────────────────────────────────────────
@@ -772,6 +978,86 @@ const percentageDecrease: LessonContent = {
       "18.50 × 0.80 = 14.80.",
       ["$14.80"]
     ),
+  ],
+  masteryQuizPool: [
+    // ── Difficulty 1: identify the multiplier ────────────────────────────
+    poolChoice("y8-fin-dec-p1", "What is the multiplier for a 10% decrease?", "A", ["0.90", "1.10", "0.10", "0.99"], "1 − 0.10 = 0.90.", 1, "\\text{Multiplier for a }10\\%\\text{ decrease}"),
+    poolChoice("y8-fin-dec-p2", "What is the multiplier for a 50% decrease?", "C", ["1.50", "0.05", "0.50", "1.05"], "1 − 0.50 = 0.50.", 1, "\\text{Multiplier for a }50\\%\\text{ decrease}"),
+    poolAnswer("y8-fin-dec-p3", "Decrease \\(\\$100\\) by 10%.", "\\$100 \\times 0.90 = \\;?", "90", "100 × 0.90 = 90.", 1, ["$90"]),
+    poolAnswer("y8-fin-dec-p4", "Decrease \\(\\$80\\) by 50%.", "\\$80 \\times 0.50 = \\;?", "40", "80 × 0.50 = 40.", 1, ["$40"]),
+    poolChoice("y8-fin-dec-p5", "What is the multiplier for a 25% decrease?", "B", ["1.25", "0.75", "0.25", "1.075"], "1 − 0.25 = 0.75.", 1, "\\text{Multiplier for a }25\\%\\text{ decrease}"),
+    // ── Difficulty 2: standard decrease ──────────────────────────────────
+    poolAnswer("y8-fin-dec-p6", "Decrease \\(\\$60\\) by 20%.", "\\$60 \\times 0.80 = \\;?", "48", "60 × 0.80 = 48.", 2, ["$48"]),
+    poolAnswer("y8-fin-dec-p7", "Decrease \\(\\$150\\) by 30%.", "\\$150 \\times 0.70 = \\;?", "105", "150 × 0.70 = 105.", 2, ["$105"]),
+    poolAnswer("y8-fin-dec-p8", "A \\(\\$200\\) coat falls by 25%. Find the new price.", "\\$200 \\times 0.75 = \\;?", "150", "200 × 0.75 = 150.", 2, ["$150"]),
+    poolChoice("y8-fin-dec-p9", "A \\(\\$50\\) item falls by 40%. What is the new price?", "C", ["$10", "$20", "$30", "$45"], "50 × 0.60 = 30.", 2, "\\$50 \\times 0.60 = \\;?"),
+    poolAnswer("y8-fin-dec-p10", "Decrease \\(\\$90\\) by 10%.", "\\$90 \\times 0.90 = \\;?", "81", "90 × 0.90 = 81.", 2, ["$81"]),
+    // ── Difficulty 3: decimal results ────────────────────────────────────
+    poolAnswer("y8-fin-dec-p11", "Decrease \\(\\$45\\) by 15%.", "\\$45 \\times 0.85 = \\;?", "38.25", "45 × 0.85 = 38.25.", 3, ["$38.25"]),
+    poolAnswer("y8-fin-dec-p12", "A \\(\\$24\\) meal is reduced by 5%. Find the new price.", "\\$24 \\times 0.95 = \\;?", "22.80", "24 × 0.95 = 22.80.", 3, ["$22.80"]),
+    poolAnswer("y8-fin-dec-p13", "Decrease \\(\\$320\\) by 35%.", "\\$320 \\times 0.65 = \\;?", "208", "320 × 0.65 = 208.", 3, ["$208"]),
+    poolChoice("y8-fin-dec-p14", "A \\(\\$140\\) jacket is reduced by 12%. What is the new price?", "A", ["$123.20", "$16.80", "$128", "$117.60"], "140 × 0.88 = 123.20.", 3, "\\$140 \\times 0.88 = \\;?"),
+    poolAnswer("y8-fin-dec-p15", "Decrease \\(\\$72\\) by 25%.", "\\$72 \\times 0.75 = \\;?", "54", "72 × 0.75 = 54.", 3, ["$54"]),
+    // ── Difficulty 4: larger / find-the-decrease ─────────────────────────
+    poolAnswer("y8-fin-dec-p16", "Decrease \\(\\$1500\\) by 18%.", "\\$1500 \\times 0.82 = \\;?", "1230", "1500 × 0.82 = 1230.", 4, ["$1230"]),
+    poolChoice("y8-fin-dec-p17", "A price falls from \\(\\$80\\) to \\(\\$60\\). By what percentage did it fall?", "B", ["20%", "25%", "30%", "33%"], "Decrease = $20; 20 ÷ 80 × 100 = 25%.", 4, "\\text{Percentage decrease from }\\$80\\text{ to }\\$60"),
+    poolAnswer("y8-fin-dec-p18", "Decrease \\(\\$640\\) by 22%.", "\\$640 \\times 0.78 = \\;?", "499.20", "640 × 0.78 = 499.20.", 4, ["$499.20"]),
+    poolAnswer("y8-fin-dec-p19", "A \\(\\$2400\\) item is reduced by 12.5%. Find the new price.", "\\$2400 \\times 0.875 = \\;?", "2100", "2400 × 0.875 = 2100.", 4, ["$2100"]),
+    poolAnswer("y8-fin-dec-p20", "Decrease \\(\\$36\\) by 17.5%.", "\\$36 \\times 0.825 = \\;?", "29.70", "36 × 0.825 = 29.70.", 4, ["$29.70"]),
+    // ── Difficulty 5: reverse and two-step ───────────────────────────────
+    poolChoice("y8-fin-dec-p21", "After a 20% decrease a price is \\(\\$64\\). What was the original price?", "A", ["$80", "$76.80", "$84", "$51.20"], "Original × 0.80 = 64, so original = 64 ÷ 0.80 = $80.", 5, "\\text{Original price if } \\$64 = \\text{original} \\times 0.80"),
+    poolAnswer("y8-fin-dec-p22", "After a 25% decrease a price is \\(\\$90\\). Find the original price.", "90 \\div 0.75 = \\;?", "120", "90 ÷ 0.75 = $120.", 5, ["$120"]),
+    poolAnswer("y8-fin-dec-p23", "Decrease \\(\\$500\\) by 10%, then decrease the result by 10% again. Find the final amount.", "500 \\times 0.90 \\times 0.90 = \\;?", "405", "500 × 0.90 = 450; 450 × 0.90 = 405.", 5, ["$405"]),
+    poolAnswer("y8-fin-dec-p24", "Decrease \\(\\$160\\) by 37.5%.", "\\$160 \\times 0.625 = \\;?", "100", "160 × 0.625 = 100.", 5, ["$100"]),
+    poolChoice("y8-fin-dec-p25", "A \\(\\$300\\) item is reduced by 20%, then by a further 15% off the new price. Final price?", "C", ["$195", "$210", "$204", "$201"], "300 × 0.80 = 240; 240 × 0.85 = 204.", 5, "300 \\times 0.80 \\times 0.85 = \\;?"),
+    poolAnswer("y8-fin-dec-p26", "After a 40% decrease a price is \\(\\$54\\). Find the original price.", "54 \\div 0.60 = \\;?", "90", "54 ÷ 0.60 = $90.", 5, ["$90"]),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-fin-dec-mp1",
+      prompt:
+        "A television is priced at \\(\\$800\\). In a sale the price is cut by 25%, then on the final day a further 20% is taken off the sale price.",
+      latex: "\\text{Original price} = \\$800",
+      answer: "480",
+      hint: "Use the multiplier (1 − rate) for each reduction in turn.",
+      explanation:
+        "Part (a): 800 × 0.75 = $600. Part (b): 600 × 0.80 = $480. Part (c): total saving = $800 − $480 = $320.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the price after the 25% reduction.",
+          latex: "\\$800 \\times 0.75",
+          marks: 1,
+          answer: "600",
+          acceptedAnswers: ["$600"],
+          hint: "Multiplier for a 25% decrease is 0.75.",
+          explanation: "800 × 0.75 = $600.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find the price after the further 20% reduction.",
+          latex: "\\$600 \\times 0.80",
+          marks: 2,
+          answer: "480",
+          acceptedAnswers: ["$480"],
+          hint: "Apply the 20% reduction to the $600 sale price.",
+          explanation: "600 × 0.80 = $480.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find the total saving compared with the original \\(\\$800\\).",
+          latex: "\\$800 - \\$480",
+          marks: 1,
+          answer: "320",
+          acceptedAnswers: ["$320"],
+          hint: "Subtract the final price from the original.",
+          explanation: "$800 − $480 = $320.",
+        },
+      ],
+    },
   ],
 };
 
@@ -1011,6 +1297,86 @@ const profitAndLoss: LessonContent = {
       "Profit = $75 000. (75 000 ÷ 500 000) × 100 = 15%.",
       ["15%"]
     ),
+  ],
+  masteryQuizPool: [
+    // ── Difficulty 1: identify profit or loss; simple difference ─────────
+    poolChoice("y8-fin-pnl-p1", "An item cost \\(\\$50\\) and sold for \\(\\$70\\). Is this a profit or a loss?", "A", ["Profit of $20", "Loss of $20", "Profit of $70", "No change"], "$70 − $50 = $20 profit.", 1, "\\text{Cost }\\$50,\\text{ sold }\\$70."),
+    poolAnswer("y8-fin-pnl-p2", "A toy cost \\(\\$15\\) and sold for \\(\\$25\\). Find the profit.", "25 - 15 = \\;?", "10", "$25 − $15 = $10 profit.", 1, ["$10"]),
+    poolAnswer("y8-fin-pnl-p3", "A phone cost \\(\\$300\\) and sold for \\(\\$250\\). Find the loss.", "300 - 250 = \\;?", "50", "$300 − $250 = $50 loss.", 1, ["$50"]),
+    poolChoice("y8-fin-pnl-p4", "An item cost \\(\\$80\\) and sold for \\(\\$60\\). What is the result?", "B", ["Profit of $20", "Loss of $20", "Loss of $60", "Profit of $60"], "$80 − $60 = $20 loss.", 1, "\\text{Cost }\\$80,\\text{ sold }\\$60."),
+    poolAnswer("y8-fin-pnl-p5", "A bag cost \\(\\$40\\) and sold for \\(\\$55\\). Find the profit.", "55 - 40 = \\;?", "15", "$55 − $40 = $15 profit.", 1, ["$15"]),
+    // ── Difficulty 2: larger differences ─────────────────────────────────
+    poolAnswer("y8-fin-pnl-p6", "A bike cost \\(\\$180\\) and sold for \\(\\$230\\). Find the profit.", "230 - 180 = \\;?", "50", "$230 − $180 = $50 profit.", 2, ["$50"]),
+    poolAnswer("y8-fin-pnl-p7", "A laptop cost \\(\\$750\\) and sold for \\(\\$680\\). Find the loss.", "750 - 680 = \\;?", "70", "$750 − $680 = $70 loss.", 2, ["$70"]),
+    poolAnswer("y8-fin-pnl-p8", "A desk cost \\(\\$120\\) and sold for \\(\\$165\\). Find the profit.", "165 - 120 = \\;?", "45", "$165 − $120 = $45 profit.", 2, ["$45"]),
+    poolChoice("y8-fin-pnl-p9", "A camera cost \\(\\$400\\) and sold for \\(\\$340\\). What is the loss?", "C", ["$40", "$50", "$60", "$70"], "$400 − $340 = $60 loss.", 2, "400 - 340 = \\;?"),
+    poolAnswer("y8-fin-pnl-p10", "A guitar cost \\(\\$260\\) and sold for \\(\\$325\\). Find the profit.", "325 - 260 = \\;?", "65", "$325 − $260 = $65 profit.", 2, ["$65"]),
+    // ── Difficulty 3: profit/loss percentage ─────────────────────────────
+    poolAnswer("y8-fin-pnl-p11", "An item cost \\(\\$50\\) and sold for \\(\\$60\\). Find the profit percentage.", "\\frac{10}{50} \\times 100 = \\;?", "20", "Profit = $10; (10 ÷ 50) × 100 = 20%.", 3, ["20%"]),
+    poolAnswer("y8-fin-pnl-p12", "An item cost \\(\\$80\\) and sold for \\(\\$100\\). Find the profit percentage.", "\\frac{20}{80} \\times 100 = \\;?", "25", "Profit = $20; (20 ÷ 80) × 100 = 25%.", 3, ["25%"]),
+    poolAnswer("y8-fin-pnl-p13", "An item cost \\(\\$200\\) and sold for \\(\\$170\\). Find the loss percentage.", "\\frac{30}{200} \\times 100 = \\;?", "15", "Loss = $30; (30 ÷ 200) × 100 = 15%.", 3, ["15%"]),
+    poolChoice("y8-fin-pnl-p14", "An item cost \\(\\$25\\) and sold for \\(\\$30\\). What is the profit percentage?", "A", ["20%", "25%", "16.7%", "5%"], "Profit = $5; (5 ÷ 25) × 100 = 20%.", 3, "\\frac{5}{25} \\times 100 = \\;?"),
+    poolAnswer("y8-fin-pnl-p15", "An item cost \\(\\$150\\) and sold for \\(\\$180\\). Find the profit percentage.", "\\frac{30}{150} \\times 100 = \\;?", "20", "Profit = $30; (30 ÷ 150) × 100 = 20%.", 3, ["20%"]),
+    // ── Difficulty 4: harder percentages / find selling price ────────────
+    poolAnswer("y8-fin-pnl-p16", "An item cost \\(\\$120\\) and sold for \\(\\$150\\). Find the profit percentage.", "\\frac{30}{120} \\times 100 = \\;?", "25", "Profit = $30; (30 ÷ 120) × 100 = 25%.", 4, ["25%"]),
+    poolAnswer("y8-fin-pnl-p17", "An item cost \\(\\$60\\) is sold at a 30% profit. Find the selling price.", "60 \\times 1.30 = \\;?", "78", "Selling price = 60 × 1.30 = $78.", 4, ["$78"]),
+    poolChoice("y8-fin-pnl-p18", "An item cost \\(\\$90\\) and is sold at a 20% loss. What is the selling price?", "B", ["$108", "$72", "$70", "$18"], "Selling price = 90 × 0.80 = $72.", 4, "90 \\times 0.80 = \\;?"),
+    poolAnswer("y8-fin-pnl-p19", "An item cost \\(\\$240\\) and sold for \\(\\$300\\). Find the profit percentage.", "\\frac{60}{240} \\times 100 = \\;?", "25", "Profit = $60; (60 ÷ 240) × 100 = 25%.", 4, ["25%"]),
+    poolAnswer("y8-fin-pnl-p20", "An item cost \\(\\$500\\) is sold at a 12% profit. Find the selling price.", "500 \\times 1.12 = \\;?", "560", "Selling price = 500 × 1.12 = $560.", 4, ["$560"]),
+    // ── Difficulty 5: reverse / multi-step ───────────────────────────────
+    poolChoice("y8-fin-pnl-p21", "An item sold for \\(\\$120\\) at a 20% profit. What was the cost price?", "A", ["$100", "$96", "$144", "$140"], "Cost × 1.20 = 120, so cost = 120 ÷ 1.20 = $100.", 5, "\\text{Cost if }\\$120 = \\text{cost} \\times 1.20"),
+    poolAnswer("y8-fin-pnl-p22", "An item sold for \\(\\$84\\) at a 40% profit. Find the cost price.", "84 \\div 1.40 = \\;?", "60", "Cost = 84 ÷ 1.40 = $60.", 5, ["$60"]),
+    poolAnswer("y8-fin-pnl-p23", "An item sold for \\(\\$153\\) at a 15% loss. Find the cost price.", "153 \\div 0.85 = \\;?", "180", "Cost = 153 ÷ 0.85 = $180.", 5, ["$180"]),
+    poolAnswer("y8-fin-pnl-p24", "A trader buys 10 items at \\(\\$8\\) each and sells them all for \\(\\$110\\) total. Find the total profit.", "110 - 10 \\times 8 = \\;?", "30", "Cost = 10 × $8 = $80; profit = $110 − $80 = $30.", 5, ["$30"]),
+    poolAnswer("y8-fin-pnl-p25", "An item cost \\(\\$45\\) and sold for \\(\\$54\\). Find the profit percentage.", "\\frac{9}{45} \\times 100 = \\;?", "20", "Profit = $9; (9 ÷ 45) × 100 = 20%.", 5, ["20%"]),
+    poolChoice("y8-fin-pnl-p26", "An item sold for \\(\\$240\\) at a 25% profit. What was the cost price?", "C", ["$180", "$200", "$192", "$300"], "Cost × 1.25 = 240, so cost = 240 ÷ 1.25 = $192.", 5, "240 \\div 1.25 = \\;?"),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-fin-pnl-mp1",
+      prompt:
+        "A store buys a watch for \\(\\$80\\) (the cost price) and sells it for \\(\\$100\\) (the selling price).",
+      latex: "\\text{Cost} = \\$80,\\quad \\text{Selling price} = \\$100",
+      answer: "25",
+      hint: "Profit = selling price − cost price. Profit % is based on the cost price.",
+      explanation:
+        "Part (a): profit = $100 − $80 = $20. Part (b): profit % = (20 ÷ 80) × 100 = 25%. Part (c): a 50% profit would give selling price = 80 × 1.50 = $120.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the profit in dollars.",
+          latex: "100 - 80",
+          marks: 1,
+          answer: "20",
+          acceptedAnswers: ["$20"],
+          hint: "Selling price minus cost price.",
+          explanation: "$100 − $80 = $20.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find the profit as a percentage of the cost price.",
+          latex: "\\frac{20}{80} \\times 100",
+          marks: 2,
+          answer: "25",
+          acceptedAnswers: ["25%"],
+          hint: "Divide the profit by the cost price, then × 100.",
+          explanation: "(20 ÷ 80) × 100 = 25%.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "What selling price would give a 50% profit on the cost price?",
+          latex: "80 \\times 1.50",
+          marks: 1,
+          answer: "120",
+          acceptedAnswers: ["$120"],
+          hint: "A 50% profit means multiplying the cost price by 1.50.",
+          explanation: "80 × 1.50 = $120.",
+        },
+      ],
+    },
   ],
 };
 
@@ -1257,6 +1623,86 @@ const discountsAndSales: LessonContent = {
       ["$38.50"]
     ),
   ],
+  masteryQuizPool: [
+    // ── Difficulty 1: identify multiplier / dollar-off ───────────────────
+    poolChoice("y8-fin-dis-p1", "A \\(\\$60\\) item is 10% off. What multiplier finds the sale price?", "A", ["0.90", "1.10", "0.10", "0.60"], "1 − 0.10 = 0.90.", 1, "\\text{Multiplier for }10\\%\\text{ off}"),
+    poolAnswer("y8-fin-dis-p2", "A \\(\\$50\\) item is 20% off. Find the sale price.", "\\$50 \\times 0.80 = \\;?", "40", "50 × 0.80 = 40.", 1, ["$40"]),
+    poolAnswer("y8-fin-dis-p3", "A \\(\\$80\\) item has \\(\\$10\\) off. Find the sale price.", "80 - 10 = \\;?", "70", "$80 − $10 = $70.", 1, ["$70"]),
+    poolAnswer("y8-fin-dis-p4", "A \\(\\$100\\) item is 25% off. Find the sale price.", "\\$100 \\times 0.75 = \\;?", "75", "100 × 0.75 = 75.", 1, ["$75"]),
+    poolChoice("y8-fin-dis-p5", "A \\(\\$40\\) item is 50% off. What is the sale price?", "B", ["$10", "$20", "$30", "$60"], "40 × 0.50 = 20.", 1, "\\$40 \\times 0.50 = \\;?"),
+    // ── Difficulty 2: standard sale price / saving ───────────────────────
+    poolAnswer("y8-fin-dis-p6", "A \\(\\$120\\) item is 30% off. Find the sale price.", "\\$120 \\times 0.70 = \\;?", "84", "120 × 0.70 = 84.", 2, ["$84"]),
+    poolAnswer("y8-fin-dis-p7", "A \\(\\$200\\) item is 20% off. Find the saving.", "0.20 \\times 200 = \\;?", "40", "0.20 × 200 = 40.", 2, ["$40"]),
+    poolAnswer("y8-fin-dis-p8", "A \\(\\$90\\) item is 40% off. Find the sale price.", "\\$90 \\times 0.60 = \\;?", "54", "90 × 0.60 = 54.", 2, ["$54"]),
+    poolChoice("y8-fin-dis-p9", "A \\(\\$150\\) item is 10% off. What is the sale price?", "C", ["$15", "$140", "$135", "$165"], "150 × 0.90 = 135.", 2, "\\$150 \\times 0.90 = \\;?"),
+    poolAnswer("y8-fin-dis-p10", "A \\(\\$250\\) item has \\(\\$35\\) off. Find the sale price.", "250 - 35 = \\;?", "215", "$250 − $35 = $215.", 2, ["$215"]),
+    // ── Difficulty 3: decimal results ────────────────────────────────────
+    poolAnswer("y8-fin-dis-p11", "A \\(\\$45\\) item is 15% off. Find the sale price.", "\\$45 \\times 0.85 = \\;?", "38.25", "45 × 0.85 = 38.25.", 3, ["$38.25"]),
+    poolAnswer("y8-fin-dis-p12", "A \\(\\$130\\) item is 35% off. Find the sale price.", "\\$130 \\times 0.65 = \\;?", "84.50", "130 × 0.65 = 84.50.", 3, ["$84.50"]),
+    poolAnswer("y8-fin-dis-p13", "A \\(\\$60\\) item is 12% off. Find the saving.", "0.12 \\times 60 = \\;?", "7.20", "0.12 × 60 = 7.20.", 3, ["$7.20"]),
+    poolChoice("y8-fin-dis-p14", "A \\(\\$180\\) item is 25% off. What is the sale price?", "A", ["$135", "$145", "$45", "$155"], "180 × 0.75 = 135.", 3, "\\$180 \\times 0.75 = \\;?"),
+    poolAnswer("y8-fin-dis-p15", "A \\(\\$84\\) item is 25% off. Find the sale price.", "\\$84 \\times 0.75 = \\;?", "63", "84 × 0.75 = 63.", 3, ["$63"]),
+    // ── Difficulty 4: compare offers / larger ────────────────────────────
+    poolChoice("y8-fin-dis-p16", "A \\(\\$400\\) item offers 20% off or \\(\\$70\\) off. Which saves more?", "A", ["20% off saves $80", "$70 off saves more", "Both save the same", "Cannot be determined"], "0.20 × 400 = $80 > $70, so 20% off saves more.", 4, "\\text{Compare }20\\%\\text{ off vs }\\$70\\text{ off on }\\$400"),
+    poolAnswer("y8-fin-dis-p17", "A \\(\\$1250\\) item is 18% off. Find the sale price.", "\\$1250 \\times 0.82 = \\;?", "1025", "1250 × 0.82 = 1025.", 4, ["$1025"]),
+    poolAnswer("y8-fin-dis-p18", "A \\(\\$320\\) item is 22% off. Find the saving.", "0.22 \\times 320 = \\;?", "70.40", "0.22 × 320 = 70.40.", 4, ["$70.40"]),
+    poolChoice("y8-fin-dis-p19", "A \\(\\$500\\) item offers 15% off or \\(\\$80\\) off. Which saves more?", "B", ["15% off saves $75", "$80 off saves more", "Both save the same", "15% off saves $80"], "0.15 × 500 = $75 < $80, so the $80-off deal saves more.", 4, "\\text{Compare }15\\%\\text{ off vs }\\$80\\text{ off on }\\$500"),
+    poolAnswer("y8-fin-dis-p20", "A \\(\\$640\\) item is 12.5% off. Find the sale price.", "\\$640 \\times 0.875 = \\;?", "560", "640 × 0.875 = 560.", 4, ["$560"]),
+    // ── Difficulty 5: reverse / two-step ─────────────────────────────────
+    poolChoice("y8-fin-dis-p21", "After 20% off, an item costs \\(\\$48\\). What was the original price?", "A", ["$60", "$57.60", "$68", "$40"], "Original × 0.80 = 48, so original = 48 ÷ 0.80 = $60.", 5, "\\text{Original price if sale price }\\$48 = \\text{original} \\times 0.80"),
+    poolAnswer("y8-fin-dis-p22", "After 25% off, an item costs \\(\\$135\\). Find the original price.", "135 \\div 0.75 = \\;?", "180", "Original = 135 ÷ 0.75 = $180.", 5, ["$180"]),
+    poolAnswer("y8-fin-dis-p23", "A \\(\\$200\\) item is 20% off, then a further 10% off the sale price. Find the final price.", "200 \\times 0.80 \\times 0.90 = \\;?", "144", "200 × 0.80 = 160; 160 × 0.90 = 144.", 5, ["$144"]),
+    poolAnswer("y8-fin-dis-p24", "A \\(\\$96\\) item is 37.5% off. Find the sale price.", "\\$96 \\times 0.625 = \\;?", "60", "96 × 0.625 = 60.", 5, ["$60"]),
+    poolChoice("y8-fin-dis-p25", "A \\(\\$300\\) item is 30% off, then a \\(\\$20\\) coupon is applied. Find the final price.", "C", ["$210", "$190", "$190 (210 − 20)", "$250"], "300 × 0.70 = 210; 210 − 20 = $190.", 5, "300 \\times 0.70 - 20 = \\;?"),
+    poolAnswer("y8-fin-dis-p26", "After a 40% discount, an item costs \\(\\$72\\). Find the original price.", "72 \\div 0.60 = \\;?", "120", "Original = 72 ÷ 0.60 = $120.", 5, ["$120"]),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-fin-dis-mp1",
+      prompt:
+        "A pair of headphones is marked at \\(\\$150\\). The store advertises 20% off, and a member also has a \\(\\$10\\) coupon applied after the discount.",
+      latex: "\\text{Marked price} = \\$150",
+      answer: "110",
+      hint: "Apply the percentage discount first using the multiplier, then subtract the coupon.",
+      explanation:
+        "Part (a): 0.20 × 150 = $30. Part (b): 150 × 0.80 = $120. Part (c): $120 − $10 coupon = $110.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the dollar saving from the 20% discount.",
+          latex: "0.20 \\times 150",
+          marks: 1,
+          answer: "30",
+          acceptedAnswers: ["$30"],
+          hint: "0.20 × 150.",
+          explanation: "0.20 × 150 = $30.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find the price after the 20% discount.",
+          latex: "150 \\times 0.80",
+          marks: 1,
+          answer: "120",
+          acceptedAnswers: ["$120"],
+          hint: "Multiply the marked price by 0.80.",
+          explanation: "150 × 0.80 = $120.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find the final price after the \\(\\$10\\) coupon is applied.",
+          latex: "120 - 10",
+          marks: 1,
+          answer: "110",
+          acceptedAnswers: ["$110"],
+          hint: "Subtract the coupon from the discounted price.",
+          explanation: "$120 − $10 = $110.",
+        },
+      ],
+    },
+  ],
 };
 
 // ── Lesson 6: Simple Interest Introduction ───────────────────────────────────
@@ -1493,6 +1939,86 @@ const simpleInterestIntroduction: LessonContent = {
       ["$4860"]
     ),
   ],
+  masteryQuizPool: [
+    // ── Difficulty 1: identify terms / one-year interest ─────────────────
+    poolChoice("y8-fin-si-p1", "In I = PRT ÷ 100, what does T represent?", "B", ["The total amount", "The time in years", "The tax rate", "The interest earned"], "T is the time in years.", 1, "\\text{Meaning of }T"),
+    poolAnswer("y8-fin-si-p2", "Find the simple interest on \\(\\$100\\) at 5% for 1 year.", "I = \\frac{100 \\times 5 \\times 1}{100} = \\;?", "5", "(100 × 5 × 1) ÷ 100 = 5.", 1, ["$5"]),
+    poolAnswer("y8-fin-si-p3", "Find the simple interest on \\(\\$200\\) at 10% for 1 year.", "I = \\frac{200 \\times 10 \\times 1}{100} = \\;?", "20", "(200 × 10 × 1) ÷ 100 = 20.", 1, ["$20"]),
+    poolAnswer("y8-fin-si-p4", "Find the simple interest on \\(\\$500\\) at 2% for 1 year.", "I = \\frac{500 \\times 2 \\times 1}{100} = \\;?", "10", "(500 × 2 × 1) ÷ 100 = 10.", 1, ["$10"]),
+    poolChoice("y8-fin-si-p5", "What is the simple interest on \\(\\$1000\\) at 4% for 1 year?", "C", ["$4", "$14", "$40", "$400"], "(1000 × 4 × 1) ÷ 100 = 40.", 1, "I = \\frac{1000 \\times 4 \\times 1}{100} = \\;?"),
+    // ── Difficulty 2: multi-year interest ────────────────────────────────
+    poolAnswer("y8-fin-si-p6", "Find the simple interest on \\(\\$400\\) at 5% for 3 years.", "I = \\frac{400 \\times 5 \\times 3}{100} = \\;?", "60", "(400 × 5 × 3) ÷ 100 = 60.", 2, ["$60"]),
+    poolAnswer("y8-fin-si-p7", "Find the simple interest on \\(\\$600\\) at 4% for 2 years.", "I = \\frac{600 \\times 4 \\times 2}{100} = \\;?", "48", "(600 × 4 × 2) ÷ 100 = 48.", 2, ["$48"]),
+    poolAnswer("y8-fin-si-p8", "Find the simple interest on \\(\\$1000\\) at 6% for 2 years.", "I = \\frac{1000 \\times 6 \\times 2}{100} = \\;?", "120", "(1000 × 6 × 2) ÷ 100 = 120.", 2, ["$120"]),
+    poolChoice("y8-fin-si-p9", "What is the simple interest on \\(\\$800\\) at 5% for 2 years?", "A", ["$80", "$40", "$160", "$800"], "(800 × 5 × 2) ÷ 100 = 80.", 2, "I = \\frac{800 \\times 5 \\times 2}{100} = \\;?"),
+    poolAnswer("y8-fin-si-p10", "Find the simple interest on \\(\\$1500\\) at 3% for 4 years.", "I = \\frac{1500 \\times 3 \\times 4}{100} = \\;?", "180", "(1500 × 3 × 4) ÷ 100 = 180.", 2, ["$180"]),
+    // ── Difficulty 3: total amount A = P + I ─────────────────────────────
+    poolAnswer("y8-fin-si-p11", "Find the total amount when \\(\\$500\\) is invested at 4% simple interest for 3 years.", "A = 500 + \\frac{500 \\times 4 \\times 3}{100} = \\;?", "560", "I = 60; A = 500 + 60 = 560.", 3, ["$560"]),
+    poolAnswer("y8-fin-si-p12", "A loan of \\(\\$1000\\) at 6% simple interest runs for 3 years. Find the total repayment.", "A = 1000 + \\frac{1000 \\times 6 \\times 3}{100} = \\;?", "1180", "I = 180; A = 1000 + 180 = 1180.", 3, ["$1180"]),
+    poolAnswer("y8-fin-si-p13", "Find the simple interest on \\(\\$2000\\) at 3.5% for 2 years.", "I = \\frac{2000 \\times 3.5 \\times 2}{100} = \\;?", "140", "(2000 × 3.5 × 2) ÷ 100 = 140.", 3, ["$140"]),
+    poolChoice("y8-fin-si-p14", "What is the total amount when \\(\\$800\\) is invested at 5% simple interest for 4 years?", "B", ["$160", "$960", "$840", "$1000"], "I = (800 × 5 × 4) ÷ 100 = 160; A = 800 + 160 = $960.", 3, "A = 800 + \\frac{800 \\times 5 \\times 4}{100} = \\;?"),
+    poolAnswer("y8-fin-si-p15", "Find the simple interest on \\(\\$1200\\) at 2.5% for 4 years.", "I = \\frac{1200 \\times 2.5 \\times 4}{100} = \\;?", "120", "(1200 × 2.5 × 4) ÷ 100 = 120.", 3, ["$120"]),
+    // ── Difficulty 4: larger / decimal rate / total ──────────────────────
+    poolAnswer("y8-fin-si-p16", "Find the simple interest on \\(\\$5000\\) at 4.5% for 3 years.", "I = \\frac{5000 \\times 4.5 \\times 3}{100} = \\;?", "675", "(5000 × 4.5 × 3) ÷ 100 = 675.", 4, ["$675"]),
+    poolAnswer("y8-fin-si-p17", "A loan of \\(\\$8000\\) at 7% simple interest runs for 5 years. Find the total repayment.", "A = 8000 + \\frac{8000 \\times 7 \\times 5}{100} = \\;?", "10800", "I = (8000 × 7 × 5) ÷ 100 = 2800; A = 8000 + 2800 = 10800.", 4, ["$10800", "10,800"]),
+    poolChoice("y8-fin-si-p18", "Which time T (in years) makes the simple interest on \\(\\$500\\) at 4% equal to \\(\\$60\\)?", "C", ["1", "2", "3", "4"], "I = (500 × 4 × T) ÷ 100 = 20T; 20T = 60, so T = 3.", 4, "20T = 60 \\Rightarrow T = \\;?"),
+    poolAnswer("y8-fin-si-p19", "Find the simple interest on \\(\\$3600\\) at 6.25% for 2 years.", "I = \\frac{3600 \\times 6.25 \\times 2}{100} = \\;?", "450", "(3600 × 6.25 × 2) ÷ 100 = 450.", 4, ["$450"]),
+    poolAnswer("y8-fin-si-p20", "\\(\\$2400\\) is invested at 3% simple interest for 30 months. (T = 2.5 years.) Find the interest.", "I = \\frac{2400 \\times 3 \\times 2.5}{100} = \\;?", "180", "T = 30 ÷ 12 = 2.5 years; I = (2400 × 3 × 2.5) ÷ 100 = 180.", 4, ["$180"]),
+    // ── Difficulty 5: find rate / find principal ─────────────────────────
+    poolChoice("y8-fin-si-p21", "Simple interest of \\(\\$90\\) is earned on \\(\\$600\\) over 3 years. What is the annual rate?", "A", ["5%", "6%", "4%", "3%"], "I = (600 × R × 3) ÷ 100 = 18R; 18R = 90, so R = 5%.", 5, "18R = 90 \\Rightarrow R = \\;?"),
+    poolAnswer("y8-fin-si-p22", "Simple interest of \\(\\$120\\) is earned at 4% over 2 years. Find the principal P.", "P = \\frac{120 \\times 100}{4 \\times 2} = \\;?", "1500", "I = (P × 4 × 2) ÷ 100 = 0.08P; 0.08P = 120, so P = $1500.", 5, ["$1500"]),
+    poolAnswer("y8-fin-si-p23", "A \\(\\$2000\\) loan is repaid as \\(\\$2360\\) after 3 years of simple interest. Find the annual rate.", "R = \\frac{360 \\times 100}{2000 \\times 3} = \\;?", "6", "I = 2360 − 2000 = 360; R = (360 × 100) ÷ (2000 × 3) = 6%.", 5, ["6%"]),
+    poolAnswer("y8-fin-si-p24", "How many years does it take \\(\\$1000\\) at 5% simple interest to earn \\(\\$250\\)?", "T = \\frac{250 \\times 100}{1000 \\times 5} = \\;?", "5", "I = (1000 × 5 × T) ÷ 100 = 50T; 50T = 250, so T = 5 years.", 5, ["5 years"]),
+    poolAnswer("y8-fin-si-p25", "Find the simple interest on \\(\\$12000\\) at 5.5% for 4 years.", "I = \\frac{12000 \\times 5.5 \\times 4}{100} = \\;?", "2640", "(12000 × 5.5 × 4) ÷ 100 = 2640.", 5, ["$2640", "2,640"]),
+    poolChoice("y8-fin-si-p26", "Simple interest of \\(\\$160\\) is earned on a principal at 8% over 2 years. What is the principal?", "B", ["$800", "$1000", "$1200", "$1600"], "I = (P × 8 × 2) ÷ 100 = 0.16P; 0.16P = 160, so P = $1000.", 5, "0.16P = 160 \\Rightarrow P = \\;?"),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-fin-si-mp1",
+      prompt:
+        "Olivia invests \\(\\$2000\\) in a savings account paying 5% simple interest per year. She leaves it for 4 years.",
+      latex: "P = \\$2000,\\quad R = 5\\%,\\quad T = 4\\text{ years}",
+      answer: "2400",
+      hint: "Use I = PRT ÷ 100, then A = P + I.",
+      explanation:
+        "Part (a): I = (2000 × 5 × 4) ÷ 100 = $400. Part (b): A = 2000 + 400 = $2400. Part (c): one year's interest = (2000 × 5 × 1) ÷ 100 = $100.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the total simple interest earned over 4 years.",
+          latex: "I = \\frac{2000 \\times 5 \\times 4}{100}",
+          marks: 1,
+          answer: "400",
+          acceptedAnswers: ["$400"],
+          hint: "Substitute P = 2000, R = 5, T = 4.",
+          explanation: "(2000 × 5 × 4) ÷ 100 = $400.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find the total amount in the account after 4 years.",
+          latex: "A = 2000 + 400",
+          marks: 1,
+          answer: "2400",
+          acceptedAnswers: ["$2400"],
+          hint: "Add the interest to the principal.",
+          explanation: "2000 + 400 = $2400.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "How much interest does the account earn in just one year?",
+          latex: "I = \\frac{2000 \\times 5 \\times 1}{100}",
+          marks: 1,
+          answer: "100",
+          acceptedAnswers: ["$100"],
+          hint: "Use T = 1 in the formula.",
+          explanation: "(2000 × 5 × 1) ÷ 100 = $100.",
+        },
+      ],
+    },
+  ],
 };
 
 // ── Lesson 7: Wages and Salary ────────────────────────────────────────────────
@@ -1726,6 +2252,86 @@ const wagesAndSalary: LessonContent = {
       "Chloe: Regular 38 × 26 = 988. Overtime rate 1.5 × 26 = 39. Overtime pay 3 × 39 = 117. Chloe total = 988 + 117 = 1105. Liam: 41 × 26 = 1066. Chloe earns 1105 − 1066 = $19.50 more.",
       ["chloe by $19.50", "$19.50 more", "19.50"]
     ),
+  ],
+  masteryQuizPool: [
+    // ── Difficulty 1: salary conversions / basic rates ───────────────────
+    poolChoice("y8-nfm-wag-p1", "How many weeks are used to convert an annual salary to weekly pay?", "B", ["12", "52", "26", "24"], "There are 52 weeks in a year.", 1, "\\text{Weeks per year}"),
+    poolAnswer("y8-nfm-wag-p2", "An annual salary of \\(\\$52000\\) is paid weekly. Find the weekly pay.", "\\$52000 \\div 52 = \\;?", "1000", "52000 ÷ 52 = 1000.", 1, ["$1000"]),
+    poolAnswer("y8-nfm-wag-p3", "A worker earns \\(\\$20\\) per hour for 30 hours. Find the gross pay.", "30 \\times 20 = \\;?", "600", "30 × 20 = 600.", 1, ["$600"]),
+    poolAnswer("y8-nfm-wag-p4", "A worker earns \\(\\$18\\) per hour. Find the time-and-a-half rate.", "1.5 \\times 18 = \\;?", "27", "1.5 × 18 = 27.", 1, ["$27"]),
+    poolChoice("y8-nfm-wag-p5", "What is the double-time rate for a \\(\\$15\\) hourly wage?", "C", ["$22.50", "$15", "$30", "$45"], "2 × 15 = 30.", 1, "2 \\times 15 = \\;?"),
+    // ── Difficulty 2: conversions and simple gross pay ───────────────────
+    poolAnswer("y8-nfm-wag-p6", "An annual salary of \\(\\$78000\\) is paid monthly. Find the monthly pay.", "\\$78000 \\div 12 = \\;?", "6500", "78000 ÷ 12 = 6500.", 2, ["$6500"]),
+    poolAnswer("y8-nfm-wag-p7", "An annual salary of \\(\\$62400\\) is paid fortnightly. Find the fortnightly pay.", "\\$62400 \\div 26 = \\;?", "2400", "62400 ÷ 26 = 2400.", 2, ["$2400"]),
+    poolAnswer("y8-nfm-wag-p8", "A worker earns \\(\\$22\\) per hour for 38 hours. Find the gross pay.", "38 \\times 22 = \\;?", "836", "38 × 22 = 836.", 2, ["$836"]),
+    poolChoice("y8-nfm-wag-p9", "A worker earns \\(\\$25\\) per hour for 36 hours. What is the gross pay?", "A", ["$900", "$925", "$875", "$950"], "36 × 25 = 900.", 2, "36 \\times 25 = \\;?"),
+    poolAnswer("y8-nfm-wag-p10", "An annual salary of \\(\\$67600\\) is paid weekly. Find the weekly pay.", "\\$67600 \\div 52 = \\;?", "1300", "67600 ÷ 52 = 1300.", 2, ["$1300"]),
+    // ── Difficulty 3: overtime, single rate ──────────────────────────────
+    poolAnswer("y8-nfm-wag-p11", "A worker earns \\(\\$20\\) per hour and works 4 hours at time-and-a-half. Find the overtime pay.", "4 \\times (1.5 \\times 20) = \\;?", "120", "OT rate = 30; 4 × 30 = 120.", 3, ["$120"]),
+    poolAnswer("y8-nfm-wag-p12", "A worker earns \\(\\$24\\) per hour and works 3 hours at double time. Find the overtime pay.", "3 \\times (2 \\times 24) = \\;?", "144", "DT rate = 48; 3 × 48 = 144.", 3, ["$144"]),
+    poolAnswer("y8-nfm-wag-p13", "A worker earns \\(\\$19\\) per hour. Find the time-and-a-half rate.", "1.5 \\times 19 = \\;?", "28.50", "1.5 × 19 = 28.50.", 3, ["$28.50"]),
+    poolChoice("y8-nfm-wag-p14", "A worker does 5 hours at double time on a \\(\\$16\\) base rate. What is the overtime pay?", "B", ["$80", "$160", "$120", "$40"], "DT rate = 32; 5 × 32 = 160.", 3, "5 \\times (2 \\times 16) = \\;?"),
+    poolAnswer("y8-nfm-wag-p15", "An annual salary of \\(\\$57200\\) is paid monthly. Find the monthly pay (to the nearest cent).", "\\$57200 \\div 12 = \\;?", "4766.67", "57200 ÷ 12 ≈ 4766.67.", 3, ["$4766.67"]),
+    // ── Difficulty 4: combined regular + overtime ────────────────────────
+    poolAnswer("y8-nfm-wag-p16", "A worker earns \\(\\$22\\) per hour, working 38 regular hours plus 4 hours at time-and-a-half. Find the gross pay.", "38 \\times 22 + 4 \\times (1.5 \\times 22) = \\;?", "968", "Regular 836; OT 4 × 33 = 132; total 968.", 4, ["$968"]),
+    poolAnswer("y8-nfm-wag-p17", "A worker earns \\(\\$24\\) per hour, working 38 regular hours plus 3 hours at double time. Find the gross pay.", "38 \\times 24 + 3 \\times (2 \\times 24) = \\;?", "1056", "Regular 912; OT 3 × 48 = 144; total 1056.", 4, ["$1056"]),
+    poolAnswer("y8-nfm-wag-p18", "A worker earns \\(\\$25\\) per hour, working 38 regular hours plus 2 hours at time-and-a-half. Find the gross pay.", "38 \\times 25 + 2 \\times (1.5 \\times 25) = \\;?", "1025", "Regular 950; OT 2 × 37.50 = 75; total 1025.", 4, ["$1025"]),
+    poolChoice("y8-nfm-wag-p19", "A worker earns \\(\\$16\\) per hour, working 38 regular hours plus 2 hours at time-and-a-half. What is the gross pay?", "C", ["$640", "$648", "$656", "$664"], "Regular 608; OT 2 × 24 = 48; total $656.", 4, "38 \\times 16 + 2 \\times (1.5 \\times 16) = \\;?"),
+    poolAnswer("y8-nfm-wag-p20", "A worker earns \\(\\$19\\) per hour, working 38 regular hours plus 5 hours at time-and-a-half. Find the gross pay.", "38 \\times 19 + 5 \\times (1.5 \\times 19) = \\;?", "864.50", "Regular 722; OT 5 × 28.50 = 142.50; total 864.50.", 4, ["$864.50"]),
+    // ── Difficulty 5: mixed overtime / comparison ────────────────────────
+    poolAnswer("y8-nfm-wag-p21", "A worker earns \\(\\$26\\) per hour, working 38 regular hours, 3 hours at time-and-a-half, and 2 hours at double time. Find the gross pay.", "38 \\times 26 + 3 \\times (1.5 \\times 26) + 2 \\times (2 \\times 26) = \\;?", "1326", "Regular 988; T1.5: 3 × 39 = 117; DT: 2 × 52 = 104; total 988 + 117 + 104 = 1326.", 5, ["$1326"]),
+    poolAnswer("y8-nfm-wag-p22", "Worker A does 41 hours at \\(\\$26\\) (all regular). Worker B does 38 regular plus 3 at time-and-a-half at \\(\\$26\\). How much more does B earn?", "(38 \\times 26 + 3 \\times 39) - 41 \\times 26 = \\;?", "19.50", "A: 41 × 26 = 1066. B: 988 + 117 = 1105. B earns 1105 − 1066 = $19.50 more.", 5, ["$19.50"]),
+    poolAnswer("y8-nfm-wag-p23", "A worker earns \\(\\$30\\) per hour and is paid \\(\\$1320\\) for a week of 38 regular hours plus overtime at double time. How many overtime hours were worked?", "\\frac{1320 - 38 \\times 30}{2 \\times 30} = \\;?", "3", "Regular = 1140; OT pay = 180; DT rate = 60; OT hours = 180 ÷ 60 = 3.", 5, ["3 hours", "3"]),
+    poolChoice("y8-nfm-wag-p24", "An annual salary of \\(\\$93600\\) is paid fortnightly. What is the fortnightly pay?", "A", ["$3600", "$1800", "$7800", "$3500"], "93600 ÷ 26 = 3600.", 5, "\\$93600 \\div 26 = \\;?"),
+    poolAnswer("y8-nfm-wag-p24b", "A salary of \\(\\$80000\\) per year. Find the weekly pay (to the nearest cent).", "\\$80000 \\div 52 = \\;?", "1538.46", "80000 ÷ 52 ≈ 1538.46.", 5, ["$1538.46"]),
+    poolAnswer("y8-nfm-wag-p25", "A worker earns \\(\\$28\\) per hour, working 38 regular hours plus 6 hours at time-and-a-half. Find the gross pay.", "38 \\times 28 + 6 \\times (1.5 \\times 28) = \\;?", "1316", "Regular 1064; OT 6 × 42 = 252; total 1316.", 5, ["$1316"]),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-nfm-wag-mp1",
+      prompt:
+        "Daniel is paid \\(\\$24\\) per hour. In one week he works 38 regular hours and then 4 hours of overtime paid at time-and-a-half.",
+      latex: "\\text{Rate} = \\$24/\\text{hr}",
+      answer: "1056",
+      hint: "Calculate regular pay and overtime pay separately, then add.",
+      explanation:
+        "Part (a): 38 × 24 = $912. Part (b): time-and-a-half rate = 1.5 × 24 = $36, so overtime pay = 4 × 36 = $144. Part (c): total = 912 + 144 = $1056.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find Daniel's regular pay for the 38 hours.",
+          latex: "38 \\times 24",
+          marks: 1,
+          answer: "912",
+          acceptedAnswers: ["$912"],
+          hint: "Multiply the hours by the hourly rate.",
+          explanation: "38 × 24 = $912.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find his overtime pay for the 4 hours at time-and-a-half.",
+          latex: "4 \\times (1.5 \\times 24)",
+          marks: 2,
+          answer: "144",
+          acceptedAnswers: ["$144"],
+          hint: "Overtime rate = 1.5 × $24 = $36.",
+          explanation: "1.5 × 24 = $36; 4 × 36 = $144.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find his total gross pay for the week.",
+          latex: "912 + 144",
+          marks: 1,
+          answer: "1056",
+          acceptedAnswers: ["$1056"],
+          hint: "Add regular pay and overtime pay.",
+          explanation: "912 + 144 = $1056.",
+        },
+      ],
+    },
   ],
 };
 
@@ -1965,6 +2571,86 @@ const incomeTaxBasics: LessonContent = {
       "GST-inclusive price: 550 × 1.10 = 605. Yes, the client's expectation is correct.",
       ["yes", "correct", "yes, correct", "605"]
     ),
+  ],
+  masteryQuizPool: [
+    // ── Difficulty 1: definitions / single deductions ───────────────────
+    poolChoice("y8-nfm-tax-p1", "What percentage is the Medicare levy in Australia?", "B", ["1%", "2%", "5%", "10%"], "The Medicare levy is 2% of gross income.", 1, "\\text{Medicare levy rate}"),
+    poolAnswer("y8-nfm-tax-p2", "Find 20% income tax on \\(\\$500\\) gross income.", "0.20 \\times 500 = \\;?", "100", "0.20 × 500 = 100.", 1, ["$100"]),
+    poolAnswer("y8-nfm-tax-p3", "Find the 2% Medicare levy on \\(\\$600\\) gross income.", "0.02 \\times 600 = \\;?", "12", "0.02 × 600 = 12.", 1, ["$12"]),
+    poolAnswer("y8-nfm-tax-p4", "A \\(\\$100\\) pre-GST item. Find the GST-inclusive price.", "100 \\times 1.10 = \\;?", "110", "100 × 1.10 = 110.", 1, ["$110"]),
+    poolChoice("y8-nfm-tax-p5", "Which is the GST rate in Australia?", "C", ["2%", "5%", "10%", "20%"], "GST is 10%.", 1, "\\text{GST rate}"),
+    // ── Difficulty 2: single GST / tax steps ─────────────────────────────
+    poolAnswer("y8-nfm-tax-p6", "Find 25% income tax on \\(\\$800\\) gross income.", "0.25 \\times 800 = \\;?", "200", "0.25 × 800 = 200.", 2, ["$200"]),
+    poolAnswer("y8-nfm-tax-p7", "A \\(\\$250\\) pre-GST item. Find the GST-inclusive price.", "250 \\times 1.10 = \\;?", "275", "250 × 1.10 = 275.", 2, ["$275"]),
+    poolAnswer("y8-nfm-tax-p8", "A \\(\\$330\\) item includes GST. Find the pre-GST price.", "330 \\div 1.10 = \\;?", "300", "330 ÷ 1.10 = 300.", 2, ["$300"]),
+    poolChoice("y8-nfm-tax-p9", "A \\(\\$440\\) item includes GST. What is the pre-GST price?", "A", ["$400", "$396", "$484", "$44"], "440 ÷ 1.10 = $400.", 2, "440 \\div 1.10 = \\;?"),
+    poolAnswer("y8-nfm-tax-p10", "Find the 2% Medicare levy on \\(\\$1500\\) gross income.", "0.02 \\times 1500 = \\;?", "30", "0.02 × 1500 = 30.", 2, ["$30"]),
+    // ── Difficulty 3: take-home pay (tax + levy) ─────────────────────────
+    poolAnswer("y8-nfm-tax-p11", "Gross weekly pay is \\(\\$800\\). After 20% tax and 2% Medicare levy, find the take-home pay.", "800 - 0.20 \\times 800 - 0.02 \\times 800 = \\;?", "624", "Tax 160; levy 16; 800 − 160 − 16 = 624.", 3, ["$624"]),
+    poolAnswer("y8-nfm-tax-p12", "Gross weekly pay is \\(\\$750\\). After 18% tax and 2% Medicare levy, find the take-home pay.", "750 - 0.18 \\times 750 - 0.02 \\times 750 = \\;?", "600", "Tax 135; levy 15; 750 − 135 − 15 = 600.", 3, ["$600"]),
+    poolAnswer("y8-nfm-tax-p13", "A \\(\\$77\\) item includes GST. Find the pre-GST price.", "77 \\div 1.10 = \\;?", "70", "77 ÷ 1.10 = 70.", 3, ["$70"]),
+    poolChoice("y8-nfm-tax-p14", "Gross weekly pay \\(\\$900\\), tax 25%, levy 2%. What is the take-home pay?", "B", ["$648", "$657", "$675", "$693"], "Tax 225; levy 18; 900 − 225 − 18 = $657.", 3, "900 - 225 - 18 = \\;?"),
+    poolAnswer("y8-nfm-tax-p15", "A job is quoted at \\(\\$550\\) plus GST. Find the total the client pays.", "550 \\times 1.10 = \\;?", "605", "550 × 1.10 = 605.", 3, ["$605"]),
+    // ── Difficulty 4: larger pay periods / combined ──────────────────────
+    poolAnswer("y8-nfm-tax-p16", "Gross fortnightly pay \\(\\$1200\\), tax 22%, levy 2%. Find the take-home pay.", "1200 - 0.22 \\times 1200 - 0.02 \\times 1200 = \\;?", "912", "Tax 264; levy 24; 1200 − 264 − 24 = 912.", 4, ["$912"]),
+    poolAnswer("y8-nfm-tax-p17", "Gross monthly pay \\(\\$2600\\), tax 19%, levy 2%. Find the take-home pay.", "2600 - 0.19 \\times 2600 - 0.02 \\times 2600 = \\;?", "2054", "Tax 494; levy 52; 2600 − 494 − 52 = 2054.", 4, ["$2054"]),
+    poolAnswer("y8-nfm-tax-p18", "A \\(\\$1320\\) item includes GST. Find the pre-GST price.", "1320 \\div 1.10 = \\;?", "1200", "1320 ÷ 1.10 = 1200.", 4, ["$1200"]),
+    poolChoice("y8-nfm-tax-p19", "A \\(\\$960\\) pre-GST quote. What is the GST-inclusive total?", "C", ["$1056", "$96", "$1056 (960 × 1.10)", "$1066"], "960 × 1.10 = $1056.", 4, "960 \\times 1.10 = \\;?"),
+    poolAnswer("y8-nfm-tax-p20", "Gross weekly pay \\(\\$1100\\), tax 24%, levy 2%. Find the take-home pay.", "1100 - 0.24 \\times 1100 - 0.02 \\times 1100 = \\;?", "814", "Tax 264; levy 22; 1100 − 264 − 22 = 814.", 4, ["$814"]),
+    // ── Difficulty 5: annual / reverse GST reasoning ─────────────────────
+    poolAnswer("y8-nfm-tax-p21", "Gross annual salary \\(\\$62400\\), tax 21%, levy 2%. Find the annual take-home pay.", "62400 - 0.21 \\times 62400 - 0.02 \\times 62400 = \\;?", "48048", "Tax 13104; levy 1248; 62400 − 13104 − 1248 = 48048.", 5, ["$48048", "48,048"]),
+    poolAnswer("y8-nfm-tax-p22", "The GST portion of a price is \\(\\$45\\). Find the GST-inclusive price.", "45 \\times 11 = \\;?", "495", "GST is 10% of the pre-GST price, so pre-GST = $450; inclusive = $450 + $45 = $495 (= 45 × 11).", 5, ["$495"]),
+    poolAnswer("y8-nfm-tax-p23", "An item costs \\(\\$880\\) including GST. How much of this is GST?", "880 - 880 \\div 1.10 = \\;?", "80", "Pre-GST = 880 ÷ 1.10 = 800; GST = 880 − 800 = $80.", 5, ["$80"]),
+    poolChoice("y8-nfm-tax-p24", "Gross annual salary \\(\\$80000\\), tax 23%, levy 2%. What is the annual take-home pay?", "A", ["$60000", "$61600", "$58400", "$64000"], "Tax 18400; levy 1600; 80000 − 18400 − 1600 = $60000.", 5, "80000 - 18400 - 1600 = \\;?"),
+    poolAnswer("y8-nfm-tax-p25", "Gross monthly pay \\(\\$5000\\), tax 26%, levy 2%. Find the take-home pay.", "5000 - 0.26 \\times 5000 - 0.02 \\times 5000 = \\;?", "3600", "Tax 1300; levy 100; 5000 − 1300 − 100 = 3600.", 5, ["$3600"]),
+    poolAnswer("y8-nfm-tax-p26", "An invoice reads \\(\\$2200\\) including GST. Find the pre-GST amount.", "2200 \\div 1.10 = \\;?", "2000", "2200 ÷ 1.10 = 2000.", 5, ["$2000", "2,000"]),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-nfm-tax-mp1",
+      prompt:
+        "Hannah earns a gross income of \\(\\$900\\) per week. She pays income tax at 20% and the Medicare levy at 2%.",
+      latex: "\\text{Gross} = \\$900",
+      answer: "702",
+      hint: "Find each deduction as a percentage of gross income, then subtract both.",
+      explanation:
+        "Part (a): income tax = 0.20 × 900 = $180. Part (b): Medicare levy = 0.02 × 900 = $18. Part (c): take-home pay = 900 − 180 − 18 = $702.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the income tax.",
+          latex: "0.20 \\times 900",
+          marks: 1,
+          answer: "180",
+          acceptedAnswers: ["$180"],
+          hint: "0.20 × 900.",
+          explanation: "0.20 × 900 = $180.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find the Medicare levy.",
+          latex: "0.02 \\times 900",
+          marks: 1,
+          answer: "18",
+          acceptedAnswers: ["$18"],
+          hint: "0.02 × 900.",
+          explanation: "0.02 × 900 = $18.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find the take-home pay.",
+          latex: "900 - 180 - 18",
+          marks: 2,
+          answer: "702",
+          acceptedAnswers: ["$702"],
+          hint: "Subtract both deductions from gross income.",
+          explanation: "900 − 180 − 18 = $702.",
+        },
+      ],
+    },
   ],
 };
 
@@ -2221,6 +2907,86 @@ const compoundInterestIntroduction: LessonContent = {
       ["$30.50", "30.50"]
     ),
   ],
+  masteryQuizPool: [
+    // ── Difficulty 1: concept / one-year growth ─────────────────────────
+    poolChoice("y8-nfm-cmp-p1", "In A = P(1 + r)^n, what does n represent?", "B", ["The interest rate", "The number of years", "The total amount", "The principal"], "n is the number of years (compounding periods).", 1, "\\text{Meaning of }n"),
+    poolAnswer("y8-nfm-cmp-p2", "Find the total amount when \\(\\$100\\) is invested at 10% compound interest for 1 year.", "A = 100 \\times (1.10)^1 = \\;?", "110", "100 × 1.10 = 110.", 1, ["$110"]),
+    poolAnswer("y8-nfm-cmp-p3", "Find the total amount when \\(\\$200\\) is invested at 5% compound interest for 1 year.", "A = 200 \\times (1.05)^1 = \\;?", "210", "200 × 1.05 = 210.", 1, ["$210"]),
+    poolChoice("y8-nfm-cmp-p4", "Written as a decimal, what is r for a 4% rate?", "C", ["4", "0.4", "0.04", "1.04"], "4% = 0.04.", 1, "\\text{Decimal for }4\\%"),
+    poolAnswer("y8-nfm-cmp-p5", "Find the total amount when \\(\\$500\\) is invested at 2% compound interest for 1 year.", "A = 500 \\times (1.02)^1 = \\;?", "510", "500 × 1.02 = 510.", 1, ["$510"]),
+    // ── Difficulty 2: two-year growth ────────────────────────────────────
+    poolAnswer("y8-nfm-cmp-p6", "Find the total amount when \\(\\$1000\\) is invested at 5% compound interest for 2 years.", "A = 1000 \\times (1.05)^2 = \\;?", "1102.50", "(1.05)^2 = 1.1025; 1000 × 1.1025 = 1102.50.", 2, ["$1102.50", "1102.5"]),
+    poolAnswer("y8-nfm-cmp-p7", "Find the total amount when \\(\\$2000\\) is invested at 10% compound interest for 2 years.", "A = 2000 \\times (1.10)^2 = \\;?", "2420", "(1.10)^2 = 1.21; 2000 × 1.21 = 2420.", 2, ["$2420"]),
+    poolAnswer("y8-nfm-cmp-p8", "Find the total amount when \\(\\$500\\) is invested at 6% compound interest for 2 years.", "A = 500 \\times (1.06)^2 = \\;?", "561.80", "(1.06)^2 = 1.1236; 500 × 1.1236 = 561.80.", 2, ["$561.80", "561.8"]),
+    poolChoice("y8-nfm-cmp-p9", "What is the total amount when \\(\\$1000\\) is invested at 4% compound interest for 2 years?", "A", ["$1081.60", "$1080", "$1040", "$1160"], "(1.04)^2 = 1.0816; 1000 × 1.0816 = $1081.60.", 2, "A = 1000 \\times (1.04)^2 = \\;?"),
+    poolAnswer("y8-nfm-cmp-p10", "Find the total amount when \\(\\$2500\\) is invested at 5% compound interest for 2 years.", "A = 2500 \\times (1.05)^2 = \\;?", "2756.25", "(1.05)^2 = 1.1025; 2500 × 1.1025 = 2756.25.", 2, ["$2756.25"]),
+    // ── Difficulty 3: three-year growth / interest earned ────────────────
+    poolAnswer("y8-nfm-cmp-p11", "Find the total amount when \\(\\$1000\\) is invested at 10% compound interest for 3 years.", "A = 1000 \\times (1.10)^3 = \\;?", "1331", "(1.10)^3 = 1.331; 1000 × 1.331 = 1331.", 3, ["$1331"]),
+    poolAnswer("y8-nfm-cmp-p12", "Find the compound interest earned when \\(\\$1000\\) is invested at 4% for 3 years.", "I = 1000 \\times (1.04)^3 - 1000 = \\;?", "124.86", "(1.04)^3 = 1.124864; A = 1124.86; I = 124.86.", 3, ["$124.86"]),
+    poolAnswer("y8-nfm-cmp-p13", "Find the total amount when \\(\\$3000\\) is invested at 3% compound interest for 2 years.", "A = 3000 \\times (1.03)^2 = \\;?", "3182.70", "(1.03)^2 = 1.0609; 3000 × 1.0609 = 3182.70.", 3, ["$3182.70", "3182.7"]),
+    poolChoice("y8-nfm-cmp-p14", "What is the total amount when \\(\\$1500\\) is invested at 10% compound interest for 3 years?", "B", ["$1950", "$1996.50", "$2000", "$1815"], "(1.10)^3 = 1.331; 1500 × 1.331 = $1996.50.", 3, "A = 1500 \\times (1.10)^3 = \\;?"),
+    poolAnswer("y8-nfm-cmp-p15", "Find the compound interest earned when \\(\\$2000\\) is invested at 5% for 3 years.", "I = 2000 \\times (1.05)^3 - 2000 = \\;?", "315.25", "(1.05)^3 = 1.157625; A = 2315.25; I = 315.25.", 3, ["$315.25"]),
+    // ── Difficulty 4: compare simple vs compound / larger ────────────────
+    poolAnswer("y8-nfm-cmp-p16", "Find the total amount when \\(\\$6000\\) is invested at 3% compound interest for 4 years.", "A = 6000 \\times (1.03)^4 = \\;?", "6753.05", "(1.03)^4 = 1.12550881; 6000 × 1.12550881 ≈ 6753.05.", 4, ["$6753.05", "6753"]),
+    poolAnswer("y8-nfm-cmp-p17", "Find the total amount when \\(\\$10000\\) is invested at 8% compound interest for 3 years.", "A = 10000 \\times (1.08)^3 = \\;?", "12597.12", "(1.08)^3 = 1.259712; 10000 × 1.259712 = 12597.12.", 4, ["$12597.12", "12597"]),
+    poolChoice("y8-nfm-cmp-p18", "\\(\\$4000\\) at 6% for 2 years: which is the higher total?", "A", ["Compound: $4494.40", "Simple: $4480", "Both equal", "Simple is always higher"], "Compound 4000 × (1.06)^2 = $4494.40 > simple $4480.", 4, "\\text{Compare on }\\$4000\\text{ at }6\\%\\text{ for 2 yr}"),
+    poolAnswer("y8-nfm-cmp-p19", "Find the compound interest earned when \\(\\$800\\) is invested at 2% for 4 years.", "I = 800 \\times (1.02)^4 - 800 = \\;?", "65.94", "(1.02)^4 = 1.08243216; A ≈ 865.95; I ≈ 65.95.", 4, ["$65.95", "65.95", "65.94"]),
+    poolAnswer("y8-nfm-cmp-p20", "Find the total amount when \\(\\$5000\\) is invested at 6% compound interest for 2 years.", "A = 5000 \\times (1.06)^2 = \\;?", "5618", "(1.06)^2 = 1.1236; 5000 × 1.1236 = 5618.", 4, ["$5618"]),
+    // ── Difficulty 5: compound vs simple difference / multi-step ─────────
+    poolAnswer("y8-nfm-cmp-p21", "\\(\\$6000\\) at 3% for 4 years: how much more does compound interest earn than simple interest?", "6000 \\times (1.03)^4 - \\left(6000 + \\frac{6000 \\times 3 \\times 4}{100}\\right) = \\;?", "33.05", "Compound ≈ 6753.05; simple = 6000 + 720 = 6720; difference ≈ 33.05.", 5, ["$33.05", "33.05"]),
+    poolAnswer("y8-nfm-cmp-p22", "\\(\\$4000\\) at 5% for 3 years: how much more is the compound total than the simple total?", "4000 \\times (1.05)^3 - \\left(4000 + \\frac{4000 \\times 5 \\times 3}{100}\\right) = \\;?", "30.50", "Compound = 4630.50; simple = 4600; difference = 30.50.", 5, ["$30.50", "30.50"]),
+    poolAnswer("y8-nfm-cmp-p23", "Find the total amount when \\(\\$2000\\) is invested at 4% compound interest for 3 years.", "A = 2000 \\times (1.04)^3 = \\;?", "2249.73", "(1.04)^3 = 1.124864; 2000 × 1.124864 ≈ 2249.73.", 5, ["$2249.73", "2249.73"]),
+    poolChoice("y8-nfm-cmp-p24", "\\(\\$1000\\) at 5% for 3 years: by how much does compound interest beat simple interest?", "C", ["$0", "$5.00", "$7.63", "$15.00"], "Compound = 1000 × 1.157625 = 1157.63; simple = 1150; difference = $7.63.", 5, "\\text{Compound total} - \\text{simple total}"),
+    poolAnswer("y8-nfm-cmp-p25", "Find the total amount when \\(\\$1200\\) is invested at 5% compound interest for 3 years.", "A = 1200 \\times (1.05)^3 = \\;?", "1389.15", "(1.05)^3 = 1.157625; 1200 × 1.157625 = 1389.15.", 5, ["$1389.15"]),
+    poolAnswer("y8-nfm-cmp-p26", "Find the compound interest earned when \\(\\$5000\\) is invested at 6% for 2 years.", "I = 5000 \\times (1.06)^2 - 5000 = \\;?", "618", "(1.06)^2 = 1.1236; A = 5618; I = 618.", 5, ["$618"]),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-nfm-cmp-mp1",
+      prompt:
+        "Sophie invests \\(\\$2000\\) at 5% per year, compounded annually. She leaves it for 2 years. A friend invests the same \\(\\$2000\\) at 5% simple interest for 2 years.",
+      latex: "A = P(1 + r)^n,\\quad P = \\$2000,\\; r = 0.05",
+      answer: "5",
+      hint: "Use $A = P(1 + r)^n$ for compound, and I = PRT ÷ 100 for simple.",
+      explanation:
+        "Part (a): A = 2000 × \\((1.05)^2\\) = 2000 × 1.1025 = $2205. Part (b): simple I = (2000 × 5 × 2) ÷ 100 = $200, so total = $2200. Part (c): compound total − simple total = 2205 − 2200 = $5.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find Sophie's total amount after 2 years (compound interest).",
+          latex: "2000 \\times (1.05)^2",
+          marks: 2,
+          answer: "2205",
+          acceptedAnswers: ["$2205"],
+          hint: "$(1.05)^2 = 1.1025$.",
+          explanation: "2000 × 1.1025 = $2205.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find the friend's total amount after 2 years (simple interest).",
+          latex: "2000 + \\frac{2000 \\times 5 \\times 2}{100}",
+          marks: 1,
+          answer: "2200",
+          acceptedAnswers: ["$2200"],
+          hint: "Simple interest = (2000 × 5 × 2) ÷ 100 = $200.",
+          explanation: "2000 + 200 = $2200.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "How much more does Sophie have than her friend?",
+          latex: "2205 - 2200",
+          marks: 1,
+          answer: "5",
+          acceptedAnswers: ["$5"],
+          hint: "Subtract the simple total from the compound total.",
+          explanation: "$2205 − $2200 = $5.",
+        },
+      ],
+    },
+  ],
 };
 
 // ── Lesson 10: Budgeting and Money Management ─────────────────────────────────
@@ -2473,6 +3239,86 @@ const budgetingAndMoneyManagement: LessonContent = {
       ["option 1", "1", "15%"]
     ),
   ],
+  masteryQuizPool: [
+    // ── Difficulty 1: surplus/deficit / fixed vs variable ───────────────
+    poolChoice("y8-nfm-bud-p1", "Income is \\(\\$400\\), expenses are \\(\\$350\\). What is the surplus?", "B", ["$350", "$50", "$750", "$400"], "400 − 350 = $50 surplus.", 1, "400 - 350 = \\;?"),
+    poolAnswer("y8-nfm-bud-p2", "Income \\(\\$500\\), expenses \\(\\$420\\). Find the surplus.", "500 - 420 = \\;?", "80", "500 − 420 = 80.", 1, ["$80"]),
+    poolChoice("y8-nfm-bud-p3", "Which is a fixed expense?", "C", ["Eating out", "Groceries", "A monthly $45 phone plan", "Movie tickets"], "A fixed expense stays the same each period; a phone plan is fixed.", 1, "\\text{Identify the fixed expense.}"),
+    poolAnswer("y8-nfm-bud-p4", "A person saves \\(\\$50\\) per week. How much in 6 weeks?", "50 \\times 6 = \\;?", "300", "50 × 6 = 300.", 1, ["$300"]),
+    poolChoice("y8-nfm-bud-p5", "Income \\(\\$300\\), expenses \\(\\$340\\). What is the result?", "A", ["Deficit of $40", "Surplus of $40", "Surplus of $640", "Break even"], "300 − 340 = −40, a $40 deficit.", 1, "300 - 340 = \\;?"),
+    // ── Difficulty 2: percentages of income / weeks to goal ─────────────
+    poolAnswer("y8-nfm-bud-p6", "Income \\(\\$400\\), rent \\(\\$120\\). What percentage of income is rent?", "\\frac{120}{400} \\times 100 = \\;?", "30", "120 ÷ 400 × 100 = 30%.", 2, ["30%"]),
+    poolAnswer("y8-nfm-bud-p7", "Saving \\(\\$60\\) per week toward a \\(\\$480\\) goal. How many weeks?", "480 \\div 60 = \\;?", "8", "480 ÷ 60 = 8 weeks.", 2, ["8 weeks"]),
+    poolAnswer("y8-nfm-bud-p8", "Income \\(\\$520\\); expenses total \\(\\$455\\). Find the surplus.", "520 - 455 = \\;?", "65", "520 − 455 = 65.", 2, ["$65"]),
+    poolChoice("y8-nfm-bud-p9", "Income \\(\\$600\\), food \\(\\$90\\). What percentage of income is food?", "B", ["10%", "15%", "20%", "9%"], "90 ÷ 600 × 100 = 15%.", 2, "\\frac{90}{600} \\times 100 = \\;?"),
+    poolAnswer("y8-nfm-bud-p10", "Saving \\(\\$75\\) per week toward a \\(\\$900\\) goal. How many weeks?", "900 \\div 75 = \\;?", "12", "900 ÷ 75 = 12 weeks.", 2, ["12 weeks"]),
+    // ── Difficulty 3: savings rate ───────────────────────────────────────
+    poolAnswer("y8-nfm-bud-p11", "Income \\(\\$600\\), expenses \\(\\$480\\). Find the savings rate (%).", "\\frac{600 - 480}{600} \\times 100 = \\;?", "20", "Savings 120; 120 ÷ 600 × 100 = 20%.", 3, ["20%"]),
+    poolAnswer("y8-nfm-bud-p12", "Income \\(\\$800\\), expenses \\(\\$680\\). Find the savings rate (%).", "\\frac{800 - 680}{800} \\times 100 = \\;?", "15", "Savings 120; 120 ÷ 800 × 100 = 15%.", 3, ["15%"]),
+    poolAnswer("y8-nfm-bud-p13", "Income \\(\\$480\\), expenses \\(\\$384\\). Find the savings rate (%).", "\\frac{480 - 384}{480} \\times 100 = \\;?", "20", "Savings 96; 96 ÷ 480 × 100 = 20%.", 3, ["20%"]),
+    poolChoice("y8-nfm-bud-p14", "Income \\(\\$1000\\), expenses \\(\\$750\\). What is the savings rate?", "C", ["15%", "20%", "25%", "30%"], "Savings 250; 250 ÷ 1000 × 100 = 25%.", 3, "\\frac{250}{1000} \\times 100 = \\;?"),
+    poolAnswer("y8-nfm-bud-p15", "A \\(\\$3200\\) monthly income with \\(\\$2600\\) expenses. Find the monthly surplus.", "3200 - 2600 = \\;?", "600", "3200 − 2600 = 600.", 3, ["$600"]),
+    // ── Difficulty 4: multi-item budgets / break-even ────────────────────
+    poolAnswer("y8-nfm-bud-p16", "Income \\(\\$520\\). Expenses: \\(\\$180\\), \\(\\$110\\), \\(\\$50\\), \\(\\$35\\), \\(\\$80\\). Find the surplus.", "520 - (180+110+50+35+80) = \\;?", "65", "Total expenses 455; 520 − 455 = 65.", 4, ["$65"]),
+    poolAnswer("y8-nfm-bud-p17", "Monthly income \\(\\$1400\\), expenses \\(\\$1550\\). How much must expenses be cut to break even?", "1550 - 1400 = \\;?", "150", "Deficit = 1550 − 1400 = $150, so cut $150 to break even.", 4, ["$150"]),
+    poolChoice("y8-nfm-bud-p18", "A \\(\\$30/\\text{week}\\) deficit. Which cut removes it best?", "D", ["Save $5 on coffee", "Save $2 on phone plan", "Save $20 skipping an outing", "Cut eating out by $40/week"], "Cutting $40 removes the $30 deficit and leaves a $10 surplus.", 4, "\\text{Which cut best fixes a }\\$30\\text{ deficit?}"),
+    poolAnswer("y8-nfm-bud-p19", "Monthly income \\(\\$3200\\), surplus \\(\\$600\\). Savings goal \\(\\$1800\\). How many months?", "1800 \\div 600 = \\;?", "3", "1800 ÷ 600 = 3 months.", 4, ["3 months"]),
+    poolAnswer("y8-nfm-bud-p20", "Income \\(\\$320\\). Expenses: \\(\\$40\\), \\(\\$30\\), \\(\\$60\\), \\(\\$50\\), \\(\\$40\\). Find the savings rate (%).", "\\frac{320 - 220}{320} \\times 100 = \\;?", "31.25", "Total expenses 220; savings 100; 100 ÷ 320 × 100 = 31.25%.", 4, ["31.25%"]),
+    // ── Difficulty 5: compare budgets / reverse target ───────────────────
+    poolChoice("y8-nfm-bud-p21", "Budget A: income \\(\\$700\\), expenses \\(\\$630\\). Budget B: income \\(\\$850\\), expenses \\(\\$795\\). Higher savings rate?", "A", ["Budget A (10%)", "Budget B (6.47%)", "Both equal", "Cannot tell"], "A: 70 ÷ 700 = 10%. B: 55 ÷ 850 ≈ 6.47%. A is higher.", 5, "\\text{Compare savings rates}"),
+    poolAnswer("y8-nfm-bud-p22", "Monthly income \\(\\$1400\\), expenses \\(\\$1550\\). What expense reduction gives a 10% savings rate?", "1550 - (1400 - 0.10 \\times 1400) = \\;?", "290", "Target expenses = 1400 − 140 = 1260; reduction = 1550 − 1260 = $290.", 5, ["$290"]),
+    poolAnswer("y8-nfm-bud-p23", "Option 1: income \\(\\$2800\\), expenses \\(\\$2380\\). Find its savings rate (%).", "\\frac{2800 - 2380}{2800} \\times 100 = \\;?", "15", "Savings 420; 420 ÷ 2800 × 100 = 15%.", 5, ["15%"]),
+    poolAnswer("y8-nfm-bud-p24", "A family wants a 20% savings rate on \\(\\$3000\\) income. What is the maximum they can spend?", "3000 - 0.20 \\times 3000 = \\;?", "2400", "Target savings = $600; max expenses = 3000 − 600 = $2400.", 5, ["$2400"]),
+    poolChoice("y8-nfm-bud-p25", "Income \\(\\$2000\\), savings goal rate 25%. What weekly saving is required?", "B", ["$400", "$500", "$250", "$600"], "0.25 × 2000 = $500.", 5, "0.25 \\times 2000 = \\;?"),
+    poolAnswer("y8-nfm-bud-p26", "A teenager has a \\(\\$100/\\text{week}\\) surplus and wants a \\(\\$650\\) item. How many full weeks of saving are needed?", "\\lceil 650 \\div 100 \\rceil = \\;?", "7", "650 ÷ 100 = 6.5, so 7 full weeks are needed.", 5, ["7 weeks", "7"]),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-nfm-bud-mp1",
+      prompt:
+        "Ethan earns \\(\\$500\\) per week. His weekly expenses are: rent \\(\\$180\\), food \\(\\$100\\), transport \\(\\$40\\), phone \\(\\$30\\), entertainment \\(\\$50\\).",
+      latex: "\\text{Income} = \\$500",
+      answer: "20",
+      hint: "Add all expenses, subtract from income, then use savings ÷ income × 100.",
+      explanation:
+        "Part (a): total expenses = 180 + 100 + 40 + 30 + 50 = $400. Part (b): surplus = 500 − 400 = $100. Part (c): savings rate = 100 ÷ 500 × 100 = 20%.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find Ethan's total weekly expenses.",
+          latex: "180 + 100 + 40 + 30 + 50",
+          marks: 1,
+          answer: "400",
+          acceptedAnswers: ["$400"],
+          hint: "Add the five expense amounts.",
+          explanation: "180 + 100 + 40 + 30 + 50 = $400.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find his weekly surplus.",
+          latex: "500 - 400",
+          marks: 1,
+          answer: "100",
+          acceptedAnswers: ["$100"],
+          hint: "Income minus total expenses.",
+          explanation: "500 − 400 = $100.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find his savings rate as a percentage of income.",
+          latex: "\\frac{100}{500} \\times 100",
+          marks: 2,
+          answer: "20",
+          acceptedAnswers: ["20%"],
+          hint: "Savings ÷ income × 100.",
+          explanation: "100 ÷ 500 × 100 = 20%.",
+        },
+      ],
+    },
+  ],
 };
 
 // ── Lesson 11: Credit and Debit ───────────────────────────────────────────────
@@ -2722,6 +3568,86 @@ const creditAndDebit: LessonContent = {
       "Monthly interest = 1200 × 0.0125 = 15. Credit total = 1200 + 6 × 15 = 1290. Lay-by total = 1200 + 50 = 1250. Ranking: Debit ($1200) < Lay-by ($1250) < Credit ($1290).",
       ["$1290", "1290"]
     ),
+  ],
+  masteryQuizPool: [
+    // ── Difficulty 1: concept / monthly rate ─────────────────────────────
+    poolChoice("y8-nfm-crd-p1", "Which card lets you spend only money you already have?", "A", ["Debit card", "Credit card", "Both", "Neither"], "A debit card draws from your own account; a credit card borrows.", 1, "\\text{Spend only your own money}"),
+    poolAnswer("y8-nfm-crd-p2", "A credit card balance is \\(\\$1000\\) at 12% p.a. Find the annual interest.", "1000 \\times 0.12 = \\;?", "120", "1000 × 0.12 = 120.", 1, ["$120"]),
+    poolAnswer("y8-nfm-crd-p3", "A \\(\\$1200\\) balance at 24% p.a. Find the monthly interest.", "1200 \\times \\frac{0.24}{12} = \\;?", "24", "Monthly rate 2%; 1200 × 0.02 = 24.", 1, ["$24"]),
+    poolChoice("y8-nfm-crd-p4", "A \\(\\$500\\) item on lay-by has a \\(\\$10\\) fee. What is the total cost?", "C", ["$490", "$500", "$510", "$550"], "500 + 10 = $510.", 1, "500 + 10 = \\;?"),
+    poolAnswer("y8-nfm-crd-p5", "A \\(\\$2000\\) balance at 18% p.a. Find the annual interest.", "2000 \\times 0.18 = \\;?", "360", "2000 × 0.18 = 360.", 1, ["$360"]),
+    // ── Difficulty 2: monthly interest / lay-by totals ───────────────────
+    poolAnswer("y8-nfm-crd-p6", "A \\(\\$750\\) balance at 24% p.a. Find the monthly interest.", "750 \\times \\frac{0.24}{12} = \\;?", "15", "Monthly rate 2%; 750 × 0.02 = 15.", 2, ["$15"]),
+    poolAnswer("y8-nfm-crd-p7", "A \\(\\$900\\) balance at 20% p.a. Find the monthly interest.", "900 \\times \\frac{0.20}{12} = \\;?", "15", "900 × (0.20 ÷ 12) = 15.", 2, ["$15"]),
+    poolAnswer("y8-nfm-crd-p8", "A \\(\\$600\\) item on lay-by has a \\(\\$15\\) fee, paid in 3 equal instalments. Find each payment.", "\\frac{600 + 15}{3} = \\;?", "205", "615 ÷ 3 = 205.", 2, ["$205"]),
+    poolChoice("y8-nfm-crd-p9", "A \\(\\$1200\\) balance at 20% p.a. What is the monthly interest?", "B", ["$15", "$20", "$24", "$240"], "1200 × (0.20 ÷ 12) = $20.", 2, "1200 \\times \\frac{0.20}{12} = \\;?"),
+    poolAnswer("y8-nfm-crd-p10", "A \\(\\$480\\) item on lay-by has a \\(\\$25\\) fee, paid in 4 equal instalments. Find each payment.", "\\frac{480 + 25}{4} = \\;?", "126.25", "505 ÷ 4 = 126.25.", 2, ["$126.25"]),
+    // ── Difficulty 3: interest over months / net reduction ───────────────
+    poolAnswer("y8-nfm-crd-p11", "A \\(\\$900\\) balance at 24% p.a. Find the interest over 3 months.", "3 \\times \\left(900 \\times \\frac{0.24}{12}\\right) = \\;?", "54", "Monthly interest 18; 3 × 18 = 54.", 3, ["$54"]),
+    poolAnswer("y8-nfm-crd-p12", "A \\(\\$1500\\) balance at 18% p.a. Monthly interest is \\(\\$22.50\\) and a \\(\\$50\\) payment is made. Find the balance reduction.", "50 - 22.50 = \\;?", "27.50", "50 − 22.50 = 27.50.", 3, ["$27.50"]),
+    poolAnswer("y8-nfm-crd-p13", "A \\(\\$500\\) balance at 20% p.a. Find the monthly interest (to the nearest cent).", "500 \\times \\frac{0.20}{12} = \\;?", "8.33", "500 × (0.20 ÷ 12) ≈ 8.33.", 3, ["$8.33"]),
+    poolChoice("y8-nfm-crd-p14", "A \\(\\$1000\\) balance at 18% p.a. Monthly interest \\(\\$15\\), repayment \\(\\$20\\). How much does the debt fall?", "C", ["$20", "$15", "$5", "$35"], "20 − 15 = $5 reduction.", 3, "20 - 15 = \\;?"),
+    poolAnswer("y8-nfm-crd-p15", "A \\(\\$600\\) item is bought on credit at 18% p.a. and held 2 months. Find the total cost (simple monthly interest).", "600 + 2 \\times \\left(600 \\times \\frac{0.18}{12}\\right) = \\;?", "618", "Monthly interest 9; total 600 + 18 = 618.", 3, ["$618"]),
+    // ── Difficulty 4: compare methods / longer holds ─────────────────────
+    poolAnswer("y8-nfm-crd-p16", "An \\(\\$800\\) TV on credit at 20% p.a. held 6 months. Find the total cost (simple monthly interest).", "800 + 6 \\times \\left(800 \\times \\frac{0.20}{12}\\right) = \\;?", "880", "Monthly interest 13.33; total 800 + 80 = 880.", 4, ["$880"]),
+    poolChoice("y8-nfm-crd-p17", "A \\(\\$900\\) phone: credit at 20% p.a. held 4 months (total \\(\\$960\\)) vs lay-by with \\(\\$40\\) fee (total \\(\\$940\\)). Which is cheaper?", "B", ["Credit", "Lay-by", "Both equal", "Cannot tell"], "Lay-by $940 < credit $960, so lay-by is cheaper.", 4, "\\text{Compare }\\$960\\text{ vs }\\$940"),
+    poolAnswer("y8-nfm-crd-p18", "A \\(\\$1200\\) purchase on credit at 15% p.a. held 6 months. Find the total cost (simple monthly interest).", "1200 + 6 \\times \\left(1200 \\times \\frac{0.15}{12}\\right) = \\;?", "1290", "Monthly interest 15; total 1200 + 90 = 1290.", 4, ["$1290"]),
+    poolAnswer("y8-nfm-crd-p19", "A \\(\\$1000\\) balance at 18% p.a. With \\(\\$200\\) available monthly and \\(\\$15\\) monthly interest, find months to clear.", "1000 \\div (200 - 15) = \\;?", "6", "Net reduction 185/month; 1000 ÷ 185 ≈ 5.4, so 6 months.", 4, ["6 months", "6"]),
+    poolAnswer("y8-nfm-crd-p20", "Paying a \\(\\$500\\) balance in full vs holding 12 months at 20% p.a. How much extra by waiting?", "500 \\times 0.20 = \\;?", "100", "Annual interest = 500 × 0.20 = $100 extra.", 4, ["$100"]),
+    // ── Difficulty 5: minimum-payment trap / multi-method ───────────────
+    poolAnswer("y8-nfm-crd-p21", "A \\(\\$750\\) balance at 24% p.a. The repayment is \\(\\$25/\\text{month}\\) and monthly interest is \\(\\$15\\). How many months to clear (assume $10 net reduction)?", "750 \\div (25 - 15) = \\;?", "75", "Net reduction $10/month; 750 ÷ 10 = 75 months.", 5, ["75 months", "75"]),
+    poolAnswer("y8-nfm-crd-p22", "A \\(\\$900\\) phone: credit at 20% p.a. held 4 months vs lay-by with \\(\\$40\\) fee. How much cheaper is the lay-by?", "\\left(900 + 4 \\times 15\\right) - (900 + 40) = \\;?", "20", "Credit total 960; lay-by 940; lay-by is $20 cheaper.", 5, ["$20", "20"]),
+    poolAnswer("y8-nfm-crd-p23", "A \\(\\$600\\) balance at 20% p.a. The minimum repayment is \\(\\$15/\\text{month}\\); monthly interest is \\(\\$10\\). How much of the first payment reduces the debt?", "15 - 10 = \\;?", "5", "$15 − $10 interest = $5 reduces the debt.", 5, ["$5"]),
+    poolChoice("y8-nfm-crd-p24", "A \\(\\$1200\\) item: debit \\(\\$1200\\), credit \\(\\$1290\\), lay-by \\(\\$1250\\). Which is cheapest?", "A", ["Debit", "Credit", "Lay-by", "All equal"], "Debit $1200 is the cheapest.", 5, "\\text{Cheapest option}"),
+    poolAnswer("y8-nfm-crd-p25", "A \\(\\$1500\\) balance at 18% p.a. is paid off at \\(\\$150/\\text{month}\\). Monthly interest is \\(\\$22.50\\). What is the net monthly reduction?", "150 - 22.50 = \\;?", "127.50", "150 − 22.50 = 127.50.", 5, ["$127.50"]),
+    poolAnswer("y8-nfm-crd-p26", "A \\(\\$2400\\) balance at 20% p.a. is left unpaid for a full year. Find the total interest.", "2400 \\times 0.20 = \\;?", "480", "2400 × 0.20 = 480.", 5, ["$480"]),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-nfm-crd-mp1",
+      prompt:
+        "Mia buys an \\(\\$800\\) laptop. She compares paying by credit card at 18% per year (holding the balance for 3 months, using simple monthly interest) against lay-by with a \\(\\$30\\) fee.",
+      latex: "\\text{Price} = \\$800",
+      answer: "830",
+      hint: "Monthly interest = balance × (annual rate ÷ 12). Lay-by total = price + fee.",
+      explanation:
+        "Part (a): monthly interest = 800 × (0.18 ÷ 12) = $12. Part (b): credit total = 800 + 3 × 12 = $836. Part (c): lay-by total = 800 + 30 = $830, which is $6 cheaper than credit.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the monthly interest on the credit card.",
+          latex: "800 \\times \\frac{0.18}{12}",
+          marks: 1,
+          answer: "12",
+          acceptedAnswers: ["$12"],
+          hint: "Monthly rate = 18% ÷ 12 = 1.5%.",
+          explanation: "800 × 0.015 = $12.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find the total cost on the credit card over 3 months.",
+          latex: "800 + 3 \\times 12",
+          marks: 1,
+          answer: "836",
+          acceptedAnswers: ["$836"],
+          hint: "Add 3 months of interest to the price.",
+          explanation: "800 + 36 = $836.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find the total cost on lay-by.",
+          latex: "800 + 30",
+          marks: 1,
+          answer: "830",
+          acceptedAnswers: ["$830"],
+          hint: "Add the lay-by fee to the price.",
+          explanation: "800 + 30 = $830.",
+        },
+      ],
+    },
   ],
 };
 

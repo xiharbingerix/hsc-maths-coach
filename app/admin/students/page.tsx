@@ -8,6 +8,42 @@ export const metadata: Metadata = {
   title: "Students | Nova Maths Admin",
 };
 
+const ALLOWED_PAGE_SIZES = [25, 50, 100] as const;
+
+function parsePositiveInt(raw: string | undefined, fallback: number) {
+  const value = Number(raw);
+  if (!Number.isFinite(value)) return fallback;
+  const rounded = Math.floor(value);
+  return rounded > 0 ? rounded : fallback;
+}
+
+function parsePageSize(raw: string | undefined) {
+  const requested = parsePositiveInt(raw, 50);
+  return (ALLOWED_PAGE_SIZES as readonly number[]).includes(requested)
+    ? requested
+    : 50;
+}
+
+function buildStudentsHref({
+  q,
+  filter,
+  page,
+  pageSize,
+}: {
+  q: string;
+  filter: string;
+  page: number;
+  pageSize: number;
+}) {
+  const params = new URLSearchParams();
+  if (q) params.set("q", q);
+  if (filter && filter !== "all") params.set("filter", filter);
+  if (page > 1) params.set("page", String(page));
+  if (pageSize !== 50) params.set("pageSize", String(pageSize));
+  const query = params.toString();
+  return query.length > 0 ? `/admin/students?${query}` : "/admin/students";
+}
+
 type AdminAuthUser = {
   id: string;
   email?: string;
@@ -129,20 +165,32 @@ function topicLabel(courseSlug: string, topicSlug: string) {
 export default async function AdminStudentsPage({
   searchParams,
 }: {
-  searchParams?: Promise<{ q?: string; filter?: string }>;
+  searchParams?: Promise<{
+    q?: string;
+    filter?: string;
+    page?: string;
+    pageSize?: string;
+  }>;
 }) {
   await requireAdmin();
   const params = await searchParams;
   const query = params?.q?.trim().toLowerCase() ?? "";
   const filter = params?.filter ?? "all";
+  const page = parsePositiveInt(params?.page, 1);
+  const pageSize = parsePageSize(params?.pageSize);
 
   const { data: usersData } = await supabaseAdmin.auth.admin.listUsers({
-    page: 1,
-    perPage: 1000,
+    page,
+    perPage: pageSize,
   });
   const users = ((usersData?.users ?? []) as AdminAuthUser[]).filter(
     (user) => user.email
   );
+  const usersTotal = Number(
+    ((usersData as { total?: number } | null)?.total ?? users.length)
+  );
+  const hasPrevPage = page > 1;
+  const hasNextPage = page * pageSize < usersTotal;
   const userIds = users.map((user) => user.id);
   const emails = users
     .map((user) => user.email?.toLowerCase())
@@ -361,7 +409,11 @@ export default async function AdminStudentsPage({
         </header>
 
         <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-          <SummaryCard label="Students" value={String(rows.length)} />
+          <SummaryCard
+            label="Students"
+            value={`${rows.length}/${usersTotal}`}
+            helper="loaded / total"
+          />
           <SummaryCard label="Low mastery" value={String(lowMasteryCount)} />
           <SummaryCard label="Overdue" value={String(studentsWithOverdue)} />
           <SummaryCard
@@ -402,6 +454,21 @@ export default async function AdminStudentsPage({
                 <option value="low-mastery">Low mastery &lt; 50</option>
               </select>
             </label>
+            <label className="space-y-1">
+              <span className="text-sm font-medium text-slate-700">Page size</span>
+              <select
+                name="pageSize"
+                defaultValue={String(pageSize)}
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm outline-none focus:border-slate-900 focus:ring-2 focus:ring-slate-200 lg:w-32"
+              >
+                {ALLOWED_PAGE_SIZES.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <input type="hidden" name="page" value="1" />
             <button
               type="submit"
               className="rounded-xl bg-slate-900 px-5 py-2 text-sm font-semibold text-white hover:bg-slate-700"
@@ -489,6 +556,50 @@ export default async function AdminStudentsPage({
             </div>
           ) : null}
         </div>
+
+        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm text-slate-600">
+              Page {page} · Showing {rows.length} user{rows.length === 1 ? "" : "s"} of {usersTotal}
+            </p>
+            <div className="flex items-center gap-2">
+              {hasPrevPage ? (
+                <Link
+                  href={buildStudentsHref({
+                    q: params?.q?.trim() ?? "",
+                    filter,
+                    page: page - 1,
+                    pageSize,
+                  })}
+                  className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                >
+                  Previous
+                </Link>
+              ) : (
+                <span className="rounded-lg border border-slate-200 bg-slate-100 px-3 py-1.5 text-sm font-semibold text-slate-400">
+                  Previous
+                </span>
+              )}
+              {hasNextPage ? (
+                <Link
+                  href={buildStudentsHref({
+                    q: params?.q?.trim() ?? "",
+                    filter,
+                    page: page + 1,
+                    pageSize,
+                  })}
+                  className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                >
+                  Next
+                </Link>
+              ) : (
+                <span className="rounded-lg border border-slate-200 bg-slate-100 px-3 py-1.5 text-sm font-semibold text-slate-400">
+                  Next
+                </span>
+              )}
+            </div>
+          </div>
+        </section>
       </div>
     </main>
   );

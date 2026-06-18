@@ -21,6 +21,8 @@ type LessonContent = Pick<
   | "independentPractice"
   | "commonMistakes"
   | "masteryQuiz"
+  | "masteryQuizPool"
+  | "multiPartPractice"
 >;
 
 // ── Helper builders ──────────────────────────────────────────────────────────
@@ -105,6 +107,50 @@ function lineGraph(
     ...(highlightPoints?.length
       ? { points: highlightPoints.map((p) => ({ x: p.x, y: p.y, label: `(${p.x}, ${p.y})` })) }
       : {}),
+  };
+}
+
+// Pool question with explicit difficulty (1–5). Typed-answer variant.
+function poolA(
+  id: string,
+  prompt: string,
+  latex: string,
+  value: string,
+  explanation: string,
+  difficulty: number,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    difficulty,
+    answer: value,
+    acceptedAnswers: Array.from(new Set([value, ...acceptedAnswers])),
+    hint: "Substitute values carefully and show each step of working.",
+    explanation,
+  };
+}
+
+// Pool question with explicit difficulty (1–5). Multiple-choice variant.
+function poolC(
+  id: string,
+  prompt: string,
+  value: "A" | "B" | "C" | "D",
+  choices: [string, string, string, string],
+  explanation: string,
+  difficulty: number,
+  latex = "\\text{Select A, B, C or D.}"
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    difficulty,
+    choices: ["A", "B", "C", "D"].map((label, i) => ({ label, text: choices[i] })),
+    answer: value,
+    hint: "Read each option carefully and eliminate those that don't fit.",
+    explanation,
   };
 }
 
@@ -343,6 +389,270 @@ const numberPatternsAndRules: LessonContent = {
       "T = 7 × 4 − 2 = 28 − 2 = 26."
     ),
   ],
+  masteryQuizPool: [
+    poolA(
+      "y8-lin-pat-p1",
+      "Pattern: 2, 6, 10, 14, … Find the next term.",
+      "\\text{common difference }= 4",
+      "18",
+      "14 + 4 = 18.",
+      1
+    ),
+    poolA(
+      "y8-lin-pat-p2",
+      "Rule: T = 2n + 5. Find T when n = 3.",
+      "T = 2(3) + 5",
+      "11",
+      "T = 6 + 5 = 11.",
+      1
+    ),
+    poolC(
+      "y8-lin-pat-p3",
+      "What is the common difference of 9, 14, 19, 24, …?",
+      "B",
+      ["4", "5", "6", "9"],
+      "14 − 9 = 5, and each step adds 5.",
+      1
+    ),
+    poolA(
+      "y8-lin-pat-p4",
+      "Rule: T = 5n. Find the 4th term.",
+      "T = 5(4)",
+      "20",
+      "T = 5 × 4 = 20.",
+      1
+    ),
+    poolA(
+      "y8-lin-pat-p5",
+      "Pattern: 11, 14, 17, 20, … Find the next term.",
+      "\\text{common difference }= 3",
+      "23",
+      "20 + 3 = 23.",
+      1
+    ),
+    poolA(
+      "y8-lin-pat-p6",
+      "Rule: T = 3n − 1. Find T when n = 7.",
+      "T = 3(7) - 1",
+      "20",
+      "T = 21 − 1 = 20.",
+      2
+    ),
+    poolA(
+      "y8-lin-pat-p7",
+      "Rule: T = 6n + 2. Find T when n = 5.",
+      "T = 6(5) + 2",
+      "32",
+      "T = 30 + 2 = 32.",
+      2
+    ),
+    poolC(
+      "y8-lin-pat-p8",
+      "Which rule matches: n = 1 → 7, n = 2 → 10, n = 3 → 13?",
+      "C",
+      ["T = 3n", "T = 3n + 1", "T = 3n + 4", "T = 4n + 3"],
+      "Common difference 3, and 3(1) + 4 = 7. So T = 3n + 4.",
+      2
+    ),
+    poolA(
+      "y8-lin-pat-p9",
+      "Pattern: 80, 73, 66, 59, … Find the next term.",
+      "\\text{common difference }= -7",
+      "52",
+      "59 − 7 = 52.",
+      2
+    ),
+    poolA(
+      "y8-lin-pat-p10",
+      "Rule: T = 4n + 1. For which n is T = 21?",
+      "4n + 1 = 21",
+      "5",
+      "4n = 20, so n = 5.",
+      2
+    ),
+    poolA(
+      "y8-lin-pat-p11",
+      "Pattern: 6, 11, 16, 21, … Find the 7th term.",
+      "T_7 = 6 + 6 \\times 5",
+      "36",
+      "Common difference 5. The 7th term is 6 + 6 × 5 = 6 + 30 = 36.",
+      3
+    ),
+    poolA(
+      "y8-lin-pat-p12",
+      "Write the rule for the pattern 8, 11, 14, 17, … in the form T = mn + c. Enter the value of c.",
+      "T = 3n + c",
+      "5",
+      "m = 3 and 3(1) + c = 8, so c = 5. The rule is T = 3n + 5.",
+      3
+    ),
+    poolA(
+      "y8-lin-pat-p13",
+      "Rule: T = 7n − 3. For which n is T = 39?",
+      "7n - 3 = 39",
+      "6",
+      "7n = 42, so n = 6.",
+      3
+    ),
+    poolC(
+      "y8-lin-pat-p14",
+      "Which sequence has a common difference of 6?",
+      "C",
+      ["3, 8, 13, 18", "2, 9, 16, 23", "4, 10, 16, 22", "5, 10, 15, 20"],
+      "10 − 4 = 6, 16 − 10 = 6, 22 − 16 = 6. Only option C steps by 6.",
+      3
+    ),
+    poolA(
+      "y8-lin-pat-p15",
+      "Pattern: 100, 92, 84, 76, … Find the 6th term.",
+      "\\text{common difference }= -8",
+      "60",
+      "Common difference −8. Terms: 100, 92, 84, 76, 68, 60. The 6th term is 60.",
+      3
+    ),
+    poolA(
+      "y8-lin-pat-p16",
+      "Rule: T = 5n + 2. Find the 12th term.",
+      "T = 5(12) + 2",
+      "62",
+      "T = 60 + 2 = 62.",
+      3
+    ),
+    poolA(
+      "y8-lin-pat-p17",
+      "Find the rule for 4, 9, 14, 19, … and use it to find the 20th term.",
+      "T = 5n - 1",
+      "99",
+      "m = 5, c = −1, so T = 5n − 1. The 20th term is 5 × 20 − 1 = 99.",
+      4
+    ),
+    poolA(
+      "y8-lin-pat-p18",
+      "Rule: T = 6n − 5. For which n is T = 73?",
+      "6n - 5 = 73",
+      "13",
+      "6n = 78, so n = 13.",
+      4
+    ),
+    poolA(
+      "y8-lin-pat-p19",
+      "A pattern has a common difference of 4 and its 10th term is 41. What is its first term?",
+      "T_1 = 41 - 9 \\times 4",
+      "5",
+      "From the 1st to the 10th term is 9 steps of 4 = 36. So T₁ = 41 − 36 = 5.",
+      4
+    ),
+    poolC(
+      "y8-lin-pat-p20",
+      "The rule T = mn + c gives T = 13 when n = 2 and T = 23 when n = 4. What is m?",
+      "C",
+      ["3", "4", "5", "6"],
+      "From n = 2 to n = 4 is 2 steps and T rises by 10, so m = 10 ÷ 2 = 5.",
+      4
+    ),
+    poolA(
+      "y8-lin-pat-p21",
+      "A pattern starts 3, 10, 17, … For which n does the term first exceed 100?",
+      "T = 7n - 4 > 100",
+      "15",
+      "T = 7n − 4. Solve 7n − 4 > 100: 7n > 104, n > 14.86, so the first whole n is 15.",
+      4
+    ),
+    poolA(
+      "y8-lin-pat-p22",
+      "Pattern A is 4, 7, 10, 13, … and pattern B is 1, 7, 13, 19, … At which position n are their terms equal?",
+      "3n + 1 = 6n - 5",
+      "2",
+      "A: T = 3n + 1. B: T = 6n − 5. Set equal: 3n + 1 = 6n − 5, so 6 = 3n and n = 2. (Check: A's 2nd term = 7, B's 2nd term = 7.)",
+      5
+    ),
+    poolA(
+      "y8-lin-pat-p23",
+      "The 5th term of a linear pattern is 23 and the 9th term is 43. Find the common difference.",
+      "d = \\frac{43 - 23}{9 - 5}",
+      "5",
+      "From the 5th to the 9th term is 4 steps and the value rises by 20, so d = 20 ÷ 4 = 5.",
+      5
+    ),
+    poolA(
+      "y8-lin-pat-p24",
+      "The 3rd term of a linear pattern is 17 and the 7th term is 37. Find the 1st term.",
+      "d = \\frac{37 - 17}{7 - 3},\\; T_1 = 17 - 2d",
+      "7",
+      "Common difference d = 20 ÷ 4 = 5. The 1st term is 2 steps before the 3rd: 17 − 2 × 5 = 7.",
+      5
+    ),
+    poolA(
+      "y8-lin-pat-p25",
+      "A linear pattern has rule T = 8n + c. Its 4th term is 35. Find c, then find the 10th term.",
+      "8(4) + c = 35",
+      "83",
+      "32 + c = 35, so c = 3 and T = 8n + 3. The 10th term is 8 × 10 + 3 = 83.",
+      5
+    ),
+    poolA(
+      "y8-lin-pat-p26",
+      "Pattern: 5, 9, 13, 17, … How many terms are less than 50?",
+      "4n + 1 < 50",
+      "12",
+      "T = 4n + 1. Solve 4n + 1 < 50: 4n < 49, n < 12.25, so 12 terms (n = 1 to 12) are below 50.",
+      5
+    ),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-lin-pat-mp1",
+      prompt:
+        "A linear number pattern begins 6, 10, 14, 18, … Use the rule T = mn + c.",
+      latex: "",
+      answer: "4",
+      hint: "Find the common difference for m, then substitute n = 1 to find c.",
+      explanation:
+        "Part (a): the common difference is 4, so m = 4. Part (b): 4(1) + c = 6, so c = 2 and T = 4n + 2. Part (c): the 20th term is 4 × 20 + 2 = 82. Part (d): solve 4n + 2 = 50 to get n = 12.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the common difference m.",
+          marks: 1,
+          answer: "4",
+          acceptedAnswers: [],
+          hint: "Subtract consecutive terms.",
+          explanation: "10 − 6 = 4, so m = 4.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find the constant c in the rule T = mn + c.",
+          marks: 1,
+          answer: "2",
+          acceptedAnswers: [],
+          hint: "Substitute n = 1, T = 6 into T = 4n + c.",
+          explanation: "4(1) + c = 6, so c = 2. The rule is T = 4n + 2.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find the 20th term.",
+          marks: 1,
+          answer: "82",
+          acceptedAnswers: [],
+          hint: "Substitute n = 20 into the rule.",
+          explanation: "T = 4 × 20 + 2 = 82.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "For which n is the term equal to 50?",
+          marks: 2,
+          answer: "12",
+          acceptedAnswers: [],
+          hint: "Solve 4n + 2 = 50.",
+          explanation: "4n = 48, so n = 12.",
+        },
+      ],
+    },
+  ],
 };
 
 // ── Lesson 2: Coordinates and Points ─────────────────────────────────────────
@@ -577,6 +887,275 @@ const coordinatesAndPoints: LessonContent = {
       ["Quadrant I", "Quadrant II", "Quadrant III", "Quadrant IV"],
       "Both coordinates are positive → Quadrant I."
     ),
+  ],
+  masteryQuizPool: [
+    poolA(
+      "y8-lin-coo-p1",
+      "What is the x-coordinate of the point (8, 3)?",
+      "(8,\\; 3)",
+      "8",
+      "The x-coordinate is the first number: 8.",
+      1
+    ),
+    poolA(
+      "y8-lin-coo-p2",
+      "What is the y-coordinate of the point (2, 9)?",
+      "(2,\\; 9)",
+      "9",
+      "The y-coordinate is the second number: 9.",
+      1
+    ),
+    poolC(
+      "y8-lin-coo-p3",
+      "The point (3, 6) lies in which quadrant?",
+      "A",
+      ["Quadrant I", "Quadrant II", "Quadrant III", "Quadrant IV"],
+      "Both coordinates positive → Quadrant I.",
+      1
+    ),
+    poolA(
+      "y8-lin-coo-p4",
+      "A point on the x-axis has which y-coordinate?",
+      "\\text{on the x-axis: } y = ?",
+      "0",
+      "Every point on the x-axis has y = 0.",
+      1
+    ),
+    poolC(
+      "y8-lin-coo-p5",
+      "What are the coordinates of the origin?",
+      "A",
+      ["(0, 0)", "(1, 0)", "(0, 1)", "(1, 1)"],
+      "The origin is where the axes meet: (0, 0).",
+      1
+    ),
+    poolC(
+      "y8-lin-coo-p6",
+      "The point (−2, 7) lies in which quadrant?",
+      "B",
+      ["Quadrant I", "Quadrant II", "Quadrant III", "Quadrant IV"],
+      "x negative, y positive → Quadrant II.",
+      2
+    ),
+    poolA(
+      "y8-lin-coo-p7",
+      "What is the x-coordinate of the point (−6, −1)?",
+      "(-6,\\; -1)",
+      "-6",
+      "The x-coordinate is the first number: −6.",
+      2,
+      ["−6"]
+    ),
+    poolC(
+      "y8-lin-coo-p8",
+      "Which point lies on the y-axis?",
+      "C",
+      ["(4, 0)", "(2, 3)", "(0, −7)", "(−5, −5)"],
+      "A point on the y-axis has x = 0. Only (0, −7) qualifies.",
+      2
+    ),
+    poolA(
+      "y8-lin-coo-p9",
+      "A point is 5 units left of the origin on the x-axis. What is its x-coordinate?",
+      "\\text{left of origin: } x < 0",
+      "-5",
+      "Left means negative x. The x-coordinate is −5.",
+      2,
+      ["−5"]
+    ),
+    poolC(
+      "y8-lin-coo-p10",
+      "The point (6, −2) lies in which quadrant?",
+      "D",
+      ["Quadrant I", "Quadrant II", "Quadrant III", "Quadrant IV"],
+      "x positive, y negative → Quadrant IV.",
+      2
+    ),
+    poolA(
+      "y8-lin-coo-p11",
+      "Points A(5, 1) and B(5, 9) share the same x-coordinate. What is it?",
+      "x_A = x_B",
+      "5",
+      "Both have x = 5; they lie on the vertical line x = 5.",
+      3
+    ),
+    poolA(
+      "y8-lin-coo-p12",
+      "What is the y-coordinate of the midpoint of (0, 2) and (0, 10)?",
+      "y = \\frac{2 + 10}{2}",
+      "6",
+      "Midpoint y = (2 + 10) ÷ 2 = 6.",
+      3
+    ),
+    poolA(
+      "y8-lin-coo-p13",
+      "What is the distance along the x-axis from (3, 0) to (11, 0)?",
+      "(3,0)\\text{ to }(11,0)",
+      "8",
+      "Distance = |11 − 3| = 8 units.",
+      3
+    ),
+    poolA(
+      "y8-lin-coo-p14",
+      "The point (0, k) lies on which axis? Enter 'x-axis' or 'y-axis'.",
+      "x = 0",
+      "y-axis",
+      "When x = 0 the point lies on the vertical y-axis.",
+      3,
+      ["the y-axis", "Y-axis"]
+    ),
+    poolA(
+      "y8-lin-coo-p15",
+      "What is the x-coordinate of the midpoint of (2, 4) and (8, 4)?",
+      "x = \\frac{2 + 8}{2}",
+      "5",
+      "Midpoint x = (2 + 8) ÷ 2 = 5.",
+      3
+    ),
+    poolC(
+      "y8-lin-coo-p16",
+      "A point has a negative x-coordinate and a negative y-coordinate. Which quadrant is it in?",
+      "C",
+      ["Quadrant I", "Quadrant II", "Quadrant III", "Quadrant IV"],
+      "Both negative → Quadrant III.",
+      3
+    ),
+    poolA(
+      "y8-lin-coo-p17",
+      "A(−4, 3) and B(2, 3) are joined by a line segment. What is its length?",
+      "|2 - (-4)|",
+      "6",
+      "Same y, so length = |2 − (−4)| = 6 units.",
+      4
+    ),
+    poolA(
+      "y8-lin-coo-p18",
+      "Find the x-coordinate of the midpoint of (−3, 0) and (9, 0).",
+      "x = \\frac{-3 + 9}{2}",
+      "3",
+      "Midpoint x = (−3 + 9) ÷ 2 = 6 ÷ 2 = 3.",
+      4
+    ),
+    poolA(
+      "y8-lin-coo-p19",
+      "Find the y-coordinate of the midpoint of (1, −2) and (1, 8).",
+      "y = \\frac{-2 + 8}{2}",
+      "3",
+      "Midpoint y = (−2 + 8) ÷ 2 = 3.",
+      4
+    ),
+    poolA(
+      "y8-lin-coo-p20",
+      "A square has corners (0, 0), (6, 0), (6, 6) and (0, 6). What is the x-coordinate of its centre?",
+      "x = \\frac{0 + 6}{2}",
+      "3",
+      "The centre is the midpoint of a diagonal: x = (0 + 6) ÷ 2 = 3.",
+      4
+    ),
+    poolA(
+      "y8-lin-coo-p21",
+      "The midpoint of A(2, 5) and B is (5, 5). Find the x-coordinate of B.",
+      "\\frac{2 + x_B}{2} = 5",
+      "8",
+      "(2 + x_B) ÷ 2 = 5, so 2 + x_B = 10 and x_B = 8.",
+      4
+    ),
+    poolA(
+      "y8-lin-coo-p22",
+      "Three corners of a rectangle are (1, 1), (7, 1) and (7, 4). Find the x-coordinate of the fourth corner.",
+      "\\text{fourth corner } (x, 4)",
+      "1",
+      "The fourth corner is above (1, 1), so it is (1, 4). Its x-coordinate is 1.",
+      5
+    ),
+    poolA(
+      "y8-lin-coo-p23",
+      "The midpoint of P(−1, 4) and Q is (3, 4). Find the x-coordinate of Q.",
+      "\\frac{-1 + x_Q}{2} = 3",
+      "7",
+      "(−1 + x_Q) ÷ 2 = 3, so −1 + x_Q = 6 and x_Q = 7.",
+      5
+    ),
+    poolA(
+      "y8-lin-coo-p24",
+      "A(−5, 2) and B(7, 2) are the ends of a horizontal segment. What is the x-coordinate of its midpoint?",
+      "x = \\frac{-5 + 7}{2}",
+      "1",
+      "Midpoint x = (−5 + 7) ÷ 2 = 2 ÷ 2 = 1.",
+      5
+    ),
+    poolA(
+      "y8-lin-coo-p25",
+      "The point (a, b) is in Quadrant II and lies on the line y = 5. If its distance from the y-axis is 3 units, find a.",
+      "\\text{Quadrant II: } a < 0",
+      "-3",
+      "In Quadrant II, x is negative. A distance of 3 from the y-axis means a = −3.",
+      5,
+      ["−3"]
+    ),
+    poolA(
+      "y8-lin-coo-p26",
+      "A line segment from (2, 1) to (2, 9) is divided into 4 equal parts. What is the y-coordinate of the first division point above (2, 1)?",
+      "1 + \\frac{9 - 1}{4}",
+      "3",
+      "Each part is (9 − 1) ÷ 4 = 2 units. The first division point is at y = 1 + 2 = 3.",
+      5
+    ),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-lin-coo-mp1",
+      prompt:
+        "On the Cartesian plane, A = (−2, 3), B = (6, 3) and C = (6, −1).",
+      latex: "",
+      answer: "8",
+      hint: "AB is horizontal and BC is vertical; use coordinate differences for lengths and midpoints.",
+      explanation:
+        "Part (a): AB is horizontal, length |6 − (−2)| = 8. Part (b): BC is vertical, length |3 − (−1)| = 4. Part (c): the midpoint of AB has x = (−2 + 6) ÷ 2 = 2. Part (d): B is in Quadrant I (positive, positive).",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the length of AB.",
+          marks: 1,
+          answer: "8",
+          acceptedAnswers: [],
+          hint: "A and B share the same y-coordinate.",
+          explanation: "Length = |6 − (−2)| = 8 units.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find the length of BC.",
+          marks: 1,
+          answer: "4",
+          acceptedAnswers: [],
+          hint: "B and C share the same x-coordinate.",
+          explanation: "Length = |3 − (−1)| = 4 units.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find the x-coordinate of the midpoint of AB.",
+          marks: 1,
+          answer: "2",
+          acceptedAnswers: [],
+          hint: "Average the two x-coordinates.",
+          explanation: "x = (−2 + 6) ÷ 2 = 2.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt:
+            "State the quadrant number (1, 2, 3 or 4) that point B lies in.",
+          marks: 1,
+          answer: "1",
+          acceptedAnswers: ["I", "Quadrant I"],
+          hint: "Both coordinates of B are positive.",
+          explanation: "B = (6, 3) has positive x and y, so it is in Quadrant I.",
+        },
+      ],
+    },
   ],
 };
 
@@ -816,6 +1395,271 @@ const tablesOfValues: LessonContent = {
       ["y = 3x − 5", "y = 2x", "y = x + 5", "y = 2x + 2"],
       "Check y = 2x: x = 5 → 10 ✓, x = 10 → 20 ✓, x = 15 → 30 ✓."
     ),
+  ],
+  masteryQuizPool: [
+    poolA(
+      "y8-lin-tab-p1",
+      "Rule: y = 2x + 1. Find y when x = 4.",
+      "y = 2(4) + 1",
+      "9",
+      "y = 8 + 1 = 9.",
+      1
+    ),
+    poolA(
+      "y8-lin-tab-p2",
+      "Rule: y = 3x. Find y when x = 5.",
+      "y = 3(5)",
+      "15",
+      "y = 3 × 5 = 15.",
+      1
+    ),
+    poolA(
+      "y8-lin-tab-p3",
+      "Rule: y = x + 9. Find y when x = 6.",
+      "y = 6 + 9",
+      "15",
+      "y = 6 + 9 = 15.",
+      1
+    ),
+    poolA(
+      "y8-lin-tab-p4",
+      "Rule: y = 4x − 1. Find y when x = 2.",
+      "y = 4(2) - 1",
+      "7",
+      "y = 8 − 1 = 7.",
+      1
+    ),
+    poolA(
+      "y8-lin-tab-p5",
+      "Rule: y = 5x + 2. Find y when x = 0.",
+      "y = 5(0) + 2",
+      "2",
+      "y = 0 + 2 = 2. At x = 0, y equals the constant.",
+      1
+    ),
+    poolA(
+      "y8-lin-tab-p6",
+      "Rule: y = 3x + 7. Find y when x = 6.",
+      "y = 3(6) + 7",
+      "25",
+      "y = 18 + 7 = 25.",
+      2
+    ),
+    poolC(
+      "y8-lin-tab-p7",
+      "Which rule matches: x = 0 → 4, x = 1 → 6, x = 2 → 8?",
+      "B",
+      ["y = 2x + 2", "y = 2x + 4", "y = 4x", "y = x + 4"],
+      "Constant difference 2 and y = 4 at x = 0, so y = 2x + 4.",
+      2
+    ),
+    poolA(
+      "y8-lin-tab-p8",
+      "Rule: y = −2x + 10. Find y when x = 4.",
+      "y = -2(4) + 10",
+      "2",
+      "y = −8 + 10 = 2.",
+      2
+    ),
+    poolA(
+      "y8-lin-tab-p9",
+      "Table: x = 0 → 7, x = 1 → 11, x = 2 → 15. What is the constant difference in y?",
+      "11 - 7",
+      "4",
+      "Each y rises by 4 as x rises by 1.",
+      2
+    ),
+    poolA(
+      "y8-lin-tab-p10",
+      "Rule: y = 6x − 4. For which x is y = 14?",
+      "6x - 4 = 14",
+      "3",
+      "6x = 18, so x = 3.",
+      2
+    ),
+    poolA(
+      "y8-lin-tab-p11",
+      "Rule: y = 7x + 3. Find y when x = 8.",
+      "y = 7(8) + 3",
+      "59",
+      "y = 56 + 3 = 59.",
+      3
+    ),
+    poolC(
+      "y8-lin-tab-p12",
+      "Table: x = 1 → 6, x = 2 → 11, x = 3 → 16. Which rule fits?",
+      "A",
+      ["y = 5x + 1", "y = 5x − 1", "y = 6x", "y = 4x + 2"],
+      "Constant difference 5; at x = 1, 5(1) + 1 = 6. So y = 5x + 1.",
+      3
+    ),
+    poolA(
+      "y8-lin-tab-p13",
+      "Rule: y = −3x + 20. Find y when x = 5.",
+      "y = -3(5) + 20",
+      "5",
+      "y = −15 + 20 = 5.",
+      3
+    ),
+    poolA(
+      "y8-lin-tab-p14",
+      "Rule: y = 4x + 5. For which x is y = 33?",
+      "4x + 5 = 33",
+      "7",
+      "4x = 28, so x = 7.",
+      3
+    ),
+    poolA(
+      "y8-lin-tab-p15",
+      "Table: x = 2 → 11, x = 4 → 19, x = 6 → 27. The rule is y = mx + c. Find m.",
+      "m = \\frac{19 - 11}{4 - 2}",
+      "4",
+      "y rises 8 as x rises 2, so m = 8 ÷ 2 = 4.",
+      3
+    ),
+    poolA(
+      "y8-lin-tab-p16",
+      "Rule: y = 10x − 7. Find y when x = 4.",
+      "y = 10(4) - 7",
+      "33",
+      "y = 40 − 7 = 33.",
+      3
+    ),
+    poolA(
+      "y8-lin-tab-p17",
+      "Table: x = 1 → 8, x = 3 → 18, x = 5 → 28. Find the rule y = mx + c and give c.",
+      "m = 5,\\; 5(1) + c = 8",
+      "3",
+      "m = (18 − 8) ÷ (3 − 1) = 5. Then 5(1) + c = 8, so c = 3.",
+      4
+    ),
+    poolA(
+      "y8-lin-tab-p18",
+      "Rule: y = 8x − 5. For which x is y = 51?",
+      "8x - 5 = 51",
+      "7",
+      "8x = 56, so x = 7.",
+      4
+    ),
+    poolA(
+      "y8-lin-tab-p19",
+      "A rule y = mx + c gives y = 13 at x = 2 and y = 25 at x = 5. Find m.",
+      "m = \\frac{25 - 13}{5 - 2}",
+      "4",
+      "m = (25 − 13) ÷ (5 − 2) = 12 ÷ 3 = 4.",
+      4
+    ),
+    poolA(
+      "y8-lin-tab-p20",
+      "A rule y = mx + c gives y = 13 at x = 2 and y = 25 at x = 5. Find c.",
+      "13 = 4(2) + c",
+      "5",
+      "With m = 4: 13 = 8 + c, so c = 5.",
+      4
+    ),
+    poolA(
+      "y8-lin-tab-p21",
+      "Rule: y = −4x + 30. For which x is y = 2?",
+      "-4x + 30 = 2",
+      "7",
+      "−4x = −28, so x = 7.",
+      4
+    ),
+    poolA(
+      "y8-lin-tab-p22",
+      "A table of y = 3x + c includes the pair x = 4, y = 17. Find c.",
+      "3(4) + c = 17",
+      "5",
+      "12 + c = 17, so c = 5.",
+      5
+    ),
+    poolA(
+      "y8-lin-tab-p23",
+      "Two rules y = 2x + 3 and y = 5x − 9 give the same y at one value of x. Find that x.",
+      "2x + 3 = 5x - 9",
+      "4",
+      "2x + 3 = 5x − 9 gives 12 = 3x, so x = 4.",
+      5
+    ),
+    poolA(
+      "y8-lin-tab-p24",
+      "For the x-value where y = 2x + 3 and y = 5x − 9 are equal, what is the common y-value?",
+      "y = 2(4) + 3",
+      "11",
+      "At x = 4: y = 2(4) + 3 = 11 (and 5(4) − 9 = 11).",
+      5
+    ),
+    poolA(
+      "y8-lin-tab-p25",
+      "A linear rule gives y = 20 at x = 3 and y = 32 at x = 7. Find y when x = 10.",
+      "m = \\frac{32 - 20}{7 - 3}",
+      "41",
+      "m = 12 ÷ 4 = 3, and 20 = 3(3) + c gives c = 11. So y = 3x + 11 and at x = 10, y = 41.",
+      5
+    ),
+    poolA(
+      "y8-lin-tab-p26",
+      "A table follows y = mx + c with y = −1 at x = 1 and y = 11 at x = 4. Find y when x = 0.",
+      "m = \\frac{11 - (-1)}{4 - 1}",
+      "-5",
+      "m = 12 ÷ 3 = 4. Then −1 = 4(1) + c gives c = −5. At x = 0, y = c = −5.",
+      5,
+      ["−5"]
+    ),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-lin-tab-mp1",
+      prompt:
+        "A linear rule produces this table: x = 1 → 9, x = 2 → 13, x = 3 → 17.",
+      latex: "",
+      answer: "4",
+      hint: "The constant difference gives m; substitute a point to find c.",
+      explanation:
+        "Part (a): the constant difference is 4, so m = 4. Part (b): 4(1) + c = 9 gives c = 5, so y = 4x + 5. Part (c): at x = 10, y = 45. Part (d): solve 4x + 5 = 45 to get x = 10.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the constant difference m in y = mx + c.",
+          marks: 1,
+          answer: "4",
+          acceptedAnswers: [],
+          hint: "Subtract consecutive y-values.",
+          explanation: "13 − 9 = 4, so m = 4.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find the constant c.",
+          marks: 1,
+          answer: "5",
+          acceptedAnswers: [],
+          hint: "Substitute x = 1, y = 9 into y = 4x + c.",
+          explanation: "4(1) + c = 9, so c = 5. The rule is y = 4x + 5.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find y when x = 10.",
+          marks: 1,
+          answer: "45",
+          acceptedAnswers: [],
+          hint: "Substitute x = 10 into y = 4x + 5.",
+          explanation: "y = 4 × 10 + 5 = 45.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "For which x is y = 45?",
+          marks: 2,
+          answer: "10",
+          acceptedAnswers: [],
+          hint: "Solve 4x + 5 = 45.",
+          explanation: "4x = 40, so x = 10.",
+        },
+      ],
+    },
   ],
 };
 
@@ -1079,6 +1923,276 @@ const graphingLinearRelationships: LessonContent = {
       "y = −5 + 8 = 3."
     ),
   ],
+  masteryQuizPool: [
+    poolA(
+      "y8-lin-gra-p1",
+      "Find the y-intercept of y = 2x + 5 (let x = 0).",
+      "y = 2(0) + 5",
+      "5",
+      "y = 5. The graph crosses the y-axis at (0, 5).",
+      1
+    ),
+    poolC(
+      "y8-lin-gra-p2",
+      "What shape is the graph of a linear relationship?",
+      "B",
+      ["A curve", "A straight line", "A circle", "A wave"],
+      "Linear relationships always graph as straight lines.",
+      1
+    ),
+    poolA(
+      "y8-lin-gra-p3",
+      "Rule: y = x + 6. Find y when x = 0.",
+      "y = 0 + 6",
+      "6",
+      "y = 6. This is the y-intercept.",
+      1
+    ),
+    poolA(
+      "y8-lin-gra-p4",
+      "Rule: y = 3x. Find y when x = 0.",
+      "y = 3(0)",
+      "0",
+      "y = 0. The line passes through the origin.",
+      1
+    ),
+    poolA(
+      "y8-lin-gra-p5",
+      "Find the y-intercept of y = 4x + 9.",
+      "\\text{let } x = 0",
+      "9",
+      "At x = 0, y = 9.",
+      1
+    ),
+    poolA(
+      "y8-lin-gra-p6",
+      "Find the x-intercept of y = x − 5 (let y = 0).",
+      "0 = x - 5",
+      "5",
+      "x = 5. The graph crosses the x-axis at (5, 0).",
+      2
+    ),
+    poolA(
+      "y8-lin-gra-p7",
+      "Rule: y = 2x + 3. Find y when x = −1.",
+      "y = 2(-1) + 3",
+      "1",
+      "y = −2 + 3 = 1.",
+      2
+    ),
+    poolC(
+      "y8-lin-gra-p8",
+      "Where does y = 5x + 2 cross the y-axis?",
+      "B",
+      ["(0, 5)", "(0, 2)", "(2, 0)", "(5, 2)"],
+      "Set x = 0: y = 2. The y-intercept is (0, 2).",
+      2
+    ),
+    poolA(
+      "y8-lin-gra-p9",
+      "Rule: y = 3x − 9. Find y when x = 3.",
+      "y = 3(3) - 9",
+      "0",
+      "y = 9 − 9 = 0. (3, 0) is the x-intercept.",
+      2
+    ),
+    poolA(
+      "y8-lin-gra-p10",
+      "Find the x-intercept of y = 2x − 8 (let y = 0).",
+      "0 = 2x - 8",
+      "4",
+      "2x = 8, so x = 4.",
+      2
+    ),
+    poolA(
+      "y8-lin-gra-p11",
+      "Find the x-intercept of y = x + 7 (let y = 0).",
+      "0 = x + 7",
+      "-7",
+      "x = −7. The graph crosses the x-axis at (−7, 0).",
+      3,
+      ["−7"]
+    ),
+    poolA(
+      "y8-lin-gra-p12",
+      "Rule: y = 2x + 6. Find y when x = −3.",
+      "y = 2(-3) + 6",
+      "0",
+      "y = −6 + 6 = 0. (−3, 0) is the x-intercept.",
+      3
+    ),
+    poolC(
+      "y8-lin-gra-p13",
+      "A line passes through (0, 4) and (1, 6). Which rule fits?",
+      "B",
+      ["y = x + 4", "y = 2x + 4", "y = 4x + 2", "y = 2x + 6"],
+      "Gradient (6 − 4) ÷ 1 = 2 and y-intercept 4, so y = 2x + 4.",
+      3
+    ),
+    poolA(
+      "y8-lin-gra-p14",
+      "Is the point (3, 10) on the line y = 3x + 1? Enter 'yes' or 'no'.",
+      "y = 3(3) + 1",
+      "yes",
+      "3(3) + 1 = 10, which matches, so the point is on the line.",
+      3,
+      ["Yes", "YES"]
+    ),
+    poolA(
+      "y8-lin-gra-p15",
+      "Find the x-intercept of y = 3x − 12 (let y = 0).",
+      "0 = 3x - 12",
+      "4",
+      "3x = 12, so x = 4.",
+      3
+    ),
+    poolA(
+      "y8-lin-gra-p16",
+      "Rule: y = −2x + 8. Find the x-intercept (let y = 0).",
+      "0 = -2x + 8",
+      "4",
+      "2x = 8, so x = 4. The x-intercept is (4, 0).",
+      3
+    ),
+    poolA(
+      "y8-lin-gra-p17",
+      "Find the x-intercept of y = 2x + 7 (let y = 0). Give your answer as a decimal.",
+      "0 = 2x + 7",
+      "-3.5",
+      "2x = −7, so x = −3.5.",
+      4,
+      ["−3.5", "-7/2"]
+    ),
+    poolA(
+      "y8-lin-gra-p18",
+      "A line has y-intercept 6 and passes through (2, 0). What is its x-intercept?",
+      "(2, 0)",
+      "2",
+      "The x-intercept is where y = 0, which is the point (2, 0). The x-intercept is 2.",
+      4
+    ),
+    poolC(
+      "y8-lin-gra-p19",
+      "A line passes through (0, −3) and (2, 1). Which rule fits?",
+      "B",
+      ["y = x − 3", "y = 2x − 3", "y = 3x − 2", "y = 2x + 1"],
+      "Gradient (1 − (−3)) ÷ 2 = 2 and y-intercept −3, so y = 2x − 3.",
+      4
+    ),
+    poolA(
+      "y8-lin-gra-p20",
+      "The line y = 4x + c passes through (2, 11). Find c.",
+      "4(2) + c = 11",
+      "3",
+      "8 + c = 11, so c = 3.",
+      4
+    ),
+    poolA(
+      "y8-lin-gra-p21",
+      "A line has x-intercept (5, 0) and gradient 2. Find its y-intercept.",
+      "0 = 2(5) + c",
+      "-10",
+      "0 = 10 + c, so c = −10. The y-intercept is (0, −10).",
+      4,
+      ["−10"]
+    ),
+    poolA(
+      "y8-lin-gra-p22",
+      "A line passes through (1, 5) and (4, 11). Find its y-intercept.",
+      "m = \\frac{11 - 5}{4 - 1}",
+      "3",
+      "Gradient = 6 ÷ 3 = 2. Then 5 = 2(1) + c gives c = 3.",
+      5
+    ),
+    poolA(
+      "y8-lin-gra-p23",
+      "A line has gradient 3 and passes through (2, 4). Find its x-intercept. Give a fraction or decimal.",
+      "0 = 3x - 2",
+      "0.6667",
+      "y = 3x + c with 4 = 3(2) + c gives c = −2, so y = 3x − 2. Setting y = 0: x = 2/3 ≈ 0.6667.",
+      5,
+      ["2/3", "0.67"]
+    ),
+    poolA(
+      "y8-lin-gra-p24",
+      "The line y = 5x − 8 and the line y = 2x + 7 cross. Find the x-coordinate of the crossing point.",
+      "5x - 8 = 2x + 7",
+      "5",
+      "5x − 8 = 2x + 7 gives 3x = 15, so x = 5.",
+      5
+    ),
+    poolA(
+      "y8-lin-gra-p25",
+      "At the point where y = 5x − 8 and y = 2x + 7 cross, what is the y-coordinate?",
+      "y = 5(5) - 8",
+      "17",
+      "At x = 5: y = 5(5) − 8 = 17 (and 2(5) + 7 = 17).",
+      5
+    ),
+    poolA(
+      "y8-lin-gra-p26",
+      "A line crosses the x-axis at (3, 0) and the y-axis at (0, 12). Find its gradient.",
+      "m = \\frac{12 - 0}{0 - 3}",
+      "-4",
+      "Gradient = (12 − 0) ÷ (0 − 3) = 12 ÷ (−3) = −4.",
+      5,
+      ["−4"]
+    ),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-lin-gra-mp1",
+      prompt:
+        "Consider the linear rule y = 2x − 6.",
+      latex: "",
+      answer: "-6",
+      hint: "y-intercept: set x = 0. x-intercept: set y = 0. Substitute x-values to find points.",
+      explanation:
+        "Part (a): at x = 0, y = −6, so the y-intercept is −6. Part (b): setting y = 0 gives 2x = 6, so the x-intercept is 3. Part (c): at x = 5, y = 4. Part (d): the gradient (coefficient of x) is 2.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the y-intercept (the y-value when x = 0).",
+          marks: 1,
+          answer: "-6",
+          acceptedAnswers: ["−6"],
+          hint: "Substitute x = 0.",
+          explanation: "y = 2(0) − 6 = −6.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find the x-intercept (the x-value when y = 0).",
+          marks: 2,
+          answer: "3",
+          acceptedAnswers: [],
+          hint: "Set y = 0 and solve 0 = 2x − 6.",
+          explanation: "2x = 6, so x = 3.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find y when x = 5.",
+          marks: 1,
+          answer: "4",
+          acceptedAnswers: [],
+          hint: "Substitute x = 5.",
+          explanation: "y = 2(5) − 6 = 4.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "State the gradient of the line.",
+          marks: 1,
+          answer: "2",
+          acceptedAnswers: [],
+          hint: "The gradient is the coefficient of x.",
+          explanation: "In y = 2x − 6, the gradient is 2.",
+        },
+      ],
+    },
+  ],
 };
 
 // ── Lesson 5: Gradient as Rate of Change ─────────────────────────────────────
@@ -1329,6 +2443,278 @@ const gradientAsRateOfChange: LessonContent = {
       ["-2", "−2"]
     ),
   ],
+  masteryQuizPool: [
+    poolA(
+      "y8-lin-grd-p1",
+      "Rise = 12, run = 4. Find the gradient.",
+      "\\text{gradient} = \\frac{12}{4}",
+      "3",
+      "12 ÷ 4 = 3.",
+      1
+    ),
+    poolA(
+      "y8-lin-grd-p2",
+      "Rise = 10, run = 5. Find the gradient.",
+      "\\text{gradient} = \\frac{10}{5}",
+      "2",
+      "10 ÷ 5 = 2.",
+      1
+    ),
+    poolC(
+      "y8-lin-grd-p3",
+      "Gradient is calculated as…",
+      "B",
+      ["run ÷ rise", "rise ÷ run", "rise − run", "rise + run"],
+      "Gradient = rise ÷ run.",
+      1
+    ),
+    poolC(
+      "y8-lin-grd-p4",
+      "A horizontal line has gradient…",
+      "C",
+      ["1", "−1", "0", "undefined"],
+      "No rise, so gradient = 0.",
+      1
+    ),
+    poolA(
+      "y8-lin-grd-p5",
+      "A line rises 8 units over a run of 2 units. Find the gradient.",
+      "\\text{gradient} = \\frac{8}{2}",
+      "4",
+      "8 ÷ 2 = 4.",
+      1
+    ),
+    poolA(
+      "y8-lin-grd-p6",
+      "A line falls 6 units over a run of 3 units. Find the gradient.",
+      "\\text{gradient} = \\frac{-6}{3}",
+      "-2",
+      "A falling line is negative: −6 ÷ 3 = −2.",
+      2,
+      ["−2"]
+    ),
+    poolA(
+      "y8-lin-grd-p7",
+      "Find the gradient of the line through (0, 1) and (3, 7).",
+      "\\text{gradient} = \\frac{7-1}{3-0}",
+      "2",
+      "Rise 6, run 3. Gradient = 2.",
+      2
+    ),
+    poolC(
+      "y8-lin-grd-p8",
+      "A line with a negative gradient…",
+      "B",
+      ["rises left to right", "falls left to right", "is horizontal", "is vertical"],
+      "A negative gradient means the line falls from left to right.",
+      2
+    ),
+    poolA(
+      "y8-lin-grd-p9",
+      "A car travels 300 km in 5 hours. Find the gradient of the distance-time graph in km/h.",
+      "\\text{gradient} = \\frac{300}{5}",
+      "60",
+      "300 ÷ 5 = 60 km/h.",
+      2
+    ),
+    poolA(
+      "y8-lin-grd-p10",
+      "Find the gradient of the line through (2, 3) and (5, 12).",
+      "\\text{gradient} = \\frac{12-3}{5-2}",
+      "3",
+      "Rise 9, run 3. Gradient = 3.",
+      2
+    ),
+    poolA(
+      "y8-lin-grd-p11",
+      "Find the gradient of the line through (1, 8) and (4, 2).",
+      "\\text{gradient} = \\frac{2-8}{4-1}",
+      "-2",
+      "Rise = 2 − 8 = −6, run = 3. Gradient = −2.",
+      3,
+      ["−2"]
+    ),
+    poolC(
+      "y8-lin-grd-p12",
+      "Which line is steepest?",
+      "C",
+      ["gradient = 2", "gradient = −1", "gradient = −4", "gradient = 3"],
+      "Steepness uses absolute value: |−4| = 4 is largest.",
+      3
+    ),
+    poolA(
+      "y8-lin-grd-p13",
+      "A tank fills at 25 litres per minute. What is the gradient of the volume-time graph?",
+      "\\text{gradient} = \\frac{25}{1}",
+      "25",
+      "Volume rises 25 each minute, so the gradient is 25.",
+      3
+    ),
+    poolA(
+      "y8-lin-grd-p14",
+      "Find the gradient of the line through (−1, 2) and (3, 10).",
+      "\\text{gradient} = \\frac{10-2}{3-(-1)}",
+      "2",
+      "Rise 8, run 4. Gradient = 2.",
+      3
+    ),
+    poolA(
+      "y8-lin-grd-p15",
+      "A pool drains 30 litres per hour. What is the gradient of the volume-time graph?",
+      "\\text{gradient} = \\frac{-30}{1}",
+      "-30",
+      "Volume falls 30 each hour, so the gradient is −30.",
+      3,
+      ["−30"]
+    ),
+    poolA(
+      "y8-lin-grd-p16",
+      "Find the gradient of the line through (2, 9) and (6, 1).",
+      "\\text{gradient} = \\frac{1-9}{6-2}",
+      "-2",
+      "Rise = −8, run = 4. Gradient = −2.",
+      3,
+      ["−2"]
+    ),
+    poolA(
+      "y8-lin-grd-p17",
+      "A line passes through (−2, −3) and (2, 5). Find the gradient.",
+      "\\text{gradient} = \\frac{5-(-3)}{2-(-2)}",
+      "2",
+      "Rise = 5 − (−3) = 8, run = 2 − (−2) = 4. Gradient = 2.",
+      4
+    ),
+    poolA(
+      "y8-lin-grd-p18",
+      "A line passes through (3, 11) and (8, 1). Find the gradient.",
+      "\\text{gradient} = \\frac{1-11}{8-3}",
+      "-2",
+      "Rise = −10, run = 5. Gradient = −2.",
+      4,
+      ["−2"]
+    ),
+    poolA(
+      "y8-lin-grd-p19",
+      "A line has gradient 4 and passes through (1, 5) and (4, k). Find k.",
+      "4 = \\frac{k - 5}{4 - 1}",
+      "17",
+      "Rise = k − 5 over run 3 equals 4, so k − 5 = 12 and k = 17.",
+      4
+    ),
+    poolA(
+      "y8-lin-grd-p20",
+      "A line has gradient −3 and passes through (2, 10) and (5, k). Find k.",
+      "-3 = \\frac{k - 10}{5 - 2}",
+      "1",
+      "k − 10 over 3 equals −3, so k − 10 = −9 and k = 1.",
+      4
+    ),
+    poolA(
+      "y8-lin-grd-p21",
+      "A hiker climbs 450 m of altitude over a horizontal distance of 1500 m. Find the gradient as a decimal.",
+      "\\text{gradient} = \\frac{450}{1500}",
+      "0.3",
+      "450 ÷ 1500 = 0.3.",
+      4,
+      ["3/10"]
+    ),
+    poolA(
+      "y8-lin-grd-p22",
+      "A line passes through (1, 2) and (5, k) with gradient 3. Find k.",
+      "3 = \\frac{k - 2}{5 - 1}",
+      "14",
+      "k − 2 over 4 equals 3, so k − 2 = 12 and k = 14.",
+      5
+    ),
+    poolA(
+      "y8-lin-grd-p23",
+      "Points (2, 7), (4, 13) and (6, k) are collinear. Find k.",
+      "m = \\frac{13 - 7}{4 - 2}",
+      "19",
+      "Gradient = 6 ÷ 2 = 3. From (4, 13), the next point 2 across rises 6: k = 13 + 6 = 19.",
+      5
+    ),
+    poolA(
+      "y8-lin-grd-p24",
+      "A line through (−3, k) and (1, 5) has gradient 2. Find k.",
+      "2 = \\frac{5 - k}{1 - (-3)}",
+      "-3",
+      "(5 − k) ÷ 4 = 2, so 5 − k = 8 and k = −3.",
+      5,
+      ["−3"]
+    ),
+    poolA(
+      "y8-lin-grd-p25",
+      "A phone is charged 5% every 4 minutes. What is the gradient of the charge-time graph in percent per minute? Give a decimal.",
+      "\\text{gradient} = \\frac{5}{4}",
+      "1.25",
+      "5 ÷ 4 = 1.25 percent per minute.",
+      5,
+      ["5/4"]
+    ),
+    poolA(
+      "y8-lin-grd-p26",
+      "A line has gradient −2 and passes through (0, 8). At what x-value does the line reach y = 0?",
+      "0 = -2x + 8",
+      "4",
+      "Using y = −2x + 8, set y = 0: 2x = 8, so x = 4.",
+      5
+    ),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-lin-grd-mp1",
+      prompt:
+        "A water tank holds 200 litres at the start. It drains so that after 4 minutes it holds 120 litres, with the volume falling at a steady rate. Volume V (litres) is graphed against time t (minutes).",
+      latex: "",
+      answer: "-20",
+      hint: "Gradient = change in volume ÷ change in time. The starting value is the V-intercept.",
+      explanation:
+        "Part (a): gradient = (120 − 200) ÷ (4 − 0) = −80 ÷ 4 = −20 litres per minute. Part (b): the starting volume (t = 0) is 200 litres. Part (c): the rule is V = −20t + 200, so at t = 6, V = 80. Part (d): the tank is empty when V = 0, i.e. −20t + 200 = 0, giving t = 10 minutes.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the gradient of the volume-time graph (litres per minute).",
+          marks: 2,
+          answer: "-20",
+          acceptedAnswers: ["−20"],
+          hint: "Use (120 − 200) ÷ (4 − 0).",
+          explanation: "Gradient = −80 ÷ 4 = −20 litres/min.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "State the starting volume (the V-intercept).",
+          marks: 1,
+          answer: "200",
+          acceptedAnswers: [],
+          hint: "The starting volume is at t = 0.",
+          explanation: "At t = 0 the tank holds 200 litres.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Using V = −20t + 200, find the volume after 6 minutes.",
+          marks: 1,
+          answer: "80",
+          acceptedAnswers: [],
+          hint: "Substitute t = 6.",
+          explanation: "V = −20(6) + 200 = −120 + 200 = 80 litres.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "After how many minutes is the tank empty (V = 0)?",
+          marks: 2,
+          answer: "10",
+          acceptedAnswers: [],
+          hint: "Solve −20t + 200 = 0.",
+          explanation: "20t = 200, so t = 10 minutes.",
+        },
+      ],
+    },
+  ],
 };
 
 // ── Lesson 6: Interpreting Linear Graphs ─────────────────────────────────────
@@ -1567,6 +2953,271 @@ const interpretingLinearGraphs: LessonContent = {
       "4",
       "7n = 28, so n = 4."
     ),
+  ],
+  masteryQuizPool: [
+    poolA(
+      "y8-lin-int-p1",
+      "Rule: y = 3x + 8. What is the starting value when x = 0?",
+      "y = 3(0) + 8",
+      "8",
+      "At x = 0, y = 8.",
+      1
+    ),
+    poolA(
+      "y8-lin-int-p2",
+      "Rule: C = 5n + 10. Find C when n = 4.",
+      "C = 5(4) + 10",
+      "30",
+      "C = 20 + 10 = 30.",
+      1
+    ),
+    poolA(
+      "y8-lin-int-p3",
+      "Rule: D = 60t. Find D when t = 3.",
+      "D = 60(3)",
+      "180",
+      "D = 180 km.",
+      1
+    ),
+    poolC(
+      "y8-lin-int-p4",
+      "A distance-time graph shows a horizontal line. What does this mean?",
+      "C",
+      ["Moving fast", "Moving slowly", "Standing still", "Speeding up"],
+      "No change in distance means the object is stationary.",
+      1
+    ),
+    poolA(
+      "y8-lin-int-p5",
+      "Rule: C = 4n + 6. Find C when n = 5.",
+      "C = 4(5) + 6",
+      "26",
+      "C = 20 + 6 = 26.",
+      1
+    ),
+    poolA(
+      "y8-lin-int-p6",
+      "A hire car costs $40 plus $20 per hour: C = 20h + 40. Find C when h = 3.",
+      "C = 20(3) + 40",
+      "100",
+      "C = 60 + 40 = 100.",
+      2
+    ),
+    poolC(
+      "y8-lin-int-p7",
+      "A cost graph passes through (0, 10) and (2, 16). What is the gradient?",
+      "B",
+      ["2", "3", "6", "10"],
+      "Gradient = (16 − 10) ÷ (2 − 0) = 3.",
+      2
+    ),
+    poolA(
+      "y8-lin-int-p8",
+      "Rule: C = 6n + 12. Find C when n = 8.",
+      "C = 6(8) + 12",
+      "60",
+      "C = 48 + 12 = 60.",
+      2
+    ),
+    poolA(
+      "y8-lin-int-p9",
+      "What is the y-intercept of y = −2x + 18?",
+      "\\text{let } x = 0",
+      "18",
+      "At x = 0, y = 18.",
+      2
+    ),
+    poolA(
+      "y8-lin-int-p10",
+      "A distance-time graph has gradient 70 km/h. How far is travelled in 4 hours?",
+      "\\text{distance} = 70 \\times 4",
+      "280",
+      "Distance = 70 × 4 = 280 km.",
+      2
+    ),
+    poolA(
+      "y8-lin-int-p11",
+      "Rule: C = 8n + 15. For which n is C = 95?",
+      "8n + 15 = 95",
+      "10",
+      "8n = 80, so n = 10.",
+      3
+    ),
+    poolA(
+      "y8-lin-int-p12",
+      "Rule: W = 300 − 4d. Find W when d = 25.",
+      "W = 300 - 4(25)",
+      "200",
+      "W = 300 − 100 = 200.",
+      3
+    ),
+    poolC(
+      "y8-lin-int-p13",
+      "Rule: C = 12n + 50 models a job: $50 call-out plus an hourly rate. What does 12 represent?",
+      "B",
+      ["The call-out fee", "The hourly rate ($/hour)", "The total cost", "The number of hours"],
+      "The gradient 12 is the rate of change: $12 per hour.",
+      3
+    ),
+    poolA(
+      "y8-lin-int-p14",
+      "A phone plan costs $15 per month plus $0.20 per call: C = 0.20c + 15. Find C for 40 calls.",
+      "C = 0.20(40) + 15",
+      "23",
+      "C = 8 + 15 = 23.",
+      3
+    ),
+    poolA(
+      "y8-lin-int-p15",
+      "Rule: P = 15h − 20. Find P when h = 6.",
+      "P = 15(6) - 20",
+      "70",
+      "P = 90 − 20 = 70.",
+      3
+    ),
+    poolA(
+      "y8-lin-int-p16",
+      "Rule: F = 2C + 30. Find F when C = 20.",
+      "F = 2(20) + 30",
+      "70",
+      "F = 40 + 30 = 70.",
+      3
+    ),
+    poolA(
+      "y8-lin-int-p17",
+      "Two phone plans: A is C = 0.10t + 30 and B is C = 0.20t + 20. For how many texts t do they cost the same?",
+      "0.10t + 30 = 0.20t + 20",
+      "100",
+      "0.10t + 30 = 0.20t + 20 gives 10 = 0.10t, so t = 100.",
+      4
+    ),
+    poolA(
+      "y8-lin-int-p18",
+      "A gym costs $25 joining plus $12 per visit: C = 12v + 25. After how many visits does the total reach $169?",
+      "12v + 25 = 169",
+      "12",
+      "12v = 144, so v = 12.",
+      4
+    ),
+    poolA(
+      "y8-lin-int-p19",
+      "A candle is 20 cm tall and burns 4 cm per hour: H = 20 − 4t. After how many hours is it fully burnt (H = 0)?",
+      "20 - 4t = 0",
+      "5",
+      "4t = 20, so t = 5 hours.",
+      4
+    ),
+    poolA(
+      "y8-lin-int-p20",
+      "A taxi charges a $4 flag fall plus $2 per km. A trip costs $30. How many km was it?",
+      "2k + 4 = 30",
+      "13",
+      "2k = 26, so k = 13 km.",
+      4
+    ),
+    poolA(
+      "y8-lin-int-p21",
+      "A graph passes through (0, 24) and (4, 8). Find its gradient.",
+      "m = \\frac{8 - 24}{4 - 0}",
+      "-4",
+      "Gradient = (8 − 24) ÷ 4 = −16 ÷ 4 = −4.",
+      4,
+      ["−4"]
+    ),
+    poolA(
+      "y8-lin-int-p22",
+      "A tank starts at 5 L and fills at 3 L/min while another starts at 50 L and drains at 2 L/min. After how many minutes are the volumes equal?",
+      "5 + 3t = 50 - 2t",
+      "9",
+      "5 + 3t = 50 − 2t gives 5t = 45, so t = 9 minutes.",
+      5
+    ),
+    poolA(
+      "y8-lin-int-p23",
+      "At the time the two tanks (5 + 3t and 50 − 2t) have equal volume, what is that volume in litres?",
+      "V = 5 + 3(9)",
+      "32",
+      "At t = 9: V = 5 + 3(9) = 32 litres (and 50 − 2(9) = 32).",
+      5
+    ),
+    poolA(
+      "y8-lin-int-p24",
+      "A plumber charges C = 45n + 80. A job cost $440. How many hours n did it take?",
+      "45n + 80 = 440",
+      "8",
+      "45n = 360, so n = 8 hours.",
+      5
+    ),
+    poolA(
+      "y8-lin-int-p25",
+      "A car's fuel follows F = 60 − 0.08d litres, where d is km driven. After how many km is the fuel down to 36 L?",
+      "60 - 0.08d = 36",
+      "300",
+      "0.08d = 24, so d = 300 km.",
+      5
+    ),
+    poolA(
+      "y8-lin-int-p26",
+      "Plan A: C = 50 + 8m. Plan B: C = 20 + 14m. Beyond how many months m is plan A cheaper than plan B?",
+      "50 + 8m < 20 + 14m",
+      "5",
+      "50 + 8m < 20 + 14m gives 30 < 6m, so m > 5. Plan A is cheaper once m exceeds 5 months.",
+      5
+    ),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-lin-int-mp1",
+      prompt:
+        "A scooter hire company charges a fixed fee plus an hourly rate. The total cost is modelled by C = 9h + 20, where C is the cost in dollars and h is the number of hours.",
+      latex: "",
+      answer: "20",
+      hint: "The fixed fee is the C-value when h = 0; the hourly rate is the gradient. Substitute or solve as needed.",
+      explanation:
+        "Part (a): at h = 0, C = 20, so the fixed fee is $20. Part (b): the gradient 9 is the hourly rate, $9 per hour. Part (c): for h = 5, C = 9(5) + 20 = 65. Part (d): solving 9h + 20 = 110 gives h = 10.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "State the fixed fee (the cost when h = 0).",
+          marks: 1,
+          answer: "20",
+          acceptedAnswers: [],
+          hint: "Substitute h = 0.",
+          explanation: "C = 9(0) + 20 = 20 dollars.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "State the hourly rate in dollars per hour.",
+          marks: 1,
+          answer: "9",
+          acceptedAnswers: [],
+          hint: "The hourly rate is the gradient (coefficient of h).",
+          explanation: "The gradient is 9, so the rate is $9 per hour.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find the cost of hiring the scooter for 5 hours.",
+          marks: 1,
+          answer: "65",
+          acceptedAnswers: [],
+          hint: "Substitute h = 5.",
+          explanation: "C = 9(5) + 20 = 45 + 20 = 65 dollars.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "For how many hours can the scooter be hired for a total of $110?",
+          marks: 2,
+          answer: "10",
+          acceptedAnswers: [],
+          hint: "Solve 9h + 20 = 110.",
+          explanation: "9h = 90, so h = 10 hours.",
+        },
+      ],
+    },
   ],
 };
 

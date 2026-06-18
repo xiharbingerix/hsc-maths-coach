@@ -11,3 +11,7 @@ export { year8CircumferenceArcLengthLessonOverride } from "./circumferenceArcLen
 export { year8AreaCirclesSectorsLessonOverride } from "./areaCirclesSectors";
 export { year8RatiosRatesLessonOverride } from "./ratiosRates";
 export { year8IndexLawsExtensionLessonOverride } from "./indexLawsExtension";
+export { year8NetworksLessonOverride } from "./networks";
+export { year8AlgebraicTechniquesStage5LessonOverride } from "./algebraicTechniquesStage5";
+export { year8IndicesBLessonOverride } from "./indicesB";
+export { year8DataInvestigationLessonOverride } from "./dataInvestigation";

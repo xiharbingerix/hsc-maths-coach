@@ -40,6 +40,17 @@ function formatDateTime(iso: string) {
   }).format(new Date(iso));
 }
 
+function formatOptionalDateTime(value: string | null | undefined): string {
+  if (!value) return "No data";
+  return formatDateTime(value);
+}
+
+function isStale(value: string | null | undefined, thresholdHours: number) {
+  if (!value) return true;
+  const ageMs = Date.now() - new Date(value).getTime();
+  return Number.isFinite(ageMs) ? ageMs > thresholdHours * 60 * 60 * 1000 : true;
+}
+
 function shortId(value: string | null | undefined): string {
   if (!value) return "—";
   return value.length > 8 ? `${value.slice(0, 8)}…` : value;
@@ -273,6 +284,10 @@ function analyticsHref(days: AllowedDays, diagnosticYear: string) {
   return `/admin/analytics?${params.toString()}`;
 }
 
+function sinceDaysAgo(days: AllowedDays): string {
+  return new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
+}
+
 export default async function AdminAnalyticsPage({
   searchParams,
 }: {
@@ -283,7 +298,7 @@ export default async function AdminAnalyticsPage({
   const params = await searchParams;
   const days = parseDays(params?.days);
   const selectedDiagnosticYear = parseDiagnosticYear(params?.diagnosticYear);
-  const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
+  const since = sinceDaysAgo(days);
 
   // Fetch event_name + identity columns so we can compute both totals and
   // unique identity counts in a single query.
@@ -337,7 +352,12 @@ export default async function AdminAnalyticsPage({
       "diagnostic_completed",
       "trial_cta_clicked",
       "checkout_started",
+      "checkout_purchase_attempted",
       "checkout_redirected_to_stripe",
+      "checkout_exited",
+      "checkout_back_to_home_clicked",
+      "checkout_enquire_instead_clicked",
+      "checkout_cancelled_from_stripe",
       "payment_success",
       "trial_started",
       "dashboard_viewed",
@@ -422,7 +442,12 @@ export default async function AdminAnalyticsPage({
   const trialCtaClicks = count("trial_cta_clicked");
   const checkoutStarts = count("checkout_started");
   const checkoutFormSubmissions = count("checkout_form_submitted");
+  const checkoutPurchaseAttempts = count("checkout_purchase_attempted");
   const checkoutRedirectsToStripe = count("checkout_redirected_to_stripe");
+  const checkoutExits = count("checkout_exited");
+  const checkoutBackClicks = count("checkout_back_to_home_clicked");
+  const checkoutEnquiryClicks = count("checkout_enquire_instead_clicked");
+  const checkoutStripeCancellations = count("checkout_cancelled_from_stripe");
   const trialStarts = count("trial_started");
   const signupCompletions = count("signup_completed");
   const adaptiveWorksheetGenerations = count("adaptive_worksheet_generated");
@@ -442,7 +467,12 @@ export default async function AdminAnalyticsPage({
   const uniqueTrialCtaClicks = unique("trial_cta_clicked");
   const uniqueCheckoutStarts = unique("checkout_started");
   const uniqueCheckoutForms = unique("checkout_form_submitted");
+  const uniqueCheckoutPurchaseAttempts = unique("checkout_purchase_attempted");
   const uniqueStripeRedirects = unique("checkout_redirected_to_stripe");
+  const uniqueCheckoutExits = unique("checkout_exited");
+  const uniqueCheckoutBackClicks = unique("checkout_back_to_home_clicked");
+  const uniqueCheckoutEnquiryClicks = unique("checkout_enquire_instead_clicked");
+  const uniqueCheckoutStripeCancellations = unique("checkout_cancelled_from_stripe");
   const uniqueTrialStarts = unique("trial_started");
   const uniqueDiagnosticStarts = unique("diagnostic_started");
   const uniqueDiagnosticCompletions = unique("diagnostic_completed");
@@ -457,7 +487,7 @@ export default async function AdminAnalyticsPage({
     { label: "Diagnostic completed",  event: "diagnostic_completed",          total: diagnosticCompletions,     uniq: uniqueDiagnosticCompletions },
     { label: "Trial CTA clicked",     event: "trial_cta_clicked",             total: trialCtaClicks,            uniq: uniqueTrialCtaClicks },
     { label: "Checkout started",      event: "checkout_started",              total: checkoutStarts,            uniq: uniqueCheckoutStarts },
-    { label: "Checkout form submitted (legacy/manual checkout)", event: "checkout_form_submitted", total: checkoutFormSubmissions, uniq: uniqueCheckoutForms },
+    { label: "Purchase button pressed", event: "checkout_purchase_attempted", total: checkoutPurchaseAttempts, uniq: uniqueCheckoutPurchaseAttempts },
     { label: "Redirected to Stripe",  event: "checkout_redirected_to_stripe", total: checkoutRedirectsToStripe, uniq: uniqueStripeRedirects },
     { label: "Trial started",         event: "trial_started",                 total: trialStarts,               uniq: uniqueTrialStarts },
   ];
@@ -734,6 +764,13 @@ export default async function AdminAnalyticsPage({
     filteredStartedCount > 0 || diagnosticYearRows.some((row) => row.starts > 0);
 
   const recentEvents = (recentData ?? []) as AnalyticsEventRow[];
+  const latestEventAt = recentEvents[0]?.created_at ?? null;
+  const latestTrialCtaAt =
+    ((trialCtaSourceData ?? []) as AnalyticsEventRow[])[0]?.created_at ?? null;
+  const latestDiagnosticAt =
+    ((diagnosticEventData ?? []) as DiagnosticAnalyticsRow[])
+      .at(-1)
+      ?.created_at ?? null;
 
   // ── Ads funnel aggregation ─────────────────────────────────────────────────
   type AdsCampaignRow = {
@@ -745,7 +782,12 @@ export default async function AdminAnalyticsPage({
     diagnosticCompleted: number;
     trialCta: number;
     checkout: number;
+    purchaseAttempt: number;
     stripe: number;
+    checkoutExit: number;
+    checkoutBack: number;
+    checkoutEnquiry: number;
+    stripeCancelled: number;
     payment: number;
     trial: number;
     dashboard: number;
@@ -773,7 +815,12 @@ export default async function AdminAnalyticsPage({
         diagnosticCompleted: 0,
         trialCta: 0,
         checkout: 0,
+        purchaseAttempt: 0,
         stripe: 0,
+        checkoutExit: 0,
+        checkoutBack: 0,
+        checkoutEnquiry: 0,
+        stripeCancelled: 0,
         payment: 0, trial: 0, dashboard: 0, lesson: 0,
       });
     }
@@ -785,7 +832,12 @@ export default async function AdminAnalyticsPage({
     else if (ev === "diagnostic_completed")               cr.diagnosticCompleted++;
     else if (ev === "trial_cta_clicked")                  cr.trialCta++;
     else if (ev === "checkout_started")                   cr.checkout++;
+    else if (ev === "checkout_purchase_attempted")         cr.purchaseAttempt++;
     else if (ev === "checkout_redirected_to_stripe")      cr.stripe++;
+    else if (ev === "checkout_exited")                    cr.checkoutExit++;
+    else if (ev === "checkout_back_to_home_clicked")      cr.checkoutBack++;
+    else if (ev === "checkout_enquire_instead_clicked")   cr.checkoutEnquiry++;
+    else if (ev === "checkout_cancelled_from_stripe")     cr.stripeCancelled++;
     else if (ev === "payment_success")                    cr.payment++;
     else if (ev === "trial_started")                      cr.trial++;
     else if (ev === "dashboard_viewed")                   cr.dashboard++;
@@ -795,9 +847,19 @@ export default async function AdminAnalyticsPage({
   const adsFunnelRows = [...adsCampaignMap.values()].sort((a, b) => {
     if (a.isTest !== b.isTest) return Number(a.isTest) - Number(b.isTest);
     const aActivity =
-      a.diagnosticCta + a.diagnosticStarted + a.trialCta + a.checkout + a.trial;
+      a.diagnosticCta +
+      a.diagnosticStarted +
+      a.trialCta +
+      a.checkout +
+      a.purchaseAttempt +
+      a.trial;
     const bActivity =
-      b.diagnosticCta + b.diagnosticStarted + b.trialCta + b.checkout + b.trial;
+      b.diagnosticCta +
+      b.diagnosticStarted +
+      b.trialCta +
+      b.checkout +
+      b.purchaseAttempt +
+      b.trial;
     if (aActivity !== bActivity) return bActivity - aActivity;
     return a.campaign.localeCompare(b.campaign);
   });
@@ -854,6 +916,38 @@ export default async function AdminAnalyticsPage({
                   {d}d
                 </Link>
               ))}
+            </div>
+            <div className="mt-3 grid gap-2 text-xs sm:grid-cols-3">
+              <div
+                className={`rounded-lg border px-2.5 py-1.5 ${
+                  isStale(latestEventAt, 6)
+                    ? "border-amber-200 bg-amber-50 text-amber-900"
+                    : "border-emerald-200 bg-emerald-50 text-emerald-900"
+                }`}
+              >
+                <p className="font-semibold">Core events</p>
+                <p className="mt-0.5">Latest: {formatOptionalDateTime(latestEventAt)}</p>
+              </div>
+              <div
+                className={`rounded-lg border px-2.5 py-1.5 ${
+                  isStale(latestDiagnosticAt, 12)
+                    ? "border-amber-200 bg-amber-50 text-amber-900"
+                    : "border-blue-200 bg-blue-50 text-blue-900"
+                }`}
+              >
+                <p className="font-semibold">Diagnostic events</p>
+                <p className="mt-0.5">Latest: {formatOptionalDateTime(latestDiagnosticAt)}</p>
+              </div>
+              <div
+                className={`rounded-lg border px-2.5 py-1.5 ${
+                  isStale(latestTrialCtaAt, 24)
+                    ? "border-slate-300 bg-slate-50 text-slate-700"
+                    : "border-indigo-200 bg-indigo-50 text-indigo-900"
+                }`}
+              >
+                <p className="font-semibold">Trial CTA events</p>
+                <p className="mt-0.5">Latest: {formatOptionalDateTime(latestTrialCtaAt)}</p>
+              </div>
             </div>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -999,7 +1093,12 @@ export default async function AdminAnalyticsPage({
             <StatCard label="Diagnostic completions" value={diagnosticCompletions} />
             <StatCard label="Checkout starts"        value={checkoutStarts} />
             <StatCard label="Checkout forms"         value={checkoutFormSubmissions} />
+            <StatCard label="Purchase attempts"      value={checkoutPurchaseAttempts} />
             <StatCard label="Stripe redirects"       value={checkoutRedirectsToStripe} />
+            <StatCard label="Checkout exits"         value={checkoutExits} />
+            <StatCard label="Checkout back clicks"   value={checkoutBackClicks} />
+            <StatCard label="Checkout enquiries"     value={checkoutEnquiryClicks} />
+            <StatCard label="Stripe cancellations"   value={checkoutStripeCancellations} />
             <StatCard label="Trial starts"           value={trialStarts} />
             <StatCard label="Signup completions"     value={signupCompletions} />
             <StatCard label="Free lesson views"      value={freeLessonViews} />
@@ -1008,10 +1107,61 @@ export default async function AdminAnalyticsPage({
           </div>
         </section>
 
-        {/* ── Trial funnel table ────────────────────────────────────────── */}
+        {/* ── Checkout behaviour ────────────────────────────────────────── */}
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            Funnel steps · last 7 days
+            Checkout behaviour &middot; last {days} day{days === 1 ? "" : "s"}
+          </p>
+          <h2 className="mt-2 text-xl font-bold tracking-tight">
+            What happens after checkout is reached
+          </h2>
+          <p className="mt-1 text-xs text-slate-500">
+            Exit events fire with beacon delivery when someone leaves the
+            checkout page before Stripe redirect. Stripe cancellations are
+            counted when Stripe sends the visitor back to the cancellation page.
+          </p>
+          <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-4">
+            <StatCard
+              label="Pressed purchase"
+              value={checkoutPurchaseAttempts}
+              subtitle={`${pct(checkoutPurchaseAttempts, checkoutStarts)} of checkout starts`}
+            />
+            <StatCard
+              label="Reached Stripe"
+              value={checkoutRedirectsToStripe}
+              subtitle={`${pct(checkoutRedirectsToStripe, checkoutPurchaseAttempts)} of purchase attempts`}
+            />
+            <StatCard
+              label="Left before Stripe"
+              value={checkoutExits}
+              subtitle={`${uniqueCheckoutExits} unique exits`}
+            />
+            <StatCard
+              label="Cancelled on Stripe"
+              value={checkoutStripeCancellations}
+              subtitle={`${uniqueCheckoutStripeCancellations} unique returns`}
+            />
+            <StatCard
+              label="Back/home clicks"
+              value={checkoutBackClicks}
+              subtitle={`${uniqueCheckoutBackClicks} unique`}
+            />
+            <StatCard
+              label="Enquiry clicks"
+              value={checkoutEnquiryClicks}
+              subtitle={`${uniqueCheckoutEnquiryClicks} unique`}
+            />
+            <StatCard
+              label="Legacy form submits"
+              value={checkoutFormSubmissions}
+              subtitle={`${uniqueCheckoutForms} unique`}
+            />
+          </div>
+        </section>
+
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Funnel steps &middot; last 7 days
           </p>
           <h2 className="mt-2 text-xl font-bold tracking-tight">
             Trial funnel
@@ -1425,7 +1575,10 @@ export default async function AdminAnalyticsPage({
                     <th className="px-3 py-2 text-right" title="diagnostic_completed">Diag done</th>
                     <th className="px-3 py-2 text-right" title="trial_cta_clicked">Trial CTA</th>
                     <th className="px-3 py-2 text-right" title="checkout_started">Checkout</th>
+                    <th className="px-3 py-2 text-right" title="checkout_purchase_attempted">Purchase</th>
                     <th className="px-3 py-2 text-right" title="checkout_redirected_to_stripe">→Stripe</th>
+                    <th className="px-3 py-2 text-right" title="checkout_exited">Exit</th>
+                    <th className="px-3 py-2 text-right" title="checkout_cancelled_from_stripe">Cancel</th>
                     <th className="px-3 py-2 text-right" title="payment_success">Verified payment</th>
                     <th className="px-3 py-2 text-right" title="trial_started">Trial</th>
                     <th className="px-3 py-2 text-right" title="dashboard_viewed">Dashboard</th>
@@ -1456,7 +1609,10 @@ export default async function AdminAnalyticsPage({
                       <td className="px-3 py-2 text-right tabular-nums">{row.diagnosticCompleted}</td>
                       <td className="px-3 py-2 text-right tabular-nums">{row.trialCta}</td>
                       <td className="px-3 py-2 text-right tabular-nums">{row.checkout}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{row.purchaseAttempt}</td>
                       <td className="px-3 py-2 text-right tabular-nums">{row.stripe}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{row.checkoutExit}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{row.stripeCancelled}</td>
                       <td className="px-3 py-2 text-right tabular-nums">{row.payment}</td>
                       <td className="px-3 py-2 text-right tabular-nums">{row.trial}</td>
                       <td className="px-3 py-2 text-right tabular-nums">{row.dashboard}</td>
