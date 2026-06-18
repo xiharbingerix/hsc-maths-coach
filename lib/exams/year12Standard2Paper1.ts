@@ -43,22 +43,22 @@ export const year12Standard2Paper1: ExamPaper = {
         {
           id: "y12s2-p1-q2",
           prompt:
-            "A closed cylinder has radius 5 cm and height 10 cm. Find its total surface area, to the nearest cm².",
+            "A cordial mix uses cordial and water in the ratio 1:4. How much water is needed for 250 mL of cordial?",
           latex: "",
           marks: 1,
           difficulty: 3,
-          topicSlug: "surface-area-prisms-cylinders",
-          topicTitle: "Surface area of cylinders",
+          topicSlug: "ratios-rates-unit-conversions",
+          topicTitle: "Ratio and proportion",
           remediationHref: REMEDIATION,
           choices: [
-            { label: "A", text: "471 cm²" },
-            { label: "B", text: "314 cm²" },
-            { label: "C", text: "236 cm²" },
-            { label: "D", text: "942 cm²" },
+            { label: "A", text: "1000 mL" },
+            { label: "B", text: "750 mL" },
+            { label: "C", text: "500 mL" },
+            { label: "D", text: "1250 mL" },
           ],
           answer: "A",
           explanation:
-            "$\\text{TSA} = 2\\pi(5)(5+10) = 150\\pi \\approx 471$ cm².",
+            "The water amount is 4 parts for every 1 part of cordial, so $4 \\times 250 = 1000$ mL.",
         },
         {
           id: "y12s2-p1-q3",

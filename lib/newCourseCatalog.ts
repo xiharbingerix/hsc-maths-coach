@@ -461,17 +461,17 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     courseType: "Mathematics Standard 2",
     status: "available",
     description:
-      "Year 12 Mathematics Standard 2 covers algebra, measurement, financial mathematics, and statistical analysis. Lessons work through non-linear modelling, trigonometry, surface area and volume, investment and loans, annuities, and data analysis — each with worked examples, guided practice questions, and a mastery quiz to check what is actually sticking before moving on.",
+      "Current HSC Mathematics Standard 2 support aligned to the NSW Mathematics Standard Stage 6 Syllabus (2017), for students sitting the existing Year 12 course before the 2024 syllabus reaches Year 12.",
     positioning:
-      "Practical HSC Mathematics Standard 2 revision with lessons, guided practice, and mastery checks.",
+      "Current HSC Mathematics Standard 2 pathway covering Types of Relationships, Non-Right-Angled Trigonometry, Rates and Ratios, Investments and Loans, Annuities, Bivariate Data Analysis, The Normal Distribution, Network Concepts, and Critical Path Analysis. Incoming 2024 syllabus content is kept out of this public pathway until schools start teaching it in Term 4, 2026.",
     units: [
       {
         slug: "algebraic-relationships",
         title: "Algebraic Relationships",
         description:
-          "Linear modelling, quadratic models, exponential and inverse variation models, simultaneous-equation comparisons, and HSC-style algebra in practical contexts.",
+          "Linear, quadratic and exponential relationships, mathematical modelling, prediction and validation.",
         syllabusArea: "Algebra",
-        focus: "Algebraic relationships",
+        focus: "MS-A4 Types of Relationships",
         lessons: [
           {
             slug: "algebraic-relationships-revision",
@@ -498,28 +498,10 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Recognise and evaluate exponential growth and decay models and inverse variation models, and identify each type from tables, equations, and contexts.",
           },
           {
-            slug: "reciprocal-relationships",
-            title: "Reciprocal Relationships",
-            description:
-              "Recognise and sketch y = k/x as a rectangular hyperbola, identify its asymptotes and branches, find k from a given point, and solve practical inverse variation problems.",
-          },
-          {
             slug: "simultaneous-equations-context",
             title: "Simultaneous Equations in Context",
             description:
               "Solve and interpret pairs of practical models, including equal-cost points and option comparisons.",
-          },
-          {
-            slug: "linear-inequalities-modelling",
-            title: "Linear Inequalities and Modelling",
-            description:
-              "Solve linear inequalities, represent solutions on a number line, and interpret inequality constraints in practical budgeting and threshold contexts.",
-          },
-          {
-            slug: "working-with-formulae-substitution",
-            title: "Working with Formulae and Substitution",
-            description:
-              "Substitute values into literal equations from science, finance, and measurement contexts, and rearrange simple formulas to find a target variable.",
           },
           {
             slug: "algebraic-relationships-exam-practice",
@@ -531,23 +513,17 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       },
       {
         slug: "trigonometry",
-        title: "Trigonometry",
+        title: "Non-Right-Angled Trigonometry",
         description:
-          "Right-angled trigonometry and radians, angles of elevation and depression, sine and cosine rules, triangular area, and non-right-angled triangle problems.",
+          "Sine rule, cosine rule, area of a triangle, and practical applications of non-right-angled trigonometry.",
         syllabusArea: "Measurement",
-        focus: "Trigonometry",
+        focus: "MS-M6 Non-Right-Angled Trigonometry",
         lessons: [
           {
             slug: "trigonometry-revision",
             title: "Trigonometry Revision",
             description:
               "Activate Year 11 right-triangle skills: label hypotenuse, opposite and adjacent sides, apply Pythagoras' theorem, and use SOH CAH TOA — foundation for right-angled and non-right-angled trigonometry.",
-          },
-          {
-            slug: "right-angled-trig-radians",
-            title: "Right-Angled Trigonometry and Radians",
-            description:
-              "Convert between degrees and radians, apply SOH CAH TOA using radian angles, and solve practical right-triangle problems in both units.",
           },
           {
             slug: "elevation-depression-applications",
@@ -579,9 +555,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "ratios-rates",
         title: "Rates and Ratios",
         description:
-          "Ratios, rates, unit conversions, energy consumption, scale drawings, rainfall calculations, bearings, time zones, and practical measurement problems.",
+          "Ratio and proportion, direct and inverse proportion, compound rates, unit conversions, and practical rate applications.",
         syllabusArea: "Measurement",
-        focus: "Rates and ratios",
+        focus: "MS-M7 Rates and Ratios",
         lessons: [
           {
             slug: "ratios-rates-revision",
@@ -600,12 +576,6 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Energy Consumption: Watts and Kilowatts",
             description:
               "Convert between watts and kilowatts, calculate kilowatt-hours used by appliances, and find the cost of electricity from a tariff rate.",
-          },
-          {
-            slug: "scale-drawings-site-plans",
-            title: "Scale Drawings and Site Plans",
-            description:
-              "Interpret architectural scale drawings, calculate actual dimensions from scaled measurements, and find perimeter and area from site plans.",
           },
           {
             slug: "rainfall-volume-calculations",
@@ -634,40 +604,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
-        slug: "measurement-surface-area-volume",
-        title: "Surface Area and Volume",
-        description:
-          "Calculate total surface area and volume of right prisms, cylinders and spheres, convert between volume units, and solve practical composite solid problems.",
-        syllabusArea: "Measurement",
-        focus: "Surface area and volume",
-        lessons: [
-          {
-            slug: "surface-area-prisms-cylinders",
-            title: "Surface Area of Prisms and Cylinders",
-            description:
-              "Find the total surface area of rectangular prisms, triangular prisms and cylinders by identifying each face, using nets, and applying TSA formulas.",
-          },
-          {
-            slug: "volume-prisms-cylinders-spheres",
-            title: "Volume of Prisms, Cylinders and Spheres",
-            description:
-              "Calculate volume using V = Ah for prisms, V = πr²h for cylinders and V = (4/3)πr³ for spheres, and convert between cm³, m³ and litres.",
-          },
-          {
-            slug: "composite-solids-practical",
-            title: "Composite Solids and Practical Applications",
-            description:
-              "Find surface area and volume of composite solids formed by combining or removing basic shapes, and solve practical capacity and material-cost problems.",
-          },
-        ],
-      },
-      {
         slug: "investment-loans",
         title: "Investment and Loans",
         description:
           "Compound interest, growth and decay factors, shares and dividends, asset depreciation, and loan recurrences.",
         syllabusArea: "Financial Mathematics",
-        focus: "Investment and loans",
+        focus: "MS-F4 Investments and Loans",
         lessons: [
           {
             slug: "investment-loans-revision",
@@ -707,7 +649,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         description:
           "Future value and present value annuities, regular payment schedules, interest factor tables, retirement planning, and financial decision-making.",
         syllabusArea: "Financial Mathematics",
-        focus: "Annuities",
+        focus: "MS-F5 Annuities",
         lessons: [
           {
             slug: "annuities-revision",
@@ -765,7 +707,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         description:
           "Scatterplots, direction and strength of association, correlation, regression equations, predictions, and residuals.",
         syllabusArea: "Statistical Analysis",
-        focus: "Bivariate data analysis",
+        focus: "MS-S4 Bivariate Data Analysis",
         lessons: [
           {
             slug: "bivariate-data-revision",
@@ -794,46 +736,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
-        slug: "probability",
-        title: "Relative Frequency and Probability",
-        description:
-          "Experimental and theoretical probability, relative frequency, two-way tables, multistage events, independence, and contingency tables.",
-        syllabusArea: "Statistical Analysis",
-        focus: "Relative frequency and probability",
-        lessons: [
-          {
-            slug: "probability-revision",
-            title: "Probability Revision",
-            description:
-              "Consolidate Year 11 probability foundations: list sample spaces, express probability as a fraction/decimal/percentage, apply the complementary rule P(A') = 1 − P(A), and find theoretical probability — preparation for multistage events and tree diagrams.",
-          },
-          {
-            slug: "relative-frequency-probability",
-            title: "Relative Frequency and Probability",
-            description:
-              "Use relative frequency, experimental probability, simulations, and two-way tables to estimate and interpret probabilities.",
-          },
-          {
-            slug: "multistage-events-independence",
-            title: "Multistage Events and Independence",
-            description:
-              "Use tree diagrams and tables for two-stage events, apply P(A and B) = P(A) × P(B) for independent events, and distinguish with- and without-replacement scenarios.",
-          },
-          {
-            slug: "expected-frequency-contingency-tables",
-            title: "Expected Frequency and Contingency Tables",
-            description:
-              "Calculate expected frequency using E = np, read and complete contingency tables, find probabilities from cell counts, and use probability to evaluate decisions.",
-          },
-        ],
-      },
-      {
         slug: "normal-distribution",
         title: "The Normal Distribution",
         description:
           "Bell-curve shape, z-scores, empirical rule 68/95/99.7%, standardised values, and statistical analysis exam practice.",
         syllabusArea: "Statistical Analysis",
-        focus: "The normal distribution",
+        focus: "MS-S5 The Normal Distribution",
         lessons: [
           {
             slug: "normal-distribution-revision",
@@ -857,11 +765,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       },
       {
         slug: "network-flow",
-        title: "Network Flow",
+        title: "Network Concepts",
         description:
-          "Vertices, edges, degrees, directed and weighted networks, shortest paths, minimum spanning trees, and flow capacity problems.",
+          "Network optimisation, route analysis, decision networks, and practical network modelling.",
         syllabusArea: "Networks",
-        focus: "Network flow",
+        focus: "MS-N2 Network Concepts",
         lessons: [
           {
             slug: "network-flow-revision",
@@ -881,12 +789,6 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Solve route and minimal connector problems using shortest paths, path weights, MSTs, and Kruskal's method.",
           },
-          {
-            slug: "network-flow-capacity-cuts",
-            title: "Network Flow, Capacity and Cuts",
-            description:
-              "Interpret directed flow networks, capacities, bottlenecks, feasible flow, cuts, and maximum-flow limits in practical contexts.",
-          },
         ],
       },
       {
@@ -895,7 +797,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         description:
           "Precedence tables, earliest start times, critical paths, project completion time, float, Gantt charts, and dummy activities.",
         syllabusArea: "Networks",
-        focus: "Critical path analysis",
+        focus: "MS-N3 Critical Path Analysis",
         lessons: [
           {
             slug: "critical-path-revision",
