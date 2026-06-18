@@ -85,17 +85,17 @@ function scoreBadgeClass(pct: number): string {
 
 export function WorksheetClient({
   token,
-  worksheetId: _worksheetId,
   title,
   yearLevel,
+  adminPreview = false,
   assignedStudentName,
   dueAt,
   questions,
 }: {
   token: string;
-  worksheetId: string;
   title: string;
   yearLevel: string;
+  adminPreview?: boolean;
   assignedStudentName?: string | null;
   dueAt?: string | null;
   questions: WorksheetQuestion[];
@@ -119,7 +119,7 @@ export function WorksheetClient({
   const storageKey = useMemo(() => `nova-worksheet-attempt:${token}`, [token]);
 
   // Track time spent on each question
-  const questionStartTimeRef = useRef<number>(Date.now());
+  const questionStartTimeRef = useRef<number>(0);
   const totalQuestions = questions.length;
   const currentQuestion = questions[currentIndex];
   const isLastQuestion = currentIndex === totalQuestions - 1;
@@ -131,6 +131,41 @@ export function WorksheetClient({
         year: "numeric",
       })
     : null;
+
+  useEffect(() => {
+    if (!attemptId || !currentQuestion) return;
+
+    let cancelled = false;
+
+    async function sendHeartbeat() {
+      try {
+        await fetch(`/api/worksheet/${token}/heartbeat`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            attemptId,
+            questionId: currentQuestion.id,
+            questionIndex: currentIndex + 1,
+            phase,
+          }),
+        });
+      } catch {
+        // Heartbeat is best-effort telemetry; worksheet flow should never fail because of it.
+      }
+    }
+
+    void sendHeartbeat();
+    const interval = setInterval(() => {
+      if (!cancelled) {
+        void sendHeartbeat();
+      }
+    }, 8000);
+
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
+  }, [attemptId, currentIndex, currentQuestion, phase, token]);
 
   useEffect(() => {
     let cancelled = false;
@@ -415,6 +450,11 @@ export function WorksheetClient({
           Nova Maths · {yearLevel.replace(/-/g, " ")}
         </p>
         <p className="mt-0.5 truncate font-semibold text-slate-900">{title}</p>
+        {adminPreview ? (
+          <p className="mt-1 inline-flex rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-0.5 text-xs font-semibold text-indigo-700">
+            Admin preview mode
+          </p>
+        ) : null}
         {assignedName || dueLabel ? (
           <p className="mt-0.5 text-sm text-slate-500">
             {assignedName ? `Worksheet for ${assignedName}` : null}

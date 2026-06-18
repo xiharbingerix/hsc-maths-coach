@@ -81,10 +81,15 @@ function UnavailablePage({ message }: { message: string }) {
 
 export default async function WorksheetPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ token: string }>;
+  searchParams?: Promise<{ adminPreview?: string }>;
 }) {
   const { token } = await params;
+  const query = await searchParams;
+  const adminPreview =
+    query?.adminPreview === "1" || query?.adminPreview === "true";
 
   // 1. Load worksheet by share token
   const { data: worksheet, error: wsError } = await supabaseAdmin
@@ -168,9 +173,9 @@ export default async function WorksheetPage({
   return (
     <WorksheetClient
       token={token}
-      worksheetId={worksheet.id}
       title={worksheet.title}
       yearLevel={worksheet.year_level}
+      adminPreview={adminPreview}
       assignedStudentName={worksheet.assigned_student_name}
       dueAt={worksheet.due_at}
       questions={questions}
