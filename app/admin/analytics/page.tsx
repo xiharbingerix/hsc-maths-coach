@@ -30,6 +30,12 @@ type DiagnosticAnalyticsRow = {
   created_at: string;
 };
 
+type AdsFunnelRawRow = {
+  event_name: string;
+  metadata: Record<string, unknown> | null;
+  created_at: string;
+};
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function formatDateTime(iso: string) {
@@ -101,6 +107,12 @@ function trialCtaSource(row: AnalyticsEventRow): string {
     metadataString(row.metadata, "href") ??
     "Unknown source"
   );
+}
+
+function healthTone(state: "healthy" | "stale" | "error") {
+  if (state === "error") return "border-red-200 bg-red-50 text-red-800";
+  if (state === "stale") return "border-amber-200 bg-amber-50 text-amber-900";
+  return "border-emerald-200 bg-emerald-50 text-emerald-900";
 }
 
 // ── Alert types ───────────────────────────────────────────────────────────────
@@ -344,7 +356,7 @@ export default async function AdminAnalyticsPage({
 
   const { data: adsFunnelRaw, error: adsFunnelError } = await supabaseAdmin
     .from("analytics_events")
-    .select("event_name, metadata")
+    .select("event_name, metadata, created_at")
     .in("event_name", [
       "hsc_maths_viewed",
       "diagnostic_cta_clicked",
@@ -771,6 +783,57 @@ export default async function AdminAnalyticsPage({
     ((diagnosticEventData ?? []) as DiagnosticAnalyticsRow[])
       .at(-1)
       ?.created_at ?? null;
+  const latestAdsAt =
+    ((adsFunnelRaw ?? []) as AdsFunnelRawRow[])
+      .map((row) => row.created_at)
+      .filter((value): value is string => Boolean(value))
+      .sort((a, b) => Date.parse(b) - Date.parse(a))[0] ?? null;
+
+  const sourceHealthRows = [
+    {
+      key: "core",
+      label: "Core events",
+      latestAt: latestEventAt,
+      error: countError ?? recentError,
+      staleHours: 6,
+    },
+    {
+      key: "diagnostic",
+      label: "Diagnostic events",
+      latestAt: latestDiagnosticAt,
+      error: diagnosticEventError,
+      staleHours: 12,
+    },
+    {
+      key: "trial-cta",
+      label: "Trial CTA events",
+      latestAt: latestTrialCtaAt,
+      error: trialCtaSourceError,
+      staleHours: 24,
+    },
+    {
+      key: "ads-funnel",
+      label: "Ads funnel events",
+      latestAt: latestAdsAt,
+      error: adsFunnelError,
+      staleHours: 24,
+    },
+  ].map((row) => {
+    if (row.error) {
+      return {
+        ...row,
+        state: "error" as const,
+        subtitle: row.error.message,
+      };
+    }
+
+    const stale = isStale(row.latestAt, row.staleHours);
+    return {
+      ...row,
+      state: stale ? ("stale" as const) : ("healthy" as const),
+      subtitle: `Latest: ${formatOptionalDateTime(row.latestAt)}`,
+    };
+  });
 
   // ── Ads funnel aggregation ─────────────────────────────────────────────────
   type AdsCampaignRow = {
@@ -797,7 +860,7 @@ export default async function AdminAnalyticsPage({
   const adsCampaignMap = new Map<string, AdsCampaignRow>();
 
   for (const raw of adsFunnelRaw ?? []) {
-    const r = raw as { event_name: string; metadata: Record<string, unknown> | null };
+    const r = raw as AdsFunnelRawRow;
     const campaign = metadataString(r.metadata, "utm_campaign");
     const gclid = metadataString(r.metadata, "gclid");
     const isTest =
@@ -979,6 +1042,38 @@ export default async function AdminAnalyticsPage({
             Could not load event counts: {countError.message}
           </div>
         )}
+
+        {!tableNotReady && recentError && (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+            Could not load recent activity log: {recentError.message}
+          </div>
+        )}
+
+        {/* ── Data freshness and source health ───────────────────────── */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Data quality
+          </p>
+          <h2 className="mt-2 text-xl font-bold tracking-tight">
+            Freshness and source health
+          </h2>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {sourceHealthRows.map((row) => (
+              <div
+                key={row.key}
+                className={`rounded-2xl border p-4 ${healthTone(row.state)}`}
+              >
+                <p className="text-xs font-semibold uppercase tracking-wide">
+                  {row.label}
+                </p>
+                <p className="mt-2 text-sm font-semibold capitalize">
+                  {row.state}
+                </p>
+                <p className="mt-1 text-xs leading-5">{row.subtitle}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* ── Health alerts ─────────────────────────────────────────────── */}
         {alerts.length > 0 && (

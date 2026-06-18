@@ -9,6 +9,8 @@ export const metadata: Metadata = {
 };
 
 const ALLOWED_PAGE_SIZES = [25, 50, 100] as const;
+const AUTH_LIST_PAGE_SIZE = 200;
+const MAX_AUTH_USERS = 5000;
 
 function parsePositiveInt(raw: string | undefined, fallback: number) {
   const value = Number(raw);
@@ -22,6 +24,35 @@ function parsePageSize(raw: string | undefined) {
   return (ALLOWED_PAGE_SIZES as readonly number[]).includes(requested)
     ? requested
     : 50;
+}
+
+async function loadAllAuthUsers() {
+  const users: AdminAuthUser[] = [];
+  let page = 1;
+
+  while (users.length < MAX_AUTH_USERS) {
+    const { data, error } = await supabaseAdmin.auth.admin.listUsers({
+      page,
+      perPage: AUTH_LIST_PAGE_SIZE,
+    });
+
+    if (error) {
+      throw new Error(`Could not load auth users: ${error.message}`);
+    }
+
+    const batch = ((data?.users ?? []) as AdminAuthUser[]).filter(
+      (user) => user.email
+    );
+    users.push(...batch);
+
+    if (batch.length < AUTH_LIST_PAGE_SIZE) {
+      break;
+    }
+
+    page += 1;
+  }
+
+  return users;
 }
 
 function buildStudentsHref({
@@ -179,18 +210,8 @@ export default async function AdminStudentsPage({
   const page = parsePositiveInt(params?.page, 1);
   const pageSize = parsePageSize(params?.pageSize);
 
-  const { data: usersData } = await supabaseAdmin.auth.admin.listUsers({
-    page,
-    perPage: pageSize,
-  });
-  const users = ((usersData?.users ?? []) as AdminAuthUser[]).filter(
-    (user) => user.email
-  );
-  const usersTotal = Number(
-    ((usersData as { total?: number } | null)?.total ?? users.length)
-  );
-  const hasPrevPage = page > 1;
-  const hasNextPage = page * pageSize < usersTotal;
+  const users = await loadAllAuthUsers();
+  const usersTotal = users.length;
   const userIds = users.map((user) => user.id);
   const emails = users
     .map((user) => user.email?.toLowerCase())
@@ -265,30 +286,78 @@ export default async function AdminStudentsPage({
   const attemptsByWorksheet = (attemptsByWorksheetResult.data ?? []) as AttemptRow[];
   const diagnostics = (diagnosticsResult.data ?? []) as DiagnosticRow[];
 
+  const masteryByUser = new Map<string, MasteryRow[]>();
+  for (const row of masteryRows) {
+    const group = masteryByUser.get(row.user_id) ?? [];
+    group.push(row);
+    masteryByUser.set(row.user_id, group);
+  }
+
+  const diagnosticsByUser = new Map<string, DiagnosticRow[]>();
+  for (const row of diagnostics) {
+    if (!row.user_id) continue;
+    const group = diagnosticsByUser.get(row.user_id) ?? [];
+    group.push(row);
+    diagnosticsByUser.set(row.user_id, group);
+  }
+
+  const worksheetsByUser = new Map<string, WorksheetRow[]>();
+  for (const worksheet of worksheets) {
+    if (worksheet.assigned_to_user) {
+      const group = worksheetsByUser.get(worksheet.assigned_to_user) ?? [];
+      group.push(worksheet);
+      worksheetsByUser.set(worksheet.assigned_to_user, group);
+    }
+  }
+
+  const worksheetsByEmail = new Map<string, WorksheetRow[]>();
+  for (const worksheet of worksheets) {
+    const email = worksheet.assigned_student_email?.toLowerCase();
+    if (!email) continue;
+    const group = worksheetsByEmail.get(email) ?? [];
+    group.push(worksheet);
+    worksheetsByEmail.set(email, group);
+  }
+
+  const attemptsByWorksheetId = new Map<string, AttemptRow[]>();
+  for (const attempt of attemptsByWorksheet) {
+    const group = attemptsByWorksheetId.get(attempt.worksheet_id) ?? [];
+    group.push(attempt);
+    attemptsByWorksheetId.set(attempt.worksheet_id, group);
+  }
+
+  const attemptsByUserId = new Map<string, AttemptRow[]>();
+  for (const attempt of attemptsByUser) {
+    if (!attempt.user_id) continue;
+    const group = attemptsByUserId.get(attempt.user_id) ?? [];
+    group.push(attempt);
+    attemptsByUserId.set(attempt.user_id, group);
+  }
+
   const rows = users
     .map((user) => {
       const email = user.email?.toLowerCase() ?? "";
       const profile = profilesById.get(user.id);
-      const userMastery = masteryRows.filter((row) => row.user_id === user.id);
-      const assignedWorksheets = worksheets.filter(
-        (worksheet) =>
-          worksheet.assigned_to_user === user.id ||
-          worksheet.assigned_student_email?.toLowerCase() === email
-      );
-      const assignedWorksheetIds = new Set(
-        assignedWorksheets.map((worksheet) => worksheet.id)
+      const userMastery = masteryByUser.get(user.id) ?? [];
+      const assignedWorksheets = [
+        ...(worksheetsByUser.get(user.id) ?? []),
+        ...(worksheetsByEmail.get(email) ?? []),
+      ].filter(
+        (worksheet, index, all) =>
+          all.findIndex((candidate) => candidate.id === worksheet.id) === index
       );
       const worksheetAttempts = [
-        ...attemptsByUser.filter((attempt) => attempt.user_id === user.id),
-        ...attemptsByWorksheet.filter((attempt) =>
-          assignedWorksheetIds.has(attempt.worksheet_id)
+        ...(attemptsByUserId.get(user.id) ?? []),
+        ...assignedWorksheets.flatMap(
+          (worksheet) => attemptsByWorksheetId.get(worksheet.id) ?? []
         ),
       ].filter(
         (attempt, index, all) =>
           all.findIndex(
             (candidate) =>
               candidate.worksheet_id === attempt.worksheet_id &&
-              candidate.started_at === attempt.started_at
+              candidate.started_at === attempt.started_at &&
+              candidate.user_id === attempt.user_id
           ) === index
       );
       const completedWorksheetIds = new Set(
@@ -311,8 +380,7 @@ export default async function AdminStudentsPage({
         ...worksheetAttempts.map((attempt) => attempt.completed_at ?? attempt.started_at)
       );
       const latestDiagnostic = latestDate(
-        ...diagnostics
-          .filter((diagnostic) => diagnostic.user_id === user.id)
+        ...(diagnosticsByUser.get(user.id) ?? [])
           .map((diagnostic) => diagnostic.created_at)
       );
 
@@ -367,6 +435,14 @@ export default async function AdminStudentsPage({
     return matchesQuery && matchesFilter;
   });
 
+  const filteredTotal = filteredRows.length;
+  const totalPages = Math.max(1, Math.ceil(filteredTotal / pageSize));
+  const currentPage = Math.min(page, totalPages);
+  const pageStart = (currentPage - 1) * pageSize;
+  const pageRows = filteredRows.slice(pageStart, pageStart + pageSize);
+  const hasPrevPage = currentPage > 1;
+  const hasNextPage = currentPage < totalPages;
+
   const lowMasteryCount = rows.filter(
     (row) => row.masteryAverage != null && row.masteryAverage < 50
   ).length;
@@ -411,8 +487,8 @@ export default async function AdminStudentsPage({
         <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
           <SummaryCard
             label="Students"
-            value={`${rows.length}/${usersTotal}`}
-            helper="loaded / total"
+            value={`${filteredTotal}/${usersTotal}`}
+            helper="filtered / total"
           />
           <SummaryCard label="Low mastery" value={String(lowMasteryCount)} />
           <SummaryCard label="Overdue" value={String(studentsWithOverdue)} />
@@ -499,7 +575,7 @@ export default async function AdminStudentsPage({
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {filteredRows.map((row) => (
+              {pageRows.map((row) => (
                 <tr key={row.user.id} className="hover:bg-slate-50">
                   <td className="px-5 py-3 font-semibold">
                     <Link
@@ -549,7 +625,7 @@ export default async function AdminStudentsPage({
               ))}
             </tbody>
           </table>
-          {filteredRows.length === 0 ? (
+          {filteredTotal === 0 ? (
             <div className="border-t border-slate-100 p-8 text-center text-sm text-slate-500">
               No students match this search or filter. Clear the filters to see
               the full workspace again.
@@ -560,7 +636,8 @@ export default async function AdminStudentsPage({
         <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-slate-600">
-              Page {page} · Showing {rows.length} user{rows.length === 1 ? "" : "s"} of {usersTotal}
+              Page {currentPage} of {totalPages} · Showing {pageRows.length} user
+              {pageRows.length === 1 ? "" : "s"} of {filteredTotal} filtered ({usersTotal} total)
             </p>
             <div className="flex items-center gap-2">
               {hasPrevPage ? (
@@ -568,7 +645,7 @@ export default async function AdminStudentsPage({
                   href={buildStudentsHref({
                     q: params?.q?.trim() ?? "",
                     filter,
-                    page: page - 1,
+                    page: currentPage - 1,
                     pageSize,
                   })}
                   className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
@@ -585,7 +662,7 @@ export default async function AdminStudentsPage({
                   href={buildStudentsHref({
                     q: params?.q?.trim() ?? "",
                     filter,
-                    page: page + 1,
+                    page: currentPage + 1,
                     pageSize,
                   })}
                   className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
