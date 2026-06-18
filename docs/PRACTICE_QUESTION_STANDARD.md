@@ -46,17 +46,19 @@ Standard distribution: **1–2 MCQ in guided**, **0–1 MCQ in independent**, **
 
 ---
 
-## When to use the `latex` field
+## When to use the display `latex` field
 
-The `latex` field shows a display formula below the prompt. Use it when:
+The `latex` field shows a separate display formula block below the prompt. This guidance is about that display block, not inline LaTeX inside `prompt`, `hint`, `explanation`, or choice text. Use inline LaTeX freely when it makes the question text clearer or prettier.
+
+Use the display `latex` field when:
 
 - The question involves a formula or expression that is part of the stimulus
 - The prompt alone is ambiguous without displaying the given algebraic object
 - The question asks the student to choose or interpret a setup, so the setup itself is assessable
 
-Skip it when the prompt is self-contained (e.g. "Find y when x = 3 in the rule y = 2x + 1"). **Prefer no `latex` field over a decorative or redundant one.**
+Skip the display `latex` field when the prompt is self-contained (e.g. "Find y when x = 3 in the rule y = 2x + 1"). **Prefer no display `latex` block over a decorative or redundant one.**
 
-Do **not** use `latex` to show the calculation setup, substitution, operation, or first working step for a typed-answer question. That gives away the method before the student has attempted the question. Put working in `explanation`, and use `hint` for a nudge only.
+Do **not** use the display `latex` field to show the calculation setup, substitution, operation, or first working step for a typed-answer question. That gives away the method before the student has attempted the question. Put working in `explanation`, and use `hint` for a nudge only.
 
 ---
 
