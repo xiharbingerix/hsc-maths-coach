@@ -7,7 +7,11 @@ import { MathText } from "../../components/MathText";
 import { supabase } from "../../../lib/supabaseClient";
 import { SubscribeCTA } from "../../components/SubscribeCTA";
 import { generateStudyPlan } from "../../../lib/studyPlans/generateStudyPlan";
-import type { DiagnosticQuestion, DiagnosticUnit } from "../../../lib/diagnostics/types";
+import type {
+  DiagnosticQuestion,
+  DiagnosticQuestionPart,
+  DiagnosticUnit,
+} from "../../../lib/diagnostics/types";
 import { clientTrackEvent } from "../../../lib/analytics/clientTrackEvent";
 import { trackDiagnosticCompleted } from "../../../lib/analytics";
 
@@ -16,44 +20,94 @@ type UnitResult = DiagnosticUnit & {
   total: number;
 };
 
-
+type FlattenedPart = {
+  answerId: string;
+  questionId: string;
+  prompt: string;
+  latex?: string;
+  choices: { label: string; text: string }[];
+  correctAnswer: string;
+  explanation: string;
+  partLabel?: string;
+  partKey?: string;
+  parentPrompt?: string;
+  unitSlug: string;
+};
 
 function priorityLabel(correct: number, total: number): string {
-  if (correct <= 1) return "Focus first";
-  if (correct === total) return "Confident — review lightly";
+  const score = total > 0 ? correct / total : 0;
+  if (score < 0.4) return "Focus first";
+  if (score >= 0.8) return "Confident - review lightly";
   return "Keep practising";
 }
 
 function priorityBadgeClass(correct: number, total: number): string {
-  if (correct <= 1)
-    return "border-red-200 bg-red-50 text-red-800";
-  if (correct === total)
-    return "border-green-200 bg-green-50 text-green-800";
+  const score = total > 0 ? correct / total : 0;
+  if (score < 0.4) return "border-red-200 bg-red-50 text-red-800";
+  if (score >= 0.8) return "border-green-200 bg-green-50 text-green-800";
   return "border-amber-200 bg-amber-50 text-amber-800";
 }
 
+function flattenQuestions(questions: DiagnosticQuestion[]): FlattenedPart[] {
+  return questions.flatMap((q) => {
+    if (q.questionParts && q.questionParts.length > 0) {
+      return q.questionParts.map((part: DiagnosticQuestionPart) => ({
+        answerId: `${q.id}::${part.key}`,
+        questionId: q.id,
+        prompt: part.prompt,
+        latex: part.latex,
+        choices: part.choices,
+        correctAnswer: part.correctAnswer,
+        explanation: part.explanation,
+        partLabel: part.label,
+        partKey: part.key,
+        parentPrompt: q.prompt,
+        unitSlug: part.assessedUnitSlug ?? q.unitSlug,
+      }));
+    }
+
+    return [
+      {
+        answerId: q.id,
+        questionId: q.id,
+        prompt: q.prompt,
+        latex: q.latex,
+        choices: q.choices ?? [],
+        correctAnswer: q.correctAnswer ?? "",
+        explanation: q.explanation,
+        unitSlug: q.unitSlug,
+      },
+    ];
+  });
+}
+
 function computeUnitResults(
-  questions: DiagnosticQuestion[],
+  parts: FlattenedPart[],
   units: DiagnosticUnit[],
   answers: Record<string, string>
 ): UnitResult[] {
   const tally = new Map<string, { correct: number; total: number }>();
 
-  for (const q of questions) {
-    if (!tally.has(q.unitSlug)) tally.set(q.unitSlug, { correct: 0, total: 0 });
-    const entry = tally.get(q.unitSlug)!;
+  for (const part of parts) {
+    if (!tally.has(part.unitSlug)) {
+      tally.set(part.unitSlug, { correct: 0, total: 0 });
+    }
+    const entry = tally.get(part.unitSlug)!;
     entry.total++;
-    if (answers[q.id] === q.correctAnswer) entry.correct++;
+    if (answers[part.answerId] === part.correctAnswer) entry.correct++;
   }
 
   return units
-    .filter((u) => tally.has(u.slug))
-    .map((u) => ({ ...u, ...(tally.get(u.slug)!) }))
+    .map((u) => ({
+      ...u,
+      ...(tally.get(u.slug) ?? { correct: 0, total: 0 }),
+    }))
+    .filter((u) => u.total > 0)
     .sort((a, b) => a.correct / a.total - b.correct / b.total);
 }
 
-function estimatedDiagnosticMinutes(totalQuestions: number): number {
-  return Math.max(1, Math.ceil((totalQuestions * 15) / 60));
+function estimatedDiagnosticMinutes(totalParts: number): number {
+  return Math.max(1, Math.ceil((totalParts * 20) / 60));
 }
 
 export function DiagnosticQuizClient({
@@ -67,7 +121,8 @@ export function DiagnosticQuizClient({
   questions: DiagnosticQuestion[];
   units: DiagnosticUnit[];
 }) {
-  const totalQuestions = questions.length;
+  const parts = useMemo(() => flattenQuestions(questions), [questions]);
+  const totalParts = parts.length;
 
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [phase, setPhase] = useState<"intro" | "quiz" | "results">("intro");
@@ -86,11 +141,14 @@ export function DiagnosticQuizClient({
   }, [yearLevel]);
 
   const unitResults = useMemo(
-    () => computeUnitResults(questions, units, answers),
-    [questions, units, answers]
+    () => computeUnitResults(parts, units, answers),
+    [parts, units, answers]
   );
 
-  const totalCorrect = unitResults.reduce((sum, u) => sum + u.correct, 0);
+  const totalCorrect = parts.reduce(
+    (sum, part) => sum + (answers[part.answerId] === part.correctAnswer ? 1 : 0),
+    0
+  );
 
   useEffect(() => {
     if (phase !== "results" || saveAttemptedRef.current) return;
@@ -101,7 +159,7 @@ export function DiagnosticQuizClient({
       clientTrackEvent("diagnostic_completed", {
         yearLevel,
         totalCorrect,
-        totalQuestions,
+        totalQuestions: totalParts,
       });
       trackDiagnosticCompleted();
     }
@@ -129,16 +187,15 @@ export function DiagnosticQuizClient({
       if (error) setSaveError(error.message);
       else setSaved(true);
 
-      // Seed student_mastery from diagnostic answers — fire-and-forget.
       const { data: sessionData } = await supabase.auth.getSession();
       const token = sessionData.session?.access_token;
       if (!token) return;
 
       const sourceId = crypto.randomUUID();
-      const events = questions.map((q) => ({
-        questionId: q.id,
-        topicSlug: q.unitSlug,
-        isCorrect: answers[q.id] === q.correctAnswer,
+      const events = parts.map((part) => ({
+        questionId: part.answerId,
+        topicSlug: part.unitSlug,
+        isCorrect: answers[part.answerId] === part.correctAnswer,
       }));
 
       void fetch("/api/mastery/diagnostic", {
@@ -154,20 +211,23 @@ export function DiagnosticQuizClient({
     }
 
     void checkAndSave();
-  }, [phase, yearLevel, unitResults]);
+  }, [phase, yearLevel, unitResults, parts, answers, totalCorrect, totalParts]);
 
-  function handleAnswer(question: DiagnosticQuestion, answer: string, questionIndex: number) {
-    setAnswers((current) => ({ ...current, [question.id]: answer }));
+  function handleAnswer(part: FlattenedPart, answer: string, partIndex: number) {
+    setAnswers((current) => ({ ...current, [part.answerId]: answer }));
     setSubmitWarning(null);
+
     try {
-      if (!answeredTrackedRef.current.has(question.id)) {
-        answeredTrackedRef.current.add(question.id);
+      if (!answeredTrackedRef.current.has(part.answerId)) {
+        answeredTrackedRef.current.add(part.answerId);
         void clientTrackEvent("diagnostic_question_answered", {
           yearLevel,
-          questionIndex: questionIndex + 1,
-          totalQuestions,
-          questionId: question.id,
-          unitSlug: question.unitSlug,
+          questionIndex: partIndex + 1,
+          totalQuestions: totalParts,
+          questionId: part.answerId,
+          unitSlug: part.unitSlug,
+          sourceQuestionId: part.questionId,
+          partKey: part.partKey,
         });
       }
     } catch {
@@ -176,22 +236,22 @@ export function DiagnosticQuizClient({
   }
 
   function handleSubmit() {
-    const firstUnansweredIndex = questions.findIndex((q) => !answers[q.id]);
+    const firstUnansweredIndex = parts.findIndex((part) => !answers[part.answerId]);
 
     void clientTrackEvent("diagnostic_submit_clicked", {
       yearLevel,
       answeredQuestions: Object.keys(answers).length,
-      totalQuestions,
+      totalQuestions: totalParts,
       complete: firstUnansweredIndex === -1,
     });
 
     if (firstUnansweredIndex !== -1) {
-      const missingCount = questions.filter((q) => !answers[q.id]).length;
-      const firstUnanswered = questions[firstUnansweredIndex];
+      const missingCount = parts.filter((part) => !answers[part.answerId]).length;
+      const firstUnanswered = parts[firstUnansweredIndex];
       setSubmitWarning(
-        `${missingCount} question${missingCount === 1 ? "" : "s"} still unanswered. Answer every question before seeing results.`
+        `${missingCount} part${missingCount === 1 ? "" : "s"} still unanswered. Answer every part before seeing results.`
       );
-      questionRefs.current[firstUnanswered.id]?.scrollIntoView({
+      questionRefs.current[firstUnanswered.answerId]?.scrollIntoView({
         behavior: "smooth",
         block: "center",
       });
@@ -202,9 +262,8 @@ export function DiagnosticQuizClient({
     setPhase("results");
   }
 
-  // ── Intro phase ──────────────────────────────────────────────────────────────
   if (phase === "intro") {
-    const estimatedMinutes = estimatedDiagnosticMinutes(totalQuestions);
+    const estimatedMinutes = estimatedDiagnosticMinutes(totalParts);
 
     return (
       <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -217,12 +276,11 @@ export function DiagnosticQuizClient({
               Start your diagnostic
             </h1>
             <p className="mt-3 text-lg font-semibold text-slate-800">
-              {totalQuestions} questions &bull; about {estimatedMinutes} minutes &bull; builds your personalised study plan
+              {totalParts} assessed parts &bull; about {estimatedMinutes} minutes &bull; skill-transfer focused
             </p>
             <p className="mt-4 leading-7 text-slate-600">
-              Answer each question as best you can. The goal is not a school
-              mark; it is to find the first topics that will make study feel
-              clearer.
+              These questions are rich multi-part items that test connected HSC skills.
+              Your part-level performance maps directly to the topics you should study first.
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <button
@@ -248,11 +306,14 @@ export function DiagnosticQuizClient({
     );
   }
 
-  // ── Results phase ────────────────────────────────────────────────────────────
   if (phase === "results") {
-    const scorePct = Math.round((totalCorrect / totalQuestions) * 100);
+    const scorePct = Math.round((totalCorrect / totalParts) * 100);
     const priorityUnits = unitResults.slice(0, Math.min(3, unitResults.length));
-    const focusFirstCount = unitResults.filter((u) => u.correct <= 1).length;
+    const focusFirstCount = unitResults.filter((u) => {
+      const ratio = u.total > 0 ? u.correct / u.total : 0;
+      return ratio < 0.4;
+    }).length;
+
     const studyPlan = generateStudyPlan({
       yearLevel,
       diagnosticResults: unitResults.map((unit) => ({
@@ -268,8 +329,6 @@ export function DiagnosticQuizClient({
     return (
       <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
         <div className="mx-auto max-w-2xl space-y-6">
-
-          {/* ── Score header ─────────────────────────────────────────────── */}
           <header className="rounded-2xl bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
               {yearLevelTitle} · Diagnostic complete
@@ -278,18 +337,16 @@ export function DiagnosticQuizClient({
               Here is your personalised study plan.
             </h1>
             <p className="mt-3 text-2xl font-semibold tabular-nums">
-              {totalCorrect} / {totalQuestions} correct &mdash; {scorePct}%
+              {totalCorrect} / {totalParts} correct &mdash; {scorePct}%
             </p>
             {focusFirstCount > 0 ? (
               <p className="mt-1 text-slate-600">
                 {focusFirstCount === 1
                   ? "1 unit needs your attention first."
-                  : `${focusFirstCount} units need attention — start with these.`}
+                  : `${focusFirstCount} units need attention - start with these.`}
               </p>
             ) : (
-              <p className="mt-1 text-slate-600">
-                {studyPlan.summary}
-              </p>
+              <p className="mt-1 text-slate-600">{studyPlan.summary}</p>
             )}
             {saved && (
               <p className="mt-4 rounded-xl bg-green-50 p-3 text-sm font-semibold text-green-800">
@@ -298,7 +355,6 @@ export function DiagnosticQuizClient({
             )}
           </header>
 
-          {/* ── Study plan ───────────────────────────────────────────────── */}
           <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
               Your study plan
@@ -312,6 +368,7 @@ export function DiagnosticQuizClient({
               {studyPlan.nextTopic?.reason ??
                 "Work through these in order for the fastest improvement."}
             </p>
+
             {studyPlan.nextTopic ? (
               <div className="mt-4 grid gap-3 text-sm text-slate-600 sm:grid-cols-3">
                 <div className="rounded-xl bg-slate-50 p-3">
@@ -353,9 +410,9 @@ export function DiagnosticQuizClient({
                     <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-100">
                       <div
                         className={`h-full rounded-full ${
-                          unit.correct === unit.total
+                          unit.correct / unit.total >= 0.8
                             ? "bg-emerald-500"
-                            : unit.correct <= 1
+                            : unit.correct / unit.total < 0.4
                             ? "bg-red-400"
                             : "bg-amber-400"
                         }`}
@@ -376,7 +433,6 @@ export function DiagnosticQuizClient({
             </ol>
           </section>
 
-          {/* ── Free trial CTA ───────────────────────────────────────────── */}
           <section className="rounded-2xl bg-slate-950 p-6 text-white shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
               Get started
@@ -408,7 +464,6 @@ export function DiagnosticQuizClient({
             </p>
           </section>
 
-          {/* ── Full unit breakdown ──────────────────────────────────────── */}
           <section>
             <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
               Full unit breakdown
@@ -445,7 +500,6 @@ export function DiagnosticQuizClient({
             </div>
           </section>
 
-          {/* ── Save / login panel ───────────────────────────────────────── */}
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             {saveError && (
               <div className="rounded-xl bg-red-50 p-4 text-sm font-medium text-red-800">
@@ -466,11 +520,10 @@ export function DiagnosticQuizClient({
               </div>
             )}
             {isLoggedIn === null && !saved && (
-              <p className="text-sm text-slate-500">Checking login status…</p>
+              <p className="text-sm text-slate-500">Checking login status...</p>
             )}
           </div>
 
-          {/* ── Bottom actions ───────────────────────────────────────────── */}
           <div className="flex flex-wrap gap-3">
             <Link
               href="/course"
@@ -496,29 +549,26 @@ export function DiagnosticQuizClient({
               Retake diagnostic
             </button>
           </div>
-
         </div>
       </main>
     );
   }
 
-  // ── Quiz phase ───────────────────────────────────────────────────────────────
-  const answeredCount = questions.filter((q) => answers[q.id]).length;
-  const progressPercent = (answeredCount / totalQuestions) * 100;
+  const answeredCount = parts.filter((part) => answers[part.answerId]).length;
+  const progressPercent = (answeredCount / totalParts) * 100;
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 pb-28 pt-6 text-slate-900 sm:py-10">
       <div className="mx-auto max-w-2xl space-y-6">
-        {/* Header */}
         <div className="sticky top-0 z-20 rounded-b-2xl bg-white/95 p-5 shadow-sm backdrop-blur sm:rounded-2xl">
           <div className="flex flex-col gap-1 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
             <span className="font-medium">{yearLevelTitle}</span>
             <span>
-              {answeredCount} of {totalQuestions} answered
+              {answeredCount} of {totalParts} answered
             </span>
           </div>
           <p className="mt-1 text-xs text-slate-500">
-            About {estimatedDiagnosticMinutes(totalQuestions)} minutes &middot; {totalQuestions} multiple-choice questions
+            About {estimatedDiagnosticMinutes(totalParts)} minutes &middot; {totalParts} assessed parts
           </p>
 
           {submitWarning && (
@@ -540,41 +590,49 @@ export function DiagnosticQuizClient({
         </div>
 
         <div className="space-y-5">
-          {questions.map((question, questionIndex) => (
+          {parts.map((part, partIndex) => (
             <section
-              key={question.id}
+              key={part.answerId}
               ref={(node) => {
-                questionRefs.current[question.id] = node;
+                questionRefs.current[part.answerId] = node;
               }}
               className={`space-y-5 overflow-hidden rounded-2xl bg-white p-5 shadow-sm sm:p-6 ${
-                submitWarning && !answers[question.id]
+                submitWarning && !answers[part.answerId]
                   ? "ring-2 ring-red-300"
                   : ""
               }`}
             >
               <div className="flex flex-col gap-1">
                 <p className="text-sm font-semibold text-slate-500">
-                  Question {questionIndex + 1} of {totalQuestions}
+                  Part {partIndex + 1} of {totalParts}
                 </p>
+                {part.partLabel && part.parentPrompt ? (
+                  <div className="rounded-xl bg-slate-50 p-3 text-sm text-slate-700">
+                    <p className="font-semibold text-slate-900">{part.partLabel} Shared context</p>
+                    <p className="mt-1 leading-relaxed">
+                      <MathText text={part.parentPrompt} />
+                    </p>
+                  </div>
+                ) : null}
                 <p className="overflow-x-auto text-lg font-semibold leading-relaxed">
-                  <MathText text={question.prompt} />
+                  <MathText text={part.prompt} />
                 </p>
               </div>
 
-              {question.latex && (
+              {part.latex && (
                 <div className="overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
-                  <BlockMath math={question.latex} />
+                  <BlockMath math={part.latex} />
                 </div>
               )}
 
               <div className="space-y-3">
-                {question.choices.map((choice) => {
-                  const isSelected = answers[question.id] === choice.label;
+                {part.choices.map((choice) => {
+                  const isSelected = answers[part.answerId] === choice.label;
                   return (
                     <button
                       key={choice.label}
                       type="button"
-                      onClick={() => handleAnswer(question, choice.label, questionIndex)}
+                      onClick={() => handleAnswer(part, choice.label, partIndex)}
                       className={`flex w-full min-w-0 items-start gap-3 rounded-xl border px-4 py-3 text-left text-sm transition ${
                         isSelected
                           ? "border-slate-900 bg-slate-900 text-white"
@@ -613,6 +671,7 @@ export function DiagnosticQuizClient({
           </button>
         </div>
       </div>
+
       <div className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 px-4 py-3 shadow-lg backdrop-blur sm:hidden">
         {submitWarning && (
           <p
