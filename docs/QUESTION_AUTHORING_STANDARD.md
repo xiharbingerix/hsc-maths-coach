@@ -442,6 +442,8 @@ Rendered as a **KaTeX BlockMath display formula**. Write the expression directly
 "latex": "$T_n = a + (n-1)d$"  ✗  (dollar signs appear as literal characters)
 ```
 
+Use `latex` only when the displayed expression is necessary stimulus. If the prompt is already clear, leave it blank/neutral rather than adding a decorative formula. For typed-answer questions, never put the calculation setup, substitution, operation, or first working step in `latex`; that belongs in `explanation` after submission. If the student is meant to choose a setup, make it an MCQ and put the candidate setups in the choices.
+
 ### Currency amounts
 
 Use plain `$500`. Never use `\$500` or `\\$500`.
