@@ -1,6 +1,7 @@
 import { loadEnvConfig } from "@next/env";
 import { createClient } from "@supabase/supabase-js";
-import { courseUnits, year12AdvancedCourse } from "../lib/courseUnits";
+import { year12AdvancedCourse } from "../lib/courseUnits";
+import { year12AdvancedRouteUnits } from "../lib/year12AdvancedRoutes";
 
 // Load .env.local (and friends) so SUPABASE credentials are available when run
 // directly via tsx, matching the other scripts in this folder.
@@ -10,21 +11,10 @@ import {
   getNewCourseUnitLessons,
 } from "../lib/newCourseCatalog";
 import { flattenSkillMapV2Nodes } from "../lib/skillMapV2";
-import { applicationsDifferentiationLessons } from "../lib/lessons/applicationsDifferentiation";
-import { applicationsOfCalculusGapsLessons } from "../lib/lessons/applicationsOfCalculusGaps";
-import type { ExplicitLesson, PracticeQuestion } from "../lib/lessons/differentialCalculus";
-import { differentialCalculusLessons } from "../lib/lessons/differentialCalculus";
-import { differentiationTechniquesLessons } from "../lib/lessons/differentiationTechniques";
-import { exponentialLogarithmicFunctionsLessons } from "../lib/lessons/exponentialLogarithmicFunctions";
-import { financialMathematicsLessons } from "../lib/lessons/financialMathematics";
-import { functionsGraphingTechniquesLessons } from "../lib/lessons/functionsGraphingTechniques";
-import { furtherIntegralCalculusLessons } from "../lib/lessons/furtherIntegralCalculus";
-import { furtherTrigonometryLessons } from "../lib/lessons/furtherTrigonometry";
-import { integralCalculusLessons } from "../lib/lessons/integralCalculus";
-import { sequencesSeriesFinancialMathsLessons } from "../lib/lessons/sequencesSeriesFinancialMaths";
-import { statisticalAnalysisLessons } from "../lib/lessons/statisticalAnalysis";
-import { trigonometricFunctionsGraphsLessons } from "../lib/lessons/trigonometricFunctionsGraphs";
-import { probabilityLessons } from "../lib/lessons/probability";
+import type {
+  ExplicitLesson,
+  PracticeQuestion,
+} from "../lib/lessons/differentialCalculus";
 import { extractDiagramData, pickDiagramFields, type Choice } from "../lib/lessons/diagramRegistry";
 import { getChallengeQuestions } from "../lib/challenges";
 import { getAllExamPapers } from "../lib/exams";
@@ -107,35 +97,6 @@ const PLACEHOLDER_PATTERNS = [
   /generated fallback/i,
   /sample question/i,
 ];
-
-const allYear12AdvancedLessons: ExplicitLesson[] = [
-  ...functionsGraphingTechniquesLessons,
-  ...trigonometricFunctionsGraphsLessons,
-  ...furtherTrigonometryLessons,
-  ...differentialCalculusLessons,
-  ...differentiationTechniquesLessons,
-  ...applicationsDifferentiationLessons,
-  ...applicationsOfCalculusGapsLessons,
-  ...integralCalculusLessons,
-  ...furtherIntegralCalculusLessons,
-  ...exponentialLogarithmicFunctionsLessons,
-  ...probabilityLessons,
-  ...statisticalAnalysisLessons,
-  ...sequencesSeriesFinancialMathsLessons,
-  ...financialMathematicsLessons,
-];
-
-const year12AdvancedLessonSets: Record<string, ExplicitLesson[]> = {};
-for (const lesson of allYear12AdvancedLessons) {
-  if (!year12AdvancedLessonSets[lesson.moduleSlug]) {
-    year12AdvancedLessonSets[lesson.moduleSlug] = [];
-  }
-  year12AdvancedLessonSets[lesson.moduleSlug].push(lesson);
-}
-
-function unitSlugFromHref(href: string) {
-  return href.split("/").filter(Boolean).at(-1) ?? href;
-}
 
 function requiredEnv(name: string) {
   const value = process.env[name];
@@ -419,17 +380,9 @@ function collectQuestionsFromYear12Advanced() {
   const rows: QuestionRow[] = [];
   const warnings: ImportWarning[] = [];
 
-  for (const unit of courseUnits) {
-    const unitSlug = unitSlugFromHref(unit.href);
-    const lessons = year12AdvancedLessonSets[unitSlug];
-
-    if (!lessons) {
-      warnings.push({
-        sourceId: `year-12-advanced/${unitSlug}`,
-        reason: "Skipped unit because no legacy lesson array is mapped.",
-      });
-      continue;
-    }
+  for (const unit of year12AdvancedRouteUnits) {
+    const unitSlug = unit.slug;
+    const lessons = unit.lessons;
 
     for (const lesson of lessons) {
       for (const [section, questions] of questionSections(lesson)) {

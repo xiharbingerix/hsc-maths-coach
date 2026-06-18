@@ -27,12 +27,10 @@ export default function Year12AdvancedPage() {
           </p>
 
           <p className="mt-4 max-w-3xl rounded-2xl border border-amber-200 bg-amber-50 p-4 leading-7 text-amber-900">
-            Year 12 Mathematics Advanced covers the seven NSW 2024 Year-12 focus
-            areas — {year12AdvancedCourse.activeLessonCount} active lessons
-            across further graph transformations and modelling, sequences and
-            series, differential and integral calculus, applications of
-            calculus, random variables, and financial mathematics. The Year 11
-            topics are covered in the separate Year 11 Advanced course.
+            This pathway is aligned to the current NSW Mathematics Advanced
+            Stage 6 Syllabus (2017) for students sitting the existing HSC
+            course. Incoming 2024-only Year 12 content is kept out of this
+            public pathway until schools start teaching it in Year 12.
           </p>
 
           <div className="mt-6 grid gap-3 md:grid-cols-3">

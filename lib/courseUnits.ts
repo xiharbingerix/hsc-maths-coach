@@ -9,6 +9,8 @@ export type CourseUnitSummary = {
   href: string;
   description: string;
   activeLessonCount: number;
+  lessonModuleSlugs?: string[];
+  excludeLessonSlugs?: string[];
 };
 
 export type CourseCatalogueItem = {
@@ -24,37 +26,34 @@ export type CourseCatalogueItem = {
   units: CourseUnitSummary[];
 };
 
-// Year 12 Mathematics Advanced is exactly the seven NESA Year-12 focus areas of
-// the 2024 syllabus (implementation from 2026):
-//   1. Further graph transformations and modelling   (MAV-12-01/02)
-//   2. Sequences and series                          (MAV-12-03)
-//   3. Differential calculus                         (MAV-12-04)
-//   4. Integral calculus                             (MAV-12-05)
-//   5. Applications of calculus                      (MAV-12-06)
-//   6. Random variables                              (MAV-12-07)
-//   7. Financial mathematics                         (MAV-12-08)
-// The Year-11 topics (working with functions, graph transformations, all
-// trigonometry, intro to differentiation, exponential/logarithmic functions,
-// probability and data) live in the separate Year 11 Advanced course and are
-// not repeated here. Note: the 2024 syllabus REMOVED bivariate data,
-// correlation and least-squares regression from Mathematics Advanced (now
-// Standard-only), so there is no descriptive-statistics unit. Some unit `href`
-// slugs retain their legacy `ma-c#`/`ma-m1` identifiers for URL/seed stability
-// even though the 2024 titles differ.
+// Year 12 Mathematics Advanced currently follows the NSW Mathematics Advanced
+// Stage 6 Syllabus (2017), for students sitting the existing HSC course before
+// the 2024 syllabus reaches Year 12. Some legacy lesson arrays use older or
+// incoming-syllabus module slugs, so units may list `lessonModuleSlugs` to draw
+// the public 2017 pathway from the right existing lesson banks.
 export const courseUnits: CourseUnitSummary[] = [
   {
-    title: "Further Graph Transformations and Modelling",
-    href: "/course/ma-f2-further-graph-transformations-and-modelling",
+    title: "Graphing Techniques",
+    href: "/course/ma-f2-graphing-techniques",
     description:
-      "Transformations of the trigonometric functions (reflections, translations, dilations; amplitude, period, phase and vertical shift), solving trigonometric equations over a domain, modelling periodic phenomena, and using logarithmic scales (decibels, the Richter scale, star magnitudes and pH).",
-    activeLessonCount: 5,
+      "Function transformations, inverse functions, polynomial and reciprocal-style graphs, interpreting key features, and modelling with functions.",
+    activeLessonCount: 4,
+    excludeLessonSlugs: [
+      "exponential-logarithmic-graphs",
+      "absolute-value-functions",
+    ],
   },
   {
-    title: "Sequences and Series",
-    href: "/course/ma-sequences-and-series",
+    title: "Trigonometric Functions and Graphs",
+    href: "/course/ma-t3-trigonometric-functions-and-graphs",
     description:
-      "Arithmetic and geometric sequences and series, summation (sigma) notation, partial sums, limiting sums of geometric series, and growth and decay modelling.",
-    activeLessonCount: 5,
+      "Sine, cosine and tangent graphs; amplitude, period and phase shift; trigonometric transformations; trigonometric equations; and periodic modelling.",
+    activeLessonCount: 7,
+    lessonModuleSlugs: [
+      "ma-f2-further-graph-transformations-and-modelling",
+      "ma-t3-trigonometric-equations",
+    ],
+    excludeLessonSlugs: ["logarithmic-scales"],
   },
   {
     title: "Differential Calculus",
@@ -62,27 +61,48 @@ export const courseUnits: CourseUnitSummary[] = [
     description:
       "Differentiating exponential, logarithmic, and trigonometric functions; the chain rule, product rule, and quotient rule; tangents and normals.",
     activeLessonCount: 5,
+    excludeLessonSlugs: [
+      "reciprocal-trig-derivatives",
+      "log-to-any-base-derivative",
+    ],
   },
   {
     title: "Integral Calculus",
     href: "/course/ma-c4-integral-calculus",
     description:
       "Primitive functions, indefinite and definite integrals, the fundamental theorem of calculus, areas bounded by the x-axis and y-axis, the reverse chain rule, integration of exponential/logarithmic/trigonometric functions, and the trapezoidal rule.",
-    activeLessonCount: 16,
+    activeLessonCount: 18,
   },
   {
     title: "Applications of Calculus",
     href: "/course/ma-c3-applications-of-differentiation",
     description:
       "The second derivative, concavity and points of inflection, curve sketching, optimisation, rates of change, exponential growth and decay, and motion in a straight line using both differentiation and integration.",
-    activeLessonCount: 11,
+    activeLessonCount: 8,
+    excludeLessonSlugs: ["differentiability-and-continuity"],
+  },
+  {
+    title: "Descriptive Statistics and Bivariate Data Analysis",
+    href: "/course/ma-s2-descriptive-statistics-and-bivariate-data",
+    description:
+      "Scatter plots, correlation, least-squares regression, residual analysis, data interpretation, and statistical modelling.",
+    activeLessonCount: 5,
   },
   {
     title: "Random Variables",
     href: "/course/ma-s3-random-variables",
     description:
-      "Discrete probability distributions, expected value and variance, continuous random variables (probability density and cumulative distribution functions), the normal distribution, the empirical rule, and z-scores using standard-normal tables.",
-    activeLessonCount: 3,
+      "Discrete random variables, probability distributions, expected value, variance, standard deviation, binomial distribution ideas, probability modelling, and decision-making using probability.",
+    activeLessonCount: 2,
+    excludeLessonSlugs: [
+      "normal-distribution-empirical-rule",
+      "continuous-random-variables-pdf",
+      "cumulative-distribution-functions",
+      "median-quartiles-continuous",
+      "expected-value-continuous",
+      "variance-standard-deviation-continuous",
+      "normal-probabilities-z-tables",
+    ],
   },
   {
     title: "Financial Mathematics",
@@ -100,10 +120,10 @@ export const year12AdvancedCourse: CourseCatalogueItem = {
   courseType: "Mathematics Advanced",
   href: "/course/year-12-advanced",
   description:
-    `Year 12 Mathematics Advanced covers the seven NSW 2024 Year-12 focus areas: ${courseUnits.reduce(
+    `Current HSC Mathematics Advanced support aligned to the NSW Mathematics Advanced Stage 6 Syllabus (2017): ${courseUnits.reduce(
       (total, unit) => total + unit.activeLessonCount,
       0
-    )} active lessons across further graph transformations and modelling, sequences and series, differential and integral calculus, applications of calculus, random variables, and financial mathematics. The Year 11 topics are covered in the separate Year 11 Advanced course.`,
+    )} active lessons across graphing techniques, trigonometric functions and graphs, differential and integral calculus, applications of calculus, financial mathematics, bivariate data analysis, and random variables. Incoming 2024-only content is kept out of this public pathway until schools start teaching it in Year 12.`,
   unitCount: courseUnits.length,
   activeLessonCount: courseUnits.reduce(
     (total, unit) => total + unit.activeLessonCount,
