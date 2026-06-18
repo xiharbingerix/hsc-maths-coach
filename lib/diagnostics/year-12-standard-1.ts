@@ -11,13 +11,28 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       slug: "trigonometry-ratios-rates",
-      title: "Rates, Ratios and Unit Conversion",
+      title: "Rates",
       startHref: "/course/year-12-standard-1/trigonometry-ratios-rates",
     },
     {
       slug: "investments-loans-annuities",
-      title: "Investments, Loans and Annuities",
+      title: "Investment, Depreciation and Loans",
       startHref: "/course/year-12-standard-1/investments-loans-annuities",
+    },
+    {
+      slug: "measurement-geometry",
+      title: "Right-angled Triangles and Scale Drawings",
+      startHref: "/course/year-12-standard-1/measurement-geometry",
+    },
+    {
+      slug: "statistics-and-data",
+      title: "Further Statistical Analysis",
+      startHref: "/course/year-12-standard-1/statistics-and-data",
+    },
+    {
+      slug: "network-flow",
+      title: "Networks and Paths",
+      startHref: "/course/year-12-standard-1/network-flow",
     },
   ],
 
@@ -220,15 +235,15 @@ export const diagnosticData: DiagnosticData = {
     {
       id: "y12s1-il5",
       unitSlug: "investments-loans-annuities",
-      prompt: "If $500 is deposited each year into an account, this type of regular payment is called an:",
+      prompt: "A store offers a $500 appliance using 10 equal monthly repayments of $58. What is the total repaid?",
       choices: [
-        { label: "A", text: "An annuity" },
-        { label: "B", text: "A simple interest loan" },
-        { label: "C", text: "A ratio" },
-        { label: "D", text: "A depreciation" },
+        { label: "A", text: "$500" },
+        { label: "B", text: "$522" },
+        { label: "C", text: "$580" },
+        { label: "D", text: "$638" },
       ],
-      correctAnswer: "A",
-      explanation: "A sequence of equal regular deposits is called an annuity.",
+      correctAnswer: "C",
+      explanation: "Total repaid is 10 x $58 = $580.",
     },
   ],
 };

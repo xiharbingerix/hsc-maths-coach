@@ -3,7 +3,7 @@ import type { ExamPaper } from "./types";
 // Year 12 Mathematics Standard 1 — mini practice exam (Paper 1).
 // Every answer SymPy-verified. Standard 1 uses the regular Band scale.
 // Covers algebra/linear models, financial mathematics, right-angle
-// trigonometry, rates, statistics and data.
+// trigonometry, rates, scale drawings, statistics and networks.
 const REMEDIATION = "/course/year-12-standard-1";
 
 export const year12Standard1Paper1: ExamPaper = {
@@ -12,7 +12,7 @@ export const year12Standard1Paper1: ExamPaper = {
   courseTitle: "Year 12 Mathematics Standard 1",
   title: "Practice Exam — Paper 1",
   description:
-    "A short, timed Standard 1 paper across compound interest, right-angle trigonometry, rates, simultaneous models, depreciation, statistics and predictions. Work under exam conditions, then review your predicted band and the topics to revise.",
+    "A short, timed Standard 1 paper across compound interest, right-angle trigonometry, rates, scale drawings, simultaneous models, depreciation, statistics and networks. Work under exam conditions, then review your predicted band and the topics to revise.",
   timeLimitMins: 40,
   totalMarks: 22,
   sections: [
@@ -98,21 +98,21 @@ export const year12Standard1Paper1: ExamPaper = {
         {
           id: "y12s1-p1-q5",
           prompt:
-            "The probability of an event A is 0.3. What is the probability that A does not occur?",
-          latex: "P(\\text{not } A) = 1 - P(A)",
+            "A floor plan uses a scale of 1:200. A wall is 4 cm long on the plan. What is the real length of the wall?",
+          latex: "\\text{scale }1:200",
           marks: 1,
           difficulty: 2,
-          topicSlug: "relative-frequency-expected-value",
-          topicTitle: "Complementary events",
+          topicSlug: "scale-drawings-and-plans",
+          topicTitle: "Scale drawings",
           remediationHref: REMEDIATION,
           choices: [
-            { label: "A", text: "0.7" },
-            { label: "B", text: "0.3" },
-            { label: "C", text: "0.5" },
-            { label: "D", text: "1.3" },
+            { label: "A", text: "0.8 m" },
+            { label: "B", text: "2 m" },
+            { label: "C", text: "8 m" },
+            { label: "D", text: "80 m" },
           ],
-          answer: "A",
-          explanation: "$P(\\text{not } A) = 1 - 0.3 = 0.7$.",
+          answer: "C",
+          explanation: "4 cm on the plan represents 4 x 200 = 800 cm, which is 8 m.",
         },
       ],
     },
@@ -292,46 +292,41 @@ export const year12Standard1Paper1: ExamPaper = {
         {
           id: "y12s1-p1-q10",
           prompt:
-            "A line of best fit for a data set is $y = 4x + 5$, where x ranges from 1 to 12 in the data.",
-          latex: "y = 4x + 5",
+            "A delivery network has weighted edges AB = 6, AC = 4, BC = 3, BD = 5 and CD = 7.",
+          latex: "AB=6,\\ AC=4,\\ BC=3,\\ BD=5,\\ CD=7",
           marks: 3,
           difficulty: 5,
-          topicSlug: "line-of-best-fit-predictions",
-          topicTitle: "Line of best fit and predictions",
+          topicSlug: "shortest-paths-minimum-spanning-trees",
+          topicTitle: "Weighted networks and shortest paths",
           remediationHref: REMEDIATION,
           explanation:
-            "At x = 6: $y = 4(6) + 5 = 29$. The y-intercept 5 is the predicted value when x = 0. Predicting at x = 100 lies far outside the data range (1–12), so it is extrapolation.",
+            "Route A-B-D has total 11. Route A-C-D has total 11. Route A-C-B-D has total 12, so the shortest route length from A to D is 11.",
           parts: [
             {
               key: "a",
               label: "(a)",
-              prompt: "Predict the value of y when x = 6.",
+              prompt: "Find the total weight of route A-B-D.",
               marks: 1,
-              answer: "29",
-              explanation: "$y = 4(6) + 5 = 29$.",
+              answer: "11",
+              explanation: "Route A-B-D uses AB and BD, so the total is 6 + 5 = 11.",
             },
             {
               key: "b",
               label: "(b)",
-              prompt: "What does the y-intercept (5) represent?",
+              prompt: "Find the total weight of route A-C-D.",
               marks: 1,
-              answer: "the value of y when x = 0",
-              acceptedAnswers: [
-                "value of y when x=0",
-                "y when x is 0",
-                "the starting value",
-              ],
-              explanation: "The y-intercept is the predicted y when $x = 0$.",
+              answer: "11",
+              explanation: "Route A-C-D uses AC and CD, so the total is 4 + 7 = 11.",
             },
             {
               key: "c",
               label: "(c)",
               prompt:
-                "Is predicting y at x = 100 interpolation or extrapolation?",
+                "What is the shortest route length from A to D?",
               marks: 1,
-              answer: "extrapolation",
+              answer: "11",
               explanation:
-                "x = 100 is outside the data range (1–12), so it is extrapolation.",
+                "A-B-D and A-C-D both have total 11; A-C-B-D has total 12, so the shortest route length is 11.",
             },
           ],
         },

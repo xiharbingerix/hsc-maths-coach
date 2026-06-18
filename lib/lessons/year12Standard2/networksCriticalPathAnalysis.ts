@@ -199,9 +199,15 @@ export function year12Standard2NetworksLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
+  const isStandard1Networks =
+    course.slug === "year-12-standard-1" && unit.slug === "network-flow";
+  const isStandard2Networks =
+    course.slug === "year-12-standard-2" &&
+    (unit.slug === "network-flow" || unit.slug === "critical-path-analysis");
+
   if (
-    course.slug !== "year-12-standard-2" ||
-    (unit.slug !== "network-flow" && unit.slug !== "critical-path-analysis")
+    !isStandard1Networks &&
+    !isStandard2Networks
   ) {
     return null;
   }

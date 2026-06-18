@@ -1666,32 +1666,27 @@ Row for Year 11 Extension 1 in the Quick Status table above has been updated fro
 
 ---
 
-## Year 12 Standard 1 ✅ Complete — Audited against NSW 2024 syllabus (2026-06-15)
+## Year 12 Standard 1 🔄 Current HSC pathway — aligned to NSW 2017 syllabus (2026-06-18)
 
-`year-12-standard-1` — `in_progress`. Override file: `lib/lessons/year12Standard1.ts`.
-**23 lessons / 5 units.** All 7 NSW 2024 MST-12-S1 topics fully covered at 19Q depth. Audited dot-by-dot against NSW Mathematics Standard 11–12 Syllabus (2024). First HSC 2027.
+`year-12-standard-1` — `available`. Override file: `lib/lessons/year12Standard1.ts`, with selected network lessons reused from `lib/lessons/year12Standard2/networksCriticalPathAnalysis.ts`.
+**22 lessons / 6 units.** The public Standard 1 pathway has been moved back to the current Year 12 HSC course from the Mathematics Standard Stage 6 Syllabus (2017). The incoming NSW 2024 Year 12 Standard 1 topics are not surfaced in this pathway until schools start teaching the new Year 12 course in Term 4, 2026.
 
-| # | NSW Topic | Outcome | Lessons | Status |
+| # | Current syllabus topic | Code | Lessons | Status |
 |---|---|---|---|---|
-| 1 | Algebraic relationships | MST-12-S1-01 | 5 | ✅ linear models, quadratic models, direct variation, simultaneous equations, exam practice — all 19Q |
-| 2 | Investment | MST-12-S1-02 | 1 | ✅ simple/compound interest, comparing investment strategies (19Q) |
-| 3 | Depreciation and loans | MST-12-S1-03 | 2 | ✅ straight-line + declining-balance depreciation, reducing-balance loans (19Q); credit cards — A=P(1+r/365)ⁿ, fees, min repayments, comparison with personal loans (19Q added 2026-06-15) |
-| 4 | Right-angled triangles | MST-12-S1-04 | 3 | ✅ SOH-CAH-TOA (19Q), elevation/depression, bearings (added 2026-06-15, 19Q each) |
-| 5 | Ratios and rates | MST-12-S1-05 | 2 | ✅ ratios/unit conversions (19Q), speed/fuel/flow/pay (19Q) |
-| 6 | Bivariate data analysis | MST-12-S1-06 | 2 | ✅ scatter plots + form/strength/direction (19Q); line of best fit + interpolation/extrapolation (19Q) |
-| 7 | Relative frequency and probability | MST-12-S1-07 | 3 | ✅ probability formula + two-stage trees (19Q); complementary events + relative frequency + expected frequency (19Q) |
+| 1 | Types of Relationships | MS-A3 | 5 | ✅ linear models, quadratic models, direct variation, simultaneous equations, exam practice |
+| 2 | Right-angled Triangles | MS-M3 | 3 | ✅ right-angle trigonometry, applied trig, mixed trig/rates practice |
+| 3 | Rates | MS-M4 | 3 | ✅ unit conversions, speed/fuel/flow/pay rates, mixed exam practice |
+| 4 | Scale Drawings | MS-M5 | 1 | ✅ scale drawings and plans |
+| 5 | Investment | MS-F2 | 1 | ✅ compound interest and investment comparisons |
+| 6 | Depreciation and Loans | MS-F3 | 3 | ✅ depreciation, reducing-balance loans, credit cards/consumer finance/repayments |
+| 7 | Further Statistical Analysis | MS-S3 | 2 | ⚠️ current route retains summary-statistics and statistics exam practice; needs a dedicated quartiles/IQR/box-plots depth pass |
+| 8 | Networks and Paths | MS-N1 | 3 | ✅ vertices/edges/degrees, paths/circuits, weighted networks and shortest paths |
 
-**Lessons added (2026-06-15 audit pass 1):**
-- `bearings-and-compass`, `bivariate-data-scatter-plots`, `line-of-best-fit-predictions`, `relative-frequency-expected-value` — 4 new breadth lessons (19Q each)
+**2024 Standard 1 topics hidden from current pathway (2026-06-18):**
+- `bivariate-data-scatter-plots`, `line-of-best-fit-predictions`, `relative-frequency-expected-value`, and `probability-and-chance` were removed from the visible Year 12 Standard 1 route because they belong to the incoming 2024 structure, not the current 2017 Year 12 Standard 1 HSC map.
 
-**Lessons added (2026-06-15 audit pass 2 — depth + gap completion):**
-- `credit-cards-and-loans` — closes MST-12-S1-03 credit card gap (19Q)
-- Full 19Q overrides written for: `algebraic-relationships-exam-practice`, `linear-relationships-modelling`, `quadratic-models`, `simultaneous-equations-context`, `ratios-rates-unit-conversions`, `investment-compound-interest`, `depreciation-loans`
-- 6 legacy thin lessons upgraded from 7Q → 19Q: `right-angle-trigonometry`, `data-displays-summary-statistics`, `probability-and-chance`, `statistics-exam-practice`, `measurement-area-volume`, `scale-drawings-and-plans`
-
-**Legacy lessons retained (outside NSW 2024 Standard 1 scope; now at 19Q):**
-- `measurement-area-volume`, `scale-drawings-and-plans`, `data-displays-summary-statistics` — Year 11 content; not in MST-12-S1 but useful for revision
-- `right-angle-trigonometry` (in `measurement-geometry` unit) — duplicates trig content in `right-angle-trig-applications`; retained for completeness
+**Known follow-up:**
+- Add or adapt a dedicated `box-plots-five-number-summary` / quartiles-IQR lesson for MS-S3 so Further Statistical Analysis is not relying on the broader summary-statistics lesson.
 
 ---
 

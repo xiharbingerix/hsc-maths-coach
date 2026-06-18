@@ -930,19 +930,19 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 12 Mathematics Standard 1",
     yearLevel: "Year 12",
     courseType: "Mathematics Standard 1",
-    status: "in_progress",
+    status: "available",
     description:
-      "A NSW HSC Mathematics Standard 1 pathway in development, with selected algebra, finance, measurement and data lessons active and remaining units planned.",
+      "Current HSC Mathematics Standard 1 support aligned to the NSW Mathematics Standard Stage 6 Syllabus (2017), for students sitting the existing Year 12 course before the 2024 syllabus reaches Year 12.",
     positioning:
-      "This pathway is being scaffolded with crossover content from Standard 2 where the syllabus overlap is clear. Standard 1-specific measurement and data lessons are now active, with further geometric and probability units planned.",
+      "Current HSC Mathematics Standard 1 pathway covering Types of Relationships, Right-angled Triangles, Rates, Scale Drawings, Investment, Depreciation and Loans, Further Statistical Analysis, and Networks and Paths. The incoming 2024 Year 12 syllabus content is kept out of this public pathway until schools start teaching it in Term 4, 2026.",
     units: [
       {
         slug: "algebraic-relationships",
-        title: "Algebraic Relationships",
+        title: "Types of Relationships",
         description:
-          "Linear modelling, quadratic models, direct variation, simultaneous-equation comparisons, and practical algebra in everyday contexts.",
+          "Linear and non-linear models, graph interpretation, simultaneous-equation comparisons, and practical mathematical modelling.",
         syllabusArea: "Algebra",
-        focus: "Algebraic relationships",
+        focus: "MS-A3 Types of Relationships",
         lessons: [
           {
             slug: "linear-relationships-modelling",
@@ -978,11 +978,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       },
       {
         slug: "trigonometry-ratios-rates",
-        title: "Rates, Ratios and Measurement",
+        title: "Rates",
         description:
-          "Rates, ratios, speed, scale, unit conversion and practical measurement. Standard 1 trig content is being added alongside ratio and rate practice.",
+          "Speed, distance and time, unit conversions, practical rates, rate applications, and mixed rate/trigonometry exam contexts.",
         syllabusArea: "Measurement",
-        focus: "Rates, ratios and measurement",
+        focus: "MS-M4 Rates",
         lessons: [
           {
             slug: "ratios-rates-unit-conversions",
@@ -1075,11 +1075,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       },
       {
         slug: "investments-loans-annuities",
-        title: "Investments, Loans and Annuities",
+        title: "Investment, Depreciation and Loans",
         description:
-          "Compound investments, depreciation, loan balances, regular payments, annuities, and financial decision-making.",
+          "Compound investment growth, depreciation methods, reducing-balance loans, repayment plans, consumer finance, and financial decision-making.",
         syllabusArea: "Financial Mathematics",
-        focus: "Investments, loans and annuities",
+        focus: "MS-F2 Investment; MS-F3 Depreciation and Loans",
         lessons: [
           {
             slug: "investment-compound-interest",
@@ -1101,49 +1101,25 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           },
           {
             slug: "annuities-regular-payments",
-            title: "Financial Planning and Repayments",
+            title: "Consumer Finance and Repayments",
             description:
-              "Calculate equal repayment amounts from a deposit and balance, find total plan costs, compare payment options, and check affordability against a monthly budget.",
+              "Calculate repayment amounts, total plan costs, compare payment options, and check affordability against a monthly budget.",
           },
         ],
       },
       {
         slug: "statistics-and-data",
-        title: "Statistics and Data",
+        title: "Further Statistical Analysis",
         description:
-          "Data displays, summary statistics, probability, and practical data reasoning for Standard 1 assessment.",
-        syllabusArea: "Statistics",
-        focus: "Statistics and data",
+          "Quartiles, interquartile range, box plots, comparing data sets, and practical statistical reasoning.",
+        syllabusArea: "Statistical Analysis",
+        focus: "MS-S3 Further Statistical Analysis",
         lessons: [
           {
             slug: "data-displays-summary-statistics",
             title: "Data Displays and Summary Statistics",
             description:
               "Interpret graphs, tables, averages and spread measures in practical contexts.",
-          },
-          {
-            slug: "probability-and-chance",
-            title: "Probability and Chance",
-            description:
-              "Use probability language, tables, and simple chance models to solve practical problems.",
-          },
-          {
-            slug: "bivariate-data-scatter-plots",
-            title: "Bivariate Data and Scatter Plots",
-            description:
-              "Distinguish univariate and bivariate data, identify independent and dependent variables, create scatter plots, and describe associations by form, strength and direction.",
-          },
-          {
-            slug: "line-of-best-fit-predictions",
-            title: "Line of Best Fit and Predictions",
-            description:
-              "Draw a line of best fit by eye, find its gradient and y-intercept, and use interpolation and extrapolation to make predictions.",
-          },
-          {
-            slug: "relative-frequency-expected-value",
-            title: "Relative Frequency and Expected Value",
-            description:
-              "Use complementary events P(not A) = 1 − P(A), estimate probability from relative frequency, and calculate expected frequency np.",
           },
           {
             slug: "statistics-exam-practice",
@@ -1155,11 +1131,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       },
       {
         slug: "measurement-geometry",
-        title: "Measurement and Geometry",
+        title: "Right-angled Triangles and Scale Drawings",
         description:
-          "Right-angle trigonometry, area, volume and geometry for practical measurement, scale drawings and design contexts.",
+          "Right-angled triangle trigonometry, practical measurement, scale drawings, maps, plans and design applications.",
         syllabusArea: "Measurement",
-        focus: "Measurement and geometry",
+        focus: "MS-M3 Right-angled Triangles; MS-M5 Scale Drawings",
         lessons: [
           {
             slug: "right-angle-trigonometry",
@@ -1178,6 +1154,34 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Scale Drawings and Plans",
             description:
               "Use scale, similarity and measurement to interpret plans, maps and diagrams.",
+          },
+        ],
+      },
+      {
+        slug: "network-flow",
+        title: "Networks and Paths",
+        description:
+          "Vertices, edges, degrees, paths, trails, circuits, weighted networks, shortest paths, and real-world network decisions.",
+        syllabusArea: "Networks",
+        focus: "MS-N1 Networks and Paths",
+        lessons: [
+          {
+            slug: "network-flow-revision",
+            title: "Network Diagrams and Terminology",
+            description:
+              "Identify vertices, edges, degree, directed networks and weighted edges, then read simple paths and circuits.",
+          },
+          {
+            slug: "network-concepts-terminology",
+            title: "Network Concepts and Terminology",
+            description:
+              "Use network language to interpret practical edge lists, weighted roads, directed routes, and small networks.",
+          },
+          {
+            slug: "shortest-paths-minimum-spanning-trees",
+            title: "Weighted Networks and Shortest Paths",
+            description:
+              "Find route totals, compare weighted paths, and choose shortest paths or minimum connector methods for practical networks.",
           },
         ],
       },
