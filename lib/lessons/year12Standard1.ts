@@ -1377,7 +1377,7 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
   function scaleAnswer(
     id: string,
     prompt: string,
-    latex: string,
+    _latex: string,
     answer: string,
     acceptedAnswers: string[],
     hint: string,
@@ -1387,7 +1387,7 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
     return {
       id,
       prompt,
-      latex,
+      latex: "\\text{Use the scale information in the question.}",
       answer,
       acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
       hint,
@@ -1811,7 +1811,7 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
             key: "a",
             label: "(a)",
             prompt: "Find the real length corresponding to the 8 cm side, in metres.",
-            latex: "8\\times250\\text{ cm}",
+            latex: "\\text{Use the scale }1:250.",
             marks: 1,
             answer: "20",
             acceptedAnswers: ["20 m"],
