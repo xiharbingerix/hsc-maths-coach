@@ -350,7 +350,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-nfr-g2",
           "A network has edges A-B, A-C, A-D, B-C. What is the degree of vertex A?",
-          "\\text{Edges at A: A-B, A-C, A-D}",
+          "",
           "3",
           ["3.0"]
         ),
@@ -373,7 +373,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-nfr-i1",
           "A network has edges: X-Y, X-Z, Y-Z, Y-W, Z-W. How many edges are there?",
-          "\\text{Count the listed edges}",
+          "",
           "5",
           ["5.0"]
         ),
@@ -428,14 +428,14 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-nfr-m1",
           "Network edges: A-B, A-C, B-D, C-D, D-E. How many vertices?",
-          "\\text{Distinct labels: A, B, C, D, E}",
+          "",
           "5",
           ["5.0"]
         ),
         shortAnswer(
           "y12s2-nfr-m2",
           "Network edges: A-B, A-C, B-C, B-D, C-D. What is the degree of vertex C?",
-          "\\text{Edges at C: A-C, B-C, C-D}",
+          "",
           "3",
           ["3.0"]
         ),
@@ -463,7 +463,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-nfr-m6",
           "A network has 7 edges. What is the sum of all vertex degrees?",
-          "\\text{Sum} = 2 \\times 7",
+          "",
           "14",
           ["14.0"]
         ),
@@ -725,7 +725,7 @@ export function year12Standard2NetworksLessonOverride(
       ],
       independentPractice: [
         shortAnswer("y12s2-spmst-i1", "Road weights are AB=3 and BD=8. Find the route weight for A-B-D.", "3+8", "11", ["11 units"]),
-        shortAnswer("y12s2-spmst-i2", "Routes A-C-D=10 and A-B-D=12. Give the shortest path label.", "\\text{shortest path}", "A-C-D", ["A,C,D", "ACD", "A C D"]),
+        shortAnswer("y12s2-spmst-i2", "Routes A-C-D=10 and A-B-D=12. Give the shortest path label.", "", "A-C-D", ["A,C,D", "ACD", "A C D"]),
         labelledChoice("y12s2-spmst-i3", "Which mistake would break an MST solution?", "C", ["Adding selected edge weights", "Connecting a new vertex", "Including an edge that creates a cycle", "Stopping when all vertices are connected"], "A tree cannot include a cycle."),
         shortAnswer("y12s2-spmst-i4", "MST edge weights for connecting buildings are 6, 7, 9 and 10 metres. Find the total cable length.", "6+7+9+10", "32 m", ["32", "32m", "32 metres", "32 meters"]),
         labelledChoice("y12s2-spmst-i5", "A courier needs the quickest route from Depot A to Stop F. Which problem type is this?", "A", ["Shortest path", "Minimum spanning tree", "Tree count", "Tax calculation"], "A route from one point to another is a shortest-path problem."),
@@ -737,8 +737,8 @@ export function year12Standard2NetworksLessonOverride(
         { mistake: "Choosing the fewest edges instead of the smallest total weight.", fix: "Add the weights and compare totals." },
       ],
       masteryQuiz: [
-        shortAnswer("y12s2-spmst-m1", "A route from A to D uses weights 4, 2 and 3. What is its total weight?", "\\text{weights: }4,\\ 2,\\ 3", "9", ["9 units"]),
-        shortAnswer("y12s2-spmst-m2", "Routes A-B-D and A-C-D have weights 13 and 10. What is the shortest-path weight?", "\\text{A-B-D}=13,\\quad \\text{A-C-D}=10", "10", ["10 units"]),
+        shortAnswer("y12s2-spmst-m1", "A route from A to D uses weights 4, 2 and 3. What is its total weight?", "", "9", ["9 units"]),
+        shortAnswer("y12s2-spmst-m2", "Routes A-B-D and A-C-D have weights 13 and 10. What is the shortest-path weight?", "", "10", ["10 units"]),
         {
           ...shortAnswer("y12s2-spmst-m3", "Use the weighted road network to enter the shortest path from A to D.", "AB=6,\\ AC=4,\\ BD=7,\\ CD=5", "A-C-D", ["A,C,D", "ACD", "A C D"]),
           explanation:
@@ -761,7 +761,7 @@ export function year12Standard2NetworksLessonOverride(
           },
         },
         labelledChoice("y12s2-spmst-m4", "A council wants minimum total pipe length connecting all parks. Use:", "B", ["Shortest path", "Minimum spanning tree", "A circuit only", "A directed graph only"], "This is a minimal connector problem."),
-        shortAnswer("y12s2-spmst-m5", "Selected MST edges have weights 1, 3, 4 and 6. Find the total weight.", "\\text{MST weights: }1,\\ 3,\\ 4,\\ 6", "14"),
+        shortAnswer("y12s2-spmst-m5", "Selected MST edges have weights 1, 3, 4 and 6. Find the total weight.", "", "14"),
         labelledChoice("y12s2-spmst-m6", "Kruskal's method chooses edges in which order?", "A", ["Smallest allowed edge first", "Largest edge first", "Random edges only", "Edges that make cycles first"], "Kruskal's method works from smallest to largest while avoiding cycles."),
         labelledChoice("y12s2-spmst-m7", "A spanning tree must:", "D", ["Use only one vertex", "Use all edges", "Contain a cycle", "Connect all vertices without cycles"], "A spanning tree connects every vertex and has no cycles."),
         shortAnswer("y12s2-spmst-m8", "Cable edges chosen for an MST are AB=5, BC=4 and CD=8. Find the total cable length.", "AB=5,\\quad BC=4,\\quad CD=8", "17", ["17 m", "17m", "17 metres", "17 meters"]),

@@ -1,6 +1,25 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "./differentialCalculus";
-import { practicalChoice, measurementAnswer, dataAnswer } from "./questionHelpers";
+import {
+  dataAnswer as baseDataAnswer,
+  measurementAnswer as baseMeasurementAnswer,
+  practicalChoice as basePracticalChoice,
+} from "./questionHelpers";
+
+const practicalChoice: typeof basePracticalChoice = (...args) => ({
+  ...basePracticalChoice(...args),
+  latex: "",
+});
+
+const measurementAnswer: typeof baseMeasurementAnswer = (...args) => ({
+  ...baseMeasurementAnswer(...args),
+  latex: "",
+});
+
+const dataAnswer: typeof baseDataAnswer = (...args) => ({
+  ...baseDataAnswer(...args),
+  latex: "",
+});
 
 export function year12Standard1RightAngleTrigonometryLessonOverride(
   course: CoursePathwaySeed,
@@ -562,7 +581,7 @@ function probAnswer(
   return {
     id,
     prompt,
-    latex,
+    latex: "",
     answer,
     acceptedAnswers: probabilityVariants(answer, acceptedAnswers),
     hint: "Identify the total number of equally likely outcomes before calculating.",
@@ -580,7 +599,7 @@ function probChoice(
   return {
     id,
     prompt,
-    latex: "\\text{Select A, B, C, or D.}",
+    latex: "",
     choices: ["A", "B", "C", "D"].map((label, index) => ({
       label,
       text: choices[index],
@@ -1387,7 +1406,7 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
     return {
       id,
       prompt,
-      latex: "\\text{Use the scale information in the question.}",
+      latex: "",
       answer,
       acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
       hint,
@@ -1408,7 +1427,7 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
     return {
       id,
       prompt,
-      latex: "\\text{Select A, B, C, or D.}",
+      latex: "",
       choices: ["A", "B", "C", "D"].map((label, index) => ({
         label,
         text: choices[index],
@@ -1788,7 +1807,7 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
         id: "scale-mp-1",
         prompt:
           "A council site plan uses scale 1:250. A rectangular community garden is shown as 8 cm by 5 cm on the plan.",
-        latex: "\\text{Scale }1:250,\\quad \\text{plan rectangle }8\\text{ cm by }5\\text{ cm}",
+        latex: "",
         answer: "20",
         hint:
           "Use the scale factor for each length, then use the real dimensions for perimeter and area.",
@@ -1811,7 +1830,7 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
             key: "a",
             label: "(a)",
             prompt: "Find the real length corresponding to the 8 cm side, in metres.",
-            latex: "\\text{Use the scale }1:250.",
+            latex: "",
             marks: 1,
             answer: "20",
             acceptedAnswers: ["20 m"],
@@ -1824,7 +1843,7 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
             key: "b",
             label: "(b)",
             prompt: "Find the real perimeter of the garden in metres.",
-            latex: "P=2(L+W)",
+            latex: "",
             marks: 2,
             answer: "65",
             acceptedAnswers: ["65 m"],
@@ -1876,7 +1895,7 @@ export function year12Standard1LinearAndDirectVariationLessonOverride(
     return {
       id,
       prompt,
-      latex,
+      latex: "",
       answer,
       acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
       hint: "Identify the gradient (rate per unit) and y-intercept (starting value) before substituting.",
@@ -1894,7 +1913,7 @@ export function year12Standard1LinearAndDirectVariationLessonOverride(
     return {
       id,
       prompt,
-      latex: "\\text{Select A, B, C, or D.}",
+      latex: "",
       choices: ["A", "B", "C", "D"].map((label, i) => ({ label, text: choices[i] })),
       answer,
       hint: "Read each option — match the gradient (multiplier) and y-intercept (constant) to the context.",
@@ -2204,7 +2223,7 @@ export function year12Standard1FinancialPlanningRepaymentLessonOverride(
     return {
       id,
       prompt,
-      latex,
+      latex: "",
       answer,
       acceptedAnswers: Array.from(new Set([answer, ...moneyVars, ...acceptedAnswers])),
       hint: "Subtract the deposit first to find the balance owing, then divide or multiply as required.",
@@ -2222,7 +2241,7 @@ export function year12Standard1FinancialPlanningRepaymentLessonOverride(
     return {
       id,
       prompt,
-      latex: "\\text{Select A, B, C, or D.}",
+      latex: "",
       choices: ["A", "B", "C", "D"].map((label, i) => ({ label, text: choices[i] })),
       answer,
       hint: "Calculate the total cost of each option (deposit + all repayments) before comparing.",
@@ -2493,7 +2512,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
     return {
       id,
       prompt,
-      latex,
+      latex: "",
       answer,
       acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
       hint,
@@ -2512,7 +2531,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
     return {
       id,
       prompt,
-      latex: "\\text{Select A, B, C, or D.}",
+      latex: "",
       choices: ["A", "B", "C", "D"].map((label, i) => ({ label, text: choices[i] })),
       answer,
       acceptedAnswers: [],
@@ -2893,7 +2912,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
     return {
       id,
       prompt,
-      latex,
+      latex: "",
       answer,
       acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
       hint,
@@ -2912,7 +2931,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
     return {
       id,
       prompt,
-      latex: "\\text{Select A, B, C, or D.}",
+      latex: "",
       choices: ["A", "B", "C", "D"].map((label, i) => ({ label, text: choices[i] })),
       answer,
       acceptedAnswers: [],
@@ -3228,7 +3247,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
     return {
       id,
       prompt,
-      latex,
+      latex: "",
       answer,
       acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
       hint,
@@ -3247,7 +3266,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
     return {
       id,
       prompt,
-      latex: "\\text{Select A, B, C, or D.}",
+      latex: "",
       choices: ["A", "B", "C", "D"].map((label, i) => ({ label, text: choices[i] })),
       answer,
       acceptedAnswers: [],
@@ -3593,7 +3612,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
       {
         id: "y12s1-trig-exam-mp-1",
         prompt: "A ramp is 20 m long and makes an angle of 25° with the horizontal ground.",
-        latex: "\\text{Ramp length: }20\\text{ m},\\quad\\text{angle: }25^\\circ",
+        latex: "",
         answer: "8.5",
         hint: "Use sin for part (a), cos for part (b), then apply the height from part (a) with the new run in part (c).",
         explanation:
@@ -3611,7 +3630,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
             key: "a",
             label: "(a)",
             prompt: "Find the vertical height gained by the ramp to 1 decimal place.",
-            latex: "h = 20 \\times \\sin 25^\\circ",
+            latex: "",
             marks: 1,
             answer: "8.5",
             acceptedAnswers: ["8.5 m"],
@@ -3622,7 +3641,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
             key: "b",
             label: "(b)",
             prompt: "Find the horizontal distance (run) along the ground to 1 decimal place.",
-            latex: "\\text{run} = 20 \\times \\cos 25^\\circ",
+            latex: "",
             marks: 2,
             answer: "18.1",
             acceptedAnswers: ["18.1 m"],
@@ -3634,7 +3653,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
             label: "(c)",
             prompt:
               "A second ramp reaches the same height as in part (a) but has a horizontal run of 12 m. Find the angle this ramp makes with the ground to the nearest degree.",
-            latex: "\\theta = \\tan^{-1}(8.5/12)",
+            latex: "",
             marks: 1,
             answer: "35",
             acceptedAnswers: ["35°", "35 degrees"],
@@ -3660,7 +3679,7 @@ function bivChoice(
   return {
     id,
     prompt,
-    latex: "\\text{Select A, B, C, or D.}",
+    latex: "",
     choices: ["A", "B", "C", "D"].map((label, index) => ({
       label,
       text: choices[index],
@@ -4020,7 +4039,7 @@ function lobfChoice(
   return {
     id,
     prompt,
-    latex: "\\text{Select A, B, C, or D.}",
+    latex: "",
     choices: ["A", "B", "C", "D"].map((label, index) => ({
       label,
       text: choices[index],
@@ -4043,7 +4062,7 @@ function lobfAnswer(
   return {
     id,
     prompt,
-    latex,
+    latex: "",
     answer,
     acceptedAnswers: [answer, ...acceptedAnswers],
     hint,
@@ -4370,7 +4389,7 @@ function bearChoice(
   return {
     id,
     prompt,
-    latex: "\\text{Select A, B, C, or D.}",
+    latex: "",
     choices: ["A", "B", "C", "D"].map((label, index) => ({
       label,
       text: choices[index],
@@ -4393,7 +4412,7 @@ function bearAnswer(
   return {
     id,
     prompt,
-    latex,
+    latex: "",
     answer,
     acceptedAnswers: [answer, ...acceptedAnswers],
     hint,
@@ -4681,7 +4700,7 @@ function freqChoice(
   return {
     id,
     prompt,
-    latex: "\\text{Select A, B, C, or D.}",
+    latex: "",
     choices: ["A", "B", "C", "D"].map((label, index) => ({
       label,
       text: choices[index],
@@ -4704,7 +4723,7 @@ function freqAnswer(
   return {
     id,
     prompt,
-    latex,
+    latex: "",
     answer,
     acceptedAnswers: [answer, ...acceptedAnswers],
     hint,
@@ -5003,7 +5022,7 @@ function algExChoice(
   return {
     id,
     prompt,
-    latex: "\\text{Select A, B, C, or D.}",
+    latex: "",
     choices: ["A", "B", "C", "D"].map((label, index) => ({
       label,
       text: choices[index],
@@ -5026,7 +5045,7 @@ function algExAnswer(
   return {
     id,
     prompt,
-    latex,
+    latex: "",
     answer,
     acceptedAnswers: [answer, ...acceptedAnswers],
     hint,
@@ -5332,7 +5351,7 @@ function linModChoice(
   return {
     id,
     prompt,
-    latex: "\\text{Select A, B, C, or D.}",
+    latex: "",
     choices: ["A", "B", "C", "D"].map((label, index) => ({
       label,
       text: choices[index],
@@ -5355,7 +5374,7 @@ function linModAnswer(
   return {
     id,
     prompt,
-    latex,
+    latex: "",
     answer,
     acceptedAnswers: [answer, ...acceptedAnswers],
     hint,
@@ -5676,7 +5695,7 @@ function quadChoice(
   return {
     id,
     prompt,
-    latex: "\\text{Select A, B, C, or D.}",
+    latex: "",
     choices: ["A", "B", "C", "D"].map((label, index) => ({
       label,
       text: choices[index],
@@ -5699,7 +5718,7 @@ function quadAnswer(
   return {
     id,
     prompt,
-    latex,
+    latex: "",
     answer,
     acceptedAnswers: [answer, ...acceptedAnswers],
     hint,
@@ -6031,7 +6050,7 @@ function simChoice(
   return {
     id,
     prompt,
-    latex: "\\text{Select A, B, C, or D.}",
+    latex: "",
     choices: ["A", "B", "C", "D"].map((label, index) => ({
       label,
       text: choices[index],
@@ -6054,7 +6073,7 @@ function simAnswer(
   return {
     id,
     prompt,
-    latex,
+    latex: "",
     answer,
     acceptedAnswers: [answer, ...acceptedAnswers],
     hint,
@@ -6383,7 +6402,7 @@ function ratChoice(
   return {
     id,
     prompt,
-    latex: "\\text{Select A, B, C, or D.}",
+    latex: "",
     choices: ["A", "B", "C", "D"].map((label, index) => ({
       label,
       text: choices[index],
@@ -6406,7 +6425,7 @@ function ratAnswer(
   return {
     id,
     prompt,
-    latex,
+    latex: "",
     answer,
     acceptedAnswers: [answer, ...acceptedAnswers],
     hint,
@@ -6711,7 +6730,7 @@ function invChoice(
   return {
     id,
     prompt,
-    latex: "\\text{Select A, B, C, or D.}",
+    latex: "",
     choices: ["A", "B", "C", "D"].map((label, index) => ({
       label,
       text: choices[index],
@@ -6734,7 +6753,7 @@ function invAnswer(
   return {
     id,
     prompt,
-    latex,
+    latex: "",
     answer,
     acceptedAnswers: [answer, ...acceptedAnswers],
     hint,
@@ -7051,7 +7070,7 @@ function deprChoice(
   return {
     id,
     prompt,
-    latex: "\\text{Select A, B, C, or D.}",
+    latex: "",
     choices: ["A", "B", "C", "D"].map((label, index) => ({
       label,
       text: choices[index],
@@ -7074,7 +7093,7 @@ function deprAnswer(
   return {
     id,
     prompt,
-    latex,
+    latex: "",
     answer,
     acceptedAnswers: [answer, ...acceptedAnswers],
     hint,
@@ -7426,7 +7445,7 @@ function ccChoice(
   return {
     id,
     prompt,
-    latex: "\\text{Select A, B, C, or D.}",
+    latex: "",
     choices: ["A", "B", "C", "D"].map((label, index) => ({
       label,
       text: choices[index],
@@ -7449,7 +7468,7 @@ function ccAnswer(
   return {
     id,
     prompt,
-    latex,
+    latex: "",
     answer,
     acceptedAnswers: [answer, ...acceptedAnswers],
     hint,

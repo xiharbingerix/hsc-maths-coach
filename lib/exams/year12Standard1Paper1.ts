@@ -24,7 +24,7 @@ export const year12Standard1Paper1: ExamPaper = {
           id: "y12s1-p1-q1",
           prompt:
             "$3000 is invested at 5% per annum compounded annually. What is the value after 2 years?",
-          latex: "A = 3000(1.05)^2",
+          latex: "",
           marks: 1,
           difficulty: 3,
           topicSlug: "investment-compound-interest",
@@ -43,7 +43,7 @@ export const year12Standard1Paper1: ExamPaper = {
           id: "y12s1-p1-q2",
           prompt:
             "In a right-angled triangle the hypotenuse is 10 cm and one angle is 30°. Find the side opposite the 30° angle.",
-          latex: "\\text{opposite} = \\text{hyp} \\times \\sin 30°",
+          latex: "",
           marks: 1,
           difficulty: 3,
           topicSlug: "right-angle-trigonometry",
@@ -62,7 +62,7 @@ export const year12Standard1Paper1: ExamPaper = {
           id: "y12s1-p1-q3",
           prompt:
             "A car uses fuel at 8 litres per 100 km. How much fuel is needed for a 250 km trip?",
-          latex: "\\text{fuel} = \\dfrac{8}{100} \\times \\text{distance}",
+          latex: "",
           marks: 1,
           difficulty: 2,
           topicSlug: "rates-practical-problems",
@@ -80,7 +80,7 @@ export const year12Standard1Paper1: ExamPaper = {
         {
           id: "y12s1-p1-q4",
           prompt: "Find the mean of the data set: 4, 6, 8, 10, 12.",
-          latex: "\\bar{x} = \\dfrac{\\sum x}{n}",
+          latex: "",
           marks: 1,
           difficulty: 2,
           topicSlug: "data-displays-summary-statistics",
@@ -99,7 +99,7 @@ export const year12Standard1Paper1: ExamPaper = {
           id: "y12s1-p1-q5",
           prompt:
             "A floor plan uses a scale of 1:200. A wall is 4 cm long on the plan. What is the real length of the wall?",
-          latex: "\\text{scale }1:200",
+          latex: "",
           marks: 1,
           difficulty: 2,
           topicSlug: "scale-drawings-and-plans",
@@ -169,7 +169,7 @@ export const year12Standard1Paper1: ExamPaper = {
           id: "y12s1-p1-q7",
           prompt:
             "A wheelchair ramp rises a vertical height of 1.5 m over a horizontal distance of 6 m.",
-          latex: "\\tan\\theta = \\dfrac{\\text{rise}}{\\text{run}}",
+          latex: "",
           marks: 3,
           difficulty: 5,
           topicSlug: "right-angle-trig-applications",
