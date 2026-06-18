@@ -2949,7 +2949,7 @@ const compoundInterestIntroduction: LessonContent = {
       answer: "5",
       hint: "Use $A = P(1 + r)^n$ for compound, and I = PRT ÷ 100 for simple.",
       explanation:
-        "Part (a): A = 2000 × \\((1.05)^2\\) = 2000 × 1.1025 = $2205. Part (b): simple I = (2000 × 5 × 2) ÷ 100 = $200, so total = $2200. Part (c): compound total − simple total = 2205 − 2200 = $5.",
+        "Part (a): A = 2000 × $(1.05)^2$ = 2000 × 1.1025 = \\(\\$2205\\). Part (b): simple I = (2000 × 5 × 2) ÷ 100 = \\(\\$200\\), so total = \\(\\$2200\\). Part (c): compound total − simple total = 2205 − 2200 = \\(\\$5\\).",
       parts: [
         {
           key: "a",
