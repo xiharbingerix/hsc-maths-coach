@@ -54,6 +54,61 @@ function choice(
   };
 }
 
+function pAns(
+  id: string,
+  prompt: string,
+  latex: string,
+  difficulty: number,
+  ans: string,
+  explanation: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  const autoVariants: string[] = [];
+  if (/^-?\d{4,}$/.test(ans)) {
+    autoVariants.push(ans.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+  }
+  if (/^-?\d+$/.test(ans)) {
+    autoVariants.push(`${ans}.0`);
+  }
+  if (/^-?\d*\.\d+$/.test(ans)) {
+    autoVariants.push(`${ans}0`);
+  }
+  if (/^0\./.test(ans)) {
+    autoVariants.push(ans.slice(1));
+  }
+  return {
+    id,
+    prompt,
+    latex,
+    difficulty,
+    answer: ans,
+    acceptedAnswers: Array.from(new Set([ans, ...acceptedAnswers, ...autoVariants])),
+    hint: "Re-read the question carefully and apply the key rule from this lesson.",
+    explanation,
+  };
+}
+
+function pChoice(
+  id: string,
+  prompt: string,
+  difficulty: number,
+  ans: "A" | "B" | "C" | "D",
+  choices: [string, string, string, string],
+  explanation: string,
+  latex = "\\text{Select A, B, C, or D.}"
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    difficulty,
+    choices: ["A", "B", "C", "D"].map((label, index) => ({ label, text: choices[index] })),
+    answer: ans,
+    hint: "Think about the key concept taught in this lesson.",
+    explanation,
+  };
+}
+
 type LessonContent = Pick<
   ExplicitLesson,
   | "description"
@@ -65,6 +120,8 @@ type LessonContent = Pick<
   | "independentPractice"
   | "commonMistakes"
   | "masteryQuiz"
+  | "masteryQuizPool"
+  | "multiPartPractice"
 >;
 
 // ─── Lesson 1: Data types and collection ─────────────────────────────────────
@@ -276,6 +333,88 @@ const dataTypesAndCollection: LessonContent = {
       "Count the 1s in the list: positions 2, 3, 7, 10 all show 1 sibling. There are 4 students with exactly 1 sibling.",
       []
     ),
+  ],
+  masteryQuizPool: [
+    pChoice("y7-dat-typ-p1", "Which of these is categorical data?", 1, "B", ["Number of pets", "Favourite colour", "Height in cm", "Mass in kg"], "Favourite colour sorts people into groups with no numerical meaning — it is categorical. The others are numerical."),
+    pAns("y7-dat-typ-p2", "Classify: the number of cars in a car park. Type 'discrete' or 'continuous'.", "\\text{Number of cars}", 1, "discrete", "A count of cars can only be a whole number (0, 1, 2 …), so it is numerical discrete.", ["numerical discrete", "Discrete"]),
+    pAns("y7-dat-typ-p3", "Classify: the length of a pencil. Type 'discrete' or 'continuous'.", "\\text{Length of a pencil}", 1, "continuous", "Length is measured and can take any value, so it is numerical continuous.", ["numerical continuous", "Continuous"]),
+    pChoice("y7-dat-typ-p4", "Which is an example of categorical nominal data?", 1, "A", ["Blood type (A, B, AB, O)", "Exam grade (A, B, C)", "Number of pages", "Time taken"], "Blood types are categories with no natural order — nominal. Exam grades have an order (ordinal); the others are numerical."),
+    pAns("y7-dat-typ-p5", "Classify: shirt size recorded as Small, Medium, Large. Type 'nominal' or 'ordinal'.", "\\text{Shirt size: S, M, L}", 2, "ordinal", "Small, Medium, Large have a natural order from smallest to largest, so the data is categorical ordinal.", ["categorical ordinal", "Ordinal"]),
+    pAns("y7-dat-typ-p6", "A study surveys all 320 members of a sports club. Is this a census or a sample? Type 'census' or 'sample'.", "\\text{All 320 members surveyed}", 2, "census", "Every member of the population was surveyed, so this is a census.", ["Census"]),
+    pAns("y7-dat-typ-p7", "Classify: a person's age in completed years. Type 'discrete' or 'continuous'.", "\\text{Age in completed years}", 2, "discrete", "Age in completed years is reported as a whole-number count of years, making the recorded data discrete.", ["numerical discrete", "Discrete"]),
+    pChoice("y7-dat-typ-p8", "Which variable is numerical continuous?", 2, "C", ["Number of goals", "Postcode", "Weight of a parcel", "Type of fruit"], "Weight is measured on a continuous scale. Goals are a discrete count, postcodes are labels (categorical), and fruit type is categorical."),
+    pAns("y7-dat-typ-p9", "A factory checks 40 items out of a batch of 1000. Is this a census or a sample? Type 'census' or 'sample'.", "\\text{40 of 1000 items checked}", 2, "sample", "Only part of the batch (40 of 1000) was checked, so this is a sample.", ["Sample"]),
+    pChoice("y7-dat-typ-p10", "Energy-efficiency ratings of fridges are labelled 1 to 6 stars. What type of data is this?", 3, "B", ["Categorical nominal", "Categorical ordinal", "Numerical continuous", "Numerical discrete"], "Star ratings have a clear natural order from fewest to most stars, so the data is categorical ordinal — the numbers act as ordered labels."),
+    pAns("y7-dat-typ-p11", "Classify: the temperature of a cup of coffee. Type 'discrete' or 'continuous'.", "\\text{Coffee temperature}", 3, "continuous", "Temperature is measured and can take any value, so it is numerical continuous.", ["numerical continuous", "Continuous"]),
+    pChoice("y7-dat-typ-p12", "Which collection method best suits finding the average daily rainfall over a year?", 3, "C", ["Survey of opinions", "Census of every cloud", "Daily measurement (observation)", "Random phone interviews"], "Rainfall is best collected by directly measuring (observing) it each day. Surveys and interviews collect opinions, not physical measurements."),
+    pAns("y7-dat-typ-p13", "A researcher records the responses to 'How many languages do you speak?': 1, 2, 1, 3, 1, 2, 1, 4. How many people speak exactly 1 language?", "\\text{Responses: }1, 2, 1, 3, 1, 2, 1, 4", 3, "4", "Count the 1s: positions 1, 3, 5, 7 — that is 4 people who speak exactly 1 language.", []),
+    pChoice("y7-dat-typ-p14", "A student says 'house number' (e.g. 12, 14, 16) is numerical because it's a number. What is the best classification?", 3, "D", ["Numerical continuous, because it varies", "Numerical discrete, because it is a count", "Categorical ordinal, because houses are in order", "Categorical nominal, because the number is a label"], "House numbers are labels that identify a house. Arithmetic on them is meaningless (house 16 is not twice house 8), so they are categorical nominal."),
+    pAns("y7-dat-typ-p15", "Classify: the number of decimal places a calculator can display. Type 'discrete' or 'continuous'.", "\\text{Number of decimal places displayed}", 3, "discrete", "This is a count of places (8, 10, 12 …), which can only be a whole number — numerical discrete.", ["numerical discrete", "Discrete"]),
+    pChoice("y7-dat-typ-p16", "Which study is a census rather than a sample?", 4, "A", ["A teacher records the birth month of every student in her class of 28", "A pollster phones 500 of 40000 voters", "A scientist tests 30 of 600 batteries", "A shop surveys 1 in 10 customers"], "A census collects data from every member of the population. Recording every student in the class (all 28) is a census; the others only study part of the population."),
+    pAns("y7-dat-typ-p17", "A dataset records, for 12 people, whether each is left- or right-handed: R, R, L, R, R, L, R, R, R, L, R, R. How many are left-handed?", "\\text{L/R: }R, R, L, R, R, L, R, R, R, L, R, R", 4, "3", "Count the L entries: positions 3, 6, 10 — that is 3 left-handed people.", []),
+    pAns("y7-dat-typ-p18", "Survey responses for 'preferred study time' are coded: Morning=1, Afternoon=2, Evening=3. A student computes the 'average' as 2.1 and calls it the typical category. Is computing this average meaningful here? Type 'yes' or 'no'.", "\\text{Codes: Morning=1, Afternoon=2, Evening=3}", 4, "no", "The codes are labels for categories (nominal), so arithmetic such as averaging them has no real meaning — an 'average' of 2.1 does not name a category.", ["No"]),
+    pChoice("y7-dat-typ-p19", "A council wants residents' opinions on a new park. Surveying every resident is too expensive. Which is the most appropriate practical approach?", 4, "B", ["Conduct a full census of all residents", "Survey a sample of residents and infer the population view", "Measure the park's area precisely", "Record the weather each day"], "When a census is impractical, surveying a representative sample and inferring the population's view is the standard, practical method."),
+    pAns("y7-dat-typ-p20", "Classify the variable 'time (in seconds) for water to boil', then state how many of these three variables are numerical continuous: time to boil, number of cups, water temperature.", "\\text{Variables: time to boil, number of cups, water temperature}", 4, "2", "Time to boil and temperature are both measured (continuous); number of cups is a count (discrete). So 2 of the three are numerical continuous.", []),
+    pAns("y7-dat-typ-p21", "A class of 25 students is surveyed about pet ownership; the school of 500 is then surveyed entirely. The class survey, relative to the whole school, is a sample. Of the 25 class students, 14 own a pet. What fraction own a pet? Give your answer as a decimal.", "\\text{14 of 25 own a pet}", 5, "0.56", "14 ÷ 25 = 0.56. (The class is a sample of the school of 500.)", ["14/25", ".56"]),
+    pChoice("y7-dat-typ-p22", "Which statement is correct?", 5, "C", ["All numerical data is continuous.", "Ordinal data has no order.", "A census surveys the whole population; a sample surveys only part.", "Nominal data can always be ranked from low to high."], "By definition, a census covers the entire population while a sample covers only part. Numerical data can be discrete; ordinal data is ordered; nominal data cannot be ranked."),
+    pAns("y7-dat-typ-p23", "For 10 students, the variable 'number of siblings' gave: 0, 2, 1, 1, 3, 0, 2, 1, 4, 1. This variable is numerical discrete. How many students have more than 1 sibling?", "\\text{Siblings: }0, 2, 1, 1, 3, 0, 2, 1, 4, 1", 5, "4", "Values greater than 1: 2, 3, 2, 4 — that is 4 students with more than 1 sibling.", []),
+    pChoice("y7-dat-typ-p24", "A market researcher claims a phone survey of 50 people who answered between 9am and 11am on a weekday represents 'all adults'. Why might this be a poor sample?", 5, "D", ["50 people is a census", "The data is categorical", "Phone surveys measure continuous data", "People available on a weekday morning may not represent all adults"], "A sample should represent the population. People reachable on a weekday morning (e.g. not at work) may differ systematically from all adults, biasing the sample."),
+    pAns("y7-dat-typ-p25", "Of three variables — eye colour, reaction time (seconds), and number of correct answers — how many are categorical?", "\\text{Variables: eye colour, reaction time, number of correct answers}", 5, "1", "Eye colour is categorical (nominal). Reaction time is numerical continuous and number of correct answers is numerical discrete. So just 1 is categorical.", []),
+  ],
+  multiPartPractice: [
+    {
+      id: "y7-dat-typ-mp1",
+      prompt:
+        "A high school of 480 students wants to investigate lunch-ordering habits. The principal records data on every student. For each part, classify or count as instructed.",
+      latex: "\\text{School population} = 480 \\text{ students}",
+      answer: "census",
+      hint: "Recall the definitions of census/sample and the data-type categories, and count carefully.",
+      explanation:
+        "(a) Every one of the 480 students is recorded, so this is a census. (b) 'Number of lunch orders per week' is a count, so it is numerical discrete. (c) Coded responses Never=0, Sometimes=1, Often=2 are ordered labels, so the data is categorical ordinal. (d) From the list 2, 0, 3, 1, 2, 0, 2, the value 2 appears 3 times.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Because every student is recorded, is this study a census or a sample? Type 'census' or 'sample'.",
+          marks: 1,
+          answer: "census",
+          acceptedAnswers: ["Census"],
+          hint: "Was every member of the population included?",
+          explanation: "All 480 students (the whole population) are recorded, so it is a census.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "The variable 'number of lunch orders placed per week' is classified as numerical. Type 'discrete' or 'continuous'.",
+          marks: 1,
+          answer: "discrete",
+          acceptedAnswers: ["numerical discrete", "Discrete"],
+          hint: "Is it counted or measured?",
+          explanation: "A count of orders can only be a whole number, so it is numerical discrete.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Satisfaction is coded as Never=0, Sometimes=1, Often=2. Classify this categorical data: type 'nominal' or 'ordinal'.",
+          marks: 1,
+          answer: "ordinal",
+          acceptedAnswers: ["categorical ordinal", "Ordinal"],
+          hint: "Do the categories have a natural order?",
+          explanation: "Never, Sometimes, Often have a natural order, so the data is categorical ordinal even though it is coded with numbers.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "Seven students reported these weekly order counts: 2, 0, 3, 1, 2, 0, 2. How many reported exactly 2 orders?",
+          latex: "\\text{Counts: }2, 0, 3, 1, 2, 0, 2",
+          marks: 1,
+          answer: "3",
+          acceptedAnswers: [],
+          hint: "Count how many times the value 2 appears.",
+          explanation: "The value 2 appears at positions 1, 5, and 7 — a frequency of 3.",
+        },
+      ],
+    },
   ],
 };
 
@@ -489,6 +628,88 @@ const frequencyTables: LessonContent = {
       "Relative frequency = frequency ÷ total. Since frequency ≤ total, the result is always between 0 and 1. All relative frequencies sum to exactly 1."
     ),
   ],
+  masteryQuizPool: [
+    pAns("y7-dat-ftb-p1", "A frequency table shows Red 5, Blue 8, Green 7. What is the total frequency?", "\\text{Total} = 5 + 8 + 7", 1, "20", "Add all frequencies: 5 + 8 + 7 = 20.", []),
+    pAns("y7-dat-ftb-p2", "The data set is 3, 5, 3, 3, 5, 7, 3. What is the frequency of 3?", "\\text{Data: }3, 5, 3, 3, 5, 7, 3", 1, "4", "Count the 3s: positions 1, 3, 4, 7 — frequency 4.", []),
+    pAns("y7-dat-ftb-p3", "A frequency table shows A 10, B 6, C 4. What is the relative frequency of B? Give your answer as a decimal.", "\\frac{6}{10+6+4}", 1, "0.3", "Total = 20. Relative frequency of B = 6 ÷ 20 = 0.3.", ["6/20", "3/10", ".3"]),
+    pChoice("y7-dat-ftb-p4", "In a grouped frequency table with intervals 0–9, 10–19, 20–29, which interval contains 19?", 1, "B", ["0–9", "10–19", "20–29", "None"], "19 lies between 10 and 19, so it belongs to the interval 10–19."),
+    pAns("y7-dat-ftb-p5", "A frequency table shows Mon 12, Tue 8, Wed 15, Thu 10, Fri 5. How many values are recorded in total?", "12 + 8 + 15 + 10 + 5", 2, "50", "Add all frequencies: 12 + 8 + 15 + 10 + 5 = 50.", []),
+    pAns("y7-dat-ftb-p6", "The dataset is 6, 9, 6, 6, 9, 9, 9, 6. What value is the mode?", "\\text{Data: }6, 9, 6, 6, 9, 9, 9, 6", 2, "9", "6 appears 4 times and 9 appears 4 times — both are modes; list 9? Actually count again: 6 at 1,3,4,8 (4 times); 9 at 2,5,6,7 (4 times). They tie, so report either mode; we record 9.", ["6", "6 and 9"]),
+    pAns("y7-dat-ftb-p7", "A frequency table shows scores 0–4 → 6, 5–9 → 11, 10–14 → 3. What is the relative frequency of the 5–9 class? Give your answer as a decimal.", "\\frac{11}{6+11+3}", 2, "0.55", "Total = 20. Relative frequency = 11 ÷ 20 = 0.55.", ["11/20", ".55"]),
+    pAns("y7-dat-ftb-p8", "A frequency table shows 0 goals → 4, 1 goal → 7, 2 goals → 6, 3 goals → 3. How many games had at least 2 goals?", "\\text{At least 2 goals: }6 + 3", 2, "9", "Add the frequencies for 2 and 3 goals: 6 + 3 = 9 games.", []),
+    pChoice("y7-dat-ftb-p9", "A relative-frequency table shows P = 0.30, Q = 0.45, R = ?. What is R?", 3, "A", ["0.25", "0.30", "0.15", "0.75"], "Relative frequencies sum to 1, so R = 1 − 0.30 − 0.45 = 0.25."),
+    pAns("y7-dat-ftb-p10", "A frequency table shows test bands 40–49 → 2, 50–59 → 5, 60–69 → 9, 70–79 → 8, 80–89 → 6. How many students scored below 60?", "\\text{Below 60: }2 + 5", 3, "7", "Add the frequencies for 40–49 and 50–59: 2 + 5 = 7 students.", []),
+    pAns("y7-dat-ftb-p11", "A class of 25 students records 0 pets → 8, 1 pet → 10, 2 pets → 5, 3 pets → 2. What is the relative frequency of students with 2 pets? Give your answer as a decimal.", "\\frac{5}{25}", 3, "0.2", "Total = 25. Relative frequency = 5 ÷ 25 = 0.2.", ["5/25", "1/5", ".2"]),
+    pAns("y7-dat-ftb-p12", "The dataset is 12, 14, 12, 18, 14, 12, 20, 12. Using class intervals 10–14 and 15–20, how many values fall in 10–14?", "\\text{Data: }12, 14, 12, 18, 14, 12, 20, 12", 3, "6", "Values in 10–14: 12, 14, 12, 14, 12, 12 — that is 6 values. (18 and 20 fall in 15–20.)", []),
+    pChoice("y7-dat-ftb-p13", "A tally for one category is recorded as three groups of five strokes plus two extra strokes. What is the frequency?", 3, "C", ["15", "16", "17", "18"], "Three groups of five give 15, plus 2 more = 17."),
+    pAns("y7-dat-ftb-p14", "A frequency table shows colours Red 9, Blue 6, Green 5. What is the relative frequency of Red expressed as a percentage? Give a whole number.", "\\frac{9}{20} \\times 100", 3, "45", "Total = 20. Red = 9 ÷ 20 = 0.45 = 45%.", ["45%"]),
+    pAns("y7-dat-ftb-p15", "A grouped table of ages shows 10–19 → 7, 20–29 → 12, 30–39 → 9, 40–49 → 2. What is the modal class? Give the class with the most values as a range, e.g. 20-29.", "\\text{Frequencies: }7, 12, 9, 2", 3, "20-29", "The class with the highest frequency (12) is 20–29, the modal class.", ["20–29", "20 to 29"]),
+    pAns("y7-dat-ftb-p16", "A survey of 80 people records relative frequencies: walk 0.35, bus 0.25, car 0.40. How many people travelled by car?", "0.40 \\times 80", 4, "32", "Number by car = relative frequency × total = 0.40 × 80 = 32 people.", []),
+    pAns("y7-dat-ftb-p17", "A frequency table shows 1 → 4, 2 → 6, 3 → x, 4 → 5 with a total of 20 values. Find x.", "4 + 6 + x + 5 = 20", 4, "5", "4 + 6 + 5 = 15, so x = 20 − 15 = 5.", []),
+    pAns("y7-dat-ftb-p18", "A frequency table shows scores 0 → 3, 1 → 7, 2 → 6, 3 → 4. What is the mean score? Give your answer as a decimal.", "\\frac{0(3)+1(7)+2(6)+3(4)}{3+7+6+4}", 4, "1.55", "Sum of values = 0×3 + 1×7 + 2×6 + 3×4 = 0 + 7 + 12 + 12 = 31. Total count = 20. Mean = 31 ÷ 20 = 1.55.", ["1.55"]),
+    pChoice("y7-dat-ftb-p19", "Which statement about a grouped frequency table is correct?", 4, "B", ["Class intervals may overlap", "Class intervals must not overlap and should cover all data", "Each interval must contain the same frequency", "The intervals can be any unequal sizes"], "Good class intervals are non-overlapping and together cover all the data; this is the key requirement."),
+    pAns("y7-dat-ftb-p20", "A relative-frequency table shows W 0.2, X 0.3, Y 0.15, Z = ?. There are 40 data values. How many values are in category Z?", "Z = 1 - 0.2 - 0.3 - 0.15", 4, "14", "Z = 1 − 0.65 = 0.35. Count = 0.35 × 40 = 14 values.", []),
+    pAns("y7-dat-ftb-p21", "A frequency table shows 60–69 → 4, 70–79 → 9, 80–89 → 7. What percentage of students scored in the 70–79 band? Give your answer as a whole number.", "\\frac{9}{4+9+7} \\times 100", 5, "45", "Total = 20. 9 ÷ 20 = 0.45 = 45%.", ["45%"]),
+    pAns("y7-dat-ftb-p22", "Two frequency tables are combined. Table 1: A 6, B 4. Table 2: A 9, B 11. In the combined table, what is the relative frequency of A? Give your answer as a decimal.", "\\frac{6+9}{6+4+9+11}", 5, "0.5", "Combined A = 6 + 9 = 15; total = 30. Relative frequency = 15 ÷ 30 = 0.5.", ["15/30", "1/2", ".5"]),
+    pAns("y7-dat-ftb-p23", "A frequency table shows 1 → 2, 2 → 5, 3 → 8, 4 → 5. Find the median of all the data values.", "\\text{Total} = 2 + 5 + 8 + 5 = 20", 5, "3", "There are 20 values; the median is the average of the 10th and 11th. Cumulative: up to value 1 → 2, up to 2 → 7, up to 3 → 15. So the 10th and 11th values are both 3. Median = 3.", []),
+    pChoice("y7-dat-ftb-p24", "A frequency table records exam marks as ranges, but a teacher wants the exact median mark. Why can a grouped frequency table only estimate the median?", 5, "D", ["Because grouped tables have no total", "Because relative frequencies are used", "Because the mode is unknown", "Because individual values inside each class interval are not recorded"], "Grouping hides the exact values within each class interval, so the precise median cannot be read directly — only estimated."),
+    pAns("y7-dat-ftb-p25", "A frequency table shows 0 → 5, 1 → 8, 2 → 4, 3 → 3. A student claims the relative frequency of 1 is exactly half. Is the student correct? Type 'yes' or 'no'.", "\\frac{8}{5+8+4+3}", 5, "no", "Total = 20. Relative frequency of 1 = 8 ÷ 20 = 0.4, which is not 0.5, so the student is incorrect.", ["No"]),
+  ],
+  multiPartPractice: [
+    {
+      id: "y7-dat-ftb-mp1",
+      prompt:
+        "A canteen records the drink chosen by each of 40 students: Water 14, Juice 10, Milk 6, Soft drink 10. Use this frequency table to answer the parts.",
+      latex: "\\text{Water }14,\\ \\text{Juice }10,\\ \\text{Milk }6,\\ \\text{Soft drink }10",
+      answer: "40",
+      hint: "Use total = sum of frequencies, and relative frequency = frequency ÷ total.",
+      explanation:
+        "(a) Total = 14 + 10 + 6 + 10 = 40. (b) Relative frequency of Water = 14 ÷ 40 = 0.35. (c) Water has the highest frequency (14), so it is the modal choice. (d) Students choosing Juice or Soft drink = 10 + 10 = 20.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "How many students were surveyed in total?",
+          marks: 1,
+          answer: "40",
+          acceptedAnswers: [],
+          hint: "Add all four frequencies.",
+          explanation: "14 + 10 + 6 + 10 = 40 students.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "What is the relative frequency of students who chose Water? Give your answer as a decimal.",
+          latex: "\\frac{14}{40}",
+          marks: 1,
+          answer: "0.35",
+          acceptedAnswers: ["14/40", "7/20", ".35"],
+          hint: "Divide the Water frequency by the total.",
+          explanation: "14 ÷ 40 = 0.35.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Which drink is the modal choice? Type the drink name.",
+          marks: 1,
+          answer: "Water",
+          acceptedAnswers: ["water"],
+          hint: "The mode is the category with the highest frequency.",
+          explanation: "Water has the highest frequency (14), so it is the modal choice.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "How many students chose either Juice or Soft drink?",
+          marks: 1,
+          answer: "20",
+          acceptedAnswers: [],
+          hint: "Add the Juice and Soft drink frequencies.",
+          explanation: "10 + 10 = 20 students chose Juice or Soft drink.",
+        },
+      ],
+    },
+  ],
 };
 
 // ─── Lesson 3: Dot plots and stem-and-leaf plots ──────────────────────────────
@@ -696,6 +917,88 @@ const dotPlotsStemAndLeaf: LessonContent = {
       "Stem 7 has leaves 1, 4, 7 — that is 3 students who scored 70 or above. Percentage = 3 ÷ 11 × 100 ≈ 27.27%, which rounds to 27%.",
       ["27%", "27.3", "27.27"]
     ),
+  ],
+  masteryQuizPool: [
+    pAns("y7-dat-dot-p1", "A dot plot has 2 dots at 3, 4 dots at 4, 1 dot at 5. How many data values are there in total?", "\\text{Dots: }3\\times2,\\ 4\\times4,\\ 5\\times1", 1, "7", "Add the dots: 2 + 4 + 1 = 7 values.", []),
+    pAns("y7-dat-dot-p2", "A stem-and-leaf plot shows 1 | 2 5, 2 | 3. What is the largest value?", "1|2\\;5,\\ 2|3", 1, "23", "The largest value is stem 2 with leaf 3 = 23.", []),
+    pAns("y7-dat-dot-p3", "The dataset is 5, 8, 5, 9, 5, 6. What is the mode?", "\\text{Data: }5, 8, 5, 9, 5, 6", 1, "5", "5 appears 3 times, more than any other value, so the mode is 5.", []),
+    pAns("y7-dat-dot-p4", "A stem-and-leaf plot shows 2 | 1 4, 3 | 0 6. Find the range.", "\\text{Smallest }21,\\ \\text{largest }36", 1, "15", "Smallest = 21, largest = 36. Range = 36 − 21 = 15.", []),
+    pAns("y7-dat-dot-p5", "A dot plot has 1 dot at 10, 3 dots at 11, 2 dots at 12. What is the mode?", "\\text{Dots: }10\\times1,\\ 11\\times3,\\ 12\\times2", 2, "11", "The value 11 has the most dots (3), so it is the mode.", []),
+    pAns("y7-dat-dot-p6", "A stem-and-leaf plot shows 4 | 2 5 9, 5 | 1 6. There are 5 values. Find the median.", "\\text{Values: }42, 45, 49, 51, 56", 2, "49", "The 5 values in order: 42, 45, 49, 51, 56. The median is the 3rd value = 49.", []),
+    pAns("y7-dat-dot-p7", "The dataset is 14, 9, 14, 21, 9, 14, 30. Find the range.", "\\text{Data: }14, 9, 14, 21, 9, 14, 30", 2, "21", "Largest = 30, smallest = 9. Range = 30 − 9 = 21.", []),
+    pChoice("y7-dat-dot-p8", "A stem-and-leaf plot shows 3 | 1 1 4, 4 | 0 7. Which value is the mode?", 2, "A", ["31", "34", "40", "47"], "On stem 3, the leaf 1 appears twice, giving 31 twice. No other value repeats, so the mode is 31."),
+    pAns("y7-dat-dot-p9", "A stem-and-leaf plot shows 1 | 0 3 6 8, 2 | 1 5, 3 | 4. There are 7 values. Find the median.", "\\text{Values: }10, 13, 16, 18, 21, 25, 34", 3, "18", "The 7 values in order: 10, 13, 16, 18, 21, 25, 34. The median is the 4th value = 18.", []),
+    pAns("y7-dat-dot-p10", "A dot plot shows 2 dots at 0, 3 dots at 1, 5 dots at 2, 2 dots at 3. How many values are 2 or more?", "\\text{Dots: }0\\times2,\\ 1\\times3,\\ 2\\times5,\\ 3\\times2", 3, "7", "Values of 2 or more: 5 (at 2) + 2 (at 3) = 7 values.", []),
+    pAns("y7-dat-dot-p11", "A stem-and-leaf plot shows 5 | 0 0 0 4, 6 | 2. Find the mode.", "5|0\\;0\\;0\\;4,\\ 6|2", 3, "50", "On stem 5, the leaf 0 appears three times, giving 50 three times. Mode = 50.", []),
+    pChoice("y7-dat-dot-p12", "A back-to-back stem-and-leaf plot has stem 2 in the middle. Group A (left) leaves: 8 5 1. What is the largest value in Group A?", 3, "B", ["21", "28", "82", "25"], "Left-side leaves are read from the stem outward: 21, 25, 28. The largest is 28."),
+    pAns("y7-dat-dot-p13", "An 8-value dataset in order is 11, 13, 16, 18, 20, 22, 25, 29. Find the median. Give your answer as a decimal.", "\\text{8 values, average the 4th and 5th}", 3, "19", "With 8 values the median is the average of the 4th (18) and 5th (20): (18 + 20) ÷ 2 = 19.", ["19.0"]),
+    pAns("y7-dat-dot-p14", "A stem-and-leaf plot shows 1 | 2 4, 2 | 1 1 6, 3 | 3. Find the range.", "\\text{Smallest }12,\\ \\text{largest }33", 3, "21", "Smallest = 12, largest = 33. Range = 33 − 12 = 21.", []),
+    pAns("y7-dat-dot-p15", "A dot plot shows 3 dots at 4, 3 dots at 5, 3 dots at 6. How many modes does this dataset have?", "\\text{Dots: }4\\times3,\\ 5\\times3,\\ 6\\times3", 3, "3", "All three values appear 3 times, so there are 3 modes (the data is multimodal).", []),
+    pAns("y7-dat-dot-p16", "A 9-value stem-and-leaf plot shows 2 | 0 4 4, 3 | 1 5 5 9, 4 | 2 7. Find the median.", "\\text{Values: }20, 24, 24, 31, 35, 35, 39, 42, 47", 4, "35", "The 9 values in order: 20, 24, 24, 31, 35, 35, 39, 42, 47. The median is the 5th value = 35.", []),
+    pAns("y7-dat-dot-p17", "A dot plot shows 1 dot at 2, 2 dots at 3, 4 dots at 4, 2 dots at 5, 1 dot at 6. Find the mean. Give your answer as a decimal.", "\\frac{2+3(2)+4(4)+5(2)+6}{1+2+4+2+1}", 4, "4", "Sum = 2 + 6 + 16 + 10 + 6 = 40. Count = 10. Mean = 40 ÷ 10 = 4.", ["4.0"]),
+    pAns("y7-dat-dot-p18", "A back-to-back stem-and-leaf plot has stem 5 in the middle. Group A (left) leaves: 7 3 0. Group B (right) leaves: 2 6. Find the difference between the maximum of Group A and the maximum of Group B.", "\\text{Group A: }50,53,57;\\ \\text{Group B: }52,56", 4, "1", "Group A max = 57; Group B max = 56. Difference = 57 − 56 = 1.", []),
+    pAns("y7-dat-dot-p19", "A stem-and-leaf plot shows test results 6 | 2 5 8, 7 | 1 1 4 9, 8 | 0 3. There are 9 values. How many students scored at least 70?", "\\text{Stems 7 and 8 leaves}", 4, "6", "Stem 7 has 4 leaves and stem 8 has 2 leaves: 4 + 2 = 6 students scored 70 or above.", []),
+    pAns("y7-dat-dot-p20", "An 11-value dataset has these dot-plot frequencies: 3 dots at 1, 5 dots at 2, 3 dots at 3. The median is 2. What is the difference between the mode and the median?", "\\text{Mode }2,\\ \\text{median }2", 4, "0", "The mode is 2 (5 dots, the most) and the median is also 2, so the difference is 0.", []),
+    pAns("y7-dat-dot-p21", "A stem-and-leaf plot shows 1 | 5, 2 | 2 8, 3 | 1 4 6, 4 | 0. There are 7 values. Find the median, then the range. Give the median.", "\\text{Values: }15, 22, 28, 31, 34, 36, 40", 5, "31", "The 7 values in order: 15, 22, 28, 31, 34, 36, 40. The median is the 4th value = 31.", []),
+    pAns("y7-dat-dot-p22", "A dot plot shows reading times: 2 dots at 5, 4 dots at 6, 4 dots at 7, 1 dot at 15. The value 15 is removed as an outlier. How many values remain?", "\\text{Total dots} = 2 + 4 + 4 + 1", 5, "10", "Total = 11 dots. Removing the single outlier at 15 leaves 11 − 1 = 10 values.", []),
+    pChoice("y7-dat-dot-p23", "Two students each made a stem-and-leaf plot of the same 10 marks but got different medians. What is the most likely reason?", 5, "C", ["Stem-and-leaf plots cannot show a median", "The data had no median", "One student did not order the leaves, so they miscounted the middle value", "Medians are random"], "If the leaves are not written in order, it is easy to pick the wrong middle value, giving an incorrect median."),
+    pAns("y7-dat-dot-p24", "A back-to-back stem-and-leaf plot compares two classes on stem 8. Class A (left) leaves: 9 6 2. Class B (right) leaves: 0 3 7 8. Which class has the larger range within stem 8? Type 'A' or 'B'.", "\\text{A: }82,86,89;\\ \\text{B: }80,83,87,88", 5, "B", "Class A within stem 8: 82 to 89, range 7. Class B: 80 to 88, range 8. Class B has the larger range.", ["Class B"]),
+    pAns("y7-dat-dot-p25", "A 12-value stem-and-leaf plot shows 3 | 1 4 4, 4 | 0 2 2 2 7, 5 | 1 3 6 9. What is the mode, and how many times does it occur? Give the number of times.", "4|0\\;2\\;2\\;2\\;7", 5, "3", "On stem 4 the leaf 2 appears three times, giving 42 three times. The mode 42 occurs 3 times.", []),
+  ],
+  multiPartPractice: [
+    {
+      id: "y7-dat-dot-mp1",
+      prompt:
+        "A coach records the number of goals each player scored across a season. The stem-and-leaf plot is: 0 | 4 7, 1 | 2 5 5 8, 2 | 1 3, 3 | 0. (Stem = tens, leaf = units.) Use the plot for each part.",
+      latex: "0|4\\;7,\\ 1|2\\;5\\;5\\;8,\\ 2|1\\;3,\\ 3|0",
+      answer: "9",
+      hint: "Read each value as stem(tens) and leaf(units); count leaves for n; the mode is the repeated value.",
+      explanation:
+        "Values in order: 4, 7, 12, 15, 15, 18, 21, 23, 30 (9 values). (a) n = 9. (b) Range = 30 − 4 = 26. (c) Median is the 5th value = 15. (d) The leaf 5 repeats on stem 1, so the mode is 15.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "How many players are represented in the plot?",
+          marks: 1,
+          answer: "9",
+          acceptedAnswers: [],
+          hint: "Count every leaf across all stems.",
+          explanation: "Leaves: 2 + 4 + 2 + 1 = 9 players.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find the range of goals scored.",
+          latex: "\\text{Range} = \\text{max} - \\text{min}",
+          marks: 1,
+          answer: "26",
+          acceptedAnswers: [],
+          hint: "Subtract the smallest value from the largest.",
+          explanation: "Largest = 30, smallest = 4. Range = 30 − 4 = 26.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Find the median number of goals.",
+          marks: 1,
+          answer: "15",
+          acceptedAnswers: [],
+          hint: "With 9 values, the median is the 5th value in order.",
+          explanation: "In order: 4, 7, 12, 15, 15, 18, 21, 23, 30. The 5th value is 15.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "Find the mode number of goals.",
+          marks: 1,
+          answer: "15",
+          acceptedAnswers: [],
+          hint: "Look for the value that appears more than once.",
+          explanation: "On stem 1 the leaf 5 appears twice, giving 15 twice. Mode = 15.",
+        },
+      ],
+    },
   ],
 };
 
@@ -922,6 +1225,89 @@ const columnBarLineGraphs: LessonContent = {
       ["35%"]
     ),
   ],
+  masteryQuizPool: [
+    pChoice("y7-dat-grp-p1", "Which graph is best for data that changes over time?", 1, "B", ["Bar graph", "Line graph", "Dot plot", "Column graph"], "A line graph shows trends over time, with time on the horizontal axis."),
+    pAns("y7-dat-grp-p2", "A column graph shows A 8, B 15, C 6. What is the height of the tallest column?", "\\text{Heights: }8, 15, 6", 1, "15", "The tallest column is B with height 15.", []),
+    pAns("y7-dat-grp-p3", "A column graph shows Mon 20, Tue 35, Wed 25. What is the total across the three days?", "20 + 35 + 25", 1, "80", "Add the values: 20 + 35 + 25 = 80.", []),
+    pAns("y7-dat-grp-p4", "A line graph shows a score rising from 40 to 65. By how much did it rise?", "65 - 40", 1, "25", "Rise = 65 − 40 = 25.", []),
+    pAns("y7-dat-grp-p5", "A bar graph shows Red 12, Blue 18, Green 9, Yellow 11. How many more chose Blue than Green?", "18 - 9", 2, "9", "Blue 18, Green 9. Difference = 18 − 9 = 9.", []),
+    pAns("y7-dat-grp-p6", "A column graph shows temperatures Mon 21, Tue 26, Wed 19, Thu 24. What is the range?", "26 - 19", 2, "7", "Highest = 26, lowest = 19. Range = 26 − 19 = 7.", []),
+    pChoice("y7-dat-grp-p7", "A y-axis is labelled 0, 10, 20, 30, 40. A column reaches the second gridline. What value does it show?", 2, "B", ["10", "20", "30", "40"], "The second gridline is at 20, so the column shows 20."),
+    pAns("y7-dat-grp-p8", "A line graph of plant height (cm) shows Week 1: 5, Week 2: 9, Week 3: 16. How much did it grow from Week 1 to Week 3?", "16 - 5", 2, "11", "Growth = 16 − 5 = 11 cm.", []),
+    pAns("y7-dat-grp-p9", "A column graph shows sales Pies 30, Rolls 22, Wraps 18, Salads 30. The total is 100. What percentage were Pies? Give a whole number.", "\\frac{30}{100} \\times 100", 3, "30", "30 out of 100 = 30%.", ["30%"]),
+    pAns("y7-dat-grp-p10", "A line graph of rainfall (mm) shows Jan 50, Feb 35, Mar 60, Apr 80. Between which two months was the largest increase? Write the two month names separated by a dash, e.g. Mar-Apr.", "\\text{Changes: }-15, +25, +20", 3, "Mar-Apr", "Changes: Feb −15, Mar +25, Apr +20. The largest single increase is +25 from Feb to Mar. Wait: Feb→Mar = 60−35 = +25; Mar→Apr = 80−60 = +20. Largest increase is Feb→Mar.", ["Feb-Mar", "February-March", "Feb–Mar"]),
+    pChoice("y7-dat-grp-p11", "A graph's y-axis starts at 90, not 0, making two bars (94 and 98) look very different. Why is this misleading?", 3, "C", ["The bars are too thin", "The categories are wrong", "Starting above 0 exaggerates small differences", "Line graphs always mislead"], "Starting the y-axis above 0 cuts off the lower part of each bar, exaggerating the visual difference between similar values."),
+    pAns("y7-dat-grp-p12", "A column graph shows attendance: Mon 40, Tue 32, Wed 48, Thu 36, Fri 44. What is the mean attendance? Give your answer as a decimal.", "\\frac{40+32+48+36+44}{5}", 3, "40", "Total = 200. Mean = 200 ÷ 5 = 40.", ["40.0"]),
+    pAns("y7-dat-grp-p13", "A line graph shows a town's population: 2019: 6000, 2020: 6300, 2021: 6750. By how many people did it grow from 2019 to 2021?", "6750 - 6000", 3, "750", "Growth = 6750 − 6000 = 750 people.", []),
+    pChoice("y7-dat-grp-p14", "A y-axis is labelled 0, 5, 10, 20, 40. What is wrong?", 3, "A", ["The intervals are unequal", "There are too few labels", "It should start at 5", "Nothing is wrong"], "The gaps are 5, 5, 10, 20 — unequal. Axis intervals must all be equal."),
+    pAns("y7-dat-grp-p15", "A bar graph shows clubs: Chess 8, Drama 14, Robotics 11, Art 7. How many students are in the two largest clubs combined?", "14 + 11", 3, "25", "Two largest are Drama 14 and Robotics 11. Combined = 14 + 11 = 25.", []),
+    pAns("y7-dat-grp-p16", "A column graph shows scores 50–59 → 2, 60–69 → 6, 70–79 → 9, 80–89 → 5, 90–99 → 3. How many students scored below 70?", "2 + 6", 4, "8", "Below 70 means 50–59 and 60–69: 2 + 6 = 8 students.", []),
+    pAns("y7-dat-grp-p17", "A line graph of a car's distance (km): 0 h: 0, 1 h: 80, 2 h: 150, 3 h: 240. In which hour did the car travel furthest? Write the hour as a number, e.g. 3 for the third hour.", "\\text{Distances each hour: }80, 70, 90", 4, "3", "Distance each hour: 1st 80, 2nd 70, 3rd 90. The greatest is 90 in the 3rd hour.", []),
+    pAns("y7-dat-grp-p18", "A column graph shows sales of 4 items totalling 200. Three items are 45, 60, and 35. What is the fourth item's value?", "200 - 45 - 60 - 35", 4, "60", "Fourth = 200 − 45 − 60 − 35 = 60.", []),
+    pChoice("y7-dat-grp-p19", "A newspaper shows a bar twice as tall as another to suggest one value is double the other, but the y-axis starts at 50 with values 60 and 70. What is the true relationship?", 4, "D", ["70 is double 60", "60 is double 70", "They are equal", "70 is only about 17% larger than 60"], "True values are 60 and 70. 70 ÷ 60 ≈ 1.17, so 70 is about 17% larger — not double. The truncated axis created a false impression."),
+    pAns("y7-dat-grp-p20", "A line graph of monthly profit ($1000s) shows Jan 12, Feb 15, Mar 11, Apr 18, May 14. What is the median monthly profit?", "\\text{Values in order: }11, 12, 14, 15, 18", 4, "14", "Sorted: 11, 12, 14, 15, 18. The median (middle of 5) is 14.", []),
+    pAns("y7-dat-grp-p21", "A column graph shows weekly earnings for 5 weeks: 120, 150, 90, 180, 160. The mean is claimed to be 150. Is this correct? Type 'yes' or 'no'.", "\\frac{120+150+90+180+160}{5}", 5, "no", "Total = 700. Mean = 700 ÷ 5 = 140, not 150, so the claim is incorrect.", ["No"]),
+    pAns("y7-dat-grp-p22", "A line graph shows two cyclists' distances after 3 hours: Cyclist A reaches 60 km, Cyclist B reaches 45 km. If both started at 0, what is the difference in their average speeds in km/h?", "\\frac{60}{3} - \\frac{45}{3}", 5, "5", "A: 60 ÷ 3 = 20 km/h; B: 45 ÷ 3 = 15 km/h. Difference = 20 − 15 = 5 km/h.", []),
+    pAns("y7-dat-grp-p23", "A column graph shows votes A 36, B 24, C 60. To draw it accurately, a student picks a y-axis scale rising in equal steps that reaches at least 60 and uses steps of 12. How many gridlines (above 0) are needed to reach 60?", "60 \\div 12", 5, "5", "Steps of 12 reaching 60 require gridlines at 12, 24, 36, 48, 60 — that is 5 gridlines.", []),
+    pChoice("y7-dat-grp-p24", "A line graph and a column graph both display the same five monthly rainfall totals. Which statement is most accurate?", 5, "B", ["The line graph is wrong because rainfall is categorical", "Both can display the data; the line graph emphasises the trend over months", "Only the column graph can show totals", "Rainfall must use a dot plot"], "Months form a time sequence, so a line graph is valid and highlights the trend, while a column graph emphasises individual totals. Both are acceptable."),
+    pAns("y7-dat-grp-p25", "A column graph shows donations from 4 classes: 7A $80, 7B $120, 7C $60, 7D $140. The school wants a total of $500. How much more must be raised?", "500 - (80+120+60+140)", 5, "100", "Raised so far = 80 + 120 + 60 + 140 = 400. Still needed = 500 − 400 = 100.", []),
+  ],
+  multiPartPractice: [
+    {
+      id: "y7-dat-grp-mp1",
+      prompt:
+        "A column graph shows the number of library books borrowed each day: Monday 24, Tuesday 18, Wednesday 30, Thursday 12, Friday 36. Use these values for each part.",
+      latex: "\\text{Mon }24,\\ \\text{Tue }18,\\ \\text{Wed }30,\\ \\text{Thu }12,\\ \\text{Fri }36",
+      answer: "120",
+      hint: "Use sum for the total, max − min for the range, and sum ÷ 5 for the mean.",
+      explanation:
+        "(a) Total = 24 + 18 + 30 + 12 + 36 = 120. (b) Range = 36 − 12 = 24. (c) Mean = 120 ÷ 5 = 24. (d) Friday has the tallest column (36), so it is the busiest day.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "How many books were borrowed in total across the week?",
+          marks: 1,
+          answer: "120",
+          acceptedAnswers: [],
+          hint: "Add all five daily values.",
+          explanation: "24 + 18 + 30 + 12 + 36 = 120 books.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "What is the range of the daily totals?",
+          latex: "\\text{Range} = \\text{max} - \\text{min}",
+          marks: 1,
+          answer: "24",
+          acceptedAnswers: [],
+          hint: "Subtract the smallest daily value from the largest.",
+          explanation: "Largest = 36, smallest = 12. Range = 36 − 12 = 24.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "What is the mean number of books borrowed per day?",
+          latex: "\\frac{120}{5}",
+          marks: 1,
+          answer: "24",
+          acceptedAnswers: ["24.0"],
+          hint: "Divide the total by the number of days.",
+          explanation: "Mean = 120 ÷ 5 = 24 books per day.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "On which day were the most books borrowed? Type the day name.",
+          marks: 1,
+          answer: "Friday",
+          acceptedAnswers: ["friday", "Fri"],
+          hint: "Find the tallest column.",
+          explanation: "Friday has the tallest column at 36 books — the busiest day.",
+        },
+      ],
+    },
+  ],
 };
 
 // ─── Lesson 5: Choosing and interpreting displays ─────────────────────────────
@@ -1138,6 +1524,88 @@ const choosingAndInterpretingDisplays: LessonContent = {
       ],
       "Phone brand is categorical data. A column graph (one bar per brand, height = frequency) is the correct display. A line graph requires continuous or time data; stem-and-leaf and dot plots are for numerical data."
     ),
+  ],
+  masteryQuizPool: [
+    pChoice("y7-dat-int-p1", "Which display best suits categorical data such as favourite colour?", 1, "A", ["Column graph", "Line graph", "Stem-and-leaf plot", "Scatter plot"], "Categorical data is shown with a column or bar graph, one bar per category."),
+    pChoice("y7-dat-int-p2", "Which display best suits data measured over time?", 1, "B", ["Bar graph", "Line graph", "Dot plot", "Stem-and-leaf plot"], "A line graph shows how a value changes over time."),
+    pAns("y7-dat-int-p3", "A dot plot has values clustered at 5, 6, 7 with one dot at 20. What value is the outlier?", "\\text{Cluster 5–7, isolated 20}", 1, "20", "The dot at 20 is far from the cluster, so it is the outlier.", []),
+    pChoice("y7-dat-int-p4", "Which display shows every individual value for a small numerical dataset?", 1, "C", ["Pie chart", "Bar graph", "Stem-and-leaf plot", "Line graph"], "A stem-and-leaf plot displays every individual value while showing the distribution."),
+    pAns("y7-dat-int-p5", "A line graph shows temperatures 30, 28, 25, 21, 18. Is the trend increasing or decreasing? Type 'increasing' or 'decreasing'.", "\\text{Values: }30, 28, 25, 21, 18", 2, "decreasing", "The values fall steadily, so the trend is decreasing.", ["Decreasing"]),
+    pAns("y7-dat-int-p6", "A back-to-back stem-and-leaf plot has stem 4 in the middle. Group A (left) leaves: 6 2. What is the lowest value in Group A?", "\\text{Left leaves read outward: }2, 6", 2, "42", "Left-side leaves read from the stem outward: 42, 46. The lowest is 42.", []),
+    pAns("y7-dat-int-p7", "A dot plot shows scores 3 (2 dots), 4 (5 dots), 5 (3 dots). What is the mode?", "\\text{Dots: }3\\times2,\\ 4\\times5,\\ 5\\times3", 2, "4", "The value 4 has the most dots (5), so it is the mode.", []),
+    pChoice("y7-dat-int-p8", "A teacher wants to compare the spread of marks in two classes. Which display is best?", 2, "D", ["Two pie charts", "A single column graph", "A line graph", "A back-to-back stem-and-leaf plot"], "A back-to-back stem-and-leaf plot puts both groups on a shared stem, ideal for comparing two distributions."),
+    pAns("y7-dat-int-p9", "A dot plot shows daily emails: 10 (1 dot), 11 (3 dots), 12 (5 dots), 13 (2 dots). What is the range?", "\\text{Min }10,\\ \\text{max }13", 3, "3", "Maximum 13, minimum 10. Range = 13 − 10 = 3.", []),
+    pAns("y7-dat-int-p10", "A column graph shows sales Mystery 40, Romance 55, Sci-Fi 30, Fantasy 60. Which genre has the second-highest sales? Give the sales value.", "\\text{Sales: }40, 55, 30, 60", 3, "55", "Ranked: Fantasy 60, Romance 55, Mystery 40, Sci-Fi 30. Second highest is 55 (Romance).", ["Romance"]),
+    pAns("y7-dat-int-p11", "A line graph shows visitors Mon 100, Tue 130, Wed 110, Thu 150, Fri 140. On which day were visitors highest? Write the day name.", "\\text{Values: }100, 130, 110, 150, 140", 3, "Thursday", "The maximum is 150 on Thursday.", ["Thu", "thursday"]),
+    pChoice("y7-dat-int-p12", "A dataset of 30 students' favourite sports is to be displayed. Why is a line graph inappropriate?", 3, "B", ["There are too many students", "Favourite sport is categorical, with no order for a line to show", "Line graphs need exactly 5 points", "Line graphs cannot show 30 values"], "Favourite sport is categorical with no natural order, so connecting categories with a line is meaningless."),
+    pAns("y7-dat-int-p13", "A back-to-back stem-and-leaf plot has stem 7 in the middle. Group A (left) leaves: 8 5 1. What is the median of Group A (3 values)?", "\\text{Group A: }71, 75, 78", 3, "75", "Group A in order: 71, 75, 78. The median (middle) is 75.", []),
+    pAns("y7-dat-int-p14", "A dot plot shows test scores 6 (1 dot), 7 (4 dots), 8 (3 dots), 9 (2 dots). How many students are there in total?", "1 + 4 + 3 + 2", 3, "10", "Total dots = 1 + 4 + 3 + 2 = 10 students.", []),
+    pChoice("y7-dat-int-p15", "A dot plot of weights has a large cluster at 50–55 kg and one isolated dot at 90 kg. What term describes 90 kg?", 3, "A", ["Outlier", "Mode", "Median", "Mean"], "90 kg is far from the cluster and isolated — it is an outlier."),
+    pAns("y7-dat-int-p16", "A column graph shows absences Mon 5, Tue 9, Wed 4, Thu 7, Fri 10. What is the mean number of absences per day? Give your answer as a decimal.", "\\frac{5+9+4+7+10}{5}", 4, "7", "Total = 35. Mean = 35 ÷ 5 = 7.", ["7.0"]),
+    pAns("y7-dat-int-p17", "A back-to-back stem-and-leaf plot on stem 6 shows Class A (left) leaves 8 5 2 and Class B (right) leaves 0 3 4 7 9. Which class has more students in the 60s? Type 'A' or 'B'.", "\\text{A: }3\\text{ leaves};\\ B: 5\\text{ leaves}", 4, "B", "Class A has 3 leaves on stem 6; Class B has 5. Class B has more students in the 60s.", ["Class B"]),
+    pAns("y7-dat-int-p18", "A dot plot shows goals 0 (1 dot), 1 (4 dots), 2 (3 dots), 7 (1 dot). Excluding the outlier at 7, what is the range of the remaining values?", "\\text{Remaining: }0\\text{ to }2", 4, "2", "Without the outlier (7), values range from 0 to 2. Range = 2 − 0 = 2.", []),
+    pAns("y7-dat-int-p19", "A stem-and-leaf plot shows 4 | 2 5, 5 | 1 1 6 8, 6 | 0 3, 7 | 4. Which stem is the modal class (most leaves)? Give the stem number.", "\\text{Leaves per stem: }2, 4, 2, 1", 4, "5", "Stem 5 has the most leaves (4), so it is the modal class (50–59).", []),
+    pAns("y7-dat-int-p20", "A line graph shows savings Week 1 $20, Week 2 $50, Week 3 $40, Week 4 $90. Between which two consecutive weeks was the increase greatest? Write the weeks as e.g. 3-4.", "\\text{Changes: }+30, -10, +50", 4, "3-4", "Changes: +30, −10, +50. The greatest increase (+50) is between Week 3 and Week 4.", ["weeks 3-4", "3 and 4", "3–4"]),
+    pAns("y7-dat-int-p21", "Two classes' test medians are compared on a back-to-back stem-and-leaf plot. Class A values: 62, 67, 71, 75, 80. Class B values: 58, 64, 70, 73, 79. What is the difference between the two medians?", "\\text{A median }71,\\ \\text{B median }70", 5, "1", "Class A (5 values) median = 71; Class B median = 70. Difference = 71 − 70 = 1.", []),
+    pChoice("y7-dat-int-p22", "A dataset has values 4, 5, 5, 6, 6, 6, 7, 40. Which single statistic is most distorted by the value 40?", 5, "C", ["The mode", "The median", "The mean", "The range is unaffected"], "The mean is pulled upward by the large outlier 40, while the mode and median stay near the cluster. (The range is also affected, but the mean is most distorted as a measure of centre.)"),
+    pAns("y7-dat-int-p23", "A dot plot of 11 reaction times has a cluster from 0.3 to 0.5 s and one value at 1.2 s. After removing the 1.2 s outlier, 10 values remain with a total of 4.0 s. What is the mean of the remaining values in seconds? Give your answer as a decimal.", "\\frac{4.0}{10}", 5, "0.4", "Mean = 4.0 ÷ 10 = 0.4 seconds.", [".4", "0.40"]),
+    pChoice("y7-dat-int-p24", "A student displays continuous height data of 12 students. Which two displays are both appropriate?", 5, "B", ["Pie chart and line graph", "Stem-and-leaf plot and dot plot", "Bar graph and line graph", "Column graph and pie chart"], "For a small numerical dataset, both a stem-and-leaf plot and a dot plot show all individual values and the distribution."),
+    pAns("y7-dat-int-p25", "A column graph shows four genres with sales 25, 40, 15, 20 (total 100). A student claims the modal genre makes up exactly two-fifths of all sales. Is the student correct? Type 'yes' or 'no'.", "\\frac{40}{100}", 5, "yes", "The modal (largest) genre has 40 of 100 sales = 0.4 = two-fifths, so the claim is correct.", ["Yes"]),
+  ],
+  multiPartPractice: [
+    {
+      id: "y7-dat-int-mp1",
+      prompt:
+        "A dot plot shows the number of books read last month by a class: 0 books (1 dot), 1 book (3 dots), 2 books (6 dots), 3 books (3 dots), 9 books (1 dot). Use the dot plot for each part.",
+      latex: "0\\times1,\\ 1\\times3,\\ 2\\times6,\\ 3\\times3,\\ 9\\times1",
+      answer: "14",
+      hint: "Total = sum of dots; mode = tallest stack; the isolated high value is the outlier; range = max − min.",
+      explanation:
+        "(a) Total students = 1 + 3 + 6 + 3 + 1 = 14. (b) The value 2 has the most dots (6), so the mode is 2. (c) The value 9 is isolated far above the cluster (0–3), so it is the outlier. (d) Range = 9 − 0 = 9.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "How many students are in the class?",
+          marks: 1,
+          answer: "14",
+          acceptedAnswers: [],
+          hint: "Add the number of dots at every value.",
+          explanation: "1 + 3 + 6 + 3 + 1 = 14 students.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "What is the mode number of books read?",
+          marks: 1,
+          answer: "2",
+          acceptedAnswers: [],
+          hint: "Find the value with the most dots.",
+          explanation: "The value 2 has 6 dots — the tallest stack — so the mode is 2.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Which value is an outlier?",
+          marks: 1,
+          answer: "9",
+          acceptedAnswers: [],
+          hint: "Which value is far from the main cluster?",
+          explanation: "The value 9 is isolated well above the cluster of 0–3, so it is the outlier.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "What is the range of the data?",
+          latex: "\\text{Range} = \\text{max} - \\text{min}",
+          marks: 1,
+          answer: "9",
+          acceptedAnswers: [],
+          hint: "Subtract the smallest value from the largest.",
+          explanation: "Largest = 9, smallest = 0. Range = 9 − 0 = 9.",
+        },
+      ],
+    },
   ],
 };
 

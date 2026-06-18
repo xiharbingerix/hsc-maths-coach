@@ -65,7 +65,14 @@ type LessonContent = Pick<
   | "independentPractice"
   | "commonMistakes"
   | "masteryQuiz"
+  | "masteryQuizPool"
+  | "multiPartPractice"
 >;
+
+// Attach a difficulty tag (1–5) to a PracticeQuestion built by answer()/choice().
+function diff(q: PracticeQuestion, d: number): PracticeQuestion {
+  return { ...q, difficulty: d };
+}
 
 // ─── Lesson 1: Factors, Multiples, HCF and LCM ──────────────────────────────
 
@@ -1107,6 +1114,362 @@ const zeroIndexAndMixedIndices: LessonContent = {
     ),
   ],
 };
+
+// ─── Depth-parity additions: mastery pools and multi-part practice ──────────
+
+factorsMultiplesHcfLcm.masteryQuizPool = [
+  diff(choice("y7-ind-fac-p1", "Which number is a factor of 24?", "C", ["5", "7", "8", "9"], "8 divides 24 exactly (24 ÷ 8 = 3). None of 5, 7, or 9 divide 24 exactly."), 1),
+  diff(answer("y7-ind-fac-p2", "How many factors does 16 have?", "\\text{Factors of }16: 1,2,4,8,16", "5", "The factors of 16 are 1, 2, 4, 8, and 16 — that is 5 factors."), 1),
+  diff(answer("y7-ind-fac-p3", "Write the third multiple of 7.", "7\\times3", "21", "The multiples of 7 are 7, 14, 21, … The third is 7 × 3 = 21."), 1),
+  diff(choice("y7-ind-fac-p4", "Which list shows the first four multiples of 6?", "B", ["1, 2, 3, 6", "6, 12, 18, 24", "6, 7, 8, 9", "1, 6, 12, 36"], "Multiples of 6 are 6 × 1, 6 × 2, 6 × 3, 6 × 4 = 6, 12, 18, 24."), 1),
+  diff(answer("y7-ind-fac-p5", "Find the HCF of 8 and 12.", "\\text{Factors of }8: 1,2,4,8 \\quad \\text{Factors of }12: 1,2,3,4,6,12", "4", "Common factors are 1, 2, and 4. The HCF is 4."), 2),
+  diff(answer("y7-ind-fac-p6", "Find the HCF of 10 and 15.", "\\text{Factors of }10: 1,2,5,10 \\quad \\text{Factors of }15: 1,3,5,15", "5", "Common factors are 1 and 5. The HCF is 5."), 2),
+  diff(answer("y7-ind-fac-p7", "Find the LCM of 3 and 4.", "\\text{Multiples of }3: 3,6,9,12,\\ldots \\quad \\text{Multiples of }4: 4,8,12,\\ldots", "12", "The first shared multiple of 3 and 4 is 12, so LCM = 12."), 2),
+  diff(answer("y7-ind-fac-p8", "Find the LCM of 6 and 9.", "\\text{Multiples of }6: 6,12,18,\\ldots \\quad \\text{Multiples of }9: 9,18,\\ldots", "18", "The first shared multiple of 6 and 9 is 18, so LCM = 18."), 2),
+  diff(answer("y7-ind-fac-p9", "Find the HCF of 14 and 21.", "\\text{Factors of }14: 1,2,7,14 \\quad \\text{Factors of }21: 1,3,7,21", "7", "Common factors are 1 and 7. The HCF is 7."), 2),
+  diff(choice("y7-ind-fac-p10", "What is the HCF of 9 and 16?", "A", ["1", "3", "8", "9"], "Factors of 9: 1, 3, 9. Factors of 16: 1, 2, 4, 8, 16. The only common factor is 1, so the HCF is 1."), 3),
+  diff(answer("y7-ind-fac-p11", "Find the HCF of 24 and 40.", "\\text{Factors of }24: 1,2,3,4,6,8,12,24 \\quad \\text{Factors of }40: 1,2,4,5,8,10,20,40", "8", "Common factors are 1, 2, 4, and 8. The HCF is 8."), 3),
+  diff(answer("y7-ind-fac-p12", "Find the LCM of 4 and 6.", "\\text{Multiples of }4: 4,8,12,\\ldots \\quad \\text{Multiples of }6: 6,12,\\ldots", "12", "The first shared multiple is 12, so LCM = 12."), 3),
+  diff(answer("y7-ind-fac-p13", "Find the LCM of 10 and 15.", "\\text{Multiples of }10: 10,20,30,\\ldots \\quad \\text{Multiples of }15: 15,30,\\ldots", "30", "The first shared multiple is 30, so LCM = 30."), 3),
+  diff(answer("y7-ind-fac-p14", "How many factors does 36 have?", "\\text{Factors of }36: 1,2,3,4,6,9,12,18,36", "9", "The factors of 36 are 1, 2, 3, 4, 6, 9, 12, 18, and 36 — that is 9 factors."), 3),
+  diff(answer("y7-ind-fac-p15", "Find the HCF of 27 and 36.", "\\text{Factors of }27: 1,3,9,27 \\quad \\text{Factors of }36: 1,2,3,4,6,9,12,18,36", "9", "Common factors are 1, 3, and 9. The HCF is 9."), 3),
+  diff(choice("y7-ind-fac-m4-alt", "What is the LCM of 12 and 15?", "C", ["30", "45", "60", "180"], "Multiples of 12: 12, 24, 36, 48, 60, … Multiples of 15: 15, 30, 45, 60, … The first shared one is 60."), 4),
+  diff(answer("y7-ind-fac-p16", "Find the LCM of 8 and 10.", "\\text{Multiples of }8: 8,16,24,32,40,\\ldots \\quad \\text{Multiples of }10: 10,20,30,40,\\ldots", "40", "The first shared multiple is 40, so LCM = 40."), 4),
+  diff(answer("y7-ind-fac-p17", "Find the HCF of 48 and 60.", "\\text{Factors of }48: \\ldots,12,16,24,48 \\quad \\text{Factors of }60: \\ldots,12,15,20,30,60", "12", "The largest common factor of 48 and 60 is 12."), 4),
+  diff(answer("y7-ind-fac-p18", "Two trains leave a station together. Train A returns every 15 minutes and Train B every 20 minutes. After how many minutes do they next leave together?", "\\text{LCM}(15,20)=?", "60", "Multiples of 15: 15, 30, 45, 60, … Multiples of 20: 20, 40, 60, … The LCM is 60, so they next leave together after 60 minutes."), 4),
+  diff(answer("y7-ind-fac-p19", "A baker has 36 muffins and 48 cookies. She packs them into identical boxes with no items left over and the same number of each item per box. What is the greatest number of boxes she can make?", "\\text{HCF}(36,48)=?", "12", "The greatest number of equal boxes is the HCF of 36 and 48, which is 12."), 4),
+  diff(choice("y7-ind-fac-p20", "The HCF of two numbers is 6 and their LCM is 36. If one number is 12, which is the other?", "C", ["6", "9", "18", "24"], "Using LCM × HCF = a × b: 36 × 6 = 12 × b, so 216 = 12b, giving b = 18."), 5),
+  diff(answer("y7-ind-fac-p21", "Skipping ropes are sold in bundles of 8 and skipping mats in bundles of 6. A teacher wants an equal number of ropes and mats with none left over. What is the smallest number of each item she can buy?", "\\text{LCM}(8,6)=?", "24", "The smallest equal count of ropes (in 8s) and mats (in 6s) is the LCM of 8 and 6, which is 24."), 5),
+  diff(answer("y7-ind-fac-p22", "The LCM of two numbers is 84 and their HCF is 7. One of the numbers is 21. Find the other number.", "\\text{LCM}\\times\\text{HCF}=a\\times b", "28", "Using LCM × HCF = a × b: 84 × 7 = 21 × b, so 588 = 21b, giving b = 28."), 5),
+  diff(answer("y7-ind-fac-p23", "A red light flashes every 12 seconds and a green light every 18 seconds. They flash together at the start. How many times in the first 2 minutes (after the start) do they flash together again?", "\\text{LCM}(12,18)=36", "3", "LCM(12, 18) = 36, so they flash together every 36 seconds. In 120 seconds after the start, that happens at 36, 72, and 108 seconds — 3 times."), 5),
+  diff(answer("y7-ind-fac-p24", "Two numbers have HCF 4 and LCM 48. If the two numbers are not 4 and 48, find the smaller of the two numbers.", "4\\times48=a\\times b,\\ a<b", "12", "Product = HCF × LCM = 4 × 48 = 192. The pair must multiply to 192 and have HCF 4. The pair 12 and 16 works: HCF(12, 16) = 4, LCM(12, 16) = 48. The smaller is 12."), 5),
+];
+
+zeroIndexAndMixedIndices.masteryQuizPool = [
+  diff(choice("y7-ind-zer-p1", "What is the value of 5⁰?", "B", ["5", "1", "0", "50"], "Any non-zero base raised to the power 0 equals 1. So 5⁰ = 1."), 1),
+  diff(answer("y7-ind-zer-p2", "Evaluate 12⁰.", "12^0", "1", "Any non-zero base raised to the power 0 equals 1. So 12⁰ = 1."), 1),
+  diff(answer("y7-ind-zer-p3", "Evaluate 3¹.", "3^1", "3", "Any number to the power 1 is itself. So 3¹ = 3."), 1),
+  diff(choice("y7-ind-zer-p4", "Which expression equals 1?", "C", ["$3^1$", "$2^2$", "$9^0$", "$0^1$"], "9⁰ = 1 (any non-zero base to the power 0). 3¹ = 3, 2² = 4, 0¹ = 0."), 1),
+  diff(answer("y7-ind-zer-p5", "Evaluate 4⁰ + 2³.", "4^0+2^3", "9", "4⁰ = 1 and 2³ = 8. So 1 + 8 = 9."), 2),
+  diff(answer("y7-ind-zer-p6", "Evaluate 7⁰ + 5⁰.", "7^0+5^0", "2", "7⁰ = 1 and 5⁰ = 1. So 1 + 1 = 2."), 2),
+  diff(answer("y7-ind-zer-p7", "Simplify 2⁴ × 2³ ÷ 2⁵ and evaluate.", "2^4\\times2^3\\div2^5", "4", "2⁴ × 2³ = 2⁷. Then 2⁷ ÷ 2⁵ = 2² = 4."), 2),
+  diff(answer("y7-ind-zer-p8", "Evaluate 3² × 3⁰.", "3^2\\times3^0", "9", "3⁰ = 1, so 3² × 3⁰ = 9 × 1 = 9."), 2),
+  diff(answer("y7-ind-zer-p9", "Simplify 5⁵ ÷ 5³ and evaluate.", "5^5\\div5^3", "25", "5⁵ ÷ 5³ = 5² = 25."), 2),
+  diff(choice("y7-ind-zer-p10", "Which expression equals 1?", "B", ["$4^2\\div4^0$", "$6^3\\div6^3$", "$2^0+2^0$", "$3^1\\times3^0$"], "6³ ÷ 6³ = 6⁰ = 1. (A = 16, C = 2, D = 3.)"), 3),
+  diff(answer("y7-ind-zer-p11", "Simplify 2⁶ × 2² ÷ 2⁶ and evaluate.", "2^6\\times2^2\\div2^6", "4", "2⁶ × 2² = 2⁸. Then 2⁸ ÷ 2⁶ = 2² = 4."), 3),
+  diff(answer("y7-ind-zer-p12", "Evaluate 6⁰ + 3² − 2³.", "6^0+3^2-2^3", "2", "6⁰ = 1, 3² = 9, 2³ = 8. So 1 + 9 − 8 = 2."), 3),
+  diff(answer("y7-ind-zer-p13", "Simplify 4³ ÷ 4¹ × 4⁰ and evaluate.", "4^3\\div4^1\\times4^0", "16", "4³ ÷ 4¹ = 4². Then 4² × 4⁰ = 16 × 1 = 16."), 3),
+  diff(answer("y7-ind-zer-p14", "Simplify (2²)³ ÷ 2⁶ and evaluate.", "(2^2)^3\\div2^6", "1", "(2²)³ = 2⁶. Then 2⁶ ÷ 2⁶ = 2⁰ = 1."), 3),
+  diff(answer("y7-ind-zer-p15", "Evaluate 10⁰ + 10¹.", "10^0+10^1", "11", "10⁰ = 1 and 10¹ = 10. So 1 + 10 = 11."), 3),
+  diff(answer("y7-ind-zer-p16", "Simplify (3²)² ÷ 3³ and evaluate.", "(3^2)^2\\div3^3", "3", "(3²)² = 3⁴. Then 3⁴ ÷ 3³ = 3¹ = 3."), 4),
+  diff(answer("y7-ind-zer-p17", "Evaluate 2⁵ × 2⁰ ÷ 2³.", "2^5\\times2^0\\div2^3", "4", "2⁵ × 2⁰ = 2⁵. Then 2⁵ ÷ 2³ = 2² = 4."), 4),
+  diff(answer("y7-ind-zer-p18", "Find n if 2ⁿ = 2⁶ × 2² ÷ 2⁸.", "2^n=2^6\\times2^2\\div2^8", "0", "2⁶ × 2² = 2⁸. Then 2⁸ ÷ 2⁸ = 2⁰, so n = 0."), 4),
+  diff(choice("y7-ind-zer-p19", "A student claims 4⁰ = 0. The best correction is…", "B", ["4⁰ = 4 because the base is 4", "4⁰ = 1 because 4³ ÷ 4³ = 4⁰ = 1", "4⁰ is undefined", "4⁰ = 4 × 0 = 0"], "Any non-zero base to the power 0 equals 1. The quotient law shows why: 4³ ÷ 4³ = 1 and also = 4⁰."), 4),
+  diff(answer("y7-ind-zer-p20", "Simplify 5⁴ × 5² ÷ 5⁵ and evaluate.", "5^4\\times5^2\\div5^5", "5", "5⁴ × 5² = 5⁶. Then 5⁶ ÷ 5⁵ = 5¹ = 5."), 4),
+  diff(answer("y7-ind-zer-p21", "Evaluate (2³)² ÷ 2⁴ × 2⁰.", "(2^3)^2\\div2^4\\times2^0", "4", "(2³)² = 2⁶. Then 2⁶ ÷ 2⁴ = 2². And 2² × 2⁰ = 4 × 1 = 4."), 5),
+  diff(answer("y7-ind-zer-p22", "Find n if 3ⁿ = (3³)² ÷ 3⁴ × 3⁰.", "3^n=(3^3)^2\\div3^4\\times3^0", "2", "(3³)² = 3⁶. Then 3⁶ ÷ 3⁴ = 3². And 3² × 3⁰ = 3², so n = 2."), 5),
+  diff(answer("y7-ind-zer-p23", "Evaluate 2⁰ + 2¹ + 2² + 2³.", "2^0+2^1+2^2+2^3", "15", "2⁰ = 1, 2¹ = 2, 2² = 4, 2³ = 8. The sum is 1 + 2 + 4 + 8 = 15."), 5),
+  diff(answer("y7-ind-zer-p24", "Simplify (4² × 4³) ÷ (4⁴ × 4⁰) and evaluate.", "(4^2\\times4^3)\\div(4^4\\times4^0)", "4", "Numerator: 4² × 4³ = 4⁵. Denominator: 4⁴ × 4⁰ = 4⁴. Then 4⁵ ÷ 4⁴ = 4¹ = 4."), 5),
+  diff(answer("y7-ind-zer-p25", "Evaluate $\\dfrac{3^4 \\times 3^0}{3^2}$.", "\\frac{3^4\\times3^0}{3^2}", "9", "3⁴ × 3⁰ = 3⁴. Then 3⁴ ÷ 3² = 3² = 9."), 5),
+];
+
+zeroIndexAndMixedIndices.multiPartPractice = [
+  {
+    id: "y7-ind-zer-mp1",
+    prompt: "Consider the expression 2⁴ × 2⁰ × 2³ ÷ 2⁵.",
+    latex: "2^4 \\times 2^0 \\times 2^3 \\div 2^5",
+    answer: "1",
+    hint: "Use the zero index law on 2⁰, then combine with the product and quotient laws, and finally evaluate.",
+    explanation: "(a) 2⁰ = 1. (b) 2⁴ × 1 × 2³ = 2⁷, then 2⁷ ÷ 2⁵ = 2². (c) 2² = 4.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Evaluate 2⁰.",
+        latex: "2^0",
+        marks: 1,
+        answer: "1",
+        explanation: "Any non-zero base raised to the power 0 equals 1, so 2⁰ = 1.",
+        hint: "Recall the zero index law.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "Simplify the whole expression to a single power of 2. Give your answer as a power, e.g. $2^3$.",
+        latex: "2^4 \\times 2^0 \\times 2^3 \\div 2^5",
+        marks: 2,
+        answer: "2^2",
+        acceptedAnswers: ["2^{2}"],
+        explanation: "Add the exponents for multiplication: 4 + 0 + 3 = 7, giving 2⁷. Then subtract for division: 2⁷ ÷ 2⁵ = $2^{7-5}$ = 2².",
+        hint: "Add exponents when multiplying (remember 2⁰ adds 0), then subtract for the division.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "Evaluate your answer to (b) as a whole number.",
+        latex: "2^2",
+        marks: 1,
+        answer: "4",
+        explanation: "2² = 2 × 2 = 4.",
+        hint: "Square the base 2.",
+      },
+    ],
+  },
+];
+
+indexLawsProductQuotientPower.masteryQuizPool = [
+  diff(choice("y7-ind-law-p1", "To simplify 2³ × 2⁵, you should…", "A", ["add the exponents", "multiply the exponents", "subtract the exponents", "multiply the bases"], "The product law: when multiplying same-base powers, add the exponents. 2³ × 2⁵ = 2⁸."), 1),
+  diff(choice("y7-ind-law-p2", "To simplify 3⁷ ÷ 3², you should…", "C", ["add the exponents", "multiply the exponents", "subtract the exponents", "divide the bases"], "The quotient law: when dividing same-base powers, subtract the exponents. 3⁷ ÷ 3² = 3⁵."), 1),
+  diff(choice("y7-ind-law-p3", "Simplify 4² × 4³. Which is correct?", "B", ["$4^6$", "$4^5$", "$16^5$", "$8^5$"], "Add the exponents and keep the base: 4² × 4³ = 4⁵."), 1),
+  diff(choice("y7-ind-law-p4", "Simplify (2⁴)². Which is correct?", "D", ["$2^6$", "$2^2$", "$4^8$", "$2^8$"], "Power-of-a-power: multiply the exponents. (2⁴)² = $2^{4\\times2}$ = 2⁸."), 1),
+  diff(answer("y7-ind-law-p5", "Simplify 3² × 3² and evaluate.", "3^2\\times3^2", "81", "3² × 3² = 3⁴ = 81."), 2),
+  diff(answer("y7-ind-law-p6", "Simplify 2⁵ ÷ 2² and evaluate.", "2^5\\div2^2", "8", "2⁵ ÷ 2² = 2³ = 8."), 2),
+  diff(answer("y7-ind-law-p7", "Simplify (3²)² and evaluate.", "(3^2)^2", "81", "(3²)² = 3⁴ = 81."), 2),
+  diff(answer("y7-ind-law-p8", "Simplify 5² × 5¹ and evaluate.", "5^2\\times5^1", "125", "5² × 5¹ = 5³ = 125."), 2),
+  diff(answer("y7-ind-law-p9", "Simplify 7⁴ ÷ 7³ and evaluate.", "7^4\\div7^3", "7", "7⁴ ÷ 7³ = 7¹ = 7."), 2),
+  diff(choice("y7-ind-law-p10", "Which expression equals 2¹²?", "C", ["$2^4\\times2^3$", "$(2^4)^2$", "$(2^3)^4$", "$2^6\\times2^4$"], "(2³)⁴ = 2^(3×4) = 2¹². (Option A = 2⁷, B = 2⁸, D = 2¹⁰.)"), 3),
+  diff(answer("y7-ind-law-p11", "Simplify 4³ × 4² and evaluate.", "4^3\\times4^2", "1024", "4³ × 4² = 4⁵ = 1024."), 3),
+  diff(answer("y7-ind-law-p12", "Simplify 6⁴ ÷ 6² and evaluate.", "6^4\\div6^2", "36", "6⁴ ÷ 6² = 6² = 36."), 3),
+  diff(answer("y7-ind-law-p13", "Simplify (5²)² and evaluate.", "(5^2)^2", "625", "(5²)² = 5⁴ = 625."), 3),
+  diff(answer("y7-ind-law-p14", "Find n if 2ⁿ = 2⁴ × 2³.", "2^n=2^4\\times2^3", "7", "2⁴ × 2³ = 2⁷, so n = 7."), 3),
+  diff(answer("y7-ind-law-p15", "Simplify 3⁶ ÷ 3⁴ and evaluate.", "3^6\\div3^4", "9", "3⁶ ÷ 3⁴ = 3² = 9."), 3),
+  diff(answer("y7-ind-law-p16", "Evaluate (2³)² ÷ 2⁴.", "(2^3)^2\\div2^4", "4", "(2³)² = 2⁶. Then 2⁶ ÷ 2⁴ = 2² = 4."), 4),
+  diff(answer("y7-ind-law-p17", "Simplify 2³ × 2² × 2⁴ and evaluate.", "2^3\\times2^2\\times2^4", "512", "Add the exponents: 3 + 2 + 4 = 9. So 2⁹ = 512."), 4),
+  diff(answer("y7-ind-law-p18", "Find n if 5ⁿ = 5⁸ ÷ 5³.", "5^n=5^8\\div5^3", "5", "5⁸ ÷ 5³ = 5⁵, so n = 5."), 4),
+  diff(choice("y7-ind-law-p19", "A student writes 2³ × 2⁴ = 4⁷. What is their error?", "A", ["they multiplied the bases as well as adding exponents", "they added the bases", "they multiplied the exponents", "they subtracted the exponents"], "The base must stay the same. 2³ × 2⁴ = 2⁷, not 4⁷."), 4),
+  diff(answer("y7-ind-law-p20", "Simplify (3²)³ ÷ 3⁴ and evaluate.", "(3^2)^3\\div3^4", "9", "(3²)³ = 3⁶. Then 3⁶ ÷ 3⁴ = 3² = 9."), 4),
+  diff(answer("y7-ind-law-p21", "Evaluate (2²)³ × 2² ÷ 2⁵.", "(2^2)^3\\times2^2\\div2^5", "8", "(2²)³ = 2⁶. Then 2⁶ × 2² = 2⁸, and 2⁸ ÷ 2⁵ = 2³ = 8."), 5),
+  diff(answer("y7-ind-law-p22", "Find n if (2ⁿ)² = 2¹⁰.", "(2^n)^2=2^{10}", "5", "(2ⁿ)² = 2^(2n), so 2n = 10, giving n = 5."), 5),
+  diff(answer("y7-ind-law-p23", "Evaluate (3³ × 3²) ÷ (3² × 3).", "(3^3\\times3^2)\\div(3^2\\times3)", "9", "Numerator: 3³ × 3² = 3⁵. Denominator: 3² × 3¹ = 3³. Then 3⁵ ÷ 3³ = 3² = 9."), 5),
+  diff(answer("y7-ind-law-p24", "Find the value of n if 4ⁿ = 2¹⁰. (Hint: write 4 as a power of 2.)", "4^n=2^{10}", "5", "4 = 2², so 4ⁿ = (2²)ⁿ = 2^(2n). Setting 2n = 10 gives n = 5."), 5),
+  diff(answer("y7-ind-law-p25", "A bacterium doubles every hour. After 4 hours there are 2⁴ bacteria; after another 3 hours the count is multiplied by 2³ more. Write the total count after 7 hours as a single power of 2, then evaluate it.", "2^4\\times2^3", "128", "2⁴ × 2³ = 2⁷ = 128 bacteria."), 5),
+];
+
+indexLawsProductQuotientPower.multiPartPractice = [
+  {
+    id: "y7-ind-law-mp1",
+    prompt: "Consider the expression (2³)² × 2⁴ ÷ 2⁵.",
+    latex: "(2^3)^2 \\times 2^4 \\div 2^5",
+    answer: "32",
+    hint: "Apply the power-of-a-power law first, then the product law, then the quotient law, and finally evaluate.",
+    explanation: "(a) (2³)² = 2⁶. (b) 2⁶ × 2⁴ = 2¹⁰, then 2¹⁰ ÷ 2⁵ = 2⁵. (c) 2⁵ = 32.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Simplify (2³)² to a single power of 2. Give your answer as a power, e.g. $2^6$.",
+        latex: "(2^3)^2",
+        marks: 1,
+        answer: "2^6",
+        acceptedAnswers: ["2^{6}"],
+        explanation: "Power-of-a-power: multiply the exponents. (2³)² = $2^{3\\times2}$ = 2⁶.",
+        hint: "Multiply the exponents.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "Using your answer to (a), simplify the whole expression to a single power of 2. Give your answer as a power, e.g. $2^5$.",
+        latex: "2^6 \\times 2^4 \\div 2^5",
+        marks: 2,
+        answer: "2^5",
+        acceptedAnswers: ["2^{5}"],
+        explanation: "2⁶ × 2⁴ = $2^{6+4}$ = 2¹⁰ (product law). Then 2¹⁰ ÷ 2⁵ = $2^{10-5}$ = 2⁵ (quotient law).",
+        hint: "Add the exponents when multiplying, then subtract when dividing.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "Evaluate your answer to (b) as a whole number.",
+        latex: "2^5",
+        marks: 2,
+        answer: "32",
+        explanation: "2⁵ = 2 × 2 × 2 × 2 × 2 = 32.",
+        hint: "Multiply five copies of 2 together.",
+      },
+    ],
+  },
+];
+
+squaresCubesIndexNotation.masteryQuizPool = [
+  diff(choice("y7-ind-idx-p1", "What does 2³ mean?", "C", ["$2\\times3$", "$3\\times3$", "$2\\times2\\times2$", "$2+2+2$"], "2³ means the base 2 multiplied by itself 3 times: 2 × 2 × 2."), 1),
+  diff(answer("y7-ind-idx-p2", "Evaluate 5².", "5^2 = 5\\times5", "25", "5² = 5 × 5 = 25."), 1),
+  diff(answer("y7-ind-idx-p3", "Evaluate 3².", "3^2 = 3\\times3", "9", "3² = 3 × 3 = 9."), 1),
+  diff(answer("y7-ind-idx-p4", "In the expression 4⁵, what is the base?", "4^5", "4", "In 4⁵ the base is 4 (the number being multiplied) and the exponent is 5."), 1),
+  diff(answer("y7-ind-idx-p5", "Evaluate 2⁴.", "2^4 = 2\\times2\\times2\\times2", "16", "2⁴ = 2 × 2 × 2 × 2 = 16."), 2),
+  diff(answer("y7-ind-idx-p6", "Find $\\sqrt{49}$.", "\\sqrt{49}=?", "7", "7 × 7 = 49, so √49 = 7."), 2),
+  diff(answer("y7-ind-idx-p7", "Find $\\sqrt{100}$.", "\\sqrt{100}=?", "10", "10 × 10 = 100, so √100 = 10."), 2),
+  diff(answer("y7-ind-idx-p8", "Evaluate 2³.", "2^3 = 2\\times2\\times2", "8", "2³ = 2 × 2 × 2 = 8."), 2),
+  diff(answer("y7-ind-idx-p9", "Find $\\sqrt[3]{27}$.", "\\sqrt[3]{27}=?\\implies n^3=27", "3", "3³ = 3 × 3 × 3 = 27, so ∛27 = 3."), 2),
+  diff(answer("y7-ind-idx-p10", "Evaluate 6².", "6^2 = 6\\times6", "36", "6² = 6 × 6 = 36."), 3),
+  diff(answer("y7-ind-idx-p11", "Find $\\sqrt{121}$.", "\\sqrt{121}=?", "11", "11 × 11 = 121, so √121 = 11."), 3),
+  diff(answer("y7-ind-idx-p12", "Evaluate 3³.", "3^3 = 3\\times3\\times3", "27", "3³ = 3 × 3 × 3 = 27."), 3),
+  diff(answer("y7-ind-idx-p13", "Find $\\sqrt[3]{8}$.", "\\sqrt[3]{8}=?\\implies n^3=8", "2", "2³ = 2 × 2 × 2 = 8, so ∛8 = 2."), 3),
+  diff(answer("y7-ind-idx-p14", "Evaluate 2⁷.", "2^7 = 2\\times2\\times2\\times2\\times2\\times2\\times2", "128", "2⁷ = 128 (doubling: 2, 4, 8, 16, 32, 64, 128)."), 3),
+  diff(choice("y7-ind-idx-p15", "Which is the square of 12?", "B", ["24", "144", "121", "169"], "12² = 12 × 12 = 144. (24 is 12 × 2, 121 = 11², 169 = 13².)"), 3),
+  diff(answer("y7-ind-idx-p16", "Find $\\sqrt{256}$.", "\\sqrt{256}=?", "16", "16 × 16 = 256, so √256 = 16."), 4),
+  diff(answer("y7-ind-idx-p17", "Evaluate 4⁴.", "4^4 = 4\\times4\\times4\\times4", "256", "4⁴ = 16 × 16 = 256."), 4),
+  diff(answer("y7-ind-idx-p18", "Write 27 in index notation using base 3.", "3^{\\,?}=27", "3^3", "27 = 3 × 3 × 3 = 3³.", ["3^{3}"]), 4),
+  diff(answer("y7-ind-idx-p19", "Evaluate 5² + 3³.", "5^2+3^3", "52", "5² = 25 and 3³ = 27. So 25 + 27 = 52."), 4),
+  diff(choice("y7-ind-idx-p20", "Which is larger: 3⁴ or 4³?", "A", ["$3^4=81$, larger", "$4^3=81$, larger", "they are equal", "$4^3=64$, larger"], "3⁴ = 81 and 4³ = 64. Since 81 > 64, 3⁴ is larger."), 4),
+  diff(answer("y7-ind-idx-p21", "Evaluate 2⁴ × 3² without a calculator.", "2^4\\times3^2", "144", "2⁴ = 16 and 3² = 9. 16 × 9 = 144."), 5),
+  diff(answer("y7-ind-idx-p22", "A square garden has an area of 196 m². What is the length of one side, in metres?", "\\text{side}=\\sqrt{196}", "14", "The side length is √196 = 14 m, because 14 × 14 = 196."), 5),
+  diff(answer("y7-ind-idx-p23", "A cube has a volume of 125 cm³. What is the length of one edge, in centimetres?", "\\text{edge}=\\sqrt[3]{125}", "5", "The edge length is ∛125 = 5 cm, because 5 × 5 × 5 = 125."), 5),
+  diff(answer("y7-ind-idx-p24", "Evaluate $\\sqrt{169} + \\sqrt[3]{64}$.", "\\sqrt{169}+\\sqrt[3]{64}", "17", "√169 = 13 (since 13² = 169) and ∛64 = 4 (since 4³ = 64). So 13 + 4 = 17."), 5),
+  diff(answer("y7-ind-idx-p25", "A number squared is 81. The same number cubed gives what value?", "n^2=81 \\implies n^3=?", "729", "If n² = 81 then n = 9. So n³ = 9³ = 9 × 9 × 9 = 729."), 5),
+];
+
+squaresCubesIndexNotation.multiPartPractice = [
+  {
+    id: "y7-ind-idx-mp1",
+    prompt: "A storage cube has edges of length 6 cm.",
+    latex: "\\text{edge} = 6\\text{ cm}",
+    answer: "36",
+    hint: "Use squaring for the face area and cubing for the volume, then reverse with a root.",
+    explanation: "(a) Area of one face = 6² = 36 cm². (b) Volume = 6³ = 216 cm³. (c) A different cube with volume 343 cm³ has edge ∛343 = 7 cm.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Find the area of one square face of the cube, in cm².",
+        latex: "6^2",
+        marks: 1,
+        answer: "36",
+        explanation: "The area of a square face is side² = 6² = 36 cm².",
+        hint: "Square the edge length.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "Find the volume of the cube, in cm³.",
+        latex: "6^3",
+        marks: 2,
+        answer: "216",
+        explanation: "The volume of a cube is edge³ = 6³ = 6 × 6 × 6 = 216 cm³.",
+        hint: "Cube the edge length: multiply 6 by itself three times.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "A second cube has a volume of 343 cm³. Find the length of one edge, in cm.",
+        latex: "\\sqrt[3]{343}",
+        marks: 2,
+        answer: "7",
+        explanation: "The edge is the cube root of the volume: ∛343 = 7, because 7 × 7 × 7 = 343.",
+        hint: "Find the number that, cubed, gives 343.",
+      },
+    ],
+  },
+];
+
+primesAndPrimeFactorisation.masteryQuizPool = [
+  diff(choice("y7-ind-pri-p1", "Which number is prime?", "B", ["9", "13", "21", "25"], "13 has exactly two factors, 1 and 13, so it is prime. 9 = 3 × 3, 21 = 3 × 7, 25 = 5 × 5 are composite."), 1),
+  diff(choice("y7-ind-pri-p2", "Which number is composite?", "D", ["2", "5", "7", "9"], "9 = 3 × 3, so it has more than two factors and is composite. 2, 5, and 7 are all prime."), 1),
+  diff(answer("y7-ind-pri-p3", "Is 19 prime or composite? Write 'prime' or 'composite'.", "19", "prime", "19 has no factors other than 1 and 19, so it is prime."), 1),
+  diff(answer("y7-ind-pri-p4", "What is the smallest prime number?", "\\text{smallest prime}=?", "2", "2 is the smallest prime — its only factors are 1 and 2. It is also the only even prime."), 1),
+  diff(choice("y7-ind-pri-p5", "Write 12 as a product of prime factors in index form.", "A", ["$2^2\\times3$", "$2\\times3^2$", "$2^3$", "$4\\times3$"], "12 = 4 × 3 = 2 × 2 × 3 = 2² × 3. Option D is not fully a product of primes."), 2),
+  diff(answer("y7-ind-pri-p6", "Write 18 as a product of prime factors in index form.", "18 = 2\\times9 = 2\\times3\\times3", "2*3^2", "18 = 2 × 3 × 3 = 2 × 3².", ["2 x 3^2", "2 × 3^2", "2*3*3"]), 2),
+  diff(answer("y7-ind-pri-p7", "How many primes are there between 1 and 10?", "\\text{Check: }2,3,5,7", "4", "The primes between 1 and 10 are 2, 3, 5, and 7 — that is 4 primes."), 2),
+  diff(answer("y7-ind-pri-p8", "Write 24 as a product of prime factors in index form.", "24 = 8\\times3 = 2^3\\times3", "2^3*3", "24 = 8 × 3 = 2 × 2 × 2 × 3 = 2³ × 3.", ["2^3 x 3", "2^3 × 3"]), 2),
+  diff(answer("y7-ind-pri-p9", "Write 50 as a product of prime factors in index form.", "50 = 2\\times25 = 2\\times5\\times5", "2*5^2", "50 = 2 × 5 × 5 = 2 × 5².", ["2 x 5^2", "2 × 5^2"]), 2),
+  diff(choice("y7-ind-pri-p10", "What is the prime factorisation of 40?", "B", ["$2^2\\times5$", "$2^3\\times5$", "$2\\times5^2$", "$4\\times10$"], "40 = 8 × 5 = 2 × 2 × 2 × 5 = 2³ × 5."), 3),
+  diff(answer("y7-ind-pri-p11", "Write 75 as a product of prime factors in index form.", "75 = 3\\times25 = 3\\times5\\times5", "3*5^2", "75 = 3 × 5 × 5 = 3 × 5².", ["3 x 5^2", "3 × 5^2"]), 3),
+  diff(answer("y7-ind-pri-p12", "Write 96 as a product of prime factors in index form.", "96 = 2\\times48 = 2^5\\times3", "2^5*3", "96 = 2 × 2 × 2 × 2 × 2 × 3 = 2⁵ × 3.", ["2^5 x 3", "2^5 × 3"]), 3),
+  diff(answer("y7-ind-pri-p13", "A number has prime factorisation 2³ × 3². What is the number?", "2^3\\times3^2", "72", "2³ × 3² = 8 × 9 = 72."), 3),
+  diff(answer("y7-ind-pri-p14", "Find the largest prime number less than 30.", "\\text{Primes near 30: }23,29", "29", "The primes below 30 include 23 and 29. The largest is 29."), 3),
+  diff(answer("y7-ind-pri-p15", "How many prime factors (counting multiplicity) does 24 have?", "24 = 2^3\\times3", "4", "24 = 2³ × 3 = 2 × 2 × 2 × 3. Counting with multiplicity gives 3 + 1 = 4 prime factors."), 3),
+  diff(answer("y7-ind-pri-p16", "Write 108 as a product of prime factors in index form.", "108 = 4\\times27 = 2^2\\times3^3", "2^2*3^3", "108 = 4 × 27 = 2 × 2 × 3 × 3 × 3 = 2² × 3³.", ["2^2 x 3^3", "2^2 × 3^3"]), 4),
+  diff(answer("y7-ind-pri-p17", "Write 144 as a product of prime factors in index form.", "144 = 16\\times9 = 2^4\\times3^2", "2^4*3^2", "144 = 16 × 9 = 2⁴ × 3².", ["2^4 x 3^2", "2^4 × 3^2"]), 4),
+  diff(answer("y7-ind-pri-p18", "Use prime factorisation to find the HCF of 48 and 72. (48 = 2⁴ × 3, 72 = 2³ × 3²)", "48=2^4\\times3 \\quad 72=2^3\\times3^2", "24", "Shared primes at the lowest power: 2³ × 3¹ = 8 × 3 = 24."), 4),
+  diff(answer("y7-ind-pri-p19", "Write 2⁴ × 3 × 5 as a single number.", "2^4\\times3\\times5", "240", "2⁴ × 3 × 5 = 16 × 3 × 5 = 48 × 5 = 240."), 4),
+  diff(choice("y7-ind-pri-p20", "Which number is NOT prime?", "C", ["31", "37", "39", "41"], "39 = 3 × 13, so it is composite. The others (31, 37, 41) are all prime."), 4),
+  diff(answer("y7-ind-pri-p21", "Use prime factorisation to find the LCM of 12 and 18. (12 = 2² × 3, 18 = 2 × 3²)", "12=2^2\\times3 \\quad 18=2\\times3^2", "36", "The LCM takes the highest power of each prime: 2² × 3² = 4 × 9 = 36."), 5),
+  diff(answer("y7-ind-pri-p22", "A number has prime factorisation 2² × 3 × 7. A second number is 2 × 3² × 7. Find the HCF of the two numbers.", "2^2\\times3\\times7 \\;\\text{and}\\; 2\\times3^2\\times7", "42", "HCF uses the lowest power of each shared prime: 2¹ × 3¹ × 7¹ = 2 × 3 × 7 = 42."), 5),
+  diff(answer("y7-ind-pri-p23", "The prime factorisation of a number is 2³ × 3 × 5². How many factors does this number have? (Add 1 to each index and multiply.)", "(3+1)(1+1)(2+1)", "24", "Add 1 to each index and multiply: (3 + 1)(1 + 1)(2 + 1) = 4 × 2 × 3 = 24 factors."), 5),
+  diff(answer("y7-ind-pri-p24", "Two numbers are 2² × 3² × 5 and 2 × 3³. Find their LCM as a single number.", "2^2\\times3^2\\times5 \\;\\text{and}\\; 2\\times3^3", "540", "LCM takes the highest power of each prime: 2² × 3³ × 5 = 4 × 27 × 5 = 540."), 5),
+];
+
+primesAndPrimeFactorisation.multiPartPractice = [
+  {
+    id: "y7-ind-pri-mp1",
+    prompt: "A number is given by the product 2⁴ × 3² × 5.",
+    latex: "2^4 \\times 3^2 \\times 5",
+    answer: "720",
+    hint: "Evaluate the product first, then use the prime factorisation to find the HCF with another number.",
+    explanation: "(a) 2⁴ × 3² × 5 = 16 × 9 × 5 = 720. (b) Counting with multiplicity: 4 + 2 + 1 = 7 prime factors. (c) HCF with 2² × 3 × 7 uses lowest shared powers: 2² × 3 = 12.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Evaluate 2⁴ × 3² × 5 as a single whole number.",
+        latex: "2^4\\times3^2\\times5",
+        marks: 2,
+        answer: "720",
+        explanation: "2⁴ = 16, 3² = 9. So 16 × 9 × 5 = 144 × 5 = 720.",
+        hint: "Work out each power first, then multiply the results together.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "How many prime factors does this number have, counting each prime as many times as it appears?",
+        marks: 1,
+        answer: "7",
+        explanation: "2⁴ × 3² × 5 = 2 × 2 × 2 × 2 × 3 × 3 × 5. Counting with multiplicity: 4 + 2 + 1 = 7.",
+        hint: "Add up the indices.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "A second number has prime factorisation 2² × 3 × 7. Find the HCF of the two numbers.",
+        latex: "2^2\\times3\\times7",
+        marks: 2,
+        answer: "12",
+        explanation: "Compare shared primes at their lowest power: 2² (from 2⁴ vs 2²) and 3¹ (from 3² vs 3¹). The prime 7 and the 5 are not shared. HCF = 2² × 3 = 12.",
+        hint: "Take each shared prime to the lower of the two powers, then multiply.",
+      },
+    ],
+  },
+];
+
+factorsMultiplesHcfLcm.multiPartPractice = [
+  {
+    id: "y7-ind-fac-mp1",
+    prompt: "Two numbers are 18 and 24.",
+    latex: "18 \\text{ and } 24",
+    answer: "6",
+    hint: "Find the HCF, then the LCM, then check the rule HCF × LCM = product.",
+    explanation: "(a) HCF(18, 24) = 6. (b) LCM(18, 24) = 72. (c) HCF × LCM = 6 × 72 = 432, which equals 18 × 24 = 432.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Find the highest common factor (HCF) of 18 and 24.",
+        marks: 1,
+        answer: "6",
+        explanation: "Factors of 18: 1, 2, 3, 6, 9, 18. Factors of 24: 1, 2, 3, 4, 6, 8, 12, 24. The largest common factor is 6.",
+        hint: "List the factors of each number and pick the largest shared one.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "Find the lowest common multiple (LCM) of 18 and 24.",
+        marks: 2,
+        answer: "72",
+        explanation: "Multiples of 18: 18, 36, 54, 72, … Multiples of 24: 24, 48, 72, … The first shared multiple is 72.",
+        hint: "List multiples of each until one appears in both lists.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "Find the product of your HCF and LCM answers (HCF × LCM).",
+        latex: "\\text{HCF}\\times\\text{LCM}",
+        marks: 2,
+        answer: "432",
+        explanation: "6 × 72 = 432. This matches 18 × 24 = 432, confirming the rule HCF × LCM = product of the two numbers.",
+        hint: "Multiply your answers from parts (a) and (b).",
+      },
+    ],
+  },
+];
 
 // ─── Lesson registry ─────────────────────────────────────────────────────────
 

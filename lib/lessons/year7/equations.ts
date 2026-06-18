@@ -65,7 +65,35 @@ type LessonContent = Pick<
   | "independentPractice"
   | "commonMistakes"
   | "masteryQuiz"
+  | "masteryQuizPool"
+  | "multiPartPractice"
 >;
+
+// Pool question builders — same auto-markable shape as `answer`/`choice`, but
+// carrying a `difficulty` tag (1 = easiest … 5 = hardest) for the ramped pool.
+function poolAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  ans: string,
+  explanation: string,
+  difficulty: number,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return { ...answer(id, prompt, latex, ans, explanation, acceptedAnswers), difficulty };
+}
+
+function poolChoice(
+  id: string,
+  prompt: string,
+  ans: "A" | "B" | "C" | "D",
+  choices: [string, string, string, string],
+  explanation: string,
+  difficulty: number,
+  latex = "\\text{Select A, B, C, or D.}"
+): PracticeQuestion {
+  return { ...choice(id, prompt, ans, choices, explanation, latex), difficulty };
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Lesson 1 — One-step equations
@@ -274,6 +302,83 @@ const oneStepEquations: LessonContent = {
       "48",
       "Multiply both sides by 8: x = 6 × 8 = 48. Check: 48 ÷ 8 = 6."
     ),
+  ],
+  masteryQuizPool: [
+    poolAnswer("y7-equ-one-p1", "Solve the equation.", "x + 4 = 11", "7", "Subtract 4 from both sides: x = 11 − 4 = 7.", 1),
+    poolAnswer("y7-equ-one-p2", "Solve the equation.", "x + 7 = 16", "9", "Subtract 7 from both sides: x = 16 − 7 = 9.", 1),
+    poolAnswer("y7-equ-one-p3", "Solve the equation.", "x - 5 = 12", "17", "Add 5 to both sides: x = 12 + 5 = 17.", 1),
+    poolAnswer("y7-equ-one-p4", "Solve the equation.", "x - 8 = 6", "14", "Add 8 to both sides: x = 6 + 8 = 14.", 1),
+    poolAnswer("y7-equ-one-p5", "Solve the equation.", "6x = 42", "7", "Divide both sides by 6: x = 42 ÷ 6 = 7.", 1),
+    poolAnswer("y7-equ-one-p6", "Solve the equation.", "8x = 40", "5", "Divide both sides by 8: x = 40 ÷ 8 = 5.", 2),
+    poolAnswer("y7-equ-one-p7", "Solve the equation.", "\\dfrac{x}{3} = 7", "21", "Multiply both sides by 3: x = 7 × 3 = 21.", 2),
+    poolAnswer("y7-equ-one-p8", "Solve the equation.", "\\dfrac{x}{7} = 4", "28", "Multiply both sides by 7: x = 4 × 7 = 28.", 2),
+    poolAnswer("y7-equ-one-p9", "Solve the equation.", "x + 19 = 31", "12", "Subtract 19 from both sides: x = 31 − 19 = 12.", 2),
+    poolAnswer("y7-equ-one-p10", "Solve the equation.", "x - 14 = 21", "35", "Add 14 to both sides: x = 21 + 14 = 35.", 2),
+    poolChoice("y7-equ-one-p11", "To solve x − 7 = 5, which operation should you apply to both sides?", "A", ["Add 7", "Subtract 7", "Multiply by 7", "Divide by 7"], "7 is subtracted from x, so add 7 to both sides: x = 5 + 7 = 12.", 2, "x - 7 = 5"),
+    poolAnswer("y7-equ-one-p12", "Solve the equation.", "11x = 88", "8", "Divide both sides by 11: x = 88 ÷ 11 = 8.", 2),
+    poolAnswer("y7-equ-one-p13", "Solve the equation.", "\\dfrac{x}{9} = 5", "45", "Multiply both sides by 9: x = 5 × 9 = 45.", 2),
+    poolAnswer("y7-equ-one-p14", "Solve the equation.", "x + 38 = 50", "12", "Subtract 38 from both sides: x = 50 − 38 = 12.", 3),
+    poolAnswer("y7-equ-one-p15", "Solve the equation.", "13x = 91", "7", "Divide both sides by 13: x = 91 ÷ 13 = 7.", 3),
+    poolAnswer("y7-equ-one-p16", "Solve the equation.", "x - 23 = 19", "42", "Add 23 to both sides: x = 19 + 23 = 42.", 3),
+    poolChoice("y7-equ-one-p17", "Which equation has the solution x = 12?", "B", ["$x + 12 = 12$", "$\\dfrac{x}{2} = 6$", "$x - 12 = 24$", "$3x = 24$"], "Check each: x + 12 = 12 gives x = 0; x/2 = 6 gives x = 12 (correct); x − 12 = 24 gives x = 36; 3x = 24 gives x = 8.", 3, "\\text{Select the equation with solution } x = 12."),
+    poolAnswer("y7-equ-one-p18", "Solve the equation.", "\\dfrac{x}{6} = 11", "66", "Multiply both sides by 6: x = 11 × 6 = 66.", 3),
+    poolAnswer("y7-equ-one-p19", "Solve the equation.", "x + 47 = 63", "16", "Subtract 47 from both sides: x = 63 − 47 = 16.", 3),
+    poolAnswer("y7-equ-one-p20", "Solve the equation. The solution may be negative.", "x + 9 = 4", "-5", "Subtract 9 from both sides: x = 4 − 9 = −5. Check: −5 + 9 = 4.", 4, ["−5"]),
+    poolAnswer("y7-equ-one-p21", "Solve the equation. The solution may be negative.", "x + 15 = 7", "-8", "Subtract 15 from both sides: x = 7 − 15 = −8. Check: −8 + 15 = 7.", 4, ["−8"]),
+    poolChoice("y7-equ-one-p22", "A student solves x/5 = 9 by dividing both sides by 5, getting x = 9/5. What is the correct solution?", "C", ["$x = \\dfrac{9}{5}$", "$x = 14$", "$x = 45$", "$x = 4$"], "To undo division by 5, multiply both sides by 5: x = 9 × 5 = 45. The student divided instead of multiplying.", 4, "\\dfrac{x}{5} = 9"),
+    poolAnswer("y7-equ-one-p23", "Solve the equation.", "16x = 208", "13", "Divide both sides by 16: x = 208 ÷ 16 = 13.", 4),
+    poolAnswer("y7-equ-one-p24", "Solve the equation. The solution may be negative.", "x - 6 = -10", "-4", "Add 6 to both sides: x = −10 + 6 = −4. Check: −4 − 6 = −10.", 4, ["−4"]),
+    poolAnswer("y7-equ-one-p25", "Solve the equation.", "\\dfrac{x}{12} = 12", "144", "Multiply both sides by 12: x = 12 × 12 = 144.", 4),
+    poolChoice("y7-equ-one-p26", "If 7x = 0, what is the value of x?", "A", ["$0$", "$7$", "$1$", "\\text{No solution}"], "Divide both sides by 7: x = 0 ÷ 7 = 0. Any number times 0 gives 0, so x must be 0.", 5, "7x = 0"),
+    poolAnswer("y7-equ-one-p27", "Solve the equation. The solution may be negative.", "x + 24 = 11", "-13", "Subtract 24 from both sides: x = 11 − 24 = −13.", 5, ["−13"]),
+    poolAnswer("y7-equ-one-p28", "Solve the equation.", "25x = 600", "24", "Divide both sides by 25: x = 600 ÷ 25 = 24.", 5),
+  ],
+  multiPartPractice: [
+    {
+      id: "y7-equ-one-mp1",
+      prompt:
+        "A small market stall sells one type of item. Use one-step equations to answer each part. (Each part is independent.)",
+      latex: "\\text{Solve each one-step equation below.}",
+      answer: "8",
+      hint: "For each part, identify the operation applied to the unknown and apply its inverse to both sides.",
+      explanation:
+        "Part (a): x + 17 = 25, so x = 25 − 17 = 8. Part (b): 4x = 52, so x = 52 ÷ 4 = 13. Part (c): x/5 = 9, so x = 9 × 5 = 45.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Solve x + 17 = 25.",
+          latex: "x + 17 = 25",
+          marks: 1,
+          answer: "8",
+          acceptedAnswers: ["8.0"],
+          hint: "Subtract 17 from both sides.",
+          explanation: "x = 25 − 17 = 8. Check: 8 + 17 = 25.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Solve 4x = 52.",
+          latex: "4x = 52",
+          marks: 1,
+          answer: "13",
+          acceptedAnswers: ["13.0"],
+          hint: "Divide both sides by 4.",
+          explanation: "x = 52 ÷ 4 = 13. Check: 4 × 13 = 52.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Solve x/5 = 9.",
+          latex: "\\dfrac{x}{5} = 9",
+          marks: 1,
+          answer: "45",
+          acceptedAnswers: ["45.0"],
+          hint: "Multiply both sides by 5.",
+          explanation: "x = 9 × 5 = 45. Check: 45 ÷ 5 = 9.",
+        },
+      ],
+    },
   ],
 };
 
@@ -487,6 +592,83 @@ const twoStepEquations: LessonContent = {
       "Add 13 to both sides: 4x = 36. Divide by 4: x = 9. Check: 4(9) − 13 = 36 − 13 = 23."
     ),
   ],
+  masteryQuizPool: [
+    poolAnswer("y7-equ-two-p1", "Solve the equation.", "2x + 1 = 9", "4", "Subtract 1: 2x = 8. Divide by 2: x = 4.", 1),
+    poolAnswer("y7-equ-two-p2", "Solve the equation.", "3x + 2 = 14", "4", "Subtract 2: 3x = 12. Divide by 3: x = 4.", 1),
+    poolAnswer("y7-equ-two-p3", "Solve the equation.", "2x - 3 = 9", "6", "Add 3: 2x = 12. Divide by 2: x = 6.", 1),
+    poolAnswer("y7-equ-two-p4", "Solve the equation.", "4x + 5 = 21", "4", "Subtract 5: 4x = 16. Divide by 4: x = 4.", 1),
+    poolAnswer("y7-equ-two-p5", "Solve the equation.", "5x - 2 = 18", "4", "Add 2: 5x = 20. Divide by 5: x = 4.", 2),
+    poolAnswer("y7-equ-two-p6", "Solve the equation.", "3x + 8 = 29", "7", "Subtract 8: 3x = 21. Divide by 3: x = 7.", 2),
+    poolAnswer("y7-equ-two-p7", "Solve the equation.", "\\dfrac{x}{2} + 5 = 11", "12", "Subtract 5: x/2 = 6. Multiply by 2: x = 12.", 2),
+    poolAnswer("y7-equ-two-p8", "Solve the equation.", "\\dfrac{x}{3} - 2 = 4", "18", "Add 2: x/3 = 6. Multiply by 3: x = 18.", 2),
+    poolAnswer("y7-equ-two-p9", "Solve the equation.", "6x - 5 = 31", "6", "Add 5: 6x = 36. Divide by 6: x = 6.", 2),
+    poolChoice("y7-equ-two-p10", "For 5x − 7 = 23, which is the correct first step?", "C", ["Subtract 7 from both sides", "Divide both sides by 5", "Add 7 to both sides", "Multiply both sides by 5"], "Undo the subtraction of 7 first by adding 7: 5x = 30. Then divide by 5 to get x = 6.", 2, "5x - 7 = 23"),
+    poolAnswer("y7-equ-two-p11", "Solve the equation.", "7x + 6 = 48", "6", "Subtract 6: 7x = 42. Divide by 7: x = 6.", 3),
+    poolAnswer("y7-equ-two-p12", "Solve the equation.", "\\dfrac{x}{4} + 7 = 12", "20", "Subtract 7: x/4 = 5. Multiply by 4: x = 20.", 3),
+    poolAnswer("y7-equ-two-p13", "Solve the equation.", "8x - 11 = 53", "8", "Add 11: 8x = 64. Divide by 8: x = 8.", 3),
+    poolAnswer("y7-equ-two-p14", "Solve the equation.", "\\dfrac{x}{5} - 4 = 3", "35", "Add 4: x/5 = 7. Multiply by 5: x = 35.", 3),
+    poolChoice("y7-equ-two-p15", "Which equation has the solution x = 6?", "B", ["$3x + 4 = 16$", "$5x - 7 = 23$", "$2x + 9 = 27$", "$4x - 1 = 27$"], "Check each: 3(6)+4=22≠16; 5(6)−7=23 (correct); 2(6)+9=21≠27; 4(6)−1=23≠27.", 3, "\\text{Select the equation with solution } x = 6."),
+    poolAnswer("y7-equ-two-p16", "Solve the equation.", "10x + 3 = 73", "7", "Subtract 3: 10x = 70. Divide by 10: x = 7.", 3),
+    poolAnswer("y7-equ-two-p17", "Solve the equation.", "9x - 14 = 49", "7", "Add 14: 9x = 63. Divide by 9: x = 7.", 4),
+    poolAnswer("y7-equ-two-p18", "Solve the equation. The solution may be negative.", "2x + 13 = 5", "-4", "Subtract 13: 2x = −8. Divide by 2: x = −4. Check: 2(−4) + 13 = 5.", 4, ["−4"]),
+    poolAnswer("y7-equ-two-p19", "Solve the equation. The solution may be negative.", "3x + 20 = 8", "-4", "Subtract 20: 3x = −12. Divide by 3: x = −4. Check: 3(−4) + 20 = 8.", 4, ["−4"]),
+    poolChoice("y7-equ-two-p20", "A student solves 4x + 6 = 30 by first dividing by 4, writing x + 6 = 7.5. What error did they make?", "A", ["They divided before subtracting the constant.", "They added 6 instead of subtracting it.", "They divided 30 by 6 instead of 4.", "They made no error."], "The correct first step is to subtract 6: 4x = 24, then divide by 4 to get x = 6. Dividing first only divides part of the left side.", 4, "4x + 6 = 30"),
+    poolAnswer("y7-equ-two-p21", "Solve the equation.", "\\dfrac{x}{6} + 9 = 14", "30", "Subtract 9: x/6 = 5. Multiply by 6: x = 30.", 4),
+    poolAnswer("y7-equ-two-p22", "Solve the equation.", "12x - 7 = 89", "8", "Add 7: 12x = 96. Divide by 12: x = 8.", 4),
+    poolAnswer("y7-equ-two-p23", "Solve the equation. The solution may be negative.", "5x - 4 = -24", "-4", "Add 4: 5x = −20. Divide by 5: x = −4. Check: 5(−4) − 4 = −24.", 5, ["−4"]),
+    poolAnswer("y7-equ-two-p24", "Solve the equation.", "\\dfrac{x}{8} - 6 = 1", "56", "Add 6: x/8 = 7. Multiply by 8: x = 56.", 5),
+    poolChoice("y7-equ-two-p25", "Solving x/3 − 5 = 2, a student writes x/3 = −3. What did they do wrong?", "B", ["They divided instead of multiplying.", "They subtracted 5 instead of adding it.", "They forgot to multiply by 3.", "They made no error."], "To undo −5, add 5 to both sides: x/3 = 2 + 5 = 7, then x = 21. The student subtracted 5 instead of adding.", 5, "\\dfrac{x}{3} - 5 = 2"),
+    poolAnswer("y7-equ-two-p26", "Solve the equation.", "11x + 12 = 78", "6", "Subtract 12: 11x = 66. Divide by 11: x = 6.", 5),
+    poolAnswer("y7-equ-two-p27", "Solve the equation.", "7x + 15 = 71", "8", "Subtract 15: 7x = 56. Divide by 7: x = 8.", 3),
+    poolAnswer("y7-equ-two-p28", "Solve the equation.", "\\dfrac{x}{2} + 13 = 30", "34", "Subtract 13: x/2 = 17. Multiply by 2: x = 34.", 4),
+  ],
+  multiPartPractice: [
+    {
+      id: "y7-equ-two-mp1",
+      prompt:
+        "A taxi charges a fixed booking fee plus a fixed amount per kilometre. The total fare in dollars for a trip of x kilometres is given by F = 3x + 5. Use this to answer each part.",
+      latex: "F = 3x + 5",
+      answer: "6",
+      hint: "Substitute the given fare for F, then solve the resulting two-step equation for x by undoing the +5 first.",
+      explanation:
+        "Part (a): 3x + 5 = 23, so 3x = 18, x = 6. Part (b): 3x + 5 = 41, so 3x = 36, x = 12. Part (c): For a fare of $5, 3x + 5 = 5 gives 3x = 0, so x = 0 km.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "A trip costs $23. How many kilometres was it? Solve 3x + 5 = 23.",
+          latex: "3x + 5 = 23",
+          marks: 1,
+          answer: "6",
+          acceptedAnswers: ["6.0"],
+          hint: "Subtract 5, then divide by 3.",
+          explanation: "Subtract 5: 3x = 18. Divide by 3: x = 6 km. Check: 3(6) + 5 = 23.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Another trip costs $41. How many kilometres was it? Solve 3x + 5 = 41.",
+          latex: "3x + 5 = 41",
+          marks: 1,
+          answer: "12",
+          acceptedAnswers: ["12.0"],
+          hint: "Subtract 5, then divide by 3.",
+          explanation: "Subtract 5: 3x = 36. Divide by 3: x = 12 km. Check: 3(12) + 5 = 41.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "What distance corresponds to a fare equal to just the booking fee of $5? Solve 3x + 5 = 5.",
+          latex: "3x + 5 = 5",
+          marks: 2,
+          answer: "0",
+          acceptedAnswers: ["0.0", "0 km"],
+          hint: "Subtract 5 from both sides first.",
+          explanation: "Subtract 5: 3x = 0. Divide by 3: x = 0 km — the booking fee alone means no distance travelled.",
+        },
+      ],
+    },
+  ],
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -698,6 +880,83 @@ const equationsWordedProblems: LessonContent = {
       "6",
       "2o + 2 = 14. Subtract 2: 2o = 12. Divide by 2: o = 6 kg. Check: 6 + 8 = 14."
     ),
+  ],
+  masteryQuizPool: [
+    poolAnswer("y7-equ-wrd-p1", "I think of a number, add 5, and get 12. Let n = the number. Find n.", "n + 5 = 12", "7", "Subtract 5: n = 12 − 5 = 7.", 1),
+    poolAnswer("y7-equ-wrd-p2", "I think of a number, subtract 4, and get 9. Let n = the number. Find n.", "n - 4 = 9", "13", "Add 4: n = 9 + 4 = 13.", 1),
+    poolAnswer("y7-equ-wrd-p3", "Four times a number equals 36. Let n = the number. Find n.", "4n = 36", "9", "Divide by 4: n = 36 ÷ 4 = 9.", 1),
+    poolAnswer("y7-equ-wrd-p4", "A number divided by 3 equals 8. Let n = the number. Find n.", "\\dfrac{n}{3} = 8", "24", "Multiply by 3: n = 8 × 3 = 24.", 1),
+    poolAnswer("y7-equ-wrd-p5", "Seven times a number equals 84. Let n = the number. Find n.", "7n = 84", "12", "Divide by 7: n = 84 ÷ 7 = 12.", 2),
+    poolAnswer("y7-equ-wrd-p6", "A number is tripled and then 5 is added, giving 26. Let n = the number. Find n.", "3n + 5 = 26", "7", "Subtract 5: 3n = 21. Divide by 3: n = 7.", 2),
+    poolAnswer("y7-equ-wrd-p7", "A square has perimeter 48 cm. Let s = the side length in cm. Find s.", "4s = 48", "12", "Divide by 4: s = 48 ÷ 4 = 12 cm.", 2),
+    poolAnswer("y7-equ-wrd-p8", "Pens cost $4 each. Jo spent $36 on pens. Let p = the number of pens. Find p.", "4p = 36", "9", "Divide by 4: p = 36 ÷ 4 = 9 pens.", 2),
+    poolChoice("y7-equ-wrd-p9", "I think of a number, multiply it by 5, and get 40. Which equation represents this?", "C", ["$n + 5 = 40$", "$n - 5 = 40$", "$5n = 40$", "$\\dfrac{n}{5} = 40$"], "'Multiply by 5' gives 5n = 40, so n = 8.", 2),
+    poolAnswer("y7-equ-wrd-p10", "A rectangle has width 7 cm and perimeter 40 cm. Let l = the length in cm. Find l.", "2l + 2(7) = 40", "13", "2l + 14 = 40. Subtract 14: 2l = 26. Divide by 2: l = 13 cm.", 3),
+    poolAnswer("y7-equ-wrd-p11", "A number is doubled and then 7 is subtracted, giving 15. Let n = the number. Find n.", "2n - 7 = 15", "11", "Add 7: 2n = 22. Divide by 2: n = 11.", 3),
+    poolAnswer("y7-equ-wrd-p12", "Two friends share $44. One receives $6 more than the other. Let a = the smaller share. Find a.", "a + (a + 6) = 44", "19", "2a + 6 = 44. Subtract 6: 2a = 38. Divide by 2: a = 19. Check: 19 + 25 = 44.", 3),
+    poolAnswer("y7-equ-wrd-p13", "The perimeter of an equilateral triangle is 45 cm. Let s = the side length in cm. Find s.", "3s = 45", "15", "Divide by 3: s = 45 ÷ 3 = 15 cm.", 3),
+    poolChoice("y7-equ-wrd-p14", "Which equation models: 'Five more than three times a number is 23'?", "B", ["$3n - 5 = 23$", "$3n + 5 = 23$", "$5n + 3 = 23$", "$3(n + 5) = 23$"], "'Three times a number' is 3n; 'five more than' adds 5, giving 3n + 5 = 23. Solving: n = 6.", 3),
+    poolAnswer("y7-equ-wrd-p15", "A number is divided by 5 and then 2 is added, giving 9. Let n = the number. Find n.", "\\dfrac{n}{5} + 2 = 9", "35", "Subtract 2: n/5 = 7. Multiply by 5: n = 35.", 3),
+    poolAnswer("y7-equ-wrd-p16", "Three consecutive integers add to 60. Let n = the smallest integer. Find n.", "n + (n+1) + (n+2) = 60", "19", "3n + 3 = 60. Subtract 3: 3n = 57. Divide by 3: n = 19. The integers are 19, 20, 21.", 4),
+    poolAnswer("y7-equ-wrd-p17", "A rectangle's length is 4 times its width. The perimeter is 60 cm. Let w = the width in cm. Find w.", "2(4w) + 2w = 60", "6", "10w = 60. Divide by 10: w = 6 cm. The length is 24 cm.", 4),
+    poolAnswer("y7-equ-wrd-p18", "Mara is 5 years older than Tom. The sum of their ages is 31. Let t = Tom's age. Find t.", "t + (t + 5) = 31", "13", "2t + 5 = 31. Subtract 5: 2t = 26. Divide by 2: t = 13. Tom is 13, Mara is 18.", 4),
+    poolChoice("y7-equ-wrd-p19", "A number is halved and then 4 is added, giving 10. What is the number?", "C", ["8", "20", "12", "28"], "Let n be the number: n/2 + 4 = 10, so n/2 = 6, n = 12. Check: 12/2 + 4 = 10.", 4, "\\dfrac{n}{2} + 4 = 10"),
+    poolAnswer("y7-equ-wrd-p20", "Three identical boxes plus a 7 kg weight balance a 34 kg mass. Let b = the mass of one box in kg. Find b.", "3b + 7 = 34", "9", "Subtract 7: 3b = 27. Divide by 3: b = 9 kg.", 4),
+    poolAnswer("y7-equ-wrd-p21", "The sum of two consecutive even numbers is 38. Let n = the smaller number. Find n.", "n + (n + 2) = 38", "18", "2n + 2 = 38. Subtract 2: 2n = 36. Divide by 2: n = 18. The numbers are 18 and 20.", 4),
+    poolAnswer("y7-equ-wrd-p22", "A phone plan costs $15 plus $0 per call but $3 per gigabyte of data. The bill is $33. Let g = gigabytes used. Find g.", "3g + 15 = 33", "6", "Subtract 15: 3g = 18. Divide by 3: g = 6 GB.", 5),
+    poolAnswer("y7-equ-wrd-p23", "A number is multiplied by 4, then 9 is subtracted, giving 31. Let n = the number. Find n.", "4n - 9 = 31", "10", "Add 9: 4n = 40. Divide by 4: n = 10.", 5),
+    poolChoice("y7-equ-wrd-p24", "A father is three times as old as his son. Together their ages total 48. How old is the son?", "A", ["12", "16", "24", "36"], "Let s = son's age, father = 3s. Then s + 3s = 48, so 4s = 48, s = 12. The father is 36.", 5, "s + 3s = 48"),
+    poolAnswer("y7-equ-wrd-p25", "Four consecutive integers add to 74. Let n = the smallest integer. Find n.", "n + (n+1) + (n+2) + (n+3) = 74", "17", "4n + 6 = 74. Subtract 6: 4n = 68. Divide by 4: n = 17. The integers are 17, 18, 19, 20.", 5),
+    poolAnswer("y7-equ-wrd-p26", "A rectangle's length is 5 cm more than its width. The perimeter is 38 cm. Let w = the width in cm. Find w.", "2w + 2(w + 5) = 38", "7", "4w + 10 = 38. Subtract 10: 4w = 28. Divide by 4: w = 7 cm. The length is 12 cm.", 5),
+    poolAnswer("y7-equ-wrd-p27", "Tickets cost $12 each. A group spent $108. Let t = the number of tickets. Find t.", "12t = 108", "9", "Divide by 12: t = 108 ÷ 12 = 9 tickets.", 3),
+    poolAnswer("y7-equ-wrd-p28", "A number increased by 18 gives 45. Let n = the number. Find n.", "n + 18 = 45", "27", "Subtract 18: n = 45 − 18 = 27.", 2),
+  ],
+  multiPartPractice: [
+    {
+      id: "y7-equ-wrd-mp1",
+      prompt:
+        "Two rectangular garden beds are being planned. Bed A is square; Bed B has its length 3 cm longer than its width. Use equations to answer each part.",
+      latex: "\\text{Set up and solve a linear equation for each part.}",
+      answer: "7",
+      hint: "Define a pronumeral, translate the words into an equation, solve it, then check the answer is sensible.",
+      explanation:
+        "Part (a): square bed, 4s = 28 gives s = 7 cm. Part (b): three consecutive integers n + (n+1) + (n+2) = 27 gives 3n + 3 = 27, n = 8. Part (c): Bed B width w with 2w + 2(w + 3) = 46 gives 4w + 6 = 46, w = 10 cm.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Bed A is a square with perimeter 28 cm. Find its side length in cm.",
+          latex: "4s = 28",
+          marks: 1,
+          answer: "7",
+          acceptedAnswers: ["7.0", "7 cm"],
+          hint: "All four sides are equal, so 4s = 28.",
+          explanation: "Divide by 4: s = 28 ÷ 4 = 7 cm.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Three consecutive plant labels are numbered with consecutive integers that add to 27. Find the smallest label number.",
+          latex: "n + (n+1) + (n+2) = 27",
+          marks: 2,
+          answer: "8",
+          acceptedAnswers: ["8.0"],
+          hint: "Simplify to 3n + 3 = 27, then solve.",
+          explanation: "3n + 3 = 27. Subtract 3: 3n = 24. Divide by 3: n = 8. The integers are 8, 9, 10.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "Bed B has length 3 cm more than its width and a perimeter of 46 cm. Find its width in cm.",
+          latex: "2w + 2(w + 3) = 46",
+          marks: 2,
+          answer: "10",
+          acceptedAnswers: ["10.0", "10 cm"],
+          hint: "Expand to 4w + 6 = 46, then solve.",
+          explanation: "4w + 6 = 46. Subtract 6: 4w = 40. Divide by 4: w = 10 cm. The length is 13 cm.",
+        },
+      ],
+    },
   ],
 };
 
@@ -913,6 +1172,83 @@ const quadraticEquationsAxSquaredEqualsC: LessonContent = {
       "Dividing by 2 gives x² = 9. Taking the square root gives x = 3 or x = −3. Both solutions must be stated — the student omitted x = −3.",
       "2x^2 = 18"
     ),
+  ],
+  masteryQuizPool: [
+    poolAnswer("y7-equ-qdr-p1", "Solve x² = 9. Find the positive solution.", "x^2 = 9", "3", "Take the square root: x = 3 or x = −3. The positive solution is x = 3.", 1),
+    poolAnswer("y7-equ-qdr-p2", "Solve x² = 16. Find the positive solution.", "x^2 = 16", "4", "Take the square root: x = 4 or x = −4. The positive solution is x = 4.", 1),
+    poolAnswer("y7-equ-qdr-p3", "Solve x² = 4. Find the positive solution.", "x^2 = 4", "2", "Take the square root: x = 2 or x = −2. The positive solution is x = 2.", 1),
+    poolAnswer("y7-equ-qdr-p4", "Solve x² = 100. Find the positive solution.", "x^2 = 100", "10", "Take the square root: x = 10 or x = −10. The positive solution is x = 10.", 1),
+    poolAnswer("y7-equ-qdr-p5", "Solve 2x² = 8. Find the positive solution.", "2x^2 = 8", "2", "Divide by 2: x² = 4. Take the square root: x = 2 or x = −2. The positive solution is x = 2.", 2),
+    poolAnswer("y7-equ-qdr-p6", "Solve 3x² = 27. Find the positive solution.", "3x^2 = 27", "3", "Divide by 3: x² = 9. Take the square root: x = 3 or x = −3. The positive solution is x = 3.", 2),
+    poolAnswer("y7-equ-qdr-p7", "Solve x² = 169. Find the negative solution.", "x^2 = 169", "-13", "Take the square root: x = 13 or x = −13. The negative solution is x = −13.", 2, ["−13"]),
+    poolAnswer("y7-equ-qdr-p8", "Solve 4x² = 64. Find the positive solution.", "4x^2 = 64", "4", "Divide by 4: x² = 16. Take the square root: x = 4 or x = −4. The positive solution is x = 4.", 2),
+    poolChoice("y7-equ-qdr-p9", "How many real solutions does x² = 49 have?", "C", ["None", "One (x = 7 only)", "Two (x = 7 and x = −7)", "Three"], "Taking the square root of a positive number gives two solutions: x = 7 and x = −7.", 2, "x^2 = 49"),
+    poolAnswer("y7-equ-qdr-p10", "Solve 5x² = 45. Find the positive solution.", "5x^2 = 45", "3", "Divide by 5: x² = 9. Take the square root: x = 3 or x = −3. The positive solution is x = 3.", 3),
+    poolAnswer("y7-equ-qdr-p11", "Solve 2x² = 98. Find the positive solution.", "2x^2 = 98", "7", "Divide by 2: x² = 49. Take the square root: x = 7 or x = −7. The positive solution is x = 7.", 3),
+    poolAnswer("y7-equ-qdr-p12", "Solve x² = 225. Find the positive solution.", "x^2 = 225", "15", "Take the square root: x = 15 or x = −15. The positive solution is x = 15.", 3),
+    poolAnswer("y7-equ-qdr-p13", "Solve 3x² = 108. Find the positive solution.", "3x^2 = 108", "6", "Divide by 3: x² = 36. Take the square root: x = 6 or x = −6. The positive solution is x = 6.", 3),
+    poolChoice("y7-equ-qdr-p14", "Which equation has no real solution?", "D", ["$x^2 = 4$", "$2x^2 = 0$", "$x^2 = 36$", "$x^2 = -25$"], "x² = −25 has no real solution because squaring any real number cannot give a negative result.", 3, "\\text{Select the equation with no real solution.}"),
+    poolAnswer("y7-equ-qdr-p15", "Solve 4x² = 144. Find the positive solution.", "4x^2 = 144", "6", "Divide by 4: x² = 36. Take the square root: x = 6 or x = −6. The positive solution is x = 6.", 3),
+    poolAnswer("y7-equ-qdr-p16", "Solve x² = 196. Find the negative solution.", "x^2 = 196", "-14", "Take the square root: x = 14 or x = −14. The negative solution is x = −14.", 4, ["−14"]),
+    poolAnswer("y7-equ-qdr-p17", "Solve 6x² = 96. Find the positive solution.", "6x^2 = 96", "4", "Divide by 6: x² = 16. Take the square root: x = 4 or x = −4. The positive solution is x = 4.", 4),
+    poolAnswer("y7-equ-qdr-p18", "Solve 7x² = 175. Find the positive solution.", "7x^2 = 175", "5", "Divide by 7: x² = 25. Take the square root: x = 5 or x = −5. The positive solution is x = 5.", 4),
+    poolChoice("y7-equ-qdr-p19", "A student solves 3x² = 75 and gives only x = 5. What is missing?", "B", ["They should also give x = 0.", "They should also give x = −5.", "They should also give x = 25.", "Their answer is complete."], "Dividing by 3 gives x² = 25, so x = 5 or x = −5. The student omitted x = −5.", 4, "3x^2 = 75"),
+    poolAnswer("y7-equ-qdr-p20", "Solve 2x² = 200. Find the positive solution.", "2x^2 = 200", "10", "Divide by 2: x² = 100. Take the square root: x = 10 or x = −10. The positive solution is x = 10.", 4),
+    poolAnswer("y7-equ-qdr-p21", "A square has area 81 cm². Its side length s satisfies s² = 81. Find the side length s in cm.", "s^2 = 81", "9", "Take the square root: s = 9 (a side length must be positive). Check: 9² = 81.", 4),
+    poolChoice("y7-equ-qdr-p22", "How many real solutions does x² = −1 have?", "A", ["None", "One", "Two", "Infinitely many"], "No real number squared equals a negative number, so x² = −1 has no real solution.", 4, "x^2 = -1"),
+    poolAnswer("y7-equ-qdr-p23", "Solve 5x² = 320. Find the positive solution.", "5x^2 = 320", "8", "Divide by 5: x² = 64. Take the square root: x = 8 or x = −8. The positive solution is x = 8.", 5),
+    poolAnswer("y7-equ-qdr-p24", "Solve 9x² = 225. Find the positive solution.", "9x^2 = 225", "5", "Divide by 9: x² = 25. Take the square root: x = 5 or x = −5. The positive solution is x = 5.", 5),
+    poolAnswer("y7-equ-qdr-p25", "A square garden has area 144 m². Its side length s satisfies s² = 144. Find the side length s in m.", "s^2 = 144", "12", "Take the square root: s = 12 (a length must be positive). Check: 12² = 144.", 5),
+    poolChoice("y7-equ-qdr-p26", "What are the solutions of x² = 64?", "C", ["$x = 8$ only", "$x = 32$ only", "$x = 8$ or $x = -8$", "$x = 8$ or $x = 0$"], "Both 8² = 64 and (−8)² = 64, so x = 8 or x = −8 are both solutions.", 5, "x^2 = 64"),
+    poolAnswer("y7-equ-qdr-p27", "Solve 8x² = 72. Find the positive solution.", "8x^2 = 72", "3", "Divide by 8: x² = 9. Take the square root: x = 3 or x = −3. The positive solution is x = 3.", 3),
+    poolAnswer("y7-equ-qdr-p28", "Solve x² = 256. Find the positive solution.", "x^2 = 256", "16", "Take the square root: x = 16 or x = −16. The positive solution is x = 16.", 3),
+  ],
+  multiPartPractice: [
+    {
+      id: "y7-equ-qdr-mp1",
+      prompt:
+        "A square tile and a square paving slab are being compared. All side lengths and areas are positive. Use equations of the form ax² = c to answer each part.",
+      latex: "\\text{Solve each equation; give positive lengths where a length is asked for.}",
+      answer: "9",
+      hint: "Isolate x² by dividing by the coefficient, then take the square root. For a physical length, give the positive root only.",
+      explanation:
+        "Part (a): a square tile of area 49 cm² has s² = 49, so s = 7 cm. Part (b): 2x² = 162 gives x² = 81, so the positive solution is x = 9. Part (c): x² = −5 has no real solution because squaring never gives a negative.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "A square tile has area 49 cm². Its side length s satisfies s² = 49. Find s in cm.",
+          latex: "s^2 = 49",
+          marks: 1,
+          answer: "7",
+          acceptedAnswers: ["7.0", "7 cm"],
+          hint: "Take the square root; a length is positive.",
+          explanation: "s = √49 = 7 cm (the positive root, since a side length is positive).",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Solve 2x² = 162 and give the positive solution.",
+          latex: "2x^2 = 162",
+          marks: 2,
+          answer: "9",
+          acceptedAnswers: ["9.0"],
+          hint: "Divide by 2 first, then take the square root.",
+          explanation: "Divide by 2: x² = 81. Take the square root: x = 9 or x = −9. The positive solution is x = 9.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "How many real solutions does x² = −5 have? Give the number.",
+          latex: "x^2 = -5",
+          marks: 1,
+          answer: "0",
+          acceptedAnswers: ["none", "zero", "no real solution"],
+          hint: "Can squaring a real number ever give a negative result?",
+          explanation: "Squaring any real number gives zero or a positive result, so x² = −5 has 0 real solutions.",
+        },
+      ],
+    },
   ],
 };
 

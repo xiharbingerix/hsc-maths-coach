@@ -20,9 +20,18 @@ type LessonContent = Pick<
   | "independentPractice"
   | "commonMistakes"
   | "masteryQuiz"
+  | "masteryQuizPool"
+  | "multiPartPractice"
 >;
 
 // ── Helper builders ──────────────────────────────────────────────────────────
+
+// Pool questions carry a difficulty tag (1 = easiest … 5 = hardest) used by the
+// mastery-quiz selector. The `answer`/`choice` helpers do not set it, so we
+// attach it with this thin wrapper.
+function withDifficulty(q: PracticeQuestion, difficulty: number): PracticeQuestion {
+  return { ...q, difficulty };
+}
 
 function answer(
   id: string,
@@ -293,6 +302,95 @@ const introductionToRatios: LessonContent = {
       "The ratio of cement to gravel is $1:4$. Find the scale factor from cement to 15 kg.",
     ),
   ],
+  masteryQuizPool: [
+    // ── Difficulty 1 ──
+    withDifficulty(answer("y8-rtr-int-p01", "Simplify $10:5$.", "10:5 = \\;?", "2:1", "The HCF of 10 and 5 is 5, so $10 \\div 5 : 5 \\div 5 = 2:1$.", "Divide both parts by the HCF.", ["2 : 1"]), 1),
+    withDifficulty(answer("y8-rtr-int-p02", "Simplify $6:9$.", "6:9 = \\;?", "2:3", "The HCF of 6 and 9 is 3, so $6 \\div 3 : 9 \\div 3 = 2:3$.", "Divide both parts by 3.", ["2 : 3"]), 1),
+    withDifficulty(choice("y8-rtr-int-p03", "What is the simplest form of $8:4$?", "C", ["$4:2$", "$8:4$", "$2:1$", "$1:2$"], "The HCF of 8 and 4 is 4, giving $2:1$.", "Divide both parts by their HCF."), 1),
+    withDifficulty(answer("y8-rtr-int-p04", "A box has 4 red and 6 blue pens. Write the ratio of red to blue in simplest form.", "\\text{red : blue} = \\;?", "2:3", "$4:6$ has HCF 2, so $2:3$.", "Write in order, then simplify.", ["2 : 3"]), 1),
+    withDifficulty(answer("y8-rtr-int-p05", "Write an equivalent ratio to $2:3$ with a first part of $4$.", "2:3 = 4:\\;?", "4:6", "Multiply both parts by 2: $4:6$.", "Find the factor that takes 2 to 4.", ["4 : 6"]), 1),
+    // ── Difficulty 2 ──
+    withDifficulty(answer("y8-rtr-int-p06", "Simplify $14:35$.", "14:35 = \\;?", "2:5", "The HCF of 14 and 35 is 7, so $2:5$.", "Find the HCF of 14 and 35.", ["2 : 5"]), 2),
+    withDifficulty(answer("y8-rtr-int-p07", "Simplify $40:24$.", "40:24 = \\;?", "5:3", "The HCF of 40 and 24 is 8, so $5:3$.", "Find the HCF of 40 and 24.", ["5 : 3"]), 2),
+    withDifficulty(answer("y8-rtr-int-p08", "Write an equivalent ratio to $4:9$ with a second part of $36$.", "4:9 = \\;?:36", "16:36", "Multiply both parts by 4: $16:36$.", "Find the factor that takes 9 to 36.", ["16 : 36"]), 2),
+    withDifficulty(choice("y8-rtr-int-p09", "Which ratio is equivalent to $3:4$?", "B", ["$6:9$", "$9:12$", "$5:6$", "$8:9$"], "$3:4$ scaled by 3 gives $9:12$.", "Scale $3:4$ by a whole number and see which option matches."), 2),
+    withDifficulty(answer("y8-rtr-int-p10", "A team has 22 players and 8 reserves. Write the ratio of players to reserves in simplest form.", "\\text{players : reserves} = \\;?", "11:4", "$22:8$ has HCF 2, so $11:4$.", "Divide both parts by 2.", ["11 : 4"]), 2),
+    // ── Difficulty 3 ──
+    withDifficulty(answer("y8-rtr-int-p11", "Simplify the three-part ratio $18:27:9$.", "18:27:9 = \\;?", "2:3:1", "The HCF of 18, 27 and 9 is 9, so $2:3:1$.", "Find the HCF of all three numbers.", ["2 : 3 : 1"]), 3),
+    withDifficulty(answer("y8-rtr-int-p12", "Simplify $48:36$.", "48:36 = \\;?", "4:3", "The HCF of 48 and 36 is 12, so $4:3$.", "Find the HCF of 48 and 36.", ["4 : 3"]), 3),
+    withDifficulty(answer("y8-rtr-int-p13", "Write an equivalent ratio to $5:8$ with a first part of $35$.", "5:8 = 35:\\;?", "35:56", "Multiply both parts by 7: $35:56$.", "Find the factor that takes 5 to 35.", ["35 : 56"]), 3),
+    withDifficulty(choice("y8-rtr-int-p14", "Which pair of ratios are equivalent?", "D", ["$2:5$ and $4:9$", "$3:8$ and $9:25$", "$4:7$ and $8:13$", "$5:6$ and $15:18$"], "$5:6$ scaled by 3 gives $15:18$.", "Check whether one ratio is a whole-number multiple of the other."), 3),
+    withDifficulty(answer("y8-rtr-int-p15", "A paint mix uses 9 L white and 12 L blue. Write white to blue in simplest form.", "\\text{white : blue} = \\;?", "3:4", "$9:12$ has HCF 3, so $3:4$.", "Divide both parts by 3.", ["3 : 4"]), 3),
+    withDifficulty(answer("y8-rtr-int-p16", "Simplify $25:100$.", "25:100 = \\;?", "1:4", "The HCF of 25 and 100 is 25, so $1:4$.", "Find the HCF of 25 and 100.", ["1 : 4"]), 3),
+    withDifficulty(answer("y8-rtr-int-p17", "Simplify the three-part ratio $30:20:50$.", "30:20:50 = \\;?", "3:2:5", "The HCF of 30, 20 and 50 is 10, so $3:2:5$.", "Find the HCF of all three.", ["3 : 2 : 5"]), 3),
+    // ── Difficulty 4 ──
+    withDifficulty(choice("y8-rtr-int-p18", "Which ratio is greater in its first part: $4:5$ or $7:9$?", "A", ["$4:5$", "$7:9$", "They are equal", "Cannot be determined"], "Common second part (LCM of 5 and 9 = 45): $4:5 = 36:45$ and $7:9 = 35:45$. Since $36 > 35$, $4:5$ is greater.", "Convert both ratios to a common second part, then compare first parts."), 4),
+    withDifficulty(answer("y8-rtr-int-p19", "The ratio of cats to dogs at a shelter is $4:7$. There are 28 cats. How many dogs are there?", "\\text{If cats} = 28, \\text{ dogs} = \\;?", "49", "Scale factor $= 28 \\div 4 = 7$. Dogs $= 7 \\times 7 = 49$.", "Find how many times 4 goes into 28.", ["49 dogs"]), 4),
+    withDifficulty(answer("y8-rtr-int-p20", "Simplify $0.6:0.9$ to a whole-number ratio in simplest form.", "0.6:0.9 = \\;?", "2:3", "Multiply both parts by 10: $6:9$, then divide by HCF 3: $2:3$.", "Multiply both parts by 10 to clear the decimals first.", ["2 : 3"]), 4),
+    withDifficulty(answer("y8-rtr-int-p21", "A map scale shows 1 cm represents 8 km. Write this as a ratio $1:n$ in centimetres.", "1 \\text{ cm} : 8 \\text{ km} = 1:\\;?", "1:800000", "$8 \\text{ km} = 800\\,000 \\text{ cm}$, so $1:800\\,000$.", "Convert 8 km to cm: $1 \\text{ km} = 100\\,000 \\text{ cm}$.", ["1:800 000", "800000"]), 4),
+    withDifficulty(answer("y8-rtr-int-p22", "Concrete is mixed cement : sand : gravel in $2:3:5$. A builder uses 14 kg of cement. How many kilograms of gravel are needed?", "\\text{cement : gravel} = 2:5, \\text{ gravel} = \\;?", "35", "Scale factor $= 14 \\div 2 = 7$. Gravel $= 5 \\times 7 = 35$ kg.", "Find the scale factor from the cement part.", ["35 kg"]), 4),
+    // ── Difficulty 5 ──
+    withDifficulty(answer("y8-rtr-int-p23", "Simplify the ratio $\\tfrac{1}{2}:\\tfrac{3}{4}$ to a whole-number ratio in simplest form.", "\\tfrac{1}{2}:\\tfrac{3}{4} = \\;?", "2:3", "Multiply both parts by 4: $2:3$.", "Multiply both parts by the LCD of the fractions (4).", ["2 : 3"]), 5),
+    withDifficulty(answer("y8-rtr-int-p24", "The ratio of red to blue to green counters is $2:3:5$ and there are 60 counters in total. How many green counters are there?", "\\text{green} = \\;?", "30", "Total parts $= 2 + 3 + 5 = 10$. One part $= 60 \\div 10 = 6$. Green $= 5 \\times 6 = 30$.", "Add the parts to find the total, then find one part.", ["30 green"]), 5),
+    withDifficulty(choice("y8-rtr-int-p25", "A recipe ratio of flour to sugar is $5:2$. To keep the same ratio with 15 cups of flour, how much sugar is needed?", "C", ["3 cups", "5 cups", "6 cups", "7.5 cups"], "Scale factor $= 15 \\div 5 = 3$. Sugar $= 2 \\times 3 = 6$ cups.", "Find the factor that scales 5 up to 15, then apply it to the sugar part."), 5),
+    withDifficulty(answer("y8-rtr-int-p26", "Two ratios $a:12$ and $5:8$ are equivalent. Find $a$.", "a:12 = 5:8, \\quad a = \\;?", "7.5", "From 8 to 12 the factor is $12 \\div 8 = 1.5$, so $a = 5 \\times 1.5 = 7.5$.", "Find the factor that scales 8 up to 12.", ["15/2"]), 5),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-rtr-int-mp1",
+      prompt: "A school orchestra of 60 students is made up of strings, woodwind and brass players in the ratio $7:3:2$.",
+      latex: "\\text{strings : woodwind : brass} = 7:3:2",
+      answer: "60",
+      hint: "Find the total number of parts first, then the value of one part.",
+      explanation: "Total parts $= 7 + 3 + 2 = 12$. One part $= 60 \\div 12 = 5$ students. Strings $= 35$, woodwind $= 15$, brass $= 10$. Strings to brass simplifies to $7:2$.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "What is the total number of parts in the ratio?",
+          latex: "7 + 3 + 2",
+          marks: 1,
+          answer: "12",
+          acceptedAnswers: ["12 parts"],
+          hint: "Add the three ratio numbers.",
+          explanation: "$7 + 3 + 2 = 12$ parts.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "How many students play a string instrument?",
+          latex: "7 \\times (60 \\div 12)",
+          marks: 1,
+          answer: "35",
+          acceptedAnswers: ["35 students"],
+          hint: "One part = 60 ÷ 12. Multiply by 7.",
+          explanation: "One part $= 60 \\div 12 = 5$. Strings $= 7 \\times 5 = 35$.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "How many students play brass?",
+          latex: "2 \\times (60 \\div 12)",
+          marks: 1,
+          answer: "10",
+          acceptedAnswers: ["10 students"],
+          hint: "Multiply one part by the brass ratio number.",
+          explanation: "Brass $= 2 \\times 5 = 10$ students.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "Write the ratio of string players to brass players in simplest form (as a:b).",
+          latex: "35:10 = \\;?",
+          marks: 1,
+          answer: "7:2",
+          acceptedAnswers: ["7 : 2"],
+          hint: "Divide both parts by their HCF.",
+          explanation: "$35:10$ has HCF 5, so $7:2$.",
+        },
+      ],
+    },
+  ],
 };
 
 // ── Lesson 2: Dividing Quantities in Ratio ────────────────────────────────────
@@ -520,6 +618,95 @@ const dividingQuantitiesInRatio: LessonContent = {
       "Total parts $= 6 + 2 + 1 = 9$. One part $= 180 \\div 9 = 20$ animals. Chickens $= 6 \\times 20 = 120$. Income $= 120 \\times \\$3 = \\$360$.",
       "First find the number of chickens using the ratio method, then calculate the income.",
     ),
+  ],
+  masteryQuizPool: [
+    // ── Difficulty 1 ──
+    withDifficulty(answer("y8-rtr-div-p01", "To share an amount in the ratio $2:3$, how many parts are there in total?", "2 + 3 = \\;?", "5", "Add the ratio numbers: $2 + 3 = 5$.", "Add the ratio numbers together.", ["5 parts"]), 1),
+    withDifficulty(answer("y8-rtr-div-p02", "Share $20 in the ratio $1:1$. How much is each share?", "\\text{Each share} = \\;?", "$10", "Total parts $= 2$. One part $= \\$20 \\div 2 = \\$10$.", "Two equal parts means split in half.", ["10", "$10.00"]), 1),
+    withDifficulty(choice("y8-rtr-div-p03", "Share 12 lollies in the ratio $1:2$. What is the smaller share?", "B", ["2", "4", "6", "8"], "Total parts $= 3$. One part $= 4$. Smaller share $= 1 \\times 4 = 4$.", "Divide 12 by the total parts, then multiply by the smaller ratio number."), 1),
+    withDifficulty(answer("y8-rtr-div-p04", "Share $40 in the ratio $1:3$. Find the larger share.", "\\text{Larger share} = \\;?", "$30", "Total parts $= 4$. One part $= \\$10$. Larger $= 3 \\times \\$10 = \\$30$.", "Find one part, then multiply by 3.", ["30"]), 1),
+    withDifficulty(answer("y8-rtr-div-p05", "Share 18 stickers in the ratio $1:2$. Find the larger share.", "\\text{Larger share} = \\;?", "12", "Total parts $= 3$. One part $= 6$. Larger $= 2 \\times 6 = 12$.", "Divide 18 by 3 parts, then multiply by 2.", ["12 stickers"]), 1),
+    // ── Difficulty 2 ──
+    withDifficulty(answer("y8-rtr-div-p06", "Share $100 in the ratio $2:3$. Find the smaller share.", "\\text{Smaller share} = \\;?", "$40", "Total parts $= 5$. One part $= \\$20$. Smaller $= 2 \\times \\$20 = \\$40$.", "Find one part, then multiply by 2.", ["40"]), 2),
+    withDifficulty(answer("y8-rtr-div-p07", "A 72 cm ribbon is cut in the ratio $5:4$. Find the longer piece.", "\\text{Longer piece} = \\;?", "40", "Total parts $= 9$. One part $= 8$ cm. Longer $= 5 \\times 8 = 40$ cm.", "Find one part, then multiply by 5.", ["40 cm"]), 2),
+    withDifficulty(choice("y8-rtr-div-p08", "Share $80 in the ratio $3:5$. What is the larger share?", "C", ["$30", "$40", "$50", "$60"], "Total parts $= 8$. One part $= \\$10$. Larger $= 5 \\times \\$10 = \\$50$.", "Find one part, then multiply by the larger ratio number."), 2),
+    withDifficulty(answer("y8-rtr-div-p09", "Mix juice and water in the ratio $2:5$ to make 700 mL. How much juice is used?", "\\text{Juice} = \\;?", "200", "Total parts $= 7$. One part $= 100$ mL. Juice $= 2 \\times 100 = 200$ mL.", "Find one part, then multiply by the juice ratio number.", ["200 mL"]), 2),
+    withDifficulty(answer("y8-rtr-div-p10", "Two friends share 45 marbles in the ratio $4:5$. How many does the one with more receive?", "\\text{Larger share} = \\;?", "25", "Total parts $= 9$. One part $= 5$. Larger $= 5 \\times 5 = 25$.", "Find one part, then multiply by 5.", ["25 marbles"]), 2),
+    // ── Difficulty 3 ──
+    withDifficulty(answer("y8-rtr-div-p11", "Share $480 between three people in the ratio $1:2:3$. How much does the middle share receive?", "\\text{Middle share} = \\;?", "$160", "Total parts $= 6$. One part $= \\$80$. Middle $= 2 \\times \\$80 = \\$160$.", "Add all three ratio numbers for the total parts.", ["160"]), 3),
+    withDifficulty(answer("y8-rtr-div-p12", "A 120 cm wire is cut in the ratio $3:5$. Find the difference between the two pieces.", "\\text{Difference} = \\;?", "30", "Total parts $= 8$. One part $= 15$ cm. Pieces: 45 cm and 75 cm. Difference $= 30$ cm.", "Find both pieces, then subtract.", ["30 cm"]), 3),
+    withDifficulty(choice("y8-rtr-div-p13", "Paint is mixed red : white : blue in $2:3:5$ for a 500 mL can. How much white is used?", "B", ["100 mL", "150 mL", "200 mL", "250 mL"], "Total parts $= 10$. One part $= 50$ mL. White $= 3 \\times 50 = 150$ mL.", "Add the three ratio numbers, find one part, then multiply by the white number."), 3),
+    withDifficulty(answer("y8-rtr-div-p14", "Ben and Tia share chores in the ratio $2:7$. Tia does 28 chores. How many does Ben do?", "\\text{Ben's chores} = \\;?", "8", "Tia's 7 parts $= 28$, so one part $= 4$. Ben $= 2 \\times 4 = 8$.", "Use Tia's share to find one part.", ["8 chores"]), 3),
+    withDifficulty(answer("y8-rtr-div-p15", "A bag of 90 beads has red, blue and yellow in the ratio $4:3:2$. How many blue beads?", "\\text{Blue beads} = \\;?", "30", "Total parts $= 9$. One part $= 10$. Blue $= 3 \\times 10 = 30$.", "Add the three ratio numbers for the total parts.", ["30 beads"]), 3),
+    withDifficulty(answer("y8-rtr-div-p16", "Share $600 in the ratio $5:7$. Find the larger share.", "\\text{Larger share} = \\;?", "$350", "Total parts $= 12$. One part $= \\$50$. Larger $= 7 \\times \\$50 = \\$350$.", "Find one part, then multiply by 7.", ["350"]), 3),
+    withDifficulty(answer("y8-rtr-div-p17", "A 3-hour shift is split between setup, service and cleanup in the ratio $1:4:1$. How many minutes are spent on service?", "\\text{Service time} = \\;?", "120", "3 hours $= 180$ min. Total parts $= 6$. One part $= 30$ min. Service $= 4 \\times 30 = 120$ min.", "Convert hours to minutes first.", ["120 minutes"]), 3),
+    // ── Difficulty 4 ──
+    withDifficulty(answer("y8-rtr-div-p18", "Three people invest in the ratio $3:4:5$ and share a $2400 profit. How much does the largest investor receive?", "\\text{Largest share} = \\;?", "$1000", "Total parts $= 12$. One part $= \\$200$. Largest $= 5 \\times \\$200 = \\$1000$.", "Add all three ratio numbers, then find one part.", ["1000"]), 4),
+    withDifficulty(answer("y8-rtr-div-p19", "Gold and copper are mixed in the ratio $5:3$ to make 480 g of alloy. How much more gold than copper is used?", "\\text{Difference} = \\;?", "120", "Total parts $= 8$. One part $= 60$ g. Gold $= 300$ g, copper $= 180$ g. Difference $= 120$ g.", "Find both masses, then subtract.", ["120 g"]), 4),
+    withDifficulty(choice("y8-rtr-div-p20", "Sam and Lee share money in the ratio $3:8$. Sam receives $35 less than Lee. How much do they share in total?", "C", ["$33", "$55", "$77", "$99"], "Difference in parts $= 8 - 3 = 5$ parts $= \\$35$, so one part $= \\$7$. Total parts $= 11$, total $= 11 \\times \\$7 = \\$77$.", "The stated difference equals (8 − 3) parts. Find one part, then the total."), 4),
+    withDifficulty(answer("y8-rtr-div-p21", "A 750 g mix of nuts and raisins is in the ratio $7:8$. How many grams of raisins are there?", "\\text{Raisins} = \\;?", "400", "Total parts $= 15$. One part $= 50$ g. Raisins $= 8 \\times 50 = 400$ g.", "Add the parts to find the total, then one part.", ["400 g"]), 4),
+    withDifficulty(answer("y8-rtr-div-p22", "A field of 240 animals has sheep, goats and cows in the ratio $9:5:2$. How many more sheep than cows are there?", "\\text{Difference} = \\;?", "105", "Total parts $= 16$. One part $= 15$. Sheep $= 135$, cows $= 30$. Difference $= 105$.", "Find both counts, then subtract.", ["105 animals"]), 4),
+    // ── Difficulty 5 ──
+    withDifficulty(answer("y8-rtr-div-p23", "Three classes raise money in the ratio $5:8:9$. The second class raises $300 more than the first. How much is raised in total?", "\\text{Total raised} = \\;?", "$2200", "Difference $= 8 - 5 = 3$ parts $= \\$300$, so one part $= \\$100$. Total parts $= 22$. Total $= 22 \\times \\$100 = \\$2200$.", "The stated difference equals (8 − 5) parts. Find one part, then multiply by the total parts.", ["2200"]), 5),
+    withDifficulty(answer("y8-rtr-div-p24", "A prize of $924 is shared in the ratio $2:3:6$. The smallest share is then split equally between 4 children. How much does each child get?", "\\text{Each child} = \\;?", "$42", "Total parts $= 11$. One part $= \\$84$. Smallest $= 2 \\times \\$84 = \\$168$. Each child $= \\$168 \\div 4 = \\$42$.", "Find the smallest share first, then divide by 4.", ["42"]), 5),
+    withDifficulty(choice("y8-rtr-div-p25", "Cement, sand and gravel are mixed $1:2:4$. A builder has 30 kg of cement and unlimited sand and gravel. What is the maximum mass of concrete he can make?", "D", ["120 kg", "150 kg", "180 kg", "210 kg"], "Cement is 1 part $= 30$ kg, so total parts $= 7$, total mass $= 7 \\times 30 = 210$ kg.", "Cement is 1 part. Multiply 30 kg by the total number of parts."), 5),
+    withDifficulty(answer("y8-rtr-div-p26", "Two quantities are in the ratio $4:9$ and the larger one is 27. A third quantity equal to the smaller one is then added to the total. What is the new total of all three quantities?", "\\text{New total} = \\;?", "51", "One part $= 27 \\div 9 = 3$. Smaller $= 4 \\times 3 = 12$. Original total $= 12 + 27 = 39$. Adding another 12 gives $39 + 12 = 51$.", "Find one part from the larger quantity, then work out the smaller and combine.", ["51"]), 5),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-rtr-div-mp1",
+      prompt: "A $360 prize is shared between three winners — Ana, Beck and Cara — in the ratio $3:4:5$.",
+      latex: "\\text{Ana : Beck : Cara} = 3:4:5",
+      answer: "360",
+      hint: "Add the ratio numbers to find the total parts, then find the value of one part.",
+      explanation: "Total parts $= 12$. One part: \\(\\$360\\) ÷ 12 = \\(\\$30\\). Ana \\(= \\$90\\), Beck \\(= \\$120\\), Cara \\(= \\$150\\). Cara receives \\(\\$150 - \\$90 = \\$60\\) more than Ana.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "What is the value of one part, in dollars?",
+          latex: "360 \\div 12",
+          marks: 1,
+          answer: "$30",
+          acceptedAnswers: ["30", "$30.00"],
+          hint: "Divide $360 by the total number of parts.",
+          explanation: "Total parts $= 3 + 4 + 5 = 12$. One part: \\(\\$360\\) ÷ 12 = \\(\\$30\\).",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "How much does Ana receive?",
+          latex: "3 \\times 30",
+          marks: 1,
+          answer: "$90",
+          acceptedAnswers: ["90", "$90.00"],
+          hint: "Multiply one part by Ana's ratio number.",
+          explanation: "Ana $= 3 \\times \\$30 = \\$90$.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "How much does Cara receive?",
+          latex: "5 \\times 30",
+          marks: 1,
+          answer: "$150",
+          acceptedAnswers: ["150", "$150.00"],
+          hint: "Multiply one part by Cara's ratio number.",
+          explanation: "Cara $= 5 \\times \\$30 = \\$150$.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "How much more does Cara receive than Ana, in dollars?",
+          latex: "150 - 90",
+          marks: 1,
+          answer: "$60",
+          acceptedAnswers: ["60", "$60.00"],
+          hint: "Subtract Ana's share from Cara's share.",
+          explanation: "$\\$150 - \\$90 = \\$60$.",
+        },
+      ],
+    },
   ],
 };
 
@@ -764,6 +951,84 @@ const ratesAndUnitRates: LessonContent = {
       "Monthly bill $= 850 \\times \\$0.28 = \\$238$. Reduction $= 15\\%$ of $\\$238 = 0.15 \\times \\$238 = \\$35.70$.",
       "Calculate the original bill, then find 15% of it.",
     ),
+  ],
+  masteryQuizPool: [
+    // ── Difficulty 1 ──
+    withDifficulty(answer("y8-rtr-rat-p01", "A car travels 100 km in 2 hours. What is its speed in km/h?", "100 \\div 2 = \\;?", "50", "$100 \\div 2 = 50$ km/h.", "Divide distance by time.", ["50 km/h"]), 1),
+    withDifficulty(answer("y8-rtr-rat-p02", "A tap fills 60 L in 6 minutes. What is the flow rate in L/min?", "60 \\div 6 = \\;?", "10", "$60 \\div 6 = 10$ L/min.", "Divide volume by time.", ["10 L/min"]), 1),
+    withDifficulty(choice("y8-rtr-rat-p03", "Which is a rate, not a ratio?", "C", ["Boys to girls", "Apples to oranges", "Dollars per hour", "Length to width"], "A rate compares quantities with different units, like dollars and hours.", "A rate involves two different types of measurement."), 1),
+    withDifficulty(answer("y8-rtr-rat-p04", "A worker earns $80 for 4 hours. What is the pay rate in $/h?", "80 \\div 4 = \\;?", "$20/h", "$80 \\div 4 = \\$20$ per hour.", "Divide earnings by hours.", ["20", "$20"]), 1),
+    withDifficulty(answer("y8-rtr-rat-p05", "A machine makes 200 parts in 5 hours. What is the rate in parts per hour?", "200 \\div 5 = \\;?", "40", "$200 \\div 5 = 40$ parts per hour.", "Divide total parts by hours.", ["40 parts/hour"]), 1),
+    // ── Difficulty 2 ──
+    withDifficulty(answer("y8-rtr-rat-p06", "Convert $36$ km/h to m/s.", "36 \\times \\tfrac{5}{18} = \\;?", "10", "$36 \\times \\frac{5}{18} = 10$ m/s.", "Multiply by $\\frac{5}{18}$.", ["10 m/s"]), 2),
+    withDifficulty(answer("y8-rtr-rat-p07", "Convert $15$ m/s to km/h.", "15 \\times 3.6 = \\;?", "54", "$15 \\times 3.6 = 54$ km/h.", "Multiply by 3.6.", ["54 km/h"]), 2),
+    withDifficulty(answer("y8-rtr-rat-p08", "A cyclist covers 60 km in 2.5 hours. Find the average speed in km/h.", "60 \\div 2.5 = \\;?", "24", "$60 \\div 2.5 = 24$ km/h.", "Divide distance by time.", ["24 km/h"]), 2),
+    withDifficulty(choice("y8-rtr-rat-p09", "A pump moves 240 L in 8 minutes. What is the flow rate?", "B", ["20 L/min", "30 L/min", "32 L/min", "40 L/min"], "$240 \\div 8 = 30$ L/min.", "Divide the volume by the time."), 2),
+    withDifficulty(answer("y8-rtr-rat-p10", "A worker is paid $22 per hour. How much for a 6-hour shift?", "22 \\times 6 = \\;?", "$132", "$\\$22 \\times 6 = \\$132$.", "Multiply the rate by the hours.", ["132"]), 2),
+    // ── Difficulty 3 ──
+    withDifficulty(answer("y8-rtr-rat-p11", "A car uses 48 L over 600 km. Find the fuel consumption in L/100 km.", "48 \\div 600 \\times 100 = \\;?", "8", "$48 \\div 600 \\times 100 = 8$ L/100 km.", "Divide litres by km, then multiply by 100.", ["8 L/100 km"]), 3),
+    withDifficulty(answer("y8-rtr-rat-p12", "Convert $72$ km/h to m/s.", "72 \\times \\tfrac{5}{18} = \\;?", "20", "$72 \\times \\frac{5}{18} = 20$ m/s.", "Multiply by $\\frac{5}{18}$.", ["20 m/s"]), 3),
+    withDifficulty(choice("y8-rtr-rat-p13", "Pack A: 500 g for $4.00. Pack B: 800 g for $6.00. Which is better value?", "B", ["Pack A at $0.80/100 g", "Pack B at $0.75/100 g", "They are equal", "Pack A at $0.008/g"], "Pack A: $\\$4.00 \\div 5 = \\$0.80$ per 100 g. Pack B: $\\$6.00 \\div 8 = \\$0.75$ per 100 g. Pack B is cheaper.", "Find the cost per 100 g for each pack, then compare."), 3),
+    withDifficulty(answer("y8-rtr-rat-p14", "A printer prints 120 pages in 3 minutes. How long to print 280 pages?", "\\text{Time (min)} = \\;?", "7", "Rate $= 40$ pages/min. Time $= 280 \\div 40 = 7$ min.", "Find pages per minute, then divide.", ["7 minutes"]), 3),
+    withDifficulty(answer("y8-rtr-rat-p15", "A pump empties a 6000 L tank in 2 hours. What is the flow rate in L/min?", "\\text{Rate} = \\;?", "50", "2 h $= 120$ min. $6000 \\div 120 = 50$ L/min.", "Convert hours to minutes first.", ["50 L/min"]), 3),
+    withDifficulty(answer("y8-rtr-rat-p16", "Convert $25$ m/s to km/h.", "25 \\times 3.6 = \\;?", "90", "$25 \\times 3.6 = 90$ km/h.", "Multiply by 3.6.", ["90 km/h"]), 3),
+    withDifficulty(answer("y8-rtr-rat-p17", "A worker earns $437 for 23 hours. What is the pay rate in $/h?", "437 \\div 23 = \\;?", "$19/h", "$437 \\div 23 = \\$19$ per hour.", "Divide earnings by hours.", ["19", "$19"]), 3),
+    // ── Difficulty 4 ──
+    withDifficulty(answer("y8-rtr-rat-p18", "A car travels 360 km on 30 L. Find consumption in L/100 km.", "\\text{Consumption} = \\;?", "8.33", "$30 \\div 360 \\times 100 = 8.\\overline{3} \\approx 8.33$ L/100 km.", "Divide litres by km, then multiply by 100.", ["8.3", "25/3"]), 4),
+    withDifficulty(choice("y8-rtr-rat-p19", "A runner does 300 m in 40 s. Which is closest to her speed in km/h?", "C", ["$18$ km/h", "$24$ km/h", "$27$ km/h", "$30$ km/h"], "Speed $= 300 \\div 40 = 7.5$ m/s. $7.5 \\times 3.6 = 27$ km/h.", "Find the speed in m/s, then multiply by 3.6."), 4),
+    withDifficulty(answer("y8-rtr-rat-p20", "Brand A: 1.5 kg for $6.00. Brand B: 900 g for $4.05. Which brand is cheaper per 100 g? Answer A or B.", "\\text{Cheaper brand} = ?", "A", "Brand A: $\\$6.00 \\div 15 = \\$0.40$ per 100 g. Brand B: $\\$4.05 \\div 9 = \\$0.45$ per 100 g. Brand A is cheaper.", "Convert both to cost per 100 g.", ["Brand A"]), 4),
+    withDifficulty(answer("y8-rtr-rat-p21", "A train travels at 90 km/h. How far does it go in 40 seconds? Give your answer in metres.", "\\text{Distance} = \\;?", "1000", "$90 \\text{ km/h} = 25$ m/s. $25 \\times 40 = 1000$ m.", "Convert to m/s first, then multiply by the time.", ["1000 m"]), 4),
+    withDifficulty(answer("y8-rtr-rat-p22", "A tap leaks 3 mL every 5 seconds. How many litres leak in one hour?", "\\text{Litres per hour} = \\;?", "2.16", "Rate $= 0.6$ mL/s. In 3600 s: $0.6 \\times 3600 = 2160$ mL $= 2.16$ L.", "Find the rate per second, then multiply by 3600 s, then convert mL to L.", ["2.16 L"]), 4),
+    // ── Difficulty 5 ──
+    withDifficulty(answer("y8-rtr-rat-p23", "Electricity costs $0.30 per kWh. A household uses 920 kWh in a month. A 20% reduction is achieved. What is the new monthly bill?", "\\text{New bill} = \\;?", "$220.80", "Original $= 920 \\times \\$0.30 = \\$276$. After 20% off: $0.80 \\times \\$276 = \\$220.80$.", "Find the original bill, then take 80% of it.", ["220.80"]), 5),
+    withDifficulty(answer("y8-rtr-rat-p24", "Tap A fills a 600 L tank in 30 min; tap B in 20 min. Running together, what is their combined flow rate in L/min?", "\\text{Combined rate} = \\;?", "50", "Tap A $= 20$ L/min, tap B $= 30$ L/min. Combined $= 20 + 30 = 50$ L/min.", "Find each tap's rate, then add them.", ["50 L/min"]), 5),
+    withDifficulty(choice("y8-rtr-rat-p25", "Shop X: 6 cans for $9.00. Shop Y: 10 cans for $14.00. A buyer needs 30 cans. How much is saved by buying all at the cheaper shop?", "B", ["$1.50", "$3.00", "$4.50", "$6.00"], "Shop X: \\$1.50/can → 30 cans $= \\$45$. Shop Y: \\$1.40/can → 30 cans $= \\$42$. Saving $= \\$45 - \\$42 = \\$3.00$.", "Find each shop's price per can, then the cost of 30 cans at each."), 5),
+    withDifficulty(answer("y8-rtr-rat-p26", "A car averages 7.5 L/100 km and travels 480 km. Fuel costs $2.00 per litre. What is the fuel cost for the trip?", "\\text{Fuel cost} = \\;?", "$72", "Fuel used $= 7.5 \\times \\frac{480}{100} = 36$ L. Cost $= 36 \\times \\$2.00 = \\$72$.", "Find the litres used first, then multiply by the price per litre.", ["72"]), 5),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-rtr-rat-mp1",
+      prompt: "A family car travels 540 km on a road trip and uses 45 L of petrol. Petrol costs $1.80 per litre.",
+      latex: "\\text{540 km on 45 L, } \\$1.80\\text{/L}",
+      answer: "540",
+      hint: "Work out the consumption per 100 km, then use it to find litres and cost.",
+      explanation: "Consumption $= 45 \\div 540 \\times 100 = 8.\\overline{3}$ L/100 km. The trip uses 45 L, costing $45 \\times \\$1.80 = \\$81$. For a 300 km leg at the same rate: $45 \\div 540 \\times 300 = 25$ L.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "What is the fuel consumption in L/100 km? Round to two decimal places.",
+          latex: "45 \\div 540 \\times 100",
+          marks: 1,
+          answer: "8.33",
+          acceptedAnswers: ["8.3", "25/3"],
+          hint: "Divide litres by km, then multiply by 100.",
+          explanation: "$45 \\div 540 \\times 100 = 8.\\overline{3} \\approx 8.33$ L/100 km.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "What is the total cost of the petrol for the trip, in dollars?",
+          latex: "45 \\times 1.80",
+          marks: 1,
+          answer: "$81",
+          acceptedAnswers: ["81", "$81.00"],
+          hint: "Multiply the litres used by the price per litre.",
+          explanation: "$45 \\times \\$1.80 = \\$81$.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "How many litres would a 300 km journey use at the same consumption rate?",
+          latex: "45 \\div 540 \\times 300",
+          marks: 1,
+          answer: "25",
+          acceptedAnswers: ["25 L"],
+          hint: "Use the per-km rate, then multiply by 300.",
+          explanation: "$45 \\div 540 = 0.08\\overline{3}$ L/km. $0.08\\overline{3} \\times 300 = 25$ L.",
+        },
+      ],
+    },
   ],
 };
 
@@ -1023,6 +1288,95 @@ const speedDistanceTime: LessonContent = {
       ["104", "104.0"],
     ),
   ],
+  masteryQuizPool: [
+    // ── Difficulty 1 ──
+    withDifficulty(answer("y8-rtr-sdt-p01", "How far does a car travel at 50 km/h for 2 hours?", "d = 50 \\times 2 = \\;?", "100", "$d = 50 \\times 2 = 100$ km.", "Use $d = s \\times t$.", ["100 km"]), 1),
+    withDifficulty(answer("y8-rtr-sdt-p02", "A runner covers 10 km in 2 hours. What is the average speed in km/h?", "s = 10 \\div 2 = \\;?", "5", "$s = 10 \\div 2 = 5$ km/h.", "Use $s = d \\div t$.", ["5 km/h"]), 1),
+    withDifficulty(choice("y8-rtr-sdt-p03", "Which formula finds distance?", "B", ["$d = s \\div t$", "$d = s \\times t$", "$d = t \\div s$", "$d = s + t$"], "Distance $=$ speed $\\times$ time.", "Rearrange $s = d \\div t$ to make $d$ the subject."), 1),
+    withDifficulty(answer("y8-rtr-sdt-p04", "How long to travel 200 km at 100 km/h? Give your answer in hours.", "t = 200 \\div 100 = \\;?", "2", "$t = 200 \\div 100 = 2$ hours.", "Use $t = d \\div s$.", ["2 hours"]), 1),
+    withDifficulty(answer("y8-rtr-sdt-p05", "A car travels at 60 km/h for 3 hours. How far?", "d = 60 \\times 3 = \\;?", "180", "$d = 60 \\times 3 = 180$ km.", "Use $d = s \\times t$.", ["180 km"]), 1),
+    // ── Difficulty 2 ──
+    withDifficulty(answer("y8-rtr-sdt-p06", "A cyclist rides 36 km in 1.5 hours. Find the average speed in km/h.", "s = 36 \\div 1.5 = \\;?", "24", "$s = 36 \\div 1.5 = 24$ km/h.", "Use $s = d \\div t$.", ["24 km/h"]), 2),
+    withDifficulty(answer("y8-rtr-sdt-p07", "A plane flies 2400 km at 800 km/h. How long is the flight in hours?", "t = 2400 \\div 800 = \\;?", "3", "$t = 2400 \\div 800 = 3$ hours.", "Use $t = d \\div s$.", ["3 hours"]), 2),
+    withDifficulty(choice("y8-rtr-sdt-p08", "How far does a train travel at 120 km/h in 2.5 hours?", "C", ["240 km", "280 km", "300 km", "360 km"], "$d = 120 \\times 2.5 = 300$ km.", "Use $d = s \\times t$."), 2),
+    withDifficulty(answer("y8-rtr-sdt-p09", "A bus travels at 80 km/h. How far in 1.5 hours?", "d = 80 \\times 1.5 = \\;?", "120", "$d = 80 \\times 1.5 = 120$ km.", "Use $d = s \\times t$.", ["120 km"]), 2),
+    withDifficulty(answer("y8-rtr-sdt-p10", "A car covers 105 km in 1.5 hours. Find its speed in km/h.", "s = 105 \\div 1.5 = \\;?", "70", "$s = 105 \\div 1.5 = 70$ km/h.", "Use $s = d \\div t$.", ["70 km/h"]), 2),
+    // ── Difficulty 3 ──
+    withDifficulty(answer("y8-rtr-sdt-p11", "A car travels at 72 km/h. How far in 45 minutes? Give your answer in km.", "\\text{Distance} = \\;?", "54", "45 min $= 0.75$ h. $d = 72 \\times 0.75 = 54$ km.", "Convert minutes to hours first.", ["54 km"]), 3),
+    withDifficulty(answer("y8-rtr-sdt-p12", "A plane flies at 900 km/h. How long (in minutes) to cover 450 km?", "\\text{Time (min)} = \\;?", "30", "$t = 450 \\div 900 = 0.5$ h $= 30$ min.", "Find the time in hours, then convert to minutes.", ["30 minutes"]), 3),
+    withDifficulty(choice("y8-rtr-sdt-p13", "A car travels at 100 km/h. How long to travel 150 km?", "B", ["1 h", "1 h 30 min", "2 h", "2 h 30 min"], "$t = 150 \\div 100 = 1.5$ h $= 1$ h $30$ min.", "Use $t = d \\div s$, then convert the decimal to minutes."), 3),
+    withDifficulty(answer("y8-rtr-sdt-p14", "A train leaves at 10:15 and arrives at 12:45, travelling 200 km. Find the average speed in km/h.", "\\text{Speed} = \\;?", "80", "Time $= 2.5$ h. $s = 200 \\div 2.5 = 80$ km/h.", "Find the journey time first.", ["80 km/h"]), 3),
+    withDifficulty(answer("y8-rtr-sdt-p15", "A hiker walks 9 km in 1.5 h, then 6 km in 1.5 h. Find the average speed for the whole walk in km/h.", "\\text{Average speed} = \\;?", "5", "Total $= 15$ km in $3$ h. $15 \\div 3 = 5$ km/h.", "Use total distance ÷ total time.", ["5 km/h"]), 3),
+    withDifficulty(answer("y8-rtr-sdt-p16", "Convert $90$ km/h to m/s, then find the distance in 12 seconds.", "\\text{Distance} = \\;?", "300", "$90 \\text{ km/h} = 25$ m/s. $25 \\times 12 = 300$ m.", "Convert to m/s, then use $d = s \\times t$.", ["300 m"]), 3),
+    withDifficulty(answer("y8-rtr-sdt-p17", "A car travels 60 km at 60 km/h then 60 km at 120 km/h. Find the average speed for the trip in km/h.", "\\text{Average speed} = \\;?", "80", "Times: $1$ h and $0.5$ h. Total $120$ km in $1.5$ h. $120 \\div 1.5 = 80$ km/h.", "Find each leg's time, then total distance ÷ total time.", ["80 km/h"]), 3),
+    // ── Difficulty 4 ──
+    withDifficulty(answer("y8-rtr-sdt-p18", "On a trip, Mia drives 180 km at 90 km/h then 100 km at 50 km/h. Find the average speed in km/h.", "\\text{Average speed} = \\;?", "70", "Times: $2$ h and $2$ h. Total $280$ km in $4$ h. $280 \\div 4 = 70$ km/h.", "Find each leg's time, then total distance ÷ total time.", ["70 km/h"]), 4),
+    withDifficulty(answer("y8-rtr-sdt-p19", "A walker covers 8 km in 2 h, rests 30 min, then 6 km in 1.5 h. Find the average speed (including the rest) in km/h.", "\\text{Average speed} = \\;?", "3.5", "Total $14$ km. Total time $= 2 + 0.5 + 1.5 = 4$ h. $14 \\div 4 = 3.5$ km/h.", "Include the rest in the total time.", ["3.5 km/h"]), 4),
+    withDifficulty(choice("y8-rtr-sdt-p20", "A train at 80 km/h leaves at 08:00. At what time has it travelled 200 km?", "C", ["09:30", "10:00", "10:30", "11:00"], "$t = 200 \\div 80 = 2.5$ h. $08{:}00 + 2$ h $30$ min $= 10{:}30$.", "Find the time taken, then add it to the departure time."), 4),
+    withDifficulty(answer("y8-rtr-sdt-p21", "A car travels at 54 km/h. Convert to m/s, then find how far it goes in 25 seconds.", "\\text{Distance} = \\;?", "375", "$54 \\text{ km/h} = 15$ m/s. $15 \\times 25 = 375$ m.", "Convert to m/s first.", ["375 m"]), 4),
+    withDifficulty(answer("y8-rtr-sdt-p22", "Two towns are 240 km apart. A car leaves at 09:00 at 60 km/h; another leaves the same town at 10:00 at 80 km/h on the same road. The second catches the first after how many hours of the second car's travel?", "\\text{Hours (second car)} = \\;?", "3", "At 10:00 the first car is 60 km ahead. Gap closes at $80 - 60 = 20$ km/h. Time $= 60 \\div 20 = 3$ h.", "Find the head start distance, then divide by the closing speed.", ["3 hours"]), 4),
+    // ── Difficulty 5 ──
+    withDifficulty(answer("y8-rtr-sdt-p23", "A rally has three stages: 90 km in 1 h, 60 km in 45 min, and 75 km in 1.25 h, with a 30 min rest between consecutive stages. Find the average speed over the whole event (including rests), to 1 decimal place.", "\\text{Average speed} = \\;?", "50.0", "Total distance $= 225$ km. Stage times $= 1 + 0.75 + 1.25 = 3$ h. Rests $= 2 \\times 0.5 = 1$ h. Total $= 4.5$ h. $225 \\div 4.5 = 50$ km/h.", "Add all stage times and rest times, then divide total distance by total time.", ["50", "50.0 km/h"]), 5),
+    withDifficulty(answer("y8-rtr-sdt-p24", "A cyclist rides at 24 km/h for the first half of a journey's distance and 16 km/h for the second half. The whole journey is 96 km. Find the average speed for the whole trip in km/h.", "\\text{Average speed} = \\;?", "19.2", "Each half $= 48$ km. Times $= 48 \\div 24 = 2$ h and $48 \\div 16 = 3$ h. Total $96$ km in $5$ h. $96 \\div 5 = 19.2$ km/h.", "Find the time for each half, then total distance ÷ total time.", ["19.2 km/h"]), 5),
+    withDifficulty(choice("y8-rtr-sdt-p25", "A train travels 300 km. If it had gone 10 km/h faster, the trip would have taken 1 hour less. What was the original speed?", "B", ["40 km/h", "50 km/h", "60 km/h", "75 km/h"], "At 50 km/h: $300 \\div 50 = 6$ h. At 60 km/h: $300 \\div 60 = 5$ h, which is 1 h less. So the original speed was 50 km/h.", "Test each option: check whether going 10 km/h faster saves exactly 1 hour."), 5),
+    withDifficulty(answer("y8-rtr-sdt-p26", "A bus leaves at 08:20 and is scheduled to arrive at 11:05, covering 220 km. It is delayed and arrives 15 minutes late. Find the actual average speed in km/h, to 1 decimal place.", "\\text{Actual average speed} = \\;?", "73.3", "Scheduled time $= 2$ h $45$ min. Actual $= 3$ h $= 3$ h. $220 \\div 3 = 73.\\overline{3} \\approx 73.3$ km/h.", "Add the delay to the scheduled time to get the actual time.", ["73.3 km/h"]), 5),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-rtr-sdt-mp1",
+      prompt: "A family drives from home to a holiday town. The first leg is 150 km at an average speed of 75 km/h. After a 30-minute lunch stop, the second leg is 120 km at an average speed of 80 km/h.",
+      latex: "\\text{Leg 1: 150 km at 75 km/h; Leg 2: 120 km at 80 km/h}",
+      answer: "270",
+      hint: "Find each leg's time, add the rest, then use total distance ÷ total time for the average.",
+      explanation: "Leg 1 time $= 150 \\div 75 = 2$ h. Leg 2 time $= 120 \\div 80 = 1.5$ h. Total distance $= 270$ km. Total time including the 0.5 h stop $= 2 + 0.5 + 1.5 = 4$ h. Average speed $= 270 \\div 4 = 67.5$ km/h.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "How long does the first leg take, in hours?",
+          latex: "150 \\div 75",
+          marks: 1,
+          answer: "2",
+          acceptedAnswers: ["2 hours", "2 h"],
+          hint: "Use $t = d \\div s$.",
+          explanation: "$t = 150 \\div 75 = 2$ hours.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "How long does the second leg take, in hours?",
+          latex: "120 \\div 80",
+          marks: 1,
+          answer: "1.5",
+          acceptedAnswers: ["1.5 hours", "1 h 30 min"],
+          hint: "Use $t = d \\div s$.",
+          explanation: "$t = 120 \\div 80 = 1.5$ hours.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "What is the total distance travelled, in km?",
+          latex: "150 + 120",
+          marks: 1,
+          answer: "270",
+          acceptedAnswers: ["270 km"],
+          hint: "Add the two leg distances.",
+          explanation: "$150 + 120 = 270$ km.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "What is the average speed for the whole journey, including the lunch stop, in km/h?",
+          latex: "270 \\div (2 + 0.5 + 1.5)",
+          marks: 1,
+          answer: "67.5",
+          acceptedAnswers: ["67.5 km/h"],
+          hint: "Total distance ÷ total time, and include the 30-minute stop in the time.",
+          explanation: "Total time $= 2 + 0.5 + 1.5 = 4$ h. Average speed $= 270 \\div 4 = 67.5$ km/h.",
+        },
+      ],
+    },
+  ],
 };
 
 // ── Lesson 5: Scale Drawings ──────────────────────────────────────────────────
@@ -1273,6 +1627,95 @@ const scaleDrawings: LessonContent = {
       ["18 minutes"],
     ),
   ],
+  masteryQuizPool: [
+    // ── Difficulty 1 ──
+    withDifficulty(answer("y8-rtr-scl-p01", "A scale of $1:100$ is used. A line is 3 cm on the plan. What is the actual length in cm?", "3 \\times 100 = \\;?", "300", "Actual $= 3 \\times 100 = 300$ cm.", "Multiply the drawing length by the scale factor.", ["300 cm"]), 1),
+    withDifficulty(answer("y8-rtr-scl-p02", "A scale of $1:50$ is used. A line is 2 cm on the plan. What is the actual length in cm?", "2 \\times 50 = \\;?", "100", "Actual $= 2 \\times 50 = 100$ cm.", "Multiply by the scale factor.", ["100 cm"]), 1),
+    withDifficulty(choice("y8-rtr-scl-p03", "A scale of $1:100$ means 1 cm on the drawing equals:", "B", ["10 cm", "100 cm", "1000 cm", "1 cm"], "1 cm represents 100 cm in reality.", "The units on both sides of the ratio must match."), 1),
+    withDifficulty(answer("y8-rtr-scl-p04", "A scale of $1:20$ is used. The actual length is 200 cm. What is the drawing length in cm?", "200 \\div 20 = \\;?", "10", "Drawing $= 200 \\div 20 = 10$ cm.", "Divide the actual length by the scale factor.", ["10 cm"]), 1),
+    withDifficulty(answer("y8-rtr-scl-p05", "A model is built at $1:10$. The model is 5 cm long. How long is the actual object in cm?", "5 \\times 10 = \\;?", "50", "Actual $= 5 \\times 10 = 50$ cm.", "Multiply the model length by the scale factor.", ["50 cm"]), 1),
+    // ── Difficulty 2 ──
+    withDifficulty(answer("y8-rtr-scl-p06", "A plan is at $1:50$. A wall is 8 cm on the plan. Find the actual length in metres.", "\\text{Actual length} = \\;?", "4", "$8 \\times 50 = 400$ cm $= 4$ m.", "Multiply, then convert cm to m.", ["4 m"]), 2),
+    withDifficulty(answer("y8-rtr-scl-p07", "A building is 12 m long. On a $1:200$ plan, how long is it in cm?", "\\text{Drawing length} = \\;?", "6", "$12 \\text{ m} = 1200$ cm; $1200 \\div 200 = 6$ cm.", "Convert m to cm first, then divide.", ["6 cm"]), 2),
+    withDifficulty(choice("y8-rtr-scl-p08", "A plan is at $1:100$. A room is 5 cm on the plan. What is the actual length?", "C", ["50 cm", "1 m", "5 m", "50 m"], "$5 \\times 100 = 500$ cm $= 5$ m.", "Multiply by the scale factor, then convert cm to m."), 2),
+    withDifficulty(answer("y8-rtr-scl-p09", "A map has scale $1:20\\,000$. Two points are 4 cm apart. Find the actual distance in km.", "\\text{Actual distance} = \\;?", "0.8", "$4 \\times 20\\,000 = 80\\,000$ cm $= 0.8$ km.", "Multiply, then convert cm to km.", ["0.8 km"]), 2),
+    withDifficulty(answer("y8-rtr-scl-p10", "A 4 cm line on a plan represents 8 m. Write the scale as $1:n$.", "\\text{Scale} = 1:\\;?", "1:200", "$8 \\text{ m} = 800$ cm; $4:800 = 1:200$.", "Convert the actual length to cm, then simplify.", ["200"]), 2),
+    // ── Difficulty 3 ──
+    withDifficulty(answer("y8-rtr-scl-p11", "A pool is 6 cm on a $1:150$ plan. Find the actual length in metres.", "\\text{Actual length} = \\;?", "9", "$6 \\times 150 = 900$ cm $= 9$ m.", "Multiply, then convert to metres.", ["9 m"]), 3),
+    withDifficulty(answer("y8-rtr-scl-p12", "A map has scale $1:25\\,000$. Two towns are 12 cm apart. Find the actual distance in km.", "\\text{Actual distance} = \\;?", "3", "$12 \\times 25\\,000 = 300\\,000$ cm $= 3$ km.", "Multiply, then convert cm to km.", ["3 km"]), 3),
+    withDifficulty(choice("y8-rtr-scl-p13", "A 5 cm line on a map represents 15 km. What is the scale?", "B", ["$1:30\\,000$", "$1:300\\,000$", "$1:3\\,000\\,000$", "$1:3000$"], "$15 \\text{ km} = 1\\,500\\,000$ cm; $5:1\\,500\\,000 = 1:300\\,000$.", "Convert km to cm, then simplify the ratio."), 3),
+    withDifficulty(answer("y8-rtr-scl-p14", "A road is 3.5 km long. On a $1:50\\,000$ map, how long is it in cm?", "\\text{Map length} = \\;?", "7", "$3.5 \\text{ km} = 350\\,000$ cm; $350\\,000 \\div 50\\,000 = 7$ cm.", "Convert km to cm, then divide.", ["7 cm"]), 3),
+    withDifficulty(answer("y8-rtr-scl-p15", "A model car is at $1:25$. The model is 18 cm long. Find the actual length in metres.", "\\text{Actual length} = \\;?", "4.5", "$18 \\times 25 = 450$ cm $= 4.5$ m.", "Multiply, then convert to metres.", ["4.5 m"]), 3),
+    withDifficulty(answer("y8-rtr-scl-p16", "A 2.5 cm line on a plan represents 5 m. Write the scale as $1:n$.", "\\text{Scale} = 1:\\;?", "1:200", "$5 \\text{ m} = 500$ cm; $2.5:500 = 1:200$.", "Convert to cm, then simplify.", ["200"]), 3),
+    withDifficulty(answer("y8-rtr-scl-p17", "A garden is 9 m by 6 m. On a $1:150$ plan, what are its dimensions in cm?", "\\text{Plan dimensions} = \\;?", "6 by 4", "$900 \\div 150 = 6$ cm; $600 \\div 150 = 4$ cm.", "Convert each side to cm, then divide.", ["6 cm by 4 cm", "6 by 4 cm"]), 3),
+    // ── Difficulty 4 ──
+    withDifficulty(answer("y8-rtr-scl-p18", "A bedroom is 4 m by 5 m, drawn at $1:50$. Find the area of the room on the plan in cm².", "\\text{Plan area} = \\;?", "80", "$400 \\div 50 = 8$ cm; $500 \\div 50 = 10$ cm. Area $= 8 \\times 10 = 80$ cm².", "Convert each dimension to the plan, then multiply.", ["80 cm²"]), 4),
+    withDifficulty(choice("y8-rtr-scl-p19", "A floor plan is at $1:200$. A room shows as 3 cm by 2 cm. What is its actual area?", "C", ["$6 \\text{ m}^2$", "$12 \\text{ m}^2$", "$24 \\text{ m}^2$", "$48 \\text{ m}^2$"], "Actual: $3 \\times 200 = 600$ cm $= 6$ m and $2 \\times 200 = 400$ cm $= 4$ m. Area $= 6 \\times 4 = 24$ m².", "Find each actual dimension in metres first, then multiply."), 4),
+    withDifficulty(answer("y8-rtr-scl-p20", "Two cities are 360 km apart. On a map they are 8 cm apart. Find the scale as $1:n$.", "\\text{Scale} = 1:\\;?", "1:4500000", "$360 \\text{ km} = 36\\,000\\,000$ cm; $8:36\\,000\\,000 = 1:4\\,500\\,000$.", "Convert km to cm, then simplify.", ["4500000", "1:4 500 000"]), 4),
+    withDifficulty(answer("y8-rtr-scl-p21", "On a $1:300$ plan, a hall is 7.2 cm by 5 cm. Find the actual floor area in m².", "\\text{Actual area} = \\;?", "324", "$7.2 \\times 300 = 2160$ cm $= 21.6$ m; $5 \\times 300 = 1500$ cm $= 15$ m. Area $= 21.6 \\times 15 = 324$ m².", "Find actual dimensions in metres, then multiply.", ["324 m²"]), 4),
+    withDifficulty(answer("y8-rtr-scl-p22", "A map has scale $1:200\\,000$. A road measures 9 cm. A car drives the road at 72 km/h. How long does the drive take in minutes?", "\\text{Time} = \\;?", "15", "$9 \\times 200\\,000 = 1\\,800\\,000$ cm $= 18$ km. $18 \\div 72 = 0.25$ h $= 15$ min.", "Find the actual distance, then use time = distance ÷ speed.", ["15 minutes"]), 4),
+    // ── Difficulty 5 ──
+    withDifficulty(answer("y8-rtr-scl-p23", "A plan is at $1:250$. A rectangular courtyard is 8 cm by 6 cm on the plan. Find the cost to pave the actual courtyard at $45 per m².", "\\text{Total cost} = \\;?", "$13500", "Actual: $8 \\times 250 = 2000$ cm $= 20$ m; $6 \\times 250 = 1500$ cm $= 15$ m. Area $= 300$ m². Cost $= 300 \\times \\$45 = \\$13\\,500$.", "Find the actual area first, then multiply by the cost per m².", ["13500"]), 5),
+    withDifficulty(choice("y8-rtr-scl-p24", "Map A has scale $1:50\\,000$; map B has scale $1:200\\,000$. A road is 8 cm on map A. How long is the same road on map B?", "A", ["2 cm", "4 cm", "16 cm", "32 cm"], "Actual $= 8 \\times 50\\,000 = 400\\,000$ cm. On map B: $400\\,000 \\div 200\\,000 = 2$ cm.", "Find the actual distance from map A, then divide by map B's scale factor."), 5),
+    withDifficulty(answer("y8-rtr-scl-p25", "A scale model of a tower is built at $1:400$. The real tower is 320 m tall and has a square base of side 60 m. Find the height of the model in cm and the side of its base in cm; give the base side.", "\\text{Model base side} = \\;?", "15", "Base side $= 6000 \\text{ cm} \\div 400 = 15$ cm. (Height $= 32\\,000 \\div 400 = 80$ cm.)", "Convert the real base side to cm, then divide by the scale factor.", ["15 cm"]), 5),
+    withDifficulty(answer("y8-rtr-scl-p26", "On a $1:25\\,000$ map, a triangular reserve has a base of 4 cm and a height of 3 cm. Find the actual area of the reserve in km².", "\\text{Actual area} = \\;?", "0.375", "Actual base $= 4 \\times 25\\,000 = 100\\,000$ cm $= 1$ km; height $= 3 \\times 25\\,000 = 75\\,000$ cm $= 0.75$ km. Area $= \\frac{1}{2} \\times 1 \\times 0.75 = 0.375$ km².", "Convert both dimensions to km, then use $\\frac{1}{2} bh$.", ["0.375 km²", "3/8"]), 5),
+  ],
+  multiPartPractice: [
+    {
+      id: "y8-rtr-scl-mp1",
+      prompt: "An architect draws a rectangular function room on a floor plan using a scale of $1:200$. On the plan the room measures 6 cm long and 4 cm wide.",
+      latex: "\\text{Scale } 1:200, \\text{ plan } 6 \\text{ cm} \\times 4 \\text{ cm}",
+      answer: "200",
+      hint: "Multiply each plan length by the scale factor, then convert to metres before finding the area.",
+      explanation: "Actual length $= 6 \\times 200 = 1200$ cm $= 12$ m. Actual width $= 4 \\times 200 = 800$ cm $= 8$ m. Actual area $= 12 \\times 8 = 96$ m². At \\(\\$30\\) per m², carpet costs \\(96 \\times \\$30 = \\$2880\\).",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "What is the actual length of the room, in metres?",
+          latex: "6 \\times 200",
+          marks: 1,
+          answer: "12",
+          acceptedAnswers: ["12 m"],
+          hint: "Multiply the plan length by 200, then convert cm to m.",
+          explanation: "$6 \\times 200 = 1200$ cm $= 12$ m.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "What is the actual width of the room, in metres?",
+          latex: "4 \\times 200",
+          marks: 1,
+          answer: "8",
+          acceptedAnswers: ["8 m"],
+          hint: "Multiply the plan width by 200, then convert cm to m.",
+          explanation: "$4 \\times 200 = 800$ cm $= 8$ m.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "What is the actual floor area of the room, in m²?",
+          latex: "12 \\times 8",
+          marks: 1,
+          answer: "96",
+          acceptedAnswers: ["96 m²"],
+          hint: "Multiply the actual length by the actual width.",
+          explanation: "Area $= 12 \\times 8 = 96$ m².",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "Carpet costs $30 per m². What is the cost to carpet the whole room, in dollars?",
+          latex: "96 \\times 30",
+          marks: 1,
+          answer: "$2880",
+          acceptedAnswers: ["2880", "$2880.00"],
+          hint: "Multiply the floor area by the cost per square metre.",
+          explanation: "$96 \\times \\$30 = \\$2880$.",
+        },
+      ],
+    },
+  ],
 };
 
 // ── Lesson map and export ─────────────────────────────────────────────────────
@@ -1290,7 +1733,7 @@ export function year8RatiosRatesLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
-  if (course.slug !== "year-8-mathematics") return null;
+  if (course.slug !== "year-8-mathematics" && course.slug !== "year-7-mathematics") return null;
   if (unit.slug !== "ratios-and-rates") return null;
   const content = lessons[lesson.slug];
   if (!content) return null;

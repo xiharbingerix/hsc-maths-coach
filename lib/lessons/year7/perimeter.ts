@@ -65,7 +65,14 @@ type LessonContent = Pick<
   | "independentPractice"
   | "commonMistakes"
   | "masteryQuiz"
+  | "masteryQuizPool"
+  | "multiPartPractice"
 >;
+
+// Attach a difficulty tag (1 = easiest … 5 = hardest) to a pool question.
+function withDifficulty(q: PracticeQuestion, difficulty: number): PracticeQuestion {
+  return { ...q, difficulty };
+}
 
 // ─── Lesson 1: Perimeter of Polygons ────────────────────────────────────────
 
@@ -315,6 +322,316 @@ const perimeterOfPolygons: LessonContent = {
       "8",
       "P = n × s, so s = P ÷ n = 56 ÷ 7 = 8 m."
     ),
+  ],
+  masteryQuizPool: [
+    withDifficulty(
+      answer(
+        "y7-per-pol-p1",
+        "Find the perimeter of a square with side length 6 cm. Give your answer in cm.",
+        "P = 4 \\times 6",
+        "24",
+        "P = 4 × 6 = 24 cm."
+      ),
+      1
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p2",
+        "Find the perimeter of a rectangle with length 11 cm and width 2 cm. Give your answer in cm.",
+        "P = 2(11 + 2)",
+        "26",
+        "P = 2(11 + 2) = 2 × 13 = 26 cm."
+      ),
+      1
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p3",
+        "Find the perimeter of a triangle with sides 3 cm, 4 cm, and 5 cm. Give your answer in cm.",
+        "P = 3 + 4 + 5",
+        "12",
+        "P = 3 + 4 + 5 = 12 cm."
+      ),
+      1
+    ),
+    withDifficulty(
+      choice(
+        "y7-per-pol-p4",
+        "How many equal sides does a regular hexagon have?",
+        "C",
+        ["4", "5", "6", "8"],
+        "A hexagon has 6 sides; a regular hexagon has 6 equal sides."
+      ),
+      1
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p5",
+        "A rhombus has sides of length 5 cm. Find its perimeter in cm.",
+        "P = 4 \\times 5",
+        "20",
+        "A rhombus has 4 equal sides. P = 4 × 5 = 20 cm."
+      ),
+      2
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p6",
+        "Find the perimeter of a regular pentagon with side length 7 cm. Give your answer in cm.",
+        "P = 5 \\times 7",
+        "35",
+        "A regular pentagon has 5 equal sides. P = 5 × 7 = 35 cm."
+      ),
+      2
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p7",
+        "A parallelogram has sides 9 cm and 4 cm. Find its perimeter in cm.",
+        "P = 2(9 + 4)",
+        "26",
+        "P = 2(9 + 4) = 2 × 13 = 26 cm."
+      ),
+      2
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p8",
+        "A square has side length 12 m. Find its perimeter in m.",
+        "P = 4 \\times 12",
+        "48",
+        "P = 4 × 12 = 48 m."
+      ),
+      2
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p9",
+        "Find the perimeter of a rectangle with length 13 m and width 8 m. Give your answer in m.",
+        "P = 2(13 + 8)",
+        "42",
+        "P = 2(13 + 8) = 2 × 21 = 42 m."
+      ),
+      2
+    ),
+    withDifficulty(
+      choice(
+        "y7-per-pol-p10",
+        "A square has perimeter 28 cm. What is the side length in cm?",
+        "B",
+        ["5 cm", "7 cm", "9 cm", "14 cm"],
+        "P = 4s, so s = 28 ÷ 4 = 7 cm."
+      ),
+      2
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p11",
+        "An equilateral triangle has side length 11 cm. Find its perimeter in cm.",
+        "P = 3 \\times 11",
+        "33",
+        "An equilateral triangle has 3 equal sides. P = 3 × 11 = 33 cm."
+      ),
+      2
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p12",
+        "A regular octagon has side length 6 m. Find its perimeter in m.",
+        "P = 8 \\times 6",
+        "48",
+        "A regular octagon has 8 equal sides. P = 8 × 6 = 48 m."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p13",
+        "A square has perimeter 52 cm. Find its side length in cm.",
+        "s = 52 \\div 4",
+        "13",
+        "P = 4s, so s = 52 ÷ 4 = 13 cm."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p14",
+        "A rectangle has perimeter 50 m and length 16 m. Find its width in m.",
+        "2(16 + w) = 50",
+        "9",
+        "2(16 + w) = 50, so 16 + w = 25, so w = 9 m."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p15",
+        "A regular polygon has perimeter 45 cm and 9 equal sides. Find the length of each side in cm.",
+        "s = 45 \\div 9",
+        "5",
+        "P = n × s, so s = 45 ÷ 9 = 5 cm."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p16",
+        "A rectangle is 4.5 cm long and 2.5 cm wide. Find its perimeter in cm.",
+        "P = 2(4.5 + 2.5)",
+        "14",
+        "P = 2(4.5 + 2.5) = 2 × 7 = 14 cm."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p17",
+        "An equilateral triangle has perimeter 36 cm. Find the length of one side in cm.",
+        "3s = 36",
+        "12",
+        "All three sides are equal, so 3s = 36, giving s = 12 cm."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p18",
+        "An isosceles triangle has two equal sides of 9 cm and a base of 5 cm. Find its perimeter in cm.",
+        "P = 9 + 9 + 5",
+        "23",
+        "Add all three sides: 9 + 9 + 5 = 23 cm."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p19",
+        "A rhombus has perimeter 44 cm. Find the length of one side in cm.",
+        "s = 44 \\div 4",
+        "11",
+        "A rhombus has 4 equal sides, so s = 44 ÷ 4 = 11 cm."
+      ),
+      4
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p20",
+        "A regular polygon has perimeter 90 cm and each side is 10 cm long. How many sides does it have?",
+        "n = 90 \\div 10",
+        "9",
+        "P = n × s, so n = P ÷ s = 90 ÷ 10 = 9 sides."
+      ),
+      4
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p21",
+        "A parallelogram has perimeter 54 cm. One pair of sides is 15 cm each. Find the length of each of the other two sides in cm.",
+        "2(15 + b) = 54",
+        "12",
+        "2(15 + b) = 54, so 15 + b = 27, so b = 12 cm."
+      ),
+      4
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p22",
+        "A rectangle is 1.5 m long and 80 cm wide. Find its perimeter in cm. (Convert 1.5 m to 150 cm first.)",
+        "P = 2(150 + 80)",
+        "460",
+        "Convert 1.5 m to 150 cm. P = 2(150 + 80) = 2 × 230 = 460 cm."
+      ),
+      4
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p23",
+        "A regular hexagon and a square have the same perimeter. The hexagon has side length 6 cm. Find the side length of the square in cm.",
+        "4s = 6 \\times 6",
+        "9",
+        "Hexagon perimeter = 6 × 6 = 36 cm. For the square, 4s = 36, so s = 9 cm."
+      ),
+      5
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p24",
+        "A rectangle has perimeter 60 cm. Its length is twice its width. Find the width in cm.",
+        "2(2w + w) = 60",
+        "10",
+        "Length = 2w, so 2(2w + w) = 60, giving 2 × 3w = 60, so 6w = 60 and w = 10 cm."
+      ),
+      5
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p25",
+        "An equilateral triangle and a regular hexagon have the same perimeter of 72 cm. Find the difference between the triangle's side length and the hexagon's side length in cm.",
+        "72 \\div 3 - 72 \\div 6",
+        "12",
+        "Triangle side = 72 ÷ 3 = 24 cm. Hexagon side = 72 ÷ 6 = 12 cm. Difference = 24 − 12 = 12 cm."
+      ),
+      5
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-pol-p26",
+        "A rectangle has perimeter 48 cm and width 9 cm. A square has the same perimeter. Find the side length of the square in cm.",
+        "4s = 48",
+        "12",
+        "The square has perimeter 48 cm, so 4s = 48 and s = 12 cm. (The rectangle width 9 cm is extra information.)"
+      ),
+      5
+    ),
+  ],
+  multiPartPractice: [
+    {
+      id: "y7-per-pol-mp1",
+      prompt:
+        "A rectangular vegetable garden is 14 m long and 6 m wide. A separate square flower bed has a side length of 5 m.",
+      latex: "P_{\\text{rectangle}} = 2(l + w), \\quad P_{\\text{square}} = 4s",
+      answer: "40",
+      hint: "Use P = 2(l + w) for the rectangle and P = 4s for the square. For part (c), add the two perimeters.",
+      explanation:
+        "Part (a): rectangle perimeter = 2(14 + 6) = 2 × 20 = 40 m. Part (b): square perimeter = 4 × 5 = 20 m. Part (c): total edging = 40 + 20 = 60 m.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the perimeter of the rectangular vegetable garden, in metres.",
+          latex: "P = 2(14 + 6)",
+          marks: 1,
+          answer: "40",
+          acceptedAnswers: ["40.0"],
+          hint: "Use P = 2(l + w) with l = 14 and w = 6.",
+          explanation: "P = 2(14 + 6) = 2 × 20 = 40 m.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find the perimeter of the square flower bed, in metres.",
+          latex: "P = 4 \\times 5",
+          marks: 1,
+          answer: "20",
+          acceptedAnswers: ["20.0"],
+          hint: "Use P = 4s with s = 5.",
+          explanation: "P = 4 × 5 = 20 m.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt:
+            "Edging is placed around both shapes. Find the total length of edging needed, in metres.",
+          latex: "40 + 20",
+          marks: 1,
+          answer: "60",
+          acceptedAnswers: ["60.0"],
+          hint: "Add the two perimeters from parts (a) and (b).",
+          explanation: "Total edging = 40 + 20 = 60 m.",
+        },
+      ],
+    },
   ],
 };
 
@@ -571,6 +888,308 @@ const perimeterCompositeShapes: LessonContent = {
       "Sides: bottom 11, right lower (9 − 4 = 5), step horizontal 5, step vertical 4, top left (11 − 5 = 6), left 9. P = 11 + 5 + 5 + 4 + 6 + 9 = 40 cm."
     ),
   ],
+  masteryQuizPool: [
+    withDifficulty(
+      answer(
+        "y7-per-com-p1",
+        "An L-shape has outer sides of 5 cm, 3 cm, 2 cm, 1 cm, 3 cm, and 2 cm. Find its perimeter in cm.",
+        "P = 5 + 3 + 2 + 1 + 3 + 2",
+        "16",
+        "Add all six outer sides: 5 + 3 + 2 + 1 + 3 + 2 = 16 cm."
+      ),
+      1
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p2",
+        "A composite shape has outer sides of 4 m, 4 m, 4 m, 4 m, 4 m, and 4 m. Find its perimeter in m.",
+        "P = 6 \\times 4",
+        "24",
+        "All six sides are 4 m: 6 × 4 = 24 m."
+      ),
+      1
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p3",
+        "A rectilinear shape has a total width of 10 cm. One section of the top edge is 6 cm. Find the remaining top-edge section in cm.",
+        "10 - 6",
+        "4",
+        "The two top sections add to the total width: 10 − 6 = 4 cm."
+      ),
+      1
+    ),
+    withDifficulty(
+      choice(
+        "y7-per-com-p4",
+        "How many outer edges does a simple L-shape have?",
+        "C",
+        ["4", "5", "6", "8"],
+        "An L-shape has six outer edges: the notch adds two extra sides compared with a rectangle."
+      ),
+      1
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p5",
+        "An L-shape has outer sides of 9 m, 5 m, 4 m, 2 m, 5 m, and 3 m. Find its perimeter in m.",
+        "P = 9 + 5 + 4 + 2 + 5 + 3",
+        "28",
+        "Add all six outer sides: 9 + 5 + 4 + 2 + 5 + 3 = 28 m."
+      ),
+      2
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p6",
+        "A composite shape has perimeter 40 cm. The sum of five of its six outer sides is 31 cm. Find the missing side in cm.",
+        "40 - 31",
+        "9",
+        "Missing side = 40 − 31 = 9 cm."
+      ),
+      2
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p7",
+        "A rectilinear shape has a total height of 12 cm. The upper vertical section on one side is 5 cm. Find the lower section of that side in cm.",
+        "12 - 5",
+        "7",
+        "The two vertical sections add to the total height: 12 − 5 = 7 cm."
+      ),
+      2
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p8",
+        "An L-shape has outer sides of 7 cm, 4 cm, 3 cm, 2 cm, 4 cm, and 2 cm. Find its perimeter in cm.",
+        "P = 7 + 4 + 3 + 2 + 4 + 2",
+        "22",
+        "Add all six outer sides: 7 + 4 + 3 + 2 + 4 + 2 = 22 cm."
+      ),
+      2
+    ),
+    withDifficulty(
+      choice(
+        "y7-per-com-p9",
+        "A rectilinear shape has a total width of 16 cm. One top-edge section is 11 cm. What is the other section in cm?",
+        "B",
+        ["4 cm", "5 cm", "6 cm", "7 cm"],
+        "Missing section = 16 − 11 = 5 cm."
+      ),
+      2
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p10",
+        "A composite shape has perimeter 60 m. Five of its six outer sides measure 14, 8, 6, 8, and 10 m. Find the missing side in m.",
+        "60 - (14 + 8 + 6 + 8 + 10)",
+        "14",
+        "Sum of five sides = 46 m. Missing side = 60 − 46 = 14 m."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p11",
+        "An L-shape is cut from an 8 cm × 6 cm rectangle by removing a 3 cm × 2 cm piece from the top-right corner. Find the perimeter of the L-shape in cm.",
+        "P = 8 + 4 + 3 + 2 + 5 + 6",
+        "28",
+        "Sides: bottom 8, right lower (6 − 2 = 4), step horizontal 3, step vertical 2, top (8 − 3 = 5), left 6. P = 8 + 4 + 3 + 2 + 5 + 6 = 28 cm."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p12",
+        "A staircase rectilinear shape has overall width 15 cm and overall height 9 cm. Find its perimeter in cm.",
+        "P = 2 \\times 15 + 2 \\times 9",
+        "48",
+        "A staircase rectilinear shape has perimeter 2 × width + 2 × height = 30 + 18 = 48 cm."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p13",
+        "A T-shape has outer sides of 10 cm, 3 cm, 2 cm, 4 cm, 2 cm, 3 cm, 10 cm, and 17 cm. Find its perimeter in cm.",
+        "P = 10 + 3 + 2 + 4 + 2 + 3 + 10 + 17",
+        "51",
+        "Add all eight outer sides: 10 + 3 + 2 + 4 + 2 + 3 + 10 + 17 = 51 cm."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p14",
+        "A rectilinear shape has a total width of 14 m and total height of 10 m. It is an L formed by cutting a 6 m × 4 m notch from the top-right corner. Find the perimeter in m.",
+        "P = 14 + 6 + 6 + 4 + 8 + 10",
+        "48",
+        "Sides: bottom 14, right lower (10 − 4 = 6), step horizontal 6, step vertical 4, top (14 − 6 = 8), left 10. P = 14 + 6 + 6 + 4 + 8 + 10 = 48 m."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p15",
+        "A composite shape has perimeter 72 cm. Seven of its eight outer sides sum to 55 cm. Find the missing side in cm.",
+        "72 - 55",
+        "17",
+        "Missing side = 72 − 55 = 17 cm."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p16",
+        "An L-shape is cut from a 12 cm × 9 cm rectangle by removing a 5 cm × 4 cm piece from the top-right corner. Find the perimeter of the L-shape in cm.",
+        "P = 12 + 5 + 5 + 4 + 7 + 9",
+        "42",
+        "Sides: bottom 12, right lower (9 − 4 = 5), step horizontal 5, step vertical 4, top (12 − 5 = 7), left 9. P = 12 + 5 + 5 + 4 + 7 + 9 = 42 cm."
+      ),
+      4
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p17",
+        "A staircase shape has 5 steps, each 2 cm wide and 3 cm high. The overall width is 10 cm and overall height is 15 cm. Find the perimeter in cm.",
+        "P = 2 \\times 10 + 2 \\times 15",
+        "50",
+        "A staircase rectilinear shape has perimeter 2 × width + 2 × height = 20 + 30 = 50 cm, regardless of the number of steps."
+      ),
+      4
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p18",
+        "A rectilinear shape has a total height of 13 cm. Its left side is split into two vertical sections; the upper one is 8 cm. The right side has one section of 5 cm and one unknown section. Find the unknown right-side section in cm.",
+        "13 - 5",
+        "8",
+        "The right side's two sections must add to the total height 13 cm: 13 − 5 = 8 cm."
+      ),
+      4
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p19",
+        "A composite shape has perimeter 100 m. Seven of its eight outer sides measure 20, 12, 8, 12, 6, 8, and 10 m. Find the missing side in m.",
+        "100 - (20 + 12 + 8 + 12 + 6 + 8 + 10)",
+        "24",
+        "Sum of seven sides = 76 m. Missing side = 100 − 76 = 24 m."
+      ),
+      4
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p20",
+        "An L-shape is cut from a 20 cm × 14 cm rectangle by removing an 8 cm × 6 cm piece from a top corner. Find the perimeter of the L-shape in cm.",
+        "P = 20 + 8 + 8 + 6 + 12 + 14",
+        "68",
+        "Sides: bottom 20, right lower (14 − 6 = 8), step horizontal 8, step vertical 6, top (20 − 8 = 12), left 14. P = 20 + 8 + 8 + 6 + 12 + 14 = 68 cm."
+      ),
+      4
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p21",
+        "Two identical 6 cm × 4 cm rectangles are joined along a full 4 cm side to form one larger rectangle. Find the perimeter of the combined shape in cm.",
+        "P = 2(12 + 4)",
+        "32",
+        "Joining along the 4 cm sides gives a 12 cm × 4 cm rectangle (the 4 cm join is internal). P = 2(12 + 4) = 2 × 16 = 32 cm."
+      ),
+      5
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p22",
+        "A plus (+) shaped figure is made from five identical 3 cm × 3 cm squares (one centre square with one square on each side). Find the perimeter of the plus shape in cm.",
+        "P = 12 \\times 3",
+        "36",
+        "The plus shape has 12 exposed outer edges, each 3 cm long. P = 12 × 3 = 36 cm."
+      ),
+      5
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p23",
+        "A rectilinear shape has overall width 18 cm and overall height 11 cm. It has two notches cut from the top edge, but all corners are right angles and no notch reaches the bottom. Find the perimeter in cm. (Hint: for such a top-notched shape the perimeter still equals 2 × width + 2 × height plus twice the total depth of the notches; here the notches have total depth 0 because each cut piece is replaced by an equal step — treat it as a plain staircase outline.)",
+        "P = 2 \\times 18 + 2 \\times 11",
+        "58",
+        "When every notch is a right-angle step that does not create overhangs, the horizontal edges still sum to 2 × width and the vertical edges to 2 × height. P = 2 × 18 + 2 × 11 = 36 + 22 = 58 cm."
+      ),
+      5
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p24",
+        "An L-shaped room has a total width of 7 m and total height of 5 m. A 3 m × 2 m rectangle is removed from one corner. Skirting board runs around the entire inside wall. Find the total length of skirting board needed in m.",
+        "P = 7 + 3 + 3 + 2 + 4 + 5",
+        "24",
+        "Sides: 7, right lower (5 − 2 = 3), step 3, step 2, top (7 − 3 = 4), left 5. P = 7 + 3 + 3 + 2 + 4 + 5 = 24 m."
+      ),
+      5
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-com-p25",
+        "A composite shape is made of a 10 cm × 6 cm rectangle with a 6 cm × 6 cm square joined onto one full 6 cm end. Find the perimeter of the combined shape in cm.",
+        "P = 2(16 + 6)",
+        "44",
+        "Joining the square onto the full 6 cm end gives a 16 cm × 6 cm rectangle (the 6 cm join is internal). P = 2(16 + 6) = 2 × 22 = 44 cm."
+      ),
+      5
+    ),
+  ],
+  multiPartPractice: [
+    {
+      id: "y7-per-com-mp1",
+      prompt:
+        "An L-shaped patio is formed by removing a rectangular corner piece from a larger rectangle. The full rectangle is 12 m wide and 8 m tall. A piece 5 m wide and 3 m tall is removed from the top-right corner, leaving an L-shape with six outer sides (going clockwise from the bottom-left): bottom 12 m, left 8 m, top-left section, a step down, a step across, and the right side.",
+      latex: "\\text{width} = 12,\\ \\text{height} = 8,\\ \\text{notch} = 5 \\times 3",
+      answer: "40",
+      hint: "Use 'total − removed part' to find the top-left and right-lower sections, then add all six outer sides.",
+      explanation:
+        "Part (a): top-left section = 12 − 5 = 7 m. Part (b): right-lower section = 8 − 3 = 5 m. Part (c): the six sides are bottom 12, left 8, top-left 7, step-down 3, step-across 5, right-lower 5. P = 12 + 8 + 7 + 3 + 5 + 5 = 40 m.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt:
+            "Find the length of the top-left horizontal section (total width minus the removed width), in metres.",
+          latex: "12 - 5",
+          marks: 1,
+          answer: "7",
+          acceptedAnswers: ["7.0"],
+          hint: "Subtract the removed width from the total width.",
+          explanation: "Top-left section = 12 − 5 = 7 m.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt:
+            "Find the length of the right-lower vertical section (total height minus the removed height), in metres.",
+          latex: "8 - 3",
+          marks: 1,
+          answer: "5",
+          acceptedAnswers: ["5.0"],
+          hint: "Subtract the removed height from the total height.",
+          explanation: "Right-lower section = 8 − 3 = 5 m.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt:
+            "Using your answers, find the perimeter of the L-shaped patio, in metres.",
+          latex: "12 + 8 + 7 + 3 + 5 + 5",
+          marks: 2,
+          answer: "40",
+          acceptedAnswers: ["40.0"],
+          hint: "Add all six outer sides: bottom 12, left 8, top-left 7, step-down 3, step-across 5, right-lower 5.",
+          explanation: "P = 12 + 8 + 7 + 3 + 5 + 5 = 40 m.",
+        },
+      ],
+    },
+  ],
 };
 
 // ─── Lesson 3: Perimeter Problem Solving ────────────────────────────────────
@@ -808,6 +1427,317 @@ const perimeterProblemSolving: LessonContent = {
       "17.5",
       "Total perimeter = $420 ÷ $6 = 70 m. A square has 4 equal sides, so s = 70 ÷ 4 = 17.5 m."
     ),
+  ],
+  masteryQuizPool: [
+    withDifficulty(
+      answer(
+        "y7-per-prb-p1",
+        "A rectangular paddock is 10 m long and 6 m wide. Find the perimeter in m.",
+        "P = 2(10 + 6)",
+        "32",
+        "P = 2(10 + 6) = 2 × 16 = 32 m."
+      ),
+      1
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p2",
+        "A square garden has side length 4 m. Find the length of edging needed in m.",
+        "P = 4 \\times 4",
+        "16",
+        "P = 4 × 4 = 16 m."
+      ),
+      1
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p3",
+        "Fencing costs $10 per metre. A paddock has perimeter 30 m. Find the total cost in dollars.",
+        "30 \\times 10",
+        "300",
+        "Total cost = 30 × $10 = $300."
+      ),
+      1
+    ),
+    withDifficulty(
+      choice(
+        "y7-per-prb-p4",
+        "How many centimetres are there in 1 metre?",
+        "C",
+        ["10", "1000", "100", "10000"],
+        "1 m = 100 cm."
+      ),
+      1
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p5",
+        "A rectangular lawn is 7.5 m long and 2.5 m wide. Find the perimeter in m.",
+        "P = 2(7.5 + 2.5)",
+        "20",
+        "P = 2(7.5 + 2.5) = 2 × 10 = 20 m."
+      ),
+      2
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p6",
+        "A photo frame surrounds a photo 20 cm wide and 30 cm tall. Find the length of framing material needed in cm.",
+        "P = 2(20 + 30)",
+        "100",
+        "P = 2(20 + 30) = 2 × 50 = 100 cm."
+      ),
+      2
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p7",
+        "Fencing costs $7 per metre. A paddock is 12 m long and 8 m wide. Find the total cost in dollars.",
+        "P = 2(12 + 8) = 40; \\ 40 \\times 7",
+        "280",
+        "P = 2(12 + 8) = 40 m. Cost = 40 × $7 = $280."
+      ),
+      2
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p8",
+        "A garden bed is 3.2 m long and 1.8 m wide. Find the total edging length in m.",
+        "P = 2(3.2 + 1.8)",
+        "10",
+        "P = 2(3.2 + 1.8) = 2 × 5 = 10 m."
+      ),
+      2
+    ),
+    withDifficulty(
+      choice(
+        "y7-per-prb-p9",
+        "A rectangular paddock is 25 m long and 15 m wide. How much fencing is needed?",
+        "B",
+        ["40 m", "80 m", "375 m", "160 m"],
+        "P = 2(25 + 15) = 2 × 40 = 80 m."
+      ),
+      2
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p10",
+        "A photo is 40 cm wide and 250 mm tall. Find the perimeter of its frame in cm. (Convert 250 mm to 25 cm first.)",
+        "P = 2(40 + 25)",
+        "130",
+        "Convert 250 mm to 25 cm. P = 2(40 + 25) = 2 × 65 = 130 cm."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p11",
+        "A rectangular lawn has perimeter 38 m. The width is 7 m. Find the length in m.",
+        "2(l + 7) = 38",
+        "12",
+        "2(l + 7) = 38, so l + 7 = 19, so l = 12 m."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p12",
+        "Timber edging costs $3.50 per metre. A rectangular bed is 6 m long and 2 m wide. Find the total cost in dollars.",
+        "P = 2(6 + 2) = 16; \\ 16 \\times 3.5",
+        "56",
+        "P = 2(6 + 2) = 16 m. Cost = 16 × $3.50 = $56.",
+        ["56.00", "56.0"]
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p13",
+        "A square courtyard needs 48 m of pavers around its edge. Find its side length in m.",
+        "4s = 48",
+        "12",
+        "P = 4s = 48, so s = 48 ÷ 4 = 12 m."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p14",
+        "A path runs around a rectangular pool that is 2 m wide and 350 cm long. Find the total length of timber edging in cm. (Convert 2 m to 200 cm first.)",
+        "P = 2(350 + 200)",
+        "1100",
+        "Convert 2 m to 200 cm. P = 2(350 + 200) = 2 × 550 = 1100 cm."
+      ),
+      3
+    ),
+    withDifficulty(
+      choice(
+        "y7-per-prb-p15",
+        "A rectangular photo is 1.5 m wide and 90 cm tall. What length of framing material is needed?",
+        "A",
+        ["480 cm", "240 cm", "180 cm", "320 cm"],
+        "Convert 1.5 m to 150 cm. P = 2(150 + 90) = 2 × 240 = 480 cm."
+      ),
+      3
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p16",
+        "A farmer has 96 m of fencing for a rectangular paddock of length 30 m. Find the maximum width in m.",
+        "2(30 + w) = 96",
+        "18",
+        "2(30 + w) = 96, so 30 + w = 48, so w = 18 m."
+      ),
+      4
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p17",
+        "Fencing costs $8 per metre. A farmer spends $512 fencing a square paddock. Find the side length in m.",
+        "512 \\div 8 = 64; \\ s = 64 \\div 4",
+        "16",
+        "Perimeter = $512 ÷ $8 = 64 m. A square has 4 equal sides, so s = 64 ÷ 4 = 16 m."
+      ),
+      4
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p18",
+        "A rectangular garden bed is 5.5 m long and 3.5 m wide. Edging costs $6 per metre. Find the total cost in dollars.",
+        "P = 2(5.5 + 3.5) = 18; \\ 18 \\times 6",
+        "108",
+        "P = 2(5.5 + 3.5) = 2 × 9 = 18 m. Cost = 18 × $6 = $108."
+      ),
+      4
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p19",
+        "A rectangular paddock has perimeter 84 m. Its length is 26 m. Fencing costs $5 per metre. Find the total fencing cost in dollars.",
+        "84 \\times 5",
+        "420",
+        "The whole perimeter is fenced: 84 × $5 = $420. (The 26 m length is extra information.)"
+      ),
+      4
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p20",
+        "A photo is 600 mm wide and 0.45 m tall. Find the perimeter of its frame in cm. (Convert 600 mm to 60 cm and 0.45 m to 45 cm.)",
+        "P = 2(60 + 45)",
+        "210",
+        "600 mm = 60 cm and 0.45 m = 45 cm. P = 2(60 + 45) = 2 × 105 = 210 cm."
+      ),
+      4
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p21",
+        "A farmer has 150 m of fencing to enclose a square paddock. Find the side length in m.",
+        "4s = 150",
+        "37.5",
+        "P = 4s = 150, so s = 150 ÷ 4 = 37.5 m."
+      ),
+      5
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p22",
+        "A rectangular paddock is twice as long as it is wide and needs 120 m of fencing. Find the width in m.",
+        "2(2w + w) = 120",
+        "20",
+        "Length = 2w, so 2(2w + w) = 120, giving 6w = 120, so w = 20 m."
+      ),
+      5
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p23",
+        "Edging costs $4 per metre. A gardener has a budget of $96. What is the perimeter, in metres, of the largest bed she can edge?",
+        "96 \\div 4",
+        "24",
+        "Perimeter she can afford = $96 ÷ $4 = 24 m of edging."
+      ),
+      5
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p24",
+        "A rectangular lawn is 9.5 m long and 4.5 m wide. A second, square lawn has the same perimeter. Find the side length of the square lawn in m.",
+        "P = 2(9.5 + 4.5) = 28; \\ s = 28 \\div 4",
+        "7",
+        "Rectangle perimeter = 2(9.5 + 4.5) = 28 m. For the square, 4s = 28, so s = 7 m."
+      ),
+      5
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p25",
+        "Fencing costs $9 per metre. A rectangular paddock is 18 m long and 11 m wide, but one full 18 m side runs along an existing wall and needs no fencing. Find the cost of fencing the other three sides in dollars.",
+        "(18 + 11 + 11) \\times 9",
+        "360",
+        "Three sides are fenced: 18 + 11 + 11 = 40 m. Cost = 40 × $9 = $360."
+      ),
+      5
+    ),
+    withDifficulty(
+      answer(
+        "y7-per-prb-p26",
+        "A square paving costs $12 per metre of edging. A homeowner pays $336 to edge a square courtyard completely. Find the side length of the courtyard in m.",
+        "336 \\div 12 = 28; \\ s = 28 \\div 4",
+        "7",
+        "Perimeter = $336 ÷ $12 = 28 m. A square has 4 equal sides, so s = 28 ÷ 4 = 7 m."
+      ),
+      5
+    ),
+  ],
+  multiPartPractice: [
+    {
+      id: "y7-per-prb-mp1",
+      prompt:
+        "A rectangular paddock is 35 m long and 25 m wide. A farmer wants to fence it completely. The fencing wire costs $6 per metre.",
+      latex: "P = 2(l + w), \\quad \\text{cost} = P \\times \\text{rate}",
+      answer: "720",
+      hint: "Find the perimeter first, then multiply by the cost per metre. For part (c), divide the budget by the rate.",
+      explanation:
+        "Part (a): perimeter = 2(35 + 25) = 2 × 60 = 120 m. Part (b): cost = 120 × $6 = $720. Part (c): with $900, the farmer can buy 900 ÷ 6 = 150 m of fencing.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Find the perimeter of the paddock, in metres.",
+          latex: "P = 2(35 + 25)",
+          marks: 1,
+          answer: "120",
+          acceptedAnswers: ["120.0"],
+          hint: "Use P = 2(l + w) with l = 35 and w = 25.",
+          explanation: "P = 2(35 + 25) = 2 × 60 = 120 m.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "Find the total cost of fencing the paddock, in dollars.",
+          latex: "120 \\times 6",
+          marks: 1,
+          answer: "720",
+          acceptedAnswers: ["720.00", "720.0"],
+          hint: "Multiply the perimeter by the cost per metre.",
+          explanation: "Cost = 120 × $6 = $720.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt:
+            "If the farmer's budget is $900, how many metres of fencing can be bought at $6 per metre?",
+          latex: "900 \\div 6",
+          marks: 1,
+          answer: "150",
+          acceptedAnswers: ["150.0"],
+          hint: "Divide the budget by the cost per metre.",
+          explanation: "Fencing affordable = 900 ÷ 6 = 150 m.",
+        },
+      ],
+    },
   ],
 };
 

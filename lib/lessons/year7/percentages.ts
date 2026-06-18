@@ -65,7 +65,16 @@ type LessonContent = Pick<
   | "independentPractice"
   | "commonMistakes"
   | "masteryQuiz"
+  | "masteryQuizPool"
+  | "multiPartPractice"
 >;
+
+// Pool questions carry a difficulty tag (1 = easiest … 5 = hardest) used by the
+// mastery-quiz selector. The `answer`/`choice` helpers above do not set it, so
+// we attach it with this thin wrapper.
+function withDifficulty(q: PracticeQuestion, difficulty: number): PracticeQuestion {
+  return { ...q, difficulty };
+}
 
 // ─── Lesson 1: Converting fractions, decimals and percentages ───────────────
 
@@ -291,6 +300,95 @@ const convertingFractionsDecimalsPercentages: LessonContent = {
       ["4%"]
     ),
   ],
+  masteryQuizPool: [
+    // ── Difficulty 1 ──
+    withDifficulty(answer("y7-pct-cvt-p01", "Convert 1/2 to a percentage.", "\\frac{1}{2} \\times 100\\%", "50", "1/2 × 100% = 50%.", ["50%"]), 1),
+    withDifficulty(answer("y7-pct-cvt-p02", "Convert 50% to a decimal.", "50\\% \\div 100", "0.5", "50 ÷ 100 = 0.5.", [".5"]), 1),
+    withDifficulty(answer("y7-pct-cvt-p03", "Convert 0.25 to a percentage.", "0.25 \\times 100", "25", "0.25 × 100 = 25%.", ["25%"]), 1),
+    withDifficulty(choice("y7-pct-cvt-p04", "Which decimal is equal to 10%?", "B", ["1.0", "0.1", "0.01", "10.0"], "10% = 10 ÷ 100 = 0.1."), 1),
+    withDifficulty(answer("y7-pct-cvt-p05", "Convert 1/4 to a percentage.", "\\frac{1}{4} \\times 100\\%", "25", "1/4 × 100% = 25%.", ["25%"]), 1),
+    // ── Difficulty 2 ──
+    withDifficulty(answer("y7-pct-cvt-p06", "Convert 3/5 to a percentage.", "\\frac{3}{5} \\times 100\\%", "60", "3/5 × 100% = 300/5% = 60%.", ["60%"]), 2),
+    withDifficulty(answer("y7-pct-cvt-p07", "Convert 0.07 to a percentage.", "0.07 \\times 100", "7", "0.07 × 100 = 7%.", ["7%"]), 2),
+    withDifficulty(answer("y7-pct-cvt-p08", "Convert 24% to a fraction in simplest form. Write as a fraction (e.g. 6/25).", "24\\% = \\frac{24}{100}", "6/25", "24/100 — divide both by 4: 6/25.", ["6 / 25"]), 2),
+    withDifficulty(answer("y7-pct-cvt-p09", "Convert 35% to a decimal.", "35\\% \\div 100", "0.35", "35 ÷ 100 = 0.35.", [".35"]), 2),
+    withDifficulty(choice("y7-pct-cvt-p10", "Which of these equals 3/4?", "C", ["0.34", "34%", "75%", "0.34%"], "3/4 = 0.75 = 75%."), 2),
+    // ── Difficulty 3 ──
+    withDifficulty(answer("y7-pct-cvt-p11", "Convert 7/8 to a percentage.", "\\frac{7}{8} \\times 100\\%", "87.5", "7/8 × 100% = 700/8% = 87.5%.", ["87.5%"]), 3),
+    withDifficulty(answer("y7-pct-cvt-p12", "Convert 0.125 to a percentage.", "0.125 \\times 100", "12.5", "0.125 × 100 = 12.5%.", ["12.5%"]), 3),
+    withDifficulty(answer("y7-pct-cvt-p13", "Convert 0.006 to a percentage.", "0.006 \\times 100", "0.6", "0.006 × 100 = 0.6%.", ["0.6%"]), 3),
+    withDifficulty(answer("y7-pct-cvt-p14", "A student answers 21 of 28 questions correctly. What percentage is this?", "\\frac{21}{28} \\times 100\\%", "75", "21/28 = 0.75 = 75%.", ["75%"]), 3),
+    withDifficulty(answer("y7-pct-cvt-p15", "Convert 12.5% to a fraction in simplest form. Write as a fraction (e.g. 1/8).", "12.5\\% = \\frac{12.5}{100}", "1/8", "12.5/100 = 125/1000 = 1/8.", ["1 / 8"]), 3),
+    withDifficulty(choice("y7-pct-cvt-p16", "Which list is ordered from smallest to largest?", "C", ["0.8, 3/4, 78%", "78%, 0.8, 3/4", "3/4, 78%, 0.8", "0.8, 78%, 3/4"], "3/4 = 0.75, 78% = 0.78, 0.8 = 0.80. So 0.75 < 0.78 < 0.80."), 3),
+    withDifficulty(answer("y7-pct-cvt-p17", "Convert 9/40 to a percentage.", "\\frac{9}{40} \\times 100\\%", "22.5", "9/40 × 100% = 900/40% = 22.5%.", ["22.5%"]), 3),
+    // ── Difficulty 4 ──
+    withDifficulty(answer("y7-pct-cvt-p18", "Convert 5/16 to a percentage.", "\\frac{5}{16} \\times 100\\%", "31.25", "5/16 × 100% = 500/16% = 31.25%.", ["31.25%"]), 4),
+    withDifficulty(answer("y7-pct-cvt-p19", "Convert 175% to a fraction in simplest form. Write as an improper fraction (e.g. 7/4).", "175\\% = \\frac{175}{100}", "7/4", "175/100 — divide both by 25: 7/4.", ["7 / 4"]), 4),
+    withDifficulty(choice("y7-pct-cvt-p20", "Which value is the smallest?", "B", ["0.4", "37%", "2/5", "\\(\\frac{19}{50}\\)"], "0.4 = 0.40, 37% = 0.37, 2/5 = 0.40, 19/50 = 0.38. The smallest is 37%."), 4),
+    withDifficulty(answer("y7-pct-cvt-p21", "Convert 0.0025 to a percentage.", "0.0025 \\times 100", "0.25", "0.0025 × 100 = 0.25%.", ["0.25%"]), 4),
+    withDifficulty(answer("y7-pct-cvt-p22", "A class of 24 students has 9 who walk to school. What percentage walk? Round to one decimal place.", "\\frac{9}{24} \\times 100\\%", "37.5", "9/24 = 0.375 = 37.5%.", ["37.5%"]), 4),
+    // ── Difficulty 5 ──
+    withDifficulty(answer("y7-pct-cvt-p23", "Convert 0.6% to a fraction in simplest form. Write as a fraction (e.g. 3/500).", "0.6\\% = \\frac{0.6}{100}", "3/500", "0.6/100 = 6/1000 = 3/500.", ["3 / 500"]), 5),
+    withDifficulty(answer("y7-pct-cvt-p24", "Convert 7/12 to a percentage. Round to two decimal places.", "\\frac{7}{12} \\times 100\\%", "58.33", "7/12 × 100% = 700/12% = 58.33% (2 dp).", ["58.33%"]), 5),
+    withDifficulty(choice("y7-pct-cvt-p25", "A student claims 1/3 = 33%. Which statement is most correct?", "C", ["Yes, exactly 33%", "No, it is 30%", "No, 1/3 = 33.33...% (33% is only an approximation)", "No, it is 35%"], "1/3 × 100% = 33.333...%, a recurring decimal. 33% is a rounded approximation, not exact."), 5),
+    withDifficulty(answer("y7-pct-cvt-p26", "Order these by converting to decimals; enter the largest as a percentage (a whole number): 5/8, 62%, 0.63.", "\\frac{5}{8},\\; 62\\%,\\; 0.63", "63", "5/8 = 0.625, 62% = 0.62, 0.63 = 0.63. The largest is 0.63 = 63%.", ["63%"]), 5),
+  ],
+  multiPartPractice: [
+    {
+      id: "y7-pct-cvt-mp1",
+      prompt: "A survey of a Year 7 class records each student's favourite subject. Out of 40 students, 16 chose Maths, 0.30 of the class chose English (given as a decimal), and the fraction 1/5 chose Science.",
+      latex: "\\text{40 students surveyed}",
+      answer: "40",
+      hint: "Convert each given form (fraction, decimal, percentage) using its conversion rule, and remember a percentage is a value out of 100.",
+      explanation: "Part (a): 16/40 × 100% = 40%. Part (b): 0.30 × 100% = 30%, which is 0.30 × 40 = 12 students. Part (c): 1/5 = 20%, which is 8 students. Part (d): 40% + 30% + 20% = 90%, leaving 10% for other subjects.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "What percentage of the class chose Maths? Enter a number (e.g. 40).",
+          latex: "\\frac{16}{40} \\times 100\\%",
+          marks: 1,
+          answer: "40",
+          acceptedAnswers: ["40%"],
+          hint: "Write the Maths count as a fraction of the total, then multiply by 100.",
+          explanation: "16/40 × 100% = 1600/40% = 40%.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "How many students chose English?",
+          latex: "0.30 \\times 40",
+          marks: 1,
+          answer: "12",
+          acceptedAnswers: ["12.0"],
+          hint: "0.30 means 30%. Find 30% of 40.",
+          explanation: "0.30 × 40 = 12 students chose English.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "How many students chose Science?",
+          latex: "\\frac{1}{5} \\times 40",
+          marks: 1,
+          answer: "8",
+          acceptedAnswers: ["8.0"],
+          hint: "1/5 of 40 students.",
+          explanation: "1/5 × 40 = 8 students chose Science.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "What percentage of the class chose a subject other than Maths, English, or Science?",
+          latex: "100\\% - (40\\% + 30\\% + 20\\%)",
+          marks: 1,
+          answer: "10",
+          acceptedAnswers: ["10%"],
+          hint: "Add the three percentages and subtract from 100%.",
+          explanation: "Maths 40% + English 30% + Science 20% = 90%, so 100% − 90% = 10% chose other subjects.",
+        },
+      ],
+    },
+  ],
 };
 
 // ─── Lesson 2: Percentage of a quantity ─────────────────────────────────────
@@ -508,6 +606,95 @@ const percentageOfQuantity: LessonContent = {
       ["$26", "26.0", "$26.00"]
     ),
   ],
+  masteryQuizPool: [
+    // ── Difficulty 1 ──
+    withDifficulty(answer("y7-pct-qty-p01", "Find 50% of 80.", "50\\% \\text{ of } 80", "40", "50% = 0.5. 0.5 × 80 = 40.", ["40.0"]), 1),
+    withDifficulty(answer("y7-pct-qty-p02", "Find 10% of 60.", "10\\% \\text{ of } 60", "6", "10% = 0.1. 0.1 × 60 = 6.", ["6.0"]), 1),
+    withDifficulty(answer("y7-pct-qty-p03", "Find 25% of 40.", "25\\% \\text{ of } 40", "10", "25% = 0.25. 0.25 × 40 = 10.", ["10.0"]), 1),
+    withDifficulty(choice("y7-pct-qty-p04", "Which calculation finds 20% of 50?", "B", ["\\(20 \\times 50\\)", "\\(0.2 \\times 50\\)", "\\(50 \\div 20\\)", "\\(20 + 50\\)"], "Convert 20% to 0.2, then multiply: 0.2 × 50 = 10."), 1),
+    withDifficulty(answer("y7-pct-qty-p05", "Find 100% of 35.", "100\\% \\text{ of } 35", "35", "100% of any quantity is the whole quantity: 35.", ["35.0"]), 1),
+    // ── Difficulty 2 ──
+    withDifficulty(answer("y7-pct-qty-p06", "Find 15% of 200.", "15\\% \\text{ of } 200", "30", "0.15 × 200 = 30.", ["30.0"]), 2),
+    withDifficulty(answer("y7-pct-qty-p07", "Find 40% of $90.", "40\\% \\text{ of } \\$90", "36", "0.40 × 90 = 36. So 40% of $90 is $36.", ["$36", "36.0", "$36.00"]), 2),
+    withDifficulty(answer("y7-pct-qty-p08", "Express 12 as a percentage of 48.", "\\frac{12}{48} \\times 100\\%", "25", "12 ÷ 48 × 100% = 25%.", ["25%"]), 2),
+    withDifficulty(answer("y7-pct-qty-p09", "Find 5% of 240.", "5\\% \\text{ of } 240", "12", "0.05 × 240 = 12.", ["12.0"]), 2),
+    withDifficulty(choice("y7-pct-qty-p10", "A jar holds 80 marbles. 30% are red. How many are red?", "C", ["20", "22", "24", "26"], "0.30 × 80 = 24 red marbles."), 2),
+    // ── Difficulty 3 ──
+    withDifficulty(answer("y7-pct-qty-p11", "Find 65% of 320.", "65\\% \\text{ of } 320", "208", "0.65 × 320 = 208.", ["208.0"]), 3),
+    withDifficulty(answer("y7-pct-qty-p12", "Express 51 as a percentage of 60.", "\\frac{51}{60} \\times 100\\%", "85", "51 ÷ 60 × 100% = 85%.", ["85%"]), 3),
+    withDifficulty(answer("y7-pct-qty-p13", "Find 7.5% of 600.", "7.5\\% \\text{ of } 600", "45", "0.075 × 600 = 45.", ["45.0"]), 3),
+    withDifficulty(answer("y7-pct-qty-p14", "A 2 kg bag of flour is used to make a recipe needing 250 g. What percentage of the bag is used?", "\\frac{250}{2000} \\times 100\\%", "12.5", "2 kg = 2000 g. 250 ÷ 2000 × 100% = 12.5%.", ["12.5%"]), 3),
+    withDifficulty(answer("y7-pct-qty-p15", "Find 110% of 50.", "110\\% \\text{ of } 50", "55", "1.10 × 50 = 55. (Over 100% gives more than the original.)", ["55.0"]), 3),
+    withDifficulty(choice("y7-pct-qty-p16", "36 students out of 45 passed. What percentage passed?", "D", ["70%", "75%", "78%", "80%"], "36 ÷ 45 × 100% = 80%."), 3),
+    withDifficulty(answer("y7-pct-qty-p17", "Find 22% of 350.", "22\\% \\text{ of } 350", "77", "0.22 × 350 = 77.", ["77.0"]), 3),
+    // ── Difficulty 4 ──
+    withDifficulty(answer("y7-pct-qty-p18", "Find 12.5% of 480.", "12.5\\% \\text{ of } 480", "60", "0.125 × 480 = 60.", ["60.0"]), 4),
+    withDifficulty(answer("y7-pct-qty-p19", "A 750 mL bottle is 60% full. How many millilitres of liquid does it contain?", "60\\% \\text{ of } 750", "450", "0.60 × 750 = 450 mL.", ["450.0"]), 4),
+    withDifficulty(answer("y7-pct-qty-p20", "A test has 80 marks. A student needs 65% to pass. How many marks must they score?", "65\\% \\text{ of } 80", "52", "0.65 × 80 = 52 marks needed to pass.", ["52.0"]), 4),
+    withDifficulty(choice("y7-pct-qty-p21", "A library has 1200 books; 18% are non-fiction. How many are non-fiction?", "B", ["196", "216", "224", "240"], "0.18 × 1200 = 216 non-fiction books."), 4),
+    withDifficulty(answer("y7-pct-qty-p22", "Express 1.5 km as a percentage of 6 km.", "\\frac{1.5}{6} \\times 100\\%", "25", "1.5 ÷ 6 × 100% = 25%.", ["25%"]), 4),
+    // ── Difficulty 5 ──
+    withDifficulty(answer("y7-pct-qty-p23", "Find 8.75% of 1600.", "8.75\\% \\text{ of } 1600", "140", "0.0875 × 1600 = 140.", ["140.0"]), 5),
+    withDifficulty(answer("y7-pct-qty-p24", "A bag contains 250 g of nuts: 90 g are almonds. What percentage are almonds?", "\\frac{90}{250} \\times 100\\%", "36", "90 ÷ 250 × 100% = 36%.", ["36%"]), 5),
+    withDifficulty(answer("y7-pct-qty-p25", "In a pond there are 400 fish. 35% are goldfish and 25% are koi. How many fish are neither goldfish nor koi?", "(100\\% - 60\\%) \\text{ of } 400", "160", "Goldfish + koi = 60%, so 40% are neither. 0.40 × 400 = 160 fish.", ["160.0"]), 5),
+    withDifficulty(choice("y7-pct-qty-p26", "A recipe uses 320 g of sugar. Maria reduces the sugar to 240 g. What percentage of the original sugar is now used?", "C", ["65%", "70%", "75%", "80%"], "240 ÷ 320 × 100% = 75% of the original sugar."), 5),
+  ],
+  multiPartPractice: [
+    {
+      id: "y7-pct-qty-mp1",
+      prompt: "A school of 600 students is surveyed about how they travel to school. 45% travel by bus, 30% walk, and the rest are driven by car.",
+      latex: "\\text{600 students}",
+      answer: "600",
+      hint: "Find each percentage of 600, and remember the three groups together make up 100% of the students.",
+      explanation: "Part (a): 45% of 600 = 0.45 × 600 = 270. Part (b): 30% of 600 = 0.30 × 600 = 180. Part (c): bus + walk = 75%, so 25% are driven; 0.25 × 600 = 150. Part (d): 270 bus students out of 600 total is 270/600 × 100% = 45% (confirming part a as a check).",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "How many students travel by bus?",
+          latex: "45\\% \\text{ of } 600",
+          marks: 1,
+          answer: "270",
+          acceptedAnswers: ["270.0"],
+          hint: "Find 45% of 600.",
+          explanation: "0.45 × 600 = 270 students travel by bus.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "How many students walk?",
+          latex: "30\\% \\text{ of } 600",
+          marks: 1,
+          answer: "180",
+          acceptedAnswers: ["180.0"],
+          hint: "Find 30% of 600.",
+          explanation: "0.30 × 600 = 180 students walk.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "How many students are driven by car?",
+          latex: "(100\\% - 75\\%) \\text{ of } 600",
+          marks: 1,
+          answer: "150",
+          acceptedAnswers: ["150.0"],
+          hint: "Bus and walking together are 75%, so find the remaining percentage of 600.",
+          explanation: "100% − (45% + 30%) = 25%. 0.25 × 600 = 150 students are driven by car.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "Of the 600 students, 24 are absent on the day of the survey. What percentage are absent?",
+          latex: "\\frac{24}{600} \\times 100\\%",
+          marks: 1,
+          answer: "4",
+          acceptedAnswers: ["4%"],
+          hint: "Write the absent count as a fraction of the total, then multiply by 100.",
+          explanation: "24 ÷ 600 × 100% = 4% of students are absent.",
+        },
+      ],
+    },
+  ],
 };
 
 // ─── Lesson 3: Percentage increase and decrease ──────────────────────────────
@@ -724,6 +911,84 @@ const percentageIncreaseDecrease: LessonContent = {
       "If the new wage is 120% of the original, then original = 840 ÷ 1.20 = 700. The original weekly wage was $700.",
       ["$700", "700.0", "$700.00"]
     ),
+  ],
+  masteryQuizPool: [
+    // ── Difficulty 1 ──
+    withDifficulty(answer("y7-pct-chg-p01", "Increase 100 by 10%.", "100 \\times 1.10", "110", "100 × 1.10 = 110.", ["110.0"]), 1),
+    withDifficulty(answer("y7-pct-chg-p02", "Decrease 100 by 25%.", "100 \\times 0.75", "75", "100 × 0.75 = 75.", ["75.0"]), 1),
+    withDifficulty(choice("y7-pct-chg-p03", "Which multiplier increases a value by 20%?", "C", ["0.20", "0.80", "1.20", "2.00"], "A 20% increase keeps 100% and adds 20%: multiplier = 1.20."), 1),
+    withDifficulty(answer("y7-pct-chg-p04", "Increase 50 by 50%.", "50 \\times 1.50", "75", "50 × 1.50 = 75.", ["75.0"]), 1),
+    withDifficulty(choice("y7-pct-chg-p05", "Which multiplier decreases a value by 10%?", "A", ["0.90", "1.10", "0.10", "0.99"], "A 10% decrease keeps 90%: multiplier = 0.90."), 1),
+    // ── Difficulty 2 ──
+    withDifficulty(answer("y7-pct-chg-p06", "Increase $250 by 12%.", "250 \\times 1.12", "280", "250 × 1.12 = 280. The new value is $280.", ["$280", "280.0", "$280.00"]), 2),
+    withDifficulty(answer("y7-pct-chg-p07", "Decrease 400 by 15%.", "400 \\times 0.85", "340", "400 × 0.85 = 340.", ["340.0"]), 2),
+    withDifficulty(answer("y7-pct-chg-p08", "A price rises from $40 to $46. What is the percentage increase?", "\\frac{46 - 40}{40} \\times 100\\%", "15", "Change = 6. 6/40 × 100% = 15%.", ["15%"]), 2),
+    withDifficulty(answer("y7-pct-chg-p09", "Increase 80 by 5%.", "80 \\times 1.05", "84", "80 × 1.05 = 84.", ["84.0"]), 2),
+    withDifficulty(choice("y7-pct-chg-p10", "A $60 item is decreased by 25%. What is the new price?", "B", ["$40", "$45", "$48", "$50"], "60 × 0.75 = $45."), 2),
+    // ── Difficulty 3 ──
+    withDifficulty(answer("y7-pct-chg-p11", "Increase 320 by 7.5%.", "320 \\times 1.075", "344", "320 × 1.075 = 344.", ["344.0"]), 3),
+    withDifficulty(answer("y7-pct-chg-p12", "A population falls from 5000 to 4600. What is the percentage decrease?", "\\frac{5000 - 4600}{5000} \\times 100\\%", "8", "Change = 400. 400/5000 × 100% = 8%.", ["8%"]), 3),
+    withDifficulty(answer("y7-pct-chg-p13", "Decrease $720 by 35%.", "720 \\times 0.65", "468", "720 × 0.65 = 468. The new value is $468.", ["$468", "468.0", "$468.00"]), 3),
+    withDifficulty(answer("y7-pct-chg-p14", "A salary of $640 increases by 12.5%. Find the new salary.", "640 \\times 1.125", "720", "640 × 1.125 = 720. The new salary is $720.", ["$720", "720.0", "$720.00"]), 3),
+    withDifficulty(answer("y7-pct-chg-p15", "A value rises from 250 to 300. What is the percentage increase?", "\\frac{300 - 250}{250} \\times 100\\%", "20", "Change = 50. 50/250 × 100% = 20%.", ["20%"]), 3),
+    withDifficulty(choice("y7-pct-chg-p16", "Which working finds the percentage decrease from $80 to $68?", "A", ["\\((80 - 68) \\div 80 \\times 100\\)", "\\((80 - 68) \\div 68 \\times 100\\)", "\\(68 \\div 80 \\times 100\\)", "\\(80 \\div 68 \\times 100\\)"], "Percentage decrease = change ÷ original × 100 = 12 ÷ 80 × 100 = 15%."), 3),
+    withDifficulty(answer("y7-pct-chg-p17", "Decrease 900 by 22%.", "900 \\times 0.78", "702", "900 × 0.78 = 702.", ["702.0"]), 3),
+    // ── Difficulty 4 ──
+    withDifficulty(answer("y7-pct-chg-p18", "A car worth $24000 loses 17.5% of its value in a year. What is its new value?", "24000 \\times 0.825", "19800", "24000 × 0.825 = 19800. The car is worth $19,800.", ["$19800", "19800.0", "19,800"]), 4),
+    withDifficulty(answer("y7-pct-chg-p19", "After a 25% increase, a price is $200. What was the original price?", "200 \\div 1.25", "160", "Original = 200 ÷ 1.25 = 160. The original price was $160.", ["$160", "160.0", "$160.00"]), 4),
+    withDifficulty(answer("y7-pct-chg-p20", "After a 30% discount, an item costs $84. What was the original price?", "84 \\div 0.70", "120", "Sale price = 70% of original. Original = 84 ÷ 0.70 = 120. The original price was $120.", ["$120", "120.0", "$120.00"]), 4),
+    withDifficulty(choice("y7-pct-chg-p21", "A quantity is increased by 10% and then the result is increased by 10% again. Overall, by what percentage has it increased?", "C", ["20%", "19%", "21%", "22%"], "Multiplier = 1.10 × 1.10 = 1.21, which is a 21% overall increase, not 20%."), 4),
+    withDifficulty(answer("y7-pct-chg-p22", "A share price rises from $1.60 to $2.00. What is the percentage increase?", "\\frac{2.00 - 1.60}{1.60} \\times 100\\%", "25", "Change = 0.40. 0.40/1.60 × 100% = 25%.", ["25%"]), 4),
+    // ── Difficulty 5 ──
+    withDifficulty(answer("y7-pct-chg-p23", "A jacket is reduced by 20%, then a further 10% off the reduced price. The final price is $144. What was the original price?", "144 \\div (0.80 \\times 0.90)", "200", "Combined multiplier = 0.80 × 0.90 = 0.72. Original = 144 ÷ 0.72 = 200. The original price was $200.", ["$200", "200.0", "$200.00"]), 5),
+    withDifficulty(answer("y7-pct-chg-p24", "A town's population grows by 8% to reach 5400. What was the original population?", "5400 \\div 1.08", "5000", "Original = 5400 ÷ 1.08 = 5000.", ["5000.0", "5,000"]), 5),
+    withDifficulty(choice("y7-pct-chg-p25", "A price increases by 25%, then decreases by 20%. Compared with the start, the final price is:", "B", ["5% higher", "exactly the same", "5% lower", "20% lower"], "Multiplier = 1.25 × 0.80 = 1.00, so the final price equals the original."), 5),
+    withDifficulty(answer("y7-pct-chg-p26", "A laptop is on sale for $612 after a 15% discount. How much money was saved compared with the original price?", "\\text{original} = 612 \\div 0.85", "108", "Original = 612 ÷ 0.85 = 720. Saving = 720 − 612 = $108.", ["$108", "108.0", "$108.00"]), 5),
+  ],
+  multiPartPractice: [
+    {
+      id: "y7-pct-chg-mp1",
+      prompt: "A bicycle has a recommended retail price of $480. During a sale it is discounted by 25%. Later, after the sale ends, the discounted price is increased by 20%.",
+      latex: "\\text{Recommended price} = \\$480",
+      answer: "480",
+      hint: "Use multipliers: a 25% decrease multiplies by 0.75, and a 20% increase multiplies by 1.20. Apply them one after the other.",
+      explanation: "Part (a): 480 × 0.75 = $360 sale price. Part (b): 360 × 1.20 = $432. Part (c): the final price $432 compared with $480 is a decrease of 480 − 432 = $48, which is 48/480 × 100% = 10% below the recommended price.",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "What is the sale price after the 25% discount?",
+          latex: "480 \\times 0.75",
+          marks: 1,
+          answer: "360",
+          acceptedAnswers: ["$360", "360.0", "$360.00"],
+          hint: "A 25% discount means you pay 75%. Multiply by 0.75.",
+          explanation: "480 × 0.75 = $360.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "After the sale, the $360 price is increased by 20%. What is the new price?",
+          latex: "360 \\times 1.20",
+          marks: 1,
+          answer: "432",
+          acceptedAnswers: ["$432", "432.0", "$432.00"],
+          hint: "A 20% increase multiplies by 1.20.",
+          explanation: "360 × 1.20 = $432.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "By what percentage is the final price of $432 below the original recommended price of $480?",
+          latex: "\\frac{480 - 432}{480} \\times 100\\%",
+          marks: 2,
+          answer: "10",
+          acceptedAnswers: ["10%"],
+          hint: "Find the difference from $480, then express it as a percentage of $480.",
+          explanation: "Change = 480 − 432 = 48. 48/480 × 100% = 10%. The final price is 10% below the recommended price.",
+        },
+      ],
+    },
   ],
 };
 
@@ -943,6 +1208,95 @@ const percentageApplications: LessonContent = {
       "15% discount on $150: 150 × 0.85 = $127.50. Adding 10% GST: 127.50 × 1.10 = $140.25. This is different from $132, confirming the 20% discount scenario.",
       ["$140.25", "140.25"]
     ),
+  ],
+  masteryQuizPool: [
+    // ── Difficulty 1 ──
+    withDifficulty(answer("y7-pct-app-p01", "A $50 item has 10% GST added. What is the GST-inclusive price?", "50 \\times 1.10", "55", "50 × 1.10 = 55. The GST-inclusive price is $55.", ["$55", "55.0", "$55.00"]), 1),
+    withDifficulty(answer("y7-pct-app-p02", "A $100 item is discounted by 20%. What is the sale price?", "100 \\times 0.80", "80", "100 × 0.80 = 80. The sale price is $80.", ["$80", "80.0", "$80.00"]), 1),
+    withDifficulty(choice("y7-pct-app-p03", "GST in Australia adds what percentage to the pre-tax price?", "B", ["5%", "10%", "15%", "20%"], "Australian GST adds 10% to the pre-tax price."), 1),
+    withDifficulty(answer("y7-pct-app-p04", "A $200 item is on sale at 50% off. What is the sale price?", "200 \\times 0.50", "100", "200 × 0.50 = 100. The sale price is $100.", ["$100", "100.0", "$100.00"]), 1),
+    withDifficulty(choice("y7-pct-app-p05", "Which multiplier adds 10% GST to a price?", "C", ["0.10", "0.90", "1.10", "1.01"], "Adding 10% GST means multiplying by 1.10."), 1),
+    // ── Difficulty 2 ──
+    withDifficulty(answer("y7-pct-app-p06", "A meal costs $40 before GST. Find the GST-inclusive price.", "40 \\times 1.10", "44", "40 × 1.10 = 44. The total is $44.", ["$44", "44.0", "$44.00"]), 2),
+    withDifficulty(answer("y7-pct-app-p07", "A shop marks up a $50 item by 30%. What is the selling price?", "50 \\times 1.30", "65", "50 × 1.30 = 65. The selling price is $65.", ["$65", "65.0", "$65.00"]), 2),
+    withDifficulty(answer("y7-pct-app-p08", "A $250 jacket is 40% off. What is the sale price?", "250 \\times 0.60", "150", "250 × 0.60 = 150. The sale price is $150.", ["$150", "150.0", "$150.00"]), 2),
+    withDifficulty(answer("y7-pct-app-p09", "A bill is $220 including 10% GST. What is the GST component? (Divide by 11.)", "220 \\div 11", "20", "GST = 220 ÷ 11 = 20. The GST component is $20.", ["$20", "20.0", "$20.00"]), 2),
+    withDifficulty(choice("y7-pct-app-p10", "A $120 item is marked up by 25%. What is the selling price?", "C", ["$140", "$145", "$150", "$155"], "120 × 1.25 = $150."), 2),
+    // ── Difficulty 3 ──
+    withDifficulty(answer("y7-pct-app-p11", "A laptop costs $1200 before GST. Find the GST-inclusive price.", "1200 \\times 1.10", "1320", "1200 × 1.10 = 1320. The price is $1320.", ["$1320", "1320.0", "1,320"]), 3),
+    withDifficulty(answer("y7-pct-app-p12", "After a 25% discount, a coat costs $90. What was the original price?", "90 \\div 0.75", "120", "Sale price = 75% of original. Original = 90 ÷ 0.75 = 120. The original price was $120.", ["$120", "120.0", "$120.00"]), 3),
+    withDifficulty(answer("y7-pct-app-p13", "A trader buys an item for $40 and sells it for $52. What is the percentage mark-up on cost?", "\\frac{52 - 40}{40} \\times 100\\%", "30", "Mark-up = 12. 12/40 × 100% = 30%.", ["30%"]), 3),
+    withDifficulty(answer("y7-pct-app-p14", "A coffee costs $5.50 including 10% GST. What was the pre-GST price?", "5.50 \\div 1.10", "5", "5.50 ÷ 1.10 = 5. The pre-GST price was $5.", ["$5", "5.0", "$5.00"]), 3),
+    withDifficulty(answer("y7-pct-app-p15", "A store buys shoes for $75 and marks them up by 40%. Find the selling price.", "75 \\times 1.40", "105", "75 × 1.40 = 105. The selling price is $105.", ["$105", "105.0", "$105.00"]), 3),
+    withDifficulty(choice("y7-pct-app-p16", "A TV is 20% off and sells for $640. Which finds the original price?", "B", ["\\(640 \\times 0.80\\)", "\\(640 \\div 0.80\\)", "\\(640 \\times 1.20\\)", "\\(640 \\div 1.20\\)"], "Sale price = 80% of original, so original = 640 ÷ 0.80 = $800."), 3),
+    withDifficulty(answer("y7-pct-app-p17", "A service costs $360 before GST. Find the total including 10% GST.", "360 \\times 1.10", "396", "360 × 1.10 = 396. The total is $396.", ["$396", "396.0", "$396.00"]), 3),
+    // ── Difficulty 4 ──
+    withDifficulty(answer("y7-pct-app-p18", "After a 35% discount, a guitar costs $260. What was the original price?", "260 \\div 0.65", "400", "Sale price = 65% of original. Original = 260 ÷ 0.65 = 400. The original price was $400.", ["$400", "400.0", "$400.00"]), 4),
+    withDifficulty(answer("y7-pct-app-p19", "A quote is $935 including 10% GST. How much is the GST component?", "935 \\div 11", "85", "GST = 935 ÷ 11 = 85. The GST component is $85.", ["$85", "85.0", "$85.00"]), 4),
+    withDifficulty(answer("y7-pct-app-p20", "A shop buys a watch for $80 and sells it for $110. What is the percentage mark-up on cost? Round to one decimal place.", "\\frac{110 - 80}{80} \\times 100\\%", "37.5", "Mark-up = 30. 30/80 × 100% = 37.5%.", ["37.5%"]), 4),
+    withDifficulty(choice("y7-pct-app-p21", "An item is listed at $200. A 10% discount is applied, then 10% GST is added. What is the final price?", "C", ["$190", "$196", "$198", "$200"], "200 × 0.90 = $180, then 180 × 1.10 = $198."), 4),
+    withDifficulty(answer("y7-pct-app-p22", "A 'buy one get one half price' deal applies to two $36 shirts. What is the total cost?", "36 + 36 \\times 0.50", "54", "First shirt $36, second shirt 36 × 0.50 = $18. Total = $54.", ["$54", "54.0", "$54.00"]), 4),
+    // ── Difficulty 5 ──
+    withDifficulty(answer("y7-pct-app-p23", "A camera is marked up 20% on cost then sells with 10% GST added for a final price of $396. What was the cost price?", "396 \\div (1.20 \\times 1.10)", "300", "Combined multiplier = 1.20 × 1.10 = 1.32. Cost = 396 ÷ 1.32 = 300. The cost price was $300.", ["$300", "300.0", "$300.00"]), 5),
+    withDifficulty(answer("y7-pct-app-p24", "A jacket originally $250 is discounted 30%, then a $20 voucher is subtracted. What is the final price?", "250 \\times 0.70 - 20", "155", "250 × 0.70 = $175, then 175 − 20 = $155.", ["$155", "155.0", "$155.00"]), 5),
+    withDifficulty(choice("y7-pct-app-p25", "A trader sells an item for $90, making a 50% profit on cost. What did the item cost?", "B", ["$45", "$60", "$67.50", "$135"], "Selling price = cost × 1.50, so cost = 90 ÷ 1.50 = $60."), 5),
+    withDifficulty(answer("y7-pct-app-p26", "A restaurant bill is $66 including 10% GST. A 15% service charge is then added to the pre-GST amount. What is the service charge in dollars?", "15\\% \\text{ of } (66 \\div 1.10)", "9", "Pre-GST amount = 66 ÷ 1.10 = $60. Service charge = 0.15 × 60 = $9.", ["$9", "9.0", "$9.00"]), 5),
+  ],
+  multiPartPractice: [
+    {
+      id: "y7-pct-app-mp1",
+      prompt: "An electronics store buys a tablet from its supplier for $300. The store marks the tablet up by 40% to set the listed price. During a sale, the listed price is discounted by 25%. Finally, 10% GST is added to the discounted price at the checkout.",
+      latex: "\\text{Supplier cost} = \\$300",
+      answer: "300",
+      hint: "Work through one step at a time: mark-up multiplies by 1.40, the discount multiplies by 0.75, and GST multiplies by 1.10.",
+      explanation: "Part (a): 300 × 1.40 = $420 listed price. Part (b): 420 × 0.75 = $315 discounted price. Part (c): 315 × 1.10 = $346.50 final price. Part (d): the GST component is the discounted price × 10% = 315 × 0.10 = $31.50 (equivalently 346.50 ÷ 11 = $31.50).",
+      parts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "What is the listed price after the 40% mark-up?",
+          latex: "300 \\times 1.40",
+          marks: 1,
+          answer: "420",
+          acceptedAnswers: ["$420", "420.0", "$420.00"],
+          hint: "A 40% mark-up multiplies the cost by 1.40.",
+          explanation: "300 × 1.40 = $420.",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt: "What is the discounted price after 25% is taken off the listed price?",
+          latex: "420 \\times 0.75",
+          marks: 1,
+          answer: "315",
+          acceptedAnswers: ["$315", "315.0", "$315.00"],
+          hint: "A 25% discount means you pay 75%. Multiply by 0.75.",
+          explanation: "420 × 0.75 = $315.",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt: "What is the final price after 10% GST is added to the discounted price?",
+          latex: "315 \\times 1.10",
+          marks: 1,
+          answer: "346.50",
+          acceptedAnswers: ["$346.50", "346.5", "$346.5"],
+          hint: "Adding 10% GST multiplies by 1.10.",
+          explanation: "315 × 1.10 = $346.50.",
+        },
+        {
+          key: "d",
+          label: "(d)",
+          prompt: "How much of the final price is GST?",
+          latex: "315 \\times 0.10",
+          marks: 1,
+          answer: "31.50",
+          acceptedAnswers: ["$31.50", "31.5", "$31.5"],
+          hint: "The GST is 10% of the discounted price (or the final price divided by 11).",
+          explanation: "GST = 315 × 0.10 = $31.50 (also 346.50 ÷ 11 = $31.50).",
+        },
+      ],
+    },
   ],
 };
 
