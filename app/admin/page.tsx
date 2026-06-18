@@ -260,6 +260,19 @@ function formatRevenue(cents: number) {
   }).format(cents / 100);
 }
 
+function formatAgeFromNow(value: string | null | undefined) {
+  if (!value) return "No timestamp";
+  const elapsedMs = Date.now() - new Date(value).getTime();
+  if (!Number.isFinite(elapsedMs) || elapsedMs < 0) return "Just now";
+
+  const hours = Math.floor(elapsedMs / (1000 * 60 * 60));
+  if (hours < 1) return "< 1 hour ago";
+  if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+
+  const days = Math.floor(hours / 24);
+  return `${days} day${days === 1 ? "" : "s"} ago`;
+}
+
 function formatScore(score: number | null) {
   return score === null ? "--" : `${Math.round(score * 100)}%`;
 }
@@ -397,6 +410,1045 @@ function SummaryCard({
   );
 }
 
+function OperationsQueueSection({
+  actionQueueItems,
+}: {
+  actionQueueItems: Array<{
+    key: string;
+    title: string;
+    count: number;
+    priority: string;
+    href: string;
+    oldestAt: string | null | undefined;
+    description: string;
+  }>;
+}) {
+  return (
+    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Operations
+          </p>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight">
+            Today&apos;s queue
+          </h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Priority-ordered tasks to protect revenue and speed up activation.
+          </p>
+        </div>
+        <p className="text-sm font-semibold text-slate-500">
+          {actionQueueItems.length} active item
+          {actionQueueItems.length === 1 ? "" : "s"}
+        </p>
+      </div>
+
+      {actionQueueItems.length === 0 ? (
+        <p className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm font-semibold text-emerald-900">
+          Queue clear. No urgent admin actions are waiting.
+        </p>
+      ) : (
+        <div className="mt-5 grid gap-3 md:grid-cols-2">
+          {actionQueueItems.map((item) => (
+            <Link
+              key={item.key}
+              href={item.href}
+              className="rounded-2xl border border-slate-200 bg-slate-50 p-4 transition hover:bg-slate-100"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    {item.priority}
+                  </p>
+                  <p className="mt-1 font-semibold text-slate-900">{item.title}</p>
+                  <p className="mt-1 text-sm text-slate-600">{item.description}</p>
+                  <p className="mt-2 text-xs text-slate-500">
+                    Oldest item: {formatAgeFromNow(item.oldestAt)}
+                  </p>
+                </div>
+                <span className="rounded-full bg-slate-900 px-2.5 py-1 text-xs font-semibold text-white">
+                  {item.count}
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function ActionRequiredSection({
+  hasAlerts,
+  pendingAccessStudents,
+  newEnquiriesList,
+  paidButNotActive,
+  setStudentAccessStatusAction,
+}: {
+  hasAlerts: boolean;
+  pendingAccessStudents: StudentUserRow[];
+  newEnquiriesList: EnquiryRow[];
+  paidButNotActive: PaymentRow[];
+  setStudentAccessStatusAction: (formData: FormData) => Promise<void>;
+}) {
+  if (!hasAlerts) return null;
+
+  return (
+    <section className="rounded-3xl border border-amber-200 bg-amber-50 p-5 shadow-sm">
+      <h2 className="text-base font-semibold text-amber-900">Action required</h2>
+      <ul className="mt-3 space-y-3 text-sm">
+        {pendingAccessStudents.length > 0 && (
+          <li>
+            <p className="font-semibold text-amber-900">
+              {pendingAccessStudents.length} student
+              {pendingAccessStudents.length === 1 ? "" : "s"} waiting for access
+              approval
+            </p>
+            <div className="mt-2 space-y-2">
+              {pendingAccessStudents.map(({ user, profile }) => {
+                const name = studentDisplayName({
+                  profile,
+                  authUser: user,
+                });
+                return (
+                  <div
+                    key={user.id}
+                    className="flex flex-wrap items-center gap-3 rounded-2xl bg-white/80 px-4 py-2.5"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <span className="font-medium text-slate-900">{name}</span>
+                      <span className="ml-2 text-slate-500">{user.email}</span>
+                    </div>
+                    <form action={setStudentAccessStatusAction} className="flex gap-2">
+                      <input type="hidden" name="userId" value={user.id} />
+                      <input type="hidden" name="email" value={user.email ?? ""} />
+                      <button
+                        name="status"
+                        value="active"
+                        type="submit"
+                        className="rounded-lg bg-emerald-700 px-3 py-1 text-xs font-semibold text-white hover:bg-emerald-800"
+                      >
+                        Approve
+                      </button>
+                      <button
+                        name="status"
+                        value="revoked"
+                        type="submit"
+                        className="rounded-lg border border-slate-300 bg-white px-3 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                      >
+                        Revoke
+                      </button>
+                    </form>
+                  </div>
+                );
+              })}
+            </div>
+          </li>
+        )}
+
+        {newEnquiriesList.length > 0 && (
+          <li className="rounded-2xl bg-white/80 px-4 py-2.5 text-slate-800">
+            <span className="font-semibold">
+              {newEnquiriesList.length} new enquir
+              {newEnquiriesList.length === 1 ? "y" : "ies"}
+            </span>
+            {" — "}
+            {newEnquiriesList.map((e) => (
+              <span key={e.id} className="mr-2">
+                {e.student_first_name ?? e.parent_email ?? "Unknown"}
+              </span>
+            ))}
+          </li>
+        )}
+
+        {paidButNotActive.length > 0 && (
+          <li className="rounded-2xl bg-white/80 px-4 py-2.5 text-slate-800">
+            <span className="font-semibold">
+              {paidButNotActive.length} online learning payment
+              {paidButNotActive.length === 1 ? "" : "s"} without active access
+            </span>
+            {" — "}
+            {paidButNotActive.map((p) => (
+              <span key={p.id} className="mr-2">
+                {p.parent_email ?? p.student_first_name ?? "Unknown"}
+              </span>
+            ))}
+          </li>
+        )}
+      </ul>
+    </section>
+  );
+}
+
+function SignupFunnelSection({
+  signupFunnelMetrics,
+  signupFunnelRows,
+  checkoutFunnelError,
+}: {
+  signupFunnelMetrics: {
+    signedUp: number;
+    checkoutStarted: number;
+    paid: number;
+    lessonStarted: number;
+    masteryPassed: number;
+    signedUpNotPaid: number;
+    checkoutStartedNotPaid: number;
+    paidNoLessonProgress: number;
+  };
+  signupFunnelRows: Array<{
+    user: AdminAuthUser;
+    profile?: ProfileRow;
+    access?: BetaAccessRow;
+    checkoutEvent?: CheckoutFunnelEventRow;
+    paidPayment?: PaymentRow;
+    latestProgress?: LessonProgressAdminRow;
+    stage: string;
+  }>;
+  checkoutFunnelError: { message: string } | null;
+}) {
+  return (
+    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Conversion
+          </p>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight">
+            Signup to learning funnel
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            Tracks the online-learning path from account creation to Stripe
+            checkout, payment, lesson progress and mastery. Checkout-started
+            data begins after the checkout_funnel_events migration is applied.
+          </p>
+        </div>
+        <p className="text-sm font-semibold text-slate-500">
+          {signupFunnelMetrics.signedUp} signup
+          {signupFunnelMetrics.signedUp === 1 ? "" : "s"}
+        </p>
+      </div>
+
+      {checkoutFunnelError ? (
+        <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+          Checkout-started rows could not be loaded: {checkoutFunnelError.message}. Apply{" "}
+          <span className="font-mono">
+            lib/supabase-migrations/002_checkout_funnel_events.sql
+          </span>{" "}
+          to enable this middle-funnel signal.
+        </div>
+      ) : null}
+
+      <div className="mt-5 grid grid-cols-2 gap-4 lg:grid-cols-5">
+        <SummaryCard label="Signed up" value={signupFunnelMetrics.signedUp} />
+        <SummaryCard
+          label="Checkout started"
+          value={signupFunnelMetrics.checkoutStarted}
+          highlight={
+            signupFunnelMetrics.checkoutStartedNotPaid > 0 ? "amber" : undefined
+          }
+        />
+        <SummaryCard
+          label="Paid online"
+          value={signupFunnelMetrics.paid}
+          highlight={signupFunnelMetrics.paid > 0 ? "emerald" : undefined}
+        />
+        <SummaryCard
+          label="Lesson started"
+          value={signupFunnelMetrics.lessonStarted}
+        />
+        <SummaryCard
+          label="Mastery passed"
+          value={signupFunnelMetrics.masteryPassed}
+        />
+      </div>
+
+      <div className="mt-5 grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700 md:grid-cols-3">
+        <p>
+          <span className="font-semibold text-slate-950">
+            {signupFunnelMetrics.signedUpNotPaid}
+          </span>{" "}
+          signed up without a paid online-learning payment.
+        </p>
+        <p>
+          <span className="font-semibold text-slate-950">
+            {signupFunnelMetrics.checkoutStartedNotPaid}
+          </span>{" "}
+          started checkout without a paid online-learning payment.
+        </p>
+        <p>
+          <span className="font-semibold text-slate-950">
+            {signupFunnelMetrics.paidNoLessonProgress}
+          </span>{" "}
+          paid but have no recorded lesson progress.
+        </p>
+      </div>
+
+      {signupFunnelRows.length === 0 ? (
+        <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+          No student accounts yet.
+        </p>
+      ) : (
+        <div className="mt-5 overflow-x-auto">
+          <table className="min-w-full divide-y divide-slate-200 text-sm">
+            <thead>
+              <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <th className="px-3 py-2 text-left">Student</th>
+                <th className="px-3 py-2 text-left">Signed up</th>
+                <th className="px-3 py-2 text-left">Checkout</th>
+                <th className="px-3 py-2 text-left">Payment</th>
+                <th className="px-3 py-2 text-left">Learning</th>
+                <th className="px-3 py-2 text-left">Current stage</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {signupFunnelRows.map(
+                ({
+                  user,
+                  profile,
+                  access,
+                  checkoutEvent,
+                  paidPayment,
+                  latestProgress,
+                  stage,
+                }) => {
+                  const name = studentDisplayName({
+                    profile,
+                    authUser: user,
+                  });
+
+                  return (
+                    <tr key={user.id} className="align-top">
+                      <td className="px-3 py-3">
+                        <p className="font-medium text-slate-900">{name}</p>
+                        <p className="mt-0.5 break-all text-xs text-slate-500">
+                          {user.email}
+                        </p>
+                        <p className="mt-0.5 text-xs text-slate-400">
+                          Access: {access?.status ?? "missing"}
+                        </p>
+                      </td>
+                      <td className="px-3 py-3 whitespace-nowrap text-slate-500">
+                        {formatOptionalDateTime(user.created_at)}
+                      </td>
+                      <td className="px-3 py-3 whitespace-nowrap text-slate-600">
+                        {formatOptionalDateTime(checkoutEvent?.created_at)}
+                      </td>
+                      <td className="px-3 py-3 text-slate-600">
+                        {paidPayment ? (
+                          <>
+                            <p className="font-medium text-slate-900">
+                              {formatMoney(
+                                paidPayment.amount_total,
+                                paidPayment.currency,
+                              )}
+                            </p>
+                            <p className="mt-0.5 text-xs text-slate-500">
+                              {formatOptionalDateTime(paidPayment.created_at)}
+                            </p>
+                          </>
+                        ) : (
+                          "--"
+                        )}
+                      </td>
+                      <td className="px-3 py-3 text-slate-600">
+                        {latestProgress ? (
+                          <>
+                            <p>
+                              {latestProgress.passed
+                                ? "Mastery passed"
+                                : "In progress"}
+                            </p>
+                            <p className="mt-0.5 text-xs text-slate-500">
+                              {formatScore(numericScore(latestProgress.last_score))} -{" "}
+                              {formatOptionalDateTime(latestProgress.updated_at)}
+                            </p>
+                          </>
+                        ) : (
+                          "--"
+                        )}
+                      </td>
+                      <td className="px-3 py-3">
+                        <span
+                          className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${funnelStageClass(stage)}`}
+                        >
+                          {stage}
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                },
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function StudentsAccountsSection({
+  usersError,
+  studentUsers,
+  totalUsers,
+  ensureProfileAccessAction,
+  setStudentAccessStatusAction,
+  sendPurchasePromptAction,
+  deleteTestUserAction,
+}: {
+  usersError: { message: string } | null;
+  studentUsers: StudentUserRow[];
+  totalUsers: number;
+  ensureProfileAccessAction: (formData: FormData) => Promise<void>;
+  setStudentAccessStatusAction: (formData: FormData) => Promise<void>;
+  sendPurchasePromptAction: (formData: FormData) => Promise<void>;
+  deleteTestUserAction: (formData: FormData) => Promise<void>;
+}) {
+  return (
+    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Accounts
+          </p>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight">Students</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Use Ensure to repair a partially created account. Delete is for test
+            accounts only.
+          </p>
+        </div>
+        <p className="text-sm font-semibold text-slate-500">
+          {totalUsers} user{totalUsers === 1 ? "" : "s"}
+        </p>
+      </div>
+
+      {usersError ? (
+        <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+          Could not load Supabase Auth users: {usersError.message}. This
+          requires a server-only SUPABASE_SERVICE_ROLE_KEY.
+        </div>
+      ) : studentUsers.length === 0 ? (
+        <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+          No student accounts yet.
+        </p>
+      ) : (
+        <div className="mt-5 overflow-x-auto">
+          <table className="min-w-full divide-y divide-slate-200 text-sm">
+            <thead>
+              <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <th className="px-3 py-2 text-left">Name</th>
+                <th className="px-3 py-2 text-left">Email</th>
+                <th className="px-3 py-2 text-left">Signed up</th>
+                <th className="px-3 py-2 text-left">Last login</th>
+                <th className="px-3 py-2 text-left">Access</th>
+                <th className="px-3 py-2 text-left">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {studentUsers.map(({ user, profile, access }) => {
+                const status = access?.status ?? "missing";
+                const name = studentDisplayName({
+                  profile,
+                  authUser: user,
+                });
+                const parentEmail =
+                  firstPresent(
+                    profile?.parent_email,
+                    user.user_metadata?.parent_email,
+                  ) ?? null;
+
+                return (
+                  <tr key={user.id} className="align-top">
+                    <td className="px-3 py-3">
+                      <p className="font-medium text-slate-900">{name}</p>
+                      {parentEmail && (
+                        <p className="mt-0.5 text-xs text-slate-400">
+                          Parent: {parentEmail}
+                        </p>
+                      )}
+                    </td>
+                    <td className="px-3 py-3 break-all text-slate-600">
+                      {user.email}
+                    </td>
+                    <td className="px-3 py-3 whitespace-nowrap text-slate-500">
+                      {formatOptionalDateTime(user.created_at)}
+                    </td>
+                    <td className="px-3 py-3 whitespace-nowrap text-slate-500">
+                      {formatOptionalDateTime(user.last_sign_in_at)}
+                    </td>
+                    <td className="px-3 py-3">
+                      <span
+                        className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${accessStatusClass(access?.status)}`}
+                      >
+                        {status}
+                      </span>
+                    </td>
+                    <td className="px-3 py-3">
+                      <div className="flex flex-col gap-2">
+                        <form action={ensureProfileAccessAction}>
+                          <input type="hidden" name="userId" value={user.id} />
+                          <input type="hidden" name="email" value={user.email ?? ""} />
+                          <button
+                            type="submit"
+                            className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                          >
+                            Ensure
+                          </button>
+                        </form>
+                        <form action={setStudentAccessStatusAction} className="flex flex-wrap gap-1">
+                          <input type="hidden" name="userId" value={user.id} />
+                          <input type="hidden" name="email" value={user.email ?? ""} />
+                          {betaAccessStatuses.map((s) => (
+                            <button
+                              key={s}
+                              type="submit"
+                              name="status"
+                              value={s}
+                              disabled={access?.status === s}
+                              className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold capitalize text-slate-700 hover:bg-slate-50 disabled:cursor-default disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400"
+                            >
+                              {s}
+                            </button>
+                          ))}
+                        </form>
+                        {access?.status !== "active" && (
+                          <form action={sendPurchasePromptAction}>
+                            <input type="hidden" name="email" value={user.email ?? ""} />
+                            <input type="hidden" name="studentName" value={name} />
+                            <button
+                              type="submit"
+                              className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                            >
+                              Email prompt
+                            </button>
+                          </form>
+                        )}
+                        <DeleteUserForm userId={user.id} deleteUserAction={deleteTestUserAction} />
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function EnquiriesSection({
+  enquiries,
+  enquiriesError,
+  updateEnquiryStatusAction,
+}: {
+  enquiries: EnquiryRow[];
+  enquiriesError: { message: string } | null;
+  updateEnquiryStatusAction: (formData: FormData) => Promise<void>;
+}) {
+  return (
+    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Funnel
+          </p>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight">Enquiries</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Interest captured from /enquire before payment or sign-up.
+          </p>
+        </div>
+        <p className="text-sm font-semibold text-slate-500">
+          {enquiries.length} enquir{enquiries.length === 1 ? "y" : "ies"}
+        </p>
+      </div>
+
+      {enquiriesError ? (
+        <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+          Could not load enquiries: {enquiriesError.message}. Create the
+          public.enquiries table if it does not exist yet.
+        </div>
+      ) : enquiries.length === 0 ? (
+        <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+          No enquiries yet.
+        </p>
+      ) : (
+        <div className="mt-5 overflow-x-auto">
+          <table className="min-w-full divide-y divide-slate-200 text-sm">
+            <thead>
+              <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <th className="px-3 py-2 text-left">Created</th>
+                <th className="px-3 py-2 text-left">Student</th>
+                <th className="px-3 py-2 text-left">Parent email</th>
+                <th className="px-3 py-2 text-left">Offer</th>
+                <th className="px-3 py-2 text-left">Year</th>
+                <th className="px-3 py-2 text-left">Status</th>
+                <th className="px-3 py-2 text-left">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {enquiries.map((enquiry) => {
+                const status = enquiry.status ?? "new";
+                return (
+                  <tr key={enquiry.id} className="align-top">
+                    <td className="px-3 py-3 whitespace-nowrap text-slate-500">
+                      {formatOptionalDateTime(enquiry.created_at)}
+                    </td>
+                    <td className="px-3 py-3">
+                      <p className="font-medium text-slate-900">
+                        {enquiry.student_first_name ?? "—"}
+                      </p>
+                      {enquiry.message && (
+                        <details className="mt-1 text-xs text-slate-500">
+                          <summary className="cursor-pointer font-medium text-slate-600 hover:text-slate-900">
+                            Message
+                          </summary>
+                          <p className="mt-1 max-w-xs leading-5">{enquiry.message}</p>
+                        </details>
+                      )}
+                    </td>
+                    <td className="px-3 py-3 break-all text-slate-600">
+                      {enquiry.parent_email ?? "—"}
+                    </td>
+                    <td className="px-3 py-3 text-slate-600">
+                      {enquiry.offer_selected ?? "—"}
+                    </td>
+                    <td className="px-3 py-3 text-slate-600">
+                      {enquiry.year_level ?? "—"}
+                    </td>
+                    <td className="px-3 py-3">
+                      <span
+                        className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${enquiryStatusClass(status)}`}
+                      >
+                        {status}
+                      </span>
+                    </td>
+                    <td className="px-3 py-3">
+                      <form action={updateEnquiryStatusAction} className="flex flex-wrap gap-1">
+                        <input type="hidden" name="id" value={enquiry.id} />
+                        {enquiryStatuses.map((s) => (
+                          <button
+                            key={s}
+                            type="submit"
+                            name="status"
+                            value={s}
+                            disabled={status === s}
+                            className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold capitalize text-slate-700 hover:bg-slate-50 disabled:cursor-default disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400"
+                          >
+                            {s}
+                          </button>
+                        ))}
+                      </form>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function PaymentsSection({
+  payments,
+  paymentsError,
+}: {
+  payments: PaymentRow[];
+  paymentsError: { message: string } | null;
+}) {
+  return (
+    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Stripe
+          </p>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight">Payments</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Recent checkout records. Revenue card above counts paid payments only.
+          </p>
+        </div>
+        <p className="text-sm font-semibold text-slate-500">
+          {payments.length} payment{payments.length === 1 ? "" : "s"}
+        </p>
+      </div>
+
+      {paymentsError ? (
+        <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+          Could not load payments: {paymentsError.message}. Create the
+          public.payments table if it does not exist yet.
+        </div>
+      ) : payments.length === 0 ? (
+        <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+          No Stripe payments recorded yet.
+        </p>
+      ) : (
+        <div className="mt-5 overflow-x-auto">
+          <table className="min-w-full divide-y divide-slate-200 text-sm">
+            <thead>
+              <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <th className="px-3 py-2 text-left">Created</th>
+                <th className="px-3 py-2 text-left">Offer</th>
+                <th className="px-3 py-2 text-left">Parent / student</th>
+                <th className="px-3 py-2 text-left">Amount</th>
+                <th className="px-3 py-2 text-left">Payment</th>
+                <th className="px-3 py-2 text-left">Subscription</th>
+                <th className="px-3 py-2 text-left">Access</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {payments.map((payment) => (
+                <tr key={payment.id} className="align-top">
+                  <td className="px-3 py-3 whitespace-nowrap text-slate-500">
+                    {formatOptionalDateTime(payment.created_at)}
+                  </td>
+                  <td className="px-3 py-3 font-medium text-slate-900">
+                    {payment.offer_selected ?? "—"}
+                  </td>
+                  <td className="px-3 py-3 text-slate-600">
+                    <p>{payment.parent_email ?? "—"}</p>
+                    <p className="mt-0.5 text-xs text-slate-400">
+                      {payment.student_first_name ?? ""}
+                    </p>
+                  </td>
+                  <td className="px-3 py-3 font-medium text-slate-900">
+                    {formatMoney(payment.amount_total, payment.currency)}
+                  </td>
+                  <td className="px-3 py-3">
+                    <span
+                      className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${paymentStatusClass(payment.payment_status)}`}
+                    >
+                      {payment.payment_status ?? "—"}
+                    </span>
+                  </td>
+                  <td className="px-3 py-3 text-slate-600">
+                    {payment.subscription_status ?? "—"}
+                  </td>
+                  <td className="px-3 py-3">
+                    <span
+                      className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${accessStatusClass(payment.access_status)}`}
+                    >
+                      {payment.access_status ?? "pending"}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function DiagnosticSubmissionsSection({
+  submissions,
+  groupedSubmissions,
+}: {
+  submissions: DiagnosticSubmission[];
+  groupedSubmissions: Record<string, DiagnosticSubmission[]>;
+}) {
+  return (
+    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <details>
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+              Reports
+            </p>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight">
+              Diagnostic submissions ({submissions.length})
+            </h2>
+          </div>
+          <span className="shrink-0 rounded-xl border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-500">
+            Expand ▾
+          </span>
+        </summary>
+
+        {submissions.length === 0 ? (
+          <p className="mt-6 text-sm text-slate-600">No submissions yet.</p>
+        ) : (
+          <div className="mt-6 space-y-8">
+            {Object.entries(groupedSubmissions).map(([date, items]) => (
+              <div key={date} className="space-y-3">
+                <h3 className="px-1 text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  {date}
+                </h3>
+                <div className="space-y-3">
+                  {items.map((submission) => {
+                    const score = scoreDiagnostic(
+                      submission.answers,
+                      submission.confidence,
+                    );
+                    return (
+                      <article
+                        key={submission.id}
+                        className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
+                      >
+                        <div className="grid gap-4 md:grid-cols-[1fr_auto]">
+                          <div className="grid gap-3 sm:grid-cols-3">
+                            <div>
+                              <h4 className="font-semibold text-slate-900">
+                                {submission.student_first_name}
+                              </h4>
+                              <p className="mt-1 text-sm text-slate-500">
+                                {submission.parent_email}
+                              </p>
+                              <p className="mt-1 text-xs text-slate-400">
+                                {formatDateTime(submission.created_at)}
+                              </p>
+                            </div>
+                            <div className="space-y-1 text-sm text-slate-600">
+                              <p>
+                                <span className="font-medium text-slate-900">Year:</span>{" "}
+                                {submission.year_level ?? "—"}
+                              </p>
+                              <p>
+                                <span className="font-medium text-slate-900">Course:</span>{" "}
+                                {submission.course ?? "—"}
+                              </p>
+                              <p>
+                                <span className="font-medium text-slate-900">Offer:</span>{" "}
+                                {submission.offer_selected ?? "—"}
+                              </p>
+                            </div>
+                            <div className="flex flex-wrap items-start gap-2">
+                              <span className="rounded-full bg-slate-900 px-3 py-1.5 text-xs font-semibold capitalize text-white">
+                                {formatStatus(submission.report_status)}
+                              </span>
+                              <span className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700">
+                                {score.correct}/{score.totalQuestions} ({score.percentage}%)
+                              </span>
+                              {submission.follow_up_required && (
+                                <span className="rounded-full bg-amber-100 px-3 py-1.5 text-xs font-semibold text-amber-900">
+                                  Follow-up
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="flex flex-wrap gap-2 md:flex-col md:items-end">
+                            <Link
+                              href={`/admin/reports/${submission.id}`}
+                              className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+                            >
+                              Open report
+                            </Link>
+                            <Link
+                              href={`/admin/reports/${submission.id}/pdf`}
+                              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                            >
+                              View PDF
+                            </Link>
+                          </div>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </details>
+    </section>
+  );
+}
+
+function LearningAnalyticsSection({
+  lessonProgressError,
+  lessonProgressRows,
+  averageLessonScore,
+  recentLessonProgress,
+  hardestLessons,
+  adminUsers,
+  lessonTargetByKey,
+}: {
+  lessonProgressError: { message: string } | null;
+  lessonProgressRows: LessonProgressAdminRow[];
+  averageLessonScore: number | null;
+  recentLessonProgress: LessonProgressAdminRow[];
+  hardestLessons: Array<{
+    target: CourseLessonTarget;
+    attempts: number;
+    passes: number;
+    scores: number[];
+    averageScore: number | null;
+    passRate: number;
+  }>;
+  adminUsers: AdminAuthUser[];
+  lessonTargetByKey: Map<string, CourseLessonTarget>;
+}) {
+  return (
+    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+        Analytics
+      </p>
+      <h2 className="mt-2 text-2xl font-bold tracking-tight">Learning Analytics</h2>
+      <p className="mt-3 max-w-prose text-sm leading-6 text-slate-600">
+        Persisted lesson progress gives a compact view of recent student learning
+        activity. Expand for internal metrics and lesson-level signals.
+      </p>
+      <details className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
+          <span className="text-sm font-semibold text-slate-800">
+            Internal lesson progress
+          </span>
+          <span className="shrink-0 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-500">
+            Expand
+          </span>
+        </summary>
+
+        {lessonProgressError ? (
+          <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+            Could not load internal lesson progress: {lessonProgressError.message}. Confirm the lesson_progress migration has been applied.
+          </div>
+        ) : (
+          <div className="mt-6 space-y-6">
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+              <SummaryCard label="Progress records" value={lessonProgressRows.length} />
+              <SummaryCard
+                label="Active learners"
+                value={new Set(lessonProgressRows.map((row) => row.user_id)).size}
+              />
+              <SummaryCard
+                label="Lessons passed"
+                value={lessonProgressRows.filter((row) => row.passed).length}
+                highlight="emerald"
+              />
+              <SummaryCard
+                label="Average latest score"
+                value={formatScore(averageLessonScore)}
+              />
+            </div>
+
+            <div>
+              <h3 className="text-base font-semibold text-slate-900">Recent activity</h3>
+              {recentLessonProgress.length === 0 ? (
+                <p className="mt-3 text-sm text-slate-600">
+                  No lesson progress recorded yet.
+                </p>
+              ) : (
+                <div className="mt-3 overflow-x-auto">
+                  <table className="min-w-full divide-y divide-slate-200 text-sm">
+                    <thead>
+                      <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                        <th className="px-3 py-2 text-left">Updated</th>
+                        <th className="px-3 py-2 text-left">Student</th>
+                        <th className="px-3 py-2 text-left">Course</th>
+                        <th className="px-3 py-2 text-left">Unit</th>
+                        <th className="px-3 py-2 text-left">Lesson</th>
+                        <th className="px-3 py-2 text-left">Status</th>
+                        <th className="px-3 py-2 text-left">Score</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {recentLessonProgress.map((row) => {
+                        const user = adminUsers.find(
+                          (nextUser) => nextUser.id === row.user_id,
+                        );
+                        const target = lessonTargetByKey.get(progressRowKey(row));
+
+                        return (
+                          <tr key={progressRowKey(row)} className="align-top">
+                            <td className="px-3 py-3 whitespace-nowrap text-slate-500">
+                              {formatOptionalDateTime(row.updated_at)}
+                            </td>
+                            <td className="px-3 py-3 text-slate-600">
+                              {user?.email ?? shortUserId(row.user_id)}
+                            </td>
+                            <td className="px-3 py-3 text-slate-600">
+                              {target?.courseTitle ?? row.course_slug}
+                            </td>
+                            <td className="px-3 py-3 text-slate-600">
+                              {target?.unitTitle ?? row.unit_slug}
+                            </td>
+                            <td className="px-3 py-3 font-medium text-slate-900">
+                              {target?.lessonTitle ?? "Unknown lesson"}
+                            </td>
+                            <td className="px-3 py-3">
+                              <span
+                                className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${row.passed ? "bg-emerald-100 text-emerald-900" : "bg-amber-100 text-amber-900"}`}
+                              >
+                                {row.passed ? "Passed" : "In progress"}
+                              </span>
+                            </td>
+                            <td className="px-3 py-3 text-slate-600">
+                              {formatScore(numericScore(row.last_score))}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+
+            <div>
+              <h3 className="text-base font-semibold text-slate-900">Hardest lessons</h3>
+              <p className="mt-1 text-xs leading-5 text-slate-500">
+                Active lessons with at least two learner progress records, ordered
+                by lowest pass rate.
+              </p>
+              {hardestLessons.length === 0 ? (
+                <p className="mt-3 text-sm text-slate-600">Not enough progress data yet.</p>
+              ) : (
+                <div className="mt-3 overflow-x-auto">
+                  <table className="min-w-full divide-y divide-slate-200 text-sm">
+                    <thead>
+                      <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                        <th className="px-3 py-2 text-left">Course</th>
+                        <th className="px-3 py-2 text-left">Unit</th>
+                        <th className="px-3 py-2 text-left">Lesson</th>
+                        <th className="px-3 py-2 text-left">Attempts</th>
+                        <th className="px-3 py-2 text-left">Passes</th>
+                        <th className="px-3 py-2 text-left">Pass rate</th>
+                        <th className="px-3 py-2 text-left">Average score</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {hardestLessons.map((lesson) => (
+                        <tr key={lessonProgressKey(lesson.target)} className="align-top">
+                          <td className="px-3 py-3 text-slate-600">
+                            {lesson.target.courseTitle}
+                          </td>
+                          <td className="px-3 py-3 text-slate-600">
+                            {lesson.target.unitTitle}
+                          </td>
+                          <td className="px-3 py-3 font-medium text-slate-900">
+                            {lesson.target.lessonTitle}
+                          </td>
+                          <td className="px-3 py-3 text-slate-600">{lesson.attempts}</td>
+                          <td className="px-3 py-3 text-slate-600">{lesson.passes}</td>
+                          <td className="px-3 py-3 text-slate-600">
+                            {formatScore(lesson.passRate)}
+                          </td>
+                          <td className="px-3 py-3 text-slate-600">
+                            {formatScore(lesson.averageScore)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </details>
+      <a
+        href="https://analytics.google.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-4 inline-block rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+      >
+        Open Google Analytics →
+      </a>
+    </section>
+  );
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default async function AdminPage() {
@@ -522,9 +1574,6 @@ export default async function AdminPage() {
     .reduce((sum, p) => sum + (p.amount_total ?? 0), 0);
   const onlineLearningPayments = payments.filter(
     (payment) => payment.offer_selected === "online-learning",
-  );
-  const paidOnlineLearningPayments = onlineLearningPayments.filter(
-    (payment) => payment.payment_status === "paid",
   );
   const lessonTargetByKey = new Map(
     availableCourseLessonTargets.map((target) => [
@@ -682,6 +1731,55 @@ export default async function AdminPage() {
     newEnquiriesList.length > 0 ||
     paidButNotActive.length > 0;
 
+  const paidNoProgressRows = signupFunnelRows.filter(
+    (row) => Boolean(row.paidPayment) && !row.latestProgress,
+  );
+
+  const actionQueueItems = [
+    {
+      key: "paid-not-active",
+      title: "Paid but access not active",
+      count: paidButNotActive.length,
+      priority: "P1",
+      href: "/admin",
+      oldestAt: paidButNotActive[paidButNotActive.length - 1]?.created_at,
+      description: "Revenue risk: payment captured but entitlement still pending.",
+    },
+    {
+      key: "paid-no-progress",
+      title: "Paid with no lesson activity",
+      count: paidNoProgressRows.length,
+      priority: "P1",
+      href: "/admin/students?filter=low-mastery",
+      oldestAt:
+        paidNoProgressRows[paidNoProgressRows.length - 1]?.paidPayment?.created_at,
+      description: "Activation risk: student paid but has no lesson progress yet.",
+    },
+    {
+      key: "pending-access",
+      title: "Pending access approvals",
+      count: pendingAccessStudents.length,
+      priority: "P2",
+      href: "/admin",
+      oldestAt: pendingAccessStudents[pendingAccessStudents.length - 1]?.user.created_at,
+      description: "Students waiting for manual approval in user_access.",
+    },
+    {
+      key: "new-enquiries",
+      title: "New parent enquiries",
+      count: newEnquiriesList.length,
+      priority: "P2",
+      href: "/admin",
+      oldestAt: newEnquiriesList[newEnquiriesList.length - 1]?.created_at,
+      description: "Leads that have not been contacted yet.",
+    },
+  ]
+    .filter((item) => item.count > 0)
+    .sort((a, b) => {
+      if (a.priority !== b.priority) return a.priority.localeCompare(b.priority);
+      return a.count === b.count ? 0 : b.count - a.count;
+    });
+
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
       <section className="mx-auto max-w-6xl space-y-8">
@@ -778,955 +1876,57 @@ export default async function AdminPage() {
           />
         </div>
 
-        {/* ── Alerts ────────────────────────────────────────────────────── */}
-        {hasAlerts && (
-          <section className="rounded-3xl border border-amber-200 bg-amber-50 p-5 shadow-sm">
-            <h2 className="text-base font-semibold text-amber-900">
-              Action required
-            </h2>
-            <ul className="mt-3 space-y-3 text-sm">
+        <OperationsQueueSection actionQueueItems={actionQueueItems} />
 
-              {pendingAccessStudents.length > 0 && (
-                <li>
-                  <p className="font-semibold text-amber-900">
-                    {pendingAccessStudents.length} student
-                    {pendingAccessStudents.length === 1 ? "" : "s"} waiting for
-                    access approval
-                  </p>
-                  <div className="mt-2 space-y-2">
-                    {pendingAccessStudents.map(({ user, profile }) => {
-                      const name = studentDisplayName({
-                        profile,
-                        authUser: user,
-                      });
-                      return (
-                        <div
-                          key={user.id}
-                          className="flex flex-wrap items-center gap-3 rounded-2xl bg-white/80 px-4 py-2.5"
-                        >
-                          <div className="min-w-0 flex-1">
-                            <span className="font-medium text-slate-900">
-                              {name}
-                            </span>
-                            <span className="ml-2 text-slate-500">
-                              {user.email}
-                            </span>
-                          </div>
-                          <form
-                            action={setStudentAccessStatus}
-                            className="flex gap-2"
-                          >
-                            <input
-                              type="hidden"
-                              name="userId"
-                              value={user.id}
-                            />
-                            <input
-                              type="hidden"
-                              name="email"
-                              value={user.email ?? ""}
-                            />
-                            <button
-                              name="status"
-                              value="active"
-                              type="submit"
-                              className="rounded-lg bg-emerald-700 px-3 py-1 text-xs font-semibold text-white hover:bg-emerald-800"
-                            >
-                              Approve
-                            </button>
-                            <button
-                              name="status"
-                              value="revoked"
-                              type="submit"
-                              className="rounded-lg border border-slate-300 bg-white px-3 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-50"
-                            >
-                              Revoke
-                            </button>
-                          </form>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </li>
-              )}
+        <ActionRequiredSection
+          hasAlerts={hasAlerts}
+          pendingAccessStudents={pendingAccessStudents}
+          newEnquiriesList={newEnquiriesList}
+          paidButNotActive={paidButNotActive}
+          setStudentAccessStatusAction={setStudentAccessStatus}
+        />
 
-              {newEnquiriesList.length > 0 && (
-                <li className="rounded-2xl bg-white/80 px-4 py-2.5 text-slate-800">
-                  <span className="font-semibold">
-                    {newEnquiriesList.length} new enquir
-                    {newEnquiriesList.length === 1 ? "y" : "ies"}
-                  </span>
-                  {" — "}
-                  {newEnquiriesList.map((e) => (
-                    <span key={e.id} className="mr-2">
-                      {e.student_first_name ?? e.parent_email ?? "Unknown"}
-                    </span>
-                  ))}
-                </li>
-              )}
+        <SignupFunnelSection
+          signupFunnelMetrics={signupFunnelMetrics}
+          signupFunnelRows={signupFunnelRows}
+          checkoutFunnelError={checkoutFunnelError}
+        />
 
-              {paidButNotActive.length > 0 && (
-                <li className="rounded-2xl bg-white/80 px-4 py-2.5 text-slate-800">
-                  <span className="font-semibold">
-                    {paidButNotActive.length} online learning payment
-                    {paidButNotActive.length === 1 ? "" : "s"} without active
-                    access
-                  </span>
-                  {" — "}
-                  {paidButNotActive.map((p) => (
-                    <span key={p.id} className="mr-2">
-                      {p.parent_email ?? p.student_first_name ?? "Unknown"}
-                    </span>
-                  ))}
-                </li>
-              )}
+        <StudentsAccountsSection
+          totalUsers={totalUsers}
+          usersError={usersError ?? null}
+          studentUsers={studentUsers}
+          ensureProfileAccessAction={ensureProfileAccess}
+          setStudentAccessStatusAction={setStudentAccessStatus}
+          sendPurchasePromptAction={sendPurchasePrompt}
+          deleteTestUserAction={deleteTestUser}
+        />
 
-            </ul>
-          </section>
-        )}
+        <EnquiriesSection
+          enquiries={enquiries}
+          enquiriesError={enquiriesError ?? null}
+          updateEnquiryStatusAction={updateEnquiryStatus}
+        />
 
-        {/* ── Students table ────────────────────────────────────────────── */}
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Conversion
-              </p>
-              <h2 className="mt-2 text-2xl font-bold tracking-tight">
-                Signup to learning funnel
-              </h2>
-              <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
-                Tracks the online-learning path from account creation to Stripe
-                checkout, payment, lesson progress and mastery. Checkout-started
-                data begins after the checkout_funnel_events migration is
-                applied.
-              </p>
-            </div>
-            <p className="text-sm font-semibold text-slate-500">
-              {signupFunnelMetrics.signedUp} signup
-              {signupFunnelMetrics.signedUp === 1 ? "" : "s"}
-            </p>
-          </div>
+        <PaymentsSection
+          payments={payments}
+          paymentsError={paymentsError ?? null}
+        />
 
-          {checkoutFunnelError ? (
-            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-              Checkout-started rows could not be loaded:{" "}
-              {checkoutFunnelError.message}. Apply{" "}
-              <span className="font-mono">
-                lib/supabase-migrations/002_checkout_funnel_events.sql
-              </span>{" "}
-              to enable this middle-funnel signal.
-            </div>
-          ) : null}
+        <DiagnosticSubmissionsSection
+          submissions={submissions}
+          groupedSubmissions={groupedSubmissions}
+        />
 
-          <div className="mt-5 grid grid-cols-2 gap-4 lg:grid-cols-5">
-            <SummaryCard label="Signed up" value={signupFunnelMetrics.signedUp} />
-            <SummaryCard
-              label="Checkout started"
-              value={signupFunnelMetrics.checkoutStarted}
-              highlight={
-                signupFunnelMetrics.checkoutStartedNotPaid > 0
-                  ? "amber"
-                  : undefined
-              }
-            />
-            <SummaryCard
-              label="Paid online"
-              value={signupFunnelMetrics.paid}
-              highlight={signupFunnelMetrics.paid > 0 ? "emerald" : undefined}
-            />
-            <SummaryCard
-              label="Lesson started"
-              value={signupFunnelMetrics.lessonStarted}
-            />
-            <SummaryCard
-              label="Mastery passed"
-              value={signupFunnelMetrics.masteryPassed}
-            />
-          </div>
-
-          <div className="mt-5 grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700 md:grid-cols-3">
-            <p>
-              <span className="font-semibold text-slate-950">
-                {signupFunnelMetrics.signedUpNotPaid}
-              </span>{" "}
-              signed up without a paid online-learning payment.
-            </p>
-            <p>
-              <span className="font-semibold text-slate-950">
-                {signupFunnelMetrics.checkoutStartedNotPaid}
-              </span>{" "}
-              started checkout without a paid online-learning payment.
-            </p>
-            <p>
-              <span className="font-semibold text-slate-950">
-                {signupFunnelMetrics.paidNoLessonProgress}
-              </span>{" "}
-              paid but have no recorded lesson progress.
-            </p>
-          </div>
-
-          {signupFunnelRows.length === 0 ? (
-            <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
-              No student accounts yet.
-            </p>
-          ) : (
-            <div className="mt-5 overflow-x-auto">
-              <table className="min-w-full divide-y divide-slate-200 text-sm">
-                <thead>
-                  <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                    <th className="px-3 py-2 text-left">Student</th>
-                    <th className="px-3 py-2 text-left">Signed up</th>
-                    <th className="px-3 py-2 text-left">Checkout</th>
-                    <th className="px-3 py-2 text-left">Payment</th>
-                    <th className="px-3 py-2 text-left">Learning</th>
-                    <th className="px-3 py-2 text-left">Current stage</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {signupFunnelRows.map(
-                    ({
-                      user,
-                      profile,
-                      access,
-                      checkoutEvent,
-                      paidPayment,
-                      latestProgress,
-                      stage,
-                    }) => {
-                      const name = studentDisplayName({
-                        profile,
-                        authUser: user,
-                      });
-
-                      return (
-                        <tr key={user.id} className="align-top">
-                          <td className="px-3 py-3">
-                            <p className="font-medium text-slate-900">{name}</p>
-                            <p className="mt-0.5 break-all text-xs text-slate-500">
-                              {user.email}
-                            </p>
-                            <p className="mt-0.5 text-xs text-slate-400">
-                              Access: {access?.status ?? "missing"}
-                            </p>
-                          </td>
-                          <td className="px-3 py-3 whitespace-nowrap text-slate-500">
-                            {formatOptionalDateTime(user.created_at)}
-                          </td>
-                          <td className="px-3 py-3 whitespace-nowrap text-slate-600">
-                            {formatOptionalDateTime(checkoutEvent?.created_at)}
-                          </td>
-                          <td className="px-3 py-3 text-slate-600">
-                            {paidPayment ? (
-                              <>
-                                <p className="font-medium text-slate-900">
-                                  {formatMoney(
-                                    paidPayment.amount_total,
-                                    paidPayment.currency,
-                                  )}
-                                </p>
-                                <p className="mt-0.5 text-xs text-slate-500">
-                                  {formatOptionalDateTime(
-                                    paidPayment.created_at,
-                                  )}
-                                </p>
-                              </>
-                            ) : (
-                              "--"
-                            )}
-                          </td>
-                          <td className="px-3 py-3 text-slate-600">
-                            {latestProgress ? (
-                              <>
-                                <p>
-                                  {latestProgress.passed
-                                    ? "Mastery passed"
-                                    : "In progress"}
-                                </p>
-                                <p className="mt-0.5 text-xs text-slate-500">
-                                  {formatScore(
-                                    numericScore(latestProgress.last_score),
-                                  )}{" "}
-                                  -{" "}
-                                  {formatOptionalDateTime(
-                                    latestProgress.updated_at,
-                                  )}
-                                </p>
-                              </>
-                            ) : (
-                              "--"
-                            )}
-                          </td>
-                          <td className="px-3 py-3">
-                            <span
-                              className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${funnelStageClass(stage)}`}
-                            >
-                              {stage}
-                            </span>
-                          </td>
-                        </tr>
-                      );
-                    },
-                  )}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </section>
-
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Accounts
-              </p>
-              <h2 className="mt-2 text-2xl font-bold tracking-tight">
-                Students
-              </h2>
-              <p className="mt-2 text-sm text-slate-600">
-                Use Ensure to repair a partially created account. Delete is for
-                test accounts only.
-              </p>
-            </div>
-            <p className="text-sm font-semibold text-slate-500">
-              {totalUsers} user{totalUsers === 1 ? "" : "s"}
-            </p>
-          </div>
-
-          {usersError ? (
-            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-              Could not load Supabase Auth users: {usersError.message}. This
-              requires a server-only SUPABASE_SERVICE_ROLE_KEY.
-            </div>
-          ) : studentUsers.length === 0 ? (
-            <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
-              No student accounts yet.
-            </p>
-          ) : (
-            <div className="mt-5 overflow-x-auto">
-              <table className="min-w-full divide-y divide-slate-200 text-sm">
-                <thead>
-                  <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                    <th className="px-3 py-2 text-left">Name</th>
-                    <th className="px-3 py-2 text-left">Email</th>
-                    <th className="px-3 py-2 text-left">Signed up</th>
-                    <th className="px-3 py-2 text-left">Last login</th>
-                    <th className="px-3 py-2 text-left">Access</th>
-                    <th className="px-3 py-2 text-left">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {studentUsers.map(({ user, profile, access }) => {
-                    const status = access?.status ?? "missing";
-                    const name = studentDisplayName({
-                      profile,
-                      authUser: user,
-                    });
-                    const parentEmail =
-                      firstPresent(
-                        profile?.parent_email,
-                        user.user_metadata?.parent_email,
-                      ) ?? null;
-
-                    return (
-                      <tr key={user.id} className="align-top">
-                        <td className="px-3 py-3">
-                          <p className="font-medium text-slate-900">{name}</p>
-                          {parentEmail && (
-                            <p className="mt-0.5 text-xs text-slate-400">
-                              Parent: {parentEmail}
-                            </p>
-                          )}
-                        </td>
-                        <td className="px-3 py-3 break-all text-slate-600">
-                          {user.email}
-                        </td>
-                        <td className="px-3 py-3 whitespace-nowrap text-slate-500">
-                          {formatOptionalDateTime(user.created_at)}
-                        </td>
-                        <td className="px-3 py-3 whitespace-nowrap text-slate-500">
-                          {formatOptionalDateTime(user.last_sign_in_at)}
-                        </td>
-                        <td className="px-3 py-3">
-                          <span
-                            className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${accessStatusClass(access?.status)}`}
-                          >
-                            {status}
-                          </span>
-                        </td>
-                        <td className="px-3 py-3">
-                          <div className="flex flex-col gap-2">
-                            <form action={ensureProfileAccess}>
-                              <input
-                                type="hidden"
-                                name="userId"
-                                value={user.id}
-                              />
-                              <input
-                                type="hidden"
-                                name="email"
-                                value={user.email ?? ""}
-                              />
-                              <button
-                                type="submit"
-                                className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-50"
-                              >
-                                Ensure
-                              </button>
-                            </form>
-                            <form
-                              action={setStudentAccessStatus}
-                              className="flex flex-wrap gap-1"
-                            >
-                              <input
-                                type="hidden"
-                                name="userId"
-                                value={user.id}
-                              />
-                              <input
-                                type="hidden"
-                                name="email"
-                                value={user.email ?? ""}
-                              />
-                              {betaAccessStatuses.map((s) => (
-                                <button
-                                  key={s}
-                                  type="submit"
-                                  name="status"
-                                  value={s}
-                                  disabled={access?.status === s}
-                                  className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold capitalize text-slate-700 hover:bg-slate-50 disabled:cursor-default disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400"
-                                >
-                                  {s}
-                                </button>
-                              ))}
-                            </form>
-                            {access?.status !== "active" && (
-                              <form action={sendPurchasePrompt}>
-                                <input type="hidden" name="email" value={user.email ?? ""} />
-                                <input type="hidden" name="studentName" value={name} />
-                                <button
-                                  type="submit"
-                                  className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-50"
-                                >
-                                  Email prompt
-                                </button>
-                              </form>
-                            )}
-                            <DeleteUserForm
-                              userId={user.id}
-                              deleteUserAction={deleteTestUser}
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </section>
-
-        {/* ── Enquiries table ───────────────────────────────────────────── */}
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Funnel
-              </p>
-              <h2 className="mt-2 text-2xl font-bold tracking-tight">
-                Enquiries
-              </h2>
-              <p className="mt-2 text-sm text-slate-600">
-                Interest captured from /enquire before payment or sign-up.
-              </p>
-            </div>
-            <p className="text-sm font-semibold text-slate-500">
-              {enquiries.length} enquir{enquiries.length === 1 ? "y" : "ies"}
-            </p>
-          </div>
-
-          {enquiriesError ? (
-            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-              Could not load enquiries: {enquiriesError.message}. Create the
-              public.enquiries table if it does not exist yet.
-            </div>
-          ) : enquiries.length === 0 ? (
-            <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
-              No enquiries yet.
-            </p>
-          ) : (
-            <div className="mt-5 overflow-x-auto">
-              <table className="min-w-full divide-y divide-slate-200 text-sm">
-                <thead>
-                  <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                    <th className="px-3 py-2 text-left">Created</th>
-                    <th className="px-3 py-2 text-left">Student</th>
-                    <th className="px-3 py-2 text-left">Parent email</th>
-                    <th className="px-3 py-2 text-left">Offer</th>
-                    <th className="px-3 py-2 text-left">Year</th>
-                    <th className="px-3 py-2 text-left">Status</th>
-                    <th className="px-3 py-2 text-left">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {enquiries.map((enquiry) => {
-                    const status = enquiry.status ?? "new";
-                    return (
-                      <tr key={enquiry.id} className="align-top">
-                        <td className="px-3 py-3 whitespace-nowrap text-slate-500">
-                          {formatOptionalDateTime(enquiry.created_at)}
-                        </td>
-                        <td className="px-3 py-3">
-                          <p className="font-medium text-slate-900">
-                            {enquiry.student_first_name ?? "—"}
-                          </p>
-                          {enquiry.message && (
-                            <details className="mt-1 text-xs text-slate-500">
-                              <summary className="cursor-pointer font-medium text-slate-600 hover:text-slate-900">
-                                Message
-                              </summary>
-                              <p className="mt-1 max-w-xs leading-5">
-                                {enquiry.message}
-                              </p>
-                            </details>
-                          )}
-                        </td>
-                        <td className="px-3 py-3 break-all text-slate-600">
-                          {enquiry.parent_email ?? "—"}
-                        </td>
-                        <td className="px-3 py-3 text-slate-600">
-                          {enquiry.offer_selected ?? "—"}
-                        </td>
-                        <td className="px-3 py-3 text-slate-600">
-                          {enquiry.year_level ?? "—"}
-                        </td>
-                        <td className="px-3 py-3">
-                          <span
-                            className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${enquiryStatusClass(status)}`}
-                          >
-                            {status}
-                          </span>
-                        </td>
-                        <td className="px-3 py-3">
-                          <form
-                            action={updateEnquiryStatus}
-                            className="flex flex-wrap gap-1"
-                          >
-                            <input type="hidden" name="id" value={enquiry.id} />
-                            {enquiryStatuses.map((s) => (
-                              <button
-                                key={s}
-                                type="submit"
-                                name="status"
-                                value={s}
-                                disabled={status === s}
-                                className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold capitalize text-slate-700 hover:bg-slate-50 disabled:cursor-default disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400"
-                              >
-                                {s}
-                              </button>
-                            ))}
-                          </form>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </section>
-
-        {/* ── Payments table ────────────────────────────────────────────── */}
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Stripe
-              </p>
-              <h2 className="mt-2 text-2xl font-bold tracking-tight">
-                Payments
-              </h2>
-              <p className="mt-2 text-sm text-slate-600">
-                Recent checkout records. Revenue card above counts paid
-                payments only.
-              </p>
-            </div>
-            <p className="text-sm font-semibold text-slate-500">
-              {payments.length} payment{payments.length === 1 ? "" : "s"}
-            </p>
-          </div>
-
-          {paymentsError ? (
-            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-              Could not load payments: {paymentsError.message}. Create the
-              public.payments table if it does not exist yet.
-            </div>
-          ) : payments.length === 0 ? (
-            <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
-              No Stripe payments recorded yet.
-            </p>
-          ) : (
-            <div className="mt-5 overflow-x-auto">
-              <table className="min-w-full divide-y divide-slate-200 text-sm">
-                <thead>
-                  <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                    <th className="px-3 py-2 text-left">Created</th>
-                    <th className="px-3 py-2 text-left">Offer</th>
-                    <th className="px-3 py-2 text-left">Parent / student</th>
-                    <th className="px-3 py-2 text-left">Amount</th>
-                    <th className="px-3 py-2 text-left">Payment</th>
-                    <th className="px-3 py-2 text-left">Subscription</th>
-                    <th className="px-3 py-2 text-left">Access</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {payments.map((payment) => (
-                    <tr key={payment.id} className="align-top">
-                      <td className="px-3 py-3 whitespace-nowrap text-slate-500">
-                        {formatOptionalDateTime(payment.created_at)}
-                      </td>
-                      <td className="px-3 py-3 font-medium text-slate-900">
-                        {payment.offer_selected ?? "—"}
-                      </td>
-                      <td className="px-3 py-3 text-slate-600">
-                        <p>{payment.parent_email ?? "—"}</p>
-                        <p className="mt-0.5 text-xs text-slate-400">
-                          {payment.student_first_name ?? ""}
-                        </p>
-                      </td>
-                      <td className="px-3 py-3 font-medium text-slate-900">
-                        {formatMoney(payment.amount_total, payment.currency)}
-                      </td>
-                      <td className="px-3 py-3">
-                        <span
-                          className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${paymentStatusClass(payment.payment_status)}`}
-                        >
-                          {payment.payment_status ?? "—"}
-                        </span>
-                      </td>
-                      <td className="px-3 py-3 text-slate-600">
-                        {payment.subscription_status ?? "—"}
-                      </td>
-                      <td className="px-3 py-3">
-                        <span
-                          className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${accessStatusClass(payment.access_status)}`}
-                        >
-                          {payment.access_status ?? "pending"}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </section>
-
-        {/* ── Diagnostic submissions (collapsed) ───────────────────────── */}
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <details>
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                  Reports
-                </p>
-                <h2 className="mt-2 text-2xl font-bold tracking-tight">
-                  Diagnostic submissions ({submissions.length})
-                </h2>
-              </div>
-              <span className="shrink-0 rounded-xl border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-500">
-                Expand ▾
-              </span>
-            </summary>
-
-            {submissions.length === 0 ? (
-              <p className="mt-6 text-sm text-slate-600">No submissions yet.</p>
-            ) : (
-              <div className="mt-6 space-y-8">
-                {Object.entries(groupedSubmissions).map(([date, items]) => (
-                  <div key={date} className="space-y-3">
-                    <h3 className="px-1 text-sm font-semibold uppercase tracking-wide text-slate-500">
-                      {date}
-                    </h3>
-                    <div className="space-y-3">
-                      {items.map((submission) => {
-                        const score = scoreDiagnostic(
-                          submission.answers,
-                          submission.confidence,
-                        );
-                        return (
-                          <article
-                            key={submission.id}
-                            className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
-                          >
-                            <div className="grid gap-4 md:grid-cols-[1fr_auto]">
-                              <div className="grid gap-3 sm:grid-cols-3">
-                                <div>
-                                  <h4 className="font-semibold text-slate-900">
-                                    {submission.student_first_name}
-                                  </h4>
-                                  <p className="mt-1 text-sm text-slate-500">
-                                    {submission.parent_email}
-                                  </p>
-                                  <p className="mt-1 text-xs text-slate-400">
-                                    {formatDateTime(submission.created_at)}
-                                  </p>
-                                </div>
-                                <div className="space-y-1 text-sm text-slate-600">
-                                  <p>
-                                    <span className="font-medium text-slate-900">
-                                      Year:
-                                    </span>{" "}
-                                    {submission.year_level ?? "—"}
-                                  </p>
-                                  <p>
-                                    <span className="font-medium text-slate-900">
-                                      Course:
-                                    </span>{" "}
-                                    {submission.course ?? "—"}
-                                  </p>
-                                  <p>
-                                    <span className="font-medium text-slate-900">
-                                      Offer:
-                                    </span>{" "}
-                                    {submission.offer_selected ?? "—"}
-                                  </p>
-                                </div>
-                                <div className="flex flex-wrap items-start gap-2">
-                                  <span className="rounded-full bg-slate-900 px-3 py-1.5 text-xs font-semibold capitalize text-white">
-                                    {formatStatus(submission.report_status)}
-                                  </span>
-                                  <span className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700">
-                                    {score.correct}/{score.totalQuestions} (
-                                    {score.percentage}%)
-                                  </span>
-                                  {submission.follow_up_required && (
-                                    <span className="rounded-full bg-amber-100 px-3 py-1.5 text-xs font-semibold text-amber-900">
-                                      Follow-up
-                                    </span>
-                                  )}
-                                </div>
-                              </div>
-                              <div className="flex flex-wrap gap-2 md:flex-col md:items-end">
-                                <Link
-                                  href={`/admin/reports/${submission.id}`}
-                                  className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
-                                >
-                                  Open report
-                                </Link>
-                                <Link
-                                  href={`/admin/reports/${submission.id}/pdf`}
-                                  className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
-                                >
-                                  View PDF
-                                </Link>
-                              </div>
-                            </div>
-                          </article>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </details>
-        </section>
-
-        {/* ── Learning analytics placeholder ────────────────────────────── */}
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            Analytics
-          </p>
-          <h2 className="mt-2 text-2xl font-bold tracking-tight">
-            Learning Analytics
-          </h2>
-          <p className="mt-3 max-w-prose text-sm leading-6 text-slate-600">
-            Persisted lesson progress gives a compact view of recent student
-            learning activity. Expand for internal metrics and lesson-level
-            signals.
-          </p>
-          <details className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
-              <span className="text-sm font-semibold text-slate-800">
-                Internal lesson progress
-              </span>
-              <span className="shrink-0 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-500">
-                Expand
-              </span>
-            </summary>
-
-            {lessonProgressError ? (
-              <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-                Could not load internal lesson progress:{" "}
-                {lessonProgressError.message}. Confirm the lesson_progress
-                migration has been applied.
-              </div>
-            ) : (
-              <div className="mt-6 space-y-6">
-                <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-                  <SummaryCard
-                    label="Progress records"
-                    value={lessonProgressRows.length}
-                  />
-                  <SummaryCard
-                    label="Active learners"
-                    value={
-                      new Set(lessonProgressRows.map((row) => row.user_id)).size
-                    }
-                  />
-                  <SummaryCard
-                    label="Lessons passed"
-                    value={lessonProgressRows.filter((row) => row.passed).length}
-                    highlight="emerald"
-                  />
-                  <SummaryCard
-                    label="Average latest score"
-                    value={formatScore(averageLessonScore)}
-                  />
-                </div>
-
-                <div>
-                  <h3 className="text-base font-semibold text-slate-900">
-                    Recent activity
-                  </h3>
-                  {recentLessonProgress.length === 0 ? (
-                    <p className="mt-3 text-sm text-slate-600">
-                      No lesson progress recorded yet.
-                    </p>
-                  ) : (
-                    <div className="mt-3 overflow-x-auto">
-                      <table className="min-w-full divide-y divide-slate-200 text-sm">
-                        <thead>
-                          <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                            <th className="px-3 py-2 text-left">Updated</th>
-                            <th className="px-3 py-2 text-left">Student</th>
-                            <th className="px-3 py-2 text-left">Course</th>
-                            <th className="px-3 py-2 text-left">Unit</th>
-                            <th className="px-3 py-2 text-left">Lesson</th>
-                            <th className="px-3 py-2 text-left">Status</th>
-                            <th className="px-3 py-2 text-left">Score</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-slate-100">
-                          {recentLessonProgress.map((row) => {
-                            const user = adminUsers.find(
-                              (nextUser) => nextUser.id === row.user_id,
-                            );
-                            const target = lessonTargetByKey.get(
-                              progressRowKey(row),
-                            );
-
-                            return (
-                              <tr key={progressRowKey(row)} className="align-top">
-                                <td className="px-3 py-3 whitespace-nowrap text-slate-500">
-                                  {formatOptionalDateTime(row.updated_at)}
-                                </td>
-                                <td className="px-3 py-3 text-slate-600">
-                                  {user?.email ?? shortUserId(row.user_id)}
-                                </td>
-                                <td className="px-3 py-3 text-slate-600">
-                                  {target?.courseTitle ?? row.course_slug}
-                                </td>
-                                <td className="px-3 py-3 text-slate-600">
-                                  {target?.unitTitle ?? row.unit_slug}
-                                </td>
-                                <td className="px-3 py-3 font-medium text-slate-900">
-                                  {target?.lessonTitle ?? "Unknown lesson"}
-                                </td>
-                                <td className="px-3 py-3">
-                                  <span
-                                    className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${row.passed ? "bg-emerald-100 text-emerald-900" : "bg-amber-100 text-amber-900"}`}
-                                  >
-                                    {row.passed ? "Passed" : "In progress"}
-                                  </span>
-                                </td>
-                                <td className="px-3 py-3 text-slate-600">
-                                  {formatScore(numericScore(row.last_score))}
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
-                  )}
-                </div>
-
-                <div>
-                  <h3 className="text-base font-semibold text-slate-900">
-                    Hardest lessons
-                  </h3>
-                  <p className="mt-1 text-xs leading-5 text-slate-500">
-                    Active lessons with at least two learner progress records,
-                    ordered by lowest pass rate.
-                  </p>
-                  {hardestLessons.length === 0 ? (
-                    <p className="mt-3 text-sm text-slate-600">
-                      Not enough progress data yet.
-                    </p>
-                  ) : (
-                    <div className="mt-3 overflow-x-auto">
-                      <table className="min-w-full divide-y divide-slate-200 text-sm">
-                        <thead>
-                          <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                            <th className="px-3 py-2 text-left">Course</th>
-                            <th className="px-3 py-2 text-left">Unit</th>
-                            <th className="px-3 py-2 text-left">Lesson</th>
-                            <th className="px-3 py-2 text-left">Attempts</th>
-                            <th className="px-3 py-2 text-left">Passes</th>
-                            <th className="px-3 py-2 text-left">Pass rate</th>
-                            <th className="px-3 py-2 text-left">Average score</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-slate-100">
-                          {hardestLessons.map((lesson) => (
-                            <tr
-                              key={lessonProgressKey(lesson.target)}
-                              className="align-top"
-                            >
-                              <td className="px-3 py-3 text-slate-600">
-                                {lesson.target.courseTitle}
-                              </td>
-                              <td className="px-3 py-3 text-slate-600">
-                                {lesson.target.unitTitle}
-                              </td>
-                              <td className="px-3 py-3 font-medium text-slate-900">
-                                {lesson.target.lessonTitle}
-                              </td>
-                              <td className="px-3 py-3 text-slate-600">
-                                {lesson.attempts}
-                              </td>
-                              <td className="px-3 py-3 text-slate-600">
-                                {lesson.passes}
-                              </td>
-                              <td className="px-3 py-3 text-slate-600">
-                                {formatScore(lesson.passRate)}
-                              </td>
-                              <td className="px-3 py-3 text-slate-600">
-                                {formatScore(lesson.averageScore)}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-          </details>
-          <a
-            href="https://analytics.google.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 inline-block rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
-          >
-            Open Google Analytics →
-          </a>
-        </section>
+        <LearningAnalyticsSection
+          lessonProgressError={lessonProgressError ?? null}
+          lessonProgressRows={lessonProgressRows}
+          averageLessonScore={averageLessonScore}
+          recentLessonProgress={recentLessonProgress}
+          adminUsers={adminUsers}
+          lessonTargetByKey={lessonTargetByKey}
+          hardestLessons={hardestLessons}
+        />
 
         {/* ── Testing tools ─────────────────────────────────────────────── */}
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">

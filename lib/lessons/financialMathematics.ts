@@ -1418,7 +1418,7 @@ export const comparingFinancialOptionsLesson: ExplicitLesson = {
   masteryQuiz: [
     {
       id: "compare-mastery-1",
-      prompt: "Option A grows $3000 at 5% for 2 years. Option B grows $3000 at 4% for 2 years and adds a $70 bonus. Which investment has the larger final value?",
+      prompt: "Investment A grows \\(\\$3000\\) at 5% for 2 years. Investment B grows \\(\\$3000\\) at 4% for 2 years and adds a \\(\\$70\\) bonus. Which investment has the larger final value?",
       latex: "A=3000(1.05)^2,\\quad B=3000(1.04)^2+70",
       answer: "B",
       choices: [
@@ -1431,7 +1431,7 @@ export const comparingFinancialOptionsLesson: ExplicitLesson = {
     },
     {
       id: "compare-mastery-2",
-      prompt: "A borrower compares two one-month loan options. Option A uses $L_1=1.01(5000)-400$. Option B uses $L_1=1.015(5000)-450$. Which leaves the lower balance?",
+      prompt: "A borrower compares two one-month loan options. Loan A uses $L_1=1.01(5000)-400$. Loan B uses $L_1=1.015(5000)-450$. Which leaves the lower balance?",
       latex: "A=1.01(5000)-400,\\quad B=1.015(5000)-450",
       answer: "B",
       choices: [
@@ -1847,6 +1847,435 @@ export const mixedFinancialMathematicsExamPracticeLesson: ExplicitLesson = {
 
   masteryPassMark: 0.8,
 };
+
+// ---------------------------------------------------------------------------
+// Band-6 depth: difficulty-ramped mastery pools + one HSC multi-part per lesson.
+// Assigned post-hoc so the hand-authored lesson definitions above are untouched.
+// All monetary answers verified against A=P(1+r)^n, A=P(1-r)^n,
+// FV=M((1+r)^n-1)/r, and PV=FV/(1+r)^n.
+// ---------------------------------------------------------------------------
+
+growthFactorsCompoundInterestDepreciationLesson.masteryQuizPool = [
+  // --- D1: factor identification ---
+  { id: "growth-p-1", prompt: "Write the growth factor for a 5% increase.", latex: "\\text{growth factor}=1+r", answer: "1.05", difficulty: 1, acceptedAnswers: ["1.050"], hint: "Convert 5% to 0.05, then add to 1.", explanation: "$1+0.05=1.05$." },
+  { id: "growth-p-2", prompt: "Write the growth factor for a 7% increase.", latex: "\\text{growth factor}=1+r", answer: "1.07", difficulty: 1, acceptedAnswers: ["1.070"], hint: "Add the decimal rate to 1.", explanation: "$1+0.07=1.07$." },
+  { id: "growth-p-3", prompt: "Write the decay factor for a 15% decrease.", latex: "\\text{decay factor}=1-r", answer: "0.85", difficulty: 1, acceptedAnswers: ["0.850"], hint: "Subtract 0.15 from 1.", explanation: "$1-0.15=0.85$." },
+  { id: "growth-p-4", prompt: "Write the decay factor for a 12% decrease.", latex: "\\text{decay factor}=1-r", answer: "0.88", difficulty: 1, acceptedAnswers: ["0.880"], hint: "Subtract 0.12 from 1.", explanation: "$1-0.12=0.88$." },
+  { id: "growth-p-5", prompt: "Write the growth factor for a 2.5% increase.", latex: "\\text{growth factor}=1+r", answer: "1.025", difficulty: 2, hint: "Convert 2.5% to a decimal.", explanation: "$1+0.025=1.025$." },
+  // --- D2: reverse a factor to a rate ---
+  { id: "growth-p-6", prompt: "A value is multiplied by $1.08$ each year. What is the annual percentage increase?", latex: "1.08=1+r", answer: "8%", difficulty: 2, acceptedAnswers: ["8", "8 percent"], hint: "Find $1.08-1$.", explanation: "$1.08-1=0.08$, an 8% increase." },
+  { id: "growth-p-7", prompt: "A value is multiplied by $0.91$ each year. What is the annual percentage decrease?", latex: "0.91=1-r", answer: "9%", difficulty: 2, acceptedAnswers: ["9", "9 percent"], hint: "Find $1-0.91$.", explanation: "$1-0.91=0.09$, a 9% decrease." },
+  { id: "growth-p-8", prompt: "A savings balance uses $A=P(1.025)^n$. What rate is applied each period?", latex: "1.025=1+r", answer: "2.5%", difficulty: 2, acceptedAnswers: ["2.5", "2.5%", "2.5 percent"], hint: "Subtract 1 from the growth factor.", explanation: "$1.025-1=0.025$, so 2.5%." },
+  // --- D2-D3: model selection (MCQ) ---
+  { id: "growth-p-9", prompt: "Choose the compound interest model for $4000 at 6% p.a. for 3 years.", latex: "\\text{Choose one}", answer: "B", difficulty: 2, choices: [{ label: "A", text: "$4000(0.06)^3$" }, { label: "B", text: "$4000(1.06)^3$" }, { label: "C", text: "$4000(1.6)^3$" }, { label: "D", text: "$4000(0.94)^3$" }], hint: "Compound growth uses $1+r$.", explanation: "$A=4000(1.06)^3$." },
+  { id: "growth-p-10", prompt: "Choose the depreciation model for $18000 depreciating 12% per year for 4 years.", latex: "\\text{Choose one}", answer: "A", difficulty: 2, choices: [{ label: "A", text: "$18000(0.88)^4$" }, { label: "B", text: "$18000(1.12)^4$" }, { label: "C", text: "$18000(0.12)^4$" }, { label: "D", text: "$18000(0.88)(4)$" }], hint: "Decay factor is $1-0.12$.", explanation: "$A=18000(0.88)^4$." },
+  { id: "growth-p-11", prompt: "Which situation is depreciation?", latex: "\\text{Choose one}", answer: "C", difficulty: 2, choices: [{ label: "A", text: "An account grows by 4% per year" }, { label: "B", text: "A salary rises by 3% per year" }, { label: "C", text: "A phone loses 15% of its value each year" }, { label: "D", text: "A deposit doubles every decade" }], hint: "Depreciation means value decreases.", explanation: "A phone losing value each year is depreciation." },
+  // --- D3: one-step compound / depreciation with clean answers ---
+  { id: "growth-p-12", prompt: "Find the amount after 2 years. Use $1.06^2=1.1236$. Round to the nearest cent.", latex: "A=1000(1.06)^2", answer: "1123.60", difficulty: 3, acceptedAnswers: ["$1123.60", "$1,123.60", "1123.6"], hint: "Multiply 1000 by the given power.", explanation: "$1000\\times1.1236=1123.60$." },
+  { id: "growth-p-13", prompt: "Find the amount after 2 years. Use $1.04^2=1.0816$. Round to the nearest cent.", latex: "A=2500(1.04)^2", answer: "2704", difficulty: 3, acceptedAnswers: ["2704.00", "$2704", "$2,704", "$2704.00"], hint: "Multiply 2500 by the given power.", explanation: "$2500\\times1.0816=2704$." },
+  { id: "growth-p-14", prompt: "A car worth \\(\\$20000\\) depreciates 25% per year. Find its value after 2 years. Use $0.75^2=0.5625$.", latex: "A=20000(0.75)^2", answer: "11250", difficulty: 3, acceptedAnswers: ["11250.00", "$11250", "$11,250", "$11250.00"], hint: "Multiply 20000 by the given power.", explanation: "$20000\\times0.5625=11250$." },
+  { id: "growth-p-15", prompt: "Equipment worth \\(\\$12000\\) depreciates 20% per year. Find its value after 3 years. Use $0.8^3=0.512$.", latex: "A=12000(0.8)^3", answer: "6144", difficulty: 3, acceptedAnswers: ["6144.00", "$6144", "$6,144", "$6144.00"], hint: "Multiply 12000 by the given power.", explanation: "$12000\\times0.512=6144$." },
+  // --- D3-D4: compound to the nearest cent (rounding judgement) ---
+  { id: "growth-p-16", prompt: "Find the amount to the nearest cent. Use $1.04^3=1.124864$.", latex: "A=2000(1.04)^3", answer: "2249.73", difficulty: 4, acceptedAnswers: ["$2249.73", "$2,249.73", "2,249.73"], hint: "Multiply, then round to cents.", explanation: "$2000\\times1.124864=2249.728$, so $\\$2249.73$." },
+  { id: "growth-p-17", prompt: "Find the amount to the nearest cent. Use $1.03^5=1.159274$.", latex: "A=750(1.03)^5", answer: "869.46", difficulty: 4, acceptedAnswers: ["$869.46", "869.46"], hint: "Do not round until the end.", explanation: "$750\\times1.159274=869.4555\\ldots$, so $\\$869.46$." },
+  { id: "growth-p-18", prompt: "Find the amount to the nearest cent. Use $1.025^4=1.103813$.", latex: "A=3000(1.025)^4", answer: "3311.44", difficulty: 4, acceptedAnswers: ["$3311.44", "$3,311.44", "3,311.44"], hint: "Round the final money value to cents.", explanation: "$3000\\times1.103813=3311.439$, so $\\$3311.44$." },
+  { id: "growth-p-19", prompt: "Find the value to the nearest cent. Use $0.88^4=0.599695$.", latex: "A=18000(0.88)^4", answer: "10794.52", difficulty: 4, acceptedAnswers: ["$10794.52", "$10,794.52", "10,794.52"], hint: "Depreciation: multiply by the decay power.", explanation: "$18000\\times0.599695=10794.516$, so $\\$10794.52$." },
+  { id: "growth-p-20", prompt: "Find the value to the nearest cent. Use $0.85^3=0.614125$.", latex: "A=1800(0.85)^3", answer: "1105.43", difficulty: 4, acceptedAnswers: ["$1105.43", "$1,105.43"], hint: "Use the decay power, then round.", explanation: "$1800\\times0.614125=1105.425$, so $\\$1105.43$." },
+  // --- D4: interpret a model ---
+  { id: "growth-p-21", prompt: "A balance uses $A=P(1.045)^n$. What rate is applied each period?", latex: "1.045=1+r", answer: "4.5%", difficulty: 3, acceptedAnswers: ["4.5", "4.5%", "4.5 percent"], hint: "Subtract 1 from 1.045.", explanation: "$1.045-1=0.045$, so 4.5%." },
+  { id: "growth-p-22", prompt: "Choose the model for $5000 losing 8% of its value each year for 5 years.", latex: "\\text{Choose one}", answer: "D", difficulty: 3, choices: [{ label: "A", text: "$5000(1.08)^5$" }, { label: "B", text: "$5000(0.08)^5$" }, { label: "C", text: "$5000(0.8)^5$" }, { label: "D", text: "$5000(0.92)^5$" }], hint: "An 8% loss keeps 92%.", explanation: "Decay factor $0.92$: $5000(0.92)^5$." },
+  // --- D5: Band-6 multi-step ---
+  { id: "growth-p-23", prompt: "An investment of $3000 grows at 5% p.a. and a separate $2000 grows at 4% p.a., both for 4 years. Find the total value to the nearest cent. Use $1.05^4=1.215506$ and $1.04^4=1.169859$.", latex: "3000(1.05)^4+2000(1.04)^4", answer: "5986.24", difficulty: 5, acceptedAnswers: ["$5986.24", "$5,986.24", "5,986.24"], hint: "Grow each amount separately, then add.", explanation: "$3000\\times1.215506=3646.52$ and $2000\\times1.169859=2339.72$; total $=5986.24$." },
+  { id: "growth-p-24", prompt: "\\(\\$2000\\) is invested at 5% p.a. compounded annually. Using $1.05^{14}=1.97993$ and $1.05^{15}=2.07893$, find the least whole number of years for the investment to at least double.", latex: "2000(1.05)^n\\ge 4000", answer: "15", difficulty: 5, acceptedAnswers: ["15 years", "n=15"], hint: "Doubling needs $1.05^n\\ge 2$; compare the two given powers.", explanation: "$1.05^{14}=1.980<2$ but $1.05^{15}=2.079\\ge 2$, so 15 years." },
+  { id: "growth-p-25", prompt: "Money grows at 7% p.a. Using $1.07^{10}=1.96715$ and $1.07^{11}=2.10485$, find the least whole number of years for any amount to at least double.", latex: "(1.07)^n\\ge 2", answer: "11", difficulty: 5, acceptedAnswers: ["11 years", "n=11"], hint: "Find the first $n$ with $1.07^n\\ge 2$.", explanation: "$1.07^{10}=1.967<2$ but $1.07^{11}=2.105\\ge 2$, so 11 years." },
+  { id: "growth-p-26", prompt: "A machine worth \\(\\$8000\\) depreciates 10% per year. Using $0.9^3=0.729$, find how much value it has lost after 3 years, to the nearest dollar.", latex: "8000-8000(0.9)^3", answer: "2168", difficulty: 5, acceptedAnswers: ["$2168", "$2,168", "2168.00"], hint: "Loss = original value minus depreciated value.", explanation: "Value after 3 years $=8000\\times0.729=5832$. Loss $=8000-5832=2168$." },
+  { id: "growth-p-27", prompt: "\\(\\$4000\\) grows at 6% p.a. for 3 years. Using $1.06^3=1.191016$, find the interest earned to the nearest cent.", latex: "4000(1.06)^3-4000", answer: "764.06", difficulty: 5, acceptedAnswers: ["$764.06", "$764.06"], hint: "Interest = final amount minus the principal.", explanation: "Final $=4000\\times1.191016=4764.064$. Interest $=4764.06-4000=764.06$." },
+  { id: "growth-p-28", prompt: "A \\(\\$15000\\) asset depreciates 15% per year. Using $0.85^2=0.7225$ and $0.85^3=0.614125$, find the loss in value during the third year alone, to the nearest cent.", latex: "15000(0.85)^2-15000(0.85)^3", answer: "1625.63", difficulty: 5, acceptedAnswers: ["$1625.63", "$1,625.63", "1625.625"], hint: "Subtract the year-3 value from the year-2 value.", explanation: "Year 2 value $=15000\\times0.7225=10837.50$; year 3 value $=15000\\times0.614125=9211.875$. Loss in year 3 $=10837.50-9211.875=1625.625$, so $\\$1625.63$." },
+];
+
+growthFactorsCompoundInterestDepreciationLesson.multiPartPractice = [
+  {
+    id: "growth-mp-1",
+    prompt: "Sara invests \\(\\$5000\\) in an account paying 6% p.a. compounded annually. Use $1.06^3=1.191016$ and $1.06^5=1.338226$.",
+    latex: "A=P(1+r)^n,\\quad P=5000,\\ r=0.06",
+    answer: "5955.08",
+    hint: "Use $A=P(1.06)^n$ for each part, then compare to the principal.",
+    explanation:
+      "(a) $5000\\times1.191016=5955.08$. (b) interest $=5955.08-5000=955.08$. (c) $5000\\times1.338226=6691.13$.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the balance after 3 years, to the nearest cent.", latex: "5000(1.06)^3", marks: 2, answer: "5955.08", acceptedAnswers: ["$5955.08", "$5,955.08"], hint: "Multiply 5000 by $1.06^3$.", explanation: "$5000\\times1.191016=5955.08$." },
+      { key: "b", label: "(b)", prompt: "Hence find the interest earned in the first 3 years, to the nearest cent.", latex: "5955.08-5000", marks: 2, answer: "955.08", acceptedAnswers: ["$955.08"], hint: "Subtract the principal from part (a).", explanation: "$5955.08-5000=955.08$." },
+      { key: "c", label: "(c)", prompt: "Find the balance after 5 years, to the nearest cent.", latex: "5000(1.06)^5", marks: 2, answer: "6691.13", acceptedAnswers: ["$6691.13", "$6,691.13"], hint: "Multiply 5000 by $1.06^5$.", explanation: "$5000\\times1.338226=6691.13$." },
+    ],
+  },
+];
+
+recurrenceRelationsFinancialContextsLesson.masteryQuizPool = [
+  // --- D1: read off initial value / interpret ---
+  { id: "recur-p-1", prompt: "Identify the initial value.", latex: "B_0=800,\\quad B_{n+1}=1.02B_n+40", answer: "800", difficulty: 1, acceptedAnswers: ["$800", "800.00"], hint: "The initial value has subscript 0.", explanation: "$B_0=800$." },
+  { id: "recur-p-2", prompt: "Identify the initial value.", latex: "L_0=9000,\\quad L_{n+1}=1.02L_n-500", answer: "9000", difficulty: 1, acceptedAnswers: ["$9000", "$9,000", "9000.00"], hint: "Look for the term with subscript 0.", explanation: "$L_0=9000$." },
+  { id: "recur-p-3", prompt: "In $L_{n+1}=1.01L_n-300$, is the $300$ a deposit or a repayment?", latex: "L_{n+1}=1.01L_n-300", answer: "repayment", difficulty: 1, acceptedAnswers: ["a repayment", "repay", "repayment"], hint: "It is subtracted.", explanation: "The amount is subtracted, so it is a repayment." },
+  { id: "recur-p-4", prompt: "In $B_{n+1}=1.05B_n+50$, is the $50$ a deposit or a repayment?", latex: "B_{n+1}=1.05B_n+50", answer: "deposit", difficulty: 1, acceptedAnswers: ["a deposit", "deposit"], hint: "It is added.", explanation: "The amount is added, so it is a deposit." },
+  // --- D2: meaning of the multiplier ---
+  { id: "recur-p-5", prompt: "What percentage increase does the multiplier represent?", latex: "B_{n+1}=1.06B_n+100", answer: "6%", difficulty: 2, acceptedAnswers: ["6", "6%", "6 percent"], hint: "$1.06=1+r$.", explanation: "$1.06-1=0.06$, a 6% increase." },
+  { id: "recur-p-6", prompt: "What percentage increase does the multiplier represent?", latex: "B_{n+1}=1.025B_n+75", answer: "2.5%", difficulty: 2, acceptedAnswers: ["2.5", "2.5%", "2.5 percent"], hint: "Subtract 1 from 1.025.", explanation: "$1.025-1=0.025$, a 2.5% increase." },
+  { id: "recur-p-7", prompt: "A car value follows $V_{n+1}=0.85V_n$. What percentage depreciation is applied each period?", latex: "V_{n+1}=0.85V_n", answer: "15%", difficulty: 2, acceptedAnswers: ["15", "15%", "15 percent"], hint: "Find $1-0.85$.", explanation: "$1-0.85=0.15$, a 15% depreciation." },
+  // --- D2-D3: build a recurrence (MCQ) ---
+  { id: "recur-p-8", prompt: "Choose the recurrence for a balance earning 5% interest then a $50 deposit.", latex: "\\text{Choose one}", answer: "A", difficulty: 2, choices: [{ label: "A", text: "$B_{n+1}=1.05B_n+50$" }, { label: "B", text: "$B_{n+1}=0.95B_n+50$" }, { label: "C", text: "$B_{n+1}=1.05B_n-50$" }, { label: "D", text: "$B_{n+1}=1.5B_n+50$" }], hint: "Interest grows, deposit adds.", explanation: "$B_{n+1}=1.05B_n+50$." },
+  { id: "recur-p-9", prompt: "Choose the recurrence for a loan growing 0.5% interest each month then a $600 repayment.", latex: "\\text{Choose one}", answer: "C", difficulty: 3, choices: [{ label: "A", text: "$L_{n+1}=0.995L_n+600$" }, { label: "B", text: "$L_{n+1}=1.005L_n+600$" }, { label: "C", text: "$L_{n+1}=1.005L_n-600$" }, { label: "D", text: "$L_{n+1}=1.05L_n-600$" }], hint: "Interest adds, repayment subtracts.", explanation: "$L_{n+1}=1.005L_n-600$." },
+  { id: "recur-p-10", prompt: "A machine loses 10% of its value each year. Choose the recurrence for its value.", latex: "\\text{Choose one}", answer: "A", difficulty: 2, choices: [{ label: "A", text: "$V_{n+1}=0.9V_n$" }, { label: "B", text: "$V_{n+1}=1.1V_n$" }, { label: "C", text: "$V_{n+1}=10V_n$" }, { label: "D", text: "$V_{n+1}=0.1V_n$" }], hint: "A 10% loss keeps 90%.", explanation: "$V_{n+1}=0.9V_n$." },
+  // --- D3: one step of a recurrence (clean) ---
+  { id: "recur-p-11", prompt: "Find $B_1$.", latex: "B_0=500,\\quad B_{n+1}=1.04B_n+20", answer: "540", difficulty: 3, acceptedAnswers: ["540.00", "$540", "$540.00"], hint: "Multiply by 1.04, then add 20.", explanation: "$1.04(500)+20=540$." },
+  { id: "recur-p-12", prompt: "Find $B_1$.", latex: "B_0=1200,\\quad B_{n+1}=1.05B_n+80", answer: "1340", difficulty: 3, acceptedAnswers: ["1340.00", "$1340", "$1,340", "$1,340.00"], hint: "Multiply by 1.05, then add 80.", explanation: "$1.05(1200)+80=1340$." },
+  { id: "recur-p-13", prompt: "Find $L_1$.", latex: "L_0=9000,\\quad L_{n+1}=1.02L_n-500", answer: "8680", difficulty: 3, acceptedAnswers: ["8680.00", "$8680", "$8,680", "$8,680.00"], hint: "Apply interest, then subtract 500.", explanation: "$1.02(9000)-500=8680$." },
+  { id: "recur-p-14", prompt: "Find $B_1$.", latex: "B_0=800,\\quad B_{n+1}=1.02B_n+40", answer: "856", difficulty: 3, acceptedAnswers: ["856.00", "$856", "$856.00"], hint: "Multiply by 1.02, then add 40.", explanation: "$1.02(800)+40=856$." },
+  { id: "recur-p-15", prompt: "A balance starts at \\(\\$2500\\) and follows $S_{n+1}=1.03S_n+150$. Find $S_1$.", latex: "S_0=2500,\\quad S_{n+1}=1.03S_n+150", answer: "2725", difficulty: 3, acceptedAnswers: ["2725.00", "$2725", "$2,725", "$2,725.00"], hint: "Use the starting balance.", explanation: "$1.03(2500)+150=2725$." },
+  // --- D4: second step (chain from a given term) ---
+  { id: "recur-p-16", prompt: "Given $B_1=1130$, find $B_2$.", latex: "B_{n+1}=1.03B_n+100", answer: "1263.90", difficulty: 4, acceptedAnswers: ["1263.9", "$1263.90", "$1,263.90"], hint: "Use $B_1$ as the current balance.", explanation: "$1.03(1130)+100=1263.90$." },
+  { id: "recur-p-17", prompt: "Given $B_1=856$, find $B_2$.", latex: "B_{n+1}=1.02B_n+40", answer: "913.12", difficulty: 4, acceptedAnswers: ["$913.12"], hint: "Substitute $B_1=856$.", explanation: "$1.02(856)+40=913.12$." },
+  { id: "recur-p-18", prompt: "Given $L_1=4800$, find $L_2$.", latex: "L_{n+1}=1.01L_n-250", answer: "4598", difficulty: 4, acceptedAnswers: ["4598.00", "$4598", "$4,598", "$4,598.00"], hint: "Substitute $L_1=4800$.", explanation: "$1.01(4800)-250=4598$." },
+  { id: "recur-p-19", prompt: "Given $S_1=2725$, find $S_2$ to the nearest cent.", latex: "S_{n+1}=1.03S_n+150", answer: "2956.75", difficulty: 4, acceptedAnswers: ["$2956.75", "$2,956.75"], hint: "Substitute $S_1=2725$.", explanation: "$1.03(2725)+150=2956.75$." },
+  { id: "recur-p-20", prompt: "Interpret the recurrence.", latex: "L_{n+1}=1.005L_n-600", answer: "B", difficulty: 3, choices: [{ label: "A", text: "The loan falls 0.5%, then $600 is added" }, { label: "B", text: "The loan grows 0.5%, then a $600 repayment is made" }, { label: "C", text: "The loan grows 5%, then a $600 repayment is made" }, { label: "D", text: "The loan grows 0.5% only" }], hint: "$1.005$ is a small rise; $-600$ subtracts.", explanation: "Grows 0.5%, then $600 repaid." },
+  // --- D5: Band-6 two-step + interpret ---
+  { id: "recur-p-21", prompt: "A savings plan follows $B_{n+1}=1.04B_n+200$ with $B_0=2000$. Find $B_2$ to the nearest cent.", latex: "B_0=2000,\\quad B_{n+1}=1.04B_n+200", answer: "2571.20", difficulty: 5, acceptedAnswers: ["2571.2", "$2571.20", "$2,571.20"], hint: "Find $B_1$ first, then use it to find $B_2$.", explanation: "$B_1=1.04(2000)+200=2280$; $B_2=1.04(2280)+200=2571.20$." },
+  { id: "recur-p-22", prompt: "A loan follows $L_{n+1}=1.005L_n-750$ with $L_0=10000$. Find $L_2$ to the nearest cent.", latex: "L_0=10000,\\quad L_{n+1}=1.005L_n-750", answer: "8596.50", difficulty: 5, acceptedAnswers: ["8596.5", "$8596.50", "$8,596.50"], hint: "Compute $L_1$, then $L_2$.", explanation: "$L_1=1.005(10000)-750=9300$; $L_2=1.005(9300)-750=8596.50$." },
+  { id: "recur-p-23", prompt: "A plan follows $B_{n+1}=1.025B_n+300$ with $B_0=5000$. Find $B_2$ to the nearest cent.", latex: "B_0=5000,\\quad B_{n+1}=1.025B_n+300", answer: "5860.63", difficulty: 5, acceptedAnswers: ["$5860.63", "$5,860.63", "5860.625"], hint: "Two updates from $B_0$.", explanation: "$B_1=1.025(5000)+300=5425$; $B_2=1.025(5425)+300=5860.625$, so $\\$5860.63$." },
+  { id: "recur-p-24", prompt: "A loan follows $L_{n+1}=1.012L_n-500$ with $L_0=8000$. Find $L_2$ to the nearest cent.", latex: "L_0=8000,\\quad L_{n+1}=1.012L_n-500", answer: "7187.15", difficulty: 5, acceptedAnswers: ["$7187.15", "$7,187.15"], hint: "Compute $L_1$, then $L_2$.", explanation: "$L_1=1.012(8000)-500=7596$; $L_2=1.012(7596)-500=7187.152$, so $\\$7187.15$." },
+  { id: "recur-p-25", prompt: "A loan follows $L_{n+1}=1.005L_n-750$ with $L_0=10000$. By how much did the balance fall over the first two months? Use $L_2=8596.50$.", latex: "10000-L_2", answer: "1403.50", difficulty: 5, acceptedAnswers: ["1403.5", "$1403.50", "$1,403.50"], hint: "Subtract $L_2$ from $L_0$.", explanation: "$10000-8596.50=1403.50$." },
+  { id: "recur-p-26", prompt: "A savings plan follows $B_{n+1}=1.04B_n+200$ with $B_0=2000$. How much interest was earned over the first two months? Use $B_2=2571.20$ and total deposits of $400$.", latex: "B_2-2000-400", answer: "171.20", difficulty: 5, acceptedAnswers: ["171.2", "$171.20"], hint: "Interest = end balance − start − deposits made.", explanation: "$2571.20-2000-400=171.20$." },
+  { id: "recur-p-27", prompt: "Find $B_1$.", latex: "B_0=1500,\\quad B_{n+1}=1.02B_n+100", answer: "1630", difficulty: 3, acceptedAnswers: ["1630.00", "$1630", "$1,630", "$1,630.00"], hint: "Multiply by 1.02, then add 100.", explanation: "$1.02(1500)+100=1630$." },
+  { id: "recur-p-28", prompt: "Choose the recurrence for a balance that earns 3% interest then has a $120 deposit added.", latex: "\\text{Choose one}", answer: "A", difficulty: 2, choices: [{ label: "A", text: "$B_{n+1}=1.03B_n+120$" }, { label: "B", text: "$B_{n+1}=0.97B_n+120$" }, { label: "C", text: "$B_{n+1}=1.03B_n-120$" }, { label: "D", text: "$B_{n+1}=1.3B_n+120$" }], hint: "Interest grows, deposit adds.", explanation: "$B_{n+1}=1.03B_n+120$." },
+  { id: "recur-p-29", prompt: "A plan follows $B_{n+1}=1.03B_n+150$ with $B_0=4000$. Find $B_2$ to the nearest cent.", latex: "B_0=4000,\\quad B_{n+1}=1.03B_n+150", answer: "4548.10", difficulty: 5, acceptedAnswers: ["4548.1", "$4548.10", "$4,548.10"], hint: "Compute $B_1$, then $B_2$.", explanation: "$B_1=1.03(4000)+150=4270$; $B_2=1.03(4270)+150=4548.10$." },
+];
+
+recurrenceRelationsFinancialContextsLesson.multiPartPractice = [
+  {
+    id: "recur-mp-1",
+    prompt: "A loan of \\(\\$10000\\) is modelled by $L_{n+1}=1.01L_n-600$, where $L_n$ is the balance after $n$ months.",
+    latex: "L_0=10000,\\quad L_{n+1}=1.01L_n-600",
+    answer: "9500",
+    hint: "Apply 1% interest then subtract $600 at each step, using the previous balance.",
+    explanation:
+      "(a) $L_1=1.01(10000)-600=9500$. (b) $L_2=1.01(9500)-600=8995$. (c) fall $=10000-8995=1005$.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the balance after 1 month.", latex: "1.01(10000)-600", marks: 2, answer: "9500", acceptedAnswers: ["9500.00", "$9500", "$9,500", "$9,500.00"], hint: "Use $L_0=10000$.", explanation: "$1.01(10000)-600=9500$." },
+      { key: "b", label: "(b)", prompt: "Find the balance after 2 months.", latex: "1.01(9500)-600", marks: 2, answer: "8995", acceptedAnswers: ["8995.00", "$8995", "$8,995", "$8,995.00"], hint: "Use the answer to (a) as the current balance.", explanation: "$1.01(9500)-600=8995$." },
+      { key: "c", label: "(c)", prompt: "Find the total reduction in the loan balance over these 2 months.", latex: "10000-8995", marks: 2, answer: "1005", acceptedAnswers: ["1005.00", "$1005", "$1,005", "$1,005.00"], hint: "Subtract the balance after 2 months from the original loan.", explanation: "$10000-8995=1005$." },
+    ],
+  },
+];
+
+futureValueAnnuitiesLesson.masteryQuizPool = [
+  // --- D1: identify M, n, and rate ---
+  { id: "annuity-p-1", prompt: "Identify the regular deposit.", latex: "\\$150\\text{ is deposited each month for 12 months.}", answer: "150", difficulty: 1, acceptedAnswers: ["$150", "$150.00", "150.00"], hint: "It is the repeated payment.", explanation: "The regular deposit is $\\$150$." },
+  { id: "annuity-p-2", prompt: "How many monthly deposits are made over 2 years?", latex: "n=\\ ?", answer: "24", difficulty: 1, hint: "12 deposits per year.", explanation: "$2\\times12=24$." },
+  { id: "annuity-p-3", prompt: "How many monthly deposits are made over 3 years?", latex: "n=\\ ?", answer: "36", difficulty: 1, hint: "Multiply years by 12.", explanation: "$3\\times12=36$." },
+  { id: "annuity-p-4", prompt: "How many quarterly deposits are made over 3 years?", latex: "n=\\ ?", answer: "12", difficulty: 2, hint: "4 quarters per year.", explanation: "$3\\times4=12$." },
+  { id: "annuity-p-5", prompt: "How many monthly deposits are made over 2.5 years?", latex: "n=\\ ?", answer: "30", difficulty: 2, hint: "Convert years to months.", explanation: "$2.5\\times12=30$." },
+  // --- D2: convert annual rate to per-period decimal ---
+  { id: "annuity-p-6", prompt: "Convert 6% p.a. compounded monthly to a monthly decimal rate.", latex: "r=\\ ?", answer: "0.005", difficulty: 2, acceptedAnswers: ["0.0050"], hint: "Divide 0.06 by 12.", explanation: "$0.06\\div12=0.005$." },
+  { id: "annuity-p-7", prompt: "Convert 12% p.a. compounded monthly to a monthly decimal rate.", latex: "r=\\ ?", answer: "0.01", difficulty: 2, acceptedAnswers: ["0.010"], hint: "Divide 0.12 by 12.", explanation: "$0.12\\div12=0.01$." },
+  { id: "annuity-p-8", prompt: "Write a monthly rate of 0.25% as a decimal.", latex: "0.25\\%", answer: "0.0025", difficulty: 2, hint: "Divide by 100.", explanation: "$0.25\\%=0.0025$." },
+  // --- D2-D3: choose the right formula (MCQ) ---
+  { id: "annuity-p-9", prompt: "Which model is for repeated equal deposits?", latex: "\\text{Choose one}", answer: "C", difficulty: 2, choices: [{ label: "A", text: "$A=P(1+r)^n$" }, { label: "B", text: "$A=P(1-r)^n$" }, { label: "C", text: "$FV=M\\left(\\frac{(1+r)^n-1}{r}\\right)$" }, { label: "D", text: "$PV=\\frac{FV}{(1+r)^n}$" }], hint: "Look for the annuity formula.", explanation: "The annuity formula models regular deposits." },
+  { id: "annuity-p-10", prompt: "A student deposits $60 at the end of each month for 2 years. Which inputs are correct?", latex: "FV=M\\left(\\frac{(1+r)^n-1}{r}\\right)", answer: "B", difficulty: 3, choices: [{ label: "A", text: "$M=24,\\ n=60$" }, { label: "B", text: "$M=60,\\ n=24$" }, { label: "C", text: "$M=2,\\ n=60$" }, { label: "D", text: "$M=60,\\ n=2$" }], hint: "$M$ is the deposit; $n$ counts deposits.", explanation: "$M=60$, $n=2\\times12=24$." },
+  // --- D3: one-step FV with given bracket value ---
+  { id: "annuity-p-11", prompt: "Find the future value to the nearest cent. Use $\\frac{(1.01)^3-1}{0.01}=3.0301$.", latex: "FV=100\\left(\\frac{(1.01)^3-1}{0.01}\\right)", answer: "303.01", difficulty: 3, acceptedAnswers: ["$303.01"], hint: "Multiply 100 by the given bracket.", explanation: "$100\\times3.0301=303.01$." },
+  { id: "annuity-p-12", prompt: "Find the future value to the nearest cent. Use $\\frac{(1.02)^5-1}{0.02}=5.20404$.", latex: "FV=50\\left(\\frac{(1.02)^5-1}{0.02}\\right)", answer: "260.20", difficulty: 3, acceptedAnswers: ["$260.20", "260.2"], hint: "Multiply 50 by the bracket.", explanation: "$50\\times5.20404=260.20$." },
+  { id: "annuity-p-13", prompt: "Find the future value to the nearest cent. Use $\\frac{(1.05)^4-1}{0.05}=4.310125$.", latex: "FV=200\\left(\\frac{(1.05)^4-1}{0.05}\\right)", answer: "862.03", difficulty: 3, acceptedAnswers: ["$862.03"], hint: "Multiply 200 by the bracket.", explanation: "$200\\times4.310125=862.025$, so $\\$862.03$." },
+  // --- D4: FV to the nearest cent (rounding judgement) ---
+  { id: "annuity-p-14", prompt: "Find the future value to the nearest cent. Use $\\frac{(1.01)^4-1}{0.01}=4.060401$.", latex: "FV=100\\left(\\frac{(1.01)^4-1}{0.01}\\right)", answer: "406.04", difficulty: 4, acceptedAnswers: ["$406.04"], hint: "Multiply and round.", explanation: "$100\\times4.060401=406.04$." },
+  { id: "annuity-p-15", prompt: "Find the future value to the nearest cent. Use $\\frac{(1.02)^3-1}{0.02}=3.0604$.", latex: "FV=250\\left(\\frac{(1.02)^3-1}{0.02}\\right)", answer: "765.10", difficulty: 4, acceptedAnswers: ["$765.10", "765.1"], hint: "Multiply 250 by the bracket.", explanation: "$250\\times3.0604=765.10$." },
+  { id: "annuity-p-16", prompt: "Find the future value to the nearest cent. Use $\\frac{(1.005)^6-1}{0.005}=6.075502$.", latex: "FV=80\\left(\\frac{(1.005)^6-1}{0.005}\\right)", answer: "486.04", difficulty: 4, acceptedAnswers: ["$486.04"], hint: "Multiply 80 by the bracket.", explanation: "$80\\times6.075502=486.04$." },
+  { id: "annuity-p-17", prompt: "Find the future value to the nearest cent. Use $\\frac{(1.005)^8-1}{0.005}=8.141409$.", latex: "FV=120\\left(\\frac{(1.005)^8-1}{0.005}\\right)", answer: "976.97", difficulty: 4, acceptedAnswers: ["$976.97"], hint: "Multiply 120 by the bracket.", explanation: "$120\\times8.141409=976.969$, so $\\$976.97$." },
+  // --- D4: interpret which n / rate to use ---
+  { id: "annuity-p-18", prompt: "A monthly deposit plan runs for 5 years. Which value of $n$ is correct?", latex: "n=\\ ?", answer: "60", difficulty: 3, hint: "5 years of monthly deposits.", explanation: "$5\\times12=60$." },
+  { id: "annuity-p-19", prompt: "Deposits are monthly and the annual rate is 9% compounded monthly. Which monthly decimal rate is used?", latex: "r=\\ ?", answer: "0.0075", difficulty: 3, hint: "Divide 0.09 by 12.", explanation: "$0.09\\div12=0.0075$." },
+  // --- D5: Band-6 multi-step ---
+  { id: "annuity-p-20", prompt: "A saver deposits \\(\\$500\\) at the end of each year for 5 years at 6% p.a. Use $\\frac{(1.06)^5-1}{0.06}=5.637093$. Find the interest earned, to the nearest cent.", latex: "500\\left(\\frac{(1.06)^5-1}{0.06}\\right)-2500", answer: "318.55", difficulty: 5, acceptedAnswers: ["$318.55"], hint: "Future value minus the total deposited ($500\\times5$).", explanation: "$FV=500\\times5.637093=2818.55$; deposits $=2500$; interest $=318.55$." },
+  { id: "annuity-p-21", prompt: "A saver deposits \\(\\$300\\) at the end of each year for 10 years at 4% p.a. Use $\\frac{(1.04)^{10}-1}{0.04}=12.006107$. Find the interest earned, to the nearest cent.", latex: "300\\left(\\frac{(1.04)^{10}-1}{0.04}\\right)-3000", answer: "601.83", difficulty: 5, acceptedAnswers: ["$601.83"], hint: "Future value minus $300\\times10$.", explanation: "$FV=300\\times12.006107=3601.83$; deposits $=3000$; interest $=601.83$." },
+  { id: "annuity-p-22", prompt: "A saver deposits \\(\\$150\\) at the end of each month for 1 year at 0.5% per month. Use $\\frac{(1.005)^{12}-1}{0.005}=12.335562$. Find the interest earned, to the nearest cent.", latex: "150\\left(\\frac{(1.005)^{12}-1}{0.005}\\right)-1800", answer: "50.33", difficulty: 5, acceptedAnswers: ["$50.33"], hint: "Future value minus $150\\times12$.", explanation: "$FV=150\\times12.335562=1850.33$; deposits $=1800$; interest $=50.33$." },
+  { id: "annuity-p-23", prompt: "A student deposits $75 each month for 10 months and the future value is $760.20. Find the interest earned, to the nearest cent.", latex: "760.20-10\\times75", answer: "10.20", difficulty: 5, acceptedAnswers: ["$10.20", "10.2"], hint: "Compare the future value with the total deposited.", explanation: "Deposited $=750$; interest $=760.20-750=10.20$." },
+  { id: "annuity-p-24", prompt: "A saver deposits \\(\\$1000\\) at the end of each year for 3 years at 5% p.a. Use $\\frac{(1.05)^3-1}{0.05}=3.1525$. Find the future value, to the nearest cent.", latex: "FV=1000\\left(\\frac{(1.05)^3-1}{0.05}\\right)", answer: "3152.50", difficulty: 5, acceptedAnswers: ["$3152.50", "$3,152.50", "3152.5"], hint: "Multiply 1000 by the bracket.", explanation: "$1000\\times3.1525=3152.50$." },
+  { id: "annuity-p-25", prompt: "A saver deposits \\(\\$2000\\) at the end of each year for 4 years at 3% p.a. Use $\\frac{(1.03)^4-1}{0.03}=4.183627$. Find the future value, to the nearest cent.", latex: "FV=2000\\left(\\frac{(1.03)^4-1}{0.03}\\right)", answer: "8367.25", difficulty: 5, acceptedAnswers: ["$8367.25", "$8,367.25"], hint: "Multiply 2000 by the bracket.", explanation: "$2000\\times4.183627=8367.254$, so $\\$8367.25$." },
+  // --- extra D3 to balance the pool ---
+  { id: "annuity-p-26", prompt: "How many quarterly deposits are made over 5 years?", latex: "n=\\ ?", answer: "20", difficulty: 3, hint: "4 quarters per year.", explanation: "$5\\times4=20$." },
+  { id: "annuity-p-27", prompt: "How many monthly deposits are made over 4 years?", latex: "n=\\ ?", answer: "48", difficulty: 1, hint: "Multiply years by 12.", explanation: "$4\\times12=48$." },
+  { id: "annuity-p-28", prompt: "Find the future value to the nearest cent. Use $\\frac{(1.01)^6-1}{0.01}=6.152015$.", latex: "FV=400\\left(\\frac{(1.01)^6-1}{0.01}\\right)", answer: "2460.81", difficulty: 4, acceptedAnswers: ["$2460.81", "$2,460.81"], hint: "Multiply 400 by the bracket.", explanation: "$400\\times6.152015=2460.806$, so $\\$2460.81$." },
+  { id: "annuity-p-29", prompt: "A saver deposits \\(\\$1000\\) at the end of each year for 4 years at 2% p.a. Use $\\frac{(1.02)^4-1}{0.02}=4.121608$. Find the interest earned, to the nearest cent.", latex: "1000\\left(\\frac{(1.02)^4-1}{0.02}\\right)-4000", answer: "121.61", difficulty: 5, acceptedAnswers: ["$121.61"], hint: "Future value minus $1000\\times4$.", explanation: "$FV=1000\\times4.121608=4121.61$; deposits $=4000$; interest $=121.61$." },
+];
+
+futureValueAnnuitiesLesson.multiPartPractice = [
+  {
+    id: "annuity-mp-1",
+    prompt: "Mia deposits \\(\\$200\\) at the end of each year into an account paying 5% p.a. compounded annually, for 4 years. Use $\\frac{(1.05)^4-1}{0.05}=4.310125$.",
+    latex: "FV=M\\left(\\frac{(1+r)^n-1}{r}\\right)",
+    answer: "862.03",
+    hint: "Apply the annuity formula, then compare the future value with the total deposited.",
+    explanation:
+      "(a) total deposited $=200\\times4=800$. (b) $FV=200\\times4.310125=862.03$. (c) interest $=862.03-800=62.03$.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the total amount deposited over the 4 years.", latex: "200\\times4", marks: 1, answer: "800", acceptedAnswers: ["800.00", "$800", "$800.00"], hint: "Four deposits of $200.", explanation: "$200\\times4=800$." },
+      { key: "b", label: "(b)", prompt: "Find the future value of the annuity, to the nearest cent.", latex: "200\\left(\\frac{(1.05)^4-1}{0.05}\\right)", marks: 2, answer: "862.03", acceptedAnswers: ["$862.03"], hint: "Multiply 200 by the given bracket value.", explanation: "$200\\times4.310125=862.025$, so $\\$862.03$." },
+      { key: "c", label: "(c)", prompt: "Hence find the total interest earned, to the nearest cent.", latex: "862.03-800", marks: 2, answer: "62.03", acceptedAnswers: ["$62.03"], hint: "Subtract the total deposited from the future value.", explanation: "$862.03-800=62.03$." },
+    ],
+  },
+];
+
+presentValueLoanRepaymentsLesson.masteryQuizPool = [
+  // --- D1: concept identification ---
+  { id: "loan-p-1", prompt: "What does present value mean?", latex: "\\text{Choose one}", answer: "A", difficulty: 1, choices: [{ label: "A", text: "The value now of a future amount" }, { label: "B", text: "The total after all future interest" }, { label: "C", text: "The number of repayments" }, { label: "D", text: "The interest rate per period" }], hint: "Present value is a current value.", explanation: "It is the value now of a future amount." },
+  { id: "loan-p-2", prompt: "In $L_{n+1}=1.02L_n-400$, what does the $-400$ represent?", latex: "L_{n+1}=1.02L_n-400", answer: "B", difficulty: 1, choices: [{ label: "A", text: "A fee added to the loan" }, { label: "B", text: "A repayment made" }, { label: "C", text: "An interest rate of 400%" }, { label: "D", text: "The initial loan" }], hint: "It is subtracted.", explanation: "$-400$ is a repayment." },
+  { id: "loan-p-3", prompt: "Choose the meaning of $1.005$ in a loan recurrence.", latex: "L_{n+1}=1.005L_n-600", answer: "C", difficulty: 2, choices: [{ label: "A", text: "5% interest" }, { label: "B", text: "0.5% decrease" }, { label: "C", text: "0.5% interest" }, { label: "D", text: "50% interest" }], hint: "$1.005=1+0.005$.", explanation: "$1.005$ means 0.5% interest." },
+  // --- D2: simple PV ---
+  { id: "loan-p-4", prompt: "Find the present value to the nearest cent. Use $\\frac{1}{1.05}=0.952381$.", latex: "PV=\\frac{1000}{1.05}", answer: "952.38", difficulty: 2, acceptedAnswers: ["$952.38"], hint: "Divide 1000 by 1.05.", explanation: "$1000\\times0.952381=952.38$." },
+  { id: "loan-p-5", prompt: "Find the present value to the nearest cent. Use $\\frac{1}{1.03}=0.970874$.", latex: "PV=\\frac{1500}{1.03}", answer: "1456.31", difficulty: 2, acceptedAnswers: ["$1456.31", "$1,456.31"], hint: "Divide 1500 by 1.03.", explanation: "$1500\\times0.970874=1456.31$." },
+  // --- D3: PV with a power ---
+  { id: "loan-p-6", prompt: "Find the present value to the nearest cent. Use $\\frac{1}{(1.05)^2}=0.907029$.", latex: "PV=\\frac{5000}{(1.05)^2}", answer: "4535.15", difficulty: 3, acceptedAnswers: ["$4535.15", "$4,535.15"], hint: "Multiply 5000 by the given factor.", explanation: "$5000\\times0.907029=4535.147\\ldots$, so $\\$4535.15$." },
+  { id: "loan-p-7", prompt: "Find the present value to the nearest cent. Use $\\frac{1}{(1.04)^2}=0.924556$.", latex: "PV=\\frac{2000}{(1.04)^2}", answer: "1849.11", difficulty: 3, acceptedAnswers: ["$1849.11", "$1,849.11"], hint: "Multiply 2000 by the factor.", explanation: "$2000\\times0.924556=1849.11$." },
+  { id: "loan-p-8", prompt: "Find the present value to the nearest cent. Use $\\frac{1}{(1.06)^2}=0.889996$.", latex: "PV=\\frac{8000}{(1.06)^2}", answer: "7119.97", difficulty: 3, acceptedAnswers: ["$7119.97", "$7,119.97"], hint: "Multiply 8000 by the factor.", explanation: "$8000\\times0.889996=7119.97$." },
+  { id: "loan-p-9", prompt: "Find the present value to the nearest cent. Use $\\frac{1}{(1.05)^2}=0.907029$.", latex: "PV=\\frac{3000}{(1.05)^2}", answer: "2721.09", difficulty: 3, acceptedAnswers: ["$2721.09", "$2,721.09"], hint: "Multiply 3000 by the factor.", explanation: "$3000\\times0.907029=2721.09$." },
+  // --- D2-D3: one step of a loan ---
+  { id: "loan-p-10", prompt: "Find $L_1$.", latex: "L_0=2000,\\quad L_{n+1}=1.01L_n-150", answer: "1870", difficulty: 2, acceptedAnswers: ["1870.00", "$1870", "$1,870", "$1,870.00"], hint: "Apply interest, then subtract 150.", explanation: "$1.01(2000)-150=1870$." },
+  { id: "loan-p-11", prompt: "Find $L_1$.", latex: "L_0=4000,\\quad L_{n+1}=1.01L_n-300", answer: "3740", difficulty: 3, acceptedAnswers: ["3740.00", "$3740", "$3,740", "$3,740.00"], hint: "Apply interest, then subtract 300.", explanation: "$1.01(4000)-300=3740$." },
+  { id: "loan-p-12", prompt: "Find $L_1$.", latex: "L_0=6000,\\quad L_{n+1}=1.005L_n-350", answer: "5680", difficulty: 3, acceptedAnswers: ["5680.00", "$5680", "$5,680", "$5,680.00"], hint: "Apply interest, then subtract 350.", explanation: "$1.005(6000)-350=5680$." },
+  // --- D3-D4: build / interpret a loan recurrence (MCQ) ---
+  { id: "loan-p-13", prompt: "Choose the loan recurrence with 1% interest and a $500 repayment.", latex: "\\text{Choose one}", answer: "A", difficulty: 3, choices: [{ label: "A", text: "$L_{n+1}=1.01L_n-500$" }, { label: "B", text: "$L_{n+1}=0.99L_n-500$" }, { label: "C", text: "$L_{n+1}=1.01L_n+500$" }, { label: "D", text: "$L_{n+1}=1.5L_n-500$" }], hint: "Interest adds, repayment subtracts.", explanation: "$L_{n+1}=1.01L_n-500$." },
+  { id: "loan-p-14", prompt: "Which recurrence models a loan growing 2% then a $250 repayment?", latex: "\\text{Choose one}", answer: "B", difficulty: 3, choices: [{ label: "A", text: "$L_{n+1}=0.98L_n-250$" }, { label: "B", text: "$L_{n+1}=1.02L_n-250$" }, { label: "C", text: "$L_{n+1}=1.02L_n+250$" }, { label: "D", text: "$L_{n+1}=1.2L_n-250$" }], hint: "Interest adds, repayment subtracts.", explanation: "$L_{n+1}=1.02L_n-250$." },
+  { id: "loan-p-15", prompt: "A loan has monthly repayments. Which interest rate should be used in the recurrence?", latex: "\\text{Choose one}", answer: "B", difficulty: 3, choices: [{ label: "A", text: "The annual rate without adjustment" }, { label: "B", text: "The monthly rate" }, { label: "C", text: "The number of years" }, { label: "D", text: "The total repayment" }], hint: "Match the rate period to the repayment period.", explanation: "Monthly repayments use a monthly rate." },
+  // --- D4: second loan step ---
+  { id: "loan-p-16", prompt: "Given $L_1=3740$, find $L_2$ to the nearest cent.", latex: "L_{n+1}=1.01L_n-300", answer: "3477.40", difficulty: 4, acceptedAnswers: ["3477.4", "$3477.40", "$3,477.40"], hint: "Substitute $L_1=3740$.", explanation: "$1.01(3740)-300=3477.40$." },
+  { id: "loan-p-17", prompt: "Given $L_1=5680$, find $L_2$ to the nearest cent.", latex: "L_{n+1}=1.005L_n-350", answer: "5358.40", difficulty: 4, acceptedAnswers: ["5358.4", "$5358.40", "$5,358.40"], hint: "Substitute $L_1=5680$.", explanation: "$1.005(5680)-350=5358.40$." },
+  { id: "loan-p-18", prompt: "Given $L_1=2860$, find $L_2$ to the nearest cent.", latex: "L_{n+1}=1.02L_n-200", answer: "2717.20", difficulty: 4, acceptedAnswers: ["2717.2", "$2717.20", "$2,717.20"], hint: "Substitute $L_1=2860$.", explanation: "$1.02(2860)-200=2717.20$." },
+  // --- D4: PV with larger power, and direction of balance ---
+  { id: "loan-p-19", prompt: "Find the present value to the nearest cent. Use $\\frac{1}{(1.05)^3}=0.863838$.", latex: "PV=\\frac{10000}{(1.05)^3}", answer: "8638.38", difficulty: 4, acceptedAnswers: ["$8638.38", "$8,638.38"], hint: "Multiply 10000 by the factor.", explanation: "$10000\\times0.863838=8638.38$." },
+  { id: "loan-p-20", prompt: "If $L_0=5000$ and $L_1=5050$, did the loan reduce?", latex: "5000\\to5050", answer: "no", difficulty: 3, acceptedAnswers: ["No", "increased", "not reduced"], hint: "Compare $L_1$ with $L_0$.", explanation: "$5050>5000$, so it did not reduce." },
+  // --- D5: Band-6 multi-step ---
+  { id: "loan-p-21", prompt: "A loan follows $L_{n+1}=1.01L_n-500$ with $L_0=8000$. Find $L_2$ to the nearest cent.", latex: "L_0=8000,\\quad L_{n+1}=1.01L_n-500", answer: "7155.80", difficulty: 5, acceptedAnswers: ["7155.8", "$7155.80", "$7,155.80"], hint: "Compute $L_1$, then $L_2$.", explanation: "$L_1=1.01(8000)-500=7580$; $L_2=1.01(7580)-500=7155.80$." },
+  { id: "loan-p-22", prompt: "A loan follows $L_{n+1}=1.005L_n-800$ with $L_0=12000$. Find $L_2$ to the nearest cent.", latex: "L_0=12000,\\quad L_{n+1}=1.005L_n-800", answer: "10516.30", difficulty: 5, acceptedAnswers: ["10516.3", "$10516.30", "$10,516.30"], hint: "Compute $L_1$, then $L_2$.", explanation: "$L_1=1.005(12000)-800=11260$; $L_2=1.005(11260)-800=10516.30$." },
+  { id: "loan-p-23", prompt: "A loan follows $L_{n+1}=1.01L_n-500$ with $L_0=8000$. How much was the loan reduced over the first 2 months? Use $L_2=7155.80$.", latex: "8000-L_2", answer: "844.20", difficulty: 5, acceptedAnswers: ["$844.20"], hint: "Subtract $L_2$ from $L_0$.", explanation: "$8000-7155.80=844.20$." },
+  { id: "loan-p-24", prompt: "A loan follows $L_{n+1}=1.02L_n-600$ with $L_0=5000$. Find $L_2$ to the nearest cent.", latex: "L_0=5000,\\quad L_{n+1}=1.02L_n-600", answer: "3990", difficulty: 5, acceptedAnswers: ["3990.00", "$3990", "$3,990", "$3,990.00"], hint: "Compute $L_1$, then $L_2$.", explanation: "$L_1=1.02(5000)-600=4500$; $L_2=1.02(4500)-600=3990$." },
+  { id: "loan-p-25", prompt: "Find the present value to the nearest cent. Use $\\frac{1}{(1.08)^4}=0.73503$.", latex: "PV=\\frac{5000}{(1.08)^4}", answer: "3675.15", difficulty: 5, acceptedAnswers: ["$3675.15", "$3,675.15"], hint: "Multiply 5000 by the factor.", explanation: "$5000\\times0.73503=3675.15$." },
+  { id: "loan-p-26", prompt: "An amount of \\(\\$2000\\) is due in 2 years at 5% p.a. Use $\\frac{1}{(1.05)^2}=0.907029$. How much less than \\(\\$2000\\) is its present value, to the nearest cent?", latex: "2000-\\frac{2000}{(1.05)^2}", answer: "185.94", difficulty: 5, acceptedAnswers: ["$185.94"], hint: "Find the present value, then subtract it from $2000.", explanation: "$PV=2000\\times0.907029=1814.06$; difference $=2000-1814.06=185.94$." },
+  { id: "loan-p-27", prompt: "Find the present value to the nearest cent. Use $\\frac{1}{1.04}=0.961538$.", latex: "PV=\\frac{1200}{1.04}", answer: "1153.85", difficulty: 2, acceptedAnswers: ["$1153.85", "$1,153.85"], hint: "Divide 1200 by 1.04.", explanation: "$1200\\times0.961538=1153.85$." },
+  { id: "loan-p-28", prompt: "Find $L_1$.", latex: "L_0=7000,\\quad L_{n+1}=1.01L_n-450", answer: "6620", difficulty: 3, acceptedAnswers: ["6620.00", "$6620", "$6,620", "$6,620.00"], hint: "Apply interest, then subtract 450.", explanation: "$1.01(7000)-450=6620$." },
+  { id: "loan-p-29", prompt: "Find the present value to the nearest cent. Use $\\frac{1}{(1.05)^2}=0.907029$.", latex: "PV=\\frac{6000}{(1.05)^2}", answer: "5442.18", difficulty: 4, acceptedAnswers: ["$5442.18", "$5,442.18"], hint: "Multiply 6000 by the factor.", explanation: "$6000\\times0.907029=5442.17\\ldots$, so $\\$5442.18$." },
+];
+
+presentValueLoanRepaymentsLesson.multiPartPractice = [
+  {
+    id: "loan-mp-1",
+    prompt: "A loan of \\(\\$8000\\) is repaid monthly and modelled by $L_{n+1}=1.01L_n-500$, where $L_n$ is the balance after $n$ months.",
+    latex: "L_0=8000,\\quad L_{n+1}=1.01L_n-500",
+    answer: "7580",
+    hint: "Apply 1% interest then subtract $500 each step, then compare to the starting loan.",
+    explanation:
+      "(a) $L_1=1.01(8000)-500=7580$. (b) $L_2=1.01(7580)-500=7155.80$. (c) reduction $=8000-7155.80=844.20$.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the balance after 1 month.", latex: "1.01(8000)-500", marks: 2, answer: "7580", acceptedAnswers: ["7580.00", "$7580", "$7,580", "$7,580.00"], hint: "Use $L_0=8000$.", explanation: "$1.01(8000)-500=7580$." },
+      { key: "b", label: "(b)", prompt: "Find the balance after 2 months, to the nearest cent.", latex: "1.01(7580)-500", marks: 2, answer: "7155.80", acceptedAnswers: ["7155.8", "$7155.80", "$7,155.80"], hint: "Use the answer to (a).", explanation: "$1.01(7580)-500=7155.80$." },
+      { key: "c", label: "(c)", prompt: "Find the total reduction in the loan over these 2 months, to the nearest cent.", latex: "8000-7155.80", marks: 2, answer: "844.20", acceptedAnswers: ["$844.20"], hint: "Subtract the balance after 2 months from the original loan.", explanation: "$8000-7155.80=844.20$." },
+    ],
+  },
+];
+
+comparingFinancialOptionsLesson.masteryQuizPool = [
+  // --- D1: identify the comparison goal ---
+  { id: "compare-p-1", prompt: "For the best investment, what should be compared?", latex: "\\text{Choose one}", answer: "A", difficulty: 1, choices: [{ label: "A", text: "The largest final value" }, { label: "B", text: "The lowest final value" }, { label: "C", text: "The largest remaining loan balance" }, { label: "D", text: "The interest rate only" }], hint: "An investment is better when it grows to more.", explanation: "The larger final value is better for an investment." },
+  { id: "compare-p-2", prompt: "For a loan borrower, what should be compared?", latex: "\\text{Choose one}", answer: "B", difficulty: 1, choices: [{ label: "A", text: "The largest remaining balance" }, { label: "B", text: "The lowest remaining balance" }, { label: "C", text: "The highest interest rate" }, { label: "D", text: "The largest deposit" }], hint: "A borrower wants to owe less.", explanation: "The lower remaining balance is better for the borrower." },
+  { id: "compare-p-3", prompt: "What must be true before comparing two options?", latex: "\\text{Choose one}", answer: "C", difficulty: 2, choices: [{ label: "A", text: "They must have the same wording" }, { label: "B", text: "They must use different units" }, { label: "C", text: "They must be compared over equivalent time periods" }, { label: "D", text: "They must have the same principal" }], hint: "Compare like with like.", explanation: "Equivalent time periods are needed for a fair comparison." },
+  { id: "compare-p-4", prompt: "A fee is charged at the end of an option. What should you do?", latex: "\\text{Choose one}", answer: "C", difficulty: 2, choices: [{ label: "A", text: "Ignore it" }, { label: "B", text: "Subtract it from both options" }, { label: "C", text: "Include it in that option's final cost" }, { label: "D", text: "Add it to the interest rate" }], hint: "Fees affect that option's total.", explanation: "The fee is included in that option's final cost." },
+  // --- D2-D3: compute one option ---
+  { id: "compare-p-5", prompt: "Calculate the final value. Use $1.05^2=1.1025$.", latex: "A=1000(1.05)^2", answer: "1102.50", difficulty: 2, acceptedAnswers: ["$1102.50", "$1,102.50", "1102.5"], hint: "Multiply 1000 by the power.", explanation: "$1000\\times1.1025=1102.50$." },
+  { id: "compare-p-6", prompt: "Calculate the final value including a \\(\\$20\\) bonus. Use $1.04^2=1.0816$.", latex: "B=1000(1.04)^2+20", answer: "1101.60", difficulty: 3, acceptedAnswers: ["$1101.60", "$1,101.60", "1101.6"], hint: "Add the bonus after the growth.", explanation: "$1000\\times1.0816+20=1101.60$." },
+  { id: "compare-p-7", prompt: "Calculate the final value. Use $1.05^4=1.215506$.", latex: "A=3000(1.05)^4", answer: "3646.52", difficulty: 3, acceptedAnswers: ["$3646.52", "$3,646.52"], hint: "Multiply 3000 by the power.", explanation: "$3000\\times1.215506=3646.518$, so $\\$3646.52$." },
+  { id: "compare-p-8", prompt: "Calculate the final value including a \\(\\$50\\) bonus. Use $1.048^4=1.206272$.", latex: "B=3000(1.048)^4+50", answer: "3668.82", difficulty: 3, acceptedAnswers: ["$3668.82", "$3,668.82"], hint: "Add the bonus after the growth.", explanation: "$3000\\times1.206272+50=3668.82$." },
+  { id: "compare-p-9", prompt: "A \\(\\$30\\) fee is added at the end. Find the final cost. Use $1.04^2=1.0816$.", latex: "500(1.04)^2+30", answer: "570.80", difficulty: 3, acceptedAnswers: ["$570.80", "570.8"], hint: "Add the fee after the growth.", explanation: "$500\\times1.0816+30=570.80$." },
+  // --- D3: compare two finished values ---
+  { id: "compare-p-10", prompt: "Which investment is better?", latex: "A=3646.52,\\quad B=3668.82", answer: "B", difficulty: 3, choices: [{ label: "A", text: "Option A" }, { label: "B", text: "Option B" }, { label: "C", text: "They are equal" }], hint: "Larger final value wins.", explanation: "Option B has the larger value." },
+  { id: "compare-p-11", prompt: "For a loan, which leaves the borrower better off?", latex: "A=4497.50\\text{ owing},\\quad B=4558.24\\text{ owing}", answer: "A", difficulty: 3, choices: [{ label: "A", text: "Option A" }, { label: "B", text: "Option B" }, { label: "C", text: "They are equal" }], hint: "Lower balance is better.", explanation: "Option A leaves a lower balance." },
+  { id: "compare-p-12", prompt: "Plan A costs \\(\\$520\\) and Plan B costs \\(\\$498\\). Which has the lower cost?", latex: "520\\text{ vs }498", answer: "B", difficulty: 2, choices: [{ label: "A", text: "Option A" }, { label: "B", text: "Option B" }, { label: "C", text: "They are equal" }], hint: "Lower cost is the smaller amount.", explanation: "Option B is cheaper." },
+  // --- D4: full two-option investment comparison (MCQ) ---
+  { id: "compare-p-13", prompt: "Investment A: \\(\\$3000\\) at 5% for 2 years. Investment B: \\(\\$3000\\) at 4% for 2 years plus a \\(\\$70\\) bonus. Use $1.05^2=1.1025$ and $1.04^2=1.0816$. Which investment is larger?", latex: "\\text{Choose one}", answer: "B", difficulty: 4, choices: [{ label: "A", text: "Option A" }, { label: "B", text: "Option B" }, { label: "C", text: "They are equal" }], hint: "Compute both, then compare.", explanation: "A $=3307.50$, B $=3314.80$, so B is larger." },
+  { id: "compare-p-14", prompt: "Investment A: \\(\\$2000\\) at 3% for 3 years. Investment B: \\(\\$2000\\) at 2.5% for 3 years plus a \\(\\$40\\) bonus. Use $1.03^3=1.092727$ and $1.025^3=1.076891$. Which is larger?", latex: "\\text{Choose one}", answer: "B", difficulty: 4, choices: [{ label: "A", text: "Option A" }, { label: "B", text: "Option B" }, { label: "C", text: "They are equal" }], hint: "Compute both final values.", explanation: "A $=2185.45$, B $=2193.78$, so B is larger." },
+  { id: "compare-p-15", prompt: "Two cars cost \\(\\$15000\\). Car A depreciates 10% per year, Car B depreciates 15% per year, both for 2 years. Use $0.9^2=0.81$ and $0.85^2=0.7225$. Which keeps the LOWER value?", latex: "\\text{Choose one}", answer: "B", difficulty: 4, choices: [{ label: "A", text: "Option A" }, { label: "B", text: "Option B" }, { label: "C", text: "They are equal" }], hint: "Faster depreciation gives a lower value.", explanation: "A $=12150$, B $=10837.50$, so B is lower." },
+  // --- D4: compute a difference ---
+  { id: "compare-p-16", prompt: "Two options finish at $3668.82 and $3646.52. Find the difference, to the nearest cent.", latex: "3668.82-3646.52", answer: "22.30", difficulty: 4, acceptedAnswers: ["$22.30"], hint: "Subtract the smaller from the larger.", explanation: "$3668.82-3646.52=22.30$." },
+  { id: "compare-p-17", prompt: "Two loan options leave $4558.24 and $4497.50 owing. Find the difference, to the nearest cent.", latex: "4558.24-4497.50", answer: "60.74", difficulty: 4, acceptedAnswers: ["$60.74"], hint: "Subtract the smaller from the larger.", explanation: "$4558.24-4497.50=60.74$." },
+  // --- D3-D4: single loan step in a comparison ---
+  { id: "compare-p-18", prompt: "Find the balance after one month.", latex: "L_0=4000,\\quad L_{n+1}=1.01L_n-250", answer: "3790", difficulty: 3, acceptedAnswers: ["3790.00", "$3790", "$3,790", "$3,790.00"], hint: "Apply interest, then subtract 250.", explanation: "$1.01(4000)-250=3790$." },
+  { id: "compare-p-19", prompt: "For two loan options, A leaves $3250 owing and B leaves $3180 owing. Which is better for the borrower?", latex: "3250\\text{ vs }3180", answer: "B", difficulty: 3, choices: [{ label: "A", text: "Option A" }, { label: "B", text: "Option B" }], hint: "Lower balance is better.", explanation: "Option B leaves less owing." },
+  // --- D5: Band-6 full comparisons ---
+  { id: "compare-p-20", prompt: "Investment A: \\(\\$5000\\) at 3% p.a. for 10 years. Investment B: \\(\\$5000\\) at 2.8% p.a. for 10 years plus a \\(\\$150\\) bonus. Use $1.03^{10}=1.343916$ and $1.028^{10}=1.318048$. Which final value is larger?", latex: "\\text{Choose one}", answer: "B", difficulty: 5, choices: [{ label: "A", text: "Option A" }, { label: "B", text: "Option B" }, { label: "C", text: "They are equal" }], hint: "Compute both, then compare.", explanation: "A $=6719.58$, B $=5000\\times1.318048+150=6740.24$, so B is larger." },
+  { id: "compare-p-21", prompt: "Investment A: \\(\\$5000\\) at 3% p.a. for 10 years. Investment B: \\(\\$5000\\) at 2.8% p.a. for 10 years plus a \\(\\$150\\) bonus. Use $1.03^{10}=1.343916$ and $1.028^{10}=1.318048$. By how much does the better option win, to the nearest cent?", latex: "B-A", answer: "20.66", difficulty: 5, acceptedAnswers: ["$20.66"], hint: "Find both final values, then subtract.", explanation: "A $=6719.58$, B $=6740.24$; difference $=20.66$." },
+  { id: "compare-p-22", prompt: "Two loans of \\(\\$5000\\) run for 2 months. Loan A: $1.01L_n-300$. Loan B: $1.008L_n-260$. Which leaves the lower balance after 2 months?", latex: "\\text{Choose one}", answer: "A", difficulty: 5, choices: [{ label: "A", text: "Option A" }, { label: "B", text: "Option B" }, { label: "C", text: "They are equal" }], hint: "Run two steps of each recurrence.", explanation: "A: $4750\\to4497.50$. B: $4780\\to4558.24$. Option A is lower." },
+  { id: "compare-p-23", prompt: "Two loans of $5000 run for 2 months. A ends at $4497.50, B ends at $4558.24. How much less does the better option leave owing, to the nearest cent?", latex: "4558.24-4497.50", answer: "60.74", difficulty: 5, acceptedAnswers: ["$60.74"], hint: "Subtract the lower balance from the higher.", explanation: "$4558.24-4497.50=60.74$." },
+  { id: "compare-p-24", prompt: "An investment grows \\(\\$3000\\) at 5% p.a. for 4 years; another grows \\(\\$3000\\) at 4.8% p.a. for 4 years plus a \\(\\$50\\) bonus. Use $1.05^4=1.215506$ and $1.048^4=1.206272$. Find the better option's final value, to the nearest cent.", latex: "\\max\\{3000(1.05)^4,\\ 3000(1.048)^4+50\\}", answer: "3668.82", difficulty: 5, acceptedAnswers: ["$3668.82", "$3,668.82"], hint: "Compute both; the larger is the answer.", explanation: "First $=3646.52$, second $=3668.82$; the larger is $\\$3668.82$." },
+  { id: "compare-p-25", prompt: "Loan A leaves $5340.06 owing and loan B leaves $5356.80 owing after 2 months. Which option, A or B, is better for the borrower?", latex: "5340.06\\text{ vs }5356.80", answer: "A", difficulty: 4, choices: [{ label: "A", text: "Option A" }, { label: "B", text: "Option B" }], hint: "Lower balance is better.", explanation: "Option A leaves less owing." },
+  { id: "compare-p-26", prompt: "A $30 fee makes Option A cost $570.80 and Option B (no fee) costs $562.43. Which is cheaper?", latex: "570.80\\text{ vs }562.43", answer: "B", difficulty: 4, choices: [{ label: "A", text: "Option A" }, { label: "B", text: "Option B" }], hint: "Compare the final costs including fees.", explanation: "Option B is cheaper at $562.43$." },
+  { id: "compare-p-27", prompt: "Calculate the final value. Use $1.06^2=1.1236$.", latex: "A=1000(1.06)^2", answer: "1123.60", difficulty: 2, acceptedAnswers: ["$1123.60", "$1,123.60", "1123.6"], hint: "Multiply 1000 by the power.", explanation: "$1000\\times1.1236=1123.60$." },
+  { id: "compare-p-28", prompt: "Calculate the final value including a \\(\\$12\\) bonus. Use $1.055^2=1.113025$.", latex: "B=1000(1.055)^2+12", answer: "1125.03", difficulty: 3, acceptedAnswers: ["$1125.03", "$1,125.03", "1125.025"], hint: "Add the bonus after the growth.", explanation: "$1000\\times1.113025+12=1125.025$, so $\\$1125.03$." },
+  { id: "compare-p-29", prompt: "Investment A finishes at \\(\\$1123.60\\) (6% for 2 years) and Investment B finishes at \\(\\$1125.03\\) (5.5% for 2 years plus a \\(\\$12\\) bonus). Which investment is larger?", latex: "1123.60\\text{ vs }1125.03", answer: "B", difficulty: 5, choices: [{ label: "A", text: "Option A" }, { label: "B", text: "Option B" }, { label: "C", text: "They are equal" }], hint: "Larger final value wins.", explanation: "Option B is larger, by $\\$1.43$." },
+];
+
+comparingFinancialOptionsLesson.multiPartPractice = [
+  {
+    id: "compare-mp-1",
+    prompt: "Two savings options each start with $\\$3000$. Option A pays 5% p.a. for 4 years. Option B pays 4.8% p.a. for 4 years and adds a $\\$50$ bonus at the end. Use $1.05^4=1.215506$ and $1.048^4=1.206272$.",
+    latex: "A=3000(1.05)^4,\\quad B=3000(1.048)^4+50",
+    answer: "3646.52",
+    hint: "Compute each option's final value, then find the difference.",
+    explanation:
+      "(a) $A=3000\\times1.215506=3646.52$. (b) $B=3000\\times1.206272+50=3668.82$. (c) difference $=3668.82-3646.52=22.30$.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the final value of Option A, to the nearest cent.", latex: "3000(1.05)^4", marks: 2, answer: "3646.52", acceptedAnswers: ["$3646.52", "$3,646.52"], hint: "Multiply 3000 by $1.05^4$.", explanation: "$3000\\times1.215506=3646.52$." },
+      { key: "b", label: "(b)", prompt: "Find the final value of Option B, to the nearest cent.", latex: "3000(1.048)^4+50", marks: 2, answer: "3668.82", acceptedAnswers: ["$3668.82", "$3,668.82"], hint: "Add the bonus after the growth.", explanation: "$3000\\times1.206272+50=3668.82$." },
+      { key: "c", label: "(c)", prompt: "Find how much more the better option earns, to the nearest cent.", latex: "3668.82-3646.52", marks: 2, answer: "22.30", acceptedAnswers: ["$22.30"], hint: "Subtract the smaller final value from the larger.", explanation: "$3668.82-3646.52=22.30$." },
+    ],
+  },
+];
+
+mixedFinancialMathematicsExamPracticeLesson.masteryQuizPool = [
+  // --- D1-D2: identify the model ---
+  { id: "mixed-fin-p-1", prompt: "Choose the model type: a car loses 12% of its value each year.", latex: "\\text{Choose one}", answer: "B", difficulty: 1, choices: [{ label: "A", text: "Compound growth" }, { label: "B", text: "Depreciation" }, { label: "C", text: "Future value of an annuity" }, { label: "D", text: "Present value" }], hint: "Value decreases.", explanation: "This is depreciation." },
+  { id: "mixed-fin-p-2", prompt: "Choose the model type: $100 is deposited each month with interest.", latex: "\\text{Choose one}", answer: "C", difficulty: 1, choices: [{ label: "A", text: "One-off compound interest" }, { label: "B", text: "Depreciation" }, { label: "C", text: "Future value of an annuity" }, { label: "D", text: "Present value" }], hint: "Repeated equal deposits.", explanation: "Regular deposits form an annuity." },
+  { id: "mixed-fin-p-3", prompt: "Choose the model type: a single $5000 grows at 4% p.a. for 6 years.", latex: "\\text{Choose one}", answer: "A", difficulty: 1, choices: [{ label: "A", text: "Compound growth" }, { label: "B", text: "Depreciation" }, { label: "C", text: "Annuity" }, { label: "D", text: "Loan repayment" }], hint: "A single amount grows.", explanation: "This is compound growth." },
+  { id: "mixed-fin-p-4", prompt: "Choose the key input that must match monthly loan repayments.", latex: "\\text{Choose one}", answer: "A", difficulty: 2, choices: [{ label: "A", text: "The monthly interest rate" }, { label: "B", text: "The annual rate without adjustment" }, { label: "C", text: "The number of school terms" }, { label: "D", text: "The total repayment only" }], hint: "Match the period.", explanation: "Monthly repayments need a monthly rate." },
+  // --- D2-D3: one-step compound / depreciation ---
+  { id: "mixed-fin-p-5", prompt: "Find the final value. Use $1.05^2=1.1025$.", latex: "A=1000(1.05)^2", answer: "1102.50", difficulty: 2, acceptedAnswers: ["$1102.50", "$1,102.50", "1102.5"], hint: "Compound growth.", explanation: "$1000\\times1.1025=1102.50$." },
+  { id: "mixed-fin-p-6", prompt: "Find the compound amount. Use $1.04^2=1.0816$.", latex: "A=2500(1.04)^2", answer: "2704", difficulty: 3, acceptedAnswers: ["2704.00", "$2704", "$2,704", "$2,704.00"], hint: "Multiply 2500 by the power.", explanation: "$2500\\times1.0816=2704$." },
+  { id: "mixed-fin-p-7", prompt: "Find the depreciated value. Use $0.9^3=0.729$.", latex: "A=2000(0.9)^3", answer: "1458", difficulty: 3, acceptedAnswers: ["1458.00", "$1458", "$1,458", "$1,458.00"], hint: "Decay factor three times.", explanation: "$2000\\times0.729=1458$." },
+  { id: "mixed-fin-p-8", prompt: "Find the depreciated value. Use $0.8^2=0.64$.", latex: "A=12000(0.8)^2", answer: "7680", difficulty: 3, acceptedAnswers: ["7680.00", "$7680", "$7,680", "$7,680.00"], hint: "Decay factor twice.", explanation: "$12000\\times0.64=7680$." },
+  // --- D3: depreciation to the nearest cent ---
+  { id: "mixed-fin-p-9", prompt: "Find the value to the nearest cent. Use $0.85^3=0.614125$.", latex: "A=1800(0.85)^3", answer: "1105.43", difficulty: 4, acceptedAnswers: ["$1105.43", "$1,105.43"], hint: "Multiply, then round.", explanation: "$1800\\times0.614125=1105.425$, so $\\$1105.43$." },
+  // --- D3: one annuity step ---
+  { id: "mixed-fin-p-10", prompt: "Find the future value. Use $\\frac{(1.01)^3-1}{0.01}=3.0301$.", latex: "FV=100\\left(\\frac{(1.01)^3-1}{0.01}\\right)", answer: "303.01", difficulty: 3, acceptedAnswers: ["$303.01"], hint: "Multiply 100 by the bracket.", explanation: "$100\\times3.0301=303.01$." },
+  // --- D3: recurrence steps ---
+  { id: "mixed-fin-p-11", prompt: "Find $B_1$.", latex: "B_0=800,\\quad B_{n+1}=1.03B_n+50", answer: "874", difficulty: 3, acceptedAnswers: ["874.00", "$874", "$874.00"], hint: "Apply interest, then add the deposit.", explanation: "$1.03(800)+50=874$." },
+  { id: "mixed-fin-p-12", prompt: "Find $B_1$.", latex: "B_0=500,\\quad B_{n+1}=1.02B_n+100", answer: "610", difficulty: 2, acceptedAnswers: ["610.00", "$610", "$610.00"], hint: "Multiply by 1.02, then add 100.", explanation: "$1.02(500)+100=610$." },
+  { id: "mixed-fin-p-13", prompt: "Find $L_1$.", latex: "L_0=6000,\\quad L_{n+1}=1.01L_n-400", answer: "5660", difficulty: 3, acceptedAnswers: ["5660.00", "$5660", "$5,660", "$5,660.00"], hint: "Apply interest, then subtract 400.", explanation: "$1.01(6000)-400=5660$." },
+  { id: "mixed-fin-p-14", prompt: "Find $L_1$.", latex: "L_0=3000,\\quad L_{n+1}=1.01L_n-200", answer: "2830", difficulty: 3, acceptedAnswers: ["2830.00", "$2830", "$2,830", "$2,830.00"], hint: "Apply interest, then subtract 200.", explanation: "$1.01(3000)-200=2830$." },
+  // --- D2-D3: rate / present value ---
+  { id: "mixed-fin-p-15", prompt: "Find the present value to the nearest cent. Use $\\frac{1}{(1.05)^2}=0.907029$.", latex: "PV=\\frac{4000}{(1.05)^2}", answer: "3628.12", difficulty: 3, acceptedAnswers: ["$3628.12", "$3,628.12"], hint: "Multiply 4000 by the factor.", explanation: "$4000\\times0.907029=3628.12$." },
+  // --- D3-D4: comparisons ---
+  { id: "mixed-fin-p-16", prompt: "Which option is better for an investment?", latex: "A=2240,\\quad B=2265", answer: "B", difficulty: 3, choices: [{ label: "A", text: "Option A" }, { label: "B", text: "Option B" }], hint: "Larger final value wins.", explanation: "Option B is larger." },
+  { id: "mixed-fin-p-17", prompt: "Which option is better for a loan borrower?", latex: "A=4200\\text{ owing},\\quad B=4050\\text{ owing}", answer: "B", difficulty: 3, choices: [{ label: "A", text: "Option A" }, { label: "B", text: "Option B" }], hint: "Lower balance is better.", explanation: "Option B leaves less owing." },
+  // --- D4: nearest cent + second step ---
+  { id: "mixed-fin-p-18", prompt: "Given $B_1=610$, find $B_2$ to the nearest cent.", latex: "B_{n+1}=1.02B_n+100", answer: "722.20", difficulty: 4, acceptedAnswers: ["722.2", "$722.20"], hint: "Use $B_1=610$.", explanation: "$1.02(610)+100=722.20$." },
+  { id: "mixed-fin-p-19", prompt: "Find the final value to the nearest cent. Use $1.05^3=1.157625$.", latex: "A=5000(1.05)^3", answer: "5788.13", difficulty: 4, acceptedAnswers: ["$5788.13", "$5,788.13"], hint: "Multiply 5000 by the power.", explanation: "$5000\\times1.157625=5788.125$, so $\\$5788.13$." },
+  { id: "mixed-fin-p-20", prompt: "Find the depreciated value. Use $0.9^4=0.6561$.", latex: "A=25000(0.9)^4", answer: "16402.50", difficulty: 4, acceptedAnswers: ["$16402.50", "$16,402.50", "16402.5"], hint: "Decay factor to the fourth power.", explanation: "$25000\\times0.6561=16402.50$." },
+  // --- D5: Band-6 multi-step / model selection ---
+  { id: "mixed-fin-p-21", prompt: "A loan of \\(\\$3000\\) follows $L_{n+1}=1.02L_n-200$. Find $L_2$ to the nearest cent.", latex: "L_0=3000,\\quad L_{n+1}=1.02L_n-200", answer: "2717.20", difficulty: 5, acceptedAnswers: ["2717.2", "$2717.20", "$2,717.20"], hint: "Compute $L_1$, then $L_2$.", explanation: "$L_1=1.02(3000)-200=2860$; $L_2=1.02(2860)-200=2717.20$." },
+  { id: "mixed-fin-p-22", prompt: "\\(\\$4000\\) is invested at 4% p.a. for 4 years. Use $1.04^4=1.169859$. Find the interest earned, to the nearest cent.", latex: "4000(1.04)^4-4000", answer: "679.43", difficulty: 5, acceptedAnswers: ["$679.43"], hint: "Final amount minus the principal.", explanation: "$4000\\times1.169859=4679.43$; interest $=679.43$." },
+  { id: "mixed-fin-p-23", prompt: "A saver deposits \\(\\$200\\) at the end of each month for 6 months at 2% per month. Use $\\frac{(1.02)^6-1}{0.02}=6.308121$. Find the interest earned, to the nearest cent.", latex: "200\\left(\\frac{(1.02)^6-1}{0.02}\\right)-1200", answer: "61.62", difficulty: 5, acceptedAnswers: ["$61.62"], hint: "Future value minus the total deposited.", explanation: "$FV=200\\times6.308121=1261.62$; deposits $=1200$; interest $=61.62$." },
+  { id: "mixed-fin-p-24", prompt: "A car worth \\(\\$25000\\) depreciates 10% per year. Use $0.9^4=0.6561$. Find the value LOST after 4 years, to the nearest cent.", latex: "25000-25000(0.9)^4", answer: "8597.50", difficulty: 5, acceptedAnswers: ["$8597.50", "$8,597.50"], hint: "Original value minus the depreciated value.", explanation: "Value after 4 years $=16402.50$; loss $=25000-16402.50=8597.50$." },
+  { id: "mixed-fin-p-25", prompt: "Investment A: invest \\(\\$5000\\) at 5% p.a. for 3 years. Investment B: invest \\(\\$5000\\) at 4.5% p.a. for 3 years plus a \\(\\$90\\) bonus. Use $1.05^3=1.157625$ and $1.045^3=1.141166$. Which final value is larger?", latex: "\\text{Choose one}", answer: "B", difficulty: 5, choices: [{ label: "A", text: "Option A" }, { label: "B", text: "Option B" }, { label: "C", text: "They are equal" }], hint: "Compute both, then compare.", explanation: "A $=5000\\times1.157625=5788.13$; B $=5000\\times1.141166+90=5795.83$, so B is larger." },
+  { id: "mixed-fin-p-26", prompt: "A saver deposits \\(\\$500\\) at the end of each year for 5 years at 6% p.a. Use $\\frac{(1.06)^5-1}{0.06}=5.637093$. Find the future value, to the nearest cent.", latex: "FV=500\\left(\\frac{(1.06)^5-1}{0.06}\\right)", answer: "2818.55", difficulty: 5, acceptedAnswers: ["$2818.55", "$2,818.55"], hint: "Multiply 500 by the bracket.", explanation: "$500\\times5.637093=2818.55$." },
+  { id: "mixed-fin-p-27", prompt: "Find the final value. Use $1.05^2=1.1025$.", latex: "A=3000(1.05)^2", answer: "3307.50", difficulty: 3, acceptedAnswers: ["$3307.50", "$3,307.50", "3307.5"], hint: "Multiply 3000 by the power.", explanation: "$3000\\times1.1025=3307.50$." },
+  { id: "mixed-fin-p-28", prompt: "Find the depreciated value. Use $0.85^2=0.7225$.", latex: "A=8000(0.85)^2", answer: "5780", difficulty: 3, acceptedAnswers: ["5780.00", "$5780", "$5,780", "$5,780.00"], hint: "Decay factor twice.", explanation: "$8000\\times0.7225=5780$." },
+  { id: "mixed-fin-p-29", prompt: "A saver deposits \\(\\$150\\) at the end of each month for 6 months at 0.5% per month. Use $\\frac{(1.005)^6-1}{0.005}=6.075502$. Find the future value, to the nearest cent.", latex: "FV=150\\left(\\frac{(1.005)^6-1}{0.005}\\right)", answer: "911.33", difficulty: 5, acceptedAnswers: ["$911.33"], hint: "Multiply 150 by the bracket.", explanation: "$150\\times6.075502=911.325$, so $\\$911.33$." },
+];
+
+mixedFinancialMathematicsExamPracticeLesson.multiPartPractice = [
+  {
+    id: "mixed-fin-mp-1",
+    prompt: "A laptop is bought for \\(\\$2000\\). It depreciates by 10% each year. Use $0.9^2=0.81$ and $0.9^3=0.729$.",
+    latex: "A=P(1-r)^n,\\quad P=2000,\\ r=0.10",
+    answer: "1620",
+    hint: "Use $A=2000(0.9)^n$ for each year, then find the value lost.",
+    explanation:
+      "(a) $2000\\times0.81=1620$. (b) $2000\\times0.729=1458$. (c) loss $=2000-1458=542$.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the value after 2 years.", latex: "2000(0.9)^2", marks: 1, answer: "1620", acceptedAnswers: ["1620.00", "$1620", "$1,620", "$1,620.00"], hint: "Multiply 2000 by $0.9^2$.", explanation: "$2000\\times0.81=1620$." },
+      { key: "b", label: "(b)", prompt: "Find the value after 3 years.", latex: "2000(0.9)^3", marks: 2, answer: "1458", acceptedAnswers: ["1458.00", "$1458", "$1,458", "$1,458.00"], hint: "Multiply 2000 by $0.9^3$.", explanation: "$2000\\times0.729=1458$." },
+      { key: "c", label: "(c)", prompt: "Find the total value lost over the first 3 years.", latex: "2000-1458", marks: 2, answer: "542", acceptedAnswers: ["542.00", "$542", "$542.00"], hint: "Subtract the value after 3 years from the purchase price.", explanation: "$2000-1458=542$." },
+    ],
+  },
+];
+
+growthFactorsCompoundInterestDepreciationLesson.masteryQuizPool?.push(
+  {
+    id: "growth-p-29",
+    prompt:
+      "A car worth $24000 depreciates by 12% per year. Use \\(0.88^3=0.681472\\). Find its value after 3 years, to the nearest cent.",
+    latex: "A=24000(0.88)^3",
+    answer: "16355.33",
+    difficulty: 5,
+    acceptedAnswers: ["$16355.33", "$16,355.33"],
+    hint: "A 12% depreciation means a multiplier of $0.88$ each year.",
+    explanation:
+      "\\(24000(0.88)^3=24000(0.681472)=16355.328\\), so the value is $16355.33.",
+  },
+  {
+    id: "growth-p-30",
+    prompt:
+      "An investment grows from $5000 to $5788.13 over 3 years. Use \\(1.05^3=1.157625\\). Which annual growth rate was used?",
+    latex: "5000(1+r)^3=5788.13",
+    answer: "5",
+    difficulty: 5,
+    acceptedAnswers: ["5%", "0.05"],
+    hint: "Compare the multiplier with the given power.",
+    explanation:
+      "\\(5788.13/5000\\approx1.157625=1.05^3\\), so the annual multiplier is \\(1.05\\) and the rate is 5%.",
+  },
+);
+
+recurrenceRelationsFinancialContextsLesson.masteryQuizPool?.push({
+  id: "recurrence-p-30",
+  prompt:
+    "A loan follows $L_{n+1}=1.015L_n-350$ with $L_0=8000$. Find $L_2$ to the nearest cent.",
+  latex: "L_{n+1}=1.015L_n-350",
+  answer: "7402.34",
+  difficulty: 5,
+  acceptedAnswers: ["$7402.34", "$7,402.34"],
+  hint: "Compute $L_1$ first, then apply the recurrence again.",
+  explanation:
+    "$L_1=1.015(8000)-350=7770$. Then $L_2=1.015(7770)-350=7402.34$.",
+});
+
+presentValueLoanRepaymentsLesson.masteryQuizPool?.push({
+  id: "pvloan-p-30",
+  prompt:
+    "A loan balance is $18000 and repayments are $650 per month at 1% monthly interest. Find the balance after two repayments, to the nearest cent.",
+  latex: "L_{n+1}=1.01L_n-650",
+  answer: "16882.80",
+  difficulty: 5,
+  acceptedAnswers: ["$16882.80", "$16,882.80", "16882.8"],
+  hint: "Apply interest then repayment twice.",
+  explanation:
+    "$L_1=1.01(18000)-650=17530$. Then $L_2=1.01(17530)-650=16882.80$.",
+});
+
+comparingFinancialOptionsLesson.masteryQuizPool?.push({
+  id: "compare-p-30",
+  prompt:
+    "Investment A: $4000 at 4% p.a. for 5 years. Investment B: $4000 at 3.8% p.a. for 5 years plus a $60 bonus. Use \\(1.04^5=1.216653\\) and \\(1.038^5=1.205211\\). Which option is larger?",
+  latex: "\\text{Choose one}",
+  answer: "B",
+  difficulty: 5,
+  choices: [
+    { label: "A", text: "Option A" },
+    { label: "B", text: "Option B" },
+    { label: "C", text: "They are equal" },
+    { label: "D", text: "Cannot be compared" },
+  ],
+  hint: "Compute both final values over the same 5-year period.",
+  explanation:
+    "A is $4000(1.216653)=4866.61$. B is $4000(1.205211)+60=4880.84$, so Option B is larger.",
+});
+
+mixedFinancialMathematicsExamPracticeLesson.masteryQuizPool?.push({
+  id: "mixed-fin-p-30",
+  prompt:
+    "A laptop worth $3000 depreciates by 18% for 2 years, then is repaired for $250 added to its value. Use $0.82^2=0.6724$. Find the final value.",
+  latex: "3000(0.82)^2+250",
+  answer: "2267.20",
+  difficulty: 5,
+  acceptedAnswers: ["$2267.20", "$2,267.20", "2267.2"],
+  hint: "Apply depreciation first, then add the repair value.",
+  explanation:
+    "$3000(0.6724)=2017.20$. Adding $250 gives $2267.20$.",
+});
 
 export const financialMathematicsOutline: LessonOutlineItem[] = [
   {

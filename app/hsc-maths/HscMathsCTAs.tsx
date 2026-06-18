@@ -114,18 +114,20 @@ export function FreeLessonCTAButton({
 export function HscDiagnosticCTAButton({
   children,
   className,
+  href = "/diagnostic/select",
 }: {
   children: ReactNode;
   className?: string;
+  href?: string;
 }) {
   return (
     <Link
-      href="/diagnostic/select"
+      href={href}
       onClick={() => {
         preserveMarketingParams();
         clientTrackEvent("diagnostic_cta_clicked", {
           source: "hsc-maths",
-          destination: "/diagnostic/select",
+          destination: href,
           ...getMarketingParamsFromUrl(),
         });
       }}

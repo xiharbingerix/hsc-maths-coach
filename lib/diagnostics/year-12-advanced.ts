@@ -37,326 +37,493 @@ export const diagnosticData: DiagnosticData = {
   ],
 
   questions: [
-    // ── Functions and Graphing Techniques (3 questions) ───────────────────────
     {
-      id: "y12adv-f1",
-      unitSlug: "functions-graphing-techniques",
-      prompt: "What is the domain of $f(x) = \\sqrt{4 - x}$?",
-      latex: "f(x)=\\sqrt{4-x}",
-      choices: [
-        { label: "A", text: "$x \\leq 4$" },
-        { label: "B", text: "$x \\geq 4$" },
-        { label: "C", text: "$x < 4$" },
-        { label: "D", text: "All real $x$" },
-      ],
-      correctAnswer: "A",
-      explanation:
-        "The expression under the square root must be non-negative: $4 - x \\geq 0 \\Rightarrow x \\leq 4$. Domain is $(-\\infty, 4]$.",
-    },
-    {
-      id: "y12adv-f2",
+      id: "y12adv-rich-1",
       unitSlug: "functions-graphing-techniques",
       prompt:
-        "If $f(x) = 2x + 1$ and $g(x) = x^2$, find $f(g(3))$.",
-      latex: "f(x)=2x+1, \\quad g(x)=x^2",
-      choices: [
-        { label: "A", text: "$7$" },
-        { label: "B", text: "$19$" },
-        { label: "C", text: "$13$" },
-        { label: "D", text: "$49$" },
-      ],
-      correctAnswer: "B",
+        "A ball is launched from a platform. Its height (metres) after $t$ seconds is $h(t)=-5t^2+20t+1$.",
       explanation:
-        "$g(3) = 3^2 = 9$, then $f(9) = 2(9) + 1 = 19$.",
-    },
-    {
-      id: "y12adv-f3",
-      unitSlug: "functions-graphing-techniques",
-      prompt:
-        "The graph $y = f(x)$ is shifted $2$ units right and $3$ units up. The new equation is:",
-      choices: [
-        { label: "A", text: "$y = f(x - 2) + 3$" },
-        { label: "B", text: "$y = f(x + 2) + 3$" },
-        { label: "C", text: "$y = f(x - 2) - 3$" },
-        { label: "D", text: "$y = f(x + 2) - 3$" },
-      ],
-      correctAnswer: "A",
-      explanation:
-        "Shifting right by $2$ replaces $x$ with $x - 2$ inside the function. Shifting up by $3$ adds $3$ outside. Result: $y = f(x - 2) + 3$.",
-    },
-
-    // ── Trigonometric Functions and Graphs (3 questions) ─────────────────────
-    {
-      id: "y12adv-t1",
-      unitSlug: "trigonometric-functions-graphs",
-      prompt: "What is the period of $y = \\sin(3x)$?",
-      latex: "y=\\sin(3x)",
-      choices: [
-        { label: "A", text: "$\\dfrac{\\pi}{3}$" },
-        { label: "B", text: "$\\dfrac{2\\pi}{3}$" },
-        { label: "C", text: "$3\\pi$" },
-        { label: "D", text: "$6\\pi$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "The period of $y = \\sin(nx)$ is $\\dfrac{2\\pi}{n}$. With $n = 3$, period $= \\dfrac{2\\pi}{3}$.",
-    },
-    {
-      id: "y12adv-t2",
-      unitSlug: "trigonometric-functions-graphs",
-      prompt: "The exact value of $\\cos\\left(\\dfrac{\\pi}{3}\\right)$ is:",
-      latex: "\\cos\\!\\left(\\frac{\\pi}{3}\\right)",
-      choices: [
-        { label: "A", text: "$\\dfrac{\\sqrt{3}}{2}$" },
-        { label: "B", text: "$\\dfrac{1}{2}$" },
-        { label: "C", text: "$\\dfrac{\\sqrt{2}}{2}$" },
-        { label: "D", text: "$1$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "$\\cos\\!\\left(\\dfrac{\\pi}{3}\\right) = \\cos(60^\\circ) = \\dfrac{1}{2}$.",
-    },
-    {
-      id: "y12adv-t3",
-      unitSlug: "trigonometric-functions-graphs",
-      prompt:
-        "Solve $2\\sin x - 1 = 0$ for $x \\in [0,\\,2\\pi]$. The solutions are:",
-      latex: "2\\sin x - 1 = 0, \\quad x \\in [0,\\,2\\pi]",
-      choices: [
-        { label: "A", text: "$x = \\dfrac{\\pi}{6}$ only" },
-        { label: "B", text: "$x = \\dfrac{\\pi}{6}$ and $x = \\dfrac{5\\pi}{6}$" },
-        { label: "C", text: "$x = \\dfrac{\\pi}{6}$ and $x = \\dfrac{11\\pi}{6}$" },
-        { label: "D", text: "$x = \\dfrac{\\pi}{3}$ and $x = \\dfrac{2\\pi}{3}$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "$\\sin x = \\dfrac{1}{2}$. Sine is positive in the first and second quadrants: $x = \\dfrac{\\pi}{6}$ and $x = \\pi - \\dfrac{\\pi}{6} = \\dfrac{5\\pi}{6}$.",
-    },
-
-    // ── Differential Calculus (4 questions) ───────────────────────────────────
-    {
-      id: "y12adv-dc1",
-      unitSlug: "differential-calculus",
-      prompt: "Find $f'(x)$ for $f(x) = 4x^3 - 3x^2 + 2x - 7$.",
-      latex: "f(x)=4x^3-3x^2+2x-7",
-      choices: [
-        { label: "A", text: "$12x^2 - 6x + 2$" },
-        { label: "B", text: "$12x^2 - 3x + 2$" },
-        { label: "C", text: "$12x^3 - 6x + 2$" },
-        { label: "D", text: "$4x^2 - 6x + 2$" },
-      ],
-      correctAnswer: "A",
-      explanation:
-        "Differentiating term by term: $4x^3 \\to 12x^2$, $-3x^2 \\to -6x$, $2x \\to 2$, $-7 \\to 0$. So $f'(x) = 12x^2 - 6x + 2$.",
-    },
-    {
-      id: "y12adv-dc2",
-      unitSlug: "differential-calculus",
-      prompt:
-        "The $x$-value of the stationary point of $y = x^2 - 4x + 3$ is:",
-      latex: "y=x^2-4x+3",
-      choices: [
-        { label: "A", text: "$x = -2$" },
-        { label: "B", text: "$x = 2$" },
-        { label: "C", text: "$x = 4$" },
-        { label: "D", text: "$x = 1$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "$\\dfrac{dy}{dx} = 2x - 4 = 0 \\Rightarrow x = 2$.",
-    },
-    {
-      id: "y12adv-dc3",
-      unitSlug: "differential-calculus",
-      prompt: "The gradient of the tangent to $y = x^3$ at $x = 2$ is:",
-      latex: "y=x^3, \\quad x=2",
-      choices: [
-        { label: "A", text: "$6$" },
-        { label: "B", text: "$8$" },
-        { label: "C", text: "$12$" },
-        { label: "D", text: "$24$" },
-      ],
-      correctAnswer: "C",
-      explanation:
-        "$\\dfrac{dy}{dx} = 3x^2$. At $x = 2$: $3(2)^2 = 12$.",
-    },
-    {
-      id: "y12adv-dc4",
-      unitSlug: "differential-calculus",
-      prompt:
-        "A particle has displacement $s(t) = t^2 - 6t + 5$. When is its velocity zero?",
-      latex: "s(t)=t^2-6t+5",
-      choices: [
-        { label: "A", text: "$t = 2$" },
-        { label: "B", text: "$t = 3$" },
-        { label: "C", text: "$t = 5$" },
-        { label: "D", text: "$t = 6$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "$v(t) = s'(t) = 2t - 6$. Setting $v(t) = 0$: $2t - 6 = 0 \\Rightarrow t = 3$.",
-    },
-
-    // ── Integral Calculus (4 questions) ───────────────────────────────────────
-    {
-      id: "y12adv-ic1",
-      unitSlug: "integral-calculus",
-      prompt: "$\\displaystyle\\int (6x^2 - 4x + 3)\\,dx =$",
-      latex: "\\int(6x^2-4x+3)\\,dx",
-      choices: [
-        { label: "A", text: "$2x^3 - 2x^2 + 3x + C$" },
-        { label: "B", text: "$12x - 4 + C$" },
-        { label: "C", text: "$2x^3 - 4x^2 + 3x + C$" },
-        { label: "D", text: "$6x^3 - 4x^2 + 3x + C$" },
-      ],
-      correctAnswer: "A",
-      explanation:
-        "$\\int 6x^2\\,dx = 2x^3$, $\\int{-4x}\\,dx = -2x^2$, $\\int 3\\,dx = 3x$. Result: $2x^3 - 2x^2 + 3x + C$.",
-    },
-    {
-      id: "y12adv-ic2",
-      unitSlug: "integral-calculus",
-      prompt: "Evaluate $\\displaystyle\\int_1^3 2x\\,dx$.",
-      latex: "\\int_1^3 2x\\,dx",
-      choices: [
-        { label: "A", text: "$4$" },
-        { label: "B", text: "$6$" },
-        { label: "C", text: "$8$" },
-        { label: "D", text: "$12$" },
-      ],
-      correctAnswer: "C",
-      explanation:
-        "$\\bigl[x^2\\bigr]_1^3 = 3^2 - 1^2 = 9 - 1 = 8$.",
-    },
-    {
-      id: "y12adv-ic3",
-      unitSlug: "integral-calculus",
-      prompt:
-        "The area bounded by $y = x^2$, the $x$-axis, and $x = 0$ to $x = 2$ is:",
-      latex: "\\int_0^2 x^2\\,dx",
-      choices: [
-        { label: "A", text: "$2$" },
-        { label: "B", text: "$\\dfrac{4}{3}$" },
-        { label: "C", text: "$\\dfrac{8}{3}$" },
-        { label: "D", text: "$4$" },
-      ],
-      correctAnswer: "C",
-      explanation:
-        "$\\left[\\dfrac{x^3}{3}\\right]_0^2 = \\dfrac{8}{3} - 0 = \\dfrac{8}{3}$.",
-    },
-    {
-      id: "y12adv-ic4",
-      unitSlug: "integral-calculus",
-      prompt: "If $F'(x) = 4x + 1$, then $F(x)$ is:",
-      latex: "F'(x)=4x+1",
-      choices: [
-        { label: "A", text: "$4x^2 + x + C$" },
-        { label: "B", text: "$2x^2 + x + C$" },
-        { label: "C", text: "$4x + C$" },
-        { label: "D", text: "$2x^2 + C$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "$\\int (4x + 1)\\,dx = 2x^2 + x + C$.",
-    },
-
-    // ── Sequences, Series and Financial Mathematics (3 questions) ─────────────
-    {
-      id: "y12adv-fm1",
-      unitSlug: "sequences-series-financial-maths",
-      prompt:
-        "Using $A = P(1 + r)^n$, find the value of $2000 invested at 5\\% p.a. compounded annually for $3$ years.",
-      latex: "A = 2000(1.05)^3",
-      choices: [
-        { label: "A", text: "$2200.00" },
-        { label: "B", text: "$2300.00" },
-        { label: "C", text: "$2315.25" },
-        { label: "D", text: "$2420.50" },
-      ],
-      correctAnswer: "C",
-      explanation:
-        "$A = 2000 \\times (1.05)^3 = 2000 \\times 1.157625 = \\$2315.25$.",
-    },
-    {
-      id: "y12adv-fm2",
-      unitSlug: "sequences-series-financial-maths",
-      prompt:
-        "The present value of an annuity with regular payment $R$, interest rate $r$ per period, and $n$ periods is:",
-      choices: [
-        { label: "A", text: "$PV = R \\cdot \\dfrac{1-(1+r)^{-n}}{r}$" },
-        { label: "B", text: "$PV = R \\cdot \\dfrac{(1+r)^n - 1}{r}$" },
-        { label: "C", text: "$PV = R \\cdot r \\cdot (1+r)^n$" },
-        { label: "D", text: "$PV = \\dfrac{R}{(1+r)^n}$" },
-      ],
-      correctAnswer: "A",
-      explanation:
-        "The present value of an annuity formula is $PV = R \\cdot \\dfrac{1-(1+r)^{-n}}{r}$, which discounts each future payment back to the present.",
-    },
-    {
-      id: "y12adv-fm3",
-      unitSlug: "sequences-series-financial-maths",
-      prompt:
-        "An arithmetic sequence has first term $a = 5$ and common difference $d = 3$. The $10$th term $T_{10}$ is:",
-      latex: "T_n = a + (n-1)d",
-      choices: [
-        { label: "A", text: "$30$" },
-        { label: "B", text: "$32$" },
-        { label: "C", text: "$35$" },
-        { label: "D", text: "$38$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "$T_{10} = 5 + (10 - 1) \\times 3 = 5 + 27 = 32$.",
-    },
-
-    // ── Statistical Analysis (3 questions) ────────────────────────────────────
-    {
-      id: "y12adv-sa1",
-      unitSlug: "statistical-analysis",
-      prompt:
-        "In a normal distribution, approximately what percentage of data lies within $1$ standard deviation of the mean?",
-      choices: [
-        { label: "A", text: "$50\\%$" },
-        { label: "B", text: "$68\\%$" },
-        { label: "C", text: "$95\\%$" },
-        { label: "D", text: "$99.7\\%$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "By the empirical rule: approximately $68\\%$ within $1\\sigma$, $95\\%$ within $2\\sigma$, and $99.7\\%$ within $3\\sigma$.",
-    },
-    {
-      id: "y12adv-sa2",
-      unitSlug: "statistical-analysis",
-      prompt:
-        "A score of $72$ comes from a distribution with mean $\\mu = 60$ and standard deviation $\\sigma = 8$. The $z$-score is:",
-      latex: "z = \\dfrac{x - \\mu}{\\sigma}",
-      choices: [
-        { label: "A", text: "$z = 0.8$" },
-        { label: "B", text: "$z = 1.0$" },
-        { label: "C", text: "$z = 1.5$" },
-        { label: "D", text: "$z = 2.0$" },
-      ],
-      correctAnswer: "C",
-      explanation:
-        "$z = \\dfrac{72 - 60}{8} = \\dfrac{12}{8} = 1.5$.",
-    },
-    {
-      id: "y12adv-sa3",
-      unitSlug: "statistical-analysis",
-      prompt: "A $95\\%$ confidence interval for the population mean means:",
-      choices: [
-        { label: "A", text: "$95\\%$ of the data lies within the interval" },
+        "This item links quadratic modelling, gradient ideas and interpretation of physical constraints.",
+      questionParts: [
         {
-          label: "B",
-          text: "In repeated sampling, $95\\%$ of such intervals would contain the true population mean",
+          key: "a",
+          label: "(a)",
+          prompt: "The ball reaches its maximum height at which time?",
+          choices: [
+            { label: "A", text: "$t=1$" },
+            { label: "B", text: "$t=2$" },
+            { label: "C", text: "$t=3$" },
+            { label: "D", text: "$t=4$" },
+          ],
+          correctAnswer: "B",
+          hint: "Use the vertex time $t=-\\dfrac{b}{2a}$ for $at^2+bt+c$.",
+          explanation:
+            "Here $a=-5$ and $b=20$, so $t=-\\dfrac{20}{2(-5)}=2$ seconds.",
+          assessedUnitSlug: "functions-graphing-techniques",
         },
-        { label: "C", text: "The sample mean is definitely within the interval" },
-        { label: "D", text: "$95\\%$ of samples will be identical" },
+        {
+          key: "b",
+          label: "(b)",
+          prompt:
+            "What is the maximum height reached by the ball?",
+          choices: [
+            { label: "A", text: "$11$ m" },
+            { label: "B", text: "$16$ m" },
+            { label: "C", text: "$21$ m" },
+            { label: "D", text: "$26$ m" },
+          ],
+          correctAnswer: "C",
+          hint: "Substitute the time from part (a) into $h(t)$.",
+          explanation:
+            "$h(2)=-5(4)+20(2)+1=-20+40+1=21$ metres.",
+          assessedUnitSlug: "functions-graphing-techniques",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt:
+            "At what time is the instantaneous velocity zero?",
+          choices: [
+            { label: "A", text: "$t=1$" },
+            { label: "B", text: "$t=2$" },
+            { label: "C", text: "$t=2.5$" },
+            { label: "D", text: "$t=4$" },
+          ],
+          correctAnswer: "B",
+          hint: "Differentiate height to get velocity and set it to zero.",
+          explanation:
+            "$v(t)=h'(t)=-10t+20$. Solve $-10t+20=0$ to get $t=2$.",
+          assessedUnitSlug: "differential-calculus",
+        },
       ],
-      correctAnswer: "B",
+    },
+    {
+      id: "y12adv-rich-2",
+      unitSlug: "trigonometric-functions-graphs",
+      prompt:
+        "A tidal model is $T(t)=2\\sin\\left(t-\\dfrac{\\pi}{6}\\right)+1$ for $0\\le t\\le2\\pi$.",
       explanation:
-        "A $95\\%$ CI means that if the procedure were repeated many times, $95\\%$ of the constructed intervals would contain the true population parameter.",
+        "This item checks trig graph features, solving equations and derivative transfer.",
+      questionParts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "What is the period of $T(t)$?",
+          choices: [
+            { label: "A", text: "$\\dfrac{\\pi}{2}$" },
+            { label: "B", text: "$\\pi$" },
+            { label: "C", text: "$2\\pi$" },
+            { label: "D", text: "$4\\pi$" },
+          ],
+          correctAnswer: "C",
+          hint: "A horizontal shift does not change period for sine.",
+          explanation:
+            "The coefficient of $t$ is $1$, so the period remains $2\\pi$.",
+          assessedUnitSlug: "trigonometric-functions-graphs",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt:
+            "How many solutions does $T(t)=1$ have in $[0,2\\pi]$?",
+          choices: [
+            { label: "A", text: "0" },
+            { label: "B", text: "1" },
+            { label: "C", text: "2" },
+            { label: "D", text: "3" },
+          ],
+          correctAnswer: "C",
+          hint:
+            "Set $2\\sin(t-\\pi/6)+1=1$ and solve for one full cycle.",
+          explanation:
+            "Equation becomes $\\sin(t-\\pi/6)=0$. Over one full cycle there are two zeros, so there are 2 solutions.",
+          assessedUnitSlug: "trigonometric-functions-graphs",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt:
+            "What is $T'(t)$ evaluated at $t=\\dfrac{2\\pi}{3}$?",
+          choices: [
+            { label: "A", text: "$-1$" },
+            { label: "B", text: "$0$" },
+            { label: "C", text: "$1$" },
+            { label: "D", text: "$2$" },
+          ],
+          correctAnswer: "B",
+          hint: "Differentiate then substitute $t=2\\pi/3$.",
+          explanation:
+            "$T'(t)=2\\cos(t-\\pi/6)$. At $t=2\\pi/3$, the angle is $\\pi/2$, so $T'(t)=2\\cos(\\pi/2)=0$.",
+          assessedUnitSlug: "differential-calculus",
+        },
+      ],
+    },
+    {
+      id: "y12adv-rich-3",
+      unitSlug: "differential-calculus",
+      prompt:
+        "A function has derivative $f'(x)=3x^2-6x$ and satisfies $f(0)=4$.",
+      explanation:
+        "This item connects antidifferentiation, stationary points and area from a derivative graph.",
+      questionParts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt: "Which formula is correct for $f(x)$?",
+          choices: [
+            { label: "A", text: "$f(x)=x^3-3x^2+4$" },
+            { label: "B", text: "$f(x)=x^3-3x^2$" },
+            { label: "C", text: "$f(x)=3x^2-6x+4$" },
+            { label: "D", text: "$f(x)=x^3-6x+4$" },
+          ],
+          correctAnswer: "A",
+          hint: "Integrate $f'(x)$ then use $f(0)=4$.",
+          explanation:
+            "$f(x)=\\int(3x^2-6x)dx=x^3-3x^2+C$. Since $f(0)=4$, $C=4$.",
+          assessedUnitSlug: "integral-calculus",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt:
+            "How many stationary points does $f$ have?",
+          choices: [
+            { label: "A", text: "0" },
+            { label: "B", text: "1" },
+            { label: "C", text: "2" },
+            { label: "D", text: "3" },
+          ],
+          correctAnswer: "C",
+          hint: "Solve $f'(x)=0$.",
+          explanation:
+            "$3x^2-6x=3x(x-2)=0$, so $x=0$ and $x=2$. Two stationary points.",
+          assessedUnitSlug: "differential-calculus",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt:
+            "What is $\\int_0^2 f'(x)\\,dx$?",
+          choices: [
+            { label: "A", text: "$-4$" },
+            { label: "B", text: "$0$" },
+            { label: "C", text: "$4$" },
+            { label: "D", text: "$8$" },
+          ],
+          correctAnswer: "A",
+          hint: "Use an antiderivative or $f(2)-f(0)$.",
+          explanation:
+            "$\\int_0^2(3x^2-6x)dx=[x^3-3x^2]_0^2=(8-12)-0=-4$.",
+          assessedUnitSlug: "integral-calculus",
+        },
+      ],
+    },
+    {
+      id: "y12adv-rich-4",
+      unitSlug: "integral-calculus",
+      prompt:
+        "Consider $g(x)=x^2-4x+3$ and the interval $[1,3]$.",
+      explanation:
+        "This item checks graph structure first, then area and average value reasoning.",
+      questionParts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt:
+            "Which statement about intercepts is true?",
+          choices: [
+            { label: "A", text: "No real x-intercepts" },
+            { label: "B", text: "One repeated x-intercept at $x=2$" },
+            { label: "C", text: "x-intercepts at $x=1$ and $x=3$" },
+            { label: "D", text: "x-intercepts at $x=-1$ and $x=3$" },
+          ],
+          correctAnswer: "C",
+          hint: "Factor $x^2-4x+3$.",
+          explanation:
+            "$x^2-4x+3=(x-1)(x-3)$, so intercepts are $x=1$ and $x=3$.",
+          assessedUnitSlug: "functions-graphing-techniques",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt:
+            "The exact area between the curve and x-axis on $[1,3]$ is:",
+          choices: [
+            { label: "A", text: "$\\dfrac{2}{3}$" },
+            { label: "B", text: "$\\dfrac{4}{3}$" },
+            { label: "C", text: "$2$" },
+            { label: "D", text: "$\\dfrac{8}{3}$" },
+          ],
+          correctAnswer: "B",
+          hint:
+            "Function is non-positive on this interval, so take absolute value of the signed integral.",
+          explanation:
+            "$\\int_1^3 g(x)dx=[x^3/3-2x^2+3x]_1^3=-4/3$. Area is $4/3$.",
+          assessedUnitSlug: "integral-calculus",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt:
+            "What is the average value of $g(x)$ on $[1,3]$?",
+          choices: [
+            { label: "A", text: "$-\\dfrac{2}{3}$" },
+            { label: "B", text: "$-\\dfrac{1}{3}$" },
+            { label: "C", text: "$\\dfrac{1}{3}$" },
+            { label: "D", text: "$\\dfrac{2}{3}$" },
+          ],
+          correctAnswer: "A",
+          hint: "Average value is $\\dfrac{1}{b-a}\\int_a^b g(x)dx$.",
+          explanation:
+            "Average value $=\\dfrac{1}{2}(-4/3)=-2/3$.",
+          assessedUnitSlug: "integral-calculus",
+        },
+      ],
+    },
+    {
+      id: "y12adv-rich-5",
+      unitSlug: "sequences-series-financial-maths",
+      prompt:
+        "A debt starts at $B_0=10000$ dollars and grows by 6% per year before a payment of $2500$ is made at year-end.",
+      explanation:
+        "This item tests recurrence interpretation, one-step evaluation and long-term trend.",
+      questionParts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt:
+            "Which recurrence models the balance?",
+          choices: [
+            { label: "A", text: "$B_{n+1}=1.06B_n+2500$" },
+            { label: "B", text: "$B_{n+1}=1.06(B_n-2500)$" },
+            { label: "C", text: "$B_{n+1}=1.06B_n-2500$" },
+            { label: "D", text: "$B_{n+1}=B_n-2500$" },
+          ],
+          correctAnswer: "C",
+          hint: "Interest first, payment second.",
+          explanation:
+            "Balance increases to $1.06B_n$, then payment subtracts $2500$.",
+          assessedUnitSlug: "sequences-series-financial-maths",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt:
+            "What is $B_1$?",
+          choices: [
+            { label: "A", text: "$7800$" },
+            { label: "B", text: "$8100$" },
+            { label: "C", text: "$8600$" },
+            { label: "D", text: "$10600$" },
+          ],
+          correctAnswer: "B",
+          hint: "Substitute $B_0=10000$ into the recurrence.",
+          explanation:
+            "$B_1=1.06(10000)-2500=10600-2500=8100$.",
+          assessedUnitSlug: "sequences-series-financial-maths",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt:
+            "If this pattern continues, the balance will eventually:",
+          choices: [
+            { label: "A", text: "Grow without bound" },
+            { label: "B", text: "Approach $2500$" },
+            { label: "C", text: "Reach $0$ then stay non-positive" },
+            { label: "D", text: "Oscillate forever" },
+          ],
+          correctAnswer: "C",
+          hint:
+            "Compare yearly payment with yearly interest when the balance is moderate.",
+          explanation:
+            "The fixed payment is large enough to reduce balance over time, so debt is eventually cleared.",
+          assessedUnitSlug: "sequences-series-financial-maths",
+        },
+      ],
+    },
+    {
+      id: "y12adv-rich-6",
+      unitSlug: "sequences-series-financial-maths",
+      prompt:
+        "Two savings plans start with $5000$. Plan A compounds at 4% annually: $A_n=5000(1.04)^n$. Plan B adds simple interest $250$ each year: $B_n=5000+250n$.",
+      explanation:
+        "This item tests arithmetic vs geometric growth and comparison of models.",
+      questionParts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt:
+            "Which classification is correct?",
+          choices: [
+            { label: "A", text: "Both arithmetic" },
+            { label: "B", text: "Both geometric" },
+            { label: "C", text: "A geometric, B arithmetic" },
+            { label: "D", text: "A arithmetic, B geometric" },
+          ],
+          correctAnswer: "C",
+          hint: "Look for multiply-by-constant versus add-constant patterns.",
+          explanation:
+            "$A_n$ multiplies by $1.04$ each step (geometric). $B_n$ adds $250$ each step (arithmetic).",
+          assessedUnitSlug: "sequences-series-financial-maths",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt:
+            "After 5 years, which statement is true?",
+          choices: [
+            { label: "A", text: "$A_5<B_5$ by about $100$" },
+            { label: "B", text: "$A_5>B_5$ by about $100$" },
+            { label: "C", text: "$A_5=B_5$" },
+            { label: "D", text: "$A_5>B_5$ by about $500$" },
+          ],
+          correctAnswer: "A",
+          hint: "Estimate $1.04^5\\approx1.21665$.",
+          explanation:
+            "$A_5\\approx5000(1.21665)=6083.25$ and $B_5=6250$, so $A_5<B_5$ by about $167$.",
+          assessedUnitSlug: "sequences-series-financial-maths",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt:
+            "For large $n$, which plan eventually grows faster each year?",
+          choices: [
+            { label: "A", text: "Plan A" },
+            { label: "B", text: "Plan B" },
+            { label: "C", text: "Both same rate" },
+            { label: "D", text: "Cannot be determined" },
+          ],
+          correctAnswer: "A",
+          hint: "Exponential growth eventually beats linear growth.",
+          explanation:
+            "Plan A is exponential while Plan B is linear, so Plan A eventually has larger yearly increases.",
+          assessedUnitSlug: "functions-graphing-techniques",
+        },
+      ],
+    },
+    {
+      id: "y12adv-rich-7",
+      unitSlug: "statistical-analysis",
+      prompt:
+        "Test scores are normally distributed with mean $70$ and standard deviation $4$.",
+      explanation:
+        "This item checks z-score fluency and transfer to sampling distributions.",
+      questionParts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt:
+            "For a score of $78$, what is the z-score?",
+          choices: [
+            { label: "A", text: "$1$" },
+            { label: "B", text: "$1.5$" },
+            { label: "C", text: "$2$" },
+            { label: "D", text: "$2.5$" },
+          ],
+          correctAnswer: "C",
+          hint: "Use $z=\\dfrac{x-\\mu}{\\sigma}$.",
+          explanation:
+            "$z=\\dfrac{78-70}{4}=2$.",
+          assessedUnitSlug: "statistical-analysis",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt:
+            "A z-score of 2 is approximately which percentile?",
+          choices: [
+            { label: "A", text: "50th" },
+            { label: "B", text: "84th" },
+            { label: "C", text: "95th to 98th" },
+            { label: "D", text: "99.9th" },
+          ],
+          correctAnswer: "C",
+          hint: "Recall common normal table values near $z=2$.",
+          explanation:
+            "For $z=2$, cumulative probability is about 0.977, so around the 98th percentile.",
+          assessedUnitSlug: "statistical-analysis",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt:
+            "If sample size is $n=16$, what is the standard deviation of the sample mean?",
+          choices: [
+            { label: "A", text: "$4$" },
+            { label: "B", text: "$2$" },
+            { label: "C", text: "$1$" },
+            { label: "D", text: "$0.5$" },
+          ],
+          correctAnswer: "C",
+          hint: "Use $\\sigma_{\\bar{x}}=\\dfrac{\\sigma}{\\sqrt{n}}$.",
+          explanation:
+            "$\\sigma_{\\bar{x}}=\\dfrac{4}{\\sqrt{16}}=\\dfrac{4}{4}=1$.",
+          assessedUnitSlug: "statistical-analysis",
+        },
+      ],
+    },
+    {
+      id: "y12adv-rich-8",
+      unitSlug: "differential-calculus",
+      prompt:
+        "A business has revenue $R(x)=12x$ and cost $C(x)=x^2-18x+90$ (in hundreds of dollars), where $x$ is units sold.",
+      explanation:
+        "This item checks profit modelling, optimisation and interpretation in context.",
+      questionParts: [
+        {
+          key: "a",
+          label: "(a)",
+          prompt:
+            "Which expression gives profit $P(x)$?",
+          choices: [
+            { label: "A", text: "$x^2-30x+90$" },
+            { label: "B", text: "$-x^2+30x-90$" },
+            { label: "C", text: "$-x^2-6x+90$" },
+            { label: "D", text: "$x^2+30x-90$" },
+          ],
+          correctAnswer: "B",
+          hint: "Profit is revenue minus cost.",
+          explanation:
+            "$P(x)=R(x)-C(x)=12x-(x^2-18x+90)=-x^2+30x-90$.",
+          assessedUnitSlug: "functions-graphing-techniques",
+        },
+        {
+          key: "b",
+          label: "(b)",
+          prompt:
+            "At what $x$ is profit maximised?",
+          choices: [
+            { label: "A", text: "$x=10$" },
+            { label: "B", text: "$x=12$" },
+            { label: "C", text: "$x=15$" },
+            { label: "D", text: "$x=30$" },
+          ],
+          correctAnswer: "C",
+          hint: "For a downward parabola, maximum at vertex or where $P'(x)=0$.",
+          explanation:
+            "$P'(x)=-2x+30=0$ gives $x=15$.",
+          assessedUnitSlug: "differential-calculus",
+        },
+        {
+          key: "c",
+          label: "(c)",
+          prompt:
+            "What is the maximum profit in dollars?",
+          choices: [
+            { label: "A", text: "$13,500$" },
+            { label: "B", text: "$13,500,000$" },
+            { label: "C", text: "$1,350$" },
+            { label: "D", text: "$135,000$" },
+          ],
+          correctAnswer: "A",
+          hint: "Evaluate $P(15)$ and remember values are in hundreds of dollars.",
+          explanation:
+            "$P(15)=-225+450-90=135$ hundreds, so $13500$ dollars.",
+          assessedUnitSlug: "sequences-series-financial-maths",
+        },
+      ],
     },
   ],
 };

@@ -1,0 +1,196 @@
+{
+  "batch_id": "nova-maths-2026-06-16-y12adv-hsc-2025-graphs",
+  "generated_by": "claude-sonnet-4-6",
+  "questions": [
+    {
+      "source_id": "hsc-advanced-2025-q2-exp-graph",
+      "course_slug": "year-12-advanced",
+      "topic_slug": "exponential-and-logarithmic-functions",
+      "subtopic_slug": "exponential-graphs",
+      "syllabus_ref": null,
+      "year_level": "year-12",
+      "difficulty": 2,
+      "question_type": "conceptual",
+      "prompt": "Which of the following correctly describes the graph of $y = 4^x$?",
+      "latex": "y = 4^x",
+      "choices": [
+        {
+          "label": "A",
+          "text": "y-intercept at 1, always positive, increases as x increases"
+        },
+        {
+          "label": "B",
+          "text": "y-intercept at 0, always positive, increases as x increases"
+        },
+        {
+          "label": "C",
+          "text": "y-intercept at 1, always positive, decreases as x increases"
+        },
+        {
+          "label": "D",
+          "text": "y-intercept at 4, always positive, increases as x increases"
+        }
+      ],
+      "answer": "A",
+      "accepted_answers": [],
+      "hint": "Evaluate $y = 4^x$ at $x = 0$ to find the y-intercept. Then consider what happens as $x \\to \\infty$ and $x \\to -\\infty$.",
+      "explanation": "At $x = 0$: $y = 4^0 = 1$, so the y-intercept is 1 — not 0 or 4. Since the base $4 > 1$, the function increases as x increases (exponential growth). The range of $4^x$ is all positive reals, so it is always positive. Option A is the only correct description.",
+      "transfer_from_topics": [],
+      "is_active": true,
+      "diagram_data": null
+    },
+    {
+      "source_id": "hsc-advanced-2025-q4-cubic-graph",
+      "course_slug": "year-12-advanced",
+      "topic_slug": "functions-and-graphing-techniques",
+      "subtopic_slug": "polynomial-curve-sketching",
+      "syllabus_ref": null,
+      "year_level": "year-12",
+      "difficulty": 3,
+      "question_type": "conceptual",
+      "prompt": "The graph of $y = -5x(x-2)(3-x)$ is shown. Which of the following correctly describes the graph?",
+      "latex": "y = -5x(x-2)(3-x)",
+      "choices": [
+        {
+          "label": "A",
+          "text": "x-intercepts at 0, 2 and 3, and the curve rises to the right"
+        },
+        {
+          "label": "B",
+          "text": "x-intercepts at 0, 2 and 3, and the curve falls to the right"
+        },
+        {
+          "label": "C",
+          "text": "x-intercepts at 0, −2 and −3, and the curve rises to the right"
+        },
+        {
+          "label": "D",
+          "text": "x-intercepts at 0, −2 and −3, and the curve falls to the right"
+        }
+      ],
+      "answer": "A",
+      "accepted_answers": [],
+      "hint": "Set each factor to zero to find the x-intercepts. Expand the leading term $-5x \\cdot x \\cdot (-x)$ to determine end behaviour.",
+      "explanation": "Setting each factor to zero: $x = 0$, $x - 2 = 0$ gives $x = 2$, \\(3 - x = 0\\) gives $x = 3$. The x-intercepts are 0, 2 and 3. For the leading term: $-5x \\cdot x \\cdot (-x) = 5x^3$. A positive coefficient of $x^3$ means the curve rises to the right (as $x \\to \\infty$, $y \\to \\infty$).",
+      "transfer_from_topics": [],
+      "is_active": true,
+      "diagram_data": {
+        "type": "polynomialCurveDiagram",
+        "description": "Cubic graph of y = −5x(x − 2)(3 − x) = 5x(x − 2)(x − 3), crossing the x-axis at x = 0, x = 2, and x = 3. The curve is below the x-axis for x < 0, rises above for 0 < x < 2, dips below for 2 < x < 3, then rises above for x > 3.",
+        "roots": [
+          { "value": 0, "multiplicity": 1 },
+          { "value": 2, "multiplicity": 1 },
+          { "value": 3, "multiplicity": 1 }
+        ],
+        "leadingCoefficient": 5,
+        "xMin": -1,
+        "xMax": 4.5,
+        "yMin": -5,
+        "yMax": 14
+      }
+    },
+    {
+      "source_id": "hsc-advanced-2025-q9-linear-approx",
+      "course_slug": "year-12-advanced",
+      "topic_slug": "applications-differentiation",
+      "subtopic_slug": "linear-approximation",
+      "syllabus_ref": null,
+      "year_level": "year-12",
+      "difficulty": 3,
+      "question_type": "conceptual",
+      "prompt": "Using the linear approximation $f(x + h) \\approx f(x) + h \\cdot f'(x)$, and given $f(1) = 6$ and $f'(1) = -3$, which interval includes the best estimate for $f(1.1)$?",
+      "latex": "f(1.1) \\approx f(1) + 0.1 \\cdot f'(1)",
+      "choices": [
+        { "label": "A", "text": "(6.2, 6.4)" },
+        { "label": "B", "text": "(6.0, 6.2)" },
+        { "label": "C", "text": "(5.8, 6.0)" },
+        { "label": "D", "text": "(5.6, 5.8)" }
+      ],
+      "answer": "D",
+      "accepted_answers": [],
+      "hint": "Substitute $h = 0.1$ into the approximation formula. Calculate \\(6 + 0.1 \\times (-3)\\).",
+      "explanation": "$f(1.1) \\approx f(1) + 0.1 \\times f'(1) = 6 + 0.1 \\times (-3) = 6 - 0.3 = 5.7$. Since \\(5.6 < 5.7 < 5.8\\), the estimate lies in the interval (5.6, 5.8).",
+      "transfer_from_topics": ["differential-calculus"],
+      "is_active": true,
+      "diagram_data": null
+    },
+    {
+      "source_id": "hsc-advanced-2025-q10-composite-sp",
+      "course_slug": "year-12-advanced",
+      "topic_slug": "applications-differentiation",
+      "subtopic_slug": "composite-function-stationary-points",
+      "syllabus_ref": null,
+      "year_level": "year-12",
+      "difficulty": 4,
+      "question_type": "conceptual",
+      "prompt": "The function $f(x)$ has exactly four stationary points, at $x = -3$, $x = -1$, $x = 1$ and $x = 2$. How many stationary points does the graph of $y = f(e^x)$ have?",
+      "latex": "y = f(e^x)",
+      "choices": [
+        { "label": "A", "text": "1" },
+        { "label": "B", "text": "2" },
+        { "label": "C", "text": "3" },
+        { "label": "D", "text": "4" }
+      ],
+      "answer": "B",
+      "accepted_answers": [],
+      "hint": "Differentiate using the chain rule: $\\dfrac{d}{dx}[f(e^x)] = f'(e^x) \\cdot e^x$. Since $e^x > 0$, when is this zero?",
+      "explanation": "By the chain rule: $\\dfrac{d}{dx}[f(e^x)] = f'(e^x) \\cdot e^x$. Since $e^x > 0$ for all real $x$, the derivative is zero only when $f'(e^x) = 0$, i.e., when $e^x$ equals a stationary x-value of $f$. Since $e^x > 0$, only the positive stationary points of $f$ contribute: $x = 1$ and $x = 2$. These give stationary points at $x = \\ln(1) = 0$ and $x = \\ln(2)$. There are 2 stationary points.",
+      "transfer_from_topics": ["differential-calculus"],
+      "is_active": true,
+      "diagram_data": null
+    },
+    {
+      "source_id": "hsc-advanced-2025-q16-stationary",
+      "course_slug": "year-12-advanced",
+      "topic_slug": "applications-differentiation",
+      "subtopic_slug": "stationary-points-nature",
+      "syllabus_ref": null,
+      "year_level": "year-12",
+      "difficulty": 4,
+      "question_type": "procedural",
+      "prompt": "Let $f(x) = \\dfrac{x^2}{e^x}$.",
+      "latex": "f(x) = \\frac{x^2}{e^x}",
+      "choices": null,
+      "question_parts": [
+        {
+          "key": "a",
+          "label": "(a)",
+          "prompt": "Find the x-coordinate of the stationary point of $f(x) = \\dfrac{x^2}{e^x}$ where $x > 0$.",
+          "latex": "f(x) = \\frac{x^2}{e^x},\\quad x > 0",
+          "marks": 2,
+          "answer": "2",
+          "accepted_answers": ["x=2", "x = 2"],
+          "hint": "Use the quotient rule to find $f'(x)$, then set $f'(x) = 0$.",
+          "explanation": "By the quotient rule: $f'(x) = \\dfrac{2x \\cdot e^x - x^2 \\cdot e^x}{(e^x)^2} = \\dfrac{x(2-x)}{e^x}$. Setting $f'(x) = 0$: $x(2-x) = 0$, so $x = 0$ or $x = 2$. The solution with $x > 0$ is $x = 2$."
+        },
+        {
+          "key": "b",
+          "label": "(b)",
+          "prompt": "State the nature of the stationary point at $x = 2$.",
+          "marks": 1,
+          "answer": "maximum",
+          "accepted_answers": ["local maximum", "local max", "max"],
+          "hint": "Check the sign of $f'(x)$ on each side of $x = 2$.",
+          "explanation": "For \\(0 < x < 2\\): $x > 0$ and \\(2 - x > 0\\), so $f'(x) > 0$ (increasing). For $x > 2$: $x > 0$ and \\(2 - x < 0\\), so $f'(x) < 0$ (decreasing). The sign of $f'$ changes from $+$ to $-$, so $x = 2$ is a local maximum."
+        },
+        {
+          "key": "c",
+          "label": "(c)",
+          "prompt": "Find the exact maximum value of $f(x) = \\dfrac{x^2}{e^x}$.",
+          "marks": 1,
+          "answer": "4/e^2",
+          "accepted_answers": ["4e^-2", "4e^(-2)", "4/e^2", "4/(e^2)"],
+          "hint": "Substitute $x = 2$ into $f(x) = x^2/e^x$.",
+          "explanation": "$f(2) = \\dfrac{2^2}{e^2} = \\dfrac{4}{e^2}$. The exact maximum value is $\\dfrac{4}{e^2}$."
+        }
+      ],
+      "answer": "2",
+      "accepted_answers": [],
+      "hint": "Use the quotient rule to differentiate, then analyse the sign of $f'(x)$ on each side of the stationary points.",
+      "explanation": "$f'(x) = x(2-x)/e^x$, giving stationary points at $x = 0$ and $x = 2$. The positive stationary point at $x = 2$ is a local maximum.",
+      "transfer_from_topics": ["differential-calculus", "exponential-and-logarithmic-functions"],
+      "is_active": true,
+      "diagram_data": null
+    }
+  ]
+}

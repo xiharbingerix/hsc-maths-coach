@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { courseCatalogue } from "../../lib/courseUnits";
 import {
   HscDiagnosticCTAButton,
-  HscTrialCTAButton,
   FreeLessonCTAButton,
 } from "./HscMathsCTAs";
 import { PageViewTracker } from "../components/PageViewTracker";
@@ -12,79 +10,8 @@ import { PageViewTracker } from "../components/PageViewTracker";
 export const metadata: Metadata = {
   title: "HSC Maths Online Lessons | Nova Maths",
   description:
-    "Structured NSW HSC maths lessons, practice and mastery quizzes for Year 12 students. Start with a free diagnostic, then study at your own pace for $19/month.",
+    "Free HSC maths diagnostic for NSW Year 12 students. Find your weakest HSC topics in minutes and get a personalised study roadmap.",
 };
-
-const included = [
-  {
-    title: "HSC-aligned lesson pathways",
-    description:
-      "Follow a clear sequence through available Year 12 Advanced and Standard 2 topics.",
-  },
-  {
-    title: "Worked examples before practice",
-    description:
-      "See how and why a method works before trying questions independently.",
-  },
-  {
-    title: "Guided and independent questions",
-    description:
-      "Build confidence with support, then check whether the skill holds without hints.",
-  },
-  {
-    title: "Mastery quizzes with saved progress",
-    description:
-      "Finish each lesson with a short quiz and keep your results across devices.",
-  },
-  {
-    title: "Continue Learning dashboard",
-    description:
-      "Return to your next lesson without having to work out where to restart.",
-  },
-  {
-    title: "Self-paced access on any device",
-    description:
-      "Study from your own account whenever revision time fits around school and other commitments.",
-  },
-];
-
-const FAQs = [
-  {
-    question: "Is this tutoring?",
-    answer:
-      "Nova Maths is self-paced online learning, not live tutoring. Students work through written lessons, worked examples, practice questions and mastery quizzes in their own time.",
-  },
-  {
-    question: "Is this aligned to the NSW HSC?",
-    answer:
-      "Yes. The Year 12 pathways are structured around NSW HSC Mathematics Advanced and Mathematics Standard 2 topics.",
-  },
-  {
-    question: "Which Year 12 courses are included?",
-    answer:
-      "Your subscription includes the available Year 12 Mathematics Advanced and Mathematics Standard 2 pathways, as well as the other available Year 8 to HSC maths pathways.",
-  },
-  {
-    question: "Is this for struggling students?",
-    answer:
-      "It is designed for students who want a clearer path, including students who feel behind or unsure where to start. Each lesson explains the idea before moving into practice.",
-  },
-  {
-    question: "What happens after I subscribe?",
-    answer:
-      "Continue to Stripe's secure checkout. After your trial starts, you will set a password to access your Nova Maths dashboard. Your lessons and progress are linked to your account.",
-  },
-  {
-    question: "Are there videos?",
-    answer:
-      "Nova Maths uses structured written lessons rather than video. Each lesson asks you to actively read, work through examples, and answer questions — which builds understanding more reliably than watching a video passively. The format mirrors how a good tutor would walk you through a topic on paper.",
-  },
-  {
-    question: "Can I cancel?",
-    answer:
-      "Yes. You can cancel any time from your account through the Stripe billing portal.",
-  },
-];
 
 const testimonials = [
   {
@@ -103,12 +30,6 @@ const testimonials = [
     name: "Claire, parent",
   },
 ];
-
-const hscCourses = courseCatalogue.filter(
-  (course) =>
-    course.courseSlug === "year-12-advanced" ||
-    course.courseSlug === "year-12-standard-2"
-);
 
 function SectionLabel({ children }: Readonly<{ children: ReactNode }>) {
   return (
@@ -132,19 +53,10 @@ export default function HscMathsPage() {
           <Link href="/" className="text-lg font-bold tracking-tight">
             Nova Maths
           </Link>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Link
-              href="/login"
-              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50"
-            >
-              Log in
-            </Link>
-            {/* CTA visible on sm+ only — mobile uses the fixed bottom bar */}
-            <div className="hidden sm:block">
-              <HscDiagnosticCTAButton>
-                Start free diagnostic
-              </HscDiagnosticCTAButton>
-            </div>
+          <div className="hidden sm:block">
+            <HscDiagnosticCTAButton href="/diagnostic/year-12-advanced">
+              Start Free HSC Diagnostic
+            </HscDiagnosticCTAButton>
           </div>
         </div>
       </header>
@@ -159,61 +71,43 @@ export default function HscMathsPage() {
               Built for NSW HSC Advanced and Standard 2
             </p>
             <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight md:text-5xl">
-              Stop guessing what to revise for HSC maths.
+              Find your HSC maths gaps in 5 minutes.
             </h1>
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Find your weakest HSC topics in under 10 minutes, then use a
-              structured Year 12 pathway with worked examples, guided practice,
-              mastery quizzes and progress saved to your dashboard.
+              Take a free diagnostic and discover exactly which topics are
+              holding back your exam marks.
             </p>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <HscDiagnosticCTAButton className="inline-flex w-full items-center justify-center rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 sm:w-auto">
-                Start a free HSC diagnostic
+            <ul className="mt-6 space-y-2 text-sm text-slate-700">
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 text-emerald-600">✓</span>
+                <span>Identify your weakest HSC topics</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 text-emerald-600">✓</span>
+                <span>Get a personalised study roadmap</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 text-emerald-600">✓</span>
+                <span>Focus on the lessons that matter most</span>
+              </li>
+            </ul>
+
+            <div className="mt-7">
+              <HscDiagnosticCTAButton
+                href="/diagnostic/year-12-advanced"
+                className="inline-flex w-full items-center justify-center rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 sm:w-auto"
+              >
+                Start Free HSC Diagnostic
               </HscDiagnosticCTAButton>
-              <HscTrialCTAButton className="w-full border-2 border-slate-900 !bg-white !text-slate-950 hover:!bg-slate-100 sm:w-auto">
-                Skip to 7-day free trial
-              </HscTrialCTAButton>
             </div>
 
             <p className="mt-3 text-sm font-medium text-slate-600">
-              Diagnostic is free. Trial: No charge today &middot; Then $19/month &middot; Cancel anytime
+              Find your weakest HSC topics in about 5 minutes.
             </p>
             <p className="mt-1 text-sm text-slate-500">
-              Get a personalised practice path for NSW HSC Advanced and Standard 2.
+              No account required.
             </p>
-
-            <div className="mt-6 rounded-3xl border border-slate-200 bg-slate-50 p-4 sm:p-5">
-              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Free diagnostic first
-              </p>
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                {([
-                  "Under 10 minutes",
-                  "Find weakest topics",
-                  "Personalised practice path",
-                  "Built for NSW HSC Advanced and Standard 2",
-                ] as const).map((item) => (
-                  <div key={item} className="min-w-0 rounded-2xl bg-white p-3 text-sm text-slate-700 shadow-sm">
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-6 rounded-3xl border border-slate-200 bg-slate-50 p-6">
-              <p className="text-sm font-semibold text-slate-900">
-                See the lesson experience before starting your trial.
-              </p>
-              <ul className="mt-4 space-y-3 text-sm text-slate-600">
-                <li>Preview a sample HSC lesson to feel how the course works.</li>
-                <li>See the step-by-step explanation, practice and quiz flow.</li>
-                <li>No signup or payment needed to review the demo lesson.</li>
-              </ul>
-              <FreeLessonCTAButton className="mt-5 inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800">
-                Preview a free HSC lesson
-              </FreeLessonCTAButton>
-            </div>
           </div>
 
           <div className="flex min-w-0 flex-col gap-4">
@@ -234,12 +128,6 @@ export default function HscMathsPage() {
             <div className="flex flex-wrap gap-4">
               <span className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
                 <svg className="h-4 w-4 shrink-0 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-                </svg>
-                Secure Stripe checkout
-              </span>
-              <span className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
-                <svg className="h-4 w-4 shrink-0 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
                 </svg>
                 NSW curriculum aligned
@@ -248,9 +136,37 @@ export default function HscMathsPage() {
           </div>
         </section>
 
-        {/* Social proof — replace placeholder quotes with real student testimonials */}
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
-          <SectionLabel>What students say</SectionLabel>
+          <SectionLabel>How it works</SectionLabel>
+          <div className="mt-6 grid gap-5 md:grid-cols-3">
+            <article className="rounded-2xl bg-slate-50 p-6">
+              <h3 className="text-lg font-semibold">1. Take the diagnostic</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Answer a short set of HSC-style questions.
+              </p>
+            </article>
+            <article className="rounded-2xl bg-slate-50 p-6">
+              <h3 className="text-lg font-semibold">2. See your results</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Discover your weakest topics instantly.
+              </p>
+            </article>
+            <article className="rounded-2xl bg-slate-50 p-6">
+              <h3 className="text-lg font-semibold">3. Follow your study roadmap</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Get recommended lessons and practice for the areas that need work.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <SectionLabel>Trust</SectionLabel>
+          <div className="mt-4 max-w-3xl space-y-3 text-sm leading-7 text-slate-700">
+            <p>Built by a working NSW maths tutor.</p>
+            <p>Designed specifically for NSW HSC Mathematics.</p>
+            <p>Focused on helping students identify gaps quickly and study efficiently.</p>
+          </div>
           <div className="mt-6 grid gap-5 md:grid-cols-3">
             {testimonials.map((t) => (
               <blockquote
@@ -269,194 +185,47 @@ export default function HscMathsPage() {
         </section>
 
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
-          <SectionLabel>Why structure matters</SectionLabel>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight">
-            HSC maths feels hard when revision is scattered.
-          </h2>
-          <div className="mt-6 grid gap-5 md:grid-cols-2">
-            <div className="rounded-2xl bg-slate-50 p-6">
-              <p className="leading-7 text-slate-700">
-                School notes are spread across topics. YouTube explanations
-                can be disconnected. Tutoring can be expensive. Students can
-                complete pages of practice and still be unsure whether a skill
-                is ready for an exam.
-              </p>
-            </div>
-            <div className="rounded-2xl bg-slate-950 p-6 text-white">
-              <p className="text-lg font-semibold">
-                Nova Maths gives students a clear lesson-by-lesson path.
-              </p>
-              <p className="mt-3 leading-7 text-slate-300">
-                Learn the idea, work through examples, practise with support,
-                then use a mastery quiz to check what is actually sticking.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="space-y-6">
-          <div className="max-w-2xl">
-            <SectionLabel>What students get</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight">
-              A calmer way to prepare for HSC maths.
-            </h2>
-          </div>
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {included.map((item) => (
-              <article
-                key={item.title}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-              >
-                <h3 className="text-lg font-semibold">{item.title}</h3>
-                <p className="mt-3 leading-7 text-slate-600">
-                  {item.description}
-                </p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="rounded-3xl border border-slate-200 bg-slate-100/80 p-8 shadow-sm md:p-10">
-          <SectionLabel>Price and value</SectionLabel>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight">
-            One month costs less than one tutoring lesson.
-          </h2>
-          <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
-            Private HSC maths tutoring can cost $80&ndash;120 per hour. Nova
-            Maths starts with a 7-day free trial, then is $19/month, with
-            access to all available Year 9&ndash;12 maths pathways.
+          <SectionLabel>Lesson preview</SectionLabel>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight">Preview an HSC lesson</h2>
+          <p className="mt-3 max-w-2xl leading-7 text-slate-600">
+            See how Nova Maths teaches HSC topics step-by-step.
           </p>
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <HscDiagnosticCTAButton>
-              Start a free HSC diagnostic
-            </HscDiagnosticCTAButton>
-            <HscTrialCTAButton className="border-2 border-slate-900 !bg-white !text-slate-950 hover:!bg-slate-100">
-              Skip to 7-day free trial
-            </HscTrialCTAButton>
-          </div>
-          <p className="mt-3 text-sm text-slate-500">
-            No charge today &middot; Then $19/month &middot; Cancel anytime
-          </p>
-        </section>
-
-        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
-          <SectionLabel>Who built this</SectionLabel>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight">
-            Designed by a tutor who saw the same gap every year.
-          </h2>
-          <div className="mt-4 max-w-3xl space-y-4 leading-7 text-slate-600">
-            <p>
-              Joshua Taylor is a NSW maths tutor who has worked with Year 12
-              students one-on-one through the HSC. After seeing the same
-              problem repeat itself — students who had done plenty of practice
-              but still couldn&rsquo;t tell whether a skill was actually
-              exam-ready — he built Nova Maths to fix it.
+          <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <p className="text-sm font-semibold text-slate-900">
+              Area Under the Curve
             </p>
-            <p>
-              Every lesson follows the structure he found students needed most:
-              understand the idea first, work through examples before attempting
-              questions alone, then use a short mastery quiz to find out what
-              is actually sticking. The kind of structured path that scattered
-              notes and random videos rarely provide.
+            <p className="mt-2 text-sm text-slate-600">
+              Preview a real lesson with worked explanation, guided practice and quiz flow.
             </p>
-          </div>
-        </section>
-
-        <section
-          id="year-12-courses"
-          className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10"
-        >
-          <SectionLabel>Course coverage</SectionLabel>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight">
-            Choose your Year 12 maths pathway.
-          </h2>
-          <div className="mt-6 grid gap-5 md:grid-cols-2">
-            {hscCourses.map((course) => (
-              <article
-                key={course.courseSlug}
-                className="flex flex-col rounded-2xl border border-slate-200 bg-slate-50 p-6"
-              >
-                <h3 className="text-xl font-bold">{course.courseTitle}</h3>
-                <p className="mt-2 text-sm font-semibold text-slate-500">
-                  {course.activeLessonCount} lessons across {course.unitCount}{" "}
-                  units
-                </p>
-                <p className="mt-3 flex-1 leading-7 text-slate-600">
-                  {course.description}
-                </p>
-                <Link
-                  href={course.href}
-                  className="mt-5 inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-100"
-                >
-                  View course
-                </Link>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="rounded-3xl border border-emerald-100 bg-emerald-50 p-8 shadow-sm md:p-10">
-          <SectionLabel>Try before you subscribe</SectionLabel>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-            Want to preview a lesson too?
-          </h2>
-          <p className="mt-3 max-w-xl leading-7 text-slate-700">
-            Open a complete Year 12 Advanced lesson with worked examples,
-            practice questions and a mastery quiz &mdash; no account needed.
-          </p>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <FreeLessonCTAButton>
-              Try one full HSC lesson free
+            <FreeLessonCTAButton className="mt-4 inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-100">
+              Preview Area Under the Curve
             </FreeLessonCTAButton>
-            <p className="text-sm text-slate-600">No signup needed.</p>
+          </div>
+          <div className="mt-6">
+            <HscDiagnosticCTAButton href="/diagnostic/year-12-advanced">
+              Start Free HSC Diagnostic
+            </HscDiagnosticCTAButton>
           </div>
         </section>
 
-        <section className="space-y-6">
-          <div className="max-w-2xl">
-            <SectionLabel>Common questions</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight">
-              Before you start
-            </h2>
+        <section className="rounded-3xl border border-slate-200 bg-slate-950 p-8 text-white shadow-sm md:p-10">
+          <h2 className="max-w-2xl text-3xl font-bold tracking-tight">
+            Ready to find your weakest HSC topics?
+          </h2>
+          <p className="mt-3 max-w-2xl text-slate-300">
+            Take the free diagnostic and get a personalised roadmap in minutes.
+          </p>
+          <div className="mt-6">
+            <HscDiagnosticCTAButton
+              href="/diagnostic/year-12-advanced"
+              className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 shadow-sm transition hover:bg-slate-100"
+            >
+              Start Free HSC Diagnostic
+            </HscDiagnosticCTAButton>
           </div>
-          <div className="grid gap-5 md:grid-cols-2">
-            {FAQs.map((item) => (
-              <article
-                key={item.question}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-              >
-                <h3 className="text-lg font-semibold">{item.question}</h3>
-                <p className="mt-3 leading-7 text-slate-600">{item.answer}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="flex flex-col items-start gap-6 rounded-3xl border border-slate-200 bg-slate-950 p-8 text-white shadow-sm md:flex-row md:items-center md:justify-between md:p-10">
-          <div>
-            <h2 className="max-w-xl text-3xl font-bold tracking-tight">
-              Give HSC maths a clear study path.
-            </h2>
-            <p className="mt-2 text-sm text-slate-400">
-              Or{" "}
-              <Link href="/course" className="underline underline-offset-2 hover:text-white">
-                browse courses first
-              </Link>
-              .
-            </p>
-          </div>
-          <HscDiagnosticCTAButton className="inline-flex shrink-0 items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 shadow-sm transition hover:bg-slate-100">
-            Start a free HSC diagnostic
-          </HscDiagnosticCTAButton>
         </section>
 
         <footer className="flex flex-wrap gap-4 border-t border-slate-200 pb-8 pt-6 text-sm text-slate-600">
-          <Link href="/" className="hover:text-slate-900">
-            Homepage
-          </Link>
-          <Link href="/course" className="hover:text-slate-900">
-            Courses
-          </Link>
           <Link href="/privacy" className="hover:text-slate-900">
             Privacy Notice
           </Link>
@@ -465,13 +234,13 @@ export default function HscMathsPage() {
 
       {/* Fixed bottom bar — mobile only (sm+ uses the sticky header CTA) */}
       <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white p-3 sm:hidden">
-        <div className="grid grid-cols-1 gap-2">
-          <HscDiagnosticCTAButton className="inline-flex w-full items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800">
-            Start free diagnostic
+        <div className="grid grid-cols-1 gap-1">
+          <HscDiagnosticCTAButton
+            href="/diagnostic/year-12-advanced"
+            className="inline-flex w-full items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+          >
+            Start Free HSC Diagnostic
           </HscDiagnosticCTAButton>
-          <HscTrialCTAButton className="w-full border border-slate-300 bg-white py-2.5 text-slate-950 hover:bg-slate-50">
-            Start your 7-day free trial
-          </HscTrialCTAButton>
         </div>
       </div>
     </main>

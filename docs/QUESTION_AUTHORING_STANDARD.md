@@ -433,7 +433,7 @@ All `prompt`, `hint`, `explanation`, and choice `text` fields are rendered by `a
 | `T_2`, `a_n`, `x^2` | Auto-wrapped as `$T_2$` etc. (1–3 char suffix only) |
 | `$$...$$` | **Not supported** — use `$...$` or `\(...\)` |
 
-### The `latex` field
+### The display `latex` field
 
 Rendered as a **KaTeX BlockMath display formula**. Write the expression directly — no `$` delimiters:
 
@@ -441,6 +441,10 @@ Rendered as a **KaTeX BlockMath display formula**. Write the expression directly
 "latex": "T_n = a + (n-1)d"    ✓
 "latex": "$T_n = a + (n-1)d$"  ✗  (dollar signs appear as literal characters)
 ```
+
+This rule is about the separate display `latex` field/block only. It does **not** discourage inline LaTeX inside `prompt`, `hint`, `explanation`, or choice text; inline LaTeX is encouraged when it makes mathematical text clearer.
+
+Use the display `latex` field only when the displayed expression is necessary stimulus. If the prompt is already clear, leave it blank/neutral rather than adding a decorative formula block. For typed-answer questions, never put the calculation setup, substitution, operation, or first working step in the display `latex` field; that belongs in `explanation` after submission. If the student is meant to choose a setup, make it an MCQ and put the candidate setups in the choices.
 
 ### Currency amounts
 

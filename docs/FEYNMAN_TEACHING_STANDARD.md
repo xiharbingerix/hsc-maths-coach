@@ -1,6 +1,8 @@
 # Feynman Teaching Standard
 
-Standard for `teaching.paragraphs`, `teaching.latexBlocks`, and `workedExamples` in Nova Maths lesson files.
+Standard for `teaching.paragraphs`, `teaching.latexBlocks`, and `workedExamples` in Nova Maths lesson files. This standard is gated by [CONTENT_QUALITY_STANDARD.md](./CONTENT_QUALITY_STANDARD.md) (Gate 2 — Teaching depth).
+
+> **The depth mandate.** The goal is a Band 6: a student who can *justify* and *transfer* a method to an unfamiliar problem, not just execute its steps. Teaching that asserts formulas, states procedures, and stops there fails this standard even when it is clear and correct. Feynman's discipline is two-sided: explain in the simplest language possible **and** explain the real *why* completely. Concision means removing filler — it never means skipping the derivation, the intuition, or the reason a method works. **Go exactly as deep as the concept requires; let understanding, not a word budget, set the length.**
 
 ---
 
@@ -8,11 +10,13 @@ Standard for `teaching.paragraphs`, `teaching.latexBlocks`, and `workedExamples`
 
 1. **Simple language before formal notation.** Introduce the idea in plain English. The formula comes second.
 2. **Concrete example before the general rule.** Show specific numbers first, then the abstract form.
-3. **Explain the why, not just the how.** A student should understand why the method works.
-4. **Connect to prior knowledge.** Name what the student already knows and build on it explicitly.
-5. **Name the common misconception.** Tell students the easy mistake before they make it.
-6. **Short paragraphs.** One idea per paragraph. Three to four sentences maximum.
-7. **Calm, exam-aware tone.** Direct and practical. No hype, no filler, no hedging.
+3. **Derive or motivate every formula — never drop it cold.** Each formula or rule the lesson uses must be built from something the student can see (a concrete model, a short derivation, a limiting argument). Asserting `z=(x−x̄)/s` is a failure; explaining *why* subtracting the mean re-centres and *why* dividing by `s` makes distributions comparable is the lesson.
+4. **Explain the why, not just the how — to the point of transfer.** The student should understand *why* the method is valid well enough to adapt it to an unfamiliar context, which is exactly what a Band 6 exam question demands.
+5. **Connect representations.** Link algebra ↔ graph ↔ context ↔ numerical explicitly where relevant. Attach the real diagram; never fake a visual in LaTeX.
+6. **Connect to prior knowledge.** Name what the student already knows and build on it explicitly.
+7. **Dissolve the misconception in the narrative.** Name the easy mistake *at the moment it would occur* and explain why the correct path is correct — not only in the `commonMistakes` list.
+8. **One idea per paragraph.** Keep each paragraph to a single idea so the reasoning is easy to follow. Use as many paragraphs as the concept needs — do not compress a multi-step derivation into one dense block, and do not drop steps to save space.
+9. **Calm, exam-aware tone.** Direct and practical. No hype, no filler, no hedging.
 
 ---
 
@@ -20,12 +24,14 @@ Standard for `teaching.paragraphs`, `teaching.latexBlocks`, and `workedExamples`
 
 | Avoid | Reason |
 |---|---|
-| Unexplained formula drop | Starting with a formula before the concept is understood |
+| Unexplained formula drop | Starting with (or stopping at) a formula before the concept and its *why* are built |
+| Asserting a rule with no derivation/model | A Band 6 student must know why it works, not just that it does |
 | Circular definitions | "A linear equation is one that is linear" |
 | Jargon without explanation | Using "common difference" before defining it |
-| Wall-of-text paragraphs | More than 5 sentences in a single block |
+| Cramming a derivation into one dense block | More than one idea per paragraph; split it across paragraphs instead |
 | Vague motivational filler | "This is a really important concept you'll use throughout your studies" |
 | Step-by-step without reasoning | Showing calculation without explaining each step |
+| Truncating the concept to hit a length | Depth is set by the concept, not a word budget — see the depth mandate |
 | Passive voice for key steps | "The values are substituted" → "Substitute P, R, T into the formula" |
 
 ---
@@ -34,17 +40,20 @@ Standard for `teaching.paragraphs`, `teaching.latexBlocks`, and `workedExamples`
 
 ```typescript
 teaching: {
-  paragraphs:  string[];   // 3–5 paragraphs, MathText-rendered
-  latexBlocks: string[];   // 2–4 key formulas/rules, KaTeX BlockMath (no $ delimiters)
+  paragraphs:  string[];   // typically 4–8 paragraphs (more for richer concepts), MathText-rendered
+  latexBlocks: string[];   // key formulas/rules, KaTeX BlockMath (no $ delimiters)
 }
 ```
 
 ### Paragraph sequence
 
-1. **Paragraph 1 — What is this?** Introduce the concept in plain language. No formula yet.
-2. **Paragraph 2 — Concrete intuition.** Give a specific worked example or real-world anchor.
-3. **Paragraph 3 — Formal notation.** Introduce the formula or algebraic rule. Explain each symbol.
-4. **Paragraph 4 (optional) — Common misconception or edge case.** Address the most likely error.
+Use this as the backbone, expanding any step that needs more than one paragraph. Steps 1–5 are required; the derivation (step 4) is what separates this standard from a procedure summary.
+
+1. **What is this?** Introduce the concept in plain language. No formula yet.
+2. **Concrete intuition.** Give a specific worked example, physical model, or real-world anchor the student can picture.
+3. **Formal notation.** Introduce the formula or algebraic rule. Explain each symbol.
+4. **Why it works (the derivation/justification).** Build the rule from the concrete model or a short derivation, so the student could reconstruct or adapt it. Never skip this to save space.
+5. **Transfer + misconception.** Show how the idea applies in an unfamiliar framing, and name/dissolve the most likely error at the point it occurs.
 
 ---
 
@@ -113,7 +122,7 @@ A `WorkedExample` carries the **same visual payload fields as a `PracticeQuestio
 
 ### Rules
 
-- 2–3 worked examples per lesson (more for complex topics)
+- At least 3 worked examples per lesson (more for complex topics), and **at least one must be a harder, multi-concept or unfamiliar-context example** at Band-6 difficulty — not just the easy template repeated
 - Each step: **one** line of explanation + **one** line of working
 - Do not combine multiple operations in a single step
 - `explanation` should say *why* the step is taken, not just what it does
@@ -198,11 +207,13 @@ One sentence is enough. Avoid multi-sentence motivational passages.
 
 ## Length guide
 
-| Field | Target length |
-|---|---|
-| `paragraphs` | 3–5 paragraphs, 3–4 sentences each |
-| `latexBlocks` | 2–4 formulas |
-| Worked examples | 2–3 per lesson |
-| Steps per worked example | 2–4 steps |
+These are floors and typical ranges, **not caps**. The concept sets the length; never truncate the derivation or intuition to fit a target.
 
-Shorter is better. A teaching section that takes 90 seconds to read is ideal.
+| Field | Guide |
+|---|---|
+| `paragraphs` | 4–8+ paragraphs; one idea each. Richer or multi-step concepts need more, including a dedicated "why it works" derivation. |
+| `latexBlocks` | As many as the lesson genuinely uses — the core formula(s), key derivation lines, notation, and sign/edge rules |
+| Worked examples | 3+ per lesson; include at least one harder, multi-concept / unfamiliar-context example, not only the easy template |
+| Steps per worked example | As many as the method takes — one operation per step, each with its reasoning |
+
+Cut filler ruthlessly; never cut understanding. A teaching section is the right length when a capable student finishes it able to **justify and transfer** the method — not when it hits a time target. If the concept is genuinely simple, it can be short; if it is deep, make it as long as the depth requires.

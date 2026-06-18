@@ -1,7 +1,8 @@
 ﻿# Nova Maths — Course Structure Checklist
 
-> **Objective:** High-quality lessons and question content across the entire NSW syllabus, mapped to syllabus sections with sufficient lessons to cover all skills and content in the Content section. Each lesson: 19 questions, worked examples, Feynman teaching, and common mistakes. Each focus area: one revision lesson activating the prior knowledge stated in the syllabus teaching advice, plus content lessons per dot-point group.
-> **Standard:** NSW syllabuses (2024 versions, implementation from 2026). Source of truth: [curriculum.nsw.edu.au](https://curriculum.nsw.edu.au).
+> **⚠️ "✅ Complete" here means the unit passes the Definition of Done in [CONTENT_QUALITY_STANDARD.md](./CONTENT_QUALITY_STANDARD.md) — all three gates: breadth (every dot-point, correct code, wired route), teaching depth (Feynman+, formulas derived), and practice depth (at Stage 6: `masteryQuizPool` + `multiPartPractice` + Band-6-level items).** A ✅ requires a dot-point coverage table. This checklist tracks **breadth** (Gate 1); a ✅ here does not by itself certify teaching/practice depth — verify Gates 2 and 3 per lesson before reporting a unit complete. Coverage-table ✅s written before 2026-06-17 predate this gate and may overstate depth; re-verify against the quality standard before relying on them.
+> **Objective:** High-quality lessons and question content across the entire NSW syllabus, mapped to syllabus sections with sufficient lessons to cover all skills and content in the Content section. Each lesson: 19 questions, worked examples, Feynman teaching, and common mistakes — plus, at Stage 6, a difficulty-ramped mastery pool and HSC Section II-style multi-part questions. Each focus area: one revision lesson activating the prior knowledge stated in the syllabus teaching advice, plus content lessons per dot-point group.
+> **Standard:** NSW syllabuses (2024 versions, implementation from 2026). Source of truth: [curriculum.nsw.edu.au](https://curriculum.nsw.edu.au). Quality gate: [CONTENT_QUALITY_STANDARD.md](./CONTENT_QUALITY_STANDARD.md).
 > Last updated: 2026-06-16 — Year 11 Extension 1 audited dot-by-dot against NSW 2024 ME1-11 syllabus: 25 lessons / 5 units; ~90% coverage; 4 high-priority gaps identified (y=1/f(x), y=[f(x)]², trig equation solving with compound angles, greatest term). Earlier same date: Year 7 complete: 10 agents authored 46 lessons / 874 questions across all 10 MA4 units; seeded and pushed. Earlier same date: Year 7 NSW 2024 plan written. Earlier: Year 9 Core depth pass complete: (1) BNPL + short-term loans lesson added to Financial Math (MA5-FIN-C-01, 8 lessons now); (2) Numbers of Any Magnitude split into standalone Core unit (MA5-MAG-C-01); (3) all 8 Core units renamed to NSW 2022 headings; (4) variable-base index law questions added to Indices lessons 1–3; (5) real-world gradient/y-intercept interpretation added to Linear Relationships B lesson; 1216 questions seeded. Earlier same date: Algebraic Techniques (MA5-ALG-C-01, 3 lessons), Equations A (MA5-EQU-C-01, 3 lessons), and Trigonometry B (MA5-TRG-C-02, 2 lessons) added; all 9 Core focus areas have content. Year 9 Core audited against NSW 2022 syllabus 2026-06-15. Earlier same date: Year 12 Standard 1 fully complete: credit-cards-and-loans lesson added (MST-12-S1-03 gap closed); 8 new full-depth lesson overrides written (algebraic-relationships-exam-practice, linear-relationships-modelling, quadratic-models, simultaneous-equations-context, ratios-rates-unit-conversions, investment-compound-interest, depreciation-loans, credit-cards-and-loans); 6 thin lessons upgraded from 7Q to 19Q each (right-angle-trigonometry, data-displays-summary-statistics, probability-and-chance, statistics-exam-practice, measurement-area-volume, scale-drawings-and-plans); course now 23 lessons / 5 units. All 7 topics fully covered at 19Q depth. Earlier same date: Year 11 Advanced: Sequences and Series removed; 10 new Working with Functions lessons completing FA1; 3 new Trigonometry lessons completing FA2; reciprocal trig ratios completing FA3; product rule and quotient rule completing FA4; graphing-exponential-logarithmic-functions completing FA5; circles-completing-the-square completing FA6; sets-venn-diagrams and conditional-probability-independence completing FA7. Year 12 Advanced fully audited (91 lessons, 1726 questions). Year 12 Standard 2 fully complete (58 lessons, 1106 questions). Year 12 Extension 1 fully complete (48 lessons, 862 questions). Year 11 Standard fully complete (76 lessons, 1444 questions).
 
 ---
@@ -24,11 +25,11 @@
 | Year 10 Mathematics Advanced | 48 lessons (10 units) | 10 NSW focus areas (MA5) | ✅ mirrors base; all 4 Path-only lessons added 2026-06-16 | 0 | ✅ Complete 2026-06-16 — non-monic factorising, alg-fractions add/subtract, equation-of-a-line, linear-inequalities all added |
 | Year 10 Mathematics Core | ~35 lessons (trimmed) | 10 NSW focus areas (MA5) | ✅ Core trim applied 2026-06-16 — Adv Path lessons excluded; MA5-TRG-C-02 (sine/cosine rule) correctly included as Core | 0 | ✅ Core trim complete 2026-06-16 — algebraic-fractions, non-monic-quadratic-factorising, algebraic-fractions-add-subtract, quadratic-formula, linear-inequalities, equation-of-a-line, exponential, hyperbola, conditional-probability excluded; trig fully included |
 | Year 11 Standard | 76 (8 units) | 8 focus areas | ✅ 100% | 8 | ✅ Complete — audited 2026-06-15 (1444 questions) |
-| Year 11 Advanced | 70 (7 units) | 7 focus areas (MAV-11-01–10) | ✅ 100% — FA1 ✅ FA2 ✅ FA3 ✅ FA4 ✅ FA5 ✅ FA6 ✅ FA7 ✅ all complete | 0 | ✅ Fully audited 2026-06-15; all 7 focus areas complete |
+| Year 11 Advanced | 72 (7 units) | 7 focus areas (MAV-11-01–10) | ✅ 100% breadth (audited 2026-06-15); ✅ depth-parity 72/72 (2026-06-18) | 0 | ✅ Fully audited 2026-06-15. **Depth-parity 2026-06-18:** all 72 lessons across the 7 override files now have a difficulty-ramped masteryQuizPool (~30, D1–5) + multiPartPractice (added inline to each override return block via 7 Opus agents; tsc + audit:lessons + audit:questions all clean; route-resolver verified 72/72). Matches the Year-12 Advanced Band-6 depth bar. |
 | Year 11 Extension 1 | 28 (5 units) | 5 focus areas (ME1-11-01–05) | ✅ ~97% — 3 new lessons added 2026-06-16; 532 questions | 0 | ✅ Fixed 2026-06-16 — +reciprocal/squared graphs, +trig equation solving, +greatest term; 28 lessons / 532Q |
 | Year 12 Standard 1 | 23 (5 units) | 7 topics | ✅ 7/7 | 0 | ✅ Complete — all gaps closed 2026-06-15 |
 | Year 12 Standard 2 | 58 (6 units) | 10 topics | ✅ 100% | 10 | ✅ Complete — audited 2026-06-15 (1106 questions) |
-| Year 12 Advanced | 91 (13 units) | 14 focus areas (MA-F1–S3) | ✅ 100% | 0 | ✅ Complete — audited 2026-06-15 (1726 questions) |
+| Year 12 Advanced | 65 (7 units) | 7 focus areas (NSW **2024** MAV-12-01…08) | ✅ Breadth 100%; ✅ depth-parity 65/65 (pool+multipart); polish open | 0 | ✅ **Rebuilt to NSW 2024 (2026-06-18)** — 7 Year-12 focus areas only (Year-11 → Year 11 Advanced course; bivariate stats removed per 2024). **Breadth: 100%** (15 new lessons incl. continuous RV strand, z-tables, log scales, sec/cosec/cot & log_a x derivatives, ∫aˣ, y-axis areas, f′/f″ graphing, differentiability, exp growth/decay). **Depth-parity: 65/65** lessons now have masteryQuizPool (~28–32 ramped) + multiPartPractice (built via 9 Opus agents, post-hoc assignment; tsc+audit:lessons PASS). **Polish DONE:** `audit:questions` now **0 findings** (108 fixed: currency-`$`→`\(\$N\)`, raw-LaTeX wrapped in `$…$`, self-reveal MCQs reworded). **Pre-existing issue (open):** Applications unit has duplicate/overlapping lessons across differentialCalculus.ts + applicationsDifferentiation.ts (incl. dup `optimisation` slug, one URL-shadowed) — dedup recommendation pending user decision. NOT re-seeded. Earlier "91 lessons/100%" used 2017 structure — superseded. |
 | Year 12 Extension 1 | 30 (8 units) | 6 focus areas (ME1-12-01–06) | ✅ 100% | 0 | ✅ Complete — audited 2026-06-15 (862 questions) |
 | Year 12 Extension 2 | 31 (5 units) | 5 focus areas (ME2-12-01–05) | ✅ 30/30 dot-point groups covered — volumes of revolution added 2026-06-16; 597 questions | 0 | ✅ Complete 2026-06-16 — +volumes-of-revolution; +complex division, nth roots, inequality induction, v dv/dx patches |
 
@@ -1665,32 +1666,27 @@ Row for Year 11 Extension 1 in the Quick Status table above has been updated fro
 
 ---
 
-## Year 12 Standard 1 ✅ Complete — Audited against NSW 2024 syllabus (2026-06-15)
+## Year 12 Standard 1 🔄 Current HSC pathway — aligned to NSW 2017 syllabus (2026-06-18)
 
-`year-12-standard-1` — `in_progress`. Override file: `lib/lessons/year12Standard1.ts`.
-**23 lessons / 5 units.** All 7 NSW 2024 MST-12-S1 topics fully covered at 19Q depth. Audited dot-by-dot against NSW Mathematics Standard 11–12 Syllabus (2024). First HSC 2027.
+`year-12-standard-1` — `available`. Override file: `lib/lessons/year12Standard1.ts`, with selected network lessons reused from `lib/lessons/year12Standard2/networksCriticalPathAnalysis.ts`.
+**22 lessons / 6 units.** The public Standard 1 pathway has been moved back to the current Year 12 HSC course from the Mathematics Standard Stage 6 Syllabus (2017). The incoming NSW 2024 Year 12 Standard 1 topics are not surfaced in this pathway until schools start teaching the new Year 12 course in Term 4, 2026.
 
-| # | NSW Topic | Outcome | Lessons | Status |
+| # | Current syllabus topic | Code | Lessons | Status |
 |---|---|---|---|---|
-| 1 | Algebraic relationships | MST-12-S1-01 | 5 | ✅ linear models, quadratic models, direct variation, simultaneous equations, exam practice — all 19Q |
-| 2 | Investment | MST-12-S1-02 | 1 | ✅ simple/compound interest, comparing investment strategies (19Q) |
-| 3 | Depreciation and loans | MST-12-S1-03 | 2 | ✅ straight-line + declining-balance depreciation, reducing-balance loans (19Q); credit cards — A=P(1+r/365)ⁿ, fees, min repayments, comparison with personal loans (19Q added 2026-06-15) |
-| 4 | Right-angled triangles | MST-12-S1-04 | 3 | ✅ SOH-CAH-TOA (19Q), elevation/depression, bearings (added 2026-06-15, 19Q each) |
-| 5 | Ratios and rates | MST-12-S1-05 | 2 | ✅ ratios/unit conversions (19Q), speed/fuel/flow/pay (19Q) |
-| 6 | Bivariate data analysis | MST-12-S1-06 | 2 | ✅ scatter plots + form/strength/direction (19Q); line of best fit + interpolation/extrapolation (19Q) |
-| 7 | Relative frequency and probability | MST-12-S1-07 | 3 | ✅ probability formula + two-stage trees (19Q); complementary events + relative frequency + expected frequency (19Q) |
+| 1 | Types of Relationships | MS-A3 | 5 | ✅ linear models, quadratic models, direct variation, simultaneous equations, exam practice |
+| 2 | Right-angled Triangles | MS-M3 | 3 | ✅ right-angle trigonometry, applied trig, mixed trig/rates practice |
+| 3 | Rates | MS-M4 | 3 | ✅ unit conversions, speed/fuel/flow/pay rates, mixed exam practice |
+| 4 | Scale Drawings | MS-M5 | 1 | ✅ scale drawings and plans |
+| 5 | Investment | MS-F2 | 1 | ✅ compound interest and investment comparisons |
+| 6 | Depreciation and Loans | MS-F3 | 3 | ✅ depreciation, reducing-balance loans, credit cards/consumer finance/repayments |
+| 7 | Further Statistical Analysis | MS-S3 | 2 | ⚠️ current route retains summary-statistics and statistics exam practice; needs a dedicated quartiles/IQR/box-plots depth pass |
+| 8 | Networks and Paths | MS-N1 | 3 | ✅ vertices/edges/degrees, paths/circuits, weighted networks and shortest paths |
 
-**Lessons added (2026-06-15 audit pass 1):**
-- `bearings-and-compass`, `bivariate-data-scatter-plots`, `line-of-best-fit-predictions`, `relative-frequency-expected-value` — 4 new breadth lessons (19Q each)
+**2024 Standard 1 topics hidden from current pathway (2026-06-18):**
+- `bivariate-data-scatter-plots`, `line-of-best-fit-predictions`, `relative-frequency-expected-value`, and `probability-and-chance` were removed from the visible Year 12 Standard 1 route because they belong to the incoming 2024 structure, not the current 2017 Year 12 Standard 1 HSC map.
 
-**Lessons added (2026-06-15 audit pass 2 — depth + gap completion):**
-- `credit-cards-and-loans` — closes MST-12-S1-03 credit card gap (19Q)
-- Full 19Q overrides written for: `algebraic-relationships-exam-practice`, `linear-relationships-modelling`, `quadratic-models`, `simultaneous-equations-context`, `ratios-rates-unit-conversions`, `investment-compound-interest`, `depreciation-loans`
-- 6 legacy thin lessons upgraded from 7Q → 19Q: `right-angle-trigonometry`, `data-displays-summary-statistics`, `probability-and-chance`, `statistics-exam-practice`, `measurement-area-volume`, `scale-drawings-and-plans`
-
-**Legacy lessons retained (outside NSW 2024 Standard 1 scope; now at 19Q):**
-- `measurement-area-volume`, `scale-drawings-and-plans`, `data-displays-summary-statistics` — Year 11 content; not in MST-12-S1 but useful for revision
-- `right-angle-trigonometry` (in `measurement-geometry` unit) — duplicates trig content in `right-angle-trig-applications`; retained for completeness
+**Known follow-up:**
+- Add or adapt a dedicated `box-plots-five-number-summary` / quartiles-IQR lesson for MS-S3 so Further Statistical Analysis is not relying on the broader summary-statistics lesson.
 
 ---
 

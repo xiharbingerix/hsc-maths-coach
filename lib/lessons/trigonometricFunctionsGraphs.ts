@@ -345,8 +345,8 @@ export const radiansExactValuesUnitCircleLesson: ExplicitLesson = {
 export const graphsSineCosineTangentLesson: ExplicitLesson = {
   id: "graphs-sine-cosine-tangent",
   slug: "graphs-sine-cosine-tangent",
-  moduleSlug: "ma-t2-trigonometric-functions-and-identities",
-  moduleTitle: "Trigonometric Functions and Identities",
+  moduleSlug: "ma-f2-further-graph-transformations-and-modelling",
+  moduleTitle: "Further Graph Transformations and Modelling",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Graphs of Sine, Cosine, and Tangent",
   description:
@@ -373,17 +373,20 @@ export const graphsSineCosineTangentLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "Sine, cosine, and tangent graphs are periodic, which means their pattern repeats.",
-      "The graph $y=\\sin x$ has period $2\\pi$ and range $-1\\le y\\le1$. It starts at $0$ when $x=0$.",
-      "The graph $y=\\cos x$ also has period $2\\pi$ and range $-1\\le y\\le1$. It starts at $1$ when $x=0$.",
-      "The graph $y=\\tan x$ has period $\\pi$. It starts at $0$ when $x=0$ and has vertical asymptotes where $\\cos x=0$.",
-      "Key values help identify graph shape without needing to draw every point.",
+      "These three graphs are not shapes to memorise — they are pictures of what happens as a point travels around the unit circle. Recall the circle of radius $1$ centred at the origin: a point at angle $x$ sits at coordinates $(\\cos x,\\sin x)$. So $\\cos x$ is just the horizontal ($x$) coordinate of that point, and $\\sin x$ is its vertical ($y$) coordinate. The whole behaviour of the graphs comes from watching those two coordinates change as the point goes round and round.",
+      "Start with $y=\\sin x$, the height of the moving point. At angle $0$ the point sits at the far right, $(1,0)$, so its height is $0$ — the graph starts on the axis. As the angle grows, the point climbs to the top of the circle at $x=\\frac{\\pi}{2}$, where the height is its largest, $1$. It then sinks back to $0$ at the bottom-left crossing $x=\\pi$, drops to its lowest, $-1$, at $x=\\frac{3\\pi}{2}$, and returns to $0$ at $x=2\\pi$. Because the height can never exceed the radius, the graph lives entirely between $-1$ and $1$: that is the range $[-1,1]$.",
+      "One full revolution is $2\\pi$ radians, and after it the point is back exactly where it started — so the pattern of heights repeats every $2\\pi$. That repeat distance is the period. Saying 'the period is $2\\pi$' is not a separate fact to learn; it is simply the length of one trip around the circle. Every subsequent hump and dip is a carbon copy of the first.",
+      "Now $y=\\cos x$ is the same story told with the horizontal coordinate. At angle $0$ the point is at the far right, so its $x$-coordinate is $1$ — that is why cosine starts at its maximum, not at zero. As the point rotates to the top at $\\frac{\\pi}{2}$ it sits directly above the origin, horizontal coordinate $0$; at $\\pi$ it is at the far left, coordinate $-1$; and so on. The cosine graph is identical in shape to the sine graph but shifted left by $\\frac{\\pi}{2}$, because the horizontal coordinate is always 'a quarter-turn ahead' of the vertical one. Same range $[-1,1]$, same period $2\\pi$.",
+      "Tangent is built from the other two: $\\tan x=\\frac{\\sin x}{\\cos x}$, the height divided by the horizontal coordinate. This single definition explains every feature of its graph. Wherever $\\cos x=0$ — at $x=\\frac{\\pi}{2}$, $x=\\frac{3\\pi}{2}$, and so on — you are dividing by zero, so $\\tan x$ is undefined and the graph shoots off to a vertical asymptote there. Just before such a point the denominator is a tiny positive number, so the ratio blows up to $+\\infty$; just after, the denominator is tiny and negative, so it plunges from $-\\infty$. That is why tangent comes in separate climbing branches rather than one connected wave.",
+      "Tangent also has a shorter period than sine and cosine: it repeats every $\\pi$, not every $2\\pi$. The reason is that rotating by half a turn sends the point to the diametrically opposite position, which negates *both* $\\sin x$ and $\\cos x$ — and the two minus signs cancel in the ratio, leaving $\\tan x$ unchanged. So $\\tan(x+\\pi)=\\tan x$. Its range is also different: since a small denominator makes the ratio arbitrarily large, tangent takes every real value, not just those between $-1$ and $1$.",
+      "Two common slips are worth heading off now. First, sine and cosine have period $2\\pi$, not $\\pi$ — only tangent repeats every $\\pi$. Second, tangent is the one with vertical asymptotes and an unbounded range; sine and cosine are smooth, bounded waves with no asymptotes at all. Keeping the unit-circle picture in mind makes each of these obvious rather than something to recall.",
     ],
     latexBlocks: [
+      "(\\cos x,\\ \\sin x)=\\text{horizontal and vertical coordinates of the point at angle }x\\text{ on the unit circle}",
       "y=\\sin x,\\quad \\text{period }2\\pi,\\quad -1\\le y\\le1",
-      "y=\\cos x,\\quad \\text{period }2\\pi,\\quad -1\\le y\\le1",
-      "y=\\tan x,\\quad \\text{period }\\pi",
-      "\\cos x=0\\quad \\Rightarrow \\quad \\tan x\\text{ is undefined}",
+      "y=\\cos x,\\quad \\text{period }2\\pi,\\quad -1\\le y\\le1\\quad(\\sin x\\text{ shifted left by }\\tfrac{\\pi}{2})",
+      "\\tan x=\\frac{\\sin x}{\\cos x},\\quad \\text{period }\\pi,\\quad \\text{all real }y",
+      "\\cos x=0\\ \\Rightarrow\\ \\tan x\\text{ undefined: vertical asymptote at }x=\\tfrac{\\pi}{2}+k\\pi",
     ],
   },
 
@@ -393,19 +396,19 @@ export const graphsSineCosineTangentLesson: ExplicitLesson = {
       questionLatex: "y=\\sin x,\\quad 0\\le x\\le2\\pi",
       steps: [
         {
-          explanation: "The sine graph starts at zero.",
+          explanation: "At $x=0$ the unit-circle point is at the far right, $(1,0)$, so its height — the value of sine — is $0$. The graph begins on the axis.",
           latex: "\\sin(0)=0",
         },
         {
-          explanation: "It reaches a maximum of 1 at $\\frac{\\pi}{2}$.",
+          explanation: "A quarter-turn later the point is at the top of the circle, $(0,1)$, the highest it can go; that maximum height of $1$ is the peak of the graph.",
           latex: "\\sin\\left(\\frac{\\pi}{2}\\right)=1",
         },
         {
-          explanation: "It returns to zero at $\\pi$ and reaches a minimum at $\\frac{3\\pi}{2}$.",
+          explanation: "At $\\pi$ the point is at the far left $(-1,0)$ so the height is back to $0$; at $\\frac{3\\pi}{2}$ it is at the bottom $(0,-1)$, the lowest point, giving the minimum.",
           latex: "\\sin(\\pi)=0,\\quad \\sin\\left(\\frac{3\\pi}{2}\\right)=-1",
         },
         {
-          explanation: "It completes one cycle at $2\\pi$.",
+          explanation: "At $2\\pi$ the point has returned to its start, so the height is $0$ again and the whole pattern is about to repeat — one full revolution is one period.",
           latex: "\\sin(2\\pi)=0",
         },
       ],
@@ -430,19 +433,19 @@ export const graphsSineCosineTangentLesson: ExplicitLesson = {
       questionLatex: "y=\\cos x,\\quad 0\\le x\\le2\\pi",
       steps: [
         {
-          explanation: "The cosine graph starts at its maximum.",
+          explanation: "Cosine reads the horizontal coordinate. At $x=0$ the point is at the far right $(1,0)$, so the horizontal coordinate is $1$ — cosine starts at its maximum, unlike sine.",
           latex: "\\cos(0)=1",
         },
         {
-          explanation: "It crosses the x-axis at $\\frac{\\pi}{2}$.",
+          explanation: "A quarter-turn round, the point is directly above the origin at $(0,1)$, so its horizontal coordinate is $0$ — the graph crosses the axis here.",
           latex: "\\cos\\left(\\frac{\\pi}{2}\\right)=0",
         },
         {
-          explanation: "It reaches a minimum at $\\pi$.",
+          explanation: "At $\\pi$ the point is at the far left $(-1,0)$, so the horizontal coordinate is $-1$, the lowest cosine reaches.",
           latex: "\\cos(\\pi)=-1",
         },
         {
-          explanation: "It completes one cycle at $2\\pi$.",
+          explanation: "At $2\\pi$ the point is back at the far right, horizontal coordinate $1$ again, completing one period — the same shape as sine but started a quarter-turn earlier.",
           latex: "\\cos(2\\pi)=1",
         },
       ],
@@ -467,15 +470,15 @@ export const graphsSineCosineTangentLesson: ExplicitLesson = {
       questionLatex: "y=\\tan x",
       steps: [
         {
-          explanation: "The tangent graph repeats every $\\pi$.",
-          latex: "\\tan(x+\\pi)=\\tan x",
+          explanation: "Rotating by half a turn negates both $\\sin x$ and $\\cos x$, and those two minus signs cancel in the ratio $\\frac{\\sin x}{\\cos x}$, so tangent repeats every $\\pi$ rather than every $2\\pi$.",
+          latex: "\\tan(x+\\pi)=\\frac{-\\sin x}{-\\cos x}=\\tan x",
         },
         {
-          explanation: "Tangent is undefined where cosine is zero.",
-          latex: "\\cos x=0",
+          explanation: "Since $\\tan x=\\frac{\\sin x}{\\cos x}$, wherever $\\cos x=0$ we would be dividing by zero, so tangent is undefined and the graph has a vertical asymptote there.",
+          latex: "\\tan x=\\frac{\\sin x}{\\cos x},\\quad \\cos x=0",
         },
         {
-          explanation: "The first vertical asymptotes around zero are at $\\pm\\frac{\\pi}{2}$.",
+          explanation: "Cosine first hits zero at $\\pm\\frac{\\pi}{2}$, so those are the asymptotes nearest the origin; the graph climbs steeply toward them on either side.",
           latex: "x=-\\frac{\\pi}{2},\\quad x=\\frac{\\pi}{2}",
         },
       ],
@@ -729,8 +732,8 @@ export const graphsSineCosineTangentLesson: ExplicitLesson = {
 export const amplitudePeriodPhaseVerticalShiftLesson: ExplicitLesson = {
   id: "amplitude-period-phase-vertical-shift",
   slug: "amplitude-period-phase-vertical-shift",
-  moduleSlug: "ma-t2-trigonometric-functions-and-identities",
-  moduleTitle: "Trigonometric Functions and Identities",
+  moduleSlug: "ma-f2-further-graph-transformations-and-modelling",
+  moduleTitle: "Further Graph Transformations and Modelling",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Amplitude, Period, Phase Shift, and Vertical Shift",
   description:
@@ -757,18 +760,20 @@ export const amplitudePeriodPhaseVerticalShiftLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "A transformed trigonometric graph is still the same basic wave, but it may be stretched or slid. For $y=a\\sin(b(x-c))+d$ and $y=a\\cos(b(x-c))+d$, each constant describes one part of that change.",
-      "Amplitude is a vertical distance: measure from the midline to a maximum or minimum. This is why amplitude is $|a|$ and cannot be negative. It is not the maximum height unless the midline is zero.",
-      "Period is how long the graph takes to complete one full wave and start repeating. For sine and cosine, the basic cycle length $2\\pi$ is divided by $|b|$.",
-      "Phase shift is a horizontal slide. The bracket $x-c$ moves the graph right by $c$, while $x+c$ moves it left. Vertical shift is a vertical slide: adding $d$ moves the midline to $y=d$.",
-      "Tangent needs one important adjustment. It has no maximum or minimum, so it has no amplitude. A multiplier in front changes the steepness of its branches, its period is $\\frac{\\pi}{|b|}$, and adding $d$ moves its centre line to $y=d$.",
+      "Every transformed wave you will meet this year is the plain $y=\\sin x$ or $y=\\cos x$ from the last lesson, then stretched, squashed, and slid by four constants. The full form is $y=a\\sin(b(x-c))+d$ (cosine works the same way). The skill is not memorising what each letter does — it is seeing *why* each one does it, because then you can read any graph straight off its equation and write any equation straight off a graph.",
+      "Take $a$ first. Multiplying the whole sine by $a$ multiplies every height by $a$: a value that used to reach $1$ now reaches $a$, and a value of $-1$ becomes $-a$. So the wave is stretched vertically. The amplitude — the distance from the centre of the wave up to a peak (or down to a trough) — is therefore $|a|$. We take the absolute value because a distance cannot be negative; a negative $a$ simply flips the wave upside down (peaks become troughs) but the *size* of the swing is still $|a|$.",
+      "Now $b$, the constant multiplying $x$ *inside* the function. This is the one students most often get backwards. The basic wave finishes one full cycle when its input runs through $2\\pi$. With $b$ inside, the input is $bx$, so the bracket reaches $2\\pi$ when $x$ only reaches $\\frac{2\\pi}{b}$ — the wave finishes sooner, squashed horizontally. That is why the period is $\\frac{2\\pi}{b}$, a division: a bigger $b$ packs more cycles into the same space, so each cycle is shorter. Writing the period as $2\\pi b$ is the classic error — it would make the wave stretch out as $b$ grows, the exact opposite of what happens.",
+      "The constant $c$ slides the wave sideways. Inside the bracket we have $x-c$, and the wave does whatever it normally does when the *bracket* equals zero — which now happens at $x=c$ instead of $x=0$. So the entire graph is dragged right by $c$. A plus sign, $x+c$, sets the bracket to zero at $x=-c$, dragging it left. This horizontal slide is called the phase shift; it is why two waves of the same shape can be 'out of step'. (Watch the bracket: in $\\sin(2x-\\pi)$ the shift is not $\\pi$ — factor first to $\\sin(2(x-\\frac{\\pi}{2}))$, so the shift is $\\frac{\\pi}{2}$.)",
+      "Finally $d$ raises or lowers the whole graph: adding $d$ to every output lifts the wave bodily by $d$ units. The line the wave now oscillates around — halfway between its peaks and troughs — is the midline $y=d$. This is why amplitude is measured from the midline, not from the $x$-axis: the maximum value is $d+|a|$ and the minimum is $d-|a|$, and only when $d=0$ does the peak height equal the amplitude.",
+      "Tangent obeys the same four constants with two differences that follow from its shape. It has no peaks or troughs — it runs off to infinity — so it has no amplitude; the front multiplier $a$ just makes each branch steeper. And because the basic tangent already repeats every $\\pi$ (not $2\\pi$), its period is $\\frac{\\pi}{b}$, not $\\frac{2\\pi}{b}$. The horizontal and vertical slides from $c$ and $d$ work exactly as before, moving its branches and its centre line $y=d$.",
     ],
     latexBlocks: [
-      "y=a\\sin(b(x-c))+d",
-      "\\text{amplitude}=|a|",
-      "\\text{period for sine/cosine}=\\frac{2\\pi}{|b|}",
-      "\\text{period for tangent}=\\frac{\\pi}{|b|}",
-      "\\text{midline: }y=d",
+      "y=a\\sin(b(x-c))+d\\quad\\text{(and the same form with }\\cos\\text{)}",
+      "\\text{amplitude}=|a|\\quad(\\text{distance midline}\\to\\text{peak; negative }a\\text{ flips the wave})",
+      "\\text{period for sine/cosine}=\\frac{2\\pi}{|b|}\\quad(\\text{divide, not multiply})",
+      "\\text{period for tangent}=\\frac{\\pi}{|b|},\\quad\\text{tangent has no amplitude}",
+      "\\text{phase shift}=c\\ (\\text{right if }x-c),\\qquad \\text{midline: }y=d",
+      "\\text{max}=d+|a|,\\qquad \\text{min}=d-|a|",
     ],
   },
 
@@ -777,10 +782,10 @@ export const amplitudePeriodPhaseVerticalShiftLesson: ExplicitLesson = {
       title: "Worked example 1: Sine transformation",
       questionLatex: "y=3\\sin(2x)+1",
       steps: [
-        { explanation: "Identify $a$ and $b$.", latex: "a=3,\\quad b=2" },
-        { explanation: "Find the amplitude.", latex: "|a|=|3|=3" },
-        { explanation: "Find the period.", latex: "\\frac{2\\pi}{|2|}=\\pi" },
-        { explanation: "The vertical shift is $d=1$.", latex: "y=1" },
+        { explanation: "Match the equation to $y=a\\sin(bx)+d$: the front multiplier is $a$ and the number multiplying $x$ inside is $b$.", latex: "a=3,\\quad b=2,\\quad d=1" },
+        { explanation: "Amplitude is the swing from the midline to a peak, which is the size of the front multiplier $|a|$.", latex: "|a|=|3|=3" },
+        { explanation: "Because $b=2$ packs the input through $2\\pi$ in half the horizontal distance, divide $2\\pi$ by $|b|$ — the cycle is squashed, so the period shrinks.", latex: "\\frac{2\\pi}{|2|}=\\pi" },
+        { explanation: "The $+1$ lifts the whole wave by one unit, so it now oscillates about the line $y=1$ rather than the $x$-axis.", latex: "\\text{midline }y=1" },
       ],
       finalAnswerLatex:
         "\\text{amplitude }3,\\quad \\text{period }\\pi,\\quad \\text{vertical shift }1",
@@ -802,10 +807,10 @@ export const amplitudePeriodPhaseVerticalShiftLesson: ExplicitLesson = {
       title: "Worked example 2: Cosine transformation",
       questionLatex: "y=-2\\cos\\left(x-\\frac{\\pi}{3}\\right)+4",
       steps: [
-        { explanation: "Identify the constants.", latex: "a=-2,\\quad b=1,\\quad c=\\frac{\\pi}{3},\\quad d=4" },
-        { explanation: "Amplitude uses the absolute value of $a$.", latex: "|a|=|-2|=2" },
-        { explanation: "Find the period.", latex: "\\frac{2\\pi}{|1|}=2\\pi" },
-        { explanation: "The phase shift is right $\\frac{\\pi}{3}$ and the midline is $y=4$.", latex: "x\\mapsto x-\\frac{\\pi}{3},\\quad y=4" },
+        { explanation: "Read off the four constants from $y=a\\cos(b(x-c))+d$; the bracket is already factored, so $c$ is clear.", latex: "a=-2,\\quad b=1,\\quad c=\\frac{\\pi}{3},\\quad d=4" },
+        { explanation: "Amplitude is the size of the swing, $|a|$; the negative sign only flips the cosine upside down, so it starts at a minimum instead of a maximum.", latex: "|a|=|-2|=2" },
+        { explanation: "Since $b=1$, the input is unsquashed and the period is the standard $2\\pi$.", latex: "\\frac{2\\pi}{|1|}=2\\pi" },
+        { explanation: "The bracket $x-\\frac{\\pi}{3}$ is zero at $x=\\frac{\\pi}{3}$, so the whole graph is dragged right by $\\frac{\\pi}{3}$; the $+4$ lifts the midline to $y=4$.", latex: "\\text{right }\\frac{\\pi}{3},\\quad \\text{midline }y=4" },
       ],
       finalAnswerLatex:
         "\\text{amplitude }2,\\quad \\text{period }2\\pi,\\quad \\text{phase shift }\\frac{\\pi}{3}\\text{ right},\\quad \\text{midline }y=4",
@@ -1067,8 +1072,8 @@ export const amplitudePeriodPhaseVerticalShiftLesson: ExplicitLesson = {
 export const trigonometricEquationsLesson: ExplicitLesson = {
   id: "trigonometric-equations",
   slug: "trigonometric-equations",
-  moduleSlug: "ma-t2-trigonometric-functions-and-identities",
-  moduleTitle: "Trigonometric Functions and Identities",
+  moduleSlug: "ma-f2-further-graph-transformations-and-modelling",
+  moduleTitle: "Further Graph Transformations and Modelling",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Trigonometric Equations",
   description:
@@ -1095,17 +1100,18 @@ export const trigonometricEquationsLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "Trigonometric equations often have more than one solution in a given domain.",
-      "First isolate the trigonometric function. For example, $2\\sin x-1=0$ becomes $\\sin x=\\frac12$.",
-      "Use exact values to find the reference angle, then use quadrant signs to find all solutions in the interval.",
-      "Always check the domain. Unless degrees are specified, answers should be written in radians.",
-      "Sine and cosine repeat every $2\\pi$, while tangent repeats every $\\pi$.",
+      "A trigonometric equation like $\\sin x=\\frac12$ almost never has a single answer, and understanding *why* is the whole skill. Picture the graph of $y=\\sin x$ and draw the horizontal line $y=\\frac12$ across it. Over one cycle that line cuts the wave twice — once on the way up, once on the way down — so there are two solutions per period, and more in every further period. Solving the equation means finding *all* the crossings inside the domain you are given, not just the first one your calculator hands you.",
+      "Before anything else, get the trig function by itself. An equation such as $2\\sin x-1=0$ is not yet ready to solve; rearrange it to $\\sin x=\\frac12$ so you can ask the clean question 'which angles have this sine?'. This is the same isolation you would do for $2x-1=0$ — undo the surrounding arithmetic first.",
+      "Now find one angle that works — the reference angle — using exact values. For $\\sin x=\\frac12$ the reference angle is $\\frac{\\pi}{6}$, because $\\sin\\frac{\\pi}{6}=\\frac12$. The reference angle is always taken from the *positive* value and is the acute angle in the first quadrant; the sign of the original equation tells you which quadrants the real solutions live in, not the reference angle itself.",
+      "To find the second (and further) solutions, use the symmetry of the unit circle rather than guessing. Sine is the height, and a given height occurs at two points: one in the first quadrant at angle $\\theta$, and its mirror image across the vertical axis at $\\pi-\\theta$. So if $\\frac{\\pi}{6}$ is a solution of $\\sin x=\\frac12$, then $\\pi-\\frac{\\pi}{6}=\\frac{5\\pi}{6}$ is the other one in $[0,2\\pi]$. Cosine (the horizontal coordinate) is instead mirrored top-to-bottom, giving its second solution at $2\\pi-\\theta$ or, for negative cosine, in quadrants II and III. Reading the quadrants off the sign — sine positive in I and II, cosine positive in I and IV, and so on — is faster and safer than memorising formulas.",
+      "The period then generates every remaining solution. Sine and cosine repeat every $2\\pi$, so once you have the solutions in one cycle you add $2\\pi$ repeatedly until you leave the domain. Tangent repeats every $\\pi$ — half as often — so its solutions are spaced $\\pi$ apart, and a domain of length $2\\pi$ typically gives two tangent solutions, not four. Using the wrong period here is a common way to lose marks.",
+      "Two final guards. First, check the domain at the end and discard any solution that falls outside it, and never stop at one answer when the graph shows the line crossing more than once — missing solutions is the single most frequent error in this topic. Second, mind the units: unless the question is stated in degrees, work and answer in radians, since a domain like $0\\le x\\le 2\\pi$ is a radian domain.",
     ],
     latexBlocks: [
-      "2\\sin x-1=0\\quad \\Rightarrow\\quad \\sin x=\\frac12",
-      "\\sin x>0\\quad \\text{in quadrants I and II}",
-      "\\cos x<0\\quad \\text{in quadrants II and III}",
-      "\\tan(x+\\pi)=\\tan x",
+      "\\text{isolate first: }2\\sin x-1=0\\ \\Rightarrow\\ \\sin x=\\tfrac12",
+      "\\text{second solution: }\\sin\\ \\to\\ \\pi-\\theta;\\quad \\cos\\ \\to\\ 2\\pi-\\theta",
+      "\\sin x>0\\text{ in I, II};\\quad \\cos x>0\\text{ in I, IV};\\quad \\tan x>0\\text{ in I, III}",
+      "\\text{add the period to sweep the domain: }+2\\pi\\ (\\sin,\\cos),\\ +\\pi\\ (\\tan)",
     ],
   },
 
@@ -1114,9 +1120,9 @@ export const trigonometricEquationsLesson: ExplicitLesson = {
       title: "Worked example 1: Solve a sine equation",
       questionLatex: "2\\sin x-1=0,\\quad 0\\le x\\le2\\pi",
       steps: [
-        { explanation: "Isolate sine.", latex: "2\\sin x=1\\quad \\Rightarrow\\quad \\sin x=\\frac12" },
-        { explanation: "Find the reference angle.", latex: "\\sin\\left(\\frac{\\pi}{6}\\right)=\\frac12" },
-        { explanation: "Sine is positive in quadrants I and II.", latex: "x=\\frac{\\pi}{6},\\quad x=\\frac{5\\pi}{6}" },
+        { explanation: "Get sine alone first: add 1 and divide by 2, so the equation becomes the clean question 'which angles have sine equal to a half?'", latex: "2\\sin x=1\\quad \\Rightarrow\\quad \\sin x=\\frac12" },
+        { explanation: "Use exact values to find one acute angle with this sine — the reference angle.", latex: "\\sin\\left(\\frac{\\pi}{6}\\right)=\\frac12" },
+        { explanation: "Since $\\frac12$ is positive, sine is positive in quadrants I and II; the height $\\frac12$ occurs at $\\frac{\\pi}{6}$ and at its mirror image $\\pi-\\frac{\\pi}{6}=\\frac{5\\pi}{6}$, both inside $[0,2\\pi]$.", latex: "x=\\frac{\\pi}{6},\\quad x=\\pi-\\frac{\\pi}{6}=\\frac{5\\pi}{6}" },
       ],
       finalAnswerLatex: "x=\\frac{\\pi}{6},\\frac{5\\pi}{6}",
     },
@@ -1124,9 +1130,9 @@ export const trigonometricEquationsLesson: ExplicitLesson = {
       title: "Worked example 2: Solve a cosine equation",
       questionLatex: "\\cos x=-\\frac12,\\quad 0\\le x\\le2\\pi",
       steps: [
-        { explanation: "The reference angle is $\\frac{\\pi}{3}$.", latex: "\\cos\\left(\\frac{\\pi}{3}\\right)=\\frac12" },
-        { explanation: "Cosine is negative in quadrants II and III.", latex: "x=\\pi-\\frac{\\pi}{3},\\quad x=\\pi+\\frac{\\pi}{3}" },
-        { explanation: "Simplify the solutions.", latex: "x=\\frac{2\\pi}{3},\\quad x=\\frac{4\\pi}{3}" },
+        { explanation: "Take the reference angle from the positive value $\\frac12$, ignoring the minus sign for now: $\\frac{\\pi}{3}$ is the acute angle whose cosine is a half.", latex: "\\cos\\left(\\frac{\\pi}{3}\\right)=\\frac12" },
+        { explanation: "The cosine is negative, and cosine (the horizontal coordinate) is negative on the left of the circle — quadrants II and III; build those angles by reflecting the reference angle about $\\pi$.", latex: "x=\\pi-\\frac{\\pi}{3},\\quad x=\\pi+\\frac{\\pi}{3}" },
+        { explanation: "Simplify; both lie inside $[0,2\\pi]$, so both are kept.", latex: "x=\\frac{2\\pi}{3},\\quad x=\\frac{4\\pi}{3}" },
       ],
       finalAnswerLatex: "x=\\frac{2\\pi}{3},\\frac{4\\pi}{3}",
     },
@@ -1134,9 +1140,9 @@ export const trigonometricEquationsLesson: ExplicitLesson = {
       title: "Worked example 3: Solve a tangent equation",
       questionLatex: "\\tan x=1,\\quad 0\\le x\\le2\\pi",
       steps: [
-        { explanation: "The reference angle is $\\frac{\\pi}{4}$.", latex: "\\tan\\left(\\frac{\\pi}{4}\\right)=1" },
-        { explanation: "Tangent is positive in quadrants I and III.", latex: "x=\\frac{\\pi}{4},\\quad x=\\frac{5\\pi}{4}" },
-        { explanation: "These are both in the domain.", latex: "0\\le x\\le2\\pi" },
+        { explanation: "Find the acute angle whose tangent is 1; sine and cosine are equal there, so the ratio is 1.", latex: "\\tan\\left(\\frac{\\pi}{4}\\right)=1" },
+        { explanation: "Tangent repeats every $\\pi$, not $2\\pi$, so the next solution is just the first plus $\\pi$ — that lands it in quadrant III, where tangent is also positive.", latex: "x=\\frac{\\pi}{4},\\quad x=\\frac{\\pi}{4}+\\pi=\\frac{5\\pi}{4}" },
+        { explanation: "Adding another $\\pi$ would give $\\frac{9\\pi}{4}>2\\pi$, outside the domain, so the two found are all of them.", latex: "0\\le x\\le2\\pi" },
       ],
       finalAnswerLatex: "x=\\frac{\\pi}{4},\\frac{5\\pi}{4}",
     },
@@ -1681,7 +1687,7 @@ export const trigonometricIdentitiesSimplificationLesson: ExplicitLesson = {
     {
       id: "identity-mastery-9",
       prompt: "Simplify:",
-      latex: "\\frac{\\sin x}{\\cos x}\\cos x",
+      latex: "\\tan x\\cos x",
       answer: "D",
       choices: [
         { label: "A", text: "$\\cos x$" },
@@ -1713,8 +1719,8 @@ export const trigonometricIdentitiesSimplificationLesson: ExplicitLesson = {
 export const modellingPeriodicPhenomenaLesson: ExplicitLesson = {
   id: "modelling-periodic-phenomena",
   slug: "modelling-periodic-phenomena",
-  moduleSlug: "ma-t2-trigonometric-functions-and-identities",
-  moduleTitle: "Trigonometric Functions and Identities",
+  moduleSlug: "ma-f2-further-graph-transformations-and-modelling",
+  moduleTitle: "Further Graph Transformations and Modelling",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Modelling Periodic Phenomena",
   description:
@@ -1741,18 +1747,18 @@ export const modellingPeriodicPhenomenaLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "Trigonometric functions can model repeating behaviour such as tides, daylight, Ferris wheel height, temperature, and motion.",
-      "The midline represents the average value. In $y=a\\sin(b(t-c))+d$, the midline is $y=d$.",
-      "The amplitude is half the distance between the maximum and minimum values.",
-      "For sine and cosine models, the period is $\\frac{2\\pi}{|b|}$.",
-      "Maximum and minimum values come from midline plus or minus amplitude, and units matter in context.",
-      "When building a model, the starting point helps you choose the function. Cosine is convenient when the cycle starts at a maximum or minimum. Sine is convenient when it starts on the midline moving upwards or downwards.",
+      "Anything in the real world that rises and falls in a regular, repeating cycle — the tide, the height of a seat on a Ferris wheel, daily temperature, hours of daylight through the year — is exactly what a sine or cosine wave describes. Modelling these is not a new technique; it is the same $y=a\\sin(b(t-c))+d$ from the graphing lessons, with each constant now carrying a physical meaning you can point to in the situation. The variable is usually time $t$, and reading the model is just translating between the four numbers and four real quantities.",
+      "The midline $d$ is the *average* level the quantity oscillates about — the still water level for a tide, the height of the centre of a Ferris wheel. It sits exactly halfway between the highest and lowest values, so you can recover it from a context by averaging: $d=\\frac{\\text{max}+\\text{min}}{2}$. Everything else swings symmetrically above and below this line.",
+      "The amplitude $|a|$ is how far the quantity swings from that average up to its peak (equivalently, down to its trough). Because the high and low are symmetric about the midline, the amplitude is *half* the total range: $|a|=\\frac{\\text{max}-\\text{min}}{2}$. From these two facts together the extremes follow immediately — maximum $=d+|a|$, minimum $=d-|a|$ — which is why a tide of midline $3$ m and amplitude $2$ m runs between $1$ m and $5$ m.",
+      "The period is how long one full cycle takes — 12 hours for a tide, 40 seconds for one rotation of a wheel — and it is fixed by $b$ through period $=\\frac{2\\pi}{b}$. In a modelling question you usually know the period from the context and must work *backwards* to find $b$: rearrange to $b=\\frac{2\\pi}{\\text{period}}$. For a wheel turning once every 40 seconds, $b=\\frac{2\\pi}{40}=\\frac{\\pi}{20}$. Resist the temptation to write $b$ equal to the period itself — the $2\\pi$ and the division are what convert 'one cycle per 40 seconds' into the right angular speed.",
+      "When you *build* a model from scratch, the starting position chooses the function. If the cycle begins at a peak or a trough — like a wheel starting at the bottom — cosine fits naturally, because plain cosine starts at its maximum; a starting minimum just needs a negative coefficient, $-a$, to flip it to start at the bottom. If instead the cycle begins at the average level and heads upward, plain sine fits, since sine starts on its midline rising. Picking the function that already starts in the right place saves you from juggling a phase shift $c$.",
+      "Throughout, keep the units attached and interpret what each answer means in the story. A 'maximum of 22 m' is a height above the ground, a 'period of 12 hours' is the time between successive high tides. Marks in exam modelling questions are won as much for the correct unit and interpretation as for the number, so always close the loop back to the context.",
     ],
     latexBlocks: [
-      "y=a\\sin(b(t-c))+d",
-      "\\text{amplitude}=|a|",
-      "\\text{period}=\\frac{2\\pi}{|b|}",
-      "\\text{maximum}=d+|a|,\\quad \\text{minimum}=d-|a|",
+      "h(t)=a\\sin(b(t-c))+d\\quad\\text{(or with }\\cos\\text{)}",
+      "\\text{midline }d=\\frac{\\text{max}+\\text{min}}{2},\\qquad \\text{amplitude }|a|=\\frac{\\text{max}-\\text{min}}{2}",
+      "\\text{maximum}=d+|a|,\\qquad \\text{minimum}=d-|a|",
+      "\\text{period}=\\frac{2\\pi}{|b|}\\ \\Rightarrow\\ b=\\frac{2\\pi}{\\text{period}}",
     ],
   },
 
@@ -1761,9 +1767,9 @@ export const modellingPeriodicPhenomenaLesson: ExplicitLesson = {
       title: "Worked example 1: Tide model",
       questionLatex: "h(t)=2\\sin\\left(\\frac{\\pi}{6}t\\right)+3",
       steps: [
-        { explanation: "Identify amplitude.", latex: "|a|=2" },
-        { explanation: "Identify midline.", latex: "h=3" },
-        { explanation: "Find the period.", latex: "\\frac{2\\pi}{\\pi/6}=12" },
+        { explanation: "The front coefficient is the amplitude: the tide swings 2 m above and below its average level.", latex: "|a|=2\\text{ m}" },
+        { explanation: "The constant added on is the midline — the average (still-water) height the tide oscillates about.", latex: "d=3\\text{ m}" },
+        { explanation: "Divide $2\\pi$ by $b=\\frac{\\pi}{6}$ to get the cycle length; dividing by a sixth of $\\pi$ multiplies by $\\frac{6}{\\pi}$, giving 12 hours between successive high tides.", latex: "\\frac{2\\pi}{\\pi/6}=2\\pi\\cdot\\frac{6}{\\pi}=12" },
       ],
       finalAnswerLatex:
         "\\text{amplitude }2\\text{ m},\\quad \\text{midline }3\\text{ m},\\quad \\text{period }12\\text{ h}",
@@ -1785,9 +1791,9 @@ export const modellingPeriodicPhenomenaLesson: ExplicitLesson = {
       title: "Worked example 2: Ferris wheel model",
       questionLatex: "h(t)=10\\cos\\left(\\frac{\\pi}{15}t\\right)+12",
       steps: [
-        { explanation: "Amplitude is 10 and midline is 12.", latex: "|a|=10,\\quad d=12" },
-        { explanation: "Find maximum and minimum height.", latex: "\\max=12+10=22,\\quad \\min=12-10=2" },
-        { explanation: "Find the period.", latex: "\\frac{2\\pi}{\\pi/15}=30" },
+        { explanation: "Read off the swing and the average: the seat moves 10 m either side of the wheel's centre height of 12 m.", latex: "|a|=10,\\quad d=12" },
+        { explanation: "The top of the ride is midline plus amplitude, the bottom is midline minus amplitude — so the seat travels between 2 m and 22 m above the ground.", latex: "\\max=12+10=22,\\quad \\min=12-10=2" },
+        { explanation: "Divide $2\\pi$ by $b=\\frac{\\pi}{15}$: one full rotation takes 30 seconds.", latex: "\\frac{2\\pi}{\\pi/15}=2\\pi\\cdot\\frac{15}{\\pi}=30" },
       ],
       finalAnswerLatex:
         "\\text{maximum }22\\text{ m},\\quad \\text{minimum }2\\text{ m},\\quad \\text{period }30\\text{ s}",
@@ -2000,8 +2006,8 @@ export const modellingPeriodicPhenomenaLesson: ExplicitLesson = {
     },
     {
       id: "model-mastery-8",
-      prompt: "Choose the correct unit for the period if $t$ is in hours.",
-      latex: "t\\text{ in hours}",
+      prompt: "If the variable $t$ is measured in the unit shown, choose the matching unit for the period.",
+      latex: "t\\text{ measured in }\\mathrm{h}",
       answer: "B",
       choices: [
         { label: "A", text: "metres" },
@@ -2038,11 +2044,379 @@ export const modellingPeriodicPhenomenaLesson: ExplicitLesson = {
   masteryPassMark: 0.8,
 };
 
+export const logarithmicScalesLesson: ExplicitLesson = {
+  id: "logarithmic-scales",
+  slug: "logarithmic-scales",
+  moduleSlug: "ma-f2-further-graph-transformations-and-modelling",
+  moduleTitle: "Further Graph Transformations and Modelling",
+  courseTitle: "Year 12 Mathematics Advanced",
+  title: "Logarithmic Scales",
+  description:
+    "Understand why logarithmic scales compress quantities that span many orders of magnitude, and model and solve problems involving decibels, the Richter scale, star magnitudes, and pH.",
+  syllabusArea: "Functions",
+  focus: "Further graph transformations and modelling",
+  status: "active",
+  video: {
+    title: "Logarithmic Scales",
+    url: "/videos/placeholder-lesson.mp4",
+  },
+  learningIntention:
+    "Learn why and how logarithmic scales are used to model quantities that range over many orders of magnitude.",
+  successCriteria: [
+    "Explain when a logarithmic scale is suitable (quantities spanning many orders of magnitude).",
+    "Use the decibel formula $L=10\\log_{10}\\!\\frac{I}{I_0}$.",
+    "Interpret equal steps on a log scale as equal multiplicative factors (e.g. +1 on Richter $=\\times 10$).",
+    "Use $\\text{pH}=-\\log_{10}[\\text{H}^+]$ and convert both ways.",
+    "Compare two quantities using the difference of their scale values.",
+  ],
+  teaching: {
+    paragraphs: [
+      "Some quantities range over an enormous span. Sound intensities from a whisper to a jet engine differ by a factor of over a trillion; earthquake amplitudes and acid concentrations are similar. Plotting such numbers on an ordinary (linear) axis is hopeless — the small values are crushed against zero. A logarithmic scale fixes this by recording the logarithm of the quantity instead of the quantity itself, so a huge multiplicative range becomes a small, evenly-spaced additive range.",
+      "The defining feature of a log scale is that equal steps represent equal multiplying factors, not equal differences. On a base-10 log scale, moving up by 1 means the underlying quantity is $\\times 10$; moving up by 2 means $\\times 100$. This is exactly the behaviour of $\\log_{10}$: $\\log(10x)=\\log x+1$. So a log scale turns 'multiply by 10' into 'add 1', which is what makes vast ranges manageable. A log scale is the right choice precisely when a quantity is naturally compared by ratios rather than by differences.",
+      "The decibel scale for sound uses $L=10\\log_{10}\\!\\dfrac{I}{I_0}$, where $I$ is the sound's intensity and $I_0=10^{-12}\\,\\text{W/m}^2$ is a fixed reference. The ratio $\\frac{I}{I_0}$ is taken first, then its logarithm, then $\\times 10$. Because of the $\\times 10$, here each factor of $10$ in intensity adds $10\\,\\text{dB}$, and a factor of $2$ adds about $3\\,\\text{dB}$ (since $10\\log 2\\approx 3$). To compare two sounds, subtract their levels: the difference depends only on the intensity ratio, $\\Delta L=10\\log_{10}\\!\\frac{I_2}{I_1}$.",
+      "The Richter (seismic) scale works the same way: an earthquake's magnitude is $M=\\log_{10}\\!\\dfrac{A}{A_0}$, the logarithm of the ground-movement amplitude relative to a reference. Because there is no factor of 10 out the front, each whole number of magnitude is a full factor of $10$ in amplitude — a magnitude 7 quake has $10$ times the amplitude of a magnitude 6, and $100$ times that of a magnitude 5. Differences in magnitude translate to powers of ten in amplitude: an amplitude ratio of $10^{(M_2-M_1)}$.",
+      "The pH scale measures acidity by $\\text{pH}=-\\log_{10}[\\text{H}^+]$, where $[\\text{H}^+]$ is the hydrogen-ion concentration. Two things are worth noting. First, each whole pH unit is a factor of $10$ in concentration, so pH 3 is ten times more acidic than pH 4 and a hundred times more acidic than pH 5. Second, the minus sign flips the direction: a higher $[\\text{H}^+]$ gives a lower pH, so smaller pH means more acidic. To go back from pH to concentration, reverse the formula: $[\\text{H}^+]=10^{-\\text{pH}}$.",
+      "Star brightness uses a logarithmic 'magnitude' scale too, with the historical quirk that brighter stars have smaller magnitudes, and a difference of $5$ magnitudes corresponds to a brightness factor of exactly $100$. The common thread across all four scales is identical: a logarithm converts a quantity that varies multiplicatively over a vast range into a tidy additive scale, where you move between the scale value and the raw quantity using logs one way and powers of ten the other way.",
+    ],
+    latexBlocks: [
+      "\\text{decibels: } L=10\\log_{10}\\frac{I}{I_0}, \\quad I_0=10^{-12}\\,\\text{W/m}^2",
+      "\\Delta L=10\\log_{10}\\frac{I_2}{I_1} \\quad (+10\\,\\text{dB}\\Rightarrow \\times 10 \\text{ intensity})",
+      "\\text{Richter: } M=\\log_{10}\\frac{A}{A_0}, \\quad \\frac{A_2}{A_1}=10^{(M_2-M_1)}",
+      "\\text{pH}=-\\log_{10}[\\text{H}^+], \\quad [\\text{H}^+]=10^{-\\text{pH}}",
+    ],
+  },
+  workedExamples: [
+    {
+      title: "Worked example 1: A decibel level",
+      questionLatex:
+        "\\text{A sound has intensity } I=10^{-6}\\,\\text{W/m}^2. \\text{ With } I_0=10^{-12}, \\text{ find the level } L.",
+      steps: [
+        { explanation: "Form the ratio and take its logarithm.", latex: "\\frac{I}{I_0}=\\frac{10^{-6}}{10^{-12}}=10^{6}" },
+        { explanation: "Apply the decibel formula.", latex: "L=10\\log_{10}(10^{6})=10\\times 6=60\\,\\text{dB}" },
+      ],
+      finalAnswerLatex: "L=60\\,\\text{dB}",
+    },
+    {
+      title: "Worked example 2: Comparing intensities",
+      questionLatex:
+        "\\text{Sound A is } 100 \\text{ times as intense as sound B. How many dB louder is A?}",
+      steps: [
+        { explanation: "The difference depends only on the intensity ratio.", latex: "\\Delta L=10\\log_{10}\\frac{I_A}{I_B}=10\\log_{10}(100)" },
+        { explanation: "Evaluate.", latex: "=10\\times 2=20\\,\\text{dB}" },
+      ],
+      finalAnswerLatex: "A \\text{ is } 20\\,\\text{dB louder.}",
+    },
+    {
+      title: "Worked example 3: Richter amplitude ratio",
+      questionLatex:
+        "\\text{How many times larger is the amplitude of a magnitude } 7 \\text{ quake than a magnitude } 5?",
+      steps: [
+        { explanation: "Amplitude ratio is ten to the power of the magnitude difference.", latex: "\\frac{A_2}{A_1}=10^{(7-5)}=10^{2}" },
+        { explanation: "Evaluate.", latex: "=100" },
+      ],
+      finalAnswerLatex: "100 \\text{ times larger.}",
+    },
+    {
+      title: "Worked example 4: pH both ways",
+      questionLatex:
+        "\\text{(a) Find the pH when } [\\text{H}^+]=10^{-4}. \\text{ (b) How many times more acidic is pH } 3 \\text{ than pH } 6?",
+      steps: [
+        { explanation: "Use $\\text{pH}=-\\log_{10}[\\text{H}^+]$.", latex: "\\text{pH}=-\\log_{10}(10^{-4})=-(-4)=4" },
+        { explanation: "Each pH unit is a factor of 10 in $[\\text{H}^+]$; the gap is $6-3=3$ units.", latex: "\\text{factor}=10^{(6-3)}=10^{3}=1000" },
+      ],
+      finalAnswerLatex: "\\text{(a) pH}=4; \\quad \\text{(b) } 1000 \\text{ times more acidic.}",
+    },
+  ],
+  guidedPractice: [
+    {
+      id: "logsc-guided-1",
+      prompt: "A logarithmic scale is most useful when a quantity:",
+      latex: "\\text{Choose one}",
+      answer: "B",
+      choices: [
+        { label: "A", text: "Only takes small values" },
+        { label: "B", text: "Ranges over many orders of magnitude (compared by ratios)" },
+        { label: "C", text: "Is always negative" },
+        { label: "D", text: "Changes by equal additive steps" },
+      ],
+      hint: "Think whisper-to-jet-engine ranges.",
+      explanation:
+        "Log scales suit quantities spanning many orders of magnitude, naturally compared by ratios.",
+    },
+    {
+      id: "logsc-guided-2",
+      prompt: "On a base-10 log scale, moving up by 1 unit multiplies the quantity by:",
+      latex: "\\text{Choose one}",
+      answer: "C",
+      choices: [
+        { label: "A", text: "$2$" },
+        { label: "B", text: "$1$" },
+        { label: "C", text: "$10$" },
+        { label: "D", text: "$100$" },
+      ],
+      hint: "$\\log(10x)=\\log x+1$.",
+      explanation: "Each $+1$ on a base-10 log scale is a factor of $10$.",
+    },
+    {
+      id: "logsc-guided-3",
+      prompt: "Find the pH when $[\\text{H}^+]=10^{-5}$.",
+      latex: "\\text{pH}=-\\log_{10}(10^{-5})",
+      answer: "5",
+      hint: "$-\\log_{10}(10^{-5})$.",
+      explanation: "$\\text{pH}=-(-5)=5$.",
+    },
+    {
+      id: "logsc-guided-4",
+      prompt:
+        "Two earthquakes differ by 2 on the Richter scale. The larger amplitude is how many times the smaller?",
+      latex: "10^{(M_2-M_1)}",
+      answer: "100",
+      hint: "$10^2$.",
+      explanation: "$10^{2}=100$ times larger.",
+    },
+  ],
+  independentPractice: [
+    {
+      id: "logsc-ind-1",
+      prompt: "A sound has $I=10^{-4}\\,\\text{W/m}^2$. With $I_0=10^{-12}$, find $L$ in dB.",
+      latex: "L=10\\log_{10}\\frac{10^{-4}}{10^{-12}}",
+      answer: "80",
+      hint: "Ratio is $10^{8}$.",
+      explanation: "$L=10\\log_{10}(10^{8})=80\\,\\text{dB}$.",
+    },
+    {
+      id: "logsc-ind-2",
+      prompt: "If the pH is 2, the hydrogen-ion concentration $[\\text{H}^+]$ is:",
+      latex: "[\\text{H}^+]=10^{-\\text{pH}}",
+      answer: "A",
+      choices: [
+        { label: "A", text: "$10^{-2}$" },
+        { label: "B", text: "$10^{2}$" },
+        { label: "C", text: "$2$" },
+        { label: "D", text: "$10^{-12}$" },
+      ],
+      hint: "$[\\text{H}^+]=10^{-\\text{pH}}$.",
+      explanation: "$[\\text{H}^+]=10^{-2}$.",
+    },
+    {
+      id: "logsc-ind-3",
+      prompt:
+        "Two earthquakes differ by 3 on the Richter scale. The amplitude ratio is:",
+      latex: "10^{3}",
+      answer: "1000",
+      hint: "$10^3$.",
+      explanation: "$10^{3}=1000$.",
+    },
+    {
+      id: "logsc-ind-4",
+      prompt: "An increase of $20\\,\\text{dB}$ means the sound intensity is multiplied by:",
+      latex: "\\text{Choose one}",
+      answer: "C",
+      choices: [
+        { label: "A", text: "$2$" },
+        { label: "B", text: "$20$" },
+        { label: "C", text: "$100$" },
+        { label: "D", text: "$10$" },
+      ],
+      hint: "$20=10\\log_{10}(?)$.",
+      explanation: "$20=10\\log_{10}(100)$, so intensity $\\times 100$.",
+    },
+    {
+      id: "logsc-ind-5",
+      prompt:
+        "How many times more acidic is a solution of pH 4 than one of pH 7?",
+      latex: "10^{(7-4)}",
+      answer: "1000",
+      hint: "$10^{3}$.",
+      explanation: "Gap of 3 pH units $=10^{3}=1000$ times more acidic.",
+    },
+  ],
+  commonMistakes: [
+    {
+      mistake: "Treating a difference on a log scale as a difference in the quantity rather than a ratio.",
+      fix: "A gap of $k$ units means the quantity is multiplied by $10^{k}$ (or the relevant base).",
+    },
+    {
+      mistake: "Forgetting the factor of 10 in the decibel formula.",
+      fix: "$L=10\\log_{10}\\frac{I}{I_0}$; a factor of 10 in intensity is $+10\\,\\text{dB}$, not $+1$.",
+    },
+    {
+      mistake: "Getting the pH direction backwards.",
+      fix: "Because of the minus sign, higher $[\\text{H}^+]$ gives lower pH — smaller pH is more acidic.",
+    },
+    {
+      mistake: "Taking the logarithm of the raw quantity without forming the ratio to the reference.",
+      fix: "Decibels and Richter use a ratio $\\frac{I}{I_0}$ or $\\frac{A}{A_0}$ inside the log.",
+    },
+  ],
+  masteryQuiz: [
+    {
+      id: "logsc-m-1",
+      prompt: "Moving up 2 units on a base-10 log scale multiplies the quantity by:",
+      latex: "\\text{Choose one}",
+      answer: "C",
+      difficulty: 3,
+      choices: [
+        { label: "A", text: "$2$" },
+        { label: "B", text: "$20$" },
+        { label: "C", text: "$100$" },
+        { label: "D", text: "$4$" },
+      ],
+      hint: "$10^2$.",
+      explanation: "$+2 \\Rightarrow \\times 10^2=\\times 100$.",
+    },
+    {
+      id: "logsc-m-2",
+      prompt: "A sound has $I=10^{-3}\\,\\text{W/m}^2$, $I_0=10^{-12}$. Find $L$.",
+      latex: "10\\log_{10}(10^{9})",
+      answer: "90",
+      difficulty: 3,
+      hint: "Ratio $10^9$.",
+      explanation: "$L=10\\times 9=90\\,\\text{dB}$.",
+    },
+    {
+      id: "logsc-m-3",
+      prompt: "pH when $[\\text{H}^+]=10^{-9}$:",
+      latex: "-\\log_{10}(10^{-9})",
+      answer: "9",
+      difficulty: 3,
+      hint: "$-(-9)$.",
+      explanation: "$\\text{pH}=9$.",
+    },
+    {
+      id: "logsc-m-4",
+      prompt:
+        "An earthquake of magnitude 6 has amplitude how many times that of magnitude 3?",
+      latex: "10^{(6-3)}",
+      answer: "1000",
+      difficulty: 4,
+      hint: "$10^3$.",
+      explanation: "$10^{3}=1000$.",
+    },
+    {
+      id: "logsc-m-5",
+      prompt: "An increase of $30\\,\\text{dB}$ corresponds to an intensity factor of:",
+      latex: "30=10\\log_{10}(?)",
+      answer: "1000",
+      difficulty: 4,
+      hint: "$30/10=3$, so $10^3$.",
+      explanation: "$10^{3}=1000$.",
+    },
+    {
+      id: "logsc-m-6",
+      prompt:
+        "Which solution is more acidic, pH 3 or pH 6, and by what factor?",
+      latex: "\\text{Choose one}",
+      answer: "A",
+      difficulty: 4,
+      choices: [
+        { label: "A", text: "pH 3, by a factor of 1000" },
+        { label: "B", text: "pH 6, by a factor of 1000" },
+        { label: "C", text: "pH 3, by a factor of 3" },
+        { label: "D", text: "They are equally acidic" },
+      ],
+      hint: "Lower pH is more acidic; gap is 3 units.",
+      explanation: "pH 3 is more acidic by $10^{3}=1000$ times.",
+    },
+    {
+      id: "logsc-m-7",
+      prompt:
+        "Why is a logarithmic scale suitable for sound intensity?",
+      latex: "\\text{Choose one}",
+      answer: "B",
+      difficulty: 3,
+      choices: [
+        { label: "A", text: "Intensities are always negative" },
+        { label: "B", text: "Intensities span an enormous range, compared by ratios" },
+        { label: "C", text: "Intensity changes by equal additive steps" },
+        { label: "D", text: "Sound is periodic" },
+      ],
+      hint: "Whisper to jet engine.",
+      explanation: "The vast multiplicative range is tamed by a log scale.",
+    },
+    {
+      id: "logsc-m-8",
+      prompt:
+        "A sound increases from $40\\,\\text{dB}$ to $70\\,\\text{dB}$. The intensity is multiplied by:",
+      latex: "10^{(70-40)/10}",
+      answer: "1000",
+      difficulty: 5,
+      hint: "$\\Delta L=30\\,\\text{dB}\\Rightarrow 10^{3}$.",
+      explanation: "$\\Delta L=30$, so factor $=10^{30/10}=10^{3}=1000$.",
+    },
+    {
+      id: "logsc-m-9",
+      prompt:
+        "Star A is 5 magnitudes brighter than star B (smaller magnitude). A is how many times brighter?",
+      latex: "\\text{5 magnitudes}",
+      answer: "100",
+      difficulty: 5,
+      hint: "A difference of 5 magnitudes is a factor of 100.",
+      explanation: "By definition, 5 magnitudes $=\\times 100$ in brightness.",
+    },
+    {
+      id: "logsc-m-10",
+      prompt: "If $[\\text{H}^+]=10^{-3}$, the pH is:",
+      latex: "-\\log_{10}(10^{-3})",
+      answer: "3",
+      difficulty: 3,
+      hint: "$-(-3)$.",
+      explanation: "$\\text{pH}=3$.",
+    },
+  ],
+  masteryQuizPool: [
+    { id: "logsc-p-1", prompt: "A log scale suits quantities that:", latex: "\\text{Choose one}", answer: "B", difficulty: 1, choices: [{ label: "A", text: "Are always small" }, { label: "B", text: "Span many orders of magnitude" }, { label: "C", text: "Are negative" }, { label: "D", text: "Change additively" }], hint: "Orders of magnitude.", explanation: "Quantities spanning huge multiplicative ranges." },
+    { id: "logsc-p-2", prompt: "$+1$ on a base-10 log scale means $\\times$", latex: "\\text{Choose one}", answer: "C", difficulty: 1, choices: [{ label: "A", text: "$1$" }, { label: "B", text: "$2$" }, { label: "C", text: "$10$" }, { label: "D", text: "$100$" }], hint: "$\\log(10x)=\\log x+1$.", explanation: "$\\times 10$." },
+    { id: "logsc-p-3", prompt: "$+3$ on a base-10 log scale means $\\times$", latex: "10^3", answer: "1000", difficulty: 2, hint: "$10^3$.", explanation: "$\\times 1000$." },
+    { id: "logsc-p-4", prompt: "pH when $[\\text{H}^+]=10^{-4}$:", latex: "-\\log_{10}(10^{-4})", answer: "4", difficulty: 1, hint: "$-(-4)$.", explanation: "$4$." },
+    { id: "logsc-p-5", prompt: "pH when $[\\text{H}^+]=10^{-7}$:", latex: "-\\log_{10}(10^{-7})", answer: "7", difficulty: 1, hint: "$-(-7)$.", explanation: "$7$ (neutral)." },
+    { id: "logsc-p-6", prompt: "pH when $[\\text{H}^+]=10^{-1}$:", latex: "-\\log_{10}(10^{-1})", answer: "1", difficulty: 2, hint: "$-(-1)$.", explanation: "$1$ (strongly acidic)." },
+    { id: "logsc-p-7", prompt: "$[\\text{H}^+]$ when pH $=3$:", latex: "10^{-\\text{pH}}", answer: "B", difficulty: 2, choices: [{ label: "A", text: "$10^{3}$" }, { label: "B", text: "$10^{-3}$" }, { label: "C", text: "$3$" }, { label: "D", text: "$-3$" }], hint: "$10^{-3}$.", explanation: "$[\\text{H}^+]=10^{-3}$." },
+    { id: "logsc-p-8", prompt: "$L$ for $I=10^{-6}$, $I_0=10^{-12}$:", latex: "10\\log_{10}(10^{6})", answer: "60", difficulty: 2, hint: "$10\\times 6$.", explanation: "$60\\,\\text{dB}$." },
+    { id: "logsc-p-9", prompt: "$L$ for $I=10^{-4}$, $I_0=10^{-12}$:", latex: "10\\log_{10}(10^{8})", answer: "80", difficulty: 2, hint: "$10\\times 8$.", explanation: "$80\\,\\text{dB}$." },
+    { id: "logsc-p-10", prompt: "$L$ for $I=10^{-2}$, $I_0=10^{-12}$:", latex: "10\\log_{10}(10^{10})", answer: "100", difficulty: 3, hint: "$10\\times 10$.", explanation: "$100\\,\\text{dB}$." },
+    { id: "logsc-p-11", prompt: "Intensity ratio for $+10\\,\\text{dB}$:", latex: "10^{10/10}", answer: "10", difficulty: 2, hint: "$10^1$.", explanation: "$\\times 10$." },
+    { id: "logsc-p-12", prompt: "Intensity ratio for $+20\\,\\text{dB}$:", latex: "10^{20/10}", answer: "100", difficulty: 3, hint: "$10^2$.", explanation: "$\\times 100$." },
+    { id: "logsc-p-13", prompt: "Intensity ratio for $+40\\,\\text{dB}$:", latex: "10^{40/10}", answer: "10000", difficulty: 4, hint: "$10^4$.", explanation: "$\\times 10000$." },
+    { id: "logsc-p-14", prompt: "Amplitude ratio for Richter magnitudes 5 and 7:", latex: "10^{2}", answer: "100", difficulty: 3, hint: "$10^{7-5}$.", explanation: "$100$." },
+    { id: "logsc-p-15", prompt: "Amplitude ratio for Richter magnitudes 4 and 8:", latex: "10^{4}", answer: "10000", difficulty: 4, hint: "$10^{8-4}$.", explanation: "$10000$." },
+    { id: "logsc-p-16", prompt: "Amplitude ratio for Richter magnitudes 2 and 5:", latex: "10^{3}", answer: "1000", difficulty: 3, hint: "$10^{5-2}$.", explanation: "$1000$." },
+    { id: "logsc-p-17", prompt: "Which is more acidic?", latex: "\\text{Choose one}", answer: "A", difficulty: 2, choices: [{ label: "A", text: "pH 2" }, { label: "B", text: "pH 8" }, { label: "C", text: "Equal" }, { label: "D", text: "Cannot tell" }], hint: "Lower pH = more acidic.", explanation: "pH 2 (lower pH)." },
+    { id: "logsc-p-18", prompt: "Acidity factor between pH 2 and pH 5:", latex: "10^{3}", answer: "1000", difficulty: 4, hint: "$10^{5-2}$.", explanation: "pH 2 is $1000\\times$ more acidic." },
+    { id: "logsc-p-19", prompt: "Acidity factor between pH 4 and pH 6:", latex: "10^{2}", answer: "100", difficulty: 3, hint: "$10^{6-4}$.", explanation: "$100\\times$." },
+    { id: "logsc-p-20", prompt: "A jump from $50\\,\\text{dB}$ to $80\\,\\text{dB}$ multiplies intensity by:", latex: "10^{(80-50)/10}", answer: "1000", difficulty: 4, hint: "$\\Delta=30$, $10^3$.", explanation: "$1000$." },
+    { id: "logsc-p-21", prompt: "A jump from $20\\,\\text{dB}$ to $60\\,\\text{dB}$ multiplies intensity by:", latex: "10^{(60-20)/10}", answer: "10000", difficulty: 5, hint: "$\\Delta=40$, $10^4$.", explanation: "$10000$." },
+    { id: "logsc-p-22", prompt: "5 star magnitudes corresponds to a brightness factor of:", latex: "\\text{5 magnitudes}", answer: "100", difficulty: 4, hint: "By definition.", explanation: "$\\times 100$." },
+    { id: "logsc-p-23", prompt: "On the Richter scale, $+1$ magnitude is an amplitude factor of:", latex: "10^{1}", answer: "10", difficulty: 2, hint: "$10^1$.", explanation: "$\\times 10$." },
+    { id: "logsc-p-24", prompt: "Why does the decibel formula have a factor of 10?", latex: "\\text{Choose one}", answer: "B", difficulty: 3, choices: [{ label: "A", text: "To make answers negative" }, { label: "B", text: "It scales bels into decibels, so $\\times 10$ intensity is $+10\\,\\text{dB}$" }, { label: "C", text: "Because $I_0=10$" }, { label: "D", text: "It has no effect" }], hint: "deci = one tenth.", explanation: "The $\\times 10$ converts bels to decibels; a factor of 10 in intensity is $+10\\,\\text{dB}$." },
+    { id: "logsc-p-25", prompt: "$[\\text{H}^+]$ when pH $=6$:", latex: "10^{-\\text{pH}}", answer: "B", difficulty: 2, choices: [{ label: "A", text: "$10^{6}$" }, { label: "B", text: "$10^{-6}$" }, { label: "C", text: "$6$" }, { label: "D", text: "$-6$" }], hint: "$10^{-6}$.", explanation: "$[\\text{H}^+]=10^{-6}$." },
+    { id: "logsc-p-26", prompt: "$L$ for $I=10^{-9}$, $I_0=10^{-12}$:", latex: "10\\log_{10}(10^{3})", answer: "30", difficulty: 3, hint: "ratio $10^3$.", explanation: "$30\\,\\text{dB}$." },
+  ],
+  multiPartPractice: [
+    {
+      id: "logsc-mp-1",
+      prompt:
+        "Sound intensity level is given by $L=10\\log_{10}\\dfrac{I}{I_0}$ with $I_0=10^{-12}\\,\\text{W/m}^2$.",
+      latex: "L=10\\log_{10}\\frac{I}{I_0}",
+      answer: "70",
+      hint: "Form the ratio $\\frac{I}{I_0}$, then apply the formula; a factor change in intensity adds $10\\log_{10}(\\text{factor})$ dB.",
+      explanation:
+        "(a) For $I=10^{-5}$: $\\frac{I}{I_0}=10^{7}$, so $L=10\\times 7=70\\,\\text{dB}$. (b) A sound $1000\\times$ more intense is $10\\log_{10}(1000)=30\\,\\text{dB}$ louder. (c) Its level is $70+30=100\\,\\text{dB}$.",
+      parts: [
+        { key: "a", label: "(a)", prompt: "Find $L$ for a sound of intensity $I=10^{-5}\\,\\text{W/m}^2$.", latex: "10\\log_{10}\\frac{10^{-5}}{10^{-12}}", marks: 2, answer: "70", acceptedAnswers: [], hint: "Ratio is $10^{7}$.", explanation: "$L=10\\times 7=70\\,\\text{dB}$." },
+        { key: "b", label: "(b)", prompt: "A second sound is 1000 times more intense. By how many dB is it louder?", latex: "10\\log_{10}(1000)", marks: 2, answer: "30", acceptedAnswers: [], hint: "$10\\log_{10}(1000)$.", explanation: "$10\\times 3=30\\,\\text{dB}$." },
+        { key: "c", label: "(c)", prompt: "Find the level of the second sound.", latex: "70+30", marks: 1, answer: "100", acceptedAnswers: [], hint: "Add the increase to part (a).", explanation: "$70+30=100\\,\\text{dB}$." },
+      ],
+    },
+  ],
+  masteryPassMark: 0.8,
+};
+
 export const mixedTrigonometricFunctionsExamPracticeLesson: ExplicitLesson = {
   id: "mixed-trigonometric-functions-exam-practice",
   slug: "mixed-trigonometric-functions-exam-practice",
-  moduleSlug: "ma-t2-trigonometric-functions-and-identities",
-  moduleTitle: "Trigonometric Functions and Identities",
+  moduleSlug: "ma-f2-further-graph-transformations-and-modelling",
+  moduleTitle: "Further Graph Transformations and Modelling",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Mixed Trigonometric Functions Exam Practice",
   description:
@@ -2069,17 +2443,18 @@ export const mixedTrigonometricFunctionsExamPracticeLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "Mixed exam questions often combine exact values, unit-circle signs, graph features, transformations, equations, identities, and modelling.",
-      "The first step is to identify the skill being tested before calculating.",
-      "For equation questions, always check the domain and give all solutions.",
-      "For graph questions, connect amplitude, period, midline, asymptotes, and intercepts to the equation.",
-      "For modelling questions, answer in context and include units where appropriate.",
+      "An exam rarely tells you which trig skill a question wants — it just hands you an expression, a graph, or a worded scenario and expects you to recognise the type and reach for the right tool. This lesson is about that recognition. The four skills from this topic each have a tell-tale signature, and reading the signature first is what stops you from, say, trying to 'solve' a graph-features question or forgetting to find every root of an equation.",
+      "If the question gives an equation with the unknown inside the trig function — something equal to a number, over a stated domain like $0\\le x\\le 2\\pi$ — it is an equation to *solve*. Isolate the trig function, find the reference angle from exact values, then use the quadrant signs and the period to list *every* solution in the domain. The recurring trap is stopping at the calculator's first answer: the graph of the function crosses the level line more than once per period, so there are almost always multiple solutions.",
+      "If the question gives a function such as $y=3\\cos(2x)-1$ and asks about its shape, it is a *graph-features* question. Map each constant to its feature without solving anything: the front coefficient gives amplitude $|a|$, the inside coefficient gives period $\\frac{2\\pi}{|b|}$, the added constant gives midline $y=d$, and the extremes are $d\\pm|a|$. Remember period is $2\\pi$ divided by $b$ — a bigger $b$ means a shorter cycle.",
+      "If the question is wrapped in a real-world story — tides, a Ferris wheel, temperature over a day — it is a *modelling* question, and the very same constants now carry physical meaning: amplitude is how far the quantity swings from its average, the midline is that average, and the period is the time for one cycle. Finish by answering in context with units, since a bare number rarely earns full marks here.",
+      "A handful of questions test an *exact value* or a quick *identity*. Exact-value questions ($\\sin\\frac{\\pi}{3}$, $\\cos\\pi$) are answered straight from the unit circle. The identity you will lean on most is the Pythagorean one, $\\sin^2 x+\\cos^2 x=1$, which comes directly from the unit circle: the point $(\\cos x,\\sin x)$ lies on a circle of radius 1, so its coordinates satisfy $x^2+y^2=1$. That single identity lets you rewrite $1-\\sin^2 x$ as $\\cos^2 x$ and simplify expressions that look harder than they are.",
+      "Across all four types, two habits protect your marks: work and answer in radians unless the question is in degrees, and always loop back to check your answer against the domain or the context. The skill being assessed at this stage is not any one calculation — it is choosing the right method quickly and carrying it through cleanly under time pressure.",
     ],
     latexBlocks: [
-      "\\text{identify skill}\\quad \\Rightarrow\\quad \\text{choose method}\\quad \\Rightarrow\\quad \\text{answer in context}",
-      "\\sin^2x+\\cos^2x=1",
-      "\\text{period}=\\frac{2\\pi}{|b|}",
-      "2\\sin x-1=0\\quad \\Rightarrow\\quad \\sin x=\\frac12",
+      "\\text{identify the type}\\ \\Rightarrow\\ \\text{equation / graph features / modelling / exact value}",
+      "\\text{equation: isolate, reference angle, ALL solutions in domain}",
+      "\\text{graph \\& model: amplitude }|a|,\\ \\text{period }\\tfrac{2\\pi}{|b|},\\ \\text{midline }d,\\ \\text{max/min }d\\pm|a|",
+      "\\sin^2x+\\cos^2x=1\\quad(\\text{from }x^2+y^2=1\\text{ on the unit circle})",
     ],
   },
 
@@ -2088,9 +2463,9 @@ export const mixedTrigonometricFunctionsExamPracticeLesson: ExplicitLesson = {
       title: "Worked example 1: Equation with two solutions",
       questionLatex: "2\\sin x-1=0,\\quad 0\\le x\\le2\\pi",
       steps: [
-        { explanation: "Isolate sine.", latex: "\\sin x=\\frac12" },
-        { explanation: "Use the reference angle.", latex: "\\frac{\\pi}{6}" },
-        { explanation: "Sine is positive in quadrants I and II.", latex: "x=\\frac{\\pi}{6},\\frac{5\\pi}{6}" },
+        { explanation: "The unknown sits inside a trig function set equal to a number over a domain, so this is an equation to solve — start by isolating sine.", latex: "\\sin x=\\frac12" },
+        { explanation: "Find one acute angle with this sine from exact values; that is the reference angle.", latex: "\\sin\\left(\\frac{\\pi}{6}\\right)=\\frac12" },
+        { explanation: "The value is positive, so sine is positive in quadrants I and II; the second solution is the mirror image $\\pi-\\frac{\\pi}{6}$. Both lie in the domain, so do not stop at one.", latex: "x=\\frac{\\pi}{6},\\ \\pi-\\frac{\\pi}{6}=\\frac{5\\pi}{6}" },
       ],
       finalAnswerLatex: "x=\\frac{\\pi}{6},\\frac{5\\pi}{6}",
     },
@@ -2098,9 +2473,9 @@ export const mixedTrigonometricFunctionsExamPracticeLesson: ExplicitLesson = {
       title: "Worked example 2: Graph features",
       questionLatex: "y=3\\cos(2x)-1",
       steps: [
-        { explanation: "Identify amplitude and period.", latex: "\\text{amplitude}=3,\\quad \\text{period}=\\frac{2\\pi}{2}=\\pi" },
-        { explanation: "Identify midline.", latex: "y=-1" },
-        { explanation: "Find maximum and minimum.", latex: "\\max=-1+3=2,\\quad \\min=-1-3=-4" },
+        { explanation: "No domain and no story — this asks about the shape, so read features off the constants. The front 3 is the amplitude; the inside 2 squashes the cycle, so divide $2\\pi$ by 2 for the period.", latex: "\\text{amplitude}=3,\\quad \\text{period}=\\frac{2\\pi}{2}=\\pi" },
+        { explanation: "The $-1$ added on lowers the whole wave, so it oscillates about the line $y=-1$.", latex: "\\text{midline }y=-1" },
+        { explanation: "Extremes are midline plus or minus amplitude: the wave runs from $-1+3$ at the top to $-1-3$ at the bottom.", latex: "\\max=-1+3=2,\\quad \\min=-1-3=-4" },
       ],
       finalAnswerLatex:
         "\\text{amplitude }3,\\quad \\text{period }\\pi,\\quad \\text{midline }y=-1,\\quad \\max 2,\\quad \\min -4",
@@ -2109,9 +2484,9 @@ export const mixedTrigonometricFunctionsExamPracticeLesson: ExplicitLesson = {
       title: "Worked example 3: Tide model",
       questionLatex: "h(t)=1.5\\sin\\left(\\frac{\\pi}{6}t\\right)+2.4",
       steps: [
-        { explanation: "Amplitude is the tide variation from the average.", latex: "1.5\\text{ m}" },
-        { explanation: "Midline is the average height.", latex: "2.4\\text{ m}" },
-        { explanation: "Find the period.", latex: "\\frac{2\\pi}{\\pi/6}=12\\text{ h}" },
+        { explanation: "This is a worded model, so read features in context: the front coefficient is how far the tide rises and falls from its average.", latex: "|a|=1.5\\text{ m}" },
+        { explanation: "The added constant is the midline — the average (still-water) tide height.", latex: "d=2.4\\text{ m}" },
+        { explanation: "Divide $2\\pi$ by $b=\\frac{\\pi}{6}$ to get the cycle length: 12 hours between successive high tides.", latex: "\\frac{2\\pi}{\\pi/6}=12\\text{ h}" },
       ],
       finalAnswerLatex:
         "\\text{amplitude }1.5\\text{ m},\\quad \\text{midline }2.4\\text{ m},\\quad \\text{period }12\\text{ h}",
@@ -2414,5 +2789,267 @@ export const trigonometricFunctionsGraphsLessons = [
   trigonometricEquationsLesson,
   trigonometricIdentitiesSimplificationLesson,
   modellingPeriodicPhenomenaLesson,
+  logarithmicScalesLesson,
   mixedTrigonometricFunctionsExamPracticeLesson,
+];
+
+// ---------------------------------------------------------------------------
+// Band-6 depth: post-hoc masteryQuizPool + multiPartPractice assignment.
+// Objects are mutable; attaching here keeps the lesson definitions above clean
+// (same pattern integralCalculus.ts uses for masteryQuiz).
+// ---------------------------------------------------------------------------
+
+// === graphs-sine-cosine-tangent ===========================================
+graphsSineCosineTangentLesson.masteryQuizPool = [
+  { id: "gsct-p-1", prompt: "The period of $y=\\sin x$ is:", latex: "y=\\sin x", answer: "B", difficulty: 1, choices: [{ label: "A", text: "$\\pi$" }, { label: "B", text: "$2\\pi$" }, { label: "C", text: "$\\frac{\\pi}{2}$" }, { label: "D", text: "$4\\pi$" }], hint: "One full sine wave.", explanation: "Sine repeats every $2\\pi$." },
+  { id: "gsct-p-2", prompt: "The period of $y=\\cos x$ is:", latex: "y=\\cos x", answer: "C", difficulty: 1, choices: [{ label: "A", text: "$\\pi$" }, { label: "B", text: "$\\frac{\\pi}{2}$" }, { label: "C", text: "$2\\pi$" }, { label: "D", text: "$3\\pi$" }], hint: "One full cosine wave.", explanation: "Cosine repeats every $2\\pi$." },
+  { id: "gsct-p-3", prompt: "The period of $y=\\tan x$ is:", latex: "y=\\tan x", answer: "A", difficulty: 1, choices: [{ label: "A", text: "$\\pi$" }, { label: "B", text: "$2\\pi$" }, { label: "C", text: "$\\frac{\\pi}{2}$" }, { label: "D", text: "$4\\pi$" }], hint: "Tangent repeats faster than sine.", explanation: "Tangent repeats every $\\pi$." },
+  { id: "gsct-p-4", prompt: "The range of $y=\\sin x$ is:", latex: "y=\\sin x", answer: "B", difficulty: 1, choices: [{ label: "A", text: "$0\\le y\\le1$" }, { label: "B", text: "$-1\\le y\\le1$" }, { label: "C", text: "all reals" }, { label: "D", text: "$-2\\le y\\le2$" }], hint: "Highest and lowest sine values.", explanation: "Sine stays between $-1$ and $1$." },
+  { id: "gsct-p-5", prompt: "The range of $y=\\cos x$ is:", latex: "y=\\cos x", answer: "C", difficulty: 1, choices: [{ label: "A", text: "$0\\le y\\le1$" }, { label: "B", text: "all reals" }, { label: "C", text: "$-1\\le y\\le1$" }, { label: "D", text: "$-\\pi\\le y\\le\\pi$" }], hint: "Highest and lowest cosine values.", explanation: "Cosine stays between $-1$ and $1$." },
+  { id: "gsct-p-6", prompt: "The range of $y=\\tan x$ is:", latex: "y=\\tan x", answer: "D", difficulty: 2, choices: [{ label: "A", text: "$-1\\le y\\le1$" }, { label: "B", text: "$0\\le y\\le1$" }, { label: "C", text: "$-\\pi\\le y\\le\\pi$" }, { label: "D", text: "all real numbers" }], hint: "Tangent has no maximum or minimum.", explanation: "Tangent takes every real value." },
+  { id: "gsct-p-7", prompt: "Value of $\\sin x$ at $x=0$:", latex: "\\sin(0)", answer: "0", difficulty: 1, hint: "Sine starts at zero.", explanation: "$\\sin 0=0$.", acceptedAnswers: ["0.0"] },
+  { id: "gsct-p-8", prompt: "Value of $\\cos x$ at $x=0$:", latex: "\\cos(0)", answer: "1", difficulty: 1, hint: "Cosine starts at its maximum.", explanation: "$\\cos 0=1$.", acceptedAnswers: ["1.0"] },
+  { id: "gsct-p-9", prompt: "$\\sin x$ reaches its maximum of $1$ first (for $x>0$) at $x=$", latex: "\\sin x=1", answer: "A", difficulty: 2, choices: [{ label: "A", text: "$\\frac{\\pi}{2}$" }, { label: "B", text: "$\\pi$" }, { label: "C", text: "$\\frac{3\\pi}{2}$" }, { label: "D", text: "$2\\pi$" }], hint: "Quarter of the way through.", explanation: "$\\sin\\frac{\\pi}{2}=1$." },
+  { id: "gsct-p-10", prompt: "$\\cos x$ reaches its minimum of $-1$ first (for $x>0$) at $x=$", latex: "\\cos x=-1", answer: "B", difficulty: 2, choices: [{ label: "A", text: "$\\frac{\\pi}{2}$" }, { label: "B", text: "$\\pi$" }, { label: "C", text: "$\\frac{3\\pi}{2}$" }, { label: "D", text: "$2\\pi$" }], hint: "Halfway through one cycle.", explanation: "$\\cos\\pi=-1$." },
+  { id: "gsct-p-11", prompt: "Number of $x$-intercepts of $y=\\sin x$ on $0\\le x\\le2\\pi$:", latex: "\\sin x=0", answer: "3", difficulty: 3, hint: "At $0$, $\\pi$ and $2\\pi$.", explanation: "$\\sin x=0$ at $x=0,\\pi,2\\pi$: three intercepts.", acceptedAnswers: ["three"] },
+  { id: "gsct-p-12", prompt: "Number of $x$-intercepts of $y=\\cos x$ on $0\\le x\\le2\\pi$:", latex: "\\cos x=0", answer: "2", difficulty: 3, hint: "At $\\frac{\\pi}{2}$ and $\\frac{3\\pi}{2}$.", explanation: "$\\cos x=0$ at $x=\\frac{\\pi}{2},\\frac{3\\pi}{2}$: two intercepts.", acceptedAnswers: ["two"] },
+  { id: "gsct-p-13", prompt: "The tangent graph has vertical asymptotes where:", latex: "y=\\tan x", answer: "C", difficulty: 2, choices: [{ label: "A", text: "$\\sin x=0$" }, { label: "B", text: "$\\tan x=1$" }, { label: "C", text: "$\\cos x=0$" }, { label: "D", text: "$x=0$" }], hint: "Tangent is $\\frac{\\sin x}{\\cos x}$.", explanation: "Tangent is undefined where $\\cos x=0$." },
+  { id: "gsct-p-14", prompt: "First positive asymptote of $y=\\tan x$ is at $x=$", latex: "\\cos x=0", answer: "A", difficulty: 3, choices: [{ label: "A", text: "$\\frac{\\pi}{2}$" }, { label: "B", text: "$\\pi$" }, { label: "C", text: "$\\frac{\\pi}{4}$" }, { label: "D", text: "$2\\pi$" }], hint: "Where $\\cos x$ first equals zero.", explanation: "$\\cos\\frac{\\pi}{2}=0$, so the asymptote is at $\\frac{\\pi}{2}$." },
+  { id: "gsct-p-15", prompt: "$\\sin x$ first reaches its minimum of $-1$ (for $x>0$) at $x=$", latex: "\\sin x=-1", answer: "C", difficulty: 2, choices: [{ label: "A", text: "$\\frac{\\pi}{2}$" }, { label: "B", text: "$\\pi$" }, { label: "C", text: "$\\frac{3\\pi}{2}$" }, { label: "D", text: "$2\\pi$" }], hint: "Three quarters through the cycle.", explanation: "$\\sin\\frac{3\\pi}{2}=-1$." },
+  { id: "gsct-p-16", prompt: "Value of $\\cos x$ at $x=\\frac{\\pi}{2}$:", latex: "\\cos\\left(\\frac{\\pi}{2}\\right)", answer: "0", difficulty: 2, hint: "Cosine crosses the axis here.", explanation: "$\\cos\\frac{\\pi}{2}=0$.", acceptedAnswers: ["0.0"] },
+  { id: "gsct-p-17", prompt: "Value of $\\sin x$ at $x=\\pi$:", latex: "\\sin(\\pi)", answer: "0", difficulty: 2, hint: "Sine returns to zero halfway.", explanation: "$\\sin\\pi=0$.", acceptedAnswers: ["0.0"] },
+  { id: "gsct-p-18", prompt: "Maximum value of $y=\\cos x$:", latex: "y=\\cos x", answer: "1", difficulty: 2, hint: "Top of the cosine range.", explanation: "Maximum is $1$.", acceptedAnswers: ["1.0"] },
+  { id: "gsct-p-19", prompt: "Minimum value of $y=\\sin x$:", latex: "y=\\sin x", answer: "-1", difficulty: 2, hint: "Bottom of the sine range.", explanation: "Minimum is $-1$.", acceptedAnswers: ["−1"] },
+  { id: "gsct-p-20", prompt: "Over $0\\le x\\le2\\pi$, the number of vertical asymptotes of $y=\\tan x$ is:", latex: "y=\\tan x", answer: "2", difficulty: 3, hint: "Where $\\cos x=0$: $\\frac{\\pi}{2}$ and $\\frac{3\\pi}{2}$.", explanation: "Asymptotes at $x=\\frac{\\pi}{2},\\frac{3\\pi}{2}$: two of them.", acceptedAnswers: ["two"] },
+  { id: "gsct-p-21", prompt: "Which graph starts at its maximum when $x=0$?", latex: "\\text{Choose one}", answer: "B", difficulty: 2, choices: [{ label: "A", text: "$y=\\sin x$" }, { label: "B", text: "$y=\\cos x$" }, { label: "C", text: "$y=\\tan x$" }, { label: "D", text: "none of these" }], hint: "Which equals $1$ at $x=0$?", explanation: "$\\cos 0=1$, its maximum." },
+  { id: "gsct-p-22", prompt: "Over $0\\le x\\le4\\pi$, how many complete cycles does $y=\\sin x$ make?", latex: "\\text{period }2\\pi", answer: "2", difficulty: 3, hint: "$4\\pi\\div2\\pi$.", explanation: "$\\frac{4\\pi}{2\\pi}=2$ cycles.", acceptedAnswers: ["two"] },
+  { id: "gsct-p-23", prompt: "Over $0\\le x\\le2\\pi$, how many complete cycles does $y=\\tan x$ make?", latex: "\\text{period }\\pi", answer: "2", difficulty: 3, hint: "$2\\pi\\div\\pi$.", explanation: "Tangent has period $\\pi$, so $\\frac{2\\pi}{\\pi}=2$ cycles.", acceptedAnswers: ["two"] },
+  { id: "gsct-p-24", prompt: "Which statement is TRUE about $y=\\tan x$?", latex: "y=\\tan x", answer: "D", difficulty: 3, choices: [{ label: "A", text: "It has amplitude $1$" }, { label: "B", text: "Its range is $-1\\le y\\le1$" }, { label: "C", text: "Its period is $2\\pi$" }, { label: "D", text: "It is undefined where $\\cos x=0$" }], hint: "Tangent has no max or min.", explanation: "Tangent has no amplitude, range all reals, period $\\pi$, and is undefined where $\\cos x=0$." },
+  { id: "gsct-p-25", prompt: "The graph $y=\\cos x$ is identical to $y=\\sin x$ shifted left by:", latex: "\\cos x=\\sin\\left(x+c\\right)", answer: "A", difficulty: 4, choices: [{ label: "A", text: "$\\frac{\\pi}{2}$" }, { label: "B", text: "$\\pi$" }, { label: "C", text: "$\\frac{\\pi}{4}$" }, { label: "D", text: "$2\\pi$" }], hint: "$\\cos x=\\sin\\left(x+\\frac{\\pi}{2}\\right)$.", explanation: "Cosine is sine shifted left $\\frac{\\pi}{2}$." },
+  { id: "gsct-p-26", prompt: "On $0\\le x\\le2\\pi$, count the values of $x$ where $\\sin x$ and $\\cos x$ are BOTH zero.", latex: "\\sin x=0\\text{ and }\\cos x=0", answer: "0", difficulty: 4, hint: "They are never zero at the same $x$.", explanation: "Sine zeros are $0,\\pi,2\\pi$; cosine zeros are $\\frac{\\pi}{2},\\frac{3\\pi}{2}$. No overlap, so $0$.", acceptedAnswers: ["zero", "none"] },
+  { id: "gsct-p-27", prompt: "On $-2\\pi\\le x\\le2\\pi$, the number of $x$-intercepts of $y=\\sin x$ is:", latex: "\\sin x=0", answer: "5", difficulty: 4, hint: "Zeros at $-2\\pi,-\\pi,0,\\pi,2\\pi$.", explanation: "$\\sin x=0$ at $x=-2\\pi,-\\pi,0,\\pi,2\\pi$: five intercepts.", acceptedAnswers: ["five"] },
+  { id: "gsct-p-28", prompt: "On $0\\le x\\le2\\pi$, the number of $x$-intercepts of $y=\\tan x$ (excluding asymptotes) is:", latex: "\\tan x=0", answer: "3", difficulty: 5, hint: "$\\tan x=0$ where $\\sin x=0$: at $0,\\pi,2\\pi$.", explanation: "Tangent is zero where $\\sin x=0$, i.e. $x=0,\\pi,2\\pi$: three intercepts within the interval.", acceptedAnswers: ["three"] },
+  { id: "gsct-p-29", prompt: "On $0\\le x\\le2\\pi$, count the values of $x$ where the graphs $y=\\sin x$ and $y=\\cos x$ intersect.", latex: "\\sin x=\\cos x", answer: "2", difficulty: 5, hint: "$\\tan x=1$ at $\\frac{\\pi}{4}$ and $\\frac{5\\pi}{4}$.", explanation: "$\\sin x=\\cos x\\Rightarrow\\tan x=1$, giving $x=\\frac{\\pi}{4},\\frac{5\\pi}{4}$: two intersections.", acceptedAnswers: ["two"] },
+  { id: "gsct-p-30", prompt: "The lowest point on $y=\\sin x$ and the lowest point on $y=\\cos x$, over $0\\le x\\le2\\pi$, are how many radians apart in $x$?", latex: "\\text{min of }\\sin\\text{ vs min of }\\cos", answer: "A", difficulty: 5, choices: [{ label: "A", text: "$\\frac{\\pi}{2}$" }, { label: "B", text: "$\\pi$" }, { label: "C", text: "$\\frac{3\\pi}{2}$" }, { label: "D", text: "$2\\pi$" }], hint: "Sine min at $\\frac{3\\pi}{2}$, cosine min at $\\pi$.", explanation: "$\\sin x$ is least at $x=\\frac{3\\pi}{2}$ and $\\cos x$ at $x=\\pi$; the gap is $\\frac{3\\pi}{2}-\\pi=\\frac{\\pi}{2}$." },
+];
+// === amplitude-period-phase-vertical-shift ================================
+amplitudePeriodPhaseVerticalShiftLesson.masteryQuizPool = [
+  { id: "apps-p-1", prompt: "Amplitude of $y=3\\sin x$:", latex: "y=3\\sin x", answer: "3", difficulty: 1, hint: "Amplitude is $|a|$.", explanation: "$|3|=3$.", acceptedAnswers: ["3.0"] },
+  { id: "apps-p-2", prompt: "Amplitude of $y=5\\cos(2x)$:", latex: "y=5\\cos(2x)", answer: "5", difficulty: 1, hint: "Amplitude is $|a|$.", explanation: "$|5|=5$.", acceptedAnswers: ["5.0"] },
+  { id: "apps-p-3", prompt: "Amplitude of $y=-4\\sin x$:", latex: "y=-4\\sin x", answer: "4", difficulty: 2, hint: "Amplitude cannot be negative.", explanation: "$|-4|=4$.", acceptedAnswers: ["4.0"] },
+  { id: "apps-p-4", prompt: "Period of $y=\\sin(2x)$:", latex: "\\frac{2\\pi}{|b|}", answer: "B", difficulty: 2, choices: [{ label: "A", text: "$2\\pi$" }, { label: "B", text: "$\\pi$" }, { label: "C", text: "$\\frac{\\pi}{2}$" }, { label: "D", text: "$4\\pi$" }], hint: "$\\frac{2\\pi}{2}$.", explanation: "$\\frac{2\\pi}{2}=\\pi$." },
+  { id: "apps-p-5", prompt: "Period of $y=\\cos(4x)$:", latex: "\\frac{2\\pi}{|b|}", answer: "C", difficulty: 2, choices: [{ label: "A", text: "$2\\pi$" }, { label: "B", text: "$\\pi$" }, { label: "C", text: "$\\frac{\\pi}{2}$" }, { label: "D", text: "$\\frac{\\pi}{4}$" }], hint: "$\\frac{2\\pi}{4}$.", explanation: "$\\frac{2\\pi}{4}=\\frac{\\pi}{2}$." },
+  { id: "apps-p-6", prompt: "Period of $y=\\sin(3x)$:", latex: "\\frac{2\\pi}{|b|}", answer: "A", difficulty: 3, choices: [{ label: "A", text: "$\\frac{2\\pi}{3}$" }, { label: "B", text: "$\\frac{3\\pi}{2}$" }, { label: "C", text: "$3\\pi$" }, { label: "D", text: "$\\frac{\\pi}{3}$" }], hint: "$\\frac{2\\pi}{3}$.", explanation: "$\\frac{2\\pi}{3}$." },
+  { id: "apps-p-7", prompt: "Midline of $y=\\sin x+4$:", latex: "y=\\sin x+4", answer: "B", difficulty: 1, choices: [{ label: "A", text: "$y=0$" }, { label: "B", text: "$y=4$" }, { label: "C", text: "$y=1$" }, { label: "D", text: "$y=-4$" }], hint: "Midline is $y=d$.", explanation: "$d=4$, so midline $y=4$." },
+  { id: "apps-p-8", prompt: "Vertical shift of $y=2\\cos x-3$:", latex: "y=2\\cos x-3", answer: "-3", difficulty: 2, hint: "The constant added at the end.", explanation: "$d=-3$.", acceptedAnswers: ["−3"] },
+  { id: "apps-p-9", prompt: "Period of $y=\\tan(2x)$:", latex: "\\frac{\\pi}{|b|}", answer: "C", difficulty: 3, choices: [{ label: "A", text: "$\\pi$" }, { label: "B", text: "$2\\pi$" }, { label: "C", text: "$\\frac{\\pi}{2}$" }, { label: "D", text: "$\\frac{\\pi}{4}$" }], hint: "Tangent period is $\\frac{\\pi}{|b|}$.", explanation: "$\\frac{\\pi}{2}$." },
+  { id: "apps-p-10", prompt: "Amplitude of $y=\\tan(3x)$:", latex: "y=\\tan(3x)", answer: "D", difficulty: 3, choices: [{ label: "A", text: "$3$" }, { label: "B", text: "$1$" }, { label: "C", text: "$\\frac{\\pi}{3}$" }, { label: "D", text: "none — tangent has no amplitude" }], hint: "Tangent has no max or min.", explanation: "Tangent has no amplitude." },
+  { id: "apps-p-11", prompt: "In $y=2\\sin(x-\\frac{\\pi}{4})$, the phase shift is:", latex: "y=2\\sin\\left(x-\\frac{\\pi}{4}\\right)", answer: "A", difficulty: 3, choices: [{ label: "A", text: "$\\frac{\\pi}{4}$ right" }, { label: "B", text: "$\\frac{\\pi}{4}$ left" }, { label: "C", text: "$2$ right" }, { label: "D", text: "no shift" }], hint: "$x-c$ moves right by $c$.", explanation: "$x-\\frac{\\pi}{4}$ shifts the graph right $\\frac{\\pi}{4}$." },
+  { id: "apps-p-12", prompt: "In $y=\\cos(x+\\frac{\\pi}{3})$, the phase shift is:", latex: "y=\\cos\\left(x+\\frac{\\pi}{3}\\right)", answer: "B", difficulty: 3, choices: [{ label: "A", text: "$\\frac{\\pi}{3}$ right" }, { label: "B", text: "$\\frac{\\pi}{3}$ left" }, { label: "C", text: "no shift" }, { label: "D", text: "$3$ left" }], hint: "$x+c$ moves left by $c$.", explanation: "$x+\\frac{\\pi}{3}$ shifts the graph left $\\frac{\\pi}{3}$." },
+  { id: "apps-p-13", prompt: "Maximum value of $y=3\\sin x+2$:", latex: "d+|a|", answer: "5", difficulty: 3, hint: "Midline plus amplitude.", explanation: "$2+3=5$.", acceptedAnswers: ["5.0"] },
+  { id: "apps-p-14", prompt: "Minimum value of $y=3\\sin x+2$:", latex: "d-|a|", answer: "-1", difficulty: 3, hint: "Midline minus amplitude.", explanation: "$2-3=-1$.", acceptedAnswers: ["−1"] },
+  { id: "apps-p-15", prompt: "Amplitude of $y=\\frac{1}{2}\\cos x$:", latex: "y=\\tfrac12\\cos x", answer: "0.5", difficulty: 2, hint: "$|a|$.", explanation: "$\\left|\\frac12\\right|=0.5$.", acceptedAnswers: ["1/2", ".5"] },
+  { id: "apps-p-16", prompt: "Period of $y=2\\sin\\left(\\frac{1}{2}x\\right)$:", latex: "\\frac{2\\pi}{|b|}", answer: "D", difficulty: 3, choices: [{ label: "A", text: "$\\pi$" }, { label: "B", text: "$2\\pi$" }, { label: "C", text: "$\\frac{\\pi}{2}$" }, { label: "D", text: "$4\\pi$" }], hint: "$\\frac{2\\pi}{1/2}$.", explanation: "$\\frac{2\\pi}{1/2}=4\\pi$." },
+  { id: "apps-p-17", prompt: "A sine curve has amplitude $6$. What is the distance from its maximum to its minimum value?", latex: "\\text{max}-\\text{min}", answer: "12", difficulty: 3, hint: "That distance is twice the amplitude.", explanation: "Max $-$ min $=2|a|=12$." },
+  { id: "apps-p-18", prompt: "In $y=a\\sin(b(x-c))+d$, the constant that does NOT affect period is:", latex: "y=a\\sin(b(x-c))+d", answer: "C", difficulty: 2, choices: [{ label: "A", text: "$b$" }, { label: "B", text: "only $b$ affects period" }, { label: "C", text: "$a$, $c$ and $d$" }, { label: "D", text: "$d$" }], hint: "Period depends only on $b$.", explanation: "Only $b$ sets the period; $a$, $c$, $d$ do not." },
+  { id: "apps-p-19", prompt: "A cosine graph has amplitude $4$ and midline $y=1$. Its maximum value is:", latex: "d+|a|", answer: "5", difficulty: 3, hint: "$1+4$.", explanation: "Max $=1+4=5$.", acceptedAnswers: ["5.0"] },
+  { id: "apps-p-20", prompt: "A sine graph has amplitude $4$ and midline $y=1$. Its minimum value is:", latex: "d-|a|", answer: "-3", difficulty: 3, hint: "$1-4$.", explanation: "Min $=1-4=-3$.", acceptedAnswers: ["−3"] },
+  { id: "apps-p-21", prompt: "A sine curve has period $\\pi$. What is its $b$ value (taking $b>0$)?", latex: "\\frac{2\\pi}{b}=\\pi", answer: "2", difficulty: 3, hint: "Solve $\\frac{2\\pi}{b}=\\pi$.", explanation: "$b=\\frac{2\\pi}{\\pi}=2$.", acceptedAnswers: ["2.0"] },
+  { id: "apps-p-22", prompt: "A cosine curve has period $4\\pi$. What is its $b$ value (taking $b>0$)?", latex: "\\frac{2\\pi}{b}=4\\pi", answer: "0.5", difficulty: 4, hint: "Solve $\\frac{2\\pi}{b}=4\\pi$.", explanation: "$b=\\frac{2\\pi}{4\\pi}=\\frac12=0.5$.", acceptedAnswers: ["1/2", ".5"] },
+  { id: "apps-p-23", prompt: "Maximum value of $y=-2\\cos x+5$:", latex: "d+|a|", answer: "7", difficulty: 4, hint: "Amplitude is $|-2|=2$; max is $d+|a|$.", explanation: "$|a|=2$, so max $=5+2=7$." },
+  { id: "apps-p-24", prompt: "Minimum value of $y=-2\\cos x+5$:", latex: "d-|a|", answer: "3", difficulty: 4, hint: "Amplitude is $2$; min is $d-|a|$.", explanation: "Min $=5-2=3$.", acceptedAnswers: ["3.0"] },
+  { id: "apps-p-25", prompt: "A sinusoid oscillates between a maximum of $10$ and a minimum of $2$. Its amplitude is:", latex: "\\frac{\\text{max}-\\text{min}}{2}", answer: "4", difficulty: 4, hint: "Amplitude $=\\frac{\\text{max}-\\text{min}}{2}$.", explanation: "$\\frac{10-2}{2}=4$.", acceptedAnswers: ["4.0"] },
+  { id: "apps-p-26", prompt: "A sinusoid oscillates between a maximum of $10$ and a minimum of $2$. Its midline is $y=$", latex: "\\frac{\\text{max}+\\text{min}}{2}", answer: "6", difficulty: 4, hint: "Midline $=\\frac{\\text{max}+\\text{min}}{2}$.", explanation: "$\\frac{10+2}{2}=6$.", acceptedAnswers: ["6.0"] },
+  { id: "apps-p-27", prompt: "A sine model oscillates between $20$ and $8$ with period $6$. Building $y=a\\sin(bx)+d$, the value of $a$ (amplitude) is:", latex: "a=\\frac{\\text{max}-\\text{min}}{2}", answer: "6", difficulty: 5, hint: "Amplitude is half the peak-to-trough distance.", explanation: "$a=\\frac{20-8}{2}=6$.", acceptedAnswers: ["6.0"] },
+  { id: "apps-p-28", prompt: "A sinusoid has maximum $14$, minimum $4$, and period $8$. Reading off $y=a\\sin(b(x-c))+d$, the value of $d$ is:", latex: "d=\\frac{\\text{max}+\\text{min}}{2}", answer: "9", difficulty: 5, hint: "$d$ is the midline.", explanation: "$d=\\frac{14+4}{2}=9$.", acceptedAnswers: ["9.0"] },
+  { id: "apps-p-29", prompt: "Over $0\\le x\\le2\\pi$, how many complete cycles does $y=\\sin(3x)$ make?", latex: "\\text{cycles}=\\frac{\\text{domain}}{\\text{period}}", answer: "3", difficulty: 5, hint: "Period is $\\frac{2\\pi}{3}$; divide $2\\pi$ by it.", explanation: "$\\frac{2\\pi}{2\\pi/3}=3$ cycles.", acceptedAnswers: ["three"] },
+  { id: "apps-p-30", prompt: "A curve $y=a\\sin(b(x-c))+d$ has maximum $7$ at $x=\\frac{\\pi}{6}$, minimum $1$, and period $\\pi$. The value of $b$ (taking $b>0$) is:", latex: "\\frac{2\\pi}{b}=\\pi", answer: "2", difficulty: 5, hint: "Use the period equation; the max position is extra information.", explanation: "$\\frac{2\\pi}{b}=\\pi\\Rightarrow b=2$. (The amplitude is $3$ and $d=4$, but the question asks only for $b$.)", acceptedAnswers: ["2.0"] },
+];
+amplitudePeriodPhaseVerticalShiftLesson.multiPartPractice = [
+  {
+    id: "apps-mp-1",
+    prompt:
+      "A function is given by $y=4\\sin\\left(2\\left(x-\\frac{\\pi}{6}\\right)\\right)+3$.",
+    latex: "y=4\\sin\\left(2\\left(x-\\frac{\\pi}{6}\\right)\\right)+3",
+    answer: "4",
+    hint: "Read $a$, $b$ and $d$ from the equation, then combine the midline with the amplitude for the maximum.",
+    explanation:
+      "(a) Amplitude $=|a|=4$. (b) Period $=\\frac{2\\pi}{|b|}=\\frac{2\\pi}{2}=\\pi$. (c) Maximum $=d+|a|=3+4=7$.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "State the amplitude.", latex: "|a|", marks: 1, answer: "4", acceptedAnswers: ["4.0"], hint: "Amplitude is $|a|$.", explanation: "$|4|=4$." },
+      { key: "b", label: "(b)", prompt: "The period equals $\\frac{2\\pi}{k}$. Find the integer $k$.", latex: "\\text{period}=\\frac{2\\pi}{k}", marks: 2, answer: "2", acceptedAnswers: ["2.0"], hint: "Period $=\\frac{2\\pi}{|b|}$ and $b=2$.", explanation: "Period $=\\frac{2\\pi}{2}=\\pi$, so $k=2$." },
+      { key: "c", label: "(c)", prompt: "Find the maximum value of $y$.", latex: "d+|a|", marks: 2, answer: "7", acceptedAnswers: ["7.0"], hint: "Midline plus amplitude.", explanation: "$3+4=7$." },
+    ],
+  },
+];
+
+// === trigonometric-equations ==============================================
+trigonometricEquationsLesson.masteryQuizPool = [
+  { id: "trige-p-1", prompt: "First isolate the function: $2\\sin x-1=0$ gives $\\sin x=$", latex: "2\\sin x-1=0", answer: "B", difficulty: 1, choices: [{ label: "A", text: "$1$" }, { label: "B", text: "$\\frac12$" }, { label: "C", text: "$2$" }, { label: "D", text: "$-\\frac12$" }], hint: "Add $1$, divide by $2$.", explanation: "$\\sin x=\\frac12$." },
+  { id: "trige-p-2", prompt: "The reference angle for $\\sin x=\\frac12$ is:", latex: "\\sin x=\\frac12", answer: "A", difficulty: 1, choices: [{ label: "A", text: "$\\frac{\\pi}{6}$" }, { label: "B", text: "$\\frac{\\pi}{4}$" }, { label: "C", text: "$\\frac{\\pi}{3}$" }, { label: "D", text: "$\\frac{\\pi}{2}$" }], hint: "$\\sin\\frac{\\pi}{6}=\\frac12$.", explanation: "Reference angle is $\\frac{\\pi}{6}$." },
+  { id: "trige-p-3", prompt: "Number of solutions of $\\sin x=\\frac12$ on $0\\le x\\le2\\pi$:", latex: "\\sin x=\\frac12", answer: "2", difficulty: 2, hint: "Sine is positive in two quadrants.", explanation: "$x=\\frac{\\pi}{6},\\frac{5\\pi}{6}$: two solutions.", acceptedAnswers: ["two"] },
+  { id: "trige-p-4", prompt: "Number of solutions of $\\cos x=-\\frac12$ on $0\\le x\\le2\\pi$:", latex: "\\cos x=-\\frac12", answer: "2", difficulty: 2, hint: "Cosine is negative in two quadrants.", explanation: "$x=\\frac{2\\pi}{3},\\frac{4\\pi}{3}$: two solutions.", acceptedAnswers: ["two"] },
+  { id: "trige-p-5", prompt: "Number of solutions of $\\tan x=1$ on $0\\le x\\le2\\pi$:", latex: "\\tan x=1", answer: "2", difficulty: 2, hint: "Tangent is positive in quadrants I and III.", explanation: "$x=\\frac{\\pi}{4},\\frac{5\\pi}{4}$: two solutions.", acceptedAnswers: ["two"] },
+  { id: "trige-p-6", prompt: "Number of solutions of $\\sin x=0$ on $0\\le x\\le2\\pi$:", latex: "\\sin x=0", answer: "3", difficulty: 3, hint: "At $0$, $\\pi$ and $2\\pi$.", explanation: "$x=0,\\pi,2\\pi$: three solutions.", acceptedAnswers: ["three"] },
+  { id: "trige-p-7", prompt: "Number of solutions of $\\cos x=0$ on $0\\le x\\le2\\pi$:", latex: "\\cos x=0", answer: "2", difficulty: 3, hint: "At $\\frac{\\pi}{2}$ and $\\frac{3\\pi}{2}$.", explanation: "$x=\\frac{\\pi}{2},\\frac{3\\pi}{2}$: two solutions.", acceptedAnswers: ["two"] },
+  { id: "trige-p-8", prompt: "The smallest positive solution of $\\sin x=\\frac12$ is:", latex: "\\sin x=\\frac12", answer: "A", difficulty: 2, choices: [{ label: "A", text: "$\\frac{\\pi}{6}$" }, { label: "B", text: "$\\frac{5\\pi}{6}$" }, { label: "C", text: "$\\frac{\\pi}{3}$" }, { label: "D", text: "$\\frac{\\pi}{2}$" }], hint: "Quadrant I solution.", explanation: "$x=\\frac{\\pi}{6}$ is the smallest." },
+  { id: "trige-p-9", prompt: "The two solutions of $\\sin x=\\frac12$ on $0\\le x\\le2\\pi$ are:", latex: "\\sin x=\\frac12", answer: "C", difficulty: 3, choices: [{ label: "A", text: "$\\frac{\\pi}{6},\\frac{7\\pi}{6}$" }, { label: "B", text: "$\\frac{\\pi}{3},\\frac{2\\pi}{3}$" }, { label: "C", text: "$\\frac{\\pi}{6},\\frac{5\\pi}{6}$" }, { label: "D", text: "$\\frac{\\pi}{6},\\frac{11\\pi}{6}$" }], hint: "Quadrants I and II.", explanation: "$x=\\frac{\\pi}{6},\\frac{5\\pi}{6}$." },
+  { id: "trige-p-10", prompt: "The two solutions of $\\cos x=-\\frac12$ on $0\\le x\\le2\\pi$ are:", latex: "\\cos x=-\\frac12", answer: "B", difficulty: 3, choices: [{ label: "A", text: "$\\frac{\\pi}{3},\\frac{2\\pi}{3}$" }, { label: "B", text: "$\\frac{2\\pi}{3},\\frac{4\\pi}{3}$" }, { label: "C", text: "$\\frac{\\pi}{6},\\frac{5\\pi}{6}$" }, { label: "D", text: "$\\frac{\\pi}{3},\\frac{5\\pi}{3}$" }], hint: "Cosine negative in quadrants II and III.", explanation: "$x=\\frac{2\\pi}{3},\\frac{4\\pi}{3}$." },
+  { id: "trige-p-11", prompt: "The reference angle for $\\cos x=\\frac{\\sqrt3}{2}$ is:", latex: "\\cos x=\\frac{\\sqrt3}{2}", answer: "A", difficulty: 2, choices: [{ label: "A", text: "$\\frac{\\pi}{6}$" }, { label: "B", text: "$\\frac{\\pi}{4}$" }, { label: "C", text: "$\\frac{\\pi}{3}$" }, { label: "D", text: "$\\frac{\\pi}{2}$" }], hint: "$\\cos\\frac{\\pi}{6}=\\frac{\\sqrt3}{2}$.", explanation: "Reference angle is $\\frac{\\pi}{6}$." },
+  { id: "trige-p-12", prompt: "Number of solutions of $\\cos x=\\frac{\\sqrt3}{2}$ on $0\\le x\\le2\\pi$:", latex: "\\cos x=\\frac{\\sqrt3}{2}", answer: "2", difficulty: 3, hint: "Cosine positive in quadrants I and IV.", explanation: "$x=\\frac{\\pi}{6},\\frac{11\\pi}{6}$: two solutions.", acceptedAnswers: ["two"] },
+  { id: "trige-p-13", prompt: "Number of solutions of $\\sin x=-1$ on $0\\le x\\le2\\pi$:", latex: "\\sin x=-1", answer: "1", difficulty: 3, hint: "Only at the minimum.", explanation: "$x=\\frac{3\\pi}{2}$ only: one solution.", acceptedAnswers: ["one"] },
+  { id: "trige-p-14", prompt: "Number of solutions of $\\cos x=1$ on $0\\le x\\le2\\pi$:", latex: "\\cos x=1", answer: "2", difficulty: 3, hint: "At the endpoints $0$ and $2\\pi$.", explanation: "$x=0,2\\pi$: two solutions.", acceptedAnswers: ["two"] },
+  { id: "trige-p-15", prompt: "In which quadrants is $\\sin x>0$?", latex: "\\sin x>0", answer: "C", difficulty: 2, choices: [{ label: "A", text: "I and IV" }, { label: "B", text: "II and III" }, { label: "C", text: "I and II" }, { label: "D", text: "III and IV" }], hint: "Sine is the $y$-coordinate.", explanation: "Sine is positive in quadrants I and II." },
+  { id: "trige-p-16", prompt: "In which quadrants is $\\cos x<0$?", latex: "\\cos x<0", answer: "B", difficulty: 2, choices: [{ label: "A", text: "I and II" }, { label: "B", text: "II and III" }, { label: "C", text: "I and IV" }, { label: "D", text: "III and IV" }], hint: "Cosine is the $x$-coordinate.", explanation: "Cosine is negative in quadrants II and III." },
+  { id: "trige-p-17", prompt: "Number of solutions of $\\tan x=\\sqrt3$ on $0\\le x\\le2\\pi$:", latex: "\\tan x=\\sqrt3", answer: "2", difficulty: 3, hint: "Tangent positive in quadrants I and III.", explanation: "$x=\\frac{\\pi}{3},\\frac{4\\pi}{3}$: two solutions.", acceptedAnswers: ["two"] },
+  { id: "trige-p-18", prompt: "The smallest positive solution of $\\tan x=\\sqrt3$ is:", latex: "\\tan x=\\sqrt3", answer: "C", difficulty: 3, choices: [{ label: "A", text: "$\\frac{\\pi}{6}$" }, { label: "B", text: "$\\frac{\\pi}{4}$" }, { label: "C", text: "$\\frac{\\pi}{3}$" }, { label: "D", text: "$\\frac{2\\pi}{3}$" }], hint: "$\\tan\\frac{\\pi}{3}=\\sqrt3$.", explanation: "$x=\\frac{\\pi}{3}$." },
+  { id: "trige-p-19", prompt: "Solve $2\\cos x=\\sqrt3$ first: $\\cos x=$", latex: "2\\cos x=\\sqrt3", answer: "D", difficulty: 3, choices: [{ label: "A", text: "$\\sqrt3$" }, { label: "B", text: "$\\frac12$" }, { label: "C", text: "$2\\sqrt3$" }, { label: "D", text: "$\\frac{\\sqrt3}{2}$" }], hint: "Divide both sides by $2$.", explanation: "$\\cos x=\\frac{\\sqrt3}{2}$." },
+  { id: "trige-p-20", prompt: "Number of solutions of $2\\cos x=\\sqrt3$ on $0\\le x\\le2\\pi$:", latex: "2\\cos x=\\sqrt3", answer: "2", difficulty: 4, hint: "$\\cos x=\\frac{\\sqrt3}{2}$, positive in two quadrants.", explanation: "$x=\\frac{\\pi}{6},\\frac{11\\pi}{6}$: two solutions.", acceptedAnswers: ["two"] },
+  { id: "trige-p-21", prompt: "Number of solutions of $\\sin x=\\frac{\\sqrt3}{2}$ on $0\\le x\\le2\\pi$:", latex: "\\sin x=\\frac{\\sqrt3}{2}", answer: "2", difficulty: 3, hint: "Sine positive in quadrants I and II.", explanation: "$x=\\frac{\\pi}{3},\\frac{2\\pi}{3}$: two solutions.", acceptedAnswers: ["two"] },
+  { id: "trige-p-22", prompt: "On $0\\le x\\le\\pi$, the number of solutions of $\\sin x=\\frac12$ is:", latex: "\\sin x=\\frac12,\\;0\\le x\\le\\pi", answer: "2", difficulty: 4, hint: "Both $\\frac{\\pi}{6}$ and $\\frac{5\\pi}{6}$ lie in $[0,\\pi]$.", explanation: "$x=\\frac{\\pi}{6},\\frac{5\\pi}{6}$ are both in $[0,\\pi]$: two solutions.", acceptedAnswers: ["two"] },
+  { id: "trige-p-23", prompt: "On $0\\le x\\le\\pi$, the number of solutions of $\\cos x=\\frac12$ is:", latex: "\\cos x=\\frac12,\\;0\\le x\\le\\pi", answer: "1", difficulty: 4, hint: "The quadrant-IV solution $\\frac{5\\pi}{3}$ is outside $[0,\\pi]$.", explanation: "Only $x=\\frac{\\pi}{3}$ lies in $[0,\\pi]$: one solution.", acceptedAnswers: ["one"] },
+  { id: "trige-p-24", prompt: "Number of solutions of $\\tan x=0$ on $0\\le x\\le2\\pi$:", latex: "\\tan x=0", answer: "3", difficulty: 4, hint: "Tangent is zero where $\\sin x=0$.", explanation: "$x=0,\\pi,2\\pi$: three solutions.", acceptedAnswers: ["three"] },
+  { id: "trige-p-25", prompt: "Number of solutions of $\\sin(2x)=0$ on $0\\le x\\le2\\pi$:", latex: "\\sin(2x)=0", answer: "5", difficulty: 5, hint: "Let $u=2x$, so $u$ ranges over $[0,4\\pi]$; $\\sin u=0$ at $0,\\pi,2\\pi,3\\pi,4\\pi$.", explanation: "$2x=0,\\pi,2\\pi,3\\pi,4\\pi$ gives $x=0,\\frac{\\pi}{2},\\pi,\\frac{3\\pi}{2},2\\pi$: five solutions.", acceptedAnswers: ["five"] },
+  { id: "trige-p-26", prompt: "Number of solutions of $\\cos(2x)=1$ on $0\\le x\\le2\\pi$:", latex: "\\cos(2x)=1", answer: "3", difficulty: 5, hint: "Let $u=2x\\in[0,4\\pi]$; $\\cos u=1$ at $0,2\\pi,4\\pi$.", explanation: "$2x=0,2\\pi,4\\pi$ gives $x=0,\\pi,2\\pi$: three solutions.", acceptedAnswers: ["three"] },
+  { id: "trige-p-27", prompt: "Number of solutions of $2\\sin x+1=0$ on $0\\le x\\le2\\pi$:", latex: "2\\sin x+1=0", answer: "2", difficulty: 4, hint: "$\\sin x=-\\frac12$, negative in quadrants III and IV.", explanation: "$x=\\frac{7\\pi}{6},\\frac{11\\pi}{6}$: two solutions.", acceptedAnswers: ["two"] },
+  { id: "trige-p-28", prompt: "Number of solutions of $\\sin x=\\cos x$ on $0\\le x\\le2\\pi$:", latex: "\\sin x=\\cos x", answer: "2", difficulty: 5, hint: "Divide by $\\cos x$ to get $\\tan x=1$.", explanation: "$\\tan x=1$ gives $x=\\frac{\\pi}{4},\\frac{5\\pi}{4}$: two solutions.", acceptedAnswers: ["two"] },
+  { id: "trige-p-29", prompt: "Number of solutions of $\\sin^2 x=1$ on $0\\le x\\le2\\pi$:", latex: "\\sin^2 x=1", answer: "2", difficulty: 5, hint: "$\\sin x=\\pm1$; each gives one solution in the interval.", explanation: "$\\sin x=1$ at $\\frac{\\pi}{2}$ and $\\sin x=-1$ at $\\frac{3\\pi}{2}$: two solutions.", acceptedAnswers: ["two"] },
+  { id: "trige-p-30", prompt: "Number of solutions of $2\\sin^2 x-\\sin x=0$ on $0\\le x\\le2\\pi$.", latex: "2\\sin^2 x-\\sin x=0", answer: "5", difficulty: 5, hint: "Factor: $\\sin x(2\\sin x-1)=0$, then solve each factor.", explanation: "$\\sin x=0$ gives $0,\\pi,2\\pi$; $\\sin x=\\frac12$ gives $\\frac{\\pi}{6},\\frac{5\\pi}{6}$. Total $5$ solutions.", acceptedAnswers: ["five"] },
+];
+trigonometricEquationsLesson.multiPartPractice = [
+  {
+    id: "trige-mp-1",
+    prompt:
+      "Consider the equation $2\\sin x+1=0$ over the domain $0\\le x\\le2\\pi$.",
+    latex: "2\\sin x+1=0,\\quad 0\\le x\\le2\\pi",
+    answer: "2",
+    hint: "Isolate $\\sin x$, identify the reference angle from the exact value, then count solutions using the quadrant signs.",
+    explanation:
+      "(a) $2\\sin x=-1$, so $\\sin x=-\\frac12$. (b) The reference angle is $\\frac{\\pi}{6}$ (taken as $30^\\circ$), entered as $30$. (c) Sine is negative in quadrants III and IV, giving $x=\\frac{7\\pi}{6},\\frac{11\\pi}{6}$: $2$ solutions.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "After isolating, $\\sin x$ equals a fraction $\\frac{p}{q}$. Type $\\sin x$ as a decimal.", latex: "2\\sin x+1=0", marks: 2, answer: "-0.5", acceptedAnswers: ["−0.5", "-1/2", "-.5"], hint: "Subtract $1$, divide by $2$.", explanation: "$\\sin x=-\\frac12=-0.5$." },
+      { key: "b", label: "(b)", prompt: "Find the reference angle in degrees.", latex: "\\sin\\theta=\\frac12", marks: 1, answer: "30", acceptedAnswers: ["30°", "30 degrees"], hint: "$\\sin30^\\circ=\\frac12$.", explanation: "Reference angle is $30^\\circ$." },
+      { key: "c", label: "(c)", prompt: "How many solutions does the equation have on $0\\le x\\le2\\pi$?", latex: "\\sin x=-\\frac12", marks: 2, answer: "2", acceptedAnswers: ["two"], hint: "Sine negative in two quadrants.", explanation: "$x=\\frac{7\\pi}{6},\\frac{11\\pi}{6}$: two solutions." },
+    ],
+  },
+];
+
+// === modelling-periodic-phenomena =========================================
+modellingPeriodicPhenomenaLesson.masteryQuizPool = [
+  { id: "modpp-p-1", prompt: "Tide height is $h(t)=2\\sin\\left(\\frac{\\pi}{6}t\\right)+3$. The amplitude is:", latex: "h(t)=2\\sin\\left(\\frac{\\pi}{6}t\\right)+3", answer: "2", difficulty: 1, hint: "Amplitude is $|a|$.", explanation: "$|a|=2$ m.", acceptedAnswers: ["2.0"] },
+  { id: "modpp-p-2", prompt: "For $h(t)=2\\sin\\left(\\frac{\\pi}{6}t\\right)+3$, the midline is $h=$", latex: "h(t)=2\\sin\\left(\\frac{\\pi}{6}t\\right)+3", answer: "3", difficulty: 1, hint: "Midline is $d$.", explanation: "Midline $h=3$ m.", acceptedAnswers: ["3.0"] },
+  { id: "modpp-p-3", prompt: "For $h(t)=2\\sin\\left(\\frac{\\pi}{6}t\\right)+3$, the period is:", latex: "\\frac{2\\pi}{|b|}", answer: "12", difficulty: 2, hint: "$\\frac{2\\pi}{\\pi/6}$.", explanation: "$\\frac{2\\pi}{\\pi/6}=12$ hours.", acceptedAnswers: ["12.0"] },
+  { id: "modpp-p-4", prompt: "For $h(t)=2\\sin\\left(\\frac{\\pi}{6}t\\right)+3$, the maximum height is:", latex: "d+|a|", answer: "5", difficulty: 2, hint: "Midline plus amplitude.", explanation: "$3+2=5$ m.", acceptedAnswers: ["5.0"] },
+  { id: "modpp-p-5", prompt: "For $h(t)=2\\sin\\left(\\frac{\\pi}{6}t\\right)+3$, the minimum height is:", latex: "d-|a|", answer: "1", difficulty: 2, hint: "Midline minus amplitude.", explanation: "$3-2=1$ m.", acceptedAnswers: ["1.0"] },
+  { id: "modpp-p-6", prompt: "A Ferris wheel: $h(t)=10\\cos\\left(\\frac{\\pi}{15}t\\right)+12$. The maximum height is:", latex: "d+|a|", answer: "22", difficulty: 2, hint: "$12+10$.", explanation: "Max $=12+10=22$ m.", acceptedAnswers: ["22.0"] },
+  { id: "modpp-p-7", prompt: "For $h(t)=10\\cos\\left(\\frac{\\pi}{15}t\\right)+12$, the minimum height is:", latex: "d-|a|", answer: "2", difficulty: 2, hint: "$12-10$.", explanation: "Min $=12-10=2$ m.", acceptedAnswers: ["2.0"] },
+  { id: "modpp-p-8", prompt: "For $h(t)=10\\cos\\left(\\frac{\\pi}{15}t\\right)+12$, the period is:", latex: "\\frac{2\\pi}{|b|}", answer: "30", difficulty: 3, hint: "$\\frac{2\\pi}{\\pi/15}$.", explanation: "$\\frac{2\\pi}{\\pi/15}=30$ s.", acceptedAnswers: ["30.0"] },
+  { id: "modpp-p-9", prompt: "A temperature model has maximum $26^\\circ$C and minimum $14^\\circ$C. The amplitude is:", latex: "\\frac{\\text{max}-\\text{min}}{2}", answer: "6", difficulty: 3, hint: "Half the difference.", explanation: "$\\frac{26-14}{2}=6^\\circ$C.", acceptedAnswers: ["6.0"] },
+  { id: "modpp-p-10", prompt: "A temperature model has maximum $26^\\circ$C and minimum $14^\\circ$C. The midline is:", latex: "\\frac{\\text{max}+\\text{min}}{2}", answer: "20", difficulty: 3, hint: "Average of max and min.", explanation: "$\\frac{26+14}{2}=20^\\circ$C.", acceptedAnswers: ["20.0"] },
+  { id: "modpp-p-11", prompt: "A tide repeats every $12$ hours. Its $b$ value (taking $b>0$) is:", latex: "\\frac{2\\pi}{b}=12", answer: "C", difficulty: 3, choices: [{ label: "A", text: "$\\frac{\\pi}{3}$" }, { label: "B", text: "$\\frac{\\pi}{12}$" }, { label: "C", text: "$\\frac{\\pi}{6}$" }, { label: "D", text: "$12$" }], hint: "$b=\\frac{2\\pi}{\\text{period}}$.", explanation: "$b=\\frac{2\\pi}{12}=\\frac{\\pi}{6}$." },
+  { id: "modpp-p-12", prompt: "A wave height $H(t)=1.5\\sin\\left(\\frac{\\pi}{4}t\\right)+2$. The amplitude is:", latex: "H(t)=1.5\\sin\\left(\\frac{\\pi}{4}t\\right)+2", answer: "1.5", difficulty: 2, hint: "$|a|$.", explanation: "Amplitude $=1.5$ m.", acceptedAnswers: ["1.50", "3/2"] },
+  { id: "modpp-p-13", prompt: "For $H(t)=1.5\\sin\\left(\\frac{\\pi}{4}t\\right)+2$, the period is:", latex: "\\frac{2\\pi}{|b|}", answer: "8", difficulty: 3, hint: "$\\frac{2\\pi}{\\pi/4}$.", explanation: "$\\frac{2\\pi}{\\pi/4}=8$ s.", acceptedAnswers: ["8.0"] },
+  { id: "modpp-p-14", prompt: "For $H(t)=1.5\\sin\\left(\\frac{\\pi}{4}t\\right)+2$, the maximum height is:", latex: "d+|a|", answer: "3.5", difficulty: 3, hint: "$2+1.5$.", explanation: "Max $=2+1.5=3.5$ m.", acceptedAnswers: ["3.50", "7/2"] },
+  { id: "modpp-p-15", prompt: "Daylight hours follow $L(t)=2\\sin\\left(\\frac{\\pi}{6}t\\right)+12$. Maximum daylight is:", latex: "d+|a|", answer: "14", difficulty: 3, hint: "$12+2$.", explanation: "Max $=12+2=14$ hours.", acceptedAnswers: ["14.0"] },
+  { id: "modpp-p-16", prompt: "For $L(t)=2\\sin\\left(\\frac{\\pi}{6}t\\right)+12$, minimum daylight is:", latex: "d-|a|", answer: "10", difficulty: 3, hint: "$12-2$.", explanation: "Min $=12-2=10$ hours.", acceptedAnswers: ["10.0"] },
+  { id: "modpp-p-17", prompt: "What does the midline of a periodic model represent?", latex: "y=d", answer: "B", difficulty: 2, choices: [{ label: "A", text: "the maximum value" }, { label: "B", text: "the average (central) value" }, { label: "C", text: "the amplitude" }, { label: "D", text: "the period" }], hint: "It is halfway between max and min.", explanation: "The midline is the average value." },
+  { id: "modpp-p-18", prompt: "A model has period $24$ hours. Its $b$ value (taking $b>0$) is:", latex: "\\frac{2\\pi}{b}=24", answer: "A", difficulty: 3, choices: [{ label: "A", text: "$\\frac{\\pi}{12}$" }, { label: "B", text: "$\\frac{\\pi}{24}$" }, { label: "C", text: "$\\frac{\\pi}{6}$" }, { label: "D", text: "$24$" }], hint: "$b=\\frac{2\\pi}{24}$.", explanation: "$b=\\frac{2\\pi}{24}=\\frac{\\pi}{12}$." },
+  { id: "modpp-p-19", prompt: "A piston's displacement is $d(t)=5\\cos(4\\pi t)$. The period is:", latex: "\\frac{2\\pi}{|b|}", answer: "0.5", difficulty: 4, hint: "$\\frac{2\\pi}{4\\pi}$.", explanation: "$\\frac{2\\pi}{4\\pi}=0.5$ s.", acceptedAnswers: ["1/2", ".5"] },
+  { id: "modpp-p-20", prompt: "For $d(t)=5\\cos(4\\pi t)$, the maximum displacement is:", latex: "d+|a|", answer: "5", difficulty: 3, hint: "Midline is $0$, amplitude $5$.", explanation: "Max $=0+5=5$.", acceptedAnswers: ["5.0"] },
+  { id: "modpp-p-21", prompt: "A Ferris wheel reaches max $35$ m and min $3$ m. Its amplitude is:", latex: "\\frac{\\text{max}-\\text{min}}{2}", answer: "16", difficulty: 4, hint: "Half the difference.", explanation: "$\\frac{35-3}{2}=16$ m.", acceptedAnswers: ["16.0"] },
+  { id: "modpp-p-22", prompt: "A Ferris wheel reaches max $35$ m and min $3$ m. The height of its centre (midline) is:", latex: "\\frac{\\text{max}+\\text{min}}{2}", answer: "19", difficulty: 4, hint: "Average of max and min.", explanation: "$\\frac{35+3}{2}=19$ m.", acceptedAnswers: ["19.0"] },
+  { id: "modpp-p-23", prompt: "Tidal depth varies between $1.2$ m and $4.8$ m. The amplitude is:", latex: "\\frac{\\text{max}-\\text{min}}{2}", answer: "1.8", difficulty: 4, hint: "Half the range.", explanation: "$\\frac{4.8-1.2}{2}=1.8$ m.", acceptedAnswers: ["1.80", "9/5"] },
+  { id: "modpp-p-24", prompt: "Tidal depth varies between $1.2$ m and $4.8$ m. The midline is:", latex: "\\frac{\\text{max}+\\text{min}}{2}", answer: "3", difficulty: 4, hint: "Average of the extremes.", explanation: "$\\frac{4.8+1.2}{2}=3$ m.", acceptedAnswers: ["3.0"] },
+  { id: "modpp-p-25", prompt: "A blood-pressure model completes one cycle in $0.8$ s. How many cycles occur in $60$ s?", latex: "\\frac{60}{0.8}", answer: "75", difficulty: 5, hint: "Divide total time by the period.", explanation: "$\\frac{60}{0.8}=75$ cycles." },
+  { id: "modpp-p-26", prompt: "A Ferris wheel completes one rotation every $40$ s. How many full rotations in $5$ minutes?", latex: "\\frac{300}{40}", answer: "7.5", difficulty: 5, hint: "$5$ min $=300$ s; divide by the period.", explanation: "$\\frac{300}{40}=7.5$ rotations.", acceptedAnswers: ["15/2"] },
+  { id: "modpp-p-27", prompt: "A temperature model is $T(t)=8\\sin\\left(\\frac{\\pi}{12}(t-8)\\right)+18$. The maximum temperature is:", latex: "d+|a|", answer: "26", difficulty: 5, hint: "Max $=d+|a|$; the phase shift does not change the maximum value.", explanation: "Max $=18+8=26^\\circ$C." },
+  { id: "modpp-p-28", prompt: "For $T(t)=8\\sin\\left(\\frac{\\pi}{12}(t-8)\\right)+18$, the period is:", latex: "\\frac{2\\pi}{|b|}", answer: "24", difficulty: 5, hint: "$\\frac{2\\pi}{\\pi/12}$; ignore the phase shift.", explanation: "$\\frac{2\\pi}{\\pi/12}=24$ hours.", acceptedAnswers: ["24.0"] },
+  { id: "modpp-p-29", prompt: "A wheel's height is $h(t)=16\\sin\\left(\\frac{\\pi}{20}t\\right)+19$ (metres, $t$ in seconds). Its lowest point is reached when $\\sin=-1$. That lowest height is:", latex: "d-|a|", answer: "3", difficulty: 5, hint: "Min $=d-|a|$.", explanation: "Min $=19-16=3$ m." },
+  { id: "modpp-p-30", prompt: "A signal $V(t)=A\\sin(bt)+D$ swings between $240$ and $200$. Half the difference between the extremes gives $A=$", latex: "A=\\frac{\\text{max}-\\text{min}}{2}", answer: "20", difficulty: 5, hint: "Amplitude is half the peak-to-trough swing.", explanation: "$A=\\frac{240-200}{2}=20$." },
+];
+modellingPeriodicPhenomenaLesson.multiPartPractice = [
+  {
+    id: "modpp-mp-1",
+    prompt:
+      "On a Ferris wheel, a rider's height in metres after $t$ seconds is $h(t)=12\\sin\\left(\\frac{\\pi}{30}t\\right)+15$.",
+    latex: "h(t)=12\\sin\\left(\\frac{\\pi}{30}t\\right)+15",
+    answer: "27",
+    hint: "Identify $a$, $b$ and $d$, then use period $=\\frac{2\\pi}{|b|}$ and maximum $=d+|a|$.",
+    explanation:
+      "(a) Amplitude $=|a|=12$ m. (b) Period $=\\frac{2\\pi}{\\pi/30}=60$ s. (c) Maximum height $=d+|a|=15+12=27$ m.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "State the amplitude in metres.", latex: "|a|", marks: 1, answer: "12", acceptedAnswers: ["12.0"], hint: "Amplitude is $|a|$.", explanation: "$|12|=12$ m." },
+      { key: "b", label: "(b)", prompt: "Find the period in seconds.", latex: "\\frac{2\\pi}{|b|}", marks: 2, answer: "60", acceptedAnswers: ["60.0"], hint: "$\\frac{2\\pi}{\\pi/30}$.", explanation: "$\\frac{2\\pi}{\\pi/30}=60$ s." },
+      { key: "c", label: "(c)", prompt: "Find the maximum height in metres.", latex: "d+|a|", marks: 2, answer: "27", acceptedAnswers: ["27.0"], hint: "Midline plus amplitude.", explanation: "$15+12=27$ m." },
+    ],
+  },
+];
+
+graphsSineCosineTangentLesson.multiPartPractice = [
+  {
+    id: "gsct-mp-1",
+    prompt:
+      "Consider the graphs of $y=\\sin x$, $y=\\cos x$ and $y=\\tan x$ on the domain $0\\le x\\le2\\pi$.",
+    latex: "y=\\sin x,\\quad y=\\cos x,\\quad y=\\tan x",
+    answer: "3",
+    hint: "Use the standard zeros, the cosine-zero rule for tangent asymptotes, and the intersection condition $\\tan x=1$.",
+    explanation:
+      "(a) $\\sin x=0$ at $x=0,\\pi,2\\pi$, so there are $3$ $x$-intercepts. (b) $y=\\tan x$ has asymptotes where $\\cos x=0$, i.e. $x=\\frac{\\pi}{2},\\frac{3\\pi}{2}$, so $2$ asymptotes. (c) $\\sin x=\\cos x$ gives $\\tan x=1$, so $x=\\frac{\\pi}{4},\\frac{5\\pi}{4}$: $2$ intersection points.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "How many $x$-intercepts does $y=\\sin x$ have on $0\\le x\\le2\\pi$?", latex: "\\sin x=0", marks: 2, answer: "3", acceptedAnswers: ["three"], hint: "Zeros at $0,\\pi,2\\pi$.", explanation: "$\\sin x=0$ at $x=0,\\pi,2\\pi$: three intercepts." },
+      { key: "b", label: "(b)", prompt: "How many vertical asymptotes does $y=\\tan x$ have on $0\\le x\\le2\\pi$?", latex: "\\cos x=0", marks: 2, answer: "2", acceptedAnswers: ["two"], hint: "Asymptotes where $\\cos x=0$.", explanation: "$\\cos x=0$ at $x=\\frac{\\pi}{2},\\frac{3\\pi}{2}$: two asymptotes." },
+      { key: "c", label: "(c)", prompt: "How many times do $y=\\sin x$ and $y=\\cos x$ intersect on $0\\le x\\le2\\pi$?", latex: "\\sin x=\\cos x", marks: 2, answer: "2", acceptedAnswers: ["two"], hint: "Set $\\tan x=1$.", explanation: "$\\tan x=1$ gives $x=\\frac{\\pi}{4},\\frac{5\\pi}{4}$: two intersections." },
+    ],
+  },
+];
+
+// === mixed-trigonometric-functions-exam-practice ==========================
+mixedTrigonometricFunctionsExamPracticeLesson.masteryQuizPool = [
+  { id: "mixtf-p-1", prompt: "Amplitude of $y=3\\cos(2x)-1$:", latex: "y=3\\cos(2x)-1", answer: "3", difficulty: 1, hint: "Amplitude is $|a|$.", explanation: "$|3|=3$.", acceptedAnswers: ["3.0"] },
+  { id: "mixtf-p-2", prompt: "Period of $y=3\\cos(2x)-1$:", latex: "\\frac{2\\pi}{|b|}", answer: "B", difficulty: 2, choices: [{ label: "A", text: "$2\\pi$" }, { label: "B", text: "$\\pi$" }, { label: "C", text: "$\\frac{\\pi}{2}$" }, { label: "D", text: "$3\\pi$" }], hint: "$\\frac{2\\pi}{2}$.", explanation: "$\\frac{2\\pi}{2}=\\pi$." },
+  { id: "mixtf-p-3", prompt: "Midline of $y=3\\cos(2x)-1$:", latex: "y=3\\cos(2x)-1", answer: "C", difficulty: 1, choices: [{ label: "A", text: "$y=3$" }, { label: "B", text: "$y=0$" }, { label: "C", text: "$y=-1$" }, { label: "D", text: "$y=2$" }], hint: "Midline is $y=d$.", explanation: "$d=-1$." },
+  { id: "mixtf-p-4", prompt: "Maximum of $y=3\\cos(2x)-1$:", latex: "d+|a|", answer: "2", difficulty: 2, hint: "$-1+3$.", explanation: "Max $=-1+3=2$.", acceptedAnswers: ["2.0"] },
+  { id: "mixtf-p-5", prompt: "Minimum of $y=3\\cos(2x)-1$:", latex: "d-|a|", answer: "-4", difficulty: 2, hint: "$-1-3$.", explanation: "Min $=-1-3=-4$.", acceptedAnswers: ["−4"] },
+  { id: "mixtf-p-6", prompt: "Number of solutions of $2\\sin x-1=0$ on $0\\le x\\le2\\pi$:", latex: "2\\sin x-1=0", answer: "2", difficulty: 2, hint: "$\\sin x=\\frac12$.", explanation: "$x=\\frac{\\pi}{6},\\frac{5\\pi}{6}$: two solutions.", acceptedAnswers: ["two"] },
+  { id: "mixtf-p-7", prompt: "Reference angle for $\\cos x=\\frac12$:", latex: "\\cos x=\\frac12", answer: "C", difficulty: 2, choices: [{ label: "A", text: "$\\frac{\\pi}{6}$" }, { label: "B", text: "$\\frac{\\pi}{4}$" }, { label: "C", text: "$\\frac{\\pi}{3}$" }, { label: "D", text: "$\\frac{\\pi}{2}$" }], hint: "$\\cos\\frac{\\pi}{3}=\\frac12$.", explanation: "Reference angle $\\frac{\\pi}{3}$." },
+  { id: "mixtf-p-8", prompt: "Which identity is correct?", latex: "\\text{Choose one}", answer: "A", difficulty: 2, choices: [{ label: "A", text: "$\\sin^2x+\\cos^2x=1$" }, { label: "B", text: "$\\sin^2x-\\cos^2x=1$" }, { label: "C", text: "$\\sin x+\\cos x=1$" }, { label: "D", text: "$\\tan^2x+1=\\sin x$" }], hint: "The Pythagorean identity.", explanation: "$\\sin^2x+\\cos^2x=1$." },
+  { id: "mixtf-p-9", prompt: "Period of $y=\\tan(3x)$:", latex: "\\frac{\\pi}{|b|}", answer: "A", difficulty: 3, choices: [{ label: "A", text: "$\\frac{\\pi}{3}$" }, { label: "B", text: "$\\frac{\\pi}{2}$" }, { label: "C", text: "$\\pi$" }, { label: "D", text: "$3\\pi$" }], hint: "Tangent period is $\\frac{\\pi}{|b|}$.", explanation: "$\\frac{\\pi}{3}$." },
+  { id: "mixtf-p-10", prompt: "Tide model $h(t)=3\\sin\\left(\\frac{\\pi}{6}t\\right)+5$. The maximum height is:", latex: "d+|a|", answer: "8", difficulty: 3, hint: "$5+3$.", explanation: "Max $=5+3=8$ m.", acceptedAnswers: ["8.0"] },
+  { id: "mixtf-p-11", prompt: "For $h(t)=3\\sin\\left(\\frac{\\pi}{6}t\\right)+5$, the period is:", latex: "\\frac{2\\pi}{|b|}", answer: "12", difficulty: 3, hint: "$\\frac{2\\pi}{\\pi/6}$.", explanation: "$\\frac{2\\pi}{\\pi/6}=12$ h.", acceptedAnswers: ["12.0"] },
+  { id: "mixtf-p-12", prompt: "Number of solutions of $\\cos x=0$ on $0\\le x\\le2\\pi$:", latex: "\\cos x=0", answer: "2", difficulty: 3, hint: "At $\\frac{\\pi}{2}$ and $\\frac{3\\pi}{2}$.", explanation: "Two solutions.", acceptedAnswers: ["two"] },
+  { id: "mixtf-p-13", prompt: "Number of $x$-intercepts of $y=\\cos x$ on $0\\le x\\le2\\pi$:", latex: "\\cos x=0", answer: "2", difficulty: 3, hint: "Where cosine crosses zero.", explanation: "$x=\\frac{\\pi}{2},\\frac{3\\pi}{2}$: two intercepts.", acceptedAnswers: ["two"] },
+  { id: "mixtf-p-14", prompt: "The two solutions of $\\tan x=1$ on $0\\le x\\le2\\pi$ are:", latex: "\\tan x=1", answer: "B", difficulty: 3, choices: [{ label: "A", text: "$\\frac{\\pi}{4},\\frac{3\\pi}{4}$" }, { label: "B", text: "$\\frac{\\pi}{4},\\frac{5\\pi}{4}$" }, { label: "C", text: "$\\frac{\\pi}{3},\\frac{4\\pi}{3}$" }, { label: "D", text: "$\\frac{\\pi}{4},\\frac{7\\pi}{4}$" }], hint: "Tangent positive in quadrants I and III.", explanation: "$x=\\frac{\\pi}{4},\\frac{5\\pi}{4}$." },
+  { id: "mixtf-p-15", prompt: "Amplitude of a model swinging between $9$ and $1$:", latex: "\\frac{\\text{max}-\\text{min}}{2}", answer: "4", difficulty: 3, hint: "Half the difference.", explanation: "$\\frac{9-1}{2}=4$.", acceptedAnswers: ["4.0"] },
+  { id: "mixtf-p-16", prompt: "Midline of a model swinging between $9$ and $1$:", latex: "\\frac{\\text{max}+\\text{min}}{2}", answer: "5", difficulty: 3, hint: "Average of max and min.", explanation: "$\\frac{9+1}{2}=5$.", acceptedAnswers: ["5.0"] },
+  { id: "mixtf-p-17", prompt: "Simplify $1-\\cos^2x$:", latex: "1-\\cos^2x", answer: "C", difficulty: 3, choices: [{ label: "A", text: "$\\cos^2x$" }, { label: "B", text: "$\\tan^2x$" }, { label: "C", text: "$\\sin^2x$" }, { label: "D", text: "$1$" }], hint: "Rearrange the Pythagorean identity.", explanation: "$1-\\cos^2x=\\sin^2x$." },
+  { id: "mixtf-p-18", prompt: "Period of $y=\\sin\\left(\\frac12 x\\right)$:", latex: "\\frac{2\\pi}{|b|}", answer: "D", difficulty: 3, choices: [{ label: "A", text: "$\\pi$" }, { label: "B", text: "$2\\pi$" }, { label: "C", text: "$\\frac{\\pi}{2}$" }, { label: "D", text: "$4\\pi$" }], hint: "$\\frac{2\\pi}{1/2}$.", explanation: "$\\frac{2\\pi}{1/2}=4\\pi$." },
+  { id: "mixtf-p-19", prompt: "Number of solutions of $\\sin x=0$ on $0\\le x\\le2\\pi$:", latex: "\\sin x=0", answer: "3", difficulty: 3, hint: "At $0$, $\\pi$, $2\\pi$.", explanation: "Three solutions.", acceptedAnswers: ["three"] },
+  { id: "mixtf-p-20", prompt: "Vertical asymptotes of $y=\\tan x$ on $0\\le x\\le2\\pi$, count:", latex: "\\cos x=0", answer: "2", difficulty: 4, hint: "Where $\\cos x=0$.", explanation: "$x=\\frac{\\pi}{2},\\frac{3\\pi}{2}$: two.", acceptedAnswers: ["two"] },
+  { id: "mixtf-p-21", prompt: "A curve $y=a\\cos(bx)+d$ has max $10$ and min $4$. The value of $d$ is:", latex: "d=\\frac{\\text{max}+\\text{min}}{2}", answer: "7", difficulty: 4, hint: "Midline is the average.", explanation: "$d=\\frac{10+4}{2}=7$.", acceptedAnswers: ["7.0"] },
+  { id: "mixtf-p-22", prompt: "For the same curve (max $10$, min $4$), the amplitude $|a|$ is:", latex: "|a|=\\frac{\\text{max}-\\text{min}}{2}", answer: "3", difficulty: 4, hint: "Half the difference.", explanation: "$|a|=\\frac{10-4}{2}=3$.", acceptedAnswers: ["3.0"] },
+  { id: "mixtf-p-23", prompt: "Number of solutions of $2\\cos x+1=0$ on $0\\le x\\le2\\pi$:", latex: "2\\cos x+1=0", answer: "2", difficulty: 4, hint: "$\\cos x=-\\frac12$, negative in quadrants II and III.", explanation: "$x=\\frac{2\\pi}{3},\\frac{4\\pi}{3}$: two solutions.", acceptedAnswers: ["two"] },
+  { id: "mixtf-p-24", prompt: "Simplify $\\dfrac{\\sin x}{\\cos x}$:", latex: "\\frac{\\sin x}{\\cos x}", answer: "A", difficulty: 3, choices: [{ label: "A", text: "$\\tan x$" }, { label: "B", text: "$\\cot x$" }, { label: "C", text: "$1$" }, { label: "D", text: "$\\sin x\\cos x$" }], hint: "Definition of tangent.", explanation: "$\\frac{\\sin x}{\\cos x}=\\tan x$." },
+  { id: "mixtf-p-25", prompt: "A wheel of period $48$ s completes how many rotations in $4$ minutes?", latex: "\\frac{240}{48}", answer: "5", difficulty: 5, hint: "$4$ min $=240$ s; divide by the period.", explanation: "$\\frac{240}{48}=5$ rotations.", acceptedAnswers: ["5.0"] },
+  { id: "mixtf-p-26", prompt: "Number of solutions of $\\sin(2x)=0$ on $0\\le x\\le2\\pi$:", latex: "\\sin(2x)=0", answer: "5", difficulty: 5, hint: "Let $u=2x\\in[0,4\\pi]$; $\\sin u=0$ at $0,\\pi,2\\pi,3\\pi,4\\pi$.", explanation: "$x=0,\\frac{\\pi}{2},\\pi,\\frac{3\\pi}{2},2\\pi$: five solutions.", acceptedAnswers: ["five"] },
+  { id: "mixtf-p-27", prompt: "Number of solutions of $\\sin x=\\cos x$ on $0\\le x\\le2\\pi$:", latex: "\\sin x=\\cos x", answer: "2", difficulty: 5, hint: "$\\tan x=1$.", explanation: "$x=\\frac{\\pi}{4},\\frac{5\\pi}{4}$: two solutions.", acceptedAnswers: ["two"] },
+  { id: "mixtf-p-28", prompt: "For $y=4\\sin\\left(3\\left(x-\\frac{\\pi}{9}\\right)\\right)+2$, the maximum value is:", latex: "d+|a|", answer: "6", difficulty: 5, hint: "Max $=d+|a|$; the phase shift does not affect it.", explanation: "Max $=2+4=6$.", acceptedAnswers: ["6.0"] },
+  { id: "mixtf-p-29", prompt: "For $y=4\\sin\\left(3\\left(x-\\frac{\\pi}{9}\\right)\\right)+2$, the number of complete cycles on $0\\le x\\le2\\pi$ is:", latex: "\\frac{\\text{domain}}{\\text{period}}", answer: "3", difficulty: 5, hint: "Period $=\\frac{2\\pi}{3}$; divide $2\\pi$ by it.", explanation: "Period $=\\frac{2\\pi}{3}$, so $\\frac{2\\pi}{2\\pi/3}=3$ cycles.", acceptedAnswers: ["three"] },
+  { id: "mixtf-p-30", prompt: "Number of solutions of $\\cos^2x=\\frac14$ on $0\\le x\\le2\\pi$.", latex: "\\cos^2x=\\frac14", answer: "4", difficulty: 5, hint: "$\\cos x=\\pm\\frac12$; each value gives two solutions.", explanation: "$\\cos x=\\frac12$ gives $\\frac{\\pi}{3},\\frac{5\\pi}{3}$ and $\\cos x=-\\frac12$ gives $\\frac{2\\pi}{3},\\frac{4\\pi}{3}$: four solutions.", acceptedAnswers: ["four"] },
+];
+mixedTrigonometricFunctionsExamPracticeLesson.multiPartPractice = [
+  {
+    id: "mixtf-mp-1",
+    prompt:
+      "A sound wave is modelled by $y=6\\sin(2x)-1$, and separately the equation $2\\sin x-1=0$ is to be solved on $0\\le x\\le2\\pi$.",
+    latex: "y=6\\sin(2x)-1,\\qquad 2\\sin x-1=0",
+    answer: "6",
+    hint: "Read amplitude and period from the model, then isolate and count solutions for the equation.",
+    explanation:
+      "(a) Amplitude $=|a|=6$. (b) Period $=\\frac{2\\pi}{2}=\\pi$. (c) $2\\sin x-1=0\\Rightarrow\\sin x=\\frac12$, giving $x=\\frac{\\pi}{6},\\frac{5\\pi}{6}$: $2$ solutions.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "State the amplitude of $y=6\\sin(2x)-1$.", latex: "|a|", marks: 1, answer: "6", acceptedAnswers: ["6.0"], hint: "Amplitude is $|a|$.", explanation: "$|6|=6$." },
+      { key: "b", label: "(b)", prompt: "The period equals $\\frac{2\\pi}{k}$. Find the integer $k$.", latex: "\\text{period}=\\frac{2\\pi}{k}", marks: 2, answer: "2", acceptedAnswers: ["2.0"], hint: "$b=2$.", explanation: "Period $=\\frac{2\\pi}{2}=\\pi$, so $k=2$." },
+      { key: "c", label: "(c)", prompt: "How many solutions does $2\\sin x-1=0$ have on $0\\le x\\le2\\pi$?", latex: "2\\sin x-1=0", marks: 2, answer: "2", acceptedAnswers: ["two"], hint: "$\\sin x=\\frac12$.", explanation: "$x=\\frac{\\pi}{6},\\frac{5\\pi}{6}$: two solutions." },
+    ],
+  },
 ];

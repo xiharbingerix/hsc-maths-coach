@@ -32,7 +32,7 @@ export function labelledChoice(
   return {
     id,
     prompt,
-    latex: "\\text{Select A, B, C, or D.}",
+    latex: "",
     choices: ["A", "B", "C", "D"].map((label, index) => ({
       label,
       text: formatChoiceText(choices[index]),
@@ -67,7 +67,7 @@ export function financeChoice(
   answer: "A" | "B" | "C" | "D",
   choices: [string, string, string, string],
   explanation: string,
-  latex = "\\text{Select A, B, C, or D.}"
+  latex = ""
 ): PracticeQuestion {
   return {
     id,
@@ -89,7 +89,7 @@ export function practicalChoice(
   answer: "A" | "B" | "C" | "D",
   choices: [string, string, string, string],
   explanation: string,
-  latex = "\\text{Select A, B, C, or D.}"
+  latex = ""
 ): PracticeQuestion {
   return {
     id,

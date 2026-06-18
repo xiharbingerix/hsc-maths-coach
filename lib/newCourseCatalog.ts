@@ -95,7 +95,7 @@ import {
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
 import { year9AlgebraicTechniquesLessonOverride, year9ConstantRatesOfChangeLessonOverride, year9EquationsLessonOverride, year9EquationsBLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9LinearRelationshipsCLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9ProbabilityBLessonOverride, year9SimultaneousEquationsLessonOverride, year9VariationRatesLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
-import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride, year8CircumferenceArcLengthLessonOverride, year8AreaCirclesSectorsLessonOverride, year8RatiosRatesLessonOverride, year8IndexLawsExtensionLessonOverride } from "./lessons/year8";
+import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride, year8CircumferenceArcLengthLessonOverride, year8AreaCirclesSectorsLessonOverride, year8RatiosRatesLessonOverride, year8IndexLawsExtensionLessonOverride, year8NetworksLessonOverride, year8AlgebraicTechniquesStage5LessonOverride, year8IndicesBLessonOverride, year8DataInvestigationLessonOverride } from "./lessons/year8";
 import { year7IntegersLessonOverride, year7FractionsLessonOverride, year7AlgebraicTechniquesLessonOverride, year7PercentagesLessonOverride, year7EquationsLessonOverride, year7IndicesLessonOverride, year7PerimeterLessonOverride, year7AreaLessonOverride, year7AnglesLessonOverride, year7DataLessonOverride } from "./lessons/year7";
 import {
   year12Extension2CalculusLessonOverride,
@@ -227,6 +227,7 @@ function commonMistakes(topic: string) {
 // content is shared across pathway variants (Advanced/Core reuse the same override
 // functions but generate distinct question IDs so the lesson audit never sees duplicates).
 const COURSE_QUESTION_ID_PREFIX: Partial<Record<string, string>> = {
+  "year-7-mathematics":          "y7-",
   "year-9-mathematics-advanced": "y9a-",
   "year-9-mathematics-core":     "y9c-",
   "year-10-mathematics-advanced": "y10a-",
@@ -246,6 +247,8 @@ function prefixLessonQuestionIds(
     guidedPractice: built.guidedPractice.map(p),
     independentPractice: built.independentPractice.map(p),
     masteryQuiz: built.masteryQuiz.map(p),
+    masteryQuizPool: built.masteryQuizPool?.map(p),
+    multiPartPractice: built.multiPartPractice?.map(p),
   };
 }
 
@@ -358,6 +361,10 @@ export function buildLesson(
     year8AreaCirclesSectorsLessonOverride(course, unit, lesson) ??
     year8RatiosRatesLessonOverride(course, unit, lesson) ??
     year8IndexLawsExtensionLessonOverride(course, unit, lesson) ??
+    year8NetworksLessonOverride(course, unit, lesson) ??
+    year8AlgebraicTechniquesStage5LessonOverride(course, unit, lesson) ??
+    year8IndicesBLessonOverride(course, unit, lesson) ??
+    year8DataInvestigationLessonOverride(course, unit, lesson) ??
     year9IndexLawsLessonOverride(course, unit, lesson) ??
     year9FinancialMathematicsLessonOverride(course, unit, lesson) ??
     year9ConstantRatesOfChangeLessonOverride(course, unit, lesson) ??
@@ -461,17 +468,17 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     courseType: "Mathematics Standard 2",
     status: "available",
     description:
-      "Year 12 Mathematics Standard 2 covers algebra, measurement, financial mathematics, and statistical analysis. Lessons work through non-linear modelling, trigonometry, surface area and volume, investment and loans, annuities, and data analysis — each with worked examples, guided practice questions, and a mastery quiz to check what is actually sticking before moving on.",
+      "Current HSC Mathematics Standard 2 support aligned to the NSW Mathematics Standard Stage 6 Syllabus (2017), for students sitting the existing Year 12 course before the 2024 syllabus reaches Year 12.",
     positioning:
-      "Practical HSC Mathematics Standard 2 revision with lessons, guided practice, and mastery checks.",
+      "Current HSC Mathematics Standard 2 pathway covering Types of Relationships, Non-Right-Angled Trigonometry, Rates and Ratios, Investments and Loans, Annuities, Bivariate Data Analysis, The Normal Distribution, Network Concepts, and Critical Path Analysis. Incoming 2024 syllabus content is kept out of this public pathway until schools start teaching it in Term 4, 2026.",
     units: [
       {
         slug: "algebraic-relationships",
         title: "Algebraic Relationships",
         description:
-          "Linear modelling, quadratic models, exponential and inverse variation models, simultaneous-equation comparisons, and HSC-style algebra in practical contexts.",
+          "Linear, quadratic and exponential relationships, mathematical modelling, prediction and validation.",
         syllabusArea: "Algebra",
-        focus: "Algebraic relationships",
+        focus: "MS-A4 Types of Relationships",
         lessons: [
           {
             slug: "algebraic-relationships-revision",
@@ -498,28 +505,10 @@ export const newCoursePathways: CoursePathwaySeed[] = [
               "Recognise and evaluate exponential growth and decay models and inverse variation models, and identify each type from tables, equations, and contexts.",
           },
           {
-            slug: "reciprocal-relationships",
-            title: "Reciprocal Relationships",
-            description:
-              "Recognise and sketch y = k/x as a rectangular hyperbola, identify its asymptotes and branches, find k from a given point, and solve practical inverse variation problems.",
-          },
-          {
             slug: "simultaneous-equations-context",
             title: "Simultaneous Equations in Context",
             description:
               "Solve and interpret pairs of practical models, including equal-cost points and option comparisons.",
-          },
-          {
-            slug: "linear-inequalities-modelling",
-            title: "Linear Inequalities and Modelling",
-            description:
-              "Solve linear inequalities, represent solutions on a number line, and interpret inequality constraints in practical budgeting and threshold contexts.",
-          },
-          {
-            slug: "working-with-formulae-substitution",
-            title: "Working with Formulae and Substitution",
-            description:
-              "Substitute values into literal equations from science, finance, and measurement contexts, and rearrange simple formulas to find a target variable.",
           },
           {
             slug: "algebraic-relationships-exam-practice",
@@ -531,23 +520,17 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       },
       {
         slug: "trigonometry",
-        title: "Trigonometry",
+        title: "Non-Right-Angled Trigonometry",
         description:
-          "Right-angled trigonometry and radians, angles of elevation and depression, sine and cosine rules, triangular area, and non-right-angled triangle problems.",
+          "Sine rule, cosine rule, area of a triangle, and practical applications of non-right-angled trigonometry.",
         syllabusArea: "Measurement",
-        focus: "Trigonometry",
+        focus: "MS-M6 Non-Right-Angled Trigonometry",
         lessons: [
           {
             slug: "trigonometry-revision",
             title: "Trigonometry Revision",
             description:
               "Activate Year 11 right-triangle skills: label hypotenuse, opposite and adjacent sides, apply Pythagoras' theorem, and use SOH CAH TOA — foundation for right-angled and non-right-angled trigonometry.",
-          },
-          {
-            slug: "right-angled-trig-radians",
-            title: "Right-Angled Trigonometry and Radians",
-            description:
-              "Convert between degrees and radians, apply SOH CAH TOA using radian angles, and solve practical right-triangle problems in both units.",
           },
           {
             slug: "elevation-depression-applications",
@@ -579,9 +562,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         slug: "ratios-rates",
         title: "Rates and Ratios",
         description:
-          "Ratios, rates, unit conversions, energy consumption, scale drawings, rainfall calculations, bearings, time zones, and practical measurement problems.",
+          "Ratio and proportion, direct and inverse proportion, compound rates, unit conversions, and practical rate applications.",
         syllabusArea: "Measurement",
-        focus: "Rates and ratios",
+        focus: "MS-M7 Rates and Ratios",
         lessons: [
           {
             slug: "ratios-rates-revision",
@@ -600,12 +583,6 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Energy Consumption: Watts and Kilowatts",
             description:
               "Convert between watts and kilowatts, calculate kilowatt-hours used by appliances, and find the cost of electricity from a tariff rate.",
-          },
-          {
-            slug: "scale-drawings-site-plans",
-            title: "Scale Drawings and Site Plans",
-            description:
-              "Interpret architectural scale drawings, calculate actual dimensions from scaled measurements, and find perimeter and area from site plans.",
           },
           {
             slug: "rainfall-volume-calculations",
@@ -634,40 +611,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
-        slug: "measurement-surface-area-volume",
-        title: "Surface Area and Volume",
-        description:
-          "Calculate total surface area and volume of right prisms, cylinders and spheres, convert between volume units, and solve practical composite solid problems.",
-        syllabusArea: "Measurement",
-        focus: "Surface area and volume",
-        lessons: [
-          {
-            slug: "surface-area-prisms-cylinders",
-            title: "Surface Area of Prisms and Cylinders",
-            description:
-              "Find the total surface area of rectangular prisms, triangular prisms and cylinders by identifying each face, using nets, and applying TSA formulas.",
-          },
-          {
-            slug: "volume-prisms-cylinders-spheres",
-            title: "Volume of Prisms, Cylinders and Spheres",
-            description:
-              "Calculate volume using V = Ah for prisms, V = πr²h for cylinders and V = (4/3)πr³ for spheres, and convert between cm³, m³ and litres.",
-          },
-          {
-            slug: "composite-solids-practical",
-            title: "Composite Solids and Practical Applications",
-            description:
-              "Find surface area and volume of composite solids formed by combining or removing basic shapes, and solve practical capacity and material-cost problems.",
-          },
-        ],
-      },
-      {
         slug: "investment-loans",
         title: "Investment and Loans",
         description:
           "Compound interest, growth and decay factors, shares and dividends, asset depreciation, and loan recurrences.",
         syllabusArea: "Financial Mathematics",
-        focus: "Investment and loans",
+        focus: "MS-F4 Investments and Loans",
         lessons: [
           {
             slug: "investment-loans-revision",
@@ -707,7 +656,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         description:
           "Future value and present value annuities, regular payment schedules, interest factor tables, retirement planning, and financial decision-making.",
         syllabusArea: "Financial Mathematics",
-        focus: "Annuities",
+        focus: "MS-F5 Annuities",
         lessons: [
           {
             slug: "annuities-revision",
@@ -765,7 +714,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         description:
           "Scatterplots, direction and strength of association, correlation, regression equations, predictions, and residuals.",
         syllabusArea: "Statistical Analysis",
-        focus: "Bivariate data analysis",
+        focus: "MS-S4 Bivariate Data Analysis",
         lessons: [
           {
             slug: "bivariate-data-revision",
@@ -794,46 +743,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
-        slug: "probability",
-        title: "Relative Frequency and Probability",
-        description:
-          "Experimental and theoretical probability, relative frequency, two-way tables, multistage events, independence, and contingency tables.",
-        syllabusArea: "Statistical Analysis",
-        focus: "Relative frequency and probability",
-        lessons: [
-          {
-            slug: "probability-revision",
-            title: "Probability Revision",
-            description:
-              "Consolidate Year 11 probability foundations: list sample spaces, express probability as a fraction/decimal/percentage, apply the complementary rule P(A') = 1 − P(A), and find theoretical probability — preparation for multistage events and tree diagrams.",
-          },
-          {
-            slug: "relative-frequency-probability",
-            title: "Relative Frequency and Probability",
-            description:
-              "Use relative frequency, experimental probability, simulations, and two-way tables to estimate and interpret probabilities.",
-          },
-          {
-            slug: "multistage-events-independence",
-            title: "Multistage Events and Independence",
-            description:
-              "Use tree diagrams and tables for two-stage events, apply P(A and B) = P(A) × P(B) for independent events, and distinguish with- and without-replacement scenarios.",
-          },
-          {
-            slug: "expected-frequency-contingency-tables",
-            title: "Expected Frequency and Contingency Tables",
-            description:
-              "Calculate expected frequency using E = np, read and complete contingency tables, find probabilities from cell counts, and use probability to evaluate decisions.",
-          },
-        ],
-      },
-      {
         slug: "normal-distribution",
         title: "The Normal Distribution",
         description:
           "Bell-curve shape, z-scores, empirical rule 68/95/99.7%, standardised values, and statistical analysis exam practice.",
         syllabusArea: "Statistical Analysis",
-        focus: "The normal distribution",
+        focus: "MS-S5 The Normal Distribution",
         lessons: [
           {
             slug: "normal-distribution-revision",
@@ -857,11 +772,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       },
       {
         slug: "network-flow",
-        title: "Network Flow",
+        title: "Network Concepts",
         description:
-          "Vertices, edges, degrees, directed and weighted networks, shortest paths, minimum spanning trees, and flow capacity problems.",
+          "Network optimisation, route analysis, decision networks, and practical network modelling.",
         syllabusArea: "Networks",
-        focus: "Network flow",
+        focus: "MS-N2 Network Concepts",
         lessons: [
           {
             slug: "network-flow-revision",
@@ -881,12 +796,6 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Solve route and minimal connector problems using shortest paths, path weights, MSTs, and Kruskal's method.",
           },
-          {
-            slug: "network-flow-capacity-cuts",
-            title: "Network Flow, Capacity and Cuts",
-            description:
-              "Interpret directed flow networks, capacities, bottlenecks, feasible flow, cuts, and maximum-flow limits in practical contexts.",
-          },
         ],
       },
       {
@@ -895,7 +804,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         description:
           "Precedence tables, earliest start times, critical paths, project completion time, float, Gantt charts, and dummy activities.",
         syllabusArea: "Networks",
-        focus: "Critical path analysis",
+        focus: "MS-N3 Critical Path Analysis",
         lessons: [
           {
             slug: "critical-path-revision",
@@ -930,19 +839,19 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 12 Mathematics Standard 1",
     yearLevel: "Year 12",
     courseType: "Mathematics Standard 1",
-    status: "in_progress",
+    status: "available",
     description:
-      "A NSW HSC Mathematics Standard 1 pathway in development, with selected algebra, finance, measurement and data lessons active and remaining units planned.",
+      "Current HSC Mathematics Standard 1 support aligned to the NSW Mathematics Standard Stage 6 Syllabus (2017), for students sitting the existing Year 12 course before the 2024 syllabus reaches Year 12.",
     positioning:
-      "This pathway is being scaffolded with crossover content from Standard 2 where the syllabus overlap is clear. Standard 1-specific measurement and data lessons are now active, with further geometric and probability units planned.",
+      "Current HSC Mathematics Standard 1 pathway covering Types of Relationships, Right-angled Triangles, Rates, Scale Drawings, Investment, Depreciation and Loans, Further Statistical Analysis, and Networks and Paths. The incoming 2024 Year 12 syllabus content is kept out of this public pathway until schools start teaching it in Term 4, 2026.",
     units: [
       {
         slug: "algebraic-relationships",
-        title: "Algebraic Relationships",
+        title: "Types of Relationships",
         description:
-          "Linear modelling, quadratic models, direct variation, simultaneous-equation comparisons, and practical algebra in everyday contexts.",
+          "Linear and non-linear models, graph interpretation, simultaneous-equation comparisons, and practical mathematical modelling.",
         syllabusArea: "Algebra",
-        focus: "Algebraic relationships",
+        focus: "MS-A3 Types of Relationships",
         lessons: [
           {
             slug: "linear-relationships-modelling",
@@ -978,11 +887,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       },
       {
         slug: "trigonometry-ratios-rates",
-        title: "Rates, Ratios and Measurement",
+        title: "Rates",
         description:
-          "Rates, ratios, speed, scale, unit conversion and practical measurement. Standard 1 trig content is being added alongside ratio and rate practice.",
+          "Speed, distance and time, unit conversions, practical rates, rate applications, and mixed rate/trigonometry exam contexts.",
         syllabusArea: "Measurement",
-        focus: "Rates, ratios and measurement",
+        focus: "MS-M4 Rates",
         lessons: [
           {
             slug: "ratios-rates-unit-conversions",
@@ -1075,11 +984,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       },
       {
         slug: "investments-loans-annuities",
-        title: "Investments, Loans and Annuities",
+        title: "Investment, Depreciation and Loans",
         description:
-          "Compound investments, depreciation, loan balances, regular payments, annuities, and financial decision-making.",
+          "Compound investment growth, depreciation methods, reducing-balance loans, repayment plans, consumer finance, and financial decision-making.",
         syllabusArea: "Financial Mathematics",
-        focus: "Investments, loans and annuities",
+        focus: "MS-F2 Investment; MS-F3 Depreciation and Loans",
         lessons: [
           {
             slug: "investment-compound-interest",
@@ -1101,49 +1010,25 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           },
           {
             slug: "annuities-regular-payments",
-            title: "Financial Planning and Repayments",
+            title: "Consumer Finance and Repayments",
             description:
-              "Calculate equal repayment amounts from a deposit and balance, find total plan costs, compare payment options, and check affordability against a monthly budget.",
+              "Calculate repayment amounts, total plan costs, compare payment options, and check affordability against a monthly budget.",
           },
         ],
       },
       {
         slug: "statistics-and-data",
-        title: "Statistics and Data",
+        title: "Further Statistical Analysis",
         description:
-          "Data displays, summary statistics, probability, and practical data reasoning for Standard 1 assessment.",
-        syllabusArea: "Statistics",
-        focus: "Statistics and data",
+          "Quartiles, interquartile range, box plots, comparing data sets, and practical statistical reasoning.",
+        syllabusArea: "Statistical Analysis",
+        focus: "MS-S3 Further Statistical Analysis",
         lessons: [
           {
             slug: "data-displays-summary-statistics",
             title: "Data Displays and Summary Statistics",
             description:
               "Interpret graphs, tables, averages and spread measures in practical contexts.",
-          },
-          {
-            slug: "probability-and-chance",
-            title: "Probability and Chance",
-            description:
-              "Use probability language, tables, and simple chance models to solve practical problems.",
-          },
-          {
-            slug: "bivariate-data-scatter-plots",
-            title: "Bivariate Data and Scatter Plots",
-            description:
-              "Distinguish univariate and bivariate data, identify independent and dependent variables, create scatter plots, and describe associations by form, strength and direction.",
-          },
-          {
-            slug: "line-of-best-fit-predictions",
-            title: "Line of Best Fit and Predictions",
-            description:
-              "Draw a line of best fit by eye, find its gradient and y-intercept, and use interpolation and extrapolation to make predictions.",
-          },
-          {
-            slug: "relative-frequency-expected-value",
-            title: "Relative Frequency and Expected Value",
-            description:
-              "Use complementary events P(not A) = 1 − P(A), estimate probability from relative frequency, and calculate expected frequency np.",
           },
           {
             slug: "statistics-exam-practice",
@@ -1155,11 +1040,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       },
       {
         slug: "measurement-geometry",
-        title: "Measurement and Geometry",
+        title: "Right-angled Triangles and Scale Drawings",
         description:
-          "Right-angle trigonometry, area, volume and geometry for practical measurement, scale drawings and design contexts.",
+          "Right-angled triangle trigonometry, practical measurement, scale drawings, maps, plans and design applications.",
         syllabusArea: "Measurement",
-        focus: "Measurement and geometry",
+        focus: "MS-M3 Right-angled Triangles; MS-M5 Scale Drawings",
         lessons: [
           {
             slug: "right-angle-trigonometry",
@@ -1178,6 +1063,34 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Scale Drawings and Plans",
             description:
               "Use scale, similarity and measurement to interpret plans, maps and diagrams.",
+          },
+        ],
+      },
+      {
+        slug: "network-flow",
+        title: "Networks and Paths",
+        description:
+          "Vertices, edges, degrees, paths, trails, circuits, weighted networks, shortest paths, and real-world network decisions.",
+        syllabusArea: "Networks",
+        focus: "MS-N1 Networks and Paths",
+        lessons: [
+          {
+            slug: "network-flow-revision",
+            title: "Network Diagrams and Terminology",
+            description:
+              "Identify vertices, edges, degree, directed networks and weighted edges, then read simple paths and circuits.",
+          },
+          {
+            slug: "network-concepts-terminology",
+            title: "Network Concepts and Terminology",
+            description:
+              "Use network language to interpret practical edge lists, weighted roads, directed routes, and small networks.",
+          },
+          {
+            slug: "shortest-paths-minimum-spanning-trees",
+            title: "Weighted Networks and Shortest Paths",
+            description:
+              "Find route totals, compare weighted paths, and choose shortest paths or minimum connector methods for practical networks.",
           },
         ],
       },
@@ -2839,9 +2752,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     courseType: "Mathematics Extension 1",
     status: "available",
     description:
-      "Year 12 Mathematics Extension 1 aligned to the NSW 2024 syllabus: all 6 ME1-12 focus areas — Proof by Mathematical Induction, Introduction to Vectors, Inverse Trigonometric Functions, Further Calculus Skills, Further Applications of Calculus, and The Binomial Distribution and Sampling Distribution of the Mean.",
+      "Year 12 Mathematics Extension 1 aligned to the current NSW Mathematics Extension 1 Stage 6 Syllabus (2017): Proof by Mathematical Induction, Introduction to Vectors, Trigonometric Equations, Further Calculus Skills, Applications of Calculus, and The Binomial Distribution.",
     positioning:
-      "A complete Year 12 Mathematics Extension 1 pathway aligned directly to the NSW Mathematics Extension 1 2024 syllabus (ME1-12-01 through ME1-12-06): Proof by Mathematical Induction, Introduction to Vectors, Inverse Trigonometric Functions, Further Calculus Skills, Further Applications of Calculus, and The Binomial Distribution and Sampling Distribution of the Mean.",
+      "A Year 12 Mathematics Extension 1 pathway aligned to the current 2017 HSC syllabus for students sitting the existing course. Incoming 2024-only content is kept out of this public pathway until schools start teaching it in Year 12.",
     units: [
       {
         slug: "proof-induction",
@@ -2936,42 +2849,30 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
-        slug: "inverse-trig",
-        title: "Inverse Trigonometric Functions",
+        slug: "trigonometric-equations",
+        title: "Trigonometric Equations",
         description:
-          "Study inverse sine, cosine and tangent functions, their restrictions, exact values, graphs and calculus links.",
-        syllabusArea: "Trigonometric functions",
-        focus: "Inverse trigonometric functions",
+          "Use compound-angle and double-angle formulae, simplify trigonometric expressions, and solve trigonometric equations over restricted and general domains.",
+        syllabusArea: "Trigonometric Functions",
+        focus: "ME-T3 Trigonometric Equations",
         lessons: [
           {
-            slug: "inverse-sine-cosine",
-            title: "Inverse Sine and Cosine",
+            slug: "compound-angle-formulae",
+            title: "Compound Angle Formulae",
             description:
-              "Understand restricted domains, principal ranges, exact values and graph features for arcsin and arccos.",
+              "Use compound angle formulae to expand, simplify and evaluate exact trigonometric expressions.",
           },
           {
-            slug: "inverse-tangent",
-            title: "Inverse Tangent",
+            slug: "double-angle-formulae",
+            title: "Double Angle Formulae",
             description:
-              "Use arctan's domain, range, asymptotes and exact values to solve inverse tangent and triangle problems.",
+              "Derive and apply sine, cosine and tangent double-angle formulae in exact-value and simplification questions.",
           },
           {
-            slug: "differentiating-inverse-trig",
-            title: "Differentiating Inverse Trig Functions",
+            slug: "trig-equation-solving",
+            title: "Trigonometric Equation Solving",
             description:
-              "Differentiate inverse trigonometric functions, apply the chain rule and recognise basic inverse-trig integrals.",
-          },
-          {
-            slug: "inverse-trig-properties",
-            title: "Inverse Trig Identities and Composite Expressions",
-            description:
-              "Prove sin⁻¹(x) + cos⁻¹(x) = π/2, apply it to find unknown inverse trig values, and evaluate composite expressions such as sin(cos⁻¹(x)) using the Pythagorean identity.",
-          },
-          {
-            slug: "inverse-trig-revision",
-            title: "Prior Knowledge Revision: Inverse Trig",
-            description:
-              "Activate prior knowledge for inverse trigonometric functions: exact trig values at standard angles, the ASTC quadrant sign rule, and the compound angle and double angle identities.",
+              "Solve trigonometric equations using identities, multiple solutions, restricted domains and general solution forms.",
           },
         ],
       },
@@ -3018,6 +2919,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Multiplicity of Zeroes of Polynomial Functions",
             description:
               "Define the multiplicity of a zero, prove the derivative result, and sketch polynomials in factored form by reading crossing, touch, and inflection behaviour at each zero.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "calculus-applications-newton-cooling",
@@ -3030,6 +2933,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Slope Fields and Solution Curves",
             description:
               "Construct and read slope fields for dy/dx = f(x, y), sketch solution curves by following the direction field, identify stable and unstable equilibria, and describe long-run behaviour of solutions.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "calculus-applications-revision",
@@ -3041,11 +2946,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       },
       {
         slug: "binomial-distribution",
-        title: "The Binomial Distribution and Sampling Distribution of the Mean",
+        title: "The Binomial Distribution",
         description:
-          "Bernoulli trials, the binomial distribution B(n,p), expected value and variance, the sampling distribution of the sample mean x̄, and the Central Limit Theorem — covering ME1-12-06 in full.",
+          "Bernoulli trials, binomial random variables, the binomial probability formula, expected value, variance, standard deviation, cumulative probability, and applications.",
         syllabusArea: "Statistical Analysis",
-        focus: "The binomial distribution and sampling distribution of the mean",
+        focus: "ME-S1 The Binomial Distribution",
         lessons: [
           { slug: "bernoulli-trials", title: "Bernoulli Trials" },
           { slug: "binomial-probabilities", title: "Binomial Probabilities" },
@@ -3056,12 +2961,16 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Distribution of the Sample Mean",
             description:
               "Define population and sample, derive E(x̄) = μ and Var(x̄) = σ²/n, and examine the effect of sample size on the spread of x̄.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "central-limit-theorem",
             title: "The Central Limit Theorem",
             description:
               "State the CLT, convert x̄ to z-scores, and calculate probabilities about sample means using normal distribution values.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "binomial-revision",
@@ -3069,20 +2978,6 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Activate prior knowledge for the Binomial Distribution: probability rules (complement, addition, multiplication), combinations C(n,r), and expected value of a discrete random variable.",
           },
-        ],
-      },
-      {
-        slug: "kinematics",
-        title: "Rates of Change and Kinematics (Year 11 Ext 1)",
-        description:
-          "Year 11 Extension 1 content (ME1-11): use calculus to analyse straight-line motion — find velocity and acceleration by differentiation, and displacement by integration. Retained as a scaffolding entry point for students who need to build fluency before the Year 12 vector and calculus units.",
-        syllabusArea: "Calculus",
-        focus: "Kinematics and rates of change",
-        lessons: [
-          { slug: "kinematics-velocity-acceleration", title: "Velocity and Acceleration from Displacement" },
-          { slug: "kinematics-displacement-from-velocity", title: "Displacement from Velocity by Integration" },
-          { slug: "kinematics-motion-analysis", title: "Analysing Motion: Direction Changes and Total Distance" },
-          { slug: "kinematics-exam-practice", title: "Kinematics Exam Practice" },
         ],
       },
     ],
@@ -3094,9 +2989,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     courseType: "Mathematics Extension 2",
     status: "in_progress",
     description:
-      "Year 12 Mathematics Extension 2 pathway with active Phase 1 content across Proof, Vectors in Three Dimensions, Complex Numbers, Calculus and Mechanics.",
+      "Year 12 Mathematics Extension 2 pathway aligned to the current NSW Mathematics Extension 2 Stage 6 Syllabus (2017): Proof, Further Work with Vectors, Complex Numbers, Further Integration, and Mechanics.",
     positioning:
-      "An in-progress Year 12 Mathematics Extension 2 pathway for NSW HSC students. Every NSW Extension 2 topic area now has active authored content, with later phases planned for fuller exam coverage.",
+      "An in-progress Year 12 Mathematics Extension 2 pathway for students sitting the current 2017 HSC course. Incoming or off-map extension extras are kept out of the public pathway while the core syllabus coverage is expanded.",
     units: [
       {
         slug: "proof",
@@ -3240,6 +3135,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Vector Equations of Curves, Circles and Spheres",
             description:
               "Represent parametric curves as vector equations, recognise the vector forms of circles and spheres, and convert between vector and Cartesian forms.",
+            seedQuestions: false,
+            showInCourseNav: false,
             stableSkillId: "y12e2-v3-vector-curves-circles-spheres",
             skillCheckpoints: [
               {
@@ -3592,6 +3489,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Volumes of Revolution",
             description:
               "Use the disk and washer methods to find volumes formed by rotating regions about the x-axis and y-axis: V = π∫[f(x)]² dx and V = π∫([f(x)]²−[g(x)]²) dx.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "partial-fractions-quadratic",
@@ -4780,247 +4679,34 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "choosing-and-interpreting-displays", title: "Choosing and Interpreting Displays" },
         ],
       },
-    ],
-  },
-  {
-    slug: "year-8-mathematics",
-    title: "Year 8 Mathematics",
-    yearLevel: "Year 8",
-    courseType: "Mathematics",
-    status: "available",
-    description:
-      "Build Stage 4 foundations across number, algebra, geometry, measurement and statistics â€” the essential groundwork for Year 9 and 10 Mathematics.",
-    positioning:
-      "Year 8 Mathematics covers the Late Stage 4 NSW curriculum, preparing students for the Year 9 pathway and the transition to Stage 5 content. It extends Year 7 foundations with linear relationships, Pythagoras, geometric reasoning and algebraic equation-solving.",
-    units: [
       {
-        slug: "number-operations",
-        title: "Number Operations and Properties",
-        description:
-          "Consolidate directed numbers, rational and irrational numbers, index notation, fractions and real-world financial contexts.",
+        slug: "ratios-and-rates",
+        title: "Ratios and Rates",
+        description: "Simplify and apply ratios, divide quantities, work with unit rates and speed-distance-time, and read scale drawings.",
         syllabusArea: "Number and Algebra",
-        focus:
-          "Ensure fluency with the number system before extending to algebra and coordinate geometry.",
+        focus: "MA4-RAT-C-01 — ratios and rates complete the Stage 4 number content.",
         lessons: [
-          { slug: "directed-numbers",          title: "Directed Numbers" },
-          { slug: "fractions-and-decimals",   title: "Fractions and Decimals" },
-          { slug: "percentages-and-fractions",    title: "Percentages and Fractions" },
-          { slug: "order-of-operations",         title: "Order of Operations" },
-          { slug: "powers-roots-and-squares",     title: "Powers, Roots and Squares" },
-          { slug: "estimation-and-reasonableness", title: "Estimation and Reasonableness" },
+          { slug: "introduction-to-ratios",       title: "Introduction to Ratios" },
+          { slug: "dividing-quantities-in-ratio", title: "Dividing Quantities in Ratio" },
+          { slug: "rates-and-unit-rates",         title: "Rates and Unit Rates" },
+          { slug: "speed-distance-time",          title: "Speed, Distance and Time" },
+          { slug: "scale-drawings",               title: "Scale Drawings" },
         ],
       },
       {
-        slug: "algebra-foundations",
-        title: "Algebra Foundations",
-        description:
-          "Simplify expressions, collect like terms, substitute values, expand single brackets, and solve one- and two-step equations â€” building the fluency and confidence needed for Year 9 algebra.",
-        syllabusArea: "Number and Algebra",
-        focus:
-          "Develop core algebraic fluency before Year 9 index laws, linear relationships and simultaneous equations. No quadratics, no simultaneous equations, no factorisation.",
-        lessons: [
-          { slug: "simplifying-algebraic-expressions", title: "Simplifying Algebraic Expressions" },
-          { slug: "collecting-like-terms",             title: "Collecting Like Terms" },
-          { slug: "substitution",                      title: "Substitution" },
-          { slug: "expanding-single-brackets",         title: "Expanding Single Brackets" },
-          { slug: "solving-one-step-equations",        title: "Solving One-Step Equations" },
-          { slug: "solving-two-step-equations",        title: "Solving Two-Step Equations" },
-        ],
-      },
-      {
-        slug: "number-financial-mathematics",
-        title: "Number and Financial Mathematics",
-        description:
-          "Calculate percentages, apply percentage increase and decrease, find profit and loss, work with discounts and use simple interest in everyday Australian money contexts.",
-        syllabusArea: "Number and Algebra",
-        focus:
-          "Build financial numeracy and percentage fluency needed for Year 9 financial mathematics and real-world problem solving.",
-        lessons: [
-          { slug: "percentages-basics",            title: "Percentages Basics" },
-          { slug: "percentage-increase",           title: "Percentage Increase" },
-          { slug: "percentage-decrease",           title: "Percentage Decrease" },
-          { slug: "profit-and-loss",               title: "Profit and Loss" },
-          { slug: "discounts-and-sales",           title: "Discounts and Sales" },
-          { slug: "simple-interest-introduction",  title: "Simple Interest Introduction" },
-          { slug: "wages-and-salary",              title: "Wages and Salary" },
-          { slug: "income-tax-basics",             title: "Income Tax Basics" },
-          { slug: "compound-interest-introduction", title: "Compound Interest Introduction" },
-          { slug: "budgeting-and-money-management", title: "Budgeting and Money Management" },
-          { slug: "credit-and-debit",              title: "Credit and Debit" },
-        ],
-      },
-      {
-        slug: "algebra-equations",
-        title: "Algebra and Equations",
-        description:
-          "Expand and factorise algebraic expressions, and solve linear equations including those with brackets and variables on both sides.",
-        syllabusArea: "Number and Algebra",
-        focus:
-          "Build equation-solving fluency that directly underpins Year 9 index laws, linear relationships and simultaneous equations.",
-        lessons: [
-          {
-            slug: "solving-one-step-equations",
-            title: "Solving One-Step Equations",
-            description:
-              "Use a single inverse operation to solve equations involving addition, subtraction, multiplication and division.",
-          },
-          {
-            slug: "solving-two-step-equations",
-            title: "Solving Two-Step Equations",
-            description:
-              "Undo the constant term first and then the coefficient to solve equations requiring two inverse operations.",
-          },
-          {
-            slug: "equations-with-brackets",
-            title: "Equations with Brackets",
-            description:
-              "Expand brackets using the distributive law and then solve the resulting equation.",
-          },
-          {
-            slug: "equations-with-pronumerals-on-both-sides",
-            title: "Equations with Pronumerals on Both Sides",
-            description:
-              "Collect all variable terms on one side and all constants on the other, then solve.",
-          },
-          {
-            slug: "forming-equations-from-word-problems",
-            title: "Forming Equations from Word Problems",
-            description:
-              "Translate a word problem into an algebraic equation, solve it, and interpret the answer in context.",
-          },
-          {
-            slug: "checking-solutions-and-error-analysis",
-            title: "Checking Solutions and Error Analysis",
-            description:
-              "Verify solutions by substitution, identify errors in incorrect working, and practise mixed equation types.",
-          },
-          { slug: "linear-inequalities",        title: "Linear Inequalities" },
-          { slug: "inequality-problem-solving", title: "Inequality Problem Solving" },
-          { slug: "formula-rearrangement",      title: "Formula Rearrangement" },
-        ],
-      },
-      {
-        slug: "linear-relationships",
-        title: "Linear Relationships",
-        description:
-          "Plot points and graph linear equations on the Cartesian plane, and interpret gradient, intercepts and the equation y = mx + b.",
-        syllabusArea: "Number and Algebra",
-        focus:
-          "Establish the Cartesian plane and linear graph fluency required for Year 9 constant rates of change and Year 10 linear relationships.",
-        lessons: [
-          { slug: "number-patterns-and-rules",     title: "Number Patterns and Rules" },
-          { slug: "coordinates-and-points",         title: "Coordinates and Points" },
-          { slug: "tables-of-values",               title: "Tables of Values" },
-          { slug: "graphing-linear-relationships",  title: "Graphing Linear Relationships" },
-          { slug: "gradient-as-rate-of-change",     title: "Gradient as Rate of Change" },
-          { slug: "interpreting-linear-graphs",     title: "Interpreting Linear Graphs" },
-        ],
-      },
-      {
-        slug: "pythagoras-theorem",
-        title: "Pythagoras' Theorem",
-        description:
-          "Apply Pythagoras' theorem to find unknown sides in right-angled triangles and calculate distances on the coordinate plane.",
+        slug: "volume",
+        title: "Volume",
+        description: "Calculate the volume of prisms and cylinders using base-area times height.",
         syllabusArea: "Measurement and Space",
-        focus:
-          "Develop Pythagoras fluency as the direct prerequisite for Year 9 working with triangles and trigonometric ratios.",
+        focus: "MA4-VOL-C-01 — establish basic volume fluency before composite solids in Year 8.",
         lessons: [
-          { slug: "right-angled-triangles-pythagoras", title: "Right-Angled Triangles and Pythagoras" },
-          { slug: "finding-the-hypotenuse",            title: "Finding the Hypotenuse" },
-          { slug: "finding-a-shorter-side",            title: "Finding a Shorter Side" },
-          { slug: "pythagoras-real-contexts",        title: "Pythagoras in Real Contexts" },
-          { slug: "pythagorean-triples",             title: "Pythagorean Triples" },
-          { slug: "distance-between-two-points",      title: "Distance Between Two Points" },
-        ],
-      },
-      {
-        slug: "geometry-angles",
-        title: "Geometry and Angles",
-        description:
-          "Classify and calculate angle relationships, apply parallel-line properties, find angles in triangles and polygons, identify congruent triangles, and write geometric reasoning.",
-        syllabusArea: "Measurement and Space",
-        focus:
-          "Build Stage 4 geometric fluency â€” angle relationships, parallel lines, polygon properties and introductory congruence â€” as the foundation for Year 9 geometric representations and Year 10 geometry proofs.",
-        lessons: [
-          { slug: "angle-relationships",             title: "Angle Relationships" },
-          { slug: "parallel-lines-transversals",     title: "Parallel Lines and Transversals" },
-          { slug: "angles-triangles-quadrilaterals", title: "Angles in Triangles and Quadrilaterals" },
-          { slug: "properties-of-polygons",          title: "Properties of Polygons" },
-          { slug: "congruent-triangles",             title: "Congruent Triangles" },
-          { slug: "geometric-reasoning",             title: "Geometric Reasoning" },
-          { slug: "quadrilateral-properties",        title: "Properties of Special Quadrilaterals" },
-        ],
-      },
-      {
-        slug: "volume-and-surface-area",
-        title: "Volume and Surface Area",
-        description:
-          "Calculate surface area and volume of prisms and cylinders, and solve problems involving composite solids.",
-        syllabusArea: "Measurement and Space",
-        focus:
-          "Establish 3D measurement fluency that Year 9 prisms and cylinders content directly extends.",
-        lessons: [
-          { slug: "volume-of-prisms",                  title: "Volume of Prisms" },
-          { slug: "surface-area-of-prisms",            title: "Surface Area of Prisms" },
-          { slug: "volume-of-cylinders",               title: "Volume of Cylinders" },
-          { slug: "surface-area-of-cylinders",         title: "Surface Area of Cylinders" },
-          { slug: "volume-of-composite-solids",        title: "Volume of Composite Solids" },
-          { slug: "surface-area-of-composite-solids",  title: "Surface Area of Composite Solids" },
-        ],
-      },
-      {
-        slug: "data-and-graphs",
-        title: "Data Analysis and Graphs",
-        description:
-          "Organise, display and analyse data using frequency tables, cumulative frequency, IQR, back-to-back plots and sampling methods.",
-        syllabusArea: "Statistics and Probability",
-        focus:
-          "Prepare for Year 9 data-based decisions and Year 10 statistics content including box plots and standard deviation.",
-        lessons: [
-          {
-            slug: "collecting-and-displaying-data",
-            title: "Collecting and Displaying Data",
-            description:
-              "Distinguish categorical and numerical data, read frequency tables and dot plots, and choose an appropriate display.",
-          },
-          {
-            slug: "mean-median-mode-range",
-            title: "Mean, Median, Mode and Range",
-            description:
-              "Calculate mean, median, mode and range to describe the centre and spread of a data set.",
-          },
-          {
-            slug: "comparing-data-displays",
-            title: "Comparing Data Displays",
-            description:
-              "Compare two data sets using median, mean and range, and interpret differences in centre and spread.",
-          },
-          {
-            slug: "stem-and-leaf-plots",
-            title: "Stem-and-Leaf Plots",
-            description:
-              "Read and construct ordered stem-and-leaf plots, find the median and range from ordered leaves, and compare two groups using a back-to-back display.",
-          },
-          {
-            slug: "quartiles-and-iqr",
-            title: "Quartiles and Interquartile Range",
-            description:
-              "Find Q1, Q2 and Q3 by splitting an ordered data set, calculate IQR = Q3 − Q1, and use it to compare the spread of two groups.",
-          },
-          {
-            slug: "outliers-and-interpretation",
-            title: "Outliers and Data Interpretation",
-            description:
-              "Identify outliers, explain how they affect the mean but not the median, and choose the appropriate measure of centre.",
-          },
-          { slug: "box-plots",                      title: "Box Plots" },
-          { slug: "comparing-data-with-box-plots",  title: "Comparing Data with Box Plots" },
-          { slug: "shape-of-distributions",         title: "Shape of Distributions" },
+          { slug: "volume-of-prisms",     title: "Volume of Prisms" },
+          { slug: "volume-of-cylinders",  title: "Volume of Cylinders" },
         ],
       },
       {
         slug: "probability-and-chance",
-        title: "Probability and Chance",
+        title: "Probability",
         description:
           "Extend probability to two-step experiments, tree diagrams, arrays and expected outcomes.",
         syllabusArea: "Statistics and Probability",
@@ -5059,49 +4745,175 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           },
         ],
       },
+    ],
+  },
+  {
+    slug: "year-8-mathematics",
+    title: "Year 8 Mathematics",
+    yearLevel: "Year 8",
+    courseType: "Mathematics",
+    status: "available",
+    description:
+      "Build Stage 4 foundations across number, algebra, geometry, measurement and statistics â€” the essential groundwork for Year 9 and 10 Mathematics.",
+    positioning:
+      "Year 8 Mathematics covers the Late Stage 4 NSW curriculum, preparing students for the Year 9 pathway and the transition to Stage 5 content. It extends Year 7 foundations with linear relationships, Pythagoras, geometric reasoning and algebraic equation-solving.",
+    units: [
       {
-        slug: "circumference-and-arc-length",
-        title: "Circumference and Arc Length",
-        description: "Calculate the circumference of circles and the arc length of sectors using C = πd and l = (θ/360) × 2πr.",
-        syllabusArea: "Measurement and Space",
-        focus: "MA4-LEN-C-02 — circles and sectors are tested in every Stage 4 exam.",
-        lessons: [
-          { slug: "circumference-of-circles", title: "Circumference of Circles" },
-          { slug: "arc-length",               title: "Arc Length" },
-          { slug: "perimeter-of-sectors",     title: "Perimeter of Sectors" },
-          { slug: "circumference-applications", title: "Circumference Applications" },
-        ],
-      },
-      {
-        slug: "area-circles-sectors",
-        title: "Area of Circles, Sectors and Annuli",
-        description: "Find areas using A = πr², sector and annulus formulas, and composite figures involving circular parts.",
-        syllabusArea: "Measurement and Space",
-        focus: "MA4-ARE-C-02 — circles and annuli complete the Stage 4 area toolkit.",
-        lessons: [
-          { slug: "area-of-circles",             title: "Area of Circles" },
-          { slug: "area-of-sectors",             title: "Area of Sectors" },
-          { slug: "area-of-annuli",              title: "Area of Annuli" },
-          { slug: "composite-areas-with-circles", title: "Composite Areas with Circles" },
-        ],
-      },
-      {
-        slug: "ratios-and-rates",
-        title: "Ratios and Rates",
-        description: "Simplify and apply ratios, divide quantities, work with unit rates and speed-distance-time, and read scale drawings.",
+        slug: "linear-relationships",
+        title: "Linear Relationships",
+        description:
+          "Plot points and graph linear equations on the Cartesian plane, and interpret gradient, intercepts and the equation y = mx + b.",
         syllabusArea: "Number and Algebra",
-        focus: "MA4-INT-C-02 — ratios and rates complete the Stage 4 number content.",
+        focus:
+          "Establish the Cartesian plane and linear graph fluency required for Year 9 constant rates of change and Year 10 linear relationships.",
         lessons: [
-          { slug: "introduction-to-ratios",       title: "Introduction to Ratios" },
-          { slug: "dividing-quantities-in-ratio", title: "Dividing Quantities in Ratio" },
-          { slug: "rates-and-unit-rates",         title: "Rates and Unit Rates" },
-          { slug: "speed-distance-time",          title: "Speed, Distance and Time" },
-          { slug: "scale-drawings",               title: "Scale Drawings" },
+          { slug: "number-patterns-and-rules",     title: "Number Patterns and Rules" },
+          { slug: "coordinates-and-points",         title: "Coordinates and Points" },
+          { slug: "tables-of-values",               title: "Tables of Values" },
+          { slug: "graphing-linear-relationships",  title: "Graphing Linear Relationships" },
+          { slug: "gradient-as-rate-of-change",     title: "Gradient as Rate of Change" },
+          { slug: "interpreting-linear-graphs",     title: "Interpreting Linear Graphs" },
+        ],
+      },
+      {
+        slug: "pythagoras-theorem",
+        title: "Pythagoras' Theorem",
+        description:
+          "Apply Pythagoras' theorem to find unknown sides in right-angled triangles and calculate distances on the coordinate plane.",
+        syllabusArea: "Measurement and Space",
+        focus:
+          "Develop Pythagoras fluency as the direct prerequisite for Year 9 working with triangles and trigonometric ratios.",
+        lessons: [
+          { slug: "right-angled-triangles-pythagoras", title: "Right-Angled Triangles and Pythagoras" },
+          { slug: "finding-the-hypotenuse",            title: "Finding the Hypotenuse" },
+          { slug: "finding-a-shorter-side",            title: "Finding a Shorter Side" },
+          { slug: "pythagoras-real-contexts",        title: "Pythagoras in Real Contexts" },
+          { slug: "pythagorean-triples",             title: "Pythagorean Triples" },
+          { slug: "distance-between-two-points",      title: "Distance Between Two Points" },
+        ],
+      },
+      {
+        slug: "geometry-angles",
+        title: "Properties of Geometrical Figures",
+        description:
+          "Classify and calculate angle relationships, apply parallel-line properties, find angles in triangles and polygons, identify congruent triangles, and write geometric reasoning.",
+        syllabusArea: "Measurement and Space",
+        focus:
+          "Build Stage 4 geometric fluency â€” angle relationships, parallel lines, polygon properties and introductory congruence â€” as the foundation for Year 9 geometric representations and Year 10 geometry proofs.",
+        lessons: [
+          { slug: "angles-triangles-quadrilaterals", title: "Angles in Triangles and Quadrilaterals" },
+          { slug: "properties-of-polygons",          title: "Properties of Polygons" },
+          { slug: "congruent-triangles",             title: "Congruent Triangles" },
+          { slug: "geometric-reasoning",             title: "Geometric Reasoning" },
+          { slug: "quadrilateral-properties",        title: "Properties of Special Quadrilaterals" },
+        ],
+      },
+      {
+        slug: "data-and-graphs",
+        title: "Data Analysis",
+        description:
+          "Organise, display and analyse data using frequency tables, cumulative frequency, IQR, back-to-back plots and sampling methods.",
+        syllabusArea: "Statistics and Probability",
+        focus:
+          "Prepare for Year 9 data-based decisions and Year 10 statistics content including box plots and standard deviation.",
+        lessons: [
+          {
+            slug: "mean-median-mode-range",
+            title: "Mean, Median, Mode and Range",
+            description:
+              "Calculate mean, median, mode and range to describe the centre and spread of a data set.",
+          },
+          {
+            slug: "comparing-data-displays",
+            title: "Comparing Data Displays",
+            description:
+              "Compare two data sets using median, mean and range, and interpret differences in centre and spread.",
+          },
+          {
+            slug: "stem-and-leaf-plots",
+            title: "Stem-and-Leaf Plots",
+            description:
+              "Read and construct ordered stem-and-leaf plots, find the median and range from ordered leaves, and compare two groups using a back-to-back display.",
+          },
+          {
+            slug: "quartiles-and-iqr",
+            title: "Quartiles and Interquartile Range",
+            description:
+              "Find Q1, Q2 and Q3 by splitting an ordered data set, calculate IQR = Q3 − Q1, and use it to compare the spread of two groups.",
+          },
+          {
+            slug: "outliers-and-interpretation",
+            title: "Outliers and Data Interpretation",
+            description:
+              "Identify outliers, explain how they affect the mean but not the median, and choose the appropriate measure of centre.",
+          },
+          { slug: "box-plots",                      title: "Box Plots" },
+          { slug: "comparing-data-with-box-plots",  title: "Comparing Data with Box Plots" },
+          { slug: "shape-of-distributions",         title: "Shape of Distributions" },
+        ],
+      },
+      {
+        slug: "surface-area-of-solids",
+        title: "Surface Area of Solids",
+        description:
+          "Calculate the surface area of prisms and cylinders, and solve problems involving composite solids.",
+        syllabusArea: "Measurement and Space",
+        focus:
+          "Establish 3D surface-area fluency that Stage 5 surface-area content directly extends.",
+        lessons: [
+          { slug: "surface-area-of-prisms",            title: "Surface Area of Prisms" },
+          { slug: "surface-area-of-cylinders",         title: "Surface Area of Cylinders" },
+          { slug: "surface-area-of-composite-solids",  title: "Surface Area of Composite Solids" },
+        ],
+      },
+      {
+        slug: "volume-of-composite-solids",
+        title: "Volume of Composite Solids",
+        description:
+          "Calculate the volume of prisms and cylinders, and solve problems involving composite solids.",
+        syllabusArea: "Measurement and Space",
+        focus:
+          "Establish 3D volume fluency that Stage 5 composite-volume content directly extends.",
+        lessons: [
+          { slug: "volume-of-prisms",                  title: "Volume of Prisms" },
+          { slug: "volume-of-cylinders",               title: "Volume of Cylinders" },
+          { slug: "volume-of-composite-solids",        title: "Volume of Composite Solids" },
+        ],
+      },
+      {
+        slug: "introduction-to-networks",
+        title: "Introduction to Networks",
+        description:
+          "Read and construct networks, classify paths and circuits, test for Eulerian trails, explore planar graphs and apply networks to routing and transport problems.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "MA5-NET-P-01 — introduces graph/network thinking used in logistics, transport and computer science.",
+        lessons: [
+          { slug: "network-fundamentals",      title: "Network Fundamentals" },
+          { slug: "paths-and-circuits",        title: "Paths and Circuits" },
+          { slug: "eulerian-trails-circuits",  title: "Eulerian Trails and Circuits" },
+          { slug: "planar-graphs",             title: "Planar Graphs" },
+          { slug: "network-applications",      title: "Network Applications" },
+        ],
+      },
+      {
+        slug: "algebraic-techniques-stage5",
+        title: "Algebraic Techniques (Stage 5)",
+        description:
+          "Simplify algebraic fractions, expand expressions with multiple and negative terms, expand binomial products with the area model, and recognise equivalent expressions.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "MA5-ALG-C-01 — extends Year 7/8 algebra into Stage 5 manipulation needed for quadratics and beyond.",
+        lessons: [
+          { slug: "algebraic-fractions",       title: "Algebraic Fractions" },
+          { slug: "expanding-expressions",     title: "Expanding Expressions" },
+          { slug: "binomial-products",         title: "Binomial Products" },
+          { slug: "equivalent-expressions",    title: "Equivalent Expressions" },
         ],
       },
       {
         slug: "index-laws-extension",
-        title: "Index Laws Extension",
+        title: "Indices A",
         description: "Apply negative indices, write numbers in scientific notation, round to significant figures, and operate with scientific notation.",
         syllabusArea: "Number and Algebra",
         focus: "MA4-ALG-C-02 — extends Year 7 index laws to negative exponents and scientific notation.",
@@ -5111,6 +4923,51 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "scientific-notation-small-numbers", title: "Scientific Notation: Small Numbers" },
           { slug: "significant-figures",               title: "Significant Figures" },
           { slug: "operations-with-scientific-notation", title: "Operations with Scientific Notation" },
+        ],
+      },
+      {
+        slug: "indices-b",
+        title: "Indices B",
+        description:
+          "Manipulate products and quotients with negative indices, apply index laws to algebraic bases, and solve simple indicial equations by equating bases.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "MA5-IND-P-01 — extension index work: multiple-law manipulation, algebraic bases and indicial equations.",
+        lessons: [
+          { slug: "advanced-index-manipulation", title: "Advanced Index Manipulation" },
+          { slug: "algebraic-bases",             title: "Powers of Algebraic Bases" },
+          { slug: "indicial-equations",          title: "Indicial Equations" },
+        ],
+      },
+      {
+        slug: "number-financial-mathematics",
+        title: "Earning and Making Money",
+        description:
+          "Use simple interest, calculate wages and salary, understand income tax, manage a budget and work with credit and debit in everyday Australian money contexts.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Build financial numeracy needed for Year 9 financial mathematics and real-world problem solving.",
+        lessons: [
+          { slug: "simple-interest-introduction",  title: "Simple Interest Introduction" },
+          { slug: "wages-and-salary",              title: "Wages and Salary" },
+          { slug: "income-tax-basics",             title: "Income Tax Basics" },
+          { slug: "budgeting-and-money-management", title: "Budgeting and Money Management" },
+          { slug: "credit-and-debit",              title: "Credit and Debit" },
+        ],
+      },
+      {
+        slug: "data-analysis-investigation",
+        title: "Data Analysis Investigation",
+        description:
+          "Pose statistical questions, collect and sample data, choose and compute appropriate statistics and displays, and communicate reliable conclusions.",
+        syllabusArea: "Statistics and Probability",
+        focus:
+          "MA5-DAT-C-01 / MA5-DAT-P-01 — run an end-to-end statistical investigation and critique data-based claims.",
+        lessons: [
+          { slug: "statistical-questions",     title: "Statistical Questions" },
+          { slug: "data-collection",           title: "Data Collection" },
+          { slug: "statistical-analysis",      title: "Statistical Analysis" },
+          { slug: "communicating-findings",    title: "Communicating Findings" },
         ],
       },
     ],

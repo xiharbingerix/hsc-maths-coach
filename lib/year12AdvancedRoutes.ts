@@ -7,6 +7,9 @@ import {
   applicationsDifferentiationLessons,
 } from "./lessons/applicationsDifferentiation";
 import {
+  applicationsOfCalculusGapsLessons,
+} from "./lessons/applicationsOfCalculusGaps";
+import {
   differentialCalculusLessons,
 } from "./lessons/differentialCalculus";
 import {
@@ -58,6 +61,7 @@ const allAdvancedLessons: ExplicitLesson[] = [
   ...differentialCalculusLessons,
   ...differentiationTechniquesLessons,
   ...applicationsDifferentiationLessons,
+  ...applicationsOfCalculusGapsLessons,
   ...integralCalculusLessons,
   ...furtherIntegralCalculusLessons,
   ...functionsGraphingTechniquesLessons,
@@ -70,8 +74,16 @@ const allAdvancedLessons: ExplicitLesson[] = [
   ...probabilityLessons,
 ];
 
-function lessonsBySlug(slug: string): ExplicitLesson[] {
-  return allAdvancedLessons.filter((l) => l.moduleSlug === slug);
+function lessonsForModuleSlugs(
+  moduleSlugs: string[],
+  excludeLessonSlugs: string[] = []
+): ExplicitLesson[] {
+  const excluded = new Set(excludeLessonSlugs);
+
+  return allAdvancedLessons.filter(
+    (lesson) =>
+      moduleSlugs.includes(lesson.moduleSlug) && !excluded.has(lesson.slug)
+  );
 }
 
 function buildOutline(lessons: ExplicitLesson[]): LessonOutlineItem[] {
@@ -98,7 +110,10 @@ export function year12AdvancedNestedLessonHref(
 export const year12AdvancedRouteUnits: Year12AdvancedRouteUnit[] =
   courseUnits.flatMap((unit) => {
     const slug = unit.href.replace("/course/", "");
-    const lessons = lessonsBySlug(slug);
+    const lessons = lessonsForModuleSlugs(
+      unit.lessonModuleSlugs ?? [slug],
+      unit.excludeLessonSlugs
+    );
 
     if (lessons.length === 0) {
       return [];
@@ -109,7 +124,7 @@ export const year12AdvancedRouteUnits: Year12AdvancedRouteUnit[] =
         slug,
         title: unit.title,
         description: unit.description,
-        activeLessonCount: unit.activeLessonCount,
+        activeLessonCount: lessons.length,
         legacyHref: unit.href,
         nestedHref: year12AdvancedNestedUnitHref(slug),
         outline: buildOutline(lessons),

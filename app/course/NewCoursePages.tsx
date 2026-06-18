@@ -48,7 +48,7 @@ function courseStatusNote(courseSlug: string) {
   }
 
   if (courseSlug === "year-12-extension-1") {
-    return "All 6 units are now active: Proof by Mathematical Induction, Introduction to Vectors, Inverse Trigonometric Functions, Further Calculus Skills, Further Applications of Calculus, and The Binomial Distribution.";
+    return "Current 2017 HSC pathway: Proof by Mathematical Induction, Introduction to Vectors, Trigonometric Equations, Further Calculus Skills, Applications of Calculus, and The Binomial Distribution.";
   }
 
   return null;

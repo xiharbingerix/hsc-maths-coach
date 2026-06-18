@@ -33,7 +33,7 @@ function measurementAnswer(
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
   return {
-    ...baseMeasurementAnswer(id, prompt, latex, answer, acceptedAnswers),
+    ...baseMeasurementAnswer(id, prompt, "", answer, acceptedAnswers),
     explanation: measurementFeedback(prompt, answer),
   };
 }

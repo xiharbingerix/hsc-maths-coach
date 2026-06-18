@@ -538,6 +538,93 @@ export const furtherTrigonometryExamPracticeLesson = furtherTrigLesson(
   ]
 );
 
+const cloneFurtherTrigPool = (
+  lesson: ExplicitLesson,
+  extraQuestions: PracticeQuestion[],
+): PracticeQuestion[] => [
+  ...lesson.guidedPractice.map((question, index) => ({
+    ...question,
+    id: `${question.id}-pool`,
+    difficulty: index === 0 ? 1 : 2,
+  })),
+  ...lesson.independentPractice.map((question, index) => ({
+    ...question,
+    id: `${question.id}-pool`,
+    difficulty: index < 3 ? 2 : 3,
+  })),
+  ...lesson.masteryQuiz.map((question, index) => ({
+    ...question,
+    id: `${question.id}-pool`,
+    difficulty: index < 4 ? 3 : index < 7 ? 4 : 5,
+  })),
+  ...extraQuestions,
+];
+
+const difficulty = (question: PracticeQuestion, level: number): PracticeQuestion => ({
+  ...question,
+  difficulty: level,
+});
+
+furtherTrigEquationsIdentitiesLesson.masteryQuizPool = cloneFurtherTrigPool(furtherTrigEquationsIdentitiesLesson, [
+  difficulty(trigChoice("ftrig-ei-pool-extra-1", "Choose the identity that simplifies the expression.", "\\sin x\\cos x", "B", ["$\\cos2x$", "$\\frac12\\sin2x$", "$\\sin2x$", "$1-\\cos2x$"], "$2\\sin x\\cos x=\\sin2x$, so $\\sin x\\cos x=\\frac12\\sin2x$."), 3),
+  difficulty(trigChoice("ftrig-ei-pool-extra-2", "Choose the equivalent expression.", "\\cos^2x", "A", ["$\\frac{1+\\cos2x}{2}$", "$\\frac{1-\\cos2x}{2}$", "$1-2\\sin^2x$", "$2\\cos x$"], "Rearrange $\\cos2x=2\\cos^2x-1$ to get $\\cos^2x=\\frac{1+\\cos2x}{2}$."), 3),
+  difficulty(trigNumber("ftrig-ei-pool-extra-3", "Solve for $x$ in the interval $0\\le x\\le\\pi$.", "\\sin2x=0", "0, pi/2, pi", ["0,\\pi/2,\\pi", "0, pi/2, pi"], "$2x=0,\\pi,2\\pi$ in the doubled interval, so $x=0,\\pi/2,\\pi$."), 4),
+  difficulty(trigNumber("ftrig-ei-pool-extra-4", "Solve for $x$ in degrees, $0\\le x\\le180$.", "\\cos2x=0", "45, 135", ["45,135", "45 and 135"], "$2x=90^\\circ,270^\\circ$ in $0\\le2x\\le360^\\circ$, so $x=45^\\circ,135^\\circ$."), 4),
+  difficulty(trigChoice("ftrig-ei-pool-extra-5", "Which identity turns the equation into a single trig function?", "2\\sin x\\cos x=\\frac12", "C", ["$\\cos2x$", "$\\tan2x$", "$\\sin2x$", "$\\sin(x+y)$"], "The left side is $\\sin2x$, so the equation becomes $\\sin2x=\\frac12$."), 4),
+  difficulty(trigChoice("ftrig-ei-pool-extra-6", "Choose the strongest first step.", "\\cos^2x-\\sin^2x=-\\frac12", "D", ["Square both sides", "Use $\\sin(A+B)$", "Divide by $\\cos x$", "Replace the left side with $\\cos2x$"], "The left side is exactly the cosine double-angle identity $\\cos2x$."), 4),
+  difficulty(trigNumber("ftrig-ei-pool-extra-7", "Solve for $x$ in degrees, $0\\le x\\le180$.", "2\\sin x\\cos x=1", "45", ["45 degrees", "45°"], "The equation is $\\sin2x=1$. In $0\\le2x\\le360^\\circ$, $2x=90^\\circ$, so $x=45^\\circ$."), 5),
+  difficulty(trigNumber("ftrig-ei-pool-extra-8", "Solve for $x$ in degrees, $0\\le x\\le180$.", "1-2\\sin^2x=0", "45, 135", ["45,135", "45 and 135"], "The left side is $\\cos2x$. Solve $\\cos2x=0$, giving $2x=90^\\circ,270^\\circ$ and $x=45^\\circ,135^\\circ$."), 5),
+  difficulty(trigChoice("ftrig-ei-pool-extra-9", "Which equation is equivalent on values where both sides are defined?", "\\frac{2\\tan x}{1-\\tan^2x}=\\sqrt3", "A", ["$\\tan2x=\\sqrt3$", "$\\sin2x=\\sqrt3$", "$\\cos2x=\\sqrt3$", "$\\tan x=\\sqrt3$"], "The left side is the tangent double-angle identity, provided $1-\\tan^2x\\ne0$."), 5),
+  difficulty(trigNumber("ftrig-ei-pool-extra-10", "Find the smallest positive solution in degrees.", "\\tan2x=1", "22.5", ["22.5°", "45/2"], "The smallest positive doubled angle with tangent 1 is $45^\\circ$, so $x=22.5^\\circ$."), 5),
+  difficulty(trigChoice("ftrig-ei-pool-extra-11", "Which value must be excluded before using the tangent double-angle form?", "\\frac{2\\tan x}{1-\\tan^2x}", "B", ["$x=0$", "$x=45^\\circ$", "$x=30^\\circ$", "$x=60^\\circ$"], "The denominator is zero when $\\tan^2x=1$, including $x=45^\\circ$ in the standard acute-angle set."), 5),
+]);
+
+furtherTrigEquationsIdentitiesLesson.multiPartPractice = [
+  {
+    id: "ftrig-ei-multipart-1",
+    prompt: "Consider the equation $2\\sin x\\cos x=\\frac{\\sqrt3}{2}$ for $0\\le x\\le\\pi$.",
+    latex: "2\\sin x\\cos x=\\frac{\\sqrt3}{2}",
+    answer: "\\sin2x",
+    hint: "Use the double-angle identity first, then remember the doubled interval for $2x$.",
+    explanation: "The left side is $\\sin2x$. Since $0\\le x\\le\\pi$, the doubled angle satisfies $0\\le2x\\le2\\pi$.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Write the left side as a single trigonometric function.", marks: 1, answer: "\\sin2x", acceptedAnswers: ["sin2x", "sin(2x)", "\\sin(2x)"], hint: "Use $\\sin2x=2\\sin x\\cos x$.", explanation: "$2\\sin x\\cos x=\\sin2x$." },
+      { key: "b", label: "(b)", prompt: "Find the solutions for $2x$ in $0\\le2x\\le2\\pi$.", marks: 2, answer: "pi/3, 2pi/3", acceptedAnswers: ["\\pi/3, 2\\pi/3", "pi/3,2pi/3"], hint: "Solve $\\sin2x=\\sqrt3/2$ in the doubled interval.", explanation: "$\\sin\\theta=\\sqrt3/2$ at $\\theta=\\pi/3$ and $2\\pi/3$ in this interval." },
+      { key: "c", label: "(c)", prompt: "Find the solutions for $x$ in $0\\le x\\le\\pi$.", marks: 2, answer: "pi/6, pi/3", acceptedAnswers: ["\\pi/6, \\pi/3", "pi/6,pi/3"], hint: "Halve the two values of $2x$.", explanation: "Halving $\\pi/3$ and $2\\pi/3$ gives $x=\\pi/6$ and $x=\\pi/3$." },
+    ],
+  },
+];
+
+furtherTrigonometryExamPracticeLesson.masteryQuizPool = cloneFurtherTrigPool(furtherTrigonometryExamPracticeLesson, [
+  difficulty(trigChoice("ftrig-exam-pool-extra-1", "Choose the exact value.", "\\sin75^\\circ", "A", ["$\\frac{\\sqrt6+\\sqrt2}{4}$", "$\\frac{\\sqrt6-\\sqrt2}{4}$", "$\\frac{\\sqrt3}{2}$", "$\\frac12$"], "Use $75^\\circ=45^\\circ+30^\\circ$ with the sine sum formula."), 3),
+  difficulty(trigChoice("ftrig-exam-pool-extra-2", "Choose the exact value.", "\\cos75^\\circ", "B", ["$\\frac{\\sqrt6+\\sqrt2}{4}$", "$\\frac{\\sqrt6-\\sqrt2}{4}$", "$-\\frac{\\sqrt6-\\sqrt2}{4}$", "$\\frac12$"], "Use $75^\\circ=45^\\circ+30^\\circ$ with the cosine sum formula."), 3),
+  difficulty(trigChoice("ftrig-exam-pool-extra-3", "Choose the matching simplification.", "\\sin x\\cos3x+\\cos x\\sin3x", "C", ["$\\sin2x$", "$\\cos4x$", "$\\sin4x$", "$\\cos2x$"], "This matches $\\sin(A+B)$ with $A=x$ and $B=3x$, giving $\\sin4x$."), 4),
+  difficulty(trigChoice("ftrig-exam-pool-extra-4", "Choose the matching simplification.", "\\cos5x\\cos2x+\\sin5x\\sin2x", "D", ["$\\cos7x$", "$\\sin7x$", "$\\sin3x$", "$\\cos3x$"], "This is $\\cos(A-B)$ with $A=5x$ and $B=2x$, so it equals $\\cos3x$."), 4),
+  difficulty(trigNumber("ftrig-exam-pool-extra-5", "Find the exact value.", "\\tan75^\\circ", "2+sqrt3", ["2+\\sqrt3"], "Using the tangent sum formula for $45^\\circ+30^\\circ$ gives $2+\\sqrt3$."), 4),
+  difficulty(trigNumber("ftrig-exam-pool-extra-6", "Find the exact value.", "\\tan105^\\circ", "-2-sqrt3", ["-(2+sqrt3)", "-2-\\sqrt3"], "$105^\\circ=60^\\circ+45^\\circ$ is in quadrant II, so tangent is negative: $-2-\\sqrt3$."), 5),
+  difficulty(trigChoice("ftrig-exam-pool-extra-7", "Which identity is best for simplifying the left side?", "\\frac{1-\\cos2x}{2}", "B", ["$\\cos^2x$", "$\\sin^2x$", "$\\tan2x$", "$\\sin(x+y)$"], "From $\\cos2x=1-2\\sin^2x$, rearrange to $\\sin^2x=\\frac{1-\\cos2x}{2}$."), 4),
+  difficulty(trigNumber("ftrig-exam-pool-extra-8", "Solve for $x$ in degrees, $0\\le x\\le180$.", "\\cos^2x-\\sin^2x=-1", "90", ["90°"], "The left side is $\\cos2x$. Solve $\\cos2x=-1$, so $2x=180^\\circ$ and $x=90^\\circ$."), 5),
+  difficulty(trigChoice("ftrig-exam-pool-extra-9", "Which step avoids the common sign error?", "\\cos(45^\\circ+60^\\circ)", "A", ["Use $\\cos A\\cos B-\\sin A\\sin B$", "Use $\\cos A\\cos B+\\sin A\\sin B$", "Use $\\sin A\\cos B+\\cos A\\sin B$", "Use $\\tan A+\\tan B$"], "Cosine of a sum uses a minus sign between the products."), 5),
+  difficulty(trigNumber("ftrig-exam-pool-extra-10", "Find the smallest positive solution in radians.", "\\sin2x=1", "pi/4", ["\\pi/4"], "The smallest positive solution for $2x$ is $\\pi/2$, so $x=\\pi/4$."), 5),
+  difficulty(trigChoice("ftrig-exam-pool-extra-11", "Which expression is equivalent to $\\cos2x$?", "", "D", ["$2\\sin^2x-1$", "$1+2\\sin^2x$", "$2\\cos x-1$", "$1-2\\sin^2x$"], "One cosine double-angle form is $\\cos2x=1-2\\sin^2x$."), 3),
+]);
+
+furtherTrigonometryExamPracticeLesson.multiPartPractice = [
+  {
+    id: "ftrig-exam-multipart-1",
+    prompt: "A student needs the exact value of $\\cos105^\\circ$ and then uses it in a double-angle equation.",
+    latex: "\\cos105^\\circ",
+    answer: "60+45",
+    hint: "Write 105 degrees as a sum of standard angles, then use the cosine sum formula.",
+    explanation: "$105^\\circ=60^\\circ+45^\\circ$. Cosine of a sum uses the minus sign between products.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Write $105^\\circ$ as a sum of two standard angles in the form 'a+b'.", marks: 1, answer: "60+45", acceptedAnswers: ["45+60", "60 + 45", "45 + 60"], hint: "Use angles with exact sine and cosine values.", explanation: "$105^\\circ=60^\\circ+45^\\circ$." },
+      { key: "b", label: "(b)", prompt: "Find $\\cos105^\\circ$.", marks: 2, answer: "(sqrt2-sqrt6)/4", acceptedAnswers: ["(\\sqrt2-\\sqrt6)/4", "(sqrt(2)-sqrt(6))/4"], hint: "Use $\\cos(A+B)=\\cos A\\cos B-\\sin A\\sin B$.", explanation: "$\\cos105^\\circ=\\frac12\\cdot\\frac{\\sqrt2}{2}-\\frac{\\sqrt3}{2}\\cdot\\frac{\\sqrt2}{2}=\\frac{\\sqrt2-\\sqrt6}{4}$." },
+      { key: "c", label: "(c)", prompt: "Find the smallest positive $x$ in degrees if $2x=105^\\circ$.", marks: 1, answer: "52.5", acceptedAnswers: ["52.5°", "105/2"], hint: "Halve the angle.", explanation: "$x=105^\\circ/2=52.5^\\circ$." },
+    ],
+  },
+];
+
 furtherTrigEquationsIdentitiesLesson.moduleSlug = "ma-t3-trigonometric-equations";
 furtherTrigEquationsIdentitiesLesson.moduleTitle = "Trigonometric Equations";
 furtherTrigonometryExamPracticeLesson.moduleSlug = "ma-t3-trigonometric-equations";

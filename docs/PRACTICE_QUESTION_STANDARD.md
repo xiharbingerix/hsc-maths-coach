@@ -1,6 +1,8 @@
 # Practice Question Standard
 
-Defines structure, coverage, and quality for the three practice sections of every Nova Maths lesson.
+Defines structure, coverage, and quality for the practice sections of every Nova Maths lesson. Gated by [CONTENT_QUALITY_STANDARD.md](./CONTENT_QUALITY_STANDARD.md) (Gate 3 — Practice depth).
+
+> **The Band-6 engine.** The 19-question spine builds fluency, but fluency alone is a Band 4–5. What separates a Band 6 is the harder, multi-step, *unfamiliar-context* work: a deep, difficulty-ramped mastery pool and HSC Section II-style multi-part questions. At **Stage 6 (Year 11–12) these are REQUIRED, not optional** — a lesson without them is incomplete. (At Stage 4–5 they are strongly recommended.)
 
 ---
 
@@ -11,9 +13,10 @@ Defines structure, coverage, and quality for the three practice sections of ever
 | `guidedPractice` | 4 questions | Scaffold the new skill with low cognitive load |
 | `independentPractice` | 5 questions | Consolidate across varied contexts |
 | `masteryQuiz` | 10 questions | Verify durable understanding without scaffolding |
-| `multiPartPractice` | Optional | HSC Section II-style multipart extension practice |
+| `masteryQuizPool` | ~30–40 questions, difficulty-ramped | **Required at Stage 6.** Pool the mastery quiz draws a fresh ramped set from each attempt |
+| `multiPartPractice` | ≥1 (Stage 6); typically 1–3 | **Required at Stage 6.** HSC Section II-style multi-part exam questions |
 
-**Total: 19 standard questions per lesson.** Do not deviate from this count. Optional `multiPartPractice` questions sit outside this count and are audited separately.
+**The 19-question spine (4 + 5 + 10) is fixed — do not deviate from that count.** On top of the spine, every Stage 6 lesson must also ship a `masteryQuizPool` and at least one `multiPartPractice` item. These sit outside the 19 count and are audited separately, but at Stage 6 they are mandatory, not extension extras.
 
 ---
 
@@ -43,15 +46,19 @@ Standard distribution: **1–2 MCQ in guided**, **0–1 MCQ in independent**, **
 
 ---
 
-## When to use the `latex` field
+## When to use the display `latex` field
 
-The `latex` field shows a display formula below the prompt. Use it when:
+The `latex` field shows a separate display formula block below the prompt. This guidance is about that display block, not inline LaTeX inside `prompt`, `hint`, `explanation`, or choice text. Use inline LaTeX freely when it makes the question text clearer or prettier.
 
-- The question involves a formula the student needs to apply
-- A worked expression clarifies what is being asked
-- The prompt alone is ambiguous without the algebraic setup
+Use the display `latex` field when:
 
-Skip it for simple questions where the prompt is self-contained (e.g. "Find y when x = 3 in the rule y = 2x + 1").
+- The question involves a formula or expression that is part of the stimulus
+- The prompt alone is ambiguous without displaying the given algebraic object
+- The question asks the student to choose or interpret a setup, so the setup itself is assessable
+
+Skip the display `latex` field when the prompt is self-contained (e.g. "Find y when x = 3 in the rule y = 2x + 1"). **Prefer no display `latex` block over a decorative or redundant one.**
+
+Do **not** use the display `latex` field to show the calculation setup, substitution, operation, or first working step for a typed-answer question. That gives away the method before the student has attempted the question. Put working in `explanation`, and use `hint` for a nudge only.
 
 ---
 
@@ -139,6 +146,37 @@ Skip it for simple questions where the prompt is self-contained (e.g. "Find y wh
 
 ---
 
+## Mastery quiz pool (`masteryQuizPool`) — required at Stage 6
+
+**Purpose:** so each mastery attempt is a fresh, difficulty-ramped quiz rather than the same fixed 10 questions. The pool is a larger bank (target **~30–40 difficulty-tagged questions**) that `buildMasteryQuiz` draws `masteryQuiz.length` items from per attempt, ramped easy→hard.
+
+### Rules
+
+- **Required for every Stage 6 (Year 11–12) lesson.** A fixed `masteryQuiz` with no pool does not pass the Definition of Done at Stage 6. (Strongly recommended at Stage 4–5.)
+- Tag each pool question with an explicit `difficulty` (1–5). Spread them so a built quiz can ramp D3→D5.
+- The pool must cover **every success criterion and sub-skill**, with multiple variants per sub-skill so repeat attempts are not identical.
+- The **top of the pool (D5) must contain genuine Band-6 items**: multi-step, combining sub-skills, set in unfamiliar contexts — see the Band-6 difficulty bar below.
+- Every question auto-markable, with a misconception-aware distractor set (MCQ) or exact/accepted answers (typed), and a teaching explanation.
+
+---
+
+## The Band-6 difficulty bar
+
+Fluency questions earn a Band 4–5. A Band 6 is earned on questions that are **multi-step, combine more than one idea, and are set in an unfamiliar framing**. Every Stage 6 lesson must include such questions — at the top (D5) of the mastery pool and in `multiPartPractice`.
+
+A question clears the Band-6 bar when it does **at least two** of:
+
+- Requires **chaining 2+ sub-skills** (e.g. differentiate → solve `f'(x)=0` → classify → interpret).
+- Is set in an **unfamiliar or applied context** the worked examples did not directly cover (transfer, not recall).
+- Requires **selecting the method**, not just executing a named one (the question doesn't tell the student which rule to use).
+- Involves a **non-routine value, constraint, or edge case** (awkward domain, parameter, or sign that defeats pattern-matching).
+
+What does **not** clear the bar: the same template with bigger or uglier numbers; a one-step application of the lesson's headline formula; anything a student could answer by mimicking a worked example without understanding it.
+
+Aim for **at least 3–4 Band-6-level items per lesson** across the D5 mastery pool and multi-part questions.
+
+---
+
 ## Visual payload guidance
 
 **You MUST attach a visual payload whenever a question involves a diagram, graph, plot, table, number line, geometric figure, or solid.** Never describe a visual in words, fake it in LaTeX, or spell a plot out as text when a renderer exists for it.
@@ -163,13 +201,13 @@ Attach the visual payload to the top-level question only. Part prompts should re
 
 ## Multi-part practice (`multiPartPractice`)
 
-**Purpose:** exam-rehearsal. Multi-part questions replicate the structure of HSC Section II items — a shared stem, 2–4 dependent parts, and a marks-based mark scheme. They sit outside the 19-question lesson count and are never required for lesson completion.
+**Purpose:** exam-rehearsal. Multi-part questions replicate the structure of HSC Section II items — a shared stem, 2–4 dependent parts, and a marks-based mark scheme. They sit outside the 19-question lesson count. **At Stage 6 every lesson must ship at least one** — this is the single biggest Band-5-to-Band-6 lever and is part of the Definition of Done. (At Stage 4–5 they remain strongly recommended.)
 
 **You MUST use the `multiPartPractice` array whenever a question is structurally multi-part** (shared stem, 2–4 dependent parts). The multi-part system is production-ready and supports marks-weighted partial credit. Never collapse a multi-part question into a single unstructured `answer` field.
 
 ### Placement
 
-`multiPartPractice` appears after the student has completed guided, independent, and mastery sections. It is positioned as "Working Mathematically / Exam Practice" — an optional extension layer, not a replacement for fluency or mastery work.
+`multiPartPractice` appears after the student has completed guided, independent, and mastery sections. It is positioned as "Working Mathematically / Exam Practice" — the exam-rehearsal layer on top of fluency and mastery work (required at Stage 6), not a replacement for them.
 
 Do not put a question here because it is hard. Put it here because it is **structurally multi-part** — that is, it has a shared stem with 2–4 dependent parts where later parts build on earlier ones.
 
@@ -236,6 +274,12 @@ The 19 questions across a lesson must cover:
 - Common misconceptions — tested via MCQ distractors or question framing
 - Both positive and negative cases where applicable (e.g. positive and negative gradient)
 - At least one contextual/real-world question in independent or mastery
+
+In addition, every **Stage 6** lesson must ship (outside the 19-question spine):
+
+- A `masteryQuizPool` (~30–40 difficulty-tagged questions) covering every sub-skill with multiple variants
+- At least one `multiPartPractice` (HSC Section II-style) item
+- At least 3–4 questions that clear the **Band-6 difficulty bar** (above), split across the D5 mastery pool and multi-part items
 
 ---
 

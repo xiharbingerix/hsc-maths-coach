@@ -4213,7 +4213,7 @@ export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
     },
     {
       id: "inc-dec-mastery-3",
-      prompt: "On $-2<x<2$, is $f'(x)$ positive or negative?",
+      prompt: "On $-2<x<2$, what is the sign of $f'(x)$?",
       latex: "(-\\infty,-2), \\quad (-2,2), \\quad (2,\\infty)",
       answer: "B",
       choices: [
@@ -4250,7 +4250,7 @@ export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
     },
     {
       id: "inc-dec-mastery-6",
-      prompt: "On $1<x<4$, is $f'(x)$ positive or negative?",
+      prompt: "On $1<x<4$, what is the sign of $f'(x)$?",
       latex: "f'(x)=(x-1)(x-4)",
       answer: "B",
       choices: [
@@ -5027,7 +5027,7 @@ export const firstDerivativeTestLesson: ExplicitLesson = {
     },
     {
       id: "fdt-mastery-3",
-      prompt: "On $1<x<3$, is $f'(x)$ positive or negative?",
+      prompt: "On $1<x<3$, what is the sign of $f'(x)$?",
       latex: "(-\\infty,1), \\quad (1,3), \\quad (3,\\infty)",
       answer: "B",
       choices: [
@@ -5591,7 +5591,7 @@ export const firstDerivativeTestLesson: ExplicitLesson = {
 export const secondDerivativeTestLesson: ExplicitLesson = {
   id: "second-derivative-test",
   slug: "second-derivative-test",
-  moduleSlug: "ma-c3-applications-of-differentiation",
+  moduleSlug: "ma-c3-applications-superseded-by-applicationsDifferentiation",
   moduleTitle: "Applications of Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Second Derivative Test",
@@ -6394,7 +6394,7 @@ export const secondDerivativeTestLesson: ExplicitLesson = {
 export const curveSketchingLesson: ExplicitLesson = {
   id: "curve-sketching",
   slug: "curve-sketching",
-  moduleSlug: "ma-c3-applications-of-differentiation",
+  moduleSlug: "ma-c3-applications-superseded-by-applicationsDifferentiation",
   moduleTitle: "Applications of Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Curve Sketching with Derivatives",
@@ -7141,7 +7141,7 @@ export const curveSketchingLesson: ExplicitLesson = {
 export const optimisationLesson: ExplicitLesson = {
   id: "optimisation",
   slug: "optimisation",
-  moduleSlug: "ma-c3-applications-of-differentiation",
+  moduleSlug: "ma-c3-applications-superseded-by-applicationsDifferentiation",
   moduleTitle: "Applications of Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Optimisation Problems",
@@ -7372,7 +7372,7 @@ export const optimisationLesson: ExplicitLesson = {
     },
     {
       id: "optimisation-mastery-4",
-      prompt: "Justify whether this is a maximum or minimum:",
+      prompt: "Using the second derivative below, classify the stationary point:",
       latex: "A''(x)=-2",
       answer: "A",
       acceptedAnswers: ["max"],
@@ -7764,7 +7764,7 @@ export const optimisationLesson: ExplicitLesson = {
 export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
   id: "rates-of-change-applications",
   slug: "rates-of-change-applications",
-  moduleSlug: "ma-c3-applications-of-differentiation",
+  moduleSlug: "ma-c3-applications-superseded-by-applicationsDifferentiation",
   moduleTitle: "Applications of Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Rates of Change Applications",
@@ -8190,7 +8190,7 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
 export const mixedExamPracticeLesson: ExplicitLesson = {
   id: "mixed-exam-practice",
   slug: "mixed-exam-practice",
-  moduleSlug: "ma-c3-applications-of-differentiation",
+  moduleSlug: "ma-c3-applications-superseded-by-applicationsDifferentiation",
   moduleTitle: "Applications of Differentiation",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Mixed Differential Calculus Exam Practice",
@@ -8678,4 +8678,184 @@ export const differentialCalculusLessons = [
   optimisationLesson,
   ratesOfChangeApplicationsLesson,
   mixedExamPracticeLesson,
+];
+
+// ──────────────────────────────────────────────────────────────────────────
+// Band-6 depth (post-hoc assignment) for the five ma-c3 Applications of
+// Calculus lessons. Only the five named lessons below are touched. The three
+// that already ship a masteryQuizPool receive ONLY a multiPartPractice item;
+// the two that ship neither receive a fresh masteryQuizPool AND a
+// multiPartPractice item. Definitions above are left unchanged.
+// ──────────────────────────────────────────────────────────────────────────
+
+// Second Derivative Test — multipart only (pool already present).
+secondDerivativeTestLesson.multiPartPractice = [
+  {
+    id: "sdt-mp-1",
+    prompt:
+      "A curve is given by $f(x)=x^3-3x^2-9x+5$. It has two stationary points. Use the second derivative test to investigate them.",
+    latex: "f(x)=x^3-3x^2-9x+5",
+    answer: "-1",
+    hint: "Solve $f'(x)=0$ to find the stationary $x$-values, find $f''(x)$, then evaluate it and the $y$-value at the smaller stationary point.",
+    explanation:
+      "(a) $f'(x)=3x^2-6x-9=3(x-3)(x+1)=0$, so $x=-1$ and $x=3$; the smaller is $x=-1$. (b) $f''(x)=6x-6$, so $f''(-1)=-12$. (c) Since $f''(-1)<0$ the curve is concave down, so $x=-1$ is a local maximum. (d) $f(-1)=-1-3+9+5=10$.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the smaller stationary $x$-value.", latex: "f'(x)=0", marks: 2, answer: "-1", acceptedAnswers: ["x=-1", "−1", "x=−1"], hint: "Factor $3x^2-6x-9=3(x-3)(x+1)$.", explanation: "$3(x-3)(x+1)=0$ gives $x=-1$ or $x=3$; the smaller is $x=-1$." },
+      { key: "b", label: "(b)", prompt: "Evaluate $f''(x)$ at $x=-1$.", latex: "f''(x)=6x-6", marks: 1, answer: "-12", acceptedAnswers: ["−12"], hint: "$f''(-1)=6(-1)-6$.", explanation: "$f''(-1)=-6-6=-12$." },
+      { key: "c", label: "(c)", prompt: "Classify $x=-1$. Type 'maximum' or 'minimum'.", latex: "f''(-1)=-12", marks: 1, answer: "maximum", acceptedAnswers: ["max", "local maximum", "Maximum"], hint: "$f''<0$ means concave down.", explanation: "$f''(-1)<0$, so $x=-1$ is a local maximum." },
+      { key: "d", label: "(d)", prompt: "Find the $y$-coordinate of the point at $x=-1$.", latex: "f(-1)", marks: 1, answer: "10", acceptedAnswers: [], hint: "Substitute $x=-1$ into $f(x)$.", explanation: "$f(-1)=-1-3+9+5=10$." },
+    ],
+  },
+];
+
+// Curve Sketching — multipart only (pool already present).
+curveSketchingLesson.multiPartPractice = [
+  {
+    id: "sketch-mp-1",
+    prompt:
+      "Investigate the cubic $y=x^3-3x^2$ using calculus, finding its stationary points and point of inflection.",
+    latex: "y=x^3-3x^2",
+    answer: "2",
+    hint: "Solve $y'=0$ for the stationary $x$-values, substitute for the minimum value, and solve $y''=0$ for the inflection.",
+    explanation:
+      "(a) $y'=3x^2-6x=3x(x-2)=0$, so $x=0$ and $x=2$; the larger stationary $x$-value is $2$. (b) $y''=6x-6$, and $y''(2)=6>0$, so $x=2$ is a minimum with value $y(2)=8-12=-4$. (c) $y''=0$ at $6x-6=0$, i.e. $x=1$ (point of inflection).",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the larger stationary $x$-value.", latex: "y'=3x^2-6x", marks: 2, answer: "2", acceptedAnswers: ["x=2"], hint: "Factor $3x(x-2)=0$.", explanation: "$3x(x-2)=0$ gives $x=0$ or $x=2$; the larger is $x=2$." },
+      { key: "b", label: "(b)", prompt: "Find the minimum value of $y$ (the $y$-coordinate at $x=2$).", latex: "y(2)", marks: 2, answer: "-4", acceptedAnswers: ["−4"], hint: "Substitute $x=2$ into $y=x^3-3x^2$.", explanation: "$y(2)=8-12=-4$." },
+      { key: "c", label: "(c)", prompt: "Find the $x$-value of the point of inflection.", latex: "y''=6x-6", marks: 2, answer: "1", acceptedAnswers: ["x=1"], hint: "Solve $y''=0$.", explanation: "$6x-6=0$ gives $x=1$." },
+    ],
+  },
+];
+
+// Optimisation — multipart only (pool already present).
+optimisationLesson.multiPartPractice = [
+  {
+    id: "opt-mp-1",
+    prompt:
+      "A rectangular paddock is to be fenced along three sides only (the fourth side runs along a straight river). There are $80$ m of fencing available. Let $x$ m be the length of each of the two sides perpendicular to the river and $y$ m be the side parallel to it.",
+    latex: "2x+y=80, \\quad A=xy",
+    answer: "20",
+    hint: "Write $A$ in terms of $x$ using $y=80-2x$, solve $A'(x)=0$, then find $y$ and the maximum area.",
+    explanation:
+      "(a) $y=80-2x$, so $A=x(80-2x)=80x-2x^2$ and $A'(x)=80-4x=0$ gives $x=20$ (and $A''=-4<0$ confirms a maximum). (b) $y=80-2(20)=40$. (c) Maximum area $A=20\\times 40=800\\ \\text{m}^2$.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the value of $x$ that maximises the area.", latex: "A=80x-2x^2", marks: 2, answer: "20", acceptedAnswers: ["x=20"], hint: "Solve $A'(x)=80-4x=0$.", explanation: "$80-4x=0$ gives $x=20$." },
+      { key: "b", label: "(b)", prompt: "Find the corresponding value of $y$.", latex: "y=80-2x", marks: 1, answer: "40", acceptedAnswers: ["y=40"], hint: "Substitute $x=20$ into $y=80-2x$.", explanation: "$y=80-2(20)=40$." },
+      { key: "c", label: "(c)", prompt: "Find the maximum area, in square metres.", latex: "A=xy", marks: 2, answer: "800", acceptedAnswers: ["800 m^2", "800 m²"], hint: "Multiply $x\\times y$.", explanation: "$A=20\\times 40=800\\ \\text{m}^2$." },
+    ],
+  },
+];
+
+// Rates of Change Applications — full pool + multipart (neither present before).
+ratesOfChangeApplicationsLesson.masteryQuizPool = [
+  // D1 — concept of rate / sign interpretation
+  { id: "rates-pool-1", prompt: "The instantaneous rate of change of a quantity $Q(t)$ is given by:", latex: "\\text{Choose one}", difficulty: 1, answer: "B", choices: [{ label: "A", text: "$Q(t)$" }, { label: "B", text: "$Q'(t)$" }, { label: "C", text: "$Q(t)\\times t$" }, { label: "D", text: "$\\dfrac{Q(t)}{t}$" }], hint: "The derivative gives the instantaneous rate.", explanation: "The instantaneous rate of change is the derivative $Q'(t)$." },
+  { id: "rates-pool-2", prompt: "A positive value of $Q'(t)$ means the quantity is:", latex: "Q'(t)>0", difficulty: 1, answer: "A", choices: [{ label: "A", text: "increasing" }, { label: "B", text: "decreasing" }, { label: "C", text: "not changing" }, { label: "D", text: "negative" }], hint: "Positive rate = going up.", explanation: "$Q'(t)>0$ means $Q$ is increasing." },
+  { id: "rates-pool-3", prompt: "A negative value of $Q'(t)$ means the quantity is:", latex: "Q'(t)<0", difficulty: 1, answer: "B", choices: [{ label: "A", text: "increasing" }, { label: "B", text: "decreasing" }, { label: "C", text: "not changing" }, { label: "D", text: "zero" }], hint: "Negative rate = going down.", explanation: "$Q'(t)<0$ means $Q$ is decreasing." },
+  { id: "rates-pool-4", prompt: "If $Q'(t)=0$ at an instant, the quantity is:", latex: "Q'(t)=0", difficulty: 1, answer: "C", choices: [{ label: "A", text: "increasing" }, { label: "B", text: "decreasing" }, { label: "C", text: "momentarily not changing" }, { label: "D", text: "negative" }], hint: "Zero rate = no instantaneous change.", explanation: "$Q'(t)=0$ means the quantity is momentarily not changing." },
+  { id: "rates-pool-5", prompt: "To find a rate of change you should first:", latex: "\\text{Choose one}", difficulty: 1, answer: "B", choices: [{ label: "A", text: "substitute the value into $Q(t)$" }, { label: "B", text: "differentiate, then substitute" }, { label: "C", text: "integrate $Q(t)$" }, { label: "D", text: "set $Q(t)=0$" }], hint: "Rate comes from the derivative.", explanation: "Differentiate to get $Q'(t)$, then substitute the given value." },
+  // D2 — differentiate then substitute (linear derivatives)
+  { id: "rates-pool-6", prompt: "Differentiate $s(t)=3t^2+2t$.", latex: "s(t)=3t^2+2t", difficulty: 2, answer: "6t+2", acceptedAnswers: ["s'(t)=6t+2"], hint: "Power rule term by term.", explanation: "$s'(t)=6t+2$." },
+  { id: "rates-pool-7", prompt: "For $s(t)=3t^2+2t$, find $s'(2)$.", latex: "s'(t)=6t+2", difficulty: 2, answer: "14", acceptedAnswers: [], hint: "Substitute $t=2$.", explanation: "$s'(2)=6(2)+2=14$." },
+  { id: "rates-pool-8", prompt: "For $P(t)=2t^2+5t+100$, find $P'(t)$.", latex: "P(t)=2t^2+5t+100", difficulty: 2, answer: "4t+5", acceptedAnswers: ["P'(t)=4t+5"], hint: "The constant $100$ differentiates to $0$.", explanation: "$P'(t)=4t+5$." },
+  { id: "rates-pool-9", prompt: "For $P(t)=2t^2+5t+100$, find $P'(4)$.", latex: "P'(t)=4t+5", difficulty: 2, answer: "21", acceptedAnswers: [], hint: "Substitute $t=4$.", explanation: "$P'(4)=4(4)+5=21$." },
+  { id: "rates-pool-10", prompt: "For $h(t)=-5t^2+15t+2$, find the velocity $h'(t)$.", latex: "h(t)=-5t^2+15t+2", difficulty: 2, answer: "-10t+15", acceptedAnswers: ["h'(t)=-10t+15", "15-10t"], hint: "Velocity is the derivative of height.", explanation: "$h'(t)=-10t+15$." },
+  // D3 — substitute, including negative and zero rates, with interpretation
+  { id: "rates-pool-11", prompt: "For $h(t)=-5t^2+15t+2$, find the velocity at $t=1$.", latex: "h'(t)=-10t+15", difficulty: 3, answer: "5", acceptedAnswers: ["5 m/s"], hint: "Substitute $t=1$.", explanation: "$h'(1)=-10(1)+15=5$." },
+  { id: "rates-pool-12", prompt: "For $R(x)=-x^2+40x$, find $R'(10)$.", latex: "R(x)=-x^2+40x", difficulty: 3, answer: "20", acceptedAnswers: [], hint: "$R'(x)=-2x+40$.", explanation: "$R'(x)=-2x+40$, so $R'(10)=20$." },
+  { id: "rates-pool-13", prompt: "For $Q(t)=-2t^2+8t+5$, find $Q'(3)$.", latex: "Q(t)=-2t^2+8t+5", difficulty: 3, answer: "-4", acceptedAnswers: ["−4"], hint: "$Q'(t)=-4t+8$.", explanation: "$Q'(t)=-4t+8$, so $Q'(3)=-4$." },
+  { id: "rates-pool-14", prompt: "For $V(t)=-t^2+6t+20$, find $V'(4)$.", latex: "V(t)=-t^2+6t+20", difficulty: 3, answer: "-2", acceptedAnswers: ["−2"], hint: "$V'(t)=-2t+6$.", explanation: "$V'(t)=-2t+6$, so $V'(4)=-2$." },
+  { id: "rates-pool-15", prompt: "A height is $h(t)=-4t^2+24t+3$. At what time $t$ is the height momentarily not changing?", latex: "h(t)=-4t^2+24t+3", difficulty: 3, answer: "3", acceptedAnswers: ["t=3", "3 s"], hint: "Solve $h'(t)=0$.", explanation: "$h'(t)=-8t+24=0$ gives $t=3$." },
+  { id: "rates-pool-16", prompt: "Given $V'(4)=-2$ litres per minute, the volume is:", latex: "V'(4)=-2", difficulty: 3, answer: "B", choices: [{ label: "A", text: "increasing" }, { label: "B", text: "decreasing" }, { label: "C", text: "not changing" }, { label: "D", text: "negative in amount" }], hint: "Sign of the rate.", explanation: "A negative rate means the volume is decreasing (at $2$ L/min)." },
+  { id: "rates-pool-17", prompt: "Given $P'(5)=-12$, the quantity is:", latex: "P'(5)=-12", difficulty: 3, answer: "B", choices: [{ label: "A", text: "increasing" }, { label: "B", text: "decreasing" }, { label: "C", text: "not changing" }, { label: "D", text: "stationary forever" }], hint: "Negative derivative.", explanation: "$P'(5)<0$, so the quantity is decreasing." },
+  { id: "rates-pool-18", prompt: "Given $P'(3)=11$, the quantity is:", latex: "P'(3)=11", difficulty: 3, answer: "A", choices: [{ label: "A", text: "increasing" }, { label: "B", text: "decreasing" }, { label: "C", text: "not changing" }, { label: "D", text: "undefined" }], hint: "Positive derivative.", explanation: "$P'(3)>0$, so the quantity is increasing." },
+  { id: "rates-pool-19", prompt: "For $C(t)=2t^2+5t+100$ dollars, find the rate of change at $t=3$.", latex: "C(t)=2t^2+5t+100", difficulty: 3, answer: "17", acceptedAnswers: [], hint: "$C'(t)=4t+5$.", explanation: "$C'(t)=4t+5$, so $C'(3)=17$ dollars per hour." },
+  // D4 — cubic models, marginal rate, magnitude
+  { id: "rates-pool-20", prompt: "For $P(t)=t^3-6t^2+20t+100$, find $P'(t)$.", latex: "P(t)=t^3-6t^2+20t+100", difficulty: 4, answer: "3t^2-12t+20", acceptedAnswers: ["P'(t)=3t^2-12t+20"], hint: "Power rule on each term.", explanation: "$P'(t)=3t^2-12t+20$." },
+  { id: "rates-pool-21", prompt: "For $P(t)=t^3-6t^2+20t+100$, find $P'(3)$.", latex: "P'(t)=3t^2-12t+20", difficulty: 4, answer: "11", acceptedAnswers: [], hint: "Substitute $t=3$: $3(9)-12(3)+20$.", explanation: "$P'(3)=27-36+20=11$." },
+  { id: "rates-pool-22", prompt: "For marginal cost $C(x)=x^2-10x+60$, find $C'(8)$.", latex: "C(x)=x^2-10x+60", difficulty: 4, answer: "6", acceptedAnswers: ["6 dollars per item"], hint: "$C'(x)=2x-10$.", explanation: "$C'(x)=2x-10$, so $C'(8)=6$ dollars per item." },
+  { id: "rates-pool-23", prompt: "A tank has $V'(4)=-7$ litres per minute. State the rate magnitude (how fast it is changing), in litres per minute.", latex: "V'(4)=-7", difficulty: 4, answer: "7", acceptedAnswers: ["7 L/min"], hint: "Magnitude ignores the sign.", explanation: "The magnitude is $7$ L/min (the volume is decreasing at $7$ L/min)." },
+  { id: "rates-pool-24", prompt: "For $h(t)=-4t^2+24t+3$, find $h'(2)$.", latex: "h(t)=-4t^2+24t+3", difficulty: 4, answer: "8", acceptedAnswers: ["8 m/s"], hint: "$h'(t)=-8t+24$.", explanation: "$h'(t)=-8t+24$, so $h'(2)=8$ m/s." },
+  { id: "rates-pool-25", prompt: "A population is $N(t)=t^3-9t^2+24t+5$. Find $N'(2)$.", latex: "N(t)=t^3-9t^2+24t+5", difficulty: 4, answer: "0", acceptedAnswers: [], hint: "$N'(t)=3t^2-18t+24$; substitute $t=2$.", explanation: "$N'(t)=3t^2-18t+24$, so $N'(2)=12-36+24=0$ — momentarily not changing." },
+  // D5 — Band-6: chain skills, unfamiliar contexts, select method
+  { id: "rates-pool-26", prompt: "A particle's displacement is $s(t)=t^3-6t^2+9t$ metres. Find the time $t>0$ at which its velocity is zero and the particle is at its furthest point in the positive direction (the smaller such $t$).", latex: "s(t)=t^3-6t^2+9t", difficulty: 5, answer: "1", acceptedAnswers: ["t=1", "1 s"], hint: "Velocity is $s'(t)$; solve $s'(t)=0$ and take the smaller root.", explanation: "$s'(t)=3t^2-12t+9=3(t-1)(t-3)=0$, so $t=1$ or $t=3$; the smaller is $t=1$." },
+  { id: "rates-pool-27", prompt: "For $s(t)=t^3-6t^2+9t$, find the velocity at $t=2$.", latex: "s'(t)=3t^2-12t+9", difficulty: 5, answer: "-3", acceptedAnswers: ["−3", "-3 m/s"], hint: "Substitute $t=2$ into $s'(t)$.", explanation: "$s'(2)=3(4)-12(2)+9=12-24+9=-3$ m/s (moving in the negative direction)." },
+  { id: "rates-pool-28", prompt: "Water drains so that the volume is $V(t)=(10-t)^2$ litres for $0\\le t\\le 10$. Find the rate $\\dfrac{dV}{dt}$ at $t=3$, in litres per minute.", latex: "V(t)=(10-t)^2", difficulty: 5, answer: "-14", acceptedAnswers: ["−14"], hint: "Expand or use the chain rule: $V'(t)=2(10-t)(-1)$.", explanation: "$V'(t)=-2(10-t)$, so $V'(3)=-2(7)=-14$ L/min." },
+  { id: "rates-pool-29", prompt: "The temperature of a cooling object is $T(t)=80-3t^2$ °C. Find the rate of change of temperature at $t=4$, in °C per minute.", latex: "T(t)=80-3t^2", difficulty: 5, answer: "-24", acceptedAnswers: ["−24"], hint: "$T'(t)=-6t$.", explanation: "$T'(t)=-6t$, so $T'(4)=-24$ °C/min (cooling)." },
+  { id: "rates-pool-30", prompt: "A balloon's radius grows so its volume is $V=\\dfrac{4}{3}\\pi r^3$. Using $\\dfrac{dV}{dr}=4\\pi r^2$, find $\\dfrac{dV}{dr}$ when $r=3$. Give the coefficient of $\\pi$.", latex: "\\frac{dV}{dr}=4\\pi r^2", difficulty: 5, answer: "36", acceptedAnswers: ["36\\pi", "36 pi"], hint: "$4\\pi(3)^2$; state the number multiplying $\\pi$.", explanation: "$\\frac{dV}{dr}=4\\pi(9)=36\\pi$, so the coefficient is $36$." },
+];
+
+ratesOfChangeApplicationsLesson.multiPartPractice = [
+  {
+    id: "rates-mp-1",
+    prompt:
+      "A ball is thrown vertically. Its height after $t$ seconds is $h(t)=-5t^2+30t+2$ metres.",
+    latex: "h(t)=-5t^2+30t+2",
+    answer: "-10t+30",
+    hint: "Velocity is $h'(t)$. Differentiate, substitute the given times, solve $h'(t)=0$ for the turning time, and interpret the sign.",
+    explanation:
+      "(a) $h'(t)=-10t+30$. (b) $h'(2)=-20+30=10$ m/s. (c) The ball is momentarily at rest when $h'(t)=0$: $-10t+30=0$ gives $t=3$ s. (d) $h'(4)=-40+30=-10<0$, so the ball is falling (moving downward).",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the velocity function $h'(t)$.", latex: "h(t)=-5t^2+30t+2", marks: 1, answer: "-10t+30", acceptedAnswers: ["h'(t)=-10t+30", "30-10t"], hint: "Differentiate term by term.", explanation: "$h'(t)=-10t+30$." },
+      { key: "b", label: "(b)", prompt: "Find the velocity at $t=2$ seconds (m/s).", latex: "h'(2)", marks: 1, answer: "10", acceptedAnswers: ["10 m/s"], hint: "Substitute $t=2$.", explanation: "$h'(2)=-20+30=10$ m/s." },
+      { key: "c", label: "(c)", prompt: "Find the time (seconds) when the ball is momentarily at rest.", latex: "h'(t)=0", marks: 2, answer: "3", acceptedAnswers: ["t=3", "3 s"], hint: "Solve $-10t+30=0$.", explanation: "$-10t+30=0$ gives $t=3$ s (the highest point)." },
+      { key: "d", label: "(d)", prompt: "Find the velocity at $t=4$ seconds (m/s).", latex: "h'(4)", marks: 1, answer: "-10", acceptedAnswers: ["−10", "-10 m/s"], hint: "Substitute $t=4$ into $h'(t)$.", explanation: "$h'(4)=-40+30=-10$ m/s; the negative sign shows the ball is falling." },
+    ],
+  },
+];
+
+// Mixed Exam Practice — full pool + multipart (neither present before).
+mixedExamPracticeLesson.masteryQuizPool = [
+  // D1–D2 — identify the skill / direct single-step
+  { id: "mixed-pool-1", prompt: "A question asks for the gradient of $y=x^2+3x$ at $x=2$. The skill needed is:", latex: "\\text{Choose one}", difficulty: 1, answer: "A", choices: [{ label: "A", text: "differentiation" }, { label: "B", text: "integration" }, { label: "C", text: "factorising" }, { label: "D", text: "substitution only" }], hint: "Gradient of a curve comes from the derivative.", explanation: "The tangent gradient at a point is found by differentiating." },
+  { id: "mixed-pool-2", prompt: "The gradient of the tangent to $y=f(x)$ at $x=a$ equals:", latex: "\\text{Choose one}", difficulty: 1, answer: "B", choices: [{ label: "A", text: "$f(a)$" }, { label: "B", text: "$f'(a)$" }, { label: "C", text: "$f''(a)$" }, { label: "D", text: "$0$" }], hint: "Tangent gradient is the derivative at the point.", explanation: "The tangent gradient is $f'(a)$." },
+  { id: "mixed-pool-3", prompt: "Stationary points are found by solving:", latex: "\\text{Choose one}", difficulty: 1, answer: "C", choices: [{ label: "A", text: "$f(x)=0$" }, { label: "B", text: "$f''(x)=0$" }, { label: "C", text: "$f'(x)=0$" }, { label: "D", text: "$f(x)=x$" }], hint: "Stationary means zero gradient.", explanation: "Set $f'(x)=0$." },
+  { id: "mixed-pool-4", prompt: "The normal to a curve is perpendicular to the:", latex: "\\text{Choose one}", difficulty: 1, answer: "A", choices: [{ label: "A", text: "tangent" }, { label: "B", text: "$x$-axis" }, { label: "C", text: "$y$-axis" }, { label: "D", text: "asymptote" }], hint: "Normal ⟂ tangent.", explanation: "The normal is perpendicular to the tangent." },
+  { id: "mixed-pool-5", prompt: "For $h(t)=-t^2+6t+1$, find the tangent gradient at $t=2$.", latex: "h(t)=-t^2+6t+1", difficulty: 2, answer: "2", acceptedAnswers: [], hint: "$h'(t)=-2t+6$.", explanation: "$h'(t)=-2t+6$, so $h'(2)=2$." },
+  { id: "mixed-pool-6", prompt: "For $s(t)=t^2+3t+1$, find $s'(2)$.", latex: "s(t)=t^2+3t+1", difficulty: 2, answer: "7", acceptedAnswers: [], hint: "$s'(t)=2t+3$.", explanation: "$s'(t)=2t+3$, so $s'(2)=7$." },
+  { id: "mixed-pool-7", prompt: "For $C(t)=2t^2+5t+100$, find $C'(3)$.", latex: "C(t)=2t^2+5t+100", difficulty: 2, answer: "17", acceptedAnswers: [], hint: "$C'(t)=4t+5$.", explanation: "$C'(t)=4t+5$, so $C'(3)=17$." },
+  { id: "mixed-pool-8", prompt: "For $f(x)=x^2-8x+5$, find the stationary $x$-value.", latex: "f(x)=x^2-8x+5", difficulty: 2, answer: "4", acceptedAnswers: ["x=4"], hint: "Solve $f'(x)=2x-8=0$.", explanation: "$2x-8=0$ gives $x=4$." },
+  // D3 — coordinates, normals, interval behaviour, optimisation set-up
+  { id: "mixed-pool-9", prompt: "Find the stationary point coordinates of $f(x)=x^2-8x+5$. Give as $x,y$.", latex: "f(x)=x^2-8x+5", difficulty: 3, answer: "4,-11", acceptedAnswers: ["(4,-11)", "4, -11", "(4, −11)"], hint: "$x=4$; then $f(4)$.", explanation: "$x=4$, $f(4)=16-32+5=-11$, so $(4,-11)$." },
+  { id: "mixed-pool-10", prompt: "Find the normal gradient to $y=x^2-4x+1$ at $x=3$.", latex: "y=x^2-4x+1", difficulty: 3, answer: "-1/2", acceptedAnswers: ["-0.5", "−1/2", "−0.5"], hint: "Tangent gradient first, then negative reciprocal.", explanation: "$y'=2x-4$, so $m_t=2$ at $x=3$; $m_n=-\\frac{1}{2}$." },
+  { id: "mixed-pool-11", prompt: "For $f'(x)=3(x-1)(x-3)$, on the interval $1<x<3$ the function is:", latex: "f'(x)=3(x-1)(x-3)", difficulty: 3, answer: "B", choices: [{ label: "A", text: "increasing" }, { label: "B", text: "decreasing" }, { label: "C", text: "stationary throughout" }, { label: "D", text: "undefined" }], hint: "Check the sign of $f'$ between the roots.", explanation: "Between the roots $f'(x)<0$, so the function is decreasing on $(1,3)$." },
+  { id: "mixed-pool-12", prompt: "For $h(t)=-5t^2+30t+2$, interpret $h'(4)$. The height is:", latex: "h(t)=-5t^2+30t+2", difficulty: 3, answer: "B", choices: [{ label: "A", text: "increasing" }, { label: "B", text: "decreasing" }, { label: "C", text: "not changing" }, { label: "D", text: "constant" }], hint: "$h'(t)=-10t+30$; sign at $t=4$.", explanation: "$h'(4)=-10<0$, so the height is decreasing." },
+  { id: "mixed-pool-13", prompt: "Find the minimum value of $f(x)=x^2-6x+8$.", latex: "f(x)=x^2-6x+8", difficulty: 3, answer: "-1", acceptedAnswers: ["−1"], hint: "Stationary point at $x=3$.", explanation: "$f'(x)=2x-6$, $x=3$, $f(3)=9-18+8=-1$." },
+  { id: "mixed-pool-14", prompt: "A rectangle has perimeter $32$ cm. With sides $x$ and $y$, the area constraint gives $y=$:", latex: "2x+2y=32", difficulty: 3, answer: "16-x", acceptedAnswers: ["y=16-x"], hint: "Divide the perimeter equation by $2$.", explanation: "$x+y=16$, so $y=16-x$." },
+  // D4 — full optimisation, classification, profit max
+  { id: "mixed-pool-15", prompt: "A rectangle has perimeter $32$ cm. Find the side length $x$ that maximises area.", latex: "A=x(16-x)", difficulty: 4, answer: "8", acceptedAnswers: ["x=8"], hint: "Maximise $A=16x-x^2$.", explanation: "$A'(x)=16-2x=0$ gives $x=8$." },
+  { id: "mixed-pool-16", prompt: "A pen against a wall uses $40$ m of fencing for three sides ($2x+y=40$). Find $x$ for maximum area.", latex: "A=x(40-2x)", difficulty: 4, answer: "10", acceptedAnswers: ["x=10"], hint: "Maximise $A=40x-2x^2$.", explanation: "$A'(x)=40-4x=0$ gives $x=10$." },
+  { id: "mixed-pool-17", prompt: "For $f(x)=x^3-6x^2+9x+1$, classify the stationary point at $x=1$.", latex: "f(x)=x^3-6x^2+9x+1", difficulty: 4, answer: "A", acceptedAnswers: ["local max", "maximum", "max"], choices: [{ label: "A", text: "local maximum" }, { label: "B", text: "local minimum" }, { label: "C", text: "inflection" }], hint: "$f'(x)=3(x-1)(x-3)$; test concavity.", explanation: "$f''(x)=6x-12$, $f''(1)=-6<0$, so $x=1$ is a local maximum." },
+  { id: "mixed-pool-18", prompt: "Find the maximum profit value for $P(x)=-2x^2+80x-300$.", latex: "P(x)=-2x^2+80x-300", difficulty: 4, answer: "500", acceptedAnswers: [], hint: "Solve $P'(x)=0$, then substitute.", explanation: "$P'(x)=-4x+80=0$ gives $x=20$; $P(20)=-800+1600-300=500$." },
+  { id: "mixed-pool-19", prompt: "Find the minimum value of $f(x)=x^2-2x-3$.", latex: "f(x)=x^2-2x-3", difficulty: 4, answer: "-4", acceptedAnswers: ["−4"], hint: "Stationary point at $x=1$.", explanation: "$f'(x)=2x-2$, $x=1$, $f(1)=1-2-3=-4$." },
+  { id: "mixed-pool-20", prompt: "For $P(x)=-x^3+9x^2-15x+20$, find the larger stationary $x$-value.", latex: "P(x)=-x^3+9x^2-15x+20", difficulty: 4, answer: "5", acceptedAnswers: ["x=5"], hint: "$P'(x)=-3x^2+18x-15=-3(x-1)(x-5)$.", explanation: "$-3(x-1)(x-5)=0$ gives $x=1,5$; the larger is $x=5$." },
+  // D5 — Band-6 multi-step / transfer
+  { id: "mixed-pool-21", prompt: "For $P(x)=-x^3+9x^2-15x+20$ on $0\\le x\\le 6$, find the maximum value (the $y$-value at $x=5$).", latex: "P(x)=-x^3+9x^2-15x+20", difficulty: 5, answer: "45", acceptedAnswers: [], hint: "$x=5$ is a local maximum; substitute.", explanation: "$P(5)=-125+225-75+20=45$." },
+  { id: "mixed-pool-22", prompt: "A particle has displacement $s(t)=t^3-6t^2+9t+2$. Find its velocity at $t=2$.", latex: "s(t)=t^3-6t^2+9t+2", difficulty: 5, answer: "-3", acceptedAnswers: ["−3", "-3 m/s"], hint: "$v(t)=s'(t)=3t^2-12t+9$.", explanation: "$v(2)=3(4)-12(2)+9=12-24+9=-3$." },
+  { id: "mixed-pool-23", prompt: "An open box is made from a square of side $12$ cm by cutting squares of side $x$ from each corner. The volume is $V=x(12-2x)^2$, with $V'(x)=12(x-2)(x-6)$. Find the $x$ that maximises the volume.", latex: "V=x(12-2x)^2", difficulty: 5, answer: "2", acceptedAnswers: ["x=2"], hint: "Solve $V'(x)=0$ and pick the value inside $0<x<6$.", explanation: "$12(x-2)(x-6)=0$ gives $x=2$ or $x=6$; only $x=2$ lies in $0<x<6$, giving the maximum." },
+  { id: "mixed-pool-24", prompt: "For the box above, find the maximum volume (cm³) at $x=2$.", latex: "V=x(12-2x)^2", difficulty: 5, answer: "128", acceptedAnswers: ["128 cm^3"], hint: "Substitute $x=2$: $2(12-4)^2$.", explanation: "$V=2(8)^2=2\\times 64=128\\ \\text{cm}^3$." },
+  { id: "mixed-pool-25", prompt: "A curve $y=x^2$ has a tangent at $(3,9)$. Find the $x$-intercept of that tangent.", latex: "y=x^2", difficulty: 5, answer: "3/2", acceptedAnswers: ["1.5", "x=3/2", "x=1.5"], hint: "Tangent gradient $=6$; equation $y-9=6(x-3)$; set $y=0$.", explanation: "Tangent: $y=6x-9$. Setting $y=0$ gives $x=\\frac{9}{6}=\\frac{3}{2}$." },
+  { id: "mixed-pool-26", prompt: "The cost of producing $x$ items is $C(x)=x^2-20x+150$. Find the number of items that minimises cost.", latex: "C(x)=x^2-20x+150", difficulty: 5, answer: "10", acceptedAnswers: ["x=10"], hint: "Solve $C'(x)=2x-20=0$.", explanation: "$C'(x)=2x-20=0$ gives $x=10$ (and $C''=2>0$ confirms a minimum)." },
+  { id: "mixed-pool-27", prompt: "A profit is $P(x)=60x-x^2-500$. Find the maximum profit.", latex: "P(x)=60x-x^2-500", difficulty: 5, answer: "400", acceptedAnswers: [], hint: "Solve $P'(x)=0$, then substitute.", explanation: "$P'(x)=60-2x=0$ gives $x=30$; $P(30)=1800-900-500=400$." },
+  { id: "mixed-pool-28", prompt: "For $f(x)=x^3-3x+2$, find the smaller stationary $x$-value.", latex: "f(x)=x^3-3x+2", difficulty: 5, answer: "-1", acceptedAnswers: ["x=-1", "−1"], hint: "$f'(x)=3x^2-3=3(x-1)(x+1)$.", explanation: "$3(x-1)(x+1)=0$ gives $x=\\pm 1$; the smaller is $x=-1$." },
+  { id: "mixed-pool-29", prompt: "For $f(x)=x^3-3x+2$, classify the stationary point at $x=-1$.", latex: "f(x)=x^3-3x+2", difficulty: 5, answer: "A", acceptedAnswers: ["local max", "maximum", "max"], choices: [{ label: "A", text: "local maximum" }, { label: "B", text: "local minimum" }, { label: "C", text: "inflection" }], hint: "$f''(x)=6x$; evaluate at $x=-1$.", explanation: "$f''(-1)=-6<0$, so $x=-1$ is a local maximum." },
+  { id: "mixed-pool-30", prompt: "A normal to $y=x^2-4x+1$ at $x=3$ passes through $(3,-2)$ with gradient $-\\tfrac12$. Find its $y$-intercept.", latex: "y=x^2-4x+1", difficulty: 5, answer: "-1/2", acceptedAnswers: ["-0.5", "−1/2", "−0.5"], hint: "Normal: $y+2=-\\frac12(x-3)$; set $x=0$.", explanation: "$y=-\\frac12 x+\\frac32-2=-\\frac12 x-\\frac12$, so the $y$-intercept is $-\\frac12$." },
+];
+
+mixedExamPracticeLesson.multiPartPractice = [
+  {
+    id: "mixed-mp-1",
+    prompt:
+      "A company's profit (in thousands of dollars) from selling $x$ hundred units is $P(x)=-x^3+9x^2-15x+20$, for $0\\le x\\le 6$.",
+    latex: "P(x)=-x^3+9x^2-15x+20",
+    answer: "-3x^2+18x-15",
+    hint: "Differentiate, solve $P'(x)=0$, use the larger root, then substitute to find the maximum profit.",
+    explanation:
+      "(a) $P'(x)=-3x^2+18x-15$. (b) $P'(x)=-3(x-1)(x-5)=0$ gives $x=1$ and $x=5$; the larger is $x=5$. (c) $P''(x)=-6x+18$, $P''(5)=-12<0$, so $x=5$ is a maximum; $P(5)=-125+225-75+20=45$ (thousand dollars).",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find $P'(x)$.", latex: "P(x)=-x^3+9x^2-15x+20", marks: 1, answer: "-3x^2+18x-15", acceptedAnswers: ["P'(x)=-3x^2+18x-15"], hint: "Differentiate term by term.", explanation: "$P'(x)=-3x^2+18x-15$." },
+      { key: "b", label: "(b)", prompt: "Find the larger stationary $x$-value.", latex: "P'(x)=0", marks: 2, answer: "5", acceptedAnswers: ["x=5"], hint: "Factor: $-3(x-1)(x-5)=0$.", explanation: "$x=1$ or $x=5$; the larger is $x=5$." },
+      { key: "c", label: "(c)", prompt: "Find the maximum profit (in thousands of dollars).", latex: "P(5)", marks: 2, answer: "45", acceptedAnswers: ["45 thousand", "$45000", "45000"], hint: "Substitute $x=5$ into $P(x)$.", explanation: "$P(5)=-125+225-75+20=45$ thousand dollars." },
+    ],
+  },
 ];
