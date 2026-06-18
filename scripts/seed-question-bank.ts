@@ -8,7 +8,7 @@ import { year12AdvancedRouteUnits } from "../lib/year12AdvancedRoutes";
 loadEnvConfig(process.cwd());
 import {
   getNewCourse,
-  getNewCourseUnitLessons,
+  getVisibleNewCourseLessons,
 } from "../lib/newCourseCatalog";
 import { flattenSkillMapV2Nodes } from "../lib/skillMapV2";
 import type {
@@ -327,7 +327,7 @@ function collectQuestionsFromCourse(courseSlug: string) {
   for (const unit of course.units) {
     if (unit.lessons.length === 0) continue;
 
-    const lessons = getNewCourseUnitLessons(course.slug, unit.slug);
+    const lessons = getVisibleNewCourseLessons(course.slug, unit.slug);
 
     for (const lesson of lessons) {
       const lessonSeed = unit.lessons.find((item) => item.slug === lesson.slug);

@@ -45,6 +45,36 @@ function lessonBase(
   };
 }
 
+function withQuestionIdPrefix(
+  lesson: Partial<ExplicitLesson>,
+  prefix: string
+): Partial<ExplicitLesson> {
+  const prefixQuestion = (question: PracticeQuestion): PracticeQuestion => ({
+    ...question,
+    id: `${prefix}${question.id}`,
+  });
+
+  return {
+    ...lesson,
+    guidedPractice: lesson.guidedPractice?.map(prefixQuestion),
+    independentPractice: lesson.independentPractice?.map(prefixQuestion),
+    masteryQuiz: lesson.masteryQuiz?.map(prefixQuestion),
+    masteryQuizPool: lesson.masteryQuizPool?.map(prefixQuestion),
+    multiPartPractice: lesson.multiPartPractice?.map(prefixQuestion),
+  };
+}
+
+function scopeLessonForCourse(
+  lesson: Partial<ExplicitLesson>,
+  course: CoursePathwaySeed
+): Partial<ExplicitLesson> {
+  if (course.slug !== "year-12-extension-1") {
+    return lesson;
+  }
+
+  return withQuestionIdPrefix(lesson, "y12e1-");
+}
+
 const reciprocalExamples: WorkedExample[] = [
   {
     title: "Find reciprocal trig values",
@@ -740,32 +770,38 @@ export function year11ExtensionFurtherTrigonometryLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
-  if (course.slug !== "year-11-extension" || unit.slug !== "further-trigonometry") {
+  const isYear11ExtensionTrig =
+    course.slug === "year-11-extension" && unit.slug === "further-trigonometry";
+  const isCurrentYear12Extension1Trig =
+    course.slug === "year-12-extension-1" &&
+    unit.slug === "trigonometric-equations";
+
+  if (!isYear11ExtensionTrig && !isCurrentYear12Extension1Trig) {
     return null;
   }
 
   if (lesson.slug === "reciprocal-trigonometric-functions") {
-    return reciprocalLesson(lesson);
+    return scopeLessonForCourse(reciprocalLesson(lesson), course);
   }
 
   if (lesson.slug === "compound-angle-formulae") {
-    return compoundLesson(lesson);
+    return scopeLessonForCourse(compoundLesson(lesson), course);
   }
 
   if (lesson.slug === "double-angle-formulae") {
-    return doubleLesson(lesson);
+    return scopeLessonForCourse(doubleLesson(lesson), course);
   }
 
   if (lesson.slug === "t-formula-subsidiary-angle") {
-    return tFormulaLesson(lesson);
+    return scopeLessonForCourse(tFormulaLesson(lesson), course);
   }
 
   if (lesson.slug === "product-to-sum-identities") {
-    return productSumLesson(lesson);
+    return scopeLessonForCourse(productSumLesson(lesson), course);
   }
 
   if (lesson.slug === "trig-equation-solving") {
-    return trigEquationSolvingLesson(lesson);
+    return scopeLessonForCourse(trigEquationSolvingLesson(lesson), course);
   }
 
   return null;

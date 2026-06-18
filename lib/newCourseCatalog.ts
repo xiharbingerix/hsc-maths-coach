@@ -2745,9 +2745,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     courseType: "Mathematics Extension 1",
     status: "available",
     description:
-      "Year 12 Mathematics Extension 1 aligned to the NSW 2024 syllabus: all 6 ME1-12 focus areas — Proof by Mathematical Induction, Introduction to Vectors, Inverse Trigonometric Functions, Further Calculus Skills, Further Applications of Calculus, and The Binomial Distribution and Sampling Distribution of the Mean.",
+      "Year 12 Mathematics Extension 1 aligned to the current NSW Mathematics Extension 1 Stage 6 Syllabus (2017): Proof by Mathematical Induction, Introduction to Vectors, Trigonometric Equations, Further Calculus Skills, Applications of Calculus, and The Binomial Distribution.",
     positioning:
-      "A complete Year 12 Mathematics Extension 1 pathway aligned directly to the NSW Mathematics Extension 1 2024 syllabus (ME1-12-01 through ME1-12-06): Proof by Mathematical Induction, Introduction to Vectors, Inverse Trigonometric Functions, Further Calculus Skills, Further Applications of Calculus, and The Binomial Distribution and Sampling Distribution of the Mean.",
+      "A Year 12 Mathematics Extension 1 pathway aligned to the current 2017 HSC syllabus for students sitting the existing course. Incoming 2024-only content is kept out of this public pathway until schools start teaching it in Year 12.",
     units: [
       {
         slug: "proof-induction",
@@ -2842,42 +2842,30 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
-        slug: "inverse-trig",
-        title: "Inverse Trigonometric Functions",
+        slug: "trigonometric-equations",
+        title: "Trigonometric Equations",
         description:
-          "Study inverse sine, cosine and tangent functions, their restrictions, exact values, graphs and calculus links.",
-        syllabusArea: "Trigonometric functions",
-        focus: "Inverse trigonometric functions",
+          "Use compound-angle and double-angle formulae, simplify trigonometric expressions, and solve trigonometric equations over restricted and general domains.",
+        syllabusArea: "Trigonometric Functions",
+        focus: "ME-T3 Trigonometric Equations",
         lessons: [
           {
-            slug: "inverse-sine-cosine",
-            title: "Inverse Sine and Cosine",
+            slug: "compound-angle-formulae",
+            title: "Compound Angle Formulae",
             description:
-              "Understand restricted domains, principal ranges, exact values and graph features for arcsin and arccos.",
+              "Use compound angle formulae to expand, simplify and evaluate exact trigonometric expressions.",
           },
           {
-            slug: "inverse-tangent",
-            title: "Inverse Tangent",
+            slug: "double-angle-formulae",
+            title: "Double Angle Formulae",
             description:
-              "Use arctan's domain, range, asymptotes and exact values to solve inverse tangent and triangle problems.",
+              "Derive and apply sine, cosine and tangent double-angle formulae in exact-value and simplification questions.",
           },
           {
-            slug: "differentiating-inverse-trig",
-            title: "Differentiating Inverse Trig Functions",
+            slug: "trig-equation-solving",
+            title: "Trigonometric Equation Solving",
             description:
-              "Differentiate inverse trigonometric functions, apply the chain rule and recognise basic inverse-trig integrals.",
-          },
-          {
-            slug: "inverse-trig-properties",
-            title: "Inverse Trig Identities and Composite Expressions",
-            description:
-              "Prove sin⁻¹(x) + cos⁻¹(x) = π/2, apply it to find unknown inverse trig values, and evaluate composite expressions such as sin(cos⁻¹(x)) using the Pythagorean identity.",
-          },
-          {
-            slug: "inverse-trig-revision",
-            title: "Prior Knowledge Revision: Inverse Trig",
-            description:
-              "Activate prior knowledge for inverse trigonometric functions: exact trig values at standard angles, the ASTC quadrant sign rule, and the compound angle and double angle identities.",
+              "Solve trigonometric equations using identities, multiple solutions, restricted domains and general solution forms.",
           },
         ],
       },
@@ -2924,6 +2912,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Multiplicity of Zeroes of Polynomial Functions",
             description:
               "Define the multiplicity of a zero, prove the derivative result, and sketch polynomials in factored form by reading crossing, touch, and inflection behaviour at each zero.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "calculus-applications-newton-cooling",
@@ -2936,6 +2926,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Slope Fields and Solution Curves",
             description:
               "Construct and read slope fields for dy/dx = f(x, y), sketch solution curves by following the direction field, identify stable and unstable equilibria, and describe long-run behaviour of solutions.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "calculus-applications-revision",
@@ -2947,11 +2939,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       },
       {
         slug: "binomial-distribution",
-        title: "The Binomial Distribution and Sampling Distribution of the Mean",
+        title: "The Binomial Distribution",
         description:
-          "Bernoulli trials, the binomial distribution B(n,p), expected value and variance, the sampling distribution of the sample mean x̄, and the Central Limit Theorem — covering ME1-12-06 in full.",
+          "Bernoulli trials, binomial random variables, the binomial probability formula, expected value, variance, standard deviation, cumulative probability, and applications.",
         syllabusArea: "Statistical Analysis",
-        focus: "The binomial distribution and sampling distribution of the mean",
+        focus: "ME-S1 The Binomial Distribution",
         lessons: [
           { slug: "bernoulli-trials", title: "Bernoulli Trials" },
           { slug: "binomial-probabilities", title: "Binomial Probabilities" },
@@ -2962,12 +2954,16 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Distribution of the Sample Mean",
             description:
               "Define population and sample, derive E(x̄) = μ and Var(x̄) = σ²/n, and examine the effect of sample size on the spread of x̄.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "central-limit-theorem",
             title: "The Central Limit Theorem",
             description:
               "State the CLT, convert x̄ to z-scores, and calculate probabilities about sample means using normal distribution values.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "binomial-revision",
@@ -2975,20 +2971,6 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             description:
               "Activate prior knowledge for the Binomial Distribution: probability rules (complement, addition, multiplication), combinations C(n,r), and expected value of a discrete random variable.",
           },
-        ],
-      },
-      {
-        slug: "kinematics",
-        title: "Rates of Change and Kinematics (Year 11 Ext 1)",
-        description:
-          "Year 11 Extension 1 content (ME1-11): use calculus to analyse straight-line motion — find velocity and acceleration by differentiation, and displacement by integration. Retained as a scaffolding entry point for students who need to build fluency before the Year 12 vector and calculus units.",
-        syllabusArea: "Calculus",
-        focus: "Kinematics and rates of change",
-        lessons: [
-          { slug: "kinematics-velocity-acceleration", title: "Velocity and Acceleration from Displacement" },
-          { slug: "kinematics-displacement-from-velocity", title: "Displacement from Velocity by Integration" },
-          { slug: "kinematics-motion-analysis", title: "Analysing Motion: Direction Changes and Total Distance" },
-          { slug: "kinematics-exam-practice", title: "Kinematics Exam Practice" },
         ],
       },
     ],
@@ -3000,9 +2982,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     courseType: "Mathematics Extension 2",
     status: "in_progress",
     description:
-      "Year 12 Mathematics Extension 2 pathway with active Phase 1 content across Proof, Vectors in Three Dimensions, Complex Numbers, Calculus and Mechanics.",
+      "Year 12 Mathematics Extension 2 pathway aligned to the current NSW Mathematics Extension 2 Stage 6 Syllabus (2017): Proof, Further Work with Vectors, Complex Numbers, Further Integration, and Mechanics.",
     positioning:
-      "An in-progress Year 12 Mathematics Extension 2 pathway for NSW HSC students. Every NSW Extension 2 topic area now has active authored content, with later phases planned for fuller exam coverage.",
+      "An in-progress Year 12 Mathematics Extension 2 pathway for students sitting the current 2017 HSC course. Incoming or off-map extension extras are kept out of the public pathway while the core syllabus coverage is expanded.",
     units: [
       {
         slug: "proof",
@@ -3146,6 +3128,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Vector Equations of Curves, Circles and Spheres",
             description:
               "Represent parametric curves as vector equations, recognise the vector forms of circles and spheres, and convert between vector and Cartesian forms.",
+            seedQuestions: false,
+            showInCourseNav: false,
             stableSkillId: "y12e2-v3-vector-curves-circles-spheres",
             skillCheckpoints: [
               {
@@ -3498,6 +3482,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Volumes of Revolution",
             description:
               "Use the disk and washer methods to find volumes formed by rotating regions about the x-axis and y-axis: V = π∫[f(x)]² dx and V = π∫([f(x)]²−[g(x)]²) dx.",
+            seedQuestions: false,
+            showInCourseNav: false,
           },
           {
             slug: "partial-fractions-quadratic",
