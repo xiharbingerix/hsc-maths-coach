@@ -1,6 +1,7 @@
 ﻿import type {
   ExplicitLesson,
   LessonOutlineItem,
+  PracticeQuestion,
 } from "./differentialCalculus";
 
 export const dataDisplaysMeasuresOfCentreLesson: ExplicitLesson = {
@@ -5684,6 +5685,221 @@ export const statisticalAnalysisOutline: LessonOutlineItem[] = [
     description:
       "Standardise to the standard normal distribution and use a table of P(Z<z) values to find probabilities for any z, including 'greater than', 'between' and negative z by symmetry.",
     status: "active",
+  },
+];
+
+const cloneStatsPool = (
+  lesson: ExplicitLesson,
+  extraQuestions: PracticeQuestion[],
+): PracticeQuestion[] => [
+  ...lesson.guidedPractice.map((question, index) => ({
+    ...question,
+    id: `${question.id}-pool`,
+    difficulty: index === 0 ? 1 : 2,
+  })),
+  ...lesson.independentPractice.map((question, index) => ({
+    ...question,
+    id: `${question.id}-pool`,
+    difficulty: index < 3 ? 2 : 3,
+  })),
+  ...lesson.masteryQuiz.map((question, index) => ({
+    ...question,
+    id: `${question.id}-pool`,
+    difficulty: index < 4 ? 3 : index < 7 ? 4 : 5,
+  })),
+  ...extraQuestions,
+];
+
+const statsChoice = (
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  choices: string[],
+  difficulty: number,
+  explanation: string,
+  hint = "Focus on what the statistic is measuring in this context.",
+): PracticeQuestion => ({
+  id,
+  prompt,
+  latex,
+  answer,
+  choices: choices.map((text, index) => ({
+    label: String.fromCharCode(65 + index),
+    text,
+  })),
+  difficulty,
+  hint,
+  explanation,
+});
+
+const statsTyped = (
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  difficulty: number,
+  explanation: string,
+  acceptedAnswers: string[] = [],
+  hint = "Calculate the required statistic, then interpret only what the question asks for.",
+): PracticeQuestion => ({
+  id,
+  prompt,
+  latex,
+  answer,
+  acceptedAnswers,
+  difficulty,
+  hint,
+  explanation,
+});
+
+dataDisplaysMeasuresOfCentreLesson.masteryQuizPool = cloneStatsPool(dataDisplaysMeasuresOfCentreLesson, [
+  statsTyped("ddmc-pool-extra-1", "Find the mean of the data set.", "6,\\ 7,\\ 7,\\ 8,\\ 12", "8", 3, "The total is $40$ and there are $5$ values, so the mean is $40/5=8$."),
+  statsTyped("ddmc-pool-extra-2", "Find the median of the data set.", "3,\\ 5,\\ 5,\\ 9,\\ 11,\\ 12", "7", 3, "There are six values, so the median is the average of the third and fourth values: $(5+9)/2=7$."),
+  statsChoice("ddmc-pool-extra-3", "A high outlier is added to a balanced data set. Which centre measure usually changes most?", "", "A", ["mean", "median", "mode", "sample size"], 3, "The mean uses every value, so an extreme high value pulls it upward more than the median or mode."),
+  statsChoice("ddmc-pool-extra-4", "Which centre measure best represents the typical sale price when one mansion sale is far above all other house sales?", "", "B", ["mean", "median", "mode", "range"], 4, "The median is resistant to the very high sale, so it better represents the typical price."),
+  statsTyped("ddmc-pool-extra-5", "A data set has mean $18$ for $6$ values. A seventh value of $32$ is added. Find the new mean.", "\\bar{x}=18,\\quad n=6", "20", 4, "The original total is $18\\times6=108$. Adding $32$ gives $140$ over $7$ values, so the new mean is $20$."),
+  statsTyped("ddmc-pool-extra-6", "Seven values have median $14$. If the largest value increases by $20$, find the new median.", "", "14", 4, "With seven ordered values the median is the fourth value. Changing only the largest value does not move the fourth value, so the median stays 14."),
+  statsChoice("ddmc-pool-extra-7", "A data set is categorical: shirt colours sold today. Which centre measure is meaningful?", "", "C", ["mean", "median", "mode", "standard deviation"], 4, "For categories like colours, the meaningful centre is the most frequent category, the mode."),
+  statsTyped("ddmc-pool-extra-8", "The mean of five numbers is $11$. Four of the numbers are $7,9,12,15$. Find the missing number.", "\\bar{x}=11,\\quad n=5", "12", 5, "The total must be $11\\times5=55$. The known values sum to $43$, so the missing number is $55-43=12$."),
+  statsTyped("ddmc-pool-extra-9", "A sample has mean $24$ for $10$ values. One incorrect value $50$ should have been $35$. Find the corrected mean.", "\\bar{x}=24,\\quad n=10", "22.5", 5, "The recorded total is $240$. Correcting $50$ to $35$ reduces the total by $15$, giving $225$. The corrected mean is $225/10=22.5$."),
+  statsChoice("ddmc-pool-extra-10", "A distribution is strongly right-skewed. Which ordering is usually expected?", "", "D", ["mean < median", "mode > mean", "mean = median", "mean > median"], 5, "A right tail pulls the mean to the right more than the median, so mean is usually greater than median."),
+  statsTyped("ddmc-pool-extra-11", "The mean of $a, a+2, a+8$ is $16$. Find $a$.", "", "12", 5, "The total is $3a+10$ and the mean is $(3a+10)/3=16$. Hence $3a+10=48$ and $a=12$."),
+]);
+
+dataDisplaysMeasuresOfCentreLesson.multiPartPractice = [
+  {
+    id: "ddmc-multipart-1",
+    prompt: "A coach records five lap times in seconds: $62,64,65,69,90$.",
+    latex: "62,\\ 64,\\ 65,\\ 69,\\ 90",
+    answer: "70",
+    hint: "Find the numerical centres, then compare the effect of the high value.",
+    explanation: "The mean uses every time and is pulled upward by 90, while the median is the middle ordered value.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the mean time.", marks: 2, answer: "70", hint: "Add the five values and divide by 5.", explanation: "The total is $350$, so the mean is $350/5=70$.", working: ["62+64+65+69+90=350", "350\\div5=70"] },
+      { key: "b", label: "(b)", prompt: "Find the median time.", marks: 1, answer: "65", hint: "The data are already ordered.", explanation: "The middle value of five ordered values is the third value, 65." },
+      { key: "c", label: "(c)", prompt: "Choose the better centre for a typical lap: mean or median.", marks: 2, answer: "median", acceptedAnswers: ["Median"], hint: "The 90-second lap is unusually high.", explanation: "The median is better because the high value 90 pulls the mean upward." },
+    ],
+  },
+];
+
+spreadIqrBoxPlotsOutliersLesson.masteryQuizPool = cloneStatsPool(spreadIqrBoxPlotsOutliersLesson, [
+  statsTyped("iqr-pool-extra-1", "Find the range.", "\\min=12,\\quad \\max=47", "35", 3, "Range equals maximum minus minimum: $47-12=35$."),
+  statsTyped("iqr-pool-extra-2", "Find the IQR.", "Q_1=18,\\quad Q_3=31", "13", 3, "The interquartile range is $Q_3-Q_1=31-18=13$."),
+  statsTyped("iqr-pool-extra-3", "Find the upper outlier fence.", "Q_1=20,\\quad Q_3=36", "60", 4, "The IQR is $16$. The upper fence is $36+1.5(16)=60$."),
+  statsTyped("iqr-pool-extra-4", "Find the lower outlier fence.", "Q_1=14,\\quad Q_3=30", "-10", 4, "The IQR is $16$. The lower fence is $14-1.5(16)=14-24=-10$."),
+  statsChoice("iqr-pool-extra-5", "Which statistic measures the spread of the middle 50% of the data?", "", "B", ["range", "IQR", "median", "mode"], 3, "The IQR measures the distance from $Q_1$ to $Q_3$, the middle 50% of the data."),
+  statsChoice("iqr-pool-extra-6", "A boxplot has a much longer right whisker. What does that suggest?", "", "A", ["right skew", "left skew", "perfect symmetry", "no spread"], 4, "A longer right whisker suggests the upper values are more spread out, which is right skew."),
+  statsTyped("iqr-pool-extra-7", "A value is an outlier if it is above $Q_3+1.5IQR$. For $Q_1=10$, $Q_3=22$, test value $41$. Enter $1$ if it is an outlier, otherwise $0$.", "Q_1=10,\\quad Q_3=22,\\quad x=41", "1", 5, "The IQR is $12$, so the upper fence is $22+18=40$. Since $41>40$, it is an outlier."),
+  statsTyped("iqr-pool-extra-8", "A class has five-number summary $8,12,15,21,30$. Find the IQR as a percentage of the range.", "", "40.91", 5, "The IQR is $21-12=9$ and the range is $30-8=22$. The percentage is $9/22\\times100=40.91\\%$.", ["40.9"], "Compute IQR and range first, then convert the ratio to a percentage."),
+  statsTyped("iqr-pool-extra-9", "A data set has $Q_1=25$ and upper outlier fence $55$. If $Q_3=37$, find the IQR.", "Q_3+1.5IQR=55", "12", 5, "The IQR is also $Q_3-Q_1=37-25=12$. This gives upper fence $37+1.5(12)=55$."),
+  statsChoice("iqr-pool-extra-10", "Which value is most resistant to an extreme maximum?", "", "C", ["range", "maximum", "IQR", "upper fence"], 4, "The IQR uses quartiles, so a single extreme maximum usually does not change it much."),
+  statsTyped("iqr-pool-extra-11", "The lower fence is $4$ and $Q_1=10$. Find the IQR.", "Q_1-1.5IQR=4", "4", 5, "Solve $10-1.5IQR=4$. Then $1.5IQR=6$, so $IQR=4$."),
+]);
+
+spreadIqrBoxPlotsOutliersLesson.multiPartPractice = [
+  {
+    id: "iqr-multipart-1",
+    prompt: "A data set has five-number summary $12,18,22,34,61$.",
+    latex: "\\min=12,\\ Q_1=18,\\ \\text{median}=22,\\ Q_3=34,\\ \\max=61",
+    answer: "16",
+    hint: "Use the quartiles to find IQR and outlier fences.",
+    explanation: "The IQR is $Q_3-Q_1$. The upper fence determines whether the maximum is unusually high.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the IQR.", marks: 1, answer: "16", hint: "Subtract $Q_1$ from $Q_3$.", explanation: "$IQR=34-18=16$." },
+      { key: "b", label: "(b)", prompt: "Find the upper outlier fence.", marks: 2, answer: "58", hint: "Use $Q_3+1.5IQR$.", explanation: "The upper fence is $34+1.5(16)=34+24=58$.", working: ["34+1.5(16)=58"] },
+      { key: "c", label: "(c)", prompt: "Enter $1$ if the maximum is an outlier, otherwise $0$.", marks: 2, answer: "1", hint: "Compare 61 with the upper fence.", explanation: "Since $61>58$, the maximum is an outlier." },
+    ],
+  },
+];
+
+standardDeviationZScoresStandardisedValuesLesson.masteryQuizPool = cloneStatsPool(standardDeviationZScoresStandardisedValuesLesson, [
+  statsTyped("zstd-pool-extra-1", "Find the z-score.", "x=74,\\quad \\bar{x}=70,\\quad s=2", "2", 3, "$z=(74-70)/2=2$."),
+  statsTyped("zstd-pool-extra-2", "Find the z-score.", "x=61,\\quad \\bar{x}=70,\\quad s=6", "-1.5", 3, "$z=(61-70)/6=-1.5$.", ["-3/2"]),
+  statsTyped("zstd-pool-extra-3", "Find the raw score.", "\\bar{x}=52,\\quad s=4,\\quad z=1.75", "59", 4, "Use $x=\\bar{x}+zs=52+1.75(4)=59$."),
+  statsChoice("zstd-pool-extra-4", "Which score is better relative to its class?", "\\text{A: }82,\\bar{x}=70,s=8\\quad \\text{B: }76,\\bar{x}=65,s=5", "B", ["A", "B", "equal", "cannot compare"], 4, "A has $z=1.5$. B has $z=2.2$, so B is better relative to its class."),
+  statsChoice("zstd-pool-extra-5", "A z-score of $-2.4$ means the value is:", "", "C", ["2.4 above the mean", "2.4 units below zero", "2.4 standard deviations below the mean", "below the minimum"], 3, "A z-score measures standard deviations from the mean; negative means below the mean."),
+  statsTyped("zstd-pool-extra-6", "A score has $z=1.2$ in a distribution with mean $45$ and standard deviation $10$. Find the raw score.", "\\bar{x}=45,\\quad s=10", "57", 4, "$x=45+1.2(10)=57$."),
+  statsTyped("zstd-pool-extra-7", "A raw score of $88$ has z-score $1.5$ when the mean is $70$. Find the standard deviation.", "z=1.5,\\quad x=88,\\quad \\bar{x}=70", "12", 5, "$1.5=(88-70)/s=18/s$, so $s=12$."),
+  statsTyped("zstd-pool-extra-8", "A raw score of $54$ has z-score $-2$ when the standard deviation is $8$. Find the mean.", "z=-2,\\quad x=54,\\quad s=8", "70", 5, "$-2=(54-\\bar{x})/8$, so $54-\\bar{x}=-16$ and $\\bar{x}=70$."),
+  statsChoice("zstd-pool-extra-9", "Which value is most unusual?", "", "D", ["$z=0.8$", "$z=-1.1$", "$z=1.7$", "$z=-2.3$"], 4, "Unusualness depends on distance from zero. The largest absolute z-score is $|-2.3|=2.3$."),
+  statsTyped("zstd-pool-extra-10", "Two students have z-scores $1.4$ and $-1.9$. Find the difference between their z-scores.", "", "3.3", 4, "The difference is $1.4-(-1.9)=3.3$."),
+  statsTyped("zstd-pool-extra-11", "A value is $18$ below the mean and has z-score $-1.5$. Find the standard deviation.", "", "12", 5, "Since $z=(x-\\bar{x})/s=-18/s=-1.5$, the standard deviation is $12$."),
+]);
+
+standardDeviationZScoresStandardisedValuesLesson.multiPartPractice = [
+  {
+    id: "zstd-multipart-1",
+    prompt: "Two exams have different distributions. Exam A has mean $64$ and standard deviation $8$. Exam B has mean $72$ and standard deviation $5$.",
+    latex: "A:\\ \\bar{x}=64,s=8\\quad B:\\ \\bar{x}=72,s=5",
+    answer: "2",
+    hint: "Standardise each raw mark before comparing relative performance.",
+    explanation: "Z-scores put marks from different distributions onto the same scale.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the z-score for a mark of 80 on Exam A.", marks: 1, answer: "2", hint: "Use $z=(x-\\bar{x})/s$.", explanation: "$z=(80-64)/8=2$." },
+      { key: "b", label: "(b)", prompt: "Find the raw Exam B mark with the same z-score.", marks: 2, answer: "82", hint: "Use $x=\\bar{x}+zs$ with $z=2$.", explanation: "$x=72+2(5)=82$.", working: ["x=72+2(5)=82"] },
+      { key: "c", label: "(c)", prompt: "A student scored 83 on Exam B. Find their z-score.", marks: 2, answer: "2.2", hint: "Standardise using Exam B's mean and standard deviation.", explanation: "$z=(83-72)/5=2.2$." },
+    ],
+  },
+];
+
+correlationLeastSquaresRegressionLesson.masteryQuizPool = cloneStatsPool(correlationLeastSquaresRegressionLesson, [
+  statsChoice("reg-pool-extra-1", "Which $r$ value shows the strongest linear association?", "", "D", ["$0.42$", "$-0.55$", "$0.76$", "$-0.93$"], 3, "Strength depends on $|r|$. The largest absolute value is $0.93$."),
+  statsChoice("reg-pool-extra-2", "Which $r$ value shows a weak negative association?", "", "B", ["$0.18$", "$-0.22$", "$-0.91$", "$0.84$"], 3, "$r=-0.22$ is negative and close to zero, so it is weak negative."),
+  statsTyped("reg-pool-extra-3", "Use the regression equation to predict $y$ when $x=12$.", "\\hat{y}=3.5x+8", "50", 3, "$\\hat{y}=3.5(12)+8=42+8=50$."),
+  statsTyped("reg-pool-extra-4", "For $\\hat{y}=1.8x+14$, find the predicted increase in $y$ when $x$ increases by 5.", "\\hat{y}=1.8x+14", "9", 4, "The gradient is $1.8$, so an increase of 5 in $x$ changes predicted $y$ by $1.8(5)=9$."),
+  statsChoice("reg-pool-extra-5", "A prediction at $x=28$ is made from data collected only for $5\\le x\\le20$. What is this?", "", "C", ["interpolation", "residual", "extrapolation", "causation"], 3, "Using a model outside the observed x-range is extrapolation."),
+  statsTyped("reg-pool-extra-6", "A model predicts $\\hat{y}=41$ and the observed value is $38$. Find the residual.", "e=y-\\hat{y}", "-3", 4, "Residual equals observed minus predicted: $38-41=-3$."),
+  statsChoice("reg-pool-extra-7", "Which interpretation matches slope $-2.4$ in a regression of fuel remaining against kilometres driven?", "", "A", ["Fuel decreases by about 2.4 units per kilometre", "Fuel starts at -2.4", "Kilometres decrease by 2.4 per fuel unit", "Correlation is -2.4"], 4, "The slope is the predicted change in response for each one-unit increase in the explanatory variable."),
+  statsTyped("reg-pool-extra-8", "A least-squares line passes through $(\\bar{x},\\bar{y})=(10,26)$ with slope $1.6$. Find its intercept.", "\\hat{y}=1.6x+a", "10", 5, "Substitute the mean point: $26=1.6(10)+a$, so $a=10$."),
+  statsTyped("reg-pool-extra-9", "For $\\hat{y}=2.2x+5$, observed $y=31.4$ at $x=11$. Find the residual.", "\\hat{y}=2.2x+5", "2.2", 5, "The prediction is $2.2(11)+5=29.2$. Residual is $31.4-29.2=2.2$."),
+  statsChoice("reg-pool-extra-10", "A data set has a curved pattern but high $r$ after one extreme point is added. What is the safest conclusion?", "", "D", ["The linear model is definitely valid", "The extreme point proves causation", "The mean is wrong", "Check the scatter pattern and influence before trusting the line"], 5, "Correlation and regression can be distorted by influential points; the scatter pattern must be checked."),
+  statsTyped("reg-pool-extra-11", "A model $\\hat{y}=ax+7$ predicts $31$ when $x=8$. Find $a$.", "\\hat{y}=ax+7", "3", 5, "Substitute: $31=8a+7$, so $8a=24$ and $a=3$."),
+]);
+
+correlationLeastSquaresRegressionLesson.multiPartPractice = [
+  {
+    id: "reg-multipart-1",
+    prompt: "A least-squares model for plant height $\\hat{h}$ in cm after $d$ days is $\\hat{h}=2.4d+11$.",
+    latex: "\\hat{h}=2.4d+11",
+    answer: "35",
+    hint: "Use the model for prediction, then residual equals observed minus predicted.",
+    explanation: "The line predicts height from days; the residual measures how far the observed value sits from the prediction.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the predicted height after 10 days.", marks: 1, answer: "35", hint: "Substitute $d=10$.", explanation: "$\\hat{h}=2.4(10)+11=35$." },
+      { key: "b", label: "(b)", prompt: "If the observed height is 38 cm, find the residual.", marks: 2, answer: "3", hint: "Residual is observed minus predicted.", explanation: "$38-35=3$." },
+      { key: "c", label: "(c)", prompt: "The original data used $0\\le d\\le14$. Enter $1$ if predicting at $d=20$ is extrapolation, otherwise $0$.", marks: 2, answer: "1", hint: "Compare 20 with the observed domain.", explanation: "Since $20$ is outside $0\\le d\\le14$, the prediction is extrapolation." },
+    ],
+  },
+];
+
+interpretingAssociationResidualsLesson.masteryQuizPool = cloneStatsPool(interpretingAssociationResidualsLesson, [
+  statsTyped("resid-pool-extra-1", "Find the residual if observed $y=25$ and predicted $\\hat{y}=21$.", "e=y-\\hat{y}", "4", 3, "Residual is observed minus predicted: $25-21=4$."),
+  statsTyped("resid-pool-extra-2", "Find the residual if observed $y=18$ and predicted $\\hat{y}=22.5$.", "e=y-\\hat{y}", "-4.5", 3, "$18-22.5=-4.5$. A negative residual means the model over-predicted."),
+  statsChoice("resid-pool-extra-3", "A positive residual means the model:", "", "A", ["under-predicted", "over-predicted", "has no correlation", "caused the outcome"], 3, "Positive residual means observed value is above predicted value, so the model under-predicted."),
+  statsChoice("resid-pool-extra-4", "Residuals show a clear curve pattern. What does this suggest?", "", "C", ["The linear model is excellent", "The slope is zero", "A linear model may be unsuitable", "The mean should be used"], 4, "A pattern in residuals means the linear model is missing structure in the relationship."),
+  statsChoice("resid-pool-extra-5", "A strong association between sunscreen sales and ice-cream sales most likely indicates:", "", "D", ["sunscreen causes ice-cream sales", "ice-cream causes sunscreen sales", "no relationship at all", "a lurking variable such as hot weather"], 4, "Hot weather plausibly increases both variables; association alone does not prove causation."),
+  statsTyped("resid-pool-extra-6", "For $\\hat{y}=4x+3$, find the residual at $x=6$ if observed $y=30$.", "\\hat{y}=4x+3", "3", 4, "The prediction is $4(6)+3=27$. Residual is $30-27=3$."),
+  statsChoice("resid-pool-extra-7", "Which point is most likely influential in fitting a regression line?", "", "B", ["near the centre of the cloud", "far from the main x-values", "exactly on the median y-value", "any point with y=0"], 4, "A point far from the main x-values has high leverage and can strongly affect the fitted line."),
+  statsTyped("resid-pool-extra-8", "A residual changes from $-6$ to $0$ after a model update. By how much did the prediction change if the observed value stayed fixed?", "", "-6", 5, "Residual is $y-\\hat{y}$. Moving from $-6$ to $0$ means the prediction decreased by 6, so the change in prediction is $-6$."),
+  statsChoice("resid-pool-extra-9", "A residual plot has roughly random scatter around zero. What does this support?", "", "A", ["a linear model is reasonable", "there is definitely causation", "all predictions are exact", "the response variable is categorical"], 4, "Random residual scatter around zero supports the use of a linear model."),
+  statsTyped("resid-pool-extra-10", "A model predicts $\\hat{y}=2x+10$. At $x=9$ the residual is $-5$. Find the observed value.", "\\hat{y}=2x+10", "23", 5, "The prediction is $28$. Since residual $=y-\\hat{y}=-5$, the observed value is $28-5=23$."),
+  statsChoice("resid-pool-extra-11", "Two variables have $r=0.88$ in observational data. Which conclusion is safest?", "", "C", ["One variable must cause the other", "The line predicts perfectly", "There is a strong positive linear association", "The residuals are all zero"], 5, "$r=0.88$ indicates strong positive linear association, but observational correlation alone does not establish causation."),
+]);
+
+interpretingAssociationResidualsLesson.multiPartPractice = [
+  {
+    id: "resid-multipart-1",
+    prompt: "A model predicts weekly sales from advertising spend using $\\hat{y}=5x+40$, where $x$ is advertising spend in hundreds of dollars.",
+    latex: "\\hat{y}=5x+40",
+    answer: "75",
+    hint: "Predict first, then use residual equals observed minus predicted.",
+    explanation: "Residuals show whether the actual value is above or below what the line predicts.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the predicted sales when $x=7$.", marks: 1, answer: "75", hint: "Substitute $x=7$.", explanation: "$\\hat{y}=5(7)+40=75$." },
+      { key: "b", label: "(b)", prompt: "If observed sales are 69, find the residual.", marks: 2, answer: "-6", hint: "Subtract predicted from observed.", explanation: "$69-75=-6$." },
+      { key: "c", label: "(c)", prompt: "Choose the model error type: under-predicted or over-predicted.", marks: 2, answer: "over-predicted", acceptedAnswers: ["over predicted", "overprediction"], hint: "A negative residual means the prediction was too high.", explanation: "The observed value is below the predicted value, so the model over-predicted." },
+    ],
   },
 ];
 
