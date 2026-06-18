@@ -5,6 +5,7 @@ import { requireAdmin } from "../../../../lib/adminSession";
 import { supabaseAdmin } from "../../../../lib/supabaseAdmin";
 import { getSiteUrl } from "../../../../lib/stripe";
 import { CopyButton } from "../CopyButton";
+import { LiveAttemptMonitor } from "./LiveAttemptMonitor";
 
 export const metadata: Metadata = {
   title: "Worksheet Detail | Nova Maths Admin",
@@ -197,9 +198,19 @@ export default async function WorksheetDetailPage({
             <span className="flex-1 truncate rounded-lg bg-slate-50 px-3 py-2 font-mono text-sm text-slate-700">
               {shareUrl}
             </span>
+            <a
+              href={`${shareUrl}?adminPreview=1`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+            >
+              Open student view
+            </a>
             <CopyButton text={shareUrl} />
           </div>
         </section>
+
+        <LiveAttemptMonitor worksheetId={worksheet.id} />
 
         {/* Questions */}
         <section className="space-y-3">

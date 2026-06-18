@@ -227,6 +227,14 @@ export default async function WorksheetsPage() {
                       </td>
                       <td className="px-5 py-3">
                         <div className="flex items-center gap-2">
+                          <a
+                            href={`${shareUrl}?adminPreview=1`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                          >
+                            Open
+                          </a>
                           <span className="max-w-[160px] truncate font-mono text-xs text-slate-400">
                             /worksheet/{w.share_token.slice(0, 8)}…
                           </span>
