@@ -279,7 +279,7 @@ export function DiagnosticQuizClient({
               {totalParts} assessed parts &bull; about {estimatedMinutes} minutes &bull; skill-transfer focused
             </p>
             <p className="mt-4 leading-7 text-slate-600">
-              These questions are rich multi-part items that test connected HSC skills.
+              These questions are rich multi-part items that test connected maths skills.
               Your part-level performance maps directly to the topics you should study first.
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
