@@ -1374,82 +1374,178 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
     return null;
   }
 
+  function scaleAnswer(
+    id: string,
+    prompt: string,
+    latex: string,
+    answer: string,
+    acceptedAnswers: string[],
+    hint: string,
+    explanation: string,
+    difficulty?: number
+  ): PracticeQuestion {
+    return {
+      id,
+      prompt,
+      latex,
+      answer,
+      acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+      hint,
+      explanation,
+      ...(difficulty ? { difficulty } : {}),
+    };
+  }
+
+  function scaleChoice(
+    id: string,
+    prompt: string,
+    answer: "A" | "B" | "C" | "D",
+    choices: [string, string, string, string],
+    hint: string,
+    explanation: string,
+    difficulty?: number
+  ): PracticeQuestion {
+    return {
+      id,
+      prompt,
+      latex: "\\text{Select A, B, C, or D.}",
+      choices: ["A", "B", "C", "D"].map((label, index) => ({
+        label,
+        text: choices[index],
+      })),
+      answer,
+      hint,
+      explanation,
+      ...(difficulty ? { difficulty } : {}),
+    };
+  }
+
   return {
     description:
       "Use scale, similarity and proportion to interpret maps, plans and scaled models in practical contexts.",
     learningIntention:
-      "Find real distances and lengths from scaled drawings using the correct scale factor.",
+      "Interpret maps and plans by choosing the correct scale direction, converting units, and applying linear or area scale factors.",
     successCriteria: [
       "Identify the scale ratio from the drawing or plan.",
       "Convert measurements in the drawing into real distances accurately.",
       "Use consistent units when converting between map scale and actual length.",
-      "Recognise when a scale factor applies to length only, not area or volume."
+      "Recognise when a scale factor applies to length only, and when an area scale factor is needed.",
+      "Use a plan or map context to calculate a practical dimension, distance or area.",
     ],
     teaching: {
       paragraphs: [
-        "A scale drawing represents a larger real object using a smaller drawing, with all lengths scaled by the same factor.",
-        "If the scale is 1 to n, then 1 unit on the drawing represents n units in reality. Use this factor directly for lengths and distances.",
-        "For a length on the drawing, multiply by the scale factor to find the real length. For a real length, divide by the scale factor to find the drawing length.",
-        "Keep the units consistent: if the drawing is in centimetres and the real distance is in metres, convert before using the scale factor."
+        "A scale drawing keeps the shape the same while shrinking or enlarging every length by the same multiplier. That is why a plan can be measured with a ruler: the drawing is not a rough sketch; it is a smaller similar version of the real object.",
+        "A scale of 1:n means 1 unit on the drawing represents n of the same units in reality. The units must match before the scale has meaning. For example, at 1:50000, 1 cm on a map represents 50000 cm in reality, which is 500 m.",
+        "The direction of the calculation comes from the story. Drawing to real makes the object larger, so multiply by n. Real to drawing makes the object smaller, so divide by n.",
+        "The reason this works is similarity. If every length is multiplied by n, then the ratio drawing length : real length is always 1:n. Rearranging that proportion gives real length = drawing length x n and drawing length = real length / n.",
+        "Area is different because it has two dimensions. If each length is multiplied by n, then area is multiplied by n x n. In practice, it is often safer to find the real length and real width first, convert to metres, and then multiply those real dimensions.",
+        "The common trap is mixing centimetres, metres and kilometres inside one calculation. Convert deliberately at the point where the units change: 100 cm = 1 m, 100000 cm = 1 km, and 10000 square metres = 1 hectare.",
       ],
       latexBlocks: [
-        "\text{real length}=\text{drawing length}\times n",
-        "\text{drawing length}=\frac{\text{real length}}{n}",
+        "\\text{scale }1:n \\quad \\Rightarrow \\quad 1\\text{ drawing unit}=n\\text{ real units}",
+        "\\text{real length}=\\text{drawing length}\\times n",
+        "\\text{drawing length}=\\frac{\\text{real length}}{n}",
+        "\\text{area scale factor}=n^2",
       ],
     },
     workedExamples: [
       {
         title: "Use the scale factor for a real distance",
         questionLatex:
-          "\text{A map scale is 1:50000. A road on the map is 3 cm long. Find the actual road length in metres.}",
+          "\\text{A map scale is 1:50000. A road on the map is 3 cm long. Find the actual road length in metres.}",
         steps: [
           {
             explanation:
-              "One centimetre on the map represents 50000 centimetres in reality.",
+              "Interpret the scale using the same units: 1 cm on the map represents 50000 cm in reality.",
+            latex: "1\\text{ cm on map}=50000\\text{ cm real}",
           },
           {
             explanation:
-              "Multiply the map length by the scale factor and convert to metres.",
-            latex: "3\times50000=150000\text{ cm}=1500\text{ m}",
+              "The question goes from map to real, so multiply by the scale factor.",
+            latex: "3\\times50000=150000\\text{ cm}",
+          },
+          {
+            explanation:
+              "Convert centimetres to metres by dividing by 100.",
+            latex: "150000\\text{ cm}=1500\\text{ m}",
           },
         ],
-        finalAnswerLatex: "1500\text{ m}",
+        finalAnswerLatex: "1500\\text{ m}",
       },
       {
         title: "Find a drawing length from a real measurement",
         questionLatex:
-          "\text{A floor plan is drawn at scale 1:100. A wall is 12 m long in reality. Find its length on the plan in centimetres.}",
+          "\\text{A floor plan is drawn at scale 1:100. A wall is 12 m long in reality. Find its length on the plan in centimetres.}",
         steps: [
           {
             explanation:
               "First convert the real length to centimetres because the scale uses the same units on both sides.",
-            latex: "12\text{ m}=1200\text{ cm}",
+            latex: "12\\text{ m}=1200\\text{ cm}",
           },
           {
             explanation:
-              "Divide the real length by 100 to find the drawing length.",
-            latex: "\frac{1200}{100}=12\text{ cm}",
+              "The question goes from real to drawing, so divide by the scale factor.",
+            latex: "\\frac{1200}{100}=12\\text{ cm}",
           },
         ],
-        finalAnswerLatex: "12\text{ cm}",
+        finalAnswerLatex: "12\\text{ cm}",
+      },
+      {
+        title: "Use a plan to find real area",
+        questionLatex:
+          "\\text{A rectangular garden is shown as 6 cm by 4 cm on a 1:200 site plan. Find its real area in square metres.}",
+        planeShapeDiagram: {
+          description:
+            "Rectangle on a site plan labelled 6 cm by 4 cm, representing a garden at scale 1:200.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 6, y: 0, rightAngle: true },
+            { x: 6, y: 4, rightAngle: true },
+            { x: 0, y: 4, rightAngle: true },
+          ],
+          edges: [{ label: "6 cm" }, { label: "4 cm" }, {}, {}],
+          fill: "green",
+        },
+        steps: [
+          {
+            explanation:
+              "Find the real length by multiplying the plan length by 200.",
+            latex: "6\\times200=1200\\text{ cm}=12\\text{ m}",
+          },
+          {
+            explanation:
+              "Find the real width the same way.",
+            latex: "4\\times200=800\\text{ cm}=8\\text{ m}",
+          },
+          {
+            explanation:
+              "Area uses the real dimensions, not the plan dimensions.",
+            latex: "A=12\\times8=96\\text{ m}^2",
+          },
+        ],
+        finalAnswerLatex: "96\\text{ m}^2",
       },
     ],
     guidedPractice: [
-      measurementAnswer(
+      scaleAnswer(
         "scale-g1",
         "A scale model uses scale 1:250. A training airplane model is 24 cm long. What is the real airplane length in metres?",
-        "24\times250\text{ cm}",
+        "24\\times250\\text{ cm}",
         "60",
-        ["60 m"]
+        ["60 m"],
+        "The question goes from model to real, so multiply by 250, then convert centimetres to metres.",
+        "Real length = 24 x 250 = 6000 cm. Since 100 cm = 1 m, 6000 cm = 60 m."
       ),
-      measurementAnswer(
+      scaleAnswer(
         "scale-g2",
         "A room is 600 cm long in reality. On a plan with scale 1:100, what is the room length on the drawing in centimetres?",
-        "\frac{600}{100}",
+        "\\frac{600}{100}",
         "6",
-        ["6 cm"]
+        ["6 cm"],
+        "The question goes from real to drawing, so divide by the scale factor.",
+        "Drawing length = 600 / 100 = 6 cm. The room is shown as 6 cm on the plan."
       ),
-      practicalChoice(
+      scaleChoice(
         "scale-g3",
         "A scale on a map is 1:50 000. What does this mean?",
         "B",
@@ -1459,56 +1555,68 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
           "1 cm on the map = 5 m in reality.",
           "1 cm on the map = 5 km in reality.",
         ],
-        "1 cm represents 50 000 cm = 500 m in reality."
+        "Convert 50000 cm into metres by dividing by 100.",
+        "At scale 1:50000, 1 cm on the map represents 50000 cm in reality. Since 50000 cm = 500 m, option B is correct."
       ),
-      measurementAnswer(
+      scaleAnswer(
         "scale-g4",
         "A plan with scale 1:20 shows a bookshelf as 9 cm long. Find the real length of the bookshelf in metres.",
-        "9\\times20\\text{ cm}=180\\text{ cm}",
+        "9\\times20\\text{ cm}",
         "1.8",
-        ["1.8 m", "180 cm"]
+        ["1.8 m", "180 cm"],
+        "Multiply the plan length by 20, then convert centimetres to metres.",
+        "Real length = 9 x 20 = 180 cm. Since 100 cm = 1 m, 180 cm = 1.8 m."
       ),
     ],
     independentPractice: [
-      measurementAnswer(
+      scaleAnswer(
         "scale-i1",
         "A drawing length is 7 cm at scale 1:200. Find the real length in metres.",
-        "7\times200\text{ cm}",
+        "7\\times200\\text{ cm}",
         "14",
-        ["14 m"]
+        ["14 m"],
+        "Drawing to real means multiply by 200, then convert centimetres to metres.",
+        "Real length = 7 x 200 = 1400 cm. Since 1400 cm = 14 m, the real length is 14 m."
       ),
-      measurementAnswer(
+      scaleAnswer(
         "scale-i2",
         "A model car is 15 cm long and the real car is 4.5 m long. What is the scale ratio in the form 1:n?",
-        "\frac{450}{15}",
+        "\\frac{450}{15}",
         "30",
-        ["1:30"]
+        ["1:30"],
+        "Convert the real car length to centimetres, then compare real length to model length.",
+        "4.5 m = 450 cm. The scale factor is 450 / 15 = 30, so the scale ratio is 1:30."
       ),
-      measurementAnswer(
+      scaleAnswer(
         "scale-i3",
-        "A map uses scale 1:10 000. Two towns are 8 cm apart on the map. Find their real distance in kilometres.",
+        "A map uses scale 1:10000. Two towns are 8 cm apart on the map. Find their real distance in kilometres.",
         "8\\times10000\\text{ cm}",
         "0.8",
-        ["0.8 km", "800 m"]
+        ["0.8 km", "800 m"],
+        "Multiply by 10000 to get real centimetres, then convert centimetres to kilometres.",
+        "Real distance = 8 x 10000 = 80000 cm. Since 100000 cm = 1 km, 80000 cm = 0.8 km."
       ),
-      practicalChoice(
+      scaleChoice(
         "scale-i4",
-        "On a floor plan with scale 1:50, a bedroom is 8 cm × 6 cm. What are the real dimensions?",
+        "On a floor plan with scale 1:50, a bedroom is 8 cm x 6 cm. What are the real dimensions?",
         "A",
         [
-          "4 m × 3 m",
-          "400 m × 300 m",
-          "40 cm × 30 cm",
-          "8 m × 6 m",
+          "4 m x 3 m",
+          "400 m x 300 m",
+          "40 cm x 30 cm",
+          "8 m x 6 m",
         ],
-        "Multiply each drawing length by 50: 8 × 50 = 400 cm = 4 m and 6 × 50 = 300 cm = 3 m."
+        "Scale both side lengths separately, then convert centimetres to metres.",
+        "Length: 8 x 50 = 400 cm = 4 m. Width: 6 x 50 = 300 cm = 3 m. The real dimensions are 4 m x 3 m."
       ),
-      measurementAnswer(
+      scaleAnswer(
         "scale-i5",
         "A real window is 1.2 m wide. On a plan with scale 1:40, how wide is the window on the plan in centimetres?",
         "\\frac{120}{40}",
         "3",
-        ["3 cm"]
+        ["3 cm"],
+        "Convert 1.2 m to centimetres first, then divide by 40.",
+        "1.2 m = 120 cm. Drawing width = 120 / 40 = 3 cm."
       ),
     ],
     commonMistakes: [
@@ -1522,86 +1630,115 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
       },
       {
         mistake: "Applying area or volume scale when the question asks for length.",
-        fix: "Length scales directly by n, not by n^2 or n^3, in plan and drawing questions."
+        fix: "Length scales directly by n. Use n^2 only when the final quantity is area."
+      },
+      {
+        mistake: "Treating 1:25000 as a smaller real distance than 1:50000.",
+        fix: "Compare the denominator: at 1:25000, each centimetre represents 25000 cm, so the map is more zoomed in than 1:50000."
       },
     ],
     masteryQuiz: [
-      measurementAnswer(
+      scaleAnswer(
         "scale-m1",
         "A map uses scale 1:25000. A river is drawn 4 cm long on the map. Find the real river length in kilometres.",
-        "4\times25000\text{ cm}",
+        "4\\times25000\\text{ cm}",
         "1",
-        ["1 km"]
+        ["1 km"],
+        "Convert the scaled centimetres to kilometres after multiplying.",
+        "Real length = 4 x 25000 = 100000 cm. Since 100000 cm = 1 km, the river is 1 km long.",
+        3
       ),
-      measurementAnswer(
+      scaleAnswer(
         "scale-m2",
         "A plan uses scale 1:50. A table is 120 cm long in reality. What length does it have on the plan?",
-        "\frac{120}{50}",
+        "\\frac{120}{50}",
         "2.4",
-        ["2.4 cm"]
+        ["2.4 cm"],
+        "Real to plan means divide by the scale factor.",
+        "Drawing length = 120 / 50 = 2.4 cm. The table is drawn 2.4 cm long.",
+        3
       ),
-      measurementAnswer(
+      scaleAnswer(
         "scale-m3",
         "A model house is built at scale 1:100. A wall is 2.8 m long in reality. What is the wall length on the model in centimetres?",
-        "\frac{280}{100}",
+        "\\frac{280}{100}",
         "2.8",
-        ["2.8 cm"]
+        ["2.8 cm"],
+        "Convert metres to centimetres, then divide by 100.",
+        "2.8 m = 280 cm. Model length = 280 / 100 = 2.8 cm.",
+        3
       ),
-      measurementAnswer(
+      scaleAnswer(
         "scale-m4",
-        "A map uses scale 1:250 000. Two cities are 12 cm apart on the map. What is the real distance in kilometres?",
+        "A map uses scale 1:250000. Two cities are 12 cm apart on the map. What is the real distance in kilometres?",
         "12\\times250000\\text{ cm}",
         "30",
-        ["30 km"]
+        ["30 km"],
+        "Multiply first, then use 100000 cm = 1 km.",
+        "Real distance = 12 x 250000 = 3000000 cm. Dividing by 100000 gives 30 km.",
+        3
       ),
-      practicalChoice(
+      scaleChoice(
         "scale-m5",
-        "On a plan with scale 1:80, a pool is shown as 5 cm × 3 cm. What is the real area of the pool?",
+        "On a plan with scale 1:80, a pool is shown as 5 cm x 3 cm. What is the real area of the pool?",
         "A",
         [
-          "9.6 m²",
-          "15 m²",
-          "96 m²",
-          "960 m²",
+          "9.6 m^2",
+          "15 m^2",
+          "96 m^2",
+          "960 m^2",
         ],
-        "Real dimensions: 5×80 = 400 cm = 4 m and 3×80 = 240 cm = 2.4 m. Area = 4 × 2.4 = 9.6 m²."
+        "Find the real length and real width before calculating area.",
+        "Real dimensions are 5 x 80 = 400 cm = 4 m and 3 x 80 = 240 cm = 2.4 m. Area = 4 x 2.4 = 9.6 m^2.",
+        4
       ),
-      measurementAnswer(
+      scaleAnswer(
         "scale-m6",
         "A model train has scale 1:87 (HO scale). The real locomotive is 17.4 m long. How long is the model in centimetres?",
         "\\frac{1740}{87}",
         "20",
-        ["20 cm"]
+        ["20 cm"],
+        "Convert the real locomotive to centimetres and divide by 87.",
+        "17.4 m = 1740 cm. Model length = 1740 / 87 = 20 cm.",
+        4
       ),
-      measurementAnswer(
+      scaleAnswer(
         "scale-m7",
         "A blueprint shows a corridor 4.5 cm wide at scale 1:40. Find the real corridor width in metres.",
         "4.5\\times40\\text{ cm}",
         "1.8",
-        ["1.8 m", "180 cm"]
+        ["1.8 m", "180 cm"],
+        "Blueprint to real means multiply by 40, then convert centimetres to metres.",
+        "Real width = 4.5 x 40 = 180 cm = 1.8 m.",
+        4
       ),
-      practicalChoice(
+      scaleChoice(
         "scale-m8",
-        "A student uses a scale of 1:500 and draws a rectangle 6 cm × 4 cm. What is the real area of the rectangle?",
+        "A student uses a scale of 1:500 and draws a rectangle 6 cm x 4 cm. What is the real area of the rectangle?",
         "B",
         [
-          "120 m²",
-          "600 m²",
-          "24 m²",
-          "6000 m²",
+          "120 m^2",
+          "600 m^2",
+          "24 m^2",
+          "6000 m^2",
         ],
-        "Real dimensions: 6×500 cm = 3000 cm = 30 m; 4×500 cm = 2000 cm = 20 m. Area = 30 × 20 = 600 m²."
+        "Scale both dimensions, convert to metres, then multiply for area.",
+        "Real dimensions are 6 x 500 = 3000 cm = 30 m and 4 x 500 = 2000 cm = 20 m. Area = 30 x 20 = 600 m^2.",
+        5
       ),
-      measurementAnswer(
+      scaleAnswer(
         "scale-m9",
-        "A map at scale 1:20 000 shows a lake that is 3.5 cm × 2 cm. Find the real area of the lake in hectares. (1 ha = 10 000 m²)",
-        "3.5\\times20000\\times2\\times20000\\text{ cm}^2",
+        "A map at scale 1:20000 shows a lake that is 3.5 cm x 2 cm. Find the real area of the lake in hectares. (1 ha = 10000 m^2)",
+        "3.5\\times20000\\text{ cm},\\quad 2\\times20000\\text{ cm}",
         "28",
-        ["28 ha"]
+        ["28 ha", "28 hectares"],
+        "Find the real dimensions in metres first, then convert square metres to hectares.",
+        "Real dimensions: 3.5 x 20000 = 70000 cm = 700 m and 2 x 20000 = 40000 cm = 400 m. Area = 700 x 400 = 280000 m^2. Since 1 ha = 10000 m^2, the area is 28 ha.",
+        5
       ),
-      practicalChoice(
+      scaleChoice(
         "scale-m10",
-        "If a map scale changes from 1:50 000 to 1:25 000, what happens to the map?",
+        "If a map scale changes from 1:50000 to 1:25000, what happens to the map?",
         "A",
         [
           "The map shows less area but in more detail.",
@@ -1609,8 +1746,108 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
           "The map stays the same size but distances are halved.",
           "The scale becomes less accurate.",
         ],
-        "A smaller denominator (1:25 000 vs 1:50 000) means each cm covers half the real distance — the map zooms in and shows more detail over a smaller real area."
+        "Compare how much real distance 1 cm represents under each scale.",
+        "At 1:25000, each centimetre represents half the real distance compared with 1:50000. The map is more zoomed in, so it shows less area but in more detail.",
+        5
       ),
+    ],
+    masteryQuizPool: [
+      scaleAnswer("scale-p1", "A plan has scale 1:25. A bench is drawn 10 cm long. Find its real length in metres.", "10\\times25\\text{ cm}", "2.5", ["2.5 m", "250 cm"], "Multiply by 25 and convert centimetres to metres.", "Real length = 10 x 25 = 250 cm = 2.5 m.", 3),
+      scaleAnswer("scale-p2", "At scale 1:2000, a path is 6 cm long on a map. Find the real distance in metres.", "6\\times2000\\text{ cm}", "120", ["120 m"], "Map to real means multiply by the scale factor.", "Real distance = 6 x 2000 = 12000 cm = 120 m.", 3),
+      scaleAnswer("scale-p3", "A wall is 9 m long in reality. On a 1:75 drawing, find its drawing length in centimetres.", "\\frac{900}{75}", "12", ["12 cm"], "Convert 9 m to centimetres, then divide by 75.", "9 m = 900 cm. Drawing length = 900 / 75 = 12 cm.", 3),
+      scaleAnswer("scale-p4", "A model is 18 cm high. The real tower is 54 m high. Find the scale ratio in the form 1:n.", "\\frac{5400}{18}", "300", ["1:300"], "Use matching units before forming the ratio.", "54 m = 5400 cm. The scale factor is 5400 / 18 = 300, so the scale is 1:300.", 3),
+      scaleChoice("scale-p5", "Which calculation finds the real distance for 5 cm on a 1:100000 map?", "C", ["5 / 100000", "100000 / 5", "5 x 100000", "5 x 100"], "Drawing to real uses multiplication by the denominator.", "At scale 1:100000, real distance in centimetres is 5 x 100000, so option C is correct.", 3),
+      scaleAnswer("scale-p6", "A room is drawn 7 cm wide on a 1:40 plan. Find the real width in metres.", "7\\times40\\text{ cm}", "2.8", ["2.8 m", "280 cm"], "Multiply the drawing width by 40.", "Real width = 7 x 40 = 280 cm = 2.8 m.", 3),
+      scaleAnswer("scale-p7", "A real table is 1.8 m long. On a 1:30 plan, find its plan length in centimetres.", "\\frac{180}{30}", "6", ["6 cm"], "Convert 1.8 m to centimetres and divide by 30.", "1.8 m = 180 cm. Plan length = 180 / 30 = 6 cm.", 3),
+      scaleAnswer("scale-p8", "A map scale is 1:25000. A track is 9 cm on the map. Find the real distance in kilometres.", "9\\times25000\\text{ cm}", "2.25", ["2.25 km", "2250 m"], "After multiplying, convert centimetres to kilometres.", "Real distance = 9 x 25000 = 225000 cm = 2.25 km.", 3),
+      scaleChoice("scale-p9", "A scale of 1:250 is used for a model. Which statement is correct?", "B", ["1 cm real = 250 cm model", "1 cm model = 250 cm real", "250 cm model = 1 m real", "1 cm model = 250 m real"], "The first number refers to the drawing or model.", "Scale 1:250 means 1 unit on the model represents 250 of the same units in reality, so option B is correct.", 3),
+      scaleAnswer("scale-p10", "A real doorway is 90 cm wide. It is drawn as 3 cm wide on a plan. Find the scale ratio 1:n.", "\\frac{90}{3}", "30", ["1:30"], "Divide the real width by the drawing width.", "Scale factor = 90 / 3 = 30, so the plan scale is 1:30.", 3),
+      scaleAnswer("scale-p11", "A rectangular deck is 5 cm by 3 cm on a 1:100 plan. Find the real area in square metres.", "5\\times100\\text{ cm},\\quad 3\\times100\\text{ cm}", "15", ["15 m^2", "15 square metres"], "Find real length and width before multiplying for area.", "Real dimensions are 500 cm = 5 m and 300 cm = 3 m. Area = 5 x 3 = 15 m^2.", 4),
+      scaleAnswer("scale-p12", "A park on a map is 4 cm by 2.5 cm at scale 1:5000. Find the real area in square metres.", "4\\times5000\\text{ cm},\\quad 2.5\\times5000\\text{ cm}", "25000", ["25,000", "25000 m^2"], "Scale each length, convert to metres, then find area.", "Real dimensions are 20000 cm = 200 m and 12500 cm = 125 m. Area = 200 x 125 = 25000 m^2.", 4),
+      scaleAnswer("scale-p13", "A 1:60 kitchen plan shows a cupboard as 1.5 cm deep. Find the real cupboard depth in centimetres.", "1.5\\times60", "90", ["90 cm"], "The answer is already requested in centimetres.", "Real depth = 1.5 x 60 = 90 cm.", 4),
+      scaleAnswer("scale-p14", "A real fence is 48 m long. It must fit on a 16 cm drawing. Find the scale ratio 1:n.", "\\frac{4800}{16}", "300", ["1:300"], "Convert metres to centimetres, then divide by drawing length.", "48 m = 4800 cm. Scale factor = 4800 / 16 = 300, so the scale is 1:300.", 4),
+      scaleChoice("scale-p15", "A 6 cm by 4 cm plan rectangle is drawn at 1:50. Which expression gives the real area in square metres?", "D", ["6 x 4", "(6 x 50) x (4 x 50)", "24 x 50", "3 x 2"], "Convert scaled centimetres to metres before finding area.", "The real dimensions are 6 x 50 = 300 cm = 3 m and 4 x 50 = 200 cm = 2 m, so the real area expression is 3 x 2.", 4),
+      scaleAnswer("scale-p16", "A map distance of 2.8 cm represents 1.4 km in reality. Find the map scale in the form 1:n.", "\\frac{140000}{2.8}", "50000", ["1:50000", "50,000"], "Convert kilometres to centimetres before dividing.", "1.4 km = 140000 cm. Scale factor = 140000 / 2.8 = 50000, so the scale is 1:50000.", 4),
+      scaleAnswer("scale-p17", "A drawing uses scale 1:125. A real beam is 7.5 m long. Find its drawing length in centimetres.", "\\frac{750}{125}", "6", ["6 cm"], "Convert 7.5 m to centimetres, then divide by 125.", "7.5 m = 750 cm. Drawing length = 750 / 125 = 6 cm.", 4),
+      scaleAnswer("scale-p18", "A model boat is 32 cm long at scale 1:45. Find the real boat length in metres.", "32\\times45\\text{ cm}", "14.4", ["14.4 m"], "Multiply by 45, then convert centimetres to metres.", "Real length = 32 x 45 = 1440 cm = 14.4 m.", 4),
+      scaleAnswer("scale-p19", "A square courtyard is drawn with side length 4 cm on a 1:250 plan. Find the real area in square metres.", "4\\times250\\text{ cm}", "100", ["100 m^2"], "Scale the side length first; then square the real side.", "Real side = 4 x 250 = 1000 cm = 10 m. Area = 10 x 10 = 100 m^2.", 4),
+      scaleChoice("scale-p20", "Which scale shows the greatest detail for the same paper size?", "A", ["1:10000", "1:25000", "1:50000", "1:100000"], "The smaller denominator represents a more zoomed-in map.", "1:10000 has the smallest denominator, so each centimetre covers the least real distance and shows the greatest detail.", 4),
+      scaleAnswer("scale-p21", "A wetlands map at scale 1:15000 shows a rectangular study zone 8 cm by 5 cm. Find its real area in hectares. (1 ha = 10000 m^2)", "8\\times15000\\text{ cm},\\quad 5\\times15000\\text{ cm}", "90", ["90 ha", "90 hectares"], "Find real dimensions in metres, then divide square metres by 10000.", "Real dimensions are 120000 cm = 1200 m and 75000 cm = 750 m. Area = 900000 m^2 = 90 ha.", 5),
+      scaleAnswer("scale-p22", "A 1:400 site plan shows a rectangular block as 7.5 cm by 6 cm. The building may cover 45% of the block. Find the maximum building footprint in square metres.", "7.5\\times400\\text{ cm},\\quad 6\\times400\\text{ cm}", "324", ["324 m^2"], "Find the real block area, then take 45%.", "Real dimensions are 30 m by 24 m, so block area = 720 m^2. Maximum footprint = 0.45 x 720 = 324 m^2.", 5),
+      scaleAnswer("scale-p23", "A map has scale 1:80000. A walking route is 11.25 cm on the map and walkers average 4.5 km/h. Find the walking time in hours.", "11.25\\times80000\\text{ cm}", "2", ["2 h", "2 hours"], "Convert the map length to kilometres, then use time = distance / speed.", "Distance = 11.25 x 80000 = 900000 cm = 9 km. Time = 9 / 4.5 = 2 hours.", 5),
+      scaleAnswer("scale-p24", "A model has scale 1:72. Its wing span is 16.25 cm. Find the real wing span in metres.", "16.25\\times72\\text{ cm}", "11.7", ["11.7 m"], "Multiply by 72 and convert centimetres to metres.", "Real wing span = 16.25 x 72 = 1170 cm = 11.7 m.", 5),
+      scaleChoice("scale-p25", "A student finds the area of a 1:200 plan rectangle by multiplying the plan area by 200. What is the error?", "C", ["They should divide by 200.", "They should multiply by 100.", "Area needs the square of the length scale factor.", "There is no error."], "Area has two dimensions, so the length scale acts twice.", "For area, the scale factor is $200^2$, not 200. The student used a length scale factor for an area question.", 5),
+      scaleAnswer("scale-p26", "A proposed garden is 18 m by 12 m in reality. It must be drawn inside a 9 cm by 6 cm rectangle. Find the scale ratio 1:n.", "\\frac{1800}{9}", "200", ["1:200"], "Use either pair of matching sides after converting metres to centimetres.", "18 m = 1800 cm and 1800 / 9 = 200. The other side checks: 12 m = 1200 cm and 1200 / 6 = 200. Scale is 1:200.", 5),
+      scaleAnswer("scale-p27", "A map scale is 1:30000. A rectangular reserve appears as 6 cm by 4 cm. A fence goes around the real reserve. Find the fence length in kilometres.", "6\\times30000\\text{ cm},\\quad 4\\times30000\\text{ cm}", "6", ["6 km"], "Find real length and width, then calculate perimeter.", "Real dimensions are 180000 cm = 1.8 km and 120000 cm = 1.2 km. Perimeter = 2(1.8 + 1.2) = 6 km.", 5),
+      scaleAnswer("scale-p28", "A 1:500 plan is enlarged on a photocopier so every drawing length doubles. Find the new scale ratio 1:n.", "\\frac{500}{2}", "250", ["1:250"], "If the drawing doubles but reality is unchanged, each drawing centimetre represents half as much real distance.", "The original 1 cm represented 500 cm. After enlargement, 2 cm represents 500 cm, so 1 cm represents 250 cm. New scale is 1:250.", 5),
+      scaleAnswer("scale-p29", "A rectangular paddock is 3.6 cm by 2.4 cm on a 1:25000 map. Find the real area in square kilometres.", "3.6\\times25000\\text{ cm},\\quad 2.4\\times25000\\text{ cm}", "0.54", ["0.54 km^2"], "Convert each real dimension to kilometres before finding area.", "Real dimensions are 90000 cm = 0.9 km and 60000 cm = 0.6 km. Area = 0.9 x 0.6 = 0.54 km^2.", 5),
+      scaleChoice("scale-p30", "Two maps show the same town on the same paper size. Map A is 1:20000 and Map B is 1:80000. Which statement is correct?", "B", ["Map B shows four times as much detail.", "Map A is more zoomed in.", "Map A covers four times the real width of Map B.", "Both maps cover the same real area."], "Compare the real distance represented by 1 cm.", "At 1:20000, 1 cm represents less real distance than at 1:80000. Map A is therefore more zoomed in and shows more detail.", 5),
+    ],
+    multiPartPractice: [
+      {
+        id: "scale-mp-1",
+        prompt:
+          "A council site plan uses scale 1:250. A rectangular community garden is shown as 8 cm by 5 cm on the plan.",
+        latex: "\\text{Scale }1:250,\\quad \\text{plan rectangle }8\\text{ cm by }5\\text{ cm}",
+        answer: "20",
+        hint:
+          "Use the scale factor for each length, then use the real dimensions for perimeter and area.",
+        explanation:
+          "Part (a): 8 x 250 = 2000 cm = 20 m. Part (b): 5 x 250 = 1250 cm = 12.5 m, so perimeter = 65 m. Part (c): area = 20 x 12.5 = 250 m^2.",
+        planeShapeDiagram: {
+          description:
+            "Rectangular community garden on a site plan, labelled 8 cm by 5 cm at scale 1:250.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 8, y: 0, rightAngle: true },
+            { x: 8, y: 5, rightAngle: true },
+            { x: 0, y: 5, rightAngle: true },
+          ],
+          edges: [{ label: "8 cm" }, { label: "5 cm" }, {}, {}],
+          fill: "teal",
+        },
+        parts: [
+          {
+            key: "a",
+            label: "(a)",
+            prompt: "Find the real length corresponding to the 8 cm side, in metres.",
+            latex: "8\\times250\\text{ cm}",
+            marks: 1,
+            answer: "20",
+            acceptedAnswers: ["20 m"],
+            hint: "Multiply 8 cm by 250, then convert centimetres to metres.",
+            explanation:
+              "8 x 250 = 2000 cm. Since 100 cm = 1 m, the real length is 20 m.",
+            working: ["8\\times250=2000\\text{ cm}", "2000\\text{ cm}=20\\text{ m}"],
+          },
+          {
+            key: "b",
+            label: "(b)",
+            prompt: "Find the real perimeter of the garden in metres.",
+            latex: "P=2(L+W)",
+            marks: 2,
+            answer: "65",
+            acceptedAnswers: ["65 m"],
+            hint: "Find the real width from the 5 cm side, then use the rectangle perimeter formula.",
+            explanation:
+              "The real width is 5 x 250 = 1250 cm = 12.5 m. Perimeter = 2(20 + 12.5) = 65 m.",
+            working: ["5\\times250=1250\\text{ cm}=12.5\\text{ m}", "P=2(20+12.5)=65\\text{ m}"],
+          },
+          {
+            key: "c",
+            label: "(c)",
+            prompt: "Find the real area of the garden in square metres.",
+            latex: "A=LW",
+            marks: 2,
+            answer: "250",
+            acceptedAnswers: ["250 m^2", "250 square metres"],
+            hint: "Use the real length and real width, not the plan dimensions.",
+            explanation:
+              "Using the real dimensions, area = 20 x 12.5 = 250 m^2.",
+            working: ["A=20\\times12.5", "A=250\\text{ m}^2"],
+          },
+        ],
+      },
     ],
     masteryPassMark: 0.75,
   };
