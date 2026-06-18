@@ -54,7 +54,7 @@ function linearAnswer(
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
   return {
-    ...baseLinearAnswer(id, prompt, latex, answer, acceptedAnswers),
+    ...baseLinearAnswer(id, prompt, "", answer, acceptedAnswers),
     explanation: algebraicRelationshipsFeedback(prompt, answer),
   };
 }
@@ -67,7 +67,7 @@ function moneyAnswer(
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
   return {
-    ...baseMoneyAnswer(id, prompt, latex, answer, acceptedAnswers),
+    ...baseMoneyAnswer(id, prompt, "", answer, acceptedAnswers),
     explanation: algebraicRelationshipsFeedback(prompt, answer),
   };
 }
@@ -93,7 +93,7 @@ function algebraAnswer(
   return {
     id,
     prompt,
-    latex,
+    latex: "",
     answer,
     acceptedAnswers: Array.from(new Set([answer, ...numericFormatVariants(answer), ...acceptedAnswers])),
     hint: "Identify the model type first, then use the feature or calculation that matches the question.",
@@ -113,7 +113,7 @@ function algebraChoice(
   return {
     id,
     prompt,
-    latex: "\\text{Select A, B, C, or D.}",
+    latex: "",
     choices: ["A", "B", "C", "D"].map((label, index) => ({
       label,
       text: choices[index],

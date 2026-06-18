@@ -24,7 +24,7 @@ export const year12Standard2Paper1: ExamPaper = {
           id: "y12s2-p1-q1",
           prompt:
             "$5000 is invested at 4% per annum compounded annually. What is the value after 3 years?",
-          latex: "A = 5000(1.04)^3",
+          latex: "",
           marks: 1,
           difficulty: 3,
           topicSlug: "investment-compound-interest",
@@ -44,7 +44,7 @@ export const year12Standard2Paper1: ExamPaper = {
           id: "y12s2-p1-q2",
           prompt:
             "A closed cylinder has radius 5 cm and height 10 cm. Find its total surface area, to the nearest cm².",
-          latex: "\\text{TSA} = 2\\pi r(r + h)",
+          latex: "",
           marks: 1,
           difficulty: 3,
           topicSlug: "surface-area-prisms-cylinders",
@@ -64,7 +64,7 @@ export const year12Standard2Paper1: ExamPaper = {
           id: "y12s2-p1-q3",
           prompt:
             "In a test with mean 70 and standard deviation 5, a student scored 80. What is their z-score?",
-          latex: "z = \\dfrac{x - \\mu}{\\sigma}",
+          latex: "",
           marks: 1,
           difficulty: 2,
           topicSlug: "normal-distribution-z-scores",
@@ -83,7 +83,7 @@ export const year12Standard2Paper1: ExamPaper = {
           id: "y12s2-p1-q4",
           prompt:
             "A triangle has two sides of length 8 cm and 10 cm with a 30° angle between them. Find its area.",
-          latex: "A = \\tfrac{1}{2}ab\\sin C",
+          latex: "",
           marks: 1,
           difficulty: 3,
           topicSlug: "sine-rule-cosine-rule-area-triangle",
@@ -103,7 +103,7 @@ export const year12Standard2Paper1: ExamPaper = {
           id: "y12s2-p1-q5",
           prompt:
             "A 2000 W heater runs for 3 hours. At $0.30 per kilowatt-hour, what is the cost?",
-          latex: "\\text{cost} = \\text{power (kW)} \\times \\text{time (h)} \\times \\text{rate}",
+          latex: "",
           marks: 1,
           difficulty: 3,
           topicSlug: "energy-consumption-watts-kilowatts",
@@ -129,7 +129,7 @@ export const year12Standard2Paper1: ExamPaper = {
           id: "y12s2-p1-q6",
           prompt:
             "A machine is bought for $24 000 and depreciates by 15% of its value each year (declining balance).",
-          latex: "S = V_0(1 - r)^n",
+          latex: "",
           marks: 3,
           difficulty: 5,
           topicSlug: "straight-line-vs-declining-depreciation",
@@ -170,7 +170,7 @@ export const year12Standard2Paper1: ExamPaper = {
           id: "y12s2-p1-q7",
           prompt:
             "In triangle ABC, side a = 7 cm, side b = 9 cm, and the included angle C = 110°.",
-          latex: "c^2 = a^2 + b^2 - 2ab\\cos C",
+          latex: "",
           marks: 3,
           difficulty: 5,
           topicSlug: "sine-rule-cosine-rule-area-triangle",
@@ -206,7 +206,7 @@ export const year12Standard2Paper1: ExamPaper = {
           id: "y12s2-p1-q8",
           prompt:
             "$2000 is deposited at the end of each year into an account earning 5% per annum, compounded annually, for 3 years.",
-          latex: "FV = a\\left[\\dfrac{(1+r)^n - 1}{r}\\right]",
+          latex: "",
           marks: 3,
           difficulty: 6,
           transfer: true,
@@ -243,7 +243,7 @@ export const year12Standard2Paper1: ExamPaper = {
           id: "y12s2-p1-q9",
           prompt:
             "The masses of bags of flour are normally distributed with mean 60 g and standard deviation 8 g. Use the empirical (68–95–99.7%) rule.",
-          latex: "\\mu = 60,\\quad \\sigma = 8",
+          latex: "",
           marks: 3,
           difficulty: 5,
           topicSlug: "normal-distribution-z-scores",
@@ -288,7 +288,7 @@ export const year12Standard2Paper1: ExamPaper = {
           id: "y12s2-p1-q10",
           prompt:
             "A least-squares regression line for hours studied (x) and test score (y) is $y = 2.5x + 10$.",
-          latex: "y = 2.5x + 10",
+          latex: "",
           marks: 3,
           difficulty: 5,
           topicSlug: "regression-prediction-residuals",

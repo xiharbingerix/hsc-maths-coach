@@ -98,7 +98,7 @@ function moneyAnswer(
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
   return {
-    ...baseMoneyAnswer(id, prompt, latex, answer, acceptedAnswers),
+    ...baseMoneyAnswer(id, prompt, "", answer, acceptedAnswers),
     explanation: financeFeedback(prompt, latex, answer),
   };
 }
@@ -121,7 +121,7 @@ function financeShortAnswer(
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
   return {
-    ...baseFinanceShortAnswer(id, prompt, latex, answer, [...numericFormatVariants(answer), ...acceptedAnswers]),
+    ...baseFinanceShortAnswer(id, prompt, "", answer, [...numericFormatVariants(answer), ...acceptedAnswers]),
     explanation: financeFeedback(prompt, latex, answer),
   };
 }
@@ -2603,4 +2603,3 @@ export function year12Standard2FinanceLessonOverride(
     ],
   };
 }
-

@@ -62,7 +62,7 @@ function financeShortAnswer(
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
   return {
-    ...baseFinanceShortAnswer(id, prompt, latex, answer, [...numericFormatVariants(answer), ...acceptedAnswers]),
+    ...baseFinanceShortAnswer(id, prompt, "", answer, [...numericFormatVariants(answer), ...acceptedAnswers]),
     explanation: statisticsFeedback(prompt, answer),
   };
 }
