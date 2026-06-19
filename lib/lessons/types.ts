@@ -653,6 +653,18 @@ export type Solid3DDiagram = {
     base?: string;
   };
   color?: StatChartColor;
+  /**
+   * Optional drilled / cored hole through the solid — a hollow tube when the
+   * solid is a cylinder, or a bore through the front face of a prism/cube — so
+   * composite "solid with a hole removed" figures draw the cut-out rather than
+   * a solid block. `size` is the hole's relative diameter (0–1 of the solid;
+   * default 0.4).
+   */
+  hole?: {
+    shape: "cylinder" | "rectangular";
+    size?: number;
+    label?: string;
+  };
 };
 
 export type BearingRay = {

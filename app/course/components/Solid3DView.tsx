@@ -84,6 +84,29 @@ export function Solid3DView({
             {lbl((D.x + C.x) / 2, D.y + 15, isCube ? labels.length ?? labels.base : labels.length)}
             {lbl(C.x + 14, (B.y + C.y) / 2, labels.height, "start")}
             {lbl((B.x + B2.x) / 2 + 8, (B.y + B2.y) / 2 - 8, labels.width, "start")}
+            {diagram.hole
+              ? (() => {
+                  const fcx = (A.x + C.x) / 2;
+                  const fcy = (A.y + C.y) / 2;
+                  const s = diagram.hole.size ?? 0.4;
+                  if (diagram.hole.shape === "rectangular") {
+                    const w = fw * s;
+                    const h = fh * s;
+                    return (
+                      <>
+                        <rect x={fcx - w / 2} y={fcy - h / 2} width={w} height={h} fill="#ffffff" stroke={EDGE} strokeWidth={1.6} strokeDasharray="4 3" strokeLinejoin="round" />
+                        {lbl(fcx, fcy, diagram.hole.label)}
+                      </>
+                    );
+                  }
+                  return (
+                    <>
+                      <ellipse cx={fcx} cy={fcy} rx={(fw * s) / 2} ry={(fh * s) / 2} fill="#ffffff" stroke={EDGE} strokeWidth={1.6} strokeDasharray="4 3" />
+                      {lbl(fcx, fcy, diagram.hole.label)}
+                    </>
+                  );
+                })()
+              : null}
           </>
         );
       }
@@ -107,6 +130,24 @@ export function Solid3DView({
             <line x1={cxc} y1={top} x2={cxc + rx} y2={top} {...hidden} />
             {lbl(cxc + rx / 2, top - 6, labels.radius)}
             {lbl(cxc + rx + 12, (top + bot) / 2, labels.height, "start")}
+            {diagram.hole
+              ? (() => {
+                  const s = diagram.hole.size ?? 0.45;
+                  const rxh = rx * s;
+                  const ryh = ry * s;
+                  return (
+                    <>
+                      {/* bore walls + far rim seen through the opening */}
+                      <line x1={cxc - rxh} y1={top} x2={cxc - rxh} y2={bot} {...solid} />
+                      <line x1={cxc + rxh} y1={top} x2={cxc + rxh} y2={bot} {...solid} />
+                      <path d={arc(cxc, bot, rxh, ryh, 180, 360)} {...solid} />
+                      {/* top opening (white so it reads as a hole) */}
+                      <ellipse cx={cxc} cy={top} rx={rxh} ry={ryh} fill="#ffffff" stroke={EDGE} strokeWidth={2} />
+                      {lbl(cxc, top, diagram.hole.label)}
+                    </>
+                  );
+                })()
+              : null}
           </>
         );
       }
