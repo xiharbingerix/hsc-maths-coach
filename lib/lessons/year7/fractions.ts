@@ -89,16 +89,19 @@ const fractionsTypesAndEquivalence: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A fraction represents part of a whole. The bottom number (denominator) tells you how many equal parts the whole is divided into. The top number (numerator) tells you how many of those parts you have. So 3/4 means the whole is cut into 4 equal parts and you have 3 of them.",
-      "A proper fraction has a numerator smaller than the denominator, like 3/4 or 2/5 — the value is less than 1. An improper fraction has a numerator equal to or larger than the denominator, like 7/4 or 9/3 — the value is 1 or more. A mixed numeral combines a whole number with a proper fraction, like 1 and 3/4, and is just another way of writing an improper fraction.",
-      "Two fractions are equivalent when they represent the same amount. You create equivalent fractions by multiplying or dividing both the numerator and denominator by the same non-zero number. For example, 1/2 = 2/4 = 3/6 = 4/8 — the size of the piece changes, but the total amount does not. To simplify a fraction to lowest terms, divide both top and bottom by their highest common factor (HCF).",
-      "The most common error is multiplying only the numerator or only the denominator. You must apply the same operation to both parts. Multiplying 1/2 by 3 on top only gives 3/2, which is a completely different (and larger) value than 1/2.",
+      "A fraction is a way of naming part of a whole. You take something whole — a pizza, a metre, a single unit — cut it into equal pieces, and count how many pieces you have. That count, written over the number of pieces in the whole, is the fraction.",
+      "Picture a chocolate bar snapped into 4 equal pieces. If you take 3 of them, you have three-quarters of the bar, written $\\frac{3}{4}$. The bottom number, the denominator, is 4 because the whole was cut into 4 equal parts. The top number, the numerator, is 3 because you took 3 of those parts. The word 'equal' matters: if the pieces were different sizes, counting them would not tell you how much of the bar you had.",
+      "Fractions come in three shapes. A proper fraction has the numerator smaller than the denominator, like $\\frac{3}{4}$, so its value is less than one whole. An improper fraction has the numerator equal to or larger than the denominator, like $\\frac{7}{4}$, so it is one whole or more. A mixed numeral writes the same amount as a whole number plus a proper fraction, like $1\\tfrac{3}{4}$, which is just $\\frac{7}{4}$ split into one whole bar ($\\frac{4}{4}$) plus three more quarters.",
+      "That last point tells you exactly why a mixed numeral and an improper fraction are interchangeable. To turn $1\\tfrac{3}{4}$ into quarters, count how many quarters are in 1 whole: there are 4, so $1\\times4=4$ quarters, plus the 3 you already have, giving $\\frac{7}{4}$. Going back, divide 7 by 4: it fits once with 3 left over, so $\\frac{7}{4}=1\\tfrac{3}{4}$. The leftover after dividing is what becomes the new numerator — not the original 7.",
+      "Two fractions are equivalent when they name the same amount even though they look different. Cutting each of your 4 pieces in half turns the bar into 8 pieces, and your 3 pieces become 6 of them: $\\frac{3}{4}=\\frac{6}{8}$. Nothing left the bar — you just made more, smaller cuts. That is why multiplying the numerator and the denominator by the same number keeps the value: you scale up how many pieces you have and how many make a whole by the same factor, so the proportion is untouched.",
+      "Running this in reverse is how you simplify. If a fraction's top and bottom share a common factor, you can un-cut those extra slices by dividing both by it. Dividing $\\frac{12}{18}$ by 6 on top and bottom gives $\\frac{2}{3}$, the same amount with the fewest pieces. Use the highest common factor (HCF) so you reach lowest terms in one move.",
+      "Here is the trap to avoid: equivalence only holds when you do the same thing to both numbers. Multiplying only the top of $\\frac{1}{2}$ by 3 gives $\\frac{3}{2}$ — you claimed 3 pieces but still say 2 make a whole, so you have changed the amount entirely. Always scale top and bottom together.",
     ],
     latexBlocks: [
       "\\text{Proper: }\\frac{a}{b}\\text{ where }a < b \\qquad \\text{Improper: }\\frac{a}{b}\\text{ where }a \\geq b",
-      "\\text{Mixed numeral: }1\\tfrac{3}{4}=\\frac{4+3}{4}=\\frac{7}{4}",
+      "\\text{Mixed} \\to \\text{improper: }1\\tfrac{3}{4}=\\frac{1\\times4+3}{4}=\\frac{7}{4}",
       "\\text{Equivalent: }\\frac{1}{2}=\\frac{1\\times3}{2\\times3}=\\frac{3}{6}",
-      "\\text{Simplify: }\\frac{12}{18}\\div\\frac{6}{6}=\\frac{2}{3}",
+      "\\text{Simplify with the HCF: }\\frac{12}{18}=\\frac{12\\div6}{18\\div6}=\\frac{2}{3}",
     ],
   },
   workedExamples: [
@@ -125,10 +128,31 @@ const fractionsTypesAndEquivalence: LessonContent = {
       title: "Simplify a fraction to lowest terms",
       questionLatex: "\\text{Simplify }\\dfrac{18}{24}.",
       steps: [
-        { explanation: "Find the highest common factor of 18 and 24.", latex: "\\text{HCF}(18, 24) = 6" },
-        { explanation: "Divide both numerator and denominator by the HCF.", latex: "\\frac{18 \\div 6}{24 \\div 6} = \\frac{3}{4}" },
+        { explanation: "Find the highest common factor of 18 and 24 so you can simplify in a single step.", latex: "\\text{HCF}(18, 24) = 6" },
+        { explanation: "Divide both numerator and denominator by 6 — the same operation keeps the value unchanged.", latex: "\\frac{18 \\div 6}{24 \\div 6} = \\frac{3}{4}" },
+        { explanation: "Check that 3 and 4 share no common factor, so the fraction is now in lowest terms.", latex: "\\text{HCF}(3,4)=1" },
       ],
       finalAnswerLatex: "\\dfrac{3}{4}",
+    },
+    {
+      title: "Fill a missing number to keep fractions equivalent",
+      questionLatex: "\\text{Find the missing numerator: }\\dfrac{5}{8}=\\dfrac{?}{40}.",
+      steps: [
+        { explanation: "Compare the denominators to find what the bottom was multiplied by.", latex: "40 \\div 8 = 5" },
+        { explanation: "To keep the value the same, multiply the numerator by the same factor of 5.", latex: "5 \\times 5 = 25" },
+        { explanation: "State the equivalent fraction with the new numerator.", latex: "\\frac{5}{8}=\\frac{25}{40}" },
+      ],
+      finalAnswerLatex: "\\dfrac{25}{40}\\text{, so the missing numerator is }25",
+    },
+    {
+      title: "Compare a mixed numeral and an improper fraction",
+      questionLatex: "\\text{Which is larger: }2\\tfrac{3}{5}\\text{ or }\\dfrac{14}{5}?",
+      steps: [
+        { explanation: "Put both into the same form by writing the mixed numeral as fifths.", latex: "2\\tfrac{3}{5}=\\frac{2\\times5+3}{5}=\\frac{13}{5}" },
+        { explanation: "Now both are fifths, so compare the numerators directly.", latex: "13 < 14" },
+        { explanation: "The fraction with the larger numerator is the larger amount.", latex: "\\frac{14}{5} > \\frac{13}{5}=2\\tfrac{3}{5}" },
+      ],
+      finalAnswerLatex: "\\dfrac{14}{5}\\text{ is larger.}",
     },
   ],
   guidedPractice: [
@@ -461,15 +485,17 @@ const comparingOrderingFractions: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "To compare fractions, you need to think about what the denominator tells you. A unit fraction has 1 as its numerator — like 1/2, 1/3, or 1/8. The larger the denominator, the smaller each piece. A pizza cut into 8 slices gives you smaller pieces than a pizza cut into 4 slices. So 1/8 is smaller than 1/4, even though 8 is bigger than 4.",
-      "When fractions have the same denominator, comparing is straightforward: 3/8 and 5/8 can be compared by looking only at the numerators. The fraction with the larger numerator is larger, because both fractions use the same-sized pieces. So 5/8 is larger than 3/8.",
-      "When fractions have different denominators, convert them to a common denominator first. Find the lowest common multiple (LCM) of the denominators, rewrite each fraction with that denominator, then compare the numerators. For example, to compare 2/3 and 3/4, the LCM of 3 and 4 is 12. Convert: 2/3 = 8/12 and 3/4 = 9/12. Since 9/12 > 8/12, we have 3/4 > 2/3.",
-      "When ordering mixed numerals, compare the whole-number parts first. If the whole numbers are the same, compare the fraction parts using the method above.",
+      "Comparing fractions means deciding which one is the bigger amount. With whole numbers this is easy — 8 is more than 5. With fractions you have to be careful, because the size of each piece depends on the denominator, not just on how many pieces you have.",
+      "Start with the simplest case: unit fractions, which have a numerator of 1, like $\\frac{1}{2}$, $\\frac{1}{4}$, $\\frac{1}{8}$. Imagine sharing one cake. Split it between 2 people and each gets a big piece; split the same cake between 8 people and each gets a small sliver. The more people you cut for, the smaller each share. So a bigger denominator makes a smaller piece: $\\frac{1}{8}<\\frac{1}{4}<\\frac{1}{2}$, even though 8 is the biggest number on the page. This is the misconception to watch — a larger denominator does not mean a larger fraction.",
+      "When two fractions already share a denominator, the pieces are the same size, so you just count them. With $\\frac{3}{8}$ and $\\frac{5}{8}$ each piece is one-eighth, and 5 of them beats 3 of them: $\\frac{5}{8}>\\frac{3}{8}$. Comparing numerators only works because the pieces match.",
+      "That observation is the whole strategy for harder comparisons: make the pieces match first. When denominators differ, rewrite both fractions over a common denominator — the lowest common multiple (LCM) of the two denominators is the cleanest choice — then the numerators become directly comparable.",
+      "Take $\\frac{2}{3}$ versus $\\frac{3}{4}$. The LCM of 3 and 4 is 12. Re-cut each into twelfths: $\\frac{2}{3}=\\frac{8}{12}$ (multiply top and bottom by 4) and $\\frac{3}{4}=\\frac{9}{12}$ (multiply by 3). Now both are twelfths, so compare 8 and 9: since $9>8$, $\\frac{3}{4}>\\frac{2}{3}$. Notice why this is valid — rewriting over 12 does not change either amount, it just expresses both in the same-sized pieces so counting is fair.",
+      "To order a whole list, convert every fraction to the common denominator, line up the numerators, and read them off smallest to largest. For mixed numerals, compare the whole-number parts first: $3\\tfrac{1}{5}$ beats $2\\tfrac{9}{10}$ outright because 3 wholes is more than 2 wholes regardless of the fraction. Only when the whole numbers tie do you compare the fraction parts using the common-denominator method.",
     ],
     latexBlocks: [
       "\\text{Unit fractions: larger denominator} \\Rightarrow \\text{smaller fraction} \\quad \\frac{1}{8}<\\frac{1}{4}<\\frac{1}{2}",
       "\\text{Same denominator: compare numerators} \\quad \\frac{3}{8}<\\frac{5}{8}",
-      "\\text{Different denominators: find common denominator} \\quad \\frac{2}{3}=\\frac{8}{12},\\;\\frac{3}{4}=\\frac{9}{12}\\Rightarrow\\frac{3}{4}>\\frac{2}{3}",
+      "\\text{Different denominators: re-cut to a common denominator} \\quad \\frac{2}{3}=\\frac{8}{12},\\;\\frac{3}{4}=\\frac{9}{12}\\Rightarrow\\frac{3}{4}>\\frac{2}{3}",
     ],
   },
   workedExamples: [
@@ -477,8 +503,8 @@ const comparingOrderingFractions: LessonContent = {
       title: "Compare two unit fractions",
       questionLatex: "\\text{Which is larger: }\\dfrac{1}{5}\\text{ or }\\dfrac{1}{7}?",
       steps: [
-        { explanation: "Both are unit fractions with numerator 1. The larger the denominator, the smaller each piece.", latex: "\\text{5 parts are larger pieces than 7 parts}" },
-        { explanation: "Since each fifth is a bigger piece than each seventh, 1/5 is larger.", latex: "\\frac{1}{5} > \\frac{1}{7}" },
+        { explanation: "Both have numerator 1, so picture sharing one whole among that many people.", latex: "\\frac{1}{5}\\text{: split among 5} \\qquad \\frac{1}{7}\\text{: split among 7}" },
+        { explanation: "Splitting among fewer people gives each a bigger share, so the smaller denominator wins.", latex: "5 < 7 \\Rightarrow \\frac{1}{5} > \\frac{1}{7}" },
       ],
       finalAnswerLatex: "\\dfrac{1}{5} > \\dfrac{1}{7}",
     },
@@ -498,10 +524,20 @@ const comparingOrderingFractions: LessonContent = {
       steps: [
         { explanation: "Find the LCD of 4, 3, and 6.", latex: "\\text{LCD} = 12" },
         { explanation: "Convert each fraction to twelfths.", latex: "\\frac{3}{4}=\\frac{9}{12},\\quad\\frac{2}{3}=\\frac{8}{12},\\quad\\frac{5}{6}=\\frac{10}{12}" },
-        { explanation: "Order by numerator: 8 < 9 < 10.", latex: "\\frac{8}{12}<\\frac{9}{12}<\\frac{10}{12}" },
-        { explanation: "Write the answer in the original form.", latex: "\\frac{2}{3}<\\frac{3}{4}<\\frac{5}{6}" },
+        { explanation: "Now the pieces match, so order by numerator: 8 < 9 < 10.", latex: "\\frac{8}{12}<\\frac{9}{12}<\\frac{10}{12}" },
+        { explanation: "Translate back to the original fractions.", latex: "\\frac{2}{3}<\\frac{3}{4}<\\frac{5}{6}" },
       ],
       finalAnswerLatex: "\\dfrac{2}{3} < \\dfrac{3}{4} < \\dfrac{5}{6}",
+    },
+    {
+      title: "Find a fraction between two others",
+      questionLatex: "\\text{Find a fraction that lies between }\\dfrac{1}{3}\\text{ and }\\dfrac{1}{2}.",
+      steps: [
+        { explanation: "Re-cut both into the same pieces using the LCM of 3 and 2.", latex: "\\frac{1}{3}=\\frac{2}{6}, \\quad \\frac{1}{2}=\\frac{3}{6}" },
+        { explanation: "There is no whole numerator strictly between 2 and 3, so cut into smaller pieces by doubling the denominator.", latex: "\\frac{1}{3}=\\frac{4}{12}, \\quad \\frac{1}{2}=\\frac{6}{12}" },
+        { explanation: "Now 5 sits between 4 and 6, so the midpoint is five-twelfths.", latex: "\\frac{4}{12}<\\frac{5}{12}<\\frac{6}{12}" },
+      ],
+      finalAnswerLatex: "\\dfrac{5}{12}\\text{ lies between }\\dfrac{1}{3}\\text{ and }\\dfrac{1}{2}.",
     },
   ],
   guidedPractice: [
@@ -863,14 +899,16 @@ const addingSubtractingFractions: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Adding fractions is like adding slices of a pizza. If you have 2 slices and I give you 3 more slices, and all slices are the same size (say, eighths), you have 5 eighths: 2/8 + 3/8 = 5/8. When the denominators are the same, add only the numerators — the denominator does not change.",
-      "When denominators are different, the slice sizes are different and you cannot add them directly. You first need to cut all pieces to the same size. Find the lowest common denominator (LCD) — the smallest number both denominators divide into evenly — and rewrite each fraction with that denominator. Then add or subtract the numerators.",
-      "With mixed numerals, handle the whole numbers and fraction parts separately. Add the whole numbers, then add the fractions. If the fractions add to more than 1, convert the extra to a whole number and carry it over. When subtracting, sometimes you need to borrow 1 from the whole number part and convert it to a fraction.",
-      "The most common error is adding denominators as well as numerators: 1/4 + 1/4 = 2/8 is wrong. The denominator tells you the size of each piece — that size does not change when you combine pieces. The correct answer is 2/4 = 1/2.",
+      "Adding fractions means combining two parts into one total. As long as the parts are the same size, this is just counting — you are tallying up how many of the same piece you have altogether.",
+      "Picture a pizza cut into eighths. You have 2 of those slices and a friend gives you 3 more: now you have 5 slices, all eighths, so $\\frac{2}{8}+\\frac{3}{8}=\\frac{5}{8}$. You added the slice counts (the numerators) and the slice size (the denominator) stayed eighths the whole time. Subtraction works the same way — take 3 eighths away from 5 and you have 2 eighths left.",
+      "Writing this with symbols: when the denominators match, $\\frac{a}{c}+\\frac{b}{c}=\\frac{a+b}{c}$. Here $a$ and $b$ are the piece counts and $c$ is the shared piece size. You add the tops; the bottom carries through unchanged because the size of a piece is not affected by how many you have.",
+      "This is exactly why you cannot add fractions with different denominators directly — the pieces are different sizes, so counting them together is meaningless, like adding 2 apples and 3 oranges and calling the answer 5 apples. To fix it, re-cut both into the same-sized pieces. Find the lowest common denominator (LCD), the smallest number both denominators divide into, rewrite each fraction over it, and only then add the numerators. For $\\frac{1}{3}+\\frac{1}{4}$ the LCD is 12: $\\frac{1}{3}=\\frac{4}{12}$ and $\\frac{1}{4}=\\frac{3}{12}$, so the total is $\\frac{7}{12}$.",
+      "Mixed numerals split naturally into two jobs. Add the whole numbers, then add the fraction parts using the common-denominator method. If the fraction parts spill over 1 — say they add to $\\frac{17}{12}=1\\tfrac{5}{12}$ — carry that extra whole into the whole-number total. When subtracting and the top fraction is too small, borrow 1 from the whole-number part and turn it into a fraction (one whole is $\\frac{c}{c}$) so you have enough to take from.",
+      "The classic mistake is adding the denominators too: writing $\\frac{1}{4}+\\frac{1}{4}=\\frac{2}{8}$. Look at what that claims — that two quarter-pizzas make an eighth, a smaller piece than you started with, which is nonsense. The denominator names the piece size, and combining pieces never changes their size. The right answer is $\\frac{2}{4}=\\frac{1}{2}$.",
     ],
     latexBlocks: [
-      "\\frac{a}{c}+\\frac{b}{c}=\\frac{a+b}{c} \\qquad \\text{(same denominator)}",
-      "\\frac{1}{3}+\\frac{1}{4}=\\frac{4}{12}+\\frac{3}{12}=\\frac{7}{12} \\qquad \\text{(different denominators, LCD = 12)}",
+      "\\frac{a}{c}+\\frac{b}{c}=\\frac{a+b}{c} \\qquad \\text{(same size: add the counts only)}",
+      "\\frac{1}{3}+\\frac{1}{4}=\\frac{4}{12}+\\frac{3}{12}=\\frac{7}{12} \\qquad \\text{(re-cut to LCD = 12)}",
       "2\\tfrac{1}{3}+1\\tfrac{1}{2}=3+\\frac{2}{6}+\\frac{3}{6}=3\\tfrac{5}{6}",
     ],
   },
@@ -901,10 +939,20 @@ const addingSubtractingFractions: LessonContent = {
       steps: [
         { explanation: "Add the whole numbers together.", latex: "2+1=3" },
         { explanation: "Find the LCD of 4 and 3, then rewrite the fractions.", latex: "\\frac{3}{4}=\\frac{9}{12},\\quad\\frac{2}{3}=\\frac{8}{12}" },
-        { explanation: "Add the fractions.", latex: "\\frac{9}{12}+\\frac{8}{12}=\\frac{17}{12}=1\\tfrac{5}{12}" },
-        { explanation: "Add the extra whole number to the whole-number total.", latex: "3+1\\tfrac{5}{12}=4\\tfrac{5}{12}" },
+        { explanation: "Add the fractions; they spill over 1, so write the result as a mixed numeral.", latex: "\\frac{9}{12}+\\frac{8}{12}=\\frac{17}{12}=1\\tfrac{5}{12}" },
+        { explanation: "Carry the extra whole into the whole-number total.", latex: "3+1\\tfrac{5}{12}=4\\tfrac{5}{12}" },
       ],
       finalAnswerLatex: "4\\tfrac{5}{12}",
+    },
+    {
+      title: "Subtract mixed numerals with borrowing",
+      questionLatex: "\\text{Calculate }4\\tfrac{1}{6}-1\\tfrac{3}{4}.",
+      steps: [
+        { explanation: "Re-cut the fraction parts to the LCD of 6 and 4, which is 12.", latex: "\\frac{1}{6}=\\frac{2}{12}, \\quad \\frac{3}{4}=\\frac{9}{12}" },
+        { explanation: "The top fraction 2/12 is too small to subtract 9/12, so borrow 1 whole from the 4 and add it as twelfths.", latex: "4\\tfrac{2}{12}=3+\\frac{12}{12}+\\frac{2}{12}=3\\tfrac{14}{12}" },
+        { explanation: "Now subtract whole numbers and fractions separately.", latex: "(3-1)+\\left(\\frac{14}{12}-\\frac{9}{12}\\right)=2+\\frac{5}{12}" },
+      ],
+      finalAnswerLatex: "2\\tfrac{5}{12}",
     },
   ],
   guidedPractice: [
@@ -1241,10 +1289,13 @@ const multiplyingDividingFractions: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Multiplying fractions is simpler than adding them — you do not need a common denominator. You just multiply straight across: multiply the numerators together, then multiply the denominators together. For example, 2/3 x 3/4 = (2x3)/(3x4) = 6/12 = 1/2. Think of it as finding a fraction of a fraction — two-thirds of three-quarters.",
-      "Before multiplying, look for common factors to cancel. If a numerator and a denominator (from either fraction) share a factor, divide both by it. This keeps numbers small and avoids having to simplify a large fraction at the end. For example, in 2/3 x 3/4, the 3 in the numerator of the second fraction and the 3 in the denominator of the first cancel: you get 2/1 x 1/4 = 2/4 = 1/2.",
-      "To divide by a fraction, multiply by its reciprocal. The reciprocal of a fraction is formed by flipping it: the reciprocal of 2/3 is 3/2. So 3/4 ÷ 2/3 = 3/4 x 3/2 = 9/8. This works because dividing by a number and multiplying by its reciprocal produce the same result.",
-      "The most common error in division is flipping the wrong fraction. Always flip the second fraction — the one you are dividing by. The first fraction stays unchanged. Never flip both.",
+      "Multiplying a fraction by a fraction answers the question: what is a part of a part? The word 'of' is the key — $\\frac{1}{2}$ of $\\frac{1}{3}$ means take a third and then take half of that.",
+      "Picture a chocolate bar. Shade $\\frac{1}{3}$ of it down one side. Now cut the whole bar the other way into halves and keep only the half that overlaps your shaded third. The piece you are left with is 1 part out of the 6 small rectangles the two cuts made — so $\\frac{1}{2}\\times\\frac{1}{3}=\\frac{1}{6}$. The two cuts crossing each other is why you multiply the denominators: 2 cuts one way times 3 the other way make $2\\times3=6$ small pieces in the whole.",
+      "That picture gives the rule directly. Multiply the numerators to count the overlapping pieces you keep, and multiply the denominators to count how many such pieces fill the whole: $\\frac{a}{b}\\times\\frac{c}{d}=\\frac{a\\times c}{b\\times d}$. Unlike adding, you never need a common denominator, because you are not combining same-sized pieces — you are slicing one piece out of another.",
+      "Before multiplying, cancel any common factor shared by a top and a bottom (from either fraction). This is just simplifying early instead of late: in $\\frac{2}{3}\\times\\frac{3}{4}$ the 3 on top of the second fraction and the 3 on the bottom of the first divide out to 1, leaving $\\frac{2}{1}\\times\\frac{1}{4}=\\frac{2}{4}=\\frac{1}{2}$. The answer is identical to multiplying straight across and simplifying, but the numbers stay small.",
+      "Dividing by a fraction asks: how many of this piece fit into that amount? Think $1\\div\\frac{1}{4}$ — how many quarters fit in 1 whole? Four. Notice that $1\\div\\frac{1}{4}$ gave the same answer as $1\\times\\frac{4}{1}$. Flipping the fraction you divide by and multiplying instead always matches, because dividing by 'one of four equal parts' is the same as taking it four times.",
+      "The flipped fraction is called the reciprocal: swap its numerator and denominator, so the reciprocal of $\\frac{2}{3}$ is $\\frac{3}{2}$. The rule is $\\frac{a}{b}\\div\\frac{c}{d}=\\frac{a}{b}\\times\\frac{d}{c}$. For example $\\frac{3}{4}\\div\\frac{2}{3}=\\frac{3}{4}\\times\\frac{3}{2}=\\frac{9}{8}$.",
+      "The trap in division is flipping the wrong fraction. Only the divisor — the second fraction, the one you are dividing by — gets turned over. The first fraction stays exactly as it is, and you never flip both. Flipping the first as well would answer a completely different question.",
     ],
     latexBlocks: [
       "\\frac{a}{b}\\times\\frac{c}{d}=\\frac{a\\times c}{b\\times d}",
@@ -1280,6 +1331,16 @@ const multiplyingDividingFractions: LessonContent = {
         { explanation: "Find the reciprocal of the second fraction by swapping numerator and denominator.", latex: "\\text{Reciprocal of }\\frac{3}{8}=\\frac{8}{3}" },
         { explanation: "Change the division to multiplication by the reciprocal.", latex: "\\frac{3}{4}\\times\\frac{8}{3}" },
         { explanation: "Cancel 3 from the first numerator and second denominator, and note that 4 and 8 share factor 4.", latex: "\\frac{\\cancel{3}}{\\cancelto{1}{4}}\\times\\frac{\\cancelto{2}{8}}{\\cancel{3}}=\\frac{1}{1}\\times\\frac{2}{1}=2" },
+      ],
+      finalAnswerLatex: "2",
+    },
+    {
+      title: "Divide mixed numerals",
+      questionLatex: "\\text{Calculate }2\\tfrac{1}{2}\\div1\\tfrac{1}{4}.",
+      steps: [
+        { explanation: "The reciprocal rule needs single fractions, so convert each mixed numeral to an improper fraction first.", latex: "2\\tfrac{1}{2}=\\frac{5}{2}, \\quad 1\\tfrac{1}{4}=\\frac{5}{4}" },
+        { explanation: "Flip only the divisor and change division to multiplication.", latex: "\\frac{5}{2}\\times\\frac{4}{5}" },
+        { explanation: "Cancel the common factor 5, then the 2 into the 4.", latex: "\\frac{\\cancel{5}}{\\cancelto{1}{2}}\\times\\frac{\\cancelto{2}{4}}{\\cancel{5}}=\\frac{2}{1}=2" },
       ],
       finalAnswerLatex: "2",
     },
@@ -1617,14 +1678,17 @@ const fractionsDecimalsConversion: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Every fraction can be written as a decimal. To convert, divide the numerator by the denominator. For example, 3/4 means 3 ÷ 4 = 0.75. This is a terminating decimal because the division ends after a finite number of digits.",
-      "Some fractions, when you divide, produce a decimal that goes on forever with a repeating pattern. These are called recurring decimals. For example, 1/3 = 0.333... where the 3 repeats forever. We write a dot above the repeating digit: 0.3 with a dot over the 3. The fraction 1/6 = 0.1666... is written as 0.16 with a dot over the 6.",
-      "To convert a terminating decimal to a fraction, read the decimal as a fraction with a power of 10 in the denominator, then simplify. For example, 0.35 = 35/100. Dividing by the HCF of 35 and 100, which is 5, gives 7/20. Check: 7 ÷ 20 = 0.35.",
-      "Fractions whose denominators (in simplest form) have only 2 and 5 as prime factors always give terminating decimals. Fractions with any other prime factor in the denominator will give recurring decimals. So 1/8 terminates (8 = 2³), but 1/7 recurs (7 is prime and not 2 or 5).",
+      "A fraction and a decimal are two ways of writing the same amount. A fraction names it as 'this many of these pieces'; a decimal names it using tenths, hundredths, thousandths and so on. Every fraction can be rewritten as a decimal, and every terminating decimal can be rewritten as a fraction.",
+      "The link between them is one idea: a fraction bar means divide. The fraction $\\frac{3}{4}$ literally means 3 shared into 4 equal parts, and $3\\div4=0.75$. So to turn any fraction into a decimal, divide the numerator by the denominator. This one ends neatly after two places — that is a terminating decimal.",
+      "Sometimes the division never ends. Try $1\\div3$: you get 0.3, then a remainder of 1 again, then another 3, forever, so $\\frac{1}{3}=0.333\\ldots$. This is a recurring decimal — a digit or block of digits repeats without stopping. We mark the repeating part with a dot above it, writing $\\frac{1}{3}$ as $0.\\overline{3}$ and $\\frac{1}{6}=0.1666\\ldots$ as $0.1\\overline{6}$, with the dot only over the 6 because the 1 does not repeat.",
+      "Whether a fraction terminates or recurs is decided by the denominator's prime factors, and here is why. A terminating decimal is really a fraction over a power of 10 — $0.75=\\frac{75}{100}$. Since $10=2\\times5$, every power of 10 is built only from 2s and 5s. So a fraction can be rewritten over a power of 10 exactly when its simplified denominator contains only 2s and 5s. $\\frac{1}{8}$ terminates because $8=2\\times2\\times2$; $\\frac{1}{7}$ recurs because 7 is neither 2 nor 5, so no power of 10 is ever a multiple of 7 and the division never closes.",
+      "Going the other way, you read a terminating decimal straight off as a fraction over the matching power of 10, then simplify. The number of decimal places tells you the power: two places means hundredths. So $0.35=\\frac{35}{100}$, and dividing top and bottom by the HCF of 5 gives $\\frac{7}{20}$. You can always check by dividing back: $7\\div20=0.35$.",
+      "A common slip is mis-counting the place value. $0.35$ is 35 hundredths, not 35 tenths — the second decimal place is hundredths, so the denominator is 100, not 10. Count the decimal places carefully, because $0.35=\\frac{35}{100}$ but $0.035=\\frac{35}{1000}$, a ten-times-smaller amount.",
     ],
     latexBlocks: [
       "\\frac{a}{b}=a\\div b \\quad \\Rightarrow \\quad \\text{terminating or recurring decimal}",
       "\\frac{1}{3}=0.\\overline{3}\\quad\\frac{1}{6}=0.1\\overline{6}\\quad\\frac{1}{9}=0.\\overline{1}\\quad\\frac{2}{3}=0.\\overline{6}",
+      "\\text{Terminates} \\iff \\text{simplified denominator has only } 2\\text{s and }5\\text{s}",
       "0.35=\\frac{35}{100}=\\frac{7}{20}\\qquad 0.125=\\frac{125}{1000}=\\frac{1}{8}",
     ],
   },
@@ -1657,6 +1721,16 @@ const fractionsDecimalsConversion: LessonContent = {
         { explanation: "Divide both numerator and denominator by 4.", latex: "\\frac{64 \\div 4}{100 \\div 4} = \\frac{16}{25}" },
       ],
       finalAnswerLatex: "\\dfrac{16}{25}",
+    },
+    {
+      title: "Predict terminating or recurring without dividing",
+      questionLatex: "\\text{Will }\\dfrac{7}{40}\\text{ give a terminating or recurring decimal?}",
+      steps: [
+        { explanation: "Check the fraction is in simplest form first, since only the simplified denominator matters.", latex: "\\text{HCF}(7,40)=1 \\Rightarrow \\tfrac{7}{40}\\text{ is already simplest}" },
+        { explanation: "Break the denominator into its prime factors.", latex: "40 = 2 \\times 2 \\times 2 \\times 5" },
+        { explanation: "Only 2s and 5s appear, so it can be written over a power of 10 and terminates. Confirm by dividing.", latex: "7 \\div 40 = 0.175" },
+      ],
+      finalAnswerLatex: "\\text{Terminating: }\\dfrac{7}{40}=0.175",
     },
   ],
   guidedPractice: [
@@ -1979,16 +2053,18 @@ const decimalsOperations: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Adding and subtracting decimals is the same as adding whole numbers — with one extra rule. You must align the decimal points so that tenths line up with tenths, hundredths with hundredths, and so on. Fill any gaps with zeros as placeholders. Then add or subtract column by column, carrying or borrowing as usual.",
-      "To multiply decimals, ignore the decimal points at first and multiply as if both numbers are whole numbers. Count the total number of decimal places in both numbers you multiplied. That is how many decimal places to put in the answer, counting from the right. For example, 2.4 x 1.3: multiply 24 x 13 = 312. Both numbers had 1 decimal place each, so the answer has 2 decimal places: 3.12.",
-      "To divide a decimal by a whole number, set up the division normally and bring the decimal point straight up into the answer. To divide by a decimal, convert the divisor to a whole number by multiplying both numbers by the same power of 10. For example, 4.8 ÷ 0.6: multiply both by 10 to get 48 ÷ 6 = 8.",
-      "To round to a given number of decimal places, look at the digit immediately after the required place. If it is 5 or more, round up the last kept digit by 1. If it is less than 5, leave the last kept digit unchanged. For example, 3.476 rounded to 2 decimal places: the third decimal is 6 (≥ 5), so round up to 3.48.",
+      "A decimal is just a fraction written in disguise — every digit after the point names tenths, hundredths, thousandths, and so on. The four operations all come back to one idea: only quantities of the same size can be combined directly, so most of the work is making the place values line up.",
+      "For adding and subtracting, that means aligning the decimal points so tenths sit under tenths and hundredths under hundredths. Then you add or subtract column by column exactly like whole numbers. The reason the points must line up is that adding 3 tenths to 5 hundredths makes no sense as a single column — they are different-sized pieces. Filling a gap with a zero, writing 7.8 as 7.80, does not change the value (zero hundredths) but keeps every column honest.",
+      "Multiplying looks different because you do not line up the points — you ignore them at first, multiply as whole numbers, then put the point back. Here is why that works: $2.4\\times1.3$ is really $\\frac{24}{10}\\times\\frac{13}{10}=\\frac{24\\times13}{100}=\\frac{312}{100}=3.12$. Each number contributed one factor of 10 to the denominator, so the product is over 100 — which is why you place 2 decimal places in the answer. The rule 'add up the decimal places' is just counting those hidden tens.",
+      "Dividing by a whole number keeps the point where it is: bring it straight up into the answer, since you are sharing the same-sized pieces into equal groups. Dividing by a decimal is harder, so you turn it into the easy case. Multiply both numbers by the same power of 10 to make the divisor whole — this is allowed because scaling both parts of a division by 10 leaves the quotient unchanged, just as $\\frac{48}{6}$ equals $\\frac{4.8}{0.6}$. So $4.8\\div0.6$ becomes $48\\div6=8$.",
+      "Rounding answers the question: which is the nearest decimal with the number of places I want? Look only at the first digit you are dropping. If it is 5 or more, the true value sits in the top half of the gap, so round the last kept digit up; if it is less than 5, it sits in the bottom half, so leave the kept digit alone. Rounding 3.476 to 2 places: the dropped digit is 6, which is $\\geq5$, so 3.47 rounds up to 3.48.",
+      "Two slips to avoid. First, do not line up the right-hand ends of decimals when adding — line up the points, or you will add tenths to hundredths. Second, when rounding, judge only by the single next digit, not by a chain of them: 3.4449 to 1 place is 3.4, because the deciding digit is the 4 in the hundredths place, even though later digits look large.",
     ],
     latexBlocks: [
       "\\text{Add/subtract: align decimal points, then calculate column by column}",
       "2.4\\times1.3:\\quad 24\\times13=312,\\quad\\text{2 d.p.}\\Rightarrow 3.12",
       "4.8\\div0.6=\\frac{4.8\\times10}{0.6\\times10}=\\frac{48}{6}=8",
-      "\\text{Round 3.476 to 2 d.p.: third digit is 6}\\geq 5\\Rightarrow3.48",
+      "\\text{Round 3.476 to 2 d.p.: next digit is 6}\\geq 5\\Rightarrow3.48",
     ],
   },
   workedExamples: [
@@ -2019,6 +2095,16 @@ const decimalsOperations: LessonContent = {
         { explanation: "Since the third decimal digit 8 is greater than or equal to 5, round the second decimal place up by 1.", latex: "5.73\\rightarrow5.74" },
       ],
       finalAnswerLatex: "5.74",
+    },
+    {
+      title: "Divide by a decimal in a money context",
+      questionLatex: "\\text{Ribbon costs }\\$0.75\\text{ per metre. How many metres can you buy for }\\$9.60?",
+      steps: [
+        { explanation: "Set up the division of total cost by cost per metre.", latex: "9.60 \\div 0.75" },
+        { explanation: "Make the divisor a whole number by multiplying both numbers by 100.", latex: "\\frac{9.60 \\times 100}{0.75 \\times 100}=\\frac{960}{75}" },
+        { explanation: "Carry out the whole-number division.", latex: "960 \\div 75 = 12.8" },
+      ],
+      finalAnswerLatex: "12.8\\text{ metres of ribbon}",
     },
   ],
   guidedPractice: [

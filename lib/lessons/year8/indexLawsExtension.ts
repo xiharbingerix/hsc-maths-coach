@@ -109,16 +109,17 @@ const negativeIndices: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "You already know that $2^3 = 8$ and $2^2 = 4$ and $2^1 = 2$. Notice that each step divides by 2. Continuing the pattern: $2^0 = 1$, then $2^{-1} = \\frac{1}{2}$, then $2^{-2} = \\frac{1}{4}$. Negative exponents extend the pattern into reciprocals.",
-      "The negative index law states: $a^{-n} = \\frac{1}{a^n}$ for any non-zero base $a$. So $2^{-3} = \\frac{1}{2^3} = \\frac{1}{8}$. The negative sign means 'take the reciprocal', not 'make the number negative'. The result $\\frac{1}{8}$ is still positive.",
-      "You can also move a factor with a negative index between numerator and denominator: $\\frac{a^{-n}}{1} = \\frac{1}{a^n}$ and $\\frac{1}{a^{-n}} = a^n$. This is very useful when simplifying expressions. For example, $\\frac{3^{-2}}{1} = \\frac{1}{9}$.",
-      "When combining index laws with negative exponents, the rules work exactly the same way. For example, $a^3 \\times a^{-5} = a^{3+(-5)} = a^{-2} = \\frac{1}{a^2}$. A common mistake is thinking $3^{-2} = -9$ — remember that the negative is in the exponent, not the result.",
-      "To convert $\\frac{1}{5^3}$ back to index form, write it as $5^{-3}$. Being fluent in both directions — index form to fraction, and fraction to index form — is essential for scientific notation and algebraic simplification.",
+      "An index (or power) is just a shorthand for repeated multiplication: $2^3$ means $2 \\times 2 \\times 2 = 8$. So far the index has always been a positive whole number, telling you how many copies of the base to multiply. A negative index is a way of asking the opposite question — instead of multiplying, what happens when we keep dividing?",
+      "Look at what happens as you step the index down by one, each time. $2^3 = 8$, $2^2 = 4$, $2^1 = 2$. Each step from one power to the next divides the result by 2. There is no reason to stop the pattern. Keep dividing by 2 and you get $2^0 = 1$, then the next step gives $\\frac{1}{2}$, then $\\frac{1}{4}$, then $\\frac{1}{8}$.",
+      "Those new values are exactly what we label $2^{-1}, 2^{-2}, 2^{-3}$. In general we write the negative index law as $a^{-n} = \\frac{1}{a^n}$, valid for any non-zero base $a$. The base must not be zero, because you cannot divide by zero. So $2^{-3} = \\frac{1}{2^3} = \\frac{1}{8}$.",
+      "Here is why this is forced on us, not just a handy convention. The division law says $\\frac{a^m}{a^n} = a^{m-n}$ — you subtract the indices. Apply it to $\\frac{a^3}{a^5}$: the index becomes $3 - 5 = -2$, so the answer is $a^{-2}$. But the same fraction cancels by hand to $\\frac{1}{a^2}$, because three factors of $a$ on top cancel three on the bottom and leave two factors on the bottom. The only way for $a^{-2}$ and $\\frac{1}{a^2}$ to be the same number is if a negative index means a reciprocal. That is the derivation.",
+      "This gives a useful move: a factor can hop between the top and bottom of a fraction by flipping the sign of its index. Going up, $\\frac{1}{a^{-n}} = a^n$; going down, $a^{-n} = \\frac{1}{a^n}$. For example $\\frac{1}{3^{-2}} = 3^2 = 9$. The index laws you already know still apply unchanged: $a^3 \\times a^{-5} = a^{3+(-5)} = a^{-2} = \\frac{1}{a^2}$.",
+      "Watch the most common trap: the minus sign lives in the exponent, not in the answer. $3^{-2}$ is not $-9$. It means $\\frac{1}{3^2} = \\frac{1}{9}$, a small positive number. A negative index never makes a value negative — it makes it a reciprocal, which is smaller than 1 when the base is bigger than 1. This idea powers scientific notation, where tiny quantities like $10^{-9}$ metres (a nanometre) are written compactly using exactly this law.",
     ],
     latexBlocks: [
       "a^{-n} = \\frac{1}{a^n} \\quad (a \\neq 0)",
+      "\\frac{a^m}{a^n} = a^{m-n} \\;\\Rightarrow\\; \\frac{a^3}{a^5} = a^{-2} = \\frac{1}{a^2}",
       "\\frac{1}{a^{-n}} = a^n",
-      "a^m \\times a^{-n} = a^{m-n}",
     ],
   },
   workedExamples: [
@@ -126,17 +127,17 @@ const negativeIndices: LessonContent = {
       title: "Evaluate a negative index",
       questionLatex: "\\text{Evaluate } 2^{-4}.",
       steps: [
-        { explanation: "Apply the negative index law: take the reciprocal of the positive power.", latex: "2^{-4} = \\frac{1}{2^4}" },
-        { explanation: "Evaluate the denominator.", latex: "2^4 = 16" },
-        { explanation: "Write the final answer.", latex: "2^{-4} = \\frac{1}{16}" },
+        { explanation: "The negative index means take the reciprocal, so flip to a fraction over the positive power.", latex: "2^{-4} = \\frac{1}{2^4}" },
+        { explanation: "Evaluate the denominator as repeated multiplication.", latex: "2^4 = 2 \\times 2 \\times 2 \\times 2 = 16" },
+        { explanation: "Write the final value, which is a positive fraction, not a negative number.", latex: "2^{-4} = \\frac{1}{16}" },
       ],
       finalAnswerLatex: "\\frac{1}{16}",
     } as WorkedExample,
     {
-      title: "Convert fraction to negative index form",
+      title: "Convert a fraction to negative index form",
       questionLatex: "\\text{Write } \\frac{1}{3^5} \\text{ using a negative index.}",
       steps: [
-        { explanation: "Recognise that a fraction $\\frac{1}{a^n}$ equals $a^{-n}$.", latex: "\\frac{1}{3^5} = 3^{-5}" },
+        { explanation: "A unit fraction with a power on the bottom is a negative index, by reversing the law $a^{-n} = \\frac{1}{a^n}$.", latex: "\\frac{1}{3^5} = 3^{-5}" },
       ],
       finalAnswerLatex: "3^{-5}",
     } as WorkedExample,
@@ -144,10 +145,21 @@ const negativeIndices: LessonContent = {
       title: "Simplify using index laws with negative exponents",
       questionLatex: "\\text{Simplify } a^5 \\times a^{-3}.",
       steps: [
-        { explanation: "Add the indices using the multiplication law.", latex: "a^5 \\times a^{-3} = a^{5 + (-3)}" },
-        { explanation: "Simplify the exponent.", latex: "a^{5-3} = a^2" },
+        { explanation: "Multiplying powers of the same base means adding the indices — the rule is identical with a negative index.", latex: "a^5 \\times a^{-3} = a^{5 + (-3)}" },
+        { explanation: "Combine the indices; the result is positive, so no reciprocal is needed.", latex: "a^{5-3} = a^2" },
       ],
       finalAnswerLatex: "a^2",
+    } as WorkedExample,
+    {
+      title: "Combine the laws with a negative result (harder)",
+      questionLatex: "\\text{Simplify } \\frac{(a^2)^{-3} \\times a^{5}}{a^{2}} \\text{ and write with a positive index.}",
+      steps: [
+        { explanation: "Apply the power-of-a-power rule first: multiply the indices inside the bracket.", latex: "(a^2)^{-3} = a^{2 \\times (-3)} = a^{-6}" },
+        { explanation: "Multiply the two top factors by adding their indices.", latex: "a^{-6} \\times a^{5} = a^{-6+5} = a^{-1}" },
+        { explanation: "Divide by the bottom factor by subtracting its index.", latex: "\\frac{a^{-1}}{a^{2}} = a^{-1-2} = a^{-3}" },
+        { explanation: "Rewrite the negative index as a reciprocal to give a positive index.", latex: "a^{-3} = \\frac{1}{a^3}" },
+      ],
+      finalAnswerLatex: "\\frac{1}{a^3}",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -470,16 +482,17 @@ const scientificNotationLarge: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Scientists regularly work with very large numbers — the distance from Earth to the Sun is about 150 000 000 000 metres. Writing and comparing such numbers in full is error-prone. Scientific notation compresses them into a neat product: a number between 1 and 10 multiplied by a power of 10.",
-      "The rule is $a \\times 10^n$ where $1 \\leq a < 10$. The coefficient $a$ must be at least 1 but strictly less than 10 — it always has exactly one non-zero digit before the decimal point. The exponent $n$ tells you how many places the decimal point moved to the left to create $a$. For example, $6\\,400\\,000 = 6.4 \\times 10^6$ because the decimal moves 6 places.",
-      "To convert back to standard form, multiply by the power of 10 — which means moving the decimal point $n$ places to the right. So $3.72 \\times 10^5 = 372\\,000$.",
-      "A common mistake is writing $15 \\times 10^4$ instead of $1.5 \\times 10^5$. The coefficient must be less than 10 — if it is 10 or more, adjust by increasing the exponent. Always check: is $a$ between 1 and 10 (not including 10)?",
-      "To order numbers in scientific notation, compare the exponents first. The larger the exponent, the larger the number. If two numbers have the same exponent, compare the coefficients.",
+      "Scientists regularly meet enormous numbers — the distance from Earth to the Sun is about 150 000 000 000 metres. Writing all those zeros out is slow and easy to get wrong: miscount the zeros and your answer is off by a factor of ten. Scientific notation is a compact way of writing such numbers so the size is obvious at a glance.",
+      "The idea rests on place value. In our number system, sliding a digit one column to the left multiplies its value by 10, and each extra zero on a round number is another multiplication by 10. So $1\\,000\\,000$ is just six multiplications by 10, which we write as $10^6$. A power of 10 is nothing more than a 1 followed by that many zeros: $10^3 = 1000$, $10^6 = 1\\,000\\,000$. The exponent counts the zeros.",
+      "So instead of writing all the digits, we pull out the leading digits as a number between 1 and 10, and record the size separately as a power of 10. The standard form is $a \\times 10^n$, where the coefficient $a$ satisfies $1 \\leq a < 10$ — exactly one non-zero digit sits in front of the decimal point — and $n$ is a positive whole number. For example, $6\\,400\\,000 = 6.4 \\times 10^6$.",
+      "Why is the exponent 6 there? Because $6.4 \\times 10^6 = 6.4 \\times 1\\,000\\,000$, and multiplying $6.4$ by a million slides its decimal point six columns to the right, giving $6\\,400\\,000$. So the exponent is simply the number of places the decimal point must move. To build the notation, you move the decimal the other way — from after the last digit back to just behind the first digit — and count the places: in $6\\,400\\,000$ that is 6 places, so $n = 6$.",
+      "Converting back to standard form reverses the move: multiply by $10^n$ by sliding the decimal point $n$ places to the right, padding with zeros as needed. So $3.72 \\times 10^5 = 372\\,000$ (decimal moved 5 places). To compare two numbers in this form, check the exponents first — a bigger power of 10 always wins, no matter the coefficient. Only if the exponents tie do you compare the coefficients.",
+      "The most common slip is writing something like $15 \\times 10^4$. That is a correct value, but it is not in standard form, because the coefficient 15 is not below 10. Fix it by sliding the decimal one place left in the coefficient (dividing it by 10) and bumping the exponent up by one to compensate: $15 \\times 10^4 = 1.5 \\times 10^5$. The two factors trade off, so the overall number is unchanged — always check that $a$ lands between 1 and 10. Scientific notation is the everyday language for distances in astronomy, populations, and national budgets, precisely because it makes huge quantities easy to read and to scale.",
     ],
     latexBlocks: [
       "a \\times 10^n, \\quad 1 \\leq a < 10, \\quad n \\in \\mathbb{Z}^+",
-      "6\\,400\\,000 = 6.4 \\times 10^6",
-      "3.72 \\times 10^5 = 372\\,000",
+      "10^6 = 1\\,000\\,000 \\quad\\text{(the exponent counts the zeros)}",
+      "6\\,400\\,000 = 6.4 \\times 10^6, \\qquad 3.72 \\times 10^5 = 372\\,000",
     ],
   },
   workedExamples: [
@@ -487,8 +500,9 @@ const scientificNotationLarge: LessonContent = {
       title: "Write a large number in scientific notation",
       questionLatex: "\\text{Write } 45\\,300\\,000 \\text{ in scientific notation.}",
       steps: [
-        { explanation: "Place the decimal point after the first significant digit.", latex: "4.53\\ldots" },
-        { explanation: "Count how many places the decimal moved from the original position.", latex: "45\\,300\\,000 \\to 4.53 \\times 10^7 \\quad (7 \\text{ places})" },
+        { explanation: "Place the decimal point just after the first significant digit to build a coefficient between 1 and 10.", latex: "45\\,300\\,000 \\to 4.53" },
+        { explanation: "Count how many places the decimal moved from its original position at the end of the number.", latex: "45\\,300\\,000. \\to 4.53 \\quad (7 \\text{ places left})" },
+        { explanation: "The number of places is the exponent on 10.", latex: "45\\,300\\,000 = 4.53 \\times 10^7" },
       ],
       finalAnswerLatex: "4.53 \\times 10^7",
     } as WorkedExample,
@@ -496,7 +510,8 @@ const scientificNotationLarge: LessonContent = {
       title: "Convert scientific notation to standard form",
       questionLatex: "\\text{Write } 2.6 \\times 10^8 \\text{ in standard form.}",
       steps: [
-        { explanation: "Move the decimal point 8 places to the right, filling with zeros.", latex: "2.6 \\times 10^8 = 260\\,000\\,000" },
+        { explanation: "Multiplying by $10^8$ slides the decimal point 8 places to the right.", latex: "2.6 \\times 10^8: \\text{ move the decimal 8 places right}" },
+        { explanation: "Fill the empty columns with zeros to complete the number.", latex: "2.6 \\times 10^8 = 260\\,000\\,000" },
       ],
       finalAnswerLatex: "260\\,000\\,000",
     } as WorkedExample,
@@ -504,10 +519,20 @@ const scientificNotationLarge: LessonContent = {
       title: "Order large numbers in scientific notation",
       questionLatex: "\\text{Arrange in ascending order: } 3.1 \\times 10^6,\\; 8.2 \\times 10^4,\\; 5.0 \\times 10^6.",
       steps: [
-        { explanation: "Compare exponents first. $10^4 < 10^6$, so $8.2 \\times 10^4$ is smallest.", latex: "8.2 \\times 10^4 \\approx 82\\,000" },
-        { explanation: "Both remaining numbers have exponent 6; compare coefficients: $3.1 < 5.0$.", latex: "3.1 \\times 10^6 < 5.0 \\times 10^6" },
+        { explanation: "Compare exponents first; the smallest power of 10 gives the smallest number regardless of coefficient.", latex: "10^4 < 10^6, \\text{ so } 8.2 \\times 10^4 \\approx 82\\,000 \\text{ is smallest}" },
+        { explanation: "The two remaining numbers share exponent 6, so compare their coefficients.", latex: "3.1 < 5.0 \\;\\Rightarrow\\; 3.1 \\times 10^6 < 5.0 \\times 10^6" },
       ],
       finalAnswerLatex: "8.2 \\times 10^4 < 3.1 \\times 10^6 < 5.0 \\times 10^6",
+    } as WorkedExample,
+    {
+      title: "Build standard form from a worded quantity (harder)",
+      questionLatex: "\\text{A bank reports its assets as } 28\\,500 \\text{ million dollars. Write this exact figure in scientific notation.}",
+      steps: [
+        { explanation: "First write the full number: 28 500 million is 28 500 times one million.", latex: "28\\,500 \\times 1\\,000\\,000 = 28\\,500\\,000\\,000" },
+        { explanation: "Place the decimal after the first digit and count the places it moves from the end.", latex: "28\\,500\\,000\\,000. \\to 2.85 \\quad (10 \\text{ places left})" },
+        { explanation: "Write the coefficient times the matching power of 10, checking the coefficient is between 1 and 10.", latex: "= 2.85 \\times 10^{10}" },
+      ],
+      finalAnswerLatex: "2.85 \\times 10^{10} \\text{ dollars}",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -842,16 +867,17 @@ const scientificNotationSmall: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Just as large numbers use positive exponents, small decimals use negative exponents. Recall that $10^{-1} = 0.1$, $10^{-2} = 0.01$, $10^{-3} = 0.001$, and so on. Each negative step moves the decimal one further to the left.",
-      "To write a small number like $0.0034$ in scientific notation, move the decimal point to the right until you have a number between 1 and 10. Here: $0.0034 \\to 3.4$, and the decimal moved 3 places to the right, so the exponent is $-3$: $0.0034 = 3.4 \\times 10^{-3}$.",
-      "To convert back, move the decimal point to the left by the size of the negative exponent. $5.6 \\times 10^{-4}$: move 4 places left to get $0.00056$.",
-      "When ordering a mix of large and small numbers in scientific notation, a positive exponent always beats a negative one. Between two numbers with the same exponent (both negative), the less negative exponent is larger. For example, $10^{-2} > 10^{-5}$.",
-      "A common error is writing $0.0034 = 3.4 \\times 10^3$ with a positive exponent. Because the original number is less than 1, the exponent must be negative. A quick check: multiplying $3.4 \\times 10^3 = 3400$, which is nothing like $0.0034$.",
+      "Large numbers used positive powers of 10. Very small numbers — the width of a virus, the wavelength of light — use negative powers of 10 instead. The whole method is the same; only the sign of the exponent changes, and understanding why turns the rule from something to memorise into something obvious.",
+      "Start from the negative index law you have already met: $10^{-n} = \\frac{1}{10^n}$. So $10^{-1} = \\frac{1}{10} = 0.1$, $10^{-2} = \\frac{1}{100} = 0.01$, and $10^{-3} = \\frac{1}{1000} = 0.001$. Notice the pattern: the exponent's size equals the number of decimal places, and each step more negative slides the single non-zero digit one column further to the right of the decimal point. A negative power of 10 is a fraction, which is exactly why it produces a number smaller than 1.",
+      "To write a small number like $0.0034$ in scientific notation, slide the decimal point to the right until exactly one non-zero digit sits in front of it — here $0.0034 \\to 3.4$. The decimal moved 3 places. Moving it right multiplied the number by $10^3$, so to keep the value unchanged we must divide by $10^3$, that is, multiply by $10^{-3}$. Hence $0.0034 = 3.4 \\times 10^{-3}$. The exponent is negative because the original number was less than 1.",
+      "Converting back reverses the move: a negative exponent says slide the decimal that many places to the left, inserting leading zeros as needed. For $5.6 \\times 10^{-4}$, move 4 places left to get $0.00056$.",
+      "Ordering a mix of large and small values follows one rule: compare the exponents first. A positive exponent always beats a negative one. Between two negative exponents, the less negative one is larger, because it is a less extreme fraction — $10^{-2} = 0.01$ is much bigger than $10^{-5} = 0.00001$. Only when the exponents match do you compare coefficients.",
+      "The most common error is dropping the minus sign and writing $0.0034 = 3.4 \\times 10^3$. Always sanity-check by converting back: $3.4 \\times 10^3 = 3400$, which is enormous, nothing like the tiny $0.0034$ you started with. Since the original is below 1, the exponent must be negative. This is the standard way scientists record microscopic measurements — a hydrogen atom is about $1.1 \\times 10^{-10}$ metres across — and the negative exponent is what tells you the quantity is small, never that it is below zero.",
     ],
     latexBlocks: [
+      "10^{-n} = \\frac{1}{10^n} \\quad\\Rightarrow\\quad 10^{-3} = \\frac{1}{1000} = 0.001",
       "0.0034 = 3.4 \\times 10^{-3}",
       "5.6 \\times 10^{-4} = 0.00056",
-      "10^{-n} = \\frac{1}{10^n}",
     ],
   },
   workedExamples: [
@@ -859,8 +885,8 @@ const scientificNotationSmall: LessonContent = {
       title: "Write a small decimal in scientific notation",
       questionLatex: "\\text{Write } 0.000072 \\text{ in scientific notation.}",
       steps: [
-        { explanation: "Move the decimal right until the number is between 1 and 10.", latex: "0.000072 \\to 7.2 \\quad (\\text{moved 5 places right})" },
-        { explanation: "Since the number is less than 1 and the decimal moved right, the exponent is negative.", latex: "0.000072 = 7.2 \\times 10^{-5}" },
+        { explanation: "Slide the decimal right until exactly one non-zero digit is in front of it.", latex: "0.000072 \\to 7.2 \\quad (\\text{moved 5 places right})" },
+        { explanation: "Moving right multiplied by $10^5$, so multiply by $10^{-5}$ to keep the value the same; the number is below 1, so the exponent is negative.", latex: "0.000072 = 7.2 \\times 10^{-5}" },
       ],
       finalAnswerLatex: "7.2 \\times 10^{-5}",
     } as WorkedExample,
@@ -868,8 +894,8 @@ const scientificNotationSmall: LessonContent = {
       title: "Convert to decimal form",
       questionLatex: "\\text{Write } 4.3 \\times 10^{-6} \\text{ as a decimal.}",
       steps: [
-        { explanation: "A negative exponent means move the decimal to the left.", latex: "4.3 \\times 10^{-6}: \\text{ move 6 places left}" },
-        { explanation: "Insert leading zeros as needed.", latex: "4.3 \\times 10^{-6} = 0.0000043" },
+        { explanation: "A negative exponent of 6 means slide the decimal 6 places to the left.", latex: "4.3 \\times 10^{-6}: \\text{ move the decimal 6 places left}" },
+        { explanation: "Insert leading zeros to fill the empty places before the 4.", latex: "4.3 \\times 10^{-6} = 0.0000043" },
       ],
       finalAnswerLatex: "0.0000043",
     } as WorkedExample,
@@ -877,10 +903,20 @@ const scientificNotationSmall: LessonContent = {
       title: "Order a mix of values in scientific notation",
       questionLatex: "\\text{Order from smallest to largest: } 3.0 \\times 10^{-3},\\; 2.5 \\times 10^{2},\\; 8.0 \\times 10^{-5}.",
       steps: [
-        { explanation: "Convert each to standard form to compare.", latex: "8.0 \\times 10^{-5} = 0.00008, \\quad 3.0 \\times 10^{-3} = 0.003, \\quad 2.5 \\times 10^2 = 250" },
-        { explanation: "Arrange from smallest to largest.", latex: "0.00008 < 0.003 < 250" },
+        { explanation: "Convert each to a plain decimal so the sizes can be compared directly.", latex: "8.0 \\times 10^{-5} = 0.00008, \\quad 3.0 \\times 10^{-3} = 0.003, \\quad 2.5 \\times 10^2 = 250" },
+        { explanation: "The most negative exponent is smallest; the positive exponent is largest.", latex: "0.00008 < 0.003 < 250" },
       ],
       finalAnswerLatex: "8.0 \\times 10^{-5} < 3.0 \\times 10^{-3} < 2.5 \\times 10^{2}",
+    } as WorkedExample,
+    {
+      title: "Tiny measurement with a leading inner zero (harder)",
+      questionLatex: "\\text{A signal lasts } 0.000\\,000\\,405 \\text{ seconds. Write this in scientific notation.}",
+      steps: [
+        { explanation: "Slide the decimal right to put one non-zero digit in front; keep the inner zero between the 4 and the 5.", latex: "0.000000405 \\to 4.05 \\quad (\\text{moved 7 places right})" },
+        { explanation: "Seven places right means multiply by $10^{-7}$ to preserve the value, and the number is below 1, so the exponent is negative.", latex: "0.000000405 = 4.05 \\times 10^{-7}" },
+        { explanation: "Check by converting back: moving 7 places left from 4.05 restores the original.", latex: "4.05 \\times 10^{-7} = 0.000000405 \\checkmark" },
+      ],
+      finalAnswerLatex: "4.05 \\times 10^{-7} \\text{ seconds}",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -1210,16 +1246,17 @@ const significantFigures: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Significant figures (sig figs) communicate how precisely a measurement is known. The number $3.45$ has 3 sig figs; $3400$ could have 2, 3 or 4 depending on context; $0.0034$ has exactly 2 sig figs. Knowing the rules is essential for science and engineering.",
-      "The rules: (1) All non-zero digits are significant. (2) Zeros between non-zero digits are significant: $3006$ has 4 sig figs. (3) Leading zeros — zeros before the first non-zero digit — are never significant: $0.0034$ has 2 sig figs, not 4. (4) Trailing zeros after the decimal point are significant: $2.50$ has 3 sig figs.",
-      "To round to $n$ significant figures, find the $n$th significant digit, look at the next digit, and round up if it is 5 or more. For example, rounding $0.008472$ to 2 sig figs: the significant digits are $8, 4, 7, 2$; the 2nd is 4; the next digit is 7 (≥ 5), so round up: $0.0085$.",
-      "A very common mistake is confusing significant figures with decimal places. $0.0034$ rounded to 2 decimal places is $0.00$ (which loses the data completely), but rounded to 2 significant figures it is $0.0034$ itself — they are already 2 sig figs. Significant figures count from the first non-zero digit, not from the decimal point.",
-      "In scientific notation, the number of sig figs equals the number of digits in the coefficient. $3.40 \\times 10^5$ has 3 sig figs; $3.4 \\times 10^5$ has 2. This is why trailing zeros matter in the coefficient.",
+      "A significant figure is a digit that carries real information about how precisely a quantity is known. When a scientist measures a length as $3.45$ cm, all three digits were actually read off the instrument — they are significant. Significant figures (sig figs) are simply the count of those meaningful digits. The reason they matter is honesty: a result should not look more precise than the measurement that produced it.",
+      "Here is the key idea behind which digits count. Some zeros are real measured digits; others are only placeholders that fix the decimal point. In $0.0034$, the two leading zeros do no measuring — they just position the 3 and 4 in the thousandths place — so they are not significant, and the number has 2 sig figs. But in $3.045$ the inner zero sits between measured digits and could not be a mere placeholder, so it is significant.",
+      "That principle gives four working rules. (1) All non-zero digits are significant. (2) Zeros between non-zero digits are significant: $3006$ has 4. (3) Leading zeros are never significant: $0.0034$ has 2, not 4. (4) Trailing zeros after a decimal point are significant, because writing them is a deliberate claim of precision: $2.50$ has 3 sig figs, and the final 0 says 'measured to the hundredth'.",
+      "To round to $n$ significant figures, find the $n$th significant digit, then look at the digit immediately after it: if that next digit is 5 or more, round the $n$th digit up; if it is 4 or less, leave it. The digits beyond either drop off (after a decimal) or become placeholder zeros (in a whole number). Rounding $0.008472$ to 2 sig figs: the significant digits are $8, 4, 7, 2$; the 2nd is 4; the next digit is 7, which is $\\geq 5$, so round up to give $0.0085$.",
+      "A frequent confusion is treating significant figures as the same thing as decimal places, but they count from different starting points. Decimal places count columns after the decimal point; significant figures count from the first non-zero digit. So $0.0034$ rounded to 2 decimal places is $0.00$ — the information is wiped out — whereas rounded to 2 significant figures it stays $0.0034$, because it already has exactly 2 sig figs.",
+      "Scientific notation makes sig figs unmistakable: the number of sig figs is just the number of digits in the coefficient. $3.40 \\times 10^5$ shows 3 sig figs (the trailing 0 is a real claim of precision), while $3.4 \\times 10^5$ shows only 2. This is why, in science, a distance written as $1.50 \\times 10^8$ km means something more precise than $1.5 \\times 10^8$ km even though both equal 150 million.",
     ],
     latexBlocks: [
-      "0.00470 \\to \\text{3 sig figs (leading zeros excluded, trailing zero counted)}",
-      "\\text{Round } 8472 \\text{ to 2 sig figs: } 8472 \\approx 8500",
-      "\\text{Round } 0.006385 \\text{ to 2 sig figs: } 0.0064",
+      "\\text{Non-zero digits and zeros between them: significant}",
+      "\\text{Leading zeros: not significant} \\qquad \\text{Trailing zeros after a decimal: significant}",
+      "\\text{Round } 8472 \\text{ to 2 sig figs} \\to 8500; \\quad \\text{round } 0.006385 \\text{ to 2 sig figs} \\to 0.0064",
     ],
   },
   workedExamples: [
@@ -1227,8 +1264,8 @@ const significantFigures: LessonContent = {
       title: "Count significant figures",
       questionLatex: "\\text{How many significant figures does } 0.00460 \\text{ have?}",
       steps: [
-        { explanation: "Leading zeros (before the 4) are not significant.", latex: "0.00\\underline{4}60 \\to \\text{start counting at 4}" },
-        { explanation: "The digits 4, 6, and 0 are all significant (the trailing zero after the decimal is significant).", latex: "\\text{Significant digits: } 4, 6, 0 \\to 3 \\text{ sig figs}" },
+        { explanation: "Leading zeros before the 4 only place the decimal, so they are not significant.", latex: "0.00\\underline{4}60 \\to \\text{start counting at 4}" },
+        { explanation: "The 4 and 6 are non-zero, and the trailing 0 after the decimal is a deliberate precision claim, so all three count.", latex: "\\text{Significant digits: } 4, 6, 0 \\to 3 \\text{ sig figs}" },
       ],
       finalAnswerLatex: "3 \\text{ significant figures}",
     } as WorkedExample,
@@ -1236,8 +1273,8 @@ const significantFigures: LessonContent = {
       title: "Round to 2 significant figures",
       questionLatex: "\\text{Round } 0.08374 \\text{ to 2 significant figures.}",
       steps: [
-        { explanation: "Identify the first two significant digits: 8 and 3.", latex: "0.0\\underline{83}74" },
-        { explanation: "The digit after the 3 is 7 (≥ 5), so round up the 3 to 4.", latex: "0.08374 \\approx 0.084" },
+        { explanation: "Counting from the first non-zero digit, the first two significant digits are 8 and 3.", latex: "0.0\\underline{83}74" },
+        { explanation: "The digit after the 3 is 7, which is $\\geq 5$, so round the 3 up to 4 and drop the rest.", latex: "0.08374 \\approx 0.084" },
       ],
       finalAnswerLatex: "0.084",
     } as WorkedExample,
@@ -1245,10 +1282,20 @@ const significantFigures: LessonContent = {
       title: "Round a large number to 3 significant figures",
       questionLatex: "\\text{Round } 47\\,862 \\text{ to 3 significant figures.}",
       steps: [
-        { explanation: "The first 3 significant digits are 4, 7, 8.", latex: "\\underline{478}62" },
-        { explanation: "The next digit is 6 (≥ 5), so round up the 8 to 9.", latex: "47\\,862 \\approx 47\\,900" },
+        { explanation: "The first 3 significant digits, reading from the left, are 4, 7, 8.", latex: "\\underline{478}62" },
+        { explanation: "The next digit is 6, which is $\\geq 5$, so round the 8 up to 9; the trailing digits become placeholder zeros.", latex: "47\\,862 \\approx 47\\,900" },
       ],
       finalAnswerLatex: "47\\,900",
+    } as WorkedExample,
+    {
+      title: "Round where the rounding carries over (harder)",
+      questionLatex: "\\text{Round } 0.0099962 \\text{ to 3 significant figures.}",
+      steps: [
+        { explanation: "Leading zeros are not significant; the first three significant digits are 9, 9, 9.", latex: "0.00\\underline{999}62" },
+        { explanation: "The next digit is 6, which is $\\geq 5$, so round the third 9 up — but 9 + 1 carries through the column.", latex: "999 \\to 1000 \\text{ (the carry ripples left)}" },
+        { explanation: "Writing the carried result keeps 3 significant figures, so the trailing zeros stay to show the precision.", latex: "0.0099962 \\approx 0.0100" },
+      ],
+      finalAnswerLatex: "0.0100",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -1565,16 +1612,17 @@ const operationsWithScientificNotation: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "When multiplying numbers in scientific notation, use the fact that multiplication is commutative and associative. Multiply the two coefficients together and add the exponents: $(3 \\times 10^4) \\times (2 \\times 10^3) = (3 \\times 2) \\times 10^{4+3} = 6 \\times 10^7$.",
-      "For division, divide the coefficients and subtract the exponents: $\\frac{8 \\times 10^6}{2 \\times 10^2} = \\frac{8}{2} \\times 10^{6-2} = 4 \\times 10^4$. After dividing, always check that the coefficient is still between 1 and 10.",
-      "For addition and subtraction, the exponents must match before you can combine the coefficients. Convert the number with the smaller exponent to match the larger: $3.2 \\times 10^5 + 4.0 \\times 10^4 = 3.2 \\times 10^5 + 0.40 \\times 10^5 = 3.6 \\times 10^5$.",
-      "After any operation, check the result is in proper scientific notation. If the coefficient is 10 or more, divide by 10 and increase the exponent: $12 \\times 10^5 = 1.2 \\times 10^6$. If the coefficient is less than 1, multiply by 10 and decrease the exponent: $0.5 \\times 10^4 = 5 \\times 10^3$.",
-      "Calculators display scientific notation results, but may use E notation (e.g. $1.5E8$ means $1.5 \\times 10^8$). Always write final answers in the standard $a \\times 10^n$ form for this course.",
+      "A number in scientific notation is built from two parts — a coefficient and a power of 10 — so when we combine two of them, we can treat those parts separately. The trick is to regroup the multiplication so the coefficients sit together and the powers of 10 sit together. Because multiplication can be reordered freely, $(3 \\times 10^4) \\times (2 \\times 10^3)$ becomes $(3 \\times 2) \\times (10^4 \\times 10^3)$.",
+      "Now the index law for multiplying powers of the same base finishes the job: $10^4 \\times 10^3 = 10^{4+3} = 10^7$, because that is $4 + 3 = 7$ tens multiplied together. So multiply the coefficients and add the exponents: $(3 \\times 2) \\times 10^{4+3} = 6 \\times 10^7$. The rule is not a new fact — it is the index laws applied to the two pieces.",
+      "Division works the same way in reverse, using the division law: $\\frac{8 \\times 10^6}{2 \\times 10^2} = \\frac{8}{2} \\times 10^{6-2} = 4 \\times 10^4$. Divide the coefficients, subtract the exponents (top minus bottom), and you are done — though always check the new coefficient still sits between 1 and 10.",
+      "Addition and subtraction are different, and here is why. You can only add quantities that count the same-sized units. $3.2 \\times 10^5$ counts hundred-thousands; $4.0 \\times 10^4$ counts ten-thousands — different sizes, so you cannot just add 3.2 and 4.0. First rewrite one term so both share a power of 10, exactly like finding a common denominator: $4.0 \\times 10^4 = 0.40 \\times 10^5$. Now both count hundred-thousands, so add the coefficients: $3.2 \\times 10^5 + 0.40 \\times 10^5 = 3.6 \\times 10^5$.",
+      "After any operation, tidy the result back into proper form, because an operation can knock the coefficient outside the 1-to-10 range. If the coefficient is 10 or more, slide its decimal one place left (divide by 10) and add 1 to the exponent: $12 \\times 10^5 = 1.2 \\times 10^6$. If it is below 1, slide right (multiply by 10) and subtract 1 from the exponent: $0.5 \\times 10^4 = 5 \\times 10^3$. The coefficient and exponent trade off, so the value never changes.",
+      "Two warnings on the common traps. First, never add exponents when you are adding numbers — that only applies to multiplying; for a sum you match exponents and add coefficients. Second, calculators may show answers in E notation, where $1.5\\text{E}8$ means $1.5 \\times 10^8$; rewrite these in the standard $a \\times 10^n$ form. These methods are how real calculations are done with astronomical distances and atomic masses, where the numbers are far too big or small to handle any other way.",
     ],
     latexBlocks: [
       "(a \\times 10^m) \\times (b \\times 10^n) = (a \\times b) \\times 10^{m+n}",
       "\\frac{a \\times 10^m}{b \\times 10^n} = \\frac{a}{b} \\times 10^{m-n}",
-      "(a \\times 10^n) \\pm (b \\times 10^n) = (a \\pm b) \\times 10^n",
+      "(a \\times 10^n) \\pm (b \\times 10^n) = (a \\pm b) \\times 10^n \\quad\\text{(match exponents first)}",
     ],
   },
   workedExamples: [
@@ -1582,8 +1630,9 @@ const operationsWithScientificNotation: LessonContent = {
       title: "Multiply numbers in scientific notation",
       questionLatex: "\\text{Calculate } (4 \\times 10^3) \\times (5 \\times 10^6).",
       steps: [
-        { explanation: "Multiply the coefficients and add the exponents.", latex: "(4 \\times 5) \\times 10^{3+6} = 20 \\times 10^9" },
-        { explanation: "Adjust: $20 = 2.0 \\times 10^1$, so increase the exponent by 1.", latex: "20 \\times 10^9 = 2.0 \\times 10^{10}" },
+        { explanation: "Regroup so coefficients are together and powers of 10 are together.", latex: "(4 \\times 5) \\times (10^3 \\times 10^6)" },
+        { explanation: "Multiply the coefficients and add the exponents using the index law.", latex: "= 20 \\times 10^{3+6} = 20 \\times 10^9" },
+        { explanation: "The coefficient 20 is $\\geq 10$, so slide one place left and add 1 to the exponent.", latex: "20 \\times 10^9 = 2.0 \\times 10^{10}" },
       ],
       finalAnswerLatex: "2.0 \\times 10^{10}",
     } as WorkedExample,
@@ -1591,7 +1640,8 @@ const operationsWithScientificNotation: LessonContent = {
       title: "Divide numbers in scientific notation",
       questionLatex: "\\text{Calculate } \\frac{9.6 \\times 10^8}{3.2 \\times 10^3}.",
       steps: [
-        { explanation: "Divide the coefficients and subtract the exponents.", latex: "\\frac{9.6}{3.2} \\times 10^{8-3} = 3 \\times 10^5" },
+        { explanation: "Divide the coefficients separately from the powers of 10.", latex: "\\frac{9.6}{3.2} \\times \\frac{10^8}{10^3}" },
+        { explanation: "Subtract the exponents (top minus bottom) using the division law.", latex: "= 3 \\times 10^{8-3} = 3 \\times 10^5" },
       ],
       finalAnswerLatex: "3 \\times 10^5",
     } as WorkedExample,
@@ -1599,10 +1649,22 @@ const operationsWithScientificNotation: LessonContent = {
       title: "Add numbers in scientific notation",
       questionLatex: "\\text{Calculate } 5.3 \\times 10^6 + 4.0 \\times 10^5.",
       steps: [
-        { explanation: "Rewrite the smaller-exponent term to match the larger exponent.", latex: "4.0 \\times 10^5 = 0.40 \\times 10^6" },
-        { explanation: "Add the coefficients, keeping the common exponent.", latex: "5.3 \\times 10^6 + 0.40 \\times 10^6 = 5.70 \\times 10^6" },
+        { explanation: "The exponents differ, so rewrite the smaller term to match the larger power of 10.", latex: "4.0 \\times 10^5 = 0.40 \\times 10^6" },
+        { explanation: "Now both count millions, so add the coefficients and keep the shared exponent.", latex: "5.3 \\times 10^6 + 0.40 \\times 10^6 = 5.70 \\times 10^6" },
+        { explanation: "The coefficient is already between 1 and 10, so the form is correct.", latex: "= 5.7 \\times 10^6" },
       ],
       finalAnswerLatex: "5.7 \\times 10^6",
+    } as WorkedExample,
+    {
+      title: "Multi-step problem with division and rounding (harder)",
+      questionLatex: "\\text{The Sun's mass is } 1.99 \\times 10^{30} \\text{ kg and Earth's is } 5.97 \\times 10^{24} \\text{ kg. How many times heavier is the Sun, to 2 significant figures?}",
+      steps: [
+        { explanation: "A 'how many times' question is a division: Sun's mass divided by Earth's mass.", latex: "\\frac{1.99 \\times 10^{30}}{5.97 \\times 10^{24}}" },
+        { explanation: "Divide the coefficients and subtract the exponents.", latex: "= \\frac{1.99}{5.97} \\times 10^{30-24} \\approx 0.333 \\times 10^6" },
+        { explanation: "The coefficient is below 1, so slide one place right and subtract 1 from the exponent.", latex: "0.333 \\times 10^6 = 3.33 \\times 10^5" },
+        { explanation: "Round the coefficient to 2 significant figures as requested.", latex: "\\approx 3.3 \\times 10^5" },
+      ],
+      finalAnswerLatex: "3.3 \\times 10^5 \\text{ times heavier}",
     } as WorkedExample,
   ],
   guidedPractice: [

@@ -57,6 +57,18 @@ function choice(
   };
 }
 
+/**
+ * Attach a number-line diagram payload to a question built by `answer`/`choice`
+ * (or a pool builder). Keeps the question's prompt, answer, ids, marks, etc.
+ * untouched — it only adds the visual stimulus the prompt refers to.
+ */
+function withNumberLine(
+  question: PracticeQuestion,
+  numberLineDiagram: NonNullable<PracticeQuestion["numberLineDiagram"]>
+): PracticeQuestion {
+  return { ...question, numberLineDiagram };
+}
+
 type LessonContent = Pick<
   ExplicitLesson,
   | "description"
@@ -148,28 +160,47 @@ const integersNumberLine: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Integers are the whole numbers: ..., -3, -2, -1, 0, 1, 2, 3, ... The negative integers sit to the left of zero on the number line, and the positive integers sit to the right. Zero is neither positive nor negative.",
-      "The further right a number sits on the number line, the larger it is. So -1 is greater than -5, even though -5 looks like a 'bigger' number at first glance. A negative number close to zero is always greater than one further from zero.",
-      "The absolute value of a number is its distance from zero on the number line, ignoring direction. We write absolute value using vertical bars: |−7| = 7 and |3| = 3. Distance is never negative, so absolute value is always zero or positive.",
-      "A common trap: students think −8 > −3 because 8 > 3. Always picture the number line — −3 is closer to zero and sits to the right of −8, so −3 > −8.",
+      "An integer is a whole number that can be positive, negative, or zero — no fractions and no decimals. You already count with $1, 2, 3$ and so on. Integers just extend that counting in the other direction too: $-1, -2, -3$ and beyond. The negative numbers are what you reach when you keep counting down past zero.",
+      "Picture a thermometer standing upright, or better, lay it on its side as a number line. Zero sits in the middle. To the right of zero you have $1, 2, 3, \\ldots$; to the left you have $-1, -2, -3, \\ldots$. A temperature of $-5$ degrees is colder than $-1$ degree, and on the line $-5$ sits further to the left. This picture — left is less, right is more — is the single idea behind everything in this lesson.",
+      "We compare integers with the symbols $<$ (less than) and $>$ (greater than). The wide open end of the symbol always faces the larger number, like a mouth opening towards the bigger meal. So $-1 > -5$ reads ''$-1$ is greater than $-5$'', and we can also write $-5 < -1$. The two statements say the same thing from opposite ends.",
+      "Here is *why* a number further right is always greater, not just a rule to memorise. Moving one step to the right means adding $1$; moving one step to the left means subtracting $1$. So if a number $b$ is to the right of $a$, you reached $b$ by adding some positive amount to $a$ — which means $b$ is larger. Start at $-5$ and add $1$ four times: $-5 \\to -4 \\to -3 \\to -2 \\to -1$. You climbed up to $-1$, so $-1$ must be greater than $-5$. That is the whole reason left is smaller and right is bigger.",
+      "Absolute value answers a different question: not ''which side of zero?'' but ''how far from zero?''. We write it with two vertical bars, so $|{-7}|$ means ''the distance of $-7$ from zero''. Both $-7$ and $7$ are $7$ steps from zero, so $|{-7}| = 7$ and $|7| = 7$. Distance is a count of steps, and you cannot take a negative number of steps, so an absolute value is never negative — it is always zero or positive.",
+      "That distance idea is exactly why the formula strips the sign off a negative number. If a number is already zero or positive, it is its own distance from zero, so we leave it alone. If it is negative, its distance is the same size but counted as positive, which is what $-x$ does to a negative $x$: $-(-7) = 7$. So $|x| = x$ when $x \\ge 0$ and $|x| = -x$ when $x < 0$.",
+      "The trap to watch for: students see $-8$ and $-3$ and decide $-8 > -3$ because $8 > 3$. But the size of the digits is the absolute value, not the value itself. On the line $-3$ sits closer to zero — to the right of $-8$ — so $-3$ is the greater number. In a real context this matters: $-8^\\circ$C is colder than $-3^\\circ$C, and a bank balance of $-\\$8$ is worse than $-\\$3$. When the question is ''which is bigger'', read positions on the line, not the digits.",
     ],
     latexBlocks: [
-      "\\ldots < -3 < -2 < -1 < 0 < 1 < 2 < 3 < \\ldots",
+      "\\ldots < -3 < -2 < -1 < 0 < 1 < 2 < 3 < \\ldots \\quad (\\text{left is smaller, right is larger})",
       "|x| = \\begin{cases} x & \\text{if } x \\geq 0 \\\\ -x & \\text{if } x < 0 \\end{cases}",
-      "|-7| = 7, \\quad |3| = 3, \\quad |0| = 0",
+      "|-7| = 7, \\quad |3| = 3, \\quad |0| = 0 \\quad (\\text{distance from zero, never negative})",
     ],
   },
   workedExamples: [
     {
       title: "Order integers from smallest to largest",
       questionLatex: "\\text{Write in order from smallest to largest: } 3,\\; -5,\\; 0,\\; -1,\\; 4.",
+      numberLineDiagram: {
+        description: "Number line from -6 to 6 with the five integers marked: -5, -1, 0, 3 and 4. Reading left to right gives the order from smallest to largest.",
+        min: -6,
+        max: 6,
+        points: [
+          { value: -5 },
+          { value: -1 },
+          { value: 0 },
+          { value: 3 },
+          { value: 4 },
+        ],
+      },
       steps: [
         {
-          explanation: "Imagine a number line. Negative numbers sit to the left of zero, positive to the right.",
-          latex: "\\leftarrow \\quad -5 \\quad -1 \\quad 0 \\quad 3 \\quad 4 \\quad \\rightarrow",
+          explanation: "Split the list into negatives, zero, and positives — negatives sit left of zero, positives right.",
+          latex: "\\text{negatives: } -5,\\, -1 \\quad\\mid\\quad 0 \\quad\\mid\\quad \\text{positives: } 3,\\, 4",
         },
         {
-          explanation: "Read the numbers from left to right — left means smaller.",
+          explanation: "Among the negatives, the one further from zero sits further left, so it is smaller.",
+          latex: "-5 < -1",
+        },
+        {
+          explanation: "Read the marked points on the number line from left (smallest) to right (largest).",
           latex: "-5 < -1 < 0 < 3 < 4",
         },
       ],
@@ -178,13 +209,27 @@ const integersNumberLine: LessonContent = {
     {
       title: "Calculate absolute value",
       questionLatex: "\\text{Find: } (a)\\; |-9| \\qquad (b)\\; |6|",
+      numberLineDiagram: {
+        description: "Number line from -10 to 10 with -9 marked on the left and 6 marked on the right. The distance of -9 from zero is 9 units; the distance of 6 from zero is 6 units.",
+        min: -10,
+        max: 10,
+        step: 2,
+        points: [
+          { value: -9 },
+          { value: 6 },
+        ],
+      },
       steps: [
         {
-          explanation: "Absolute value is distance from zero, always positive or zero.",
-          latex: "|-9| = 9 \\quad \\text{(9 steps from zero)}",
+          explanation: "Absolute value asks how far the number is from zero. Count the steps from -9 to 0.",
+          latex: "-9 \\text{ is } 9 \\text{ steps from } 0",
         },
         {
-          explanation: "A positive number is already its own distance from zero.",
+          explanation: "Those 9 steps are the distance, and distance is never negative.",
+          latex: "|-9| = 9",
+        },
+        {
+          explanation: "A positive number is already its own distance from zero, so nothing changes.",
           latex: "|6| = 6",
         },
       ],
@@ -193,17 +238,61 @@ const integersNumberLine: LessonContent = {
     {
       title: "Compare integers using inequality symbols",
       questionLatex: "\\text{Insert < or > to make each statement true: } -4 \\;\\square\\; 2, \\quad -6 \\;\\square\\; -2.",
+      numberLineDiagram: {
+        description: "Number line from -7 to 4 with -6, -4, -2 and 2 marked. -4 sits left of 2, and -6 sits left of -2, so in each pair the left-hand point is the smaller number.",
+        min: -7,
+        max: 4,
+        points: [
+          { value: -6 },
+          { value: -4 },
+          { value: -2 },
+          { value: 2 },
+        ],
+      },
       steps: [
         {
-          explanation: "-4 sits to the left of 2 on the number line, so it is smaller.",
+          explanation: "-4 is left of zero and 2 is right of zero, so -4 is the smaller one; the open end faces 2.",
           latex: "-4 < 2",
         },
         {
-          explanation: "-6 sits further left than -2, so -6 is the smaller number.",
+          explanation: "Both are negative, so compare positions: -6 is further from zero than -2, hence further left.",
+          latex: "-6 \\text{ sits left of } -2",
+        },
+        {
+          explanation: "Further left means smaller, so the open end of the symbol faces -2.",
           latex: "-6 < -2",
         },
       ],
       finalAnswerLatex: "-4 < 2 \\quad \\text{and} \\quad -6 < -2",
+    },
+    {
+      title: "Mixed reasoning: ordering by absolute value and by value",
+      questionLatex: "\\text{Two integers are } -7 \\text{ and } 4. \\text{ (a) Which has the larger absolute value? (b) Which is the larger integer? (c) How far apart are they on the number line?}",
+      numberLineDiagram: {
+        description: "Number line from -8 to 5 with -7 marked on the left and 4 marked on the right. -7 is 7 units from zero and 4 is 4 units from zero; the gap between them spans 11 units.",
+        min: -8,
+        max: 5,
+        points: [
+          { value: -7 },
+          { value: 4 },
+        ],
+        intervals: [{ from: -7, to: 4 }],
+      },
+      steps: [
+        {
+          explanation: "Absolute value is distance from zero, so compare the step counts.",
+          latex: "|-7| = 7, \\quad |4| = 4 \\;\\Rightarrow\\; -7 \\text{ has the larger absolute value}",
+        },
+        {
+          explanation: "The larger integer is the one further right on the line; 4 is right of zero, -7 is left.",
+          latex: "4 > -7 \\;\\Rightarrow\\; 4 \\text{ is the larger integer}",
+        },
+        {
+          explanation: "The gap is the distance from -7 up to 0, plus 0 up to 4 — add the two distances.",
+          latex: "7 + 4 = 11",
+        },
+      ],
+      finalAnswerLatex: "(a)\\; -7 \\text{ has the larger absolute value} \\quad (b)\\; 4 \\text{ is larger} \\quad (c)\\; 11 \\text{ units apart}",
     },
   ],
   guidedPractice: [
@@ -224,14 +313,22 @@ const integersNumberLine: LessonContent = {
       [],
       "Absolute value is the distance from zero — it is always positive."
     ),
-    answer(
-      "y7-int-nl-g3",
-      "Order these integers from smallest to largest and write the smallest one: -8, 2, -3, 0, 5.",
-      "\\text{Order: } -8,\\; -3,\\; 0,\\; 2,\\; 5",
-      "-8",
-      "-8 is furthest to the left on the number line, making it the smallest. The order is -8, -3, 0, 2, 5.",
-      ["−8"],
-      "Place each number on a number line. The leftmost is the smallest."
+    withNumberLine(
+      answer(
+        "y7-int-nl-g3",
+        "Order these integers from smallest to largest and write the smallest one: -8, 2, -3, 0, 5.",
+        "\\text{Order: } -8,\\; -3,\\; 0,\\; 2,\\; 5",
+        "-8",
+        "-8 is furthest to the left on the number line, making it the smallest. The order is -8, -3, 0, 2, 5.",
+        ["−8"],
+        "Place each number on a number line. The leftmost is the smallest."
+      ),
+      {
+        description: "Number line from -9 to 6 with -8, -3, 0, 2 and 5 marked. The leftmost marked point, -8, is the smallest.",
+        min: -9,
+        max: 6,
+        points: [{ value: -8 }, { value: -3 }, { value: 0 }, { value: 2 }, { value: 5 }],
+      }
     ),
     answer(
       "y7-int-nl-g4",
@@ -262,14 +359,22 @@ const integersNumberLine: LessonContent = {
       ["−4"],
       "On a number line, the number further to the right is greater."
     ),
-    answer(
-      "y7-int-nl-i3",
-      "Order -6, 1, -10, 4, -2 from smallest to largest. Write the largest integer.",
-      "\\text{Order: } -10,\\; -6,\\; -2,\\; 1,\\; 4",
-      "4",
-      "From smallest to largest: -10, -6, -2, 1, 4. The largest is 4.",
-      [],
-      "Place each integer on a number line and read from left to right."
+    withNumberLine(
+      answer(
+        "y7-int-nl-i3",
+        "Order -6, 1, -10, 4, -2 from smallest to largest. Write the largest integer.",
+        "\\text{Order: } -10,\\; -6,\\; -2,\\; 1,\\; 4",
+        "4",
+        "From smallest to largest: -10, -6, -2, 1, 4. The largest is 4.",
+        [],
+        "Place each integer on a number line and read from left to right."
+      ),
+      {
+        description: "Number line from -11 to 5 with -10, -6, -2, 1 and 4 marked. The rightmost marked point, 4, is the largest.",
+        min: -11,
+        max: 5,
+        points: [{ value: -10 }, { value: -6 }, { value: -2 }, { value: 1 }, { value: 4 }],
+      }
     ),
     answer(
       "y7-int-nl-i4",
@@ -325,14 +430,22 @@ const integersNumberLine: LessonContent = {
       "-2 sits to the right of -7 on the number line, so -2 > -7. Also |-7| = 7 > |-2| = 2, making option D false.",
       "-7 \\;\\square\\; -2"
     ),
-    answer(
-      "y7-int-nl-m3",
-      "Order -3, -10, 5, -1, 0 from smallest to largest. Write the second-smallest integer.",
-      "\\text{Order: } -10,\\; -3,\\; -1,\\; 0,\\; 5",
-      "-3",
-      "Ordered from smallest to largest: -10, -3, -1, 0, 5. The second smallest is -3.",
-      ["−3"],
-      "List all numbers in order on a number line first."
+    withNumberLine(
+      answer(
+        "y7-int-nl-m3",
+        "Order -3, -10, 5, -1, 0 from smallest to largest. Write the second-smallest integer.",
+        "\\text{Order: } -10,\\; -3,\\; -1,\\; 0,\\; 5",
+        "-3",
+        "Ordered from smallest to largest: -10, -3, -1, 0, 5. The second smallest is -3.",
+        ["−3"],
+        "List all numbers in order on a number line first."
+      ),
+      {
+        description: "Number line from -11 to 6 with -10, -3, -1, 0 and 5 marked. Reading left to right, -10 is smallest and -3 is the second-smallest.",
+        min: -11,
+        max: 6,
+        points: [{ value: -10 }, { value: -3 }, { value: -1 }, { value: 0 }, { value: 5 }],
+      }
     ),
     answer(
       "y7-int-nl-m4",
@@ -352,14 +465,26 @@ const integersNumberLine: LessonContent = {
       [],
       "Find each absolute value, then subtract."
     ),
-    answer(
-      "y7-int-nl-m6",
-      "How many integers are between -4 and 3 (not including -4 and 3 themselves)?",
-      "\\text{Integers between } -4 \\text{ and } 3",
-      "6",
-      "The integers between -4 and 3 (exclusive) are: -3, -2, -1, 0, 1, 2. That is 6 integers.",
-      [],
-      "List the integers strictly between the two endpoints."
+    withNumberLine(
+      answer(
+        "y7-int-nl-m6",
+        "How many integers are between -4 and 3 (not including -4 and 3 themselves)?",
+        "\\text{Integers between } -4 \\text{ and } 3",
+        "6",
+        "The integers between -4 and 3 (exclusive) are: -3, -2, -1, 0, 1, 2. That is 6 integers.",
+        [],
+        "List the integers strictly between the two endpoints."
+      ),
+      {
+        description: "Number line from -5 to 4 with open circles at the endpoints -4 and 3 and the segment between them shaded. The integers strictly inside are -3, -2, -1, 0, 1 and 2.",
+        min: -5,
+        max: 4,
+        points: [
+          { value: -4, open: true },
+          { value: 3, open: true },
+        ],
+        intervals: [{ from: -4, to: 3, fromOpen: true, toOpen: true }],
+      }
     ),
     choice(
       "y7-int-nl-m7",
@@ -369,14 +494,26 @@ const integersNumberLine: LessonContent = {
       "-18 < -5 on the number line, so -18 m is further below sea level — the diver is deeper.",
       "\\text{Which is deeper: } -18 \\text{ m or } -5 \\text{ m?}"
     ),
-    answer(
-      "y7-int-nl-m8",
-      "Write the integer that is 4 units to the left of -2 on the number line.",
-      "-2 - 4",
-      "-6",
-      "Moving 4 units to the left of -2 means subtracting 4: -2 - 4 = -6.",
-      ["−6"],
-      "Moving left on the number line means decreasing the value."
+    withNumberLine(
+      answer(
+        "y7-int-nl-m8",
+        "Write the integer that is 4 units to the left of -2 on the number line.",
+        "-2 - 4",
+        "-6",
+        "Moving 4 units to the left of -2 means subtracting 4: -2 - 4 = -6.",
+        ["−6"],
+        "Moving left on the number line means decreasing the value."
+      ),
+      {
+        description: "Number line from -8 to 1 with the start point -2 marked and the target point -6 marked 4 units to its left. The shaded jump spans the 4 units from -6 to -2.",
+        min: -8,
+        max: 1,
+        points: [
+          { value: -2, label: "start -2" },
+          { value: -6, label: "-6" },
+        ],
+        intervals: [{ from: -6, to: -2 }],
+      }
     ),
     answer(
       "y7-int-nl-m9",
@@ -401,17 +538,44 @@ const integersNumberLine: LessonContent = {
     // ── Difficulty 1 ──
     poolAnswer("y7-int-nl-p1", "Find |−3|.", "|{-3}|", "3", "|-3| = 3 because -3 is 3 units from zero.", 1),
     poolAnswer("y7-int-nl-p2", "Find |8|.", "|8|", "8", "|8| = 8 because 8 is already its own distance from zero.", 1),
-    poolChoice("y7-int-nl-p3", "Which integer is the smallest?", "C", ["-1", "0", "-4", "2"],
-      "-4 is furthest to the left on the number line, so it is the smallest.", 1, "\\text{Smallest integer?}"),
+    withNumberLine(
+      poolChoice("y7-int-nl-p3", "Which integer is the smallest?", "C", ["-1", "0", "-4", "2"],
+        "-4 is furthest to the left on the number line, so it is the smallest.", 1, "\\text{Smallest integer?}"),
+      {
+        description: "Number line from -5 to 3 with -4, -1, 0 and 2 marked. The leftmost marked point, -4, is the smallest.",
+        min: -5,
+        max: 3,
+        points: [{ value: -4 }, { value: -1 }, { value: 0 }, { value: 2 }],
+      }
+    ),
     poolAnswer("y7-int-nl-p4", "Which is greater: -2 or -9? Write the greater integer.", "-2 \\;\\square\\; -9", "-2",
       "-2 is closer to zero and sits to the right of -9, so -2 > -9.", 1, ["−2"]),
-    poolChoice("y7-int-nl-p5", "Where does -5 sit relative to zero on the number line?", "B",
-      ["5 units to the right", "5 units to the left", "At zero", "10 units to the right"],
-      "Negative numbers sit to the left of zero; -5 is 5 units left.", 1, "\\text{Position of } -5"),
+    withNumberLine(
+      poolChoice("y7-int-nl-p5", "Where does -5 sit relative to zero on the number line?", "B",
+        ["5 units to the right", "5 units to the left", "At zero", "10 units to the right"],
+        "Negative numbers sit to the left of zero; -5 is 5 units left.", 1, "\\text{Position of } -5"),
+      {
+        description: "Number line from -6 to 6 with 0 marked at the centre and -5 marked 5 units to the left of zero.",
+        min: -6,
+        max: 6,
+        points: [
+          { value: -5, label: "-5" },
+          { value: 0, label: "0" },
+        ],
+      }
+    ),
     // ── Difficulty 2 ──
     poolAnswer("y7-int-nl-p6", "Find |−14|.", "|{-14}|", "14", "|-14| = 14, the distance of -14 from zero.", 2),
-    poolAnswer("y7-int-nl-p7", "Order -7, 3, -2, 0 from smallest to largest. Write the smallest.", "\\text{Order these}", "-7",
-      "From smallest to largest: -7, -2, 0, 3. The smallest is -7.", 2, ["−7"]),
+    withNumberLine(
+      poolAnswer("y7-int-nl-p7", "Order -7, 3, -2, 0 from smallest to largest. Write the smallest.", "\\text{Order these}", "-7",
+        "From smallest to largest: -7, -2, 0, 3. The smallest is -7.", 2, ["−7"]),
+      {
+        description: "Number line from -8 to 4 with -7, -2, 0 and 3 marked. The leftmost marked point, -7, is the smallest.",
+        min: -8,
+        max: 4,
+        points: [{ value: -7 }, { value: -2 }, { value: 0 }, { value: 3 }],
+      }
+    ),
     poolChoice("y7-int-nl-p8", "Which inequality is true?", "D", ["-2 > 1", "-8 > -3", "0 > 5", "-4 > -10"],
       "-4 sits to the right of -10, so -4 > -10. The others are all false.", 2, "\\text{True inequality?}"),
     poolAnswer("y7-int-nl-p9", "What negative integer has an absolute value of 9?", "|x| = 9,\\; x < 0", "-9",
@@ -421,15 +585,36 @@ const integersNumberLine: LessonContent = {
     poolAnswer("y7-int-nl-p11", "Which is deeper: a fish at -8 m or a shark at -20 m? Write the deeper depth.",
       "\\text{Deeper: } -8 \\text{ or } -20?", "-20", "-20 < -8, so -20 m is deeper below sea level.", 2, ["−20"]),
     // ── Difficulty 3 ──
-    poolAnswer("y7-int-nl-p12", "Write the integer 5 units to the left of -1.", "-1 - 5", "-6",
-      "Moving 5 units left of -1: -1 - 5 = -6.", 3, ["−6"]),
+    withNumberLine(
+      poolAnswer("y7-int-nl-p12", "Write the integer 5 units to the left of -1.", "-1 - 5", "-6",
+        "Moving 5 units left of -1: -1 - 5 = -6.", 3, ["−6"]),
+      {
+        description: "Number line from -8 to 2 with the start point -1 marked and the target point -6 marked 5 units to its left. The shaded jump spans the 5 units from -6 to -1.",
+        min: -8,
+        max: 2,
+        points: [
+          { value: -1, label: "start -1" },
+          { value: -6, label: "-6" },
+        ],
+        intervals: [{ from: -6, to: -1 }],
+      }
+    ),
     poolAnswer("y7-int-nl-p13", "Two negative integers have absolute values 4 and 11. Write the greater integer.",
       "\\text{Greater: } -4 \\text{ or } -11?", "-4", "The integers are -4 and -11; -4 is closer to zero, so it is greater.", 3, ["−4"]),
     poolChoice("y7-int-nl-p14", "Which statement is correct?", "A",
       ["|-6| > |-2|", "|-2| > |-6|", "|-6| = |-2|", "|-6| < 0"],
       "|-6| = 6 and |-2| = 2, so |-6| > |-2|.", 3, "\\text{Compare absolute values}"),
-    poolAnswer("y7-int-nl-p15", "Order -5, -12, 4, -1, 0. Write the second-largest integer.", "\\text{Order these}", "0",
-      "From smallest to largest: -12, -5, -1, 0, 4. The second-largest is 0.", 3),
+    withNumberLine(
+      poolAnswer("y7-int-nl-p15", "Order -5, -12, 4, -1, 0. Write the second-largest integer.", "\\text{Order these}", "0",
+        "From smallest to largest: -12, -5, -1, 0, 4. The second-largest is 0.", 3),
+      {
+        description: "Number line from -13 to 5 with -12, -5, -1, 0 and 4 marked. Reading left to right, 4 is the largest and 0 is the second-largest.",
+        min: -13,
+        max: 5,
+        step: 2,
+        points: [{ value: -12 }, { value: -5 }, { value: -1 }, { value: 0 }, { value: 4 }],
+      }
+    ),
     poolAnswer("y7-int-nl-p16", "Find |−7| + |3|.", "|{-7}| + |3|", "10", "|-7| = 7 and |3| = 3, so 7 + 3 = 10.", 3),
     poolAnswer("y7-int-nl-p17", "A lift is on floor -4 and the lobby is floor 0. How many floors apart are they?",
       "\\text{Floors apart}", "4", "The distance from -4 to 0 is |0 - (-4)| = 4 floors.", 3),
@@ -444,13 +629,38 @@ const integersNumberLine: LessonContent = {
       ["-7", "5", "-9", "8"], "|-9| = 9 is the largest absolute value among the options.", 4, "\\text{Largest } |x|"),
     poolAnswer("y7-int-nl-p22", "An integer is 6 units from zero and to the right. Another is 10 units from zero and to the left. Write the sum of these two integers.",
       "6 + (-10)", "-4", "The integers are 6 and -10; 6 + (-10) = -4.", 4, ["−4"]),
-    poolAnswer("y7-int-nl-p23", "On a number line, point A is at -8 and point B is at 5. What is the distance between A and B?",
-      "\\text{Distance from } -8 \\text{ to } 5", "13", "Distance = |5 - (-8)| = |13| = 13 units.", 4),
+    withNumberLine(
+      poolAnswer("y7-int-nl-p23", "On a number line, point A is at -8 and point B is at 5. What is the distance between A and B?",
+        "\\text{Distance from } -8 \\text{ to } 5", "13", "Distance = |5 - (-8)| = |13| = 13 units.", 4),
+      {
+        description: "Number line from -9 to 6 with point A at -8 and point B at 5, and the segment between them shaded. The gap spans 13 units.",
+        min: -9,
+        max: 6,
+        points: [
+          { value: -8, label: "A" },
+          { value: 5, label: "B" },
+        ],
+        intervals: [{ from: -8, to: 5 }],
+      }
+    ),
     // ── Difficulty 5 ──
     poolAnswer("y7-int-nl-p24", "Find the value of x if |x| = 7 and x is 3 units to the left of zero plus 4 more units left. Write x.",
       "x = -(3 + 4)", "-7", "Moving 3 then 4 more units left of zero reaches -7, and |-7| = 7.", 5, ["−7"]),
-    poolAnswer("y7-int-nl-p25", "The midpoint of -10 and 4 on the number line is which integer?", "\\text{Midpoint of } -10 \\text{ and } 4",
-      "-3", "Midpoint = (-10 + 4) ÷ 2 = -6 ÷ 2 = -3.", 5, ["−3"]),
+    withNumberLine(
+      poolAnswer("y7-int-nl-p25", "The midpoint of -10 and 4 on the number line is which integer?", "\\text{Midpoint of } -10 \\text{ and } 4",
+        "-3", "Midpoint = (-10 + 4) ÷ 2 = -6 ÷ 2 = -3.", 5, ["−3"]),
+      {
+        description: "Number line from -11 to 5 with endpoints -10 and 4 marked and their midpoint -3 marked halfway between them. -3 is 7 units from each endpoint.",
+        min: -11,
+        max: 5,
+        points: [
+          { value: -10 },
+          { value: -3, label: "midpoint -3" },
+          { value: 4 },
+        ],
+        intervals: [{ from: -10, to: 4 }],
+      }
+    ),
     poolAnswer("y7-int-nl-p26", "How many integers x satisfy 3 ≤ |x| ≤ 5?", "3 \\le |x| \\le 5", "6",
       "Values with |x| of 3, 4, or 5: ±3, ±4, ±5 — that is 6 integers.", 5),
     poolAnswer("y7-int-nl-p27", "Point P is at -2. Point Q is the same distance from zero as P but on the other side. What is |P| + |Q|?",
@@ -468,6 +678,17 @@ const integersNumberLine: LessonContent = {
       id: "y7-int-nl-mp1",
       prompt: "A weather station logs temperatures at four sites: Alpine -9°C, Coastal 4°C, Plateau -2°C, and Desert -6°C. Use a number line to answer each part.",
       latex: "-9,\\; 4,\\; -2,\\; -6",
+      numberLineDiagram: {
+        description: "Number line from -10 to 5 with the four site temperatures marked: Alpine -9, Desert -6, Plateau -2 and Coastal 4. Alpine -9 is furthest left (coldest); the gap from -9 to 4 spans 13 units.",
+        min: -10,
+        max: 5,
+        points: [
+          { value: -9, label: "Alpine -9" },
+          { value: -6, label: "Desert -6" },
+          { value: -2, label: "Plateau -2" },
+          { value: 4, label: "Coastal 4" },
+        ],
+      },
       answer: "13",
       hint: "Place all four temperatures on a number line, then read off positions and distances.",
       explanation: "(a) The coldest is the most negative, -9. (b) Ordered smallest to largest: -9, -6, -2, 4. (c) |-9| = 9. (d) Distance from -9 to 4 is 4 - (-9) = 13.",
@@ -534,15 +755,18 @@ const addingSubtractingIntegers: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Adding a positive integer moves you to the right on the number line. Adding a negative integer moves you to the left. For example, 5 + (-3) means start at 5 and move 3 steps left, landing at 2.",
-      "When you add two negative integers, you move further left each time. For example, -4 + (-2) = -6. Think of it as combining two debts: owing $4 and owing another $2 means you owe $6 in total.",
-      "Subtracting a negative number means removing a negative, which is the same as adding a positive. The rule is: a − (−b) = a + b. For example, 3 − (−5) = 3 + 5 = 8. The two minus signs cancel each other.",
-      "A common mistake is treating 3 − (−5) as 3 − 5. Remember: subtracting a negative flips the sign to positive. If someone removes a $5 debt from your account, your balance increases by $5.",
+      "Adding and subtracting integers is really one idea: every calculation is a journey along the number line. The number you start at is your starting point, and each operation tells you which way to walk and how far. Get the direction right and the arithmetic takes care of itself.",
+      "Here are the two directions. Adding a positive number walks you to the right (towards bigger numbers); adding a negative number walks you to the left (towards smaller numbers). For example, $5 + (-3)$ says ''start at $5$, walk $3$ steps left'', landing on $2$. Subtracting works the same way but reversed: subtracting a positive walks left, and — this is the surprising one — subtracting a negative walks right.",
+      "We capture these as three rules. Adding a negative is the same as subtracting: $a + (-b) = a - b$. Adding two negatives keeps everything negative: $(-a) + (-b) = -(a + b)$. And subtracting a negative turns into adding: $a - (-b) = a + b$. In each, $a$ and $b$ stand for any whole numbers and the signs tell you the direction of travel.",
+      "Why does $a + (-b) = a - b$? Adding $-b$ means walking $b$ steps left, and walking $b$ steps left is the exact definition of subtracting $b$. They are two names for the same journey, so the results must match. That is why $5 + (-3)$ and $5 - 3$ both give $2$.",
+      "Why do two negatives combine? Think of debts. Owing $\\(\\$4\\)$ and then owing another $\\(\\$2\\)$ leaves you $\\(\\$6\\)$ in the hole — you do not cancel debts by adding more of them. On the line, you are already left of zero at $-4$ and you walk $2$ more steps left, reaching $-6$. So $(-4) + (-2) = -(4 + 2) = -6$: add the sizes, keep the minus.",
+      "Now the one that trips everyone up: why does subtracting a negative add? Subtracting means ''take away''. If someone takes away a $\\(\\$5\\)$ debt from your account, your balance goes *up* by $\\(\\$5\\)$ — removing something bad is a good thing. On the line, the two minus signs in $3 - (-5)$ reverse direction twice, so you end up walking right: $3 - (-5) = 3 + 5 = 8$. Two reversals bring you back to facing forwards.",
+      "The classic error is reading $3 - (-5)$ as $3 - 5$, ignoring one of the minus signs and getting $-2$. Before you compute, rewrite any ''$-(-\\,)$'' as a plus: $3 - (-5)$ becomes $3 + 5$. Once the double sign is cleaned up, you are back to an ordinary addition and the journey along the line is clear.",
     ],
     latexBlocks: [
-      "a + (-b) = a - b",
-      "(-a) + (-b) = -(a + b)",
-      "a - (-b) = a + b",
+      "a + (-b) = a - b \\quad (\\text{add a negative} = \\text{walk left} = \\text{subtract})",
+      "(-a) + (-b) = -(a + b) \\quad (\\text{both negative: add sizes, keep the minus})",
+      "a - (-b) = a + b \\quad (\\text{subtracting a negative walks right})",
     ],
   },
   workedExamples: [
@@ -551,11 +775,11 @@ const addingSubtractingIntegers: LessonContent = {
       questionLatex: "\\text{Calculate } 7 + (-10).",
       steps: [
         {
-          explanation: "Adding -10 means moving 10 steps to the left from 7.",
+          explanation: "Adding -10 means walking 10 steps left, which is the same as subtracting 10.",
           latex: "7 + (-10) = 7 - 10",
         },
         {
-          explanation: "7 - 10: start at 7 and subtract 10, which takes us below zero.",
+          explanation: "Walking 10 steps left from 7 passes through zero, so the answer is negative.",
           latex: "7 - 10 = -3",
         },
       ],
@@ -566,11 +790,11 @@ const addingSubtractingIntegers: LessonContent = {
       questionLatex: "\\text{Calculate } (-6) + (-4).",
       steps: [
         {
-          explanation: "Both integers are negative, so we add their absolute values and keep the negative sign.",
+          explanation: "Both are negative — like two debts — so add their sizes (absolute values) first.",
           latex: "6 + 4 = 10",
         },
         {
-          explanation: "Since both are negative, the result is negative.",
+          explanation: "Combining two debts keeps you in the negative, so put the minus sign back on.",
           latex: "(-6) + (-4) = -10",
         },
       ],
@@ -581,15 +805,34 @@ const addingSubtractingIntegers: LessonContent = {
       questionLatex: "\\text{Calculate } -2 - (-9).",
       steps: [
         {
-          explanation: "Subtracting a negative is the same as adding a positive: the double negative becomes a plus.",
+          explanation: "First clean up the double sign: subtracting a negative reverses direction into adding.",
           latex: "-2 - (-9) = -2 + 9",
         },
         {
-          explanation: "Start at -2 and add 9, moving 9 steps to the right.",
+          explanation: "Now start at -2 and walk 9 steps right, passing zero.",
           latex: "-2 + 9 = 7",
         },
       ],
       finalAnswerLatex: "-2 - (-9) = 7",
+    },
+    {
+      title: "Multi-step: a running total with mixed signs",
+      questionLatex: "\\text{A diver's depth changes by } -8,\\; -(-3),\\; \\text{and } -6 \\text{ metres. Starting at } 0, \\text{ find the final depth: } 0 - 8 - (-3) - 6.",
+      steps: [
+        {
+          explanation: "Work left to right. First walk 8 steps down (left) from zero.",
+          latex: "0 - 8 = -8",
+        },
+        {
+          explanation: "The next change is -(-3); clean the double sign to +3, then walk 3 steps up.",
+          latex: "-8 - (-3) = -8 + 3 = -5",
+        },
+        {
+          explanation: "Finally subtract 6, walking 6 more steps down.",
+          latex: "-5 - 6 = -11",
+        },
+      ],
+      finalAnswerLatex: "0 - 8 - (-3) - 6 = -11 \\text{ (11 m below the surface)}",
     },
   ],
   guidedPractice: [
@@ -901,15 +1144,18 @@ const multiplyingDividingIntegers: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "When you multiply or divide two integers, the sign of the result depends on the signs of the two numbers. There are only two rules to remember: same signs give a positive result, and different signs give a negative result.",
-      "Think of it as agreeing or disagreeing. Two people who agree (both positive, or both negative) produce a positive outcome. Two people who disagree (one positive, one negative) produce a negative outcome. So 3 × 4 = 12, (-3) × (-4) = 12, but 3 × (-4) = -12 and (-3) × 4 = -12.",
-      "The sign rules for division are identical. Positive ÷ positive = positive, negative ÷ negative = positive, and positive ÷ negative (or negative ÷ positive) = negative. For example, -20 ÷ (-4) = 5, but -20 ÷ 4 = -5.",
-      "A common error is forgetting that two negatives multiplied give a positive. This is because multiplying by -1 flips the sign, and doing it twice returns to positive. Always count the number of negative factors: an even count gives positive, an odd count gives negative.",
+      "Multiplying and dividing integers works exactly like the times tables you already know — $7 \\times 5 = 35$, $36 \\div 9 = 4$ — with one extra job: deciding whether the answer is positive or negative. Work out the size using the normal tables, then settle the sign with a single rule. Two jobs, done separately, never mixed up.",
+      "The sign rule is short: same signs give a positive answer, different signs give a negative answer. So $3 \\times 4 = 12$ and $(-3) \\times (-4) = 12$ are both positive (same signs), while $3 \\times (-4) = -12$ and $(-3) \\times 4 = -12$ are both negative (different signs). Division follows the identical rule: $-20 \\div (-4) = 5$ (same signs, positive) but $-20 \\div 4 = -5$ (different signs, negative).",
+      "Writing the rules with letters: $(-a) \\times b = -ab$ and $(-a) \\times (-b) = ab$, where $a$ and $b$ stand for the sizes of the two numbers. The same patterns hold for $\\div$. The letters just record what the words say, so you can apply them to any numbers.",
+      "Why does positive times negative come out negative? Multiplication is repeated addition. $3 \\times (-4)$ means add $-4$ three times: $(-4) + (-4) + (-4) = -12$. Three steps of $4$ to the left of zero lands you at $-12$. So whenever one factor is a negative count of something, the total piles up on the negative side.",
+      "Why do two negatives make a positive? This is the part worth understanding rather than memorising. Look at this pattern, dropping the first factor by one each line: $3 \\times (-4) = -12$, then $2 \\times (-4) = -8$, then $1 \\times (-4) = -4$, then $0 \\times (-4) = 0$. Each answer rises by $4$. Keep the pattern going: $(-1) \\times (-4) = 4$, $(-2) \\times (-4) = 8$. The answers have crossed into positive territory. Multiplying by a negative reverses the direction of the pattern, so a negative times a negative must be positive.",
+      "Because each negative factor flips the sign once, you can handle a long product by counting. An even number of negative factors flips back to positive; an odd number ends up negative. For $(-2) \\times (-3) \\times (-4)$ there are three negatives — odd — so the answer is negative ($-24$), regardless of the sizes. Count the minus signs first, then multiply the digits.",
+      "One trap and one reminder. The trap: writing $(-5) \\times (-4) = -20$ because both numbers ''have a minus''. Same signs give positive, so it is $+20$. The reminder: zero has no sign, and anything times zero is zero — $0 \\times (-6) = 0$, never $-6$.",
     ],
     latexBlocks: [
-      "(+) \\times (+) = +, \\quad (-) \\times (-) = +",
-      "(+) \\times (-) = -, \\quad (-) \\times (+) = -",
-      "(-a) \\times (-b) = ab, \\quad (-a) \\times b = -ab",
+      "(+) \\times (+) = +, \\quad (-) \\times (-) = + \\quad (\\text{same signs} \\to +)",
+      "(+) \\times (-) = -, \\quad (-) \\times (+) = - \\quad (\\text{different signs} \\to -)",
+      "(-a) \\times (-b) = ab, \\quad (-a) \\times b = -ab \\quad (\\text{count the negatives: even} \\to +,\\ \\text{odd} \\to -)",
     ],
   },
   workedExamples: [
@@ -918,11 +1164,15 @@ const multiplyingDividingIntegers: LessonContent = {
       questionLatex: "\\text{Calculate } (-7) \\times (-5).",
       steps: [
         {
-          explanation: "Both integers are negative — same signs give a positive result.",
+          explanation: "Check the signs first: both are negative, so same signs give a positive answer.",
           latex: "(-7) \\times (-5) \\to \\text{positive}",
         },
         {
-          explanation: "Multiply the absolute values: 7 × 5 = 35.",
+          explanation: "Now find the size using the ordinary times table.",
+          latex: "7 \\times 5 = 35",
+        },
+        {
+          explanation: "Attach the sign decided in step 1.",
           latex: "(-7) \\times (-5) = +35",
         },
       ],
@@ -933,11 +1183,15 @@ const multiplyingDividingIntegers: LessonContent = {
       questionLatex: "\\text{Calculate } 8 \\times (-6).",
       steps: [
         {
-          explanation: "One integer is positive and one is negative — different signs give a negative result.",
+          explanation: "Check the signs: one positive, one negative — different signs give a negative answer.",
           latex: "8 \\times (-6) \\to \\text{negative}",
         },
         {
-          explanation: "Multiply the absolute values: 8 × 6 = 48, then apply the negative sign.",
+          explanation: "Find the size with the times table.",
+          latex: "8 \\times 6 = 48",
+        },
+        {
+          explanation: "Attach the negative sign decided in step 1.",
           latex: "8 \\times (-6) = -48",
         },
       ],
@@ -948,15 +1202,38 @@ const multiplyingDividingIntegers: LessonContent = {
       questionLatex: "\\text{Calculate } (-36) \\div 9.",
       steps: [
         {
-          explanation: "Negative divided by positive — different signs give a negative result.",
+          explanation: "Division uses the same sign rule: negative ÷ positive is different signs, so negative.",
           latex: "(-36) \\div 9 \\to \\text{negative}",
         },
         {
-          explanation: "Divide the absolute values: 36 ÷ 9 = 4, then apply the negative sign.",
+          explanation: "Divide the sizes as usual.",
+          latex: "36 \\div 9 = 4",
+        },
+        {
+          explanation: "Attach the negative sign.",
           latex: "(-36) \\div 9 = -4",
         },
       ],
       finalAnswerLatex: "(-36) \\div 9 = -4",
+    },
+    {
+      title: "Multi-step: a product with several negative factors",
+      questionLatex: "\\text{Calculate } (-2) \\times 3 \\times (-1) \\times (-5).",
+      steps: [
+        {
+          explanation: "Count the negative factors first — that alone fixes the sign of the answer.",
+          latex: "(-2),\\ (-1),\\ (-5) \\Rightarrow 3 \\text{ negatives (odd)} \\to \\text{negative}",
+        },
+        {
+          explanation: "Multiply all the sizes together, ignoring signs for now.",
+          latex: "2 \\times 3 \\times 1 \\times 5 = 30",
+        },
+        {
+          explanation: "An odd count of negatives makes the result negative, so attach the minus.",
+          latex: "(-2) \\times 3 \\times (-1) \\times (-5) = -30",
+        },
+      ],
+      finalAnswerLatex: "(-2) \\times 3 \\times (-1) \\times (-5) = -30",
     },
   ],
   guidedPractice: [
@@ -1273,15 +1550,19 @@ const orderOfOperationsIntegers: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "When an expression contains more than one operation, we need agreed rules to decide which to calculate first. Without these rules, different people could get different answers from the same expression. The rules are called BEDMAS: Brackets, Exponents, Division, Multiplication, Addition, Subtraction.",
-      "Brackets always come first. Whatever is inside the brackets is calculated before anything outside. Exponents (powers) come next. Then multiplication and division are done from left to right as they appear — they have equal priority, so left-to-right order matters. Finally, addition and subtraction are done from left to right.",
-      "For example, to evaluate 3 + 4 × (-2): multiplication comes before addition, so do 4 × (-2) = -8 first, then 3 + (-8) = -5. If we added first incorrectly, we would get 7 × (-2) = -14, which is wrong.",
-      "A common mistake is doing addition or subtraction before multiplication. Remember: multiplication and division are always done before addition and subtraction unless brackets say otherwise.",
+      "When an expression has only one operation, there is nothing to decide. But $3 + 4 \\times 2$ has two, and you could do them in two different orders. Add first and you get $7 \\times 2 = 14$; multiply first and you get $3 + 8 = 11$. Both look reasonable, yet only one can be right — so mathematics agrees on a fixed order so that every person gets the same answer from the same expression.",
+      "That order is named BEDMAS, after its steps in priority: Brackets, Exponents, Division and Multiplication, Addition and Subtraction. Picture it as a queue: brackets are served first, then exponents, then the multiplying-and-dividing pair, and finally the adding-and-subtracting pair. Inside each pair, you work along the line from left to right.",
+      "Take $3 + 4 \\times (-2)$. Multiplication outranks addition, so serve it first: $4 \\times (-2) = -8$. Only then do the addition: $3 + (-8) = -5$. The answer is $-5$, not $-14$ — the wrong answer you get by adding first.",
+      "Why is multiplication served before addition, rather than the order being arbitrary? Multiplication is a shorthand for repeated addition: $4 \\times (-2)$ *means* ''$-2$ added together four times''. So in $3 + 4 \\times (-2)$ the $4 \\times (-2)$ is one bundled quantity that has to be totted up before it can join the lone $3$. Doing the addition first would break the bundle apart and add the $3$ to a piece of it, which changes what the expression means. The order protects the meaning.",
+      "Brackets exist for exactly the times you want to override that order. Writing $(3 + 4) \\times (-2)$ uses brackets to force the addition first: $3 + 4 = 7$, then $7 \\times (-2) = -14$. The brackets are an instruction that says ''treat me as one quantity, finish me before you do anything else''. That is why $3 + 4 \\times (-2)$ and $(3 + 4) \\times (-2)$ give different answers.",
+      "Two pairs share their rank, and this is where slips happen. Division and multiplication are equal, so $12 \\div 3 \\times 2$ is done strictly left to right: $12 \\div 3 = 4$, then $4 \\times 2 = 8$ — not $12 \\div 6 = 2$. Likewise addition and subtraction are equal and go left to right. ''DM'' and ''AS'' are pairs of equals, not a ranking of D over M or A over S.",
+      "The exponent trap is worth naming now. $(-3)^2$ means $(-3) \\times (-3) = 9$ because the bracket squares the whole of $-3$, sign included. But $-3^2$ with no bracket means $-(3^2) = -9$, because the exponent grabs only the $3$ and the minus sits outside. Whenever a negative is squared, check whether the bracket includes the sign — it changes the answer.",
     ],
     latexBlocks: [
       "\\text{BEDMAS: } \\underbrace{B}_{\\text{Brackets}} \\to \\underbrace{E}_{\\text{Exponents}} \\to \\underbrace{D,\\,M}_{\\text{left to right}} \\to \\underbrace{A,\\,S}_{\\text{left to right}}",
       "3 + 4 \\times (-2) = 3 + (-8) = -5 \\quad (\\text{not } 7 \\times (-2))",
       "(3 + 4) \\times (-2) = 7 \\times (-2) = -14 \\quad (\\text{brackets first})",
+      "(-3)^2 = 9 \\quad \\text{but} \\quad -3^2 = -(3^2) = -9",
     ],
   },
   workedExamples: [
@@ -1337,6 +1618,29 @@ const orderOfOperationsIntegers: LessonContent = {
         },
       ],
       finalAnswerLatex: "20 \\div (-4) + (-3) \\times 2 = -11",
+    },
+    {
+      title: "Harder: brackets, an exponent, and the sign trap together",
+      questionLatex: "\\text{Evaluate } 10 - (-2)^2 \\times (3 - 5).",
+      steps: [
+        {
+          explanation: "Brackets first: work out (3 - 5) before anything outside it.",
+          latex: "3 - 5 = -2",
+        },
+        {
+          explanation: "Exponents next. The bracket includes the sign, so the whole -2 is squared.",
+          latex: "(-2)^2 = (-2) \\times (-2) = 4",
+        },
+        {
+          explanation: "Multiplication outranks the subtraction: multiply the two results from above.",
+          latex: "4 \\times (-2) = -8",
+        },
+        {
+          explanation: "Finally subtract; cleaning the double sign turns it into an addition.",
+          latex: "10 - (-8) = 10 + 8 = 18",
+        },
+      ],
+      finalAnswerLatex: "10 - (-2)^2 \\times (3 - 5) = 18",
     },
   ],
   guidedPractice: [
@@ -1654,15 +1958,17 @@ const integersProblemSolving: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Integers appear in many real-world situations. Temperature can be negative (below 0°C). Money can be negative (a debt or overdraft). Height or depth can be negative (below sea level). Floor numbers in a building can be negative (basement levels). In each case, the same rules for adding, subtracting, multiplying, and dividing integers apply.",
-      "The key step in problem solving is choosing the right operation. A rise in temperature means adding. A fall means subtracting. Repeated equal losses means multiplying by a negative. Sharing a loss equally means dividing. Read the question carefully and decide which operation to use before calculating.",
-      "Always interpret the answer in context. A result of -15 might mean 15 m below sea level, a debt of $15, or 15°C below zero. The sign tells you which side of zero you are on.",
-      "For multi-step problems, break the problem into smaller steps. Solve each step in order, using the result from each step in the next one. Check at the end that your answer makes sense in context.",
+      "The arithmetic of integers — adding, subtracting, multiplying, dividing — is the same whether the numbers are bare or wrapped in a story. The new skill in this lesson is the translation: turning words like ''rose'', ''overdrawn'', ''below sea level'', or ''per day'' into the right operation with the right sign. Once the words become numbers and signs, you already know how to finish.",
+      "The reason these situations all use integers is that each has a natural zero with two opposite directions. Temperature has $0^\\circ$C, with warmer above and colder below. A bank account has $\\(\\$0\\)$, with savings above and debt below. The sea has its surface, with height above and depth below. Choosing one direction as positive forces the other to be negative — that is what lets a single signed number carry both ''which side'' and ''how far'' at once.",
+      "Translation comes down to matching words to operations. A rise, gain, or deposit moves you up, so add a positive. A fall, loss, descent, or withdrawal moves you down, so add a negative (the same as subtracting). The same change repeated several times is multiplication. Splitting a total into equal shares is division. Always settle the operation and its sign *before* you compute.",
+      "Why does ''how far did it rise'' or ''how far apart'' come out as final minus start? A change is the gap between where you ended and where you began, and on the number line a gap is found by subtraction. Going from $-80$ m up to $-20$ m, the change is $-20 - (-80) = -20 + 80 = 60$ m. The subtracting-a-negative rule from earlier is exactly what makes the upward change come out positive, which matches the picture of rising. So ''change $=$ final $-$ start'' is not a separate fact to memorise — it is the number line gap, with the sign telling you up or down.",
+      "Multi-step problems are handled by keeping a running value and applying one change at a time, in the order the story tells them. Start at the given value, apply the first change to get a new value, then apply the next change to *that*, and so on. Each step is an ordinary integer calculation; the structure is just doing them in sequence.",
+      "The last and most important habit is interpreting the answer back into the story, including its sign. A result of $-15$ is not ''fifteen'' — it might mean $15$ m below sea level, a debt of $\\(\\$15\\)$, or $15^\\circ$C below zero, and a positive $15$ would mean the opposite. The classic mistake is reading ''a fall of $5^\\circ$'' or ''a loss of $\\(\\$50\\)$'' as a positive number; a fall and a loss are downward, so they are negative. After computing, reread the question and check the sign of your answer makes sense in context.",
     ],
     latexBlocks: [
-      "\\text{Rise/gain: add a positive} \\quad \\text{Fall/loss: add a negative (or subtract)}",
-      "\\text{Repeated loss: multiply by a negative}",
-      "\\text{Starting position} + \\text{change} = \\text{final position}",
+      "\\text{Rise/gain/deposit: add a positive} \\quad \\text{Fall/loss/withdrawal: add a negative}",
+      "\\text{Repeated change: multiply} \\quad \\text{Equal shares: divide}",
+      "\\text{change} = \\text{final} - \\text{start} \\quad (\\text{the gap on the number line})",
     ],
   },
   workedExamples: [
@@ -1671,11 +1977,11 @@ const integersProblemSolving: LessonContent = {
       questionLatex: "\\text{At midnight the temperature was } -8^\\circ\\text{C}. \\text{ By 3 pm it had risen } 15^\\circ\\text{C}. \\text{ What was the 3 pm temperature?}",
       steps: [
         {
-          explanation: "A rise in temperature means adding a positive number.",
+          explanation: "Translate the words: a rise is upward, so add a positive to the starting value.",
           latex: "-8 + 15",
         },
         {
-          explanation: "Calculate: start at -8 and add 15, moving 15 steps right.",
+          explanation: "Compute by walking 15 steps right from -8, passing zero.",
           latex: "-8 + 15 = 7",
         },
       ],
@@ -1686,30 +1992,61 @@ const integersProblemSolving: LessonContent = {
       questionLatex: "\\text{A business loses } \\$200 \\text{ per month for 6 months. What is the total profit/loss?}",
       steps: [
         {
-          explanation: "A loss of $200 per month is represented as -200. Six months of loss means multiplying.",
+          explanation: "A loss is downward, so each month's change is -200; the same change repeated is multiplication.",
           latex: "(-200) \\times 6",
         },
         {
-          explanation: "Different signs: negative × positive = negative.",
+          explanation: "Different signs give a negative product, and 200 × 6 = 1200.",
           latex: "(-200) \\times 6 = -1200",
         },
+        {
+          explanation: "Interpret the sign: a negative total means money lost, not gained.",
+          latex: "-1200 \\to \\text{a loss of } \\$1200",
+        },
       ],
-      finalAnswerLatex: "\\text{Total loss: } \\$1200 \\text{ (a loss of } \\$1200\\text{)}",
+      finalAnswerLatex: "\\text{Total: } -\\$1200 \\text{ (a loss of } \\$1200\\text{)}",
     },
     {
       title: "Multi-step sea level problem",
       questionLatex: "\\text{A diver is at } -15 \\text{ m. She ascends } 6 \\text{ m, then descends } 10 \\text{ m. What is her final depth?}",
       steps: [
         {
-          explanation: "Ascending 6 m means adding 6 to the current depth.",
+          explanation: "Start at -15. Ascending is upward, so add 6.",
           latex: "-15 + 6 = -9",
         },
         {
-          explanation: "Descending 10 m means subtracting 10 (or adding -10).",
-          latex: "-9 + (-10) = -19",
+          explanation: "Apply the next change to that result: descending is downward, so subtract 10.",
+          latex: "-9 - 10 = -19",
+        },
+        {
+          explanation: "A negative depth means below the surface, which fits a diver going deeper.",
+          latex: "-19 \\to 19 \\text{ m below sea level}",
         },
       ],
       finalAnswerLatex: "\\text{Final depth: } -19 \\text{ m (19 m below sea level)}",
+    },
+    {
+      title: "Harder: scoring with gains, losses, and a final difference",
+      questionLatex: "\\text{In a quiz, each correct answer scores } +5 \\text{ and each wrong answer } -3. \\text{ Ana gets 6 correct and 4 wrong. By how much does her score beat a player on } -7?",
+      steps: [
+        {
+          explanation: "Correct answers are repeated gains, so multiply the points by the count.",
+          latex: "6 \\times 5 = 30",
+        },
+        {
+          explanation: "Wrong answers are repeated losses, so multiply the negative points by the count.",
+          latex: "4 \\times (-3) = -12",
+        },
+        {
+          explanation: "Combine the two parts to get Ana's total score.",
+          latex: "30 + (-12) = 18",
+        },
+        {
+          explanation: "''Beats by'' is a difference: final minus the other player, so subtract -7.",
+          latex: "18 - (-7) = 18 + 7 = 25",
+        },
+      ],
+      finalAnswerLatex: "\\text{Ana scores } 18 \\text{ and beats the other player by } 25 \\text{ points.}",
     },
   ],
   guidedPractice: [

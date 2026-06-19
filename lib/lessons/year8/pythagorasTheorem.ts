@@ -163,13 +163,17 @@ const introTheorem: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A right-angled triangle has one angle that is exactly 90 degrees. This angle is marked with a small square in diagrams.",
-      "The side directly opposite the right angle is called the hypotenuse. It is always the longest side of the triangle.",
-      "Pythagoras' theorem says: if you square each shorter side and add the results, you get the square of the hypotenuse. Using a and b for the shorter sides and c for the hypotenuse: a squared plus b squared equals c squared.",
-      "To check whether three lengths form a right-angled triangle, substitute them into the theorem. If the equation balances, they satisfy the theorem.",
+      "A right-angled triangle has one corner that is exactly 90 degrees — a perfect square corner, like the corner of this page. In diagrams that corner is marked with a small square so you can spot it instantly. Pythagoras' theorem is a rule that connects the three side lengths of any triangle shaped like this, and it works for no other shape.",
+      "The longest side always sits directly across from the square corner. It never touches the right angle; it faces it. This side has a special name, the hypotenuse, and it is always the longest of the three. The two shorter sides are the ones that meet at the right angle.",
+      "Here is the idea in plain words first: take the longest side and the square you could draw on it; that square has exactly the same area as the two squares drawn on the shorter sides added together. Picture a triangle with shorter sides 3 and 4 and longest side 5. A square on the 3-side covers $9$ little unit squares, a square on the 4-side covers $16$, and together that is $25$ — which is exactly the area of the square on the 5-side. The longest side's square swallows the other two whole.",
+      "We write this with letters so it works for every right-angled triangle, not just the 3-4-5 one. Call the two shorter sides $a$ and $b$, and the hypotenuse $c$. The theorem is $a^2 + b^2 = c^2$. The little $2$ means 'squared', which is the area of the square drawn on that side. So the statement reads: area of the square on $a$, plus area of the square on $b$, equals area of the square on $c$.",
+      "Why does the longest side always have to be $c$? Squaring makes every number bigger (for lengths above 1), and $c^2$ has to hold the combined area of the other two squares, so it must be the largest of the three. That is the same reason the hypotenuse is the longest side: its square is the biggest, so the side itself is the longest. If you ever put the longest length in as $a$ or $b$, the two sides of the equation cannot balance.",
+      "You can run the theorem backwards as a test. Given any three lengths, square the two smaller ones, add them, and see whether the result equals the square of the largest. If it balances exactly, the three lengths really do make a right-angled triangle; this is called a Pythagorean triple, like 3-4-5 or 5-12-13. If it does not balance, the corner is not a true right angle. This is exactly the kind of check NSW exam questions ask for when they give you three side lengths and ask whether the triangle is right-angled.",
+      "The single most common slip is adding the lengths before squaring them — writing $3 + 4 = 7$ and comparing it to $5$. That is wrong because the theorem is about areas of squares, not raw lengths. You must square first, then add: $9 + 16 = 25$. Squaring before adding is the whole point of the rule.",
     ],
     latexBlocks: [
-      "a^2 + b^2 = c^2",
+      "a^2 + b^2 = c^2 \\quad (c \\text{ is the hypotenuse, the longest side})",
+      "\\text{Square on } a + \\text{square on } b = \\text{square on } c",
       "3^2 + 4^2 = 9 + 16 = 25 = 5^2 \\checkmark",
     ],
   },
@@ -182,8 +186,8 @@ const introTheorem: LessonContent = {
         { AC: "a", BC: "b", AB: "c" }
       ),
       steps: [
-        { explanation: "The right angle is at C, marked with a square.", latex: "\\text{Right angle at }C" },
-        { explanation: "The hypotenuse is opposite the right angle, so it is side AB.", latex: "\\text{Hypotenuse } = AB = c" },
+        { explanation: "Find the small square that marks the right angle; here it is at vertex C.", latex: "\\text{Right angle at }C" },
+        { explanation: "The hypotenuse is the side facing the right angle, not touching it; that side runs from A to B.", latex: "\\text{Hypotenuse } = AB = c" },
       ],
       finalAnswerLatex: "\\text{Side }AB\\text{ is the hypotenuse.}",
     } as WorkedExample,
@@ -195,21 +199,42 @@ const introTheorem: LessonContent = {
         { AC: "3 cm", BC: "4 cm", AB: "5 cm" }
       ),
       steps: [
-        { explanation: "Square each shorter side and add.", latex: "3^2 + 4^2 = 9 + 16 = 25" },
-        { explanation: "Square the longest side.", latex: "5^2 = 25" },
-        { explanation: "Both sides equal 25, so the theorem holds.", latex: "25 = 25 \\checkmark" },
+        { explanation: "Square each shorter side first — this gives the area of the square drawn on each.", latex: "3^2 = 9, \\quad 4^2 = 16" },
+        { explanation: "Add those two areas together.", latex: "9 + 16 = 25" },
+        { explanation: "Square the longest side to get the area of the square on the hypotenuse.", latex: "5^2 = 25" },
+        { explanation: "The two areas match exactly, so the theorem is satisfied and the corner is a true right angle.", latex: "25 = 25 \\checkmark" },
       ],
       finalAnswerLatex: "\\text{The triangle is right-angled.}",
     } as WorkedExample,
     {
       title: "Show a triple is NOT right-angled",
       questionLatex: "\\text{A triangle has sides }4\\text{ cm, }5\\text{ cm and }7\\text{ cm. Is it right-angled?}",
+      triangleDiagram: tri(
+        "Triangle with shorter sides 4 cm and 5 cm and longest side 7 cm, tested for a right angle.",
+        { AC: "4 cm", BC: "5 cm", AB: "7 cm" }
+      ),
       steps: [
-        { explanation: "Square the two shorter sides and add.", latex: "4^2 + 5^2 = 16 + 25 = 41" },
-        { explanation: "Square the longest side.", latex: "7^2 = 49" },
-        { explanation: "41 is not equal to 49, so the theorem does not hold.", latex: "41 \\neq 49" },
+        { explanation: "Identify the longest side (7) as the candidate hypotenuse, then square the two shorter sides and add.", latex: "4^2 + 5^2 = 16 + 25 = 41" },
+        { explanation: "Square the longest side separately.", latex: "7^2 = 49" },
+        { explanation: "Compare: 41 does not equal 49, so the squares do not balance.", latex: "41 \\neq 49" },
       ],
       finalAnswerLatex: "\\text{Not a right-angled triangle.}",
+    } as WorkedExample,
+    {
+      title: "Find the missing number in a triple (harder)",
+      questionLatex: "\\text{The numbers }20,\\,21,\\,c\\text{ form a right-angled triangle with }c\\text{ the hypotenuse. Find }c\\text{, then confirm it is a triple.}",
+      triangleDiagram: tri(
+        "Right-angled triangle with shorter sides 20 and 21 and hypotenuse c opposite the right angle.",
+        { AC: "20", BC: "21", AB: "c" }
+      ),
+      steps: [
+        { explanation: "Because c is the hypotenuse, its square must equal the sum of the squares of 20 and 21.", latex: "c^2 = 20^2 + 21^2" },
+        { explanation: "Work out each square, keeping them separate before adding.", latex: "20^2 = 400, \\quad 21^2 = 441" },
+        { explanation: "Add the two areas to get the area of the square on the hypotenuse.", latex: "c^2 = 400 + 441 = 841" },
+        { explanation: "Take the square root, since c itself (not its square) is the side length.", latex: "c = \\sqrt{841} = 29" },
+        { explanation: "All three values are whole numbers and balance the theorem, so 20-21-29 is a genuine Pythagorean triple.", latex: "20^2 + 21^2 = 841 = 29^2 \\checkmark" },
+      ],
+      finalAnswerLatex: "c = 29; \\;\\; 20\\text{-}21\\text{-}29 \\text{ is a Pythagorean triple.}",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -440,6 +465,10 @@ const introTheorem: LessonContent = {
       prompt:
         "A builder is checking three triangular brackets. Bracket P has sides 9 cm, 12 cm and 15 cm. Bracket Q has sides 8 cm, 9 cm and 12 cm.",
       latex: "\\text{Bracket P: }9,12,15.\\quad \\text{Bracket Q: }8,9,12.",
+      triangleDiagram: tri(
+        "Bracket P drawn as a triangle with sides 9 cm and 12 cm meeting at the corner and longest side 15 cm opposite, tested for a right angle.",
+        { AC: "9 cm", BC: "12 cm", AB: "15 cm" }
+      ),
       answer: "yes",
       hint: "For each bracket, square the two shorter sides, add them, and compare with the square of the longest side.",
       explanation:
@@ -498,13 +527,17 @@ const findingHypotenuse: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "When both shorter sides are known, the hypotenuse is found by adding their squares and then taking the square root. Use c for the hypotenuse and a, b for the shorter sides.",
-      "Some calculations produce a whole-number answer — these are called Pythagorean triples and should be left exact.",
-      "When the answer is not a whole number, use a calculator and round to the stated number of decimal places at the very end.",
+      "When you know the two short sides of a right-angled triangle and want the long one across from the right angle, you are finding the hypotenuse. This is the most direct use of Pythagoras' theorem: the two shorter sides give you everything you need.",
+      "Think again about the 3-4-5 triangle. The square on the 3-side has area $9$, the square on the 4-side has area $16$, and the theorem promises the square on the hypotenuse has area $9 + 16 = 25$. But $25$ is the area of that square, not its side. The actual hypotenuse is the side length, and to get a side back from a square's area you take the square root: $\\sqrt{25} = 5$. That last step is the whole reason a square root appears.",
+      "In symbols, start from $a^2 + b^2 = c^2$. The theorem already gives you $c^2$ (the area) as soon as you add the two squares; you just need $c$ itself. Undo the squaring by taking the square root of both sides, which gives $c = \\sqrt{a^2 + b^2}$. So the recipe is: square both short sides, add them, then square-root the total.",
+      "Some triangles give a whole-number hypotenuse — 3-4-5, 5-12-13, 8-15-17 are the famous ones, and you should leave these exact. Most triangles do not: a triangle with short sides 4 and 7 gives $c = \\sqrt{16 + 49} = \\sqrt{65}$, which is not a tidy number. There you use a calculator and round only at the very last step, because rounding $\\sqrt{65}$ to $8.1$ partway through and then doing more work would carry the error forward.",
+      "The mistake to guard against is adding the sides before squaring — writing $3 + 4 = 7$ instead of $\\sqrt{3^2 + 4^2} = 5$. The shortcut $a + b$ would only be the distance if you walked along the two short sides; the hypotenuse cuts the corner, so it is always shorter than $a + b$ but longer than either side alone. Squaring first respects that geometry; plain addition does not.",
+      "This single skill powers a huge range of exam problems: the diagonal of a rectangular screen, the length of a ladder, the straight-line distance home after walking east then north. In every one of these, the two short sides are at right angles and the answer you want is the hypotenuse — square, add, square-root.",
     ],
     latexBlocks: [
-      "c = \\sqrt{a^2 + b^2}",
-      "\\text{Example: }a=3,\\;b=4 \\Rightarrow c=\\sqrt{9+16}=\\sqrt{25}=5",
+      "c = \\sqrt{a^2 + b^2} \\quad (c \\text{ is the hypotenuse})",
+      "\\text{Square, add, then square-root the total.}",
+      "a=3,\\;b=4 \\Rightarrow c=\\sqrt{9+16}=\\sqrt{25}=5",
     ],
   },
   workedExamples: [
@@ -513,42 +546,67 @@ const findingHypotenuse: LessonContent = {
       questionLatex: "\\text{Find }c\\text{ when }a=3\\text{ cm and }b=4\\text{ cm.}",
       triangleDiagram: tri("Right-angled triangle with shorter sides 3 cm and 4 cm and unknown hypotenuse c.", { AC: "3 cm", BC: "4 cm", AB: "c" }),
       steps: [
-        { explanation: "The unknown is opposite the right angle, so it is the hypotenuse.", latex: "c^2 = 3^2 + 4^2" },
-        { explanation: "Add the squares, then take the square root.", latex: "c = \\sqrt{9+16} = \\sqrt{25} = 5" },
+        { explanation: "The unknown side faces the right angle, so it is the hypotenuse c; set its square equal to the sum of the other two squares.", latex: "c^2 = 3^2 + 4^2" },
+        { explanation: "Work out and add the two squares to get the area of the square on the hypotenuse.", latex: "c^2 = 9 + 16 = 25" },
+        { explanation: "Take the square root to turn that area back into a side length.", latex: "c = \\sqrt{25} = 5" },
       ],
       finalAnswerLatex: "c = 5\\text{ cm}",
     } as WorkedExample,
     {
       title: "Find a hypotenuse using a 5-12-13 triple",
       questionLatex: "\\text{Find the hypotenuse when the shorter sides are }5\\text{ m and }12\\text{ m.}",
+      triangleDiagram: tri(
+        "Right-angled triangle with shorter sides 5 m and 12 m and unknown hypotenuse c.",
+        { AC: "5 m", BC: "12 m", AB: "c" }
+      ),
       steps: [
-        { explanation: "Add the squares.", latex: "c^2 = 5^2 + 12^2 = 25 + 144 = 169" },
-        { explanation: "Take the square root.", latex: "c = \\sqrt{169} = 13" },
+        { explanation: "Square each short side and add to find c squared.", latex: "c^2 = 5^2 + 12^2 = 25 + 144 = 169" },
+        { explanation: "Take the square root; 169 is a perfect square, so the answer is exact.", latex: "c = \\sqrt{169} = 13" },
       ],
       finalAnswerLatex: "13\\text{ m}",
     } as WorkedExample,
     {
       title: "Round a decimal hypotenuse",
       questionLatex: "\\text{Find the hypotenuse when the shorter sides are }4\\text{ cm and }7\\text{ cm. Round to 1 decimal place.}",
+      triangleDiagram: tri(
+        "Right-angled triangle with shorter sides 4 cm and 7 cm and unknown hypotenuse c.",
+        { AC: "4 cm", BC: "7 cm", AB: "c" }
+      ),
       steps: [
-        { explanation: "Add the squares.", latex: "c = \\sqrt{4^2+7^2} = \\sqrt{16+49} = \\sqrt{65}" },
-        { explanation: "Evaluate and round only at the end.", latex: "c \\approx 8.06\\ldots \\approx 8.1" },
+        { explanation: "Square both short sides and add.", latex: "c^2 = 4^2 + 7^2 = 16 + 49 = 65" },
+        { explanation: "Take the square root; 65 is not a perfect square, so leave it as a surd for now.", latex: "c = \\sqrt{65}" },
+        { explanation: "Evaluate on a calculator and round only at this final step.", latex: "c \\approx 8.06\\ldots \\approx 8.1" },
       ],
       finalAnswerLatex: "8.1\\text{ cm}",
+    } as WorkedExample,
+    {
+      title: "Diagonal of a rectangle (harder)",
+      questionLatex: "\\text{A rectangular tablet screen is }9\\text{ cm wide and }12\\text{ cm tall. Find the length of its diagonal.}",
+      triangleDiagram: tri(
+        "Right-angled triangle formed by half the rectangle: legs 9 cm (width) and 12 cm (height) with the diagonal d as the hypotenuse.",
+        { AC: "12 cm", BC: "9 cm", AB: "d" }
+      ),
+      steps: [
+        { explanation: "A diagonal splits the rectangle into two right-angled triangles whose short sides are the width and height; the diagonal is the hypotenuse.", latex: "d^2 = 9^2 + 12^2" },
+        { explanation: "Square the width and height and add.", latex: "d^2 = 81 + 144 = 225" },
+        { explanation: "Take the square root to find the diagonal length.", latex: "d = \\sqrt{225} = 15" },
+        { explanation: "Check it makes sense: the diagonal (15) is longer than either side but shorter than 9 + 12 = 21, as a cut-the-corner path should be.", latex: "9 < 15 < 21 \\checkmark" },
+      ],
+      finalAnswerLatex: "\\text{The diagonal is } 15 \\text{ cm.}",
     } as WorkedExample,
   ],
   guidedPractice: [
     answer("y8-pyth-hyp-g1", "Find the hypotenuse in centimetres.", "a=6\\text{ cm},\\;b=8\\text{ cm}", "10", "Square root of 36 plus 64 equals 10.", ["10 cm"], tri("Right triangle: shorter sides 6 cm and 8 cm, hypotenuse c.", { AC: "6 cm", BC: "8 cm", AB: "c" })),
     choice("y8-pyth-hyp-g2", "Which calculation finds the hypotenuse when a = 9 and b = 12?", "B", ["$9 + 12$", "$\\sqrt{9^2+12^2}$", "$\\sqrt{9^2-12^2}$", "$9^2+12^2$"], "Add the squares then take the square root.", "\\text{Select the correct setup.}"),
-    answer("y8-pyth-hyp-g3", "Find the hypotenuse in metres.", "a=8\\text{ m},\\;b=15\\text{ m}", "17", "Square root of 64 plus 225 equals 17.", ["17 m"]),
-    answer("y8-pyth-hyp-g4", "Find the hypotenuse in centimetres. Round to 1 decimal place.", "a=3\\text{ cm},\\;b=7\\text{ cm}", "7.6", "Square root of 58 is approximately 7.6.", ["7.6 cm"]),
+    answer("y8-pyth-hyp-g3", "Find the hypotenuse in metres.", "a=8\\text{ m},\\;b=15\\text{ m}", "17", "Square root of 64 plus 225 equals 17.", ["17 m"], tri("Right triangle: shorter sides 8 m and 15 m, hypotenuse c.", { AC: "8 m", BC: "15 m", AB: "c" })),
+    answer("y8-pyth-hyp-g4", "Find the hypotenuse in centimetres. Round to 1 decimal place.", "a=3\\text{ cm},\\;b=7\\text{ cm}", "7.6", "Square root of 58 is approximately 7.6.", ["7.6 cm"], tri("Right triangle: shorter sides 3 cm and 7 cm, hypotenuse c.", { AC: "3 cm", BC: "7 cm", AB: "c" })),
   ],
   independentPractice: [
-    answer("y8-pyth-hyp-i1", "Find the hypotenuse in millimetres.", "a=9\\text{ mm},\\;b=12\\text{ mm}", "15", "Square root of 81 plus 144 equals 15.", ["15 mm"]),
-    answer("y8-pyth-hyp-i2", "Find the hypotenuse in metres. Round to 1 decimal place.", "a=5\\text{ m},\\;b=7\\text{ m}", "8.6", "Square root of 74 is approximately 8.6.", ["8.6 m"]),
+    answer("y8-pyth-hyp-i1", "Find the hypotenuse in millimetres.", "a=9\\text{ mm},\\;b=12\\text{ mm}", "15", "Square root of 81 plus 144 equals 15.", ["15 mm"], tri("Right triangle: shorter sides 9 mm and 12 mm, hypotenuse c.", { AC: "9 mm", BC: "12 mm", AB: "c" })),
+    answer("y8-pyth-hyp-i2", "Find the hypotenuse in metres. Round to 1 decimal place.", "a=5\\text{ m},\\;b=7\\text{ m}", "8.6", "Square root of 74 is approximately 8.6.", ["8.6 m"], tri("Right triangle: shorter sides 5 m and 7 m, hypotenuse c.", { AC: "5 m", BC: "7 m", AB: "c" })),
     choice("y8-pyth-hyp-i3", "A student adds 6 and 8 to get 14, then says the hypotenuse is 14. What error was made?", "A", ["Side lengths were added instead of squared", "The wrong sides were chosen", "The square root was taken of 14", "Nothing is wrong"], "Pythagoras requires squaring each side first."),
-    answer("y8-pyth-hyp-i4", "Find the hypotenuse in centimetres.", "a=7\\text{ cm},\\;b=24\\text{ cm}", "25", "Square root of 49 plus 576 equals 25.", ["25 cm"]),
-    answer("y8-pyth-hyp-i5", "Find the hypotenuse in centimetres. Round to 1 decimal place.", "a=5\\text{ cm},\\;b=6\\text{ cm}", "7.8", "Square root of 61 is approximately 7.8.", ["7.8 cm"]),
+    answer("y8-pyth-hyp-i4", "Find the hypotenuse in centimetres.", "a=7\\text{ cm},\\;b=24\\text{ cm}", "25", "Square root of 49 plus 576 equals 25.", ["25 cm"], tri("Right triangle: shorter sides 7 cm and 24 cm, hypotenuse c.", { AC: "7 cm", BC: "24 cm", AB: "c" })),
+    answer("y8-pyth-hyp-i5", "Find the hypotenuse in centimetres. Round to 1 decimal place.", "a=5\\text{ cm},\\;b=6\\text{ cm}", "7.8", "Square root of 61 is approximately 7.8.", ["7.8 cm"], tri("Right triangle: shorter sides 5 cm and 6 cm, hypotenuse c.", { AC: "5 cm", BC: "6 cm", AB: "c" })),
   ],
   commonMistakes: [
     { mistake: "Adding the side lengths before squaring.", fix: "Square each shorter side first, then add the two squared values." },
@@ -557,16 +615,16 @@ const findingHypotenuse: LessonContent = {
     { mistake: "Choosing a shorter side as the hypotenuse.", fix: "The hypotenuse is opposite the right angle and is always the longest side." },
   ],
   masteryQuiz: [
-    answer("y8-pyth-hyp-m1", "Find the hypotenuse in centimetres.", "a=3\\text{ cm},\\;b=4\\text{ cm}", "5", "Square root of 25 equals 5.", ["5 cm"]),
-    answer("y8-pyth-hyp-m2", "Find the hypotenuse in metres.", "a=5\\text{ m},\\;b=12\\text{ m}", "13", "Square root of 169 equals 13.", ["13 m"]),
+    answer("y8-pyth-hyp-m1", "Find the hypotenuse in centimetres.", "a=3\\text{ cm},\\;b=4\\text{ cm}", "5", "Square root of 25 equals 5.", ["5 cm"], tri("Right triangle: shorter sides 3 cm and 4 cm, hypotenuse c.", { AC: "3 cm", BC: "4 cm", AB: "c" })),
+    answer("y8-pyth-hyp-m2", "Find the hypotenuse in metres.", "a=5\\text{ m},\\;b=12\\text{ m}", "13", "Square root of 169 equals 13.", ["13 m"], tri("Right triangle: shorter sides 5 m and 12 m, hypotenuse c.", { AC: "5 m", BC: "12 m", AB: "c" })),
     choice("y8-pyth-hyp-m3", "Which side is the hypotenuse in the triangle below?", "A", ["AB", "AC", "BC", "Cannot tell"], "AB is opposite the right angle at C.", "\\text{Use the diagram.}", tri("Right-angled triangle ABC with right angle at C.", { AB: "AB", AC: "AC", BC: "BC" })),
-    answer("y8-pyth-hyp-m4", "Find the hypotenuse in centimetres. Round to 1 decimal place.", "a=6\\text{ cm},\\;b=7\\text{ cm}", "9.2", "Square root of 85 is approximately 9.2.", ["9.2 cm"]),
-    answer("y8-pyth-hyp-m5", "Find the hypotenuse in kilometres.", "a=20\\text{ km},\\;b=21\\text{ km}", "29", "Square root of 841 equals 29.", ["29 km"]),
+    answer("y8-pyth-hyp-m4", "Find the hypotenuse in centimetres. Round to 1 decimal place.", "a=6\\text{ cm},\\;b=7\\text{ cm}", "9.2", "Square root of 85 is approximately 9.2.", ["9.2 cm"], tri("Right triangle: shorter sides 6 cm and 7 cm, hypotenuse c.", { AC: "6 cm", BC: "7 cm", AB: "c" })),
+    answer("y8-pyth-hyp-m5", "Find the hypotenuse in kilometres.", "a=20\\text{ km},\\;b=21\\text{ km}", "29", "Square root of 841 equals 29.", ["29 km"], tri("Right triangle: shorter sides 20 km and 21 km, hypotenuse c.", { AC: "20 km", BC: "21 km", AB: "c" })),
     choice("y8-pyth-hyp-m6", "Which is the correct calculation for shorter sides 10 and 11?", "C", ["$\\sqrt{11^2-10^2}$", "$10+11$", "$\\sqrt{10^2+11^2}$", "$10^2+11^2$"], "A hypotenuse uses the square root of the sum of squares."),
-    answer("y8-pyth-hyp-m7", "Find the hypotenuse in metres. Round to 1 decimal place.", "a=4\\text{ m},\\;b=9\\text{ m}", "9.8", "Square root of 97 is approximately 9.8.", ["9.8 m"]),
+    answer("y8-pyth-hyp-m7", "Find the hypotenuse in metres. Round to 1 decimal place.", "a=4\\text{ m},\\;b=9\\text{ m}", "9.8", "Square root of 97 is approximately 9.8.", ["9.8 m"], tri("Right triangle: shorter sides 4 m and 9 m, hypotenuse c.", { AC: "4 m", BC: "9 m", AB: "c" })),
     choice("y8-pyth-hyp-m8", "A student finds 9 + 16 = 25 for sides 3 and 4, then writes 25 cm as the answer. What step is missing?", "B", ["Subtract the squares", "Take the square root", "Double the result", "Round to a decimal"], "c squared was found; the square root gives c."),
-    answer("y8-pyth-hyp-m9", "A rectangular screen is 30 cm wide and 40 cm high. Find its diagonal in centimetres.", "\\text{rectangle: }30\\text{ cm by }40\\text{ cm}", "50", "Square root of 900 plus 1600 equals 50.", ["50 cm"]),
-    answer("y8-pyth-hyp-m10", "Find the hypotenuse in metres. Round to 1 decimal place.", "a=11\\text{ m},\\;b=13\\text{ m}", "17.0", "Square root of 121 plus 169 is approximately 17.0.", ["17.0 m", "17 m", "17"]),
+    answer("y8-pyth-hyp-m9", "A rectangular screen is 30 cm wide and 40 cm high. Find its diagonal in centimetres.", "\\text{rectangle: }30\\text{ cm by }40\\text{ cm}", "50", "Square root of 900 plus 1600 equals 50.", ["50 cm"], tri("Right triangle formed by half the screen: legs 30 cm (width) and 40 cm (height) with diagonal d as the hypotenuse.", { AC: "40 cm", BC: "30 cm", AB: "d" })),
+    answer("y8-pyth-hyp-m10", "Find the hypotenuse in metres. Round to 1 decimal place.", "a=11\\text{ m},\\;b=13\\text{ m}", "17.0", "Square root of 121 plus 169 is approximately 17.0.", ["17.0 m", "17 m", "17"], tri("Right triangle: shorter sides 11 m and 13 m, hypotenuse c.", { AC: "11 m", BC: "13 m", AB: "c" })),
   ],
   masteryQuizPool: [
     poolAnswer("y8-pyth-hyp-p1", "Find the hypotenuse in centimetres.", "a=6\\text{ cm},\\;b=8\\text{ cm}", "10", "Square root of 36 plus 64 equals 10.", 1, ["10 cm"]),
@@ -601,6 +659,10 @@ const findingHypotenuse: LessonContent = {
       prompt:
         "A rectangular gate is 24 cm wide and 7 cm high. A diagonal brace runs corner to corner. A second, larger gate is 8 cm wide and 6 cm high.",
       latex: "\\text{Gate 1: }24\\times 7.\\quad \\text{Gate 2: }8\\times 6.",
+      triangleDiagram: tri(
+        "Gate 1's diagonal brace as the hypotenuse of a right triangle with legs 24 cm (width) and 7 cm (height).",
+        { AC: "7 cm", BC: "24 cm", AB: "brace" }
+      ),
       answer: "25",
       hint: "A diagonal is the hypotenuse of a right triangle whose shorter sides are the width and height. Add the squares and take the square root.",
       explanation:
@@ -659,13 +721,16 @@ const findingShorterSide: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "When the unknown is a shorter side, start with the hypotenuse square and subtract the square of the known shorter side.",
-      "Always identify the hypotenuse first — it is the longest side, opposite the right angle. The method only works if you subtract from the correct (largest) value.",
-      "Subtract first, then take the square root. A common mistake is to take the square root of each value separately.",
+      "Sometimes you already know the longest side — the hypotenuse — and one of the short sides, and you want the other short side. This is the reverse of finding the hypotenuse, and it uses the same theorem rearranged.",
+      "Start from the same statement, $a^2 + b^2 = c^2$. The combined area of the two small squares equals the big square's area. If you know the big square ($c^2$) and one small square ($a^2$), the missing small square must be whatever is left over when you take the known one away: $b^2 = c^2 - a^2$. In words, the missing square is the hypotenuse square minus the known shorter-side square — a subtraction, not an addition.",
+      "Picture it as areas. The square on the hypotenuse holds the whole amount; one of the shorter-side squares is already accounted for, so you subtract it off to see how much area is left for the other shorter side. Then, exactly as before, take the square root to turn that leftover area back into a side length: $b = \\sqrt{c^2 - a^2}$.",
+      "The order matters because subtraction is not symmetric. You must subtract the smaller square from the larger one, so the hypotenuse square has to come first. Try a 5-12-13 triangle: with hypotenuse 13 and one short side 5, the other short side is $\\sqrt{13^2 - 5^2} = \\sqrt{169 - 25} = \\sqrt{144} = 12$. Subtract first, then root.",
+      "If you ever get a negative number under the square root — say you wrote $\\sqrt{5^2 - 13^2}$ — that is a warning sign, not a real triangle. It means you treated a short side as the hypotenuse. There is no real square root of a negative, and there is no triangle where a shorter side is longer than the hypotenuse, so go back and put the longest length in as $c$.",
+      "A second trap is taking the square root of each number separately and subtracting — writing $13 - 5 = 8$. That ignores the squaring step entirely. You must square both lengths, subtract the squared values, and only then take one square root of the result. In exam contexts this is the height a ladder reaches up a wall, or a missing side of a rectangle when the diagonal is known: known hypotenuse, subtract squares, square-root.",
     ],
     latexBlocks: [
-      "a^2 + b^2 = c^2",
-      "b = \\sqrt{c^2 - a^2}",
+      "a^2 + b^2 = c^2 \\;\\Rightarrow\\; b^2 = c^2 - a^2",
+      "b = \\sqrt{c^2 - a^2} \\quad (\\text{hypotenuse square comes first})",
       "b = \\sqrt{13^2 - 5^2} = \\sqrt{169-25} = \\sqrt{144} = 12",
     ],
   },
@@ -675,41 +740,66 @@ const findingShorterSide: LessonContent = {
       questionLatex: "\\text{The hypotenuse is }13\\text{ cm and one shorter side is }5\\text{ cm. Find the unknown shorter side.}",
       triangleDiagram: tri("Right-angled triangle: hypotenuse 13 cm, one shorter side 5 cm, unknown shorter side x.", { AB: "13 cm", AC: "5 cm", BC: "x" }),
       steps: [
-        { explanation: "Subtract the known shorter-side square from the hypotenuse square.", latex: "x^2 = 13^2 - 5^2 = 169 - 25 = 144" },
-        { explanation: "Take the square root.", latex: "x = \\sqrt{144} = 12" },
+        { explanation: "The unknown is a shorter side, so subtract the known shorter-side square from the hypotenuse square (13 first because it is largest).", latex: "x^2 = 13^2 - 5^2" },
+        { explanation: "Work out each square and subtract.", latex: "x^2 = 169 - 25 = 144" },
+        { explanation: "Take the square root of the leftover area to get the side length.", latex: "x = \\sqrt{144} = 12" },
       ],
       finalAnswerLatex: "12\\text{ cm}",
     } as WorkedExample,
     {
       title: "Use a 6-8-10 triangle",
       questionLatex: "\\text{Hypotenuse }10\\text{ m, one shorter side }6\\text{ m. Find the other shorter side.}",
+      triangleDiagram: tri(
+        "Right-angled triangle: hypotenuse 10 m, one shorter side 6 m, unknown shorter side x.",
+        { AB: "10 m", AC: "6 m", BC: "x" }
+      ),
       steps: [
-        { explanation: "Subtract the squares.", latex: "x = \\sqrt{10^2 - 6^2} = \\sqrt{100-36} = \\sqrt{64}" },
-        { explanation: "Take the square root.", latex: "x = 8" },
+        { explanation: "Subtract the known shorter-side square from the hypotenuse square.", latex: "x^2 = 10^2 - 6^2 = 100 - 36 = 64" },
+        { explanation: "Take the square root.", latex: "x = \\sqrt{64} = 8" },
       ],
       finalAnswerLatex: "8\\text{ m}",
     } as WorkedExample,
     {
       title: "Round a decimal shorter side",
       questionLatex: "\\text{Hypotenuse }11\\text{ cm, one shorter side }7\\text{ cm. Find the other, rounded to 1 decimal place.}",
+      triangleDiagram: tri(
+        "Right-angled triangle: hypotenuse 11 cm, one shorter side 7 cm, unknown shorter side x.",
+        { AB: "11 cm", AC: "7 cm", BC: "x" }
+      ),
       steps: [
-        { explanation: "Subtract the squares.", latex: "x = \\sqrt{11^2-7^2} = \\sqrt{121-49} = \\sqrt{72}" },
-        { explanation: "Evaluate and round.", latex: "x \\approx 8.485\\ldots \\approx 8.5" },
+        { explanation: "Subtract the squares, keeping the hypotenuse square first.", latex: "x^2 = 11^2 - 7^2 = 121 - 49 = 72" },
+        { explanation: "Take the square root; 72 is not a perfect square, so keep it as a surd until the end.", latex: "x = \\sqrt{72}" },
+        { explanation: "Evaluate and round only now.", latex: "x \\approx 8.485\\ldots \\approx 8.5" },
       ],
       finalAnswerLatex: "8.5\\text{ cm}",
+    } as WorkedExample,
+    {
+      title: "Spot and fix the wrong order (harder)",
+      questionLatex: "\\text{A 26 m guy wire is fixed to a mast and pegged 10 m from its base. A student writes } \\sqrt{10^2 - 26^2}. \\text{ Correct it and find the height on the mast.}",
+      triangleDiagram: tri(
+        "Right-angled triangle modelling the guy wire: the 26 m wire is the hypotenuse, the 10 m ground distance is one leg, and the height h up the mast is the unknown leg.",
+        { AB: "26 m", BC: "10 m", AC: "h" }
+      ),
+      steps: [
+        { explanation: "Check the student's setup: 10 is a shorter side and 26 is the hypotenuse, so subtracting the larger square first gives a negative — no real triangle.", latex: "10^2 - 26^2 = 100 - 676 = -576 \\;(\\text{impossible})" },
+        { explanation: "Swap the order so the hypotenuse square (the largest value) comes first.", latex: "h^2 = 26^2 - 10^2" },
+        { explanation: "Work out the squares and subtract.", latex: "h^2 = 676 - 100 = 576" },
+        { explanation: "Take the square root to get the height reached on the mast.", latex: "h = \\sqrt{576} = 24" },
+      ],
+      finalAnswerLatex: "h = 24\\text{ m (the setup must subtract the smaller square from the hypotenuse square).}",
     } as WorkedExample,
   ],
   guidedPractice: [
     answer("y8-pyth-short-g1", "Find the unknown shorter side in centimetres.", "\\text{hypotenuse }13\\text{ cm, shorter side }12\\text{ cm}", "5", "Square root of 169 minus 144 equals 5.", ["5 cm"], tri("Right-angled triangle: hypotenuse 13 cm, known shorter side 12 cm, unknown side x.", { AB: "13 cm", BC: "12 cm", AC: "x" })),
-    answer("y8-pyth-short-g2", "Find the unknown shorter side in metres.", "\\text{hypotenuse }17\\text{ m, shorter side }8\\text{ m}", "15", "Square root of 289 minus 64 equals 15.", ["15 m"]),
+    answer("y8-pyth-short-g2", "Find the unknown shorter side in metres.", "\\text{hypotenuse }17\\text{ m, shorter side }8\\text{ m}", "15", "Square root of 289 minus 64 equals 15.", ["15 m"], tri("Right-angled triangle: hypotenuse 17 m, known shorter side 8 m, unknown side x.", { AB: "17 m", AC: "8 m", BC: "x" })),
     choice("y8-pyth-short-g3", "Which setup finds unknown shorter side x when hypotenuse = 13 and known shorter side = 5?", "D", ["$\\sqrt{13^2+5^2}$", "$13-5$", "$13^2+5^2$", "$\\sqrt{13^2-5^2}$"], "Subtract the shorter-side square from the hypotenuse square."),
-    answer("y8-pyth-short-g4", "Find the unknown shorter side in centimetres. Round to 1 decimal place.", "\\text{hypotenuse }9\\text{ cm, shorter side }4\\text{ cm}", "8.1", "Square root of 65 is approximately 8.1.", ["8.1 cm"]),
+    answer("y8-pyth-short-g4", "Find the unknown shorter side in centimetres. Round to 1 decimal place.", "\\text{hypotenuse }9\\text{ cm, shorter side }4\\text{ cm}", "8.1", "Square root of 65 is approximately 8.1.", ["8.1 cm"], tri("Right-angled triangle: hypotenuse 9 cm, known shorter side 4 cm, unknown side x.", { AB: "9 cm", AC: "4 cm", BC: "x" })),
   ],
   independentPractice: [
-    answer("y8-pyth-short-i1", "Find the unknown shorter side in millimetres.", "\\text{hypotenuse }25\\text{ mm, shorter side }7\\text{ mm}", "24", "Square root of 625 minus 49 equals 24.", ["24 mm"]),
-    answer("y8-pyth-short-i2", "Find the unknown shorter side in metres. Round to 1 decimal place.", "\\text{hypotenuse }12\\text{ m, shorter side }7\\text{ m}", "9.7", "Square root of 95 is approximately 9.7.", ["9.7 m"]),
+    answer("y8-pyth-short-i1", "Find the unknown shorter side in millimetres.", "\\text{hypotenuse }25\\text{ mm, shorter side }7\\text{ mm}", "24", "Square root of 625 minus 49 equals 24.", ["24 mm"], tri("Right-angled triangle: hypotenuse 25 mm, known shorter side 7 mm, unknown side x.", { AB: "25 mm", AC: "7 mm", BC: "x" })),
+    answer("y8-pyth-short-i2", "Find the unknown shorter side in metres. Round to 1 decimal place.", "\\text{hypotenuse }12\\text{ m, shorter side }7\\text{ m}", "9.7", "Square root of 95 is approximately 9.7.", ["9.7 m"], tri("Right-angled triangle: hypotenuse 12 m, known shorter side 7 m, unknown side x.", { AB: "12 m", AC: "7 m", BC: "x" })),
     choice("y8-pyth-short-i3", "Which value must be the starting point before subtraction?", "A", ["The hypotenuse squared", "The shorter side squared", "The sum of all sides", "The right-angle value"], "Subtract from the hypotenuse square."),
-    answer("y8-pyth-short-i4", "A 13 m ladder leans against a wall. Its base is 5 m from the wall. Find the height reached in metres.", "\\text{ladder }13\\text{ m, base }5\\text{ m}", "12", "Square root of 169 minus 25 equals 12.", ["12 m"]),
+    answer("y8-pyth-short-i4", "A 13 m ladder leans against a wall. Its base is 5 m from the wall. Find the height reached in metres.", "\\text{ladder }13\\text{ m, base }5\\text{ m}", "12", "Square root of 169 minus 25 equals 12.", ["12 m"], tri("Ladder against a wall as a right triangle: the 13 m ladder is the hypotenuse, the 5 m base distance is the bottom leg, and the height h up the wall is the unknown leg.", { AB: "13 m", BC: "5 m", AC: "h" })),
     choice("y8-pyth-short-i5", "Why is square root of 6 squared minus 10 squared not valid when finding a shorter side?", "C", ["Both values must be added", "Six is the hypotenuse", "The hypotenuse square must come first since it is larger", "Square roots are only used for hypotenuses"], "The hypotenuse square must be the value being subtracted from."),
   ],
   commonMistakes: [
@@ -719,16 +809,16 @@ const findingShorterSide: LessonContent = {
     { mistake: "Getting a negative under the square root.", fix: "This signals the hypotenuse was not identified correctly. The largest value must be squared first." },
   ],
   masteryQuiz: [
-    answer("y8-pyth-short-m1", "Find the unknown shorter side in centimetres.", "\\text{hypotenuse }10\\text{ cm, shorter side }6\\text{ cm}", "8", "Square root of 64 equals 8.", ["8 cm"]),
-    answer("y8-pyth-short-m2", "Find the unknown shorter side in metres.", "\\text{hypotenuse }25\\text{ m, shorter side }20\\text{ m}", "15", "Square root of 625 minus 400 equals 15.", ["15 m"]),
+    answer("y8-pyth-short-m1", "Find the unknown shorter side in centimetres.", "\\text{hypotenuse }10\\text{ cm, shorter side }6\\text{ cm}", "8", "Square root of 64 equals 8.", ["8 cm"], tri("Right-angled triangle: hypotenuse 10 cm, known shorter side 6 cm, unknown side x.", { AB: "10 cm", AC: "6 cm", BC: "x" })),
+    answer("y8-pyth-short-m2", "Find the unknown shorter side in metres.", "\\text{hypotenuse }25\\text{ m, shorter side }20\\text{ m}", "15", "Square root of 625 minus 400 equals 15.", ["15 m"], tri("Right-angled triangle: hypotenuse 25 m, known shorter side 20 m, unknown side x.", { AB: "25 m", AC: "20 m", BC: "x" })),
     choice("y8-pyth-short-m3", "Which operation is performed immediately before taking the square root when finding a shorter side?", "B", ["Add the squared lengths", "Subtract the squared lengths", "Divide the side lengths", "Round the hypotenuse"], "For an unknown shorter side, subtract the squares."),
-    answer("y8-pyth-short-m4", "Find the unknown shorter side in centimetres. Round to 1 decimal place.", "\\text{hypotenuse }14\\text{ cm, shorter side }9\\text{ cm}", "10.7", "Square root of 115 is approximately 10.7.", ["10.7 cm"]),
-    answer("y8-pyth-short-m5", "A 15 m ladder stands 9 m from a wall. Find the height reached in metres.", "\\text{ladder }15\\text{ m, base }9\\text{ m}", "12", "Square root of 225 minus 81 equals 12.", ["12 m"]),
+    answer("y8-pyth-short-m4", "Find the unknown shorter side in centimetres. Round to 1 decimal place.", "\\text{hypotenuse }14\\text{ cm, shorter side }9\\text{ cm}", "10.7", "Square root of 115 is approximately 10.7.", ["10.7 cm"], tri("Right-angled triangle: hypotenuse 14 cm, known shorter side 9 cm, unknown side x.", { AB: "14 cm", AC: "9 cm", BC: "x" })),
+    answer("y8-pyth-short-m5", "A 15 m ladder stands 9 m from a wall. Find the height reached in metres.", "\\text{ladder }15\\text{ m, base }9\\text{ m}", "12", "Square root of 225 minus 81 equals 12.", ["12 m"], tri("Ladder against a wall as a right triangle: the 15 m ladder is the hypotenuse, the 9 m base distance is the bottom leg, and the height h up the wall is the unknown leg.", { AB: "15 m", BC: "9 m", AC: "h" })),
     choice("y8-pyth-short-m6", "The diagram shows a triangle with hypotenuse 17 and one shorter side 8. Which side is unknown?", "C", ["AB", "The hypotenuse", "The side labelled x", "The right angle"], "The unknown shorter side is labelled x.", "\\text{Use the diagram.}", tri("Right-angled triangle: hypotenuse 17, known shorter side 8, unknown shorter side x.", { AB: "17", AC: "8", BC: "x" })),
-    answer("y8-pyth-short-m7", "Find the unknown shorter side in metres. Round to 2 decimal places.", "\\text{hypotenuse }18\\text{ m, shorter side }11\\text{ m}", "14.25", "Square root of 203 is approximately 14.25.", ["14.25 m"]),
+    answer("y8-pyth-short-m7", "Find the unknown shorter side in metres. Round to 2 decimal places.", "\\text{hypotenuse }18\\text{ m, shorter side }11\\text{ m}", "14.25", "Square root of 203 is approximately 14.25.", ["14.25 m"], tri("Right-angled triangle: hypotenuse 18 m, known shorter side 11 m, unknown side x.", { AB: "18 m", AC: "11 m", BC: "x" })),
     choice("y8-pyth-short-m8", "A student writes square root of 6 squared minus 10 squared for shorter sides 6 and 10. What correction is needed?", "A", ["Use $\\sqrt{10^2-6^2}$", "Use $\\sqrt{10^2+6^2}$", "Use $10-6$", "Use $6^2+10^2$"], "The larger hypotenuse square must come first in the subtraction."),
-    answer("y8-pyth-short-m9", "A rectangular park has diagonal 26 m and one side 10 m. Find the other side in metres.", "\\text{diagonal }26\\text{ m, width }10\\text{ m}", "24", "Square root of 676 minus 100 equals 24.", ["24 m"]),
-    answer("y8-pyth-short-m10", "A support wire is 9.5 m long and reaches 3.2 m horizontally from a pole. Find the pole height in metres. Round to 1 decimal place.", "\\text{wire }9.5\\text{ m, horizontal }3.2\\text{ m}", "8.9", "Square root of 90.25 minus 10.24 equals square root of 80.01 which is approximately 8.9.", ["8.9 m"]),
+    answer("y8-pyth-short-m9", "A rectangular park has diagonal 26 m and one side 10 m. Find the other side in metres.", "\\text{diagonal }26\\text{ m, width }10\\text{ m}", "24", "Square root of 676 minus 100 equals 24.", ["24 m"], tri("Right triangle from the park: the 26 m diagonal is the hypotenuse, the known side 10 m is one leg, and the unknown side x is the other leg.", { AB: "26 m", AC: "10 m", BC: "x" })),
+    answer("y8-pyth-short-m10", "A support wire is 9.5 m long and reaches 3.2 m horizontally from a pole. Find the pole height in metres. Round to 1 decimal place.", "\\text{wire }9.5\\text{ m, horizontal }3.2\\text{ m}", "8.9", "Square root of 90.25 minus 10.24 equals square root of 80.01 which is approximately 8.9.", ["8.9 m"], tri("Support wire as a right triangle: the 9.5 m wire is the hypotenuse, the 3.2 m horizontal distance is the bottom leg, and the pole height h is the unknown leg.", { AB: "9.5 m", BC: "3.2 m", AC: "h" })),
   ],
   masteryQuizPool: [
     poolAnswer("y8-pyth-short-p1", "Find the unknown shorter side in centimetres.", "\\text{hypotenuse }5\\text{ cm, shorter side }3\\text{ cm}", "4", "Square root of 25 minus 9 equals 4.", 1, ["4 cm"]),
@@ -763,6 +853,10 @@ const findingShorterSide: LessonContent = {
       prompt:
         "A 25 m fire-truck ladder is extended to a window. The foot of the ladder is 7 m from the base of the wall. A second ladder, 13 m long, has its foot 5 m from the wall.",
       latex: "\\text{Ladder 1: }25\\text{ m, base }7\\text{ m.}\\quad \\text{Ladder 2: }13\\text{ m, base }5\\text{ m.}",
+      triangleDiagram: tri(
+        "Ladder 1 as a right triangle: the 25 m ladder is the hypotenuse, the 7 m base distance is the bottom leg, and the wall height h is the unknown leg.",
+        { AB: "25 m", BC: "7 m", AC: "h" }
+      ),
       answer: "24",
       hint: "Each ladder is a hypotenuse. The wall height is an unknown shorter side: subtract the base-distance square from the ladder-length square, then take the square root.",
       explanation:
@@ -821,56 +915,91 @@ const realContexts: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Many real situations hide a right-angled triangle: a ladder against a wall, the diagonal of a rectangle, a ramp from floor to platform, or a direct path between two points.",
-      "Start every problem by drawing a rough sketch. Label the right angle and any known lengths. Decide: is the unknown the hypotenuse, or is the hypotenuse already known?",
-      "If the unknown is opposite the right angle, add the squares and take the square root. If the hypotenuse is known and a shorter side is missing, subtract squares and take the square root.",
+      "Most real Pythagoras questions do not hand you a labelled triangle — they describe a situation, and the right-angled triangle is hiding inside it. A ladder leaning on a wall, the diagonal across a rectangular screen, a ramp rising to a platform, a walk east then north: each of these contains a square corner and three lengths waiting to be matched to $a$, $b$ and $c$.",
+      "So the first move is always the same: draw a quick sketch and find the right angle. The wall meets the ground at $90$ degrees; the sides of a rectangle meet at $90$ degrees; east and north are at $90$ degrees. Mark that corner, then label the lengths the problem gives you onto the two sides and the slanted side.",
+      "Once the picture is labelled, ask one question: is the side I want the slanted one (the hypotenuse, across from the right angle), or one of the two that meet at the corner? That single decision tells you which form of the theorem to use, and getting it right is what most of these exam marks are testing.",
+      "If the unknown is the slanted hypotenuse — a ladder length, a rectangle's diagonal, the straight-line distance across two legs of a journey — add the squares of the two short sides and take the square root: $c = \\sqrt{a^2 + b^2}$. The hypotenuse cuts the corner, so it is the longest, and adding the squares is what produces the longest side.",
+      "If instead the hypotenuse is already given and a short side is missing — how high a known-length ladder reaches, or a rectangle's height from its diagonal and width — subtract the known shorter-side square from the hypotenuse square and take the root: $b = \\sqrt{c^2 - a^2}$. Knowing the slanted side and wanting a leg always means subtraction.",
+      "The classic blunder is to grab the numbers and add their squares without checking which is the hypotenuse. With a ladder, the ladder itself is the slanted side, so it is $c$; the wall height and the ground distance are the two legs. If a problem gives the ladder and the ground distance and asks for the height, you must subtract, not add. Sketch first, name the hypotenuse, then choose your operation — and remember to attach the unit (m, cm, km) the context uses.",
     ],
     latexBlocks: [
-      "\\text{unknown hypotenuse: }c = \\sqrt{a^2+b^2}",
-      "\\text{unknown shorter side: }b = \\sqrt{c^2-a^2}",
+      "\\text{unknown hypotenuse (slanted side): }c = \\sqrt{a^2+b^2}",
+      "\\text{unknown shorter side (a leg): }b = \\sqrt{c^2-a^2}",
+      "\\text{Step 1: sketch and mark the right angle. Step 2: name the hypotenuse. Step 3: add or subtract.}",
     ],
   },
   workedExamples: [
     {
       title: "Rectangle diagonal",
       questionLatex: "\\text{A rectangle is }6\\text{ m by }8\\text{ m. Find its diagonal.}",
+      triangleDiagram: tri(
+        "Right triangle formed by half the rectangle: legs 6 m and 8 m with the diagonal d as the hypotenuse.",
+        { AC: "6 m", BC: "8 m", AB: "d" }
+      ),
       steps: [
-        { explanation: "The diagonal cuts the rectangle into two right-angled triangles. The diagonal is the hypotenuse.", latex: "d = \\sqrt{6^2+8^2}" },
-        { explanation: "Evaluate.", latex: "d = \\sqrt{36+64} = \\sqrt{100} = 10" },
+        { explanation: "Sketch the rectangle; a diagonal cuts it into two right-angled triangles whose legs are the two sides, so the diagonal is the hypotenuse.", latex: "d^2 = 6^2 + 8^2" },
+        { explanation: "Square the two sides and add, because the unknown is the slanted hypotenuse.", latex: "d^2 = 36 + 64 = 100" },
+        { explanation: "Take the square root.", latex: "d = \\sqrt{100} = 10" },
       ],
       finalAnswerLatex: "10\\text{ m}",
     } as WorkedExample,
     {
       title: "Ladder against a wall",
       questionLatex: "\\text{A }10\\text{ m ladder reaches a wall. Its base is }6\\text{ m from the wall. How high does it reach?}",
+      triangleDiagram: tri(
+        "Ladder against a wall as a right triangle: the 10 m ladder is the hypotenuse, the 6 m base distance is the bottom leg, and the height h up the wall is the unknown leg.",
+        { AB: "10 m", BC: "6 m", AC: "h" }
+      ),
       steps: [
-        { explanation: "The ladder is the hypotenuse. The wall height is the unknown shorter side.", latex: "h = \\sqrt{10^2-6^2}" },
-        { explanation: "Subtract then take the square root.", latex: "h = \\sqrt{100-36} = \\sqrt{64} = 8" },
+        { explanation: "The wall and ground meet at a right angle; the ladder is the slanted side, so the ladder is the hypotenuse and the height is a leg.", latex: "h^2 = 10^2 - 6^2" },
+        { explanation: "Because the hypotenuse is known and a leg is missing, subtract the squares.", latex: "h^2 = 100 - 36 = 64" },
+        { explanation: "Take the square root to find the height up the wall.", latex: "h = \\sqrt{64} = 8" },
       ],
       finalAnswerLatex: "8\\text{ m}",
     } as WorkedExample,
     {
       title: "Ramp rise",
       questionLatex: "\\text{A ramp is }6.5\\text{ m long and covers }6\\text{ m horizontally. Find the rise, rounded to 1 decimal place.}",
+      triangleDiagram: tri(
+        "Ramp as a right triangle: the 6.5 m ramp is the hypotenuse, the 6 m horizontal run is the bottom leg, and the rise r is the unknown leg.",
+        { AB: "6.5 m", BC: "6 m", AC: "r" }
+      ),
       steps: [
-        { explanation: "The ramp is the hypotenuse; the rise is an unknown shorter side.", latex: "r = \\sqrt{6.5^2-6^2} = \\sqrt{42.25-36}" },
-        { explanation: "Evaluate.", latex: "r = \\sqrt{6.25} = 2.5" },
+        { explanation: "The ramp is the slanted side (hypotenuse); the horizontal run is one leg and the rise is the other, unknown leg.", latex: "r^2 = 6.5^2 - 6^2" },
+        { explanation: "Subtract the known squares since the hypotenuse is given.", latex: "r^2 = 42.25 - 36 = 6.25" },
+        { explanation: "Take the square root.", latex: "r = \\sqrt{6.25} = 2.5" },
       ],
       finalAnswerLatex: "2.5\\text{ m}",
     } as WorkedExample,
+    {
+      title: "Two-leg journey then a shortcut (harder)",
+      questionLatex: "\\text{A hiker walks }24\\text{ km east, then }7\\text{ km north. Find the straight-line distance back to the start, and how much shorter the shortcut is than retracing the walk.}",
+      triangleDiagram: tri(
+        "The journey as a right triangle: the 24 km east leg and the 7 km north leg meet at a right angle, and the direct distance d back to the start is the hypotenuse.",
+        { BC: "24 km", AC: "7 km", AB: "d" }
+      ),
+      steps: [
+        { explanation: "East and north are at right angles, so the two legs are 24 and 7 and the direct route back is the hypotenuse.", latex: "d^2 = 24^2 + 7^2" },
+        { explanation: "Add the squares because the unknown is the slanted hypotenuse.", latex: "d^2 = 576 + 49 = 625" },
+        { explanation: "Take the square root to find the direct distance.", latex: "d = \\sqrt{625} = 25" },
+        { explanation: "The walked path is the two legs added; compare it with the shortcut.", latex: "24 + 7 = 31 \\text{ km walked}" },
+        { explanation: "Subtract to find how much the straight line saves.", latex: "31 - 25 = 6 \\text{ km shorter}" },
+      ],
+      finalAnswerLatex: "\\text{Direct distance } 25 \\text{ km; the shortcut saves } 6 \\text{ km.}",
+    } as WorkedExample,
   ],
   guidedPractice: [
-    answer("y8-pyth-ctx-g1", "A rectangle is 9 m by 12 m. Find its diagonal in metres.", "\\text{rectangle: }9\\text{ m by }12\\text{ m}", "15", "Square root of 81 plus 144 equals 15.", ["15 m"]),
+    answer("y8-pyth-ctx-g1", "A rectangle is 9 m by 12 m. Find its diagonal in metres.", "\\text{rectangle: }9\\text{ m by }12\\text{ m}", "15", "Square root of 81 plus 144 equals 15.", ["15 m"], tri("Right triangle formed by half the rectangle: legs 9 m and 12 m with the diagonal d as the hypotenuse.", { AC: "9 m", BC: "12 m", AB: "d" })),
     choice("y8-pyth-ctx-g2", "A ladder leans against a wall forming a right triangle. Which length is the hypotenuse?", "B", ["The wall height", "The ladder length", "The ground distance", "The right-angle size"], "The ladder runs from ground to wall opposite the right angle."),
-    answer("y8-pyth-ctx-g3", "A 5 m rope is tied from the top of a pole to the ground 3 m from the base. Find the pole height in metres.", "\\text{rope }5\\text{ m, ground }3\\text{ m}", "4", "Square root of 25 minus 9 equals 4.", ["4 m"]),
+    answer("y8-pyth-ctx-g3", "A 5 m rope is tied from the top of a pole to the ground 3 m from the base. Find the pole height in metres.", "\\text{rope }5\\text{ m, ground }3\\text{ m}", "4", "Square root of 25 minus 9 equals 4.", ["4 m"], tri("Rope and pole as a right triangle: the 5 m rope is the hypotenuse, the 3 m ground distance is the bottom leg, and the pole height h is the unknown leg.", { AB: "5 m", BC: "3 m", AC: "h" })),
     choice("y8-pyth-ctx-g4", "Which setup gives the diagonal of an 8 cm by 15 cm rectangle?", "C", ["$\\sqrt{15^2-8^2}$", "$8+15$", "$\\sqrt{8^2+15^2}$", "$15-8$"], "A diagonal is a hypotenuse, so add the squares."),
   ],
   independentPractice: [
-    answer("y8-pyth-ctx-i1", "A square has side length 5 cm. Find its diagonal in centimetres. Round to 1 decimal place.", "\\text{square side: }5\\text{ cm}", "7.1", "Square root of 50 is approximately 7.1.", ["7.1 cm"]),
-    answer("y8-pyth-ctx-i2", "A 17 m ladder stands 8 m from a wall. Find the height it reaches in metres.", "\\text{ladder }17\\text{ m, base }8\\text{ m}", "15", "Square root of 289 minus 64 equals 15.", ["15 m"]),
+    answer("y8-pyth-ctx-i1", "A square has side length 5 cm. Find its diagonal in centimetres. Round to 1 decimal place.", "\\text{square side: }5\\text{ cm}", "7.1", "Square root of 50 is approximately 7.1.", ["7.1 cm"], tri("Right triangle formed by half the square: both legs 5 cm with the diagonal d as the hypotenuse.", { AC: "5 cm", BC: "5 cm", AB: "d" })),
+    answer("y8-pyth-ctx-i2", "A 17 m ladder stands 8 m from a wall. Find the height it reaches in metres.", "\\text{ladder }17\\text{ m, base }8\\text{ m}", "15", "Square root of 289 minus 64 equals 15.", ["15 m"], tri("Ladder against a wall as a right triangle: the 17 m ladder is the hypotenuse, the 8 m base distance is the bottom leg, and the height h up the wall is the unknown leg.", { AB: "17 m", BC: "8 m", AC: "h" })),
     choice("y8-pyth-ctx-i3", "A context gives a known hypotenuse and asks for a shorter side. Which operation is used?", "D", ["Add lengths", "Multiply lengths", "Add squares then take the square root", "Subtract the shorter-side square from the hypotenuse square"], "An unknown shorter side uses subtraction."),
-    answer("y8-pyth-ctx-i4", "Find the distance between points (0, 0) and (5, 12) in units.", "\\text{points }(0,0)\\text{ and }(5,12)", "13", "Square root of 25 plus 144 equals 13.", ["13 units"]),
-    answer("y8-pyth-ctx-i5", "A garden path goes 7 m east and 24 m north. Find the direct distance in metres.", "\\text{east }7\\text{ m, north }24\\text{ m}", "25", "Square root of 49 plus 576 equals 25.", ["25 m"]),
+    answer("y8-pyth-ctx-i4", "Find the distance between points (0, 0) and (5, 12) in units.", "\\text{points }(0,0)\\text{ and }(5,12)", "13", "Square root of 25 plus 144 equals 13.", ["13 units"], undefined, coordGraph("Cartesian plane showing the segment from (0,0) to (5,12) as the hypotenuse of a right triangle with horizontal leg 5 and vertical leg 12.", { x: 0, y: 0, label: "(0, 0)" }, { x: 5, y: 12, label: "(5, 12)" }, { xMin: 0, xMax: 6, yMin: 0, yMax: 13, xStep: 1, yStep: 1 })),
+    answer("y8-pyth-ctx-i5", "A garden path goes 7 m east and 24 m north. Find the direct distance in metres.", "\\text{east }7\\text{ m, north }24\\text{ m}", "25", "Square root of 49 plus 576 equals 25.", ["25 m"], tri("Garden path as a right triangle: the 7 m east leg and 24 m north leg meet at a right angle, and the direct distance d is the hypotenuse.", { BC: "7 m", AC: "24 m", AB: "d" })),
   ],
   commonMistakes: [
     { mistake: "Using all numbers without identifying their roles.", fix: "Sketch the right triangle first, then label each side as hypotenuse or shorter side." },
@@ -879,16 +1008,16 @@ const realContexts: LessonContent = {
     { mistake: "Treating a diagonal as a shorter side.", fix: "A diagonal of a rectangle is the hypotenuse of the right triangle it creates." },
   ],
   masteryQuiz: [
-    answer("y8-pyth-ctx-m1", "A rectangle is 5 m by 12 m. Find its diagonal in metres.", "\\text{rectangle: }5\\text{ m by }12\\text{ m}", "13", "Square root of 25 plus 144 equals 13.", ["13 m"]),
-    answer("y8-pyth-ctx-m2", "A 10 m rope stretches from the top of a 6 m pole straight to the ground. How far from the base does it reach?", "\\text{rope }10\\text{ m, pole }6\\text{ m}", "8", "Square root of 100 minus 36 equals 8.", ["8 m"]),
+    answer("y8-pyth-ctx-m1", "A rectangle is 5 m by 12 m. Find its diagonal in metres.", "\\text{rectangle: }5\\text{ m by }12\\text{ m}", "13", "Square root of 25 plus 144 equals 13.", ["13 m"], tri("Right triangle formed by half the rectangle: legs 5 m and 12 m with the diagonal d as the hypotenuse.", { AC: "5 m", BC: "12 m", AB: "d" })),
+    answer("y8-pyth-ctx-m2", "A 10 m rope stretches from the top of a 6 m pole straight to the ground. How far from the base does it reach?", "\\text{rope }10\\text{ m, pole }6\\text{ m}", "8", "Square root of 100 minus 36 equals 8.", ["8 m"], tri("Rope and pole as a right triangle: the 10 m rope is the hypotenuse, the 6 m pole height is one leg, and the ground distance x from the base is the unknown leg.", { AB: "10 m", AC: "6 m", BC: "x" })),
     choice("y8-pyth-ctx-m3", "Which word in a rectangle problem signals a hypotenuse?", "A", ["Diagonal", "Perimeter", "Area", "Width"], "A rectangle diagonal spans a right triangle."),
-    answer("y8-pyth-ctx-m4", "A square has side 9 m. Find its diagonal in metres. Round to 1 decimal place.", "\\text{square side: }9\\text{ m}", "12.7", "Square root of 162 is approximately 12.7.", ["12.7 m"]),
-    answer("y8-pyth-ctx-m5", "A television is 40 cm wide and 30 cm high. Find its diagonal in centimetres.", "\\text{screen: }40\\text{ cm by }30\\text{ cm}", "50", "Square root of 1600 plus 900 equals 50.", ["50 cm"]),
+    answer("y8-pyth-ctx-m4", "A square has side 9 m. Find its diagonal in metres. Round to 1 decimal place.", "\\text{square side: }9\\text{ m}", "12.7", "Square root of 162 is approximately 12.7.", ["12.7 m"], tri("Right triangle formed by half the square: both legs 9 m with the diagonal d as the hypotenuse.", { AC: "9 m", BC: "9 m", AB: "d" })),
+    answer("y8-pyth-ctx-m5", "A television is 40 cm wide and 30 cm high. Find its diagonal in centimetres.", "\\text{screen: }40\\text{ cm by }30\\text{ cm}", "50", "Square root of 1600 plus 900 equals 50.", ["50 cm"], tri("Right triangle formed by half the screen: legs 40 cm (width) and 30 cm (height) with the diagonal d as the hypotenuse.", { AC: "40 cm", BC: "30 cm", AB: "d" })),
     choice("y8-pyth-ctx-m6", "A ramp and its horizontal distance are known. Which is the hypotenuse?", "B", ["The horizontal distance", "The ramp", "The rise", "The right angle"], "The sloping ramp is opposite the right angle."),
-    answer("y8-pyth-ctx-m7", "A path goes 20 m east and 21 m north. Find the direct distance home in metres.", "\\text{east }20\\text{ m, north }21\\text{ m}", "29", "Square root of 400 plus 441 equals 29.", ["29 m"]),
+    answer("y8-pyth-ctx-m7", "A path goes 20 m east and 21 m north. Find the direct distance home in metres.", "\\text{east }20\\text{ m, north }21\\text{ m}", "29", "Square root of 400 plus 441 equals 29.", ["29 m"], tri("Path as a right triangle: the 20 m east leg and 21 m north leg meet at a right angle, and the direct distance d home is the hypotenuse.", { BC: "20 m", AC: "21 m", AB: "d" })),
     choice("y8-pyth-ctx-m8", "A student adds the ladder length and wall height to find the ground distance. What is wrong?", "C", ["Area was used instead", "The answer should be in cm", "The correct method subtracts the shorter-side square from the hypotenuse square", "The ladder is not the hypotenuse"], "The ladder is the hypotenuse; subtract the wall-height square."),
-    answer("y8-pyth-ctx-m9", "A support cable 14 m long connects to a point 11 m horizontally from a pole. Find the height in metres. Round to 1 decimal place.", "\\text{cable }14\\text{ m, horizontal }11\\text{ m}", "8.7", "Square root of 196 minus 121 equals square root of 75 which is approximately 8.7.", ["8.7 m"]),
-    answer("y8-pyth-ctx-m10", "A rectangular window has diagonal 25 cm and width 7 cm. Find its height in centimetres.", "\\text{diagonal }25\\text{ cm, width }7\\text{ cm}", "24", "Square root of 625 minus 49 equals 24.", ["24 cm"]),
+    answer("y8-pyth-ctx-m9", "A support cable 14 m long connects to a point 11 m horizontally from a pole. Find the height in metres. Round to 1 decimal place.", "\\text{cable }14\\text{ m, horizontal }11\\text{ m}", "8.7", "Square root of 196 minus 121 equals square root of 75 which is approximately 8.7.", ["8.7 m"], tri("Support cable as a right triangle: the 14 m cable is the hypotenuse, the 11 m horizontal distance is the bottom leg, and the height h is the unknown leg.", { AB: "14 m", BC: "11 m", AC: "h" })),
+    answer("y8-pyth-ctx-m10", "A rectangular window has diagonal 25 cm and width 7 cm. Find its height in centimetres.", "\\text{diagonal }25\\text{ cm, width }7\\text{ cm}", "24", "Square root of 625 minus 49 equals 24.", ["24 cm"], tri("Right triangle from the window: the 25 cm diagonal is the hypotenuse, the 7 cm width is one leg, and the height h is the unknown leg.", { AB: "25 cm", BC: "7 cm", AC: "h" })),
   ],
   masteryQuizPool: [
     poolAnswer("y8-pyth-ctx-p1", "A rectangle is 3 m by 4 m. Find its diagonal in metres.", "\\text{rectangle }3\\text{ m by }4\\text{ m}", "5", "Square root of 9 plus 16 equals 5.", 1, ["5 m"]),
@@ -923,6 +1052,10 @@ const realContexts: LessonContent = {
       prompt:
         "A rectangular sports field is 40 m long and 30 m wide. A player runs along two sides from one corner to the opposite corner, while a second player runs straight across the diagonal.",
       latex: "\\text{Field: }40\\text{ m}\\times 30\\text{ m.}",
+      triangleDiagram: tri(
+        "The field's diagonal as the hypotenuse of a right triangle with legs 40 m (length) and 30 m (width).",
+        { BC: "40 m", AC: "30 m", AB: "diagonal" }
+      ),
       answer: "50",
       hint: "The diagonal is the hypotenuse of a right triangle whose shorter sides are the length and width. The two-side route is length plus width.",
       explanation:
@@ -981,56 +1114,89 @@ const pythagoreanTriples: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A Pythagorean triple is a set of three whole numbers that satisfies Pythagoras' theorem exactly. The four most common families are 3-4-5, 5-12-13, 8-15-17 and 7-24-25.",
-      "Multiplying all three numbers in a triple by the same value creates a new triple. For example, 3-4-5 multiplied by 2 gives 6-8-10; multiplied by 3 gives 9-12-15.",
-      "Recognising a triple means you can write the exact answer as a whole number without using a calculator.",
+      "A Pythagorean triple is a set of three whole numbers that fits the theorem perfectly — no decimals, no rounding. The classic example is 3-4-5, because $3^2 + 4^2 = 9 + 16 = 25 = 5^2$. The four families worth memorising are 3-4-5, 5-12-13, 8-15-17 and 7-24-25; in each, the largest number is the hypotenuse.",
+      "Why bother memorising them? Because when you recognise a triple, you can write the missing side instantly as a whole number, with no calculator and no chance of a rounding error. If a triangle has short sides 3 and 4, you already know the hypotenuse is 5 without computing a square root.",
+      "The powerful part is that triples can be scaled. If you multiply all three numbers in a triple by the same factor, the new set is still a triple. Multiply 3-4-5 by 2 and you get 6-8-10; by 3 and you get 9-12-15. These are all genuine right-angled triangles — just bigger copies of the same shape.",
+      "Here is why scaling always works, and it is worth seeing rather than taking on trust. Start from $3^2 + 4^2 = 5^2$. Multiply every side by $k$, so the sides become $3k$, $4k$, $5k$. Squaring each gives $(3k)^2 = 9k^2$, $(4k)^2 = 16k^2$ and $(5k)^2 = 25k^2$. Adding the first two: $9k^2 + 16k^2 = 25k^2$, which is exactly $(5k)^2$. The common factor $k^2$ sits in every term and cancels out of the comparison, so the equation balances for every value of $k$.",
+      "To use this in practice, look at the numbers you are given and ask what each was multiplied by. If the short sides are 16 and 30, notice $16 = 8 \\times 2$ and $30 = 15 \\times 2$ — that is the 8-15-17 family scaled by 2 — so the hypotenuse is $17 \\times 2 = 34$. The scale factor must be the same for both known sides, or it is not that triple.",
+      "The misconception to avoid is assuming any three whole numbers form a triple. They do not: 6-8-12 looks plausible but $6^2 + 8^2 = 100$ while $12^2 = 144$, so it fails. A triple is special precisely because the squares balance exactly. When a NSW exam problem gives 'nice' numbers, recognising the triple lets you skip the calculator — but always be ready to verify with $a^2 + b^2 = c^2$ if you are unsure.",
     ],
     latexBlocks: [
       "3\\text{-}4\\text{-}5,\\quad 5\\text{-}12\\text{-}13,\\quad 8\\text{-}15\\text{-}17,\\quad 7\\text{-}24\\text{-}25",
-      "\\text{Multiple: } (3k)^2+(4k)^2=(5k)^2 \\text{ for any }k",
+      "(3k)^2 + (4k)^2 = 9k^2 + 16k^2 = 25k^2 = (5k)^2 \\text{ for any } k",
+      "\\text{Scale every side by the same factor and the triple still holds.}",
     ],
   },
   workedExamples: [
     {
       title: "Recognise the 3-4-5 family",
       questionLatex: "\\text{A right triangle has shorter sides }9\\text{ cm and }12\\text{ cm. Find the hypotenuse without a calculator.}",
+      triangleDiagram: tri(
+        "Right-angled triangle with shorter sides 9 cm and 12 cm and unknown hypotenuse c.",
+        { AC: "9 cm", BC: "12 cm", AB: "c" }
+      ),
       steps: [
-        { explanation: "Check whether 9 and 12 are multiples of a known triple.", latex: "9 = 3 \\times 3,\\quad 12 = 4 \\times 3" },
-        { explanation: "The scale factor is 3, so the hypotenuse is 5 times 3.", latex: "c = 5 \\times 3 = 15" },
+        { explanation: "Check whether the two short sides are multiples of a known triple's short sides.", latex: "9 = 3 \\times 3,\\quad 12 = 4 \\times 3" },
+        { explanation: "Both used the same scale factor 3, so this is the 3-4-5 family scaled by 3.", latex: "\\text{scale factor } k = 3" },
+        { explanation: "Scale the triple's hypotenuse (5) by the same factor.", latex: "c = 5 \\times 3 = 15" },
       ],
       finalAnswerLatex: "15\\text{ cm}",
     } as WorkedExample,
     {
       title: "Identify a 5-12-13 triple",
       questionLatex: "\\text{Show that }5,\\,12,\\,13\\text{ is a Pythagorean triple.}",
+      triangleDiagram: tri(
+        "Right-angled triangle with shorter sides 5 and 12 and hypotenuse 13.",
+        { AC: "5", BC: "12", AB: "13" }
+      ),
       steps: [
-        { explanation: "Square the shorter sides and add.", latex: "5^2+12^2 = 25+144 = 169" },
-        { explanation: "Square the longest side.", latex: "13^2 = 169" },
-        { explanation: "Both sides equal 169.", latex: "169 = 169\\checkmark" },
+        { explanation: "Square the two shorter sides and add them.", latex: "5^2+12^2 = 25+144 = 169" },
+        { explanation: "Square the longest side on its own.", latex: "13^2 = 169" },
+        { explanation: "The two results match exactly, so the three whole numbers satisfy the theorem.", latex: "169 = 169\\checkmark" },
       ],
       finalAnswerLatex: "\\text{5, 12, 13 is a Pythagorean triple.}",
     } as WorkedExample,
     {
       title: "Scale the 8-15-17 triple",
       questionLatex: "\\text{A right triangle has shorter sides }16\\text{ m and }30\\text{ m. Find the hypotenuse.}",
+      triangleDiagram: tri(
+        "Right-angled triangle with shorter sides 16 m and 30 m and unknown hypotenuse c.",
+        { AC: "16 m", BC: "30 m", AB: "c" }
+      ),
       steps: [
-        { explanation: "Check: 16 = 8 × 2 and 30 = 15 × 2, so the scale factor is 2.", latex: "16 = 8 \\times 2,\\quad 30 = 15 \\times 2" },
-        { explanation: "Multiply the third number in the triple by the scale factor.", latex: "c = 17 \\times 2 = 34" },
+        { explanation: "Test the larger families: 16 and 30 against 8 and 15.", latex: "16 = 8 \\times 2,\\quad 30 = 15 \\times 2" },
+        { explanation: "Both share scale factor 2, so it is the 8-15-17 family doubled.", latex: "k = 2" },
+        { explanation: "Multiply the triple's hypotenuse (17) by the scale factor.", latex: "c = 17 \\times 2 = 34" },
       ],
       finalAnswerLatex: "34\\text{ m}",
     } as WorkedExample,
+    {
+      title: "Find a missing leg from a scaled triple (harder)",
+      questionLatex: "\\text{A right triangle has hypotenuse }65\\text{ cm and one shorter side }25\\text{ cm. Use a triple to find the other shorter side without a calculator.}",
+      triangleDiagram: tri(
+        "Right-angled triangle: hypotenuse 65 cm, one shorter side 25 cm, and unknown shorter side x.",
+        { AB: "65 cm", AC: "25 cm", BC: "x" }
+      ),
+      steps: [
+        { explanation: "Look for a family whose hypotenuse divides 65 evenly; 13 fits since 65 = 13 × 5, pointing to the 5-12-13 family.", latex: "65 = 13 \\times 5" },
+        { explanation: "Confirm the scale factor on the known shorter side: 25 should be 5 times the factor.", latex: "25 = 5 \\times 5 \\;\\Rightarrow\\; k = 5" },
+        { explanation: "The scale factors agree (both 5), so scale the remaining member (12) of the triple.", latex: "\\text{other side} = 12 \\times 5 = 60" },
+        { explanation: "Check it balances the theorem as a safeguard.", latex: "25^2 + 60^2 = 625 + 3600 = 4225 = 65^2 \\checkmark" },
+      ],
+      finalAnswerLatex: "\\text{The other shorter side is } 60 \\text{ cm.}",
+    } as WorkedExample,
   ],
   guidedPractice: [
-    answer("y8-pyth-trip-g1", "A right triangle has shorter sides 6 cm and 8 cm. State the hypotenuse using a triple.", "6\\text{ cm and }8\\text{ cm}", "10", "This is a 3-4-5 triple scaled by 2, so the hypotenuse is 10.", ["10 cm"]),
+    answer("y8-pyth-trip-g1", "A right triangle has shorter sides 6 cm and 8 cm. State the hypotenuse using a triple.", "6\\text{ cm and }8\\text{ cm}", "10", "This is a 3-4-5 triple scaled by 2, so the hypotenuse is 10.", ["10 cm"], tri("Right triangle: shorter sides 6 cm and 8 cm, hypotenuse c.", { AC: "6 cm", BC: "8 cm", AB: "c" })),
     choice("y8-pyth-trip-g2", "Which set is a Pythagorean triple?", "C", ["3, 4, 6", "6, 7, 9", "7, 24, 25", "5, 9, 12"], "7 squared plus 24 squared equals 49 plus 576 equals 625 equals 25 squared."),
-    answer("y8-pyth-trip-g3", "A right triangle has shorter sides 15 m and 20 m. Find the hypotenuse using a triple.", "15\\text{ m and }20\\text{ m}", "25", "This is a 3-4-5 triple scaled by 5, so the hypotenuse is 25.", ["25 m"]),
-    answer("y8-pyth-trip-g4", "The hypotenuse is 26 cm and one shorter side is 10 cm. Name the triple family and find the missing side.", "\\text{hypotenuse }26,\\text{ one side }10", "24", "10 and 26 are from the 5-12-13 family scaled by 2. The missing side is 12 times 2 equals 24.", ["24 cm"]),
+    answer("y8-pyth-trip-g3", "A right triangle has shorter sides 15 m and 20 m. Find the hypotenuse using a triple.", "15\\text{ m and }20\\text{ m}", "25", "This is a 3-4-5 triple scaled by 5, so the hypotenuse is 25.", ["25 m"], tri("Right triangle: shorter sides 15 m and 20 m, hypotenuse c.", { AC: "15 m", BC: "20 m", AB: "c" })),
+    answer("y8-pyth-trip-g4", "The hypotenuse is 26 cm and one shorter side is 10 cm. Name the triple family and find the missing side.", "\\text{hypotenuse }26,\\text{ one side }10", "24", "10 and 26 are from the 5-12-13 family scaled by 2. The missing side is 12 times 2 equals 24.", ["24 cm"], tri("Right triangle: hypotenuse 26 cm, one shorter side 10 cm, unknown shorter side x.", { AB: "26 cm", AC: "10 cm", BC: "x" })),
   ],
   independentPractice: [
-    answer("y8-pyth-trip-i1", "A right triangle has shorter sides 20 km and 21 km. State the hypotenuse.", "20\\text{ km and }21\\text{ km}", "29", "20-21-29 is a Pythagorean triple.", ["29 km"]),
+    answer("y8-pyth-trip-i1", "A right triangle has shorter sides 20 km and 21 km. State the hypotenuse.", "20\\text{ km and }21\\text{ km}", "29", "20-21-29 is a Pythagorean triple.", ["29 km"], tri("Right triangle: shorter sides 20 km and 21 km, hypotenuse c.", { AC: "20 km", BC: "21 km", AB: "c" })),
     choice("y8-pyth-trip-i2", "Which pair of shorter sides belongs to the 3-4-5 family?", "B", ["9 and 16", "12 and 16", "6 and 9", "10 and 15"], "12 and 16 are multiples of 3 and 4 scaled by 4, giving hypotenuse 20."),
-    answer("y8-pyth-trip-i3", "A right triangle has shorter sides 24 m and 32 m. Find the hypotenuse using a triple.", "24\\text{ m and }32\\text{ m}", "40", "This is 3-4-5 scaled by 8.", ["40 m"]),
-    answer("y8-pyth-trip-i4", "The hypotenuse is 51 m and one shorter side is 24 m. Find the missing side.", "\\text{hypotenuse }51,\\text{ one side }24", "45", "51 and 24 are from the 8-15-17 family scaled by 3. The missing side is 15 times 3 equals 45.", ["45 m"]),
+    answer("y8-pyth-trip-i3", "A right triangle has shorter sides 24 m and 32 m. Find the hypotenuse using a triple.", "24\\text{ m and }32\\text{ m}", "40", "This is 3-4-5 scaled by 8.", ["40 m"], tri("Right triangle: shorter sides 24 m and 32 m, hypotenuse c.", { AC: "24 m", BC: "32 m", AB: "c" })),
+    answer("y8-pyth-trip-i4", "The hypotenuse is 51 m and one shorter side is 24 m. Find the missing side.", "\\text{hypotenuse }51,\\text{ one side }24", "45", "51 and 24 are from the 8-15-17 family scaled by 3. The missing side is 15 times 3 equals 45.", ["45 m"], tri("Right triangle: hypotenuse 51 m, one shorter side 24 m, unknown shorter side x.", { AB: "51 m", AC: "24 m", BC: "x" })),
     choice("y8-pyth-trip-i5", "Why is 6-8-12 not a Pythagorean triple?", "A", ["6 squared plus 8 squared is 100 but 12 squared is 144", "12 is too large to be used", "The numbers must be under 10", "All three must be odd"], "100 does not equal 144, so the theorem fails."),
   ],
   commonMistakes: [
@@ -1040,15 +1206,15 @@ const pythagoreanTriples: LessonContent = {
     { mistake: "Thinking only 3-4-5 exists.", fix: "Learn all four families: 3-4-5, 5-12-13, 8-15-17, 7-24-25." },
   ],
   masteryQuiz: [
-    answer("y8-pyth-trip-m1", "A right triangle has shorter sides 9 cm and 40 cm. State the hypotenuse.", "9\\text{ cm, }40\\text{ cm}", "41", "9-40-41 is a Pythagorean triple.", ["41 cm"]),
+    answer("y8-pyth-trip-m1", "A right triangle has shorter sides 9 cm and 40 cm. State the hypotenuse.", "9\\text{ cm, }40\\text{ cm}", "41", "9-40-41 is a Pythagorean triple.", ["41 cm"], tri("Right triangle: shorter sides 9 cm and 40 cm, hypotenuse c.", { AC: "9 cm", BC: "40 cm", AB: "c" })),
     choice("y8-pyth-trip-m2", "Which is a multiple of the 5-12-13 triple?", "B", ["10-22-26", "10-24-26", "15-35-39", "20-48-53"], "10-24-26 is 5-12-13 scaled by 2."),
-    answer("y8-pyth-trip-m3", "A right triangle has shorter sides 21 cm and 28 cm. Find the hypotenuse.", "21\\text{ cm, }28\\text{ cm}", "35", "This is 3-4-5 scaled by 7.", ["35 cm"]),
+    answer("y8-pyth-trip-m3", "A right triangle has shorter sides 21 cm and 28 cm. Find the hypotenuse.", "21\\text{ cm, }28\\text{ cm}", "35", "This is 3-4-5 scaled by 7.", ["35 cm"], tri("Right triangle: shorter sides 21 cm and 28 cm, hypotenuse c.", { AC: "21 cm", BC: "28 cm", AB: "c" })),
     choice("y8-pyth-trip-m4", "Which set is NOT a Pythagorean triple?", "D", ["3, 4, 5", "5, 12, 13", "8, 15, 17", "6, 8, 11"], "6 squared plus 8 squared equals 100 but 11 squared equals 121."),
-    answer("y8-pyth-trip-m5", "The hypotenuse is 65 m and one shorter side is 25 m. Find the other shorter side.", "\\text{hypotenuse }65,\\text{ shorter }25", "60", "5-12-13 scaled by 5 gives 25-60-65.", ["60 m"]),
+    answer("y8-pyth-trip-m5", "The hypotenuse is 65 m and one shorter side is 25 m. Find the other shorter side.", "\\text{hypotenuse }65,\\text{ shorter }25", "60", "5-12-13 scaled by 5 gives 25-60-65.", ["60 m"], tri("Right triangle: hypotenuse 65 m, one shorter side 25 m, unknown shorter side x.", { AB: "65 m", AC: "25 m", BC: "x" })),
     answer("y8-pyth-trip-m6", "Do sides 11, 60, 61 form a Pythagorean triple? Enter yes or no.", "11^2+60^2=121+3600=3721=61^2", "yes", "121 plus 3600 equals 3721 which equals 61 squared.", ["Yes", "YES"]),
     choice("y8-pyth-trip-m7", "A right triangle has shorter sides 16 and 12. Which triple family does this belong to?", "A", ["3-4-5 scaled by 4", "5-12-13 scaled by 2", "8-15-17 scaled by 2", "7-24-25 scaled by 2"], "12 and 16 are 3 and 4 scaled by 4."),
-    answer("y8-pyth-trip-m8", "Find the hypotenuse for shorter sides 16 m and 12 m.", "16\\text{ m, }12\\text{ m}", "20", "3-4-5 scaled by 4 gives hypotenuse 20.", ["20 m"]),
-    answer("y8-pyth-trip-m9", "A right triangle has hypotenuse 34 and one shorter side 16. Find the other shorter side.", "\\text{hypotenuse }34,\\text{ shorter }16", "30", "8-15-17 scaled by 2 gives 16-30-34.", ["30 m", "30"]),
+    answer("y8-pyth-trip-m8", "Find the hypotenuse for shorter sides 16 m and 12 m.", "16\\text{ m, }12\\text{ m}", "20", "3-4-5 scaled by 4 gives hypotenuse 20.", ["20 m"], tri("Right triangle: shorter sides 16 m and 12 m, hypotenuse c.", { AC: "16 m", BC: "12 m", AB: "c" })),
+    answer("y8-pyth-trip-m9", "A right triangle has hypotenuse 34 and one shorter side 16. Find the other shorter side.", "\\text{hypotenuse }34,\\text{ shorter }16", "30", "8-15-17 scaled by 2 gives 16-30-34.", ["30 m", "30"], tri("Right triangle: hypotenuse 34, one shorter side 16, unknown shorter side x.", { AB: "34", AC: "16", BC: "x" })),
     choice("y8-pyth-trip-m10", "Why can Pythagorean triples be used to give exact answers?", "C", ["They always produce decimals", "They follow a different theorem", "The three values satisfy the theorem exactly as whole numbers", "They only work with metric units"], "Whole-number triples produce exact integer answers without rounding."),
   ],
   masteryQuizPool: [
@@ -1084,6 +1250,10 @@ const pythagoreanTriples: LessonContent = {
       prompt:
         "Two triangular sails are cut from cloth using Pythagorean triples so no rounding is needed. Sail A has shorter sides 9 m and 12 m. Sail B has shorter sides 16 m and 30 m.",
       latex: "\\text{Sail A: }9,12.\\quad \\text{Sail B: }16,30.",
+      triangleDiagram: tri(
+        "Sail A as a right triangle with shorter sides 9 m and 12 m meeting at the right angle and the longest edge (hypotenuse) opposite.",
+        { AC: "9 m", BC: "12 m", AB: "?" }
+      ),
       answer: "15",
       hint: "Recognise each pair as a scaled triple: 9-12 is 3-4 times 3; 16-30 is 8-15 times 2. The hypotenuse scales the same way.",
       explanation:
@@ -1142,13 +1312,17 @@ const distanceBetweenPoints: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "To find the straight-line distance between two points, draw a right-angled triangle by moving horizontally then vertically from one point to the other.",
-      "The horizontal change (Δx) and vertical change (Δy) are the two shorter sides. The direct distance between the points is the hypotenuse.",
-      "Use Pythagoras' theorem: distance equals the square root of Δx squared plus Δy squared. The sign of the change does not matter because you will square it.",
+      "On a coordinate grid you often want the straight-line distance between two points — say from $A(0,0)$ to $B(3,4)$. There is no slanted ruler marked on the grid, but there is a clever trick: the grid lines are already at right angles, so a right-angled triangle is built into the page.",
+      "Get from $A$ to $B$ in two steps along the grid: move across, then move up. From $(0,0)$ you go $3$ to the right and $4$ upward to reach $(3,4)$. Those two moves are the horizontal and vertical legs of a right-angled triangle, meeting at a square corner. The straight line you actually want — directly from $A$ to $B$ — is the slanted side, the hypotenuse.",
+      "This is the key realisation: the distance formula is not a new idea, it is Pythagoras' theorem on the grid. The horizontal move is one short side, the vertical move is the other, and the direct distance is the hypotenuse. So $\\text{distance}^2 = (\\text{across})^2 + (\\text{up})^2$, exactly $a^2 + b^2 = c^2$ in disguise. For $A(0,0)$ to $B(3,4)$ that gives $\\sqrt{3^2 + 4^2} = \\sqrt{25} = 5$.",
+      "To measure the two moves from coordinates, subtract. The horizontal move is the change in $x$, written $\\Delta x = x_2 - x_1$; the vertical move is the change in $y$, written $\\Delta y = y_2 - y_1$. The symbol $\\Delta$ just means 'change in'. For $P(1,2)$ to $Q(7,10)$, $\\Delta x = 7 - 1 = 6$ and $\\Delta y = 10 - 2 = 8$, so the legs are $6$ and $8$.",
+      "Putting the two ideas together gives the distance formula: $d = \\sqrt{(\\Delta x)^2 + (\\Delta y)^2}$. There is nothing to memorise beyond Pythagoras — find how far across and how far up, then square, add, and root. For $P$ and $Q$: $d = \\sqrt{6^2 + 8^2} = \\sqrt{100} = 10$.",
+      "Do not worry if a subtraction comes out negative. Going from $(5,0)$ to $(2,0)$ gives $\\Delta x = 2 - 5 = -3$, but $(-3)^2 = 9$, the same as $3^2$. Squaring erases the sign, which makes sense because a distance cannot be negative — it does not matter whether you measure left-to-right or right-to-left. The trap to avoid is adding $\\Delta x$ and $\\Delta y$ before squaring; as always with Pythagoras, you square each leg first, then add, then take one square root.",
     ],
     latexBlocks: [
       "\\Delta x = x_2 - x_1,\\qquad \\Delta y = y_2 - y_1",
-      "d = \\sqrt{(\\Delta x)^2 + (\\Delta y)^2}",
+      "d = \\sqrt{(\\Delta x)^2 + (\\Delta y)^2} \\quad (\\text{Pythagoras on the grid})",
+      "\\text{A negative } \\Delta x \\text{ or } \\Delta y \\text{ squares to a positive, so the sign does not matter.}",
     ],
   },
   workedExamples: [
@@ -1162,8 +1336,9 @@ const distanceBetweenPoints: LessonContent = {
         { xMin: 0, xMax: 5, yMin: 0, yMax: 5, xStep: 1, yStep: 1 }
       ),
       steps: [
-        { explanation: "Find the horizontal and vertical separations.", latex: "\\Delta x = 3,\\quad \\Delta y = 4" },
-        { explanation: "Apply Pythagoras' theorem.", latex: "d = \\sqrt{3^2+4^2} = \\sqrt{9+16} = \\sqrt{25} = 5" },
+        { explanation: "On the graph, count the across-move and the up-move that take you from A to B; these are the two legs.", latex: "\\Delta x = 3,\\quad \\Delta y = 4" },
+        { explanation: "Square each leg and add to get the square of the direct distance.", latex: "d^2 = 3^2 + 4^2 = 9 + 16 = 25" },
+        { explanation: "Take the square root to turn that into the straight-line distance.", latex: "d = \\sqrt{25} = 5" },
       ],
       finalAnswerLatex: "5\\text{ units}",
     } as WorkedExample,
@@ -1177,26 +1352,52 @@ const distanceBetweenPoints: LessonContent = {
         { xMin: 0, xMax: 9, yMin: 0, yMax: 11, xStep: 1, yStep: 1 }
       ),
       steps: [
-        { explanation: "Subtract coordinates to find the separations.", latex: "\\Delta x = 7-1 = 6,\\quad \\Delta y = 10-2 = 8" },
-        { explanation: "Apply Pythagoras.", latex: "d = \\sqrt{6^2+8^2} = \\sqrt{36+64} = \\sqrt{100} = 10" },
+        { explanation: "Subtract the x-coordinates for the across-move and the y-coordinates for the up-move.", latex: "\\Delta x = 7-1 = 6,\\quad \\Delta y = 10-2 = 8" },
+        { explanation: "Square each separation and add.", latex: "d^2 = 6^2 + 8^2 = 36 + 64 = 100" },
+        { explanation: "Take the square root for the direct distance.", latex: "d = \\sqrt{100} = 10" },
       ],
       finalAnswerLatex: "10\\text{ units}",
     } as WorkedExample,
     {
       title: "Round a decimal distance",
       questionLatex: "\\text{Find the distance between }R(0,\\,0)\\text{ and }S(4,\\,6)\\text{. Round to 1 decimal place.}",
+      cartesianGraph: coordGraph(
+        "Cartesian plane showing the segment from R(0,0) to S(4,6) as the hypotenuse of a right triangle with horizontal leg 4 and vertical leg 6.",
+        { x: 0, y: 0, label: "R(0, 0)" },
+        { x: 4, y: 6, label: "S(4, 6)" },
+        { xMin: 0, xMax: 6, yMin: 0, yMax: 7, xStep: 1, yStep: 1 }
+      ),
       steps: [
-        { explanation: "Find the separations.", latex: "\\Delta x = 4,\\quad \\Delta y = 6" },
-        { explanation: "Apply Pythagoras and round.", latex: "d = \\sqrt{16+36} = \\sqrt{52} \\approx 7.2" },
+        { explanation: "Find the across- and up-moves between the points.", latex: "\\Delta x = 4,\\quad \\Delta y = 6" },
+        { explanation: "Square both and add.", latex: "d^2 = 4^2 + 6^2 = 16 + 36 = 52" },
+        { explanation: "Take the square root; 52 is not a perfect square, so evaluate and round only now.", latex: "d = \\sqrt{52} \\approx 7.2" },
       ],
       finalAnswerLatex: "7.2\\text{ units}",
+    } as WorkedExample,
+    {
+      title: "Distance with negative coordinates (harder)",
+      questionLatex: "\\text{Find the exact distance between }M(-3,\\,2)\\text{ and }N(5,\\,-4).",
+      cartesianGraph: coordGraph(
+        "Cartesian plane showing the segment from M(-3,2) to N(5,-4) as the hypotenuse of a right triangle with horizontal leg 8 and vertical leg 6.",
+        { x: -3, y: 2, label: "M(-3, 2)" },
+        { x: 5, y: -4, label: "N(5, -4)" },
+        { xMin: -5, xMax: 6, yMin: -5, yMax: 4, xStep: 1, yStep: 1 }
+      ),
+      steps: [
+        { explanation: "Subtract the x-coordinates; the order does not matter because the result will be squared.", latex: "\\Delta x = 5 - (-3) = 8" },
+        { explanation: "Subtract the y-coordinates; this one comes out negative.", latex: "\\Delta y = -4 - 2 = -6" },
+        { explanation: "Square each separation; squaring the negative makes it positive, so the sign is harmless.", latex: "(\\Delta x)^2 = 64, \\quad (\\Delta y)^2 = 36" },
+        { explanation: "Add the squared separations.", latex: "d^2 = 64 + 36 = 100" },
+        { explanation: "Take the square root for the exact straight-line distance.", latex: "d = \\sqrt{100} = 10" },
+      ],
+      finalAnswerLatex: "10\\text{ units}",
     } as WorkedExample,
   ],
   guidedPractice: [
     answer("y8-pyth-dist-g1", "Find the distance between (0, 0) and (5, 12) in units.", "\\Delta x=5,\\;\\Delta y=12", "13", "Square root of 25 plus 144 equals 13.", ["13 units"], undefined, coordGraph("Segment from (0,0) to (5,12).", { x: 0, y: 0, label: "A" }, { x: 5, y: 12, label: "B" }, { xMin: 0, xMax: 6, yMin: 0, yMax: 13, xStep: 1, yStep: 1 })),
-    answer("y8-pyth-dist-g2", "Find the distance between (2, 1) and (5, 5) in units.", "\\Delta x=3,\\;\\Delta y=4", "5", "Square root of 9 plus 16 equals 5.", ["5 units"]),
+    answer("y8-pyth-dist-g2", "Find the distance between (2, 1) and (5, 5) in units.", "\\Delta x=3,\\;\\Delta y=4", "5", "Square root of 9 plus 16 equals 5.", ["5 units"], undefined, coordGraph("Cartesian plane showing the segment from (2,1) to (5,5) as the hypotenuse of a right triangle with horizontal leg 3 and vertical leg 4.", { x: 2, y: 1, label: "(2, 1)" }, { x: 5, y: 5, label: "(5, 5)" }, { xMin: 0, xMax: 6, yMin: 0, yMax: 6, xStep: 1, yStep: 1 })),
     choice("y8-pyth-dist-g3", "Two points are 8 units apart horizontally and 6 units apart vertically. What is the straight-line distance?", "A", ["10", "14", "100", "48"], "Square root of 64 plus 36 equals 10."),
-    answer("y8-pyth-dist-g4", "Find the distance between (0, 0) and (4, 6) in units. Round to 1 decimal place.", "\\Delta x=4,\\;\\Delta y=6", "7.2", "Square root of 52 is approximately 7.2.", ["7.2 units"]),
+    answer("y8-pyth-dist-g4", "Find the distance between (0, 0) and (4, 6) in units. Round to 1 decimal place.", "\\Delta x=4,\\;\\Delta y=6", "7.2", "Square root of 52 is approximately 7.2.", ["7.2 units"], undefined, coordGraph("Cartesian plane showing the segment from (0,0) to (4,6) as the hypotenuse of a right triangle with horizontal leg 4 and vertical leg 6.", { x: 0, y: 0, label: "(0, 0)" }, { x: 4, y: 6, label: "(4, 6)" }, { xMin: 0, xMax: 6, yMin: 0, yMax: 7, xStep: 1, yStep: 1 })),
   ],
   independentPractice: [
     answer("y8-pyth-dist-i1", "Find the distance between (1, 1) and (7, 9) in units.", "\\Delta x=6,\\;\\Delta y=8", "10", "Square root of 36 plus 64 equals 10.", ["10 units"]),

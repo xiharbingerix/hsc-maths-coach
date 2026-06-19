@@ -83,46 +83,110 @@ const areaRectanglesTriangles: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Area measures the amount of flat surface inside a shape. We express it in square units — square centimetres (cm²), square metres (m²), and so on — because area counts how many unit squares fit inside the shape.",
-      "A rectangle with length 5 cm and width 3 cm can be covered by exactly 5 × 3 = 15 unit squares arranged in rows. That is why the formula is A = l × w. A square is a special rectangle where all sides are equal, so A = s × s = s².",
-      "A triangle is exactly half of a rectangle. If you cut any rectangle along a diagonal, you get two identical triangles, each with area half the rectangle. The formula A = ½ × base × height uses the perpendicular height — the straight-up distance from the base to the opposite vertex, not the slant side.",
-      "When a triangle is not a right-angled triangle, the perpendicular height is often shown as a dotted line drawn inside (or outside) the shape. Always use that dotted height, never the slant edge, in the formula.",
-      "To find a missing dimension, rearrange the formula. If A = ½bh and you know A and b, then h = 2A ÷ b. This is the same as solving a simple equation for the unknown.",
+      "Area is the amount of flat surface inside a shape — how much space it covers. The way we measure it is to ask: how many identical little squares would it take to tile the inside completely, with no gaps and no overlaps? That count is the area. Because we are counting squares, area is always written in $\\text{square}$ units — square centimetres $\\text{cm}^2$, square metres $\\text{m}^2$, and so on.",
+      "Picture a rectangle 5 cm long and 3 cm wide drawn on grid paper. You can fit a row of 5 little 1 cm squares along the bottom, and you can stack 3 such rows to reach the top. That is $5 \\times 3 = 15$ squares in total, so the area is $15\\text{ cm}^2$. You did not have to count them one by one — multiplying the length by the width gives the count straight away.",
+      "That picture is exactly the rectangle formula: $A = l \\times w$. The length tells you how many squares are in each row, and the width tells you how many rows there are, so multiplying gives the total number of unit squares. A square is just a rectangle whose length and width are equal, so $A = s \\times s = s^2$.",
+      "Now for the triangle, and here is the key idea: every triangle is exactly half of a rectangle. Take any triangle, then build the smallest rectangle around it that has the same base along the bottom and reaches the same height at the top. The triangle slices that rectangle into pieces, and those pieces fold up to fill exactly one half of the rectangle — the other half is empty. So the triangle's area is half the rectangle's area: $\\frac{1}{2} \\times \\text{base} \\times \\text{height}$.",
+      "The word $\\text{height}$ in that formula means the perpendicular height — the straight up-and-down distance from the base to the tip of the triangle, measured at a right angle to the base. It does not mean the length of a slanted side. This matters because the slant side is always longer than the perpendicular height, so using it would make the rectangle taller than it really is and give too big an answer. On a diagram the perpendicular height is the dotted line that meets the base at a right angle — use that, never the sloping edge.",
+      "Once you trust a formula, you can run it backwards to find a missing measurement. If you know the area and the base of a triangle but not the height, start from $A = \\frac{1}{2}bh$ and undo each operation: the base is multiplied in and then the result is halved, so to get $h$ alone you multiply the area by 2 and then divide by the base, giving $h = \\frac{2A}{b}$. This is the same balancing you use to solve any simple equation — do the same thing to both sides until the unknown is alone.",
+      "The same three ideas — count the unit squares, halve a rectangle for a triangle, and use the perpendicular height — carry straight into bigger problems. A real garden bed, a tiled floor, or an exam diagram is built from these basic shapes, so a question about an unfamiliar figure is almost always a familiar rectangle or triangle in disguise.",
     ],
     latexBlocks: [
       "A_{\\text{rectangle}} = l \\times w \\qquad A_{\\text{square}} = s^2",
-      "A_{\\text{triangle}} = \\frac{1}{2} \\times b \\times h",
-      "\\text{If } A = \\frac{1}{2}bh \\text{, then } h = \\frac{2A}{b} \\text{ and } b = \\frac{2A}{h}",
+      "A_{\\text{triangle}} = \\frac{1}{2} \\times b \\times h \\quad (h \\text{ is the perpendicular height})",
+      "\\text{half of a rectangle: } \\tfrac{1}{2}(b \\times h)",
+      "\\text{Rearranged: } h = \\frac{2A}{b} \\qquad b = \\frac{2A}{h}",
     ],
   },
   workedExamples: [
     {
       title: "Area of a triangle using perpendicular height",
       questionLatex: "\\text{Find the area of a triangle with base }8\\text{ cm and perpendicular height }5\\text{ cm.}",
+      planeShapeDiagram: {
+        description: "Triangle with base 8 cm along the bottom; the apex sits 5 cm vertically above the base, the perpendicular height.",
+        vertices: [
+          { x: 0, y: 0 },
+          { x: 8, y: 0, rightAngle: true },
+          { x: 8, y: 5 },
+        ],
+        edges: [{ label: "8 cm" }, { label: "5 cm" }, {}],
+        fill: "blue",
+      },
       steps: [
-        { explanation: "Write the area formula for a triangle.", latex: "A = \\frac{1}{2} \\times b \\times h" },
-        { explanation: "Substitute the base and the perpendicular height (not a slant side).", latex: "A = \\frac{1}{2} \\times 8 \\times 5" },
-        { explanation: "Multiply to find the area.", latex: "A = \\frac{1}{2} \\times 40 = 20" },
+        { explanation: "A triangle is half its surrounding rectangle, so write the half-base-times-height formula.", latex: "A = \\frac{1}{2} \\times b \\times h" },
+        { explanation: "Substitute the base and the perpendicular height — not any slanted side.", latex: "A = \\frac{1}{2} \\times 8 \\times 5" },
+        { explanation: "Multiply the base and height to get the full rectangle, which is 40.", latex: "8 \\times 5 = 40" },
+        { explanation: "Take half of that rectangle to get the triangle's area.", latex: "A = \\frac{1}{2} \\times 40 = 20" },
       ],
       finalAnswerLatex: "A = 20 \\text{ cm}^2",
     },
     {
-      title: "Find the missing length given the area",
-      questionLatex: "\\text{A rectangle has area }48\\text{ cm}^2\\text{ and length }8\\text{ cm. Find the width.}",
+      title: "Area of a square",
+      questionLatex: "\\text{Find the area of a square tile with side length }9\\text{ cm.}",
+      planeShapeDiagram: {
+        description: "Square tile with all four sides 9 cm and a right angle at each corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 9, y: 0, rightAngle: true },
+          { x: 9, y: 9, rightAngle: true },
+          { x: 0, y: 9, rightAngle: true },
+        ],
+        edges: [
+          { label: "9 cm", ticks: 1 },
+          { label: "9 cm", ticks: 1 },
+          { ticks: 1 },
+          { ticks: 1 },
+        ],
+        fill: "teal",
+      },
       steps: [
-        { explanation: "Write the area formula and substitute the known values.", latex: "48 = 8 \\times w" },
-        { explanation: "Divide both sides by 8 to find the width.", latex: "w = \\frac{48}{8} = 6" },
+        { explanation: "A square is a rectangle whose length and width are equal, so multiply the side by itself.", latex: "A = s^2" },
+        { explanation: "Substitute the side length of 9 cm.", latex: "A = 9^2" },
+        { explanation: "Square the side to count the unit squares inside.", latex: "A = 9 \\times 9 = 81" },
+      ],
+      finalAnswerLatex: "A = 81 \\text{ cm}^2",
+    },
+    {
+      title: "Find a missing length given the area",
+      questionLatex: "\\text{A rectangle has area }48\\text{ cm}^2\\text{ and length }8\\text{ cm. Find the width.}",
+      planeShapeDiagram: {
+        description: "Rectangle of area 48 cm² with length 8 cm along the bottom and an unknown width w on the right side.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 8, y: 0, rightAngle: true },
+          { x: 8, y: 4, rightAngle: true },
+          { x: 0, y: 4, rightAngle: true },
+        ],
+        edges: [{ label: "8 cm" }, { label: "w = ?" }, {}, {}],
+        fill: "amber",
+      },
+      steps: [
+        { explanation: "Start from the rectangle formula and put in what you know.", latex: "A = l \\times w \\;\\Rightarrow\\; 48 = 8 \\times w" },
+        { explanation: "The width is multiplied by 8, so undo that by dividing both sides by 8.", latex: "\\frac{48}{8} = w" },
+        { explanation: "Carry out the division to find the width.", latex: "w = 6" },
       ],
       finalAnswerLatex: "w = 6 \\text{ cm}",
     },
     {
-      title: "Area of a square",
-      questionLatex: "\\text{Find the area of a square tile with side length }9\\text{ cm.}",
+      title: "Harder: right-angled triangle where the slant side is a trap",
+      questionLatex: "\\text{A right-angled triangle has legs }9\\text{ cm and }12\\text{ cm, and hypotenuse }15\\text{ cm. Find its area.}",
+      planeShapeDiagram: {
+        description: "Right-angled triangle with legs 12 cm (base) and 9 cm (vertical) meeting at the right angle, and a slanted hypotenuse of 15 cm.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 12, y: 0 },
+          { x: 0, y: 9 },
+        ],
+        edges: [{ label: "12 cm" }, { label: "15 cm" }, { label: "9 cm" }],
+        fill: "blue",
+      },
       steps: [
-        { explanation: "Write the area formula for a square.", latex: "A = s^2" },
-        { explanation: "Substitute the side length.", latex: "A = 9^2 = 81" },
+        { explanation: "In a right-angled triangle the two legs meet at the right angle, so one leg is the base and the other is the perpendicular height.", latex: "b = 12, \\quad h = 9" },
+        { explanation: "The hypotenuse (15 cm) is the slant side, so it is not used in the area formula.", latex: "A = \\frac{1}{2} \\times 12 \\times 9" },
+        { explanation: "Multiply the base by the height to get the surrounding rectangle.", latex: "12 \\times 9 = 108" },
+        { explanation: "Halve it because the triangle fills exactly half that rectangle.", latex: "A = \\frac{1}{2} \\times 108 = 54" },
       ],
-      finalAnswerLatex: "A = 81 \\text{ cm}^2",
+      finalAnswerLatex: "A = 54 \\text{ cm}^2",
     },
   ],
   guidedPractice: [
@@ -134,20 +198,45 @@ const areaRectanglesTriangles: LessonContent = {
       "Area of a triangle = ½ × base × height = ½ × 10 × 6 = 30 cm².",
       "\\text{Select A, B, C, or D.}"
     ),
-    answer(
-      "y7-are-rtr-g2",
-      "Find the area of a rectangle with length 12 cm and width 5 cm. Give your answer in cm².",
-      "A = l \\times w",
-      "60",
-      "A = 12 × 5 = 60 cm²."
-    ),
-    answer(
-      "y7-are-rtr-g3",
-      "Find the area of a triangle with base 14 cm and perpendicular height 6 cm. Give your answer in cm².",
-      "A = \\frac{1}{2} \\times b \\times h",
-      "42",
-      "A = ½ × 14 × 6 = ½ × 84 = 42 cm²."
-    ),
+    {
+      ...answer(
+        "y7-are-rtr-g2",
+        "Find the area of a rectangle with length 12 cm and width 5 cm. Give your answer in cm².",
+        "A = l \\times w",
+        "60",
+        "A = 12 × 5 = 60 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "Rectangle with length 12 cm along the bottom and width 5 cm up the side, right angles at each corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 12, y: 0, rightAngle: true },
+          { x: 12, y: 5, rightAngle: true },
+          { x: 0, y: 5, rightAngle: true },
+        ],
+        edges: [{ label: "12 cm" }, { label: "5 cm" }, {}, {}],
+        fill: "blue",
+      },
+    },
+    {
+      ...answer(
+        "y7-are-rtr-g3",
+        "Find the area of a triangle with base 14 cm and perpendicular height 6 cm. Give your answer in cm².",
+        "A = \\frac{1}{2} \\times b \\times h",
+        "42",
+        "A = ½ × 14 × 6 = ½ × 84 = 42 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "Triangle with base 14 cm along the bottom and perpendicular height 6 cm from the base to the apex.",
+        vertices: [
+          { x: 0, y: 0 },
+          { x: 14, y: 0, rightAngle: true },
+          { x: 14, y: 6 },
+        ],
+        edges: [{ label: "14 cm" }, { label: "6 cm" }, {}],
+        fill: "teal",
+      },
+    },
     answer(
       "y7-are-rtr-g4",
       "A triangle has area 30 cm² and base 10 cm. Find the perpendicular height in cm.",
@@ -362,47 +451,122 @@ const areaParallelogramsTrapezoids: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A parallelogram is a quadrilateral with two pairs of parallel sides. If you cut a triangle off one end of a parallelogram and slide it to the other end, you get a rectangle — with the same base and the same height. That is why the area formula is A = b × h, the same as a rectangle.",
-      "The key is using the perpendicular height — the straight-up distance between the two parallel bases, not the slant side. A parallelogram with base 8 cm and slant side 6 cm but perpendicular height 5 cm has area 8 × 5 = 40 cm², not 8 × 6 = 48 cm².",
-      "A rhombus has four equal sides and its two diagonals cross at right angles. Those diagonals split the rhombus into four congruent right-angled triangles. Putting the pieces back together gives the formula A = ½ × d₁ × d₂, where d₁ and d₂ are the diagonal lengths.",
-      "A trapezoid has exactly one pair of parallel sides, called the parallel sides or bases. The area is the average of the two parallel sides multiplied by the perpendicular height: A = ½(a + b)h. Think of it as the area of a rectangle whose width is the average of the two bases.",
+      "A parallelogram is a four-sided shape with two pairs of parallel sides — picture a rectangle that has been pushed over so it leans to one side. It looks more complicated than a rectangle, but it covers exactly the same amount of space, and there is a neat way to see why.",
+      "Imagine a leaning parallelogram drawn on grid paper. Slice straight down from the top corner to the base to cut off the triangular overhang on one end. Now slide that triangle across to the other end, where it fits perfectly into the matching gap. The pieces have not changed size, but the shape is now a plain rectangle — and that rectangle has the same base along the bottom and the same up-and-down height as the parallelogram you started with. Because cutting and sliding never adds or removes any surface, the areas are equal, so $A = b \\times h$, just like a rectangle.",
+      "The $h$ in that formula is the perpendicular height — the straight up-and-down distance between the two parallel bases, measured at a right angle — not the length of the leaning slant side. The slant side is the longer, sloping edge; using it would describe a taller rectangle than the cut-and-slide actually produced. For a parallelogram with base 8 cm, perpendicular height 5 cm and slant side 6 cm, the area is $8 \\times 5 = 40\\text{ cm}^2$, never $8 \\times 6 = 48\\text{ cm}^2$.",
+      "A rhombus is a parallelogram with all four sides equal — a diamond. Its two diagonals cross each other at right angles and cut it into four right-angled triangles. The neat picture is this: build a rectangle around the rhombus whose side lengths are the two diagonals $d_1$ and $d_2$. The four triangles of the rhombus fill exactly half of that rectangle, so the rhombus area is half of $d_1 \\times d_2$, giving $A = \\frac{1}{2} \\times d_1 \\times d_2$.",
+      "A trapezoid has just one pair of parallel sides — call their lengths $a$ and $b$ — separated by a perpendicular height $h$. To see its area, imagine making a second copy of the trapezoid, flipping it upside down, and fitting it against the first. Together the two trapezoids form a parallelogram whose base is the two parallel sides added together, $a + b$, with the same height $h$. That double-shape has area $(a + b) \\times h$, so a single trapezoid is half of it: $A = \\frac{1}{2}(a + b)h$.",
+      "Reading that formula in plain words, $\\frac{1}{2}(a + b)$ is just the average of the two parallel sides. So a trapezoid behaves like a rectangle whose width is the average of its top and bottom edges. The most common slip is to forget the $\\frac{1}{2}$ or to add the two slanting non-parallel sides by mistake — only the two parallel sides go inside the bracket, and the whole thing is then halved.",
     ],
     latexBlocks: [
       "A_{\\text{parallelogram}} = b \\times h \\quad (h \\text{ is the perpendicular height})",
       "A_{\\text{rhombus}} = \\frac{1}{2} \\times d_1 \\times d_2",
-      "A_{\\text{trapezoid}} = \\frac{1}{2}(a + b) \\times h",
+      "A_{\\text{trapezoid}} = \\frac{1}{2}(a + b) \\times h \\quad (a, b \\text{ are the parallel sides})",
+      "\\tfrac{1}{2}(a+b) = \\text{average of the two parallel sides}",
     ],
   },
   workedExamples: [
     {
-      title: "Area of a parallelogram",
+      title: "Area of a parallelogram (slant side is a trap)",
       questionLatex: "\\text{A parallelogram has base }10\\text{ cm, perpendicular height }6\\text{ cm, and slant side }7\\text{ cm. Find the area.}",
+      planeShapeDiagram: {
+        description: "Parallelogram leaning to the right with base 10 cm along the bottom and a slanted side of 7 cm. The perpendicular height between the two horizontal sides is 6 cm.",
+        vertices: [
+          { x: 0, y: 0 },
+          { x: 10, y: 0 },
+          { x: 13, y: 6 },
+          { x: 3, y: 6 },
+        ],
+        edges: [
+          { label: "10 cm", arrows: 1 },
+          { label: "7 cm" },
+          { arrows: 1 },
+          {},
+        ],
+        fill: "blue",
+      },
       steps: [
-        { explanation: "Write the area formula for a parallelogram.", latex: "A = b \\times h" },
-        { explanation: "Substitute the base and the perpendicular height. The slant side of 7 cm is not used.", latex: "A = 10 \\times 6" },
-        { explanation: "Multiply to find the area.", latex: "A = 60" },
+        { explanation: "Cut-and-slide turns the parallelogram into a rectangle of the same base and height, so use base times height.", latex: "A = b \\times h" },
+        { explanation: "Substitute the base and the perpendicular height; the 7 cm slant side describes a leaning edge, not the rectangle's height, so it is not used.", latex: "A = 10 \\times 6" },
+        { explanation: "Multiply to count the unit squares.", latex: "A = 60" },
       ],
       finalAnswerLatex: "A = 60 \\text{ cm}^2",
     },
     {
       title: "Area of a rhombus using diagonals",
       questionLatex: "\\text{A rhombus has diagonals of length }12\\text{ cm and }8\\text{ cm. Find the area.}",
+      planeShapeDiagram: {
+        description: "Rhombus (diamond) with all four sides equal. Its horizontal diagonal is 12 cm and its vertical diagonal is 8 cm; the diagonals cross at right angles at the centre.",
+        vertices: [
+          { x: 12, y: 4, label: "d_1 = 12 cm" },
+          { x: 6, y: 8 },
+          { x: 0, y: 4 },
+          { x: 6, y: 0, label: "d_2 = 8 cm" },
+        ],
+        edges: [{ ticks: 1 }, { ticks: 1 }, { ticks: 1 }, { ticks: 1 }],
+        fill: "teal",
+      },
       steps: [
-        { explanation: "Write the area formula for a rhombus in terms of its diagonals.", latex: "A = \\frac{1}{2} \\times d_1 \\times d_2" },
-        { explanation: "Substitute the diagonal lengths.", latex: "A = \\frac{1}{2} \\times 12 \\times 8" },
-        { explanation: "Multiply to find the area.", latex: "A = \\frac{1}{2} \\times 96 = 48" },
+        { explanation: "The rhombus fills half of the rectangle built on its two diagonals, so use half the product of the diagonals.", latex: "A = \\frac{1}{2} \\times d_1 \\times d_2" },
+        { explanation: "Substitute the two diagonal lengths.", latex: "A = \\frac{1}{2} \\times 12 \\times 8" },
+        { explanation: "Multiply the diagonals to get the surrounding rectangle.", latex: "12 \\times 8 = 96" },
+        { explanation: "Halve it because the rhombus is half that rectangle.", latex: "A = \\frac{1}{2} \\times 96 = 48" },
       ],
       finalAnswerLatex: "A = 48 \\text{ cm}^2",
     },
     {
       title: "Area of a trapezoid",
       questionLatex: "\\text{A trapezoid has parallel sides of }5\\text{ cm and }11\\text{ cm, and perpendicular height }4\\text{ cm. Find the area.}",
+      planeShapeDiagram: {
+        description: "Trapezoid with the two parallel sides horizontal: the longer parallel side is 11 cm along the bottom and the shorter parallel side is 5 cm along the top. The perpendicular height between them is 4 cm.",
+        vertices: [
+          { x: 0, y: 0 },
+          { x: 11, y: 0 },
+          { x: 8, y: 4 },
+          { x: 3, y: 4 },
+        ],
+        edges: [
+          { label: "11 cm", arrows: 1 },
+          {},
+          { label: "5 cm", arrows: 1 },
+          {},
+        ],
+        fill: "violet",
+      },
       steps: [
-        { explanation: "Write the area formula for a trapezoid, where a and b are the parallel sides.", latex: "A = \\frac{1}{2}(a + b) \\times h" },
-        { explanation: "Substitute the parallel sides and the perpendicular height.", latex: "A = \\frac{1}{2}(5 + 11) \\times 4" },
-        { explanation: "Add the parallel sides first, then multiply.", latex: "A = \\frac{1}{2} \\times 16 \\times 4 = \\frac{1}{2} \\times 64 = 32" },
+        { explanation: "Two copies of the trapezoid make a parallelogram of base (a + b), so a single one is half of (a + b) times the height.", latex: "A = \\frac{1}{2}(a + b) \\times h" },
+        { explanation: "Substitute the two parallel sides and the perpendicular height.", latex: "A = \\frac{1}{2}(5 + 11) \\times 4" },
+        { explanation: "Add the parallel sides inside the bracket first.", latex: "5 + 11 = 16" },
+        { explanation: "Multiply by the height and then halve.", latex: "A = \\frac{1}{2} \\times 16 \\times 4 = \\frac{1}{2} \\times 64 = 32" },
       ],
       finalAnswerLatex: "A = 32 \\text{ cm}^2",
+    },
+    {
+      title: "Harder: work a trapezoid backwards to find a missing side",
+      questionLatex: "\\text{A trapezoid has area }96\\text{ cm}^2\\text{, perpendicular height }8\\text{ cm, and one parallel side }10\\text{ cm. Find the other parallel side.}",
+      planeShapeDiagram: {
+        description: "Trapezoid of area 96 cm² with parallel sides horizontal: one parallel side is 10 cm and the other (labelled b) is unknown. The perpendicular height between them is 8 cm.",
+        vertices: [
+          { x: 0, y: 0 },
+          { x: 14, y: 0 },
+          { x: 12, y: 8 },
+          { x: 2, y: 8 },
+        ],
+        edges: [
+          { label: "b = ?", arrows: 1 },
+          {},
+          { label: "10 cm", arrows: 1 },
+          {},
+        ],
+        fill: "amber",
+      },
+      steps: [
+        { explanation: "Start from the trapezoid formula with the unknown side as b.", latex: "96 = \\frac{1}{2}(10 + b) \\times 8" },
+        { explanation: "Half of the height (8) is 4, so the bracket is multiplied by 4; undo that by dividing the area by 4.", latex: "\\frac{96}{4} = 10 + b" },
+        { explanation: "That gives the sum of the two parallel sides.", latex: "24 = 10 + b" },
+        { explanation: "Subtract the known side from both sides to isolate b.", latex: "b = 24 - 10 = 14" },
+      ],
+      finalAnswerLatex: "\\text{The other parallel side} = 14 \\text{ cm}",
     },
   ],
   guidedPractice: [
@@ -413,13 +577,26 @@ const areaParallelogramsTrapezoids: LessonContent = {
       ["6 cm (the slant side)", "5 cm (the perpendicular height)", "9 cm (the base)", "The average of 5 and 6"],
       "The area formula A = bh uses the perpendicular height — the right-angle distance between the parallel sides. The slant side is never used as height."
     ),
-    answer(
-      "y7-are-par-g2",
-      "Find the area of a parallelogram with base 7 cm and perpendicular height 4 cm. Give your answer in cm².",
-      "A = b \\times h",
-      "28",
-      "A = 7 × 4 = 28 cm²."
-    ),
+    {
+      ...answer(
+        "y7-are-par-g2",
+        "Find the area of a parallelogram with base 7 cm and perpendicular height 4 cm. Give your answer in cm².",
+        "A = b \\times h",
+        "28",
+        "A = 7 × 4 = 28 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "Parallelogram leaning to the right with base 7 cm along the bottom. The perpendicular height between the two parallel horizontal sides is 4 cm.",
+        vertices: [
+          { x: 0, y: 0 },
+          { x: 7, y: 0 },
+          { x: 9, y: 4 },
+          { x: 2, y: 4 },
+        ],
+        edges: [{ label: "7 cm", arrows: 1 }, {}, { arrows: 1 }, {}],
+        fill: "blue",
+      },
+    },
     answer(
       "y7-are-par-g3",
       "A rhombus has diagonals of 10 cm and 6 cm. Find the area in cm².",
@@ -427,13 +604,26 @@ const areaParallelogramsTrapezoids: LessonContent = {
       "30",
       "A = ½ × 10 × 6 = ½ × 60 = 30 cm²."
     ),
-    answer(
-      "y7-are-par-g4",
-      "A trapezoid has parallel sides of 4 cm and 8 cm and perpendicular height 5 cm. Find the area in cm².",
-      "A = \\frac{1}{2}(a + b) \\times h",
-      "30",
-      "A = ½ × (4 + 8) × 5 = ½ × 12 × 5 = ½ × 60 = 30 cm²."
-    ),
+    {
+      ...answer(
+        "y7-are-par-g4",
+        "A trapezoid has parallel sides of 4 cm and 8 cm and perpendicular height 5 cm. Find the area in cm².",
+        "A = \\frac{1}{2}(a + b) \\times h",
+        "30",
+        "A = ½ × (4 + 8) × 5 = ½ × 12 × 5 = ½ × 60 = 30 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "Trapezoid with parallel sides horizontal: the longer parallel side is 8 cm along the bottom and the shorter parallel side is 4 cm along the top. The perpendicular height between them is 5 cm.",
+        vertices: [
+          { x: 0, y: 0 },
+          { x: 8, y: 0 },
+          { x: 6, y: 5 },
+          { x: 2, y: 5 },
+        ],
+        edges: [{ label: "8 cm", arrows: 1 }, {}, { label: "4 cm", arrows: 1 }, {}],
+        fill: "violet",
+      },
+    },
   ],
   independentPractice: [
     answer(
@@ -641,115 +831,398 @@ const areaCompositeShapes: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A composite shape is a shape made by joining or cutting simpler shapes such as rectangles and triangles. To find the area, split the composite shape into parts you already know how to handle, find each area separately, then add them together.",
-      "For example, an L-shaped room can be split into two rectangles. Measure each rectangle using the dimensions marked on the diagram, calculate each area, and add. There is no single formula for an L-shape — the split is the technique.",
-      "Sometimes it is easier to work by subtraction: start with the area of a large simple shape that completely contains the figure, then subtract the area of the region that was cut away. An arch with a rectangular hole is a good example — find the full rectangle's area and subtract the hole.",
-      "The most important rule is to avoid counting any area twice. When you split a shape, make sure the dividing line belongs to exactly one region, not both. Draw the split lines clearly and label each sub-shape before calculating.",
+      "A composite shape is one that does not match any single formula because it is really several simple shapes — rectangles, triangles, trapezoids — built together. There is no special composite formula to memorise. The whole skill is to break the figure into pieces you already know, work out each piece, and combine the results. The shapes are unfamiliar; the method is not.",
+      "There are two ways to combine, and they are really the same idea seen from two directions. The first is addition: split the figure into non-overlapping pieces and add their areas. An L-shaped room, for instance, divides neatly into two rectangles — find each rectangle from the marked dimensions and add. Because area simply counts unit squares, the total number of squares in the whole figure is just the squares in piece one plus the squares in piece two.",
+      "The second way is subtraction: draw the smallest simple shape that completely surrounds the figure, find its area, then subtract the area of the part that is missing. A picture frame is the clearest case — take the full outer rectangle and subtract the rectangular hole where the picture sits. The squares that are left after removing the hole are exactly the squares of the frame. Use whichever method gives you the simplest pieces; the two routes always agree because adding the kept pieces and removing the missing piece describe the same set of unit squares.",
+      "Before you can add or subtract, you often have to find a length that is not labelled. The dimensions of the pieces hide inside the overall measurements. If a long edge is marked 12 cm and the part of it belonging to one piece is 7 cm, then the remaining piece must be $12 - 7 = 5$ cm. Always pin down every side of every piece before reaching for a formula.",
+      "The one rule that protects you from a wrong answer is: never count the same square twice, and never leave a square out. When you split by addition, the cut line must hand each region to exactly one piece, with no shared strip belonging to both. When two given shapes overlap, their overlap is counted once in each, so you subtract that overlap exactly once to fix the double-count. Sketching the split and labelling each piece before calculating is what keeps this straight.",
+      "These two moves — slice into known pieces and add, or surround and subtract — are the engine behind almost every real area problem: floor plans, garden layouts, sheet-metal cut-outs, painted walls with windows. Once you can see a strange outline as a few rectangles and triangles, an unfamiliar exam figure stops being a new topic and becomes the shapes you already know.",
     ],
     latexBlocks: [
       "A_{\\text{composite}} = A_1 + A_2 + \\cdots \\quad \\text{(addition method)}",
       "A_{\\text{composite}} = A_{\\text{large}} - A_{\\text{cut-out}} \\quad \\text{(subtraction method)}",
+      "A_{\\text{overlap counted once}} = A_1 + A_2 - A_{\\text{overlap}}",
     ],
   },
   workedExamples: [
     {
-      title: "L-shape by addition",
-      questionLatex: "\\text{An L-shaped figure has an outer rectangle }10\\text{ cm} \\times 8\\text{ cm with a }4\\text{ cm} \\times 5\\text{ cm rectangle removed from one corner. Find the total area.}",
+      title: "L-shape by subtraction",
+      questionLatex: "\\text{An L-shaped figure is a full rectangle }10\\text{ cm} \\times 8\\text{ cm with a }4\\text{ cm} \\times 5\\text{ cm rectangle removed from one corner. Find the total area.}",
+      planeShapeDiagram: {
+        description: "L-shaped figure: a 10 cm wide by 8 cm tall rectangle with a 4 cm wide by 5 cm tall rectangle cut from the top-right corner. Outer edges measure 10 cm along the bottom and 8 cm up the left; the notch removes 4 cm from the top and 5 cm down the right.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 10, y: 0, rightAngle: true },
+          { x: 10, y: 3, rightAngle: true },
+          { x: 6, y: 3, rightAngle: true },
+          { x: 6, y: 8, rightAngle: true },
+          { x: 0, y: 8, rightAngle: true },
+        ],
+        edges: [
+          { label: "10 cm" },
+          { label: "3 cm" },
+          { label: "4 cm" },
+          { label: "5 cm" },
+          { label: "6 cm" },
+          { label: "8 cm" },
+        ],
+        fill: "violet",
+      },
       steps: [
-        { explanation: "Find the area of the full outer rectangle.", latex: "A_{\\text{full}} = 10 \\times 8 = 80 \\text{ cm}^2" },
-        { explanation: "Find the area of the missing corner rectangle.", latex: "A_{\\text{cut}} = 4 \\times 5 = 20 \\text{ cm}^2" },
-        { explanation: "Subtract the cut-out area from the full area.", latex: "A = 80 - 20 = 60 \\text{ cm}^2" },
+        { explanation: "Surround the L with the smallest full rectangle, then find that rectangle's area.", latex: "A_{\\text{full}} = 10 \\times 8 = 80" },
+        { explanation: "Find the area of the corner piece that has been cut away.", latex: "A_{\\text{cut}} = 4 \\times 5 = 20" },
+        { explanation: "Subtract the missing corner so only the L-shaped squares remain.", latex: "A = 80 - 20 = 60" },
       ],
       finalAnswerLatex: "A = 60 \\text{ cm}^2",
     },
     {
-      title: "Rectangle and triangle combined",
-      questionLatex: "\\text{A house-shaped figure has a rectangle }6\\text{ cm wide and }4\\text{ cm tall, topped by a triangle with base }6\\text{ cm and perpendicular height }3\\text{ cm. Find the total area.}",
+      title: "House shape by addition (rectangle + triangle)",
+      questionLatex: "\\text{A house outline is a rectangle }6\\text{ cm wide and }4\\text{ cm tall, topped by a triangular roof with base }6\\text{ cm and perpendicular height }3\\text{ cm. Find the total area.}",
+      planeShapeDiagram: {
+        description: "House outline: a 6 cm wide by 4 cm tall rectangle with a triangular roof on top. The roof has base 6 cm and rises 3 cm to its apex above the centre of the top edge.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 6, y: 0, rightAngle: true },
+          { x: 6, y: 4, rightAngle: true },
+          { x: 3, y: 7 },
+          { x: 0, y: 4, rightAngle: true },
+        ],
+        edges: [{ label: "6 cm" }, { label: "4 cm" }, {}, {}, { label: "4 cm" }],
+        fill: "amber",
+      },
       steps: [
-        { explanation: "Find the area of the rectangular part.", latex: "A_{\\text{rect}} = 6 \\times 4 = 24 \\text{ cm}^2" },
-        { explanation: "Find the area of the triangular roof.", latex: "A_{\\text{tri}} = \\frac{1}{2} \\times 6 \\times 3 = 9 \\text{ cm}^2" },
-        { explanation: "Add the two areas to get the total.", latex: "A = 24 + 9 = 33 \\text{ cm}^2" },
+        { explanation: "Split the figure along the roof line into a rectangle below and a triangle above, then find the rectangle.", latex: "A_{\\text{rect}} = 6 \\times 4 = 24" },
+        { explanation: "Find the triangular roof, remembering the one-half for a triangle.", latex: "A_{\\text{tri}} = \\frac{1}{2} \\times 6 \\times 3 = 9" },
+        { explanation: "The two pieces do not overlap, so add their squares for the total.", latex: "A = 24 + 9 = 33" },
       ],
       finalAnswerLatex: "A = 33 \\text{ cm}^2",
     },
     {
-      title: "Composite shape with a missing dimension",
-      questionLatex: "\\text{A T-shaped figure is }12\\text{ cm wide at the top and }4\\text{ cm tall. Below it, a rectangle }4\\text{ cm wide and }6\\text{ cm tall hangs down. Find the total area.}",
+      title: "T-shape by addition",
+      questionLatex: "\\text{A T-shape has a top bar }12\\text{ cm wide and }4\\text{ cm tall, with a stem }4\\text{ cm wide and }6\\text{ cm tall hanging from the middle. Find the total area.}",
+      planeShapeDiagram: {
+        description: "T-shape: a horizontal top bar 12 cm wide and 4 cm tall, with a vertical stem 4 cm wide and 6 cm tall hanging from the centre of the bar.",
+        vertices: [
+          { x: 4, y: 0, rightAngle: true },
+          { x: 8, y: 0, rightAngle: true },
+          { x: 8, y: 6, rightAngle: true },
+          { x: 12, y: 6, rightAngle: true },
+          { x: 12, y: 10, rightAngle: true },
+          { x: 0, y: 10, rightAngle: true },
+          { x: 0, y: 6, rightAngle: true },
+          { x: 4, y: 6, rightAngle: true },
+        ],
+        edges: [
+          { label: "4 cm" },
+          { label: "6 cm" },
+          {},
+          { label: "4 cm" },
+          { label: "12 cm" },
+          {},
+          {},
+          {},
+        ],
+        fill: "teal",
+      },
       steps: [
-        { explanation: "Find the area of the top horizontal rectangle.", latex: "A_{\\text{top}} = 12 \\times 4 = 48 \\text{ cm}^2" },
-        { explanation: "Find the area of the vertical stem.", latex: "A_{\\text{stem}} = 4 \\times 6 = 24 \\text{ cm}^2" },
-        { explanation: "Add the two areas.", latex: "A = 48 + 24 = 72 \\text{ cm}^2" },
+        { explanation: "Split the T into the horizontal top bar and the vertical stem, then find the top bar.", latex: "A_{\\text{top}} = 12 \\times 4 = 48" },
+        { explanation: "Find the area of the vertical stem.", latex: "A_{\\text{stem}} = 4 \\times 6 = 24" },
+        { explanation: "The cut line gives every square to exactly one piece, so add them.", latex: "A = 48 + 24 = 72" },
       ],
       finalAnswerLatex: "A = 72 \\text{ cm}^2",
     },
+    {
+      title: "Harder: two overlapping rectangles (avoid double-counting)",
+      questionLatex: "\\text{A cross is a vertical rectangle }3\\text{ cm} \\times 10\\text{ cm and a horizontal rectangle }8\\text{ cm} \\times 3\\text{ cm crossing at the centre. They overlap in a }3\\text{ cm} \\times 3\\text{ cm square. Find the total area.}",
+      planeShapeDiagram: {
+        description: "Cross (plus) shape made of a vertical rectangle 3 cm wide and 10 cm tall overlapping a horizontal rectangle 8 cm wide and 3 cm tall at the centre. The shared overlap is a 3 cm by 3 cm square. The vertical arm is 3 cm wide, the horizontal arm is 3 cm tall.",
+        vertices: [
+          { x: 2.5, y: 0, rightAngle: true },
+          { x: 5.5, y: 0, rightAngle: true },
+          { x: 5.5, y: 3.5, rightAngle: true },
+          { x: 8, y: 3.5, rightAngle: true },
+          { x: 8, y: 6.5, rightAngle: true },
+          { x: 5.5, y: 6.5, rightAngle: true },
+          { x: 5.5, y: 10, rightAngle: true },
+          { x: 2.5, y: 10, rightAngle: true },
+          { x: 2.5, y: 6.5, rightAngle: true },
+          { x: 0, y: 6.5, rightAngle: true },
+          { x: 0, y: 3.5, rightAngle: true },
+          { x: 2.5, y: 3.5, rightAngle: true },
+        ],
+        edges: [
+          { label: "3 cm" },
+          {},
+          {},
+          { label: "3 cm" },
+          {},
+          {},
+          { label: "3 cm" },
+          {},
+          {},
+          { label: "3 cm" },
+          {},
+          {},
+        ],
+        fill: "blue",
+      },
+      steps: [
+        { explanation: "Find the area of the vertical rectangle on its own.", latex: "A_{\\text{vert}} = 3 \\times 10 = 30" },
+        { explanation: "Find the area of the horizontal rectangle on its own.", latex: "A_{\\text{horiz}} = 8 \\times 3 = 24" },
+        { explanation: "The central square sits inside both, so it has been counted twice — find it once.", latex: "A_{\\text{overlap}} = 3 \\times 3 = 9" },
+        { explanation: "Add the two rectangles, then subtract the overlap once so no square is counted twice.", latex: "A = 30 + 24 - 9 = 45" },
+      ],
+      finalAnswerLatex: "A = 45 \\text{ cm}^2",
+    },
   ],
   guidedPractice: [
-    choice(
-      "y7-are-com-g1",
-      "A composite shape is made of a rectangle 10 cm × 6 cm with a small 2 cm × 3 cm rectangle removed from one corner. Which calculation gives the correct area?",
-      "B",
-      ["10 × 6 + 2 × 3", "(10 × 6) − (2 × 3)", "(10 + 2) × (6 + 3)", "10 × 6 × 2 × 3"],
-      "Use subtraction: full rectangle minus cut-out = 60 − 6 = 54 cm².",
-      "\\text{Select A, B, C, or D.}"
-    ),
-    answer(
-      "y7-are-com-g2",
-      "A composite shape is made of two rectangles placed side by side: the first is 5 cm × 4 cm and the second is 3 cm × 4 cm. Find the total area in cm².",
-      "A = A_1 + A_2",
-      "32",
-      "A₁ = 5 × 4 = 20 cm². A₂ = 3 × 4 = 12 cm². Total = 20 + 12 = 32 cm²."
-    ),
-    answer(
-      "y7-are-com-g3",
-      "A large rectangle is 12 cm × 9 cm. A 4 cm × 3 cm rectangle is cut from one corner. Find the remaining area in cm².",
-      "A = 12 \\times 9 - 4 \\times 3",
-      "96",
-      "Full area = 12 × 9 = 108 cm². Cut-out = 4 × 3 = 12 cm². Remaining = 108 − 12 = 96 cm²."
-    ),
-    answer(
-      "y7-are-com-g4",
-      "A shape consists of a rectangle 8 cm × 5 cm with a triangle on top that has base 8 cm and perpendicular height 4 cm. Find the total area in cm².",
-      "A = (8 \\times 5) + \\frac{1}{2} \\times 8 \\times 4",
-      "56",
-      "Rectangle: 8 × 5 = 40 cm². Triangle: ½ × 8 × 4 = 16 cm². Total = 40 + 16 = 56 cm²."
-    ),
+    {
+      ...choice(
+        "y7-are-com-g1",
+        "A composite shape is made of a rectangle 10 cm × 6 cm with a small 2 cm × 3 cm rectangle removed from one corner. Which calculation gives the correct area?",
+        "B",
+        ["10 × 6 + 2 × 3", "(10 × 6) − (2 × 3)", "(10 + 2) × (6 + 3)", "10 × 6 × 2 × 3"],
+        "Use subtraction: full rectangle minus cut-out = 60 − 6 = 54 cm².",
+        "\\text{Select A, B, C, or D.}"
+      ),
+      planeShapeDiagram: {
+        description: "L-shape: a 10 cm by 6 cm rectangle with a 2 cm wide by 3 cm tall rectangle removed from the top-right corner. The bottom is 10 cm and the left side is 6 cm; the notch is 2 cm across and 3 cm deep.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 10, y: 0, rightAngle: true },
+          { x: 10, y: 3, rightAngle: true },
+          { x: 8, y: 3, rightAngle: true },
+          { x: 8, y: 6, rightAngle: true },
+          { x: 0, y: 6, rightAngle: true },
+        ],
+        edges: [
+          { label: "10 cm" },
+          { label: "3 cm" },
+          { label: "2 cm" },
+          { label: "3 cm" },
+          { label: "8 cm" },
+          { label: "6 cm" },
+        ],
+        fill: "violet",
+      },
+    },
+    {
+      ...answer(
+        "y7-are-com-g2",
+        "A composite shape is made of two rectangles placed side by side: the first is 5 cm × 4 cm and the second is 3 cm × 4 cm. Find the total area in cm².",
+        "A = A_1 + A_2",
+        "32",
+        "A₁ = 5 × 4 = 20 cm². A₂ = 3 × 4 = 12 cm². Total = 20 + 12 = 32 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "Two rectangles side by side forming one 8 cm wide, 4 cm tall strip: the left part is 5 cm wide and the right part is 3 cm wide, each 4 cm tall, meeting along a shared vertical edge.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 5, y: 0 },
+          { x: 8, y: 0, rightAngle: true },
+          { x: 8, y: 4, rightAngle: true },
+          { x: 0, y: 4, rightAngle: true },
+        ],
+        edges: [{ label: "5 cm" }, { label: "3 cm" }, { label: "4 cm" }, {}, { label: "4 cm" }],
+        fill: "blue",
+      },
+    },
+    {
+      ...answer(
+        "y7-are-com-g3",
+        "A large rectangle is 12 cm × 9 cm. A 4 cm × 3 cm rectangle is cut from one corner. Find the remaining area in cm².",
+        "A = 12 \\times 9 - 4 \\times 3",
+        "96",
+        "Full area = 12 × 9 = 108 cm². Cut-out = 4 × 3 = 12 cm². Remaining = 108 − 12 = 96 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "L-shape: a 12 cm by 9 cm rectangle with a 4 cm wide by 3 cm tall rectangle cut from the top-right corner. The bottom is 12 cm, the left side is 9 cm; the notch removes 4 cm from the top and 3 cm down the right.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 12, y: 0, rightAngle: true },
+          { x: 12, y: 6, rightAngle: true },
+          { x: 8, y: 6, rightAngle: true },
+          { x: 8, y: 9, rightAngle: true },
+          { x: 0, y: 9, rightAngle: true },
+        ],
+        edges: [
+          { label: "12 cm" },
+          { label: "6 cm" },
+          { label: "4 cm" },
+          { label: "3 cm" },
+          { label: "8 cm" },
+          { label: "9 cm" },
+        ],
+        fill: "violet",
+      },
+    },
+    {
+      ...answer(
+        "y7-are-com-g4",
+        "A shape consists of a rectangle 8 cm × 5 cm with a triangle on top that has base 8 cm and perpendicular height 4 cm. Find the total area in cm².",
+        "A = (8 \\times 5) + \\frac{1}{2} \\times 8 \\times 4",
+        "56",
+        "Rectangle: 8 × 5 = 40 cm². Triangle: ½ × 8 × 4 = 16 cm². Total = 40 + 16 = 56 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "Composite shape: an 8 cm wide by 5 cm tall rectangle topped by a triangle of base 8 cm and perpendicular height 4 cm, apex above the centre of the top edge.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 8, y: 0, rightAngle: true },
+          { x: 8, y: 5, rightAngle: true },
+          { x: 4, y: 9 },
+          { x: 0, y: 5, rightAngle: true },
+        ],
+        edges: [{ label: "8 cm" }, { label: "5 cm" }, {}, {}, { label: "5 cm" }],
+        fill: "amber",
+      },
+    },
   ],
   independentPractice: [
-    answer(
-      "y7-are-com-i1",
-      "An L-shaped figure is made from a rectangle 10 cm × 7 cm with a 3 cm × 4 cm rectangle removed from one corner. Find the area in cm².",
-      "A = 10 \\times 7 - 3 \\times 4",
-      "58",
-      "Full area = 10 × 7 = 70 cm². Cut-out = 3 × 4 = 12 cm². Remaining = 70 − 12 = 58 cm²."
-    ),
-    answer(
-      "y7-are-com-i2",
-      "A composite shape is made of a rectangle 9 cm × 6 cm and a triangle with base 9 cm and perpendicular height 5 cm attached to one side. Find the total area in cm².",
-      "A = (9 \\times 6) + \\frac{1}{2} \\times 9 \\times 5",
-      "76.5",
-      "Rectangle: 9 × 6 = 54 cm². Triangle: ½ × 9 × 5 = 22.5 cm². Total = 54 + 22.5 = 76.5 cm²."
-    ),
-    answer(
-      "y7-are-com-i3",
-      "A T-shaped figure has a top rectangle 14 cm × 3 cm and a stem rectangle 5 cm × 7 cm hanging from the middle of the top. Find the total area in cm².",
-      "A = (14 \\times 3) + (5 \\times 7)",
-      "77",
-      "Top: 14 × 3 = 42 cm². Stem: 5 × 7 = 35 cm². Total = 42 + 35 = 77 cm²."
-    ),
-    answer(
-      "y7-are-com-i4",
-      "A rectangular sign 20 cm × 15 cm has a rectangular window 6 cm × 4 cm cut out. Find the remaining area in cm².",
-      "A = 20 \\times 15 - 6 \\times 4",
-      "276",
-      "Full area = 20 × 15 = 300 cm². Window = 6 × 4 = 24 cm². Remaining = 300 − 24 = 276 cm²."
-    ),
-    answer(
-      "y7-are-com-i5",
-      "A cross-shaped figure is made of a vertical rectangle 3 cm × 10 cm and a horizontal rectangle 8 cm × 3 cm crossing at the middle. The two rectangles overlap in a 3 cm × 3 cm square. Find the total area in cm².",
-      "A = (3 \\times 10) + (8 \\times 3) - (3 \\times 3)",
-      "45",
-      "Vertical: 3 × 10 = 30 cm². Horizontal: 8 × 3 = 24 cm². Overlap: 3 × 3 = 9 cm². Total = 30 + 24 − 9 = 45 cm²."
-    ),
+    {
+      ...answer(
+        "y7-are-com-i1",
+        "An L-shaped figure is made from a rectangle 10 cm × 7 cm with a 3 cm × 4 cm rectangle removed from one corner. Find the area in cm².",
+        "A = 10 \\times 7 - 3 \\times 4",
+        "58",
+        "Full area = 10 × 7 = 70 cm². Cut-out = 3 × 4 = 12 cm². Remaining = 70 − 12 = 58 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "L-shape: a 10 cm by 7 cm rectangle with a 3 cm wide by 4 cm tall rectangle removed from the top-right corner. The bottom is 10 cm, the left side is 7 cm; the notch is 3 cm across and 4 cm deep.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 10, y: 0, rightAngle: true },
+          { x: 10, y: 3, rightAngle: true },
+          { x: 7, y: 3, rightAngle: true },
+          { x: 7, y: 7, rightAngle: true },
+          { x: 0, y: 7, rightAngle: true },
+        ],
+        edges: [
+          { label: "10 cm" },
+          { label: "3 cm" },
+          { label: "3 cm" },
+          { label: "4 cm" },
+          { label: "7 cm" },
+          { label: "7 cm" },
+        ],
+        fill: "violet",
+      },
+    },
+    {
+      ...answer(
+        "y7-are-com-i2",
+        "A composite shape is made of a rectangle 9 cm × 6 cm and a triangle with base 9 cm and perpendicular height 5 cm attached to one side. Find the total area in cm².",
+        "A = (9 \\times 6) + \\frac{1}{2} \\times 9 \\times 5",
+        "76.5",
+        "Rectangle: 9 × 6 = 54 cm². Triangle: ½ × 9 × 5 = 22.5 cm². Total = 54 + 22.5 = 76.5 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "Composite shape: a 9 cm wide by 6 cm tall rectangle with a triangle of base 9 cm and perpendicular height 5 cm attached along its top edge, apex above the centre.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 9, y: 0, rightAngle: true },
+          { x: 9, y: 6, rightAngle: true },
+          { x: 4.5, y: 11 },
+          { x: 0, y: 6, rightAngle: true },
+        ],
+        edges: [{ label: "9 cm" }, { label: "6 cm" }, {}, {}, { label: "6 cm" }],
+        fill: "amber",
+      },
+    },
+    {
+      ...answer(
+        "y7-are-com-i3",
+        "A T-shaped figure has a top rectangle 14 cm × 3 cm and a stem rectangle 5 cm × 7 cm hanging from the middle of the top. Find the total area in cm².",
+        "A = (14 \\times 3) + (5 \\times 7)",
+        "77",
+        "Top: 14 × 3 = 42 cm². Stem: 5 × 7 = 35 cm². Total = 42 + 35 = 77 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "T-shape: a top rectangle 14 cm wide and 3 cm tall, with a stem 5 cm wide and 7 cm tall hanging from the middle of the top bar.",
+        vertices: [
+          { x: 4.5, y: 0, rightAngle: true },
+          { x: 9.5, y: 0, rightAngle: true },
+          { x: 9.5, y: 7, rightAngle: true },
+          { x: 14, y: 7, rightAngle: true },
+          { x: 14, y: 10, rightAngle: true },
+          { x: 0, y: 10, rightAngle: true },
+          { x: 0, y: 7, rightAngle: true },
+          { x: 4.5, y: 7, rightAngle: true },
+        ],
+        edges: [
+          { label: "5 cm" },
+          { label: "7 cm" },
+          {},
+          { label: "3 cm" },
+          { label: "14 cm" },
+          {},
+          {},
+          {},
+        ],
+        fill: "teal",
+      },
+    },
+    {
+      ...answer(
+        "y7-are-com-i4",
+        "A rectangular sign 20 cm × 15 cm has a rectangular window 6 cm × 4 cm cut out. Find the remaining area in cm².",
+        "A = 20 \\times 15 - 6 \\times 4",
+        "276",
+        "Full area = 20 × 15 = 300 cm². Window = 6 × 4 = 24 cm². Remaining = 300 − 24 = 276 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "Rectangular sign 20 cm wide and 15 cm tall with a 6 cm by 4 cm rectangular window cut out of its centre. The window (6 cm wide, 4 cm tall) is removed from the shaded area, leaving a frame.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 20, y: 0, rightAngle: true },
+          { x: 20, y: 15, rightAngle: true },
+          { x: 0, y: 15, rightAngle: true },
+        ],
+        edges: [{ label: "20 cm" }, { label: "15 cm" }, {}, {}],
+        fill: "blue",
+      },
+    },
+    {
+      ...answer(
+        "y7-are-com-i5",
+        "A cross-shaped figure is made of a vertical rectangle 3 cm × 10 cm and a horizontal rectangle 8 cm × 3 cm crossing at the middle. The two rectangles overlap in a 3 cm × 3 cm square. Find the total area in cm².",
+        "A = (3 \\times 10) + (8 \\times 3) - (3 \\times 3)",
+        "45",
+        "Vertical: 3 × 10 = 30 cm². Horizontal: 8 × 3 = 24 cm². Overlap: 3 × 3 = 9 cm². Total = 30 + 24 − 9 = 45 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "Cross (plus) shape: a vertical rectangle 3 cm wide and 10 cm tall overlapping a horizontal rectangle 8 cm wide and 3 cm tall at the centre, sharing a 3 cm by 3 cm square. Each arm of the cross is 3 cm wide.",
+        vertices: [
+          { x: 2.5, y: 0, rightAngle: true },
+          { x: 5.5, y: 0, rightAngle: true },
+          { x: 5.5, y: 3.5, rightAngle: true },
+          { x: 8, y: 3.5, rightAngle: true },
+          { x: 8, y: 6.5, rightAngle: true },
+          { x: 5.5, y: 6.5, rightAngle: true },
+          { x: 5.5, y: 10, rightAngle: true },
+          { x: 2.5, y: 10, rightAngle: true },
+          { x: 2.5, y: 6.5, rightAngle: true },
+          { x: 0, y: 6.5, rightAngle: true },
+          { x: 0, y: 3.5, rightAngle: true },
+          { x: 2.5, y: 3.5, rightAngle: true },
+        ],
+        edges: [
+          { label: "3 cm" },
+          {},
+          {},
+          { label: "3 cm" },
+          {},
+          {},
+          { label: "3 cm" },
+          {},
+          {},
+          { label: "3 cm" },
+          {},
+          {},
+        ],
+        fill: "blue",
+      },
+    },
   ],
   commonMistakes: [
     { mistake: "Counting the shared boundary region twice when adding two sub-shapes that overlap.", fix: "Check whether any region is counted in both areas. If the two sub-shapes overlap, subtract the overlap area once." },
@@ -758,20 +1231,56 @@ const areaCompositeShapes: LessonContent = {
     { mistake: "Including the cut-out region in the answer when using the subtraction method.", fix: "Subtract the cut-out area: remaining area = large shape − cut-out. The cut-out is gone, not added." },
   ],
   masteryQuiz: [
-    answer(
-      "y7-are-com-m1",
-      "An L-shape is formed from a rectangle 15 cm × 8 cm with a 5 cm × 4 cm corner removed. Find the area in cm².",
-      "A = 15 \\times 8 - 5 \\times 4",
-      "100",
-      "Full area = 15 × 8 = 120 cm². Cut-out = 5 × 4 = 20 cm². Remaining = 120 − 20 = 100 cm²."
-    ),
-    answer(
-      "y7-are-com-m2",
-      "A composite shape is made of a rectangle 10 cm × 5 cm and a triangle with base 10 cm and perpendicular height 6 cm. Find the total area in cm².",
-      "A = (10 \\times 5) + \\frac{1}{2} \\times 10 \\times 6",
-      "80",
-      "Rectangle: 10 × 5 = 50 cm². Triangle: ½ × 10 × 6 = 30 cm². Total = 50 + 30 = 80 cm²."
-    ),
+    {
+      ...answer(
+        "y7-are-com-m1",
+        "An L-shape is formed from a rectangle 15 cm × 8 cm with a 5 cm × 4 cm corner removed. Find the area in cm².",
+        "A = 15 \\times 8 - 5 \\times 4",
+        "100",
+        "Full area = 15 × 8 = 120 cm². Cut-out = 5 × 4 = 20 cm². Remaining = 120 − 20 = 100 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "L-shape: a 15 cm by 8 cm rectangle with a 5 cm wide by 4 cm tall rectangle removed from the top-right corner. The bottom is 15 cm, the left side is 8 cm; the notch is 5 cm across and 4 cm deep.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 15, y: 0, rightAngle: true },
+          { x: 15, y: 4, rightAngle: true },
+          { x: 10, y: 4, rightAngle: true },
+          { x: 10, y: 8, rightAngle: true },
+          { x: 0, y: 8, rightAngle: true },
+        ],
+        edges: [
+          { label: "15 cm" },
+          { label: "4 cm" },
+          { label: "5 cm" },
+          { label: "4 cm" },
+          { label: "10 cm" },
+          { label: "8 cm" },
+        ],
+        fill: "violet",
+      },
+    },
+    {
+      ...answer(
+        "y7-are-com-m2",
+        "A composite shape is made of a rectangle 10 cm × 5 cm and a triangle with base 10 cm and perpendicular height 6 cm. Find the total area in cm².",
+        "A = (10 \\times 5) + \\frac{1}{2} \\times 10 \\times 6",
+        "80",
+        "Rectangle: 10 × 5 = 50 cm². Triangle: ½ × 10 × 6 = 30 cm². Total = 50 + 30 = 80 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "Composite shape: a 10 cm wide by 5 cm tall rectangle topped by a triangle of base 10 cm and perpendicular height 6 cm, apex above the centre of the top edge.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 10, y: 0, rightAngle: true },
+          { x: 10, y: 5, rightAngle: true },
+          { x: 5, y: 11 },
+          { x: 0, y: 5, rightAngle: true },
+        ],
+        edges: [{ label: "10 cm" }, { label: "5 cm" }, {}, {}, { label: "5 cm" }],
+        fill: "amber",
+      },
+    },
     choice(
       "y7-are-com-m3",
       "A composite shape is split into a rectangle of area 48 cm² and a triangle of area 15 cm². The two shapes share a boundary edge but do not overlap. What is the total area?",
@@ -779,83 +1288,592 @@ const areaCompositeShapes: LessonContent = {
       ["33 cm²", "48 cm²", "63 cm²", "720 cm²"],
       "The shapes share an edge but do not overlap, so areas are added: 48 + 15 = 63 cm²."
     ),
-    answer(
-      "y7-are-com-m4",
-      "A rectangular room 8 m × 6 m has a rectangular wardrobe alcove 2 m × 1.5 m cut into one wall. Find the floor area remaining in m².",
-      "A = 8 \\times 6 - 2 \\times 1.5",
-      "45",
-      "Full area = 8 × 6 = 48 m². Alcove = 2 × 1.5 = 3 m². Remaining = 48 − 3 = 45 m²."
-    ),
-    answer(
-      "y7-are-com-m5",
-      "A T-shape has a top bar 18 cm × 4 cm and a stem 6 cm × 10 cm below it. Find the total area in cm².",
-      "A = (18 \\times 4) + (6 \\times 10)",
-      "132",
-      "Top bar: 18 × 4 = 72 cm². Stem: 6 × 10 = 60 cm². Total = 72 + 60 = 132 cm²."
-    ),
-    answer(
-      "y7-are-com-m6",
-      "A rectangular pool surround is 12 m × 9 m on the outside. The pool itself measures 8 m × 5 m. Find the area of the surround (the border) in m².",
-      "A = 12 \\times 9 - 8 \\times 5",
-      "68",
-      "Outer area = 12 × 9 = 108 m². Pool = 8 × 5 = 40 m². Surround = 108 − 40 = 68 m²."
-    ),
-    choice(
-      "y7-are-com-m7",
-      "A student finds the area of a composite shape by splitting it into a 6 cm × 4 cm rectangle and a triangle with base 6 cm and height 3 cm. They add 24 + 18 = 42 cm². What error did they make?",
-      "B",
-      ["They used the wrong rectangle dimensions.", "They forgot the ½ in the triangle area formula.", "They should have subtracted the triangle area.", "They calculated 6 × 4 incorrectly."],
-      "Triangle area = ½ × 6 × 3 = 9 cm², not 18 cm². The correct total is 24 + 9 = 33 cm²."
-    ),
-    answer(
-      "y7-are-com-m8",
-      "A staircase shape is made of three stacked rectangles: 6 cm × 2 cm, 4 cm × 2 cm, and 2 cm × 2 cm from bottom to top. Find the total area in cm².",
-      "A = (6 \\times 2) + (4 \\times 2) + (2 \\times 2)",
-      "24",
-      "Bottom: 6 × 2 = 12 cm². Middle: 4 × 2 = 8 cm². Top: 2 × 2 = 4 cm². Total = 12 + 8 + 4 = 24 cm²."
-    ),
-    answer(
-      "y7-are-com-m9",
-      "An arrowhead shape is a rectangle 10 cm × 6 cm with a triangle of base 4 cm and height 6 cm removed from one short end. Find the remaining area in cm².",
-      "A = 10 \\times 6 - \\frac{1}{2} \\times 4 \\times 6",
-      "48",
-      "Rectangle: 10 × 6 = 60 cm². Triangle removed: ½ × 4 × 6 = 12 cm². Remaining = 60 − 12 = 48 cm²."
-    ),
-    answer(
-      "y7-are-com-m10",
-      "A composite figure is made of two identical rectangles, each 7 cm × 4 cm, joined along one 4 cm edge with no gap or overlap. Find the total area in cm².",
-      "A = 2 \\times (7 \\times 4)",
-      "56",
-      "Each rectangle: 7 × 4 = 28 cm². They do not overlap, so total = 2 × 28 = 56 cm²."
-    ),
+    {
+      ...answer(
+        "y7-are-com-m4",
+        "A rectangular room 8 m × 6 m has a rectangular wardrobe alcove 2 m × 1.5 m cut into one wall. Find the floor area remaining in m².",
+        "A = 8 \\times 6 - 2 \\times 1.5",
+        "45",
+        "Full area = 8 × 6 = 48 m². Alcove = 2 × 1.5 = 3 m². Remaining = 48 − 3 = 45 m²."
+      ),
+      planeShapeDiagram: {
+        description: "L-shaped room floor: an 8 m by 6 m rectangle with a 2 m wide by 1.5 m deep wardrobe alcove cut from the top-right corner. The bottom is 8 m, the left side is 6 m.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 8, y: 0, rightAngle: true },
+          { x: 8, y: 4.5, rightAngle: true },
+          { x: 6, y: 4.5, rightAngle: true },
+          { x: 6, y: 6, rightAngle: true },
+          { x: 0, y: 6, rightAngle: true },
+        ],
+        edges: [
+          { label: "8 m" },
+          { label: "4.5 m" },
+          { label: "2 m" },
+          { label: "1.5 m" },
+          { label: "6 m" },
+          { label: "6 m" },
+        ],
+        fill: "violet",
+      },
+    },
+    {
+      ...answer(
+        "y7-are-com-m5",
+        "A T-shape has a top bar 18 cm × 4 cm and a stem 6 cm × 10 cm below it. Find the total area in cm².",
+        "A = (18 \\times 4) + (6 \\times 10)",
+        "132",
+        "Top bar: 18 × 4 = 72 cm². Stem: 6 × 10 = 60 cm². Total = 72 + 60 = 132 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "T-shape: a top bar 18 cm wide and 4 cm tall, with a stem 6 cm wide and 10 cm tall hanging from the middle of the bar.",
+        vertices: [
+          { x: 6, y: 0, rightAngle: true },
+          { x: 12, y: 0, rightAngle: true },
+          { x: 12, y: 10, rightAngle: true },
+          { x: 18, y: 10, rightAngle: true },
+          { x: 18, y: 14, rightAngle: true },
+          { x: 0, y: 14, rightAngle: true },
+          { x: 0, y: 10, rightAngle: true },
+          { x: 6, y: 10, rightAngle: true },
+        ],
+        edges: [
+          { label: "6 cm" },
+          { label: "10 cm" },
+          {},
+          { label: "4 cm" },
+          { label: "18 cm" },
+          {},
+          {},
+          {},
+        ],
+        fill: "teal",
+      },
+    },
+    {
+      ...answer(
+        "y7-are-com-m6",
+        "A rectangular pool surround is 12 m × 9 m on the outside. The pool itself measures 8 m × 5 m. Find the area of the surround (the border) in m².",
+        "A = 12 \\times 9 - 8 \\times 5",
+        "68",
+        "Outer area = 12 × 9 = 108 m². Pool = 8 × 5 = 40 m². Surround = 108 − 40 = 68 m²."
+      ),
+      planeShapeDiagram: {
+        description: "Pool surround: a 12 m by 9 m outer rectangle (shaded border) with an 8 m by 5 m rectangular pool removed from the centre. The shaded region between the outer edge and the pool is the surround.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 12, y: 0, rightAngle: true },
+          { x: 12, y: 9, rightAngle: true },
+          { x: 0, y: 9, rightAngle: true },
+        ],
+        edges: [{ label: "12 m" }, { label: "9 m" }, {}, {}],
+        fill: "teal",
+      },
+    },
+    {
+      ...choice(
+        "y7-are-com-m7",
+        "A student finds the area of a composite shape by splitting it into a 6 cm × 4 cm rectangle and a triangle with base 6 cm and height 3 cm. They add 24 + 18 = 42 cm². What error did they make?",
+        "B",
+        ["They used the wrong rectangle dimensions.", "They forgot the ½ in the triangle area formula.", "They should have subtracted the triangle area.", "They calculated 6 × 4 incorrectly."],
+        "Triangle area = ½ × 6 × 3 = 9 cm², not 18 cm². The correct total is 24 + 9 = 33 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "Composite shape the student is analysing: a 6 cm wide by 4 cm tall rectangle topped by a triangle of base 6 cm and perpendicular height 3 cm, apex above the centre of the top edge.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 6, y: 0, rightAngle: true },
+          { x: 6, y: 4, rightAngle: true },
+          { x: 3, y: 7 },
+          { x: 0, y: 4, rightAngle: true },
+        ],
+        edges: [{ label: "6 cm" }, { label: "4 cm" }, {}, {}, { label: "4 cm" }],
+        fill: "amber",
+      },
+    },
+    {
+      ...answer(
+        "y7-are-com-m8",
+        "A staircase shape is made of three stacked rectangles: 6 cm × 2 cm, 4 cm × 2 cm, and 2 cm × 2 cm from bottom to top. Find the total area in cm².",
+        "A = (6 \\times 2) + (4 \\times 2) + (2 \\times 2)",
+        "24",
+        "Bottom: 6 × 2 = 12 cm². Middle: 4 × 2 = 8 cm². Top: 2 × 2 = 4 cm². Total = 12 + 8 + 4 = 24 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "Staircase shape: three stacked rectangles each 2 cm tall, left-aligned. The bottom step is 6 cm wide, the middle step 4 cm wide, and the top step 2 cm wide.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 6, y: 0, rightAngle: true },
+          { x: 6, y: 2, rightAngle: true },
+          { x: 4, y: 2, rightAngle: true },
+          { x: 4, y: 4, rightAngle: true },
+          { x: 2, y: 4, rightAngle: true },
+          { x: 2, y: 6, rightAngle: true },
+          { x: 0, y: 6, rightAngle: true },
+        ],
+        edges: [
+          { label: "6 cm" },
+          { label: "2 cm" },
+          { label: "2 cm" },
+          { label: "2 cm" },
+          { label: "2 cm" },
+          { label: "2 cm" },
+          { label: "2 cm" },
+          { label: "6 cm" },
+        ],
+        fill: "blue",
+      },
+    },
+    {
+      ...answer(
+        "y7-are-com-m9",
+        "An arrowhead shape is a rectangle 10 cm × 6 cm with a triangle of base 4 cm and height 6 cm removed from one short end. Find the remaining area in cm².",
+        "A = 10 \\times 6 - \\frac{1}{2} \\times 4 \\times 6",
+        "48",
+        "Rectangle: 10 × 6 = 60 cm². Triangle removed: ½ × 4 × 6 = 12 cm². Remaining = 60 − 12 = 48 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "Arrowhead shape: a 10 cm by 6 cm rectangle with a triangular notch (base 4 cm, height 6 cm) cut into the right short end. The notch tip points 4 cm into the rectangle at mid-height, leaving a chevron.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 10, y: 0 },
+          { x: 6, y: 3 },
+          { x: 10, y: 6 },
+          { x: 0, y: 6, rightAngle: true },
+        ],
+        edges: [{ label: "10 cm" }, {}, {}, {}, { label: "6 cm" }],
+        fill: "amber",
+      },
+    },
+    {
+      ...answer(
+        "y7-are-com-m10",
+        "A composite figure is made of two identical rectangles, each 7 cm × 4 cm, joined along one 4 cm edge with no gap or overlap. Find the total area in cm².",
+        "A = 2 \\times (7 \\times 4)",
+        "56",
+        "Each rectangle: 7 × 4 = 28 cm². They do not overlap, so total = 2 × 28 = 56 cm²."
+      ),
+      planeShapeDiagram: {
+        description: "Two identical 7 cm by 4 cm rectangles joined along their 4 cm edges to form one 14 cm wide, 4 cm tall strip. The shared join is at the middle.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 7, y: 0 },
+          { x: 14, y: 0, rightAngle: true },
+          { x: 14, y: 4, rightAngle: true },
+          { x: 7, y: 4 },
+          { x: 0, y: 4, rightAngle: true },
+        ],
+        edges: [
+          { label: "7 cm" },
+          { label: "7 cm" },
+          { label: "4 cm" },
+          {},
+          {},
+          { label: "4 cm" },
+        ],
+        fill: "blue",
+      },
+    },
   ],
   masteryQuizPool: [
-    answer("y7-are-com-p1", "Two rectangles are placed side by side: 6 cm × 3 cm and 4 cm × 3 cm. Find the total area in cm².", "A = A_1 + A_2", "30", "A₁ = 6 × 3 = 18 cm². A₂ = 4 × 3 = 12 cm². Total = 18 + 12 = 30 cm²."),
-    answer("y7-are-com-p2", "An L-shape is a rectangle 12 cm × 8 cm with a 4 cm × 3 cm corner removed. Find the area in cm².", "A = 12 \\times 8 - 4 \\times 3", "84", "Full = 12 × 8 = 96 cm². Cut-out = 4 × 3 = 12 cm². Remaining = 96 − 12 = 84 cm²."),
-    answer("y7-are-com-p3", "A shape is a rectangle 7 cm × 5 cm with a triangle on top of base 7 cm and perpendicular height 4 cm. Find the total area in cm².", "A = (7 \\times 5) + \\frac{1}{2} \\times 7 \\times 4", "49", "Rectangle: 7 × 5 = 35 cm². Triangle: ½ × 7 × 4 = 14 cm². Total = 35 + 14 = 49 cm²."),
-    answer("y7-are-com-p4", "A T-shape has a top bar 16 cm × 4 cm and a stem 5 cm × 8 cm below it. Find the total area in cm².", "A = (16 \\times 4) + (5 \\times 8)", "104", "Top: 16 × 4 = 64 cm². Stem: 5 × 8 = 40 cm². Total = 64 + 40 = 104 cm²."),
-    answer("y7-are-com-p5", "A rectangular sheet 18 cm × 12 cm has a 5 cm × 4 cm rectangle cut out. Find the remaining area in cm².", "A = 18 \\times 12 - 5 \\times 4", "196", "Full = 18 × 12 = 216 cm². Cut-out = 5 × 4 = 20 cm². Remaining = 216 − 20 = 196 cm²."),
-    answer("y7-are-com-p6", "Three stacked rectangles measure 8 cm × 2 cm, 5 cm × 2 cm, and 3 cm × 2 cm. Find the total area in cm².", "A = (8 \\times 2) + (5 \\times 2) + (3 \\times 2)", "32", "16 + 10 + 6 = 32 cm²."),
-    answer("y7-are-com-p7", "A house shape is a rectangle 10 cm × 6 cm with a triangular roof of base 10 cm and perpendicular height 4 cm. Find the total area in cm².", "A = (10 \\times 6) + \\frac{1}{2} \\times 10 \\times 4", "80", "Rectangle: 10 × 6 = 60 cm². Roof: ½ × 10 × 4 = 20 cm². Total = 60 + 20 = 80 cm²."),
+    {
+      ...answer("y7-are-com-p1", "Two rectangles are placed side by side: 6 cm × 3 cm and 4 cm × 3 cm. Find the total area in cm².", "A = A_1 + A_2", "30", "A₁ = 6 × 3 = 18 cm². A₂ = 4 × 3 = 12 cm². Total = 18 + 12 = 30 cm²."),
+      planeShapeDiagram: {
+        description: "Two rectangles side by side forming a 10 cm wide, 3 cm tall strip: the left part is 6 cm wide and the right part is 4 cm wide, each 3 cm tall.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 6, y: 0 },
+          { x: 10, y: 0, rightAngle: true },
+          { x: 10, y: 3, rightAngle: true },
+          { x: 0, y: 3, rightAngle: true },
+        ],
+        edges: [{ label: "6 cm" }, { label: "4 cm" }, { label: "3 cm" }, {}, { label: "3 cm" }],
+        fill: "blue",
+      },
+    },
+    {
+      ...answer("y7-are-com-p2", "An L-shape is a rectangle 12 cm × 8 cm with a 4 cm × 3 cm corner removed. Find the area in cm².", "A = 12 \\times 8 - 4 \\times 3", "84", "Full = 12 × 8 = 96 cm². Cut-out = 4 × 3 = 12 cm². Remaining = 96 − 12 = 84 cm²."),
+      planeShapeDiagram: {
+        description: "L-shape: a 12 cm by 8 cm rectangle with a 4 cm wide by 3 cm tall rectangle removed from the top-right corner. The bottom is 12 cm and the left side is 8 cm.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 12, y: 0, rightAngle: true },
+          { x: 12, y: 5, rightAngle: true },
+          { x: 8, y: 5, rightAngle: true },
+          { x: 8, y: 8, rightAngle: true },
+          { x: 0, y: 8, rightAngle: true },
+        ],
+        edges: [{ label: "12 cm" }, { label: "5 cm" }, { label: "4 cm" }, { label: "3 cm" }, { label: "8 cm" }, { label: "8 cm" }],
+        fill: "violet",
+      },
+    },
+    {
+      ...answer("y7-are-com-p3", "A shape is a rectangle 7 cm × 5 cm with a triangle on top of base 7 cm and perpendicular height 4 cm. Find the total area in cm².", "A = (7 \\times 5) + \\frac{1}{2} \\times 7 \\times 4", "49", "Rectangle: 7 × 5 = 35 cm². Triangle: ½ × 7 × 4 = 14 cm². Total = 35 + 14 = 49 cm²."),
+      planeShapeDiagram: {
+        description: "Composite shape: a 7 cm wide by 5 cm tall rectangle topped by a triangle of base 7 cm and perpendicular height 4 cm, apex above the centre of the top edge.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 7, y: 0, rightAngle: true },
+          { x: 7, y: 5, rightAngle: true },
+          { x: 3.5, y: 9 },
+          { x: 0, y: 5, rightAngle: true },
+        ],
+        edges: [{ label: "7 cm" }, { label: "5 cm" }, {}, {}, { label: "5 cm" }],
+        fill: "amber",
+      },
+    },
+    {
+      ...answer("y7-are-com-p4", "A T-shape has a top bar 16 cm × 4 cm and a stem 5 cm × 8 cm below it. Find the total area in cm².", "A = (16 \\times 4) + (5 \\times 8)", "104", "Top: 16 × 4 = 64 cm². Stem: 5 × 8 = 40 cm². Total = 64 + 40 = 104 cm²."),
+      planeShapeDiagram: {
+        description: "T-shape: a top bar 16 cm wide and 4 cm tall, with a stem 5 cm wide and 8 cm tall hanging from the middle of the bar.",
+        vertices: [
+          { x: 5.5, y: 0, rightAngle: true },
+          { x: 10.5, y: 0, rightAngle: true },
+          { x: 10.5, y: 8, rightAngle: true },
+          { x: 16, y: 8, rightAngle: true },
+          { x: 16, y: 12, rightAngle: true },
+          { x: 0, y: 12, rightAngle: true },
+          { x: 0, y: 8, rightAngle: true },
+          { x: 5.5, y: 8, rightAngle: true },
+        ],
+        edges: [{ label: "5 cm" }, { label: "8 cm" }, {}, { label: "4 cm" }, { label: "16 cm" }, {}, {}, {}],
+        fill: "teal",
+      },
+    },
+    {
+      ...answer("y7-are-com-p5", "A rectangular sheet 18 cm × 12 cm has a 5 cm × 4 cm rectangle cut out. Find the remaining area in cm².", "A = 18 \\times 12 - 5 \\times 4", "196", "Full = 18 × 12 = 216 cm². Cut-out = 5 × 4 = 20 cm². Remaining = 216 − 20 = 196 cm²."),
+      planeShapeDiagram: {
+        description: "Rectangular sheet 18 cm wide and 12 cm tall with a 5 cm by 4 cm rectangle cut out of its interior. The shaded region is what remains after the cut-out is removed.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 18, y: 0, rightAngle: true },
+          { x: 18, y: 12, rightAngle: true },
+          { x: 0, y: 12, rightAngle: true },
+        ],
+        edges: [{ label: "18 cm" }, { label: "12 cm" }, {}, {}],
+        fill: "blue",
+      },
+    },
+    {
+      ...answer("y7-are-com-p6", "Three stacked rectangles measure 8 cm × 2 cm, 5 cm × 2 cm, and 3 cm × 2 cm. Find the total area in cm².", "A = (8 \\times 2) + (5 \\times 2) + (3 \\times 2)", "32", "16 + 10 + 6 = 32 cm²."),
+      planeShapeDiagram: {
+        description: "Staircase of three stacked rectangles each 2 cm tall, left-aligned: bottom 8 cm wide, middle 5 cm wide, top 3 cm wide.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 8, y: 0, rightAngle: true },
+          { x: 8, y: 2, rightAngle: true },
+          { x: 5, y: 2, rightAngle: true },
+          { x: 5, y: 4, rightAngle: true },
+          { x: 3, y: 4, rightAngle: true },
+          { x: 3, y: 6, rightAngle: true },
+          { x: 0, y: 6, rightAngle: true },
+        ],
+        edges: [{ label: "8 cm" }, { label: "2 cm" }, { label: "3 cm" }, { label: "2 cm" }, { label: "2 cm" }, { label: "2 cm" }, { label: "3 cm" }, { label: "6 cm" }],
+        fill: "blue",
+      },
+    },
+    {
+      ...answer("y7-are-com-p7", "A house shape is a rectangle 10 cm × 6 cm with a triangular roof of base 10 cm and perpendicular height 4 cm. Find the total area in cm².", "A = (10 \\times 6) + \\frac{1}{2} \\times 10 \\times 4", "80", "Rectangle: 10 × 6 = 60 cm². Roof: ½ × 10 × 4 = 20 cm². Total = 60 + 20 = 80 cm²."),
+      planeShapeDiagram: {
+        description: "House shape: a 10 cm wide by 6 cm tall rectangle with a triangular roof of base 10 cm and perpendicular height 4 cm on top, apex above the centre.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 10, y: 0, rightAngle: true },
+          { x: 10, y: 6, rightAngle: true },
+          { x: 5, y: 10 },
+          { x: 0, y: 6, rightAngle: true },
+        ],
+        edges: [{ label: "10 cm" }, { label: "6 cm" }, {}, {}, { label: "6 cm" }],
+        fill: "amber",
+      },
+    },
     choice("y7-are-com-p8", "A rectangle of area 50 cm² and a triangle of area 18 cm² share an edge but do not overlap. What is the total area?", "C", ["32 cm²", "50 cm²", "68 cm²", "900 cm²"], "They do not overlap, so add: 50 + 18 = 68 cm²."),
-    answer("y7-are-com-p9", "An L-shaped room is a rectangle 9 m × 6 m with a 2 m × 3 m corner removed. Find the floor area in m².", "A = 9 \\times 6 - 2 \\times 3", "48", "Full = 9 × 6 = 54 m². Cut-out = 2 × 3 = 6 m². Remaining = 54 − 6 = 48 m²."),
-    answer("y7-are-com-p10", "A rectangular frame is 14 cm × 10 cm on the outside. The picture inside it is 10 cm × 6 cm. Find the area of the frame border in cm².", "A = 14 \\times 10 - 10 \\times 6", "80", "Outer = 14 × 10 = 140 cm². Picture = 10 × 6 = 60 cm². Border = 140 − 60 = 80 cm²."),
-    answer("y7-are-com-p11", "A cross shape is a vertical rectangle 4 cm × 12 cm and a horizontal rectangle 10 cm × 4 cm crossing in a 4 cm × 4 cm overlap. Find the total area in cm².", "A = (4 \\times 12) + (10 \\times 4) - (4 \\times 4)", "72", "Vertical: 48 cm². Horizontal: 40 cm². Overlap: 16 cm². Total = 48 + 40 − 16 = 72 cm²."),
-    answer("y7-are-com-p12", "A composite shape is a rectangle 11 cm × 4 cm with a triangle attached of base 11 cm and perpendicular height 6 cm. Find the total area in cm².", "A = (11 \\times 4) + \\frac{1}{2} \\times 11 \\times 6", "77", "Rectangle: 44 cm². Triangle: ½ × 11 × 6 = 33 cm². Total = 44 + 33 = 77 cm²."),
-    answer("y7-are-com-p13", "A rectangular lawn 20 m × 15 m has a rectangular pond 6 m × 5 m removed. Find the grass area in m².", "A = 20 \\times 15 - 6 \\times 5", "270", "Lawn = 20 × 15 = 300 m². Pond = 6 × 5 = 30 m². Grass = 300 − 30 = 270 m²."),
-    choice("y7-are-com-p14", "A composite shape splits into a 5 cm × 4 cm rectangle and a triangle with base 5 cm and height 4 cm. A student adds 20 + 20 = 40 cm². What is the error?", "B", ["The rectangle area is wrong.", "They forgot the ½ in the triangle area.", "They should subtract the triangle.", "They used the wrong base."], "Triangle = ½ × 5 × 4 = 10 cm², not 20 cm². Correct total = 20 + 10 = 30 cm²."),
-    answer("y7-are-com-p15", "A staircase is four stacked rectangles: 8 cm × 2 cm, 6 cm × 2 cm, 4 cm × 2 cm, 2 cm × 2 cm. Find the total area in cm².", "A = (8 + 6 + 4 + 2) \\times 2", "40", "Widths sum to 8 + 6 + 4 + 2 = 20, each 2 cm tall: 20 × 2 = 40 cm²."),
-    answer("y7-are-com-p16", "A rectangular sign 24 cm × 16 cm has two windows each 4 cm × 3 cm cut out. Find the remaining area in cm².", "A = 24 \\times 16 - 2 \\times (4 \\times 3)", "360", "Full = 24 × 16 = 384 cm². Two windows = 2 × 12 = 24 cm². Remaining = 384 − 24 = 360 cm²."),
-    answer("y7-are-com-p17", "An arrowhead is a rectangle 12 cm × 7 cm with a triangle of base 5 cm and height 7 cm removed from one end. Find the remaining area in cm².", "A = 12 \\times 7 - \\frac{1}{2} \\times 5 \\times 7", "66.5", "Rectangle: 84 cm². Triangle: ½ × 5 × 7 = 17.5 cm². Remaining = 84 − 17.5 = 66.5 cm²."),
-    answer("y7-are-com-p18", "A composite shape is two identical rectangles each 9 cm × 5 cm joined along a 5 cm edge with no overlap. Find the total area in cm².", "A = 2 \\times (9 \\times 5)", "90", "Each: 9 × 5 = 45 cm². Total = 2 × 45 = 90 cm²."),
-    answer("y7-are-com-p19", "A pool surround is 16 m × 10 m on the outside. The pool measures 10 m × 6 m. Find the area of the surround in m².", "A = 16 \\times 10 - 10 \\times 6", "100", "Outer = 160 m². Pool = 60 m². Surround = 160 − 60 = 100 m²."),
-    answer("y7-are-com-p20", "A composite shape is a 13 cm × 6 cm rectangle and a 7 cm × 6 cm rectangle side by side. Find the total area in cm².", "A = (13 \\times 6) + (7 \\times 6)", "120", "78 + 42 = 120 cm²."),
-    choice("y7-are-com-p21", "An L-shape is found by subtracting a 3 cm × 2 cm corner from a 7 cm × 5 cm rectangle. Which calculation is correct?", "A", ["(7 × 5) − (3 × 2)", "(7 × 5) + (3 × 2)", "(7 − 3) × (5 − 2)", "7 × 5 × 3 × 2"], "Subtraction method: full rectangle minus the cut-out corner = 35 − 6 = 29 cm²."),
-    answer("y7-are-com-p22", "A T-shape has a top bar 20 cm × 5 cm and a stem 8 cm × 9 cm. Find the total area in cm².", "A = (20 \\times 5) + (8 \\times 9)", "172", "Top: 100 cm². Stem: 72 cm². Total = 172 cm²."),
-    answer("y7-are-com-p23", "A rectangular floor 7 m × 5 m has a triangular alcove of base 4 m and perpendicular height 3 m added on one side. Find the total area in m².", "A = (7 \\times 5) + \\frac{1}{2} \\times 4 \\times 3", "41", "Rectangle: 35 m². Triangle: ½ × 4 × 3 = 6 m². Total = 35 + 6 = 41 m²."),
-    answer("y7-are-com-p24", "A 10 cm × 8 cm rectangle has a smaller 3 cm × 3 cm square and a 2 cm × 4 cm rectangle removed. Find the remaining area in cm².", "A = 80 - 9 - 8", "63", "Full = 80 cm². Cut-outs = 9 + 8 = 17 cm². Remaining = 80 − 17 = 63 cm²."),
-    answer("y7-are-com-p25", "A composite shape is a rectangle 15 cm × 8 cm with a triangle on top of base 15 cm and height 6 cm. Find the total area in cm².", "A = (15 \\times 8) + \\frac{1}{2} \\times 15 \\times 6", "165", "Rectangle: 120 cm². Triangle: ½ × 15 × 6 = 45 cm². Total = 120 + 45 = 165 cm²."),
-    answer("y7-are-com-p26", "A garden is a 22 m × 14 m rectangle with a 6 m × 6 m square shed removed from one corner. Find the garden area in m².", "A = 22 \\times 14 - 6 \\times 6", "272", "Full = 308 m². Shed = 36 m². Remaining = 308 − 36 = 272 m²."),
+    {
+      ...answer("y7-are-com-p9", "An L-shaped room is a rectangle 9 m × 6 m with a 2 m × 3 m corner removed. Find the floor area in m².", "A = 9 \\times 6 - 2 \\times 3", "48", "Full = 9 × 6 = 54 m². Cut-out = 2 × 3 = 6 m². Remaining = 54 − 6 = 48 m²."),
+      planeShapeDiagram: {
+        description: "L-shaped room floor: a 9 m by 6 m rectangle with a 2 m wide by 3 m tall rectangle removed from the top-right corner. The bottom is 9 m and the left side is 6 m.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 9, y: 0, rightAngle: true },
+          { x: 9, y: 3, rightAngle: true },
+          { x: 7, y: 3, rightAngle: true },
+          { x: 7, y: 6, rightAngle: true },
+          { x: 0, y: 6, rightAngle: true },
+        ],
+        edges: [{ label: "9 m" }, { label: "3 m" }, { label: "2 m" }, { label: "3 m" }, { label: "7 m" }, { label: "6 m" }],
+        fill: "violet",
+      },
+    },
+    {
+      ...answer("y7-are-com-p10", "A rectangular frame is 14 cm × 10 cm on the outside. The picture inside it is 10 cm × 6 cm. Find the area of the frame border in cm².", "A = 14 \\times 10 - 10 \\times 6", "80", "Outer = 14 × 10 = 140 cm². Picture = 10 × 6 = 60 cm². Border = 140 − 60 = 80 cm²."),
+      planeShapeDiagram: {
+        description: "Picture frame: a 14 cm by 10 cm outer rectangle (shaded border) with a 10 cm by 6 cm picture removed from the centre. The shaded region between the outer edge and the picture is the frame border.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 14, y: 0, rightAngle: true },
+          { x: 14, y: 10, rightAngle: true },
+          { x: 0, y: 10, rightAngle: true },
+        ],
+        edges: [{ label: "14 cm" }, { label: "10 cm" }, {}, {}],
+        fill: "teal",
+      },
+    },
+    {
+      ...answer("y7-are-com-p11", "A cross shape is a vertical rectangle 4 cm × 12 cm and a horizontal rectangle 10 cm × 4 cm crossing in a 4 cm × 4 cm overlap. Find the total area in cm².", "A = (4 \\times 12) + (10 \\times 4) - (4 \\times 4)", "72", "Vertical: 48 cm². Horizontal: 40 cm². Overlap: 16 cm². Total = 48 + 40 − 16 = 72 cm²."),
+      planeShapeDiagram: {
+        description: "Cross (plus) shape: a vertical rectangle 4 cm wide and 12 cm tall overlapping a horizontal rectangle 10 cm wide and 4 cm tall at the centre, sharing a 4 cm by 4 cm square. Each arm is 4 cm wide.",
+        vertices: [
+          { x: 3, y: 0, rightAngle: true },
+          { x: 7, y: 0, rightAngle: true },
+          { x: 7, y: 4, rightAngle: true },
+          { x: 10, y: 4, rightAngle: true },
+          { x: 10, y: 8, rightAngle: true },
+          { x: 7, y: 8, rightAngle: true },
+          { x: 7, y: 12, rightAngle: true },
+          { x: 3, y: 12, rightAngle: true },
+          { x: 3, y: 8, rightAngle: true },
+          { x: 0, y: 8, rightAngle: true },
+          { x: 0, y: 4, rightAngle: true },
+          { x: 3, y: 4, rightAngle: true },
+        ],
+        edges: [{ label: "4 cm" }, {}, {}, { label: "4 cm" }, {}, {}, { label: "4 cm" }, {}, {}, { label: "4 cm" }, {}, {}],
+        fill: "blue",
+      },
+    },
+    {
+      ...answer("y7-are-com-p12", "A composite shape is a rectangle 11 cm × 4 cm with a triangle attached of base 11 cm and perpendicular height 6 cm. Find the total area in cm².", "A = (11 \\times 4) + \\frac{1}{2} \\times 11 \\times 6", "77", "Rectangle: 44 cm². Triangle: ½ × 11 × 6 = 33 cm². Total = 44 + 33 = 77 cm²."),
+      planeShapeDiagram: {
+        description: "Composite shape: an 11 cm wide by 4 cm tall rectangle topped by a triangle of base 11 cm and perpendicular height 6 cm, apex above the centre of the top edge.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 11, y: 0, rightAngle: true },
+          { x: 11, y: 4, rightAngle: true },
+          { x: 5.5, y: 10 },
+          { x: 0, y: 4, rightAngle: true },
+        ],
+        edges: [{ label: "11 cm" }, { label: "4 cm" }, {}, {}, { label: "4 cm" }],
+        fill: "amber",
+      },
+    },
+    {
+      ...answer("y7-are-com-p13", "A rectangular lawn 20 m × 15 m has a rectangular pond 6 m × 5 m removed. Find the grass area in m².", "A = 20 \\times 15 - 6 \\times 5", "270", "Lawn = 20 × 15 = 300 m². Pond = 6 × 5 = 30 m². Grass = 300 − 30 = 270 m²."),
+      planeShapeDiagram: {
+        description: "Rectangular lawn 20 m wide and 15 m tall (shaded grass) with a 6 m by 5 m rectangular pond removed from the interior. The shaded region is the grass remaining around the pond.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 20, y: 0, rightAngle: true },
+          { x: 20, y: 15, rightAngle: true },
+          { x: 0, y: 15, rightAngle: true },
+        ],
+        edges: [{ label: "20 m" }, { label: "15 m" }, {}, {}],
+        fill: "green",
+      },
+    },
+    {
+      ...choice("y7-are-com-p14", "A composite shape splits into a 5 cm × 4 cm rectangle and a triangle with base 5 cm and height 4 cm. A student adds 20 + 20 = 40 cm². What is the error?", "B", ["The rectangle area is wrong.", "They forgot the ½ in the triangle area.", "They should subtract the triangle.", "They used the wrong base."], "Triangle = ½ × 5 × 4 = 10 cm², not 20 cm². Correct total = 20 + 10 = 30 cm²."),
+      planeShapeDiagram: {
+        description: "Composite shape being analysed: a 5 cm wide by 4 cm tall rectangle topped by a triangle of base 5 cm and perpendicular height 4 cm, apex above the centre of the top edge.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 5, y: 0, rightAngle: true },
+          { x: 5, y: 4, rightAngle: true },
+          { x: 2.5, y: 8 },
+          { x: 0, y: 4, rightAngle: true },
+        ],
+        edges: [{ label: "5 cm" }, { label: "4 cm" }, {}, {}, { label: "4 cm" }],
+        fill: "amber",
+      },
+    },
+    {
+      ...answer("y7-are-com-p15", "A staircase is four stacked rectangles: 8 cm × 2 cm, 6 cm × 2 cm, 4 cm × 2 cm, 2 cm × 2 cm. Find the total area in cm².", "A = (8 + 6 + 4 + 2) \\times 2", "40", "Widths sum to 8 + 6 + 4 + 2 = 20, each 2 cm tall: 20 × 2 = 40 cm²."),
+      planeShapeDiagram: {
+        description: "Staircase of four stacked rectangles each 2 cm tall, left-aligned: widths 8 cm, 6 cm, 4 cm and 2 cm from bottom to top.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 8, y: 0, rightAngle: true },
+          { x: 8, y: 2, rightAngle: true },
+          { x: 6, y: 2, rightAngle: true },
+          { x: 6, y: 4, rightAngle: true },
+          { x: 4, y: 4, rightAngle: true },
+          { x: 4, y: 6, rightAngle: true },
+          { x: 2, y: 6, rightAngle: true },
+          { x: 2, y: 8, rightAngle: true },
+          { x: 0, y: 8, rightAngle: true },
+        ],
+        edges: [{ label: "8 cm" }, { label: "2 cm" }, {}, { label: "2 cm" }, {}, { label: "2 cm" }, {}, { label: "2 cm" }, {}, { label: "8 cm" }],
+        fill: "blue",
+      },
+    },
+    {
+      ...answer("y7-are-com-p16", "A rectangular sign 24 cm × 16 cm has two windows each 4 cm × 3 cm cut out. Find the remaining area in cm².", "A = 24 \\times 16 - 2 \\times (4 \\times 3)", "360", "Full = 24 × 16 = 384 cm². Two windows = 2 × 12 = 24 cm². Remaining = 384 − 24 = 360 cm²."),
+      planeShapeDiagram: {
+        description: "Rectangular sign 24 cm wide and 16 cm tall with two 4 cm by 3 cm windows cut out of its interior. The shaded region is what remains of the sign after both windows are removed.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 24, y: 0, rightAngle: true },
+          { x: 24, y: 16, rightAngle: true },
+          { x: 0, y: 16, rightAngle: true },
+        ],
+        edges: [{ label: "24 cm" }, { label: "16 cm" }, {}, {}],
+        fill: "blue",
+      },
+    },
+    {
+      ...answer("y7-are-com-p17", "An arrowhead is a rectangle 12 cm × 7 cm with a triangle of base 5 cm and height 7 cm removed from one end. Find the remaining area in cm².", "A = 12 \\times 7 - \\frac{1}{2} \\times 5 \\times 7", "66.5", "Rectangle: 84 cm². Triangle: ½ × 5 × 7 = 17.5 cm². Remaining = 84 − 17.5 = 66.5 cm²."),
+      planeShapeDiagram: {
+        description: "Arrowhead shape: a 12 cm by 7 cm rectangle with a triangular notch (base 5 cm, height 7 cm) cut into the right short end. The notch tip points 5 cm into the rectangle at mid-height, leaving a chevron.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 12, y: 0 },
+          { x: 7, y: 3.5 },
+          { x: 12, y: 7 },
+          { x: 0, y: 7, rightAngle: true },
+        ],
+        edges: [{ label: "12 cm" }, {}, {}, {}, { label: "7 cm" }],
+        fill: "amber",
+      },
+    },
+    {
+      ...answer("y7-are-com-p18", "A composite shape is two identical rectangles each 9 cm × 5 cm joined along a 5 cm edge with no overlap. Find the total area in cm².", "A = 2 \\times (9 \\times 5)", "90", "Each: 9 × 5 = 45 cm². Total = 2 × 45 = 90 cm²."),
+      planeShapeDiagram: {
+        description: "Two identical 9 cm by 5 cm rectangles joined along their 5 cm edges to form one 18 cm wide, 5 cm tall strip. The shared join is at the middle.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 9, y: 0 },
+          { x: 18, y: 0, rightAngle: true },
+          { x: 18, y: 5, rightAngle: true },
+          { x: 9, y: 5 },
+          { x: 0, y: 5, rightAngle: true },
+        ],
+        edges: [{ label: "9 cm" }, { label: "9 cm" }, { label: "5 cm" }, {}, {}, { label: "5 cm" }],
+        fill: "blue",
+      },
+    },
+    {
+      ...answer("y7-are-com-p19", "A pool surround is 16 m × 10 m on the outside. The pool measures 10 m × 6 m. Find the area of the surround in m².", "A = 16 \\times 10 - 10 \\times 6", "100", "Outer = 160 m². Pool = 60 m². Surround = 160 − 60 = 100 m²."),
+      planeShapeDiagram: {
+        description: "Pool surround: a 16 m by 10 m outer rectangle (shaded border) with a 10 m by 6 m rectangular pool removed from the centre. The shaded region between the outer edge and the pool is the surround.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 16, y: 0, rightAngle: true },
+          { x: 16, y: 10, rightAngle: true },
+          { x: 0, y: 10, rightAngle: true },
+        ],
+        edges: [{ label: "16 m" }, { label: "10 m" }, {}, {}],
+        fill: "teal",
+      },
+    },
+    {
+      ...answer("y7-are-com-p20", "A composite shape is a 13 cm × 6 cm rectangle and a 7 cm × 6 cm rectangle side by side. Find the total area in cm².", "A = (13 \\times 6) + (7 \\times 6)", "120", "78 + 42 = 120 cm²."),
+      planeShapeDiagram: {
+        description: "Two rectangles side by side forming a 20 cm wide, 6 cm tall strip: the left part is 13 cm wide and the right part is 7 cm wide, each 6 cm tall.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 13, y: 0 },
+          { x: 20, y: 0, rightAngle: true },
+          { x: 20, y: 6, rightAngle: true },
+          { x: 0, y: 6, rightAngle: true },
+        ],
+        edges: [{ label: "13 cm" }, { label: "7 cm" }, { label: "6 cm" }, {}, { label: "6 cm" }],
+        fill: "blue",
+      },
+    },
+    {
+      ...choice("y7-are-com-p21", "An L-shape is found by subtracting a 3 cm × 2 cm corner from a 7 cm × 5 cm rectangle. Which calculation is correct?", "A", ["(7 × 5) − (3 × 2)", "(7 × 5) + (3 × 2)", "(7 − 3) × (5 − 2)", "7 × 5 × 3 × 2"], "Subtraction method: full rectangle minus the cut-out corner = 35 − 6 = 29 cm²."),
+      planeShapeDiagram: {
+        description: "L-shape: a 7 cm by 5 cm rectangle with a 3 cm wide by 2 cm tall rectangle removed from the top-right corner. The bottom is 7 cm and the left side is 5 cm.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 7, y: 0, rightAngle: true },
+          { x: 7, y: 3, rightAngle: true },
+          { x: 4, y: 3, rightAngle: true },
+          { x: 4, y: 5, rightAngle: true },
+          { x: 0, y: 5, rightAngle: true },
+        ],
+        edges: [{ label: "7 cm" }, { label: "3 cm" }, { label: "3 cm" }, { label: "2 cm" }, { label: "4 cm" }, { label: "5 cm" }],
+        fill: "violet",
+      },
+    },
+    {
+      ...answer("y7-are-com-p22", "A T-shape has a top bar 20 cm × 5 cm and a stem 8 cm × 9 cm. Find the total area in cm².", "A = (20 \\times 5) + (8 \\times 9)", "172", "Top: 100 cm². Stem: 72 cm². Total = 172 cm²."),
+      planeShapeDiagram: {
+        description: "T-shape: a top bar 20 cm wide and 5 cm tall, with a stem 8 cm wide and 9 cm tall hanging from the middle of the bar.",
+        vertices: [
+          { x: 6, y: 0, rightAngle: true },
+          { x: 14, y: 0, rightAngle: true },
+          { x: 14, y: 9, rightAngle: true },
+          { x: 20, y: 9, rightAngle: true },
+          { x: 20, y: 14, rightAngle: true },
+          { x: 0, y: 14, rightAngle: true },
+          { x: 0, y: 9, rightAngle: true },
+          { x: 6, y: 9, rightAngle: true },
+        ],
+        edges: [{ label: "8 cm" }, { label: "9 cm" }, {}, { label: "5 cm" }, { label: "20 cm" }, {}, {}, {}],
+        fill: "teal",
+      },
+    },
+    {
+      ...answer("y7-are-com-p23", "A rectangular floor 7 m × 5 m has a triangular alcove of base 4 m and perpendicular height 3 m added on one side. Find the total area in m².", "A = (7 \\times 5) + \\frac{1}{2} \\times 4 \\times 3", "41", "Rectangle: 35 m². Triangle: ½ × 4 × 3 = 6 m². Total = 35 + 6 = 41 m²."),
+      planeShapeDiagram: {
+        description: "Composite floor: a 7 m wide by 5 m tall rectangle with a triangular alcove (base 4 m, perpendicular height 3 m) protruding from the middle of the top edge.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 7, y: 0, rightAngle: true },
+          { x: 7, y: 5, rightAngle: true },
+          { x: 5.5, y: 5 },
+          { x: 3.5, y: 8 },
+          { x: 1.5, y: 5 },
+          { x: 0, y: 5, rightAngle: true },
+        ],
+        edges: [{ label: "7 m" }, { label: "5 m" }, {}, {}, {}, {}, { label: "5 m" }],
+        fill: "amber",
+      },
+    },
+    {
+      ...answer("y7-are-com-p24", "A 10 cm × 8 cm rectangle has a smaller 3 cm × 3 cm square and a 2 cm × 4 cm rectangle removed. Find the remaining area in cm².", "A = 80 - 9 - 8", "63", "Full = 80 cm². Cut-outs = 9 + 8 = 17 cm². Remaining = 80 − 17 = 63 cm²."),
+      planeShapeDiagram: {
+        description: "Rectangle 10 cm wide and 8 cm tall with two pieces cut from its interior: a 3 cm by 3 cm square and a 2 cm by 4 cm rectangle. The shaded region is what remains after both cut-outs.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 10, y: 0, rightAngle: true },
+          { x: 10, y: 8, rightAngle: true },
+          { x: 0, y: 8, rightAngle: true },
+        ],
+        edges: [{ label: "10 cm" }, { label: "8 cm" }, {}, {}],
+        fill: "blue",
+      },
+    },
+    {
+      ...answer("y7-are-com-p25", "A composite shape is a rectangle 15 cm × 8 cm with a triangle on top of base 15 cm and height 6 cm. Find the total area in cm².", "A = (15 \\times 8) + \\frac{1}{2} \\times 15 \\times 6", "165", "Rectangle: 120 cm². Triangle: ½ × 15 × 6 = 45 cm². Total = 120 + 45 = 165 cm²."),
+      planeShapeDiagram: {
+        description: "Composite shape: a 15 cm wide by 8 cm tall rectangle topped by a triangle of base 15 cm and perpendicular height 6 cm, apex above the centre of the top edge.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 15, y: 0, rightAngle: true },
+          { x: 15, y: 8, rightAngle: true },
+          { x: 7.5, y: 14 },
+          { x: 0, y: 8, rightAngle: true },
+        ],
+        edges: [{ label: "15 cm" }, { label: "8 cm" }, {}, {}, { label: "8 cm" }],
+        fill: "amber",
+      },
+    },
+    {
+      ...answer("y7-are-com-p26", "A garden is a 22 m × 14 m rectangle with a 6 m × 6 m square shed removed from one corner. Find the garden area in m².", "A = 22 \\times 14 - 6 \\times 6", "272", "Full = 308 m². Shed = 36 m². Remaining = 308 − 36 = 272 m²."),
+      planeShapeDiagram: {
+        description: "L-shaped garden: a 22 m by 14 m rectangle with a 6 m by 6 m square shed removed from the top-right corner. The bottom is 22 m and the left side is 14 m.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 22, y: 0, rightAngle: true },
+          { x: 22, y: 8, rightAngle: true },
+          { x: 16, y: 8, rightAngle: true },
+          { x: 16, y: 14, rightAngle: true },
+          { x: 0, y: 14, rightAngle: true },
+        ],
+        edges: [{ label: "22 m" }, { label: "8 m" }, { label: "6 m" }, { label: "6 m" }, { label: "16 m" }, { label: "14 m" }],
+        fill: "green",
+      },
+    },
   ],
   multiPartPractice: [
     {
@@ -863,6 +1881,19 @@ const areaCompositeShapes: LessonContent = {
       prompt:
         "A workshop floor plan is L-shaped. It is formed from a large rectangle 12 m long and 9 m wide, with a smaller rectangle 5 m long and 4 m wide removed from one corner. A triangular storage zone with base 6 m and perpendicular height 3 m is marked inside the remaining floor. Use these measurements to answer the parts below.",
       latex: "A_{\\text{rect}} = l \\times w \\qquad A_{\\text{tri}} = \\tfrac{1}{2}bh",
+      planeShapeDiagram: {
+        description: "L-shaped workshop floor: a 12 m long by 9 m wide rectangle with a 5 m by 4 m rectangle removed from the top-right corner. The bottom is 12 m and the left side is 9 m; the notch removes 5 m from the top and 4 m down the right.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 12, y: 0, rightAngle: true },
+          { x: 12, y: 5, rightAngle: true },
+          { x: 7, y: 5, rightAngle: true },
+          { x: 7, y: 9, rightAngle: true },
+          { x: 0, y: 9, rightAngle: true },
+        ],
+        edges: [{ label: "12 m" }, { label: "5 m" }, { label: "5 m" }, { label: "4 m" }, { label: "7 m" }, { label: "9 m" }],
+        fill: "violet",
+      },
       answer: "88",
       hint: "Find the full rectangle, subtract the removed corner, then use ½bh for the storage zone.",
       explanation:
@@ -930,44 +1961,93 @@ const areaProblemSolving: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Area appears in everyday tasks: a painter needs to know the wall area to order paint, a tiler must count how many tiles cover a floor, a gardener calculates the area of a lawn to spread fertiliser. In each case, we use the same formulas — the context just changes.",
-      "Units of area scale by the square of the unit conversion. Since 1 m = 100 cm, one square metre contains 100 × 100 = 10 000 square centimetres. To convert m² to cm², multiply by 10 000. To convert cm² to m², divide by 10 000. Similarly, 1 cm = 10 mm, so 1 cm² = 100 mm².",
-      "To find cost, multiply the total area by the price per square unit. For example, tiles at $12 per m² covering an 8 m² floor cost 8 × $12 = $96. Always check that the area and the rate use the same unit before multiplying.",
-      "In problems with multiple surfaces (for example, four walls of a room), find each surface area separately then add. If one surface has doors or windows, subtract their areas — you do not paint or tile what is already cut out.",
+      "Most real uses of area are not 'find the area' questions — they are 'how much will it cost' or 'how much material do I need' questions. A painter orders paint by wall area, a tiler counts tiles by floor area, a gardener buys fertiliser by lawn area. The shape work is identical to earlier lessons; what is new is the extra step of turning an area into a cost, a number of tiles, or litres of paint.",
+      "Before any of that, the units have to agree, and this is where the most common error hides. Area units do not scale the way length units do. One metre equals 100 centimetres, but one square metre is a square that is 100 cm along each side, so it holds $100 \\times 100 = 10\\,000$ small $\\text{cm}^2$ squares — not 100 of them. So to change $\\text{m}^2$ to $\\text{cm}^2$ you multiply by 10 000, and to go back you divide by 10 000. The same reasoning gives $1\\text{ cm}^2 = 10 \\times 10 = 100\\text{ mm}^2$: you always square the linear conversion factor.",
+      "Because that squaring is easy to forget, the safest habit is to convert all the lengths to one unit first, then find the area once, so the area comes out in the unit you actually want. A bed measured as 350 cm by 200 cm is better read as 3.5 m by 2 m, giving $3.5 \\times 2 = 7\\text{ m}^2$ directly — no risk of mishandling the 10 000.",
+      "Cost works by a rate. A rate such as '$12 per square metre' means every single square metre of surface costs $12, so the total cost is the number of square metres multiplied by 12. That is why $\\text{cost} = \\text{area} \\times \\text{rate}$ — you are adding up the price of each square metre, and multiplying is just fast repeated addition. The same logic counts tiles: divide the floor area by the area of one tile to find how many tiles fit. The unit on the rate and the unit on the area must match, or the multiplication is meaningless.",
+      "When a surface is not solid — a wall with a window, a lawn with a flowerbed, a hall with a stage — you do not pay to cover the part that is cut out. So find the full area, subtract every opening, and apply the rate only to what is left. The mistake to avoid is charging for the whole wall when a window will never be painted; the cost follows the area that is actually covered, which is the composite-shape subtraction from the previous lesson put to work.",
+      "Put together, every problem here is the same three-move chain: get the units consistent, find the area you are actually covering, then apply the rate (multiply for cost, divide for number of tiles). Spotting which move a worded question is asking for is exactly the Band-6 skill — the formulas never change, only the story around them.",
     ],
     latexBlocks: [
       "\\text{Cost} = \\text{area} \\times \\text{rate per unit area}",
       "1 \\text{ m}^2 = 10\\,000 \\text{ cm}^2 \\qquad 1 \\text{ cm}^2 = 100 \\text{ mm}^2",
+      "\\text{Number of tiles} = \\frac{\\text{area to cover}}{\\text{area of one tile}}",
     ],
   },
   workedExamples: [
     {
       title: "Tiling cost",
       questionLatex: "\\text{A rectangular floor is }5\\text{ m long and }4\\text{ m wide. Tiles cost }\\$18\\text{ per m}^2\\text{. Find the total tile cost.}",
+      planeShapeDiagram: {
+        description: "Rectangular floor 5 m long and 4 m wide, to be tiled.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 5, y: 0, rightAngle: true },
+          { x: 5, y: 4, rightAngle: true },
+          { x: 0, y: 4, rightAngle: true },
+        ],
+        edges: [{ label: "5 m" }, { label: "4 m" }, {}, {}],
+        fill: "blue",
+      },
       steps: [
-        { explanation: "Find the area of the floor.", latex: "A = 5 \\times 4 = 20 \\text{ m}^2" },
-        { explanation: "Multiply the area by the cost rate to find the total cost.", latex: "\\text{Cost} = 20 \\times 18 = 360" },
+        { explanation: "Find the floor area — the surface to be covered.", latex: "A = 5 \\times 4 = 20 \\text{ m}^2" },
+        { explanation: "The rate is $18 for each square metre, so multiply the area by the rate.", latex: "\\text{Cost} = 20 \\times 18" },
+        { explanation: "Carry out the multiplication.", latex: "\\text{Cost} = 360" },
       ],
       finalAnswerLatex: "\\text{Total cost} = \\$360",
     },
     {
       title: "Painting a wall with a window",
       questionLatex: "\\text{A wall is }6\\text{ m wide and }2.5\\text{ m tall. It has a window }1.5\\text{ m} \\times 1\\text{ m. Find the area to be painted.}",
+      planeShapeDiagram: {
+        description: "Wall 6 m wide and 2.5 m tall (shaded) with a 1.5 m by 1 m window cut out of its interior. The shaded region around the window is the area to be painted.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 6, y: 0, rightAngle: true },
+          { x: 6, y: 2.5, rightAngle: true },
+          { x: 0, y: 2.5, rightAngle: true },
+        ],
+        edges: [{ label: "6 m" }, { label: "2.5 m" }, {}, {}],
+        fill: "amber",
+      },
       steps: [
-        { explanation: "Find the total area of the wall.", latex: "A_{\\text{wall}} = 6 \\times 2.5 = 15 \\text{ m}^2" },
-        { explanation: "Find the area of the window that will not be painted.", latex: "A_{\\text{window}} = 1.5 \\times 1 = 1.5 \\text{ m}^2" },
-        { explanation: "Subtract the window area from the wall area.", latex: "A_{\\text{paint}} = 15 - 1.5 = 13.5 \\text{ m}^2" },
+        { explanation: "Find the full wall area as if it were solid.", latex: "A_{\\text{wall}} = 6 \\times 2.5 = 15 \\text{ m}^2" },
+        { explanation: "Find the window area — the part that will not be painted.", latex: "A_{\\text{window}} = 1.5 \\times 1 = 1.5 \\text{ m}^2" },
+        { explanation: "Subtract the opening, because you only paint the surface that remains.", latex: "A_{\\text{paint}} = 15 - 1.5 = 13.5 \\text{ m}^2" },
       ],
       finalAnswerLatex: "A_{\\text{paint}} = 13.5 \\text{ m}^2",
     },
     {
-      title: "Unit conversion — cm² to m²",
-      questionLatex: "\\text{A garden bed is }350\\text{ cm long and }200\\text{ cm wide. Express the area in m}^2\\text{.}",
+      title: "Unit conversion — convert lengths first",
+      questionLatex: "\\text{A garden bed is }350\\text{ cm long and }200\\text{ cm wide. Express its area in m}^2\\text{.}",
+      planeShapeDiagram: {
+        description: "Rectangular garden bed 350 cm (3.5 m) long and 200 cm (2 m) wide.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 3.5, y: 0, rightAngle: true },
+          { x: 3.5, y: 2, rightAngle: true },
+          { x: 0, y: 2, rightAngle: true },
+        ],
+        edges: [{ label: "350 cm" }, { label: "200 cm" }, {}, {}],
+        fill: "green",
+      },
       steps: [
-        { explanation: "Convert the dimensions to metres first.", latex: "350 \\text{ cm} = 3.5 \\text{ m}, \\quad 200 \\text{ cm} = 2 \\text{ m}" },
-        { explanation: "Find the area in m².", latex: "A = 3.5 \\times 2 = 7 \\text{ m}^2" },
+        { explanation: "Convert each length to metres before finding the area, so the answer lands in m² with no factor of 10 000 to manage.", latex: "350 \\text{ cm} = 3.5 \\text{ m}, \\quad 200 \\text{ cm} = 2 \\text{ m}" },
+        { explanation: "Multiply the two lengths in metres.", latex: "A = 3.5 \\times 2" },
+        { explanation: "Read off the area in square metres.", latex: "A = 7 \\text{ m}^2" },
       ],
       finalAnswerLatex: "A = 7 \\text{ m}^2",
+    },
+    {
+      title: "Harder: tiles needed, with a unit clash to resolve",
+      questionLatex: "\\text{A floor is }4.8\\text{ m}^2\\text{. Square tiles are }20\\text{ cm} \\times 20\\text{ cm. How many tiles are needed?}",
+      steps: [
+        { explanation: "The floor is in m² but the tile is in cm, so first find the tile area and convert it to the same unit as the floor.", latex: "20 \\text{ cm} = 0.2 \\text{ m}" },
+        { explanation: "Find the area of one tile in square metres.", latex: "A_{\\text{tile}} = 0.2 \\times 0.2 = 0.04 \\text{ m}^2" },
+        { explanation: "Divide the floor area by one tile's area to count how many tiles fit.", latex: "\\text{tiles} = \\frac{4.8}{0.04}" },
+        { explanation: "Carry out the division.", latex: "\\text{tiles} = 120" },
+      ],
+      finalAnswerLatex: "120 \\text{ tiles are needed}",
     },
   ],
   guidedPractice: [
@@ -994,13 +2074,26 @@ const areaProblemSolving: LessonContent = {
       "2.5 × 10 000 = 25 000 cm².",
       ["25,000"]
     ),
-    answer(
-      "y7-are-prb-g4",
-      "A wall is 5 m wide and 3 m tall. It has a door 1 m × 2 m cut out. Find the area to be painted in m².",
-      "A = (5 \\times 3) - (1 \\times 2)",
-      "13",
-      "Wall: 5 × 3 = 15 m². Door: 1 × 2 = 2 m². Paint area = 15 − 2 = 13 m²."
-    ),
+    {
+      ...answer(
+        "y7-are-prb-g4",
+        "A wall is 5 m wide and 3 m tall. It has a door 1 m × 2 m cut out. Find the area to be painted in m².",
+        "A = (5 \\times 3) - (1 \\times 2)",
+        "13",
+        "Wall: 5 × 3 = 15 m². Door: 1 × 2 = 2 m². Paint area = 15 − 2 = 13 m²."
+      ),
+      planeShapeDiagram: {
+        description: "Wall 5 m wide and 3 m tall (shaded) with a 1 m wide by 2 m tall door opening removed. The shaded region around the door is the area to be painted.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 5, y: 0, rightAngle: true },
+          { x: 5, y: 3, rightAngle: true },
+          { x: 0, y: 3, rightAngle: true },
+        ],
+        edges: [{ label: "5 m" }, { label: "3 m" }, {}, {}],
+        fill: "amber",
+      },
+    },
   ],
   independentPractice: [
     answer(
@@ -1033,14 +2126,29 @@ const areaProblemSolving: LessonContent = {
       "14.4",
       "480 cm = 4.8 m, 300 cm = 3 m. Area = 4.8 × 3 = 14.4 m²."
     ),
-    answer(
-      "y7-are-prb-i5",
-      "A rectangular hall 12 m × 8 m has a stage area of 4 m × 6 m at one end. The rest of the floor is to be carpeted. Carpet costs $25 per m². Find the total carpet cost in dollars.",
-      "\\text{Cost} = (12 \\times 8 - 4 \\times 6) \\times 25",
-      "1800",
-      "Hall: 12 × 8 = 96 m². Stage: 4 × 6 = 24 m². Carpeted area = 96 − 24 = 72 m². Cost = 72 × $25 = $1800.",
-      ["$1800", "1,800", "$1,800"]
-    ),
+    {
+      ...answer(
+        "y7-are-prb-i5",
+        "A rectangular hall 12 m × 8 m has a stage area of 4 m × 6 m at one end. The rest of the floor is to be carpeted. Carpet costs $25 per m². Find the total carpet cost in dollars.",
+        "\\text{Cost} = (12 \\times 8 - 4 \\times 6) \\times 25",
+        "1800",
+        "Hall: 12 × 8 = 96 m². Stage: 4 × 6 = 24 m². Carpeted area = 96 − 24 = 72 m². Cost = 72 × $25 = $1800.",
+        ["$1800", "1,800", "$1,800"]
+      ),
+      planeShapeDiagram: {
+        description: "Hall floor 12 m by 8 m with a 4 m by 6 m stage occupying the top-right corner. The remaining L-shaped region is to be carpeted.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 12, y: 0, rightAngle: true },
+          { x: 12, y: 2, rightAngle: true },
+          { x: 8, y: 2, rightAngle: true },
+          { x: 8, y: 8, rightAngle: true },
+          { x: 0, y: 8, rightAngle: true },
+        ],
+        edges: [{ label: "12 m" }, { label: "2 m" }, { label: "4 m" }, { label: "6 m" }, { label: "8 m" }, { label: "8 m" }],
+        fill: "blue",
+      },
+    },
   ],
   commonMistakes: [
     { mistake: "Multiplying area in cm² by a rate given in $/m² without converting units first.", fix: "Convert area to m² (divide cm² by 10 000) before multiplying by the cost rate in $/m²." },
@@ -1086,14 +2194,29 @@ const areaProblemSolving: LessonContent = {
       "20",
       "Floor: 250 × 200 = 50 000 cm². Each tile: 50 × 50 = 2500 cm². Number = 50 000 ÷ 2500 = 20 tiles."
     ),
-    answer(
-      "y7-are-prb-m6",
-      "A lawn is 12 m × 9 m with a rectangular garden bed 3 m × 4 m removed from one corner. Lawn fertiliser costs $3 per m². Find the total fertiliser cost in dollars.",
-      "\\text{Cost} = (12 \\times 9 - 3 \\times 4) \\times 3",
-      "288",
-      "Lawn: 12 × 9 = 108 m². Bed: 3 × 4 = 12 m². Remaining lawn = 108 − 12 = 96 m². Cost = 96 × $3 = $288.",
-      ["$288", "288.00"]
-    ),
+    {
+      ...answer(
+        "y7-are-prb-m6",
+        "A lawn is 12 m × 9 m with a rectangular garden bed 3 m × 4 m removed from one corner. Lawn fertiliser costs $3 per m². Find the total fertiliser cost in dollars.",
+        "\\text{Cost} = (12 \\times 9 - 3 \\times 4) \\times 3",
+        "288",
+        "Lawn: 12 × 9 = 108 m². Bed: 3 × 4 = 12 m². Remaining lawn = 108 − 12 = 96 m². Cost = 96 × $3 = $288.",
+        ["$288", "288.00"]
+      ),
+      planeShapeDiagram: {
+        description: "L-shaped lawn: a 12 m by 9 m rectangle with a 3 m wide by 4 m tall garden bed removed from the top-right corner. The remaining L-shaped region is the lawn to be fertilised.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 12, y: 0, rightAngle: true },
+          { x: 12, y: 5, rightAngle: true },
+          { x: 9, y: 5, rightAngle: true },
+          { x: 9, y: 9, rightAngle: true },
+          { x: 0, y: 9, rightAngle: true },
+        ],
+        edges: [{ label: "12 m" }, { label: "5 m" }, { label: "3 m" }, { label: "4 m" }, { label: "9 m" }, { label: "9 m" }],
+        fill: "green",
+      },
+    },
     choice(
       "y7-are-prb-m7",
       "Paint covers 10 m² per litre and costs $18 per litre. A wall has area 45 m². How much will the paint cost?",
@@ -1139,7 +2262,22 @@ const areaProblemSolving: LessonContent = {
     answer("y7-are-prb-p11", "A parallelogram garden has base 12 m and perpendicular height 7 m. Turf costs $9 per m². Find the total cost in dollars.", "\\text{Cost} = (12 \\times 7) \\times 9", "756", "Area = 84 m². Cost = 84 × $9 = $756.", ["$756", "756.00"]),
     answer("y7-are-prb-p12", "Paint covers 12 m² per litre. A wall has area 54 m². How many litres are needed? Give your answer in litres.", "\\text{litres} = \\frac{A}{12}", "4.5", "54 ÷ 12 = 4.5 litres."),
     answer("y7-are-prb-p13", "A square tile is 25 cm × 25 cm. How many tiles cover a floor of area 5 m²? Give your answer as a whole number.", "\\text{Tile area} = 0.25 \\times 0.25", "80", "Tile area = 0.0625 m². Tiles = 5 ÷ 0.0625 = 80."),
-    answer("y7-are-prb-p14", "A rectangular hall 14 m × 9 m has a stage 5 m × 4 m at one end. The rest is carpeted at $30 per m². Find the carpet cost in dollars.", "\\text{Cost} = (14 \\times 9 - 5 \\times 4) \\times 30", "3180", "Hall = 126 m². Stage = 20 m². Carpet = 106 m². Cost = 106 × $30 = $3180.", ["$3180", "3,180", "$3,180"]),
+    {
+      ...answer("y7-are-prb-p14", "A rectangular hall 14 m × 9 m has a stage 5 m × 4 m at one end. The rest is carpeted at $30 per m². Find the carpet cost in dollars.", "\\text{Cost} = (14 \\times 9 - 5 \\times 4) \\times 30", "3180", "Hall = 126 m². Stage = 20 m². Carpet = 106 m². Cost = 106 × $30 = $3180.", ["$3180", "3,180", "$3,180"]),
+      planeShapeDiagram: {
+        description: "Hall floor 14 m by 9 m with a 5 m by 4 m stage in the top-right corner. The remaining L-shaped region is carpeted.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 14, y: 0, rightAngle: true },
+          { x: 14, y: 5, rightAngle: true },
+          { x: 9, y: 5, rightAngle: true },
+          { x: 9, y: 9, rightAngle: true },
+          { x: 0, y: 9, rightAngle: true },
+        ],
+        edges: [{ label: "14 m" }, { label: "5 m" }, { label: "5 m" }, { label: "4 m" }, { label: "9 m" }, { label: "9 m" }],
+        fill: "blue",
+      },
+    },
     answer("y7-are-prb-p15", "A wall 8 m wide and 3 m tall has two windows each 1.2 m × 1 m. Find the area to be painted in m².", "A = (8 \\times 3) - 2 \\times (1.2 \\times 1)", "21.6", "Wall = 24 m². Two windows = 2 × 1.2 = 2.4 m². Paint = 24 − 2.4 = 21.6 m²."),
     choice("y7-are-prb-p16", "Paint covers 8 m² per litre and costs $20 per litre. A wall has area 40 m². How much will the paint cost?", "C", ["$800", "$320", "$100", "$160"], "Litres = 40 ÷ 8 = 5 L. Cost = 5 × $20 = $100."),
     answer("y7-are-prb-p17", "Convert 4.7 m² into cm². Give your answer in cm².", "1 \\text{ m}^2 = 10\\,000 \\text{ cm}^2", "47000", "4.7 × 10 000 = 47 000 cm².", ["47,000"]),
@@ -1147,7 +2285,22 @@ const areaProblemSolving: LessonContent = {
     answer("y7-are-prb-p19", "A triangular garden has base 9 m and perpendicular height 8 m. Fertiliser costs $7 per m². Find the total cost in dollars.", "\\text{Cost} = \\frac{1}{2} \\times 9 \\times 8 \\times 7", "252", "Area = ½ × 9 × 8 = 36 m². Cost = 36 × $7 = $252.", ["$252", "252.00"]),
     answer("y7-are-prb-p20", "A room floor is 6 m × 4.5 m. Carpet costs $28 per m². The installer charges a flat fee of $90. Find the total cost in dollars.", "\\text{Total} = (6 \\times 4.5) \\times 28 + 90", "846", "Area = 27 m². Carpet = 27 × $28 = $756. Total = 756 + 90 = $846.", ["$846", "846.00"]),
     answer("y7-are-prb-p21", "A square tile is 50 cm × 50 cm. How many tiles cover a floor of area 9 m²? Give your answer as a whole number.", "\\text{Tile area} = 0.5 \\times 0.5", "36", "Tile = 0.25 m². Tiles = 9 ÷ 0.25 = 36."),
-    answer("y7-are-prb-p22", "A lawn 15 m × 10 m has a 4 m × 3 m bed removed. Fertiliser costs $2 per m². Find the total cost in dollars.", "\\text{Cost} = (15 \\times 10 - 4 \\times 3) \\times 2", "276", "Lawn = 150 m². Bed = 12 m². Remaining = 138 m². Cost = 138 × $2 = $276.", ["$276", "276.00"]),
+    {
+      ...answer("y7-are-prb-p22", "A lawn 15 m × 10 m has a 4 m × 3 m bed removed. Fertiliser costs $2 per m². Find the total cost in dollars.", "\\text{Cost} = (15 \\times 10 - 4 \\times 3) \\times 2", "276", "Lawn = 150 m². Bed = 12 m². Remaining = 138 m². Cost = 138 × $2 = $276.", ["$276", "276.00"]),
+      planeShapeDiagram: {
+        description: "L-shaped lawn: a 15 m by 10 m rectangle with a 4 m wide by 3 m tall garden bed removed from the top-right corner. The remaining L-shaped region is the lawn to be fertilised.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 15, y: 0, rightAngle: true },
+          { x: 15, y: 7, rightAngle: true },
+          { x: 11, y: 7, rightAngle: true },
+          { x: 11, y: 10, rightAngle: true },
+          { x: 0, y: 10, rightAngle: true },
+        ],
+        edges: [{ label: "15 m" }, { label: "7 m" }, { label: "4 m" }, { label: "3 m" }, { label: "11 m" }, { label: "10 m" }],
+        fill: "green",
+      },
+    },
     choice("y7-are-prb-p23", "A floor measures 250 cm by 160 cm. What is its area in m²?", "A", ["4 m²", "40 m²", "0.4 m²", "400 m²"], "250 cm = 2.5 m, 160 cm = 1.6 m. Area = 2.5 × 1.6 = 4 m²."),
     answer("y7-are-prb-p24", "A wall 5 m wide and 2.5 m tall has a door 1 m × 2 m and a window 1 m × 1 m. Find the area to be painted in m².", "A = (5 \\times 2.5) - (1 \\times 2) - (1 \\times 1)", "9.5", "Wall = 12.5 m². Door = 2 m². Window = 1 m². Paint = 12.5 − 3 = 9.5 m²."),
     answer("y7-are-prb-p25", "A rectangular deck is 8 m × 5 m. Decking oil covers 10 m² per litre and costs $24 per litre. Find the total oil cost in dollars.", "\\text{Cost} = \\frac{8 \\times 5}{10} \\times 24", "96", "Area = 40 m². Litres = 40 ÷ 10 = 4. Cost = 4 × $24 = $96.", ["$96", "96.00"]),
@@ -1159,6 +2312,17 @@ const areaProblemSolving: LessonContent = {
       prompt:
         "A rectangular feature wall in a cafe is 8 m wide and 3 m tall. It contains a window 2 m wide and 1.5 m tall that will not be painted. Paint costs $15 per square metre of painted surface. Use these measurements to answer the parts below.",
       latex: "A = l \\times w \\qquad \\text{Cost} = \\text{area} \\times \\text{rate}",
+      planeShapeDiagram: {
+        description: "Feature wall 8 m wide and 3 m tall (shaded) with a 2 m by 1.5 m window cut out of its interior. The shaded region around the window is the surface to be painted.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 8, y: 0, rightAngle: true },
+          { x: 8, y: 3, rightAngle: true },
+          { x: 0, y: 3, rightAngle: true },
+        ],
+        edges: [{ label: "8 m" }, { label: "3 m" }, {}, {}],
+        fill: "amber",
+      },
       answer: "24",
       hint: "Find the full wall area, subtract the window, then multiply the painted area by $15.",
       explanation:

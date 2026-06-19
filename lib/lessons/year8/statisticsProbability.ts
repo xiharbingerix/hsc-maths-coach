@@ -124,15 +124,18 @@ const collectingAndDisplayingData: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Data is information we collect about the world. We work with two main types: categorical data describes groups or labels (such as favourite sports or eye colour), while numerical data records counts or measurements (such as heights or number of pets).",
-      "A frequency table organises data by listing each category alongside how many times it appears — its frequency. A tally column helps when counting: every fifth mark crosses the previous four. Add all frequencies to find the total.",
-      "The choice of display depends on the data type. Column graphs compare frequencies across categories. Dot plots show each individual value on a number line, making it easy to spot clusters and gaps. Sector (pie) charts show how a whole is divided into parts — useful when each category is a share of a total.",
-      "A common mistake is trying to find the mean of categorical data. You can identify the mode (most common category), but averaging labels like 'red' and 'blue' makes no sense. Reserve the mean for numerical data.",
+      "Data is just organised information about the world — answers to a question we asked. If you survey a class, every answer is one piece of data, and the whole collection is your data set. Before you can graph or summarise it, you have to know what kind of data it is, because the type decides which tools make sense.",
+      "There are two main types. Categorical data sorts things into named groups: favourite sport, eye colour, brand of phone. The answers are labels, not amounts. Numerical data records counts or measurements: number of pets, height in centimetres, marks out of 100. The answers are numbers you can add and average. A quick test: if averaging the answers is meaningful (the mean height of a class), it is numerical; if averaging makes no sense (the mean of 'blue' and 'green'), it is categorical.",
+      "Raw answers are hard to read in a list, so we count them up in a frequency table. The frequency of a category is simply how many times it appears. To count without losing your place, use tally marks — four strokes and then a diagonal fifth across them, so each completed group is worth 5 and you can read totals at a glance. Adding every frequency gives the total number of responses, which you should always check against how many people you surveyed.",
+      "Sometimes a raw count is less useful than a share. The relative frequency of a category is its frequency divided by the total: $\\text{relative frequency} = \\frac{\\text{frequency}}{\\text{total}}$. This works because dividing by the total rescales every count onto the same baseline — out of 1 — so a category with 12 out of 30 ($\\frac{12}{30}=0.4$) is directly comparable to one with 12 out of 200, even though the raw counts are identical. That is exactly why relative frequencies are the right thing to compare two differently sized groups, and why the relative frequencies of all categories must add to 1.",
+      "The display you choose should match the data type and the question you want to answer. A column graph puts categories side by side so you can compare their frequencies by height — best for categorical data. A dot plot stacks one dot per value on a number line, so it keeps every individual value visible and makes clusters and gaps obvious — best for small numerical data sets. A sector (pie) chart cuts a circle into slices whose angles are proportional to each category's share, so it shows how a whole splits into parts — useful when the categories together make up 100%.",
+      "The most common slip is to compute a mean of categorical data. You can always report the mode — the category with the highest frequency, which exists for any data — but there is no meaningful sum of 'red' and 'blue', so the mean is undefined for labels. Reserve the mean for numerical data, and use the mode (or relative frequencies) to summarise categories.",
     ],
     latexBlocks: [
-      "\\text{Frequency: how many times a value appears in the data set}",
-      "\\text{Relative frequency} = \\frac{\\text{frequency}}{\\text{total frequency}}",
-      "\\text{Column graph: compare categories.}\\quad \\text{Dot plot: show every value.}\\quad \\text{Sector chart: parts of a whole.}",
+      "\\text{frequency} = \\text{how many times a value appears in the data set}",
+      "\\text{relative frequency} = \\frac{\\text{frequency}}{\\text{total frequency}}",
+      "\\text{categorical} \\to \\text{mode only};\\quad \\text{numerical} \\to \\text{mean, median, mode}",
+      "\\text{column graph: compare categories} \\quad\\bullet\\quad \\text{dot plot: show every value} \\quad\\bullet\\quad \\text{sector chart: parts of a whole}",
     ],
   },
   workedExamples: [
@@ -167,7 +170,14 @@ const collectingAndDisplayingData: LessonContent = {
     {
       title: "Read range from a dot plot",
       questionLatex:
-        "\\text{Dot plot values: 3, 3, 4, 4, 4, 5, 6. Find the range.}",
+        "\\text{Find the range of the data shown in the dot plot.}",
+      dotPlotDiagram: {
+        description:
+          "Dot plot from 3 to 6: two dots at 3, three dots at 4, one dot at 5, one dot at 6.",
+        min: 2,
+        max: 7,
+        values: [3, 3, 4, 4, 4, 5, 6],
+      },
       steps: [
         {
           explanation: "Range = largest value minus smallest value.",
@@ -175,6 +185,26 @@ const collectingAndDisplayingData: LessonContent = {
         },
       ],
       finalAnswerLatex: "\\text{Range} = 3",
+    } as WorkedExample,
+    {
+      title: "Choose a display and find a sector angle (harder)",
+      questionLatex:
+        "\\text{A survey of 40 students records travel to school — Walk 10, Bus 16, Car 8, Bike 6. Which display suits this data, and what angle would the Bus slice take in a sector chart?}",
+      steps: [
+        {
+          explanation: "The categories are labels (modes of travel), so the data is categorical — a column graph or sector chart fits, not a dot plot.",
+          latex: "\\text{categorical data} \\Rightarrow \\text{column or sector chart}",
+        },
+        {
+          explanation: "A sector chart shows shares of a whole, so find Bus as a relative frequency of the total.",
+          latex: "\\text{relative frequency of Bus} = \\frac{16}{40} = \\frac{2}{5}",
+        },
+        {
+          explanation: "A full circle is 360 degrees, so the slice angle is that share of 360 degrees.",
+          latex: "\\text{angle} = \\frac{2}{5} \\times 360^\\circ = 144^\\circ",
+        },
+      ],
+      finalAnswerLatex: "\\text{Use a sector (or column) chart; the Bus slice is } 144^\\circ.",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -204,13 +234,21 @@ const collectingAndDisplayingData: LessonContent = {
       "6",
       "18 - 12 = 6. Six more students chose Dogs than Cats."
     ),
-    choice(
-      "y8-dat-col-g4",
-      "A dot plot shows: 4, 4, 5, 5, 5, 6, 7. What is the mode?",
-      "B",
-      ["4", "5", "6", "7"],
-      "The mode is the value that appears most often. 5 appears three times — more than any other value. Mode = 5."
-    ),
+    {
+      ...choice(
+        "y8-dat-col-g4",
+        "What is the mode of the data shown in the dot plot?",
+        "B",
+        ["4", "5", "6", "7"],
+        "The mode is the value that appears most often. 5 appears three times — more than any other value. Mode = 5."
+      ),
+      dotPlotDiagram: {
+        description: "Dot plot: two dots at 4, three dots at 5, one dot at 6, one dot at 7.",
+        min: 3,
+        max: 8,
+        values: [4, 4, 5, 5, 5, 6, 7],
+      },
+    },
   ],
   independentPractice: [
     answer(
@@ -220,13 +258,22 @@ const collectingAndDisplayingData: LessonContent = {
       "60",
       "15 + 22 + 9 + 14 = 60."
     ),
-    answer(
-      "y8-dat-col-i2",
-      "Dot plot values: 3, 4, 4, 5, 5, 5, 6, 7. What is the range?",
-      "\\text{Range} = 7 - 3",
-      "4",
-      "Range = largest value - smallest value = 7 - 3 = 4."
-    ),
+    {
+      ...answer(
+        "y8-dat-col-i2",
+        "What is the range of the data shown in the dot plot?",
+        "\\text{Range} = 7 - 3",
+        "4",
+        "Range = largest value - smallest value = 7 - 3 = 4."
+      ),
+      dotPlotDiagram: {
+        description:
+          "Dot plot: one dot at 3, two dots at 4, three dots at 5, one dot at 6, one dot at 7.",
+        min: 2,
+        max: 8,
+        values: [3, 4, 4, 5, 5, 5, 6, 7],
+      },
+    },
     choice(
       "y8-dat-col-i3",
       "Which statement about categorical data is correct?",
@@ -273,13 +320,28 @@ const collectingAndDisplayingData: LessonContent = {
     },
   ],
   masteryQuiz: [
-    answer(
-      "y8-dat-col-m1",
-      "Dot plot: 3 dots at 6, 1 dot at 7, 2 dots at 8, 4 dots at 9, 2 dots at 10. How many data values are there in total?",
-      "3 + 1 + 2 + 4 + 2",
-      "12",
-      "3 + 1 + 2 + 4 + 2 = 12 data values in total."
-    ),
+    {
+      ...answer(
+        "y8-dat-col-m1",
+        "How many data values are there in total in the dot plot?",
+        "3 + 1 + 2 + 4 + 2",
+        "12",
+        "3 + 1 + 2 + 4 + 2 = 12 data values in total."
+      ),
+      dotPlotDiagram: {
+        description:
+          "Dot plot: three dots at 6, one dot at 7, two dots at 8, four dots at 9, two dots at 10.",
+        min: 5,
+        max: 11,
+        counts: [
+          { value: 6, count: 3 },
+          { value: 7, count: 1 },
+          { value: 8, count: 2 },
+          { value: 9, count: 4 },
+          { value: 10, count: 2 },
+        ],
+      },
+    },
     choice(
       "y8-dat-col-m2",
       "A column graph has bars with heights 6, 14, 9, 11. What is the total count?",
@@ -313,13 +375,22 @@ const collectingAndDisplayingData: LessonContent = {
       ],
       "A sector chart shows how a total is divided into parts. Each year group takes a proportional slice of the 200-student total."
     ),
-    answer(
-      "y8-dat-col-m6",
-      "Dot plot values: 10, 10, 12, 14, 14, 14, 16. The mode is 14 and the range is 6. Find the difference between the mode and the range.",
-      "14 - 6",
-      "8",
-      "Mode = 14 (appears 3 times). Range = 16 - 10 = 6. Difference = 14 - 6 = 8."
-    ),
+    {
+      ...answer(
+        "y8-dat-col-m6",
+        "The dot plot has mode 14 and range 6. Find the difference between the mode and the range.",
+        "14 - 6",
+        "8",
+        "Mode = 14 (appears 3 times). Range = 16 - 10 = 6. Difference = 14 - 6 = 8."
+      ),
+      dotPlotDiagram: {
+        description:
+          "Dot plot: two dots at 10, one dot at 12, three dots at 14, one dot at 16.",
+        min: 9,
+        max: 17,
+        values: [10, 10, 12, 14, 14, 14, 16],
+      },
+    },
     answer(
       "y8-dat-col-m7",
       "Frequency table — Rock: 18, Pop: 24, Jazz: 8, Classical: 10. How many more students chose Pop than Rock?",
@@ -356,8 +427,15 @@ const collectingAndDisplayingData: LessonContent = {
       "Favourite fruit is a label/group, so it is categorical; the others are numerical.", 1),
     poolAnswer("y8-dat-col-p2", "Frequency table — Walk: 9, Bus: 14, Car: 7. How many students in total?",
       "9 + 14 + 7", "30", "9 + 14 + 7 = 30.", 1),
-    poolChoice("y8-dat-col-p3", "Dot plot: 2 dots at 4, 5 dots at 5, 1 dot at 6. What is the mode?", "B",
-      ["4", "5", "6", "8"], "The value 5 has the most dots (5), so the mode is 5.", 1),
+    {
+      ...poolChoice("y8-dat-col-p3", "What is the mode of the data shown in the dot plot?", "B",
+        ["4", "5", "6", "8"], "The value 5 has the most dots (5), so the mode is 5.", 1),
+      dotPlotDiagram: {
+        description: "Dot plot: two dots at 4, five dots at 5, one dot at 6.",
+        min: 3, max: 7,
+        counts: [{ value: 4, count: 2 }, { value: 5, count: 5 }, { value: 6, count: 1 }],
+      },
+    },
     poolAnswer("y8-dat-col-p4", "Frequency table — Red: 11, Blue: 6, Green: 9. How many more chose Red than Blue?",
       "11 - 6", "5", "11 - 6 = 5.", 1),
     poolChoice("y8-dat-col-p5", "Which display shows each individual data value on a number line?", "C",
@@ -370,22 +448,43 @@ const collectingAndDisplayingData: LessonContent = {
       "9 + 8", "17", "9 + 8 = 17.", 2),
     poolChoice("y8-dat-col-p8", "A column graph has bars of height 8, 12, 5, 15. What is the total count?", "B",
       ["35", "40", "45", "30"], "8 + 12 + 5 + 15 = 40.", 2),
-    poolAnswer("y8-dat-col-p9", "Dot plot values: 5, 5, 6, 7, 7, 7, 9. What is the range?",
-      "\\text{Range} = 9 - 5", "4", "Range = largest - smallest = 9 - 5 = 4.", 2),
+    {
+      ...poolAnswer("y8-dat-col-p9", "What is the range of the data shown in the dot plot?",
+        "\\text{Range} = 9 - 5", "4", "Range = largest - smallest = 9 - 5 = 4.", 2),
+      dotPlotDiagram: {
+        description: "Dot plot: two dots at 5, one dot at 6, three dots at 7, one dot at 9.",
+        min: 4, max: 10,
+        values: [5, 5, 6, 7, 7, 7, 9],
+      },
+    },
     poolAnswer("y8-dat-col-p10", "A frequency table has total 60. Category A has frequency 25. How many chose a category other than A?",
       "60 - 25", "35", "60 - 25 = 35.", 2),
     poolChoice("y8-dat-col-p11", "Which display best shows how one whole budget is divided among 4 spending categories?", "A",
       ["Sector (pie) chart", "Dot plot", "Number line", "Stem-and-leaf plot"],
       "A sector chart shows parts of a single whole.", 2),
-    poolAnswer("y8-dat-col-p12", "Dot plot: 1 dot at 3, 4 dots at 4, 2 dots at 5, 3 dots at 6. How many data values in total?",
-      "1 + 4 + 2 + 3", "10", "1 + 4 + 2 + 3 = 10 data values.", 2),
+    {
+      ...poolAnswer("y8-dat-col-p12", "How many data values are shown in the dot plot in total?",
+        "1 + 4 + 2 + 3", "10", "1 + 4 + 2 + 3 = 10 data values.", 2),
+      dotPlotDiagram: {
+        description: "Dot plot: one dot at 3, four dots at 4, two dots at 5, three dots at 6.",
+        min: 2, max: 7,
+        counts: [{ value: 3, count: 1 }, { value: 4, count: 4 }, { value: 5, count: 2 }, { value: 6, count: 3 }],
+      },
+    },
     // Difficulty 3
     poolAnswer("y8-dat-col-p13", "Frequency table — Soccer 16, Netball 12, Cricket 9, Hockey ?, total 45. Find the Hockey frequency.",
       "45 - (16 + 12 + 9)", "8", "Known sum = 16 + 12 + 9 = 37. Missing = 45 - 37 = 8.", 3),
     poolChoice("y8-dat-col-p14", "A frequency table has total 50. Category X has frequency 30. What percentage is Category X?", "C",
       ["30%", "50%", "60%", "80%"], "30 / 50 = 0.6 = 60%.", 3),
-    poolAnswer("y8-dat-col-p15", "Dot plot values: 8, 8, 10, 12, 12, 12, 15. The mode is 12 and the range is 7. Find the sum of the mode and range.",
-      "12 + 7", "19", "Mode = 12 (three dots). Range = 15 - 8 = 7. Sum = 12 + 7 = 19.", 3),
+    {
+      ...poolAnswer("y8-dat-col-p15", "The dot plot has mode 12 and range 7. Find the sum of the mode and range.",
+        "12 + 7", "19", "Mode = 12 (three dots). Range = 15 - 8 = 7. Sum = 12 + 7 = 19.", 3),
+      dotPlotDiagram: {
+        description: "Dot plot: two dots at 8, one dot at 10, three dots at 12, one dot at 15.",
+        min: 7, max: 16,
+        values: [8, 8, 10, 12, 12, 12, 15],
+      },
+    },
     poolAnswer("y8-dat-col-p16", "A survey of 80 students records favourite sport. 28 chose soccer. What fraction chose soccer? Give a simplified fraction.",
       "\\frac{28}{80}", "7/20", "28/80 = 7/20 (divide top and bottom by 4).", 3, ["0.35", "35%"]),
     poolChoice("y8-dat-col-p17", "Which statement is TRUE?", "B",
@@ -403,8 +502,15 @@ const collectingAndDisplayingData: LessonContent = {
       ["25", "40", "50", "100"], "A quarter of 200 = 200 / 4 = 50.", 4),
     poolAnswer("y8-dat-col-p21", "A frequency table has total 90. Categories A, B, C have frequencies 30, 25, and 20. The rest is category D. Find the frequency of D.",
       "90 - (30 + 25 + 20)", "15", "Known = 30 + 25 + 20 = 75. D = 90 - 75 = 15.", 4),
-    poolAnswer("y8-dat-col-p22", "Dot plot values: 2, 3, 3, 3, 4, 4, 5, 9. How much larger is the range than the mode?",
-      "(9 - 2) - 3", "4", "Range = 9 - 2 = 7. Mode = 3 (three dots). Difference = 7 - 3 = 4.", 4),
+    {
+      ...poolAnswer("y8-dat-col-p22", "Using the dot plot, how much larger is the range than the mode?",
+        "(9 - 2) - 3", "4", "Range = 9 - 2 = 7. Mode = 3 (three dots). Difference = 7 - 3 = 4.", 4),
+      dotPlotDiagram: {
+        description: "Dot plot: one dot at 2, three dots at 3, two dots at 4, one dot at 5, one dot at 9.",
+        min: 1, max: 10,
+        values: [2, 3, 3, 3, 4, 4, 5, 9],
+      },
+    },
     poolChoice("y8-dat-col-p23", "120 students are surveyed. A sector chart shows 'walk' as 25% of the circle. How many students walk?", "B",
       ["25", "30", "35", "48"], "25% of 120 = 0.25 x 120 = 30.", 4),
     poolAnswer("y8-dat-col-p24", "In a frequency table the frequencies are 7, 13, x, and 5. The total is 40. Find x.",
@@ -485,15 +591,18 @@ const meanMedianModeRange: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Summary statistics give a single number that represents a whole data set. The mean, median and mode each measure the centre (typical value), while the range measures the spread (how far apart the values are).",
-      "The mean is the arithmetic average: add all values and divide by how many there are. Always count carefully — a common error is dividing by the wrong number of values.",
-      "To find the median, first sort the values from smallest to largest. If there is an odd number of values, the median is the middle one. If there is an even number, average the two middle values. The median is not affected by very large or very small outliers the way the mean is.",
-      "The mode is the value that appears most often. A data set can have no mode (all values appear once) or more than one mode (two values tie for highest frequency). The range = largest value − smallest value.",
+      "A data set can have dozens of numbers, but often you want one number that stands in for the whole thing — a typical value. That single number is called a measure of centre. There are three of them — mean, median and mode — and they answer slightly different versions of 'what is typical?'. Separately, the range answers a different question: not where the data sits, but how far apart the values are spread.",
+      "The mean is what most people call the average: add up every value and share the total out equally among all of them. For the data 3, 7, 5, 9, 6 the total is 30, and there are 5 values, so each value's fair share is $\\frac{30}{5}=6$. In notation, $\\text{mean} = \\frac{\\text{sum of all values}}{\\text{number of values}}$. The most common error is dividing by the wrong count, so always count the values first and divide by that exact number.",
+      "Here is why the mean is the natural centre: it is the balance point of the data. Picture each value as an equal weight placed on a ruler at its number. The mean is the spot where the ruler balances, because the total distance of values sitting below it exactly equals the total distance of values sitting above it. Sharing the sum out equally is the same as finding that balance point — that is why a single value far out to one side (an outlier) tips the balance and drags the mean toward it.",
+      "The median takes a different approach: it is the value in the middle once the data is sorted from smallest to largest. With an odd number of values there is one true middle value. With an even number there is no single middle, so you average the two middle values to land exactly between them. Because the median only cares about which value sits in the middle position — not how big the extreme values are — moving the largest value further out does not move the median. That positional definition is exactly why the median resists outliers while the mean does not.",
+      "The mode is the value that appears most often — the most frequent, not the most central. A data set can have no mode (every value appears once), one mode, or several modes (two or more values tie for the highest frequency). The mode is the only measure of centre that also works for categorical data, since you can count labels even though you cannot average them.",
+      "Finally, the range measures spread: $\\text{range} = \\text{largest value} - \\text{smallest value}$. It tells you the total width the data covers. Be careful not to confuse spread with centre — two data sets can share the same mean yet have very different ranges, so an exam answer that compares groups should name both a centre and a spread, never just one.",
     ],
     latexBlocks: [
-      "\\text{Mean} = \\frac{\\text{sum of all values}}{\\text{number of values}}",
-      "\\text{Median: sort values, then find the middle value (or average the two middle values).}",
-      "\\text{Range} = \\text{largest value} - \\text{smallest value}",
+      "\\text{mean} = \\frac{\\text{sum of all values}}{\\text{number of values}}",
+      "\\text{median: sort, then take the middle value (or average the two middle values)}",
+      "\\text{mode} = \\text{the most frequently occurring value}",
+      "\\text{range} = \\text{largest value} - \\text{smallest value}",
     ],
   },
   workedExamples: [
@@ -541,6 +650,26 @@ const meanMedianModeRange: LessonContent = {
         },
       ],
       finalAnswerLatex: "\\text{Mode} = 7,\\quad \\text{Range} = 7",
+    } as WorkedExample,
+    {
+      title: "Find a missing value from the mean (harder)",
+      questionLatex:
+        "\\text{Four test marks are } 14,\\;18,\\;20,\\; x.\\text{ The mean is } 17.\\text{ Find } x.",
+      steps: [
+        {
+          explanation: "The mean times the number of values gives the total sum, so reverse the mean formula to find the sum that 17 demands.",
+          latex: "\\text{sum} = \\text{mean} \\times \\text{number of values} = 17 \\times 4 = 68",
+        },
+        {
+          explanation: "Add the three known marks to see how much of that total is already accounted for.",
+          latex: "14 + 18 + 20 = 52",
+        },
+        {
+          explanation: "The missing mark must make up the difference between the required total and the known total.",
+          latex: "x = 68 - 52 = 16",
+        },
+      ],
+      finalAnswerLatex: "x = 16",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -837,15 +966,17 @@ const comparingDataDisplays: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "When comparing two groups, one statistic is rarely enough. Use both a measure of centre (median or mean) and a measure of spread (range) to get the full picture. Two groups can have the same median but very different spreads.",
-      "A higher median means the typical value is larger — for example, Group A with median 15 performs better on average than Group B with median 11. A smaller range means the values are closer together and the results are more consistent.",
-      "A back-to-back stem-and-leaf plot places two groups on either side of a shared stem. Leaves on the right side are read left to right. Leaves on the left side are read right to left (away from the stem). The median and range can then be read directly from the ordered leaves.",
-      "After comparing statistics, always interpret in context. Saying 'Group A has a higher median and a smaller range, suggesting it performed better and more consistently' is far more useful than just listing numbers.",
+      "Comparing two groups means answering two separate questions, not one. First: which group tends to be higher — that is a question about centre. Second: which group is more consistent — that is a question about spread. A single statistic can only answer one of these, so a complete comparison always reports both a measure of centre and a measure of spread.",
+      "Why both are needed becomes obvious with an example. Suppose two soccer teams each have a median of 2 goals per game. On centre alone they look identical. But if Team A's scores range from 1 to 3 while Team B's range from 0 to 6, Team A is steady and predictable while Team B swings wildly. Same centre, very different stories — and you only see the difference by also looking at the spread.",
+      "A larger centre means the typical value is higher: a group with median 15 sits higher than one with median 11, so on average it performs better. A smaller range means the values are packed closer together, so the group is more consistent and predictable. These two readings are independent — a group can be higher on average yet also more spread out, or lower yet more consistent — which is exactly why you must check both before drawing a conclusion.",
+      "When the two groups are displayed together, a back-to-back stem-and-leaf plot is a compact way to line them up against a shared column of stems. The right-hand group's leaves are read outward in the normal left-to-right direction. The left-hand group's leaves are read outward too, which means right-to-left — away from the stem — so for both groups the leaf nearest the stem is the smallest in that row. Reading them outward keeps each group sorted, so you can pull the median and range straight off the ordered leaves.",
+      "The step students skip is interpretation. Numbers on their own do not answer the question; you must translate them back into the context. 'Group A has a higher median and a smaller range, so it scored higher on average and was more consistent' tells the reader what the statistics mean, whereas a bare list of values leaves them to guess. In an exam, the marks for these questions are awarded for that contextual sentence, not for the arithmetic.",
     ],
     latexBlocks: [
-      "\\text{Median: typical value.}\\quad \\text{Range: spread.}",
-      "\\text{Smaller range} \\Rightarrow \\text{more consistent results}",
-      "\\text{Back-to-back stem-and-leaf: left leaves read right-to-left (away from stem).}",
+      "\\text{centre (median or mean): which group is typically higher?}",
+      "\\text{spread (range): which group is more consistent?}",
+      "\\text{smaller range} \\Rightarrow \\text{more consistent results}",
+      "\\text{back-to-back stem-and-leaf: left leaves read outward, i.e. right-to-left (away from stem)}",
     ],
   },
   workedExamples: [
@@ -899,6 +1030,46 @@ const comparingDataDisplays: LessonContent = {
         },
       ],
       finalAnswerLatex: "\\text{Group X performs better on average and is more consistent.}",
+    } as WorkedExample,
+    {
+      title: "Compare from a back-to-back stem-and-leaf plot (harder)",
+      questionLatex:
+        "\\text{Use the back-to-back stem-and-leaf plot to compare the medians of Class P and Class Q.}",
+      stemAndLeafDiagram: {
+        description:
+          "Back-to-back stem-and-leaf plot, stems are tens. Class P (left): 54, 55, 64, 68, 72. Class Q (right): 53, 57, 61, 68, 74, 79.",
+        keyText: "5 | 6 = 56",
+        leftLabel: "Class P",
+        rightLabel: "Class Q",
+        rows: [
+          { stem: 5, leftLeaves: [5, 4], leaves: [3, 7] },
+          { stem: 6, leftLeaves: [8, 4], leaves: [1, 8] },
+          { stem: 7, leftLeaves: [2], leaves: [4, 9] },
+        ],
+      },
+      steps: [
+        {
+          explanation: "Read Class P outward from the stem (right-to-left) to recover its sorted values.",
+          latex: "\\text{Class P: } 54,\\,55,\\;64,\\,68,\\;72 \\Rightarrow \\text{5 values}",
+        },
+        {
+          explanation: "Read Class Q in the normal direction to recover its sorted values.",
+          latex: "\\text{Class Q: } 53,\\,57,\\;61,\\,68,\\;74,\\,79 \\Rightarrow \\text{6 values}",
+        },
+        {
+          explanation: "Class P has 5 values, so its median is the 3rd value.",
+          latex: "\\text{Median P} = 64",
+        },
+        {
+          explanation: "Class Q has 6 values, so its median is the average of the 3rd and 4th.",
+          latex: "\\text{Median Q} = \\frac{61+68}{2} = 64.5",
+        },
+        {
+          explanation: "Translate the comparison back into context.",
+          latex: "64.5 > 64 \\Rightarrow \\text{Class Q has the slightly higher typical score.}",
+        },
+      ],
+      finalAnswerLatex: "\\text{Class Q has the higher median (64.5 vs 64), so it typically scored slightly higher.}",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -1234,15 +1405,18 @@ const probabilityLanguageAndScale: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Probability describes how likely an event is to occur. We can describe likelihood in words — impossible, unlikely, even chance (50-50), likely, and certain — and we can also assign it a number between 0 and 1.",
-      "The probability scale runs from 0 to 1. An event with probability 0 is impossible — it cannot happen. An event with probability 1 is certain — it always happens. An event with probability 0.5 is equally likely to happen or not.",
-      "Probabilities between 0 and 0.5 are described as unlikely. Probabilities between 0.5 and 1 are described as likely. The closer to 1, the more likely the event.",
-      "A common mistake is writing a probability greater than 1. For example, saying a probability is '1.5 out of 1' is impossible. Every probability must satisfy: 0 ≤ P(event) ≤ 1.",
+      "Probability is how we measure chance — how likely something is to happen. In everyday talk we use words for this: it is impossible that the sun will rise in the west, unlikely that it will snow in summer, an even chance that a tossed coin lands heads, likely that a dropped piece of toast lands badly, and certain that tomorrow follows today. Those words are useful, but they are vague — your 'likely' and my 'likely' might not match.",
+      "To be precise, we also give chance a number. Imagine a ruler that runs from 0 at one end to 1 at the other. Every event sits somewhere on this ruler. The closer the event is to 1, the more likely it is; the closer to 0, the less likely. This ruler is called the probability scale.",
+      "In notation we write the probability of an event as $P(\\text{event})$, and it must satisfy $0 \\le P(\\text{event}) \\le 1$. The two ends are the extremes: $P=0$ means impossible — there is no way for it to happen — and $P=1$ means certain — it happens every single time. Exactly halfway, $P=0.5$ (or $\\frac{1}{2}$), is an even chance: just as likely to happen as not.",
+      "Why must probability stay between 0 and 1, and never go outside? Because probability is really a fraction of the outcomes that count as the event — favourable outcomes over total outcomes. The favourable outcomes can never be fewer than none of them (so the fraction is at least 0) and never more than all of them (so the fraction is at most 1). 'None of them' gives 0, impossible; 'all of them' gives 1, certain; anything in between is a genuine fraction between 0 and 1. That is the whole reason the scale has those two ends and no others.",
+      "Using this, we label the regions of the scale. Between 0 and 0.5 the event is unlikely — less than half the outcomes favour it. Between 0.5 and 1 it is likely — more than half favour it. So if a spinner is $\\frac{7}{10}=0.7$ green, landing on green is likely because 0.7 sits past the halfway mark on the ruler.",
+      "The classic mistake is writing a probability bigger than 1, like '$\\frac{12}{10}$' or '1.5 out of 1'. That can never be right, because it would mean more outcomes favour the event than exist in total — impossible. If a calculation ever gives a probability above 1 or below 0, it is a signal to go back and check the count, not a real answer.",
     ],
     latexBlocks: [
       "0 \\leq P(\\text{event}) \\leq 1",
-      "P(\\text{impossible}) = 0,\\quad P(\\text{certain}) = 1,\\quad P(\\text{50-50}) = 0.5",
-      "\\text{Unlikely: }0 < P < 0.5\\qquad \\text{Likely: }0.5 < P < 1",
+      "P(\\text{impossible}) = 0,\\quad P(\\text{even chance}) = 0.5,\\quad P(\\text{certain}) = 1",
+      "\\text{unlikely: } 0 < P < 0.5 \\qquad \\text{likely: } 0.5 < P < 1",
+      "P(\\text{not } A) = 1 - P(A)",
     ],
   },
   workedExamples: [
@@ -1285,6 +1459,27 @@ const probabilityLanguageAndScale: LessonContent = {
         },
       ],
       finalAnswerLatex: "P(\\text{not raining}) = 0.7",
+    } as WorkedExample,
+    {
+      title: "Order events on the probability scale (harder)",
+      questionLatex:
+        "\\text{Three events have probabilities } \\frac{3}{5},\\; 0.25,\\text{ and } 45\\%.\\text{ Order them from least to most likely and label each.}",
+      steps: [
+        {
+          explanation: "To compare fairly, rewrite all three on the same scale by converting each to a decimal.",
+          latex: "\\frac{3}{5} = 0.6,\\quad 0.25 = 0.25,\\quad 45\\% = 0.45",
+        },
+        {
+          explanation: "Place each decimal on the 0-to-1 ruler and read its position.",
+          latex: "0.25 < 0.45 < 0.6",
+        },
+        {
+          explanation: "Label each using the regions: below 0.5 is unlikely, above 0.5 is likely.",
+          latex: "0.25\\text{ unlikely},\\;\\; 0.45\\text{ unlikely (just under even)},\\;\\; 0.6\\text{ likely}",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{Least to most likely: } 0.25,\\; 0.45,\\; 0.6\\;\\;(\\text{i.e. } 0.25,\\; 45\\%,\\; \\tfrac{3}{5}).",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -1595,15 +1790,18 @@ const simpleProbability: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "The probability of an event is the number of favourable outcomes divided by the total number of equally likely outcomes. This formula only works when all outcomes are equally likely — for example, a fair coin, a fair die, or a bag where each counter is equally likely to be drawn.",
-      "Before calculating, list the sample space — the complete set of all possible outcomes. For a standard die: {1, 2, 3, 4, 5, 6}. For a bag with 3 red and 2 blue counters: 5 outcomes total. A missing outcome is one of the most common calculation errors.",
-      "The complement of an event A is everything that is not A. Since all probabilities must add to 1, P(not A) = 1 − P(A). If P(rain) = 0.3, then P(no rain) = 1 − 0.3 = 0.7.",
-      "Express probability as a simplified fraction or decimal. For example, P = 4/8 should be simplified to 1/2, and P = 6/10 = 0.6. An answer of 3/8 cannot be simplified further.",
+      "When chance experiments have outcomes that are all equally likely — a fair coin, a fair die, a well-mixed bag of counters — we can work out the probability of an event by counting, no experiment needed. The idea is simple: figure out how many outcomes you would be happy with, and compare that to how many outcomes there are altogether.",
+      "Take a bag with 3 red, 4 blue and 1 green counter — 8 counters in all, each equally likely to be pulled out. To find the chance of drawing blue, count the blue counters (4) and compare to the total (8): 4 out of 8, which is $\\frac{4}{8}=\\frac{1}{2}$, an even chance. You did not have to draw a single counter; you reasoned it from the make-up of the bag.",
+      "In notation, the favourable outcomes are the ones that count as the event happening, and the total outcomes are all the equally likely possibilities. Then $P(\\text{event}) = \\frac{\\text{number of favourable outcomes}}{\\text{total number of equally likely outcomes}}$. The complete list of all possible outcomes is called the sample space — for a die it is $\\{1,2,3,4,5,6\\}$, six outcomes. Listing the sample space first is the safest habit, because a miscount of the total is the single most common source of wrong answers.",
+      "Why does dividing favourable by total give the probability? Because the outcomes are equally likely, they must share the certainty of 'something happens' equally between them. There are 6 faces on a die and one of them is certain to come up, so each single face carries an equal slice, $\\frac{1}{6}$, of that total certainty of 1. An event made of 2 of those faces — say rolling a 5 or a 6 — collects 2 of those equal slices, giving $\\frac{2}{6}=\\frac{1}{3}$. Counting favourable outcomes is just adding up equal slices, which is exactly what the fraction does. This is precisely why the method fails for unfair set-ups: if the slices are not equal, you cannot count them as if they were.",
+      "A second tool saves work: the complement. The complement of an event $A$ is everything that is not $A$. Since one of all the outcomes is certain to happen, $P(A)$ and $P(\\text{not } A)$ must add to 1, which rearranges to $P(\\text{not } A) = 1 - P(A)$. So if $P(\\text{rain})=0.3$, then $P(\\text{no rain}) = 1 - 0.3 = 0.7$ without any further counting. Use it whenever the 'not' event is easier to count than the event itself.",
+      "Finally, present the answer cleanly: simplify fractions and, where useful, give a decimal. $\\frac{4}{8}$ should be written as $\\frac{1}{2}$, and $\\frac{6}{10}=0.6$; but $\\frac{3}{8}$ is already in lowest terms and should be left as it is. The common slip here is forgetting to count an outcome and dividing by the wrong total — list the sample space, then count.",
     ],
     latexBlocks: [
-      "P(\\text{event}) = \\frac{\\text{number of favourable outcomes}}{\\text{total equally likely outcomes}}",
+      "P(\\text{event}) = \\frac{\\text{number of favourable outcomes}}{\\text{total number of equally likely outcomes}}",
+      "\\text{each equally likely outcome carries probability } \\frac{1}{\\text{total}}",
       "P(\\text{not } A) = 1 - P(A)",
-      "\\text{Sample space for a die: }\\{1,\\, 2,\\, 3,\\, 4,\\, 5,\\, 6\\}",
+      "\\text{sample space of a die: } \\{1,\\, 2,\\, 3,\\, 4,\\, 5,\\, 6\\}",
     ],
   },
   workedExamples: [
@@ -1649,6 +1847,26 @@ const simpleProbability: LessonContent = {
         },
       ],
       finalAnswerLatex: "P(>4) = \\frac{1}{3}",
+    } as WorkedExample,
+    {
+      title: "Combine counting with the complement (harder)",
+      questionLatex:
+        "\\text{A bag holds counters numbered 1 to 20, each equally likely. Find the probability the number drawn is NOT a multiple of 5.}",
+      steps: [
+        {
+          explanation: "The 'not a multiple of 5' event is awkward to count directly, so count the easier complement first — the multiples of 5.",
+          latex: "\\{5,\\,10,\\,15,\\,20\\} \\Rightarrow 4\\text{ favourable outcomes}",
+        },
+        {
+          explanation: "Find the probability of a multiple of 5 over the total of 20.",
+          latex: "P(\\text{multiple of }5) = \\frac{4}{20} = \\frac{1}{5}",
+        },
+        {
+          explanation: "Apply the complement rule to get the event we actually want.",
+          latex: "P(\\text{not a multiple of }5) = 1 - \\frac{1}{5} = \\frac{4}{5}",
+        },
+      ],
+      finalAnswerLatex: "P(\\text{not a multiple of }5) = \\frac{4}{5} = 0.8",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -1946,22 +2164,57 @@ const twoStepChanceExperiments: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A two-step experiment involves two successive random choices — for example, flipping a coin then rolling a die. To find all possible combined outcomes, multiply the number of outcomes at each step: 2 × 6 = 12 combined outcomes for this example.",
-      "A tree diagram starts with the first step's outcomes as branches, then adds a second set of branches for each outcome of the second step. Count all branch tips to confirm the total. An array (table) lists first-step outcomes in rows and second-step outcomes in columns, with each cell giving one combined outcome.",
-      "To find the probability of a specific combined outcome, count how many combined outcomes satisfy the condition and divide by the total number of combined outcomes. For example, to find P(heads and a 3) with a coin and die: 1 favourable outcome out of 12 total.",
-      "A common mistake is adding the step sizes instead of multiplying. For a spinner (4 sections) and a coin (2 sides), total outcomes = 4 × 2 = 8, not 4 + 2 = 6.",
+      "Some chance experiments happen in two steps — you do one random thing, then another. Flip a coin, then roll a die. Spin a spinner, then draw a card. The question is: how many different combined results can the whole experiment give, and how likely is a particular one?",
+      "The key idea is that each result of the first step can pair up with every result of the second step. Flip a coin and you have 2 starting results, heads or tails. For each of those, the die can land 6 ways. So heads splits into 6 combinations (H1, H2, …, H6), and tails splits into another 6 (T1, …, T6) — 6 and 6 make 12 combined outcomes in total.",
+      "That is exactly why you multiply. If the first step has $n_1$ outcomes and the second has $n_2$, then every one of the $n_1$ first-step outcomes opens up $n_2$ second-step outcomes, giving $n_1$ groups of $n_2$ — which is $n_1 \\times n_2$ combined outcomes. Multiplication is built into the words 'groups of'. This is the heart of the lesson, and it is why adding is wrong: a spinner with 4 sections and a coin gives $4 \\times 2 = 8$ outcomes, not $4 + 2 = 6$ — adding would only count each step's results once instead of pairing them.",
+      "Two pictures make the count visible. A tree diagram draws the first step as a set of branches, then grows a fresh copy of the second step's branches from the end of each first branch; the number of branch tips at the far right is the total, and you can read each combined outcome by following a path. An array (table) puts the first step's outcomes down the rows and the second step's across the columns, and every cell is one combined outcome — the grid has exactly (rows) × (columns) cells, the same product.",
+      "Once you have all the equally likely combined outcomes, probability works just as it did for one step: count the combined outcomes that satisfy your condition and divide by the total. For $P(\\text{heads and a 3})$ with the coin and die, only the single outcome (H, 3) qualifies out of 12, so $P = \\frac{1}{12}$. For a condition like 'the two dice sum to 7', list every pair that works and divide by 36.",
+      "The misconception to dissolve is the urge to add the step sizes — it feels natural because there are 'two of them'. Hold on to the picture instead: each first outcome fans out into a full set of second outcomes, so the totals multiply. If you ever find yourself writing $n_1 + n_2$, draw two branches of a tree and count the tips to see why the answer must be $n_1 \\times n_2$.",
     ],
     latexBlocks: [
-      "\\text{Total combined outcomes} = n_1 \\times n_2",
+      "\\text{total combined outcomes} = n_1 \\times n_2",
       "P(\\text{combined event}) = \\frac{\\text{favourable combined outcomes}}{\\text{total combined outcomes}}",
-      "\\text{e.g. coin (2) and die (6): total} = 2 \\times 6 = 12",
+      "\\text{coin (2) and die (6): total} = 2 \\times 6 = 12,\\;\\text{not } 2+6",
     ],
   },
   workedExamples: [
     {
       title: "Count outcomes using a tree diagram",
       questionLatex:
-        "\\text{A coin is flipped (H or T) and a die is rolled (1–6). How many outcomes are there?}",
+        "\\text{Use the tree diagram for a coin flip then a die roll. How many combined outcomes are there?}",
+      probabilityTreeDiagram: {
+        description:
+          "Two-stage tree: stage 1 is a coin (Heads or Tails, each probability 1/2); from each, stage 2 branches to die faces 1 to 6 (each probability 1/6), giving 12 tips.",
+        stages: ["Coin", "Die"],
+        branches: [
+          {
+            id: "h",
+            label: "H",
+            probability: "1/2",
+            children: [
+              { id: "h1", label: "1", probability: "1/6" },
+              { id: "h2", label: "2", probability: "1/6" },
+              { id: "h3", label: "3", probability: "1/6" },
+              { id: "h4", label: "4", probability: "1/6" },
+              { id: "h5", label: "5", probability: "1/6" },
+              { id: "h6", label: "6", probability: "1/6" },
+            ],
+          },
+          {
+            id: "t",
+            label: "T",
+            probability: "1/2",
+            children: [
+              { id: "t1", label: "1", probability: "1/6" },
+              { id: "t2", label: "2", probability: "1/6" },
+              { id: "t3", label: "3", probability: "1/6" },
+              { id: "t4", label: "4", probability: "1/6" },
+              { id: "t5", label: "5", probability: "1/6" },
+              { id: "t6", label: "6", probability: "1/6" },
+            ],
+          },
+        ],
+      },
       steps: [
         {
           explanation: "Each coin result leads to 6 die branches.",
@@ -2296,22 +2549,34 @@ const stemAndLeafPlots: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A stem-and-leaf plot organises numbers by splitting each value into a stem and a leaf. For two-digit numbers, the stem is the tens digit and the leaf is the units digit. For example, 34 has stem 3 and leaf 4. Values sharing the same tens digit all appear on the same row.",
-      "To build the plot, list the stems in order down the left side. Write each leaf next to its stem in the order the values appear, then redraw with leaves sorted smallest to largest — this ordered version makes every other calculation easy.",
-      "Once the plot is ordered, the range is the last leaf on the largest stem minus the first leaf on the smallest stem. The median is the middle leaf when you count from the top. For an even number of values, average the two middle leaves.",
-      "A back-to-back stem-and-leaf plot places two groups on either side of a shared stem. The right-side group is read left to right as usual. The left-side group is read right to left — away from the stem — so the leaf closest to the stem is the smallest value in that row.",
+      "A stem-and-leaf plot is a clever way to sort a list of numbers and graph it at the same time. The trick is to split each number into two parts: a stem (the leading digits) and a leaf (the last digit). For two-digit numbers the stem is the tens digit and the leaf is the units digit, so 34 splits into stem 3, leaf 4. Every value sharing the same tens digit lands on the same row, behind the same stem.",
+      "Here is why that splitting is so useful: numbers on the same row are already grouped by size, and the leaves left to right show the finer detail. The plot keeps every original value — unlike a column graph, you can still read 34 back out exactly — while also showing the shape of the data, where it bunches up and where it thins out. It is a sorted list and a picture in one.",
+      "To build it, list the stems in order down the left, then write each value's leaf beside its stem. First pass through the data as it comes; then redraw the plot with the leaves on each row sorted smallest to largest. That ordered version is the one you calculate from, because the whole data set is now in order without you having to sort the list separately.",
+      "From the ordered plot, two summaries fall straight out. The range is the largest value minus the smallest: the smallest value is the first leaf on the lowest stem, the largest is the last leaf on the highest stem, so you read them off the corners. The median is the value in the middle position — count the total number of leaves, find the middle position, and read that leaf; for an even count, average the two middle leaves. This works because the leaves are already ordered, so counting positions gives you the middle of the sorted data directly.",
+      "A back-to-back stem-and-leaf plot compares two groups against one shared column of stems, one group's leaves growing left and the other's growing right. The right-hand group reads in the normal left-to-right direction. The left-hand group reads outward too, which means right-to-left — away from the stem — so on both sides the leaf nearest the stem is the smallest value in that row. Reading outward keeps each side sorted, which is exactly what you need to read each group's median and range.",
+      "The easy mistake is to read the left-hand side of a back-to-back plot in the wrong direction, treating the leaf nearest the stem as the largest. Always read away from the stem on both sides; if the leaf closest to the stem is not the smallest in its row, you have the direction reversed.",
     ],
     latexBlocks: [
-      "\\text{e.g. } 47 \\Rightarrow \\text{stem } 4,\\; \\text{leaf } 7",
-      "\\text{Range} = \\text{largest value} - \\text{smallest value}",
-      "\\text{Median: count all leaves, find the middle position (or average two middle leaves for even count).}",
+      "47 \\Rightarrow \\text{stem } 4,\\; \\text{leaf } 7",
+      "\\text{range} = \\text{largest value} - \\text{smallest value}",
+      "\\text{median: count all leaves, take the middle (or average the two middle leaves)}",
+      "\\text{back-to-back: read leaves outward (away from the stem) on both sides}",
     ],
   },
   workedExamples: [
     {
       title: "Find the range from an ordered stem-and-leaf plot",
       questionLatex:
-        "\\text{Ordered plot — } 2\\mid 4\\;8,\\quad 3\\mid 1\\;5\\;9,\\quad 4\\mid 2.\\text{ Find the range.}",
+        "\\text{Find the range of the data in the ordered stem-and-leaf plot.}",
+      stemAndLeafDiagram: {
+        description: "Ordered stem-and-leaf plot: stem 2 leaves 4, 8; stem 3 leaves 1, 5, 9; stem 4 leaf 2.",
+        keyText: "2 | 4 = 24",
+        rows: [
+          { stem: 2, leaves: [4, 8] },
+          { stem: 3, leaves: [1, 5, 9] },
+          { stem: 4, leaves: [2] },
+        ],
+      },
       steps: [
         {
           explanation: "The smallest value is the first leaf on the smallest stem.",
@@ -2331,7 +2596,16 @@ const stemAndLeafPlots: LessonContent = {
     {
       title: "Find the median from an ordered stem-and-leaf plot",
       questionLatex:
-        "\\text{Ordered plot — } 1\\mid 2\\;5\\;7,\\quad 2\\mid 0\\;3\\;8,\\quad 3\\mid 1\\;6.\\text{ Find the median (8 values).}",
+        "\\text{Find the median of the 8 values in the ordered stem-and-leaf plot.}",
+      stemAndLeafDiagram: {
+        description: "Ordered stem-and-leaf plot: stem 1 leaves 2, 5, 7; stem 2 leaves 0, 3, 8; stem 3 leaves 1, 6.",
+        keyText: "1 | 2 = 12",
+        rows: [
+          { stem: 1, leaves: [2, 5, 7] },
+          { stem: 2, leaves: [0, 3, 8] },
+          { stem: 3, leaves: [1, 6] },
+        ],
+      },
       steps: [
         {
           explanation: "8 values means average the 4th and 5th values.",
@@ -2360,6 +2634,37 @@ const stemAndLeafPlots: LessonContent = {
       ],
       finalAnswerLatex: "\\text{3 stems are needed.}",
     } as WorkedExample,
+    {
+      title: "Find median and range from a back-to-back plot (harder)",
+      questionLatex:
+        "\\text{Use the back-to-back stem-and-leaf plot to find Team A's median and range.}",
+      stemAndLeafDiagram: {
+        description:
+          "Back-to-back stem-and-leaf plot, stems are tens. Team A (left): 14, 19, 21, 23, 27. Team B (right): 12, 16, 20, 25.",
+        keyText: "1 | 2 = 12",
+        leftLabel: "Team A",
+        rightLabel: "Team B",
+        rows: [
+          { stem: 1, leftLeaves: [9, 4], leaves: [2, 6] },
+          { stem: 2, leftLeaves: [7, 3, 1], leaves: [0, 5] },
+        ],
+      },
+      steps: [
+        {
+          explanation: "Read Team A outward from the stem (right-to-left) to get its sorted values.",
+          latex: "\\text{Team A: } 14,\\,19,\\;21,\\,23,\\,27 \\Rightarrow 5\\text{ values}",
+        },
+        {
+          explanation: "Five values means the median is the 3rd value counting from the smallest.",
+          latex: "\\text{Median} = 21",
+        },
+        {
+          explanation: "The range is the largest value minus the smallest — read from the corners.",
+          latex: "\\text{Range} = 27 - 14 = 13",
+        },
+      ],
+      finalAnswerLatex: "\\text{Team A: median} = 21,\\quad \\text{range} = 13",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
@@ -2369,20 +2674,40 @@ const stemAndLeafPlots: LessonContent = {
       ["Stem 7, leaf 4", "Stem 4, leaf 7", "Stem 47, leaf 0", "Stem 0, leaf 47"],
       "For two-digit numbers, the stem is the tens digit and the leaf is the units digit. 47 has stem 4 and leaf 7."
     ),
-    answer(
-      "y8-dat-stm-g2",
-      "Ordered plot — 2 | 3 5 8, 3 | 1 4 9. How many data values are there in total?",
-      "\\text{Count all leaves: } 3 + 3",
-      "6",
-      "Stem 2 has 3 leaves (23, 25, 28). Stem 3 has 3 leaves (31, 34, 39). Total = 6 values."
-    ),
-    answer(
-      "y8-dat-stm-g3",
-      "Ordered plot — 1 | 3 6 9, 2 | 0 4. What is the range?",
-      "\\text{Range} = 24 - 13",
-      "11",
-      "Smallest value = 13 (stem 1, leaf 3). Largest value = 24 (stem 2, leaf 4). Range = 24 − 13 = 11."
-    ),
+    {
+      ...answer(
+        "y8-dat-stm-g2",
+        "How many data values are there in total in the ordered stem-and-leaf plot?",
+        "\\text{Count all leaves: } 3 + 3",
+        "6",
+        "Stem 2 has 3 leaves (23, 25, 28). Stem 3 has 3 leaves (31, 34, 39). Total = 6 values."
+      ),
+      stemAndLeafDiagram: {
+        description: "Ordered stem-and-leaf plot: stem 2 leaves 3, 5, 8; stem 3 leaves 1, 4, 9.",
+        keyText: "2 | 3 = 23",
+        rows: [
+          { stem: 2, leaves: [3, 5, 8] },
+          { stem: 3, leaves: [1, 4, 9] },
+        ],
+      },
+    },
+    {
+      ...answer(
+        "y8-dat-stm-g3",
+        "What is the range of the data in the ordered stem-and-leaf plot?",
+        "\\text{Range} = 24 - 13",
+        "11",
+        "Smallest value = 13 (stem 1, leaf 3). Largest value = 24 (stem 2, leaf 4). Range = 24 − 13 = 11."
+      ),
+      stemAndLeafDiagram: {
+        description: "Ordered stem-and-leaf plot: stem 1 leaves 3, 6, 9; stem 2 leaves 0, 4.",
+        keyText: "1 | 3 = 13",
+        rows: [
+          { stem: 1, leaves: [3, 6, 9] },
+          { stem: 2, leaves: [0, 4] },
+        ],
+      },
+    },
     choice(
       "y8-dat-stm-g4",
       "An ordered stem-and-leaf plot has 7 values. Which position gives the median?",
@@ -2392,41 +2717,95 @@ const stemAndLeafPlots: LessonContent = {
     ),
   ],
   independentPractice: [
-    answer(
-      "y8-dat-stm-i1",
-      "Ordered plot — 1 | 2 5 7, 2 | 0 3 8, 3 | 1 6. How many data values are there in total?",
-      "\\text{Count all leaves: } 3 + 3 + 2",
-      "8",
-      "Stem 1: 3 leaves. Stem 2: 3 leaves. Stem 3: 2 leaves. Total = 8 values."
-    ),
-    answer(
-      "y8-dat-stm-i2",
-      "Ordered plot — 1 | 2 5 7, 2 | 0 3 8, 3 | 1 6 (8 values). What is the median?",
-      "\\text{Average 4th and 5th: } \\frac{20 + 23}{2}",
-      "21.5",
-      "Values in order: 12, 15, 17, 20, 23, 28, 31, 36. 4th = 20, 5th = 23. Median = (20 + 23) ÷ 2 = 21.5."
-    ),
-    answer(
-      "y8-dat-stm-i3",
-      "Ordered plot — 2 | 4 8, 3 | 1 5 9, 4 | 2. What is the range?",
-      "\\text{Range} = 42 - 24",
-      "18",
-      "Smallest value = 24, largest value = 42. Range = 42 − 24 = 18."
-    ),
-    answer(
-      "y8-dat-stm-i4",
-      "Ordered plot — 3 | 2 4 7, 4 | 1 3 8. How many values are greater than 40?",
-      "\\text{Values with stem 4: } 41,\\; 43,\\; 48",
-      "3",
-      "All values with stem 4 are greater than 40: 41, 43, 48. There are 3 such values."
-    ),
-    choice(
-      "y8-dat-stm-i5",
-      "Ordered plot — 1 | 3 6, 2 | 4 4 9, 3 | 0 8. What is the mode?",
-      "B",
-      ["13", "24", "29", "30"],
-      "The mode is the value that appears most often. The leaf 4 appears twice on stem 2, giving value 24 twice. All other values appear once. Mode = 24."
-    ),
+    {
+      ...answer(
+        "y8-dat-stm-i1",
+        "How many data values are there in total in the ordered stem-and-leaf plot?",
+        "\\text{Count all leaves: } 3 + 3 + 2",
+        "8",
+        "Stem 1: 3 leaves. Stem 2: 3 leaves. Stem 3: 2 leaves. Total = 8 values."
+      ),
+      stemAndLeafDiagram: {
+        description: "Ordered stem-and-leaf plot: stem 1 leaves 2, 5, 7; stem 2 leaves 0, 3, 8; stem 3 leaves 1, 6.",
+        keyText: "1 | 2 = 12",
+        rows: [
+          { stem: 1, leaves: [2, 5, 7] },
+          { stem: 2, leaves: [0, 3, 8] },
+          { stem: 3, leaves: [1, 6] },
+        ],
+      },
+    },
+    {
+      ...answer(
+        "y8-dat-stm-i2",
+        "The ordered stem-and-leaf plot has 8 values. What is the median?",
+        "\\text{Average 4th and 5th: } \\frac{20 + 23}{2}",
+        "21.5",
+        "Values in order: 12, 15, 17, 20, 23, 28, 31, 36. 4th = 20, 5th = 23. Median = (20 + 23) ÷ 2 = 21.5."
+      ),
+      stemAndLeafDiagram: {
+        description: "Ordered stem-and-leaf plot: stem 1 leaves 2, 5, 7; stem 2 leaves 0, 3, 8; stem 3 leaves 1, 6.",
+        keyText: "1 | 2 = 12",
+        rows: [
+          { stem: 1, leaves: [2, 5, 7] },
+          { stem: 2, leaves: [0, 3, 8] },
+          { stem: 3, leaves: [1, 6] },
+        ],
+      },
+    },
+    {
+      ...answer(
+        "y8-dat-stm-i3",
+        "What is the range of the data in the ordered stem-and-leaf plot?",
+        "\\text{Range} = 42 - 24",
+        "18",
+        "Smallest value = 24, largest value = 42. Range = 42 − 24 = 18."
+      ),
+      stemAndLeafDiagram: {
+        description: "Ordered stem-and-leaf plot: stem 2 leaves 4, 8; stem 3 leaves 1, 5, 9; stem 4 leaf 2.",
+        keyText: "2 | 4 = 24",
+        rows: [
+          { stem: 2, leaves: [4, 8] },
+          { stem: 3, leaves: [1, 5, 9] },
+          { stem: 4, leaves: [2] },
+        ],
+      },
+    },
+    {
+      ...answer(
+        "y8-dat-stm-i4",
+        "How many values in the ordered stem-and-leaf plot are greater than 40?",
+        "\\text{Values with stem 4: } 41,\\; 43,\\; 48",
+        "3",
+        "All values with stem 4 are greater than 40: 41, 43, 48. There are 3 such values."
+      ),
+      stemAndLeafDiagram: {
+        description: "Ordered stem-and-leaf plot: stem 3 leaves 2, 4, 7; stem 4 leaves 1, 3, 8.",
+        keyText: "3 | 2 = 32",
+        rows: [
+          { stem: 3, leaves: [2, 4, 7] },
+          { stem: 4, leaves: [1, 3, 8] },
+        ],
+      },
+    },
+    {
+      ...choice(
+        "y8-dat-stm-i5",
+        "What is the mode of the data in the ordered stem-and-leaf plot?",
+        "B",
+        ["13", "24", "29", "30"],
+        "The mode is the value that appears most often. The leaf 4 appears twice on stem 2, giving value 24 twice. All other values appear once. Mode = 24."
+      ),
+      stemAndLeafDiagram: {
+        description: "Ordered stem-and-leaf plot: stem 1 leaves 3, 6; stem 2 leaves 4, 4, 9; stem 3 leaves 0, 8.",
+        keyText: "1 | 3 = 13",
+        rows: [
+          { stem: 1, leaves: [3, 6] },
+          { stem: 2, leaves: [4, 4, 9] },
+          { stem: 3, leaves: [0, 8] },
+        ],
+      },
+    },
   ],
   commonMistakes: [
     {
@@ -2647,15 +3026,17 @@ const quartilesAndIQR: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Quartiles split an ordered data set into four equal parts. The three quartile values are Q1 (lower quartile), Q2 (the median), and Q3 (upper quartile). Together they describe not just the middle of the data but how the whole set is distributed.",
-      "To find quartiles, first sort the data from smallest to largest and locate Q2 (the median). Then split the data into a lower half and an upper half. For odd-count sets, exclude the median itself from both halves. Q1 is the median of the lower half and Q3 is the median of the upper half.",
-      "The interquartile range (IQR) = Q3 − Q1. It measures the spread of the middle 50% of the data. A small IQR means the central values are clustered closely together; a large IQR means they are more spread out. The IQR is more resistant to outliers than the full range.",
-      "A common mistake is including the median in both halves when the count is odd. If there are 7 values, the median is the 4th value — the lower half is values 1–3 and the upper half is values 5–7. The 4th value is used as Q2 only.",
+      "The median splits ordered data into two halves. Quartiles take that idea one step further and split the data into four equal parts, using three cut points. Reading up the sorted data, the first cut is $Q_1$ (the lower quartile), the second is $Q_2$ (which is just the median again), and the third is $Q_3$ (the upper quartile). A quarter of the data sits below $Q_1$, a quarter between $Q_1$ and $Q_2$, and so on — so the quartiles describe how the whole set is spread out, not just where its centre is.",
+      "To find them, sort the data, then find the median $Q_2$. Now look at the lower half (everything below the median) and the upper half (everything above it). $Q_1$ is simply the median of the lower half, and $Q_3$ is the median of the upper half. The reason this works is that the median of the lower half has a quarter of all the data below it and a quarter between it and the centre — which is exactly the one-quarter mark the lower quartile is meant to be.",
+      "Counts matter. If the number of values is even, the two halves split cleanly and no value is left out. If it is odd, the middle value is the median, and it belongs to neither half — you exclude it and take the quartiles of the remaining lower and upper groups. With 7 values, $Q_2$ is the 4th value; the lower half is values 1–3 and the upper half is values 5–7. Wrongly keeping the 4th value in both halves is the classic error and shifts both quartiles.",
+      "The interquartile range is $\\text{IQR} = Q_3 - Q_1$, and it measures the width of the middle 50% of the data. This is a more honest measure of spread than the full range, and here is why. The full range, max minus min, uses only the two most extreme values — so a single freak value at either end can blow it up. The IQR throws away the bottom quarter and the top quarter entirely and measures only the central half, so one extreme value sitting out in a tail cannot touch it. A small IQR means the central values are tightly clustered; a large IQR means the middle of the data is itself widely spread.",
+      "That resistance is the transfer point: when a data set might contain outliers — house prices, incomes, race times with one breakdown — quote the IQR rather than the range to describe spread, just as you would quote the median rather than the mean to describe centre. Both choices work for the same reason: they depend on the position of typical values, not on the size of the extremes.",
     ],
     latexBlocks: [
-      "\\text{IQR} = Q_3 - Q_1",
-      "\\text{Odd count: exclude the median from both halves.}",
-      "\\text{Even count: split exactly in half — no value is excluded.}",
+      "\\text{IQR} = Q_3 - Q_1 \\quad(\\text{spread of the middle } 50\\%)",
+      "Q_1 = \\text{median of lower half},\\quad Q_3 = \\text{median of upper half}",
+      "\\text{odd count: exclude the median from both halves}",
+      "\\text{even count: split exactly in half — no value excluded}",
     ],
   },
   workedExamples: [
@@ -2702,6 +3083,34 @@ const quartilesAndIQR: LessonContent = {
         },
       ],
       finalAnswerLatex: "Q_1 = 7,\\quad Q_3 = 16,\\quad \\text{IQR} = 9",
+    } as WorkedExample,
+    {
+      title: "Quartiles for a larger set, with interpretation (harder)",
+      questionLatex:
+        "\\text{Daily sales over 9 days: } 12,\\;15,\\;15,\\;18,\\;20,\\;22,\\;24,\\;27,\\;60.\\text{ Find the IQR and explain why it beats the range here.}",
+      steps: [
+        {
+          explanation: "The data is sorted and there are 9 values (odd), so Q2 is the 5th value and is excluded from both halves.",
+          latex: "Q_2 = 20",
+        },
+        {
+          explanation: "The lower half is the first four values; Q1 is the average of its two middle values.",
+          latex: "\\text{lower half } 12,\\,15,\\,15,\\,18 \\Rightarrow Q_1 = \\frac{15+15}{2} = 15",
+        },
+        {
+          explanation: "The upper half is the last four values; Q3 is the average of its two middle values.",
+          latex: "\\text{upper half } 22,\\,24,\\,27,\\,60 \\Rightarrow Q_3 = \\frac{24+27}{2} = 25.5",
+        },
+        {
+          explanation: "Compute the IQR and the full range to compare.",
+          latex: "\\text{IQR} = 25.5 - 15 = 10.5,\\quad \\text{range} = 60 - 12 = 48",
+        },
+        {
+          explanation: "The value 60 is a clear outlier; it inflates the range to 48 but the IQR ignores it, so 10.5 describes the typical spread far better.",
+          latex: "\\text{IQR } 10.5 \\ll \\text{range } 48 \\Rightarrow \\text{use the IQR}",
+        },
+      ],
+      finalAnswerLatex: "\\text{IQR} = 10.5;\\text{ the range (48) is distorted by the outlier 60, so the IQR is the fairer measure of spread.}",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -3016,15 +3425,16 @@ const outliersAndInterpretation: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "An outlier is a data value that sits far away from the rest of the data — either much larger or much smaller. For example, in the set 3, 5, 6, 7, 8 all values are close together, but in 3, 5, 6, 7, 58 the value 58 is an outlier.",
-      "Outliers pull the mean toward them significantly because the mean depends on the sum of every value. Adding a very large outlier raises the sum — and therefore the mean — by a large amount. The mean of 3, 5, 6, 7, 9 is 6, but the mean of 3, 5, 6, 7, 59 is 16. One value changed the mean by 10.",
-      "The median is resistant to outliers because it depends only on the position of the middle value, not its exact size. Replacing the largest value with a much bigger number does not change which value sits in the middle. The median of both 3, 5, 6, 7, 9 and 3, 5, 6, 7, 59 is 6.",
-      "When reporting a typical value for data that contains an outlier, use the median — it gives a more representative picture of where most values sit. The mean alone can be misleading because a single extreme value skews it away from the bulk of the data.",
+      "An outlier is a data value that sits far away from the rest — much larger or much smaller than everything around it. In the set 3, 5, 6, 7, 8 the values are all close together, so there is no outlier. But in 3, 5, 6, 7, 58 the value 58 stands well apart from the cluster, so it is an outlier. Outliers can be genuine (a record-breaking score) or errors (a typo), and either way they matter because they can distort a summary.",
+      "Recall that the mean is the balance point of the data — the spot where the values balance like weights on a ruler. Now imagine moving one weight far out to the right: the balance point has to slide that way to keep things level. That is exactly what an outlier does to the mean. Because the mean is built from the sum of every value, adding a single large value raises the sum, and therefore the mean, by a lot.",
+      "The numbers make this concrete. The mean of 3, 5, 6, 7, 9 is $\\frac{30}{5}=6$. Replace the 9 with 59 and the mean becomes $\\frac{80}{5}=16$. One value, changed once, dragged the mean from 6 up to 16 — eight points above where four of the five values actually sit. The mean is no longer typical of the data.",
+      "The median behaves completely differently, and the reason is its definition. The median is whichever value sits in the middle position once the data is sorted; it does not care how big the extreme values are, only how many sit on each side. In both 3, 5, 6, 7, 9 and 3, 5, 6, 7, 59 the value in the middle position is 6. Stretching the largest value out to 59 — or to 590 — never changes which value is in the middle, so the median stays put. That is why the median resists outliers while the mean cannot.",
+      "So when a data set contains an outlier, report the median as the typical value: it reflects where most of the data really sits. Quoting the mean alone in that situation is the misconception to avoid — it sounds like a fair summary but a single extreme value has skewed it away from the bulk of the data. The mean is not 'wrong', but for skewed or outlier-affected data the median is the honest choice.",
     ],
     latexBlocks: [
-      "\\text{Mean depends on every value — one outlier can shift it significantly.}",
-      "\\text{Median depends on position only — one outlier rarely changes it.}",
-      "\\text{Use the median when outliers are present.}",
+      "\\text{mean depends on every value — one outlier shifts the balance point}",
+      "\\text{median depends on position only — one outlier rarely moves it}",
+      "\\text{outlier present} \\Rightarrow \\text{report the median as the typical value}",
     ],
   },
   workedExamples: [
@@ -3390,15 +3800,17 @@ const relativeFrequency: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Relative frequency is the proportion of times an event actually occurs in an experiment. If you roll a die 60 times and get a 6 twelve times, the relative frequency of rolling a 6 is 12 ÷ 60 = 0.2. This is calculated from real data, unlike theoretical probability which is based on equally likely outcomes.",
-      "Theoretical probability is the value you would expect from reasoning — for a fair die, the theoretical probability of rolling a 6 is 1 ÷ 6 ≈ 0.167. The relative frequency of 0.2 is close but not identical to 0.167, because chance produces natural variation in short experiments.",
-      "The Law of Large Numbers tells us that as the number of trials increases, relative frequency gets closer and closer to theoretical probability. With 600 rolls you would expect to get a 6 about 100 times, giving a relative frequency of 100 ÷ 600 ≈ 0.167 — much closer than the 60-roll experiment. More trials means more reliable relative frequency.",
-      "You can also express relative frequency as a percentage: multiply the decimal by 100. A relative frequency of 0.2 = 20%, meaning the event occurred in 20% of all trials. The sum of relative frequencies for all possible outcomes in an experiment always equals 1 (or 100%).",
+      "Sometimes you cannot reason out a probability by counting equally likely outcomes — maybe the coin is bent, or you simply want to test what really happens. So instead you run the experiment many times and watch how often the event actually occurs. Relative frequency is that observed proportion: how many times the event happened, out of how many times you tried.",
+      "For example, roll a die 60 times and suppose a 6 comes up 12 times. The relative frequency of a 6 is $\\frac{12}{60}=0.2$. Notice this comes from real data — you counted it — and it is not the same as the theoretical probability, which you get by reasoning. For a fair die the theoretical probability of a 6 is $\\frac{1}{6}\\approx 0.167$. The observed 0.2 is close to 0.167 but not identical.",
+      "In notation, $\\text{relative frequency} = \\frac{\\text{frequency of the event}}{\\text{total number of trials}}$, where frequency is the count of times the event happened and trials is how many times the experiment was run. You can write it as a fraction, a decimal, or a percentage — multiply the decimal by 100 to get the percentage, so $0.2 = 20\\%$, meaning the event occurred in 20% of all trials.",
+      "Why does relative frequency end up near the theoretical probability, and why is the gap smaller with more trials? Think about what a single 'unlucky' roll does to the proportion. In 60 rolls, getting one extra 6 changes the count from 12 to 13, swinging the relative frequency by $\\frac{1}{60}\\approx 0.017$ — a noticeable jump. In 6000 rolls, one extra 6 only swings it by $\\frac{1}{6000}\\approx 0.00017$ — almost nothing. The lucky and unlucky trials still happen, but spread across a huge number of trials they cancel out and barely move the proportion. With more trials, random wobble shrinks and the relative frequency settles down near the true probability. This is the Law of Large Numbers.",
+      "You can see it in the die: 600 rolls would give a 6 about 100 times, so $\\frac{100}{600}\\approx 0.167$ — much closer to $\\frac{1}{6}$ than the 60-roll result was. So more trials means a more reliable estimate, which is exactly why a scientist testing a coin for fairness flips it hundreds of times, not five.",
+      "Two cautions. First, the relative frequencies of all the possible outcomes of one experiment always add to 1 (or 100%), because every trial lands on exactly one outcome. Second — and this is the gambler's fallacy — a short run that drifts from the expected proportion does not 'owe' you a correction. If a fair coin lands heads five times in a row, the sixth flip is still 50-50; the proportion drifts back toward 0.5 over many flips because new trials dilute the early run, not because the coin remembers and balances itself.",
     ],
     latexBlocks: [
-      "\\text{Relative frequency} = \\frac{\\text{frequency of the event}}{\\text{total number of trials}}",
-      "\\text{e.g. event occurred 12 times in 60 trials: } \\frac{12}{60} = 0.2 = 20\\%",
-      "\\text{As trials} \\to \\infty,\\; \\text{relative frequency} \\to \\text{theoretical probability}",
+      "\\text{relative frequency} = \\frac{\\text{frequency of the event}}{\\text{total number of trials}}",
+      "\\text{event occurred 12 times in 60 trials: } \\frac{12}{60} = 0.2 = 20\\%",
+      "\\text{as the number of trials grows, relative frequency} \\to \\text{theoretical probability}",
     ],
   },
   workedExamples: [
@@ -3441,6 +3853,26 @@ const relativeFrequency: LessonContent = {
         },
       ],
       finalAnswerLatex: "\\text{Relative frequency } 0.2 \\text{ vs theoretical } \\tfrac{1}{6} \\approx 0.167",
+    } as WorkedExample,
+    {
+      title: "Use relative frequency to predict a count (harder)",
+      questionLatex:
+        "\\text{A spinner is spun 200 times and lands on red 50 times. Estimate how many reds you would expect in 1000 spins, and say why this estimate is trustworthy.}",
+      steps: [
+        {
+          explanation: "Find the relative frequency of red from the 200-spin experiment — this is our best estimate of the true probability.",
+          latex: "\\text{relative frequency of red} = \\frac{50}{200} = 0.25",
+        },
+        {
+          explanation: "Apply that proportion to the larger number of spins to predict the count.",
+          latex: "\\text{expected reds in 1000 spins} = 0.25 \\times 1000 = 250",
+        },
+        {
+          explanation: "Note why the estimate is reliable: 200 trials is large, so random wobble in the relative frequency is small, by the Law of Large Numbers.",
+          latex: "\\text{200 trials} \\Rightarrow \\text{relative frequency close to true probability}",
+        },
+      ],
+      finalAnswerLatex: "\\text{About } 250 \\text{ reds; trustworthy because 200 trials already give a stable relative frequency of } 0.25.",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -3761,15 +4193,18 @@ const expectedOutcomes: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "If you flip a fair coin 100 times, you would expect about 50 heads. This is not a guarantee — you might get 47 or 53 — but 50 is the expected value based on the theoretical probability. The expected count formula is: expected count = P(event) × number of trials.",
-      "For example, the probability of rolling a 6 on a fair die is 1/6. If you roll the die 120 times, the expected number of 6s is (1/6) × 120 = 20. Again, this is a prediction based on probability — in practice you might get 18 or 23, especially with a smaller number of trials.",
-      "The expected count is sometimes called a long-run prediction. With more trials, the actual count is likely to be closer (as a proportion) to the expected count. With very few trials, the actual result may differ noticeably from the expected value.",
-      "Expected count lets you check whether an experiment is consistent with a fair model. If you rolled a die 600 times and got a 6 only 50 times (expected: 100), that large gap would suggest the die might be biased. If you got 95, the small gap is probably just natural variation.",
+      "If you flip a fair coin 100 times, how many heads should you expect? About 50. That is the expected count — a prediction of how many times an event will happen if you repeat an experiment many times. It is not a promise; you might get 47 or 53. But 50 is the best single guess, and it comes straight from the probability of the event.",
+      "Here is the example worked out. The probability of rolling a 6 on a fair die is $\\frac{1}{6}$. If you roll 120 times, you expect a 6 on about one-sixth of those rolls, which is $\\frac{1}{6}\\times 120 = 20$. So 20 sixes is the prediction for 120 rolls.",
+      "In notation, $\\text{expected count} = P(\\text{event}) \\times n$, where $P(\\text{event})$ is the probability of the event on a single trial and $n$ is the number of trials. The result is a number of times, so it should be sensible for the context — you can leave it as a decimal in a prediction even though any single experiment must land on a whole number.",
+      "Why multiply probability by the number of trials? Because $P(\\text{event})$ is the fraction of trials the event takes in the long run — recall relative frequency settles down near the probability. If the event claims a fraction $P$ of every trial, then over $n$ trials it claims that same fraction of all of them: $P$ of $n$, which is $P\\times n$. It is the same logic as 'one-sixth of 120 students' — you take the fraction of the whole. That is the entire derivation: expected count is just the probability's share of the total trials.",
+      "You can run the formula backwards too. If you know the expected count and the probability, you can recover the number of trials by dividing: $n = \\frac{\\text{expected count}}{P(\\text{event})}$, since multiplication and division are inverses. This is handy when a question tells you how often something was expected to happen and asks how many trials there must have been.",
+      "Expected count also lets you sanity-check whether a set-up is fair, but here is the misconception to dissolve: a gap between expected and actual does not prove bias, and a match does not prove fairness. Roll a die 600 times: you expect $\\frac{1}{6}\\times 600 = 100$ sixes. Getting 95 is a small gap, easily explained by natural variation. Getting only 50 is a large gap that would make you suspect the die is biased. The key is the size of the gap relative to the number of trials — small wobble is normal, a big systematic shortfall is the warning sign.",
     ],
     latexBlocks: [
-      "\\text{Expected count} = P(\\text{event}) \\times n",
-      "\\text{e.g. } P(6) = \\frac{1}{6},\\; n = 120 \\Rightarrow \\text{Expected count} = \\frac{1}{6} \\times 120 = 20",
-      "\\text{Expected count is a prediction — actual results will vary.}",
+      "\\text{expected count} = P(\\text{event}) \\times n",
+      "P(6) = \\frac{1}{6},\\; n = 120 \\Rightarrow \\text{expected count} = \\frac{1}{6} \\times 120 = 20",
+      "n = \\frac{\\text{expected count}}{P(\\text{event})} \\quad(\\text{rearranged})",
+      "\\text{expected count is a prediction — actual results vary}",
     ],
   },
   workedExamples: [
@@ -4128,15 +4563,16 @@ const boxPlots: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A box plot (also called a box-and-whisker plot) displays a data set using five key values called the five-number summary: the minimum, the lower quartile $Q_1$, the median $Q_2$, the upper quartile $Q_3$, and the maximum. These five values give a compact picture of where the data sits and how spread out it is.",
-      "To draw a box plot, first sort the data and calculate all five values. Then draw a number line, mark the five values, draw a rectangular box from $Q_1$ to $Q_3$, place a vertical line inside the box at the median, and extend horizontal lines (whiskers) from the box out to the minimum and maximum. The IQR is the width of the box: $\\text{IQR} = Q_3 - Q_1$.",
-      "A box plot reveals the shape of the data. When the median line sits in the centre of the box and both whiskers are roughly equal in length, the distribution is symmetric. When the median is pushed toward one end of the box, or one whisker is much longer, the distribution is skewed — skewed right if the longer tail extends to the right, skewed left if it extends to the left.",
-      "A common mistake is thinking that a wider box means there are more data values in that section. The box always contains exactly the middle 50% of the data regardless of its width. A wide box simply means those central values are more spread out, not that there are more of them.",
+      "A box plot (or box-and-whisker plot) is a way to picture a whole data set using just five carefully chosen numbers — the five-number summary: the minimum, the lower quartile $Q_1$, the median $Q_2$, the upper quartile $Q_3$, and the maximum. With those five values, you can see at a glance where the data sits and how widely it is spread, without plotting every single value.",
+      "To draw one, first sort the data and find all five numbers. Draw a number line, mark the five values on it, build a rectangular box from $Q_1$ to $Q_3$, put a vertical line inside the box at the median, then extend horizontal whiskers from the box edges out to the minimum and the maximum. The width of the box is the interquartile range, $\\text{IQR} = Q_3 - Q_1$.",
+      "Why do these five numbers summarise the data so well? Because the quartiles cut the sorted data into four equal quarters, each part of the picture carries exactly 25% of the values. The left whisker holds the bottom quarter, the left half of the box the next quarter, the right half of the box the next, and the right whisker the top quarter. So the box always contains the middle 50% of the data, and the median line splits that middle in half. The five points are not arbitrary — they are the boundaries between the four equal-sized chunks of the data, which is why so much information fits into so few marks.",
+      "Reading the picture tells you the shape. If the median line sits roughly in the centre of the box and both whiskers are about equal in length, the data is symmetric. If the median is pushed toward one end of the box, or one whisker is much longer than the other, the data is skewed — skewed right when the long tail stretches to the right, skewed left when it stretches to the left. The long tail points in the direction of the skew.",
+      "The misconception to dissolve is reading box width as 'amount of data'. A wide box does not mean more values live there — every box holds exactly the middle 50% no matter how wide it is. A wide box means those central values are spread far apart; a narrow box means they are bunched tightly. Width is about spread, not count, because each quarter always has the same number of values by construction.",
     ],
     latexBlocks: [
-      "\\text{Five-number summary: Min},\\; Q_1,\\; Q_2\\text{ (Median)},\\; Q_3,\\; \\text{Max}",
-      "\\text{IQR} = Q_3 - Q_1",
-      "\\text{Box plot: whisker}\\!\\mid\\!\\boxed{\\;Q_1\\;|\\;\\text{Med}\\;|\\;Q_3\\;}\\!\\mid\\!\\text{whisker}",
+      "\\text{five-number summary: Min},\\; Q_1,\\; Q_2\\,(\\text{median}),\\; Q_3,\\; \\text{Max}",
+      "\\text{each of the four sections holds } 25\\% \\text{ of the data}",
+      "\\text{IQR} = Q_3 - Q_1 = \\text{width of the box} = \\text{spread of the middle } 50\\%",
     ],
   },
   workedExamples: [
@@ -4506,15 +4942,17 @@ const comparingDataWithBoxPlots: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Side-by-side box plots place two box plots on the same number line, making it easy to compare two groups at a glance. Each box plot still shows the same five-number summary (minimum, $Q_1$, median, $Q_3$, maximum), but by aligning them you can instantly see which group has a higher typical value or more spread.",
-      "When comparing centre, look at the median lines inside each box. The group whose median line sits further to the right has a higher typical value. When comparing spread, look at the box widths (IQR) and the total span from whisker to whisker (range). A wider box or longer whiskers means more variability in that group.",
-      "Shape also matters. A box plot with the median line near its centre and roughly equal whiskers is symmetric. If the median sits close to $Q_1$ and the right whisker is long, the data is skewed right — most values are low but a few are very high. If the median sits close to $Q_3$ and the left whisker is long, the data is skewed left.",
-      "A common mistake is saying one group is 'better' simply because its IQR is larger. A larger IQR means more variability, not better performance. Always link your comparison to context: 'Class A has a higher median mark, suggesting it performed better on average, but its larger IQR indicates more variability in scores.'",
+      "Drawing two box plots on the same number line — side-by-side box plots — turns a comparison into a glance. Each plot still carries its own five-number summary (minimum, $Q_1$, median, $Q_3$, maximum), but because they share one axis, their positions and widths line up directly, so you can read off which group is higher and which is more spread out without doing any arithmetic.",
+      "Comparing centre is the first job: look at the two median lines. The group whose median line sits further to the right has the higher typical value. This works precisely because both plots use the same scale — a position further right genuinely means a larger value, not just a longer-looking box.",
+      "Comparing spread is the second job, and box plots give you two readings of it. The box width is the IQR, the spread of the middle 50%; the whisker-to-whisker span is the full range. A wider box or longer whiskers means more variability in that group. Prefer the IQR when comparing consistency, because — as with quartiles — it ignores the extreme values and so is not thrown off by a single unusual data point in either group.",
+      "Shape comes from where the median sits inside the box and how the whiskers compare. Median near the centre with roughly equal whiskers is symmetric. Median close to $Q_1$ with a long right whisker is skewed right — most values low, a few high. Median close to $Q_3$ with a long left whisker is skewed left — most values high, a few low. The long tail always points the way the data is skewed.",
+      "The misconception to dissolve: a larger IQR does not mean a group is 'better'. It only means more spread, more variability. Higher or lower performance is about the median, not the box width — keep the two ideas separate. And finish every comparison in context, because that is where the marks are: 'Class A has a higher median mark, so it scored higher on average, but its larger IQR shows its results were more variable.' Numbers alone do not answer a comparison question; the interpreting sentence does.",
     ],
     latexBlocks: [
-      "\\text{Compare centre: which median is larger?}",
-      "\\text{Compare spread: which IQR (box width) or range is larger?}",
-      "\\text{Skewed right: median closer to } Q_1,\\; \\text{long right whisker.}",
+      "\\text{compare centre: which median line is further right?}",
+      "\\text{compare spread: which IQR (box width) or range is larger?}",
+      "\\text{skewed right: median near } Q_1,\\; \\text{long right whisker; skewed left: median near } Q_3",
+      "\\text{larger IQR} \\Rightarrow \\text{more variable, NOT better}",
     ],
   },
   workedExamples: [
@@ -4919,8 +5357,9 @@ const shapeOfDistributions: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Many students believe that 'average' always means the mean — the sum divided by the count. This is one of the most common misconceptions in statistics. In reality there are three measures of centre: mean, median, and mode. The mean is only the best choice when the data is roughly symmetric. When a distribution is skewed, the mean is pulled toward the long tail and away from where most values actually sit. In those cases the median gives a far more honest picture of what is typical.",
-      "A symmetric distribution has roughly equal tails on both sides. Imagine folding the histogram down the middle — both halves would look about the same. In a symmetric distribution the mean and median are approximately equal, so either can be used. Test scores that cluster around 70 out of 100, with similar numbers of students above and below, form a roughly symmetric distribution.",
+      "The shape of a distribution is the overall pattern you see when the data is laid out — does it pile up in the middle, lean to one side, or split into two humps? Shape matters because it decides which measure of centre tells the truth. Many students believe 'average' always means the mean, the sum divided by the count. That is one of the most common misconceptions in statistics. There are really three measures of centre — mean, median, and mode — and the mean is only the best choice when the data is roughly symmetric. When a distribution is skewed, the mean is pulled toward the long tail and away from where most values actually sit, so the median becomes the honest summary.",
+      "Here is exactly why a skewed distribution pulls the mean. Remember the mean is the balance point — the spot where the data would balance like weights on a ruler. A long tail is a few values sitting far out to one side. Even though there are only a few of them, their distance from the centre is large, and the balance point must shift toward them to stay level. The median, by contrast, only counts how many values lie on each side, not how far out they are, so the tail barely moves it. That difference in what each measure 'feels' is the whole reason mean and median split apart when data is skewed.",
+      "A symmetric distribution has roughly equal tails on both sides. Imagine folding the histogram down the middle — both halves would look about the same. With no long tail to pull it, the balance point sits at the centre, so the mean and median are approximately equal and either can be used. Test scores that cluster around 70 out of 100, with similar numbers of students above and below, form a roughly symmetric distribution.",
       "A positively skewed (right-skewed) distribution has a long tail stretching to the right. Most values are bunched at the low end, but a few very high values drag the mean upward. The mean ends up above the median. Income data in most countries is a classic real-world example: most people earn moderate salaries, but a small number of very high earners pull the mean income well above what a typical person actually earns. Reporting the mean salary can make things sound far better than they are for the majority — the median is the honest choice.",
       "A negatively skewed (left-skewed) distribution has a long tail stretching to the left. Most values are bunched at the high end, but a few very low values drag the mean downward. The mean ends up below the median. Age at retirement is an example: most people retire in their 60s, but some retire very early — pulling the mean retirement age slightly lower. If students score mostly high marks on a test but a few score very low, the mark distribution is negatively skewed.",
       "A bimodal distribution has two clear peaks, which often signals two distinct groups in the data. For example, if a class contains both Year 7 and Year 10 students, a histogram of heights would likely show two peaks — one for each age group. Neither a single mean nor a single median captures the two-group structure, so describing the shape is essential. On a dot plot, bimodal means two clusters of dots separated by a gap.",

@@ -169,14 +169,19 @@ const numberPatternsAndRules: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A number pattern (or sequence) is a list of numbers that follow a rule. In a linear pattern, the same amount is added or subtracted each time. This constant amount is called the common difference.",
-      "To write a rule, use the position number n (1st term, 2nd term, etc.) and find what you multiply n by and what you add or subtract. The rule has the form T = mn + c, where m is the common difference and c is found by substituting n = 1 and solving.",
-      "Once you have the rule, you can find any term by substituting n. You can also work backwards: if you know the term T, substitute into the rule and solve for n.",
+      "A number pattern is a list of numbers built by a repeating action. The pattern we care about here is the simplest kind: you start at some number and then keep adding (or subtracting) the *same* amount to get from each term to the next. Because the step never changes, the whole pattern is decided by just two facts — where you start and how big each step is.",
+      "Picture the pattern $5,\\; 8,\\; 11,\\; 14,\\; \\ldots$ Each arrow from one term to the next is $+3$: from 5 to 8 is $+3$, from 8 to 11 is $+3$, and so on. That fixed step of 3 is the only thing doing the work. Knowing it, you could march forward forever, and you could also jump straight to, say, the 100th term if you had a shortcut for it. Finding that shortcut is the goal.",
+      "We give each term a position number $n$: the 1st term is $n=1$, the 2nd is $n=2$, and so on. The fixed step is called the common difference, written $m$. The shortcut — the rule — has the form $T = mn + c$, where $T$ is the term value, $m$ is the common difference, and $c$ is a constant that fixes the starting point.",
+      "Here is *why* the rule must look like $T = mn + c$. To reach the $n$th term you take the step $m$ a certain number of times. Going from term 1 to term $n$ is $(n-1)$ steps, so $T = (\\text{first term}) + (n-1)m$. Expand that: $T = (\\text{first term}) + mn - m$, which is $mn$ plus a fixed leftover $(\\text{first term} - m)$. That leftover never depends on $n$, so we just call it $c$. This is why every term is the step $m$ times the position, plus a constant: the $mn$ part counts the steps, and $c$ adjusts for where the count began.",
+      "That derivation also tells you how to find $c$ quickly without expanding anything: substitute $n=1$ into $T = mn + c$. At $n=1$ the rule says $T = m + c$, and that must equal the first term, so $c = (\\text{first term}) - m$. For $5,\\; 8,\\; 11,\\; \\ldots$, $m=3$ and the first term is 5, so $c = 5 - 3 = 2$, giving $T = 3n + 2$. Check term 2: $3(2)+2 = 8$, correct.",
+      "Because the rule is just an equation, it runs both ways. Put a position $n$ in and it tells you the term $T$. But you can also put a term $T$ in and solve for $n$ — that answers questions like \"which term equals 26?\" You are not memorising two procedures; you are using one equation and choosing which letter is unknown.",
+      "This idea transfers anywhere a quantity grows by equal amounts: savings that rise by a fixed deposit each week, seats added row by row in a theatre, or matchsticks per shape in a growing diagram — all are $T = mn + c$. In exam questions this is the same machinery as the line $y = mx + c$; the common difference $m$ is just the gradient in disguise. The most common slip is to use the *term value* as the position. The position $n$ counts *which* term (1st, 2nd, 3rd); the value $T$ is the *size* of that term. Keep them in separate columns and the rule behaves.",
     ],
     latexBlocks: [
-      "\\text{Rule: } T = mn + c",
-      "\\text{where }m\\text{ = common difference, }c\\text{ = constant}",
-      "\\text{e.g. for }4, 7, 10, 13, \\ldots \\Rightarrow T = 3n + 1",
+      "\\text{Rule: } T = mn + c \\qquad (m = \\text{common difference},\\; c = \\text{constant})",
+      "T = (\\text{first term}) + (n-1)m = mn + \\underbrace{(\\text{first term} - m)}_{c}",
+      "\\text{Find }c\\text{: at }n=1,\\; T = m + c \\Rightarrow c = (\\text{first term}) - m",
+      "\\text{e.g. }5,\\,8,\\,11,\\,14,\\ldots \\Rightarrow m = 3,\\; c = 5-3 = 2,\\; T = 3n + 2",
     ],
   },
   workedExamples: [
@@ -186,32 +191,48 @@ const numberPatternsAndRules: LessonContent = {
         "\\text{Pattern: }5,\\; 8,\\; 11,\\; 14,\\; \\ldots\\text{ Find the next two terms.}",
       steps: [
         {
-          explanation: "Find the common difference: subtract consecutive terms.",
-          latex: "8 - 5 = 3,\\quad 11 - 8 = 3",
+          explanation: "Subtract one term from the next to read off the constant step.",
+          latex: "8 - 5 = 3",
         },
         {
-          explanation: "Add the common difference to the last known term.",
-          latex: "14 + 3 = 17,\\quad 17 + 3 = 20",
+          explanation: "Confirm the step is the same elsewhere, so the pattern really is linear.",
+          latex: "11 - 8 = 3 \\quad\\text{(same step)}",
+        },
+        {
+          explanation: "Add that step to the last known term to get the next one.",
+          latex: "14 + 3 = 17",
+        },
+        {
+          explanation: "Add the step once more for the term after that.",
+          latex: "17 + 3 = 20",
         },
       ],
-      finalAnswerLatex: "17,\\; 20",
+      finalAnswerLatex: "\\text{Next two terms: }17,\\; 20",
     } as WorkedExample,
     {
       title: "Write a rule from a table",
       questionLatex:
-        "\\text{Table: }n=1\\to4,\\; n=2\\to7,\\; n=3\\to10.\\text{ Write the rule.}",
+        "\\text{Table: }n=1\\to4,\\; n=2\\to7,\\; n=3\\to10.\\text{ Write the rule }T = mn + c.",
       steps: [
         {
-          explanation: "Common difference = 7 − 4 = 3, so m = 3.",
+          explanation: "The common difference is the change in T for a one-step rise in n, so it is m.",
+          latex: "m = 7 - 4 = 3",
+        },
+        {
+          explanation: "Write the rule with m filled in, leaving c to be found.",
           latex: "T = 3n + c",
         },
         {
-          explanation: "Substitute n = 1, T = 4 to find c.",
-          latex: "4 = 3(1) + c \\Rightarrow c = 1",
+          explanation: "Substitute the first known pair (n = 1, T = 4) so only c is unknown.",
+          latex: "4 = 3(1) + c",
         },
         {
-          explanation: "Check: n = 2 → 3(2) + 1 = 7 ✓, n = 3 → 3(3) + 1 = 10 ✓",
-          latex: "T = 3n + 1",
+          explanation: "Solve for c by subtracting 3 from both sides.",
+          latex: "c = 4 - 3 = 1",
+        },
+        {
+          explanation: "Check the rule on a different pair (n = 3) to be sure it holds.",
+          latex: "3(3) + 1 = 10 \\quad\\checkmark",
         },
       ],
       finalAnswerLatex: "T = 3n + 1",
@@ -221,15 +242,47 @@ const numberPatternsAndRules: LessonContent = {
       questionLatex: "\\text{Rule: }T = 4n - 2.\\text{ For which }n\\text{ is }T = 26?",
       steps: [
         {
-          explanation: "Substitute T = 26 into the rule.",
+          explanation: "Here the term is known and the position is unknown, so substitute T = 26.",
           latex: "4n - 2 = 26",
         },
         {
-          explanation: "Solve the equation.",
-          latex: "4n = 28 \\Rightarrow n = 7",
+          explanation: "Undo the −2 by adding 2 to both sides.",
+          latex: "4n = 28",
+        },
+        {
+          explanation: "Undo the ×4 by dividing both sides by 4.",
+          latex: "n = 7",
         },
       ],
-      finalAnswerLatex: "n = 7",
+      finalAnswerLatex: "T = 26\\text{ is the 7th term }(n = 7).",
+    } as WorkedExample,
+    {
+      title: "Harder: build the rule from two non-adjacent terms",
+      questionLatex:
+        "\\text{A linear pattern has 5th term }23\\text{ and 9th term }43.\\text{ Find the rule, then the 1st term.}",
+      steps: [
+        {
+          explanation: "From term 5 to term 9 is 4 steps, and the value rose by 43 − 23 = 20.",
+          latex: "4m = 43 - 23 = 20",
+        },
+        {
+          explanation: "Divide by the number of steps to get the common difference m.",
+          latex: "m = \\frac{20}{4} = 5",
+        },
+        {
+          explanation: "Find c by substituting a known pair (n = 5, T = 23) into T = 5n + c.",
+          latex: "23 = 5(5) + c",
+        },
+        {
+          explanation: "Solve for c by subtracting 25 from both sides.",
+          latex: "c = 23 - 25 = -2",
+        },
+        {
+          explanation: "The 1st term is the rule at n = 1.",
+          latex: "T = 5(1) - 2 = 3",
+        },
+      ],
+      finalAnswerLatex: "T = 5n - 2,\\;\\text{ so the 1st term is }3.",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -670,14 +723,19 @@ const coordinatesAndPoints: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "The Cartesian plane is formed by two perpendicular number lines: the horizontal x-axis and the vertical y-axis. They meet at the origin (0, 0). Every point on the plane is described by an ordered pair (x, y).",
-      "To read a point, move from the origin: the x-coordinate tells you how far to move left or right; the y-coordinate tells you how far to move up or down. Always write x first, then y.",
-      "The plane is divided into four quadrants. Quadrant I has both coordinates positive (+, +). Quadrant II has a negative x and positive y (−, +). Quadrant III has both negative (−, −). Quadrant IV has positive x and negative y (+, −).",
+      "A coordinate is just an address. To say exactly where something sits on a flat surface you need two pieces of information: how far across, and how far up or down. One number alone is not enough — \"3 metres from the corner\" could be anywhere on a circle. Two numbers pin the spot down completely.",
+      "To make those two numbers mean the same thing every time, we lay down two number lines that cross at right angles. The horizontal one is the x-axis; the vertical one is the y-axis. Where they cross is the origin, and that is our agreed starting corner. From there, a point's address is read as: walk along the x-axis, then walk up or down. The point 3 right and 5 up sits where those two walks land.",
+      "We write the address as an ordered pair $(x,\\, y)$: the across-number first, the up/down-number second. The word *ordered* is the whole point — the order is part of the meaning. Positive $x$ means right, negative $x$ means left; positive $y$ means up, negative $y$ means down.",
+      "Why must $x$ come first, and why does the order matter so much? Because $(3, 5)$ and $(5, 3)$ are genuinely different places — one is 3 across and 5 up, the other is 5 across and 3 up. The pair is like a sentence where swapping two words changes the meaning. Mathematicians agreed once and for all that the first slot is horizontal, so that anyone reading $(3, 5)$ lands on the *same* point. That shared convention is the only reason coordinates work at all.",
+      "The two axes slice the plane into four regions called quadrants, and the *signs* of the coordinates tell you which one a point is in — you do not need to plot it. Right-and-up is $(+,+)$, the top-right, called Quadrant I. Going anticlockwise: top-left is $(-,+)$ Quadrant II, bottom-left is $(-,-)$ Quadrant III, and bottom-right is $(+,-)$ Quadrant IV. The sign of $x$ decides left/right and the sign of $y$ decides up/down, so the sign pair *is* the region.",
+      "There is one boundary case worth being careful about. A point exactly *on* an axis is not in any quadrant — it sits on the dividing line. On the x-axis the height is zero, so $y = 0$; on the y-axis you have not moved across at all, so $x = 0$. The origin, on both lines at once, is $(0, 0)$.",
+      "Reading and writing coordinates is the foundation for every graph that follows — each point on a line is one of these addresses. The slip to guard against is writing the pair backwards, as $(y, x)$. Anchor it with \"across before up\": find your horizontal position first, then your vertical one, every single time. A second easy trap is thinking a point on the y-axis must have $y = 0$; it is the *other* way round — on the y-axis $x = 0$, because being on the vertical line means you never stepped left or right.",
     ],
     latexBlocks: [
-      "\\text{Point }(x,\\, y):\\; x\\text{ first (horizontal), }y\\text{ second (vertical)}",
+      "\\text{Point }(x,\\, y):\\; x\\text{ first (across), then }y\\text{ (up/down)}",
+      "(3,\\,5) \\neq (5,\\,3) \\quad\\text{order carries meaning}",
       "\\text{Quadrant I: }(+,+),\\quad \\text{II: }(-,+),\\quad \\text{III: }(-,-),\\quad \\text{IV: }(+,-)",
-      "\\text{On x-axis: }y=0.\\quad\\text{On y-axis: }x=0.",
+      "\\text{On the x-axis: }y=0.\\qquad\\text{On the y-axis: }x=0.\\qquad\\text{Origin: }(0,0).",
     ],
   },
   workedExamples: [
@@ -687,19 +745,35 @@ const coordinatesAndPoints: LessonContent = {
         "\\text{A point is 3 units right and 5 units up from the origin. Write its coordinates.}",
       steps: [
         {
-          explanation: "Right means positive x; up means positive y.",
-          latex: "x = 3,\\quad y = 5",
+          explanation: "Across comes first; right of the origin is positive x.",
+          latex: "x = 3",
+        },
+        {
+          explanation: "Up or down comes second; up is positive y.",
+          latex: "y = 5",
+        },
+        {
+          explanation: "Write the pair in order, x then y.",
+          latex: "(x,\\,y) = (3,\\;5)",
         },
       ],
       finalAnswerLatex: "(3,\\; 5)",
     } as WorkedExample,
     {
-      title: "Identify the quadrant",
+      title: "Identify the quadrant from the signs",
       questionLatex: "\\text{State the quadrant for the point }(-4,\\; 2).",
       steps: [
         {
-          explanation: "x is negative and y is positive.",
-          latex: "x < 0,\\quad y > 0 \\Rightarrow \\text{Quadrant II}",
+          explanation: "Read the sign of x: negative means the point is to the left.",
+          latex: "x = -4 < 0 \\quad(\\text{left})",
+        },
+        {
+          explanation: "Read the sign of y: positive means the point is up high.",
+          latex: "y = 2 > 0 \\quad(\\text{up})",
+        },
+        {
+          explanation: "Left and up is the top-left region, which is Quadrant II.",
+          latex: "(-,\\,+) \\Rightarrow \\text{Quadrant II}",
         },
       ],
       finalAnswerLatex: "\\text{Quadrant II}",
@@ -710,11 +784,39 @@ const coordinatesAndPoints: LessonContent = {
         "\\text{Describe the position of the point }(0,\\; -6).",
       steps: [
         {
-          explanation: "x = 0 means the point is on the y-axis.",
-          latex: "x = 0 \\Rightarrow \\text{on the y-axis, 6 units below the origin}",
+          explanation: "The x-coordinate is 0, so the point never moved left or right — it is on the y-axis.",
+          latex: "x = 0 \\Rightarrow \\text{on the y-axis}",
+        },
+        {
+          explanation: "The y-coordinate is −6, so it sits 6 units below the origin.",
+          latex: "y = -6 \\Rightarrow 6\\text{ units down}",
         },
       ],
-      finalAnswerLatex: "\\text{On the y-axis at }(0,\\;-6)",
+      finalAnswerLatex: "\\text{On the y-axis, 6 units below the origin, at }(0,\\;-6)",
+    } as WorkedExample,
+    {
+      title: "Harder: use coordinates to find a length and a midpoint",
+      questionLatex:
+        "\\text{A and B have the same height: }A(-3,\\,4)\\text{ and }B(5,\\,4).\\text{ Find the length }AB\\text{ and the midpoint's x-coordinate.}",
+      steps: [
+        {
+          explanation: "Both points share y = 4, so the segment is horizontal and its length is the gap in x only.",
+          latex: "AB = |5 - (-3)|",
+        },
+        {
+          explanation: "Subtract carefully: subtracting a negative adds.",
+          latex: "AB = |5 + 3| = 8",
+        },
+        {
+          explanation: "The midpoint sits halfway across, which is the average of the two x-values.",
+          latex: "x_{\\text{mid}} = \\frac{-3 + 5}{2}",
+        },
+        {
+          explanation: "Compute the average.",
+          latex: "x_{\\text{mid}} = \\frac{2}{2} = 1",
+        },
+      ],
+      finalAnswerLatex: "AB = 8\\text{ units},\\;\\text{ midpoint x-coordinate} = 1.",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -1174,14 +1276,18 @@ const tablesOfValues: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A table of values lists input (x) and output (y) pairs for a rule. To complete a table, substitute each x-value into the rule and calculate y.",
-      "For a linear rule y = mx + c, the y-values increase by the same amount m each time x increases by 1. This constant increase is the gradient. If the table has equal x-steps, look for the constant difference in y to find m.",
-      "To find c, substitute any known (x, y) pair into y = mx + c and solve. Then check the rule against at least one other pair in the table.",
+      "A rule like $y = mx + c$ is a machine: feed it a number $x$, and it hands back a number $y$. A table of values is simply a record of several runs of that machine — a column of inputs $x$ next to the outputs $y$ they produced. We build tables because a list of points is exactly what we need to draw the graph, and because the table itself reveals the rule's hidden structure.",
+      "Take $y = 2x + 3$. Feed in $x = 0$ and you get $y = 3$; feed in $x = 1$ and you get $5$; then $7$, then $9$. Write those underneath the inputs $0, 1, 2, 3$ and look at the bottom row: $3,\\,5,\\,7,\\,9$. Each output is exactly 2 more than the one before. That steady jump of 2 is not a coincidence — it is the heart of what \"linear\" means.",
+      "In the rule $y = mx + c$, the letter $m$ is the multiplier (it will turn out to be the gradient) and $c$ is the constant added on. The pattern you spotted in the table — the fixed amount $y$ jumps each time $x$ goes up by 1 — is precisely $m$. We call it the constant first difference.",
+      "Here is *why* the constant jump equals $m$. Compare the output at $x$ with the output at the next step, $x+1$. At $x$ the machine gives $mx + c$; at $x+1$ it gives $m(x+1) + c = mx + m + c$. Subtract the first from the second and everything cancels except one term: the difference is exactly $m$. The $c$ cancels because it is added to both, and most of the $mx$ cancels too — only the extra $m$ survives. So *every* one-step rise in $x$ adds exactly $m$ to $y$, which is why a linear rule produces an evenly-stepped table and a straight-line graph.",
+      "That fact gives a fast way to read a rule straight off a table. The constant difference in $y$ (per one-step rise in $x$) is $m$. To find $c$, notice that at $x = 0$ the rule says $y = m(0) + c = c$ — so $c$ is just the output when the input is zero. If the table has no $x = 0$ row, substitute any known $(x, y)$ pair into $y = mx + c$ and solve for $c$, then verify on a second pair so you have not been fooled.",
+      "Because the rule is an equation, it also runs backwards. Given an output $y$, you can solve for the input $x$ that produced it — useful for questions like \"which $x$ gives $y = 15$?\" You undo the rule step by step: first remove the $+c$, then divide away the $m$. One caution when reading a table: the constant difference is $m$, the *gradient* — it is not $c$. Students often grab the first difference and call it the y-intercept; instead, the difference gives the multiplier, and $c$ comes from the $x = 0$ value (or a substitution). In exams this same skill appears as \"find the rule for this table of cost versus quantity\" — identical machinery, dressed in context.",
     ],
     latexBlocks: [
       "\\text{Rule: } y = mx + c",
-      "\\text{e.g. }y = 3x - 2:\\; x=0\\to-2,\\; x=1\\to1,\\; x=2\\to4",
-      "\\text{Constant difference in }y = m\\text{ (gradient)}",
+      "y(x+1) - y(x) = \\big(m(x{+}1)+c\\big) - \\big(mx + c\\big) = m \\quad(\\text{the constant difference})",
+      "\\text{At }x = 0:\\; y = m(0) + c = c \\quad(\\text{so }c\\text{ is the output when }x = 0)",
+      "\\text{e.g. }y = 3x - 2:\\; x=0\\to-2,\\; x=1\\to1,\\; x=2\\to4 \\quad(\\text{jumps of }3)",
     ],
   },
   workedExamples: [
@@ -1191,15 +1297,23 @@ const tablesOfValues: LessonContent = {
         "\\text{Rule: }y = 2x + 3.\\text{ Complete the table for }x = 0, 1, 2, 3.",
       steps: [
         {
-          explanation: "Substitute each x into y = 2x + 3.",
-          latex: "x=0\\!:\\; 2(0)+3=3,\\quad x=1\\!:\\; 2(1)+3=5",
+          explanation: "Feed in x = 0: multiply by 2, then add 3.",
+          latex: "y = 2(0) + 3 = 3",
         },
         {
-          explanation: "Continue for x = 2 and x = 3.",
-          latex: "x=2\\!:\\; 7,\\quad x=3\\!:\\; 9",
+          explanation: "Feed in x = 1 the same way.",
+          latex: "y = 2(1) + 3 = 5",
+        },
+        {
+          explanation: "Feed in x = 2.",
+          latex: "y = 2(2) + 3 = 7",
+        },
+        {
+          explanation: "Feed in x = 3, and notice each output is 2 more than the last.",
+          latex: "y = 2(3) + 3 = 9",
         },
       ],
-      finalAnswerLatex: "3,\\; 5,\\; 7,\\; 9",
+      finalAnswerLatex: "y\\text{-values: }3,\\; 5,\\; 7,\\; 9",
     } as WorkedExample,
     {
       title: "Find the rule from a table",
@@ -1207,16 +1321,24 @@ const tablesOfValues: LessonContent = {
         "\\text{Table: }x=1\\to9,\\; x=2\\to13,\\; x=3\\to17.\\text{ Find the rule.}",
       steps: [
         {
-          explanation: "Constant difference: 13 − 9 = 4, so m = 4.",
+          explanation: "The output jumps by the same amount each one-step rise in x, and that jump is m.",
+          latex: "m = 13 - 9 = 4",
+        },
+        {
+          explanation: "Write the rule with m filled in, leaving c unknown.",
           latex: "y = 4x + c",
         },
         {
-          explanation: "Substitute x = 1, y = 9 to find c.",
-          latex: "9 = 4(1) + c \\Rightarrow c = 5",
+          explanation: "Substitute a known pair (x = 1, y = 9) so only c is unknown.",
+          latex: "9 = 4(1) + c",
         },
         {
-          explanation: "Check: x = 2 → 4(2) + 5 = 13 ✓",
-          latex: "y = 4x + 5",
+          explanation: "Solve for c by subtracting 4 from both sides.",
+          latex: "c = 9 - 4 = 5",
+        },
+        {
+          explanation: "Verify on a different pair (x = 3) to be sure.",
+          latex: "4(3) + 5 = 17 \\quad\\checkmark",
         },
       ],
       finalAnswerLatex: "y = 4x + 5",
@@ -1227,15 +1349,47 @@ const tablesOfValues: LessonContent = {
         "\\text{Rule: }y = 2x + 1.\\text{ For which }x\\text{ is }y = 15?",
       steps: [
         {
-          explanation: "Substitute y = 15.",
-          latex: "15 = 2x + 1",
+          explanation: "Run the rule backwards: put the known output in for y.",
+          latex: "2x + 1 = 15",
         },
         {
-          explanation: "Solve.",
-          latex: "2x = 14 \\Rightarrow x = 7",
+          explanation: "Undo the +1 by subtracting 1 from both sides.",
+          latex: "2x = 14",
+        },
+        {
+          explanation: "Undo the ×2 by dividing both sides by 2.",
+          latex: "x = 7",
         },
       ],
       finalAnswerLatex: "x = 7",
+    } as WorkedExample,
+    {
+      title: "Harder: find the rule when x-steps are not 1",
+      questionLatex:
+        "\\text{Table: }x=2\\to11,\\; x=4\\to19,\\; x=6\\to27.\\text{ Find the rule }y = mx + c.",
+      steps: [
+        {
+          explanation: "Here x jumps by 2, not 1, so the difference in y covers two steps of m.",
+          latex: "2m = 19 - 11 = 8",
+        },
+        {
+          explanation: "Divide by the number of x-steps to get m for a single step.",
+          latex: "m = \\frac{8}{2} = 4",
+        },
+        {
+          explanation: "Substitute a known pair (x = 2, y = 11) to find c.",
+          latex: "11 = 4(2) + c",
+        },
+        {
+          explanation: "Solve for c by subtracting 8 from both sides.",
+          latex: "c = 11 - 8 = 3",
+        },
+        {
+          explanation: "Check on another pair (x = 6): 4(6) + 3 = 27.",
+          latex: "4(6) + 3 = 27 \\quad\\checkmark",
+        },
+      ],
+      finalAnswerLatex: "y = 4x + 3",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -1678,14 +1832,18 @@ const graphingLinearRelationships: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A linear relationship produces a straight-line graph when plotted on the Cartesian plane. To draw the graph, complete a table of values, plot each (x, y) point, then draw a line through them.",
-      "The y-intercept is where the graph crosses the y-axis. It occurs when x = 0. Substitute x = 0 into the rule to find the y-intercept, which always equals the constant c in y = mx + c.",
-      "The x-intercept is where the graph crosses the x-axis. It occurs when y = 0. Substitute y = 0 into the rule and solve for x.",
+      "A graph is a picture of a rule. Instead of listing input–output pairs in a table, you mark each pair as a dot on the Cartesian plane. The pleasant surprise is that for a linear rule the dots do not scatter — they fall in a perfectly straight line, which is exactly why these relationships are called linear.",
+      "Take $y = x + 2$ and plot a few points: $(0,2)$, $(1,3)$, $(2,4)$, $(3,5)$. If you lay a ruler against them, all four lie dead straight, climbing one square up for every square right. Once you trust this, drawing the whole graph is easy: you only ever need a couple of points and a ruler, because a straight line is completely fixed by two of its points.",
+      "Two special points are worth naming. The y-intercept is where the line crosses the vertical y-axis; the x-intercept is where it crosses the horizontal x-axis. In the form $y = mx + c$, these are the easiest points of all to find, and they are exactly the two points you want for drawing the line.",
+      "Here is *why* the dots line up, and *why* the y-intercept is simply $c$. From the table work you know that every one-step rise in $x$ adds the same fixed amount $m$ to $y$. On the plane, \"same step right, same step up\" repeated over and over traces a straight line by definition — a bend would require the up-step to change, but it never does. And at the crossing of the y-axis the across-position is zero, so $x = 0$; substitute that and the rule gives $y = m(0) + c = c$. The constant $c$ is literally the height at which the line cuts the y-axis.",
+      "The x-intercept comes from the mirror idea: the line crosses the x-axis where its height is zero, so $y = 0$. You cannot read it off as easily, because you have to *solve* for the $x$ that makes $y$ zero — substitute $y = 0$ into the rule and undo the operations. For $y = 2x - 6$, setting $y = 0$ gives $2x - 6 = 0$, so $x = 3$.",
+      "These ideas transfer directly to real graphs: on a cost-versus-quantity line the y-intercept is the fixed starting cost and the x-intercept is where the quantity would drive the value to zero. Two traps catch people here. First, the y-intercept is the constant $c$, not the multiplier $m$ — it is found by setting $x = 0$, never by reading off the coefficient of $x$ blindly. Second, do not swap the intercepts: y-intercept means *let $x = 0$* (crossing the up-down axis), while x-intercept means *let $y = 0$* (crossing the across axis).",
     ],
     latexBlocks: [
-      "\\text{y-intercept: let }x=0 \\Rightarrow y = c",
-      "\\text{x-intercept: let }y=0\\text{ and solve for }x",
-      "\\text{Two points are enough to draw the line; a third point checks accuracy.}",
+      "\\text{y-intercept: let }x=0 \\Rightarrow y = m(0) + c = c",
+      "\\text{x-intercept: let }y=0\\text{ and solve }0 = mx + c\\text{ for }x",
+      "\\text{Equal step right }+\\text{ equal step up, repeated} \\Rightarrow \\text{a straight line}",
+      "\\text{Two points fix the line; a third point checks accuracy.}",
     ],
   },
   workedExamples: [
@@ -1694,26 +1852,54 @@ const graphingLinearRelationships: LessonContent = {
       questionLatex: "\\text{Find the y-intercept of }y = 3x + 4.",
       steps: [
         {
-          explanation: "Substitute x = 0.",
-          latex: "y = 3(0) + 4 = 4",
+          explanation: "The y-axis is crossed where the across-position is zero, so set x = 0.",
+          latex: "y = 3(0) + 4",
+        },
+        {
+          explanation: "The 3(0) vanishes, leaving the constant — this is why c is the y-intercept.",
+          latex: "y = 0 + 4 = 4",
         },
       ],
       finalAnswerLatex: "\\text{y-intercept: }(0,\\; 4)",
     } as WorkedExample,
     {
-      title: "Find the x-intercept",
-      questionLatex: "\\text{Find the x-intercept of }y = 2x - 6.",
+      title: "Find the x-intercept and draw the line",
+      questionLatex:
+        "\\text{Find the x-intercept of }y = 2x - 6,\\text{ then identify it on the graph shown.}",
       steps: [
         {
-          explanation: "Let y = 0 and solve for x.",
+          explanation: "The x-axis is crossed where the height is zero, so set y = 0.",
           latex: "0 = 2x - 6",
         },
         {
-          explanation: "Solve.",
-          latex: "2x = 6 \\Rightarrow x = 3",
+          explanation: "Undo the −6 by adding 6 to both sides.",
+          latex: "2x = 6",
+        },
+        {
+          explanation: "Undo the ×2 by dividing both sides by 2.",
+          latex: "x = 3",
+        },
+        {
+          explanation: "On the graph, the line crosses the x-axis at (3, 0) and the y-axis at the constant −6.",
+          latex: "\\text{x-intercept }(3,0),\\;\\text{ y-intercept }(0,-6)",
         },
       ],
       finalAnswerLatex: "\\text{x-intercept: }(3,\\; 0)",
+      cartesianGraph: lineGraph(
+        "Graph of y = 2x − 6 crossing the x-axis at (3, 0)",
+        2,
+        -6,
+        -2,
+        6,
+        -8,
+        6,
+        1,
+        2,
+        [
+          { x: 3, y: 0 },
+          { x: 0, y: -6 },
+        ]
+      ),
     } as WorkedExample,
     {
       title: "Check whether a point is on the line",
@@ -1721,15 +1907,62 @@ const graphingLinearRelationships: LessonContent = {
         "\\text{Is the point }(2,\\; 7)\\text{ on the line }y = 3x + 1?",
       steps: [
         {
-          explanation: "Substitute x = 2 into the rule.",
-          latex: "y = 3(2) + 1 = 7",
+          explanation: "A point is on the line only if it obeys the rule, so feed its x-value in.",
+          latex: "y = 3(2) + 1",
         },
         {
-          explanation: "The calculated y equals the given y.",
-          latex: "7 = 7 \\Rightarrow \\text{yes, the point is on the line}",
+          explanation: "Work out the y the rule predicts at x = 2.",
+          latex: "y = 6 + 1 = 7",
+        },
+        {
+          explanation: "The predicted y matches the point's y-value, so the point sits on the line.",
+          latex: "7 = 7 \\quad\\checkmark",
         },
       ],
       finalAnswerLatex: "\\text{Yes. }(2, 7)\\text{ lies on }y = 3x + 1.",
+    } as WorkedExample,
+    {
+      title: "Harder: find both intercepts and use them to graph the line",
+      questionLatex:
+        "\\text{Find the x- and y-intercepts of }y = -2x + 8\\text{ and use them to sketch the line.}",
+      steps: [
+        {
+          explanation: "Find the y-intercept first by setting x = 0.",
+          latex: "y = -2(0) + 8 = 8",
+        },
+        {
+          explanation: "Now set y = 0 to find the x-intercept.",
+          latex: "0 = -2x + 8",
+        },
+        {
+          explanation: "Add 2x to both sides to keep the variable positive.",
+          latex: "2x = 8",
+        },
+        {
+          explanation: "Divide both sides by 2.",
+          latex: "x = 4",
+        },
+        {
+          explanation: "Plot (0, 8) and (4, 0) and rule a line through them; the negative gradient makes it fall.",
+          latex: "(0,8)\\text{ and }(4,0)",
+        },
+      ],
+      finalAnswerLatex: "\\text{y-intercept }(0,\\,8),\\;\\text{ x-intercept }(4,\\,0).",
+      cartesianGraph: lineGraph(
+        "Graph of y = −2x + 8 through its intercepts (0, 8) and (4, 0)",
+        -2,
+        8,
+        -2,
+        6,
+        -2,
+        10,
+        1,
+        2,
+        [
+          { x: 0, y: 8 },
+          { x: 4, y: 0 },
+        ]
+      ),
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -2210,14 +2443,19 @@ const gradientAsRateOfChange: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "The gradient of a line measures its steepness. A steeper line has a larger gradient. Gradient is calculated as rise ÷ run: the vertical change divided by the horizontal change.",
-      "A line that rises from left to right has a positive gradient. A line that falls from left to right has a negative gradient. A horizontal line has gradient 0.",
-      "In practical situations, the gradient represents a rate of change. For example, on a distance-time graph, gradient gives speed (km/h). On a cost graph, gradient gives cost per item.",
+      "Gradient is a single number that captures how steep a line is — how much it climbs for each step you take to the right. A gentle ramp has a small gradient; a steep staircase has a large one. The clever part is turning the vague word \"steep\" into something you can actually measure and compare.",
+      "Imagine walking along a hillside path. For every 1 metre you move forward (horizontally), you also rise some amount upward. If you rise 2 metres for each metre forward, the slope feels twice as steep as rising only 1 metre for each metre forward. That ratio — *how much up for each across* — is the whole idea. A line that rises 6 units while you move 3 units right rises $6 \\div 3 = 2$ units for every single unit across, so its gradient is 2.",
+      "We name the two changes: the *rise* is the vertical change (how far up or down) and the *run* is the horizontal change (how far across). Gradient is defined as rise divided by run. Between two points $(x_1, y_1)$ and $(x_2, y_2)$ the rise is $y_2 - y_1$ and the run is $x_2 - x_1$, so gradient $= \\dfrac{y_2 - y_1}{x_2 - x_1}$.",
+      "But *why* should steepness be rise ÷ run, and not, say, run ÷ rise or rise − run? Two demands pin it down. First, steepness must not depend on *how far* you walk along the line — a straight road is equally steep whether you measure over 1 metre or 100. If you walk twice as far, both the rise and the run double, and in the ratio rise ÷ run that doubling cancels top and bottom, leaving the same number. A difference like rise − run would *not* cancel — it would grow as you walked further — so subtraction cannot measure steepness. Second, dividing rise by run answers the natural question \"how much up *per one* across?\", because dividing by the run scales everything down to a single unit of horizontal travel. That \"per one across\" is exactly what makes two slopes comparable.",
+      "The sign falls out of the same definition and carries real meaning. If the line climbs as you move right, the rise is positive and so is the gradient. If it drops as you move right, the rise is negative — you went *down* — so dividing a negative rise by a positive run gives a negative gradient. A flat line has zero rise, so its gradient is $0 \\div \\text{run} = 0$. Positive means uphill-to-the-right, negative means downhill-to-the-right, zero means flat.",
+      "This is where gradient becomes powerful: it *is* a rate of change. On a distance–time graph the rise is distance and the run is time, so rise ÷ run is distance ÷ time — speed. A gradient of 60 means 60 km gained per hour: 60 km/h. On a cost graph it is dollars per item; on a tank graph, litres per minute. Whenever one quantity changes steadily with another, the gradient is the rate, complete with its units (the y-unit \"per\" the x-unit).",
+      "Two errors trip students, and both dissolve if you hold onto the definition. The first is writing run ÷ rise by accident — flipping the fraction. Anchor it with the phrase \"rise over run\": the change you care about (up/down) goes on top, *per* one unit of across on the bottom. The second is dropping the negative sign on a falling line. A line going *down* to the right has a negative rise, so its gradient must be negative; if your answer is positive for a clearly falling line, you have lost the sign. Note too that \"steeper\" means a larger *size* regardless of sign: a gradient of $-5$ is steeper than $+3$, because $5 > 3$.",
     ],
     latexBlocks: [
       "\\text{gradient} = \\frac{\\text{rise}}{\\text{run}} = \\frac{\\text{vertical change}}{\\text{horizontal change}}",
-      "\\text{From two points: gradient} = \\frac{y_2 - y_1}{x_2 - x_1}",
-      "\\text{Positive gradient: rises left to right.}\\quad\\text{Negative: falls.}\\quad\\text{Zero: horizontal.}",
+      "\\text{From two points: } m = \\frac{y_2 - y_1}{x_2 - x_1}",
+      "\\frac{2\\,\\text{rise}}{2\\,\\text{run}} = \\frac{\\text{rise}}{\\text{run}} \\quad(\\text{walking further does not change steepness})",
+      "\\text{Positive: rises left}\\to\\text{right.}\\quad\\text{Negative: falls.}\\quad\\text{Zero: horizontal.}",
     ],
   },
   workedExamples: [
@@ -2227,11 +2465,19 @@ const gradientAsRateOfChange: LessonContent = {
         "\\text{A line rises 8 units over a horizontal distance of 4 units. Find its gradient.}",
       steps: [
         {
-          explanation: "Gradient = rise ÷ run.",
-          latex: "\\text{gradient} = \\frac{8}{4} = 2",
+          explanation: "Identify the rise (the vertical climb) and the run (the horizontal travel).",
+          latex: "\\text{rise} = 8,\\quad \\text{run} = 4",
+        },
+        {
+          explanation: "Divide rise by run to get the climb per single unit across.",
+          latex: "\\text{gradient} = \\frac{\\text{rise}}{\\text{run}} = \\frac{8}{4}",
+        },
+        {
+          explanation: "Simplify the fraction.",
+          latex: "\\frac{8}{4} = 2",
         },
       ],
-      finalAnswerLatex: "\\text{gradient} = 2",
+      finalAnswerLatex: "\\text{gradient} = 2\\;(\\text{rises 2 units per unit across})",
     } as WorkedExample,
     {
       title: "Find gradient from two points",
@@ -2239,31 +2485,86 @@ const gradientAsRateOfChange: LessonContent = {
         "\\text{Find the gradient of the line through }(1,\\; 2)\\text{ and }(3,\\; 8).",
       steps: [
         {
-          explanation: "Rise = difference in y-values; run = difference in x-values.",
-          latex: "\\text{rise} = 8 - 2 = 6,\\quad \\text{run} = 3 - 1 = 2",
+          explanation: "The rise is the difference in the y-values (second minus first).",
+          latex: "\\text{rise} = 8 - 2 = 6",
         },
         {
-          explanation: "Divide rise by run.",
-          latex: "\\text{gradient} = \\frac{6}{2} = 3",
+          explanation: "The run is the difference in the x-values, in the same order.",
+          latex: "\\text{run} = 3 - 1 = 2",
+        },
+        {
+          explanation: "Write gradient as rise over run.",
+          latex: "\\text{gradient} = \\frac{6}{2}",
+        },
+        {
+          explanation: "Simplify.",
+          latex: "\\frac{6}{2} = 3",
         },
       ],
       finalAnswerLatex: "\\text{gradient} = 3",
+      cartesianGraph: lineGraph(
+        "Line through (1, 2) and (3, 8) showing a rise of 6 over a run of 2",
+        3,
+        -1,
+        -1,
+        5,
+        -2,
+        10,
+        1,
+        1,
+        [
+          { x: 1, y: 2 },
+          { x: 3, y: 8 },
+        ]
+      ),
     } as WorkedExample,
     {
-      title: "Interpret gradient in context",
+      title: "Interpret gradient as speed in context",
       questionLatex:
-        "\\text{A car travels 240 km in 4 hours. Find the gradient of the distance-time graph.}",
+        "\\text{A car travels 240 km in 4 hours at a steady speed. Find the gradient of the distance-time graph and say what it means.}",
       steps: [
         {
-          explanation: "Gradient = rise ÷ run = change in distance ÷ change in time.",
-          latex: "\\text{gradient} = \\frac{240}{4} = 60",
+          explanation: "On a distance-time graph the rise is distance and the run is time.",
+          latex: "\\text{rise} = 240\\text{ km},\\quad \\text{run} = 4\\text{ h}",
         },
         {
-          explanation: "The gradient equals the speed.",
-          latex: "\\text{speed} = 60\\text{ km/h}",
+          explanation: "Gradient is rise ÷ run, which here is distance ÷ time.",
+          latex: "\\text{gradient} = \\frac{240}{4}",
+        },
+        {
+          explanation: "Compute the value and attach the units (km per hour).",
+          latex: "\\frac{240}{4} = 60\\text{ km/h}",
         },
       ],
-      finalAnswerLatex: "60\\text{ km/h}",
+      finalAnswerLatex: "\\text{gradient} = 60,\\;\\text{ i.e. the speed is }60\\text{ km/h}.",
+    } as WorkedExample,
+    {
+      title: "Harder: a falling line and its negative gradient",
+      questionLatex:
+        "\\text{A bath drains so the water level passes through }(2,\\; 9)\\text{ and }(6,\\; 1)\\text{ (level in cm vs time in min). Find the gradient and interpret it.}",
+      steps: [
+        {
+          explanation: "Take the rise as the change in level, second point minus first.",
+          latex: "\\text{rise} = 1 - 9 = -8",
+        },
+        {
+          explanation: "The rise is negative because the level dropped — the line falls.",
+          latex: "\\text{level fell }8\\text{ cm}",
+        },
+        {
+          explanation: "Take the run as the change in time in the same order.",
+          latex: "\\text{run} = 6 - 2 = 4",
+        },
+        {
+          explanation: "Divide the negative rise by the positive run, keeping the sign.",
+          latex: "\\text{gradient} = \\frac{-8}{4} = -2",
+        },
+        {
+          explanation: "Read the rate with units: cm per minute, negative because it is draining.",
+          latex: "-2\\text{ cm/min}",
+        },
+      ],
+      finalAnswerLatex: "\\text{gradient} = -2:\\;\\text{ the level falls }2\\text{ cm each minute.}",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -2732,14 +3033,18 @@ const interpretingLinearGraphs: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "In a practical linear model, the rule y = mx + c has a clear meaning. The y-intercept c is the starting value when x = 0 (e.g. a fixed fee). The gradient m is the rate of change (e.g. cost per item, speed, or fill rate).",
-      "To make a prediction, substitute the known value into the rule and calculate. To work backwards, substitute the known output and solve for the unknown input.",
-      "On a distance-time graph, a horizontal line means the object is not moving. A steeper line means a greater speed. A downward slope means the object is moving back towards the starting point.",
+      "Once a real situation is written as a line, the line *tells a story*. Interpreting a linear graph means translating its two features — where it starts and how fast it changes — back into the language of the problem: dollars, kilometres, litres, hours. The same rule $y = mx + c$ you have been calculating with now becomes something you can read like a sentence.",
+      "Think of hiring a scooter that costs a $20 fixed fee plus $9 for every hour. Before you have ridden at all, at $0$ hours, you already owe $20 — that is where the cost \"starts\". Then every extra hour adds the same $9. So the cost is $C = 9h + 20$: the $20$ is the launch point and the $9$ is the steady rate of climb.",
+      "In $y = mx + c$, those two roles have names. The constant $c$ is the y-intercept: the value of $y$ when $x = 0$, which is the *starting value* of the situation. The coefficient $m$ is the gradient: the *rate of change*, how much $y$ moves for each one-unit rise in $x$, carrying real units such as dollars per hour.",
+      "Why does $c$ land on the starting value and $m$ on the rate? Set $x = 0$ — the very beginning, before any of the variable quantity has happened — and the rule collapses to $y = m(0) + c = c$, so $c$ is exactly the \"before anything happens\" amount. Now step $x$ up by 1: $y$ goes from $mx + c$ to $m(x+1) + c$, an increase of exactly $m$. So $m$ is precisely the amount added per unit, which is the meaning of \"rate\". This is the same gradient = rise ÷ run idea, now read off the rule instead of two points.",
+      "Reading also runs in both directions. To *predict*, put the known input into the rule and compute the output — \"what does 5 hours cost?\" To work *backwards*, put the known output in and solve for the input — \"how many hours give a total of \\$110?\" Same equation; you just choose which letter is unknown and undo the operations to reach it.",
+      "On a distance–time graph the shape itself tells the story: a horizontal line means distance is not changing, so the object is standing still; a steeper line means a faster speed; a line sloping downward means the distance from the start is shrinking, i.e. it is heading back. The two classic mistakes are mixing up the roles and dropping units. The gradient is the *rate* (per-unit change) and the y-intercept is the *starting value* — if a question asks for the call-out fee, that is $c$, not $m$. And always state units: a gradient on a cost-versus-items graph is dollars *per item*, not just a bare number, because the units are what make the interpretation meaningful in the exam.",
     ],
     latexBlocks: [
       "y = mx + c",
-      "m = \\text{rate of change (gradient)},\\quad c = \\text{starting value (y-intercept)}",
-      "\\text{e.g. }C = 3n + 10:\\; \\$10\\text{ fixed cost, }\\$3\\text{ per item}",
+      "c = \\text{starting value (set }x=0)\\,;\\qquad m = \\text{rate of change (per }1\\text{ unit of }x)",
+      "\\text{At }x = 0:\\; y = c. \\qquad x \\to x+1:\\; y\\text{ increases by }m.",
+      "\\text{e.g. }C = 9h + 20:\\; \\$20\\text{ fixed fee},\\; \\$9\\text{ per hour}",
     ],
   },
   workedExamples: [
@@ -2749,47 +3054,91 @@ const interpretingLinearGraphs: LessonContent = {
         "\\text{A hire rule is }C = 25h + 40,\\text{ where }C\\text{ is cost (\\$) and }h\\text{ is hours.}",
       steps: [
         {
-          explanation: "The y-intercept (40) is the fixed starting cost.",
-          latex: "\\text{Fixed cost: }\\$40",
+          explanation: "Read off c: the constant is the cost before any hours, i.e. the fixed fee.",
+          latex: "\\text{at }h = 0:\\; C = 40 \\Rightarrow \\text{fixed cost }\\$40",
         },
         {
-          explanation: "The gradient (25) is the hourly rate.",
-          latex: "\\text{Rate: }\\$25\\text{ per hour}",
+          explanation: "Read off m: the coefficient of h is the cost added per hour.",
+          latex: "m = 25 \\Rightarrow \\$25\\text{ per hour}",
         },
         {
-          explanation: "Find the cost for 3 hours.",
-          latex: "C = 25(3) + 40 = 75 + 40 = 115",
+          explanation: "To find the cost of 3 hours, substitute h = 3.",
+          latex: "C = 25(3) + 40",
+        },
+        {
+          explanation: "Compute the total.",
+          latex: "C = 75 + 40 = 115",
         },
       ],
-      finalAnswerLatex: "\\$115",
+      finalAnswerLatex: "\\text{Fixed }\\$40,\\;\\$25/\\text{hour};\\;\\text{ 3 hours costs }\\$115.",
     } as WorkedExample,
     {
-      title: "Find the gradient from two points on a context graph",
+      title: "Find the rate from two points on a context graph",
       questionLatex:
-        "\\text{A graph of cost passes through }(0,\\;8)\\text{ and }(2,\\;14).\\text{ Find the gradient.}",
+        "\\text{A graph of cost passes through }(0,\\;8)\\text{ and }(2,\\;14).\\text{ Find the gradient and its meaning.}",
       steps: [
         {
-          explanation: "Gradient = rise ÷ run.",
-          latex: "\\text{gradient} = \\frac{14 - 8}{2 - 0} = \\frac{6}{2} = 3",
+          explanation: "The rise is the change in cost (the y-values).",
+          latex: "\\text{rise} = 14 - 8 = 6",
+        },
+        {
+          explanation: "The run is the change in the x-quantity.",
+          latex: "\\text{run} = 2 - 0 = 2",
+        },
+        {
+          explanation: "Gradient is rise over run, the cost added per unit.",
+          latex: "\\text{gradient} = \\frac{6}{2} = 3",
         },
       ],
-      finalAnswerLatex: "\\text{gradient} = 3",
+      finalAnswerLatex: "\\text{gradient} = 3\\;(\\text{cost rises }\\$3\\text{ per unit}).",
     } as WorkedExample,
     {
-      title: "Solve for the input",
+      title: "Work backwards from an output",
       questionLatex:
         "\\text{Rule: }C = 7n + 3.\\text{ For which }n\\text{ is }C = 31?",
       steps: [
         {
-          explanation: "Substitute C = 31.",
+          explanation: "The output is known, so substitute C = 31 and leave n unknown.",
           latex: "7n + 3 = 31",
         },
         {
-          explanation: "Solve.",
-          latex: "7n = 28 \\Rightarrow n = 4",
+          explanation: "Undo the +3 by subtracting 3 from both sides.",
+          latex: "7n = 28",
+        },
+        {
+          explanation: "Undo the ×7 by dividing both sides by 7.",
+          latex: "n = 4",
         },
       ],
       finalAnswerLatex: "n = 4",
+    } as WorkedExample,
+    {
+      title: "Harder: compare two plans to find when they cost the same",
+      questionLatex:
+        "\\text{Plan A: }C = 0.10t + 30.\\;\\text{Plan B: }C = 0.20t + 20.\\;(t = \\text{texts}).\\text{ For how many texts do they cost the same, and what is that cost?}",
+      steps: [
+        {
+          explanation: "Equal cost means the two rules give the same C, so set them equal.",
+          latex: "0.10t + 30 = 0.20t + 20",
+        },
+        {
+          explanation: "Gather the t-terms by subtracting 0.10t from both sides.",
+          latex: "30 = 0.10t + 20",
+        },
+        {
+          explanation: "Undo the +20 by subtracting 20 from both sides.",
+          latex: "10 = 0.10t",
+        },
+        {
+          explanation: "Divide both sides by 0.10 to find t.",
+          latex: "t = 100",
+        },
+        {
+          explanation: "Find the common cost by substituting t = 100 into either plan.",
+          latex: "C = 0.10(100) + 30 = 40",
+        },
+      ],
+      finalAnswerLatex: "\\text{At }100\\text{ texts both cost }\\$40.",
     } as WorkedExample,
   ],
   guidedPractice: [

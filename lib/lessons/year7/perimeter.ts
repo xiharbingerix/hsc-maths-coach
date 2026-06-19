@@ -1,5 +1,6 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import type { PlaneShapeDiagram } from "../types";
 
 function answer(
   id: string,
@@ -7,7 +8,8 @@ function answer(
   latex: string,
   ans: string,
   explanation: string,
-  acceptedAnswers: string[] = []
+  acceptedAnswers: string[] = [],
+  planeShapeDiagram?: PlaneShapeDiagram
 ): PracticeQuestion {
   const autoVariants: string[] = [];
 
@@ -32,6 +34,7 @@ function answer(
     acceptedAnswers: Array.from(new Set([ans, ...acceptedAnswers, ...autoVariants])),
     hint: "Use the perimeter formula for the shape, then substitute the given side lengths.",
     explanation,
+    ...(planeShapeDiagram ? { planeShapeDiagram } : {}),
   };
 }
 
@@ -41,7 +44,8 @@ function choice(
   ans: "A" | "B" | "C" | "D",
   choices: [string, string, string, string],
   explanation: string,
-  latex = "\\text{Select A, B, C, or D.}"
+  latex = "\\text{Select A, B, C, or D.}",
+  planeShapeDiagram?: PlaneShapeDiagram
 ): PracticeQuestion {
   return {
     id,
@@ -51,6 +55,7 @@ function choice(
     answer: ans,
     hint: "Recall the perimeter formula for the shape described.",
     explanation,
+    ...(planeShapeDiagram ? { planeShapeDiagram } : {}),
   };
 }
 
@@ -90,15 +95,17 @@ const perimeterOfPolygons: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Perimeter is the total distance you would walk if you went all the way around the outside of a shape without lifting your feet. Think of it as measuring the fence needed to enclose a paddock — every side counts, and you go all the way around.",
-      "For a rectangle with length l and width w, opposite sides are equal, so instead of adding all four sides separately you can double the sum of one length and one width. A rectangle that is 8 cm long and 3 cm wide has perimeter 2 × (8 + 3) = 2 × 11 = 22 cm.",
-      "A square is a special rectangle where all four sides are equal. Its perimeter is simply 4 times the side length: P = 4s. For a triangle with sides a, b and c, add all three sides: P = a + b + c. For a rhombus or parallelogram both pairs of opposite sides are equal, giving P = 2(a + b). A regular polygon with n sides each of length s has perimeter P = n × s.",
-      "Units matter. If sides are given in centimetres, the perimeter is in centimetres. If you mix units — say one side in metres and another in centimetres — convert everything to the same unit before you add. The most common error is forgetting to convert before adding.",
+      "Perimeter is the distance all the way around the boundary of a shape. Imagine an ant walking along every edge until it gets back to where it started — the total distance it walks is the perimeter. It is a length, so it is measured in length units like centimetres or metres, never in square units.",
+      "Picture a rectangular paddock that is 8 m long and 3 m wide. To walk right around it you go along the bottom (8 m), up the right side (3 m), back along the top (8 m), and down the left side (3 m). Adding those four edges gives 8 + 3 + 8 + 3 = 22 m. That is all perimeter ever is: every side added up once.",
+      "In symbols we write the perimeter as $P$. For a rectangle with length $l$ and width $w$, the four sides are $l$, $w$, $l$ and $w$, so $P = l + w + l + w$. We can write this more neatly as $P = 2(l + w)$. For a square every side is the same length $s$, so $P = 4s$. For a triangle with sides $a$, $b$ and $c$ we just add the three sides: $P = a + b + c$.",
+      "Here is why the rectangle shortcut $2(l + w)$ works, rather than us just telling you to use it. A rectangle has two lengths and two widths, so $P = l + l + w + w$. Grouping the matching sides, $l + l = 2l$ and $w + w = 2w$, so $P = 2l + 2w$. Both terms share a factor of 2, and factoring it out gives $P = 2(l + w)$. So '$2(l + w)$' is not a new rule to memorise — it is exactly 'add the four sides', just written compactly.",
+      "The same adding-up idea covers every polygon. A rhombus or parallelogram has two pairs of equal sides $a$ and $b$, so $P = a + b + a + b = 2(a + b)$ — the same structure as the rectangle. A regular polygon has $n$ sides that are all the same length $s$, so instead of adding $s$ to itself $n$ times we just multiply: $P = n \\times s$. Multiplication is repeated addition, so $n \\times s$ is exactly what you would get by adding all $n$ sides.",
+      "Two warnings sit right where students slip. First, perimeter is not area: perimeter adds the sides (a distance around), while area multiplies length by width (the space inside). If you find yourself multiplying $l \\times w$, you have found area, not perimeter. Second, the units must match before you add: you cannot add 3 m and 50 cm as '53' because they are different units. Convert first — 3 m is 300 cm, so the real total uses 300 + 50 = 350 cm.",
     ],
     latexBlocks: [
-      "P_{\\text{rectangle}} = 2(l + w)",
-      "P_{\\text{square}} = 4s",
-      "P_{\\text{triangle}} = a + b + c",
+      "P = l + l + w + w = 2l + 2w = 2(l + w)",
+      "P_{\\text{rectangle}} = 2(l + w) \\qquad P_{\\text{square}} = 4s",
+      "P_{\\text{triangle}} = a + b + c \\qquad P_{\\text{rhombus/parallelogram}} = 2(a + b)",
       "P_{\\text{regular polygon}} = n \\times s",
     ],
   },
@@ -107,17 +114,30 @@ const perimeterOfPolygons: LessonContent = {
       title: "Perimeter of a rectangle",
       questionLatex:
         "\\text{Find the perimeter of a rectangle with length }9\\text{ cm and width }4\\text{ cm.}",
+      planeShapeDiagram: {
+        description:
+          "Rectangle with length 9 cm along the bottom and top, and width 4 cm up each side. Right angles at all four corners.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 9, y: 0, rightAngle: true },
+          { x: 9, y: 4, rightAngle: true },
+          { x: 0, y: 4, rightAngle: true },
+        ],
+        edges: [{ label: "9 cm" }, { label: "4 cm" }, { label: "9 cm" }, { label: "4 cm" }],
+        fill: "blue",
+      },
       steps: [
         {
-          explanation: "Write down the rectangle perimeter formula.",
+          explanation:
+            "A rectangle has two lengths and two widths, so the perimeter is those four sides added; we write this compactly as 2(l + w).",
           latex: "P = 2(l + w)",
         },
         {
-          explanation: "Substitute l = 9 and w = 4 into the formula.",
+          explanation: "Substitute l = 9 and w = 4, adding inside the brackets first.",
           latex: "P = 2(9 + 4) = 2 \\times 13",
         },
         {
-          explanation: "Multiply to get the perimeter.",
+          explanation: "Multiply by 2, which accounts for the matching pair of sides.",
           latex: "P = 26 \\text{ cm}",
         },
       ],
@@ -127,17 +147,29 @@ const perimeterOfPolygons: LessonContent = {
       title: "Perimeter of a triangle with mixed sides",
       questionLatex:
         "\\text{Find the perimeter of a triangle with sides }7\\text{ cm, }5\\text{ cm and }9\\text{ cm.}",
+      planeShapeDiagram: {
+        description:
+          "Scalene triangle with sides labelled 7 cm, 5 cm and 9 cm.",
+        vertices: [
+          { x: 0, y: 0 },
+          { x: 9, y: 0 },
+          { x: 6.4, y: 3.6 },
+        ],
+        edges: [{ label: "9 cm" }, { label: "5 cm" }, { label: "7 cm" }],
+        fill: "teal",
+      },
       steps: [
         {
-          explanation: "Write the formula for the perimeter of a triangle.",
+          explanation:
+            "A triangle has no equal-side shortcut, so just add every side once.",
           latex: "P = a + b + c",
         },
         {
-          explanation: "Substitute the three side lengths.",
+          explanation: "Substitute the three given side lengths.",
           latex: "P = 7 + 5 + 9",
         },
         {
-          explanation: "Add the sides to find the perimeter.",
+          explanation: "Add the sides to get the total distance around.",
           latex: "P = 21 \\text{ cm}",
         },
       ],
@@ -147,10 +179,31 @@ const perimeterOfPolygons: LessonContent = {
       title: "Perimeter of a regular hexagon",
       questionLatex:
         "\\text{Find the perimeter of a regular hexagon with side length }6\\text{ m.}",
+      planeShapeDiagram: {
+        description:
+          "Regular hexagon with all six sides equal at 6 m, shown with equal-length tick marks.",
+        vertices: [
+          { x: 1, y: 0 },
+          { x: 3, y: 0 },
+          { x: 4, y: 1.73 },
+          { x: 3, y: 3.46 },
+          { x: 1, y: 3.46 },
+          { x: 0, y: 1.73 },
+        ],
+        edges: [
+          { label: "6 m", ticks: 1 },
+          { ticks: 1 },
+          { ticks: 1 },
+          { ticks: 1 },
+          { ticks: 1 },
+          { ticks: 1 },
+        ],
+        fill: "violet",
+      },
       steps: [
         {
           explanation:
-            "A regular hexagon has 6 equal sides, so use P = n × s with n = 6.",
+            "A regular hexagon has 6 equal sides, so adding them all is the same as multiplying one side by 6.",
           latex: "P = n \\times s = 6 \\times 6",
         },
         {
@@ -159,6 +212,49 @@ const perimeterOfPolygons: LessonContent = {
         },
       ],
       finalAnswerLatex: "P = 36 \\text{ m}",
+    },
+    {
+      title: "Work backwards from a perimeter (harder)",
+      questionLatex:
+        "\\text{A rectangle has perimeter }34\\text{ cm. Its length is }10\\text{ cm. Find its width, then its area.}",
+      planeShapeDiagram: {
+        description:
+          "Rectangle with length 10 cm along the top and bottom and an unknown width w up each side. The perimeter is 34 cm. Right angles at all four corners.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 10, y: 0, rightAngle: true },
+          { x: 10, y: 7, rightAngle: true },
+          { x: 0, y: 7, rightAngle: true },
+        ],
+        edges: [{ label: "10 cm" }, { label: "w" }, { label: "10 cm" }, { label: "w" }],
+        fill: "amber",
+      },
+      steps: [
+        {
+          explanation:
+            "Start from the perimeter formula, because the perimeter is the known quantity here.",
+          latex: "P = 2(l + w) = 34",
+        },
+        {
+          explanation:
+            "Divide both sides by 2 to undo the doubling, leaving just one length plus one width.",
+          latex: "l + w = 17",
+        },
+        {
+          explanation: "Substitute the known length l = 10 to isolate the width.",
+          latex: "10 + w = 17",
+        },
+        {
+          explanation: "Subtract 10 from both sides to find the width.",
+          latex: "w = 7 \\text{ cm}",
+        },
+        {
+          explanation:
+            "Area is different from perimeter: it multiplies the sides rather than adding them, so multiply length by width.",
+          latex: "A = l \\times w = 10 \\times 7 = 70 \\text{ cm}^2",
+        },
+      ],
+      finalAnswerLatex: "\\text{width} = 7 \\text{ cm}, \\quad \\text{area} = 70 \\text{ cm}^2",
     },
   ],
   guidedPractice: [
@@ -179,21 +275,64 @@ const perimeterOfPolygons: LessonContent = {
       "Find the perimeter of a rectangle with length 10 cm and width 3 cm. Give your answer in cm.",
       "P = 2(l + w) = 2(10 + 3)",
       "26",
-      "P = 2(10 + 3) = 2 × 13 = 26 cm."
+      "P = 2(10 + 3) = 2 × 13 = 26 cm.",
+      [],
+      {
+        description:
+          "Rectangle with length 10 cm along the top and bottom and width 3 cm up each side. Right angles at all four corners.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 10, y: 0, rightAngle: true },
+          { x: 10, y: 3, rightAngle: true },
+          { x: 0, y: 3, rightAngle: true },
+        ],
+        edges: [{ label: "10 cm" }, { label: "3 cm" }, { label: "10 cm" }, { label: "3 cm" }],
+        fill: "blue",
+      }
     ),
     answer(
       "y7-per-pol-g3",
       "Find the perimeter of a square with side length 7 m. Give your answer in m.",
       "P = 4s = 4 \\times 7",
       "28",
-      "P = 4 × 7 = 28 m."
+      "P = 4 × 7 = 28 m.",
+      [],
+      {
+        description:
+          "Square with all four sides equal at 7 m, shown with equal-length tick marks and right angles at each corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 7, y: 0, rightAngle: true },
+          { x: 7, y: 7, rightAngle: true },
+          { x: 0, y: 7, rightAngle: true },
+        ],
+        edges: [
+          { label: "7 m", ticks: 1 },
+          { ticks: 1 },
+          { ticks: 1 },
+          { ticks: 1 },
+        ],
+        fill: "teal",
+      }
     ),
     answer(
       "y7-per-pol-g4",
       "Find the perimeter of a triangle with sides 6 cm, 8 cm, and 10 cm. Give your answer in cm.",
       "P = a + b + c = 6 + 8 + 10",
       "24",
-      "P = 6 + 8 + 10 = 24 cm."
+      "P = 6 + 8 + 10 = 24 cm.",
+      [],
+      {
+        description:
+          "Right-angled triangle with legs 6 cm and 8 cm and hypotenuse 10 cm. The right angle is between the two shorter sides.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 8, y: 0 },
+          { x: 0, y: 6 },
+        ],
+        edges: [{ label: "8 cm" }, { label: "10 cm" }, { label: "6 cm" }],
+        fill: "violet",
+      }
     ),
   ],
   independentPractice: [
@@ -590,6 +729,18 @@ const perimeterOfPolygons: LessonContent = {
       id: "y7-per-pol-mp1",
       prompt:
         "A rectangular vegetable garden is 14 m long and 6 m wide. A separate square flower bed has a side length of 5 m.",
+      planeShapeDiagram: {
+        description:
+          "Rectangular vegetable garden 14 m long along the top and bottom and 6 m wide up each side. A separate square flower bed of side 5 m is described in the problem. Right angles at all four corners of the rectangle.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 14, y: 0, rightAngle: true },
+          { x: 14, y: 6, rightAngle: true },
+          { x: 0, y: 6, rightAngle: true },
+        ],
+        edges: [{ label: "14 m" }, { label: "6 m" }, { label: "14 m" }, { label: "6 m" }],
+        fill: "green",
+      },
       latex: "P_{\\text{rectangle}} = 2(l + w), \\quad P_{\\text{square}} = 4s",
       answer: "40",
       hint: "Use P = 2(l + w) for the rectangle and P = 4s for the square. For part (c), add the two perimeters.",
@@ -651,14 +802,17 @@ const perimeterCompositeShapes: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A composite shape is made by joining two or more simpler shapes together. To find its perimeter, trace all the way around the outside and add every edge you cross. The key question is: which edges are on the outside, and which are internal joins that you should not count?",
-      "Internal edges are the joins between the sub-shapes that end up inside the composite figure — like the invisible seam where two rectangles are glued together. Those internal edges are not part of the perimeter. Only the outer boundary counts.",
-      "For rectilinear shapes (shapes made only of right-angle corners, like L-shapes and T-shapes), opposite outer edges must balance. For example, if an L-shape has a total width of 10 cm and one part of the top edge is 6 cm, the remaining top edge must be 10 − 6 = 4 cm. Use these relationships to find missing side lengths before adding.",
-      "A common strategy is to label every outer side with a letter, fill in all the known lengths, work out any unknown lengths using opposites, and then sum everything. If the perimeter is already given and one side is unknown, set up an equation: total = sum of known sides + unknown side, then solve.",
+      "Perimeter still means the same thing for a more complicated shape: the distance all the way around the boundary. A composite shape is just a shape made by joining or cutting simpler shapes — an L-shape, a T-shape, a staircase. Its perimeter is found exactly as before, by tracing the outline and adding every edge once.",
+      "The one new question is which edges count. Picture two rectangular tiles pushed together to make an L. Where they meet, there is a seam buried inside the shape. If you walk around the outside of the L, you never walk along that seam — it is on the inside. So that internal edge is not part of the perimeter. Only the outer boundary, the line you could trace with your finger without going inside, counts.",
+      "This is exactly why you cannot find a composite perimeter by adding the perimeters of the pieces. When two rectangles join, the two edges that meet at the seam each get hidden. Adding the separate perimeters would count those hidden edges, which are not on the outside. The reliable method is to trace the actual outline of the finished shape and add only those edges.",
+      "Often one or two outer lengths are not labelled, and you find them using a balance idea. On a rectilinear shape (all corners are right angles), the bits of the top edge together span the same total width as the bottom edge. So if an L-shape is 10 cm wide overall and one part of the top is 6 cm, the missing part must make up the rest: $10 - 6 = 4$ cm. The same balance works vertically: the pieces of one side add up to the total height.",
+      "Why does that balance hold? Because every horizontal step you take to the right while tracing the top must eventually be matched by the bottom edge spanning the same overall width — the left wall and right wall are the same distance apart whether you measure along the top or the bottom. So 'missing part = total width − known part' is not a trick; it just says the two pieces of an edge add up to the full span.",
+      "A clean strategy: label every outer side, write in all known lengths, use the balance idea to fill in any missing lengths, then add them all once. The classic mistake is to include the internal seam — name it as you go and skip it. A second mistake is using the full width as a single edge when a notch has split it into two shorter pieces; trace carefully and you will see the extra step sides. If instead the perimeter is given and one side is unknown, add the known sides and subtract from the total: missing = perimeter − (sum of known sides).",
     ],
     latexBlocks: [
-      "P = \\text{sum of all outer side lengths}",
-      "\\text{missing side} = \\text{total opposite length} - \\text{known partial length}",
+      "P = \\text{sum of the outer boundary edges (internal joins are not counted)}",
+      "\\text{missing part of an edge} = \\text{total span} - \\text{known part}",
+      "\\text{missing side (perimeter known)} = P - (\\text{sum of known sides})",
     ],
   },
   workedExamples: [
@@ -666,6 +820,27 @@ const perimeterCompositeShapes: LessonContent = {
       title: "Perimeter of an L-shape",
       questionLatex:
         "\\text{An L-shape is formed by removing a }3\\text{ cm} \\times 2\\text{ cm rectangle from the top-right corner of a }7\\text{ cm} \\times 5\\text{ cm rectangle. Find the perimeter.}",
+      planeShapeDiagram: {
+        description:
+          "L-shape from a 7 cm by 5 cm rectangle with a 3 cm by 2 cm notch removed from the top-right corner. Outer sides clockwise from bottom-left: bottom 7 cm, right 3 cm, step left 3 cm, step up 2 cm, top 4 cm, left 5 cm. Right angles at every corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 7, y: 0, rightAngle: true },
+          { x: 7, y: 3, rightAngle: true },
+          { x: 4, y: 3, rightAngle: true },
+          { x: 4, y: 5, rightAngle: true },
+          { x: 0, y: 5, rightAngle: true },
+        ],
+        edges: [
+          { label: "7 cm" },
+          { label: "3 cm" },
+          { label: "3 cm" },
+          { label: "2 cm" },
+          { label: "4 cm" },
+          { label: "5 cm" },
+        ],
+        fill: "blue",
+      },
       steps: [
         {
           explanation:
@@ -674,7 +849,8 @@ const perimeterCompositeShapes: LessonContent = {
             "\\text{Bottom: } 7, \\text{ Right (lower): } 5-2=3, \\text{ Step horizontal: } 3, \\text{ Step vertical: } 2, \\text{ Top: } 7-3=4, \\text{ Left: } 5",
         },
         {
-          explanation: "Add all six outer sides together.",
+          explanation:
+            "Add all six outer edges once. The notch turned what would be a four-sided rectangle into a six-sided outline.",
           latex: "P = 7 + 3 + 3 + 2 + 4 + 5 = 24 \\text{ cm}",
         },
       ],
@@ -684,6 +860,27 @@ const perimeterCompositeShapes: LessonContent = {
       title: "Finding a missing side then calculating perimeter",
       questionLatex:
         "\\text{A rectilinear shape has a total height of }8\\text{ m and a total width of }10\\text{ m. The shape is an L with a }4\\text{ m} \\times 3\\text{ m notch cut from the top-right. Find the perimeter.}",
+      planeShapeDiagram: {
+        description:
+          "L-shape with total width 10 m and total height 8 m, with a 4 m by 3 m notch cut from the top-right corner. Outer sides clockwise from bottom-left: bottom 10 m, right 5 m, step left 4 m, step up 3 m, top 6 m, left 8 m. Right angles at every corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 10, y: 0, rightAngle: true },
+          { x: 10, y: 5, rightAngle: true },
+          { x: 6, y: 5, rightAngle: true },
+          { x: 6, y: 8, rightAngle: true },
+          { x: 0, y: 8, rightAngle: true },
+        ],
+        edges: [
+          { label: "10 m" },
+          { label: "5 m" },
+          { label: "4 m" },
+          { label: "3 m" },
+          { label: "6 m" },
+          { label: "8 m" },
+        ],
+        fill: "teal",
+      },
       steps: [
         {
           explanation:
@@ -708,16 +905,64 @@ const perimeterCompositeShapes: LessonContent = {
         "\\text{A composite shape has perimeter }40\\text{ cm. Five of its six outer sides measure }6,\\,8,\\,4,\\,3,\\text{ and }9\\text{ cm. Find the missing side length in cm.}",
       steps: [
         {
-          explanation: "Add the five known sides.",
+          explanation:
+            "The perimeter is the sum of all six outer sides, so first add the five we know.",
           latex: "6 + 8 + 4 + 3 + 9 = 30 \\text{ cm}",
         },
         {
           explanation:
-            "Subtract from the total perimeter to find the missing side.",
+            "Whatever is left over from the total perimeter must be the sixth side, so subtract.",
           latex: "\\text{missing} = 40 - 30 = 10 \\text{ cm}",
         },
       ],
       finalAnswerLatex: "\\text{missing side} = 10 \\text{ cm}",
+    },
+    {
+      title: "Joining two rectangles — the seam disappears (harder)",
+      questionLatex:
+        "\\text{Two rectangles, }7\\text{ cm}\\times 4\\text{ cm and }5\\text{ cm}\\times 4\\text{ cm, are joined along a full }4\\text{ cm side. Find the perimeter of the combined shape.}",
+      planeShapeDiagram: {
+        description:
+          "Combined rectangle 12 cm wide and 4 cm tall, formed by joining a 7 cm and a 5 cm rectangle along their shared 4 cm side. The top is labelled 7 cm and 5 cm in two parts and the bottom is the full 12 cm. The 4 cm join is internal and not part of the perimeter.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 12, y: 0, rightAngle: true },
+          { x: 12, y: 4, rightAngle: true },
+          { x: 7, y: 4 },
+          { x: 0, y: 4, rightAngle: true },
+        ],
+        edges: [
+          { label: "12 cm" },
+          { label: "4 cm" },
+          { label: "5 cm" },
+          { label: "7 cm" },
+          { label: "4 cm" },
+        ],
+        fill: "amber",
+      },
+      steps: [
+        {
+          explanation:
+            "Joining along the matching 4 cm sides lines them up into one long rectangle; its length is the two lengths added.",
+          latex: "\\text{combined length} = 7 + 5 = 12 \\text{ cm}",
+        },
+        {
+          explanation:
+            "The width is unchanged at 4 cm, and the 4 cm join is now an internal seam inside the shape, so it is not part of the perimeter.",
+          latex: "\\text{combined shape} = 12 \\text{ cm} \\times 4 \\text{ cm rectangle}",
+        },
+        {
+          explanation:
+            "Add the four outer sides of the combined rectangle using P = 2(l + w).",
+          latex: "P = 2(12 + 4) = 2 \\times 16",
+        },
+        {
+          explanation:
+            "Multiply to get the perimeter. Note it is less than the two separate perimeters because the seam edges are now hidden.",
+          latex: "P = 32 \\text{ cm}",
+        },
+      ],
+      finalAnswerLatex: "P = 32 \\text{ cm}",
     },
   ],
   guidedPractice: [
@@ -736,17 +981,61 @@ const perimeterCompositeShapes: LessonContent = {
     ),
     answer(
       "y7-per-com-g2",
-      "An L-shape has outer sides of 8 cm, 5 cm, 3 cm, 2 cm, 5 cm, and 3 cm. Find its perimeter in cm.",
+      "The L-shape shown has outer sides of 8 cm, 5 cm, 3 cm, 2 cm, 5 cm, and 3 cm. Find its perimeter in cm.",
       "P = 8 + 5 + 3 + 2 + 5 + 3",
       "26",
-      "Add all six outer sides: 8 + 5 + 3 + 2 + 5 + 3 = 26 cm."
+      "Add all six outer sides: 8 + 5 + 3 + 2 + 5 + 3 = 26 cm.",
+      [],
+      {
+        description:
+          "L-shape with six outer sides. Clockwise from the bottom-left: bottom 8 cm, right 2 cm, step left 5 cm, step up 3 cm, top 3 cm, left 5 cm. Right angles at every corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 8, y: 0, rightAngle: true },
+          { x: 8, y: 2, rightAngle: true },
+          { x: 3, y: 2, rightAngle: true },
+          { x: 3, y: 5, rightAngle: true },
+          { x: 0, y: 5, rightAngle: true },
+        ],
+        edges: [
+          { label: "8 cm" },
+          { label: "2 cm" },
+          { label: "5 cm" },
+          { label: "3 cm" },
+          { label: "3 cm" },
+          { label: "5 cm" },
+        ],
+        fill: "blue",
+      }
     ),
     answer(
       "y7-per-com-g3",
-      "A rectilinear shape has a total width of 12 cm. The lower part of the top edge measures 7 cm. Find the length of the remaining top-edge section in cm.",
+      "In the rectilinear shape shown, the total width is 12 cm and the upper part of the top edge measures 7 cm. Find the length of the remaining (stepped) top-edge section, marked ?, in cm.",
       "\\text{missing} = 12 - 7",
       "5",
-      "The two top-edge sections must add up to the total width of 12 cm. Missing section = 12 − 7 = 5 cm."
+      "The two top-edge sections must add up to the total width of 12 cm. Missing section = 12 − 7 = 5 cm.",
+      [],
+      {
+        description:
+          "L-shape with a notch at the top-right. The bottom edge (total width) is 12 cm. The upper top edge is 7 cm and the stepped section labelled ? must total the 12 cm width with it. Right angles at every corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 12, y: 0, rightAngle: true },
+          { x: 12, y: 3, rightAngle: true },
+          { x: 7, y: 3, rightAngle: true },
+          { x: 7, y: 6, rightAngle: true },
+          { x: 0, y: 6, rightAngle: true },
+        ],
+        edges: [
+          { label: "12 cm" },
+          { label: "3 cm" },
+          { label: "?" },
+          { label: "3 cm" },
+          { label: "7 cm" },
+          { label: "6 cm" },
+        ],
+        fill: "teal",
+      }
     ),
     answer(
       "y7-per-com-g4",
@@ -759,31 +1048,123 @@ const perimeterCompositeShapes: LessonContent = {
   independentPractice: [
     answer(
       "y7-per-com-i1",
-      "An L-shape has outer sides of 10 m, 6 m, 4 m, 2 m, 6 m, and 4 m. Find its perimeter in m.",
+      "The L-shape shown has outer sides of 10 m, 6 m, 4 m, 2 m, 6 m, and 4 m. Find its perimeter in m.",
       "P = 10 + 6 + 4 + 2 + 6 + 4",
       "32",
-      "Add all six outer sides: 10 + 6 + 4 + 2 + 6 + 4 = 32 m."
+      "Add all six outer sides: 10 + 6 + 4 + 2 + 6 + 4 = 32 m.",
+      [],
+      {
+        description:
+          "L-shape with six outer sides. Clockwise from the bottom-left: bottom 10 m, right 2 m, step left 6 m, step up 4 m, top 4 m, left 6 m. Right angles at every corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 10, y: 0, rightAngle: true },
+          { x: 10, y: 2, rightAngle: true },
+          { x: 4, y: 2, rightAngle: true },
+          { x: 4, y: 6, rightAngle: true },
+          { x: 0, y: 6, rightAngle: true },
+        ],
+        edges: [
+          { label: "10 m" },
+          { label: "2 m" },
+          { label: "6 m" },
+          { label: "4 m" },
+          { label: "4 m" },
+          { label: "6 m" },
+        ],
+        fill: "blue",
+      }
     ),
     answer(
       "y7-per-com-i2",
-      "A T-shape has outer sides of 9 cm, 2 cm, 3 cm, 6 cm, 3 cm, 2 cm, and 9 cm. The remaining side is 12 cm. Find the perimeter in cm. (Hint: add all eight sides.)",
+      "The T-shape shown has outer sides of 9 cm, 2 cm, 3 cm, 6 cm, 3 cm, 2 cm, and 9 cm, with a remaining top side of 12 cm. Find the perimeter in cm. (Hint: add all eight sides.)",
       "P = 9 + 2 + 3 + 6 + 3 + 2 + 9 + 12",
       "46",
-      "P = 9 + 2 + 3 + 6 + 3 + 2 + 9 + 12 = 46 cm."
+      "P = 9 + 2 + 3 + 6 + 3 + 2 + 9 + 12 = 46 cm.",
+      [],
+      {
+        description:
+          "Upright T-shape with eight outer sides. Clockwise from the bottom-left of the stem: stem bottom 6 cm, right stem 9 cm, right shoulder 3 cm, right bar side 2 cm, top of bar 12 cm, left bar side 2 cm, left shoulder 3 cm, left stem 9 cm. Right angles at every corner.",
+        vertices: [
+          { x: 3, y: 0, rightAngle: true },
+          { x: 9, y: 0, rightAngle: true },
+          { x: 9, y: 9, rightAngle: true },
+          { x: 12, y: 9, rightAngle: true },
+          { x: 12, y: 11, rightAngle: true },
+          { x: 0, y: 11, rightAngle: true },
+          { x: 0, y: 9, rightAngle: true },
+          { x: 3, y: 9, rightAngle: true },
+        ],
+        edges: [
+          { label: "6 cm" },
+          { label: "9 cm" },
+          { label: "3 cm" },
+          { label: "2 cm" },
+          { label: "12 cm" },
+          { label: "2 cm" },
+          { label: "3 cm" },
+          { label: "9 cm" },
+        ],
+        fill: "violet",
+      }
     ),
     answer(
       "y7-per-com-i3",
-      "A rectilinear shape has a total height of 10 m. The upper section on one side is 4 m. Find the length of the lower section of that side in m.",
+      "In the rectilinear shape shown, the total height (left side) is 10 m and the upper stepped section on the right is 4 m. Find the length of the lower right-hand section, marked ?, in m.",
       "\\text{lower} = 10 - 4",
       "6",
-      "The two vertical sections on one side must add to the total height: lower = 10 − 4 = 6 m."
+      "The two vertical sections on the right must add to the total height: lower = 10 − 4 = 6 m.",
+      [],
+      {
+        description:
+          "L-shape with a notch at the top-right. The left side (total height) is 10 m. The right side is split by a step into an upper section of 4 m and a lower section marked ?. Right angles at every corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 8, y: 0, rightAngle: true },
+          { x: 8, y: 6, rightAngle: true },
+          { x: 5, y: 6, rightAngle: true },
+          { x: 5, y: 10, rightAngle: true },
+          { x: 0, y: 10, rightAngle: true },
+        ],
+        edges: [
+          { label: "8 m" },
+          { label: "?" },
+          { label: "3 m" },
+          { label: "4 m" },
+          { label: "5 m" },
+          { label: "10 m" },
+        ],
+        fill: "amber",
+      }
     ),
     answer(
       "y7-per-com-i4",
-      "A rectilinear shape has outer sides of 8 cm, 3 cm, 5 cm, and two unknown sides. The total width is 8 cm and total height is 6 cm. Find the perimeter in cm. (All angles are right angles; the shape is an L with 6 outer sides.)",
+      "The rectilinear L-shape shown has total width 8 cm and total height 6 cm, with a 3 cm × 3 cm step cut from the top-right. Two sides are unmarked. Find the perimeter in cm. (All angles are right angles; the shape has 6 outer sides.)",
       "P = 8 + 6 + 3 + 3 + 5 + 3",
       "28",
-      "Total width 8 cm; the missing horizontal = 8 − 3 = 5 cm, but that is already given. Missing vertical = 6 − 3 = 3 cm. Sides: 8, 6, 3, 3, 5, 3. P = 8 + 6 + 3 + 3 + 5 + 3 = 28 cm."
+      "Total width 8 cm; the missing horizontal = 8 − 3 = 5 cm, but that is already given. Missing vertical = 6 − 3 = 3 cm. Sides: 8, 6, 3, 3, 5, 3. P = 8 + 6 + 3 + 3 + 5 + 3 = 28 cm.",
+      [],
+      {
+        description:
+          "L-shape with total width 8 cm and total height 6 cm, with a 3 cm by 3 cm step cut from the top-right corner. Outer sides clockwise from bottom-left: bottom 8 cm, right (unmarked) ?, step left 3 cm, step up 3 cm, top 5 cm, left 6 cm. Right angles at every corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 8, y: 0, rightAngle: true },
+          { x: 8, y: 3, rightAngle: true },
+          { x: 5, y: 3, rightAngle: true },
+          { x: 5, y: 6, rightAngle: true },
+          { x: 0, y: 6, rightAngle: true },
+        ],
+        edges: [
+          { label: "8 cm" },
+          { label: "?" },
+          { label: "3 cm" },
+          { label: "3 cm" },
+          { label: "5 cm" },
+          { label: "6 cm" },
+        ],
+        fill: "green",
+      }
     ),
     answer(
       "y7-per-com-i5",
@@ -814,24 +1195,90 @@ const perimeterCompositeShapes: LessonContent = {
   masteryQuiz: [
     answer(
       "y7-per-com-m1",
-      "An L-shape has outer sides 6 cm, 4 cm, 2 cm, 2 cm, 4 cm, and 2 cm. Find its perimeter in cm.",
+      "The L-shape shown has outer sides 6 cm, 4 cm, 2 cm, 2 cm, 4 cm, and 2 cm. Find its perimeter in cm.",
       "P = 6 + 4 + 2 + 2 + 4 + 2",
       "20",
-      "P = 6 + 4 + 2 + 2 + 4 + 2 = 20 cm."
+      "P = 6 + 4 + 2 + 2 + 4 + 2 = 20 cm.",
+      [],
+      {
+        description:
+          "L-shape with six outer sides. Clockwise from the bottom-left: bottom 6 cm, right 2 cm, step left 4 cm, step up 2 cm, top 2 cm, left 4 cm. Right angles at every corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 6, y: 0, rightAngle: true },
+          { x: 6, y: 2, rightAngle: true },
+          { x: 2, y: 2, rightAngle: true },
+          { x: 2, y: 4, rightAngle: true },
+          { x: 0, y: 4, rightAngle: true },
+        ],
+        edges: [
+          { label: "6 cm" },
+          { label: "2 cm" },
+          { label: "4 cm" },
+          { label: "2 cm" },
+          { label: "2 cm" },
+          { label: "4 cm" },
+        ],
+        fill: "blue",
+      }
     ),
     choice(
       "y7-per-com-m2",
-      "A rectilinear shape has a total width of 14 cm. One section of the top edge is 9 cm. What is the other top-edge section in cm?",
+      "In the rectilinear shape shown, the total width (bottom edge) is 14 cm and the top edge is 9 cm. What is the stepped section marked ? in cm?",
       "B",
       ["4 cm", "5 cm", "6 cm", "7 cm"],
-      "Missing section = 14 − 9 = 5 cm."
+      "Missing section = 14 − 9 = 5 cm.",
+      "\\text{Select A, B, C, or D.}",
+      {
+        description:
+          "L-shape with a notch at the top-right. The bottom edge (total width) is 14 cm, the top edge is 9 cm, and the stepped horizontal section is marked ?. Right angles at every corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 14, y: 0, rightAngle: true },
+          { x: 14, y: 3, rightAngle: true },
+          { x: 9, y: 3, rightAngle: true },
+          { x: 9, y: 6, rightAngle: true },
+          { x: 0, y: 6, rightAngle: true },
+        ],
+        edges: [
+          { label: "14 cm" },
+          { label: "3 cm" },
+          { label: "?" },
+          { label: "3 cm" },
+          { label: "9 cm" },
+          { label: "6 cm" },
+        ],
+        fill: "teal",
+      }
     ),
     answer(
       "y7-per-com-m3",
-      "A rectilinear shape has outer sides of 15 m, 8 m, 6 m, 4 m, 9 m, and 4 m. Find its perimeter in m.",
+      "The rectilinear L-shape shown has outer sides of 15 m, 8 m, 6 m, 4 m, 9 m, and 4 m. Find its perimeter in m.",
       "P = 15 + 8 + 6 + 4 + 9 + 4",
       "46",
-      "P = 15 + 8 + 6 + 4 + 9 + 4 = 46 m."
+      "P = 15 + 8 + 6 + 4 + 9 + 4 = 46 m.",
+      [],
+      {
+        description:
+          "L-shape with six outer sides. Clockwise from the bottom-left: bottom 15 m, right 4 m, step left 6 m, step up 4 m, top 9 m, left 8 m. Right angles at every corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 15, y: 0, rightAngle: true },
+          { x: 15, y: 4, rightAngle: true },
+          { x: 9, y: 4, rightAngle: true },
+          { x: 9, y: 8, rightAngle: true },
+          { x: 0, y: 8, rightAngle: true },
+        ],
+        edges: [
+          { label: "15 m" },
+          { label: "4 m" },
+          { label: "6 m" },
+          { label: "4 m" },
+          { label: "9 m" },
+          { label: "8 m" },
+        ],
+        fill: "violet",
+      }
     ),
     answer(
       "y7-per-com-m4",
@@ -842,10 +1289,32 @@ const perimeterCompositeShapes: LessonContent = {
     ),
     answer(
       "y7-per-com-m5",
-      "An L-shape is cut from a 10 cm × 8 cm rectangle by removing a 4 cm × 3 cm piece from the top-right corner. Find the perimeter of the L-shape in cm.",
+      "An L-shape is cut from a 10 cm × 8 cm rectangle by removing a 4 cm × 3 cm piece from the top-right corner, as shown. Find the perimeter of the L-shape in cm.",
       "P = 10 + 5 + 4 + 3 + 6 + 8",
       "36",
-      "Sides: bottom 10, right lower (8 − 3 = 5), step horizontal 4, step vertical 3, top (10 − 4 = 6), left 8. P = 10 + 5 + 4 + 3 + 6 + 8 = 36 cm."
+      "Sides: bottom 10, right lower (8 − 3 = 5), step horizontal 4, step vertical 3, top (10 − 4 = 6), left 8. P = 10 + 5 + 4 + 3 + 6 + 8 = 36 cm.",
+      [],
+      {
+        description:
+          "L-shape from a 10 cm by 8 cm rectangle with a 4 cm by 3 cm piece removed from the top-right corner. Outer sides clockwise from bottom-left: bottom 10 cm, right 5 cm, step left 4 cm, step up 3 cm, top 6 cm, left 8 cm. Right angles at every corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 10, y: 0, rightAngle: true },
+          { x: 10, y: 5, rightAngle: true },
+          { x: 6, y: 5, rightAngle: true },
+          { x: 6, y: 8, rightAngle: true },
+          { x: 0, y: 8, rightAngle: true },
+        ],
+        edges: [
+          { label: "10 cm" },
+          { label: "5 cm" },
+          { label: "4 cm" },
+          { label: "3 cm" },
+          { label: "6 cm" },
+          { label: "8 cm" },
+        ],
+        fill: "blue",
+      }
     ),
     answer(
       "y7-per-com-m6",
@@ -868,10 +1337,40 @@ const perimeterCompositeShapes: LessonContent = {
     ),
     answer(
       "y7-per-com-m8",
-      "A staircase shape has four steps, each 3 cm wide and 2 cm high. The overall width is 12 cm and overall height is 8 cm. Find the perimeter of the staircase shape in cm.",
+      "The staircase shape shown has four steps, each 3 cm wide and 2 cm high. The overall width is 12 cm and overall height is 8 cm. Find the perimeter of the staircase shape in cm.",
       "P = 2 \\times 12 + 2 \\times 8",
       "40",
-      "The perimeter of any staircase rectilinear shape equals 2 × total width + 2 × total height regardless of the number of steps. P = 2 × 12 + 2 × 8 = 24 + 16 = 40 cm."
+      "The perimeter of any staircase rectilinear shape equals 2 × total width + 2 × total height regardless of the number of steps. P = 2 × 12 + 2 × 8 = 24 + 16 = 40 cm.",
+      [],
+      {
+        description:
+          "Staircase shape with four steps, each 3 cm wide and 2 cm high. The bottom edge is 12 cm and the right edge is 8 cm; the upper-left boundary descends as four 3 cm by 2 cm steps. Right angles at every corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 12, y: 0, rightAngle: true },
+          { x: 12, y: 8, rightAngle: true },
+          { x: 9, y: 8, rightAngle: true },
+          { x: 9, y: 6, rightAngle: true },
+          { x: 6, y: 6, rightAngle: true },
+          { x: 6, y: 4, rightAngle: true },
+          { x: 3, y: 4, rightAngle: true },
+          { x: 3, y: 2, rightAngle: true },
+          { x: 0, y: 2, rightAngle: true },
+        ],
+        edges: [
+          { label: "12 cm" },
+          { label: "8 cm" },
+          { label: "3 cm" },
+          { label: "2 cm" },
+          { label: "3 cm" },
+          { label: "2 cm" },
+          { label: "3 cm" },
+          { label: "2 cm" },
+          { label: "3 cm" },
+          { label: "2 cm" },
+        ],
+        fill: "amber",
+      }
     ),
     answer(
       "y7-per-com-m9",
@@ -882,20 +1381,64 @@ const perimeterCompositeShapes: LessonContent = {
     ),
     answer(
       "y7-per-com-m10",
-      "An L-shape has a total height of 9 cm and total width of 11 cm. A 5 cm × 4 cm rectangle is cut from the top-right corner. Find the perimeter of the L-shape in cm.",
+      "The L-shape shown has a total height of 9 cm and total width of 11 cm. A 5 cm × 4 cm rectangle is cut from the top-right corner. Find the perimeter of the L-shape in cm.",
       "P = 11 + 5 + 5 + 4 + 6 + 9",
       "40",
-      "Sides: bottom 11, right lower (9 − 4 = 5), step horizontal 5, step vertical 4, top left (11 − 5 = 6), left 9. P = 11 + 5 + 5 + 4 + 6 + 9 = 40 cm."
+      "Sides: bottom 11, right lower (9 − 4 = 5), step horizontal 5, step vertical 4, top left (11 − 5 = 6), left 9. P = 11 + 5 + 5 + 4 + 6 + 9 = 40 cm.",
+      [],
+      {
+        description:
+          "L-shape with total width 11 cm and total height 9 cm, with a 5 cm by 4 cm rectangle cut from the top-right corner. Outer sides clockwise from bottom-left: bottom 11 cm, right 5 cm, step left 5 cm, step up 4 cm, top 6 cm, left 9 cm. Right angles at every corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 11, y: 0, rightAngle: true },
+          { x: 11, y: 5, rightAngle: true },
+          { x: 6, y: 5, rightAngle: true },
+          { x: 6, y: 9, rightAngle: true },
+          { x: 0, y: 9, rightAngle: true },
+        ],
+        edges: [
+          { label: "11 cm" },
+          { label: "5 cm" },
+          { label: "5 cm" },
+          { label: "4 cm" },
+          { label: "6 cm" },
+          { label: "9 cm" },
+        ],
+        fill: "blue",
+      }
     ),
   ],
   masteryQuizPool: [
     withDifficulty(
       answer(
         "y7-per-com-p1",
-        "An L-shape has outer sides of 5 cm, 3 cm, 2 cm, 1 cm, 3 cm, and 2 cm. Find its perimeter in cm.",
+        "The L-shape shown has outer sides of 5 cm, 3 cm, 2 cm, 1 cm, 3 cm, and 2 cm. Find its perimeter in cm.",
         "P = 5 + 3 + 2 + 1 + 3 + 2",
         "16",
-        "Add all six outer sides: 5 + 3 + 2 + 1 + 3 + 2 = 16 cm."
+        "Add all six outer sides: 5 + 3 + 2 + 1 + 3 + 2 = 16 cm.",
+        [],
+        {
+          description:
+            "L-shape with six outer sides. Clockwise from the bottom-left: bottom 5 cm, right 1 cm, step left 3 cm, step up 2 cm, top 2 cm, left 3 cm. Right angles at every corner.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 5, y: 0, rightAngle: true },
+            { x: 5, y: 1, rightAngle: true },
+            { x: 2, y: 1, rightAngle: true },
+            { x: 2, y: 3, rightAngle: true },
+            { x: 0, y: 3, rightAngle: true },
+          ],
+          edges: [
+            { label: "5 cm" },
+            { label: "1 cm" },
+            { label: "3 cm" },
+            { label: "2 cm" },
+            { label: "2 cm" },
+            { label: "3 cm" },
+          ],
+          fill: "blue",
+        }
       ),
       1
     ),
@@ -912,10 +1455,32 @@ const perimeterCompositeShapes: LessonContent = {
     withDifficulty(
       answer(
         "y7-per-com-p3",
-        "A rectilinear shape has a total width of 10 cm. One section of the top edge is 6 cm. Find the remaining top-edge section in cm.",
+        "In the rectilinear shape shown, the total width (bottom) is 10 cm and the top edge is 6 cm. Find the remaining stepped top-edge section, marked ?, in cm.",
         "10 - 6",
         "4",
-        "The two top sections add to the total width: 10 − 6 = 4 cm."
+        "The two top sections add to the total width: 10 − 6 = 4 cm.",
+        [],
+        {
+          description:
+            "L-shape with a notch at the top-right. The bottom edge (total width) is 10 cm, the top edge is 6 cm, and the stepped horizontal section is marked ?. Right angles at every corner.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 10, y: 0, rightAngle: true },
+            { x: 10, y: 3, rightAngle: true },
+            { x: 6, y: 3, rightAngle: true },
+            { x: 6, y: 6, rightAngle: true },
+            { x: 0, y: 6, rightAngle: true },
+          ],
+          edges: [
+            { label: "10 cm" },
+            { label: "3 cm" },
+            { label: "?" },
+            { label: "3 cm" },
+            { label: "6 cm" },
+            { label: "6 cm" },
+          ],
+          fill: "teal",
+        }
       ),
       1
     ),
@@ -932,10 +1497,32 @@ const perimeterCompositeShapes: LessonContent = {
     withDifficulty(
       answer(
         "y7-per-com-p5",
-        "An L-shape has outer sides of 9 m, 5 m, 4 m, 2 m, 5 m, and 3 m. Find its perimeter in m.",
+        "The L-shape shown has outer sides of 9 m, 5 m, 4 m, 2 m, 5 m, and 3 m. Find its perimeter in m.",
         "P = 9 + 5 + 4 + 2 + 5 + 3",
         "28",
-        "Add all six outer sides: 9 + 5 + 4 + 2 + 5 + 3 = 28 m."
+        "Add all six outer sides: 9 + 5 + 4 + 2 + 5 + 3 = 28 m.",
+        [],
+        {
+          description:
+            "L-shape with six outer sides. Clockwise from the bottom-left: bottom 9 m, right 2 m, step left 4 m, step up 3 m, top 5 m, left 5 m. Right angles at every corner.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 9, y: 0, rightAngle: true },
+            { x: 9, y: 2, rightAngle: true },
+            { x: 5, y: 2, rightAngle: true },
+            { x: 5, y: 5, rightAngle: true },
+            { x: 0, y: 5, rightAngle: true },
+          ],
+          edges: [
+            { label: "9 m" },
+            { label: "2 m" },
+            { label: "4 m" },
+            { label: "3 m" },
+            { label: "5 m" },
+            { label: "5 m" },
+          ],
+          fill: "violet",
+        }
       ),
       2
     ),
@@ -952,30 +1539,96 @@ const perimeterCompositeShapes: LessonContent = {
     withDifficulty(
       answer(
         "y7-per-com-p7",
-        "A rectilinear shape has a total height of 12 cm. The upper vertical section on one side is 5 cm. Find the lower section of that side in cm.",
+        "In the rectilinear shape shown, the total height (left side) is 12 cm and the upper stepped section on the right is 5 cm. Find the lower right-hand section, marked ?, in cm.",
         "12 - 5",
         "7",
-        "The two vertical sections add to the total height: 12 − 5 = 7 cm."
+        "The two vertical sections on the right add to the total height: 12 − 5 = 7 cm.",
+        [],
+        {
+          description:
+            "L-shape with a notch at the top-right. The left side (total height) is 12 cm. The right side is split by a step into an upper section of 5 cm and a lower section marked ?. Right angles at every corner.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 8, y: 0, rightAngle: true },
+            { x: 8, y: 7, rightAngle: true },
+            { x: 5, y: 7, rightAngle: true },
+            { x: 5, y: 12, rightAngle: true },
+            { x: 0, y: 12, rightAngle: true },
+          ],
+          edges: [
+            { label: "8 cm" },
+            { label: "?" },
+            { label: "3 cm" },
+            { label: "5 cm" },
+            { label: "5 cm" },
+            { label: "12 cm" },
+          ],
+          fill: "amber",
+        }
       ),
       2
     ),
     withDifficulty(
       answer(
         "y7-per-com-p8",
-        "An L-shape has outer sides of 7 cm, 4 cm, 3 cm, 2 cm, 4 cm, and 2 cm. Find its perimeter in cm.",
+        "The L-shape shown has outer sides of 7 cm, 4 cm, 3 cm, 2 cm, 4 cm, and 2 cm. Find its perimeter in cm.",
         "P = 7 + 4 + 3 + 2 + 4 + 2",
         "22",
-        "Add all six outer sides: 7 + 4 + 3 + 2 + 4 + 2 = 22 cm."
+        "Add all six outer sides: 7 + 4 + 3 + 2 + 4 + 2 = 22 cm.",
+        [],
+        {
+          description:
+            "L-shape with six outer sides. Clockwise from the bottom-left: bottom 7 cm, right 2 cm, step left 3 cm, step up 2 cm, top 4 cm, left 4 cm. Right angles at every corner.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 7, y: 0, rightAngle: true },
+            { x: 7, y: 2, rightAngle: true },
+            { x: 4, y: 2, rightAngle: true },
+            { x: 4, y: 4, rightAngle: true },
+            { x: 0, y: 4, rightAngle: true },
+          ],
+          edges: [
+            { label: "7 cm" },
+            { label: "2 cm" },
+            { label: "3 cm" },
+            { label: "2 cm" },
+            { label: "4 cm" },
+            { label: "4 cm" },
+          ],
+          fill: "blue",
+        }
       ),
       2
     ),
     withDifficulty(
       choice(
         "y7-per-com-p9",
-        "A rectilinear shape has a total width of 16 cm. One top-edge section is 11 cm. What is the other section in cm?",
+        "In the rectilinear shape shown, the total width (bottom) is 16 cm and the top edge is 11 cm. What is the stepped section marked ? in cm?",
         "B",
         ["4 cm", "5 cm", "6 cm", "7 cm"],
-        "Missing section = 16 − 11 = 5 cm."
+        "Missing section = 16 − 11 = 5 cm.",
+        "\\text{Select A, B, C, or D.}",
+        {
+          description:
+            "L-shape with a notch at the top-right. The bottom edge (total width) is 16 cm, the top edge is 11 cm, and the stepped horizontal section is marked ?. Right angles at every corner.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 16, y: 0, rightAngle: true },
+            { x: 16, y: 3, rightAngle: true },
+            { x: 11, y: 3, rightAngle: true },
+            { x: 11, y: 6, rightAngle: true },
+            { x: 0, y: 6, rightAngle: true },
+          ],
+          edges: [
+            { label: "16 cm" },
+            { label: "3 cm" },
+            { label: "?" },
+            { label: "3 cm" },
+            { label: "11 cm" },
+            { label: "6 cm" },
+          ],
+          fill: "teal",
+        }
       ),
       2
     ),
@@ -992,20 +1645,68 @@ const perimeterCompositeShapes: LessonContent = {
     withDifficulty(
       answer(
         "y7-per-com-p11",
-        "An L-shape is cut from an 8 cm × 6 cm rectangle by removing a 3 cm × 2 cm piece from the top-right corner. Find the perimeter of the L-shape in cm.",
+        "An L-shape is cut from an 8 cm × 6 cm rectangle by removing a 3 cm × 2 cm piece from the top-right corner, as shown. Find the perimeter of the L-shape in cm.",
         "P = 8 + 4 + 3 + 2 + 5 + 6",
         "28",
-        "Sides: bottom 8, right lower (6 − 2 = 4), step horizontal 3, step vertical 2, top (8 − 3 = 5), left 6. P = 8 + 4 + 3 + 2 + 5 + 6 = 28 cm."
+        "Sides: bottom 8, right lower (6 − 2 = 4), step horizontal 3, step vertical 2, top (8 − 3 = 5), left 6. P = 8 + 4 + 3 + 2 + 5 + 6 = 28 cm.",
+        [],
+        {
+          description:
+            "L-shape from an 8 cm by 6 cm rectangle with a 3 cm by 2 cm piece removed from the top-right corner. Outer sides clockwise from bottom-left: bottom 8 cm, right 4 cm, step left 3 cm, step up 2 cm, top 5 cm, left 6 cm. Right angles at every corner.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 8, y: 0, rightAngle: true },
+            { x: 8, y: 4, rightAngle: true },
+            { x: 5, y: 4, rightAngle: true },
+            { x: 5, y: 6, rightAngle: true },
+            { x: 0, y: 6, rightAngle: true },
+          ],
+          edges: [
+            { label: "8 cm" },
+            { label: "4 cm" },
+            { label: "3 cm" },
+            { label: "2 cm" },
+            { label: "5 cm" },
+            { label: "6 cm" },
+          ],
+          fill: "blue",
+        }
       ),
       3
     ),
     withDifficulty(
       answer(
         "y7-per-com-p12",
-        "A staircase rectilinear shape has overall width 15 cm and overall height 9 cm. Find its perimeter in cm.",
+        "The staircase rectilinear shape shown has overall width 15 cm and overall height 9 cm. Find its perimeter in cm.",
         "P = 2 \\times 15 + 2 \\times 9",
         "48",
-        "A staircase rectilinear shape has perimeter 2 × width + 2 × height = 30 + 18 = 48 cm."
+        "A staircase rectilinear shape has perimeter 2 × width + 2 × height = 30 + 18 = 48 cm.",
+        [],
+        {
+          description:
+            "Staircase shape with three steps, each 5 cm wide and 3 cm high. The bottom edge is 15 cm and the right edge is 9 cm; the upper-left boundary descends as three 5 cm by 3 cm steps. Right angles at every corner.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 15, y: 0, rightAngle: true },
+            { x: 15, y: 9, rightAngle: true },
+            { x: 10, y: 9, rightAngle: true },
+            { x: 10, y: 6, rightAngle: true },
+            { x: 5, y: 6, rightAngle: true },
+            { x: 5, y: 3, rightAngle: true },
+            { x: 0, y: 3, rightAngle: true },
+          ],
+          edges: [
+            { label: "15 cm" },
+            { label: "9 cm" },
+            { label: "5 cm" },
+            { label: "3 cm" },
+            { label: "5 cm" },
+            { label: "3 cm" },
+            { label: "5 cm" },
+            { label: "3 cm" },
+          ],
+          fill: "amber",
+        }
       ),
       3
     ),
@@ -1022,10 +1723,32 @@ const perimeterCompositeShapes: LessonContent = {
     withDifficulty(
       answer(
         "y7-per-com-p14",
-        "A rectilinear shape has a total width of 14 m and total height of 10 m. It is an L formed by cutting a 6 m × 4 m notch from the top-right corner. Find the perimeter in m.",
+        "The rectilinear L-shape shown has a total width of 14 m and total height of 10 m, formed by cutting a 6 m × 4 m notch from the top-right corner. Find the perimeter in m.",
         "P = 14 + 6 + 6 + 4 + 8 + 10",
         "48",
-        "Sides: bottom 14, right lower (10 − 4 = 6), step horizontal 6, step vertical 4, top (14 − 6 = 8), left 10. P = 14 + 6 + 6 + 4 + 8 + 10 = 48 m."
+        "Sides: bottom 14, right lower (10 − 4 = 6), step horizontal 6, step vertical 4, top (14 − 6 = 8), left 10. P = 14 + 6 + 6 + 4 + 8 + 10 = 48 m.",
+        [],
+        {
+          description:
+            "L-shape with total width 14 m and total height 10 m, with a 6 m by 4 m notch cut from the top-right corner. Outer sides clockwise from bottom-left: bottom 14 m, right 6 m, step left 6 m, step up 4 m, top 8 m, left 10 m. Right angles at every corner.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 14, y: 0, rightAngle: true },
+            { x: 14, y: 6, rightAngle: true },
+            { x: 8, y: 6, rightAngle: true },
+            { x: 8, y: 10, rightAngle: true },
+            { x: 0, y: 10, rightAngle: true },
+          ],
+          edges: [
+            { label: "14 m" },
+            { label: "6 m" },
+            { label: "6 m" },
+            { label: "4 m" },
+            { label: "8 m" },
+            { label: "10 m" },
+          ],
+          fill: "green",
+        }
       ),
       3
     ),
@@ -1042,20 +1765,76 @@ const perimeterCompositeShapes: LessonContent = {
     withDifficulty(
       answer(
         "y7-per-com-p16",
-        "An L-shape is cut from a 12 cm × 9 cm rectangle by removing a 5 cm × 4 cm piece from the top-right corner. Find the perimeter of the L-shape in cm.",
+        "An L-shape is cut from a 12 cm × 9 cm rectangle by removing a 5 cm × 4 cm piece from the top-right corner, as shown. Find the perimeter of the L-shape in cm.",
         "P = 12 + 5 + 5 + 4 + 7 + 9",
         "42",
-        "Sides: bottom 12, right lower (9 − 4 = 5), step horizontal 5, step vertical 4, top (12 − 5 = 7), left 9. P = 12 + 5 + 5 + 4 + 7 + 9 = 42 cm."
+        "Sides: bottom 12, right lower (9 − 4 = 5), step horizontal 5, step vertical 4, top (12 − 5 = 7), left 9. P = 12 + 5 + 5 + 4 + 7 + 9 = 42 cm.",
+        [],
+        {
+          description:
+            "L-shape from a 12 cm by 9 cm rectangle with a 5 cm by 4 cm piece removed from the top-right corner. Outer sides clockwise from bottom-left: bottom 12 cm, right 5 cm, step left 5 cm, step up 4 cm, top 7 cm, left 9 cm. Right angles at every corner.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 12, y: 0, rightAngle: true },
+            { x: 12, y: 5, rightAngle: true },
+            { x: 7, y: 5, rightAngle: true },
+            { x: 7, y: 9, rightAngle: true },
+            { x: 0, y: 9, rightAngle: true },
+          ],
+          edges: [
+            { label: "12 cm" },
+            { label: "5 cm" },
+            { label: "5 cm" },
+            { label: "4 cm" },
+            { label: "7 cm" },
+            { label: "9 cm" },
+          ],
+          fill: "blue",
+        }
       ),
       4
     ),
     withDifficulty(
       answer(
         "y7-per-com-p17",
-        "A staircase shape has 5 steps, each 2 cm wide and 3 cm high. The overall width is 10 cm and overall height is 15 cm. Find the perimeter in cm.",
+        "The staircase shape shown has 5 steps, each 2 cm wide and 3 cm high. The overall width is 10 cm and overall height is 15 cm. Find the perimeter in cm.",
         "P = 2 \\times 10 + 2 \\times 15",
         "50",
-        "A staircase rectilinear shape has perimeter 2 × width + 2 × height = 20 + 30 = 50 cm, regardless of the number of steps."
+        "A staircase rectilinear shape has perimeter 2 × width + 2 × height = 20 + 30 = 50 cm, regardless of the number of steps.",
+        [],
+        {
+          description:
+            "Staircase shape with five steps, each 2 cm wide and 3 cm high. The bottom edge is 10 cm and the right edge is 15 cm; the upper-left boundary descends as five 2 cm by 3 cm steps. Right angles at every corner.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 10, y: 0, rightAngle: true },
+            { x: 10, y: 15, rightAngle: true },
+            { x: 8, y: 15, rightAngle: true },
+            { x: 8, y: 12, rightAngle: true },
+            { x: 6, y: 12, rightAngle: true },
+            { x: 6, y: 9, rightAngle: true },
+            { x: 4, y: 9, rightAngle: true },
+            { x: 4, y: 6, rightAngle: true },
+            { x: 2, y: 6, rightAngle: true },
+            { x: 2, y: 3, rightAngle: true },
+            { x: 0, y: 3, rightAngle: true },
+          ],
+          edges: [
+            { label: "10 cm" },
+            { label: "15 cm" },
+            { label: "2 cm" },
+            { label: "3 cm" },
+            { label: "2 cm" },
+            { label: "3 cm" },
+            { label: "2 cm" },
+            { label: "3 cm" },
+            { label: "2 cm" },
+            { label: "3 cm" },
+            { label: "2 cm" },
+            { label: "3 cm" },
+          ],
+          fill: "amber",
+        }
       ),
       4
     ),
@@ -1082,30 +1861,106 @@ const perimeterCompositeShapes: LessonContent = {
     withDifficulty(
       answer(
         "y7-per-com-p20",
-        "An L-shape is cut from a 20 cm × 14 cm rectangle by removing an 8 cm × 6 cm piece from a top corner. Find the perimeter of the L-shape in cm.",
+        "An L-shape is cut from a 20 cm × 14 cm rectangle by removing an 8 cm × 6 cm piece from the top-right corner, as shown. Find the perimeter of the L-shape in cm.",
         "P = 20 + 8 + 8 + 6 + 12 + 14",
         "68",
-        "Sides: bottom 20, right lower (14 − 6 = 8), step horizontal 8, step vertical 6, top (20 − 8 = 12), left 14. P = 20 + 8 + 8 + 6 + 12 + 14 = 68 cm."
+        "Sides: bottom 20, right lower (14 − 6 = 8), step horizontal 8, step vertical 6, top (20 − 8 = 12), left 14. P = 20 + 8 + 8 + 6 + 12 + 14 = 68 cm.",
+        [],
+        {
+          description:
+            "L-shape from a 20 cm by 14 cm rectangle with an 8 cm by 6 cm piece removed from the top-right corner. Outer sides clockwise from bottom-left: bottom 20 cm, right 8 cm, step left 8 cm, step up 6 cm, top 12 cm, left 14 cm. Right angles at every corner.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 20, y: 0, rightAngle: true },
+            { x: 20, y: 8, rightAngle: true },
+            { x: 12, y: 8, rightAngle: true },
+            { x: 12, y: 14, rightAngle: true },
+            { x: 0, y: 14, rightAngle: true },
+          ],
+          edges: [
+            { label: "20 cm" },
+            { label: "8 cm" },
+            { label: "8 cm" },
+            { label: "6 cm" },
+            { label: "12 cm" },
+            { label: "14 cm" },
+          ],
+          fill: "blue",
+        }
       ),
       4
     ),
     withDifficulty(
       answer(
         "y7-per-com-p21",
-        "Two identical 6 cm × 4 cm rectangles are joined along a full 4 cm side to form one larger rectangle. Find the perimeter of the combined shape in cm.",
+        "Two identical 6 cm × 4 cm rectangles are joined along a full 4 cm side to form one larger rectangle, as shown. Find the perimeter of the combined shape in cm.",
         "P = 2(12 + 4)",
         "32",
-        "Joining along the 4 cm sides gives a 12 cm × 4 cm rectangle (the 4 cm join is internal). P = 2(12 + 4) = 2 × 16 = 32 cm."
+        "Joining along the 4 cm sides gives a 12 cm × 4 cm rectangle (the 4 cm join is internal). P = 2(12 + 4) = 2 × 16 = 32 cm.",
+        [],
+        {
+          description:
+            "Combined rectangle 12 cm wide and 4 cm tall, formed by joining two 6 cm by 4 cm rectangles along their shared 4 cm side. The top is shown in two 6 cm parts; the bottom is the full 12 cm. The 4 cm join is internal and not part of the perimeter.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 12, y: 0, rightAngle: true },
+            { x: 12, y: 4, rightAngle: true },
+            { x: 6, y: 4 },
+            { x: 0, y: 4, rightAngle: true },
+          ],
+          edges: [
+            { label: "12 cm" },
+            { label: "4 cm" },
+            { label: "6 cm" },
+            { label: "6 cm" },
+            { label: "4 cm" },
+          ],
+          fill: "teal",
+        }
       ),
       5
     ),
     withDifficulty(
       answer(
         "y7-per-com-p22",
-        "A plus (+) shaped figure is made from five identical 3 cm × 3 cm squares (one centre square with one square on each side). Find the perimeter of the plus shape in cm.",
+        "The plus (+) shaped figure shown is made from five identical 3 cm × 3 cm squares (one centre square with one square on each side). Find the perimeter of the plus shape in cm.",
         "P = 12 \\times 3",
         "36",
-        "The plus shape has 12 exposed outer edges, each 3 cm long. P = 12 × 3 = 36 cm."
+        "The plus shape has 12 exposed outer edges, each 3 cm long. P = 12 × 3 = 36 cm.",
+        [],
+        {
+          description:
+            "Plus (cross) shape made from five 3 cm by 3 cm squares: a centre square with one square on each side. The outline has 12 outer edges, each 3 cm long. Right angles at every corner.",
+          vertices: [
+            { x: 3, y: 0, rightAngle: true },
+            { x: 6, y: 0, rightAngle: true },
+            { x: 6, y: 3, rightAngle: true },
+            { x: 9, y: 3, rightAngle: true },
+            { x: 9, y: 6, rightAngle: true },
+            { x: 6, y: 6, rightAngle: true },
+            { x: 6, y: 9, rightAngle: true },
+            { x: 3, y: 9, rightAngle: true },
+            { x: 3, y: 6, rightAngle: true },
+            { x: 0, y: 6, rightAngle: true },
+            { x: 0, y: 3, rightAngle: true },
+            { x: 3, y: 3, rightAngle: true },
+          ],
+          edges: [
+            { label: "3 cm" },
+            { label: "3 cm" },
+            { label: "3 cm" },
+            { label: "3 cm" },
+            { label: "3 cm" },
+            { label: "3 cm" },
+            { label: "3 cm" },
+            { label: "3 cm" },
+            { label: "3 cm" },
+            { label: "3 cm" },
+            { label: "3 cm" },
+            { label: "3 cm" },
+          ],
+          fill: "violet",
+        }
       ),
       5
     ),
@@ -1122,20 +1977,62 @@ const perimeterCompositeShapes: LessonContent = {
     withDifficulty(
       answer(
         "y7-per-com-p24",
-        "An L-shaped room has a total width of 7 m and total height of 5 m. A 3 m × 2 m rectangle is removed from one corner. Skirting board runs around the entire inside wall. Find the total length of skirting board needed in m.",
+        "The L-shaped room shown has a total width of 7 m and total height of 5 m. A 3 m × 2 m rectangle is removed from the top-right corner. Skirting board runs around the entire inside wall. Find the total length of skirting board needed in m.",
         "P = 7 + 3 + 3 + 2 + 4 + 5",
         "24",
-        "Sides: 7, right lower (5 − 2 = 3), step 3, step 2, top (7 − 3 = 4), left 5. P = 7 + 3 + 3 + 2 + 4 + 5 = 24 m."
+        "Sides: 7, right lower (5 − 2 = 3), step 3, step 2, top (7 − 3 = 4), left 5. P = 7 + 3 + 3 + 2 + 4 + 5 = 24 m.",
+        [],
+        {
+          description:
+            "L-shaped room with total width 7 m and total height 5 m, with a 3 m by 2 m rectangle removed from the top-right corner. Outer walls clockwise from bottom-left: bottom 7 m, right 3 m, step left 3 m, step up 2 m, top 4 m, left 5 m. Right angles at every corner.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 7, y: 0, rightAngle: true },
+            { x: 7, y: 3, rightAngle: true },
+            { x: 4, y: 3, rightAngle: true },
+            { x: 4, y: 5, rightAngle: true },
+            { x: 0, y: 5, rightAngle: true },
+          ],
+          edges: [
+            { label: "7 m" },
+            { label: "3 m" },
+            { label: "3 m" },
+            { label: "2 m" },
+            { label: "4 m" },
+            { label: "5 m" },
+          ],
+          fill: "green",
+        }
       ),
       5
     ),
     withDifficulty(
       answer(
         "y7-per-com-p25",
-        "A composite shape is made of a 10 cm × 6 cm rectangle with a 6 cm × 6 cm square joined onto one full 6 cm end. Find the perimeter of the combined shape in cm.",
+        "A composite shape is made of a 10 cm × 6 cm rectangle with a 6 cm × 6 cm square joined onto one full 6 cm end, as shown. Find the perimeter of the combined shape in cm.",
         "P = 2(16 + 6)",
         "44",
-        "Joining the square onto the full 6 cm end gives a 16 cm × 6 cm rectangle (the 6 cm join is internal). P = 2(16 + 6) = 2 × 22 = 44 cm."
+        "Joining the square onto the full 6 cm end gives a 16 cm × 6 cm rectangle (the 6 cm join is internal). P = 2(16 + 6) = 2 × 22 = 44 cm.",
+        [],
+        {
+          description:
+            "Combined rectangle 16 cm wide and 6 cm tall, formed by joining a 10 cm by 6 cm rectangle and a 6 cm by 6 cm square along their shared 6 cm side. The top is shown in two parts, 10 cm and 6 cm; the bottom is the full 16 cm. The 6 cm join is internal and not part of the perimeter.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 16, y: 0, rightAngle: true },
+            { x: 16, y: 6, rightAngle: true },
+            { x: 10, y: 6 },
+            { x: 0, y: 6, rightAngle: true },
+          ],
+          edges: [
+            { label: "16 cm" },
+            { label: "6 cm" },
+            { label: "6 cm" },
+            { label: "10 cm" },
+            { label: "6 cm" },
+          ],
+          fill: "amber",
+        }
       ),
       5
     ),
@@ -1145,6 +2042,27 @@ const perimeterCompositeShapes: LessonContent = {
       id: "y7-per-com-mp1",
       prompt:
         "An L-shaped patio is formed by removing a rectangular corner piece from a larger rectangle. The full rectangle is 12 m wide and 8 m tall. A piece 5 m wide and 3 m tall is removed from the top-right corner, leaving an L-shape with six outer sides (going clockwise from the bottom-left): bottom 12 m, left 8 m, top-left section, a step down, a step across, and the right side.",
+      planeShapeDiagram: {
+        description:
+          "L-shaped patio from a 12 m by 8 m rectangle with a 5 m by 3 m piece removed from the top-right corner. Outer sides clockwise from bottom-left: bottom 12 m, right (lower) marked ?, step left 5 m, step up 3 m, top-left marked ?, left 8 m. The two marked sides are found in parts (a) and (b). Right angles at every corner.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 12, y: 0, rightAngle: true },
+          { x: 12, y: 5, rightAngle: true },
+          { x: 7, y: 5, rightAngle: true },
+          { x: 7, y: 8, rightAngle: true },
+          { x: 0, y: 8, rightAngle: true },
+        ],
+        edges: [
+          { label: "12 m" },
+          { label: "?" },
+          { label: "5 m" },
+          { label: "3 m" },
+          { label: "?" },
+          { label: "8 m" },
+        ],
+        fill: "blue",
+      },
       latex: "\\text{width} = 12,\\ \\text{height} = 8,\\ \\text{notch} = 5 \\times 3",
       answer: "40",
       hint: "Use 'total − removed part' to find the top-left and right-lower sections, then add all six outer sides.",
@@ -1208,13 +2126,16 @@ const perimeterProblemSolving: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Perimeter problems appear constantly in the real world. A builder needs to know the total length of timber to frame a room. A gardener needs the total length of edging to border a garden bed. A picture framer needs the total length of frame material to fit around a photograph. In every case, you are finding the total distance around the outside of a shape.",
-      "When side lengths involve decimals, the process is identical — just add them carefully. For a rectangular lawn that is 6.5 m by 3.2 m, the perimeter is 2 × (6.5 + 3.2) = 2 × 9.7 = 19.4 m. The same formula applies; the arithmetic just involves decimals.",
-      "Unit conversions inside a problem are essential. If some sides are in metres and others are in centimetres, convert everything to one unit before adding. Remember: 1 m = 100 cm, 1 cm = 10 mm. Once you have the perimeter in a consistent unit, you can then convert the final answer if needed.",
-      "Many real-world problems combine perimeter with cost. If fencing costs $12 per metre and the perimeter is 48 m, the total cost is 48 × $12 = $576. Read the question carefully — sometimes you are given the budget and must work backwards to find the missing side or maximum possible dimension.",
+      "Perimeter is still just the distance around the boundary of a shape — but now it shows up dressed in real situations. Fencing a paddock, edging a garden bed, framing a photo: in each case the material runs all the way around the outside, so the length you need is the perimeter. Spotting that 'this asks for the distance around' is the whole skill; the formula is the same one you already know.",
+      "Picture a rectangular lawn 6.5 m long and 3.2 m wide that you want to edge. Nothing about the method changes because the numbers are decimals — you still add the four sides. Using the shortcut, $P = 2(6.5 + 3.2) = 2 \\times 9.7 = 19.4$ m. The 2 is there for the same reason as always: a rectangle has two lengths and two widths, so you double the sum of one of each.",
+      "When the sides come in different units, you must convert before adding — you cannot add metres to centimetres any more than you can add apples to oranges. The conversions you need are $1\\text{ m} = 100\\text{ cm}$ and $1\\text{ cm} = 10\\text{ mm}$. Convert everything to one unit, add to get the perimeter, then convert the final answer if the question asks for a particular unit.",
+      "Many questions then attach a cost. The reason cost is just multiplication is that every metre of fencing costs the same fixed amount, so total cost is that rate added up once for every metre — which is rate × number of metres. If fencing is $12 per metre and the perimeter is 48 m, the cost is $48 \\times 12 = 576$ dollars. The order is fixed: find the perimeter first, then multiply by the rate. Multiplying before you have the perimeter is the most common error.",
+      "Some problems run the chain backwards: you are given a budget or a total length and must find a missing side. Because cost = perimeter × rate, you recover the perimeter by dividing: perimeter = total cost ÷ rate. Then use the perimeter formula in reverse to find the unknown side — for a square, divide the perimeter by 4; for a rectangle with a known side, substitute into $P = 2(l + w)$ and solve.",
+      "One quiet trap to name now: read what is actually being fenced. If one side of a paddock runs along an existing wall, that side needs no fencing, so you add only the three exposed sides, not the full perimeter. Always check whether the whole boundary is really enclosed, or only part of it.",
     ],
     latexBlocks: [
       "\\text{Total cost} = \\text{perimeter} \\times \\text{cost per unit length}",
+      "\\text{Perimeter} = \\text{total cost} \\div \\text{cost per unit length}",
       "1\\text{ m} = 100\\text{ cm}, \\quad 1\\text{ cm} = 10\\text{ mm}",
     ],
   },
@@ -1223,13 +2144,27 @@ const perimeterProblemSolving: LessonContent = {
       title: "Fencing a rectangular paddock",
       questionLatex:
         "\\text{A rectangular paddock is }24\\text{ m long and }15\\text{ m wide. Fencing costs }\\$8\\text{ per metre. Find the total fencing cost.}",
+      planeShapeDiagram: {
+        description:
+          "Rectangular paddock 24 m long along the top and bottom and 15 m wide up each side. Right angles at all four corners.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 24, y: 0, rightAngle: true },
+          { x: 24, y: 15, rightAngle: true },
+          { x: 0, y: 15, rightAngle: true },
+        ],
+        edges: [{ label: "24 m" }, { label: "15 m" }, { label: "24 m" }, { label: "15 m" }],
+        fill: "green",
+      },
       steps: [
         {
-          explanation: "Find the perimeter of the rectangular paddock.",
+          explanation:
+            "Fencing runs around the whole paddock, so find the perimeter first — never multiply by the rate before you have it.",
           latex: "P = 2(24 + 15) = 2 \\times 39 = 78 \\text{ m}",
         },
         {
-          explanation: "Multiply the perimeter by the cost per metre.",
+          explanation:
+            "Every metre costs $8, so multiply the number of metres by the rate.",
           latex: "\\text{Cost} = 78 \\times 8 = \\$624",
         },
       ],
@@ -1239,10 +2174,22 @@ const perimeterProblemSolving: LessonContent = {
       title: "Perimeter with decimal side lengths",
       questionLatex:
         "\\text{A garden bed is }3.5\\text{ m long and }1.8\\text{ m wide. Find the length of edging needed in metres.}",
+      planeShapeDiagram: {
+        description:
+          "Rectangular garden bed 3.5 m long along the top and bottom and 1.8 m wide up each side. Right angles at all four corners.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 3.5, y: 0, rightAngle: true },
+          { x: 3.5, y: 1.8, rightAngle: true },
+          { x: 0, y: 1.8, rightAngle: true },
+        ],
+        edges: [{ label: "3.5 m" }, { label: "1.8 m" }, { label: "3.5 m" }, { label: "1.8 m" }],
+        fill: "teal",
+      },
       steps: [
         {
           explanation:
-            "Use the rectangle perimeter formula with decimal side lengths.",
+            "Decimals do not change the method: a rectangle still has two lengths and two widths, so use 2(l + w).",
           latex: "P = 2(3.5 + 1.8) = 2 \\times 5.3",
         },
         {
@@ -1256,18 +2203,71 @@ const perimeterProblemSolving: LessonContent = {
       title: "Unit conversion within a perimeter problem",
       questionLatex:
         "\\text{A picture frame is made for a photo that is }45\\text{ cm wide and }600\\text{ mm tall. Find the total length of framing material needed in cm.}",
+      planeShapeDiagram: {
+        description:
+          "Rectangular photo frame, 45 cm wide along the top and bottom and 600 mm (60 cm) tall up each side. Right angles at all four corners.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 45, y: 0, rightAngle: true },
+          { x: 45, y: 60, rightAngle: true },
+          { x: 0, y: 60, rightAngle: true },
+        ],
+        edges: [{ label: "45 cm" }, { label: "600 mm" }, { label: "45 cm" }, { label: "600 mm" }],
+        fill: "violet",
+      },
       steps: [
         {
           explanation:
-            "Convert the height to centimetres so both measurements share the same unit.",
-          latex: "600 \\text{ mm} = 60 \\text{ cm}",
+            "You cannot add mm to cm, so convert first; since 10 mm make 1 cm, divide the millimetres by 10.",
+          latex: "600 \\text{ mm} = 600 \\div 10 = 60 \\text{ cm}",
         },
         {
-          explanation: "Find the perimeter of the rectangle.",
+          explanation:
+            "Now both sides are in centimetres, so add them with the rectangle formula.",
           latex: "P = 2(45 + 60) = 2 \\times 105 = 210 \\text{ cm}",
         },
       ],
       finalAnswerLatex: "P = 210 \\text{ cm of framing material needed}",
+    },
+    {
+      title: "Work backwards from a budget, with a wall (harder)",
+      questionLatex:
+        "\\text{A budget of }\\$480\\text{ buys fencing at }\\$6\\text{ per metre for a square paddock, but one full side runs along a wall and is not fenced. Find the side length.}",
+      planeShapeDiagram: {
+        description:
+          "Square paddock with all four sides equal length s. The top side runs along a wall and is not fenced; the other three sides (left, bottom, right) are fenced. Right angles at all four corners.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 6, y: 0, rightAngle: true },
+          { x: 6, y: 6, rightAngle: true },
+          { x: 0, y: 6, rightAngle: true },
+        ],
+        edges: [
+          { label: "s (fenced)" },
+          { label: "s (fenced)" },
+          { label: "wall — not fenced" },
+          { label: "s (fenced)" },
+        ],
+        fill: "amber",
+      },
+      steps: [
+        {
+          explanation:
+            "Cost = length × rate, so to recover the length of fencing bought, divide the budget by the rate.",
+          latex: "\\text{fencing length} = 480 \\div 6 = 80 \\text{ m}",
+        },
+        {
+          explanation:
+            "The wall side is not fenced, so this 80 m covers only three equal sides of the square, giving 3s = 80.",
+          latex: "3s = 80",
+        },
+        {
+          explanation:
+            "Divide both sides by 3 to find one side length.",
+          latex: "s = 80 \\div 3 \\approx 26.67 \\text{ m}",
+        },
+      ],
+      finalAnswerLatex: "s \\approx 26.67 \\text{ m (three sides fenced, one along the wall)}",
     },
   ],
   guidedPractice: [
@@ -1673,10 +2673,28 @@ const perimeterProblemSolving: LessonContent = {
     withDifficulty(
       answer(
         "y7-per-prb-p25",
-        "Fencing costs $9 per metre. A rectangular paddock is 18 m long and 11 m wide, but one full 18 m side runs along an existing wall and needs no fencing. Find the cost of fencing the other three sides in dollars.",
+        "Fencing costs $9 per metre. The rectangular paddock shown is 18 m long and 11 m wide, but one full 18 m side runs along an existing wall and needs no fencing. Find the cost of fencing the other three sides in dollars.",
         "(18 + 11 + 11) \\times 9",
         "360",
-        "Three sides are fenced: 18 + 11 + 11 = 40 m. Cost = 40 × $9 = $360."
+        "Three sides are fenced: 18 + 11 + 11 = 40 m. Cost = 40 × $9 = $360.",
+        [],
+        {
+          description:
+            "Rectangular paddock 18 m long and 11 m wide. The top 18 m side runs along a wall and is not fenced; the bottom 18 m side and the two 11 m sides are fenced. Right angles at all four corners.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 18, y: 0, rightAngle: true },
+            { x: 18, y: 11, rightAngle: true },
+            { x: 0, y: 11, rightAngle: true },
+          ],
+          edges: [
+            { label: "18 m (fenced)" },
+            { label: "11 m (fenced)" },
+            { label: "18 m — wall, not fenced" },
+            { label: "11 m (fenced)" },
+          ],
+          fill: "green",
+        }
       ),
       5
     ),
@@ -1696,6 +2714,18 @@ const perimeterProblemSolving: LessonContent = {
       id: "y7-per-prb-mp1",
       prompt:
         "A rectangular paddock is 35 m long and 25 m wide. A farmer wants to fence it completely. The fencing wire costs $6 per metre.",
+      planeShapeDiagram: {
+        description:
+          "Rectangular paddock 35 m long along the top and bottom and 25 m wide up each side. Right angles at all four corners.",
+        vertices: [
+          { x: 0, y: 0, rightAngle: true },
+          { x: 35, y: 0, rightAngle: true },
+          { x: 35, y: 25, rightAngle: true },
+          { x: 0, y: 25, rightAngle: true },
+        ],
+        edges: [{ label: "35 m" }, { label: "25 m" }, { label: "35 m" }, { label: "25 m" }],
+        fill: "blue",
+      },
       latex: "P = 2(l + w), \\quad \\text{cost} = P \\times \\text{rate}",
       answer: "720",
       hint: "Find the perimeter first, then multiply by the cost per metre. For part (c), divide the budget by the rate.",

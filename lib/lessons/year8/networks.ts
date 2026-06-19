@@ -107,6 +107,25 @@ const networkFundamentals: LessonContent = {
       title: "Count vertices and edges",
       questionLatex:
         "\\text{A network has vertices } A,B,C,D,E \\text{ with edges } AB, BC, CD, DE, EA \\text{ and } AC. \\text{ Count the vertices and edges.}",
+      diagram: {
+        description:
+          "Undirected network with vertices A, B, C, D, E arranged in a pentagon. Edges: A-B, B-C, C-D, D-E, E-A around the ring, plus the chord A-C.",
+        vertices: [
+          { id: "A", label: "A", x: 210, y: 60 },
+          { id: "B", label: "B", x: 330, y: 145 },
+          { id: "C", label: "C", x: 285, y: 280 },
+          { id: "D", label: "D", x: 135, y: 280 },
+          { id: "E", label: "E", x: 90, y: 145 },
+        ],
+        edges: [
+          { from: "A", to: "B" },
+          { from: "B", to: "C" },
+          { from: "C", to: "D" },
+          { from: "D", to: "E" },
+          { from: "E", to: "A" },
+          { from: "A", to: "C" },
+        ],
+      },
       steps: [
         { explanation: "List the vertices named in the description.", latex: "A, B, C, D, E \\Rightarrow 5 \\text{ vertices}" },
         { explanation: "List the edges named, counting each pair once.", latex: "AB, BC, CD, DE, EA, AC \\Rightarrow 6 \\text{ edges}" },
@@ -117,6 +136,22 @@ const networkFundamentals: LessonContent = {
       title: "Find the degree of a vertex",
       questionLatex:
         "\\text{In the network with edges } AB, AC, AD, BC, \\text{ find the degree of vertex } A.",
+      diagram: {
+        description:
+          "Undirected network with vertices A, B, C, D. Edges: A-B, A-C, A-D and B-C. Vertex A meets three edges.",
+        vertices: [
+          { id: "A", label: "A", x: 200, y: 90 },
+          { id: "B", label: "B", x: 90, y: 200 },
+          { id: "C", label: "C", x: 200, y: 260 },
+          { id: "D", label: "D", x: 320, y: 200 },
+        ],
+        edges: [
+          { from: "A", to: "B" },
+          { from: "A", to: "C" },
+          { from: "A", to: "D" },
+          { from: "B", to: "C" },
+        ],
+      },
       steps: [
         { explanation: "Pick out every edge that has A as one of its ends.", latex: "AB, AC, AD" },
         { explanation: "Count those edges — that is the degree of A.", latex: "\\deg(A) = 3" },
@@ -137,6 +172,20 @@ const networkFundamentals: LessonContent = {
       title: "Read a weighted network",
       questionLatex:
         "\\text{Towns } P,Q,R \\text{ have roads } PQ=5 \\text{ km}, QR=8 \\text{ km}, PR=4 \\text{ km}. \\text{ How far is it from } P \\text{ to } R \\text{ going via } Q?",
+      diagram: {
+        description:
+          "Undirected weighted network of towns P, Q, R forming a triangle. Edge weights (km): P-Q = 5, Q-R = 8, P-R = 4.",
+        vertices: [
+          { id: "P", label: "P", x: 90, y: 250 },
+          { id: "Q", label: "Q", x: 210, y: 70 },
+          { id: "R", label: "R", x: 330, y: 250 },
+        ],
+        edges: [
+          { from: "P", to: "Q", weight: 5 },
+          { from: "Q", to: "R", weight: 8 },
+          { from: "P", to: "R", weight: 4 },
+        ],
+      },
       steps: [
         { explanation: "Going via Q uses the edges PQ then QR, so add their weights.", latex: "PQ + QR = 5 + 8" },
         { explanation: "Add the two weights to get the total distance.", latex: "5 + 8 = 13 \\text{ km}" },
@@ -145,22 +194,59 @@ const networkFundamentals: LessonContent = {
     } as WorkedExample,
   ],
   guidedPractice: [
-    answer(
-      "y8-net-fun-g1",
-      "A network has vertices A, B, C, D with edges AB, BC, CD and DA. How many edges does it have?",
-      "\\text{Edges in the network} = \\;?",
-      "4",
-      "The listed edges are AB, BC, CD and DA — that is 4 edges.",
-      "Count each named pair once.",
-    ),
-    answer(
-      "y8-net-fun-g2",
-      "In the network with edges AB, AC, AD and AE, find the degree of vertex A.",
-      "\\deg(A) = \\;?",
-      "4",
-      "A is an end of AB, AC, AD and AE — that is 4 edges, so $\\deg(A) = 4$.",
-      "Count the edges that touch A.",
-    ),
+    {
+      ...answer(
+        "y8-net-fun-g1",
+        "How many edges does the network shown have?",
+        "\\text{Edges in the network} = \\;?",
+        "4",
+        "The edges are AB, BC, CD and DA — that is 4 edges.",
+        "Count each connecting line once.",
+      ),
+      diagram: {
+        description:
+          "Undirected network with vertices A, B, C, D forming a square. Edges: A-B, B-C, C-D, D-A.",
+        vertices: [
+          { id: "A", label: "A", x: 90, y: 80 },
+          { id: "B", label: "B", x: 320, y: 80 },
+          { id: "C", label: "C", x: 320, y: 260 },
+          { id: "D", label: "D", x: 90, y: 260 },
+        ],
+        edges: [
+          { from: "A", to: "B" },
+          { from: "B", to: "C" },
+          { from: "C", to: "D" },
+          { from: "D", to: "A" },
+        ],
+      },
+    },
+    {
+      ...answer(
+        "y8-net-fun-g2",
+        "Find the degree of vertex A in the network shown.",
+        "\\deg(A) = \\;?",
+        "4",
+        "A is an end of AB, AC, AD and AE — that is 4 edges, so $\\deg(A) = 4$.",
+        "Count the edges that touch A.",
+      ),
+      diagram: {
+        description:
+          "Star network with centre A joined to B, C, D and E. Edges: A-B, A-C, A-D, A-E.",
+        vertices: [
+          { id: "A", label: "A", x: 210, y: 170 },
+          { id: "B", label: "B", x: 210, y: 50 },
+          { id: "C", label: "C", x: 340, y: 170 },
+          { id: "D", label: "D", x: 210, y: 290 },
+          { id: "E", label: "E", x: 80, y: 170 },
+        ],
+        edges: [
+          { from: "A", to: "B" },
+          { from: "A", to: "C" },
+          { from: "A", to: "D" },
+          { from: "A", to: "E" },
+        ],
+      },
+    },
     choice(
       "y8-net-fun-g3",
       "Which best describes a weighted network?",
@@ -184,22 +270,60 @@ const networkFundamentals: LessonContent = {
     ),
   ],
   independentPractice: [
-    answer(
-      "y8-net-fun-i1",
-      "A network has vertices A, B, C, D, E with edges AB, BC, CD, DE, EA. How many edges does it have?",
-      "\\text{Number of edges} = \\;?",
-      "5",
-      "The edges AB, BC, CD, DE, EA make a ring of 5 edges.",
-      "Count each connection once.",
-    ),
-    answer(
-      "y8-net-fun-i2",
-      "In the network with edges AB, AC, BC, BD, find the degree of vertex B.",
-      "\\deg(B) = \\;?",
-      "3",
-      "B is an end of AB, BC and BD — three edges, so $\\deg(B) = 3$.",
-      "Pick out every edge containing B.",
-    ),
+    {
+      ...answer(
+        "y8-net-fun-i1",
+        "How many edges does the network shown have?",
+        "\\text{Number of edges} = \\;?",
+        "5",
+        "The edges AB, BC, CD, DE, EA make a ring of 5 edges.",
+        "Count each connection once.",
+      ),
+      diagram: {
+        description:
+          "Undirected network with vertices A, B, C, D, E forming a pentagon ring. Edges: A-B, B-C, C-D, D-E, E-A.",
+        vertices: [
+          { id: "A", label: "A", x: 210, y: 60 },
+          { id: "B", label: "B", x: 330, y: 145 },
+          { id: "C", label: "C", x: 285, y: 280 },
+          { id: "D", label: "D", x: 135, y: 280 },
+          { id: "E", label: "E", x: 90, y: 145 },
+        ],
+        edges: [
+          { from: "A", to: "B" },
+          { from: "B", to: "C" },
+          { from: "C", to: "D" },
+          { from: "D", to: "E" },
+          { from: "E", to: "A" },
+        ],
+      },
+    },
+    {
+      ...answer(
+        "y8-net-fun-i2",
+        "Find the degree of vertex B in the network shown.",
+        "\\deg(B) = \\;?",
+        "3",
+        "B is an end of AB, BC and BD — three edges, so $\\deg(B) = 3$.",
+        "Pick out every edge containing B.",
+      ),
+      diagram: {
+        description:
+          "Undirected network with vertices A, B, C, D. Edges: A-B, A-C, B-C and B-D. Vertex B meets three edges.",
+        vertices: [
+          { id: "A", label: "A", x: 90, y: 90 },
+          { id: "B", label: "B", x: 210, y: 200 },
+          { id: "C", label: "C", x: 90, y: 280 },
+          { id: "D", label: "D", x: 330, y: 200 },
+        ],
+        edges: [
+          { from: "A", to: "B" },
+          { from: "A", to: "C" },
+          { from: "B", to: "C" },
+          { from: "B", to: "D" },
+        ],
+      },
+    },
     answer(
       "y8-net-fun-i3",
       "A network has 6 vertices with degrees 2, 2, 2, 2, 3 and 3. How many edges does it have?",
@@ -208,28 +332,64 @@ const networkFundamentals: LessonContent = {
       "Sum of degrees $= 2+2+2+2+3+3 = 14$. Edges $= 14 \\div 2 = 7$.",
       "Add all degrees, then divide by 2.",
     ),
-    choice(
-      "y8-net-fun-i4",
-      "A network has vertices A, B, C, D with edges AB, AC, AD, BC, BD, CD (every pair joined). What is the degree of each vertex?",
-      "C",
-      [
-        "1",
-        "2",
-        "3",
-        "4",
-      ],
-      "Each vertex connects to the other 3 vertices, so every vertex has degree 3.",
-      "Count how many other vertices each one is joined to.",
-    ),
-    answer(
-      "y8-net-fun-i5",
-      "Towns X, Y, Z have roads XY = 6 km, YZ = 9 km and XZ = 12 km. Find the distance from X to Z travelling via Y.",
-      "XY + YZ = \\;?",
-      "15",
-      "Via Y uses XY then YZ: $6 + 9 = 15$ km.",
-      "Add the weights of the two edges on the route.",
-      ["15 km"],
-    ),
+    {
+      ...choice(
+        "y8-net-fun-i4",
+        "The network shown joins every pair of its four vertices. What is the degree of each vertex?",
+        "C",
+        [
+          "1",
+          "2",
+          "3",
+          "4",
+        ],
+        "Each vertex connects to the other 3 vertices, so every vertex has degree 3.",
+        "Count how many other vertices each one is joined to.",
+      ),
+      diagram: {
+        description:
+          "Complete network on vertices A, B, C, D with every pair joined. Edges: A-B, A-C, A-D, B-C, B-D, C-D. Each vertex has degree 3.",
+        vertices: [
+          { id: "A", label: "A", x: 90, y: 80 },
+          { id: "B", label: "B", x: 320, y: 80 },
+          { id: "C", label: "C", x: 320, y: 260 },
+          { id: "D", label: "D", x: 90, y: 260 },
+        ],
+        edges: [
+          { from: "A", to: "B" },
+          { from: "A", to: "C" },
+          { from: "A", to: "D" },
+          { from: "B", to: "C" },
+          { from: "B", to: "D" },
+          { from: "C", to: "D" },
+        ],
+      },
+    },
+    {
+      ...answer(
+        "y8-net-fun-i5",
+        "Using the weighted network shown, find the distance from X to Z travelling via Y.",
+        "XY + YZ = \\;?",
+        "15",
+        "Via Y uses XY then YZ: $6 + 9 = 15$ km.",
+        "Add the weights of the two edges on the route.",
+        ["15 km"],
+      ),
+      diagram: {
+        description:
+          "Undirected weighted network of towns X, Y, Z forming a triangle. Edge weights (km): X-Y = 6, Y-Z = 9, X-Z = 12.",
+        vertices: [
+          { id: "X", label: "X", x: 90, y: 250 },
+          { id: "Y", label: "Y", x: 210, y: 70 },
+          { id: "Z", label: "Z", x: 330, y: 250 },
+        ],
+        edges: [
+          { from: "X", to: "Y", weight: 6 },
+          { from: "Y", to: "Z", weight: 9 },
+          { from: "X", to: "Z", weight: 12 },
+        ],
+      },
+    },
   ],
   commonMistakes: [
     {
@@ -250,22 +410,57 @@ const networkFundamentals: LessonContent = {
     },
   ],
   masteryQuiz: [
-    answer(
-      "y8-net-fun-m1",
-      "A network has vertices A, B, C with edges AB, BC and CA. How many edges does it have?",
-      "\\text{Number of edges} = \\;?",
-      "3",
-      "AB, BC and CA make a triangle of 3 edges.",
-      "Count each connection once.",
-    ),
-    answer(
-      "y8-net-fun-m2",
-      "In the network with edges AB, AC, AD, AE, find the degree of vertex A.",
-      "\\deg(A) = \\;?",
-      "4",
-      "A meets AB, AC, AD and AE, so $\\deg(A) = 4$.",
-      "Count the edges touching A.",
-    ),
+    {
+      ...answer(
+        "y8-net-fun-m1",
+        "How many edges does the network shown have?",
+        "\\text{Number of edges} = \\;?",
+        "3",
+        "AB, BC and CA make a triangle of 3 edges.",
+        "Count each connection once.",
+      ),
+      diagram: {
+        description:
+          "Undirected network with vertices A, B, C forming a triangle. Edges: A-B, B-C, C-A.",
+        vertices: [
+          { id: "A", label: "A", x: 210, y: 70 },
+          { id: "B", label: "B", x: 330, y: 270 },
+          { id: "C", label: "C", x: 90, y: 270 },
+        ],
+        edges: [
+          { from: "A", to: "B" },
+          { from: "B", to: "C" },
+          { from: "C", to: "A" },
+        ],
+      },
+    },
+    {
+      ...answer(
+        "y8-net-fun-m2",
+        "Find the degree of vertex A in the network shown.",
+        "\\deg(A) = \\;?",
+        "4",
+        "A meets AB, AC, AD and AE, so $\\deg(A) = 4$.",
+        "Count the edges touching A.",
+      ),
+      diagram: {
+        description:
+          "Star network with centre A joined to B, C, D and E. Edges: A-B, A-C, A-D, A-E.",
+        vertices: [
+          { id: "A", label: "A", x: 210, y: 170 },
+          { id: "B", label: "B", x: 210, y: 50 },
+          { id: "C", label: "C", x: 340, y: 170 },
+          { id: "D", label: "D", x: 210, y: 290 },
+          { id: "E", label: "E", x: 80, y: 170 },
+        ],
+        edges: [
+          { from: "A", to: "B" },
+          { from: "A", to: "C" },
+          { from: "A", to: "D" },
+          { from: "A", to: "E" },
+        ],
+      },
+    },
     choice(
       "y8-net-fun-m3",
       "What does the weight on an edge of a network usually represent?",
@@ -287,22 +482,60 @@ const networkFundamentals: LessonContent = {
       "Sum of degrees $= 10$, so edges $= 10 \\div 2 = 5$.",
       "Add the degrees, then halve.",
     ),
-    answer(
-      "y8-net-fun-m5",
-      "A network has vertices P, Q, R, S with edges PQ, QR, RS, SP and PR. How many edges does it have?",
-      "\\text{Number of edges} = \\;?",
-      "5",
-      "PQ, QR, RS, SP and PR is 5 edges (a square with one diagonal).",
-      "Count every listed pair.",
-    ),
-    answer(
-      "y8-net-fun-m6",
-      "In the network with edges AB, BC, CD, DA and BD, find the degree of vertex B.",
-      "\\deg(B) = \\;?",
-      "3",
-      "B is an end of AB, BC and BD, so $\\deg(B) = 3$.",
-      "Find every edge containing B.",
-    ),
+    {
+      ...answer(
+        "y8-net-fun-m5",
+        "How many edges does the network shown have?",
+        "\\text{Number of edges} = \\;?",
+        "5",
+        "PQ, QR, RS, SP and PR is 5 edges (a square with one diagonal).",
+        "Count every line in the diagram.",
+      ),
+      diagram: {
+        description:
+          "Undirected network with vertices P, Q, R, S forming a square with one diagonal. Edges: P-Q, Q-R, R-S, S-P and the diagonal P-R.",
+        vertices: [
+          { id: "P", label: "P", x: 90, y: 80 },
+          { id: "Q", label: "Q", x: 320, y: 80 },
+          { id: "R", label: "R", x: 320, y: 260 },
+          { id: "S", label: "S", x: 90, y: 260 },
+        ],
+        edges: [
+          { from: "P", to: "Q" },
+          { from: "Q", to: "R" },
+          { from: "R", to: "S" },
+          { from: "S", to: "P" },
+          { from: "P", to: "R" },
+        ],
+      },
+    },
+    {
+      ...answer(
+        "y8-net-fun-m6",
+        "Find the degree of vertex B in the network shown.",
+        "\\deg(B) = \\;?",
+        "3",
+        "B is an end of AB, BC and BD, so $\\deg(B) = 3$.",
+        "Find every edge containing B.",
+      ),
+      diagram: {
+        description:
+          "Undirected network with vertices A, B, C, D forming a square with one diagonal. Edges: A-B, B-C, C-D, D-A and the diagonal B-D. Vertex B meets three edges.",
+        vertices: [
+          { id: "A", label: "A", x: 90, y: 80 },
+          { id: "B", label: "B", x: 320, y: 80 },
+          { id: "C", label: "C", x: 320, y: 260 },
+          { id: "D", label: "D", x: 90, y: 260 },
+        ],
+        edges: [
+          { from: "A", to: "B" },
+          { from: "B", to: "C" },
+          { from: "C", to: "D" },
+          { from: "D", to: "A" },
+          { from: "B", to: "D" },
+        ],
+      },
+    },
     choice(
       "y8-net-fun-m7",
       "The degrees of a network's vertices add to 14. How many edges does the network have?",
@@ -316,15 +549,33 @@ const networkFundamentals: LessonContent = {
       "Each edge is counted twice in the degree sum, so edges $= 14 \\div 2 = 7$.",
       "Halve the degree sum to get the number of edges.",
     ),
-    answer(
-      "y8-net-fun-m8",
-      "Towns A, B, C, D have roads AB = 4, BC = 7, CD = 3 and AD = 10 (km). Find the distance from A to D travelling A–B–C–D.",
-      "AB + BC + CD = \\;?",
-      "14",
-      "$4 + 7 + 3 = 14$ km along the route A–B–C–D.",
-      "Add the weights of the three edges used.",
-      ["14 km"],
-    ),
+    {
+      ...answer(
+        "y8-net-fun-m8",
+        "Using the weighted network shown, find the distance from A to D travelling A–B–C–D.",
+        "AB + BC + CD = \\;?",
+        "14",
+        "$4 + 7 + 3 = 14$ km along the route A–B–C–D.",
+        "Add the weights of the three edges used.",
+        ["14 km"],
+      ),
+      diagram: {
+        description:
+          "Undirected weighted road network with towns A, B, C, D forming a square. Edge weights (km): A-B = 4, B-C = 7, C-D = 3, A-D = 10.",
+        vertices: [
+          { id: "A", label: "A", x: 90, y: 80 },
+          { id: "B", label: "B", x: 320, y: 80 },
+          { id: "C", label: "C", x: 320, y: 260 },
+          { id: "D", label: "D", x: 90, y: 260 },
+        ],
+        edges: [
+          { from: "A", to: "B", weight: 4 },
+          { from: "B", to: "C", weight: 7 },
+          { from: "C", to: "D", weight: 3 },
+          { from: "A", to: "D", weight: 10 },
+        ],
+      },
+    },
     answer(
       "y8-net-fun-m9",
       "A network has 6 vertices, each of degree 2. How many edges does it have?",
@@ -333,42 +584,62 @@ const networkFundamentals: LessonContent = {
       "Sum of degrees $= 6 \\times 2 = 12$, so edges $= 12 \\div 2 = 6$.",
       "Total the degrees, then divide by 2.",
     ),
-    choice(
-      "y8-net-fun-m10",
-      "In a network where every pair of 4 vertices is joined by an edge, how many edges are there in total?",
-      "C",
-      [
-        "4",
-        "5",
-        "6",
-        "8",
-      ],
-      "Each vertex has degree 3, so the degree sum is $4 \\times 3 = 12$ and edges $= 12 \\div 2 = 6$.",
-      "Find each vertex's degree, add them, then halve.",
-    ),
+    {
+      ...choice(
+        "y8-net-fun-m10",
+        "The network shown joins every pair of its four vertices. How many edges are there in total?",
+        "C",
+        [
+          "4",
+          "5",
+          "6",
+          "8",
+        ],
+        "Each vertex has degree 3, so the degree sum is $4 \\times 3 = 12$ and edges $= 12 \\div 2 = 6$.",
+        "Find each vertex's degree, add them, then halve.",
+      ),
+      diagram: {
+        description:
+          "Complete network on vertices A, B, C, D with every pair joined. Edges: A-B, A-C, A-D, B-C, B-D, C-D — 6 edges in total.",
+        vertices: [
+          { id: "A", label: "A", x: 90, y: 80 },
+          { id: "B", label: "B", x: 320, y: 80 },
+          { id: "C", label: "C", x: 320, y: 260 },
+          { id: "D", label: "D", x: 90, y: 260 },
+        ],
+        edges: [
+          { from: "A", to: "B" },
+          { from: "A", to: "C" },
+          { from: "A", to: "D" },
+          { from: "B", to: "C" },
+          { from: "B", to: "D" },
+          { from: "C", to: "D" },
+        ],
+      },
+    },
   ],
   masteryQuizPool: [
-    answer("y8-net-fun-p1", "A network has vertices A, B, C with edges AB and BC. How many edges does it have?", "\\text{Edges} = \\;?", "2", "AB and BC is 2 edges.", "Count the listed connections.", [], 1),
-    answer("y8-net-fun-p2", "A network has vertices A, B, C, D with edges AB, BC, CD. How many edges does it have?", "\\text{Edges} = \\;?", "3", "AB, BC, CD is a chain of 3 edges.", "Count each pair once.", [], 1),
-    answer("y8-net-fun-p3", "In the network with edges AB and AC, find the degree of vertex A.", "\\deg(A) = \\;?", "2", "A meets AB and AC, so $\\deg(A) = 2$.", "Count the edges touching A.", [], 1),
-    answer("y8-net-fun-p4", "A network has vertices A, B, C, D, E in a ring with edges AB, BC, CD, DE, EA. How many vertices does it have?", "\\text{Vertices} = \\;?", "5", "The vertices A, B, C, D, E number 5.", "Count the named dots.", [], 1),
+    { ...answer("y8-net-fun-p1", "How many edges does the network shown have?", "\\text{Edges} = \\;?", "2", "AB and BC is 2 edges.", "Count the lines in the diagram.", [], 1), diagram: { description: "Undirected network with vertices A, B, C in a path. Edges: A-B, B-C.", vertices: [{ id: "A", label: "A", x: 80, y: 150 }, { id: "B", label: "B", x: 210, y: 150 }, { id: "C", label: "C", x: 340, y: 150 }], edges: [{ from: "A", to: "B" }, { from: "B", to: "C" }] } },
+    { ...answer("y8-net-fun-p2", "How many edges does the network shown have?", "\\text{Edges} = \\;?", "3", "AB, BC, CD is a chain of 3 edges.", "Count each line once.", [], 1), diagram: { description: "Undirected network with vertices A, B, C, D in a path. Edges: A-B, B-C, C-D.", vertices: [{ id: "A", label: "A", x: 70, y: 150 }, { id: "B", label: "B", x: 180, y: 150 }, { id: "C", label: "C", x: 290, y: 150 }, { id: "D", label: "D", x: 400, y: 150 }], edges: [{ from: "A", to: "B" }, { from: "B", to: "C" }, { from: "C", to: "D" }] } },
+    { ...answer("y8-net-fun-p3", "Find the degree of vertex A in the network shown.", "\\deg(A) = \\;?", "2", "A meets AB and AC, so $\\deg(A) = 2$.", "Count the edges touching A.", [], 1), diagram: { description: "Undirected network with vertices A, B, C. Edges: A-B and A-C. Vertex A meets two edges.", vertices: [{ id: "A", label: "A", x: 210, y: 80 }, { id: "B", label: "B", x: 90, y: 250 }, { id: "C", label: "C", x: 330, y: 250 }], edges: [{ from: "A", to: "B" }, { from: "A", to: "C" }] } },
+    { ...answer("y8-net-fun-p4", "How many vertices does the network shown have?", "\\text{Vertices} = \\;?", "5", "The vertices A, B, C, D, E number 5.", "Count the dots in the diagram.", [], 1), diagram: { description: "Undirected network with vertices A, B, C, D, E forming a pentagon ring. Edges: A-B, B-C, C-D, D-E, E-A.", vertices: [{ id: "A", label: "A", x: 210, y: 60 }, { id: "B", label: "B", x: 330, y: 145 }, { id: "C", label: "C", x: 285, y: 280 }, { id: "D", label: "D", x: 135, y: 280 }, { id: "E", label: "E", x: 90, y: 145 }], edges: [{ from: "A", to: "B" }, { from: "B", to: "C" }, { from: "C", to: "D" }, { from: "D", to: "E" }, { from: "E", to: "A" }] } },
     choice("y8-net-fun-p5", "What is a vertex in a network?", "A", ["A point (dot) in the network.", "A line joining two points.", "A number on an edge.", "The total number of edges."], "A vertex is a point or dot; edges are the lines joining them.", "Recall the basic vocabulary.", 1),
-    answer("y8-net-fun-p6", "A network has vertices A, B, C, D with edges AB, AC, AD. How many edges does it have?", "\\text{Edges} = \\;?", "3", "AB, AC, AD is 3 edges, all meeting at A.", "Count each connection once.", [], 1),
-    answer("y8-net-fun-p7", "In the network with edges AB, BC and BD, find the degree of vertex B.", "\\deg(B) = \\;?", "3", "B meets AB, BC and BD, so $\\deg(B) = 3$.", "Find every edge containing B.", [], 2),
+    { ...answer("y8-net-fun-p6", "How many edges does the network shown have?", "\\text{Edges} = \\;?", "3", "AB, AC, AD is 3 edges, all meeting at A.", "Count each line once.", [], 1), diagram: { description: "Star network with centre A joined to B, C, D. Edges: A-B, A-C, A-D.", vertices: [{ id: "A", label: "A", x: 210, y: 90 }, { id: "B", label: "B", x: 90, y: 250 }, { id: "C", label: "C", x: 210, y: 280 }, { id: "D", label: "D", x: 330, y: 250 }], edges: [{ from: "A", to: "B" }, { from: "A", to: "C" }, { from: "A", to: "D" }] } },
+    { ...answer("y8-net-fun-p7", "Find the degree of vertex B in the network shown.", "\\deg(B) = \\;?", "3", "B meets AB, BC and BD, so $\\deg(B) = 3$.", "Find every edge containing B.", [], 2), diagram: { description: "Star network with centre B joined to A, C, D. Edges: A-B, B-C, B-D. Vertex B meets three edges.", vertices: [{ id: "B", label: "B", x: 210, y: 90 }, { id: "A", label: "A", x: 90, y: 250 }, { id: "C", label: "C", x: 210, y: 280 }, { id: "D", label: "D", x: 330, y: 250 }], edges: [{ from: "A", to: "B" }, { from: "B", to: "C" }, { from: "B", to: "D" }] } },
     answer("y8-net-fun-p8", "A network has 4 vertices with degrees 2, 2, 1, 1. How many edges does it have?", "\\text{Edges} = \\;?", "3", "Sum $= 6$, so edges $= 6 \\div 2 = 3$.", "Halve the degree sum.", [], 2),
-    answer("y8-net-fun-p9", "A network has vertices A, B, C, D with edges AB, BC, CD, DA, AC. How many edges does it have?", "\\text{Edges} = \\;?", "5", "Four ring edges plus the diagonal AC make 5 edges.", "Count every listed pair.", [], 2),
-    answer("y8-net-fun-p10", "In the network with edges AB, AC, BC, find the degree of vertex C.", "\\deg(C) = \\;?", "2", "C meets AC and BC, so $\\deg(C) = 2$.", "Pick out the edges containing C.", [], 2),
+    { ...answer("y8-net-fun-p9", "How many edges does the network shown have?", "\\text{Edges} = \\;?", "5", "Four ring edges plus the diagonal AC make 5 edges.", "Count every line in the diagram.", [], 2), diagram: { description: "Undirected network with vertices A, B, C, D forming a square with one diagonal. Edges: A-B, B-C, C-D, D-A and the diagonal A-C.", vertices: [{ id: "A", label: "A", x: 90, y: 80 }, { id: "B", label: "B", x: 320, y: 80 }, { id: "C", label: "C", x: 320, y: 260 }, { id: "D", label: "D", x: 90, y: 260 }], edges: [{ from: "A", to: "B" }, { from: "B", to: "C" }, { from: "C", to: "D" }, { from: "D", to: "A" }, { from: "A", to: "C" }] } },
+    { ...answer("y8-net-fun-p10", "Find the degree of vertex C in the network shown.", "\\deg(C) = \\;?", "2", "C meets AC and BC, so $\\deg(C) = 2$.", "Pick out the edges containing C.", [], 2), diagram: { description: "Undirected network with vertices A, B, C forming a triangle. Edges: A-B, A-C, B-C. Vertex C meets two edges.", vertices: [{ id: "A", label: "A", x: 210, y: 70 }, { id: "B", label: "B", x: 330, y: 270 }, { id: "C", label: "C", x: 90, y: 270 }], edges: [{ from: "A", to: "B" }, { from: "A", to: "C" }, { from: "B", to: "C" }] } },
     choice("y8-net-fun-p11", "Which statement about degree is true?", "B", ["Degree counts the vertices in the network.", "Degree counts the edges meeting a vertex.", "Degree is always equal to the number of edges.", "Degree is the weight of an edge."], "The degree of a vertex is the number of edges meeting it.", "Recall the definition of degree.", 2),
-    answer("y8-net-fun-p12", "Towns A, B, C have roads AB = 3, BC = 5. Find the distance A to C via B.", "AB + BC = \\;?", "8", "$3 + 5 = 8$ km via B.", "Add the two edge weights.", ["8 km"], 2),
+    { ...answer("y8-net-fun-p12", "Using the weighted network shown, find the distance from A to C via B.", "AB + BC = \\;?", "8", "$3 + 5 = 8$ km via B.", "Add the two edge weights.", ["8 km"], 2), diagram: { description: "Undirected weighted road network with towns A, B, C in a path. Edge weights (km): A-B = 3, B-C = 5.", vertices: [{ id: "A", label: "A", x: 70, y: 150 }, { id: "B", label: "B", x: 210, y: 150 }, { id: "C", label: "C", x: 350, y: 150 }], edges: [{ from: "A", to: "B", weight: 3 }, { from: "B", to: "C", weight: 5 }] } },
     answer("y8-net-fun-p13", "A network has 5 vertices with degrees 3, 2, 2, 2, 1. How many edges does it have?", "\\text{Edges} = \\;?", "5", "Sum $= 3+2+2+2+1 = 10$, so edges $= 10 \\div 2 = 5$.", "Add the degrees and halve.", [], 3),
-    answer("y8-net-fun-p14", "In the network with edges AB, AC, AD, BC, CD, find the degree of vertex C.", "\\deg(C) = \\;?", "3", "C meets AC, BC and CD, so $\\deg(C) = 3$.", "List every edge containing C.", [], 3),
-    answer("y8-net-fun-p15", "A network has vertices A, B, C, D, E with edges AB, AC, AD, AE, BC. How many edges does it have?", "\\text{Edges} = \\;?", "5", "AB, AC, AD, AE and BC is 5 edges.", "Count each pair once.", [], 3),
+    { ...answer("y8-net-fun-p14", "Find the degree of vertex C in the network shown.", "\\deg(C) = \\;?", "3", "C meets AC, BC and CD, so $\\deg(C) = 3$.", "List every edge containing C.", [], 3), diagram: { description: "Undirected network with vertices A, B, C, D. Edges: A-B, A-C, A-D, B-C, C-D. Vertex C meets three edges.", vertices: [{ id: "A", label: "A", x: 90, y: 80 }, { id: "B", label: "B", x: 320, y: 80 }, { id: "C", label: "C", x: 320, y: 260 }, { id: "D", label: "D", x: 90, y: 260 }], edges: [{ from: "A", to: "B" }, { from: "A", to: "C" }, { from: "A", to: "D" }, { from: "B", to: "C" }, { from: "C", to: "D" }] } },
+    { ...answer("y8-net-fun-p15", "How many edges does the network shown have?", "\\text{Edges} = \\;?", "5", "AB, AC, AD, AE and BC is 5 edges.", "Count each line once.", [], 3), diagram: { description: "Undirected network with vertices A, B, C, D, E. Edges: A-B, A-C, A-D, A-E, B-C.", vertices: [{ id: "A", label: "A", x: 210, y: 170 }, { id: "B", label: "B", x: 210, y: 50 }, { id: "C", label: "C", x: 340, y: 170 }, { id: "D", label: "D", x: 270, y: 290 }, { id: "E", label: "E", x: 80, y: 170 }], edges: [{ from: "A", to: "B" }, { from: "A", to: "C" }, { from: "A", to: "D" }, { from: "A", to: "E" }, { from: "B", to: "C" }] } },
     answer("y8-net-fun-p16", "A network has 6 vertices with degrees 3, 3, 2, 2, 1, 1. How many edges does it have?", "\\text{Edges} = \\;?", "6", "Sum $= 12$, so edges $= 12 \\div 2 = 6$.", "Halve the degree sum.", [], 3),
     choice("y8-net-fun-p17", "A network has degree sum 16. How many edges has it?", "C", ["16", "4", "8", "32"], "Edges $= 16 \\div 2 = 8$.", "Halve the degree sum.", 3),
-    answer("y8-net-fun-p18", "Towns A, B, C, D have roads AB = 2, BC = 4, CD = 6. Find the A-to-D distance via B and C.", "AB + BC + CD = \\;?", "12", "$2 + 4 + 6 = 12$ km.", "Add the three edge weights.", ["12 km"], 3),
-    answer("y8-net-fun-p19", "In the network where all 4 vertices A, B, C, D are joined to each other, find the degree of vertex A.", "\\deg(A) = \\;?", "3", "A joins to B, C and D, so $\\deg(A) = 3$.", "Count how many other vertices A connects to.", [], 4),
-    answer("y8-net-fun-p20", "A network has 5 vertices, every one joined to every other. Find the degree of any vertex.", "\\deg = \\;?", "4", "Each vertex joins the other 4, so each has degree 4.", "Each vertex connects to all the others.", [], 4),
-    answer("y8-net-fun-p21", "A network has 5 vertices, every one joined to every other. How many edges in total?", "\\text{Edges} = \\;?", "10", "Each of 5 vertices has degree 4, sum $= 20$, edges $= 20 \\div 2 = 10$.", "Find the degree of each, add, then halve.", [], 4),
+    { ...answer("y8-net-fun-p18", "Using the weighted network shown, find the A-to-D distance via B and C.", "AB + BC + CD = \\;?", "12", "$2 + 4 + 6 = 12$ km.", "Add the three edge weights.", ["12 km"], 3), diagram: { description: "Undirected weighted road network with towns A, B, C, D in a path. Edge weights (km): A-B = 2, B-C = 4, C-D = 6.", vertices: [{ id: "A", label: "A", x: 70, y: 150 }, { id: "B", label: "B", x: 180, y: 150 }, { id: "C", label: "C", x: 290, y: 150 }, { id: "D", label: "D", x: 400, y: 150 }], edges: [{ from: "A", to: "B", weight: 2 }, { from: "B", to: "C", weight: 4 }, { from: "C", to: "D", weight: 6 }] } },
+    { ...answer("y8-net-fun-p19", "In the network shown every pair of the four vertices is joined. Find the degree of vertex A.", "\\deg(A) = \\;?", "3", "A joins to B, C and D, so $\\deg(A) = 3$.", "Count how many other vertices A connects to.", [], 4), diagram: { description: "Complete network on vertices A, B, C, D with every pair joined. Edges: A-B, A-C, A-D, B-C, B-D, C-D. Each vertex has degree 3.", vertices: [{ id: "A", label: "A", x: 90, y: 80 }, { id: "B", label: "B", x: 320, y: 80 }, { id: "C", label: "C", x: 320, y: 260 }, { id: "D", label: "D", x: 90, y: 260 }], edges: [{ from: "A", to: "B" }, { from: "A", to: "C" }, { from: "A", to: "D" }, { from: "B", to: "C" }, { from: "B", to: "D" }, { from: "C", to: "D" }] } },
+    { ...answer("y8-net-fun-p20", "In the network shown every vertex is joined to every other. Find the degree of any vertex.", "\\deg = \\;?", "4", "Each vertex joins the other 4, so each has degree 4.", "Each vertex connects to all the others.", [], 4), diagram: { description: "Complete network on 5 vertices A, B, C, D, E with every pair joined. Each vertex has degree 4.", vertices: [{ id: "A", label: "A", x: 210, y: 60 }, { id: "B", label: "B", x: 330, y: 145 }, { id: "C", label: "C", x: 285, y: 280 }, { id: "D", label: "D", x: 135, y: 280 }, { id: "E", label: "E", x: 90, y: 145 }], edges: [{ from: "A", to: "B" }, { from: "A", to: "C" }, { from: "A", to: "D" }, { from: "A", to: "E" }, { from: "B", to: "C" }, { from: "B", to: "D" }, { from: "B", to: "E" }, { from: "C", to: "D" }, { from: "C", to: "E" }, { from: "D", to: "E" }] } },
+    { ...answer("y8-net-fun-p21", "In the network shown every vertex is joined to every other. How many edges in total?", "\\text{Edges} = \\;?", "10", "Each of 5 vertices has degree 4, sum $= 20$, edges $= 20 \\div 2 = 10$.", "Find the degree of each, add, then halve.", [], 4), diagram: { description: "Complete network on 5 vertices A, B, C, D, E with every pair joined. There are 10 edges in total.", vertices: [{ id: "A", label: "A", x: 210, y: 60 }, { id: "B", label: "B", x: 330, y: 145 }, { id: "C", label: "C", x: 285, y: 280 }, { id: "D", label: "D", x: 135, y: 280 }, { id: "E", label: "E", x: 90, y: 145 }], edges: [{ from: "A", to: "B" }, { from: "A", to: "C" }, { from: "A", to: "D" }, { from: "A", to: "E" }, { from: "B", to: "C" }, { from: "B", to: "D" }, { from: "B", to: "E" }, { from: "C", to: "D" }, { from: "C", to: "E" }, { from: "D", to: "E" }] } },
     answer("y8-net-fun-p22", "A network has 7 vertices each of degree 2. How many edges does it have?", "\\text{Edges} = \\;?", "7", "Sum $= 7 \\times 2 = 14$, edges $= 14 \\div 2 = 7$.", "Multiply, then halve.", [], 4),
     answer("y8-net-fun-p23", "A network has 4 vertices with degrees 3, 3, 3 and an unknown degree d. If it has 6 edges, find d.", "d = \\;?", "3", "Degree sum $= 2 \\times 6 = 12$. So $3+3+3+d = 12$, giving $d = 3$.", "The degree sum is twice the number of edges.", [], 4),
     answer("y8-net-fun-p24", "A network has 6 edges. What is the sum of all its vertex degrees?", "\\text{Degree sum} = \\;?", "12", "Degree sum $= 2 \\times \\text{edges} = 2 \\times 6 = 12$.", "Degree sum is twice the edge count.", [], 4),

@@ -138,15 +138,18 @@ const dataTypesAndCollection: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Data is information we collect to answer a question. Before you analyse any data, you need to know what kind it is, because different types are displayed and calculated in different ways.",
-      "Categorical data sorts things into groups or categories. Favourite colour, type of pet, and eye colour are all categorical — you can't do arithmetic on them. There are two kinds: nominal has no natural order (eye colour: blue, brown, green — none is 'higher' than another), and ordinal has a natural order (a satisfaction rating of 'Poor, Fair, Good, Excellent' goes from lowest to highest).",
-      "Numerical data is a number that actually means something mathematically. Discrete numerical data can only take certain separate values — usually counts (number of siblings: 0, 1, 2 …). Continuous numerical data can take any value in a range and is always measured (height in centimetres, temperature in degrees).",
-      "To collect data you need to know your target population — the whole group you are interested in. A census collects data from every member of the population. A sample collects data from only some members. Surveys, observations, and experiments are three common collection methods. In exam questions, choose the method based on what is practical and what question is being asked.",
+      "Data is just information we collect to answer a question — like 'What pet do most students own?' or 'How tall are the students in my class?'. Before you can draw a graph or work out an average, you have to know what *kind* of information you are holding, because different kinds get treated in completely different ways.",
+      "Picture two columns of answers from a class survey. One column lists each student's favourite colour: blue, brown, green, blue, green. The other lists each student's height: 152, 158, 161, 149, 165 cm. Look at the difference. The colours are words that sort people into groups. The heights are numbers you could add, average, or measure more precisely. That gap is the whole idea of this lesson.",
+      "We give these two kinds names. **Categorical** data sorts things into groups or labels — favourite colour, type of pet, eye colour. **Numerical** data is a genuine measurement or count you can do arithmetic with — height, age, number of siblings. Each splits once more. Categorical is *nominal* when the groups have no natural order (blue is not 'higher' than green) and *ordinal* when they do (Poor, Fair, Good, Excellent climb from worst to best). Numerical is *discrete* when it comes from counting whole things (0, 1, 2 siblings) and *continuous* when it comes from measuring on a scale that allows in-between values (a height could be 158.4 cm).",
+      "Here is *why* the split matters, not just what it is. The test for numerical-vs-categorical is: does arithmetic on the values *mean* anything? Average two heights and you get a real middle height — meaningful. Average two eye colours and you get nonsense — so eye colour is categorical even if you wrote codes like blue=1, brown=2. The test for discrete-vs-continuous is: is the value *counted* or *measured*? Counting can only land on whole numbers (you cannot own 2.5 pets), so counts are discrete. Measuring can land anywhere between two marks on a ruler, so measurements are continuous — even when you round the answer to a whole number. The rounding is just how you recorded it; the underlying quantity could still take any value.",
+      "To actually collect data you first name your **target population** — the exact group the question is about, like 'all 600 students at Riverside High', not a vague 'everyone'. Then you decide how much of that group to look at. A **census** records every single member of the population; a **sample** records only a chosen part of it. You census when the group is small and reaching everyone is easy; you sample when the group is huge, expensive, or impossible to reach in full (you cannot weigh every fish in the ocean).",
+      "The most common trap is seeing a number and instantly calling it numerical. Jersey numbers, postcodes, and house numbers are written as digits but they are really *labels* — jersey 10 is not 'twice as good' as jersey 5, and adding two postcodes is meaningless. The moment arithmetic stops making sense, the data is categorical no matter how numeric it looks. Always ask what the number *does*, not what it looks like.",
     ],
     latexBlocks: [
-      "\\text{Data} \\begin{cases} \\text{Categorical} \\begin{cases} \\text{Nominal (no order)} \\\\ \\text{Ordinal (has order)} \\end{cases} \\\\ \\text{Numerical} \\begin{cases} \\text{Discrete (countable)} \\\\ \\text{Continuous (measurable)} \\end{cases} \\end{cases}",
-      "\\text{Census: data from every member of the population}",
-      "\\text{Sample: data from a selected subset of the population}",
+      "\\text{Data} \\begin{cases} \\text{Categorical} \\begin{cases} \\text{Nominal (no order)} \\\\ \\text{Ordinal (has order)} \\end{cases} \\\\ \\text{Numerical} \\begin{cases} \\text{Discrete (counted, whole values)} \\\\ \\text{Continuous (measured, any value)} \\end{cases} \\end{cases}",
+      "\\text{Numerical vs categorical: does arithmetic on the values mean anything?}",
+      "\\text{Discrete vs continuous: is the value counted or measured?}",
+      "\\text{Census = every member} \\qquad \\text{Sample = part of the population}",
     ],
   },
   workedExamples: [
@@ -154,9 +157,9 @@ const dataTypesAndCollection: LessonContent = {
       title: "Classify a variable by data type",
       questionLatex: "\\text{Classify each variable: (a) number of pets owned, (b) favourite sport, (c) daily temperature.}",
       steps: [
-        { explanation: "Number of pets: it is a count — you can only have 0, 1, 2, 3 … pets. This is numerical discrete.", latex: "\\text{Number of pets} \\rightarrow \\text{numerical discrete}" },
-        { explanation: "Favourite sport: it sorts people into categories (soccer, swimming, tennis …) with no natural order. This is categorical nominal.", latex: "\\text{Favourite sport} \\rightarrow \\text{categorical nominal}" },
-        { explanation: "Daily temperature: it is measured on a continuous scale and can take any value (e.g. 23.4°C). This is numerical continuous.", latex: "\\text{Daily temperature} \\rightarrow \\text{numerical continuous}" },
+        { explanation: "Number of pets comes from counting, so ask if arithmetic means anything — yes, an average number of pets makes sense, so it is numerical. Counting only lands on whole numbers, so it is discrete.", latex: "\\text{Number of pets} \\rightarrow \\text{numerical discrete}" },
+        { explanation: "Favourite sport sorts people into named groups, and you cannot average soccer and tennis — so it is categorical. The groups have no natural order, so it is nominal.", latex: "\\text{Favourite sport} \\rightarrow \\text{categorical nominal}" },
+        { explanation: "Daily temperature comes from measuring on a scale, and it can sit at any in-between value like 23.4°C — so it is numerical and continuous.", latex: "\\text{Daily temperature} \\rightarrow \\text{numerical continuous}" },
       ],
       finalAnswerLatex: "\\text{(a) numerical discrete,}\\quad\\text{(b) categorical nominal,}\\quad\\text{(c) numerical continuous}",
     },
@@ -164,10 +167,21 @@ const dataTypesAndCollection: LessonContent = {
       title: "Identify the target population and choose a collection method",
       questionLatex: "\\text{A school wants to find the most popular lunch option among its 600 students. Identify the target population and suggest a collection method.}",
       steps: [
-        { explanation: "The target population is the group the question is about — all 600 students at the school.", latex: "\\text{Target population: all 600 students}" },
-        { explanation: "Surveying every student would be a census — possible here since the group is small enough. A random sample survey of 60 students would also give useful results with less effort.", latex: "\\text{Method: survey (census or sample)}" },
+        { explanation: "Name the exact group the question is about, not a vague 'everyone'. The question is about this school's students, so the population is all 600 of them.", latex: "\\text{Target population: all 600 students}" },
+        { explanation: "Decide census or sample by asking whether reaching everyone is practical. 600 is small enough to survey in full (a census), but a random sample of 60 would also answer the question with far less effort.", latex: "\\text{Method: survey — census (all 600) or sample (e.g. 60)}" },
       ],
-      finalAnswerLatex: "\\text{Target population: all 600 students. Method: survey.}",
+      finalAnswerLatex: "\\text{Target population: all 600 students. Method: a survey, run as a census or a sample.}",
+    },
+    {
+      title: "A trickier case — numbers that are really labels",
+      questionLatex: "\\text{A sports analyst lists each player's jersey number and codes preferred position as Forward=1, Mid=2, Back=3, then computes the 'average jersey number' (8.4) and 'average position' (1.9). For each variable, state its true data type and whether the average is meaningful.}",
+      steps: [
+        { explanation: "Apply the arithmetic test to jersey number. Jersey 10 is not twice jersey 5 — the number only identifies a player, so adding or averaging it is meaningless. It is categorical, not numerical.", latex: "\\text{Jersey number} \\rightarrow \\text{categorical nominal (a label)}" },
+        { explanation: "So the 'average jersey number' of 8.4 has no real meaning — there may not even be a player wearing 8, and the value names nothing.", latex: "\\text{Average jersey number 8.4} \\rightarrow \\text{meaningless}" },
+        { explanation: "Now check preferred position. The codes 1, 2, 3 stand for groups (Forward, Mid, Back), and you cannot average Forward and Back into a real position — so it is categorical. But the codes do have an order on the field, making it ordinal.", latex: "\\text{Preferred position} \\rightarrow \\text{categorical ordinal}" },
+        { explanation: "Because the codes are just labels for categories, averaging them to 1.9 does not name a category either — the number being 'close to 2' does not make the answer meaningfully 'Mid'.", latex: "\\text{Average position 1.9} \\rightarrow \\text{not meaningful}" },
+      ],
+      finalAnswerLatex: "\\text{Both are categorical (jersey = nominal, position = ordinal); neither average is meaningful because the values are labels, not measurements.}",
     },
   ],
   guidedPractice: [
@@ -431,54 +445,123 @@ const frequencyTables: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A frequency table organises raw data so you can see patterns quickly. Instead of looking at a long list of values, you group them and count how many times each value or group appears. The count is called the frequency.",
-      "Tally marks are used to count while you go through the data. You mark one stroke for each data value, and every fifth mark goes diagonally across the previous four — this makes groups of five easy to count at the end.",
-      "Relative frequency tells you what fraction of the total each category makes up. Divide the category's frequency by the total number of data values. For example, if 6 out of 20 students prefer soccer, the relative frequency is 6/20 = 0.3 (or 30%).",
-      "When data is spread across a wide range of values, it is cleaner to group values into class intervals. A class interval like '10–19' includes every value from 10 up to and including 19. Make sure the intervals don't overlap and cover all the data.",
+      "A frequency table is a tool for turning a messy pile of raw answers into something you can actually read. If you ask 30 people their favourite fruit and just write the answers down in a row, the list tells you almost nothing at a glance. A frequency table fixes that by grouping the answers and counting how many landed in each group.",
+      "Imagine the row of answers reads: apple, banana, apple, orange, apple, banana, apple, orange, banana. To make sense of it you go through once and keep a running count for each fruit: apple, apple, apple, apple is four; banana three; orange two. That count — how many times each value appears — is exactly what we call the **frequency**. The table just records each category beside its frequency.",
+      "The **frequency** of a category is the count of how many data values fall in it, and that is all a frequency table really stores: a label and a count for each group. A key check falls straight out of this idea — because every data value is counted exactly once, the frequencies must add back up to the total number of values. If your column does not sum to the number of people you surveyed, you miscounted somewhere.",
+      "**Tally marks** are just a counting trick for getting those frequencies right. As you read each answer you draw one stroke, and every fifth stroke goes diagonally across the previous four. Why fives? Because the eye can take in a bundle of five instantly without re-counting, so totalling 'three bundles and two extra = 17' is fast and error-proof — far safer than scanning a long row twice.",
+      "**Relative frequency** answers a different question: not 'how many' but 'what share of the whole'. You get it by dividing a category's frequency by the total. If 6 of 20 students prefer soccer, the relative frequency is 6 ÷ 20 = 0.3, i.e. soccer is 30% of the class. This is useful because '6 students' means nothing until you know whether the class had 20 or 200 people — the relative frequency makes different-sized groups comparable. And since the parts must make up the whole, every relative frequency lies between 0 and 1, and they all add to exactly 1 (100%). That sum is your second built-in check.",
+      "When the values are numbers spread across a wide range — say test marks from 41 to 99 — listing every single mark gives a giant, useless table. Instead you bundle them into **class intervals** like 40–49, 50–59, 60–69. An interval '10–19' means every value from 10 up to and including 19. The two rules that keep the table honest: the intervals must not overlap (otherwise a value could be counted twice), and together they must cover every value (otherwise some data has nowhere to go). The cost is that you can no longer see the exact values inside a class — so a grouped table can only *estimate* a statistic like the median, not give it exactly.",
     ],
     latexBlocks: [
-      "\\text{Relative frequency} = \\frac{\\text{frequency}}{\\text{total number of values}}",
-      "\\sum \\text{frequency} = \\text{total number of data values}",
-      "\\sum \\text{relative frequency} = 1",
+      "\\text{Relative frequency} = \\frac{\\text{frequency of the category}}{\\text{total number of values}}",
+      "\\sum \\text{frequency} = \\text{total number of data values} \\quad \\text{(first check)}",
+      "0 \\le \\text{relative frequency} \\le 1, \\qquad \\sum \\text{relative frequency} = 1 \\quad \\text{(second check)}",
     ],
   },
   workedExamples: [
     {
       title: "Construct a frequency table and find relative frequency",
       questionLatex: "\\text{The favourite sports of 10 students are: Soccer, Tennis, Soccer, Swimming, Soccer, Tennis, Swimming, Soccer, Soccer, Tennis. Complete a frequency table.}",
+      barChartDiagram: {
+        description: "Column graph of favourite sport for 10 students: Soccer 5, Tennis 3, Swimming 2.",
+        bars: [
+          { label: "Soccer", value: 5, color: "blue" },
+          { label: "Tennis", value: 3, color: "teal" },
+          { label: "Swimming", value: 2, color: "violet" },
+        ],
+        valueAxisLabel: "Frequency",
+        categoryAxisLabel: "Sport",
+        valueMax: 6,
+        valueStep: 1,
+      },
       steps: [
-        { explanation: "List each sport as a category in the table, then tally one mark for each occurrence in the data.", latex: "\\text{Soccer: } |||| = 5, \\quad \\text{Tennis: } ||| = 3, \\quad \\text{Swimming: } || = 2" },
-        { explanation: "Write the frequency for each sport. Check that the frequencies sum to 10.", latex: "5 + 3 + 2 = 10 \\checkmark" },
-        { explanation: "Calculate relative frequency for each sport by dividing each frequency by the total of 10.", latex: "\\text{Soccer: }\\frac{5}{10}=0.5,\\quad\\text{Tennis: }\\frac{3}{10}=0.3,\\quad\\text{Swimming: }\\frac{2}{10}=0.2" },
+        { explanation: "Read through the list once, drawing a tally stroke for each sport, so you count each answer exactly once and never lose your place.", latex: "\\text{Soccer: } |||| = 5, \\quad \\text{Tennis: } ||| = 3, \\quad \\text{Swimming: } || = 2" },
+        { explanation: "Write the tally counts as frequencies, then check they add to 10 — the number of students surveyed. They do, so no value was missed or double-counted.", latex: "5 + 3 + 2 = 10 \\checkmark" },
+        { explanation: "Convert each frequency to a share of the whole by dividing by the total of 10, so the three sports can be compared as proportions.", latex: "\\text{Soccer: }\\frac{5}{10}=0.5,\\quad\\text{Tennis: }\\frac{3}{10}=0.3,\\quad\\text{Swimming: }\\frac{2}{10}=0.2" },
+        { explanation: "Check the relative frequencies sum to 1 — they must, because the three shares make up the whole class.", latex: "0.5 + 0.3 + 0.2 = 1 \\checkmark" },
       ],
       finalAnswerLatex: "\\text{Relative frequencies: Soccer } 0.5,\\text{ Tennis } 0.3,\\text{ Swimming } 0.2",
     },
     {
       title: "Read a frequency table to find the mode and total",
       questionLatex: "\\text{A frequency table shows: Score 1 → freq 2, Score 2 → freq 5, Score 3 → freq 8, Score 4 → freq 3, Score 5 → freq 2. Find the mode and total.}",
+      barChartDiagram: {
+        description: "Column graph of scores: score 1 frequency 2, score 2 frequency 5, score 3 frequency 8, score 4 frequency 3, score 5 frequency 2.",
+        bars: [
+          { label: "1", value: 2 },
+          { label: "2", value: 5 },
+          { label: "3", value: 8 },
+          { label: "4", value: 3 },
+          { label: "5", value: 2 },
+        ],
+        valueAxisLabel: "Frequency",
+        categoryAxisLabel: "Score",
+        valueMax: 8,
+        valueStep: 1,
+      },
       steps: [
-        { explanation: "The mode is the value with the highest frequency. Score 3 has frequency 8, which is the highest.", latex: "\\text{Mode} = 3" },
-        { explanation: "Add all frequencies to find the total number of data values.", latex: "2 + 5 + 8 + 3 + 2 = 20" },
+        { explanation: "The mode is the most common value, which in a frequency table is simply the row with the largest frequency. Scan the frequency column for its biggest entry.", latex: "\\text{Largest frequency} = 8 \\rightarrow \\text{Mode} = 3" },
+        { explanation: "Add every frequency to get the total number of data values, since each value was counted once.", latex: "2 + 5 + 8 + 3 + 2 = 20" },
       ],
       finalAnswerLatex: "\\text{Mode} = 3,\\quad \\text{Total} = 20",
     },
+    {
+      title: "Grouped table — find a missing frequency and the mean",
+      questionLatex: "\\text{A frequency table of goals scored shows: 0 goals → 3, 1 goal → 7, 2 goals → x, 3 goals → 4, with 20 games in total. Find x, then the mean goals per game.}",
+      steps: [
+        { explanation: "Use the first check: all frequencies must add to the total of 20. Add the known frequencies first.", latex: "3 + 7 + 4 = 14" },
+        { explanation: "Subtract from the total to find the missing frequency, since the four rows account for all 20 games.", latex: "x = 20 - 14 = 6" },
+        { explanation: "To find the mean, the value '2 goals' happened in 6 games, so it contributes 2×6 goals — multiply each score by its frequency to get the total goals.", latex: "0(3) + 1(7) + 2(6) + 3(4) = 0 + 7 + 12 + 12 = 31" },
+        { explanation: "Divide the total goals by the total number of games to get the average per game.", latex: "\\text{Mean} = \\frac{31}{20} = 1.55" },
+      ],
+      finalAnswerLatex: "x = 6,\\quad \\text{Mean} = 1.55 \\text{ goals per game}",
+    },
   ],
   guidedPractice: [
-    choice(
-      "y7-dat-ftb-g1",
-      "A frequency table shows Cats: 4, Dogs: 7, Fish: 3, Birds: 6. What is the total number of pets recorded?",
-      "C",
-      ["17", "18", "20", "24"],
-      "Add all frequencies: 4 + 7 + 3 + 6 = 20. The total is 20 pets."
-    ),
-    answer(
-      "y7-dat-ftb-g2",
-      "A frequency table shows: Red: 6, Blue: 9, Green: 5. What is the relative frequency of Blue? Give your answer as a decimal.",
-      "\\text{Relative frequency of Blue} = \\frac{9}{6+9+5}",
-      "0.45",
-      "Total = 6 + 9 + 5 = 20. Relative frequency of Blue = 9 ÷ 20 = 0.45.",
-      ["9/20", ".45"]
-    ),
+    {
+      ...choice(
+        "y7-dat-ftb-g1",
+        "A frequency table shows Cats: 4, Dogs: 7, Fish: 3, Birds: 6. What is the total number of pets recorded?",
+        "C",
+        ["17", "18", "20", "24"],
+        "Add all frequencies: 4 + 7 + 3 + 6 = 20. The total is 20 pets."
+      ),
+      barChartDiagram: {
+        description: "Column graph of pets: Cats 4, Dogs 7, Fish 3, Birds 6.",
+        bars: [
+          { label: "Cats", value: 4, color: "blue" },
+          { label: "Dogs", value: 7, color: "teal" },
+          { label: "Fish", value: 3, color: "violet" },
+          { label: "Birds", value: 6, color: "amber" },
+        ],
+        valueAxisLabel: "Frequency",
+        categoryAxisLabel: "Pet",
+        valueMax: 8,
+        valueStep: 1,
+      },
+    },
+    {
+      ...answer(
+        "y7-dat-ftb-g2",
+        "A frequency table shows: Red: 6, Blue: 9, Green: 5. What is the relative frequency of Blue? Give your answer as a decimal.",
+        "\\text{Relative frequency of Blue} = \\frac{9}{6+9+5}",
+        "0.45",
+        "Total = 6 + 9 + 5 = 20. Relative frequency of Blue = 9 ÷ 20 = 0.45.",
+        ["9/20", ".45"]
+      ),
+      barChartDiagram: {
+        description: "Column graph of colours: Red 6, Blue 9, Green 5.",
+        bars: [
+          { label: "Red", value: 6, color: "red" },
+          { label: "Blue", value: 9, color: "blue" },
+          { label: "Green", value: 5, color: "green" },
+        ],
+        valueAxisLabel: "Frequency",
+        categoryAxisLabel: "Colour",
+        valueMax: 10,
+        valueStep: 1,
+      },
+    },
     answer(
       "y7-dat-ftb-g3",
       "The data set is: 2, 3, 2, 4, 3, 2, 5, 3, 2, 4. How many times does the value 2 appear? Give the frequency of 2.",
@@ -505,22 +588,51 @@ const frequencyTables: LessonContent = {
       "The value 5 appears at positions 2, 5, and 7 in the list — a frequency of 3.",
       []
     ),
-    answer(
-      "y7-dat-ftb-i2",
-      "A frequency table shows test scores: 60–69 → 3 students, 70–79 → 8 students, 80–89 → 6 students, 90–99 → 3 students. How many students scored in the range 70–79?",
-      "\\text{Frequency table of test scores}",
-      "8",
-      "The frequency for the 70–79 class interval is directly given in the table as 8 students.",
-      []
-    ),
-    answer(
-      "y7-dat-ftb-i3",
-      "A frequency table shows: Walk → 12, Bus → 8, Car → 5. What is the relative frequency of students who walk? Give your answer as a decimal.",
-      "\\text{Relative frequency of Walk} = \\frac{12}{12+8+5}",
-      "0.48",
-      "Total = 12 + 8 + 5 = 25. Relative frequency of Walk = 12 ÷ 25 = 0.48.",
-      ["12/25", ".48"]
-    ),
+    {
+      ...answer(
+        "y7-dat-ftb-i2",
+        "A frequency table shows test scores: 60–69 → 3 students, 70–79 → 8 students, 80–89 → 6 students, 90–99 → 3 students. How many students scored in the range 70–79?",
+        "\\text{Frequency table of test scores}",
+        "8",
+        "The frequency for the 70–79 class interval is directly given in the table as 8 students.",
+        []
+      ),
+      histogramDiagram: {
+        description: "Histogram of test scores in classes of width 10: 60–69 frequency 3, 70–79 frequency 8, 80–89 frequency 6, 90–99 frequency 3.",
+        bins: [
+          { label: "60–69", frequency: 3 },
+          { label: "70–79", frequency: 8 },
+          { label: "80–89", frequency: 6 },
+          { label: "90–99", frequency: 3 },
+        ],
+        axisLabel: "Test score",
+        frequencyAxisLabel: "Frequency",
+        valueMax: 8,
+        valueStep: 1,
+      },
+    },
+    {
+      ...answer(
+        "y7-dat-ftb-i3",
+        "A frequency table shows: Walk → 12, Bus → 8, Car → 5. What is the relative frequency of students who walk? Give your answer as a decimal.",
+        "\\text{Relative frequency of Walk} = \\frac{12}{12+8+5}",
+        "0.48",
+        "Total = 12 + 8 + 5 = 25. Relative frequency of Walk = 12 ÷ 25 = 0.48.",
+        ["12/25", ".48"]
+      ),
+      barChartDiagram: {
+        description: "Column graph of travel method: Walk 12, Bus 8, Car 5.",
+        bars: [
+          { label: "Walk", value: 12, color: "blue" },
+          { label: "Bus", value: 8, color: "teal" },
+          { label: "Car", value: 5, color: "violet" },
+        ],
+        valueAxisLabel: "Frequency",
+        categoryAxisLabel: "Travel method",
+        valueMax: 14,
+        valueStep: 2,
+      },
+    },
     answer(
       "y7-dat-ftb-i4",
       "A frequency table for daily step counts shows: 0–4999 → 4 days, 5000–9999 → 9 days, 10000–14999 → 2 days. What is the total number of days recorded?",
@@ -529,14 +641,29 @@ const frequencyTables: LessonContent = {
       "Add all frequencies: 4 + 9 + 2 = 15 days total.",
       []
     ),
-    answer(
-      "y7-dat-ftb-i5",
-      "A frequency table shows pets owned: 0 pets → 5 students, 1 pet → 8 students, 2 pets → 4 students, 3 pets → 3 students. What is the relative frequency of students with 1 pet? Give your answer as a decimal.",
-      "\\text{Relative frequency} = \\frac{8}{5+8+4+3}",
-      "0.4",
-      "Total = 5 + 8 + 4 + 3 = 20. Relative frequency = 8 ÷ 20 = 0.4.",
-      ["8/20", "2/5", ".4"]
-    ),
+    {
+      ...answer(
+        "y7-dat-ftb-i5",
+        "A frequency table shows pets owned: 0 pets → 5 students, 1 pet → 8 students, 2 pets → 4 students, 3 pets → 3 students. What is the relative frequency of students with 1 pet? Give your answer as a decimal.",
+        "\\text{Relative frequency} = \\frac{8}{5+8+4+3}",
+        "0.4",
+        "Total = 5 + 8 + 4 + 3 = 20. Relative frequency = 8 ÷ 20 = 0.4.",
+        ["8/20", "2/5", ".4"]
+      ),
+      barChartDiagram: {
+        description: "Column graph of pets owned: 0 pets 5 students, 1 pet 8 students, 2 pets 4 students, 3 pets 3 students.",
+        bars: [
+          { label: "0", value: 5 },
+          { label: "1", value: 8 },
+          { label: "2", value: 4 },
+          { label: "3", value: 3 },
+        ],
+        valueAxisLabel: "Number of students",
+        categoryAxisLabel: "Pets owned",
+        valueMax: 8,
+        valueStep: 1,
+      },
+    },
   ],
   commonMistakes: [
     { mistake: "Forgetting to check that all frequencies add up to the total number of data values.", fix: "Always sum the frequency column at the end. If it doesn't equal the total count of data, you've made a tally error." },
@@ -545,14 +672,29 @@ const frequencyTables: LessonContent = {
     { mistake: "Expecting relative frequencies to sum to more than 1 because they're written as fractions.", fix: "All relative frequencies always sum to exactly 1 (or 100%). Use this to check your work." },
   ],
   masteryQuiz: [
-    answer(
-      "y7-dat-ftb-m1",
-      "A frequency table shows: Apple → 7, Banana → 5, Orange → 4, Mango → 4. How many pieces of fruit were recorded in total?",
-      "\\text{Total} = 7 + 5 + 4 + 4",
-      "20",
-      "Add all frequencies: 7 + 5 + 4 + 4 = 20 pieces of fruit in total.",
-      []
-    ),
+    {
+      ...answer(
+        "y7-dat-ftb-m1",
+        "A frequency table shows: Apple → 7, Banana → 5, Orange → 4, Mango → 4. How many pieces of fruit were recorded in total?",
+        "\\text{Total} = 7 + 5 + 4 + 4",
+        "20",
+        "Add all frequencies: 7 + 5 + 4 + 4 = 20 pieces of fruit in total.",
+        []
+      ),
+      barChartDiagram: {
+        description: "Column graph of fruit: Apple 7, Banana 5, Orange 4, Mango 4.",
+        bars: [
+          { label: "Apple", value: 7, color: "red" },
+          { label: "Banana", value: 5, color: "amber" },
+          { label: "Orange", value: 4, color: "violet" },
+          { label: "Mango", value: 4, color: "green" },
+        ],
+        valueAxisLabel: "Frequency",
+        categoryAxisLabel: "Fruit",
+        valueMax: 8,
+        valueStep: 1,
+      },
+    },
     answer(
       "y7-dat-ftb-m2",
       "Using the fruit table above (Apple 7, Banana 5, Orange 4, Mango 4, total 20), what is the relative frequency of Apple? Give your answer as a decimal.",
@@ -576,22 +718,52 @@ const frequencyTables: LessonContent = {
       "Count each value: 4 appears 5 times, 7 appears 4 times, 9 appears 2 times. The mode is 4, with a frequency of 5.",
       []
     ),
-    answer(
-      "y7-dat-ftb-m5",
-      "A frequency table shows test scores: 50–59 → 2, 60–69 → 6, 70–79 → 10, 80–89 → 7, 90–99 → 5. How many students scored 70 or above?",
-      "\\text{Scores} \\geq 70: \\text{add frequencies for 70-79, 80-89, 90-99}",
-      "22",
-      "Add the frequencies for 70–79, 80–89, and 90–99: 10 + 7 + 5 = 22 students scored 70 or above.",
-      []
-    ),
-    answer(
-      "y7-dat-ftb-m6",
-      "A frequency table shows distances walked to school (km): 0–1 → 15 students, 1–2 → 9 students, 2–3 → 6 students. What is the relative frequency of students walking 2–3 km? Give your answer as a decimal.",
-      "\\text{Relative frequency} = \\frac{6}{15+9+6}",
-      "0.2",
-      "Total = 15 + 9 + 6 = 30. Relative frequency = 6 ÷ 30 = 0.2.",
-      ["6/30", "1/5", ".2"]
-    ),
+    {
+      ...answer(
+        "y7-dat-ftb-m5",
+        "A frequency table shows test scores: 50–59 → 2, 60–69 → 6, 70–79 → 10, 80–89 → 7, 90–99 → 5. How many students scored 70 or above?",
+        "\\text{Scores} \\geq 70: \\text{add frequencies for 70-79, 80-89, 90-99}",
+        "22",
+        "Add the frequencies for 70–79, 80–89, and 90–99: 10 + 7 + 5 = 22 students scored 70 or above.",
+        []
+      ),
+      histogramDiagram: {
+        description: "Histogram of test scores in classes of width 10: 50–59 frequency 2, 60–69 frequency 6, 70–79 frequency 10, 80–89 frequency 7, 90–99 frequency 5.",
+        bins: [
+          { label: "50–59", frequency: 2 },
+          { label: "60–69", frequency: 6 },
+          { label: "70–79", frequency: 10 },
+          { label: "80–89", frequency: 7 },
+          { label: "90–99", frequency: 5 },
+        ],
+        axisLabel: "Test score",
+        frequencyAxisLabel: "Frequency",
+        valueMax: 10,
+        valueStep: 2,
+      },
+    },
+    {
+      ...answer(
+        "y7-dat-ftb-m6",
+        "A frequency table shows distances walked to school (km): 0–1 → 15 students, 1–2 → 9 students, 2–3 → 6 students. What is the relative frequency of students walking 2–3 km? Give your answer as a decimal.",
+        "\\text{Relative frequency} = \\frac{6}{15+9+6}",
+        "0.2",
+        "Total = 15 + 9 + 6 = 30. Relative frequency = 6 ÷ 30 = 0.2.",
+        ["6/30", "1/5", ".2"]
+      ),
+      histogramDiagram: {
+        description: "Histogram of distance walked to school in classes of width 1 km: 0–1 km frequency 15, 1–2 km frequency 9, 2–3 km frequency 6.",
+        bins: [
+          { label: "0–1", frequency: 15 },
+          { label: "1–2", frequency: 9 },
+          { label: "2–3", frequency: 6 },
+        ],
+        axisLabel: "Distance (km)",
+        frequencyAxisLabel: "Number of students",
+        valueMax: 15,
+        valueStep: 3,
+      },
+    },
     choice(
       "y7-dat-ftb-m7",
       "A student records the following data values: 11, 25, 18, 32, 14, 28, 19. Which class interval does 32 belong to if the intervals are 10–19, 20–29, and 30–39?",
@@ -599,14 +771,29 @@ const frequencyTables: LessonContent = {
       ["10–19", "20–29", "30–39", "It doesn't belong to any interval"],
       "32 is between 30 and 39, so it belongs to the class interval 30–39."
     ),
-    answer(
-      "y7-dat-ftb-m8",
-      "A frequency table shows hours of sleep: 6 hrs → 3 students, 7 hrs → 9 students, 8 hrs → 12 students, 9 hrs → 6 students. What fraction of students slept exactly 8 hours? Give your answer as a decimal.",
-      "\\text{Relative frequency} = \\frac{12}{3+9+12+6}",
-      "0.4",
-      "Total = 3 + 9 + 12 + 6 = 30. Relative frequency of 8 hrs = 12 ÷ 30 = 0.4.",
-      ["12/30", "2/5", ".4"]
-    ),
+    {
+      ...answer(
+        "y7-dat-ftb-m8",
+        "A frequency table shows hours of sleep: 6 hrs → 3 students, 7 hrs → 9 students, 8 hrs → 12 students, 9 hrs → 6 students. What fraction of students slept exactly 8 hours? Give your answer as a decimal.",
+        "\\text{Relative frequency} = \\frac{12}{3+9+12+6}",
+        "0.4",
+        "Total = 3 + 9 + 12 + 6 = 30. Relative frequency of 8 hrs = 12 ÷ 30 = 0.4.",
+        ["12/30", "2/5", ".4"]
+      ),
+      barChartDiagram: {
+        description: "Column graph of hours of sleep: 6 hrs 3 students, 7 hrs 9 students, 8 hrs 12 students, 9 hrs 6 students.",
+        bars: [
+          { label: "6", value: 3 },
+          { label: "7", value: 9 },
+          { label: "8", value: 12 },
+          { label: "9", value: 6 },
+        ],
+        valueAxisLabel: "Number of students",
+        categoryAxisLabel: "Hours of sleep",
+        valueMax: 12,
+        valueStep: 2,
+      },
+    },
     answer(
       "y7-dat-ftb-m9",
       "The data shows the number of pets owned: 0, 1, 2, 0, 3, 1, 0, 2, 1, 0, 1, 2. How many students own at least 2 pets?",
@@ -629,21 +816,21 @@ const frequencyTables: LessonContent = {
     ),
   ],
   masteryQuizPool: [
-    pAns("y7-dat-ftb-p1", "A frequency table shows Red 5, Blue 8, Green 7. What is the total frequency?", "\\text{Total} = 5 + 8 + 7", 1, "20", "Add all frequencies: 5 + 8 + 7 = 20.", []),
+    { ...pAns("y7-dat-ftb-p1", "A frequency table shows Red 5, Blue 8, Green 7. What is the total frequency?", "\\text{Total} = 5 + 8 + 7", 1, "20", "Add all frequencies: 5 + 8 + 7 = 20.", []), barChartDiagram: { description: "Column graph of colours: Red 5, Blue 8, Green 7.", bars: [{ label: "Red", value: 5, color: "red" }, { label: "Blue", value: 8, color: "blue" }, { label: "Green", value: 7, color: "green" }], valueAxisLabel: "Frequency", categoryAxisLabel: "Colour", valueMax: 8, valueStep: 1 } },
     pAns("y7-dat-ftb-p2", "The data set is 3, 5, 3, 3, 5, 7, 3. What is the frequency of 3?", "\\text{Data: }3, 5, 3, 3, 5, 7, 3", 1, "4", "Count the 3s: positions 1, 3, 4, 7 — frequency 4.", []),
-    pAns("y7-dat-ftb-p3", "A frequency table shows A 10, B 6, C 4. What is the relative frequency of B? Give your answer as a decimal.", "\\frac{6}{10+6+4}", 1, "0.3", "Total = 20. Relative frequency of B = 6 ÷ 20 = 0.3.", ["6/20", "3/10", ".3"]),
+    { ...pAns("y7-dat-ftb-p3", "A frequency table shows A 10, B 6, C 4. What is the relative frequency of B? Give your answer as a decimal.", "\\frac{6}{10+6+4}", 1, "0.3", "Total = 20. Relative frequency of B = 6 ÷ 20 = 0.3.", ["6/20", "3/10", ".3"]), barChartDiagram: { description: "Column graph of categories: A 10, B 6, C 4.", bars: [{ label: "A", value: 10 }, { label: "B", value: 6 }, { label: "C", value: 4 }], valueAxisLabel: "Frequency", categoryAxisLabel: "Category", valueMax: 10, valueStep: 1 } },
     pChoice("y7-dat-ftb-p4", "In a grouped frequency table with intervals 0–9, 10–19, 20–29, which interval contains 19?", 1, "B", ["0–9", "10–19", "20–29", "None"], "19 lies between 10 and 19, so it belongs to the interval 10–19."),
     pAns("y7-dat-ftb-p5", "A frequency table shows Mon 12, Tue 8, Wed 15, Thu 10, Fri 5. How many values are recorded in total?", "12 + 8 + 15 + 10 + 5", 2, "50", "Add all frequencies: 12 + 8 + 15 + 10 + 5 = 50.", []),
     pAns("y7-dat-ftb-p6", "The dataset is 6, 9, 6, 6, 9, 9, 9, 6. What value is the mode?", "\\text{Data: }6, 9, 6, 6, 9, 9, 9, 6", 2, "9", "6 appears 4 times and 9 appears 4 times — both are modes; list 9? Actually count again: 6 at 1,3,4,8 (4 times); 9 at 2,5,6,7 (4 times). They tie, so report either mode; we record 9.", ["6", "6 and 9"]),
-    pAns("y7-dat-ftb-p7", "A frequency table shows scores 0–4 → 6, 5–9 → 11, 10–14 → 3. What is the relative frequency of the 5–9 class? Give your answer as a decimal.", "\\frac{11}{6+11+3}", 2, "0.55", "Total = 20. Relative frequency = 11 ÷ 20 = 0.55.", ["11/20", ".55"]),
+    { ...pAns("y7-dat-ftb-p7", "A frequency table shows scores 0–4 → 6, 5–9 → 11, 10–14 → 3. What is the relative frequency of the 5–9 class? Give your answer as a decimal.", "\\frac{11}{6+11+3}", 2, "0.55", "Total = 20. Relative frequency = 11 ÷ 20 = 0.55.", ["11/20", ".55"]), histogramDiagram: { description: "Histogram of scores in classes of width 5: 0–4 frequency 6, 5–9 frequency 11, 10–14 frequency 3.", bins: [{ label: "0–4", frequency: 6 }, { label: "5–9", frequency: 11 }, { label: "10–14", frequency: 3 }], axisLabel: "Score", frequencyAxisLabel: "Frequency", valueMax: 11, valueStep: 1 } },
     pAns("y7-dat-ftb-p8", "A frequency table shows 0 goals → 4, 1 goal → 7, 2 goals → 6, 3 goals → 3. How many games had at least 2 goals?", "\\text{At least 2 goals: }6 + 3", 2, "9", "Add the frequencies for 2 and 3 goals: 6 + 3 = 9 games.", []),
     pChoice("y7-dat-ftb-p9", "A relative-frequency table shows P = 0.30, Q = 0.45, R = ?. What is R?", 3, "A", ["0.25", "0.30", "0.15", "0.75"], "Relative frequencies sum to 1, so R = 1 − 0.30 − 0.45 = 0.25."),
     pAns("y7-dat-ftb-p10", "A frequency table shows test bands 40–49 → 2, 50–59 → 5, 60–69 → 9, 70–79 → 8, 80–89 → 6. How many students scored below 60?", "\\text{Below 60: }2 + 5", 3, "7", "Add the frequencies for 40–49 and 50–59: 2 + 5 = 7 students.", []),
     pAns("y7-dat-ftb-p11", "A class of 25 students records 0 pets → 8, 1 pet → 10, 2 pets → 5, 3 pets → 2. What is the relative frequency of students with 2 pets? Give your answer as a decimal.", "\\frac{5}{25}", 3, "0.2", "Total = 25. Relative frequency = 5 ÷ 25 = 0.2.", ["5/25", "1/5", ".2"]),
     pAns("y7-dat-ftb-p12", "The dataset is 12, 14, 12, 18, 14, 12, 20, 12. Using class intervals 10–14 and 15–20, how many values fall in 10–14?", "\\text{Data: }12, 14, 12, 18, 14, 12, 20, 12", 3, "6", "Values in 10–14: 12, 14, 12, 14, 12, 12 — that is 6 values. (18 and 20 fall in 15–20.)", []),
     pChoice("y7-dat-ftb-p13", "A tally for one category is recorded as three groups of five strokes plus two extra strokes. What is the frequency?", 3, "C", ["15", "16", "17", "18"], "Three groups of five give 15, plus 2 more = 17."),
-    pAns("y7-dat-ftb-p14", "A frequency table shows colours Red 9, Blue 6, Green 5. What is the relative frequency of Red expressed as a percentage? Give a whole number.", "\\frac{9}{20} \\times 100", 3, "45", "Total = 20. Red = 9 ÷ 20 = 0.45 = 45%.", ["45%"]),
-    pAns("y7-dat-ftb-p15", "A grouped table of ages shows 10–19 → 7, 20–29 → 12, 30–39 → 9, 40–49 → 2. What is the modal class? Give the class with the most values as a range, e.g. 20-29.", "\\text{Frequencies: }7, 12, 9, 2", 3, "20-29", "The class with the highest frequency (12) is 20–29, the modal class.", ["20–29", "20 to 29"]),
+    { ...pAns("y7-dat-ftb-p14", "A frequency table shows colours Red 9, Blue 6, Green 5. What is the relative frequency of Red expressed as a percentage? Give a whole number.", "\\frac{9}{20} \\times 100", 3, "45", "Total = 20. Red = 9 ÷ 20 = 0.45 = 45%.", ["45%"]), barChartDiagram: { description: "Column graph of colours: Red 9, Blue 6, Green 5.", bars: [{ label: "Red", value: 9, color: "red" }, { label: "Blue", value: 6, color: "blue" }, { label: "Green", value: 5, color: "green" }], valueAxisLabel: "Frequency", categoryAxisLabel: "Colour", valueMax: 10, valueStep: 1 } },
+    { ...pAns("y7-dat-ftb-p15", "A grouped table of ages shows 10–19 → 7, 20–29 → 12, 30–39 → 9, 40–49 → 2. What is the modal class? Give the class with the most values as a range, e.g. 20-29.", "\\text{Frequencies: }7, 12, 9, 2", 3, "20-29", "The class with the highest frequency (12) is 20–29, the modal class.", ["20–29", "20 to 29"]), histogramDiagram: { description: "Histogram of ages in classes of width 10: 10–19 frequency 7, 20–29 frequency 12, 30–39 frequency 9, 40–49 frequency 2.", bins: [{ label: "10–19", frequency: 7 }, { label: "20–29", frequency: 12 }, { label: "30–39", frequency: 9 }, { label: "40–49", frequency: 2 }], axisLabel: "Age", frequencyAxisLabel: "Frequency", valueMax: 12, valueStep: 2 } },
     pAns("y7-dat-ftb-p16", "A survey of 80 people records relative frequencies: walk 0.35, bus 0.25, car 0.40. How many people travelled by car?", "0.40 \\times 80", 4, "32", "Number by car = relative frequency × total = 0.40 × 80 = 32 people.", []),
     pAns("y7-dat-ftb-p17", "A frequency table shows 1 → 4, 2 → 6, 3 → x, 4 → 5 with a total of 20 values. Find x.", "4 + 6 + x + 5 = 20", 4, "5", "4 + 6 + 5 = 15, so x = 20 − 15 = 5.", []),
     pAns("y7-dat-ftb-p18", "A frequency table shows scores 0 → 3, 1 → 7, 2 → 6, 3 → 4. What is the mean score? Give your answer as a decimal.", "\\frac{0(3)+1(7)+2(6)+3(4)}{3+7+6+4}", 4, "1.55", "Sum of values = 0×3 + 1×7 + 2×6 + 3×4 = 0 + 7 + 12 + 12 = 31. Total count = 20. Mean = 31 ÷ 20 = 1.55.", ["1.55"]),
@@ -661,6 +848,19 @@ const frequencyTables: LessonContent = {
       prompt:
         "A canteen records the drink chosen by each of 40 students: Water 14, Juice 10, Milk 6, Soft drink 10. Use this frequency table to answer the parts.",
       latex: "\\text{Water }14,\\ \\text{Juice }10,\\ \\text{Milk }6,\\ \\text{Soft drink }10",
+      barChartDiagram: {
+        description: "Column graph of drink chosen by 40 students: Water 14, Juice 10, Milk 6, Soft drink 10.",
+        bars: [
+          { label: "Water", value: 14, color: "blue" },
+          { label: "Juice", value: 10, color: "amber" },
+          { label: "Milk", value: 6, color: "teal" },
+          { label: "Soft drink", value: 10, color: "violet" },
+        ],
+        valueAxisLabel: "Number of students",
+        categoryAxisLabel: "Drink",
+        valueMax: 16,
+        valueStep: 2,
+      },
       answer: "40",
       hint: "Use total = sum of frequencies, and relative frequency = frequency ÷ total.",
       explanation:
@@ -725,21 +925,33 @@ const dotPlotsStemAndLeaf: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A dot plot is one of the simplest ways to display a small numerical dataset. Draw a number line and place one dot above the line for every data value. If a value appears more than once, stack the dots. The resulting picture shows you instantly where the data is clustered, which value is most common, and how spread out the data is.",
-      "A stem-and-leaf plot splits each value into two parts: the stem (the leading digit or digits) and the leaf (the final digit). For a value like 37, the stem is 3 and the leaf is 7. You write all the stems in order in a column on the left, then list each leaf next to its stem on the right. The result is like a horizontal histogram that still shows every individual data value.",
-      "Once data is in a stem-and-leaf plot, finding key statistics is straightforward. The mode is the leaf that appears most often on the same stem line. The median is the middle value — count all the leaves to find the total, then locate the middle one (or the average of the two middle ones for an even count). The range is the largest value minus the smallest value.",
-      "A back-to-back stem-and-leaf plot compares two groups using a shared stem in the middle, with one group's leaves on the left and the other's on the right. In exam questions, read each side independently — leaves on the left are read from the stem outward.",
+      "A dot plot and a stem-and-leaf plot are two ways to *draw* a small set of numbers so the data's shape jumps out at you. A bare list like 12, 24, 13, 24, 15, 21, 28 is hard to read; the same numbers turned into a picture instantly show you where they bunch up and which one repeats.",
+      "Start with the **dot plot**. Draw a number line, then stack one dot above each value — one dot per occurrence. Say goals per game were 0, 1, 1, 2, 2, 2, 2, 3, 3, 4. Above 2 you would stack four dots, above 1 and 3 two dots each, and single dots above 0 and 4. The tallest stack sits over 2, so you can *see* that 2 is the most common score without counting anything. Stacking is the whole trick: height equals how often a value occurred, so a repeated value literally grows taller.",
+      "A **stem-and-leaf plot** handles slightly bigger numbers by splitting each value into a **stem** (the leading digits) and a **leaf** (the last digit). The number 37 splits into stem 3 and leaf 7. You list the stems down a column and write each value's leaf beside its stem. So 12, 13, 15, 21, 24, 24, 28, 30, 36 becomes the row `1 | 2 3 5`, then `2 | 1 4 4 8`, then `3 | 0 6`. Why does this work as a picture? Because the longer a row of leaves is, the more values share those tens — the rows act like sideways bars, yet unlike a bar chart every individual value is still written down and readable.",
+      "Because both plots keep every value, reading statistics off them is direct. The **mode** is the value that appears most — the tallest dot stack, or a leaf repeated on the same stem (the `4 4` on stem 2 means 24 occurred twice). The **range** is just the largest value minus the smallest, which you read off the two ends. The **median** is the middle value once the data is in order — and a stem-and-leaf plot is *already* in order, which is exactly why it makes the median easy.",
+      "To find the median you locate the middle of n sorted values using position (n+1)/2. With 9 values that is the 5th value; with an even count like 8 values, (n+1)/2 = 4.5 tells you to average the 4th and 5th. The reason you must count *leaves*, not stems, is that each leaf is one data value while a stem may carry many — counting stems would badly undercount n.",
+      "A **back-to-back stem-and-leaf plot** compares two groups by sharing one stem column down the middle, with one group's leaves growing left and the other's growing right. The one thing students get wrong: the left side is read *from the stem outward*. On stem 4 with left leaves written `8 5 2` nearest-to-furthest from the stem, the values are 42, 45, 48 — the digit closest to the stem is always the units digit, on both sides. Read it that way and comparing the two groups' centres and spreads becomes straightforward.",
     ],
     latexBlocks: [
-      "\\text{Median position} = \\frac{n+1}{2}\\text{ (for }n\\text{ values, when sorted)}",
+      "\\text{Median position} = \\frac{n+1}{2}\\text{ (the } n \\text{ values must be sorted first)}",
       "\\text{Range} = \\text{maximum value} - \\text{minimum value}",
-      "\\text{Mode} = \\text{value that appears most frequently}",
+      "\\text{Mode} = \\text{value that appears most often (tallest stack / repeated leaf)}",
+      "\\text{Count leaves, not stems, to find } n \\text{ — each leaf is one value.}",
     ],
   },
   workedExamples: [
     {
       title: "Find mode, median, and range from a stem-and-leaf plot",
       questionLatex: "\\text{The stem-and-leaf plot shows: } 1 | 2\\;3\\;5,\\quad 2 | 1\\;4\\;4\\;8,\\quad 3 | 0\\;6. \\text{ Find the mode, median, and range.}",
+      stemAndLeafDiagram: {
+        description: "Stem-and-leaf plot of 9 values from 12 to 36: stem 1 leaves 2 3 5, stem 2 leaves 1 4 4 8, stem 3 leaves 0 6.",
+        keyText: "2 | 4 = 24",
+        rows: [
+          { stem: 1, leaves: [2, 3, 5] },
+          { stem: 2, leaves: [1, 4, 4, 8] },
+          { stem: 3, leaves: [0, 6] },
+        ],
+      },
       steps: [
         { explanation: "List all values in order by reading the plot: 12, 13, 15, 21, 24, 24, 28, 30, 36.", latex: "12,\\;13,\\;15,\\;21,\\;24,\\;24,\\;28,\\;30,\\;36" },
         { explanation: "Mode: the value that appears most often. The leaf 4 appears twice on the 2 stem, giving the value 24 twice — no other value repeats.", latex: "\\text{Mode} = 24" },
@@ -751,11 +963,37 @@ const dotPlotsStemAndLeaf: LessonContent = {
     {
       title: "Construct a dot plot",
       questionLatex: "\\text{The number of goals scored per game: } 0, 2, 1, 3, 2, 2, 4, 1, 2, 3. \\text{ Describe the dot plot.}",
+      dotPlotDiagram: {
+        description: "Dot plot of goals per game from 0 to 4: 1 dot at 0, 2 dots at 1, 4 dots at 2, 2 dots at 3, 1 dot at 4.",
+        min: 0,
+        max: 4,
+        counts: [
+          { value: 0, count: 1 },
+          { value: 1, count: 2 },
+          { value: 2, count: 4 },
+          { value: 3, count: 2 },
+          { value: 4, count: 1 },
+        ],
+        axisLabel: "Goals per game",
+      },
       steps: [
-        { explanation: "List the values from smallest to largest: 0, 1, 1, 2, 2, 2, 2, 3, 3, 4.", latex: "0,\\;1,\\;1,\\;2,\\;2,\\;2,\\;2,\\;3,\\;3,\\;4" },
-        { explanation: "Draw a number line from 0 to 4. Place one dot above each value for each occurrence. The value 2 gets 4 dots stacked.", latex: "\\text{Value 2 has 4 dots (highest stack)} \\rightarrow \\text{mode} = 2" },
+        { explanation: "Sort the values first so equal values sit together and the stacks are easy to build.", latex: "0,\\;1,\\;1,\\;2,\\;2,\\;2,\\;2,\\;3,\\;3,\\;4" },
+        { explanation: "Draw a number line from 0 to 4 and place one dot above a value for each time it occurs, so the height of each stack equals that value's frequency.", latex: "0\\!:\\!1,\\ 1\\!:\\!2,\\ 2\\!:\\!4,\\ 3\\!:\\!2,\\ 4\\!:\\!1 \\text{ dots}" },
+        { explanation: "Read the mode off the picture: the tallest stack sits over 2 (four dots), so 2 is the most common score.", latex: "\\text{Value 2 has 4 dots (highest stack)} \\rightarrow \\text{mode} = 2" },
       ],
       finalAnswerLatex: "\\text{Mode} = 2 \\text{ (4 dots — the tallest stack)}",
+    },
+    {
+      title: "Compare two groups on a back-to-back stem-and-leaf plot",
+      questionLatex: "\\text{Two classes sat the same test. Class A (left) and Class B (right) share these stems: } 5 \\mid \\text{A: } 8\\,6\\,2 \\mid \\text{B: } 1\\,4 \\;;\\; 6 \\mid \\text{A: } 5\\,0 \\mid \\text{B: } 3\\,7\\,9 \\;;\\; 7 \\mid \\text{A: } 1 \\mid \\text{B: } 2\\,5. \\text{ Find each class's median and say which class did better.}",
+      steps: [
+        { explanation: "Read Class A's leaves from the stem outward, so the digit nearest the stem is the units digit, and list the values in order.", latex: "\\text{Class A: } 52, 56, 58, 60, 65, 71" },
+        { explanation: "Read Class B's leaves the normal way (left to right on the right side), again giving units nearest the stem.", latex: "\\text{Class B: } 51, 54, 63, 67, 69, 72, 75" },
+        { explanation: "Class A has 6 values, so the median is the average of the 3rd and 4th values — count to them in the ordered list.", latex: "\\text{A median} = \\frac{58 + 60}{2} = 59" },
+        { explanation: "Class B has 7 values, so the median is the 4th value (position (7+1)/2 = 4).", latex: "\\text{B median} = 67" },
+        { explanation: "Compare the two medians: the higher median marks the class with the better typical score.", latex: "67 > 59" },
+      ],
+      finalAnswerLatex: "\\text{Class A median } 59, \\text{ Class B median } 67 \\Rightarrow \\text{Class B did better on the test.}",
     },
   ],
   guidedPractice: [
@@ -1016,15 +1254,17 @@ const columnBarLineGraphs: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A column graph displays categorical data by drawing a vertical bar (column) for each category. The height of the column shows the frequency or value. The categories go on the horizontal axis and the frequency scale goes on the vertical axis. All columns should be the same width with equal gaps between them.",
-      "A bar graph is the horizontal version of the column graph. The categories go on the vertical axis and the bars extend horizontally. Bar graphs are useful when the category names are long, since there is more room to write them.",
-      "A line graph is used for data that changes over time — temperature across hours of the day, sales figures across months, or population across years. Plot a point for each value, then connect the points with straight line segments. Time always goes on the horizontal axis. The slope of the line between points shows whether the value is rising or falling.",
-      "A misleading graph tricks the viewer into drawing the wrong conclusion. The most common trick is starting the y-axis at a value other than zero — this makes small differences look huge. Another trick is using unequal intervals on an axis. Always check the scale before interpreting any graph.",
+      "Graphs turn a table of numbers into a shape your eye can read in a second. The skill in this lesson is twofold: pick the right graph for the data, and then read it without being fooled. A graph is only honest if its axes are honest, so the second half matters as much as the first.",
+      "A **column graph** shows categorical data as vertical bars — one column per category, height equal to that category's frequency. Categories sit on the horizontal axis, the frequency scale on the vertical. Picture favourite sports: a column of height 12 over Soccer, 8 over Swimming, 5 over Tennis. The reason all columns are the same width with equal gaps is that *only the height* is meant to carry information — if widths varied, a wide-but-short bar could look 'bigger' than a tall thin one and mislead the eye.",
+      "A **bar graph** is the same idea lying on its side: categories run down the vertical axis and the bars stretch horizontally. You reach for it when the category names are long (like 'Public transport' or 'Walking and cycling'), because horizontal bars leave room to write the labels in full. Nothing about the data changes — only the orientation.",
+      "A **line graph** is for data that changes *over time* — temperature through the day, sales across months, population across years. You plot a point for each value and join consecutive points with straight segments. Time always goes on the horizontal axis. The reason you are *allowed* to join the points here, but not on a column graph, is that time flows continuously: a point partway along a segment estimates the value *between* two readings, which is genuinely meaningful. Joining categories with a line would falsely suggest such in-between values exist — there is nothing 'between Soccer and Tennis'. The slope of each segment then tells you directly whether the value is rising, falling, or steady.",
+      "Now the honesty part. A **misleading graph** pushes you toward a wrong conclusion while showing 'real' numbers. The classic trick is starting the vertical axis above zero. Two bars at 102 and 104 are barely different — a 2-unit gap out of 104, under 2% — but cut the axis so it starts at 100 and the second bar looks dramatically taller. Your eye judges bars by their *visible height*, so chopping off the bottom exaggerates small differences.",
+      "A second trick is **unequal intervals** on an axis — labelling it 0, 10, 20, 40, 80 so equal screen distances stand for unequal jumps, which warps every bar's apparent size. The defence is the same each time: before reading any graph, check the vertical axis. Does it start at zero? Are the gridline gaps all equal? If not, work with the *actual numbers*, not the picture — the real increase from 90 to 95 is 5, no matter how tall the truncated bar looks.",
     ],
     latexBlocks: [
-      "\\text{Column graph: categories on }x\\text{-axis, frequency on }y\\text{-axis}",
-      "\\text{Line graph: time on }x\\text{-axis, value on }y\\text{-axis}",
-      "\\text{Misleading graph check: does the }y\\text{-axis start at 0? Are intervals equal?}",
+      "\\text{Categorical data} \\rightarrow \\text{column graph (vertical) or bar graph (horizontal)}",
+      "\\text{Data over time} \\rightarrow \\text{line graph (time on the } x\\text{-axis, points joined)}",
+      "\\text{Honesty check: does the } y\\text{-axis start at 0? Are all intervals equal?}",
     ],
   },
   workedExamples: [
@@ -1323,14 +1563,16 @@ const choosingAndInterpretingDisplays: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Choosing the right graph is the first step in data analysis. The correct choice depends on the type of data and the question you are answering. Using the wrong display can hide important information or even mislead the reader.",
-      "For categorical data — such as favourite colour or preferred sport — use a column graph (vertical bars) or a bar graph (horizontal bars). Do not connect the bars with a line, because the categories have no meaningful order that a line would show. For data that changes over time, always use a line graph.",
-      "For small numerical datasets — especially counts like test scores or goals per game — a dot plot or stem-and-leaf plot shows every individual value and makes the shape of the distribution visible. A dot plot is better for very small datasets (under about 15 values); a stem-and-leaf plot handles slightly larger datasets and shows the exact values.",
-      "When reading any display, look for key features: the mode (most common value or tallest bar), outliers (values far from the rest), clustering (where most values are concentrated), spread (how spread out the values are), and trends (whether values increase, decrease, or stay the same over time).",
+      "This lesson pulls the previous four together: given a dataset, which display should you choose, and once you have one, what should you read out of it? Both halves rest on a single idea — match the *tool* to the *type of data and the question*. The wrong display can hide the very thing you were trying to see, or quietly mislead the reader.",
+      "The matching rule follows straight from what each display is built to do. **Categorical** data (favourite colour, preferred sport) goes to a **column or bar graph**, because those compare separate groups side by side. You must *not* join the bars with a line: a line implies the in-between points mean something, but there is nothing between 'Soccer' and 'Tennis', so the line would invent a relationship that does not exist. That single 'why' explains the whole rule.",
+      "**Numerical data that changes over time** (monthly rainfall, yearly population) goes to a **line graph**, because here the in-between *does* mean something — time flows continuously, so the slope between two readings genuinely describes the change, and the line reveals the trend at a glance.",
+      "For a **small numerical dataset** — counts like test scores or goals per game, with maybe a dozen values — a **dot plot or stem-and-leaf plot** is ideal, because both keep every individual value while still showing the overall shape. A dot plot suits the very smallest sets (under about 15 values); a stem-and-leaf plot handles slightly larger ones and records the exact digits. When you need to *compare two groups*, a back-to-back stem-and-leaf plot lines them up on a shared stem so differences in centre and spread are obvious.",
+      "Once you have a display, reading it well means naming specific features, not waving vaguely at the picture. The **mode** is the most common value — the tallest stack or the longest bar. An **outlier** is a value sitting clearly apart from the rest, like a single dot at 12 when everything else clusters at 4–7. **Clustering** is where the bulk of the data bunches; **spread** is how far the values reach, best stated as the range (max − min); and a **trend** is the overall up, down, or steady drift on a line graph.",
+      "The most exam-costly habit is being vague — writing 'the data is spread out' or calling any high value an outlier. Earn the marks by being precise: state the range as a number, and only call a value an outlier if it is genuinely *separated* from the cluster, not merely at the high end of a smooth spread. One more thing worth knowing: an outlier drags the **mean** toward itself far more than it moves the **median** or **mode**, which is why a single extreme value can make the average a misleading summary of 'typical'.",
     ],
     latexBlocks: [
-      "\\text{Categorical data} \\rightarrow \\text{column graph or bar graph}",
-      "\\text{Numerical data over time} \\rightarrow \\text{line graph}",
+      "\\text{Categorical data} \\rightarrow \\text{column or bar graph (do not join the bars)}",
+      "\\text{Numerical data over time} \\rightarrow \\text{line graph (shows the trend)}",
       "\\text{Small numerical dataset} \\rightarrow \\text{dot plot or stem-and-leaf plot}",
       "\\text{Comparing two groups} \\rightarrow \\text{back-to-back stem-and-leaf plot}",
     ],
@@ -1350,11 +1592,23 @@ const choosingAndInterpretingDisplays: LessonContent = {
       title: "Identify features of a display",
       questionLatex: "\\text{A dot plot shows test scores: } \\bullet\\text{ at 4 (1 dot), 5 (2 dots), 6 (5 dots), 7 (3 dots), 12 (1 dot). Identify the mode, a possible outlier, and describe the spread.}",
       steps: [
-        { explanation: "Mode: the score with the most dots. Score 6 has 5 dots — the highest stack.", latex: "\\text{Mode} = 6" },
-        { explanation: "Outlier: a value far from the rest. Most scores are 4–7, but one score of 12 is much higher and separated from the cluster.", latex: "\\text{Possible outlier} = 12" },
-        { explanation: "Spread: the range from the minimum (4) to the maximum (12) is 8, but most values are clustered between 5 and 7.", latex: "\\text{Range} = 12 - 4 = 8\\text{; cluster at 5–7}" },
+        { explanation: "Find the mode by spotting the tallest stack, since that value occurred most often.", latex: "\\text{Score 6 has 5 dots} \\rightarrow \\text{Mode} = 6" },
+        { explanation: "Look for a value sitting apart from the cluster — that is what makes a value an outlier, not just being large.", latex: "\\text{Cluster at 4–7, but } 12 \\text{ is isolated} \\rightarrow \\text{outlier} = 12" },
+        { explanation: "Describe spread precisely with the range, then add where the bulk of values sit so the description is specific, not vague.", latex: "\\text{Range} = 12 - 4 = 8\\text{; most values cluster at 5–7}" },
       ],
-      finalAnswerLatex: "\\text{Mode} = 6,\\text{ outlier at } 12,\\text{ most values cluster between 5 and 7}",
+      finalAnswerLatex: "\\text{Mode} = 6,\\text{ outlier at } 12,\\text{ range } 8,\\text{ most values cluster between 5 and 7}",
+    },
+    {
+      title: "Choose a display and judge how an outlier distorts the average",
+      questionLatex: "\\text{Seven friends' weekly screen-time (hours) are: } 5, 6, 6, 7, 6, 8, 40. \\text{ (a) Which display best shows these values? (b) Find the mode, median and mean. (c) Which average best describes a 'typical' week, and why?}",
+      steps: [
+        { explanation: "Choose the display from the data type and size: seven individual numerical values is a very small set, so a dot plot shows every value and reveals the lone extreme.", latex: "\\text{7 numerical values} \\rightarrow \\text{dot plot}" },
+        { explanation: "Find the mode — the most repeated value. The value 6 appears three times, more than any other.", latex: "\\text{Mode} = 6" },
+        { explanation: "Sort the values, then take the middle one (the 4th of 7) for the median.", latex: "5, 6, 6, 6, 7, 8, 40 \\rightarrow \\text{Median} = 6" },
+        { explanation: "Add all seven values and divide by 7 to get the mean.", latex: "\\text{Mean} = \\frac{5+6+6+7+6+8+40}{7} = \\frac{78}{7} = 11.1\\ldots" },
+        { explanation: "Compare: six of the seven weeks are around 5–8 hours, yet the single value 40 pulls the mean up past 11 — far from any actual typical week. The median and mode stay at 6, close to the cluster, so they describe 'typical' far better here.", latex: "\\text{Outlier } 40 \\text{ inflates the mean but not the median/mode}" },
+      ],
+      finalAnswerLatex: "\\text{(a) dot plot; (b) mode } 6,\\text{ median } 6,\\text{ mean } \\approx 11.1; \\text{ (c) the median (6) — the outlier 40 distorts the mean.}",
     },
   ],
   guidedPractice: [

@@ -1,5 +1,12 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import type { PlaneShapeDiagram, TriangleDiagram } from "../types";
+
+/** Optional visual payload accepted by the question builders below. */
+type AngleDiagram = {
+  triangleDiagram?: TriangleDiagram;
+  planeShapeDiagram?: PlaneShapeDiagram;
+};
 
 function answer(
   id: string,
@@ -7,7 +14,8 @@ function answer(
   latex: string,
   ans: string,
   explanation: string,
-  acceptedAnswers: string[] = []
+  acceptedAnswers: string[] = [],
+  diagram?: AngleDiagram
 ): PracticeQuestion {
   const autoVariants: string[] = [];
 
@@ -32,6 +40,7 @@ function answer(
     acceptedAnswers: Array.from(new Set([ans, ...acceptedAnswers, ...autoVariants])),
     hint: "Use the angle relationship rule taught in this lesson.",
     explanation,
+    ...diagram,
   };
 }
 
@@ -41,7 +50,8 @@ function choice(
   ans: "A" | "B" | "C" | "D",
   choices: [string, string, string, string],
   explanation: string,
-  latex = "\\text{Select A, B, C, or D.}"
+  latex = "\\text{Select A, B, C, or D.}",
+  diagram?: AngleDiagram
 ): PracticeQuestion {
   return {
     id,
@@ -51,6 +61,143 @@ function choice(
     answer: ans,
     hint: "Consider the key angle rule taught in this lesson before choosing.",
     explanation,
+    ...diagram,
+  };
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Diagram builders — faithful figures for angle questions
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * A triangle figure whose three interior angles are labelled. Given angles are
+ * written as their numeric value (e.g. "48°") and the unknown as "x" (or "?").
+ * Vertices use the standard A (top-left), C (bottom-left), B (bottom-right)
+ * layout shared with the Pythagoras lessons.
+ */
+function triFig(
+  description: string,
+  angleLabels: Partial<Record<"A" | "B" | "C", string>>,
+  options: {
+    rightAngleAt?: "A" | "B" | "C";
+    vertexLabels?: Partial<Record<"A" | "B" | "C", string>>;
+    sideLabels?: Partial<Record<"AB" | "BC" | "AC", string>>;
+  } = {}
+): TriangleDiagram {
+  return {
+    description,
+    vertices: {
+      A: { x: 90, y: 40 },
+      C: { x: 70, y: 230 },
+      B: { x: 330, y: 220 },
+    },
+    angleLabels,
+    rightAngleAt: options.rightAngleAt,
+    vertexLabels: options.vertexLabels,
+    sideLabels: options.sideLabels,
+  };
+}
+
+/**
+ * An isosceles triangle figure (apex at the top, equal base angles), with the
+ * two equal sides tick-marked. Angle labels are supplied per vertex.
+ */
+function isoscelesFig(
+  description: string,
+  angleLabels: Partial<Record<"A" | "B" | "C", string>>
+): TriangleDiagram {
+  return {
+    description,
+    vertices: {
+      A: { x: 200, y: 40 },
+      C: { x: 70, y: 235 },
+      B: { x: 330, y: 235 },
+    },
+    angleLabels,
+    highlightedSides: ["AB", "AC"],
+  };
+}
+
+/** A right-angled triangle whose two acute angles form a complementary pair. */
+function complementFig(
+  givenLabel: string,
+  unknownLabel = "x"
+): TriangleDiagram {
+  return {
+    description: `Right-angled triangle with the right angle at C. The two acute angles, ${givenLabel} and ${unknownLabel}, are complementary (they sum to 90°).`,
+    vertices: {
+      A: { x: 90, y: 40 },
+      C: { x: 90, y: 235 },
+      B: { x: 330, y: 235 },
+    },
+    angleLabels: { A: unknownLabel, B: givenLabel },
+    rightAngleAt: "C",
+  };
+}
+
+/**
+ * A general quadrilateral figure (vertices given in y-up natural coordinates,
+ * listed anticlockwise) with interior-angle labels. Given angles are numeric,
+ * the unknown is "x" / "?".
+ */
+function quadFig(
+  description: string,
+  vertices: PlaneShapeDiagram["vertices"],
+  edges?: PlaneShapeDiagram["edges"],
+  fill: PlaneShapeDiagram["fill"] = "blue"
+): PlaneShapeDiagram {
+  return { description, vertices, edges, fill };
+}
+
+/**
+ * A parallelogram figure with both pairs of opposite sides chevron-marked
+ * parallel. Interior angles are supplied for the four vertices in the order
+ * bottom-left, bottom-right, top-right, top-left.
+ */
+function parallelogramFig(
+  description: string,
+  angles: [string?, string?, string?, string?],
+  options: { rhombus?: boolean } = {}
+): PlaneShapeDiagram {
+  return {
+    description,
+    vertices: [
+      { x: 0, y: 0, angleLabel: angles[0] },
+      { x: 4, y: 0, angleLabel: angles[1] },
+      { x: 5, y: 2.6, angleLabel: angles[2] },
+      { x: 1, y: 2.6, angleLabel: angles[3] },
+    ],
+    edges: options.rhombus
+      ? [
+          { arrows: 1, ticks: 1 },
+          { arrows: 2, ticks: 1 },
+          { arrows: 1, ticks: 1 },
+          { arrows: 2, ticks: 1 },
+        ]
+      : [{ arrows: 1 }, { arrows: 2 }, { arrows: 1 }, { arrows: 2 }],
+    fill: "blue",
+  };
+}
+
+/**
+ * A trapezoid figure with the top and bottom sides chevron-marked parallel.
+ * Interior angles are supplied for the four vertices in the order
+ * bottom-left, bottom-right, top-right, top-left.
+ */
+function trapezoidFig(
+  description: string,
+  angles: [string?, string?, string?, string?]
+): PlaneShapeDiagram {
+  return {
+    description,
+    vertices: [
+      { x: 0, y: 0, angleLabel: angles[0] },
+      { x: 5, y: 0, angleLabel: angles[1] },
+      { x: 3.7, y: 2.6, angleLabel: angles[2] },
+      { x: 1.3, y: 2.6, angleLabel: angles[3] },
+    ],
+    edges: [{ arrows: 1 }, {}, { arrows: 1 }, {}],
+    fill: "teal",
   };
 }
 
@@ -92,68 +239,114 @@ const angleTypesAndRelationships: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "An angle measures the amount of turn between two rays that meet at a point. We classify angles by their size: acute angles are between 0° and 90°, a right angle is exactly 90°, obtuse angles are between 90° and 180°, a straight angle is exactly 180°, reflex angles are between 180° and 360°, and a revolution is a full turn of 360°.",
-      "Two angles are complementary when they add to 90°. Think of the corner of a square — if one angle is 35°, the other must be 55° to complete the right angle. Two angles are supplementary when they add to 180°. A straight line is a 180° angle, so any two angles that together make a straight line are supplementary.",
-      "When two straight lines cross, they form two pairs of vertically opposite angles — the angles directly across from each other at the intersection. Vertically opposite angles are always equal. This is because each angle and its neighbour on the straight line are supplementary, so both pairs of opposite angles must be equal.",
-      "All the angles around a single point always add up to 360°, because a full turn is 360°. If you know several angles at a point, subtract their total from 360° to find the missing one. The most common error is confusing supplementary (180°) with complementary (90°) — learn both words and their sums.",
+      "An angle measures how much you turn. Imagine standing still and rotating to face a new direction: the angle is the size of that turn, the amount of opening between where you started and where you finished. It is not about how long the two arms are — a tiny corner and a huge corner can hold exactly the same angle. What matters is only the spread between the two rays that meet at the point.",
+      "We measure that turn in degrees. One full spin all the way back to where you started is $360^\\circ$. Half a spin, turning to face the exact opposite direction, is $180^\\circ$ — that is why a straight line counts as a $180^\\circ$ angle. A quarter spin is $90^\\circ$, the square corner you see on a book or a window. So the size names follow the turn: an acute angle is less than a quarter turn (between $0^\\circ$ and $90^\\circ$), a right angle is exactly $90^\\circ$, an obtuse angle is between a quarter and a half turn ($90^\\circ$ to $180^\\circ$), a straight angle is exactly $180^\\circ$, a reflex angle is more than half a turn ($180^\\circ$ to $360^\\circ$), and a revolution is the full $360^\\circ$.",
+      "Two angles are complementary when they add to $90^\\circ$, and supplementary when they add to $180^\\circ$. The names sound similar, so anchor each one to a picture: complementary makes a square Corner ($90^\\circ$), supplementary makes a Straight line ($180^\\circ$). If one corner-piece is $35^\\circ$, its complement must be $55^\\circ$ to finish the right angle; if one angle on a straight line is $130^\\circ$, its supplement is $50^\\circ$ to finish the line.",
+      "Here is why those sums are forced, not just memorised. When several angles sit side by side along a straight line, together they fill exactly half a turn, and half a turn is $180^\\circ$ — so they must add to $180^\\circ$. When angles sit side by side all the way around a point, together they fill one full turn, which is $360^\\circ$ — so they must add to $360^\\circ$. You are not learning two unrelated facts; you are reading the same idea (an angle is an amount of turn) at half a turn and at a full turn.",
+      "Now look at what happens when two straight lines cross. They make four angles. Take any one angle, call it $a$, and the angle right next to it, $b$: together $a$ and $b$ lie on a straight line, so $a+b=180^\\circ$. The angle on the other side of $b$, directly across from $a$, also pairs with $b$ on a straight line, so it plus $b$ is $180^\\circ$ too. Both equal $180^\\circ-b$, so the angle across from $a$ must equal $a$ itself. That is why vertically opposite angles — the ones diagonally across the X — are always equal: each is the leftover after subtracting the same shared neighbour from $180^\\circ$.",
+      "To find a missing angle, decide first which whole the angles fill. If they sit on a straight line, the missing one is $180^\\circ$ minus the rest; if they fan all the way around a point, it is $360^\\circ$ minus the rest; if they are vertically opposite, just copy the equal angle. The classic trap is reaching for the wrong total — using $90^\\circ$ when the angles really make a straight line, or $180^\\circ$ when they go all the way around. A quick sketch showing whether the arms close at a line or sweep around a full point keeps you on the right total, and never trust a diagram's apparent size: an angle drawn to look like $90^\\circ$ might be labelled $88^\\circ$, so always work from the rule, not the picture.",
     ],
     latexBlocks: [
-      "\\text{Complementary: } \\angle A + \\angle B = 90°",
-      "\\text{Supplementary: } \\angle A + \\angle B = 180°",
-      "\\text{Vertically opposite angles are equal}",
-      "\\text{Angles at a point: } \\angle A + \\angle B + \\angle C + \\cdots = 360°",
+      "\\text{Half a turn} = 180^\\circ \\qquad \\text{Full turn} = 360^\\circ",
+      "\\text{Complementary (Corner): } \\angle A + \\angle B = 90^\\circ",
+      "\\text{Supplementary (Straight line): } \\angle A + \\angle B = 180^\\circ",
+      "\\text{Angles at a point: } \\angle A + \\angle B + \\angle C + \\cdots = 360^\\circ \\qquad \\text{Vertically opposite angles are equal}",
     ],
   },
   workedExamples: [
     {
       title: "Find a complementary angle",
       questionLatex:
-        "\\text{Two angles are complementary. One angle is } 38°. \\text{ Find the other angle in degrees.}",
+        "\\text{Two angles are complementary. One angle is } 38^\\circ. \\text{ Find the other angle in degrees.}",
+      triangleDiagram: complementFig("38°"),
       steps: [
         {
           explanation:
-            "Complementary angles sum to 90°, so subtract the known angle from 90°.",
-          latex: "90 - 38 = 52",
+            "Complementary means the two angles together fill a right-angle corner, so they sum to 90 degrees. Write that relationship.",
+          latex: "38 + \\angle B = 90",
+        },
+        {
+          explanation:
+            "Subtract the known angle from 90 to find what is left of the corner.",
+          latex: "\\angle B = 90 - 38 = 52",
         },
       ],
-      finalAnswerLatex: "\\text{The other angle is } 52°.",
+      finalAnswerLatex: "\\text{The other angle is } 52^\\circ.",
     },
     {
       title: "Find a supplementary angle",
       questionLatex:
-        "\\text{Angles on a straight line. One angle is } 115°. \\text{ Find the other angle in degrees.}",
+        "\\text{Two angles lie on a straight line. One angle is } 115^\\circ. \\text{ Find the other angle in degrees.}",
       steps: [
         {
           explanation:
-            "Angles on a straight line are supplementary — they sum to 180°.",
-          latex: "180 - 115 = 65",
+            "Angles that together make a straight line fill half a turn, so they are supplementary and sum to 180 degrees.",
+          latex: "115 + \\angle B = 180",
+        },
+        {
+          explanation:
+            "Subtract the known angle from 180 to find the rest of the half-turn.",
+          latex: "\\angle B = 180 - 115 = 65",
         },
       ],
-      finalAnswerLatex: "\\text{The other angle is } 65°.",
+      finalAnswerLatex: "\\text{The other angle is } 65^\\circ.",
     },
     {
-      title: "Find angles at a point using vertically opposite and revolution",
+      title: "Find all four angles where two lines cross",
       questionLatex:
-        "\\text{Two straight lines cross. One angle at the intersection is } 70°. \\text{ Find all four angles at the intersection.}",
+        "\\text{Two straight lines cross. One angle at the intersection is } 70^\\circ. \\text{ Find all four angles at the intersection.}",
       steps: [
         {
           explanation:
-            "The angle directly opposite the 70° angle is vertically opposite, so it is also 70°.",
-          latex: "\\text{Vertically opposite angle} = 70°",
+            "The angle diagonally across the crossing is vertically opposite the 70 degree angle, so it is equal to it.",
+          latex: "\\text{Vertically opposite angle} = 70^\\circ",
         },
         {
           explanation:
-            "Each remaining angle is supplementary to 70°, so subtract from 180°.",
+            "An angle next to the 70 degree angle sits with it on a straight line, so it is supplementary: subtract from 180.",
           latex: "180 - 70 = 110",
         },
         {
           explanation:
-            "The two remaining angles are vertically opposite each other, so both equal 110°. Check: 70 + 110 + 70 + 110 = 360.",
-          latex: "70 + 110 + 70 + 110 = 360°",
+            "The last angle is vertically opposite that 110 degree angle, so it is also 110 degrees.",
+          latex: "\\text{Vertically opposite angle} = 110^\\circ",
+        },
+        {
+          explanation:
+            "Check the four angles fill a full turn around the point: they should sum to 360 degrees.",
+          latex: "70 + 110 + 70 + 110 = 360",
         },
       ],
       finalAnswerLatex:
-        "\\text{The four angles are } 70°,\\ 110°,\\ 70°,\\ 110°.",
+        "\\text{The four angles are } 70^\\circ,\\ 110^\\circ,\\ 70^\\circ,\\ 110^\\circ.",
+    },
+    {
+      title: "Harder: chain complementary, straight line, and angles at a point",
+      questionLatex:
+        "\\text{At a point, four angles meet around a full turn. The first is } 90^\\circ. \\text{ The second is the complement of } 65^\\circ. \\text{ The third is the supplement of } 110^\\circ. \\text{ Find the fourth angle in degrees.}",
+      steps: [
+        {
+          explanation:
+            "Find the second angle: its complement is 65, so it and 65 together make a 90 degree corner.",
+          latex: "\\text{second} = 90 - 65 = 25",
+        },
+        {
+          explanation:
+            "Find the third angle: its supplement is 110, so it and 110 together make a straight line of 180 degrees.",
+          latex: "\\text{third} = 180 - 110 = 70",
+        },
+        {
+          explanation:
+            "All four angles sweep around a single point, so they fill a full turn of 360 degrees. Add the three known angles first.",
+          latex: "90 + 25 + 70 = 185",
+        },
+        {
+          explanation:
+            "Subtract that total from 360 to find the fourth angle that completes the revolution.",
+          latex: "\\text{fourth} = 360 - 185 = 175",
+        },
+      ],
+      finalAnswerLatex: "\\text{The fourth angle is } 175^\\circ.",
     },
   ],
   guidedPractice: [
@@ -170,7 +363,8 @@ const angleTypesAndRelationships: LessonContent = {
       "\\angle A + 54° = 90°",
       "36",
       "Complementary angles sum to 90°. So the other angle = 90 - 54 = 36°.",
-      ["36°"]
+      ["36°"],
+      { triangleDiagram: complementFig("54°") }
     ),
     answer(
       "y7-ang-typ-g3",
@@ -196,7 +390,8 @@ const angleTypesAndRelationships: LessonContent = {
       "29° + \\angle A = 90°",
       "61",
       "Complementary angles sum to 90°. Complement = 90 - 29 = 61°.",
-      ["61°"]
+      ["61°"],
+      { triangleDiagram: complementFig("29°") }
     ),
     answer(
       "y7-ang-typ-i2",
@@ -262,7 +457,8 @@ const angleTypesAndRelationships: LessonContent = {
       "17° + \\angle A = 90°",
       "73",
       "Complement = 90 - 17 = 73°.",
-      ["73°"]
+      ["73°"],
+      { triangleDiagram: complementFig("17°") }
     ),
     answer(
       "y7-ang-typ-m3",
@@ -329,13 +525,13 @@ const angleTypesAndRelationships: LessonContent = {
     ),
   ],
   masteryQuizPool: [
-    dq(answer("y7-ang-typ-p1", "Find the complement of 12°. Give your answer in degrees.", "12° + \\angle A = 90°", "78", "Complement = 90 - 12 = 78°.", ["78°"]), 1),
-    dq(answer("y7-ang-typ-p2", "Find the complement of 45°. Give your answer in degrees.", "45° + \\angle A = 90°", "45", "Complement = 90 - 45 = 45°.", ["45°"]), 1),
+    dq(answer("y7-ang-typ-p1", "Find the complement of 12°. Give your answer in degrees.", "12° + \\angle A = 90°", "78", "Complement = 90 - 12 = 78°.", ["78°"], { triangleDiagram: complementFig("12°") }), 1),
+    dq(answer("y7-ang-typ-p2", "Find the complement of 45°. Give your answer in degrees.", "45° + \\angle A = 90°", "45", "Complement = 90 - 45 = 45°.", ["45°"], { triangleDiagram: complementFig("45°") }), 1),
     dq(answer("y7-ang-typ-p3", "Find the supplement of 35°. Give your answer in degrees.", "35° + \\angle A = 180°", "145", "Supplement = 180 - 35 = 145°.", ["145°"]), 1),
     dq(answer("y7-ang-typ-p4", "Find the supplement of 90°. Give your answer in degrees.", "90° + \\angle A = 180°", "90", "Supplement = 180 - 90 = 90°.", ["90°"]), 1),
     dq(choice("y7-ang-typ-p5", "An angle measures 200°. What type of angle is it?", "D", ["Acute", "Obtuse", "Straight", "Reflex"], "Reflex angles are between 180° and 360°. 200° lies in that range, so it is reflex."), 1),
     dq(choice("y7-ang-typ-p6", "An angle measures 88°. What type of angle is it?", "A", ["Acute", "Right", "Obtuse", "Reflex"], "Acute angles are between 0° and 90°. 88° is acute."), 1),
-    dq(answer("y7-ang-typ-p7", "Find the complement of 63°. Give your answer in degrees.", "63° + \\angle A = 90°", "27", "Complement = 90 - 63 = 27°.", ["27°"]), 2),
+    dq(answer("y7-ang-typ-p7", "Find the complement of 63°. Give your answer in degrees.", "63° + \\angle A = 90°", "27", "Complement = 90 - 63 = 27°.", ["27°"], { triangleDiagram: complementFig("63°") }), 2),
     dq(answer("y7-ang-typ-p8", "Find the supplement of 124°. Give your answer in degrees.", "124° + \\angle A = 180°", "56", "Supplement = 180 - 124 = 56°.", ["56°"]), 2),
     dq(answer("y7-ang-typ-p9", "Two straight lines cross. One angle is 38°. Find the size in degrees of the angle adjacent to it on the straight line.", "38° + \\angle A = 180°", "142", "Adjacent angles on a straight line are supplementary. 180 - 38 = 142°.", ["142°"]), 2),
     dq(answer("y7-ang-typ-p10", "Two straight lines cross. One angle is 109°. Find the size in degrees of the vertically opposite angle.", "\\text{Vertically opposite angles are equal}", "109", "Vertically opposite angles are equal, so the opposite angle is also 109°.", ["109°"]), 2),
@@ -423,72 +619,125 @@ const anglesInTriangles: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Every triangle, regardless of its shape or size, has interior angles that add up to exactly 180°. You can test this by tearing off the three corners of any paper triangle and placing them side by side — they always form a straight line. This is the triangle angle sum property.",
-      "To find a missing angle in a triangle, add the two known angles and subtract from 180°. For example, if a triangle has angles of 60° and 75°, the third angle = 180 - 60 - 75 = 45°. Always check: do all three angles add to 180°?",
-      "An exterior angle of a triangle is formed by extending one side of the triangle beyond the vertex. The exterior angle equals the sum of the two interior angles that are not next to it — the two non-adjacent interior angles. This shortcut is faster than working out the interior angle first and then finding its supplement.",
-      "Triangles are classified two ways. By angles: all three angles acute gives an acute triangle; one right angle gives a right triangle; one obtuse angle gives an obtuse triangle. By sides: all three sides equal is equilateral; two sides equal is isosceles; all sides different is scalene. An equilateral triangle always has three angles of 60°.",
+      "The three corners of any triangle, no matter how it is stretched or squashed, always add up to the same total: $180^\\circ$. That is a strong claim — a tall thin triangle and a short wide one look nothing alike, yet their three angles share the same sum. This lesson is about why that is true and how to use it.",
+      "You can see it with a paper triangle. Tear off all three corners and lay them next to each other so their points touch at one spot. Every time, the three torn corners fit together to make a straight line — no gap, no overlap. A straight line is half a turn, which is $180^\\circ$, so the three angles must total $180^\\circ$.",
+      "Here is the reason behind the tearing, in plain terms. Imagine drawing a line through the top corner of the triangle that runs parallel to the base. The two slanted sides of the triangle cut across that top line. The angle the left side makes on one side of the top line is exactly equal to the bottom-left corner of the triangle (they are alternate angles between the two parallel lines), and likewise the right side's angle matches the bottom-right corner. So along the top line you now have three angles sitting side by side: the matched bottom-left corner, the original top corner, and the matched bottom-right corner. Together they stretch along a straight line, which is $180^\\circ$ — and those three angles are exactly the three angles of the triangle. That is the proof the paper tearing was hinting at.",
+      "To find a missing angle, use the sum. Write that the three angles total $180^\\circ$, put in the two you know, and the third is $180^\\circ$ minus their sum. For a triangle with angles $60^\\circ$ and $75^\\circ$, the third is $180^\\circ-60^\\circ-75^\\circ=45^\\circ$. Always check the three add back to $180^\\circ$. The classic slip is to add the two given angles and report that sum as the answer — but that sum is what you subtract from $180^\\circ$, not the answer itself.",
+      "There is a useful shortcut called the exterior angle. If you extend one side of the triangle past a corner, the angle that opens up outside the triangle is the exterior angle. It equals the sum of the two interior angles at the far corners — the two it does not touch. Why? The exterior angle and the interior angle beside it sit on a straight line, so they add to $180^\\circ$; but the three interior angles also add to $180^\\circ$; subtract the shared interior angle from both statements and the exterior angle is left equal to the other two interior angles. So you can jump straight to the answer by adding the two far angles, instead of finding an interior angle first and then taking its supplement.",
+      "Finally, triangles get two separate labels, and mixing them up is a common error. By their angles: acute (all three under $90^\\circ$), right (one is exactly $90^\\circ$), or obtuse (one is over $90^\\circ$). By their sides: equilateral (all three sides equal), isosceles (two equal), or scalene (all different). The two systems are independent — a triangle has one name from each list. Equal sides force equal angles opposite them, so an equilateral triangle has three equal angles, each $180^\\circ\\div3=60^\\circ$, and an isosceles triangle has two equal base angles.",
     ],
     latexBlocks: [
-      "\\angle A + \\angle B + \\angle C = 180°",
-      "\\text{Exterior angle} = \\angle A + \\angle B \\quad (\\text{non-adjacent interior angles})",
-      "\\text{Equilateral triangle: each angle} = 60°",
-      "\\text{Isosceles triangle: base angles are equal}",
+      "\\angle A + \\angle B + \\angle C = 180^\\circ",
+      "\\text{Exterior angle} = \\text{sum of the two non-adjacent interior angles}",
+      "\\text{Equilateral: each angle} = 180^\\circ \\div 3 = 60^\\circ",
+      "\\text{Isosceles: the two base angles are equal}",
     ],
   },
   workedExamples: [
     {
       title: "Find a missing angle using the triangle angle sum",
       questionLatex:
-        "\\text{A triangle has angles of } 48°\\text{ and }67°.\\text{ Find the third angle in degrees.}",
+        "\\text{A triangle has angles of } 48^\\circ\\text{ and }67^\\circ.\\text{ Find the third angle in degrees.}",
+      triangleDiagram: triFig(
+        "Triangle with two interior angles marked 48° and 67°, and the third angle marked x.",
+        { A: "48°", B: "67°", C: "x" }
+      ),
       steps: [
         {
-          explanation: "The three angles of a triangle sum to 180°.",
-          latex: "\\angle A + \\angle B + \\angle C = 180°",
+          explanation: "The three interior angles of any triangle fill a straight line when laid together, so they sum to 180 degrees.",
+          latex: "\\angle A + \\angle B + \\angle C = 180",
         },
         {
-          explanation: "Substitute the two known angles and solve for the third.",
+          explanation: "Substitute the two known angles into the sum.",
           latex: "48 + 67 + \\angle C = 180",
         },
         {
-          explanation: "Add the known angles, then subtract from 180°.",
-          latex: "\\angle C = 180 - 48 - 67 = 65",
+          explanation: "Add the two known angles, then subtract from 180 to find the third.",
+          latex: "\\angle C = 180 - 115 = 65",
         },
       ],
-      finalAnswerLatex: "\\text{The third angle is } 65°.",
+      finalAnswerLatex: "\\text{The third angle is } 65^\\circ.",
     },
     {
-      title: "Use the exterior angle theorem",
+      title: "Use the exterior angle of a triangle",
       questionLatex:
-        "\\text{A triangle has two interior angles of } 50°\\text{ and }70°.\\text{ Find the exterior angle at the third vertex in degrees.}",
+        "\\text{A triangle has two interior angles of } 50^\\circ\\text{ and }70^\\circ.\\text{ Find the exterior angle at the third vertex in degrees.}",
+      triangleDiagram: triFig(
+        "Triangle ABC with the two non-adjacent interior angles marked 50° at A and 70° at B. The side through vertex C is extended outward to form the exterior angle at C, which is required.",
+        { A: "50°", B: "70°" },
+        { vertexLabels: { A: "A", B: "B", C: "C" } }
+      ),
       steps: [
         {
           explanation:
-            "The exterior angle of a triangle equals the sum of the two non-adjacent interior angles.",
+            "The exterior angle equals the sum of the two non-adjacent interior angles, because both it and those two angles fill the gap up to 180 degrees in the same way.",
           latex: "\\text{Exterior angle} = 50 + 70",
         },
         {
-          explanation: "Add the two non-adjacent angles.",
-          latex: "\\text{Exterior angle} = 120°",
+          explanation: "Add the two non-adjacent interior angles.",
+          latex: "\\text{Exterior angle} = 120",
         },
       ],
-      finalAnswerLatex: "\\text{The exterior angle is } 120°.",
+      finalAnswerLatex: "\\text{The exterior angle is } 120^\\circ.",
     },
     {
       title: "Find the base angles of an isosceles triangle",
       questionLatex:
-        "\\text{An isosceles triangle has an apex angle of } 40°.\\text{ Find each base angle in degrees.}",
+        "\\text{An isosceles triangle has an apex angle of } 40^\\circ.\\text{ Find each base angle in degrees.}",
+      triangleDiagram: isoscelesFig(
+        "Isosceles triangle with apex angle 40° at the top and the two equal sides tick-marked. The two equal base angles are each marked x.",
+        { A: "40°", B: "x", C: "x" }
+      ),
       steps: [
         {
           explanation:
-            "The base angles of an isosceles triangle are equal. Let each base angle be x.",
+            "The two equal sides force the two base angles to be equal, so call each base angle x and write the angle sum.",
           latex: "x + x + 40 = 180",
         },
         {
-          explanation: "Simplify and solve.",
-          latex: "2x = 140,\\quad x = 70",
+          explanation: "Combine the two x terms and subtract the apex from 180.",
+          latex: "2x = 140",
+        },
+        {
+          explanation: "Divide by 2 to find one base angle.",
+          latex: "x = 70",
         },
       ],
-      finalAnswerLatex: "\\text{Each base angle is } 70°.",
+      finalAnswerLatex: "\\text{Each base angle is } 70^\\circ.",
+    },
+    {
+      title: "Harder: combine isosceles base angles with the exterior angle",
+      questionLatex:
+        "\\text{Triangle } ABC \\text{ is isosceles with } AB = AC \\text{ and apex angle } A = 36^\\circ. \\text{ Side } BC \\text{ is extended past } C \\text{ to a point } D. \\text{ Find the exterior angle } ACD \\text{ in degrees.}",
+      triangleDiagram: {
+        ...isoscelesFig(
+          "Isosceles triangle ABC with AB = AC (the two equal sides tick-marked), apex angle 36° at A, and equal base angles x at B and C. Base BC is extended past C to D, forming the exterior angle ACD.",
+          { A: "36°", B: "x", C: "x" }
+        ),
+        vertexLabels: { A: "A", C: "B", B: "C" },
+      },
+      steps: [
+        {
+          explanation:
+            "The equal sides make the base angles at B and C equal, so call each x and use the angle sum.",
+          latex: "36 + x + x = 180",
+        },
+        {
+          explanation: "Solve for the base angle at C.",
+          latex: "2x = 144,\\quad x = 72",
+        },
+        {
+          explanation:
+            "The exterior angle ACD and the interior base angle at C sit together on the straight line BD, so they are supplementary.",
+          latex: "\\angle ACD = 180 - 72 = 108",
+        },
+        {
+          explanation:
+            "Check with the exterior-angle shortcut: it should equal the sum of the two far interior angles, A and B.",
+          latex: "36 + 72 = 108 \\;\\checkmark",
+        },
+      ],
+      finalAnswerLatex: "\\text{The exterior angle } ACD = 108^\\circ.",
     },
   ],
   guidedPractice: [
@@ -497,7 +746,15 @@ const anglesInTriangles: LessonContent = {
       "A triangle has angles of 90°, 45°, and 45°. What type of triangle is it by angles?",
       "B",
       ["Acute", "Right", "Obtuse", "Equilateral"],
-      "A triangle with one 90° angle is a right triangle."
+      "A triangle with one 90° angle is a right triangle.",
+      undefined,
+      {
+        triangleDiagram: triFig(
+          "Triangle with a right-angle square at C and the two acute angles each marked 45°.",
+          { A: "45°", B: "45°" },
+          { rightAngleAt: "C" }
+        ),
+      }
     ),
     answer(
       "y7-ang-tri-g2",
@@ -505,7 +762,13 @@ const anglesInTriangles: LessonContent = {
       "65° + 80° + \\angle C = 180°",
       "35",
       "Third angle = 180 - 65 - 80 = 35°.",
-      ["35°"]
+      ["35°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle with two interior angles marked 65° and 80°, and the third angle marked x.",
+          { A: "65°", B: "80°", C: "x" }
+        ),
+      }
     ),
     answer(
       "y7-ang-tri-g3",
@@ -513,7 +776,14 @@ const anglesInTriangles: LessonContent = {
       "\\text{Exterior angle} = 55° + 75°",
       "130",
       "Exterior angle = 55 + 75 = 130°.",
-      ["130°"]
+      ["130°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle ABC with the two non-adjacent interior angles marked 55° at A and 75° at B. The side through C is extended to form the exterior angle at C, which is required.",
+          { A: "55°", B: "75°" },
+          { vertexLabels: { A: "A", B: "B", C: "C" } }
+        ),
+      }
     ),
     answer(
       "y7-ang-tri-g4",
@@ -521,7 +791,13 @@ const anglesInTriangles: LessonContent = {
       "52° + 52° + \\angle A = 180°",
       "76",
       "Both base angles are 52°. Apex angle = 180 - 52 - 52 = 76°.",
-      ["76°"]
+      ["76°"],
+      {
+        triangleDiagram: isoscelesFig(
+          "Isosceles triangle with the two equal sides tick-marked and each base angle marked 52°. The apex angle at the top is marked x.",
+          { A: "x", B: "52°", C: "52°" }
+        ),
+      }
     ),
   ],
   independentPractice: [
@@ -531,7 +807,13 @@ const anglesInTriangles: LessonContent = {
       "37° + 94° + \\angle C = 180°",
       "49",
       "Third angle = 180 - 37 - 94 = 49°.",
-      ["49°"]
+      ["49°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle with two interior angles marked 37° and 94°, and the third angle marked x.",
+          { A: "37°", B: "94°", C: "x" }
+        ),
+      }
     ),
     answer(
       "y7-ang-tri-i2",
@@ -539,7 +821,14 @@ const anglesInTriangles: LessonContent = {
       "90° + 34° + \\angle C = 180°",
       "56",
       "The right angle accounts for 90°. Third angle = 180 - 90 - 34 = 56°.",
-      ["56°"]
+      ["56°"],
+      {
+        triangleDiagram: triFig(
+          "Right-angled triangle with a right-angle square at C, one acute angle marked 34°, and the other acute angle marked x.",
+          { A: "34°", B: "x" },
+          { rightAngleAt: "C" }
+        ),
+      }
     ),
     answer(
       "y7-ang-tri-i3",
@@ -547,7 +836,14 @@ const anglesInTriangles: LessonContent = {
       "\\text{Exterior angle} = 42° + 63°",
       "105",
       "Exterior angle = 42 + 63 = 105°.",
-      ["105°"]
+      ["105°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle ABC with the two non-adjacent interior angles marked 42° at A and 63° at B. The side through C is extended to form the exterior angle at C, which is required.",
+          { A: "42°", B: "63°" },
+          { vertexLabels: { A: "A", B: "B", C: "C" } }
+        ),
+      }
     ),
     answer(
       "y7-ang-tri-i4",
@@ -555,14 +851,30 @@ const anglesInTriangles: LessonContent = {
       "3 \\times \\angle A = 180°",
       "60",
       "All three angles are equal and sum to 180°. Each angle = 180 ÷ 3 = 60°.",
-      ["60°"]
+      ["60°"],
+      {
+        triangleDiagram: {
+          description:
+            "Equilateral triangle with all three sides tick-marked as equal and each interior angle marked x.",
+          vertices: { A: { x: 200, y: 40 }, C: { x: 70, y: 235 }, B: { x: 330, y: 235 } },
+          angleLabels: { A: "x", B: "x", C: "x" },
+          highlightedSides: ["AB", "BC", "AC"],
+        },
+      }
     ),
     choice(
       "y7-ang-tri-i5",
       "A triangle has angles of 120°, 30°, and 30°. How should it be classified by angles?",
       "D",
       ["Acute", "Right", "Equilateral", "Obtuse"],
-      "One angle (120°) is greater than 90°, so the triangle is obtuse."
+      "One angle (120°) is greater than 90°, so the triangle is obtuse.",
+      undefined,
+      {
+        triangleDiagram: isoscelesFig(
+          "Triangle with one wide interior angle marked 120° and the two smaller angles each marked 30°.",
+          { A: "120°", B: "30°", C: "30°" }
+        ),
+      }
     ),
   ],
   commonMistakes: [
@@ -590,7 +902,13 @@ const anglesInTriangles: LessonContent = {
       "72° + 58° + \\angle C = 180°",
       "50",
       "Third angle = 180 - 72 - 58 = 50°.",
-      ["50°"]
+      ["50°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle with two interior angles marked 72° and 58°, and the third angle marked x.",
+          { A: "72°", B: "58°", C: "x" }
+        ),
+      }
     ),
     answer(
       "y7-ang-tri-m2",
@@ -598,14 +916,29 @@ const anglesInTriangles: LessonContent = {
       "90° + 27° + \\angle C = 180°",
       "63",
       "Third angle = 180 - 90 - 27 = 63°.",
-      ["63°"]
+      ["63°"],
+      {
+        triangleDiagram: triFig(
+          "Right-angled triangle with a right-angle square at C, one acute angle marked 27°, and the other acute angle marked x.",
+          { A: "27°", B: "x" },
+          { rightAngleAt: "C" }
+        ),
+      }
     ),
     choice(
       "y7-ang-tri-m3",
       "The exterior angle of a triangle is 115°. One of the non-adjacent interior angles is 60°. What is the other non-adjacent interior angle?",
       "B",
       ["125°", "55°", "65°", "50°"],
-      "Exterior angle = sum of two non-adjacent interior angles. So the other angle = 115 - 60 = 55°."
+      "Exterior angle = sum of two non-adjacent interior angles. So the other angle = 115 - 60 = 55°.",
+      undefined,
+      {
+        triangleDiagram: triFig(
+          "Triangle ABC with one non-adjacent interior angle marked 60° at A and the other marked x at B. The side through C is extended, forming an exterior angle of 115° at C.",
+          { A: "60°", B: "x" },
+          { vertexLabels: { A: "A", B: "B", C: "C" } }
+        ),
+      }
     ),
     answer(
       "y7-ang-tri-m4",
@@ -613,7 +946,13 @@ const anglesInTriangles: LessonContent = {
       "110° + 2x = 180°",
       "35",
       "Each base angle = (180 - 110) ÷ 2 = 70 ÷ 2 = 35°.",
-      ["35°"]
+      ["35°"],
+      {
+        triangleDiagram: isoscelesFig(
+          "Isosceles triangle with apex angle 110° at the top, the two equal sides tick-marked, and each base angle marked x.",
+          { A: "110°", B: "x", C: "x" }
+        ),
+      }
     ),
     answer(
       "y7-ang-tri-m5",
@@ -621,7 +960,14 @@ const anglesInTriangles: LessonContent = {
       "\\text{Exterior angle} = 48° + 66°",
       "114",
       "Exterior angle = 48 + 66 = 114°.",
-      ["114°"]
+      ["114°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle ABC with the two non-adjacent interior angles marked 48° at A and 66° at B. The side through C is extended to form the exterior angle at C, which is required.",
+          { A: "48°", B: "66°" },
+          { vertexLabels: { A: "A", B: "B", C: "C" } }
+        ),
+      }
     ),
     answer(
       "y7-ang-tri-m6",
@@ -629,14 +975,27 @@ const anglesInTriangles: LessonContent = {
       "x + 2x + 3x = 180°",
       "90",
       "Let the angles be x, 2x, 3x. Then 6x = 180, so x = 30. Largest angle = 3 × 30 = 90°.",
-      ["90°"]
+      ["90°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle with interior angles marked x, 2x and 3x in the ratio 1 : 2 : 3.",
+          { A: "x", B: "2x", C: "3x" }
+        ),
+      }
     ),
     choice(
       "y7-ang-tri-m7",
       "A triangle has angles of 55°, 65°, and 60°. How is it classified by angles?",
       "A",
       ["Acute", "Right", "Obtuse", "Isosceles"],
-      "All three angles are less than 90°, so the triangle is acute. (Isosceles is a classification by sides, not angles.)"
+      "All three angles are less than 90°, so the triangle is acute. (Isosceles is a classification by sides, not angles.)",
+      undefined,
+      {
+        triangleDiagram: triFig(
+          "Triangle with interior angles marked 55°, 65° and 60°.",
+          { A: "55°", B: "65°", C: "60°" }
+        ),
+      }
     ),
     answer(
       "y7-ang-tri-m8",
@@ -644,7 +1003,13 @@ const anglesInTriangles: LessonContent = {
       "96° + 2x = 180°",
       "42",
       "Each base angle = (180 - 96) ÷ 2 = 84 ÷ 2 = 42°.",
-      ["42°"]
+      ["42°"],
+      {
+        triangleDiagram: isoscelesFig(
+          "Isosceles triangle with apex angle 96° between the two equal tick-marked sides, and each base angle marked x.",
+          { A: "96°", B: "x", C: "x" }
+        ),
+      }
     ),
     answer(
       "y7-ang-tri-m9",
@@ -652,7 +1017,14 @@ const anglesInTriangles: LessonContent = {
       "2x = 128°",
       "64",
       "Each non-adjacent interior angle = 128 ÷ 2 = 64°.",
-      ["64°"]
+      ["64°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle ABC with the two equal non-adjacent interior angles each marked x at A and B. The side through C is extended, forming an exterior angle of 128° at C.",
+          { A: "x", B: "x" },
+          { vertexLabels: { A: "A", B: "B", C: "C" } }
+        ),
+      }
     ),
     answer(
       "y7-ang-tri-m10",
@@ -660,36 +1032,42 @@ const anglesInTriangles: LessonContent = {
       "(x+10) + 2x + (x-6) = 180",
       "44",
       "4x + 4 = 180, so 4x = 176 and x = 44.",
-      ["44"]
+      ["44"],
+      {
+        triangleDiagram: triFig(
+          "Triangle with interior angles marked (x + 10)°, 2x and (x − 6)°.",
+          { A: "x+10", B: "2x", C: "x-6" }
+        ),
+      }
     ),
   ],
   masteryQuizPool: [
-    dq(answer("y7-ang-tri-p1", "A triangle has angles of 40° and 60°. Find the third angle in degrees.", "40° + 60° + \\angle C = 180°", "80", "Third angle = 180 - 40 - 60 = 80°.", ["80°"]), 1),
-    dq(answer("y7-ang-tri-p2", "A triangle has angles of 50° and 50°. Find the third angle in degrees.", "50° + 50° + \\angle C = 180°", "80", "Third angle = 180 - 50 - 50 = 80°.", ["80°"]), 1),
-    dq(answer("y7-ang-tri-p3", "A right triangle has one acute angle of 40°. Find the other acute angle in degrees.", "90° + 40° + \\angle C = 180°", "50", "Third angle = 180 - 90 - 40 = 50°.", ["50°"]), 1),
-    dq(answer("y7-ang-tri-p4", "Each angle of an equilateral triangle is equal. Find the size in degrees of each angle.", "3 \\times \\angle A = 180°", "60", "Each angle = 180 ÷ 3 = 60°.", ["60°"]), 1),
-    dq(choice("y7-ang-tri-p5", "A triangle has angles of 100°, 50°, and 30°. How is it classified by angles?", "C", ["Acute", "Right", "Obtuse", "Equilateral"], "One angle (100°) is greater than 90°, so the triangle is obtuse."), 1),
-    dq(choice("y7-ang-tri-p6", "A triangle with all three sides of different lengths is called what?", "C", ["Equilateral", "Isosceles", "Scalene", "Right"], "A triangle with all sides different is scalene."), 1),
-    dq(answer("y7-ang-tri-p7", "A triangle has angles of 33° and 88°. Find the third angle in degrees.", "33° + 88° + \\angle C = 180°", "59", "Third angle = 180 - 33 - 88 = 59°.", ["59°"]), 2),
-    dq(answer("y7-ang-tri-p8", "An isosceles triangle has a base angle of 48°. Find the apex angle in degrees.", "48° + 48° + \\angle A = 180°", "84", "Apex angle = 180 - 48 - 48 = 84°.", ["84°"]), 2),
-    dq(answer("y7-ang-tri-p9", "An isosceles triangle has an apex angle of 50°. Find each base angle in degrees.", "50° + 2x = 180°", "65", "Each base angle = (180 - 50) ÷ 2 = 65°.", ["65°"]), 2),
-    dq(answer("y7-ang-tri-p10", "Two interior angles of a triangle are 40° and 85°. Find the exterior angle at the third vertex in degrees.", "\\text{Exterior angle} = 40° + 85°", "125", "Exterior angle = 40 + 85 = 125°.", ["125°"]), 2),
-    dq(answer("y7-ang-tri-p11", "A right triangle has one acute angle of 18°. Find the other acute angle in degrees.", "90° + 18° + \\angle C = 180°", "72", "Third angle = 180 - 90 - 18 = 72°.", ["72°"]), 2),
-    dq(choice("y7-ang-tri-p12", "A triangle has angles of 80°, 60°, and 40°. How is it classified by angles?", "A", ["Acute", "Right", "Obtuse", "Reflex"], "All three angles are less than 90°, so the triangle is acute."), 2),
-    dq(answer("y7-ang-tri-p13", "The exterior angle of a triangle is 132°. One non-adjacent interior angle is 75°. Find the other non-adjacent interior angle in degrees.", "75° + \\angle B = 132°", "57", "Other angle = 132 - 75 = 57°.", ["57°"]), 3),
-    dq(answer("y7-ang-tri-p14", "An isosceles triangle has an apex angle of 124°. Find each base angle in degrees.", "124° + 2x = 180°", "28", "Each base angle = (180 - 124) ÷ 2 = 28°.", ["28°"]), 3),
-    dq(answer("y7-ang-tri-p15", "A triangle has angles in the ratio 2 : 3 : 4. Find the size in degrees of the largest angle.", "2x + 3x + 4x = 180°", "80", "9x = 180, so x = 20. Largest angle = 4 × 20 = 80°.", ["80°"]), 3),
-    dq(answer("y7-ang-tri-p16", "In a triangle, the exterior angle at one vertex is 110° and the two non-adjacent interior angles are equal. Find each of those interior angles in degrees.", "2x = 110°", "55", "Each non-adjacent interior angle = 110 ÷ 2 = 55°.", ["55°"]), 3),
-    dq(answer("y7-ang-tri-p17", "A triangle has angles (3x)°, (4x)°, and (5x)°. Find x.", "3x + 4x + 5x = 180", "15", "12x = 180, so x = 15.", ["15"]), 3),
-    dq(choice("y7-ang-tri-p18", "An isosceles triangle has an apex angle of 90°. What are its two base angles?", "B", ["60° each", "45° each", "30° each", "90° each"], "Each base angle = (180 - 90) ÷ 2 = 45°."), 3),
-    dq(answer("y7-ang-tri-p19", "A triangle has angles in the ratio 3 : 4 : 5. Find the size in degrees of the smallest angle.", "3x + 4x + 5x = 180°", "45", "12x = 180, so x = 15. Smallest angle = 3 × 15 = 45°.", ["45°"]), 4),
-    dq(answer("y7-ang-tri-p20", "The angles of a triangle are (2x + 5)°, (3x - 11)°, and (x + 24)°. Find x.", "(2x+5) + (3x-11) + (x+24) = 180", "27", "Combine: 6x + 18 = 180, so 6x = 162 and x = 27.", ["27"]), 4),
-    dq(answer("y7-ang-tri-p21", "In an isosceles triangle, each base angle is twice the apex angle. Find the apex angle in degrees.", "x + 2x + 2x = 180°", "36", "x + 2x + 2x = 5x = 180, so apex x = 36°.", ["36°"]), 4),
-    dq(answer("y7-ang-tri-p22", "The exterior angle at one vertex of a triangle is (5x + 10)° and the two non-adjacent interior angles are (2x)° and (x + 40)°. Find x.", "5x + 10 = 2x + (x + 40)", "15", "Exterior = sum of non-adjacent: 5x + 10 = 3x + 40, so 2x = 30 and x = 15.", ["15"]), 4),
-    dq(answer("y7-ang-tri-p23", "An isosceles triangle has two equal angles. One angle of the triangle is 40°. If 40° is the apex angle, find each base angle in degrees.", "40° + 2x = 180°", "70", "Each base angle = (180 - 40) ÷ 2 = 70°.", ["70°"]), 4),
-    dq(answer("y7-ang-tri-p24", "A triangle has angles (x)°, (x + 30)°, and (2x - 6)°. Find the size in degrees of the largest angle.", "x + (x+30) + (2x-6) = 180", "72", "4x + 24 = 180, so 4x = 156 and x = 39. Largest = 2(39) - 6 = 72°.", ["72°"]), 5),
-    dq(answer("y7-ang-tri-p25", "In triangle ABC, angle A is twice angle B, and angle C is 30° more than angle B. Find angle B in degrees.", "2x + x + (x + 30) = 180", "37.5", "Let angle B = x. Then 2x + x + (x + 30) = 180, so 4x = 150 and x = 37.5°.", ["37.5°"]), 5),
-    dq(answer("y7-ang-tri-p26", "An exterior angle of a triangle is 140°. The interior angle adjacent to it is split so that the triangle is isosceles with the two equal angles being the non-adjacent ones. Find each equal interior angle in degrees.", "2x = 140°", "70", "The two non-adjacent interior angles sum to the exterior angle 140° and are equal, so each = 70°.", ["70°"]), 5),
+    dq(answer("y7-ang-tri-p1", "A triangle has angles of 40° and 60°. Find the third angle in degrees.", "40° + 60° + \\angle C = 180°", "80", "Third angle = 180 - 40 - 60 = 80°.", ["80°"], { triangleDiagram: triFig("Triangle with two interior angles marked 40° and 60°, and the third angle marked x.", { A: "40°", B: "60°", C: "x" }) }), 1),
+    dq(answer("y7-ang-tri-p2", "A triangle has angles of 50° and 50°. Find the third angle in degrees.", "50° + 50° + \\angle C = 180°", "80", "Third angle = 180 - 50 - 50 = 80°.", ["80°"], { triangleDiagram: triFig("Triangle with two interior angles marked 50° and 50°, and the third angle marked x.", { A: "50°", B: "50°", C: "x" }) }), 1),
+    dq(answer("y7-ang-tri-p3", "A right triangle has one acute angle of 40°. Find the other acute angle in degrees.", "90° + 40° + \\angle C = 180°", "50", "Third angle = 180 - 90 - 40 = 50°.", ["50°"], { triangleDiagram: triFig("Right-angled triangle with a right-angle square at C, one acute angle marked 40°, and the other acute angle marked x.", { A: "40°", B: "x" }, { rightAngleAt: "C" }) }), 1),
+    dq(answer("y7-ang-tri-p4", "Each angle of an equilateral triangle is equal. Find the size in degrees of each angle.", "3 \\times \\angle A = 180°", "60", "Each angle = 180 ÷ 3 = 60°.", ["60°"], { triangleDiagram: { description: "Equilateral triangle with all three sides tick-marked as equal and each interior angle marked x.", vertices: { A: { x: 200, y: 40 }, C: { x: 70, y: 235 }, B: { x: 330, y: 235 } }, angleLabels: { A: "x", B: "x", C: "x" }, highlightedSides: ["AB", "BC", "AC"] } }), 1),
+    dq(choice("y7-ang-tri-p5", "A triangle has angles of 100°, 50°, and 30°. How is it classified by angles?", "C", ["Acute", "Right", "Obtuse", "Equilateral"], "One angle (100°) is greater than 90°, so the triangle is obtuse.", undefined, { triangleDiagram: triFig("Triangle with interior angles marked 100°, 50° and 30°.", { A: "100°", B: "50°", C: "30°" }) }), 1),
+    dq(choice("y7-ang-tri-p6", "A triangle with all three sides of different lengths is called what?", "C", ["Equilateral", "Isosceles", "Scalene", "Right"], "A triangle with all sides different is scalene.", undefined, { triangleDiagram: triFig("Scalene triangle with three sides of clearly different lengths.", {}) }), 1),
+    dq(answer("y7-ang-tri-p7", "A triangle has angles of 33° and 88°. Find the third angle in degrees.", "33° + 88° + \\angle C = 180°", "59", "Third angle = 180 - 33 - 88 = 59°.", ["59°"], { triangleDiagram: triFig("Triangle with two interior angles marked 33° and 88°, and the third angle marked x.", { A: "33°", B: "88°", C: "x" }) }), 2),
+    dq(answer("y7-ang-tri-p8", "An isosceles triangle has a base angle of 48°. Find the apex angle in degrees.", "48° + 48° + \\angle A = 180°", "84", "Apex angle = 180 - 48 - 48 = 84°.", ["84°"], { triangleDiagram: isoscelesFig("Isosceles triangle with the two equal sides tick-marked, each base angle marked 48°, and the apex angle marked x.", { A: "x", B: "48°", C: "48°" }) }), 2),
+    dq(answer("y7-ang-tri-p9", "An isosceles triangle has an apex angle of 50°. Find each base angle in degrees.", "50° + 2x = 180°", "65", "Each base angle = (180 - 50) ÷ 2 = 65°.", ["65°"], { triangleDiagram: isoscelesFig("Isosceles triangle with apex angle 50° between the two equal tick-marked sides, and each base angle marked x.", { A: "50°", B: "x", C: "x" }) }), 2),
+    dq(answer("y7-ang-tri-p10", "Two interior angles of a triangle are 40° and 85°. Find the exterior angle at the third vertex in degrees.", "\\text{Exterior angle} = 40° + 85°", "125", "Exterior angle = 40 + 85 = 125°.", ["125°"], { triangleDiagram: triFig("Triangle ABC with the two non-adjacent interior angles marked 40° at A and 85° at B. The side through C is extended to form the exterior angle at C, which is required.", { A: "40°", B: "85°" }, { vertexLabels: { A: "A", B: "B", C: "C" } }) }), 2),
+    dq(answer("y7-ang-tri-p11", "A right triangle has one acute angle of 18°. Find the other acute angle in degrees.", "90° + 18° + \\angle C = 180°", "72", "Third angle = 180 - 90 - 18 = 72°.", ["72°"], { triangleDiagram: triFig("Right-angled triangle with a right-angle square at C, one acute angle marked 18°, and the other acute angle marked x.", { A: "18°", B: "x" }, { rightAngleAt: "C" }) }), 2),
+    dq(choice("y7-ang-tri-p12", "A triangle has angles of 80°, 60°, and 40°. How is it classified by angles?", "A", ["Acute", "Right", "Obtuse", "Reflex"], "All three angles are less than 90°, so the triangle is acute.", undefined, { triangleDiagram: triFig("Triangle with interior angles marked 80°, 60° and 40°.", { A: "80°", B: "60°", C: "40°" }) }), 2),
+    dq(answer("y7-ang-tri-p13", "The exterior angle of a triangle is 132°. One non-adjacent interior angle is 75°. Find the other non-adjacent interior angle in degrees.", "75° + \\angle B = 132°", "57", "Other angle = 132 - 75 = 57°.", ["57°"], { triangleDiagram: triFig("Triangle ABC with one non-adjacent interior angle marked 75° at A and the other marked x at B. The side through C is extended, forming an exterior angle of 132° at C.", { A: "75°", B: "x" }, { vertexLabels: { A: "A", B: "B", C: "C" } }) }), 3),
+    dq(answer("y7-ang-tri-p14", "An isosceles triangle has an apex angle of 124°. Find each base angle in degrees.", "124° + 2x = 180°", "28", "Each base angle = (180 - 124) ÷ 2 = 28°.", ["28°"], { triangleDiagram: isoscelesFig("Isosceles triangle with apex angle 124° between the two equal tick-marked sides, and each base angle marked x.", { A: "124°", B: "x", C: "x" }) }), 3),
+    dq(answer("y7-ang-tri-p15", "A triangle has angles in the ratio 2 : 3 : 4. Find the size in degrees of the largest angle.", "2x + 3x + 4x = 180°", "80", "9x = 180, so x = 20. Largest angle = 4 × 20 = 80°.", ["80°"], { triangleDiagram: triFig("Triangle with interior angles marked 2x, 3x and 4x in the ratio 2 : 3 : 4.", { A: "2x", B: "3x", C: "4x" }) }), 3),
+    dq(answer("y7-ang-tri-p16", "In a triangle, the exterior angle at one vertex is 110° and the two non-adjacent interior angles are equal. Find each of those interior angles in degrees.", "2x = 110°", "55", "Each non-adjacent interior angle = 110 ÷ 2 = 55°.", ["55°"], { triangleDiagram: triFig("Triangle ABC with the two equal non-adjacent interior angles each marked x at A and B. The side through C is extended, forming an exterior angle of 110° at C.", { A: "x", B: "x" }, { vertexLabels: { A: "A", B: "B", C: "C" } }) }), 3),
+    dq(answer("y7-ang-tri-p17", "A triangle has angles (3x)°, (4x)°, and (5x)°. Find x.", "3x + 4x + 5x = 180", "15", "12x = 180, so x = 15.", ["15"], { triangleDiagram: triFig("Triangle with interior angles marked 3x, 4x and 5x.", { A: "3x", B: "4x", C: "5x" }) }), 3),
+    dq(choice("y7-ang-tri-p18", "An isosceles triangle has an apex angle of 90°. What are its two base angles?", "B", ["60° each", "45° each", "30° each", "90° each"], "Each base angle = (180 - 90) ÷ 2 = 45°.", undefined, { triangleDiagram: { ...isoscelesFig("Right-angled isosceles triangle with a 90° apex angle between the two equal tick-marked sides, and each base angle marked x.", { B: "x", C: "x" }), rightAngleAt: "A" } }), 3),
+    dq(answer("y7-ang-tri-p19", "A triangle has angles in the ratio 3 : 4 : 5. Find the size in degrees of the smallest angle.", "3x + 4x + 5x = 180°", "45", "12x = 180, so x = 15. Smallest angle = 3 × 15 = 45°.", ["45°"], { triangleDiagram: triFig("Triangle with interior angles marked 3x, 4x and 5x in the ratio 3 : 4 : 5.", { A: "3x", B: "4x", C: "5x" }) }), 4),
+    dq(answer("y7-ang-tri-p20", "The angles of a triangle are (2x + 5)°, (3x - 11)°, and (x + 24)°. Find x.", "(2x+5) + (3x-11) + (x+24) = 180", "27", "Combine: 6x + 18 = 180, so 6x = 162 and x = 27.", ["27"], { triangleDiagram: triFig("Triangle with interior angles marked (2x + 5)°, (3x − 11)° and (x + 24)°.", { A: "2x+5", B: "3x-11", C: "x+24" }) }), 4),
+    dq(answer("y7-ang-tri-p21", "In an isosceles triangle, each base angle is twice the apex angle. Find the apex angle in degrees.", "x + 2x + 2x = 180°", "36", "x + 2x + 2x = 5x = 180, so apex x = 36°.", ["36°"], { triangleDiagram: isoscelesFig("Isosceles triangle with apex angle marked x between the two equal tick-marked sides, and each base angle marked 2x.", { A: "x", B: "2x", C: "2x" }) }), 4),
+    dq(answer("y7-ang-tri-p22", "The exterior angle at one vertex of a triangle is (5x + 10)° and the two non-adjacent interior angles are (2x)° and (x + 40)°. Find x.", "5x + 10 = 2x + (x + 40)", "15", "Exterior = sum of non-adjacent: 5x + 10 = 3x + 40, so 2x = 30 and x = 15.", ["15"], { triangleDiagram: triFig("Triangle ABC with non-adjacent interior angles marked (2x)° at A and (x + 40)° at B. The side through C is extended, forming an exterior angle of (5x + 10)° at C.", { A: "2x", B: "x+40" }, { vertexLabels: { A: "A", B: "B", C: "C" } }) }), 4),
+    dq(answer("y7-ang-tri-p23", "An isosceles triangle has two equal angles. One angle of the triangle is 40°. If 40° is the apex angle, find each base angle in degrees.", "40° + 2x = 180°", "70", "Each base angle = (180 - 40) ÷ 2 = 70°.", ["70°"], { triangleDiagram: isoscelesFig("Isosceles triangle with apex angle 40° between the two equal tick-marked sides, and each base angle marked x.", { A: "40°", B: "x", C: "x" }) }), 4),
+    dq(answer("y7-ang-tri-p24", "A triangle has angles (x)°, (x + 30)°, and (2x - 6)°. Find the size in degrees of the largest angle.", "x + (x+30) + (2x-6) = 180", "72", "4x + 24 = 180, so 4x = 156 and x = 39. Largest = 2(39) - 6 = 72°.", ["72°"], { triangleDiagram: triFig("Triangle with interior angles marked x, (x + 30)° and (2x − 6)°.", { A: "x", B: "x+30", C: "2x-6" }) }), 5),
+    dq(answer("y7-ang-tri-p25", "In triangle ABC, angle A is twice angle B, and angle C is 30° more than angle B. Find angle B in degrees.", "2x + x + (x + 30) = 180", "37.5", "Let angle B = x. Then 2x + x + (x + 30) = 180, so 4x = 150 and x = 37.5°.", ["37.5°"], { triangleDiagram: triFig("Triangle ABC with angle A marked 2x, angle B marked x, and angle C marked (x + 30)°.", { A: "2x", B: "x", C: "x+30" }, { vertexLabels: { A: "A", B: "B", C: "C" } }) }), 5),
+    dq(answer("y7-ang-tri-p26", "An exterior angle of a triangle is 140°. The interior angle adjacent to it is split so that the triangle is isosceles with the two equal angles being the non-adjacent ones. Find each equal interior angle in degrees.", "2x = 140°", "70", "The two non-adjacent interior angles sum to the exterior angle 140° and are equal, so each = 70°.", ["70°"], { triangleDiagram: triFig("Triangle ABC with the two equal non-adjacent interior angles each marked x at A and B. The side through C is extended, forming an exterior angle of 140° at C.", { A: "x", B: "x" }, { vertexLabels: { A: "A", B: "B", C: "C" } }) }), 5),
   ],
   multiPartPractice: [
     {
@@ -697,6 +1075,13 @@ const anglesInTriangles: LessonContent = {
       prompt:
         "In triangle PQR, the angle at P is 76°. The triangle is isosceles with PQ = PR, so the base angles at Q and R are equal. One side, QR, is extended beyond R to a point S, forming an exterior angle PRS.",
       latex: "\\angle P = 76°,\\ PQ = PR",
+      triangleDiagram: {
+        ...isoscelesFig(
+          "Isosceles triangle PQR with apex angle 76° at P, equal sides PQ = PR tick-marked, and equal base angles at Q and R. Base QR is extended beyond R to S, forming the exterior angle PRS.",
+          { A: "76°" }
+        ),
+        vertexLabels: { A: "P", C: "Q", B: "R" },
+      },
       answer: "104",
       hint: "Find the base angles first, then use the exterior-angle relationship.",
       explanation:
@@ -758,26 +1143,37 @@ const anglesInQuadrilaterals: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Any quadrilateral — four-sided shape — has interior angles that add up to 360°. You can see why by drawing a diagonal: it splits the quadrilateral into two triangles, each with 180°, giving 2 × 180° = 360° in total. To find a missing angle, add the three known angles and subtract from 360°.",
-      "Special quadrilaterals have extra angle properties beyond the 360° sum. In a rectangle or square, every interior angle is exactly 90°. In a parallelogram (and in a rhombus, which is a parallelogram with equal sides), opposite angles are equal to each other. The two angles on the same side — called co-interior angles — sum to 180° because they lie between the parallel sides.",
-      "A trapezoid has exactly one pair of parallel sides. The two angles on the same parallel side (co-interior angles) add up to 180°. This is the same co-interior angle rule you will see in the parallel lines lesson, applied here to the parallel sides of the trapezoid.",
-      "The most common error is using 180° instead of 360° for the angle sum of a quadrilateral. Always start by writing 'angle sum = 360°' before you calculate, so you don't mix up the rule for triangles with the rule for quadrilaterals.",
+      "A quadrilateral is any closed shape with four straight sides — squares, kites, that lopsided patch of grass on a map. However oddly it is shaped, its four corner angles always add up to the same total: $360^\\circ$, a full turn.",
+      "Picture a four-cornered field, and you walk all the way around its edge back to your start. At each corner you turn, and by the time you return you have spun once completely around — a full $360^\\circ$ of turning. The four interior corner angles are tied to those four turns, and that full turn is the reason the corners total $360^\\circ$.",
+      "The cleanest way to be sure is to cut the quadrilateral in two. Draw a diagonal from one corner to the opposite corner. That single line splits the four-sided shape into two triangles. You already know every triangle's angles add to $180^\\circ$, so two triangles give $2\\times180^\\circ=360^\\circ$ — and all of those angles together are exactly the four corners of the quadrilateral, with nothing left over. So to find a missing corner, add the three you know and subtract from $360^\\circ$.",
+      "Some quadrilaterals carry extra angle rules on top of the $360^\\circ$ sum. A rectangle or a square has a right angle at every corner, so each angle is $90^\\circ$ with no calculation needed — and $4\\times90^\\circ=360^\\circ$ checks out. A parallelogram has both pairs of opposite sides parallel; a rhombus is just a parallelogram with all four sides equal, so it follows the same angle rules.",
+      "In a parallelogram, opposite angles are equal and the two angles on the same side add to $180^\\circ$. Here is why. Because the top and bottom sides are parallel, a slanted side cutting across them creates co-interior angles (the same C-shape you meet with parallel lines), and co-interior angles between parallel lines are supplementary — they sum to $180^\\circ$. Track that around all four corners and each pair of opposite angles is forced to match. So once you know one angle of a parallelogram, the angle beside it is $180^\\circ$ minus it, and the angle across from it is equal to it.",
+      "A trapezoid has exactly one pair of parallel sides. The two angles sitting on the same slanted side, between the parallel sides, are co-interior angles, so they too add to $180^\\circ$ — the very same rule, now applied to one pair of sides only. The error to guard against is using $180^\\circ$ for the whole quadrilateral's angle sum, copying the triangle rule by mistake. Always write 'angle sum $=360^\\circ$' first for a four-sided shape, and remember the diagram may not be to scale — read the labels, not the apparent angle.",
     ],
     latexBlocks: [
-      "\\angle A + \\angle B + \\angle C + \\angle D = 360°",
-      "\\text{Rectangle / square: all angles} = 90°",
-      "\\text{Parallelogram / rhombus: opposite angles equal; co-interior angles supplementary}",
-      "\\text{Trapezoid: co-interior angles} = 180°",
+      "\\angle A + \\angle B + \\angle C + \\angle D = 360^\\circ \\qquad (\\text{two triangles: } 2 \\times 180^\\circ)",
+      "\\text{Rectangle / square: every angle} = 90^\\circ",
+      "\\text{Parallelogram / rhombus: opposite angles equal; co-interior angles sum to } 180^\\circ",
+      "\\text{Trapezoid: the two co-interior angles between the parallel sides sum to } 180^\\circ",
     ],
   },
   workedExamples: [
     {
       title: "Find a missing angle in a quadrilateral",
       questionLatex:
-        "\\text{A quadrilateral has angles of } 85°,\\, 110°,\\text{ and }95°.\\text{ Find the fourth angle in degrees.}",
+        "\\text{A quadrilateral has angles of } 85^\\circ,\\, 110^\\circ \\text{ and } 95^\\circ.\\text{ Find the fourth angle in degrees.}",
+      planeShapeDiagram: quadFig(
+        "Quadrilateral with three interior angles marked 85°, 110° and 95°, and the fourth angle marked x.",
+        [
+          { x: 0, y: 0, angleLabel: "85°" },
+          { x: 4.2, y: 0.3, angleLabel: "110°" },
+          { x: 3.6, y: 3, angleLabel: "95°" },
+          { x: 0.4, y: 2.6, angleLabel: "x" },
+        ]
+      ),
       steps: [
         {
-          explanation: "The four angles of any quadrilateral sum to 360°.",
+          explanation: "A diagonal splits the shape into two triangles, so the four angles sum to 2 times 180, which is 360.",
           latex: "85 + 110 + 95 + \\angle D = 360",
         },
         {
@@ -785,51 +1181,110 @@ const anglesInQuadrilaterals: LessonContent = {
           latex: "290 + \\angle D = 360",
         },
         {
-          explanation: "Subtract from 360°.",
+          explanation: "Subtract that total from 360 to find the fourth angle.",
           latex: "\\angle D = 360 - 290 = 70",
         },
       ],
-      finalAnswerLatex: "\\text{The fourth angle is } 70°.",
+      finalAnswerLatex: "\\text{The fourth angle is } 70^\\circ.",
     },
     {
       title: "Use parallelogram angle properties",
       questionLatex:
-        "\\text{A parallelogram has one angle of } 68°.\\text{ Find all four interior angles.}",
+        "\\text{A parallelogram has one angle of } 68^\\circ.\\text{ Find all four interior angles.}",
+      planeShapeDiagram: quadFig(
+        "Parallelogram with both pairs of opposite sides marked parallel by chevrons. One interior angle is marked 68°; the other three are marked x.",
+        [
+          { x: 0, y: 0, angleLabel: "68°" },
+          { x: 4, y: 0, angleLabel: "x" },
+          { x: 5, y: 2.6, angleLabel: "x" },
+          { x: 1, y: 2.6, angleLabel: "x" },
+        ],
+        [{ arrows: 1 }, { arrows: 2 }, { arrows: 1 }, { arrows: 2 }]
+      ),
       steps: [
         {
           explanation:
-            "In a parallelogram, opposite angles are equal, so the angle opposite 68° is also 68°.",
-          latex: "\\text{Opposite angle} = 68°",
+            "Opposite angles of a parallelogram are equal, so the angle across from 68 is also 68.",
+          latex: "\\text{Opposite angle} = 68",
         },
         {
           explanation:
-            "Co-interior angles (same side) are supplementary, so the adjacent angle = 180 - 68.",
-          latex: "180 - 68 = 112°",
+            "An adjacent angle is co-interior with the 68 angle (same side, between parallel sides), so it is supplementary: subtract from 180.",
+          latex: "180 - 68 = 112",
         },
         {
-          explanation: "The remaining angle is opposite 112°, so it is also 112°. Check: 68 + 112 + 68 + 112 = 360.",
-          latex: "68 + 112 + 68 + 112 = 360°",
+          explanation: "The last angle is opposite that 112 angle, so it is also 112. Check all four sum to a full turn.",
+          latex: "68 + 112 + 68 + 112 = 360",
         },
       ],
       finalAnswerLatex:
-        "\\text{The four angles are } 68°,\\, 112°,\\, 68°,\\, 112°.",
+        "\\text{The four angles are } 68^\\circ,\\, 112^\\circ,\\, 68^\\circ,\\, 112^\\circ.",
     },
     {
       title: "Find an angle in a trapezoid",
       questionLatex:
-        "\\text{A trapezoid has one pair of parallel sides. One angle adjacent to the parallel side is } 74°.\\text{ Find the co-interior angle on the same side in degrees.}",
+        "\\text{A trapezoid has one pair of parallel sides. One angle on a slanted side, between the parallel sides, is } 74^\\circ.\\text{ Find the co-interior angle on that same slanted side in degrees.}",
+      planeShapeDiagram: quadFig(
+        "Trapezoid with the top and bottom sides marked parallel by chevrons. On the left slanted side the two co-interior angles are marked 74° (bottom) and x (top).",
+        [
+          { x: 0, y: 0, angleLabel: "74°" },
+          { x: 5, y: 0 },
+          { x: 3.7, y: 2.6 },
+          { x: 1.3, y: 2.6, angleLabel: "x" },
+        ],
+        [{ arrows: 1 }, {}, { arrows: 1 }, {}]
+      ),
       steps: [
         {
           explanation:
-            "Co-interior angles between the parallel sides of a trapezoid are supplementary.",
-          latex: "74° + \\angle B = 180°",
+            "The two angles share one slanted side that crosses the parallel sides, making them co-interior, so they are supplementary and sum to 180.",
+          latex: "74 + \\angle B = 180",
         },
         {
-          explanation: "Subtract 74° from 180°.",
-          latex: "\\angle B = 180 - 74 = 106°",
+          explanation: "Subtract 74 from 180 to find the co-interior angle.",
+          latex: "\\angle B = 180 - 74 = 106",
         },
       ],
-      finalAnswerLatex: "\\text{The co-interior angle is } 106°.",
+      finalAnswerLatex: "\\text{The co-interior angle is } 106^\\circ.",
+    },
+    {
+      title: "Harder: solve for an unknown in a quadrilateral, then identify the shape",
+      questionLatex:
+        "\\text{A quadrilateral has angles } (2x)^\\circ,\\, (2x)^\\circ,\\, (x+30)^\\circ \\text{ and } (x+30)^\\circ, \\text{ with the equal angles opposite each other. Find } x \\text{ and decide whether it could be a parallelogram.}",
+      planeShapeDiagram: quadFig(
+        "Quadrilateral with opposite interior angles equal: 2x at two opposite vertices and (x + 30)° at the other two opposite vertices.",
+        [
+          { x: 0, y: 0, angleLabel: "2x" },
+          { x: 4, y: 0, angleLabel: "x+30" },
+          { x: 5, y: 2.6, angleLabel: "2x" },
+          { x: 1, y: 2.6, angleLabel: "x+30" },
+        ]
+      ),
+      steps: [
+        {
+          explanation: "The four angles of any quadrilateral sum to 360, so add the four expressions and set the total to 360.",
+          latex: "2x + 2x + (x+30) + (x+30) = 360",
+        },
+        {
+          explanation: "Collect like terms on the left.",
+          latex: "6x + 60 = 360",
+        },
+        {
+          explanation: "Subtract 60 from both sides, then divide by 6 to find x.",
+          latex: "6x = 300,\\quad x = 50",
+        },
+        {
+          explanation:
+            "Work out the actual angles: 2x and x+30 with x = 50.",
+          latex: "2x = 100,\\quad x + 30 = 80",
+        },
+        {
+          explanation:
+            "Opposite angles are equal (100 with 100, 80 with 80) and adjacent angles 100 + 80 = 180 are supplementary, which is exactly the parallelogram pattern.",
+          latex: "100 + 80 = 180 \\;\\checkmark",
+        },
+      ],
+      finalAnswerLatex: "x = 50; \\text{ the angles } 100^\\circ, 80^\\circ, 100^\\circ, 80^\\circ \\text{ fit a parallelogram.}",
     },
   ],
   guidedPractice: [
@@ -846,7 +1301,18 @@ const anglesInQuadrilaterals: LessonContent = {
       "90° + 85° + 110° + \\angle D = 360°",
       "75",
       "Fourth angle = 360 - 90 - 85 - 110 = 75°.",
-      ["75°"]
+      ["75°"],
+      {
+        planeShapeDiagram: quadFig(
+          "Quadrilateral with three interior angles marked 90°, 85° and 110°, and the fourth angle marked x.",
+          [
+            { x: 0, y: 0, angleLabel: "90°", rightAngle: true },
+            { x: 4.2, y: 0.3, angleLabel: "85°" },
+            { x: 3.6, y: 3, angleLabel: "110°" },
+            { x: 0.4, y: 2.6, angleLabel: "x" },
+          ]
+        ),
+      }
     ),
     answer(
       "y7-ang-qdr-g3",
@@ -854,7 +1320,13 @@ const anglesInQuadrilaterals: LessonContent = {
       "54° + \\angle B = 180°",
       "126",
       "Co-interior angles in a parallelogram are supplementary. Adjacent angle = 180 - 54 = 126°.",
-      ["126°"]
+      ["126°"],
+      {
+        planeShapeDiagram: parallelogramFig(
+          "Parallelogram with opposite sides chevron-marked parallel. One interior angle is marked 54° and the adjacent (co-interior) angle is marked x.",
+          ["54°", "x", undefined, undefined]
+        ),
+      }
     ),
     answer(
       "y7-ang-qdr-g4",
@@ -862,7 +1334,13 @@ const anglesInQuadrilaterals: LessonContent = {
       "118° + \\angle B = 180°",
       "62",
       "Co-interior angles in a trapezoid sum to 180°. Other angle = 180 - 118 = 62°.",
-      ["62°"]
+      ["62°"],
+      {
+        planeShapeDiagram: trapezoidFig(
+          "Trapezoid with the top and bottom sides chevron-marked parallel. On the left slanted side the two co-interior angles are marked 118° (bottom) and x (top).",
+          ["118°", undefined, undefined, "x"]
+        ),
+      }
     ),
   ],
   independentPractice: [
@@ -872,7 +1350,18 @@ const anglesInQuadrilaterals: LessonContent = {
       "75° + 105° + 88° + \\angle D = 360°",
       "92",
       "Fourth angle = 360 - 75 - 105 - 88 = 92°.",
-      ["92°"]
+      ["92°"],
+      {
+        planeShapeDiagram: quadFig(
+          "Quadrilateral with three interior angles marked 75°, 105° and 88°, and the fourth angle marked x.",
+          [
+            { x: 0, y: 0, angleLabel: "75°" },
+            { x: 4.2, y: 0.3, angleLabel: "105°" },
+            { x: 3.6, y: 3, angleLabel: "88°" },
+            { x: 0.4, y: 2.6, angleLabel: "x" },
+          ]
+        ),
+      }
     ),
     answer(
       "y7-ang-qdr-i2",
@@ -880,7 +1369,13 @@ const anglesInQuadrilaterals: LessonContent = {
       "\\text{Opposite angles in a parallelogram are equal}",
       "73",
       "Opposite angles in a parallelogram are equal, so the opposite angle is also 73°.",
-      ["73°"]
+      ["73°"],
+      {
+        planeShapeDiagram: parallelogramFig(
+          "Parallelogram with opposite sides chevron-marked parallel. One interior angle is marked 73°; the angle opposite it (diagonally across) is marked x.",
+          ["73°", undefined, "x", undefined]
+        ),
+      }
     ),
     answer(
       "y7-ang-qdr-i3",
@@ -888,7 +1383,18 @@ const anglesInQuadrilaterals: LessonContent = {
       "90° + 90° + 90° + \\angle D = 360°",
       "90",
       "Fourth angle = 360 - 90 - 90 - 90 = 90°. All angles in a rectangle are 90°.",
-      ["90°"]
+      ["90°"],
+      {
+        planeShapeDiagram: quadFig(
+          "Rectangle with right-angle squares at three corners (each marked 90°) and the fourth angle marked x.",
+          [
+            { x: 0, y: 0, angleLabel: "90°", rightAngle: true },
+            { x: 4.5, y: 0, angleLabel: "90°", rightAngle: true },
+            { x: 4.5, y: 2.6, angleLabel: "90°", rightAngle: true },
+            { x: 0, y: 2.6, angleLabel: "x" },
+          ]
+        ),
+      }
     ),
     answer(
       "y7-ang-qdr-i4",
@@ -896,14 +1402,33 @@ const anglesInQuadrilaterals: LessonContent = {
       "x + 2x + 2x + 3x = 360°",
       "135",
       "8x = 360, so x = 45. Largest angle = 3 × 45 = 135°.",
-      ["135°"]
+      ["135°"],
+      {
+        planeShapeDiagram: quadFig(
+          "Quadrilateral with interior angles marked x, 2x, 2x and 3x in the ratio 1 : 2 : 2 : 3.",
+          [
+            { x: 0, y: 0, angleLabel: "x" },
+            { x: 4.2, y: 0.3, angleLabel: "2x" },
+            { x: 3.6, y: 3, angleLabel: "2x" },
+            { x: 0.4, y: 2.6, angleLabel: "3x" },
+          ]
+        ),
+      }
     ),
     choice(
       "y7-ang-qdr-i5",
       "In a rhombus, one angle is 66°. What are the sizes of all four interior angles?",
       "A",
       ["66°, 114°, 66°, 114°", "66°, 66°, 66°, 66°", "66°, 90°, 66°, 138°", "66°, 114°, 114°, 66°"],
-      "A rhombus is a parallelogram: opposite angles are equal (66° and 66°) and co-interior angles sum to 180° (114° and 114°). Check: 66 + 114 + 66 + 114 = 360."
+      "A rhombus is a parallelogram: opposite angles are equal (66° and 66°) and co-interior angles sum to 180° (114° and 114°). Check: 66 + 114 + 66 + 114 = 360.",
+      undefined,
+      {
+        planeShapeDiagram: parallelogramFig(
+          "Rhombus with all four sides tick-marked equal and opposite sides chevron-marked parallel. One interior angle is marked 66°; the other three are marked x.",
+          ["66°", "x", "x", "x"],
+          { rhombus: true }
+        ),
+      }
     ),
   ],
   commonMistakes: [
@@ -931,14 +1456,32 @@ const anglesInQuadrilaterals: LessonContent = {
       "100° + 80° + 95° + \\angle D = 360°",
       "85",
       "Fourth angle = 360 - 100 - 80 - 95 = 85°.",
-      ["85°"]
+      ["85°"],
+      {
+        planeShapeDiagram: quadFig(
+          "Quadrilateral with three interior angles marked 100°, 80° and 95°, and the fourth angle marked x.",
+          [
+            { x: 0, y: 0, angleLabel: "100°" },
+            { x: 4.2, y: 0.3, angleLabel: "80°" },
+            { x: 3.6, y: 3, angleLabel: "95°" },
+            { x: 0.4, y: 2.6, angleLabel: "x" },
+          ]
+        ),
+      }
     ),
     choice(
       "y7-ang-qdr-m2",
       "A parallelogram has an angle of 112°. Which set of four angles is correct for this parallelogram?",
       "B",
       ["112°, 112°, 68°, 68°", "112°, 68°, 112°, 68°", "112°, 112°, 112°, 24°", "112°, 90°, 68°, 90°"],
-      "Opposite angles are equal: 112° and 112°. Co-interior angles sum to 180°: 180 - 112 = 68°. Order: 112, 68, 112, 68."
+      "Opposite angles are equal: 112° and 112°. Co-interior angles sum to 180°: 180 - 112 = 68°. Order: 112, 68, 112, 68.",
+      undefined,
+      {
+        planeShapeDiagram: parallelogramFig(
+          "Parallelogram with opposite sides chevron-marked parallel and one interior angle marked 112°.",
+          ["112°", undefined, undefined, undefined]
+        ),
+      }
     ),
     answer(
       "y7-ang-qdr-m3",
@@ -946,7 +1489,13 @@ const anglesInQuadrilaterals: LessonContent = {
       "x + (x + 30) = 180°",
       "75",
       "2x + 30 = 180, so 2x = 150 and x = 75°.",
-      ["75°"]
+      ["75°"],
+      {
+        planeShapeDiagram: trapezoidFig(
+          "Trapezoid with the top and bottom sides chevron-marked parallel. On the left slanted side the two co-interior angles are marked x (bottom) and (x + 30)° (top).",
+          ["x", undefined, undefined, "x+30"]
+        ),
+      }
     ),
     answer(
       "y7-ang-qdr-m4",
@@ -954,7 +1503,14 @@ const anglesInQuadrilaterals: LessonContent = {
       "82° + \\angle B = 180°",
       "98",
       "In a rhombus, co-interior angles are supplementary. The co-interior angle = 180 - 82 = 98°. The four angles of this rhombus are 82°, 98°, 82°, 98°.",
-      ["98°"]
+      ["98°"],
+      {
+        planeShapeDiagram: parallelogramFig(
+          "Rhombus with all four sides tick-marked equal and opposite sides chevron-marked parallel. One interior angle is marked 82° and the adjacent (co-interior) angle is marked x.",
+          ["82°", "x", undefined, undefined],
+          { rhombus: true }
+        ),
+      }
     ),
     answer(
       "y7-ang-qdr-m5",
@@ -962,7 +1518,18 @@ const anglesInQuadrilaterals: LessonContent = {
       "4 \\times \\angle A = 360°",
       "90",
       "Each angle = 360 ÷ 4 = 90°. A quadrilateral with four equal angles is a rectangle or square.",
-      ["90°"]
+      ["90°"],
+      {
+        planeShapeDiagram: quadFig(
+          "Quadrilateral with all four interior angles equal, each marked x.",
+          [
+            { x: 0, y: 0, angleLabel: "x" },
+            { x: 4.5, y: 0, angleLabel: "x" },
+            { x: 4.5, y: 2.6, angleLabel: "x" },
+            { x: 0, y: 2.6, angleLabel: "x" },
+          ]
+        ),
+      }
     ),
     answer(
       "y7-ang-qdr-m6",
@@ -970,7 +1537,18 @@ const anglesInQuadrilaterals: LessonContent = {
       "2x + (x+5) + (3x-5) + 2x = 360",
       "45",
       "Collect terms: 2x + x + 5 + 3x - 5 + 2x = 8x. So 8x = 360 and x = 45.",
-      ["45"]
+      ["45"],
+      {
+        planeShapeDiagram: quadFig(
+          "Quadrilateral with interior angles marked 2x, (x + 5)°, (3x − 5)° and 2x.",
+          [
+            { x: 0, y: 0, angleLabel: "2x" },
+            { x: 4.2, y: 0.3, angleLabel: "x+5" },
+            { x: 3.6, y: 3, angleLabel: "3x-5" },
+            { x: 0.4, y: 2.6, angleLabel: "2x" },
+          ]
+        ),
+      }
     ),
     choice(
       "y7-ang-qdr-m7",
@@ -990,7 +1568,13 @@ const anglesInQuadrilaterals: LessonContent = {
       "70° + 110° + 85° + \\angle D = 360°",
       "95",
       "Fourth angle = 360 - 70 - 110 - 85 = 95°. Check co-interior pair on the other side: 85 + 95 = 180°. Correct.",
-      ["95°"]
+      ["95°"],
+      {
+        planeShapeDiagram: trapezoidFig(
+          "Trapezoid with the top and bottom sides chevron-marked parallel. The co-interior pair on the left slanted side is 70° (bottom) and 110° (top); the bottom-right angle is 85° and the top-right (fourth) angle is marked x.",
+          ["70°", "85°", "x", "110°"]
+        ),
+      }
     ),
     answer(
       "y7-ang-qdr-m9",
@@ -998,7 +1582,13 @@ const anglesInQuadrilaterals: LessonContent = {
       "(3x+5) + (x+15) = 180°",
       "40",
       "4x + 20 = 180, so 4x = 160 and x = 40.",
-      ["40"]
+      ["40"],
+      {
+        planeShapeDiagram: parallelogramFig(
+          "Parallelogram with opposite sides chevron-marked parallel. Two co-interior (adjacent) angles are marked (3x + 5)° and (x + 15)°.",
+          ["3x+5", "x+15", undefined, undefined]
+        ),
+      }
     ),
     answer(
       "y7-ang-qdr-m10",
@@ -1006,36 +1596,42 @@ const anglesInQuadrilaterals: LessonContent = {
       "68° + 112° + 68° + 112° = 360°",
       "360",
       "68 + 112 + 68 + 112 = 360°. The angle pattern (opposite equal, co-interior supplementary) describes a parallelogram. The angle sum is 360°.",
-      ["360°"]
+      ["360°"],
+      {
+        planeShapeDiagram: parallelogramFig(
+          "Quadrilateral with opposite angles equal: 68° at two opposite vertices and 112° at the other two opposite vertices, fitting a parallelogram.",
+          ["68°", "112°", "68°", "112°"]
+        ),
+      }
     ),
   ],
   masteryQuizPool: [
-    dq(answer("y7-ang-qdr-p1", "A quadrilateral has angles of 90°, 90°, and 100°. Find the fourth angle in degrees.", "90° + 90° + 100° + \\angle D = 360°", "80", "Fourth angle = 360 - 90 - 90 - 100 = 80°.", ["80°"]), 1),
-    dq(answer("y7-ang-qdr-p2", "A quadrilateral has angles of 70°, 110°, and 70°. Find the fourth angle in degrees.", "70° + 110° + 70° + \\angle D = 360°", "110", "Fourth angle = 360 - 70 - 110 - 70 = 110°.", ["110°"]), 1),
-    dq(answer("y7-ang-qdr-p3", "A parallelogram has one angle of 60°. Find the size in degrees of the angle opposite to it.", "\\text{Opposite angles in a parallelogram are equal}", "60", "Opposite angles are equal, so the opposite angle is also 60°.", ["60°"]), 1),
-    dq(answer("y7-ang-qdr-p4", "Each interior angle of a square is the same. Find the size in degrees of each angle.", "4 \\times \\angle A = 360°", "90", "Each angle = 360 ÷ 4 = 90°.", ["90°"]), 1),
+    dq(answer("y7-ang-qdr-p1", "A quadrilateral has angles of 90°, 90°, and 100°. Find the fourth angle in degrees.", "90° + 90° + 100° + \\angle D = 360°", "80", "Fourth angle = 360 - 90 - 90 - 100 = 80°.", ["80°"], { planeShapeDiagram: quadFig("Quadrilateral with two right-angle corners marked 90°, a third angle marked 100°, and the fourth angle marked x.", [{ x: 0, y: 0, angleLabel: "90°", rightAngle: true }, { x: 4.5, y: 0, angleLabel: "90°", rightAngle: true }, { x: 4, y: 2.8, angleLabel: "100°" }, { x: 0.4, y: 2.6, angleLabel: "x" }]) }), 1),
+    dq(answer("y7-ang-qdr-p2", "A quadrilateral has angles of 70°, 110°, and 70°. Find the fourth angle in degrees.", "70° + 110° + 70° + \\angle D = 360°", "110", "Fourth angle = 360 - 70 - 110 - 70 = 110°.", ["110°"], { planeShapeDiagram: quadFig("Quadrilateral with three interior angles marked 70°, 110° and 70°, and the fourth angle marked x.", [{ x: 0, y: 0, angleLabel: "70°" }, { x: 4.2, y: 0.3, angleLabel: "110°" }, { x: 3.6, y: 3, angleLabel: "70°" }, { x: 0.4, y: 2.6, angleLabel: "x" }]) }), 1),
+    dq(answer("y7-ang-qdr-p3", "A parallelogram has one angle of 60°. Find the size in degrees of the angle opposite to it.", "\\text{Opposite angles in a parallelogram are equal}", "60", "Opposite angles are equal, so the opposite angle is also 60°.", ["60°"], { planeShapeDiagram: parallelogramFig("Parallelogram with opposite sides chevron-marked parallel. One interior angle is marked 60°; the angle opposite it is marked x.", ["60°", undefined, "x", undefined]) }), 1),
+    dq(answer("y7-ang-qdr-p4", "Each interior angle of a square is the same. Find the size in degrees of each angle.", "4 \\times \\angle A = 360°", "90", "Each angle = 360 ÷ 4 = 90°.", ["90°"], { planeShapeDiagram: quadFig("Square with all four sides tick-marked equal and each interior angle marked x.", [{ x: 0, y: 0, angleLabel: "x" }, { x: 3, y: 0, angleLabel: "x" }, { x: 3, y: 3, angleLabel: "x" }, { x: 0, y: 3, angleLabel: "x" }], [{ ticks: 1 }, { ticks: 1 }, { ticks: 1 }, { ticks: 1 }]) }), 1),
     dq(choice("y7-ang-qdr-p5", "What is the angle sum of any quadrilateral?", "B", ["180°", "360°", "540°", "720°"], "A quadrilateral splits into two triangles, so its angle sum is 2 × 180° = 360°."), 1),
-    dq(choice("y7-ang-qdr-p6", "In a parallelogram, opposite angles are:", "C", ["Supplementary", "Complementary", "Equal", "Always 90°"], "Opposite angles in a parallelogram are equal."), 1),
-    dq(answer("y7-ang-qdr-p7", "A quadrilateral has angles of 88°, 92°, and 100°. Find the fourth angle in degrees.", "88° + 92° + 100° + \\angle D = 360°", "80", "Fourth angle = 360 - 88 - 92 - 100 = 80°.", ["80°"]), 2),
-    dq(answer("y7-ang-qdr-p8", "A parallelogram has one angle of 47°. Find the size in degrees of a co-interior (adjacent) angle.", "47° + \\angle B = 180°", "133", "Co-interior angles are supplementary: 180 - 47 = 133°.", ["133°"]), 2),
-    dq(answer("y7-ang-qdr-p9", "A trapezoid has a co-interior angle of 105° on one side of its parallel sides. Find the other co-interior angle on the same side in degrees.", "105° + \\angle B = 180°", "75", "Co-interior angles sum to 180°: 180 - 105 = 75°.", ["75°"]), 2),
-    dq(answer("y7-ang-qdr-p10", "A rhombus has one angle of 70°. Find the size in degrees of a co-interior (adjacent) angle.", "70° + \\angle B = 180°", "110", "A rhombus is a parallelogram, so co-interior angles are supplementary: 180 - 70 = 110°.", ["110°"]), 2),
-    dq(answer("y7-ang-qdr-p11", "A quadrilateral has angles of 115°, 65°, and 115°. Find the fourth angle in degrees.", "115° + 65° + 115° + \\angle D = 360°", "65", "Fourth angle = 360 - 115 - 65 - 115 = 65°.", ["65°"]), 2),
+    dq(choice("y7-ang-qdr-p6", "In a parallelogram, opposite angles are:", "C", ["Supplementary", "Complementary", "Equal", "Always 90°"], "Opposite angles in a parallelogram are equal.", undefined, { planeShapeDiagram: parallelogramFig("Parallelogram with opposite sides chevron-marked parallel, showing the two pairs of opposite interior-angle corners.", [undefined, undefined, undefined, undefined]) }), 1),
+    dq(answer("y7-ang-qdr-p7", "A quadrilateral has angles of 88°, 92°, and 100°. Find the fourth angle in degrees.", "88° + 92° + 100° + \\angle D = 360°", "80", "Fourth angle = 360 - 88 - 92 - 100 = 80°.", ["80°"], { planeShapeDiagram: quadFig("Quadrilateral with three interior angles marked 88°, 92° and 100°, and the fourth angle marked x.", [{ x: 0, y: 0, angleLabel: "88°" }, { x: 4.2, y: 0.3, angleLabel: "92°" }, { x: 3.6, y: 3, angleLabel: "100°" }, { x: 0.4, y: 2.6, angleLabel: "x" }]) }), 2),
+    dq(answer("y7-ang-qdr-p8", "A parallelogram has one angle of 47°. Find the size in degrees of a co-interior (adjacent) angle.", "47° + \\angle B = 180°", "133", "Co-interior angles are supplementary: 180 - 47 = 133°.", ["133°"], { planeShapeDiagram: parallelogramFig("Parallelogram with opposite sides chevron-marked parallel. One interior angle is marked 47° and the adjacent (co-interior) angle is marked x.", ["47°", "x", undefined, undefined]) }), 2),
+    dq(answer("y7-ang-qdr-p9", "A trapezoid has a co-interior angle of 105° on one side of its parallel sides. Find the other co-interior angle on the same side in degrees.", "105° + \\angle B = 180°", "75", "Co-interior angles sum to 180°: 180 - 105 = 75°.", ["75°"], { planeShapeDiagram: trapezoidFig("Trapezoid with the top and bottom sides chevron-marked parallel. On the left slanted side the two co-interior angles are marked 105° (bottom) and x (top).", ["105°", undefined, undefined, "x"]) }), 2),
+    dq(answer("y7-ang-qdr-p10", "A rhombus has one angle of 70°. Find the size in degrees of a co-interior (adjacent) angle.", "70° + \\angle B = 180°", "110", "A rhombus is a parallelogram, so co-interior angles are supplementary: 180 - 70 = 110°.", ["110°"], { planeShapeDiagram: parallelogramFig("Rhombus with all four sides tick-marked equal and opposite sides chevron-marked parallel. One interior angle is marked 70° and the adjacent (co-interior) angle is marked x.", ["70°", "x", undefined, undefined], { rhombus: true }) }), 2),
+    dq(answer("y7-ang-qdr-p11", "A quadrilateral has angles of 115°, 65°, and 115°. Find the fourth angle in degrees.", "115° + 65° + 115° + \\angle D = 360°", "65", "Fourth angle = 360 - 115 - 65 - 115 = 65°.", ["65°"], { planeShapeDiagram: quadFig("Quadrilateral with three interior angles marked 115°, 65° and 115°, and the fourth angle marked x.", [{ x: 0, y: 0, angleLabel: "115°" }, { x: 4.2, y: 0.3, angleLabel: "65°" }, { x: 3.6, y: 3, angleLabel: "115°" }, { x: 0.4, y: 2.6, angleLabel: "x" }]) }), 2),
     dq(choice("y7-ang-qdr-p12", "Which set of four angles could be the angles of a parallelogram?", "B", ["100°, 100°, 100°, 60°", "100°, 80°, 100°, 80°", "90°, 90°, 100°, 80°", "120°, 120°, 60°, 80°"], "Opposite angles are equal and co-interior angles sum to 180°: 100, 80, 100, 80 works."), 2),
-    dq(answer("y7-ang-qdr-p13", "A quadrilateral has angles in the ratio 1 : 2 : 3 : 4. Find the size in degrees of the largest angle.", "x + 2x + 3x + 4x = 360°", "144", "10x = 360, so x = 36. Largest angle = 4 × 36 = 144°.", ["144°"]), 3),
-    dq(answer("y7-ang-qdr-p14", "A trapezoid has co-interior angles x and (x + 40)° on one pair of parallel sides. Find x in degrees.", "x + (x + 40) = 180°", "70", "2x + 40 = 180, so 2x = 140 and x = 70°.", ["70°"]), 3),
-    dq(answer("y7-ang-qdr-p15", "A quadrilateral has three equal angles and a fourth angle of 120°. Find the size in degrees of each of the three equal angles.", "3x + 120° = 360°", "80", "3x = 360 - 120 = 240, so each equal angle = 80°.", ["80°"]), 3),
-    dq(answer("y7-ang-qdr-p16", "A parallelogram has co-interior angles (2x)° and (x + 30)°. Find x.", "2x + (x + 30) = 180°", "50", "3x + 30 = 180, so 3x = 150 and x = 50.", ["50"]), 3),
-    dq(choice("y7-ang-qdr-p17", "A rhombus has one angle of 120°. What are its four interior angles?", "A", ["120°, 60°, 120°, 60°", "120°, 120°, 60°, 60°", "120°, 90°, 60°, 90°", "120°, 120°, 120°, 0°"], "Opposite angles equal (120° and 120°); co-interior supplementary (60° and 60°). Order: 120, 60, 120, 60."), 3),
-    dq(answer("y7-ang-qdr-p18", "A quadrilateral has angles (x)°, (x + 20)°, (x + 40)°, and (x + 60)°. Find the size in degrees of the smallest angle.", "x + (x+20) + (x+40) + (x+60) = 360", "60", "4x + 120 = 360, so 4x = 240 and x = 60. Smallest angle = 60°.", ["60°"]), 3),
-    dq(answer("y7-ang-qdr-p19", "The angles of a quadrilateral are (3x)°, (2x + 10)°, (x + 30)°, and (2x - 10)°. Find x.", "3x + (2x+10) + (x+30) + (2x-10) = 360", "41.25", "Combine: 8x + 30 = 360, so 8x = 330 and x = 41.25.", ["41.25"]), 4),
-    dq(answer("y7-ang-qdr-p20", "A parallelogram has angles (4x - 10)° and (2x + 40)° as co-interior angles. Find the size in degrees of the larger angle.", "(4x-10) + (2x+40) = 180°", "90", "6x + 30 = 180, so 6x = 150 and x = 25. Angles: 4(25) - 10 = 90° and 2(25) + 40 = 90°. The larger (here equal) angle = 90°.", ["90°"]), 4),
-    dq(answer("y7-ang-qdr-p21", "A quadrilateral has angles in the ratio 2 : 3 : 4 : 6. Find the size in degrees of the largest angle.", "2x + 3x + 4x + 6x = 360°", "144", "15x = 360, so x = 24. Largest = 6 × 24 = 144°.", ["144°"]), 4),
-    dq(answer("y7-ang-qdr-p22", "A trapezoid has angles 65° and 115° as a co-interior pair on one parallel side, and a third angle of 78°. Find the fourth angle in degrees.", "65° + 115° + 78° + \\angle D = 360°", "102", "Fourth angle = 360 - 65 - 115 - 78 = 102°. Check other co-interior pair: 78 + 102 = 180.", ["102°"]), 4),
-    dq(answer("y7-ang-qdr-p23", "Three angles of a quadrilateral are equal, and the fourth is 90° larger than each of them. Find the size in degrees of each of the three equal angles.", "3x + (x + 90) = 360", "67.5", "4x + 90 = 360, so 4x = 270 and x = 67.5°.", ["67.5°"]), 5),
-    dq(answer("y7-ang-qdr-p24", "In a parallelogram, one angle is 24° more than twice its co-interior angle. Find the size in degrees of the smaller angle.", "x + (2x + 24) = 180", "52", "Let smaller = x. Then x + (2x + 24) = 180, so 3x = 156 and x = 52°.", ["52°"]), 5),
-    dq(answer("y7-ang-qdr-p25", "A quadrilateral has angles (5x)°, (4x)°, (3x)°, and (3x)°. Find the size in degrees of the largest angle.", "5x + 4x + 3x + 3x = 360", "120", "15x = 360, so x = 24. Largest = 5 × 24 = 120°.", ["120°"]), 5),
-    dq(answer("y7-ang-qdr-p26", "The four angles of a quadrilateral are consecutive even numbers (in degrees): n, n+2, n+4, n+6. Find the largest angle in degrees.", "n + (n+2) + (n+4) + (n+6) = 360", "93", "4n + 12 = 360, so 4n = 348 and n = 87. Largest = 87 + 6 = 93°.", ["93°"]), 5),
+    dq(answer("y7-ang-qdr-p13", "A quadrilateral has angles in the ratio 1 : 2 : 3 : 4. Find the size in degrees of the largest angle.", "x + 2x + 3x + 4x = 360°", "144", "10x = 360, so x = 36. Largest angle = 4 × 36 = 144°.", ["144°"], { planeShapeDiagram: quadFig("Quadrilateral with interior angles marked x, 2x, 3x and 4x in the ratio 1 : 2 : 3 : 4.", [{ x: 0, y: 0, angleLabel: "x" }, { x: 4.2, y: 0.3, angleLabel: "2x" }, { x: 3.6, y: 3, angleLabel: "3x" }, { x: 0.4, y: 2.6, angleLabel: "4x" }]) }), 3),
+    dq(answer("y7-ang-qdr-p14", "A trapezoid has co-interior angles x and (x + 40)° on one pair of parallel sides. Find x in degrees.", "x + (x + 40) = 180°", "70", "2x + 40 = 180, so 2x = 140 and x = 70°.", ["70°"], { planeShapeDiagram: trapezoidFig("Trapezoid with the top and bottom sides chevron-marked parallel. On the left slanted side the two co-interior angles are marked x (bottom) and (x + 40)° (top).", ["x", undefined, undefined, "x+40"]) }), 3),
+    dq(answer("y7-ang-qdr-p15", "A quadrilateral has three equal angles and a fourth angle of 120°. Find the size in degrees of each of the three equal angles.", "3x + 120° = 360°", "80", "3x = 360 - 120 = 240, so each equal angle = 80°.", ["80°"], { planeShapeDiagram: quadFig("Quadrilateral with three equal interior angles each marked x and the fourth angle marked 120°.", [{ x: 0, y: 0, angleLabel: "x" }, { x: 4.2, y: 0.3, angleLabel: "x" }, { x: 3.6, y: 3, angleLabel: "120°" }, { x: 0.4, y: 2.6, angleLabel: "x" }]) }), 3),
+    dq(answer("y7-ang-qdr-p16", "A parallelogram has co-interior angles (2x)° and (x + 30)°. Find x.", "2x + (x + 30) = 180°", "50", "3x + 30 = 180, so 3x = 150 and x = 50.", ["50"], { planeShapeDiagram: parallelogramFig("Parallelogram with opposite sides chevron-marked parallel. Two co-interior (adjacent) angles are marked 2x and (x + 30)°.", ["2x", "x+30", undefined, undefined]) }), 3),
+    dq(choice("y7-ang-qdr-p17", "A rhombus has one angle of 120°. What are its four interior angles?", "A", ["120°, 60°, 120°, 60°", "120°, 120°, 60°, 60°", "120°, 90°, 60°, 90°", "120°, 120°, 120°, 0°"], "Opposite angles equal (120° and 120°); co-interior supplementary (60° and 60°). Order: 120, 60, 120, 60.", undefined, { planeShapeDiagram: parallelogramFig("Rhombus with all four sides tick-marked equal and opposite sides chevron-marked parallel. One interior angle is marked 120°; the other three are marked x.", ["120°", "x", "x", "x"], { rhombus: true }) }), 3),
+    dq(answer("y7-ang-qdr-p18", "A quadrilateral has angles (x)°, (x + 20)°, (x + 40)°, and (x + 60)°. Find the size in degrees of the smallest angle.", "x + (x+20) + (x+40) + (x+60) = 360", "60", "4x + 120 = 360, so 4x = 240 and x = 60. Smallest angle = 60°.", ["60°"], { planeShapeDiagram: quadFig("Quadrilateral with interior angles marked x, (x + 20)°, (x + 40)° and (x + 60)°.", [{ x: 0, y: 0, angleLabel: "x" }, { x: 4.2, y: 0.3, angleLabel: "x+20" }, { x: 3.6, y: 3, angleLabel: "x+40" }, { x: 0.4, y: 2.6, angleLabel: "x+60" }]) }), 3),
+    dq(answer("y7-ang-qdr-p19", "The angles of a quadrilateral are (3x)°, (2x + 10)°, (x + 30)°, and (2x - 10)°. Find x.", "3x + (2x+10) + (x+30) + (2x-10) = 360", "41.25", "Combine: 8x + 30 = 360, so 8x = 330 and x = 41.25.", ["41.25"], { planeShapeDiagram: quadFig("Quadrilateral with interior angles marked 3x, (2x + 10)°, (x + 30)° and (2x − 10)°.", [{ x: 0, y: 0, angleLabel: "3x" }, { x: 4.2, y: 0.3, angleLabel: "2x+10" }, { x: 3.6, y: 3, angleLabel: "x+30" }, { x: 0.4, y: 2.6, angleLabel: "2x-10" }]) }), 4),
+    dq(answer("y7-ang-qdr-p20", "A parallelogram has angles (4x - 10)° and (2x + 40)° as co-interior angles. Find the size in degrees of the larger angle.", "(4x-10) + (2x+40) = 180°", "90", "6x + 30 = 180, so 6x = 150 and x = 25. Angles: 4(25) - 10 = 90° and 2(25) + 40 = 90°. The larger (here equal) angle = 90°.", ["90°"], { planeShapeDiagram: parallelogramFig("Parallelogram with opposite sides chevron-marked parallel. Two co-interior (adjacent) angles are marked (4x − 10)° and (2x + 40)°.", ["4x-10", "2x+40", undefined, undefined]) }), 4),
+    dq(answer("y7-ang-qdr-p21", "A quadrilateral has angles in the ratio 2 : 3 : 4 : 6. Find the size in degrees of the largest angle.", "2x + 3x + 4x + 6x = 360°", "144", "15x = 360, so x = 24. Largest = 6 × 24 = 144°.", ["144°"], { planeShapeDiagram: quadFig("Quadrilateral with interior angles marked 2x, 3x, 4x and 6x in the ratio 2 : 3 : 4 : 6.", [{ x: 0, y: 0, angleLabel: "2x" }, { x: 4.2, y: 0.3, angleLabel: "3x" }, { x: 3.6, y: 3, angleLabel: "4x" }, { x: 0.4, y: 2.6, angleLabel: "6x" }]) }), 4),
+    dq(answer("y7-ang-qdr-p22", "A trapezoid has angles 65° and 115° as a co-interior pair on one parallel side, and a third angle of 78°. Find the fourth angle in degrees.", "65° + 115° + 78° + \\angle D = 360°", "102", "Fourth angle = 360 - 65 - 115 - 78 = 102°. Check other co-interior pair: 78 + 102 = 180.", ["102°"], { planeShapeDiagram: trapezoidFig("Trapezoid with the top and bottom sides chevron-marked parallel. The co-interior pair on the left slanted side is 65° (bottom) and 115° (top); the bottom-right angle is 78° and the top-right (fourth) angle is marked x.", ["65°", "78°", "x", "115°"]) }), 4),
+    dq(answer("y7-ang-qdr-p23", "Three angles of a quadrilateral are equal, and the fourth is 90° larger than each of them. Find the size in degrees of each of the three equal angles.", "3x + (x + 90) = 360", "67.5", "4x + 90 = 360, so 4x = 270 and x = 67.5°.", ["67.5°"], { planeShapeDiagram: quadFig("Quadrilateral with three equal interior angles each marked x and the fourth angle marked (x + 90)°.", [{ x: 0, y: 0, angleLabel: "x" }, { x: 4.2, y: 0.3, angleLabel: "x" }, { x: 3.6, y: 3, angleLabel: "x+90" }, { x: 0.4, y: 2.6, angleLabel: "x" }]) }), 5),
+    dq(answer("y7-ang-qdr-p24", "In a parallelogram, one angle is 24° more than twice its co-interior angle. Find the size in degrees of the smaller angle.", "x + (2x + 24) = 180", "52", "Let smaller = x. Then x + (2x + 24) = 180, so 3x = 156 and x = 52°.", ["52°"], { planeShapeDiagram: parallelogramFig("Parallelogram with opposite sides chevron-marked parallel. The smaller co-interior angle is marked x and the larger is marked (2x + 24)°.", ["x", "2x+24", undefined, undefined]) }), 5),
+    dq(answer("y7-ang-qdr-p25", "A quadrilateral has angles (5x)°, (4x)°, (3x)°, and (3x)°. Find the size in degrees of the largest angle.", "5x + 4x + 3x + 3x = 360", "120", "15x = 360, so x = 24. Largest = 5 × 24 = 120°.", ["120°"], { planeShapeDiagram: quadFig("Quadrilateral with interior angles marked 5x, 4x, 3x and 3x.", [{ x: 0, y: 0, angleLabel: "5x" }, { x: 4.2, y: 0.3, angleLabel: "4x" }, { x: 3.6, y: 3, angleLabel: "3x" }, { x: 0.4, y: 2.6, angleLabel: "3x" }]) }), 5),
+    dq(answer("y7-ang-qdr-p26", "The four angles of a quadrilateral are consecutive even numbers (in degrees): n, n+2, n+4, n+6. Find the largest angle in degrees.", "n + (n+2) + (n+4) + (n+6) = 360", "93", "4n + 12 = 360, so 4n = 348 and n = 87. Largest = 87 + 6 = 93°.", ["93°"], { planeShapeDiagram: quadFig("Quadrilateral with interior angles marked n, (n + 2)°, (n + 4)° and (n + 6)°.", [{ x: 0, y: 0, angleLabel: "n" }, { x: 4.2, y: 0.3, angleLabel: "n+2" }, { x: 3.6, y: 3, angleLabel: "n+4" }, { x: 0.4, y: 2.6, angleLabel: "n+6" }]) }), 5),
   ],
   multiPartPractice: [
     {
@@ -1043,6 +1639,18 @@ const anglesInQuadrilaterals: LessonContent = {
       prompt:
         "ABCD is a parallelogram. The angle at vertex A measures 105°. In a parallelogram, opposite angles are equal and co-interior (adjacent) angles are supplementary.",
       latex: "\\angle A = 105°",
+      planeShapeDiagram: {
+        description:
+          "Parallelogram ABCD (A bottom-left, B bottom-right, C top-right, D top-left) with opposite sides chevron-marked parallel. The interior angle at A is marked 105°; angles B, C and D are unknown.",
+        vertices: [
+          { x: 0, y: 0, label: "A", angleLabel: "105°" },
+          { x: 4, y: 0, label: "B" },
+          { x: 5, y: 2.6, label: "C" },
+          { x: 1, y: 2.6, label: "D" },
+        ],
+        edges: [{ arrows: 1 }, { arrows: 2 }, { arrows: 1 }, { arrows: 2 }],
+        fill: "blue",
+      },
       answer: "360",
       hint: "Use opposite-angles-equal for C, and co-interior-supplementary for B and D.",
       explanation:
@@ -1104,67 +1712,96 @@ const parallelLinesAndTransversals: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "When a straight line (called a transversal) crosses two parallel lines, it creates eight angles — four at each intersection. These angles have special relationships that hold only because the lines are parallel. Learning to spot the shapes these angles make is the key to using the rules quickly.",
-      "Corresponding angles sit in matching positions at each intersection — one above the top parallel line, and one above the bottom parallel line, both on the same side of the transversal. They make an F-shape (or a backwards F). When the lines are parallel, corresponding angles are equal.",
-      "Alternate angles sit between the two parallel lines, but on opposite sides of the transversal. They make a Z-shape (or a backwards Z, also called an N). When the lines are parallel, alternate angles are equal.",
-      "Co-interior angles (also called same-side interior or C-angles) sit between the two parallel lines, on the same side of the transversal. They make a C-shape. When the lines are parallel, co-interior angles are supplementary — they sum to 180°. This is the one rule where the angles add up rather than being equal.",
+      "Two lines are parallel when they run in exactly the same direction and never meet, like the two rails of a train track. When a third straight line — a transversal — cuts across both of them, it crosses each at the same slant, because the two lines point the same way. That single fact, 'same slant at both crossings', is the source of every rule in this lesson.",
+      "The transversal makes four angles at each crossing, eight in all. To use them you need to spot which pairs are linked, and the quickest way is by the letter-shape they trace. Corresponding angles sit in matching positions — same side of the transversal, and both above (or both below) their own line. They trace an F-shape. Because the transversal hits both lines at the same slant, the angle it opens at the top crossing is the same as the angle it opens in the matching spot at the bottom crossing: corresponding angles are equal.",
+      "Alternate angles sit between the two parallel lines on opposite sides of the transversal, tracing a Z-shape. You can see they are equal in two short steps. Start with a corresponding pair, which are equal. Now the angle alternate to one of them is its vertically opposite angle at the same crossing, and vertically opposite angles are equal. So the alternate angle equals the corresponding angle, which equals the original — the alternate pair must be equal too.",
+      "Co-interior angles sit between the two parallel lines on the same side of the transversal, tracing a C-shape. These do not match — they add. Take one of them; the angle right next to it along the same line is its corresponding angle from the other crossing (equal), and that neighbour plus the co-interior angle lie together on a straight line, so they sum to $180^\\circ$. Therefore the two co-interior angles sum to $180^\\circ$: they are supplementary. This is the one parallel-line rule where you add to $180^\\circ$ instead of copying the angle.",
+      "Putting the three together: F-shape corresponding angles are equal, Z-shape alternate angles are equal, C-shape co-interior angles add to $180^\\circ$. Every one of these comes back to the transversal hitting both lines at the same slant, combined with the straight-line and vertically-opposite facts you already know.",
+      "Two cautions. First, these rules only hold when the lines really are parallel — look for the matching arrowheads on the lines before applying them, and never assume parallel just because a diagram looks that way. Second, the easy mistake is treating co-interior angles as equal: they are the same-side C-shape, so they sum to $180^\\circ$, while it is the opposite-side Z-shape alternate angles that are equal. Spot the shape first, then choose 'equal' or 'adds to $180^\\circ$'. The same reasoning runs backwards too: if you can show a corresponding or alternate pair is equal, or a co-interior pair adds to $180^\\circ$, then the two lines must be parallel.",
     ],
     latexBlocks: [
-      "\\text{Corresponding angles (F-shape): equal when lines are parallel}",
-      "\\text{Alternate angles (Z-shape): equal when lines are parallel}",
-      "\\text{Co-interior angles (C-shape): sum to } 180° \\text{ when lines are parallel}",
-      "\\text{To prove lines are parallel: show corresponding or alternate angles are equal, or co-interior angles sum to } 180°",
+      "\\text{Corresponding angles (F-shape): equal when the lines are parallel}",
+      "\\text{Alternate angles (Z-shape): equal when the lines are parallel}",
+      "\\text{Co-interior angles (C-shape): sum to } 180^\\circ \\text{ when the lines are parallel}",
+      "\\text{Lines are parallel if: corresponding equal, OR alternate equal, OR co-interior sum to } 180^\\circ",
     ],
   },
   workedExamples: [
     {
       title: "Find an angle using corresponding angles",
       questionLatex:
-        "\\text{A transversal crosses two parallel lines. One angle is } 65°.\\text{ The angle in the corresponding position at the other intersection is unknown. Find it in degrees.}",
+        "\\text{A transversal crosses two parallel lines. One angle is } 65^\\circ.\\text{ The angle in the corresponding position at the other crossing is unknown. Find it in degrees.}",
       steps: [
         {
           explanation:
-            "Corresponding angles (F-shape) are equal when lines are parallel.",
-          latex: "\\text{Corresponding angle} = 65°",
+            "The two angles are in matching F-shape positions, and the transversal meets both parallel lines at the same slant, so corresponding angles are equal.",
+          latex: "\\text{Corresponding angle} = 65",
         },
       ],
-      finalAnswerLatex: "\\text{The corresponding angle is } 65°.",
+      finalAnswerLatex: "\\text{The corresponding angle is } 65^\\circ.",
     },
     {
       title: "Find an angle using co-interior angles",
       questionLatex:
-        "\\text{A transversal crosses two parallel lines. One co-interior angle is } 112°.\\text{ Find the other co-interior angle in degrees.}",
+        "\\text{A transversal crosses two parallel lines. One co-interior angle is } 112^\\circ.\\text{ Find the other co-interior angle in degrees.}",
       steps: [
         {
           explanation:
-            "Co-interior angles (C-shape) sum to 180° when lines are parallel.",
-          latex: "112° + \\angle B = 180°",
+            "The two angles form a same-side C-shape between the parallel lines, so they are co-interior and add to 180.",
+          latex: "112 + \\angle B = 180",
         },
         {
-          explanation: "Subtract to find the unknown angle.",
-          latex: "\\angle B = 180 - 112 = 68°",
+          explanation: "Subtract 112 from 180 to find the other co-interior angle.",
+          latex: "\\angle B = 180 - 112 = 68",
         },
       ],
-      finalAnswerLatex: "\\text{The co-interior angle is } 68°.",
+      finalAnswerLatex: "\\text{The co-interior angle is } 68^\\circ.",
     },
     {
-      title: "Determine whether two lines are parallel",
+      title: "Decide whether two lines are parallel",
       questionLatex:
-        "\\text{Two lines are cut by a transversal. The alternate angles formed are } 74°\\text{ and }74°.\\text{ Are the two lines parallel? Explain.}",
+        "\\text{Two lines are cut by a transversal. The alternate angles formed are } 74^\\circ\\text{ and }74^\\circ.\\text{ Are the two lines parallel? Explain.}",
       steps: [
         {
           explanation:
-            "If the lines were parallel, alternate angles would be equal.",
-          latex: "\\text{Alternate angles: } 74° = 74°",
+            "Alternate angles are equal only when the two lines are parallel, so check whether this pair is equal.",
+          latex: "74 = 74",
         },
         {
           explanation:
-            "Since the alternate angles are equal, the two lines must be parallel.",
+            "The alternate angles are equal, so the condition for parallel lines is met.",
           latex: "\\therefore \\text{ the lines are parallel}",
         },
       ],
       finalAnswerLatex:
-        "\\text{Yes, the lines are parallel — alternate angles are equal.}",
+        "\\text{Yes — the alternate angles are equal, so the lines are parallel.}",
+    },
+    {
+      title: "Harder: chain corresponding, straight-line, and alternate rules",
+      questionLatex:
+        "\\text{A transversal crosses two parallel lines. At the upper crossing the angle on the upper-left is } 124^\\circ.\\text{ Find the co-interior angle on the same side at the lower crossing, in degrees.}",
+      steps: [
+        {
+          explanation:
+            "The 124 angle and the angle below it on the same line are corresponding (F-shape), so the matching angle at the lower crossing on that side is also 124.",
+          latex: "\\text{corresponding angle at lower crossing} = 124",
+        },
+        {
+          explanation:
+            "But we want the co-interior angle, which sits on the same side of the transversal between the lines and is supplementary to the upper angle.",
+          latex: "124 + \\angle C = 180",
+        },
+        {
+          explanation: "Subtract 124 from 180 to find the co-interior angle.",
+          latex: "\\angle C = 180 - 124 = 56",
+        },
+        {
+          explanation:
+            "Check: the co-interior angle 56 and the corresponding angle 124 lie on a straight line at the lower crossing, and 56 + 124 = 180, as they should.",
+          latex: "56 + 124 = 180 \\;\\checkmark",
+        },
+      ],
+      finalAnswerLatex: "\\text{The co-interior angle is } 56^\\circ.",
     },
   ],
   guidedPractice: [
@@ -1442,16 +2079,18 @@ const angleRelationshipsProblemSolving: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Many geometry problems require you to chain two or more angle rules together. The skill is not knowing more rules — it is deciding which rule to apply first. Start by looking for any angles you can find directly from one rule, then use those new angles as inputs to the next rule.",
-      "When you write a geometric reason, state the rule and the condition. Do not just write '65° because of parallel lines' — write '65° (alternate angles, AB ∥ CD)'. Naming both the rule and the parallel lines (or the triangle) makes your reasoning clear and earns full marks in an exam.",
-      "A common diagram type combines a pair of parallel lines with a triangle. A vertex of the triangle sits on one parallel line, and the opposite side lies along the other. The triangle's base angles connect to the parallel-line angle rules: the base angles of the triangle are alternate angles to angles formed at the parallel lines.",
-      "Work through the diagram step by step. Find any angle you can from the given information, label it, then look again for what is now possible. Do not try to jump to the final answer in one step — each intermediate angle is a stepping stone.",
+      "By now you have a toolbox of angle rules: angles on a line, angles at a point, vertically opposite, the triangle sum, the exterior angle, and the parallel-line family of corresponding, alternate, and co-interior. Real exam diagrams rarely give the answer from a single rule. The skill that earns a Band 6 is not knowing more rules — it is choosing which rule to fire first and then feeding its result into the next.",
+      "Think of it as building a bridge across the diagram. You cannot reach the unknown angle in one leap, so you lay stepping stones: find any angle you can from the given information, write it on the diagram, and then look again — that new angle often unlocks a rule that was out of reach before. Repeat until a rule finally points at the angle you want. The reason a chain works is that each rule is exact, so a correct angle fed into the next rule gives another correct angle, with no rounding or guessing along the way.",
+      "Here is the move at the heart of most parallel-line-and-triangle problems. A triangle has a corner sitting on one of two parallel lines, with its opposite side lying along the other parallel line. The transversal sides of the triangle cut across the parallel lines, so a base angle of the triangle and an angle out at the parallel line are alternate angles (Z-shape) — and therefore equal. That single link lets you carry a known angle from the parallel lines into the triangle, where the triangle sum then finishes the job.",
+      "Work one specific case to see the chain. Suppose alternate angles give two interior angles of a triangle as $50^\\circ$ and $70^\\circ$. First rule used: alternate angles on parallel lines, to obtain those two interior angles. Second rule: the triangle sum, giving the third angle as $180^\\circ-50^\\circ-70^\\circ=60^\\circ$. Two rules, in order, each stepping off the one before.",
+      "In NSW exams you must write a geometric reason for every step, and a reason has two parts: the rule and the condition it depends on. Do not write '$65^\\circ$ because of parallel lines'; write '$65^\\circ$ (alternate angles, $AB \\parallel CD$)'. Naming the rule shows you know which fact you used; naming the parallel lines (or the triangle) shows you checked it was allowed to be used. Missing either part loses marks even when the number is right.",
+      "Two traps to avoid as the chains get longer. First, do not try to leap to the final answer — label each intermediate angle as you find it, so you never reuse an angle in the wrong place. Second, keep the exterior angle of a triangle out of the interior angle sum: the $180^\\circ$ sum is for the three angles inside the triangle, while an exterior angle equals the sum of the two far interior angles instead. And as always, treat the diagram as a guide to layout only — never measure or assume an angle's size from how it looks; every angle must come from a rule.",
     ],
     latexBlocks: [
-      "\\text{State reason: e.g. } \\angle ABC = 70°\\text{ (alternate angles, }PQ \\parallel RS\\text{)}",
-      "\\text{Triangle angle sum: } \\angle A + \\angle B + \\angle C = 180°",
-      "\\text{Co-interior angles: } \\angle A + \\angle B = 180°\\text{ (}PQ \\parallel RS\\text{)}",
-      "\\text{Vertically opposite: } \\angle A = \\angle B",
+      "\\text{Reason format: } \\angle ABC = 70^\\circ \\text{ (alternate angles, } PQ \\parallel RS\\text{)}",
+      "\\text{Triangle angle sum: } \\angle A + \\angle B + \\angle C = 180^\\circ",
+      "\\text{Co-interior angles: } \\angle A + \\angle B = 180^\\circ \\text{ (} PQ \\parallel RS\\text{)}",
+      "\\text{Exterior angle} = \\text{sum of the two non-adjacent interior angles}",
     ],
   },
   workedExamples: [
@@ -1459,64 +2098,111 @@ const angleRelationshipsProblemSolving: LessonContent = {
       title: "Find an angle using parallel lines and a triangle",
       questionLatex:
         "\\text{Two parallel lines are cut by a transversal. A triangle is formed with one vertex on each parallel line. The angle at the top vertex (between the transversal and the top parallel line) is }50°.\\text{ The angle at the bottom vertex (between the transversal and the bottom parallel line, on the other side) is }70°.\\text{ Find the angle at the third vertex of the triangle in degrees.}",
+      triangleDiagram: triFig(
+        "Triangle formed between the two parallel lines, with the two interior angles transferred by the alternate-angle rule marked 50° and 70°, and the third interior angle marked x.",
+        { A: "50°", B: "70°", C: "x" }
+      ),
       steps: [
         {
           explanation:
-            "The 50° angle at the top vertex is an interior angle of the triangle (alternate angle with the top parallel line, using Z-shape reasoning).",
-          latex: "\\angle \\text{top} = 50°\\text{ (given interior angle)}",
+            "The 50 angle at the top vertex transfers into the triangle as an interior angle, because it is alternate (Z-shape) to the triangle side crossing the parallel lines.",
+          latex: "\\angle \\text{top} = 50 \\text{ (alternate angles)}",
         },
         {
           explanation:
-            "The 70° angle at the bottom vertex is an interior angle of the triangle.",
-          latex: "\\angle \\text{bottom} = 70°\\text{ (given interior angle)}",
+            "The 70 angle at the bottom vertex is, in the same way, an interior angle of the triangle.",
+          latex: "\\angle \\text{bottom} = 70 \\text{ (alternate angles)}",
         },
         {
-          explanation: "Use the triangle angle sum to find the third angle.",
-          latex: "\\angle \\text{third} = 180 - 50 - 70 = 60°",
+          explanation: "Now both base angles are known, so use the triangle sum to find the third angle.",
+          latex: "\\angle \\text{third} = 180 - 50 - 70 = 60",
         },
       ],
-      finalAnswerLatex: "\\text{The third angle of the triangle is } 60°.",
+      finalAnswerLatex: "\\text{The third angle of the triangle is } 60^\\circ.",
     },
     {
-      title: "Multi-step: parallel lines and vertically opposite angles",
+      title: "Multi-step: co-interior then vertically opposite",
       questionLatex:
-        "\\text{Two parallel lines are cut by a transversal. At the top intersection, one angle is }118°.\\text{ At the bottom intersection, the co-interior angle is unknown. Find the co-interior angle, then find the vertically opposite angle to it, in degrees.}",
+        "\\text{Two parallel lines are cut by a transversal. At the upper crossing one angle is }118^\\circ.\\text{ Find the co-interior angle at the lower crossing, then the angle vertically opposite that co-interior angle, in degrees.}",
       steps: [
         {
           explanation:
-            "Co-interior angles (C-shape) sum to 180° when lines are parallel.",
-          latex: "118° + \\angle B = 180°,\\quad \\angle B = 62°",
+            "The two angles are co-interior (C-shape) on parallel lines, so they are supplementary: subtract from 180.",
+          latex: "118 + \\angle B = 180,\\quad \\angle B = 62",
         },
         {
           explanation:
-            "The vertically opposite angle to the co-interior angle is equal to it.",
-          latex: "\\text{Vertically opposite} = 62°",
+            "At the lower crossing, the angle diagonally across from the co-interior angle is vertically opposite it, so it is equal.",
+          latex: "\\text{Vertically opposite} = 62",
         },
       ],
       finalAnswerLatex:
-        "\\text{The co-interior angle is }62°\\text{ and the vertically opposite angle is }62°.",
+        "\\text{The co-interior angle is }62^\\circ\\text{ and the angle vertically opposite it is }62^\\circ.",
     },
     {
-      title: "Find angles in a diagram with parallel lines and a triangle",
+      title: "Parallel lines feeding an isosceles triangle",
       questionLatex:
-        "\\text{Triangle }ABC\\text{ has vertex }A\\text{ on one parallel line and side }BC\\text{ on the other parallel line. The angle at }A\\text{ (apex) is }80°.\\text{ The base angle at }B\\text{ is equal to the angle formed between the transversal and the bottom parallel line (alternate angle). The base angles are equal. Find each base angle in degrees.}",
+        "\\text{Triangle }ABC\\text{ has vertex }A\\text{ on one parallel line and side }BC\\text{ on the other. The apex angle at }A\\text{ is }80^\\circ\\text{ and the triangle is isosceles with equal base angles at }B\\text{ and }C.\\text{ Find each base angle, and the alternate angle it makes at the lower line, in degrees.}",
+      triangleDiagram: {
+        ...isoscelesFig(
+          "Isosceles triangle ABC with apex angle 80° at A, the two equal sides AB and AC tick-marked, and equal base angles marked x at B and C.",
+          { A: "80°", B: "x", C: "x" }
+        ),
+        vertexLabels: { A: "A", C: "B", B: "C" },
+      },
       steps: [
         {
           explanation:
-            "The base angles of the triangle are equal (isosceles triangle) and sum with the apex to give 180°.",
-          latex: "80° + 2x = 180°",
+            "The equal base angles each equal x, and with the apex they fill the triangle sum of 180.",
+          latex: "80 + 2x = 180",
         },
         {
-          explanation: "Solve for each base angle.",
-          latex: "2x = 100°,\\quad x = 50°",
+          explanation: "Subtract the apex, then divide by 2 to find each base angle.",
+          latex: "2x = 100,\\quad x = 50",
         },
         {
           explanation:
-            "Each base angle is 50°, which also equals the alternate angle at the bottom parallel line — confirming the parallel lines.",
-          latex: "\\text{Alternate angle at bottom line} = 50°",
+            "Each base angle is alternate (Z-shape) to the angle the triangle side makes with the lower parallel line, so that alternate angle is equal to it.",
+          latex: "\\text{Alternate angle at lower line} = 50",
         },
       ],
-      finalAnswerLatex: "\\text{Each base angle of the triangle is } 50°.",
+      finalAnswerLatex: "\\text{Each base angle is } 50^\\circ, \\text{ matching a } 50^\\circ \\text{ alternate angle at the lower line.}",
+    },
+    {
+      title: "Harder: chain co-interior, isosceles, and exterior angle",
+      questionLatex:
+        "\\text{Parallel lines } PQ \\parallel RS \\text{ are cut by a transversal. A co-interior angle at } PQ \\text{ measures } 124^\\circ. \\text{ Its co-interior partner at } RS \\text{ is the apex of an isosceles triangle with equal base angles. One base, extended, makes an exterior angle. Find that exterior angle in degrees.}",
+      triangleDiagram: isoscelesFig(
+        "Isosceles triangle whose apex (the co-interior partner of 124°) is marked 56°, with the two equal sides tick-marked and equal base angles marked x. One base is extended to form the required exterior angle.",
+        { A: "56°", B: "x", C: "x" }
+      ),
+      steps: [
+        {
+          explanation:
+            "Find the apex first: the co-interior partner is supplementary to 124 because co-interior angles on parallel lines add to 180.",
+          latex: "\\text{apex} = 180 - 124 = 56",
+        },
+        {
+          explanation:
+            "The triangle is isosceles, so the two base angles are equal; call each x and use the triangle sum.",
+          latex: "56 + 2x = 180",
+        },
+        {
+          explanation: "Solve for one base angle.",
+          latex: "2x = 124,\\quad x = 62",
+        },
+        {
+          explanation:
+            "Extending one base makes an exterior angle supplementary to that base angle, since they sit on a straight line.",
+          latex: "\\text{exterior angle} = 180 - 62 = 118",
+        },
+        {
+          explanation:
+            "Check with the exterior-angle rule: it should equal the sum of the two far interior angles, the apex and the other base angle.",
+          latex: "56 + 62 = 118 \\;\\checkmark",
+        },
+      ],
+      finalAnswerLatex: "\\text{The exterior angle is } 118^\\circ.",
     },
   ],
   guidedPractice: [
@@ -1538,7 +2224,13 @@ const angleRelationshipsProblemSolving: LessonContent = {
       "65° + 65° + \\angle C = 180°",
       "50",
       "Alternate angle at the bottom = 65°. Triangle angle sum: 65 + 65 + unknown = 180, so unknown = 50°.",
-      ["50°"]
+      ["50°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle formed between the parallel lines, with two interior angles marked 65° (one transferred by the alternate-angle rule) and the third interior angle marked x.",
+          { A: "65°", B: "65°", C: "x" }
+        ),
+      }
     ),
     answer(
       "y7-ang-prb-g3",
@@ -1546,7 +2238,13 @@ const angleRelationshipsProblemSolving: LessonContent = {
       "48° + 62° + \\angle C = 180°",
       "70",
       "Alternate angles are equal, so the interior angle of the triangle at the bottom intersection = 48°. Triangle angle sum: 48 + 62 + unknown = 180. Unknown = 180 - 48 - 62 = 70°.",
-      ["70°"]
+      ["70°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle with the alternate-transferred interior angle marked 48°, a second interior angle marked 62°, and the third interior angle marked x.",
+          { A: "48°", B: "62°", C: "x" }
+        ),
+      }
     ),
     answer(
       "y7-ang-prb-g4",
@@ -1554,7 +2252,14 @@ const angleRelationshipsProblemSolving: LessonContent = {
       "2x = 114°",
       "57",
       "The exterior angle equals the sum of the two non-adjacent interior angles. Each = 114 ÷ 2 = 57°.",
-      ["57°"]
+      ["57°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle ABC with the two equal non-adjacent interior angles each marked x at A and B. The side through C is extended, forming an exterior angle of 114° at C.",
+          { A: "x", B: "x" },
+          { vertexLabels: { A: "A", B: "B", C: "C" } }
+        ),
+      }
     ),
   ],
   independentPractice: [
@@ -1564,7 +2269,13 @@ const angleRelationshipsProblemSolving: LessonContent = {
       "72° + 55° + \\angle C = 180°",
       "53",
       "Triangle angle sum: 72 + 55 + unknown = 180. Unknown = 180 - 72 - 55 = 53°.",
-      ["53°"]
+      ["53°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle with the alternate-transferred interior angle marked 72°, a second interior angle marked 55°, and the third interior angle marked x.",
+          { A: "72°", B: "55°", C: "x" }
+        ),
+      }
     ),
     answer(
       "y7-ang-prb-i2",
@@ -1572,7 +2283,13 @@ const angleRelationshipsProblemSolving: LessonContent = {
       "(180 - 125)° + 32° + \\angle C = 180°",
       "93",
       "Other co-interior angle = 180 - 125 = 55°. Triangle: 55 + 32 + unknown = 180. Unknown = 180 - 55 - 32 = 93°.",
-      ["93°"]
+      ["93°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle with the interior angle transferred from the co-interior partner marked 55°, a second interior angle marked 32°, and the third interior angle marked x.",
+          { A: "55°", B: "32°", C: "x" }
+        ),
+      }
     ),
     answer(
       "y7-ang-prb-i3",
@@ -1580,7 +2297,13 @@ const angleRelationshipsProblemSolving: LessonContent = {
       "68° + 68° + \\angle A = 180°",
       "44",
       "Corresponding angle = 68°. Both base angles of the isosceles triangle = 68°. Apex = 180 - 68 - 68 = 44°.",
-      ["44°"]
+      ["44°"],
+      {
+        triangleDiagram: isoscelesFig(
+          "Isosceles triangle with the two equal tick-marked sides, each base angle marked 68° (the corresponding angle transferred from the parallel lines), and the apex angle marked x.",
+          { A: "x", B: "68°", C: "68°" }
+        ),
+      }
     ),
     answer(
       "y7-ang-prb-i4",
@@ -1588,7 +2311,13 @@ const angleRelationshipsProblemSolving: LessonContent = {
       "50° + 50° + \\angle A = 180°",
       "80",
       "The alternate interior angles at the parallel lines each equal 50°, so the interior angles of the triangle at those two vertices are each 50°. Middle vertex = 180 - 50 - 50 = 80°.",
-      ["80°"]
+      ["80°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle with the two interior angles transferred by the alternate-angle rule each marked 50°, and the middle-vertex angle marked x.",
+          { A: "50°", B: "50°", C: "x" }
+        ),
+      }
     ),
     choice(
       "y7-ang-prb-i5",
@@ -1636,7 +2365,13 @@ const angleRelationshipsProblemSolving: LessonContent = {
       "(180 - 61)° + 44° + \\angle C = 180°",
       "17",
       "Co-interior angle at bottom = 180 - 61 = 119°. If this 119° is inside the triangle: 119 + 44 + unknown = 180, unknown = 17°. Check: 119 + 44 + 17 = 180. Correct.",
-      ["17°"]
+      ["17°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle with the interior angle from the co-interior partner marked 119°, a second interior angle marked 44°, and the third interior angle marked x.",
+          { A: "119°", B: "44°", C: "x" }
+        ),
+      }
     ),
     choice(
       "y7-ang-prb-m3",
@@ -1656,7 +2391,16 @@ const angleRelationshipsProblemSolving: LessonContent = {
       "74° + 2x = 180°",
       "53",
       "Triangle angle sum: 74 + x + x = 180, so 2x = 106 and x = 53°. The base angle at B is 53°.",
-      ["53°"]
+      ["53°"],
+      {
+        triangleDiagram: {
+          ...isoscelesFig(
+            "Isosceles triangle ABC with apex angle 74° at A, the two equal sides tick-marked, and equal base angles marked x at B and C.",
+            { A: "74°", B: "x", C: "x" }
+          ),
+          vertexLabels: { A: "A", C: "B", B: "C" },
+        },
+      }
     ),
     answer(
       "y7-ang-prb-m5",
@@ -1672,14 +2416,28 @@ const angleRelationshipsProblemSolving: LessonContent = {
       "55° + 65° + \\angle A = 180°",
       "60",
       "Triangle angle sum: 55 + 65 + unknown = 180. Unknown = 180 - 55 - 65 = 60°.",
-      ["60°"]
+      ["60°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle formed between the two parallel lines, with the two interior angles at the top line marked 55° and 65°, and the vertex angle between the lines marked x.",
+          { A: "55°", B: "65°", C: "x" }
+        ),
+      }
     ),
     choice(
       "y7-ang-prb-m7",
       "A transversal crosses two parallel lines. The corresponding angle at the top intersection is 88°. A triangle shares this angle as an exterior angle at the bottom vertex. What is the sum of the two non-adjacent interior angles of the triangle?",
       "A",
       ["88°", "92°", "180°", "44°"],
-      "The exterior angle of a triangle equals the sum of the two non-adjacent interior angles. If the exterior angle is 88°, then the two non-adjacent interior angles sum to 88°."
+      "The exterior angle of a triangle equals the sum of the two non-adjacent interior angles. If the exterior angle is 88°, then the two non-adjacent interior angles sum to 88°.",
+      undefined,
+      {
+        triangleDiagram: triFig(
+          "Triangle ABC with the two non-adjacent interior angles unmarked at A and B. The side through C is extended, forming an exterior angle of 88° at C.",
+          {},
+          { vertexLabels: { A: "A", B: "B", C: "C" } }
+        ),
+      }
     ),
     answer(
       "y7-ang-prb-m8",
@@ -1695,7 +2453,13 @@ const angleRelationshipsProblemSolving: LessonContent = {
       "50° + 2x = 180°",
       "65",
       "Triangle angle sum with apex 50° and equal base angles: 50 + x + x = 180, so 2x = 130 and x = 65°.",
-      ["65°"]
+      ["65°"],
+      {
+        triangleDiagram: isoscelesFig(
+          "Isosceles triangle with apex angle 50° at A between the two equal tick-marked sides, and equal base angles marked x at B and C.",
+          { A: "50°", B: "x", C: "x" }
+        ),
+      }
     ),
     answer(
       "y7-ang-prb-m10",
@@ -1703,36 +2467,42 @@ const angleRelationshipsProblemSolving: LessonContent = {
       "50° + 70° + \\angle C = 180°",
       "60",
       "Co-interior angle = 50° (given as interior angle of triangle). Triangle: 50 + 70 + unknown = 180. Unknown = 60°.",
-      ["60°"]
+      ["60°"],
+      {
+        triangleDiagram: triFig(
+          "Triangle with the co-interior angle marked 50° as one interior angle, a second interior angle marked 70°, and the third interior angle marked x.",
+          { A: "50°", B: "70°", C: "x" }
+        ),
+      }
     ),
   ],
   masteryQuizPool: [
     dq(answer("y7-ang-prb-p1", "Two parallel lines are cut by a transversal. An angle of 60° is formed at the top intersection. Find the alternate angle at the bottom intersection in degrees.", "\\text{Alternate angles are equal}", "60", "Alternate angles are equal, so the alternate angle is 60°.", ["60°"]), 1),
-    dq(answer("y7-ang-prb-p2", "A triangle has two angles of 70° and 60°. Find the third angle in degrees.", "70° + 60° + \\angle C = 180°", "50", "Third angle = 180 - 70 - 60 = 50°.", ["50°"]), 1),
+    dq(answer("y7-ang-prb-p2", "A triangle has two angles of 70° and 60°. Find the third angle in degrees.", "70° + 60° + \\angle C = 180°", "50", "Third angle = 180 - 70 - 60 = 50°.", ["50°"], { triangleDiagram: triFig("Triangle with two interior angles marked 70° and 60°, and the third angle marked x.", { A: "70°", B: "60°", C: "x" }) }), 1),
     dq(answer("y7-ang-prb-p3", "Two parallel lines are cut by a transversal. One co-interior angle is 110°. Find the other co-interior angle in degrees.", "110° + \\angle B = 180°", "70", "180 - 110 = 70°.", ["70°"]), 1),
-    dq(answer("y7-ang-prb-p4", "An exterior angle of a triangle is 120° and the two non-adjacent interior angles are equal. Find each in degrees.", "2x = 120°", "60", "Each = 120 ÷ 2 = 60°.", ["60°"]), 1),
+    dq(answer("y7-ang-prb-p4", "An exterior angle of a triangle is 120° and the two non-adjacent interior angles are equal. Find each in degrees.", "2x = 120°", "60", "Each = 120 ÷ 2 = 60°.", ["60°"], { triangleDiagram: triFig("Triangle ABC with the two equal non-adjacent interior angles each marked x at A and B. The side through C is extended, forming an exterior angle of 120° at C.", { A: "x", B: "x" }, { vertexLabels: { A: "A", B: "B", C: "C" } }) }), 1),
     dq(choice("y7-ang-prb-p5", "A complete geometric reason must state which two things?", "C", ["The diagram and the answer", "The calculator used and the answer", "The rule and the condition (e.g. alternate angles, parallel lines)", "Only the rule"], "A full reason names the rule and the condition under which it applies."), 1),
     dq(answer("y7-ang-prb-p6", "Two parallel lines are cut by a transversal. A corresponding angle to 84° is unknown. Find it in degrees.", "\\text{Corresponding angles are equal}", "84", "Corresponding angles are equal, so it is 84°.", ["84°"]), 1),
-    dq(answer("y7-ang-prb-p7", "Two parallel lines are cut by a transversal. An angle of 64° is formed at the top intersection. Its alternate angle at the bottom is one interior angle of a triangle whose other interior angle is 58°. Find the third angle of the triangle in degrees.", "64° + 58° + \\angle C = 180°", "58", "Alternate angle = 64°. Triangle: 180 - 64 - 58 = 58°.", ["58°"]), 2),
-    dq(answer("y7-ang-prb-p8", "Two parallel lines are cut by a transversal. One co-interior angle is 130°. The other co-interior angle is an interior angle of a triangle whose second angle is 25°. Find the third angle of the triangle in degrees.", "(180 - 130)° + 25° + \\angle C = 180°", "105", "Other co-interior = 50°. Triangle: 180 - 50 - 25 = 105°.", ["105°"]), 2),
-    dq(answer("y7-ang-prb-p9", "An isosceles triangle has a base angle equal to a corresponding angle of 72° formed on parallel lines. Both base angles are 72°. Find the apex angle in degrees.", "72° + 72° + \\angle A = 180°", "36", "Apex = 180 - 72 - 72 = 36°.", ["36°"]), 2),
+    dq(answer("y7-ang-prb-p7", "Two parallel lines are cut by a transversal. An angle of 64° is formed at the top intersection. Its alternate angle at the bottom is one interior angle of a triangle whose other interior angle is 58°. Find the third angle of the triangle in degrees.", "64° + 58° + \\angle C = 180°", "58", "Alternate angle = 64°. Triangle: 180 - 64 - 58 = 58°.", ["58°"], { triangleDiagram: triFig("Triangle with the alternate-transferred interior angle marked 64°, a second interior angle marked 58°, and the third interior angle marked x.", { A: "64°", B: "58°", C: "x" }) }), 2),
+    dq(answer("y7-ang-prb-p8", "Two parallel lines are cut by a transversal. One co-interior angle is 130°. The other co-interior angle is an interior angle of a triangle whose second angle is 25°. Find the third angle of the triangle in degrees.", "(180 - 130)° + 25° + \\angle C = 180°", "105", "Other co-interior = 50°. Triangle: 180 - 50 - 25 = 105°.", ["105°"], { triangleDiagram: triFig("Triangle with the interior angle from the co-interior partner marked 50°, a second interior angle marked 25°, and the third interior angle marked x.", { A: "50°", B: "25°", C: "x" }) }), 2),
+    dq(answer("y7-ang-prb-p9", "An isosceles triangle has a base angle equal to a corresponding angle of 72° formed on parallel lines. Both base angles are 72°. Find the apex angle in degrees.", "72° + 72° + \\angle A = 180°", "36", "Apex = 180 - 72 - 72 = 36°.", ["36°"], { triangleDiagram: isoscelesFig("Isosceles triangle with the two equal tick-marked sides, each base angle marked 72°, and the apex angle marked x.", { A: "x", B: "72°", C: "72°" }) }), 2),
     dq(answer("y7-ang-prb-p10", "Two parallel lines are cut by a transversal at P and Q. At P an angle of 53° is formed above the line. Find the co-interior angle at Q in degrees.", "53° + \\angle Q = 180°", "127", "Co-interior angles sum to 180°: 180 - 53 = 127°.", ["127°"]), 2),
-    dq(answer("y7-ang-prb-p11", "An exterior angle of a triangle is 95°. One non-adjacent interior angle is 38°. Find the other non-adjacent interior angle in degrees.", "38° + \\angle B = 95°", "57", "Other angle = 95 - 38 = 57°.", ["57°"]), 2),
+    dq(answer("y7-ang-prb-p11", "An exterior angle of a triangle is 95°. One non-adjacent interior angle is 38°. Find the other non-adjacent interior angle in degrees.", "38° + \\angle B = 95°", "57", "Other angle = 95 - 38 = 57°.", ["57°"], { triangleDiagram: triFig("Triangle ABC with one non-adjacent interior angle marked 38° at A and the other marked x at B. The side through C is extended, forming an exterior angle of 95° at C.", { A: "38°", B: "x" }, { vertexLabels: { A: "A", B: "B", C: "C" } }) }), 2),
     dq(choice("y7-ang-prb-p12", "Two parallel lines form a triangle with a transversal. Which combination of rules is standard?", "C", ["Complementary and revolution", "Quadrilateral sum and vertically opposite", "A parallel-line rule and the triangle angle sum", "Co-interior and complementary"], "The standard combination is a parallel-line rule (alternate/corresponding/co-interior) with the triangle angle sum."), 2),
-    dq(answer("y7-ang-prb-p13", "Two parallel lines are cut by a transversal. An angle of 75° at the top has an alternate angle at the bottom that is one interior angle of a triangle. The triangle's other two angles are equal. Find each of those equal angles in degrees.", "75° + 2x = 180°", "52.5", "Alternate angle = 75°. Triangle: 75 + 2x = 180, so 2x = 105 and x = 52.5°.", ["52.5°"]), 3),
-    dq(answer("y7-ang-prb-p14", "A triangle has a vertex on each of two parallel lines, with the third vertex between them. The alternate interior angles at the two vertices on the lines are 47° and 63°. Find the angle at the middle vertex in degrees.", "47° + 63° + \\angle A = 180°", "70", "Middle vertex = 180 - 47 - 63 = 70°.", ["70°"]), 3),
-    dq(answer("y7-ang-prb-p15", "Two parallel lines are cut by a transversal. At the top intersection, the angle is 118°. Its co-interior partner is an interior angle of a triangle whose second angle is 30°. Find the third angle of the triangle in degrees.", "(180 - 118)° + 30° + \\angle C = 180°", "88", "Co-interior = 62°. Triangle: 180 - 62 - 30 = 88°.", ["88°"]), 3),
-    dq(answer("y7-ang-prb-p16", "An exterior angle of a triangle is 134°. The two non-adjacent interior angles are in the ratio 1 : 3. Find the larger of the two angles in degrees.", "x + 3x = 134°", "100.5", "x + 3x = 134, so 4x = 134 and x = 33.5. Larger = 3 × 33.5 = 100.5°.", ["100.5°"]), 3),
+    dq(answer("y7-ang-prb-p13", "Two parallel lines are cut by a transversal. An angle of 75° at the top has an alternate angle at the bottom that is one interior angle of a triangle. The triangle's other two angles are equal. Find each of those equal angles in degrees.", "75° + 2x = 180°", "52.5", "Alternate angle = 75°. Triangle: 75 + 2x = 180, so 2x = 105 and x = 52.5°.", ["52.5°"], { triangleDiagram: isoscelesFig("Isosceles triangle with apex angle 75° (the alternate-transferred angle) at A between the two equal tick-marked sides, and the two equal base angles marked x.", { A: "75°", B: "x", C: "x" }) }), 3),
+    dq(answer("y7-ang-prb-p14", "A triangle has a vertex on each of two parallel lines, with the third vertex between them. The alternate interior angles at the two vertices on the lines are 47° and 63°. Find the angle at the middle vertex in degrees.", "47° + 63° + \\angle A = 180°", "70", "Middle vertex = 180 - 47 - 63 = 70°.", ["70°"], { triangleDiagram: triFig("Triangle with the two alternate-transferred interior angles marked 47° and 63°, and the middle-vertex angle marked x.", { A: "47°", B: "63°", C: "x" }) }), 3),
+    dq(answer("y7-ang-prb-p15", "Two parallel lines are cut by a transversal. At the top intersection, the angle is 118°. Its co-interior partner is an interior angle of a triangle whose second angle is 30°. Find the third angle of the triangle in degrees.", "(180 - 118)° + 30° + \\angle C = 180°", "88", "Co-interior = 62°. Triangle: 180 - 62 - 30 = 88°.", ["88°"], { triangleDiagram: triFig("Triangle with the interior angle from the co-interior partner marked 62°, a second interior angle marked 30°, and the third interior angle marked x.", { A: "62°", B: "30°", C: "x" }) }), 3),
+    dq(answer("y7-ang-prb-p16", "An exterior angle of a triangle is 134°. The two non-adjacent interior angles are in the ratio 1 : 3. Find the larger of the two angles in degrees.", "x + 3x = 134°", "100.5", "x + 3x = 134, so 4x = 134 and x = 33.5. Larger = 3 × 33.5 = 100.5°.", ["100.5°"], { triangleDiagram: triFig("Triangle ABC with the two non-adjacent interior angles marked x at A and 3x at B in the ratio 1 : 3. The side through C is extended, forming an exterior angle of 134° at C.", { A: "x", B: "3x" }, { vertexLabels: { A: "A", B: "B", C: "C" } }) }), 3),
     dq(answer("y7-ang-prb-p17", "Two parallel lines are cut by a transversal. Corresponding angles are (3x + 9)° and (5x - 11)°. Find x.", "3x + 9 = 5x - 11", "10", "Corresponding angles equal: 3x + 9 = 5x - 11, so 20 = 2x and x = 10.", ["10"]), 3),
     dq(choice("y7-ang-prb-p18", "A student finds a co-interior angle as 180 - 65 = 115°, then uses it in a triangle: 180 - 115 - 40 = 25°. Is the reasoning valid?", "A", ["Yes, if the 115° angle is genuinely inside the triangle", "No, co-interior angles must be equal", "No, the triangle sum is 360°", "No, the angle should be 65°"], "Co-interior gives 115°; the triangle sum then gives 25°. The reasoning is valid provided the 115° angle is an interior angle of the triangle."), 3),
     dq(answer("y7-ang-prb-p19", "Two parallel lines are cut by a transversal. An angle of (4x + 5)° at the top is alternate to (6x - 25)° at the bottom. Find x.", "4x + 5 = 6x - 25", "15", "Alternate angles equal: 4x + 5 = 6x - 25, so 30 = 2x and x = 15.", ["15"]), 4),
-    dq(answer("y7-ang-prb-p20", "Triangle ABC has vertex A on line PQ and side BC on line RS, with PQ parallel to RS. The apex angle at A is 64°. The base angles at B and C are equal. Find each base angle in degrees.", "64° + 2x = 180°", "58", "Each base angle = (180 - 64) ÷ 2 = 58°.", ["58°"]), 4),
-    dq(answer("y7-ang-prb-p21", "Two parallel lines are cut by two transversals meeting at a point between the lines, forming a triangle. The interior angles where the transversals meet the top line are 48° and 72°. Find the angle at the vertex between the lines in degrees.", "48° + 72° + \\angle A = 180°", "60", "Vertex angle = 180 - 48 - 72 = 60°.", ["60°"]), 4),
-    dq(answer("y7-ang-prb-p22", "Two parallel lines are cut by a transversal. An angle of 116° at the top has a co-interior partner at the bottom. That partner is the exterior angle of a triangle. Find the sum of the two non-adjacent interior angles of that triangle in degrees.", "\\text{co-interior} = 64°;\\ \\text{exterior} = \\text{sum of non-adjacent}", "64", "Co-interior partner = 180 - 116 = 64°. As an exterior angle, it equals the sum of the two non-adjacent interior angles, which is 64°.", ["64°"]), 4),
-    dq(answer("y7-ang-prb-p23", "In a diagram, an angle x is found from co-interior angles as 180 - 70 = 110°. This 110° is then an exterior angle of a triangle, and one non-adjacent interior angle is 45°. Find the other non-adjacent interior angle in degrees.", "45° + \\angle B = 110°", "65", "Co-interior gives 110°. Exterior angle = sum of non-adjacent: other angle = 110 - 45 = 65°.", ["65°"]), 5),
+    dq(answer("y7-ang-prb-p20", "Triangle ABC has vertex A on line PQ and side BC on line RS, with PQ parallel to RS. The apex angle at A is 64°. The base angles at B and C are equal. Find each base angle in degrees.", "64° + 2x = 180°", "58", "Each base angle = (180 - 64) ÷ 2 = 58°.", ["58°"], { triangleDiagram: { ...isoscelesFig("Isosceles triangle ABC with apex angle 64° at A, the two equal sides tick-marked, and equal base angles marked x at B and C.", { A: "64°", B: "x", C: "x" }), vertexLabels: { A: "A", C: "B", B: "C" } } }), 4),
+    dq(answer("y7-ang-prb-p21", "Two parallel lines are cut by two transversals meeting at a point between the lines, forming a triangle. The interior angles where the transversals meet the top line are 48° and 72°. Find the angle at the vertex between the lines in degrees.", "48° + 72° + \\angle A = 180°", "60", "Vertex angle = 180 - 48 - 72 = 60°.", ["60°"], { triangleDiagram: triFig("Triangle formed by the two transversals between the parallel lines, with the two interior angles at the top line marked 48° and 72°, and the vertex angle between the lines marked x.", { A: "48°", B: "72°", C: "x" }) }), 4),
+    dq(answer("y7-ang-prb-p22", "Two parallel lines are cut by a transversal. An angle of 116° at the top has a co-interior partner at the bottom. That partner is the exterior angle of a triangle. Find the sum of the two non-adjacent interior angles of that triangle in degrees.", "\\text{co-interior} = 64°;\\ \\text{exterior} = \\text{sum of non-adjacent}", "64", "Co-interior partner = 180 - 116 = 64°. As an exterior angle, it equals the sum of the two non-adjacent interior angles, which is 64°.", ["64°"], { triangleDiagram: triFig("Triangle ABC with the two non-adjacent interior angles unmarked at A and B. The side through C is extended, forming an exterior angle of 64° at C (the co-interior partner).", {}, { vertexLabels: { A: "A", B: "B", C: "C" } }) }), 4),
+    dq(answer("y7-ang-prb-p23", "In a diagram, an angle x is found from co-interior angles as 180 - 70 = 110°. This 110° is then an exterior angle of a triangle, and one non-adjacent interior angle is 45°. Find the other non-adjacent interior angle in degrees.", "45° + \\angle B = 110°", "65", "Co-interior gives 110°. Exterior angle = sum of non-adjacent: other angle = 110 - 45 = 65°.", ["65°"], { triangleDiagram: triFig("Triangle ABC with one non-adjacent interior angle marked 45° at A and the other marked x at B. The side through C is extended, forming an exterior angle of 110° at C.", { A: "45°", B: "x" }, { vertexLabels: { A: "A", B: "B", C: "C" } }) }), 5),
     dq(answer("y7-ang-prb-p24", "Two parallel lines are cut by a transversal. An angle (2x + 18)° at the top is co-interior with (3x + 2)° at the bottom. After finding x, find the size of the larger angle in degrees.", "(2x+18) + (3x+2) = 180", "98", "5x + 20 = 180, so 5x = 160 and x = 32. Angles: 2(32)+18 = 82° and 3(32)+2 = 98°. Larger = 98°.", ["98°"]), 5),
-    dq(answer("y7-ang-prb-p25", "Triangle ABC has AB = AC. Angle A is 30° more than each base angle. Find each base angle in degrees.", "(x + 30) + x + x = 180", "50", "Apex = x + 30, base angles each x. So (x + 30) + 2x = 180, 3x = 150, x = 50°.", ["50°"]), 5),
-    dq(answer("y7-ang-prb-p26", "Two parallel lines are cut by a transversal forming a triangle. One interior angle equals the alternate angle of 55°, a second interior angle equals the co-interior partner of 130°, and the third is unknown. Find the unknown angle in degrees.", "55° + (180 - 130)° + \\angle C = 180°", "75", "First interior = 55° (alternate). Second = 180 - 130 = 50° (co-interior). Third = 180 - 55 - 50 = 75°.", ["75°"]), 5),
+    dq(answer("y7-ang-prb-p25", "Triangle ABC has AB = AC. Angle A is 30° more than each base angle. Find each base angle in degrees.", "(x + 30) + x + x = 180", "50", "Apex = x + 30, base angles each x. So (x + 30) + 2x = 180, 3x = 150, x = 50°.", ["50°"], { triangleDiagram: { ...isoscelesFig("Isosceles triangle ABC with AB = AC tick-marked, apex angle at A marked (x + 30)°, and equal base angles marked x at B and C.", { A: "x+30", B: "x", C: "x" }), vertexLabels: { A: "A", C: "B", B: "C" } } }), 5),
+    dq(answer("y7-ang-prb-p26", "Two parallel lines are cut by a transversal forming a triangle. One interior angle equals the alternate angle of 55°, a second interior angle equals the co-interior partner of 130°, and the third is unknown. Find the unknown angle in degrees.", "55° + (180 - 130)° + \\angle C = 180°", "75", "First interior = 55° (alternate). Second = 180 - 130 = 50° (co-interior). Third = 180 - 55 - 50 = 75°.", ["75°"], { triangleDiagram: triFig("Triangle with the alternate-transferred interior angle marked 55°, the co-interior-transferred interior angle marked 50°, and the third interior angle marked x.", { A: "55°", B: "50°", C: "x" }) }), 5),
   ],
   multiPartPractice: [
     {
@@ -1740,6 +2510,13 @@ const angleRelationshipsProblemSolving: LessonContent = {
       prompt:
         "Two parallel lines PQ and RS are cut by a transversal. A triangle ABC is formed: vertex A lies on PQ, side BC lies along RS, and the apex angle at A is 68°. The base angles of the triangle (at B and C) are equal, and the base angle at B also equals an alternate interior angle formed with line PQ.",
       latex: "PQ \\parallel RS,\\ \\angle A = 68°",
+      triangleDiagram: {
+        ...isoscelesFig(
+          "Isosceles triangle ABC between parallel lines PQ and RS, with apex angle 68° at A, the two equal sides tick-marked, and equal base angles marked x at B and C.",
+          { A: "68°", B: "x", C: "x" }
+        ),
+        vertexLabels: { A: "A", C: "B", B: "C" },
+      },
       answer: "56",
       hint: "Find the base angles via the triangle sum, then use the alternate-angle relationship.",
       explanation:

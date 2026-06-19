@@ -110,16 +110,20 @@ const oneStepEquations: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "An expression is a collection of terms — like 3x + 5 — that can be simplified but has no equals sign. An equation has an equals sign and makes a statement that two sides balance. The equation x + 5 = 12 says 'some number plus 5 gives 12'. Our job is to find that number.",
-      "To solve an equation, we want the unknown on one side by itself. Every operation has an inverse — an opposite that undoes it. Addition is undone by subtraction, subtraction by addition, multiplication by division, and division by multiplication. We apply the inverse operation to both sides so the equation stays balanced.",
-      "For example, in x + 5 = 12, the number 5 is being added to x. To undo that, subtract 5 from both sides: x + 5 − 5 = 12 − 5, which gives x = 7. For 3x = 18, the unknown is being multiplied by 3, so divide both sides by 3: x = 6.",
-      "Always check your answer by substituting it back into the original equation. If x = 7 and the equation was x + 5 = 12, check: 7 + 5 = 12. That is true, so x = 7 is correct. A substitution check catches arithmetic errors before they cost marks.",
+      "An equation is a balance. Think of an old pair of scales with a pan on each side. The equals sign is the middle of the scales, and it tells you the two sides weigh exactly the same. The equation $x + 5 = 12$ says: 'whatever is in the left pan — some unknown number plus 5 — weighs the same as the 12 in the right pan.' Our job is to figure out what that unknown number is.",
+      "This is different from an expression. An expression like $3x + 5$ is just a collection of terms with no equals sign — there is nothing to balance and nothing to find. You can tidy an expression up, but you can only *solve* an equation, because only an equation makes the claim that two sides are equal.",
+      "Here is a concrete picture. Imagine the left pan holds a mystery bag (that is $x$) plus 5 single coins, and the right pan holds 12 coins, and the scales sit level. If you quietly lift 5 coins off the left pan, the left side gets lighter and the scales tip — unless you also lift 5 coins off the right pan at the same moment. Take 5 off both pans and the scales stay level: now the bag alone balances 7 coins. So the bag holds 7. That is exactly $x = 7$.",
+      "In symbols, $5$ is being added to $x$, so we subtract $5$ from both sides: $x + 5 - 5 = 12 - 5$, giving $x = 7$. The phrase 'do the same thing to both sides' is not a rule someone invented — it is forced on us by the balance. Any change to one pan must be matched on the other, or the two sides stop being equal and the statement breaks.",
+      "Now the deeper why: why does subtracting undo adding? Because they are opposite moves of the same size. Adding 5 then taking 5 away lands you exactly where you started — the two cancel to zero. That is what 'inverse operation' means: an operation paired with its exact opposite. Addition and subtraction are one such pair; multiplication and division are the other. Multiplying by 3 then dividing by 3 also returns you to the start, because dividing by 3 splits back up what multiplying by 3 grouped together. So to free $x$, we hit it with the inverse of whatever was done to it.",
+      "That gives one method for every one-step equation. Find the single operation attached to $x$, then apply its inverse to both sides. For $3x = 18$, $x$ is multiplied by 3, so divide both sides by 3 to get $x = 6$. For $\\dfrac{x}{2} = 6$, $x$ is divided by 2, so multiply both sides by 2 to get $x = 12$.",
+      "Watch out for the most common trap: changing only one side. A student who reads $x + 5 = 12$ and writes $x = 12 + 5 = 17$ has made two errors at once — they added instead of subtracting, and they only touched one side. Picture the scales: that move dumps 5 extra coins onto the right pan while leaving the left untouched, so the scales tip and the answer is wrong. Always pair every move across both pans, and always use the *opposite* operation.",
+      "Finish by checking. Substitute your answer back into the original equation and confirm the two sides really are equal. For $x = 7$ in $x + 5 = 12$: $7 + 5 = 12$. True, so $x = 7$ is correct. This five-second check catches arithmetic slips before they cost marks.",
     ],
     latexBlocks: [
-      "x + a = b \\implies x = b - a",
-      "x - a = b \\implies x = b + a",
-      "ax = b \\implies x = \\frac{b}{a}",
-      "\\frac{x}{a} = b \\implies x = b \\times a",
+      "\\text{Balance rule: do the same operation to BOTH sides}",
+      "x + a = b \\implies x + a - a = b - a \\implies x = b - a",
+      "ax = b \\implies \\frac{ax}{a} = \\frac{b}{a} \\implies x = \\frac{b}{a}",
+      "\\frac{x}{a} = b \\implies \\frac{x}{a} \\times a = b \\times a \\implies x = b \\times a",
     ],
   },
   workedExamples: [
@@ -152,6 +156,17 @@ const oneStepEquations: LessonContent = {
         { explanation: "Check: 12 ÷ 2 = 6.", latex: "\\frac{12}{2} = 6 \\checkmark" },
       ],
       finalAnswerLatex: "x = 12",
+    },
+    {
+      title: "Harder: an addition equation with a negative result",
+      questionLatex: "\\text{Solve } x + 15 = 7.",
+      steps: [
+        { explanation: "15 is added to x. The inverse of addition is subtraction, so subtract 15 from both sides — keeping the balance by doing it to both pans.", latex: "x + 15 - 15 = 7 - 15" },
+        { explanation: "Simplify the left side; the +15 and −15 cancel to zero, leaving x.", latex: "x = 7 - 15" },
+        { explanation: "Compute the right side. Since 7 is smaller than 15, the result is negative.", latex: "x = -8" },
+        { explanation: "Verify by substituting x = −8 back into the original equation.", latex: "-8 + 15 = 7 \\checkmark" },
+      ],
+      finalAnswerLatex: "x = -8",
     },
   ],
   guidedPractice: [
@@ -397,13 +412,18 @@ const twoStepEquations: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A two-step equation has two operations applied to the unknown. For example, in 2x + 3 = 11, the unknown x is first multiplied by 2, then 3 is added. To solve it, we undo those steps in reverse — like putting on shoes and socks: you put socks on first, but take shoes off first when you reverse.",
-      "The rule is: undo addition or subtraction first, then undo multiplication or division. For 2x + 3 = 11, start by subtracting 3 from both sides to get 2x = 8, then divide both sides by 2 to get x = 4.",
-      "The same rule applies when subtraction is involved. For 3x − 5 = 16, add 5 to both sides first (getting 3x = 21), then divide by 3 (getting x = 7). For x/4 + 2 = 7, subtract 2 first (getting x/4 = 5), then multiply by 4 (getting x = 20).",
-      "Always substitute your answer back to check. If x = 4 for 2x + 3 = 11, check: 2 × 4 + 3 = 8 + 3 = 11. Correct. This step takes five seconds and catches most errors.",
+      "A two-step equation has two operations stacked on the unknown instead of one. In $2x + 3 = 11$, the $x$ is first multiplied by 2 and then 3 is added. The balance is still the same idea — the two sides weigh the same — but now there are two layers to peel off before $x$ stands alone.",
+      "Here is the everyday picture for why order matters. In the morning you put your socks on first, then your shoes. To undo that at night you reverse the order: shoes off first, then socks. You can't take the socks off while the shoes are still on. Unwrapping an equation works the same way — you undo the *last* thing that was done first.",
+      "Look at $2x + 3 = 11$ in that light. The very last thing done to $x$ was 'add 3'. So that is the first thing we undo. Subtract 3 from both sides (keeping the balance) to get $2x = 8$. Now only the 'multiply by 2' layer is left, so divide both sides by 2 to get $x = 4$.",
+      "This gives the rule: undo addition or subtraction first, then undo the multiplication or division. The reason is not arbitrary. The $+3$ sits *outside* the $2x$ — it acts on the whole $2x$ block, not on $x$ alone. While that $+3$ is still attached, $x$ is buried inside a bundle and you can't get a clean division to reach it. Peeling the outer $+3$ off first exposes the $2x$ so the division can finish the job.",
+      "You can see why peeling out of order goes wrong. If you tried to divide $2x + 3 = 11$ by 2 first, fairness forces you to divide *every* term by 2 — you'd get $x + \\dfrac{3}{2} = \\dfrac{11}{2}$, which is messier, not simpler, and still two steps from done. Subtracting the 3 first avoids that mess entirely.",
+      "Each step still uses an inverse paired with its opposite, applied to both sides. Subtraction undoes the $+3$; division undoes the $\\times 2$. For $3x - 5 = 16$, the last move was $-5$, so add 5 first (getting $3x = 21$), then divide by 3 ($x = 7$). For $\\dfrac{x}{4} + 2 = 7$, subtract 2 first ($\\dfrac{x}{4} = 5$), then multiply by 4 ($x = 20$).",
+      "The common trap here is undoing in the wrong order — dividing before subtracting — or, as in one-step equations, changing only one side. Picture the scales each time: subtract the constant from both pans, then split both pans by the coefficient. If you only touch one side, the scales tip and the answer is wrong.",
+      "Finish by substituting back. For $x = 4$ in $2x + 3 = 11$: $2 \\times 4 + 3 = 8 + 3 = 11$. Correct. Five seconds of checking catches most slips.",
     ],
     latexBlocks: [
-      "ax + b = c \\implies ax = c - b \\implies x = \\frac{c-b}{a}",
+      "\\text{Undo in reverse order: addition/subtraction first, then multiplication/division}",
+      "ax + b = c \\implies ax + b - b = c - b \\implies ax = c - b \\implies x = \\frac{c-b}{a}",
       "ax - b = c \\implies ax = c + b \\implies x = \\frac{c+b}{a}",
       "\\frac{x}{a} + b = c \\implies \\frac{x}{a} = c - b \\implies x = a(c-b)",
     ],
@@ -441,6 +461,17 @@ const twoStepEquations: LessonContent = {
         { explanation: "Check: 20/4 + 2 = 5 + 2 = 7.", latex: "\\frac{20}{4} + 2 = 7 \\checkmark" },
       ],
       finalAnswerLatex: "x = 20",
+    },
+    {
+      title: "Harder: a two-step equation with a negative solution",
+      questionLatex: "\\text{Solve } 3x + 20 = 8.",
+      steps: [
+        { explanation: "20 is added last, so undo it first by subtracting 20 from both sides.", latex: "3x + 20 - 20 = 8 - 20" },
+        { explanation: "Simplify. Because 8 is smaller than 20, the right side is negative.", latex: "3x = -12" },
+        { explanation: "x is multiplied by 3, so divide both sides by 3. A negative divided by a positive is negative.", latex: "x = \\frac{-12}{3} = -4" },
+        { explanation: "Check: 3(−4) + 20 = −12 + 20 = 8.", latex: "3(-4) + 20 = 8 \\checkmark" },
+      ],
+      finalAnswerLatex: "x = -4",
     },
   ],
   guidedPractice: [
@@ -686,15 +717,19 @@ const equationsWordedProblems: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "Many real-world problems can be solved with algebra. The key step is translating the words into an equation. Choose a letter — a pronumeral — to stand for the unknown quantity, and write down what it represents before you write any equation.",
-      "Once you have the pronumeral, look for the key relationship in the problem. Words like 'add', 'more than', 'increased by' suggest addition; 'subtract', 'less than', 'decreased by' suggest subtraction; 'times', 'product', 'each' suggest multiplication. The word 'is' or 'equals' tells you where the = sign goes.",
-      "For example: 'I think of a number, add 7, and get 15. What is the number?' Let n = the number. The equation is n + 7 = 15. Solving gives n = 8. Check: 8 + 7 = 15. State the answer clearly: the number is 8.",
-      "After solving, always check whether the answer makes sense in the original problem. If you find a number of students is −3 or a distance is 1000 km, something went wrong. Sense-checking prevents you from writing down a technically correct algebraic answer that is physically impossible.",
+      "A worded problem is a real situation described in sentences. The power of algebra is that you can turn those sentences into an equation — a balance — solve it with the inverse-operation method you already know, and then translate the answer back into the real situation. The only new skill in this lesson is the translation; the solving is exactly what you have been doing.",
+      "Every translation starts the same way: give the unknown a name. Choose a letter — a pronumeral — to stand for the quantity you are trying to find, and write down in plain words what it represents: 'Let $n$ = the number', 'Let $w$ = the width in cm'. This matters because the rest of the equation only has meaning once you have said what the letter is. An equation full of $x$'s with no statement of what $x$ stands for is just symbols.",
+      "Next, find the relationship hidden in the words and copy it into symbols, phrase by phrase. Certain words are reliable signposts: 'add', 'more than', 'increased by' mean addition; 'subtract', 'less than', 'decreased by' mean subtraction; 'times', 'product', 'each', 'twice', 'triple' mean multiplication; 'shared', 'split', 'per' often mean division. The word 'is', 'gives', 'equals', or 'totals' is where the $=$ sign goes — it marks the two things being balanced.",
+      "Here it is in action. 'I think of a number, add 7, and get 15.' Let $n$ = the number. 'Add 7' becomes $n + 7$; 'get 15' puts $= 15$ on the end: $n + 7 = 15$. This is now an ordinary one-step equation, so subtract 7 from both sides: $n = 8$. Check: $8 + 7 = 15$. State the answer in words: the number is 8.",
+      "Why is it valid to treat a real situation as a balance? Because the equals sign you wrote is a genuine claim that two quantities are the same size — the number-plus-7 really does equal 15, the two ages really do sum to 26. Once two things are equal, every balance rule applies: do the same operation to both sides and they stay equal. The story the numbers came from doesn't change the algebra at all.",
+      "Where students go wrong is reversing the relationship at the translation stage. 'Sam is 4 years older than Alex' means Sam's age is the bigger one: $\\text{Sam} = \\text{Alex} + 4$, i.e. $s = a + 4$, not $a = s + 4$. Read slowly and ask 'who is bigger?'. The moment you would write the relationship is exactly the moment to catch this — once the equation is wrong, every later step is wasted.",
+      "Finally, sense-check the answer against the real world. If algebra hands you −3 students, or a 1000 km school corridor, the equation was set up wrong even if the arithmetic was perfect. A worded answer should be stated in context — 'Alex is 11 years old' — and should be physically possible.",
     ],
     latexBlocks: [
-      "\\text{Let } n = \\text{the unknown number}",
+      "\\text{Step 1: Let } n = \\text{the unknown (state what it means)}",
+      "\\text{Step 2: translate words to symbols} \\quad \\text{('is'} \\to =\\text{)}",
       "\\text{'a number plus 7 equals 15'} \\implies n + 7 = 15",
-      "\\text{Perimeter of rectangle} = 2l + 2w",
+      "\\text{'Sam is 4 older than Alex'} \\implies s = a + 4 \\ \\text{(Sam is bigger)}",
     ],
   },
   workedExamples: [
@@ -733,6 +768,20 @@ const equationsWordedProblems: LessonContent = {
         { explanation: "Check: Alex is 11, Sam is 15, and 11 + 15 = 26.", latex: "11 + 15 = 26 \\checkmark" },
       ],
       finalAnswerLatex: "a = 11 \\text{ (Alex is 11 years old)}",
+    },
+    {
+      title: "Harder: consecutive integers and a sense-check",
+      questionLatex: "\\text{Three consecutive whole numbers add to 72. Find the three numbers.}",
+      steps: [
+        { explanation: "Name the unknown. Let n = the smallest of the three numbers.", latex: "\\text{Let } n = \\text{the smallest number.}" },
+        { explanation: "Consecutive means each is one more than the last, so the next two are n + 1 and n + 2.", latex: "n, \\quad n + 1, \\quad n + 2" },
+        { explanation: "Translate 'add to 72' into an equation.", latex: "n + (n + 1) + (n + 2) = 72" },
+        { explanation: "Collect the like terms on the left: three n's and the constants 1 + 2.", latex: "3n + 3 = 72" },
+        { explanation: "Undo the +3 first by subtracting 3 from both sides.", latex: "3n = 69" },
+        { explanation: "Divide both sides by 3 to isolate n.", latex: "n = 23" },
+        { explanation: "Translate back: the three numbers are n, n + 1, n + 2. Sense-check that they are whole numbers and sum to 72.", latex: "23 + 24 + 25 = 72 \\checkmark" },
+      ],
+      finalAnswerLatex: "\\text{The numbers are } 23, 24, 25.",
     },
   ],
   guidedPractice: [
@@ -975,15 +1024,17 @@ const quadraticEquationsAxSquaredEqualsC: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "A quadratic equation contains x² (x squared) as the highest power. The simplest type is ax² = c, where there are no other x terms. To solve it, first isolate x² by dividing both sides by the coefficient a, then take the square root of both sides.",
-      "When you take the square root, remember there are always two square roots of a positive number: one positive and one negative. For x² = 25, both x = 5 and x = −5 are solutions, because 5² = 25 and (−5)² = 25. We write x = 5 or x = −5, which is often written as x = ±5.",
-      "Some questions will ask for 'the positive solution' or 'the value of x if x > 0' — in those cases, give only the positive root. This makes the answer auto-markable and reflects the most common exam framing at this level.",
-      "If x² equals a negative number — for example x² = −4 — there is no real solution. No real number squared gives a negative result, because squaring always produces zero or a positive value.",
+      "A quadratic equation is one where the unknown appears squared — $x^2$ is the highest power. The simplest kind is $ax^2 = c$, with no plain $x$ term and no constant added on. It is still a balance, so the same plan works: peel the layers off $x^2$ until $x^2$ sits alone, then undo the squaring itself.",
+      "Take a concrete one: $x^2 = 25$. In words, this asks 'what number, multiplied by itself, gives 25?'. You might say 5, because $5 \\times 5 = 25$. The operation undoing 'multiply a number by itself' (squaring) is the square root, so $x = \\sqrt{25} = 5$. For a two-layer version like $2x^2 = 50$, first divide both sides by 2 to isolate $x^2$ (getting $x^2 = 25$), then square-root.",
+      "In general, $ax^2 = c$ becomes $x^2 = \\dfrac{c}{a}$ after dividing by the coefficient $a$, and then $x = \\pm\\sqrt{\\dfrac{c}{a}}$ after taking the square root of both sides. The strange-looking $\\pm$ (plus-or-minus) sign is the whole point of this lesson, so here is why it is there.",
+      "Why are there two solutions, not one? Because squaring throws away the sign of a number. Watch: $5 \\times 5 = 25$, but also $(-5) \\times (-5) = 25$, since a negative times a negative is positive. Both 5 and −5 square to 25, so when you run the process backwards from 25 you cannot tell which one you started with — both are valid. That is why $x^2 = 25$ has two answers, $x = 5$ and $x = -5$, written compactly as $x = \\pm 5$. Forgetting the $-5$ is the single most common error in this topic; the $\\pm$ is your reminder that squaring hid a sign you must restore.",
+      "The same sign fact explains why some of these equations have no real answer at all. Consider $x^2 = -4$. A positive number squared is positive, a negative number squared is also positive, and $0^2 = 0$. There is simply no real number whose square is negative — squaring can only ever produce zero or a positive result. So $x^2 = -4$ has no real solution. (A student who answers $x = -2$ here has confused 'the number is negative' with 'the square is negative' — but $(-2)^2 = +4$, not $-4$.)",
+      "One exam-practical note. Many questions, and physical ones especially, ask only for 'the positive solution' or for a length — and a length can't be negative, so you give just the positive root. Read the wording: when it asks for both, give both; when it restricts to positive, give the positive root only.",
     ],
     latexBlocks: [
       "ax^2 = c \\implies x^2 = \\frac{c}{a} \\implies x = \\pm\\sqrt{\\frac{c}{a}}",
-      "x^2 = 25 \\implies x = 5 \\text{ or } x = -5",
-      "x^2 = -4 \\implies \\text{no real solution (squaring never gives a negative)}",
+      "5^2 = 25 \\quad \\text{and} \\quad (-5)^2 = 25 \\implies x^2 = 25 \\implies x = \\pm 5",
+      "\\text{any real } x:\\ x^2 \\ge 0 \\implies x^2 = -4 \\ \\text{has no real solution}",
     ],
   },
   workedExamples: [
@@ -1016,6 +1067,18 @@ const quadraticEquationsAxSquaredEqualsC: LessonContent = {
         { explanation: "Squaring any real number gives zero or a positive result, never a negative. So there is no real number x such that x² = −4.", latex: "\\text{No real solution exists.}" },
       ],
       finalAnswerLatex: "\\text{No real solution}",
+    },
+    {
+      title: "Harder: a length from a square's area (positive root only)",
+      questionLatex: "\\text{A square has area } 144 \\text{ cm}^2. \\text{ Find its side length.}",
+      steps: [
+        { explanation: "The area of a square is side × side, so if s is the side length, s² equals the area.", latex: "s^2 = 144" },
+        { explanation: "x² is already isolated. Take the square root of both sides.", latex: "s = \\pm\\sqrt{144}" },
+        { explanation: "Evaluate the square root. Algebraically there are two roots: 12 and −12.", latex: "s = 12 \\text{ or } s = -12" },
+        { explanation: "A side length cannot be negative, so reject −12 and keep only the positive root.", latex: "s = 12" },
+        { explanation: "Check: a side of 12 cm gives area 12 × 12 = 144 cm².", latex: "12^2 = 144 \\checkmark" },
+      ],
+      finalAnswerLatex: "s = 12 \\text{ cm}",
     },
   ],
   guidedPractice: [
