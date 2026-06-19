@@ -1083,7 +1083,7 @@ export function year11AdvancedProbabilityDataLessonOverride(
               key: "b",
               label: "(b)",
               prompt: "Find n(A'∩B').",
-              latex: "n(\\xi)=30,\\quad n(A\\cup B)=23",
+              latex: "n(A'\\cap B')=n(\\xi)-n(A\\cup B)",
               marks: 1,
               answer: "7",
               hint: "Subtract n(A∪B) from n(ξ).",
