@@ -62,9 +62,7 @@ function answer(
   explanation: string,
   acceptedAnswers: string[] = [],
 ): PracticeQuestion {
-  const practiceLatex = /-(?:g|i)\d+$/.test(id)
-    ? "\\text{Show your method and calculate carefully.}"
-    : latex;
+  const practiceLatex = /-(?:g|i)\d+$/.test(id) ? "" : latex;
 
   return {
     id,
@@ -98,7 +96,8 @@ function choice(
   choices: { label: string; text: string }[],
   explanation: string,
 ): PracticeQuestion {
-  return { id, prompt, latex, answer: value, choices, explanation };
+  const displayLatex = /^\\text\{(?:Choose|Compare|Show|Use)\b/i.test(latex) ? "" : latex;
+  return { id, prompt, latex: displayLatex, answer: value, choices, explanation };
 }
 
 const perimeterAreaReview: LessonContent = {

@@ -40,7 +40,7 @@ function safeStatisticsAnswerVariants(prompt: string, answer: string) {
 }
 
 function number(id: string, prompt: string, latex: string, answer: string, explanation: string, acceptedAnswers: string[] = []): PracticeQuestion {
-  const displayLatex = /-(?:g|i)\d+$/.test(id) ? "\\text{Show your statistical method clearly.}" : latex;
+  const displayLatex = /-(?:g|i)\d+$/.test(id) ? "" : latex;
   return { id, prompt, latex: displayLatex, answer, acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...safeStatisticsAnswerVariants(prompt, answer)])), hint: "Identify the statistic requested, then calculate carefully.", explanation };
 }
 

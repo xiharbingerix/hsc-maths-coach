@@ -97,7 +97,7 @@ function templateFor(unitSlug: string, lessonSlug: string, lessonTitle: string):
     if (lessonSlug.includes("bearing")) {
       return {
         prompt: `A Year 9 Core bearings task linked to ${lessonTitle}: town B is 6 km due east of town A, and town C is 8 km due north of town B.`,
-        latex: "\\text{Use the right triangle formed by A, B and C.}",
+        latex: "",
         answer: "10",
         hint: "The east and north legs are perpendicular.",
         explanation: "The towns form a right triangle with perpendicular legs 6 km and 8 km, so Pythagoras gives the direct distance and the bearing is measured clockwise from north.",
@@ -111,7 +111,7 @@ function templateFor(unitSlug: string, lessonSlug: string, lessonTitle: string):
     if (lessonSlug.includes("elevation")) {
       return {
         prompt: `A Year 9 Core elevation task linked to ${lessonTitle}: a student stands 20 m from the base of a tower and measures an angle of elevation of $35^\\circ$.`,
-        latex: "\\text{Use tangent with opposite and adjacent sides.}",
+        latex: "",
         answer: "14",
         acceptedAnswers: ["14.0"],
         hint: "The tower height is opposite the angle and the ground distance is adjacent.",
@@ -119,7 +119,7 @@ function templateFor(unitSlug: string, lessonSlug: string, lessonTitle: string):
         parts: [
           part("a", "State the trigonometric ratio needed.", 1, "tan", "Opposite and adjacent sides are involved.", "Tangent links opposite and adjacent sides.", ["\\tan\\theta=\\frac{\\text{opposite}}{\\text{adjacent}}"], ["tangent", "Tan"]),
           part("b", "Find the tower height to the nearest metre.", 2, "14", "Calculate $20\\tan35^\\circ$.", "The height is $20\\tan35^\\circ\\approx14.0$, so the nearest metre is 14.", ["h=20\\tan35^\\circ\\approx14.0"], ["14 m"]),
-          part("c", "If the student moves to 10 m from the base, state whether the angle of elevation increases or decreases.", 1, "increases", "Closer means the same height is seen more steeply.", "For the same tower height, a smaller horizontal distance gives a larger angle of elevation.", ["\\text{closer distance}\\Rightarrow\\text{larger angle}"], ["increase", "larger"]),
+          part("c", "If the student moves to 10 m from the base, state whether the angle of elevation increases or decreases.", 1, "increases", "Closer means the same height is seen more steeply.", "For the same tower height, a smaller horizontal distance gives a larger angle of elevation.", ["\\text{closer distance, larger angle}"], ["increase", "larger"]),
         ],
       };
     }
@@ -133,7 +133,7 @@ function templateFor(unitSlug: string, lessonSlug: string, lessonTitle: string):
         parts: [
           part("a", "State the trigonometric ratio needed.", 1, "sin", "Match opposite and hypotenuse.", "The sine ratio links opposite and hypotenuse.", ["\\sin\\theta=\\frac{\\text{opposite}}{\\text{hypotenuse}}"], ["sine", "Sin"]),
           part("b", "Find x to 1 decimal place.", 2, "9.6", "Calculate $15\\sin40^\\circ$.", "Rearranging gives $x=15\\sin40^\\circ\\approx9.6$ cm.", ["x=15\\sin40^\\circ\\approx9.6"], ["9.6 cm"]),
-          part("c", "If the angle increases while the hypotenuse stays 15 cm, state whether x increases or decreases.", 1, "increases", "A larger acute angle has a larger opposite side for the same hypotenuse.", "Increasing the angle increases the opposite side when the hypotenuse is fixed.", ["\\theta\\uparrow\\Rightarrow x\\uparrow"], ["increase", "larger"]),
+          part("c", "If the angle increases while the hypotenuse stays 15 cm, state whether x increases or decreases.", 1, "increases", "A larger acute angle has a larger opposite side for the same hypotenuse.", "Increasing the angle increases the opposite side when the hypotenuse is fixed.", ["\\theta\\text{ increases, so }x\\text{ increases}"], ["increase", "larger"]),
         ],
       };
     }
@@ -154,7 +154,7 @@ function templateFor(unitSlug: string, lessonSlug: string, lessonTitle: string):
   if (unitSlug === "financial-mathematics") {
     return {
       prompt: `A Year 9 Core finance task linked to ${lessonTitle}: Sam earns $24 per hour for 18 ordinary hours and 4 overtime hours paid at time-and-a-half.`,
-      latex: "\\text{overtime rate}=1.5\\times\\$24",
+      latex: "\\text{overtime rate}=1.5\\times24",
       answer: "36",
       hint: "Find the overtime hourly rate before adding the pay amounts.",
       explanation: "Time-and-a-half means 1.5 times the ordinary hourly rate. Total pay is ordinary pay plus overtime pay.",
@@ -184,7 +184,7 @@ function templateFor(unitSlug: string, lessonSlug: string, lessonTitle: string):
   if (unitSlug === "making-decisions") {
     return {
       prompt: `A Year 9 Core statistics task linked to ${lessonTitle}: two teams record scores. Team A: 6, 7, 8, 8, 21. Team B: 7, 8, 8, 9, 10.`,
-      latex: "\\text{Compare centre and spread.}",
+      latex: "",
       answer: "8",
       hint: "Order is already shown; compare typical value and spread.",
       explanation: "Both teams have median 8, but Team A has a much larger range because of the outlier 21.",
@@ -199,7 +199,7 @@ function templateFor(unitSlug: string, lessonSlug: string, lessonTitle: string):
   if (unitSlug === "prisms-and-cylinders") {
     return {
       prompt: `A Year 9 Core measurement task linked to ${lessonTitle}: a rectangular prism has length 8 cm, width 5 cm and height 3 cm.`,
-      latex: "\\text{Use face areas and volume.}",
+      latex: "",
       answer: "40",
       hint: "Area is two-dimensional; volume is three-dimensional.",
       explanation: "The base area is length times width. Volume is base area times height. Surface area adds all six outside faces.",
