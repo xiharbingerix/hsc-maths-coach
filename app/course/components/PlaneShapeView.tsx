@@ -93,6 +93,20 @@ export function PlaneShapeView({
           strokeLinejoin="round"
         />
 
+        {/* Interior cut-outs (holes) — rendered as the page background with a
+            dashed edge, so "shape with a window/hole removed" draws correctly. */}
+        {(diagram.holes ?? []).map((hole, hi) => (
+          <polygon
+            key={`hole-${hi}`}
+            points={hole.map((v) => { const p = toPix(v); return `${p.x},${p.y}`; }).join(" ")}
+            fill="#ffffff"
+            stroke="#1e293b"
+            strokeWidth={1.75}
+            strokeDasharray="5 3"
+            strokeLinejoin="round"
+          />
+        ))}
+
         {/* Edge marks: labels, equal-length ticks, parallel chevrons */}
         {verts.map((_, i) => {
           const a = pix[i];

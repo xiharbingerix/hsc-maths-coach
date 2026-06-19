@@ -585,6 +585,47 @@ export type PlaneShapeDiagram = {
   edges?: PlaneShapeEdge[];
   fill?: PlaneShapeColor;
   showVertexDots?: boolean;
+  /**
+   * Optional interior cut-out(s) — each a closed polygon in the SAME natural
+   * (y-up) coordinate space as `vertices`, rendered as a hole so composite
+   * "shape with a window/hole removed" figures draw correctly rather than as
+   * the outer shape alone. Drawn as the background fill with a dashed edge.
+   */
+  holes?: PlaneShapeVertex[][];
+};
+
+/** One of the four angle positions around a line intersection. */
+export type AngleFigurePos = "TL" | "TR" | "BL" | "BR";
+
+/**
+ * Angle figures that are NOT closed polygons: rays from a single point
+ * (`kind: "rays"` — angles on a straight line, angles at a point, two
+ * intersecting lines / vertically opposite angles) and two parallel lines cut
+ * by a transversal (`kind: "transversal"` — corresponding / alternate /
+ * co-interior angles). Angles in degrees, 0° = east, CCW positive.
+ */
+export type AngleFigureDiagram = {
+  description: string;
+  kind: "rays" | "transversal";
+  // --- kind: "rays" ---
+  /** Ray directions in degrees. For a full straight line include both a
+   * direction and its opposite (e.g. 0 and 180). */
+  rays?: number[];
+  /** Optional label at each ray tip, aligned with `rays` by index. */
+  rayLabels?: (string | null)[];
+  /** Labels in the sector swept CCW from `between[0]`° to `between[1]`°;
+   * set `right` to draw a right-angle square instead of an arc. */
+  sectorLabels?: { between: [number, number]; label: string; right?: boolean }[];
+  // --- kind: "transversal" ---
+  /** Acute slant of the transversal from horizontal, in degrees (e.g. 60). */
+  transversalDeg?: number;
+  /** Labels for the two parallel lines, at their right ends. */
+  parallelLabels?: [string, string];
+  /** Angle labels at the upper intersection, by position. */
+  topAngles?: Partial<Record<AngleFigurePos, string>>;
+  /** Angle labels at the lower intersection, by position. */
+  bottomAngles?: Partial<Record<AngleFigurePos, string>>;
+  viewBox?: string;
 };
 
 export type Solid3DKind =

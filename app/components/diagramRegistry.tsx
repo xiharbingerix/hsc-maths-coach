@@ -3,6 +3,7 @@
 import type { ReactElement } from "react";
 import type { DiagramType } from "../../lib/lessons/diagramRegistry";
 import type {
+  AngleFigureDiagram,
   ArgandDiagram,
   BarChartDiagram,
   BearingsDiagram,
@@ -45,6 +46,7 @@ import { NormalDistributionView } from "../course/components/NormalDistributionV
 import { NumberLineView } from "../course/components/NumberLineView";
 import { PieChartView } from "../course/components/PieChartView";
 import { PlaneShapeView } from "../course/components/PlaneShapeView";
+import { AngleFigureView } from "../course/components/AngleFigureView";
 import { PolynomialCurveView } from "../course/components/PolynomialCurveView";
 import { ProbabilityTreeView } from "../course/components/ProbabilityTreeView";
 import { ScatterPlotView } from "../course/components/ScatterPlotView";
@@ -105,6 +107,7 @@ export const DIAGRAM_COMPONENTS: Record<DiagramType, DiagramComponent> = {
   histogramDiagram: (d) => <HistogramView diagram={d as unknown as HistogramDiagram} />,
   scatterPlotDiagram: (d) => <ScatterPlotView diagram={d as unknown as ScatterPlotDiagram} />,
   planeShapeDiagram: (d) => <PlaneShapeView diagram={d as unknown as PlaneShapeDiagram} />,
+  angleFigureDiagram: (d) => <AngleFigureView diagram={d as unknown as AngleFigureDiagram} />,
   sectorDiagram: (d) => <SectorView diagram={d as unknown as SectorDiagram} />,
   pieChartDiagram: (d) => <PieChartView diagram={d as unknown as PieChartDiagram} />,
   solid3DDiagram: (d) => <Solid3DView diagram={d as unknown as Solid3DDiagram} />,

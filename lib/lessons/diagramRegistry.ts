@@ -1,4 +1,5 @@
 import type {
+  AngleFigureDiagram,
   ArgandDiagram,
   BarChartDiagram,
   BearingsDiagram,
@@ -68,6 +69,7 @@ export const DIAGRAM_SPECS = [
   { type: "histogramDiagram", field: "histogramDiagram" },
   { type: "scatterPlotDiagram", field: "scatterPlotDiagram" },
   { type: "planeShapeDiagram", field: "planeShapeDiagram" },
+  { type: "angleFigureDiagram", field: "angleFigureDiagram" },
   { type: "sectorDiagram", field: "sectorDiagram" },
   { type: "pieChartDiagram", field: "pieChartDiagram" },
   { type: "solid3DDiagram", field: "solid3DDiagram" },
@@ -110,6 +112,7 @@ export type DiagramFields = {
   histogramDiagram?: HistogramDiagram;
   scatterPlotDiagram?: ScatterPlotDiagram;
   planeShapeDiagram?: PlaneShapeDiagram;
+  angleFigureDiagram?: AngleFigureDiagram;
   sectorDiagram?: SectorDiagram;
   pieChartDiagram?: PieChartDiagram;
   solid3DDiagram?: Solid3DDiagram;
