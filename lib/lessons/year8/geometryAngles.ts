@@ -8,7 +8,7 @@ import type {
   PracticeQuestion,
   WorkedExample,
 } from "../differentialCalculus";
-import type { PlaneShapeDiagram, TriangleDiagram } from "../types";
+import type { AngleFigureDiagram, PlaneShapeDiagram, TriangleDiagram } from "../types";
 
 type LessonContent = Pick<
   ExplicitLesson,
@@ -35,7 +35,8 @@ function answer(
   explanation: string,
   acceptedAnswers: string[] = [],
   triangleDiagram?: TriangleDiagram,
-  planeShapeDiagram?: PlaneShapeDiagram
+  planeShapeDiagram?: PlaneShapeDiagram,
+  angleFigureDiagram?: AngleFigureDiagram
 ): PracticeQuestion {
   return {
     id,
@@ -47,6 +48,7 @@ function answer(
     explanation,
     triangleDiagram,
     planeShapeDiagram,
+    angleFigureDiagram,
   };
 }
 
@@ -58,7 +60,8 @@ function choice(
   explanation: string,
   latex = "\\text{Select A, B, C or D.}",
   triangleDiagram?: TriangleDiagram,
-  planeShapeDiagram?: PlaneShapeDiagram
+  planeShapeDiagram?: PlaneShapeDiagram,
+  angleFigureDiagram?: AngleFigureDiagram
 ): PracticeQuestion {
   return {
     id,
@@ -70,6 +73,7 @@ function choice(
     explanation,
     triangleDiagram,
     planeShapeDiagram,
+    angleFigureDiagram,
   };
 }
 
@@ -150,6 +154,44 @@ function parallelAnglesShape(
       { arrows: 1 }, // top parallel line
       {}, // left transversal
     ],
+  };
+}
+
+/**
+ * An angle figure drawn as rays from a single point (`kind: "rays"`): angles on
+ * a straight line, angles at a point, or two intersecting lines / vertically
+ * opposite angles. Angles in degrees, 0° = east, CCW positive. Include opposite
+ * directions (e.g. 0 and 180) for any ray that is a full straight line.
+ */
+function raysFig(
+  description: string,
+  rays: number[],
+  sectorLabels: { between: [number, number]; label: string; right?: boolean }[],
+  rayLabels?: (string | null)[]
+): AngleFigureDiagram {
+  return { description, kind: "rays", rays, sectorLabels, rayLabels };
+}
+
+/**
+ * Two parallel lines cut by a transversal (`kind: "transversal"`). The
+ * transversal slopes down to the right, so at each intersection the TR and BL
+ * quadrants hold the obtuse angle and the TL and BR quadrants hold the acute
+ * angle. Corresponding angles share a position at both crossings; alternate
+ * angles are top-BL ↔ bottom-TR; co-interior angles are top-BR ↔ bottom-TR.
+ */
+function transversalFig(
+  description: string,
+  topAngles: AngleFigureDiagram["topAngles"],
+  bottomAngles: AngleFigureDiagram["bottomAngles"],
+  parallelLabels?: [string, string]
+): AngleFigureDiagram {
+  return {
+    description,
+    kind: "transversal",
+    transversalDeg: 58,
+    parallelLabels,
+    topAngles,
+    bottomAngles,
   };
 }
 
@@ -331,6 +373,16 @@ const angleRelationships: LessonContent = {
       title: "Find a supplementary angle",
       questionLatex:
         "\\text{Two angles are supplementary. One angle is }54^\\circ.\\text{ Find the other.}",
+      angleFigureDiagram: {
+        description:
+          "A straight line split by one ray into two supplementary angles: 54 degrees and the unknown angle a.",
+        kind: "rays",
+        rays: [0, 180, 54],
+        sectorLabels: [
+          { between: [0, 54], label: "54°" },
+          { between: [54, 180], label: "a" },
+        ],
+      },
       steps: [
         {
           explanation: "Supplementary means the two angles together make a straight angle, so write their sum as 180°.",
@@ -347,6 +399,17 @@ const angleRelationships: LessonContent = {
       title: "Find an unknown angle at a point",
       questionLatex:
         "\\text{Three angles meet at a point with no gaps: }85^\\circ,\\;110^\\circ\\text{ and }x^\\circ.\\text{ Find }x.",
+      angleFigureDiagram: {
+        description:
+          "Three angles meeting at a point with no gaps: 85 degrees, 110 degrees and the unknown angle x, filling a full turn.",
+        kind: "rays",
+        rays: [0, 85, 195],
+        sectorLabels: [
+          { between: [0, 85], label: "85°" },
+          { between: [85, 195], label: "110°" },
+          { between: [195, 360], label: "x" },
+        ],
+      },
       steps: [
         {
           explanation: "Angles around a point complete a full turn, so their total is 360°.",
@@ -367,6 +430,18 @@ const angleRelationships: LessonContent = {
       title: "Use vertically opposite angles",
       questionLatex:
         "\\text{Two lines intersect. One angle is }43^\\circ.\\text{ Find the three other angles.}",
+      angleFigureDiagram: {
+        description:
+          "Two straight lines intersecting at a point, forming four angles: 43 degrees, 137 degrees, 43 degrees and 137 degrees around the crossing.",
+        kind: "rays",
+        rays: [0, 180, 43, 223],
+        sectorLabels: [
+          { between: [0, 43], label: "43°" },
+          { between: [43, 180], label: "137°" },
+          { between: [180, 223], label: "43°" },
+          { between: [223, 360], label: "137°" },
+        ],
+      },
       steps: [
         {
           explanation: "The angle directly across the crossing is vertically opposite 43°, so it is equal to it.",
@@ -388,6 +463,18 @@ const angleRelationships: LessonContent = {
       title: "Multi-step: an algebraic split of angles at a point",
       questionLatex:
         "\\text{Four angles meet at a point: a right angle, then }x^\\circ,\\;(x+20)^\\circ\\text{ and }2x^\\circ.\\text{ Find each unknown angle.}",
+      angleFigureDiagram: {
+        description:
+          "Four angles meeting at a point: a right angle, then x degrees, (x + 20) degrees and 2x degrees, filling a full turn.",
+        kind: "rays",
+        rays: [0, 90, 152.5, 235],
+        sectorLabels: [
+          { between: [0, 90], label: "", right: true },
+          { between: [90, 152.5], label: "x" },
+          { between: [152.5, 235], label: "(x+20)" },
+          { between: [235, 360], label: "2x" },
+        ],
+      },
       steps: [
         {
           explanation: "A right angle is 90°; the four angles fill a full turn, so set their sum to 360°.",
@@ -433,7 +520,17 @@ const angleRelationships: LessonContent = {
       "37 + x = 90",
       "53",
       "Complementary angles sum to 90°. x = 90 − 37 = 53°.",
-      ["53°"]
+      ["53°"],
+      undefined,
+      undefined,
+      raysFig(
+        "A right-angle corner split by one ray into two complementary angles: 37 degrees and the unknown angle x.",
+        [0, 90, 37],
+        [
+          { between: [0, 37], label: "37°" },
+          { between: [37, 90], label: "x" },
+        ]
+      )
     ),
     answer(
       "y8-geo-ang-g3",
@@ -441,7 +538,17 @@ const angleRelationships: LessonContent = {
       "145 + x = 180",
       "35",
       "Supplementary angles sum to 180°. x = 180 − 145 = 35°.",
-      ["35°"]
+      ["35°"],
+      undefined,
+      undefined,
+      raysFig(
+        "A straight line split by one ray into two supplementary angles: 145 degrees and the unknown angle x.",
+        [0, 180, 145],
+        [
+          { between: [0, 145], label: "145°" },
+          { between: [145, 180], label: "x" },
+        ]
+      )
     ),
     answer(
       "y8-geo-ang-g4",
@@ -449,7 +556,18 @@ const angleRelationships: LessonContent = {
       "95 + 130 + x = 360",
       "135",
       "Angles at a point sum to 360°. x = 360 − 95 − 130 = 135°.",
-      ["135°"]
+      ["135°"],
+      undefined,
+      undefined,
+      raysFig(
+        "Three angles meeting at a point: 95 degrees, 130 degrees and the unknown angle x, filling a full turn.",
+        [0, 95, 225],
+        [
+          { between: [0, 95], label: "95°" },
+          { between: [95, 225], label: "130°" },
+          { between: [225, 360], label: "x" },
+        ]
+      )
     ),
   ],
   independentPractice: [
@@ -459,7 +577,17 @@ const angleRelationships: LessonContent = {
       "\\text{vertically opposite to }68^\\circ",
       "68",
       "Vertically opposite angles are equal. The answer is 68°.",
-      ["68°"]
+      ["68°"],
+      undefined,
+      undefined,
+      raysFig(
+        "Two straight lines intersecting at a point. One angle is 68 degrees; the angle vertically opposite it is marked x.",
+        [0, 180, 68, 248],
+        [
+          { between: [0, 68], label: "68°" },
+          { between: [180, 248], label: "x" },
+        ]
+      )
     ),
     answer(
       "y8-geo-ang-i2",
@@ -467,7 +595,17 @@ const angleRelationships: LessonContent = {
       "73 + x = 180",
       "107",
       "x = 180 − 73 = 107°.",
-      ["107°"]
+      ["107°"],
+      undefined,
+      undefined,
+      raysFig(
+        "A straight line split by one ray into two supplementary angles: 73 degrees and the unknown angle x.",
+        [0, 180, 73],
+        [
+          { between: [0, 73], label: "73°" },
+          { between: [73, 180], label: "x" },
+        ]
+      )
     ),
     choice(
       "y8-geo-ang-i3",
@@ -487,7 +625,18 @@ const angleRelationships: LessonContent = {
       "65 + 90 + x = 180",
       "25",
       "65 + 90 = 155. x = 180 − 155 = 25°.",
-      ["25°"]
+      ["25°"],
+      undefined,
+      undefined,
+      raysFig(
+        "A straight line divided into three adjacent angles: 65 degrees, a right angle (90 degrees), and the unknown angle x.",
+        [0, 180, 65, 155],
+        [
+          { between: [0, 65], label: "65°" },
+          { between: [65, 155], label: "", right: true },
+          { between: [155, 180], label: "x" },
+        ]
+      )
     ),
     answer(
       "y8-geo-ang-i5",
@@ -495,7 +644,19 @@ const angleRelationships: LessonContent = {
       "72 + 95 + 85 + x = 360",
       "108",
       "72 + 95 + 85 = 252. x = 360 − 252 = 108°.",
-      ["108°"]
+      ["108°"],
+      undefined,
+      undefined,
+      raysFig(
+        "Four angles meeting at a point: 72 degrees, 95 degrees, 85 degrees and the unknown angle x, filling a full turn.",
+        [0, 72, 167, 252],
+        [
+          { between: [0, 72], label: "72°" },
+          { between: [72, 167], label: "95°" },
+          { between: [167, 252], label: "85°" },
+          { between: [252, 360], label: "x" },
+        ]
+      )
     ),
   ],
   commonMistakes: [
@@ -523,7 +684,17 @@ const angleRelationships: LessonContent = {
       "56 + x = 90",
       "34",
       "x = 90 − 56 = 34°.",
-      ["34°"]
+      ["34°"],
+      undefined,
+      undefined,
+      raysFig(
+        "A right-angle corner split by one ray into two complementary angles: 56 degrees and the unknown angle x.",
+        [0, 90, 56],
+        [
+          { between: [0, 56], label: "56°" },
+          { between: [56, 90], label: "x" },
+        ]
+      )
     ),
     answer(
       "y8-geo-ang-m2",
@@ -531,7 +702,17 @@ const angleRelationships: LessonContent = {
       "\\text{vertically opposite to }127^\\circ",
       "127",
       "Vertically opposite angles are equal. The answer is 127°.",
-      ["127°"]
+      ["127°"],
+      undefined,
+      undefined,
+      raysFig(
+        "Two straight lines intersecting at a point. One angle is 127 degrees; the angle vertically opposite it is marked x.",
+        [0, 180, 127, 307],
+        [
+          { between: [0, 127], label: "127°" },
+          { between: [180, 307], label: "x" },
+        ]
+      )
     ),
     choice(
       "y8-geo-ang-m3",
@@ -551,7 +732,18 @@ const angleRelationships: LessonContent = {
       "110 + 115 + x = 360",
       "135",
       "110 + 115 = 225. x = 360 − 225 = 135°.",
-      ["135°"]
+      ["135°"],
+      undefined,
+      undefined,
+      raysFig(
+        "Three angles meeting at a point: 110 degrees, 115 degrees and the unknown angle x, filling a full turn.",
+        [0, 110, 225],
+        [
+          { between: [0, 110], label: "110°" },
+          { between: [110, 225], label: "115°" },
+          { between: [225, 360], label: "x" },
+        ]
+      )
     ),
     answer(
       "y8-geo-ang-m5",
@@ -559,7 +751,17 @@ const angleRelationships: LessonContent = {
       "27 + x = 180",
       "153",
       "x = 180 − 27 = 153°.",
-      ["153°"]
+      ["153°"],
+      undefined,
+      undefined,
+      raysFig(
+        "A straight line split by one ray into two supplementary angles: 27 degrees and the unknown angle x.",
+        [0, 180, 27],
+        [
+          { between: [0, 27], label: "27°" },
+          { between: [27, 180], label: "x" },
+        ]
+      )
     ),
     choice(
       "y8-geo-ang-m6",
@@ -579,7 +781,18 @@ const angleRelationships: LessonContent = {
       "48 + 97 + x = 180",
       "35",
       "48 + 97 = 145. x = 180 − 145 = 35°.",
-      ["35°"]
+      ["35°"],
+      undefined,
+      undefined,
+      raysFig(
+        "A straight line divided into three adjacent angles: 48 degrees, 97 degrees and the unknown angle x.",
+        [0, 180, 48, 145],
+        [
+          { between: [0, 48], label: "48°" },
+          { between: [48, 145], label: "97°" },
+          { between: [145, 180], label: "x" },
+        ]
+      )
     ),
     answer(
       "y8-geo-ang-m8",
@@ -587,7 +800,17 @@ const angleRelationships: LessonContent = {
       "19 + x = 90",
       "71",
       "x = 90 − 19 = 71°.",
-      ["71°"]
+      ["71°"],
+      undefined,
+      undefined,
+      raysFig(
+        "A right-angle corner split by one ray into two complementary angles: 19 degrees and the unknown angle x.",
+        [0, 90, 19],
+        [
+          { between: [0, 19], label: "19°" },
+          { between: [19, 90], label: "x" },
+        ]
+      )
     ),
     choice(
       "y8-geo-ang-m9",
@@ -599,7 +822,20 @@ const angleRelationships: LessonContent = {
         "q and s",
         "r and s",
       ],
-      "At an intersection there are exactly two pairs of vertically opposite angles: (p, r) and (q, s)."
+      "At an intersection there are exactly two pairs of vertically opposite angles: (p, r) and (q, s).",
+      undefined,
+      undefined,
+      undefined,
+      raysFig(
+        "Two straight lines intersecting at a point, forming four angles labelled p, q, r and s in order around the crossing.",
+        [0, 180, 50, 230],
+        [
+          { between: [0, 50], label: "p" },
+          { between: [50, 180], label: "q" },
+          { between: [180, 230], label: "r" },
+          { between: [230, 360], label: "s" },
+        ]
+      )
     ),
     answer(
       "y8-geo-ang-m10",
@@ -607,7 +843,18 @@ const angleRelationships: LessonContent = {
       "2x + 3x + 4x = 360",
       "40",
       "9x = 360, so x = 40.",
-      ["40°"]
+      ["40°"],
+      undefined,
+      undefined,
+      raysFig(
+        "Three angles meeting at a point labelled 2x degrees, 3x degrees and 4x degrees, filling a full turn.",
+        [0, 80, 200],
+        [
+          { between: [0, 80], label: "2x" },
+          { between: [80, 200], label: "3x" },
+          { between: [200, 360], label: "4x" },
+        ]
+      )
     ),
   ],
 };
@@ -646,9 +893,11 @@ const parallelLinesTransversals: LessonContent = {
       title: "Corresponding angles",
       questionLatex:
         "\\text{Lines }AB \\parallel CD\\text{. A transversal makes a }65^\\circ\\text{ angle at }AB.\\text{ Find the corresponding angle at }CD.",
-      planeShapeDiagram: parallelAnglesShape(
-        "Transversal crossing two parallel lines AB and CD (chevroned). The 65 degree angle at AB and the corresponding angle in the matching position at CD.",
-        { bottomLeft: "65°", topRight: "?" }
+      angleFigureDiagram: transversalFig(
+        "Transversal crossing two parallel lines AB (upper) and CD (lower). The 65 degree angle in the upper-right position at AB and the corresponding angle in the matching upper-right position at CD.",
+        { TR: "65°" },
+        { TR: "?" },
+        ["AB", "CD"]
       ),
       steps: [
         {
@@ -666,9 +915,10 @@ const parallelLinesTransversals: LessonContent = {
       title: "Co-interior angles",
       questionLatex:
         "\\text{Parallel lines. One co-interior angle is }115^\\circ.\\text{ Find the other.}",
-      planeShapeDiagram: parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). Two co-interior angles on the same side of the transversal: one is 115 degrees, the other is unknown.",
-        { bottomRight: "115°", topRight: "?" }
+      angleFigureDiagram: transversalFig(
+        "Transversal crossing two parallel lines. Two co-interior angles on the same side of the transversal, between the lines: one is 115 degrees, the other is unknown.",
+        { BR: "?" },
+        { TR: "115°" }
       ),
       steps: [
         {
@@ -686,9 +936,10 @@ const parallelLinesTransversals: LessonContent = {
       title: "Solve an equation using parallel lines",
       questionLatex:
         "\\text{Co-interior angles are }(3x+10)^\\circ\\text{ and }(2x+20)^\\circ.\\text{ Find }x.",
-      planeShapeDiagram: parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). Two co-interior angles on the same side of the transversal, labelled (3x + 10) degrees and (2x + 20) degrees.",
-        { bottomRight: "(3x+10)°", topRight: "(2x+20)°" }
+      angleFigureDiagram: transversalFig(
+        "Transversal crossing two parallel lines. Two co-interior angles on the same side of the transversal, between the lines, labelled (3x + 10) degrees and (2x + 20) degrees.",
+        { BR: "(2x+20)°" },
+        { TR: "(3x+10)°" }
       ),
       steps: [
         {
@@ -710,9 +961,11 @@ const parallelLinesTransversals: LessonContent = {
       title: "Multi-step: chain alternate and co-interior angles",
       questionLatex:
         "\\text{Lines }AB \\parallel CD\\text{, cut by a transversal. An alternate angle at }AB\\text{ is }72^\\circ.\\text{ Find the co-interior angle on the same side at }CD.",
-      planeShapeDiagram: parallelAnglesShape(
-        "Transversal crossing two parallel lines AB and CD (chevroned). The alternate angle of 72 degrees and, on the same side at CD, the co-interior angle y.",
-        { bottomRight: "72°", topRight: "y" }
+      angleFigureDiagram: transversalFig(
+        "Transversal crossing two parallel lines AB (upper) and CD (lower). The 72 degree angle between the lines at AB and, on the same side at CD, the co-interior angle y.",
+        { BR: "72°" },
+        { TR: "y" },
+        ["AB", "CD"]
       ),
       steps: [
         {
@@ -756,9 +1009,11 @@ const parallelLinesTransversals: LessonContent = {
       "Corresponding angles are equal when lines are parallel. The angle is 65°.",
       ["65°"],
       undefined,
-      parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). One angle is 65 degrees; the corresponding angle in the matching position at the other line is marked x.",
-        { bottomLeft: "65°", topRight: "x" }
+      undefined,
+      transversalFig(
+        "Transversal crossing two parallel lines. One angle is 65 degrees; the corresponding angle in the matching position at the other line is marked x.",
+        { TR: "65°" },
+        { TR: "x" }
       )
     ),
     answer(
@@ -769,9 +1024,11 @@ const parallelLinesTransversals: LessonContent = {
       "Alternate angles are equal when lines are parallel. The angle is 48°.",
       ["48°"],
       undefined,
-      parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). One alternate angle is 48 degrees; the alternate angle on the opposite side at the other line is marked x.",
-        { bottomLeft: "48°", topRight: "x" }
+      undefined,
+      transversalFig(
+        "Transversal crossing two parallel lines. One alternate angle is 48 degrees; the alternate angle (Z-shape) on the opposite side at the other line is marked x.",
+        { BR: "48°" },
+        { TL: "x" }
       )
     ),
     answer(
@@ -782,9 +1039,11 @@ const parallelLinesTransversals: LessonContent = {
       "Co-interior angles sum to 180°. x = 180 − 115 = 65°.",
       ["65°"],
       undefined,
-      parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). Two co-interior angles on the same side of the transversal: one is 115 degrees, the other is marked x.",
-        { bottomRight: "115°", topRight: "x" }
+      undefined,
+      transversalFig(
+        "Transversal crossing two parallel lines. Two co-interior angles on the same side, between the lines: one is 115 degrees, the other is marked x.",
+        { BR: "x" },
+        { TR: "115°" }
       )
     ),
   ],
@@ -797,9 +1056,11 @@ const parallelLinesTransversals: LessonContent = {
       "Corresponding angles are equal when lines are parallel. The angle is 73°.",
       ["73°"],
       undefined,
-      parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). A corresponding angle of 73 degrees and its matching corresponding angle x at the other line.",
-        { bottomLeft: "73°", topRight: "x" }
+      undefined,
+      transversalFig(
+        "Transversal crossing two parallel lines. A corresponding angle of 73 degrees and its matching corresponding angle x at the other line.",
+        { TR: "73°" },
+        { TR: "x" }
       )
     ),
     answer(
@@ -810,9 +1071,11 @@ const parallelLinesTransversals: LessonContent = {
       "Co-interior angles sum to 180°. x = 180 − 54 = 126°.",
       ["126°"],
       undefined,
-      parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). Two co-interior angles on the same side: one is 54 degrees, the other is marked x.",
-        { bottomRight: "54°", topRight: "x" }
+      undefined,
+      transversalFig(
+        "Transversal crossing two parallel lines. Two co-interior angles on the same side, between the lines: one is 54 degrees, the other is marked x.",
+        { BR: "54°" },
+        { TR: "x" }
       )
     ),
     choice(
@@ -835,9 +1098,11 @@ const parallelLinesTransversals: LessonContent = {
       "Alternate angles are equal when lines are parallel. The angle is 117°.",
       ["117°"],
       undefined,
-      parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). One alternate angle is 117 degrees; the alternate angle on the opposite side at the other line is marked x.",
-        { bottomLeft: "117°", topRight: "x" }
+      undefined,
+      transversalFig(
+        "Transversal crossing two parallel lines. One alternate angle is 117 degrees; the alternate angle (Z-shape) on the opposite side at the other line is marked x.",
+        { BL: "117°" },
+        { TR: "x" }
       )
     ),
     answer(
@@ -848,9 +1113,11 @@ const parallelLinesTransversals: LessonContent = {
       "5x + 30 = 180, so 5x = 150, giving x = 30.",
       ["x = 30"],
       undefined,
-      parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). Two co-interior angles on the same side, labelled (3x + 10) degrees and (2x + 20) degrees.",
-        { bottomRight: "(3x+10)°", topRight: "(2x+20)°" }
+      undefined,
+      transversalFig(
+        "Transversal crossing two parallel lines. Two co-interior angles on the same side, between the lines, labelled (3x + 10) degrees and (2x + 20) degrees.",
+        { BR: "(2x+20)°" },
+        { TR: "(3x+10)°" }
       )
     ),
   ],
@@ -881,9 +1148,11 @@ const parallelLinesTransversals: LessonContent = {
       "Corresponding angles are equal when lines are parallel.",
       ["82°"],
       undefined,
-      parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). A corresponding angle of 82 degrees and its matching corresponding angle x at the other line.",
-        { bottomLeft: "82°", topRight: "x" }
+      undefined,
+      transversalFig(
+        "Transversal crossing two parallel lines. A corresponding angle of 82 degrees and its matching corresponding angle x at the other line.",
+        { TR: "82°" },
+        { TR: "x" }
       )
     ),
     answer(
@@ -894,9 +1163,11 @@ const parallelLinesTransversals: LessonContent = {
       "Alternate angles are equal when lines are parallel.",
       ["35°"],
       undefined,
-      parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). One alternate angle is 35 degrees; the alternate angle on the opposite side at the other line is marked x.",
-        { bottomLeft: "35°", topRight: "x" }
+      undefined,
+      transversalFig(
+        "Transversal crossing two parallel lines. One alternate angle is 35 degrees; the alternate angle (Z-shape) on the opposite side at the other line is marked x.",
+        { BR: "35°" },
+        { TL: "x" }
       )
     ),
     answer(
@@ -907,9 +1178,11 @@ const parallelLinesTransversals: LessonContent = {
       "Co-interior angles sum to 180°. x = 180 − 142 = 38°.",
       ["38°"],
       undefined,
-      parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). Two co-interior angles on the same side: one is 142 degrees, the other is marked x.",
-        { bottomRight: "142°", topRight: "x" }
+      undefined,
+      transversalFig(
+        "Transversal crossing two parallel lines. Two co-interior angles on the same side, between the lines: one is 142 degrees, the other is marked x.",
+        { BR: "x" },
+        { TR: "142°" }
       )
     ),
     choice(
@@ -932,9 +1205,11 @@ const parallelLinesTransversals: LessonContent = {
       "4x − 20 = 2x + 40, so 2x = 60, giving x = 30.",
       ["x = 30"],
       undefined,
-      parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). A corresponding pair labelled (4x − 20) degrees and (2x + 40) degrees in matching positions at the two lines.",
-        { bottomLeft: "(4x-20)°", topRight: "(2x+40)°" }
+      undefined,
+      transversalFig(
+        "Transversal crossing two parallel lines. A corresponding pair labelled (4x − 20) degrees and (2x + 40) degrees in matching positions at the two lines.",
+        { TR: "(4x-20)°" },
+        { TR: "(2x+40)°" }
       )
     ),
     answer(
@@ -945,9 +1220,11 @@ const parallelLinesTransversals: LessonContent = {
       "5x + 15 = 3x + 35, so 2x = 20, giving x = 10.",
       ["x = 10"],
       undefined,
-      parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). An alternate pair on opposite sides of the transversal labelled (5x + 15) degrees and (3x + 35) degrees.",
-        { bottomLeft: "(5x+15)°", topRight: "(3x+35)°" }
+      undefined,
+      transversalFig(
+        "Transversal crossing two parallel lines. An alternate pair (Z-shape) on opposite sides of the transversal labelled (5x + 15) degrees and (3x + 35) degrees.",
+        { BR: "(5x+15)°" },
+        { TL: "(3x+35)°" }
       )
     ),
     choice(
@@ -970,9 +1247,11 @@ const parallelLinesTransversals: LessonContent = {
       "x = 180 − 67 = 113°.",
       ["113°"],
       undefined,
-      parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). Two co-interior angles on the same side: one is 67 degrees, the other is marked x.",
-        { bottomRight: "67°", topRight: "x" }
+      undefined,
+      transversalFig(
+        "Transversal crossing two parallel lines. Two co-interior angles on the same side, between the lines: one is 67 degrees, the other is marked x.",
+        { BR: "67°" },
+        { TR: "x" }
       )
     ),
     answer(
@@ -983,9 +1262,11 @@ const parallelLinesTransversals: LessonContent = {
       "3x = 180, so x = 60.",
       ["60°"],
       undefined,
-      parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). Two co-interior angles on the same side labelled x degrees and 2x degrees.",
-        { bottomRight: "x", topRight: "2x" }
+      undefined,
+      transversalFig(
+        "Transversal crossing two parallel lines. Two co-interior angles on the same side, between the lines, labelled x degrees and 2x degrees.",
+        { BR: "x" },
+        { TR: "2x" }
       )
     ),
     answer(
@@ -996,9 +1277,11 @@ const parallelLinesTransversals: LessonContent = {
       "Alternate angles are equal when lines are parallel. The angle is 131°.",
       ["131°"],
       undefined,
-      parallelAnglesShape(
-        "Transversal crossing two parallel lines (chevroned). One angle is 131 degrees; the alternate angle on the opposite side at the other line is marked x.",
-        { bottomLeft: "131°", topRight: "x" }
+      undefined,
+      transversalFig(
+        "Transversal crossing two parallel lines. One angle is 131 degrees; the alternate angle (Z-shape) on the opposite side at the other line is marked x.",
+        { BL: "131°" },
+        { TR: "x" }
       )
     ),
   ],
@@ -2727,10 +3010,11 @@ function pAnswer(
   difficulty: number,
   acceptedAnswers: string[] = [],
   triangleDiagram?: TriangleDiagram,
-  planeShapeDiagram?: PlaneShapeDiagram
+  planeShapeDiagram?: PlaneShapeDiagram,
+  angleFigureDiagram?: AngleFigureDiagram
 ): PracticeQuestion {
   return {
-    ...answer(id, prompt, latex, value, explanation, acceptedAnswers, triangleDiagram, planeShapeDiagram),
+    ...answer(id, prompt, latex, value, explanation, acceptedAnswers, triangleDiagram, planeShapeDiagram, angleFigureDiagram),
     difficulty,
   };
 }
@@ -2791,6 +3075,17 @@ angleRelationships.multiPartPractice = [
     prompt:
       "Two straight lines, PQ and RS, cross at point O. Around O the four angles, taken in order, are ∠POR, ∠ROQ, ∠QOS and ∠SOP. It is given that ∠POR = 64°.",
     latex: "\\angle POR = 64^\\circ",
+    angleFigureDiagram: raysFig(
+      "Two straight lines PQ and RS crossing at O. The angle POR is 64 degrees; its vertically opposite angle QOS is also 64 degrees, and the adjacent angles ROQ and SOP are each 116 degrees.",
+      [0, 64, 180, 244],
+      [
+        { between: [0, 64], label: "64°" },
+        { between: [64, 180], label: "∠SOP" },
+        { between: [180, 244], label: "∠QOS" },
+        { between: [244, 360], label: "∠ROQ" },
+      ],
+      ["R", "P", "S", "Q"]
+    ),
     answer: "116",
     hint: "Vertically opposite angles are equal; adjacent angles on a straight line are supplementary.",
     explanation:
@@ -2836,38 +3131,60 @@ angleRelationships.multiPartPractice = [
 // Lesson 2: Parallel Lines and Transversals
 parallelLinesTransversals.masteryQuizPool = [
   // D1
-  pAnswer("y8-geo-par-p1", "Parallel lines. A corresponding angle is 70°. Find the other in degrees.", "\\text{corresponding (F): equal}", "70", "Corresponding angles are equal when lines are parallel.", 1, ["70°"]),
-  pAnswer("y8-geo-par-p2", "Parallel lines. An alternate angle is 55°. Find the other in degrees.", "\\text{alternate (Z): equal}", "55", "Alternate angles are equal when lines are parallel.", 1, ["55°"]),
-  pAnswer("y8-geo-par-p3", "Parallel lines. One co-interior angle is 100°. Find the other in degrees.", "100 + x = 180", "80", "Co-interior angles sum to 180°: 180 − 100 = 80°.", 1, ["80°"]),
-  pAnswer("y8-geo-par-p4", "Parallel lines. A corresponding angle is 134°. Find the other in degrees.", "\\text{corresponding (F): equal}", "134", "Corresponding angles are equal.", 1, ["134°"]),
-  pAnswer("y8-geo-par-p5", "Parallel lines. One co-interior angle is 90°. Find the other in degrees.", "90 + x = 180", "90", "180 − 90 = 90°.", 1, ["90°"]),
+  pAnswer("y8-geo-par-p1", "Parallel lines. A corresponding angle is 70°. Find the other in degrees.", "\\text{corresponding (F): equal}", "70", "Corresponding angles are equal when lines are parallel.", 1, ["70°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. A corresponding angle of 70 degrees and its matching corresponding angle x at the other line.", { TR: "70°" }, { TR: "x" })),
+  pAnswer("y8-geo-par-p2", "Parallel lines. An alternate angle is 55°. Find the other in degrees.", "\\text{alternate (Z): equal}", "55", "Alternate angles are equal when lines are parallel.", 1, ["55°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. One alternate angle is 55 degrees; the alternate angle (Z-shape) at the other line is marked x.", { BR: "55°" }, { TL: "x" })),
+  pAnswer("y8-geo-par-p3", "Parallel lines. One co-interior angle is 100°. Find the other in degrees.", "100 + x = 180", "80", "Co-interior angles sum to 180°: 180 − 100 = 80°.", 1, ["80°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. Two co-interior angles on the same side, between the lines: one is 100 degrees, the other is marked x.", { BR: "x" }, { TR: "100°" })),
+  pAnswer("y8-geo-par-p4", "Parallel lines. A corresponding angle is 134°. Find the other in degrees.", "\\text{corresponding (F): equal}", "134", "Corresponding angles are equal.", 1, ["134°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. A corresponding angle of 134 degrees and its matching corresponding angle x at the other line.", { TR: "134°" }, { TR: "x" })),
+  pAnswer("y8-geo-par-p5", "Parallel lines. One co-interior angle is 90°. Find the other in degrees.", "90 + x = 180", "90", "180 − 90 = 90°.", 1, ["90°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. Two co-interior angles on the same side, between the lines: one is 90 degrees, the other is marked x.", { BR: "x" }, { TR: "90°" })),
   // D2
   pChoice("y8-geo-par-p6", "Which shape represents alternate angles?", "B", ["F-shape", "Z-shape", "C-shape", "X-shape"], "Alternate angles form a Z-shape.", 2),
   pChoice("y8-geo-par-p7", "Which shape represents co-interior angles?", "C", ["F-shape", "Z-shape", "C-shape", "T-shape"], "Co-interior angles form a C-shape.", 2),
-  pAnswer("y8-geo-par-p8", "Parallel lines. An alternate angle is 128°. Find the other in degrees.", "\\text{alternate (Z): equal}", "128", "Alternate angles are equal.", 2, ["128°"]),
-  pAnswer("y8-geo-par-p9", "Parallel lines. One co-interior angle is 73°. Find the other in degrees.", "73 + x = 180", "107", "180 − 73 = 107°.", 2, ["107°"]),
+  pAnswer("y8-geo-par-p8", "Parallel lines. An alternate angle is 128°. Find the other in degrees.", "\\text{alternate (Z): equal}", "128", "Alternate angles are equal.", 2, ["128°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. One alternate angle is 128 degrees; the alternate angle (Z-shape) at the other line is marked x.", { BL: "128°" }, { TR: "x" })),
+  pAnswer("y8-geo-par-p9", "Parallel lines. One co-interior angle is 73°. Find the other in degrees.", "73 + x = 180", "107", "180 − 73 = 107°.", 2, ["107°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. Two co-interior angles on the same side, between the lines: one is 73 degrees, the other is marked x.", { BR: "73°" }, { TR: "x" })),
   pAnswer("y8-geo-par-p10", "Parallel lines. A corresponding angle is 41°. The angle adjacent to it on a straight line is found by 180 − 41. Find that angle in degrees.", "180 - 41", "139", "180 − 41 = 139°.", 2, ["139°"]),
-  pAnswer("y8-geo-par-p11", "Parallel lines. One co-interior angle is 126°. Find the other in degrees.", "126 + x = 180", "54", "180 − 126 = 54°.", 2, ["54°"]),
+  pAnswer("y8-geo-par-p11", "Parallel lines. One co-interior angle is 126°. Find the other in degrees.", "126 + x = 180", "54", "180 − 126 = 54°.", 2, ["54°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. Two co-interior angles on the same side, between the lines: one is 126 degrees, the other is marked x.", { BR: "x" }, { TR: "126°" })),
   // D3
   pChoice("y8-geo-par-p12", "Co-interior angles between parallel lines are always:", "B", ["Equal", "Supplementary", "Complementary", "Reflex"], "Co-interior angles sum to 180° (supplementary).", 3),
-  pAnswer("y8-geo-par-p13", "Parallel lines. An angle is 64°. Find its co-interior partner in degrees.", "64 + x = 180", "116", "180 − 64 = 116°.", 3, ["116°"]),
-  pAnswer("y8-geo-par-p14", "Parallel lines. The two co-interior angles are equal. Find each in degrees.", "x + x = 180", "90", "2x = 180, so each = 90°.", 3, ["90°"]),
+  pAnswer("y8-geo-par-p13", "Parallel lines. An angle is 64°. Find its co-interior partner in degrees.", "64 + x = 180", "116", "180 − 64 = 116°.", 3, ["116°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. A 64 degree angle between the lines and its co-interior partner x on the same side.", { BR: "64°" }, { TR: "x" })),
+  pAnswer("y8-geo-par-p14", "Parallel lines. The two co-interior angles are equal. Find each in degrees.", "x + x = 180", "90", "2x = 180, so each = 90°.", 3, ["90°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. The two co-interior angles on the same side are equal, each marked x.", { BR: "x" }, { TR: "x" })),
   pAnswer("y8-geo-par-p15", "Parallel lines. An alternate angle is 117° and the angle next to it on the straight line is 180 − 117. Find that angle in degrees.", "180 - 117", "63", "180 − 117 = 63°.", 3, ["63°"]),
-  pAnswer("y8-geo-par-p16", "Parallel lines. Co-interior angles are x° and 3x°. Find x.", "x + 3x = 180", "45", "4x = 180, so x = 45.", 3, ["45°"]),
-  pAnswer("y8-geo-par-p17", "Parallel lines. Co-interior angles are 2x° and 4x°. Find the larger angle in degrees.", "2x + 4x = 180", "120", "6x = 180, x = 30. Larger = 4 × 30 = 120°.", 3, ["120°"]),
+  pAnswer("y8-geo-par-p16", "Parallel lines. Co-interior angles are x° and 3x°. Find x.", "x + 3x = 180", "45", "4x = 180, so x = 45.", 3, ["45°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. Two co-interior angles on the same side, between the lines, labelled x degrees and 3x degrees.", { BR: "x" }, { TR: "3x" })),
+  pAnswer("y8-geo-par-p17", "Parallel lines. Co-interior angles are 2x° and 4x°. Find the larger angle in degrees.", "2x + 4x = 180", "120", "6x = 180, x = 30. Larger = 4 × 30 = 120°.", 3, ["120°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. Two co-interior angles on the same side, between the lines, labelled 2x degrees and 4x degrees.", { BR: "2x" }, { TR: "4x" })),
   // D4
-  pAnswer("y8-geo-par-p18", "Parallel lines. Corresponding angles: (3x + 20)° = (x + 60)°. Find x.", "3x + 20 = x + 60", "20", "3x + 20 = x + 60, so 2x = 40, x = 20.", 4, ["20°"]),
-  pAnswer("y8-geo-par-p19", "Parallel lines. Alternate angles: (6x − 10)° = (4x + 30)°. Find x.", "6x - 10 = 4x + 30", "20", "6x − 10 = 4x + 30, so 2x = 40, x = 20.", 4, ["20°"]),
-  pAnswer("y8-geo-par-p20", "Parallel lines. Co-interior angles: (2x + 30)° and (3x + 50)°. Find x.", "(2x+30) + (3x+50) = 180", "20", "5x + 80 = 180, so 5x = 100, x = 20.", 4, ["20°"]),
-  pAnswer("y8-geo-par-p21", "Parallel lines. Corresponding angles: (5x − 25)° = (2x + 50)°. Find x.", "5x - 25 = 2x + 50", "25", "5x − 25 = 2x + 50, so 3x = 75, x = 25.", 4, ["25°"]),
-  pAnswer("y8-geo-par-p22", "Parallel lines. Co-interior angles are (4x)° and (5x)°. Find the smaller angle in degrees.", "4x + 5x = 180", "80", "9x = 180, x = 20. Smaller = 4 × 20 = 80°.", 4, ["80°"]),
-  pAnswer("y8-geo-par-p23", "Parallel lines. Alternate angles: (7x + 5)° = (3x + 65)°. Find the angle in degrees.", "7x + 5 = 3x + 65", "110", "4x = 60, x = 15. Angle = 7(15) + 5 = 110°.", 4, ["110°"]),
+  pAnswer("y8-geo-par-p18", "Parallel lines. Corresponding angles: (3x + 20)° = (x + 60)°. Find x.", "3x + 20 = x + 60", "20", "3x + 20 = x + 60, so 2x = 40, x = 20.", 4, ["20°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. A corresponding pair in matching positions labelled (3x + 20) degrees and (x + 60) degrees.", { TR: "(3x+20)°" }, { TR: "(x+60)°" })),
+  pAnswer("y8-geo-par-p19", "Parallel lines. Alternate angles: (6x − 10)° = (4x + 30)°. Find x.", "6x - 10 = 4x + 30", "20", "6x − 10 = 4x + 30, so 2x = 40, x = 20.", 4, ["20°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. An alternate pair (Z-shape) labelled (6x − 10) degrees and (4x + 30) degrees.", { BL: "(6x-10)°" }, { TR: "(4x+30)°" })),
+  pAnswer("y8-geo-par-p20", "Parallel lines. Co-interior angles: (2x + 30)° and (3x + 50)°. Find x.", "(2x+30) + (3x+50) = 180", "20", "5x + 80 = 180, so 5x = 100, x = 20.", 4, ["20°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. Two co-interior angles on the same side labelled (2x + 30) degrees and (3x + 50) degrees.", { BR: "(2x+30)°" }, { TR: "(3x+50)°" })),
+  pAnswer("y8-geo-par-p21", "Parallel lines. Corresponding angles: (5x − 25)° = (2x + 50)°. Find x.", "5x - 25 = 2x + 50", "25", "5x − 25 = 2x + 50, so 3x = 75, x = 25.", 4, ["25°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. A corresponding pair in matching positions labelled (5x − 25) degrees and (2x + 50) degrees.", { TR: "(5x-25)°" }, { TR: "(2x+50)°" })),
+  pAnswer("y8-geo-par-p22", "Parallel lines. Co-interior angles are (4x)° and (5x)°. Find the smaller angle in degrees.", "4x + 5x = 180", "80", "9x = 180, x = 20. Smaller = 4 × 20 = 80°.", 4, ["80°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. Two co-interior angles on the same side labelled 4x degrees and 5x degrees.", { BR: "4x" }, { TR: "5x" })),
+  pAnswer("y8-geo-par-p23", "Parallel lines. Alternate angles: (7x + 5)° = (3x + 65)°. Find the angle in degrees.", "7x + 5 = 3x + 65", "110", "4x = 60, x = 15. Angle = 7(15) + 5 = 110°.", 4, ["110°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. An alternate pair (Z-shape) labelled (7x + 5) degrees and (3x + 65) degrees.", { BL: "(7x+5)°" }, { TR: "(3x+65)°" })),
   // D5
-  pAnswer("y8-geo-par-p24", "Parallel lines. Two co-interior angles are in the ratio 1 : 2. Find the larger angle in degrees.", "k + 2k = 180", "120", "3k = 180, k = 60. Larger = 2 × 60 = 120°.", 5, ["120°"]),
-  pAnswer("y8-geo-par-p25", "Parallel lines. Co-interior angles are (3x + 15)° and (2x − 25)°... but they must sum to 180. Find x.", "(3x+15) + (2x-25) = 180", "38", "5x − 10 = 180, so 5x = 190, x = 38.", 5, ["38°"]),
+  pAnswer("y8-geo-par-p24", "Parallel lines. Two co-interior angles are in the ratio 1 : 2. Find the larger angle in degrees.", "k + 2k = 180", "120", "3k = 180, k = 60. Larger = 2 × 60 = 120°.", 5, ["120°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. Two co-interior angles on the same side in the ratio 1 : 2, labelled k degrees and 2k degrees.", { BR: "k" }, { TR: "2k" })),
+  pAnswer("y8-geo-par-p25", "Parallel lines. Co-interior angles are (3x + 15)° and (2x − 25)°... but they must sum to 180. Find x.", "(3x+15) + (2x-25) = 180", "38", "5x − 10 = 180, so 5x = 190, x = 38.", 5, ["38°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. Two co-interior angles on the same side labelled (3x + 15) degrees and (2x − 25) degrees.", { BR: "(2x-25)°" }, { TR: "(3x+15)°" })),
   pAnswer("y8-geo-par-p26", "A transversal cuts parallel lines. The corresponding angle is 3 times its own co-interior partner. Find the corresponding angle in degrees.", "x + 3x = 180", "135", "If the co-interior partner is x and the angle is 3x, then x + 3x = 180, x = 45, so the angle = 135°.", 5, ["135°"]),
-  pAnswer("y8-geo-par-p27", "Parallel lines. One co-interior angle exceeds the other by 40°. Find the smaller angle in degrees.", "x + (x + 40) = 180", "70", "2x + 40 = 180, so 2x = 140, x = 70°.", 5, ["70°"]),
-  pAnswer("y8-geo-par-p28", "Parallel lines. Alternate angles: (10x − 30)° = (6x + 50)°. Find the angle in degrees.", "10x - 30 = 6x + 50", "170", "4x = 80, x = 20. Angle = 10(20) − 30 = 170°.", 5, ["170°"]),
+  pAnswer("y8-geo-par-p27", "Parallel lines. One co-interior angle exceeds the other by 40°. Find the smaller angle in degrees.", "x + (x + 40) = 180", "70", "2x + 40 = 180, so 2x = 140, x = 70°.", 5, ["70°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. Two co-interior angles on the same side labelled x degrees and (x + 40) degrees.", { BR: "x" }, { TR: "(x+40)°" })),
+  pAnswer("y8-geo-par-p28", "Parallel lines. Alternate angles: (10x − 30)° = (6x + 50)°. Find the angle in degrees.", "10x - 30 = 6x + 50", "170", "4x = 80, x = 20. Angle = 10(20) − 30 = 170°.", 5, ["170°"], undefined, undefined,
+    transversalFig("Transversal crossing two parallel lines. An alternate pair (Z-shape) labelled (10x − 30) degrees and (6x + 50) degrees.", { BL: "(10x-30)°" }, { TR: "(6x+50)°" })),
 ];
 
 parallelLinesTransversals.multiPartPractice = [
@@ -2876,9 +3193,11 @@ parallelLinesTransversals.multiPartPractice = [
     prompt:
       "Two parallel lines AB and CD are cut by a transversal (chevrons mark the parallels). At the upper line the transversal makes an angle of 68° measured above the line on the right of the crossing point.",
     latex: "AB \\parallel CD,\\quad \\text{given angle} = 68^\\circ",
-    planeShapeDiagram: parallelAnglesShape(
-      "Transversal crossing two parallel lines AB and CD (chevroned). The given 68 degree angle at the upper line, with the corresponding, alternate and co-interior positions at the other line available to read.",
-      { topLeft: "68°", bottomLeft: "corr.", bottomRight: "co-int." }
+    angleFigureDiagram: transversalFig(
+      "Transversal crossing two parallel lines AB (upper) and CD (lower). The given 68 degree angle on the right at the upper line, with the corresponding, alternate and co-interior positions at the lower line marked for reading.",
+      { BR: "68°" },
+      { BR: "corr.", TL: "alt.", TR: "co-int." },
+      ["AB", "CD"]
     ),
     answer: "112",
     hint: "Corresponding angles are equal; alternate angles are equal; co-interior angles sum to 180°.",

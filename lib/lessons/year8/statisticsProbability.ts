@@ -4620,6 +4620,11 @@ const boxPlots: LessonContent = {
         },
       ],
       finalAnswerLatex: "\\text{IQR} = 10,\\quad \\text{Range} = 23",
+      boxPlotDiagram: {
+        description: "A box plot with the left whisker at 5, a box from 10 to 20, a median line at 14 and the right whisker at 28.",
+        plots: [{ label: "Dataset", min: 5, q1: 10, median: 14, q3: 20, max: 28 }],
+        showValueLabels: true,
+      },
     } as WorkedExample,
     {
       title: "Describe the shape from a box plot",
@@ -4640,6 +4645,11 @@ const boxPlots: LessonContent = {
         },
       ],
       finalAnswerLatex: "\\text{The distribution is skewed right (positively skewed).}",
+      boxPlotDiagram: {
+        description: "A box plot with the left whisker at 2, a box from 6 to 12, a median line at 8 and the right whisker at 24 — the long right whisker shows the right skew.",
+        plots: [{ label: "Dataset", min: 2, q1: 6, median: 8, q3: 12, max: 24 }],
+        showValueLabels: true,
+      },
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -4669,13 +4679,20 @@ const boxPlots: LessonContent = {
       "12",
       "The left edge of the box is Q1 = 8 and the right edge is Q3 = 20. IQR = 20 − 8 = 12."
     ),
-    answer(
-      "y8-dat-bxp-g4",
-      "A box plot shows: Min = 5, Q1 = 9, Median = 13, Q3 = 17, Max = 21. What is the range?",
-      "\\text{Range} = \\text{Max} - \\text{Min} = 21 - 5",
-      "16",
-      "Range = maximum − minimum = 21 − 5 = 16."
-    ),
+    {
+      ...answer(
+        "y8-dat-bxp-g4",
+        "A box plot shows: Min = 5, Q1 = 9, Median = 13, Q3 = 17, Max = 21. What is the range?",
+        "\\text{Range} = \\text{Max} - \\text{Min} = 21 - 5",
+        "16",
+        "Range = maximum − minimum = 21 − 5 = 16."
+      ),
+      boxPlotDiagram: {
+        description: "A box plot with the left whisker at 5, a box from 9 to 17, a median line at 13 and the right whisker at 21.",
+        plots: [{ label: "Dataset", min: 5, q1: 9, median: 13, q3: 17, max: 21 }],
+        showValueLabels: true,
+      },
+    },
   ],
   independentPractice: [
     answer(
@@ -4711,14 +4728,21 @@ const boxPlots: LessonContent = {
       ],
       "When the median is close to Q1 (the lower edge of the box) and the right whisker is long, most values are bunched at the lower end with a long tail stretching right — this is a right (positive) skew."
     ),
-    answer(
-      "y8-dat-bxp-i5",
-      "A box plot has: Min = 10, Q1 = 14, Median = 18, Q3 = 22, Max = 26. Find the IQR and the range.",
-      "\\text{IQR} = 22 - 14,\\quad \\text{Range} = 26 - 10",
-      "8 and 16",
-      "IQR = Q3 − Q1 = 22 − 14 = 8. Range = Max − Min = 26 − 10 = 16.",
-      ["IQR = 8, Range = 16", "IQR=8 Range=16"]
-    ),
+    {
+      ...answer(
+        "y8-dat-bxp-i5",
+        "A box plot has: Min = 10, Q1 = 14, Median = 18, Q3 = 22, Max = 26. Find the IQR and the range.",
+        "\\text{IQR} = 22 - 14,\\quad \\text{Range} = 26 - 10",
+        "8 and 16",
+        "IQR = Q3 − Q1 = 22 − 14 = 8. Range = Max − Min = 26 − 10 = 16.",
+        ["IQR = 8, Range = 16", "IQR=8 Range=16"]
+      ),
+      boxPlotDiagram: {
+        description: "A box plot with the left whisker at 10, a box from 14 to 22, a median line at 18 and the right whisker at 26.",
+        plots: [{ label: "Dataset", min: 10, q1: 14, median: 18, q3: 22, max: 26 }],
+        showValueLabels: true,
+      },
+    },
   ],
   commonMistakes: [
     {
@@ -4735,13 +4759,20 @@ const boxPlots: LessonContent = {
     },
   ],
   masteryQuiz: [
-    choice(
-      "y8-dat-bxp-m1",
-      "A box plot has: Min = 3, Q1 = 7, Median = 11, Q3 = 16, Max = 20. What is the IQR?",
-      "B",
-      ["8", "9", "13", "17"],
-      "IQR = Q3 − Q1 = 16 − 7 = 9."
-    ),
+    {
+      ...choice(
+        "y8-dat-bxp-m1",
+        "A box plot has: Min = 3, Q1 = 7, Median = 11, Q3 = 16, Max = 20. What is the IQR?",
+        "B",
+        ["8", "9", "13", "17"],
+        "IQR = Q3 − Q1 = 16 − 7 = 9."
+      ),
+      boxPlotDiagram: {
+        description: "A box plot with the left whisker at 3, a box from 7 to 16, a median line at 11 and the right whisker at 20.",
+        plots: [{ label: "Dataset", min: 3, q1: 7, median: 11, q3: 16, max: 20 }],
+        showValueLabels: true,
+      },
+    },
     choice(
       "y8-dat-bxp-m2",
       "A box plot has Min = 3 and Max = 23. What is the range?",
@@ -4770,20 +4801,34 @@ const boxPlots: LessonContent = {
       "12",
       "IQR = Q3 − Q1 = 20 − 8 = 12."
     ),
-    answer(
-      "y8-dat-bxp-m6",
-      "A box plot shows: Min = 2, Q1 = 6, Median = 10, Q3 = 14, Max = 30. What is the length of the right whisker?",
-      "30 - 14",
-      "16",
-      "The right whisker extends from Q3 to the maximum: 30 − 14 = 16."
-    ),
-    answer(
-      "y8-dat-bxp-m7",
-      "A box plot shows: Min = 2, Q1 = 6, Median = 10, Q3 = 14, Max = 30. What is the length of the left whisker?",
-      "6 - 2",
-      "4",
-      "The left whisker extends from the minimum to Q1: 6 − 2 = 4."
-    ),
+    {
+      ...answer(
+        "y8-dat-bxp-m6",
+        "A box plot shows: Min = 2, Q1 = 6, Median = 10, Q3 = 14, Max = 30. What is the length of the right whisker?",
+        "30 - 14",
+        "16",
+        "The right whisker extends from Q3 to the maximum: 30 − 14 = 16."
+      ),
+      boxPlotDiagram: {
+        description: "A box plot with the left whisker at 2, a box from 6 to 14, a median line at 10 and the right whisker at 30.",
+        plots: [{ label: "Dataset", min: 2, q1: 6, median: 10, q3: 14, max: 30 }],
+        showValueLabels: true,
+      },
+    },
+    {
+      ...answer(
+        "y8-dat-bxp-m7",
+        "A box plot shows: Min = 2, Q1 = 6, Median = 10, Q3 = 14, Max = 30. What is the length of the left whisker?",
+        "6 - 2",
+        "4",
+        "The left whisker extends from the minimum to Q1: 6 − 2 = 4."
+      ),
+      boxPlotDiagram: {
+        description: "A box plot with the left whisker at 2, a box from 6 to 14, a median line at 10 and the right whisker at 30.",
+        plots: [{ label: "Dataset", min: 2, q1: 6, median: 10, q3: 14, max: 30 }],
+        showValueLabels: true,
+      },
+    },
     answer(
       "y8-dat-bxp-m8",
       "Sorted data: 5, 8, 11, 14, 17, 20, 23, 26 (8 values). Find Q1.",
@@ -4823,8 +4868,15 @@ const boxPlots: LessonContent = {
       ["width of the box", "length of a whisker", "total range", "median"],
       "The IQR (Q3 - Q1) is the width of the box.", 1),
     // Difficulty 2
-    poolAnswer("y8-dat-bxp-p7", "A box plot: Min = 5, Q1 = 9, Median = 13, Q3 = 17, Max = 21. Find the IQR.",
-      "17 - 9", "8", "IQR = Q3 - Q1 = 17 - 9 = 8.", 2),
+    {
+      ...poolAnswer("y8-dat-bxp-p7", "A box plot: Min = 5, Q1 = 9, Median = 13, Q3 = 17, Max = 21. Find the IQR.",
+        "17 - 9", "8", "IQR = Q3 - Q1 = 17 - 9 = 8.", 2),
+      boxPlotDiagram: {
+        description: "A box plot with the left whisker at 5, a box from 9 to 17, a median line at 13 and the right whisker at 21.",
+        plots: [{ label: "Dataset", min: 5, q1: 9, median: 13, q3: 17, max: 21 }],
+        showValueLabels: true,
+      },
+    },
     poolAnswer("y8-dat-bxp-p8", "Same box plot (Min 5, Max 21). Find the range.",
       "21 - 5", "16", "Range = 21 - 5 = 16.", 2),
     poolAnswer("y8-dat-bxp-p9", "Sorted data: 6, 10, 14, 18, 22. Find Q1 (median of the lower half, excluding the median).",
@@ -4846,10 +4898,24 @@ const boxPlots: LessonContent = {
     poolChoice("y8-dat-bxp-p16", "A box plot has the median close to Q1 and a long right whisker. The shape is…", "B",
       ["symmetric", "skewed right", "skewed left", "bimodal"],
       "Median near Q1 with a long right tail indicates a right (positive) skew.", 3),
-    poolAnswer("y8-dat-bxp-p17", "A box plot: Min = 8, Q1 = 12, Median = 16, Q3 = 22, Max = 30. Find IQR.",
-      "22 - 12", "10", "IQR = 22 - 12 = 10.", 3),
-    poolAnswer("y8-dat-bxp-p18", "Same box plot. Find the range minus the IQR.",
-      "(30 - 8) - (22 - 12)", "12", "Range = 22, IQR = 10. Difference = 22 - 10 = 12.", 3),
+    {
+      ...poolAnswer("y8-dat-bxp-p17", "A box plot: Min = 8, Q1 = 12, Median = 16, Q3 = 22, Max = 30. Find IQR.",
+        "22 - 12", "10", "IQR = 22 - 12 = 10.", 3),
+      boxPlotDiagram: {
+        description: "A box plot with the left whisker at 8, a box from 12 to 22, a median line at 16 and the right whisker at 30.",
+        plots: [{ label: "Dataset", min: 8, q1: 12, median: 16, q3: 22, max: 30 }],
+        showValueLabels: true,
+      },
+    },
+    {
+      ...poolAnswer("y8-dat-bxp-p18", "Same box plot. Find the range minus the IQR.",
+        "(30 - 8) - (22 - 12)", "12", "Range = 22, IQR = 10. Difference = 22 - 10 = 12.", 3),
+      boxPlotDiagram: {
+        description: "A box plot with the left whisker at 8, a box from 12 to 22, a median line at 16 and the right whisker at 30.",
+        plots: [{ label: "Dataset", min: 8, q1: 12, median: 16, q3: 22, max: 30 }],
+        showValueLabels: true,
+      },
+    },
     // Difficulty 4
     poolAnswer("y8-dat-bxp-p19", "Sorted data: 5, 8, 11, 14, 17, 20, 23, 26 (8 values). Find Q1.",
       "\\frac{8 + 11}{2}", "9.5", "Lower half: 5,8,11,14. Q1 = (8 + 11) ÷ 2 = 9.5.", 4),
@@ -4860,15 +4926,29 @@ const boxPlots: LessonContent = {
     poolChoice("y8-dat-bxp-p22", "A box plot has a long LEFT whisker and the median close to Q3. The shape is…", "C",
       ["symmetric", "skewed right", "skewed left", "bimodal"],
       "A long left tail with median near Q3 indicates a left (negative) skew.", 4),
-    poolAnswer("y8-dat-bxp-p23", "A box plot: Min = 2, Q1 = 6, Median = 10, Q3 = 14, Max = 30. Find the right whisker length minus the left whisker length.",
-      "(30 - 14) - (6 - 2)", "12", "Right whisker = 16, left whisker = 4. Difference = 16 - 4 = 12.", 4),
+    {
+      ...poolAnswer("y8-dat-bxp-p23", "A box plot: Min = 2, Q1 = 6, Median = 10, Q3 = 14, Max = 30. Find the right whisker length minus the left whisker length.",
+        "(30 - 14) - (6 - 2)", "12", "Right whisker = 16, left whisker = 4. Difference = 16 - 4 = 12.", 4),
+      boxPlotDiagram: {
+        description: "A box plot with the left whisker at 2, a box from 6 to 14, a median line at 10 and the right whisker at 30.",
+        plots: [{ label: "Dataset", min: 2, q1: 6, median: 10, q3: 14, max: 30 }],
+        showValueLabels: true,
+      },
+    },
     poolAnswer("y8-dat-bxp-p24", "A box plot has IQR = 9 and Q1 = 14. Find Q3.",
       "14 + 9", "23", "Q3 = Q1 + IQR = 14 + 9 = 23.", 4),
     // Difficulty 5
     poolAnswer("y8-dat-bxp-p25", "Sorted data: 4, 7, 7, 10, 13, 16, 16, 19, 22, 25 (10 values). Find the IQR.",
       "Q_3 - Q_1", "12", "Lower half: 4,7,7,10,13 → Q1 = 7 (3rd value). Upper half: 16,16,19,22,25 → Q3 = 19 (3rd value). IQR = 19 - 7 = 12.", 5),
-    poolAnswer("y8-dat-bxp-p26", "A box plot: Min = 10, Q1 = 18, Median = 24, Q3 = 30, Max = 50. A new maximum of 70 replaces 50. By how much does the IQR change?",
-      "\\text{IQR depends on Q1 and Q3 only}", "0", "The IQR = Q3 - Q1 = 12 does not depend on the maximum, so changing the max does not change the IQR — change of 0.", 5),
+    {
+      ...poolAnswer("y8-dat-bxp-p26", "A box plot: Min = 10, Q1 = 18, Median = 24, Q3 = 30, Max = 50. A new maximum of 70 replaces 50. By how much does the IQR change?",
+        "\\text{IQR depends on Q1 and Q3 only}", "0", "The IQR = Q3 - Q1 = 12 does not depend on the maximum, so changing the max does not change the IQR — change of 0.", 5),
+      boxPlotDiagram: {
+        description: "A box plot with the left whisker at 10, a box from 18 to 30, a median line at 24 and the right whisker at 50.",
+        plots: [{ label: "Dataset", min: 10, q1: 18, median: 24, q3: 30, max: 50 }],
+        showValueLabels: true,
+      },
+    },
     poolAnswer("y8-dat-bxp-p27", "A box plot: Q1 = 22, Q3 = 38, Min = 10, Max = 60. Find the range minus the IQR.",
       "(60 - 10) - (38 - 22)", "34", "Range = 50, IQR = 16. Difference = 50 - 16 = 34.", 5),
     poolChoice("y8-dat-bxp-p28", "Two box plots have the same box (same Q1, Q3) but Plot B's box is drawn wider on paper. What does this tell you about the data?", "C",
@@ -4878,8 +4958,15 @@ const boxPlots: LessonContent = {
       "Equal Q1 and Q3 mean the same IQR; drawing width on paper does not change the data.", 5),
     poolAnswer("y8-dat-bxp-p29", "Sorted data: 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36 (12 values). Find the IQR.",
       "Q_3 - Q_1", "18", "Lower 6: 3,6,9,12,15,18 → Q1 = (9+12)/2 = 10.5. Upper 6: 21,24,27,30,33,36 → Q3 = (27+30)/2 = 28.5. IQR = 28.5 - 10.5 = 18.", 5),
-    poolAnswer("y8-dat-bxp-p30", "A box plot has Median = 20 exactly in the centre of a box from 14 to 26, with whiskers to Min = 8 and Max = 32 of equal length. Describe the shape in one word.",
-      "\\text{equal box halves and equal whiskers}", "symmetric", "The median is central and the whiskers are equal (6 each), so the distribution is symmetric.", 5),
+    {
+      ...poolAnswer("y8-dat-bxp-p30", "A box plot has Median = 20 exactly in the centre of a box from 14 to 26, with whiskers to Min = 8 and Max = 32 of equal length. Describe the shape in one word.",
+        "\\text{equal box halves and equal whiskers}", "symmetric", "The median is central and the whiskers are equal (6 each), so the distribution is symmetric.", 5),
+      boxPlotDiagram: {
+        description: "A symmetric box plot with the left whisker at 8, a box from 14 to 26, a median line centred at 20 and the right whisker at 32.",
+        plots: [{ label: "Dataset", min: 8, q1: 14, median: 20, q3: 26, max: 32 }],
+        showValueLabels: true,
+      },
+    },
   ],
   multiPartPractice: [
     {
@@ -4976,6 +5063,14 @@ const comparingDataWithBoxPlots: LessonContent = {
       ],
       finalAnswerLatex:
         "\\text{Group B: higher median (26 vs 22); similar spread (IQR 12 vs 13).}",
+      boxPlotDiagram: {
+        description: "Side-by-side box plots. Group A: min 10, Q1 15, median 22, Q3 28, max 35. Group B: min 8, Q1 18, median 26, Q3 30, max 34.",
+        plots: [
+          { label: "Group A", min: 10, q1: 15, median: 22, q3: 28, max: 35 },
+          { label: "Group B", min: 8, q1: 18, median: 26, q3: 30, max: 34 },
+        ],
+        showValueLabels: true,
+      },
     } as WorkedExample,
     {
       title: "Describe shape from a side-by-side display",
@@ -4993,6 +5088,14 @@ const comparingDataWithBoxPlots: LessonContent = {
       ],
       finalAnswerLatex:
         "\\text{Class X is right-skewed; Class Y is left-skewed.}",
+      boxPlotDiagram: {
+        description: "Side-by-side box plots. Class X: min 40, Q1 55, median 57, Q3 70, max 90 (right-skewed). Class Y: min 40, Q1 52, median 68, Q3 72, max 80 (left-skewed).",
+        plots: [
+          { label: "Class X", min: 40, q1: 55, median: 57, q3: 70, max: 90 },
+          { label: "Class Y", min: 40, q1: 52, median: 68, q3: 72, max: 80 },
+        ],
+        showValueLabels: true,
+      },
     } as WorkedExample,
     {
       title: "Write a complete comparison",
@@ -5095,14 +5198,24 @@ const comparingDataWithBoxPlots: LessonContent = {
       ],
       "Group P's median (35) is higher, so it has the higher typical value. Equal IQRs mean similar spread. A higher median does not mean more variability."
     ),
-    answer(
-      "y8-dat-cmpbxp-i5",
-      "Group A: Min=4, Q1=10, Median=18, Q3=22, Max=28. Group B: Min=4, Q1=8, Median=12, Q3=24, Max=28. Which group has the larger IQR?",
-      "\\text{IQR A}=22-10,\\quad \\text{IQR B}=24-8",
-      "Group B",
-      "IQR A = 22 − 10 = 12. IQR B = 24 − 8 = 16. Group B has the larger IQR (16 > 12).",
-      ["B", "group b"]
-    ),
+    {
+      ...answer(
+        "y8-dat-cmpbxp-i5",
+        "Group A: Min=4, Q1=10, Median=18, Q3=22, Max=28. Group B: Min=4, Q1=8, Median=12, Q3=24, Max=28. Which group has the larger IQR?",
+        "\\text{IQR A}=22-10,\\quad \\text{IQR B}=24-8",
+        "Group B",
+        "IQR A = 22 − 10 = 12. IQR B = 24 − 8 = 16. Group B has the larger IQR (16 > 12).",
+        ["B", "group b"]
+      ),
+      boxPlotDiagram: {
+        description: "Side-by-side box plots. Group A: min 4, Q1 10, median 18, Q3 22, max 28. Group B: min 4, Q1 8, median 12, Q3 24, max 28.",
+        plots: [
+          { label: "Group A", min: 4, q1: 10, median: 18, q3: 22, max: 28 },
+          { label: "Group B", min: 4, q1: 8, median: 12, q3: 24, max: 28 },
+        ],
+        showValueLabels: true,
+      },
+    },
   ],
   commonMistakes: [
     {
@@ -5190,22 +5303,42 @@ const comparingDataWithBoxPlots: LessonContent = {
       "12",
       "The difference in medians = 50 − 38 = 12. Group A's typical value is 12 units higher."
     ),
-    answer(
-      "y8-dat-cmpbxp-m9",
-      "Group A: Min = 10, Q1 = 20, Median = 30, Q3 = 45, Max = 50. Group B: Min = 10, Q1 = 15, Median = 20, Q3 = 35, Max = 50. Which group has the larger IQR?",
-      "\\text{IQR A}=45-20,\\quad \\text{IQR B}=35-15",
-      "Group A",
-      "IQR A = 45 − 20 = 25. IQR B = 35 − 15 = 20. Group A has the larger IQR.",
-      ["Group A", "A", "group a"]
-    ),
-    answer(
-      "y8-dat-cmpbxp-m10",
-      "Group A: Min = 10, Q1 = 20, Median = 30, Q3 = 40, Max = 50. Group B: Min = 10, Q1 = 15, Median = 20, Q3 = 35, Max = 50. Which group has the higher median and by how much?",
-      "30 - 20",
-      "Group A by 10",
-      "Median A = 30, Median B = 20. Group A's median is higher by 30 − 20 = 10.",
-      ["A by 10", "group a, 10"]
-    ),
+    {
+      ...answer(
+        "y8-dat-cmpbxp-m9",
+        "Group A: Min = 10, Q1 = 20, Median = 30, Q3 = 45, Max = 50. Group B: Min = 10, Q1 = 15, Median = 20, Q3 = 35, Max = 50. Which group has the larger IQR?",
+        "\\text{IQR A}=45-20,\\quad \\text{IQR B}=35-15",
+        "Group A",
+        "IQR A = 45 − 20 = 25. IQR B = 35 − 15 = 20. Group A has the larger IQR.",
+        ["Group A", "A", "group a"]
+      ),
+      boxPlotDiagram: {
+        description: "Side-by-side box plots. Group A: min 10, Q1 20, median 30, Q3 45, max 50. Group B: min 10, Q1 15, median 20, Q3 35, max 50.",
+        plots: [
+          { label: "Group A", min: 10, q1: 20, median: 30, q3: 45, max: 50 },
+          { label: "Group B", min: 10, q1: 15, median: 20, q3: 35, max: 50 },
+        ],
+        showValueLabels: true,
+      },
+    },
+    {
+      ...answer(
+        "y8-dat-cmpbxp-m10",
+        "Group A: Min = 10, Q1 = 20, Median = 30, Q3 = 40, Max = 50. Group B: Min = 10, Q1 = 15, Median = 20, Q3 = 35, Max = 50. Which group has the higher median and by how much?",
+        "30 - 20",
+        "Group A by 10",
+        "Median A = 30, Median B = 20. Group A's median is higher by 30 − 20 = 10.",
+        ["A by 10", "group a, 10"]
+      ),
+      boxPlotDiagram: {
+        description: "Side-by-side box plots. Group A: min 10, Q1 20, median 30, Q3 40, max 50. Group B: min 10, Q1 15, median 20, Q3 35, max 50.",
+        plots: [
+          { label: "Group A", min: 10, q1: 20, median: 30, q3: 40, max: 50 },
+          { label: "Group B", min: 10, q1: 15, median: 20, q3: 35, max: 50 },
+        ],
+        showValueLabels: true,
+      },
+    },
   ],
   masteryQuizPool: [
     // Difficulty 1
@@ -5238,8 +5371,18 @@ const comparingDataWithBoxPlots: LessonContent = {
     poolAnswer("y8-dat-cmpbxp-p12", "Group A: Q1 = 20, Q3 = 35. Find IQR A.",
       "35 - 20", "15", "IQR = 35 - 20 = 15.", 2),
     // Difficulty 3
-    poolAnswer("y8-dat-cmpbxp-p13", "Group A: Min 5, Q1 12, Med 18, Q3 26, Max 40. Group B: Min 5, Q1 14, Med 18, Q3 22, Max 40. Both have the same median; find IQR A minus IQR B.",
-      "(26 - 12) - (22 - 14)", "6", "IQR A = 14, IQR B = 8. Difference = 6.", 3),
+    {
+      ...poolAnswer("y8-dat-cmpbxp-p13", "Group A: Min 5, Q1 12, Med 18, Q3 26, Max 40. Group B: Min 5, Q1 14, Med 18, Q3 22, Max 40. Both have the same median; find IQR A minus IQR B.",
+        "(26 - 12) - (22 - 14)", "6", "IQR A = 14, IQR B = 8. Difference = 6.", 3),
+      boxPlotDiagram: {
+        description: "Side-by-side box plots. Group A: min 5, Q1 12, median 18, Q3 26, max 40. Group B: min 5, Q1 14, median 18, Q3 22, max 40.",
+        plots: [
+          { label: "Group A", min: 5, q1: 12, median: 18, q3: 26, max: 40 },
+          { label: "Group B", min: 5, q1: 14, median: 18, q3: 22, max: 40 },
+        ],
+        showValueLabels: true,
+      },
+    },
     poolChoice("y8-dat-cmpbxp-p14", "Two box plots share a median of 30. Group A IQR = 20, Group B IQR = 8. Which statement is correct?", "C",
       ["Group A is more consistent.", "Group B has a higher centre.",
        "Same centre, but Group B's middle values are more tightly clustered.",
@@ -5255,10 +5398,30 @@ const comparingDataWithBoxPlots: LessonContent = {
     poolAnswer("y8-dat-cmpbxp-p18", "Group A: Q1 18, Q3 30. Group B: Q1 22, Q3 38. Find IQR B minus IQR A.",
       "(38 - 22) - (30 - 18)", "4", "IQR B = 16, IQR A = 12. Difference = 4.", 3),
     // Difficulty 4
-    poolAnswer("y8-dat-cmpbxp-p19", "Group A: Min 10, Q1 18, Med 24, Q3 30, Max 50. Group B: Min 10, Q1 20, Med 28, Q3 34, Max 40. Find median B minus median A.",
-      "28 - 24", "4", "Median B = 28, median A = 24. Difference = 4.", 4),
-    poolAnswer("y8-dat-cmpbxp-p20", "For the groups above, find IQR A minus IQR B.",
-      "(30 - 18) - (34 - 20)", "-2", "IQR A = 12, IQR B = 14. Difference = 12 - 14 = -2.", 4),
+    {
+      ...poolAnswer("y8-dat-cmpbxp-p19", "Group A: Min 10, Q1 18, Med 24, Q3 30, Max 50. Group B: Min 10, Q1 20, Med 28, Q3 34, Max 40. Find median B minus median A.",
+        "28 - 24", "4", "Median B = 28, median A = 24. Difference = 4.", 4),
+      boxPlotDiagram: {
+        description: "Side-by-side box plots. Group A: min 10, Q1 18, median 24, Q3 30, max 50. Group B: min 10, Q1 20, median 28, Q3 34, max 40.",
+        plots: [
+          { label: "Group A", min: 10, q1: 18, median: 24, q3: 30, max: 50 },
+          { label: "Group B", min: 10, q1: 20, median: 28, q3: 34, max: 40 },
+        ],
+        showValueLabels: true,
+      },
+    },
+    {
+      ...poolAnswer("y8-dat-cmpbxp-p20", "For the groups above, find IQR A minus IQR B.",
+        "(30 - 18) - (34 - 20)", "-2", "IQR A = 12, IQR B = 14. Difference = 12 - 14 = -2.", 4),
+      boxPlotDiagram: {
+        description: "Side-by-side box plots. Group A: min 10, Q1 18, median 24, Q3 30, max 50. Group B: min 10, Q1 20, median 28, Q3 34, max 40.",
+        plots: [
+          { label: "Group A", min: 10, q1: 18, median: 24, q3: 30, max: 50 },
+          { label: "Group B", min: 10, q1: 20, median: 28, q3: 34, max: 40 },
+        ],
+        showValueLabels: true,
+      },
+    },
     poolChoice("y8-dat-cmpbxp-p21", "Group A: median 50, IQR 8, range 20. Group B: median 50, IQR 8, range 48 (one far outlier). Which is the fairer way to compare consistency?", "B",
       ["Range, because it uses all values.", "IQR, because it is not distorted by the single outlier.",
        "The median, because it is the centre.", "Neither can compare them."],
@@ -5274,18 +5437,45 @@ const comparingDataWithBoxPlots: LessonContent = {
        "Class X is less consistent."],
       "Class X has the higher median and smaller IQR, so it scored higher and more consistently.", 4),
     // Difficulty 5
-    poolAnswer("y8-dat-cmpbxp-p25", "Group A: Min 20, Q1 30, Med 40, Q3 55, Max 80. Group B: Min 20, Q1 35, Med 40, Q3 48, Max 60. Both share median 40. Find IQR A minus IQR B.",
-      "(55 - 30) - (48 - 35)", "12", "IQR A = 25, IQR B = 13. Difference = 12.", 5),
-    poolAnswer("y8-dat-cmpbxp-p26", "For the groups above, find range A minus range B.",
-      "(80 - 20) - (60 - 20)", "20", "Range A = 60, range B = 40. Difference = 20.", 5),
+    {
+      ...poolAnswer("y8-dat-cmpbxp-p25", "Group A: Min 20, Q1 30, Med 40, Q3 55, Max 80. Group B: Min 20, Q1 35, Med 40, Q3 48, Max 60. Both share median 40. Find IQR A minus IQR B.",
+        "(55 - 30) - (48 - 35)", "12", "IQR A = 25, IQR B = 13. Difference = 12.", 5),
+      boxPlotDiagram: {
+        description: "Side-by-side box plots. Group A: min 20, Q1 30, median 40, Q3 55, max 80. Group B: min 20, Q1 35, median 40, Q3 48, max 60.",
+        plots: [
+          { label: "Group A", min: 20, q1: 30, median: 40, q3: 55, max: 80 },
+          { label: "Group B", min: 20, q1: 35, median: 40, q3: 48, max: 60 },
+        ],
+        showValueLabels: true,
+      },
+    },
+    {
+      ...poolAnswer("y8-dat-cmpbxp-p26", "For the groups above, find range A minus range B.",
+        "(80 - 20) - (60 - 20)", "20", "Range A = 60, range B = 40. Difference = 20.", 5),
+      boxPlotDiagram: {
+        description: "Side-by-side box plots. Group A: min 20, Q1 30, median 40, Q3 55, max 80. Group B: min 20, Q1 35, median 40, Q3 48, max 60.",
+        plots: [
+          { label: "Group A", min: 20, q1: 30, median: 40, q3: 55, max: 80 },
+          { label: "Group B", min: 20, q1: 35, median: 40, q3: 48, max: 60 },
+        ],
+        showValueLabels: true,
+      },
+    },
     poolChoice("y8-dat-cmpbxp-p27", "Group A's box plot is skewed right; Group B's is symmetric, with the same median. Which measure of centre best compares their typical values fairly?", "B",
       ["Mean for both.", "Median for both, since it is resistant to skew.",
        "Mean for A, median for B.", "Mode for both."],
       "The median is resistant to skew, so using it for both gives a fair comparison.", 5),
     poolAnswer("y8-dat-cmpbxp-p28", "Group A: median 55, Q1 40, Q3 70. Group B: median 55, Q1 48, Q3 62. Which group's middle 50% spans a wider range, and by how much? (Give the IQR difference.)",
       "(70 - 40) - (62 - 48)", "16", "IQR A = 30, IQR B = 14. Group A is wider by 30 - 14 = 16.", 5),
-    poolAnswer("y8-dat-cmpbxp-p29", "Group A: Min 5, Q1 12, Med 18, Q3 24, Max 60. The right whisker (Max - Q3) compared with the left whisker (Q1 - Min): find the difference (right minus left).",
-      "(60 - 24) - (12 - 5)", "29", "Right whisker = 36, left whisker = 7. Difference = 36 - 7 = 29 — a strong right skew.", 5),
+    {
+      ...poolAnswer("y8-dat-cmpbxp-p29", "Group A: Min 5, Q1 12, Med 18, Q3 24, Max 60. The right whisker (Max - Q3) compared with the left whisker (Q1 - Min): find the difference (right minus left).",
+        "(60 - 24) - (12 - 5)", "29", "Right whisker = 36, left whisker = 7. Difference = 36 - 7 = 29 — a strong right skew.", 5),
+      boxPlotDiagram: {
+        description: "A box plot with the left whisker at 5, a box from 12 to 24, a median line at 18 and a long right whisker at 60 — a strong right skew.",
+        plots: [{ label: "Group A", min: 5, q1: 12, median: 18, q3: 24, max: 60 }],
+        showValueLabels: true,
+      },
+    },
     poolChoice("y8-dat-cmpbxp-p30", "Two delivery companies' times (minutes) are shown as box plots. A: median 30, IQR 10. B: median 30, IQR 4 but Max far out at 90. Which is the better choice for reliable delivery, and why?", "B",
       ["A, because its range is smaller.",
        "B, because its middle 50% is far more consistent (IQR 4), despite one rare long delivery.",
@@ -5303,6 +5493,14 @@ const comparingDataWithBoxPlots: LessonContent = {
       hint: "Read the median and quartiles from each summary; compute the IQRs and compare medians.",
       explanation:
         "Median A = 60, median B = 54, so A is higher by 6. IQR A = 72 - 50 = 22; IQR B = 66 - 44 = 22 (equal spread). Both share the same range (90 - 30 = 60).",
+      boxPlotDiagram: {
+        description: "Side-by-side box plots. Class A: min 30, Q1 50, median 60, Q3 72, max 90. Class B: min 30, Q1 44, median 54, Q3 66, max 90.",
+        plots: [
+          { label: "Class A", min: 30, q1: 50, median: 60, q3: 72, max: 90 },
+          { label: "Class B", min: 30, q1: 44, median: 54, q3: 66, max: 90 },
+        ],
+        showValueLabels: true,
+      },
       parts: [
         {
           key: "a",
