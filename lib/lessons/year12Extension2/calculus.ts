@@ -379,63 +379,63 @@ const methodSelectionLesson: Partial<ExplicitLesson> = {
         "Partial fractions",
         "Standard form",
       ],
-      "x·cos(x) is a product of a polynomial and a trigonometric function. LIATE: Algebraic before Trigonometric, so choose u = x and apply integration by parts.",
+      "x cos(x) is a product of a polynomial and a trigonometric function. LIATE places Algebraic before Trigonometric, so choose u = x and apply integration by parts.",
       "Look for a product of two different function families."
     ),
     calcTyped(
       "y12e2-meth-g2",
-      "For $\int \frac{1}{(x-1)(x+3)}\,dx$, name the best method.",
+      "For $\\int \\frac{1}{(x-1)(x+3)}\\,dx$, name the best method.",
       "",
       "partial fractions",
       ["Partial fractions"],
-      "The denominator has two distinct linear factors, so decompose into partial fractions A/(x???1) + B/(x+3) before integrating.",
+      "The denominator has two distinct linear factors, so decompose into partial fractions A/(x-1) + B/(x+3) before integrating.",
       "Factor the denominator and check for linear factors."
     ),
     calcTyped(
       "y12e2-meth-g3",
-      "For $\int \frac{4x}{x^2+4}\,dx$, name the best method.",
+      "For $\\int \\frac{4x}{x^2+4}\\,dx$, name the best method.",
       "",
       "substitution",
       ["Substitution"],
-      "4x is twice the derivative of x??+4. Substitution u = x??+4, du = 2x dx converts the integral to 2???du/u.",
+      "4x is twice the derivative of x^2+4. With u = x^2+4 and du = 2x dx, the integral becomes 2 times the integral of du/u.",
       "Check whether the numerator is proportional to the derivative of the denominator."
     ),
     calcTyped(
       "y12e2-meth-g4",
-      "For $\int \sin^2(x)\,dx$, name the best method.",
+      "For $\\int \\sin^2(x)\\,dx$, name the best method.",
       "",
       "trigonometric identity",
       ["Trig identity", "trig identity", "Trigonometric identity"],
-      "Apply sin??(x) = (1 ??? cos(2x))/2 to reduce the power, then integrate each term as a standard form.",
+      "Apply sin^2(x) = (1 - cos(2x))/2 to reduce the power, then integrate each term as a standard form.",
       "A power of a single trig function calls for a half-angle identity."
     ),
   ],
   independentPractice: [
     calcTyped(
       "y12e2-meth-i1",
-      "For $\int x^3 e^x\,dx$, name the best method.",
+      "For $\\int x^3 e^x\\,dx$, name the best method.",
       "",
       "integration by parts",
       ["Integration by parts", "repeated integration by parts"],
-      "A polynomial cubed times an exponential requires repeated integration by parts ??? three applications reduce x?? to a constant.",
+      "A cubic polynomial times an exponential is a by-parts structure. Repeated integration by parts reduces x^3 step by step until only a constant remains.",
       "Identify the two function families in the product."
     ),
     calcTyped(
       "y12e2-meth-i2",
-      "For $\int \cos(x^2)\cdot 2x\,dx$, name the best method.",
+      "For $\\int \\cos(x^2)\\cdot 2x\\,dx$, name the best method.",
       "",
       "substitution",
       ["Substitution"],
-      "2x is the derivative of x??, so substitution u = x?? converts this to ???cos(u)du = sin(u) + C.",
+      "2x is the derivative of x^2, so substitution u = x^2 converts this to the integral of cos(u) du, which is sin(u) + C.",
       "Check whether a factor of the integrand is the derivative of an inner function."
     ),
     calcTyped(
       "y12e2-meth-i3",
-      "For $\int \frac{1}{x^2-9}\,dx$, name the best method.",
+      "For $\\int \\frac{1}{x^2-9}\\,dx$, name the best method.",
       "",
       "partial fractions",
       ["Partial fractions"],
-      "x?? ??? 9 = (x ??? 3)(x + 3): two distinct linear factors ??? partial fractions with A/(x???3) + B/(x+3).",
+      "x^2 - 9 factors as (x - 3)(x + 3), so the denominator has two distinct linear factors and partial fractions apply: A/(x-3) + B/(x+3).",
       "Factor the denominator first."
     ),
     calcTyped(
@@ -449,11 +449,11 @@ const methodSelectionLesson: Partial<ExplicitLesson> = {
     ),
     calcTyped(
       "y12e2-meth-i5",
-      "For $\int \cos^4(x)\,dx$, name the best method.",
+      "For $\\int \\cos^4(x)\\,dx$, name the best method.",
       "",
       "trigonometric identity",
       ["Trig identity", "trig identity", "Trigonometric identity"],
-      "Repeated use of cos??(x) = (1 + cos(2x))/2 reduces cos???(x) = ((1 + cos(2x))/2)?? to terms that can be integrated as standard forms.",
+      "Repeated use of cos^2(x) = (1 + cos(2x))/2 reduces cos^4(x) to lower powers and standard trigonometric terms that can then be integrated.",
       "A power of cos greater than 1 requires the half-angle identity."
     ),
   ],
@@ -472,27 +472,27 @@ const methodSelectionLesson: Partial<ExplicitLesson> = {
       fix: "LIATE order prevents circular loops: Logarithm, Inverse trig, Algebraic, Trigonometric, Exponential.",
     },
     {
-      mistake: "Integrating sin²(x) or cos²(x) without first applying the half-angle identity.",
+      mistake: "Integrating sin^2(x) or cos^2(x) without first applying the half-angle identity.",
       fix: "Always reduce powers of sin or cos using the identity before integrating.",
     },
   ],
   masteryQuiz: [
     calcTyped(
       "y12e2-meth-m1",
-      "For $\int x^3 e^x\,dx$, name the best method.",
+      "For $\\int x^3 e^x\\,dx$, name the best method.",
       "",
       "integration by parts",
       ["Integration by parts", "repeated integration by parts"],
-      "Polynomial ?? exponential ??? repeated integration by parts. x?? has degree 3, so three applications are needed.",
-      "Count the degree of the polynomial ??? that is how many times by parts must be applied."
+      "A polynomial times an exponential is a by-parts structure. Here x^3 has degree 3, so repeated integration by parts is the efficient method.",
+      "Count the degree of the polynomial. That tells you how many by-parts rounds are needed before it disappears."
     ),
     calcTyped(
       "y12e2-meth-m2",
-      "For $\int \frac{1}{(x-1)(x+2)}\,dx$, name the best method.",
+      "For $\\int \\frac{1}{(x-1)(x+2)}\\,dx$, name the best method.",
       "",
       "partial fractions",
       ["Partial fractions"],
-      "Two distinct linear factors in the denominator ??? partial fractions A/(x???1) + B/(x+2).",
+      "Two distinct linear factors in the denominator point to partial fractions, using A/(x-1) + B/(x+2).",
       "Factor the denominator and check for linear pieces."
     ),
     calcTyped(
@@ -506,11 +506,11 @@ const methodSelectionLesson: Partial<ExplicitLesson> = {
     ),
     calcTyped(
       "y12e2-meth-m4",
-      "For $\int \cos^2(x)\,dx$, name the best method.",
+      "For $\\int \\cos^2(x)\\,dx$, name the best method.",
       "",
       "trigonometric identity",
       ["Trig identity", "trig identity", "Trigonometric identity"],
-      "Apply cos??(x) = (1 + cos(2x))/2, then integrate each term: x/2 + sin(2x)/4 + C.",
+      "Apply cos^2(x) = (1 + cos(2x))/2, then integrate each term: x/2 + sin(2x)/4 + C.",
       "Recognise a power of a single trig function."
     ),
     calcChoice(
@@ -523,7 +523,7 @@ const methodSelectionLesson: Partial<ExplicitLesson> = {
         "$\\int \\frac{1}{x^2}\\,dx$",
         "$\\int e^x(x^2+1)\\,dx$",
       ],
-      "2x is exactly the derivative of x²+1, so u = x²+1 converts ∫2x(x²+1)⁵dx to ∫u⁵du — a simple power form.",
+      "2x is exactly the derivative of x^2+1, so u = x^2+1 converts the integral to the simple power form integral of u^5 du.",
       "The substitution works when a factor equals the derivative of the inner expression."
     ),
     calcTyped(
@@ -532,16 +532,16 @@ const methodSelectionLesson: Partial<ExplicitLesson> = {
       "\\int 2x e^{x^2}\\,dx,\\quad u=\\,?",
       "x^2",
       ["x²"],
-      "With u = x², du = 2x dx. The integral becomes ∫eᵘ du = eᵘ + C = $e^{x^2}$ + C.",
+      "With u = x^2, du = 2x dx. The integral becomes the integral of e^u du = e^u + C, so substituting back gives e^(x^2) + C.",
       "Look for a factor proportional to the derivative of the exponent."
     ),
     calcTyped(
       "y12e2-meth-m7",
-      "For $\int \frac{x+1}{x^2+2x+3}\,dx$, name the best method.",
+      "For $\\int \\frac{x+1}{x^2+2x+3}\\,dx$, name the best method.",
       "",
       "substitution",
       ["Substitution"],
-      "The derivative of x??+2x+3 is 2x+2 = 2(x+1), so the numerator x+1 is half the derivative. Substitution u = x??+2x+3 gives ???du/(2u) = (1/2)ln|u| + C.",
+      "The derivative of x^2+2x+3 is 2x+2 = 2(x+1), so the numerator x+1 is half the derivative. With u = x^2+2x+3, the integral becomes one-half times the integral of du/u = (1/2)ln|u| + C.",
       "Compare the numerator with the derivative of the denominator."
     ),
     calcChoice(
@@ -554,7 +554,7 @@ const methodSelectionLesson: Partial<ExplicitLesson> = {
         "$\\int x\\sin(x)\\,dx$",
         "$\\int x^2\\cos(x)\\,dx$",
       ],
-      "In ∫x/(x²+1)dx, the numerator x is proportional to the derivative of x²+1 (which is 2x). Substitution u = x²+1 is simpler.",
+      "In the integral x/(x^2+1) dx, the numerator x is proportional to the derivative of x^2+1, which is 2x. So substitution u = x^2+1 is simpler than by parts.",
       "Substitution works when the numerator is the derivative of the denominator."
     ),
     calcTyped(
@@ -564,7 +564,7 @@ const methodSelectionLesson: Partial<ExplicitLesson> = {
       "5",
       [],
       "Integrating cos(5x) is a standard form: the result is sin(5x) divided by the coefficient of x, which is 5. So k = 5.",
-      "For ∫cos(ax)dx, divide the result sin(ax) by a."
+      "For the integral of cos(ax) dx, divide the result sin(ax) by a."
     ),
     calcChoice(
       "y12e2-meth-m10",
@@ -576,7 +576,7 @@ const methodSelectionLesson: Partial<ExplicitLesson> = {
         "Substitution",
         "Standard form",
       ],
-      "The derivative of x³+1 is 3x², so x² is one-third the derivative. Substitution u = x³+1 gives (1/3)∫du/u = (1/3)ln|u| + C.",
+      "The derivative of x^3+1 is 3x^2, so x^2 is one-third of that derivative. With u = x^3+1, the integral becomes one-third times the integral of du/u = (1/3)ln|u| + C.",
       "Compare the numerator with the derivative of the denominator."
     ),
   ],

@@ -656,9 +656,9 @@ function blueprintPool(lesson: ExplicitLesson, blueprint: PoolBlueprint) {
       explanation: `The valid first step is: ${blueprint.validMove}`,
     },
     {
-      prompt: `A student working on ${blueprint.topic} makes this error: ${blueprint.trap1}. What is wrong?`,
-      correct: blueprint.trap1,
-      explanation: `This is a common error because it ignores ${blueprint.check}.`,
+      prompt: `A student working on ${blueprint.topic} makes this error: ${blueprint.trap1}. Which correct move should replace it?`,
+      correct: blueprint.validMove,
+      explanation: `The correct move is: ${blueprint.validMove} This avoids the error and helps ensure that ${blueprint.check}.`,
     },
     {
       prompt: `Which representation is most useful for ${blueprint.topic}?`,
@@ -671,9 +671,9 @@ function blueprintPool(lesson: ExplicitLesson, blueprint: PoolBlueprint) {
       explanation: `The answer should be checked by confirming that ${blueprint.check}.`,
     },
     {
-      prompt: `In a Band-6 style context involving ${blueprint.d5Context}, what prevents pattern matching?`,
-      correct: "Choosing the method from the structure rather than from the surface form.",
-      explanation: `The unfamiliar context is handled by identifying ${blueprint.object} and applying ${blueprint.validMove}.`,
+      prompt: `In a Band-6 style ${blueprint.topic} question involving ${blueprint.d5Context}, what should you identify before choosing a method?`,
+      correct: blueprint.object,
+      explanation: `Even in an unfamiliar context, first identify ${blueprint.object}. Then apply the correct move: ${blueprint.validMove}`,
     },
   ];
 
