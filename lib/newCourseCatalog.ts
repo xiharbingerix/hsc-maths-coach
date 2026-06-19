@@ -53,6 +53,7 @@ import {
   year12Standard2StatisticsLessonOverride,
   year12Standard2TrigRatesLessonOverride,
 } from "./lessons/year12Standard2";
+import { enrichYear12Standard2Depth } from "./lessons/year12Standard2/feynmanEnhancements";
 import {
   year11AdvancedExponentialLogarithmicLessonOverride,
   year11AdvancedGraphTransformationsLessonOverride,
@@ -462,6 +463,8 @@ export function buildLesson(
   const enriched =
     course.slug === "year-11-advanced"
       ? enrichYear11AdvancedFeynmanDepth(built)
+      : course.slug === "year-12-standard-2"
+        ? enrichYear12Standard2Depth(built)
       : course.slug === "year-12-extension-2"
         ? enrichYear12Extension2Depth(built)
       : built;

@@ -27,7 +27,7 @@
 | Year 11 Advanced | 70 (7 units) | 7 focus areas (MAV-11-01–10) | ✅ 100% — FA1 ✅ FA2 ✅ FA3 ✅ FA4 ✅ FA5 ✅ FA6 ✅ FA7 ✅ all complete | 0 | ✅ Fully audited 2026-06-15; all 7 focus areas complete |
 | Year 11 Extension 1 | 28 (5 units) | 5 focus areas (ME1-11-01–05) | ✅ ~97% — 3 new lessons added 2026-06-16; 532 questions | 0 | ✅ Fixed 2026-06-16 — +reciprocal/squared graphs, +trig equation solving, +greatest term; 28 lessons / 532Q |
 | Year 12 Standard 1 | 23 (5 units) | 7 topics | ✅ 7/7 | 0 | ✅ Complete — all gaps closed 2026-06-15 |
-| Year 12 Standard 2 | 58 (6 units) | 10 topics | ✅ 100% | 10 | ✅ Complete — audited 2026-06-15 (1106 questions) |
+| Year 12 Standard 2 | 45 (9 live units) | 10 NSW topics | ✅ 100% breadth audit recorded 2026-06-15; ✅ live teaching/practice depth rechecked 2026-06-19 | 10 | ✅ 2026-06-19 pass on live 45 lessons: all have 4/5/10 spine, 30-item masteryQuizPool, multiPartPractice, 4 common mistakes, and no Feynman thin-section misses. Seeded 2,272 questions. |
 | Year 12 Advanced | 91 (13 units) | 14 focus areas (MA-F1–S3) | ✅ 100% | 0 | ✅ Complete — audited 2026-06-15 (1726 questions) |
 | Year 12 Extension 1 | 30 (8 units) | 6 focus areas (ME1-12-01–06) | ✅ 100% | 0 | ✅ Complete — audited 2026-06-15 (862 questions) |
 | Year 12 Extension 2 | 31 (5 units) | 5 focus areas (ME2-12-01–05) | ✅ 30/30 dot-point groups covered — volumes of revolution added 2026-06-16; Stage 6 + Feynman pass rechecked 2026-06-19 | 0 | ✅ Complete 2026-06-16; ✅ 2026-06-19 pass: all 31 lessons have 4/5/10 spine, bespoke 30-item masteryQuizPool, multiPartPractice, 4 common mistakes, and no Feynman thin-section misses. Proof lessons now include flawed-proof diagnosis items. |
@@ -1697,17 +1697,19 @@ Row for Year 11 Extension 1 in the Quick Status table above has been updated fro
 ## Year 12 Standard 2 ✅ Complete — Audited against NSW 2024 syllabus (2026-06-15)
 
 `year-12-standard-2` — `available`. Override file: `lib/lessons/year12Standard2/`.
-**58 lessons / 1106 questions.** All 10 NSW 2024 MST-12-S2 topics fully addressed including model limitations. Audited dot-by-dot against the NSW Mathematics Standard 11–12 Syllabus (2024). First HSC 2027.
+**45 live lessons / 9 live units.** All 10 NSW 2024 MST-12-S2 topics were breadth-audited 2026-06-15 against the NSW Mathematics Standard 11–12 Syllabus (2024). First HSC 2027.
+
+2026-06-19 teaching/practice recheck: the live `year-12-standard-2` catalog now has a course-level enhancement layer that adds Feynman-depth transfer paragraphs, tops up worked-example depth where needed, trims the mastery spine to the fixed 10 where old lessons had 12, gives every lesson a 30-item difficulty-ramped `masteryQuizPool`, and adds MVP-safe HSC-style `multiPartPractice` everywhere. Targeted audit result: 45 lessons, 0 thin-section misses, 0 Stage 6 practice-contract misses. Seeded via `npm run seed:question-bank -- --course year-12-standard-2`: 2,272 questions upserted, 0 warnings.
 
 | # | NSW Topic | Outcome | Lessons | Status |
 |---|---|---|---|---|
-| 1 | Algebraic relationships | MST-12-S2-01 | 9 | ✅ incl. revision, reciprocal relationships, exponential + quadratic model limitations |
-| 2 | Investment and loans | MST-12-S2-02 | 7 | ✅ incl. revision, shares/dividends/brokerage, straight-line vs declining depreciation |
-| 3 | Annuities | MST-12-S2-03 | 5 | ✅ incl. revision, interest factor tables, retirement planning |
-| 4 | Trigonometry | MST-12-S2-04 | 8 | ✅ incl. revision, radians, elevation/depression |
+| 1 | Algebraic relationships | MST-12-S2-01 | 6 live | ✅ incl. revision, exponential/inverse variation, simultaneous equations, exam practice |
+| 2 | Investment and loans | MST-12-S2-02 | 5 live | ✅ incl. revision, shares/dividends/brokerage, straight-line vs declining depreciation |
+| 3 | Annuities | MST-12-S2-03 | 8 live | ✅ incl. revision, present value, factor tables, retirement planning, credit-card decisions |
+| 4 | Trigonometry | MST-12-S2-04 | 5 live | ✅ incl. revision, elevation/depression, sine/cosine rule, ambiguous case |
 | 5 | Ratios and rates | MST-12-S2-05 | 7 | ✅ incl. revision, site plans, rainfall volume, energy/watts |
-| 6 | Network flow | MST-12-S2-06 | 4 | ✅ incl. revision |
-| 7 | Critical path analysis | MST-12-S2-07 | 3 | ✅ incl. revision, Gantt charts, dummy activities |
+| 6 | Network flow | MST-12-S2-06 | 3 live | ✅ incl. revision, terminology, shortest paths/MST |
+| 7 | Critical path analysis | MST-12-S2-07 | 4 live | ✅ incl. revision, Gantt charts, dummy activities, exam practice |
 | 8 | Bivariate data analysis | MST-12-S2-08 | 4 | ✅ incl. revision |
 | 9 | Relative frequency and probability | MST-12-S2-09 | 5 | ✅ incl. revision, multistage/independence, expected frequency |
 | 10 | The normal distribution | MST-12-S2-10 | 3 | ✅ incl. revision |
@@ -1913,7 +1915,7 @@ Nova average lessons per unit: ~4–5.
 | Course | Current lessons | Target | Status |
 |---|---|---|---|
 | Year 11 Standard | 76 (8 units) | ~76 | ✅ Depth pass + Priority 1–3 complete; NSW slug alignment 2026-06-15 |
-| Year 12 Standard 2 | 35 (6 units) | ~35 | ✅ Depth pass complete + 4 breadth lessons |
+| Year 12 Standard 2 | 45 (9 live units) | 10 NSW topics | ✅ Teaching/practice depth rechecked 2026-06-19: pool+multipart+Feynman pass; 2,272 questions seeded |
 | Year 12 Advanced | 91 (13 units) | ~64 subtopics | ✅ Depth pass complete + audited 2026-06-15 |
 | Year 12 Extension 2 | 31 (5 units) | ~40 subtopics | ✅ Complete 2026-06-16; Stage 6/Feynman/bespoke-pool pass rechecked 2026-06-19 |
 | Year 12 Standard 1 | 23 (5 units) | 7 NSW topics | ✅ Complete — all gaps closed 2026-06-15 (23 lessons, all 19Q) |
@@ -1929,7 +1931,7 @@ Nova average lessons per unit: ~4–5.
 ## Priority Order
 
 1. ~~**Year 12 Extension 2 depth**~~ ✅ Complete — 31 lessons; Stage 6 structural + Feynman-depth pass rechecked 2026-06-19
-2. ~~**Year 12 Standard 2 depth**~~ ✅ Complete — 35 lessons (breadth pass ongoing), 665 questions
+2. ~~**Year 12 Standard 2 depth**~~ ✅ Live teaching/practice pass — 45 lessons; Feynman, 30-item pool, multi-part checks, and 2,272-question seed complete 2026-06-19
 3. ~~**Year 12 Advanced depth**~~ ✅ Complete — 91 lessons, 1715 questions (Probability unit added)
 4. ~~**Year 12 Extension 1 depth**~~ ✅ Complete — 30 lessons, 520 questions (8 units, 100% topic breadth)
 5. ~~**Year 12 Standard 1**~~ ✅ Complete — 23 lessons, all 7 topics at 19Q depth; credit-cards-and-loans added 2026-06-15; promote to `available`
