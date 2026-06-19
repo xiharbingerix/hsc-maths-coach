@@ -42,7 +42,7 @@ function choice(
   answer: "A" | "B" | "C" | "D",
   choices: [string, string, string, string],
   explanation: string,
-  latex = "\\text{Select A, B, C, or D.}"
+  latex = ""
 ): PracticeQuestion {
   return {
     id,

@@ -59,7 +59,7 @@ function terminatingFractionVariants(answer: string) {
 }
 
 function probability(id: string, prompt: string, latex: string, answer: string, explanation: string, acceptedAnswers: string[] = []): PracticeQuestion {
-  const displayLatex = /-(?:g|i)\d+$/.test(id) ? "\\text{Show your probability method clearly.}" : latex;
+  const displayLatex = /-(?:g|i)\d+$/.test(id) ? "" : latex;
   return {
     id,
     prompt,
@@ -80,7 +80,7 @@ function number(
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
   const displayLatex = /-(?:g|i)\d+$/.test(id)
-    ? "\\text{Show your method clearly.}"
+    ? ""
     : latex;
   const autoVariants: string[] = [];
   const numericValue = Number(answer);
@@ -98,7 +98,7 @@ function number(
   };
 }
 
-function choice(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices: [string, string, string, string], explanation: string, latex = "\\text{Select A, B, C, or D.}"): PracticeQuestion {
+function choice(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices: [string, string, string, string], explanation: string, latex = ""): PracticeQuestion {
   return { id, prompt, latex, choices: ["A", "B", "C", "D"].map((label, index) => ({ label, text: choices[index] })), answer, hint: "Compare each option with the experiment described.", explanation };
 }
 
@@ -530,7 +530,7 @@ simpleComplementary.masteryQuizPool = [
   ].map(([suffix, prompt, favourable, total, difficulty]) =>
     countProbability(`y9-pred-simple-${suffix}`, String(prompt), Number(favourable), Number(total), Number(difficulty))
   ),
-  withDifficulty(choice("y9-pred-simple-pool27", "Which statement correctly describes an event with probability $0.04$?", "B", ["It is impossible", "It is possible but unlikely", "It is certain", "It is more likely than not"], "A probability of 0.04 is greater than 0, so it can happen, but it is close to 0.", "\\text{Select A, B, C, or D.}"), 5),
+  withDifficulty(choice("y9-pred-simple-pool27", "Which statement correctly describes an event with probability $0.04$?", "B", ["It is impossible", "It is possible but unlikely", "It is certain", "It is more likely than not"], "A probability of 0.04 is greater than 0, so it can happen, but it is close to 0.", ""), 5),
   withDifficulty(choice("y9-pred-simple-pool28", "If $P(A)=\\frac{7}{20}$, what is $P(\\text{not }A)$?", "C", ["$\\frac{7}{20}$", "$\\frac{13}{7}$", "$\\frac{13}{20}$", "$\\frac{20}{7}$"], "The complement fills the remaining probability: $1-\\frac{7}{20}=\\frac{13}{20}$."), 4),
   withDifficulty(choice("y9-pred-simple-pool29", "A student says $P(\\text{not rain})=1+P(\\text{rain})$. What is the error?", "A", ["Complements subtract from 1", "Probabilities must be larger than 1", "Rain cannot have a complement", "The total outcomes should be squared"], "An event and its complement add to 1, so the complement is found by subtracting from 1."), 5),
   withDifficulty(choice("y9-pred-simple-pool30", "Which value cannot be a probability?", "D", ["$\\frac{3}{5}$", "$0.99$", "$1$", "$-0.2$"], "Probabilities cannot be below 0 or above 1."), 3),

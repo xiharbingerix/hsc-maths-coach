@@ -44,7 +44,7 @@ function number(id: string, prompt: string, latex: string, answer: string, expla
   return { id, prompt, latex: displayLatex, answer, acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...safeStatisticsAnswerVariants(prompt, answer)])), hint: "Identify the statistic requested, then calculate carefully.", explanation };
 }
 
-function choice(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices: [string, string, string, string], explanation: string, latex = "\\text{Select A, B, C, or D.}"): PracticeQuestion {
+function choice(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices: [string, string, string, string], explanation: string, latex = ""): PracticeQuestion {
   return { id, prompt, latex, answer, choices: ["A", "B", "C", "D"].map((label, index) => ({ label, text: choices[index] })), hint: "Compare each statement with the data summary.", explanation };
 }
 

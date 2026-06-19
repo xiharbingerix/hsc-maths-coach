@@ -53,7 +53,7 @@ function choice(
   value: "A" | "B" | "C" | "D",
   choices: [string, string, string, string],
   explanation: string,
-  latex = "\\text{Select A, B, C, or D.}",
+  latex = "",
   triangleDiagram?: TriangleDiagram,
   cartesianGraph?: CartesianGraph
 ): PracticeQuestion {

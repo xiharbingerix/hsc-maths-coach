@@ -5,7 +5,7 @@ import { enhanceYear9CoreLesson } from "./coreDepthEnhancements";
 type LessonContent = Pick<ExplicitLesson, "description" | "learningIntention" | "successCriteria" | "teaching" | "workedExamples" | "guidedPractice" | "independentPractice" | "commonMistakes" | "masteryQuiz">;
 
 function answer(id: string, prompt: string, latex: string, value: string, explanation: string, acceptedAnswers: string[] = []): PracticeQuestion {
-  const displayLatex = /-(?:g|i)\d+$/.test(id) ? "\\text{Show your method clearly.}" : latex;
+  const displayLatex = /-(?:g|i)\d+$/.test(id) ? "" : latex;
   const autoVariants: string[] = [];
 
   // Plain integers → decimal form (e.g. 4 → 4.0)
@@ -42,7 +42,7 @@ function ratio(id: string, prompt: string, latex: string, value: string, explana
   return answer(id, prompt, latex, value, explanation, [value.replace(":", " to ")]);
 }
 
-function choice(id: string, prompt: string, value: "A" | "B" | "C" | "D", choices: [string, string, string, string], explanation: string, latex = "\\text{Select A, B, C, or D.}"): PracticeQuestion {
+function choice(id: string, prompt: string, value: "A" | "B" | "C" | "D", choices: [string, string, string, string], explanation: string, latex = ""): PracticeQuestion {
   return { id, prompt, latex, answer: value, choices: ["A", "B", "C", "D"].map((label, index) => ({ label, text: choices[index] })), hint: "Compare the options with the description.", explanation };
 }
 

@@ -32,7 +32,7 @@ function number(id: string, prompt: string, latex: string, answer: string, expla
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...autoVariants])), hint: "Identify the financial relationship, then calculate carefully.", explanation };
 }
 
-function choice(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices: [string, string, string, string], explanation: string, latex = "\\text{Select A, B, C, or D.}"): PracticeQuestion {
+function choice(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices: [string, string, string, string], explanation: string, latex = ""): PracticeQuestion {
   return { id, prompt, latex, choices: ["A", "B", "C", "D"].map((label, index) => ({ label, text: choices[index] })), answer, hint: "Compare each option with the financial situation.", explanation };
 }
 

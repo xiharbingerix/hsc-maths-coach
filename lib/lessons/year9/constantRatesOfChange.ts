@@ -32,7 +32,7 @@ function answer(id: string, prompt: string, latex: string, answer: string, expla
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...autoVariants])), hint: "Read the graph or relationship carefully, then calculate.", explanation, cartesianGraph };
 }
 
-function choice(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices: [string, string, string, string], explanation: string, latex = "\\text{Select A, B, C, or D.}", cartesianGraph?: CartesianGraph): PracticeQuestion {
+function choice(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices: [string, string, string, string], explanation: string, latex = "", cartesianGraph?: CartesianGraph): PracticeQuestion {
   return { id, prompt, latex, choices: ["A", "B", "C", "D"].map((label, index) => ({ label, text: choices[index] })), answer, hint: "Use the graph features or rate information to compare the options.", explanation, cartesianGraph };
 }
 
@@ -300,14 +300,14 @@ const distanceTime: LessonContent = {
     answer("y9-rate-dist-g1", "Read the distance after 2 hours.", "\\text{Use the graph stimulus.}", "6", "The graph reaches 6 km.", ["6 km"], journey),
     answer("y9-rate-dist-g2", "Find the speed during the first 2 hours.", "\\text{Use the graph stimulus.}", "3", "Six kilometres over two hours.", ["3 km/h"], journey),
     choice("y9-rate-dist-g3", "During which interval is the traveller stopped?", "B", ["0 to 2 h", "2 to 3 h", "3 to 5 h", "5 to 6 h"], "The graph is flat from 2 to 3 hours.", "\\text{Use the graph stimulus.}", journey),
-    choice("y9-rate-dist-g4", "What does a steeper rising segment mean?", "A", ["Faster speed", "A stop", "Lower distance", "Negative time"], "A steeper rise means more distance per unit time.", "\\text{Select A, B, C, or D.}", journey),
+    choice("y9-rate-dist-g4", "What does a steeper rising segment mean?", "A", ["Faster speed", "A stop", "Lower distance", "Negative time"], "A steeper rise means more distance per unit time.", "", journey),
   ],
   independentPractice: [
     answer("y9-rate-dist-i1", "Read the final distance shown.", "\\text{Use the graph stimulus.}", "12", "The final point is at 12 km.", ["12 km"], journey),
     answer("y9-rate-dist-i2", "Find the speed from hour 3 to hour 5.", "\\text{Use the graph stimulus.}", "3", "Distance rises 6 km over 2 hours.", ["3 km/h"], journey),
-    choice("y9-rate-dist-i3", "What does a horizontal distance-time segment show?", "C", ["Moving faster", "Moving backwards", "Stopped", "Changing time scale"], "Distance remains unchanged.", "\\text{Select A, B, C, or D.}", journey),
+    choice("y9-rate-dist-i3", "What does a horizontal distance-time segment show?", "C", ["Moving faster", "Moving backwards", "Stopped", "Changing time scale"], "Distance remains unchanged.", "", journey),
     answer("y9-rate-dist-i4", "A traveller covers 20 km in 4 hours at constant speed. Find the speed.", "\\text{20 km in 4 h}", "5", "Divide 20 by 4.", ["5 km/h"]),
-    choice("y9-rate-dist-i5", "Which graph segment represents the greater speed?", "D", ["The flatter rising segment", "The horizontal segment", "Both always match", "The steeper rising segment"], "Steeper gradient means faster speed.", "\\text{Select A, B, C, or D.}", journey),
+    choice("y9-rate-dist-i5", "Which graph segment represents the greater speed?", "D", ["The flatter rising segment", "The horizontal segment", "Both always match", "The steeper rising segment"], "Steeper gradient means faster speed.", "", journey),
   ],
   commonMistakes: [
     { mistake: "Reading time from the vertical axis.", fix: "Time belongs on the horizontal axis." },
@@ -317,14 +317,14 @@ const distanceTime: LessonContent = {
   ],
   masteryQuiz: [
     answer("y9-rate-dist-m1", "A traveller covers 18 km in 3 hours. Find the speed.", "\\text{18 km in 3 h}", "6", "Divide 18 by 3.", ["6 km/h"]),
-    choice("y9-rate-dist-m2", "What does a flat section show?", "B", ["Fast travel", "Stopped", "Negative distance", "Vertical travel"], "Distance is unchanged.", "\\text{Select A, B, C, or D.}", journey),
+    choice("y9-rate-dist-m2", "What does a flat section show?", "B", ["Fast travel", "Stopped", "Negative distance", "Vertical travel"], "Distance is unchanged.", "", journey),
     answer("y9-rate-dist-m3", "Read the final distance.", "\\text{Use the graph stimulus.}", "12", "The final point is 12 km.", ["12 km"], journey),
     answer("y9-rate-dist-m4", "How long is the stopped interval?", "\\text{Use the graph stimulus.}", "1", "The stop lasts from hour 2 to hour 3.", ["1 hour", "1 h"], journey),
-    choice("y9-rate-dist-m5", "Which quantity is the gradient of a distance-time graph?", "C", ["Distance only", "Time only", "Speed", "Starting position only"], "Gradient is distance change over time change.", "\\text{Select A, B, C, or D.}", journey),
+    choice("y9-rate-dist-m5", "Which quantity is the gradient of a distance-time graph?", "C", ["Distance only", "Time only", "Speed", "Starting position only"], "Gradient is distance change over time change.", "", journey),
     answer("y9-rate-dist-m6", "A graph rises from 4 km at hour 1 to 16 km at hour 4. Find the speed.", "\\text{Use the two graph values.}", "4", "Rise 12 over 3 hours.", ["4 km/h"], speedSegment),
     choice("y9-rate-dist-m7", "Segment A rises 8 km in 2 h. Segment B rises 9 km in 3 h. Which is faster?", "A", ["Segment A", "Segment B", "They match", "Cannot compare"], "The speeds are 4 km/h and 3 km/h."),
     answer("y9-rate-dist-m8", "A trip covers 30 km in the first 2 hours, stops for 1 hour, then covers 20 km in 2 hours. Find the total distance.", "\\text{Add travelled distances only.}", "50", "Add 30 and 20.", ["50 km"]),
-    choice("y9-rate-dist-m9", "A distance-time graph rises, becomes flat, then rises more steeply. Which description fits?", "D", ["Slow down continuously", "Move backwards", "Stop permanently", "Travel, stop, then travel faster"], "The final steeper section represents a faster speed.", "\\text{Select A, B, C, or D.}", journey),
+    choice("y9-rate-dist-m9", "A distance-time graph rises, becomes flat, then rises more steeply. Which description fits?", "D", ["Slow down continuously", "Move backwards", "Stop permanently", "Travel, stop, then travel faster"], "The final steeper section represents a faster speed.", "", journey),
     answer("y9-rate-dist-m10", "A traveller is 5 km from home at hour 1 and 29 km from home at hour 5 on one straight segment. Find the constant speed.", "\\text{Use change in distance over change in time.}", "6", "Rise 24 over 4 hours.", ["6 km/h"]),
   ],
 };
