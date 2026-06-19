@@ -226,6 +226,18 @@ function safePartLatex(part: PracticeQuestionPart) {
     : part.latex;
 }
 
+// The mastery quiz (like worksheets) shows only the prompt. The per-question /
+// per-part LaTeX setup block is redundant with the prompt's inline math and is a
+// known answer-leak vector, so it is stripped from every mastery question rather
+// than relying on the heuristic `shouldHideLatex` guard.
+function stripMasteryLatex(question: PracticeQuestion): PracticeQuestion {
+  return {
+    ...question,
+    latex: "",
+    parts: question.parts?.map((part) => ({ ...part, latex: undefined })),
+  };
+}
+
 function serialisePartAnswers(answers: Record<string, string>) {
   return JSON.stringify({ parts: answers });
 }
@@ -1639,7 +1651,10 @@ export function LessonRenderer({
   // difficulty-ramped draw (re-rolled when quizAttemptSeed changes); without a
   // pool it's the lesson's fixed masteryQuiz.
   const activeQuiz = useMemo(
-    () => (lesson ? buildMasteryQuiz(lesson, { seed: quizAttemptSeed }) : []),
+    () =>
+      lesson
+        ? buildMasteryQuiz(lesson, { seed: quizAttemptSeed }).map(stripMasteryLatex)
+        : [],
     [lesson, quizAttemptSeed]
   );
   const currentLessonStages = useMemo(() => {

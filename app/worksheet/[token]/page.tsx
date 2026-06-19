@@ -28,99 +28,6 @@ export type WorksheetQuestionPart = {
   marks: number;
 };
 
-function normaliseForLeakCheck(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/\\left|\\right/g, "")
-    .replace(/\\,/g, "")
-    .replace(/\s+/g, "")
-    .trim();
-}
-
-function expandLatexFractions(value: string) {
-  let prev = "";
-  let current = value;
-
-  while (current !== prev) {
-    prev = current;
-    // Braced form: \frac{a}{b} or \dfrac{a}{b} → (a)/(b)
-    current = current.replace(
-      /\\(?:d?frac)\s*\{([^{}]+)\}\s*\{([^{}]+)\}/g,
-      "($1)/($2)"
-    );
-    // Shorthand single-digit form: \frac16 → (1)/(6), \frac38 → (3)/(8)
-    // LaTeX allows \frac followed by two single-character tokens as shorthand.
-    // We only expand digit pairs to avoid munging unrelated macro calls.
-    current = current.replace(
-      /\\(?:d?frac)\s*([0-9])\s*([0-9])/g,
-      "($1)/($2)"
-    );
-  }
-
-  return current;
-}
-
-function leakCheckForms(value: string) {
-  const base = normaliseForLeakCheck(value);
-  const expanded = normaliseForLeakCheck(expandLatexFractions(value));
-  const withoutCommands = expanded
-    .replace(/\\[a-z]+/g, "")
-    .replace(/[{}]/g, "");
-  const compact = withoutCommands.replace(/[^a-z0-9]/g, "");
-
-  return [...new Set([base, expanded, withoutCommands, compact])].filter(Boolean);
-}
-
-function shouldStripLatex(latex: string | null, candidates: string[]) {
-  if (!latex) return false;
-
-  const latexForms = leakCheckForms(latex);
-  if (latexForms.length === 0) return false;
-
-  // Explicit answer/solution cue words.
-  if (/(answer|solution|therefore|hence)/i.test(latex)) {
-    return true;
-  }
-
-  // If the expression after the last "=" is purely numeric/arithmetic
-  // (only digits, /, -, +, ., *, ^, parentheses — no letters or variable names),
-  // the latex is showing a worked result, not a question-setup formula.
-  //
-  // This catches P(A) = 17/20, P(not A) = 1 − 1/5, σ² = 14.2, etc.
-  // It does NOT strip formulas like f(x) = 2x − 3 (has "x") or P(A) = P(B)+P(C) (has letters).
-  const expandedNorm = leakCheckForms(latex)[1] ?? leakCheckForms(latex)[0];
-  if (expandedNorm.includes("=")) {
-    const afterLastEquals = expandedNorm.split("=").pop() ?? "";
-    if (
-      afterLastEquals.trim().length > 0 &&
-      /^[\s\d/\-.+()^*]*$/.test(afterLastEquals)
-    ) {
-      return true;
-    }
-  }
-
-  for (const candidate of candidates) {
-    const trimmed = candidate.trim();
-    if (!trimmed) continue;
-
-    const candidateForms = leakCheckForms(trimmed);
-    for (const form of candidateForms) {
-      const compactLength = form.replace(/[^a-z0-9]/g, "").length;
-      const fractionLike = form.includes("/") || /\\(?:d?frac)/.test(trimmed);
-
-      // Very short values (e.g. "1") produce too many false positives.
-      if (!fractionLike && form.length < 3) continue;
-      if (fractionLike && compactLength < 2) continue;
-
-      if (latexForms.some((latexForm) => latexForm.includes(form))) {
-        return true;
-      }
-    }
-  }
-
-  return false;
-}
-
 function safeChoices(value: unknown): Choice[] | null {
   if (!Array.isArray(value) || value.length === 0) return null;
   return value.map((item: unknown) => {
@@ -141,20 +48,13 @@ function safeParts(value: unknown): WorksheetQuestionPart[] | null {
       const key = String(obj?.key ?? "").trim();
       const prompt = String(obj?.prompt ?? "").trim();
       if (!key || !prompt) return null;
-      const answer = typeof obj?.answer === "string" ? obj.answer : "";
-      const acceptedAnswers = Array.isArray(obj?.acceptedAnswers)
-        ? obj.acceptedAnswers
-        : Array.isArray(obj?.accepted_answers)
-        ? obj.accepted_answers
-        : [];
-      const rawLatex = typeof obj?.latex === "string" ? obj.latex : null;
       return {
         key,
         label: String(obj?.label ?? `(${key})`),
         prompt,
-        latex: shouldStripLatex(rawLatex, [answer, ...acceptedAnswers.map(String)])
-          ? null
-          : rawLatex,
+        // Worksheets show only the prompt — the per-part LaTeX setup block is
+        // redundant with the prompt's inline math and a known answer-leak vector.
+        latex: null as string | null,
         marks: typeof obj?.marks === "number" ? obj.marks : 1,
       };
     })
@@ -268,9 +168,9 @@ export default async function WorksheetPage({
         id: q.id,
         position: wq.position,
         prompt: q.prompt,
-        latex: shouldStripLatex(q.latex, [q.answer, ...(q.accepted_answers ?? [])])
-          ? null
-          : q.latex,
+        // Worksheets show only the prompt — the per-question LaTeX setup block is
+        // redundant with the prompt's inline math and a known answer-leak vector.
+        latex: null as string | null,
         choices: safeChoices(q.choices),
         parts: safeParts(q.question_parts),
         diagramData: q.diagram_data ?? null,
