@@ -37,27 +37,72 @@ function normaliseForLeakCheck(value: string) {
     .trim();
 }
 
+function expandLatexFractions(value: string) {
+  let current = value;
+  const fractionPattern = /\\(?:d?frac)\s*\{([^{}]+)\}\s*\{([^{}]+)\}/g;
+
+  while (fractionPattern.test(current)) {
+    current = current.replace(fractionPattern, "($1)/($2)");
+  }
+
+  return current;
+}
+
+function leakCheckForms(value: string) {
+  const base = normaliseForLeakCheck(value);
+  const expanded = normaliseForLeakCheck(expandLatexFractions(value));
+  const withoutCommands = expanded
+    .replace(/\\[a-z]+/g, "")
+    .replace(/[{}]/g, "");
+  const compact = withoutCommands.replace(/[^a-z0-9]/g, "");
+
+  return [...new Set([base, expanded, withoutCommands, compact])].filter(Boolean);
+}
+
 function shouldStripLatex(latex: string | null, candidates: string[]) {
   if (!latex) return false;
 
-  const normalisedLatex = normaliseForLeakCheck(latex);
-  if (!normalisedLatex) return false;
+  const latexForms = leakCheckForms(latex);
+  if (latexForms.length === 0) return false;
 
-  // Direct cue words are almost always answer leaks in worksheet display blocks.
+  // Explicit answer/solution cue words.
   if (/(answer|solution|therefore|hence)/i.test(latex)) {
     return true;
+  }
+
+  // If the expression after the last "=" is purely numeric/arithmetic
+  // (only digits, /, -, +, ., *, ^, parentheses — no letters or variable names),
+  // the latex is showing a worked result, not a question-setup formula.
+  //
+  // This catches P(A) = 17/20, P(not A) = 1 − 1/5, σ² = 14.2, etc.
+  // It does NOT strip formulas like f(x) = 2x − 3 (has "x") or P(A) = P(B)+P(C) (has letters).
+  const expandedNorm = leakCheckForms(latex)[1] ?? leakCheckForms(latex)[0];
+  if (expandedNorm.includes("=")) {
+    const afterLastEquals = expandedNorm.split("=").pop() ?? "";
+    if (
+      afterLastEquals.trim().length > 0 &&
+      /^[\s\d/\-.+()^*]*$/.test(afterLastEquals)
+    ) {
+      return true;
+    }
   }
 
   for (const candidate of candidates) {
     const trimmed = candidate.trim();
     if (!trimmed) continue;
 
-    const normalisedCandidate = normaliseForLeakCheck(trimmed);
-    // Very short values (e.g. "1") produce too many false positives.
-    if (normalisedCandidate.length < 3) continue;
+    const candidateForms = leakCheckForms(trimmed);
+    for (const form of candidateForms) {
+      const compactLength = form.replace(/[^a-z0-9]/g, "").length;
+      const fractionLike = form.includes("/") || /\\(?:d?frac)/.test(trimmed);
 
-    if (normalisedLatex.includes(normalisedCandidate)) {
-      return true;
+      // Very short values (e.g. "1") produce too many false positives.
+      if (!fractionLike && form.length < 3) continue;
+      if (fractionLike && compactLength < 2) continue;
+
+      if (latexForms.some((latexForm) => latexForm.includes(form))) {
+        return true;
+      }
     }
   }
 

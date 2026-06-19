@@ -152,6 +152,80 @@ function partMarks(part: PracticeQuestionPart) {
   return Number.isFinite(part.marks) && part.marks > 0 ? part.marks : 1;
 }
 
+function normaliseForLatexLeak(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/\\left|\\right/g, "")
+    .replace(/\\,/g, "")
+    .replace(/\s+/g, "")
+    .trim();
+}
+
+function expandLatexFractions(value: string) {
+  let current = value;
+  const fractionPattern = /\\(?:d?frac)\s*\{([^{}]+)\}\s*\{([^{}]+)\}/g;
+
+  let next = current.replace(fractionPattern, "($1)/($2)");
+  while (next !== current) {
+    current = next;
+    next = current.replace(fractionPattern, "($1)/($2)");
+  }
+
+  return current;
+}
+
+function latexLeakForms(value: string) {
+  const base = normaliseForLatexLeak(value);
+  const expanded = normaliseForLatexLeak(expandLatexFractions(value));
+  const withoutCommands = expanded
+    .replace(/\\[a-z]+/g, "")
+    .replace(/[{}]/g, "");
+  const compact = withoutCommands.replace(/[^a-z0-9]/g, "");
+
+  return [...new Set([base, expanded, withoutCommands, compact])].filter(Boolean);
+}
+
+function shouldHideLatex(latex: string | null | undefined, candidates: string[]) {
+  if (!latex) return false;
+
+  const latexForms = latexLeakForms(latex);
+  if (latexForms.length === 0) return false;
+
+  if (/(answer|solution|therefore|hence)/i.test(latex)) return true;
+
+  for (const candidate of candidates) {
+    const trimmed = candidate.trim();
+    if (!trimmed) continue;
+
+    const candidateForms = latexLeakForms(trimmed);
+    for (const form of candidateForms) {
+      const compactLength = form.replace(/[^a-z0-9]/g, "").length;
+      const fractionLike = form.includes("/") || /\\(?:d?frac)/.test(trimmed);
+
+      if (!fractionLike && form.length < 3) continue;
+      if (fractionLike && compactLength < 2) continue;
+
+      if (latexForms.some((latexForm) => latexForm.includes(form))) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+function safeQuestionLatex(question: PracticeQuestion) {
+  return shouldHideLatex(question.latex, [question.answer, ...(question.acceptedAnswers ?? [])])
+    ? null
+    : question.latex;
+}
+
+function safePartLatex(part: PracticeQuestionPart) {
+  return shouldHideLatex(part.latex, [part.answer, ...(part.acceptedAnswers ?? [])])
+    ? null
+    : part.latex;
+}
+
 function serialisePartAnswers(answers: Record<string, string>) {
   return JSON.stringify({ parts: answers });
 }
@@ -325,6 +399,7 @@ function MultiPartPracticeCard({
   index: number;
 }) {
   const parts = questionParts(question);
+  const questionLatex = safeQuestionLatex(question);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [results, setResults] = useState<Record<string, "correct" | "incorrect">>({});
   const [checkingParts, setCheckingParts] = useState<Record<string, boolean>>({});
@@ -378,9 +453,9 @@ function MultiPartPracticeCard({
         <p className="mt-2 font-medium">
           <MathText text={question.prompt} />
         </p>
-        {question.latex && (
+        {questionLatex && (
           <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
-            <BlockMath math={question.latex} />
+            <BlockMath math={questionLatex} />
           </div>
         )}
         <VisualPayloadRenderer {...question} />
@@ -388,6 +463,7 @@ function MultiPartPracticeCard({
 
       <div className="space-y-4">
         {parts.map((part) => {
+          const partLatex = safePartLatex(part);
           const result = results[part.key];
           return (
             <div key={part.key} className="space-y-3 rounded-xl border border-slate-200 p-4">
@@ -400,9 +476,9 @@ function MultiPartPracticeCard({
                   {partMarks(part)} {partMarks(part) === 1 ? "mark" : "marks"}
                 </span>
               </div>
-              {part.latex && (
+              {partLatex && (
                 <div className="overflow-x-auto rounded-xl bg-slate-50 p-3">
-                  <BlockMath math={part.latex} />
+                  <BlockMath math={partLatex} />
                 </div>
               )}
               <MathAnswerInput
@@ -488,6 +564,7 @@ function MultiPartQuizQuestion({
 }) {
   const parts = questionParts(question);
   const answers = parsePartAnswers(value);
+  const questionLatex = safeQuestionLatex(question);
 
   function updateAnswer(key: string, answer: string) {
     onChange(serialisePartAnswers({ ...answers, [key]: answer }));
@@ -500,16 +577,18 @@ function MultiPartQuizQuestion({
         <p className="mt-2 font-medium">
           <MathText text={question.prompt} />
         </p>
-        {question.latex && (
+        {questionLatex && (
           <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
-            <BlockMath math={question.latex} />
+            <BlockMath math={questionLatex} />
           </div>
         )}
         <VisualPayloadRenderer {...question} />
       </div>
 
       <div className="space-y-4">
-        {parts.map((part) => (
+        {parts.map((part) => {
+          const partLatex = safePartLatex(part);
+          return (
           <div key={part.key} className="space-y-3 rounded-xl border border-slate-200 p-4">
             <div className="flex items-start justify-between gap-3">
               <p className="font-medium">
@@ -520,9 +599,9 @@ function MultiPartQuizQuestion({
                 {part.marks} {part.marks === 1 ? "mark" : "marks"}
               </span>
             </div>
-            {part.latex && (
+            {partLatex && (
               <div className="overflow-x-auto rounded-xl bg-slate-50 p-3">
-                <BlockMath math={part.latex} />
+                <BlockMath math={partLatex} />
               </div>
             )}
             <MathAnswerInput
@@ -532,7 +611,8 @@ function MultiPartQuizQuestion({
               placeholder="Type your answer"
             />
           </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
@@ -574,9 +654,9 @@ function MultiPartReviewDetails({
           <p className="mt-2 text-slate-800">
             <MathText text={part.prompt} />
           </p>
-          {part.latex && (
+          {safePartLatex(part) && (
             <div className="mt-2 overflow-x-auto rounded-xl bg-slate-50 p-3">
-              <BlockMath math={part.latex} />
+              <BlockMath math={safePartLatex(part)!} />
             </div>
           )}
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -677,6 +757,7 @@ function PracticeCard({
   lessonSlug: string;
   section: "guided-practice" | "independent-practice";
 }) {
+  const questionLatex = safeQuestionLatex(question);
   // Single-step state
   const [answer, setAnswer] = useState("");
   const [result, setResult] = useState<"correct" | "incorrect" | null>(null);
@@ -713,9 +794,11 @@ function PracticeCard({
             <p className="mt-2 font-medium">
               <MathText text={question.prompt} />
             </p>
-            <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
-              <BlockMath math={question.latex} />
-            </div>
+            {questionLatex ? (
+              <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+                <BlockMath math={questionLatex} />
+              </div>
+            ) : null}
           </div>
           {anyStepSkipped ? (
             <div className="rounded-xl bg-amber-50 p-3 text-sm font-medium text-amber-900">
@@ -776,9 +859,11 @@ function PracticeCard({
           <p className="mt-2 font-medium">
             <MathText text={question.prompt} />
           </p>
-          <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
-            <BlockMath math={question.latex} />
-          </div>
+          {questionLatex ? (
+            <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+              <BlockMath math={questionLatex} />
+            </div>
+          ) : null}
         </div>
 
         <p className="text-sm font-semibold text-slate-500">
@@ -789,9 +874,11 @@ function PracticeCard({
           <p className="font-medium">
             <MathText text={step.prompt} />
           </p>
-          <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
-            <BlockMath math={step.latex} />
-          </div>
+          {shouldHideLatex(step.latex, [step.answer, ...(step.acceptedAnswers ?? [])]) ? null : (
+            <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+              <BlockMath math={step.latex} />
+            </div>
+          )}
         </div>
 
         <div className="space-y-1">
@@ -918,9 +1005,11 @@ function PracticeCard({
           <MathText text={question.prompt} />
         </p>
 
-        <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
-          <BlockMath math={question.latex} />
-        </div>
+        {questionLatex ? (
+          <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+            <BlockMath math={questionLatex} />
+          </div>
+        ) : null}
 
         <VisualPayloadRenderer {...question} />
       </div>
@@ -995,6 +1084,7 @@ function QuizQuestion({
   value: string;
   onChange: (value: string) => void;
 }) {
+  const questionLatex = safeQuestionLatex(question);
   // Multi-step state (all hooks called unconditionally)
   const [stepIndex, setStepIndex] = useState(0);
   const [stepAnswer, setStepAnswer] = useState("");
@@ -1029,9 +1119,11 @@ function QuizQuestion({
         <p className="mt-2 font-medium">
           <MathText text={question.prompt} />
         </p>
-        <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
-          <BlockMath math={question.latex} />
-        </div>
+        {questionLatex ? (
+          <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+            <BlockMath math={questionLatex} />
+          </div>
+        ) : null}
       </div>
     );
 
@@ -1102,9 +1194,11 @@ function QuizQuestion({
           <p className="font-medium">
             <MathText text={step.prompt} />
           </p>
-          <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
-            <BlockMath math={step.latex} />
-          </div>
+          {shouldHideLatex(step.latex, [step.answer, ...(step.acceptedAnswers ?? [])]) ? null : (
+            <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+              <BlockMath math={step.latex} />
+            </div>
+          )}
         </div>
 
         <div className="space-y-1">
@@ -1194,9 +1288,11 @@ function QuizQuestion({
         <p className="mt-2 font-medium">
           <MathText text={question.prompt} />
         </p>
-        <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
-          <BlockMath math={question.latex} />
-        </div>
+        {questionLatex ? (
+          <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+            <BlockMath math={questionLatex} />
+          </div>
+        ) : null}
 
         <VisualPayloadRenderer {...question} />
       </div>
