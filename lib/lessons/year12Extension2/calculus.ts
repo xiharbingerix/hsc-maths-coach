@@ -1118,7 +1118,14 @@ const partialFractionsLesson: Partial<ExplicitLesson> = {
       "Evaluate $\\displaystyle\\int\\frac{1}{(x-1)(x+3)}\\,dx$, using $A=\\tfrac{1}{4}$, $B=-\\tfrac{1}{4}$.",
       "\\int\\left(\\frac{1/4}{x-1}-\\frac{1/4}{x+3}\\right)dx",
       "(1/4)ln|x-1|-(1/4)ln|x+3|+C",
-      ["\\frac{1}{4}\\ln|x-1|-\\frac{1}{4}\\ln|x+3|+C"],
+      [
+        "\\frac{1}{4}\\ln|x-1|-\\frac{1}{4}\\ln|x+3|+C",
+        "(1/4)ln|(x-1)/(x+3)|+C",
+        "1/4 ln|(x-1)/(x+3)|+C",
+        "1/4ln|(x-1)/(x+3)|+C",
+        "1/4 ln|(x-1)/(x+3)|+c",
+        "ln|(x-1)/(x+3)|/4+C",
+      ],
       "Integrate each term: (1/4)ln|x−1| − (1/4)ln|x+3| + C.",
       "Use ∫A/(x−a) dx = A ln|x−a| + C for each term."
     ),
@@ -1127,7 +1134,12 @@ const partialFractionsLesson: Partial<ExplicitLesson> = {
       "Find $A$ and $B$ for $\\dfrac{4}{(x-2)(x+2)}=\\dfrac{A}{x-2}+\\dfrac{B}{x+2}$.",
       "A=\\left.\\frac{4}{x+2}\\right|_{x=2},\\;B=\\left.\\frac{4}{x-2}\\right|_{x=-2}",
       "A=1, B=-1",
-      ["A = 1, B = −1"],
+      [
+        "A = 1, B = −1",
+        "A=1, B=-1",
+        "A=1 B=-1",
+        "A = 1 and B = -1",
+      ],
       "A = 4/4 = 1. B = 4/(−4) = −1.",
       "Cover-up at x = 2 for A, at x = −2 for B."
     ),
