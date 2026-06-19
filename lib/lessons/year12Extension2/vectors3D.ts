@@ -104,7 +104,7 @@ const vectorsAndPoints3D: Partial<ExplicitLesson> = {
     v3Typed(
       "v3-g2",
       "Find the magnitude of a = (1, 2, 2).",
-      "|\\mathbf{a}| = \\sqrt{1^2+2^2+2^2}",
+      "\\mathbf{a}=(1,2,2)",
       "3",
       [],
       "|a| = √(1 + 4 + 4) = √9 = 3.",
@@ -147,7 +147,7 @@ const vectorsAndPoints3D: Partial<ExplicitLesson> = {
     v3Typed(
       "v3-i2",
       "Find |v| where v = (6, 2, 3).",
-      "|\\mathbf{v}| = \\sqrt{6^2+2^2+3^2}",
+      "\\mathbf{v}=(6,2,3)",
       "7",
       [],
       "|v| = √(36 + 4 + 9) = √49 = 7."
@@ -172,7 +172,7 @@ const vectorsAndPoints3D: Partial<ExplicitLesson> = {
     v3Typed(
       "v3-i5",
       "Find the y-component of the unit vector in the direction of (0, 3, 4).",
-      "\\hat{\\mathbf{v}} = \\frac{(0,3,4)}{|(0,3,4)|}",
+      "\\mathbf{v}=(0,3,4)",
       "3/5",
       ["0.6", "3 / 5"],
       "|(0,3,4)| = √(0+9+16) = 5. Unit vector = (0, 3/5, 4/5). y-component = 3/5.",
@@ -239,7 +239,7 @@ const vectorsAndPoints3D: Partial<ExplicitLesson> = {
     v3Typed(
       "v3-m8",
       "Find the value of t > 0 such that |(t, 4, 0)| = 5.",
-      "|(t,4,0)|=5",
+      "\\mathbf{v}=(t,4,0),\\quad |\\mathbf{v}|=5",
       "3",
       [],
       "t² + 16 = 25, so t² = 9, t = 3.",
@@ -248,7 +248,7 @@ const vectorsAndPoints3D: Partial<ExplicitLesson> = {
     v3Typed(
       "v3-m9",
       "Find the z-component of the unit vector in the direction of v = (2, −1, 2).",
-      "\\hat{\\mathbf{v}} = \\frac{\\mathbf{v}}{|\\mathbf{v}|}",
+      "\\mathbf{v}=(2,-1,2)",
       "2/3",
       [],
       "|v| = √(4+1+4) = 3. Unit vector = (2/3, −1/3, 2/3). z-component = 2/3.",
@@ -400,7 +400,7 @@ const dotProductAndAngle: Partial<ExplicitLesson> = {
     v3Typed(
       "v3d-i2",
       "a = (1, 2, 2) and b = (2, 1, −2). Using the dot product, find the angle between them in degrees.",
-      "\\theta = \\arccos\\!\\left(\\frac{\\mathbf{a}\\cdot\\mathbf{b}}{|\\mathbf{a}||\\mathbf{b}|}\\right)",
+      "\\mathbf{a}=(1,2,2),\\quad \\mathbf{b}=(2,1,-2)",
       "90",
       ["90°"],
       "a · b = 0, so θ = 90°.",
@@ -409,7 +409,7 @@ const dotProductAndAngle: Partial<ExplicitLesson> = {
     v3Typed(
       "v3d-i3",
       "Find the scalar projection of a = (3, 4, 0) onto b = (1, 0, 0).",
-      "\\frac{\\mathbf{a}\\cdot\\mathbf{b}}{|\\mathbf{b}|}",
+      "\\mathbf{a}=(3,4,0),\\quad \\mathbf{b}=(1,0,0)",
       "3",
       [],
       "a · b = 3. |b| = 1. Scalar projection = 3/1 = 3.",
@@ -418,7 +418,7 @@ const dotProductAndAngle: Partial<ExplicitLesson> = {
     v3Typed(
       "v3d-i4",
       "Find t such that a = (1, t, 2) and b = (2, 1, −1) are perpendicular.",
-      "\\mathbf{a}\\cdot\\mathbf{b}=0",
+      "\\mathbf{a}=(1,t,2),\\quad \\mathbf{b}=(2,1,-1)",
       "0",
       [],
       "a · b = 2 + t − 2 = t = 0.",
@@ -453,7 +453,7 @@ const dotProductAndAngle: Partial<ExplicitLesson> = {
     v3Typed(
       "v3d-m3",
       "Find t such that a = (t, 2, 1) and b = (2, −1, 0) are perpendicular.",
-      "\\mathbf{a}\\cdot\\mathbf{b}=0",
+      "\\mathbf{a}=(t,2,1),\\quad \\mathbf{b}=(2,-1,0)",
       "1",
       [],
       "2t − 2 + 0 = 0 → t = 1.",
@@ -478,7 +478,7 @@ const dotProductAndAngle: Partial<ExplicitLesson> = {
     v3Typed(
       "v3d-m6",
       "a = (1, 2, 2) and b = (2, 2, 1). Both have |a| = |b| = 3. Find cos θ, where θ is the angle between them.",
-      "\\cos\\theta = \\frac{\\mathbf{a}\\cdot\\mathbf{b}}{|\\mathbf{a}||\\mathbf{b}|}",
+      "\\mathbf{a}\\cdot\\mathbf{b}=8,\\quad |\\mathbf{a}|=|\\mathbf{b}|=3",
       "8/9",
       [],
       "cos θ = 8 / (3 × 3) = 8/9.",
@@ -495,7 +495,7 @@ const dotProductAndAngle: Partial<ExplicitLesson> = {
     v3Typed(
       "v3d-m8",
       "Find the angle in degrees between d₁ = (1, 1, 0) and d₂ = (0, 1, 1).",
-      "\\theta = \\arccos\\!\\left(\\frac{\\mathbf{d_1}\\cdot\\mathbf{d_2}}{|\\mathbf{d_1}||\\mathbf{d_2}|}\\right)",
+      "\\mathbf{d_1}=(1,1,0),\\quad \\mathbf{d_2}=(0,1,1)",
       "60",
       ["60°"],
       "d₁ · d₂ = 0+1+0 = 1. |d₁| = |d₂| = √2. cos θ = 1/2. θ = 60°.",
@@ -504,7 +504,7 @@ const dotProductAndAngle: Partial<ExplicitLesson> = {
     v3Typed(
       "v3d-m9",
       "Find t such that a = (t, 1, −2) and b = (3, t, 1) are perpendicular.",
-      "\\mathbf{a}\\cdot\\mathbf{b}=0",
+      "\\mathbf{a}=(t,1,-2),\\quad \\mathbf{b}=(3,t,1)",
       "1/2",
       ["0.5"],
       "3t + t − 2 = 0 → 4t = 2 → t = 1/2.",
@@ -513,7 +513,7 @@ const dotProductAndAngle: Partial<ExplicitLesson> = {
     v3Typed(
       "v3d-m10",
       "Find the angle in degrees between a = (1, 0, 0) and b = (1, 1, 0).",
-      "\\theta = \\arccos\\!\\left(\\frac{\\mathbf{a}\\cdot\\mathbf{b}}{|\\mathbf{a}||\\mathbf{b}|}\\right)",
+      "\\mathbf{a}=(1,0,0),\\quad \\mathbf{b}=(1,1,0)",
       "45",
       ["45°"],
       "a · b = 1. |a| = 1, |b| = √2. cos θ = 1/√2. θ = 45°.",
@@ -626,7 +626,7 @@ const equationsOfLines3D: Partial<ExplicitLesson> = {
     v3Typed(
       "v3l-g2",
       "The line r = (2, 0, 1) + t(1, 3, −2). Find the coordinates of the point when t = 1.",
-      "\\mathbf{r}=(2,0,1)+1\\cdot(1,3,-2)",
+      "\\mathbf{r}=(2,0,1)+t(1,3,-2),\\quad t=1",
       "(3, 3, -1)",
       ["(3,3,-1)"],
       "(2+1, 0+3, 1−2) = (3, 3, −1).",
@@ -649,11 +649,20 @@ const equationsOfLines3D: Partial<ExplicitLesson> = {
     v3Typed(
       "v3l-g4",
       "A line passes through A = (1, 2, −1) and B = (3, 4, 1). Find the direction vector AB.",
-      "\\overrightarrow{AB}=B-A",
+      "A=(1,2,-1),\\quad B=(3,4,1)",
       "(2, 2, 2)",
       ["(1, 1, 1)", "(1,1,1)", "(2,2,2)"],
       "AB = B − A = (3−1, 4−2, 1−(−1)) = (2, 2, 2), or simplified (1, 1, 1).",
-      "Subtract the coordinates of A from those of B."
+      "Subtract the coordinates of A from those of B.",
+      {
+        description: "Points A = (1, 2, -1) and B = (3, 4, 1) joined by the direction vector AB.",
+        axisLength: 5,
+        points: [
+          { x: 1, y: 2, z: -1, label: "A" },
+          { x: 3, y: 4, z: 1, label: "B" },
+        ],
+        vectors: [{ from: { x: 1, y: 2, z: -1 }, to: { x: 3, y: 4, z: 1 }, label: "AB" }],
+      }
     ),
   ],
   independentPractice: [
@@ -668,7 +677,7 @@ const equationsOfLines3D: Partial<ExplicitLesson> = {
     v3Typed(
       "v3l-i2",
       "A line has equation r = (1, 0, −1) + t(2, 1, 0). Write the parametric equation for y.",
-      "y = a_2 + td_2",
+      "\\mathbf{r}=(1,0,-1)+t(2,1,0)",
       "t",
       ["y = t", "1t"],
       "y = 0 + 1·t = t.",
@@ -685,16 +694,25 @@ const equationsOfLines3D: Partial<ExplicitLesson> = {
     v3Typed(
       "v3l-i4",
       "The point (4, 5, 7) lies on the line r = (1, 2, 1) + t(3, 3, 6). Find the value of t.",
-      "1+3t=4",
+      "P=(4,5,7),\\quad \\mathbf{r}=(1,2,1)+t(3,3,6)",
       "1",
       [],
       "From x: 1+3t=4 → t=1. Check: y=2+3=5✓, z=1+6=7✓.",
-      "Use the x-equation to find t, then verify with y and z."
+      "Use the x-equation to find t, then verify with y and z.",
+      {
+        description: "The line r = (1, 2, 1) + t(3, 3, 6) shown with the marked point P = (4, 5, 7), which lies on the line when t = 1.",
+        axisLength: 8,
+        points: [
+          { x: 1, y: 2, z: 1, label: "A" },
+          { x: 4, y: 5, z: 7, label: "P" },
+        ],
+        lines: [{ point: { x: 1, y: 2, z: 1 }, direction: { x: 3, y: 3, z: 6 }, tMin: 0, tMax: 1.2 }],
+      }
     ),
     v3Typed(
       "v3l-i5",
       "A line passes through (2, 3, 4) and (5, 3, 4). Find the magnitude of the direction vector.",
-      "|\\overrightarrow{AB}|",
+      "A=(2,3,4),\\quad B=(5,3,4)",
       "3",
       [],
       "Direction = (5−2, 3−3, 4−4) = (3, 0, 0). |(3,0,0)| = 3."
@@ -728,7 +746,7 @@ const equationsOfLines3D: Partial<ExplicitLesson> = {
     v3Typed(
       "v3l-m4",
       "The line r = (0, 0, 0) + t(1, 1, 1) crosses the plane x = 3. Find the coordinates of the crossing point.",
-      "x=t=3",
+      "\\mathbf{r}=t(1,1,1),\\quad x=3",
       "(3, 3, 3)",
       ["(3,3,3)"],
       "x = t = 3. Then y = 3, z = 3. Point: (3, 3, 3)."
@@ -736,7 +754,7 @@ const equationsOfLines3D: Partial<ExplicitLesson> = {
     v3Typed(
       "v3l-m5",
       "r = (2, −1, 3) + t(1, 2, −1). Find t when the z-coordinate equals 1.",
-      "3-t=1",
+      "\\mathbf{r}=(2,-1,3)+t(1,2,-1),\\quad z=1",
       "2",
       [],
       "z = 3 − t = 1 → t = 2.",
@@ -761,7 +779,7 @@ const equationsOfLines3D: Partial<ExplicitLesson> = {
     v3Typed(
       "v3l-m8",
       "r = (0, 1, 0) + t(1, −1, 2). Find the y-coordinate when x = 3.",
-      "x=0+t=3\\;\\Rightarrow\\;t=3",
+      "\\mathbf{r}=(0,1,0)+t(1,-1,2),\\quad x=3",
       "-2",
       [],
       "From x: t = 3. y = 1 − 3 = −2.",
@@ -770,7 +788,7 @@ const equationsOfLines3D: Partial<ExplicitLesson> = {
     v3Typed(
       "v3l-m9",
       "Find the value of t such that the point (5, 4, 3) lies on r = (1, 2, 3) + t(2, 1, 0).",
-      "1+2t=5",
+      "P=(5,4,3),\\quad \\mathbf{r}=(1,2,3)+t(2,1,0)",
       "2",
       [],
       "From x: 1+2t=5 → t=2. Check: y=2+2=4✓, z=3✓."
@@ -778,7 +796,7 @@ const equationsOfLines3D: Partial<ExplicitLesson> = {
     v3Typed(
       "v3l-m10",
       "The line r = (0, 0, 0) + t(3, 4, 0). Find the y-coordinate when t = 3.",
-      "y=4t,\\;t=3",
+      "\\mathbf{r}=t(3,4,0),\\quad t=3",
       "12",
       [],
       "y = 4×3 = 12."
@@ -886,7 +904,7 @@ const vectorApplicationsExamPractice: Partial<ExplicitLesson> = {
     v3Typed(
       "v3a-g2",
       "Find the angle in degrees between lines with directions (1, 0, 0) and (0, 0, 1).",
-      "\\cos\\theta=\\frac{(1,0,0)\\cdot(0,0,1)}{1\\cdot1}",
+      "\\mathbf{d_1}=(1,0,0),\\quad \\mathbf{d_2}=(0,0,1)",
       "90",
       ["90°"],
       "d₁·d₂ = 0, so θ = 90°.",
@@ -903,7 +921,7 @@ const vectorApplicationsExamPractice: Partial<ExplicitLesson> = {
     v3Typed(
       "v3a-g4",
       "Find the angle in degrees between lines with directions d₁ = (1, 0, 0) and d₂ = (1, 1, 0).",
-      "\\cos\\theta=\\frac{1}{1\\cdot\\sqrt{2}}",
+      "\\mathbf{d_1}=(1,0,0),\\quad \\mathbf{d_2}=(1,1,0)",
       "45",
       ["45°"],
       "d₁·d₂ = 1. |d₁| = 1, |d₂| = √2. cos θ = 1/√2. θ = 45°.",
@@ -922,7 +940,7 @@ const vectorApplicationsExamPractice: Partial<ExplicitLesson> = {
     v3Typed(
       "v3a-i2",
       "Find the angle in degrees between lines with directions d₁ = (1, 1, 0) and d₂ = (1, 0, 1).",
-      "\\cos\\theta=\\frac{\\mathbf{d_1}\\cdot\\mathbf{d_2}}{|\\mathbf{d_1}||\\mathbf{d_2}|}",
+      "\\mathbf{d_1}=(1,1,0),\\quad \\mathbf{d_2}=(1,0,1)",
       "60",
       ["60°"],
       "d₁·d₂ = 1. |d₁| = √2, |d₂| = √2. cos θ = 1/2. θ = 60°.",
@@ -939,7 +957,7 @@ const vectorApplicationsExamPractice: Partial<ExplicitLesson> = {
     v3Typed(
       "v3a-i4",
       "Find |AB| where A = (0, 0, 0) and B = (3, 4, 0).",
-      "|AB|",
+      "A=(0,0,0),\\quad B=(3,4,0)",
       "5",
       [],
       "AB = (3,4,0). |AB| = √(9+16+0) = 5."
@@ -947,7 +965,7 @@ const vectorApplicationsExamPractice: Partial<ExplicitLesson> = {
     v3Typed(
       "v3a-i5",
       "Lines have direction vectors d₁ = (2, 2, 1) and d₂ = (−2, −2, −1). Are they parallel or perpendicular? Enter 'parallel' or 'perpendicular'.",
-      "\\mathbf{d_2}=-\\mathbf{d_1}",
+      "\\mathbf{d_1}=(2,2,1),\\quad \\mathbf{d_2}=(-2,-2,-1)",
       "parallel",
       ["Parallel"],
       "d₂ = −1·d₁, so the directions are scalar multiples: the lines are parallel.",
@@ -974,7 +992,7 @@ const vectorApplicationsExamPractice: Partial<ExplicitLesson> = {
     v3Typed(
       "v3a-m3",
       "d₁ = (1, 2, 2) and d₂ = (2, 2, 1). Both have magnitude 3. Find cos θ.",
-      "\\cos\\theta=\\frac{8}{9}",
+      "\\mathbf{d_1}\\cdot\\mathbf{d_2}=8,\\quad |\\mathbf{d_1}|=|\\mathbf{d_2}|=3",
       "8/9",
       [],
       "cos θ = 8 / (3 × 3) = 8/9.",
@@ -999,7 +1017,7 @@ const vectorApplicationsExamPractice: Partial<ExplicitLesson> = {
     v3Typed(
       "v3a-m6",
       "Find the angle in degrees between directions d₁ = (1, 1, 0) and d₂ = (0, 1, 1).",
-      "\\cos\\theta=\\frac{1}{\\sqrt{2}\\cdot\\sqrt{2}}=\\frac{1}{2}",
+      "\\mathbf{d_1}=(1,1,0),\\quad \\mathbf{d_2}=(0,1,1)",
       "60",
       ["60°"],
       "d₁·d₂ = 1. |d₁| = |d₂| = √2. cos θ = 1/2. θ = 60°."
@@ -1015,7 +1033,7 @@ const vectorApplicationsExamPractice: Partial<ExplicitLesson> = {
     v3Typed(
       "v3a-m8",
       "d₁ = (3, 4, 0) and d₂ = (0, 4, 3). Find cos θ between the two lines.",
-      "\\cos\\theta=\\frac{|\\mathbf{d_1}\\cdot\\mathbf{d_2}|}{|\\mathbf{d_1}||\\mathbf{d_2}|}",
+      "\\mathbf{d_1}=(3,4,0),\\quad \\mathbf{d_2}=(0,4,3)",
       "16/25",
       [],
       "d₁·d₂ = 0+16+0 = 16. |d₁| = |d₂| = 5. cos θ = 16/25.",
@@ -1024,7 +1042,7 @@ const vectorApplicationsExamPractice: Partial<ExplicitLesson> = {
     v3Typed(
       "v3a-m9",
       "A point P lies on r = (2, 3, 1) + t(1, 0, −1). The x-coordinate of P is 5. Find the y-coordinate of P.",
-      "x=2+t=5",
+      "\\mathbf{r}=(2,3,1)+t(1,0,-1),\\quad x=5",
       "3",
       [],
       "t = 3. y = 3 + 0 = 3.",
@@ -1033,7 +1051,7 @@ const vectorApplicationsExamPractice: Partial<ExplicitLesson> = {
     v3Typed(
       "v3a-m10",
       "The line r = (1, 2, 3) + t(2, 2, 1). Find the z-coordinate of the point where x = 7.",
-      "x=1+2t=7",
+      "\\mathbf{r}=(1,2,3)+t(2,2,1),\\quad x=7",
       "6",
       [],
       "1+2t = 7 → t = 3. z = 3+3 = 6.",
@@ -1141,7 +1159,7 @@ const vectorCurvesCirclesSpheres: Partial<ExplicitLesson> = {
     v3Typed(
       "v3c-g2",
       "Find the Cartesian equation of the circle |r − (3, 0)| = 5.",
-      "|(x-3,\\,y)|=5",
+      "|\\mathbf{r}-(3,0)|=5",
       "(x-3)^2+y^2=25",
       ["(x-3)²+y²=25"],
       "Square: (x−3)² + y² = 25.",
@@ -1158,7 +1176,7 @@ const vectorCurvesCirclesSpheres: Partial<ExplicitLesson> = {
     v3Typed(
       "v3c-g4",
       "The curve r(t) = (3cos t, 3sin t). Find its Cartesian equation.",
-      "x=3\\cos t,\\; y=3\\sin t\\;\\Rightarrow\\; x^2+y^2=?",
+      "\\mathbf{r}(t)=(3\\cos t,3\\sin t)",
       "x^2+y^2=9",
       ["x²+y²=9"],
       "x² + y² = 9cos²t + 9sin²t = 9.",
@@ -1169,7 +1187,7 @@ const vectorCurvesCirclesSpheres: Partial<ExplicitLesson> = {
     v3Typed(
       "v3c-i1",
       "Find the Cartesian equation of the circle |r − (2, −1)| = 3.",
-      "(x-2)^2+(y+1)^2=?",
+      "|\\mathbf{r}-(2,-1)|=3",
       "(x-2)^2+(y+1)^2=9",
       ["(x-2)²+(y+1)²=9"],
       "(x−2)² + (y+1)² = 9."
@@ -1177,7 +1195,7 @@ const vectorCurvesCirclesSpheres: Partial<ExplicitLesson> = {
     v3Typed(
       "v3c-i2",
       "Write the vector equation of the circle x² + y² = 36.",
-      "|\\mathbf{r}|=?",
+      "x^2+y^2=36",
       "|r|=6",
       ["| r | = 6"],
       "x² + y² = 36 is a circle of radius 6 centred at O. Vector form: |r| = 6.",
@@ -1202,7 +1220,7 @@ const vectorCurvesCirclesSpheres: Partial<ExplicitLesson> = {
     v3Typed(
       "v3c-i5",
       "Find the Cartesian equation of the sphere |r − (1, 0, 0)| = 2.",
-      "(x-1)^2+y^2+z^2=?",
+      "|\\mathbf{r}-(1,0,0)|=2",
       "(x-1)^2+y^2+z^2=4",
       ["(x-1)²+y²+z²=4"],
       "Square: (x−1)² + y² + z² = 4."
@@ -1244,7 +1262,7 @@ const vectorCurvesCirclesSpheres: Partial<ExplicitLesson> = {
     v3Typed(
       "v3c-m5",
       "Find the Cartesian equation of |r − (2, 3)| = √5.",
-      "(x-2)^2+(y-3)^2=?",
+      "|\\mathbf{r}-(2,3)|=\\sqrt{5}",
       "(x-2)^2+(y-3)^2=5",
       ["(x-2)²+(y-3)²=5"],
       "Square: (x−2)² + (y−3)² = 5."
@@ -1252,7 +1270,7 @@ const vectorCurvesCirclesSpheres: Partial<ExplicitLesson> = {
     v3Typed(
       "v3c-m6",
       "Write the vector equation of (x+1)² + y² = 16.",
-      "|\\mathbf{r}-\\mathbf{a}|=R",
+      "(x+1)^2+y^2=16",
       "|r-(-1,0)|=4",
       ["| r - (-1,0) | = 4"],
       "Centre (−1, 0), radius 4. Vector form: |r − (−1, 0)| = 4."
@@ -1276,7 +1294,7 @@ const vectorCurvesCirclesSpheres: Partial<ExplicitLesson> = {
     v3Typed(
       "v3c-m9",
       "r(t) = (t, t²). Eliminate t to find the Cartesian equation.",
-      "x=t,\\; y=t^2",
+      "\\mathbf{r}(t)=(t,t^2)",
       "y=x^2",
       ["y = x²"],
       "From x = t: t = x. Substitute: y = x².",
@@ -1285,7 +1303,7 @@ const vectorCurvesCirclesSpheres: Partial<ExplicitLesson> = {
     v3Typed(
       "v3c-m10",
       "A sphere is centred at (1, 2, 3) with radius 5. Write its Cartesian equation.",
-      "(x-1)^2+(y-2)^2+(z-3)^2=?",
+      "\\text{centre }(1,2,3),\\quad R=5",
       "(x-1)^2+(y-2)^2+(z-3)^2=25",
       ["(x-1)²+(y-2)²+(z-3)²=25"],
       "Centre (1,2,3), R = 5, so R² = 25."
@@ -1357,7 +1375,7 @@ const geometricProofsVectors: Partial<ExplicitLesson> = {
     v3Typed(
       "v3p-g2",
       "Let a = (3, 4). Find a·a. Confirm it equals |a|².",
-      "\\mathbf{a}\\cdot\\mathbf{a}=3^2+4^2",
+      "\\mathbf{a}=(3,4)",
       "25",
       [],
       "a·a = 9 + 16 = 25. Also |a| = √(9+16) = 5, so |a|² = 25. ✓",
@@ -1374,7 +1392,7 @@ const geometricProofsVectors: Partial<ExplicitLesson> = {
     v3Typed(
       "v3p-g4",
       "Verify Cauchy–Schwarz for a = (1, 2) and b = (3, 4). Find |a·b|, |a| and |b|.",
-      "|\\mathbf{a}\\cdot\\mathbf{b}|\\leq|\\mathbf{a}||\\mathbf{b}|",
+      "\\mathbf{a}=(1,2),\\quad \\mathbf{b}=(3,4)",
       "11<=5*sqrt(5)",
       ["11 ≤ 5√5"],
       "a·b = 3+8=11. |a|=√5, |b|=√25=5. |a||b|=5√5≈11.18. So 11 ≤ 5√5 ✓.",
@@ -1402,7 +1420,7 @@ const geometricProofsVectors: Partial<ExplicitLesson> = {
     v3Typed(
       "v3p-i3",
       "A rhombus has |a| = |b| = 5. Compute (a + b)·(a − b).",
-      "(\\mathbf{a}+\\mathbf{b})\\cdot(\\mathbf{a}-\\mathbf{b})=|\\mathbf{a}|^2-|\\mathbf{b}|^2",
+      "|\\mathbf{a}|=|\\mathbf{b}|=5",
       "0",
       [],
       "|a|² − |b|² = 25 − 25 = 0. The diagonals are perpendicular."
@@ -1418,7 +1436,7 @@ const geometricProofsVectors: Partial<ExplicitLesson> = {
     v3Typed(
       "v3p-i5",
       "Let a = (1, 2, 2). Find a·a and hence |a|.",
-      "\\mathbf{a}\\cdot\\mathbf{a}=1+4+4",
+      "\\mathbf{a}=(1,2,2)",
       "3",
       [],
       "a·a = 1+4+4 = 9. |a| = √9 = 3.",
@@ -1445,7 +1463,7 @@ const geometricProofsVectors: Partial<ExplicitLesson> = {
     v3Typed(
       "v3p-m3",
       "Let a = (3, 0) and b = (0, 4). Find |a·b|, then find |a||b|. Is Cauchy–Schwarz satisfied?",
-      "|\\mathbf{a}\\cdot\\mathbf{b}|\\leq|\\mathbf{a}||\\mathbf{b}|",
+      "\\mathbf{a}=(3,0),\\quad \\mathbf{b}=(0,4)",
       "0<=12",
       ["0 ≤ 12"],
       "a·b = 0. |a| = 3, |b| = 4. |a||b| = 12. 0 ≤ 12 ✓."
@@ -1461,7 +1479,7 @@ const geometricProofsVectors: Partial<ExplicitLesson> = {
     v3Typed(
       "v3p-m5",
       "A rhombus has adjacent sides with |a| = |b| = 4. Compute (a + b)·(a − b).",
-      "|\\mathbf{a}|^2-|\\mathbf{b}|^2",
+      "|\\mathbf{a}|=|\\mathbf{b}|=4",
       "0",
       [],
       "16 − 16 = 0. Diagonals perpendicular."
@@ -1485,7 +1503,7 @@ const geometricProofsVectors: Partial<ExplicitLesson> = {
     v3Typed(
       "v3p-m8",
       "a·a = 49. Find |a|.",
-      "|\\mathbf{a}|=\\sqrt{\\mathbf{a}\\cdot\\mathbf{a}}",
+      "\\mathbf{a}\\cdot\\mathbf{a}=49",
       "7",
       [],
       "|a| = √49 = 7."

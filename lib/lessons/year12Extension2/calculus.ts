@@ -4,6 +4,7 @@ import type {
   CoursePathwaySeed,
   CourseUnitSeed,
 } from "../../courseTypes";
+import type { CartesianGraph } from "../types";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -13,7 +14,8 @@ function calcChoice(
   answer: "A" | "B" | "C" | "D",
   choices: [string, string, string, string],
   explanation: string,
-  hint = "Analyse the structure of the integrand before selecting a method."
+  hint = "Analyse the structure of the integrand before selecting a method.",
+  cartesianGraph?: CartesianGraph
 ): PracticeQuestion {
   return {
     id,
@@ -27,6 +29,7 @@ function calcChoice(
     acceptedAnswers: [],
     hint,
     explanation,
+    cartesianGraph,
   };
 }
 
@@ -37,7 +40,8 @@ function calcTyped(
   answer: string,
   acceptedAnswers: string[] = [],
   explanation: string,
-  hint = "Set up the expression carefully, then simplify."
+  hint = "Set up the expression carefully, then simplify.",
+  cartesianGraph?: CartesianGraph
 ): PracticeQuestion {
   return {
     id,
@@ -47,8 +51,232 @@ function calcTyped(
     acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
     hint,
     explanation,
+    cartesianGraph,
   };
 }
+
+function sampledSegments(points: { x: number; y: number }[]) {
+  return points.slice(1).map((point, index) => ({
+    from: points[index],
+    to: point,
+  }));
+}
+
+const parabolaXAxisGraph: CartesianGraph = {
+  description:
+    "Cartesian graph showing y = x^2 from x = 0 to x = 2 with the region under the curve above the x-axis shaded.",
+  xMin: -0.5,
+  xMax: 2.5,
+  yMin: -0.5,
+  yMax: 4.5,
+  xStep: 0.5,
+  yStep: 1,
+  xAxisLabel: "x",
+  yAxisLabel: "y",
+  parabolas: [{ kind: "quadratic", a: 1, b: 0, c: 0, xMin: 0, xMax: 2, label: "y = x^2" }],
+  points: [
+    { x: 0, y: 0, label: "(0, 0)" },
+    { x: 2, y: 4, label: "(2, 4)" },
+  ],
+  shadedRegions: [
+    {
+      kind: "under-function",
+      functionType: "quadratic",
+      quadratic: { a: 1, b: 0, c: 0 },
+      xMin: 0,
+      xMax: 2,
+      baseline: 0,
+      color: "blue",
+      description: "Region under y = x^2 from x = 0 to x = 2.",
+    },
+  ],
+};
+
+const sqrtVsLineUnitGraph: CartesianGraph = {
+  description:
+    "Cartesian graph showing y = sqrt(x) and y = x from x = 0 to x = 1, with the region between the curves shaded.",
+  xMin: -0.1,
+  xMax: 1.1,
+  yMin: -0.1,
+  yMax: 1.1,
+  xStep: 0.2,
+  yStep: 0.2,
+  xAxisLabel: "x",
+  yAxisLabel: "y",
+  curves: [{ kind: "squareRoot", xMin: 0, xMax: 1, label: "y = sqrt(x)" }],
+  lines: [{ kind: "linear", m: 1, b: 0, xMin: 0, xMax: 1, label: "y = x" }],
+  points: [
+    { x: 0, y: 0, label: "(0, 0)" },
+    { x: 1, y: 1, label: "(1, 1)" },
+  ],
+};
+
+const parabolaYAxisGraph: CartesianGraph = {
+  description:
+    "Cartesian graph showing y = x^2 from x = 0 to x = 2 and the line y = 4, with the region between the parabola and y = 4 shaded in the first quadrant.",
+  xMin: -0.5,
+  xMax: 2.5,
+  yMin: -0.5,
+  yMax: 4.5,
+  xStep: 0.5,
+  yStep: 1,
+  xAxisLabel: "x",
+  yAxisLabel: "y",
+  parabolas: [{ kind: "quadratic", a: 1, b: 0, c: 0, xMin: 0, xMax: 2, label: "y = x^2" }],
+  lines: [{ kind: "linear", m: 0, b: 4, xMin: 0, xMax: 2, label: "y = 4" }],
+  points: [
+    { x: 0, y: 0, label: "(0, 0)" },
+    { x: 2, y: 4, label: "(2, 4)" },
+  ],
+  shadedRegions: [
+    {
+      kind: "between-functions",
+      xMin: 0,
+      xMax: 2,
+      top: { functionType: "line", line: { m: 0, b: 4 } },
+      bottom: { functionType: "quadratic", quadratic: { a: 1, b: 0, c: 0 } },
+      color: "green",
+      description: "Region between y = x^2 and y = 4 for 0 <= x <= 2.",
+    },
+  ],
+};
+
+const parabolaUnitYAxisGraph: CartesianGraph = {
+  description:
+    "Cartesian graph showing y = x^2 from x = 0 to x = 1 and the line y = 1, with the region between the parabola and y = 1 shaded.",
+  xMin: -0.1,
+  xMax: 1.1,
+  yMin: -0.1,
+  yMax: 1.1,
+  xStep: 0.2,
+  yStep: 0.2,
+  xAxisLabel: "x",
+  yAxisLabel: "y",
+  parabolas: [{ kind: "quadratic", a: 1, b: 0, c: 0, xMin: 0, xMax: 1, label: "y = x^2" }],
+  lines: [{ kind: "linear", m: 0, b: 1, xMin: 0, xMax: 1, label: "y = 1" }],
+  points: [
+    { x: 0, y: 0, label: "(0, 0)" },
+    { x: 1, y: 1, label: "(1, 1)" },
+  ],
+  shadedRegions: [
+    {
+      kind: "between-functions",
+      xMin: 0,
+      xMax: 1,
+      top: { functionType: "line", line: { m: 0, b: 1 } },
+      bottom: { functionType: "quadratic", quadratic: { a: 1, b: 0, c: 0 } },
+      color: "amber",
+      description: "Region between y = x^2 and y = 1 for 0 <= x <= 1.",
+    },
+  ],
+};
+
+const lineVsParabolaUnitGraph: CartesianGraph = {
+  description:
+    "Cartesian graph showing y = x and y = x^2 from x = 0 to x = 1, with the region between the line and the parabola shaded.",
+  xMin: -0.1,
+  xMax: 1.1,
+  yMin: -0.1,
+  yMax: 1.1,
+  xStep: 0.2,
+  yStep: 0.2,
+  xAxisLabel: "x",
+  yAxisLabel: "y",
+  parabolas: [{ kind: "quadratic", a: 1, b: 0, c: 0, xMin: 0, xMax: 1, label: "y = x^2" }],
+  lines: [{ kind: "linear", m: 1, b: 0, xMin: 0, xMax: 1, label: "y = x" }],
+  points: [
+    { x: 0, y: 0, label: "(0, 0)" },
+    { x: 1, y: 1, label: "(1, 1)" },
+  ],
+  shadedRegions: [
+    {
+      kind: "between-functions",
+      xMin: 0,
+      xMax: 1,
+      top: { functionType: "line", line: { m: 1, b: 0 } },
+      bottom: { functionType: "quadratic", quadratic: { a: 1, b: 0, c: 0 } },
+      color: "blue",
+      description: "Region between y = x and y = x^2 for 0 <= x <= 1.",
+    },
+  ],
+};
+
+const quarterCircleGraph: CartesianGraph = {
+  description:
+    "Cartesian graph showing the quarter circle y = sqrt(4 - x^2) from x = 0 to x = 2 in the first quadrant, with the intercepts at (0, 2) and (2, 0).",
+  xMin: -0.2,
+  xMax: 2.2,
+  yMin: -0.2,
+  yMax: 2.2,
+  xStep: 0.5,
+  yStep: 0.5,
+  xAxisLabel: "x",
+  yAxisLabel: "y",
+  points: [
+    { x: 0, y: 2, label: "(0, 2)" },
+    { x: 1, y: 1.732, label: "(1, sqrt(3))" },
+    { x: 2, y: 0, label: "(2, 0)" },
+  ],
+  lineSegments: sampledSegments([
+    { x: 0, y: 2 },
+    { x: 0.5, y: 1.936 },
+    { x: 1, y: 1.732 },
+    { x: 1.5, y: 1.323 },
+    { x: 2, y: 0 },
+  ]),
+};
+
+const yEqualsXTriangleGraph: CartesianGraph = {
+  description:
+    "Cartesian graph showing y = x from x = 0 to x = 2 and the line y = 2, with the triangular region between them shaded in the first quadrant.",
+  xMin: -0.2,
+  xMax: 2.2,
+  yMin: -0.2,
+  yMax: 2.2,
+  xStep: 0.5,
+  yStep: 0.5,
+  xAxisLabel: "x",
+  yAxisLabel: "y",
+  lines: [
+    { kind: "linear", m: 1, b: 0, xMin: 0, xMax: 2, label: "y = x" },
+    { kind: "linear", m: 0, b: 2, xMin: 0, xMax: 2, label: "y = 2" },
+  ],
+  points: [
+    { x: 0, y: 0, label: "(0, 0)" },
+    { x: 0, y: 2, label: "(0, 2)" },
+    { x: 2, y: 2, label: "(2, 2)" },
+  ],
+  shadedRegions: [
+    {
+      kind: "between-functions",
+      xMin: 0,
+      xMax: 2,
+      top: { functionType: "line", line: { m: 0, b: 2 } },
+      bottom: { functionType: "line", line: { m: 1, b: 0 } },
+      color: "green",
+      description: "Region between y = x and y = 2 for 0 <= x <= 2.",
+    },
+  ],
+};
+
+const sqrtVsHalfXGraph: CartesianGraph = {
+  description:
+    "Cartesian graph showing y = sqrt(x) and y = x/2 from x = 0 to x = 4, with intersection points at (0, 0) and (4, 2).",
+  xMin: -0.2,
+  xMax: 4.2,
+  yMin: -0.2,
+  yMax: 2.4,
+  xStep: 1,
+  yStep: 0.5,
+  xAxisLabel: "x",
+  yAxisLabel: "y",
+  curves: [{ kind: "squareRoot", xMin: 0, xMax: 4, label: "y = sqrt(x)" }],
+  lines: [{ kind: "linear", m: 0.5, b: 0, xMin: 0, xMax: 4, label: "y = x/2" }],
+  points: [
+    { x: 0, y: 0, label: "(0, 0)" },
+    { x: 4, y: 2, label: "(4, 2)" },
+  ],
+};
 
 // ─── Lesson 1: Advanced Integration Method Selection ─────────────────────────
 
@@ -154,84 +382,60 @@ const methodSelectionLesson: Partial<ExplicitLesson> = {
       "x·cos(x) is a product of a polynomial and a trigonometric function. LIATE: Algebraic before Trigonometric, so choose u = x and apply integration by parts.",
       "Look for a product of two different function families."
     ),
-    calcChoice(
+    calcTyped(
       "y12e2-meth-g2",
-      "Which method best applies to $\\int \\frac{1}{(x-1)(x+3)}\\,dx$?",
-      "B",
-      [
-        "Standard form",
-        "Partial fractions",
-        "Substitution",
-        "Integration by parts",
-      ],
-      "The denominator has two distinct linear factors, so decompose into partial fractions A/(x−1) + B/(x+3) before integrating.",
+      "For $\int \frac{1}{(x-1)(x+3)}\,dx$, name the best method.",
+      "",
+      "partial fractions",
+      ["Partial fractions"],
+      "The denominator has two distinct linear factors, so decompose into partial fractions A/(x???1) + B/(x+3) before integrating.",
       "Factor the denominator and check for linear factors."
     ),
-    calcChoice(
+    calcTyped(
       "y12e2-meth-g3",
-      "Which method best applies to $\\int \\frac{4x}{x^2+4}\\,dx$?",
-      "C",
-      [
-        "Partial fractions",
-        "Integration by parts",
-        "Substitution",
-        "Trigonometric identity",
-      ],
-      "4x is twice the derivative of x²+4. Substitution u = x²+4, du = 2x dx converts the integral to 2∫du/u.",
+      "For $\int \frac{4x}{x^2+4}\,dx$, name the best method.",
+      "",
+      "substitution",
+      ["Substitution"],
+      "4x is twice the derivative of x??+4. Substitution u = x??+4, du = 2x dx converts the integral to 2???du/u.",
       "Check whether the numerator is proportional to the derivative of the denominator."
     ),
-    calcChoice(
+    calcTyped(
       "y12e2-meth-g4",
-      "Which method best applies to $\\int \\sin^2(x)\\,dx$?",
-      "D",
-      [
-        "Substitution",
-        "Integration by parts",
-        "Partial fractions",
-        "Trigonometric identity",
-      ],
-      "Apply sin²(x) = (1 − cos(2x))/2 to reduce the power, then integrate each term as a standard form.",
+      "For $\int \sin^2(x)\,dx$, name the best method.",
+      "",
+      "trigonometric identity",
+      ["Trig identity", "trig identity", "Trigonometric identity"],
+      "Apply sin??(x) = (1 ??? cos(2x))/2 to reduce the power, then integrate each term as a standard form.",
       "A power of a single trig function calls for a half-angle identity."
     ),
   ],
   independentPractice: [
-    calcChoice(
+    calcTyped(
       "y12e2-meth-i1",
-      "Which method best applies to $\\int x^3 e^x\\,dx$?",
-      "A",
-      [
-        "Integration by parts, applied repeatedly",
-        "Substitution",
-        "Partial fractions",
-        "Standard form",
-      ],
-      "A polynomial cubed times an exponential requires repeated integration by parts — three applications reduce x³ to a constant.",
+      "For $\int x^3 e^x\,dx$, name the best method.",
+      "",
+      "integration by parts",
+      ["Integration by parts", "repeated integration by parts"],
+      "A polynomial cubed times an exponential requires repeated integration by parts ??? three applications reduce x?? to a constant.",
       "Identify the two function families in the product."
     ),
-    calcChoice(
+    calcTyped(
       "y12e2-meth-i2",
-      "Which method best applies to $\\int \\cos(x^2)\\cdot 2x\\,dx$?",
-      "B",
-      [
-        "Integration by parts",
-        "Substitution",
-        "Partial fractions",
-        "Standard form",
-      ],
-      "2x is the derivative of x², so substitution u = x² converts this to ∫cos(u)du = sin(u) + C.",
+      "For $\int \cos(x^2)\cdot 2x\,dx$, name the best method.",
+      "",
+      "substitution",
+      ["Substitution"],
+      "2x is the derivative of x??, so substitution u = x?? converts this to ???cos(u)du = sin(u) + C.",
       "Check whether a factor of the integrand is the derivative of an inner function."
     ),
-    calcChoice(
+    calcTyped(
       "y12e2-meth-i3",
-      "Which method best applies to $\\int \\frac{1}{x^2-9}\\,dx$?",
-      "C",
-      [
-        "Standard form",
-        "Substitution",
-        "Partial fractions",
-        "Integration by parts",
-      ],
-      "x² − 9 = (x − 3)(x + 3): two distinct linear factors → partial fractions with A/(x−3) + B/(x+3).",
+      "For $\int \frac{1}{x^2-9}\,dx$, name the best method.",
+      "",
+      "partial fractions",
+      ["Partial fractions"],
+      "x?? ??? 9 = (x ??? 3)(x + 3): two distinct linear factors ??? partial fractions with A/(x???3) + B/(x+3).",
       "Factor the denominator first."
     ),
     calcTyped(
@@ -243,17 +447,13 @@ const methodSelectionLesson: Partial<ExplicitLesson> = {
       "LIATE places Logarithm before Algebraic. Choosing u = ln(x) means du = (1/x)dx, which removes the logarithm from the remaining integral.",
       "Apply LIATE: Logarithm appears before Algebraic."
     ),
-    calcChoice(
+    calcTyped(
       "y12e2-meth-i5",
-      "Which method best applies to $\\int \\cos^4(x)\\,dx$?",
-      "D",
-      [
-        "Substitution",
-        "Integration by parts",
-        "Partial fractions",
-        "Trigonometric identity",
-      ],
-      "Repeated use of cos²(x) = (1 + cos(2x))/2 reduces cos⁴(x) = ((1 + cos(2x))/2)² to terms that can be integrated as standard forms.",
+      "For $\int \cos^4(x)\,dx$, name the best method.",
+      "",
+      "trigonometric identity",
+      ["Trig identity", "trig identity", "Trigonometric identity"],
+      "Repeated use of cos??(x) = (1 + cos(2x))/2 reduces cos???(x) = ((1 + cos(2x))/2)?? to terms that can be integrated as standard forms.",
       "A power of cos greater than 1 requires the half-angle identity."
     ),
   ],
@@ -277,30 +477,22 @@ const methodSelectionLesson: Partial<ExplicitLesson> = {
     },
   ],
   masteryQuiz: [
-    calcChoice(
+    calcTyped(
       "y12e2-meth-m1",
-      "Which method best applies to $\\int x^3 e^x\\,dx$?",
-      "B",
-      [
-        "Substitution",
-        "Integration by parts, applied repeatedly",
-        "Partial fractions",
-        "Standard form",
-      ],
-      "Polynomial × exponential → repeated integration by parts. x³ has degree 3, so three applications are needed.",
-      "Count the degree of the polynomial — that is how many times by parts must be applied."
+      "For $\int x^3 e^x\,dx$, name the best method.",
+      "",
+      "integration by parts",
+      ["Integration by parts", "repeated integration by parts"],
+      "Polynomial ?? exponential ??? repeated integration by parts. x?? has degree 3, so three applications are needed.",
+      "Count the degree of the polynomial ??? that is how many times by parts must be applied."
     ),
-    calcChoice(
+    calcTyped(
       "y12e2-meth-m2",
-      "Which method best applies to $\\int \\frac{1}{(x-1)(x+2)}\\,dx$?",
-      "A",
-      [
-        "Partial fractions",
-        "Substitution",
-        "Integration by parts",
-        "Standard form",
-      ],
-      "Two distinct linear factors in the denominator → partial fractions A/(x−1) + B/(x+2).",
+      "For $\int \frac{1}{(x-1)(x+2)}\,dx$, name the best method.",
+      "",
+      "partial fractions",
+      ["Partial fractions"],
+      "Two distinct linear factors in the denominator ??? partial fractions A/(x???1) + B/(x+2).",
       "Factor the denominator and check for linear pieces."
     ),
     calcTyped(
@@ -312,17 +504,13 @@ const methodSelectionLesson: Partial<ExplicitLesson> = {
       "LIATE: Algebraic (x) before Trigonometric (sin(x)), so u = x. Differentiating x gives 1, removing the polynomial factor after one step.",
       "Apply LIATE to select the correct u."
     ),
-    calcChoice(
+    calcTyped(
       "y12e2-meth-m4",
-      "Which method best applies to $\\int \\cos^2(x)\\,dx$?",
-      "C",
-      [
-        "Substitution",
-        "Integration by parts",
-        "Trigonometric identity",
-        "Partial fractions",
-      ],
-      "Apply cos²(x) = (1 + cos(2x))/2, then integrate each term: x/2 + sin(2x)/4 + C.",
+      "For $\int \cos^2(x)\,dx$, name the best method.",
+      "",
+      "trigonometric identity",
+      ["Trig identity", "trig identity", "Trigonometric identity"],
+      "Apply cos??(x) = (1 + cos(2x))/2, then integrate each term: x/2 + sin(2x)/4 + C.",
       "Recognise a power of a single trig function."
     ),
     calcChoice(
@@ -347,17 +535,13 @@ const methodSelectionLesson: Partial<ExplicitLesson> = {
       "With u = x², du = 2x dx. The integral becomes ∫eᵘ du = eᵘ + C = $e^{x^2}$ + C.",
       "Look for a factor proportional to the derivative of the exponent."
     ),
-    calcChoice(
+    calcTyped(
       "y12e2-meth-m7",
-      "Which method best applies to $\\int \\frac{x+1}{x^2+2x+3}\\,dx$?",
-      "D",
-      [
-        "Partial fractions",
-        "Integration by parts",
-        "Standard form",
-        "Substitution",
-      ],
-      "The derivative of x²+2x+3 is 2x+2 = 2(x+1), so the numerator x+1 is half the derivative. Substitution u = x²+2x+3 gives ∫du/(2u) = (1/2)ln|u| + C.",
+      "For $\int \frac{x+1}{x^2+2x+3}\,dx$, name the best method.",
+      "",
+      "substitution",
+      ["Substitution"],
+      "The derivative of x??+2x+3 is 2x+2 = 2(x+1), so the numerator x+1 is half the derivative. Substitution u = x??+2x+3 gives ???du/(2u) = (1/2)ln|u| + C.",
       "Compare the numerator with the derivative of the denominator."
     ),
     calcChoice(
@@ -771,25 +955,29 @@ const reductionFormulaeLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-red-g1",
       "Given $I_n = e - n\\,I_{n-1}$ with $I_0 = e-1$, find $I_1$.",
-      "I_n=e-n\\,I_{n-1},\\quad I_0=e-1",
+      "",
       "1",
       [],
       "Substitute n = 1: I₁ = e − 1·(e−1) = e − e + 1 = 1.",
       "Substitute n = 1 directly into the reduction formula."
     ),
-    calcTyped(
+    calcChoice(
       "y12e2-red-g2",
-      "Using $I_n = e - n\\,I_{n-1}$ and $I_1 = 1$, find $I_2$.",
-      "I_n=e-n\\,I_{n-1},\\quad I_1=1",
-      "e-2",
-      ["e - 2"],
-      "Substitute n = 2: I₂ = e − 2·I₁ = e − 2·1 = e − 2.",
-      "Substitute n = 2 and the known value I₁ = 1."
+      "For $I_n = \\frac{n-1}{n}\\,I_{n-2}$, which base case do you need in order to begin finding $I_5$?",
+      "B",
+      [
+        "$I_0$",
+        "$I_1$",
+        "$I_2$",
+        "Both $I_0$ and $I_2$",
+      ],
+      "Odd-index terms chain backward by 2: I₅ depends on I₃, and I₃ depends on I₁. So I₁ is the base case needed to start the odd chain.",
+      "Follow the parity: odd terms connect only to earlier odd terms."
     ),
     calcTyped(
       "y12e2-red-g3",
       "Given $I_n = \\frac{n-1}{n}\\,I_{n-2}$ with $I_0 = \\frac{\\pi}{2}$, find $I_2$.",
-      "I_n=\\frac{n-1}{n}\\,I_{n-2},\\quad I_0=\\frac{\\pi}{2}",
+      "",
       "pi/4",
       ["π/4", "pi / 4"],
       "Substitute n = 2: I₂ = (1/2)·I₀ = (1/2)·(π/2) = π/4.",
@@ -813,34 +1001,38 @@ const reductionFormulaeLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-red-i1",
       "Given $I_n=e-n\\,I_{n-1}$, $I_0=e-1$, $I_1=1$, $I_2=e-2$, find $I_3$.",
-      "I_n=e-n\\,I_{n-1},\\quad I_2=e-2",
+      "",
       "6-2e",
       ["6 - 2e", "-2e+6"],
       "Substitute n = 3: I₃ = e − 3·I₂ = e − 3(e−2) = e − 3e + 6 = 6 − 2e.",
       "Substitute n = 3 and I₂ = e − 2 into the formula."
     ),
-    calcTyped(
+    calcChoice(
       "y12e2-red-i2",
-      "Given $I_n=\\frac{n-1}{n}\\,I_{n-2}$, $I_0=\\frac{\\pi}{2}$, $I_2=\\frac{\\pi}{4}$, find $I_4$.",
-      "I_n=\\frac{n-1}{n}\\,I_{n-2},\\quad I_2=\\frac{\\pi}{4}",
-      "3pi/16",
-      ["3π/16", "3*pi/16"],
-      "Substitute n = 4: I₄ = (3/4)·I₂ = (3/4)·(π/4) = 3π/16.",
-      "Substitute n = 4 and I₂ = π/4 into the formula."
+      "For $I_n=\\frac{n-1}{n}\\,I_{n-2}$ with $I_0=\\frac{\\pi}{2}$, which chain correctly reaches $I_6$?",
+      "C",
+      [
+        "$I_6 \\to I_5 \\to I_4 \\to I_3$",
+        "$I_6 \\to I_4 \\to I_1$",
+        "$I_6 \\to I_4 \\to I_2 \\to I_0$",
+        "$I_6 \\to I_3 \\to I_1$",
+      ],
+      "The recurrence lowers the index by 2 each time, so even terms stay on the even chain: I₆ depends on I₄, then I₂, then I₀.",
+      "Reduction by 2 preserves parity."
     ),
     calcTyped(
       "y12e2-red-i3",
-      "Given $I_n=\\frac{n-1}{n}\\,I_{n-2}$ with $I_1=1$, find $I_3$.",
-      "I_n=\\frac{n-1}{n}\\,I_{n-2},\\quad I_1=1",
-      "2/3",
+      "Given $I_n=\\frac{n-1}{n}\\,I_{n-2}$ with $I_1=1$, find $I_5$.",
+      "",
+      "8/15",
       [],
-      "Substitute n = 3: I₃ = (2/3)·I₁ = (2/3)·1 = 2/3.",
-      "Substitute n = 3 and I₁ = 1 into the formula."
+      "First I₃ = (2/3)·I₁ = 2/3. Then I₅ = (4/5)·I₃ = (4/5)·(2/3) = 8/15.",
+      "Stay on the odd chain: find I₃ first, then use it to find I₅."
     ),
     calcTyped(
       "y12e2-red-i4",
       "Given $I_0=e^x+C$ and $I_n=x^n e^x-n\\,I_{n-1}$, in $I_2=e^x(x^2+ax+b)+C$, find $a$.",
-      "I_2=e^x(x^2+ax+b)+C",
+      "",
       "-2",
       ["−2"],
       "I₁ = xeˣ − eˣ + C = eˣ(x−1)+C. Then I₂ = x²eˣ − 2·I₁ = x²eˣ − 2(xeˣ−eˣ+C) = eˣ(x²−2x+2)+C. So a = −2.",
@@ -882,7 +1074,7 @@ const reductionFormulaeLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-red-m1",
       "Given $I_n=e-n\\,I_{n-1}$, $I_3=6-2e$, find $I_4$.",
-      "I_n=e-n\\,I_{n-1},\\quad I_3=6-2e",
+      "",
       "9e-24",
       ["9e - 24"],
       "I₄ = e − 4·I₃ = e − 4(6−2e) = e − 24 + 8e = 9e − 24.",
@@ -890,26 +1082,30 @@ const reductionFormulaeLesson: Partial<ExplicitLesson> = {
     ),
     calcTyped(
       "y12e2-red-m2",
-      "Given $I_n=\\frac{n-1}{n}\\,I_{n-2}$ and $I_4=\\frac{3\\pi}{16}$, find $I_6$.",
-      "I_n=\\frac{n-1}{n}\\,I_{n-2},\\quad I_4=\\frac{3\\pi}{16}",
-      "5pi/32",
-      ["5π/32", "5*pi/32"],
-      "I₆ = (5/6)·I₄ = (5/6)·(3π/16) = 15π/96 = 5π/32.",
-      "Substitute n = 6 and I₄ = 3π/16 into the formula, then simplify."
+      "Given $I_n=\\frac{n-1}{n}\\,I_{n-2}$ with $I_0=\\frac{\\pi}{2}$, find $I_8$.",
+      "",
+      "35pi/256",
+      ["35π/256", "35*pi/256"],
+      "Follow the even chain: I₂ = π/4, I₄ = 3π/16, I₆ = 5π/32, then I₈ = (7/8)·I₆ = (7/8)·(5π/32) = 35π/256.",
+      "Work down the even chain step by step from I₀."
     ),
-    calcTyped(
+    calcChoice(
       "y12e2-red-m3",
-      "Given $I_n=\\frac{n-1}{n}\\,I_{n-2}$ with $I_3=\\frac{2}{3}$, find $I_5$.",
-      "I_n=\\frac{n-1}{n}\\,I_{n-2},\\quad I_3=\\frac{2}{3}",
-      "8/15",
-      [],
-      "I₅ = (4/5)·I₃ = (4/5)·(2/3) = 8/15.",
-      "Substitute n = 5 and I₃ = 2/3 into the formula."
+      "A student wants to find $I_7$ using $I_n=\\frac{n-1}{n}\\,I_{n-2}$. Which supplied value lets them continue immediately with one substitution?",
+      "B",
+      [
+        "$I_4$",
+        "$I_5$",
+        "$I_6$",
+        "$I_0$",
+      ],
+      "To find I₇ directly, the recurrence needs I₅ because I₇ = (6/7)·I₅. Values from the even chain do not connect to I₇.",
+      "The recurrence always uses I_{n-2}; for I₇ that means I₅."
     ),
     calcTyped(
       "y12e2-red-m4",
       "Given $I_0=e^x+C$ and $I_n=x^n e^x-n\\,I_{n-1}$, in $I_2=e^x(x^2+ax+b)+C$, find $b$.",
-      "I_2=e^x(x^2+ax+b)+C",
+      "",
       "2",
       [],
       "I₂ = eˣ(x²−2x+2)+C, so b = 2. This comes from the constant term after two by-parts steps.",
@@ -918,7 +1114,7 @@ const reductionFormulaeLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-red-m5",
       "Given $I_2=e^x(x^2-2x+2)+C$, evaluate $\\int_0^1 x^2 e^x\\,dx$.",
-      "\\bigl[e^x(x^2-2x+2)\\bigr]_0^1",
+      "",
       "e-2",
       ["e - 2"],
       "At x=1: e(1−2+2) = e. At x=0: 1·(0−0+2) = 2. Result: e − 2.",
@@ -946,14 +1142,18 @@ const reductionFormulaeLesson: Partial<ExplicitLesson> = {
       "Even-index values chain through I₀, I₂, I₄, … and odd-index values chain through I₁, I₃, I₅, … Both I₀ and I₁ are required to evaluate any Iₙ.",
       "Trace which base case each parity chain requires."
     ),
-    calcTyped(
+    calcChoice(
       "y12e2-red-m8",
-      "Given $I_n=e-n\\,I_{n-1}$ with $I_0=e-1$, what is $1\\cdot I_0$ as it appears in the step for $I_1$?",
-      "I_1=e-1\\cdot I_0,\\quad I_0=e-1",
-      "e-1",
-      ["e - 1"],
-      "1·I₀ = 1·(e−1) = e−1. So I₁ = e − (e−1) = 1.",
-      "Multiply the coefficient 1 by the value of I₀."
+      "Which sequence correctly computes $I_8$ from the recurrence $I_n=\\frac{n-1}{n}\\,I_{n-2}$?",
+      "D",
+      [
+        "$I_8 \\to I_7 \\to I_6 \\to I_5$",
+        "$I_8 \\to I_6 \\to I_3 \\to I_1$",
+        "$I_8 \\to I_5 \\to I_3 \\to I_1$",
+        "$I_8 \\to I_6 \\to I_4 \\to I_2 \\to I_0$",
+      ],
+      "Each application lowers the index by 2, so the even chain for I₈ is I₈ → I₆ → I₄ → I₂ → I₀.",
+      "A reduction by 2 keeps the index parity unchanged."
     ),
     calcChoice(
       "y12e2-red-m9",
@@ -970,12 +1170,12 @@ const reductionFormulaeLesson: Partial<ExplicitLesson> = {
     ),
     calcTyped(
       "y12e2-red-m10",
-      "Given $I_n=\\frac{n-1}{n}\\,I_{n-2}$ and $I_6=\\frac{5\\pi}{32}$, find $I_8$.",
-      "I_n=\\frac{n-1}{n}\\,I_{n-2},\\quad I_6=\\frac{5\\pi}{32}",
-      "35pi/256",
-      ["35π/256", "35*pi/256"],
-      "I₈ = (7/8)·I₆ = (7/8)·(5π/32) = 35π/256.",
-      "Substitute n = 8 and I₆ = 5π/32 into the formula."
+      "If $I_4=\\frac{3\\pi}{16}$ for $I_n=\\int_0^{\\pi/2}\\sin^n(x)\\,dx$, evaluate $\\int_0^{\\pi/2} \\left(1+\\sin^4 x\\right)dx$.",
+      "",
+      "11pi/16",
+      ["11π/16", "11*pi/16"],
+      "Split the integral: ∫₀^{π/2}1 dx + ∫₀^{π/2}sin⁴x dx = π/2 + I₄ = π/2 + 3π/16 = 11π/16.",
+      "Use the supplied value of I₄ and add the area from the constant term separately."
     ),
   ],
 };
@@ -1393,7 +1593,7 @@ const tSubstitutionLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-tsub-i1",
       "Using $t=\\tan(x/2)$, express $1+\\sin x$ in terms of $t$.",
-      "1+\\sin x=1+\\frac{2t}{1+t^2}",
+      "",
       "(1+t)^2/(1+t^2)",
       ["(1+t)²/(1+t²)", "\\frac{(1+t)^2}{1+t^2}"],
       "1 + 2t/(1+t²) = (1+t²+2t)/(1+t²) = (1+t)²/(1+t²).",
@@ -1402,7 +1602,7 @@ const tSubstitutionLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-tsub-i2",
       "Simplify $\\dfrac{1}{1+\\sin x}\\cdot\\dfrac{2}{1+t^2}$ using $1+\\sin x=\\dfrac{(1+t)^2}{1+t^2}$.",
-      "\\frac{1+t^2}{(1+t)^2}\\cdot\\frac{2}{1+t^2}",
+      "",
       "2/(1+t)^2",
       ["\\frac{2}{(1+t)^2}"],
       "The (1+t²) terms cancel, leaving 2/(1+t)².",
@@ -1411,7 +1611,7 @@ const tSubstitutionLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-tsub-i3",
       "Evaluate $\\displaystyle\\int\\frac{2}{(1+t)^2}\\,dt$.",
-      "2\\int(1+t)^{-2}\\,dt",
+      "",
       "-2/(1+t)+C",
       ["−2/(1+t) + C"],
       "∫2(1+t)^{−2} dt = 2·(−1/(1+t)) + C = −2/(1+t) + C.",
@@ -1433,7 +1633,7 @@ const tSubstitutionLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-tsub-i5",
       "After evaluating $-\\dfrac{2}{1+t}+C$, back-substitute $t=\\tan(x/2)$.",
-      "-\\frac{2}{1+\\tan(x/2)}+C",
+      "",
       "-2/(1+tan(x/2))+C",
       ["-2/(1+tan x/2)+C"],
       "Replace t with tan(x/2): the answer is −2/(1+tan(x/2)) + C.",
@@ -1496,7 +1696,7 @@ const tSubstitutionLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-tsub-m5",
       "Under $t=\\tan(x/2)$, simplify the integral $\\displaystyle\\int\\frac{1}{1+\\cos x}\\,dx$.",
-      "\\frac{1}{2/(1+t^2)}\\cdot\\frac{2}{1+t^2}\\,dt",
+      "",
       "t+C",
       ["tan(x/2)+C", "\\tan(x/2)+C"],
       "After substitution the integrand is 1 (as shown in guided practice). ∫1 dt = t = tan(x/2) + C.",
@@ -1935,7 +2135,7 @@ const completingSquareIntegrationLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-csq-i1",
       "Evaluate $\\displaystyle\\int\\frac{dx}{x^2+1}$.",
-      "\\int\\frac{dx}{x^2+1^2}",
+      "",
       "arctan(x)+C",
       ["\\arctan x+C"],
       "a = 1: arctan(x) + C.",
@@ -1944,7 +2144,7 @@ const completingSquareIntegrationLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-csq-i2",
       "Complete the square on $x^2-2x+5$, then integrate $\\displaystyle\\int\\frac{dx}{x^2-2x+5}$.",
-      "x^2-2x+5=(x-1)^2+4",
+      "",
       "(1/2)arctan((x-1)/2)+C",
       ["\\frac{1}{2}\\arctan\\frac{x-1}{2}+C"],
       "x²−2x+5 = (x−1)²+4. Then (1/2)arctan((x−1)/2)+C.",
@@ -1953,7 +2153,7 @@ const completingSquareIntegrationLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-csq-i3",
       "Evaluate $\\displaystyle\\int\\frac{dx}{x^2+6x+10}$.",
-      "x^2+6x+10=(x+3)^2+1",
+      "",
       "arctan(x+3)+C",
       ["\\arctan(x+3)+C"],
       "x²+6x+10 = (x+3)²+1. Integral = arctan(x+3)+C.",
@@ -1962,7 +2162,7 @@ const completingSquareIntegrationLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-csq-i4",
       "Evaluate $\\displaystyle\\int\\frac{dx}{(x+3)^2+4}$.",
-      "\\int\\frac{du}{u^2+4},\\; u=x+3",
+      "",
       "(1/2)arctan((x+3)/2)+C",
       ["\\frac{1}{2}\\arctan\\frac{x+3}{2}+C"],
       "u = x+3, k = 2: (1/2)arctan((x+3)/2)+C.",
@@ -1981,7 +2181,7 @@ const completingSquareIntegrationLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-csq-m1",
       "Evaluate $\\displaystyle\\int\\frac{dx}{x^2+4}$.",
-      "\\int\\frac{dx}{x^2+2^2}",
+      "",
       "(1/2)arctan(x/2)+C",
       ["\\frac{1}{2}\\arctan\\frac{x}{2}+C"],
       "a = 2: (1/2)arctan(x/2)+C."
@@ -2010,7 +2210,7 @@ const completingSquareIntegrationLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-csq-m4",
       "Evaluate $\\displaystyle\\int\\frac{dx}{x^2-4x+5}$.",
-      "x^2-4x+5=(x-2)^2+1",
+      "",
       "arctan(x-2)+C",
       ["\\arctan(x-2)+C"],
       "x²−4x+5 = (x−2)²+1. Integral = arctan(x−2)+C."
@@ -2018,7 +2218,7 @@ const completingSquareIntegrationLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-csq-m5",
       "Evaluate $\\displaystyle\\int\\frac{dx}{x^2+2x+2}$.",
-      "x^2+2x+2=(x+1)^2+1",
+      "",
       "arctan(x+1)+C",
       ["\\arctan(x+1)+C"],
       "(x+1)²+1. Integral = arctan(x+1)+C."
@@ -2039,7 +2239,7 @@ const completingSquareIntegrationLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-csq-m7",
       "Evaluate $\\displaystyle\\int_0^1\\frac{dx}{x^2+1}$.",
-      "\\left[\\arctan x\\right]_0^1",
+      "",
       "pi/4",
       ["π/4", "\\pi/4"],
       "[arctan x]₀¹ = arctan(1) − arctan(0) = π/4 − 0 = π/4."
@@ -2047,7 +2247,7 @@ const completingSquareIntegrationLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-csq-m8",
       "Evaluate $\\displaystyle\\int\\frac{dx}{x^2+4x+8}$.",
-      "x^2+4x+8=(x+2)^2+4",
+      "",
       "(1/2)arctan((x+2)/2)+C",
       ["\\frac{1}{2}\\arctan\\frac{x+2}{2}+C"],
       "(x+2)²+4. k=2: (1/2)arctan((x+2)/2)+C."
@@ -2068,7 +2268,7 @@ const completingSquareIntegrationLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-csq-m10",
       "Evaluate $\\displaystyle\\int\\frac{dx}{4x^2+1}$. (Hint: write as $\\int\\frac{dx}{(2x)^2+1}$ and use substitution $u=2x$.)",
-      "u=2x,\\;du=2\\,dx:\\quad\\tfrac{1}{2}\\int\\frac{du}{u^2+1}",
+      "",
       "(1/2)arctan(2x)+C",
       ["\\frac{1}{2}\\arctan(2x)+C"],
       "u = 2x, du = 2dx. (1/2)∫du/(u²+1) = (1/2)arctan(2x)+C.",
@@ -2354,6 +2554,7 @@ const volumesOfRevolutionLesson: Partial<ExplicitLesson> = {
     {
       title: "Rotate y = x² about the x-axis from x = 0 to x = 2",
       questionLatex: "V=\\pi\\int_0^2 (x^2)^2\\,dx",
+      cartesianGraph: parabolaXAxisGraph,
       steps: [
         {
           explanation: "Square the function: [f(x)]² = (x²)² = x⁴.",
@@ -2369,6 +2570,7 @@ const volumesOfRevolutionLesson: Partial<ExplicitLesson> = {
     {
       title: "Washer method: region between y = √x and y = x, rotated about x-axis",
       questionLatex: "V=\\pi\\int_0^1\\left[(\\sqrt{x})^2-x^2\\right]dx",
+      cartesianGraph: sqrtVsLineUnitGraph,
       steps: [
         {
           explanation: "Find intersections: √x = x gives x = 0 and x = 1. On (0,1), √x > x so f(x) = √x is outer, g(x) = x is inner.",
@@ -2388,6 +2590,7 @@ const volumesOfRevolutionLesson: Partial<ExplicitLesson> = {
     {
       title: "Rotate y = x² about the y-axis from y = 0 to y = 4",
       questionLatex: "V=\\pi\\int_0^4 x^2\\,dy,\\quad x^2=y",
+      cartesianGraph: parabolaYAxisGraph,
       steps: [
         {
           explanation: "Express x² in terms of y: from y = x², we get x² = y.",
@@ -2418,7 +2621,7 @@ const volumesOfRevolutionLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-vor-g2",
       "Rotate $y = 3$ about the $x$-axis from $x = 0$ to $x = 4$. Find the exact volume.",
-      "V=\\pi\\int_0^4 3^2\\,dx",
+      "",
       "36pi",
       [],
       "V = π∫₀⁴ 9 dx = π[9x]₀⁴ = 36π.",
@@ -2427,7 +2630,7 @@ const volumesOfRevolutionLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-vor-g3",
       "Rotate $y = x$ about the $x$-axis from $x = 0$ to $x = 3$. Find the exact volume.",
-      "V=\\pi\\int_0^3 x^2\\,dx",
+      "",
       "9pi",
       [],
       "V = π∫₀³ x² dx = π[x³/3]₀³ = π(27/3) = 9π.",
@@ -2446,7 +2649,7 @@ const volumesOfRevolutionLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-vor-i1",
       "Rotate $y = \\sqrt{x}$ about the $x$-axis from $x = 1$ to $x = 4$. Find the exact volume.",
-      "V=\\pi\\int_1^4 x\\,dx",
+      "",
       "15pi/2",
       [],
       "V = π∫₁⁴ (√x)² dx = π∫₁⁴ x dx = π[x²/2]₁⁴ = π(8 − 1/2) = 15π/2.",
@@ -2455,7 +2658,7 @@ const volumesOfRevolutionLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-vor-i2",
       "Rotate $y = 2x$ about the $x$-axis from $x = 0$ to $x = 1$. Find the exact volume.",
-      "V=\\pi\\int_0^1 (2x)^2\\,dx",
+      "",
       "4pi/3",
       [],
       "V = π∫₀¹ 4x² dx = 4π[x³/3]₀¹ = 4π/3.",
@@ -2477,20 +2680,22 @@ const volumesOfRevolutionLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-vor-i4",
       "Rotate $y = x^2$ about the $y$-axis from $y = 0$ to $y = 1$. Find the exact volume.",
-      "V=\\pi\\int_0^1 y\\,dy,\\quad x=\\sqrt{y}",
+      "",
       "pi/2",
       [],
       "From y = x², x² = y. V = π∫₀¹ y dy = π[y²/2]₀¹ = π/2.",
-      "Express x² = y, then integrate with respect to y from 0 to 1."
+      "Express x² = y, then integrate with respect to y from 0 to 1.",
+      parabolaUnitYAxisGraph
     ),
     calcTyped(
       "y12e2-vor-i5",
       "The region between $y = x$ and $y = x^2$ for $0 \\le x \\le 1$ is rotated about the $x$-axis. Find the exact volume.",
-      "V=\\pi\\int_0^1(x^2-x^4)\\,dx",
+      "",
       "2pi/15",
       [],
       "Outer: y = x, inner: y = x². V = π∫₀¹(x² − x⁴) dx = π[x³/3 − x⁵/5]₀¹ = π(1/3 − 1/5) = 2π/15.",
-      "Outer radius is x (larger on [0,1]), inner is x². Subtract squares and integrate."
+      "Outer radius is x (larger on [0,1]), inner is x². Subtract squares and integrate.",
+      lineVsParabolaUnitGraph
     ),
   ],
   commonMistakes: [
@@ -2524,7 +2729,7 @@ const volumesOfRevolutionLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-vor-m2",
       "Rotate $y = x^3$ about the $x$-axis from $x = 0$ to $x = 1$. Find the exact volume.",
-      "V=\\pi\\int_0^1 x^6\\,dx",
+      "",
       "pi/7",
       [],
       "V = π∫₀¹ x⁶ dx = π[x⁷/7]₀¹ = π/7.",
@@ -2533,7 +2738,7 @@ const volumesOfRevolutionLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-vor-m3",
       "Rotate $y = 1/x$ about the $x$-axis from $x = 1$ to $x = 3$. Find the exact volume.",
-      "V=\\pi\\int_1^3 \\frac{1}{x^2}\\,dx",
+      "",
       "2pi/3",
       [],
       "V = π∫₁³ x⁻² dx = π[−1/x]₁³ = π(−1/3 − (−1)) = π(2/3) = 2π/3.",
@@ -2550,21 +2755,23 @@ const volumesOfRevolutionLesson: Partial<ExplicitLesson> = {
         "There is no washer — only a disk",
       ],
       "On 0 ≤ x ≤ 1, the line y = x lies above the parabola y = x². So y = x is the outer radius and y = x² is the inner radius.",
-      "Check which curve is further from the x-axis on the interval [0,1]."
+      "Check which curve is further from the x-axis on the interval [0,1].",
+      lineVsParabolaUnitGraph
     ),
     calcTyped(
       "y12e2-vor-m5",
       "Rotate $y = \\sqrt{4-x^2}$ about the $x$-axis from $x = 0$ to $x = 2$. Find the exact volume.",
-      "V=\\pi\\int_0^2(4-x^2)\\,dx",
+      "",
       "16pi/3",
       [],
       "V = π∫₀²(4−x²) dx = π[4x − x³/3]₀² = π(8 − 8/3) = π(16/3) = 16π/3.",
-      "Square √(4−x²) to get 4−x², then integrate."
+      "Square √(4−x²) to get 4−x², then integrate.",
+      quarterCircleGraph
     ),
     calcTyped(
       "y12e2-vor-m6",
       "Rotate $y = e^x$ about the $x$-axis from $x = 0$ to $x = 1$. Find the exact volume.",
-      "V=\\pi\\int_0^1 e^{2x}\\,dx",
+      "",
       "pi*(e^2-1)/2",
       ["(pi/2)*(e^2-1)", "pi(e^2-1)/2"],
       "V = π∫₀¹ e^{2x} dx = π[e^{2x}/2]₀¹ = π(e²/2 − 1/2) = π(e²−1)/2.",
@@ -2573,7 +2780,7 @@ const volumesOfRevolutionLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-vor-m7",
       "Rotate $y = \\sin x$ about the $x$-axis from $x = 0$ to $x = \\pi$. Find the exact volume.",
-      "V=\\pi\\int_0^\\pi\\sin^2 x\\,dx",
+      "",
       "pi^2/2",
       [],
       "V = π∫₀π sin²x dx = π∫₀π(1−cos2x)/2 dx = π[x/2 − sin2x/4]₀π = π(π/2) = π²/2.",
@@ -2582,11 +2789,12 @@ const volumesOfRevolutionLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-vor-m8",
       "Rotate $y = x$ about the $y$-axis from $y = 0$ to $y = 2$. Find the exact volume.",
-      "V=\\pi\\int_0^2 y^2\\,dy,\\quad x=y",
+      "",
       "8pi/3",
       [],
       "From y = x, x = y so x² = y². V = π∫₀² y² dy = π[y³/3]₀² = 8π/3.",
-      "Express x in terms of y: x = y. Then integrate [x(y)]² = y² from y=0 to y=2."
+      "Express x in terms of y: x = y. Then integrate [x(y)]² = y² from y=0 to y=2.",
+      yEqualsXTriangleGraph
     ),
     calcChoice(
       "y12e2-vor-m9",
@@ -2604,11 +2812,12 @@ const volumesOfRevolutionLesson: Partial<ExplicitLesson> = {
     calcTyped(
       "y12e2-vor-m10",
       "The region between $y = \\sqrt{x}$ and $y = x/2$ (intersecting at $x = 0$ and $x = 4$) is rotated about the $x$-axis. Find the exact volume.",
-      "V=\\pi\\int_0^4\\left(x-\\frac{x^2}{4}\\right)dx",
+      "",
       "8pi/3",
       [],
       "Outer: √x (since √x > x/2 for 0 < x < 4). Outer² = x, inner² = x²/4. V = π∫₀⁴(x − x²/4) dx = π[x²/2 − x³/12]₀⁴ = π(8 − 64/12) = π(8 − 16/3) = 8π/3.",
-      "Check which curve is larger on (0,4), set up outer² − inner², then integrate."
+      "Check which curve is larger on (0,4), set up outer² − inner², then integrate.",
+      sqrtVsHalfXGraph
     ),
   ],
 };

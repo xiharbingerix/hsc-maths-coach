@@ -632,7 +632,7 @@ const contrapositiveLesson: Partial<ExplicitLesson> = {
     proofTyped(
       "y12e2-proof-contra-m10",
       "For an integer not divisible by 3, the possible remainders modulo 3 are 1 and what?",
-      "2",
+      "n\\equiv 1\\text{ or }\\square \\pmod 3",
       "2",
       [],
       "Integers modulo 3 have remainders 0, 1, or 2. Not divisible by 3 excludes remainder 0."
@@ -932,7 +932,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
   ],
   teaching: {
     paragraphs: [
-      "Mathematical induction proves a statement P(n) for all integers n ≥ 1 in three steps. First, verify P(1) directly. Second, assume P(k) is true for some integer k ≥ 1. Third, prove P(k+1) follows from P(k).",
+      "Mathematical induction proves a statement P(n) for all integers n >= 1 in three steps. First, verify P(1) directly. Second, assume P(k) is true for some integer k >= 1. Third, prove P(k+1) follows from P(k).",
       "For summation proofs, the key step is writing the (k+1)-th partial sum as the k-th partial sum plus the next term, then using the hypothesis to simplify.",
       "For divisibility proofs of the form 'n divides f(n)', express f(k+1) in terms of f(k), extract the inductive hypothesis, and show the remainder is also divisible.",
       "The conclusion must state that by mathematical induction, P(n) holds for all positive integers n (or whatever domain was specified).",
@@ -978,15 +978,15 @@ const inductionLesson: Partial<ExplicitLesson> = {
         "\\text{Prove }3\\mid (4^n-1)\\text{ for all }n\\ge1.",
       steps: [
         {
-          explanation: "Base case n = 1: 4¹ − 1 = 3, which is divisible by 3.",
+          explanation: "Base case n = 1: 4^1 - 1 = 3, which is divisible by 3.",
           latex: "4^1-1=3=3\\times1.\\;\\checkmark",
         },
         {
-          explanation: "Assume 3 divides $4^k − 1$, so $4^k = 3m + 1$ for some integer m.",
+          explanation: "Assume 3 divides $4^k - 1$, so $4^k = 3m + 1$ for some integer m.",
           latex: "4^k - 1 = 3m \\implies 4^k = 3m+1",
         },
         {
-          explanation: "Write $4^{k+1} − 1$ using the hypothesis.",
+          explanation: "Write $4^{k+1} - 1$ using the hypothesis.",
           latex:
             "4^{k+1}-1=4\\cdot4^k-1=4(3m+1)-1=12m+3=3(4m+1)",
         },
@@ -999,14 +999,14 @@ const inductionLesson: Partial<ExplicitLesson> = {
         "\\text{By induction, }3\\mid(4^n-1)\\text{ for all }n\\ge1.",
     },
     {
-      title: "Inequality induction: prove 2ⁿ > n for all n ≥ 1",
+      title: "Inequality induction: prove 2^n > n for all n >= 1",
       questionLatex: "\\text{Prove } 2^n > n \\text{ for all integers } n \\geq 1.",
       steps: [
-        { explanation: "Base case n = 1: LHS = 2¹ = 2 > 1 = RHS. ✓", latex: "2^1 = 2 > 1" },
-        { explanation: "Assume true for n = k: assume 2ᵏ > k.", latex: "2^k > k" },
+        { explanation: "Base case n = 1: LHS = 2^1 = 2 > 1 = RHS.", latex: "2^1 = 2 > 1" },
+        { explanation: "Assume true for n = k: assume 2^k > k.", latex: "2^k > k" },
         { explanation: "Show true for n = k+1: need to show $2^{k+1} > k+1$.", latex: "2^{k+1} = 2 \\cdot 2^k > 2k \\quad (\\text{using assumption})" },
-        { explanation: "Since k ≥ 1, we have 2k = k + k ≥ k + 1.", latex: "2k \\geq k+1 \\quad \\Rightarrow \\quad 2^{k+1} > k+1" },
-        { explanation: "The inductive step holds. By the principle of mathematical induction, 2ⁿ > n for all n ≥ 1. □", latex: "\\therefore\\; 2^n > n \\text{ for all } n\\geq 1." },
+        { explanation: "Since k >= 1, we have 2k = k + k >= k + 1.", latex: "2k \\geq k+1 \\quad \\Rightarrow \\quad 2^{k+1} > k+1" },
+        { explanation: "The inductive step holds. By the principle of mathematical induction, 2^n > n for all n >= 1.", latex: "\\therefore\\; 2^n > n \\text{ for all } n\\geq 1." },
       ],
       finalAnswerLatex: "2^n > n \\text{ for all } n \\geq 1 \\quad \\text{(proved by induction)}",
     },
@@ -1018,7 +1018,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
       "P(1):\\;1+2+\\cdots+1",
       "1",
       [],
-      "When n = 1 there is only one term: LHS = 1. RHS = 1(2)/2 = 1. ✓",
+      "When n = 1 there is only one term: LHS = 1. RHS = 1(2)/2 = 1.",
       "Substitute n = 1 directly."
     ),
     proofChoice(
@@ -1026,7 +1026,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
       "In an induction proof for $n\\ge1$, the inductive hypothesis assumes the statement is true for:",
       "B",
       ["All integers", "Some fixed integer $k\\ge1$", "All primes", "The case $n=k+1$ only"],
-      "The hypothesis assumes P(k) for a fixed but arbitrary k ≥ 1. The goal is to prove P(k+1) from P(k)."
+      "The hypothesis assumes P(k) for a fixed but arbitrary k >= 1. The goal is to prove P(k+1) from P(k)."
     ),
     proofTyped(
       "y12e2-proof-ind-g3",
@@ -1035,7 +1035,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
       "k+1",
       ["(k+1)"],
       "The (k+1)-th term is k+1. So S_{k+1} = S_k + (k+1).",
-      "Identify the next term in the sequence 1, 2, 3, …"
+      "Identify the next term in the sequence 1, 2, 3, ..."
     ),
     proofChoice(
       "y12e2-proof-ind-g4",
@@ -1047,7 +1047,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
         "For all integers $n\\ge1$",
         "For all real $n$",
       ],
-      "The conclusion closes the induction: the result holds for all integers n ≥ 1 (or the domain stated)."
+      "The conclusion closes the induction: the result holds for all integers n >= 1 (or the domain stated)."
     ),
   ],
   independentPractice: [
@@ -1057,7 +1057,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
       "4^1-1=\\,?",
       "3",
       [],
-      "4¹ − 1 = 3. Since 3 divides 3, P(1) holds.",
+      "4^1 - 1 = 3. Since 3 divides 3, P(1) holds.",
       "Substitute n = 1 and check divisibility by 3."
     ),
     proofTyped(
@@ -1066,7 +1066,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
       "4^{k+1}=4\\cdot4^k",
       "12m+4",
       ["4(3m+1)"],
-      "4^{k+1} = 4 × (3m+1) = 12m + 4.",
+      "4^{k+1} = 4(3m+1) = 12m + 4.",
       "Multiply 4^k = 3m+1 by 4."
     ),
     proofChoice(
@@ -1079,12 +1079,12 @@ const inductionLesson: Partial<ExplicitLesson> = {
         "The formula is only valid for small $m$",
         "The base case fails",
       ],
-      "Expressing $4^{k+1}−1$ as $3(4m+1)$ shows it is divisible by 3, confirming $P(k+1)$."
+      "Expressing $4^{k+1}-1$ as $3(4m+1)$ shows it is divisible by 3, confirming $P(k+1)$."
     ),
     proofTyped(
       "y12e2-proof-ind-i4",
       "For the sum $S_n=\\frac{n(n+1)}{2}$, write $S_{k+1}$ by adding the next term to $S_k$.",
-      "S_{k+1}=S_k+(k+1)=\\frac{k(k+1)}{2}+(k+1)",
+      "S_{k+1}=S_k+(k+1)",
       "(k+1)(k+2)/2",
       ["\\frac{(k+1)(k+2)}{2}"],
       "Factoring: (k+1)(k/2 + 1) = (k+1)(k+2)/2.",
@@ -1110,7 +1110,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
     },
     {
       mistake: "Using P(k+1) inside the inductive step (circular reasoning).",
-      fix: "The hypothesis is P(k). The goal is P(k+1). Derive P(k+1) from P(k) — never assume P(k+1) to prove P(k+1).",
+      fix: "The hypothesis is P(k). The goal is P(k+1). Derive P(k+1) from P(k) - never assume P(k+1) to prove P(k+1).",
     },
     {
       mistake: "Forgetting to add the (k+1)-th term in a summation proof.",
@@ -1118,7 +1118,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
     },
     {
       mistake: "Stating the wrong domain in the conclusion.",
-      fix: "Match the domain to the question: 'for all integers n ≥ 1' or 'for all positive integers n'. Check the base case matches too.",
+      fix: "Match the domain to the question: 'for all integers n >= 1' or 'for all positive integers n'. Check the base case matches too.",
     },
   ],
   masteryQuiz: [
@@ -1128,7 +1128,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
       "\\frac{1\\cdot2}{2}",
       "1",
       [],
-      "RHS = 1 × 2 / 2 = 1. LHS = 1. Base case holds.",
+      "RHS = 1 x 2 / 2 = 1. LHS = 1. Base case holds.",
       "Substitute n = 1 into the formula n(n+1)/2."
     ),
     proofChoice(
@@ -1141,7 +1141,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
         "$4^k=3$ for all $k$",
         "$k$ is divisible by 3",
       ],
-      "The hypothesis assumes $P(k)$: 3 divides $4^k − 1$. The step proves $P(k+1)$."
+      "The hypothesis assumes $P(k)$: 3 divides $4^k - 1$. The step proves $P(k+1)$."
     ),
     proofTyped(
       "y12e2-proof-ind-m3",
@@ -1149,15 +1149,15 @@ const inductionLesson: Partial<ExplicitLesson> = {
       "4^{k+1}-1-4(4^k-1)",
       "3",
       [],
-      "4^{k+1} − 1 − 4(4^k − 1) = 4·4^k − 1 − 4·4^k + 4 = 3.",
-      "Expand and simplify; the $4·4^k$ terms cancel."
+      "4^{k+1} - 1 - 4(4^k - 1) = 4(4^k) - 1 - 4(4^k) + 4 = 3.",
+      "Expand and simplify; the $4(4^k)$ terms cancel."
     ),
     proofChoice(
       "y12e2-proof-ind-m4",
       "For the sum $1^2+2^2+\\cdots+n^2=\\frac{n(n+1)(2n+1)}{6}$, the base case LHS at $n=1$ is:",
       "A",
       ["1", "6", "3", "2"],
-      "LHS = 1² = 1. RHS = 1×2×3/6 = 1. ✓"
+      "LHS = 1^2 = 1. RHS = 1 x 2 x 3 / 6 = 1."
     ),
     proofTyped(
       "y12e2-proof-ind-m5",
@@ -1170,13 +1170,13 @@ const inductionLesson: Partial<ExplicitLesson> = {
     ),
     proofChoice(
       "y12e2-proof-ind-m6",
-      "After proving the inductive step for all k ≥ 1, what additional assumption is needed for the conclusion?",
+      "After proving the inductive step for all k >= 1, what additional assumption is needed for the conclusion?",
       "D",
       [
         "That k is even",
         "That k > 100",
         "That the formula has been verified by a computer",
-        "None — the base case and step are sufficient",
+        "None - the base case and step are sufficient",
       ],
       "Base case + inductive step is all that is needed. No extra assumption is required for the conclusion."
     ),
@@ -1186,7 +1186,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
       "6^1-1",
       "5",
       [],
-      "6¹ − 1 = 5. Since 5 divides 5, P(1) holds.",
+      "6^1 - 1 = 5. Since 5 divides 5, P(1) holds.",
       "Substitute n = 1."
     ),
     proofChoice(
@@ -1199,7 +1199,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
         "$6^{k+1}=6^k+1$",
         "$6^{k+1}-1=6m+5$",
       ],
-      "Write 6^{k+1} = 6·6^k = 6(5m+1), so 6^{k+1} − 1 = 30m + 5 = 5(6m+1). Divisible by 5."
+      "Write 6^{k+1} = 6(6^k) = 6(5m+1), so 6^{k+1} - 1 = 30m + 5 = 5(6m+1). Divisible by 5."
     ),
     proofTyped(
       "y12e2-proof-ind-m9",
@@ -1207,7 +1207,7 @@ const inductionLesson: Partial<ExplicitLesson> = {
       "a_{k+1}",
       "k+1",
       ["(k+1)"],
-      "The sequence is 1, 2, 3, …, k, k+1. The (k+1)-th term is k+1.",
+      "The sequence is 1, 2, 3, ..., k, k+1. The (k+1)-th term is k+1.",
       "Identify the term added when moving from n=k to n=k+1."
     ),
     proofChoice(

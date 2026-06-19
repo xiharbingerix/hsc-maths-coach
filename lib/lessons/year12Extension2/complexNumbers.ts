@@ -67,6 +67,101 @@ const unitCircleArgandDiagram: ArgandDiagram = {
   ],
 };
 
+const midpointArgandDiagram: ArgandDiagram = {
+  description:
+    "Argand diagram showing z1 = 2 + 4i, z2 = 6 - 2i, and their midpoint 4 + i on the segment joining them.",
+  realMin: 0,
+  realMax: 7,
+  imaginaryMin: -3,
+  imaginaryMax: 5,
+  points: [
+    { re: 2, im: 4, label: "z1 = 2 + 4i" },
+    { re: 6, im: -2, label: "z2 = 6 - 2i" },
+    { re: 4, im: 1, label: "midpoint = 4 + i" },
+  ],
+  segments: [
+    {
+      from: { re: 2, im: 4 },
+      to: { re: 6, im: -2 },
+      label: "segment z1z2",
+    },
+  ],
+};
+
+const imaginaryAxisLocusDiagram: ArgandDiagram = {
+  description:
+    "Argand diagram showing the points 1 and -1 on the real axis and a sample point z on the imaginary axis, equally distant from both.",
+  realMin: -3,
+  realMax: 3,
+  imaginaryMin: -3,
+  imaginaryMax: 3,
+  points: [
+    { re: 1, im: 0, label: "1" },
+    { re: -1, im: 0, label: "-1" },
+    { re: 0, im: 2, label: "z" },
+  ],
+  segments: [
+    {
+      from: { re: 0, im: 2 },
+      to: { re: 1, im: 0 },
+      label: "|z - 1|",
+      dashed: true,
+    },
+    {
+      from: { re: 0, im: 2 },
+      to: { re: -1, im: 0 },
+      label: "|z + 1|",
+      dashed: true,
+    },
+  ],
+};
+
+const realAxisLocusDiagram: ArgandDiagram = {
+  description:
+    "Argand diagram showing the points 3i and -3i and a sample point z on the real axis, equally distant from both.",
+  realMin: -4,
+  realMax: 4,
+  imaginaryMin: -4,
+  imaginaryMax: 4,
+  points: [
+    { re: 0, im: 3, label: "3i" },
+    { re: 0, im: -3, label: "-3i" },
+    { re: 2, im: 0, label: "z" },
+  ],
+  segments: [
+    {
+      from: { re: 2, im: 0 },
+      to: { re: 0, im: 3 },
+      label: "|z - 3i|",
+      dashed: true,
+    },
+    {
+      from: { re: 2, im: 0 },
+      to: { re: 0, im: -3 },
+      label: "|z + 3i|",
+      dashed: true,
+    },
+  ],
+};
+
+const sixthRootsUnityDiagram: ArgandDiagram = {
+  description:
+    "Argand diagram showing the 6th roots of unity as six equally spaced points on the unit circle, 60 degrees apart.",
+  realMin: -1.5,
+  realMax: 1.5,
+  imaginaryMin: -1.5,
+  imaginaryMax: 1.5,
+  modulusCircles: [{ radius: 1, label: "|z| = 1" }],
+  points: [
+    { re: 1, im: 0, label: "1" },
+    { re: 0.5, im: 0.866, label: "cis 60°" },
+    { re: -0.5, im: 0.866, label: "cis 120°" },
+    { re: -1, im: 0, label: "-1" },
+    { re: -0.5, im: -0.866, label: "cis 240°" },
+    { re: 0.5, im: -0.866, label: "cis 300°" },
+  ],
+};
+
 // ─── Lesson 1: Complex Number Arithmetic ─────────────────────────────────────
 
 const complexArithmetic: Partial<ExplicitLesson> = {
@@ -635,15 +730,18 @@ const argandDiagramGeometry: Partial<ExplicitLesson> = {
       "|5 − 12i| = √(25 + 144) = √169 = 13.",
       "Distance from origin = |z| = √(a² + b²)."
     ),
-    cxTyped(
-      "cx3-g4",
-      "Find the complex number at the midpoint of z₁ = 2 + 4i and z₂ = 6 − 2i.",
-      "\\frac{(2+4i)+(6-2i)}{2}",
-      "4+i",
-      ["4 + i"],
-      "Midpoint = (z₁+z₂)/2 = (8+2i)/2 = 4+i.",
-      "Add the two complex numbers and divide by 2."
-    ),
+    {
+      ...cxTyped(
+        "cx3-g4",
+        "Find the complex number at the midpoint of z₁ = 2 + 4i and z₂ = 6 − 2i.",
+        "z_1=2+4i,\\;z_2=6-2i",
+        "4+i",
+        ["4 + i"],
+        "Midpoint = (z₁+z₂)/2 = (8+2i)/2 = 4+i.",
+        "Add the two complex numbers and divide by 2."
+      ),
+      argandDiagram: midpointArgandDiagram,
+    },
   ],
   independentPractice: [
     cxTyped(
@@ -701,23 +799,26 @@ const argandDiagramGeometry: Partial<ExplicitLesson> = {
     cxTyped(
       "cx3-m2",
       "Find the distance from 1 + i to 4 + 5i.",
-      "|4+5i-(1+i)|",
+      "z_1=1+i,\\;z_2=4+5i",
       "5",
       [],
       "(4+5i) − (1+i) = 3+4i. Distance = |3+4i| = 5."
     ),
-    cxChoice(
-      "cx3-m3",
-      "What does the equation |z − 1| = |z + 1| represent on the Argand diagram?",
-      "A",
-      ["the imaginary axis", "the real axis", "a circle centred at the origin", "a single point"],
-      "|z−1|=|z+1| means equal distance from 1 and −1. The perpendicular bisector of these two points is the imaginary axis.",
-      "Equal distance from two points gives the perpendicular bisector of the segment joining them."
-    ),
+    {
+      ...cxChoice(
+        "cx3-m3",
+        "What does the equation |z − 1| = |z + 1| represent on the Argand diagram?",
+        "A",
+        ["the imaginary axis", "the real axis", "a circle centred at the origin", "a single point"],
+        "|z−1|=|z+1| means equal distance from 1 and −1. The perpendicular bisector of these two points is the imaginary axis.",
+        "Equal distance from two points gives the perpendicular bisector of the segment joining them."
+      ),
+      argandDiagram: imaginaryAxisLocusDiagram,
+    },
     cxTyped(
       "cx3-m4",
       "Find the complex number at the midpoint of 3 + i and −1 + 5i.",
-      "\\frac{(3+i)+(-1+5i)}{2}",
+      "z_1=3+i,\\;z_2=-1+5i",
       "1+3i",
       ["1 + 3i"],
       "Midpoint = (3+i+(−1+5i))/2 = (2+6i)/2 = 1+3i."
@@ -733,7 +834,7 @@ const argandDiagramGeometry: Partial<ExplicitLesson> = {
     cxTyped(
       "cx3-m6",
       "Find the distance between 2 − 3i and 2 + 3i.",
-      "|(2+3i)-(2-3i)|",
+      "z_1=2-3i,\\;z_2=2+3i",
       "6",
       [],
       "(2+3i) − (2−3i) = 6i. |6i| = 6."
@@ -749,15 +850,18 @@ const argandDiagramGeometry: Partial<ExplicitLesson> = {
       ),
       argandDiagram: unitCircleArgandDiagram,
     },
-    cxTyped(
-      "cx3-m8",
-      "If z = x + yi satisfies |z − 3i| = |z + 3i|, find y.",
-      "|z-3i|=|z+3i|",
-      "0",
-      [],
-      "Equal distance from 3i and −3i means z lies on the real axis, so Im(z) = y = 0.",
-      "This is the perpendicular bisector of the segment from 3i to −3i, which is the real axis."
-    ),
+    {
+      ...cxTyped(
+        "cx3-m8",
+        "If z = x + yi satisfies |z − 3i| = |z + 3i|, find y.",
+        "|z-3i|=|z+3i|",
+        "0",
+        [],
+        "Equal distance from 3i and −3i means z lies on the real axis, so Im(z) = y = 0.",
+        "This is the perpendicular bisector of the segment from 3i to −3i, which is the real axis."
+      ),
+      argandDiagram: realAxisLocusDiagram,
+    },
     cxTyped(
       "cx3-m9",
       "The circle |z| = r passes through the point 5 + 12i. Find r.",
@@ -1130,7 +1234,7 @@ const rootsOfUnity: Partial<ExplicitLesson> = {
     cxTyped(
       "cx5-g3",
       "State the angular spacing (in degrees) between 6th roots of unity.",
-      "\\frac{360^\\circ}{n},\\;n=6",
+      "n=6",
       "60",
       ["60°"],
       "360°/6 = 60°. Six roots are equally spaced at 60° apart.",
@@ -1149,7 +1253,7 @@ const rootsOfUnity: Partial<ExplicitLesson> = {
     cxTyped(
       "cx5-i1",
       "Find the argument (in degrees) of $z_2$ among the cube roots of unity.",
-      "z_2=\\operatorname{cis}\\frac{2\\pi\\cdot2}{3}",
+      "n=3,\\;k=2",
       "240",
       ["240°"],
       "Argument = 2π × 2/3 radians = 4π/3 = 240°.",
@@ -1213,20 +1317,23 @@ const rootsOfUnity: Partial<ExplicitLesson> = {
     cxTyped(
       "cx5-m1",
       "Write $z_1$ (i.e. $k=1$) among the cube roots of unity as a cis expression.",
-      "z_1=\\operatorname{cis}\\frac{2\\pi\\cdot1}{3}",
+      "n=3,\\;k=1",
       "cis(2π/3)",
       ["cis 2π/3", "cis(120°)"],
       "z₁ = cis(2π/3). This is the primitive cube root of unity ω.",
       "Apply the formula with k=1, n=3."
     ),
-    cxChoice(
-      "cx5-m2",
-      "The 6th roots of unity are equally spaced on the unit circle. The angular spacing is:",
-      "B",
-      ["$30^\\circ$", "$60^\\circ$", "$90^\\circ$", "$120^\\circ$"],
-      "360°/6 = 60°. Each consecutive root is 60° apart.",
-      "Divide 360° by n = 6."
-    ),
+    {
+      ...cxChoice(
+        "cx5-m2",
+        "The 6th roots of unity are equally spaced on the unit circle. The angular spacing is:",
+        "B",
+        ["$30^\\circ$", "$60^\\circ$", "$90^\\circ$", "$120^\\circ$"],
+        "360°/6 = 60°. Each consecutive root is 60° apart.",
+        "Divide 360° by n = 6."
+      ),
+      argandDiagram: sixthRootsUnityDiagram,
+    },
     cxTyped(
       "cx5-m3",
       "How many 8th roots of unity lie on the real axis?",
@@ -1247,7 +1354,7 @@ const rootsOfUnity: Partial<ExplicitLesson> = {
     cxTyped(
       "cx5-m5",
       "Find the product of all cube roots of unity.",
-      "z_0\\cdot z_1\\cdot z_2=1\\cdot\\operatorname{cis}120^\\circ\\cdot\\operatorname{cis}240^\\circ",
+      "\\text{Cube roots of unity}",
       "1",
       [],
       "Moduli: 1×1×1 = 1. Arguments: 0+120°+240° = 360° = 0°. Product = cis(0°) = 1.",
@@ -1256,7 +1363,7 @@ const rootsOfUnity: Partial<ExplicitLesson> = {
     cxTyped(
       "cx5-m6",
       "For the 5th roots of unity, type the argument of $z_3$ in degrees.",
-      "z_3=\\operatorname{cis}\\frac{2\\pi\\cdot3}{5}",
+      "n=5,\\;k=3",
       "216",
       ["216°"],
       "2π × 3/5 radians = 216°.",
@@ -1272,12 +1379,12 @@ const rootsOfUnity: Partial<ExplicitLesson> = {
         "Their product is always 0",
         "Their sum is 0 for $n\\ge2$",
       ],
-      "Their product is 1 (not 0): moduli product = 1, and argument sum = 2π(0+1+…+(n−1))/n = π(n−1) which is a multiple of 2π only at limits. In fact the product of all nth roots equals $(−1)^{n+1}$ but is never 0."
+      "Their product is never 0. In fact, multiplying all nth roots gives $\\operatorname{cis}(\\pi(n-1))=(−1)^{n-1}$, so the product is always either 1 or −1."
     ),
     cxTyped(
       "cx5-m8",
       "The primitive 4th root of unity is $\\omega=\\operatorname{cis}90^\\circ$. Write $\\omega^2$ in exact Cartesian form.",
-      "\\omega^2=(\\operatorname{cis}90^\\circ)^2=\\operatorname{cis}180^\\circ",
+      "\\omega=\\operatorname{cis}90^\\circ",
       "-1",
       ["−1"],
       "cis(180°) = cos180° + i sin180° = −1 + 0i = −1.",
@@ -1388,7 +1495,7 @@ const complexPolynomials: Partial<ExplicitLesson> = {
     cxTyped(
       "cx6-g2",
       "Write the quadratic factor for the conjugate pair $z=1+i$ and $z=1-i$.",
-      "(z-(1+i))(z-(1-i))",
+      "z=1\\pm i",
       "z^2-2z+2",
       ["z² - 2z + 2"],
       "(z−(1+i))(z−(1−i)) = z² − 2z + (1²+1²) = z² − 2z + 2.",
@@ -1396,8 +1503,8 @@ const complexPolynomials: Partial<ExplicitLesson> = {
     ),
     cxTyped(
       "cx6-g3",
-      "For $(z-(a+bi))(z-(a-bi))$, the constant term is $a^2+\\square$.",
-      "(z-(a+bi))(z-(a-bi))=z^2-2az+(a^2+b^2)",
+      "For the quadratic factor formed from roots $a+bi$ and $a-bi$, the constant term is $a^2+\\square$.",
+      "z=a\\pm bi",
       "b^2",
       ["b²"],
       "Expanding gives z² − 2az + a² + b². The constant term is a² + b².",
@@ -1425,7 +1532,7 @@ const complexPolynomials: Partial<ExplicitLesson> = {
     cxTyped(
       "cx6-i2",
       "Form the real quadratic factor for the root pair $z=2\\pm i$.",
-      "(z-(2+i))(z-(2-i))",
+      "z=2\\pm i",
       "z^2-4z+5",
       ["z² - 4z + 5"],
       "a = 2, b = 1. Quadratic = z² − 4z + (4+1) = z² − 4z + 5.",
@@ -1442,7 +1549,7 @@ const complexPolynomials: Partial<ExplicitLesson> = {
     cxTyped(
       "cx6-i4",
       "Given $P(z)=z^3-3z^2+4z-2$ has root $1+i$, write the quadratic factor from both complex roots.",
-      "(z-(1+i))(z-(1-i))",
+      "P(z)=z^3-3z^2+4z-2,\\;z=1+i\\text{ root}",
       "z^2-2z+2",
       ["z² - 2z + 2"],
       "Conjugate pair 1+i and 1−i: quadratic = z² − 2z + (1+1) = z² − 2z + 2.",
@@ -1488,7 +1595,7 @@ const complexPolynomials: Partial<ExplicitLesson> = {
     cxTyped(
       "cx6-m2",
       "Write the irreducible quadratic factor for roots $z=3\\pm 2i$.",
-      "(z-(3+2i))(z-(3-2i))",
+      "z=3\\pm 2i",
       "z^2-6z+13",
       ["z² - 6z + 13"],
       "a = 3, b = 2. Quadratic = z² − 6z + (9+4) = z² − 6z + 13.",
@@ -1497,7 +1604,7 @@ const complexPolynomials: Partial<ExplicitLesson> = {
     cxTyped(
       "cx6-m3",
       "For $P(z)=z^3-2z^2+4z-8$ with roots $\\pm2i$ and $2$, write the fully factorised form over $\\mathbb{C}$.",
-      "P(z)=(z-2i)(z+2i)(z-2)",
+      "P(z)=z^3-2z^2+4z-8",
       "(z-2i)(z+2i)(z-2)",
       ["(z − 2i)(z + 2i)(z − 2)"],
       "P(z) = (z−2i)(z+2i)(z−2).",
@@ -1557,7 +1664,7 @@ const complexPolynomials: Partial<ExplicitLesson> = {
     cxTyped(
       "cx6-m9",
       "If $z=1-2i$ is a root of a real polynomial, write the corresponding real quadratic factor.",
-      "(z-(1-2i))(z-(1+2i))",
+      "z=1-2i\\text{ is a root}",
       "z^2-2z+5",
       ["z² - 2z + 5"],
       "a = 1, b = 2. Quadratic = z² − 2z + (1+4) = z² − 2z + 5.",
@@ -1566,7 +1673,7 @@ const complexPolynomials: Partial<ExplicitLesson> = {
     cxTyped(
       "cx6-m10",
       "A real polynomial $P$ has $2+i$ as a root and degree 3. Given $P(z)=(z^2-4z+5)(z-r)$, find $r$ if $P(0)=-10$.",
-      "P(0)=(5)(-r)=-10",
+      "P(z)=(z^2-4z+5)(z-r),\\;P(0)=-10",
       "2",
       [],
       "P(0) = (0−4×0+5)(0−r) = 5×(−r) = −10. So r = 2.",

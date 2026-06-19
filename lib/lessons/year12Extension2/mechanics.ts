@@ -13,7 +13,8 @@ function mechChoice(
   answer: "A" | "B" | "C" | "D",
   choices: [string, string, string, string],
   explanation: string,
-  hint = "Identify the relevant formula or physical principle before selecting."
+  hint = "Identify the relevant formula or physical principle before selecting.",
+  extras: Partial<PracticeQuestion> = {}
 ): PracticeQuestion {
   return {
     id,
@@ -27,6 +28,7 @@ function mechChoice(
     acceptedAnswers: [],
     hint,
     explanation,
+    ...extras,
   };
 }
 
@@ -37,7 +39,8 @@ function mechTyped(
   answer: string,
   acceptedAnswers: string[] = [],
   explanation: string,
-  hint = "Identify the relevant formula, substitute the given values, then simplify."
+  hint = "Identify the relevant formula, substitute the given values, then simplify.",
+  extras: Partial<PracticeQuestion> = {}
 ): PracticeQuestion {
   return {
     id,
@@ -47,8 +50,69 @@ function mechTyped(
     acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
     hint,
     explanation,
+    ...extras,
   };
 }
+
+const smoothIncline30Diagram: Partial<PracticeQuestion> = {
+  triangleDiagram: {
+    description:
+      "Right-triangle cross-section of a smooth incline represented by the sloping side AC, with a 30 degree angle at the base A.",
+    vertices: {
+      A: { x: 70, y: 230 },
+      B: { x: 320, y: 230 },
+      C: { x: 320, y: 86 },
+    },
+    rightAngleAt: "B",
+    angleLabels: { A: "30°" },
+    sideLabels: { AC: "smooth plane" },
+  },
+};
+
+const smoothIncline45Diagram: Partial<PracticeQuestion> = {
+  triangleDiagram: {
+    description:
+      "Right-triangle cross-section of a smooth incline represented by the sloping side AC, with a 45 degree angle at the base A.",
+    vertices: {
+      A: { x: 70, y: 230 },
+      B: { x: 290, y: 230 },
+      C: { x: 290, y: 110 },
+    },
+    rightAngleAt: "B",
+    angleLabels: { A: "45°" },
+    sideLabels: { AC: "smooth plane" },
+  },
+};
+
+const smoothIncline60Diagram: Partial<PracticeQuestion> = {
+  triangleDiagram: {
+    description:
+      "Right-triangle cross-section of a smooth incline represented by the sloping side AC, with a 60 degree angle at the base A.",
+    vertices: {
+      A: { x: 70, y: 230 },
+      B: { x: 255, y: 230 },
+      C: { x: 255, y: 70 },
+    },
+    rightAngleAt: "B",
+    angleLabels: { A: "60°" },
+    sideLabels: { AC: "smooth plane" },
+  },
+};
+
+const smoothInclineThetaDiagram: Partial<PracticeQuestion> = {
+  triangleDiagram: {
+    description:
+      "Right-triangle cross-section of a smooth incline represented by the sloping side AC, with an angle theta at the base A.",
+    vertices: {
+      A: { x: 70, y: 230 },
+      B: { x: 305, y: 230 },
+      C: { x: 305, y: 94 },
+    },
+    rightAngleAt: "B",
+    angleLabels: { A: "\\theta" },
+    sideLabels: { AC: "smooth plane" },
+  },
+};
 
 // ─── Lesson 1: Rectilinear Motion with Calculus ───────────────────────────────
 
@@ -753,7 +817,7 @@ const circularMotionLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-circ-g1",
       "Find the speed of an object revolving at $r = 4$ m with $\\omega = 3$ rad/s.",
-      "v = r\\omega,\\quad r = 4\\text{ m},\\; \\omega = 3\\text{ rad/s}",
+      "r = 4\\text{ m},\\; \\omega = 3\\text{ rad/s}",
       "12",
       [],
       "v = rω = 4 × 3 = 12 m/s.",
@@ -775,7 +839,7 @@ const circularMotionLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-circ-g3",
       "Find centripetal acceleration for $r = 5$ m, $\\omega = 4$ rad/s.",
-      "a = r\\omega^2,\\quad r = 5\\text{ m},\\; \\omega = 4\\text{ rad/s}",
+      "r = 5\\text{ m},\\; \\omega = 4\\text{ rad/s}",
       "80",
       [],
       "a = rω² = 5 × 16 = 80 m/s².",
@@ -784,7 +848,7 @@ const circularMotionLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-circ-g4",
       "Find the period $T$ for an object with $\\omega = 2$ rad/s.",
-      "T = \\frac{2\\pi}{\\omega},\\quad \\omega = 2\\text{ rad/s}",
+      "\\omega = 2\\text{ rad/s}",
       "pi",
       ["π", "3.14"],
       "T = 2π/ω = 2π/2 = π seconds.",
@@ -795,7 +859,7 @@ const circularMotionLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-circ-i1",
       "A particle travels at $v = 8$ m/s on a circle of radius $r = 2$ m. Find centripetal acceleration.",
-      "a = v^2/r,\\quad v = 8\\text{ m/s},\\; r = 2\\text{ m}",
+      "v = 8\\text{ m/s},\\; r = 2\\text{ m}",
       "32",
       [],
       "a = v²/r = 64/2 = 32 m/s².",
@@ -804,7 +868,7 @@ const circularMotionLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-circ-i2",
       "Given period $T = \\pi$ s, find angular velocity $\\omega$.",
-      "T = \\pi\\text{ s},\\quad \\omega = \\frac{2\\pi}{T}",
+      "T = \\pi\\text{ s}",
       "2",
       [],
       "ω = 2π/T = 2π/π = 2 rad/s.",
@@ -813,7 +877,7 @@ const circularMotionLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-circ-i3",
       "Find centripetal force for $m = 3$ kg, $r = 2$ m, $\\omega = 4$ rad/s.",
-      "F = mr\\omega^2,\\quad m = 3\\text{ kg},\\; r = 2\\text{ m},\\; \\omega = 4\\text{ rad/s}",
+      "m = 3\\text{ kg},\\; r = 2\\text{ m},\\; \\omega = 4\\text{ rad/s}",
       "96",
       [],
       "F = mrω² = 3 × 2 × 16 = 96 N.",
@@ -835,7 +899,7 @@ const circularMotionLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-circ-i5",
       "Find speed for $r = 3$ m, $\\omega = 6$ rad/s.",
-      "v = r\\omega,\\quad r = 3\\text{ m},\\; \\omega = 6\\text{ rad/s}",
+      "r = 3\\text{ m},\\; \\omega = 6\\text{ rad/s}",
       "18",
       [],
       "v = rω = 3 × 6 = 18 m/s.",
@@ -864,7 +928,7 @@ const circularMotionLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-circ-m1",
       "Find speed for $r = 2$ m, $\\omega = 5$ rad/s.",
-      "v = r\\omega,\\quad r = 2\\text{ m},\\; \\omega = 5\\text{ rad/s}",
+      "r = 2\\text{ m},\\; \\omega = 5\\text{ rad/s}",
       "10",
       [],
       "v = rω = 2 × 5 = 10 m/s.",
@@ -873,7 +937,7 @@ const circularMotionLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-circ-m2",
       "Find centripetal acceleration for $r = 4$ m, $\\omega = 3$ rad/s.",
-      "a = r\\omega^2,\\quad r = 4\\text{ m},\\; \\omega = 3\\text{ rad/s}",
+      "r = 4\\text{ m},\\; \\omega = 3\\text{ rad/s}",
       "36",
       [],
       "a = rω² = 4 × 9 = 36 m/s².",
@@ -890,7 +954,7 @@ const circularMotionLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-circ-m4",
       "Find centripetal acceleration for $v = 6$ m/s, $r = 3$ m.",
-      "a = v^2/r,\\quad v = 6\\text{ m/s},\\; r = 3\\text{ m}",
+      "v = 6\\text{ m/s},\\; r = 3\\text{ m}",
       "12",
       [],
       "a = v²/r = 36/3 = 12 m/s².",
@@ -899,7 +963,7 @@ const circularMotionLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-circ-m5",
       "Find $\\omega$ for period $T = 4$ s.",
-      "\\omega = \\frac{2\\pi}{T},\\quad T = 4\\text{ s}",
+      "T = 4\\text{ s}",
       "pi/2",
       ["π/2", "1.57"],
       "ω = 2π/T = 2π/4 = π/2 rad/s.",
@@ -921,7 +985,7 @@ const circularMotionLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-circ-m7",
       "Find centripetal force for $m = 2$ kg, $v = 5$ m/s, $r = 2$ m.",
-      "F = mv^2/r,\\quad m = 2\\text{ kg},\\; v = 5\\text{ m/s},\\; r = 2\\text{ m}",
+      "m = 2\\text{ kg},\\; v = 5\\text{ m/s},\\; r = 2\\text{ m}",
       "25",
       [],
       "F = mv²/r = 2 × 25/2 = 25 N.",
@@ -930,7 +994,7 @@ const circularMotionLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-circ-m8",
       "Find speed for $r = 0.5$ m, $\\omega = 8$ rad/s.",
-      "v = r\\omega,\\quad r = 0.5\\text{ m},\\; \\omega = 8\\text{ rad/s}",
+      "r = 0.5\\text{ m},\\; \\omega = 8\\text{ rad/s}",
       "4",
       [],
       "v = rω = 0.5 × 8 = 4 m/s.",
@@ -1157,7 +1221,7 @@ const resistedMotionLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-resist-m2",
       "For $m\\frac{dv}{dt}=-kv$ with $v(0)=20$ m/s, $k/m=0.1$, find $v(10)$.",
-      "v=20e^{-0.1\\times10}",
+      "v(0)=20\\text{ m/s},\\quad k/m=0.1,\\quad t=10",
       "20e^{-1}",
       ["20/e", "20·e^{−1}"],
       "v(10) = 20·e^{−0.1×10} = 20e^{−1} ≈ 7.36 m/s.",
@@ -1166,7 +1230,7 @@ const resistedMotionLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-resist-m3",
       "Find the terminal velocity for $m=2$ kg, $g=10$ m/s², $k=5$ N·s/m.",
-      "v_T=\\frac{mg}{k}",
+      "m=2\\text{ kg},\\quad g=10\\text{ m/s}^2,\\quad k=5\\text{ N\\cdot s/m}",
       "4",
       ["4 m/s"],
       "v_T = mg/k = 2×10/5 = 4 m/s.",
@@ -1230,7 +1294,7 @@ const resistedMotionLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-resist-m9",
       "For vertical motion $v=\\frac{mg}{k}(1-e^{-kt/m})$, type the value of $v$ at $t=0$.",
-      "v(0)=\\frac{mg}{k}(1-e^{0})",
+      "v=\\frac{mg}{k}(1-e^{-kt/m}),\\quad t=0",
       "0",
       [],
       "v(0) = (mg/k)(1−1) = 0. The particle starts from rest.",
@@ -1357,7 +1421,7 @@ const projectileMotionResistanceLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-proj-i1",
       "For the horizontal equation $\\dot{x}(t)=u\\cos\\theta\\cdot e^{-kt/m}$, find $\\dot{x}$ at $t=0$.",
-      "\\dot{x}(0)=u\\cos\\theta\\cdot e^{0}",
+      "\\dot{x}(t)=u\\cos\\theta\\cdot e^{-kt/m},\\quad t=0",
       "u*cos(theta)",
       ["u cos θ", "u·cos(θ)"],
       "e^0 = 1, so ẋ(0) = u cos θ. This is the initial horizontal velocity.",
@@ -1388,7 +1452,7 @@ const projectileMotionResistanceLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-proj-i4",
       "Given $w=\\dot{y}+\\frac{mg}{k}$ and $w(t)=w_0 e^{-kt/m}$, write $\\dot{y}(t)$.",
-      "\\dot{y}=w-\\frac{mg}{k}",
+      "w=\\dot{y}+\\frac{mg}{k},\\quad w(t)=w_0 e^{-kt/m}",
       "w0*e^{-kt/m} - mg/k",
       ["w₀e^{−kt/m} − mg/k"],
       "ẏ = w − mg/k = w₀e^{−kt/m} − mg/k.",
@@ -1397,7 +1461,7 @@ const projectileMotionResistanceLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-proj-i5",
       "If $\\dot{y}(0)=u\\sin\\theta$ (upward launch), find $w_0=\\dot{y}(0)+\\frac{mg}{k}$.",
-      "w_0=\\dot{y}(0)+\\frac{mg}{k}",
+      "\\dot{y}(0)=u\\sin\\theta",
       "u*sin(theta)+mg/k",
       ["u sin θ + mg/k", "u·sin(θ) + mg/k"],
       "w₀ = u sin θ + mg/k.",
@@ -1460,7 +1524,7 @@ const projectileMotionResistanceLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-proj-m4",
       "If $\\dot{y}(t)=\\left(u\\sin\\theta+\\frac{mg}{k}\\right)e^{-kt/m}-\\frac{mg}{k}$, find $\\dot{y}(0)$.",
-      "\\dot{y}(0)=\\left(u\\sin\\theta+\\frac{mg}{k}\\right)-\\frac{mg}{k}",
+      "\\dot{y}(t)=\\left(u\\sin\\theta+\\frac{mg}{k}\\right)e^{-kt/m}-\\frac{mg}{k},\\quad t=0",
       "u*sin(theta)",
       ["u sin θ", "u·sin(θ)"],
       "ẏ(0) = u sin θ + mg/k − mg/k = u sin θ. ✓",
@@ -1498,7 +1562,7 @@ const projectileMotionResistanceLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-proj-m8",
       "Given $w(t)=w_0 e^{-kt/m}$ and $w=\\dot{y}+mg/k$, what does $\\dot{y}(t)$ approach as $t\\to\\infty$?",
-      "\\lim_{t\\to\\infty}\\left(w_0 e^{-kt/m}-\\frac{mg}{k}\\right)",
+      "w(t)=w_0 e^{-kt/m},\\quad w=\\dot{y}+mg/k",
       "-mg/k",
       ["−mg/k"],
       "As t → ∞, $e^{−kt/m}$ → 0, so ẏ → 0 − mg/k = −mg/k. Downward at terminal speed mg/k.",
@@ -1520,7 +1584,7 @@ const projectileMotionResistanceLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-proj-m10",
       "For horizontal motion $\\dot{x}=v_0 e^{-t}$ (with $k/m=1$, $v_0=10$), find $\\dot{x}$ at $t=\\ln2$.",
-      "\\dot{x}(\\ln2)=10e^{-\\ln2}",
+      "\\dot{x}=v_0 e^{-t},\\quad v_0=10,\\quad t=\\ln2",
       "5",
       [],
       "e^{−ln2} = 1/2. ẋ = 10 × 1/2 = 5.",
@@ -1589,7 +1653,7 @@ const forcesInclinedPlanesLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-fip-g2",
       "A net force of 30 N acts on a 5 kg mass. Find the acceleration.",
-      "F=ma,\\quad F=30\\text{ N},\\;m=5\\text{ kg}",
+      "F=30\\text{ N},\\quad m=5\\text{ kg}",
       "6",
       [],
       "a = F/m = 30/5 = 6 m/s².",
@@ -1601,36 +1665,40 @@ const forcesInclinedPlanesLesson: Partial<ExplicitLesson> = {
       "A",
       ["mg sinθ", "mg cosθ", "mg tanθ", "mg"],
       "The component of weight along the slope is mg sinθ. The component perpendicular to the slope is mg cosθ.",
-      "Draw a right triangle with the weight vector and resolve parallel and perpendicular to the slope."
+      "Draw a right triangle with the weight vector and resolve parallel and perpendicular to the slope.",
+      smoothInclineThetaDiagram
     ),
     mechTyped(
       "y12e2-fip-g4",
       "Find the normal reaction N for a 10 kg block on a smooth plane inclined at 30°. Use g = 10.",
-      "N=mg\\cos30°",
+      "m=10\\text{ kg},\\quad \\theta=30^\\circ,\\quad g=10",
       "50*sqrt(3)",
       ["50√3", "86.6", "50\\sqrt{3}"],
       "N = mg cos30° = 10×10×(√3/2) = 50√3 ≈ 86.6 N.",
-      "The normal reaction balances the perpendicular component of weight: N = mg cosθ."
+      "The normal reaction balances the perpendicular component of weight: N = mg cosθ.",
+      smoothIncline30Diagram
     ),
   ],
   independentPractice: [
     mechTyped(
       "y12e2-fip-i1",
       "A 3 kg block is released from rest on a smooth incline at 30°. Find its acceleration (g = 10).",
-      "a=g\\sin30°",
+      "m=3\\text{ kg},\\quad \\theta=30^\\circ,\\quad g=10",
       "5",
       [],
       "a = g sin30° = 10×0.5 = 5 m/s².",
-      "Net force along slope = mg sinθ. Apply F = ma: a = g sinθ."
+      "Net force along slope = mg sinθ. Apply F = ma: a = g sinθ.",
+      smoothIncline30Diagram
     ),
     mechTyped(
       "y12e2-fip-i2",
       "A 5 kg block sits on a smooth plane at 45°. Find N (normal reaction). Use g = 10.",
-      "N=mg\\cos45°",
+      "m=5\\text{ kg},\\quad \\theta=45^\\circ,\\quad g=10",
       "25*sqrt(2)",
       ["25√2", "35.4"],
       "N = 5×10×cos45° = 50×(1/√2) = 25√2 ≈ 35.4 N.",
-      "N = mg cos45°."
+      "N = mg cos45°.",
+      smoothIncline45Diagram
     ),
     mechChoice(
       "y12e2-fip-i3",
@@ -1648,7 +1716,7 @@ const forcesInclinedPlanesLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-fip-i4",
       "Masses M = 8 kg and m = 2 kg are connected over a smooth pulley (g = 10). Find the acceleration.",
-      "a=\\frac{(M-m)g}{M+m}=\\frac{6\\times10}{10}",
+      "M=8\\text{ kg},\\quad m=2\\text{ kg},\\quad g=10",
       "6",
       [],
       "a = (8−2)×10/(8+2) = 60/10 = 6 m/s².",
@@ -1657,7 +1725,7 @@ const forcesInclinedPlanesLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-fip-i5",
       "For M = 8 kg, m = 2 kg over a smooth pulley with a = 6 m/s², find the tension T in the string. (Use m·a = T − mg with g = 10.)",
-      "T=m(a+g)=2(6+10)",
+      "m=2\\text{ kg},\\quad a=6\\text{ m/s}^2,\\quad g=10",
       "32",
       [],
       "T = m(a+g) = 2×(6+10) = 2×16 = 32 N.",
@@ -1681,7 +1749,7 @@ const forcesInclinedPlanesLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-fip-m2",
       "A force of 42 N acts on a 6 kg mass. Find the acceleration.",
-      "a=F/m",
+      "F=42\\text{ N},\\quad m=6\\text{ kg}",
       "7",
       [],
       "a = 42/6 = 7 m/s²."
@@ -1702,16 +1770,17 @@ const forcesInclinedPlanesLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-fip-m4",
       "A 2 kg block is on a smooth plane at 60°. Find the acceleration down the slope (g = 10).",
-      "a=g\\sin60°",
+      "m=2\\text{ kg},\\quad \\theta=60^\\circ,\\quad g=10",
       "5*sqrt(3)",
       ["5√3", "8.66"],
       "a = g sin60° = 10×(√3/2) = 5√3 ≈ 8.66 m/s².",
-      "a = g sinθ for a smooth inclined plane."
+      "a = g sinθ for a smooth inclined plane.",
+      smoothIncline60Diagram
     ),
     mechTyped(
       "y12e2-fip-m5",
       "Masses M = 7 kg and m = 3 kg over a smooth pulley (g = 10). Find acceleration.",
-      "a=\\frac{(7-3)\\times10}{7+3}",
+      "M=7\\text{ kg},\\quad m=3\\text{ kg},\\quad g=10",
       "4",
       [],
       "a = (4×10)/10 = 4 m/s²."
@@ -1719,7 +1788,7 @@ const forcesInclinedPlanesLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-fip-m6",
       "For M = 7 kg, m = 3 kg, a = 4 m/s² (g = 10). Find tension T using the lighter mass.",
-      "T=m(a+g)=3(4+10)",
+      "m=3\\text{ kg},\\quad a=4\\text{ m/s}^2,\\quad g=10",
       "42",
       [],
       "T = 3×(4+10) = 3×14 = 42 N.",
@@ -1736,15 +1805,17 @@ const forcesInclinedPlanesLesson: Partial<ExplicitLesson> = {
     mechTyped(
       "y12e2-fip-m8",
       "A block is on a smooth incline at angle θ = sin⁻¹(3/5). Find its acceleration (g = 10).",
-      "a=g\\sin\\theta=10\\times\\frac{3}{5}",
+      "\\sin\\theta=\\frac{3}{5},\\quad g=10",
       "6",
       [],
-      "sinθ = 3/5. a = 10×(3/5) = 6 m/s²."
+      "sinθ = 3/5. a = 10×(3/5) = 6 m/s².",
+      "Apply a = g sinθ once you identify the slope angle.",
+      smoothInclineThetaDiagram
     ),
     mechTyped(
       "y12e2-fip-m9",
       "Two masses 5 kg and 5 kg are connected over a smooth pulley. Find the acceleration.",
-      "a=\\frac{(5-5)g}{5+5}",
+      "M=5\\text{ kg},\\quad m=5\\text{ kg}",
       "0",
       [],
       "a = 0×g/10 = 0. Equal masses → no acceleration; the system is in equilibrium.",
