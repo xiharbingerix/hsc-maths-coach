@@ -31,7 +31,7 @@
 | Year 12 Standard 2 | 58 (6 units) | 10 topics | ✅ 100% | 10 | ✅ Complete — audited 2026-06-15 (1106 questions) |
 | Year 12 Advanced | 65 (7 units) | 7 focus areas (NSW **2024** MAV-12-01…08) | ✅ Breadth 100%; ✅ depth-parity 65/65 (pool+multipart); polish open | 0 | ✅ **Rebuilt to NSW 2024 (2026-06-18)** — 7 Year-12 focus areas only (Year-11 → Year 11 Advanced course; bivariate stats removed per 2024). **Breadth: 100%** (15 new lessons incl. continuous RV strand, z-tables, log scales, sec/cosec/cot & log_a x derivatives, ∫aˣ, y-axis areas, f′/f″ graphing, differentiability, exp growth/decay). **Depth-parity: 65/65** lessons now have masteryQuizPool (~28–32 ramped) + multiPartPractice (built via 9 Opus agents, post-hoc assignment; tsc+audit:lessons PASS). **Polish DONE:** `audit:questions` now **0 findings** (108 fixed: currency-`$`→`\(\$N\)`, raw-LaTeX wrapped in `$…$`, self-reveal MCQs reworded). **Pre-existing issue (open):** Applications unit has duplicate/overlapping lessons across differentialCalculus.ts + applicationsDifferentiation.ts (incl. dup `optimisation` slug, one URL-shadowed) — dedup recommendation pending user decision. NOT re-seeded. Earlier "91 lessons/100%" used 2017 structure — superseded. |
 | Year 12 Extension 1 | 30 (8 units) | 6 focus areas (ME1-12-01–06) | ✅ 100% | 0 | ✅ Complete — audited 2026-06-15 (862 questions) |
-| Year 12 Extension 2 | 31 (5 units) | 5 focus areas (ME2-12-01–05) | ✅ 30/30 dot-point groups covered — volumes of revolution added 2026-06-16; 597 questions | 0 | ✅ Complete 2026-06-16 — +volumes-of-revolution; +complex division, nth roots, inequality induction, v dv/dx patches |
+| Year 12 Extension 2 | 31 (5 units) | 5 focus areas (ME2-12-01–05) | ✅ 30/30 dot-point groups covered — volumes of revolution added 2026-06-16; Stage 6 + Feynman pass rechecked 2026-06-19 | 0 | ✅ Complete 2026-06-16; ✅ 2026-06-19 pass: all 31 lessons have 4/5/10 spine, bespoke 30-item masteryQuizPool, multiPartPractice, 4 common mistakes, and no Feynman thin-section misses. Proof lessons now include flawed-proof diagnosis items. |
 
 ---
 
@@ -1322,7 +1322,7 @@ All gaps are **Advanced pathway** only. The Core pathway is fully covered across
 ## Year 11 Advanced 🔄 Audited against NSW 2024 syllabus (2026-06-15)
 
 `year-11-advanced` — `available`. Override file: `lib/lessons/year11Advanced/`.
-**70 lessons / 7 units — all in-scope.** Sequences and Series unit removed (2026-06-15). 10 new Working with Functions lessons (incl. quadratic inequalities) complete FA1. 3 new Trigonometry lessons complete FA2. Reciprocal trig ratios and complementary angle identities complete FA3. Product rule and quotient rule lessons complete FA4. Audited dot-by-dot against the NSW Mathematics Advanced 11–12 Syllabus (2024) Year 11 content. First HSC 2027.
+**72 lessons / 7 units — all in-scope.** Sequences and Series unit removed (2026-06-15). 10 new Working with Functions lessons (incl. quadratic inequalities) complete FA1. 3 new Trigonometry lessons complete FA2. Reciprocal trig ratios and complementary angle identities complete FA3. Product rule and quotient rule lessons complete FA4. Depth-parity rechecked 2026-06-19: all 72 lessons have the fixed 4/5/10 practice spine, a difficulty-ramped masteryQuizPool, HSC-style multiPartPractice, at least 3 worked examples, and 4 common mistakes. Feynman teaching-depth pass rechecked 2026-06-19: the 36 thin teaching sections identified by heuristic audit were expanded with concept-specific intuition, derivation/why-it-works paragraphs, misconception checks, and two extra transfer worked examples. Audited dot-by-dot against the NSW Mathematics Advanced 11–12 Syllabus (2024) Year 11 content. First HSC 2027.
 
 Unit headings all match NSW 2024 focus area names exactly.
 
@@ -1768,16 +1768,17 @@ Routing via `lib/year12AdvancedRoutes.ts` (separate from `newCourseCatalog.ts`).
 ## Year 12 Extension 2 ✅ Depth pass complete
 
 `year-12-extension-2` — `available`. Override file: `lib/lessons/year12Extension2/`.
-Class Maths: 5 topics / 40 subtopics. Nova: 5 units / 25 lessons (+8 from depth pass).
+Class Maths: 5 topics / 40 subtopics. Nova: 5 units / 31 lessons (+depth pass additions).
+
+2026-06-19 quality recheck: Extension 2 now has a course-level enhancement layer that adds Feynman-depth teaching paragraphs, tops up worked-example depth, gives every lesson a bespoke 30-item difficulty-ramped masteryQuizPool, and ensures every lesson has MVP-safe multiPartPractice. This treats multi-part practice as the main Extension 2 exam-depth layer. Proof lessons now use flawed-proof diagnosis items so students identify the invalid step or missing justification rather than merely recognise a finished proof.
 
 - [x] Proof (4 lessons: contradiction, contrapositive, algebraic inequalities, **mathematical induction** ✅)
-- [x] Vectors in Three Dimensions (4 lessons)
+- [x] Vectors in Three Dimensions (6 lessons)
 - [x] Complex Numbers (6 lessons: arithmetic, modulus/argument, Argand, polar/De Moivre, **roots of unity** ✅, **complex polynomials** ✅)
-- [x] Calculus (6 lessons: method selection, IBP, reduction formulae, **partial fractions** ✅, **t-substitution** ✅, **trig identity integration** ✅)
-  - [ ] Volumes of revolution (planned later phase)
-- [x] Mechanics (5 lessons: rectilinear, SHM, circular, **resisted motion** ✅, **projectile with resistance** ✅)
+- [x] Calculus (9 lessons: method selection, IBP, reduction formulae, **partial fractions** ✅, **t-substitution** ✅, **trig identity integration** ✅, completing-square integration, **volumes of revolution** ✅, quadratic partial fractions)
+- [x] Mechanics (6 lessons: forces on inclined planes, rectilinear, SHM, circular, **resisted motion** ✅, **projectile with resistance** ✅)
 
-**Depth pass: +8 lessons authored. 481 questions seeded. ✅ COMPLETE.**
+**Depth pass: 31 lessons; bespoke 30-item mastery pools; multiPartPractice everywhere. ✅ COMPLETE.**
 
 ---
 
@@ -1910,10 +1911,10 @@ Nova average lessons per unit: ~4–5.
 | Year 11 Standard | 76 (8 units) | ~76 | ✅ Depth pass + Priority 1–3 complete; NSW slug alignment 2026-06-15 |
 | Year 12 Standard 2 | 35 (6 units) | ~35 | ✅ Depth pass complete + 4 breadth lessons |
 | Year 12 Advanced | 91 (13 units) | ~64 subtopics | ✅ Depth pass complete + audited 2026-06-15 |
-| Year 12 Extension 2 | 31 (5 units) | ~40 subtopics | ✅ Complete 2026-06-16 — 597 questions; all 30 dot-point groups covered |
+| Year 12 Extension 2 | 31 (5 units) | ~40 subtopics | ✅ Complete 2026-06-16; Stage 6/Feynman/bespoke-pool pass rechecked 2026-06-19 |
 | Year 12 Standard 1 | 23 (5 units) | 7 NSW topics | ✅ Complete — all gaps closed 2026-06-15 (23 lessons, all 19Q) |
 | Year 12 Extension 1 | 30 (8 units) | ~28 subtopics | ✅ Depth pass complete — 520 questions seeded |
-| Year 11 Advanced | 70 (7 units) | 7 NSW focus areas | ✅ All 7 focus areas complete — FA6 (6 lessons) + FA7 (15 lessons) done |
+| Year 11 Advanced | 72 (7 units) | 7 NSW focus areas | ✅ All 7 focus areas complete; depth-parity rechecked 2026-06-19 (72/72 pass) |
 | Year 9 Core | ~63 (10 units) | 9 NSW focus areas | 🔄 Alg Tech + Equations + Trig B added 2026-06-16; all 9 focus areas have content now; unit renames + Numbers of any magnitude split still needed |
 | Year 9 / Year 10 variants | — | — | 🔄 Promote Advanced + Core to available after restructuring |
 | Year 8 | 59 (10 units) | ~111 subtopics | 🔄 4 units missing vs Class Maths |
@@ -1923,12 +1924,12 @@ Nova average lessons per unit: ~4–5.
 
 ## Priority Order
 
-1. ~~**Year 12 Extension 2 depth**~~ ⚠️ Near-complete — 30 lessons, 481 questions; volumes of revolution lesson still needed
+1. ~~**Year 12 Extension 2 depth**~~ ✅ Complete — 31 lessons; Stage 6 structural + Feynman-depth pass rechecked 2026-06-19
 2. ~~**Year 12 Standard 2 depth**~~ ✅ Complete — 35 lessons (breadth pass ongoing), 665 questions
 3. ~~**Year 12 Advanced depth**~~ ✅ Complete — 91 lessons, 1715 questions (Probability unit added)
 4. ~~**Year 12 Extension 1 depth**~~ ✅ Complete — 30 lessons, 520 questions (8 units, 100% topic breadth)
 5. ~~**Year 12 Standard 1**~~ ✅ Complete — 23 lessons, all 7 topics at 19Q depth; credit-cards-and-loans added 2026-06-15; promote to `available`
-6. **Year 11 Advanced gaps** — ✅ FA1–FA4 complete (16 new lessons 2026-06-15); remaining ~4 lessons needed: circles completing-the-square (FA6); sets/Venn diagrams, conditional probability (FA7)
+6. ~~**Year 11 Advanced gaps**~~ ✅ Complete — 72 lessons / 7 units; breadth and Stage 6 depth-parity rechecked 2026-06-19
 7. **Year 9 / Year 10 variants** — promote Advanced and Core to `available`
 8. **Year 8 depth** — 4 missing units vs Class Maths 14-topic target (ratios/rates, index laws, algebraic fractions, additional data)
 9. **Year 7** — new course, not yet started

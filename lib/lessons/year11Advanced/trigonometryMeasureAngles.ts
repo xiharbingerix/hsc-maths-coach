@@ -868,8 +868,6 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         practicalChoice("y11adv-trig-exam-i3", "Which coordinate rule is correct?", "A", ["$(\\cos\\theta,\\sin\\theta)$", "$(\\sin\\theta,\\cos\\theta)$", "$(\\tan\\theta,\\sin\\theta)$", "$(\\theta,\\tan\\theta)$"], "On the unit circle, cosine is x and sine is y.", "\\theta"),
         practicalChoice("y11adv-trig-exam-i4", "Which sign pattern is correct?", "C", ["Sine positive, cosine positive", "Sine positive, cosine negative", "Sine negative, cosine positive", "Sine negative, cosine negative"], "In quadrant IV, y is negative and x is positive.", "\\text{Quadrant IV}"),
         formulaAnswer("y11adv-trig-exam-i5", "State the first positive vertical asymptote of the tangent graph.", "y=\\tan x", "pi/2", ["\\pi/2", "π/2"]),
-        formulaAnswer("y11adv-trig-exam-n1", "State the amplitude.", "y=3\\cos(2x)-1", "3", []),
-        practicalChoice("y11adv-trig-exam-n2", "What is the period of $y=\\sin(2x)+4$?", "B", ["$2\\pi$", "$\\pi$", "$\\frac{\\pi}{2}$", "$4\\pi$"], "Period = 2π/b = 2π/2 = π. The vertical shift d = 4 does not affect the period.", "y=\\sin(2x)+4"),
       ],
       commonMistakes: [
         { mistake: "Forgetting to convert degrees to radians before using circular-measure formulas.", fix: "Use radians in $s=r\\theta$ and $A=\\frac12r^2\\theta$." },
@@ -890,10 +888,6 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         practicalChoice("y11adv-trig-exam-m8", "Which graph has starting value one?", "C", ["$y=\\sin x$", "$y=\\tan x$", "$y=\\cos x$", "$y=-\\cos x$"], "Cosine starts at 1 when x is zero.", "x=0"),
         practicalChoice("y11adv-trig-exam-m9", "Which exact value is correct?", "D", ["$\\frac{\\sqrt3}{2}$", "$-\\frac{\\sqrt2}{2}$", "$\\frac12$", "$-\\frac{\\sqrt3}{2}$"], "Use the reference angle and quadrant III cosine sign.", "\\cos\\left(\\frac{7\\pi}{6}\\right)"),
         formulaAnswer("y11adv-trig-exam-m10", "State the period of the basic tangent graph.", "y=\\tan x", "pi", ["\\pi", "π"]),
-        formulaAnswer("y11adv-trig-exam-p1", "State the amplitude.", "y=5\\sin(2x)+3", "5", []),
-        formulaAnswer("y11adv-trig-exam-p2", "State the period.", "y=\\cos(3x)-2", "2pi/3", ["2\\pi/3", "2π/3"]),
-        practicalChoice("y11adv-trig-exam-p3", "What is the maximum value of $y=4\\sin\\!\\left(x+\\frac{\\pi}{6}\\right)-1$?", "B", ["$5$", "$3$", "$-1$", "$4$"], "Maximum = d + |a| = −1 + 4 = 3.", "y=4\\sin\\!\\left(x+\\frac{\\pi}{6}\\right)-1"),
-        formulaAnswer("y11adv-trig-exam-p4", "State the size of the phase shift.", "y=\\sin\\!\\left(2x-\\frac{\\pi}{2}\\right)", "pi/4", ["\\pi/4", "π/4"]),
       ],
       masteryQuizPool: [
         { id: "y11adv-trig-exam-pool1", prompt: "Convert the angle to radians.", latex: "180^\\circ", answer: "pi", difficulty: 1, acceptedAnswers: ["\\pi", "π"], hint: "A half turn is $\\pi$.", explanation: "$180\\times\\frac{\\pi}{180}=\\pi$." },
