@@ -62,6 +62,7 @@ import {
   year11AdvancedTrigonometryMeasureLessonOverride,
   year11AdvancedWorkingFunctionsLessonOverride,
 } from "./lessons/year11Advanced";
+import { enrichYear11AdvancedFeynmanDepth } from "./lessons/year11Advanced/feynmanEnhancements";
 import {
   year11ExtensionBinomialTheoremLessonOverride,
   year11ExtensionFurtherFunctionsLessonOverride,
@@ -104,6 +105,7 @@ import {
   year12Extension2ProofLessonOverride,
   year12Extension2Vectors3DLessonOverride,
 } from "./lessons/year12Extension2";
+import { enrichYear12Extension2Depth } from "./lessons/year12Extension2/feynmanEnhancements";
 
 export type {
   CourseLessonSeed,
@@ -457,7 +459,14 @@ export function buildLesson(
     ...override,
   };
 
-  return prefixLessonQuestionIds(built, course.slug);
+  const enriched =
+    course.slug === "year-11-advanced"
+      ? enrichYear11AdvancedFeynmanDepth(built)
+      : course.slug === "year-12-extension-2"
+        ? enrichYear12Extension2Depth(built)
+      : built;
+
+  return prefixLessonQuestionIds(enriched, course.slug);
 }
 
 export const newCoursePathways: CoursePathwaySeed[] = [

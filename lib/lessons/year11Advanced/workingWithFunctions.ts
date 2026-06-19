@@ -1294,6 +1294,25 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
           ],
           finalAnswerLatex: "y = 4",
         },
+        {
+          title: "Choose the model before calculating",
+          questionLatex: "\\text{A lamp's brightness }B\\text{ varies inversely with distance }d.\\text{ If }B=18\\text{ when }d=2,\\text{ find }B\\text{ when }d=6.",
+          steps: [
+            {
+              explanation: "The word inversely means the product Bd stays constant, not the ratio B/d.",
+              latex: "k = Bd = 18 \\times 2 = 36",
+            },
+            {
+              explanation: "Use the inverse variation model with the new distance.",
+              latex: "B = \\frac{36}{6} = 6",
+            },
+            {
+              explanation: "The output is smaller because the distance increased; that checks the model choice.",
+              latex: "d\\text{ triples, so }B\\text{ becomes one third as large}",
+            },
+          ],
+          finalAnswerLatex: "B = 6",
+        },
       ],
       guidedPractice: [
         qa("y11adv-var-g1", "If $y = kx$ and $y = 20$ when $x = 5$, find $k$.", "k = \\frac{y}{x} = \\frac{20}{5}", "4", "k = y/x.", "k = 20/5 = 4."),
@@ -1385,6 +1404,25 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
             },
           ],
           finalAnswerLatex: "\\text{Domain: }[-5,5],\\quad \\text{Range: }[0,5]",
+        },
+        {
+          title: "Recover a missing coordinate using the circle condition",
+          questionLatex: "\\text{A point }(x,8)\\text{ lies on }x^2+y^2=100\\text{ with }x<0.\\text{ Find }x.",
+          steps: [
+            {
+              explanation: "Substitute the known y-value into the circle equation.",
+              latex: "x^2 + 8^2 = 100",
+            },
+            {
+              explanation: "Solve for the squared coordinate first.",
+              latex: "x^2 = 100 - 64 = 36",
+            },
+            {
+              explanation: "There are two square roots, so use the given sign condition x < 0.",
+              latex: "x = -6",
+            },
+          ],
+          finalAnswerLatex: "x = -6",
         },
       ],
       guidedPractice: [
