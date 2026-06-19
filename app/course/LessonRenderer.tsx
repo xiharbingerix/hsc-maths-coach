@@ -226,11 +226,12 @@ function safePartLatex(part: PracticeQuestionPart) {
     : part.latex;
 }
 
-// The mastery quiz (like worksheets) shows only the prompt. The per-question /
-// per-part LaTeX setup block is redundant with the prompt's inline math and is a
-// known answer-leak vector, so it is stripped from every mastery question rather
-// than relying on the heuristic `shouldHideLatex` guard.
-function stripMasteryLatex(question: PracticeQuestion): PracticeQuestion {
+// Mastery and independent practice (like worksheets) show only the prompt. The
+// per-question / per-part LaTeX setup block is redundant with the prompt's inline
+// math and is a known answer-leak vector, so it is stripped outright rather than
+// relying on the heuristic `shouldHideLatex` guard. Guided practice keeps its
+// block as a learning aid.
+function stripBlockLatex(question: PracticeQuestion): PracticeQuestion {
   return {
     ...question,
     latex: "",
@@ -1653,7 +1654,7 @@ export function LessonRenderer({
   const activeQuiz = useMemo(
     () =>
       lesson
-        ? buildMasteryQuiz(lesson, { seed: quizAttemptSeed }).map(stripMasteryLatex)
+        ? buildMasteryQuiz(lesson, { seed: quizAttemptSeed }).map(stripBlockLatex)
         : [],
     [lesson, quizAttemptSeed]
   );
@@ -2298,7 +2299,7 @@ export function LessonRenderer({
       return (
         <section className="space-y-4 rounded-2xl bg-white p-6 shadow-sm">
           <h2 className="text-2xl font-bold">Independent Practice</h2>
-          {currentLesson.independentPractice.map((question, index) => (
+          {currentLesson.independentPractice.map(stripBlockLatex).map((question, index) => (
             <PracticeCard
               key={question.id}
               question={question}
@@ -2329,7 +2330,7 @@ export function LessonRenderer({
               HSC-style questions with separate answer checks for each part.
             </p>
           </div>
-          {(currentLesson.multiPartPractice ?? []).map((question, index) => (
+          {(currentLesson.multiPartPractice ?? []).map(stripBlockLatex).map((question, index) => (
             <PracticeCard
               key={question.id}
               question={question}
