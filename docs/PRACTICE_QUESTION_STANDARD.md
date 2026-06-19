@@ -24,10 +24,31 @@ Difficulty is inferred by `seed-question-bank.ts` from the question's position a
 | Level | When assigned |
 |---|---|
 | D1 | Guided MCQ (`choices` present) |
-| D2 | Guided typed answer; Independent Q1–Q3 |
-| D3 | Independent Q4–Q5; Mastery Q1–Q4 |
-| D4 | Mastery Q5–Q7 |
-| D5 | Mastery Q8–Q10; `multiPartPractice` section; or if prompt contains "exam" or "prove" |
+| D2 | Guided typed answer; Independent Q1-Q3 |
+| D3 | Independent Q4-Q5; Mastery Q1-Q4 |
+| D4 | Mastery Q5-Q7 |
+| D5 | Mastery Q8-Q10; `multiPartPractice` section; or if prompt contains "exam" or "prove" |
+
+---
+
+## Cognitive demand
+
+Difficulty must reflect **cognitive demand**, not just algebra length, notation density, or exam-style wording.
+
+| Level | Cognitive expectation |
+|---|---|
+| D1 | Recognition or very direct recall |
+| D2 | Direct procedure in a familiar form |
+| D3 | Direct application with light variation or mild transfer |
+| D4 | Unscaffolded application, misconception diagnosis, or connected reasoning |
+| D5 | Non-routine transfer, interpretation, modelling, constraint reasoning, or exam-style synthesis |
+
+### Hard rules
+
+- A question is **not** D5 merely because it uses advanced notation, an exam tone, or unfamiliar wording.
+- Method-naming, formula-selection, or structure-identification prompts are capped at **D3** unless they sit inside a richer task with genuine transfer, interpretation, or constraint reasoning.
+- If a student can answer correctly without doing meaningful mathematics, the question is not high-difficulty.
+- High-difficulty questions must come from production, interpretation, transfer, modelling, or synthesis - not from surface complexity.
 
 ---
 
@@ -39,7 +60,7 @@ Difficulty is inferred by `seed-question-bank.ts` from the question's position a
 | Common misconceptions make useful distractors | The answer is a specific, auto-markable value |
 | The correct method needs to be distinguished from typical errors | The student must produce the answer, not recognise it |
 
-Standard distribution: **1–2 MCQ in guided**, **0–1 MCQ in independent**, **2–3 MCQ in mastery**.
+Standard distribution: **1-2 MCQ in guided**, **0-1 MCQ in independent**, **2-3 MCQ in mastery**.
 
 ---
 
@@ -55,14 +76,14 @@ Skip it for simple questions where the prompt is self-contained (e.g. "Find y wh
 
 ---
 
-## Guided practice — 4 questions
+## Guided practice - 4 questions
 
 **Purpose:** introduce the new skill with low cognitive load. Should closely mirror the worked examples.
 
 ### Rules
 
-- Q1: MCQ or very direct typed — confirm the student can identify the core rule
-- Q2–Q4: typed answers — step up complexity slightly each question
+- Q1: MCQ or very direct typed - confirm the student can identify the core rule
+- Q2-Q4: typed answers - step up complexity slightly each question
 - Hints should be **generous** (see FEEDBACK_AND_HINTS_STANDARD.md)
 - No surprise twists, transfers, or multi-step reasoning beyond what was taught
 - Should feel achievable after reading the teaching section
@@ -70,7 +91,7 @@ Skip it for simple questions where the prompt is self-contained (e.g. "Find y wh
 ### Suitable
 
 - "Rule: y = 3x + 1. Find y when x = 4." (D2, direct substitution)
-- "Which rule matches the pattern x=1→5, x=2→8, x=3→11?" (D1, MCQ, pattern identification)
+- "Which rule matches the pattern x=1->5, x=2->8, x=3->11?" (D1, MCQ, pattern identification)
 - "Plot the point (2, 5) on a number plane." (D2, direct coordinate task)
 
 ### Not suitable
@@ -82,21 +103,21 @@ Skip it for simple questions where the prompt is self-contained (e.g. "Find y wh
 
 ---
 
-## Independent practice — 5 questions
+## Independent practice - 5 questions
 
 **Purpose:** same skill, varied contexts. Less scaffolding. Mild transfer is acceptable.
 
 ### Rules
 
-- Q1–Q3: D2 — direct application in a new numeric context or scenario
-- Q4–Q5: D3 — mild transfer, slightly varied framing, or different real-world context
+- Q1-Q3: D2 - direct application in a new numeric context or scenario
+- Q4-Q5: D3 - mild transfer, slightly varied framing, or different real-world context
 - One MCQ is acceptable; the rest should be typed
 - Avoid trick questions; focus on durable understanding
-- Hints should be **less direct** than guided — nudge rather than guide
+- Hints should be **less direct** than guided - nudge rather than guide
 
 ### Suitable
 
-- A gradient question in a real-world context (e.g. cost per km) after learning rise ÷ run
+- A gradient question in a real-world context (e.g. cost per km) after learning rise / run
 - A table-of-values question with a negative gradient
 - An MCQ where distractors are the two most common errors for the topic
 
@@ -109,19 +130,27 @@ Skip it for simple questions where the prompt is self-contained (e.g. "Find y wh
 
 ---
 
-## Mastery quiz — 10 questions
+## Mastery quiz - 10 questions
 
 **Purpose:** verify the student can apply the skill without scaffolding. Mixed difficulty.
 
 ### Rules
 
-- Q1–Q4: D3 | Q5–Q7: D4 | Q8–Q10: D5
-- Include 2–3 MCQ to test conceptual understanding and misconception traps
+- Q1-Q4: D3 | Q5-Q7: D4 | Q8-Q10: D5
+- Include 2-3 MCQ to test conceptual understanding and misconception traps
 - Hints are minimal or absent
 - Every question must be auto-markable
 - Use `multiPartPractice`, not `masteryQuiz`, for HSC Section II-style multi-part extension practice
 - Must include at least one question targeting the most common misconception (see `commonMistakes`)
-- Explanations must be particularly clear — mastery quiz is the student's primary review stage
+- Explanations must be particularly clear - mastery quiz is the student's primary review stage
+- Pure recognition should be the minority of the section. The mastery layer should be dominated by production, transfer, interpretation, or error diagnosis.
+
+### Cognitive mix requirements
+
+- At most **2** mastery questions may be pure recognition questions.
+- At least **3** mastery questions must require students to produce or use mathematics, not just recognise a method or rule.
+- At least **2** mastery questions must involve transfer, contextual application, modelling, interpretation, constraint reasoning, or meaningful error correction.
+- At least **1** mastery question must require students to respond to a mathematically specific misconception or invalid step.
 
 ### Suitable
 
@@ -129,6 +158,8 @@ Skip it for simple questions where the prompt is self-contained (e.g. "Find y wh
 - An MCQ with three common error distractors testing the conceptual rule (D3)
 - A contextual question (e.g. gradient of a distance-time graph as speed) (D5)
 - A question combining two sub-skills from the same lesson
+- A question where the student must decide between competing valid-looking approaches through an auto-markable result
+- A question where the student must interpret a parameter, classify an outcome, or diagnose a specific mathematical error
 
 ### Not suitable
 
@@ -136,6 +167,9 @@ Skip it for simple questions where the prompt is self-contained (e.g. "Find y wh
 - A repeat of a guided question with the same numbers
 - A question at D1 or D2 difficulty (too easy for mastery)
 - A question requiring a calculator when none is available
+- "Which method should you use?" as a standalone D5 question
+- "What should you identify first?" as a standalone D5 question
+- A question that looks hard only because of notation or exam-style phrasing
 
 ---
 
@@ -143,13 +177,13 @@ Skip it for simple questions where the prompt is self-contained (e.g. "Find y wh
 
 **You MUST attach a visual payload whenever a question involves a diagram, graph, plot, table, number line, geometric figure, or solid.** Never describe a visual in words, fake it in LaTeX, or spell a plot out as text when a renderer exists for it.
 
-There are **28 renderers** covering number lines, every common statistics display (dot/stem/bar/histogram/scatter/box/pie), plane shapes, sectors, 3D solids, nets, bearings, step graphs, and the full function/coordinate set. The single source of truth — the full catalogue, the content→renderer map ("use the right renderer, never fake it"), MCQ-diagram answers, and how to add a new renderer via the registry — is **[QUESTION_AUTHORING_STANDARD.md → Visual payloads](./QUESTION_AUTHORING_STANDARD.md#visual-payloads)**. The schema for every field is `lib/lessons/types.ts`.
+There are **28 renderers** covering number lines, every common statistics display (dot/stem/bar/histogram/scatter/box/pie), plane shapes, sectors, 3D solids, nets, bearings, step graphs, and the full function/coordinate set. The single source of truth - the full catalogue, the content-to-renderer map ("use the right renderer, never fake it"), MCQ-diagram answers, and how to add a new renderer via the registry - is **[QUESTION_AUTHORING_STANDARD.md -> Visual payloads](./QUESTION_AUTHORING_STANDARD.md#visual-payloads)**. The schema for every field is `lib/lessons/types.ts`.
 
 The lesson auditor flags **"visual required, no payload"**; fix it by adding the payload, not by rewording the prompt. Visual payloads support student understanding, but answers must still be auto-markable unless the question is explicitly for teacher-led discussion.
 
 ### The `description` field
 
-Every visual payload has a required `description: string`. Write it as a specific accessibility label — not `"Diagram."` but a sentence describing what it actually shows (labels, values, key features). See [QUESTION_AUTHORING_STANDARD.md](./QUESTION_AUTHORING_STANDARD.md) for examples.
+Every visual payload has a required `description: string`. Write it as a specific accessibility label - not `"Diagram."` but a sentence describing what it actually shows (labels, values, key features). See [QUESTION_AUTHORING_STANDARD.md](./QUESTION_AUTHORING_STANDARD.md) for examples.
 
 ### Diagram-first design
 
@@ -157,21 +191,21 @@ For visual topics, choose the diagram first and write the question around what t
 
 ### Multi-part questions + visual payloads
 
-Attach the visual payload to the top-level question only. Part prompts should refer to it with "Using the diagram above…" or "From the graph…". Never duplicate the payload per-part.
+Attach the visual payload to the top-level question only. Part prompts should refer to it with "Using the diagram above..." or "From the graph...". Never duplicate the payload per-part.
 
 ---
 
 ## Multi-part practice (`multiPartPractice`)
 
-**Purpose:** exam-rehearsal. Multi-part questions replicate the structure of HSC Section II items — a shared stem, 2–4 dependent parts, and a marks-based mark scheme. They sit outside the 19-question lesson count and are never required for lesson completion.
+**Purpose:** exam-rehearsal. Multi-part questions replicate the structure of HSC Section II items - a shared stem, 2-4 dependent parts, and a marks-based mark scheme. They sit outside the 19-question lesson count and are never required for lesson completion.
 
-**You MUST use the `multiPartPractice` array whenever a question is structurally multi-part** (shared stem, 2–4 dependent parts). The multi-part system is production-ready and supports marks-weighted partial credit. Never collapse a multi-part question into a single unstructured `answer` field.
+**You MUST use the `multiPartPractice` array whenever a question is structurally multi-part** (shared stem, 2-4 dependent parts). The multi-part system is production-ready and supports marks-weighted partial credit. Never collapse a multi-part question into a single unstructured `answer` field.
 
 ### Placement
 
-`multiPartPractice` appears after the student has completed guided, independent, and mastery sections. It is positioned as "Working Mathematically / Exam Practice" — an optional extension layer, not a replacement for fluency or mastery work.
+`multiPartPractice` appears after the student has completed guided, independent, and mastery sections. It is positioned as "Working Mathematically / Exam Practice" - an optional extension layer, not a replacement for fluency or mastery work.
 
-Do not put a question here because it is hard. Put it here because it is **structurally multi-part** — that is, it has a shared stem with 2–4 dependent parts where later parts build on earlier ones.
+Do not put a question here because it is hard. Put it here because it is **structurally multi-part** - that is, it has a shared stem with 2-4 dependent parts where later parts build on earlier ones.
 
 ### Rules
 
@@ -179,24 +213,29 @@ Do not put a question here because it is hard. Put it here because it is **struc
 - Not counted toward the 19-question standard lesson total.
 - Not audited by the standard section-count check in `audit:lessons`.
 - Every part must be auto-markable. No "explain", "justify", "show that", "prove", or "describe" in any part prompt (free-text). See [QUESTION_AUTHORING_STANDARD.md](./QUESTION_AUTHORING_STANDARD.md) for the full MVP-safe/unsafe table.
-- Total marks per question: 4–6. Distribute as: (a) 1–2 marks, (b) 1–2 marks, (c) 2–3 marks.
+- Total marks per question: 4-6. Distribute as: (a) 1-2 marks, (b) 1-2 marks, (c) 2-3 marks.
 - Prefer specific numeric outputs over full equations. Equations have too many equivalent forms; exact matching will produce false negatives.
 - Each part needs its own `hint` and `explanation`. The top-level `hint` and `explanation` are the post-submission summary across all parts.
 - The optional `working?: string[]` field on each part holds KaTeX lines that are rendered as a worked solution panel after submission. Use it for multi-step calculations where the explanation prose alone is not enough to show the working clearly. Each element should be one line of KaTeX (no `$` delimiters).
+- Multi-part questions must be genuinely authored as shared-stem exam-style items. Do not build them by grouping existing single questions under a wrapper.
+- Later parts must depend on earlier reasoning or shift the task into a new cognitive mode. A shared title alone is not enough.
+- Part (c) should usually interpret, classify, constrain, optimise, compare, or apply the earlier result in context rather than repeat the same procedure.
 
 ### What belongs here
 
-- A calculus question with parts: compute derivative → classify stationary point → find inflection
-- A linear modelling question: build equation → solve → interpret changed parameter
-- A probability question: compute P(A) → compute P(A|B) → interpret result
+- A calculus question with parts: compute derivative -> classify stationary point -> find inflection
+- A linear modelling question: build equation -> solve -> interpret changed parameter
+- A probability question: compute P(A) -> compute P(A|B) -> interpret result
 - An Extension 1 question mirroring an actual HSC Section II item
 
 ### What does not belong here
 
-- A hard but single-output question (put in `masteryQuiz` at D4–D5)
+- A hard but single-output question (put in `masteryQuiz` at D4-D5)
 - A question where any part requires a proof or written explanation
 - A question where parts are independent (no shared stem, no dependency between parts)
 - A question where the answer to any part is a full equation with no canonical unique form
+- Three adjacent fluency questions wrapped together after the fact
+- Synthetic backfill multi-part generation from existing single-part questions
 
 ### Marks-weighted scoring
 
@@ -236,8 +275,10 @@ The 19 questions across a lesson must cover:
 - Common misconceptions — tested via MCQ distractors or question framing
 - Both positive and negative cases where applicable (e.g. positive and negative gradient)
 - At least one contextual/real-world question in independent or mastery
+- Enough variation that the lesson does not stop at procedural fluency alone
 
 ---
+
 
 ## MCQ distractor design
 
