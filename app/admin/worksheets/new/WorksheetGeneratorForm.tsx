@@ -361,6 +361,7 @@ export function WorksheetGeneratorForm({
           totalQuestions: previewQuestions.length,
           includeMultiPart,
           questionIds: previewQuestions.map((q) => q.id),
+          assignedStudentId: studentId || undefined,
           assignedStudentName: studentName.trim() || undefined,
           assignedStudentEmail: studentEmail.trim() || undefined,
           dueAt: dueAtIso(),

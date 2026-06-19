@@ -46,7 +46,7 @@ export async function POST(
   // Verify the worksheet exists and is not expired
   const { data: worksheet, error: wsError } = await supabaseAdmin
     .from("worksheets")
-    .select("id, expires_at")
+    .select("id, expires_at, assigned_student_name")
     .eq("share_token", token)
     .maybeSingle();
 
@@ -65,6 +65,12 @@ export async function POST(
   }
 
   const userId = await getUserIdFromRequest(request);
+  const resolvedStudentName =
+    studentName ??
+    (typeof worksheet.assigned_student_name === "string" &&
+    worksheet.assigned_student_name.trim()
+      ? worksheet.assigned_student_name.trim().slice(0, 120)
+      : null);
 
   // Shared links still work anonymously; logged-in attempts are tied to the user.
   const { data: attempt, error: insertError } = await supabaseAdmin
@@ -73,7 +79,7 @@ export async function POST(
       worksheet_id: worksheet.id,
       user_id: userId,
       share_token: token,
-      student_name: studentName,
+      student_name: resolvedStudentName,
     })
     .select("id")
     .single();

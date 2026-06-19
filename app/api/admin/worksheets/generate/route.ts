@@ -18,6 +18,7 @@ type GenerateBody = {
   preset?: string;
   totalQuestions?: number;
   questionIds?: string[];
+  assignedStudentId?: string;
   assignedStudentName?: string;
   assignedStudentEmail?: string;
   dueAt?: string;
@@ -40,6 +41,16 @@ function normaliseOptionalText(value: unknown, maxLength: number) {
     : null;
 }
 
+function normaliseOptionalUuid(value: unknown) {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+    trimmed
+  )
+    ? trimmed
+    : null;
+}
+
 export async function POST(request: Request) {
   if (!(await isAdmin())) {
     return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
@@ -59,6 +70,7 @@ export async function POST(request: Request) {
     preset,
     totalQuestions,
     questionIds,
+    assignedStudentId,
     assignedStudentName,
     assignedStudentEmail,
     dueAt,
@@ -93,6 +105,7 @@ export async function POST(request: Request) {
   }
 
   const trimmedStudentName = normaliseOptionalText(assignedStudentName, 120);
+  const trimmedStudentId = normaliseOptionalUuid(assignedStudentId);
   const trimmedStudentEmail = normaliseOptionalText(
     typeof assignedStudentEmail === "string"
       ? assignedStudentEmail.toLowerCase()
@@ -170,6 +183,7 @@ export async function POST(request: Request) {
         preset,
         preview_approved: approvedQuestionIds.length > 0,
       },
+      assigned_to_user: trimmedStudentId,
       assigned_student_name: trimmedStudentName,
       assigned_student_email: trimmedStudentEmail,
       due_at: parsedDueAt ? parsedDueAt.toISOString() : null,

@@ -367,7 +367,7 @@ export default function DashboardPage() {
       }
 
       // Worksheets assigned to this student's email (RLS: migration 010).
-      const userEmail = sessionUser.email ?? null;
+      const userEmail = sessionUser.email?.toLowerCase() ?? null;
       if (userEmail) {
         const { data: wsData } = await supabase
           .from("worksheets")
