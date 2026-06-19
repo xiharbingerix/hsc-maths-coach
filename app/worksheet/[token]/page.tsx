@@ -38,11 +38,23 @@ function normaliseForLeakCheck(value: string) {
 }
 
 function expandLatexFractions(value: string) {
+  let prev = "";
   let current = value;
-  const fractionPattern = /\\(?:d?frac)\s*\{([^{}]+)\}\s*\{([^{}]+)\}/g;
 
-  while (fractionPattern.test(current)) {
-    current = current.replace(fractionPattern, "($1)/($2)");
+  while (current !== prev) {
+    prev = current;
+    // Braced form: \frac{a}{b} or \dfrac{a}{b} → (a)/(b)
+    current = current.replace(
+      /\\(?:d?frac)\s*\{([^{}]+)\}\s*\{([^{}]+)\}/g,
+      "($1)/($2)"
+    );
+    // Shorthand single-digit form: \frac16 → (1)/(6), \frac38 → (3)/(8)
+    // LaTeX allows \frac followed by two single-character tokens as shorthand.
+    // We only expand digit pairs to avoid munging unrelated macro calls.
+    current = current.replace(
+      /\\(?:d?frac)\s*([0-9])\s*([0-9])/g,
+      "($1)/($2)"
+    );
   }
 
   return current;
