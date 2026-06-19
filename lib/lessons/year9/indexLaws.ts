@@ -1,5 +1,6 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import { enhanceYear9CoreLesson } from "./coreDepthEnhancements";
 
 function answer(
   id: string,
@@ -453,9 +454,9 @@ export function year9IndexLawsLessonOverride(
     return null;
   }
 
-  return {
+  return enhanceYear9CoreLesson(course, unit, lesson, {
     syllabusArea: "Number and Algebra",
     masteryPassMark: 0.8,
     ...content,
-  };
+  });
 }

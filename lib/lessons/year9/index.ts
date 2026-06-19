@@ -13,3 +13,4 @@ export { year9VariationRatesLessonOverride } from "./variationRates";
 export { year9SimultaneousEquationsLessonOverride } from "./simultaneousEquations";
 export { year9ProbabilityBLessonOverride } from "./probabilityB";
 export { year9LinearRelationshipsCLessonOverride } from "./linearRelationshipsC";
+export { enhanceYear9CoreLesson } from "./coreDepthEnhancements";

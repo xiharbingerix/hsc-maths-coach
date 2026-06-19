@@ -1,5 +1,6 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import { enhanceYear9CoreLesson } from "./coreDepthEnhancements";
 
 type LessonContent = Pick<ExplicitLesson, "description" | "learningIntention" | "successCriteria" | "teaching" | "workedExamples" | "guidedPractice" | "independentPractice" | "commonMistakes" | "masteryQuiz">;
 
@@ -272,5 +273,5 @@ export function year9GeometricalRepresentationsLessonOverride(course: CoursePath
   if (!["year-9-mathematics", "year-9-mathematics-advanced", "year-9-mathematics-core"].includes(course.slug) || unit.slug !== "geometrical-representations") return null;
   const content = lessons[lesson.slug];
   if (!content) return null;
-  return { syllabusArea: "Measurement and Space", masteryPassMark: 0.8, ...content };
+  return enhanceYear9CoreLesson(course, unit, lesson, { syllabusArea: "Measurement and Space", masteryPassMark: 0.8, ...content });
 }

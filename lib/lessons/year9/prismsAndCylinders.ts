@@ -8,6 +8,7 @@ import type {
   PracticeQuestion,
   WorkedExample,
 } from "../differentialCalculus";
+import { enhanceYear9CoreLesson } from "./coreDepthEnhancements";
 
 type LessonContent = Omit<
   Pick<
@@ -689,7 +690,7 @@ export function year9PrismsAndCylindersLessonOverride(
     return null;
   }
 
-  return {
+  return enhanceYear9CoreLesson(course, unit, lesson, {
     syllabusArea: "Measurement and Space",
     masteryPassMark: 0.8,
     ...content,
@@ -698,5 +699,5 @@ export function year9PrismsAndCylindersLessonOverride(
       mistake,
       fix: fixForMistake(mistake),
     })),
-  };
+  });
 }

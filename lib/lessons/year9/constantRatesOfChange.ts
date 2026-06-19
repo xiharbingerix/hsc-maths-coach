@@ -1,6 +1,7 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
 import type { CartesianGraph } from "../types";
+import { enhanceYear9CoreLesson } from "./coreDepthEnhancements";
 
 function answer(id: string, prompt: string, latex: string, answer: string, explanation: string, acceptedAnswers: string[] = [], cartesianGraph?: CartesianGraph): PracticeQuestion {
   const autoVariants: string[] = [];
@@ -385,5 +386,5 @@ export function year9ConstantRatesOfChangeLessonOverride(course: CoursePathwaySe
   if (!["year-9-mathematics", "year-9-mathematics-advanced", "year-9-mathematics-core"].includes(course.slug) || unit.slug !== "constant-rates-of-change") return null;
   const content = lessons[lesson.slug];
   if (!content) return null;
-  return { syllabusArea: "Number and Algebra", masteryPassMark: 0.8, ...content };
+  return enhanceYear9CoreLesson(course, unit, lesson, { syllabusArea: "Number and Algebra", masteryPassMark: 0.8, ...content });
 }

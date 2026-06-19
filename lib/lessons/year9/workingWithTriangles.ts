@@ -9,6 +9,7 @@ import type {
   WorkedExample,
 } from "../differentialCalculus";
 import type { CartesianGraph, TriangleDiagram } from "../types";
+import { enhanceYear9CoreLesson } from "./coreDepthEnhancements";
 
 type LessonContent = Pick<
   ExplicitLesson,
@@ -3978,9 +3979,9 @@ export function year9WorkingWithTrianglesLessonOverride(
     return null;
   }
 
-  return {
+  return enhanceYear9CoreLesson(course, unit, lesson, {
     syllabusArea: "Measurement and Space",
     masteryPassMark: 0.8,
     ...content,
-  };
+  });
 }

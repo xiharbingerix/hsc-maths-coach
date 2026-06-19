@@ -1,5 +1,6 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import { enhanceYear9CoreLesson } from "./coreDepthEnhancements";
 
 function moneyVariants(answer: string) {
   const value = Number(answer.replace(/[$,]/g, ""));
@@ -439,5 +440,5 @@ export function year9FinancialMathematicsLessonOverride(course: CoursePathwaySee
   if (!["year-9-mathematics", "year-9-mathematics-advanced", "year-9-mathematics-core"].includes(course.slug) || unit.slug !== "financial-mathematics") return null;
   const content = lessons[lesson.slug];
   if (!content) return null;
-  return { syllabusArea: "Number and Algebra", masteryPassMark: 0.8, ...content };
+  return enhanceYear9CoreLesson(course, unit, lesson, { syllabusArea: "Number and Algebra", masteryPassMark: 0.8, ...content });
 }
