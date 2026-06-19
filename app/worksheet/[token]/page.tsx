@@ -28,6 +28,42 @@ export type WorksheetQuestionPart = {
   marks: number;
 };
 
+function normaliseForLeakCheck(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/\\left|\\right/g, "")
+    .replace(/\\,/g, "")
+    .replace(/\s+/g, "")
+    .trim();
+}
+
+function shouldStripLatex(latex: string | null, candidates: string[]) {
+  if (!latex) return false;
+
+  const normalisedLatex = normaliseForLeakCheck(latex);
+  if (!normalisedLatex) return false;
+
+  // Direct cue words are almost always answer leaks in worksheet display blocks.
+  if (/(answer|solution|therefore|hence)/i.test(latex)) {
+    return true;
+  }
+
+  for (const candidate of candidates) {
+    const trimmed = candidate.trim();
+    if (!trimmed) continue;
+
+    const normalisedCandidate = normaliseForLeakCheck(trimmed);
+    // Very short values (e.g. "1") produce too many false positives.
+    if (normalisedCandidate.length < 3) continue;
+
+    if (normalisedLatex.includes(normalisedCandidate)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 function safeChoices(value: unknown): Choice[] | null {
   if (!Array.isArray(value) || value.length === 0) return null;
   return value.map((item: unknown) => {
@@ -48,11 +84,20 @@ function safeParts(value: unknown): WorksheetQuestionPart[] | null {
       const key = String(obj?.key ?? "").trim();
       const prompt = String(obj?.prompt ?? "").trim();
       if (!key || !prompt) return null;
+      const answer = typeof obj?.answer === "string" ? obj.answer : "";
+      const acceptedAnswers = Array.isArray(obj?.acceptedAnswers)
+        ? obj.acceptedAnswers
+        : Array.isArray(obj?.accepted_answers)
+        ? obj.accepted_answers
+        : [];
+      const rawLatex = typeof obj?.latex === "string" ? obj.latex : null;
       return {
         key,
         label: String(obj?.label ?? `(${key})`),
         prompt,
-        latex: typeof obj?.latex === "string" ? obj.latex : null,
+        latex: shouldStripLatex(rawLatex, [answer, ...acceptedAnswers.map(String)])
+          ? null
+          : rawLatex,
         marks: typeof obj?.marks === "number" ? obj.marks : 1,
       };
     })
@@ -129,7 +174,9 @@ export default async function WorksheetPage({
   );
   const { data: qRows, error: qError } = await supabaseAdmin
     .from("questions")
-    .select("id, prompt, latex, choices, question_parts, diagram_data")
+    .select(
+      "id, prompt, latex, choices, question_parts, answer, accepted_answers, diagram_data"
+    )
     .in("id", questionIds);
 
   if (qError || !qRows) {
@@ -145,6 +192,8 @@ export default async function WorksheetPage({
     latex: string | null;
     choices: unknown;
     question_parts: unknown;
+    answer: string;
+    accepted_answers: string[];
     diagram_data: Record<string, unknown> | null;
   };
 
@@ -162,7 +211,9 @@ export default async function WorksheetPage({
         id: q.id,
         position: wq.position,
         prompt: q.prompt,
-        latex: q.latex,
+        latex: shouldStripLatex(q.latex, [q.answer, ...(q.accepted_answers ?? [])])
+          ? null
+          : q.latex,
         choices: safeChoices(q.choices),
         parts: safeParts(q.question_parts),
         diagramData: q.diagram_data ?? null,
