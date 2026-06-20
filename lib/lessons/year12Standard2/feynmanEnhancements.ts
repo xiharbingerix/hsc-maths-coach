@@ -639,7 +639,11 @@ export function enrichYear12Standard2Depth(lesson: ExplicitLesson): ExplicitLess
       lesson.masteryQuiz.length > 10
         ? lesson.masteryQuiz.slice(0, 10)
         : lesson.masteryQuiz,
-    masteryQuizPool: buildPool(lesson, blueprint),
-    multiPartPractice: buildMultiPart(lesson, blueprint),
+    // The updated authoring standard forbids template-expanded mastery pools.
+    // Keep the authored 10-question mastery quiz and omit generated pool items.
+    masteryQuizPool: undefined,
+    // Preserve only explicitly authored shared-stem items. The authoring
+    // standard forbids generated multipart backfill.
+    multiPartPractice: lesson.multiPartPractice,
   };
 }

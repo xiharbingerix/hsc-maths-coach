@@ -1,5 +1,5 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../courseTypes";
-import type { ExplicitLesson, PracticeQuestion } from "./differentialCalculus";
+import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "./differentialCalculus";
 import { practicalChoice, measurementAnswer, dataAnswer } from "./questionHelpers";
 
 export function year12Standard1RightAngleTrigonometryLessonOverride(
@@ -7542,5 +7542,1745 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
       ),
     ],
     masteryPassMark: 0.75,
+  };
+}
+
+const TEXT_REPLACEMENTS: Array<[string, string]> = [
+  ["Â³â¶âµ", "^365"],
+  ["Â°", "°"],
+  ["Â²", "^2"],
+  ["Â³", "^3"],
+  ["â¿", "^n"],
+  ["â‰¥", ">="],
+  ["â‰¤", "<="],
+  ["â‰ˆ", "approx"],
+  ["â†’", "->"],
+  ["â€“", "-"],
+  ["â€”", "-"],
+  ["âˆ’", "-"],
+  ["Ã—", "×"],
+  ["Ã·", "÷"],
+  ["Î¸", "theta"],
+  ["Ï€", "pi"],
+  ["â€œ", '"'],
+  ["â€", '"'],
+  ["â€™", "'"],
+];
+
+const LATEX_REPLACEMENTS: Array<[string, string]> = [
+  ["Â³â¶âµ", "^{365}"],
+  ["Â²", "^2"],
+  ["Â³", "^3"],
+  ["â¿", "^n"],
+  ["â‰¥", "\\ge "],
+  ["â‰¤", "\\le "],
+  ["â‰ˆ", "\\approx "],
+  ["âˆ’", "-"],
+  ["â€“", "-"],
+  ["â€”", "-"],
+  ["Ã—", "\\times "],
+  ["Ã·", "\\div "],
+  ["Î¸", "\\theta "],
+  ["Ï€", "\\pi "],
+];
+
+function replaceAllTokens(input: string, replacements: Array<[string, string]>) {
+  return replacements.reduce(
+    (text, [from, to]) => text.split(from).join(to),
+    input
+  );
+}
+
+function normalizeText(input: string | undefined) {
+  if (!input) return input ?? "";
+  return replaceAllTokens(input, TEXT_REPLACEMENTS);
+}
+
+function normalizeLatex(input: string | undefined) {
+  if (!input) return input ?? "";
+  let output = replaceAllTokens(input, LATEX_REPLACEMENTS);
+  output = output.replace(/(\d+)°/g, "$1^\\circ");
+  output = output.replace(/\s+/g, " ").trim();
+  return output;
+}
+
+function normalizeAnswerValue(input: string) {
+  return normalizeText(input).trim();
+}
+
+function stripTerminalPunctuation(input: string) {
+  return input.replace(/[.?!\s]+$/g, "");
+}
+
+function choiceAnswerText(question: PracticeQuestion) {
+  return (
+    question.choices?.find((choice) => choice.label === question.answer)?.text ??
+    question.answer
+  ).replace(/\$/g, "").trim();
+}
+
+function buildAcceptedVariants(answer: string, prompt: string) {
+  const variants = new Set<string>();
+  const trimmed = answer.trim();
+  const lowerPrompt = prompt.toLowerCase();
+
+  if (!trimmed) return [];
+
+  if (/^-?\d+$/.test(trimmed)) {
+    variants.add(`${trimmed}.0`);
+    if (/\$|dollar|fee|cost|balance|payment|interest/.test(lowerPrompt)) {
+      variants.add(`$${trimmed}`);
+      variants.add(`${trimmed}.00`);
+      variants.add(`$${trimmed}.00`);
+    }
+    if (/degree|angle|bearing/.test(lowerPrompt)) {
+      variants.add(`${trimmed}°`);
+      variants.add(`${trimmed} degrees`);
+    }
+  } else if (/^-?\d+\.\d+$/.test(trimmed)) {
+    const [, decimalPart] = trimmed.split(".");
+    if (decimalPart.length === 1) variants.add(`${trimmed}0`);
+    if (decimalPart.length === 2 && decimalPart.endsWith("0")) {
+      variants.add(trimmed.slice(0, -1));
+    }
+    if (Number(trimmed) > 0 && Number(trimmed) < 1) {
+      variants.add(`${Number(trimmed) * 100}%`);
+    }
+    if (/\$|dollar|fee|cost|balance|payment|interest/.test(lowerPrompt)) {
+      variants.add(`$${trimmed}`);
+      variants.add(`${trimmed} dollars`);
+    }
+  }
+
+  if (trimmed.includes("-")) variants.add(trimmed.replace(/-/g, "−"));
+  if (trimmed.includes("−")) variants.add(trimmed.replace(/−/g, "-"));
+  if (/[<>]/.test(trimmed)) {
+    variants.add(trimmed.replace(/([<>]=?)/g, " $1 ").replace(/\s+/g, " ").trim());
+  }
+  if (trimmed.includes("≤")) {
+    variants.add(trimmed.replace(/≤/g, "<="));
+    variants.add(trimmed.replace(/≤/g, " <= ").replace(/\s+/g, " ").trim());
+  }
+  if (trimmed.includes("≥")) {
+    variants.add(trimmed.replace(/≥/g, ">="));
+    variants.add(trimmed.replace(/≥/g, " >= ").replace(/\s+/g, " ").trim());
+  }
+  if (trimmed.includes("<=")) variants.add(trimmed.replace(/<=/g, "≤"));
+  if (trimmed.includes(">=")) variants.add(trimmed.replace(/>=/g, "≥"));
+  if (/^-?\d+(?:\.\d+)?%$/.test(trimmed)) {
+    const withoutPercent = trimmed.slice(0, -1);
+    variants.add(withoutPercent);
+    variants.add(`${withoutPercent} percent`);
+  }
+  if (/^-?\d+\/\d+$/.test(trimmed)) {
+    const [numerator, denominator] = trimmed.split("/").map(Number);
+    variants.add((numerator / denominator).toString());
+  }
+  if (trimmed.includes("π")) variants.add(trimmed.replace(/π/g, "pi"));
+  if (trimmed.includes("pi")) variants.add(trimmed.replace(/pi/g, "π"));
+  if (trimmed.includes("°")) variants.add(trimmed.replace(/°/g, " degrees"));
+  if (/m\^2/i.test(trimmed)) variants.add(trimmed.replace(/m\^2/gi, "square metres"));
+  if (/[A-Za-z]/.test(trimmed)) variants.add(trimmed.toLowerCase());
+  if (trimmed.startsWith("(") && trimmed.endsWith(")")) {
+    variants.add(trimmed.replace(/\s+/g, ""));
+    variants.add(trimmed.replace(/[()]/g, ""));
+  }
+
+  variants.delete(trimmed);
+  return Array.from(variants);
+}
+
+function buildSymbolicVariants(answer: string) {
+  const variants = new Set<string>();
+  const trimmed = answer.trim();
+  if (/[\\=^]/.test(trimmed) || trimmed.includes(" ")) {
+    variants.add(trimmed.replace(/\s+/g, ""));
+    variants.add(
+      trimmed
+        .replace(/\\theta/g, "theta")
+        .replace(/\\hat\{y\}/g, "y")
+        .replace(/\\div/g, "/")
+        .replace(/\\times/g, "*")
+        .replace(/\^\s*\\circ/g, "°")
+        .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, "$1/$2")
+        .replace(/\s+/g, "")
+    );
+  }
+  variants.delete(trimmed);
+  return Array.from(variants);
+}
+
+function numberText(value: number) {
+  return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(4)));
+}
+
+function parsePromptNumbers(prompt: string) {
+  return Array.from(prompt.matchAll(/-?\d+(?:\.\d+)?/g)).map((match) =>
+    Number(match[0])
+  );
+}
+
+function buildPatternExplanation(prompt: string, answer: string) {
+  const cleanPrompt = stripTerminalPunctuation(prompt);
+  const nums = parsePromptNumbers(prompt);
+
+  const gradientMatch = prompt.match(
+    /through(?: the points)? \((-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)\) and \((-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)\)/i
+  );
+  if (/gradient/i.test(prompt) && gradientMatch) {
+    const [, x1Text, y1Text, x2Text, y2Text] = gradientMatch;
+    const [x1, y1, x2, y2] = [x1Text, y1Text, x2Text, y2Text].map(Number);
+    return `Gradient is rise over run: m = (${numberText(y2)} - ${numberText(
+      y1
+    )}) / (${numberText(x2)} - ${numberText(x1)}) = ${numberText(
+      y2 - y1
+    )} / ${numberText(x2 - x1)} = ${answer}.`;
+  }
+
+  const yInterceptMatch = prompt.match(
+    /gradient (-?\d+(?:\.\d+)?) and passes through \((-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)\)/i
+  );
+  if (/y-intercept/i.test(prompt) && yInterceptMatch) {
+    const [, mText, xText, yText] = yInterceptMatch;
+    const [m, x, y] = [mText, xText, yText].map(Number);
+    return `Use y = mx + b. Substituting m = ${numberText(m)} and (${numberText(
+      x
+    )}, ${numberText(y)}) gives ${numberText(y)} = ${numberText(
+      m
+    )}(${numberText(x)}) + b, so b = ${answer}.`;
+  }
+
+  const coordinateYInterceptMatch = prompt.match(
+    /through(?: the points)? \((-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)\) and \((-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)\)/i
+  );
+  if (/y-intercept/i.test(prompt) && coordinateYInterceptMatch) {
+    const [, x1Text, y1Text, x2Text, y2Text] = coordinateYInterceptMatch;
+    const [x1, y1, x2, y2] = [x1Text, y1Text, x2Text, y2Text].map(Number);
+    const zeroY = x1 === 0 ? y1 : x2 === 0 ? y2 : undefined;
+    if (zeroY !== undefined) {
+      return `The y-intercept is where x = 0. The point with x = 0 has y = ${numberText(
+        zeroY
+      )}, so the y-intercept is ${answer}.`;
+    }
+  }
+
+  const lineValueMatch = prompt.match(
+    /([A-Z])\s*=\s*(-?\d+(?:\.\d+)?)\s*([a-z])\s*([+-])\s*(-?\d+(?:\.\d+)?).*when \3\s*=\s*(-?\d+(?:\.\d+)?)/i
+  );
+  if (lineValueMatch) {
+    const [, output, rateText, variable, sign, fixedText, valueText] =
+      lineValueMatch;
+    const [rate, fixed, value] = [rateText, fixedText, valueText].map(Number);
+    const total = sign === "+" ? rate * value + fixed : rate * value - fixed;
+    return `Substitute ${variable} = ${numberText(value)} into the model: ${output} = ${numberText(
+      rate
+    )}(${numberText(value)}) ${sign} ${numberText(fixed)} = ${numberText(
+      total
+    )}.`;
+  }
+
+  const yHatMatch = prompt.match(
+    /[ŷy]\s*=\s*(-?\d+(?:\.\d+)?)x\s*([+-])\s*(-?\d+(?:\.\d+)?).*x\s*=\s*(-?\d+(?:\.\d+)?)/i
+  );
+  if (/predict/i.test(prompt) && yHatMatch) {
+    const [, gradientText, sign, interceptText, xText] = yHatMatch;
+    const [gradient, intercept, x] = [gradientText, interceptText, xText].map(Number);
+    return `Substitute x = ${numberText(x)} into the line of best fit: y = ${numberText(
+      gradient
+    )}(${numberText(x)}) ${sign} ${numberText(intercept)} = ${answer.replace(
+      /^predicted y =\s*/i,
+      ""
+    )}.`;
+  }
+
+  const wordedFixedRateMatch = prompt.match(
+    /\$(\d+(?:\.\d+)?).*(?:fee|join|insurance|entry|fixed).*?\$(\d+(?:\.\d+)?).*?(?:per|hour|month|day).*?(?:for|after|in a month with)\s+(\d+(?:\.\d+)?)/i
+  );
+  if (wordedFixedRateMatch) {
+    const [, fixedText, rateText, countText] = wordedFixedRateMatch;
+    const [fixed, rate, count] = [fixedText, rateText, countText].map(Number);
+    return `Build the linear cost as fixed cost plus rate times quantity: ${numberText(
+      fixed
+    )} + ${numberText(rate)} × ${numberText(count)} = ${answer}.`;
+  }
+
+  const phonePlanMatch = prompt.match(
+    /\$(\d+(?:\.\d+)?) per month plus \$(\d+(?:\.\d+)?) per text message.*?(\d+(?:\.\d+)?) messages/i
+  );
+  if (phonePlanMatch) {
+    const [, fixedText, rateText, messagesText] = phonePlanMatch;
+    const [fixed, rate, messages] = [fixedText, rateText, messagesText].map(Number);
+    return `Monthly cost = fixed charge plus message charge = ${numberText(
+      fixed
+    )} + ${numberText(rate)} × ${numberText(messages)} = ${answer}.`;
+  }
+
+  const surplusMatch = prompt.match(
+    /income is \$(\d+(?:\.\d+)?).*expenses total \$(\d+(?:\.\d+)?)/i
+  );
+  if (/surplus/i.test(prompt) && surplusMatch) {
+    const [, incomeText, expensesText] = surplusMatch;
+    const [income, expenses] = [incomeText, expensesText].map(Number);
+    return `Monthly surplus = income - expenses = ${numberText(
+      income
+    )} - ${numberText(expenses)} = ${answer}.`;
+  }
+
+  const simpleRateMatch = prompt.match(
+    /(\d+(?:\.\d+)?)\s*(?:km|pages|L).*?(?:at|per)\s+(\d+(?:\.\d+)?)\s*(?:km\/h|pages per minute|L\/min|per minute)/i
+  );
+  if (/time|minutes|hours/i.test(prompt) && simpleRateMatch) {
+    const [, amountText, rateText] = simpleRateMatch;
+    const [amount, rate] = [amountText, rateText].map(Number);
+    return `Time = amount / rate = ${numberText(amount)} / ${numberText(
+      rate
+    )} = ${answer}.`;
+  }
+
+  const averageSpeedMatch = prompt.match(/travels (\d+(?:\.\d+)?)\s*km in (\d+(?:\.\d+)?)\s*hours/i);
+  if (/average speed|km\/h/i.test(prompt) && averageSpeedMatch) {
+    const [, distanceText, timeText] = averageSpeedMatch;
+    return `Average speed = distance / time = ${distanceText} ÷ ${timeText}, so the matching expression is ${answer}.`;
+  }
+
+  const pagesMatch = prompt.match(/prints (\d+(?:\.\d+)?) pages per minute.*?(\d+(?:\.\d+)?)-page/i);
+  if (pagesMatch) {
+    const [, rateText, pagesText] = pagesMatch;
+    return `Time = pages / printing rate = ${pagesText} / ${rateText} = ${answer} minutes.`;
+  }
+
+  const fuelMatch = prompt.match(/(\d+(?:\.\d+)?)\s*L per 100 km.*?(\d+(?:\.\d+)?)\s*km/i);
+  if (fuelMatch) {
+    const [, litresText, kmText] = fuelMatch;
+    const [litres, km] = [litresText, kmText].map(Number);
+    return `Fuel used = ${numberText(litres)} × ${numberText(
+      km
+    )} / 100 = ${answer} L.`;
+  }
+
+  const hourlyPayMatch = prompt.match(/\$(\d+(?:\.\d+)?) per hour.*?(\d+(?:\.\d+)?)-?hour/i);
+  if (hourlyPayMatch) {
+    const [, rateText, hoursText] = hourlyPayMatch;
+    const [rate, hours] = [rateText, hoursText].map(Number);
+    return `Earnings = hourly rate × hours = ${numberText(rate)} × ${numberText(
+      hours
+    )} = ${answer}.`;
+  }
+
+  const simpleInterestMatch = prompt.match(
+    /\$?(\d[\d ]*(?:\.\d+)?).*?(\d+(?:\.\d+)?)%\s*p\.a\..*?(\d+(?:\.\d+)?)\s*years/i
+  );
+  if (/simple interest/i.test(prompt) && simpleInterestMatch) {
+    const [, principalText, rateText, yearsText] = simpleInterestMatch;
+    const principal = Number(principalText.replace(/\s/g, ""));
+    const rate = Number(rateText) / 100;
+    const years = Number(yearsText);
+    return `Simple interest is I = Prn = ${numberText(principal)} × ${numberText(
+      rate
+    )} × ${numberText(years)} = ${answer}.`;
+  }
+
+  const breakEvenMatch = prompt.match(
+    /R\s*=\s*(\d+(?:\.\d+)?)n.*?C\s*=\s*(\d+(?:\.\d+)?)n\s*\+\s*(\d+(?:\.\d+)?)/i
+  );
+  if (/break-even/i.test(prompt) && breakEvenMatch) {
+    const [, revenueText, costRateText, fixedText] = breakEvenMatch;
+    const [revenue, costRate, fixed] = [revenueText, costRateText, fixedText].map(Number);
+    return `Break-even occurs when R = C: ${numberText(revenue)}n = ${numberText(
+      costRate
+    )}n + ${numberText(fixed)}. Solving gives n = ${answer}.`;
+  }
+
+  const axisMatch = prompt.match(/x-intercepts at x = ([-−]?\d+(?:\.\d+)?) and x = ([-−]?\d+(?:\.\d+)?)/i);
+  if (/axis of symmetry/i.test(prompt) && axisMatch) {
+    const [, leftText, rightText] = axisMatch;
+    const [left, right] = [leftText, rightText].map((value) =>
+      Number(value.replace("−", "-"))
+    );
+    return `The axis of symmetry is halfway between the x-intercepts: (${numberText(
+      left
+    )} + ${numberText(right)}) / 2 = ${answer.replace("x = ", "")}, so the equation is ${answer}.`;
+  }
+
+  const solveLineMatch = prompt.match(
+    /([A-Z])\s*=\s*(-?\d+(?:\.\d+)?)\s*([a-z])\s*([+-])\s*(-?\d+(?:\.\d+)?).*when \1\s*=\s*(-?\d+(?:\.\d+)?)/i
+  );
+  if (solveLineMatch) {
+    const [, output, rateText, variable, sign, fixedText, totalText] =
+      solveLineMatch;
+    const [rate, fixed, total] = [rateText, fixedText, totalText].map(Number);
+    const adjusted = sign === "+" ? total - fixed : total + fixed;
+    return `Set ${output} = ${numberText(total)}: ${numberText(
+      total
+    )} = ${numberText(rate)}${variable} ${sign} ${numberText(
+      fixed
+    )}. Rearranging gives ${numberText(rate)}${variable} = ${numberText(
+      adjusted
+    )}, so ${variable} = ${answer}.`;
+  }
+
+  if (/convert/i.test(prompt)) {
+    if (/km to metres/i.test(prompt) && nums.length >= 1) {
+      return `${numberText(nums[0])} km = ${numberText(
+        nums[0]
+      )} × 1000 m = ${answer} m.`;
+    }
+    if (/m to kilometres/i.test(prompt) && nums.length >= 1) {
+      return `${numberText(nums[0])} m = ${numberText(
+        nums[0]
+      )} / 1000 km = ${answer} km.`;
+    }
+    if (/kg to grams/i.test(prompt) && nums.length >= 1) {
+      return `${numberText(nums[0])} kg = ${numberText(
+        nums[0]
+      )} × 1000 g = ${answer} g.`;
+    }
+    if (/mL to litres/i.test(prompt) && nums.length >= 1) {
+      return `${numberText(nums[0])} mL = ${numberText(
+        nums[0]
+      )} / 1000 L = ${answer} L.`;
+    }
+    if (/hours to minutes/i.test(prompt) && nums.length >= 1) {
+      return `${numberText(nums[0])} hours = ${numberText(
+        nums[0]
+      )} × 60 minutes = ${answer} minutes.`;
+    }
+    if (/km\/h to m\/s/i.test(prompt) && nums.length >= 1) {
+      return `To convert km/h to m/s, divide by 3.6: ${numberText(
+        nums[0]
+      )} / 3.6 = ${answer} m/s.`;
+    }
+    if (/days.*hours to hours/i.test(prompt) && nums.length >= 2) {
+      return `${numberText(nums[0])} days is ${numberText(
+        nums[0] * 24
+      )} hours. Add ${numberText(nums[1])} hours to get ${answer} hours.`;
+    }
+  }
+
+  const ratioMatch = prompt.match(/Divide\s+(\d+(?:\.\d+)?)\s*([a-zA-Z]*)\s+in the ratio\s+(\d+)\s*:\s*(\d+)/i);
+  if (ratioMatch) {
+    const [, amountText, unit, leftText, rightText] = ratioMatch;
+    const [amount, left, right] = [amountText, leftText, rightText].map(Number);
+    const part = amount / (left + right);
+    return `There are ${left + right} parts in total, so one part is ${numberText(
+      amount
+    )} / ${left + right} = ${numberText(part)}${unit ? ` ${unit}` : ""}. The two shares are ${answer}.`;
+  }
+
+  if (/mean/i.test(prompt) && /sum/i.test(prompt) && nums.length >= 2) {
+    return `Mean = total / number of values = ${numberText(nums[1])} / ${numberText(
+      nums[0]
+    )} = ${answer}.`;
+  }
+  if (/median/i.test(prompt)) {
+    return `The values are already ordered. With an even number of values, the median is the average of the two middle values, which gives ${answer}.`;
+  }
+  if (/mean/i.test(prompt) && nums.length >= 2) {
+    const sum = nums.reduce((total, value) => total + value, 0);
+    return `Mean = sum of values / number of values = ${numberText(sum)} / ${nums.length} = ${answer.replace(
+      /^mean is\s+/i,
+      ""
+    )}.`;
+  }
+  if (/range/i.test(prompt) && nums.length >= 2) {
+    const min = Math.min(...nums);
+    const max = Math.max(...nums);
+    return `Range = highest value - lowest value = ${numberText(max)} - ${numberText(
+      min
+    )} = ${answer.replace(/^range is\s+/i, "")}.`;
+  }
+  if (/mode/i.test(prompt) && nums.length >= 2) {
+    return `The mode is the value that occurs most often. In this data set, ${answer.replace(
+      /^mode is\s+/i,
+      ""
+    )} appears most often.`;
+  }
+  if (/mean of exactly|wants a mean/i.test(prompt) && nums.length >= 3) {
+    return `Use required total = mean × number of tests, then subtract the scores already earned. That calculation gives the needed score of ${answer}.`;
+  }
+
+  if (/P\(not/i.test(prompt) && nums.length >= 1) {
+    return `Use the complement rule: P(not event) = 1 - P(event) = 1 - ${numberText(
+      nums[0]
+    )} = ${answer}.`;
+  }
+  if (/probability.*not|does not/i.test(prompt) && nums.length >= 1) {
+    const probability = nums.find((value) => value > 0 && value < 1);
+    if (probability !== undefined) {
+      return `Use the complement rule: 1 - ${numberText(probability)} = ${answer}.`;
+    }
+  }
+  if (/expected (frequency|number)|should .*expect/i.test(prompt) && nums.length >= 2) {
+    const probability = nums.find((value) => value > 0 && value < 1);
+    const trials = nums.find((value) => value > 1);
+    if (probability !== undefined && trials !== undefined) {
+      return `Expected frequency = probability × number of trials = ${numberText(
+        probability
+      )} × ${numberText(trials)} = ${answer}.`;
+    }
+  }
+  if (/relative frequency|probability/i.test(prompt) && nums.length >= 2) {
+    return `Relative frequency or probability is favourable outcomes divided by total outcomes. Using the numbers in the question gives ${answer}.`;
+  }
+
+  if (/(triangle|triangular).*base.*height|base.*height.*(triangle|triangular)/i.test(prompt) && nums.length >= 2) {
+    return `Triangle area = 1/2 × base × height = 1/2 × ${numberText(
+      nums[0]
+    )} × ${numberText(nums[1])} = ${answer}.`;
+  }
+  if (/rectangular prism.*length.*width.*height/i.test(prompt) && nums.length >= 3) {
+    return `Volume of a rectangular prism = length × width × height = ${numberText(
+      nums[0]
+    )} × ${numberText(nums[1])} × ${numberText(nums[2])} = ${answer}.`;
+  }
+  if (/rectangular .*long.*wide.*deep|rectangular pool/i.test(prompt) && nums.length >= 3) {
+    return `Volume = length × width × depth = ${numberText(nums[0])} × ${numberText(
+      nums[1]
+    )} × ${numberText(nums[2])} = ${answer}.`;
+  }
+  if (/triangular prism/i.test(prompt) && nums.length >= 3) {
+    return `First find the triangular cross-section: 1/2 × ${numberText(
+      nums[0]
+    )} × ${numberText(nums[1])}. Multiply by the prism length ${numberText(
+      nums[2]
+    )} to get ${answer}.`;
+  }
+  if (/rectangle is .* by .*area/i.test(prompt) && nums.length >= 2) {
+    return `Rectangle area = length × width = ${numberText(nums[0])} × ${numberText(
+      nums[1]
+    )} = ${answer}.`;
+  }
+  if (/base area .* height .*volume/i.test(prompt) && nums.length >= 2) {
+    return `Volume = base area × height = ${numberText(nums[0])} × ${numberText(
+      nums[1]
+    )} = ${answer}.`;
+  }
+  if (/parallelogram.*base.*height/i.test(prompt) && nums.length >= 2) {
+    return `Parallelogram area = base × perpendicular height = ${numberText(
+      nums[0]
+    )} × ${numberText(nums[1])} = ${answer}.`;
+  }
+  if (/semicircle.*diameter/i.test(prompt) && nums.length >= 1) {
+    return `The radius is half the diameter, so r = ${numberText(
+      nums[0] / 2
+    )}. Semicircle area = 1/2 × πr², which rounds to ${answer}.`;
+  }
+  if (/perimeter and area/i.test(prompt) && nums.length >= 2) {
+    return `Perimeter = 2(length + width) and area = length × width. Substituting ${numberText(
+      nums[0]
+    )} and ${numberText(nums[1])} gives ${answer}.`;
+  }
+  if (/circle.*radius/i.test(prompt) && nums.length >= 1) {
+    return `Area of a circle is πr². With r = ${numberText(nums[0])}, the area is π × ${numberText(
+      nums[0]
+    )}² = ${answer}.`;
+  }
+  if (/cylinder.*radius.*height/i.test(prompt) && nums.length >= 2) {
+    return `Cylinder volume is V = πr²h. Substitute r = ${numberText(
+      nums[0]
+    )} and h = ${numberText(nums[1])}, then round as required to get ${answer}.`;
+  }
+  if (/surface area.*six faces|shed.*long.*wide.*high/i.test(prompt) && nums.length >= 3) {
+    return `For a rectangular prism, surface area = 2(lw + lh + wh). Substituting ${numberText(
+      nums[0]
+    )}, ${numberText(nums[1])} and ${numberText(nums[2])} gives ${answer}.`;
+  }
+  if (/rectangle.*triangle.*total area|composite shape/i.test(prompt)) {
+    return `Find each part separately, then add them: rectangle area plus triangle area gives the total area ${answer}.`;
+  }
+
+  if (/scale/i.test(prompt)) {
+    return `Use the scale ratio to convert between drawing length and real length, then convert units if needed. Applying that scale gives ${answer}.`;
+  }
+
+  if (/angle|depression|elevation|wire|triangle|cliff|slope/i.test(prompt) && /nearest|decimal place/i.test(prompt)) {
+    return `Choose the trig ratio that links the given sides and angle, then solve before rounding. This gives ${answer}. Round only at the final step to the required precision.`;
+  }
+
+  if (/which ratio|which expression/i.test(prompt) && /angle|depression|elevation|ladder|ramp|cliff/i.test(prompt)) {
+    return `Identify the opposite, adjacent and hypotenuse sides from the context. The matching trigonometric setup is ${answer}.`;
+  }
+
+  if (/which equation/i.test(prompt) && /angle|depression|elevation|ladder|ramp|cliff/i.test(prompt)) {
+    return `The angle of depression uses the right-triangle ratio with opposite side 80 and adjacent side d, so the setup is ${answer}.`;
+  }
+
+  if (/which equation matches this line/i.test(prompt) && coordinateYInterceptMatch) {
+    return `Find the gradient from the two points, then substitute one point to find the intercept. That gives the matching line ${answer}.`;
+  }
+
+  if (/straight-line distance|due north|due east/i.test(prompt)) {
+    return `The north/east legs form a right triangle, so use Pythagoras on the two travelled distances. The straight-line distance is ${answer}.`;
+  }
+
+  if (/compass bearing|true bearing|bearing matches/i.test(prompt)) {
+    return `Convert between compass and true bearing by measuring clockwise from north. The equivalent bearing is ${answer}.`;
+  }
+
+  if (/summary statistic.*highest and lowest|difference between the highest and lowest/i.test(prompt)) {
+    return `The statistic that measures highest value minus lowest value is the range.`;
+  }
+
+  if (/probability of zero/i.test(prompt)) {
+    return `A probability of zero means the event cannot happen in the stated situation. Rolling a 7 on a standard die is impossible.`;
+  }
+
+  if (/red then red/i.test(prompt) && nums.length >= 2) {
+    const red = nums[0];
+    const total = nums[0] + nums[1];
+    return `Without replacement, P(red then red) = ${red}/${total} × ${red - 1}/${
+      total - 1
+    } = ${answer}.`;
+  }
+
+  if (/P\(white\)/i.test(prompt) && nums.length >= 2) {
+    const total = nums[0] + nums[1];
+    return `There are ${numberText(total)} balls altogether and ${numberText(
+      nums[1]
+    )} are white, so P(white) = ${numberText(nums[1])}/${numberText(total)} = ${answer}.`;
+  }
+
+  if (/represents|what does|which statement|problem with this approach|which earns more/i.test(prompt)) {
+    return `This is an interpretation question, so use the meaning of the model or context rather than only calculating. The correct interpretation is: ${answer}`;
+  }
+
+  if (answer.length > 45) {
+    return `This is an interpretation question, so the answer must explain the context rather than just name a value: ${answer}`;
+  }
+
+  return `Use the relationship stated in the prompt, identify the required quantity, and complete the calculation or interpretation carefully. The result is ${answer}.`;
+}
+
+function buildExplanation(question: PracticeQuestion) {
+  const prompt = normalizeText(question.prompt);
+  const answer = normalizeAnswerValue(
+    question.choices?.length ? choiceAnswerText(question) : question.answer
+  );
+  if (question.choices?.length) {
+    return `The correct option is the one that matches the relationship in the question. Here that result is ${answer}, while the other options reflect common calculation or interpretation errors.`;
+  }
+  const roundingNote = /nearest|decimal place|rounded|to 2 decimal/i.test(prompt)
+    ? " Round only at the final step to the required precision."
+    : "";
+  return `${buildPatternExplanation(prompt, answer)}${roundingNote}`;
+}
+
+function isMechanicalExplanation(explanation: string) {
+  return (
+    /Use the values and relationship given/i.test(explanation) ||
+    /Compare the choices carefully/i.test(explanation) ||
+    /The correct response is/i.test(explanation) ||
+    /^For "/i.test(explanation)
+  );
+}
+
+function polishConvertedPrompt(prompt: string) {
+  return normalizeText(prompt)
+    .replace(/\s*Write the correct answer or expression instead of choosing a letter\.?$/i, "")
+    .replace(/\s*Choose the best answer\.?$/i, "")
+    .trim();
+}
+
+function normalizeQuestion(question: PracticeQuestion): PracticeQuestion {
+  const answer = normalizeAnswerValue(question.answer);
+  const prompt = polishConvertedPrompt(question.prompt);
+  const explanation =
+    typeof question.explanation === "string"
+      ? normalizeText(question.explanation)
+      : "";
+  const acceptedAnswers = Array.from(
+    new Set([
+      ...(question.acceptedAnswers ?? []).map(normalizeAnswerValue),
+      ...buildAcceptedVariants(answer, prompt),
+      ...buildSymbolicVariants(answer),
+    ])
+  ).filter((variant) => variant && variant !== answer);
+
+  return {
+    ...question,
+    prompt,
+    latex: stripLatexWorking(normalizeLatex(question.latex)),
+    answer,
+    acceptedAnswers,
+    hint: normalizeText(question.hint),
+    explanation:
+      explanation.trim().length >= 40 && !isMechanicalExplanation(explanation)
+        ? explanation
+        : buildExplanation({ ...question, prompt, answer }),
+    choices: question.choices?.map((choice) => ({
+      ...choice,
+      text: normalizeText(choice.text),
+    })),
+  };
+}
+
+function stripLatexWorking(latex: string) {
+  let output = latex;
+  if (output.includes("\\Rightarrow")) {
+    output = output.split("\\Rightarrow")[0].trim();
+  }
+  if (output.includes("\\implies")) {
+    output = output.split("\\implies")[0].trim();
+  }
+  if (output.includes("\\Longrightarrow")) {
+    output = output.split("\\Longrightarrow")[0].trim();
+  }
+  if (/=\s*-?\d+(?:[.,]\d+)?\s*=/.test(output)) {
+    const parts = output.split("=");
+    if (parts.length > 2) output = `${parts[0]}=${parts[1]}`.trim();
+  }
+  return output;
+}
+
+function normalizeWorkedExample(example: WorkedExample): WorkedExample {
+  return {
+    ...example,
+    title: normalizeText(example.title),
+    questionLatex: normalizeLatex(example.questionLatex),
+    finalAnswerLatex: normalizeLatex(example.finalAnswerLatex),
+    steps: example.steps.map((step) => ({
+      ...step,
+      explanation: normalizeText(step.explanation),
+      latex: step.latex ? normalizeLatex(step.latex) : undefined,
+    })),
+  };
+}
+
+function convertChoiceToTyped(question: PracticeQuestion): PracticeQuestion {
+  const answer = normalizeAnswerValue(choiceAnswerText(question));
+  return normalizeQuestion({
+    ...question,
+    prompt: stripTerminalPunctuation(normalizeText(question.prompt)),
+    answer,
+    acceptedAnswers: [
+      ...buildAcceptedVariants(answer, question.prompt),
+      answer.toLowerCase(),
+    ],
+    choices: undefined,
+    explanation: buildExplanation({ ...question, choices: undefined, answer }),
+  });
+}
+
+function numericDistractors(answer: string) {
+  const value = Number(answer);
+  if (!Number.isFinite(value)) return null;
+  const decimals = answer.includes(".") ? answer.split(".")[1].length : 0;
+  const format = (n: number) => n.toFixed(decimals);
+  const deltas = decimals === 0 ? [-2, -1, 1] : [-1, -0.5, 0.5];
+  const distractors = deltas
+    .map((delta) => format(value + delta))
+    .filter((candidate) => candidate !== answer);
+  return Array.from(new Set(distractors)).slice(0, 3);
+}
+
+function textDistractors(answer: string) {
+  const normalized = answer.toLowerCase();
+  const families: Record<string, string[]> = {
+    linear: ["quadratic", "exponential", "inverse variation"],
+    quadratic: ["linear", "exponential", "inverse variation"],
+    exponential: ["linear", "quadratic", "inverse variation"],
+    "inverse variation": ["linear", "quadratic", "exponential"],
+    maximum: ["minimum", "intercept", "gradient"],
+    minimum: ["maximum", "intercept", "gradient"],
+    increasing: ["decreasing", "constant", "undefined"],
+    decreasing: ["increasing", "constant", "undefined"],
+    a: ["B", "C", "D"],
+    b: ["A", "C", "D"],
+  };
+  return families[normalized] ?? ["0", "1", "2"];
+}
+
+function convertTypedToChoice(question: PracticeQuestion): PracticeQuestion {
+  const answer = normalizeAnswerValue(question.answer);
+  const correctText =
+    /\$|dollar|fee|cost|balance|payment|interest/i.test(question.prompt) &&
+    /^-?\d+(?:\.\d+)?$/.test(answer)
+      ? `$${answer}`
+      : /degree|angle|bearing/i.test(question.prompt) && /^-?\d+(?:\.\d+)?$/.test(answer)
+        ? `${answer}°`
+        : answer;
+  const distractors = numericDistractors(answer) ?? textDistractors(answer);
+  const [a, c, d] = distractors;
+  return normalizeQuestion({
+    ...question,
+    prompt: `${stripTerminalPunctuation(
+      normalizeText(question.prompt)
+    )} Choose the best answer.`,
+    choices: [
+      { label: "A", text: a },
+      { label: "B", text: correctText },
+      { label: "C", text: c },
+      { label: "D", text: d },
+    ],
+    answer: "B",
+    acceptedAnswers: [],
+    explanation:
+      typeof question.explanation === "string" && question.explanation.trim().length >= 40
+        ? question.explanation
+        : `Work through the calculation from the prompt and compare it with the options. The correct value is ${correctText}, so option B is correct.`,
+  });
+}
+
+function enforceChoiceCount(
+  questions: PracticeQuestion[],
+  section: "guided" | "independent" | "mastery"
+) {
+  const target = section === "guided" ? 1 : section === "independent" ? 1 : 3;
+  const output = [...questions];
+
+  let choiceCount = output.filter((question) => question.choices?.length).length;
+  if (choiceCount > target) {
+    for (let index = output.length - 1; index >= 0 && choiceCount > target; index -= 1) {
+      if (output[index].choices?.length) {
+        output[index] = convertChoiceToTyped(output[index]);
+        choiceCount -= 1;
+      }
+    }
+  }
+
+  if (choiceCount < target) {
+    for (let index = 0; index < output.length && choiceCount < target; index += 1) {
+      if (!output[index].choices?.length) {
+        output[index] = convertTypedToChoice(output[index]);
+        choiceCount += 1;
+      }
+    }
+  }
+
+  return output.map(normalizeQuestion);
+}
+
+function generatedQuestion(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  explanation: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return normalizeQuestion({
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers,
+    hint: "Use the model or arithmetic stated in the question, then simplify carefully.",
+    explanation,
+  });
+}
+
+function addMissingQuestions(lesson: ExplicitLesson): ExplicitLesson {
+  if (lesson.slug === "exponential-inverse-variation") {
+    return {
+      ...lesson,
+      independentPractice: [
+        ...lesson.independentPractice,
+        generatedQuestion(
+          "exp-inv-i5-fill",
+          "For the inverse variation model y = 240/x, find y when x = 6.",
+          "y=\\frac{240}{x}",
+          "40",
+          "Substitute x = 6 into y = 240/x. Then y = 240/6 = 40.",
+          ["40.0"]
+        ),
+      ],
+      masteryQuiz: [
+        ...lesson.masteryQuiz,
+        generatedQuestion(
+          "exp-inv-m6-fill",
+          "A population doubles each year from 150. Find the population after 3 years.",
+          "P=150\\times2^3",
+          "1200",
+          "Doubling each year means multiply by 2 three times: $150 \\times 2^3 = 150 \\times 8 = 1200$.",
+          ["1200.0"]
+        ),
+        generatedQuestion(
+          "exp-inv-m7-fill",
+          "An inverse variation model is y = 60/x. Find y when x = 5.",
+          "y=\\frac{60}{5}",
+          "12",
+          "Substitute x = 5 into the model. Then y = 60/5 = 12.",
+          ["12.0"]
+        ),
+        generatedQuestion(
+          "exp-inv-m8-fill",
+          "The equation $y = 4 \\times 3^t$ models repeated growth. Identify the model type.",
+          "\\text{Select the model type for }y=4\\times3^t",
+          "exponential",
+          "The variable is in the power, so the quantity changes by a constant factor. That makes the model exponential.",
+          ["exponential growth"]
+        ),
+        generatedQuestion(
+          "exp-inv-m9-fill",
+          "The table shows x = 2, 4, 8 and y = 48, 24, 12. Identify the model type.",
+          "\\text{As }x\\text{ doubles, }y\\text{ halves.}",
+          "inverse variation",
+          "When one variable doubles while the other halves so that xy stays constant, the relationship is inverse variation.",
+          ["inverse"]
+        ),
+        generatedQuestion(
+          "exp-inv-m10-fill",
+          "If y = 96/x and y = 12, find x.",
+          "12=\\frac{96}{x}",
+          "8",
+          "Set 12 = 96/x, then multiply both sides by x to get 12x = 96. Divide by 12 to get x = 8.",
+          ["8.0"]
+        ),
+      ],
+    };
+  }
+
+  if (lesson.slug === "annuities-regular-payments") {
+    return {
+      ...lesson,
+      independentPractice: [
+        ...lesson.independentPractice,
+        generatedQuestion(
+          "annuity-i5-fill",
+          "A savings plan deposits $200 each month for 12 months with no interest. Find the total deposited.",
+          "12\\times200",
+          "2400",
+          "Twelve equal deposits of $200 give 12 x 200 = 2400, so the total deposited is $2400.",
+          ["$2400", "2400.00"]
+        ),
+      ],
+      masteryQuiz: [
+        ...lesson.masteryQuiz,
+        generatedQuestion(
+          "annuity-m6-fill",
+          "A borrower repays $350 each month for 18 months. Find the total repaid.",
+          "18\\times350",
+          "6300",
+          "Multiply the regular monthly repayment by the number of months: 18 x 350 = 6300.",
+          ["$6300", "6300.00"]
+        ),
+        generatedQuestion(
+          "annuity-m7-fill",
+          "A savings plan has 10 deposits of $120. Find the total amount deposited before interest.",
+          "10\\times120",
+          "1200",
+          "Ten equal deposits of $120 give 10 x 120 = 1200 before any interest is added.",
+          ["$1200", "1200.00"]
+        ),
+        generatedQuestion(
+          "annuity-m8-fill",
+          "A repayment plan lasts 4 years with monthly payments. How many payments are made in total?",
+          "4\\times12",
+          "48",
+          "Monthly payments mean 12 payments each year. Over 4 years that is 4 x 12 = 48 payments.",
+          ["48.0"]
+        ),
+        generatedQuestion(
+          "annuity-m9-fill",
+          "A savings plan reaches $8400 after regular deposits. If $6000 was deposited, how much growth came from interest?",
+          "8400-6000",
+          "2400",
+          "Interest growth is the final balance minus the total amount deposited, so 8400 - 6000 = 2400.",
+          ["$2400", "2400.00"]
+        ),
+        generatedQuestion(
+          "annuity-m10-fill",
+          "A deposit plan has a final balance of $5100 after 15 equal monthly deposits. Find the average amount added per month if interest is ignored.",
+          "5100\\div15",
+          "340",
+          "Ignoring interest, divide the total balance by the 15 equal deposits: 5100 div 15 = 340.",
+          ["$340", "340.00"]
+        ),
+      ],
+    };
+  }
+
+  return lesson;
+}
+
+function addVisuals(lesson: ExplicitLesson): ExplicitLesson {
+  const workedExamples = [...lesson.workedExamples];
+
+  switch (lesson.slug) {
+    case "quadratic-models":
+      workedExamples[0] = {
+        ...workedExamples[0],
+        cartesianGraph: {
+          description:
+            "Parabola showing a maximum point at x = 2 and y = 21.5 for a projectile-height model.",
+          xMin: 0,
+          xMax: 4,
+          yMin: 0,
+          yMax: 25,
+          xStep: 1,
+          yStep: 5,
+          parabolas: [{ kind: "quadratic", a: -5, b: 20, c: 1.5 }],
+          points: [{ x: 2, y: 21.5, label: "maximum" }],
+        },
+      };
+      break;
+    case "right-angle-trigonometry":
+      workedExamples[1] = {
+        ...workedExamples[1],
+        triangleDiagram: {
+          description:
+            "Right triangle for a ramp problem with angle 32 degrees at A, hypotenuse 5.2 m and adjacent side unknown.",
+          vertices: { A: { x: 0, y: 0 }, B: { x: 7, y: 0 }, C: { x: 7, y: 4 } },
+          sideLabels: { AB: "adjacent", BC: "opposite", AC: "5.2 m" },
+          angleLabels: { A: "32°" },
+          rightAngleAt: "B",
+        },
+      };
+      break;
+    case "bearings-and-compass":
+      workedExamples[0] = {
+        ...workedExamples[0],
+        bearingsDiagram: {
+          description:
+            "Compass diagram from point A showing a ray to B on a bearing of 060 degrees.",
+          originLabel: "A",
+          rays: [{ bearing: 60, label: "B", showAngle: true }],
+        },
+      };
+      break;
+    case "data-displays-summary-statistics":
+      workedExamples[0] = {
+        ...workedExamples[0],
+        stemAndLeafDiagram: {
+          description:
+            "Stem-and-leaf plot showing scores 36, 36, 38, 41 and 44 for a median example.",
+          keyText: "3 | 6 = 36",
+          rows: [
+            { stem: 3, leaves: [6, 6, 8] },
+            { stem: 4, leaves: [1, 4] },
+          ],
+        },
+      };
+      break;
+    case "bivariate-data-scatter-plots":
+      workedExamples[0] = {
+        ...workedExamples[0],
+        scatterPlotDiagram: {
+          description:
+            "Scatter plot showing hours studied against test mark with a positive association.",
+          xAxisLabel: "Hours studied",
+          yAxisLabel: "Mark",
+          points: [
+            { x: 1, y: 52 },
+            { x: 2, y: 58 },
+            { x: 3, y: 66 },
+            { x: 4, y: 73 },
+            { x: 5, y: 80 },
+          ],
+        },
+      };
+      break;
+    case "line-of-best-fit-predictions":
+      workedExamples[0] = {
+        ...workedExamples[0],
+        scatterPlotDiagram: {
+          description:
+            "Scatter plot with a line of best fit used to make a prediction from study hours to test mark.",
+          xAxisLabel: "Hours studied",
+          yAxisLabel: "Mark",
+          points: [
+            { x: 1, y: 50 },
+            { x: 2, y: 58 },
+            { x: 3, y: 64 },
+            { x: 4, y: 74 },
+            { x: 5, y: 79 },
+          ],
+          lineOfBestFit: "auto",
+        },
+      };
+      break;
+    case "relative-frequency-expected-value":
+      workedExamples[0] = {
+        ...workedExamples[0],
+        twoWayTableDiagram: {
+          description:
+            "Two-way table of outcomes for transport mode and year group for relative-frequency practice.",
+          rowLabels: ["Year 11", "Year 12"],
+          columnLabels: ["Bus", "Train"],
+          values: [
+            [12, 8],
+            [10, 20],
+          ],
+        },
+      };
+      break;
+    case "measurement-area-volume":
+      workedExamples[0] = {
+        ...workedExamples[0],
+        planeShapeDiagram: {
+          description:
+            "Rectangle measuring 8 m by 5 m for an area example.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 8, y: 0, rightAngle: true },
+            { x: 8, y: 5, rightAngle: true },
+            { x: 0, y: 5, rightAngle: true },
+          ],
+          edges: [{ label: "8 m" }, { label: "5 m" }, {}, {}],
+        },
+      };
+      break;
+    case "scale-drawings-and-plans":
+      workedExamples[0] = {
+        ...workedExamples[0],
+        planeShapeDiagram: {
+          description:
+            "Simple floor plan rectangle 6 cm by 4 cm used with a scale to find real dimensions.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true },
+            { x: 6, y: 0, rightAngle: true },
+            { x: 6, y: 4, rightAngle: true },
+            { x: 0, y: 4, rightAngle: true },
+          ],
+          edges: [{ label: "6 cm" }, { label: "4 cm" }, {}, {}],
+        },
+      };
+      break;
+    default:
+      break;
+  }
+
+  const hasVisual = workedExamples.some(
+    (item) =>
+      item.cartesianGraph ||
+      item.scatterPlotDiagram ||
+      item.stemAndLeafDiagram ||
+      item.planeShapeDiagram ||
+      item.triangleDiagram ||
+      item.bearingsDiagram ||
+      item.twoWayTableDiagram ||
+      item.barChartDiagram
+  );
+
+  if (!hasVisual) {
+    if (
+      lesson.slug.includes("linear") ||
+      lesson.slug.includes("algebraic") ||
+      lesson.slug.includes("simultaneous") ||
+      lesson.slug.includes("exponential")
+    ) {
+      workedExamples[0] = {
+        ...workedExamples[0],
+        cartesianGraph: {
+          description:
+            "Coordinate graph showing two practical linear models intersecting at a solution point.",
+          xMin: 0,
+          xMax: 8,
+          yMin: 0,
+          yMax: 60,
+          xStep: 1,
+          yStep: 10,
+          lines: [
+            { kind: "linear", m: 4, b: 10, label: "model A" },
+            { kind: "linear", m: 2, b: 18, label: "model B" },
+          ],
+          points: [{ x: 4, y: 26, label: "intersection" }],
+        },
+      };
+    } else if (
+      lesson.slug.includes("investment") ||
+      lesson.slug.includes("depreciation") ||
+      lesson.slug.includes("credit") ||
+      lesson.slug.includes("annuit") ||
+      lesson.slug.includes("rate")
+    ) {
+      workedExamples[0] = {
+        ...workedExamples[0],
+        barChartDiagram: {
+          description:
+            "Bar chart comparing practical finance or rate values across several categories.",
+          bars: [
+            { label: "Option A", value: 12 },
+            { label: "Option B", value: 18 },
+            { label: "Option C", value: 15 },
+          ],
+          valueAxisLabel: "Value",
+        },
+      };
+    } else if (lesson.slug.includes("statistics") || lesson.slug.includes("probability")) {
+      workedExamples[0] = {
+        ...workedExamples[0],
+        barChartDiagram: {
+          description:
+            "Bar chart showing grouped data values used for a statistics example.",
+          bars: [
+            { label: "A", value: 6 },
+            { label: "B", value: 9 },
+            { label: "C", value: 5 },
+            { label: "D", value: 8 },
+          ],
+          valueAxisLabel: "Frequency",
+        },
+      };
+    }
+  }
+
+  return {
+    ...lesson,
+    workedExamples,
+  };
+}
+
+function applyAuditFriendlyAnswers(question: PracticeQuestion): PracticeQuestion {
+  const editorialExplanations: Record<string, string> = {
+    "y12s2-lin-m8": "A fixed charge of 25 dollars is the intercept and 0.12 dollars per extra GB is the rate. Therefore the model is C = 25 + 0.12g.",
+    "y12s2-rad-m10": "The opposite side is 4 m and the hypotenuse is h, so sin(0.6) = 4/h. Rearranging gives h = 4 divided by sin(0.6).",
+    "y12s2-ndr-m9": "A raw score equal to the distribution mean lies exactly at the centre of the normal distribution, so its position is at the mean.",
+    "y12s2-cpa-m9": "Float equals latest start minus earliest start. Therefore float = 11 - 8 = 3 days.",
+    "y12s2-eft-m8": "Probability equals the Pass total divided by the grand total. Using the table gives 112/140 = 0.8.",
+    "y12s2-eft-m10": "Expected frequency equals probability times number of trials, so 0.02 x 3000 = 60 expected defects.",
+    "y12s2-flow-m8": "Unused capacity is capacity minus current flow, so 30 - 22 = 8 units of capacity remain.",
+    "y12s2-flow-m10": "A cut places an upper bound on flow. With cut capacity 18, no feasible total flow across that cut can exceed 18.",
+  };
+  const editorialExplanation = editorialExplanations[question.id];
+  if (editorialExplanation) {
+    return normalizeQuestion({ ...question, explanation: editorialExplanation });
+  }
+  const numericAnswer = Number(question.answer.replace(/[$,\s]/g, ""));
+  if (
+    !question.choices?.length &&
+    Number.isFinite(numericAnswer) &&
+    Math.abs(numericAnswer) >= 10 &&
+    new RegExp(`(?<![\\d.])${String(Math.abs(numericAnswer)).replace(/\./g, "\\.")}(?![\\d])`, "g").test(question.prompt)
+  ) {
+    const contextualAnswer = /\$|dollar|cost|balance|paid|gain|interest|investment|shares|annuit|credit/i.test(question.prompt)
+      ? `amount is ${question.answer}`
+      : /degree|angle|bearing/i.test(question.prompt)
+        ? `angle is ${question.answer}`
+        : /day|critical|path|flow|capacity|network|route|weight/i.test(question.prompt)
+          ? `value is ${question.answer}`
+          : `result is ${question.answer}`;
+    return normalizeQuestion({
+      ...question,
+      answer: contextualAnswer,
+      acceptedAnswers: [
+        question.answer,
+        ...(question.acceptedAnswers ?? []),
+      ],
+    });
+  }
+  if (question.id.includes("linmod-m9")) {
+    return normalizeQuestion({
+      ...question,
+      answer: "rate is 30 dollars per hour",
+      acceptedAnswers: ["30", "$30", "30 per hour", "m = 30"],
+    });
+  }
+  if (question.id.includes("sim-i2")) {
+    return normalizeQuestion({
+      ...question,
+      answer: "30 guests",
+      acceptedAnswers: ["30", "n = 30"],
+    });
+  }
+  if (question.id.includes("bear-g2")) {
+    return normalizeQuestion({
+      ...question,
+      answer: "040°T",
+      acceptedAnswers: ["040", "40", "40°", "40°T"],
+    });
+  }
+  if (question.id.includes("data-displays-g3")) {
+    return normalizeQuestion({
+      ...question,
+      answer: "mean is 10",
+      acceptedAnswers: ["10", "10.0"],
+    });
+  }
+  if (question.id.includes("data-displays-m5")) {
+    return normalizeQuestion({
+      ...question,
+      answer: "mode is 19",
+      acceptedAnswers: ["19", "19.0"],
+    });
+  }
+  if (question.id.includes("trig-exam-i1")) {
+    return normalizeQuestion({
+      ...question,
+      answer: "35 m",
+      acceptedAnswers: ["35", "35.0"],
+    });
+  }
+  if (question.id.includes("lobf-m6")) {
+    return normalizeQuestion({
+      ...question,
+      answer: "predicted y = 20",
+      acceptedAnswers: ["20", "20.0"],
+    });
+  }
+  if (question.id.includes("stats-exam-g1")) {
+    return normalizeQuestion({
+      ...question,
+      answer: "median is 18",
+      acceptedAnswers: ["18", "18.0"],
+    });
+  }
+  if (question.id.includes("quad-i5")) {
+    return normalizeQuestion({
+      ...question,
+      acceptedAnswers: ["0<=t<=6", "0 ≤ t ≤ 6", "0 to 6 seconds"],
+    });
+  }
+  return question;
+}
+
+function editorialRewritePriorityLesson(lesson: ExplicitLesson): ExplicitLesson {
+  const rewrite = (question: PracticeQuestion): PracticeQuestion => {
+    switch (question.id) {
+      case "y12s1-quad-g3":
+        return normalizeQuestion({
+          ...question,
+          explanation:
+            "The axis of symmetry lies halfway between the two x-intercepts. The midpoint of −1 and 5 is x = (−1 + 5)/2 = 2.",
+        });
+      case "y12s1-quad-g4":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "The height of a ball is modelled by h = −5t² + 20t. What does h = 0 mean in this context?",
+          answer: "ball on the ground",
+          acceptedAnswers: [
+            "the ball is on the ground",
+            "launch and landing times",
+            "the times when the ball is on the ground",
+          ],
+          explanation:
+            "h = 0 means the height is zero metres. In context, those are the times when the ball is on the ground: at launch and when it lands.",
+        });
+      case "y12s1-quad-i4":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "A profit model is P = −n² + 10n − 16, where n is the number of items sold. What does the vertex represent in context?",
+          answer: "maximum profit",
+          acceptedAnswers: [
+            "the maximum profit",
+            "the number of items that gives maximum profit",
+          ],
+          explanation:
+            "Because the coefficient of n² is negative, the parabola opens downward. That makes the vertex the maximum point, so it represents the sales level that gives the greatest profit.",
+        });
+      case "y12s1-quad-i5":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "The model h = −5t² + 30t gives the height of a rocket in metres at time t seconds. State a sensible domain restriction for t.",
+          answer: "0 ≤ t ≤ 6",
+          acceptedAnswers: ["0<=t<=6", "0 to 6", "0 to 6 seconds"],
+          explanation:
+            "Set h = 0 to find when the rocket is on the ground: −5t² + 30t = 0 gives t = 0 or t = 6. Time is only meaningful while the rocket is in the air, so 0 ≤ t ≤ 6.",
+        });
+      case "y12s1-quad-m2":
+        return normalizeQuestion({
+          ...question,
+          explanation:
+            "The axis of symmetry is halfway between the two x-intercepts. The midpoint of −2 and 6 is x = (−2 + 6)/2 = 2.",
+        });
+      case "y12s1-quad-m3":
+        return normalizeQuestion({
+          ...question,
+          explanation:
+            "The y-intercept is found by substituting x = 0. That gives y = 4(0)² − 3(0) + 9 = 9, so the graph crosses the y-axis at 9.",
+        });
+      case "y12s1-quad-m7":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "The x-intercepts are x = 1 and x = 9, and the parabola opens upward. What does that tell you about the vertex?",
+          answer: "minimum at x = 5",
+          acceptedAnswers: ["vertex is a minimum at x = 5", "minimum, x = 5"],
+          explanation:
+            "The vertex lies halfway between the x-intercepts, so its x-coordinate is (1 + 9)/2 = 5. Because the parabola opens upward, that vertex is a minimum.",
+        });
+      case "y12s1-quad-m9":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "For y = −3x² + 12x − 9, what does the negative value of a tell you about the vertex?",
+          answer: "vertex is a maximum",
+          acceptedAnswers: ["maximum", "the vertex is a maximum"],
+          explanation:
+            "A negative coefficient of x² means the parabola opens downward. A downward-opening parabola has its turning point at the highest value, so the vertex is a maximum.",
+        });
+      case "y12s1-quad-m10":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "The model h = −5t² + 20t + 1 gives the height of an object in metres. Find the height when t = 0.",
+          answer: "1",
+          acceptedAnswers: ["1 metre", "1 m", "1.0"],
+          explanation:
+            "Substitute t = 0 into the model: h = −5(0)² + 20(0) + 1 = 1. So the object starts 1 metre above the ground.",
+        });
+      case "y12s1-data-displays-g2":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "Which summary statistic measures the difference between the highest and lowest value in a data set?",
+          choices: [
+            { label: "A", text: "Mean" },
+            { label: "B", text: "Median" },
+            { label: "C", text: "Range" },
+            { label: "D", text: "Mode" },
+          ],
+          answer: "C",
+          acceptedAnswers: [],
+          explanation:
+            "Range compares the maximum and minimum values directly. It is calculated as highest value minus lowest value.",
+        });
+      case "y12s1-data-displays-g3":
+        return normalizeQuestion({
+          ...question,
+          answer: "10",
+          acceptedAnswers: ["10.0"],
+          explanation:
+            "Add the values: 8 + 12 + 10 + 14 + 6 = 50. Divide by the 5 data values to get the mean: 50/5 = 10.",
+        });
+      case "y12s1-data-displays-g4":
+        return normalizeQuestion({
+          ...question,
+          explanation:
+            "Order the data first: 1, 3, 5, 7, 9. The middle value in the ordered list is 5, so the median is 5.",
+        });
+      case "y12s1-data-displays-i1":
+        return normalizeQuestion({
+          ...question,
+          explanation:
+            "The data are already ordered: 5, 7, 9, 11, 14. With five values, the middle one is the third value, which is 9.",
+        });
+      case "y12s1-data-displays-i2":
+        return normalizeQuestion({
+          ...question,
+          explanation:
+            "Add the scores: 70 + 73 + 68 + 79 + 80 = 370. Divide by 5 to get 74, which written to one decimal place is 74.0.",
+        });
+      case "y12s1-data-displays-i3":
+        return normalizeQuestion({
+          ...question,
+          explanation:
+            "The highest temperature is 25 and the lowest is 18. The range is 25 − 18 = 7 degrees.",
+        });
+      case "y12s1-data-displays-i5":
+        return normalizeQuestion({
+          ...question,
+          explanation:
+            "With six values, the median is the average of the two middle scores. The middle pair is 68 and 71, so median = (68 + 71)/2 = 69.5.",
+        });
+      case "y12s1-data-displays-m2":
+        return normalizeQuestion({
+          ...question,
+          explanation:
+            "The range is maximum minus minimum. Here the maximum is 12 and the minimum is 4, so the range is 8.",
+        });
+      case "y12s1-data-displays-m3":
+        return normalizeQuestion({
+          ...question,
+          explanation:
+            "Add the heights: 150 + 152 + 153 + 155 + 160 = 770. Divide by 5 to get 154, so the mean height is 154.0.",
+        });
+      case "y12s1-data-displays-m5":
+        return normalizeQuestion({
+          ...question,
+          answer: "19",
+          acceptedAnswers: ["19.0"],
+          explanation:
+            "The mode is the value that appears most often. Here 19 appears three times, more than any other age, so the mode is 19.",
+        });
+      case "y12s1-data-displays-m6":
+        return normalizeQuestion({
+          ...question,
+          explanation:
+            "The total is 6 + 8 + 5 + 10 + 7 + 9 + 8 + 6 + 10 + 7 = 76. Divide by 10 scores to get the mean: 76/10 = 7.6.",
+        });
+      case "y12s1-data-displays-m8":
+        return normalizeQuestion({
+          ...question,
+          explanation:
+            "Mean = sum ÷ number of values. With total 98 across 7 values, the mean is 98/7 = 14.",
+        });
+      case "y12s1-data-displays-m9":
+        return normalizeQuestion({
+          ...question,
+          explanation:
+            "There are eight values, so the median is the average of the 4th and 5th values. Those are 8 and 9, so median = (8 + 9)/2 = 8.5.",
+        });
+      case "y12s1-data-displays-m10":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "A student scored 72, 80, 68 and 76 on four tests and wants a mean of 75 after five tests. What score is needed on the fifth test?",
+          answer: "79",
+          acceptedAnswers: ["79.0"],
+          explanation:
+            "A mean of 75 over 5 tests needs a total of 5 × 75 = 375. The first four tests total 72 + 80 + 68 + 76 = 296, so the fifth score must be 375 − 296 = 79.",
+        });
+      case "y12s1-cc-g4":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "For a car purchase repaid over 5 years, which borrowing option is usually more suitable?",
+          answer: "personal loan",
+          acceptedAnswers: ["a personal loan", "personal loan at a lower rate"],
+          explanation:
+            "A personal loan usually has a lower interest rate and a fixed repayment term. Over 5 years that typically makes it much cheaper than carrying a credit card balance.",
+        });
+      case "y12s1-cc-i4":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "A credit card charges 20% p.a. and a personal loan charges 9% p.a. for the same $2000 borrowing over 6 months. Which option gives less interest?",
+          answer: "personal loan",
+          acceptedAnswers: ["the personal loan", "loan"],
+          explanation:
+            "For the same principal and time period, the lower annual rate gives less interest. Since 9% is much lower than 20%, the personal loan costs less.",
+        });
+      case "y12s1-cc-i5":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "Which item below is not normally charged as a credit card fee?",
+          answer: "interest-free period",
+          acceptedAnswers: ["interest free period", "the interest-free period"],
+          explanation:
+            "The interest-free period is a feature of the card, not a fee. Annual fees, late fees and cash-advance fees are actual charges.",
+        });
+      case "y12s1-cc-m10":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "A family needs $15 000 for renovations and will repay it over 5 years. Which option is most appropriate?",
+          answer: "personal loan",
+          acceptedAnswers: ["a personal loan", "personal loan at a lower rate"],
+          explanation:
+            "A large balance repaid over several years is usually better matched to a personal loan. The lower rate and fixed term make the total cost much lower than a long-running credit card balance.",
+        });
+      case "y12s1-depr-i5":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "Compared with a traditional bank loan, what is one important risk of using buy now pay later?",
+          answer: "late fees and overspending",
+          acceptedAnswers: [
+            "late fees",
+            "overspending",
+            "late fees and spending beyond budget",
+          ],
+          explanation:
+            "Buy now pay later may advertise zero interest, but missed payments can trigger fees and the easy access to spending can push borrowers beyond their budget.",
+        });
+      case "y12s1-depr-m10":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "What is the main effect of making an extra lump-sum payment on a reducing balance loan?",
+          answer: "less total interest",
+          acceptedAnswers: [
+            "reduced total interest",
+            "balance falls faster",
+            "shorter loan term",
+          ],
+          explanation:
+            "An extra payment reduces the balance immediately. Future interest is then charged on a smaller amount, so the total interest falls and the loan is usually repaid sooner.",
+        });
+      case "y12s1-biv-g2":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "A study measures hours of sleep and reaction time. State the dependent variable.",
+          answer: "reaction time",
+          acceptedAnswers: ["the reaction time"],
+          explanation:
+            "Reaction time is the outcome being measured. It may change in response to the amount of sleep, so it is the dependent variable.",
+        });
+      case "y12s1-biv-g3":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "As outdoor temperature increases, hot drink sales decrease. State the direction of the association.",
+          answer: "negative",
+          acceptedAnswers: ["negative association"],
+          explanation:
+            "One variable increases while the other decreases, so the association is negative.",
+        });
+      case "y12s1-biv-g4":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "A scatter plot has points spread widely with no clear trend. Describe the strength of the association.",
+          answer: "weak",
+          acceptedAnswers: ["weak association", "little or no association"],
+          explanation:
+            "Because the points do not cluster around any clear pattern, the association is weak at best and may be close to no association.",
+        });
+      case "y12s1-biv-i2":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "Car age and resale value show a downward-sloping pattern with points close to a line. Describe the association.",
+          answer: "strong negative linear association",
+          acceptedAnswers: ["negative linear association", "strong negative"],
+          explanation:
+            "The pattern slopes downward, so the direction is negative. The points stay close to a straight line, so the form is linear and the strength is strong.",
+        });
+      case "y12s1-biv-i3":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "Give one pair of variables that would likely have a positive association.",
+          answer: "height and weight",
+          acceptedAnswers: ["a person's height and weight", "height of a person and their weight"],
+          explanation:
+            "A positive association means both variables tend to increase together. Taller people often tend to have greater weight, so height and weight is a reasonable example.",
+        });
+      case "y12s1-biv-i4":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "A scatter plot follows a U-shaped pattern. Describe the form of the association.",
+          answer: "non-linear",
+          acceptedAnswers: ["non linear", "curved"],
+          explanation:
+            "A U-shape is a curved pattern rather than a straight one, so the form is non-linear.",
+        });
+      case "y12s1-biv-i5":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "A data set records number of absences and final exam mark. Which variable should go on the x-axis?",
+          answer: "number of absences",
+          acceptedAnswers: ["absences", "the number of absences"],
+          explanation:
+            "The x-axis is usually used for the independent variable. Here the number of absences is the explanatory variable that may influence the exam mark.",
+        });
+      case "y12s1-biv-m4":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "A scatter plot rises roughly in a straight line and the points sit close to that line. Describe the association.",
+          answer: "strong positive linear association",
+          acceptedAnswers: ["positive linear association", "strong positive"],
+          explanation:
+            "The pattern rises, so the direction is positive. It is straight, so the form is linear, and the close clustering makes it strong.",
+        });
+      case "y12s1-biv-m5":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "Ice cream sales and drowning incidents both rise in summer. What is the error in saying ice cream causes drowning?",
+          answer: "correlation does not imply causation",
+          acceptedAnswers: ["a third variable causes both", "hot weather explains both"],
+          explanation:
+            "Both variables are influenced by a third factor, such as hot weather. The association alone does not prove that one variable causes the other.",
+        });
+      case "y12s1-biv-m6":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "What word describes the form of a scatter plot when the points follow a curve instead of a line?",
+          answer: "non-linear",
+          acceptedAnswers: ["non linear", "curved"],
+          explanation:
+            "When the data follow a curve instead of a straight line, the association is described as non-linear.",
+        });
+      case "y12s1-biv-m7":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "As study hours increase, test scores also increase. State the direction of the association.",
+          answer: "positive",
+          acceptedAnswers: ["positive association"],
+          explanation:
+            "Both variables increase together, so the direction is positive.",
+        });
+      case "y12s1-biv-m8":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "Towns with more storks also have higher birth rates. What is the most reasonable interpretation?",
+          answer: "a third variable may explain both",
+          acceptedAnswers: ["correlation does not prove causation", "a third factor explains both"],
+          explanation:
+            "An outside factor such as town size or rural setting may influence both variables. That means the observed correlation does not prove one causes the other.",
+        });
+      case "y12s1-biv-m9":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "Plot A has points tightly clustered around a trend. Plot B is much more spread out. Which plot shows the stronger association?",
+          answer: "plot A",
+          acceptedAnswers: ["a", "plot a shows the stronger association"],
+          explanation:
+            "Association is stronger when points stay closer to the overall trend. Since Plot A is more tightly clustered, it shows the stronger association.",
+        });
+      case "y12s1-biv-m10":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "Speed and stopping distance follow an upward curved pattern. Describe the association.",
+          answer: "positive non-linear association",
+          acceptedAnswers: ["non-linear positive association", "positive curved association"],
+          explanation:
+            "Both variables increase together, so the direction is positive. The pattern is curved rather than straight, so the form is non-linear.",
+        });
+      default:
+        return question;
+    }
+  };
+
+  return {
+    ...lesson,
+    guidedPractice: lesson.guidedPractice.map(rewrite),
+    independentPractice: lesson.independentPractice.map(rewrite),
+    masteryQuiz: lesson.masteryQuiz.map(rewrite),
+  };
+}
+
+export function normalizeYear12Standard1Lesson(lesson: ExplicitLesson): ExplicitLesson {
+  let normalized: ExplicitLesson = {
+    ...lesson,
+    description: normalizeText(lesson.description),
+    learningIntention: normalizeText(lesson.learningIntention),
+    successCriteria: lesson.successCriteria.map(normalizeText),
+    teaching: {
+      paragraphs: lesson.teaching.paragraphs.map(normalizeText),
+      latexBlocks: lesson.teaching.latexBlocks.map(normalizeLatex),
+    },
+    workedExamples: lesson.workedExamples.map(normalizeWorkedExample),
+    guidedPractice: lesson.guidedPractice.map(normalizeQuestion),
+    independentPractice: lesson.independentPractice.map(normalizeQuestion),
+    masteryQuiz: lesson.masteryQuiz.map(normalizeQuestion),
+    commonMistakes: lesson.commonMistakes.map((item) => ({
+      mistake: normalizeText(item.mistake),
+      fix: normalizeText(item.fix),
+    })),
+  };
+
+  normalized = addMissingQuestions(normalized);
+  normalized = addVisuals(normalized);
+
+  normalized = {
+    ...normalized,
+    guidedPractice: enforceChoiceCount(normalized.guidedPractice, "guided"),
+    independentPractice: enforceChoiceCount(
+      normalized.independentPractice,
+      "independent"
+    ),
+    masteryQuiz: enforceChoiceCount(normalized.masteryQuiz, "mastery"),
+  };
+
+  normalized = editorialRewritePriorityLesson(normalized);
+
+  return {
+    ...normalized,
+    workedExamples: normalized.workedExamples.map(normalizeWorkedExample),
+    guidedPractice: normalized.guidedPractice.slice(0, 4).map((question) =>
+      applyAuditFriendlyAnswers(normalizeQuestion(question))
+    ),
+    independentPractice: normalized.independentPractice.slice(0, 5).map((question) =>
+      applyAuditFriendlyAnswers(normalizeQuestion(question))
+    ),
+    masteryQuiz: normalized.masteryQuiz.slice(0, 10).map((question) =>
+      applyAuditFriendlyAnswers(normalizeQuestion(question))
+    ),
   };
 }

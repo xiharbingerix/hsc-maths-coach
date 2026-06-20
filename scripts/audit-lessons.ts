@@ -1214,7 +1214,8 @@ function latexContainsWorkingSteps(latex: string): boolean {
 }
 
 function feedbackOnlyRestatesAnswer(question: PracticeQuestion) {
-  const explanation = question.explanation?.trim() ?? "";
+  const explanation =
+    typeof question.explanation === "string" ? question.explanation.trim() : "";
   const normalised = explanation.toLowerCase().replace(/[.\s]+$/g, "");
   const answer = question.answer.toLowerCase().replace(/[.\s]+$/g, "");
   return (
@@ -1737,6 +1738,9 @@ function audit() {
   console.log(`Audited ${records.length} catalogue lesson(s) across ${newCoursePathways.length} course pathway(s).`);
   printIssueList("FAIL-LEVEL ISSUES", failures);
   printWarningSummary();
+  if (process.argv.includes("--show-warnings")) {
+    printIssueList("WARNING DETAILS", warnings);
+  }
   printVisualStimulusReport();
   printCourseUnitWarningBreakdown(records);
 

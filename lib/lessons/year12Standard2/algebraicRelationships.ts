@@ -341,12 +341,12 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         ),
       ],
       independentPractice: [
-        algebraChoice(
+        algebraAnswer(
           "y12s2-alr-i1",
           "Solve 2x + 9 = 21.",
-          "C",
-          ["x = 5", "x = 7", "x = 6", "x = 15"],
-          "2x = 12 → x = 6."
+          "2x+9=21",
+          "6",
+          "Subtract 9 from both sides: 2x = 12. Divide by 2 to get x = 6."
         ),
         algebraAnswer(
           "y12s2-alr-i2",
@@ -369,12 +369,13 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
           "7",
           "y = 15 − 8 = 7."
         ),
-        algebraChoice(
+        algebraAnswer(
           "y12s2-alr-i5",
-          "The y-intercept of y = 6x − 4 is:",
-          "B",
-          ["6", "−4", "4", "−6"],
-          "In y = mx + b, b = −4 is the y-intercept."
+          "Find the y-intercept of y = 6x − 4.",
+          "y=6x-4",
+          "-4",
+          "In y = mx + b, the y-intercept is b. Here b = -4.",
+          ["−4"]
         ),
       ],
       commonMistakes: [
@@ -396,12 +397,12 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         },
       ],
       masteryQuiz: [
-        algebraChoice(
+        algebraAnswer(
           "y12s2-alr-m1",
           "Solve 5x + 3 = 28.",
-          "C",
-          ["x = 3", "x = 4", "x = 5", "x = 6"],
-          "5x = 25 → x = 5."
+          "5x+3=28",
+          "5",
+          "Subtract 3 from both sides: 5x = 25. Divide by 5 to get x = 5."
         ),
         algebraAnswer(
           "y12s2-alr-m2",
@@ -438,12 +439,13 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
           "8",
           "2x = 16 → x = 8."
         ),
-        algebraChoice(
+        algebraAnswer(
           "y12s2-alr-m7",
-          "Table: x=0,1,2,3 → y=10,7,4,1. The gradient is:",
-          "B",
-          ["3", "−3", "10", "−10"],
-          "y decreases by 3 each time x increases by 1: gradient = −3."
+          "Table: x = 0, 1, 2, 3 gives y = 10, 7, 4, 1. Find the gradient.",
+          "\Delta y = 7-10",
+          "-3",
+          "Each time x increases by 1, y decreases by 3. Therefore the gradient is -3.",
+          ["−3"]
         ),
         algebraAnswer(
           "y12s2-alr-m8",
@@ -459,12 +461,13 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
           ["y = 4x − 1", "y = −x + 4", "y = x − 4", "y = −4x + 1"],
           "y = −x + 4 has m = −1 and b = 4."
         ),
-        algebraChoice(
+        algebraAnswer(
           "y12s2-alr-m10",
-          "y = 3x − 6 crosses the x-axis at:",
-          "B",
-          ["x = 3", "x = 2", "x = −2", "x = 6"],
-          "0 = 3x − 6 → 3x = 6 → x = 2."
+          "Find the x-value where y = 3x − 6 crosses the x-axis.",
+          "0=3x-6",
+          "2",
+          "At the x-axis, y = 0. Solve 0 = 3x - 6, so 3x = 6 and x = 2.",
+          ["x=2", "x = 2"]
         ),
       ],
     };
@@ -555,7 +558,7 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         linearAnswer("y12s2-lin-g1", "A gym charges a 40 dollar joining fee plus 18 dollars per week. Write a model for total cost C after w weeks.", "C=40+18w", "C = 40 + 18w", ["C=40+18w", "c=40+18w", "C=18w+40", "c=18w+40"]),
         practicalChoice("y12s2-lin-g2", "A taxi fare is F = 6 + 2.40d. What does 6 represent?", "A", ["The fixed starting fare", "The cost per kilometre", "The distance travelled", "The total fare for 6 km"], "The intercept is the starting fare when d = 0."),
         moneyAnswer("y12s2-lin-g3", "A hire model is C = 35 + 12h. Find the cost for 3 hours.", "C=35+12h,\\quad h=3", "71"),
-        practicalChoice("y12s2-lin-g4", "A table has costs 40, 58, 76, 94 for weeks 0, 1, 2, 3. What is the weekly increase?", "B", ["40 dollars", "18 dollars", "58 dollars", "94 dollars"], "The cost rises by 18 each week."),
+        algebraAnswer("y12s2-lin-g4", "A table has costs 40, 58, 76, 94 for weeks 0, 1, 2, 3. Find the weekly increase.", "58-40", "18", "Each step increases by 18, so the weekly increase is 18.", ["18 dollars", "$18"]),
       ],
       independentPractice: [
         linearAnswer("y12s2-lin-i1", "A bike hire costs 22 dollars plus 9 dollars per hour. Write the total cost C for h hours.", "C=22+9h", "C = 22 + 9h", ["C=22+9h", "c=22+9h", "C=9h+22", "c=9h+22"]),
@@ -579,8 +582,8 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         moneyAnswer("y12s2-lin-m6", "Using the savings rule shown, find S after 6 weeks.", "S=200+35w", "410"),
         practicalChoice("y12s2-lin-m7", "A table increases by the same amount each step. The relationship is likely:", "C", ["Quadratic", "Reciprocal", "Linear", "Random"], "Constant first difference suggests linear."),
         practicalChoice("y12s2-lin-m8", "A phone plan costs 25 dollars plus 0.12 dollars per extra GB. Which model matches the situation?", "B", ["C = 0.12 + 25g", "C = 25 + 0.12g", "C = 25g + 0.12", "C = 25 - 0.12g"], "The fixed cost is 25 and the extra cost is 0.12 per GB."),
-        practicalChoice("y12s2-lin-m9", "For C = 40 + 18w, a total cost of 130 dollars means:", "B", ["4 weeks", "5 weeks", "6 weeks", "130 weeks"], "The 40 dollar starting cost is removed before comparing the weekly cost."),
-        practicalChoice("y12s2-lin-m10", "Plan A is A = 25 + 10h and Plan B is B = 45 + 6h. Which plan is cheaper at h = 3?", "A", ["Plan A", "Plan B", "They are equal", "Neither can be compared"], "At 3 hours, Plan A costs less than Plan B."),
+        algebraAnswer("y12s2-lin-m9", "For C = 40 + 18w, find w when the total cost is 130 dollars.", "130=40+18w", "5", "Subtract 40: 18w = 90. Divide by 18 to get w = 5.", ["5 weeks"]),
+        algebraAnswer("y12s2-lin-m10", "Plan A is A = 25 + 10h and Plan B is B = 45 + 6h. At h = 3, which plan is cheaper? Answer with A or B.", "A=25+10(3),\\quad B=45+6(3)", "A", "Substitute h = 3 into both plans: A = 55 and B = 63, so Plan A is cheaper.", ["Plan A", "a", "plan a"]),
       ],
     };
   }
@@ -651,7 +654,7 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         algebraAnswer("y12s2-quad-g4", "For h = -5t^2 + 20t + 1.5, find the height when t = 0.", "h(0)=1.5", "1.5", "At t = 0 the squared and linear terms both disappear. The remaining constant, 1.5, is the initial height.", ["1.5 m", "1.5m"]),
       ],
       independentPractice: [
-        algebraChoice("y12s2-quad-i1", "Which graph shape belongs to a quadratic model?", "D", ["A straight line", "A circle", "A hyperbola", "A parabola"], "A quadratic graph is a parabola. It bends smoothly and has one turning point."),
+        algebraAnswer("y12s2-quad-i1", "What graph shape belongs to a quadratic model?", "\\text{parabola}", "parabola", "A quadratic graph is a parabola. It bends smoothly and has one turning point.", ["a parabola"]),
         algebraAnswer("y12s2-quad-i2", "For $y = 2(x - 3)^2 + 5$, state the minimum value of $y$.", "y_{\\min}=5", "5", "The squared part is never negative, so its smallest value is zero. The graph therefore cannot go below 5.", ["y=5"]),
         algebraAnswer("y12s2-quad-i3", "For R = -p^2 + 12p, find R when p = 4.", "R(4)=-4^2+12(4)", "32", "The question asks for an output at a given input. Substitute p = 4 carefully: -(4 squared) + 48 = 32."),
         algebraChoice("y12s2-quad-i4", "A model for height gives t = -1 and t = 5 when the object is on the ground. Which time is meaningful after launch?", "C", ["Both times", "Neither time", "t = 5 only", "t = -1 only"], "The algebra can produce two roots, but the context decides which one is useful. A negative time is before launch, so keep t = 5 seconds."),
@@ -664,7 +667,7 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         { mistake: "Reading the constant term as the vertex.", fix: "The constant term is the output when the input is zero. The vertex is the turning point, and it may be somewhere else." },
       ],
       masteryQuiz: [
-        algebraChoice("y12s2-quad-m1", "Which feature proves that y = -4x^2 + 7x + 3 is quadratic?", "A", ["The x squared term", "The constant term", "The negative sign", "The number 7"], "A squared variable is the defining feature of a quadratic equation."),
+        algebraAnswer("y12s2-quad-m1", "What feature proves that y = -4x^2 + 7x + 3 is quadratic?", "x^2", "x squared term", "A squared variable is the defining feature of a quadratic equation.", ["the x squared term", "x^2 term", "squared variable"]),
         algebraAnswer("y12s2-quad-m2", "For h = -5t^2 + 20t + 1.5, state the maximum height.", "h=-5t^2+20t+1.5", "21.5", "The graph opens downwards, so the maximum occurs at the vertex. The axis of symmetry is t = 2, and substituting gives h = 21.5 metres.", ["21.5 m", "21.5m"], heightParabola),
         algebraAnswer("y12s2-quad-m3", "For $y = (x - 7)^2 + 4$, state the vertex as a coordinate.", "y=(x-7)^2+4", "(7,4)", "In vertex form, the squared bracket is zero when x = 7, and the remaining value is y = 4. So the vertex is (7, 4).", ["7,4", "7, 4", "(7, 4)"]),
         algebraChoice("y12s2-quad-m4", "A parabola opens upwards. What type of turning point does it have?", "B", ["Maximum", "Minimum", "Intercept only", "Constant gradient"], "An upward-opening parabola falls towards its turning point and rises after it, so the vertex is a minimum."),
@@ -674,8 +677,6 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         algebraAnswer("y12s2-quad-m8", "For $P = -4(x - 8)^2 + 300$, state the input that gives maximum profit.", "x=8", "8", "The negative coefficient makes the vertex a maximum. Vertex form shows that the squared bracket is zero at x = 8.", ["x=8"]),
         algebraChoice("y12s2-quad-m9", "A height model produces a root t = -0.4. Why is it usually rejected?", "C", ["Quadratics cannot have negative roots", "The graph must open upwards", "It represents a time before launch", "It is not an intercept"], "The root can be algebraically correct. It is rejected because negative time is outside the practical situation after launch."),
         algebraAnswer("y12s2-quad-m10", "For R = -2p^2 + 40p, find the maximum revenue.", "R(10)=200", "200", "The downward-opening graph has its maximum at the vertex p = 10. Substituting gives maximum revenue 200.", ["$200", "200 dollars"]),
-        algebraChoice("y12s2-quad-m11", "A quadratic model R = -0.5x^2 + 8x gives revenue in dollars where x is items sold. At x = 20 the model gives R = -40. What is the practical limitation here?", "B", ["Quadratics cannot have two intercepts", "The model gives negative revenue, which is meaningless in this context", "The coefficient of x^2 must be positive", "x cannot exceed 10"], "The formula is mathematically valid at x = 20, but a negative revenue cannot occur in reality. The domain should be restricted to values where R ≥ 0, typically 0 ≤ x ≤ 16."),
-        algebraChoice("y12s2-quad-m12", "Height h = -t^2 + 6t (metres) models a ball over time t (seconds). Which statement best explains a limitation for large t?", "D", ["The model has no turning point", "The leading coefficient must be positive", "Quadratic models cannot predict height", "The ball hits the ground at t = 6, so the model is invalid for t > 6"], "At t = 6, h = 0: the ball lands. Beyond this the formula gives negative height, which is physically impossible. A domain restriction 0 ≤ t ≤ 6 must be applied."),
       ],
       masteryPassMark: 0.8,
     };
@@ -801,12 +802,12 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         ),
       ],
       independentPractice: [
-        algebraChoice(
+        algebraAnswer(
           "y12s2-rec-i1",
           "y = 12/x. Find y when x = 4.",
-          "B",
-          ["6", "3", "48", "16"],
-          "y = 12/4 = 3."
+          "y = 12 \\div 4",
+          "3",
+          "Substitute x = 4 into y = 12/x. This gives y = 12/4 = 3."
         ),
         algebraAnswer(
           "y12s2-rec-i2",
@@ -815,12 +816,13 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
           "24",
           "k = xy = 3 × 8 = 24."
         ),
-        algebraChoice(
+        algebraAnswer(
           "y12s2-rec-i3",
           "y = −6/x has branches in which quadrants?",
-          "B",
-          ["Q1 and Q3", "Q2 and Q4", "Q1 and Q4", "All four quadrants"],
-          "k = −6 < 0, so branches are in Q2 (x < 0, y > 0) and Q4 (x > 0, y < 0)."
+          "Q2 \\text{ and } Q4",
+          "Q2 and Q4",
+          "k = −6 < 0, so branches are in Q2 when x is negative and y is positive, and in Q4 when x is positive and y is negative.",
+          ["Q2 & Q4", "Q2, Q4", "quadrants 2 and 4"]
         ),
         algebraAnswer(
           "y12s2-rec-i4",
@@ -870,12 +872,13 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
           "4",
           "y = 8/2 = 4."
         ),
-        algebraChoice(
+        algebraAnswer(
           "y12s2-rec-m3",
-          "A hyperbola passes through (4, 6). Its equation is:",
-          "C",
-          ["y = 1.5x", "y = 4x", "y = 24/x", "y = 6/x"],
-          "k = 4 × 6 = 24, so y = 24/x."
+          "A hyperbola passes through (4, 6). State its equation.",
+          "k = 4 \\times 6 = 24,\\; y = 24/x",
+          "y = 24/x",
+          "Use k = xy = 4 × 6 = 24. Substituting into y = k/x gives y = 24/x.",
+          ["y=24/x", "24/x"]
         ),
         algebraAnswer(
           "y12s2-rec-m4",
@@ -898,12 +901,13 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
           "2",
           "k = 20. x = k/y = 20/10 = 2."
         ),
-        algebraChoice(
+        algebraAnswer(
           "y12s2-rec-m7",
-          "6 workers complete a job in 4 hours. If 8 workers share the job, each worker takes:",
-          "B",
-          ["4 hours", "3 hours", "6 hours", "2 hours"],
-          "Total = 6 × 4 = 24 worker-hours. 8 workers: h = 24/8 = 3 hours."
+          "6 workers complete a job in 4 hours. If 8 workers share the job, how many hours does each worker take?",
+          "6 \\times 4 = 24,\\; h = 24 \\div 8",
+          "3",
+          "The job takes 24 worker-hours in total. Dividing by 8 workers gives 24/8 = 3 hours each.",
+          ["3 hours", "3 hrs"]
         ),
         algebraAnswer(
           "y12s2-rec-m8",
@@ -919,12 +923,13 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
           ["x = 0", "x = k", "x = 1", "x = −k"],
           "Division by zero is undefined. y = k/0 is undefined, so x = 0 is excluded."
         ),
-        algebraChoice(
+        algebraAnswer(
           "y12s2-rec-m10",
-          "As x → ∞, y = 12/x:",
-          "C",
-          ["Approaches 12", "Approaches ∞", "Approaches 0", "Becomes undefined"],
-          "As x gets very large, 12/x gets very small — approaches 0 (the x-axis asymptote)."
+          "As x → ∞, what does y = 12/x approach?",
+          "y \\to 0",
+          "0",
+          "As x gets very large, dividing 12 by x makes the value smaller and smaller. So y approaches 0, the x-axis asymptote.",
+          ["approaches 0", "tends to 0"]
         ),
       ],
     };
@@ -1012,11 +1017,11 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         algebraAnswer("y12s2-expinv-m2", "For V = 150(2)^n, find V when n = 3.", "V=150(2)^3", "1200", "The model doubles the starting value three times: 150 times 8 equals 1200.", ["1,200"]),
         algebraChoice("y12s2-expinv-m3", "Which multiplier represents exponential decay?", "A", ["0.75", "1", "1.08", "3"], "A decay multiplier lies between 0 and 1. Multiplying by 0.75 keeps 75% each period."),
         algebraAnswer("y12s2-expinv-m4", "An inverse variation model has constant product xy = 96. Find y when x = 12.", "xy=96,\\quad x=12", "8", "Inverse variation keeps the product xy constant. Substitute x = 12 into 12y = 96, so y = 8."),
-        algebraChoice("y12s2-expinv-m5", "A fixed job takes 6 hours with 4 workers. Assuming inverse variation, how long should it take with 8 workers?", "B", ["12 hours", "3 hours", "10 hours", "2 hours"], "Doubling the workers halves the time because workers times hours stays constant."),
+        algebraAnswer("y12s2-expinv-m5", "A fixed job takes 6 hours with 4 workers. Assuming inverse variation, how long should it take with 8 workers?", "4 \\times 6 = 24,\\; t = 24 \\div 8", "3", "Workers times hours stays constant, so the job needs 24 worker-hours. Dividing by 8 workers gives 3 hours.", ["3 hours", "3 hrs"]),
         algebraAnswer("y12s2-expinv-m6", "For xy = 24, find x when y = 6.", "x=\\frac{24}{6}", "4", "The constant product is 24. Divide by the known y-value to find x.", [], inverseVariationGraph),
         algebraChoice("y12s2-expinv-m7", "A table has outputs 10, 15, 22.5, 33.75 as the input increases by 1. Which model fits?", "C", ["Linear decrease", "Inverse variation", "Exponential growth", "Quadratic with a minimum"], "Each output is multiplied by 1.5. Repeated multiplication identifies exponential growth."),
         algebraAnswer("y12s2-expinv-m8", "A value starts at 400 and decreases by 15% each year. State the decay multiplier.", "\\text{15% annual decrease}", "0.85", "A 15% decrease means 85% of the value remains each year. As a decimal multiplier, 85% is 0.85.", ["85%"]),
-        algebraChoice("y12s2-expinv-m9", "For y = 60/x, why can x not equal zero?", "A", ["Division by zero is undefined", "The graph must be linear", "The product would be too large", "Zero is always negative"], "The rule requires division by x. Division by zero is undefined, so x = 0 is excluded."),
+        algebraAnswer("y12s2-expinv-m9", "For y = 60/x, why can x not equal zero?", "x = 0 \\text{ makes } 60/x \\text{ undefined}", "division by zero is undefined", "The rule divides by x. If x = 0, the expression becomes 60/0, and division by zero is undefined.", ["because division by zero is undefined", "60/0 is undefined"]),
         algebraAnswer("y12s2-expinv-m10", "For V = 320(0.5)^n, find V when n = 3.", "V=320(0.5)^3", "40", "The value halves three times: 320 to 160 to 80 to 40."),
         algebraChoice("y12s2-expinv-m11", "A model for a city's population is $P = 50000 × 1.04^n$ where $n$ is years from now. Why would this model become unreliable for very large $n$?", "C", ["The base 1.04 is less than 2", "n cannot be a large number", "Resources and space limit real population growth, so constant 4% annual growth cannot continue indefinitely", "The starting population of 50 000 is too small"], "Exponential models assume a constant percentage growth rate. In practice, limited resources, disease, migration and other factors slow growth. The model is a useful short-term approximation but overestimates population for large n."),
         algebraChoice("y12s2-expinv-m12", "A radioactive decay model is $M = 200 × 0.9^t$ grams. Which is the best statement about a limitation of this model?", "B", ["The formula is undefined when t is large", "For very large t the model gives values too small to physically measure", "The decay multiplier must be greater than 1", "Exponential decay models can only be used for t ≤ 10"], "Mathematically the formula works for any t ≥ 0, but the mass it predicts eventually falls below the smallest measurable quantity. At that point the model no longer has practical meaning, even though the mathematics continues to produce values."),
@@ -1115,7 +1120,7 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         linearAnswer("y12s2-sim-i1", "Taxi A costs A = 6 + 2d and Taxi B costs B = 12 + 1.5d. Find d when costs are equal.", "6+2d=12+1.5d", "12", ["12 km", "12km"]),
         moneyAnswer("y12s2-sim-i2", "Using Taxi A: A = 6 + 2d, find the equal cost when d = 12.", "A=6+2d,\\quad d=12", "30"),
         linearAnswer("y12s2-sim-i3", "Plans P = 25 + 3g and Q = 40 + g are equal at what value of g?", "25+3g=40+g", "7.5", ["7.5 GB", "7.5GB"]),
-        practicalChoice("y12s2-sim-i4", "If the solution is (6, 120) for hire time and cost, what does 120 mean?", "A", ["The common cost in dollars", "The number of hours", "The gradient", "The fixed fee"], "The output coordinate is the common cost."),
+        algebraAnswer("y12s2-sim-i4", "If the solution is (6, 120) for hire time and cost, state what 120 represents.", "(6,120)", "120", "In the ordered pair, the second value is the output. Here it is the common cost, so both options cost $120 at the intersection.", ["$120", "120 dollars", "common cost in dollars"]),
         practicalChoice("y12s2-sim-i5", "A student solves only A = 30 + 15h and never uses B = 60 + 10h. What is missing?", "C", ["A table", "A quadratic term", "The comparison with the second model", "A unit conversion"], "A simultaneous-equations question needs both models."),
       ],
       commonMistakes: [
@@ -1130,11 +1135,11 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         linearAnswer("y12s2-sim-m3", "Phone plans P = 20 + 4g and Q = 50 + g are equal at what g?", "P=20+4g,\\quad Q=50+g", "10", ["10 GB", "10GB"]),
         moneyAnswer("y12s2-sim-m4", "Using the phone plan shown, find the equal cost when g = 10.", "P=20+4g", "60"),
         practicalChoice("y12s2-sim-m5", "The intersection of two cost lines means:", "B", ["Both gradients are zero", "Both costs are equal", "The cheaper option is impossible", "The y-intercept is negative"], "The outputs are the same at the intersection."),
-        practicalChoice("y12s2-sim-m6", "For A = 30 + 15h and B = 60 + 10h, which is cheaper at h = 4?", "A", ["A", "B", "They are equal", "Neither has a cost"], "A = 90 and B = 100."),
+        practicalChoice("y12s2-sim-m6", "For A = 30 + 15h and B = 60 + 10h, which is cheaper at h = 4?", "A", ["A", "B", "They are equal", "Neither has a cost"], "Substitute h = 4 into both models: A = 30 + 15(4) = 90 and B = 60 + 10(4) = 100, so A is cheaper."),
         practicalChoice("y12s2-sim-m7", "For A = 30 + 15h and B = 60 + 10h, which is cheaper at h = 8?", "C", ["A", "They are equal", "B", "Both are free"], "A = 150 and B = 140."),
         linearAnswer("y12s2-sim-m8", "Savings S = 200 + 30w and T = 80 + 50w are equal at what w?", "S=200+30w,\\quad T=80+50w", "6", ["6 weeks", "6weeks"]),
         practicalChoice("y12s2-sim-m9", "Which setup finds when A = 30 + 15h and B = 60 + 10h have equal cost?", "B", ["30 + 15h = h", "30 + 15h = 60 + 10h", "30 + 60 = 15h + 10h", "15h = 10h"], "Equal cost means setting the two full cost expressions equal."),
-        practicalChoice("y12s2-sim-m10", "For A = 30 + 15h and B = 60 + 10h, the costs are equal at h = 6. Which option is cheaper for h greater than 6?", "C", ["A, because it has the smaller fixed fee", "They stay equal forever", "B, because it has the smaller hourly rate", "Neither, because h cannot exceed 6"], "After the intersection, the model with the smaller hourly rate grows more slowly."),
+        algebraAnswer("y12s2-sim-m10", "For A = 30 + 15h and B = 60 + 10h, the costs are equal at h = 6. Which option is cheaper for h greater than 6?", "10 < 15", "B", "After the intersection, the model with the smaller hourly rate grows more slowly. Since B increases by 10 dollars per hour while A increases by 15 dollars per hour, B is cheaper for h greater than 6.", ["option B", "plan B"]),
       ],
     };
   }
@@ -1206,14 +1211,14 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
       guidedPractice: [
         algebraAnswer("y12s2-ineq-g1", "Solve 2x + 3 ≤ 11.", "2x+3\\le11", "x≤4", "Subtract 3: 2x ≤ 8. Divide by 2: x ≤ 4."),
         algebraAnswer("y12s2-ineq-g2", "Solve 5x − 2 > 13.", "5x-2>13", "x>3", "Add 2: 5x > 15. Divide by 5: x > 3."),
-        practicalChoice("y12s2-ineq-g3", "When solving −4x < 20, which is the correct answer?", "B", ["x < −5", "x > −5", "x < 5", "x > 5"], "Dividing by −4 reverses the inequality: x > 20/4 = 5 — wait, 20/4 = 5 and dividing negative gives x > −5."),
+        practicalChoice("y12s2-ineq-g3", "When solving −4x < 20, which is the correct answer?", "B", ["x < −5", "x > −5", "x < 5", "x > 5"], "Divide both sides by -4 and reverse the inequality sign: x > -5."),
         practicalChoice("y12s2-ineq-g4", "A budget inequality gives h ≤ 6. In a hire context, this means:", "A", ["At most 6 hours can be hired", "Exactly 6 hours must be hired", "At least 6 hours are needed", "6 dollars is the fixed fee"], "≤ means up to and including 6."),
       ],
       independentPractice: [
         algebraAnswer("y12s2-ineq-i1", "Solve 3x + 7 ≤ 22.", "3x+7\\le22", "x≤5", "Subtract 7: 3x ≤ 15. Divide by 3: x ≤ 5."),
         algebraAnswer("y12s2-ineq-i2", "Solve −2x + 4 ≥ 10.", "-2x+4\\ge10", "x≤−3", "Subtract 4: −2x ≥ 6. Divide by −2 and reverse: x ≤ −3.", ["x ≤ -3", "x≤-3"]),
         algebraAnswer("y12s2-ineq-i3", "A phone plan lets you use at most 15 GB. If you already used 6 GB, write an inequality for the remaining data r.", "6+r\\le15", "r≤9", "6 + r ≤ 15 gives r ≤ 9 GB remaining."),
-        practicalChoice("y12s2-ineq-i4", "Profit P = 5n − 80. For P > 0, find the minimum n.", "C", ["n > 5", "n > 10", "n > 16", "n > 80"], "5n − 80 > 0 → 5n > 80 → n > 16."),
+        algebraAnswer("y12s2-ineq-i4", "Profit P = 5n − 80. For P > 0, find the minimum whole-number value of n.", "5n-80>0", "17", "Solve the inequality first: 5n − 80 > 0 gives 5n > 80, so n > 16. Since n counts whole items, the smallest possible value is 17.", ["n=17", "17 units"]),
         practicalChoice("y12s2-ineq-i5", "Which number line correctly shows x > 3?", "A", ["Open circle at 3, shading to the right", "Closed circle at 3, shading to the right", "Open circle at 3, shading to the left", "Closed circle at 3, shading to the left"], "Strict inequality > uses an open circle, and shading goes in the direction where values are larger."),
       ],
       commonMistakes: [
@@ -1225,14 +1230,14 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
       masteryQuiz: [
         algebraAnswer("y12s2-ineq-m1", "Solve 4x − 1 ≤ 15.", "4x-1\\le15", "x≤4", "Add 1: 4x ≤ 16. Divide by 4: x ≤ 4."),
         algebraAnswer("y12s2-ineq-m2", "Solve −x + 5 > 2.", "-x+5>2", "x<3", "Subtract 5: −x > −3. Divide by −1 and reverse: x < 3."),
-        practicalChoice("y12s2-ineq-m3", "A profit model P = 8n − 64. The minimum number of units for profit (P > 0) is:", "C", ["n > 6", "n > 7", "n > 8", "n > 64"], "8n > 64 → n > 8."),
+        algebraAnswer("y12s2-ineq-m3", "A profit model P = 8n − 64. Find the minimum whole-number value of n for which P > 0.", "8n-64>0", "9", "Solve the inequality: 8n > 64, so n > 8. Because n is a whole number of units, the smallest value that works is 9.", ["n=9", "9 units"]),
         algebraAnswer("y12s2-ineq-m4", "Solve 6 − 2x ≥ 0.", "6-2x\\ge0", "x≤3", "−2x ≥ −6. Divide by −2 and reverse: x ≤ 3."),
         practicalChoice("y12s2-ineq-m5", "A student solves 2x > 10 and writes x > 2. What went wrong?", "B", ["Nothing; x > 2 is correct", "She divided by 5, not by 2. x > 5 is correct.", "She reversed the sign", "She forgot to add 10"], "2x > 10 → x > 5. Dividing 10 by 2 gives 5, not 2."),
         algebraAnswer("y12s2-ineq-m6", "A budget: 15 + 4n ≤ 55. Find the maximum n.", "15+4n\\le55", "n≤10", "4n ≤ 40. n ≤ 10."),
         practicalChoice("y12s2-ineq-m7", "The solution x ≤ 5 means:", "A", ["All values up to and including 5", "Only the value 5", "All values greater than 5", "All negative values"], "≤ includes 5 and all smaller values."),
         algebraAnswer("y12s2-ineq-m8", "Solve 3 − 5x < 28.", "3-5x<28", "x>−5", "−5x < 25. Divide by −5 and reverse: x > −5.", ["x > -5", "x>-5"]),
         practicalChoice("y12s2-ineq-m9", "Which inequality represents 'earn at least 200 dollars from selling n items at 12 dollars each'?", "C", ["12n < 200", "12n = 200", "12n ≥ 200", "12 ≥ 200n"], "'At least' means ≥."),
-        practicalChoice("y12s2-ineq-m10", "A rental inequality gives t ≤ 4. The maximum rental time is:", "A", ["4 hours", "Less than 4 hours", "More than 4 hours", "Exactly 4 hours if positive"], "≤ means up to and including 4 hours."),
+        algebraAnswer("y12s2-ineq-m10", "A rental inequality gives t ≤ 4. State the maximum rental time.", "t\\le4", "4", "The symbol ≤ means up to and including 4, so the greatest allowed rental time is 4 hours.", ["4 hours", "t=4"]),
       ],
     };
   }
@@ -1297,14 +1302,14 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         algebraAnswer("y12s2-form-g1", "Using A = P(1 + r)^n with P = 1000, r = 0.04, n = 2, find A.", "A=1000(1.04)^2", "1081.60", "A = 1000 × 1.0816 = 1081.60.", ["$1081.60", "1081.6"]),
         algebraAnswer("y12s2-form-g2", "Speed S = D/T. Find D when S = 80 km/h and T = 3 h.", "D=S\\times T=80\\times3", "240", "D = 80 × 3 = 240 km.", ["240 km"]),
         practicalChoice("y12s2-form-g3", "To make D the subject in S = D/T:", "B", ["Divide both sides by D", "Multiply both sides by T", "Subtract T from both sides", "Square both sides"], "D = S × T. Multiply both sides by T."),
-        practicalChoice("y12s2-form-g4", "BMI = mass/height². A person is 70 kg and 1.75 m. Their BMI is:", "C", ["40.0", "28.6", "22.9", "17.5"], "BMI = 70/1.75² = 70/3.0625 ≈ 22.9."),
+        algebraAnswer("y12s2-form-g4", "BMI = mass/height². A person is 70 kg and 1.75 m. Find their BMI.", "\\text{BMI}=70\\div1.75^2", "22.9", "BMI = 70/1.75² = 70/3.0625 ≈ 22.9.", ["22.86", "22.857", "22.8571"]),
       ],
       independentPractice: [
-        algebraAnswer("y12s2-form-i1", "Compound interest: A = P(1 + r)^n. Find A when P = 5000, r = 0.06, n = 4.", "A=5000(1.06)^4", "6312.38", "A = 5000 × 1.2625 ≈ 6312.38.", ["$6312.38", "6312.4"]),
+        algebraAnswer("y12s2-form-i1", "Compound interest: A = P(1 + r)^n. Find A when P = 5000, r = 0.06, n = 4.", "A=5000(1.06)^4", "6312.38", "A = 5000 × 1.26247696 = 6312.3848, which rounds to 6312.38.", ["$6312.38", "6312.4"]),
         algebraAnswer("y12s2-form-i2", "Density D = M/V. Find M when D = 3 g/cm³ and V = 40 cm³.", "M=D\\times V=3\\times40", "120", "M = 3 × 40 = 120 g.", ["120 g"]),
         algebraAnswer("y12s2-form-i3", "Rearrange A = lw to make l the subject.", "l=\\frac{A}{w}", "l=A/w", "Divide both sides by w: l = A/w.", ["l = A/w", "A/w"]),
-        practicalChoice("y12s2-form-i4", "Using $V = P(1 − r)^n$ for depreciation with $P = 18000$, $r = 0.15$, $n = 3$:", "B", ["\\$10935", "\\$11054.63", "\\$11000", "\\$15300"], "V = 18000 × (0.85)³ = 18000 × 0.614125 ≈ 11054.25 ≈ $11054."),
-        algebraAnswer("y12s2-form-i5", "Speed S = D/T. A car travels 270 km at 90 km/h. Find the time T.", "T=\\frac{270}{90}", "3", "T = 270/90 = 3 h.", ["3 h", "3 hours"]),
+        algebraAnswer("y12s2-form-i4", "Using $V = P(1 − r)^n$ with $P = 18000$, $r = 0.15$, $n = 3$, find the depreciated value V.", "V=18000(0.85)^3", "11054.25", "V = 18000 × (0.85)³ = 18000 × 0.614125 = 11054.25.", ["$11054.25", "11054.3", "$11054.3"]),
+        algebraAnswer("y12s2-form-i5", "Speed S = D/T. A car travels 270 km at 90 km/h. Find the time T.", "T=\\frac{270}{90}", "3", "Rearrange the speed formula to T = D/S, then substitute 270 km and 90 km/h: T = 270/90 = 3 hours.", ["3 h", "3 hours"]),
       ],
       commonMistakes: [
         { mistake: "Substituting into the wrong variable.", fix: "Label each given value with its variable letter before substituting." },
@@ -1320,7 +1325,7 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         practicalChoice("y12s2-form-m5", "$A = P(1 + r)^n$. Which value is the principal?", "A", ["P", "A", "r", "n"], "P is the initial amount invested or borrowed."),
         algebraAnswer("y12s2-form-m6", "Rearrange A = (1/2)bh for b.", "b=\\frac{2A}{h}", "b=2A/h", "Multiply both sides by 2: 2A = bh. Divide by h: b = 2A/h.", ["b = 2A/h", "2A/h"]),
         algebraAnswer("y12s2-form-m7", "Depreciation V = P(1 − r)^n. P = 20000, r = 0.10, n = 2. Find V.", "V=20000(0.90)^2", "16200", "V = 20000 × 0.81 = 16200.", ["$16200", "16200.00"]),
-        practicalChoice("y12s2-form-m8", "BMI = m/h². A person of mass 80 kg and height 1.6 m has BMI:", "C", ["40", "32.5", "31.25", "50"], "BMI = 80/1.6² = 80/2.56 = 31.25."),
+        algebraAnswer("y12s2-form-m8", "BMI = m/h². A person of mass 80 kg and height 1.6 m. Find the BMI.", "\\text{BMI}=80\\div1.6^2", "31.25", "BMI = 80/1.6² = 80/2.56 = 31.25.", ["31.3"]),
         algebraAnswer("y12s2-form-m9", "Find S when D = 300 km and T = 2.5 h.", "S=\\frac{300}{2.5}", "120", "S = 300/2.5 = 120 km/h.", ["120 km/h"]),
         practicalChoice("y12s2-form-m10", "A compound interest calculation gives $A = 2000(1.03)^5$. The interest earned is:", "B", ["The value of A", "A minus 2000", "2000 times 5 times 3 percent", "5 percent of 2000"], "Interest earned = A − P = A − 2000."),
       ],
@@ -1413,7 +1418,7 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
       practicalChoice("y12s2-alg-exam-i1", "In C = 25 + 0.12g for a phone plan, 0.12 represents:", "B", ["Base cost", "Cost per extra GB", "Total data", "Number of months"], "The coefficient of g is the rate per GB."),
       linearAnswer("y12s2-alg-exam-i2", "A taxi charges 6 dollars plus 2.40 dollars per km. Write F for d km.", "F=6+2.40d", "F = 6 + 2.40d", ["F=6+2.40d", "f=6+2.40d", "F=2.40d+6", "F=6+2.4d"]),
       moneyAnswer("y12s2-alg-exam-i3", "Using F = 6 + 2.40d, find the fare for 10 km.", "F=6+2.40d,\\quad d=10", "30"),
-      practicalChoice("y12s2-alg-exam-i4", "A graph has vertex (3, 45) in a revenue model that opens downward. What does 45 represent?", "C", ["Initial cost", "Time", "Maximum revenue", "Gradient"], "The y-value of a downward vertex is the maximum."),
+      algebraAnswer("y12s2-alg-exam-i4", "A graph has vertex (3, 45) in a revenue model that opens downward. What does 45 represent?", "(3,45)", "maximum revenue", "The vertex gives the turning point of the parabola. Because the graph opens downward, its y-value is the greatest output, so 45 represents the maximum revenue.", ["the maximum revenue", "max revenue"]),
       practicalChoice("y12s2-alg-exam-i5", "Two models are equal at (6, 120). In a hire context, 6 represents:", "A", ["Hours", "Dollars", "Gradient", "Initial fee"], "The input coordinate is hours."),
     ],
     commonMistakes: [
@@ -1425,13 +1430,13 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
     masteryQuiz: [
       linearAnswer("y12s2-alg-exam-m1", "A hire company charges 35 dollars plus 12 dollars per hour. Write C for h hours.", "", "C = 35 + 12h", ["C=35+12h", "c=35+12h", "C=12h+35"]),
       moneyAnswer("y12s2-alg-exam-m2", "Using the cost model shown, find C when h = 4.", "C=35+12h", "83"),
-      practicalChoice("y12s2-alg-exam-m3", "In S = 120 + 25w, the 120 is:", "A", ["Starting savings", "Weekly increase", "Number of weeks", "Gradient only"], "It is the value when w = 0."),
+      algebraAnswer("y12s2-alg-exam-m3", "In S = 120 + 25w, what does the 120 represent?", "S = 120 + 25w", "starting savings", "The constant term is the value when w = 0, so 120 is the starting savings amount.", ["the starting savings", "initial savings"]),
       algebraChoice("y12s2-alg-exam-m4", "Which model represents exponential decay?", "C", ["y=4x+2", "y=30/x", "y=120(0.8)^x", "y=x^2-5"], "The variable is in the exponent and the repeated multiplier 0.8 lies between 0 and 1. That means the model decays."),
       algebraAnswer("y12s2-alg-exam-m5", "For inverse variation xy = 72, find y when x = 9.", "y=\\frac{72}{9}", "8", "Inverse variation keeps xy equal to 72. Divide the constant product by the known x-value."),
       practicalChoice("y12s2-alg-exam-m6", "A curved graph with changing rate is:", "B", ["Linear", "Non-linear", "Always impossible", "A fixed fee"], "Curved graphs are non-linear."),
       linearAnswer("y12s2-alg-exam-m7", "Models A = 30 + 15h and B = 60 + 10h are equal at what h?", "A=30+15h,\\quad B=60+10h", "6", ["6 h", "6 hours"]),
-      practicalChoice("y12s2-alg-exam-m8", "A hire cost follows C = 35 + 12h. If the total cost is 107 dollars, what is h?", "C", ["4 hours", "5 hours", "6 hours", "7 hours"], "Reverse the model by removing the fixed cost, then dividing by the hourly rate."),
-      practicalChoice("y12s2-alg-exam-m9", "Which setup finds when A = 30 + 15h and B = 60 + 10h are equal?", "A", ["30 + 15h = 60 + 10h", "30 + 15h = 8", "60 + 10h = 120h", "30 + 60 = h"], "Equal outputs are found by setting the two expressions equal."),
+      algebraAnswer("y12s2-alg-exam-m8", "A hire cost follows C = 35 + 12h. If the total cost is 107 dollars, find h.", "35+12h=107", "6", "Set the model equal to 107: 35 + 12h = 107. Subtract 35 to get 12h = 72, then divide by 12 to get h = 6.", ["6 hours", "h=6"]),
+      algebraAnswer("y12s2-alg-exam-m9", "Write the equation setup that finds when A = 30 + 15h and B = 60 + 10h are equal.", "A = B", "30 + 15h = 60 + 10h", "To find when the two models are equal, set the full expressions equal to each other.", ["30+15h=60+10h"]),
       practicalChoice("y12s2-alg-exam-m10", "A height model gives t = -1 and t = 5 when the object is on the ground. Which conclusion is best?", "B", ["Use -1 second as the landing time", "Use 5 seconds as the practical landing time", "Use both because time can be negative", "Reject both because the graph is curved"], "The negative time is not practical, so the positive time is the meaningful landing time."),
     ],
   };

@@ -3,6 +3,7 @@ import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import {
   practicalChoice,
   measurementAnswer as baseMeasurementAnswer,
+  shortAnswer as baseShortAnswer,
 } from "../questionHelpers";
 
 function measurementFeedback(prompt: string, answer: string) {
@@ -96,6 +97,21 @@ function measurementAnswer(
   return {
     ...baseMeasurementAnswer(id, prompt, latex, answer, acceptedAnswers),
     explanation: measurementFeedback(prompt, answer),
+  };
+}
+
+function trigAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  explanation: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...baseShortAnswer(id, prompt, latex, answer, acceptedAnswers),
+    hint: "Use the known sides and angles to identify the correct trig relationship.",
+    explanation,
   };
 }
 
@@ -318,7 +334,7 @@ export function year12Standard2TrigRatesLessonOverride(
             },
           },
         },
-        practicalChoice("y12s2-trv-g4", "A student uses right-angle trigonometry in a triangle with angles 42, 58 and 80 degrees. What is the issue?", "C", ["The answer must be in kilometres", "The triangle is impossible", "There is no right angle", "The ratio must be simplified"], "Right-angle trigonometry needs a 90-degree angle."),
+        trigAnswer("y12s2-trv-g4", "A student uses right-angle trigonometry in a triangle with angles 42, 58 and 80 degrees. What is the issue?", "42^\\circ+58^\\circ+80^\\circ=180^\\circ", "there is no right angle", "Right-angle trigonometry only applies when one angle is 90 degrees. This triangle is valid, but none of its angles is a right angle.", ["no right angle", "the triangle has no right angle"]),
       ],
       independentPractice: [
         {
@@ -381,8 +397,8 @@ export function year12Standard2TrigRatesLessonOverride(
             },
           },
         },
-        practicalChoice("y12s2-trv-i4", "In a triangle, the largest angle should be opposite:", "D", ["The shortest side", "The first side listed", "The included angle only", "The longest side"], "The largest side is opposite the largest angle."),
-        practicalChoice("y12s2-trv-i5", "A non-right-angled triangle has all three sides known and an angle is required. Which rule is most appropriate?", "B", ["Sine rule first", "Cosine rule", "Speed formula", "Area formula only"], "Cosine rule can find an angle from three sides."),
+        trigAnswer("y12s2-trv-i4", "In a triangle, the largest angle should be opposite which side?", "\\text{largest angle} \\leftrightarrow \\text{largest side}", "the longest side", "The size relationship runs both ways in any triangle: the largest angle is opposite the longest side.", ["longest side"]),
+        trigAnswer("y12s2-trv-i5", "A non-right-angled triangle has all three sides known and an angle is required. Which rule is most appropriate?", "a, b, c \\text{ known}", "cosine rule", "When all three sides are known and an angle is needed, the cosine rule is the appropriate choice.", ["the cosine rule"]),
       ],
       commonMistakes: [
         { mistake: "Using right-angled trigonometry when there is no right angle.", fix: "Check for a 90-degree angle before using SOH-CAH-TOA." },
@@ -391,8 +407,8 @@ export function year12Standard2TrigRatesLessonOverride(
         { mistake: "Accepting an unreasonable side length.", fix: "Check that the largest side is opposite the largest angle and units make sense." },
       ],
       masteryQuiz: [
-        practicalChoice("y12s2-trv-m1", "A triangle has sides 48 m and 62 m with included angle 37 degrees. Which rule finds the third side?", "B", ["Sine rule", "Cosine rule", "Right-angle tangent", "Average speed"], "Two sides and included angle use cosine rule."),
-        practicalChoice("y12s2-trv-m2", "A known side is paired with its opposite angle, and another side is required. Use:", "A", ["Sine rule", "Cosine rule", "Area formula", "Scale factor"], "This is a sine rule setup."),
+        trigAnswer("y12s2-trv-m1", "A triangle has sides 48 m and 62 m with included angle 37 degrees. Which rule finds the third side?", "a, b, C \\text{ known}", "cosine rule", "Two sides and the included angle match the cosine rule for finding the third side.", ["the cosine rule"]),
+        trigAnswer("y12s2-trv-m2", "A known side is paired with its opposite angle, and another side is required. Which rule should be used?", "\\frac{a}{\\sin A}=\\frac{b}{\\sin B}", "sine rule", "A matching side-angle pair is the key signal for using the sine rule.", ["the sine rule"]),
         {
           ...measurementAnswer("y12s2-trv-m3", "A triangular park has sides 20 m and 25 m with included angle 60 degrees. Find the third side to 1 decimal place.", "a=20\\text{ m},\\quad b=25\\text{ m},\\quad C=60°", "22.9 m", ["22.9", "22.9m"]),
           triangleDiagram: {
@@ -434,7 +450,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         practicalChoice("y12s2-trv-m5", "A triangle has angles 50, 60 and 70 degrees. Right-angled trigonometry is:", "C", ["Appropriate because there are angles", "Always exact", "Not appropriate because there is no 90-degree angle", "The same as ratio sharing"], "There is no right angle."),
-        practicalChoice("y12s2-trv-m6", "A cosine-rule side question needs:", "D", ["A frequency table", "A matching side-angle pair only", "A speed and time", "Two sides and the included angle"], "Cosine rule fits two sides and included angle."),
+        trigAnswer("y12s2-trv-m6", "A cosine-rule side question needs what information?", "c^2=a^2+b^2-2ab\\cos C", "two sides and the included angle", "For a cosine-rule side calculation, the required setup is two known sides and the angle between them.", ["2 sides and the included angle", "two known sides and the included angle"]),
         {
           ...measurementAnswer("y12s2-trv-m7", "A drone triangle has 100 m opposite 30 degrees. Find the side opposite 45 degrees to 1 decimal place.", "a=100\\text{ m},\\quad A=30°,\\quad B=45°", "141.4 m", ["141.4", "141.4m"]),
           triangleDiagram: {
@@ -456,7 +472,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         practicalChoice("y12s2-trv-m8", "A side answer of -12 m in a triangle distance problem is:", "A", ["Unreasonable", "Always correct", "A bearing", "A ratio"], "Distances cannot be negative."),
-        practicalChoice("y12s2-trv-m9", "A triangle has all three sides known and an angle is required. Use:", "B", ["Sine rule only", "Cosine rule", "Flow rate", "Map scale"], "Cosine rule can find an angle from three sides."),
+        trigAnswer("y12s2-trv-m9", "A triangle has all three sides known and an angle is required. Which rule should be used?", "a, b, c \\text{ known}", "cosine rule", "When three sides are known, the cosine rule can be rearranged to find an angle.", ["the cosine rule"]),
         practicalChoice("y12s2-trv-m10", "Before choosing a trig rule, first identify:", "C", ["The student's name", "The calculator brand", "Known sides and angles", "The currency"], "Rule choice depends on the given sides and angles."),
       ],
     };
@@ -582,17 +598,13 @@ export function year12Standard2TrigRatesLessonOverride(
           ],
           "Angle of elevation = angle measured upward from horizontal to a line of sight to an object above you."
         ),
-        practicalChoice(
+        trigAnswer(
           "y12s2-eld-g2",
-          "From 30 m away, the angle of elevation to the top of a tree is 35°. Which equation finds the height h?",
-          "C",
-          [
-            "h = 30 ÷ sin(35°)",
-            "h = 30 × cos(35°)",
-            "h = 30 × tan(35°)",
-            "h = 30 ÷ tan(35°)",
-          ],
-          "tan(35°) = h/30, so h = 30 × tan(35°)."
+          "From 30 m away, the angle of elevation to the top of a tree is 35°. Write the equation that finds the height h.",
+          "\\tan(35^\\circ)=\\dfrac{h}{30}",
+          "h = 30 × tan(35°)",
+          "Use tan because the height is opposite the angle and the 30 m distance is adjacent. Rearranging tan(35°) = h/30 gives h = 30 × tan(35°).",
+          ["h=30*tan(35)", "h=30tan35", "30 × tan(35°)"]
         ),
         practicalChoice(
           "y12s2-eld-g3",
@@ -610,12 +622,12 @@ export function year12Standard2TrigRatesLessonOverride(
         ),
       ],
       independentPractice: [
-        practicalChoice(
+        measurementAnswer(
           "y12s2-eld-i1",
-          "From 45 m away, the angle of elevation to a tower top is 40°. Height ≈ ?",
-          "B",
-          ["28.9 m", "37.8 m", "52.2 m", "69.6 m"],
-          "h = 45 × tan(40°) ≈ 45 × 0.8391 ≈ 37.8 m."
+          "From 45 m away, the angle of elevation to a tower top is 40°. Find the height to 1 decimal place.",
+          "h = 45 \\times \\tan(40^\\circ)",
+          "37.8 m",
+          ["37.8", "37.8m"]
         ),
         measurementAnswer(
           "y12s2-eld-i2",
@@ -624,12 +636,12 @@ export function year12Standard2TrigRatesLessonOverride(
           "198.0 m",
           ["198.0", "198", "198.0 m"]
         ),
-        practicalChoice(
+        measurementAnswer(
           "y12s2-eld-i3",
-          "The angle of depression from a 40 m tower to a point 55 m away (horizontal) is approximately:",
-          "B",
-          ["55.0°", "36.0°", "49.1°", "26.9°"],
-          "arctan(40/55) ≈ arctan(0.7273) ≈ 36.0°."
+          "The angle of depression from a 40 m tower to a point 55 m away horizontally is approximately what angle?",
+          "\\theta = \\tan^{-1}\\left(\\dfrac{40}{55}\\right)",
+          "36.0°",
+          ["36.0", "36°"]
         ),
         measurementAnswer(
           "y12s2-eld-i4",
@@ -670,12 +682,12 @@ export function year12Standard2TrigRatesLessonOverride(
         },
       ],
       masteryQuiz: [
-        practicalChoice(
+        measurementAnswer(
           "y12s2-eld-m1",
-          "From 30 m away, elevation 45° to a tree top. Height = ?",
-          "C",
-          ["15.0 m", "21.2 m", "30.0 m", "42.4 m"],
-          "tan(45°) = 1, so h = 30 × 1 = 30 m."
+          "From 30 m away, the angle of elevation to a tree top is 45°. Find the height.",
+          "h = 30 \\times \\tan(45^\\circ)",
+          "30.0 m",
+          ["30", "30.0", "30 m"]
         ),
         measurementAnswer(
           "y12s2-eld-m2",
@@ -698,12 +710,12 @@ export function year12Standard2TrigRatesLessonOverride(
           "188.07 m",
           ["188.07", "188.07 m"]
         ),
-        practicalChoice(
+        measurementAnswer(
           "y12s2-eld-m5",
-          "From the top of a 45 m cliff, angle of depression to a car is 20°. Horizontal distance ≈ ?",
-          "C",
-          ["16.4 m", "41.0 m", "123.6 m", "131.9 m"],
-          "d = 45/tan(20°) ≈ 45/0.3640 ≈ 123.6 m."
+          "From the top of a 45 m cliff, the angle of depression to a car is 20°. Find the horizontal distance to 1 decimal place.",
+          "d = \\dfrac{45}{\\tan(20^\\circ)}",
+          "123.6 m",
+          ["123.6", "123.6m"]
         ),
         measurementAnswer(
           "y12s2-eld-m6",
@@ -726,19 +738,20 @@ export function year12Standard2TrigRatesLessonOverride(
           "136.03 m",
           ["136.03", "136.03 m"]
         ),
-        practicalChoice(
+        measurementAnswer(
           "y12s2-eld-m9",
-          "From 25 m away, elevation 55° to a flagpole. Height ≈ ?",
-          "C",
-          ["14.3 m", "17.7 m", "35.7 m", "43.3 m"],
-          "h = 25 × tan(55°) ≈ 25 × 1.4281 ≈ 35.7 m."
+          "From 25 m away, the angle of elevation to a flagpole is 55°. Find the height to 1 decimal place.",
+          "h = 25 \\times \\tan(55^\\circ)",
+          "35.7 m",
+          ["35.7", "35.7m"]
         ),
-        practicalChoice(
+        trigAnswer(
           "y12s2-eld-m10",
-          "If someone observes an object at 35° angle of depression, the angle of elevation from the object back to the observer is:",
-          "B",
-          ["55°", "35°", "90°", "145°"],
-          "Angles of elevation and depression between two points are always equal (alternate angles with parallel horizontals)."
+          "If someone observes an object at a 35° angle of depression, what is the angle of elevation from the object back to the observer?",
+          "\\text{depression} = \\text{elevation}",
+          "35°",
+          "The two horizontal lines are parallel, so the angle of depression and the matching angle of elevation are equal alternate angles.",
+          ["35", "35 degrees"]
         ),
       ],
     };
@@ -1015,7 +1028,7 @@ export function year12Standard2TrigRatesLessonOverride(
             },
           },
         },
-        practicalChoice("y12s2-sca-i4", "Which information is needed for A = 1/2 ab sin C?", "A", ["Two sides and the included angle", "Only one side", "Speed and time", "A ratio and total only"], "The area formula uses two sides and their included angle."),
+        trigAnswer("y12s2-sca-i4", "What information is needed for A = 1/2 ab sin C?", "A=\\frac{1}{2}ab\\sin C", "two sides and the included angle", "The triangle area formula uses two known sides together with the angle between them.", ["2 sides and the included angle", "the included angle and two sides"]),
         practicalChoice("y12s2-sca-i5", "A student rounds every trig value to 1 decimal place before finishing. What is the risk?", "D", ["No risk", "The triangle disappears", "It proves causation", "The final answer may be less accurate"], "Rounding too early can affect the final answer."),
       ],
       commonMistakes: [
@@ -1090,7 +1103,7 @@ export function year12Standard2TrigRatesLessonOverride(
         },
         measurementAnswer("y12s2-sca-m8", "A triangular sign has sides 1.2 m and 1.5 m with included angle 45 degrees. Find its area to 2 decimal places.", "a=1.2\\text{ m},\\quad b=1.5\\text{ m},\\quad C=45°", "0.64 m^2", ["0.64", "0.64m^2", "0.64 m2"]),
         practicalChoice("y12s2-sca-m9", "If a side is found using c^2 = 144, the side length is:", "B", ["144", "12", "72", "-144"], "Take the square root of c squared."),
-        practicalChoice("y12s2-sca-m10", "An area answer for a triangular field should use:", "D", ["metres only", "kilometres per hour", "degrees", "square metres"], "Area is measured in square units."),
+        trigAnswer("y12s2-sca-m10", "An area answer for a triangular field should use which units?", "\\text{area units}", "square metres", "Area measures surface, so its units are squared. For a field measured in metres, the correct area unit is square metres.", ["m^2", "m²", "square m"]),
       ],
     };
   }
@@ -1207,12 +1220,12 @@ export function year12Standard2TrigRatesLessonOverride(
         ),
       ],
       independentPractice: [
-        practicalChoice(
+        measurementAnswer(
           "y12s2-rrv-i1",
           "A recipe uses flour and sugar in the ratio 4:1. If 500 g is made, how much flour is used?",
-          "C",
-          ["125 g", "250 g", "400 g", "100 g"],
-          "One part = 500 ÷ 5 = 100 g. Flour = 4 × 100 = 400 g."
+          "\\text{one part} = 500 \\div 5 = 100",
+          "400 g",
+          ["400", "400g"]
         ),
         measurementAnswer(
           "y12s2-rrv-i2",
@@ -1325,12 +1338,12 @@ export function year12Standard2TrigRatesLessonOverride(
           "8.5 L",
           ["8.5"]
         ),
-        practicalChoice(
+        measurementAnswer(
           "y12s2-rrv-m10",
-          "6 apples cost $4.20. The rate (cost per apple) is:",
-          "B",
-          ["$0.60", "$0.70", "$0.42", "$1.43"],
-          "$4.20 ÷ 6 = $0.70 per apple."
+          "6 apples cost $4.20. Find the rate in dollars per apple.",
+          "4.20 \\div 6",
+          "$0.70",
+          ["0.70", "$0.7", "0.7 dollars per apple"]
         ),
       ],
     };
@@ -1419,7 +1432,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer("y12s2-rate-i2", "A bus travels 90 km in 1 h 30 min. Find its average speed in km/h.", "\\text{Given: }d=90\\text{ km},\\quad t=1\\text{ h }30\\text{ min}", "60 km/h", ["60", "60km/h", "60 kmh"]),
         measurementAnswer("y12s2-rate-i3", "A car uses 36 L of fuel for 480 km. Find the fuel consumption in L/100 km.", "\\text{Given: }36\\text{ L over }480\\text{ km}", "7.5 L/100 km", ["7.5", "7.50", "7.5L/100km"]),
         measurementAnswer("y12s2-rate-i4", "A tap fills 2.4 kL in 40 min. Convert 2.4 kL to litres.", "1\\text{ kL}=1000\\text{ L}", "2400 L", ["2400", "2,400", "2400L", "2400 litres"]),
-        practicalChoice("y12s2-rate-i5", "Which is a rate rather than a ratio?", "C", ["3:5 cordial to water", "2 red tiles to 7 blue tiles", "72 km/h", "4 parts paint to 1 part thinner"], "km/h compares distance with time."),
+        trigAnswer("y12s2-rate-i5", "Which of these is a rate rather than a ratio?", "\\text{rate} = \\dfrac{\\text{different units}}{\\text{different units}}", "72 km/h", "A rate compares different kinds of units. Kilometres per hour compares distance with time, so it is a rate.", ["km/h", "72 kilometres per hour"]),
       ],
       commonMistakes: [
         { mistake: "Not converting minutes to hours before finding km/h.", fix: "Convert time to hours when the answer is in kilometres per hour." },
@@ -1534,12 +1547,12 @@ export function year12Standard2TrigRatesLessonOverride(
           ["0.25 kW", "25 kW", "2.5 kW", "250 kW"],
           "Divide by 1000: 2500 ÷ 1000 = 2.5 kW."
         ),
-        practicalChoice(
+        measurementAnswer(
           "y12s2-eco-g2",
           "A 3 kW air conditioner runs for 4 hours. How many kWh of energy does it use?",
-          "C",
-          ["3 kWh", "7 kWh", "12 kWh", "43.2 kWh"],
-          "Energy = 3 kW × 4 h = 12 kWh."
+          "E = 3 \\times 4",
+          "12 kWh",
+          ["12", "12kWh"]
         ),
         practicalChoice(
           "y12s2-eco-g3",
@@ -1548,21 +1561,21 @@ export function year12Standard2TrigRatesLessonOverride(
           ["$0.30", "$1.50", "$5.30", "$15.00"],
           "Cost = 5 × $0.30 = $1.50."
         ),
-        practicalChoice(
+        measurementAnswer(
           "y12s2-eco-g4",
           "A 1500 W heater runs for 2 hours. How many kWh does it use?",
-          "B",
-          ["1.5 kWh", "3 kWh", "30 kWh", "1500 kWh"],
-          "1500 W = 1.5 kW. Energy = 1.5 × 2 = 3 kWh."
+          "1500\\text{ W}=1.5\\text{ kW};\\quad E = 1.5 \\times 2",
+          "3 kWh",
+          ["3", "3kWh"]
         ),
       ],
       independentPractice: [
-        practicalChoice(
+        measurementAnswer(
           "y12s2-eco-i1",
           "Convert 750 W to kilowatts.",
-          "A",
-          ["0.75 kW", "7.5 kW", "75 kW", "750 kW"],
-          "750 ÷ 1000 = 0.75 kW."
+          "750 \\div 1000",
+          "0.75 kW",
+          ["0.75", "0.75kW"]
         ),
         measurementAnswer(
           "y12s2-eco-i2",
@@ -1571,12 +1584,12 @@ export function year12Standard2TrigRatesLessonOverride(
           "2.7 kWh",
           ["2.7", "2.7 kWh"]
         ),
-        practicalChoice(
+        measurementAnswer(
           "y12s2-eco-i3",
           "An appliance uses 10 kWh. Electricity costs $0.28/kWh. Find the cost.",
-          "C",
-          ["$0.28", "$1.28", "$2.80", "$28.00"],
-          "Cost = 10 × $0.28 = $2.80."
+          "10 \\times 0.28",
+          "$2.80",
+          ["2.80", "$2.8", "2.8 dollars"]
         ),
         measurementAnswer(
           "y12s2-eco-i4",
@@ -1612,12 +1625,12 @@ export function year12Standard2TrigRatesLessonOverride(
         },
       ],
       masteryQuiz: [
-        practicalChoice(
+        measurementAnswer(
           "y12s2-eco-m1",
-          "3000 W is equal to:",
-          "B",
-          ["0.3 kW", "3 kW", "30 kW", "300 kW"],
-          "3000 ÷ 1000 = 3 kW."
+          "Convert 3000 W to kilowatts.",
+          "3000 \\div 1000",
+          "3 kW",
+          ["3", "3kW"]
         ),
         measurementAnswer(
           "y12s2-eco-m2",
@@ -1626,12 +1639,12 @@ export function year12Standard2TrigRatesLessonOverride(
           "10 kWh",
           ["10", "10 kWh"]
         ),
-        practicalChoice(
+        measurementAnswer(
           "y12s2-eco-m3",
-          "An appliance uses 8 kWh. The tariff is $0.25/kWh. Cost = ?",
-          "C",
-          ["$0.25", "$0.80", "$2.00", "$8.25"],
-          "Cost = 8 × $0.25 = $2.00."
+          "An appliance uses 8 kWh. The tariff is $0.25/kWh. Find the cost.",
+          "8 \\times 0.25",
+          "$2.00",
+          ["2.00", "$2", "2 dollars"]
         ),
         measurementAnswer(
           "y12s2-eco-m4",
@@ -1830,12 +1843,12 @@ export function year12Standard2TrigRatesLessonOverride(
           "54 m²",
           ["54", "54 m²", "54 m2"]
         ),
-        practicalChoice(
+        measurementAnswer(
           "y12s2-sdp-i4",
           "A house wall is 8.4 m long. On a 1:100 plan, how many centimetres does this appear as?",
-          "B",
-          ["0.84 cm", "8.4 cm", "84 cm", "840 cm"],
-          "Plan length = 840 cm ÷ 100 = 8.4 cm."
+          "840\\text{ cm} \\div 100",
+          "8.4 cm",
+          ["8.4", "8.4cm"]
         ),
         measurementAnswer(
           "y12s2-sdp-i5",
@@ -1864,12 +1877,12 @@ export function year12Standard2TrigRatesLessonOverride(
         },
       ],
       masteryQuiz: [
-        practicalChoice(
+        measurementAnswer(
           "y12s2-sdp-m1",
           "A scale of 1:200 means 1 cm on the plan equals how many metres in reality?",
-          "B",
-          ["0.2 m", "2 m", "20 m", "200 m"],
-          "1 cm × 200 = 200 cm = 2 m."
+          "1\\text{ cm} \\times 200 = 200\\text{ cm}",
+          "2 m",
+          ["2", "2m"]
         ),
         measurementAnswer(
           "y12s2-sdp-m2",
@@ -1878,12 +1891,12 @@ export function year12Standard2TrigRatesLessonOverride(
           "13 m",
           ["13", "13 m", "13.0 m"]
         ),
-        practicalChoice(
+        measurementAnswer(
           "y12s2-sdp-m3",
           "A room is 6 m × 4.5 m. On a 1:50 plan, what are the plan dimensions?",
-          "C",
-          ["6 cm × 4.5 cm", "3 cm × 2.25 cm", "12 cm × 9 cm", "60 cm × 45 cm"],
-          "600 ÷ 50 = 12 cm and 450 ÷ 50 = 9 cm."
+          "600\\text{ cm} \\div 50,\\quad 450\\text{ cm} \\div 50",
+          "12 cm × 9 cm",
+          ["12cm x 9cm", "12 cm by 9 cm", "12 x 9 cm"]
         ),
         measurementAnswer(
           "y12s2-sdp-m4",
@@ -1927,12 +1940,12 @@ export function year12Standard2TrigRatesLessonOverride(
           ["9.7 m", "19.4 m", "23.1 m²", "55 m"],
           "Actual: 5.5 m × 4.2 m. Perimeter = 2(5.5+4.2) = 2 × 9.7 = 19.4 m."
         ),
-        practicalChoice(
+        measurementAnswer(
           "y12s2-sdp-m10",
-          "A backyard on a 1:100 plan is 12 cm long. A fence runs along the entire length on one side. Actual fence length?",
-          "C",
-          ["1.2 m", "120 cm", "12 m", "120 m"],
-          "12 cm × 100 = 1200 cm = 12 m."
+          "A backyard on a 1:100 plan is 12 cm long. A fence runs along the entire length on one side. Find the actual fence length.",
+          "12\\text{ cm} \\times 100 = 1200\\text{ cm}",
+          "12 m",
+          ["12", "12m"]
         ),
       ],
     };

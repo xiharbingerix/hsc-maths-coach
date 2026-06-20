@@ -44,6 +44,7 @@ import {
   year12Standard1ScaleDrawingsAndPlansLessonOverride,
   year12Standard1StatisticsExamPracticeLessonOverride,
   year12Standard1TrigRatesExamPracticeLessonOverride,
+  normalizeYear12Standard1Lesson,
 } from "./lessons/year12Standard1";
 import {
   year12Standard2AlgebraicRelationshipsLessonOverride,
@@ -52,6 +53,7 @@ import {
   year12Standard2NetworksLessonOverride,
   year12Standard2StatisticsLessonOverride,
   year12Standard2TrigRatesLessonOverride,
+  applyYear12Standard2EditorialRemediation,
 } from "./lessons/year12Standard2";
 import { enrichYear12Standard2Depth } from "./lessons/year12Standard2/feynmanEnhancements";
 import {
@@ -463,8 +465,12 @@ export function buildLesson(
   const enriched =
     course.slug === "year-11-advanced"
       ? enrichYear11AdvancedFeynmanDepth(built)
+      : course.slug === "year-12-standard-1"
+        ? normalizeYear12Standard1Lesson(built)
       : course.slug === "year-12-standard-2"
-        ? enrichYear12Standard2Depth(built)
+        ? applyYear12Standard2EditorialRemediation(
+            normalizeYear12Standard1Lesson(enrichYear12Standard2Depth(built))
+          )
       : course.slug === "year-12-extension-2"
         ? enrichYear12Extension2Depth(built)
       : built;

@@ -7,6 +7,21 @@ import {
 } from "../questionHelpers";
 
 function financeFeedback(prompt: string, latex: string, answer: string) {
+  if (prompt.includes("monthly interest") || prompt.includes("interest charge")) {
+    return `Monthly credit-card interest = balance × annual rate ÷ 12. Substitute the balance and annual rate, then round to cents if needed to get ${answer}.`;
+  }
+  if (prompt.includes("BNPL") && (prompt.includes("split") || prompt.includes("instalments") || prompt.includes("instalment"))) {
+    return `For BNPL instalments, divide the purchase price by the number of equal payments. This gives ${answer}.`;
+  }
+  if (prompt.includes("new card balance") || prompt.includes("New balance")) {
+    return `New balance = starting balance + monthly interest − repayment. Apply those steps in order to get ${answer}.`;
+  }
+  if (prompt.includes("late fee") && prompt.includes("total cost")) {
+    return `Total cost = purchase price + all late fees. Add the missed-payment fees to the original purchase price to get ${answer}.`;
+  }
+  if (prompt.includes("total cost") && prompt.includes("interest per month")) {
+    return `Total cost = purchase price + monthly interest × number of months. Multiply the interest by the months, then add it to the purchase price to get ${answer}.`;
+  }
   if (prompt.includes("FV factor") || prompt.includes("future value") && prompt.includes("factor")) {
     return `FV = M × FV factor. Multiply the regular payment by the factor from the table to get ${answer}.`;
   }
@@ -1311,24 +1326,19 @@ export function year12Standard2FinanceLessonOverride(
           ],
           "FV = M × FV factor. The factor pre-calculates the compound-growth bracket of the formula."
         ),
-        financeChoice(
+        moneyAnswer(
           "y12s2-ift-g3",
-          "PV factor for 0.5%/month, 12 months is 11.619. Monthly repayment on an $8000 loan?",
-          "A",
-          ["$688.52", "$1161.90", "$666.67", "$92,952"],
-          "M = PV ÷ PV factor = 8000 ÷ 11.619 ≈ $688.52."
+          "PV factor for 0.5%/month, 12 months is 11.619. Find the monthly repayment on an $8000 loan.",
+          "M = 8000 \\div 11.619",
+          "688.52",
+          ["$688.52", "688.5", "$688.5"]
         ),
-        financeChoice(
+        moneyAnswer(
           "y12s2-ift-g4",
-          "To find the monthly contribution needed to reach a target FV using a table, you:",
-          "B",
-          [
-            "Multiply FV by FV factor",
-            "Divide FV by FV factor",
-            "Add FV to FV factor",
-            "Subtract n from FV factor",
-          ],
-          "M = target FV ÷ FV factor. This reverses the FV = M × factor relationship."
+          "Find the monthly contribution needed to reach $5000 when the FV factor is 25.432.",
+          "M = 5000 \\div 25.432",
+          "196.60",
+          ["$196.60", "196.6", "$196.6"]
         ),
       ],
       independentPractice: [
@@ -1353,12 +1363,12 @@ export function year12Standard2FinanceLessonOverride(
           "788.48",
           ["$788.48", "788.5", "$788.5"]
         ),
-        financeChoice(
+        moneyAnswer(
           "y12s2-ift-i4",
-          "PV factor for 0.5%/month, 24 months is 22.563. Monthly repayments on a $12,000 loan?",
-          "C",
-          ["$270,756", "$500.00", "$531.83", "$1128.15"],
-          "M = 12000 ÷ 22.563 ≈ $531.83."
+          "PV factor for 0.5%/month, 24 months is 22.563. Find the monthly repayment on a $12,000 loan.",
+          "M = 12000 \\div 22.563",
+          "531.83",
+          ["$531.83", "531.8", "$531.8"]
         ),
         financeChoice(
           "y12s2-ift-i5",
@@ -1401,12 +1411,12 @@ export function year12Standard2FinanceLessonOverride(
           "486.38",
           ["$486.38", "486.4", "$486.4"]
         ),
-        financeChoice(
+        moneyAnswer(
           "y12s2-ift-m3",
-          "Monthly deposit to reach $15,000 in 24 months at 0.5%/month. FV factor = 25.432. M = ?",
-          "C",
-          ["$625.00", "$381,480", "$589.81", "$625.81"],
-          "M = 15000 ÷ 25.432 ≈ $589.81."
+          "Monthly deposit to reach $15,000 in 24 months at 0.5%/month. FV factor = 25.432. Find M.",
+          "M = 15000 \\div 25.432",
+          "589.81",
+          ["$589.81", "589.8", "$589.8"]
         ),
         moneyAnswer(
           "y12s2-ift-m4",
@@ -1415,12 +1425,12 @@ export function year12Standard2FinanceLessonOverride(
           "516.40",
           ["$516.40", "516.4", "$516.4"]
         ),
-        financeChoice(
+        moneyAnswer(
           "y12s2-ift-m5",
-          "$15,000 loan at 1%/month over 12 months. PV factor = 11.255. Monthly repayment?",
-          "C",
-          ["$1250.00", "$1125.50", "$1332.74", "$168,825"],
-          "M = 15000 ÷ 11.255 ≈ $1332.74."
+          "$15,000 loan at 1%/month over 12 months. PV factor = 11.255. Find the monthly repayment.",
+          "M = 15000 \\div 11.255",
+          "1332.74",
+          ["$1332.74", "1332.7", "$1332.7"]
         ),
         financeChoice(
           "y12s2-ift-m6",
@@ -1436,12 +1446,12 @@ export function year12Standard2FinanceLessonOverride(
           "741.48",
           ["$741.48", "741.5", "$741.5"]
         ),
-        financeChoice(
+        moneyAnswer(
           "y12s2-ift-m8",
-          "Monthly withdrawals of $500 for 24 months at 0.5%/month. PV factor = 22.563. Lump sum needed today?",
-          "B",
-          ["$12,000.00", "$11,281.50", "$10,000.00", "$22,563.00"],
-          "PV = 500 × 22.563 = $11,281.50."
+          "Monthly withdrawals of $500 for 24 months at 0.5%/month. PV factor = 22.563. Find the lump sum needed today.",
+          "PV = 500 \\times 22.563",
+          "11281.50",
+          ["$11,281.50", "$11281.50", "11281.5"]
         ),
         financeChoice(
           "y12s2-ift-m9",
@@ -1539,12 +1549,12 @@ export function year12Standard2FinanceLessonOverride(
         },
       ],
       guidedPractice: [
-        financeChoice(
+        moneyAnswer(
           "y12s2-rap-g1",
-          "Maya contributes $500/month for 24 months at 0.5%/month. FV factor = 25.432. Lump sum = ?",
-          "B",
-          ["$12 716.00", "$12 716.00", "$500", "$25 432"],
-          "FV = 500 × 25.432 = $12 716.00."
+          "Maya contributes $500/month for 24 months at 0.5%/month. FV factor = 25.432. Find the lump sum.",
+          "\\text{FV}=500\\times25.432",
+          "12716.00",
+          ["$12 716.00", "$12716.00", "12716", "$12,716.00"]
         ),
         financeChoice(
           "y12s2-rap-g2",
@@ -1581,12 +1591,12 @@ export function year12Standard2FinanceLessonOverride(
           "3804.90",
           ["$3 804.90", "3804.9", "$3804.90"]
         ),
-        financeChoice(
+        moneyAnswer(
           "y12s2-rap-i2",
-          "A retirement target is $50 000 in 24 months at 0.5%/month. FV factor = 25.432. Monthly contribution needed ≈ ?",
-          "C",
-          ["$500.00", "$1 271.60", "$1 966.85", "$2 089.30"],
-          "M = 50 000 ÷ 25.432 ≈ $1 966.85."
+          "A retirement target is $50 000 in 24 months at 0.5%/month. FV factor = 25.432. Find the monthly contribution needed.",
+          "M = 50000 \\div 25.432",
+          "1966.85",
+          ["$1 966.85", "$1966.85", "1966.9", "$1,966.85"]
         ),
         moneyAnswer(
           "y12s2-rap-i3",
@@ -1607,12 +1617,12 @@ export function year12Standard2FinanceLessonOverride(
           ],
           "PV = M × PV factor, so M = PV ÷ PV factor gives the periodic income."
         ),
-        financeChoice(
+        financeShortAnswer(
           "y12s2-rap-i5",
-          "Two workers each retire with $250 000. Worker A draws income for 12 months (PV factor 11.255 at 1%/month); Worker B for 24 months (PV factor 21.243 at 1%/month). Who gets the larger monthly income?",
-          "A",
-          ["Worker A ($22 214/month)", "Worker B ($11 769/month)", "They receive equal monthly income", "Cannot tell without knowing the interest rate"],
-          "A: 250 000 ÷ 11.255 ≈ $22 214. B: 250 000 ÷ 21.243 ≈ $11 768. A has fewer months so gets more per month."
+          "Two workers each retire with $250 000. Worker A draws income for 12 months (PV factor 11.255 at 1%/month); Worker B for 24 months (PV factor 21.243 at 1%/month). Which worker gets the larger monthly income?",
+          "250000\\div11.255\\text{ vs }250000\\div21.243",
+          "Worker A",
+          ["A", "worker a", "Worker A ($22 214/month)"]
         ),
       ],
       commonMistakes: [
@@ -1641,12 +1651,12 @@ export function year12Standard2FinanceLessonOverride(
           "5073.20",
           ["$5 073.20", "5073.20", "$5073.20"]
         ),
-        financeChoice(
+        moneyAnswer(
           "y12s2-rap-m2",
-          "A target retirement balance of $30 000 is needed in 12 months at 1%/month. FV factor = 12.683. Monthly contribution ≈ ?",
-          "C",
-          ["$1 268.30", "$1 804.40", "$2 365.80", "$30 000"],
-          "M = 30 000 ÷ 12.683 ≈ $2 365.80."
+          "A target retirement balance of $30 000 is needed in 12 months at 1%/month. FV factor = 12.683. Find the monthly contribution.",
+          "M = 30000 \\div 12.683",
+          "2365.80",
+          ["$2 365.80", "$2365.80", "2365.8", "$2,365.80"]
         ),
         moneyAnswer(
           "y12s2-rap-m3",
@@ -1693,12 +1703,12 @@ export function year12Standard2FinanceLessonOverride(
           "15259.20",
           ["$15 259.20", "15259.20", "$15259.20"]
         ),
-        financeChoice(
+        moneyAnswer(
           "y12s2-rap-m8",
-          "A retiree needs $3000/month income. PV factor (0.5%/month, 12 months) = 11.619. Required lump sum ≈ ?",
-          "C",
-          ["$3 000", "$11 619", "$34 857", "$120 000"],
-          "PV = M × PV factor = 3000 × 11.619 = $34 857."
+          "A retiree needs $3000/month income. PV factor (0.5%/month, 12 months) = 11.619. Find the required lump sum.",
+          "\\text{PV}=3000\\times11.619",
+          "34857",
+          ["$34 857", "$34857", "34857.00", "$34,857"]
         ),
         financeChoice(
           "y12s2-rap-m9",
@@ -1707,12 +1717,12 @@ export function year12Standard2FinanceLessonOverride(
           ["Person X", "Person Y", "They accumulate the same", "Cannot tell"],
           "Y: 800 × 12.683 = $10 146.40 vs X: 500 × 12.683 = $6 341.50. Y accumulates more."
         ),
-        financeChoice(
+        moneyAnswer(
           "y12s2-rap-m10",
-          "A retired teacher has $400 000. They draw income monthly for 24 months at 0.5%/month. PV factor = 22.563. Monthly income ≈ ?",
-          "C",
-          ["$8 000", "$15 000", "$17 727", "$22 563"],
-          "M = 400 000 ÷ 22.563 ≈ $17 727."
+          "A retired teacher has $400 000. They draw income monthly for 24 months at 0.5%/month. PV factor = 22.563. Find the monthly income.",
+          "M = 400000 \\div 22.563",
+          "17728.58",
+          ["$17 728.58", "$17728.58", "17728.6", "$17,728.58"]
         ),
       ],
     };
@@ -1789,7 +1799,7 @@ export function year12Standard2FinanceLessonOverride(
         financeChoice("y12s2-inv-g4", "Inflation of 4% and a savings rate of 2% gives a real return of:", "C", ["6%", "2%", "−2%", "4%"], "Real return ≈ 2% − 4% = −2%. The savings lose purchasing power."),
       ],
       independentPractice: [
-        moneyAnswer("y12s2-inv-i1", "Find the balance when 6000 dollars is invested at 4.5% p.a. compounded annually for 3 years.", "A=6000(1.045)^3", "6843.79", ["6843.8", "$6843.79"]),
+        moneyAnswer("y12s2-inv-i1", "Find the balance when 6000 dollars is invested at 4.5% p.a. compounded annually for 3 years.", "A=6000(1.045)^3", "6847.00", ["6847", "6847.0", "$6847.00"]),
         moneyAnswer("y12s2-inv-i2", "A competing option pays 5% for 3 years but charges a 150 dollar fee. Find the net balance from 6000 dollars.", "A=6000(1.05)^3-150", "6795.75", ["6795.8", "$6795.75"]),
         financeChoice("y12s2-inv-i3", "Which option from i1 and i2 is better?", "A", ["4.5% with no fee (higher net balance)", "5% minus fee (higher rate wins)", "They are equal", "Always choose the higher rate"], "4.5% with no fee gives a higher net balance here."),
         financeChoice("y12s2-inv-i4", "If inflation rises from 2% to 4% and your savings rate stays at 3%, your real return:", "C", ["Increases to 7%", "Stays at 3%", "Falls and becomes negative at −1%", "Falls to 1%"], "Real return = 3% − 4% = −1%."),
@@ -1803,8 +1813,8 @@ export function year12Standard2FinanceLessonOverride(
       ],
       masteryQuiz: [
         moneyAnswer("y12s2-inv-m1", "Find A for 8000 dollars at 3% p.a. compounded annually for 2 years.", "A=8000(1.03)^2", "8487.20", ["8487.2", "$8487.20"]),
-        moneyAnswer("y12s2-inv-m2", "Option B gives 8000 dollars at 4% for 2 years with a 110 dollar fee. Find the net balance.", "A=8000(1.04)^2-110", "8539.52", ["8539.5", "$8539.52"]),
-        financeChoice("y12s2-inv-m3", "Comparing Option A ($8487.20) and Option B ($8539.52), which is better?", "B", ["Option A", "Option B", "Equal", "Need more information"], "Option B's net balance is higher."),
+        moneyAnswer("y12s2-inv-m2", "Option B gives 8000 dollars at 4% for 2 years with a 110 dollar fee. Find the net balance.", "A=8000(1.04)^2-110", "8542.80", ["8542.8", "$8542.80"]),
+        financeChoice("y12s2-inv-m3", "Comparing Option A ($8487.20) and Option B ($8542.80), which is better?", "B", ["Option A", "Option B", "Equal", "Need more information"], "Option B's net balance is higher."),
         financeChoice("y12s2-inv-m4", "A real return of −1% means:", "C", ["You earn 1% more than inflation", "You earn exactly 1%", "Your purchasing power decreases by approximately 1%", "You lose 1% in dollar terms"], "Negative real return means less purchasing power, not less actual dollars."),
         moneyAnswer("y12s2-inv-m5", "Net return for a 5000 dollar investment growing to 5400 dollars with a 50 dollar fee.", "\\text{Net return}=5400-5000-50", "350", ["$350"]),
         financeChoice("y12s2-inv-m6", "Two accounts both have no fees. Account A earns 4% compounded annually; Account B earns 4% compounded monthly. Which is better?", "B", ["Account A", "Account B", "They are identical", "Cannot compare"], "Monthly compounding gives a slightly higher effective annual rate."),
@@ -1903,13 +1913,13 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer("y12s2-credit-m1", "Find monthly interest on a 900 dollar balance at 18% p.a.", "I=900\\times(0.18/12)", "13.50", ["$13.50", "13.5"]),
         financeChoice("y12s2-credit-m2", "Monthly interest rate for a card at 24% p.a. is:", "A", ["2%", "24%", "12%", "0.24%"], "Monthly rate = 24/12 = 2%."),
         moneyAnswer("y12s2-credit-m3", "A 500 dollar BNPL purchase is split into 4 fortnightly payments. Find each payment.", "500/4", "125", ["$125"]),
-        financeChoice("y12s2-credit-m4", "A credit card balance of 2000 dollars has a 20% annual rate. The monthly interest is:", "B", ["$400", "$33.33", "$20", "$200"], "Monthly interest = 2000 × (0.20/12) = 33.33."),
+        moneyAnswer("y12s2-credit-m4", "A credit card balance of 2000 dollars has a 20% annual rate. Find the monthly interest.", "I=2000\\times(0.20/12)", "33.33", ["$33.33"]),
         moneyAnswer("y12s2-credit-m5", "New balance after starting at 2000 dollars, adding monthly interest (rate 20% p.a.), and paying 150 dollars.", "\\text{balance}=2000+33.33-150", "1883.33", ["$1883.33", "1883.3"]),
-        financeChoice("y12s2-credit-m6", "The total cost of a 600 dollar purchase repaid monthly over 3 months with $5 interest per month is:", "C", ["$600", "$615", "$615", "$645"], "Total = 600 + 3 × 5 = 615. (Answer C is $615.)"),
+        moneyAnswer("y12s2-credit-m6", "Find the total cost of a 600 dollar purchase repaid monthly over 3 months with $5 interest per month.", "600+3\\times5", "615", ["$615"]),
         financeChoice("y12s2-credit-m7", "An interest-free period of 55 days means:", "A", ["No interest if full balance paid within 55 days", "No interest ever", "55% annual rate", "Interest starts after 55 months"], "Pay in full within 55 days to avoid interest."),
         moneyAnswer("y12s2-credit-m8", "A 240 dollar purchase on BNPL: 4 instalments of 60 dollars. What is the total paid?", "4\\times60", "240", ["$240"]),
         financeChoice("y12s2-credit-m9", "Comparing credit card and BNPL for the same purchase, the key advantage of BNPL (when paid on time) is:", "B", ["Higher interest", "No interest charged", "Longer interest-free period", "Lower purchase price"], "BNPL typically charges no interest if payments are made on time."),
-        financeChoice("y12s2-credit-m10", "If you save 200 dollars per month for 4 months earning 3% p.a., you avoid credit card interest of 18% p.a. Saving first is better because:", "A", ["You earn interest instead of paying it", "You delay the purchase indefinitely", "You pay less each month", "Credit cards always charge more than 18%"], "Saving earns interest; credit cards charge it. Saving first is financially better."),
+        moneyAnswer("y12s2-credit-m10", "If saving first avoids one month of credit-card interest on an 800 dollar purchase at 18% p.a., find the interest avoided.", "I=800\\times(0.18/12)", "12", ["$12", "12.00"]),
       ],
     };
   }
@@ -2320,17 +2330,12 @@ export function year12Standard2FinanceLessonOverride(
         ),
       ],
       independentPractice: [
-        financeChoice(
+        financeShortAnswer(
           "y12s2-pv-i1",
-          "In the formula M = P × r / (1 − (1+r)^(−n)), what does r represent?",
-          "C",
-          [
-            "The annual interest rate",
-            "The total number of repayments",
-            "The interest rate per compounding period",
-            "The monthly repayment amount",
-          ],
-          "r is the rate per period. For 6% p.a. monthly, r = 0.06 ÷ 12 = 0.005."
+          "For a 6% p.a. loan compounded monthly, find the periodic rate r used in the loan repayment formula.",
+          "r=0.06\\div12",
+          "0.005",
+          ["0.5%"]
         ),
         moneyAnswer(
           "y12s2-pv-i2",
@@ -2346,17 +2351,12 @@ export function year12Standard2FinanceLessonOverride(
           "1427.88",
           ["$1427.88", "1427.88", "1427.9", "$1,427.88"]
         ),
-        financeChoice(
+        moneyAnswer(
           "y12s2-pv-i4",
-          "A $10,000 loan at 6% p.a. monthly over 24 months has repayments of $443.21. What is the total amount repaid?",
-          "C",
-          [
-            "$443.21",
-            "$10,000",
-            "$10,637.04",
-            "$10,000 × 24",
-          ],
-          "Total amount repaid = $443.21 × 24 = $10,637.04."
+          "A $10,000 loan at 6% p.a. monthly over 24 months has repayments of $443.21. Find the total amount repaid.",
+          "\\text{Total amount repaid}=443.21\\times24",
+          "10637.04",
+          ["$10,637.04", "10637.0", "$10637.04"]
         ),
         financeChoice(
           "y12s2-pv-i5",
@@ -2442,29 +2442,19 @@ export function year12Standard2FinanceLessonOverride(
           "951.92",
           ["$951.92", "951.92", "951.9", "$951.9"]
         ),
-        financeChoice(
+        moneyAnswer(
           "y12s2-pv-m7",
-          "A $10,000 loan at 6% p.a. monthly has M = $443.21 over 24 months and M = $304.22 over 36 months. What is the total amount repaid for the 36-month option?",
-          "C",
-          [
-            "$304.22",
-            "$10,000",
-            "$10,951.92",
-            "$10,304.22",
-          ],
-          "Total amount repaid = $304.22 × 36 = $10,951.92."
+          "A $10,000 loan at 6% p.a. monthly has M = $304.22 over 36 months. Find the total amount repaid.",
+          "\\text{Total amount repaid}=304.22\\times36",
+          "10951.92",
+          ["$10,951.92", "$10951.92", "10951.9"]
         ),
-        financeChoice(
+        financeShortAnswer(
           "y12s2-pv-m8",
-          "Compared to the 24-month loan, the 36-month loan on $10,000 at 6% p.a. has:",
-          "B",
-          [
-            "Higher monthly repayments and lower total interest",
-            "Lower monthly repayments and higher total interest",
-            "The same monthly repayments",
-            "Lower total interest because more time passes",
-          ],
-          "24-month interest = $637.04; 36-month interest = $951.92. Longer term = lower repayments, higher total interest."
+          "Compared to the 24-month loan, which option has the higher total interest: the 24-month loan or the 36-month loan?",
+          "637.04\\text{ vs }951.92",
+          "36-month loan",
+          ["36 month loan", "36 months", "36-month", "36 month"]
         ),
         financeChoice(
           "y12s2-pv-m9",
@@ -2478,17 +2468,12 @@ export function year12Standard2FinanceLessonOverride(
           ],
           "M = P × r / (1 − (1+r)^(−n))."
         ),
-        financeChoice(
+        moneyAnswer(
           "y12s2-pv-m10",
-          "A loan has monthly repayments of $350 over 30 months. The total amount paid includes:",
-          "B",
-          [
-            "$350 only",
-            "$350 × 30 = $10,500, covering both principal and interest",
-            "Only the interest component",
-            "$350 × 30 × 12",
-          ],
-          "Total amount paid = M × n = $350 × 30 = $10,500. This covers both principal and interest."
+          "A loan has monthly repayments of $350 over 30 months. Find the total amount paid.",
+          "350\\times30",
+          "10500",
+          ["$10,500", "$10500", "10500.00"]
         ),
       ],
     };
