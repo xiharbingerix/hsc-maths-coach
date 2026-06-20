@@ -592,7 +592,16 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer("y12s2-net-term-i2", "Roads are AB, BC, CD, DA and AC. What is the degree of C?", "\\deg(C)=?", "3"),
         labelledChoice("y12s2-net-term-i3", "A route A-B-C-D has no repeated vertices. It is best described as:", "A", ["A path", "A disconnected network", "A degree", "A vertex"], "A route with no repeated vertices is a path."),
         labelledChoice("y12s2-net-term-i4", "A route A-B-C-A returns to its starting point. It is a:", "D", ["Weight", "Tree", "Trail only", "Circuit"], "A circuit starts and ends at the same vertex."),
-        labelledChoice("y12s2-net-term-i5", "A table of fibre cable lengths between buildings should be represented as:", "A", ["A weighted network", "A column graph", "An unweighted directed network only", "A payslip table"], "Cable lengths become edge weights."),
+        {
+          ...shortAnswer(
+            "y12s2-net-term-i5",
+            "A fibre network has cable links AC = 90 m and CD = 110 m. Find the total cable length along the path A-C-D.",
+            "AC=90\\text{ m},\\quad CD=110\\text{ m}",
+            "200 m",
+            ["200", "200m", "200 metres"]
+          ),
+          hint: "Identify the edges used by path A-C-D, then combine their weights.",
+        },
       ],
       commonMistakes: [
         { mistake: "Counting the number of vertices when asked for degree.", fix: "Degree counts only the edges joined to the named vertex." },

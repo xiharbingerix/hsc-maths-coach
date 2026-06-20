@@ -1356,7 +1356,7 @@ const EXPLANATION_REWRITES: Record<string, string> = {
   "y12s2-nfr-i5": "Vertex degree counts the edges incident to, or directly touching, that vertex. Each such connection contributes one to the degree.",
   "y12s2-net-term-g4": "The numbers label the travel time along each connection, so 5 minutes and 3 minutes are the edge weights.",
   "y12s2-net-term-i4": "The route begins at A and returns to A after visiting B and C. A closed route of this kind is a circuit.",
-  "y12s2-net-term-i5": "Buildings become vertices, cable links become edges, and each cable length labels an edge, so the appropriate model is a weighted network.",
+  "y12s2-net-term-i5": "The path A-C-D uses edges AC and CD. Add their cable lengths once each: 90 m + 110 m = 200 m.",
   "y12s2-net-term-m7": "A one-way road permits travel in only one direction, so its network edge needs an arrow and is represented as directed.",
   "y12s2-spmst-i5": "The courier has a specified start and destination and wants minimum travel time, which is exactly a shortest-path problem.",
   "y12s2-flow-g2": "A feasible arc flow cannot exceed capacity. Since 7 is less than the capacity 10, the proposed flow satisfies the constraint.",

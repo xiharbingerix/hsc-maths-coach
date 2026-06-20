@@ -8251,6 +8251,10 @@ function convertChoiceToTyped(question: PracticeQuestion): PracticeQuestion {
   return normalizeQuestion({
     ...question,
     prompt: stripTerminalPunctuation(normalizeText(question.prompt)),
+    latex:
+      question.latex === "\\text{Select A, B, C, or D.}"
+        ? ""
+        : question.latex,
     answer,
     acceptedAnswers: [
       ...buildAcceptedVariants(answer, question.prompt),
