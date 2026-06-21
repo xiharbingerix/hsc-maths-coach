@@ -165,9 +165,7 @@ export default function HscMathsPage() {
             </Link>
             {/* CTA visible on sm+ only — mobile uses the fixed bottom bar */}
             <div className="hidden sm:block">
-              <HscDiagnosticCTAButton>
-                Start free diagnostic
-              </HscDiagnosticCTAButton>
+              <HscDiagnosticCTAButton />
             </div>
           </div>
         </div>
@@ -191,9 +189,7 @@ export default function HscMathsPage() {
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <HscDiagnosticCTAButton className="inline-flex w-full items-center justify-center rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 sm:w-auto">
-                Start free diagnostic
-              </HscDiagnosticCTAButton>
+              <HscDiagnosticCTAButton className="inline-flex w-full items-center justify-center rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 sm:w-auto" />
               <SecondaryLink href="#choose-course" className="w-full sm:w-auto">
                 View HSC lessons
               </SecondaryLink>
@@ -300,16 +296,14 @@ export default function HscMathsPage() {
           </div>
 
           <div className="mt-7">
-            <HscDiagnosticCTAButton>Start free diagnostic</HscDiagnosticCTAButton>
+            <HscDiagnosticCTAButton />
           </div>
         </section>
 
         {/* Diagnostic result preview */}
         <DiagnosticResultPreview
           cta={
-            <HscDiagnosticCTAButton>
-              Start free diagnostic
-            </HscDiagnosticCTAButton>
+            <HscDiagnosticCTAButton />
           }
         />
 
@@ -338,7 +332,7 @@ export default function HscMathsPage() {
             ))}
           </div>
           <div>
-            <HscDiagnosticCTAButton>Start free diagnostic</HscDiagnosticCTAButton>
+            <HscDiagnosticCTAButton />
           </div>
         </section>
 
@@ -389,9 +383,7 @@ export default function HscMathsPage() {
             yourself.
           </p>
           <div className="mt-6">
-            <HscDiagnosticCTAButton className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 shadow-sm transition hover:bg-slate-100">
-              Start free diagnostic
-            </HscDiagnosticCTAButton>
+            <HscDiagnosticCTAButton className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 shadow-sm transition hover:bg-slate-100" />
           </div>
         </section>
 
@@ -469,9 +461,7 @@ export default function HscMathsPage() {
         <PricingComparison
           cta={
             <>
-              <HscDiagnosticCTAButton>
-                Start free diagnostic
-              </HscDiagnosticCTAButton>
+              <HscDiagnosticCTAButton />
               <HscTrialCTAButton className="border-2 border-slate-900 !bg-white !text-slate-950 hover:!bg-slate-100">
                 Start your 7-day free trial
               </HscTrialCTAButton>
@@ -517,9 +507,7 @@ export default function HscMathsPage() {
               .
             </p>
           </div>
-          <HscDiagnosticCTAButton className="inline-flex shrink-0 items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 shadow-sm transition hover:bg-slate-100">
-            Start free diagnostic
-          </HscDiagnosticCTAButton>
+          <HscDiagnosticCTAButton className="inline-flex shrink-0 items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 shadow-sm transition hover:bg-slate-100" />
         </section>
 
         <footer className="flex flex-wrap gap-4 border-t border-slate-200 pb-8 pt-6 text-sm text-slate-600">
@@ -538,9 +526,7 @@ export default function HscMathsPage() {
       {/* Fixed bottom bar — mobile only (sm+ uses the sticky header CTA) */}
       <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white p-3 sm:hidden">
         <div className="grid grid-cols-1 gap-2">
-          <HscDiagnosticCTAButton className="inline-flex w-full items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800">
-            Start free diagnostic
-          </HscDiagnosticCTAButton>
+          <HscDiagnosticCTAButton className="inline-flex w-full items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800" />
           <HscTrialCTAButton className="w-full border border-slate-300 bg-white py-2.5 text-slate-950 hover:bg-slate-50">
             Start your 7-day free trial
           </HscTrialCTAButton>

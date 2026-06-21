@@ -10,6 +10,7 @@ import { generateStudyPlan } from "../../../lib/studyPlans/generateStudyPlan";
 import type { DiagnosticQuestion, DiagnosticUnit } from "../../../lib/diagnostics/types";
 import { clientTrackEvent } from "../../../lib/analytics/clientTrackEvent";
 import { trackDiagnosticCompleted } from "../../../lib/analytics";
+import { ctaExperimentProps } from "../../../lib/experiments/ctaExperiment";
 
 type UnitResult = DiagnosticUnit & {
   correct: number;
@@ -18,16 +19,28 @@ type UnitResult = DiagnosticUnit & {
 
 
 
+function priorityLevel(
+  correct: number,
+  total: number
+): "focus" | "review" | "secure-sample" {
+  const score = total > 0 ? correct / total : 0;
+  if (score <= 0.5) return "focus";
+  if (correct < total) return "review";
+  return "secure-sample";
+}
+
 function priorityLabel(correct: number, total: number): string {
-  if (correct <= 1) return "Focus first";
-  if (correct === total) return "Confident — review lightly";
-  return "Keep practising";
+  const level = priorityLevel(correct, total);
+  if (level === "focus") return "Focus first";
+  if (level === "review") return "Review recommended";
+  return "No gaps found in this sample";
 }
 
 function priorityBadgeClass(correct: number, total: number): string {
-  if (correct <= 1)
+  const level = priorityLevel(correct, total);
+  if (level === "focus")
     return "border-red-200 bg-red-50 text-red-800";
-  if (correct === total)
+  if (level === "secure-sample")
     return "border-green-200 bg-green-50 text-green-800";
   return "border-amber-200 bg-amber-50 text-amber-800";
 }
@@ -90,7 +103,10 @@ export function DiagnosticQuizClient({
   const questionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
-    clientTrackEvent("diagnostic_started", { yearLevel });
+    clientTrackEvent("diagnostic_started", {
+      yearLevel,
+      ...ctaExperimentProps(),
+    });
   }, [yearLevel]);
 
   const unitResults = useMemo(
@@ -123,6 +139,7 @@ export function DiagnosticQuizClient({
         yearLevel,
         totalCorrect,
         totalQuestions,
+        ...ctaExperimentProps(),
       });
       trackDiagnosticCompleted();
     }
@@ -368,7 +385,7 @@ export function DiagnosticQuizClient({
       Math.min(3, studiedUnitResults.length)
     );
     const focusFirstCount = studiedUnitResults.filter(
-      (unit) => unit.correct <= 1
+      (unit) => priorityLevel(unit.correct, unit.total) === "focus"
     ).length;
     const studyPlan = generateStudyPlan({
       yearLevel,
@@ -472,7 +489,7 @@ export function DiagnosticQuizClient({
                         className={`h-full rounded-full ${
                           unit.correct === unit.total
                             ? "bg-emerald-500"
-                            : unit.correct <= 1
+                            : priorityLevel(unit.correct, unit.total) === "focus"
                             ? "bg-red-400"
                             : "bg-amber-400"
                         }`}

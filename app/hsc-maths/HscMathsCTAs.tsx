@@ -13,6 +13,10 @@ import {
   preserveMarketingParams,
   getMarketingParamsFromUrl,
 } from "../../lib/analytics/clientTrackEvent";
+import {
+  getCtaExperiment,
+  ctaExperimentProps,
+} from "../../lib/experiments/ctaExperiment";
 
 /**
  * Primary trial CTA for the /hsc-maths page.
@@ -111,11 +115,16 @@ export function FreeLessonCTAButton({
   );
 }
 
+/**
+ * Primary diagnostic CTA for the /hsc-maths page. The label is driven by the
+ * CTA copy experiment; pass `children` only to override it (rare). The click is
+ * tracked with the active variant attached.
+ */
 export function HscDiagnosticCTAButton({
   children,
   className,
 }: {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
 }) {
   return (
@@ -126,6 +135,7 @@ export function HscDiagnosticCTAButton({
         clientTrackEvent("diagnostic_cta_clicked", {
           source: "hsc-maths",
           destination: "/diagnostic/select",
+          ...ctaExperimentProps(),
           ...getMarketingParamsFromUrl(),
         });
       }}
@@ -134,7 +144,7 @@ export function HscDiagnosticCTAButton({
         "inline-flex items-center justify-center rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
       }
     >
-      {children}
+      {children ?? getCtaExperiment().label}
     </Link>
   );
 }

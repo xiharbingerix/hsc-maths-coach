@@ -8,6 +8,7 @@ import { PageViewTracker } from "./components/PageViewTracker";
 import { DiagnosticResultPreview } from "./components/DiagnosticResultPreview";
 import { ProductShowcase } from "./components/ProductShowcase";
 import { PricingComparison } from "./components/PricingComparison";
+import { DiagnosticCtaLink } from "./components/DiagnosticCtaLink";
 
 export const metadata: Metadata = {
   title: "Nova Maths | NSW Maths Diagnostic & Online Lessons",
@@ -118,25 +119,6 @@ function SecondaryLink({
   );
 }
 
-function PrimaryLink({
-  href,
-  children,
-  className = "",
-}: Readonly<{
-  href: string;
-  children: ReactNode;
-  className?: string;
-}>) {
-  return (
-    <Link
-      href={href}
-      className={`inline-flex max-w-full shrink-0 items-center justify-center whitespace-nowrap rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold leading-none text-white shadow-sm transition hover:bg-slate-800 ${className}`}
-    >
-      {children}
-    </Link>
-  );
-}
-
 function Pill({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <span
@@ -197,9 +179,7 @@ export default function Home() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PrimaryLink href="/diagnostic/select">
-                Start free diagnostic
-              </PrimaryLink>
+              <DiagnosticCtaLink source="homepage" />
               <SecondaryLink href="/free-year-7-algebra">
                 See a sample lesson
               </SecondaryLink>
@@ -221,9 +201,7 @@ export default function Home() {
         {/* Diagnostic result preview */}
         <DiagnosticResultPreview
           cta={
-            <PrimaryLink href="/diagnostic/select">
-              Start free diagnostic
-            </PrimaryLink>
+            <DiagnosticCtaLink source="homepage" />
           }
         />
 
@@ -256,9 +234,7 @@ export default function Home() {
           </div>
 
           <div>
-            <PrimaryLink href="/diagnostic/select">
-              Start free diagnostic
-            </PrimaryLink>
+            <DiagnosticCtaLink source="homepage" />
           </div>
         </section>
 
@@ -326,9 +302,7 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <PrimaryLink href="/diagnostic/select">
-              Start free diagnostic
-            </PrimaryLink>
+            <DiagnosticCtaLink source="homepage" />
             <SecondaryLink href="/courses">View HSC courses</SecondaryLink>
           </div>
         </section>
@@ -373,9 +347,7 @@ export default function Home() {
         <PricingComparison
           cta={
             <>
-              <PrimaryLink href="/diagnostic/select">
-                Start free diagnostic
-              </PrimaryLink>
+              <DiagnosticCtaLink source="homepage" />
               <SubscribeCTA href="/checkout?offer=online-learning">
                 Start your 7-day free trial
               </SubscribeCTA>
@@ -393,12 +365,10 @@ export default function Home() {
             results.
           </p>
           <div className="mt-6">
-            <Link
-              href="/diagnostic/select"
+            <DiagnosticCtaLink
+              source="homepage"
               className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 shadow-sm transition hover:bg-slate-100"
-            >
-              Start free diagnostic
-            </Link>
+            />
           </div>
         </section>
 
