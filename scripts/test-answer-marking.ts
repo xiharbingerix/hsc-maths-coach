@@ -165,6 +165,11 @@ const tests: TestCase[] = [
   { name: "alg-fr-m7 unfactored denominator with != accepted", userAnswer: "3x/(2x-6), x != 3", correctAnswer: "3x/(2(x-3)), x≠3", acceptedAnswers: ["3x/(2x-6), x≠3", "3x/(2x-6), x != 3"], expected: true },
   { name: "alg-fr-m7 missing restriction stays wrong", userAnswer: "3x/(2x-6)", correctAnswer: "3x/(2(x-3)), x≠3", acceptedAnswers: ["3x/(2x-6), x≠3", "3x/(2x-6), x != 3"], expected: false },
   { name: "alg-fr-m7 wrong restriction stays wrong", userAnswer: "3x/(2x-6), x≠0", correctAnswer: "3x/(2(x-3)), x≠3", acceptedAnswers: ["3x/(2x-6), x≠3", "3x/(2x-6), x != 3"], expected: false },
+
+  // ── y8-aeq-ips-i1 canonical-answer anchor (urgent defect fix) ──────────────
+  // "Does x = -3 satisfy -2x <= 5?" -> -2(-3) = 6, and 6 <= 5 is false, so NO.
+  { name: "y8-aeq-ips-i1 NO is correct", userAnswer: "NO", correctAnswer: "NO", acceptedAnswers: ["No", "no"], expected: true },
+  { name: "y8-aeq-ips-i1 YES is incorrect", userAnswer: "YES", correctAnswer: "NO", acceptedAnswers: ["No", "no"], expected: false },
 ];
 
 let failures = 0;

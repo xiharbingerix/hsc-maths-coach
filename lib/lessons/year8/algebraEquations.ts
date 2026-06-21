@@ -2202,8 +2202,8 @@ const inequalityProblemSolving: LessonContent = {
       "y8-aeq-ips-i1",
       "Does x = −3 satisfy −2x ≤ 5? Write YES or NO.",
       "\\text{Substitute }x = -3\\text{ into }-2x \\leq 5.",
-      "YES",
-      "−2(−3) = 6. Is 6 ≤ 5? No — wait, that gives 6 ≤ 5 which is false. Correct: −2(−3) = 6 and 6 > 5, so x = −3 does NOT satisfy the inequality.",
+      "NO",
+      "−2(−3) = 6. Since 6 ≤ 5 is false, x = −3 does not satisfy the inequality, so the answer is NO.",
       "Replace x with −3: −2 × (−3) = 6. Then check whether 6 ≤ 5.",
       ["NO", "No", "no"]
     ),
