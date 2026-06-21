@@ -1449,6 +1449,242 @@ const coolingD5: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 7: Slope Fields and Solution Curves ─────────────────────────────
+// Slope fields are visual, so these items are computational: D4 — evaluate dy/dx
+// at a point, equilibrium (constant) solutions, particular-solution constants,
+// isoclines, and slope-sign behaviour.
+const slopeFieldsD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-capp-slope-d4-1",
+    prompt: "For dy/dx = x + y, find the slope of the solution curve at the point (1, 2).",
+    latex: "\\tfrac{dy}{dx} = x + y",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$3$" },
+      { label: "B", text: "$1$" },
+      { label: "C", text: "$-1$" },
+      { label: "D", text: "$2$" },
+    ],
+    answer: "A",
+    explanation: "dy/dx = 1 + 2 = 3. B subtracts the coordinates instead of adding.",
+  },
+  {
+    id: "y12e1-capp-slope-d4-2",
+    prompt: "For dy/dx = x/y, find the slope of the solution curve at the point (4, 2).",
+    latex: "\\tfrac{dy}{dx} = \\tfrac{x}{y}",
+    marks: 2,
+    difficulty: 4,
+    answer: "2",
+    explanation: "dy/dx = 4/2 = 2.",
+  },
+  {
+    id: "y12e1-capp-slope-d4-3",
+    prompt: "For dy/dx = (x − 1)(y + 1), find the slope at the point (3, 1).",
+    latex: "\\tfrac{dy}{dx} = (x - 1)(y + 1)",
+    marks: 2,
+    difficulty: 4,
+    answer: "4",
+    explanation: "dy/dx = (3 − 1)(1 + 1) = 2 × 2 = 4.",
+  },
+  {
+    id: "y12e1-capp-slope-d4-4",
+    prompt:
+      "For dy/dx = y − 2, find the value of y giving a constant (equilibrium) solution.",
+    latex: "\\tfrac{dy}{dx} = y - 2",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$y = 2$" },
+      { label: "B", text: "$y = 0$" },
+      { label: "C", text: "$y = -2$" },
+      { label: "D", text: "$y = 1$" },
+    ],
+    answer: "A",
+    explanation:
+      "A constant solution needs dy/dx = 0, so y − 2 = 0 and y = 2. B assumes the equilibrium is at the origin.",
+  },
+  {
+    id: "y12e1-capp-slope-d4-5",
+    prompt:
+      "For dy/dx = y(y − 3), find the non-zero value of y giving a constant solution.",
+    latex: "\\tfrac{dy}{dx} = y(y - 3)",
+    marks: 2,
+    difficulty: 4,
+    answer: "3",
+    explanation: "dy/dx = 0 at y = 0 or y = 3; the non-zero equilibrium is y = 3.",
+  },
+  {
+    id: "y12e1-capp-slope-d4-6",
+    prompt:
+      "The solution curves of dy/dx = 2x are y = x² + C. Find C for the curve through (1, 3).",
+    latex: "\\tfrac{dy}{dx} = 2x",
+    marks: 2,
+    difficulty: 4,
+    answer: "2",
+    explanation: "3 = 1² + C ⇒ C = 2.",
+  },
+  {
+    id: "y12e1-capp-slope-d4-7",
+    prompt:
+      "The solution curves of dy/dx = 3x² are y = x³ + C. Find C for the curve through (0, 5).",
+    latex: "\\tfrac{dy}{dx} = 3x^2",
+    marks: 2,
+    difficulty: 4,
+    answer: "5",
+    explanation: "5 = 0³ + C ⇒ C = 5.",
+  },
+  {
+    id: "y12e1-capp-slope-d4-8",
+    prompt:
+      "For dy/dx = x² + 1, is the slope of the solution curves ever zero? Answer 'yes' or 'no'.",
+    latex: "\\tfrac{dy}{dx} = x^2 + 1",
+    marks: 2,
+    difficulty: 4,
+    answer: "no",
+    acceptedAnswers: ["never", "no it is never zero"],
+    explanation: "x² + 1 ≥ 1 > 0 for all x, so the slope is never zero (always positive).",
+  },
+  {
+    id: "y12e1-capp-slope-d4-9",
+    prompt:
+      "For dy/dx = x + y, the slope is zero along a straight line (the isocline for slope 0). Find its equation.",
+    latex: "\\tfrac{dy}{dx} = x + y",
+    marks: 2,
+    difficulty: 4,
+    answer: "y=-x",
+    acceptedAnswers: ["y = -x", "-x", "y=−x"],
+    explanation: "Slope 0 ⇒ x + y = 0 ⇒ y = −x.",
+  },
+  {
+    id: "y12e1-capp-slope-d4-10",
+    prompt:
+      "For dy/dx = −y, a solution curve passes through y = 5 (y > 0). As x increases, is y increasing or decreasing? Answer 'increasing' or 'decreasing'.",
+    latex: "\\tfrac{dy}{dx} = -y",
+    marks: 2,
+    difficulty: 4,
+    answer: "decreasing",
+    acceptedAnswers: ["decreases", "it decreases", "decreasing toward 0"],
+    explanation: "At y = 5, dy/dx = −5 < 0, so y is decreasing (it decays toward 0).",
+  },
+];
+
+// D5: second derivative / concavity from the DE, stationary points, separable
+// solving, and the logistic maximum-rate point.
+const slopeFieldsD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-capp-slope-d5-1",
+    prompt:
+      "For dy/dx = x + y, find d²y/dx² at the point (1, 2).",
+    latex: "\\tfrac{dy}{dx} = x + y",
+    marks: 4,
+    difficulty: 5,
+    answer: "4",
+    explanation:
+      "d²y/dx² = 1 + dy/dx = 1 + (x + y) = 1 + 3 = 4 at (1, 2).",
+  },
+  {
+    id: "y12e1-capp-slope-d5-2",
+    prompt:
+      "For dy/dx = xy, find d²y/dx² at the point (2, 1).",
+    latex: "\\tfrac{dy}{dx} = xy",
+    marks: 4,
+    difficulty: 5,
+    answer: "5",
+    explanation:
+      "d²y/dx² = y + x(dy/dx) = y + x(xy) = y + x²y. At (2, 1): 1 + 4(1) = 5.",
+  },
+  {
+    id: "y12e1-capp-slope-d5-3",
+    prompt:
+      "A solution curve of dy/dx = x² − y has a stationary point at x = 3. Find its y-coordinate.",
+    latex: "\\tfrac{dy}{dx} = x^2 - y",
+    marks: 4,
+    difficulty: 5,
+    answer: "9",
+    explanation: "Stationary ⇒ dy/dx = 0 ⇒ x² − y = 0 ⇒ y = x² = 9.",
+  },
+  {
+    id: "y12e1-capp-slope-d5-4",
+    prompt:
+      "Solve dy/dx = 2xy with y = 1 when x = 0, and find y when x = 1 (exact form).",
+    latex: "\\tfrac{dy}{dx} = 2xy",
+    marks: 4,
+    difficulty: 5,
+    answer: "e",
+    acceptedAnswers: ["2.718", "2.7183"],
+    explanation:
+      "Separating: ∫dy/y = ∫2x dx ⇒ ln y = x² + C. y(0) = 1 ⇒ C = 0, so y = e^{x²} and y(1) = e.",
+  },
+  {
+    id: "y12e1-capp-slope-d5-5",
+    prompt:
+      "For dy/dx = x − y, is the solution curve concave up or concave down at (1, 3)? Answer 'up' or 'down'.",
+    latex: "\\tfrac{dy}{dx} = x - y",
+    marks: 4,
+    difficulty: 5,
+    answer: "up",
+    acceptedAnswers: ["concave up", "concave upwards", "concave-up"],
+    explanation:
+      "d²y/dx² = 1 − dy/dx = 1 − (x − y) = 1 − (1 − 3) = 3 > 0, so the curve is concave up.",
+  },
+  {
+    id: "y12e1-capp-slope-d5-6",
+    prompt:
+      "Solve dy/dx = −x/y. For the solution curve through (3, 4), find the value of x² + y².",
+    latex: "\\tfrac{dy}{dx} = -\\tfrac{x}{y}",
+    marks: 4,
+    difficulty: 5,
+    answer: "25",
+    explanation:
+      "Separating: ∫y dy = ∫−x dx ⇒ y²/2 = −x²/2 + C ⇒ x² + y² = constant. Through (3, 4): 9 + 16 = 25.",
+  },
+  {
+    id: "y12e1-capp-slope-d5-7",
+    prompt:
+      "Solve dy/dx = y/x. For the solution curve through (2, 6), find y when x = 5.",
+    latex: "\\tfrac{dy}{dx} = \\tfrac{y}{x}",
+    marks: 4,
+    difficulty: 5,
+    answer: "15",
+    explanation:
+      "Separating: ln y = ln x + C ⇒ y = Ax. Through (2, 6): A = 3, so y = 3x and y(5) = 15.",
+  },
+  {
+    id: "y12e1-capp-slope-d5-8",
+    prompt:
+      "For the logistic model dy/dx = y(4 − y), find the value of y at which the growth rate dy/dx is greatest.",
+    latex: "\\tfrac{dy}{dx} = y(4 - y)",
+    marks: 4,
+    difficulty: 5,
+    answer: "2",
+    explanation:
+      "dy/dx = 4y − y² is a downward parabola in y, maximised at its vertex y = 2.",
+  },
+  {
+    id: "y12e1-capp-slope-d5-9",
+    prompt:
+      "The solution curves of dy/dx = 2x − 4 have a minimum point. Find the x-coordinate.",
+    latex: "\\tfrac{dy}{dx} = 2x - 4",
+    marks: 3,
+    difficulty: 5,
+    answer: "2",
+    explanation:
+      "dy/dx = 0 ⇒ x = 2, and d²y/dx² = 2 > 0, so the curves have a minimum at x = 2.",
+  },
+  {
+    id: "y12e1-capp-slope-d5-10",
+    prompt:
+      "Solve dy/dx = 6x² with y = 5 when x = 1, and find y when x = 2.",
+    latex: "\\tfrac{dy}{dx} = 6x^2",
+    marks: 4,
+    difficulty: 5,
+    answer: "19",
+    explanation:
+      "y = 2x³ + C. y(1) = 2 + C = 5 ⇒ C = 3, so y = 2x³ + 3 and y(2) = 16 + 3 = 19.",
+  },
+];
+
 export const calculusApplicationsPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -1501,8 +1737,8 @@ export const calculusApplicationsPool: TopicTestPool = {
       subtopicSlug: "calculus-applications-slope-fields",
       subtopicTitle: "Slope Fields and Solution Curves",
       remediationHref: href("calculus-applications-slope-fields"),
-      d4: [],
-      d5: [],
+      d4: slopeFieldsD4,
+      d5: slopeFieldsD5,
     },
     {
       subtopicSlug: "calculus-applications-exam-practice",
