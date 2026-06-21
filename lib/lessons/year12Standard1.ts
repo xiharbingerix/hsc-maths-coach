@@ -29,21 +29,21 @@ export function year12Standard1RightAngleTrigonometryLessonOverride(
     teaching: {
       paragraphs: [
         "Right-angle trigonometry uses the three ratios sine, cosine and tangent to connect an acute angle with opposite, adjacent and hypotenuse sides.",
-        "For a right triangle with angle \(\theta\): \(\sin\theta=\frac{\text{opposite}}{\text{hypotenuse}}\), \(\cos\theta=\frac{\text{adjacent}}{\text{hypotenuse}}\), and \(\tan\theta=\frac{\text{opposite}}{\text{adjacent}}\).",
+        "For a right triangle with angle \\(\\theta\\): \\(\\sin\\theta=\\frac{\\text{opposite}}{\\text{hypotenuse}}\\), \\(\\cos\\theta=\\frac{\\text{adjacent}}{\\text{hypotenuse}}\\), and \\(\\tan\\theta=\\frac{\\text{opposite}}{\\text{adjacent}}\\).",
         "To choose a ratio, identify whether the unknown is a side opposite the angle, a side adjacent to the angle, or the hypotenuse.",
         "Always check the final number against the context: side lengths must be positive and angles should be between 0 and 90 degrees for an acute angle in a right triangle.",
       ],
       latexBlocks: [
-        "\sin\theta=\frac{\text{opposite}}{\text{hypotenuse}}",
-        "\cos\theta=\frac{\text{adjacent}}{\text{hypotenuse}}",
-        "\tan\theta=\frac{\text{opposite}}{\text{adjacent}}",
+        "\\sin\\theta=\\frac{\\text{opposite}}{\\text{hypotenuse}}",
+        "\\cos\\theta=\\frac{\\text{adjacent}}{\\text{hypotenuse}}",
+        "\\tan\\theta=\\frac{\\text{opposite}}{\\text{adjacent}}",
       ],
     },
     workedExamples: [
       {
         title: "Choose the correct ratio for a right triangle",
         questionLatex:
-          "\text{The opposite side is }12\text{ and the hypotenuse is }20.\text{ Which ratio finds }\theta?",
+          "\\text{The opposite side is }12\\text{ and the hypotenuse is }20.\\text{ Which ratio finds }\\theta?",
         steps: [
           {
             explanation:
@@ -52,49 +52,49 @@ export function year12Standard1RightAngleTrigonometryLessonOverride(
           {
             explanation:
               "The ratio connecting opposite and hypotenuse is sine.",
-            latex: "\sin\theta=\frac{12}{20}",
+            latex: "\\sin\\theta=\\frac{12}{20}",
           },
           {
             explanation:
               "This setup shows that sine is the correct ratio for this question.",
           },
         ],
-        finalAnswerLatex: "\sin\theta=\frac{12}{20}",
+        finalAnswerLatex: "\\sin\\theta=\\frac{12}{20}",
       },
       {
         title: "Calculate a missing side using cosine",
         questionLatex:
-          "\text{A ramp makes an angle of }32^\circ\text{ with the horizontal and the hypotenuse is }5.2\text{ m. Find the adjacent side.}",
+          "\\text{A ramp makes an angle of }32^\\circ\\text{ with the horizontal and the hypotenuse is }5.2\\text{ m. Find the adjacent side.}",
         steps: [
           {
             explanation:
               "The adjacent side is next to the given angle, and the hypotenuse is known.",
-            latex: "\cos32^\circ=\frac{\text{adjacent}}{5.2}",
+            latex: "\\cos32^\\circ=\\frac{\\text{adjacent}}{5.2}",
           },
           {
             explanation:
               "Rearrange to find the adjacent side by multiplying both sides by 5.2.",
-            latex: "\text{adjacent}=5.2\cos32^\circ",
+            latex: "\\text{adjacent}=5.2\\cos32^\\circ",
           },
           {
             explanation:
               "Calculate and round to one decimal place for a practical measurement answer.",
-            latex: "\text{adjacent}=4.4\text{ m}",
+            latex: "\\text{adjacent}=4.4\\text{ m}",
           },
         ],
-        finalAnswerLatex: "4.4\text{ m}",
+        finalAnswerLatex: "4.4\\text{ m}",
       },
     ],
     guidedPractice: [
       practicalChoice(
         "right-angle-trig-g1",
-        "A right triangle has angle \(\theta\) and a known opposite side of 9 and hypotenuse of 15. Which ratio finds \(\theta\)?",
+        "A right triangle has angle \\(\\theta\\) and a known opposite side of 9 and hypotenuse of 15. Which ratio finds \\(\\theta\\)?",
         "A",
         [
-          "\sin\theta=\frac{9}{15}",
-          "\cos\theta=\frac{9}{15}",
-          "\tan\theta=\frac{9}{15}",
-          "\sin\theta=\frac{15}{9}",
+          "\\sin\\theta=\\frac{9}{15}",
+          "\\cos\\theta=\\frac{9}{15}",
+          "\\tan\\theta=\\frac{9}{15}",
+          "\\sin\\theta=\\frac{15}{9}",
         ],
         "The unknown angle is opposite the known side and the hypotenuse is also known, so sine is correct."
       ),
@@ -103,10 +103,10 @@ export function year12Standard1RightAngleTrigonometryLessonOverride(
         "A 12 m ladder leans against a wall and reaches 9 m high. Which ratio gives the angle between the ladder and the ground?",
         "A",
         [
-          "\sin\theta=\frac{9}{12}",
-          "\cos\theta=\frac{9}{12}",
-          "\tan\theta=\frac{9}{12}",
-          "\sin\theta=\frac{12}{9}",
+          "\\sin\\theta=\\frac{9}{12}",
+          "\\cos\\theta=\\frac{9}{12}",
+          "\\tan\\theta=\\frac{9}{12}",
+          "\\sin\\theta=\\frac{12}{9}",
         ],
         "The ladder is the hypotenuse and the height is opposite the angle at the ground, so sine is correct."
       ),
@@ -128,15 +128,15 @@ export function year12Standard1RightAngleTrigonometryLessonOverride(
     independentPractice: [
       measurementAnswer(
         "right-angle-trig-i1",
-        "A right triangle has adjacent side 11 and hypotenuse 17. Find the angle \(\theta\) in degrees to the nearest degree.",
-        "\cos\theta=\frac{11}{17}",
+        "A right triangle has adjacent side 11 and hypotenuse 17. Find the angle \\(\\theta\\) in degrees to the nearest degree.",
+        "\\cos\\theta=\\frac{11}{17}",
         "34",
         ["34°", "34 degrees"]
       ),
       measurementAnswer(
         "right-angle-trig-i2",
-        "A right triangle has angle \(\theta=38^\circ\) and hypotenuse 20. Find the opposite side length to one decimal place.",
-        "\sin38^\circ\times20",
+        "A right triangle has angle \\(\\theta=38^\\circ\\) and hypotenuse 20. Find the opposite side length to one decimal place.",
+        "\\sin38^\\circ\\times20",
         "12.3",
         ["12.30"]
       ),
@@ -187,24 +187,24 @@ export function year12Standard1RightAngleTrigonometryLessonOverride(
         "A swimmer crosses a river on a path that makes an angle of 22° with the bank. She knows the river width is 30 m. Which ratio gives the swimmer's actual path length?",
         "A",
         [
-          "\sin22^\circ=\frac{30}{\text{path}}",
-          "\cos22^\circ=\frac{30}{\text{path}}",
-          "\tan22^\circ=\frac{30}{\text{path}}",
-          "\sin22^\circ=\frac{\text{path}}{30}",
+          "\\sin22^\\circ=\\frac{30}{\\text{path}}",
+          "\\cos22^\\circ=\\frac{30}{\\text{path}}",
+          "\\tan22^\\circ=\\frac{30}{\\text{path}}",
+          "\\sin22^\\circ=\\frac{\\text{path}}{30}",
         ],
         "The river width (30 m) is the side opposite the 22° angle; the path is the hypotenuse. sin22° = opposite/hypotenuse = 30/path."
       ),
       measurementAnswer(
         "right-angle-trig-m2",
         "A ramp makes an angle of 28° with the ground and reaches a platform 4.8 m high. Find the ramp length to one decimal place.",
-        "\frac{4.8}{\sin28^\circ}",
+        "\\frac{4.8}{\\sin28^\\circ}",
         "10.2",
         ["10.22", "10.2 m"]
       ),
       measurementAnswer(
         "right-angle-trig-m3",
-        "A right triangle has opposite side 7 and adjacent side 24. Find the acute angle \(\theta\) to the nearest degree.",
-        "\tan\theta=\frac{7}{24}",
+        "A right triangle has opposite side 7 and adjacent side 24. Find the acute angle \\(\\theta\\) to the nearest degree.",
+        "\\tan\\theta=\\frac{7}{24}",
         "16",
         ["16°", "16 degrees"]
       ),
@@ -304,15 +304,15 @@ export function year12Standard1DataDisplaysSummaryStatisticsLessonOverride(
         "When data are not symmetrical, median is often a better centre measure than mean because it is less affected by unusually large or small values.",
       ],
       latexBlocks: [
-        "\text{mean}=\frac{\text{sum of values}}{\text{number of values}}",
-        "\text{range}=\text{maximum}-\text{minimum}",
+        "\\text{mean}=\\frac{\\text{sum of values}}{\\text{number of values}}",
+        "\\text{range}=\\text{maximum}-\\text{minimum}",
       ],
     },
     workedExamples: [
       {
         title: "Find the median from ordered data",
         questionLatex:
-          "\text{Data list: }3,\,6,\,6,\,8,\,11.\text{ What is the median?}",
+          "\\text{Data list: }3,\\,6,\\,6,\\,8,\\,11.\\text{ What is the median?}",
         steps: [
           {
             explanation:
@@ -332,7 +332,7 @@ export function year12Standard1DataDisplaysSummaryStatisticsLessonOverride(
       {
         title: "Calculate a mean from a frequency table",
         questionLatex:
-          "\text{Scores: }2,2,3,4,4,5.\text{ Find the mean score.}",
+          "\\text{Scores: }2,2,3,4,4,5.\\text{ Find the mean score.}",
         steps: [
           {
             explanation:
@@ -342,7 +342,7 @@ export function year12Standard1DataDisplaysSummaryStatisticsLessonOverride(
           {
             explanation:
               "There are six scores, so divide 20 by 6.",
-            latex: "\frac{20}{6}=3.333\ldots",
+            latex: "\\frac{20}{6}=3.333\\ldots",
           },
           {
             explanation:
@@ -395,13 +395,13 @@ export function year12Standard1DataDisplaysSummaryStatisticsLessonOverride(
       dataAnswer(
         "data-displays-i1",
         "A data list is 5, 7, 9, 11, 14. Find the median.",
-        "\text{median of ordered values}",
+        "\\text{median of ordered values}",
         "9"
       ),
       dataAnswer(
         "data-displays-i2",
         "A student has scores 70, 73, 68, 79, 80. Find the mean score to one decimal place.",
-        "\frac{70+73+68+79+80}{5}",
+        "\\frac{70+73+68+79+80}{5}",
         "74.0",
         ["74"]
       ),
@@ -611,7 +611,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       "Calculate probabilities for single and combined events in practical situations.",
     successCriteria: [
       "Identify the sample space and count equally likely outcomes.",
-      "Use the probability formula P(event)=\frac{\text{favourable outcomes}}{\text{total outcomes}}.",
+      "Use the probability formula P(event)=\\frac{\\text{favourable outcomes}}{\\text{total outcomes}}.",
       "Multiply probabilities along independent paths and add probabilities for alternative paths.",
       "Use replacement and no-replacement reasoning in simple chance models.",
     ],
@@ -623,15 +623,15 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
         "Use simple probability trees for two-stage chance problems and follow the correct order of multiplication and addition depending on whether outcomes are joined or selected as alternatives.",
       ],
       latexBlocks: [
-        "P(\text{event})=\frac{\text{favourable outcomes}}{\text{total outcomes}}",
-        "P(A\text{ and }B)=P(A)\times P(B)\text{ for independent events}",
+        "P(\\text{event})=\\frac{\\text{favourable outcomes}}{\\text{total outcomes}}",
+        "P(A\\text{ and }B)=P(A)\\times P(B)\\text{ for independent events}",
       ],
     },
     workedExamples: [
       {
         title: "Find a single-event probability",
         questionLatex:
-          "\text{A bag has 3 red and 2 blue counters. What is }P(\text{red})?}",
+          "\\text{A bag has 3 red and 2 blue counters. What is }P(\\text{red})?}",
         steps: [
           {
             explanation:
@@ -640,50 +640,50 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
           {
             explanation:
               "Write the probability as a fraction of favourable over total outcomes.",
-              latex: "P(\text{red})=\frac{3}{5}",
+              latex: "P(\\text{red})=\\frac{3}{5}",
             },
           {
             explanation:
               "The probability of selecting a red counter is three fifths.",
             },
         ],
-        finalAnswerLatex: "\frac{3}{5}",
+        finalAnswerLatex: "\\frac{3}{5}",
       },
       {
         title: "Multiply along a two-stage path",
         questionLatex:
-          "\text{A fair coin is tossed and a fair die is rolled. Find }P(\text{heads and 6}).",
+          "\\text{A fair coin is tossed and a fair die is rolled. Find }P(\\text{heads and 6}).",
         steps: [
           {
             explanation:
               "The coin has 2 equally likely outcomes and the die has 6 equally likely outcomes.",
-            latex: "P(\text{heads})=\frac{1}{2},\quad P(6)=\frac{1}{6}",
+            latex: "P(\\text{heads})=\\frac{1}{2},\\quad P(6)=\\frac{1}{6}",
           },
           {
             explanation:
               "Multiply along the independent path because both events must happen together.",
-            latex: "P(\text{heads and 6})=\frac{1}{2}\times\frac{1}{6}=\frac{1}{12}",
+            latex: "P(\\text{heads and 6})=\\frac{1}{2}\\times\\frac{1}{6}=\\frac{1}{12}",
           },
         ],
-        finalAnswerLatex: "\frac{1}{12}",
+        finalAnswerLatex: "\\frac{1}{12}",
       },
       {
         title: "Use a tree for without replacement reasoning",
         questionLatex:
-          "\text{A bag has 2 red and 3 blue counters. Two counters are selected without replacement. Find }P(\text{red then blue}).",
+          "\\text{A bag has 2 red and 3 blue counters. Two counters are selected without replacement. Find }P(\\text{red then blue}).",
         steps: [
           {
             explanation:
               "The first red probability is 2 out of 5. After a red is removed, there are 3 blue counters out of 4 counters left.",
-            latex: "\frac{2}{5}\times\frac{3}{4}",
+            latex: "\\frac{2}{5}\\times\\frac{3}{4}",
           },
           {
             explanation:
               "Multiply the two path probabilities because the events happen one after the other.",
-            latex: "\frac{6}{20}=\frac{3}{10}",
+            latex: "\\frac{6}{20}=\\frac{3}{10}",
           },
         ],
-        finalAnswerLatex: "\frac{3}{10}",
+        finalAnswerLatex: "\\frac{3}{10}",
         probabilityTreeDiagram: {
           description:
             "A probability tree showing the two-stage selection without replacement and the highlighted red-then-blue path.",
@@ -724,7 +724,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       probAnswer(
         "prob-g2",
         "A coin is tossed and a die is rolled. Find the probability of tails and an odd number.",
-        "P(\text{tails})=\frac{1}{2},\quad P(\text{odd})=\frac{1}{2}",
+        "P(\\text{tails})=\\frac{1}{2},\\quad P(\\text{odd})=\\frac{1}{2}",
         "1/4",
         ["0.25"],
         "Multiply the two independent probabilities because both events happen together."
@@ -749,7 +749,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       probAnswer(
         "prob-i1",
         "A bag has 3 red and 2 blue counters. One counter is selected at random. Find the probability of blue.",
-        "\text{blue counters}=2,\quad \text{total}=5",
+        "\\text{blue counters}=2,\\quad \\text{total}=5",
         "2/5",
         ["0.4", "40%"],
         "There are 2 favourable blue outcomes out of 5 total outcomes."
@@ -757,7 +757,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       probAnswer(
         "prob-i2",
         "A fair coin is tossed twice. Find the probability of heads followed by tails.",
-        "\text{two fair coin tosses}",
+        "\\text{two fair coin tosses}",
         "1/4",
         ["0.25"],
         "Multiply one half by one half because the coin tosses are independent."
@@ -811,7 +811,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       probAnswer(
         "prob-m2",
         "A bag has 2 red and 4 blue counters. One counter is selected at random. Find the probability of not selecting a red counter.",
-        "\text{blue counters}=4,\quad \text{total}=6",
+        "\\text{blue counters}=4,\\quad \\text{total}=6",
         "2/3",
         ["0.6667", "66.67%"],
         "There are 4 favourable blue outcomes and 6 total outcomes."
@@ -819,7 +819,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       probAnswer(
         "prob-m3",
         "Two fair coins are tossed. Find the probability of at least one head.",
-        "\text{total outcomes}=4,\quad \text{no heads}=1",
+        "\\text{total outcomes}=4,\\quad \\text{no heads}=1",
         "3/4",
         ["0.75"],
         "Exactly one or two heads occur in three of the four equally likely outcomes."
@@ -915,15 +915,15 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
         "If a question gives a description of an event, write the probability as the number of favourable outcomes over the total number of outcomes."
       ],
       latexBlocks: [
-        "\text{mean}=\frac{\text{sum of values}}{\text{number of values}}",
-        "P(\text{event})=\frac{\text{favourable outcomes}}{\text{total outcomes}}",
+        "\\text{mean}=\\frac{\\text{sum of values}}{\\text{number of values}}",
+        "P(\\text{event})=\\frac{\\text{favourable outcomes}}{\\text{total outcomes}}",
       ],
     },
     workedExamples: [
       {
         title: "Choose the correct average",
         questionLatex:
-          "\text{A student records the times 2.1, 2.4, 2.5, 2.7, 3.0 seconds. Which measure best describes the typical time?}",
+          "\\text{A student records the times 2.1, 2.4, 2.5, 2.7, 3.0 seconds. Which measure best describes the typical time?}",
         steps: [
           {
             explanation:
@@ -932,19 +932,19 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
           {
             explanation:
               "Add the times and divide by five."
-,            latex: "\frac{2.1+2.4+2.5+2.7+3.0}{5}=2.54"
+,            latex: "\\frac{2.1+2.4+2.5+2.7+3.0}{5}=2.54"
           },
           {
             explanation:
               "The mean is 2.54 seconds, which is the best single typical value in this case.",
           },
         ],
-        finalAnswerLatex: "2.54\text{ s}",
+        finalAnswerLatex: "2.54\\text{ s}",
       },
       {
         title: "Interpret probability from words",
         questionLatex:
-          "\text{A bag has 5 red counters and 5 green counters. What is the probability of drawing a red counter?}",
+          "\\text{A bag has 5 red counters and 5 green counters. What is the probability of drawing a red counter?}",
         steps: [
           {
             explanation:
@@ -953,17 +953,17 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
           {
             explanation:
               "Use the probability formula with equally likely outcomes.",
-            latex: "P(\text{red})=\frac{5}{10}=\frac{1}{2}",
+            latex: "P(\\text{red})=\\frac{5}{10}=\\frac{1}{2}",
           },
         ],
-        finalAnswerLatex: "\frac{1}{2}",
+        finalAnswerLatex: "\\frac{1}{2}",
       },
     ],
     guidedPractice: [
       dataAnswer(
         "stats-exam-g1",
         "A list of prices is 12, 15, 18, 18, 20. What is the median price?",
-        "\text{ordered prices}",
+        "\\text{ordered prices}",
         "18"
       ),
       probChoice(
@@ -992,14 +992,14 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
       dataAnswer(
         "stats-exam-i1",
         "A table shows 7, 8, 8, 9, 10 customers. Find the mean number of customers.",
-        "\frac{7+8+8+9+10}{5}",
+        "\\frac{7+8+8+9+10}{5}",
         "8.4",
         ["8.40"]
       ),
       dataAnswer(
         "stats-exam-i2",
         "A bag has 4 red and 6 blue counters. One counter is selected at random. What is the probability it is blue?",
-        "\text{blue}=6,\quad \text{total}=10",
+        "\\text{blue}=6,\\quad \\text{total}=10",
         "3/5",
         ["0.6", "60%"]
       ),
@@ -1049,7 +1049,7 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
       probAnswer(
         "stats-exam-m2",
         "A coin is tossed once. What is the probability of tails?",
-        "\text{fair coin}",
+        "\\text{fair coin}",
         "1/2",
         ["0.5", "50%"],
         "There is one favourable outcome and two total equally likely outcomes."
@@ -1057,7 +1057,7 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
       dataAnswer(
         "stats-exam-m3",
         "A shop sold 2, 4, 5, 6, 8 items on five days. What is the mean number sold?",
-        "\frac{2+4+5+6+8}{5}",
+        "\\frac{2+4+5+6+8}{5}",
         "5",
         ["5.0"]
       ),
@@ -1152,60 +1152,60 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
         "Always use the correct unit labels: square units for area and cubic units for volume."
       ],
       latexBlocks: [
-        "\text{area of rectangle}=lw",
-        "\text{volume of prism}=\text{area of cross-section}\times l",
+        "\\text{area of rectangle}=lw",
+        "\\text{volume of prism}=\\text{area of cross-section}\\times l",
       ],
     },
     workedExamples: [
       {
         title: "Find area of a rectangle",
         questionLatex:
-          "\text{A rectangle is 8 cm wide and 5 cm tall. Find its area.}",
+          "\\text{A rectangle is 8 cm wide and 5 cm tall. Find its area.}",
         steps: [
           {
             explanation:
               "The formula for a rectangle is width times height.",
-            latex: "A=8\times5",
+            latex: "A=8\\times5",
           },
           {
             explanation:
               "Multiply the dimensions to find the area.",
-            latex: "A=40\text{ cm}^2",
+            latex: "A=40\\text{ cm}^2",
           },
         ],
-        finalAnswerLatex: "40\text{ cm}^2",
+        finalAnswerLatex: "40\\text{ cm}^2",
       },
       {
         title: "Find volume of a box",
         questionLatex:
-          "\text{A box has base area 12 cm}^2\text{ and height 5 cm. Find its volume.}",
+          "\\text{A box has base area 12 cm}^2\\text{ and height 5 cm. Find its volume.}",
         steps: [
           {
             explanation:
               "Use the prism volume formula: cross-sectional area times length.",
-            latex: "V=12\times5",
+            latex: "V=12\\times5",
           },
           {
             explanation:
               "Multiply the area by the height to get cubic units.",
-            latex: "V=60\text{ cm}^3",
+            latex: "V=60\\text{ cm}^3",
           },
         ],
-        finalAnswerLatex: "60\text{ cm}^3",
+        finalAnswerLatex: "60\\text{ cm}^3",
       },
     ],
     guidedPractice: [
       measurementAnswer(
         "area-vol-g1",
         "A triangle has base 6 m and height 4 m. Find its area.",
-        "\frac{1}{2}\times6\times4",
+        "\\frac{1}{2}\\times6\\times4",
         "12",
         ["12 m^2", "12 m²"]
       ),
       measurementAnswer(
         "area-vol-g2",
         "A rectangular prism has length 7 cm, width 3 cm and height 2 cm. Find its volume.",
-        "7\times3\times2",
+        "7\\times3\\times2",
         "42",
         ["42 cm^3", "42 cm³"]
       ),
@@ -1227,15 +1227,15 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
     independentPractice: [
       measurementAnswer(
         "area-vol-i1",
-        "A circle has radius 5 cm. Find its area using \(\pi r^2\) and leave the answer in terms of \(\pi\).",
-        "\pi\times5^2",
-        "25\pi",
-        ["25 \pi"]
+        "A circle has radius 5 cm. Find its area using \\(\\pi r^2\\) and leave the answer in terms of \\(\\pi\\).",
+        "\\pi\\times5^2",
+        "25\\pi",
+        ["25 \\pi"]
       ),
       measurementAnswer(
         "area-vol-i2",
         "A rectangular pool is 8 m long, 3 m wide and 1.5 m deep. Find its volume in cubic metres.",
-        "8\times3\times1.5",
+        "8\\times3\\times1.5",
         "36",
         ["36 m^3"]
       ),
@@ -1273,7 +1273,7 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
       },
       {
         mistake: "Forgetting the one-half factor for triangle area.",
-        fix: "Use \(\frac{1}{2}bh\) for triangles, not \(bh\)."
+        fix: "Use \(\\frac{1}{2}bh\) for triangles, not \(bh\)."
       },
       {
         mistake: "Adding dimensions instead of multiplying for area or volume.",
@@ -1284,14 +1284,14 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
       measurementAnswer(
         "area-vol-m1",
         "A rectangle is 9 cm by 4 cm. Find its area.",
-        "9\times4",
+        "9\\times4",
         "36",
         ["36 cm^2"]
       ),
       measurementAnswer(
         "area-vol-m2",
         "A triangular garden has base 10 m and height 3 m. Find its area.",
-        "\frac{1}{2}\times10\times3",
+        "\\frac{1}{2}\\times10\\times3",
         "15",
         ["15 m^2"]
       ),
@@ -1393,15 +1393,15 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
         "Keep the units consistent: if the drawing is in centimetres and the real distance is in metres, convert before using the scale factor."
       ],
       latexBlocks: [
-        "\text{real length}=\text{drawing length}\times n",
-        "\text{drawing length}=\frac{\text{real length}}{n}",
+        "\\text{real length}=\\text{drawing length}\\times n",
+        "\\text{drawing length}=\\frac{\\text{real length}}{n}",
       ],
     },
     workedExamples: [
       {
         title: "Use the scale factor for a real distance",
         questionLatex:
-          "\text{A map scale is 1:50000. A road on the map is 3 cm long. Find the actual road length in metres.}",
+          "\\text{A map scale is 1:50000. A road on the map is 3 cm long. Find the actual road length in metres.}",
         steps: [
           {
             explanation:
@@ -1410,42 +1410,42 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
           {
             explanation:
               "Multiply the map length by the scale factor and convert to metres.",
-            latex: "3\times50000=150000\text{ cm}=1500\text{ m}",
+            latex: "3\\times50000=150000\\text{ cm}=1500\\text{ m}",
           },
         ],
-        finalAnswerLatex: "1500\text{ m}",
+        finalAnswerLatex: "1500\\text{ m}",
       },
       {
         title: "Find a drawing length from a real measurement",
         questionLatex:
-          "\text{A floor plan is drawn at scale 1:100. A wall is 12 m long in reality. Find its length on the plan in centimetres.}",
+          "\\text{A floor plan is drawn at scale 1:100. A wall is 12 m long in reality. Find its length on the plan in centimetres.}",
         steps: [
           {
             explanation:
               "First convert the real length to centimetres because the scale uses the same units on both sides.",
-            latex: "12\text{ m}=1200\text{ cm}",
+            latex: "12\\text{ m}=1200\\text{ cm}",
           },
           {
             explanation:
               "Divide the real length by 100 to find the drawing length.",
-            latex: "\frac{1200}{100}=12\text{ cm}",
+            latex: "\\frac{1200}{100}=12\\text{ cm}",
           },
         ],
-        finalAnswerLatex: "12\text{ cm}",
+        finalAnswerLatex: "12\\text{ cm}",
       },
     ],
     guidedPractice: [
       measurementAnswer(
         "scale-g1",
         "A scale model uses scale 1:250. A training airplane model is 24 cm long. What is the real airplane length in metres?",
-        "24\times250\text{ cm}",
+        "24\\times250\\text{ cm}",
         "60",
         ["60 m"]
       ),
       measurementAnswer(
         "scale-g2",
         "A room is 600 cm long in reality. On a plan with scale 1:100, what is the room length on the drawing in centimetres?",
-        "\frac{600}{100}",
+        "\\frac{600}{100}",
         "6",
         ["6 cm"]
       ),
@@ -1473,14 +1473,14 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
       measurementAnswer(
         "scale-i1",
         "A drawing length is 7 cm at scale 1:200. Find the real length in metres.",
-        "7\times200\text{ cm}",
+        "7\\times200\\text{ cm}",
         "14",
         ["14 m"]
       ),
       measurementAnswer(
         "scale-i2",
         "A model car is 15 cm long and the real car is 4.5 m long. What is the scale ratio in the form 1:n?",
-        "\frac{450}{15}",
+        "\\frac{450}{15}",
         "30",
         ["1:30"]
       ),
@@ -1529,21 +1529,21 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
       measurementAnswer(
         "scale-m1",
         "A map uses scale 1:25000. A river is drawn 4 cm long on the map. Find the real river length in kilometres.",
-        "4\times25000\text{ cm}",
+        "4\\times25000\\text{ cm}",
         "1",
         ["1 km"]
       ),
       measurementAnswer(
         "scale-m2",
         "A plan uses scale 1:50. A table is 120 cm long in reality. What length does it have on the plan?",
-        "\frac{120}{50}",
+        "\\frac{120}{50}",
         "2.4",
         ["2.4 cm"]
       ),
       measurementAnswer(
         "scale-m3",
         "A model house is built at scale 1:100. A wall is 2.8 m long in reality. What is the wall length on the model in centimetres?",
-        "\frac{280}{100}",
+        "\\frac{280}{100}",
         "2.8",
         ["2.8 cm"]
       ),
