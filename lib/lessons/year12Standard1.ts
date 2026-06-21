@@ -3040,7 +3040,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
     ],
     teaching: {
       paragraphs: [
-        "Exam questions in Standard 1 often blend trigonometry and rates within a single context. Read the question carefully to identify which technique is needed before writing any working.",
+        "Exam questions in Standard 1 often blend trigonometry and rates in one context, so decide the technique from the cue: a right triangle or an angle points to trigonometry, while a per-unit quantity over time (speed, flow, fuel) points to rates. Read carefully and name the technique before writing any working.",
         "For trigonometry questions, identify the right-angle triangle, label the sides relative to the given angle, and choose the correct ratio. Sides go to 1 d.p. and angles go to the nearest degree.",
         "For rate questions, check the units of the rate and the given quantity, then rearrange the appropriate formula to find the unknown. Convert hours and minutes carefully to avoid unit errors.",
         "In two-step questions, the answer to the first part is the input for the second. Store the unrounded value in your calculator and only round the final answer.",
