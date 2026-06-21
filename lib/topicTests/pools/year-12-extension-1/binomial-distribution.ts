@@ -258,6 +258,236 @@ const bernoulliD5: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 2: Binomial Probabilities ───────────────────────────────────────
+// Apply P(X = k) = C(n,k) pᵏ qⁿ⁻ᵏ; complements; cumulative ranges; and finding a
+// parameter from a probability.
+const binomProbD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-binom-bp-d4-1",
+    prompt: "For X ~ B(5, 0.5), find P(X = 2) (exact fraction).",
+    latex: "X \\sim B(5, 0.5)",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$\\dfrac{5}{16}$" },
+      { label: "B", text: "$\\dfrac{1}{32}$" },
+      { label: "C", text: "$\\dfrac{10}{16}$" },
+      { label: "D", text: "$\\dfrac{1}{16}$" },
+    ],
+    answer: "A",
+    explanation:
+      "P(X=2) = C(5,2)(0.5)²(0.5)³ = 10/32 = 5/16. B omits the coefficient C(5,2).",
+  },
+  {
+    id: "y12e1-binom-bp-d4-2",
+    prompt: "For X ~ B(5, 0.4), find P(X ≤ 1) (4 d.p.).",
+    latex: "X \\sim B(5, 0.4)",
+    marks: 3,
+    difficulty: 4,
+    answer: "0.337",
+    acceptedAnswers: ["0.33696", "0.3370"],
+    explanation:
+      "P(0) + P(1) = 0.6⁵ + 5(0.4)(0.6)⁴ = 0.07776 + 0.2592 = 0.33696.",
+  },
+  {
+    id: "y12e1-binom-bp-d4-3",
+    prompt: "For X ~ B(10, 0.2), find P(X = 2) (4 d.p.).",
+    latex: "X \\sim B(10, 0.2)",
+    marks: 3,
+    difficulty: 4,
+    answer: "0.302",
+    acceptedAnswers: ["0.30199", "0.3020"],
+    explanation: "C(10,2)(0.2)²(0.8)⁸ = 45 × 0.04 × 0.16777 ≈ 0.3020.",
+  },
+  {
+    id: "y12e1-binom-bp-d4-4",
+    prompt: "For X ~ B(8, 0.5), find P(X = 0) (exact fraction).",
+    latex: "X \\sim B(8, 0.5)",
+    marks: 2,
+    difficulty: 4,
+    answer: "1/256",
+    acceptedAnswers: ["0.003906", "0.0039"],
+    explanation: "P(X=0) = 0.5⁸ = 1/256 ≈ 0.0039.",
+  },
+  {
+    id: "y12e1-binom-bp-d4-5",
+    prompt: "For X ~ B(5, 0.3), find P(X = 1) (4 d.p.).",
+    latex: "X \\sim B(5, 0.3)",
+    marks: 2,
+    difficulty: 4,
+    answer: "0.3602",
+    acceptedAnswers: ["0.36015", "0.360"],
+    explanation: "C(5,1)(0.3)(0.7)⁴ = 5 × 0.3 × 0.2401 ≈ 0.3602.",
+  },
+  {
+    id: "y12e1-binom-bp-d4-6",
+    prompt: "For X ~ B(7, 0.4), find P(X = 7).",
+    latex: "X \\sim B(7, 0.4)",
+    marks: 2,
+    difficulty: 4,
+    answer: "0.0016384",
+    acceptedAnswers: ["0.001638", "0.00164"],
+    explanation: "P(X=7) = 0.4⁷ = 0.0016384.",
+  },
+  {
+    id: "y12e1-binom-bp-d4-7",
+    prompt: "For X ~ B(10, 0.5), find P(X ≥ 1) (exact fraction).",
+    latex: "X \\sim B(10, 0.5)",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$\\dfrac{1023}{1024}$" },
+      { label: "B", text: "$\\dfrac{1}{1024}$" },
+      { label: "C", text: "$\\dfrac{1}{2}$" },
+      { label: "D", text: "$1$" },
+    ],
+    answer: "A",
+    explanation:
+      "P(X≥1) = 1 − P(X=0) = 1 − 0.5¹⁰ = 1023/1024. B is P(X=0) itself.",
+  },
+  {
+    id: "y12e1-binom-bp-d4-8",
+    prompt: "For X ~ B(6, 0.2), find P(X = 0) (4 d.p.).",
+    latex: "X \\sim B(6, 0.2)",
+    marks: 2,
+    difficulty: 4,
+    answer: "0.2621",
+    acceptedAnswers: ["0.262144", "0.262"],
+    explanation: "P(X=0) = 0.8⁶ = 0.262144.",
+  },
+  {
+    id: "y12e1-binom-bp-d4-9",
+    prompt: "For X ~ B(3, 1/3), find P(X = 3) (exact fraction).",
+    latex: "X \\sim B(3, \\tfrac{1}{3})",
+    marks: 2,
+    difficulty: 4,
+    answer: "1/27",
+    acceptedAnswers: ["0.037", "0.0370"],
+    explanation: "P(X=3) = (1/3)³ = 1/27.",
+  },
+  {
+    id: "y12e1-binom-bp-d4-10",
+    prompt: "For X ~ B(12, 0.5), find P(X = 6) (4 d.p.).",
+    latex: "X \\sim B(12, 0.5)",
+    marks: 3,
+    difficulty: 4,
+    answer: "0.2256",
+    acceptedAnswers: ["924/4096", "231/1024", "0.22559"],
+    explanation: "C(12,6)(0.5)¹² = 924/4096 ≈ 0.2256.",
+  },
+];
+
+// D5: cumulative ranges, find a parameter from a probability, the mode, a
+// conditional probability, an equation in p, and an independent combination.
+const binomProbD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-binom-bp-d5-1",
+    prompt: "For X ~ B(10, 0.3), find P(X ≥ 2) (4 d.p.).",
+    latex: "X \\sim B(10, 0.3)",
+    marks: 4,
+    difficulty: 5,
+    answer: "0.8507",
+    acceptedAnswers: ["0.85069", "0.851"],
+    explanation:
+      "P(X≥2) = 1 − P(0) − P(1) = 1 − 0.7¹⁰ − 10(0.3)(0.7)⁹ ≈ 1 − 0.0282 − 0.1211 = 0.8507.",
+  },
+  {
+    id: "y12e1-binom-bp-d5-2",
+    prompt: "For X ~ B(6, 0.5), find P(2 ≤ X ≤ 4) (exact fraction).",
+    latex: "X \\sim B(6, 0.5)",
+    marks: 4,
+    difficulty: 5,
+    answer: "25/32",
+    acceptedAnswers: ["0.78125", "0.781", "50/64"],
+    explanation:
+      "[C(6,2)+C(6,3)+C(6,4)]/64 = (15+20+15)/64 = 50/64 = 25/32.",
+  },
+  {
+    id: "y12e1-binom-bp-d5-3",
+    prompt: "For X ~ B(8, 0.25), find P(X ≤ 2) (4 d.p.).",
+    latex: "X \\sim B(8, 0.25)",
+    marks: 4,
+    difficulty: 5,
+    answer: "0.6785",
+    acceptedAnswers: ["0.67854", "0.679"],
+    explanation:
+      "P(0)+P(1)+P(2) = 0.75⁸ + 8(0.25)(0.75)⁷ + 28(0.25)²(0.75)⁶ ≈ 0.1001 + 0.2670 + 0.3115 = 0.6785.",
+  },
+  {
+    id: "y12e1-binom-bp-d5-4",
+    prompt: "For X ~ B(n, 0.5), P(X = 0) = 1/64. Find n.",
+    latex: "P(X = 0) = \\tfrac{1}{64}",
+    marks: 3,
+    difficulty: 5,
+    answer: "6",
+    explanation: "0.5ⁿ = 1/64 = 2⁻⁶, so n = 6.",
+  },
+  {
+    id: "y12e1-binom-bp-d5-5",
+    prompt: "For X ~ B(5, p), P(X = 5) = 0.07776. Find p.",
+    latex: "P(X = 5) = 0.07776",
+    marks: 3,
+    difficulty: 5,
+    answer: "0.6",
+    acceptedAnswers: ["3/5"],
+    explanation: "p⁵ = 0.07776 ⇒ p = 0.07776^{1/5} = 0.6.",
+  },
+  {
+    id: "y12e1-binom-bp-d5-6",
+    prompt: "For X ~ B(10, 0.5), find the value of X with the greatest probability (the mode).",
+    latex: "X \\sim B(10, 0.5)",
+    marks: 3,
+    difficulty: 5,
+    answer: "5",
+    explanation: "The symmetric distribution peaks at the mean np = 5, so the mode is 5.",
+  },
+  {
+    id: "y12e1-binom-bp-d5-7",
+    prompt: "For X ~ B(6, 0.5), find P(X = 3 | X ≥ 3) (exact fraction).",
+    latex: "X \\sim B(6, 0.5)",
+    marks: 4,
+    difficulty: 5,
+    answer: "10/21",
+    acceptedAnswers: ["0.4762", "0.476", "20/42"],
+    explanation:
+      "P(X=3) = 20/64; P(X≥3) = (20+15+6+1)/64 = 42/64. Ratio = 20/42 = 10/21.",
+  },
+  {
+    id: "y12e1-binom-bp-d5-8",
+    prompt: "For X ~ B(3, p), P(X = 2) = P(X = 3). Find p.",
+    latex: "P(X = 2) = P(X = 3)",
+    marks: 4,
+    difficulty: 5,
+    answer: "3/4",
+    acceptedAnswers: ["0.75"],
+    explanation:
+      "C(3,2)p²(1−p) = C(3,3)p³ ⇒ 3p²(1−p) = p³ ⇒ 3(1−p) = p ⇒ p = 3/4.",
+  },
+  {
+    id: "y12e1-binom-bp-d5-9",
+    prompt:
+      "Two students each independently sit a test modelled by X ~ B(4, 0.5). Find the probability that both score exactly 2 (exact fraction).",
+    latex: "X \\sim B(4, 0.5)",
+    marks: 4,
+    difficulty: 5,
+    answer: "9/64",
+    acceptedAnswers: ["0.1406", "0.140625"],
+    explanation:
+      "P(X=2) = C(4,2)(0.5)⁴ = 6/16 = 3/8. Both: (3/8)² = 9/64.",
+  },
+  {
+    id: "y12e1-binom-bp-d5-10",
+    prompt:
+      "For X ~ B(n, 0.2), find the smallest n for which P(X ≥ 1) > 0.9.",
+    latex: "1 - 0.8^n > 0.9",
+    marks: 4,
+    difficulty: 5,
+    answer: "11",
+    explanation:
+      "Need 0.8ⁿ < 0.1. 0.8¹⁰ ≈ 0.107 and 0.8¹¹ ≈ 0.086 < 0.1, so the smallest n is 11.",
+  },
+];
+
 export const binomialDistributionPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -275,8 +505,8 @@ export const binomialDistributionPool: TopicTestPool = {
       subtopicSlug: "binomial-probabilities",
       subtopicTitle: "Binomial Probabilities",
       remediationHref: href("binomial-probabilities"),
-      d4: [],
-      d5: [],
+      d4: binomProbD4,
+      d5: binomProbD5,
     },
     {
       subtopicSlug: "mean-and-variance",
