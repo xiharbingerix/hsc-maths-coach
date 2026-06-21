@@ -344,13 +344,24 @@ Progress (updated 2026-06-21):
 - [x] **Entry point** — a "Topic tests" section on `/exam` lists registered
   topic tests (`listTopicTests`) and links to `/topic-test/[course]/[topic]`.
   Render-verified; further entry points (dashboard card / admin view) optional.
-- [ ] **Auth-gated paths** — DB persistence (`exam_attempts`) + subtopic mastery
-  write are written and tsc-clean but not yet verified through a logged-in
-  session. The app points at a hosted Supabase, so this needs a test login (or
-  authorisation to create + clean up a throwaway user) — not done unprompted.
-- Acceptance: a student can take the kinematics test, get a marked per-subtopic
-  result + remediation, and see mastery update on the dashboard. *(Core flow
-  proven; pending live auth verification + content depth + an entry point.)*
+- [x] **Auth-gated paths — verified live** (logged-in test account, 2026-06-21):
+  submitted the kinematics test failing one subtopic on purpose →
+  - results page: band E3, 16/23 (70%), remediation listed exactly *Analysing
+    Motion* (0/7);
+  - `exam_attempts` row persisted with id
+    `topic-test:year-12-extension-1:kinematics:469692` and per-subtopic
+    `topic_breakdown`;
+  - `student_subtopic_mastery` wrote all 4 kinematics subtopics
+    (motion-analysis 0, others 43); `student_mastery` topic = 80;
+  - dashboard "Where they're at" card shows Kinematics expanded with the
+    per-subtopic scores.
+- **Acceptance: MET** — a student can take the kinematics test, get a marked
+  per-subtopic result + remediation, and see mastery update on the dashboard.
+  *Remaining for Phase 1 completeness: content depth (grow each band to 10).*
+
+> Known cosmetic issue (pre-existing in `ExamRunner` results, not topic-test
+> specific): MCQ "Correct:" review text renders raw LaTeX (e.g.
+> `$6 \text{ m/s}^2$`) instead of via `MathText`. Worth a small fix later.
 
 **Phase 2 — Validate the pilot.**
 - Render-test a sampled assembled paper (Playwright, as with the diagnostic).
