@@ -12,6 +12,7 @@ import { DiagnosticResultPreview } from "../components/DiagnosticResultPreview";
 import { ProductShowcase } from "../components/ProductShowcase";
 import { PricingComparison } from "../components/PricingComparison";
 import { PlatformDepth } from "../components/PlatformDepth";
+import { ValueUnlocks } from "../components/ValueUnlocks";
 
 export const metadata: Metadata = {
   title: "HSC Maths Diagnostic | NSW Year 12 Standard 2 & Advanced",
@@ -464,6 +465,9 @@ export default function HscMathsPage() {
             ))}
           </div>
         </section>
+
+        {/* What $19/month unlocks */}
+        <ValueUnlocks />
 
         {/* 7. Pricing */}
         <PricingComparison

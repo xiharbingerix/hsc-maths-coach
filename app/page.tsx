@@ -10,6 +10,7 @@ import { ProductShowcase } from "./components/ProductShowcase";
 import { PricingComparison } from "./components/PricingComparison";
 import { DiagnosticCtaLink } from "./components/DiagnosticCtaLink";
 import { PlatformDepth } from "./components/PlatformDepth";
+import { ValueUnlocks } from "./components/ValueUnlocks";
 
 export const metadata: Metadata = {
   title: "Nova Maths | NSW Maths Diagnostic & Online Lessons",
@@ -346,6 +347,9 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        {/* What $19/month unlocks */}
+        <ValueUnlocks />
 
         {/* 6. Pricing */}
         <PricingComparison
