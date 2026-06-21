@@ -142,6 +142,29 @@ const tests: TestCase[] = [
   { name: "latex \\left \\right brackets stripped", userAnswer: "2(x+1)", correctAnswer: "2\\left(x+1\\right)", expected: true },
   { name: "latex \\times treated as *", userAnswer: "3*x", correctAnswer: "3\\times x", expected: true },
   { name: "wrong trig antiderivative stays wrong", userAnswer: "sin x + C", correctAnswer: "-\\cos x + C", expected: false },
+
+  // ── Unordered solution sets (roots) ───────────────────────────────────────
+  // Engages ONLY on explicit "or"/"and" connectives or a repeated same-variable
+  // equals list — never on bare comma pairs or coordinates (guarded below).
+  { name: "solution set or-connective is unordered", userAnswer: "x=1 or x=-4", correctAnswer: "x=-4,x=1", expected: true },
+  { name: "solution set and-connective with bare numbers", userAnswer: "-4 and 1", correctAnswer: "x=1,x=-4", expected: true },
+  { name: "solution set or-connective with bare numbers", userAnswer: "-4 or 4", correctAnswer: "x=-4,x=4", expected: true },
+  { name: "solution set spaced equals or-connective", userAnswer: "x = 1 or x = -4", correctAnswer: "x=-4,x=1", expected: true },
+  { name: "solution set matches via accepted variant", userAnswer: "x=4 or x=-5", correctAnswer: "4,-5", acceptedAnswers: ["x=-5,x=4"], expected: true },
+  { name: "solution set wrong member stays wrong", userAnswer: "x=1 or x=5", correctAnswer: "x=-4,x=1", expected: false },
+  { name: "solution set wrong size stays wrong", userAnswer: "x=1", correctAnswer: "x=-4,x=1", expected: false },
+  { name: "solution set mixed variables not coerced", userAnswer: "x=1 or y=4", correctAnswer: "x=-4,x=1", expected: false },
+  // Guards: the new comparator must NOT reorder coordinates or bare comma pairs.
+  { name: "bare comma pair stays ordered (not a solution set)", userAnswer: "-4,1", correctAnswer: "1,-4", expected: false },
+  { name: "coordinate stays ordered with solution-set change", userAnswer: "(4,3)", correctAnswer: "(3,4)", expected: false },
+
+  // ── alg-fr-m7 marking coverage (Wave 2) ───────────────────────────────────
+  // The unfactored denominator 3x/(2x-6) is also fully simplified; both forms
+  // are accepted, but only when the required restriction is present.
+  { name: "alg-fr-m7 unfactored denominator with spacing accepted", userAnswer: "3x/(2x - 6), x ≠ 3", correctAnswer: "3x/(2(x-3)), x≠3", acceptedAnswers: ["3x/(2x-6), x≠3", "3x/(2x-6), x != 3"], expected: true },
+  { name: "alg-fr-m7 unfactored denominator with != accepted", userAnswer: "3x/(2x-6), x != 3", correctAnswer: "3x/(2(x-3)), x≠3", acceptedAnswers: ["3x/(2x-6), x≠3", "3x/(2x-6), x != 3"], expected: true },
+  { name: "alg-fr-m7 missing restriction stays wrong", userAnswer: "3x/(2x-6)", correctAnswer: "3x/(2(x-3)), x≠3", acceptedAnswers: ["3x/(2x-6), x≠3", "3x/(2x-6), x != 3"], expected: false },
+  { name: "alg-fr-m7 wrong restriction stays wrong", userAnswer: "3x/(2x-6), x≠0", correctAnswer: "3x/(2(x-3)), x≠3", acceptedAnswers: ["3x/(2x-6), x≠3", "3x/(2x-6), x != 3"], expected: false },
 ];
 
 let failures = 0;

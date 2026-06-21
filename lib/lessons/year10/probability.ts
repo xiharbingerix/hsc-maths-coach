@@ -6,8 +6,26 @@ function probabilityVariants(answer: string, extra: string[] = []) {
   const fraction = answer.match(/^(\d+)\/(\d+)$/);
 
   if (fraction) {
-    const value = Number(fraction[1]) / Number(fraction[2]);
-    variants.push(String(value), `${value * 100}%`);
+    const numerator = Number(fraction[1]);
+    const denominator = Number(fraction[2]);
+
+    // Only emit decimal / percentage variants when the fraction terminates in
+    // base 10. Non-terminating fractions (e.g. 1/12) previously pushed junk
+    // 17-digit floats such as "0.08333333333333333" and "8.333333333333332%"
+    // that no student would ever type and that never matched a sensibly-rounded
+    // entry — a silent marking defect. (Exact rational equivalence for clean
+    // decimals/percentages is handled centrally in lib/answerMarking.ts.)
+    let reduced = denominator;
+    while (reduced % 2 === 0) reduced /= 2;
+    while (reduced % 5 === 0) reduced /= 5;
+
+    if (denominator !== 0 && reduced === 1) {
+      const value = numerator / denominator;
+      // Round-trip through a fixed precision to strip floating-point noise such
+      // as 0.07 * 100 === 7.000000000000001.
+      const clean = (n: number) => String(Number(n.toFixed(10)));
+      variants.push(clean(value), `${clean(value * 100)}%`);
+    }
   }
 
   if (/^\d+$/.test(answer)) {
@@ -123,8 +141,8 @@ const multiStageIndependent: PracticeQuestion[] = [
 const multiStageMastery: PracticeQuestion[] = [
   probAnswer("y10-prob-ms-m1", "A spinner has 3 sectors and a die has 6 faces. How many combined outcomes are possible?", "\\text{spinner sectors}=3,\\quad \\text{die faces}=6", "18", "There are 18 combined outcomes."),
   probAnswer("y10-prob-ms-m2", "Two fair coins are tossed. Find the probability of heads followed by tails.", "\\text{two fair coin tosses}", "1/4", "One of the four equally likely outcomes is heads then tails."),
-  probChoice("y10-prob-ms-m3", "Which phrase means the first selected counter is returned before the second selection?", "A", ["With replacement", "Without replacement", "Mutually exclusive", "Outside both sets"], "With replacement means the counter is returned."),
-  probAnswer("y10-prob-ms-m4", "A 5-sector spinner and a 4-sector spinner are spun. How many combined outcomes are possible?", "\\text{first spinner sectors}=5,\\quad \\text{second spinner sectors}=4", "20", "Multiply the numbers of possible outcomes."),
+  probChoice("y10-prob-ms-m3", "A bag has 3 red and 2 blue counters. Two are drawn. Which statement is true only when the first counter is replaced before the second draw?", "A", ["The second draw still has 5 counters, so P(red) is again 3/5", "The second draw has only 4 counters", "The two draws cannot both be red", "P(red) on the second draw must be 2/4"], "With replacement returns the bag to 3 red and 2 blue, so the second draw again has 5 counters and P(red)=3/5. Without replacement would leave 4 counters and change the second-draw probability."),
+  probAnswer("y10-prob-ms-m4", "A spinner and a fair six-sided die are spun together, giving 24 equally likely combined outcomes. How many sectors does the spinner have?", "\\text{sectors}\\times 6=24", "4", "Each spinner sector pairs with each of the 6 die faces, so sectors times 6 equals 24. Reverse the multiplication: 24 divided by 6 is 4 sectors."),
   probAnswer("y10-prob-ms-m5", "A fair die is rolled and a fair coin is tossed. Find the probability of rolling an odd number and tossing heads.", "\\text{fair die and fair coin}", "1/4", "Three of the 12 combined outcomes are favourable."),
   probAnswer("y10-prob-ms-m6", "A bag has 3 red and 2 blue counters. Two counters are selected with replacement. Find the probability of selecting blue twice.", "\\text{bag: }3\\text{ red},\\quad 2\\text{ blue};\\quad \\text{with replacement}", "4/25", "Multiply two probabilities of two fifths."),
   probAnswer("y10-prob-ms-m7", "A bag has 3 red and 2 blue counters. Two counters are selected without replacement. Find the probability of selecting blue twice.", "\\text{bag: }3\\text{ red},\\quad 2\\text{ blue};\\quad \\text{without replacement}", "1/10", "The probabilities are two fifths and one quarter."),
@@ -479,7 +497,7 @@ const conditionalIndependent: PracticeQuestion[] = [
 
 const conditionalMastery: PracticeQuestion[] = [
   probAnswer("y10-prob-cond-m1", "Using the table, given that a student is in Year 11, find the probability they prefer Art.", tableA, "8/15", "Use the 30 Year 11 students as the denominator."),
-  probChoice("y10-prob-cond-m2", "In conditional probability, what usually changes?", "B", ["The favourable group must disappear", "The denominator is restricted", "Every answer becomes a percentage", "The table totals are ignored"], "The condition restricts the group used as the denominator."),
+  probChoice("y10-prob-cond-m2", "In a class, 18 students study French and 7 of those also study Japanese. For the probability that a student studies Japanese given that they study French, which number is the denominator?", "B", ["25, because 18 and 7 are added", "18, the students who study French", "7, the students who study both", "The whole class total"], "The condition 'given French' restricts the group to the 18 French students, so 18 is the denominator. The 7 who study both is the favourable count (numerator), not the denominator."),
   probAnswer("y10-prob-cond-m3", "Of 25 students who play sport, 10 also play music. Given that a student plays sport, find the probability they play music.", "\\text{sport}=25,\\quad \\text{sport and music}=10", "2/5", "Use the sport group as the denominator."),
   probAnswer("y10-prob-cond-m4", "Using the table, given that a person does not play sport, find the probability they walk.", tableB, "3/8", "Use the 16 people who do not play sport as the denominator."),
   probAnswer("y10-prob-cond-m5", "Using the table, given that a student prefers Maths, find the probability they are in Year 10.", tableA, "9/16", "Use the 32 students who prefer Maths as the denominator."),

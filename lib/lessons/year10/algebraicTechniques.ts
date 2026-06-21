@@ -660,7 +660,7 @@ const algebraicFractionsMastery: PracticeQuestion[] = [
     ["$x-1$", "$x^2-1$", "$x$", "$x-x$"],
     "Factorise the numerator: x(x − 1). Cancel the x: result is x − 1.",
     "\\frac{x^2-x}{x}"),
-  algAnswer("alg-fr-m7", "Simplify 3x/(2x − 6), stating the restriction.", "\\frac{3x}{2x-6}", "3x/(2(x-3)), x≠3", ["3x/[2(x-3)], x≠3", "3x/(2(x-3)), x != 3", "3x/[2(x-3)], x != 3"]),
+  algAnswer("alg-fr-m7", "Simplify 3x/(2x − 6), stating the restriction.", "\\frac{3x}{2x-6}", "3x/(2(x-3)), x≠3", ["3x/[2(x-3)], x≠3", "3x/(2(x-3)), x != 3", "3x/[2(x-3)], x != 3", "3x/(2x-6), x≠3", "3x/(2x-6), x != 3"]),
   algChoice("alg-fr-m8", "Which is the fully simplified form of (x² − 9)/(x² + 6x + 9)?", "A",
     ["$\\frac{x-3}{x+3}$", "$\\frac{x+3}{x-3}$", "$x-3$", "$\\frac{x^2-9}{x^2+9}$"],
     "Numerator: (x − 3)(x + 3). Denominator: (x + 3)². Cancel one (x + 3): result is (x − 3)/(x + 3).",

@@ -251,6 +251,68 @@ function parseClockTime(value: string): number | null {
   return null;
 }
 
+function parseSolutionSet(value: string): Rational[] | null {
+  const working = value
+    .normalize("NFKC")
+    .replace(/⁄/g, "/")
+    .replace(/[−–—]/g, "-")
+    .toLowerCase()
+    .trim();
+
+  // Only treat the value as an (unordered) solution set when the syntax is
+  // unambiguously a list of solutions, never a coordinate:
+  //   - an explicit "or"/"and" connective ("x = 1 or x = -4", "-4 and 1"), or
+  //   - a repeated same-variable equals list ("x=-4, x=1").
+  // Bare comma pairs (e.g. "1,-4") are intentionally left to the ordered
+  // coordinate comparator — see the "unordered set is not reordered" test.
+  const hasConnective = /\b(?:or|and)\b/.test(working);
+  const equalsVariables = (working.match(/([a-z])\s*=/g) ?? []).map((token) =>
+    token.replace(/[\s=]/g, "")
+  );
+  const repeatedSameVariable =
+    equalsVariables.length >= 2 && new Set(equalsVariables).size === 1;
+
+  if (!hasConnective && !repeatedSameVariable) return null;
+
+  const tokens = working.split(/\b(?:or|and)\b|,/);
+  const values: Rational[] = [];
+  let variable: string | null = null;
+
+  for (const rawToken of tokens) {
+    const token = rawToken.trim();
+    if (!token) continue;
+
+    let numericPart = token;
+    const variableMatch = token.match(/^([a-z])\s*=\s*(.+)$/);
+    if (variableMatch) {
+      if (variable && variable !== variableMatch[1]) return null; // mixed variables -> not a single solution set
+      variable = variableMatch[1];
+      numericPart = variableMatch[2].trim();
+    }
+
+    const parsed = parseNumericValue(stripThousandsSeparators(numericPart));
+    if (!parsed) return null; // any non-numeric member -> not a clean numeric solution set
+    values.push(parsed);
+  }
+
+  return values.length >= 2 ? values : null;
+}
+
+function sameSolutionSet(left: Rational[], right: Rational[]): boolean {
+  if (left.length !== right.length) return false;
+
+  const matched = new Array(right.length).fill(false);
+  for (const value of left) {
+    const index = right.findIndex(
+      (other, i) => !matched[i] && sameRational(value, other)
+    );
+    if (index === -1) return false;
+    matched[index] = true;
+  }
+
+  return true;
+}
+
 function semanticMatch(userAnswer: string, acceptedAnswer: string) {
   // Clock time: 24-hour and am/pm forms are equivalent.
   // Only engage when at least one side carries an explicit meridiem marker to
@@ -275,6 +337,17 @@ function semanticMatch(userAnswer: string, acceptedAnswer: string) {
   if (acceptedRatio) {
     const userRatio = parseRatio(userAnswer);
     return userRatio ? sameCoordinate(userRatio, acceptedRatio) : false;
+  }
+
+  // Unordered solution sets: "x = 1 or x = -4", "x=-4, x=1", "-4 and 1" are all
+  // the same set of roots regardless of order. Engages only on explicit
+  // connectives / repeated-variable syntax, so it never reorders coordinates.
+  const acceptedSolutionSet = parseSolutionSet(acceptedAnswer);
+  if (acceptedSolutionSet) {
+    const userSolutionSet = parseSolutionSet(userAnswer);
+    return userSolutionSet
+      ? sameSolutionSet(userSolutionSet, acceptedSolutionSet)
+      : false;
   }
 
   const userScalar = parseScalar(userAnswer);

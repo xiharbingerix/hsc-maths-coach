@@ -196,7 +196,7 @@ const compoundInterestIndependent: PracticeQuestion[] = [
 
 const compoundInterestMastery: PracticeQuestion[] = [
   financeMoney("y10-fin-ci-m1", "Find the balance of 1000 dollars invested at 5% p.a., compounded yearly, for 2 years. Round to cents.", "P=\\$1000,\\quad r=5\\%\\text{ p.a.},\\quad n=2", "1102.50", "The balance is $1102.50."),
-  financeChoice("y10-fin-ci-m2", "Which growth factor represents an increase of 8% each year?", "B", ["0.92", "1.08", "0.08", "8"], "An 8% increase uses the growth factor 1.08."),
+  financeChoice("y10-fin-ci-m2", "An investment grows 8% in the first year, then the new balance grows 8% again in the second year. By what single factor has the original amount grown after the two years?", "A", ["1.1664", "1.16", "1.08", "0.1664"], "Compound growth multiplies the factors: 1.08 × 1.08 = 1.1664. Adding the two rates to 16% (factor 1.16) treats the growth as simple and undercounts interest earned on interest; 0.1664 is only the increase, not the whole-amount factor."),
   financeMoney("y10-fin-ci-m3", "A 2000 dollar investment earns compound interest at 4% p.a. for 2 years, compounded yearly. Find the interest earned. Round to cents.", "P=\\$2000,\\quad r=4\\%\\text{ p.a.},\\quad n=2", "163.20", "The balance is $2163.20, so the interest earned is $163.20."),
   financeMoney("y10-fin-ci-m4", "Find the balance of 3500 dollars invested at 2.5% p.a., compounded yearly, for 3 years. Round to cents.", "P=\\$3500,\\quad r=2.5\\%\\text{ p.a.},\\quad n=3", "3769.12", "The balance is $3769.12."),
   financeChoice("y10-fin-ci-m5", "Which formula models yearly compound growth?", "A", ["$A=P(1+r)^n$", "$I=Prt$", "$A=P-I$", "$A=P(1-r)^n$"], "Yearly compound growth multiplies the principal by the growth factor for each year."),
@@ -255,7 +255,7 @@ const depreciationIndependent: PracticeQuestion[] = [
 ];
 
 const depreciationMastery: PracticeQuestion[] = [
-  financeChoice("y10-fin-dep-m1", "Which depreciation factor represents a 10% decrease each year?", "D", ["1.10", "0.10", "10", "0.90"], "A 10% decrease leaves 90%, so the factor is 0.90."),
+  financeChoice("y10-fin-dep-m1", "An asset is multiplied by a depreciation factor of 0.90 each year for two years. By what single factor has its value changed after the two years?", "A", ["0.81", "0.80", "0.90", "0.18"], "Repeated depreciation multiplies the factors: 0.90 × 0.90 = 0.81, so 81% of the original value remains. Subtracting 10% twice as if it were simple (0.80) is incorrect, and 0.18 is the fraction lost, not the fraction remaining."),
   financeMoney("y10-fin-dep-m2", "A car worth 12000 dollars depreciates by 20% in one year. Find its new value. Give the exact amount.", "P=\\$12000,\\quad r=20\\%,\\quad n=1", "9600", "The new value is $9600."),
   financeMoney("y10-fin-dep-m3", "An asset originally worth 8000 dollars is later worth 6800 dollars. Find the loss in value. Give the exact amount.", "\\text{original value}=\\$8000,\\quad \\text{final value}=\\$6800", "1200", "The asset loses $1200 in value."),
   financeMoney("y10-fin-dep-m4", "A device worth 5000 dollars depreciates by 10% p.a. for 3 years. Find its value after 3 years. Give the exact amount.", "P=\\$5000,\\quad r=10\\%\\text{ p.a.},\\quad n=3", "3645", "The value after 3 years is $3645."),
@@ -317,7 +317,7 @@ const comparingInvestmentsIndependent: PracticeQuestion[] = [
 ];
 
 const comparingInvestmentsMastery: PracticeQuestion[] = [
-  financeMoney("y10-fin-comp-m1", "An investment costs 2500 dollars and later returns 2700 dollars. Find the net gain. Give the exact amount.", "\\text{cost}=\\$2500,\\quad \\text{return}=\\$2700", "200", "The net gain is $200."),
+  financeChoice("y10-fin-comp-m1", "Option A returns 2750 dollars on a 2500 dollar investment but charges a 40 dollar fee. Option B returns 2720 dollars on the same 2500 dollar investment with no fee. Which option has the higher net gain?", "B", ["Option A", "Option B", "They have the same net gain", "Option A, because it returns more before fees"], "Net gain = return - cost - fees. Option A: 2750 - 2500 - 40 = $210. Option B: 2720 - 2500 = $220. Option B nets $10 more, because Option A's $40 fee outweighs its extra $30 return.", "\\text{Compare net gain after any fee.}"),
   financeMoney("y10-fin-comp-m2", "An investment costs 3600 dollars and later returns 3800 dollars. A 50 dollar fee is charged. Find the net gain. Give the exact amount.", "\\text{cost}=\\$3600,\\quad \\text{return}=\\$3800,\\quad \\text{fee}=\\$50", "150", "The net gain is $150."),
   financeMoney("y10-fin-comp-m3", "An account balance is 4300 dollars before a 35 dollar closing fee. Find the final amount after the fee. Give the exact amount.", "\\text{balance before fee}=\\$4300,\\quad \\text{fee}=\\$35", "4265", "The final amount is $4265."),
   financeChoice("y10-fin-comp-m4", "Account A has a final balance of 4100 dollars before a 30 dollar fee. Account B has a final balance of 4055 dollars with no fee. Which account finishes higher?", "A", ["Account A by $15", "Account B by $15", "They finish equal", "Account B by $45"], "Account A finishes at $4070 after its fee, which is $15 more than Account B."),

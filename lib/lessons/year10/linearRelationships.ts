@@ -142,8 +142,8 @@ const gradientIndependent: PracticeQuestion[] = [
 ];
 
 const gradientMastery: PracticeQuestion[] = [
-  linearAnswer("y10-linear-grad-m1", "State the gradient of the line.", "y=5x-2", "5", "The coefficient of x is 5.", ["m=5"]),
-  linearAnswer("y10-linear-grad-m2", "State the y-intercept of the line.", "y=-2x+7", "7", "The constant term is 7.", ["b=7"]),
+  linearAnswer("y10-linear-grad-m1", "A line is written as 2y = 6x - 8. Find its gradient.", "2y=6x-8", "3", "Divide both sides by 2 to reach y = mx + b: y = 3x - 4. The gradient is the coefficient of x, which is 3 (not 6 — the equation must be rearranged first).", ["m=3"]),
+  linearAnswer("y10-linear-grad-m2", "A line is written as x + 2y = 8. Find its y-intercept.", "x+2y=8", "4", "Rearrange into y = mx + b: 2y = -x + 8, so y = -x/2 + 4. The y-intercept is the constant term, 4.", ["b=4"]),
   linearChoice("y10-linear-grad-m3", "A horizontal line has which gradient?", "A", ["0", "1", "-1", "Undefined"], "A horizontal line has zero rise."),
   linearAnswer("y10-linear-grad-m4", "Find the gradient through the two points.", "(2,3),\\quad (5,12)", "3", "The rise is 9 and the run is 3.", ["m=3"]),
   linearChoice("y10-linear-grad-m5", "Which equation has gradient -4 and y-intercept 1?", "D", ["$y=x-4$", "$y=4x+1$", "$y=-x+4$", "$y=-4x+1$"], "Use the form y = mx + b."),
@@ -249,7 +249,7 @@ const midpointIndependent: PracticeQuestion[] = [
 const midpointMastery: PracticeQuestion[] = [
   linearAnswer("y10-linear-mid-m1", "Find the midpoint of A(0, 2) and B(4, 6).", "A(0,2),\\quad B(4,6)", "(2,4)", "Average each coordinate.", ["2,4", "(2, 4)", "2, 4"]),
   linearAnswer("y10-linear-mid-m2", "Find the distance between P(1, 2) and Q(4, 6).", "P(1,2),\\quad Q(4,6)", "5", "The coordinate changes are 3 and 4."),
-  linearChoice("y10-linear-mid-m3", "Which formula finds the midpoint?", "A", ["$\\left(\\frac{x_1+x_2}{2},\\frac{y_1+y_2}{2}\\right)$", "$\\sqrt{x_1+x_2+y_1+y_2}$", "$\\frac{y_2-y_1}{x_2-x_1}$", "$y=mx+b$"], "The midpoint averages corresponding coordinates."),
+  linearChoice("y10-linear-mid-m3", "A student gives the midpoint of A(2, 6) and B(8, 10) as (10, 16). What is the error?", "A", ["They added the coordinates without dividing each sum by 2", "They subtracted the coordinates instead of adding", "They swapped the x- and y-coordinates", "Nothing — (10, 16) is correct"], "The midpoint averages corresponding coordinates: ((2+8)/2, (6+10)/2) = (5, 8). The student added the coordinates (2+8=10, 6+10=16) but forgot to divide each sum by 2."),
   linearAnswer("y10-linear-mid-m4", "Find the midpoint of A(-4, -2) and B(6, 8).", "A(-4,-2),\\quad B(6,8)", "(1,3)", "Average each coordinate.", ["1,3", "(1, 3)", "1, 3"]),
   linearAnswer("y10-linear-mid-m5", "Find the distance between P(-1, 2) and Q(5, 10).", "P(-1,2),\\quad Q(5,10)", "10", "The coordinate changes are 6 and 8."),
   linearAnswer("y10-linear-mid-m6", "The midpoint of A(3, 2) and B(9, y) is (6, 5). Find y.", "A(3,2),\\quad B(9,y),\\quad M(6,5)", "8", "Solve the y-coordinate midpoint equation."),
@@ -387,7 +387,7 @@ const equationOfLineMastery: PracticeQuestion[] = [
   linearAnswer("y10-eol-m6", "Find the gradient of the line through (−1, 4) and (3, 8).", "(-1,4)\\text{ and }(3,8)", "1", "Rise = 4, run = 4. Gradient = 4 ÷ 4 = 1.", ["m=1"]),
   linearChoice("y10-eol-m7", "Which equation passes through (1, −2) and (4, 7)?", "A",
     ["$y=3x-5$", "$y=3x+5$", "$y=3x-2$", "$y=9x-5$"],
-    "Gradient = (7−(−2))/(4−1) = 9/3 = 3. y − (−2) = 3(x − 1) → y = 3x − 3 − 2 → wait, y + 2 = 3(x−1) → y = 3x−3−2... Actually: y+2=3(x-1) → y=3x-3-2=3x-5."),
+    "Gradient = (7−(−2))/(4−1) = 9/3 = 3. Then y − (−2) = 3(x − 1) → y + 2 = 3x − 3 → y = 3x − 5."),
   linearAnswer("y10-eol-m8", "A line passes through (0, 6) and (3, 0). Find its gradient.", "(0,6)\\text{ and }(3,0)", "-2", "Rise = 0−6 = −6, run = 3−0 = 3. Gradient = −6 ÷ 3 = −2.", ["m=-2"]),
   linearChoice("y10-eol-m9", "Which equation passes through (−2, 3) with gradient 2?", "A",
     ["$y=2x+7$", "$y=2x-7$", "$y=2x+3$", "$y=2x-1$"],
