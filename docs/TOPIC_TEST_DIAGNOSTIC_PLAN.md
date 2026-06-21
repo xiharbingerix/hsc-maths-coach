@@ -105,6 +105,21 @@ Each subtopic exposes `{ d4: TopicTestQuestion[]; d5: TopicTestQuestion[] }`
 (target 10 each). The registry lets the assembler look up a topic's pool by
 `courseSlug + topicSlug`.
 
+### Difficulty rule (set 2026-06-21)
+
+Topic tests are a **high-band** diagnostic: **every question is D4 or D5** — no
+below-D4 items. The pool model (`{ d4, d5 }`) and `TopicTestQuestion.difficulty:
+4 | 5` enforce this at the type level.
+
+### Authoring workflow (set 2026-06-21)
+
+Author per subtopic, **one band at a time (10 questions), then audit that batch
+against [QUESTION_AUTHORING_STANDARD.md](./QUESTION_AUTHORING_STANDARD.md)**
+before moving on: verify every answer (numeric check), then score each item for
+mathematical richness, diagnostic value, distractor→misconception mapping,
+genuine D4/D5 difficulty (no fake depth), auto-markability, LaTeX/currency
+correctness, and pool diversity. Fix or reject anything that fails.
+
 ### Authoring rules (non-negotiable)
 
 All pool questions follow [QUESTION_AUTHORING_STANDARD.md](./QUESTION_AUTHORING_STANDARD.md):
