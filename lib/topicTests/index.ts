@@ -7,6 +7,7 @@ import { furtherCalculusPool } from "./pools/year-12-extension-1/further-calculu
 import { calculusApplicationsPool } from "./pools/year-12-extension-1/calculus-applications";
 import { binomialDistributionPool } from "./pools/year-12-extension-1/binomial-distribution";
 import { vectorsPool } from "./pools/year-12-extension-1/vectors";
+import { proofInductionPool } from "./pools/year-12-extension-1/proof-induction";
 
 export * from "./types";
 export {
@@ -26,6 +27,7 @@ const POOLS: TopicTestPool[] = [
   calculusApplicationsPool,
   binomialDistributionPool,
   vectorsPool,
+  proofInductionPool,
 ];
 
 export function listTopicTestPools(): TopicTestPool[] {

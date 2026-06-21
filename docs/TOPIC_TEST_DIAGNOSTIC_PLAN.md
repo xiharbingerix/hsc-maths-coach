@@ -436,8 +436,15 @@ _Ext 1 build status (in progress, one subtopic at a time):_
   sends the render hint but never the rubric/explanation), a textarea in
   ExamRunner, a binary scoring branch in scoreExam (null verdict → 0, so don't
   ship proof items with the flag off), and a proof review card. The assembler
-  passes the fields through (it spreads the pool question). Remaining to launch
-  induction tests: author the induction pool(s) and turn on PROOF_MARKER_ENABLED.
+  passes the fields through and excludes proof items when the marker is off.
+- ✅ proof-induction — complete (registered). 3 skill subtopics (Introduction;
+  Divisibility Proofs; Inequality Proofs; revision excluded), 56 questions = 44
+  auto-markable D4/D5 fluency items (evaluate the formula, the k+1 step's added
+  term/constant, smallest n, divisibility quotients) + a 12-item D6 band of
+  free-response `responseType:"proof"` items graded by the AI marker. Verified:
+  marker OFF → 44 drawn / 0 proofs (still functional); ON → 56 / 12 proofs.
+  PROOF_MARKER_ENABLED=true set in local .env.local; **set it in the production
+  host env to grade proofs there.**
 - "Prior Knowledge Revision" subtopics are excluded from pools (low-band;
   remediation targets, not test content).
 
