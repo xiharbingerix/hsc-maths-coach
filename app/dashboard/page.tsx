@@ -4,6 +4,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { StudentNav } from "../components/StudentNav";
+import {
+  TopicBreakdownCard,
+  type BreakdownLesson,
+} from "../components/TopicBreakdownCard";
 import { StreakCard } from "./StreakCard";
 import type { User } from "@supabase/supabase-js";
 import { courseCatalogue } from "../../lib/courseUnits";
@@ -98,12 +102,6 @@ function prettifySlug(slug: string): string {
     .split("-")
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(" ");
-}
-
-function masteryBarColor(score: number): string {
-  if (score >= 70) return "bg-emerald-500";
-  if (score >= 40) return "bg-amber-400";
-  return "bg-red-400";
 }
 
 function averageRounded(values: number[]): number | null {
@@ -639,25 +637,29 @@ export default function DashboardPage() {
   function topicLabel(courseSlug: string, topicSlug: string): string {
     return topicLabelMap.get(`${courseSlug}::${topicSlug}`) ?? prettifySlug(topicSlug);
   }
-  function subtopicLabel(
-    courseSlug: string,
-    topicSlug: string,
-    subtopicSlug: string
-  ): string {
-    return (
-      subtopicLabelMap.get(`${courseSlug}::${topicSlug}::${subtopicSlug}`) ??
-      prettifySlug(subtopicSlug)
+  // Every lesson in a unit, joined with the student's per-lesson (subtopic)
+  // mastery so clicking a unit reveals lesson-level progress — including
+  // lessons not yet started.
+  function lessonsForTopic(row: MasteryRow): BreakdownLesson[] {
+    const unit = newCoursePathways
+      .find((p) => p.slug === row.course_slug)
+      ?.units.find((u) => u.slug === row.topic_slug);
+    if (!unit) return [];
+    const masteryByLesson = new Map(
+      subtopicMasteryRows
+        .filter(
+          (s) =>
+            s.course_slug === row.course_slug && s.topic_slug === row.topic_slug
+        )
+        .map((s) => [s.subtopic_slug, s.mastery_score])
     );
-  }
-  function subtopicsForTopic(row: MasteryRow): SubtopicMasteryRow[] {
-    return subtopicMasteryRows
-      .filter(
-        (subtopic) =>
-          subtopic.course_slug === row.course_slug &&
-          subtopic.topic_slug === row.topic_slug
-      )
-      .sort((a, b) => a.mastery_score - b.mastery_score)
-      .slice(0, 3);
+    return unit.lessons.map((lesson) => ({
+      name: lesson.title,
+      score: masteryByLesson.has(lesson.slug)
+        ? (masteryByLesson.get(lesson.slug) as number)
+        : null,
+      href: `/course/${row.course_slug}/${unit.slug}/${lesson.slug}`,
+    }));
   }
 
   const hasMastery = masteryRows.length > 0;
@@ -667,12 +669,6 @@ export default function DashboardPage() {
       )
     : 0;
   const masteryTrend = getMasteryTrendSummary(masteryRows, masteryHistoryRows);
-  // Rows are already sorted descending by mastery_score from the query.
-  const strongestTopics = masteryRows.slice(0, 3);
-  const weakestTopics = [...masteryRows]
-    .sort((a, b) => a.mastery_score - b.mastery_score)
-    .slice(0, 3);
-  const showSplit = masteryRows.length >= 4;
 
   const totalCourseTopics =
     selectedCourseSlug != null
@@ -732,6 +728,11 @@ export default function DashboardPage() {
     null;
   const recommendedLessonHref =
     continueLearningTarget?.href ?? studyPlan.nextTopic?.href ?? nextBestAction?.href ?? "/course";
+  const recommendedLessonTitle =
+    studyPlan.nextTopic?.title ??
+    continueLearningTarget?.lessonTitle ??
+    nextBestAction?.topicName ??
+    null;
   const hasStartedRecommendedLesson = progressRecords.some(
     (record) =>
       record.passed ||
@@ -1702,150 +1703,29 @@ export default function DashboardPage() {
             </p>
           ) : (
             <>
-              {/* Overall average */}
-              <div className="mt-5 flex items-center gap-4">
-                <div className="w-16 shrink-0 text-center">
-                  <p className="text-3xl font-bold tabular-nums leading-none">
-                    {avgMastery}
-                  </p>
-                  <p className="mt-0.5 text-xs font-semibold text-slate-500">
-                    avg %
-                  </p>
-                </div>
-                <div className="flex-1">
-                  <div className="h-2.5 overflow-hidden rounded-full bg-slate-100">
-                    <div
-                      className={`h-full rounded-full transition-all ${masteryBarColor(avgMastery)}`}
-                      style={{ width: `${avgMastery}%` }}
-                    />
-                  </div>
-                  <p className="mt-1 text-xs text-slate-500">
-                    {masteryRows.length} topic{masteryRows.length !== 1 ? "s" : ""} tracked
-                  </p>
-                </div>
+              {/* Polished topic breakdown — mirrors the home-page result preview. */}
+              <div className="mt-6">
+                <TopicBreakdownCard
+                  title={selectedCourseTitle ?? "Your mastery"}
+                  subtitle="Your topic breakdown"
+                  topics={masteryRows.map((row) => ({
+                    name: topicLabel(row.course_slug, row.topic_slug),
+                    score: row.mastery_score,
+                    lessons: lessonsForTopic(row),
+                  }))}
+                  overallScore={avgMastery}
+                  overallLabel="Overall mastery"
+                  recommended={
+                    recommendedLessonTitle
+                      ? {
+                          title: recommendedLessonTitle,
+                          description: "Targets your weakest topic first.",
+                          href: recommendedLessonHref,
+                        }
+                      : null
+                  }
+                />
               </div>
-
-              {showSplit ? (
-                <div className="mt-6 grid gap-6 md:grid-cols-2">
-                  {/* Needs work */}
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                      Needs work
-                    </p>
-                    <ul className="mt-3 space-y-3">
-                      {weakestTopics.map((row) => (
-                        <li key={`weak-${row.course_slug}::${row.topic_slug}`}>
-                          <div className="flex items-baseline justify-between gap-2 text-sm">
-                            <span className="font-medium text-slate-800 leading-snug">
-                              {topicLabel(row.course_slug, row.topic_slug)}
-                            </span>
-                            <span className="shrink-0 tabular-nums text-slate-400 text-xs">
-                              {row.mastery_score}% · {row.attempt_count}q
-                            </span>
-                          </div>
-                          <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-slate-100">
-                            <div
-                              className={`h-full rounded-full ${masteryBarColor(row.mastery_score)}`}
-                              style={{ width: `${row.mastery_score}%` }}
-                            />
-                          </div>
-                          {subtopicsForTopic(row).length > 0 ? (
-                            <ul className="mt-2 space-y-1 rounded-xl bg-white p-2 text-xs text-slate-600">
-                              {subtopicsForTopic(row).map((subtopic) => (
-                                <li
-                                  key={`${subtopic.course_slug}::${subtopic.topic_slug}::${subtopic.subtopic_slug}`}
-                                  className="flex items-center justify-between gap-2"
-                                >
-                                  <span className="truncate">
-                                    {subtopicLabel(
-                                      subtopic.course_slug,
-                                      subtopic.topic_slug,
-                                      subtopic.subtopic_slug
-                                    )}
-                                  </span>
-                                  <span className="shrink-0 tabular-nums text-slate-500">
-                                    {subtopic.mastery_score}% / {subtopic.attempt_count}q
-                                  </span>
-                                </li>
-                              ))}
-                            </ul>
-                          ) : null}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Strongest */}
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                      Strong topics
-                    </p>
-                    <ul className="mt-3 space-y-3">
-                      {strongestTopics.map((row) => (
-                        <li key={`strong-${row.course_slug}::${row.topic_slug}`}>
-                          <div className="flex items-baseline justify-between gap-2 text-sm">
-                            <span className="font-medium text-slate-800 leading-snug">
-                              {topicLabel(row.course_slug, row.topic_slug)}
-                            </span>
-                            <span className="shrink-0 tabular-nums text-slate-400 text-xs">
-                              {row.mastery_score}% · {row.attempt_count}q
-                            </span>
-                          </div>
-                          <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-slate-100">
-                            <div
-                              className={`h-full rounded-full ${masteryBarColor(row.mastery_score)}`}
-                              style={{ width: `${row.mastery_score}%` }}
-                            />
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ) : (
-                /* 1–3 topics: single flat list */
-                <ul className="mt-5 space-y-3">
-                  {masteryRows.map((row) => (
-                    <li key={`${row.course_slug}::${row.topic_slug}`}>
-                      <div className="flex items-baseline justify-between gap-2 text-sm">
-                        <span className="font-medium text-slate-800 leading-snug">
-                          {topicLabel(row.course_slug, row.topic_slug)}
-                        </span>
-                        <span className="shrink-0 tabular-nums text-slate-400 text-xs">
-                          {row.mastery_score}% · {row.attempt_count}q
-                        </span>
-                      </div>
-                      <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-slate-100">
-                        <div
-                          className={`h-full rounded-full ${masteryBarColor(row.mastery_score)}`}
-                          style={{ width: `${row.mastery_score}%` }}
-                        />
-                      </div>
-                      {subtopicsForTopic(row).length > 0 ? (
-                        <ul className="mt-2 space-y-1 rounded-xl bg-white p-2 text-xs text-slate-600">
-                          {subtopicsForTopic(row).map((subtopic) => (
-                            <li
-                              key={`${subtopic.course_slug}::${subtopic.topic_slug}::${subtopic.subtopic_slug}`}
-                              className="flex items-center justify-between gap-2"
-                            >
-                              <span className="truncate">
-                                {subtopicLabel(
-                                  subtopic.course_slug,
-                                  subtopic.topic_slug,
-                                  subtopic.subtopic_slug
-                                )}
-                              </span>
-                              <span className="shrink-0 tabular-nums text-slate-500">
-                                {subtopic.mastery_score}% / {subtopic.attempt_count}q
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : null}
-                    </li>
-                  ))}
-                </ul>
-              )}
             </>
           )}
         </section>
