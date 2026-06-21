@@ -1,4 +1,5 @@
 import { supabaseAdmin } from "../supabaseAdmin";
+import { analyticsWritesEnabled } from "./writesEnabled";
 
 export type TrackEventInput = {
   userId?: string | null;
@@ -19,6 +20,12 @@ export async function trackEvent(
   if (!input.eventName?.trim()) {
     console.warn("[trackEvent] eventName is empty — skipping");
     return { ok: false };
+  }
+
+  // Skip writes outside production (e.g. local dev) so dev traffic never reaches
+  // the live analytics table. Treated as a no-op success.
+  if (!analyticsWritesEnabled()) {
+    return { ok: true };
   }
 
   // Ensure metadata is a plain JSON-safe object.

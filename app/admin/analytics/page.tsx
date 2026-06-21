@@ -68,6 +68,55 @@ function metaPreview(meta: Record<string, unknown> | null): string {
   return raw.length > 80 ? `${raw.slice(0, 80)}…` : raw;
 }
 
+function formatTimeShort(iso: string): string {
+  return new Intl.DateTimeFormat("en-AU", {
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: "Australia/Sydney",
+  }).format(new Date(iso));
+}
+
+function formatDayShort(iso: string): string {
+  return new Intl.DateTimeFormat("en-AU", {
+    day: "numeric",
+    month: "short",
+    timeZone: "Australia/Sydney",
+  }).format(new Date(iso));
+}
+
+// Concise human duration between two ISO timestamps, e.g. "4m", "2h 10m".
+function formatSpan(startIso: string, endIso: string): string {
+  const ms = new Date(endIso).getTime() - new Date(startIso).getTime();
+  if (!Number.isFinite(ms) || ms < 1000) return "instant";
+  const totalMinutes = Math.floor(ms / 60000);
+  if (totalMinutes < 1) return `${Math.floor(ms / 1000)}s`;
+  if (totalMinutes < 60) return `${totalMinutes}m`;
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  if (hours < 24) return minutes > 0 ? `${hours}h ${minutes}m` : `${hours}h`;
+  const days = Math.floor(hours / 24);
+  return `${days}d ${hours % 24}h`;
+}
+
+// Colour-codes an event chip by funnel stage so a journey is scannable at a glance.
+function eventTone(name: string): string {
+  if (name.startsWith("diagnostic_"))
+    return "border-blue-200 bg-blue-50 text-blue-800";
+  if (name.startsWith("checkout_"))
+    return "border-amber-200 bg-amber-50 text-amber-900";
+  if (name === "trial_started" || name === "payment_success" || name === "signup_completed")
+    return "border-emerald-300 bg-emerald-100 text-emerald-900 font-semibold";
+  if (name.startsWith("trial_"))
+    return "border-indigo-200 bg-indigo-50 text-indigo-900";
+  if (
+    name.startsWith("lesson_") ||
+    name.startsWith("worksheet_") ||
+    name.includes("mastery")
+  )
+    return "border-violet-200 bg-violet-50 text-violet-900";
+  return "border-slate-200 bg-slate-50 text-slate-600";
+}
+
 function pct(numerator: number, denominator: number): string {
   if (denominator === 0) return "—";
   return `${Math.round((numerator / denominator) * 100)}%`;
@@ -377,12 +426,25 @@ export default async function AdminAnalyticsPage({
     ])
     .gte("created_at", since);
 
+  // Period-bound events used to reconstruct per-person journeys. Ordered newest
+  // first so the limit keeps the most recent activity; each person's events are
+  // re-sorted ascending for display.
+  const { data: journeyData, error: journeyError } = await supabaseAdmin
+    .from("analytics_events")
+    .select(
+      "id, user_id, anonymous_id, event_name, page, metadata, created_at"
+    )
+    .gte("created_at", since)
+    .order("created_at", { ascending: false })
+    .limit(3000);
+
   const tableNotReady =
     countError?.message?.includes("does not exist") ||
     recentError?.message?.includes("does not exist") ||
     trialCtaSourceError?.message?.includes("does not exist") ||
     diagnosticEventError?.message?.includes("does not exist") ||
-    adsFunnelError?.message?.includes("does not exist");
+    adsFunnelError?.message?.includes("does not exist") ||
+    journeyError?.message?.includes("does not exist");
 
   if (tableNotReady) {
     return (
@@ -777,6 +839,57 @@ export default async function AdminAnalyticsPage({
 
   const recentEvents = (recentData ?? []) as AnalyticsEventRow[];
   const latestEventAt = recentEvents[0]?.created_at ?? null;
+
+  // ── Per-person journeys ────────────────────────────────────────────────────
+  // Group period-bound events by identity and present each as a chronological
+  // chain, so the sequence of what one person did is readable at a glance.
+  type Journey = {
+    key: string;
+    label: string;
+    isUser: boolean;
+    events: AnalyticsEventRow[];
+    firstAt: string;
+    lastAt: string;
+  };
+
+  const journeyMap = new Map<string, Journey>();
+
+  for (const raw of journeyData ?? []) {
+    const row = raw as AnalyticsEventRow;
+    const key = identityKey(row.user_id, row.anonymous_id);
+    if (!key) continue;
+
+    const existing = journeyMap.get(key);
+    if (existing) {
+      existing.events.push(row);
+    } else {
+      journeyMap.set(key, {
+        key,
+        label: row.user_id
+          ? `uid:${shortId(row.user_id)}`
+          : `anon:${shortId(row.anonymous_id)}`,
+        isUser: Boolean(row.user_id),
+        events: [row],
+        firstAt: row.created_at,
+        lastAt: row.created_at,
+      });
+    }
+  }
+
+  const journeys = [...journeyMap.values()]
+    .map((journey) => {
+      // journeyData arrives newest-first; sort ascending for left-to-right reading.
+      journey.events.sort((a, b) => Date.parse(a.created_at) - Date.parse(b.created_at));
+      journey.firstAt = journey.events[0].created_at;
+      journey.lastAt = journey.events[journey.events.length - 1].created_at;
+      return journey;
+    })
+    // Most recently active people first.
+    .sort((a, b) => Date.parse(b.lastAt) - Date.parse(a.lastAt))
+    .slice(0, 40);
+
+  const journeysTruncated = journeyMap.size > journeys.length;
+
   const latestTrialCtaAt =
     ((trialCtaSourceData ?? []) as AnalyticsEventRow[])[0]?.created_at ?? null;
   const latestDiagnosticAt =
@@ -1725,6 +1838,100 @@ export default async function AdminAnalyticsPage({
                 use total event counts, not unique identities.
               </p>
             </div>
+          )}
+        </section>
+
+        {/* ── Per-person journeys ───────────────────────────────────────── */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Journeys · last {days} day{days === 1 ? "" : "s"}
+              </p>
+              <h2 className="mt-2 text-xl font-bold tracking-tight">
+                What each person did, in order
+              </h2>
+              <p className="mt-1 text-xs text-slate-500">
+                Events grouped by identity and chained left-to-right. Chips are
+                colour-coded by funnel stage; hover a chip for page and metadata.
+              </p>
+            </div>
+            <p className="text-sm font-semibold text-slate-500">
+              {journeys.length} {journeys.length === 1 ? "person" : "people"}
+              {journeysTruncated ? " (top 40)" : ""}
+            </p>
+          </div>
+
+          {journeyError && !tableNotReady ? (
+            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+              Could not load journey data: {journeyError.message}
+            </div>
+          ) : journeys.length === 0 ? (
+            <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+              No identified activity in this period. Journeys need a user_id or
+              anonymous_id on events.
+            </p>
+          ) : (
+            <ul className="mt-5 space-y-3">
+              {journeys.map((journey) => (
+                <li
+                  key={journey.key}
+                  className="rounded-2xl border border-slate-200 bg-slate-50/60 p-4"
+                >
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <span
+                      className={`rounded-md px-2 py-0.5 font-mono text-xs font-semibold ${
+                        journey.isUser
+                          ? "bg-slate-900 text-white"
+                          : "bg-slate-200 text-slate-700"
+                      }`}
+                    >
+                      {journey.label}
+                    </span>
+                    <span className="text-xs text-slate-500">
+                      {journey.events.length} event
+                      {journey.events.length === 1 ? "" : "s"}
+                    </span>
+                    <span className="text-xs text-slate-400">
+                      {formatDayShort(journey.firstAt)}{" "}
+                      {formatTimeShort(journey.firstAt)} · spans{" "}
+                      {formatSpan(journey.firstAt, journey.lastAt)}
+                    </span>
+                  </div>
+                  <ol className="mt-3 flex flex-wrap items-center gap-y-2 overflow-x-auto">
+                    {journey.events.map((ev, index) => (
+                      <li key={ev.id} className="flex items-center">
+                        {index > 0 ? (
+                          <span
+                            aria-hidden
+                            className="mx-1 select-none text-slate-300"
+                          >
+                            →
+                          </span>
+                        ) : null}
+                        <span
+                          className={`whitespace-nowrap rounded-lg border px-2 py-1 text-xs ${eventTone(
+                            ev.event_name
+                          )}`}
+                          title={`${formatDateTime(ev.created_at)}${
+                            ev.page ? ` · ${ev.page}` : ""
+                          }${
+                            ev.metadata && Object.keys(ev.metadata).length > 0
+                              ? ` · ${metaPreview(ev.metadata)}`
+                              : ""
+                          }`}
+                        >
+                          {ev.event_name}
+                          <span className="ml-1.5 font-mono text-[10px] opacity-60">
+                            {formatTimeShort(ev.created_at)}
+                          </span>
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                </li>
+              ))}
+            </ul>
           )}
         </section>
 

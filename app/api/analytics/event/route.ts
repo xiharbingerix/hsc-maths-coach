@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "../../../../lib/supabaseAdmin";
+import { analyticsWritesEnabled } from "../../../../lib/analytics/writesEnabled";
 
 export const runtime = "nodejs";
 
@@ -22,6 +23,12 @@ export async function POST(request: Request) {
 
   if (!eventName?.trim()) {
     return NextResponse.json({ error: "eventName required." }, { status: 400 });
+  }
+
+  // Drop non-production traffic (local dev) so it never pollutes the live
+  // analytics table. Report success so the client flow stays unaffected.
+  if (!analyticsWritesEnabled()) {
+    return NextResponse.json({ ok: true, skipped: "non-production" });
   }
 
   // Optionally resolve authenticated user from Bearer token.
