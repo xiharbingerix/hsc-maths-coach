@@ -423,9 +423,13 @@ _Ext 1 build status (in progress, one subtopic at a time):_
   It returns a binary { correct } verdict only (structured-output boolean — no
   model text ever reaches the student), grades against an authored model
   solution, and treats the submission as untrusted data (off-task / empty /
-  manipulation → incorrect). Still TODO before authoring induction pools: a
-  free-response question type in the exam/topic-test runner + a scoring path that
-  calls the marker (today's pools are string/CAS/MCQ only).
+  manipulation → incorrect). Runner integration is DONE: `responseType: "proof"`
+  + optional `modelSolution` on `ExamQuestion` (server-only — the client view
+  sends the render hint but never the rubric/explanation), a textarea in
+  ExamRunner, a binary scoring branch in scoreExam (null verdict → 0, so don't
+  ship proof items with the flag off), and a proof review card. The assembler
+  passes the fields through (it spreads the pool question). Remaining to launch
+  induction tests: author the induction pool(s) and turn on PROOF_MARKER_ENABLED.
 - "Prior Knowledge Revision" subtopics are excluded from pools (low-band;
   remediation targets, not test content).
 

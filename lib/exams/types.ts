@@ -59,6 +59,18 @@ export type ExamQuestion = {
 
   // Multi-part (Section II style):
   parts?: ExamQuestionPart[];
+
+  /**
+   * Free-response item graded by the AI proof marker (lib/proofMarker) instead
+   * of string/CAS/MCQ matching — for proofs (e.g. mathematical induction).
+   * Marking is binary: full marks if the marker returns correct, else 0. The
+   * marker grades the student's text against `modelSolution` (falling back to
+   * `explanation`) and requires PROOF_MARKER_ENABLED; if it is unavailable the
+   * question scores 0, so do not ship proof items with the flag off.
+   */
+  responseType?: "proof";
+  /** Authoritative solution/rubric the AI marker grades against (server-only). */
+  modelSolution?: string;
 } & DiagramFields;
 
 export type ExamSection = {

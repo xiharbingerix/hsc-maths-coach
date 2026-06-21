@@ -212,7 +212,16 @@ function QuestionCard({
 
       <VisualPayloadRenderer {...question} />
 
-      {question.parts && question.parts.length > 0 ? (
+      {question.responseType === "proof" ? (
+        <textarea
+          value={answers[question.id] ?? ""}
+          onChange={(e) => setAnswer(question.id, e.target.value)}
+          aria-label="Your proof"
+          placeholder="Write your full proof here, setting out each step clearly (base case, assumption, inductive step, conclusion)."
+          rows={10}
+          className="w-full rounded-xl border border-slate-300 p-3 font-mono text-sm leading-relaxed text-slate-900 focus:border-slate-900 focus:outline-none"
+        />
+      ) : question.parts && question.parts.length > 0 ? (
         <div className="space-y-4">
           {question.parts.map((part) => (
             <div key={part.key} className="space-y-2 rounded-xl border border-slate-200 p-4">
@@ -383,7 +392,18 @@ function ReviewCard({
 
       <VisualPayloadRenderer {...question} />
 
-      {result.parts && result.parts.length > 0 ? (
+      {question.responseType === "proof" ? (
+        <div className="rounded-xl bg-slate-50 p-3 text-sm">
+          <p className="font-medium text-slate-700">Your response</p>
+          <p className="mt-1 whitespace-pre-wrap text-slate-700">
+            {result.studentAnswer || "—"}
+          </p>
+          <p className="mt-3 font-medium text-slate-700">Model solution</p>
+          <p className="mt-1 text-slate-600">
+            <MathText text={result.explanation} />
+          </p>
+        </div>
+      ) : result.parts && result.parts.length > 0 ? (
         <div className="space-y-2">
           {result.parts.map((p) => (
             <div key={p.key} className="rounded-xl bg-slate-50 p-3 text-sm">

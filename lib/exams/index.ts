@@ -76,6 +76,9 @@ export type ClientExamQuestion = {
   difficulty: number;
   choices?: { label: string; text: string }[];
   parts?: ClientExamPart[];
+  /** Render hint for a free-response (proof) item. The model solution it is
+   *  graded against stays server-side and is never sent here. */
+  responseType?: "proof";
 } & DiagramFields;
 
 export type ClientExamPaper = {
@@ -113,6 +116,7 @@ export function toClientExam(paper: ExamPaper): ClientExamPaper {
         marks: q.marks,
         difficulty: q.difficulty,
         choices: q.choices,
+        responseType: q.responseType,
         parts: q.parts?.map((p) => ({
           key: p.key,
           label: p.label,

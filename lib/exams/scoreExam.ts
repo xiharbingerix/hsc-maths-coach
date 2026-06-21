@@ -8,6 +8,7 @@
  * Server-only: pulls in the CAS marker. The browser reaches it via /api/exam.
  */
 import { markAnswerWithCas } from "../cas/markAnswerWithCas";
+import { markProofWithAi } from "../proofMarker/markProofWithAi";
 import {
   predictExamBand,
   questionMarks,
@@ -69,6 +70,33 @@ async function scoreQuestion(
   q: ExamQuestion,
   answers: Record<string, string>
 ): Promise<QuestionResult> {
+  // Free-response (proof): graded by the AI marker against the model solution.
+  // Binary — full marks if the marker returns correct, else 0. A null verdict
+  // (marker disabled or errored) scores 0, so proof items must not ship with the
+  // flag off. The marker treats an empty answer as incorrect without an API call.
+  if (q.responseType === "proof") {
+    const studentAnswer = (answers[q.id] ?? "").trim();
+    const available = questionMarks(q);
+    const verdict = await markProofWithAi(
+      {
+        prompt: q.prompt,
+        modelSolution: q.modelSolution ?? q.explanation,
+        latex: q.latex,
+      },
+      studentAnswer
+    );
+    const correct = verdict?.correct === true;
+    return {
+      id: q.id,
+      marksEarned: correct ? available : 0,
+      marksAvailable: available,
+      correct,
+      studentAnswer,
+      correctAnswer: "", // a proof has no single canonical answer string
+      explanation: q.explanation,
+    };
+  }
+
   // Multi-part: mark each part independently.
   if (q.parts && q.parts.length > 0) {
     const parts: PartResult[] = [];
