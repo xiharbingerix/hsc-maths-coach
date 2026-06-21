@@ -1714,7 +1714,7 @@ export function year12Standard2TrigRatesLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A scale drawing represents a real object at a reduced (or enlarged) size. The scale ratio compares plan distance to actual distance. A scale of 1:100 means 1 cm on the plan equals 100 cm (1 m) in reality. A scale of 1:200 means 1 cm on the plan equals 200 cm (2 m) in reality.",
+          "A scale drawing represents a real object at a reduced (or enlarged) size — a 1:100 plan has shrunk reality 100 times to fit on the page, so you reverse the shrink by multiplying to recover real lengths. The scale ratio compares plan distance to actual distance: 1:100 means 1 cm on the plan equals 100 cm (1 m) in reality, and 1:200 means 1 cm equals 200 cm (2 m).",
           "To find the actual length from a plan measurement: actual length = plan measurement × scale factor. For example, on a 1:50 plan, a wall that measures 6 cm is 6 × 50 = 300 cm = 3 m long in real life.",
           "To find a plan measurement from an actual length: plan measurement = actual length ÷ scale factor. If a room is 4.5 m long and the scale is 1:100, the room appears as 4.5 m ÷ 100 = 0.045 m = 4.5 cm on the plan.",
           "Once you have the actual dimensions, calculate perimeter and area using the standard formulas. For a rectangle: perimeter = 2(l + w), area = l × w. Remember to convert all measurements to the same unit before calculating.",
