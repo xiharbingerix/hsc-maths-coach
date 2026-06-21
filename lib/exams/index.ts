@@ -1,4 +1,6 @@
 import type { ExamPaper } from "./types";
+import type { DiagramFields } from "../lessons/diagramRegistry";
+import { pickDiagramFields } from "../lessons/diagramRegistry";
 import { year12AdvancedPaper1 } from "./year12AdvancedPaper1";
 import { year12Extension1Paper1 } from "./year12Extension1Paper1";
 import { year12Standard2Paper1 } from "./year12Standard2Paper1";
@@ -74,7 +76,7 @@ export type ClientExamQuestion = {
   difficulty: number;
   choices?: { label: string; text: string }[];
   parts?: ClientExamPart[];
-};
+} & DiagramFields;
 
 export type ClientExamPaper = {
   id: string;
@@ -104,6 +106,7 @@ export function toClientExam(paper: ExamPaper): ClientExamPaper {
       title: s.title,
       instructions: s.instructions,
       questions: s.questions.map((q) => ({
+        ...pickDiagramFields(q),
         id: q.id,
         prompt: q.prompt,
         latex: q.latex,

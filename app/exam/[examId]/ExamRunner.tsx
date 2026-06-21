@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BlockMath } from "react-katex";
 import { MathText } from "../../components/MathText";
+import { VisualPayloadRenderer } from "../../components/VisualPayloadRenderer";
 import { MathAnswerInput } from "../../components/MathAnswerInput";
 import { supabase } from "../../../lib/supabaseClient";
 import type { ClientExamPaper, ClientExamQuestion } from "../../../lib/exams";
@@ -209,6 +210,8 @@ function QuestionCard({
         </div>
       )}
 
+      <VisualPayloadRenderer {...question} />
+
       {question.parts && question.parts.length > 0 ? (
         <div className="space-y-4">
           {question.parts.map((part) => (
@@ -377,6 +380,8 @@ function ReviewCard({
           {result.marksEarned}/{result.marksAvailable}
         </span>
       </div>
+
+      <VisualPayloadRenderer {...question} />
 
       {result.parts && result.parts.length > 0 ? (
         <div className="space-y-2">

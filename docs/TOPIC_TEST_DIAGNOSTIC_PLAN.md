@@ -323,22 +323,32 @@ Progress (updated 2026-06-21):
 - [x] **Model** — extended `ExamQuestion` with optional `subtopicSlug`,
   `subtopicTitle`, `estimatedMinutes`, and `& DiagramFields` (all optional; zero
   impact on static papers).
-- [x] **Pool scaffold** — `lib/topicTests/pools/year-12-extension-1/kinematics.ts`
-  (4 real subtopics + remediation routes, empty bands). **Not yet registered**
-  in `index.ts` until authored.
-- [ ] **Content slice** — author kinematics pool: 4 subtopics × (10 D4 + 10 D5),
-  auto-markable, validated; then register the pool.
-- [ ] **Runner wiring** — add `<VisualPayloadRenderer {...question} />` to
-  `ExamRunner`, and pass diagram fields through `ClientExamQuestion` /
-  `toClientExam` (currently stripped).
-- [ ] **Submit branch** — make `/api/exam/[examId]/submit` recognise a
-  `topic-test:` id and reconstruct via `getTopicTestPaper` before scoring;
-  persist to `exam_attempts`; write per-subtopic results to
-  `student_subtopic_mastery`.
-- [ ] **Route + results** — `/topic-test/[courseSlug]/[topicSlug]` intro →
-  runner → results view (per-subtopic bars + remediation CTAs).
+- [x] **Runner wiring** — `ExamRunner` now renders
+  `<VisualPayloadRenderer {...question} />` (question + review), and diagram
+  fields pass through `ClientExamQuestion` / `toClientExam` (via
+  `pickDiagramFields`).
+- [x] **Submit branch** — `/api/exam/[examId]/submit` recognises a `topic-test:`
+  id, reconstructs the paper via `getTopicTestPaper`, scores with `scoreExam`,
+  persists to `exam_attempts`, and writes per-subtopic results to
+  `student_subtopic_mastery` via `recordMasteryEvents` (`sourceType: "quiz"`,
+  parent topic from the id, subtopic from each stamped question).
+- [x] **Route** — `/topic-test/[courseSlug]/[topicSlug]` assembles a seeded
+  paper and reuses `ExamRunner` (timed run + built-in results: band,
+  per-subtopic remediation CTAs).
+- [x] **Pilot pool (starter)** — kinematics registered with 1 D4 + 1 D5 per
+  subtopic (8 items, hand-verified). Verified end-to-end: page renders all 4
+  subtopics; colon-id route resolves; deterministic reconstruct; all-correct →
+  23/23 (E4); failing a subtopic surfaces it in remediation.
+- [ ] **Content slice (remaining)** — grow each band to 10 (→ 80 items),
+  validate, keep auto-markable.
+- [ ] **Entry points (remaining)** — link the topic test from the course page /
+  dashboard mastery card / admin student view (route exists, nothing links to
+  it yet).
+- [ ] **Auth-gated paths** — DB persistence + mastery write are written and
+  tsc-clean but not yet browser-verified with a logged-in session.
 - Acceptance: a student can take the kinematics test, get a marked per-subtopic
-  result + remediation, and see mastery update on the dashboard.
+  result + remediation, and see mastery update on the dashboard. *(Core flow
+  proven; pending live auth verification + content depth + an entry point.)*
 
 **Phase 2 — Validate the pilot.**
 - Render-test a sampled assembled paper (Playwright, as with the diagnostic).

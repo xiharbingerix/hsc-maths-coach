@@ -1,6 +1,7 @@
 import type { ExamPaper } from "../exams/types";
 import type { TopicTestPool } from "./types";
 import { buildTopicTest, parseTopicTestId } from "./buildTopicTest";
+import { kinematicsPool } from "./pools/year-12-extension-1/kinematics";
 
 export * from "./types";
 export {
@@ -10,14 +11,10 @@ export {
 } from "./buildTopicTest";
 
 /**
- * Registered topic-test pools. The kinematics scaffold
- * (./pools/year-12-extension-1/kinematics) exists but is intentionally NOT
- * enabled here until its D4/D5 questions are authored (content slice of
- * Phase 1) — an empty pool would assemble an empty paper.
+ * Registered topic-test pools. Kinematics ships a starter set (1 D4 + 1 D5 per
+ * subtopic); the content slice grows each band to 10.
  */
-const POOLS: TopicTestPool[] = [
-  // kinematicsPool,  // enable once authored
-];
+const POOLS: TopicTestPool[] = [kinematicsPool];
 
 export function listTopicTestPools(): TopicTestPool[] {
   return POOLS;
