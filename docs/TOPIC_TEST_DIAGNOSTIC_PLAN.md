@@ -1,0 +1,271 @@
+# Topic Test Diagnostic — Plan
+
+Status: **proposed** · Owner: TBD · Last updated: 2026-06-21
+
+## Goal
+
+Give every **topic** a timed, ~1-hour practice test that doubles as a
+diagnostic. Each test is **assembled on demand** by randomly drawing high-band
+questions from a per-**subtopic** pool of **10 D4 + 10 D5** items. When the
+student finishes, they get a marked result, a predicted band, and a clear
+**"go re-practice these subtopics"** list linking straight to the lessons.
+
+Vocabulary (matches the catalogue): a **topic** is a course *unit*; a
+**subtopic** is a *lesson* inside that unit. A topic test samples across all of
+its subtopics.
+
+---
+
+## What already exists (reuse, don't rebuild)
+
+This feature sits almost entirely on top of the existing **exam-readiness tier**.
+Map of what we get for free:
+
+| Need | Already built | File |
+|---|---|---|
+| Timed test runner (countdown, per-question nav, submit) | `ExamRunner` | [app/exam/[examId]/ExamRunner.tsx](../app/exam/[examId]/ExamRunner.tsx) |
+| Question model with marks, difficulty 1–6, topic tag, remediation link, multi-part | `ExamQuestion` / `ExamPaper` | [lib/exams/types.ts](../lib/exams/types.ts) |
+| Server marking (CAS-backed: MCQ + typed + multi-part, partial credit) | `scoreExam` | [lib/exams/scoreExam.ts](../lib/exams/scoreExam.ts) |
+| Per-topic rollup + **remediation list** (weak topics first, with `remediationHref`) | `scoreExam` → `ExamResult.remediation` | [lib/exams/scoreExam.ts](../lib/exams/scoreExam.ts) |
+| Band prediction from % | `predictExamBand` | [lib/exams/types.ts](../lib/exams/types.ts) |
+| Attempt persistence | `/api/exam/*` | [app/api/exam/attempts/route.ts](../app/api/exam/attempts/route.ts), [app/api/exam/[examId]/submit/route.ts](../app/api/exam/[examId]/submit/route.ts) |
+| **Seeded random draw from a difficulty-tagged pool** (stable per attempt, varies between attempts, difficulty ramp) | `buildMasteryQuiz` | [lib/mastery/buildMasteryQuiz.ts](../lib/mastery/buildMasteryQuiz.ts) |
+| Subtopic mastery storage + dashboard "where they're at" | `student_subtopic_mastery`, `TopicBreakdownCard` | [app/components/TopicBreakdownCard.tsx](../app/components/TopicBreakdownCard.tsx) |
+| Study-plan / next-topic generation | `generateStudyPlan` | [lib/studyPlans/generateStudyPlan.ts](../lib/studyPlans/generateStudyPlan.ts) |
+| Diagram payloads in questions (28 renderers) | diagram registry + `VisualPayloadRenderer` | [app/components/VisualPayloadRenderer.tsx](../app/components/VisualPayloadRenderer.tsx) |
+
+**Key consequence:** we do **not** build a new test engine. We build (a) a
+**content pool**, (b) an **assembler** that turns a topic + seed into an
+`ExamPaper`, and (c) thin **routing/persistence** glue. The runner and scorer
+are unchanged.
+
+The course-level Paper 1 exams (e.g. [lib/exams/year12AdvancedPaper1.ts](../lib/exams/year12AdvancedPaper1.ts))
+are hand-authored static papers. Topic tests are the **dynamic** sibling:
+generated from pools, scoped to one topic, remediated at subtopic granularity.
+
+---
+
+## Product spec
+
+1. Student opens a topic (e.g. *Differential Calculus*) and chooses **"Take the
+   topic test."**
+2. The system assembles a fresh ~60-minute paper by randomly drawing D4/D5
+   questions across that topic's subtopics (seeded per attempt).
+3. Student works through it under a visible countdown (reusing `ExamRunner`).
+4. On submit: marked server-side, shown total + % + predicted band, a
+   **per-subtopic breakdown**, and a **remediation list**: "Focus first:
+   *Applications of Differentiation* (38%) → Re-practise."
+5. Result is persisted and feeds subtopic mastery, so the dashboard and admin
+   student view update automatically.
+
+It "functions as a diagnostic" because the per-subtopic scoring + remediation is
+exactly the diagnostic signal — just at higher difficulty (D4/D5) and finer
+granularity (subtopic, not topic) than the existing entry diagnostic.
+
+---
+
+## Content model
+
+### Pool question type
+
+Extend the exam model rather than invent a new one. Add to `ExamQuestion`
+(or a thin `TopicTestQuestion = ExamQuestion & { … }`):
+
+- `subtopicSlug: string` / `subtopicTitle: string` — which lesson this assesses.
+- `difficulty: 4 | 5` — pool items are high-band only.
+- `estimatedMinutes?: number` — drives the 1-hour budget (default from marks).
+- `DiagramFields` (optional) — so visual D4/D5 items reuse the diagram registry,
+  exactly as just done for diagnostics. **One small infra add**: confirm
+  `ExamRunner` renders `<VisualPayloadRenderer {...question} />` (mirror the
+  diagnostic change); today it likely doesn't.
+
+**Remediation trick (free subtopic granularity):** for topic-test questions, set
+the existing `topicSlug`/`topicTitle`/`remediationHref` to the **subtopic's**
+slug/title/lesson route. Then `scoreExam`'s existing per-`topicSlug` rollup and
+remediation list become **per-subtopic** with zero scorer changes. Keep the
+parent topic on a separate field if needed for headers.
+
+### Storage layout
+
+Pools are large and content-owned, so keep them as structured TS (validated,
+typed), one file per topic:
+
+```
+lib/topicTests/
+  index.ts                       # registry: courseSlug+topicSlug -> pool
+  types.ts                       # TopicTestQuestion, TopicTestPool
+  pools/
+    year-12-advanced/
+      differential-calculus.ts   # { subtopicSlug: { d4: [...10], d5: [...10] } }
+      integral-calculus.ts
+      ...
+```
+
+Each subtopic exposes `{ d4: TopicTestQuestion[]; d5: TopicTestQuestion[] }`
+(target 10 each). The registry lets the assembler look up a topic's pool by
+`courseSlug + topicSlug`.
+
+### Authoring rules (non-negotiable)
+
+All pool questions follow [QUESTION_AUTHORING_STANDARD.md](./QUESTION_AUTHORING_STANDARD.md):
+
+- **Auto-markable only.** Marking is CAS/string based — **no** "explain",
+  "justify", "show that", "prove", "describe". D5 here means **synoptic /
+  multi-step / transfer with a numeric, coordinate, MCQ, or simple-algebra final
+  answer**, *not* proof. This is the single biggest authoring constraint.
+- **D4** = transfer & interpretation: choose the method, connect concepts,
+  reject a plausible wrong path, interpret a result. Formula substitution alone
+  never qualifies.
+- **D5** = novel reasoning/synthesis: constraint reasoning, modelling,
+  optimisation, multi-concept synthesis — collapsing to one unambiguous value.
+- Every MCQ distractor maps to a **specific misconception**.
+- Multi-part (Section II style) is encouraged for D5 — `ExamQuestionPart`
+  already supports marks-weighted partial credit.
+- Diagram-required items **must** ship a payload (reuse the registry).
+- Validate with the batch validator / lesson audit before merge.
+
+---
+
+## Test assembly algorithm
+
+`buildTopicTest(courseSlug, topicSlug, seed)` → `ExamPaper`:
+
+1. Look up the topic's pool (all subtopics, each with `d4`/`d5`).
+2. Seed a PRNG from `seed` (reuse the `mulberry32` approach in
+   `buildMasteryQuiz`) so a given attempt is stable but retakes differ.
+3. **Coverage + budget:** target ~60 min via a marks budget
+   (HSC ≈ 1.5 min/mark → ~**40 marks**, tunable). Distribute draws across
+   subtopics so each studied subtopic is represented, then fill remaining budget.
+   Suggested default per subtopic: draw **1 D4 + 1 D5** (shuffled within each
+   band), expanding/contracting to hit the budget. Always include at least one
+   item per subtopic when budget allows.
+4. Emit an `ExamPaper` (`timeLimitMins: 60`, sections by subtopic or a single
+   section) consumed unchanged by `ExamRunner` + `scoreExam`.
+
+Edge cases to specify: topics with many subtopics (budget < subtopics →
+round-robin sample a rotating subset, seeded by attempt so coverage spreads
+across retakes); thin pools (< 10 per band → draw what exists, warn in audit).
+
+A **subtopic test** is the same call filtered to one subtopic — free.
+
+---
+
+## Marking, scoring & remediation
+
+Reuse `scoreExam` verbatim. Because question `topicSlug` = subtopic:
+
+- `ExamResult.topicBreakdown` → **per-subtopic** marks/percentage.
+- `ExamResult.remediation` → weak subtopics (< 60%), weakest first, each with
+  the lesson `remediationHref`. This *is* the "where to re-practise" list.
+- `predictExamBand` gives a band from the overall %.
+
+Results page (new, or a variant of the exam results UI): headline band + %,
+per-subtopic bars (reuse `TopicBreakdownCard` styling), and a prominent
+remediation CTA list → lesson links.
+
+---
+
+## Persistence & diagnostic feedback loop
+
+- Persist the attempt via the existing exam attempt path (extend the table/route
+  to carry `topicSlug` + per-subtopic results, or add a `topic_test_attempts`
+  table if the exam schema is too paper-specific — decide in Phase 0).
+- Feed per-subtopic correctness into **`student_subtopic_mastery`** using the
+  same pattern as the diagnostic's `/api/mastery/diagnostic` call, so:
+  - the dashboard **"Where they're at"** card updates,
+  - the admin student view reflects it,
+  - `generateStudyPlan` / next-topic recommendations improve.
+
+This closes the loop: take topic test → weak subtopics surfaced → re-practise →
+mastery rises → retake draws a fresh paper.
+
+---
+
+## Routes & UI
+
+- `GET /topic-test/[courseSlug]/[topicSlug]` — intro + "Start" (mirrors the
+  diagnostic intro). Generates a `seed`, assembles, hands the paper to a runner.
+- Reuse `ExamRunner` for the timed run; reuse/adapt the exam results view.
+- Entry points: topic page in `/course`, the dashboard mastery card ("Test this
+  topic"), and the admin student view ("Assign topic test").
+
+---
+
+## Content volume & effort (the real cost)
+
+The infra is small; **authoring is the project.** Rough order of magnitude
+(confirm exact counts in Phase 0):
+
+- 20 questions/subtopic (10 D4 + 10 D5).
+- Year 12 Advanced ≈ 6 topics, est. ~25–30 subtopics → **~500–600** D4/D5 items
+  for one course.
+- All 8 courses → low **thousands**. This must be phased and pooled-out over
+  time; do **not** attempt all courses at once.
+
+D4/D5 auto-markable authoring is slow and quality-sensitive. Budget realistic
+authoring/validation time per item and consider a structured authoring batch +
+validator gate.
+
+---
+
+## Phased rollout
+
+**Phase 0 — Scoping & decisions (no content).**
+- Confirm subtopic counts per course; pick the pilot.
+- Decide attempt persistence: extend exam attempts vs new `topic_test_attempts`.
+- Confirm `ExamRunner` diagram rendering gap and the marks→minutes budget.
+- Acceptance: this doc updated with concrete numbers + schema decision.
+
+**Phase 1 — Infra + one pilot topic (Year 12 Advanced → Differential Calculus).**
+- `lib/topicTests/` types, registry, `buildTopicTest` assembler (+ unit tests on
+  seeding, budget, coverage).
+- Extend `ExamQuestion` with `subtopicSlug`/diagram fields; wire `ExamRunner`
+  diagram rendering.
+- Author **one full pool** for Differential Calculus (every subtopic, 10 D4 +
+  10 D5), validated.
+- Route `/topic-test/[courseSlug]/[topicSlug]`, results view, attempt persistence,
+  subtopic-mastery write.
+- Acceptance: a student can take the Differential Calculus test, get a marked
+  per-subtopic result + remediation, and see mastery update on the dashboard.
+
+**Phase 2 — Validate the pilot.**
+- Render-test a sampled assembled paper (Playwright, as with the diagnostic).
+- Check marking on each answer type, the 60-min budget realism, and remediation
+  accuracy. Tune budget/coverage. Get teacher review of the D4/D5 quality.
+
+**Phase 3 — Scale content.**
+- Roll out remaining Year 12 Advanced topics, then the other courses, one topic
+  pool at a time behind the same infra. Track coverage in
+  [CONTENT_QUALITY_AUDIT_TRACKER.md](./CONTENT_QUALITY_AUDIT_TRACKER.md).
+
+**Phase 4 — Polish.**
+- Retake variety guarantees, per-subtopic test mode, "weakest-subtopics-only"
+  adaptive test, optional exam-style PDF, analytics on topic-test funnel.
+
+---
+
+## Risks & open decisions
+
+- **D5 ↔ auto-marking tension.** Genuine D5 often wants justification/proof,
+  which we can't mark. Mitigation: D5 = synoptic numeric/multi-part; accept that
+  some HSC-D5 styles are out of scope until free-text/AI marking exists.
+- **Content cost dominates.** Phase hard; never block infra on full coverage.
+- **Pool freshness / memorisation.** Seeded draws + 20/band/subtopic help; more
+  per band later if memorisation shows up in analytics.
+- **Budget realism.** 40 marks/hour is a starting estimate; calibrate against
+  real attempt durations in Phase 2.
+- **Persistence shape.** Reuse exam attempts vs new table — decide Phase 0.
+- **Subtopic-as-topicSlug overload.** The remediation reuse trick is elegant but
+  conflates two concepts; document it clearly or add a dedicated `subtopicSlug`
+  rollup path in `scoreExam` if it causes confusion.
+
+---
+
+## Definition of done (pilot)
+
+- [ ] `buildTopicTest` produces a valid ~60-min `ExamPaper` from the Differential
+      Calculus pool, seeded and reproducible.
+- [ ] Every pool item passes the authoring validator and is auto-markable.
+- [ ] A full attempt marks correctly and produces a per-subtopic remediation list.
+- [ ] Subtopic mastery updates after submission; dashboard + admin reflect it.
+- [ ] Assembled paper render-verified in the browser (incl. any diagrams).
