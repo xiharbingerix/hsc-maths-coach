@@ -917,7 +917,7 @@ export function year11StandardTimeLocationLessonOverride(
     ],
     teaching: {
       paragraphs: [
-        "Time and location exam questions often combine timetable reading, elapsed time, time zones, date changes, scales and grid references.",
+        "Time and location exam questions mix timetables, elapsed time, time zones, date changes and scales, so first pin down exactly what is asked — a duration, a departure or arrival time, a waiting time, or a local time somewhere else — because each needs a different calculation.",
         "Start by identifying whether the question is asking for a duration, a departure or arrival time, a waiting time, or a local time in another place.",
         "Use the timetable row or UTC offsets carefully. A small direction error can change the answer by several hours.",
         "Check reasonableness: a bus wait should match the next departure, a converted time may need a new date if it crosses midnight, and a map distance should match the stated scale.",
