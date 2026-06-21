@@ -104,17 +104,27 @@ export const diagnosticData: DiagnosticData = {
     {
       id: "y12adv-t2",
       unitSlug: "trigonometric-functions-graphs",
-      prompt: "The exact value of $\\cos\\left(\\dfrac{\\pi}{3}\\right)$ is:",
-      latex: "\\cos\\!\\left(\\frac{\\pi}{3}\\right)",
+      prompt:
+        "From the graph of $y = \\cos x$ below, at what value of $x$ in $[0, 2\\pi]$ does the curve reach its minimum?",
+      trigGraphDiagram: {
+        description:
+          "Graph of y = cos x from 0 to 2pi. It starts at (0, 1), falls to a minimum of -1 at x = pi, and returns to 1 at x = 2pi.",
+        functionType: "cos",
+        equationLabel: "y = cos x",
+        xMin: "0",
+        xMax: "2pi",
+        yMin: -1.5,
+        yMax: 1.5,
+      },
       choices: [
-        { label: "A", text: "$\\dfrac{\\sqrt{3}}{2}$" },
-        { label: "B", text: "$\\dfrac{1}{2}$" },
-        { label: "C", text: "$\\dfrac{\\sqrt{2}}{2}$" },
-        { label: "D", text: "$1$" },
+        { label: "A", text: "$x = 0$" },
+        { label: "B", text: "$x = \\dfrac{\\pi}{2}$" },
+        { label: "C", text: "$x = \\pi$" },
+        { label: "D", text: "$x = 2\\pi$" },
       ],
-      correctAnswer: "B",
+      correctAnswer: "C",
       explanation:
-        "$\\cos\\!\\left(\\dfrac{\\pi}{3}\\right) = \\cos(60^\\circ) = \\dfrac{1}{2}$.",
+        "The cosine graph starts at its maximum of $1$ when $x = 0$, decreases to its minimum of $-1$ at $x = \\pi$, then returns to $1$ at $x = 2\\pi$. Options A and D are where the curve is at its maximum; B is where it crosses zero.",
     },
     {
       id: "y12adv-t3",
@@ -314,7 +324,15 @@ export const diagnosticData: DiagnosticData = {
       id: "y12adv-sa1",
       unitSlug: "statistical-analysis",
       prompt:
-        "In a normal distribution, approximately what percentage of data lies within $1$ standard deviation of the mean?",
+        "The shaded region covers the values within $1$ standard deviation of the mean. Approximately what percentage of the data lies in the shaded region?",
+      normalDistributionDiagram: {
+        description:
+          "Normal distribution curve centred at the mean with the band within 1 standard deviation of the mean shaded.",
+        mean: 0,
+        standardDeviation: 1,
+        showStandardDeviationLabels: true,
+        shadedBands: [{ standardDeviations: 1, color: "blue" }],
+      },
       choices: [
         { label: "A", text: "$50\\%$" },
         { label: "B", text: "$68\\%$" },
@@ -323,7 +341,7 @@ export const diagnosticData: DiagnosticData = {
       ],
       correctAnswer: "B",
       explanation:
-        "By the empirical rule: approximately $68\\%$ within $1\\sigma$, $95\\%$ within $2\\sigma$, and $99.7\\%$ within $3\\sigma$.",
+        "By the empirical rule, about $68\\%$ of data lies within $1$ standard deviation of the mean, $95\\%$ within $2\\sigma$, and $99.7\\%$ within $3\\sigma$. Option C is the proportion within $2$ standard deviations; D is within $3$.",
     },
     {
       id: "y12adv-sa2",

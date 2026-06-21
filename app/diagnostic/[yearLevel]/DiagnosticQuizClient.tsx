@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import { BlockMath } from "react-katex";
 import { MathText } from "../../components/MathText";
+import { VisualPayloadRenderer } from "../../components/VisualPayloadRenderer";
 import { supabase } from "../../../lib/supabaseClient";
 import { SubscribeCTA } from "../../components/SubscribeCTA";
 import { generateStudyPlan } from "../../../lib/studyPlans/generateStudyPlan";
@@ -729,6 +730,8 @@ export function DiagnosticQuizClient({
                   <BlockMath math={question.latex} />
                 </div>
               )}
+
+              <VisualPayloadRenderer {...question} />
 
               <div className="space-y-3">
                 {question.choices.map((choice) => {

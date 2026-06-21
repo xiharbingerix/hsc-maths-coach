@@ -1,3 +1,7 @@
+import type { DiagramFields } from "../lessons/diagramRegistry";
+
+// A diagnostic question may carry any diagram payload (rendered above the
+// choices), reusing the same registry as lessons and worksheets.
 export type DiagnosticQuestion = {
   id: string;
   unitSlug: string;
@@ -6,7 +10,7 @@ export type DiagnosticQuestion = {
   choices: { label: string; text: string }[];
   correctAnswer: string;
   explanation: string;
-};
+} & DiagramFields;
 
 export type DiagnosticUnit = {
   slug: string;
