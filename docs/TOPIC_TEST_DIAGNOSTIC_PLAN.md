@@ -394,6 +394,19 @@ Progress (updated 2026-06-21):
   pool at a time behind the same infra. Track coverage in
   [CONTENT_QUALITY_AUDIT_TRACKER.md](./CONTENT_QUALITY_AUDIT_TRACKER.md).
 
+_Ext 1 build status (in progress, one subtopic at a time):_
+- ✅ kinematics — complete (registered).
+- 🟡 inverse-trig — subtopic 1 "Inverse Sine and Cosine" (10 D4 + 10 D5) done;
+  subtopics 2–4 pending. Pool registered once the topic is fuller.
+- ⬜ further-calculus, calculus-applications, binomial-distribution (each: skill
+  subtopics D4+D5, exam-practice → D6), vectors (D4+D5; drop the projection-proof
+  subtopic).
+- ⏸ **proof-induction — deferred**: induction proofs aren't auto-markable.
+  Awaits a Tier-2 AI proof/algorithm marker (the "Claude judge" already noted as
+  future work in cas-service/README.md). Revisit once that marker exists.
+- "Prior Knowledge Revision" subtopics are excluded from pools (low-band;
+  remediation targets, not test content).
+
 **Phase 4 — Polish.**
 - Retake variety guarantees, per-subtopic test mode, "weakest-subtopics-only"
   adaptive test, optional exam-style PDF, analytics on topic-test funnel.
