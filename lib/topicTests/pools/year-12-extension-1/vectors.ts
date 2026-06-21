@@ -1384,6 +1384,229 @@ const motionD5: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 7: Projectile Motion in Vector and Parametric Form ──────────────
+// r(t) = (V cosθ·t, V sinθ·t − ½gt²), g = 10. Components, time of flight, max
+// height, range, impact velocity, and finding an unknown speed/angle.
+const projectileD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-vec-proj2-d4-1",
+    prompt:
+      "A projectile is launched at 20 m/s, 30° above the horizontal (g = 10). Find the initial horizontal velocity (exact form).",
+    latex: "V = 20, \\ \\theta = 30°",
+    marks: 2,
+    difficulty: 4,
+    answer: "10sqrt(3)",
+    acceptedAnswers: ["10√3", "17.32", "17.3205"],
+    explanation: "V cos θ = 20 cos 30° = 20(√3/2) = 10√3 m/s.",
+  },
+  {
+    id: "y12e1-vec-proj2-d4-2",
+    prompt:
+      "A projectile is launched at 20 m/s, 30° above the horizontal. Find the initial vertical velocity.",
+    latex: "V = 20, \\ \\theta = 30°",
+    marks: 2,
+    difficulty: 4,
+    answer: "10",
+    explanation: "V sin θ = 20 sin 30° = 20(0.5) = 10 m/s.",
+  },
+  {
+    id: "y12e1-vec-proj2-d4-3",
+    prompt:
+      "For the projectile above (V sin θ = 10, g = 10), find the time to reach maximum height.",
+    latex: "V\\sin\\theta = 10, \\ g = 10",
+    marks: 2,
+    difficulty: 4,
+    answer: "1",
+    explanation: "Time to max height = V sin θ / g = 10/10 = 1 s.",
+  },
+  {
+    id: "y12e1-vec-proj2-d4-4",
+    prompt:
+      "For the same projectile (V sin θ = 10, g = 10), find the total time of flight (landing at launch height).",
+    latex: "V\\sin\\theta = 10, \\ g = 10",
+    marks: 2,
+    difficulty: 4,
+    answer: "2",
+    explanation: "Time of flight = 2V sin θ / g = 20/10 = 2 s.",
+  },
+  {
+    id: "y12e1-vec-proj2-d4-5",
+    prompt:
+      "For the same projectile (V sin θ = 10, g = 10), find the maximum height.",
+    latex: "V\\sin\\theta = 10, \\ g = 10",
+    marks: 3,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$5$ m" },
+      { label: "B", text: "$10$ m" },
+      { label: "C", text: "$20$ m" },
+      { label: "D", text: "$2.5$ m" },
+    ],
+    answer: "A",
+    explanation: "Max height = (V sin θ)²/(2g) = 100/20 = 5 m. B confuses it with V sin θ.",
+  },
+  {
+    id: "y12e1-vec-proj2-d4-6",
+    prompt:
+      "A projectile has vertical launch velocity 20 m/s (g = 10). Find its time of flight.",
+    latex: "V\\sin\\theta = 20, \\ g = 10",
+    marks: 2,
+    difficulty: 4,
+    answer: "4",
+    explanation: "Time of flight = 2(20)/10 = 4 s.",
+  },
+  {
+    id: "y12e1-vec-proj2-d4-7",
+    prompt:
+      "A projectile is launched at 20 m/s, 45° above the horizontal (g = 10). Find its range.",
+    latex: "V = 20, \\ \\theta = 45°",
+    marks: 3,
+    difficulty: 4,
+    answer: "40",
+    explanation: "Range = V² sin 2θ / g = 400 sin 90° / 10 = 40 m.",
+  },
+  {
+    id: "y12e1-vec-proj2-d4-8",
+    prompt:
+      "A projectile is launched at 20 m/s, 60° above the horizontal. Find its horizontal position at t = 2 s.",
+    latex: "V = 20, \\ \\theta = 60°",
+    marks: 2,
+    difficulty: 4,
+    answer: "20",
+    explanation: "x = V cos θ · t = 20 cos 60° × 2 = 20(0.5)(2) = 20 m.",
+  },
+  {
+    id: "y12e1-vec-proj2-d4-9",
+    prompt:
+      "A projectile has V sin θ = 10 (g = 10). Find its vertical velocity at t = 0.5 s.",
+    latex: "v_y = V\\sin\\theta - gt",
+    marks: 2,
+    difficulty: 4,
+    answer: "5",
+    explanation: "v_y = 10 − 10(0.5) = 5 m/s.",
+  },
+  {
+    id: "y12e1-vec-proj2-d4-10",
+    prompt: "At the maximum height of a projectile's path, find the vertical component of velocity.",
+    latex: "\\text{at max height}",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$0$" },
+      { label: "B", text: "$10$" },
+      { label: "C", text: "$20$" },
+      { label: "D", text: "$5$" },
+    ],
+    answer: "A",
+    explanation: "At the highest point the vertical velocity is momentarily 0 (the horizontal component is unchanged).",
+  },
+];
+
+// D5: reverse a quantity, find V or θ, impact speed, range exact, horizontal launch.
+const projectileD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-vec-proj2-d5-1",
+    prompt: "A projectile has a time of flight of 4 s (g = 10). Find V sin θ.",
+    latex: "T = 4, \\ g = 10",
+    marks: 3,
+    difficulty: 5,
+    answer: "20",
+    explanation: "T = 2V sin θ / g ⇒ 4 = 2V sin θ / 10 ⇒ V sin θ = 20.",
+  },
+  {
+    id: "y12e1-vec-proj2-d5-2",
+    prompt: "A projectile launched at 45° has a range of 40 m (g = 10). Find V.",
+    latex: "R = 40, \\ \\theta = 45°",
+    marks: 4,
+    difficulty: 5,
+    answer: "20",
+    explanation: "R = V² sin 90° / 10 = V²/10 = 40 ⇒ V² = 400 ⇒ V = 20 m/s.",
+  },
+  {
+    id: "y12e1-vec-proj2-d5-3",
+    prompt:
+      "A projectile is launched at 20 m/s, 30° (g = 10). Find its speed at t = 1 s (exact form).",
+    latex: "V = 20, \\ \\theta = 30°, \\ t = 1",
+    marks: 4,
+    difficulty: 5,
+    answer: "10sqrt(3)",
+    acceptedAnswers: ["10√3", "17.32", "17.3205"],
+    explanation:
+      "v = (20cos30°, 20sin30° − 10) = (10√3, 0); speed = 10√3 m/s (the top of the path).",
+  },
+  {
+    id: "y12e1-vec-proj2-d5-4",
+    prompt:
+      "A projectile is launched at 25 m/s and lands at the same height. Find its impact speed.",
+    latex: "V = 25, \\ \\text{lands at launch height}",
+    marks: 3,
+    difficulty: 5,
+    answer: "25",
+    explanation: "By symmetry, the impact speed equals the launch speed: 25 m/s.",
+  },
+  {
+    id: "y12e1-vec-proj2-d5-5",
+    prompt: "A projectile reaches a maximum height of 20 m (g = 10). Find V sin θ.",
+    latex: "H = 20, \\ g = 10",
+    marks: 4,
+    difficulty: 5,
+    answer: "20",
+    explanation: "H = (V sin θ)²/(2g) = (V sin θ)²/20 = 20 ⇒ (V sin θ)² = 400 ⇒ V sin θ = 20.",
+  },
+  {
+    id: "y12e1-vec-proj2-d5-6",
+    prompt:
+      "A projectile is launched at 30 m/s, 30° (g = 10). Find its range (exact form).",
+    latex: "V = 30, \\ \\theta = 30°",
+    marks: 4,
+    difficulty: 5,
+    answer: "45sqrt(3)",
+    acceptedAnswers: ["45√3", "77.94", "77.9423"],
+    explanation: "R = V² sin 2θ / g = 900 sin 60° / 10 = 90(√3/2) = 45√3 m.",
+  },
+  {
+    id: "y12e1-vec-proj2-d5-7",
+    prompt:
+      "A ball is thrown horizontally at 15 m/s from a height of 20 m (g = 10). Find the time to land.",
+    latex: "\\text{horizontal launch, } h = 20",
+    marks: 4,
+    difficulty: 5,
+    answer: "2",
+    explanation: "20 = ½gt² = 5t² ⇒ t² = 4 ⇒ t = 2 s.",
+  },
+  {
+    id: "y12e1-vec-proj2-d5-8",
+    prompt:
+      "For the ball above (15 m/s horizontal, lands after 2 s), find the horizontal distance travelled.",
+    latex: "v_x = 15, \\ t = 2",
+    marks: 3,
+    difficulty: 5,
+    answer: "30",
+    explanation: "x = 15 × 2 = 30 m.",
+  },
+  {
+    id: "y12e1-vec-proj2-d5-9",
+    prompt:
+      "A projectile launched at 30 m/s lands at the same height after 3 s (g = 10). Find the launch angle, in degrees.",
+    latex: "V = 30, \\ T = 3, \\ g = 10",
+    marks: 4,
+    difficulty: 5,
+    answer: "30",
+    explanation: "T = 2V sin θ / g ⇒ 3 = 6 sin θ ⇒ sin θ = 0.5 ⇒ θ = 30°.",
+  },
+  {
+    id: "y12e1-vec-proj2-d5-10",
+    prompt:
+      "A projectile is launched at 20 m/s, 60° (g = 10). Find the vertical component of velocity at t = 1 s (exact form).",
+    latex: "V = 20, \\ \\theta = 60°, \\ t = 1",
+    marks: 4,
+    difficulty: 5,
+    answer: "10sqrt(3)-10",
+    acceptedAnswers: ["10√3 - 10", "10√3-10", "7.32", "7.3205"],
+    explanation: "v_y = V sin θ − gt = 20 sin 60° − 10 = 10√3 − 10 ≈ 7.32 m/s.",
+  },
+];
+
 export const vectorsPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -1437,8 +1660,8 @@ export const vectorsPool: TopicTestPool = {
       subtopicSlug: "vectors-projectile-parametric",
       subtopicTitle: "Projectile Motion in Vector and Parametric Form",
       remediationHref: href("vectors-projectile-parametric"),
-      d4: [],
-      d5: [],
+      d4: projectileD4,
+      d5: projectileD5,
     },
   ],
 };
