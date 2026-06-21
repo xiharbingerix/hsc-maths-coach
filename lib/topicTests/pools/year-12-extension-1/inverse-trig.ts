@@ -256,6 +256,248 @@ const sineCosineD5: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 2: Inverse Tangent ──────────────────────────────────────────────
+// D4: composites via a right triangle (sign from the range (−π/2, π/2) where
+// cosine is positive), the tan double-angle / addition formulas, arctan sums to
+// standard angles, the complementary identity, and principal-value reasoning.
+const inverseTangentD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-itrig-tan-d4-1",
+    prompt: "Find the exact value of sin(tan⁻¹(3/4)).",
+    latex: "\\sin\\left(\\tan^{-1}\\tfrac{3}{4}\\right)",
+    marks: 2,
+    difficulty: 4,
+    answer: "3/5",
+    acceptedAnswers: ["0.6"],
+    explanation:
+      "tan θ = 3/4 gives a 3–4–5 triangle (θ ∈ (−π/2, π/2), here acute), so sin θ = 3/5.",
+  },
+  {
+    id: "y12e1-itrig-tan-d4-2",
+    prompt: "Find the exact value of cos(tan⁻¹(−5/12)).",
+    latex: "\\cos\\left(\\tan^{-1}\\left(-\\tfrac{5}{12}\\right)\\right)",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$\\dfrac{12}{13}$" },
+      { label: "B", text: "$-\\dfrac{12}{13}$" },
+      { label: "C", text: "$\\dfrac{5}{13}$" },
+      { label: "D", text: "$-\\dfrac{5}{13}$" },
+    ],
+    answer: "A",
+    explanation:
+      "tan⁻¹(−5/12) lies in (−π/2, 0), where cosine is positive. With a 5–12–13 triangle, cos = 12/13. B uses the wrong sign — cosine is positive across the whole range of tan⁻¹.",
+  },
+  {
+    id: "y12e1-itrig-tan-d4-3",
+    prompt: "Find the exact value of tan(2 tan⁻¹(1/3)).",
+    latex: "\\tan\\left(2\\tan^{-1}\\tfrac{1}{3}\\right)",
+    marks: 3,
+    difficulty: 4,
+    answer: "3/4",
+    acceptedAnswers: ["0.75"],
+    explanation:
+      "With t = tan θ = 1/3, tan 2θ = 2t/(1 − t²) = (2/3)/(1 − 1/9) = (2/3)/(8/9) = 3/4.",
+  },
+  {
+    id: "y12e1-itrig-tan-d4-4",
+    prompt: "Find the exact value of tan⁻¹(1/2) + tan⁻¹(1/3).",
+    latex: "\\tan^{-1}\\tfrac{1}{2} + \\tan^{-1}\\tfrac{1}{3}",
+    marks: 3,
+    difficulty: 4,
+    answer: "pi/4",
+    acceptedAnswers: ["π/4", "0.7854", "0.785"],
+    explanation:
+      "tan of the sum = (1/2 + 1/3)/(1 − (1/2)(1/3)) = (5/6)/(5/6) = 1, and the sum is acute, so it equals π/4.",
+  },
+  {
+    id: "y12e1-itrig-tan-d4-5",
+    prompt: "Find the exact value of tan⁻¹(√3) − tan⁻¹(1/√3).",
+    latex: "\\tan^{-1}\\left(\\sqrt{3}\\right) - \\tan^{-1}\\left(\\tfrac{1}{\\sqrt{3}}\\right)",
+    marks: 2,
+    difficulty: 4,
+    answer: "pi/6",
+    acceptedAnswers: ["π/6", "0.5236", "0.524"],
+    explanation: "tan⁻¹(√3) = π/3 and tan⁻¹(1/√3) = π/6, so the difference is π/3 − π/6 = π/6.",
+  },
+  {
+    id: "y12e1-itrig-tan-d4-6",
+    prompt: "Solve tan⁻¹(x) + tan⁻¹(2) = π/2 for x.",
+    latex: "\\tan^{-1}(x) + \\tan^{-1}(2) = \\tfrac{\\pi}{2}",
+    marks: 3,
+    difficulty: 4,
+    answer: "1/2",
+    acceptedAnswers: ["0.5"],
+    explanation:
+      "Since tan⁻¹a + tan⁻¹(1/a) = π/2 for a > 0, tan⁻¹(x) = π/2 − tan⁻¹(2) = tan⁻¹(1/2), so x = 1/2.",
+  },
+  {
+    id: "y12e1-itrig-tan-d4-7",
+    prompt: "Solve tan⁻¹(2x − 1) = π/4 for x.",
+    latex: "\\tan^{-1}(2x - 1) = \\tfrac{\\pi}{4}",
+    marks: 2,
+    difficulty: 4,
+    answer: "1",
+    explanation: "2x − 1 = tan(π/4) = 1, so 2x = 2 and x = 1.",
+  },
+  {
+    id: "y12e1-itrig-tan-d4-8",
+    prompt: "Find the exact value of cos(tan⁻¹(2)).",
+    latex: "\\cos\\left(\\tan^{-1} 2\\right)",
+    marks: 2,
+    difficulty: 4,
+    answer: "sqrt(5)/5",
+    acceptedAnswers: ["1/sqrt(5)", "1/√5", "√5/5", "0.447", "0.4472"],
+    explanation:
+      "tan θ = 2 gives a 1–2–√5 triangle, so cos θ = 1/√5 = √5/5 (θ ∈ (−π/2, π/2), cosine positive).",
+  },
+  {
+    id: "y12e1-itrig-tan-d4-9",
+    prompt: "Find the exact value of tan⁻¹(tan(3π/4)).",
+    latex: "\\tan^{-1}\\left(\\tan\\tfrac{3\\pi}{4}\\right)",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$\\dfrac{3\\pi}{4}$" },
+      { label: "B", text: "$-\\dfrac{\\pi}{4}$" },
+      { label: "C", text: "$\\dfrac{\\pi}{4}$" },
+      { label: "D", text: "$-\\dfrac{3\\pi}{4}$" },
+    ],
+    answer: "B",
+    explanation:
+      "tan(3π/4) = −1, and tan⁻¹ returns a value in (−π/2, π/2), so tan⁻¹(−1) = −π/4. A is wrong because 3π/4 is outside the range of tan⁻¹.",
+  },
+  {
+    id: "y12e1-itrig-tan-d4-10",
+    prompt: "Find the exact value of tan(tan⁻¹(2) + tan⁻¹(3)).",
+    latex: "\\tan\\left(\\tan^{-1} 2 + \\tan^{-1} 3\\right)",
+    marks: 3,
+    difficulty: 4,
+    answer: "-1",
+    acceptedAnswers: ["−1"],
+    explanation:
+      "tan of the sum = (2 + 3)/(1 − (2)(3)) = 5/(−5) = −1.",
+  },
+];
+
+// D5: express composites as functions of x (generalisation), solve with the
+// addition/double/subtraction formulas, identity insight, and the quadrant
+// correction when an arctan sum exceeds π/2.
+const inverseTangentD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-itrig-tan-d5-1",
+    prompt: "Express sin(tan⁻¹ x) in terms of x.",
+    latex: "\\sin\\left(\\tan^{-1} x\\right)",
+    marks: 3,
+    difficulty: 5,
+    answer: "x/sqrt(1+x^2)",
+    acceptedAnswers: ["x/√(1+x^2)", "x*(1+x^2)^(-1/2)", "x/(1+x^2)^(1/2)"],
+    explanation:
+      "tan θ = x with θ ∈ (−π/2, π/2) gives a triangle with opposite x, adjacent 1, hypotenuse √(1 + x²). So sin θ = x/√(1 + x²).",
+  },
+  {
+    id: "y12e1-itrig-tan-d5-2",
+    prompt: "Express cos(tan⁻¹ x) in terms of x.",
+    latex: "\\cos\\left(\\tan^{-1} x\\right)",
+    marks: 3,
+    difficulty: 5,
+    answer: "1/sqrt(1+x^2)",
+    acceptedAnswers: ["1/√(1+x^2)", "(1+x^2)^(-1/2)"],
+    explanation:
+      "From the same 1, x, √(1 + x²) triangle (cosine positive on the range of tan⁻¹), cos θ = 1/√(1 + x²).",
+  },
+  {
+    id: "y12e1-itrig-tan-d5-3",
+    prompt: "Express tan(2 tan⁻¹ x) in terms of x.",
+    latex: "\\tan\\left(2\\tan^{-1} x\\right)",
+    marks: 3,
+    difficulty: 5,
+    answer: "2x/(1-x^2)",
+    acceptedAnswers: ["2x/(1 - x^2)", "2*x/(1-x^2)"],
+    explanation:
+      "With t = tan θ = x, tan 2θ = 2t/(1 − t²) = 2x/(1 − x²).",
+  },
+  {
+    id: "y12e1-itrig-tan-d5-4",
+    prompt: "Solve tan⁻¹(2x) + tan⁻¹(3x) = π/4 for x.",
+    latex: "\\tan^{-1}(2x) + \\tan^{-1}(3x) = \\tfrac{\\pi}{4}",
+    marks: 4,
+    difficulty: 5,
+    answer: "1/6",
+    acceptedAnswers: ["0.1667", "0.167"],
+    explanation:
+      "Take tan: (2x + 3x)/(1 − 6x²) = 1, so 5x = 1 − 6x², i.e. 6x² + 5x − 1 = (6x − 1)(x + 1) = 0. The valid solution is x = 1/6.",
+  },
+  {
+    id: "y12e1-itrig-tan-d5-5",
+    prompt:
+      "For x > 0, the function f(x) = tan⁻¹(x) + tan⁻¹(1/x). Find the exact value of f(5).",
+    latex: "f(x) = \\tan^{-1}(x) + \\tan^{-1}\\left(\\tfrac{1}{x}\\right)",
+    marks: 3,
+    difficulty: 5,
+    answer: "pi/2",
+    acceptedAnswers: ["π/2", "1.5708", "1.571"],
+    explanation:
+      "For x > 0, tan⁻¹x + tan⁻¹(1/x) = π/2 (the angles are complementary), so f is constant and f(5) = π/2.",
+  },
+  {
+    id: "y12e1-itrig-tan-d5-6",
+    prompt: "Find the exact value of tan⁻¹(1) + tan⁻¹(2) + tan⁻¹(3).",
+    latex: "\\tan^{-1}(1) + \\tan^{-1}(2) + \\tan^{-1}(3)",
+    marks: 4,
+    difficulty: 5,
+    answer: "pi",
+    acceptedAnswers: ["π", "3.1416", "3.142"],
+    explanation:
+      "tan⁻¹2 + tan⁻¹3 = 3π/4 (tan of the sum is −1 and the sum lies in (π/2, π)). Adding tan⁻¹1 = π/4 gives π.",
+  },
+  {
+    id: "y12e1-itrig-tan-d5-7",
+    prompt:
+      "For 0 < x < 1, simplify tan⁻¹((1 + x)/(1 − x)) − tan⁻¹(x). Give the exact value.",
+    latex: "\\tan^{-1}\\left(\\tfrac{1 + x}{1 - x}\\right) - \\tan^{-1}(x)",
+    marks: 4,
+    difficulty: 5,
+    answer: "pi/4",
+    acceptedAnswers: ["π/4", "0.7854", "0.785"],
+    explanation:
+      "tan⁻¹((1 + x)/(1 − x)) = π/4 + tan⁻¹x for 0 < x < 1, so the difference is π/4. (Check: the tan of the difference is ((1+x)/(1−x) − x)/(1 + x(1+x)/(1−x)) = 1.)",
+  },
+  {
+    id: "y12e1-itrig-tan-d5-8",
+    prompt: "Solve 2 tan⁻¹(x) = tan⁻¹(4/3) for x.",
+    latex: "2\\tan^{-1}(x) = \\tan^{-1}\\tfrac{4}{3}",
+    marks: 4,
+    difficulty: 5,
+    answer: "1/2",
+    acceptedAnswers: ["0.5"],
+    explanation:
+      "tan(2 tan⁻¹x) = 2x/(1 − x²) = 4/3, so 6x = 4(1 − x²), i.e. 4x² + 6x − 4 = (2x − 1)(2x + 4) = 0. The valid solution is x = 1/2.",
+  },
+  {
+    id: "y12e1-itrig-tan-d5-9",
+    prompt: "Find the exact value of tan⁻¹(2) + tan⁻¹(3).",
+    latex: "\\tan^{-1}(2) + \\tan^{-1}(3)",
+    marks: 4,
+    difficulty: 5,
+    answer: "3pi/4",
+    acceptedAnswers: ["3π/4", "2.3562", "2.356"],
+    explanation:
+      "tan of the sum is (2 + 3)/(1 − 6) = −1. Both tan⁻¹2 and tan⁻¹3 exceed π/4, so the sum lies in (π/2, π); the correct angle is 3π/4, not −π/4.",
+  },
+  {
+    id: "y12e1-itrig-tan-d5-10",
+    prompt:
+      "Solve tan⁻¹(x + 1) − tan⁻¹(x − 1) = tan⁻¹(2) for x, where x > 0.",
+    latex: "\\tan^{-1}(x + 1) - \\tan^{-1}(x - 1) = \\tan^{-1}(2)",
+    marks: 4,
+    difficulty: 5,
+    answer: "1",
+    explanation:
+      "tan of the LHS = ((x + 1) − (x − 1))/(1 + (x + 1)(x − 1)) = 2/x². Setting 2/x² = 2 gives x² = 1, so x = 1 (x > 0).",
+  },
+];
+
 export const inverseTrigPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -273,8 +515,8 @@ export const inverseTrigPool: TopicTestPool = {
       subtopicSlug: "inverse-tangent",
       subtopicTitle: "Inverse Tangent",
       remediationHref: href("inverse-tangent"),
-      d4: [],
-      d5: [],
+      d4: inverseTangentD4,
+      d5: inverseTangentD5,
     },
     {
       subtopicSlug: "differentiating-inverse-trig",
