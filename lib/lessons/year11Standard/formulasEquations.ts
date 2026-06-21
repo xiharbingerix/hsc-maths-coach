@@ -360,7 +360,7 @@ export function year11StandardFormulasEquationsLessonOverride(
       teaching: {
         paragraphs: [
           "A formula shows how quantities are connected. In practical questions, each variable represents a real quantity such as distance, time, weight or cost.",
-          "Substitution means replacing a variable with a given value. Use the value for the correct variable and keep the units in mind.",
+          "Substitution means following the formula like a recipe: replace each variable with its given value, then evaluate. Put each value with the correct variable and keep the units in mind.",
           "Order of operations matters. Powers are calculated before multiplication and addition.",
           "Equations from contexts can often be solved by undoing operations in reverse order.",
         ],
@@ -420,7 +420,7 @@ export function year11StandardFormulasEquationsLessonOverride(
       teaching: {
         paragraphs: [
           "Changing the subject means rewriting a formula so a different variable is alone on one side.",
-          "Use inverse operations to undo what has been done to the variable.",
+          "Use inverse operations to unwrap the variable — peel off the operations surrounding it one at a time, undoing the outermost first, like untying the outer layer of a parcel.",
           "For two-step formulae, undo addition or subtraction before undoing multiplication or division.",
           "A rearranged formula should keep the same meaning as the original. Substitution can be used to check it.",
         ],
