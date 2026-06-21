@@ -401,9 +401,9 @@ _Ext 1 build status (in progress, one subtopic at a time):_
   Identities and Composite Expressions); subtopic 4 also carries a **10-item D6
   band** (the topic's exam-mastery synoptic set, since this topic has no
   exam-practice lesson). 90 questions total.
-- 🟡 further-calculus — subtopics 1 "Trigonometric Integral Forms" and 2
-  "Substitution for Linear Inner Functions" done (10 D4 + 10 D5 each); subtopic 3
-  + the D6 exam-practice band pending. Register once fuller.
+- 🟡 further-calculus — skill subtopics 1–3 done (Trigonometric Integral Forms;
+  Substitution for Linear Inner Functions; Introduction to Integration by Parts —
+  10 D4 + 10 D5 each); the D6 exam-practice band pending. Register once it lands.
 - ⬜ calculus-applications, binomial-distribution (each: skill subtopics D4+D5,
   exam-practice → D6), vectors (D4+D5; drop the projection-proof subtopic).
 - ⏸ **proof-induction — deferred**: induction proofs aren't auto-markable.

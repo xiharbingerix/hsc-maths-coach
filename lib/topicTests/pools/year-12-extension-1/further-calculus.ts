@@ -492,6 +492,243 @@ const substitutionD5: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 3: Introduction to Integration by Parts ─────────────────────────
+// D4: one application of ∫u dv = uv − ∫v du across x·exp, x·trig, ln, x·sec².
+const partsD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-fcalc-ibp-d4-1",
+    prompt: "Find ∫ x eˣ dx.",
+    latex: "\\int x e^x \\, dx",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$(x - 1)e^x + C$" },
+      { label: "B", text: "$(x + 1)e^x + C$" },
+      { label: "C", text: "$\\dfrac{x^2 e^x}{2} + C$" },
+      { label: "D", text: "$x e^x + C$" },
+    ],
+    answer: "A",
+    explanation:
+      "u = x, dv = eˣ dx: ∫x eˣ dx = x eˣ − ∫eˣ dx = x eˣ − eˣ + C = (x − 1)eˣ + C. C treats x as a power; D forgets −∫v du.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d4-2",
+    prompt: "Find ∫ x sin x dx.",
+    latex: "\\int x \\sin x \\, dx",
+    marks: 3,
+    difficulty: 4,
+    answer: "-x cos(x) + sin(x) + C",
+    acceptedAnswers: ["sin(x) - x cos(x) + C", "-x*cos(x)+sin(x)+C"],
+    explanation:
+      "u = x, dv = sin x dx, v = −cos x: ∫ = −x cos x + ∫cos x dx = −x cos x + sin x + C.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d4-3",
+    prompt: "Evaluate ∫₀^{π/2} x cos x dx.",
+    latex: "\\int_0^{\\pi/2} x \\cos x \\, dx",
+    marks: 3,
+    difficulty: 4,
+    answer: "pi/2-1",
+    acceptedAnswers: ["π/2 - 1", "0.5708", "0.571"],
+    explanation:
+      "∫x cos x dx = x sin x + cos x. [x sin x + cos x]₀^{π/2} = (π/2 + 0) − (0 + 1) = π/2 − 1.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d4-4",
+    prompt: "Find ∫ ln x dx.",
+    latex: "\\int \\ln x \\, dx",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$x \\ln x - x + C$" },
+      { label: "B", text: "$\\dfrac{1}{x} + C$" },
+      { label: "C", text: "$x \\ln x + C$" },
+      { label: "D", text: "$\\dfrac{\\ln x}{x} + C$" },
+    ],
+    answer: "A",
+    explanation:
+      "u = ln x, dv = dx, v = x: ∫ln x dx = x ln x − ∫x·(1/x) dx = x ln x − x + C. C forgets the −x.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d4-5",
+    prompt: "Find ∫ x e^{2x} dx.",
+    latex: "\\int x e^{2x} \\, dx",
+    marks: 3,
+    difficulty: 4,
+    answer: "(x/2)e^(2x) - (1/4)e^(2x) + C",
+    acceptedAnswers: ["(2x-1)e^(2x)/4 + C", "x e^(2x)/2 - e^(2x)/4 + C"],
+    explanation:
+      "u = x, dv = e^{2x} dx, v = (1/2)e^{2x}: ∫ = (x/2)e^{2x} − (1/2)∫e^{2x} dx = (x/2)e^{2x} − (1/4)e^{2x} + C.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d4-6",
+    prompt: "Evaluate ∫₀¹ x eˣ dx.",
+    latex: "\\int_0^{1} x e^x \\, dx",
+    marks: 2,
+    difficulty: 4,
+    answer: "1",
+    explanation: "[(x − 1)eˣ]₀¹ = (0·e) − (−1·1) = 0 − (−1) = 1.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d4-7",
+    prompt: "Evaluate ∫₀^{π} x sin x dx.",
+    latex: "\\int_0^{\\pi} x \\sin x \\, dx",
+    marks: 3,
+    difficulty: 4,
+    answer: "pi",
+    acceptedAnswers: ["π", "3.1416", "3.142"],
+    explanation:
+      "[−x cos x + sin x]₀^{π} = (−π cos π + 0) − 0 = −π(−1) = π.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d4-8",
+    prompt: "Find ∫ x sec²x dx.",
+    latex: "\\int x \\sec^2 x \\, dx",
+    marks: 3,
+    difficulty: 4,
+    answer: "x tan(x) + ln|cos(x)| + C",
+    acceptedAnswers: ["x tan(x) + ln(cos(x)) + C", "x*tan(x)+ln|cos(x)|+C"],
+    explanation:
+      "u = x, dv = sec²x dx, v = tan x: ∫ = x tan x − ∫tan x dx = x tan x + ln|cos x| + C.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d4-9",
+    prompt: "Evaluate ∫₁^{e} ln x dx.",
+    latex: "\\int_1^{e} \\ln x \\, dx",
+    marks: 3,
+    difficulty: 4,
+    answer: "1",
+    explanation: "[x ln x − x]₁^{e} = (e − e) − (0 − 1) = 0 − (−1) = 1.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d4-10",
+    prompt: "Find ∫ ln(2x) dx.",
+    latex: "\\int \\ln(2x) \\, dx",
+    marks: 3,
+    difficulty: 4,
+    answer: "x ln(2x) - x + C",
+    acceptedAnswers: ["x*ln(2x) - x + C", "x ln(2x) - x + C"],
+    explanation:
+      "u = ln(2x), dv = dx, v = x: ∫ = x ln(2x) − ∫x·(1/x) dx = x ln(2x) − x + C.",
+  },
+];
+
+// D5: repeated parts, the cyclic eˣ sin/cos trick, parts with a logarithm, a
+// definite evaluation, and an initial condition.
+const partsD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-fcalc-ibp-d5-1",
+    prompt: "Find ∫ x² eˣ dx.",
+    latex: "\\int x^2 e^x \\, dx",
+    marks: 4,
+    difficulty: 5,
+    answer: "(x^2-2x+2)e^x + C",
+    acceptedAnswers: ["(x^2 - 2x + 2)*e^x + C", "(x^2-2x+2)e^x+C"],
+    explanation:
+      "Apply parts twice: ∫x²eˣ = x²eˣ − 2∫x eˣ = x²eˣ − 2(x − 1)eˣ = (x² − 2x + 2)eˣ + C.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d5-2",
+    prompt: "Find ∫ x² sin x dx.",
+    latex: "\\int x^2 \\sin x \\, dx",
+    marks: 4,
+    difficulty: 5,
+    answer: "-x^2 cos(x) + 2x sin(x) + 2cos(x) + C",
+    acceptedAnswers: ["2x sin(x) - x^2 cos(x) + 2cos(x) + C", "-x^2*cos(x)+2*x*sin(x)+2*cos(x)+C"],
+    explanation:
+      "Parts twice: ∫x² sin x = −x² cos x + 2∫x cos x = −x² cos x + 2(x sin x + cos x) + C.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d5-3",
+    prompt: "Find ∫ eˣ sin x dx.",
+    latex: "\\int e^x \\sin x \\, dx",
+    marks: 4,
+    difficulty: 5,
+    answer: "(e^x/2)(sin(x) - cos(x)) + C",
+    acceptedAnswers: ["e^x(sin(x)-cos(x))/2 + C", "(1/2)e^x(sin(x)-cos(x))+C"],
+    explanation:
+      "Apply parts twice; the original integral reappears, so 2I = eˣ(sin x − cos x), giving I = (eˣ/2)(sin x − cos x) + C.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d5-4",
+    prompt: "Find ∫ eˣ cos x dx.",
+    latex: "\\int e^x \\cos x \\, dx",
+    marks: 4,
+    difficulty: 5,
+    answer: "(e^x/2)(sin(x) + cos(x)) + C",
+    acceptedAnswers: ["e^x(sin(x)+cos(x))/2 + C", "(1/2)e^x(sin(x)+cos(x))+C"],
+    explanation:
+      "The cyclic method gives 2I = eˣ(sin x + cos x), so I = (eˣ/2)(sin x + cos x) + C.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d5-5",
+    prompt: "Find ∫ x ln x dx.",
+    latex: "\\int x \\ln x \\, dx",
+    marks: 4,
+    difficulty: 5,
+    answer: "(x^2/2)ln(x) - x^2/4 + C",
+    acceptedAnswers: ["x^2 ln(x)/2 - x^2/4 + C", "(1/2)x^2 ln(x) - x^2/4 + C"],
+    explanation:
+      "u = ln x, dv = x dx, v = x²/2: ∫ = (x²/2)ln x − ∫(x/2) dx = (x²/2)ln x − x²/4 + C.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d5-6",
+    prompt: "Evaluate ∫₁^{e} x ln x dx.",
+    latex: "\\int_1^{e} x \\ln x \\, dx",
+    marks: 4,
+    difficulty: 5,
+    answer: "(e^2+1)/4",
+    acceptedAnswers: ["(e^2 + 1)/4", "2.1973", "2.197"],
+    explanation:
+      "[(x²/2)ln x − x²/4]₁^{e} = (e²/2 − e²/4) − (0 − 1/4) = e²/4 + 1/4 = (e² + 1)/4.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d5-7",
+    prompt: "Evaluate ∫₀¹ x² eˣ dx.",
+    latex: "\\int_0^{1} x^2 e^x \\, dx",
+    marks: 4,
+    difficulty: 5,
+    answer: "e-2",
+    acceptedAnswers: ["e - 2", "0.7183", "0.718"],
+    explanation:
+      "[(x² − 2x + 2)eˣ]₀¹ = (1)·e − (2)·1 = e − 2.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d5-8",
+    prompt: "Find ∫ x² ln x dx.",
+    latex: "\\int x^2 \\ln x \\, dx",
+    marks: 4,
+    difficulty: 5,
+    answer: "(x^3/3)ln(x) - x^3/9 + C",
+    acceptedAnswers: ["x^3 ln(x)/3 - x^3/9 + C", "(1/3)x^3 ln(x) - x^3/9 + C"],
+    explanation:
+      "u = ln x, dv = x² dx, v = x³/3: ∫ = (x³/3)ln x − ∫(x²/3) dx = (x³/3)ln x − x³/9 + C.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d5-9",
+    prompt: "Evaluate ∫₀^{π/2} eˣ cos x dx.",
+    latex: "\\int_0^{\\pi/2} e^x \\cos x \\, dx",
+    marks: 4,
+    difficulty: 5,
+    answer: "(e^(pi/2)-1)/2",
+    acceptedAnswers: ["(e^(π/2) - 1)/2", "1.9055", "1.905"],
+    explanation:
+      "Using I = (eˣ/2)(sin x + cos x): [(eˣ/2)(sin x + cos x)]₀^{π/2} = (e^{π/2}/2)(1) − (1/2)(1) = (e^{π/2} − 1)/2.",
+  },
+  {
+    id: "y12e1-fcalc-ibp-d5-10",
+    prompt:
+      "F(x) = ∫ x cos x dx and F(0) = 3. Find F(π/2).",
+    latex: "F'(x) = x \\cos x, \\quad F(0) = 3",
+    marks: 4,
+    difficulty: 5,
+    answer: "pi/2+2",
+    acceptedAnswers: ["π/2 + 2", "2+pi/2", "3.5708", "3.571"],
+    explanation:
+      "F(x) = x sin x + cos x + C. F(0) = 1 + C = 3 gives C = 2. F(π/2) = (π/2 + 0) + 2 = π/2 + 2.",
+  },
+];
+
 export const furtherCalculusPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -516,8 +753,8 @@ export const furtherCalculusPool: TopicTestPool = {
       subtopicSlug: "integration-by-parts",
       subtopicTitle: "Introduction to Integration by Parts",
       remediationHref: href("integration-by-parts"),
-      d4: [],
-      d5: [],
+      d4: partsD4,
+      d5: partsD5,
     },
     {
       subtopicSlug: "further-calculus-exam-practice",
