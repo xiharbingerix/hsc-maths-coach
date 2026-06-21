@@ -9,6 +9,7 @@ import {
 } from "./HscMathsCTAs";
 import { PageViewTracker } from "../components/PageViewTracker";
 import { DiagnosticResultPreview } from "../components/DiagnosticResultPreview";
+import { ProductShowcase } from "../components/ProductShowcase";
 
 export const metadata: Metadata = {
   title: "HSC Maths Diagnostic | NSW Year 12 Standard 2 & Advanced",
@@ -274,6 +275,9 @@ export default function HscMathsPage() {
             </HscDiagnosticCTAButton>
           }
         />
+
+        {/* Product showcase */}
+        <ProductShowcase />
 
         {/* 2. What you'll get after the diagnostic */}
         <section className="space-y-6">

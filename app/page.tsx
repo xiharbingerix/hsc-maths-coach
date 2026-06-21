@@ -6,6 +6,7 @@ import { totalActiveLessonCount } from "../lib/courseUnits";
 import { SubscribeCTA } from "./components/SubscribeCTA";
 import { PageViewTracker } from "./components/PageViewTracker";
 import { DiagnosticResultPreview } from "./components/DiagnosticResultPreview";
+import { ProductShowcase } from "./components/ProductShowcase";
 
 export const metadata: Metadata = {
   title: "Nova Maths | NSW Maths Diagnostic & Online Lessons",
@@ -213,6 +214,9 @@ export default function Home() {
             </PrimaryLink>
           }
         />
+
+        {/* Product showcase */}
+        <ProductShowcase />
 
         {/* 2. How Nova Maths works */}
         <section className="space-y-6">
