@@ -1160,7 +1160,7 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
       teaching: {
         paragraphs: [
           "An inequality is like an equation but uses <, ≤, >, or ≥ instead of =. Solving one means finding all values of the variable that make it true.",
-          "The key rule: if you multiply or divide both sides by a negative number, reverse the inequality sign. Adding or subtracting never changes the sign.",
+          "The key rule: if you multiply or divide both sides by a negative number, reverse the inequality sign — multiplying by a negative flips the order of the number line, so the smaller side becomes the larger. Adding or subtracting never changes the sign.",
           "On a number line, use an open circle ○ for strict inequalities (< or >) and a closed circle ● for ≤ or ≥. Shade in the direction of the solution.",
           "Practical contexts: a budget constraint means total spending must be less than or equal to the limit; a profit threshold means revenue minus cost must exceed the target.",
         ],
@@ -1257,8 +1257,8 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Many practical problems give you a formula and ask you to find one value when others are known. Substitute the given values and simplify.",
-          "To make a variable the subject, use inverse operations: if the variable is multiplied by a number, divide both sides; if it is added, subtract both sides.",
+          "A formula is a fixed recipe linking several quantities. Many problems give you the formula and all but one of the quantities and ask for the missing one — substitute the known values and simplify to find it.",
+          "To make a variable the subject, unwrap it: peel off the operations surrounding it one at a time using inverse operations, like untying the outer layer of a parcel first. If the variable is multiplied by a number, divide both sides; if a number is added, subtract from both sides.",
           "Common HSC formulas: compound interest $A = P(1 + r)^n$, speed S = D/T, density D = M/V, area A = lw or A = (1/2)bh, BMI = mass/height².",
           "Always include units in the final answer. The formula gives a number; the context gives the unit.",
         ],
