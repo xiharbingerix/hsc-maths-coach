@@ -733,6 +733,243 @@ const shmD5: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 4: Areas Between Curves and Volumes of Revolution ───────────────
+// D4: areas (under / between / enclosed) and volumes about the x-axis (π∫y² dx).
+const volumesD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-capp-vol-d4-1",
+    prompt: "Find the area under y = x² from x = 0 to x = 3.",
+    latex: "y = x^2, \\quad 0 \\le x \\le 3",
+    marks: 2,
+    difficulty: 4,
+    answer: "9",
+    explanation: "∫₀³ x² dx = [x³/3]₀³ = 9.",
+  },
+  {
+    id: "y12e1-capp-vol-d4-2",
+    prompt: "Find the area enclosed between y = x and y = x² from x = 0 to x = 1.",
+    latex: "y = x, \\quad y = x^2",
+    marks: 3,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$\\dfrac{1}{6}$" },
+      { label: "B", text: "$\\dfrac{1}{2}$" },
+      { label: "C", text: "$\\dfrac{5}{6}$" },
+      { label: "D", text: "$\\dfrac{1}{3}$" },
+    ],
+    answer: "A",
+    explanation:
+      "On [0, 1], x ≥ x². Area = ∫₀¹(x − x²) dx = 1/2 − 1/3 = 1/6. B and D integrate only one curve.",
+  },
+  {
+    id: "y12e1-capp-vol-d4-3",
+    prompt: "Find the area enclosed by y = 4 − x² and the x-axis.",
+    latex: "y = 4 - x^2",
+    marks: 3,
+    difficulty: 4,
+    answer: "32/3",
+    acceptedAnswers: ["10.667", "10.6667"],
+    explanation:
+      "Roots x = ±2. ∫₋₂²(4 − x²) dx = [4x − x³/3]₋₂² = 16 − 16/3 = 32/3.",
+  },
+  {
+    id: "y12e1-capp-vol-d4-4",
+    prompt: "Find the area under y = eˣ from x = 0 to x = 1.",
+    latex: "y = e^x, \\quad 0 \\le x \\le 1",
+    marks: 2,
+    difficulty: 4,
+    answer: "e-1",
+    acceptedAnswers: ["e - 1", "1.7183", "1.718"],
+    explanation: "∫₀¹ eˣ dx = [eˣ]₀¹ = e − 1.",
+  },
+  {
+    id: "y12e1-capp-vol-d4-5",
+    prompt: "Find the area under y = x³ from x = 0 to x = 2.",
+    latex: "y = x^3, \\quad 0 \\le x \\le 2",
+    marks: 2,
+    difficulty: 4,
+    answer: "4",
+    explanation: "∫₀² x³ dx = [x⁴/4]₀² = 16/4 = 4.",
+  },
+  {
+    id: "y12e1-capp-vol-d4-6",
+    prompt:
+      "The region under y = x from x = 0 to x = 3 is rotated about the x-axis. Find the volume.",
+    latex: "y = x, \\quad 0 \\le x \\le 3",
+    marks: 3,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$9\\pi$" },
+      { label: "B", text: "$9$" },
+      { label: "C", text: "$27\\pi$" },
+      { label: "D", text: "$3\\pi$" },
+    ],
+    answer: "A",
+    explanation:
+      "V = π∫₀³ x² dx = π[x³/3]₀³ = 9π. B forgets the π; C uses x instead of x².",
+  },
+  {
+    id: "y12e1-capp-vol-d4-7",
+    prompt:
+      "The region under y = √x from x = 0 to x = 4 is rotated about the x-axis. Find the volume.",
+    latex: "y = \\sqrt{x}, \\quad 0 \\le x \\le 4",
+    marks: 2,
+    difficulty: 4,
+    answer: "8pi",
+    acceptedAnswers: ["8π", "25.13", "25.133"],
+    explanation: "V = π∫₀⁴ x dx = π[x²/2]₀⁴ = 8π.",
+  },
+  {
+    id: "y12e1-capp-vol-d4-8",
+    prompt:
+      "The region under y = x² from x = 0 to x = 2 is rotated about the x-axis. Find the volume.",
+    latex: "y = x^2, \\quad 0 \\le x \\le 2",
+    marks: 3,
+    difficulty: 4,
+    answer: "32pi/5",
+    acceptedAnswers: ["32π/5", "20.106", "20.11"],
+    explanation: "V = π∫₀² x⁴ dx = π[x⁵/5]₀² = 32π/5.",
+  },
+  {
+    id: "y12e1-capp-vol-d4-9",
+    prompt:
+      "The region under y = x + 1 from x = 0 to x = 2 is rotated about the x-axis. Find the volume.",
+    latex: "y = x + 1, \\quad 0 \\le x \\le 2",
+    marks: 3,
+    difficulty: 4,
+    answer: "26pi/3",
+    acceptedAnswers: ["26π/3", "27.227", "27.23"],
+    explanation: "V = π∫₀²(x + 1)² dx = π[(x + 1)³/3]₀² = π(27/3 − 1/3) = 26π/3.",
+  },
+  {
+    id: "y12e1-capp-vol-d4-10",
+    prompt:
+      "The region under y = eˣ from x = 0 to x = 1 is rotated about the x-axis. Find the volume.",
+    latex: "y = e^x, \\quad 0 \\le x \\le 1",
+    marks: 3,
+    difficulty: 4,
+    answer: "pi(e^2-1)/2",
+    acceptedAnswers: ["(e^2-1)pi/2", "π(e^2-1)/2", "10.036", "10.04"],
+    explanation: "V = π∫₀¹ e^{2x} dx = π[(1/2)e^{2x}]₀¹ = π(e² − 1)/2.",
+  },
+];
+
+// D5: find intersection limits first, rotate about the y-axis, washer volumes,
+// and trig areas.
+const volumesD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-capp-vol-d5-1",
+    prompt: "Find the area enclosed between y = x² and y = 2x.",
+    latex: "y = x^2, \\quad y = 2x",
+    marks: 4,
+    difficulty: 5,
+    answer: "4/3",
+    acceptedAnswers: ["1.3333", "1.333"],
+    explanation:
+      "Intersections: x² = 2x ⇒ x = 0, 2. Area = ∫₀²(2x − x²) dx = [x² − x³/3]₀² = 4 − 8/3 = 4/3.",
+  },
+  {
+    id: "y12e1-capp-vol-d5-2",
+    prompt: "Find the area enclosed between y = x + 2 and y = x².",
+    latex: "y = x + 2, \\quad y = x^2",
+    marks: 4,
+    difficulty: 5,
+    answer: "9/2",
+    acceptedAnswers: ["4.5"],
+    explanation:
+      "x² = x + 2 ⇒ x = −1, 2. Area = ∫₋₁²(x + 2 − x²) dx = [x²/2 + 2x − x³/3]₋₁² = 9/2.",
+  },
+  {
+    id: "y12e1-capp-vol-d5-3",
+    prompt:
+      "The region bounded by y = x², the y-axis and y = 4 is rotated about the y-axis. Find the volume.",
+    latex: "y = x^2, \\quad 0 \\le y \\le 4, \\text{ about the } y\\text{-axis}",
+    marks: 4,
+    difficulty: 5,
+    answer: "8pi",
+    acceptedAnswers: ["8π", "25.13", "25.133"],
+    explanation:
+      "About the y-axis: V = π∫₀⁴ x² dy = π∫₀⁴ y dy = π[y²/2]₀⁴ = 8π (since x² = y).",
+  },
+  {
+    id: "y12e1-capp-vol-d5-4",
+    prompt:
+      "The region between y = x and y = x² (0 ≤ x ≤ 1) is rotated about the x-axis. Find the volume.",
+    latex: "y = x, \\quad y = x^2, \\text{ about the } x\\text{-axis}",
+    marks: 4,
+    difficulty: 5,
+    answer: "2pi/15",
+    acceptedAnswers: ["2π/15", "0.4189", "0.419"],
+    explanation:
+      "Washer: V = π∫₀¹(x² − (x²)²) dx = π∫₀¹(x² − x⁴) dx = π(1/3 − 1/5) = 2π/15.",
+  },
+  {
+    id: "y12e1-capp-vol-d5-5",
+    prompt: "Find the area under y = sin x from x = 0 to x = π.",
+    latex: "y = \\sin x, \\quad 0 \\le x \\le \\pi",
+    marks: 3,
+    difficulty: 5,
+    answer: "2",
+    explanation: "∫₀^π sin x dx = [−cos x]₀^π = 1 − (−1) = 2.",
+  },
+  {
+    id: "y12e1-capp-vol-d5-6",
+    prompt:
+      "The region bounded by y = √x, the y-axis and y = 2 is rotated about the y-axis. Find the volume.",
+    latex: "y = \\sqrt{x}, \\quad 0 \\le y \\le 2, \\text{ about the } y\\text{-axis}",
+    marks: 4,
+    difficulty: 5,
+    answer: "32pi/5",
+    acceptedAnswers: ["32π/5", "20.106", "20.11"],
+    explanation:
+      "x = y², so V = π∫₀² x² dy = π∫₀² y⁴ dy = π[y⁵/5]₀² = 32π/5.",
+  },
+  {
+    id: "y12e1-capp-vol-d5-7",
+    prompt: "Find the area under y = cos x from x = 0 to x = π/2.",
+    latex: "y = \\cos x, \\quad 0 \\le x \\le \\tfrac{\\pi}{2}",
+    marks: 3,
+    difficulty: 5,
+    answer: "1",
+    explanation: "∫₀^{π/2} cos x dx = [sin x]₀^{π/2} = 1.",
+  },
+  {
+    id: "y12e1-capp-vol-d5-8",
+    prompt:
+      "The region enclosed by y = 4 − x² and the x-axis is rotated about the x-axis. Find the volume.",
+    latex: "y = 4 - x^2, \\text{ about the } x\\text{-axis}",
+    marks: 4,
+    difficulty: 5,
+    answer: "512pi/15",
+    acceptedAnswers: ["512π/15", "107.2", "107.23"],
+    explanation:
+      "V = π∫₋₂²(4 − x²)² dx = π∫₋₂²(16 − 8x² + x⁴) dx = π(512/15) = 512π/15.",
+  },
+  {
+    id: "y12e1-capp-vol-d5-9",
+    prompt: "Find the area enclosed between y = x² and y = 8 − x².",
+    latex: "y = x^2, \\quad y = 8 - x^2",
+    marks: 4,
+    difficulty: 5,
+    answer: "64/3",
+    acceptedAnswers: ["21.333", "21.3333"],
+    explanation:
+      "x² = 8 − x² ⇒ x = ±2. Area = ∫₋₂²(8 − 2x²) dx = [8x − 2x³/3]₋₂² = 64/3.",
+  },
+  {
+    id: "y12e1-capp-vol-d5-10",
+    prompt:
+      "The region between y = √x and y = x (0 ≤ x ≤ 1) is rotated about the x-axis. Find the volume.",
+    latex: "y = \\sqrt{x}, \\quad y = x, \\text{ about the } x\\text{-axis}",
+    marks: 4,
+    difficulty: 5,
+    answer: "pi/6",
+    acceptedAnswers: ["π/6", "0.5236", "0.524"],
+    explanation:
+      "On [0, 1], √x ≥ x. Washer: V = π∫₀¹((√x)² − x²) dx = π∫₀¹(x − x²) dx = π/6.",
+  },
+];
+
 export const calculusApplicationsPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -764,8 +1001,8 @@ export const calculusApplicationsPool: TopicTestPool = {
       subtopicSlug: "calculus-applications-volumes",
       subtopicTitle: "Areas Between Curves and Volumes of Revolution",
       remediationHref: href("calculus-applications-volumes"),
-      d4: [],
-      d5: [],
+      d4: volumesD4,
+      d5: volumesD5,
     },
     {
       subtopicSlug: "calculus-applications-polynomial-zeroes",
