@@ -2005,8 +2005,8 @@ export function year12Standard1FinancialPlanningRepaymentLessonOverride(
     ],
     teaching: {
       paragraphs: [
-        "A payment plan allows a purchase to be spread over time. The deposit is paid upfront. The remaining balance — the price minus the deposit — is split into equal regular repayments.",
-        "The total cost of a plan is the deposit plus all repayments combined. This total is often greater than the cash price because payment plans can include additional fees spread across repayments.",
+        "A payment plan lets you spread the cost of a purchase over time instead of paying all at once. The deposit is paid upfront, which reduces the amount still owed. The remaining balance — the price minus the deposit — is then split into equal regular repayments.",
+        "Think of a plan as money paid now plus money paid later: the total cost is every payment on that timeline added up — the deposit (now) plus all the repayments (later). This total is often greater than the cash price because plans can include extra fees spread across the repayments.",
         "To compare two plans, calculate the total cost of each plan (deposit plus number of repayments multiplied by the repayment amount). The plan with the lower total is usually the better financial choice.",
         "A budget lists income and all expenses. The monthly surplus is income minus total expenses. A repayment is only affordable if it fits within the surplus — there must be enough left over after all other expenses.",
       ],
@@ -2023,11 +2023,11 @@ export function year12Standard1FinancialPlanningRepaymentLessonOverride(
           "\\text{A laptop costs }\\$1200\\text{. A deposit of }\\$300\\text{ is paid upfront. The remaining balance is split into 6 equal monthly repayments. Find each repayment.}",
         steps: [
           {
-            explanation: "Find the balance after the deposit.",
+            explanation: "The deposit is paid upfront, so it reduces what is still owed — subtract it from the price.",
             latex: "1200 - 300 = 900",
           },
           {
-            explanation: "Divide the balance equally among the 6 repayments.",
+            explanation: "The remaining balance is shared equally across the 6 repayments, so divide by 6.",
             latex: "900 \\div 6 = 150",
           },
         ],
@@ -2039,15 +2039,15 @@ export function year12Standard1FinancialPlanningRepaymentLessonOverride(
           "\\text{A plan for a }\\$1800\\text{ fridge requires a }\\$400\\text{ deposit and 12 monthly repayments of }\\$130\\text{. Find the total cost and the extra cost.}",
         steps: [
           {
-            explanation: "Find the total of all repayments.",
+            explanation: "Each repayment is the same, so multiply the repayment by how many there are.",
             latex: "12 \\times 130 = 1560",
           },
           {
-            explanation: "Add the deposit to find the total cost.",
+            explanation: "Add the money paid now (deposit) to the money paid later (repayments) for the total cost.",
             latex: "400 + 1560 = 1960",
           },
           {
-            explanation: "Subtract the cash price to find the extra cost.",
+            explanation: "The extra cost is what the plan adds over paying cash, so subtract the cash price.",
             latex: "1960 - 1800 = 160",
           },
         ],
@@ -2060,11 +2060,11 @@ export function year12Standard1FinancialPlanningRepaymentLessonOverride(
           "\\text{Monthly income is }\\$2600\\text{. Monthly expenses total }\\$1950\\text{. Is a monthly repayment of }\\$550\\text{ affordable?}",
         steps: [
           {
-            explanation: "Find the monthly surplus (income minus all expenses).",
+            explanation: "The surplus is what is left each month after all expenses, so subtract expenses from income.",
             latex: "2600 - 1950 = 650",
           },
           {
-            explanation: "Compare the surplus with the required repayment.",
+            explanation: "A repayment is affordable only if it fits inside that surplus, so compare the two.",
             latex: "650 > 550",
           },
           {
@@ -2219,12 +2219,12 @@ export function year12Standard1FinancialPlanningRepaymentLessonOverride(
       {
         mistake:
           "Comparing repayment amounts instead of total costs when choosing between plans.",
-        fix: "A lower repayment over more months can cost more overall — always compare total costs.",
+        fix: "It is tempting because a smaller monthly repayment feels cheaper, but a lower repayment stretched over more months can add up to more and may hide fees. Always compare the total cost — deposit plus all repayments — not the monthly amount.",
       },
       {
         mistake:
           "Checking whether the repayment fits within income rather than within the surplus.",
-        fix: "Surplus = income − all other expenses. The repayment must fit within the surplus, not the full income.",
+        fix: "It is tempting because income is the big, obvious number, but rent, food and bills must be paid first, so only the surplus (income − all other expenses) is actually available. A repayment is affordable only if it fits within the surplus, not the full income.",
       },
     ],
     masteryPassMark: 0.75,
