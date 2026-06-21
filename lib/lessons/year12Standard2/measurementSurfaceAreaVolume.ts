@@ -63,7 +63,7 @@ export function year12Standard2MeasurementSAVLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Total surface area (TSA) is the sum of the areas of all faces of a solid. Every face must be included.",
+          "Total surface area (TSA) is the sum of the areas of all faces of a solid — every face must be included. You meet it whenever you need the material to cover or wrap a solid, such as the cardboard for a box or the metal and label for a can.",
           "A rectangular prism has 6 rectangular faces: top/bottom (lw), front/back (lh), and left/right (wh). Each pair appears twice: TSA = 2(lw + lh + wh).",
           "A cylinder has two circular ends and one curved surface. Unroll the curved surface into a rectangle with width 2πr and height h. TSA = 2πr² + 2πrh.",
           "A triangular prism has two triangular faces and three rectangular faces. Find the triangle area first (A = bh/2), then multiply by 2; then find each rectangular face separately.",
@@ -81,8 +81,12 @@ export function year12Standard2MeasurementSAVLessonOverride(
             "l=8\\text{ cm},\\;w=5\\text{ cm},\\;h=3\\text{ cm}.",
           steps: [
             {
-              explanation: "Apply TSA = 2(lw + lh + wh).",
-              latex: "TSA=2(8\\times5+8\\times3+5\\times3)=2(40+24+15)=2(79)=158",
+              explanation: "The six faces come in three matching pairs, so find the three distinct face areas first.",
+              latex: "lw=8\\times5=40,\\;\\;lh=8\\times3=24,\\;\\;wh=5\\times3=15",
+            },
+            {
+              explanation: "Each area appears on two opposite faces, so add the three and double.",
+              latex: "TSA=2(40+24+15)=2(79)=158",
             },
           ],
           finalAnswerLatex: "TSA=158\\text{ cm}^2",
@@ -93,15 +97,15 @@ export function year12Standard2MeasurementSAVLessonOverride(
             "r=4\\text{ cm},\\;h=10\\text{ cm}.",
           steps: [
             {
-              explanation: "Two circular ends: 2πr².",
+              explanation: "The two circular ends are identical, so together they contribute 2πr².",
               latex: "2\\pi(4)^2=32\\pi",
             },
             {
-              explanation: "Curved surface: 2πrh.",
+              explanation: "Unrolled, the curved surface is a rectangle 2πr wide and h tall, giving 2πrh.",
               latex: "2\\pi(4)(10)=80\\pi",
             },
             {
-              explanation: "Add the two parts.",
+              explanation: "Add the ends and the curved surface for the total.",
               latex: "TSA=112\\pi\\approx351.9\\text{ cm}^2",
             },
           ],
@@ -125,7 +129,7 @@ export function year12Standard2MeasurementSAVLessonOverride(
         { mistake: "Forgetting to count both ends of a cylinder.", fix: "A closed cylinder has two circular faces: 2πr²." },
         { mistake: "Using diameter instead of radius in formulas.", fix: "The formulas use radius r. If given diameter d, compute r = d/2 first." },
         { mistake: "Missing a face on a rectangular prism.", fix: "List all 6 faces: top, bottom, front, back, left, right. Group in pairs." },
-        { mistake: "Confusing TSA with volume.", fix: "TSA is measured in cm² (area units). Volume is measured in cm³." },
+        { mistake: "Confusing TSA with volume.", fix: "It is tempting because both describe how big a solid is, but surface area covers the outside (cm², two dimensions) while volume fills the inside (cm³, three dimensions). Count and add faces for TSA; multiply the three dimensions for volume." },
       ],
       masteryQuiz: [
         measurementAnswer("y12s2-sa-m1", "Find the TSA of a rectangular prism: l = 5, w = 3, h = 2 (all in cm).", "TSA=2(lw+lh+wh)", "62 cm^2", ["62", "62cm²"]),
@@ -157,9 +161,9 @@ export function year12Standard2MeasurementSAVLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "The volume of any right prism is V = Ah, where A is the area of the cross-section and h is the length (or height) of the prism. For a rectangular prism, A = lw, so V = lwh.",
+          "Volume measures how much space a solid fills — the water a tank holds, the concrete in a slab. When a solid keeps the same cross-section all the way along (a right prism), picture that flat cross-section sweeping along its length: the volume is the cross-section area times the length, V = Ah. For a rectangular prism the cross-section is a rectangle, A = lw, so V = lwh.",
           "For a cylinder, the cross-section is a circle: A = πr². So V = πr²h.",
-          "For a sphere of radius r: V = (4/3)πr³. This formula must be memorised.",
+          "For a sphere of radius r: V = (4/3)πr³. We accept this without deriving it; as a sense-check, a sphere fills exactly two-thirds of the smallest cylinder that encloses it, and because volume depends on r³, doubling the radius makes the sphere eight times as large.",
           "Capacity conversions: 1 mL = 1 cm³; 1 L = 1000 mL = 1000 cm³; 1 m³ = 1 000 000 cm³ = 1000 L = 1 kL.",
         ],
         latexBlocks: [
@@ -175,11 +179,11 @@ export function year12Standard2MeasurementSAVLessonOverride(
             "r=5\\text{ cm},\\;h=12\\text{ cm}.",
           steps: [
             {
-              explanation: "Apply V = πr²h.",
+              explanation: "The circular cross-section has area πr²; sweep it through the height, so V = πr²h.",
               latex: "V=\\pi(5)^2(12)=300\\pi\\approx942.5\\text{ cm}^3",
             },
             {
-              explanation: "Convert to litres: divide by 1000.",
+              explanation: "1 litre is 1000 cm³, so divide the cubic-centimetre volume by 1000 to get litres.",
               latex: "V=942.5\\div1000=0.9425\\text{ L}",
             },
           ],
@@ -191,7 +195,7 @@ export function year12Standard2MeasurementSAVLessonOverride(
             "r=6\\text{ cm}.",
           steps: [
             {
-              explanation: "Apply V = (4/3)πr³.",
+              explanation: "Cube the radius first, then apply the (4/3)π factor: V = (4/3)πr³.",
               latex: "V=\\frac{4}{3}\\pi(6)^3=\\frac{4}{3}\\pi(216)=288\\pi\\approx904.8\\text{ cm}^3",
             },
           ],
@@ -213,7 +217,7 @@ export function year12Standard2MeasurementSAVLessonOverride(
       ],
       commonMistakes: [
         { mistake: "Using diameter instead of radius in V = πr²h or V = (4/3)πr³.", fix: "If given diameter d, halve it: r = d/2 before substituting." },
-        { mistake: "Forgetting to cube the radius for a sphere.", fix: "V = (4/3)πr³ — the r is cubed, not squared." },
+        { mistake: "Forgetting to cube the radius for a sphere.", fix: "It is tempting because the area formula πr² is more familiar, so students square out of habit. But volume is three-dimensional, so the radius is cubed: V = (4/3)πr³ uses r³, not r²." },
         { mistake: "Confusing volume units with area units.", fix: "Volume is in cm³ or m³ (three dimensions multiplied). Area is in cm² or m²." },
         { mistake: "Not converting to litres when asked for capacity.", fix: "Divide cm³ by 1000 to get litres. The formula gives cm³; the question may ask for L." },
       ],
@@ -247,9 +251,9 @@ export function year12Standard2MeasurementSAVLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A composite solid is formed by joining two or more basic solids (prisms, cylinders, spheres) or by removing one from another.",
+          "Real objects are rarely a single neat shape: a silo is a cylinder capped by a dome, a step is two prisms stacked. A composite solid is formed by joining two or more basic solids (prisms, cylinders, spheres) together, or by removing one from another.",
           "Volume of composite = sum of component volumes (addition) or larger minus smaller (subtraction).",
-          "Surface area is trickier: the joined face is internal and must be removed from each component before adding. Exposed area = sum of individual TSAs − 2 × joined face area.",
+          "Surface area is trickier: where two solids meet, the touching faces are sealed inside and no longer exposed. So subtract that joined face twice — once from each solid: exposed area = sum of individual TSAs − 2 × joined face area.",
           "Practical applications: 'How many litres does the tank hold?' → find volume in cm³, then divide by 1000. 'How much paint?' → find the exposed surface area.",
         ],
         latexBlocks: [
@@ -265,15 +269,15 @@ export function year12Standard2MeasurementSAVLessonOverride(
             "\\text{A cylinder (r=3, h=8) sits on a rectangular prism (8×8×4, all in cm).}",
           steps: [
             {
-              explanation: "Volume of cylinder.",
+              explanation: "Break the solid into familiar parts and find each separately — first the cylinder, using V = πr²h.",
               latex: "V_1=\\pi(3)^2(8)=72\\pi\\approx226.2\\text{ cm}^3",
             },
             {
-              explanation: "Volume of rectangular prism.",
+              explanation: "Then the rectangular prism it sits on, using V = lwh.",
               latex: "V_2=8\\times8\\times4=256\\text{ cm}^3",
             },
             {
-              explanation: "Total volume.",
+              explanation: "The parts do not overlap, so add them for the total volume.",
               latex: "V=226.2+256=482.2\\text{ cm}^3",
             },
           ],
@@ -285,11 +289,11 @@ export function year12Standard2MeasurementSAVLessonOverride(
             "\\text{A cylindrical water tank: r=0.6 m, h=1.5 m. Find capacity in litres.}",
           steps: [
             {
-              explanation: "Find volume in m³.",
+              explanation: "Capacity comes from volume, so find the tank's volume from its circular cross-section: V = πr²h.",
               latex: "V=\\pi(0.36)(1.5)=0.54\\pi\\approx1.696\\text{ m}^3",
             },
             {
-              explanation: "Convert to litres: 1 m³ = 1000 L.",
+              explanation: "Capacity is that same space measured in litres, and 1 m³ = 1000 L, so multiply by 1000.",
               latex: "\\text{Capacity}=1.696\\times1000=1696\\text{ L}",
             },
           ],
