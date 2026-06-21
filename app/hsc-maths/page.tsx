@@ -261,6 +261,49 @@ export default function HscMathsPage() {
           </div>
         </section>
 
+        {/* Trial exam preparation */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 md:p-10">
+          <span className="inline-flex items-center gap-2 rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-800">
+            <svg className="h-4 w-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0V11.25A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+            </svg>
+            NSW Trial exams begin in Term 3.
+          </span>
+          <h2 className="mt-4 max-w-2xl text-3xl font-bold tracking-tight text-slate-900">
+            Preparing for NSW Trial Exams?
+          </h2>
+          <p className="mt-3 max-w-2xl text-lg leading-8 text-slate-600">
+            Trial exams are often the strongest predictor of HSC performance.
+            Nova Maths helps you identify weak topics before they appear in your
+            exams.
+          </p>
+
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              "Topic diagnostics",
+              "Revision recommendations",
+              "Structured lesson pathways",
+              "Progress tracking",
+            ].map((item) => (
+              <div
+                key={item}
+                className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4"
+              >
+                <svg className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+                <span className="text-sm font-medium leading-6 text-slate-800">
+                  {item}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-7">
+            <HscDiagnosticCTAButton>Start free diagnostic</HscDiagnosticCTAButton>
+          </div>
+        </section>
+
         {/* Diagnostic result preview */}
         <DiagnosticResultPreview
           cta={
