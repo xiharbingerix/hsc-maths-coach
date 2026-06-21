@@ -298,7 +298,7 @@ export function year12Standard1DataDisplaysSummaryStatisticsLessonOverride(
     ],
     teaching: {
       paragraphs: [
-        "The mean is the total of the data values divided by the number of values. The median is the middle value when the data are ordered.",
+        "The mean is the total of the data values shared equally among them — what each value would be if they were all levelled off — found by dividing the total by how many there are. The median is the middle value once the data are put in order.",
         "Use the range to describe how spread out the data are from lowest to highest. In Standard 1, these measures help compare real-life results such as scores, distances and prices.",
         "A frequency table can make mean and median easier to calculate for repeated values.",
         "When data are not symmetrical, median is often a better centre measure than mean because it is less affected by unusually large or small values.",
@@ -336,7 +336,7 @@ export function year12Standard1DataDisplaysSummaryStatisticsLessonOverride(
         steps: [
           {
             explanation:
-              "Add the scores and divide by the number of scores.",
+              "The mean shares the total equally, so first add all the scores.",
             latex: "2+2+3+4+4+5=20",
           },
           {
@@ -617,7 +617,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
     ],
     teaching: {
       paragraphs: [
-        "Probability compares how many outcomes are favourable with how many outcomes are possible. When outcomes are equally likely, the probability is a fraction of the total number of outcomes.",
+        "Probability measures how likely an event is: the share of all equally-likely outcomes that count as a success. If 3 of 5 counters are red, drawing red happens 3 times out of every 5 — favourable outcomes over the total number possible.",
         "For a single event, list the possible outcomes carefully. For two-stage events, use multiplication along a path and add the path probabilities when more than one path can give the required outcome.",
         "With replacement, the second selection has the same number of possibilities as the first. Without replacement, the second probability changes because one item has already been removed.",
         "Use simple probability trees for two-stage chance problems and follow the correct order of multiplication and addition depending on whether outcomes are joined or selected as alternatives.",
@@ -909,7 +909,7 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
     ],
     teaching: {
       paragraphs: [
-        "Exam-style statistics questions often ask for the mean, median, or range in a context. Read the wording carefully to choose the right measure.",
+        "Exam-style questions rarely tell you which measure to use — you decide from the data's shape: the mean for evenly-spread data, the median when one unusually large or small value would pull the mean off-centre, and the range to show how spread out the values are. Read the wording carefully to choose.",
         "Probability questions in Standard 1 usually involve a single event or a simple two-stage event with equally likely outcomes.",
         "Always check whether the question asks for a fraction, a decimal or a percentage response and give your answer in the form requested.",
         "If a question gives a description of an event, write the probability as the number of favourable outcomes over the total number of outcomes."
