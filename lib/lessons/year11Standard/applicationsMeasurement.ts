@@ -453,9 +453,9 @@ export function year11StandardApplicationsMeasurementLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Area is used for flat surfaces such as flooring, walls, gardens and paint coverage.",
+          "Area measures how much flat surface a shape covers, counted in unit squares (cm², m²) — used for flooring, walls, gardens and paint coverage.",
           "Surface area is the total area of the outside faces of an object, such as material needed to cover a box.",
-          "Volume measures three-dimensional space. Capacity is how much a container holds, often measured in litres.",
+          "Volume measures how much space a solid fills, counted in unit cubes (cm³, m³) — picture stacking unit cubes until it is full. Capacity is how much a container holds, often measured in litres.",
           "Check units before calculating. For capacity, 1 cubic metre equals 1000 litres.",
         ],
         latexBlocks: [
@@ -514,7 +514,7 @@ export function year11StandardApplicationsMeasurementLessonOverride(
       teaching: {
         paragraphs: [
           "Mass is commonly measured in grams, kilograms and tonnes. Choose the unit that fits the context.",
-          "Food energy labels often use kilojoules per serve. Total energy depends on the number of serves eaten.",
+          "Food energy labels give kilojoules per serve, which is a rate, so total energy is that rate multiplied by the number of serves eaten — just as electricity cost is the rate per kWh times the kWh used.",
           "Electricity usage is often measured in kilowatt-hours, written kWh. Cost can be found by multiplying kWh by the cost per kWh.",
           "Reasonableness matters: a snack may be measured in grams, while a delivery truck load may be measured in tonnes.",
         ],
