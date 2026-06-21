@@ -1028,7 +1028,7 @@ export function year12Standard2TrigRatesLessonOverride(
             },
           },
         },
-        trigAnswer("y12s2-sca-i4", "What information is needed for A = 1/2 ab sin C?", "A=\\frac{1}{2}ab\\sin C", "two sides and the included angle", "The triangle area formula uses two known sides together with the angle between them.", ["2 sides and the included angle", "the included angle and two sides"]),
+        trigAnswer("y12s2-sca-i4", "A triangular garden has sides 8 m and 11 m with an included angle of 35 degrees. Find its area to 1 decimal place.", "A=\\frac{1}{2}(8)(11)\\sin(35^\\circ)", "25.2 m^2", "Use the two given sides and their included angle: A = 1/2(8)(11)sin(35 degrees) = 25.2 square metres to 1 decimal place.", ["25.2", "25.2m^2", "25.2 m2", "25.2 m²"]),
         practicalChoice("y12s2-sca-i5", "A student rounds every trig value to 1 decimal place before finishing. What is the risk?", "D", ["No risk", "The triangle disappears", "It proves causation", "The final answer may be less accurate"], "Rounding too early can affect the final answer."),
       ],
       commonMistakes: [

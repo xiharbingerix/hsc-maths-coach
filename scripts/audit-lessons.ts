@@ -1494,6 +1494,15 @@ function validateLesson(
         addIssue("FAIL", "invalid-mc-answer", questionPath, `Answer "${question.answer}" is not one of the visible choice labels: ${labels.join(", ")}.`);
       }
     } else {
+      if (/^\\text\{\s*Select\s+A,?\s*B,?\s*C,?\s*(?:or\s+)?D\.?\s*\}$/i.test(question.latex.trim())) {
+        addIssue(
+          "FAIL",
+          "typed-question-mcq-instruction",
+          questionPath,
+          "Typed question displays an MCQ selection instruction but has no choices."
+        );
+      }
+
       const distinctVariants = new Set(
         (question.acceptedAnswers ?? [])
           .map((answer) => answer.trim())

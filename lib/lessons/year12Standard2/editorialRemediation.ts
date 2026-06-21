@@ -1324,6 +1324,7 @@ const EXPLANATION_REWRITES: Record<string, string> = {
   "y12s2-corr-g3": "The coefficient 0.88 is positive and close to 1, so it represents a strong positive linear association.",
   "y12s2-corr-i2": "The coefficient -0.93 is negative and close to -1, indicating a strong negative linear association.",
   "y12s2-corr-i3": "A correlation of 0.06 is very close to zero, so there is little or no linear association, although a nonlinear pattern could still exist.",
+  "y12s2-corr-i4": "The negative sign gives the direction, while a magnitude of 0.65 indicates moderate linear strength. The separated point is an outlier.",
   "y12s2-corr-i5": "Rainfall can independently increase umbrella sales and slow traffic, so it is a plausible lurking variable behind the observed association.",
   "y12s2-corr-m4": "Because -0.81 is negative and has magnitude close to 1, it describes a strong negative linear association.",
   "y12s2-corr-m5": "The value 0.03 is almost zero, which suggests weak or no linear association between the variables.",
@@ -1332,7 +1333,7 @@ const EXPLANATION_REWRITES: Record<string, string> = {
   "y12s2-reg-m7": "Residual equals actual minus predicted. A positive result means the actual observation lies above the model's predicted value.",
   "y12s2-prv-g3": "There are 5 + 3 + 2 = 10 marbles and 2 are green, so P(green) = 2/10 = 1/5.",
   "y12s2-prv-i4": "The ordered outcomes are HH, HT, TH and TT, giving four outcomes in the two-toss sample space.",
-  "y12s2-relfreq-g4": "Relative frequency is the proportion of trials producing the event, calculated as event count divided by total trial count.",
+  "y12s2-relfreq-g4": "Relative frequency is event count divided by total trials. Here 18/60 = 0.30, so the estimated probability is 0.30.",
   "y12s2-msi-g2": "For independent events, multiply the probabilities: P(A and B) = 0.4(0.3) = 0.12.",
   "y12s2-msi-g3": "The two tosses are independent, so P(HH) = (1/2)(1/2) = 1/4 = 0.25.",
   "y12s2-msi-g4": "Each spin has 4 outcomes. Two ordered spins therefore produce 4 times 4 = 16 possible outcomes.",
@@ -1388,7 +1389,7 @@ function toPracticeQuestion(
       label: ["A", "B", "C", "D"][index],
       text,
     })),
-    hint: "Model the situation, apply the relevant constraint, and check the result in context.",
+    hint: "",
     explanation: spec.explanation,
   };
 }

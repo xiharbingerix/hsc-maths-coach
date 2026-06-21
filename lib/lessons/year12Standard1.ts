@@ -8916,21 +8916,46 @@ function editorialRewritePriorityLesson(lesson: ExplicitLesson): ExplicitLesson 
           explanation:
             "Substitute t = 0 into the model: h = −5(0)² + 20(0) + 1 = 1. So the object starts 1 metre above the ground.",
         });
-      case "y12s1-data-displays-g2":
+      case "y12s1-bear-m10":
         return normalizeQuestion({
           ...question,
           prompt:
-            "Which summary statistic measures the difference between the highest and lowest value in a data set?",
-          choices: [
-            { label: "A", text: "Mean" },
-            { label: "B", text: "Median" },
-            { label: "C", text: "Range" },
-            { label: "D", text: "Mode" },
-          ],
-          answer: "C",
-          acceptedAnswers: [],
+            "A ship travels 18 km on a bearing of 070°, then 12 km due south. Find the true bearing of the ship from its starting point, to the nearest degree.",
+          latex: "E=18\\sin 70^\\circ,\\quad N=18\\cos 70^\\circ-12",
+          choices: undefined,
+          answer: "109°",
+          acceptedAnswers: ["109", "109 degrees"],
+          hint:
+            "Resolve the first leg into east and north components, then include the southward leg before finding the bearing.",
           explanation:
-            "Range compares the maximum and minimum values directly. It is calculated as highest value minus lowest value.",
+            "The final components are E = 18 sin 70° = 16.91 km and N = 18 cos 70° - 12 = -5.84 km. The displacement is southeast, and atan2(E,N) gives a true bearing of 109° to the nearest degree.",
+        });
+      case "y12s1-inv-m9":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "An investment of $10,000 earns 5% compound interest annually. Find the first year in which the interest credited during that year exceeds $600.",
+          latex: "I_n=500(1.05)^{n-1}",
+          choices: undefined,
+          answer: "5 years",
+          acceptedAnswers: ["5", "year 5", "fifth year"],
+          hint:
+            "Compare the interest credited each year, not the total balance or total accumulated interest.",
+          explanation:
+            "The year-n interest is 500 multiplied by 1.05 to the power n - 1. Year 4 gives $578.81, while year 5 gives $607.75, so year 5 is the first year above $600.",
+        });
+      case "data-displays-g2":
+        return normalizeQuestion({
+          ...question,
+          prompt:
+            "The daily customer counts are 18, 12, 29 and 16. Find the range.",
+          latex: "",
+          choices: undefined,
+          answer: "17",
+          acceptedAnswers: ["17 customers", "17.0"],
+          hint: "Identify the highest and lowest counts, then subtract.",
+          explanation:
+            "The maximum count is 29 and the minimum is 12. The range is 29 - 12 = 17 customers.",
         });
       case "y12s1-data-displays-g3":
         return normalizeQuestion({
@@ -9042,11 +9067,13 @@ function editorialRewritePriorityLesson(lesson: ExplicitLesson): ExplicitLesson 
         return normalizeQuestion({
           ...question,
           prompt:
-            "Which item below is not normally charged as a credit card fee?",
-          answer: "interest-free period",
-          acceptedAnswers: ["interest free period", "the interest-free period"],
+            "A credit card balance is $1200. An annual fee of $99 and a late-payment fee of $30 are added before interest. Find the new balance.",
+          latex: "1200+99+30",
+          answer: "$1329",
+          acceptedAnswers: ["1329", "$1,329", "1329 dollars"],
+          hint: "Add the annual and late-payment fees to the existing balance.",
           explanation:
-            "The interest-free period is a feature of the card, not a fee. Annual fees, late fees and cash-advance fees are actual charges.",
+            "Add both fees to the existing balance: $1200 + $99 + $30 = $1329 before any interest is applied.",
         });
       case "y12s1-cc-m10":
         return normalizeQuestion({

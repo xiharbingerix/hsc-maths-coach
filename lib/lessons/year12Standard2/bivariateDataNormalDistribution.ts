@@ -569,7 +569,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeChoice("y12s2-corr-i1", "A scatterplot has points widely spread around a slight upward trend. Which description fits best?", "A", ["Weak positive association", "Strong negative association", "No variables can be compared", "Causation proven"], "The direction is upward, but the wide spread makes the association weak."),
         financeChoice("y12s2-corr-i2", "A correlation coefficient is r = -0.93. Which description is best?", "C", ["Weak positive", "Moderate positive", "Strong negative linear association", "No linear association"], "The negative sign gives the direction, and the value is close to -1, so the association is strong."),
         financeChoice("y12s2-corr-i3", "A correlation coefficient is r = 0.06. Which description is best?", "B", ["Strong positive", "Weak or no linear association", "Strong negative", "Causation proven"], "A value close to zero suggests little linear pattern. It does not rule out every possible relationship."),
-        financeChoice("y12s2-corr-i4", "Which is the clearest scatterplot description?", "D", ["The graph looks good", "The variables are related", "The line goes somewhere", "There is a moderate negative linear association with one outlier"], "A useful description names direction, strength, form, and any noticeable outlier."),
+        financeShortAnswer("y12s2-corr-i4", "A scatterplot has a correlation coefficient of -0.65 and one point well separated from the main linear pattern. State the direction, strength and unusual feature.", "r=-0.65", "moderate negative association with one outlier", ["moderate negative linear association with one outlier", "moderate negative correlation with one outlier"]),
         financeChoice("y12s2-corr-i5", "Umbrella sales and traffic delays both rise on rainy days. Which variable is a likely lurking variable?", "A", ["Rainfall", "Umbrella colour", "Road name", "Correlation coefficient"], "Rain can increase both umbrella sales and traffic delays, so it may explain the association."),
       ],
       commonMistakes: [
@@ -1403,7 +1403,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer("y12s2-relfreq-g1", "A spinner lands on red 24 times in 100 spins. Estimate P(red).", "\\frac{24}{100}", "0.24", ["24%", "6/25"]),
         financeShortAnswer("y12s2-relfreq-g2", "A quality check finds 7 faulty items in 200. Estimate the probability an item is faulty.", "\\frac{7}{200}", "0.035", ["3.5%"]),
         financeChoice("y12s2-relfreq-g3", "What usually happens to relative frequency as the number of trials becomes large?", "B", ["It must become zero", "It often becomes more stable", "It must become one", "It stops being data"], "More trials usually reduce random fluctuation."),
-        financeChoice("y12s2-relfreq-g4", "Which calculation gives relative frequency?", "A", ["event count / total trials", "total trials / event count", "mean / standard deviation", "actual - predicted"], "Relative frequency is successful outcomes divided by total trials."),
+        financeShortAnswer("y12s2-relfreq-g4", "An event occurs 18 times in 60 trials. Find its relative frequency.", "\\frac{18}{60}", "0.30", ["0.3", "30%", "3/10"]),
       ],
       independentPractice: [
         financeShortAnswer("y12s2-relfreq-i1", "A bus is late 15 times in 60 observed trips. Estimate the probability it is late.", "\\frac{15}{60}", "0.25", ["25%", "1/4"]),

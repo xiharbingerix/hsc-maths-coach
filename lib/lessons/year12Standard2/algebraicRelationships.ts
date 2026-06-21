@@ -667,7 +667,7 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         { mistake: "Reading the constant term as the vertex.", fix: "The constant term is the output when the input is zero. The vertex is the turning point, and it may be somewhere else." },
       ],
       masteryQuiz: [
-        algebraAnswer("y12s2-quad-m1", "What feature proves that y = -4x^2 + 7x + 3 is quadratic?", "x^2", "x squared term", "A squared variable is the defining feature of a quadratic equation.", ["the x squared term", "x^2 term", "squared variable"]),
+        algebraAnswer("y12s2-quad-m1", "For y = -4x^2 + 7x + 3, find y when x = 2.", "y=-4(2)^2+7(2)+3", "1", "Substitute x = 2 into every term. Squaring 2 first gives -4 times 4 + 7 times 2 + 3 = -16 + 14 + 3 = 1.", ["1.0"]),
         algebraAnswer("y12s2-quad-m2", "For h = -5t^2 + 20t + 1.5, state the maximum height.", "h=-5t^2+20t+1.5", "21.5", "The graph opens downwards, so the maximum occurs at the vertex. The axis of symmetry is t = 2, and substituting gives h = 21.5 metres.", ["21.5 m", "21.5m"], heightParabola),
         algebraAnswer("y12s2-quad-m3", "For $y = (x - 7)^2 + 4$, state the vertex as a coordinate.", "y=(x-7)^2+4", "(7,4)", "In vertex form, the squared bracket is zero when x = 7, and the remaining value is y = 4. So the vertex is (7, 4).", ["7,4", "7, 4", "(7, 4)"]),
         algebraChoice("y12s2-quad-m4", "A parabola opens upwards. What type of turning point does it have?", "B", ["Maximum", "Minimum", "Intercept only", "Constant gradient"], "An upward-opening parabola falls towards its turning point and rises after it, so the vertex is a minimum."),
