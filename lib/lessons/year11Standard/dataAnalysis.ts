@@ -879,7 +879,7 @@ export function year11StandardDataAnalysisLessonOverride(
     ],
     teaching: {
       paragraphs: [
-        "Data analysis exam questions often combine calculations with interpretation.",
+        "Data analysis exam questions combine a short calculation with interpretation, and the real skill is choosing the right statistic for what is asked — a centre (mean, median, mode), a spread (range), or a proportion.",
         "Start by identifying the data values and the statistic required: mean, median, mode, range, total or percentage.",
         "For graph questions, read the category and value carefully. Do not confuse frequency with the data value.",
         "When outliers are present, consider whether the median gives a better typical value than the mean.",
