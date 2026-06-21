@@ -1170,6 +1170,220 @@ const projProofD6: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 6: Vector Functions of Time ─────────────────────────────────────
+// r(t) = (x(t), y(t)); v = r′, a = r″; speed = |v|; position from velocity by ∫.
+const motionD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-vec-mot-d4-1",
+    prompt: "For r(t) = (t², 3t), find the speed at t = 2.",
+    latex: "r(t) = (t^2, 3t)",
+    marks: 3,
+    difficulty: 4,
+    answer: "5",
+    explanation: "v = (2t, 3); at t = 2, v = (4, 3), so speed = √(16 + 9) = 5.",
+  },
+  {
+    id: "y12e1-vec-mot-d4-2",
+    prompt: "For r(t) = (t², 3t), find the magnitude of the acceleration.",
+    latex: "r(t) = (t^2, 3t)",
+    marks: 2,
+    difficulty: 4,
+    answer: "2",
+    explanation: "a = r″ = (2, 0), so |a| = 2.",
+  },
+  {
+    id: "y12e1-vec-mot-d4-3",
+    prompt: "For r(t) = (3t, 4t), find the speed.",
+    latex: "r(t) = (3t, 4t)",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$5$" },
+      { label: "B", text: "$7$" },
+      { label: "C", text: "$25$" },
+      { label: "D", text: "$12$" },
+    ],
+    answer: "A",
+    explanation: "v = (3, 4), so speed = √(9 + 16) = 5 (constant). B adds the components.",
+  },
+  {
+    id: "y12e1-vec-mot-d4-4",
+    prompt: "For r(t) = (t², t³), find the speed at t = 1 (exact form).",
+    latex: "r(t) = (t^2, t^3)",
+    marks: 3,
+    difficulty: 4,
+    answer: "sqrt(13)",
+    acceptedAnswers: ["√13", "3.606", "3.6056"],
+    explanation: "v = (2t, 3t²); at t = 1, v = (2, 3), so speed = √13.",
+  },
+  {
+    id: "y12e1-vec-mot-d4-5",
+    prompt: "For r(t) = (5t, 2t − t²), find the speed at t = 1.",
+    latex: "r(t) = (5t, 2t - t^2)",
+    marks: 3,
+    difficulty: 4,
+    answer: "5",
+    explanation: "v = (5, 2 − 2t); at t = 1, v = (5, 0), so speed = 5.",
+  },
+  {
+    id: "y12e1-vec-mot-d4-6",
+    prompt: "For r(t) = (t³, t²), find the magnitude of the acceleration at t = 1 (exact form).",
+    latex: "r(t) = (t^3, t^2)",
+    marks: 3,
+    difficulty: 4,
+    answer: "2sqrt(10)",
+    acceptedAnswers: ["2√10", "6.325", "6.3246"],
+    explanation: "a = (6t, 2); at t = 1, a = (6, 2), so |a| = √40 = 2√10.",
+  },
+  {
+    id: "y12e1-vec-mot-d4-7",
+    prompt: "A particle has velocity v(t) = (2t, 6t²). Find the i-component of its acceleration at t = 2.",
+    latex: "v(t) = (2t, 6t^2)",
+    marks: 2,
+    difficulty: 4,
+    answer: "2",
+    explanation: "a = v′ = (2, 12t); the i-component is 2 (constant).",
+  },
+  {
+    id: "y12e1-vec-mot-d4-8",
+    prompt: "For r(t) = (cos t, sin t), find the speed.",
+    latex: "r(t) = (\\cos t, \\sin t)",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$1$" },
+      { label: "B", text: "$0$" },
+      { label: "C", text: "$\\sqrt{2}$" },
+      { label: "D", text: "$t$" },
+    ],
+    answer: "A",
+    explanation: "v = (−sin t, cos t), so speed = √(sin²t + cos²t) = 1 (constant — circular motion).",
+  },
+  {
+    id: "y12e1-vec-mot-d4-9",
+    prompt: "For r(t) = (t, t²), find the speed at t = 2 (exact form).",
+    latex: "r(t) = (t, t^2)",
+    marks: 3,
+    difficulty: 4,
+    answer: "sqrt(17)",
+    acceptedAnswers: ["√17", "4.123", "4.1231"],
+    explanation: "v = (1, 2t); at t = 2, v = (1, 4), so speed = √17.",
+  },
+  {
+    id: "y12e1-vec-mot-d4-10",
+    prompt: "For r(t) = (2t², t), find the i-component of the position at t = 3.",
+    latex: "r(t) = (2t^2, t)",
+    marks: 2,
+    difficulty: 4,
+    answer: "18",
+    explanation: "r(3) = (2(9), 3) = (18, 3); the i-component is 18.",
+  },
+];
+
+// D5: position from velocity / velocity from acceleration by integration, find a
+// time for a condition, minimum speed, perpendicularity, rate of distance.
+const motionD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-vec-mot-d5-1",
+    prompt:
+      "A particle has v(t) = (2t, 3) and starts at the origin. Find |r(2)| (exact form).",
+    latex: "v(t) = (2t, 3), \\ r(0) = (0,0)",
+    marks: 4,
+    difficulty: 5,
+    answer: "2sqrt(13)",
+    acceptedAnswers: ["2√13", "7.211", "7.2111"],
+    explanation: "r(t) = (t², 3t), so r(2) = (4, 6) and |r(2)| = √52 = 2√13.",
+  },
+  {
+    id: "y12e1-vec-mot-d5-2",
+    prompt:
+      "A particle has acceleration a(t) = (0, −10) and v(0) = (5, 20). Find the time when the vertical velocity is zero.",
+    latex: "a = (0, -10), \\ v(0) = (5, 20)",
+    marks: 4,
+    difficulty: 5,
+    answer: "2",
+    explanation: "v(t) = (5, 20 − 10t); v_y = 0 ⇒ 20 − 10t = 0 ⇒ t = 2.",
+  },
+  {
+    id: "y12e1-vec-mot-d5-3",
+    prompt:
+      "For r(t) = (3t, t² − 4t), find the time when the velocity is parallel to the x-axis.",
+    latex: "r(t) = (3t, t^2 - 4t)",
+    marks: 4,
+    difficulty: 5,
+    answer: "2",
+    explanation: "v = (3, 2t − 4); parallel to the x-axis ⇒ v_y = 0 ⇒ 2t − 4 = 0 ⇒ t = 2.",
+  },
+  {
+    id: "y12e1-vec-mot-d5-4",
+    prompt:
+      "A particle has v(t) = (6t², 4t) and r(0) = (1, 0). Find the i-component of r(1).",
+    latex: "v(t) = (6t^2, 4t), \\ r(0) = (1,0)",
+    marks: 4,
+    difficulty: 5,
+    answer: "3",
+    explanation: "r(t) = (2t³ + 1, 2t²); r(1) = (3, 2), so the i-component is 3.",
+  },
+  {
+    id: "y12e1-vec-mot-d5-5",
+    prompt: "For r(t) = (t², 2t), find the minimum speed.",
+    latex: "r(t) = (t^2, 2t)",
+    marks: 4,
+    difficulty: 5,
+    answer: "2",
+    explanation: "v = (2t, 2); speed = √(4t² + 4), least when t = 0, giving 2.",
+  },
+  {
+    id: "y12e1-vec-mot-d5-6",
+    prompt: "A particle has v(t) = (4, 3t). Find the time (t > 0) when the speed is 5.",
+    latex: "v(t) = (4, 3t)",
+    marks: 4,
+    difficulty: 5,
+    answer: "1",
+    explanation: "√(16 + 9t²) = 5 ⇒ 16 + 9t² = 25 ⇒ t² = 1 ⇒ t = 1.",
+  },
+  {
+    id: "y12e1-vec-mot-d5-7",
+    prompt:
+      "For r(t) = (t, t²), find the time at which the position vector is perpendicular to the velocity.",
+    latex: "r(t) = (t, t^2)",
+    marks: 4,
+    difficulty: 5,
+    answer: "0",
+    explanation: "r·v = (t)(1) + (t²)(2t) = t + 2t³ = t(1 + 2t²) = 0 ⇒ t = 0 (the only real solution).",
+  },
+  {
+    id: "y12e1-vec-mot-d5-8",
+    prompt:
+      "A particle has acceleration a(t) = (2, 6t) and v(0) = (1, 0). Find its speed at t = 2.",
+    latex: "a(t) = (2, 6t), \\ v(0) = (1,0)",
+    marks: 4,
+    difficulty: 5,
+    answer: "13",
+    explanation: "v(t) = (1 + 2t, 3t²); v(2) = (5, 12), so speed = √(25 + 144) = 13.",
+  },
+  {
+    id: "y12e1-vec-mot-d5-9",
+    prompt:
+      "For r(t) = (t², t² − 6t), find the speed at the instant the vertical velocity is zero.",
+    latex: "r(t) = (t^2, t^2 - 6t)",
+    marks: 4,
+    difficulty: 5,
+    answer: "6",
+    explanation: "v = (2t, 2t − 6); v_y = 0 ⇒ t = 3; then v = (6, 0), so speed = 6.",
+  },
+  {
+    id: "y12e1-vec-mot-d5-10",
+    prompt:
+      "For r(t) = (3t, 4t), find the rate of change of the distance from the origin at t = 2.",
+    latex: "r(t) = (3t, 4t)",
+    marks: 3,
+    difficulty: 5,
+    answer: "5",
+    explanation: "|r| = √(9t² + 16t²) = 5t, so d|r|/dt = 5 (constant).",
+  },
+];
+
 export const vectorsPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -1216,8 +1430,8 @@ export const vectorsPool: TopicTestPool = {
       subtopicSlug: "vectors-motion-2d",
       subtopicTitle: "Vector Functions of Time: Position, Velocity and Acceleration",
       remediationHref: href("vectors-motion-2d"),
-      d4: [],
-      d5: [],
+      d4: motionD4,
+      d5: motionD5,
     },
     {
       subtopicSlug: "vectors-projectile-parametric",

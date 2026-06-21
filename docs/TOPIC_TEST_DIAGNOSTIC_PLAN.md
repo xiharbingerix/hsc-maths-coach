@@ -416,10 +416,10 @@ _Ext 1 build status (in progress, one subtopic at a time):_
   exam-practice subtopic at 10 D6 (multi-part synoptic across the strands).
   110 questions total. (Prior Knowledge Revision lesson excluded;
   bernoulli-trials owns model setup, binomial-probabilities owns the C(n,k) formula.)
-- 🟡 vectors — subtopics 1–5 done (Vectors, Scalars and Notation; Vector Addition
+- 🟡 vectors — subtopics 1–6 done (Vectors, Scalars and Notation; Vector Addition
   and Subtraction; The Dot Product; Vector Projections and Applications; Proof of
-  the Projection Formula — 10 D4 + 10 D5 each); subtopics 6–7 pending (Vector
-  Functions of Time; Projectile Motion). 7 skill subtopics (revision excluded).
+  the Projection Formula; Vector Functions of Time — 10 D4 + 10 D5 each); subtopic
+  7 pending (Projectile Motion). 7 skill subtopics (revision excluded).
   Subtopic 5 (vectors-projection) is KEPT (not dropped): computational D4/D5 PLUS
   a D6 band of 4 free-response `responseType:"proof"` items graded by the AI
   marker — verified to be excluded from assembly when PROOF_MARKER_ENABLED is off
