@@ -308,17 +308,37 @@ time budget (F6) are all recorded. Phase 1 is unblocked.
 - ~~Decide attempt persistence.~~ → F4 (reuse `exam_attempts`)
 - ~~Confirm `ExamRunner` diagram gap and the marks→minutes budget.~~ → F5, F6
 
-**Phase 1 — Infra + one pilot topic (Year 12 Advanced → Differential Calculus).**
-- `lib/topicTests/` types, registry, `buildTopicTest` assembler (+ unit tests on
-  seeding, budget, coverage).
-- Extend `ExamQuestion` with `subtopicSlug`/diagram fields; wire `ExamRunner`
-  diagram rendering.
-- Author **one full pool** for Differential Calculus (every subtopic, 10 D4 +
-  10 D5), validated.
-- Route `/topic-test/[courseSlug]/[topicSlug]`, results view, attempt persistence,
-  subtopic-mastery write.
-- Acceptance: a student can take the Differential Calculus test, get a marked
-  per-subtopic result + remediation, and see mastery update on the dashboard.
+**Phase 1 — Infra + one pilot topic (year-12-extension-1 → kinematics).**
+
+Progress (updated 2026-06-21):
+
+- [x] **Assembler engine** — `lib/topicTests/{types,buildTopicTest,index}.ts`:
+  `buildTopicTest` (seeded mulberry32 draw, coverage-first then budget-fill,
+  remediation stamped from the subtopic), `parseTopicTestId` /
+  `getTopicTestPaper` for deterministic server-side reconstruction.
+- [x] **Unit tests** — `lib/topicTests/buildTopicTest.test.ts` (8 tests: seeding
+  determinism, budget adherence + fill, full coverage, remediation stamping, id
+  round-trip, malformed-id rejection). Added `npm test`
+  (`node --import tsx --test "lib/**/*.test.ts"`).
+- [x] **Model** — extended `ExamQuestion` with optional `subtopicSlug`,
+  `subtopicTitle`, `estimatedMinutes`, and `& DiagramFields` (all optional; zero
+  impact on static papers).
+- [x] **Pool scaffold** — `lib/topicTests/pools/year-12-extension-1/kinematics.ts`
+  (4 real subtopics + remediation routes, empty bands). **Not yet registered**
+  in `index.ts` until authored.
+- [ ] **Content slice** — author kinematics pool: 4 subtopics × (10 D4 + 10 D5),
+  auto-markable, validated; then register the pool.
+- [ ] **Runner wiring** — add `<VisualPayloadRenderer {...question} />` to
+  `ExamRunner`, and pass diagram fields through `ClientExamQuestion` /
+  `toClientExam` (currently stripped).
+- [ ] **Submit branch** — make `/api/exam/[examId]/submit` recognise a
+  `topic-test:` id and reconstruct via `getTopicTestPaper` before scoring;
+  persist to `exam_attempts`; write per-subtopic results to
+  `student_subtopic_mastery`.
+- [ ] **Route + results** — `/topic-test/[courseSlug]/[topicSlug]` intro →
+  runner → results view (per-subtopic bars + remediation CTAs).
+- Acceptance: a student can take the kinematics test, get a marked per-subtopic
+  result + remediation, and see mastery update on the dashboard.
 
 **Phase 2 — Validate the pilot.**
 - Render-test a sampled assembled paper (Playwright, as with the diagnostic).

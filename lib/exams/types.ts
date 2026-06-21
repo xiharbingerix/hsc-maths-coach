@@ -7,6 +7,8 @@
  * items), and a topic tag so a weak result maps to a lesson to revise.
  */
 
+import type { DiagramFields } from "../lessons/diagramRegistry";
+
 /** 1–5 ≈ standard practice depth; 6 = synoptic / transfer / exam-hard. */
 export type Difficulty = 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -39,6 +41,17 @@ export type ExamQuestion = {
   remediationHref: string;
   explanation: string;
 
+  /**
+   * Optional finer-grained tags used by dynamically-assembled topic tests
+   * (see lib/topicTests). For static papers these are unset; topic tests set
+   * `topicSlug` to the subtopic so the existing per-topic rollup remediates at
+   * subtopic granularity, and keep the human label here.
+   */
+  subtopicSlug?: string;
+  subtopicTitle?: string;
+  /** Override for the time-budget estimate; defaults to marks × a per-mark rate. */
+  estimatedMinutes?: number;
+
   // Single-answer (multiple-choice if `choices` set, else typed):
   answer?: string;
   acceptedAnswers?: string[];
@@ -46,7 +59,7 @@ export type ExamQuestion = {
 
   // Multi-part (Section II style):
   parts?: ExamQuestionPart[];
-};
+} & DiagramFields;
 
 export type ExamSection = {
   title: string;
