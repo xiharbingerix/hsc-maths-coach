@@ -805,7 +805,7 @@ export function year11StandardManagingMoneyLessonOverride(
     ],
     teaching: {
       paragraphs: [
-        "Managing-money exam questions often combine budgets, savings goals, interest and comparisons of financial choices.",
+        "Managing-money exam questions combine budgets, savings, interest and comparisons, so first decide what is actually being asked — a surplus or deficit, progress toward a goal, interest earned, a total cost, or which option is the better value.",
         "Read the question carefully and identify whether it asks for surplus, deficit, savings progress, interest, total cost or a decision.",
         "Use tables to separate income, expenses, savings and fees. This reduces the chance of adding or subtracting the wrong amount.",
         "A reasonable financial decision should be based on total cost and the time period in the question.",
