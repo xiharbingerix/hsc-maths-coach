@@ -925,6 +925,241 @@ const sampleMeanD5: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 5: The Central Limit Theorem ────────────────────────────────────
+// z = (x̄ − μ)/(σ/√n); probabilities via standard normal values
+// (P(z<1)=0.8413, P(z<2)=0.9772, P(−1<z<1)=0.6826, P(−2<z<2)=0.9544, z₀.₉₇₅=1.96).
+const cltD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-binom-clt-d4-1",
+    prompt:
+      "A population has μ = 100, σ = 20. For samples of size 25, find the z-score of x̄ = 104.",
+    latex: "\\mu = 100, \\ \\sigma = 20, \\ n = 25, \\ \\bar{x} = 104",
+    marks: 3,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$1$" },
+      { label: "B", text: "$0.2$" },
+      { label: "C", text: "$5$" },
+      { label: "D", text: "$0.04$" },
+    ],
+    answer: "A",
+    explanation:
+      "z = (x̄ − μ)/(σ/√n) = (104 − 100)/(20/5) = 4/4 = 1. B uses σ instead of the standard error σ/√n.",
+  },
+  {
+    id: "y12e1-binom-clt-d4-2",
+    prompt:
+      "A population has μ = 50, σ = 10. For samples of size 4, find the z-score of x̄ = 45.",
+    latex: "\\mu = 50, \\ \\sigma = 10, \\ n = 4, \\ \\bar{x} = 45",
+    marks: 3,
+    difficulty: 4,
+    answer: "-1",
+    acceptedAnswers: ["−1"],
+    explanation: "z = (45 − 50)/(10/2) = −5/5 = −1.",
+  },
+  {
+    id: "y12e1-binom-clt-d4-3",
+    prompt:
+      "A population has μ = 60, σ = 12. For samples of size 16, find the z-score of x̄ = 63.",
+    latex: "\\mu = 60, \\ \\sigma = 12, \\ n = 16, \\ \\bar{x} = 63",
+    marks: 3,
+    difficulty: 4,
+    answer: "1",
+    explanation: "z = (63 − 60)/(12/4) = 3/3 = 1.",
+  },
+  {
+    id: "y12e1-binom-clt-d4-4",
+    prompt:
+      "A population has μ = 200, σ = 40. For samples of size 100, find the z-score of x̄ = 208.",
+    latex: "\\mu = 200, \\ \\sigma = 40, \\ n = 100, \\ \\bar{x} = 208",
+    marks: 3,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$2$" },
+      { label: "B", text: "$0.2$" },
+      { label: "C", text: "$20$" },
+      { label: "D", text: "$0.5$" },
+    ],
+    answer: "A",
+    explanation:
+      "z = (208 − 200)/(40/10) = 8/4 = 2. B forgets the √n in the standard error.",
+  },
+  {
+    id: "y12e1-binom-clt-d4-5",
+    prompt:
+      "A population has μ = 400, σ = 60. For samples of size 36, find P(x̄ < 410) (4 d.p.).",
+    latex: "\\mu = 400, \\ \\sigma = 60, \\ n = 36",
+    marks: 3,
+    difficulty: 4,
+    answer: "0.8413",
+    acceptedAnswers: ["0.841", "0.84"],
+    explanation:
+      "SE = 60/6 = 10, z = (410 − 400)/10 = 1, so P(x̄ < 410) = P(z < 1) = 0.8413.",
+  },
+  {
+    id: "y12e1-binom-clt-d4-6",
+    prompt: "Using the standard normal distribution, find P(z < 1) (4 d.p.).",
+    latex: "P(z < 1)",
+    marks: 2,
+    difficulty: 4,
+    answer: "0.8413",
+    acceptedAnswers: ["0.841", "0.84"],
+    explanation: "From standard normal values, P(z < 1) ≈ 0.8413.",
+  },
+  {
+    id: "y12e1-binom-clt-d4-7",
+    prompt: "Using the standard normal distribution, find P(z < −1) (4 d.p.).",
+    latex: "P(z < -1)",
+    marks: 2,
+    difficulty: 4,
+    answer: "0.1587",
+    acceptedAnswers: ["0.159", "0.16"],
+    explanation: "P(z < −1) = 1 − P(z < 1) = 1 − 0.8413 = 0.1587.",
+  },
+  {
+    id: "y12e1-binom-clt-d4-8",
+    prompt: "Using the standard normal distribution, find P(z < 2) (4 d.p.).",
+    latex: "P(z < 2)",
+    marks: 2,
+    difficulty: 4,
+    answer: "0.9772",
+    acceptedAnswers: ["0.977", "0.98"],
+    explanation: "From standard normal values, P(z < 2) ≈ 0.9772.",
+  },
+  {
+    id: "y12e1-binom-clt-d4-9",
+    prompt: "Find P(−1 < z < 1) for the standard normal distribution (4 d.p.).",
+    latex: "P(-1 < z < 1)",
+    marks: 2,
+    difficulty: 4,
+    answer: "0.6826",
+    acceptedAnswers: ["0.683", "0.68"],
+    explanation: "P(−1 < z < 1) = 0.8413 − 0.1587 = 0.6826.",
+  },
+  {
+    id: "y12e1-binom-clt-d4-10",
+    prompt: "Find P(−2 < z < 2) for the standard normal distribution (4 d.p.).",
+    latex: "P(-2 < z < 2)",
+    marks: 2,
+    difficulty: 4,
+    answer: "0.9544",
+    acceptedAnswers: ["0.954", "0.95"],
+    explanation: "P(−2 < z < 2) = 0.9772 − 0.0228 = 0.9544.",
+  },
+];
+
+// D5: upper / two-tail probabilities, inverse problems (z→x̄, percentile→x̄),
+// recovering σ or n from a probability, and margin of error.
+const cltD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-binom-clt-d5-1",
+    prompt:
+      "A population has μ = 100, σ = 20. For samples of size 25, find P(x̄ > 104) (4 d.p.).",
+    latex: "\\mu = 100, \\ \\sigma = 20, \\ n = 25",
+    marks: 4,
+    difficulty: 5,
+    answer: "0.1587",
+    acceptedAnswers: ["0.159", "0.16"],
+    explanation: "z = 1, so P(x̄ > 104) = P(z > 1) = 1 − 0.8413 = 0.1587.",
+  },
+  {
+    id: "y12e1-binom-clt-d5-2",
+    prompt:
+      "A population has μ = 50, σ = 10. For samples of size 100, find P(48 < x̄ < 52) (4 d.p.).",
+    latex: "\\mu = 50, \\ \\sigma = 10, \\ n = 100",
+    marks: 4,
+    difficulty: 5,
+    answer: "0.9544",
+    acceptedAnswers: ["0.954", "0.95"],
+    explanation: "SE = 1, so 48 and 52 are at z = ±2: P = P(−2 < z < 2) = 0.9544.",
+  },
+  {
+    id: "y12e1-binom-clt-d5-3",
+    prompt:
+      "A population has μ = 80, σ = 20. For samples of size 25, find P(x̄ > 76) (4 d.p.).",
+    latex: "\\mu = 80, \\ \\sigma = 20, \\ n = 25",
+    marks: 4,
+    difficulty: 5,
+    answer: "0.8413",
+    acceptedAnswers: ["0.841", "0.84"],
+    explanation: "SE = 4, z = (76 − 80)/4 = −1, so P(x̄ > 76) = P(z > −1) = 0.8413.",
+  },
+  {
+    id: "y12e1-binom-clt-d5-4",
+    prompt:
+      "A population has μ = 100, σ = 15. For samples of size 9, find the value of x̄ with z-score 2.",
+    latex: "\\mu = 100, \\ \\sigma = 15, \\ n = 9, \\ z = 2",
+    marks: 3,
+    difficulty: 5,
+    answer: "110",
+    explanation: "x̄ = μ + z(σ/√n) = 100 + 2(15/3) = 100 + 10 = 110.",
+  },
+  {
+    id: "y12e1-binom-clt-d5-5",
+    prompt:
+      "A population has μ = 60, σ = 24. For samples of size 16, find the value below which 97.5% of sample means lie.",
+    latex: "\\mu = 60, \\ \\sigma = 24, \\ n = 16",
+    marks: 4,
+    difficulty: 5,
+    answer: "71.76",
+    acceptedAnswers: ["71.8"],
+    explanation: "z₀.₉₇₅ = 1.96, SE = 6, so x̄ = 60 + 1.96(6) = 60 + 11.76 = 71.76.",
+  },
+  {
+    id: "y12e1-binom-clt-d5-6",
+    prompt:
+      "A sample mean x̄ = 85 has z-score 1.5, where μ = 70 and n = 36. Find σ.",
+    latex: "\\bar{x} = 85, \\ z = 1.5, \\ \\mu = 70, \\ n = 36",
+    marks: 4,
+    difficulty: 5,
+    answer: "60",
+    explanation: "z = (85 − 70)/(σ/6) = 90/σ = 1.5 ⇒ σ = 60.",
+  },
+  {
+    id: "y12e1-binom-clt-d5-7",
+    prompt:
+      "A population has μ = 500, σ = 100. Find the sample size n for which P(x̄ > 520) = 0.0228.",
+    latex: "P(\\bar{x} > 520) = 0.0228",
+    marks: 4,
+    difficulty: 5,
+    answer: "100",
+    explanation:
+      "P = 0.0228 corresponds to z = 2. (520 − 500)/(100/√n) = 2 ⇒ 20√n/100 = 2 ⇒ √n = 10 ⇒ n = 100.",
+  },
+  {
+    id: "y12e1-binom-clt-d5-8",
+    prompt:
+      "A population has μ = 200, σ = 50. For samples of size 25, find P(x̄ < 190 or x̄ > 210) (4 d.p.).",
+    latex: "\\mu = 200, \\ \\sigma = 50, \\ n = 25",
+    marks: 4,
+    difficulty: 5,
+    answer: "0.3174",
+    acceptedAnswers: ["0.317", "0.32"],
+    explanation: "SE = 10, so 190 and 210 are at z = ±1: P(outside) = 2(0.1587) = 0.3174.",
+  },
+  {
+    id: "y12e1-binom-clt-d5-9",
+    prompt:
+      "A population has μ = 100, σ = 30. For samples of size 36, find the distance from μ within which 95% of sample means lie.",
+    latex: "\\mu = 100, \\ \\sigma = 30, \\ n = 36",
+    marks: 4,
+    difficulty: 5,
+    answer: "9.8",
+    explanation: "Margin = 1.96 × SE = 1.96 × (30/6) = 1.96 × 5 = 9.8.",
+  },
+  {
+    id: "y12e1-binom-clt-d5-10",
+    prompt:
+      "A population has μ = 150, σ = 40. For samples of size 64, find P(145 < x̄ < 155) (4 d.p.).",
+    latex: "\\mu = 150, \\ \\sigma = 40, \\ n = 64",
+    marks: 4,
+    difficulty: 5,
+    answer: "0.6826",
+    acceptedAnswers: ["0.683", "0.68"],
+    explanation: "SE = 5, so 145 and 155 are at z = ±1: P = P(−1 < z < 1) = 0.6826.",
+  },
+];
+
 export const binomialDistributionPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -963,8 +1198,8 @@ export const binomialDistributionPool: TopicTestPool = {
       subtopicSlug: "central-limit-theorem",
       subtopicTitle: "The Central Limit Theorem",
       remediationHref: href("central-limit-theorem"),
-      d4: [],
-      d5: [],
+      d4: cltD4,
+      d5: cltD5,
     },
     {
       subtopicSlug: "binomial-exam-practice",
