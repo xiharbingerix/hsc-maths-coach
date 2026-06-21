@@ -746,6 +746,430 @@ const differentiatingD5: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 4: Inverse Trig Identities and Composite Expressions ────────────
+// Identity-centred: complementary/reflection identities, principal-value
+// evaluation (sin⁻¹(sin θ) with range correction), and simplifying composites
+// to expressions in x. Kept distinct from the evaluation work in subtopics 1–2.
+const identitiesD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-itrig-id-d4-1",
+    prompt: "If sin⁻¹(x) = a, express cos⁻¹(x) in terms of a.",
+    latex: "\\sin^{-1}(x) = a",
+    marks: 2,
+    difficulty: 4,
+    answer: "pi/2-a",
+    acceptedAnswers: ["π/2-a", "pi/2 - a", "-a+pi/2"],
+    explanation: "Since sin⁻¹x + cos⁻¹x = π/2, cos⁻¹x = π/2 − a.",
+  },
+  {
+    id: "y12e1-itrig-id-d4-2",
+    prompt: "Given cos⁻¹(x) = 2π/3, find the exact value of sin⁻¹(x).",
+    latex: "\\cos^{-1}(x) = \\tfrac{2\\pi}{3}",
+    marks: 3,
+    difficulty: 4,
+    answer: "-pi/6",
+    acceptedAnswers: ["−π/6", "-0.5236", "-0.524"],
+    explanation:
+      "sin⁻¹x = π/2 − cos⁻¹x = π/2 − 2π/3 = −π/6. (Check: x = cos(2π/3) = −1/2 and sin⁻¹(−1/2) = −π/6.)",
+  },
+  {
+    id: "y12e1-itrig-id-d4-3",
+    prompt: "Simplify sin(cos⁻¹ x) as an expression in x.",
+    latex: "\\sin\\left(\\cos^{-1} x\\right)",
+    marks: 2,
+    difficulty: 4,
+    answer: "sqrt(1-x^2)",
+    acceptedAnswers: ["√(1-x^2)", "(1-x^2)^(1/2)"],
+    explanation:
+      "With θ = cos⁻¹x (θ ∈ [0, π], sin θ ≥ 0): sin θ = √(1 − cos²θ) = √(1 − x²).",
+  },
+  {
+    id: "y12e1-itrig-id-d4-4",
+    prompt: "Simplify tan(cos⁻¹ x) as an expression in x.",
+    latex: "\\tan\\left(\\cos^{-1} x\\right)",
+    marks: 3,
+    difficulty: 4,
+    answer: "sqrt(1-x^2)/x",
+    acceptedAnswers: ["√(1-x^2)/x", "(1-x^2)^(1/2)/x"],
+    explanation:
+      "θ = cos⁻¹x: cos θ = x, sin θ = √(1 − x²). tan θ = sin θ / cos θ = √(1 − x²)/x.",
+  },
+  {
+    id: "y12e1-itrig-id-d4-5",
+    prompt: "Find the exact value of tan⁻¹(√3) + cos⁻¹(−1/2).",
+    latex: "\\tan^{-1}\\left(\\sqrt{3}\\right) + \\cos^{-1}\\left(-\\tfrac{1}{2}\\right)",
+    marks: 3,
+    difficulty: 4,
+    answer: "pi",
+    acceptedAnswers: ["π", "3.1416", "3.142"],
+    explanation:
+      "tan⁻¹(√3) = π/3. cos⁻¹(−1/2) = 2π/3 (the range of cos⁻¹ is [0, π], so a negative argument gives a second-quadrant angle). Sum = π/3 + 2π/3 = π.",
+  },
+  {
+    id: "y12e1-itrig-id-d4-6",
+    prompt: "For x > 0, simplify tan⁻¹(x) + tan⁻¹(1/x). Give the exact value.",
+    latex: "\\tan^{-1}(x) + \\tan^{-1}\\left(\\tfrac{1}{x}\\right)",
+    marks: 2,
+    difficulty: 4,
+    answer: "pi/2",
+    acceptedAnswers: ["π/2", "1.5708", "1.571"],
+    explanation:
+      "For x > 0 the two angles are complementary, so the sum is π/2.",
+  },
+  {
+    id: "y12e1-itrig-id-d4-7",
+    prompt: "Simplify cos⁻¹(x) + cos⁻¹(−x). Give the exact value.",
+    latex: "\\cos^{-1}(x) + \\cos^{-1}(-x)",
+    marks: 3,
+    difficulty: 4,
+    answer: "pi",
+    acceptedAnswers: ["π", "3.1416", "3.142"],
+    explanation:
+      "cos⁻¹(−x) = π − cos⁻¹(x), so the sum is cos⁻¹x + (π − cos⁻¹x) = π.",
+  },
+  {
+    id: "y12e1-itrig-id-d4-8",
+    prompt: "Find the exact value of sin⁻¹(sin(5π/6)).",
+    latex: "\\sin^{-1}\\left(\\sin\\tfrac{5\\pi}{6}\\right)",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$\\dfrac{5\\pi}{6}$" },
+      { label: "B", text: "$\\dfrac{\\pi}{6}$" },
+      { label: "C", text: "$-\\dfrac{\\pi}{6}$" },
+      { label: "D", text: "$\\dfrac{\\pi}{3}$" },
+    ],
+    answer: "B",
+    explanation:
+      "sin(5π/6) = 1/2, and sin⁻¹ returns a value in [−π/2, π/2], so sin⁻¹(1/2) = π/6. A is wrong because 5π/6 is outside the range of sin⁻¹.",
+  },
+  {
+    id: "y12e1-itrig-id-d4-9",
+    prompt: "Find the exact value of cos⁻¹(cos(−π/3)).",
+    latex: "\\cos^{-1}\\left(\\cos\\left(-\\tfrac{\\pi}{3}\\right)\\right)",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$-\\dfrac{\\pi}{3}$" },
+      { label: "B", text: "$\\dfrac{\\pi}{3}$" },
+      { label: "C", text: "$\\dfrac{2\\pi}{3}$" },
+      { label: "D", text: "$\\dfrac{5\\pi}{3}$" },
+    ],
+    answer: "B",
+    explanation:
+      "cos is even, so cos(−π/3) = cos(π/3) = 1/2. cos⁻¹ returns a value in [0, π], so cos⁻¹(1/2) = π/3. A forgets the range of cos⁻¹.",
+  },
+  {
+    id: "y12e1-itrig-id-d4-10",
+    prompt: "Simplify cos(2 tan⁻¹ x) as an expression in x.",
+    latex: "\\cos\\left(2\\tan^{-1} x\\right)",
+    marks: 3,
+    difficulty: 4,
+    answer: "(1-x^2)/(1+x^2)",
+    acceptedAnswers: ["(1 - x^2)/(1 + x^2)", "(1-x^2)/(x^2+1)"],
+    explanation:
+      "With t = tan θ = x, cos 2θ = (1 − tan²θ)/(1 + tan²θ) = (1 − x²)/(1 + x²).",
+  },
+];
+
+// D5: general composite simplification, double-angle solves, an identity
+// validity boundary, compound exact values, and telescoping arctan synthesis.
+const identitiesD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-itrig-id-d5-1",
+    prompt: "Express sin(2 tan⁻¹ x) in terms of x.",
+    latex: "\\sin\\left(2\\tan^{-1} x\\right)",
+    marks: 3,
+    difficulty: 5,
+    answer: "2x/(1+x^2)",
+    acceptedAnswers: ["2x/(x^2+1)", "2*x/(1+x^2)"],
+    explanation:
+      "Let θ = tan⁻¹x: sin θ = x/√(1 + x²), cos θ = 1/√(1 + x²). sin 2θ = 2 sin θ cos θ = 2x/(1 + x²).",
+  },
+  {
+    id: "y12e1-itrig-id-d5-2",
+    prompt: "Solve tan⁻¹(x) = 2 tan⁻¹(1/3) for x.",
+    latex: "\\tan^{-1}(x) = 2\\tan^{-1}\\tfrac{1}{3}",
+    marks: 3,
+    difficulty: 5,
+    answer: "3/4",
+    acceptedAnswers: ["0.75"],
+    explanation:
+      "x = tan(2 tan⁻¹(1/3)) = (2·1/3)/(1 − 1/9) = (2/3)/(8/9) = 3/4.",
+  },
+  {
+    id: "y12e1-itrig-id-d5-3",
+    prompt: "Express tan(2 sin⁻¹ x) in terms of x.",
+    latex: "\\tan\\left(2\\sin^{-1} x\\right)",
+    marks: 4,
+    difficulty: 5,
+    answer: "2x*sqrt(1-x^2)/(1-2x^2)",
+    acceptedAnswers: ["2x√(1-x^2)/(1-2x^2)", "2*x*sqrt(1-x^2)/(1-2x^2)"],
+    explanation:
+      "θ = sin⁻¹x: sin θ = x, cos θ = √(1 − x²). tan 2θ = (2 sin θ cos θ)/(1 − 2 sin²θ) = 2x√(1 − x²)/(1 − 2x²).",
+  },
+  {
+    id: "y12e1-itrig-id-d5-4",
+    prompt: "Solve sin⁻¹(x) = cos⁻¹(3/5) for x.",
+    latex: "\\sin^{-1}(x) = \\cos^{-1}\\tfrac{3}{5}",
+    marks: 3,
+    difficulty: 5,
+    answer: "4/5",
+    acceptedAnswers: ["0.8"],
+    explanation:
+      "x = sin(cos⁻¹(3/5)). With cos = 3/5 (a 3–4–5 triangle, first quadrant), sin = 4/5, so x = 4/5.",
+  },
+  {
+    id: "y12e1-itrig-id-d5-5",
+    prompt:
+      "For 0 ≤ x ≤ 1, the expression sin⁻¹(x) + sin⁻¹(√(1 − x²)) is constant. Find its value.",
+    latex: "\\sin^{-1}(x) + \\sin^{-1}\\left(\\sqrt{1 - x^2}\\right)",
+    marks: 4,
+    difficulty: 5,
+    answer: "pi/2",
+    acceptedAnswers: ["π/2", "1.5708", "1.571"],
+    explanation:
+      "For 0 ≤ x ≤ 1, sin⁻¹(√(1 − x²)) = cos⁻¹(x), so the sum is sin⁻¹x + cos⁻¹x = π/2.",
+  },
+  {
+    id: "y12e1-itrig-id-d5-6",
+    prompt:
+      "The identity 2 sin⁻¹(x) = sin⁻¹(2x√(1 − x²)) holds only up to some largest value of x. Find that largest x.",
+    latex: "2\\sin^{-1}(x) = \\sin^{-1}\\left(2x\\sqrt{1 - x^2}\\right)",
+    marks: 4,
+    difficulty: 5,
+    answer: "sqrt(2)/2",
+    acceptedAnswers: ["1/sqrt(2)", "√2/2", "1/√2", "0.7071", "0.707"],
+    explanation:
+      "The right side lies in [−π/2, π/2], so the identity needs 2 sin⁻¹x ≤ π/2, i.e. sin⁻¹x ≤ π/4. The largest x is sin(π/4) = √2/2.",
+  },
+  {
+    id: "y12e1-itrig-id-d5-7",
+    prompt: "Find the exact value of sin(cos⁻¹(3/5) − sin⁻¹(5/13)).",
+    latex: "\\sin\\left(\\cos^{-1}\\tfrac{3}{5} - \\sin^{-1}\\tfrac{5}{13}\\right)",
+    marks: 4,
+    difficulty: 5,
+    answer: "33/65",
+    acceptedAnswers: ["0.5077", "0.508"],
+    explanation:
+      "α = cos⁻¹(3/5): sin α = 4/5, cos α = 3/5. β = sin⁻¹(5/13): sin β = 5/13, cos β = 12/13. sin(α − β) = (4/5)(12/13) − (3/5)(5/13) = 48/65 − 15/65 = 33/65.",
+  },
+  {
+    id: "y12e1-itrig-id-d5-8",
+    prompt:
+      "Find the exact value of tan⁻¹(1/3) + tan⁻¹(1/5) + tan⁻¹(1/7) + tan⁻¹(1/8).",
+    latex: "\\tan^{-1}\\tfrac{1}{3} + \\tan^{-1}\\tfrac{1}{5} + \\tan^{-1}\\tfrac{1}{7} + \\tan^{-1}\\tfrac{1}{8}",
+    marks: 4,
+    difficulty: 5,
+    answer: "pi/4",
+    acceptedAnswers: ["π/4", "0.7854", "0.785"],
+    explanation:
+      "Pairing with the addition formula: tan⁻¹(1/3) + tan⁻¹(1/5) = tan⁻¹(4/7) and tan⁻¹(1/7) + tan⁻¹(1/8) = tan⁻¹(3/11). Then tan⁻¹(4/7) + tan⁻¹(3/11) = tan⁻¹(1) = π/4.",
+  },
+  {
+    id: "y12e1-itrig-id-d5-9",
+    prompt: "Find the exact value of 2 tan⁻¹(1/3) + tan⁻¹(1/7).",
+    latex: "2\\tan^{-1}\\tfrac{1}{3} + \\tan^{-1}\\tfrac{1}{7}",
+    marks: 4,
+    difficulty: 5,
+    answer: "pi/4",
+    acceptedAnswers: ["π/4", "0.7854", "0.785"],
+    explanation:
+      "2 tan⁻¹(1/3) = tan⁻¹((2/3)/(1 − 1/9)) = tan⁻¹(3/4). Then tan⁻¹(3/4) + tan⁻¹(1/7) = tan⁻¹((3/4 + 1/7)/(1 − 3/28)) = tan⁻¹(1) = π/4.",
+  },
+  {
+    id: "y12e1-itrig-id-d5-10",
+    prompt: "Express cos(sin⁻¹ x) + sin(cos⁻¹ x) in terms of x.",
+    latex: "\\cos\\left(\\sin^{-1} x\\right) + \\sin\\left(\\cos^{-1} x\\right)",
+    marks: 3,
+    difficulty: 5,
+    answer: "2sqrt(1-x^2)",
+    acceptedAnswers: ["2√(1-x^2)", "2*(1-x^2)^(1/2)", "2(1-x^2)^(1/2)"],
+    explanation:
+      "Both cos(sin⁻¹x) and sin(cos⁻¹x) equal √(1 − x²), so the sum is 2√(1 − x²).",
+  },
+];
+
+// D6 (exam-mastery synoptic): multi-part Section II–style items combining
+// triangle/composite work, calculus, identities, and quadrant reasoning across
+// linked stages. Carried on subtopic 4 (the topic's synthesis capstone).
+const identitiesD6: TopicTestQuestion[] = [
+  {
+    id: "y12e1-itrig-id-d6-1",
+    prompt: "A curve has equation y = sin⁻¹(x).",
+    latex: "y = \\sin^{-1}(x)",
+    marks: 6,
+    difficulty: 6,
+    explanation: "Combine an exact gradient, the point, and the tangent line.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the gradient at x = 1/2.", marks: 2,
+        answer: "2sqrt(3)/3", acceptedAnswers: ["2/sqrt(3)", "2√3/3", "1.1547"],
+        explanation: "dy/dx = 1/√(1 − x²); at x = 1/2 it is 1/√(3/4) = 2/√3 = 2√3/3." },
+      { key: "b", label: "(b)", prompt: "Find the y-coordinate at x = 1/2.", marks: 1,
+        answer: "pi/6", acceptedAnswers: ["π/6", "0.5236"],
+        explanation: "y = sin⁻¹(1/2) = π/6." },
+      { key: "c", label: "(c)", prompt: "Find the y-intercept of the tangent at x = 1/2.", marks: 3,
+        answer: "pi/6-sqrt(3)/3", acceptedAnswers: ["π/6-√3/3", "pi/6 - sqrt(3)/3", "-0.0538", "-0.054"],
+        explanation: "Tangent: y − π/6 = (2√3/3)(x − 1/2). At x = 0, y = π/6 − √3/3 ≈ −0.054." },
+    ],
+  },
+  {
+    id: "y12e1-itrig-id-d6-2",
+    prompt: "Let A = tan⁻¹(1/2) and B = tan⁻¹(1/3).",
+    latex: "A = \\tan^{-1}\\tfrac{1}{2}, \\quad B = \\tan^{-1}\\tfrac{1}{3}",
+    marks: 5,
+    difficulty: 6,
+    explanation: "Addition formula → angle → a telescoping sum.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find tan(A + B).", marks: 2, answer: "1",
+        explanation: "(1/2 + 1/3)/(1 − 1/6) = (5/6)/(5/6) = 1." },
+      { key: "b", label: "(b)", prompt: "Hence find A + B.", marks: 1, answer: "pi/4",
+        acceptedAnswers: ["π/4", "0.7854"], explanation: "Both acute, so A + B = π/4." },
+      { key: "c", label: "(c)", prompt: "Find tan⁻¹(1/2) + tan⁻¹(1/3) + tan⁻¹(1).", marks: 2,
+        answer: "pi/2", acceptedAnswers: ["π/2", "1.5708"],
+        explanation: "(A + B) + π/4 = π/4 + π/4 = π/2." },
+    ],
+  },
+  {
+    id: "y12e1-itrig-id-d6-3",
+    prompt: "Consider y = cos⁻¹(2x).",
+    latex: "y = \\cos^{-1}(2x)",
+    marks: 6,
+    difficulty: 6,
+    explanation: "Domain, derivative, then an exact gradient.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the largest value of x in the domain.", marks: 1,
+        answer: "1/2", acceptedAnswers: ["0.5"], explanation: "Need −1 ≤ 2x ≤ 1, so x ≤ 1/2." },
+      { key: "b", label: "(b)", prompt: "Find dy/dx.", marks: 2, answer: "-2/sqrt(1-4x^2)",
+        acceptedAnswers: ["−2/√(1-4x^2)", "-2/(1-4x^2)^(1/2)"],
+        explanation: "d/dx cos⁻¹(2x) = −2/√(1 − 4x²)." },
+      { key: "c", label: "(c)", prompt: "Find the gradient at x = 1/4.", marks: 3,
+        answer: "-4sqrt(3)/3", acceptedAnswers: ["−4√3/3", "-4/sqrt(3)", "-2.309"],
+        explanation: "−2/√(1 − 1/4) = −2/(√3/2) = −4/√3 = −4√3/3." },
+    ],
+  },
+  {
+    id: "y12e1-itrig-id-d6-4",
+    prompt: "Let α = sin⁻¹(3/5) and β = cos⁻¹(5/13), both acute angles.",
+    latex: "\\alpha = \\sin^{-1}\\tfrac{3}{5}, \\quad \\beta = \\cos^{-1}\\tfrac{5}{13}",
+    marks: 5,
+    difficulty: 6,
+    explanation: "Build the two triangles, then a compound angle.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find cos α.", marks: 1, answer: "4/5",
+        acceptedAnswers: ["0.8"], explanation: "3–4–5 triangle: cos α = 4/5." },
+      { key: "b", label: "(b)", prompt: "Find sin β.", marks: 1, answer: "12/13",
+        explanation: "5–12–13 triangle: sin β = 12/13." },
+      { key: "c", label: "(c)", prompt: "Find sin(α + β).", marks: 3, answer: "63/65",
+        explanation: "sin α cos β + cos α sin β = (3/5)(5/13) + (4/5)(12/13) = 15/65 + 48/65 = 63/65." },
+    ],
+  },
+  {
+    id: "y12e1-itrig-id-d6-5",
+    prompt: "Let f(x) = 2 sin⁻¹(x).",
+    latex: "f(x) = 2\\sin^{-1}(x)",
+    marks: 6,
+    difficulty: 6,
+    explanation: "Double-angle forms, then the range of validity.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Express sin(f(x)) in terms of x.", marks: 2,
+        answer: "2x*sqrt(1-x^2)", acceptedAnswers: ["2x√(1-x^2)", "2x sqrt(1-x^2)"],
+        explanation: "sin 2θ = 2 sin θ cos θ = 2x√(1 − x²) with θ = sin⁻¹x." },
+      { key: "b", label: "(b)", prompt: "Express cos(f(x)) in terms of x.", marks: 2,
+        answer: "1-2x^2", acceptedAnswers: ["1 - 2x^2", "-2x^2+1"],
+        explanation: "cos 2θ = 1 − 2 sin²θ = 1 − 2x²." },
+      { key: "c", label: "(c)", prompt: "Find the largest x for which f(x) = sin⁻¹(2x√(1 − x²)).", marks: 2,
+        answer: "sqrt(2)/2", acceptedAnswers: ["1/sqrt(2)", "√2/2", "0.7071"],
+        explanation: "Need 2 sin⁻¹x ≤ π/2, so sin⁻¹x ≤ π/4 and x ≤ sin(π/4) = √2/2." },
+    ],
+  },
+  {
+    id: "y12e1-itrig-id-d6-6",
+    prompt: "An angle θ = tan⁻¹(x/4), where x increases at 2 units per second.",
+    latex: "\\theta = \\tan^{-1}\\tfrac{x}{4}, \\quad \\tfrac{dx}{dt} = 2",
+    marks: 5,
+    difficulty: 6,
+    explanation: "Chain derivative, related rate, then the angle.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find dθ/dx in simplest form.", marks: 2,
+        answer: "4/(16+x^2)", acceptedAnswers: ["4/(x^2+16)"],
+        explanation: "dθ/dx = (1/4)/(1 + x²/16) = 4/(16 + x²)." },
+      { key: "b", label: "(b)", prompt: "Find dθ/dt (rad/s) at x = 4.", marks: 2, answer: "1/4",
+        acceptedAnswers: ["0.25"], explanation: "dθ/dt = [4/(16 + 16)]·2 = (1/8)(2) = 1/4." },
+      { key: "c", label: "(c)", prompt: "Find θ at x = 4.", marks: 1, answer: "pi/4",
+        acceptedAnswers: ["π/4", "0.7854"], explanation: "θ = tan⁻¹(1) = π/4." },
+    ],
+  },
+  {
+    id: "y12e1-itrig-id-d6-7",
+    prompt: "Let θ = cos⁻¹(1/3).",
+    latex: "\\theta = \\cos^{-1}\\tfrac{1}{3}",
+    marks: 5,
+    difficulty: 6,
+    explanation: "Triangle, then both double-angle values.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find sin θ.", marks: 2, answer: "2sqrt(2)/3",
+        acceptedAnswers: ["2√2/3", "0.9428"], explanation: "sin θ = √(1 − 1/9) = √(8/9) = 2√2/3." },
+      { key: "b", label: "(b)", prompt: "Find cos 2θ.", marks: 1, answer: "-7/9",
+        acceptedAnswers: ["−7/9"], explanation: "2cos²θ − 1 = 2/9 − 1 = −7/9." },
+      { key: "c", label: "(c)", prompt: "Find sin 2θ.", marks: 2, answer: "4sqrt(2)/9",
+        acceptedAnswers: ["4√2/9", "0.6285"], explanation: "2 sin θ cos θ = 2(2√2/3)(1/3) = 4√2/9." },
+    ],
+  },
+  {
+    id: "y12e1-itrig-id-d6-8",
+    prompt: "A curve has equation y = x − tan⁻¹(x).",
+    latex: "y = x - \\tan^{-1}(x)",
+    marks: 5,
+    difficulty: 6,
+    explanation: "Simplify the derivative, then evaluate.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find dy/dx in simplest form.", marks: 2,
+        answer: "x^2/(1+x^2)", acceptedAnswers: ["x^2/(x^2+1)"],
+        explanation: "dy/dx = 1 − 1/(1 + x²) = x²/(1 + x²)." },
+      { key: "b", label: "(b)", prompt: "Find the gradient at x = 0.", marks: 1, answer: "0",
+        explanation: "0²/(1 + 0) = 0 (a stationary point of inflection)." },
+      { key: "c", label: "(c)", prompt: "Find the gradient at x = √3.", marks: 2, answer: "3/4",
+        acceptedAnswers: ["0.75"], explanation: "3/(1 + 3) = 3/4." },
+    ],
+  },
+  {
+    id: "y12e1-itrig-id-d6-9",
+    prompt: "Let A = tan⁻¹(2) and B = tan⁻¹(3).",
+    latex: "A = \\tan^{-1}(2), \\quad B = \\tan^{-1}(3)",
+    marks: 5,
+    difficulty: 6,
+    explanation: "Addition formula with a quadrant correction, then a sum.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find tan(A + B).", marks: 2, answer: "-1",
+        acceptedAnswers: ["−1"], explanation: "(2 + 3)/(1 − 6) = −1." },
+      { key: "b", label: "(b)", prompt: "Given A and B both exceed π/4, find A + B.", marks: 2,
+        answer: "3pi/4", acceptedAnswers: ["3π/4", "2.3562"],
+        explanation: "The sum lies in (π/2, π), so the angle with tan = −1 is 3π/4, not −π/4." },
+      { key: "c", label: "(c)", prompt: "Find tan⁻¹(1) + tan⁻¹(2) + tan⁻¹(3).", marks: 1,
+        answer: "pi", acceptedAnswers: ["π", "3.1416"], explanation: "π/4 + 3π/4 = π." },
+    ],
+  },
+  {
+    id: "y12e1-itrig-id-d6-10",
+    prompt: "Consider y = sin⁻¹(x²).",
+    latex: "y = \\sin^{-1}(x^2)",
+    marks: 6,
+    difficulty: 6,
+    explanation: "Chain derivative, an exact gradient, and the domain.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find dy/dx.", marks: 2, answer: "2x/sqrt(1-x^4)",
+        acceptedAnswers: ["2x/√(1-x^4)", "2x/(1-x^4)^(1/2)"],
+        explanation: "d/dx sin⁻¹(x²) = (2x)/√(1 − (x²)²) = 2x/√(1 − x⁴)." },
+      { key: "b", label: "(b)", prompt: "Find the gradient at x = 1/2.", marks: 3,
+        answer: "4sqrt(15)/15", acceptedAnswers: ["4√15/15", "4/sqrt(15)", "1.0328"],
+        explanation: "2(1/2)/√(1 − 1/16) = 1/√(15/16) = 4/√15 = 4√15/15." },
+      { key: "c", label: "(c)", prompt: "Find the largest value of x in the domain.", marks: 1,
+        answer: "1", explanation: "Need −1 ≤ x² ≤ 1, so the largest x is 1." },
+    ],
+  },
+];
+
 export const inverseTrigPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -777,8 +1201,9 @@ export const inverseTrigPool: TopicTestPool = {
       subtopicSlug: "inverse-trig-properties",
       subtopicTitle: "Inverse Trig Identities and Composite Expressions",
       remediationHref: href("inverse-trig-properties"),
-      d4: [],
-      d5: [],
+      d4: identitiesD4,
+      d5: identitiesD5,
+      d6: identitiesD6,
     },
   ],
 };

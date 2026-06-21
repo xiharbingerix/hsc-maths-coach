@@ -396,9 +396,11 @@ Progress (updated 2026-06-21):
 
 _Ext 1 build status (in progress, one subtopic at a time):_
 - ✅ kinematics — complete (registered).
-- 🟡 inverse-trig — subtopics 1–3 done (Inverse Sine and Cosine; Inverse
-  Tangent; Differentiating Inverse Trig — 10 D4 + 10 D5 each); subtopic 4
-  pending. Register the pool once subtopic 4 lands.
+- ✅ inverse-trig — complete (registered). Subtopics 1–4 at 10 D4 + 10 D5 each
+  (Inverse Sine and Cosine; Inverse Tangent; Differentiating Inverse Trig;
+  Identities and Composite Expressions); subtopic 4 also carries a **10-item D6
+  band** (the topic's exam-mastery synoptic set, since this topic has no
+  exam-practice lesson). 90 questions total.
 - ⬜ further-calculus, calculus-applications, binomial-distribution (each: skill
   subtopics D4+D5, exam-practice → D6), vectors (D4+D5; drop the projection-proof
   subtopic).
