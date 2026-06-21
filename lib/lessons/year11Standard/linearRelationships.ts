@@ -368,8 +368,8 @@ export function year11StandardLinearRelationshipsLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A linear relationship has a constant rate of change. Its graph is a straight line.",
-          "In a rule such as y = mx + b, m is the gradient and b is the y-intercept.",
+          "A linear relationship changes by the same amount for every one-unit step in the input — a constant rate of change — which is what makes its graph a straight line.",
+          "In a rule such as y = mx + b you start at b and add the gradient m for each one-unit step in x: m is the gradient (the rate of change) and b is the y-intercept (the starting value).",
           "In practical contexts, the gradient is often a rate such as dollars per hour or litres per minute.",
           "The y-intercept is the starting value when the input is 0, such as a fixed fee or initial amount.",
         ],
@@ -427,7 +427,7 @@ export function year11StandardLinearRelationshipsLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Direct variation means one quantity is a constant multiple of another.",
+          "Direct variation means two quantities scale together — double one and the other doubles — because one is always a constant multiple of the other (the ratio y ÷ x stays the same).",
           "A direct variation graph passes through the origin because if the input is 0, the output is also 0.",
           "The constant of variation k is the multiplier in y = kx. It may represent a unit cost, conversion rate or rate per item.",
           "A linear model with a fixed cost, such as C = 10 + 4h, is not direct variation because the graph does not pass through the origin.",
